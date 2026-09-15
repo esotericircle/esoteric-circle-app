@@ -121,9 +121,12 @@ void main() {
     final carte = <String>{};
     attesi.forEach((chiave, numero) {
       final carta = CartaDiNascitaDeiTarocchi.cartaDi(date[chiave]!);
-      expect(carta.name, maggiori[numero % maggiori.length].name,
-          reason: 'per $chiave il numero e\' $numero, ma la carta non e\' '
-              'quella che quel numero indica nel mazzo');
+      // **LA CARTA PORTA IL NUMERO**, ordine DP voce 04: qui si pretendeva
+      // la posizione nell'elenco del corpus, e la prova fissava il difetto
+      // che il telefono ha mostrato, 8 e poi La Giustizia col suo XI.
+      expect(carta.majorNumber, numero % 22,
+          reason: 'per $chiave il numero e\' $numero, ma la carta porta il '
+              '${carta.numeral}');
       carte.add(carta.name);
     });
     expect(carte.length, attesi.length,

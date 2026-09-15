@@ -74,12 +74,18 @@ abstract final class CartaDiNascitaDeiTarocchi {
   ///
   /// Il mazzo numera il Matto con lo zero e il Mondo con ventuno; la
   /// tradizione numera da uno a ventidue e riporta il ventidue al Matto.
+  ///
+  /// **LA CARTA E' QUELLA CHE PORTA IL NUMERO**, ordine DP voce 04, 15
+  /// settembre 2026. Qui la carta si prendeva per posizione nell'elenco dei
+  /// Maggiori, che segue il corpus, dove la Giustizia e' l'ottava e la Forza
+  /// l'undicesima. **Le arti portano la numerazione Rider-Waite**, quella del
+  /// metodo di Arrien e di Greer, dove e' il contrario: alla prova sul
+  /// telefono la data si sommava fino a 8 e si girava La Giustizia col suo
+  /// XI. Adesso si prende la carta il cui numero, quello scritto sull'arte,
+  /// e' il numero del calcolo: cambia soltanto per chi fa 8 o 11.
   static TarotCard cartaDi(DateTime nascita) {
-    final n = numeroDi(nascita);
-    final maggiori = TarotDeck.cards
-        .where((c) => c.arcana == TarotArcana.maggiore)
-        .toList(growable: false);
-    return maggiori[n % maggiori.length];
+    final n = numeroDi(nascita) % 22;
+    return TarotDeck.cards.firstWhere((c) => c.majorNumber == n);
   }
 
   static int _cifre(int n) {

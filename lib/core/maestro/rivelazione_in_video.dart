@@ -33,6 +33,17 @@ class RivelazioneInVideo {
   static String assetDi(Maestro maestro) =>
       '$cartella${maestro.id}_rivelazione.mp4';
 
+  /// **IL FOTOGRAMMA ZERO DEL VIDEO, COME IMMAGINE FERMA.** Ordine DP voce
+  /// 02, 15 settembre 2026: sotto al filmato stava il ritratto del Maestro,
+  /// e nell'istante fra la carta che se ne va e il primo quadro del filmato
+  /// il fondatore rivedeva *"la grafica precedente dello stesso Maestro"*.
+  /// Adesso sotto sta il primo fotogramma del filmato stesso, estratto senza
+  /// toccare il filmato: quando il filmato parte, sopra e sotto sono la
+  /// stessa immagine, e il passaggio non si vede. E' la voce DI.09 della
+  /// discesa del Viaggio, applicata qui.
+  static String primoFotogrammaDi(Maestro maestro) =>
+      '$cartella${maestro.id}_rivelazione_primo_fotogramma.webp';
+
   /// La nota sullo stato, in una riga sola, per chi legge il codice.
   static const String stato =
       'Provvisori: sono un test, due su tre portano un watermark e vanno '

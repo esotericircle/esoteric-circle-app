@@ -28,6 +28,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../core/primo_uso/suggerimenti_di_zona.dart';
+import 'widgets/pulsante_del_risveglio.dart';
 
 /// Dove sta il fumetto rispetto al suo bersaglio.
 enum LatoDelFumetto {
@@ -716,19 +717,11 @@ class _Carta extends StatelessWidget {
             ],
           ),
           const SizedBox(height: SpacingTokens.xs),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              key: const Key('primo_approdo_avanti'),
-              onPressed: avanti,
-              style: FilledButton.styleFrom(
-                backgroundColor: palette.gold,
-                foregroundColor: palette.deepest,
-              ),
-              child: Text(ultimo ? 'Entra nel Cerchio' : 'Avanti',
-                  style: TypographyTokens.etichetta()
-                      .copyWith(color: palette.deepest)),
-            ),
+          PulsanteDelRisveglio(
+            chiave: const Key('primo_approdo_avanti'),
+            palette: palette,
+            onPressed: avanti,
+            testo: ultimo ? 'Entra nel Cerchio' : 'Avanti',
           ),
         ],
       ),

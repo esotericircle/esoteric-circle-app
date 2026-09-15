@@ -245,6 +245,69 @@ void main() {
     });
   });
 
+  group('ORDINE DP, il lampo e la fine del filmato', () {
+    testWidgets(
+        'Sotto al filmato c\'e\' il suo fotogramma zero, non il ritratto',
+        (tester) async {
+      // **ORDINE DP VOCE 02**: il ritratto fermo sotto al filmato era il
+      // lampo della *"grafica precedente dello stesso Maestro"*.
+      pinnaLoSchermo(tester);
+      await tester.pumpWidget(scena(Maestro.medora));
+      await svelaIlMaestro(tester);
+      await tester.pump();
+      final fermo = find.byKey(const Key('velo_primo_fotogramma'));
+      expect(fermo, findsOneWidget,
+          reason: 'sotto al filmato non c\'e\' il fotogramma zero');
+      final immagine = tester.widget<Image>(fermo);
+      expect((immagine.image as AssetImage).assetName,
+          RivelazioneInVideo.primoFotogrammaDi(Maestro.medora));
+      expect(find.byType(RitrattoInteroDelMaestro), findsNothing,
+          reason: 'mentre il filmato copre, in albero c\'e\' ancora il '
+              'ritratto: e\' la grafica di prima che si rivede');
+    });
+
+    test('I tre fotogrammi zero sono sul disco', () {
+      for (final maestro in Maestro.values) {
+        final f = File(RivelazioneInVideo.primoFotogrammaDi(maestro));
+        expect(f.existsSync(), isTrue,
+            reason: '${maestro.id} non ha il suo fotogramma zero');
+      }
+    });
+
+    test('Il congedo: rallenta a tre quarti e tace, e finiscono insieme', () {
+      // **ORDINE DP VOCE 03**: *"l'audio finisce di colpo"*.
+      final fine = LaFineDelFilmato.secondiDelCongedo;
+      expect(LaFineDelFilmato.velocita(0), 1.0);
+      expect(LaFineDelFilmato.velocita(fine), closeTo(0.75, 1e-9));
+      expect(LaFineDelFilmato.volume(0), 1.0);
+      expect(LaFineDelFilmato.volume(fine), 0.0,
+          reason: 'alla fine del rallentamento l\'audio non e\' a zero: '
+              'le due cose non finiscono insieme');
+      // L'audio comincia a scendere nell'ultimo secondo e mezzo, non prima.
+      expect(LaFineDelFilmato.volume(fine - 1.55), 1.0);
+      expect(LaFineDelFilmato.volume(fine - 1.45), lessThan(1.0));
+      // Scende sempre, senza risalire, e mai a gradino.
+      var prima = 1.0;
+      var salto = 0.0;
+      for (var i = 0; i <= 200; i++) {
+        final v = LaFineDelFilmato.volume(fine * i / 200);
+        expect(v, lessThanOrEqualTo(prima));
+        if (i < 200) salto = salto > prima - v ? salto : prima - v;
+        prima = v;
+      }
+      expect(salto, lessThan(0.1),
+          reason: 'il volume scende a gradini di ${salto.toStringAsFixed(2)}');
+      // **NON LINEARE**: a meta' della dissolvenza una discesa lineare
+      // sarebbe a meta' volume; in decibel e' a meno trenta, cioe' 0,03.
+      final meta = fine - 0.75;
+      expect(LaFineDelFilmato.volume(meta), lessThan(0.1),
+          reason: 'la dissolvenza e\' lineare in ampiezza');
+      // La velocita' parte e arriva senza spigoli.
+      expect(LaFineDelFilmato.velocita(0.02), greaterThan(0.999));
+      expect(LaFineDelFilmato.velocita(fine - 0.02), lessThan(0.751));
+    });
+  });
+
   group('BQ.01, i percorsi che i file hanno', () {
     test('Il percorso si compone dall\'identificativo, non da un elenco', () {
       final visti = <String>{};

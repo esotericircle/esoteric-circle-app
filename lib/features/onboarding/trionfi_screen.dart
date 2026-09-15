@@ -14,6 +14,7 @@ import '../maestri/caligo/viaggio/l_ombra_dell_animale.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'riquadro_della_scelta.dart';
+import 'widgets/pulsante_del_risveglio.dart';
 
 /// I due traguardi dell'onboarding, messi in scena come traguardi.
 ///
@@ -209,35 +210,21 @@ class _TrionfoAnimaleState extends State<TrionfoAnimale>
                   const Spacer(flex: 3),
                   Opacity(
                     opacity: invito,
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: FilledButton(
-                        key: const Key('trionfo_animale_avanti'),
-                        style: FilledButton.styleFrom(
-                          backgroundColor: widget.palette.gold,
-                          foregroundColor: widget.palette.deepest,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: SpacingTokens.md),
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(SpacingTokens.radiusPill),
-                          ),
-                        ),
-                        onPressed: invito > 0.5 ? widget.onContinue : null,
-                        // **IL TESTO SEGUE L'ORDINE DELLE SCHEDE.** Ordine
-                        // DG voce 04: la scheda dell'animale adesso viene
-                        // **dopo** gli angeli e non prima, quindi *"chi altro
-                        // veglia su di me"* non e' piu' vero. Dopo di questa
-                        // si custodisce il cielo.
-                        // **DICE DOVE PORTA**, e adesso porta al cielo di
-                        // nascita: la scheda dell'animale non e' piu'
-                        // l'ultima, ordine DG voce 04 corretto l'11 settembre
-                        // 2026. *"Custodisci il mio cielo"* era il congedo, e
-                        // il congedo adesso e' della custodia.
-                        child: Text('La tua Carta di Nascita',
-                            style: TypographyTokens.corpo(weight: 600)
-                                .copyWith(color: widget.palette.deepest)),
-                      ),
+                    child: PulsanteDelRisveglio(
+                      chiave: const Key('trionfo_animale_avanti'),
+                      palette: widget.palette,
+                      onPressed: invito > 0.5 ? widget.onContinue : null,
+                      // **IL TESTO SEGUE L'ORDINE DELLE SCHEDE.** Ordine
+                      // DG voce 04: la scheda dell'animale adesso viene
+                      // **dopo** gli angeli e non prima, quindi *"chi altro
+                      // veglia su di me"* non e' piu' vero. Dopo di questa
+                      // si custodisce il cielo.
+                      // **DICE DOVE PORTA**, e adesso porta al cielo di
+                      // nascita: la scheda dell'animale non e' piu'
+                      // l'ultima, ordine DG voce 04 corretto l'11 settembre
+                      // 2026. *"Custodisci il mio cielo"* era il congedo, e
+                      // il congedo adesso e' della custodia.
+                      testo: 'La tua Carta di Nascita',
                     ),
                   ),
                   const SizedBox(height: SpacingTokens.lg),
@@ -414,28 +401,14 @@ class _TrionfoAngeliState extends State<TrionfoAngeli>
                   const Spacer(flex: 2),
                   Opacity(
                     opacity: invito,
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: FilledButton(
-                        key: const Key('trionfo_angeli_avanti'),
-                        style: FilledButton.styleFrom(
-                          backgroundColor: widget.palette.gold,
-                          foregroundColor: widget.palette.deepest,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: SpacingTokens.md),
-                          shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.circular(SpacingTokens.radiusPill),
-                          ),
-                        ),
-                        onPressed: invito > 0.5 ? widget.onContinue : null,
-                        // **DICE DOVE PORTA**, e porta all'animale guida.
-                        // *"Continua"* non diceva niente, ed era l'unica delle
-                        // schede a non annunciare la prossima.
-                        child: Text('Chi altro ti accompagna',
-                            style: TypographyTokens.corpo(weight: 600)
-                                .copyWith(color: widget.palette.deepest)),
-                      ),
+                    child: PulsanteDelRisveglio(
+                      chiave: const Key('trionfo_angeli_avanti'),
+                      palette: widget.palette,
+                      onPressed: invito > 0.5 ? widget.onContinue : null,
+                      // **DICE DOVE PORTA**, e porta all'animale guida.
+                      // *"Continua"* non diceva niente, ed era l'unica delle
+                      // schede a non annunciare la prossima.
+                      testo: 'Chi altro ti accompagna',
                     ),
                   ),
                   const SizedBox(height: SpacingTokens.lg),

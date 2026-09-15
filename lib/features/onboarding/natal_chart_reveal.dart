@@ -21,6 +21,7 @@ import '../identity/widgets/identity_widgets.dart';
 import '../identity/widgets/birth_companions.dart';
 import 'widgets/nature_emblem.dart';
 import '../../core/sensi/palette_sensoriale.dart';
+import 'widgets/pulsante_del_risveglio.dart';
 
 /// La carta natale a due livelli: prima il colpo d'occhio (frase poetica e tre
 /// aure intrecciate), poi la ruota elegante con gli aspetti attivabili e la
@@ -241,23 +242,10 @@ class _NatalChartRevealState extends State<NatalChartReveal> {
               onTap: () => _selectPlanet(p.id),
             ),
           const SizedBox(height: SpacingTokens.lg),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              style: FilledButton.styleFrom(
-                backgroundColor: palette.gold,
-                foregroundColor: palette.deepest,
-                padding: const EdgeInsets.symmetric(vertical: SpacingTokens.md),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-                ),
-              ),
-              onPressed: widget.onContinue,
-              child: ParagrafiDiLettura(
-                  testo: widget.etichettaAzione ?? 'Scopri chi risuona con te',
-                  stile: TypographyTokens.lettura(weight: 600)
-                      .copyWith(color: palette.deepest)),
-            ),
+          PulsanteDelRisveglio(
+            palette: palette,
+            onPressed: widget.onContinue,
+            testo: widget.etichettaAzione ?? 'Scopri chi risuona con te',
           ),
           const SizedBox(height: SpacingTokens.lg),
         ],
@@ -540,8 +528,7 @@ class _SenzaDati extends StatelessWidget {
                     .copyWith(color: ColorTokens.textPrimary)),
             const SizedBox(height: SpacingTokens.sm),
             ParagrafiDiLettura(
-                testo:
-                    'Senza il giorno della tua nascita non posso tracciare '
+                testo: 'Senza il giorno della tua nascita non posso tracciare '
                     'niente. Preferisco dirtelo invece di farti aspettare.',
                 textAlign: TextAlign.center,
                 stile: TypographyTokens.lettura()

@@ -15,6 +15,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import 'widgets/pulsante_del_risveglio.dart';
 
 /// LA SCENA DEL RITROVAMENTO. Ordine AP voce 05.
 ///
@@ -143,24 +144,14 @@ class ScenaDelRitrovamento extends StatelessWidget {
                 // L'anteprima lo mostrava stretto e appoggiato a sinistra,
                 // orfano in mezzo al vuoto: qui non c'e' niente accanto a
                 // lui, ed e' l'unica cosa da toccare.
-                SizedBox(
-                  width: double.infinity,
-                  child: FilledButton(
-                    key: const Key('ritrovamento_prosegui'),
-                    style: FilledButton.styleFrom(
-                      backgroundColor: palette.primary,
-                      foregroundColor: palette.onPrimary,
-                    ),
-                    onPressed: onProsegui,
-                    // **LO STILE E' DICHIARATO, come in ogni altro pulsante
-                    // dell'app.** Senza, il testo prende quello del tema di
-                    // Material e non il token di casa: l'anteprima lo ha
-                    // mostrato subito, coi rettangoli al posto delle lettere,
-                    // che e' il segno di un carattere diverso da quelli
-                    // dell'app.
-                    child: Text('Entra nel Cerchio',
-                        style: TypographyTokens.etichetta()),
-                  ),
+                // **QUI C'ERA IL VIOLA DEL TEMA**, fondo `primary` e testo
+                // dell'etichetta: ordine DP voce 01.5, il pulsante unico
+                // dell'onboarding.
+                PulsanteDelRisveglio(
+                  chiave: const Key('ritrovamento_prosegui'),
+                  palette: palette,
+                  onPressed: onProsegui,
+                  testo: 'Entra nel Cerchio',
                 ),
               ],
             ),

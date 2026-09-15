@@ -6,6 +6,7 @@ import '../../../core/maestro/rivelazione_in_video.dart';
 import 'maestro_card.dart';
 import '../../../core/sensi/regia_della_musica.dart';
 import 'dart:async';
+import 'dart:math' as math;
 
 /// IL VELO DI RIVELAZIONE: il video del Maestro, a schermo pieno, sotto a tutta
 /// la schermata. Ordine BQ voci 2 e 3, ordine BR voci 1 e 2.
@@ -101,6 +102,23 @@ class _VeloDiRivelazioneState extends State<VeloDiRivelazione>
     WidgetsBinding.instance.addPostFrameCallback((_) => _apri());
   }
 
+  bool _fotogrammaPreparato = false;
+
+  /// **IL FOTOGRAMMA ZERO SI DECODIFICA PRIMA DI SERVIRE**, ordine DP voce
+  /// 02: un'immagine che arriva un fotogramma dopo la carta che se ne va
+  /// sarebbe il lampo che si e' appena tolto.
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (widget.riduciMovimento || _fotogrammaPreparato) return;
+    _fotogrammaPreparato = true;
+    precacheImage(
+      AssetImage(RivelazioneInVideo.primoFotogrammaDi(widget.maestro)),
+      context,
+      onError: (_, __) {},
+    );
+  }
+
   Future<void> _apri() async {
     if (!mounted) return;
     final lettore = widget.fabbrica(RivelazioneInVideo.assetDi(widget.maestro));
@@ -179,16 +197,28 @@ class _VeloDiRivelazioneState extends State<VeloDiRivelazione>
     return Stack(
       fit: StackFit.expand,
       children: [
-        // IL RITRATTO FERMO, SOTTO AL FILMATO E SEMPRE. Non si vede mai finche'
-        // il filmato copre, ed e' esattamente il punto: e' la rete che rende
-        // impossibile il rettangolo nero, non una scommessa sul fatto che la
-        // texture conservi l'ultimo quadro. Sta in basso e alla sua misura,
-        // come nella carta: vedi altezzaDelRitratto.
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: RitrattoInteroDelMaestro(
-            maestro: widget.maestro,
-            altezza: VeloDiRivelazione.altezzaDelRitratto,
+        // **IL FOTOGRAMMA ZERO, SOTTO AL FILMATO E SEMPRE.** Ordine DP voce
+        // 02: qui c'era il ritratto fermo del Maestro, la rete dell'ordine BQ
+        // contro il rettangolo nero. **Era lui il lampo**: nell'istante fra la
+        // carta che se ne va e il primo quadro della texture, il fondatore
+        // rivedeva *"la grafica precedente dello stesso Maestro"*, e subito
+        // dopo il filmato che parte dal nero. Adesso sotto c'e' il primo
+        // fotogramma del filmato stesso, alla stessa misura e con lo stesso
+        // taglio: la rete resta, e non si vede piu' passare niente.
+        //
+        // Se il fotogramma mancasse, come per un Maestro nuovo senza il suo
+        // file, torna il ritratto: meglio lui del nero.
+        Image.asset(
+          RivelazioneInVideo.primoFotogrammaDi(widget.maestro),
+          key: const Key('velo_primo_fotogramma'),
+          fit: BoxFit.cover,
+          gaplessPlayback: true,
+          errorBuilder: (_, __, ___) => Align(
+            alignment: Alignment.bottomCenter,
+            child: RitrattoInteroDelMaestro(
+              maestro: widget.maestro,
+              altezza: VeloDiRivelazione.altezzaDelRitratto,
+            ),
           ),
         ),
         lettore.disegna(),
@@ -208,6 +238,8 @@ class _LettoreConVideoPlayer implements LettoreDiRivelazione {
   VoidCallback? _quandoCambia;
   bool _pronto = false;
   bool _finito = false;
+  Timer? _attesaDelCongedo;
+  Timer? _congedo;
 
   @override
   bool get pronto => _pronto;
@@ -241,11 +273,15 @@ class _LettoreConVideoPlayer implements LettoreDiRivelazione {
       // secondi di voce di un Maestro sopra un tappeto d'ambiente
       // sarebbero due cose che si contendono la stessa attenzione.
       await c.setVolume(1);
-      unawaited(RegiaDellaMusica.sola.scendiSottoUnEffetto(c.value.duration));
+      // Il rallentamento finale allunga il filmato di un terzo di secondo:
+      // la musica resta giu' anche per quello.
+      unawaited(RegiaDellaMusica.sola.scendiSottoUnEffetto(
+          c.value.duration + LaFineDelFilmato.allungamento));
       await c.setLooping(false);
       c.addListener(_guarda);
       await c.play();
       _pronto = true;
+      _programmaIlCongedo(c.value.duration);
       _quandoCambia?.call();
     } catch (errore) {
       // **PERCHE' QUESTO ERRORE SI IGNORA, ed e' l'unico posto dell'app dove si
@@ -262,6 +298,54 @@ class _LettoreConVideoPlayer implements LettoreDiRivelazione {
           '$asset, $errore');
       _pronto = false;
     }
+  }
+
+  /// **IL CONGEDO SI PROGRAMMA ALLA PARTENZA**, a due secondi dalla fine:
+  /// la posizione del lettore si aggiorna a scatti, e aspettarla vorrebbe
+  /// dire cominciare il rallentamento tardi e ogni volta a un punto diverso.
+  void _programmaIlCongedo(Duration durata) {
+    final attesa = durata - LaFineDelFilmato.rallentamento;
+    _attesaDelCongedo?.cancel();
+    _attesaDelCongedo =
+        Timer(attesa.isNegative ? Duration.zero : attesa, _congedati);
+  }
+
+  /// **LA DISSOLVENZA DELL'AUDIO E IL RALLENTAMENTO**, ordine DP voce 03.
+  /// Venti volte al secondo si conta quanto filmato e' passato alla
+  /// velocita' del momento, e da li' si leggono velocita' e volume nella
+  /// regia pura [LaFineDelFilmato]: finiscono insieme, in fondo al filmato.
+  ///
+  /// **I DUE LIMITI, DICHIARATI.** La velocita' la applica la piattaforma,
+  /// e un cambio chiesto arriva al decodificatore con qualche millesimo di
+  /// ritardo; e il conto del filmato passato e' una stima col tempo del
+  /// telefono, non la posizione del lettore, che si aggiorna a scatti.
+  void _congedati() {
+    final c = _c;
+    if (c == null || _finito) return;
+    const passo = Duration(milliseconds: 50);
+    var passato = 0.0;
+    var velocita = 1.0;
+    var volume = 1.0;
+    _congedo?.cancel();
+    _congedo = Timer.periodic(passo, (t) {
+      final lettore = _c;
+      if (lettore == null) {
+        t.cancel();
+        return;
+      }
+      passato += passo.inMicroseconds / 1e6 * velocita;
+      final nuovaVelocita = LaFineDelFilmato.velocita(passato);
+      final nuovoVolume = LaFineDelFilmato.volume(passato);
+      if ((nuovaVelocita - velocita).abs() >= 0.005) {
+        velocita = nuovaVelocita;
+        unawaited(lettore.setPlaybackSpeed(velocita));
+      }
+      if ((nuovoVolume - volume).abs() >= 0.005 || nuovoVolume == 0) {
+        volume = nuovoVolume;
+        unawaited(lettore.setVolume(volume));
+      }
+      if (passato >= LaFineDelFilmato.secondiDelCongedo) t.cancel();
+    });
   }
 
   /// **QUANDO IL FILMATO FINISCE NON SI CHIUDE NIENTE.** [finito] diventa vero e
@@ -301,10 +385,64 @@ class _LettoreConVideoPlayer implements LettoreDiRivelazione {
 
   @override
   void chiudi() {
+    _attesaDelCongedo?.cancel();
+    _congedo?.cancel();
     _c?.removeListener(_guarda);
     _c?.pause();
     _c?.dispose();
     _c = null;
     _quandoCambia = null;
+  }
+}
+
+/// **LA FINE DEL FILMATO, PURA.** Ordine DP voce 03, 15 settembre 2026.
+///
+/// Parole del fondatore: *"l'audio finisce di colpo"*. Negli ultimi due
+/// secondi l'immagine rallenta da uno a tre quarti, cosi' si posa invece di
+/// fermarsi; nell'ultimo secondo e mezzo il volume scende a zero. **Le due
+/// cose finiscono insieme**, in fondo al filmato, e l'ultimo fotogramma
+/// resta a video finche' la persona non tocca *"Entra nel Cerchio"*: e' la
+/// voce BR.02.
+///
+/// **Pubblica e senza piattaforma**, cosi' la guardia legge le curve.
+abstract final class LaFineDelFilmato {
+  /// Gli ultimi secondi del filmato in cui l'immagine rallenta.
+  static const Duration rallentamento = Duration(seconds: 2);
+
+  /// L'ultimo secondo e mezzo, in cui il volume scende a zero.
+  static const Duration dissolvenza = Duration(milliseconds: 1500);
+
+  /// La velocita' a cui l'immagine si posa.
+  static const double velocitaFinale = 0.75;
+
+  /// Quanto filmato dura il congedo, in secondi: il rallentamento intero.
+  static double get secondiDelCongedo => rallentamento.inMicroseconds / 1e6;
+
+  /// Quanto tempo vero in piu' dura il filmato col rallentamento.
+  static const Duration allungamento = Duration(milliseconds: 400);
+
+  static double _morbida(double x) {
+    final u = x.clamp(0.0, 1.0);
+    return u * u * (3 - 2 * u);
+  }
+
+  /// **LA VELOCITA'** dopo [passato] secondi di filmato dentro il congedo:
+  /// da uno a [velocitaFinale] con una curva senza spigoli, che parte e
+  /// arriva ferma, cosi' nessun cambio di passo si sente.
+  static double velocita(double passato) =>
+      1 - (1 - velocitaFinale) * _morbida(passato / secondiDelCongedo);
+
+  /// **IL VOLUME** dopo [passato] secondi di filmato dentro il congedo.
+  ///
+  /// **In decibel, non in ampiezza.** Una discesa lineare dell'ampiezza
+  /// l'orecchio la sente ferma all'inizio e poi precipitare a meta': qui il
+  /// volume scende di sessanta decibel a passo costante, che e' la discesa
+  /// che l'orecchio sente regolare, e in fondo e' zero.
+  static double volume(double passato) {
+    final inizio = secondiDelCongedo - dissolvenza.inMicroseconds / 1e6;
+    if (passato <= inizio) return 1;
+    final q = (passato - inizio) / (secondiDelCongedo - inizio);
+    if (q >= 1) return 0;
+    return math.pow(10, -3 * q).toDouble();
   }
 }

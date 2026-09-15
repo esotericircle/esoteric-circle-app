@@ -154,7 +154,14 @@ void main() {
     // **IL PULSANTE ARRIVA A RIVELAZIONE FINITA**, non prima: sette secondi
     // in cui non c'e' niente da toccare, perche' un pulsante acceso in mezzo
     // inviterebbe a saltare proprio il pezzo che racconta il calcolo.
-    expect(find.byKey(const Key('carta_di_nascita_continua')), findsNothing,
+    // Dall'ordine DP il pulsante sta nella colonna fin dall'inizio, per non
+    // far saltare la schermata quando arriva: **spento e trasparente**.
+    expect(
+        tester
+            .widget<FilledButton>(
+                find.byKey(const Key('carta_di_nascita_continua')))
+            .onPressed,
+        isNull,
         reason: 'il pulsante della Carta di Nascita e acceso mentre la '
             'rivelazione sta ancora raccontando il calcolo');
     await tester.pump(RivelazioneCartaDiNascita.quantoDura);

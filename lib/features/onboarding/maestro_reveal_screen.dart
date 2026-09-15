@@ -24,6 +24,7 @@ import 'widgets/ritual_object.dart';
 import 'widgets/velo_di_rivelazione.dart';
 import 'widgets/sensory_reveal.dart';
 import '../../core/sensi/palette_sensoriale.dart';
+import 'widgets/pulsante_del_risveglio.dart';
 
 /// Rivelazione del Maestro col rito del soffio.
 ///
@@ -59,7 +60,8 @@ class MaestroRevealScreen extends StatefulWidget {
         (Maestro.caligo, false) => 'Passa il dito sulla fiamma.',
         (Maestro.medora, false) => 'Passa il dito sul vetro.',
         (Maestro.aura, false) => 'Sfiora il soffione con il dito.',
-        (Maestro.caligo, true) => 'Soffia sulla fiamma, oppure passaci il dito.',
+        (Maestro.caligo, true) =>
+          'Soffia sulla fiamma, oppure passaci il dito.',
         (Maestro.medora, true) => 'Soffia sul vetro, oppure passaci il dito.',
         (Maestro.aura, true) =>
           'Soffia piano, oppure sfiora il soffione con il dito.',
@@ -717,22 +719,10 @@ class _RevealedFooter extends StatelessWidget {
           ),
         ),
         const SizedBox(height: SpacingTokens.md),
-        SizedBox(
-          width: double.infinity,
-          child: FilledButton(
-            style: FilledButton.styleFrom(
-              backgroundColor: palette.gold,
-              foregroundColor: palette.deepest,
-              padding: const EdgeInsets.symmetric(vertical: SpacingTokens.md),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-              ),
-            ),
-            onPressed: onEnter,
-            child: Text('Entra nel Cerchio',
-                style: TypographyTokens.corpo(weight: 600)
-                    .copyWith(color: palette.deepest)),
-          ),
+        PulsanteDelRisveglio(
+          palette: palette,
+          onPressed: onEnter,
+          testo: 'Entra nel Cerchio',
         ),
       ],
     );

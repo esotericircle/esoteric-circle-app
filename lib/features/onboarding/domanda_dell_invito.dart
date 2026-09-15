@@ -11,6 +11,7 @@ import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../account/riscatta_l_invito.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../core/chat/user_profile.dart';
+import 'widgets/pulsante_del_risveglio.dart';
 
 /// **TI HA INVITATO QUALCUNO? Ordine CC voce 08.**
 ///
@@ -227,19 +228,12 @@ class _DomandaDellInvitoState extends State<DomandaDellInvito> {
                       .copyWith(color: ColorTokens.textSecondary)),
             ],
             const SizedBox(height: SpacingTokens.md),
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                key: const Key('invito_conferma'),
-                onPressed: () => Navigator.of(context)
-                    .pop(codiceDaCioCheEStatoIncollato(_scritto.text.trim())),
-                style: FilledButton.styleFrom(
-                    backgroundColor: palette.gold,
-                    foregroundColor: palette.onPrimary,
-                    minimumSize: const Size.fromHeight(48)),
-                child: Text('Riconosci chi ti ha invitato',
-                    style: TypographyTokens.etichetta()),
-              ),
+            PulsanteDelRisveglio(
+              chiave: const Key('invito_conferma'),
+              palette: palette,
+              onPressed: () => Navigator.of(context)
+                  .pop(codiceDaCioCheEStatoIncollato(_scritto.text.trim())),
+              testo: 'Riconosci chi ti ha invitato',
             ),
             const SizedBox(height: SpacingTokens.xs),
             // **LA VIA D'USCITA E' UNA RIGA VERA, non una X in un angolo.** La

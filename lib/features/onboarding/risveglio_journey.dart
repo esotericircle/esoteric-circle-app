@@ -31,6 +31,7 @@ import 'trionfi_screen.dart';
 import 'primo_approdo.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../core/chat/user_profile.dart';
+import 'widgets/pulsante_del_risveglio.dart';
 
 /// La coda del Risveglio, dal sigillo in poi: il cielo reale di nascita, la
 /// carta natale ornata, la risonanza coi Maestri e la rivelazione col soffio.
@@ -352,39 +353,30 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
   Widget _buildPhase() {
     switch (_phase) {
       case _Phase.cartaDiNascita:
-        return Stack(
+        // **IL PULSANTE STA NELLA COLONNA, come nelle altre schermate.**
+        // Ordine DP voce 01: qui c'era un `FilledButton` senza stile appoggiato
+        // in fondo con uno `Stack`, cioe' il viola del tema col testo scuro
+        // sopra, e il fondatore non lo leggeva.
+        return SafeArea(
           key: const ValueKey('carta_di_nascita'),
-          children: [
-            Positioned.fill(
-              child: RivelazioneCartaDiNascita(
-                nascita: widget.details.dateTime,
-                // **CON LE ANIMAZIONI SPENTE SI SALTA ALL'ULTIMO MOMENTO.**
-                // La rivelazione si muove con un `AnimationController`, e sul
-                // 767f596c le tre scale valgono zero: senza questo resterebbe
-                // ferma sul primo fotogramma per sempre.
-                senzaMoto: MediaQuery.of(context).disableAnimations,
-                onFinita: () {
-                  if (mounted) setState(() => _cartaRivelata = true);
-                },
-              ),
+          child: RivelazioneCartaDiNascita(
+            nascita: widget.details.dateTime,
+            // **CON LE ANIMAZIONI SPENTE SI SALTA ALL'ULTIMO MOMENTO.**
+            // La rivelazione si muove con un `AnimationController`, e sul
+            // 767f596c le tre scale valgono zero: senza questo resterebbe
+            // ferma sul primo fotogramma per sempre.
+            senzaMoto: MediaQuery.of(context).disableAnimations,
+            onFinita: () {
+              if (mounted) setState(() => _cartaRivelata = true);
+            },
+            azione: PulsanteDelRisveglio(
+              chiave: const Key('carta_di_nascita_continua'),
+              onPressed: _cartaRivelata ? _onCartaContinue : null,
+              testo: LaMarcaDelGenere.risolvi(
+                  'Guarda il cielo [in cui sei nato|in cui sei nata|'
+                  'della tua nascita]'),
             ),
-            if (_cartaRivelata)
-              SafeArea(
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.all(24),
-                    child: FilledButton(
-                      key: const Key('carta_di_nascita_continua'),
-                      onPressed: _onCartaContinue,
-                      child: Text(LaMarcaDelGenere.risolvi(
-                          'Guarda il cielo [in cui sei nato|in cui sei nata|'
-                          'della tua nascita]')),
-                    ),
-                  ),
-                ),
-              ),
-          ],
+          ),
         );
       case _Phase.heaven:
         // Il cielo alla nascita e' la STESSA schermata del cielo in tempo

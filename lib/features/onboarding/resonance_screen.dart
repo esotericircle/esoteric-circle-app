@@ -10,6 +10,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
+import 'widgets/pulsante_del_risveglio.dart';
 
 /// La risonanza coi tre Maestri: tre aure che pulsano a intensita' diversa. La
 /// piu' forte si fa avanti, ed e' il Maestro che risuona con il tuo cielo.
@@ -95,23 +96,10 @@ class ResonanceScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: SpacingTokens.lg),
-          SizedBox(
-            width: double.infinity,
-            child: FilledButton(
-              style: FilledButton.styleFrom(
-                backgroundColor: palette.gold,
-                foregroundColor: palette.deepest,
-                padding: const EdgeInsets.symmetric(vertical: SpacingTokens.md),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-                ),
-              ),
-              onPressed: onContinue,
-              child: ParagrafiDiLettura(
-                  testo: 'Rivela il tuo Maestro',
-                  stile: TypographyTokens.lettura(weight: 600)
-                      .copyWith(color: palette.deepest)),
-            ),
+          PulsanteDelRisveglio(
+            palette: palette,
+            onPressed: onContinue,
+            testo: 'Rivela il tuo Maestro',
           ),
           const SizedBox(height: SpacingTokens.sm),
         ],

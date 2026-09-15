@@ -2759,6 +2759,41 @@ ne sceglie una. Le nuove si aggiungono in fondo.
    spazio"* a chi litiga col padre. Tenerla o toglierla e' una decisione di
    lingua.
 
+## L'ORDINE DP, L'ONBOARDING SMETTE DI STONARE
+
+15 settembre 2026, sei voci, tutte chiuse. Il manifesto sta in
+`docs/ordini/ORDINE_DP_MANIFESTO.md`, il rapporto in
+`docs/ordini/RAPPORTO_ORDINE_DP.md`, le schermate in `docs/collaudo/DP/`.
+**La build e' la 2262.**
+
+- **La Carta di Nascita si rivela con le carte vere**: le settantotto girano
+  col dorso vero del mazzo, l'anello rallenta e si ferma sulla carta del
+  calcolo, che si gira ed e' la sua arte a piena risoluzione. Il numero si
+  spiega con le cifre della data e con la riga *"La tua data si somma e si
+  riduce. Il numero che resta e' la tua carta."* Misurato sul Realme in
+  profilo: **60 fotogrammi al secondo con tutte e settantotto**, il massimo
+  dello schermo.
+- **La carta e' quella che porta il numero**: il calcolo dell'ordine CE voce
+  13 sceglieva per posizione nell'elenco del corpus: a chi faceva 8 dava
+  La Giustizia col suo XI. Cambia soltanto per chi fa 8 o 11, anche nel
+  Passaporto.
+- **Un solo pulsante principale in tutto l'onboarding**, `PulsanteDelRisveglio`,
+  oro col testo scuro: sei erano fuori standard, fra cui quello viola della
+  Carta di Nascita.
+- **Il video del Maestro non mostra piu' la grafica di prima**: sotto al
+  filmato c'e' il suo fotogramma zero invece del ritratto fermo. **E finisce
+  morbido**: negli ultimi due secondi rallenta a 0,75, nell'ultimo secondo e
+  mezzo l'audio scende in decibel fino al silenzio, misurato sul mixer del
+  telefono.
+- **Il telefono di collaudo ha le animazioni di sistema spente**: li'
+  l'onboarding salta le animazioni, come vuole Riduci Movimento. La prova a
+  video si fa con `tool/banco_del_risveglio.dart`, le stesse schermate vere
+  col movimento acceso, in una build di profilo firmata come la release e
+  installata sopra senza cancellare i dati; i fotogrammi con
+  `tool/misura_del_mazzo.dart`.
+- **Da guardare, per il fondatore**: l'anello da vicino ha l'aspetto di un
+  bracciale di carte; allargarlo e' una scelta di gusto.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.
