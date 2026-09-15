@@ -251,8 +251,10 @@ abstract final class IlColpoDelTamburo {
   /// e rispetta il cursore.
   static const double volume = SuonoDelCerchio.volumeDegliEffetti;
 
-  /// Quanto dura un colpo, al massimo: la musica scende per questo tempo.
-  static const Duration durata = Duration(milliseconds: 400);
+  /// Quanto dura un colpo, al massimo: la musica scende per questo tempo. E'
+  /// la durata del file consegnato con l'ordine DQ, 0,700 secondi con la sua
+  /// coda intera; prima erano quattrocento millesimi, scritti senza file.
+  static const Duration durata = Duration(milliseconds: 700);
 }
 
 abstract final class IlTamburoDellaDiscesa {
@@ -275,14 +277,17 @@ abstract final class IlTamburoDellaDiscesa {
   /// Il percorso completo dentro il pacchetto, per chiedere se il file c'e'.
   static String get nelPacchetto => 'assets/$percorso';
 
-  /// **LA CADENZA: QUATTRO BATTITI E MEZZO AL SECONDO.** Ordine DI voce 09.
+  /// **LA CADENZA: TRE BATTITI E MEZZO AL SECONDO**, 210 al minuto. Ordine
+  /// DQ voce 10, 15 settembre 2026: e' la cadenza del file vero, consegnato
+  /// dal fondatore, misurata sull'onda decodificata, otto colpi forti in
+  /// 2,286 secondi. Sta dentro la forbice della cadenza sciamanica di Michael
+  /// Harner, *The Way of the Shaman*, 1980, da 205 a 220 al minuto. Prima era
+  /// quattro e mezzo, fissato dall'ordine DI senza un file da misurare.
   ///
-  /// L'ordine la fissa a quattro e mezzo, ed e' un battito fitto e regolare,
-  /// quello di chi accompagna un viaggio e non quello di chi suona. **Sta qui
-  /// e non nell'alone** che pulsa sotto il dito, perche' l'alone la segue: il
-  /// giorno che il file vero battesse a un'altra cadenza, si cambia un numero
-  /// solo.
-  static const double battitiAlSecondo = 4.5;
+  /// **Sta qui e non nell'alone** che pulsa sotto il dito, perche' l'alone la
+  /// segue: con un numero diverso dal file l'alone scivolerebbe fuori tempo
+  /// rispetto al suono, un colpo intero ogni quindici secondi a 3,5667.
+  static const double battitiAlSecondo = 3.5;
 
   /// **QUANTO FORTE BATTE: COME GLI EFFETTI, E NON COME LA MUSICA.** Ordine
   /// DJ voce 10. Qui c'era l'ottanta per cento, *sotto gli effetti*: il

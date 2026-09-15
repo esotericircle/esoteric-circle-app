@@ -26,6 +26,13 @@ illustrazioni, il gesto, `_v1.webp`.
 - tartaruga_si_avvicina_v1.webp, tartaruga_si_volta_v1.webp, tartaruga_si_allontana_v1.webp
 - volpe_si_avvicina_v1.webp, volpe_si_volta_v1.webp, volpe_si_allontana_v1.webp
 
+## I trentasei sono arrivati, ordine DQ voce 10
+
+Il 15 settembre 2026 il fondatore ha consegnato i trentasei disegni col pacco
+dei cinquanta asset del Viaggio. Sono copiati qui senza ricodifica ne
+rinomina, e l'impronta SHA-256 di ognuno e' stata verificata contro il
+MANIFESTO.txt del pacco.
+
 ## Perche la cartella esiste gia vuota
 
 Le cartelle degli asset in Flutter non sono ricorsive: senza la sua riga

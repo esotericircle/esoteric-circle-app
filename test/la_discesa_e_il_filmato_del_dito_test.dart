@@ -365,8 +365,10 @@ void main() {
           (IlTamburoDellaDiscesa.battitiAlSecondo * 10).round(),
           reason: 'l alone batte $colpi volte in dieci secondi, e il tamburo '
               '${IlTamburoDellaDiscesa.battitiAlSecondo * 10}');
-      expect(IlTamburoDellaDiscesa.battitiAlSecondo, 4.5,
-          reason: 'l ordine dice circa quattro battiti e mezzo al secondo');
+      // Ordine DQ voce 10: la cadenza del file vero, otto colpi in 2,286
+      // secondi, 210 al minuto.
+      expect(IlTamburoDellaDiscesa.battitiAlSecondo, 3.5,
+          reason: 'il file vero batte tre volte e mezzo al secondo');
     });
 
     testWidgets(

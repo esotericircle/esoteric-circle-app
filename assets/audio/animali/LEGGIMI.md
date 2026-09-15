@@ -17,6 +17,13 @@ animale guida. Il nome esatto lo detta il codice, e si legge da
 - verso_ani_tartaruga_v1.mp3
 - verso_ani_volpe_v1.mp3
 
+## I dodici sono arrivati, ordine DQ voce 10
+
+Il 15 settembre 2026 il fondatore ha consegnato i dodici versi col pacco dei
+cinquanta asset del Viaggio. Sono copiati qui senza ricodifica ne rinomina, e
+l impronta SHA-256 di ognuno e' stata verificata contro il MANIFESTO.txt del
+pacco. Le sezioni sotto restano per chi un giorno li sostituisce.
+
 ## Perche la cartella esiste gia vuota
 
 Perche il momento che questi file accompagnano **esiste gia** ed e muto per
