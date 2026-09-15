@@ -14,7 +14,7 @@ Questa lista serve a Mauro. Non serve leggere codice: si tocca quello che c'e' s
 
 **Quale finestra deve comparire.** Prima una schermata dell'app, scura, che spiega a cosa serve il microfono e ha il pulsante **Attiva il microfono**. Toccandolo compare la finestra bianca di sistema con scritto:
 
-> Il microfono coglie il tuo soffio nel Soffio del Destino, per liberare i semi. Resta sul dispositivo, con ripiego tattile se preferisci.
+> Il microfono coglie il tuo soffio nel Soffio del Destino, per liberare i semi, e ascolta la tua voce solo quando scegli di dettare una domanda ai Maestri. L'app non registra e non conserva audio, e puoi sempre usare il dito o la tastiera.
 
 **Se accetti.** Soffiando verso il telefono i semi si staccano e volano via.
 
@@ -30,7 +30,9 @@ Questa lista serve a Mauro. Non serve leggere codice: si tocca quello che c'e' s
 
 **Quale finestra deve comparire.** La finestra di sistema con scritto:
 
-> La posizione serve solo a orientare il cielo sopra di te sul luogo reale in cui ti trovi. Resta sul dispositivo.
+> La posizione serve a orientare il cielo sopra di te sul luogo reale in cui ti trovi. Le coordinate restano sul dispositivo; per scrivere il nome della citta' sotto il cielo le chiedo ai servizi di sistema.
+
+Il testo e' quello della chiave che l'app chiede davvero, la posizione ad app aperta. Le due chiavi della posizione continua, entrate con l'ordine DQ voce 11 perche' Apple le pretende per cio' che sta nel pacchetto geolocator, non compaiono mai a video: l'app non chiede mai la posizione continua.
 
 **Se accetti.** Il cielo si orienta sul luogo dove sei adesso.
 

@@ -28,8 +28,12 @@
 	<true/>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>La posizione serve a orientare il cielo sopra di te sul luogo reale in cui ti trovi. Le coordinate restano sul dispositivo; per scrivere il nome della citta' sotto il cielo le chiedo ai servizi di sistema.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>La posizione serve a orientare il cielo sopra di te sul luogo reale in cui ti trovi, e solo mentre stai usando l'app: Esoteric Circle non segue i tuoi spostamenti quando e' chiusa. Le coordinate restano sul dispositivo; per scrivere il nome della citta' sotto il cielo le chiedo ai servizi di sistema.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>La posizione serve a orientare il cielo sopra di te sul luogo reale in cui ti trovi, e solo mentre stai usando l'app: Esoteric Circle non segue i tuoi spostamenti quando e' chiusa. Le coordinate restano sul dispositivo; per scrivere il nome della citta' sotto il cielo le chiedo ai servizi di sistema.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Il microfono coglie il tuo soffio nel Soffio del Destino, per liberare i semi. Resta sul dispositivo, con ripiego tattile se preferisci.</string>
+	<string>Il microfono coglie il tuo soffio nel Soffio del Destino, per liberare i semi, e ascolta la tua voce solo quando scegli di dettare una domanda ai Maestri. L'app non registra e non conserva audio, e puoi sempre usare il dito o la tastiera.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>La fotocamera serve se scegli di mettere il tuo volto nella card della Sinastria o di leggere i tuoi tratti nella Costellazione del Viso. Tutto resta sul dispositivo: nessuna immagine viene caricata, nessuna foto viene salvata oltre l'uso del momento.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -37,7 +41,7 @@
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Serve solo quando scegli di salvare il tuo Sigillo nelle foto, per metterlo come sfondo dalle impostazioni del telefono. L'immagine porta il segno e mai la tua intenzione scritta.</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
-	<string>Il riconoscimento vocale serve solo quando scegli di dettare una domanda ai Maestri invece di scriverla: le tue parole diventano testo sul dispositivo e nessuna registrazione viene conservata o inviata. Puoi sempre scrivere con la tastiera.</string>
+	<string>Il riconoscimento vocale serve solo quando scegli di dettare una domanda ai Maestri invece di scriverla: le tue parole le trasforma in testo il riconoscimento vocale di Apple, e l'app non conserva e non invia nessuna registrazione. Puoi sempre scrivere con la tastiera.</string>
 	<key>NSMotionUsageDescription</key>
 	<string>I sensori di movimento fanno respirare il cielo quando inclini il telefono, e riconoscono lo scuotimento con cui si gettano le rune. Puoi fare tutto anche col dito: il movimento e' un di piu', mai l'unica via.</string>
 	<key>UIApplicationSceneManifest</key>

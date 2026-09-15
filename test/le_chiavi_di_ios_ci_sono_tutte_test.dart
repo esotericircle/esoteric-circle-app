@@ -86,6 +86,24 @@ void main() {
     'mediapipe_face_mesh': 'NSCameraUsageDescription',
   };
 
+  /// **LE CHIAVI CHE APPLE CHIEDE PER CIO' CHE STA NEL BINARIO**, ordine DQ
+  /// voce 11 del 15 settembre 2026.
+  ///
+  /// App Store Connect segnava ogni build con l'avviso 90683 chiedendo
+  /// `NSLocationAlwaysAndWhenInUseUsageDescription`, e l'app la posizione la
+  /// usa solo aperta. Apple guarda **cosa c'e' nel binario, non cosa l'app
+  /// usa**: `geolocator_apple` porta anche le funzioni della posizione
+  /// continua, e la sua cartella `darwin/` nomina tutte e due le chiavi qui
+  /// sotto, verificato leggendola il 15 settembre 2026. La tavola sopra resta
+  /// quella dell'uso vero; questa dice le chiavi che il pacchetto fa pretendere
+  /// in piu', con un testo che dichiara che la posizione continua non si usa.
+  const chiaviDelBinario = <String, List<String>>{
+    'geolocator': [
+      'NSLocationAlwaysAndWhenInUseUsageDescription',
+      'NSLocationAlwaysUsageDescription',
+    ],
+  };
+
   late final String plist = File('ios/Runner/Info.plist').readAsStringSync();
   late final Set<String> presenti = RegExp(r'NS[A-Za-z]+UsageDescription')
       .allMatches(plist)
@@ -123,7 +141,9 @@ void main() {
 
   test('la tavola non elenca dipendenze che non esistono piu\'', () {
     // Una tavola che parla di librerie tolte invecchia in silenzio.
-    final sparite = tavola.keys.where((k) => !dirette.contains(k)).toList();
+    final sparite = {...tavola.keys, ...chiaviDelBinario.keys}
+        .where((k) => !dirette.contains(k))
+        .toList();
     expect(sparite, isEmpty,
         reason: 'la tavola classifica dipendenze che il pubspec non ha piu\': '
             '$sparite');
@@ -134,6 +154,13 @@ void main() {
     tavola.forEach((pacchetto, chiave) {
       if (chiave == null) return;
       if (!presenti.contains(chiave)) mancanti.add('$chiave (per $pacchetto)');
+    });
+    chiaviDelBinario.forEach((pacchetto, chiavi) {
+      for (final chiave in chiavi) {
+        if (!presenti.contains(chiave)) {
+          mancanti.add('$chiave (per il binario di $pacchetto)');
+        }
+      }
     });
     expect(mancanti, isEmpty,
         reason: 'Info.plist non porta queste chiavi, e il caricamento su App '
@@ -177,7 +204,10 @@ void main() {
     // **DICHIARARE UN PERMESSO CHE NON SI USA E\' UN RISCHIO IN REVISIONE**,
     // non un di piu' innocuo: Apple chiede conto delle chiavi che l'app non
     // esercita mai.
-    final richieste = tavola.values.whereType<String>().toSet();
+    final richieste = {
+      ...tavola.values.whereType<String>(),
+      for (final chiavi in chiaviDelBinario.values) ...chiavi,
+    };
     final orfane = presenti.difference(richieste);
     expect(orfane, isEmpty,
         reason: 'Info.plist dichiara permessi che nessuna dipendenza chiede: '

@@ -480,7 +480,7 @@ le altre.
 | `il_centro_viaggia_col_gesto_test.dart` | il centro viaggia col gesto | 1, 2 | proprio, dichiarato | 09/09/2026, DB | 2 |
 | `il_cielo_arriva_al_maestro_test.dart` | il cielo arriva al maestro | 1, 2 | dalla porta comune | mai | 3 |
 | `il_cielo_di_nascita_si_muove_test.dart` | il cielo di nascita si muove | 2, 4 | non scopre insiemi di file | mai | 3 |
-| `il_cielo_dice_da_dove_test.dart` | il cielo dice da dove | 1, 2 | dalla porta comune | mai | 3 |
+| `il_cielo_dice_da_dove_test.dart` | il cielo dice da dove | 1, 2 | dalla porta comune | 15/09/2026, DQ (Regola B: rossa sulla promessa rimessa al singolare nella chiave di iOS; poi allargata al plurale, e rossa sul testo dell ordine DQ.11 parola per parola, che diceva le coordinate restano sul dispositivo senza dire dei servizi di sistema) | 3 |
 | `il_cielo_si_muove_davvero_test.dart` | il cielo si muove davvero | 4 | non scopre insiemi di file | mai | 3 |
 | `il_cielo_si_muove_test.dart` | il cielo si muove | 1, 2, 4 | dalla porta comune | mai | 3 |
 | `il_compimento_dei_tre_sentieri_test.dart` | il compimento dei tre sentieri | 4, 1 | non scopre insiemi di file | mai | 3 |
@@ -689,7 +689,7 @@ le altre.
 | `la_voce_si_ricorda_test.dart` | la voce del Viaggio si ricorda di cio' che la persona ha letto, ordine DJ voce 02, dalla strada vera per chi scende in modo irregolare: sullo stesso tema ogni 11, 12 e 20 giorni la risposta non e' fra le ultime sei, ogni finestra di ventiquattro discese ha ventiquattro titoli e nessuna coppia torna; a temi alternati l'azione non e' fra le ultime dieci; il mazzo finito ricomincia nello stesso ordine; la discesa riaperta conserva titolo, risposta e azione, e un Diario di prima si legge | 1, 2 | proprio, dichiarato | 13/09/2026, DJ voce 02 (sette rossi: la memoria spenta tre, il divieto della coppia tolto uno, il mazzo che salta un posto quattro, il titolo che non si conserva uno; il primo rosso ha mostrato che col solo passo di dodici giorni la pretesa sulla risposta era cieca, e i passi sono diventati tre) | 1 |
 | `la_voce_account_nelle_impostazioni_e_viva_test.dart` | la voce account nelle impostazioni e viva | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `language_rule_test.dart` | language rule | 1, 2 | dalla porta comune | 01/09/2026, CL | 2 |
-| `le_chiavi_di_ios_ci_sono_tutte_test.dart` | le chiavi di ios ci sono tutte | 4 | non scopre insiemi di file | mai | 3 |
+| `le_chiavi_di_ios_ci_sono_tutte_test.dart` | le chiavi di ios ci sono tutte | 4 | non scopre insiemi di file | 15/09/2026, DQ (Regola B: rossa col microfono tolto da Info.plist; poi con le chiavi che Apple pretende per il binario di geolocator, rossa sul plist di prima che le due chiavi della posizione continua entrassero) | 3 |
 | `le_cinque_chiamate_partono_tutte_test.dart` | le cinque chiamate partono tutte | 1, 2 | proprio, dichiarato | 07/09/2026, CW | 2 |
 | `le_cose_che_dichiarano_il_falso_test.dart` | le cose che dichiarano il falso | 1, 2 | dalla porta comune | mai | 2 |
 | `le_descrizioni_hanno_una_misura_sola_test.dart` | le descrizioni hanno una misura sola | 1, 2 | dalla porta comune | mai | 3 |

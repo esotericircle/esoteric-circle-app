@@ -187,8 +187,12 @@ void main() {
             nuda.contains('coordinate') ||
             nuda.contains('dove ti trovi');
         if (!parlaDiPosizione) continue;
-        if (nuda.contains('resta sul dispositivo') ||
-            nuda.contains('Resta sul dispositivo')) {
+        // **ANCHE AL PLURALE**, ordine DQ voce 11: "le coordinate restano
+        // sul dispositivo" e' la stessa promessa, e passava. E' vera solo se
+        // la stessa frase dice anche dove va il nome del luogo.
+        final promette =
+            RegExp(r'[Rr]esta(no)? sul dispositivo').hasMatch(nuda);
+        if (promette && !nuda.contains('servizi di sistema')) {
           colpe.add('$dove: promette che la posizione resta sul dispositivo, '
               'ma il nome del luogo viene chiesto ai servizi di sistema.');
         }
