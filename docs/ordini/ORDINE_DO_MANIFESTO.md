@@ -167,7 +167,7 @@ In `docs/ordini/RAPPORTO_ORDINE_DO.md`.
 
 `il_sigillo_vive` e' nuova e non scopre insiemi di file; `sigillo_schermata`
 e' riscritta sul percorso nuovo; `la_sonda_del_sigillo` chiama il modello vero
-solo col token. **Quarantanove innesti, quarantasette rossi**: i due verdi
+solo col token. **Cinquantuno innesti, quarantanove rossi**: i due verdi
 erano il primo innesto di due guardie della riformulazione, cieche perche' la
 guardia dei terzi del Viaggio prendeva gli stessi casi. Una e' stata tolta,
 perche' ripeteva quella del Viaggio; l'altra e' stata rifatta su un caso che
