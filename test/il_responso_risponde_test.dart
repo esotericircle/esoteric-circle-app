@@ -285,6 +285,17 @@ void main() {
       expect(
           formeContrarieAllaForma('Cosa ti rende forte', CourtesyForm.neutral),
           isEmpty);
+      // **DALLA RIPROVA DELLA 2258**: l'infanzia di chi legge.
+      expect(
+          formeContrarieAllaForma(
+              'Cerca qualcosa che ti apparteneva da piccola.',
+              CourtesyForm.neutral),
+          isNotEmpty);
+      expect(
+          formeContrarieAllaForma(
+              'Cerca qualcosa che ti apparteneva da piccola.',
+              CourtesyForm.feminine),
+          isEmpty);
       // **DALLA RIPROVA DELLA 2256**: la desinenza, non il dizionario.
       expect(
           formeContrarieAllaForma(

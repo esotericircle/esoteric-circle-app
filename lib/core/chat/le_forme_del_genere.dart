@@ -294,6 +294,16 @@ List<String> formeContrarieAllaForma(String testo, CourtesyForm forma) {
       ..._cliticoCheRegge.allMatches(testo),
     ])
       if (_concorda(m.group(1)!)) m.group(1)!,
+    // **L'INFANZIA DI CHI LEGGE**, ordine DN voce 08: *"qualcosa che ti
+    // apparteneva da piccola"*, alla riprova a video della 2258, a un profilo
+    // neutro. Il modello ripeteva la parola che la persona aveva scritto, ma
+    // la forma la decide il profilo.
+    for (final m in RegExp(
+            r'(?<![a-zàèéìòù])da (piccol[oa]|bambin[oa]|ragazzin[oa]|'
+            r'ragazz[oa])(?![a-zàèéìòù])',
+            caseSensitive: false)
+        .allMatches(testo))
+      m.group(1)!,
   ];
   // **LA DESINENZA VIETATA LA DECIDE LA PORTA**, come ogni altra scelta
   // secondo il genere: qui c'era un secondo `masculine ? 'a' : 'o'`, e la
