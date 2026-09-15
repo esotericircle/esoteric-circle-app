@@ -2794,6 +2794,50 @@ ne sceglie una. Le nuove si aggiungono in fondo.
 - **Da guardare, per il fondatore**: l'anello da vicino ha l'aspetto di un
   bracciale di carte; allargarlo e' una scelta di gusto.
 
+## L'ORDINE DO, IL SIGILLO DELL'INTENZIONE DIVENTA UN OGGETTO CHE VIVE
+
+15 settembre 2026, quindici voci, tutte chiuse. Il manifesto sta in
+`docs/ordini/ORDINE_DO_MANIFESTO.md`, il rapporto in
+`docs/ordini/RAPPORTO_ORDINE_DO.md`, le schermate in `docs/collaudo/DO/`.
+**La build e' la 2263.**
+
+- **Il sigillo tracciato e' un oggetto**, `SigilloVivo` in
+  `lib/core/magic/`: quattro stati, nasce vivo e spento, arriva alla sua data
+  all'inizio del giorno scelto. Sta nel **Libro dei Sigilli**,
+  `LibroDeiSigilli` sul disco del telefono con l'istanza dell'app
+  `libroDelCerchio`, e le schermate `LibroDeiSigilliScreen` e
+  `SigilloDelLibroScreen`.
+- **La via si sceglie prima di scrivere**; le tre righe della voce DO.01 stanno
+  in `LaVoceDelSigillo`, coi testi di casa. Una frase sulla volonta' di un
+  altro non si traccia, si riscrive su chi scrive.
+- **La carica col dito**, una al giorno: si ripassa il segno punto per punto e
+  il segno si accende, piu' luminoso e inciso, senza numeri; si affievolisce
+  con la curva della nitidezza del Viaggio.
+- **Lo sfondo del telefono**: il segno sui tre fondi del fondatore, nella
+  fascia fra il 35 e il 60 per cento. Android da `MainActivity` col permesso
+  SET_WALLPAPER, Home, Blocco o Entrambe; iPhone *"Salva nelle foto"* col
+  pacchetto gal, **mai provato su un iPhone**. **Il motore Flutter sta nella
+  cache**: impostare lo sfondo fa ricreare l'attivita' al sistema, e prima
+  l'app ripartiva dalla home.
+- **La chiamata alla data**, `LaChiamataDelSigillo` sul meccanismo dei Doni,
+  canale `sigillo_scadenza`, carico `sigillo:libro` che apre il Libro; il
+  Libro la programma, la sposta e la toglie.
+- **I testi dal modello**, `IlSigilloDalModello`, Gemini 2.5 Flash su
+  europe-west1: titolo e responso sull'intenzione vera, riformulazione su
+  richiesta tre volte al massimo e mai sui temi delicati, compimento che
+  nomina l'intenzione. Tutte le guardie del Viaggio, piu' quelle nate da
+  sette sonde col modello vero, e la riserva di casa. **Un sigillo completo
+  costa 0,00072 dollari.**
+- **I limiti sono di spazio**, nella matrice dei piani: sigilli vivi insieme
+  1, 2, 3, 5, la carica sempre aperta; tetto tecnico di dieci tracciamenti al
+  giorno. Al limite la strada per il Libro.
+- **Sul telefono di collaudo** restano il sigillo come sfondo, sulla Home e
+  sul blocco, e i sigilli della prova nel Libro. Il Realme non ha una
+  schermata di blocco, e al risveglio gli si mette davanti Clean Master,
+  un'app di terzi che non si tocca.
+- **Sul banco i testi del modello non arrivano**: la build di profilo usa il
+  fornitore di prova di App Check, respinto dal servizio.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.
