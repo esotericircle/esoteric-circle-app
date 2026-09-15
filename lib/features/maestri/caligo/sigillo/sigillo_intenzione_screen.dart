@@ -595,6 +595,18 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
               ],
             ),
           )
+        else if (abbastanza && IlSigilloDalModello.temaDelicato(testo))
+          // **SUI TEMI DELICATI CALIGO NON RISCRIVE**, voce DO.10: la frase
+          // del metodo, detta come gia' vera, su salute, figli, cause e
+          // denaro diventa una promessa. Si dice, invece di tacerlo.
+          Text(
+            'Su salute, figli, denaro e cause legali Caligo non riscrive la '
+            'frase: resta la tua.',
+            key: const Key('sigillo_tema_delicato'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textMuted, height: 1.4),
+          )
         else if (abbastanza && restano && !_suUnTerzo)
           PulsanteLeggeroDelSigillo(
             key: const Key('sigillo_riformula'),

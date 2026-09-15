@@ -63,6 +63,9 @@ void main() {
   ];
 
   test('Tre chiamate vere per ogni sigillo, lette tutte', () async {
+    // Il binding delle prove risponde 400 a ogni richiesta HTTP: la sonda
+    // parla con la rete vera, come la prova a cento discese.
+    HttpOverrides.global = null;
     final conto = _Conto();
     final scartiPerMotivo = <String, int>{};
     var titoliDalModello = 0;
@@ -75,9 +78,17 @@ void main() {
       final grezzi = <String, String>{};
       Future<String?> chiamata(
           String istruzione, String richiesta, Map<String, Schema> campi) async {
-        final t = await _vertex(istruzione, richiesta, campi, conto);
-        grezzi[campi.keys.join(',')] = t ?? '';
-        return t;
+        try {
+          final t = await _vertex(istruzione, richiesta, campi, conto);
+          grezzi[campi.keys.join(',')] = t ?? '';
+          return t;
+        } catch (errore) {
+          // Un errore del trasporto si stampa: una sonda che cade in silenzio
+          // sulla voce di casa misurerebbe la casa e non il modello.
+          // ignore: avoid_print
+          print('ERRORE DELLA CHIAMATA: $errore');
+          rethrow;
+        }
       }
 
       final testi = await IlSigilloDalModello.scrivi(

@@ -338,6 +338,218 @@ void main() {
     });
   });
 
+  group('DO.10: le guardie nate dalle sonde col modello vero', () {
+    // Ogni frase qui sotto e' un testo che Gemini 2.5 Flash ha scritto
+    // davvero alle sei sonde del 15 settembre 2026, e che le guardie del
+    // Viaggio lasciavano arrivare a schermo.
+    const forma = CourtesyForm.unknown;
+    Future<String?> Function(String, String, Map<String, dynamic>) dice(
+            String campo, String t,
+            [List<int>? conta]) =>
+        (i, r, c) async {
+          conta?.add(1);
+          return jsonEncode({campo: t});
+        };
+
+    test('Sui temi delicati Caligo non riscrive, e non chiama', () async {
+      for (final i in const [
+        'Voglio vincere la causa contro il mio ex socio',
+        'Desidero un figlio',
+        'Ritrovo la salute',
+        'Voglio guadagnare diecimila euro entro Natale',
+        'Voglio guarire dalla depressione',
+      ]) {
+        expect(IlSigilloDalModello.temaDelicato(i), isTrue, reason: i);
+        final conta = <int>[];
+        final r = await IlSigilloDalModello.riformula(
+            intenzione: i,
+            via: ViaMagica.rossa,
+            forma: forma,
+            chiamata: (a, b, c) =>
+                dice('riformulata', 'Io vinco la mia causa', conta)(a, b, c));
+        expect(r, isNull, reason: i);
+        expect(conta, isEmpty, reason: 'la chiamata e\' partita per "$i"');
+      }
+      for (final i in const [
+        'Metto radici dove sono adesso',
+        'Proteggo i miei figli',
+        'Mi libero dall\'ansia prima degli esami',
+      ]) {
+        expect(IlSigilloDalModello.temaDelicato(i), isFalse, reason: i);
+      }
+    });
+
+    Future<String?> riformula(String intenzione, String dalModello) =>
+        IlSigilloDalModello.riformula(
+            intenzione: intenzione,
+            via: ViaMagica.bianca,
+            forma: forma,
+            chiamata: (a, b, c) => dice('riformulata', dalModello)(a, b, c));
+
+    test('La riformulazione: via "Io", niente via, niente terzi, niente io',
+        () async {
+      expect(
+          await riformula('Trovo il coraggio di dire quello che sento',
+              'Io trovo il coraggio di dire ciò che sento'),
+          'Trovo il coraggio di dire ciò che sento');
+      expect(
+          await riformula('Metto radici dove sono adesso',
+              'Io metto radici qui nella natura verde ora'),
+          isNull);
+      expect(
+          await riformula(
+              'Proteggo la quiete della mia casa',
+              'Io proteggo la quiete della mia casa con bianca protezione e '
+                  'chiarezza'),
+          isNull);
+      expect(
+          await riformula('Voglio che Marco torni da me', 'Marco torna da me'),
+          isNull);
+      expect(
+          await riformula('Voglio fare pace con mia sorella',
+              'Con mia sorella in pace io sono.'),
+          isNull);
+      // Le guardie di sostanza del Viaggio valgono anche qui, tolta quella
+      // della prima persona: la previsione certa e il fuoco.
+      expect(await riformula('Trovo la pace', 'Sicuramente trovo la pace'),
+          isNull);
+      expect(
+          await riformula(
+              'Trovo la pace', 'Accendo una candela e trovo la pace'),
+          isNull);
+      // L'"io" in mezzo, dove nessun'altra guardia guarda.
+      expect(await riformula('Trovo la pace', 'Ogni giorno io trovo la pace.'),
+          isNull);
+      expect(
+          IlSigilloDalModello.genereDellaPrimaPersona(
+              'Sono ora completamente guarita'),
+          'f');
+      expect(
+          IlSigilloDalModello.genereDellaPrimaPersona(
+              'Sono coraggiosa quando parlo in pubblico'),
+          'f');
+      expect(
+          await riformula('Voglio parlare in pubblico',
+              'Sono coraggiosa quando parlo in pubblico'),
+          isNull,
+          reason: 'a chi non ha scelto una forma e\' arrivato un femminile');
+    });
+
+    test('Il titolo e il responso: le famiglie della sonda si scartano', () {
+      expect(
+          IlSigilloDalModello.ripeteLIntenzione(
+              'Ritrovo la salute', 'Ritrovo la salute'),
+          isTrue);
+      final casi = <(String, String)>[
+        ('La tua partenza da Roma', 'Voglio capire se lasciare Roma'),
+        ('La tua salute ritrovata', 'Ritrovo la salute'),
+        ('Ritrovi la salute', 'Ritrovo la salute'),
+        (
+          'La tua vittoria in causa',
+          'Voglio vincere la causa contro il mio ex socio'
+        ),
+        ('Il tuo apprendere il pianoforte', 'Imparo a suonare il pianoforte'),
+        (
+          'Il sigillo che hai tracciato custodisce la tua salute ritrovata, le '
+              'erbe e la natura ti sono vicine.',
+          'Ritrovo la salute'
+        ),
+        (
+          'La tua intenzione, Trovo una casa con un giardino, è chiara.',
+          'Trovo una casa con un giardino'
+        ),
+        (
+          'Porta con te la promessa di una rinnovata percezione del tuo '
+              'percorso.',
+          'Mi innamoro di nuovo della mia vita'
+        ),
+        (
+          'La tua intenzione è un sigillo potente.',
+          'Metto radici dove sono adesso'
+        ),
+        (
+          'Esso racchiude la potenza del tuo intento.',
+          'La mia attività cresce'
+        ),
+      ];
+      for (final (t, i) in casi) {
+        expect(IlSigilloDalModello.scartoDelSigillo(t, i), isNotNull,
+            reason: '"$t" e\' passato sopra "$i"');
+      }
+      expect(
+          IlSigilloDalModello.scartoDelSigillo(
+              'La tua decisione su Roma', 'Voglio capire se lasciare Roma'),
+          isNull,
+          reason: 'un titolo che lascia aperta la scelta deve passare');
+      expect(
+          IlSigilloDalModello.scartoDelSigillo(
+              'In esso risiede la forza per dire quello che senti.',
+              'Trovo il coraggio di dire quello che sento'),
+          isNull,
+          reason: '"in esso" e\' italiano buono');
+    });
+
+    test('Il compimento: le famiglie della sonda si scartano', () {
+      const casi = <(String, String)>[
+        (
+          'Il tuo liberarti dall\'ansia prima degli esami si è compiuto.',
+          'Mi libero dall\'ansia prima degli esami'
+        ),
+        (
+          'Hai vinto la causa contro il tuo ex socio, come il sigillo aveva '
+              'predetto.',
+          'Voglio vincere la causa contro il mio ex socio'
+        ),
+        (
+          'Hai trovato una nuova vita. Che la tua energia fluisca.',
+          'Mi innamoro di nuovo della mia vita'
+        ),
+        ('Hai protetto le tue figlie.', 'Proteggo i miei figli'),
+        (
+          'Il tuo orto ha dato frutti, come desideravi. Sono lieta che la tua '
+              'intenzione si sia compiuta.',
+          'Il mio orto dà frutti'
+        ),
+      ];
+      for (final (t, i) in casi) {
+        expect(
+            IlSigilloDalModello.scartoDelCompimento(t,
+                intenzione: i, forma: forma),
+            isNotNull,
+            reason: '"$t" e\' passato');
+      }
+      expect(
+          IlSigilloDalModello.scartoDelCompimento(
+              'Hai trovato il coraggio di dire quello che senti.',
+              intenzione: 'Trovo il coraggio di dire quello che sento',
+              forma: forma),
+          isNull);
+    });
+
+    test('Due tentativi per il pezzo scartato, e "Esso" diventa "Il segno"',
+        () async {
+      var n = 0;
+      final t = await IlSigilloDalModello.scrivi(
+        intenzione: 'Chiedo chiarezza sulla mia strada',
+        via: ViaMagica.bianca,
+        forma: forma,
+        chiamata: (i, r, c) async {
+          n++;
+          return jsonEncode({
+            'titolo': 'Chiarezza sulla tua strada',
+            'responso': n == 1
+                ? 'Accendi una candela per la chiarezza sulla tua strada.'
+                : 'Esso custodisce la chiarezza che cerchi sulla tua strada.',
+          });
+        },
+      );
+      expect(n, 2);
+      expect(t.responsoDalModello, isTrue);
+      expect(t.responso,
+          'Il segno custodisce la chiarezza che cerchi sulla tua strada.');
+    });
+  });
+
   group('DO.12: la riformulazione non dice il genere sbagliato', () {
     test('Il genere della prima persona si legge', () {
       expect(

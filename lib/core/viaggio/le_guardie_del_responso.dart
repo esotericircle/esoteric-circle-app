@@ -496,6 +496,29 @@ abstract final class LeGuardieDelResponso {
     return null;
   }
 
+  /// **LE GUARDIE DI SOSTANZA, SENZA QUELLA DELLA PRIMA PERSONA.** Ordine DO
+  /// voce 10, 15 settembre 2026: la riformulazione del Sigillo e' in prima
+  /// persona per costruzione, come vuole il metodo di Spare, e la guardia
+  /// della prima persona la scarterebbe sempre. Tutte le altre valgono
+  /// identiche: il trattino, la virgola con la e, la previsione, la diagnosi,
+  /// la promessa, il gergo, la decisione grave, il fuoco. Si generalizza il
+  /// meccanismo che c'e', come chiede l'ordine, invece di riscriverlo.
+  static MotivoDelloScarto? diSostanza(String t) {
+    if (t.contains('\u2014') || t.contains('\u2013')) {
+      return MotivoDelloScarto.trattinoLungo;
+    }
+    if (RegExp(r',\s+e[d]?\s', caseSensitive: false).hasMatch(t)) {
+      return MotivoDelloScarto.virgolaEe;
+    }
+    if (_certezza.hasMatch(t.replaceAll(_ilDubbio, ' '))) {
+      return MotivoDelloScarto.previsioneCerta;
+    }
+    if (_diagnosi.hasMatch(t)) return MotivoDelloScarto.diagnosi;
+    if (_promessa.hasMatch(t)) return MotivoDelloScarto.promessa;
+    if (_fuocoComeInvito.hasMatch(t)) return MotivoDelloScarto.fuoco;
+    return fuocoGergoDecisione(t);
+  }
+
   /// **IL FUOCO, IL GERGO E LA DECISIONE GRAVE IN UN TESTO QUALSIASI**, per
   /// la prova che la voce di casa ne sia pulita: ordine DN voce 08.
   static MotivoDelloScarto? fuocoGergoDecisione(String t) {
