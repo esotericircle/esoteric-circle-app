@@ -801,6 +801,132 @@ void main() {
         isNull);
   });
 
+  test('LE CURE DELLA RIPROVA A VIDEO DELLA 2260', () {
+    // **IL TITOLO DI CASA SEGUE IL GENERE DELLA PERSONA**: a chi chiedeva
+    // del figlio il telefono ha mostrato *"Chiedile come sta, davvero"*.
+    final giorno = DateTime(2026, 9, 15);
+    final alFemminile = RegExp(r'(?<![a-z])(?:[Dd]ille|[Cc]hiedile|le lasci|'
+        r'tenuta|la pensi|volerle|[Ll]asciale)(?![a-z])');
+    List<String> ventiquattro(String domanda) {
+      final letti = <ResponsoLetto>[];
+      final dati = <String>[];
+      for (var i = 0; i < 24; i++) {
+        final t = LaVoceDelMondoDiSotto.titoloDelGiorno('persona', giorno,
+            letti: letti, domanda: domanda);
+        dati.add(t);
+        letti.insert(
+            0, (tema: 'persona', titolo: t, risposta: null, gesto: null));
+      }
+      return dati;
+    }
+
+    final colFiglio = ventiquattro('Mio figlio non vuole più studiare');
+    expect(colFiglio.toSet(), hasLength(24),
+        reason: 'il mazzo resta di ventiquattro, anche al maschile');
+    expect(colFiglio, contains('Chiedigli come sta, davvero'));
+    expect(colFiglio.where(alFemminile.hasMatch), isEmpty);
+    final conLaMoglie = ventiquattro('Mia moglie vuole un altro figlio');
+    expect(conLaMoglie, contains('Chiedile come sta, davvero'));
+    final conUnNome = ventiquattro('Ho litigato con Marco');
+    expect(conUnNome.where(alFemminile.hasMatch), isEmpty);
+    expect(
+        conUnNome.where(RegExp(r'Digli|Chiedigli|gli lasci|tenuto|lo pensi|'
+                r'volergli|Lasciagli')
+            .hasMatch),
+        isEmpty);
+    expect(conUnNome.take(17).toSet(), hasLength(17));
+
+    // **LA RISPOSTA CHE NOMINA LA TESTA DI UN PEZZO DELLA SCENA**: *"un
+    // seme"* sopra *"il seme"*. La parola della domanda non conta.
+    expect(
+        LeGuardieDelResponso.dellaRisposta(
+            'La paura di invecchiare è un seme che puoi non piantare.',
+            domanda: 'Ho paura di invecchiare senza nessuno',
+            forma: CourtesyForm.masculine,
+            nomiDellaScena: const ['il ponte', 'il seme', "all'alba"]),
+        MotivoDelloScarto.anticipaLaScena);
+    expect(
+        LeGuardieDelResponso.dellaRisposta(
+            'Puoi decidere tu cosa tenere della casa.',
+            domanda: 'Devo vendere la casa di famiglia',
+            forma: CourtesyForm.masculine,
+            nomiDellaScena: const [
+              'la casa vuota',
+              'la chiave',
+              'nella notte'
+            ]),
+        isNull);
+
+    // **LA MINUSCOLA DOPO IL PUNTO**, e i tre puntini che restano.
+    expect(
+        LeGuardieDelResponso.dellAzione(
+            'Oggi pomeriggio. prendi un foglio e disegna una porta.',
+            domanda: 'Sto pensando di separarmi',
+            forma: CourtesyForm.masculine),
+        MotivoDelloScarto.sgrammaticato);
+    expect(
+        LeGuardieDelResponso.dellAzione(
+            'Oggi pomeriggio prendi un foglio e disegna una porta.',
+            domanda: 'Sto pensando di separarmi',
+            forma: CourtesyForm.masculine),
+        isNull);
+
+    // **NELL'ATTESA NESSUNA RISPOSTA DI CASA DICE "LEI"**: dopo la
+    // ripresa *"la domanda su tuo figlio"* la si legge su una donna.
+    expect(
+        LaVoceDelMondoDiSotto.rispostePerTema['attesa']!
+            .where(RegExp(r'(?<![a-z])lei(?![a-z])').hasMatch),
+        isEmpty);
+
+    // **IL GERGO DEI TITOLI**: *"Cerca il tuo spazio"*.
+    expect(
+        LeGuardieDelResponso.delTitolo('Cerca il tuo spazio',
+            domanda: 'Mi sento ferma nel lavoro da mesi',
+            forma: CourtesyForm.feminine),
+        MotivoDelloScarto.gergo);
+
+    // **VENDERE LA CASA, CON L'ARTICOLO**, e' una domanda grave.
+    expect(
+        LeGuardieDelResponso.dellAzione(
+            'Stasera scrivi le due strade su un foglio. '
+            'Scegli quella che ti pesa meno.',
+            domanda: 'Devo vendere la casa dei nonni',
+            forma: CourtesyForm.masculine),
+        MotivoDelloScarto.decisioneGrave);
+
+    // **LA SCENA DI RISERVA EVITA IL PEZZO CHE LA RISPOSTA NOMINA SENZA
+    // L'ARTICOLO**: *"sul ponte"* e il pezzo *"il ponte"*. Il cardinale:
+    // senza quella risposta il ponte esce.
+    final animale = GuideAnimalDerivation.forSign(Zodiac.cancer);
+    int colPonte(TestiDelModello scritti) {
+      var n = 0;
+      for (var d = 0; d < 40; d++) {
+        final r = IlResponsoDelViaggio.componi(
+          dalModello: null,
+          domanda: 'Non so se accettare quel lavoro',
+          giorno: DateTime(2026, 9, 1 + d % 28),
+          nitidezza: 1,
+          discesa: d,
+          giaOggi: 0,
+          animale: animale,
+          tema: TemaDellaDomanda.scelta,
+          storia: const [],
+          scritti: scritti,
+        );
+        if (LaVoceDelMondoDiSotto.nomiDeiPezzi(r.scena).contains('il ponte')) {
+          n++;
+        }
+      }
+      return n;
+    }
+
+    expect(colPonte(TestiDelModello.nessuno), greaterThan(0));
+    expect(
+        colPonte(const TestiDelModello(
+            risposta: 'Puoi restare un poco sul ponte, prima di scegliere.')),
+        0);
+  });
+
   test('LA RICHIESTA DICE AL MODELLO QUANDO LA DOMANDA PARLA DI UN ALTRO', () {
     // **ORDINE DN VOCE 08**: senza, la regola in positivo scartava quasi
     // tutte le risposte del modello sulle domande che parlano di un'altra

@@ -83,7 +83,7 @@ void main() {
         'e la tavola delle parole di cornice dell oggetto, dove "da" e la '
             'preposizione che l oggetto puo avere senza che la domanda la '
             'contenga, una CHIAVE di confronto',
-    'lib/core/viaggio/le_guardie_del_responso.dart:387':
+    'lib/core/viaggio/le_guardie_del_responso.dart:396':
         'e la tavola delle parole vuote della domanda, dove perche senza '
             'accento e la forma che la persona digita, una CHIAVE',
     'lib/core/tarot/domanda_della_persona.dart:39':

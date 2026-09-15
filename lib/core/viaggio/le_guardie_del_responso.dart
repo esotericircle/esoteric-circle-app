@@ -306,7 +306,8 @@ abstract final class LeGuardieDelResponso {
   static final RegExp _domandaGrave =
       _parole('operar[a-zàèéìòù]*|operazione|intervento|lasciare|lascio|'
           'separar[a-zàèéìòù]*|separo|divorzi[a-zàèéìòù]*|'
-          'trasferir[a-zàèéìòù]*|trasferisco|vendere casa|vendo casa|'
+          'trasferir[a-zàèéìòù]*|trasferisco|vendere (?:la )?casa|'
+          'vendo (?:la )?casa|'
           'licenzi[a-zàèéìòù]*|dimett[a-zàèéìòù]*|dimissioni|'
           'tagliare i rapporti|taglio i rapporti');
 
@@ -319,6 +320,11 @@ abstract final class LeGuardieDelResponso {
   /// build 2259: *"Cio' che puoi dare e' te"*, titolo del modello, invece
   /// di *"sei tu"*. *"E' te che cerca"* resta: si scarta solo in fondo
   /// alla frase.
+  /// **LA MINUSCOLA DOPO IL PUNTO**, alla riprova a video della build
+  /// 2260: il gesto del modello *"Oggi pomeriggio. prendi un foglio"*.
+  /// I tre puntini restano.
+  static final RegExp _minuscolaDopoIlPunto = RegExp('(?<![.])[.!?]\\s+[$_l]');
+
   static final RegExp _sgrammaticato =
       RegExp('(?<![$_l])(?:è|era) te(?! *[$_l])', caseSensitive: false);
 
@@ -340,7 +346,10 @@ abstract final class LeGuardieDelResponso {
       // *"non definisce il tuo valore"*, a chi chiede se operarsi.
       'risuona|risuonano|risuonare|risuoni|già dentro di te|'
       'la risposta è (?:già )?dentro|pace interiore|'
-      'definisce il tuo valore|definiscono il tuo valore');
+      'definisce il tuo valore|definiscono il tuo valore|'
+      // *"Cerca il tuo spazio"*, *"Cerca il tuo nutrimento"*, titoli
+      // del modello alla riprova a video della 2260.
+      'il tuo spazio|il tuo nutrimento');
 
   /// **UN'INDICAZIONE DI TEMPO**, che il gesto del modello porta dentro di
   /// se': ordine DL voce 13. E' la stessa famiglia dei tempi di casa.
@@ -472,7 +481,9 @@ abstract final class LeGuardieDelResponso {
     if (formeContrarieAllaForma(t, forma).isNotEmpty) {
       return MotivoDelloScarto.genereContrario;
     }
-    if (_sgrammaticato.hasMatch(t)) return MotivoDelloScarto.sgrammaticato;
+    if (_sgrammaticato.hasMatch(t) || _minuscolaDopoIlPunto.hasMatch(t)) {
+      return MotivoDelloScarto.sgrammaticato;
+    }
     if (_gergo.hasMatch(t)) return MotivoDelloScarto.gergo;
     if (_decisioneGrave.hasMatch(t) ||
         (_domandaGrave.hasMatch(domanda) && _sceltaImposta.hasMatch(t))) {
@@ -735,14 +746,59 @@ abstract final class LeGuardieDelResponso {
     if (della.isNotEmpty && _radici(r).intersection(della).isEmpty) {
       return MotivoDelloScarto.nonNominaLaDomanda;
     }
-    final basso = r.toLowerCase();
     for (final n in nomiDellaScena) {
-      if (n.length > 3 && basso.contains(n.toLowerCase())) {
+      if (nominaIlPezzo(r, n, dellaDomanda: '$domanda ${oggetto ?? ''}')) {
         return MotivoDelloScarto.anticipaLaScena;
       }
     }
     return null;
   }
+
+  /// **UN TESTO NOMINA UN PEZZO DELLA SCENA**: col nome intero, o con la
+  /// sua testa senza l'articolo. Alla riprova a video della build 2260 la
+  /// risposta del modello diceva *"un seme che puoi scegliere di
+  /// piantare"* sopra la scena col seme, e la guardia cercava *"il
+  /// seme"*. **Non conta la parola che viene dalla domanda**: nominare la
+  /// cosa di cui si e' chiesto non anticipa niente.
+  static bool nominaIlPezzo(String testo, String nome,
+      {String dellaDomanda = ''}) {
+    if (nome.length > 3 && testo.toLowerCase().contains(nome.toLowerCase())) {
+      return true;
+    }
+    final testa = _testaDelPezzo(nome);
+    if (testa == null || _radici(dellaDomanda).contains(testa)) return false;
+    return _radici(testo).contains(testa);
+  }
+
+  /// La radice della prima parola piena del nome di un pezzo: *"seme"* da
+  /// *"il seme"*, *"alba"* da *"all'alba"*, *"notte"* da *"nella
+  /// notte"*.
+  static String? _testaDelPezzo(String nome) {
+    for (final w in nome.toLowerCase().split(RegExp("[\\s']+"))) {
+      if (w.length < 4 || _davantiAlPezzo.contains(w)) continue;
+      return w.length > 5 ? w.substring(0, 5) : w;
+    }
+    return null;
+  }
+
+  static const Set<String> _davantiAlPezzo = {
+    'nella',
+    'nello',
+    'nelle',
+    'negli',
+    'sotto',
+    'alla',
+    'allo',
+    'alle',
+    'sulla',
+    'sullo',
+    'dalla',
+    'dallo',
+    'della',
+    'dello',
+    'delle',
+    'degli',
+  };
 
   /// **IL GESTO**: una cosa sola, concreta, col suo tempo dentro; non un
   /// consiglio di vita; niente che tocchi un terzo o la salute, i soldi, la

@@ -419,7 +419,10 @@ abstract final class LaVoceDelMondoDiSotto {
     'attesa': [
       'Aspettare bene è diverso da aspettare e basta.',
       'Nel frattempo puoi preparare quello che serve dopo.',
-      'La tua vita non si è messa in pausa con lei.',
+      // **Qui c'era *"La tua vita non si e' messa in pausa con lei"***:
+      // dopo *"la domanda su tuo figlio"* la leggeva una donna. Alla
+      // riprova a video della build 2260.
+      'La tua vita non si è messa in pausa ad aspettare.',
       'Se arrivasse domani, sapresti che cosa fare?',
       'Non è fermo: è lento. Non è la stessa cosa.',
       'L\'attesa sta facendo un lavoro che non vedi.',
@@ -791,6 +794,44 @@ abstract final class LaVoceDelMondoDiSotto {
         temaDomanda, giro(giornoDellaDiscesa, giaOggi), const []);
   }
 
+  /// **I TITOLI CHE DICONO IL GENERE DELLA PERSONA DI CUI SI CHIEDE**, e la
+  /// loro forma al maschile. Alla riprova a video della build 2260 si e'
+  /// letto *"Chiedile come sta, davvero"* a chi chiedeva del figlio: il
+  /// titolo sta in cima, prima della ripresa che nomina *una persona*, e
+  /// il pronome si legge sul figlio. **Il mazzo resta di ventiquattro**:
+  /// col maschile si volgono, col genere che non si sa si saltano.
+  static const Map<String, String> _titoliAlMaschile = {
+    'Dille quello che non dici': 'Digli quello che non dici',
+    'Chiedile come sta, davvero': 'Chiedigli come sta, davvero',
+    'Guarda quanto spazio le lasci': 'Guarda quanto spazio gli lasci',
+    'Non è tenuta a indovinare': 'Non è tenuto a indovinare',
+    'Quanto la pensi è la risposta': 'Quanto lo pensi è la risposta',
+    'Puoi volerle bene e stare lontano': 'Puoi volergli bene e stare lontano',
+    'Lasciale il tempo che chiedi per te':
+        'Lasciagli il tempo che chiedi per te',
+  };
+
+  static final Map<String, String> _dalMaschile = {
+    for (final e in _titoliAlMaschile.entries) e.value: e.key,
+  };
+
+  /// **IL GENERE DELLA PERSONA DI CUI PARLA LA DOMANDA**, dalla prima
+  /// parola di parentela o di relazione: *"Mia moglie vuole un altro
+  /// figlio"* parla della moglie. **Un nome proprio non lo dice**, e
+  /// nemmeno una domanda senza nessuno: nulla.
+  static String? genereDellaPersona(String domanda) {
+    final m = RegExp(
+            '(?<![a-zàèéìòù])(?:(figlio|padre|papà|babbo|fratello|marito|'
+            'compagno|fidanzato|ragazzo|amico|zio|nonno|cugino|suocero|'
+            'cognato|socio|capo|lui)|(figlia|madre|mamma|sorella|moglie|'
+            'compagna|fidanzata|ragazza|amica|zia|nonna|cugina|suocera|'
+            'cognata|socia|lei|persona))(?![a-zàèéìòù])',
+            caseSensitive: false)
+        .firstMatch(domanda);
+    if (m == null) return null;
+    return m.group(1) != null ? 'maschile' : 'femminile';
+  }
+
   /// **LA CHIAVE DEL MAZZO**: il tema, quando e' uno dei sei, o `nulla`.
   static String _chiaveDi(String? tema) =>
       titoliPerTema.containsKey(tema) ? tema! : 'nulla';
@@ -818,7 +859,8 @@ abstract final class LaVoceDelMondoDiSotto {
   /// del giorno, e senza memoria il mazzo gira col giorno: la voce di prima
   /// dell'ordine DJ, per le prove che non hanno un Diario.
   static String _titoloDelMazzo(
-      String? temaDomanda, int g, List<ResponsoLetto> letti) {
+      String? temaDomanda, int g, List<ResponsoLetto> letti,
+      {String? domanda}) {
     final chiave = _chiaveDi(temaDomanda);
     final quali = titoliPerTema[temaDomanda] ?? titoliSenzaDomanda;
     final n = quali.length;
@@ -836,26 +878,33 @@ abstract final class LaVoceDelMondoDiSotto {
     final ordine = [
       for (var i = 0; i < n; i++) quali[mescolato(i, n, 'mazzo $chiave')]
     ];
+    // **IL GENERE DELLA PERSONA**, alla riprova a video della 2260. Senza
+    // domanda resta il mazzo di prima.
+    final genere = domanda == null ? 'femminile' : genereDellaPersona(domanda);
+    bool ammesso(String t) =>
+        genere != null || !_titoliAlMaschile.containsKey(t);
+    String adatta(String t) =>
+        genere == 'maschile' ? (_titoliAlMaschile[t] ?? t) : t;
     final delTema = [
       for (final l in letti)
         if (_chiaveDi(l.tema) == chiave &&
             l.titolo != null &&
-            ordine.contains(l.titolo))
-          l.titolo!,
+            ordine.contains(_dalMaschile[l.titolo] ?? l.titolo))
+          _dalMaschile[l.titolo] ?? l.titolo!,
     ];
     final mazzo = <String>{};
     for (final t in delTema) {
       if (!mazzo.add(t)) break;
     }
-    if (mazzo.length >= n) mazzo.clear();
+    if (ordine.where(ammesso).every(mazzo.contains)) mazzo.clear();
     final partenza = delTema.isEmpty
         ? FiloDellaVoce.da(['titolo', chiave]).seme % n + g
         : ordine.indexOf(delTema.first) + 1;
     for (var k = 0; k < n; k++) {
       final t = ordine[(partenza + k) % n];
-      if (!mazzo.contains(t)) return t;
+      if (!mazzo.contains(t) && ammesso(t)) return adatta(t);
     }
-    return ordine[partenza % n];
+    return adatta(ordine.firstWhere(ammesso));
   }
 
   /// **IL TITOLO DI CASA DI UNA DISCESA**, dal mazzo, prima della scena.
@@ -864,8 +913,11 @@ abstract final class LaVoceDelMondoDiSotto {
   /// il primo giro il titolo e' obbligato. **Non si salta il titolo: e' la
   /// scena che evita il titolo**, vedi `IlResponsoDelViaggio.componi`.
   static String titoloDelGiorno(String? temaDomanda, DateTime giorno,
-          {int giaOggi = 0, List<ResponsoLetto> letti = const []}) =>
-      _titoloDelMazzo(temaDomanda, giro(giorno, giaOggi), letti);
+          {int giaOggi = 0,
+          List<ResponsoLetto> letti = const [],
+          String? domanda}) =>
+      _titoloDelMazzo(temaDomanda, giro(giorno, giaOggi), letti,
+          domanda: domanda);
 
   /// **I NOMI DEI QUATTRO PEZZI DELLA SCENA**, per la voce DN.03.
   static List<String> nomiDeiPezzi(ScenaDelViaggio s) =>
@@ -883,9 +935,10 @@ abstract final class LaVoceDelMondoDiSotto {
     int? formaDellaScena,
     List<ResponsoLetto> letti = const [],
     String? oggettoDellaDomanda,
+    String? domanda,
   }) {
     final g = giro(giornoDellaDiscesa, giaOggi);
-    final titolo = _titoloDelMazzo(temaDomanda, g, letti);
+    final titolo = _titoloDelMazzo(temaDomanda, g, letti, domanda: domanda);
     final (righe, risposta, gesto) = _paragrafiAlGiro(
         scena, temaDomanda, temaInLettere, g, formaDellaScena,
         titolo: titolo, letti: letti, oggetto: oggettoDellaDomanda);

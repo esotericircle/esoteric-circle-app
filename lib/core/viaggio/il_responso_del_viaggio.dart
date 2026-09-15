@@ -7,6 +7,7 @@ import 'la_scena_dal_modello.dart';
 import 'la_voce_del_mondo_di_sotto.dart';
 import 'scena_del_viaggio.dart';
 import 'le_guardie_del_responso.dart';
+import 'vocabolario_del_viaggio.dart';
 
 /// **IL RESPONSO DEL VIAGGIO, in un posto solo.** Ordine DI voce 16,
 /// 13 settembre 2026.
@@ -211,7 +212,7 @@ class IlResponsoDelViaggio {
     // di quello del modello, e la misura a cento discese ne perdeva uno su
     // sette.
     final titoloDiCasa = LaVoceDelMondoDiSotto.titoloDelGiorno(id, giorno,
-        giaOggi: giaOggi, letti: letti);
+        giaOggi: giaOggi, letti: letti, domanda: domanda);
     bool tocca(String t, ScenaDelViaggio s) =>
         LeGuardieDelResponso.titoloToccaLaScena(
             t, LaVoceDelMondoDiSotto.nomiDeiPezzi(s));
@@ -229,12 +230,19 @@ class IlResponsoDelViaggio {
           animale: animale,
           siPuoDire: siPuoDire,
           conDomanda: conDomanda,
+          // **E LA RISPOSTA CHE NE NOMINA LA TESTA**, alla riprova a video
+          // della 2260: *"un seme"* e il pezzo *"il seme"*. Il gesto
+          // dell'animale si guarda solo per intero.
           evita: (pezzo) =>
               LeGuardieDelResponso.titoloToccaLaScena(titolo, [pezzo.nome]) ||
-              (pezzo.nome.length > 3 &&
-                  (scritti.risposta ?? '')
-                      .toLowerCase()
-                      .contains(pezzo.nome.toLowerCase())),
+              (pezzo.categoria == CategoriaDellaScena.gesto
+                  ? pezzo.nome.length > 3 &&
+                      (scritti.risposta ?? '')
+                          .toLowerCase()
+                          .contains(pezzo.nome.toLowerCase())
+                  : LeGuardieDelResponso.nominaIlPezzo(
+                      scritti.risposta ?? '', pezzo.nome,
+                      dellaDomanda: '$domanda ${oggetto ?? ''}')),
         );
     ScenaDelViaggio scena;
     String titolo;
@@ -272,6 +280,7 @@ class IlResponsoDelViaggio {
       formaDellaScena: forma,
       letti: letti,
       oggettoDellaDomanda: oggetto,
+      domanda: domanda,
     );
     // **IL TITOLO, LA RISPOSTA E IL GESTO DEL MODELLO**, ordine DL voci 07 e
     // 13: ognuno prende il posto di quello di casa soltanto se ha retto alle
