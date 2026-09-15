@@ -107,6 +107,7 @@ void main() {
             azione('Entro sabato lascia il lavoro in banca.'),
         MotivoDelloScarto.gergo: risposta('È tempo di vederla in te.'),
         MotivoDelloScarto.tempoNelTitolo: titolo('Guardati attorno ora'),
+        MotivoDelloScarto.sgrammaticato: titolo('Ciò che puoi dare è te'),
         MotivoDelloScarto.titoloAnticipaLaScena:
             LeGuardieDelResponso.titoloToccaLaScena(
                     'La porta non è tua', const ['la porta chiusa'])
@@ -149,7 +150,10 @@ void main() {
               'comodino.'),
           isNull,
           reason: 'il foglio non e un terzo');
-      expect(azione('Stasera pensa a lui per un minuto. Poi lascialo.'),
+      // **Qui c'era *"Stasera pensa a lui"***: dalla 2259 l'invito a
+      // pensare si scarta prima, anche dopo il tempo, e la riga non
+      // misurava piu' il terzo.
+      expect(azione('Stasera scrivi a lui due righe. Poi lascialo.'),
           MotivoDelloScarto.toccaUnTerzo);
       expect(azione('Entro sabato lasciala perdere, senza spiegazioni.'),
           MotivoDelloScarto.toccaUnTerzo);
@@ -733,6 +737,68 @@ void main() {
       );
       expect(senza.paragrafi.first, isNot(contains('trasloco')));
     });
+  });
+
+  test('LE CURE DELLA RIPROVA A VIDEO DELLA 2259', () {
+    // **ORDINE DN VOCE 08**: a *"Devo decidere se operarmi al
+    // ginocchio"* il modello ha scritto *"quella che risuona con te"* e
+    // *"visualizza entrambe le opzioni. Scegli quella che ti fa sentire
+    // piu' leggero"*; a un'altra domanda *"Cio' che puoi dare e' te"*.
+    const ginocchio = 'Devo decidere se operarmi al ginocchio';
+    MotivoDelloScarto? gesto(String a,
+            {String domanda = ginocchio,
+            CourtesyForm forma = CourtesyForm.masculine}) =>
+        LeGuardieDelResponso.dellAzione(a, domanda: domanda, forma: forma);
+    MotivoDelloScarto? risp(String r) => LeGuardieDelResponso.dellaRisposta(r,
+        domanda: ginocchio, forma: CourtesyForm.masculine);
+
+    // L'ordine su come scegliere, soltanto a una domanda grave.
+    expect(
+        gesto('Domani mattina scrivi le due strade su un foglio. '
+            'Scegli quella che ti pesa meno.'),
+        MotivoDelloScarto.decisioneGrave);
+    expect(
+        gesto(
+            'Stasera scrivi i due nomi su un foglio. '
+            'Scegli quello che ti pesa meno.',
+            domanda: 'Che nome do al gatto nuovo'),
+        isNull);
+    expect(
+        risp('Fatti operare al ginocchio.'), MotivoDelloScarto.decisioneGrave);
+    expect(risp('La decisione di operarti al ginocchio è tua.'), isNull);
+
+    // Il gergo della stessa famiglia.
+    expect(risp('Sul ginocchio conta quello che risuona con te.'),
+        MotivoDelloScarto.gergo);
+    expect(risp('La risposta sul ginocchio è già dentro di te.'),
+        MotivoDelloScarto.gergo);
+
+    // Il genere con l'avverbio in mezzo.
+    expect(risposta('Guarda cosa ti fa sentire più leggero.'),
+        MotivoDelloScarto.genereContrario);
+    expect(
+        risposta('Puoi sentirti più sollevata.', forma: CourtesyForm.masculine),
+        MotivoDelloScarto.genereContrario);
+
+    // L'invito a riflettere dopo il tempo, in ogni frase.
+    expect(
+        gesto('Domani mattina, prima di alzarti, visualizza le due '
+            'strade. Poi scrivile su un foglio.'),
+        MotivoDelloScarto.consiglioDiVita);
+    expect(
+        gesto('Domani mattina, prima di alzarti, scrivi le due strade su '
+            'un foglio. Poi rileggile.'),
+        isNull);
+
+    // L'italiano che non esiste, e quello che esiste.
+    expect(
+        LeGuardieDelResponso.delTitolo('Ciò che puoi dare è te',
+            domanda: ginocchio, forma: CourtesyForm.masculine),
+        MotivoDelloScarto.sgrammaticato);
+    expect(
+        LeGuardieDelResponso.delTitolo('È te che riguarda',
+            domanda: ginocchio, forma: CourtesyForm.masculine),
+        isNull);
   });
 
   test('LA RICHIESTA DICE AL MODELLO QUANDO LA DOMANDA PARLA DI UN ALTRO', () {

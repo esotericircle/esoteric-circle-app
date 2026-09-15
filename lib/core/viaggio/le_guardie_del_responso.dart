@@ -48,6 +48,8 @@ enum MotivoDelloScarto {
   titoloAnticipaLaScena,
   // Dalla riprova a video della 2255.
   tempoNelTitolo,
+  // Dalla riprova a video della 2259.
+  sgrammaticato,
 }
 
 /// Una riga scartata: quale pezzo, perche', e il testo.
@@ -170,6 +172,27 @@ abstract final class LeGuardieDelResponso {
       'visualizza)(?![$_l])|(?<![$_l])(riflettere|rifletti|meditare)(?![$_l])',
       caseSensitive: false);
 
+  /// **L'INVITO A RIFLETTERE IN OGNI FRASE DEL GESTO, dopo il tempo**,
+  /// alla riprova a video della build 2259: la guardia guardava solo
+  /// l'inizio del gesto, e il gesto del modello comincia quasi sempre da
+  /// un tempo. *"Domani mattina, prima di alzarti, visualizza entrambe le
+  /// opzioni"* passava.
+  static bool invitaARiflettere(String a) {
+    for (final f in a.split(RegExp(r'[.!?]'))) {
+      final dopoIlTempo = f
+          .trim()
+          .replaceFirst(RegExp(r'^(?:[^,]{1,40},\s*)+'), '')
+          .replaceFirst(_aperturaDiTempo, '');
+      if (_riflessione.hasMatch(dopoIlTempo)) return true;
+    }
+    return false;
+  }
+
+  static final RegExp _aperturaDiTempo = RegExp(
+      '^(?:(?:poi|dopo|quindi|stasera|stanotte|stamattina|domattina|'
+      'domani|oggi|mattina|sera|adesso|ora)\\s+)+',
+      caseSensitive: false);
+
   /// **UN GESTO CHE TOCCA UN TERZO** in un modo che puo' ferirlo o mettere in
   /// imbarazzo chi legge: confrontare, accusare, pretendere, rompere un
   /// rapporto, rivelare qualcosa a qualcuno.
@@ -269,7 +292,35 @@ abstract final class LeGuardieDelResponso {
       'vendere (?:la )?casa|taglia i (?:ponti|rapporti)|'
       'tagliare i (?:ponti|rapporti)|chiudi (?:il|la) (?:rapporto|relazione)|'
       'devi (?:lasciare|licenziarti|dimetterti|separarti|trasferirti|'
-      'vendere|andartene|chiudere)');
+      'vendere|andartene|chiudere)|'
+      // **E OPERARSI**, alla riprova a video della 2259: e' grave e non
+      // si torna indietro, come le altre.
+      'operati|fatti operare|non operarti|devi operarti|'
+      'fai l.intervento|non fare l.intervento');
+
+  /// **UNA DOMANDA SU UNA DECISIONE GRAVE**, alla riprova a video della
+  /// build 2259: a *"Devo decidere se operarmi al ginocchio"* il modello
+  /// ha scritto *"Scegli quella che ti fa sentire piu' leggero"*. Non
+  /// dice quale, dice come scegliere: su una decisione grave e' un ordine
+  /// lo stesso, e la voce DN.04 dice *"cosa guardare, mai cosa fare"*.
+  static final RegExp _domandaGrave =
+      _parole('operar[a-zàèéìòù]*|operazione|intervento|lasciare|lascio|'
+          'separar[a-zàèéìòù]*|separo|divorzi[a-zàèéìòù]*|'
+          'trasferir[a-zàèéìòù]*|trasferisco|vendere casa|vendo casa|'
+          'licenzi[a-zàèéìòù]*|dimett[a-zàèéìòù]*|dimissioni|'
+          'tagliare i rapporti|taglio i rapporti');
+
+  /// Scegliere fra le strade della domanda, detto come un ordine.
+  static final RegExp _sceltaImposta = _parole(
+      'scegli quell[ao]|scegli l.opzione|scegli la (?:strada|via|opzione)|'
+      'segui quell[ao]|opta per|decidi per');
+
+  /// **UNA SEQUENZA CHE L'ITALIANO NON HA**, alla riprova a video della
+  /// build 2259: *"Cio' che puoi dare e' te"*, titolo del modello, invece
+  /// di *"sei tu"*. *"E' te che cerca"* resta: si scarta solo in fondo
+  /// alla frase.
+  static final RegExp _sgrammaticato =
+      RegExp('(?<![$_l])(?:è|era) te(?! *[$_l])', caseSensitive: false);
 
   /// **IL GERGO DA CORSO MOTIVAZIONALE**, ordine DN voce 04: *"E' tempo di
   /// vederla in te"* non prende posizione, fa finta. Si scarta perche' e'
@@ -283,7 +334,13 @@ abstract final class LeGuardieDelResponso {
       'abbraccia il cambiamento|'
       'è tempo di|è il tempo di|il tuo percorso|la tua essenza|'
       'energia positiva|energie positive|apriti a|aprirti a|'
-      'un processo|il processo|questo processo');
+      'un processo|il processo|questo processo|'
+      // **E IL RESTO DELLA FAMIGLIA**, alla riprova a video della 2259:
+      // *"quella che risuona con te"*, *"La risposta e' gia' dentro"*,
+      // *"non definisce il tuo valore"*, a chi chiede se operarsi.
+      'risuona|risuonano|risuonare|risuoni|già dentro di te|'
+      'la risposta è (?:già )?dentro|pace interiore|'
+      'definisce il tuo valore|definiscono il tuo valore');
 
   /// **UN'INDICAZIONE DI TEMPO**, che il gesto del modello porta dentro di
   /// se': ordine DL voce 13. E' la stessa famiglia dei tempi di casa.
@@ -415,8 +472,12 @@ abstract final class LeGuardieDelResponso {
     if (formeContrarieAllaForma(t, forma).isNotEmpty) {
       return MotivoDelloScarto.genereContrario;
     }
+    if (_sgrammaticato.hasMatch(t)) return MotivoDelloScarto.sgrammaticato;
     if (_gergo.hasMatch(t)) return MotivoDelloScarto.gergo;
-    if (_decisioneGrave.hasMatch(t)) return MotivoDelloScarto.decisioneGrave;
+    if (_decisioneGrave.hasMatch(t) ||
+        (_domandaGrave.hasMatch(domanda) && _sceltaImposta.hasMatch(t))) {
+      return MotivoDelloScarto.decisioneGrave;
+    }
     if (_fuocoComeInvito.hasMatch(t)) return MotivoDelloScarto.fuoco;
     if (statoDiUnTerzo(t, domanda, ognunaCheLoNomina: ognunaCheLoNomina)) {
       return MotivoDelloScarto.statoDiUnTerzo;
@@ -704,9 +765,7 @@ abstract final class LeGuardieDelResponso {
         nomiAmmessi: nomiAmmessi,
         ognunaCheLoNomina: false);
     if (comune != null) return comune;
-    if (_riflessione.hasMatch(a.trim())) {
-      return MotivoDelloScarto.consiglioDiVita;
-    }
+    if (invitaARiflettere(a)) return MotivoDelloScarto.consiglioDiVita;
     if (_fuocoNelGesto.hasMatch(a)) return MotivoDelloScarto.fuoco;
     if (_terzi.hasMatch(a)) return MotivoDelloScarto.toccaUnTerzo;
     if (_saluteDenaroLegge.hasMatch(a)) {

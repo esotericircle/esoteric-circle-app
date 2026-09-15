@@ -402,7 +402,10 @@ abstract final class LaVoceDelMondoDiSotto {
     'blocco': [
       'Non è un blocco: stai tenendo due cose insieme.',
       'Il pezzo che manca lo hai già usato altrove.',
-      'Prova a farlo male, tanto per farlo.',
+      // **Qui c'era *"Prova a farlo male, tanto per farlo"***, che a chi
+      // non riesce a perdonarsi un errore suonava come una beffa: alla
+      // riprova a video della build 2259.
+      'Cambia il punto da cui lo guardi, prima di spingere ancora.',
       'Chiedi aiuto: è la parte che stai saltando.',
       'Ci torni perché non è chiuso, non perché sei debole.',
       'Quel blocco sta proteggendo qualcosa che non vuoi guardare.',
@@ -446,7 +449,11 @@ abstract final class LaVoceDelMondoDiSotto {
       'Non devi rimpiazzarla subito con qualcosa.',
       'Quello che ti manca non è la cosa: è chi eri lì.',
       'Ringraziala, anche se è finita male.',
-      'È finito. Non sei tu che devi farlo finire.',
+      // **Qui c'era *"E' finito. Non sei tu che devi farlo finire"***:
+      // dopo la ripresa il soggetto diventava l'oggetto della domanda, e
+      // *"la domanda sul fuoco. E' finito"* diceva finito il fuoco. Alla
+      // riprova a video della build 2259.
+      'Una fine arriva anche senza la tua spinta.',
       'Quello che hai imparato lì non finisce con la cosa.',
       'Stai tenendo aperta una porta per non sentire il rumore.',
       'La fine non cancella: mette da parte.',

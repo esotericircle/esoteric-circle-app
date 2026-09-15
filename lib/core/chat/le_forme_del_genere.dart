@@ -199,7 +199,11 @@ final RegExp _cliticoConParticipio = RegExp(
 final RegExp _cliticoCheRegge = RegExp(
     r'(?<![a-zàèéìòù])ti (?:tiene|tengono|terrà|rende|rendono|renderà|lascia|'
     r'lasciano|lascerà|fa sentire|fanno sentire|vuole|vogliono|trova|trovano|'
-    r'vede|vedono) ([a-zàèéìòù]+)',
+    r'vede|vedono) '
+    // *"ti fa sentire piu' leggero"*, alla riprova a video della 2259:
+    // l'avverbio in mezzo nascondeva l'aggettivo.
+    r'(?:(?:più|meno|così|troppo|molto|tanto|ancora|già|davvero) )?'
+    r'([a-zàèéìòù]+)',
     caseSensitive: false);
 
 /// **IL RIFLESSIVO DI CHI LEGGE COL PARTICIPIO FUORI DAL DIZIONARIO**,
@@ -212,6 +216,7 @@ final RegExp _riflessivoCheRegge = RegExp(
     r'ti senti|ti sentirai|ti sentiresti|ti sei sentit[oa]|'
     // *"Puoi essergli vicina"*, alla riprova della 2254.
     r'essergli|esserle|essere loro|stargli|starle|restargli|restarle) '
+    r'(?:(?:più|meno|così|troppo|molto|tanto|ancora|già|davvero) )?'
     r'([a-zàèéìòù]+)',
     caseSensitive: false);
 
