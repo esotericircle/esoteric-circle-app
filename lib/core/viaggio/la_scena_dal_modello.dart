@@ -299,6 +299,17 @@ abstract final class LaScenaDalModello {
       ..writeln('Domanda: ${s.domanda.trim().isEmpty ? 'nessuna, la '
           'discesa è soltanto per incontrarlo' : s.domanda.trim()}')
       ..writeln('Tema: ${s.tema ?? 'nessuno'}')
+      // **LA DOMANDA PARLA DI UN'ALTRA PERSONA, E GLIELO SI DICE**, ordine
+      // DN voce 08: la regola in positivo scartava quasi tutte le risposte
+      // del modello sulle domande che parlano di un altro, perche' il
+      // modello non sapeva che per quella domanda valeva. Adesso lo legge
+      // nella richiesta, con la forma che la guardia pretende.
+      ..write(LeGuardieDelResponso.parlaDiUnTerzo(s.domanda)
+          ? 'La domanda parla di un\'altra persona: il titolo e OGNI frase '
+              'della risposta cominciano da chi legge, "Puoi", "Non puoi", '
+              '"Tocca a te", "Scegli", "Guarda". Dell\'altra persona non '
+              'dire niente di ciò che prova, pensa, vede, vuole o fa.\n'
+          : '')
       // **SENZA OGGETTO LA RIGA NON C'E'**, ordine DL voce 08: con *"non
       // noto"* il modello prendeva le due parole per la cosa chiesta, e
       // scriveva *"Quel 'non noto' che e' finito"*. Trovato leggendo le

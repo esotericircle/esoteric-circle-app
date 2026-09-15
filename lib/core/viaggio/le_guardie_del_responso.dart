@@ -133,6 +133,16 @@ abstract final class LeGuardieDelResponso {
           '(è|ha|hanno|sono) già [a-zàèéìòù]+(at|ut|it)[oaie]|'
           'non è (ancora )?(il )?(suo |tuo |questo )?(momento|tempo)');
 
+  /// **IL FUTURO DENTRO UN DUBBIO NON E' UNA PREVISIONE**, ordine DN voce
+  /// 08: *"Non puoi sapere se tua sorella diventera' mamma"* e' la frase
+  /// che l'ordine ammette, e con ogni futuro nella guardia cadeva. Si toglie
+  /// la domanda che chi legge non puo' sciogliere, poi si guarda il resto.
+  static final RegExp _ilDubbio = RegExp(
+      '(?<![$_l])(?:sapere|sai|saprai|prevedere|prevedi|dire|capire|'
+      'immaginare|chiederti|chiedi|decidere) (?:se|quando|come|cosa|chi|'
+      'dove|quanto)[^.!?;]*',
+      caseSensitive: false);
+
   /// **UNA PROMESSA** su salute, denaro, morte, gravidanza, cause legali o
   /// eventi garantiti: in un responso del Viaggio queste parole non stanno.
   static final RegExp _promessa =
@@ -394,7 +404,9 @@ abstract final class LeGuardieDelResponso {
       }
     }
     if (_primaPersona.hasMatch(t)) return MotivoDelloScarto.primaPersona;
-    if (_certezza.hasMatch(t)) return MotivoDelloScarto.previsioneCerta;
+    if (_certezza.hasMatch(t.replaceAll(_ilDubbio, ' '))) {
+      return MotivoDelloScarto.previsioneCerta;
+    }
     if (_diagnosi.hasMatch(t)) return MotivoDelloScarto.diagnosi;
     if (_promessa.hasMatch(t)) return MotivoDelloScarto.promessa;
     if (_nomeProprioInventato(t, domanda, nomiAmmessi)) {
@@ -433,11 +445,7 @@ abstract final class LeGuardieDelResponso {
   ///     "Il desiderio di tua sorella e' un processo..."      scartata
   static bool statoDiUnTerzo(String t, String domanda,
       {bool ognunaCheLoNomina = true}) {
-    final nomi = [
-      for (final m in RegExp('(?<=[a-zàèéìòù,;] )([A-ZÀ-Ý][a-zà-ÿ]+)')
-          .allMatches(domanda))
-        m.group(1)!,
-    ];
+    final nomi = _nomiDellaDomanda(domanda);
     final terzo = [
       _terzoPerRelazione,
       for (final n in nomi) RegExp.escape(n),
@@ -448,10 +456,7 @@ abstract final class LeGuardieDelResponso {
     // solo se la domanda ha un terzo**: alla domanda *"Ho una scelta
     // davanti"* la frase *"Il suo senso apparira' dopo"* parla della scelta,
     // e la misura dell'ordine DN la scartava.
-    final domandaConUnTerzo = nomi.isNotEmpty ||
-        RegExp('(?<![$_l])(?:$_parenti|persona|persone|lui|lei)(?![$_l])',
-                caseSensitive: false)
-            .hasMatch(domanda);
+    final domandaConUnTerzo = parlaDiUnTerzo(domanda);
     final delPossessivo = domandaConUnTerzo
         ? '|^(?:il|la|lo|i|gli|le|l.)\\s?(?:suo|sua|suoi|sue) [$_l]+'
         : '';
@@ -568,6 +573,27 @@ abstract final class LeGuardieDelResponso {
     }
     return false;
   }
+
+  /// **SE LA DOMANDA PARLA DI UN'ALTRA PERSONA**: per parentela o
+  /// relazione, per *persona*, *lui*, *lei*, o per un nome che la persona
+  /// ha scritto. La usa la guardia, e la usa la richiesta al modello per
+  /// dirglielo prima: ordine DN voce 08.
+  static bool parlaDiUnTerzo(String domanda) =>
+      _nomiDellaDomanda(domanda).isNotEmpty ||
+      RegExp('(?<![$_l])(?:$_parenti|persona|persone|lui|lei)(?![$_l])',
+              caseSensitive: false)
+          .hasMatch(domanda);
+
+  /// I nomi propri della domanda: una parola con la maiuscola dentro la
+  /// frase. **Non dopo una preposizione di luogo**: *"Mi trasferisco a
+  /// Berlino"* non parla di una persona, e la regola dei terzi si
+  /// applicava alla citta'. Ordine DN voce 08.
+  static List<String> _nomiDellaDomanda(String domanda) => [
+        for (final m in RegExp('(?<![$_l])(?<!(?:^| )(?:a|in|verso) )'
+                '(?<=[a-zàèéìòù,;] )([A-ZÀ-Ý][a-zà-ÿ]+)')
+            .allMatches(domanda))
+          m.group(1)!,
+      ];
 
   /// **IL TITOLO NON CONTIENE UN PEZZO DELLA SCENA.** Ordine DN voce 03. Si
   /// confronta per radici: *"la porta socchiusa"* nella scena e *"la

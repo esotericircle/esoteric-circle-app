@@ -125,6 +125,11 @@ void main() {
         'prima di lei" no, come dice l\'ordine', () {
       expect(risposta('Tua sorella avrà un bambino.'),
           MotivoDelloScarto.previsioneCerta);
+      // **IL FUTURO DENTRO UN DUBBIO**, dalla misura sulla 2258.
+      expect(risposta('Non puoi sapere se tua sorella diventerà mamma.'),
+          isNot(MotivoDelloScarto.previsioneCerta));
+      expect(risposta('Tua sorella diventerà mamma presto.'),
+          MotivoDelloScarto.previsioneCerta);
       // **LA NECESSITA' DI UN EVENTO**, dalla riprova a video della 2256.
       expect(risposta('Per tua sorella qualcosa di diverso deve accadere.'),
           MotivoDelloScarto.previsioneCerta);
@@ -442,6 +447,15 @@ void main() {
               'Non puoi cambiare la rabbia di tua madre.',
               'Mia madre e arrabbiata con me'),
           isFalse);
+      // **LA CITTA' NON E' UNA PERSONA**, dalla misura sulla 2258.
+      expect(
+          LeGuardieDelResponso.parlaDiUnTerzo(
+              'Mi trasferisco a Berlino o resto qui'),
+          isFalse);
+      expect(
+          LeGuardieDelResponso.parlaDiUnTerzo(
+              'Ho chiuso con Luca dopo sei anni'),
+          isTrue);
       // **DALLA RIPROVA A VIDEO DELLA BUILD 2257**: la regola in positivo.
       expect(
           LeGuardieDelResponso.statoDiUnTerzo(
@@ -719,6 +733,24 @@ void main() {
       );
       expect(senza.paragrafi.first, isNot(contains('trasloco')));
     });
+  });
+
+  test('LA RICHIESTA DICE AL MODELLO QUANDO LA DOMANDA PARLA DI UN ALTRO', () {
+    // **ORDINE DN VOCE 08**: senza, la regola in positivo scartava quasi
+    // tutte le risposte del modello sulle domande che parlano di un'altra
+    // persona.
+    String richiesta(String d) => LaScenaDalModello.richiesta(CioCheSiSa(
+          domanda: d,
+          tema: null,
+          animale: GuideAnimalDerivation.forSign(Zodiac.cancer),
+          natale: const NatalContext(),
+          memoria: '',
+          ultimeScene: const [],
+        ));
+    expect(richiesta('Mia sorella diventerà presto mamma?'),
+        contains("La domanda parla di un'altra persona"));
+    expect(richiesta('Mi trasferisco a Berlino o resto qui'),
+        isNot(contains("La domanda parla di un'altra persona")));
   });
 
   test('SENZA OGGETTO LA RICHIESTA NON NE PARLA, e con l\'oggetto lo nomina',
