@@ -108,6 +108,10 @@ void main() {
         MotivoDelloScarto.gergo: risposta('È tempo di vederla in te.'),
         MotivoDelloScarto.tempoNelTitolo: titolo('Guardati attorno ora'),
         MotivoDelloScarto.sgrammaticato: titolo('Ciò che puoi dare è te'),
+        // Ordine DQ voce 09 punto 4: si piega il foglio, non i passi.
+        MotivoDelloScarto.pronomeSenzaAccordo: azione(
+            'Stasera scrivi su un foglio i passi futuri. Piegali e mettili '
+            'sotto il cuscino.'),
         MotivoDelloScarto.titoloAnticipaLaScena:
             LeGuardieDelResponso.titoloToccaLaScena(
                     'La porta non è tua', const ['la porta chiusa'])
@@ -227,11 +231,13 @@ void main() {
   });
 
   group('ORDINE DN, IL FUOCO, I TERZI, LE DECISIONI, IL GERGO', () {
-    test('col fratello la ripresa di casa nomina la persona, non l oggetto',
+    test('col fratello la ripresa nomina il fratello, e nessuna risposta dice lei',
         () {
       // **DALLA PROVA A VIDEO DELLA BUILD 2252**: *"La domanda riguardava tuo
       // fratello. Quanto tempo le dedichi"*. Le risposte di casa del tema
-      // della persona dicono la, le, lei.
+      // della persona dicevano la, le, lei. **Dall'ordine DQ voce 09 punto 1
+      // non lo dicono piu'**, e la ripresa nomina il fratello: fino a li' lo
+      // taceva, per non far leggere *le* su un uomo.
       final animale = GuideAnimalDerivation.forSign(Zodiac.cancer);
       final riprese = <String, List<String>>{};
       for (final o in ['tuo fratello', 'tua sorella']) {
@@ -252,9 +258,15 @@ void main() {
         }
       }
       expect(riprese['tuo fratello']!.where((p) => p.contains('fratello')),
-          isEmpty);
+          hasLength(40));
       expect(riprese['tua sorella']!.where((p) => p.contains('sorella')),
           hasLength(40));
+      final femminile = RegExp(r'(?<![a-zàèéìòù])(?:lei|le [a-zàèéìòù]+i)'
+          r'(?![a-zàèéìòù])|(?:ar|er|ir)la(?![a-zàèéìòù])');
+      expect(
+          riprese['tuo fratello']!
+              .where((p) => femminile.hasMatch(p.split('. ')[1])),
+          isEmpty);
     });
 
     test('l oggetto plurale non va col singolare della ripresa', () {
@@ -881,12 +893,19 @@ void main() {
             .where(RegExp(r'(?<![a-z])lei(?![a-z])').hasMatch),
         isEmpty);
 
-    // **IL GERGO DEI TITOLI**: *"Cerca il tuo spazio"*.
+    // **IL GERGO DEI TITOLI**: *"Cerca il tuo nutrimento"*. *"Cerca il tuo
+    // spazio"* stava qui e dall'ordine DQ voce 07 passa: in italiano e' una
+    // locuzione normale.
+    expect(
+        LeGuardieDelResponso.delTitolo('Cerca il tuo nutrimento',
+            domanda: 'Mi sento ferma nel lavoro da mesi',
+            forma: CourtesyForm.feminine),
+        MotivoDelloScarto.gergo);
     expect(
         LeGuardieDelResponso.delTitolo('Cerca il tuo spazio',
             domanda: 'Mi sento ferma nel lavoro da mesi',
             forma: CourtesyForm.feminine),
-        MotivoDelloScarto.gergo);
+        isNull);
 
     // **VENDERE LA CASA, CON L'ARTICOLO**, e' una domanda grave.
     expect(
@@ -1108,7 +1127,15 @@ void main() {
         final coda = LaVoceDelMondoDiSotto.codaDellaRisposta
             .any((c) => r.paragrafi[0].endsWith(c) && _conTempo(c));
         final daDove = _conTempo(r.paragrafi[2]);
-        final tempi = _fontiDelTempo(gesto) + (coda ? 1 : 0) + (daDove ? 1 : 0);
+        // **E IL CORPO DELLA RISPOSTA**, ordine DQ voce 09 punto 5: qui si
+        // contavano la coda e la scena, non la risposta di casa, e *"Una
+        // direzione per oggi basta: domani la correggi"* passava sopra il
+        // gesto col suo tempo. Il punto cieco della guardia dell'ordine DN.
+        final nellaRisposta = _conTempo(r.risposta);
+        final tempi = _fontiDelTempo(gesto) +
+            (coda ? 1 : 0) +
+            (daDove ? 1 : 0) +
+            (nellaRisposta ? 1 : 0);
         if (tempi > 1) {
           doppi.add('$gesto | ${r.paragrafi[0]} | ${r.paragrafi[2]}');
         }

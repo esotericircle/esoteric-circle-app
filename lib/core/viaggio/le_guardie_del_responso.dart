@@ -50,6 +50,8 @@ enum MotivoDelloScarto {
   tempoNelTitolo,
   // Dalla riprova a video della 2259.
   sgrammaticato,
+  // Ordine DQ voce 09, dalla lettura delle 1.100 risposte dell'ordine DN.
+  pronomeSenzaAccordo,
 }
 
 /// Una riga scartata: quale pezzo, perche', e il testo.
@@ -347,9 +349,15 @@ abstract final class LeGuardieDelResponso {
       'risuona|risuonano|risuonare|risuoni|già dentro di te|'
       'la risposta è (?:già )?dentro|pace interiore|'
       'definisce il tuo valore|definiscono il tuo valore|'
-      // *"Cerca il tuo spazio"*, *"Cerca il tuo nutrimento"*, titoli
-      // del modello alla riprova a video della 2260.
-      'il tuo spazio|il tuo nutrimento');
+      // *"Cerca il tuo nutrimento"*, titolo del modello alla riprova a
+      // video della 2260. **"Il tuo spazio" non c'e' piu'**, ordine DQ voce
+      // 07: *"scartare risposte decenti per una locuzione che in italiano
+      // e' normale e' un prezzo che non paga"*.
+      'il tuo nutrimento|'
+      // **E LE DUE VARIANTI CHE NON CONOSCEVA**, ordine DQ voce 09 punto 3,
+      // dalla lettura delle 1.100 risposte dell'ordine DN: *"e' gia' in
+      // te"* nove volte, *"Abbi fiducia nel processo"* una.
+      'è già in te|già in te|nel processo');
 
   /// **UN'INDICAZIONE DI TEMPO**, che il gesto del modello porta dentro di
   /// se': ordine DL voce 13. E' la stessa famiglia dei tempi di casa.
@@ -684,11 +692,48 @@ abstract final class LeGuardieDelResponso {
   /// Berlino"* non parla di una persona, e la regola dei terzi si
   /// applicava alla citta'. Ordine DN voce 08.
   static List<String> _nomiDellaDomanda(String domanda) => [
+        if (_ilNomeInTesta(domanda) case final nome?) nome,
         for (final m in RegExp('(?<![$_l])(?<!(?:^| )(?:a|in|verso) )'
                 '(?<=[a-zàèéìòù,;] )([A-ZÀ-Ý][a-zà-ÿ]+)')
             .allMatches(domanda))
           m.group(1)!,
       ];
+
+  /// **IL NOME IN TESTA ALLA DOMANDA.** Ordine DQ voce 08: *"Giulia non
+  /// risponde piu' ai miei messaggi"*. In testa la maiuscola ce l'ha ogni
+  /// parola, e dentro la frase il nome si riconosce dalla maiuscola sola:
+  /// in testa no. **E' un nome quando dopo viene la terza persona**, *non*,
+  /// *mi*, *ha*, *e'*, *dice*, cioe' quando la prima parola e' il soggetto
+  /// di un verbo che non e' di chi scrive, **e quando non e' una parola che
+  /// in testa a una frase ci sta sempre**: *"Oggi non ce la faccio"*,
+  /// *"Tutto mi sembra inutile"*.
+  static String? _ilNomeInTesta(String domanda) {
+    final m = RegExp('^([A-ZÀ-Ý][a-zà-ÿ]+) (?:non|mi|ti|ci|si|ha|hanno|è|era|'
+            'sta|stanno|dice|vuole|pensa|continua|risponde|scrive|parla|'
+            'sembra|mi ha|e|ed)(?![$_l])')
+        .firstMatch(domanda.trim());
+    final w = m?.group(1);
+    if (w == null || _nonSonoNomi.contains(w.toLowerCase())) return null;
+    return w;
+  }
+
+  /// Le parole che stanno in testa a una frase senza essere un nome: i
+  /// pronomi, gli articoli, le domande, i possessivi, le congiunzioni, gli
+  /// avverbi di tempo e di modo, gli indefiniti.
+  static const Set<String> _nonSonoNomi = {
+    'io', 'tu', 'lui', 'lei', 'noi', 'voi', 'loro', 'mi', 'ti', 'ci', 'si', //
+    'il', 'lo', 'la', 'i', 'gli', 'le', 'un', 'una', 'uno',
+    'che', 'chi', 'come', 'cosa', 'dove', 'quando', 'quanto', 'quanta',
+    'perché', 'perche', 'quale', 'quali',
+    'mio', 'mia', 'miei', 'mie', 'tuo', 'tua', 'suo', 'sua', 'nostro',
+    'nostra',
+    'e', 'ma', 'però', 'poi', 'quindi', 'allora', 'anche', 'se', 'non', 'né',
+    'oggi', 'ieri', 'domani', 'ora', 'adesso', 'stasera', 'sempre', 'mai',
+    'ancora', 'già', 'forse', 'spesso', 'qui', 'così', 'ecco', 'intanto',
+    'tutto', 'tutti', 'niente', 'nulla', 'nessuno', 'qualcosa', 'qualcuno',
+    'ognuno', 'ogni', 'questo', 'questa', 'quello', 'quella', 'altro',
+    'altra', 'nessuna', 'troppo', 'molto', 'poco',
+  };
 
   /// **IL TITOLO NON CONTIENE UN PEZZO DELLA SCENA.** Ordine DN voce 03. Si
   /// confronta per radici: *"la porta socchiusa"* nella scena e *"la
@@ -845,6 +890,7 @@ abstract final class LeGuardieDelResponso {
         ognunaCheLoNomina: false);
     if (comune != null) return comune;
     if (invitaARiflettere(a)) return MotivoDelloScarto.consiglioDiVita;
+    if (pronomeSenzaAccordo(a)) return MotivoDelloScarto.pronomeSenzaAccordo;
     if (_fuocoNelGesto.hasMatch(a)) return MotivoDelloScarto.fuoco;
     if (_terzi.hasMatch(a)) return MotivoDelloScarto.toccaUnTerzo;
     if (_saluteDenaroLegge.hasMatch(a)) {
@@ -853,6 +899,34 @@ abstract final class LeGuardieDelResponso {
     if (!indicazioneDiTempo.hasMatch(a)) return MotivoDelloScarto.senzaTempo;
     return null;
   }
+
+  /// **IL PRONOME DEL GESTO CONCORDA COL FOGLIO.** Ordine DQ voce 09 punto 4,
+  /// dalla lettura delle 1.100 risposte dell'ordine DN: *"scrivi su un
+  /// foglio tutti i possibili passi futuri. Piegali e mettili sotto il
+  /// cuscino"*. Si piega il foglio, non i passi. Quando il gesto scrive su
+  /// un supporto solo, i verbi che lo toccano con la mano lo vogliono al
+  /// singolare; con due fogli il plurale e' giusto.
+  static bool pronomeSenzaAccordo(String a) =>
+      _supportoSingolare.hasMatch(a) &&
+      !_supportoPlurale.hasMatch(a) &&
+      _laManoSulPlurale.hasMatch(a);
+
+  static final RegExp _supportoSingolare = _parole(
+      '(?:un|il|quel|lo stesso) (?:foglio|foglietto|biglietto|pezzo di carta|'
+      'quaderno|taccuino|cartoncino)|(?:una|la|quella) (?:pagina|busta|'
+      'cartolina|lettera)');
+
+  static final RegExp _supportoPlurale = _parole(
+      '(?:i|dei|due|tre|quattro|alcuni|questi|quei) (?:fogli|foglietti|'
+      'biglietti|pezzi di carta|quaderni|cartoncini)|(?:le|delle|due|tre|'
+      'alcune) (?:pagine|buste|cartoline|lettere)');
+
+  /// I verbi della mano, col clitico plurale attaccato: *piegali*,
+  /// *mettili*, *strappale*. *Leggile* no: le parole scritte si leggono.
+  static final RegExp _laManoSulPlurale = RegExp(
+      '(?<![$_l])(?:pieg|mett|strapp|chiud|nascond|seppellisc|gett|conserv|'
+      'tien|arrotol|butt|sotterr|appoggi|infil|ripon)[$_l]*(?:li|le)(?![$_l])',
+      caseSensitive: false);
 
   /// **LEGGE I TRE TESTI** della risposta del modello e li fa passare dalle
   /// guardie, uno per uno. Senza domanda non si leggono: la discesa soltanto

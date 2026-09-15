@@ -242,6 +242,17 @@ abstract final class IlTemaDellaDomandaLibera {
       ('ci ricado', 3),
       ('come faccio', 2),
       ('mai', 1),
+      // **LA SOLITUDINE**, ordine DQ voce 08: *"Mi sento sola anche quando
+      // sono con gli altri"* diventava il tema della persona, e la ripresa
+      // diceva *"quella persona"* a chi non ne aveva nominata nessuna. E'
+      // un peso che torna, come un blocco. **Pesa quattro, come le
+      // perdite**: quando nella domanda c'e' la solitudine e' di quella che
+      // si parla, e con tre il *quando* che le sta accanto la pareggiava.
+      ('mi sento sola', 4),
+      ('mi sento solo', 4),
+      ('sentirmi sola', 4),
+      ('sentirmi solo', 4),
+      ('solitudine', 4),
     ],
     TemaDellaDomanda.direzione: [
       ('strada', 3),

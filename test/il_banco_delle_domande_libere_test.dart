@@ -9,6 +9,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
 import 'package:esoteric_circle/core/viaggio/la_voce_del_mondo_di_sotto.dart';
+import 'package:esoteric_circle/core/viaggio/le_guardie_del_responso.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
 
 /// **IL BANCO DELLE DOMANDE LIBERE.** Ordine DL voce 09, 14 settembre 2026.
 ///
@@ -37,9 +39,14 @@ import 'package:esoteric_circle/core/viaggio/la_voce_del_mondo_di_sotto.dart';
 void main() {
   final token = Platform.environment['VERTEX_TOKEN'] ?? '';
 
-  test('IL BANCO HA ALMENO TRENTA DOMANDE, e ognuna ha i suoi temi', () {
-    cardinaleMinimo(banco.length, 30,
-        cosa: 'domande nel banco', perche: 'L ordine ne vuole almeno trenta.');
+  test('IL BANCO HA ALMENO TRENTACINQUE DOMANDE, e ognuna ha i suoi temi', () {
+    // **TRENTACINQUE DALL'ORDINE DQ VOCE 08**, che le vuole portare da
+    // trenta a trentacinque. Erano gia' trentasei, col minimo a trenta: le
+    // cinque dei due difetti del classificatore si aggiungono, e il minimo
+    // sale a quello che l'ordine dice.
+    cardinaleMinimo(banco.length, 35,
+        cosa: 'domande nel banco',
+        perche: 'L ordine DQ ne vuole almeno trentacinque.');
     for (final d in banco) {
       expect(d.accettati, isNotEmpty, reason: d.testo);
     }
@@ -86,6 +93,53 @@ void main() {
             'Mia sorella diventerà presto mamma?'),
         TemaDellaDomanda.attesa,
         reason: 'parla di una persona, ma chiede se una cosa arriva');
+  });
+
+  group('DQ.08, I DUE DIFETTI DEL CLASSIFICATORE', () {
+    test('la solitudine non e una domanda su una persona', () async {
+      // **DALLA MISURA DELL'ORDINE DN**: *"Mi sento sola anche quando sono
+      // con gli altri"* diventava il tema della persona, e la ripresa diceva
+      // *"Da un po' ti porti dietro quella persona"*: quale? Nella domanda
+      // non c'e' nessuno.
+      const sola = 'Mi sento sola anche quando sono con gli altri';
+      expect(IlTemaDellaDomandaLibera.perParole(sola), TemaDellaDomanda.blocco);
+      expect(LeGuardieDelResponso.parlaDiUnTerzo(sola), isFalse);
+      // E quando il modello dice persona lo stesso, vale la tabella.
+      final c = await LaDomandaCapita.capisci(sola,
+          chiamata: (i, d) async => '{"tema": "persona", "oggetto": ""}');
+      expect(c.tema, TemaDellaDomanda.blocco);
+      expect(c.fonte, FonteDelTema.parole);
+    });
+
+    test('il nome in testa alla domanda e una persona', () async {
+      // *"Giulia non risponde piu' ai miei messaggi"*: il nome si
+      // riconosceva solo dentro la frase, e la regola dei terzi non valeva.
+      const giulia = 'Giulia non risponde più ai miei messaggi';
+      expect(LeGuardieDelResponso.parlaDiUnTerzo(giulia), isTrue);
+      expect(
+          LeGuardieDelResponso.dellaRisposta('Giulia sta aspettando che tu scriva.',
+              domanda: giulia, forma: CourtesyForm.neutral),
+          MotivoDelloScarto.statoDiUnTerzo);
+      // Col nome in testa il modello che dice persona resta.
+      final c = await LaDomandaCapita.capisci(giulia,
+          chiamata: (i, d) async => '{"tema": "persona", "oggetto": "Giulia"}');
+      expect(c.tema, TemaDellaDomanda.persona);
+      expect(c.fonte, FonteDelTema.modello);
+    });
+
+    test('la parola in testa che non e un nome non diventa una persona', () {
+      for (final d in [
+        'Oggi non ce la faccio più',
+        'Non so più dove sto andando',
+        'Tutto mi sembra inutile',
+        'Ogni volta che devo parlare in pubblico mi blocco',
+        'Adesso non so cosa fare',
+        'Sto sbagliando strada con questo lavoro?',
+        'Ricado sempre negli stessi errori con i soldi',
+      ]) {
+        expect(LeGuardieDelResponso.parlaDiUnTerzo(d), isFalse, reason: d);
+      }
+    });
   });
 
   test('CON RETE: il classificatore vero sul banco', () async {
@@ -201,6 +255,13 @@ final List<DomandaDelBanco> banco = [
   _d('È finita la mia amicizia più lunga', [_finito]),
   _d('Sono andato in pensione e le giornate sono vuote', [_finito]),
   _d('Il progetto è saltato dopo due anni di lavoro', [_finito]),
+  // **I DUE DIFETTI DEL CLASSIFICATORE**, ordine DQ voce 08: la solitudine
+  // letta come una persona, e il nome in testa che non era una persona.
+  _d('Mi sento sola anche quando sono con gli altri', [_blocco, _direzione]),
+  _d('Da quando mi sono trasferito mi sento solo', [_blocco, _direzione]),
+  _d('La solitudine mi pesa sempre di più', [_blocco]),
+  _d('Giulia non risponde più ai miei messaggi', [_persona, _attesa]),
+  _d('Marco dice che ha bisogno di tempo', [_persona, _attesa]),
 ];
 
 /// **LA CHIAMATA VERA AL CLASSIFICATORE**, per REST, con la configurazione

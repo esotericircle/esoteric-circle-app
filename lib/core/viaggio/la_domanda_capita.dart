@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:firebase_ai/firebase_ai.dart';
 
 import 'il_tema_della_domanda_libera.dart';
+import 'le_guardie_del_responso.dart';
 import 'il_tetto_delle_chiamate.dart';
 import '../config/la_regione_dei_dati.dart';
 import 'la_domanda_del_viaggio.dart';
@@ -187,6 +188,21 @@ abstract final class LaDomandaCapita {
           .timeout(pazienza);
       final (id, oggetto) = _leggi(risposta);
       final dalModello = TemaDellaDomanda.daId(id);
+      // **UNA PERSONA SENZA NESSUNO NELLA DOMANDA**, ordine DQ voce 08: il
+      // modello leggeva *"Mi sento sola anche quando sono con gli altri"*
+      // come una domanda su una persona, e la ripresa diceva *"quella
+      // persona"*. Quando nella domanda non c'e' nessuno, per parentela,
+      // pronome o nome, e la tabella trova un altro tema, vale la tabella.
+      // Se la tabella non trova niente resta il modello: *"il mio cane"* e'
+      // una persona per chi lo chiede.
+      if (dalModello == TemaDellaDomanda.persona &&
+          !LeGuardieDelResponso.parlaDiUnTerzo(testo)) {
+        final tabella = dallaTabella();
+        if (tabella.tema != null && tabella.tema != dalModello) {
+          seGuasto?.call(PersonaSenzaNessuno(testo));
+          return tabella;
+        }
+      }
       if (dalModello != null) {
         return (
           tema: dalModello,
@@ -542,6 +558,16 @@ abstract final class LaDomandaCapita {
     final r = await m.generateContent([Content.text(domanda)]);
     return r.text;
   }
+}
+
+/// Il modello ha detto persona, e nella domanda non c'e' nessuno. Ordine DQ
+/// voce 08.
+class PersonaSenzaNessuno implements Exception {
+  const PersonaSenzaNessuno(this.domanda);
+  final String domanda;
+  @override
+  String toString() => 'il modello ha letto una persona in "$domanda", '
+      'che non ne nomina nessuna';
 }
 
 /// Il modello ha risposto con qualcosa che non e' uno dei sei id.

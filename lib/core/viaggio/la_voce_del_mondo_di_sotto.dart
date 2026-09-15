@@ -326,18 +326,14 @@ abstract final class LaVoceDelMondoDiSotto {
   /// metterci dentro l'oggetto.
   static String _ripresa(
       int indice, String temaDomanda, String temaInLettere, String? oggetto) {
-    // **LA PERSONA E' FEMMINILE, IL FRATELLO NO.** Ordine DN voce 08: le
-    // risposte e i titoli di casa del tema della persona la riprendono con
-    // *la*, *le*, *lei*, e alla prova a video della build 2252 si e' letto
-    // *"La domanda riguardava tuo fratello. Quanto tempo le dedichi"*. Con un
-    // oggetto che non e' femminile la ripresa nomina il tema, e i pronomi
-    // tornano alla persona.
-    final perLaPersona = temaDomanda != 'persona' ||
-        oggetto == null ||
-        RegExp(r'^(?:tua|tue|la|le|una|quella|questa|mia|sua) ',
-                caseSensitive: false)
-            .hasMatch(oggetto.trim());
-    if (oggetto != null && oggetto.trim().isNotEmpty && perLaPersona) {
+    // **LA RIPRESA NOMINA SEMPRE L'OGGETTO, anche il fratello.** Ordine DQ
+    // voce 09 punto 1. Dall'ordine DN voce 08, con un oggetto che non era
+    // femminile, la ripresa nominava il tema invece del fratello: le
+    // risposte di casa della persona dicevano *la*, *le*, *lei*, e dopo
+    // *"tuo fratello"* si leggeva *"Quanto tempo le dedichi"*. Era una
+    // toppa sul difetto vero, che era nelle risposte. Adesso le risposte non
+    // hanno marca di genere, e la ripresa nomina di chi si e' chiesto.
+    if (oggetto != null && oggetto.trim().isNotEmpty) {
       // **L'OGGETTO PLURALE NON VA COL SINGOLARE**, ordine DN voce 08:
       // *"Il motivo della discesa era le lettere"*, alla riprova a video
       // della 2256. Si prende la ripresa dopo.
@@ -382,21 +378,29 @@ abstract final class LaVoceDelMondoDiSotto {
       'Aspetti un segno che dica quale. Puoi scegliere anche senza.',
       'La paura è di perdere l\'altra, non di prendere questa.',
       'Se fossero davvero uguali, avresti già scelto.',
-      'Chiediti quale delle due puoi ancora cambiare fra un mese.',
+      // **SENZA TEMPO**, ordine DQ voce 09 punto 5, come le altre sei qui
+      // sotto: il tempo del responso e' quello del gesto. Diceva *"fra un
+      // mese"*.
+      'Chiediti quale delle due potresti ancora correggere.',
       'Stai cercando la scelta giusta: cerca quella che sai portare avanti.',
     ],
+    // **NESSUNA MARCA DI GENERE SULLA PERSONA DI CUI SI CHIEDE**, ordine DQ
+    // voce 09 punto 1. Dicevano *la*, *le*, *lei*, e alla misura dell'ordine
+    // DN sedici risposte su 1.100 lo dicevano di un uomo: *"Quanto tempo le
+    // dedichi"* alla domanda sul padre. La persona puo' essere chiunque, e
+    // la risposta di casa non ne sa il genere: adesso non lo dice.
     'persona': [
-      'Le stai dando un peso che solo tu puoi misurare.',
-      'Puoi tenerla vicino senza sapere che posto ha.',
+      'Il peso di questo rapporto puoi misurarlo solo tu.',
+      'Puoi restare vicino senza sapere che posto ha.',
       'Se ci pensi ogni giorno, il posto ce l\'ha già.',
       'Una conversazione breve vale sei mesi di ipotesi.',
       'Il posto che ha per te lo sai già: quello che manca è dirlo.',
-      'Stai aspettando che sia lei a nominare la cosa.',
-      'Quanto tempo le dedichi dice più di quanto ci pensi.',
+      'Aspetti che sia l\'altra parte a nominare la cosa.',
+      'Il tempo che dedichi a questo legame dice più di quanto ci pensi.',
       'La domanda vera non è che posto ha: è quanto te ne manca.',
-      'Non serve una definizione per trattarla bene.',
+      'Per trattare bene qualcuno non serve una definizione.',
       'Se dovessi allontanarti, sapresti già cosa perdi.',
-      'Le stai chiedendo una risposta che tocca a te.',
+      'Stai aspettando da fuori una risposta che tocca a te.',
       'Guarda cosa fa quando non deve.',
     ],
     'blocco': [
@@ -405,7 +409,7 @@ abstract final class LaVoceDelMondoDiSotto {
       // **Qui c'era *"Prova a farlo male, tanto per farlo"***, che a chi
       // non riesce a perdonarsi un errore suonava come una beffa: alla
       // riprova a video della build 2259.
-      'Cambia il punto da cui lo guardi, prima di spingere ancora.',
+      'Cambia il punto da cui lo guardi, invece di spingere ancora.',
       'Chiedi aiuto: è la parte che stai saltando.',
       'Ci torni perché non è chiuso, non perché sei debole.',
       'Quel blocco sta proteggendo qualcosa che non vuoi guardare.',
@@ -423,7 +427,7 @@ abstract final class LaVoceDelMondoDiSotto {
       // dopo *"la domanda su tuo figlio"* la leggeva una donna. Alla
       // riprova a video della build 2260.
       'La tua vita non si è messa in pausa ad aspettare.',
-      'Se arrivasse domani, sapresti che cosa fare?',
+      'Se arrivasse, sapresti che cosa fare?',
       'Non è fermo: è lento. Non è la stessa cosa.',
       'L\'attesa sta facendo un lavoro che non vedi.',
       'Stai guardando la porta: intanto la finestra è aperta.',
@@ -431,7 +435,7 @@ abstract final class LaVoceDelMondoDiSotto {
       'Quello che aspetti è già cambiato mentre aspettavi.',
       'Non tutto quello che tarda sta per arrivare.',
       'L\'attesa costa meno se smetti di controllarla ogni giorno.',
-      'Muovi una cosa piccola adesso, invece di aspettare quella grande.',
+      'Muovi una cosa piccola, invece di aspettare quella grande.',
     ],
     'direzione': [
       'Una direzione si trova camminando, non da fermi.',
@@ -440,7 +444,7 @@ abstract final class LaVoceDelMondoDiSotto {
       'Non ti manca la meta: ti manca il permesso.',
       'Non ti serve la mappa: ti serve il primo passo.',
       'Segui quello che ti tira, non quello che ti conviene.',
-      'Una direzione per oggi basta: domani la correggi.',
+      'Una direzione basta: la correggi strada facendo.',
       'Sai benissimo dove non vuoi andare: parti da lì.',
       'Stai cercando la strada giusta e ti basterebbe una strada.',
       'Chi non sa dove va arriva spesso dove voleva.',
@@ -449,7 +453,7 @@ abstract final class LaVoceDelMondoDiSotto {
     ],
     'finito': [
       'Finire è un lavoro. Lo stai facendo.',
-      'Non devi rimpiazzarla subito con qualcosa.',
+      'Non devi rimpiazzarla in fretta con qualcosa.',
       'Quello che ti manca non è la cosa: è chi eri lì.',
       'Ringraziala, anche se è finita male.',
       // **Qui c'era *"E' finito. Non sei tu che devi farlo finire"***:
@@ -509,7 +513,8 @@ abstract final class LaVoceDelMondoDiSotto {
     // maschile per chiunque legga. Ordine DI voce 05.
     'La discesa era l\'incontro. L\'incontro è avvenuto.',
     'Non hai chiesto niente. Hai visto lo stesso.',
-    'Oggi il Mondo di Sotto ti ha mostrato e basta.',
+    // Diceva *"Oggi"*, sopra il gesto col suo tempo: ordine DQ voce 09.
+    'Il Mondo di Sotto ti ha mostrato e basta.',
     'Non tutte le discese hanno una domanda.',
     'Hai voluto soltanto vedere. È già qualcosa.',
     'Nessuna domanda: solo la scena. Quella ti resta.',
@@ -523,24 +528,30 @@ abstract final class LaVoceDelMondoDiSotto {
   /// che si fa oggi**.
   static const List<String> cosaPuoiFare = [
     'Scrivi la domanda su un foglio e mettila dove la rivedi.',
-    'Dilla a una persona sola. Guarda come suona fuori.',
-    'Datti tre giorni. Alla fine scegli comunque.',
+    // **SEI GESTI RISCRITTI**, ordine DQ voce 09 punto 2: presupponevano
+    // una scelta, o cominciavano da un pronome senza niente prima. *"Alla
+    // fine scegli comunque"* a chi voleva una candela per il nonno, nove
+    // volte su 1.100, e *"Dilla a una persona sola"*, otto. I venti gesti
+    // sono di tutti i temi, e restano venti: i cicli della voce li
+    // contano.
+    'Racconta la tua domanda a una persona sola. Guarda come suona fuori.',
+    'Datti tre giorni. Poi scrivi in una riga che cosa è cambiato.',
     'Fai la cosa più piccola che va in quella direzione.',
     'Togli una cosa dalla lista, invece di aggiungerne una.',
     'Chiedi a qualcuno che ci è già passato.',
     'Segnati oggi sul calendario. Torna a guardarlo fra un mese.',
-    'Smetti di cercare informazioni: ne hai già abbastanza.',
+    'Scrivi tre cose che sai già su questa domanda.',
     'Metti un limite di tempo, poi rispettalo.',
     'Rimanda solo quello che puoi rimandare davvero.',
     'Fai la telefonata che stai rimandando.',
     'Dormici una notte e rileggi questa riga domattina.',
     'Manda un messaggio, anche corto, a chi sai tu.',
-    'Prendi carta e penna e scrivi le due colonne.',
+    'Prendi carta e penna e fai l\'elenco di chi può aiutarti.',
     'Esci a camminare trenta minuti senza telefono.',
-    'Riguarda com\'è andata l\'ultima volta che hai deciso così.',
+    'Ripensa a com\'è andata l\'ultima volta che ti è capitato.',
     'Fissa un incontro invece di pensarci ancora.',
     'Butta via una cosa che tieni per abitudine.',
-    'Metti per iscritto che cosa ti farebbe dire di no.',
+    'Metti per iscritto che cosa ti farebbe stare meglio.',
     'Fai una prova piccola, che puoi annullare.',
   ];
 
@@ -554,7 +565,7 @@ abstract final class LaVoceDelMondoDiSotto {
   /// tempo lo portano gia' dentro. **Questi tre sono autosufficienti**; gli
   /// altri diciassette restano come sono.
   static const Set<String> gestiColTempo = {
-    'Datti tre giorni. Alla fine scegli comunque.',
+    'Datti tre giorni. Poi scrivi in una riga che cosa è cambiato.',
     'Segnati oggi sul calendario. Torna a guardarlo fra un mese.',
     'Dormici una notte e rileggi questa riga domattina.',
   };
