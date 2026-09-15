@@ -77,10 +77,15 @@ abstract final class LeParoleDelCammino {
   /// *"Due strati su quattro"*, in parole e mai in numeri.
   static String quantiStrati(int n) {
     final quanti = n.clamp(1, IQuattroViaggi.quanteDiscese);
-    final parola = quanti == 1
+    // **IL NOME DELLA VARIABILE NON E' `parola`**, e non e' un vezzo: la
+    // guardia della Parola del giorno, ordine DD voce 02, cerca in tutto
+    // `lib` le righe che interpolano `$parola` senza le virgolette basse, e
+    // qui di Parola del giorno non ce n'e' nessuna. Il nome giusto tiene la
+    // guardia stretta com'e'.
+    final quantiInLettere = quanti == 1
         ? 'Uno strato'
         : '${_maiuscola(IQuattroViaggi.inLettere(quanti))} strati';
-    return '$parola su quattro';
+    return '$quantiInLettere su quattro';
   }
 
   /// **LA DOMANDA DI CHI SCENDE SOLTANTO PER INCONTRARLO**, dentro un cammino.

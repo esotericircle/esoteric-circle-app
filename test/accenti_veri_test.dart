@@ -79,13 +79,24 @@ void main() {
     // **ORDINE DL VOCI 07 E 08**: le parole di cornice dell'oggetto della
     // domanda e le parole vuote della risposta del modello sono chiavi di
     // confronto, come quelle della domanda dei tarocchi qui sotto.
-    'lib/core/viaggio/la_domanda_capita.dart:260':
+    // Le righe sono scese a 276 e 417 con l'ordine DQ voce 08, che ha
+    // aggiunto il demansionamento della persona e la tavola dei non nomi.
+    'lib/core/viaggio/la_domanda_capita.dart:276':
         'e la tavola delle parole di cornice dell oggetto, dove "da" e la '
             'preposizione che l oggetto puo avere senza che la domanda la '
             'contenga, una CHIAVE di confronto',
-    'lib/core/viaggio/le_guardie_del_responso.dart:396':
+    'lib/core/viaggio/le_guardie_del_responso.dart:417':
         'e la tavola delle parole vuote della domanda, dove perche senza '
             'accento e la forma che la persona digita, una CHIAVE',
+    // **ORDINE DQ VOCE 08**: la tavola delle parole che stanno in testa a
+    // una domanda senza essere un nome, "Perche" e "Se" digitati senza
+    // accento sulla tastiera del telefono. Chiavi di confronto.
+    'lib/core/viaggio/le_guardie_del_responso.dart:740':
+        'e la tavola dei non nomi in testa alla domanda, dove perche senza '
+            'accento e la forma che la persona digita, una CHIAVE',
+    'lib/core/viaggio/le_guardie_del_responso.dart:743':
+        'stessa tavola: se e la congiunzione in testa alla domanda, una '
+            'chiave di confronto',
     'lib/core/tarot/domanda_della_persona.dart:39':
         'e la tavola delle parole vuote, dove perche e una CHIAVE di '
             'confronto e non una parola mostrata',
