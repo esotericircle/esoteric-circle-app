@@ -649,6 +649,14 @@ Future<_Esito> _centoDiscese(_Caso caso,
         motiviFinali[finale] = (motiviFinali[finale] ?? 0) + 1;
       }
     }
+    // **OGNI RESPONSO PER ESTESO**, se lo si chiede, ordine DN voce 08: le
+    // riprove a video trovavano un guasto per giro su dieci discese, mentre
+    // qui ce ne sono millecento. Si legge cio' che la persona legge, non
+    // soltanto cio' che le guardie hanno scartato.
+    if (Platform.environment['TUTTI_I_RESPONSI'] != null) {
+      print('RESPONSO ${caso.nome} | $domanda | ${responso.titolo} | '
+          '${responso.paragrafi.join(' ¶ ')} | ${responso.fonti}');
+    }
     if (scritta.testi.risposta != null) risposteDelModello++;
     if (esempiDelModello.length < 3 && scritta.testi.titolo != null) {
       esempiDelModello.add('${responso.titolo} / '
