@@ -244,10 +244,40 @@ da 81 a 75**, e il censimento e' rigenerato.
 
 ## 8. LA RELEASE SUL TELEFONO
 
-(Si compila dopo la build.)
+**Build 2263**, sbarramento passato con 5.242 prove e i soli rossi
+accettati, installata sul Realme sopra la build di prova, consegnata con App
+Distribution: release `2qkl8t1n8lkgg`, un invito accettato, registro da 2262
+a 2263. **Il primo sbarramento era caduto per colpa mia**: due frasi con la
+virgola prima della *e*, aggiunte all'istruzione del modello dopo la prima
+suite senza rifare girare la prova della lingua. Tolte, lo sbarramento e'
+ripartito da capo.
+
+Sulla release, **quello che il banco non poteva mostrare**:
+
+- **il compimento dal modello**: portato alla data un sigillo della prova,
+  *Si e' compiuto* ha dato *"Hai fatto crescere il tuo lavoro con
+  pazienza."*, `21_release_il_compimento_dal_modello.jpg`;
+- **la riformulazione dal modello**: *"Voglio ritrovare la calma nelle mie
+  giornate"* e' diventata *"Ritrovo la calma nelle mie giornate"*,
+  `22_release_la_riformulazione_di_caligo.jpg`;
+- **il titolo e il responso dal modello** sul sigillo nuovo: *"La tua calma
+  nelle giornate"*, *"Il tuo sigillo custodisce la calma che ritrovi. E' un
+  segno per la tua serenita' quotidiana. Il segno veglia sulla tranquillita'
+  delle tue giornate."*, `23_release_il_titolo_e_il_responso_dal_modello.jpg`;
+- **lo sfondo con la cornice** applicato su entrambe le schermate, *"Fatto:
+  il sigillo e' sul tuo telefono."*, `24_release_fatto.jpg`; l'app riaperta
+  e' tornata sulla schermata del Sigillo, senza ripartire. La cattura della
+  Home e' stata mandata al fondatore a parte, perche' mostra le sue app. Il
+  launcher di Realme scurisce lo sfondo, e l'anello sulla Home e' piu' tenue
+  che nell'immagine composta.
 
 ---
 
 ## 9. LA RIGA FINALE
 
-(Si compila dopo la build.)
+**Il Sigillo dell'Intenzione e' chiuso**, con la build 2263: le cinque
+domande hanno la loro risposta a schermo, sul telefono vero. **Restano
+aperti, e sono detti al punto 7**: iPhone mai provato, la chiamata alla data
+da vedere arrivare il 15 ottobre, e la conferma del fondatore sulla misura
+del glifo sullo sfondo, che oltre il 55 per cento cresce solo su sua
+parola.
