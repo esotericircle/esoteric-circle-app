@@ -619,7 +619,11 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
         if (_propostaMancata && !_riformulando)
           Padding(
             padding: const EdgeInsets.only(top: SpacingTokens.xs),
-            child: Text('Caligo non ha risposto: la frase resta la tua.',
+            // Vale sia per la rete che manca sia per la riga scartata dalle
+            // guardie: *"non ha risposto"* sarebbe falso nel secondo caso.
+            child: Text(
+                'Caligo non ha trovato una forma migliore: la frase resta la '
+                'tua.',
                 textAlign: TextAlign.center,
                 style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textMuted)),

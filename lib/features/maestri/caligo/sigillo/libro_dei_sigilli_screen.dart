@@ -254,17 +254,11 @@ class _VoceDelLibro extends StatelessWidget {
           reveal: false,
           child: Row(
             children: [
-              SizedBox(
-                width: 72,
-                height: 72,
-                child: CustomPaint(
-                  size: const Size(72, 72),
-                  painter: SegnoDelSigilloPainter(
-                    cammino: IntentionSigil.cammino(sigillo.riformulata),
-                    colore: a.colore,
-                    luce: a.luce,
-                  ),
-                ),
+              SegnoInMiniatura(
+                cammino: IntentionSigil.cammino(sigillo.riformulata),
+                colore: a.colore,
+                luce: a.luce,
+                lato: 72,
               ),
               const SizedBox(width: SpacingTokens.md),
               Expanded(
@@ -276,8 +270,8 @@ class _VoceDelLibro extends StatelessWidget {
                             .copyWith(color: ColorTokens.textPrimary)),
                     const SizedBox(height: SpacingTokens.xxs),
                     Text(sigillo.via.nome,
-                        style: TypographyTokens.corpo()
-                            .copyWith(color: coloreDellaVia(sigillo.via))),
+                        style: TypographyTokens.corpo().copyWith(
+                            color: coloreDelNomeDellaVia(sigillo.via))),
                     Text(_laRigaDelTempo(sigillo, adesso),
                         style: TypographyTokens.corpo()
                             .copyWith(color: ColorTokens.textSecondary)),
@@ -328,17 +322,11 @@ class LaDomandaDiCaligo extends StatelessWidget {
               onTap: suApri,
               child: Row(
                 children: [
-                  SizedBox(
-                    width: 56,
-                    height: 56,
-                    child: CustomPaint(
-                      size: const Size(56, 56),
-                      painter: SegnoDelSigilloPainter(
-                        cammino: IntentionSigil.cammino(sigillo.riformulata),
-                        colore: a.colore,
-                        luce: a.luce,
-                      ),
-                    ),
+                  SegnoInMiniatura(
+                    cammino: IntentionSigil.cammino(sigillo.riformulata),
+                    colore: a.colore,
+                    luce: a.luce,
+                    lato: 56,
                   ),
                   const SizedBox(width: SpacingTokens.md),
                   Expanded(
@@ -767,7 +755,7 @@ class _SigilloDelLibroScreenState extends State<SigilloDelLibroScreen> {
           Text('LA VIA', style: etichetta()),
           Text(s.via.nome,
               style: TypographyTokens.corpo()
-                  .copyWith(color: coloreDellaVia(s.via))),
+                  .copyWith(color: coloreDelNomeDellaVia(s.via))),
           const SizedBox(height: SpacingTokens.sm),
           Text('TRACCIATO IL', style: etichetta()),
           Text(dataItalianaEstesa(s.nascita), style: valore()),

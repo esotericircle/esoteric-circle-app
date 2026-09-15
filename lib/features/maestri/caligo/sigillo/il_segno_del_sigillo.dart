@@ -8,6 +8,7 @@ import 'package:flutter/services.dart';
 
 import '../../../../core/magic/intention_sigil.dart';
 import '../../../../core/sensi/palette_sensoriale.dart';
+import '../../../../design_system/tokens/color_tokens.dart';
 
 /// **IL COLORE DI UNA VIA**, in un punto solo: la schermata, il Libro e lo
 /// sfondo del telefono lo leggono da qui.
@@ -16,6 +17,51 @@ Color coloreDellaVia(ViaMagica via) => switch (via) {
       ViaMagica.bianca => const Color(0xFFE8E4F0),
       ViaMagica.verde => const Color(0xFF3FA07A),
     };
+
+/// **IL COLORE DEL NOME DI UNA VIA**, schiarito: sulla scheda rossa di
+/// Caligo il rosso della Via Rossa, scritto pieno, si leggeva appena. Alla
+/// prova sul telefono del 15 settembre 2026.
+Color coloreDelNomeDellaVia(ViaMagica via) =>
+    Color.lerp(coloreDellaVia(via), Colors.white, 0.35)!;
+
+/// **IL SEGNO IN MINIATURA**, nel Libro: il segno su un disco scuro. Alla
+/// prova sul telefono il segno spento della Via Rossa, rosso su una scheda
+/// rossa e sottile mezzo pixel, non si vedeva: e il Libro deve far
+/// *rivedere il segno*, voce DO.06.
+class SegnoInMiniatura extends StatelessWidget {
+  const SegnoInMiniatura({
+    super.key,
+    required this.cammino,
+    required this.colore,
+    required this.luce,
+    required this.lato,
+  });
+
+  final List<Offset> cammino;
+  final Color colore;
+  final double luce;
+  final double lato;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: lato,
+      height: lato,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: ColorTokens.neutralDeepest.withValues(alpha: 0.85),
+      ),
+      child: CustomPaint(
+        size: Size(lato, lato),
+        painter: SegnoDelSigilloPainter(
+          cammino: cammino,
+          colore: colore,
+          luce: luce,
+        ),
+      ),
+    );
+  }
+}
 
 /// **IL SEGNO CHE SI ACCENDE.** Ordine DO voce 03, 15 settembre 2026.
 ///
@@ -55,6 +101,12 @@ class SegnoDelSigilloPainter extends CustomPainter {
   final Offset? dito;
 
   final Color oro;
+
+  /// **LA LARGHEZZA DEL TRATTO**, frazione del lato che cresce con la luce,
+  /// **MAI SOTTO UN PIXEL E MEZZO**: nelle miniature del Libro, a settanta
+  /// punti, la frazione del lato dava mezzo pixel, alla prova sul telefono.
+  static double larghezzaDelTratto(double lato, double luce) =>
+      math.max(lato * (0.008 + 0.008 * visibile(luce)), 1.5);
 
   /// La luce che si vede, da quella del sigillo.
   static double visibile(double luce) => math.sqrt(luce.clamp(0.0, 1.0));
@@ -117,7 +169,7 @@ class SegnoDelSigilloPainter extends CustomPainter {
       path.lineTo(q.dx, q.dy);
     }
 
-    final largo = l * (0.008 + 0.008 * v);
+    final largo = larghezzaDelTratto(l, luce);
     Paint tratto(Color c, double w) => Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = w
@@ -142,7 +194,7 @@ class SegnoDelSigilloPainter extends CustomPainter {
     canvas.restore();
     // IL TRATTO.
     canvas.drawPath(
-        path, tratto(colore.withValues(alpha: 0.28 + 0.72 * v), largo));
+        path, tratto(colore.withValues(alpha: 0.42 + 0.58 * v), largo));
     // IL FILO CHIARO sopra il tratto, che fa il bordo dello scavo.
     if (v > 0) {
       canvas.drawPath(
@@ -156,7 +208,7 @@ class SegnoDelSigilloPainter extends CustomPainter {
     // Il capo e la coda, la convenzione dei sigilli di Spare: un cerchietto
     // dove parte, una barra dove finisce.
     final segno =
-        tratto(colore.withValues(alpha: 0.28 + 0.72 * v), largo * 0.8);
+        tratto(colore.withValues(alpha: 0.42 + 0.58 * v), largo * 0.8);
     canvas.drawCircle(punti.first, l * 0.016, segno);
     final a = punti[punti.length - 2];
     final b = punti.last;

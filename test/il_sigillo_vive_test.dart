@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/core/chat/user_profile.dart';
@@ -673,6 +675,55 @@ void main() {
           composto.dispose();
         }
       });
+    });
+  });
+
+  group('I tre guasti della prova sul telefono del 15 settembre 2026', () {
+    test(
+        'Lo sfondo non fa ripartire l\'app: il motore resta nella cache e '
+        'si distrugge solo quando l\'attivita\' finisce davvero', () {
+      // Impostato lo sfondo, il sistema ricalcola i colori del tema e
+      // ricrea l'attivita': col motore legato a lei, Flutter ripartiva e
+      // la persona si ritrovava nella home. Visto sul Realme 767f596c.
+      final kt = File('android/app/src/main/kotlin/com/esotericircle/'
+              'esoteric_circle/MainActivity.kt')
+          .readAsStringSync();
+      expect(kt, contains('FlutterEngineCache'));
+      expect(kt, contains('override fun provideFlutterEngine'));
+      expect(
+          RegExp(r'shouldDestroyEngineWithHost\(\): Boolean = false')
+              .hasMatch(kt),
+          isTrue);
+      expect(kt, contains('isFinishing'),
+          reason: 'senza, il motore non si distrugge mai e un\'apertura '
+              'nuova non riparte da capo');
+    });
+
+    test('Nelle miniature il tratto non scende sotto un pixel e mezzo', () {
+      for (final lato in const [56.0, 72.0]) {
+        expect(SegnoDelSigilloPainter.larghezzaDelTratto(lato, 0),
+            greaterThanOrEqualTo(1.5),
+            reason: 'a $lato punti il segno spento e\' un filo invisibile');
+      }
+    });
+
+    test('Il nome della via si legge sulla scheda di Caligo', () {
+      // Il fondo della scheda, misurato sulla cattura del telefono.
+      const fondo = Color.fromARGB(255, 82, 21, 28);
+      double l(Color c) {
+        double f(double x) => x <= 0.03928
+            ? x / 12.92
+            : math.pow((x + 0.055) / 1.055, 2.4).toDouble();
+        return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b);
+      }
+
+      for (final via in ViaMagica.values) {
+        final a = l(coloreDelNomeDellaVia(via));
+        final b = l(fondo);
+        final contrasto = (math.max(a, b) + 0.05) / (math.min(a, b) + 0.05);
+        expect(contrasto, greaterThanOrEqualTo(4.5),
+            reason: '${via.nome} a ${contrasto.toStringAsFixed(2)} a uno');
+      }
     });
   });
 
