@@ -81,6 +81,7 @@ import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/components/immersive_scaffold.dart';
 import 'package:esoteric_circle/features/identity/circle_seal_screen.dart';
 import 'package:esoteric_circle/features/maestri/caligo/sigillo/sigillo_intenzione_screen.dart';
+import 'package:esoteric_circle/core/magic/libro_dei_sigilli.dart';
 import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
 import 'package:esoteric_circle/features/onboarding/natal_chart_reveal.dart';
 import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
@@ -708,9 +709,14 @@ void main() {
             ChangeNotifierProvider(create: (_) => QualityTierController()),
             ChangeNotifierProvider(create: (_) => ParallaxController()),
           ],
-          child: const MaterialApp(
+          child: MaterialApp(
             debugShowCheckedModeBanner: false,
-            home: MaestroScope(child: SigilloIntenzioneScreen()),
+            // Un Libro vuoto e nessun modello: l'anteprima mostra la voce
+            // di casa, e un sigillo tracciato qui non entra nel Libro vero.
+            home: MaestroScope(
+                child: SigilloIntenzioneScreen(
+                    libro: LibroDeiSigilli(),
+                    chiamata: (i, r, c) async => null)),
           ),
         ),
       ));
@@ -722,6 +728,15 @@ void main() {
       // widget per un difetto della schermata, ma perche' la lista non
       // lo aveva ancora fatto nascere. Si scorre fino a lui, come fa una
       // persona. Ordine CQ voce 6.23, 4 settembre 2026.
+      // Dall'ordine DO voce 09 la via si sceglie prima di scrivere.
+      await tester.scrollUntilVisible(
+          find.byKey(const Key('sigillo_via_bianca')), 200,
+          scrollable: find.descendant(
+              of: find.byKey(const Key('sigillo_soglia')),
+              matching: find.byType(Scrollable)));
+      await tester.pump();
+      await tester.tap(find.byKey(const Key('sigillo_via_bianca')));
+      await tester.pump();
       await tester.scrollUntilVisible(
           find.byKey(const Key('sigillo_inizia')), 200,
           scrollable: find.descendant(
@@ -733,6 +748,14 @@ void main() {
       await tester.enterText(find.byKey(const Key('sigillo_campo')),
           'Chiedo chiarezza sulla mia strada');
       await tester.pump();
+      await tester.scrollUntilVisible(
+          find.byKey(const Key('sigillo_traccia')), 200,
+          // La prima: il campo di testo porta dentro uno Scrollable suo.
+          scrollable: find
+              .descendant(
+                  of: find.byKey(const Key('sigillo_scrittura')),
+                  matching: find.byType(Scrollable))
+              .first);
       await tester.tap(find.byKey(const Key('sigillo_traccia')));
       // Fine tracciamento: 3,2 secondi su 2,4 di animazione.
       for (var i = 0; i < 16; i++) {

@@ -1,7 +1,7 @@
 # Censimento delle misure tipografiche scritte a mano
 
-<!-- TOTALE_CENSITO: 81 -->
-<!-- FILE_CENSITI: 33 -->
+<!-- TOTALE_CENSITO: 75 -->
+<!-- FILE_CENSITI: 32 -->
 <!-- SOTTO_IL_PAVIMENTO: 0 -->
 <!-- LETTURA_SOTTO_16: 0 -->
 <!-- Generato da tool/censimento_tipografia.dart. Non si scrive a mano: si rigenera. -->
@@ -20,8 +20,8 @@ Il guadagno del metodo non e' dichiarato, e' misurato: confrontando questo elenc
 
 | Grandezza | Valore |
 | --- | --- |
-| Misure esplicite sotto `lib/` | **81** |
-| File che ne contengono | **33** |
+| Misure esplicite sotto `lib/` | **75** |
+| File che ne contengono | **32** |
 | Sotto il pavimento assoluto di 12 | **0** |
 | Sotto 16 in contesto di lettura | **0** |
 
@@ -40,7 +40,6 @@ Le misure PROPORZIONALI a un contenitore (l'iniziale dentro l'avatar, il numero 
 | File | Misure | Sotto 12 | Lettura sotto 16 |
 | --- | ---: | ---: | ---: |
 | `lib/features/maestri/caligo/animal/guide_animal_screen.dart` | 9 | 0 | 0 |
-| `lib/features/maestri/caligo/sigillo/sigillo_intenzione_screen.dart` | 6 | 0 | 0 |
 | `lib/features/account/dati_di_nascita_screen.dart` | 5 | 0 | 0 |
 | `lib/features/santuario/sky_overview_screen.dart` | 5 | 0 | 0 |
 | `lib/design_system/components/guida_del_respiro.dart` | 4 | 0 | 0 |

@@ -3,9 +3,18 @@ import '../../widgets/foglio_delle_fonti.dart';
 import '../../chat/chat_openers.dart';
 import '../../../ricordi/azioni_del_responso.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../sigilli/regia_del_cammino.dart';
 
+import '../../../../core/astro/data_italiana.dart';
+import '../../../../core/chat/la_marca_del_genere.dart';
+import '../../../../core/entitlement/entitlement_service.dart';
+import '../../../../core/entitlement/tier.dart';
+import '../../../../core/magic/il_sigillo_dal_modello.dart';
+import '../../../../core/magic/il_sigillo_vivo.dart';
 import '../../../../core/magic/intention_sigil.dart';
+import '../../../../core/magic/la_voce_del_sigillo.dart';
+import '../../../../core/magic/libro_dei_sigilli.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../design_system/components/cosmos_background.dart';
 import '../../../../design_system/components/depth_card.dart';
@@ -14,17 +23,30 @@ import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
 import '../../../../design_system/tokens/typography_tokens.dart';
+import '../../../../services/il_libro_del_cerchio.dart';
+import '../../../../services/lo_sfondo_del_telefono.dart';
 import '../../rotta_arte.dart';
 import '../../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../../../design_system/typography/paragrafi_di_lettura.dart';
+import 'i_pezzi_del_sigillo.dart';
+import 'il_segno_del_sigillo.dart';
+import 'libro_dei_sigilli_screen.dart';
 
 /// Il Sigillo dell'Intenzione, terza arte distintiva di Caligo.
 ///
-/// Si scrive una intenzione in una frase, e ne nasce un glifo unico. Il metodo
-/// e' quello di Austin Osman Spare per le lettere e la Rosa dei Petali della
-/// Golden Dawn per la ruota: il calcolo vive in `IntentionSigil`, qui c'e'
-/// solo la messa in scena.
+/// Si sceglie la via, si scrive una intenzione in una frase, e ne nasce un
+/// glifo unico. Il metodo e' quello di Austin Osman Spare per le lettere e la
+/// Rosa dei Petali della Golden Dawn per la ruota: il calcolo vive in
+/// `IntentionSigil`, qui c'e' solo la messa in scena.
+///
+/// **DALL'ORDINE DO IL SIGILLO E' UN OGGETTO CHE VIVE**, 15 settembre 2026.
+/// Parole del fondatore: alla fine della funzione ci si chiedeva *"e adesso?
+/// cosa mi rimane? cosa ho ottenuto? cosa me ne faccio? cosa devo fare?"*.
+/// Qui il tracciare resta il primo momento, e non piu' l'unico: il sigillo
+/// tracciato entra nel Libro dei Sigilli vivo e spento, con la data scelta
+/// dalla persona, e da li' si carica, si mette come sfondo, e alla data si
+/// chiude.
 ///
 /// **Perche' non somiglia alla bindrune** (regola 21). La bindrune
 /// dell'Estrazione Rune intreccia tratti su un'ASTA VERTICALE centrale e nasce
@@ -33,7 +55,21 @@ import '../../../../design_system/typography/paragrafi_di_lettura.dart';
 /// a un centro: un percorso poligonale che si legge come un tragitto. Le due
 /// cose sono diverse per costruzione, non per accorgimento.
 class SigilloIntenzioneScreen extends StatefulWidget {
-  const SigilloIntenzioneScreen({super.key});
+  const SigilloIntenzioneScreen({
+    super.key,
+    this.libro,
+    this.chiamata,
+    this.porta = const PortaDelloSfondo(),
+  });
+
+  /// Il Libro dove il sigillo entra: quello dell'app se nullo.
+  final LibroDeiSigilli? libro;
+
+  /// La chiamata al modello: quella vera se nulla. Le prove ne passano una
+  /// finta.
+  final ChiamataDelSigillo? chiamata;
+
+  final PortaDelloSfondo porta;
 
   static Route<void> route() =>
       PassaggioDelCerchio.rotta<void>((_) => const SogliaArte(
@@ -57,33 +93,70 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
   final TextEditingController _campo = TextEditingController();
   late final AnimationController _traccia;
   _Fase _fase = _Fase.soglia;
-  LetturaIntenzione? _lettura;
 
-  /// Gli inviti tappabili: coprono le tre vie, cosi' chi non sa da dove
-  /// cominciare vede subito che si puo' chiedere.
-  static const List<String> _suggerimenti = [
-    'Apro il mio cuore a un legame vero',
-    'Chiedo chiarezza sulla mia strada',
-    'Metto radici dove sono adesso',
-    'Trovo il coraggio di dire quello che sento',
-  ];
+  LibroDeiSigilli get _libro => widget.libro ?? libroDelCerchio;
+
+  /// La via, scelta dalla persona PRIMA di scrivere. Voce DO.09: e' una
+  /// dichiarazione di intento, non una classificazione, e dedurla vorrebbe
+  /// dire dire alla persona che cosa sta chiedendo.
+  ViaMagica? _via;
+
+  late DateTime _scadenza;
+
+  /// **LE RIFORMULAZIONI DI CALIGO**, al massimo tre per sigillo.
+  int _riformulazioni = 0;
+  bool _riformulando = false;
+  String? _proposta;
+  bool _propostaMancata = false;
+
+  /// Vero quando la frase chiedeva di agire sulla volonta' di un altro: non
+  /// si traccia, si riscrive su chi scrive.
+  bool _suUnTerzo = false;
+
+  /// Il testo da cui nasce il segno.
+  String _testoDelSegno = '';
+  SigilloVivo? _sigillo;
+  TestiDelSigillo? _testi;
+  Future<TestiDelSigillo>? _scrittura;
+
+  /// Gli inviti tappabili, due per via: chi non sa da dove cominciare vede
+  /// subito che si puo' chiedere, e nella via che ha scelto.
+  static const Map<ViaMagica, List<String>> _suggerimenti = {
+    ViaMagica.rossa: [
+      'Trovo il coraggio di dire quello che sento',
+      'Apro il mio cuore a un legame vero',
+    ],
+    ViaMagica.bianca: [
+      'Chiedo chiarezza sulla mia strada',
+      'Proteggo la quiete della mia casa',
+    ],
+    ViaMagica.verde: [
+      'Metto radici dove sono adesso',
+      'Faccio crescere il mio lavoro con pazienza',
+    ],
+  };
 
   @override
   void initState() {
     super.initState();
+    _scadenza = TempoDelSigillo.mese.da(_libro.adesso)!;
     _traccia = AnimationController(
       vsync: this,
       duration: SigilloIntenzioneScreen.tracciamento,
     )..addStatusListener((s) {
-        if (s == AnimationStatus.completed) {
-          setState(() => _fase = _Fase.rivelazione);
-          _entraNelCammino();
-        }
+        if (s == AnimationStatus.completed) _rivela();
       });
+    _libro.addListener(_cambiato);
+    if (!_libro.aperto) unawaited(_libro.apri());
+  }
+
+  void _cambiato() {
+    if (mounted) setState(() {});
   }
 
   @override
   void dispose() {
+    _libro.removeListener(_cambiato);
     _campo.dispose();
     _traccia.dispose();
     super.dispose();
@@ -91,26 +164,109 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
 
   bool get _riduciMoto => MediaQuery.of(context).disableAnimations;
 
+  Tier _tier() {
+    try {
+      return context.read<EntitlementService>().tier;
+    } catch (senzaProvider) {
+      // Senza il piano nell'albero vale il piu' prudente, il Viandante.
+      return Tier.free;
+    }
+  }
+
   /// IL SIGILLO ENTRA NEL CAMMINO, ordine P voce 35: alla rivelazione, cioe'
   /// quando il segno e' compiuto e non quando si comincia a scriverlo.
   void _entraNelCammino() {
     unawaited(RegiaDelCammino.dopoUnGesto(context, 'sigillo'));
   }
 
+  Future<void> _riformula() async {
+    final testo = _campo.text.trim();
+    if (_riformulando ||
+        _riformulazioni >= IlSigilloDalModello.riformulazioniPerSigillo ||
+        IntentionSigil.cammino(testo).length < 2) {
+      return;
+    }
+    setState(() {
+      _riformulando = true;
+      _propostaMancata = false;
+      _riformulazioni++;
+    });
+    final r = await IlSigilloDalModello.riformula(
+      intenzione: testo,
+      via: _via!,
+      forma: LaMarcaDelGenere.formaCorrente,
+      chiamata: widget.chiamata,
+    );
+    if (!mounted) return;
+    setState(() {
+      _riformulando = false;
+      // Una frase su un terzo non resta mai senza proposta: se il modello
+      // non risponde, vale quella di casa.
+      _proposta =
+          r ?? (_suUnTerzo ? LettoreIntenzione.leggi(testo).riformulata : null);
+      _propostaMancata = _proposta == null;
+    });
+  }
+
+  void _usaLaProposta() {
+    final p = _proposta;
+    if (p == null) return;
+    setState(() {
+      _campo.text = p;
+      _campo.selection = TextSelection.collapsed(offset: p.length);
+      _proposta = null;
+      _suUnTerzo = false;
+    });
+  }
+
   void _traccia_() {
     final testo = _campo.text.trim();
-    if (IntentionSigil.cammino(testo).length < 2) return;
+    if (IntentionSigil.cammino(testo).length < 2 || _via == null) return;
+    if (ILimitiDelSigillo.puoTracciare(_tier(), _libro) !=
+        EsitoDelTracciamento.si) {
+      setState(() => _fase = _Fase.soglia);
+      return;
+    }
+    // **UNA FRASE SULLA VOLONTA' DI UN ALTRO NON SI TRACCIA.** Si riscrive
+    // su chi scrive, e la persona vede la frase nuova prima di tracciarla.
+    if (LettoreIntenzione.leggi(testo).eStataRiformulata) {
+      setState(() => _suUnTerzo = true);
+      if (_riformulazioni < IlSigilloDalModello.riformulazioniPerSigillo) {
+        unawaited(_riformula());
+      } else {
+        setState(() => _proposta = LettoreIntenzione.leggi(testo).riformulata);
+      }
+      return;
+    }
+    final nascita = _libro.adesso;
+    final via = _via!;
     setState(() {
-      _lettura = LettoreIntenzione.leggi(testo);
+      _testoDelSegno = testo;
+      _sigillo = SigilloVivo(
+        id: idDelSigillo(nascita),
+        intenzione: testo,
+        riformulata: testo,
+        via: via,
+        nascita: nascita,
+        scadenza: _scadenza,
+      );
+      _testi = null;
       _fase = _Fase.tracciamento;
     });
+    // Il modello scrive mentre il segno si traccia: la persona sta gia'
+    // guardando qualcosa, e l'attesa si nasconde dentro il gesto.
+    _scrittura = IlSigilloDalModello.scrivi(
+      intenzione: testo,
+      via: via,
+      forma: LaMarcaDelGenere.formaCorrente,
+      chiamata: widget.chiamata,
+    );
     if (_riduciMoto) {
       _traccia.value = 1;
-      setState(() => _fase = _Fase.rivelazione);
       // RIDUCI MOVIMENTO NON TOGLIE IL TRAGUARDO: senza animazione il
       // listener non scatta, e senza questa riga il Sigillo non entrerebbe
       // mai nel cammino per chi tiene il moto spento.
-      _entraNelCammino();
+      _rivela();
     } else {
       _traccia
         ..value = 0
@@ -118,11 +274,24 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
     }
   }
 
-  Color _coloreVia(ViaMagica via, MaestroPalette palette) => switch (via) {
-        ViaMagica.rossa => const Color(0xFFD9563B),
-        ViaMagica.bianca => const Color(0xFFE8E4F0),
-        ViaMagica.verde => const Color(0xFF3FA07A),
-      };
+  /// **LA RIVELAZIONE, E IL SIGILLO ENTRA NEL LIBRO.** Voce DO.02: nasce
+  /// vivo e spento, con la carica a zero.
+  Future<void> _rivela() async {
+    // Una volta sola: con Riduci Movimento il valore messo a uno fa scattare
+    // anche l'ascoltatore, e senza questa riga il sigillo entrava due volte.
+    if (_fase == _Fase.rivelazione) return;
+    setState(() => _fase = _Fase.rivelazione);
+    _entraNelCammino();
+    final testi = await _scrittura!;
+    if (!mounted) return;
+    setState(() => _testi = testi);
+    await _libro.aggiungi(_sigillo!.conITesti(testi.titolo, testi.responso));
+  }
+
+  void _apriIlLibro() {
+    Navigator.of(context).push(LibroDeiSigilliScreen.route(
+        libro: widget.libro, chiamata: widget.chiamata, porta: widget.porta));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -163,7 +332,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
             padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
             child: switch (_fase) {
               _Fase.soglia => _soglia(palette),
-              _Fase.scrittura => _scrittura(palette),
+              _Fase.scrittura => _scritturaDellaFrase(palette),
               _Fase.tracciamento || _Fase.rivelazione => _scena(palette),
             },
           ),
@@ -173,60 +342,156 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
   }
 
   Widget _soglia(MaestroPalette palette) {
+    final esito = ILimitiDelSigillo.puoTracciare(_tier(), _libro);
+    final arrivati = _libro.scaduti.length;
     return ListView(
       key: const Key('sigillo_soglia'),
       children: [
-        const SizedBox(height: SpacingTokens.xxl),
-        Text('Caligo ti aspetta',
-            textAlign: TextAlign.center,
-            style: TypographyTokens.label(size: 12)
-                .copyWith(color: palette.goldSoft, letterSpacing: 3)),
-        const SizedBox(height: SpacingTokens.md),
+        const SizedBox(height: SpacingTokens.lg),
+        // **COSA STAI PER FARE**, sotto il titolo. Voce DO.01.
         Text(
-          'Una intenzione detta bene è già mezza compiuta. Scrivila in una '
-          'frase sola, al presente, come se fosse vera adesso. Ne ricaverò il '
-          'tuo sigillo: un segno che è tuo e di nessun altro.',
+          LaVoceDelSigillo.cosaStaiPerFare,
+          key: const Key('sigillo_cosa_stai_per_fare'),
           textAlign: TextAlign.center,
-          style: TypographyTokens.body(size: 16)
+          style: TypographyTokens.corpo()
               .copyWith(color: ColorTokens.textPrimary, height: 1.5),
         ),
-        const SizedBox(height: SpacingTokens.xl),
-        _FontiEMetodo(palette: palette),
-        const SizedBox(height: SpacingTokens.xl),
-        SizedBox(
-          width: double.infinity,
-          child: FilledButton(
-            key: const Key('sigillo_inizia'),
-            style: FilledButton.styleFrom(
-              backgroundColor: palette.gold,
-              foregroundColor: palette.deepest,
-              padding: const EdgeInsets.symmetric(vertical: SpacingTokens.md),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-              ),
+        if (arrivati > 0) ...[
+          const SizedBox(height: SpacingTokens.lg),
+          // **LA DOMANDA ASPETTA**, voce DO.08: se la chiamata non e'
+          // arrivata, chi apre il Sigillo la trova qui.
+          DepthCard(
+            key: const Key('sigillo_arrivati'),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(LaVoceDelSigillo.titoloDellAvviso,
+                    style: TypographyTokens.titoloSezione()
+                        .copyWith(color: palette.goldSoft)),
+                const SizedBox(height: SpacingTokens.xs),
+                Text(LaVoceDelSigillo.testoDellAvviso,
+                    style: TypographyTokens.corpo()
+                        .copyWith(color: ColorTokens.textSecondary)),
+                const SizedBox(height: SpacingTokens.sm),
+                PulsanteDelSigillo(
+                    testo: 'Apri il Libro dei Sigilli',
+                    palette: palette,
+                    onPressed: _apriIlLibro),
+              ],
             ),
-            onPressed: () => setState(() => _fase = _Fase.scrittura),
-            child: Text('Scrivi la tua intenzione',
-                style: TypographyTokens.body(size: 16, weight: 600)
-                    .copyWith(color: palette.deepest)),
           ),
+        ],
+        const SizedBox(height: SpacingTokens.xl),
+        if (esito == EsitoDelTracciamento.si) ...[
+          Text('SCEGLI LA VIA',
+              textAlign: TextAlign.center,
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: palette.goldSoft, letterSpacing: 2)),
+          const SizedBox(height: SpacingTokens.xs),
+          Text(
+            'Prima di scrivere: la via dice che cosa vuoi muovere.',
+            textAlign: TextAlign.center,
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+          ),
+          const SizedBox(height: SpacingTokens.md),
+          for (final via in ViaMagica.values) ...[
+            _SceltaDellaVia(
+              via: via,
+              scelta: _via == via,
+              palette: palette,
+              onTap: () => setState(() => _via = via),
+            ),
+            const SizedBox(height: SpacingTokens.sm),
+          ],
+          const SizedBox(height: SpacingTokens.md),
+          PulsanteDelSigillo(
+            key: const Key('sigillo_inizia'),
+            testo: 'Scrivi la tua intenzione',
+            palette: palette,
+            onPressed: _via == null
+                ? null
+                : () => setState(() => _fase = _Fase.scrittura),
+          ),
+        ] else
+          // **IL LIMITE NON E' UN MURO**, voce DO.11: si dice come fare, e si
+          // porta la persona al Libro.
+          DepthCard(
+            key: const Key('sigillo_limite'),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ParagrafiDiLettura(
+                  testo: esito == EsitoDelTracciamento.pieno
+                      ? LaVoceDelSigillo.pieno(
+                          ILimitiDelSigillo.viviInsiemePer(_tier()))
+                      : LaVoceDelSigillo.tettoTecnico,
+                  stile: TypographyTokens.lettura().copyWith(height: 1.45),
+                ),
+                if (esito == EsitoDelTracciamento.pieno) ...[
+                  const SizedBox(height: SpacingTokens.md),
+                  PulsanteDelSigillo(
+                      key: const Key('sigillo_limite_libro'),
+                      testo: 'Apri il Libro dei Sigilli',
+                      palette: palette,
+                      onPressed: _apriIlLibro),
+                ],
+              ],
+            ),
+          ),
+        if (_libro.tutti.isNotEmpty && esito == EsitoDelTracciamento.si) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          TextButton(
+            key: const Key('sigillo_apri_libro_soglia'),
+            onPressed: _apriIlLibro,
+            child: Text('Apri il Libro dei Sigilli',
+                style:
+                    TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
+          ),
+        ],
+        const SizedBox(height: SpacingTokens.xl),
+        // **DA DOVE VIENE**, riga breve e verso il basso, come chiede la
+        // gerarchia dettata dal fondatore il 3 settembre. Voce DO.01.
+        Text(
+          LaVoceDelSigillo.daDoveViene,
+          key: const Key('sigillo_da_dove_viene'),
+          textAlign: TextAlign.center,
+          style: TypographyTokens.corpo()
+              .copyWith(color: ColorTokens.textMuted, height: 1.45),
         ),
         const SizedBox(height: SpacingTokens.lg),
       ],
     );
   }
 
-  Widget _scrittura(MaestroPalette palette) {
-    final abbastanza = IntentionSigil.cammino(_campo.text).length >= 2;
+  Widget _scritturaDellaFrase(MaestroPalette palette) {
+    final testo = _campo.text.trim();
+    final abbastanza = IntentionSigil.cammino(testo).length >= 2;
+    final restano =
+        _riformulazioni < IlSigilloDalModello.riformulazioniPerSigillo;
+    final via = _via!;
     return ListView(
       key: const Key('sigillo_scrittura'),
       children: [
-        const SizedBox(height: SpacingTokens.xl),
-        Text('La tua intenzione',
+        const SizedBox(height: SpacingTokens.lg),
+        Text(via.nome,
             textAlign: TextAlign.center,
             style: TypographyTokens.titoloSezione()
-                .copyWith(color: palette.goldSoft)),
-        const SizedBox(height: SpacingTokens.lg),
+                .copyWith(color: coloreDellaVia(via))),
+        Text(via.dominio,
+            textAlign: TextAlign.center,
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textSecondary)),
+        const SizedBox(height: SpacingTokens.md),
+        // **COSA TI RESTERA'**, prima del campo dove si scrive. Voce DO.01.
+        Text(
+          LaVoceDelSigillo.cosaTiRestera,
+          key: const Key('sigillo_cosa_ti_restera'),
+          textAlign: TextAlign.center,
+          style: TypographyTokens.corpo()
+              .copyWith(color: ColorTokens.textPrimary, height: 1.5),
+        ),
+        const SizedBox(height: SpacingTokens.md),
         DepthCard(
           reveal: false,
           child: TextField(
@@ -235,14 +500,18 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
             maxLines: 3,
             minLines: 2,
             textCapitalization: TextCapitalization.sentences,
-            onChanged: (_) => setState(() {}),
-            style: TypographyTokens.body(size: 17)
+            onChanged: (_) => setState(() {
+              _proposta = null;
+              _propostaMancata = false;
+              _suUnTerzo = false;
+            }),
+            style: TypographyTokens.lettura()
                 .copyWith(color: ColorTokens.textPrimary, height: 1.4),
             cursorColor: palette.goldSoft,
             decoration: InputDecoration(
               border: InputBorder.none,
               hintText: 'Scrivo qui cosa voglio, al presente...',
-              hintStyle: TypographyTokens.body(size: 16)
+              hintStyle: TypographyTokens.corpo()
                   .copyWith(color: ColorTokens.textMuted),
             ),
           ),
@@ -256,12 +525,14 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
           spacing: SpacingTokens.sm,
           runSpacing: SpacingTokens.sm,
           children: [
-            for (final s in _suggerimenti)
+            for (final (i, s) in _suggerimenti[via]!.indexed)
               GestureDetector(
-                key: Key('sigillo_invito_${_suggerimenti.indexOf(s)}'),
+                key: Key('sigillo_invito_$i'),
                 onTap: () => setState(() {
                   _campo.text = s;
                   _campo.selection = TextSelection.collapsed(offset: s.length);
+                  _proposta = null;
+                  _suUnTerzo = false;
                 }),
                 child: Container(
                   padding: const EdgeInsets.symmetric(
@@ -279,26 +550,96 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
               ),
           ],
         ),
-        const SizedBox(height: SpacingTokens.xl),
-        SizedBox(
-          width: double.infinity,
-          child: FilledButton(
-            key: const Key('sigillo_traccia'),
-            style: FilledButton.styleFrom(
-              backgroundColor: abbastanza
-                  ? palette.gold
-                  : palette.gold.withValues(alpha: 0.3),
-              foregroundColor: palette.deepest,
-              padding: const EdgeInsets.symmetric(vertical: SpacingTokens.md),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
-              ),
+        const SizedBox(height: SpacingTokens.lg),
+        // **LA RIFORMULAZIONE DI CALIGO**, voce DO.09: su richiesta, tre
+        // volte al massimo; oltre, la frase resta come la persona l'ha
+        // scritta.
+        if (_suUnTerzo)
+          Padding(
+            padding: const EdgeInsets.only(bottom: SpacingTokens.sm),
+            child: Text(
+              'Avevi scritto di qualcun altro. Un sigillo agisce su chi '
+              'lo traccia, mai sulla volontà di un terzo: Caligo la riporta '
+              'su di te, che è dove ha forza.',
+              key: const Key('sigillo_riformulata'),
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textSecondary, height: 1.45),
             ),
-            onPressed: abbastanza ? _traccia_ : null,
-            child: Text('Traccia il sigillo',
-                style: TypographyTokens.body(size: 16, weight: 600)
-                    .copyWith(color: palette.deepest)),
           ),
+        if (_riformulando)
+          Text('Caligo la riscrive nella forma del metodo...',
+              key: const Key('sigillo_riformulando'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textSecondary))
+        else if (_proposta != null)
+          DepthCard(
+            key: const Key('sigillo_proposta'),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text('NELLA FORMA DEL METODO',
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: palette.goldSoft, letterSpacing: 2)),
+                const SizedBox(height: SpacingTokens.xs),
+                ParagrafiDiLettura(
+                    testo: _proposta!,
+                    stile: TypographyTokens.lettura().copyWith(height: 1.45)),
+                const SizedBox(height: SpacingTokens.sm),
+                PulsanteLeggeroDelSigillo(
+                  key: const Key('sigillo_usa_proposta'),
+                  testo: 'Usa questa',
+                  palette: palette,
+                  onPressed: _usaLaProposta,
+                ),
+              ],
+            ),
+          )
+        else if (abbastanza && restano && !_suUnTerzo)
+          PulsanteLeggeroDelSigillo(
+            key: const Key('sigillo_riformula'),
+            testo: _riformulazioni == 0
+                ? 'Chiedi a Caligo di riscriverla'
+                : 'Chiedi un\'altra forma',
+            palette: palette,
+            onPressed: _riformula,
+          ),
+        if (_propostaMancata && !_riformulando)
+          Padding(
+            padding: const EdgeInsets.only(top: SpacingTokens.xs),
+            child: Text('Caligo non ha risposto: la frase resta la tua.',
+                textAlign: TextAlign.center,
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textMuted)),
+          ),
+        if (!restano && _proposta == null && !_riformulando)
+          Padding(
+            padding: const EdgeInsets.only(top: SpacingTokens.xs),
+            child: Text('La frase resta come l\'hai scritta.',
+                key: const Key('sigillo_riformulazioni_finite'),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textMuted)),
+          ),
+        const SizedBox(height: SpacingTokens.lg),
+        Text('QUANDO TI CERCO',
+            style: TypographyTokens.etichetta()
+                .copyWith(color: palette.goldSoft, letterSpacing: 2)),
+        const SizedBox(height: SpacingTokens.sm),
+        LaDataDelSigillo(
+          oggi: _libro.adesso,
+          scadenza: _scadenza,
+          palette: palette,
+          onScelta: (d) => setState(() => _scadenza = d),
+        ),
+        const SizedBox(height: SpacingTokens.xl),
+        PulsanteDelSigillo(
+          key: const Key('sigillo_traccia'),
+          testo: 'Traccia il sigillo',
+          palette: palette,
+          onPressed: abbastanza && !_riformulando && _proposta == null
+              ? _traccia_
+              : null,
         ),
         if (!abbastanza) ...[
           const SizedBox(height: SpacingTokens.sm),
@@ -316,9 +657,11 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
   }
 
   Widget _scena(MaestroPalette palette) {
-    final lettura = _lettura!;
-    final colore = _coloreVia(lettura.via, palette);
+    final sigillo = _sigillo!;
+    final colore = coloreDellaVia(sigillo.via);
     final finito = _fase == _Fase.rivelazione;
+    final cammino = IntentionSigil.cammino(_testoDelSegno);
+    final testi = _testi;
 
     return ListView(
       key: const Key('sigillo_scena'),
@@ -331,8 +674,8 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
             builder: (context, _) => CustomPaint(
               key: const Key('sigillo_ruota'),
               painter: RuotaSigilloPainter(
-                cammino: IntentionSigil.cammino(lettura.riformulata),
-                lettere: IntentionSigil.lettereUniche(lettura.riformulata),
+                cammino: cammino,
+                lettere: IntentionSigil.lettereUniche(_testoDelSegno),
                 avanzamento: _riduciMoto ? 1.0 : _traccia.value,
                 colore: colore,
                 oro: palette.goldSoft,
@@ -343,12 +686,12 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
         ),
         const SizedBox(height: SpacingTokens.lg),
         if (finito) ...[
-          Text(lettura.via.nome,
+          Text(sigillo.via.nome,
               key: const Key('sigillo_via'),
               textAlign: TextAlign.center,
               style: TypographyTokens.titoloSezione().copyWith(color: colore)),
           const SizedBox(height: SpacingTokens.xxs),
-          Text(lettura.via.dominio,
+          Text(sigillo.via.dominio,
               textAlign: TextAlign.center,
               style: TypographyTokens.corpo()
                   .copyWith(color: ColorTokens.textSecondary)),
@@ -357,63 +700,87 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if (testi == null)
+                  Text('Caligo scrive il tuo responso...',
+                      key: const Key('sigillo_scrive'),
+                      style: TypographyTokens.corpo()
+                          .copyWith(color: ColorTokens.textSecondary))
+                else ...[
+                  // **IL TITOLO E IL RESPONSO SULL'INTENZIONE VERA**, voce
+                  // DO.10: dal modello se reggono alle guardie, di casa
+                  // altrimenti.
+                  Text(testi.titolo,
+                      key: const Key('sigillo_titolo'),
+                      style: TypographyTokens.titoloSezione()
+                          .copyWith(color: palette.goldSoft)),
+                  const SizedBox(height: SpacingTokens.xs),
+                  ParagrafiDiLettura(
+                      key: const Key('sigillo_responso'),
+                      testo: testi.responso,
+                      stile: TypographyTokens.lettura().copyWith(height: 1.45)),
+                ],
+                const SizedBox(height: SpacingTokens.md),
                 Text('LA TUA INTENZIONE',
                     style: TypographyTokens.etichetta()
                         .copyWith(color: palette.goldSoft, letterSpacing: 2)),
                 const SizedBox(height: SpacingTokens.xxs),
                 ParagrafiDiLettura(
-                    testo: '"${lettura.riformulata}"',
-                    stile: TypographyTokens.lettura().copyWith(height: 1.45)),
-                if (lettura.eStataRiformulata) ...[
-                  const SizedBox(height: SpacingTokens.sm),
-                  Text(
-                    'Avevi scritto di qualcun altro. Un sigillo agisce su chi '
-                    'lo traccia, mai sulla volontà di un terzo, quindi ho '
-                    'riportato la tua intenzione su di te: è lì che ha forza.',
-                    key: const Key('sigillo_riformulata'),
-                    style: TypographyTokens.corpo().copyWith(
-                        color: ColorTokens.textSecondary, height: 1.45),
-                  ),
-                ],
-                const SizedBox(height: SpacingTokens.sm),
-                ParagrafiDiLettura(
-                  // Dopo una riformulazione la parola che l'ha innescata NON
-                  // si ripete: rimetterebbe sotto gli occhi proprio la cosa
-                  // che si e' appena tolta, e suonerebbe come un rimprovero.
-                  testo: lettura.eStataRiformulata
-                      ? 'Un desiderio che riguarda il cuore appartiene alla '
-                          '${lettura.via.nome}.'
-                      : lettura.riconosciuta
-                          ? 'Ho riconosciuto la ${lettura.via.nome} dalla '
-                              'parola "${lettura.parolaChiave}".'
-                          : 'Non ho riconosciuto nessuna delle tre vie nelle '
-                              'tue parole, quindi ho scelto la Via Bianca, '
-                              'che è quella della chiarezza.',
-                  key: const Key('sigillo_perche'),
-                  stile: TypographyTokens.lettura()
-                      .copyWith(color: ColorTokens.textSecondary, height: 1.45),
-                ),
+                    testo: '"${sigillo.intenzione}"',
+                    stile: TypographyTokens.lettura().copyWith(
+                        color: ColorTokens.textSecondary, height: 1.45)),
               ],
             ),
           ),
-          const SizedBox(height: SpacingTokens.md),
-          _FontiEMetodo(palette: palette),
+          const SizedBox(height: SpacingTokens.lg),
+          // **E ADESSO?** Voce DO.04: una riga sola, e il giorno in cui
+          // l'app si fara' viva.
+          Text(
+            LaVoceDelSigillo.lasciaLavorare,
+            key: const Key('sigillo_lascialo_lavorare'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textPrimary, height: 1.5),
+          ),
+          const SizedBox(height: SpacingTokens.xs),
+          Text(
+            'La data: ${dataItalianaEstesa(sigillo.scadenza)}.',
+            key: const Key('sigillo_quando'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.corpo()
+                .copyWith(color: palette.goldSoft, height: 1.4),
+          ),
+          const SizedBox(height: SpacingTokens.lg),
+          PulsanteDelSigillo(
+            key: const Key('sigillo_apri_libro'),
+            testo: 'Apri il Libro dei Sigilli',
+            palette: palette,
+            onPressed: testi == null ? null : _apriIlLibro,
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          // **COSA ME NE FACCIO?** Voce DO.07.
+          IlSigilloSulTelefono(
+            via: sigillo.via,
+            cammino: cammino,
+            palette: palette,
+            porta: widget.porta,
+          ),
           const SizedBox(height: SpacingTokens.lg),
           // **LE AZIONI DA UNA PORTA SOLA, ordine CG voci 06 e 08.** Qui
           // il Condividi non c'e' e non e' una dimenticanza: il Sigillo
           // produce un segno tracciato col dito, non una carta da
           // mandare. Restano il Custodisci e il Parlane, che di
-          // un'immagine non hanno bisogno.
+          // un'immagine non hanno bisogno. L'ordine DO voce 07 non lo
+          // contraddice: lo sfondo non manda niente a nessuno.
           AzioniDelResponso(
             palette: palette,
             maestro: Maestro.caligo,
             responso: ResponsoDaCustodire(
               arte: 'sigillo',
-              titolo: 'Il tuo sigillo: ${lettura.via.nome}',
-              testo: lettura.riformulata,
-              dati: {'via': lettura.via.nome},
+              titolo: testi?.titolo ?? 'Il tuo sigillo: ${sigillo.via.nome}',
+              testo: sigillo.intenzione,
+              dati: {'via': sigillo.via.nome},
             ),
-            aperturaDellaChat: ChatOpeners.sigillo(lettura.riformulata),
+            aperturaDellaChat: ChatOpeners.sigillo(sigillo.intenzione),
           ),
           const SizedBox(height: SpacingTokens.lg),
         ] else
@@ -428,35 +795,66 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
   }
 }
 
-/// Le fonti e il metodo, dichiarati dove si vedono.
-class _FontiEMetodo extends StatelessWidget {
-  const _FontiEMetodo({required this.palette});
+/// Una delle tre vie, da scegliere prima di scrivere.
+class _SceltaDellaVia extends StatelessWidget {
+  const _SceltaDellaVia({
+    required this.via,
+    required this.scelta,
+    required this.palette,
+    required this.onTap,
+  });
 
+  final ViaMagica via;
+  final bool scelta;
   final MaestroPalette palette;
+  final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    return DepthCard(
-      key: const Key('sigillo_fonti'),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('FONTI E METODO',
-              style: TypographyTokens.etichetta()
-                  .copyWith(color: palette.goldSoft, letterSpacing: 2)),
-          const SizedBox(height: SpacingTokens.xs),
-          Text(
-            'Il metodo delle lettere viene da Austin Osman Spare, che nel '
-            'primo Novecento descrive come togliere da una frase le lettere '
-            'ripetute perché la forma prenda il posto delle parole. La ruota '
-            'su cui si traccia il cammino si ispira alla Rosa dei Petali '
-            'della Golden Dawn, che nella sua forma storica porta lettere '
-            'ebraiche: qui è adattata alle nostre, con un adattamento che è '
-            'nostro. I testi che leggi sono curatela originale del Cerchio.',
-            style: TypographyTokens.corpo()
-                .copyWith(color: ColorTokens.textSecondary, height: 1.5),
+    final colore = coloreDellaVia(via);
+    return Semantics(
+      button: true,
+      selected: scelta,
+      child: GestureDetector(
+        key: Key('sigillo_via_${via.name}'),
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.all(SpacingTokens.md),
+          decoration: BoxDecoration(
+            color: scelta
+                ? colore.withValues(alpha: 0.14)
+                : ColorTokens.neutralDeepest.withValues(alpha: 0.4),
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+            border: Border.all(
+                color: scelta ? colore : colore.withValues(alpha: 0.35),
+                width: scelta ? 2 : 1),
           ),
-        ],
+          child: Row(
+            children: [
+              Container(
+                width: 14,
+                height: 14,
+                decoration:
+                    BoxDecoration(color: colore, shape: BoxShape.circle),
+              ),
+              const SizedBox(width: SpacingTokens.md),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(via.nome,
+                        style: TypographyTokens.titoloDiRiga()
+                            .copyWith(color: ColorTokens.textPrimary)),
+                    Text(via.dominio,
+                        style: TypographyTokens.corpo()
+                            .copyWith(color: ColorTokens.textSecondary)),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

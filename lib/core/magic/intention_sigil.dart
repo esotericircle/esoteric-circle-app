@@ -282,7 +282,11 @@ class LettoreIntenzione {
           parolaChiave: segnale,
           riconosciuta: true,
           originale: pulita,
-          riformulata: 'Apro il mio cuore e mi rendo degno di un legame vero',
+          // **SENZA GENERE**, ordine DO voce 12: qui c'era "mi rendo degno",
+          // e una donna che traccia il sigillo lo riceveva al maschile. La
+          // guardia del dizionario DL.06 guarda la seconda persona e questa
+          // frase e' in prima: nessuna prova poteva vederla.
+          riformulata: 'Apro il mio cuore a un legame vero e ricambiato',
         );
       }
     }

@@ -82,6 +82,14 @@ class AvvisiLocali extends ServizioAvvisi {
       'Un avviso a tarda sera, quando c\'è un Sigillo da chiudere prima di '
           'dormire.'
     ),
+    // **IL CANALE DEI SIGILLI DELL'INTENZIONE. Ordine DO voce 08.** Una
+    // chiamata sola per sigillo, il giorno che la persona ha scelto: la
+    // programma `LaChiamataDelSigillo`, e porta al Libro dei Sigilli.
+    'sigillo_scadenza': (
+      'Sigilli dell\'Intenzione',
+      'Un avviso nel giorno che hai scelto, quando un tuo sigillo arriva '
+          'alla sua data.'
+    ),
   };
 
   /// CHI APRE LA SCENA PROMESSA. L'app lo imposta all'avvio: riceve il

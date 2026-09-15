@@ -88,9 +88,18 @@ class RegistroDeiPermessi {
       // Da Android 13 la lettura di una foto scelta dalla persona passa dal
       // selettore di sistema e NON chiede un permesso: dichiararlo sarebbe
       // chiedere piu' di quanto serve.
-      vociAndroid: [],
+      // **IL SIGILLO SUL TELEFONO, ordine DO voce 07.** Su iPhone il segno
+      // esce dall'app passando dalle foto, con la chiave di sola aggiunta
+      // NSPhotoLibraryAddUsageDescription che la tavola delle chiavi
+      // attribuisce a gal. Su Android esce da SET_WALLPAPER, un permesso
+      // normale che il sistema concede all'installazione e non domanda a
+      // nessuno, come RECEIVE_BOOT_COMPLETED accanto alle notifiche: si
+      // dichiara e basta. Sta qui perche' e' la stessa funzione, un'immagine
+      // dell'app che entra nel telefono della persona.
+      vociAndroid: ['android.permission.SET_WALLPAPER'],
       doveSiChiede: 'lib/features/synastry/user_photo.dart',
-      ripiego: 'La card si compone senza foto, col simbolo del segno.',
+      ripiego: 'La card si compone senza foto, col simbolo del segno. Il '
+          'Sigillo resta nel Libro anche senza sfondo.',
     ),
     VoceDelRegistro(
       permesso: AppPermission.notifications,

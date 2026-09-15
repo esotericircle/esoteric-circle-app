@@ -35,6 +35,11 @@
          aggiornamento dell'app**. Chi installa una build nuova quasi ogni
          giorno azzera le cinque chiamate ogni volta. -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!-- IL SIGILLO COME SFONDO DEL TELEFONO. Ordine DO voce 07, 15 settembre
+         2026. E' un permesso normale, che il sistema concede all'installazione
+         e che non chiede conferma a schermo: la conferma la da' la persona
+         scegliendo Home, Blocco o Entrambe dentro l'app. -->
+    <uses-permission android:name="android.permission.SET_WALLPAPER"/>
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false"/>

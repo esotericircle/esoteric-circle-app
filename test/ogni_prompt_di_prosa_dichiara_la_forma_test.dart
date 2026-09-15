@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:esoteric_circle/core/chat/il_blocco_di_cortesia.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
+import 'package:esoteric_circle/core/magic/il_sigillo_dal_modello.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
 import 'package:esoteric_circle/core/viaggio/il_segno_dell_animale.dart';
@@ -49,10 +50,16 @@ void main() {
         Maestro.caligo, UserProfile(courtesyForm: f)),
     'la lettura del mese': (f) =>
         PennaVeraDelMese.istruzione(Maestro.medora, forma: f),
-    'il segno dell\'animale': (f) =>
-        GestiDelSegno.istruzione(lupo, forma: f),
+    'il segno dell\'animale': (f) => GestiDelSegno.istruzione(lupo, forma: f),
     'la scena, il titolo, la risposta e il gesto del Viaggio': (f) =>
         LaScenaDalModello.istruzione(lupo, forma: f),
+    // **I TRE TESTI DEL SIGILLO**, ordine DO voci 09 e 10.
+    'il titolo e il responso del Sigillo': (f) =>
+        IlSigilloDalModello.istruzioneDeiTesti(f),
+    'il testo del compimento del Sigillo': (f) =>
+        IlSigilloDalModello.istruzioneDelCompimento(f),
+    'la riformulazione del Sigillo': (f) =>
+        IlSigilloDalModello.istruzioneDellaRiformulazione(f),
   };
 
   test('ogni prompt di prosa porta il blocco con la forma scelta', () {
@@ -116,6 +123,9 @@ void main() {
     'lib/core/viaggio/il_segno_dell_animale.dart': 'la riga del segno',
     'lib/core/viaggio/la_scena_dal_modello.dart':
         'la scena del Viaggio col titolo, la risposta e il gesto',
+    'lib/core/magic/il_sigillo_dal_modello.dart':
+        'il titolo, il responso, il compimento e la riformulazione del '
+            'Sigillo: tutti in prosa',
     // **FUORI, E DICHIARATO**: il classificatore della domanda restituisce
     // un identificatore di tema e l'oggetto della domanda preso dalle sue
     // parole. Non scrive una frase per la persona.
@@ -137,7 +147,8 @@ void main() {
             'cortesia');
     for (final dichiarato in mandanti.keys) {
       expect(File(dichiarato).existsSync(), isTrue,
-          reason: 'la prova dichiara un file che non c\'e\' piu\': $dichiarato');
+          reason:
+              'la prova dichiara un file che non c\'e\' piu\': $dichiarato');
     }
   });
 }

@@ -79,6 +79,11 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   'ViaggioDelloSciamanoScreen': PresenzaDellaBarra.assente,
   'RuneDrawScreen': PresenzaDellaBarra.assente,
   'SigilloIntenzioneScreen': PresenzaDellaBarra.assente,
+  // **IL LIBRO DEI SIGILLI E LA SCHEDA DI UN SIGILLO**, ordine DO voce 06:
+  // letture e un gesto, la carica col dito, che una barra a vista
+  // interromperebbe. Si esce col tasto indietro.
+  'LibroDeiSigilliScreen': PresenzaDellaBarra.assente,
+  'SigilloDelLibroScreen': PresenzaDellaBarra.assente,
 
   // --- LE SOGLIE ---------------------------------------------------------
   'OnboardingScreen': PresenzaDellaBarra.assente,

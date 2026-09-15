@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/magic/la_voce_del_sigillo.dart';
+
 import '../../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/tokens/color_tokens.dart';
@@ -146,7 +148,11 @@ class TestiDelleFonti {
       'a una figura di petali concentrici.\n\n'
       'Il glifo che ne esce è tuo e di nessun altro: nasce dalle lettere della '
       'frase che hai scritto, quindi due intenzioni diverse non possono dare '
-      'lo stesso segno.';
+      'lo stesso segno.\n\n'
+      // **IL PERCHE' DEL NON LEGGERSI**, ordine DO voce 01: la parte del
+      // metodo che nessuno immagina, detta dove si leggono le fonti.
+      '${LaVoceDelSigillo.illeggibileApposta}\n\n'
+      'Il libro è The Book of Pleasure, che Spare pubblicò nel 1913.';
 
   /// L'Oroscopo Personalizzato.
   static const String oroscopo =

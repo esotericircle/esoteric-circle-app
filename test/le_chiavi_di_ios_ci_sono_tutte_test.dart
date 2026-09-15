@@ -77,13 +77,16 @@ void main() {
     // su iOS non esiste affatto.
     'speech_to_text': 'NSSpeechRecognitionUsageDescription',
     'image_picker': 'NSPhotoLibraryUsageDescription',
+    // **IL SIGILLO NELLE FOTO**, ordine DO voce 07: gal scrive nella
+    // libreria col solo permesso di aggiunta, verificato nella sua cartella
+    // darwin/ il 15 settembre 2026.
+    'gal': 'NSPhotoLibraryAddUsageDescription',
     'camera': 'NSCameraUsageDescription',
     'google_mlkit_face_detection': 'NSCameraUsageDescription',
     'mediapipe_face_mesh': 'NSCameraUsageDescription',
   };
 
-  late final String plist =
-      File('ios/Runner/Info.plist').readAsStringSync();
+  late final String plist = File('ios/Runner/Info.plist').readAsStringSync();
   late final Set<String> presenti = RegExp(r'NS[A-Za-z]+UsageDescription')
       .allMatches(plist)
       .map((m) => m.group(0)!)
@@ -120,8 +123,7 @@ void main() {
 
   test('la tavola non elenca dipendenze che non esistono piu\'', () {
     // Una tavola che parla di librerie tolte invecchia in silenzio.
-    final sparite =
-        tavola.keys.where((k) => !dirette.contains(k)).toList();
+    final sparite = tavola.keys.where((k) => !dirette.contains(k)).toList();
     expect(sparite, isEmpty,
         reason: 'la tavola classifica dipendenze che il pubspec non ha piu\': '
             '$sparite');

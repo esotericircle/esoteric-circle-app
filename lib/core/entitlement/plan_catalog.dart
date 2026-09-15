@@ -122,6 +122,12 @@ enum RigaDelPiano {
   discese,
   segni,
   nutrimento,
+
+  /// **I SIGILLI DELL'INTENZIONE VIVI INSIEME**, ordine DO voce 11.
+  sigilliVivi,
+
+  /// **LA CARICA DEL SIGILLO**, sempre: non chiama nessun modello.
+  caricaDelSigillo,
 }
 
 /// I quattro livelli canonici del briefing, con i prezzi e la mappa funzioni.
@@ -435,8 +441,7 @@ class PlanCatalog {
   /// fondo sulla stessa risposta. E' una riga a se' perche' l'approfondimento
   /// NON consuma una domanda: se la consumasse, la persona esiterebbe prima di
   /// toccarlo, e l'esitazione uccide l'intimita'.
-  static const RigaDelPiano rigaApprofondimenti =
-      RigaDelPiano.approfondimenti;
+  static const RigaDelPiano rigaApprofondimenti = RigaDelPiano.approfondimenti;
 
   /// Quanti confronti nel Consiglio dei Maestri al giorno.
   ///
@@ -550,9 +555,21 @@ class PlanCatalog {
     // tolta dal listino con l'ordine CE voce 08, e una guardia enumera ogni
     // cella. *Sempre* dice la stessa cosa senza promettere l'illimitato dove
     // ci sarebbe un costo.
-    FeatureRow('Nutrire l\'animale guida',
-        ['Sempre', 'Sempre', 'Sempre', 'Sempre'],
+    FeatureRow(
+        'Nutrire l\'animale guida', ['Sempre', 'Sempre', 'Sempre', 'Sempre'],
         chiave: RigaDelPiano.nutrimento),
+    // **I SIGILLI DELL'INTENZIONE: IL LIMITE E' LO SPAZIO E NON IL TEMPO.**
+    // Ordine DO voce 11, deciso dal fondatore: *"quanti sigilli vivi insieme,
+    // non quanti al mese"*. Prima di quest'ordine la funzione era aperta senza
+    // tetti anche al Viandante. Per tracciarne uno nuovo a spazio pieno si
+    // chiude uno di quelli vivi, nel Libro dei Sigilli.
+    FeatureRow('Sigilli dell\'Intenzione vivi insieme', ['1', '2', '3', '5'],
+        chiave: RigaDelPiano.sigilliVivi),
+    // **LA CARICA E' SEMPRE APERTA**, perche' non chiama nessun modello e non
+    // costa niente: la stessa ragione del nutrimento dell'animale.
+    FeatureRow(
+        'Caricare i propri sigilli', ['Sempre', 'Sempre', 'Sempre', 'Sempre'],
+        chiave: RigaDelPiano.caricaDelSigillo),
     FeatureRow('Sinastria VIP',
         ['3 al giorno', '5 al giorno', '5 al giorno', '25 al giorno'],
         chiave: RigaDelPiano.sinastria),

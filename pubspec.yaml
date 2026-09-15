@@ -135,6 +135,15 @@ dependencies:
   flutter_local_notifications: ^22.2.0
   timezone: ^0.11.1
 
+  # **IL SIGILLO NELLE FOTO, SU IPHONE. Ordine DO voce 07.**
+  #
+  # iOS non ha nessuna API per impostare lo sfondo, e non c'e' scappatoia:
+  # il Sigillo si salva nelle foto e la persona lo mette come sfondo dalle
+  # impostazioni. gal scrive nella libreria col solo permesso di aggiunta,
+  # NSPhotoLibraryAddUsageDescription. Su Android lo sfondo lo imposta
+  # WallpaperManager dal canale di MainActivity, e gal li' non si chiama.
+  gal: ^2.3.3
+
 # Un solo blocco, per un guasto a monte che ferma la build Android.
 #
 # record 5.2.1 vincola record_linux a '>=0.5.0 <1.0.0' e lascia libero
