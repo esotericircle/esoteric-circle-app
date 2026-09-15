@@ -156,9 +156,18 @@ void main() {
       for (final i in ultime!) {
         controllati++;
         righeToccate.add(i ~/ velo.colonne);
-        final dx = (i % velo.colonne + 0.5) - (colonna + 0.5);
-        expect(dx.abs(), lessThanOrEqualTo(IlVeloCheSiScosta.raggioDellaMano),
-            reason: '${animale.name}: la cella $i sta a ${dx.abs()} colonne '
+        // **IN PUNTI E NON IN CELLE**, ordine DQ voce 05: il pennello ha
+        // il raggio in punti logici, e una cella conta scoperta quando la
+        // maschera al suo centro e' almeno a meta'.
+        final dx = ((i % velo.colonne + 0.5) - (colonna + 0.5)) *
+            r.width /
+            velo.colonne;
+        expect(
+            dx.abs(),
+            lessThanOrEqualTo(IlVeloDellAnimale.raggioDelPennello *
+                    IlVeloDellAnimale.doveContaIlPennello +
+                0.01),
+            reason: '${animale.name}: la cella $i sta a ${dx.abs()} punti '
                 'dal dito. Il velo si apre dove il dito non e\' passato: '
                 'e\' una fascia, non una mano');
       }

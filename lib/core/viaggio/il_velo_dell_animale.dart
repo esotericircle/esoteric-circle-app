@@ -150,4 +150,68 @@ class IlVeloDellAnimale {
 
   /// **QUANTE DISCESE DI CENERE CI SONO**: tre, poi alla quarta cade da sola.
   static const int discesePrimaDellaTesta = 3;
+
+  // --- IL PENNELLO, ordine DQ voce 05 ---------------------------------------
+
+  /// **IL RAGGIO DEL PENNELLO, IN PUNTI LOGICI.** Ordine DQ voce 05, 15
+  /// settembre 2026: *"il dito dipinge su una maschera alla risoluzione piena
+  /// dello schermo, con un pennello a bordo morbido il cui raggio si misura in
+  /// punti logici e non in celle"*. Diciotto punti: la punta di un dito.
+  static const double raggioDelPennello = 18;
+
+  /// **DOVE IL PENNELLO SCOPRE ABBASTANZA PER CONTARE**: a quattro quinti del
+  /// raggio, dove la maschera e' a meta'. Vedi [chiarezza].
+  static const double doveContaIlPennello = 0.8;
+
+  /// **QUANTO IL PENNELLO SCOPRE**, da 1 a 0, a [distanza] punti dal tratto.
+  /// Pieno fino a sei decimi del raggio, poi scende morbido fino al bordo:
+  /// e' la maschera che il disegno dipinge, scritta come funzione.
+  static double chiarezza(double distanza) {
+    const r = raggioDelPennello;
+    if (distanza <= r * 0.6) return 1;
+    if (distanza >= r) return 0;
+    final t = (r - distanza) / (r * 0.4);
+    return t * t * (3 - 2 * t);
+  }
+
+  /// **LE CELLE CHE UN TRATTO DEL DITO SCOPRE**, dalla piu' vicina: le
+  /// scostabili dove la maschera del pennello, campionata al centro della
+  /// cella, e' almeno a meta'. **La griglia campiona la maschera, e non il
+  /// contrario**: la quantita' consumata si ricava da cio' che il dito ha
+  /// dipinto. [da] e [a] in frazioni dell'illustrazione, [illustrazione] la
+  /// sua misura in punti.
+  List<int> scoperteDa(Offset da, Offset a, Size illustrazione) {
+    if (illustrazione.isEmpty) return const [];
+    final w = illustrazione.width;
+    final h = illustrazione.height;
+    final p0 = Offset(da.dx * w, da.dy * h);
+    final p1 = Offset(a.dx * w, a.dy * h);
+    const quanto = raggioDelPennello * doveContaIlPennello;
+    final cw = w / colonne;
+    final ch = h / righe;
+    final c0 = ((math.min(p0.dx, p1.dx) - quanto) / cw).floor().clamp(0, colonne - 1);
+    final c1 = ((math.max(p0.dx, p1.dx) + quanto) / cw).ceil().clamp(0, colonne - 1);
+    final r0 = ((math.min(p0.dy, p1.dy) - quanto) / ch).floor().clamp(0, righe - 1);
+    final r1 = ((math.max(p0.dy, p1.dy) + quanto) / ch).ceil().clamp(0, righe - 1);
+    final dentro = <(int, double)>[];
+    for (var r = r0; r <= r1; r++) {
+      for (var c = c0; c <= c1; c++) {
+        final i = r * colonne + c;
+        if (!scostabile.contains(i)) continue;
+        final d = _distanza(Offset((c + 0.5) * cw, (r + 0.5) * ch), p0, p1);
+        if (d <= quanto) dentro.add((i, d));
+      }
+    }
+    dentro.sort((x, y) => x.$2.compareTo(y.$2));
+    return [for (final x in dentro) x.$1];
+  }
+
+  /// La distanza di [p] dal segmento da [a] a [b].
+  static double _distanza(Offset p, Offset a, Offset b) {
+    final ab = b - a;
+    final l2 = ab.dx * ab.dx + ab.dy * ab.dy;
+    if (l2 == 0) return (p - a).distance;
+    final t = (((p - a).dx * ab.dx + (p - a).dy * ab.dy) / l2).clamp(0.0, 1.0);
+    return (p - (a + ab * t)).distance;
+  }
 }

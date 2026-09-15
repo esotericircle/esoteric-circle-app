@@ -333,7 +333,8 @@ abstract final class LaScenaDalModello {
           'niente "processo", "il tuo percorso", "è tempo di", "lascia '
           'andare", "ascolta il tuo cuore", "il tuo vero io", "la tua '
           'essenza", "energia positiva", "apriti a", "devi solo", '
-          '"abbraccia il cambiamento".',
+          '"abbraccia il cambiamento", "è già in te", "già dentro di te", '
+          '"risuona".',
       '- L\'azione non chiede di fare a un\'altra persona qualcosa che possa '
           'ferirla o mettere in imbarazzo chi legge: niente confronti, '
           'accuse, pretese, rotture o rivelazioni. Niente salute, farmaci, '

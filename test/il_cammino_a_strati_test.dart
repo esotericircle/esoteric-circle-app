@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:esoteric_circle/core/astro/zodiac.dart';
-import 'package:esoteric_circle/core/chat/le_forme_del_genere.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/maestro/natal_context.dart';
@@ -132,6 +132,41 @@ void main() {
       expect(b.riconosciuto, isTrue,
           reason: 'chi aveva gia riconosciuto il suo animale lo tiene');
       expect(b.cammino, isNull);
+    });
+  });
+
+  group('DQ.14, il Diario di collaudo', () {
+    test('senza archivio non scrive niente sul telefono, e resta per la '
+        'sessione', () async {
+      final d = DiarioDeiViaggi(archivio: false);
+      await d.carica();
+      final c = IlCammino(
+          domanda: 'Devo cambiare lavoro?',
+          via: 'scritta',
+          tema: 'scelta',
+          inizio: DateTime(2026, 9, 16, 12));
+      await d.cominciaIlCammino(c);
+      await d.segna(discesa(DateTime(2026, 9, 16, 13), c, 1));
+      await d.segnaCelleScoperte('Lupo', {1, 2});
+      await d.segnaISolchi('Lupo', [
+        [const Offset(0.1, 0.1)]
+      ]);
+      await d.carica();
+      expect(d.apparizioni, 1, reason: 'rientrare nel Viaggio ha azzerato');
+      expect(d.viaggi, hasLength(1));
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getKeys().where((k) => k.startsWith('viaggio.')), isEmpty,
+          reason: 'il Diario di collaudo ha scritto sul Viaggio del telefono');
+    });
+
+    test('la build che si consegna non accende il collaudo', () {
+      expect(DiarioDeiViaggi.collaudoDelCammino, isFalse);
+      for (final f in ['codemagic.yaml', 'docs/versione_distribuita.json',
+          'tool/consegna.py', 'tool/sbarramento.sh']) {
+        expect(File(f).readAsStringSync().contains('COLLAUDO_DEL_CAMMINO'),
+            isFalse,
+            reason: '$f accende il Diario di collaudo nella build vera');
+      }
     });
   });
 

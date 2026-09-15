@@ -198,8 +198,13 @@ enum FaseDelViaggio {
 
 class _ViaggioDelloSciamanoScreenState
     extends State<ViaggioDelloSciamanoScreen> {
-  late final DiarioDeiViaggi _diario =
-      widget.diario ?? DiarioDeiViaggi(orologio: () => _adesso);
+  // **NELLA BUILD DI COLLAUDO DEL CAMMINO IL DIARIO NON HA ARCHIVIO**,
+  // ordine DQ voce 14: il cammino si prova da capo senza toccare il Viaggio
+  // che il telefono di collaudo ha gia'.
+  late final DiarioDeiViaggi _diario = widget.diario ??
+      (DiarioDeiViaggi.collaudoDelCammino
+          ? DiarioDeiViaggi.diCollaudo
+          : DiarioDeiViaggi(orologio: () => _adesso));
 
   DateTime get _adesso => widget.now ?? DateTime.now();
 
@@ -2053,6 +2058,11 @@ class _ViaggioDelloSciamanoScreenState
       giaScoperte: _diario.celleScoperteDi(animale.name),
       quandoCambia: (celle) =>
           unawaited(_diario.segnaCelleScoperte(animale.name, celle)),
+      // **I SOLCHI DEL DITO**, ordine DQ voce 05: il disegno si conserva
+      // com'era, accanto alle celle che lo contano.
+      giaSolchi: _diario.solchiDi(animale.name),
+      quandoSolca: (solchi) =>
+          unawaited(_diario.segnaISolchi(animale.name, solchi)),
       palette: palette,
       piede: FilledButton.icon(
         key: const Key('viaggio_risali'),

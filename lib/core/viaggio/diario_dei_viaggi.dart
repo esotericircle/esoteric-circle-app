@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ui' show Offset;
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,8 +27,29 @@ import 'vocabolario_del_viaggio.dart';
 /// muti i Maestri, e vale **per ogni sorgente di memoria, presente e futura**,
 /// quindi anche per questa che nasce oggi.
 class DiarioDeiViaggi {
-  DiarioDeiViaggi({DateTime Function()? orologio})
+  DiarioDeiViaggi({DateTime Function()? orologio, this.archivio = true})
       : _orologio = orologio ?? DateTime.now;
+
+  /// **SE IL DIARIO LEGGE E SCRIVE SUL TELEFONO.** Sempre, tranne che nella
+  /// build di collaudo del cammino, [collaudoDelCammino]: li' il Viaggio
+  /// comincia da un Diario vuoto e non scrive niente, cosi' il cammino a
+  /// quattro strati si prova da capo sul telefono di collaudo **senza
+  /// toccare il Viaggio che quel telefono ha gia'**. Ordine DQ voce 14.
+  final bool archivio;
+
+  /// **LA BUILD DI COLLAUDO DEL CAMMINO**, accesa solo con
+  /// `--dart-define=COLLAUDO_DEL_CAMMINO=true`. Nella build che si consegna
+  /// e' falsa, e il ramo non esiste.
+  static const bool collaudoDelCammino =
+      bool.fromEnvironment('COLLAUDO_DEL_CAMMINO');
+
+  /// **IL DIARIO DI COLLAUDO, UNO PER TUTTA LA SESSIONE**: fra una discesa e
+  /// l'altra si esce dal Viaggio e si rientra, e il cammino deve restare.
+  static final DiarioDeiViaggi diCollaudo = DiarioDeiViaggi(archivio: false);
+
+  Future<SharedPreferences> _prefs() => archivio
+      ? SharedPreferences.getInstance()
+      : Future.error(StateError('Diario di collaudo, senza archivio'));
 
   final DateTime Function() _orologio;
 
@@ -57,6 +79,11 @@ class DiarioDeiViaggi {
   /// delle celle separati da virgole.
   static const String _chiaveDelVelo = 'viaggio.velo';
 
+  /// **DOVE STANNO I SOLCHI DEL DITO**, ordine DQ voce 05: il tratto
+  /// esatto, in frazioni dell'illustrazione, perche' il velo lo ridipinga
+  /// uguale. Le celle restano la contabilita', i solchi il disegno.
+  static const String _chiaveDeiSolchi = 'viaggio.velo.solchi';
+
   /// **QUANTI VIAGGI SI CONSERVANO.**
   ///
   /// Novanta, come la memoria del respiro: bastano a rileggere sei mesi di
@@ -83,6 +110,8 @@ class DiarioDeiViaggi {
   List<SegnoRicevuto> _segni = const [];
   Set<int> _celleScoperte = const {};
   String? _animaleDelVelo;
+  List<List<Offset>> _solchi = const [];
+  String? _animaleDeiSolchi;
   IlCammino? _cammino;
   bool _riconosciuto = false;
 
@@ -166,11 +195,14 @@ class DiarioDeiViaggi {
     _cammino = null;
     _celleScoperte = const {};
     _animaleDelVelo = null;
+    _solchi = const [];
+    _animaleDeiSolchi = null;
     IlNomeSiPuoDire.quanteDisceseNote = apparizioni;
     await _scriviIlCammino();
     try {
-      final prefs = await SharedPreferences.getInstance();
+      final prefs = await _prefs();
       await prefs.remove(_chiaveDelVelo);
+      await prefs.remove(_chiaveDeiSolchi);
     } catch (errore) {
       // Si perde il ricordo della cenere scostata, non il gesto.
     }
@@ -178,7 +210,7 @@ class DiarioDeiViaggi {
 
   Future<void> _scriviIlCammino() async {
     try {
-      final prefs = await SharedPreferences.getInstance();
+      final prefs = await _prefs();
       await prefs.setString(
           _chiaveDelCammino, _cammino == null ? '' : jsonEncode(_cammino!.toJson()));
       await prefs.setBool(_chiaveDelRiconoscimento, _riconosciuto);
@@ -205,11 +237,36 @@ class DiarioDeiViaggi {
     _animaleDelVelo = animale;
     _celleScoperte = Set.unmodifiable(celle);
     try {
-      final prefs = await SharedPreferences.getInstance();
+      final prefs = await _prefs();
       await prefs.setString(
           _chiaveDelVelo, '$animale:${(celle.toList()..sort()).join(',')}');
     } catch (errore) {
       // Si perde solo il ricordo del gesto.
+    }
+  }
+
+  /// **I SOLCHI GIA' APERTI SU [animale]**, ordine DQ voce 05; per un altro
+  /// nome nessuno, come le celle.
+  List<List<Offset>> solchiDi(String animale) =>
+      animale == _animaleDeiSolchi ? _solchi : const [];
+
+  /// Conserva i solchi di [animale]. Tre decimali bastano: sull'illustrazione
+  /// piu' grande sono meno di mezzo punto.
+  Future<void> segnaISolchi(String animale, List<List<Offset>> solchi) async {
+    _animaleDeiSolchi = animale;
+    _solchi = [for (final s in solchi) List.unmodifiable(s)];
+    try {
+      final prefs = await _prefs();
+      final testo = [
+        for (final s in solchi)
+          [
+            for (final p in s)
+              '${p.dx.toStringAsFixed(3)},${p.dy.toStringAsFixed(3)}'
+          ].join(';'),
+      ].join('|');
+      await prefs.setString(_chiaveDeiSolchi, '$animale@$testo');
+    } catch (errore) {
+      // Si perde il disegno del solco, non il gesto: le celle restano.
     }
   }
 
@@ -224,7 +281,7 @@ class DiarioDeiViaggi {
   Future<void> segnaUnSegno(SegnoRicevuto segno) async {
     _segni = List.unmodifiable([segno, ..._segni].take(quantiSegniTiene));
     try {
-      final prefs = await SharedPreferences.getInstance();
+      final prefs = await _prefs();
       await prefs.setStringList(
           _chiaveDeiSegni, [for (final s in _segni) jsonEncode(s.toJson())]);
     } catch (errore) {
@@ -248,14 +305,17 @@ class DiarioDeiViaggi {
   /// alle quattro discese la cosa che le rende quattro.
   Future<bool> ricomincia({bool demo = AppFlags.isDemo}) async {
     if (!demo) return false;
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_chiave);
-    await prefs.remove(_chiaveDeiNutrimenti);
-    await prefs.remove(_chiaveDeiSegni);
-    await prefs.remove(_chiaveDelVelo);
-    await prefs.remove(_chiaveDelConto);
-    await prefs.remove(_chiaveDelCammino);
-    await prefs.remove(_chiaveDelRiconoscimento);
+    if (archivio) {
+      final prefs = await _prefs();
+      await prefs.remove(_chiave);
+      await prefs.remove(_chiaveDeiNutrimenti);
+      await prefs.remove(_chiaveDeiSegni);
+      await prefs.remove(_chiaveDelVelo);
+      await prefs.remove(_chiaveDeiSolchi);
+      await prefs.remove(_chiaveDelConto);
+      await prefs.remove(_chiaveDelCammino);
+      await prefs.remove(_chiaveDelRiconoscimento);
+    }
     _cammino = null;
     _riconosciuto = false;
     _quante = 0;
@@ -264,6 +324,8 @@ class DiarioDeiViaggi {
     _segni = const [];
     _celleScoperte = const {};
     _animaleDelVelo = null;
+    _solchi = const [];
+    _animaleDeiSolchi = null;
     // **E ANCHE IL CONTO TORNA A ZERO**, o il comando di demo riporterebbe il
     // Viaggio a zero discese lasciando il nome detto in mezza app.
     IlNomeSiPuoDire.quanteDisceseNote = 0;
@@ -271,8 +333,14 @@ class DiarioDeiViaggi {
   }
 
   Future<void> carica() async {
+    // **SENZA ARCHIVIO NON C'E' NIENTE DA LEGGERE**, e cio' che la sessione
+    // ha gia' fatto resta: rileggere vorrebbe dire azzerarlo.
+    if (!archivio) {
+      IlNomeSiPuoDire.quanteDisceseNote = apparizioni;
+      return;
+    }
     try {
-      final prefs = await SharedPreferences.getInstance();
+      final prefs = await _prefs();
       final righe = prefs.getStringList(_chiave) ?? const [];
       final letti = <UnViaggio>[];
       for (final r in righe) {
@@ -343,6 +411,22 @@ class DiarioDeiViaggi {
           for (final x in velo.last.split(','))
             if (int.tryParse(x) != null) int.parse(x),
       });
+      // **I SOLCHI, ordine DQ voce 05**, con la stessa indulgenza: un punto
+      // illeggibile si salta.
+      final solchi = (prefs.getString(_chiaveDeiSolchi) ?? '').split('@');
+      _animaleDeiSolchi = solchi.length == 2 ? solchi.first : null;
+      _solchi = [
+        if (solchi.length == 2 && solchi.last.isNotEmpty)
+          for (final s in solchi.last.split('|'))
+            [
+              for (final p in s.split(';'))
+                if (p.split(',').length == 2 &&
+                    double.tryParse(p.split(',')[0]) != null &&
+                    double.tryParse(p.split(',')[1]) != null)
+                  Offset(double.parse(p.split(',')[0]),
+                      double.parse(p.split(',')[1])),
+            ],
+      ];
     } catch (errore) {
       // **SI IGNORA, E SI DICE PERCHE'.** Un archivio illeggibile o assente
       // non deve impedire di scendere: **il viaggio di oggi vale piu' del
@@ -378,7 +462,7 @@ class DiarioDeiViaggi {
     }
     IlNomeSiPuoDire.quanteDisceseNote = apparizioni;
     try {
-      final prefs = await SharedPreferences.getInstance();
+      final prefs = await _prefs();
       await prefs.setInt(_chiaveDelConto, _quante);
       await prefs.setString(_chiaveDelCammino,
           _cammino == null ? '' : jsonEncode(_cammino!.toJson()));
@@ -412,7 +496,7 @@ class DiarioDeiViaggi {
     final adesso = _orologio();
     _nutrimenti = List.unmodifiable([adesso, ..._nutrimenti].take(60).toList());
     try {
-      final prefs = await SharedPreferences.getInstance();
+      final prefs = await _prefs();
       await prefs.setStringList(_chiaveDeiNutrimenti,
           [for (final d in _nutrimenti) d.toIso8601String()]);
     } catch (errore) {

@@ -9,6 +9,7 @@ import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
 import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
 import 'package:esoteric_circle/core/viaggio/diario_dei_viaggi.dart';
 import 'package:esoteric_circle/core/viaggio/il_segno_dell_animale.dart';
+import 'package:esoteric_circle/core/viaggio/il_tema_della_domanda_libera.dart';
 import 'package:esoteric_circle/core/viaggio/il_responso_del_viaggio.dart';
 import 'package:esoteric_circle/core/viaggio/la_domanda_capita.dart';
 import 'package:esoteric_circle/core/viaggio/la_domanda_del_viaggio.dart';
@@ -185,11 +186,64 @@ void main() {
     for (final e in _perTipo.entries) {
       print('  ${e.key}: ${e.value.media}');
     }
+    // **PRIMA E DOPO LA SECONDA CHIAMATA, SU TUTTE LE DISCESE**, ordine DQ
+    // voce 06, e le righe riprese per motivo.
+    final discese = esiti.length * MotoreDellaRipetizione.quante;
+    for (final pezzo in ['titolo', 'risposta', 'gesto']) {
+      final prima = esiti.fold<int>(0, (s, e) => s + (e.dalModelloPrima[pezzo] ?? 0));
+      final dopo = esiti.fold<int>(0, (s, e) => s + (e.dalModelloDopo[pezzo] ?? 0));
+      print('DQ.06 $pezzo dal modello: prima ${(prima * 100 / discese).toStringAsFixed(1)}, '
+          'dopo ${(dopo * 100 / discese).toStringAsFixed(1)} per cento, su $discese discese');
+    }
+    final riprese = <String, int>{};
+    for (final e in esiti) {
+      e.recuperatePerMotivo.forEach((k, v) => riprese[k] = (riprese[k] ?? 0) + v);
+    }
+    final ordinate = riprese.entries.toList()..sort((a, b) => b.value.compareTo(a.value));
+    print('DQ.06 righe riprese alla seconda chiamata, per motivo della prima: '
+        '${ordinate.map((e) => '${e.key} ${e.value}').join(', ')}');
+    // **IL COSTO DI UNA DISCESA**, ai prezzi del catalogo Cloud Billing letti
+    // nell'ordine DJ voce 03: Gemini 2.5 Flash 0,30 dollari per milione in
+    // ingresso e 2,50 in uscita, Flash Lite 0,10 e 0,40.
+    final scena = _perTipo['scena']!;
+    final tema = _perTipo['tema']!;
+    final dollari = (scena.ingresso * 0.30 + scena.uscita * 2.50 +
+            tema.ingresso * 0.10 + tema.uscita * 0.40) /
+        1e6;
+    print('DQ.13 costo: ${(dollari / discese).toStringAsFixed(6)} dollari a '
+        'discesa, ${scena.chiamate} chiamate della scena su $discese discese');
   },
       skip: token.isEmpty
           ? 'con rete gira solo con VERTEX_TOKEN nell\'ambiente'
           : false,
       timeout: const Timeout(Duration(minutes: 120)));
+
+  /// **LA MISURA G SENZA RETE**, ordine DQ voce 13: venti cammini di quattro
+  /// discese, con la voce di casa. E' una guardia.
+  test('SENZA RETE: G, venti cammini, nessuno strato ripete uno di prima',
+      () async {
+    final g = await _misuraG(conRete: false);
+    print('DQ.13 G SENZA RETE: ${g.cammini} cammini, ${g.ripetizioni.length} '
+        'strati che ripetono, somiglianza peggiore '
+        '${(g.peggiore * 100).toStringAsFixed(1)} per cento');
+    expect(g.cammini, 20);
+    expect(g.ripetizioni, isEmpty, reason: g.ripetizioni.join('\n'));
+  }, timeout: const Timeout(Duration(minutes: 5)));
+
+  test('CON RETE: G, venti cammini col modello vero', () async {
+    HttpOverrides.global = null;
+    final g = await _misuraG(conRete: true, token: token);
+    print('DQ.13 G CON RETE: ${g.cammini} cammini, ${g.ripetizioni.length} '
+        'strati che ripetono, somiglianza peggiore '
+        '${(g.peggiore * 100).toStringAsFixed(1)} per cento');
+    for (final r in g.ripetizioni) {
+      print('  $r');
+    }
+  },
+      skip: token.isEmpty
+          ? 'con rete gira solo con VERTEX_TOKEN nell\'ambiente'
+          : false,
+      timeout: const Timeout(Duration(minutes: 30)));
 
   /// **IL SEGNO COL MODELLO VERO**, ordini DJ voce 08 e voce 03: dodici
   /// domande, una per animale, con l'istruzione e lo schema della chiamata
@@ -257,6 +311,187 @@ void main() {
           : false,
       timeout: const Timeout(Duration(minutes: 5)));
 }
+
+/// **LA MISURA G, LA PROGRESSIONE.** Ordine DQ voce 13: *"su venti cammini
+/// completi di quattro discese, nessuno strato ripete il contenuto di uno
+/// strato precedente dello stesso cammino. Si misura sugli scheletri, come
+/// gia' si fa per la varieta'."* Uno strato ripete quando il suo scheletro
+/// e' quello di uno strato di prima, o quando i due si somigliano oltre la
+/// soglia della misura C, il quaranta per cento sulle sequenze di cinque
+/// parole.
+Future<({int cammini, List<String> ripetizioni, double peggiore})> _misuraG(
+    {required bool conRete, String token = ''}) async {
+  final animale = GuideAnimalDerivation.forSign(Zodiac.cancer);
+  final domande = [
+    for (final c in _casi) c,
+    ..._camminiInPiu,
+  ];
+  final ripetizioni = <String>[];
+  var peggiore = 0.0;
+  var cammini = 0;
+  final conto = _Conto();
+  for (final caso in domande.take(20)) {
+    final inizio = DateTime(2026, 9, 16, 12);
+    var oggi = inizio;
+    final diario = DiarioDeiViaggi(orologio: () => oggi);
+    final testi = <String>[];
+    final nomi = <List<String>>[];
+    TemaDellaDomanda? tema = caso.temaScritto;
+    String? oggetto;
+    if (conRete && tema == null && caso.domanda.isNotEmpty) {
+      final capita = await LaDomandaCapita.capisci(caso.domanda,
+          chiamata: (i, d) => _vertex(token, LaDomandaCapita.modello, i, d, conto,
+              tipo: 'tema',
+              temperatura: 0,
+              tetto: 96,
+              mime: 'application/json',
+              schema: {
+                'type': 'OBJECT',
+                'properties': {
+                  'tema': {
+                    'type': 'STRING',
+                    'enum': [for (final t in TemaDellaDomanda.values) t.name],
+                  },
+                  'oggetto': {'type': 'STRING'},
+                },
+              }),
+          prendiUnaChiamata: () async => true);
+      tema = capita.tema;
+      oggetto = capita.oggetto;
+    } else if (tema == null && caso.domanda.isNotEmpty) {
+      tema = IlTemaDellaDomandaLibera.perParole(caso.domanda);
+    }
+    final c = IlCammino(
+      domanda: caso.domanda,
+      via: caso.domanda.isEmpty
+          ? 'incontro'
+          : caso.temaScritto != null
+              ? 'scelta'
+              : 'scritta',
+      tema: tema?.name ?? '',
+      oggetto: oggetto,
+      inizio: inizio,
+    );
+    await diario.cominciaIlCammino(c);
+    for (var s = 1; s <= 4; s++) {
+      oggi = inizio.add(Duration(days: s - 1));
+      final scritta = await LaScenaDalModello.chiediTutto(
+        CioCheSiSa(
+          domanda: caso.domanda,
+          tema: tema?.inLettere,
+          animale: animale,
+          natale: _natale,
+          memoria: diario.riassuntoPerIMaestri,
+          ultimeScene: [for (final v in diario.viaggi) v.pezzi],
+          oggetto: oggetto,
+          forma: caso.forma,
+          titoliGiaDati: LaScenaDalModello.titoliDalDiario(diario.viaggi),
+          strato: s,
+          stratiPrecedenti: [
+            for (final v in diario.stratiDi(c))
+              (
+                titolo: v.titolo ?? '',
+                risposta: v.risposta ?? '',
+                azione: v.gesto ?? '',
+              ),
+          ],
+        ),
+        chiamata: conRete
+            ? (i, r, a) => _vertex(token, LaScenaDalModello.modello, i, r, conto,
+                    tipo: 'scena',
+                    temperatura: 0.8,
+                    tetto: 640,
+                    mime: 'application/json',
+                    schema: {
+                      'type': 'OBJECT',
+                      'properties': {
+                        'luogo': {'type': 'STRING', 'enum': a.luoghi},
+                        'cosa': {'type': 'STRING', 'enum': a.cose},
+                        'gesto': {'type': 'STRING', 'enum': a.gesti},
+                        'momento': {'type': 'STRING', 'enum': a.momenti},
+                        'titolo': {'type': 'STRING'},
+                        'risposta': {'type': 'STRING'},
+                        'azione': {'type': 'STRING'},
+                      },
+                    })
+            : (i, r, a) async => throw const SocketException('senza rete'),
+        prendiUnaChiamata: () async => true,
+      );
+      final domanda = LaDomandaDelViaggio.oppureIlMomento(caso.domanda);
+      final responso = IlResponsoDelViaggio.componi(
+        dalModello: scritta.pezzi,
+        domanda: domanda,
+        giorno: oggi,
+        nitidezza: 1,
+        discesa: s - 1,
+        giaOggi: 0,
+        animale: animale,
+        tema: tema,
+        storia: diario.viaggi,
+        scritti: scritta.testi,
+        oggetto: oggetto,
+        apparizioniPrima: s - 1,
+      );
+      await diario.segna(responso.comeSiConserva(
+        quando: oggi,
+        domanda: domanda,
+        temaDellaDomanda: tema?.name ??
+            (caso.domanda.isEmpty ? LaDomandaDelViaggio.idSoloPerIncontrarlo : ''),
+        animaleSeguito: animale.name,
+        nitidezza: 1,
+        cammino: c.id,
+        strato: s,
+      ));
+      // Cio' che lo strato dice: il titolo, la risposta e l'azione.
+      final dello = [responso.titolo, responso.risposta, responso.gesto].join('\n');
+      if (Platform.environment['TUTTI_I_RESPONSI'] != null) {
+        print('STRATO ${caso.nome} $s | ${responso.titolo} | ${responso.risposta} '
+            '| ${responso.gesto} | ${responso.fonti}');
+      }
+      final n = [
+        responso.scena.luogo.nome,
+        responso.scena.cosa.nome,
+        responso.scena.gesto.nome,
+        responso.scena.momento.nome,
+        animale.name,
+      ];
+      for (var k = 0; k < testi.length; k++) {
+        final uguali = MotoreDellaRipetizione.scheletro(dello, n) ==
+            MotoreDellaRipetizione.scheletro(testi[k], nomi[k]);
+        final quanto = MotoreDellaRipetizione.somiglianza(dello, testi[k]);
+        if (quanto > peggiore) peggiore = quanto;
+        if (uguali || quanto >= MotoreDellaRipetizione.sogliaSomiglianza) {
+          ripetizioni.add('${caso.nome}: lo strato $s ripete il ${k + 1} '
+              '(${(quanto * 100).toStringAsFixed(1)} per cento)');
+        }
+      }
+      testi.add(dello);
+      nomi.add(n);
+    }
+    expect(diario.riconosciuto, isTrue,
+        reason: '${caso.nome}: il cammino non si e chiuso alla quarta');
+    cammini++;
+  }
+  return (cammini: cammini, ripetizioni: ripetizioni, peggiore: peggiore);
+}
+
+/// **I CAMMINI IN PIU' PER LA MISURA G**: nove domande libere nuove e tre
+/// discese soltanto per incontrarlo, fino a venti cammini con gli undici casi.
+final List<_Caso> _camminiInPiu = [
+  const _Caso('g libera 6', 'Mi sento sola anche quando sono con gli altri',
+      null, CourtesyForm.feminine),
+  const _Caso('g libera 7', 'Giulia non risponde più ai miei messaggi', null),
+  const _Caso('g libera 8', 'Devo accettare il trasferimento a Milano?', null,
+      CourtesyForm.masculine),
+  const _Caso('g libera 9', 'Perché continuo a rimandare la tesi?', null),
+  const _Caso('g libera 10', 'Mio figlio troverà lavoro entro l\'estate?', null,
+      CourtesyForm.feminine),
+  const _Caso('g libera 11', 'Il negozio ha chiuso e non so cosa fare adesso',
+      null),
+  const _Caso('g incontro 1', '', null, CourtesyForm.feminine),
+  const _Caso('g incontro 2', '', null, CourtesyForm.masculine),
+  const _Caso('g incontro 3', '', null),
+];
 
 /// Un caso della prova: una domanda, e il tema quando e' una delle sei.
 class _Caso {
@@ -376,6 +611,13 @@ class _Esito {
 
   /// **I TESTI SCARTATI, per pezzo e per guardia**, e un esempio di ognuno.
   Map<String, int> scarti = const {};
+
+  /// **PRIMA E DOPO LA SECONDA CHIAMATA**, ordine DQ voce 06: per pezzo,
+  /// quante discese hanno il testo del modello alla prima chiamata, e quante
+  /// alla fine. E le righe riprese alla seconda, col motivo della prima.
+  Map<String, int> dalModelloPrima = const {};
+  Map<String, int> dalModelloDopo = const {};
+  Map<String, int> recuperatePerMotivo = const {};
   Map<String, String> esempiScartati = const {};
   List<String> esempiDelModello = const [];
   int risposteDelModello = 0;
@@ -564,12 +806,23 @@ Future<_Esito> _centoDiscese(_Caso caso,
   final richiamiFalsi = <String>[];
   final composti = <String>[];
   final titoli = <String>[];
+  final dalModelloPrima = <String, int>{};
+  final dalModelloDopo = <String, int>{};
+  final recuperatePerMotivo = <String, int>{};
   for (var i = 0; i < MotoreDellaRipetizione.quante; i++) {
     oggi = inizio.add(Duration(days: i));
     // 1. il tema: quello scritto, o quello che si capisce.
     var tema = caso.temaScritto;
     String? oggetto;
-    if (tema == null) {
+    // **DENTRO IL CAMMINO LA DOMANDA E' GIA' CAPITA**, ordine DQ voce 01:
+    // come nell'app, il classificatore si chiama alla prima discesa e poi
+    // di nuovo solo dopo il riconoscimento, quando ogni discesa e' una
+    // consultazione nuova.
+    final cammino = diario.riconosciuto ? null : diario.cammino;
+    if (cammino != null) {
+      tema = TemaDellaDomanda.daId(cammino.tema);
+      oggetto = cammino.oggetto;
+    } else if (tema == null) {
       final capita = await LaDomandaCapita.capisci(caso.domanda,
           chiamata: chiamataDelTema,
           prendiUnaChiamata: () async => true,
@@ -580,6 +833,20 @@ Future<_Esito> _centoDiscese(_Caso caso,
       temi[chiave] = (temi[chiave] ?? 0) + 1;
       if (oggetto != null) oggetti[oggetto] = (oggetti[oggetto] ?? 0) + 1;
     }
+    // **IL CAMMINO COMINCIA ALLA PRIMA DISCESA**, ordine DQ voce 01.
+    final riconosciutoPrima = diario.riconosciuto;
+    var c = diario.cammino;
+    if (!riconosciutoPrima && c == null) {
+      c = IlCammino(
+        domanda: caso.domanda,
+        via: caso.temaScritto != null ? 'scelta' : 'scritta',
+        tema: tema?.name ?? '',
+        oggetto: oggetto,
+        inizio: oggi,
+      );
+      await diario.cominciaIlCammino(c);
+    }
+    final apparizioniPrima = diario.apparizioni;
     // 2. la scena, come la sceglie la risalita.
     final quante = diario.quanteDiscese;
     final nitidezza =
@@ -599,6 +866,19 @@ Future<_Esito> _centoDiscese(_Caso caso,
         oggetto: oggetto,
         forma: caso.forma,
         titoliGiaDati: LaScenaDalModello.titoliDalDiario(diario.viaggi),
+        // **LO STRATO E GLI STRATI GIA' DATI**, ordine DQ voce 02, come li
+        // passa la schermata.
+        strato: riconosciutoPrima ? null : apparizioniPrima + 1,
+        stratiPrecedenti: riconosciutoPrima || c == null
+            ? const []
+            : [
+                for (final v in diario.stratiDi(c))
+                  (
+                    titolo: v.titolo ?? '',
+                    risposta: v.risposta ?? '',
+                    azione: v.gesto ?? '',
+                  ),
+              ],
       ),
       chiamata: chiamataDellaScena,
       prendiUnaChiamata: () async => true,
@@ -632,8 +912,22 @@ Future<_Esito> _centoDiscese(_Caso caso,
       storia: diario.viaggi,
       scritti: scritta.testi,
       oggetto: oggetto,
+      apparizioniPrima: apparizioniPrima,
     );
     if (responso.dalModello) dalModello++;
+    // **PRIMA E DOPO LA SECONDA CHIAMATA**, ordine DQ voce 06.
+    for (final e in responso.fonti.entries) {
+      if (e.key == 'scena' || e.key == 'tema') continue;
+      if (!e.value.startsWith('modello')) continue;
+      dalModelloDopo[e.key] = (dalModelloDopo[e.key] ?? 0) + 1;
+      if (e.value == 'modello') {
+        dalModelloPrima[e.key] = (dalModelloPrima[e.key] ?? 0) + 1;
+      }
+    }
+    for (final r in scritta.testi.recuperate) {
+      final chiave = '${r.pezzo}: ${r.motivo.name}';
+      recuperatePerMotivo[chiave] = (recuperatePerMotivo[chiave] ?? 0) + 1;
+    }
     // **DA DOVE VIENE OGNI PEZZO**, ordine DL voci 07 e 13: il modello o
     // la riserva, e il motivo dello scarto.
     for (final e in responso.fonti.entries) {
@@ -684,6 +978,8 @@ Future<_Esito> _centoDiscese(_Caso caso,
       temaDellaDomanda: tema?.name ?? '',
       animaleSeguito: animale.name,
       nitidezza: nitidezza,
+      cammino: riconosciutoPrima ? null : c?.id,
+      strato: riconosciutoPrima ? null : apparizioniPrima + 1,
     ));
     titoli.add(responso.titolo);
     final testo = responso.blocchi.join('\n\n');
@@ -742,7 +1038,10 @@ Future<_Esito> _centoDiscese(_Caso caso,
     ..esempiDelModello = esempiDelModello
     ..risposteDelModello = risposteDelModello
     ..pertinentiColModello = pertinentiColModello
-    ..conTema = conTema;
+    ..conTema = conTema
+    ..dalModelloPrima = dalModelloPrima
+    ..dalModelloDopo = dalModelloDopo
+    ..recuperatePerMotivo = recuperatePerMotivo;
 }
 
 /// **LA DISTANZA MINIMA** fra due discese che nel blocco [blocco] contengono
@@ -932,6 +1231,8 @@ void _stampa(String colonna, List<_Esito> esiti) {
         '${e.fonti.isEmpty ? '' : ' | fonti ${e.fonti}'}'
         '${e.motiviFinali.isEmpty ? '' : ' | motivi finali ${e.motiviFinali}'}'
         '${e.scarti.isEmpty ? '' : ' | scarti ${e.scarti}'}'
+        ' | dal modello prima ${e.dalModelloPrima} dopo ${e.dalModelloDopo}'
+        '${e.recuperatePerMotivo.isEmpty ? '' : ' | riprese alla seconda ${e.recuperatePerMotivo}'}'
         ' | titoli piu ripetuti ${_piuRipetuti(e.titoli)}');
     for (final x in e.esempiDelModello) {
       print('    dal modello: $x');

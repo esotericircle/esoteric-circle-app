@@ -84,8 +84,14 @@ void main() {
           final dito = Offset(da + (a - da) * ix / (quanti - 1),
               da + (a - da) * iy / (quanti - 1));
           provate++;
-          for (final i
-              in velo.vicine(dito, IlVeloCheSiScosta.raggioDellaMano)) {
+          // **COL PENNELLO IN PUNTI**, ordine DQ voce 05: le celle che la
+          // maschera del dito scopre, campionata al loro centro.
+          for (final i in velo.scoperteDa(
+              dito,
+              dito,
+              IlVeloCheSiScosta.doveStaLIllustrazione(
+                      scena, LeSagome.misure[animale.name]!)
+                  .size)) {
             expect(velo.testa.contains(i), isFalse,
                 reason: '${animale.name}: il dito in $dito scosta la cella $i, '
                     'che e\' testa');
