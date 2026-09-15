@@ -642,6 +642,13 @@ void main() {
       expect(r.bottom, lessThanOrEqualTo(fondo.height * 0.60));
       expect(r.width, lessThanOrEqualTo(fondo.width * 0.55));
       expect(r.center.dx, fondo.width / 2);
+      // **IL GLIFO PIU' GRANDE**: i punti del cammino a 0,415 del lato
+      // della cornice, contro lo 0,38 della ruota com'era.
+      final cammino = LoSfondoDelSigillo.riquadroDelCammino(r);
+      expect(cammino.width * 0.38, closeTo(r.width * 0.415, 0.5));
+      expect(cammino.width * 0.38 / r.width,
+          lessThan(LoSfondoDelSigillo.raggioDellaCornice),
+          reason: 'il glifo uscirebbe dalla sua cornice');
     });
 
     testWidgets(
@@ -699,6 +706,26 @@ void main() {
                   'scritto qualcosa');
           expect(diversiDentro, greaterThan(500),
               reason: 'il segno non si e\' composto sul fondo');
+          // **IL CERCHIO COME CORNICE**, chiesto dal fondatore: sedici punti
+          // sull'anello, tutti schiariti rispetto al fondo.
+          final c = LoSfondoDelSigillo.riquadroDelSegno(const Size(1440, 3200));
+          var sullAnello = 0;
+          for (var k = 0; k < 16; k++) {
+            final a = k * math.pi / 8;
+            final q = c.center +
+                Offset(math.cos(a), math.sin(a)) *
+                    (c.width * LoSfondoDelSigillo.raggioDellaCornice);
+            final i = (q.dy.round() * 1440 + q.dx.round()) * 4;
+            final prima = pFondo.getUint8(i) +
+                pFondo.getUint8(i + 1) +
+                pFondo.getUint8(i + 2);
+            final dopo = pComp.getUint8(i) +
+                pComp.getUint8(i + 1) +
+                pComp.getUint8(i + 2);
+            if (dopo > prima + 90) sullAnello++;
+          }
+          expect(sullAnello, 16,
+              reason: 'l\'anello della cornice non c\'e\' tutto intorno');
           fondo.dispose();
           composto.dispose();
         }

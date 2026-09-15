@@ -104,6 +104,14 @@ SET_WALLPAPER; iOS, *"Salva nelle foto"* con due righe e la chiave di sola
 aggiunta. **Applicato davvero sul telefono**; la schermata di blocco il Realme
 non ce l'ha, e lo si dice nel rapporto.
 
+**Il cerchio come cornice e il glifo piu' grande**, chiesti dal fondatore
+guardando la prima prova sul telefono: *"Buttato li' cosi', sembra uno
+scarabocchio"*. La cornice prende tutto il 55 per cento consentito, un anello
+nel colore della via con un filo interno e un alone; il glifo passa dal 42 al
+47 per cento della larghezza. Le tre immagini composte sui fondi veri gli sono
+state mandate prima della build. Oltre il 55 per cento si va solo su sua
+parola, perche' quel limite lo ha fissato lui.
+
 ## DO.08, LA NOTIFICA ALLA SCADENZA. CHIUSA
 
 `LaChiamataDelSigillo`, sul meccanismo dei Doni, canale suo, alle 10 del

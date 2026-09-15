@@ -2814,7 +2814,8 @@ ne sceglie una. Le nuove si aggiungono in fondo.
   il segno si accende, piu' luminoso e inciso, senza numeri; si affievolisce
   con la curva della nitidezza del Viaggio.
 - **Lo sfondo del telefono**: il segno sui tre fondi del fondatore, nella
-  fascia fra il 35 e il 60 per cento. Android da `MainActivity` col permesso
+  fascia fra il 35 e il 60 per cento, **dentro un cerchio che fa da
+  cornice**, chiesto dal fondatore alla prima prova. Android da `MainActivity` col permesso
   SET_WALLPAPER, Home, Blocco o Entrambe; iPhone *"Salva nelle foto"* col
   pacchetto gal, **mai provato su un iPhone**. **Il motore Flutter sta nella
   cache**: impostare lo sfondo fa ricreare l'attivita' al sistema, e prima

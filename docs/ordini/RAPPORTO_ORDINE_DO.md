@@ -50,6 +50,15 @@ il logo in basso, l'orologio del telefono in alto. **Quella cattura non sta
 nel repository**, perche' mostra tutte le app installate sul telefono del
 fondatore: gli e' stata mandata a parte.
 
+**La cornice.** Guardando la cattura, il fondatore ha scritto: *"Il glifo
+dovra' essere piu' grande e, visivamente, meglio se avra' un cerchio come
+cornice. Buttato li' cosi', sembra uno scarabocchio"*. Adesso il glifo sta in
+un anello nel colore della via, col filo interno dei sigilli incisi, e la
+cornice prende tutto il 55 per cento della larghezza che la voce DO.07
+concede; il glifo passa dal 42 al 47 per cento. Le prove pretendono l'anello
+in sedici punti e il glifo a 0,415 del lato, e sono state viste rosse. Oltre
+il 55 per cento si va solo su parola del fondatore.
+
 **Sul telefono adesso c'e' il sigillo come sfondo**, sulla Home e sul blocco:
 si toglie da Impostazioni, Sfondo. Nel Libro restano i sigilli della prova,
 cinque vivi e uno compiuto: si chiudono con *Lo lascio andare*.

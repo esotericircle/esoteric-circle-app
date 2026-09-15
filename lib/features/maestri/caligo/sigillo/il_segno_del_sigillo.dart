@@ -403,6 +403,62 @@ abstract final class LoSfondoDelSigillo {
     return Rect.fromCenter(center: centro, width: lato, height: lato);
   }
 
+  /// **IL CERCHIO COME CORNICE, E IL GLIFO PIU' GRANDE.** Parole del
+  /// fondatore alla prova della 2263 in costruzione, 15 settembre 2026:
+  /// *"Il glifo dovra' essere piu' grande e, visivamente, meglio se avra' un
+  /// cerchio come cornice. Buttato li' cosi', sembra uno scarabocchio"*.
+  ///
+  /// La cornice prende tutta la misura che la voce DO.07 concede, il 55 per
+  /// cento della larghezza dentro la fascia: un anello nel colore della via
+  /// con un filo interno, come nei sigilli incisi, e un alone leggero. Il
+  /// cammino, che sulla ruota sta a 0,38 dal centro, si allarga fino a
+  /// [raggioDelCammino] della cornice: prima occupava il 42 per cento della
+  /// larghezza, adesso il 47, e l'anello lo chiude.
+  static const double raggioDellaCornice = 0.475;
+  static const double raggioDelCammino = 0.415;
+
+  /// Il riquadro in cui dipingere il cammino perche' i suoi punti cadano a
+  /// [raggioDelCammino] del lato della cornice.
+  static Rect riquadroDelCammino(Rect cornice) {
+    final lato = cornice.width * raggioDelCammino / 0.38;
+    return Rect.fromCenter(center: cornice.center, width: lato, height: lato);
+  }
+
+  static void dipingiLaCornice(Canvas tela, Rect cornice, Color colore) {
+    final centro = cornice.center;
+    final l = cornice.width;
+    final raggio = l * raggioDellaCornice;
+    final chiaro = Color.lerp(colore, Colors.white, 0.3)!;
+    // L'alone, largo e tenue.
+    tela.drawCircle(
+      centro,
+      raggio,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = l * 0.02
+        ..color = chiaro.withValues(alpha: 0.22)
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, l * 0.012),
+    );
+    // L'anello.
+    tela.drawCircle(
+      centro,
+      raggio,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = l * 0.006
+        ..color = chiaro.withValues(alpha: 0.85),
+    );
+    // Il filo interno, sottile: e' il bordo del sigillo inciso.
+    tela.drawCircle(
+      centro,
+      raggio - l * 0.022,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = l * 0.0025
+        ..color = chiaro.withValues(alpha: 0.45),
+    );
+  }
+
   /// **COMPONE L'IMMAGINE**, alla misura del fondo. Il segno va a luce
   /// piena: sullo sfondo deve leggersi sotto l'orologio, e tenerlo sotto gli
   /// occhi e' gia' il modo in cui si carica.
@@ -418,8 +474,10 @@ abstract final class LoSfondoDelSigillo {
     final registratore = ui.PictureRecorder();
     final tela = Canvas(registratore);
     tela.drawImage(fondo, Offset.zero, Paint());
+    final riquadro = riquadroDelSegno(misura);
+    dipingiLaCornice(tela, riquadro, coloreDellaVia(via));
     SegnoDelSigilloPainter.dipingi(
-        tela, riquadroDelSegno(misura), cammino, coloreDellaVia(via), 1);
+        tela, riquadroDelCammino(riquadro), cammino, coloreDellaVia(via), 1);
     final immagine =
         await registratore.endRecording().toImage(fondo.width, fondo.height);
     fondo.dispose();
