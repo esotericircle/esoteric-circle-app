@@ -294,7 +294,13 @@ class IlResponsoDelViaggio {
           FiloDellaVoce.da([...scena.idDeiPezzi, 'gesto del modello']).seme);
     }
     String fonte(String pezzo, bool dalModello) {
-      if (dalModello) return 'modello';
+      // **LA SECONDA CHIAMATA SI DICE**, ordine DQ voce 06: la riga di
+      // collaudo e la misura sanno quale testo il modello ha riscritto.
+      if (dalModello) {
+        return scritti.dallaSeconda.contains(pezzo)
+            ? 'modello: seconda chiamata'
+            : 'modello';
+      }
       final scarto = scritti.scarti
           .where((r) => r.pezzo == pezzo)
           .map((r) => r.motivo.name)

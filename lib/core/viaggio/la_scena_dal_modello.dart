@@ -293,7 +293,8 @@ abstract final class LaScenaDalModello {
           if (v.titolo != null && v.titolo!.isNotEmpty) v.titolo!,
       ];
 
-  static String richiesta(CioCheSiSa s) {
+  static String richiesta(CioCheSiSa s,
+      {List<RigaScartata> daCorreggere = const []}) {
     final n = s.natale;
     final b = StringBuffer()
       ..writeln('Domanda: ${s.domanda.trim().isEmpty ? 'nessuna, la '
@@ -334,6 +335,19 @@ abstract final class LaScenaDalModello {
       for (final scena
           in s.ultimeScene.take(IlRichiamoDelleScene.quanteSceneIndietro)) {
         b.writeln('- ${scena.join(', ')}');
+      }
+    }
+    // **LA SECONDA CHIAMATA SA PERCHE' LA PRIMA E' STATA SCARTATA**, ordine
+    // DQ voce 06: la riga, il motivo per nome e la regola in parole sue.
+    if (daCorreggere.isNotEmpty) {
+      b
+        ..writeln()
+        ..writeln()
+        ..writeln('LA RISPOSTA DI PRIMA È STATA SCARTATA IN PARTE. Riscrivi '
+            'questi testi rispettando la regola che hanno violato:');
+      for (final r in daCorreggere) {
+        b.writeln('- ${r.pezzo} "${r.testo}": scartato per ${r.motivo.name}, '
+            'cioè ${LeGuardieDelResponso.perIlModello(r.motivo)}.');
       }
     }
     return b.toString().trimRight();
@@ -458,6 +472,13 @@ abstract final class LaScenaDalModello {
     final chiedi = chiamata ?? _chiamataVera;
     var consentiti = ammessi(s.animale, s.ultimeScene);
     var testi = TestiDelModello.nessuno;
+    // **LE RIGHE DA CORREGGERE**, ordine DQ voce 06: gli scarti della prima
+    // chiamata, che la seconda riceve per nome.
+    var daCorreggere = const <RigaScartata>[];
+    // **LA SCENA GIA' BUONA**, quando la seconda chiamata serve solo ai
+    // testi: resta quella, e ogni elenco dello schema ha soltanto il suo
+    // pezzo.
+    PezziScelti? sceltiPrima;
     // **UNA SCADENZA SOLA**, dalla partenza: vedi [pazienza].
     final orologio = Stopwatch()..start();
     for (var tentativo = 0; tentativo < 2; tentativo++) {
@@ -466,33 +487,91 @@ abstract final class LaScenaDalModello {
         seGuasto?.call(TimeoutException(
             'la scena scartata non ha più tempo per la seconda richiesta',
             attesa));
-        return (pezzi: null, testi: testi);
+        return (pezzi: sceltiPrima, testi: testi);
       }
       // **IL TETTO SI PRENDE UNA VOLTA PER DISCESA**, ordine DL voce 09:
       // chi chiama passa il permesso gia' preso, e la seconda richiesta
       // della scena scartata non conta una discesa in piu'.
-      if (!await prendiUnaChiamata()) return (pezzi: null, testi: testi);
+      if (!await prendiUnaChiamata()) {
+        return (pezzi: sceltiPrima, testi: testi);
+      }
       try {
-        final risposta = await chiedi(
-                istruzione(s.animale, forma: s.forma), richiesta(s), consentiti)
+        final risposta = await chiedi(istruzione(s.animale, forma: s.forma),
+                richiesta(s, daCorreggere: daCorreggere), consentiti)
             .timeout(resta);
-        final scelti = leggi(risposta, s.animale, ultimeScene: s.ultimeScene);
+        final scelti = sceltiPrima ??
+            leggi(risposta, s.animale, ultimeScene: s.ultimeScene);
         final letti = leggiTesti(risposta, s, pezzi: scelti);
         for (final r in letti.scarti) {
           seScartata?.call(r);
         }
-        if (!letti.vuoti || testi.vuoti) testi = letti;
-        if (scelti != null) return (pezzi: scelti, testi: letti);
+        if (sceltiPrima != null) {
+          // **LA SECONDA CHIAMATA DEI TESTI**: di ogni pezzo vale la riga
+          // della prima se aveva retto, altrimenti quella della seconda se
+          // regge. Se nessuna delle due regge, vale la voce di casa.
+          return (pezzi: sceltiPrima, testi: _unisci(testi, letti));
+        }
+        if (!letti.vuoti || testi.vuoti) {
+          testi = tentativo == 0 ? letti : _unisci(testi, letti);
+        }
+        if (scelti != null) {
+          // **UNA RIGA SCARTATA FA RICHIAMARE IL MODELLO UNA VOLTA SOLA**,
+          // ordine DQ voce 06: la scena resta quella della prima risposta.
+          // Alla seconda chiamata non si arriva mai due volte.
+          if (tentativo == 0 && letti.scarti.isNotEmpty) {
+            daCorreggere = letti.scarti;
+            sceltiPrima = scelti;
+            consentiti = _soloQuesti(scelti);
+            continue;
+          }
+          return (pezzi: scelti, testi: testi);
+        }
         seGuasto?.call(ScenaFuoriDalVocabolario(risposta));
         consentiti = _senzaLaScartata(consentiti, risposta);
+        // **LA SCENA RIFATTA PORTA ANCHE I MOTIVI DEI TESTI**: e' la stessa
+        // seconda chiamata, e non se ne fa una terza.
+        daCorreggere = letti.scarti;
       } catch (errore) {
         // Un modello muto o lento non si richiama: la risalita non aspetta.
         seGuasto?.call(errore);
-        return (pezzi: null, testi: testi);
+        return (pezzi: sceltiPrima, testi: testi);
       }
     }
-    return (pezzi: null, testi: testi);
+    return (pezzi: sceltiPrima, testi: testi);
   }
+
+  /// **I TESTI DELLE DUE CHIAMATE**, pezzo per pezzo: vale la prima riga che
+  /// ha retto. Le righe della prima scartate e riprese dalla seconda si
+  /// segnano, col motivo della prima: ordine DQ voce 06.
+  static TestiDelModello _unisci(TestiDelModello prima, TestiDelModello dopo) {
+    final recuperate = <RigaScartata>[];
+    final dallaSeconda = <String>{};
+    String? scegli(String pezzo, String? a, String? b) {
+      if (a != null) return a;
+      if (b == null) return null;
+      dallaSeconda.add(pezzo);
+      recuperate.addAll(prima.scarti.where((r) => r.pezzo == pezzo));
+      return b;
+    }
+
+    return TestiDelModello(
+      titolo: scegli('titolo', prima.titolo, dopo.titolo),
+      risposta: scegli('risposta', prima.risposta, dopo.risposta),
+      azione: scegli('azione', prima.azione, dopo.azione),
+      scarti: [...prima.scarti, ...dopo.scarti],
+      recuperate: recuperate,
+      dallaSeconda: dallaSeconda,
+    );
+  }
+
+  /// Gli elenchi dello schema con il solo pezzo gia' scelto: alla seconda
+  /// chiamata dei testi la scena non cambia.
+  static PezziAmmessi _soloQuesti(PezziScelti p) => (
+        luoghi: [p.luogo.id],
+        cose: [p.cosa.id],
+        gesti: [p.gesto.id],
+        momenti: [p.momento.id],
+      );
 
   /// **LEGGE I TRE TESTI** della risposta e li fa passare dalle guardie.
   /// Una risposta senza i campi dei testi, come quelle delle prove scritte

@@ -75,12 +75,22 @@ class TestiDelModello {
     this.risposta,
     this.azione,
     this.scarti = const [],
+    this.recuperate = const [],
+    this.dallaSeconda = const {},
   });
 
   final String? titolo;
   final String? risposta;
   final String? azione;
   final List<RigaScartata> scarti;
+
+  /// **LE RIGHE SCARTATE ALLA PRIMA CHIAMATA E RIPRESE ALLA SECONDA**, col
+  /// motivo della prima. Ordine DQ voce 06: la misura le conta per motivo.
+  final List<RigaScartata> recuperate;
+
+  /// I pezzi, fra `titolo`, `risposta` e `azione`, che vengono dalla seconda
+  /// chiamata. La fonte del Diario lo dice.
+  final Set<String> dallaSeconda;
 
   bool get vuoti => titolo == null && risposta == null && azione == null;
 
@@ -927,6 +937,65 @@ abstract final class LeGuardieDelResponso {
       '(?<![$_l])(?:pieg|mett|strapp|chiud|nascond|seppellisc|gett|conserv|'
       'tien|arrotol|butt|sotterr|appoggi|infil|ripon)[$_l]*(?:li|le)(?![$_l])',
       caseSensitive: false);
+
+  /// **IL MOTIVO DELLO SCARTO DETTO AL MODELLO.** Ordine DQ voce 06: alla
+  /// seconda chiamata il modello riceve la riga scartata, il nome del motivo
+  /// e questa frase, che dice la regola come la legge lui. Il `switch` non
+  /// ha un ramo di riserva: un motivo nuovo senza la sua frase non compila.
+  static String perIlModello(MotivoDelloScarto m) => switch (m) {
+        MotivoDelloScarto.vuota => 'era vuoto, e il testo deve esserci',
+        MotivoDelloScarto.troppoLunga =>
+          'era troppo lungo: il titolo al massimo $paroleDelTitolo parole, la '
+              "risposta e l'azione al massimo tre frasi",
+        MotivoDelloScarto.eUnaDomanda =>
+          'era una domanda, e deve essere una risposta',
+        MotivoDelloScarto.dueDuePunti =>
+          'aveva i due punti due volte nella stessa frase',
+        MotivoDelloScarto.duePuntiNelTitolo => 'il titolo aveva i due punti',
+        MotivoDelloScarto.trattinoLungo => 'aveva il trattino lungo',
+        MotivoDelloScarto.virgolaEe =>
+          'aveva una virgola seguita da "e": al suo posto va un punto',
+        MotivoDelloScarto.primaPersona => 'parlava in prima persona',
+        MotivoDelloScarto.previsioneCerta =>
+          'diceva che una cosa accadrà, non accadrà o è già accaduta',
+        MotivoDelloScarto.promessa =>
+          'parlava di salute, denaro, morte, gravidanza o cause legali',
+        MotivoDelloScarto.diagnosi =>
+          'somigliava a una diagnosi o a un consiglio medico',
+        MotivoDelloScarto.nomeProprio =>
+          'conteneva un nome proprio che la persona non ha scritto',
+        MotivoDelloScarto.genereContrario =>
+          'dava alla persona un genere che non è il suo',
+        MotivoDelloScarto.nonNominaLaDomanda => 'non nominava la cosa di cui '
+            'la persona ha chiesto, con le sue parole',
+        MotivoDelloScarto.anticipaLaScena =>
+          'nominava il luogo, la cosa o il momento della scena',
+        MotivoDelloScarto.consiglioDiVita =>
+          'era un invito a riflettere, e deve essere una cosa sola da fare',
+        MotivoDelloScarto.senzaTempo =>
+          'non cominciava dal suo tempo, "Stasera", "Domani mattina"',
+        MotivoDelloScarto.toccaUnTerzo => "chiedeva di fare a un'altra "
+            'persona qualcosa che può ferirla o mettere in imbarazzo',
+        MotivoDelloScarto.saluteDenaroLegge =>
+          'toccava salute, farmaci, soldi o atti legali',
+        MotivoDelloScarto.titoloRipetuto => 'ripeteva un titolo già dato',
+        MotivoDelloScarto.fuoco => 'bruciava o accendeva qualcosa',
+        MotivoDelloScarto.statoDiUnTerzo => 'diceva che cosa prova, pensa o '
+            "vuole l'altra persona: ogni frase deve avere per soggetto chi "
+            'legge, "Puoi", "Non puoi", "Tocca a te"',
+        MotivoDelloScarto.decisioneGrave => 'ordinava una decisione grave: su '
+            'queste si dice cosa guardare, mai cosa fare',
+        MotivoDelloScarto.gergo =>
+          'usava una frase da corso motivazionale: servono parole comuni',
+        MotivoDelloScarto.titoloAnticipaLaScena =>
+          'il titolo nominava un pezzo della scena',
+        MotivoDelloScarto.tempoNelTitolo =>
+          "il titolo diceva un tempo: il tempo lo dice l'azione",
+        MotivoDelloScarto.sgrammaticato => 'non era italiano corretto',
+        MotivoDelloScarto.pronomeSenzaAccordo => 'aveva un pronome che non '
+            'concorda con la cosa a cui si riferisce: si piega il foglio, '
+            '"piegalo"',
+      };
 
   /// **LEGGE I TRE TESTI** della risposta del modello e li fa passare dalle
   /// guardie, uno per uno. Senza domanda non si leggono: la discesa soltanto
