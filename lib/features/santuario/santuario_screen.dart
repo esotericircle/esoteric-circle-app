@@ -607,7 +607,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
       final suo = GuideAnimalDerivation.forSign(
           NightSky.sunSign(profilo.identity.birthDate));
       if (IQuattroViaggi.nomeDopoLeQuattroDiscese(
-              diario.quanteDiscese, suo.name) ==
+              diario.apparizioni, suo.name) ==
           null) {
         return;
       }

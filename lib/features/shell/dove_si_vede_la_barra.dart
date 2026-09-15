@@ -77,6 +77,10 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   // tiene il dito premuto per quaranta secondi, e una via d'uscita sempre a
   // vista interromperebbe proprio la cosa che si sta facendo.
   'ViaggioDelloSciamanoScreen': PresenzaDellaBarra.assente,
+  // **IL DIARIO DEI VIAGGI**, ordine DQ voce 02: una pagina che si rilegge,
+  // aperta dal Viaggio e chiusa col tasto indietro, dentro l'esperienza
+  // immersiva da cui si arriva.
+  'IlDiarioDeiViaggiScreen': PresenzaDellaBarra.assente,
   'RuneDrawScreen': PresenzaDellaBarra.assente,
   'SigilloIntenzioneScreen': PresenzaDellaBarra.assente,
   // **IL LIBRO DEI SIGILLI E LA SCHEDA DI UN SIGILLO**, ordine DO voce 06:

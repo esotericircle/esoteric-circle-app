@@ -518,10 +518,11 @@ class _GuideAnimalCardState extends State<_GuideAnimalCard> {
     // seguita piu' volte nel Viaggio, e usciva un animale **diverso** da
     // `animal`, che sta dieci righe piu' su e nasce dal segno. Due animali
     // guida nella stessa schermata, a dieci righe di distanza.
+    // **LE APPARIZIONI, NON LE DISCESE**, ordine DQ voce 03.
     final riconosciuto = IQuattroViaggi.nomeDopoLeQuattroDiscese(
-        _diario.quanteDiscese, animal.name);
+        _diario.apparizioni, animal.name);
     if (riconosciuto == null) {
-      final discese = _diario.quanteDiscese;
+      final discese = _diario.apparizioni;
       return _ActiveFactCard(
         cardKey: const Key('passport_guide_animal'),
         overline: 'Animale guida',

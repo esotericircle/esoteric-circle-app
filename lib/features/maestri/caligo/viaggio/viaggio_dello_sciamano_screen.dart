@@ -53,6 +53,10 @@ import 'la_nebbia_e_l_animale.dart';
 import '../../../../core/viaggio/le_guardie_del_responso.dart';
 import '../../../../core/viaggio/il_tetto_delle_chiamate.dart';
 import '../../../../design_system/components/interruttore_del_cerchio.dart';
+import '../../../../core/chat/la_marca_del_genere.dart';
+import '../../../../core/viaggio/le_parole_del_cammino.dart';
+import '../../../../design_system/transizioni/velo_del_cerchio.dart';
+import 'il_diario_dei_viaggi_screen.dart';
 
 /// **IL VIAGGIO DELLO SCIAMANO.** Ordine DC voci 01, 04, 05, 06 e 07,
 /// 10 settembre 2026.
@@ -402,10 +406,40 @@ class _ViaggioDelloSciamanoScreenState
   /// **Prima chiedeva quale ombra era stata seguita piu' volte.** Era la
   /// seconda porta dell'animale guida: il Passaporto diceva Lupo e il Viaggio
   /// consegnava Aquila. Ordine DG voce 01.
+  // **DALLA REGOLA DEL NOME, SULLE APPARIZIONI**, ordine DQ voce 03: la
+  // regola ha una casa sola, `IQuattroViaggi`, e adesso legge le quattro
+  // apparizioni del cammino invece delle discese di sempre.
   bool get _riconosciuto =>
       IQuattroViaggi.nomeDopoLeQuattroDiscese(
-          _diario.quanteDiscese, _suoAnimale.name) !=
+          _diario.apparizioni, _suoAnimale.name) !=
       null;
+
+  /// **IL CAMMINO IN CORSO**, ordine DQ voce 01: la domanda scritta alla
+  /// prima discesa, che dalla seconda si legge e non si scrive.
+  IlCammino? get _cammino => _diario.cammino;
+
+  /// **SE SI E' DENTRO UN CAMMINO**: una domanda gia' portata giu', e
+  /// l'animale non ancora riconosciuto.
+  bool get _nelCammino => !_riconosciuto && _cammino != null;
+
+  /// **SE QUESTA RISALITA E' QUELLA DELLA RIVELAZIONE**, ordine DQ voce 02:
+  /// il quarto strato e il riconoscimento cadono insieme. Si decide alla
+  /// risalita, guardando il Diario prima e dopo la discesa.
+  bool _rivelatoOra = false;
+
+  /// L'id del cammino che la rivelazione ha appena chiuso, per rileggerne i
+  /// quattro strati.
+  String? _camminoAppenaChiuso;
+
+  /// Lo strato della discesa appena risalita, o nullo fuori da un cammino.
+  int? get _stratoDellaRisalita =>
+      _diario.viaggi.isEmpty ? null : _diario.viaggi.first.strato;
+
+  /// Se la discesa appena risalita aveva una domanda.
+  bool get _risalitaConDomanda =>
+      _diario.viaggi.isEmpty ||
+      _diario.viaggi.first.temaDellaDomanda !=
+          LaDomandaDelViaggio.idSoloPerIncontrarlo;
 
   /// **IL PIANO DI CHI STA GUARDANDO, e il Viaggio regge di non saperlo.**
   /// Ordine DE voce 14.
@@ -429,7 +463,12 @@ class _ViaggioDelloSciamanoScreenState
     // **UNA DISCESA, UN POSTO NEL TETTO**, ordine DL voce 09.
     final permesso = IlTettoDelleChiamate.prendiUnaDiscesa();
     _permessoDellaDiscesa = permesso;
-    if (_via == ViaDellaDomanda.scritta && _domanda.text.trim().isNotEmpty) {
+    // **DENTRO UN CAMMINO LA DOMANDA E' GIA' CAPITA**, ordine DQ voce 01:
+    // il tema e l'oggetto sono quelli della prima discesa, e il
+    // classificatore non si chiama.
+    if (!_nelCammino &&
+        _via == ViaDellaDomanda.scritta &&
+        _domanda.text.trim().isNotEmpty) {
       _temaInArrivo = LaDomandaCapita.capisci(
         _domanda.text,
         chiamata: widget.chiamataDellaDomanda,
@@ -526,10 +565,33 @@ class _ViaggioDelloSciamanoScreenState
     // le sei, per esteso. Il titolo, la risposta e il gesto del modello
     // nascono da qui, ordine DL voce 07; senza domanda restano quelli di
     // casa.
-    final domanda = _via == ViaDellaDomanda.incontro ? '' : _domanda.text;
+    final c = _cammino;
+    var domanda = _via == ViaDellaDomanda.incontro ? '' : _domanda.text;
+    if (_nelCammino && c != null) {
+      // **LA DOMANDA DEL CAMMINO**, ordine DQ voce 01.
+      domanda = c.domanda;
+      tema = TemaDellaDomanda.daId(c.tema);
+      oggetto = c.oggetto;
+    }
+    // **LO STRATO DI OGGI E GLI STRATI DI PRIMA**, ordine DQ voce 02: fino
+    // al riconoscimento ogni discesa ha il suo strato, e il modello riceve
+    // cio' che gli strati di prima hanno gia' detto.
+    final strato = _riconosciuto ? null : _diario.apparizioni + 1;
+    final strati = _nelCammino && c != null
+        ? [
+            for (final v in _diario.stratiDi(c))
+              (
+                titolo: v.titolo ?? '',
+                risposta: v.risposta ?? '',
+                azione: v.gesto ?? '',
+              ),
+          ]
+        : const <StratoGiaDato>[];
     return LaScenaDalModello.chiediTutto(
       CioCheSiSa(
         domanda: domanda,
+        strato: strato,
+        stratiPrecedenti: strati,
         tema: tema?.inLettere,
         animale: _suoAnimale,
         natale: _natale,
@@ -701,9 +763,34 @@ class _ViaggioDelloSciamanoScreenState
       fonteDelTema = capita.fonte.name;
     }
     final quante = _diario.quanteDiscese;
+    final primaRiconosciuto = _riconosciuto;
+    final apparizioniPrima = _diario.apparizioni;
     final nitidezza =
         NitidezzaDellaScena.dopoGiorni(_diario.giorniDiDistanza ?? 0);
-    final domanda = LaDomandaDelViaggio.oppureIlMomento(_domanda.text);
+    var domanda = LaDomandaDelViaggio.oppureIlMomento(_domanda.text);
+    // **LA DOMANDA DEL CAMMINO**, ordine DQ voce 01: dalla seconda discesa
+    // si scende con quella scritta alla prima, col suo tema e il suo oggetto.
+    var viaDelCammino = _via == ViaDellaDomanda.incontro;
+    var c = _cammino;
+    if (_nelCammino && c != null) {
+      domanda = LaDomandaDelViaggio.oppureIlMomento(c.domanda);
+      _temaScelto = TemaDellaDomanda.daId(c.tema);
+      oggetto = c.oggetto;
+      viaDelCammino = !c.conDomanda;
+      fonteDelTema = 'dal cammino';
+    } else if (!primaRiconosciuto) {
+      // **IL CAMMINO COMINCIA ALLA PRIMA DISCESA**, ordine DQ voce 01, con
+      // la domanda, la via e il tema capito mentre si scendeva.
+      c = IlCammino(
+        domanda: _via == ViaDellaDomanda.incontro ? '' : _domanda.text.trim(),
+        via: _via.name,
+        tema: _temaScelto?.name ?? '',
+        oggetto: oggetto,
+        inizio: _adesso,
+      );
+      await _diario.cominciaIlCammino(c);
+      if (!mounted) return;
+    }
     // **LE DUE VIE.** Ordine DC voce 06: la scelta dei pezzi la fa Gemini, e
     // quando non arriva si cade sulla composizione deterministica. Fino
     // all'ordine DI qui c'era scritto *"la porta al modello non e' ancora
@@ -730,6 +817,9 @@ class _ViaggioDelloSciamanoScreenState
       giorno: _adesso,
       nitidezza: nitidezza,
       discesa: quante,
+      // **IL NOME ALLA QUARTA APPARIZIONE**, ordine DQ voce 03: non piu' alla
+      // quarta discesa di sempre.
+      apparizioniPrima: apparizioniPrima,
       giaOggi: _diario.quanteOggi,
       animale: _suoAnimale,
       tema: _temaScelto,
@@ -747,12 +837,17 @@ class _ViaggioDelloSciamanoScreenState
       // **NEL DIARIO VA L'ID**, che e' stabile, e non l'etichetta. La
       // terza via si scrive col suo id, come prima.
       temaDellaDomanda: _temaScelto?.name ??
-          (_via == ViaDellaDomanda.incontro
-              ? LaDomandaDelViaggio.idSoloPerIncontrarlo
-              : ''),
+          (viaDelCammino ? LaDomandaDelViaggio.idSoloPerIncontrarlo : ''),
       animaleSeguito: nome,
       nitidezza: nitidezza,
+      // **LO STRATO E IL CAMMINO**, ordine DQ voce 01: nel Diario la
+      // domanda del cammino sta accanto alle sue discese, con lo strato.
+      cammino: primaRiconosciuto ? null : c?.id,
+      strato: primaRiconosciuto ? null : apparizioniPrima + 1,
     ));
+    // **LA RIVELAZIONE E' ADESSO**, se questa discesa ha chiuso il cammino.
+    _rivelatoOra = !primaRiconosciuto && _riconosciuto;
+    _camminoAppenaChiuso = _rivelatoOra ? c?.id : null;
     // **IL RICHIAMO: questa scena riprende un elemento di una di prima?**
     // Ordine DE voce 11. Si guarda **cinque scene indietro** e non di piu':
     // il richiamo funziona solo se la persona si ricorda di aver visto quella
@@ -806,6 +901,16 @@ class _ViaggioDelloSciamanoScreenState
               TypographyTokens.titoloScheda().copyWith(color: palette.goldSoft),
         ),
         actions: [
+          // **IL DIARIO DEI VIAGGI**, ordine DQ voce 02: le domande, gli
+          // strati e le risposte si rileggono da qui, quando ce ne sono.
+          if (_diario.viaggi.isNotEmpty)
+            IconButton(
+              key: const Key('viaggio_il_diario'),
+              tooltip: LeParoleDelCammino.ilDiario,
+              icon: Icon(Icons.menu_book_rounded, color: palette.goldSoft),
+              onPressed: () => Navigator.of(context)
+                  .push(IlDiarioDeiViaggiScreen.route(diario: _diario)),
+            ),
           FoglioDelleFonti.bottone(context,
               palette: palette, testo: _fonti, chiave: 'viaggio_fonti'),
           const AngoloDellaBarra(),
@@ -877,7 +982,10 @@ class _ViaggioDelloSciamanoScreenState
   /// **Quattro, il pulsante pieno.** Era un contorno in fondo a una colonna
   /// lunga, e a colonna scorsa non si vedeva nemmeno.
   Widget _laSoglia(MaestroPalette palette) {
-    final primo = _diario.quanteDiscese == 0;
+    // **LA DOMANDA E' FACOLTATIVA ALLA PRIMA DISCESA DI UN CAMMINO**: al
+    // primo viaggio, e dopo che si e' cambiata la domanda. Ordini DC voce 05
+    // e DQ voce 03. Dopo il riconoscimento resta la porta.
+    final primo = _cammino == null && !_riconosciuto;
     final perche =
         LaDomandaDelViaggio.perCheNonVa(_domanda.text, primoViaggio: primo);
     // **IL TETTO LO DECIDONO I TETTI, ordine DE voce 14.** Prima era una
@@ -898,8 +1006,11 @@ class _ViaggioDelloSciamanoScreenState
       // sbaglierebbe sulla Volpe. Ordine DI voce 15.
       conArticolo: '${_suoAnimale.articolo}${_suoAnimale.name}',
     );
+    // **DENTRO IL CAMMINO SI TOCCA E SI SCENDE**, ordine DQ voce 01: tre
+    // volte su quattro la persona non scrive niente.
     final pronto = siPuo &&
-        (perche == null ||
+        (_nelCammino ||
+            perche == null ||
             _temaScelto != null ||
             _via == ViaDellaDomanda.incontro);
     final schermo = MediaQuery.of(context).size;
@@ -1021,8 +1132,12 @@ class _ViaggioDelloSciamanoScreenState
                 if (!_riconosciuto || _domandaAperta) ...[
                   const SizedBox(height: SpacingTokens.xl),
                   SizedBox(key: _laSceltaDellaDomanda, height: 0),
-                  _leTreVie(palette, primo: primo),
-                  if (perche != null &&
+                  if (_nelCammino)
+                    _laDomandaDelCammino(palette)
+                  else
+                    _leTreVie(palette, primo: primo),
+                  if (!_nelCammino &&
+                      perche != null &&
                       _temaScelto == null &&
                       _via != ViaDellaDomanda.incontro) ...[
                     const SizedBox(height: SpacingTokens.sm),
@@ -1125,7 +1240,7 @@ class _ViaggioDelloSciamanoScreenState
                 // **IN PAROLE, MAI IN NUMERI.** *"Si e' mostrato due volte, ne
                 // mancano due."*
                 Text(
-                  IQuattroViaggi.aChePunto(_diario.quanteDiscese),
+                  IQuattroViaggi.aChePunto(_diario.apparizioni),
                   key: const Key('viaggio_a_che_punto'),
                   textAlign: TextAlign.center,
                   maxLines: 1,
@@ -1254,7 +1369,7 @@ class _ViaggioDelloSciamanoScreenState
           ),
           const SizedBox(height: SpacingTokens.xs),
           Text(
-            LaPromessaDelViaggio.descrizionePer(_diario.quanteDiscese),
+            LaPromessaDelViaggio.descrizionePer(_diario.apparizioni),
             key: const Key('viaggio_promessa'),
             style: TypographyTokens.titoloScheda()
                 .copyWith(color: ColorTokens.textPrimary),
@@ -1294,9 +1409,113 @@ class _ViaggioDelloSciamanoScreenState
   /// DC.04 la vuole, e un disegno non e' un testo.
   Widget _iQuattroSegni(MaestroPalette palette) => LeQuattroImpronte(
         key: const Key('viaggio_i_quattro_segni'),
-        seguiti: _diario.scelteInOrdine,
+        seguiti: _diario.scelteDelCammino,
         riconosciuto: _riconosciuto,
       );
+
+  /// **LA DOMANDA DEL CAMMINO, CHE SI LEGGE E NON SI SCRIVE.** Ordine DQ voce
+  /// 01, 15 settembre 2026: *"dalla seconda discesa in poi l'app non la
+  /// chiede piu': la mostra. La schermata smette di essere un campo vuoto e
+  /// diventa una riga che dice 'Sei sceso per questo', con sotto la domanda
+  /// per esteso"*. Le quattro impronte stanno ferme in alto, dove l'ordine
+  /// DI voce 08 le ha messe, e dicono a che strato si e' arrivati.
+  Widget _laDomandaDelCammino(MaestroPalette palette) {
+    final c = _cammino!;
+    final strato = _diario.apparizioni + 1;
+    return Column(
+      key: const Key('viaggio_la_domanda_del_cammino'),
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          LaMarcaDelGenere.risolvi(LeParoleDelCammino.seiScesoPerQuesto)
+              .toUpperCase(),
+          key: const Key('viaggio_sei_sceso_per_questo'),
+          style: TypographyTokens.etichetta()
+              .copyWith(color: palette.goldSoft, letterSpacing: 2.0),
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        DepthCard(
+          padding: const EdgeInsets.all(SpacingTokens.md),
+          child: ParagrafiDiLettura(
+            key: const Key('viaggio_domanda_del_cammino'),
+            testo: c.conDomanda
+                ? c.domanda
+                : LeParoleDelCammino.soloPerIncontrarlo,
+            stile: TypographyTokens.lettura()
+                .copyWith(color: ColorTokens.textPrimary),
+          ),
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        Text(
+          LeParoleDelCammino.oggiScendiAl(strato, conDomanda: c.conDomanda),
+          key: const Key('viaggio_oggi_scendi_al'),
+          textAlign: TextAlign.center,
+          style: TypographyTokens.didascalia()
+              .copyWith(color: ColorTokens.textSecondary),
+        ),
+        const SizedBox(height: SpacingTokens.xs),
+        TextButton(
+          key: const Key('viaggio_cambia_la_domanda'),
+          onPressed: () => unawaited(_chiediSeCambiareLaDomanda()),
+          style:
+              TextButton.styleFrom(foregroundColor: ColorTokens.textSecondary),
+          child: Text(LeParoleDelCammino.cambiaLaDomanda,
+              style: TypographyTokens.etichetta()),
+        ),
+      ],
+    );
+  }
+
+  /// **CAMBIARE DOMANDA FA RIPARTIRE IL CAMMINO**, e lo si chiede prima.
+  /// Ordine DQ voce 03, con le parole dell'ordine.
+  Future<void> _chiediSeCambiareLaDomanda() async {
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.caligo));
+    final cambia = await dialogoDelCerchio<bool>(
+      context: context,
+      builder: (c) => AlertDialog(
+        key: const Key('viaggio_avviso_del_cambio'),
+        backgroundColor: palette.surfaceElevated,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            for (final p in LeParoleDelCammino.avvisoDelCambio) ...[
+              ParagrafiDiLettura(
+                testo: p,
+                stile: TypographyTokens.lettura()
+                    .copyWith(color: ColorTokens.textPrimary),
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+            ],
+          ],
+        ),
+        actions: [
+          TextButton(
+            key: const Key('viaggio_tengo_questa_domanda'),
+            onPressed: () => Navigator.of(c).pop(false),
+            child: Text(LeParoleDelCammino.tengoQuestaDomanda,
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: ColorTokens.textSecondary)),
+          ),
+          TextButton(
+            key: const Key('viaggio_comincio_un_altro_viaggio'),
+            onPressed: () => Navigator.of(c).pop(true),
+            child: Text(LeParoleDelCammino.comincioUnAltroViaggio,
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: palette.goldSoft)),
+          ),
+        ],
+      ),
+    );
+    if (cambia != true || !mounted) return;
+    await _diario.cambiaLaDomanda();
+    if (!mounted) return;
+    setState(() {
+      _via = ViaDellaDomanda.scelta;
+      _domanda.clear();
+      _temaScelto = null;
+    });
+  }
 
   /// **LE TRE VIE, dichiarate come tre.**
   ///
@@ -1761,7 +1980,7 @@ class _ViaggioDelloSciamanoScreenState
   /// addosso, e quanto se ne scopre con la lente. Il file e' sempre lo stesso.
   Widget _lIncontro(MaestroPalette palette) {
     final suo = _suoAnimale;
-    final quale = _diario.quanteDiscese;
+    final quale = _diario.apparizioni;
     return Column(
       children: [
         Expanded(
@@ -1817,7 +2036,7 @@ class _ViaggioDelloSciamanoScreenState
   /// scosta la mano, un quarto del corpo per discesa, la testa mai prima della
   /// quarta; e cio' che si scosta si conserva nel Diario.
   Widget _laLente(MaestroPalette palette) {
-    final quale = _diario.quanteDiscese;
+    final quale = _diario.apparizioni;
     final animale = _animale(_seguito);
     if (animale == null) {
       // **UN NOME SENZA ARTE NON BLOCCA LA DISCESA**, ordine DC voce 16: si
@@ -1858,11 +2077,11 @@ class _ViaggioDelloSciamanoScreenState
     // Ordine DI voce 11: dopo, la riga *"E' il Lupo. Adesso lo conosci."* e la
     // card da condividere tornavano a ogni discesa, cioe' l'apparato della
     // rivelazione acceso a vuoto.
-    final allaRivelazione =
-        _diario.quanteDiscese == IQuattroViaggi.quanteDiscese;
-    final nome = allaRivelazione
+    // **LA RIVELAZIONE E' LA DISCESA CHE HA CHIUSO IL CAMMINO**, ordine DQ
+    // voce 02: il quarto strato e il nome cadono insieme.
+    final nome = _rivelatoOra
         ? IQuattroViaggi.nomeDopoLeQuattroDiscese(
-            _diario.quanteDiscese, _suoAnimale.name)
+            _diario.apparizioni, _suoAnimale.name)
         : null;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(SpacingTokens.lg),
@@ -1899,7 +2118,7 @@ class _ViaggioDelloSciamanoScreenState
                           key: const Key('viaggio_animale_del_ritorno'),
                           immagine: _animale(_seguito)!.fullPath,
                           quantaLuce: 0.35 +
-                              0.2 * (_diario.quanteDiscese - 1).clamp(0, 3),
+                              0.2 * (_diario.apparizioni - 1).clamp(0, 3),
                         ),
                 ),
               ),
@@ -1909,6 +2128,19 @@ class _ViaggioDelloSciamanoScreenState
           // Ordine DG voce 07, e la gerarchia e' quella dettata dal fondatore
           // il 3 settembre: *"titolo accattivante che riassume la risposta e
           // poi risposta descrittiva diretta"*.
+          // **LO STRATO DI QUESTA RISALITA**, ordine DQ voce 02: sopra il
+          // titolo, perche' chi legge sappia a che profondita' e' arrivato.
+          if (_stratoDellaRisalita case final s?) ...[
+            Text(
+              LeParoleDelCammino.etichettaDelloStrato(s,
+                  conDomanda: _risalitaConDomanda),
+              key: const Key('viaggio_strato_della_risalita'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: palette.goldSoft),
+            ),
+            const SizedBox(height: SpacingTokens.sm),
+          ],
           TitoloCheNonSiRompe(
             key: const Key('viaggio_titolo_della_risposta'),
             testo: responso.titolo,
@@ -2002,7 +2234,7 @@ class _ViaggioDelloSciamanoScreenState
           else if (!_riconosciuto)
             ParagrafiDiLettura(
               key: const Key('viaggio_ancora_no'),
-              testo: IQuattroViaggi.aChePunto(_diario.quanteDiscese),
+              testo: IQuattroViaggi.aChePunto(_diario.apparizioni),
               textAlign: TextAlign.center,
               stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textSecondary),
@@ -2034,6 +2266,25 @@ class _ViaggioDelloSciamanoScreenState
               ),
               icon: const Icon(Icons.ios_share_rounded, size: 18),
               label: Text('Di\' chi sei', style: TypographyTokens.etichetta()),
+            ),
+          ],
+          // **ALLA QUARTA I QUATTRO STRATI SI RILEGGONO DI FILA**, ordine DQ
+          // voce 02: una pagina sola, nel Diario.
+          if (_rivelatoOra && _camminoAppenaChiuso != null) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            OutlinedButton.icon(
+              key: const Key('viaggio_rileggi_gli_strati'),
+              onPressed: () => Navigator.of(context).push(
+                  IlDiarioDeiViaggiScreen.route(
+                      diario: _diario, evidenzia: _camminoAppenaChiuso)),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: palette.goldSoft,
+                side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+                minimumSize: const Size.fromHeight(48),
+              ),
+              icon: const Icon(Icons.menu_book_rounded, size: 18),
+              label: Text(LeParoleDelCammino.rileggiIQuattroStrati,
+                  style: TypographyTokens.etichetta()),
             ),
           ],
           if (_seguito != null) const SizedBox(height: SpacingTokens.md),

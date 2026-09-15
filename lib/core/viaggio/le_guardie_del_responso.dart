@@ -52,6 +52,9 @@ enum MotivoDelloScarto {
   sgrammaticato,
   // Ordine DQ voce 09, dalla lettura delle 1.100 risposte dell'ordine DN.
   pronomeSenzaAccordo,
+  // Ordine DQ voce 02, il cammino a strati.
+  ripeteUnoStrato,
+  animaleAnticipato,
 }
 
 /// Una riga scartata: quale pezzo, perche', e il testo.
@@ -943,12 +946,12 @@ abstract final class LeGuardieDelResponso {
   /// e questa frase, che dice la regola come la legge lui. Il `switch` non
   /// ha un ramo di riserva: un motivo nuovo senza la sua frase non compila.
   static String perIlModello(MotivoDelloScarto m) => switch (m) {
-        MotivoDelloScarto.vuota => 'era vuoto, e il testo deve esserci',
+        MotivoDelloScarto.vuota => 'era vuoto: il testo deve esserci',
         MotivoDelloScarto.troppoLunga =>
           'era troppo lungo: il titolo al massimo $paroleDelTitolo parole, la '
               "risposta e l'azione al massimo tre frasi",
         MotivoDelloScarto.eUnaDomanda =>
-          'era una domanda, e deve essere una risposta',
+          'era una domanda: deve essere una risposta',
         MotivoDelloScarto.dueDuePunti =>
           'aveva i due punti due volte nella stessa frase',
         MotivoDelloScarto.duePuntiNelTitolo => 'il titolo aveva i due punti',
@@ -971,7 +974,7 @@ abstract final class LeGuardieDelResponso {
         MotivoDelloScarto.anticipaLaScena =>
           'nominava il luogo, la cosa o il momento della scena',
         MotivoDelloScarto.consiglioDiVita =>
-          'era un invito a riflettere, e deve essere una cosa sola da fare',
+          'era un invito a riflettere: deve essere una cosa sola da fare',
         MotivoDelloScarto.senzaTempo =>
           'non cominciava dal suo tempo, "Stasera", "Domani mattina"',
         MotivoDelloScarto.toccaUnTerzo => "chiedeva di fare a un'altra "
@@ -995,7 +998,37 @@ abstract final class LeGuardieDelResponso {
         MotivoDelloScarto.pronomeSenzaAccordo => 'aveva un pronome che non '
             'concorda con la cosa a cui si riferisce: si piega il foglio, '
             '"piegalo"',
+        MotivoDelloScarto.ripeteUnoStrato => 'ripeteva parole di uno strato '
+            'già dato: lo strato di oggi aggiunge, non ripete',
+        MotivoDelloScarto.animaleAnticipato => "nominava l'animale, che si "
+            'rivela solo alla quarta discesa',
       };
+
+  /// **UNA RIGA CHE RIPETE UNO STRATO GIA' DATO**, ordine DQ voce 02: una
+  /// sequenza di cinque parole in comune con un testo di prima, cioe' una
+  /// frase che chi legge riconosce. E' la grandezza del motore della
+  /// ripetizione dell'ordine DF, la stessa della misura G.
+  static bool ripeteUnoStrato(String t, List<String> giaDetti) {
+    List<String> parole(String s) => [
+          for (final m in RegExp('[$_l]+').allMatches(s.toLowerCase()))
+            m.group(0)!,
+        ];
+    Set<String> cinque(List<String> p) => {
+          for (var i = 0; i + 5 <= p.length; i++) p.sublist(i, i + 5).join(' '),
+        };
+    final di = cinque(parole(t));
+    if (di.isEmpty) return false;
+    for (final g in giaDetti) {
+      if (cinque(parole(g)).intersection(di).isNotEmpty) return true;
+    }
+    return false;
+  }
+
+  /// **L'ANIMALE NOMINATO PRIMA DELLA QUARTA**, ordine DQ voce 02: il suo
+  /// nome, con o senza maiuscola.
+  static bool nominaLAnimale(String t, String animale) =>
+      RegExp('(?<![$_l])${RegExp.escape(animale.toLowerCase())}(?![$_l])')
+          .hasMatch(t.toLowerCase());
 
   /// **LEGGE I TRE TESTI** della risposta del modello e li fa passare dalle
   /// guardie, uno per uno. Senza domanda non si leggono: la discesa soltanto
@@ -1009,8 +1042,17 @@ abstract final class LeGuardieDelResponso {
     List<String> nomiDellaScena = const [],
     Set<String> nomiAmmessi = const {},
     List<String> titoliGiaDati = const [],
+    bool soloIncontro = false,
+    String? animaleNonAncoraDetto,
+    List<String> giaDetti = const [],
   }) {
-    if (domanda.trim().isEmpty) return TestiDelModello.nessuno;
+    // **SENZA DOMANDA SI LEGGE SOLO DENTRO UN CAMMINO**, ordine DQ voce 04:
+    // chi scende soltanto per incontrarlo riceve anche lui i suoi quattro
+    // strati. Fuori da un cammino la discesa senza domanda ha la voce di
+    // casa, come prima.
+    if (domanda.trim().isEmpty && !soloIncontro) {
+      return TestiDelModello.nessuno;
+    }
     // **IL TITOLO NON SI RIPETE**, ordine DL voce 07, misura F: si
     // confronta senza maiuscole e senza punteggiatura.
     String piano(String t) =>
@@ -1025,7 +1067,14 @@ abstract final class LeGuardieDelResponso {
         t = t.replaceAll(RegExp(r'[.!]+$'), '').trim();
         t = t.replaceAll(RegExp('^[«"“]|[»"”]\$'), '');
       }
-      final motivo = guardia(t);
+      final motivo = guardia(t) ??
+          (animaleNonAncoraDetto != null &&
+                  nominaLAnimale(t, animaleNonAncoraDetto)
+              ? MotivoDelloScarto.animaleAnticipato
+              : null) ??
+          (ripeteUnoStrato(t, giaDetti)
+              ? MotivoDelloScarto.ripeteUnoStrato
+              : null);
       if (motivo != null) {
         scarti.add(RigaScartata(pezzo, motivo, t));
         return null;

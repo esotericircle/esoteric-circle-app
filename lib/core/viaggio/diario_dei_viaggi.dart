@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../config/app_flags.dart';
+import 'i_quattro_viaggi.dart';
 import 'il_nome_si_puo_dire.dart';
 import 'la_domanda_del_viaggio.dart';
 import 'scena_del_viaggio.dart';
@@ -67,12 +68,125 @@ class DiarioDeiViaggi {
   /// [quanteDiscese].
   static const String _chiaveDelConto = 'viaggio.quante';
 
+  /// **DOVE STA IL CAMMINO IN CORSO**, la domanda e lo strato raggiunto.
+  /// Ordine DQ voce 01. Stringa vuota: nessun cammino in corso.
+  static const String _chiaveDelCammino = 'viaggio.cammino';
+
+  /// **SE L'ANIMALE E' STATO RICONOSCIUTO**, ordine DQ voce 03. Un numero suo
+  /// e non il conto delle discese: cambiare domanda fa ripartire le quattro
+  /// apparizioni, e le discese restano.
+  static const String _chiaveDelRiconoscimento = 'viaggio.riconosciuto';
+
   List<UnViaggio> _viaggi = const [];
   int _quante = 0;
   List<DateTime> _nutrimenti = const [];
   List<SegnoRicevuto> _segni = const [];
   Set<int> _celleScoperte = const {};
   String? _animaleDelVelo;
+  IlCammino? _cammino;
+  bool _riconosciuto = false;
+
+  /// **IL CAMMINO IN CORSO**, o nullo: prima della prima discesa, dopo il
+  /// riconoscimento, e subito dopo che si e' cambiata la domanda. Ordine DQ
+  /// voce 01.
+  IlCammino? get cammino => _cammino;
+
+  /// **SE L'ANIMALE E' STATO RICONOSCIUTO.** Ordine DQ voce 03.
+  bool get riconosciuto => _riconosciuto;
+
+  /// **LE APPARIZIONI VERSO IL RICONOSCIMENTO.** Ordine DQ voce 03, 15
+  /// settembre 2026.
+  ///
+  /// **Fino all'ordine DQ erano le discese**, tutte: quattro discese, e il
+  /// nome si diceva. Adesso l'animale si mostra quattro volte **a chi tiene la
+  /// stessa domanda**, e cambiarla fa ripartire il conto dalla prima: le
+  /// apparizioni sono lo strato del cammino in corso. Dopo il riconoscimento
+  /// valgono le discese, mai sotto quattro, perche' il Passaporto conta anche
+  /// quelle che vengono dopo.
+  int get apparizioni => _riconosciuto
+      ? (_quante > IQuattroViaggi.quanteDiscese
+          ? _quante
+          : IQuattroViaggi.quanteDiscese)
+      : _cammino?.strato ?? 0;
+
+  /// **GLI STRATI DI UN CAMMINO**, dal primo: le discese che ci sono scese.
+  /// Ordine DQ voce 02. Un cammino ereditato da un Diario scritto prima
+  /// dell'ordine DQ non ha il segno nelle discese: i suoi strati sono le
+  /// ultime discese, tante quanto lo strato.
+  List<UnViaggio> stratiDi(IlCammino c) {
+    final suoi = [
+      for (final v in _viaggi)
+        if (v.cammino == c.id) v,
+    ];
+    final strati = suoi.isEmpty && c.ereditato
+        ? _viaggi.take(c.strato).toList()
+        : suoi;
+    return strati.reversed.toList();
+  }
+
+  /// **I CAMMINI DEL DIARIO**, dal piu' recente: per ognuno la domanda e i
+  /// suoi strati. Ordine DQ voce 02: i quattro strati si leggono di fila.
+  List<({String id, String domanda, List<UnViaggio> strati})> get cammini {
+    final ordine = <String>[];
+    final per = <String, List<UnViaggio>>{};
+    for (final v in _viaggi) {
+      final id = v.cammino;
+      if (id == null) continue;
+      if (!per.containsKey(id)) ordine.add(id);
+      per.putIfAbsent(id, () => []).add(v);
+    }
+    return [
+      for (final id in ordine)
+        (
+          id: id,
+          domanda: per[id]!.last.domanda,
+          strati: per[id]!.reversed.toList(),
+        ),
+    ];
+  }
+
+  /// **LE IMPRONTE DEL CAMMINO IN CORSO**: l'animale seguito a ogni strato.
+  List<String> get scelteDelCammino => _cammino == null
+      ? const []
+      : [for (final v in stratiDi(_cammino!)) v.animaleSeguito];
+
+  /// **SI COMINCIA UN CAMMINO**, alla prima discesa. Ordine DQ voce 01: la
+  /// domanda si scrive una volta sola, e resta.
+  Future<void> cominciaIlCammino(IlCammino c) async {
+    _cammino = c;
+    await _scriviIlCammino();
+  }
+
+  /// **SI CAMBIA LA DOMANDA, E IL CAMMINO RIPARTE DALLA PRIMA.** Ordine DQ
+  /// voce 03. Le discese fatte restano nel Diario con la loro domanda e i
+  /// loro strati: non si cancella niente, si ricomincia soltanto il conteggio
+  /// delle quattro apparizioni. **E la cenere torna intera**: l'animale si
+  /// mostra di nuovo dalla prima volta.
+  Future<void> cambiaLaDomanda() async {
+    _cammino = null;
+    _celleScoperte = const {};
+    _animaleDelVelo = null;
+    IlNomeSiPuoDire.quanteDisceseNote = apparizioni;
+    await _scriviIlCammino();
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.remove(_chiaveDelVelo);
+    } catch (errore) {
+      // Si perde il ricordo della cenere scostata, non il gesto.
+    }
+  }
+
+  Future<void> _scriviIlCammino() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(
+          _chiaveDelCammino, _cammino == null ? '' : jsonEncode(_cammino!.toJson()));
+      await prefs.setBool(_chiaveDelRiconoscimento, _riconosciuto);
+    } catch (errore) {
+      // **SI PERDE IL RICORDO, NON IL CAMMINO DI OGGI**: la domanda resta a
+      // schermo finche' l'app e' aperta.
+    }
+  }
 
   /// **LE CELLE DEL VELO GIA' SCOSTATE SU [animale]**, discesa dopo discesa.
   ///
@@ -140,6 +254,10 @@ class DiarioDeiViaggi {
     await prefs.remove(_chiaveDeiSegni);
     await prefs.remove(_chiaveDelVelo);
     await prefs.remove(_chiaveDelConto);
+    await prefs.remove(_chiaveDelCammino);
+    await prefs.remove(_chiaveDelRiconoscimento);
+    _cammino = null;
+    _riconosciuto = false;
     _quante = 0;
     _viaggi = const [];
     _nutrimenti = const [];
@@ -174,11 +292,28 @@ class DiarioDeiViaggi {
       // lista**, anche se il conto fosse stato scritto male.
       final conto = prefs.getInt(_chiaveDelConto) ?? 0;
       _quante = conto > _viaggi.length ? conto : _viaggi.length;
+      // **IL CAMMINO E IL RICONOSCIMENTO**, ordine DQ voce 01. **Un Diario
+      // scritto prima dell'ordine** non ha nessuno dei due, e si ricava cosi':
+      // chi aveva gia' quattro discese ha gia' riconosciuto il suo animale, e
+      // lo tiene; chi era a meta' prosegue con la domanda della sua ultima
+      // discesa, dallo strato a cui era arrivato. Nessuno perde un passo.
+      final riconosciuto = prefs.getBool(_chiaveDelRiconoscimento);
+      final cammino = prefs.getString(_chiaveDelCammino);
+      if (riconosciuto == null && cammino == null) {
+        _riconosciuto = _quante >= IQuattroViaggi.quanteDiscese;
+        _cammino = _riconosciuto || _viaggi.isEmpty
+            ? null
+            : IlCammino.ereditatoDa(_viaggi.first, _quante);
+      } else {
+        _riconosciuto = riconosciuto ?? false;
+        final j = cammino == null || cammino.isEmpty ? null : jsonDecode(cammino);
+        _cammino = j is Map<String, dynamic> ? IlCammino.fromJson(j) : null;
+      }
       // **QUI NASCE IL CONTO DELLE DISCESE, e da qui lo sa chi non puo'
       // aspettare.** Ordine DG voce 02: il simbolo dell'attesa di una chat si
       // disegna dentro un `build` sincrono, e senza questa riga mostrerebbe
       // il totem a chi non lo ha ancora incontrato.
-      IlNomeSiPuoDire.quanteDisceseNote = _quante;
+      IlNomeSiPuoDire.quanteDisceseNote = apparizioni;
       // **I NUTRIMENTI, ordine DE voce 12.** Stessa indulgenza del diario: un
       // elenco illeggibile vale un elenco vuoto, e chi torna trova comunque
       // il tamburo.
@@ -228,9 +363,26 @@ class DiarioDeiViaggi {
     _quante = prima + 1;
     _viaggi =
         List.unmodifiable([viaggio, ..._viaggi].take(quantiNeTiene).toList());
+    // **LO STRATO SI SEGNA NEL CAMMINO**, ordine DQ voce 02: la discesa che
+    // porta il segno del cammino in corso lo fa salire di uno. Al quarto il
+    // cammino e' finito e l'animale riconosciuto.
+    final c = _cammino;
+    if (c != null && viaggio.cammino == c.id) {
+      final strato = viaggio.strato ?? c.strato + 1;
+      if (strato >= IQuattroViaggi.quanteDiscese) {
+        _riconosciuto = true;
+        _cammino = null;
+      } else {
+        _cammino = c.alloStrato(strato);
+      }
+    }
+    IlNomeSiPuoDire.quanteDisceseNote = apparizioni;
     try {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setInt(_chiaveDelConto, _quante);
+      await prefs.setString(_chiaveDelCammino,
+          _cammino == null ? '' : jsonEncode(_cammino!.toJson()));
+      await prefs.setBool(_chiaveDelRiconoscimento, _riconosciuto);
       await prefs.setStringList(
           _chiave, [for (final v in _viaggi) jsonEncode(v.toJson())]);
     } catch (errore) {
@@ -439,9 +591,19 @@ class UnViaggio {
     this.gesto,
     this.oggetto,
     this.fonti = const {},
+    this.strato,
+    this.cammino,
   });
 
   final DateTime quando;
+
+  /// **LO STRATO DEL CAMMINO**, da uno a quattro, o nullo per le discese
+  /// fuori da un cammino: quelle scritte prima dell'ordine DQ e quelle dopo
+  /// il riconoscimento. Ordine DQ voce 02.
+  final int? strato;
+
+  /// **IL CAMMINO A CUI APPARTIENE**, per il suo id. Ordine DQ voce 01.
+  final String? cammino;
 
   /// **IL TITOLO CHE LA DISCESA HA MOSTRATO**, e con lui la risposta e
   /// l'azione, cosi' come stanno nei loro elenchi. Ordine DJ voce 02: la voce
@@ -513,6 +675,8 @@ class UnViaggio {
         if (gesto != null) 'gesto': gesto,
         if (oggetto != null) 'oggetto': oggetto,
         if (fonti.isNotEmpty) 'fonti': fonti,
+        if (strato != null) 'strato': strato,
+        if (cammino != null) 'cammino': cammino,
       };
 
   static UnViaggio? fromJson(Map<String, dynamic> j) {
@@ -538,6 +702,117 @@ class UnViaggio {
             if (e.key is String && e.value is String)
               e.key as String: e.value as String,
       },
+      strato: j['strato'] is int ? j['strato'] as int : null,
+      cammino: j['cammino'] is String ? j['cammino'] as String : null,
+    );
+  }
+}
+
+/// **IL CAMMINO: UNA DOMANDA, QUATTRO DISCESE.** Ordine DQ voce 01, 15
+/// settembre 2026.
+///
+/// **La decisione del fondatore**, dall'esagramma quarto dell'I Ching: al
+/// primo oracolo si risponde, all'importuno no. **La domanda e' una sola e
+/// accompagna tutte e quattro le discese della rivelazione**, e ogni discesa
+/// risale con uno strato piu' profondo della stessa risposta. La regola
+/// delle quattro apparizioni di Harner smette di essere un conteggio e
+/// diventa il motivo per cui ci vogliono quattro volte.
+class IlCammino {
+  const IlCammino({
+    required this.domanda,
+    required this.via,
+    required this.tema,
+    required this.inizio,
+    this.oggetto,
+    this.strato = 0,
+    this.ereditato = false,
+  });
+
+  /// La domanda per esteso; vuota per chi scende soltanto per incontrarlo.
+  final String domanda;
+
+  /// `scelta`, `scritta` o `incontro`: la via con cui si e' scesi la prima
+  /// volta, e resta.
+  final String via;
+
+  /// L'id del tema, o vuoto.
+  final String tema;
+
+  /// L'oggetto della domanda, dal classificatore della prima discesa.
+  final String? oggetto;
+
+  /// Quando e' cominciato: e' anche il suo id.
+  final DateTime inizio;
+
+  /// **QUANTI STRATI SONO GIA' RISALITI**, da zero a tre: al quarto il
+  /// cammino e' finito.
+  final int strato;
+
+  /// **VIENE DA UN DIARIO SCRITTO PRIMA DELL'ORDINE DQ**: le sue discese non
+  /// portano il segno del cammino.
+  final bool ereditato;
+
+  String get id => inizio.toIso8601String();
+
+  /// Se si scende con una domanda, o soltanto per incontrarlo.
+  bool get conDomanda => via != 'incontro';
+
+  IlCammino alloStrato(int s) => IlCammino(
+        domanda: domanda,
+        via: via,
+        tema: tema,
+        inizio: inizio,
+        oggetto: oggetto,
+        strato: s,
+        ereditato: ereditato,
+      );
+
+  /// **IL CAMMINO DI CHI ERA A META'** il giorno che l'ordine DQ e' arrivato:
+  /// la domanda della sua ultima discesa, e lo strato delle discese fatte.
+  factory IlCammino.ereditatoDa(UnViaggio ultimo, int discese) {
+    final incontro =
+        ultimo.temaDellaDomanda == LaDomandaDelViaggio.idSoloPerIncontrarlo ||
+            ultimo.domanda == LaDomandaDelViaggio.soloPerIncontrarlo;
+    final scritta = LaDomandaDelViaggio.gliaScritte
+        .any((d) => d.testo == ultimo.domanda);
+    return IlCammino(
+      domanda: incontro ? '' : ultimo.domanda,
+      via: incontro
+          ? 'incontro'
+          : scritta
+              ? 'scelta'
+              : 'scritta',
+      tema: incontro ? '' : ultimo.temaDellaDomanda,
+      oggetto: ultimo.oggetto,
+      inizio: DateTime.utc(2026, 9, 15),
+      strato: discese < IQuattroViaggi.quanteDiscese
+          ? discese
+          : IQuattroViaggi.quanteDiscese - 1,
+      ereditato: true,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        'domanda': domanda,
+        'via': via,
+        'tema': tema,
+        if (oggetto != null) 'oggetto': oggetto,
+        'inizio': inizio.toIso8601String(),
+        'strato': strato,
+        if (ereditato) 'ereditato': true,
+      };
+
+  static IlCammino? fromJson(Map<String, dynamic> j) {
+    final inizio = DateTime.tryParse('${j['inizio']}');
+    if (inizio == null) return null;
+    return IlCammino(
+      domanda: '${j['domanda'] ?? ''}',
+      via: '${j['via'] ?? 'scritta'}',
+      tema: '${j['tema'] ?? ''}',
+      oggetto: j['oggetto'] is String ? j['oggetto'] as String : null,
+      inizio: inizio,
+      strato: j['strato'] is int ? j['strato'] as int : 0,
+      ereditato: j['ereditato'] == true,
     );
   }
 }

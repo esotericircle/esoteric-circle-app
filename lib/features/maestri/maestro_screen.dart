@@ -815,7 +815,9 @@ class _CardDelViaggioState extends State<_CardDelViaggio> {
     super.initState();
     final diario = DiarioDeiViaggi();
     unawaited(diario.carica().then((_) {
-      if (mounted) setState(() => _discese = diario.quanteDiscese);
+      // **LE APPARIZIONI**, ordine DQ voce 03: la promessa cambia al
+      // riconoscimento, non alla quarta discesa di sempre.
+      if (mounted) setState(() => _discese = diario.apparizioni);
     }).catchError((_) {
       // **UN ARCHIVIO MUTO NON SPEGNE UNA CARD.** Resta la promessa di chi
       // non e' ancora sceso.

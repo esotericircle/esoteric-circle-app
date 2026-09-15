@@ -188,6 +188,15 @@ class DiarioDelloSciamanoDiProva extends DiarioDeiViaggi {
   @override
   int get quanteDiscese => quante;
 
+  /// **LE APPARIZIONI SONO LE DISCESE FINTE**, ordine DQ voce 03: il
+  /// riconoscimento adesso le legge, e un finto che dicesse zero misurerebbe
+  /// un'altra soglia da quella che la prova vuole guardare.
+  @override
+  int get apparizioni => quante;
+
+  @override
+  bool get riconosciuto => quante >= 4;
+
   @override
   List<String> get scelteInOrdine => const [];
 

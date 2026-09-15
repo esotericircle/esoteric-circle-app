@@ -112,6 +112,17 @@ void main() {
         MotivoDelloScarto.pronomeSenzaAccordo: azione(
             'Stasera scrivi su un foglio i passi futuri. Piegali e mettili '
             'sotto il cuscino.'),
+        // Ordine DQ voce 02: queste due le scarta la lettura, che conosce il
+        // cammino; qui la loro riga passa dalle due funzioni che usa.
+        MotivoDelloScarto.ripeteUnoStrato: LeGuardieDelResponso.ripeteUnoStrato(
+                'Sulla bottega puoi scegliere tu il primo passo.',
+                const ['Con la bottega puoi scegliere tu il primo passo.'])
+            ? MotivoDelloScarto.ripeteUnoStrato
+            : null,
+        MotivoDelloScarto.animaleAnticipato:
+            LeGuardieDelResponso.nominaLAnimale('Il lupo ha il tuo passo.', 'Lupo')
+                ? MotivoDelloScarto.animaleAnticipato
+                : null,
         MotivoDelloScarto.titoloAnticipaLaScena:
             LeGuardieDelResponso.titoloToccaLaScena(
                     'La porta non è tua', const ['la porta chiusa'])

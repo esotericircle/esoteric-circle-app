@@ -44,8 +44,10 @@ class IlNomeSiPuoDire {
   static Future<bool> chiedendoloAllArchivio(String animale) async {
     final diario = DiarioDeiViaggi();
     await diario.carica();
+    // **LE APPARIZIONI, NON LE DISCESE**, ordine DQ voce 03: cambiare
+    // domanda fa ripartire il conto, e le discese restano.
     return IQuattroViaggi.nomeDopoLeQuattroDiscese(
-          diario.quanteDiscese,
+          diario.apparizioni,
           animale,
         ) !=
         null;

@@ -45,7 +45,10 @@ void main() {
     await riaperto.carica();
     expect(riaperto.quanteDiscese, 95,
         reason: 'riaprendo il Diario il conto torna alla lunghezza della lista');
-    expect(IlNomeSiPuoDire.quanteDisceseNote, 95);
+    // **IL NOME LEGGE LE APPARIZIONI**, ordine DQ voce 03, non le discese:
+    // queste novantacinque non portano un cammino, e il conto che il nome
+    // conosce e' quello del Diario riaperto.
+    expect(IlNomeSiPuoDire.quanteDisceseNote, riaperto.apparizioni);
   });
 
   test('UN DIARIO DI PRIMA, senza conto, comincia dalla sua lista', () async {

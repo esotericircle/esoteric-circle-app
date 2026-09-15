@@ -44,6 +44,10 @@ typedef LaScenaScritta = ({PezziScelti? pezzi, TestiDelModello testi});
 typedef ChiamataDellaScena = Future<String?> Function(
     String istruzione, String richiesta, PezziAmmessi ammessi);
 
+/// **UNO STRATO GIA' DATO**, come il Diario lo conserva: il titolo, la
+/// risposta e l'azione che la persona ha letto. Ordine DQ voce 02.
+typedef StratoGiaDato = ({String titolo, String risposta, String azione});
+
 /// **CIO' CHE IL MODELLO SA DELLA PERSONA, per scegliere la scena.** Ordine DI
 /// voce 03: *"la domanda per esteso, il tema classificato, il nome
 /// dell'animale, i dati della carta natale gia' disponibili nel profilo, il
@@ -60,9 +64,24 @@ class CioCheSiSa {
     this.oggetto,
     this.forma,
     this.titoliGiaDati = const [],
+    this.strato,
+    this.stratiPrecedenti = const [],
   });
 
   final String domanda;
+
+  /// **LO STRATO DI OGGI**, da uno a quattro, fino al riconoscimento; nullo
+  /// dopo, quando si scende per chiedere. Ordine DQ voce 02.
+  final int? strato;
+
+  /// **GLI STRATI GIA' DATI** nel cammino, dal primo. Ordine DQ voce 02: se
+  /// al terzo strato il modello ricevesse solo la domanda, riscriverebbe il
+  /// primo con parole diverse, e la progressione non esisterebbe.
+  final List<StratoGiaDato> stratiPrecedenti;
+
+  /// **SI SCENDE SOLTANTO PER INCONTRARLO**, dentro un cammino: allora i
+  /// quattro strati parlano dell'incontro. Ordine DQ voce 04.
+  bool get soloIncontro => domanda.trim().isEmpty && strato != null;
 
   /// Il tema per esteso, *Una scelta da fare*; nullo senza domanda.
   final String? tema;
@@ -141,7 +160,8 @@ abstract final class LaScenaDalModello {
   /// **L'ISTRUZIONE**, costruita dal vocabolario e dal repertorio: niente si
   /// ricopia a mano, e il giorno che una figura cambia nome l'istruzione la
   /// segue da sola.
-  static String istruzione(GuideAnimal animale, {CourtesyForm? forma}) {
+  static String istruzione(GuideAnimal animale,
+      {CourtesyForm? forma, int? strato, bool soloIncontro = false}) {
     final chi = '${animale.articolo}${animale.name}';
     final chiMaiuscolo = '${chi[0].toUpperCase()}${chi.substring(1)}';
     final b = StringBuffer(
@@ -173,9 +193,38 @@ abstract final class LaScenaDalModello {
         'e i gesti delle scene precedenti non si possono ripetere; la cosa può '
         'tornare, soltanto se oggi ha un senso preciso. Non scegliere due pezzi '
         'che ripetono la stessa parola.\n\n');
-    b.write(_iTreTesti(forma));
+    b.write(_iTreTesti(forma, strato: strato, soloIncontro: soloIncontro));
     return b.toString();
   }
+
+  /// **I QUATTRO STRATI DELLA RISPOSTA**, ordine DQ voce 02, e sono quattro
+  /// cose diverse, non quattro varianti della stessa. Ognuno ha la sua
+  /// istruzione.
+  static const List<String> stratiConDomanda = [
+    "CHE COSA HAI PORTATO GIÙ DAVVERO: la domanda dietro la domanda, che "
+        "quasi mai è quella scritta. Il titolo e la risposta dicono quella.",
+    "CHE COSA TI TRATTIENE: l'ostacolo, detto come un fatto e mai come una "
+        "colpa.",
+    "CHE COSA HAI GIÀ IN MANO: la risorsa che la persona non sta contando.",
+    "CHE COSA FARE: la risposta piena, che raccoglie gli strati di prima in "
+        "una cosa sola. Oggi l'animale si rivela.",
+  ];
+
+  /// **I QUATTRO STRATI DI CHI SCENDE SENZA DOMANDA**, ordine DQ voce 04:
+  /// cambiano oggetto, e parlano dell'incontro invece che della domanda.
+  static const List<String> stratiDellIncontro = [
+    "CHE COSA TI HA PORTATO A CERCARLO: che cosa, nel momento che la persona "
+        "vive, l'ha fatta scendere. Leggilo dalla memoria e dalla carta "
+        "natale.",
+    "CHE COSA DELL'ANIMALE TI SOMIGLIA: un suo modo di essere o di muoversi "
+        "che la persona ha anche in sé.",
+    "CHE COSA TI CHIEDE: la cosa che l'animale chiede alla persona.",
+    "CHI È: oggi l'animale si rivela. La risposta dice chi è per la persona, "
+        "col suo nome.",
+  ];
+
+  /// Il numero dello strato in lettere, al femminile: la discesa.
+  static const List<String> _laDiscesa = ['prima', 'seconda', 'terza', 'quarta'];
 
   /// **I TRE TESTI PER LA PERSONA**, ordine DL voci 07 e 13. Le regole sono
   /// quelle delle guardie in `LeGuardieDelResponso`: il modello le riceve
@@ -184,7 +233,8 @@ abstract final class LaScenaDalModello {
   /// **GLI ESEMPI SONO DELLA VOCE DI CASA**, come chiede l'ordine: una
   /// manciata di titoli e di gesti veri, cosi' il modello scrive nella
   /// nostra voce e non nella sua. Da non copiare, e la lettura lo guarda.
-  static String _iTreTesti(CourtesyForm? forma) {
+  static String _iTreTesti(CourtesyForm? forma,
+      {int? strato, bool soloIncontro = false}) {
     final titoli = [
       for (final t in LaVoceDelMondoDiSotto.titoliPerTema.values) t[3],
     ];
@@ -193,9 +243,30 @@ abstract final class LaScenaDalModello {
       LaVoceDelMondoDiSotto.cosaPuoiFare[10],
       LaVoceDelMondoDiSotto.cosaPuoiFare[16],
     ];
+    final s = strato == null ? null : strato.clamp(1, 4) - 1;
     return [
-      'POI SCRIVI TRE TESTI PER LA PERSONA, sulla sua domanda vera, quella '
-          'scritta nella richiesta. Se la domanda è "nessuna", lasciali vuoti.',
+      if (!soloIncontro)
+        'POI SCRIVI TRE TESTI PER LA PERSONA, sulla sua domanda vera, quella '
+            'scritta nella richiesta. Se la domanda è "nessuna", lasciali '
+            'vuoti.'
+      else
+        'POI SCRIVI TRE TESTI PER LA PERSONA. Non ha una domanda: è scesa '
+            "soltanto per incontrare l'animale. I tre testi parlano "
+            "dell'incontro.",
+      // **LO STRATO**, ordine DQ voce 02: quattro discese sulla stessa
+      // domanda, e ogni discesa risale con uno strato diverso.
+      if (s != null) ...[
+        'QUESTA È LA ${_laDiscesa[s].toUpperCase()} DISCESA DI QUATTRO '
+            '${soloIncontro ? "DELLO STESSO INCONTRO" : "SULLA STESSA DOMANDA"}. '
+            'Ogni discesa risale con uno strato diverso della stessa '
+            'risposta. Lo strato di oggi è '
+            '${(soloIncontro ? stratiDellIncontro : stratiConDomanda)[s]}',
+        'Gli strati già dati sono nella richiesta: aggiungi e non ripetere. '
+            'Non riprendere le loro frasi, le loro immagini e la loro azione.',
+        if (s < 3)
+          "Non nominare l'animale: né il suo nome né la sua specie. Si "
+              'rivela alla quarta discesa.',
+      ],
       // **LE REGOLE DETTE COME LE LEGGE IL MODELLO**, ordine DL voce 07: la
       // sonda col modello vero, dodici domande, ha trovato quattro titoli
       // oltre le sei parole, cinque gesti senza tempo e due virgole seguite
@@ -214,8 +285,9 @@ abstract final class LaScenaDalModello {
           'porta chiusa, il titolo non dice porta; se l\'animale aspetta, '
           'il titolo non dice aspettare.',
       '- risposta: ${LeGuardieDelResponso.frasiDellaRisposta} frasi al '
-          'massimo. Nomina la cosa di cui la persona ha chiesto, con le sue '
-          'parole, non la categoria. Non raccontare la scena e non usarla '
+          'massimo. '
+          '${soloIncontro ? "Parla dell'incontro e del momento della persona." : "Nomina la cosa di cui la persona ha chiesto, con le sue parole, non la categoria."} '
+          'Non raccontare la scena e non usarla '
           'come immagine: nella risposta non compaiono il luogo, la cosa e '
           'il momento che hai scelto, perché la scena la racconta Caligo '
           'dopo, come fonte.',
@@ -319,6 +391,18 @@ abstract final class LaScenaDalModello {
       ..writeln(
           'Titoli già dati, da non ripetere: ${s.titoliGiaDati.isEmpty ? 'nessuno' : s.titoliGiaDati.take(titoliNellaRichiesta).map((t) => '"$t"').join(', ')}')
       ..writeln('Animale: ${s.animale.name}');
+    // **GLI STRATI GIA' DATI**, ordine DQ voce 02, col loro testo intero.
+    if (s.strato != null) {
+      b.writeln('Strato di oggi: ${s.strato} di 4');
+    }
+    if (s.stratiPrecedenti.isNotEmpty) {
+      b.writeln('Strati già dati in questo cammino, da non ripetere:');
+      for (var i = 0; i < s.stratiPrecedenti.length; i++) {
+        final p = s.stratiPrecedenti[i];
+        b.writeln('${i + 1}. titolo "${p.titolo}"; risposta "${p.risposta}"; '
+            'azione "${p.azione}"');
+      }
+    }
     final natale = [
       if (n.sunSign != null) 'Sole in ${n.sunSign}',
       if (n.moonSign != null) 'Luna in ${n.moonSign}',
@@ -496,8 +580,13 @@ abstract final class LaScenaDalModello {
         return (pezzi: sceltiPrima, testi: testi);
       }
       try {
-        final risposta = await chiedi(istruzione(s.animale, forma: s.forma),
-                richiesta(s, daCorreggere: daCorreggere), consentiti)
+        final risposta = await chiedi(
+                istruzione(s.animale,
+                    forma: s.forma,
+                    strato: s.strato,
+                    soloIncontro: s.soloIncontro),
+                richiesta(s, daCorreggere: daCorreggere),
+                consentiti)
             .timeout(resta);
         final scelti = sceltiPrima ??
             leggi(risposta, s.animale, ultimeScene: s.ultimeScene);
@@ -595,8 +684,19 @@ abstract final class LaScenaDalModello {
       nomiDellaScena: pezzi == null
           ? const []
           : [pezzi.luogo.nome, pezzi.cosa.nome, pezzi.momento.nome],
-      nomiAmmessi: {s.animale.name.toLowerCase()},
+      // **IL NOME DELL'ANIMALE SOLO ALLA QUARTA**, ordine DQ voce 02: prima
+      // del riconoscimento il suo nome non e' ammesso, e la guardia lo
+      // scarta.
+      nomiAmmessi: s.strato != null && s.strato! < 4
+          ? const {}
+          : {s.animale.name.toLowerCase()},
       titoliGiaDati: s.titoliGiaDati,
+      soloIncontro: s.soloIncontro,
+      animaleNonAncoraDetto:
+          s.strato != null && s.strato! < 4 ? s.animale.name : null,
+      giaDetti: [
+        for (final p in s.stratiPrecedenti) ...[p.titolo, p.risposta, p.azione],
+      ],
     );
   }
 

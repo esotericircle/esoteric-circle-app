@@ -130,8 +130,18 @@ void main() {
         await tester.pump(const Duration(milliseconds: 300));
         leggi();
       }
-      final scritta = i.isOdd;
-      if (scritta) {
+      // **DENTRO IL CAMMINO LA DOMANDA NON SI SCEGLIE**, ordine DQ voce 01:
+      // dalla seconda discesa si legge, e si tocca Scendi. La prima e' una
+      // domanda scritta, perche' l'oggetto arrivi a tutti e quattro gli
+      // strati; dopo il riconoscimento si alternano le due vie, come prima.
+      final nelCammino = find
+          .byKey(const Key('viaggio_la_domanda_del_cammino'))
+          .evaluate()
+          .isNotEmpty;
+      final scritta = i.isOdd || i == 0;
+      if (nelCammino) {
+        leggi();
+      } else if (scritta) {
         await tester.scrollUntilVisible(find.text('Scrivila tu'), 200,
             scrollable: find.byType(Scrollable).first);
         await tester.tap(find.text('Scrivila tu'));

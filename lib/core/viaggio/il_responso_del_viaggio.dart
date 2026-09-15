@@ -78,6 +78,8 @@ class IlResponsoDelViaggio {
     required String temaDellaDomanda,
     required String animaleSeguito,
     required double nitidezza,
+    String? cammino,
+    int? strato,
   }) =>
       UnViaggio(
         quando: quando,
@@ -91,6 +93,8 @@ class IlResponsoDelViaggio {
         gesto: gesto,
         oggetto: oggetto,
         fonti: fonti,
+        cammino: cammino,
+        strato: strato,
       );
 
   /// **QUANTE FORME HA LA FRASE CHE CUCE LA SCENA** per ogni grado di
@@ -183,12 +187,16 @@ class IlResponsoDelViaggio {
     TestiDelModello scritti = TestiDelModello.nessuno,
     String? oggetto,
     Map<String, String> fontiGiaNote = const {},
+    int? apparizioniPrima,
   }) {
     final precedenti = [for (final v in storia) v.pezzi];
     // Il nome si dice alla quarta: questa discesa e' ancora da contare. **Da
     // `IQuattroViaggi.siPuoNominare`**, ordine DJ voce 05: qui la regola era
     // riscritta a mano, e la funzione che la dice non la chiamava nessuno.
-    final siPuoDire = IQuattroViaggi.siPuoNominare(discesa);
+    // **ALLA QUARTA APPARIZIONE**, ordine DQ voce 03: cambiare domanda fa
+    // ripartire il conto, e le discese di prima non contano piu'.
+    final siPuoDire =
+        IQuattroViaggi.siPuoNominare(apparizioniPrima ?? discesa);
     // Senza domanda, nessuna chiusura parla della domanda.
     final conDomanda = tema != null;
     final id = LaVoceDelMondoDiSotto.temaDi(tema);
