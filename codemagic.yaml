@@ -313,6 +313,26 @@ workflows:
           flutter build ipa --release \
             --export-options-plist=/Users/builder/export_options.plist
 
+      - name: Il manifesto della privacy e' dentro il pacchetto
+        script: |
+          # **ORDINE DQ VOCE 12.** Senza ios/Runner/PrivacyInfo.xcprivacy Apple
+          # rifiuta la pubblicazione con ITMS-91053. Il file e' nel progetto
+          # Xcode, scritto a mano da Windows dove Xcode non c'e': e' questo il
+          # primo posto dove si vede se il bersaglio Runner lo copia davvero.
+          # Se manca, l'archivio non si carica, perche' un caricamento senza
+          # manifesto e' un giro di Codemagic buttato.
+          IPA=$(ls build/ios/ipa/*.ipa | head -1)
+          echo "Manifesti della privacy nel pacchetto $IPA:"
+          unzip -l "$IPA" | grep "xcprivacy" || true
+          if ! unzip -l "$IPA" | grep -qE "Payload/Runner\.app/PrivacyInfo\.xcprivacy$"; then
+            echo "IL MANIFESTO DELL'APP NON E' NEL PACCHETTO: ITMS-91053 al caricamento."
+            exit 1
+          fi
+          rm -rf /tmp/manifesto && mkdir -p /tmp/manifesto
+          unzip -o -q "$IPA" "Payload/Runner.app/PrivacyInfo.xcprivacy" -d /tmp/manifesto
+          plutil -lint /tmp/manifesto/Payload/Runner.app/PrivacyInfo.xcprivacy
+          echo "Il manifesto dell'app c'e' ed e' un plist valido."
+
       - name: I simboli dSYM su Crashlytics
         script: |
           # **SENZA SIMBOLI I RAPPORTI IOS ARRIVANO ILLEGGIBILI**: indirizzi
