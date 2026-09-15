@@ -71,8 +71,14 @@ void main() {
         MotivoDelloScarto.genereContrario: risposta(
             'Sei pronto ad aspettare tua sorella.',
             forma: CourtesyForm.feminine),
+        // Su una domanda senza un terzo: con la sorella, dalla regola in
+        // positivo della 2258, la frase cadrebbe prima per il terzo.
         MotivoDelloScarto.nonNominaLaDomanda:
-            risposta('Il tempo delle cose non si comanda.', oggetto: null),
+            LeGuardieDelResponso.dellaRisposta(
+                'Il tempo delle cose non si comanda.',
+                domanda:
+                    'Ho una scelta davanti e non so da che parte guardare.',
+                forma: neutra),
         MotivoDelloScarto.anticipaLaScena: risposta(
             'La soglia di tua sorella non è tua da attraversare.',
             scena: const ['soglia']),
@@ -424,6 +430,25 @@ void main() {
           LeGuardieDelResponso.statoDiUnTerzo(
               'Non puoi cambiare la rabbia di tua madre.',
               'Mia madre e arrabbiata con me'),
+          isFalse);
+      // **DALLA RIPROVA A VIDEO DELLA BUILD 2257**: la regola in positivo.
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'Quel trattamento non ha a che fare con te.',
+              'Il mio capo mi tratta male'),
+          isTrue);
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'Tu non sei quello che vede.', 'Mia suocera non mi accetta'),
+          isTrue);
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo('Non è tua la gioia',
+              'Mia sorella si sposa e io non sono felice'),
+          isTrue);
+      expect(
+          LeGuardieDelResponso.statoDiUnTerzo(
+              'Con il tuo capo puoi scegliere tu cosa dire.',
+              'Il mio capo mi tratta male'),
           isFalse);
       // **DALLA PROVA A VIDEO DELLA BUILD 2253**: il terzo sottinteso.
       expect(

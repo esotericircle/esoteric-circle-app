@@ -239,8 +239,8 @@ abstract final class LeGuardieDelResponso {
           '(?:tua|tuo|tuoi|tue) da [a-zàèéìòù]+|'
           // *"La maternita' di tua sorella non e' una decisione tua"*: dice
           // cio' che chi legge non puo' fare. Dalla misura dell'ordine DN.
-          '(?:tua|tuo) (?:decisione|scelta|compito|responsabilità)|'
-          '(?:decisione|scelta|compito|responsabilità) (?:tua|tuo)');
+          '(?:tua|tuo) (?:decisione|scelta|compito|responsabilità|colpa)|'
+          '(?:decisione|scelta|compito|responsabilità|colpa) (?:tua|tuo)');
 
   /// **UN ORDINE SU UNA DECISIONE GRAVE E IRREVERSIBILE**, ordine DN voce
   /// 04: lasciare il lavoro o una persona, separarsi, tagliare i rapporti,
@@ -540,6 +540,31 @@ abstract final class LeGuardieDelResponso {
       }
       final predicato = frase.replaceAll(terzoOvunque, ' ');
       if (!_predicatoDiChiLegge.hasMatch(predicato)) return true;
+    }
+    // **LA REGOLA IN POSITIVO**, ordine DN voce 08, dalla riprova a video
+    // della 2257. Il terzo si dice anche senza nominarlo: *"Quel
+    // trattamento non ha a che fare con te"*, del capo; *"Tu non sei
+    // quello che vede"*, della suocera; *"Non e' tua la gioia"*, della
+    // sorella che si sposa. Una guardia che cerca il terzo non vede un
+    // terzo che non c'e' scritto. **Quando la domanda parla di un'altra
+    // persona, ogni frase del titolo e della risposta dice cio' che chi
+    // legge puo' o non puo' fare, o ha chi legge per soggetto**, e nessuna
+    // dice cosa l'altro vede, pensa, crede o vuole.
+    if (ognunaCheLoNomina && domandaConUnTerzo) {
+      final mentale = RegExp(
+          '(?<![$_l])(?:che|cosa|come) (?:ti |lo |la |ne )?'
+          '(?:vede|pensa|crede|sente|vuole|prova|capisce|giudica|'
+          'desidera|sa|ricorda|nasconde|intende)(?![$_l])',
+          caseSensitive: false);
+      for (final grezza in t.split(RegExp(r'[.!?;]'))) {
+        final frase = grezza.trim();
+        if (frase.isEmpty) continue;
+        if (mentale.hasMatch(frase)) return true;
+        if (!_predicatoDiChiLegge.hasMatch(frase) &&
+            !diChiLegge.hasMatch(frase)) {
+          return true;
+        }
+      }
     }
     return false;
   }
