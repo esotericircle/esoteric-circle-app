@@ -46,6 +46,8 @@ enum MotivoDelloScarto {
   decisioneGrave,
   gergo,
   titoloAnticipaLaScena,
+  // Dalla riprova a video della 2255.
+  tempoNelTitolo,
 }
 
 /// Una riga scartata: quale pezzo, perche', e il testo.
@@ -119,6 +121,11 @@ abstract final class LeGuardieDelResponso {
           'vincerà|otterrai|otterrà|troverai|troverà|cambierà|finirà|nascerà|'
           'guarirà|guarirai|sicuramente|certamente|di sicuro|senza dubbio|'
           'è certo|garantit[oaie]|'
+          // **E OGNI FUTURO**, non piu' un elenco: *"Ogni strada che prendi ti
+          // condurra' a nuovi incontri"*, alla riprova a video della 2255,
+          // passava perche' *condurra'* non c'era. Il futuro dei modali resta,
+          // *potrai*, *dovrai*, *vorrai*: dice cio' che chi legge puo' fare.
+          '(?!potr|dovr|vorr)[a-zàèéìòù]+r(?:à|ai|anno)|'
           '(è|ha|hanno|sono) già [a-zàèéìòù]+(at|ut|it)[oaie]|'
           'non è (ancora )?(il )?(suo |tuo |questo )?(momento|tempo)');
 
@@ -550,6 +557,10 @@ abstract final class LeGuardieDelResponso {
     if (t.contains(':')) return MotivoDelloScarto.duePuntiNelTitolo;
     final parole = t.trim().split(RegExp(r'\s+')).length;
     if (parole > paroleDelTitolo) return MotivoDelloScarto.troppoLunga;
+    // **IL TITOLO NON DICE UN TEMPO**, ordine DN voce 08, punto 9: il gesto
+    // il suo lo ha sempre, e *"Guardati attorno ora"* sopra *"entro domani
+    // sera"* ne faceva due. Alla riprova a video della 2255.
+    if (indicazioneDiTempo.hasMatch(t)) return MotivoDelloScarto.tempoNelTitolo;
     return _comuni(t, domanda: domanda, forma: forma, nomiAmmessi: nomiAmmessi);
   }
 

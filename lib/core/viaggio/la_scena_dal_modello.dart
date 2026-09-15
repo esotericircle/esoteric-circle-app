@@ -206,7 +206,9 @@ abstract final class LaScenaDalModello {
           'già una '
           'risposta, si legge da solo e non è una domanda. Parla alla '
           'persona in seconda persona singolare. Niente due punti, niente '
-          'punto finale. Non ripete nessuno dei titoli già dati. Non usa '
+          'punto finale. Nessuna parola di tempo, né "ora" né "oggi": il '
+          "tempo lo dice l'azione. Non ripete nessuno dei titoli già dati. "
+          'Non usa '
           'le parole del luogo, della cosa, del gesto e del momento che '
           'hai scelto per la scena: la scena arriva dopo. Se la cosa è la '
           'porta chiusa, il titolo non dice porta; se l\'animale aspetta, '

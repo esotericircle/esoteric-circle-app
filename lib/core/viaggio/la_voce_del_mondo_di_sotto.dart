@@ -343,7 +343,16 @@ abstract final class LaVoceDelMondoDiSotto {
           .replaceAll('{su}', suLOggetto(oggetto.trim()))
           .replaceAll('{oggetto}', oggetto.trim());
     }
-    return riprendeLaDomanda[indice % riprendeLaDomanda.length]
+    // **LA PERSONA NON ASPETTAVA NESSUNO**, ordine DN voce 08: *"Giu' ti
+    // aspettava quella persona"*, alla riprova a video della 2255, faceva
+    // fare all'altra persona una cosa che nessuno sa. Al tema della persona
+    // si prende la ripresa dopo.
+    var quale = indice % riprendeLaDomanda.length;
+    if (temaDomanda == 'persona' &&
+        riprendeLaDomanda[quale].startsWith('Giù ti aspettava')) {
+      quale = (quale + 1) % riprendeLaDomanda.length;
+    }
+    return riprendeLaDomanda[quale]
         .replaceAll('{tema}', _minuscola(temaInLettere))
         .replaceAll('{breve}',
             temaInDueParole[temaDomanda] ?? _minuscola(temaInLettere));
@@ -1110,11 +1119,15 @@ abstract final class LaVoceDelMondoDiSotto {
       // **CON L'OGGETTO QUANDO C'E'**, ordine DL voce 08.
       final ripresa =
           _ripresa(cornice % r, temaDomanda, temaInLettere, oggetto);
-      righe.add(cuci([ripresa, risposta, _codaDi(ri, giroDellaRisposta)]));
+      righe.add(cuci([
+        ripresa,
+        risposta,
+        _codaDi(ri, giroDellaRisposta, '$ripresa $risposta')
+      ]));
     } else {
       // Senza tema la risposta e' una frase sola su otto: ha la coda, o in
       // cento discese tornerebbe dodici volte.
-      righe.add(cuci([risposta, _codaDi(ri, giroDellaRisposta)]));
+      righe.add(cuci([risposta, _codaDi(ri, giroDellaRisposta, risposta)]));
     }
 
     final a = apreIlGesto.length;
@@ -1180,10 +1193,24 @@ abstract final class LaVoceDelMondoDiSotto {
   /// Adesso la coda gira col giro della risposta: **la stessa risposta non
   /// torna con la stessa coda per dodici giri**, cioe' per piu' di
   /// centoquaranta discese sullo stesso tema.
-  static String _codaDi(int risposta, int giroDellaRisposta) {
+  ///
+  /// **E NON RIPETE UNA PAROLA DELLA RISPOSTA**, ordine DN voce 08: alla
+  /// riprova a video della 2255 si e' letto *"Stai tenendo aperta una
+  /// porta per non sentire il rumore. Il resto e' rumore."* Si prende la
+  /// coda dopo, finche' non ha una parola piena in comune con la risposta.
+  static String _codaDi(int risposta, int giroDellaRisposta, String testo) {
     final n = codaDellaRisposta.length;
-    return codaDellaRisposta[
-        mescolato((giroDellaRisposta + risposta * 5) % n, n, 'coda')];
+    Set<String> radici(String s) => {
+          for (final m in RegExp('[a-zàèéìòù]{5,}').allMatches(s.toLowerCase()))
+            m.group(0)!.substring(0, 5),
+        };
+    final della = radici(testo);
+    final base = giroDellaRisposta + risposta * 5;
+    for (var k = 0; k < n; k++) {
+      final coda = codaDellaRisposta[mescolato((base + k) % n, n, 'coda')];
+      if (radici(coda).intersection(della).isEmpty) return coda;
+    }
+    return codaDellaRisposta[mescolato(base % n, n, 'coda')];
   }
 
   /// **LA CUCITURA DEI PEZZI, e impedisce i due punti annidati per

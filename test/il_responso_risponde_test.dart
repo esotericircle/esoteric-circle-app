@@ -100,6 +100,7 @@ void main() {
         MotivoDelloScarto.decisioneGrave:
             azione('Entro sabato lascia il lavoro in banca.'),
         MotivoDelloScarto.gergo: risposta('È tempo di vederla in te.'),
+        MotivoDelloScarto.tempoNelTitolo: titolo('Guardati attorno ora'),
         MotivoDelloScarto.titoloAnticipaLaScena:
             LeGuardieDelResponso.titoloToccaLaScena(
                     'La porta non è tua', const ['la porta chiusa'])
@@ -118,6 +119,11 @@ void main() {
         'prima di lei" no, come dice l\'ordine', () {
       expect(risposta('Tua sorella avrà un bambino.'),
           MotivoDelloScarto.previsioneCerta);
+      // **OGNI FUTURO**, dalla riprova a video della 2255; i modali restano.
+      expect(risposta('Ogni strada con tua sorella ti condurrà lontano.'),
+          MotivoDelloScarto.previsioneCerta);
+      expect(risposta('Con tua sorella potrai scegliere tu il momento.'),
+          isNot(MotivoDelloScarto.previsioneCerta));
       expect(risposta('Non tocca a te saperlo prima di lei.'),
           isNot(MotivoDelloScarto.previsioneCerta));
       expect(risposta('Non tocca a te saperlo prima di tua sorella.'), isNull);
@@ -453,11 +459,13 @@ void main() {
           LeGuardieDelResponso.dellaRisposta('Trasferisciti dove sei felice.',
               domanda: 'Devo trasferirmi a Milano?', forma: neutra),
           MotivoDelloScarto.decisioneGrave);
-      // Il titolo di casa: *posto* da solo non e' il posto di lavoro.
+      // Il titolo di casa: *posto* da solo non e' il posto di lavoro. Il
+      // suo *per ora* lo scarterebbe come tempo nel titolo, se fosse del
+      // modello: qui si guarda solo la decisione.
       expect(
           LeGuardieDelResponso.delTitolo('Lascia il posto vuoto per ora',
               domanda: banca, forma: neutra),
-          isNull);
+          isNot(MotivoDelloScarto.decisioneGrave));
     });
 
     test('il gesto regge tre frasi corte, non quattro', () {
@@ -804,6 +812,19 @@ void main() {
           final motivo = LeGuardieDelResponso.fuocoGergoDecisione(b);
           if (motivo != null) sporchi.add('${motivo.name}: $b');
         }
+        // **DALLA RIPROVA A VIDEO DELLA 2255**: la persona non aspettava
+        // nessuno, e la coda non ripete una parola della risposta.
+        if (r.paragrafi[0].contains('Giù ti aspettava quella persona')) {
+          sporchi.add('la persona che aspetta: ${r.paragrafi[0]}');
+        }
+        for (final c in LaVoceDelMondoDiSotto.codaDellaRisposta) {
+          if (!r.paragrafi[0].endsWith(c)) continue;
+          final prima =
+              r.paragrafi[0].substring(0, r.paragrafi[0].length - c.length);
+          if (_radici5(c).intersection(_radici5(prima)).isNotEmpty) {
+            sporchi.add('la coda ripete: ${r.paragrafi[0]}');
+          }
+        }
         storia.insert(
             0,
             r.comeSiConserva(
@@ -828,6 +849,11 @@ void main() {
     expect(sporchi, isEmpty, reason: sporchi.take(5).join('\n'));
   });
 }
+
+Set<String> _radici5(String s) => {
+      for (final m in RegExp('[a-zàèéìòù]{5,}').allMatches(s.toLowerCase()))
+        m.group(0)!.substring(0, 5),
+    };
 
 bool _conTempo(String s) => LeGuardieDelResponso.indicazioneDiTempo.hasMatch(s);
 
