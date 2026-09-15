@@ -275,6 +275,10 @@ flutter:
     # Arte di scena del dominio di Caligo: il tamburo sciamanico dell'Animale
     # Guida, immagine unica, non una famiglia con miniatura.
     - assets/img/caligo/
+    # I tre fondi del Sigillo come sfondo del telefono, ordine DO voce 07:
+    # consegnati dal fondatore, 1440 per 3200, col logo gia' composto. Non si
+    # ritoccano e non si ricomprimono: le impronte stanno nel manifesto DO.
+    - assets/img/sigillo/fondi/
 
   # Tipografia del design system, inclusa nel bundle come asset locale, cosi'
   # il testo si legge sempre, anche offline e nell'anteprima headless. Sono
