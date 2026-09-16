@@ -7,6 +7,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../core/l10n/numero_del_cerchio.dart';
 
 /// LA RIGA DI MESSA A PUNTO DEL MOVIMENTO. Ordine AR voce 01.
 ///
@@ -96,8 +97,9 @@ class RigaDiMessaAPunto extends StatelessWidget {
           //
           // Adesso ogni numero ha il suo nome e la sua unita'.
           Text(
-            'Mano: ${parallasse.deviazioneInGradiX.toStringAsFixed(1)} e '
-            '${parallasse.deviazioneInGradiY.toStringAsFixed(1)} gradi dal '
+            'Mano: ${NumeroDelCerchio.conCifre(parallasse.deviazioneInGradiX, 1)} e '
+            '${NumeroDelCerchio.conCifre(parallasse.deviazioneInGradiY, 1)} '
+            'gradi dal '
             'riposo, su ${ParallaxController.fondoCorsaInGradi.toStringAsFixed(0)} '
             'a fondo corsa.',
             key: const Key('messa_a_punto_gradi'),
@@ -105,16 +107,21 @@ class RigaDiMessaAPunto extends StatelessWidget {
                 .copyWith(color: ColorTokens.textSecondary, height: 1.4),
           ),
           Text(
-            'Risposta dopo la curva ${parallasse.rispostaX.toStringAsFixed(2)} '
-            'e ${parallasse.rispostaY.toStringAsFixed(2)} su 1,00.',
+            'Risposta dopo la curva '
+            '${NumeroDelCerchio.conCifre(parallasse.rispostaX, 2)} '
+            'e ${NumeroDelCerchio.conCifre(parallasse.rispostaY, 2)} '
+            'su ${NumeroDelCerchio.conCifre(1, 2)}.',
             key: const Key('messa_a_punto_risposta'),
             style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textSecondary, height: 1.4),
           ),
           Text(
-            'Piano di fondo: ${(corsa.dx - scorrimento.dx).toStringAsFixed(1)} e '
-            '${(corsa.dy - scorrimento.dy).toStringAsFixed(1)} punti dalla '
-            'mano, ${scorrimento.dy.toStringAsFixed(1)} dallo scorrimento, su '
+            'Piano di fondo: '
+            '${NumeroDelCerchio.conCifre(corsa.dx - scorrimento.dx, 1)} e '
+            '${NumeroDelCerchio.conCifre(corsa.dy - scorrimento.dy, 1)} '
+            'punti dalla mano, '
+            '${NumeroDelCerchio.conCifre(scorrimento.dy, 1)} '
+            'dallo scorrimento, su '
             '${corsaAttesaDelFondo.toStringAsFixed(0)} attesi.',
             key: const Key('messa_a_punto_numeri'),
             style: TypographyTokens.didascalia()
@@ -138,9 +145,10 @@ class RigaDiMessaAPunto extends StatelessWidget {
           Text(
             parallasse.riposoX == null
                 ? 'Riposo non ancora imparato: nessuna lettura del sensore.'
-                : 'Riposo imparato ${parallasse.riposoX!.toStringAsFixed(2)} e '
-                    '${parallasse.riposoY!.toStringAsFixed(2)}: è come stai '
-                    'tenendo il telefono adesso.',
+                : 'Riposo imparato '
+                    '${NumeroDelCerchio.conCifre(parallasse.riposoX!, 2)} e '
+                    '${NumeroDelCerchio.conCifre(parallasse.riposoY!, 2)}: '
+                    'è come stai tenendo il telefono adesso.',
             key: const Key('messa_a_punto_riposo'),
             style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textSecondary, height: 1.4),

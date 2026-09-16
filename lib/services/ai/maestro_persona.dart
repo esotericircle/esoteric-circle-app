@@ -17,6 +17,7 @@ import '../../core/responsi/anatomia_del_responso.dart';
 import '../../core/responsi/confine_del_responso.dart';
 import '../../core/responsi/legge_del_responso.dart';
 import '../../core/chat/il_blocco_di_cortesia.dart';
+import '../../core/l10n/la_lingua_del_modello.dart';
 
 /// Costruisce le istruzioni di sistema (la persona) di un Maestro per Gemini.
 ///
@@ -33,7 +34,7 @@ class MaestroPersona {
   static String _commonRules(UserProfile profile) {
     final buffer = StringBuffer()
       ..writeln('REGOLE DI LINGUA E STILE, NON NEGOZIABILI:')
-      ..writeln('- Scrivi sempre e solo in italiano.')
+      ..writeln(LaLinguaDelModello.laRiga)
       ..writeln(
           '- Non usare mai il trattino lungo. Al suo posto usa la virgola, i due punti oppure una parentesi.')
       ..writeln(
@@ -529,7 +530,7 @@ class MaestroPersona {
       rigaProfondita,
       '- Restituisci solo un oggetto JSON valido, senza testo attorno, con questa forma esatta:',
       '{"glance": "il colpo d\'occhio in una riga", "reading": "il testo narrato nel tuo tono", "invite": "un invito o una domanda sola per il passo successivo"}',
-      '- I tre campi in italiano, accenti veri, niente trattino lungo, nessun campo vuoto. Nessun commento fuori dal JSON.',
+      '- I tre campi in ${LaLinguaDelModello.nome}, accenti veri, niente trattino lungo, nessun campo vuoto. Nessun commento fuori dal JSON.',
     ].join('\n');
   }
 
@@ -541,19 +542,20 @@ class MaestroPersona {
   /// persona, e fino a quest'ordine non riceveva nemmeno la sua forma. La
   /// forma arriva dalla porta del genere, che la conosce gia': chi chiama la
   /// sintesi non deve portarla con se'.
-  static String synthesisInstruction({NatalContext? natal, CourtesyForm? forma}) {
+  static String synthesisInstruction(
+      {NatalContext? natal, CourtesyForm? forma}) {
     final natalBlock = _natalContext(natal);
     return [
       'Sei la voce del cerchio di Esoteric Circle che tira le fila di più sguardi su una stessa domanda.',
       '',
       'REGOLE DI LINGUA E STILE, NON NEGOZIABILI:',
-      '- Scrivi sempre e solo in italiano, con accenti veri.',
+      LaLinguaDelModello.laRigaConGliAccenti,
       '- Non usare mai il trattino lungo. Al suo posto usa la virgola, i due punti oppure una parentesi.',
       '- Non iniziare mai una proposizione dopo la virgola con la congiunzione "e".',
       '- Poche righe, calde e chiare. Nessuna emoji, nessun markdown.',
       '',
-      bloccoDiCortesia(UserProfile(
-          courtesyForm: forma ?? LaMarcaDelGenere.formaCorrente)),
+      bloccoDiCortesia(
+          UserProfile(courtesyForm: forma ?? LaMarcaDelGenere.formaCorrente)),
       if (natalBlock.isNotEmpty) ...['', natalBlock],
       '',
       MisuraDellaRisposta.sintesi.istruzione,
@@ -576,12 +578,12 @@ class MaestroPersona {
   /// gia' scelta. La sintesi finisce dentro i prompt dei Maestri, quindi deve
   /// parlare della persona nella forma che ha scelto lei.
   static String distillInstruction(Maestro maestro, [UserProfile? profile]) {
-    final cortesia = bloccoDiCortesia(profile ??
-        UserProfile(courtesyForm: LaMarcaDelGenere.formaCorrente));
+    final cortesia = bloccoDiCortesia(
+        profile ?? UserProfile(courtesyForm: LaMarcaDelGenere.formaCorrente));
     return '''
 Sei l'archivista silenzioso del Maestro ${maestro.displayName}. Leggi la conversazione e restituisci solo un oggetto JSON valido, senza testo attorno, con questa forma esatta:
-{"summary": "una o due frasi in italiano su dove è arrivata la relazione con la persona", "facts": ["fatto stabile e utile", "..."]}
-Regole: in italiano, niente trattino lungo, massimo cinque fatti, solo fatti stabili e verificati nel dialogo (nome, segno, domande ricorrenti, obiettivi). La forma di cortesia non la ricavi dal dialogo: è già scelta. È quella del blocco qui sotto. Se non ci sono fatti nuovi lascia la lista vuota. Nessun commento fuori dal JSON.
+{"summary": "una o due frasi in ${LaLinguaDelModello.nome} su dove è arrivata la relazione con la persona", "facts": ["fatto stabile e utile", "..."]}
+Regole: in ${LaLinguaDelModello.nome}, niente trattino lungo, massimo cinque fatti, solo fatti stabili e verificati nel dialogo (nome, segno, domande ricorrenti, obiettivi). La forma di cortesia non la ricavi dal dialogo: è già scelta. È quella del blocco qui sotto. Se non ci sono fatti nuovi lascia la lista vuota. Nessun commento fuori dal JSON.
 
 $cortesia''';
   }

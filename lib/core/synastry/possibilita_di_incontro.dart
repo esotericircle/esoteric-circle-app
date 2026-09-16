@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'cielo_del_giorno_sulla_coppia.dart';
 import 'cielo_della_sinastria.dart';
 import 'vip_catalog.dart';
+import '../l10n/numero_del_cerchio.dart';
 
 /// DOVE SEI TU, per il conto della distanza: due coordinate e un nome.
 ///
@@ -306,9 +307,9 @@ class PossibilitaDiIncontro {
     return '$migliaia.$resto km';
   }
 
-  /// La percentuale come si scrive, con la virgola decimale italiana.
-  String get etichetta =>
-      '${percento.toStringAsFixed(1).replaceAll('.', ',')}%';
+  /// La percentuale come si scrive nella lingua che si sta leggendo.
+  /// Ordine DM voce 03.
+  String get etichetta => NumeroDelCerchio.percento(percento);
 }
 
 /// L'EREDITA', per chi non c'e' piu'. Ordine BO voce 04.

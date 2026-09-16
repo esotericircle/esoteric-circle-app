@@ -21,6 +21,7 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import 'riga_interruttore.dart';
 import 'riga_che_apre.dart';
 import 'suono_screen.dart';
+import 'la_riga_della_lingua.dart';
 
 /// Schermata Impostazioni, in stile 2.5D e nella palette del Maestro attivo.
 ///
@@ -112,6 +113,21 @@ class SettingsScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+              ),
+              const SizedBox(height: SpacingTokens.xl),
+
+              // **LA LINGUA, ordine DM voce 06.** Sta sotto Aspetto perche'
+              // e' come il Cerchio si mostra, e prima di Voce e sottotitoli
+              // perche' la lingua viene prima di come si legge.
+              const SectionTitle(
+                title: 'Lingua',
+                subtitle: 'In che lingua parla il Cerchio.',
+              ),
+              const SizedBox(height: SpacingTokens.sm),
+              DepthCard(
+                raised: true,
+                padding: EdgeInsets.zero,
+                child: LaRigaDellaLingua(palette: palette),
               ),
               const SizedBox(height: SpacingTokens.xl),
 

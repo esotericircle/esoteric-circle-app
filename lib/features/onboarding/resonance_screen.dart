@@ -11,6 +11,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import 'widgets/pulsante_del_risveglio.dart';
+import '../../core/l10n/numero_del_cerchio.dart';
 
 /// La risonanza coi tre Maestri: tre aure che pulsano a intensita' diversa. La
 /// piu' forte si fa avanti, ed e' il Maestro che risuona con il tuo cielo.
@@ -345,8 +346,8 @@ class PercentualiRisonanza {
     return {
       for (final e in punteggi.entries)
         e.key: collide.contains(interi[e.key])
-            // La virgola, non il punto: e' un numero italiano a schermo.
-            ? '${(e.value * 100).toStringAsFixed(1).replaceAll('.', ',')}%'
+            // Il separatore lo mette la lingua. Ordine DM voce 03.
+            ? NumeroDelCerchio.percento(e.value * 100)
             : interi[e.key]!,
     };
   }

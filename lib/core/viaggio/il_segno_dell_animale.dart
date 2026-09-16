@@ -10,6 +10,7 @@ import '../chat/il_blocco_di_cortesia.dart';
 import '../chat/user_profile.dart';
 import '../chat/le_forme_del_genere.dart';
 import 'le_guardie_del_responso.dart';
+import '../l10n/la_lingua_del_modello.dart';
 
 /// **I GESTI CON CUI L'ANIMALE RISPONDE, e nessuno di piu'.**
 /// Ordine DI voce 14, 12 settembre 2026; ridotti a tre dall'ordine DJ voce 08,
@@ -154,7 +155,8 @@ abstract final class GestiDelSegno {
     // allontanato"*, previsioni certe, *"la persona tornera'"*, e frasi senza
     // punteggiatura. Due frasi, la prima col nome.
     b.write('Scegli il gesto il cui significato risponde alla domanda. Poi '
-        'scrivi UNA riga in italiano, al massimo 25 parole, fatta di due '
+        'scrivi UNA riga in ${LaLinguaDelModello.nome}, al massimo 25 '
+        'parole, fatta di due '
         'frasi. La prima comincia con "$chiMaiuscolo" e dice il gesto. La '
         'seconda dice cosa vuol dire per QUESTA domanda, col significato del '
         'gesto ma con parole tue, in seconda persona singolare: non ripetere '

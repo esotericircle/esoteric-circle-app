@@ -1,11 +1,11 @@
 # Censimento delle stringhe rivolte alla persona
 
-<!-- TOTALE_STRINGHE: 6799 -->
-<!-- NEI_CORPUS: 5368 -->
-<!-- NEL_CODICE: 1431 -->
-<!-- CON_ACCORDO: 97 -->
+<!-- TOTALE_STRINGHE: 8856 -->
+<!-- NEI_CORPUS: 7080 -->
+<!-- NEL_CODICE: 1776 -->
+<!-- CON_ACCORDO: 133 -->
 <!-- DA_UN_SISTEMA_DI_TRADUZIONE: 0 -->
-<!-- FILE_TOCCATI: 288 -->
+<!-- FILE_TOCCATI: 374 -->
 <!-- Generato da tool/censimento_stringhe.dart. Non si scrive a mano: si rigenera. -->
 
 Ordine CE voce 15. **Questa voce non traduce niente**, e non aggiunge nessun pacchetto: misura quanto costerebbe tradurre, cosi' la decisione si prende su un numero invece che su un'impressione.
@@ -14,12 +14,12 @@ Ordine CE voce 15. **Questa voce non traduce niente**, e non aggiunge nessun pac
 
 | grandezza | valore |
 | --- | --- |
-| Stringhe rivolte alla persona | **6799** |
-| Che portano CONTENUTO, sotto `lib/core` e `lib/services` | **5368** |
-| Che portano INTERFACCIA, sotto `lib/features` e `lib/design_system` | **1431** |
-| Che cambiano con genere o numero | **97** |
+| Stringhe rivolte alla persona | **8856** |
+| Che portano CONTENUTO, sotto `lib/core` e `lib/services` | **7080** |
+| Che portano INTERFACCIA, sotto `lib/features` e `lib/design_system` | **1776** |
+| Che cambiano con genere o numero | **133** |
 | Che passano da un sistema di traduzione | **0** |
-| File che ne contengono | **288** |
+| File che ne contengono | **374** |
 
 ## Il metodo, e cosa NON conta
 
@@ -37,42 +37,47 @@ Sono le stringhe piu' care da tradurre, perche' una lingua diversa accorda in mo
 
 La domanda del fondatore e' se l'internazionalizzazione sia un ordine o tre. **Il censimento risponde: sono due lavori di taglia molto diversa, e vanno separati.**
 
-**L'INTERFACCIA e' un ordine solo.** Sono 1431 stringhe, corte, ripetute e senza contenuto esoterico: pulsanti, etichette, titoli, avvisi. Un traduttore le fa con un glossario, e un sistema di localizzazione le regge tutte.
+**L'INTERFACCIA e' un ordine solo.** Sono 1776 stringhe, corte, ripetute e senza contenuto esoterico: pulsanti, etichette, titoli, avvisi. Un traduttore le fa con un glossario, e un sistema di localizzazione le regge tutte.
 
-**IL CONTENUTO NON E' UN ORDINE, e' un progetto.** Sono 5368 stringhe, cioe' 79 per cento del totale, e non sono frasi da tradurre: sono i responsi dei tarocchi, il sapere delle rune, i nomi e le voci degli angeli, i sentieri, l'oroscopo, i testi della sinastria. **Tradurli e' riscrivere un corpus esoterico in un'altra lingua**, e chi lo fa deve conoscere la tradizione in quella lingua, non solo la lingua. Un traduttore generico qui produce testo corretto e falso.
+**IL CONTENUTO NON E' UN ORDINE, e' un progetto.** Sono 7080 stringhe, cioe' 80 per cento del totale, e non sono frasi da tradurre: sono i responsi dei tarocchi, il sapere delle rune, i nomi e le voci degli angeli, i sentieri, l'oroscopo, i testi della sinastria. **Tradurli e' riscrivere un corpus esoterico in un'altra lingua**, e chi lo fa deve conoscere la tradizione in quella lingua, non solo la lingua. Un traduttore generico qui produce testo corretto e falso.
 
-**E c'e' un terzo lavoro, piccolo di numero e grande di rischio: l'accordo.** Sono 97 punti in cui la frase cambia con chi legge o con quanti sono. In italiano si risolvono con un plurale e una `d` eufonica; in una lingua che declina, o che ha generi diversi dai nostri due, ognuno di questi punti e' una decisione. Vanno affrontati PRIMA di tradurre, perche' decidono la forma delle chiavi.
+**E c'e' un terzo lavoro, piccolo di numero e grande di rischio: l'accordo.** Sono 133 punti in cui la frase cambia con chi legge o con quanti sono. In italiano si risolvono con un plurale e una `d` eufonica; in una lingua che declina, o che ha generi diversi dai nostri due, ognuno di questi punti e' una decisione. Vanno affrontati PRIMA di tradurre, perche' decidono la forma delle chiavi.
 
 ## Da dove conviene cominciare
 
 | file | stringhe |
 | --- | --- |
 | `lib/core/tarot/tarot_card.dart` | 364 |
-| `lib/core/sigilli/sentiero_albero.dart` | 294 |
-| `lib/core/sigilli/sentiero_costellazione.dart` | 290 |
-| `lib/core/angels/angel_lore.dart` | 288 |
-| `lib/core/sigilli/sentiero_loto.dart` | 288 |
-| `lib/core/rituals/rito_alba_corpus.dart` | 241 |
-| `lib/core/synastry/testi_della_sinastria.dart` | 221 |
+| `lib/core/viaggio/la_voce_del_mondo_di_sotto.dart` | 346 |
+| `lib/core/angels/angel_lore.dart` | 289 |
+| `lib/core/sigilli/sentiero_albero.dart` | 264 |
+| `lib/core/sigilli/sentiero_loto.dart` | 262 |
+| `lib/core/sigilli/sentiero_costellazione.dart` | 262 |
+| `lib/core/tarot/voce_della_stesa.dart` | 261 |
+| `lib/core/synastry/testi_della_sinastria.dart` | 250 |
+| `lib/core/rituals/rito_alba_corpus.dart` | 243 |
 | `lib/core/rituals/rune_lore.g.dart` | 195 |
 | `lib/core/horoscope/horoscope_data.dart` | 155 |
+| `lib/services/ai/impronta_dell_istruzione.dart` | 145 |
+| `lib/core/entitlement/plan_catalog.dart` | 130 |
 | `lib/core/synastry/vip_catalog.dart` | 129 |
-| `lib/core/entitlement/plan_catalog.dart` | 125 |
-| `lib/services/ai/impronta_dell_istruzione.dart` | 122 |
-| `lib/services/ai/maestro_persona.dart` | 111 |
-| `lib/core/arts/art_catalog.dart` | 106 |
-| `lib/features/account/account_screen.dart` | 102 |
-| `lib/core/maestro/voce_del_maestro.dart` | 102 |
-| `lib/core/domande/cornici_del_presagio.dart` | 88 |
-| `lib/core/astro/lingua_degli_eventi.dart` | 86 |
-| `lib/core/legal/privacy_policy.dart` | 83 |
-| `lib/core/domande/domande_del_cerchio.dart` | 78 |
+| `lib/core/rituals/rune_presage.dart` | 126 |
+| `lib/features/account/account_screen.dart` | 106 |
+| `lib/core/arts/art_catalog.dart` | 105 |
+| `lib/services/ai/maestro_persona.dart` | 103 |
+| `lib/core/viaggio/la_scena_dal_modello.dart` | 102 |
+| `lib/core/maestro/voce_del_maestro.dart` | 101 |
 
-## Cosa NON esiste oggi, verificato
+## Che cosa c'e' e che cosa no, MISURATO a ogni giro
 
-- Nessun file `.arb` nel repository.
-- Nessuna cartella `lib/l10n`.
-- Nessuna dipendenza `intl` o `flutter_localizations` in `pubspec.yaml`.
-- Nessuna `Locale` dichiarata nell'app.
+| cosa | c'e' |
+| --- | --- |
+| file `.arb` nel repository | no |
+| cartella `lib/l10n` | no |
+| dipendenza `intl` | si |
+| dipendenza `flutter_localizations` | si |
+| `supportedLocales` dichiarati nell'app | si |
 
-Quindi le stringhe che passano da un sistema di traduzione sono **0**, e non e' una stima: e' un conto su un sistema che non c'e'.
+**L'IMPALCATURA C'E', E I TESTI NON CI PASSANO ANCORA.** Ordine DM, 16 settembre 2026: l'app e' predisposta al multilingua, non tradotta. I delegati di sistema, il separatore decimale, la lingua della risposta del modello e la marca del genere leggono la lingua da una porta sola; il corpus editoriale resta italiano.
+
+Le stringhe che passano da un sistema di traduzione sono **0**: l'impalcatura regge un peso che non le e' ancora stato messo sopra, ed e' esattamente cio' che quell'ordine voleva.

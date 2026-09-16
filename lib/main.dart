@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 
 import 'app.dart';
 import 'core/diagnosi/briciole.dart';
+import 'core/l10n/la_lingua_del_cerchio.dart';
 import 'services/app_services.dart';
 import 'core/sigilli/distanza_fra_le_feste.dart';
 
@@ -40,6 +41,19 @@ Future<void> main() async {
       statusBarIconBrightness: Brightness.light,
     ),
   );
+
+  // **LA LINGUA SI SVEGLIA PRIMA CHE SI DISEGNI.** Ordine DM voce 01: dopo
+  // il primo fotogramma sarebbe un lampo nella lingua sbagliata, e chi ha
+  // scelto l'inglese vedrebbe l'italiano per un istante a ogni avvio. Se il
+  // disco non risponde, la porta resta sull'italiano, che e' il suo valore di
+  // partenza: l'app parte comunque.
+  try {
+    await LaLinguaDelCerchio.risveglia();
+  } catch (errore) {
+    // DICHIARATO: senza la lingua conservata si parte in italiano, che e' la
+    // lingua di casa. Non e' una ragione per non partire.
+    Briciole.lascia('lingua_non_letta');
+  }
 
   final services = await AppServices.bootstrap();
   if (Firebase.apps.isNotEmpty) Briciole.lascia('firebase_inizializzato');

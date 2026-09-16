@@ -22,6 +22,7 @@ import '../../features/pricing/pricing_screen.dart';
 import '../../core/entitlement/budget_del_giorno.dart';
 import '../../core/entitlement/pacchetti_di_eos.dart';
 import '../transizioni/velo_del_cerchio.dart';
+import '../../core/l10n/numero_del_cerchio.dart';
 
 /// IL BORSELLINO, SEMPRE NELLO STESSO ANGOLO. Ordine S voce 06.
 ///
@@ -337,17 +338,26 @@ class _SegnoDelBorsellinoState extends State<SegnoDelBorsellino> {
   }
 }
 
-/// La cifra col punto delle migliaia, all'italiana: 10000 diventa "10.000".
+/// La cifra col separatore delle migliaia della lingua che si sta leggendo:
+/// 10000 diventa "10.000" in italiano e "10,000" in inglese.
 /// Una porta sola per il formato, cosi' pillola e prove leggono lo stesso.
-String cifraDegliEos(int saldo) {
-  final crudo = saldo.toString();
-  final testo = StringBuffer();
-  for (var i = 0; i < crudo.length; i++) {
-    if (i > 0 && (crudo.length - i) % 3 == 0) testo.write('.');
-    testo.write(crudo[i]);
-  }
-  return testo.toString();
-}
+///
+/// **QUI IL PUNTO ERA SCRITTO A MANO. Ordine DM, coda del fondatore.**
+///
+/// Questa funzione camminava sulle cifre e metteva un punto ogni tre. In
+/// italiano e' giusto; in inglese il punto e' il separatore dei **decimali**,
+/// e un saldo di 6.030 Eos si sarebbe letto *"sei virgola zero tre zero"*.
+///
+/// **E' lo stesso difetto dei quattro `replaceAll('.', ',')`** che quest'ordine
+/// ha gia' ricondotto alla porta: un separatore deciso da chi scrive invece
+/// che dalla lingua. **L'ha trovato il fondatore**, chiedendo se il saldo
+/// passasse dal formattatore nuovo: non ci passava, e proprio per questo era
+/// rimasto l'ultimo punto non predisposto.
+///
+/// **In italiano il testo e' identico al carattere**, misurato su quattordici
+/// valori in `la_moneta_segue_la_lingua_test`, dallo zero al milione, coi due
+/// numeri del Cammino nominati per nome.
+String cifraDegliEos(int saldo) => NumeroDelCerchio.interi(saldo);
 
 /// L'ANNUNCIO CHE GLI EOS STANNO ARRIVANDO. Ordine S voce 07.
 ///

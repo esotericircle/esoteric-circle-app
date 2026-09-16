@@ -11,6 +11,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:esoteric_circle/core/l10n/numero_del_cerchio.dart';
 
 /// IL CIELO SI MUOVE DELLA CORSA CHE GLI SPETTA. Ordine AR voce 01.
 ///
@@ -250,9 +251,24 @@ void main() {
     expect(inclinato, isNot(fermo),
         reason: 'la riga di messa a punto non cambia mentre il telefono si '
             'inclina: e un numero morto');
-    expect(inclinato, contains('80.0'),
+    // **LA VIRGOLA, NON IL PUNTO. Ordine DM voce 03, 16 settembre 2026.**
+    //
+    // Questa riga pretendeva `80.0`, col punto, e **non era una svista della
+    // prova**: era il difetto vero, scritto qui dentro. `toStringAsFixed` e'
+    // una funzione di Dart e non sa in che paese sta, quindi mette sempre il
+    // punto, e in italiano il separatore decimale e' la virgola. La riga
+    // della messa a punto era uno dei punti in cui una persona leggeva
+    // *"80.0"*, e l'ordine DM chiede per nome di curarlo.
+    //
+    // **Non si chiede piu' un carattere, si chiede il numero nella lingua
+    // che si sta leggendo**: cosi' la prova non torna a difendere un gettone
+    // il giorno che la lingua cambia.
+    expect(inclinato, contains(NumeroDelCerchio.conCifre(80, 1)),
         reason: 'a fondo corsa la riga deve dire gli 80 punti del piano di '
-            'fondo: "$inclinato"');
+            'fondo, col separatore della lingua: "$inclinato"');
+    expect(inclinato, isNot(contains('80.0')),
+        reason: 'la riga scrive ancora il punto decimale, che in italiano '
+            'non e il separatore: "$inclinato"');
     expect(find.byKey(const Key('messa_a_punto_sensore')), findsOneWidget,
         reason: 'la riga non dice se il sensore vive, che e la prima domanda');
   });

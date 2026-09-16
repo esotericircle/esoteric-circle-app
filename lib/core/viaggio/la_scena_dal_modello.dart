@@ -14,6 +14,7 @@ import '../chat/il_blocco_di_cortesia.dart';
 import '../chat/user_profile.dart';
 import 'la_voce_del_mondo_di_sotto.dart';
 import 'le_guardie_del_responso.dart';
+import '../l10n/la_lingua_del_modello.dart';
 
 /// **I QUATTRO PEZZI CHE IL MODELLO HA SCELTO**, per id.
 typedef PezziScelti = ({
@@ -224,7 +225,12 @@ abstract final class LaScenaDalModello {
   ];
 
   /// Il numero dello strato in lettere, al femminile: la discesa.
-  static const List<String> _laDiscesa = ['prima', 'seconda', 'terza', 'quarta'];
+  static const List<String> _laDiscesa = [
+    'prima',
+    'seconda',
+    'terza',
+    'quarta'
+  ];
 
   /// **I TRE TESTI PER LA PERSONA**, ordine DL voci 07 e 13. Le regole sono
   /// quelle delle guardie in `LeGuardieDelResponso`: il modello le riceve
@@ -339,7 +345,8 @@ abstract final class LaScenaDalModello {
           'ferirla o mettere in imbarazzo chi legge: niente confronti, '
           'accuse, pretese, rotture o rivelazioni. Niente salute, farmaci, '
           'soldi da spendere o investire, atti legali.',
-      '- Italiano con gli accenti veri. Niente trattino lungo. MAI una '
+      '- ${LaLinguaDelModello.nomeMaiuscolo} con gli accenti veri. '
+          'Niente trattino lungo. MAI una '
           'virgola seguita da "e" o da "ed": al suo posto metti un punto. '
           'Niente prima persona.',
       'ESEMPI DELLA NOSTRA VOCE, solo per il tono e da non copiare.',

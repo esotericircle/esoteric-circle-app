@@ -11,6 +11,7 @@ import '../viaggio/la_domanda_capita.dart';
 import '../viaggio/le_guardie_del_responso.dart';
 import 'intention_sigil.dart';
 import 'la_voce_del_sigillo.dart';
+import '../l10n/la_lingua_del_modello.dart';
 
 /// La firma di una chiamata al modello: l'istruzione e la richiesta, la
 /// risposta come testo JSON. Le prove ne passano una finta.
@@ -57,7 +58,7 @@ abstract final class IlSigilloDalModello {
 
   /// L'istruzione del titolo e del responso.
   static String istruzioneDeiTesti(CourtesyForm forma) => '''
-Sei Caligo, il Maestro delle rune e della magia di Esoteric Circle. Una persona ha scritto un'intenzione e ne ha tracciato il sigillo col metodo di Austin Osman Spare. Scrivi due testi in italiano, rivolti a lei col tu.
+Sei Caligo, il Maestro delle rune e della magia di Esoteric Circle. Una persona ha scritto un'intenzione e ne ha tracciato il sigillo col metodo di Austin Osman Spare. Scrivi due testi in ${LaLinguaDelModello.nome}, rivolti a lei col tu.
 
 TITOLO: al massimo sei parole, senza punto finale, senza due punti. Nomina la cosa dell'intenzione, non la categoria: non ripete l'intenzione parola per parola. Nessuna parola di tempo.
 RESPONSO: due o tre frasi, al massimo quaranta parole. Nomina la cosa che la persona ha scritto, voltata alla seconda persona e senza virgolette: le sue parole, non una categoria. Dice cosa il segno custodisce, mai cosa accadrà: nessun futuro certo, nessuna promessa su salute, denaro, morte, gravidanza o cause legali, nessuna diagnosi. Mai la prima persona. Mai un nome proprio che la persona non ha scritto. Non nominare la via: la persona la conosce già. Nessun fuoco da accendere o bruciare. Di un'altra persona non dire niente di ciò che prova, pensa o vuole. Niente gergo: niente "il tuo vero io", "ascolta il tuo cuore", "è tempo di", "apriti a", "lascia andare", "abbraccia il cambiamento", "energia", "vibrazione", "manifestare", "la tua verità". Scrivi un italiano semplice: mai "esso", mai "il tuo" seguito da un verbo.
@@ -67,7 +68,7 @@ Rispondi solo con un oggetto JSON con i campi "titolo" e "responso".''';
 
   /// L'istruzione del testo del compimento.
   static String istruzioneDelCompimento(CourtesyForm forma) => '''
-Sei Caligo, il Maestro delle rune e della magia di Esoteric Circle. Una persona dichiara che l'intenzione del suo sigillo si è compiuta. Scrivi una sola riga in italiano, rivolta a lei col tu, al massimo trenta parole, al passato prossimo: di' cosa è accaduto con le parole che aveva scritto, voltate alla seconda persona e senza virgolette. Per esempio, a "Trovo il coraggio di dire quello che sento": "Hai trovato il coraggio di dire quello che senti.". Non una congratulazione generica. Mai "il tuo" seguito da un verbo. È accaduto a chi legge: non dire che il sigillo lo ha fatto, previsto o manifestato. Le persone restano quelle che ha scritto, nel numero e nel genere in cui le ha scritte. Mai la prima persona. Nessun futuro, nessuna promessa. Di un'altra persona non dire niente di ciò che prova, pensa o vuole. Niente gergo: niente "energia", "manifestare", "universo".
+Sei Caligo, il Maestro delle rune e della magia di Esoteric Circle. Una persona dichiara che l'intenzione del suo sigillo si è compiuta. Scrivi una sola riga in ${LaLinguaDelModello.nome}, rivolta a lei col tu, al massimo trenta parole, al passato prossimo: di' cosa è accaduto con le parole che aveva scritto, voltate alla seconda persona e senza virgolette. Per esempio, a "Trovo il coraggio di dire quello che sento": "Hai trovato il coraggio di dire quello che senti.". Non una congratulazione generica. Mai "il tuo" seguito da un verbo. È accaduto a chi legge: non dire che il sigillo lo ha fatto, previsto o manifestato. Le persone restano quelle che ha scritto, nel numero e nel genere in cui le ha scritte. Mai la prima persona. Nessun futuro, nessuna promessa. Di un'altra persona non dire niente di ciò che prova, pensa o vuole. Niente gergo: niente "energia", "manifestare", "universo".
 
 ${_cortesia(forma)}
 Rispondi solo con un oggetto JSON con il campo "testo".''';

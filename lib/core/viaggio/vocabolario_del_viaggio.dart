@@ -25,6 +25,8 @@
 /// che l'app mostra.
 library;
 
+import '../l10n/numero_del_cerchio.dart';
+
 /// Le quattro categorie da cui una scena si compone.
 enum CategoriaDellaScena {
   luogo('il luogo dove ti porta'),
@@ -214,8 +216,7 @@ abstract final class VocabolarioDelViaggio {
       [luoghi, cose, gesti, momenti];
 
   /// Tutti i pezzi disegnati, in fila.
-  static List<PezzoDellaScena> get tutti =>
-      [for (final c in categorie) ...c];
+  static List<PezzoDellaScena> get tutti => [for (final c in categorie) ...c];
 
   /// **QUANTE SCENE DISTINTE ESISTONO**, e il numero si CALCOLA.
   ///
@@ -238,8 +239,7 @@ abstract final class VocabolarioDelViaggio {
   static int quantiDisegni() => tutti.length;
 
   /// La riga che dichiara l'ampiezza a chi legge, col numero vero.
-  static String laRiga() =>
-      '${_conIPunti(quanteScene())} scene possibili, da '
+  static String laRiga() => '${_conIPunti(quanteScene())} scene possibili, da '
       '${quantiDisegni()} figure.';
 
   /// Il pezzo con questo id, o nulla: serve a rileggere il Diario dopo che i
@@ -251,13 +251,9 @@ abstract final class VocabolarioDelViaggio {
     return null;
   }
 
-  static String _conIPunti(int n) {
-    final cifre = n.toString();
-    final b = StringBuffer();
-    for (var i = 0; i < cifre.length; i++) {
-      if (i > 0 && (cifre.length - i) % 3 == 0) b.write('.');
-      b.write(cifre[i]);
-    }
-    return b.toString();
-  }
+  /// **IL SEPARATORE LO METTE LA LINGUA. Ordine DM, coda del fondatore.**
+  /// Era la terza copia della stessa funzione, dopo il borsellino e il
+  /// listino dei piani: la stessa regola scritta tre volte in tre file, e in
+  /// inglese tutte e tre avrebbero messo il punto dove ci vuole la virgola.
+  static String _conIPunti(int n) => NumeroDelCerchio.interi(n);
 }

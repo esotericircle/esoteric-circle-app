@@ -1,5 +1,6 @@
 import 'listino_degli_eos.dart';
 import 'tier.dart';
+import '../l10n/numero_del_cerchio.dart';
 
 /// I cicli di prezzo di un piano.
 enum PriceCycle {
@@ -391,12 +392,11 @@ class PlanCatalog {
   static String? doteScritta(Tier tier) {
     final quanti = doteDellaSottoscrizione[tier] ?? 0;
     if (quanti <= 0) return null;
-    final crudo = quanti.toString();
-    final testo = StringBuffer();
-    for (var i = 0; i < crudo.length; i++) {
-      if (i > 0 && (crudo.length - i) % 3 == 0) testo.write('.');
-      testo.write(crudo[i]);
-    }
+    // **IL SEPARATORE LO METTE LA LINGUA. Ordine DM, coda del fondatore.**
+    // Qui c'era la stessa identica funzione del borsellino, copiata parola
+    // per parola: tre copie della stessa regola in tre file, e in inglese
+    // tutte e tre avrebbero scritto il punto dove ci vuole la virgola.
+    final testo = StringBuffer(NumeroDelCerchio.interi(quanti));
     // La parola si compone, non si scrive accanto al numero: un prezzo
     // scritto a mano fuori dal listino e' esattamente cio' che la guardia
     // dell'ordine AN voce 05 vieta, e questa e' la stessa famiglia.

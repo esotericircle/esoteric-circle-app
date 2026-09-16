@@ -39,11 +39,13 @@ totale e' un controllo, non un ornamento.
 
 | categoria | quante |
 | --- | ---: |
-| Guardie che passano dalla porta comune | 131 |
+| Guardie che passano dalla porta comune | 136 |
 | Guardie con un cardinale proprio dichiarato | 107 |
 | Guardie che non scoprono nessun insieme di file | 187 |
-| **Somma delle categorie** | **425** |
-| **Guardie secondo la definizione** | **425** |
+| **Somma delle categorie** | **430** |
+| **Guardie secondo la definizione** | **430** |
+
+**Ricontate a ordine DM chiuso**, 16 settembre 2026, che ha portato **cinque guardie nuove**, tutte dalla porta comune: `la_lingua_e_un_dato_solo`, `la_lingua_del_modello_e_un_parametro`, `una_lingua_nuova_non_riapre_seicento_file`, `ogni_decimale_a_video_passa_dalla_lingua` e `la_moneta_segue_la_lingua`. Il totale sale da 425 a **430** e le tre categorie a **136, 107 e 187**. **Tutte e cinque viste rosse col difetto innestato e verificato col grep.** **Due sono nate da una domanda del fondatore**, non da una voce dell'ordine: chiedendo se il saldo degli Eos passasse dal formattatore nuovo sono venute fuori tre copie del separatore delle migliaia scritte a mano e cinque decimali visibili rimasti col punto. **E una ha imparato da un innesto**: cercava il confronto fra lingue in un verso solo, e il difetto scritto nell'altro verso non lo prendeva.
 
 **Ricontate a ordine DQ chiuso**, 16 settembre 2026, che ha portato **sei guardie nuove**, tutte senza insiemi di file: `il_manifesto_della_privacy`, `i_cinque_guasti_della_voce_di_casa`, `la_seconda_chiamata`, `il_velo_di_cenere_continuo`, e le due nate dalla prova a video della voce DQ.14, `il_titolo_del_viaggio_ci_sta_tutto` e `il_nome_sulla_card_ha_l_articolo`. Il totale sale da 419 a **425** e le tre categorie a **131, 107 e 187**. **Tre di queste sei sono nate da un difetto visto sul telefono**, non da una voce dell'ordine: la cucitura della grana, il titolo tagliato dal libro del Diario e il nome dell'animale senza articolo sulla card. Le prove del cammino a strati, `il_cammino_a_strati`, sono prove di valore e non stanno nel conto; sono state viste rosse lo stesso, su quattro innesti.
 
@@ -657,6 +659,9 @@ le altre.
 | `la_materia_storica_non_apre_la_scena_test.dart` | la materia storica non apre la scena, sta dietro la porta | 1, 2 | proprio, dichiarato | 05/09/2026, CQ | 2 |
 | `la_meditazione_non_nomina_malattie_test.dart` | la meditazione non nomina malattie | 1, 2 | proprio, dichiarato | 09/09/2026, DB | 2 |
 | `la_misura_del_ritorno_test.dart` | la misura del ritorno | 1, 2 | dalla porta comune | mai | 3 |
+| `la_lingua_del_modello_e_un_parametro_test.dart` | in italiano la riga che dice al modello in che lingua scrivere e' identica al byte a quella di prima; il prompt vero del Sigillo cambia con la lingua e solo per quella parola; **nessun prompt di `lib` si scrive la lingua dentro** | 1, 2 | dalla porta comune | 16/09/2026, DM (rossa con una riga cablata rimessa in `maestro_persona`) | 2 |
+| `la_lingua_e_un_dato_solo_test.dart` | la lingua scende su `AppStrings` e sulla marca del genere da un posto solo; si ricorda fra un avvio e l'altro; l'italiano resta il default e non lo decide il telefono; un codice sconosciuto ripiega senza sollevare; la chiave sta nella verita' unica di `CioCheETuo`; **nessun file di `lib` scrive la lingua fuori dalla sua porta** | 1, 2 | dalla porta comune | 16/09/2026, DM (rossa con una scrittura di `AppStrings.languageCode` innestata in `vie_del_cerchio`) | 2 |
+| `la_moneta_segue_la_lingua_test.dart` | il saldo degli Eos in italiano e' identico al carattere a come si scriveva prima, su quattordici valori dallo zero al milione; in inglese porta la virgola; **nessuno scrive piu' a mano il separatore delle migliaia**, riconosciuto dalla forma del giro | 1, 2 | dalla porta comune | 16/09/2026, DM (rossa col giro a mano rimesso in `plan_catalog`; nata da una domanda del fondatore sugli Eos del Cammino) | 2 |
 | `la_musica_parte_davvero_test.dart` | la musica parte davvero | 4 | non scopre insiemi di file | mai | 3 |
 | `la_musica_riprende_solo_se_stava_suonando_test.dart` | la musica riprende solo se stava suonando | 1, 2 | non scopre insiemi di file | 07/09/2026, CW | 2 |
 | `la_musica_segue_il_luogo_test.dart` | la musica segue il luogo | 1, 2 | dalla porta comune | CO | 3 |
@@ -750,6 +755,7 @@ le altre.
 | `nome_ovunque_test.dart` | nome ovunque | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `nove_arti_test.dart` | nove arti | 1, 2 | dalla porta comune | mai | 3 |
 | `numero_e_colore_hanno_la_stessa_altezza_test.dart` | numero e colore hanno la stessa altezza | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa sul difetto vero: 61,0 contro 84,0) | 1 |
+| `ogni_decimale_a_video_passa_dalla_lingua_test.dart` | ogni `toStringAsFixed` con almeno un decimale che sopravvive in `lib` e' **dichiarato con la sua ragione**, o passa dalla porta della lingua; e una ragione che non ha piu' nessun decimale sotto fa cadere la prova, come una riga di troppo nel registro dei rossi accettati | 1, 2 | dalla porta comune | 16/09/2026, DM (rossa con un decimale rimesso in `angels_screen`, file non dichiarato) | 2 |
 | `ogni_arte_dichiara_la_fonte_test.dart` | ogni arte dichiara la fonte | 4 | non scopre insiemi di file | 06/09/2026, CS | 3 |
 | `ogni_arte_entra_nel_cammino_test.dart` | ogni arte entra nel cammino | 1, 2 | non scopre insiemi di file | 03/09/2026, CP | 3 |
 | `ogni_budget_dichiara_il_suo_residuo_test.dart` | ogni budget dichiara il suo residuo | 1, 2 | dalla porta comune | CO | 2 |
@@ -812,6 +818,7 @@ le altre.
 | `una_figura_sola_test.dart` | una figura sola | 2, 4, 1 | non scopre insiemi di file | mai | 3 |
 | `una_luna_sola_test.dart` | una luna sola | 1, 4 | dalla porta comune | mai | 3 |
 | `una_porta_per_il_confronto_test.dart` | una porta per il confronto | 1, 2 | dalla porta comune | mai | 2 |
+| `una_lingua_nuova_non_riapre_seicento_file_test.dart` | i testi dell'interfaccia seguono la lingua dalla stessa porta e ripiegano sull'italiano; **chi decide in base alla lingua sta tutto in `core/l10n`**; **nessuno fa un caso per lingua, nemmeno dentro casa**, cosi' una lingua nuova e' una riga sola dell'elenco; la casa della lingua resta sotto i sei file; i delegati si servono dall'elenco e non da un nome | 1, 2 | dalla porta comune | 16/09/2026, DM (rossa due volte: con un caso per lingua innestato nella riga delle Impostazioni, e col confronto scritto nel verso che la prima stesura non guardava) | 2 |
 | `una_porta_sola_per_larchetipo_test.dart` | una porta sola per larchetipo | 1, 2, 4 | dalla porta comune | mai | 2 |
 | `una_prova_dichiara_il_suo_istante_test.dart` | una prova dichiara il suo istante | 1, 2 | non scopre insiemi di file | 03/09/2026, CP | 2 |
 | `una_sola_ora_per_l_alba_test.dart` | una sola ora per l alba | 1, 2 | non scopre insiemi di file | 08/09/2026, CZ | 2 |

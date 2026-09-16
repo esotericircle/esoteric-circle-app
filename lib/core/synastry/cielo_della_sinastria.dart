@@ -6,6 +6,7 @@ import '../astro/natal_chart.dart';
 import '../astro/zodiac.dart';
 import '../identity/birth_identity.dart';
 import 'vip_catalog.dart';
+import '../l10n/numero_del_cerchio.dart';
 
 /// I PUNTI CHE ENTRANO NELLA SINASTRIA, e perche' sono questi.
 ///
@@ -297,8 +298,9 @@ class AspettoDiSinastria {
   /// Come si nomina in una lista, col grado di scarto.
   String get titolo => '${suo.nome} ${tipo.italianName} ${tuo.nome}';
 
-  /// Lo scarto dall'angolo esatto, come si scrive in italiano.
-  String get gradi => '${orbo.toStringAsFixed(1).replaceAll('.', ',')} gradi';
+  /// Lo scarto dall'angolo esatto, come si scrive nella lingua che si
+  /// sta leggendo. Ordine DM voce 03.
+  String get gradi => NumeroDelCerchio.gradi(orbo);
 
   /// **COSA SIGNIFICA QUESTO ASPETTO, in una frase. Ordine BO voce 08.**
   ///

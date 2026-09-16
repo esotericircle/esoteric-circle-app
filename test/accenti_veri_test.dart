@@ -65,7 +65,12 @@ void main() {
     'lib/core/lang/euphonic.dart:81':
         'e la tavola delle preposizioni articolate, dove "da" e una CHIAVE '
             'di mappa e non una parola mostrata: da, dal, dallo, dalla',
-    'lib/features/santuario/sky_overview_screen.dart:473':
+    // La riga si e' spostata a 474 con l'ordine DM voce 03, che ha aggiunto
+    // un import a quel file per portare i gradi sulla porta della lingua.
+    // **Una tavola che indicizza per numero di riga si sposta a ogni import**,
+    // ed e' la terza volta che succede: e' il costo dichiarato di questa
+    // forma, e si paga aggiornando il numero, non allentando la guardia.
+    'lib/features/santuario/sky_overview_screen.dart:474':
         'e l etichetta "Coordinate da", che finisce con la preposizione '
             'perche il valore le viene scritto accanto',
     // **LE PAROLE VUOTE DELLA DOMANDA SONO CHIAVI, NON TESTO. Ordine CQ
@@ -151,8 +156,7 @@ void main() {
                     ' .,;:!?('.contains(testoBasso[
                         testoBasso.length - chiaveSenzaApice.length - 1]))) {
               final percorso = f.path.replaceAll(r'\', '/');
-              final dove =
-                  '${percorso.substring(percorso.indexOf('lib/'))}:$n';
+              final dove = '${percorso.substring(percorso.indexOf('lib/'))}:$n';
               if (conRagioneScritta.containsKey(dove)) continue;
               colpevoli.add('$dove  "$testo" va scritto ${e.value}');
             }

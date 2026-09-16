@@ -34,6 +34,7 @@ import '../maestri/rotta_arte.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
+import '../../core/l10n/numero_del_cerchio.dart';
 
 /// QUANDO: l'avverbio di tempo della schermata del cielo, in un punto solo.
 ///
@@ -478,7 +479,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                     _rigaValore(
                         palette,
                         'Luna illuminata',
-                        '${(cielo.moonPhase.fraction * 100).toStringAsFixed(1)} '
+                        '${NumeroDelCerchio.conCifre(cielo.moonPhase.fraction * 100, 1)} '
                             'per cento'),
                     _rigaValore(palette, 'Fase', cielo.nomeFaseLunare),
                     _rigaValore(palette, 'Luna nel segno',
@@ -488,7 +489,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                         'Luna sopra il suolo',
                         cielo.moon == null
                             ? 'sotto il suolo'
-                            : '${cielo.moon!.altDeg.toStringAsFixed(1)} gradi'),
+                            : NumeroDelCerchio.gradi(cielo.moon!.altDeg)),
                     const SizedBox(height: SpacingTokens.sm),
                     Text('Costellazioni sopra il suolo a mezzanotte',
                         style: TypographyTokens.label(size: 12)

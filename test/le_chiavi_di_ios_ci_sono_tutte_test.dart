@@ -45,6 +45,14 @@ void main() {
   const tavola = <String, String?>{
     // --- il cuore di Flutter e le cose senza permessi ---
     'flutter': null,
+    // **I DUE DELL'ORDINE DM, guardati nelle loro cartelle.** Ordine DM voce
+    // 02, 16 settembre 2026. `flutter_localizations` viene dall'SDK di
+    // Flutter e non ha nessuna cartella `ios/`: porta tavole di traduzione e
+    // basta. `intl` e' Dart puro, senza codice di piattaforma. Nessuno dei
+    // due raggiunge un framework di Apple, quindi nessuno dei due vuole una
+    // purpose string.
+    'flutter_localizations': null,
+    'intl': null,
     'cupertino_icons': null,
     'provider': null,
     'shared_preferences': null,

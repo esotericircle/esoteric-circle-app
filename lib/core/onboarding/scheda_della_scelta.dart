@@ -2,6 +2,7 @@ import '../angels/guardian_angels.dart';
 import '../rituals/animal_catalog.dart';
 import '../rituals/guide_animal_corpus.dart';
 import '../rituals/guide_animal_derivation.dart';
+import '../l10n/numero_del_cerchio.dart';
 
 /// LA SCHEDA DELLA SCELTA: cosa dice il riquadro sotto l'animale guida e
 /// sotto i tre angeli, e PERCHE' sono stati scelti.
@@ -118,8 +119,10 @@ class GeneratoreDellaScheda {
       caratteristiche.add(RigaDellaScheda(titolo: angelo.name, testo: frase));
     }
 
-    // I gradi con la virgola, come si scrivono in italiano.
-    final gradi = triade.sunLongitude.toStringAsFixed(1).replaceAll('.', ',');
+    // I gradi col separatore della lingua che si sta leggendo. Ordine
+    // DM voce 03: qui c'era una virgola messa a mano, giusta in
+    // italiano e sbagliata in ogni altra lingua.
+    final gradi = NumeroDelCerchio.conCifre(triade.sunLongitude, 1);
     final pezzi = <String>[
       'Il Fisico dai gradi del tuo Sole ($gradi°)',
       'il Cuore dal tuo giorno dell\'anno (${triade.dayOfYear})',

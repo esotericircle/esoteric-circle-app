@@ -21,6 +21,7 @@ import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
+import '../../core/l10n/numero_del_cerchio.dart';
 
 /// I tre Angeli della persona, di dominio Medora.
 ///
@@ -227,7 +228,7 @@ class _AngelsScreenState extends State<AngelsScreen>
                 ruolo: 'Angelo Custode',
                 sottotitolo: 'del corpo fisico',
                 perche: 'Nasce dal grado in cui il Sole stava alla tua '
-                    'nascita, ${triade.sunLongitude.toStringAsFixed(1)} gradi '
+                    'nascita, ${NumeroDelCerchio.gradi(triade.sunLongitude)} '
                     'dello zodiaco. Veglia su ciò che sei nel corpo e nel '
                     'temperamento.',
                 palette: palette,

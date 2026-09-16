@@ -48,27 +48,48 @@ void main() {
     expect(file, greaterThan(50));
   });
 
-  test('nessun sistema di traduzione e\' comparso senza dirlo', () {
-    // **LA PREMESSA DELLA VOCE, e va risorvegliata.** Il documento dichiara
-    // zero stringhe da un sistema di localizzazione perche' quel sistema non
-    // esiste: il giorno che esiste, questa riga cade e il documento va
-    // rifatto insieme alla decisione che ci sta sopra.
+  test(
+      'NESSUN TESTO PASSA DA UN SISTEMA DI TRADUZIONE, e l\'impalcatura c\'e\'',
+      () {
+    // **QUESTA PROVA E' STATA RISCRITTA, E LO DICEVA DA SE'.** Ordine DM, 16
+    // settembre 2026.
+    //
+    // Nella forma dell'ordine CE voce 15 pretendeva che **non esistesse
+    // nessun sistema di localizzazione**: niente `flutter_localizations`,
+    // niente `intl`, nessuna `Locale`. Era la premessa di quella voce, ed era
+    // vera. Il suo stesso commento diceva come sarebbe finita: *"il giorno
+    // che esiste, questa riga cade e il documento va rifatto insieme alla
+    // decisione che ci sta sopra"*. **Quel giorno e' l'ordine DM**, che ha
+    // aggiunto i delegati di sistema perche' i selettori di data smettessero
+    // di parlare inglese.
+    //
+    // **Cio' che la prova sorveglia adesso e' la cosa vera.** Non che
+    // l'impalcatura non esista: che **i testi non ci passino ancora**.
+    // L'ordine DM dice per nome che l'app e' predisposta e non tradotta, e il
+    // giorno che qualcuno comincia a tradurre il corpus questa riga cade e il
+    // censimento va rifatto insieme alla decisione che ci sta sopra.
     expect(marca('DA_UN_SISTEMA_DI_TRADUZIONE'), 0,
         reason: 'qualcosa passa da un sistema di traduzione: il censimento e\' '
             'da rifare');
     expect(Directory('lib/l10n').existsSync(), isFalse,
-        reason: 'e\' comparsa lib/l10n');
+        reason: 'e\' comparsa lib/l10n: il generatore di Flutter e\' entrato, '
+            'e con lui un secondo posto dove vivono i testi');
     final arb = Directory('.')
         .listSync(recursive: true)
         .whereType<File>()
         .where((f) => f.path.endsWith('.arb') && !f.path.contains('.dart_tool'))
         .toList();
     expect(arb, isEmpty, reason: 'sono comparsi file .arb: $arb');
+
+    // **E L'IMPALCATURA DEVE ESSERCI**, che e' il rovescio della stessa
+    // moneta: se qualcuno la togliesse, i selettori di sistema tornerebbero
+    // a parlare inglese e nessuna prova se ne accorgerebbe.
     final pubspec = File('pubspec.yaml').readAsStringSync();
     for (final segno in ['flutter_localizations', 'intl:']) {
-      expect(pubspec.contains(segno), isFalse,
-          reason: 'pubspec.yaml dichiara $segno: la voce diceva nessun '
-              'pacchetto aggiunto');
+      expect(pubspec.contains(segno), isTrue,
+          reason: 'pubspec.yaml non dichiara piu $segno: l impalcatura '
+              'dell ordine DM e stata tolta, e i widget di sistema tornano '
+              'a parlare inglese');
     }
   });
 

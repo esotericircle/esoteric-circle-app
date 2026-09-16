@@ -94,8 +94,10 @@ class RapportoDelleStringhe {
     b.writeln('| grandezza | valore |');
     b.writeln('| --- | --- |');
     b.writeln('| Stringhe rivolte alla persona | **$totale** |');
-    b.writeln('| Che portano CONTENUTO, sotto `lib/core` e `lib/services` | **$neiCorpus** |');
-    b.writeln('| Che portano INTERFACCIA, sotto `lib/features` e `lib/design_system` | **$nelCodice** |');
+    b.writeln(
+        '| Che portano CONTENUTO, sotto `lib/core` e `lib/services` | **$neiCorpus** |');
+    b.writeln(
+        '| Che portano INTERFACCIA, sotto `lib/features` e `lib/design_system` | **$nelCodice** |');
     b.writeln('| Che cambiano con genere o numero | **$conAccordo** |');
     b.writeln('| Che passano da un sistema di traduzione | **$tradotte** |');
     b.writeln('| File che ne contengono | **$fileToccati** |');
@@ -113,7 +115,8 @@ class RapportoDelleStringhe {
         'senza spazi, quelle che sembrano un percorso o una chiave (contengono '
         '`/`, `_`, `.dart`, `http`), e quelle sotto le tre lettere.');
     b.writeln();
-    b.writeln('**Il numero e\' una stima per difetto e per eccesso insieme**, e '
+    b.writeln(
+        '**Il numero e\' una stima per difetto e per eccesso insieme**, e '
         'va detto: una frase spezzata su tre righe conta tre volte, e una '
         'chiave scritta a parole conta come frase. Serve a dare l\'ordine di '
         'grandezza, non il preventivo al centesimo.');
@@ -129,11 +132,13 @@ class RapportoDelleStringhe {
     b.writeln();
     b.writeln('## COSA DICE QUESTO CENSIMENTO');
     b.writeln();
-    b.writeln('La domanda del fondatore e\' se l\'internazionalizzazione sia un '
+    b.writeln(
+        'La domanda del fondatore e\' se l\'internazionalizzazione sia un '
         'ordine o tre. **Il censimento risponde: sono due lavori di taglia '
         'molto diversa, e vanno separati.**');
     b.writeln();
-    b.writeln('**L\'INTERFACCIA e\' un ordine solo.** Sono $nelCodice stringhe, '
+    b.writeln(
+        '**L\'INTERFACCIA e\' un ordine solo.** Sono $nelCodice stringhe, '
         'corte, ripetute e senza contenuto esoterico: pulsanti, etichette, '
         'titoli, avvisi. Un traduttore le fa con un glossario, e un sistema '
         'di localizzazione le regge tutte.');
@@ -163,17 +168,62 @@ class RapportoDelleStringhe {
       b.writeln('| `${e.key}` | ${e.value} |');
     }
     b.writeln();
-    b.writeln('## Cosa NON esiste oggi, verificato');
+    // **QUESTA SEZIONE SI MISURA, NON SI AFFERMA. Ordine DM, 16 settembre
+    // 2026.**
+    //
+    // Qui c'erano quattro righe di testo fisso con accanto la parola
+    // *verificato*, e **nessuna delle quattro veniva verificata**. Finche'
+    // erano vere nessuno se n'e' accorto; il giorno che l'ordine DM ha
+    // aggiunto i delegati di sistema, il documento ha cominciato a dire il
+    // falso e a chiamarlo verificato. Adesso ogni riga la scrive una misura.
+    final pubspec = File('pubspec.yaml').readAsStringSync();
+    final conArb = Directory('.')
+        .listSync(recursive: true)
+        .whereType<File>()
+        .where((f) => f.path.endsWith('.arb') && !f.path.contains('.dart_tool'))
+        .length;
+    final conL10n = Directory('lib/l10n').existsSync();
+    final conIntl = RegExp(r'^\s+intl:', multiLine: true).hasMatch(pubspec);
+    final conDelegati = pubspec.contains('flutter_localizations');
+    var conLocale = false;
+    for (final f in Directory('lib').listSync(recursive: true)) {
+      if (f is! File || !f.path.endsWith('.dart')) continue;
+      if (f.readAsStringSync().contains('supportedLocales')) {
+        conLocale = true;
+        break;
+      }
+    }
+
+    b.writeln('## Che cosa c\'e\' e che cosa no, MISURATO a ogni giro');
     b.writeln();
-    b.writeln('- Nessun file `.arb` nel repository.');
-    b.writeln('- Nessuna cartella `lib/l10n`.');
-    b.writeln('- Nessuna dipendenza `intl` o `flutter_localizations` in '
-        '`pubspec.yaml`.');
-    b.writeln('- Nessuna `Locale` dichiarata nell\'app.');
+    b.writeln('| cosa | c\'e\' |');
+    b.writeln('| --- | --- |');
+    b.writeln(
+        '| file `.arb` nel repository | ${conArb > 0 ? "$conArb" : "no"} |');
+    b.writeln('| cartella `lib/l10n` | ${conL10n ? "si" : "no"} |');
+    b.writeln('| dipendenza `intl` | ${conIntl ? "si" : "no"} |');
+    b.writeln('| dipendenza `flutter_localizations` | '
+        '${conDelegati ? "si" : "no"} |');
+    b.writeln('| `supportedLocales` dichiarati nell\'app | '
+        '${conLocale ? "si" : "no"} |');
     b.writeln();
-    b.writeln('Quindi le stringhe che passano da un sistema di traduzione sono '
-        '**$tradotte**, e non e\' una stima: e\' un conto su un sistema che non '
-        'c\'e\'.');
+    if (conDelegati || conIntl || conLocale) {
+      b.writeln('**L\'IMPALCATURA C\'E\', E I TESTI NON CI PASSANO ANCORA.** '
+          'Ordine DM, 16 settembre 2026: l\'app e\' predisposta al '
+          'multilingua, non tradotta. I delegati di sistema, il separatore '
+          'decimale, la lingua della risposta del modello e la marca del '
+          'genere leggono la lingua da una porta sola; il corpus editoriale '
+          'resta italiano.');
+      b.writeln();
+      b.writeln('Le stringhe che passano da un sistema di traduzione sono '
+          '**$tradotte**: l\'impalcatura regge un peso che non le e\' ancora '
+          'stato messo sopra, ed e\' esattamente cio\' che quell\'ordine '
+          'voleva.');
+    } else {
+      b.writeln('Quindi le stringhe che passano da un sistema di traduzione '
+          'sono **$tradotte**, e non e\' una stima: e\' un conto su un '
+          'sistema che non c\'e\'.');
+    }
     return b.toString();
   }
 }

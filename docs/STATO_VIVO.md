@@ -3052,6 +3052,82 @@ verde anche mentre il fondatore guardava il difetto, perche' misurava **una
 geometria sola** e misurava il pulsante invece della bolla: quattro punti di
 margine non sono un margine, sono un avanzo.
 
+## L'ORDINE DM, LA PREDISPOSIZIONE MULTILINGUA
+
+16 settembre 2026. **Sette voci, tutte chiuse. Nessuna build**, e il fondatore
+l'ha confermato a lavoro finito. Manifesto e rapporto in `docs/ordini/`.
+
+**L'app e' predisposta al multilingua, e non e' tradotta.** Il corpus
+editoriale resta italiano: quello che cambia e' che una lingua nuova si
+aggiunge senza riaprire seicento file.
+
+**Il difetto di partenza non era che mancasse una lingua: era che la lingua
+non era un dato.** Erano tre cose scollegate, e nessuna sapeva delle altre:
+`AppStrings.languageCode` diceva `'it'` e **nessuno lo scriveva mai**;
+`LaMarcaDelGenere.lingua` diceva italiano e **nessuno lo scriveva mai**; i
+widget di sistema non sapevano niente e percio' parlavano inglese.
+
+**La forma.** `lib/core/l10n/la_lingua_del_cerchio.dart` e' l'unica porta: chi
+cambia lingua chiama `scegli` e non tocca altro. E' statica per la stessa
+ragione di `LaMarcaDelGenere`: **un corpus non ha un `BuildContext`**. Chi
+disegna ascolta un `ValueListenable`, e `app.dart` ci aggancia l'intera
+`MaterialApp`.
+
+**Aggiungere una lingua e' UNA RIGA** dell'elenco `LinguaDelCerchio`, piu' le
+voci di `AppStrings`. La riga porta codice, nome nella sua lingua, nome in
+italiano per i prompt e **se le tre forme del genere coincidono**, campo senza
+valore di partenza: chi aggiunge una lingua e' obbligato dal compilatore a
+dichiararlo.
+
+**I due difetti che l'app aveva OGGI, in italiano, e che sono curati.**
+
+- **I selettori di data e ora parlavano inglese.** Senza i delegati di
+  localizzazione i widget che Flutter disegna da se' sono in inglese: chi
+  sceglieva la propria data di nascita leggeva CANCEL e OK. Cinque fotografie
+  in `docs/collaudo/DM/`, prima e dopo.
+- **Il separatore decimale.** `toStringAsFixed` mette sempre il punto, e in
+  italiano ci vuole la virgola.
+
+**E la famiglia del separatore era piu' grande di quanto l'ordine dicesse, e
+l'ha trovata una domanda del fondatore sugli Eos.** Il saldo non passava dal
+formattatore nuovo, ma **il separatore delle migliaia era scritto a mano in
+tre file** con lo stesso giro copiato: borsellino, listino dei piani,
+vocabolario del Viaggio. E **cinque decimali visibili erano rimasti col
+punto**. Tutti ricondotti a `NumeroDelCerchio`, e **in italiano il testo e'
+identico al carattere**, misurato.
+
+**Cosa resta col punto, dichiarato**: latitudine e longitudine (forma
+internazionale), la **serializzazione** di un punto nel Diario dei Viaggi (non
+e' testo, e localizzarla romperebbe la rilettura), i referti tecnici, e il
+prezzo dei pacchetti `"€ 4,99"`, che viene letto e non scritto.
+
+**Il censimento delle stringhe esisteva gia', dall'ordine CE voce 15**, in
+`docs/traduzione/censimento.md` con `tool/censimento_stringhe.dart`.
+Rigenerato: **8.856 stringhe in 374 file**, contro le 6.799 di allora, e
+**zero passano da un sistema di traduzione**. **E il suo generatore diceva una
+cosa che non verificava**: la sezione *"Cosa NON esiste oggi, verificato"* era
+testo fisso, e il giorno dei delegati ha cominciato a dire il falso
+chiamandolo verificato. Adesso ogni riga di quella sezione la scrive una
+misura.
+
+**Il costo della traduzione, per file**: 391 file con almeno una frase,
+**10.248 frasi e 82.787 parole** con la mia rete; **28 file tengono meta'** del
+lavoro e **81 ne tengono tre quarti**, mentre 205 file insieme valgono l'otto
+per cento. **La traduzione non e' un ordine e non e' seicento file: sono
+ottantuno file.**
+
+**Le cinque guardie nuove**, tutte dalla porta comune e tutte viste rosse
+prima: `la_lingua_e_un_dato_solo`, `la_lingua_del_modello_e_un_parametro`,
+`una_lingua_nuova_non_riapre_seicento_file`,
+`ogni_decimale_a_video_passa_dalla_lingua`, `la_moneta_segue_la_lingua`. Il
+registro sale da 425 a **430**.
+
+**E il cancello ha trovato sette rossi nuovi, tutti miei**, nessuno dei quali
+sarebbe uscito da una rilettura del codice: tre guardie tipografiche insieme
+(avevo scritto la riga delle Impostazioni con le misure a mano), una guardia
+che **difendeva il punto decimale** e andava portata alla verita' nuova, il
+censimento, la tavola delle API di iOS e il registro delle guardie.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.
