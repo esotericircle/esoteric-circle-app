@@ -2918,6 +2918,140 @@ release `37p6dlngk2jeo`, su 5.288 prove verdi coi soli rossi accettati.
   archivio, che non scrive sul telefono. Nella build che si consegna non
   esiste.
 
+## L'ORDINE CODEMAGIC1, IL CANCELLO GRATUITO DIVENTA IL CANCELLO DELLA BUILD
+
+16 settembre 2026. Nasce da una build caduta: la 2264 si e' fermata sul mac
+mini al passo dodici dopo ventinove minuti, su un rosso solo. **Sei voci,
+tutte chiuse.** Manifesto e rapporto in `docs/ordini/`.
+
+**Il rosso che l'ha fermata era mio**, e la causa non era tecnica: l'anteprima
+della card della rivelazione catturava a rapporto due invece di tre, ed era
+nata **dopo** l'ultimo giro del cancello locale, spinta senza rigirarlo.
+Chiuso senza toccare nessuna guardia: rapporto tre, immagine rigenerata a 960
+per 1304.
+
+**Ma il fatto piu' importante e' un altro, e nessuno lo sapeva.** Il cancello
+gratuito di GitHub **era rosso da quarantotto giorni**: sui 1.055 giri che il
+registro pubblico conserva, 130 verdi e 924 rossi, con l'ultimo verde del **29
+luglio 2026** e **920 rossi consecutivi** da allora. Sul commit della 2264 era
+gia' rosso tre ore prima di Codemagic e nessuno lo ha guardato, perche' una
+spia rossa comunque non e' una spia. La ragione strutturale: `flutter test`
+nudo **non conosce `tool/rossi_accettati.txt`**, quindi i due rossi che il
+fondatore ha voluto lo facevano cadere a ogni singola spinta.
+
+**Cosa e' cambiato.**
+
+- `.github/workflows/verde.yml` esegue **`bash tool/sbarramento.sh`**, parola
+  per parola il comando del passo dodici di `codemagic.yaml`, e una guardia
+  pretende che i due restino lo stesso comando.
+- **Le prove del server girano su tutte e due le macchine**, con `npm ci`
+  dentro `functions/`. Prima non giravano su nessuna: in `codemagic.yaml` non
+  c'era **nessun comando npm**, quindi `functions/node_modules` su quella
+  macchina non e' mai esistito e la seconda suite **non e' mai stata guardata
+  in nessuna build**. Girata per la prima volta: 83 prove, zero cadute, oggi
+  98 con quelle dei luoghi.
+- **Il verdetto del cancello si legge senza credenziali.** I registri dei giri
+  di GitHub vogliono un accesso anche su un repository pubblico, provato:
+  l'API risponde 403 e la pagina web dice *"Sign in to view logs"*. Le
+  annotazioni invece sono pubbliche, e `tool/il_verdetto_del_cancello.sh` ci
+  porta i blocchi che dicono la decisione.
+- **Nessuna macchina sceglie piu' come il cancello legge.** Misurato
+  accendendo `GITHUB_ACTIONS=true` in locale: `flutter test` **cambia rapporto
+  da solo** e su GitHub stampa `✅ nome` invece di `00:03 +10 -1: nome [E]`.
+  Tutto lo sbarramento legge la seconda forma, quindi **su GitHub non leggeva
+  nessun nome**: il corredo risultava aver montato zero schermate e nessuna
+  caduta arrivava al confronto coi rossi accettati. Adesso il rapporto e'
+  fissato con `-r expanded` in tutte e due le chiamate.
+
+**L'esito, misurato**: il giro `35103144149` sul commit `bda25b14` e'
+**verde**, ventisette minuti e quarantatre secondi, tutti e otto i passi. E'
+il giro numero **921 dopo l'ultimo verde**, ed e' il primo a non essere rosso
+mentre esegue una domanda **piu' severa** di quella che prima falliva sempre.
+
+**Cosa questo cancello NON puo' dire, e va ripetuto**: firma, profili, pod,
+spazio sul disco, versione di Xcode, validazione dell'archivio da parte di
+Apple. Nessuna macchina Linux gratuita costruisce un archivio iOS firmato.
+
+**E una proprieta' che nessuno aveva mai nominato**: `niente_lavoro_non_spinto`
+ha due prove che chiudono i due lati della stessa domanda, l'albero senza
+lavoro non committato e il commit senza spinta. Su una macchina di chi
+sviluppa **una delle due e' per forza rossa finche' il lavoro non e' spinto**,
+quindi *"suite intera prima di spingere"* **non puo' dare un verde pieno**
+qui: il verde pieno esiste solo dopo la spinta, ed e' quello di GitHub.
+
+## L'ORDINE DR, I GEMELLI, I LUOGHI DEL MONDO E IL SOFFIO
+
+16 settembre 2026. **Undici voci, tutte chiuse**, sei dell'ordine di partenza,
+quattro aggiunte in corsa e una undicesima arrivata a lavoro aperto. Nessuna
+build: l'ordine dice di fermarsi a voci chiuse e suite verde. Manifesto e
+rapporto in `docs/ordini/`.
+
+**I Gemelli.** Lo stesso personaggio accoppiato con se' stesso nella Sinastria
+VIP diventa un easter egg. La porta e' una sola, `LoSpecchio.sono`, e confronta
+**l'identita' del personaggio, non la data ne' il segno**: due persone diverse
+nate lo stesso giorno non sono la stessa persona. Dodici varianti per ogni
+pezzo, il bersaglio della satira e' **sempre la scelta di chi guarda e mai la
+persona reale** (una guardia cerca tutti e cinquanta i nomi del catalogo dentro
+i testi e pretende che non ce ne sia nessuno), e per chi non c'e' piu' esiste
+un corpo sobrio. **Nessun numero che una persona legge e' stato toccato.**
+
+**E tre guasti che valevano per ogni coppia di VIP, non solo per i gemelli**:
+il punto fermo tolto anche dove serviva (per **due** strade, non una), le
+ventuno aperture che davano del tu a chi non e' nessuno dei due, e il primo dei
+due che spariva da nota, sfida e residenza.
+
+**I luoghi, e la fonte cambia.** *"Borgo di Rivalta"* **non esiste in GeoNames
+a nessuna soglia di abitanti**: togliere la soglia alle localita' italiane
+portava il catalogo da 40.846 a 141.429 righe e il luogo continuava a non
+esserci. La leva era la fonte, ed e' la decisione del fondatore: *"devi
+cambiare fonte a Openstreetmap, ci deve essere tutto il mondo perche' un'utente
+potrebbe vivere ovunque"*. Il mondo intero **si puo' solo chiedere**: il dump
+di GeoNames che contiene tutto pesa 421.682.512 byte compressi.
+
+- **Il catalogo offline resta e risponde per primo**, senza rete: chi scrive
+  "Roma" non fa partire nessuna chiamata. La domanda esce di casa solo quando
+  l'elenco offline e' vuoto.
+- **Chiama il server**, non il telefono, per decisione del fondatore fra le due
+  vie misurate: una identita' sola verso OpenStreetMap, i risultati messi da
+  parte una volta per tutti, e la chiave, se un giorno servisse, fuori da
+  un'app che vive su un repository pubblico. La porta e'
+  `cercaIlLuogoNelMondo` in europe-west1.
+- **Il fuso lo mette il vicino**: OpenStreetMap risponde con un punto e un
+  indirizzo, non con un fuso, e senza regola la carta natale sarebbe esatta e
+  falsa insieme.
+- **DEBITO APERTO**: la porta vive nel server e il server **va distribuito**,
+  `firebase deploy --only functions`. Finche' non lo e', l'app fa come prima e
+  nessuno vede errori.
+
+**Il silenzio del Mondo di Sotto.** Quando il modello risponde e la risposta
+non regge, con una domanda scritta a mano l'app **tace** e la discesa **non si
+consuma**. Scritto alla lettera l'ordine cancellava una promessa precedente,
+*"la domanda scritta a mano arriva alla risposta ANCHE SENZA RETE"*: senza
+rete il modello non risponde mai, quindi il silenzio sarebbe stato sempre.
+**Decisione del fondatore del 16 settembre**: si tace solo se il modello ha
+parlato e non ha retto, e se non si raggiunge affatto parla la voce di casa.
+**E una conseguenza trovata misurando**: un cammino prende la domanda dal
+PRIMO giro e se la tiene, quindi un cammino nato da una domanda scritta resta
+scritto per tutte le sue discese.
+
+**Il tamburo tace durante la discesa** e resta la musica; gesto, riga e
+vibrazione restano, e il file resta nel pacchetto. **Il nutrimento passa da
+quaranta secondi a venti.**
+
+**Il Soffio del Destino, e il difetto tornato per la seconda volta.** La
+scheda del responso copriva la bolla del respiro, ed era gia' stato curato
+dall'ordine 2164 voce 8 con un rapporto fisso fra due zone, sei contro tre.
+**Quel rapporto non poteva reggere**: l'anello insegue il disco, che sta nella
+**scena**, mentre la scheda stava sotto una zona decisa da un rapporto della
+**colonna**, e due autorita' diverse sullo stesso asse non si accordano con un
+numero. Misurato su **trentasei geometrie**: **29 rotte su 36**, la peggiore a
+93,7 punti coperti. Adesso la zona del respiro prende **quanto serve alla
+guida per starci**, misurato a frame finito, col rapporto di prima come
+pavimento: **zero su 36**, margine minimo 8 punti. La guardia di allora era
+verde anche mentre il fondatore guardava il difetto, perche' misurava **una
+geometria sola** e misurava il pulsante invece della bolla: quattro punti di
+margine non sono un margine, sono un avanzo.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.

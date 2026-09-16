@@ -289,9 +289,89 @@ che costruisce l'archivio.
 
 ---
 
+## 6-TER. L'IPOTESI ERA SBAGLIATA, E IL VERDETTO L'HA DETTO
+
+**Il verdetto della voce 05 ha parlato al primo giro utile**, e non ha detto
+quello che mi aspettavo. Non era la scala 1,3 che si comporta diversamente su
+Linux. Era questo:
+
+```
+IL CORREDO A SCALA MASSIMA HA GUARDATO 0 SCHERMATE.
+```
+
+**Zero**, mentre le annotazioni dello stesso giro contavano 167 catture
+passate e 15 cadute. Le due cose non possono essere vere insieme, e la
+seconda era quella giusta.
+
+**La causa, misurata accendendo `GITHUB_ACTIONS=true` su questa macchina**, e
+non dedotta: `flutter test` **sceglie da se' come stampare**, e su GitHub
+sceglie un rapporto diverso. Al posto delle righe
+`00:03 +10 -1: nome [E]` stampa `✅ nome` e, alla fine, `6 tests passed.`.
+
+**Tutto lo sbarramento legge quelle righe**: i nomi delle prove cadute, il
+conto delle schermate montate, il confronto col registro dei rossi accettati.
+Con l'altro rapporto **non leggeva niente**. Il cancello si fermava lo stesso,
+ma si fermava per la guardia del cardinale minimo, cioe' per *"non hai
+misurato niente"*, e non per cio' che aveva trovato: **la guardia che esiste
+apposta per questo caso ha fatto il suo mestiere**, e senza di lei il giro
+sarebbe stato verde senza aver guardato niente.
+
+**E qui l'ordine prende la sua forma piu' dura**: due macchine non sono lo
+stesso cancello perche' eseguono lo stesso comando. Lo sono quando **leggono
+la stessa lingua**. Adesso il rapporto e' fissato con `-r expanded` in tutte
+e due le chiamate, e una guardia pretende che **nessuna chiamata di
+`flutter test` resti senza rapporto**: non che ci sia scritta una certa
+parola, ma che nessuna macchina possa piu' scegliere da se'.
+
+---
+
+## 6-QUATER. IL CANCELLO GRATUITO E' VERDE, E NON LO ERA DAL 29 LUGLIO
+
+| | |
+|---|---|
+| giro | `35103144149`, commit `bda25b14` |
+| esito | **success**, 27 minuti e 43 secondi |
+| i passi | tutti e otto verdi, sbarramento compreso |
+| il passo del verdetto | **saltato**, perche' gira solo quando si cade |
+
+**Il numero che dice cosa vuol dire.** Prima di quest'ordine il registro
+contava **1.055 giri** di `verde.yml`: 130 verdi, 924 rossi, e **920 rossi
+consecutivi** dal 29 luglio 2026. Questo e' il giro numero **921 dopo
+l'ultimo verde**, ed e' il primo a non essere rosso **mentre esegue una
+domanda piu' severa** di quella che prima falliva sempre: la suite intera, le
+prove del server, il corredo a scala 1,3 e il registro dei rossi accettati.
+
+**La spia che era rossa comunque adesso dice qualcosa.** E' il secondo
+risultato che l'ordine chiedeva, e adesso e' misurato invece che promesso.
+
+**E il cancello di questa macchina, sullo stesso commit**: suite intera
+**5.338 prove, 6 saltate, 2 cadute**, che sono le due accettate; prove del
+server **98, zero cadute**; corredo **182 schermate montate, 15 cadute**, che
+sono le quindici accettate. *"ROSSI ACCETTATI, E SOLO QUELLI. L'ARCHIVIO SI
+PRODUCE."*, e il gettone porta il numero 2264.
+
+---
+
 ## 7. LA BUILD, I TENTATIVI E LA RELEASE
 
-@@CONSEGNA@@
+**Non e' ancora successa, e questa riga resta qui finche' non succede.** La
+build la fa partire il fondatore da Codemagic: da questa macchina non si
+costruisce un archivio iOS firmato, e non si vede il registro di quella
+macchina.
+
+**Quello che si puo' dire adesso, e sono fatti**: il rosso che ha fermato la
+2264 non c'e' piu'; il numero di build 2264 e' ancora libero, perche' quella
+corsa e' caduta prima dell'archivio e su App Store Connect non e' salito
+niente; il gettone dello sbarramento di questa macchina porta quel numero; e
+**la stessa identica domanda, su GitHub, e' verde**.
+
+**Cosa resta fuori dalla portata di questo ordine**, e va ripetuto qui perche'
+e' dove la build puo' ancora cadere: la firma, i profili, i pod, lo spazio sul
+disco della macchina, la versione di Xcode e la validazione dell'archivio da
+parte di Apple. Su quelle un cancello Linux gratuito non puo' dire niente.
+
+**Le voci DQ.11 e DQ.12 restano aperte** finche' un archivio non e' stato
+validato senza ITMS-91053.
 
 ---
 
