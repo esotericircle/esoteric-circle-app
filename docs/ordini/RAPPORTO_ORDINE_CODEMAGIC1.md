@@ -211,6 +211,26 @@ e su GitHub torna verde da se', perche' li' il codice **arriva** dal remoto:
 la guardia si esenta da sola leggendo `CM_BUILD_ID` e `GITHUB_ACTIONS`, e lo
 dichiara nel suo commento invece di tacerlo.
 
+### E QUI SI E' VISTA UNA COSA CHE NESSUNO AVEVA MAI NOMINATO
+
+Il giro si e' ripetuto sull'albero **committato**, per far tacere quella
+guardia, e al suo posto ne e' caduta **l'altra dello stesso file**: *"il ramo
+locale non ha commit che il remoto non conosce"*.
+
+**Non e' una sfortuna, e' una proprieta'.** `niente_lavoro_non_spinto` ha due
+prove che chiudono i due lati della stessa domanda: l'albero non tiene lavoro
+senza commit, e il commit non resta senza spinta. Su una macchina di chi
+sviluppa **una delle due e' per forza rossa finche' il lavoro non e' spinto**,
+e prima di spingere il lavoro, per definizione, non lo e'.
+
+**Conseguenza, e riguarda la regola di casa**: *"suite intera prima di
+spingere"* **non puo' dare un verde pieno**, mai, su questa macchina. Il verde
+pieno esiste solo dopo la spinta. Chi gira il cancello qui deve leggere il suo
+esito sapendolo, e la cosa giusta da guardare prima di spingere e' **la lista
+dei rossi nuovi meno le due prove di quel file**. Il verde pieno, quello che
+non ha bisogno di sottrazioni, e' quello di GitHub: e' un'altra ragione per
+cui il cancello gratuito di questo ordine non e' un lusso.
+
 **Cosa vuol dire, detto senza girarci intorno**: sull'albero di questo lavoro
 non esiste nessun rosso nuovo oltre a quello che chiede di committare. Il giro
 vero, sull'albero pulito, e' quello che gira **da solo su GitHub al push**, ed
