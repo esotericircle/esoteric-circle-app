@@ -99,6 +99,8 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
 
   @override
   void dispose() {
+    _nelMondoDiNascita.chiudi();
+    _nelMondoDiAdesso.chiudi();
     _luogoCtrl.dispose();
     _doveCtrl.dispose();
     super.dispose();
@@ -132,12 +134,26 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
   TextStyle get _invitoDelCampo => TypographyTokens.body(size: 16)
       .copyWith(color: ColorTokens.textSecondary);
 
+  /// **LE DUE DOMANDE AL MONDO, ordine DR voce 10.** Una per il luogo
+  /// di nascita e una per il dove vivi adesso: sono due campi, e due
+  /// campi che si scrivono insieme non possono spartirsi un rinvio.
+  final RicercaNelMondo _nelMondoDiNascita = RicercaNelMondo();
+  final RicercaNelMondo _nelMondoDiAdesso = RicercaNelMondo();
+
   void _cercaLuogo(String q) {
     final risposta = RicercaDelLuogo.per(q);
     setState(() {
       _risultati = risposta.risultati;
       if (risposta.scelta != null) _luogo = risposta.scelta!.toPlace();
     });
+    _nelMondoDiNascita.chiedi(
+      q,
+      gia: risposta.risultati,
+      quando: (trovati) {
+        if (!mounted || trovati.isEmpty) return;
+        setState(() => _risultati = trovati);
+      },
+    );
   }
 
   /// **DOVE VIVI ADESSO, ordine CF voce 13.** Il luogo attuale, come il
@@ -152,6 +168,14 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
       _risultatiDove = risposta.risultati;
       if (risposta.scelta != null) _dove = risposta.scelta;
     });
+    _nelMondoDiAdesso.chiedi(
+      q,
+      gia: risposta.risultati,
+      quando: (trovati) {
+        if (!mounted || trovati.isEmpty) return;
+        setState(() => _risultatiDove = trovati);
+      },
+    );
   }
 
   void _scegliDove(City c) {

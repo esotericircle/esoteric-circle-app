@@ -25,6 +25,8 @@ import '../pricing/upgrade_invite.dart';
 import 'mappa_della_distanza.dart';
 import 'ritratto_ingrandito.dart';
 import '../../core/synastry/synastry_report.dart';
+import '../../core/synastry/lo_specchio.dart';
+import '../../core/synastry/quante_volte_allo_specchio.dart';
 import '../../core/synastry/vip_catalog.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/depth_card.dart';
@@ -149,6 +151,17 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
   /// testo.
   bool _verdettoInScena = false;
 
+  /// **QUANTE VOLTE QUESTA PERSONA HA GIA' APERTO UNA SCHEDA ALLO SPECCHIO.**
+  /// Ordine DR voce 04.
+  ///
+  /// **Si prende UNA VOLTA SOLA per apertura**, e da quel momento non si
+  /// muove: girare il telefono, uscire e rientrare nello stesso responso
+  /// rilegge le stesse parole. Finche' e' nullo la coppia allo specchio non
+  /// mostra il suo responso, perche' un testo che cambia mentre lo si legge
+  /// sarebbe un guasto travestito da sorpresa.
+  int? _volteAlloSpecchio;
+  bool _volteChieste = false;
+
   /// **SE QUESTA COPPIA SI PUO' COMPORRE.** Nullo finche' non si e' guardato:
   /// la scena non parte e il verdetto resta coperto, perche' mostrarlo e poi
   /// chiedere di pagarlo sarebbe una porta aperta e richiusa in faccia.
@@ -235,6 +248,7 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
     if (_verdettoInScena) _anim.forward();
     _photo.addListener(_onPhotoChanged);
     unawaited(_leggiDoveSei());
+    _contaLoSpecchio();
   }
 
   @override
@@ -242,6 +256,7 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
     super.didUpdateWidget(oldWidget);
     final nuovo = widget.vip ?? VipCatalog.first;
     if (nuovo.name != _vip.name) setState(() => _vip = nuovo);
+    _contaLoSpecchio();
   }
 
   @override
@@ -332,6 +347,31 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
     }
   }
 
+  /// **SE LA COPPIA E' ALLO SPECCHIO**, cioe' lo stesso personaggio dalle due
+  /// parti. La porta e' una sola, ordine DR voce 01: qui la si interroga.
+  bool get _alloSpecchio =>
+      widget.primoVip != null && LoSpecchio.sono(widget.primoVip!, _vip);
+
+  /// Prende il conto delle volte, una volta sola, e solo se serve.
+  void _contaLoSpecchio() {
+    if (_volteChieste || !_alloSpecchio) return;
+    _volteChieste = true;
+    unawaited(QuanteVolteAlloSpecchio.avanza().then((volte) {
+      if (!mounted) return;
+      setState(() => _volteAlloSpecchio = volte);
+    }));
+  }
+
+  /// Il responso e' pronto da mostrare: fuori dallo specchio sempre, allo
+  /// specchio quando il conto delle volte e' arrivato.
+  bool get _responsoPronto => !_alloSpecchio || _volteAlloSpecchio != null;
+
+  /// **IL VERDETTO SI SCOPRE QUANDO E' DAVVERO PRONTO.** Allo specchio il
+  /// testo dipende dal conto delle volte, che arriva dal disco: scoprirlo
+  /// prima vorrebbe dire far leggere una battuta e poi cambiarla sotto gli
+  /// occhi, ordine DR voce 04.
+  bool get _verdettoVisibile => _verdettoInScena && _responsoPronto;
+
   void _mostraIlVerdetto() {
     if (!mounted || _verdettoInScena) return;
     setState(() => _verdettoInScena = true);
@@ -353,7 +393,11 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
     // non esiste: al suo posto c'e' quanto i loro mondi si sfiorano.
     final report = widget.primoVip == null
         ? SynastryReport.perCieli(tuo: _cielo, vip: _vip, doveSei: _doveSei)
-        : SynastryReport.fraDueVip(primo: widget.primoVip!, vip2: _vip);
+        : SynastryReport.fraDueVip(
+            primo: widget.primoVip!,
+            vip2: _vip,
+            volteAlloSpecchio: _volteAlloSpecchio ?? 0,
+          );
     final nuova = collezione.scopri(
       primo: widget.primoVip?.name ?? '',
       secondo: _vip.name,
@@ -532,7 +576,11 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
     // non esiste: al suo posto c'e' quanto i loro mondi si sfiorano.
     final report = widget.primoVip == null
         ? SynastryReport.perCieli(tuo: _cielo, vip: _vip, doveSei: _doveSei)
-        : SynastryReport.fraDueVip(primo: widget.primoVip!, vip2: _vip);
+        : SynastryReport.fraDueVip(
+            primo: widget.primoVip!,
+            vip2: _vip,
+            volteAlloSpecchio: _volteAlloSpecchio ?? 0,
+          );
 
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -584,7 +632,7 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
               // che accade dopo il tocco su un VIP.
               // Finche' il cancello non ha risposto, e quando ha risposto di
               // no, il verdetto resta coperto.
-              if (!_verdettoInScena && _permesso != true)
+              if (!_verdettoVisibile && _permesso != true)
                 Positioned.fill(
                   child: ColoredBox(
                       color: palette.deepest,
@@ -605,7 +653,7 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
                         ),
                       )),
                 ),
-              if (!_verdettoInScena && _permesso == true)
+              if (!_verdettoVisibile && _permesso == true)
                 Positioned.fill(
                   child: ColoredBox(
                     color: palette.deepest.withValues(alpha: 0.92),

@@ -47,8 +47,27 @@ QUI="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ACCETTATI="$QUI/rossi_accettati.txt"
 REGISTRO="$(mktemp)"
 
+# **IL RAPPORTO SI FISSA, E NON E' UN DETTAGLIO. Ordine CODEMAGIC1 voce 06,
+# 16 settembre 2026.**
+#
+# `flutter test` sceglie da se' come stampare, e **su GitHub Actions sceglie
+# un rapporto diverso**: al posto delle righe `00:03 +10 -1: nome [E]` stampa
+# `\u2705 nome` e, alla fine, `6 tests passed.`. Misurato accendendo
+# GITHUB_ACTIONS=true su questa macchina, non dedotto.
+#
+# **Cosa costava.** Tutto questo file legge quelle righe: i nomi delle prove
+# cadute, il conto delle schermate montate, il confronto col registro dei
+# rossi accettati. Con l'altro rapporto **non leggeva niente**: il corredo
+# risultava aver montato zero schermate e nessun nome arrivava al confronto.
+# Il cancello si fermava lo stesso, ma si fermava per la guardia del cardinale
+# minimo, cioe' per "non hai misurato niente", e non per cio' che aveva
+# trovato. **Due macchine che stampano in due lingue non sono lo stesso
+# cancello**, anche quando eseguono lo stesso comando.
+#
+# Sta prima di "$@" apposta: chi prova lo sbarramento a mano puo' ancora
+# chiedere un altro rapporto, e l'ultimo che passa vince.
 echo "== LE PROVE, PRIMA DI COSTRUIRE, con TZ=$TZ =="
-flutter test "$@" 2>&1 | tee "$REGISTRO"
+flutter test -r expanded "$@" 2>&1 | tee "$REGISTRO"
 ESITO=${PIPESTATUS[0]}
 
 # **IL SECONDO CANCELLO: ANCHE LA SUITE DEL SERVER. Ordine CF voce 18.**
@@ -142,7 +161,7 @@ if [ -f "$QUI/../test/$CORREDO" ]; then
   echo ""
   echo "== IL CORREDO A SCALA MASSIMA, con SCALA_DEL_TESTO=1.3 =="
   REGISTRO_SCALA="$(mktemp)"
-  SCALA_DEL_TESTO=1.3 flutter test "test/$CORREDO" 2>&1 | tee "$REGISTRO_SCALA"
+  SCALA_DEL_TESTO=1.3 flutter test -r expanded "test/$CORREDO" 2>&1 | tee "$REGISTRO_SCALA"
   ESITO_SCALA=${PIPESTATUS[0]}
 
   # **IL CARDINALE DEL CORREDO.** Un giro che non monta nessuna schermata non

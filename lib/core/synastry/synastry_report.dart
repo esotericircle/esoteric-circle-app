@@ -59,6 +59,42 @@ class SynastryReport {
   /// Percentuale del cerchio grande, sintesi pesata di amore, mente, scintille.
   final int overall;
 
+  /// **QUALE DELLE SEI BARRE STA PIU' IN BASSO**, e torna la sua etichetta,
+  /// la stessa che la persona legge accanto alla barra. Ordine DR voce 02.
+  ///
+  /// **A parita' vince la prima nell'ordine in cui si vedono**, che e'
+  /// l'ordine di [bars]: se due barre sono allo stesso livello, il testo
+  /// nomina quella che l'occhio incontra per prima scendendo.
+  ///
+  /// **La barra dell'incontro non entra**: fra due VIP non esiste, e nel caso
+  /// dello specchio nemmeno.
+  static String laBarraPiuBassa({
+    required int amore,
+    required int mente,
+    required int scintille,
+    required int terraComune,
+    required int ritmo,
+    required int vitaQuotidiana,
+  }) {
+    final sei = <String, int>{
+      'Affinità d\'amore': amore,
+      'Intesa mentale': mente,
+      'Scintille': scintille,
+      'Terra comune': terraComune,
+      'Ritmo': ritmo,
+      'Vita quotidiana': vitaQuotidiana,
+    };
+    var quale = sei.keys.first;
+    var minimo = sei.values.first;
+    for (final e in sei.entries) {
+      if (e.value < minimo) {
+        minimo = e.value;
+        quale = e.key;
+      }
+    }
+    return quale;
+  }
+
   /// Etichetta di fascia del cerchio grande (Anime gemelle, Grande intesa...).
   final String band;
 
@@ -288,9 +324,14 @@ class SynastryReport {
   /// come per chi non c'e' piu': la barra non compare in albero. Al suo posto
   /// c'e' quanto i loro mondi si sfiorano, ricavato dai dati gia' raccolti
   /// nella voce 01, cioe' le citta' e l'esposizione pubblica.
+  /// **[volteAlloSpecchio] serve al solo caso dello specchio**, ordine DR
+  /// voce 04: quante volte questa persona ha gia' aperto una scheda in cui i
+  /// due lati sono lo stesso personaggio. Lo legge la schermata, una volta
+  /// per apertura, e serve a non far rileggere la stessa battuta.
   static SynastryReport fraDueVip({
     required Vip primo,
     required Vip vip2,
+    int volteAlloSpecchio = 0,
   }) {
     final secondo = vip2;
     final cieloA = CieloDiSinastria.perVip(primo);
@@ -300,12 +341,29 @@ class SynastryReport {
     final aspetti =
         AspettiDiSinastria.fra(cieloA, cieloB, ancheIlTuoHaUnNome: true);
     final numeri = _numeriDa(aspetti);
+    // **LE SEI MISURE SI CALCOLANO PRIMA DEL TESTO**, ordine DR voce 02: il
+    // testo dello specchio deve poter nominare la barra che il calcolo ha
+    // messo piu' in basso, e per nominarla deve averla davanti. **Nessuno di
+    // questi numeri cambia**: sono gli stessi di prima, calcolati nello
+    // stesso modo e solo qualche riga piu' su.
+    final terra = AltreAffinita.terraComune(cieloA, cieloB);
+    final rit = AltreAffinita.ritmo(cieloA, cieloB);
+    final quotidiana = AltreAffinita.vitaQuotidiana(aspetti);
     final pezzi = ResponsoDellaSinastria.fraDueVip(
       primo: primo,
       secondo: secondo,
       percento: numeri.overall,
       aspetti: aspetti,
       adesso: DateTime.now(),
+      barraPiuBassa: laBarraPiuBassa(
+        amore: numeri.love,
+        mente: numeri.mental,
+        scintille: numeri.sparks,
+        terraComune: terra,
+        ritmo: rit,
+        vitaQuotidiana: quotidiana,
+      ),
+      volta: volteAlloSpecchio,
     );
     return SynastryReport(
       overall: numeri.overall,
@@ -322,9 +380,9 @@ class SynastryReport {
       sparks: numeri.sparks,
       // Le tre dimensioni in piu' valgono anche fra due VIP: e' la stessa
       // scala, ordine BX voce 09.
-      terraComune: AltreAffinita.terraComune(cieloA, cieloB),
-      ritmo: AltreAffinita.ritmo(cieloA, cieloB),
-      vitaQuotidiana: AltreAffinita.vitaQuotidiana(aspetti),
+      terraComune: terra,
+      ritmo: rit,
+      vitaQuotidiana: quotidiana,
       meetingPercent: 0,
       meetingQuip: '',
       incontro: PossibilitaDiIncontro(

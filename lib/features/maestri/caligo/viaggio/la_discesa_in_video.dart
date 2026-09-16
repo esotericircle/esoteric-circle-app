@@ -532,11 +532,21 @@ class _LaDiscesaState extends State<LaDiscesa> with WidgetsBindingObserver {
         if (mounted) setState(() => _siPuoSaltare = true);
       });
     }
-    // **IL TAMBURO COMINCIA CON LA DISCESA**, prima del dito: e' lui che
-    // chiama giu', e chi arriva qui lo sente battere prima di toccare.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) unawaited(PaletteSensoriale.tamburo(context));
-    });
+    // **IL TAMBURO NON BATTE PIU' DURANTE LA DISCESA.** Ordine DR voce 08,
+    // parole del fondatore: *"i tamburi durante la discesa vanno eliminati,
+    // fanno schifo, e la musica di sottofondo in verita' e' molto piu'
+    // adatta"*.
+    //
+    // **Qui c'era `PaletteSensoriale.tamburo(context)`**, che faceva partire
+    // il battito continuo e **abbassava la musica** per fargli spazio,
+    // `RegiaDellaMusica.scendiFinoA`. Togliendo la chiamata succedono due
+    // cose insieme: il battito tace e la musica resta al suo volume, che e'
+    // esattamente cio' che il fondatore ha chiesto.
+    //
+    // **Non si tocca nient'altro**: il dito che tiene premuto, il filmato, il
+    // tunnel di riserva e la vibrazione restano come sono. Il file
+    // `tamburo_discesa` resta nel pacchetto e `PaletteSensoriale.tamburo`
+    // resta al suo posto, vedi il manifesto dell'ordine DR.
   }
 
   @override

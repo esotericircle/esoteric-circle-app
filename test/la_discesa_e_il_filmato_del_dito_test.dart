@@ -493,9 +493,21 @@ void main() {
       await tester.pump(const Duration(seconds: 1));
     });
 
+    /// **IL TAMBURO NON BATTE PIU' NELLA DISCESA. Ordine DR voce 08, 16
+    /// settembre 2026.**
+    ///
+    /// **Questa prova diceva il contrario, e non era sbagliata**: era la
+    /// verita' dell'ordine DJ voce 10, che il tamburo lo aveva messo. Il
+    /// fondatore ha deciso il contrario, e allora la prova si **rovescia**
+    /// invece di sparire: cancellarla avrebbe tolto la sorveglianza proprio
+    /// dal punto dove il tamburo potrebbe tornare senza che nessuno lo voglia.
+    ///
+    /// **Cosa resta com'era, e l'ordine lo dice per nome**: il gesto, la riga
+    /// e la vibrazione. E il file del tamburo **resta nel pacchetto**, cosi'
+    /// la decisione si puo' rovesciare di nuovo con una riga.
     testWidgets(
-        'il tamburo comincia con la discesa, continua a dito alzato e si ferma '
-        'alla fine', (tester) async {
+        'LA DISCESA NON CHIAMA PIU IL TAMBURO, in nessuno dei tre momenti',
+        (tester) async {
       final battiti = <bool>[];
       PaletteSensoriale.spiaDelTamburo = battiti.add;
       PaletteSensoriale.tamburoPresenteNelleProve = true;
@@ -503,22 +515,21 @@ void main() {
           impostazioni: SettingsController(suonoEVibrazione: true));
       await tester.pump();
       await tester.pump();
-      expect(battiti, [true],
-          reason: 'entrando nella discesa il tamburo non batte');
+      expect(battiti, isEmpty,
+          reason: 'entrando nella discesa il tamburo batte: l ordine DR voce '
+              '08 vuole che taccia e che resti la musica');
       final gesto =
           await tester.startGesture(tester.getCenter(find.byType(LaDiscesa)));
       await tester.pump(const Duration(milliseconds: 300));
       await gesto.up();
       await tester.pump(const Duration(seconds: 1));
-      expect(battiti, [true],
-          reason: 'il dito si e alzato e il tamburo si e fermato: l ordine '
-              'vuole che continui, perche si e fermata la persona e non il '
-              'Mondo di Sotto');
+      expect(battiti, isEmpty,
+          reason: 'a dito alzato il tamburo comincia a battere');
       finta.arrivaInFondo();
       await tester.pump();
       await tester.pump(const Duration(seconds: 1));
-      expect(battiti, [true, false],
-          reason: 'la discesa e finita e il tamburo batte ancora');
+      expect(battiti, isEmpty,
+          reason: 'alla fine della discesa il tamburo batte');
     });
 
     testWidgets('senza il file del tamburo la discesa resta muta, e scende',
@@ -549,9 +560,14 @@ void main() {
           isTrue);
     });
 
-    testWidgets(
-        'IL TAMBURO SEGUE IL CURSORE DEGLI EFFETTI, e non quello della musica',
-        (tester) async {
+    /// **E NESSUN SUONO SI CHIEDE PER LA DISCESA. Ordine DR voce 08.**
+    ///
+    /// Questa prova misurava a che volume batteva il tamburo, cioe' se
+    /// seguisse il cursore degli effetti o quello della musica. Adesso non
+    /// batte: **la grandezza misurata diventa che nessun volume viene
+    /// chiesto**, che e' la stessa domanda portata al caso nuovo, e resta
+    /// rossa se qualcuno rimette un suono li' dentro.
+    testWidgets('NESSUN SUONO SI CHIEDE PER LA DISCESA', (tester) async {
       final volumi = <double>[];
       PaletteSensoriale.volumiChiestiNelleProve = volumi;
       addTearDown(() => PaletteSensoriale.volumiChiestiNelleProve = null);
@@ -561,9 +577,9 @@ void main() {
               suonoEVibrazione: true, volumeEffetti: 0.4, volumeMusica: 0.9));
       await tester.pump();
       await tester.pump();
-      expect(volumi, [closeTo(0.4, 1e-9)],
-          reason: 'il tamburo batte a ${volumi.join(', ')}: il cursore degli '
-              'effetti e a 0,4 e quello della musica a 0,9');
+      expect(volumi, isEmpty,
+          reason: 'qualcosa ha chiesto un volume durante la discesa: '
+              '${volumi.join(', ')}');
     });
 
     testWidgets('A EFFETTI SPENTI IL TAMBURO TACE, e la discesa scende',

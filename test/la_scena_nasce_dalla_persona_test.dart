@@ -142,9 +142,13 @@ void main() {
     // ignore: avoid_print
     print('ORDINE DI VOCE 03: col luogo inventato il registro dice '
         '${guasti.map((g) => g.riga).toList()}');
-    // **DUE GUASTI, E NON UNO**: dall'ordine DI voce 16 una scena scartata si
-    // richiede una volta, e la finta risponde di nuovo col luogo inventato.
-    expect(guasti, hasLength(2),
+    // **UN GUASTO PER TENTATIVO, E IL NUMERO NON SI SCRIVE QUI.** Dall'ordine
+    // DI voce 16 una scena scartata si richiede, e la finta risponde ogni
+    // volta col luogo inventato: i guasti nel registro sono tanti quanti i
+    // tentativi. Erano due; l'ordine DR voce 07 li ha portati a tre, e questa
+    // riga e' caduta **per il motivo sbagliato**, cioe' perche' ripeteva un
+    // numero invece di seguirlo. Adesso lo legge da chi lo decide.
+    expect(guasti, hasLength(LaScenaDalModello.quantiTentativi),
         reason: 'il luogo inventato non e dichiarato nel registro dei guasti, '
             'o la scena scartata non si e richiesta');
     expect(find.textContaining('castello'), findsNothing,

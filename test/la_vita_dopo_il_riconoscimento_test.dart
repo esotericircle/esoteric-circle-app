@@ -225,8 +225,17 @@ void main() {
       expect(tester.getRect(animale), allInizio,
           reason: 'l animale si avvicina anche senza battere: e un orologio, '
               'non un tamburo');
-      // **SI BATTE UNA VOLTA AL SECONDO**, per quaranta secondi e poco piu'.
-      for (var s = 0; s < 20; s++) {
+      // **SI BATTE UNA VOLTA AL SECONDO**, per tutta la durata del rito.
+      //
+      // **IL NUMERO NON SI SCRIVE PIU' QUI, ordine DR voce 09.** Era
+      // quaranta secondi in tre posti di questo file, e quando il fondatore
+      // ha dimezzato il rito questa guardia e' caduta per il motivo
+      // sbagliato: non perche' il tamburo si fosse rotto, ma perche'
+      // ripeteva un numero invece di seguirlo. Adesso il conto dei colpi
+      // viene da `IlTamburoCheNutre.quantoDura`, e il giorno che il rito
+      // cambia ancora questa prova cambia con lui.
+      final quantiColpi = IlTamburoCheNutre.quantoDura.inSeconds;
+      for (var s = 0; s < quantiColpi ~/ 2; s++) {
         await tester.tapAt(const Offset(195, 700));
         await tester.pump(const Duration(seconds: 1));
       }
@@ -236,8 +245,10 @@ void main() {
       expect(aMeta.bottom, greaterThan(allInizio.bottom),
           reason: 'l animale non scende dal fondo verso il primo piano');
       expect(find.byKey(const Key('viaggio_torna_dal_tamburo')), findsNothing,
-          reason: 'il rito finisce prima dei quaranta secondi');
-      for (var s = 0; s < 22; s++) {
+          reason: 'il rito finisce a meta della sua durata dichiarata');
+      // I due colpi in piu' della coda: il rito finisce poco dopo l'ultimo
+      // secondo, non esattamente su di lui.
+      for (var s = 0; s < quantiColpi - quantiColpi ~/ 2 + 2; s++) {
         await tester.tapAt(const Offset(195, 700));
         await tester.pump(const Duration(seconds: 1));
       }
@@ -247,7 +258,7 @@ void main() {
           'all inizio, ${aMeta.width.round()} a meta, '
           '${allaFine.width.round()} alla fine');
       expect(find.byKey(const Key('viaggio_torna_dal_tamburo')), findsOneWidget,
-          reason: 'dopo quaranta secondi di battito il rito non finisce');
+          reason: 'battuto per tutta la sua durata, il rito non finisce');
       expect(diario.nutrimentiCheContano, prima + 1,
           reason: 'il rito finito non registra il nutrimento');
       // **NESSUN PUNTEGGIO, NESSUNA BARRA.**
@@ -265,7 +276,12 @@ void main() {
       final vicino = IlTamburoCheNutre.doveSta(1);
       expect(vicino.larga, greaterThan(lontano.larga * 3));
       expect(vicino.piedi, greaterThan(lontano.piedi));
-      expect(IlTamburoCheNutre.quantoDura, const Duration(seconds: 40));
+      // **VENTI SECONDI, E PRIMA ERANO QUARANTA.** Ordine DR voce 09: il
+      // fondatore ha misurato che quaranta secondi di battito sono troppi
+      // per cio' che il rito da'. Questa riga pretende il numero esatto
+      // apposta: e' l'unico posto dove il numero si dichiara, e cambiarlo
+      // deve costare una riga letta da qualcuno.
+      expect(IlTamburoCheNutre.quantoDura, const Duration(seconds: 20));
     });
   });
 

@@ -1,6 +1,8 @@
 import '../astro/zodiac.dart';
 import 'cielo_della_sinastria.dart';
+import 'lo_specchio.dart';
 import 'testi_della_sinastria.dart';
+import 'testi_dello_specchio.dart';
 import 'vip_catalog.dart';
 
 /// I CINQUE PEZZI DEL RESPONSO, ognuno con la sua casa a schermo.
@@ -109,13 +111,34 @@ class ResponsoDellaSinastria {
   }
 
   /// Il responso fra due VIP: cambia chi si presenta, non la forma.
+  ///
+  /// **[barraPiuBassa] e [volta] servono solo allo specchio**, cioè alla
+  /// coppia fatta dallo stesso personaggio due volte, ordine DR: la prima
+  /// dice quale delle sei barre il calcolo ha messo più in basso, perché il
+  /// testo la spieghi guardando il numero vero; la seconda dice quante volte
+  /// questa persona ha già aperto una scheda allo specchio, perché la battuta
+  /// cambi a ogni giro.
   static PezziDelResponso fraDueVip({
     required Vip primo,
     required Vip secondo,
     required int percento,
     required List<AspettoDiSinastria> aspetti,
     required DateTime adesso,
+    String barraPiuBassa = '',
+    int volta = 0,
   }) {
+    // **LO SPECCHIO PRIMA DI TUTTO**, ordine DR voce 01: una porta sola
+    // decide, e qui la si interroga.
+    if (LoSpecchio.sono(primo, secondo)) {
+      return _alloSpecchio(
+        vip: primo,
+        percento: percento,
+        aspetti: aspetti,
+        adesso: adesso,
+        barraPiuBassa: barraPiuBassa,
+        volta: volta,
+      );
+    }
     final relazione = TestiDellaSinastria.relazione(primo.sign, secondo.sign);
     final fascia = TestiDellaSinastria.fascia(percento);
     final seme = primo.sign.index + secondo.sign.index * 3 + percento;
@@ -124,21 +147,106 @@ class ResponsoDellaSinastria {
       titoloDellaBolla:
           TestiDellaSinastria.titoliDellaBolla[relazione]![fascia]!,
       corpo: [
-        _apertura(relazione, primo.sign, secondo.sign, seme),
+        // **L'APERTURA E' QUELLA SCRITTA PER DUE VIP**, ordine DR voce 05:
+        // quelle di sempre danno del tu a chi guarda, che qui non è nessuno
+        // dei due.
+        _aperturaFraDueVip(relazione, primo.sign, secondo.sign, seme),
         _ilCielo(aspetti),
         // I due si presentano insieme, come nell'esempio del corpus.
+        // **IL PUNTO FERMO RESTA ALLA SECONDA META'**, ordine DR voce 05: lo
+        // si toglie alla prima perché dopo arriva "; dall'altra", e lo si
+        // teneva via anche alla seconda, dove dopo arriva l'attualità con la
+        // maiuscola. A video si leggeva "non cambia mai foglio Un'intesa
+        // così".
         'Da una parte ${_ilPersonaggio(primo, seme, adesso, conNome: false)}'
             '; dall\'altra '
-            '${_ilPersonaggio(secondo, seme + 1, adesso, conNome: false)}',
+            '${_ilPersonaggio(secondo, seme + 1, adesso)}',
         _lAttualita(secondo, seme, adesso),
         _laStoccata(secondo, fascia, seme),
       ].where((p) => p.isNotEmpty).join(' '),
-      nota: _laNota(vip: secondo, oraDelVipNota: false, adesso: adesso),
-      sfida: laSfida(nome: secondo.name, percento: percento, seme: seme),
+      // **LA NOTA, LA SFIDA E LA RESIDENZA PARLANO DELLA COPPIA**, ordine DR
+      // voce 05: passavano tutte e tre il solo secondo, e il primo spariva
+      // dalla scheda.
+      nota: _laNotaDellaCoppia(primo: primo, secondo: secondo, adesso: adesso),
+      sfida: sfidaFraDueVip(
+          primo: primo.name, secondo: secondo.name, percento: percento,
+          seme: seme),
       oraDiNascita: _oraDiNascita(false),
-      luogoDiResidenza: _luogoDiResidenza(secondo),
+      luogoDiResidenza: _luogoDiResidenzaDellaCoppia(primo, secondo),
     );
   }
+
+  /// **LA COPPIA ALLO SPECCHIO**, ordine DR voci 02, 03 e 04.
+  ///
+  /// **Il numero non si tocca**: il cerchio e le sei barre mostrano quello
+  /// che il calcolo ha prodotto, e il lavoro sta tutto nelle parole, che
+  /// spiegano perché non è cento e perché la barra più bassa è quella lì.
+  ///
+  /// **Chi non c'è più riceve la forma sobria**, senza battute.
+  static PezziDelResponso _alloSpecchio({
+    required Vip vip,
+    required int percento,
+    required List<AspettoDiSinastria> aspetti,
+    required DateTime adesso,
+    required String barraPiuBassa,
+    required int volta,
+  }) {
+    if (vip.eScomparso) {
+      return PezziDelResponso(
+        sopraIlCerchio: TestiDelloSpecchio.sopraIlCerchioPerChiNonCePiu,
+        titoloDellaBolla: TestiDelloSpecchio.titoloPerChiNonCePiu,
+        corpo: TestiDelloSpecchio.corpoPerChiNonCePiu
+            .map((r) => _conIDati(r, nome: vip.name, percento: percento))
+            .join(' '),
+        nota: _laNota(vip: vip, oraDelVipNota: false, adesso: adesso),
+        sfida: _conIDati(TestiDelloSpecchio.sfidaPerChiNonCePiu,
+            nome: vip.name, percento: percento),
+        oraDiNascita: _oraDiNascita(false),
+        luogoDiResidenza: _luogoDiResidenza(vip),
+      );
+    }
+    final quale = varianteDelloSpecchio(vip, volta);
+    final riga = TestiDelloSpecchio.laBarraPiuBassa[barraPiuBassa];
+    return PezziDelResponso(
+      sopraIlCerchio: TestiDelloSpecchio.sopraIlCerchio[quale],
+      titoloDellaBolla: TestiDelloSpecchio.titoli[quale],
+      corpo: [
+        _conIDati(TestiDelloSpecchio.ilGesto[quale],
+            nome: vip.name, percento: percento),
+        _conIDati(TestiDelloSpecchio.percheNonCento[quale],
+            nome: vip.name, percento: percento),
+        // **LA RIGA DELLA BARRA GUARDA LA BARRA VERA**, e quando chi chiama
+        // non dice quale sia non si inventa niente: si tace.
+        if (riga != null) riga[quale % riga.length],
+        TestiDelloSpecchio.chiuse[quale],
+      ].where((p) => p.isNotEmpty).join(' '),
+      nota: _laNota(vip: vip, oraDelVipNota: false, adesso: adesso),
+      sfida: _conIDati(TestiDelloSpecchio.sfide[quale],
+          nome: vip.name, percento: percento),
+      oraDiNascita: _oraDiNascita(false),
+      luogoDiResidenza: _luogoDiResidenza(vip),
+    );
+  }
+
+  /// **QUALE DELLE DODICI VARIANTI**, dall'identità del personaggio e da
+  /// quante volte questa persona ha già aperto una scheda allo specchio.
+  ///
+  /// **Il conto delle lettere e non `hashCode`**: l'impronta di una stringa
+  /// in Dart è stabile dentro una esecuzione ma non è promessa uguale fra
+  /// una esecuzione e l'altra, e un testo che cambia al riavvio dell'app
+  /// sarebbe un guasto travestito da sorpresa.
+  static int varianteDelloSpecchio(Vip vip, int volta) {
+    final identita = LoSpecchio.identitaDi(vip);
+    var conto = 0;
+    for (final c in identita.codeUnits) {
+      conto = (conto + c) % TestiDelloSpecchio.quante;
+    }
+    return (conto + volta) % TestiDelloSpecchio.quante;
+  }
+
+  static String _conIDati(String riga,
+          {required String nome, required int percento}) =>
+      riga.replaceAll('NOME', nome).replaceAll('PERCENTO', '$percento');
 
   /// LA SFIDA DA CONDIVIDERE, che oggi era sempre la stessa riga.
   static String laSfida(
@@ -147,9 +255,33 @@ class ResponsoDellaSinastria {
           .replaceAll('NOME', nome)
           .replaceAll('PERCENTO', '$percento per cento');
 
+  /// **LA SFIDA DI UNA COPPIA FRA DUE VIP**, che nomina tutti e due.
+  /// Ordine DR voce 05: quella di sempre portava il solo secondo.
+  static String sfidaFraDueVip({
+    required String primo,
+    required String secondo,
+    required int percento,
+    int seme = 0,
+  }) =>
+      TestiDellaSinastria.sfideFraDueVip[
+              (seme + 2) % TestiDellaSinastria.sfideFraDueVip.length]
+          .replaceAll('NOME_A', primo)
+          .replaceAll('NOME_B', secondo)
+          .replaceAll('PERCENTO', '$percento per cento');
+
   static String _apertura(
       RelazioneFraSegni relazione, Zodiac a, Zodiac b, int seme) {
     final righe = TestiDellaSinastria.aperture[relazione]!;
+    return righe[seme % righe.length]
+        .replaceAll('SEGNO_A', a.italianName)
+        .replaceAll('SEGNO_B', b.italianName);
+  }
+
+  /// **L'APERTURA DI UNA COPPIA FRA DUE VIP**, in terza persona.
+  /// Ordine DR voce 05.
+  static String _aperturaFraDueVip(
+      RelazioneFraSegni relazione, Zodiac a, Zodiac b, int seme) {
+    final righe = TestiDellaSinastria.apertureFraDueVip[relazione]!;
     return righe[seme % righe.length]
         .replaceAll('SEGNO_A', a.italianName)
         .replaceAll('SEGNO_B', b.italianName);
@@ -301,6 +433,53 @@ class ResponsoDellaSinastria {
           .replaceAll('GIORNO', _giornoItaliano(quando)));
     }
     return pezzi.join(' ');
+  }
+
+  /// **LA NOTA DI UNA COPPIA FRA DUE VIP**, ordine DR voce 05.
+  ///
+  /// Quella di sempre parlava del solo secondo: con due personaggi diversi il
+  /// primo spariva dalla scheda, e chi leggeva non sapeva di chi fosse la
+  /// notizia o il luogo ignoto. Qui si dice di chi è.
+  static String _laNotaDellaCoppia({
+    required Vip primo,
+    required Vip secondo,
+    required DateTime adesso,
+  }) {
+    final pezzi = <String>[];
+    final senzaLuogo = [primo, secondo]
+        .where((v) => v.luogoDiOggi == null && !v.eScomparso)
+        .toList();
+    if (senzaLuogo.length == 2) {
+      pezzi.add(TestiDellaSinastria.notaLuogoIgnotoDiTutti
+          .replaceAll('NOME_A', primo.name)
+          .replaceAll('NOME_B', secondo.name));
+    } else if (senzaLuogo.length == 1) {
+      pezzi.add(TestiDellaSinastria.notaLuogoIgnotoDiUno
+          .replaceAll('NOME', senzaLuogo.first.name));
+    }
+    for (final v in [primo, secondo]) {
+      final dalServer = CorrezioniDeiVip.attualitaDi(v.name);
+      final quando = dalServer?.verificataIl ?? v.attualitaVerificataIl;
+      if (quando != null && v.attualitaAl(adesso) != null) {
+        pezzi.add(TestiDellaSinastria.notaAttualitaDiUno
+            .replaceAll('NOME', v.name)
+            .replaceAll('GIORNO', _giornoItaliano(quando)));
+      }
+    }
+    return pezzi.join(' ');
+  }
+
+  /// **LA RESIDENZA DI UNA COPPIA FRA DUE VIP**, ordine DR voce 05: il valore
+  /// prima, e fra parentesi di chi è. Dove il dato non c'è resta la parola
+  /// che il fondatore ha scelto.
+  static String _luogoDiResidenzaDellaCoppia(Vip primo, Vip secondo) {
+    String pezzo(Vip v) {
+      final dove = v.eScomparso ? null : v.luogoDiOggi;
+      if (dove == null) return '$sconosciuto (${v.name})';
+      return '${dove.nome}, ${dove.nazione} (${v.name})';
+    }
+
+    return 'Luogo di Residenza: ${pezzo(primo)}; ${pezzo(secondo)}';
   }
 
   static String _giornoItaliano(DateTime d) {

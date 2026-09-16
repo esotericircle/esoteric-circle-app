@@ -321,6 +321,20 @@ abstract final class LaVoceDelMondoDiSotto {
     return 'su $oggetto';
   }
 
+  /// **LE PRIME PAROLE DI UNA FRASE**, per riconoscere due strati che
+  /// cominciano allo stesso modo. Ordine DR voce 07: sono **quattro**, cioe'
+  /// abbastanza da riconoscere una frase e poche da non scambiare per uguali
+  /// due frasi che condividono solo l'articolo.
+  static String primeParole(String frase) => _primeParole(frase);
+
+  static String _primeParole(String frase) {
+    final parole = [
+      for (final m in RegExp('[a-zà-ÿ0-9]+').allMatches(frase.toLowerCase()))
+        m.group(0)!,
+    ];
+    return parole.take(4).join(' ');
+  }
+
   /// **LA RIPRESA DELLA DOMANDA**, con l'oggetto quando c'e', col tema
   /// altrimenti. La marca si risolve sul modello della frase, prima di
   /// metterci dentro l'oggetto.
@@ -1215,8 +1229,31 @@ abstract final class LaVoceDelMondoDiSotto {
       final cornice = mescolato(
           (pr + ge * 13 + ri) % quante, quante, 'cornice della risposta');
       // **CON L'OGGETTO QUANDO C'E'**, ordine DL voce 08.
-      final ripresa =
-          _ripresa(cornice % r, temaDomanda, temaInLettere, oggetto);
+      //
+      // **E NON APRE COME UNO STRATO GIA' DATO**, ordine DR voce 07: il
+      // fondatore ha visto il primo e il quarto strato dello stesso cammino
+      // cominciare con le stesse sei parole, *"Quello che ti pesa e'
+      // l'attesa"*. La ripresa la sceglie un seme, e lo stesso tema col
+      // solito gesto sceglieva la stessa riga: qui si guarda che cosa e' gia'
+      // stato letto e si prende la ripresa dopo, finche' ce n'e' una che
+      // comincia in un altro modo.
+      //
+      // **Le guardie del modello non potevano prenderlo**: questa frase e'
+      // di casa, e la voce di casa non passa da li'.
+      var quale = cornice % r;
+      final giaAperte = {
+        for (final l in letti)
+          if (l.risposta != null) _primeParole(l.risposta!),
+      };
+      for (var k = 0; k < r; k++) {
+        final prova = _ripresa((quale + k) % r, temaDomanda, temaInLettere,
+            oggetto);
+        if (!giaAperte.contains(_primeParole(prova))) {
+          quale = (quale + k) % r;
+          break;
+        }
+      }
+      final ripresa = _ripresa(quale, temaDomanda, temaInLettere, oggetto);
       righe.add(cuci([
         ripresa,
         risposta,

@@ -20,7 +20,7 @@ void main() {
   final verde = File('.github/workflows/verde.yml');
   final codemagic = File('codemagic.yaml');
 
-  const quante = 5;
+  const quante = 6;
 
   int marcatore(String testo, String nome) {
     final trovato =
@@ -153,6 +153,39 @@ void main() {
     expect(g, contains('set -o pipefail'),
         reason: 'lo sbarramento finisce in una pipe senza pipefail: l esito '
             'letto sarebbe quello di tee, non quello del cancello');
+  });
+
+  test('NESSUNA MACCHINA SCEGLIE DA SE\' COME IL CANCELLO LEGGE', () {
+    // Ordine CODEMAGIC1 voce 06. **Il fatto, misurato accendendo
+    // GITHUB_ACTIONS=true su questa macchina**: `flutter test` cambia rapporto
+    // da solo, e su GitHub stampa le prove in un'altra forma. Lo sbarramento
+    // legge le righe "00:03 +10 -1: nome [E]", quindi con l'altro rapporto
+    // **non leggeva nessun nome**: il corredo risultava aver montato zero
+    // schermate e nessuna caduta arrivava al confronto coi rossi accettati.
+    //
+    // **La grandezza misurata e' che nessuna chiamata resti senza rapporto**,
+    // non che ci sia scritta una certa parola: e' l'invariante che tiene, ed
+    // e' quella che si rompe se qualcuno domani aggiunge una terza suite.
+    final cancello = File('tool/sbarramento.sh');
+    expect(cancello.existsSync(), isTrue);
+    final righe = cancello
+        .readAsLinesSync()
+        .where((r) => !r.trimLeft().startsWith('#'))
+        .where((r) => RegExp(r'(^|[;&|]|\s)flutter test\b').hasMatch(r))
+        .toList();
+    // Il cardinale minimo: due chiamate, la suite intera e il corredo. Senza
+    // questa riga, su un file che non ne avesse nessuna la prova sarebbe
+    // verde senza aver guardato niente.
+    expect(righe.length, greaterThanOrEqualTo(2),
+        reason: 'lo sbarramento non chiama flutter test: righe $righe');
+    final senzaRapporto = [
+      for (final r in righe)
+        if (!RegExp(r'(-r|--reporter)[= ]').hasMatch(r)) r,
+    ];
+    expect(senzaRapporto, isEmpty,
+        reason: 'queste chiamate lasciano scegliere il rapporto alla '
+            'macchina, e su GitHub il cancello legge un altra lingua e non '
+            'vede nessun nome: $senzaRapporto');
   });
 
   test('l\'ordine CODEMAGIC1 non e\' finito finche\' una voce resta aperta',

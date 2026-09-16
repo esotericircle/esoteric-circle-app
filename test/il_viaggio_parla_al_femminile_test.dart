@@ -45,6 +45,7 @@ void main() {
     LaMarcaDelGenere.formaCorrente = CourtesyForm.feminine;
     final diario = DiarioDeiViaggi(orologio: () => DateTime(2026, 9, 14, 12));
     var chiamateDellaScena = 0;
+    var silenzi = 0;
     Future<void> apri(int giorno) async {
       await tester.pumpWidget(MultiProvider(
         key: UniqueKey(),
@@ -138,7 +139,26 @@ void main() {
           .byKey(const Key('viaggio_la_domanda_del_cammino'))
           .evaluate()
           .isNotEmpty;
-      final scritta = i.isOdd || i == 0;
+      // **DUE CAMMINI, E SONO I DUE MONDI CHE LA VOCE 07 HA SEPARATO.**
+      // Ordine DR voce 07, misurato il 16 settembre 2026.
+      //
+      // **Il fatto che ha costretto a riscrivere questa riga**: il cammino
+      // prende la domanda dal PRIMO giro e se la tiene per tutti gli altri.
+      // Da questa voce, una domanda scritta a mano a cui il modello risponde
+      // male non cade piu' sulla voce di casa: l'app tace. Con la vecchia
+      // alternanza il primo giro scriveva la domanda a cui il modello
+      // sbaglia apposta, quindi **tutte e otto** le discese finivano in
+      // silenzio e questa prova non misurava piu' niente.
+      //
+      // **I primi quattro giri scelgono un tema**: li' il modello sbaglia il
+      // genere, il suo testo viene scartato e parla la voce di casa, che e'
+      // la frase che questa prova deve leggere. Dopo il riconoscimento
+      // comincia un cammino nuovo, e **gli ultimi quattro scrivono una
+      // domanda a cui il modello risponde bene**, cosi' a schermo arriva
+      // anche il testo del modello. Nessuno dei due mondi finisce in
+      // silenzio, ed e' cio' che la voce 07 promette: si tace solo quando
+      // chi ha scritto la sua domanda riceve una risposta che non regge.
+      final scritta = i >= 4;
       if (nelCammino) {
         leggi();
       } else if (scritta) {
@@ -146,8 +166,11 @@ void main() {
             scrollable: find.byType(Scrollable).first);
         await tester.tap(find.text('Scrivila tu'));
         await tester.pump();
+        // **LA DOMANDA A CUI IL MODELLO RISPONDE BENE**: contiene "sorella"
+        // e non contiene ne' "delusa" ne' "cercarla", che sono le due parole
+        // su cui il modello finto sbaglia il genere apposta.
         await tester.enterText(
-            find.byKey(const Key('viaggio_domanda')), scritte[i ~/ 2]);
+            find.byKey(const Key('viaggio_domanda')), scritte[1]);
         await tester.pump();
       } else {
         final tema = temi[i ~/ 2];
@@ -189,6 +212,13 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(seconds: 3));
       leggi();
+      // **IL SILENZIO SI CONTA QUI, dove si vede davvero.** Ordine DR voce
+      // 07: e' una schermata che una persona legge, quindi vale la stessa
+      // regola sul genere di tutte le altre, e i suoi testi sono gia' dentro
+      // `letti`.
+      if (find.byKey(const Key('viaggio_silenzio')).evaluate().isNotEmpty) {
+        silenzi++;
+      }
       // Il resto della risalita, sotto la piega.
       await tester.drag(find.byType(Scrollable).first, const Offset(0, -900));
       await tester.pump(const Duration(milliseconds: 300));
@@ -201,13 +231,43 @@ void main() {
     // prima stesura scendeva coi temi scelti, la ripresa con l'oggetto non
     // arrivava mai, e con la porta del genere forzata al maschile restava
     // verde.
+    //
+    // **E IL NUMERO DELLE DISCESE E' CAMBIATO, ordine DR voce 07.** Questa
+    // prova fa otto giri: cinque con la domanda scritta a mano e tre con un
+    // tema scelto dalla tavola. Il modello finto sbaglia il genere apposta,
+    // ed e' il cuore della prova. Dalla voce 07 una risposta del modello
+    // scartata **con la domanda scritta a mano** non cade piu' sulla voce di
+    // casa: l'app tace e la discesa non si consuma. Quindi i cinque giri
+    // scritti non producono nessun responso **per costruzione**, e pretendere
+    // quattro discese qui vorrebbe dire pretendere che la voce 07 non esista.
+    //
+    // **La domanda della guardia non cambia**: nessun testo al maschile, in
+    // nessuna delle due strade. Il cardinale si sposta su cio' che oggi si
+    // puo' contare, e **il silenzio entra nel conto** invece di restare fuori:
+    // anche la sua schermata e' testo che qualcuno legge.
     expect(diario.viaggi.length, greaterThanOrEqualTo(4));
     expect(chiamateDellaScena, greaterThanOrEqualTo(4));
+    // **E NESSUN SILENZIO SI INTRUFOLA.** Ordine DR voce 07: il silenzio e'
+    // solo per chi ha scritto la sua domanda. Questo cammino nasce da un
+    // tema, quindi la voce di casa deve parlare tutte le volte, e un silenzio
+    // qui vorrebbe dire che la voce 07 ha invaso la strada che non e' sua.
+    expect(silenzi, 0,
+        reason: 'il silenzio e arrivato $silenzi volte, e qui non deve mai '
+            'arrivare: il primo cammino nasce da un tema, e nel secondo il '
+            'modello risponde bene. Se compare, la voce 07 sta invadendo una '
+            'strada che non e la sua');
     cardinaleMinimo(letti.length, 60,
         cosa: 'testi letti sulla schermata del Viaggio',
         perche: 'La prova deve aver attraversato le discese.');
-    final colGenere =
-        letti.where((t) => t.contains('Sei scesa con la domanda')).toList();
+    // **LA GRANDEZZA MISURATA E' LA FORMA ACCORDATA, NON UNA FRASE.**
+    // Ordine DR voce 07: la ripresa adesso la sceglie un seme e ruota finche'
+    // ne trova una che non ripeta le prime parole di uno strato gia' scritto,
+    // quindi **una frase precisa puo' non uscire mai** in otto discese.
+    // Legare la guardia a *"Sei scesa con la domanda"* voleva dire legarla a
+    // un gettone invece che al fatto: cio' che conta e' che a schermo sia
+    // arrivata almeno una forma accordata col genere, e che sia quella
+    // giusta. La seconda meta' la misura `maschili`, qui sotto.
+    final colGenere = letti.where((t) => formeDelGenere(t).isNotEmpty).toList();
     final colModello =
         letti.where((t) => t.contains('il primo passo lo scegli tu')).toList();
     // **DUE CRITERI, e il secondo non passa dalla porta.** La funzione di
@@ -224,8 +284,9 @@ void main() {
           '${formeDelGenere(t)}: $t',
     ];
     print('ORDINE DN VOCE 08, punto 8: discese ${diario.viaggi.length}, '
-        'testi letti ${letti.length}, col genere di casa ${colGenere.length}, '
-        'del modello ${colModello.length}, al maschile ${maschili.length}');
+        'silenzi $silenzi, testi letti ${letti.length}, col genere di casa '
+        '${colGenere.length}, del modello ${colModello.length}, al maschile '
+        '${maschili.length}');
     expect(colGenere, isNotEmpty,
         reason: 'la frase di casa col genere non e mai arrivata a schermo, '
             'e la prova non guarda la porta del genere');

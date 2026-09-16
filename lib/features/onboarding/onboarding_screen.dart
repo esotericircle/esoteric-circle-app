@@ -288,6 +288,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   /// gli occhi quando la tastiera lo spinge fuori.
   final GlobalKey _luogoElenco = GlobalKey();
   List<City> _placeResults = const [];
+
+  /// **LA DOMANDA AL MONDO, ordine DR voce 10.** Parte solo quando
+  /// il catalogo offline non conosce il nome scritto: e' il momento
+  /// in cui questa schermata diceva "non l'ho trovato".
+  final RicercaNelMondo _nelMondo = RicercaNelMondo();
   final TextEditingController _nameCtrl = TextEditingController();
   CourtesyForm? _courtesy;
 
@@ -326,6 +331,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   @override
   void dispose() {
     _ignite.dispose();
+    _nelMondo.chiudi();
     _luogoFocus.dispose();
     _placeCtrl.dispose();
     _nameCtrl.dispose();
@@ -473,6 +479,17 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         _place = null;
       }
     });
+    // **E SE IL CATALOGO NON SA NIENTE, SI CHIEDE AL MONDO.** Ordine
+    // DR voce 10: la risposta arriva dopo, e quando arriva l'elenco
+    // si riempie senza che la persona debba battere altro.
+    _nelMondo.chiedi(
+      query,
+      gia: risposta.risultati,
+      quando: (trovati) {
+        if (!mounted || trovati.isEmpty) return;
+        setState(() => _placeResults = trovati);
+      },
+    );
   }
 
   /// Cosa dice il pulsante al passo del luogo, e cosa fa.

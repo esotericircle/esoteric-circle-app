@@ -80,8 +80,13 @@ void main() {
         [MotivoDelloScarto.gergo]);
   });
 
-  test('mai due tentativi in piu: se anche la seconda e scartata vale casa',
+  test('MAI PIU DI TRE CHIAMATE: se anche la terza e scartata vale casa',
       () async {
+    // **ERANO DUE FINO ALL'ORDINE DQ, SONO TRE DALL'ORDINE DR VOCE 07.** Il
+    // fondatore ha ricevuto quattro strati di ripiego su una domanda scritta
+    // a mano: i tentativi salgono a tre, ognuno col motivo dello scarto di
+    // prima. **Il tetto resta un tetto**: alla quarta chiamata non si arriva
+    // mai, e se anche la terza cade vale la voce di casa.
     var chiamate = 0;
     final scritta = await LaScenaDalModello.chiediTutto(s,
         chiamata: (i, r, a) async {
@@ -89,10 +94,27 @@ void main() {
           return risposta(testo: conGergo);
         },
         prendiUnaChiamata: () async => true);
-    expect(chiamate, 2);
+    expect(chiamate, LaScenaDalModello.quantiTentativi);
+    expect(chiamate, 3);
     expect(scritta.testi.risposta, isNull,
-        reason: 'la riga scartata due volte deve lasciare la voce di casa');
+        reason: 'la riga scartata tre volte deve lasciare la voce di casa');
     expect(scritta.testi.titolo, isNotNull);
+  });
+
+  test('LA TERZA CHIAMATA SALVA LA RIGA che le prime due avevano perso',
+      () async {
+    // Ordine DR voce 07: con un modello che sbaglia due volte e la terza no,
+    // lo strato esce dal modello e non ripiega.
+    var chiamate = 0;
+    final scritta = await LaScenaDalModello.chiediTutto(s,
+        chiamata: (i, r, a) async {
+          chiamate++;
+          return chiamate < 3 ? risposta(testo: conGergo) : risposta();
+        },
+        prendiUnaChiamata: () async => true);
+    expect(chiamate, 3);
+    expect(scritta.testi.risposta, isNotNull,
+        reason: 'la terza risposta regge alle guardie e deve valere');
   });
 
   test('senza scarti il modello si chiama una volta sola', () async {
@@ -106,7 +128,7 @@ void main() {
     expect(chiamate, 1);
   });
 
-  test('scena scartata e testi scartati: sempre due chiamate, non tre',
+  test('scena scartata e testi scartati: le chiamate restano entro il tetto',
       () async {
     final richieste = <String>[];
     final scritta = await LaScenaDalModello.chiediTutto(s,

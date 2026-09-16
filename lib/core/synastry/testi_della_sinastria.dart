@@ -255,6 +255,82 @@ class TestiDellaSinastria {
     ],
   };
 
+  /// **LE APERTURE PER UNA COPPIA FRA DUE VIP.** Ordine DR voce 05.
+  ///
+  /// **Il difetto, visto sul telefono del fondatore**: la scheda di due VIP
+  /// si apriva con *"Sei un Ariete e hai davanti un altro Ariete"*, e chi
+  /// guardava non era dell'Ariete. Le [aperture] di sopra sono scritte per il
+  /// caso TUO contro un VIP, e con due VIP quel *sei un* parla a una terza
+  /// persona che sta solo a guardare.
+  ///
+  /// **E non era solo il "sei un"**: quelle righe dicono anche *vi capite*,
+  /// *la vostra parte*, *quanto vi divertirete*. Con due VIP la coppia non è
+  /// chi legge, quindi qui non si dà del tu a nessuno e non si dice *voi*:
+  /// **si parla di loro in terza persona**, che è esattamente quello che chi
+  /// guarda sta facendo.
+  static const Map<RelazioneFraSegni, List<String>> apertureFraDueVip =
+      <RelazioneFraSegni, List<String>>{
+    RelazioneFraSegni.stesso: <String>[
+      'Due SEGNO_A nella stessa stanza sono uno spettacolo o un disastro e non c\'è mai una terza possibilità.',
+      'Stesso segno da tutte e due le parti: stesse virtù e stessi vizi, con i vizi che in doppia copia si notano.',
+      'Un SEGNO_A davanti a un altro SEGNO_A sa già come va a finire: è proprio quello il problema.',
+    ],
+    RelazioneFraSegni.elemento: <String>[
+      'SEGNO_A e SEGNO_B sono fatti della stessa materia e la materia si riconosce da lontano.',
+      'Stesso elemento, forme diverse: si capiscono prima di parlare, il che risparmia parecchie discussioni.',
+      'Fra un SEGNO_A e un SEGNO_B non serve spiegarsi: serve semmai decidere chi comanda.',
+    ],
+    RelazioneFraSegni.fuocoaria: <String>[
+      'Il fuoco di SEGNO_A e l\'aria di SEGNO_B: uno accende, l\'altra alimenta e nessuno dei due sa dove finisce.',
+      'Mettere insieme SEGNO_A e SEGNO_B è come lasciare una finestra aperta accanto a un camino acceso.',
+      'SEGNO_A brucia, SEGNO_B soffia: la fisica sta dalla loro parte, la prudenza molto meno.',
+    ],
+    RelazioneFraSegni.terracqua: <String>[
+      'La terra di SEGNO_A e l\'acqua di SEGNO_B fanno la cosa più rara dello zodiaco: qualcosa che dura.',
+      'SEGNO_A tiene, SEGNO_B nutre: non è romantico da raccontare, ma è quello che regge quando il resto crolla.',
+      'Fra SEGNO_A e SEGNO_B non ci sono fuochi d\'artificio, c\'è un raccolto.',
+    ],
+    RelazioneFraSegni.opposti: <String>[
+      'SEGNO_A e SEGNO_B stanno ai due capi opposti del cerchio: hanno lo stesso identico problema visto da due lati.',
+      'Un SEGNO_A e un SEGNO_B sono la stessa medaglia girata: per questo si attraggono e per questo si danno sui nervi.',
+      'Nello zodiaco SEGNO_A e SEGNO_B si guardano da lontano e non riescono a smettere.',
+    ],
+    RelazioneFraSegni.tensione: <String>[
+      'SEGNO_A e SEGNO_B appartengono a elementi che non si sono mai piaciuti e le storie migliori nascono così.',
+      'Fra SEGNO_A e SEGNO_B c\'è attrito e l\'attrito è l\'unica cosa che produce calore.',
+      'SEGNO_A e SEGNO_B si sfidano per natura: la domanda non è se litigheranno, è quanto ci prenderanno gusto.',
+    ],
+    RelazioneFraSegni.estranei: <String>[
+      'SEGNO_A e SEGNO_B non hanno quasi niente in comune e questo li rende reciprocamente inspiegabili.',
+      'Fra un SEGNO_A e un SEGNO_B non c\'è una lingua comune: la storia comincia imparandola.',
+      'SEGNO_A e SEGNO_B vengono da due mondi che non si erano mai parlati prima di adesso.',
+    ],
+  };
+
+  /// **LE SFIDE PER UNA COPPIA FRA DUE VIP.** Ordine DR voce 05.
+  ///
+  /// Le [sfide] di sopra dicono *E tu con NOME quanto fai?* e *NOME e te*:
+  /// sono scritte per la coppia in cui uno dei due sei tu. Fra due VIP il
+  /// primo sparisce del tutto, e la riga da condividere diceva la percentuale
+  /// di uno solo. Qui ci sono tutti e due: NOME_A, NOME_B e PERCENTO.
+  static const List<String> sfideFraDueVip = <String>[
+    'NOME_A e NOME_B fanno PERCENTO. Scommetti che tu fai meglio?',
+    'Ho messo NOME_A contro NOME_B: PERCENTO. Chi ci prova?',
+    'PERCENTO fra NOME_A e NOME_B. Manda questa a chi giura di saperne di astrologia.',
+    'NOME_A con NOME_B: PERCENTO. Trova tu una coppia che fa di più.',
+    'Secondo i loro cieli NOME_A e NOME_B stanno al PERCENTO. Prova un\'altra coppia e vediamo.',
+  ];
+
+  /// La nota del luogo ignoto quando i lati sono due, e si dice di chi è.
+  static const String notaLuogoIgnotoDiUno =
+      'Dove viva NOME non è cosa pubblica, quindi la distanza non entra nel conto.';
+  static const String notaLuogoIgnotoDiTutti =
+      'Dove vivano NOME_A e NOME_B non è cosa pubblica, quindi la distanza non entra nel conto.';
+
+  /// La nota dell'attualità quando i lati sono due, e si dice di chi è.
+  static const String notaAttualitaDiUno =
+      'Le notizie su NOME sono aggiornate al GIORNO.';
+
   /// Il cielo reso leggibile: prima cosa significa, poi come si chiama.
   static const Map<String, String> cieloLeggibile = <String, String>{
     'Venere congiunzione Venere':

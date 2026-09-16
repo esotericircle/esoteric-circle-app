@@ -33,6 +33,12 @@ export {secondoFattore} from "./secondo_fattore";
 // `scadenze.ts`.
 export {pulisciLeScadenze} from "./pulizia";
 
+// LA RICERCA DEL LUOGO NEL MONDO INTERO, ordine DR voce 10: il catalogo
+// offline risponde per primo e senza rete, e quando non conosce un posto la
+// domanda arriva qui e va a OpenStreetMap, con la memoria condivisa che
+// impedisce di chiedere due volte la stessa cosa.
+export {cercaIlLuogoNelMondo} from "./cercatore_di_luoghi";
+
 /**
  * LA SFOCATURA SETTIMANALE DELLE CONVERSAZIONI. Ordine CG voce 09.
  *

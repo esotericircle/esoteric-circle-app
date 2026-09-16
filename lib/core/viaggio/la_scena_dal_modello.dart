@@ -403,6 +403,13 @@ abstract final class LaScenaDalModello {
         b.writeln('${i + 1}. titolo "${p.titolo}"; risposta "${p.risposta}"; '
             'azione "${p.azione}"');
       }
+      // **E NEMMENO LE STESSE PRIME PAROLE**, ordine DR voce 07: il
+      // fondatore ha visto il primo e il quarto strato aprire con le stesse
+      // sei parole. Non basta che gli strati dicano cose diverse: devono
+      // anche cominciare in modo diverso, perche' le prime parole sono
+      // quelle che si riconoscono.
+      b.writeln('La risposta di oggi non deve cominciare con le stesse '
+          'parole di uno degli strati qui sopra.');
     }
     final natale = [
       if (n.sunSign != null) 'Sole in ${n.sunSign}',
@@ -536,6 +543,23 @@ abstract final class LaScenaDalModello {
               attesa: attesa))
           .pezzi;
 
+  /// **QUANTE VOLTE SI CHIEDE AL MODELLO, PER UNA DISCESA.** Ordine DR voce
+  /// 07, e prima erano due.
+  ///
+  /// **Il fatto del fondatore**: una discesa con la domanda scritta a mano
+  /// *"quando mi sposero'?"* ha dato quattro strati che parlavano tutti
+  /// d'attesa e mai di matrimonio, *"sembra una risposta di ripiego per
+  /// quattro volte"*. Quando le guardie scartano la riga del modello si
+  /// cadeva sulla voce di casa dopo due chiamate, e la voce di casa parla del
+  /// **tema**, non della domanda.
+  ///
+  /// **Tre tentativi, e ognuno riceve il motivo dello scarto di prima**, che
+  /// e' la cosa che fa la differenza: non e' la stessa domanda fatta tre
+  /// volte, e' una domanda che si corregge. **Le guardie non si toccano**: il
+  /// divieto delle previsioni certe vale piu' di qualunque risposta, e a
+  /// *"quando mi sposero'"* l'app non risponde mai con un quando.
+  static const int quantiTentativi = 3;
+
   /// **LA SCENA E I TRE TESTI, dalla stessa chiamata.** Ordine DL voci 07 e
   /// 13: *"nessuna chiamata in piu': la stessa, con qualche decina di token
   /// in uscita in piu'"*. I pezzi si leggono come prima; i testi passano
@@ -566,7 +590,7 @@ abstract final class LaScenaDalModello {
     PezziScelti? sceltiPrima;
     // **UNA SCADENZA SOLA**, dalla partenza: vedi [pazienza].
     final orologio = Stopwatch()..start();
-    for (var tentativo = 0; tentativo < 2; tentativo++) {
+    for (var tentativo = 0; tentativo < quantiTentativi; tentativo++) {
       final resta = attesa - orologio.elapsed;
       if (resta <= Duration.zero) {
         seGuasto?.call(TimeoutException(
@@ -596,19 +620,29 @@ abstract final class LaScenaDalModello {
           seScartata?.call(r);
         }
         if (sceltiPrima != null) {
-          // **LA SECONDA CHIAMATA DEI TESTI**: di ogni pezzo vale la riga
-          // della prima se aveva retto, altrimenti quella della seconda se
-          // regge. Se nessuna delle due regge, vale la voce di casa.
-          return (pezzi: sceltiPrima, testi: _unisci(testi, letti));
+          // **LE CHIAMATE DEI TESTI, fino a [quantiTentativi]**: di ogni
+          // pezzo vale la prima riga che ha retto. Ordine DR voce 07: si
+          // ritenta finche' resta un pezzo senza riga e restano tentativi,
+          // e ogni richiesta porta il motivo dello scarto di quella prima,
+          // cosi' il modello non ripete lo stesso errore.
+          testi = _unisci(testi, letti);
+          final manca = testi.titolo == null ||
+              testi.risposta == null ||
+              testi.azione == null;
+          if (manca && tentativo < quantiTentativi - 1) {
+            daCorreggere = letti.scarti;
+            continue;
+          }
+          return (pezzi: sceltiPrima, testi: testi);
         }
         if (!letti.vuoti || testi.vuoti) {
           testi = tentativo == 0 ? letti : _unisci(testi, letti);
         }
         if (scelti != null) {
-          // **UNA RIGA SCARTATA FA RICHIAMARE IL MODELLO UNA VOLTA SOLA**,
-          // ordine DQ voce 06: la scena resta quella della prima risposta.
-          // Alla seconda chiamata non si arriva mai due volte.
-          if (tentativo == 0 && letti.scarti.isNotEmpty) {
+          // **UNA RIGA SCARTATA FA RICHIAMARE IL MODELLO**, ordine DQ voce
+          // 06 e ordine DR voce 07: la scena resta quella della prima
+          // risposta, e i testi si richiedono fino a [quantiTentativi].
+          if (tentativo < quantiTentativi - 1 && letti.scarti.isNotEmpty) {
             daCorreggere = letti.scarti;
             sceltiPrima = scelti;
             consentiti = _soloQuesti(scelti);

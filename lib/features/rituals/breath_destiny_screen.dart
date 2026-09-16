@@ -151,6 +151,7 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
   /// forma dello spettro invece del volume, e vuole due decimi di secondo di
   /// aria continua prima di aprire il dono.
   final FormaDelSoffio _formaDelSoffio = FormaDelSoffio();
+
   /// **NESSUNO CI SCRIVE PIU' DENTRO, DAL 10 SETTEMBRE 2026.** Ordine DD voce
   /// 01: il flusso dell'ampiezza aggregata era la sorgente della soglia di
   /// volume, e la soglia di volume era il difetto. Adesso decide la forma
@@ -465,6 +466,29 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
   /// c'e' niente da misurare.
   double _inseguimento = 0;
 
+  /// LA COLONNA, per sapere dove finisce DAVVERO la guida del respiro.
+  /// Ordine DR voce 11.
+  final GlobalKey _colonna = GlobalKey();
+
+  /// LA GUIDA INTERA, che non e' l'anello.
+  ///
+  /// `_anello` sta sulla figura che deve cadere dentro il disco; sotto di lei
+  /// la guida porta la parola del respiro e il pulsante, ed e' QUELLA la
+  /// parte che finiva sotto la scheda. Misurare l'anello invece della guida
+  /// e' l'errore che ho fatto al primo giro di questa voce: la cura non
+  /// mordeva e i numeri restavano identici al punto.
+  final GlobalKey _laGuida = GlobalKey();
+
+  /// Il fondo della guida del respiro, in punti dall'alto della colonna.
+  /// Zero finche' non c'e' niente da misurare, e con zero la colonna si
+  /// divide come si e' sempre divisa.
+  double _fondoDellaGuida = 0;
+
+  /// Lo spazio che resta fra il fondo della guida e il tetto della scheda.
+  /// Non e' estetica: e' il margine che una misura presa a frame finito puo'
+  /// sbagliare di un pelo, e che qui non deve mai diventare negativo.
+  static const double respiroFraLeDueZone = 8;
+
   /// Misura la distanza fra i due centri e la corregge, una volta per frame.
   ///
   /// Si ferma da sola: appena i due coincidono lo scarto e' sotto il mezzo
@@ -478,9 +502,70 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
         .globalToLocal(anello.localToGlobal(anello.size.center(Offset.zero)));
     final voluto = SuperficiDelSoffio.discoDentro(scena.size);
     final manca = voluto.dy - centroAnello.dy;
-    if (manca.abs() < 0.5) return;
+
+    // **E SI MISURA ANCHE DOVE LA GUIDA FINISCE. Ordine DR voce 11.**
+    //
+    // L'anello insegue il disco, e il disco sta nella SCENA, cioe' nello
+    // schermo intero. La scheda invece stava sotto una zona decisa da un
+    // rapporto fisso della colonna. Due autorita' diverse sullo stesso asse:
+    // qualunque rapporto si scelga, c'e' uno schermo dove la guida arriva
+    // piu' in basso di dove quel rapporto la lascerebbe stare, e la scheda,
+    // che si dipinge dopo, se la mangia. E' cosi' che il difetto e' tornato.
+    //
+    // Qui si prende la stessa autorita' e la si da' anche alla scheda: dove
+    // finisce la guida lo dice la guida, misurata a frame finito, non un
+    // numero deciso a mano.
+    final colonna = _colonna.currentContext?.findRenderObject();
+    final guida = _laGuida.currentContext?.findRenderObject();
+    var fondo = _fondoDellaGuida;
+    if (colonna is RenderBox &&
+        colonna.hasSize &&
+        guida is RenderBox &&
+        guida.hasSize) {
+      // `localToGlobal` attraversa la traslazione, quindi questo e' il fondo
+      // DIPINTO, non quello che la guida avrebbe se stesse ferma.
+      final basso = guida.localToGlobal(Offset(0, guida.size.height));
+      fondo = colonna.globalToLocal(basso).dy;
+    }
+    // **E L'INSEGUIMENTO SI FERMA AL BORDO.**
+    //
+    // **Il fatto misurato**: su uno schermo da 640 punti con novantasei punti
+    // di barre e il testo alla scala massima, la guida **non ci sta**, e non
+    // per colpa della colonna: il disco che insegue sta nella scena, e la
+    // rincorsa la trascinava sotto il bordo. Li' il pulsante finiva fuori
+    // dallo schermo utile, che e' tagliato uguale, solo da un altro bordo.
+    //
+    // **Cosa si sceglie, e si dichiara.** In quella geometria l'anello resta
+    // un po' sopra il centro del disco invece che dentro, e la bolla resta
+    // tutta leggibile e premibile. E' l'unico scambio possibile fra le due
+    // cose, e la seconda vale piu' della prima: un anello un dito piu' in
+    // alto lo nota chi lo cerca, un pulsante mezzo fuori lo trova chiunque.
+    // Su tutte le altre trentacinque geometrie della griglia questo limite
+    // non tocca niente, e l'inseguimento resta quello approvato.
+    var nuovo = _inseguimento + (manca.abs() >= 0.5 ? manca : 0);
+    var fondoVoluto = fondo + (nuovo - _inseguimento);
+    if (colonna is RenderBox && colonna.hasSize) {
+      final eccesso =
+          fondoVoluto - (colonna.size.height - respiroFraLeDueZone);
+      if (eccesso > 0) {
+        nuovo -= eccesso;
+        fondoVoluto -= eccesso;
+      }
+    }
+
+    final fondoCambiato = (fondoVoluto - _fondoDellaGuida).abs() >= 0.5;
+    final inseguimentoCambiato = (nuovo - _inseguimento).abs() >= 0.5;
+
+    // **E QUI IL GIRO SI FERMA DAVVERO.** Senza questa riga la rincorsa
+    // continuerebbe a chiedere di scendere e il bordo continuerebbe a
+    // rimandarla su, un ridisegno per frame, per sempre: si guarda cio' che
+    // cambierebbe DOPO il limite, non cio' che la rincorsa vorrebbe.
+    if (!inseguimentoCambiato && !fondoCambiato) return;
     if (!mounted) return;
-    setState(() => _inseguimento += manca);
+    setState(() {
+      _inseguimento = nuovo;
+      _fondoDellaGuida = fondoVoluto;
+    });
   }
 
   @override
@@ -562,163 +647,215 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
               ),
               SafeArea(
                 top: false,
-                child: Column(
-                  children: [
-                    Expanded(
-                      flex: 6,
-                      child: Semantics(
-                        button: true,
-                        label:
-                            'Libera il tuo destino. Soffia, oppure spazza col '
-                            'dito o tieni premuto.',
-                        onTap: _onLongPress,
-                        child: GestureDetector(
-                          key: const Key('ritual_gesture'),
-                          behavior: HitTestBehavior.opaque,
-                          onPanUpdate: _onPanUpdate,
-                          onPanEnd: _onPanEnd,
-                          onLongPress: _onLongPress,
-                          child: Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              if (!_revealed)
-                                Align(
-                                  alignment: const Alignment(0, -0.55),
-                                  child: _BreathPrompt(palette: palette),
-                                ),
-                              // L'ESITO DEL MICROFONO, detto a schermo: il rito
-                              // resta compibile col dito in ogni caso, ma chi ha
-                              // negato deve sapere perche' il soffio non viene
-                              // ascoltato, e chi ha negato PER SEMPRE deve sapere
-                              // che l'unica via sono le impostazioni.
-                              if (!_revealed &&
-                                  _esitoDelMicrofono != null &&
-                                  _esitoDelMicrofono !=
-                                      EsitoDelPermesso.concesso)
-                                Align(
-                                  alignment: const Alignment(0, 0.62),
-                                  child: AvvisoDelPermesso(
-                                    chiave: 'soffio',
-                                    permesso: AppPermission.microphone,
-                                    esito: _esitoDelMicrofono!,
-                                    palette: palette,
-                                    onRichiedi: () async {
-                                      await _startMic();
-                                    },
-                                  ),
-                                ),
-                              // IL RESPIRO SI GUIDA, NON SI LEGGE.
-                              //
-                              // Compare a gesto compiuto, cioe' quando il rito del
-                              // giorno c'e' e dichiara la sua cadenza. Prima qui
-                              // non c'era niente: il testo diceva "sei tempi
-                              // dentro e sei fuori, tre volte" e la persona
-                              // contava a mente davanti a una figura ferma.
-                              if (_revealed && _gift?.rito != null)
-                                // L'ANELLO CADE DENTRO IL DISCO. L'allineamento di
-                                // partenza non conta piu': qualunque esso sia, la
-                                // misura a frame finito lo porta sul centro
-                                // dichiarato da `SuperficiDelSoffio`.
-                                Align(
-                                  alignment: Alignment.center,
-                                  child: Transform.translate(
-                                    offset: Offset(0, _inseguimento),
-                                    child: GuidaDelRespiro(
-                                      key: const Key('guida_respiro'),
-                                      chiaveDellaFigura: _anello,
-                                      tempi: TempiDelRespiro(
-                                        tempi: _gift!.rito!.tempi,
-                                        giri: _gift!.rito!.giri,
-                                      ),
-                                      colore: palette.gold,
+                // **LE DUE ZONE NON SI SPARTISCONO PIU' UN RAPPORTO FISSO.
+                // Ordine DR voce 11, 16 settembre 2026.**
+                //
+                // **Perche' il rapporto non poteva reggere.** La cura
+                // dell'ordine 2164 voce 8 era sei contro tre, e per un mese ha
+                // tenuto: sullo schermo su cui era stata misurata lasciava
+                // QUATTRO punti fra il pulsante e la scheda. Quattro punti non
+                // sono un margine, sono un avanzo. Misurate trentasei
+                // geometrie, la scheda saliva sopra la guida in ventinove:
+                // fino a 93,7 punti su uno schermo da 640 con le barre alte e
+                // il testo alla scala massima.
+                //
+                // **La forma nuova, e perche' regge dove l'altra non ha
+                // retto.** La zona del respiro non prende una frazione: prende
+                // **quanto serve alla guida per starci**, misurato a frame
+                // finito da chi la guida la disegna davvero. Il rapporto di
+                // prima resta come pavimento, quindi finche' la guida sta
+                // comoda non cambia niente di cio' che il fondatore ha gia'
+                // approvato; quando non ci sta, la zona cresce invece di
+                // lasciarsi invadere. Non c'e' nessun numero da azzeccare: se
+                // domani il carattere cresce, o arriva un telefono piu' basso,
+                // o la guida si allunga di una riga, la misura cambia da se'.
+                child: LayoutBuilder(
+                  builder: (context, vincoli) {
+                    // **IL PAVIMENTO E' IL RAPPORTO DI PRIMA**: finche' la
+                    // guida ci sta comoda, questa schermata e' identica a
+                    // quella che il fondatore ha gia' approvato.
+                    final pavimento = vincoli.maxHeight * 6 / 9;
+                    // **E NON C'E' NESSUN TETTO SOTTO LO SCHERMO.** Un tetto
+                    // e' un numero che qualcuno decide, ed e' esattamente la
+                    // cosa che ha fatto tornare il difetto: messo a
+                    // cinquantasei punti, tre geometrie su trentasei
+                    // tornavano a coprirsi, la peggiore di 40,4 punti.
+                    // L'unico limite che non e' un'opinione e' lo schermo.
+                    final altezzaDelRespiro = math.min(
+                      vincoli.maxHeight,
+                      math.max(
+                        pavimento,
+                        _fondoDellaGuida + respiroFraLeDueZone,
+                      ),
+                    );
+                    return Column(
+                      key: _colonna,
+                      children: [
+                        SizedBox(
+                          height: altezzaDelRespiro,
+                          child: Semantics(
+                            button: true,
+                            label:
+                                'Libera il tuo destino. Soffia, oppure spazza col '
+                                'dito o tieni premuto.',
+                            onTap: _onLongPress,
+                            child: GestureDetector(
+                              key: const Key('ritual_gesture'),
+                              behavior: HitTestBehavior.opaque,
+                              onPanUpdate: _onPanUpdate,
+                              onPanEnd: _onPanEnd,
+                              onLongPress: _onLongPress,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  if (!_revealed)
+                                    Align(
+                                      alignment: const Alignment(0, -0.55),
+                                      child: _BreathPrompt(palette: palette),
                                     ),
-                                  ),
-                                ),
-                            ],
+                                  // L'ESITO DEL MICROFONO, detto a schermo: il rito
+                                  // resta compibile col dito in ogni caso, ma chi ha
+                                  // negato deve sapere perche' il soffio non viene
+                                  // ascoltato, e chi ha negato PER SEMPRE deve sapere
+                                  // che l'unica via sono le impostazioni.
+                                  if (!_revealed &&
+                                      _esitoDelMicrofono != null &&
+                                      _esitoDelMicrofono !=
+                                          EsitoDelPermesso.concesso)
+                                    Align(
+                                      alignment: const Alignment(0, 0.62),
+                                      child: AvvisoDelPermesso(
+                                        chiave: 'soffio',
+                                        permesso: AppPermission.microphone,
+                                        esito: _esitoDelMicrofono!,
+                                        palette: palette,
+                                        onRichiedi: () async {
+                                          await _startMic();
+                                        },
+                                      ),
+                                    ),
+                                  // IL RESPIRO SI GUIDA, NON SI LEGGE.
+                                  //
+                                  // Compare a gesto compiuto, cioe' quando il rito del
+                                  // giorno c'e' e dichiara la sua cadenza. Prima qui
+                                  // non c'era niente: il testo diceva "sei tempi
+                                  // dentro e sei fuori, tre volte" e la persona
+                                  // contava a mente davanti a una figura ferma.
+                                  if (_revealed && _gift?.rito != null)
+                                    // L'ANELLO CADE DENTRO IL DISCO. L'allineamento di
+                                    // partenza non conta piu': qualunque esso sia, la
+                                    // misura a frame finito lo porta sul centro
+                                    // dichiarato da `SuperficiDelSoffio`.
+                                    Align(
+                                      alignment: Alignment.center,
+                                      child: Transform.translate(
+                                        offset: Offset(0, _inseguimento),
+                                        child: KeyedSubtree(
+                                          key: _laGuida,
+                                          child: GuidaDelRespiro(
+                                            key: const Key('guida_respiro'),
+                                            chiaveDellaFigura: _anello,
+                                            tempi: TempiDelRespiro(
+                                              tempi: _gift!.rito!.tempi,
+                                              giri: _gift!.rito!.giri,
+                                            ),
+                                            colore: palette.gold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    // LA SCHEDA STA SOTTO IL RESPIRO, MAI SOPRA, ordine 2164
-                    // voce 8. Visto da Mauro: il pulsante "Tocca per cominciare"
-                    // era tagliato a meta' dalla scheda dell'intenzione, quindi
-                    // non si poteva nemmeno premere per intero.
-                    //
-                    // La causa misurata: la guida del respiro insegue il disco
-                    // luminoso con una traslazione verso il basso, e con le
-                    // barre di sistema del telefono (una quarantina di punti in
-                    // meno) SBORDAVA dalla sua zona; la scheda, che viene dopo
-                    // nella colonna, si dipinge sopra e se lo mangiava. Con
-                    // sei contro tre la zona del respiro torna a contenerlo:
-                    // misurato 25,1 punti coperti prima, zero adesso, e il
-                    // tocco al centro arriva.
-                    Expanded(
-                      flex: 3,
-                      child: SingleChildScrollView(
-                        padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
-                            SpacingTokens.lg, SpacingTokens.lg),
-                        child: (_revealed && _gift != null)
-                            ? Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  RitualGiftCard(
-                                    key: const Key('ritual_content'),
-                                    gift: _gift!,
-                                    dono: DailyElement.breath,
-                                    giorno: widget.now ?? DateTime.now(),
-                                    streak: _streak,
-                                    onShare: () => _shareWord(_gift!),
-                                    // **LE TRE AZIONI, ordine CG voci 06 e 08.**
-                                    // Cio' che si custodisce e' l'orientamento del
-                                    // giorno, che e' cio' che il dono dice
-                                    // davvero: la parola era uscita dalla scheda
-                                    // per decisione del fondatore, e custodire una
-                                    // cosa che non si vede sarebbe la stessa
-                                    // bugia di condividerla.
-                                    azioni: AzioniDelResponso(
-                                      // **IL REGIME LO DICE IL VESTITO.
-                                      // Ordine CW voce 08**, 7 settembre 2026.
-                                      //
-                                      // Qui c'era `suChiaro: true` con la
-                                      // ragione dell'ordine CO voce 14, *"la
-                                      // scheda del Dono e' il pannello del
-                                      // regime chiaro"*: **vero per l'Alba,
-                                      // falso per il Soffio.**
-                                      // `AbitoDelResponso.di` da' il vestito
-                                      // chiaro al SOLO `dawn`; qui il vestito
-                                      // e' quello notturno.
-                                      //
-                                      // I due pulsanti dipingevano quindi
-                                      // l'inchiostro chiaro #2A2213 sul vetro
-                                      // notturno #1C1338: **1,11 a uno contro
-                                      // 4,5**, che e' il "non si leggono" del
-                                      // fondatore, misurato.
-                                      suChiaro:
-                                          AbitoDelResponso.di(DailyElement.breath)
+                        // LA SCHEDA STA SOTTO IL RESPIRO, MAI SOPRA, ordine 2164
+                        // voce 8. Visto da Mauro: il pulsante "Tocca per cominciare"
+                        // era tagliato a meta' dalla scheda dell'intenzione, quindi
+                        // non si poteva nemmeno premere per intero.
+                        //
+                        // La causa misurata: la guida del respiro insegue il disco
+                        // luminoso con una traslazione verso il basso, e con le
+                        // barre di sistema del telefono (una quarantina di punti in
+                        // meno) SBORDAVA dalla sua zona; la scheda, che viene dopo
+                        // nella colonna, si dipinge sopra e se lo mangiava. Con
+                        // sei contro tre la zona del respiro torna a contenerlo:
+                        // misurato 25,1 punti coperti prima, zero adesso, e il
+                        // tocco al centro arriva.
+                        // E QUESTA PRENDE CIO' CHE RESTA, senza numero proprio:
+                        // un rapporto scritto qui sarebbe di nuovo una seconda
+                        // autorita' sullo stesso asse.
+                        Expanded(
+                          child: SingleChildScrollView(
+                            padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
+                                0, SpacingTokens.lg, SpacingTokens.lg),
+                            child: (_revealed && _gift != null)
+                                ? Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      RitualGiftCard(
+                                        key: const Key('ritual_content'),
+                                        gift: _gift!,
+                                        dono: DailyElement.breath,
+                                        giorno: widget.now ?? DateTime.now(),
+                                        streak: _streak,
+                                        onShare: () => _shareWord(_gift!),
+                                        // **LE TRE AZIONI, ordine CG voci 06 e 08.**
+                                        // Cio' che si custodisce e' l'orientamento del
+                                        // giorno, che e' cio' che il dono dice
+                                        // davvero: la parola era uscita dalla scheda
+                                        // per decisione del fondatore, e custodire una
+                                        // cosa che non si vede sarebbe la stessa
+                                        // bugia di condividerla.
+                                        azioni: AzioniDelResponso(
+                                          // **IL REGIME LO DICE IL VESTITO.
+                                          // Ordine CW voce 08**, 7 settembre 2026.
+                                          //
+                                          // Qui c'era `suChiaro: true` con la
+                                          // ragione dell'ordine CO voce 14, *"la
+                                          // scheda del Dono e' il pannello del
+                                          // regime chiaro"*: **vero per l'Alba,
+                                          // falso per il Soffio.**
+                                          // `AbitoDelResponso.di` da' il vestito
+                                          // chiaro al SOLO `dawn`; qui il vestito
+                                          // e' quello notturno.
+                                          //
+                                          // I due pulsanti dipingevano quindi
+                                          // l'inchiostro chiaro #2A2213 sul vetro
+                                          // notturno #1C1338: **1,11 a uno contro
+                                          // 4,5**, che e' il "non si leggono" del
+                                          // fondatore, misurato.
+                                          suChiaro: AbitoDelResponso.di(
+                                                  DailyElement.breath)
                                               .diGiorno,
-                                      palette: palette,
-                                      maestro: Maestro.aura,
-                                      responso: ResponsoDaCustodire(
-                                        arte: 'soffio',
-                                        titolo: 'Il tuo Soffio del Destino',
-                                        testo: _gift!.orientation,
+                                          palette: palette,
+                                          maestro: Maestro.aura,
+                                          responso: ResponsoDaCustodire(
+                                            arte: 'soffio',
+                                            titolo: 'Il tuo Soffio del Destino',
+                                            testo: _gift!.orientation,
+                                          ),
+                                          condividi: () => _shareWord(_gift!),
+                                          aperturaDellaChat: ChatOpeners.soffio(
+                                              _gift!.orientation),
+                                        ),
                                       ),
-                                      condividi: () => _shareWord(_gift!),
-                                      aperturaDellaChat: ChatOpeners.soffio(
-                                          _gift!.orientation),
-                                    ),
-                                  ),
-                                  if (_risposta != null) ...[
-                                    const SizedBox(height: SpacingTokens.lg),
-                                    _LaRisposta(
-                                        risposta: _risposta!, palette: palette),
-                                  ],
-                                ],
-                              )
-                            : const SizedBox.shrink(),
-                      ),
-                    ),
-                  ],
+                                      if (_risposta != null) ...[
+                                        const SizedBox(
+                                            height: SpacingTokens.lg),
+                                        _LaRisposta(
+                                            risposta: _risposta!,
+                                            palette: palette),
+                                      ],
+                                    ],
+                                  )
+                                : const SizedBox.shrink(),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
             ],

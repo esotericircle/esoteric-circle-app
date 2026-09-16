@@ -8,8 +8,8 @@ quello su cui la build 2264 e' caduta.
 strada che li raggiunge e' TestFlight, che passa da Codemagic. Le voci DQ.11 e
 DQ.12 restano aperte finche' un archivio non e' stato validato.
 
-VOCI_TOTALI: 5
-VOCI_CHIUSE: 5
+VOCI_TOTALI: 6
+VOCI_CHIUSE: 6
 VOCI_APERTE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
@@ -77,6 +77,18 @@ prima di quest'ordine, e sono io ad averla violata.
   `tool/il_verdetto_del_cancello.sh` ripubblica li' i blocchi che dicono la
   decisione, e una guardia pretende la catena intera, `pipefail` compreso.
   **CHIUSA**
+- **CODEMAGIC1.06**, nessuna macchina sceglie da se' come il cancello legge.
+  Il verdetto pubblicato dalla voce 05 ha parlato al primo giro e ha detto una
+  cosa che nessuno sapeva: **su GitHub il corredo risultava aver montato zero
+  schermate**, mentre le annotazioni ne contavano 167 passate e 15 cadute.
+  Misurato accendendo `GITHUB_ACTIONS=true` su questa macchina, non dedotto:
+  `flutter test` cambia rapporto da solo e stampa le prove in un'altra forma.
+  Lo sbarramento legge le righe del rapporto compatto, quindi **su GitHub non
+  leggeva nessun nome**: nessuna caduta arrivava al confronto coi rossi
+  accettati, e il cancello si fermava per la guardia del cardinale minimo,
+  cioe' per *"non hai misurato niente"*. Adesso il rapporto e' fissato con
+  `-r expanded` in tutte e due le chiamate, e una guardia pretende che
+  **nessuna chiamata di `flutter test` resti senza rapporto**. **CHIUSA**
 
 ---
 

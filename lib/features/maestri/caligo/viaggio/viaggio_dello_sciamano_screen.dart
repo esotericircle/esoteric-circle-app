@@ -33,6 +33,8 @@ import 'il_segno_che_risponde.dart';
 import 'il_tamburo_che_nutre.dart';
 import '../../../../core/viaggio/il_segno_dell_animale.dart';
 import '../../../../core/viaggio/il_responso_del_viaggio.dart';
+import '../../../../core/viaggio/il_silenzio_del_mondo_di_sotto.dart';
+import '../../../onboarding/widgets/pulsante_del_risveglio.dart';
 import '../../../../core/viaggio/la_scena_dal_modello.dart';
 import '../../../../core/identity/natal_identity.dart';
 import '../../../../core/maestro/natal_context.dart';
@@ -194,6 +196,12 @@ enum FaseDelViaggio {
 
   /// La scena che si riporta su.
   risalita,
+
+  /// **IL SILENZIO: la domanda scritta a mano non ha avuto risposta.**
+  /// Ordine DR voce 07. Non e' un guasto e non e' una scena: e' la sola fase
+  /// in cui il Viaggio dice di non avere niente da dire, e da cui si risale
+  /// senza aver consumato la discesa.
+  silenzio,
 
   /// **IL TAMBURO CHE NUTRE**, a schermo pieno. Ordine DI voce 13.
   nutrimento,
@@ -497,6 +505,9 @@ class _ViaggioDelloSciamanoScreenState
     // secondi del filmato in cui la persona guarda e non aspetta niente, e la
     // chiamata partiva soltanto dopo. Il tema della domanda libera e' gia' in
     // arrivo, e la scena lo aspetta.
+    // Ogni discesa riparte da zero: il conto di ieri non decide il silenzio
+    // di oggi.
+    _scartateDalModello = 0;
     _scenaInArrivo = _chiediLaScena();
   }
 
@@ -618,9 +629,26 @@ class _ViaggioDelloSciamanoScreenState
       chiamata: widget.chiamataDellaScena,
       prendiUnaChiamata: () => permesso,
       seGuasto: (e) => _registraIlGuastoDi('viaggio_scena_del_modello', e),
-      seScartata: (r) => _registraIlGuastoDi('viaggio_testo_scartato', r),
+      seScartata: (r) {
+        // **IL MODELLO HA PARLATO, ed e' quello che conta per il silenzio.**
+        // Ordine DR voce 07, come il fondatore l'ha deciso il 16 settembre:
+        // si tace quando c'e' stata una risposta e non ha retto, non quando
+        // non c'e' stata nessuna risposta.
+        _scartateDalModello++;
+        _registraIlGuastoDi('viaggio_testo_scartato', r);
+      },
     );
   }
+
+  /// **QUANTE RISPOSTE DEL MODELLO SONO STATE SCARTATE IN QUESTA DISCESA.**
+  /// Ordine DR voce 07.
+  ///
+  /// **Distingue le due cose che il silenzio non deve confondere**: il
+  /// modello che risponde e non regge, e il modello che non si raggiunge.
+  /// Sopra lo zero vuol dire che qualcuno ha parlato e che cio' che ha detto
+  /// non andava bene; zero vuol dire **che non c'era nessuno**, e in quel
+  /// caso la voce di casa e' l'unica cosa che c'e' e parla.
+  int _scartateDalModello = 0;
 
   /// **ACCENDE LA DISSOLVENZA CHE INTRODUCE LA NEBBIA.** Ordine DG voce 09.
   ///
@@ -816,6 +844,40 @@ class _ViaggioDelloSciamanoScreenState
     final dalModello = scritta.pezzi;
     _scenaInArrivo = null;
     if (!mounted) return;
+    // **QUANDO LA DOMANDA E' SCRITTA A MANO E IL MODELLO NON PASSA, SI
+    // TACE.** Ordine DR voce 07.
+    //
+    // **Il fatto**: chi scrive *"quando mi sposero'?"* e riceve la voce di
+    // casa legge una risposta sul TEMA, l'attesa, e non sulla sua domanda. La
+    // voce di casa non e' un ripiego cattivo: e' un ripiego che **non puo'**
+    // parlare di matrimonio, perche' non sa che cosa sia stato chiesto.
+    //
+    // **Quindi non si ripiega piu' su di lei, si tace**, e la discesa non si
+    // consuma: non si chiama `segna`, quindi il cammino resta dov'era, il
+    // conto del giorno non avanza e si puo' riprovare. Il tetto delle
+    // chiamate al modello, quello si', e' gia' stato speso.
+    //
+    // **Solo per la domanda scritta a mano**: chi sceglie un tema dalla
+    // tavola ha chiesto quel tema, e la voce di casa gli risponde davvero.
+    //
+    // **E SOLO SE IL MODELLO HA DAVVERO PARLATO.** Decisione del fondatore
+    // del 16 settembre 2026, davanti a un fatto misurato: scritta com'era,
+    // questa riga cancellava una promessa precedente, *"la domanda scritta a
+    // mano arriva alla risposta, ANCHE SENZA RETE"*. Senza rete il modello
+    // non risponde mai, quindi chi scriveva una domanda in metropolitana
+    // trovava **sempre** il silenzio, e il Viaggio con la domanda scritta
+    // diventava una funzione che senza linea non risponde.
+    //
+    // La differenza si misura, non si indovina: `_scartateDalModello` sopra
+    // lo zero vuol dire che una risposta c'e' stata e non ha retto, ed e'
+    // esattamente il caso che ha fatto nascere questa voce. A zero non c'era
+    // nessuno da scartare, e la voce di casa e' l'unica cosa che c'e'.
+    if (_laDomandaEScritta(c) &&
+        scritta.testi.risposta == null &&
+        _scartateDalModello > 0) {
+      setState(() => _fase = FaseDelViaggio.silenzio);
+      return;
+    }
     // **IL RESPONSO SI COMPONE IN UN POSTO SOLO**, ordine DI voce 16:
     // `IlResponsoDelViaggio`, che e' anche cio' che la prova a cento discese
     // misura. **Le discese di prima si prendono PRIMA di segnare questa**:
@@ -958,6 +1020,7 @@ class _ViaggioDelloSciamanoScreenState
           FaseDelViaggio.incontro => _lIncontro(palette),
           FaseDelViaggio.lente => _laLente(palette),
           FaseDelViaggio.risalita => _laRisalita(palette),
+          FaseDelViaggio.silenzio => _ilSilenzio(palette),
           FaseDelViaggio.nutrimento => _ilTamburo(palette),
           FaseDelViaggio.segno => _ilSegno(palette),
         },
@@ -2100,6 +2163,69 @@ class _ViaggioDelloSciamanoScreenState
   }
 
   /// **LA RISALITA: la scena che si riporta su.**
+  /// **SE LA DOMANDA DI QUESTA DISCESA L'HA SCRITTA LA PERSONA.**
+  /// Ordine DR voce 07.
+  ///
+  /// Dentro un cammino la via e' quella della prima discesa, che il cammino
+  /// si porta dietro; fuori da un cammino e' quella scelta adesso. Le altre
+  /// due vie, il tema scelto dalla tavola e la discesa senza domanda, non
+  /// hanno una domanda a cui mancare.
+  bool _laDomandaEScritta(IlCammino? cammino) {
+    final via = _nelCammino && cammino != null ? cammino.via : _via.name;
+    return via == ViaDellaDomanda.scritta.name;
+  }
+
+  /// **LA SCHERMATA DEL SILENZIO.** Ordine DR voce 07.
+  ///
+  /// Tre righe e un pulsante: che cosa e' successo, perche' non si e'
+  /// inventata una risposta, e che la discesa non e' andata persa. Non c'e'
+  /// nessuna scena, perche' non c'e' niente da mostrare: mettere qui
+  /// un'immagine vorrebbe dire riempire il silenzio, che e' esattamente cio'
+  /// che questa voce vieta.
+  Widget _ilSilenzio(MaestroPalette palette) {
+    return Center(
+      key: const Key('viaggio_silenzio'),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(SpacingTokens.xl),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              IlSilenzioDelMondoDiSotto.titolo,
+              key: const Key('viaggio_silenzio_titolo'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.titoloSezione()
+                  .copyWith(color: palette.goldSoft),
+            ),
+            const SizedBox(height: SpacingTokens.lg),
+            ParagrafiDiLettura(
+              key: const Key('viaggio_silenzio_spiegazione'),
+              testo: IlSilenzioDelMondoDiSotto.spiegazione,
+              textAlign: TextAlign.center,
+              stile: TypographyTokens.lettura()
+                  .copyWith(color: ColorTokens.textPrimary),
+            ),
+            const SizedBox(height: SpacingTokens.md),
+            ParagrafiDiLettura(
+              key: const Key('viaggio_silenzio_resta'),
+              testo: IlSilenzioDelMondoDiSotto.cosaResta,
+              textAlign: TextAlign.center,
+              stile: TypographyTokens.lettura()
+                  .copyWith(color: ColorTokens.textSecondary),
+            ),
+            const SizedBox(height: SpacingTokens.xl),
+            PulsanteDelRisveglio(
+              chiave: const Key('viaggio_silenzio_risali'),
+              testo: IlSilenzioDelMondoDiSotto.siRisale,
+              onPressed: () => setState(() => _fase = FaseDelViaggio.soglia),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _laRisalita(MaestroPalette palette) {
     final scena = _scena;
     final responso = _responso;

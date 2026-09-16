@@ -28,11 +28,16 @@ Widget attornoAlSoffio(
   bool riduciMovimento = false,
   Size? finestra,
   EdgeInsets rientri = EdgeInsets.zero,
+  // **LA SCALA DEL TESTO, ordine DR voce 11.** Il difetto del pulsante
+  // coperto torna quando il testo cresce, e una prova che non la sa
+  // impostare misura un telefono che nessuno ha impostato cosi.
+  double scala = 1.0,
 }) {
   final dati = MediaQueryData(
     size: finestra ?? const Size(360, 797),
     padding: rientri,
     disableAnimations: riduciMovimento,
+    textScaler: TextScaler.linear(scala),
   );
   return MultiProvider(
     providers: [

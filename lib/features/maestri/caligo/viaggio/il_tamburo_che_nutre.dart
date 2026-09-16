@@ -30,11 +30,12 @@ import 'sfondo_del_mondo_di_sotto.dart';
 ///
 /// **IL TEMPO SCORRE SOLO MENTRE SI BATTE.** Il battito visibile e' quello del
 /// tamburo, quattro e mezzo al secondo, e nessuno puo' battere a quella
-/// cadenza per quaranta secondi: la persona batte con lui quando vuole, un
+/// cadenza per venti secondi: la persona batte con lui quando vuole, un
 /// colpo ogni tanto, e finche' un colpo e' caduto nell'ultimo secondo e poco
 /// piu' l'animale continua ad avvicinarsi. Se smette, l'animale si ferma dove
-/// e' arrivato e aspetta. Quaranta secondi di battito, non quaranta secondi di
-/// orologio.
+/// e' arrivato e aspetta. **Venti** secondi di battito, non venti secondi di
+/// orologio: erano quaranta fino all'ordine DR voce 09, che li ha dimezzati
+/// perche' il fondatore ha detto che la fase annoia.
 ///
 /// **Col `Timer` e non col controller**, per la ragione di sempre: sul
 /// telefono di collaudo le scale di animazione valgono zero.
@@ -52,7 +53,7 @@ class IlTamburoCheNutre extends StatefulWidget {
   final GuideAnimal animale;
   final MaestroPalette palette;
 
-  /// Si chiama una volta sola, a quaranta secondi di battito: e' qui che il
+  /// Si chiama una volta sola, a venti secondi di battito: e' qui che il
   /// nutrimento si registra.
   final VoidCallback quandoHaiFinito;
 
@@ -73,8 +74,20 @@ class IlTamburoCheNutre extends StatefulWidget {
   /// stessa dell'incontro, e la riga dice l'animale.
   final bool riconosciuto;
 
-  /// **QUARANTA SECONDI DI BATTITO.** Dall'ordine.
-  static const Duration quantoDura = Duration(seconds: 40);
+  /// **VENTI SECONDI DI BATTITO**, ed erano quaranta.
+  ///
+  /// **Dimezzati con l'ordine DR voce 09**, parole del fondatore: *"la fase
+  /// di nutrimento e' troppo lunga, e' solo un zoom ed annoia, bisogna
+  /// dimezzarla"*. I quaranta venivano dall'ordine DI voce 13 e sono stati
+  /// letti nel codice prima di toccarli, non a occhio.
+  ///
+  /// **Si accorcia e basta**: il movimento resta quello, la curva resta
+  /// quella, l'ingrandimento arriva allo stesso punto. Cambia soltanto
+  /// quanto ci si mette, perche' l'avanzamento e' `battuto / quantoDura` e
+  /// nient'altro in questo rito e' legato a quel numero: il colpo che tiene
+  /// vivo il battito dura un secondo e due decimi, l'onda del tocco un
+  /// secondo, il passo sedici millesimi, e nessuno dei tre e' cambiato.
+  static const Duration quantoDura = Duration(seconds: 20);
 
   /// **PER QUANTO UN COLPO TIENE VIVO IL BATTITO.** Un secondo e due decimi:
   /// piu' di un respiro fra un colpo e l'altro, meno di una pausa vera.

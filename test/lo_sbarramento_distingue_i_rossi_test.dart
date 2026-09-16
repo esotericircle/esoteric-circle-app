@@ -122,7 +122,10 @@ void main() {
       final finto = File('${tana.path}/rapporto.txt')
         ..writeAsStringSync(rapporto);
       var testo = sbarramento.readAsStringSync();
-      const riga = r'flutter test "$@" 2>&1 | tee "$REGISTRO"';
+      // **IL RAPPORTO E' FISSATO, ordine CODEMAGIC1 voce 06**: senza
+      // `-r expanded` su GitHub `flutter test` stampa in un'altra forma e
+      // questo script non legge nessun nome.
+      const riga = r'flutter test -r expanded "$@" 2>&1 | tee "$REGISTRO"';
       expect(testo.contains(riga), isTrue,
           reason: 'la riga che lancia la suite non e\' piu\' quella: questa '
               'prova starebbe misurando uno script che non esiste');
@@ -161,13 +164,17 @@ void main() {
         ..writeAsStringSync(rapportoScala);
 
       var testo = sbarramento.readAsStringSync();
-      const riga = r'flutter test "$@" 2>&1 | tee "$REGISTRO"';
+      // **IL RAPPORTO E' FISSATO, ordine CODEMAGIC1 voce 06**: senza
+      // `-r expanded` su GitHub `flutter test` stampa in un'altra forma e
+      // questo script non legge nessun nome.
+      const riga = r'flutter test -r expanded "$@" 2>&1 | tee "$REGISTRO"';
       expect(testo.contains(riga), isTrue,
           reason: 'la riga che lancia la suite non e\' piu\' quella');
       testo = testo.replaceFirst(
           riga, 'cat "${finto.path}" | tee "\$REGISTRO"; (exit $esito)');
 
-      const rigaScala = r'SCALA_DEL_TESTO=1.3 flutter test "test/$CORREDO" '
+      const rigaScala =
+          r'SCALA_DEL_TESTO=1.3 flutter test -r expanded "test/$CORREDO" '
           r'2>&1 | tee "$REGISTRO_SCALA"';
       expect(testo.contains(rigaScala), isTrue,
           reason: 'la riga che lancia il corredo a scala massima non e\' '
