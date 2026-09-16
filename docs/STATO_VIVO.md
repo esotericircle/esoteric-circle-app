@@ -2652,7 +2652,8 @@ accettato, provata sul Realme. Dalla 2252 alla 2261 sono dieci build: una per
 ogni riprova a video, finche' il fondatore ha fermato l'ordine.
 
 **IL VIAGGIO DELLO SCIAMANO E' CHIUSO**, con la build 2261, il 15 settembre
-2026. Da qui si tocca solo per guasti veri: un errore a schermo, un testo che
+2026. **Riaperto dal fondatore con l'ordine DQ**, per il cammino a strati e
+il velo rifatto, e chiuso di nuovo: vedi la sezione dell'ordine DQ. Da qui si tocca solo per guasti veri: un errore a schermo, un testo che
 viola una guardia, una prova che diventa rossa. Non per miglioramenti, non per
 idee, non per rifiniture: le idee vanno in fondo alla coda del fondatore, qui
 sotto.
@@ -2838,6 +2839,83 @@ ne sceglie una. Le nuove si aggiungono in fondo.
   un'app di terzi che non si tocca.
 - **Sul banco i testi del modello non arrivano**: la build di profilo usa il
   fornitore di prova di App Check, respinto dal servizio.
+
+## L'ORDINE DQ, IL VIAGGIO DELLO SCIAMANO SI CHIUDE PER DAVVERO, E L'APP SMETTE DI ESSERE RIFIUTABILE DA APPLE
+
+15 e 16 settembre 2026, sedici voci. Il rapporto sta in
+`docs/ordini/RAPPORTO_ORDINE_DQ.md`, le schermate della prova a video in
+`docs/collaudo/DQ/`. @@BUILD@@
+
+- **Il cammino a strati**, voci DQ.01-04. La domanda si scrive una volta
+  sola, alla prima discesa, e dalla seconda si legge: *"Sei sceso per
+  questo"*, con la marca del genere (`[Sei sceso|Sei scesa|Sei qui]`).
+  Quattro strati, ognuno con la sua istruzione al modello, e il modello
+  riceve il testo degli strati gia' dati con l'istruzione di aggiungere e non
+  ripetere: con la domanda *che cosa hai portato giu' davvero, che cosa ti
+  trattiene, che cosa hai gia' in mano, che cosa fare*; senza domanda quattro
+  cose sull'incontro. Al quarto la risposta piena e l'animale insieme.
+  **Cambiare domanda fa ripartire il cammino**, coi testi dell'ordine; le
+  discese fatte restano. Il cammino vive in `IlCammino`, dentro
+  `DiarioDeiViaggi`, con lo strato di ogni discesa. **Il riconoscimento legge
+  le apparizioni del cammino**, `DiarioDeiViaggi.apparizioni`, e non piu' le
+  discese: il Viaggio, il Passaporto, il Santuario, la card nei Maestri, il
+  nome nelle chat. Chi aveva gia' riconosciuto lo tiene; chi era a meta'
+  prosegue con la domanda dell'ultima discesa.
+- **Il Diario dei viaggi e' una pagina**, `IlDiarioDeiViaggiScreen`: i
+  cammini con la loro domanda e gli strati di fila, e le altre discese.
+  C'era come archivio dall'ordine DC voce 09 e nessuna schermata lo
+  mostrava. Si apre dal libro nella barra del Viaggio e da *"Rileggi i
+  quattro strati"* alla rivelazione.
+- **Il velo di cenere si e' rifatto**, DQ.05: la griglia resta
+  contabilita' e campiona la maschera del pennello, raggio 18 punti; il
+  disegno e' continuo, i solchi si conservano nel Diario; grana a piu'
+  ottave alla risoluzione dello schermo, braci della Via Rossa, bordo
+  sfrangiato, cenere accumulata ai lati, testa ridipinta sopra col bordo
+  sfumato. **Sul 767f596c il velo sta a
+  trentacinque fotogrammi al secondo**, misurati con
+  `dumpsys SurfaceFlinger --timestats`: erano venti, e i cinquanta chiesti
+  dall'ordine non sono stati raggiunti. **La densita' della grana non
+  c'entrava**, perche' la grana si calcola una volta sola e vive in
+  un'immagine: a costare erano i solchi ridisegnati a ogni fotogramma, e
+  adesso si cuociono.
+- **La seconda chiamata**, DQ.06: una riga scartata fa richiamare il modello
+  una volta sola, col motivo per nome; mai piu' di due chiamate a discesa.
+  Sulle 1.100 discese col
+  modello vero il titolo sale dal 73,0 al **91,2 per cento**, la risposta dal
+  64,2 all'**84,3**, il gesto dall'80,2 al **91,6**; il bersaglio della
+  risposta, 85, e' mancato di sette decimi, e il costo sale dell'uno virgola
+  sei per cento, a **0,001723 dollari a discesa**.
+- **Il gergo, il classificatore, la voce di casa**, DQ.07-09: *"il tuo
+  spazio"* esce dal gergo, *"e' gia' in te"* e *"nel processo"* entrano; la
+  solitudine non e' una persona e il nome in testa lo e'; la voce di casa
+  senza marca di genere sul terzo, senza gesti che presuppongono una scelta,
+  senza un secondo tempo; il pronome del gesto concorda col foglio. Il banco
+  delle domande libere ne ha quarantuno, minimo trentacinque.
+- **I cinquanta asset del Viaggio sono agganciati**, DQ.10: i trentasei
+  disegni dei gesti, i due tamburi, i dodici versi, impronte verificate. Il
+  tamburo batte a 3,5 al secondo, 210 al minuto, il colpo dura 700 ms.
+- **iOS**, DQ.11 e DQ.12: le due chiavi della posizione continua; il
+  microfono che dice anche la dettatura e la voce che la trascrive Apple;
+  `ios/Runner/PrivacyInfo.xcprivacy` nel bersaglio Runner, coi dati della
+  privacy policy; un passo di Codemagic che apre l'`.ipa` e si ferma se il
+  manifesto manca. **Le voci DQ.11 e DQ.12 si chiudono
+  solo con la validazione dell'archivio**: su questa macchina Xcode non c'e',
+  e il fondatore deve lanciare Codemagic su questa build. L'esito da cercare
+  e' nessun ITMS-91053.
+- **La prova a video, dieci punti sul 767f596c**, e ha trovato **quattro
+  difetti veri**, tutti riparati dentro l'ordine: la **cucitura della grana**,
+  una riga dritta dentro la cenere, curata ripetendo la grana allo specchio;
+  il **titolo della barra tagliato** appena il libro del Diario diventa la
+  terza azione, curato con tre righe e la barra a 68 punti; i **venti
+  fotogrammi al secondo** del velo, curati cuocendo i solchi in un'immagine
+  che cresce un segmento alla volta; e il **nome dell'animale senza articolo**
+  sulla card della rivelazione, detto dal fondatore, adesso su due righe con
+  *"MI HA TROVATO"* sopra e **il nome col suo articolo** sotto, piu' grande.
+  Ognuno ha la sua guardia, e ognuna e' stata vista rossa.
+- **La build di collaudo del cammino**: con
+  `--dart-define=COLLAUDO_DEL_CAMMINO=true` il Viaggio usa un Diario senza
+  archivio, che non scrive sul telefono. Nella build che si consegna non
+  esiste.
 
 ## Regole ferree
 

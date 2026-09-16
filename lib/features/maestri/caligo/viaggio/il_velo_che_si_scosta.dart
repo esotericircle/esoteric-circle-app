@@ -842,8 +842,17 @@ class PittoreDellaCenere extends CustomPainter {
     final g = grana;
     if (g != null) {
       final k = granaAllaScena ? 1 / dpr : GranaDellaCenere.scala;
-      colore.shader = ImageShader(g, TileMode.repeated, TileMode.repeated,
-          Matrix4.diagonal3Values(k, k, 1).storage);
+      // **LA GRANA DELLA SCENA SI RIPETE ALLO SPECCHIO, la piastrella no.**
+      // Difetto visto sul 767f596c nella prova a video: dentro la cenere
+      // correva una riga dritta, e sotto il tono cambiava. La grana della
+      // scena e' grande quanto l'illustrazione, la coltre e' piu' larga di un
+      // margine per lato, e quella grana **non si richiude su se' stessa**:
+      // dove ricominciava, i valori saltavano tutti insieme. Allo specchio i
+      // due lati combaciano per costruzione. La piastrella di riserva invece
+      // nasce periodica, e ripetuta sta bene com'e'.
+      final come = granaAllaScena ? TileMode.mirror : TileMode.repeated;
+      colore.shader = ImageShader(
+          g, come, come, Matrix4.diagonal3Values(k, k, 1).storage);
     }
     return colore;
   }
@@ -889,8 +898,24 @@ class PittoreDellaCenere extends CustomPainter {
   /// **IL MARGINE DELLE IMMAGINI DELLA COLTRE**, in punti: un terzo del
   /// lato piu' lungo, abbastanza per l'ellisse del cumulo, che passa per gli
   /// angoli del rettangolo della testa allargato.
-  static double margine(Size size) =>
-      math.max(size.width, size.height) / 3;
+  static double margine(Size size) => quantoMargine;
+
+  /// **QUANTO ESCE IL DISEGNO DALL'ILLUSTRAZIONE, in punti.**
+  ///
+  /// Era un terzo del lato piu' lungo, cioe' **duecentoventi punti** su una
+  /// scena da telefono: le due immagini della coltre diventavano larghe quasi
+  /// il doppio della scena e alte una volta e mezza, e a tre pixel per punto
+  /// **ogni fotogramma riempiva sei megapixel due volte**. E' questo che
+  /// teneva il velo a trentatre' fotogrammi al secondo sul 767f596c, non i
+  /// solchi: cuocerli ha portato da venti a trentatre', e li' si era fermato.
+  ///
+  /// **Quaranta punti bastano**, e il numero non e' a occhio: cio' che esce
+  /// dal rettangolo dell'illustrazione sono i morsi del bordo sfrangiato, che
+  /// stanno entro un raggio di pennello e un quarto, cioe' ventitre' punti, e
+  /// la sfumatura del cumulo della testa, che e' un raggio di pennello per
+  /// tre decimi. Le guardie del velo misurano i pixel e direbbero subito se
+  /// qualcosa venisse tagliato dritto.
+  static const double quantoMargine = 40;
 
   /// Il tracciato dei solchi, in punti: un segmento per coppia di punti, un
   /// cerchio per il solco di un punto solo.
@@ -911,20 +936,15 @@ class PittoreDellaCenere extends CustomPainter {
     return p;
   }
 
-  @override
-  void paint(Canvas canvas, Size size) {
-    if (quanta <= 0) return;
+  /// **SCAVA I SOLCHI**, i quattro passi di sempre, su [quali].
+  ///
+  /// Sta in un metodo suo perche' si usa due volte: per i solchi gia' finiti,
+  /// che si cuociono una volta in un'immagine, e per il solco vivo, quello
+  /// che il dito sta disegnando adesso.
+  void _scava(Canvas canvas, Size size, List<List<Offset>> quali) {
+    if (quali.isEmpty) return;
     const r = IlVeloDellAnimale.raggioDelPennello;
-    final (coltre, cumulo) = _coltreECumulo(size);
-    final tutta = (Offset.zero & size).inflate(margine(size));
-    canvas.saveLayer(tutta,
-        Paint()..color = Colors.white.withValues(alpha: quanta));
-    canvas.drawImageRect(
-        coltre,
-        Rect.fromLTWH(0, 0, coltre.width.toDouble(), coltre.height.toDouble()),
-        tutta,
-        Paint()..filterQuality = FilterQuality.none);
-    final solco = _tracciato(solchi, size);
+    final solco = _tracciato(quali, size);
     Paint pennello(double largo, Color colore, BlendMode modo, double morbido) =>
         Paint()
           ..style = PaintingStyle.stroke
@@ -934,73 +954,212 @@ class PittoreDellaCenere extends CustomPainter {
           ..color = colore
           ..blendMode = modo
           ..maskFilter = MaskFilter.blur(BlurStyle.normal, morbido);
-    if (solchi.isNotEmpty) {
-      // 1. **IL VELO SI ASSOTTIGLIA VICINO AI SOLCHI**: e' piu' spesso dove
-      //    nessuno ha toccato.
-      canvas.drawPath(
-          solco,
-          pennello(r * 3.2, Colors.black.withValues(alpha: 0.2),
-              BlendMode.dstOut, r * 0.6));
-      // 2. **LA CENERE SPOSTATA SI ACCUMULA AI LATI**: una cresta piu'
-      //    chiara, solo dove la cenere c'e'.
-      canvas.drawPath(
-          solco,
-          pennello(r * 2.55, accumulo.withValues(alpha: 0.8),
-              BlendMode.srcATop, r * 0.12));
-      // 3. **IL SOLCO**, col bordo morbido del pennello.
-      canvas.drawPath(solco,
-          pennello(r * 2, Colors.black, BlendMode.dstOut, r * 0.22));
-      // 4. **IL BORDO SFRANGIATO**: morsi piccoli fuori dal solco e grumi
-      //    dentro, a caso ma sempre gli stessi per quel punto.
-      final morso = Paint()
-        ..color = Colors.black
-        ..blendMode = BlendMode.dstOut
-        ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 0.8);
-      final grumo = _pittura(0.9)..blendMode = BlendMode.srcOver;
-      for (final s in solchi) {
-        for (var k = 0; k < s.length; k++) {
-          final seme = math.Random(
-              (s[k].dx * 10007).round() * 31 + (s[k].dy * 10009).round());
-          final centro = Offset(s[k].dx * size.width, s[k].dy * size.height);
-          for (var j = 0; j < 2; j++) {
-            final angolo = seme.nextDouble() * 2 * math.pi;
-            final dove = centro +
-                Offset(math.cos(angolo), math.sin(angolo)) *
-                    (r * (0.95 + seme.nextDouble() * 0.3));
-            canvas.drawCircle(dove, 1 + seme.nextDouble() * 2.2, morso);
-          }
-          if (seme.nextDouble() < 0.35) {
-            final angolo = seme.nextDouble() * 2 * math.pi;
-            final dove = centro +
-                Offset(math.cos(angolo), math.sin(angolo)) *
-                    (r * (0.7 + seme.nextDouble() * 0.2));
-            canvas.drawCircle(dove, 0.8 + seme.nextDouble() * 1.4, grumo);
-          }
+    // 1. **IL VELO SI ASSOTTIGLIA VICINO AI SOLCHI**: e' piu' spesso dove
+    //    nessuno ha toccato.
+    canvas.drawPath(
+        solco,
+        pennello(r * 3.2, Colors.black.withValues(alpha: 0.2),
+            BlendMode.dstOut, r * 0.6));
+    // 2. **LA CENERE SPOSTATA SI ACCUMULA AI LATI**: una cresta piu'
+    //    chiara, solo dove la cenere c'e'.
+    canvas.drawPath(
+        solco,
+        pennello(r * 2.55, accumulo.withValues(alpha: 0.8),
+            BlendMode.srcATop, r * 0.12));
+    // 3. **IL SOLCO**, col bordo morbido del pennello.
+    canvas.drawPath(
+        solco, pennello(r * 2, Colors.black, BlendMode.dstOut, r * 0.22));
+    // 4. **IL BORDO SFRANGIATO**: morsi piccoli fuori dal solco e grumi
+    //    dentro, a caso ma sempre gli stessi per quel punto.
+    final morso = Paint()
+      ..color = Colors.black
+      ..blendMode = BlendMode.dstOut
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 0.8);
+    final grumo = _pittura(0.9)..blendMode = BlendMode.srcOver;
+    for (final s in quali) {
+      for (var k = 0; k < s.length; k++) {
+        final seme = math.Random(
+            (s[k].dx * 10007).round() * 31 + (s[k].dy * 10009).round());
+        final centro = Offset(s[k].dx * size.width, s[k].dy * size.height);
+        for (var j = 0; j < 2; j++) {
+          final angolo = seme.nextDouble() * 2 * math.pi;
+          final dove = centro +
+              Offset(math.cos(angolo), math.sin(angolo)) *
+                  (r * (0.95 + seme.nextDouble() * 0.3));
+          canvas.drawCircle(dove, 1 + seme.nextDouble() * 2.2, morso);
+        }
+        if (seme.nextDouble() < 0.35) {
+          final angolo = seme.nextDouble() * 2 * math.pi;
+          final dove = centro +
+              Offset(math.cos(angolo), math.sin(angolo)) *
+                  (r * (0.7 + seme.nextDouble() * 0.2));
+          canvas.drawCircle(dove, 0.8 + seme.nextDouble() * 1.4, grumo);
         }
       }
     }
-    // 5. **LE CELLE SCOPERTE SENZA IL LORO SOLCO**, da un Diario di prima:
-    //    si aprono come solchi di un punto, un cerchio morbido per cella.
-    if (scoperte.isNotEmpty) {
-      final cw = size.width / velo.colonne;
-      final ch = size.height / velo.righe;
-      final raggio = math.sqrt(cw * cw + ch * ch) * 0.62;
-      final buchi = Path();
-      for (final i in scoperte) {
-        buchi.addOval(Rect.fromCircle(
-            center: Offset((i % velo.colonne + 0.5) * cw,
-                (i ~/ velo.colonne + 0.5) * ch),
-            radius: raggio));
-      }
-      canvas.drawPath(
-          buchi,
-          Paint()
-            ..color = Colors.black
-            ..blendMode = BlendMode.dstOut
-            ..maskFilter = MaskFilter.blur(BlurStyle.normal, raggio * 0.18));
+  }
+
+  /// **LE CELLE SCOPERTE SENZA IL LORO SOLCO**, da un Diario scritto prima
+  /// dell'ordine DQ: si aprono come solchi di un punto, un cerchio morbido
+  /// per cella.
+  void _buchiDelleCelle(Canvas canvas, Size size) {
+    if (scoperte.isEmpty) return;
+    final cw = size.width / velo.colonne;
+    final ch = size.height / velo.righe;
+    final raggio = math.sqrt(cw * cw + ch * ch) * 0.62;
+    final buchi = Path();
+    for (final i in scoperte) {
+      buchi.addOval(Rect.fromCircle(
+          center: Offset((i % velo.colonne + 0.5) * cw,
+              (i ~/ velo.colonne + 0.5) * ch),
+          radius: raggio));
     }
-    // 6. **LA TESTA SI RIDIPINGE SOPRA**, finche' e' coperta: il pennello non
-    //    la tocca, e dove le si avvicina si ferma col bordo sfumato.
+    canvas.drawPath(
+        buchi,
+        Paint()
+          ..color = Colors.black
+          ..blendMode = BlendMode.dstOut
+          ..maskFilter = MaskFilter.blur(BlurStyle.normal, raggio * 0.18));
+  }
+
+  /// **LA CENERE GIA' SCAVATA, COTTA IN UN'IMMAGINE.**
+  ///
+  /// **Il fatto, misurato sul 767f596c**, ordine DQ voce 14: mentre il dito
+  /// scostava, il velo consegnava **venti fotogrammi al secondo**, e la
+  /// nebbia della stessa schermata ne faceva sessanta. La causa non e' la
+  /// grana, che si calcola una volta sola e vive in un'immagine: sono i tre
+  /// tratti sfocati e i morsi del bordo, **ridisegnati a ogni fotogramma su
+  /// tutti i solchi di tutte le discese**, che crescono a ogni punto che il
+  /// dito aggiunge.
+  ///
+  /// Qui i solchi **finiti** si cuociono in un'immagine, una volta per
+  /// gesto; a ogni fotogramma resta da disegnare **il solo solco vivo**,
+  /// quello sotto il dito. Il disegno e' lo stesso: cambia solo quante volte
+  /// si rifa'.
+  /// **E SI CUOCE UN SEGMENTO ALLA VOLTA.** Seconda misura sul 767f596c:
+  /// cuocendo i soli solchi **finiti** i fotogrammi salgono da venti a
+  /// trentacinque, e restano sotto i cinquanta che l'ordine chiede. Quel che
+  /// resta e' il **solco vivo**, che durante un gesto lungo arriva a decine
+  /// di punti: tre tratti sfocati e due o tre cerchi per punto, rifatti a
+  /// ogni fotogramma.
+  ///
+  /// Allora la cottura segue il dito: l'immagine cotta tiene **tutti i punti
+  /// tranne l'ultimo**, e a ogni fotogramma si aggiunge il solo segmento
+  /// nuovo **sopra l'immagine di prima**, che costa una copia e un tratto
+  /// corto. Cosi' il lavoro per fotogramma non cresce col gesto.
+  ///
+  /// **Il disegno non cambia**: le guardie del velo misurano i pixel, e sono
+  /// verdi prima e dopo.
+  static ui.Image? _cotta;
+  static String? _chiaveCotta;
+  static List<int>? _puntiCotti;
+
+  /// Quanti punti ha ogni solco di [quali].
+  static List<int> _conta(List<List<Offset>> quali) =>
+      [for (final s in quali) s.length];
+
+  /// Se [adesso] e' [prima] con qualche punto in piu' in fondo, cioe' se
+  /// l'immagine cotta si puo' allungare invece che rifare.
+  static bool _eUnSeguito(List<int> prima, List<int> adesso) {
+    if (prima.length > adesso.length) return false;
+    for (var k = 0; k < prima.length - 1; k++) {
+      if (prima[k] != adesso[k]) return false;
+    }
+    if (prima.isEmpty) return true;
+    // L'ultimo solco cotto puo' essere cresciuto, non accorciato; e i solchi
+    // aggiunti dopo di lui sono tutti nuovi.
+    return prima.length < adesso.length
+        ? prima.last == adesso[prima.length - 1]
+        : prima.last <= adesso.last;
+  }
+
+  /// I pezzi di [quali] che non stanno ancora nell'immagine cotta [prima],
+  /// col punto di attacco: il tratto nuovo comincia dall'ultimo punto gia'
+  /// cotto, altrimenti fra i due resterebbe un buco.
+  static List<List<Offset>> _cioCheManca(
+      List<int> prima, List<List<Offset>> quali) {
+    final manca = <List<Offset>>[];
+    for (var k = 0; k < quali.length; k++) {
+      final gia = k < prima.length ? prima[k] : 0;
+      if (gia >= quali[k].length) continue;
+      final da = gia == 0 ? 0 : gia - 1;
+      manca.add(quali[k].sublist(da));
+    }
+    return manca;
+  }
+
+  ui.Image _cenereScavata(Size size, List<List<Offset>> quali) {
+    final (coltre, _) = _coltreECumulo(size);
+    final chiave = '${velo.nome}/${size.width.round()}x${size.height.round()}'
+        '/$dpr/${grana?.width}x${grana?.height}/$granaAllaScena'
+        '/${scoperte.length}';
+    final adesso = _conta(quali);
+    final prima = _puntiCotti;
+    final vecchia = _cotta;
+    final seguito = vecchia != null &&
+        _chiaveCotta == chiave &&
+        prima != null &&
+        _eUnSeguito(prima, adesso);
+    if (seguito && _cioCheManca(prima, quali).isEmpty) return vecchia;
+    final m = margine(size);
+    final larga = math.max(1, ((size.width + 2 * m) * dpr).ceil());
+    final alta = math.max(1, ((size.height + 2 * m) * dpr).ceil());
+    final registro = ui.PictureRecorder();
+    final c = Canvas(registro)
+      ..scale(dpr)
+      ..translate(m, m);
+    final tutta = Rect.fromLTWH(-m, -m, size.width + 2 * m, size.height + 2 * m);
+    if (seguito) {
+      // **SOPRA L'IMMAGINE DI PRIMA**, e solo il pezzo nuovo.
+      c.drawImageRect(
+          vecchia,
+          Rect.fromLTWH(0, 0, vecchia.width.toDouble(), vecchia.height.toDouble()),
+          tutta,
+          Paint()..filterQuality = FilterQuality.none);
+      _scava(c, size, _cioCheManca(prima, quali));
+    } else {
+      c.drawImageRect(
+          coltre,
+          Rect.fromLTWH(0, 0, coltre.width.toDouble(), coltre.height.toDouble()),
+          tutta,
+          Paint()..filterQuality = FilterQuality.none);
+      _scava(c, size, quali);
+      _buchiDelleCelle(c, size);
+    }
+    _chiaveCotta = chiave;
+    _puntiCotti = adesso;
+    return _cotta = registro.endRecording().toImageSync(larga, alta);
+  }
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (quanta <= 0) return;
+    final (_, cumulo) = _coltreECumulo(size);
+    final tutta = (Offset.zero & size).inflate(margine(size));
+    // **COTTO TUTTO TRANNE L'ULTIMO SEGMENTO**, che si disegna qui sopra:
+    // cosi' l'immagine cotta non insegue il dito di un fotogramma.
+    final cotti = <List<Offset>>[];
+    final vivo = <List<Offset>>[];
+    for (var k = 0; k < solchi.length; k++) {
+      final s = solchi[k];
+      if (k < solchi.length - 1 || s.length < 2) {
+        cotti.add(s);
+      } else {
+        cotti.add(s.sublist(0, s.length - 1));
+        vivo.add(s.sublist(s.length - 2));
+      }
+    }
+    final cotta = _cenereScavata(size, cotti);
+    canvas.saveLayer(tutta,
+        Paint()..color = Colors.white.withValues(alpha: quanta));
+    canvas.drawImageRect(
+        cotta,
+        Rect.fromLTWH(0, 0, cotta.width.toDouble(), cotta.height.toDouble()),
+        tutta,
+        Paint()..filterQuality = FilterQuality.none);
+    _scava(canvas, size, vivo);
+    // **LA TESTA SI RIDIPINGE SOPRA**, finche' e' coperta: il pennello non
+    // la tocca, e dove le si avvicina si ferma col bordo sfumato.
     if (coperte.any(velo.testa.contains)) {
       canvas.drawImageRect(
           cumulo,

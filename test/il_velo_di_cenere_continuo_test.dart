@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_print
+import 'dart:async';
 import 'dart:math' as math;
 import 'dart:typed_data';
 import 'dart:ui' as ui;
@@ -249,6 +250,150 @@ void main() {
       expect(img?.width, 250);
       expect(img?.height, 200);
     });
+  });
+
+  testWidgets(
+      'LA GRANA NON LASCIA UNA CUCITURA DRITTA: nessuna riga della cenere '
+      'cambia tono di colpo per tutta la sua larghezza', (tester) async {
+    // **IL DIFETTO, VISTO SUL 767f596c NELLA PROVA A VIDEO** dell'ordine DQ
+    // voce 14: dentro la cenere correva una riga dritta, orizzontale, e sotto
+    // di lei il tono era diverso. **Non era il bordo di niente**: e' la grana
+    // della scena, che si dipinge grande quanto l'illustrazione e si ripete
+    // per coprire la coltre, che e' piu' larga di un margine per lato. Dove
+    // la piastrella ricomincia i valori saltano, perche' questa grana non si
+    // richiude su se' stessa.
+    //
+    // **Qui si misura il salto**, e non il modo di ripetere: la prova resta
+    // vera anche se domani la grana si dipinge grande quanto la coltre.
+    late final ui.Image grana;
+    await tester.runAsync(() async {
+      final fatta = Completer<ui.Image>();
+      // Una grana piu' piccola della coltre, apposta: e' la condizione in cui
+      // il difetto si vede. Alla scena l'illustrazione sta dentro una coltre
+      // larga un terzo in piu' per lato.
+      const larga = 128, alta = 96;
+      ui.decodeImageFromPixels(
+          GranaDellaCenere.pixelAllaScena((
+            larga: larga,
+            alta: alta,
+            seme: 4,
+            densita: 1,
+            periodica: false
+          )),
+          larga,
+          alta,
+          ui.PixelFormat.rgba8888,
+          fatta.complete);
+      grana = await fatta.future;
+    });
+
+    late Uint8List px, piatta;
+    late int w, h;
+    Future<Uint8List> dipinta(ui.Image? g) async {
+      late Uint8List fatto;
+      await tester.runAsync(() async {
+        final p = PittoreDellaCenere(
+          velo: velo,
+          coperte: velo.velato,
+          quanta: 1,
+          grana: g,
+          granaAllaScena: g != null,
+        );
+        final registro = ui.PictureRecorder();
+        p.paint(Canvas(registro), size);
+        w = size.width.ceil();
+        h = size.height.ceil();
+        final img = await registro.endRecording().toImage(w, h);
+        fatto =
+            (await img.toByteData(format: ui.ImageByteFormat.rawStraightRgba))!
+                .buffer
+                .asUint8List();
+      });
+      return fatto;
+    }
+
+    px = await dipinta(grana);
+    // **LA STESSA CENERE SENZA GRANA**, per differenza: il cumulo della testa
+    // e' due strati di cenere, e dove il suo bordo corre orizzontale il tono
+    // cambia per tutta la riga anche senza nessuna grana. E' il disegno, non
+    // una cucitura. Sottraendo le due, del disegno non resta niente e quel
+    // che salta e' solo la grana.
+    piatta = await dipinta(null);
+
+    // **LA GRANDEZZA MISURATA E' IL SALTO COL SEGNO FRA DUE BANDE, e le due
+    // stesure precedenti di questa prova sbagliavano qui.**
+    //
+    // Fra due righe vicine la grana cambia gia' di suo, e alla cucitura
+    // cambia il doppio: un rapporto di due, che non distingue niente. Ma la
+    // grana e' rumore, e i suoi salti hanno segno a caso: mediati sulla
+    // larghezza si annullano, mentre **alla cucitura saltano tutti nella
+    // stessa direzione**, perche' di la' ricomincia un'altra piastrella. Su
+    // una riga sola, pero', quella media resta ballerina: trecento colonne
+    // sono poche, e la riga piu' ballerina di trecento arriva a cinque volte
+    // la mediana anche quando cucitura non ce n'e'.
+    //
+    // Per questo si confrontano **due bande di quattro righe**: un gradino
+    // le attraversa intero, il rumore si media e cala della radice di
+    // quattro. E' lo stesso motivo per cui l'occhio la cucitura la vede: non
+    // e' un pixel, e' un tono che cambia e resta cambiato.
+    const banda = 4;
+    final salti = <double>[];
+    final righe = <int>[];
+    double grano(int i) =>
+        (px[i] + px[i + 1] + px[i + 2] - piatta[i] - piatta[i + 1] -
+            piatta[i + 2]) /
+        3;
+    for (var y = banda; y + banda <= h; y++) {
+      var somma = 0.0;
+      var n = 0;
+      for (var x = 0; x < w; x++) {
+        var sopra = 0.0, sotto = 0.0;
+        var piena = true;
+        for (var k = 1; k <= banda && piena; k++) {
+          final su = ((y - k) * w + x) * 4, giu = ((y + k - 1) * w + x) * 4;
+          if (px[su + 3] < 250 || px[giu + 3] < 250 ||
+              piatta[su + 3] < 250 || piatta[giu + 3] < 250) {
+            piena = false;
+            break;
+          }
+          sopra += grano(su);
+          sotto += grano(giu);
+        }
+        if (!piena) continue;
+        somma += (sotto - sopra) / banda;
+        n++;
+      }
+      // Colonne poche non dicono niente.
+      if (n < w ~/ 3) continue;
+      salti.add((somma / n).abs());
+      righe.add(y);
+    }
+    expect(salti.length, greaterThan(size.height ~/ 3),
+        reason: 'la cenere piena non copre abbastanza righe: la prova non ha '
+            'guardato il disegno');
+    final ordinati = [...salti]..sort();
+    final mediano = ordinati[ordinati.length ~/ 2];
+    final peggiore = ordinati.last;
+    final doveSalta = righe[salti.indexOf(peggiore)];
+    print('ORDINE DQ VOCE 05, LA CUCITURA: ${salti.length} righe di cenere '
+        'piena, salto col segno mediano ${mediano.toStringAsFixed(2)} '
+        'livelli, riga peggiore la $doveSalta di $h con '
+        '${peggiore.toStringAsFixed(2)}, cioe '
+        '${(peggiore / mediano).toStringAsFixed(1)} volte il mediano');
+    // **LA SOGLIA STA FRA DUE NUMERI MISURATI TUTTI E DUE**, e non e' un
+    // numero scelto per far passare la prova: col difetto in casa, cioe' la
+    // grana ripetuta tale e quale, la riga peggiore sta a **quattordici
+    // volte** la mediana; con la grana ripetuta allo specchio sta a
+    // **tre virgola nove**, ed e' il rumore di fondo della misura, perche'
+    // l'illustrazione e' larga trecento colonne e la media di trecento
+    // numeri a caso balla. Sei sta in mezzo, con margine da tutte e due le
+    // parti.
+    //
+    // E' un rapporto e non un livello: quanto scura sia la cenere non
+    // c'entra.
+    expect(peggiore, lessThan(mediano * 6),
+        reason: 'una riga della cenere cambia tono di colpo per tutta la sua '
+            'larghezza: e la cucitura della grana che si ripete');
   });
 
   testWidgets('LE BRACI SI ACCENDONO SOTTO IL DITO E SI SPENGONO', (tester) async {

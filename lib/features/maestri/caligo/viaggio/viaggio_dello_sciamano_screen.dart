@@ -896,12 +896,21 @@ class _ViaggioDelloSciamanoScreenState
       backgroundColor: PittoreDelTunnel.bluProfondo,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        // **IL TITOLO NON SI TRONCA.** Difetto visto sul telefono 767f596c:
-        // la barra mostrava "IL VIAGGIO DELL...". Il componente di casa lo
-        // manda a capo invece di tagliarlo, e non lo rimpicciolisce sotto il
-        // pavimento tipografico.
+        // **LA BARRA E' PIU' ALTA DI QUELLA DI CASA, e il titolo ha tre
+        // righe.** Difetto visto sul 767f596c nella prova a video dell'ordine
+        // DQ voce 14: col libro del Diario le azioni sono tre, al titolo
+        // restano meno di centoquaranta punti, e **sotto quella larghezza il
+        // titolo in due righe si taglia a qualunque misura**, fino al
+        // pavimento tipografico: la barra si leggeva "Il Viaggio dello", e
+        // *Sciamano* non c'era. In tre righe ci sta sempre, e ne chiede
+        // sessantatre': la barra di casa ne da' cinquantasei.
+        //
+        // Il nome non si accorcia, e' quello del briefing; si adatta la
+        // scatola, come dice `TitoloCheNonSiRompe`.
+        toolbarHeight: 68,
         title: TitoloCheNonSiRompe(
           testo: 'Il Viaggio dello Sciamano',
+          righe: 3,
           stile:
               TypographyTokens.titoloScheda().copyWith(color: palette.goldSoft),
         ),

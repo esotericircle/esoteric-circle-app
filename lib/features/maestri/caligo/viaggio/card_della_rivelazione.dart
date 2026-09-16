@@ -49,8 +49,24 @@ class CardDellaRivelazione extends StatelessWidget {
   ///
   /// Non *"il mio animale guida"*, che e' il nome della funzione, ma la frase
   /// che una persona direbbe: e' il verbo dell'ordine, al passato.
+  ///
+  /// **IN DUE RIGHE, E CON L'ARTICOLO.** Detto dal fondatore il 16 settembre
+  /// 2026, guardando la card sul telefono: *"mi ha trovato volpe"* non e'
+  /// italiano, e il nome dell'animale merita la sua riga. Sopra la frase,
+  /// sotto **il nome col suo articolo**, piu' grande: e' lui il soggetto
+  /// della card, ed e' quello che si legge per primo quando la card esce di
+  /// casa. L'articolo lo sa gia' `GuideAnimal.articolo`, che elide davanti a
+  /// vocale: *"l'Orso"*, *"la Volpe"*.
+  static const String primaRiga = 'MI HA TROVATO';
+
+  /// La seconda riga: il nome con l'articolo, tutto maiuscolo.
+  static String ilNome(GuideAnimal animale) =>
+      '${animale.articolo}${animale.name}'.toUpperCase();
+
+  /// Le due righe di seguito, per chi ha bisogno del titolo in una stringa
+  /// sola: le prove che leggono la card, e chi la condivide.
   static String titolo(GuideAnimal animale) =>
-      'MI HA TROVATO ${animale.name.toUpperCase()}';
+      '$primaRiga ${ilNome(animale)}';
 
   /// **L'ARTICOLO DAVANTI AL GIORNO, e non e' sempre lo stesso.**
   ///
@@ -100,12 +116,23 @@ class CardDellaRivelazione extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              titolo(animale),
+              primaRiga,
               key: const Key('card_rivelazione_titolo'),
               textAlign: TextAlign.center,
               style: TypographyTokens.titoloScheda().copyWith(
                 color: const Color(0xFFF0DDB0),
                 letterSpacing: 1.8,
+              ),
+            ),
+            const SizedBox(height: SpacingTokens.xs),
+            // **IL NOME, PIU' GRANDE**: e' il soggetto della card.
+            Text(
+              ilNome(animale),
+              key: const Key('card_rivelazione_nome'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.cerimoniale().copyWith(
+                color: const Color(0xFFF6E7C0),
+                letterSpacing: 2.4,
               ),
             ),
             const SizedBox(height: SpacingTokens.md),
