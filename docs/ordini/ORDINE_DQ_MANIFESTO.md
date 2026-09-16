@@ -9,7 +9,7 @@ la 2263; si e' lavorato sopra la 2263.
 **Riapre il Viaggio dello Sciamano**, che l'ordine DN aveva chiuso con la
 2261: lo riapre il fondatore, per nome. **La build l'ha ordinata il
 fondatore**, una sola in fondo all'ordine; alla domanda *"tutto l'ordine, una
-build"* ha risposto cosi', e il tamburo *"3,5, quello del file"*. @@BUILD@@
+build"* ha risposto cosi', e il tamburo *"3,5, quello del file"*. **La build e' la 2264**, consegnata ai fondatori il 16 settembre 2026, release `37p6dlngk2jeo`; lo sbarramento e' passato su 5.288 prove, coi soli rossi gia' accettati.
 
 Vincolo permanente: tutta l'intelligenza a runtime gira su Gemini e Vertex
 AI, in `europe-west1`, mai su API Anthropic.

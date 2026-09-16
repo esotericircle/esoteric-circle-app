@@ -2844,7 +2844,8 @@ ne sceglie una. Le nuove si aggiungono in fondo.
 
 15 e 16 settembre 2026, sedici voci. Il rapporto sta in
 `docs/ordini/RAPPORTO_ORDINE_DQ.md`, le schermate della prova a video in
-`docs/collaudo/DQ/`. @@BUILD@@
+`docs/collaudo/DQ/`. **La build e' la 2264**, consegnata ai fondatori il 16 settembre 2026,
+release `37p6dlngk2jeo`, su 5.288 prove verdi coi soli rossi accettati.
 
 - **Il cammino a strati**, voci DQ.01-04. La domanda si scrive una volta
   sola, alla prima discesa, e dalla seconda si legge: *"Sei sceso per

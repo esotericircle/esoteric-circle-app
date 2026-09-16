@@ -427,7 +427,7 @@ Regola C.
 
 **Sedici voci, quattordici chiuse e due in attesa dell'archivio**, DQ.11 e
 DQ.12, che si chiudono col primo caricamento su App Store Connect senza
-ITMS-91053. **La build e' la @@NUMERO@@**, consegnata ai fondatori con
+ITMS-91053. **La build e' la 2264, release `37p6dlngk2jeo`**, consegnata ai fondatori con
 `tool/consegna.py`; la prova a video sta nella sezione 9 e le schermate in
 `docs/collaudo/DQ/`.
 
