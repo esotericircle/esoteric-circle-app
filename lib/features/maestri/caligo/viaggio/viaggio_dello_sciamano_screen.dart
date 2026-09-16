@@ -129,6 +129,12 @@ class ViaggioDelloSciamanoScreen extends StatefulWidget {
         ));
   }
 
+  /// **QUANTO E' ALTA LA BARRA DI QUESTA SCHERMATA**, in punti: dodici piu'
+  /// di quella di casa, perche' il titolo *"Il Viaggio dello Sciamano"* col
+  /// libro del Diario accanto vuole tre righe. Lo legge anche la scena, che
+  /// comincia sotto di lei.
+  static const double altezzaDellaBarra = 68;
+
   /// **QUANTO DURA LA DISSOLVENZA CHE INTRODUCE LA NEBBIA: MEZZO SECONDO.**
   /// Ordine DI voce 09, 12 settembre 2026.
   ///
@@ -907,7 +913,7 @@ class _ViaggioDelloSciamanoScreenState
         //
         // Il nome non si accorcia, e' quello del briefing; si adatta la
         // scatola, come dice `TitoloCheNonSiRompe`.
-        toolbarHeight: 68,
+        toolbarHeight: ViaggioDelloSciamanoScreen.altezzaDellaBarra,
         title: TitoloCheNonSiRompe(
           testo: 'Il Viaggio dello Sciamano',
           righe: 3,
@@ -1032,7 +1038,13 @@ class _ViaggioDelloSciamanoScreenState
     // telefono: il corpo passa **sotto** la barra perche' la scena deve
     // arrivare fino in alto, e il testo non deve finirci dentro. E' lo stesso
     // difetto che il tunnel ha avuto nell'ordine DC, a rovescio.
-    final quantoInCima = MediaQuery.of(context).padding.top + kToolbarHeight;
+    // **E L'ALTEZZA E' QUELLA VERA DELLA BARRA, non quella di casa.** La
+    // barra di questa schermata e' piu' alta di cinquantasei punti, perche'
+    // il titolo ha tre righe: chiedendo `kToolbarHeight` le impronte
+    // finivano dodici punti sotto di lei, e la guardia DI.08 l'ha preso.
+    final quantoInCima =
+        MediaQuery.of(context).padding.top +
+            ViaggioDelloSciamanoScreen.altezzaDellaBarra;
     return Stack(
       fit: StackFit.expand,
       children: [
