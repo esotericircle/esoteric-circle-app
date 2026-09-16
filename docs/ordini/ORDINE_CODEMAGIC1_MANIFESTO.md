@@ -8,8 +8,8 @@ quello su cui la build 2264 e' caduta.
 strada che li raggiunge e' TestFlight, che passa da Codemagic. Le voci DQ.11 e
 DQ.12 restano aperte finche' un archivio non e' stato validato.
 
-VOCI_TOTALI: 4
-VOCI_CHIUSE: 4
+VOCI_TOTALI: 5
+VOCI_CHIUSE: 5
 VOCI_APERTE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
@@ -31,6 +31,17 @@ Regola di verifica: rimisurato sul ramo a `bc81dcde`.
 | `verde.yml` gira gratis a ogni push ed esegue `flutter test`; `codemagic.yaml` esegue `bash tool/sbarramento.sh`; non sono la stessa cosa | **vera, ed e' il buco da cui e' passato il rosso**: `flutter test` non fa girare ne' le prove del server, ne' il corredo a scala 1,3, ne' il controllo dei rossi accettati | **VERA** |
 | il repository e' pubblico | **vera** | **VERA** |
 | la build 2264 e' caduta al passo 12 dopo 29 minuti e 11 secondi | **non verificabile da me**: il registro della build sta su Codemagic e da qui non lo vedo. Il passo 12 del file e' *"Le prove, prima di costruire, E SONO UNO SBARRAMENTO"*, riga 289, che e' coerente con un rosso nuovo | **CREDUTA SULLA PAROLA** |
+
+**IL FATTO CHE NON SAPEVA NESSUNO, misurato dopo la spinta del 16 settembre**:
+il cancello gratuito non era solo piu' debole, **era rosso da quarantotto
+giorni**. Il registro pubblico delle azioni di GitHub conserva **1.055 giri di
+`verde.yml`**: 130 verdi, 924 rossi, e l'ultimo verde e' del **29 luglio 2026**.
+Da allora **920 giri rossi di fila**, compreso quello del commit `bc81dcde`,
+caduto alle 03:39 UTC, **tre ore prima di Codemagic**. La ragione strutturale
+sta nella voce 02: `flutter test` nudo non conosce `rossi_accettati.txt`, e i
+due rossi che il fondatore ha voluto lo facevano cadere a ogni spinta. **Una
+spia rossa comunque non e' una spia.** Il dettaglio, e il PROVENIENZA IGNOTA
+dello scivolamento di luglio, stanno nella sezione 3 del rapporto.
 
 **E IL FATTO CHE L'ORDINE NON DICE, che e' il piu' importante di tutti**: quel
 rosso non e' arrivato per caso. Lo sbarramento locale era stato girato e aveva
@@ -57,6 +68,15 @@ prima di quest'ordine, e sono io ad averla violata.
   file. Qui in locale, appena installate, la seconda suite ha girato per la
   prima volta: **83 prove, zero cadute**. **CHIUSA**
 - **CODEMAGIC1.04**, il manifesto, la guardia e il rapporto. **CHIUSA**
+- **CODEMAGIC1.05**, il verdetto del cancello si legge senza credenziali.
+  Nata da un fatto misurato dopo la voce 02: il cancello gratuito e' caduto al
+  primo giro coi numeri giusti, e **la riga per cui si e' fermato non era
+  leggibile da qui**. I registri delle azioni vogliono un accesso anche su un
+  repository pubblico, provato: l'API risponde 403 e la pagina web dice *"Sign
+  in to view logs"*. Le annotazioni invece sono pubbliche. Adesso
+  `tool/il_verdetto_del_cancello.sh` ripubblica li' i blocchi che dicono la
+  decisione, e una guardia pretende la catena intera, `pipefail` compreso.
+  **CHIUSA**
 
 ---
 

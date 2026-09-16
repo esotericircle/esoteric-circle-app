@@ -85,5 +85,21 @@ jobs:
 
       # **LO SBARRAMENTO, lo stesso comando di codemagic.yaml.** Se cade qui,
       # cadrebbe anche la' dopo mezz'ora di macchina a pagamento.
+      #
+      # Il registro si tiene da parte perche' il passo dopo ne ripubblichi il
+      # verdetto: `pipefail` serve o `tee` restituirebbe il suo zero al posto
+      # dell'esito del cancello, e un cancello rosso passerebbe per verde.
       - name: Lo sbarramento, lo stesso di Codemagic
-        run: bash tool/sbarramento.sh
+        run: |
+          set -o pipefail
+          bash tool/sbarramento.sh 2>&1 | tee /tmp/sbarramento.txt
+
+      # **IL VERDETTO, DOVE SI LEGGE SENZA CREDENZIALI. Ordine CODEMAGIC1
+      # voce 05.** I registri delle azioni non si leggono senza essere
+      # autenticati, nemmeno su un repository pubblico: l'API risponde 403 e
+      # la pagina dice "Sign in to view logs". Le annotazioni invece sono
+      # pubbliche. Questo passo porta li' la riga per cui il cancello si e'
+      # fermato, cosi' chi deve ripararla la trova senza chiedere a nessuno.
+      - name: Il verdetto del cancello, leggibile senza credenziali
+        if: failure()
+        run: bash tool/il_verdetto_del_cancello.sh /tmp/sbarramento.txt

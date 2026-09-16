@@ -67,13 +67,58 @@ nel commit `bc81dcde`, insieme al rapporto dell'ordine DQ, ed e' stato spinto
 
 **La regola di casa esisteva gia'**, si chiama *"suite intera prima di
 spingere"* e sta scritta fra le lezioni del progetto. L'ho violata io, alle
-cinque del mattino, alla fine di una notte di lavoro. **Nessun automatismo
-l'avrebbe fermata**: il cancello che avrebbe visto quel rosso era proprio
-quello che non ho rigirato.
+cinque del mattino, alla fine di una notte di lavoro.
 
-Per questo il secondo risultato dell'ordine non si ottiene ricordandosi di
-girare il cancello: si ottiene **togliendo a chi lavora la possibilita' di
-saltarlo**.
+### E QUI C'E' IL FATTO CHE NON AVEVO VISTO, ED E' PIU' GRAVE DI TUTTO IL RESTO
+
+**Avevo scritto, in questo stesso rapporto e nel manifesto, che nessun
+automatismo avrebbe fermato quella spinta. Era falso, e l'ho scoperto solo
+dopo aver spinto il lavoro di quest'ordine**, leggendo il registro delle
+azioni di GitHub, che e' pubblico e si interroga senza credenziali.
+
+Il cancello gratuito **era gia' rosso** sul commit `bc81dcde`. Il giro
+`35052608849` e' partito alle 03:39 UTC del 16 settembre, ha girato diciotto
+minuti, ed e' caduto al passo *Test*. **Tre ore prima che Codemagic cadesse.**
+
+E non e' un caso isolato. Sui **1.055 giri** che il registro conserva:
+
+| misura | numero |
+|---|---:|
+| giri conservati di `verde.yml` | 1.055 |
+| finiti verdi | 130 |
+| finiti rossi | 924 |
+| **l'ultimo verde** | **29 luglio 2026, commit `74625665`** |
+| **giri rossi consecutivi da allora** | **920** |
+| **giorni di rosso ininterrotto** | **48** |
+
+**Un cancello rosso da quarantotto giorni non e' un cancello: e' una spia
+guasta.** Nessuno guarda una spunta che e' rossa comunque, e chi la guardasse
+non saprebbe distinguere il rosso di sempre da un rosso nuovo. Questa e' la
+ragione vera per cui il rosso dell'anteprima e' arrivato fino al mac mini, e
+non e' la mia dimenticanza delle cinque del mattino: **la mia dimenticanza e'
+stata l'ultimo anello, non il primo.**
+
+**Perche' era rosso comunque, ed e' il punto che chiude la voce 02**:
+`flutter test` nudo **non conosce il registro dei rossi accettati**. I due
+rossi che il fondatore ha acceso e voluto, l'attribuzione cieca dal 13 agosto
+e le soglie delle quattro pose dal 6 settembre, lo facevano cadere a ogni
+singola spinta. Un cancello che non sa distinguere un rosso voluto da un rosso
+nuovo **non puo' essere verde nemmeno quando tutto e' a posto**, e quindi non
+puo' dire niente a nessuno.
+
+**Dello scivolamento di fine luglio non so dire il padre.** L'ultimo verde e'
+del 29 luglio e il primo rosso del 30, sul commit `6fea3d43`, ma i registri
+dei giri di GitHub vogliono un'autenticazione che da qui non ho, e i due rossi
+accettati sono nati dopo. **PROVENIENZA IGNOTA**, per la regola C, e la
+dicitura dice esattamente la cosa che va detta: quel rosso e' entrato senza
+lasciare traccia leggibile, ed e' rimasto acceso per quarantotto giorni senza
+che nessuno se ne accorgesse.
+
+**Per questo il secondo risultato dell'ordine non si ottiene ricordandosi di
+girare il cancello**, e nemmeno rendendolo piu' severo: si ottiene rendendolo
+**capace di tornare verde**. Lo sbarramento conosce i rossi accettati, li
+lascia passare e si ferma solo su un rosso nuovo. E' la prima volta da fine
+luglio che quella spunta puo' voler dire qualcosa.
 
 ---
 
@@ -174,6 +219,56 @@ pagamento. **La sua spunta e' il semaforo per Codemagic.**
 
 ---
 
+## 6-BIS. IL PRIMO GIRO DEL CANCELLO GRATUITO, E COS'HA INSEGNATO
+
+**Il giro `35065403117`, sul commit `e99a9279`: ventotto minuti e sette
+secondi, caduto al passo *Lo sbarramento*.** I sette passi prima, checkout,
+Flutter, Node, le due famiglie di dipendenze e l'analisi statica, tutti verdi.
+
+**I numeri, presi dalle annotazioni pubbliche del giro**, che si leggono con
+una chiamata sola e senza chiave:
+
+| suite | il giro su Linux | il giro qui, su Windows |
+|---|---|---|
+| Flutter | **5.293 passate, 2 cadute, 6 saltate** | 5.292 passate, 3 cadute, 6 saltate |
+| corredo a scala 1,3 | **167 passate, 15 cadute** | 167 passate, 15 cadute |
+
+**Le due cadute di Flutter sono i due rossi accettati**, e la terza di qui non
+c'e' perche' e' la guardia del lavoro non committato, che su una macchina di
+build si esenta da sola. **Le quindici del corredo sono quindici anche li'.**
+I conti combaciano con cio' che il fondatore ha accettato, uno per uno.
+
+**E allora perche' e' uscito rosso?** Lo sbarramento esce uno solo per due
+ragioni, e tutte e due guardano i **nomi**, non i conti: un nome caduto che il
+registro non ha, oppure un nome nel registro che oggi non cade piu'. **Quale
+delle due sia, e su quale cattura, da qui non si e' potuto leggere**, e questa
+e' la cosa che ha generato la voce 05.
+
+**Il fatto nuovo, e va detto per intero**: i registri dei giri di GitHub **non
+si leggono senza essere autenticati, nemmeno su un repository pubblico**.
+Provato in due modi: l'API risponde **403**, e la pagina web dice *"Sign in to
+view logs"*. Un cancello il cui verdetto si legge solo entrando con le
+credenziali del fondatore parla a una persona sola, e chi deve ripararlo deve
+chiedere. **Le annotazioni invece sono pubbliche**: e' da li' che vengono i
+numeri di questa tabella, ed e' li' che adesso va anche il verdetto.
+
+**Cosa NON si puo' ancora dire, e non si dira' finche' non e' misurato**: la
+spiegazione piu' probabile e' che la scala 1,3 rompa su Linux catture in parte
+diverse da quelle che rompe su macOS, perche' il disegno del testo cambia col
+sistema, e il registro dei rossi accettati e' stato scritto guardando il mac
+mini. **E' un'ipotesi, non una misura**: il prossimo giro la confermera' o la
+smentira' con i nomi, senza che nessuno debba entrare da nessuna parte. Se
+fosse vera, la conseguenza e' seria e riguarda questo ordine da vicino: **due
+macchine con lo stesso comando non sono ancora lo stesso cancello**, finche'
+un pezzo di cio' che misurano dipende da come il sistema disegna le lettere.
+
+**Per la build di oggi non cambia niente, ed e' l'unica cosa che non e'
+un'ipotesi**: le quindici catture accettate sono state lette **sul registro
+del mac mini della 2264**, cioe' sulla stessa macchina e sullo stesso sistema
+che costruisce l'archivio.
+
+---
+
 ## 7. LA BUILD, I TENTATIVI E LA RELEASE
 
 @@CONSEGNA@@
@@ -204,3 +299,17 @@ pagamento. **La sua spunta e' il semaforo per Codemagic.**
 **Tutto il resto tornava**: le quindici catture a scala 1,3, i due rossi
 accettati, il `functions/node_modules` mancante, i due workflow che eseguono
 comandi diversi, il repository pubblico.
+
+### E DOVE SBAGLIAVO IO
+
+**Una cosa sola, ed e' la piu' grossa del documento.** Avevo scritto
+*"nessun automatismo l'avrebbe fermata"*, e l'avevo scritto **senza guardare
+il registro delle azioni di GitHub**, che e' pubblico e si legge con una
+chiamata sola. L'automatismo c'era, era rosso tre ore prima di Codemagic, ed
+era rosso da quarantotto giorni. **Ho dedotto invece di contare**, che e'
+esattamente la cosa che il protocollo di casa vieta alla prima riga, e l'ho
+fatto dentro un ordine che nasce per togliere le deduzioni di mezzo.
+
+Il numero e' nella sezione 3. La correzione non cambia il lavoro fatto, lo
+rende piu' necessario: se avessi creduto alla mia stessa frase, avrei consegnato
+un cancello nuovo senza sapere che quello vecchio era guasto da luglio.

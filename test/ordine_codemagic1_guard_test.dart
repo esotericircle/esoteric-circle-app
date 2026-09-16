@@ -20,7 +20,7 @@ void main() {
   final verde = File('.github/workflows/verde.yml');
   final codemagic = File('codemagic.yaml');
 
-  const quante = 4;
+  const quante = 5;
 
   int marcatore(String testo, String nome) {
     final trovato =
@@ -127,6 +127,32 @@ void main() {
     expect(File('functions/package-lock.json').existsSync(), isTrue,
         reason: 'npm ci pretende il lock: senza, le due macchine possono '
             'installare versioni diverse');
+  });
+
+  test('IL VERDETTO DEL CANCELLO SI LEGGE SENZA CREDENZIALI', () {
+    // Ordine CODEMAGIC1 voce 05. **La grandezza misurata e' la catena
+    // intera**, non la sola presenza dello script: un verdetto pubblicato
+    // serve solo se il registro arriva fino a li' e se il passo gira proprio
+    // quando il cancello cade.
+    final verdetto = File('tool/il_verdetto_del_cancello.sh');
+    expect(verdetto.existsSync(), isTrue,
+        reason: 'manca lo strumento che porta il verdetto nelle annotazioni');
+    expect(verdetto.readAsStringSync(), contains('::error'),
+        reason: 'lo strumento non scrive nessuna annotazione, e un verdetto '
+            'che resta nel registro non si legge senza credenziali');
+    final g = verde.readAsStringSync();
+    expect(g, contains('tool/il_verdetto_del_cancello.sh'),
+        reason: 'il cancello gratuito non pubblica il suo verdetto: i '
+            'registri delle azioni vogliono un accesso, le annotazioni no');
+    expect(g, contains('if: failure()'),
+        reason: 'il verdetto si pubblica quando il cancello cade, e quel '
+            'passo senza condizione non girerebbe mai dopo un rosso');
+    // **E IL REGISTRO DEVE ARRIVARCI.** Senza `pipefail` il `tee` darebbe il
+    // proprio zero al posto dell'esito del cancello, e un rosso passerebbe
+    // per verde: e' il guasto peggiore dei due, perche' non si vede.
+    expect(g, contains('set -o pipefail'),
+        reason: 'lo sbarramento finisce in una pipe senza pipefail: l esito '
+            'letto sarebbe quello di tee, non quello del cancello');
   });
 
   test('l\'ordine CODEMAGIC1 non e\' finito finche\' una voce resta aperta',
