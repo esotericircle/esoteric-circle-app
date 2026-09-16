@@ -1,10 +1,31 @@
 # Il verde di base, certificato dal repository.
 #
-# A ogni push sul branch di lavoro esegue soltanto i tre comandi che dichiarano
-# sana la base: risoluzione delle dipendenze, analisi statica, test. Nessuna
-# build, nessun deploy, nessun secret. Serve a rispondere a una sola domanda,
-# leggibile anche dal telefono guardando la spunta verde su GitHub: il codice
-# sul branch e' ancora sano?
+# A ogni push sul branch di lavoro esegue **LO STESSO CANCELLO CHE ESEGUE
+# CODEMAGIC**: `bash tool/sbarramento.sh`. Nessuna build, nessun deploy,
+# nessun secret. Serve a rispondere a una sola domanda, leggibile anche dal
+# telefono guardando la spunta verde su GitHub: questo commit passerebbe il
+# cancello della build?
+#
+# **PERCHE' NON PIU' `flutter test`. Ordine CODEMAGIC1 voce 02, 16 settembre
+# 2026.** La build 2264 e' caduta sul mac mini al passo dodici dopo ventinove
+# minuti, e il rosso che l'ha fermata era una riga sola: un'anteprima che
+# catturava a rapporto due invece di tre. **Quel rosso `flutter test` lo
+# vedeva**, ed era passato lo stesso, perche' il file era nato dopo l'ultimo
+# giro del cancello locale e nessuno l'aveva rigirato.
+#
+# Ma il punto non e' quel rosso: e' che **le due domande erano diverse**. Qui
+# girava `flutter test`, che non fa le prove del server, non fa il corredo a
+# scala 1,3 e non guarda il registro dei rossi accettati; su Codemagic girava
+# lo sbarramento, che fa tutte e tre le cose. Un cancello a valle piu' severo
+# di quello a monte e' un cancello che scopre i guasti dove si paga.
+#
+# **Adesso la domanda e' la stessa.** Un rifiuto da Codemagic per una prova
+# rossa ha bisogno che prima sia rossa qui, dove non costa niente.
+#
+# **Cosa questo cancello NON puo' dire**, e va detto: firma, profili, pod,
+# spazio sul disco, versione di Xcode, validazione dell'archivio da parte di
+# Apple. Nessuna macchina Linux gratuita costruisce un archivio iOS firmato.
+# Questa strada toglie la famiglia di cadute piu' frequente, non tutte.
 #
 # La build dell'APK resta in android-build.yml. Le anteprime NON le fa nessuna
 # azione: l'azione che le rigenerava e le committava da sola sul ramo canonico e'
@@ -12,7 +33,7 @@
 # Si rigenerano da chi lavora, con AGGIORNA_ANTEPRIME=1, e finiscono nello stesso
 # commit del codice. Qui non si tocca l'albero: i test di cattura scrivono in
 # build/preview, che non e' versionata.
-name: Verde di base (analyze e test)
+name: Verde di base (analyze e sbarramento)
 
 on:
   workflow_dispatch:
@@ -25,7 +46,7 @@ on:
 
 jobs:
   verde:
-    name: analyze e test
+    name: analyze e sbarramento
     runs-on: ubuntu-latest
     steps:
       - name: Checkout del codice
@@ -41,11 +62,28 @@ jobs:
           # coincide con codemagic.yaml e docs/versione_flutter.json.
           flutter-version: 3.44.5
 
-      - name: Dipendenze
+      # **NODE PRIMA DI FLUTTER**, perche' lo sbarramento ha due suite e la
+      # seconda e' quella del server, che gira con npm dentro functions/.
+      - name: Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Dipendenze Flutter
         run: flutter pub get
+
+      # **LE DIPENDENZE DEL SERVER, ordine CODEMAGIC1 voce 03.** Senza questa
+      # riga `functions/node_modules` non esiste, e lo sbarramento dichiara di
+      # non aver guardato la seconda suite: e' cio' che e' successo su
+      # Codemagic in ogni build fino alla 2264.
+      - name: Dipendenze del server
+        working-directory: functions
+        run: npm ci
 
       - name: Analisi statica
         run: flutter analyze
 
-      - name: Test
-        run: flutter test
+      # **LO SBARRAMENTO, lo stesso comando di codemagic.yaml.** Se cade qui,
+      # cadrebbe anche la' dopo mezz'ora di macchina a pagamento.
+      - name: Lo sbarramento, lo stesso di Codemagic
+        run: bash tool/sbarramento.sh

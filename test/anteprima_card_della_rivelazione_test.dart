@@ -22,8 +22,18 @@ void main() {
       markTestSkipped('senza ANTEPRIMA_CARD non si scrive niente');
       return;
     }
-    tester.view.physicalSize = const Size(760, 1200);
-    tester.view.devicePixelRatio = 2.0;
+    // **IL RAPPORTO E' TRE, come per ogni altra anteprima del progetto.**
+    // Ordine CODEMAGIC1 voce 01: qui c'era due, e `corredo_anteprime` l'ha
+    // preso sul mac mini facendo cadere la build 2264 al passo dello
+    // sbarramento. La regola sta in `test/corredo_anteprime_test.dart`, riga
+    // 28, e vale per chiunque scriva un'immagine che qualcuno guardera':
+    // un'anteprima a rapporto due e' meno nitida di tutte le altre, e la
+    // differenza si vede accanto a loro.
+    //
+    // **Lo schermo si allarga con lui**: a rapporto tre la stessa scatola di
+    // punti logici vuole piu' pixel veri, e la card sta larga 320 punti.
+    tester.view.physicalSize = const Size(1140, 1800);
+    tester.view.devicePixelRatio = 3.0;
     addTearDown(tester.view.reset);
     for (final nome in ['Volpe', 'Orso']) {
       final a = AnimalCatalog.animals.firstWhere((x) => x.name == nome);
@@ -50,7 +60,7 @@ void main() {
       await tester.pump(const Duration(milliseconds: 400));
       final png = await (await tester
               .renderObject<RenderRepaintBoundary>(find.byKey(ValueKey(nome)))
-              .toImage(pixelRatio: 2))
+              .toImage(pixelRatio: 3))
           .toByteData(format: ui.ImageByteFormat.png);
       final dove = 'docs/collaudo/DQ/15_la_card_${nome.toLowerCase()}.png';
       File(dove).writeAsBytesSync(png!.buffer.asUint8List());

@@ -286,6 +286,25 @@ workflows:
           # dentro il progetto Xcode. Senza, la firma non arriva dove serve.
           xcode-project use-profiles
 
+      # **LE DIPENDENZE DEL SERVER, PRIMA DEL CANCELLO.** Ordine CODEMAGIC1
+      # voce 03, 16 settembre 2026.
+      #
+      # **Il fatto, letto nel registro della build 2264**, righe 11663 e
+      # seguenti: *"LE PROVE DEL SERVER NON SONO STATE ESEGUITE: manca
+      # /Users/builder/clone/functions/node_modules"*. Non era un caso di
+      # quella build: in questo file **non c'era nessun comando npm**, quindi
+      # quella cartella su questa macchina non e' mai esistita e la seconda
+      # suite non e' mai stata guardata, in nessuna build.
+      #
+      # **`npm ci` e non `npm install`**: installa esattamente cio' che
+      # `package-lock.json` dichiara, che e' la stessa cosa che gira sul
+      # cancello gratuito di GitHub. Due macchine che installano versioni
+      # diverse sono due cancelli diversi, e questo ordine esiste proprio per
+      # non averne due.
+      - name: Le dipendenze del server, per la seconda suite
+        script: |
+          cd functions && npm ci
+
       - name: Le prove, prima di costruire, E SONO UNO SBARRAMENTO
         script: |
           # ORDINE P VOCE 03. Qui c'era `ignore_failure: true`, cioe' il
