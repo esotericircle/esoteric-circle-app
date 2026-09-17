@@ -21,7 +21,7 @@ import 'daily_rituals.dart';
 enum DailyElement {
   dawn(
     cosaFai:
-        'Sfoglia i ventidue arcani coperti e gira quello che ti chiama: è l\'arcano della tua giornata.',
+        'Scegli fra i ventidue arcani coperti e gira quello che ti chiama: è l\'arcano della tua giornata.',
     perche:
         'Il primo minuto della giornata decide il tono di tutte le ore che vengono dopo.',
     cosaTiResta:
