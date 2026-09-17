@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../core/tarot/tarot_card.dart';
 import '../tarot/tarot_card_art.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/tokens/typography_tokens.dart';
 
 /// **IL TAVOLO DEI VENTIDUE.** Ordine DU, 17 settembre 2026, seconda stesura.
 ///
@@ -62,6 +63,17 @@ class TavoloDeiVentidue extends StatefulWidget {
   final bool ridotto;
 
   final int quante;
+
+  /// **QUANTO DELLA LARGHEZZA OCCUPA LA CARTA RIVELATA.** Sta qui, pubblica,
+  /// perche' la stessa misura vale anche quando il dono si riapre il giorno
+  /// dopo: due numeri scritti in due posti diventano due carte di misura
+  /// diversa per la stessa cosa.
+  /// **Il settanta per cento della larghezza del tavolo**, che con i
+  /// margini della colonna fa il sessantuno per cento dello schermo: e' la
+  /// misura a cui la carta rivelata smette di sembrare persa in mezzo al
+  /// vuoto. Al sessantadue si fermava al cinquantaquattro per cento dello
+  /// schermo, misurato al banco.
+  static const double parteDellaLarghezza = 0.70;
 
   /// **COME SI DIVIDONO IN RIGHE, dato lo spazio.** Due righe da undici dove
   /// c'e' larghezza, tre righe da otto, sette e sette dove non ce n'e'.
@@ -199,9 +211,13 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
             // delle carte non aveva niente che la tenesse larga e si
             // stringeva al centro: le carte finivano tutte spostate a destra
             // di mezza schermata. Visto sulla sonda, non dedotto.
+            // **LA SCATOLA CRESCE COL VOLO.** La pila taglia cio' che esce
+            // dai suoi bordi: con la carta ingrandita al 62 per cento della
+            // larghezza, una scatola alta quanto le tre righe le tagliava la
+            // testa e i piedi. Cresce quanto serve, e solo mentre serve.
             SizedBox(
               width: larghezza,
-              height: disegno.altezza + _Stelline.alone,
+              height: _altezzaDellaScatola(disegno),
               child: _tavolo(disegno),
             ),
             const SizedBox(height: 6),
@@ -252,6 +268,20 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
     );
   }
 
+  /// **L'ALTEZZA DELLA SCATOLA, in un posto solo.** A riposo e' quella delle
+  /// righe piu' l'alone delle stelline; mentre la carta sale cresce fino a
+  /// contenerla ingrandita, perche' la pila taglia cio' che esce dai suoi
+  /// bordi. Serve anche al punto d'arrivo del volo: **quando i due conti
+  /// stavano in due posti diversi, la carta arrivava centrata sulla scatola di
+  /// prima e la testa finiva fuori.**
+  double _altezzaDellaScatola(_DisegnoDelTavolo disegno) {
+    final ferma = disegno.altezza + _Stelline.alone;
+    final cresciuta = math.max(ferma, disegno.altezzaDellaRivelazione);
+    final avanti =
+        Curves.easeOutCubic.transform(widget.rivelazione.value.clamp(0.0, 1.0));
+    return ferma + (cresciuta - ferma) * avanti;
+  }
+
   /// La scia di stelline dietro la carta che sale: i punti dove e' passata.
   List<Offset> _sciaDellaScelta(_DisegnoDelTavolo disegno) {
     if (widget.scelta == null || widget.ridotto) return const [];
@@ -266,7 +296,8 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
   /// Dove si trova il centro della carta scelta al tempo [t] del volo.
   Offset _puntoDelVolo(_DisegnoDelTavolo disegno, double t) {
     final partenza = disegno.centroDi(_postoDi(widget.scelta!));
-    final arrivo = disegno.centroDelTavolo;
+    final arrivo =
+        Offset(disegno.larghezza / 2, _altezzaDellaScatola(disegno) / 2);
     final avanti = Curves.easeOutCubic.transform((t / 0.45).clamp(0.0, 1.0));
     return Offset.lerp(partenza, arrivo, avanti)!;
   }
@@ -464,9 +495,20 @@ class _DisegnoDelTavolo {
 
   Offset get centroDelTavolo => Offset(larghezza / 2, altezza / 2);
 
-  /// Quanto cresce la carta quando sale al centro.
-  double get scalaDellaRivelazione =>
-      math.min(2.6, (larghezza * 0.62) / larghezzaCarta);
+  /// Quanto cresce la carta quando sale al centro: **il sessantadue per cento
+  /// della larghezza**.
+  ///
+  /// Il tetto era 2,6 e tagliava la scala molto prima: su un telefono da 360
+  /// punti la carta rivelata restava a 140 punti, cioe' il 39 per cento, e il
+  /// fondatore l'ha vista *"piccola, con molto spazio intorno"*. Il tetto serve
+  /// solo a non far esplodere la carta su uno schermo largo, quindi sta dove
+  /// non morde: a 4,6.
+  double get scalaDellaRivelazione => math.min(4.6,
+      (larghezza * TavoloDeiVentidue.parteDellaLarghezza) / larghezzaCarta);
+
+  /// L'altezza che serve alla carta quando e' salita e cresciuta.
+  double get altezzaDellaRivelazione =>
+      altezzaCarta * scalaDellaRivelazione + 24;
 
   /// Dove sta il [posto] dentro la sua riga: la riga, l'indice e quanti sono.
   ({int riga, int indice, int quanti}) rigaDi(int posto) {
@@ -695,12 +737,16 @@ class _Gesto extends StatelessWidget {
           shape: BoxShape.circle,
           // L'alone dentro la bolla: il Maestro si riconosce dal colore,
           // e la bolla non e' un disco piatto.
+          // **IL FONDO DELLA BOLLA E' SCURO, e non e' una scelta di gusto.**
+          // Coll'alone al 26 per cento il fondo sotto l'etichetta veniva
+          // #4C5EAC e l'oro ci stava sopra a 4,20 contro il 4,5 preteso: la
+          // bolla era bella e l'etichetta non si leggeva.
           gradient: RadialGradient(
             colors: [
-              palette.glow.withValues(alpha: 0.26),
-              palette.deepest.withValues(alpha: 0.42),
+              palette.glow.withValues(alpha: 0.10),
+              palette.deepest.withValues(alpha: 0.88),
             ],
-            stops: const [0.15, 1.0],
+            stops: const [0.0, 0.85],
           ),
           border: Border.all(color: palette.gold.withValues(alpha: 0.55)),
           boxShadow: [
@@ -721,8 +767,14 @@ class _Gesto extends StatelessWidget {
               const SizedBox(height: 4),
               Text(
                 testo,
-                style: TextStyle(
-                    color: palette.goldSoft, fontSize: 15, letterSpacing: 0.2),
+                // Il ruolo, non la misura: una misura scritta a mano qui e'
+                // debito che il censimento conta, e il ruolo dell'etichetta
+                // esiste e vale per tutta l'app.
+                // **SEDICI PUNTI, non quattordici**: nei Doni nessun testo
+                // scende sotto i sedici, voce CG.14, e l'etichetta vale
+                // quattordici. Il ruolo della riga e' quello che regge.
+                style: TypographyTokens.titoloDiRiga()
+                    .copyWith(color: palette.goldSoft),
               ),
             ],
           ),

@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'cardinale_minimo.dart';
+
 /// LA GUARDIA DELL'ORDINE DU, l'Arcano dell'Alba che diventa una scena.
 ///
 /// **Non e' una promessa, e' una prova che non passa.** Legge il manifesto e
@@ -140,15 +142,22 @@ void main() {
     final fan = File('lib/features/tarot/stesa_fan.dart');
     expect(fan.existsSync(), isTrue);
     final usano = <String>[];
+    var guardati = 0;
     for (final f in Directory('lib')
         .listSync(recursive: true)
         .whereType<File>()
         .where((f) => f.path.endsWith('.dart'))) {
       if (f.path.endsWith('stesa_fan.dart')) continue;
+      guardati++;
       if (f.readAsStringSync().contains('StesaFan(')) {
         usano.add(f.path.split(RegExp(r'[\\/]')).last);
       }
     }
+    // Il cardinale: su una cartella vuota nessuno monterebbe il ventaglio e
+    // questa riga sarebbe verde senza aver aperto un file.
+    cardinaleMinimo(guardati, 300,
+        cosa: 'sorgenti di lib guardati',
+        perche: 'Su un insieme vuoto nessun file monterebbe il ventaglio.');
     usano.sort();
     print('ORDINE DU: chi monta il ventaglio $usano');
     expect(usano, ['stesa_tre_carte_screen.dart']);

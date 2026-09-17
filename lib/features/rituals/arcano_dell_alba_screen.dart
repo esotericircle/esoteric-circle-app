@@ -288,11 +288,21 @@ class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
                             // sull'anteprima, non dedotto.
                             AnimatedBuilder(
                               animation: _rivelazione,
-                              builder: (context, figlio) => Opacity(
-                                opacity: (1 - _rivelazione.value * 2.4)
-                                    .clamp(0.0, 1.0),
-                                child: figlio,
-                              ),
+                              builder: (context, figlio) {
+                                final acceso = (1 - _rivelazione.value * 2.4)
+                                    .clamp(0.0, 1.0);
+                                // **IL VUOTO SI CHIUDE COL TESTO.** Spegnere
+                                // il titolo non basta: lo spazio che occupava
+                                // restava li', e la carta rivelata sembrava
+                                // persa in una schermata vuota. Visto
+                                // sull'anteprima dal fondatore.
+                                return Align(
+                                  alignment: Alignment.topCenter,
+                                  heightFactor: acceso,
+                                  child:
+                                      Opacity(opacity: acceso, child: figlio),
+                                );
+                              },
                               child: Column(
                                 children: [
                                   // **IL TITOLO DELLA SCENA**, richiesto dal
@@ -349,10 +359,41 @@ class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
                                     .clamp(0, 1),
                                 child: figlio,
                               ),
-                              child: _TreMovimenti(
-                                  responso: responso,
-                                  giorno: _adesso,
-                                  palette: _palette),
+                              // **IL RESPONSO HA IL SUO FONDO.** I tre
+                              // movimenti stanno sul cielo, e il cielo in quel
+                              // punto e' chiaro: la riga del dono ci stava
+                              // sopra a 4,25 contro il 4,5 preteso. Un velo
+                              // scuro che sfuma dall'alto tiene il testo
+                              // leggibile dovunque cada nella scena, invece di
+                              // dipendere da dove passa una stella.
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  // Il velo e' un pannello, non un taglio: in
+                                  // cima si arrotonda come le altre superfici
+                                  // del Cerchio.
+                                  borderRadius: const BorderRadius.vertical(
+                                      top: Radius.circular(18)),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    // **IL VELO COMINCIA GIA' SCURO.** Con la
+                                    // prima fermata trasparente, la riga del
+                                    // dono cadeva proprio li' e il contrasto
+                                    // scendeva a 3,20: un velo che sfuma dove
+                                    // comincia il testo non copre il testo.
+                                    colors: [
+                                      _palette.deepest.withValues(alpha: 0.62),
+                                      _palette.deepest.withValues(alpha: 0.86),
+                                      _palette.deepest.withValues(alpha: 0.88),
+                                    ],
+                                    stops: const [0.0, 0.10, 1.0],
+                                  ),
+                                ),
+                                child: _TreMovimenti(
+                                    responso: responso,
+                                    giorno: _adesso,
+                                    palette: _palette),
+                              ),
                             ),
                           ],
                         ],
@@ -375,12 +416,18 @@ class _CartaGrande extends StatelessWidget {
   final MaestroPalette palette;
 
   @override
-  Widget build(BuildContext context) => Center(
-        child: SizedBox(
-          width: 236,
-          child: AspectRatio(
-            aspectRatio: TarotFrame.aspect,
-            child: _Faccia(responso: responso, palette: palette),
+  Widget build(BuildContext context) => LayoutBuilder(
+        builder: (context, spazio) => Center(
+          child: SizedBox(
+            // **LA STESSA MISURA DELLA CARTA APPENA RIVELATA**, cioe' il
+            // sessantadue per cento della larghezza: chi riapre il dono
+            // ritrova la carta grande come l'ha lasciata, e non un numero
+            // scritto a mano che vale solo su un telefono.
+            width: spazio.maxWidth * TavoloDeiVentidue.parteDellaLarghezza,
+            child: AspectRatio(
+              aspectRatio: TarotFrame.aspect,
+              child: _Faccia(responso: responso, palette: palette),
+            ),
           ),
         ),
       );
@@ -400,6 +447,33 @@ class _Faccia extends StatelessWidget {
         card: responso.carta,
         palette: palette,
         reversed: responso.stato.rovescio,
+      );
+}
+
+/// **L'ETICHETTA DI UN MOVIMENTO**: dice che cos'e' cio' che viene dopo.
+///
+/// Sta in una classe sua perche' sono tre in una schermata sola e devono
+/// essere identiche: tre stili copiati a mano diventano tre stili diversi al
+/// primo ritocco.
+class _Etichetta extends StatelessWidget {
+  const _Etichetta({
+    required this.chiave,
+    required this.testo,
+    required this.palette,
+  });
+
+  final String chiave;
+  final String testo;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) => Text(
+        testo,
+        key: Key(chiave),
+        style: TypographyTokens.titoloDiRiga().copyWith(
+          color: palette.gold,
+          letterSpacing: 0.6,
+        ),
       );
 }
 
@@ -433,9 +507,17 @@ class _TreMovimenti extends StatelessWidget {
                 .copyWith(color: palette.goldSoft, height: 1.25),
           ),
           const SizedBox(height: SpacingTokens.md),
-          // Il secondo: il dono. La parola, quando c'e', prima del testo che
-          // la porta: e' il colpo d'occhio.
+          // **IL SECONDO MOVIMENTO SI PRESENTA.** La parola stava qui da sola,
+          // in maiuscolo grande, e chi leggeva doveva indovinare che fosse la
+          // sua parola del giorno e che cosa farsene. Adesso porta il suo nome
+          // e il suo uso, e il gesto porta il suo.
           if (parola != null) ...[
+            _Etichetta(
+              chiave: 'arcano_alba_etichetta_parola',
+              testo: 'La parola di oggi',
+              palette: palette,
+            ),
+            const SizedBox(height: SpacingTokens.xs),
             Text(
               parola.toUpperCase(),
               key: const Key('arcano_alba_parola'),
@@ -443,7 +525,20 @@ class _TreMovimenti extends StatelessWidget {
                   .copyWith(color: palette.goldSoft, letterSpacing: 1.5),
             ),
             const SizedBox(height: SpacingTokens.xs),
+            Text(
+              'Tienila a mente quando devi scegliere: è il filo di oggi.',
+              key: const Key('arcano_alba_uso_della_parola'),
+              style: TypographyTokens.lettura().copyWith(
+                  color: ColorTokens.textPrimary.withValues(alpha: 0.88)),
+            ),
+            const SizedBox(height: SpacingTokens.md),
           ],
+          _Etichetta(
+            chiave: 'arcano_alba_etichetta_gesto',
+            testo: 'Il gesto di oggi',
+            palette: palette,
+          ),
+          const SizedBox(height: SpacingTokens.xs),
           ParagrafiDiLettura(
             key: const Key('arcano_alba_dono'),
             testo: responso.secondo,

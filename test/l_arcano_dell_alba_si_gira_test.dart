@@ -18,6 +18,7 @@ import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
 import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/rituals/arcano_dell_alba_screen.dart';
+import 'package:esoteric_circle/features/rituals/tavolo_dei_ventidue.dart';
 import 'package:esoteric_circle/features/tarot/tarot_card_art.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -388,5 +389,88 @@ void main() {
     for (var i = 0; i < 12; i++) {
       await tester.pump(const Duration(milliseconds: 100));
     }
+  });
+
+  testWidgets('LA CARTA RIVELATA RIEMPIE LA SCENA, e ci sta tutta',
+      (tester) async {
+    // **Il fondatore, guardando l'anteprima**: *"la carta scelta e rivelata mi
+    // sembra piccola, c'e' molto spazio intorno e sembra una schermata
+    // vuota"*. Aveva ragione, e si misurava: un tetto sulla scala la fermava a
+    // 140 punti su 360, cioe' il 39 per cento della larghezza.
+    //
+    // Due grandezze, e la seconda e' quella che il primo rimedio ha rotto: la
+    // carta deve essere **grande**, e deve starci **tutta**. Alzando solo la
+    // scala, la pila del tavolo le tagliava la testa di trentasette punti,
+    // perche' arrivava centrata sulla scatola di prima.
+    await monta(tester);
+    await gira(tester, 6);
+    final carta = tester.getRect(find.byType(TarotCardArt));
+    final tavolo = tester.getRect(find.byType(TavoloDeiVentidue));
+    final schermo =
+        tester.view.physicalSize.width / tester.view.devicePixelRatio;
+    print('ORDINE DU: la carta rivelata e\' larga '
+        '${carta.width.toStringAsFixed(1)} punti su $schermo, cioe\' il '
+        '${(carta.width / schermo * 100).round()} per cento');
+    expect(carta.width / schermo, greaterThan(0.55),
+        reason: 'la carta rivelata occupa il '
+            '${(carta.width / schermo * 100).round()} per cento della '
+            'larghezza: intorno resta troppo vuoto');
+    expect(tavolo.top, lessThanOrEqualTo(carta.top + 1),
+        reason: 'la carta esce dalla scatola del tavolo in alto di '
+            '${(tavolo.top - carta.top).toStringAsFixed(1)} punti, e la pila '
+            'la taglia');
+    expect(tavolo.bottom, greaterThanOrEqualTo(carta.bottom - 1),
+        reason: 'la carta esce dalla scatola del tavolo in basso di '
+            '${(carta.bottom - tavolo.bottom).toStringAsFixed(1)} punti');
+  });
+
+  testWidgets('IL RESPONSO SI PRESENTA: la parola ha un nome e un uso',
+      (tester) async {
+    // **Il fondatore**: *"la parola deve essere dichiarata tipo 'la parola di
+    // oggi:' e l'utente deve sapere cosa farsene... vuole risposte chiare,
+    // dirette e ognuna guida"*.
+    //
+    // Prima la parola stava da sola, in maiuscolo grande, e chi leggeva doveva
+    // indovinare che cosa fosse e che cosa farsene. Qui si misura che ogni
+    // pezzo del responso porti il suo nome, **e che i nomi stiano sopra la
+    // cosa che nominano**: un'etichetta sotto il suo testo non guida nessuno.
+    await monta(tester);
+    await gira(tester, 9);
+    final oggi = await tester.runAsync(() => ArchivioDellAlba.diOggi(adesso));
+    expect(oggi!.parola, isNotNull,
+        reason: 'ogni carta ha la sua parola, voce DU.08');
+
+    final etichettaParola =
+        find.byKey(const Key('arcano_alba_etichetta_parola'));
+    final parola = find.byKey(const Key('arcano_alba_parola'));
+    final uso = find.byKey(const Key('arcano_alba_uso_della_parola'));
+    final etichettaGesto = find.byKey(const Key('arcano_alba_etichetta_gesto'));
+    final dono = find.byKey(const Key('arcano_alba_dono'));
+    for (final (nome, chi) in [
+      ('l\'etichetta della parola', etichettaParola),
+      ('la parola', parola),
+      ('la riga che dice cosa farne', uso),
+      ('l\'etichetta del gesto', etichettaGesto),
+      ('il gesto', dono),
+    ]) {
+      expect(chi, findsOneWidget, reason: 'manca $nome');
+    }
+    expect(tester.widget<Text>(etichettaParola).data, 'La parola di oggi');
+    expect(tester.widget<Text>(etichettaGesto).data, 'Il gesto di oggi');
+
+    // L'ordine a video: nome, parola, uso, nome del gesto, gesto.
+    final quote = [
+      tester.getTopLeft(etichettaParola).dy,
+      tester.getTopLeft(parola).dy,
+      tester.getTopLeft(uso).dy,
+      tester.getTopLeft(etichettaGesto).dy,
+      tester.getTopLeft(dono).dy,
+    ];
+    for (var i = 1; i < quote.length; i++) {
+      expect(quote[i], greaterThan(quote[i - 1]),
+          reason: 'il responso non scorre nell\'ordine giusto: $quote');
+    }
+    print('ORDINE DU: il responso si legge in questo ordine, alle quote '
+        '${quote.map((q) => q.round()).toList()}');
   });
 }

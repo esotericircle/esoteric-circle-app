@@ -1,7 +1,7 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 147 -->
-<!-- FILE_CON_VUOTI: 64 -->
+<!-- VUOTI_CENSITI: 149 -->
+<!-- FILE_CON_VUOTI: 65 -->
 <!-- VUOTI_ECCESSIVI: 3 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
 
@@ -11,8 +11,8 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **147** |
-| File che ne contengono | **64** |
+| Vuoti verticali dichiarati | **149** |
+| File che ne contengono | **65** |
 | Oltre la soglia di 48 punti | **3** |
 
 ## Da dove viene la soglia
@@ -24,9 +24,9 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | 0 | 1 |
 | 2 | 84 |
 | 3 | 8 |
-| 4 | 21 |
+| 4 | 22 |
 | 5 | 1 |
-| 6 | 12 |
+| 6 | 13 |
 | 7 | 2 |
 | 8 | 6 |
 | 9 | 2 |
@@ -85,6 +85,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/onboarding/risveglio_journey.dart` | 2 | 0 |
 | `lib/features/rituals/sunset_rune_card.dart` | 2 | 0 |
 | `lib/features/rituals/sunset_rune_screen.dart` | 2 | 0 |
+| `lib/features/rituals/tavolo_dei_ventidue.dart` | 2 | 0 |
 | `lib/features/settings/riga_di_messa_a_punto.dart` | 2 | 0 |
 | `lib/features/sigilli/la_mappa_del_sentiero.dart` | 2 | 0 |
 | `lib/features/synastry/sinastria_vip_screen.dart` | 2 | 1 |
