@@ -70,8 +70,13 @@ void main() {
       // passato da qualche ora, quindi la data VERA e' il giorno prima e il
       // motore di oggi lo conferma il giorno dopo. Misurato sul solstizio
       // d'inverno 2026, che cade il 21 dicembre alle 15:50 UTC.
-      final quandoLoVede = ProssimiEventi.attraversamenti
-              .contains(evento.evento)
+      //
+      // **E DALL'ORDINE DS VOCE 08 VALE PER OGNI EVENTO CHE COMINCIA DOPO
+      // OGGI**, per la stessa ragione: il motore guarda a mezzanotte, e un
+      // Primo quarto che comincia alle 10 lo vede la mezzanotte dopo. Che la
+      // data sia il giorno in cui l'evento comincia davvero, e non uno dopo,
+      // lo misura ora per ora `la_prossima_data_e_il_giorno_in_cui_comincia`.
+      final quandoLoVede = evento.fraQuantiGiorni > 0
           ? DateTime(
               evento.quando.year, evento.quando.month, evento.quando.day + 1)
           : evento.quando;

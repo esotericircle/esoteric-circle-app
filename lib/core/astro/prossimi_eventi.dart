@@ -149,10 +149,20 @@ class ProssimiEventi {
         // Comincia oggi, oppure era gia' in corso e oggi e' il giorno in cui
         // la persona lo vede: in tutti e due i casi la data e' questa.
         if (i == 0 || !ieri.contains(evento)) {
-          // La data VERA di un attraversamento e' il giorno prima di quello
-          // in cui il confronto scatta, per la ragione scritta sopra. Mai
-          // prima di oggi: se scatta gia' oggi, oggi e' cio' che si vede.
-          final indietro = attraversamenti.contains(evento) && i > 0 ? 1 : 0;
+          // La data VERA e' il giorno prima di quello in cui il confronto
+          // scatta. Mai prima di oggi: se scatta gia' oggi, oggi e' cio' che
+          // si vede.
+          //
+          // **E VALE PER OGNI EVENTO, NON SOLO PER GLI ATTRAVERSAMENTI.**
+          // Ordine DS voce 08, 17 settembre 2026. Il motore di oggi guarda il
+          // cielo a mezzanotte: un evento che a questa mezzanotte c'e' e a
+          // quella di ieri non c'era e' cominciato nel giorno di mezzo,
+          // qualunque evento sia. La correzione valeva solo per solstizi e
+          // stazioni, e il Primo quarto che comincia alle 10 del 18 arrivava
+          // al modello come *"fra 2 giorni"* invece che domani: Medora l'ha
+          // detto a un fondatore, e misurato ora per ora **205 eventi della
+          // Luna su 220** in tre mesi portavano la data del giorno dopo.
+          final indietro = i > 0 ? 1 : 0;
           trovati[evento] = EventoInArrivo(
             evento: evento,
             quando: DateTime(giorno.year, giorno.month, giorno.day - indietro),
