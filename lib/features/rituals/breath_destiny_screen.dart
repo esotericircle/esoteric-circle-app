@@ -26,6 +26,7 @@ import '../../design_system/components/guida_del_respiro.dart';
 import '../../design_system/theme/accento_del_maestro.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import 'forma_del_dono.dart';
 import '../sigilli/regia_del_cammino.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -545,8 +546,7 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
     var nuovo = _inseguimento + (manca.abs() >= 0.5 ? manca : 0);
     var fondoVoluto = fondo + (nuovo - _inseguimento);
     if (colonna is RenderBox && colonna.hasSize) {
-      final eccesso =
-          fondoVoluto - (colonna.size.height - respiroFraLeDueZone);
+      final eccesso = fondoVoluto - (colonna.size.height - respiroFraLeDueZone);
       if (eccesso > 0) {
         nuovo -= eccesso;
         fondoVoluto -= eccesso;
@@ -1056,10 +1056,19 @@ class _BreathScenePainter extends CustomPainter {
     final headR = _headRFrac * dstW;
     final giftCenter = SuperficiDelSoffio.discoDentro(size);
 
-    // --- Visivo del dono, provvisorio: una forma energetica che si accende ---
-    // man mano che le scintille dei semi salgono a comporla. La forma vera
-    // verra' dal cantiere.
-    _paintGiftForm(canvas, giftCenter, w, p);
+    // --- Il dono: un soffione di luce che si accende man mano che le
+    // scintille dei semi salgono a comporlo. **Ordine DU voce 14**: il disegno
+    // sta in `FormaDelDono`, che e' pubblica perche' una scena si misura solo
+    // se una prova la puo' dipingere da sola.
+    FormaDelDono.dipingi(
+      canvas,
+      centro: giftCenter,
+      larghezza: w,
+      soffio: p,
+      respiro: ambient,
+      palette: palette,
+      fermo: reduceMotion,
+    );
 
     // --- Alone morbido d'aria attorno al soffione, appena un respiro ---
     final auraR = headR * 1.9;
@@ -1147,77 +1156,6 @@ class _BreathScenePainter extends CustomPainter {
 
     // --- Semi che volano via verso l'alto come scintille, con deriva di vento --
     _paintSeeds(canvas, headCenter, headR, giftCenter, p);
-  }
-
-  // Il visivo del dono, provvisorio ma costruito: un soffione di luce, non una
-  // palla sfocata. Cuore definito, raggi che terminano in nodi luminosi, due
-  // anelli fini e un alone verde-oro. Si accende col salire delle scintille. La
-  // forma definitiva verra' dal cantiere.
-  void _paintGiftForm(Canvas canvas, Offset center, double w, double p) {
-    if (p <= 0.02) return;
-    final breathe = reduceMotion ? 0.0 : math.sin(2 * math.pi * ambient);
-    final r = w * (0.13 + 0.10 * p) * (1 + 0.025 * breathe);
-
-    // Alone verde-oro d'aria, morbido, dietro alla forma.
-    canvas.drawCircle(
-      center,
-      r * 1.7,
-      Paint()
-        ..blendMode = BlendMode.plus
-        ..shader = RadialGradient(
-          colors: [
-            palette.glow.withValues(alpha: 0.26 * p),
-            const Color(0x00000000),
-          ],
-        ).createShader(Rect.fromCircle(center: center, radius: r * 1.7)),
-    );
-
-    // Due anelli fini che danno struttura.
-    Paint ring(double a, double sw) => Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = sw
-      ..color = palette.gold.withValues(alpha: a * p);
-    canvas.drawCircle(center, r, ring(0.5, 1.2));
-    canvas.drawCircle(center, r * 0.5, ring(0.4, 1.0));
-
-    // Raggi che terminano in nodi luminosi, come un soffione di luce.
-    const n = 24;
-    final ray = Paint()
-      ..strokeWidth = 0.9
-      ..strokeCap = StrokeCap.round
-      ..color = palette.gold.withValues(alpha: 0.42 * p);
-    for (var i = 0; i < n; i++) {
-      final a = 2 * math.pi * i / n - math.pi / 2;
-      final dir = Offset(math.cos(a), math.sin(a));
-      final outer = center + dir * r * 0.92;
-      canvas.drawLine(center + dir * r * 0.5, outer, ray);
-      // Bagliore additivo e nodo definito al vertice.
-      canvas.drawCircle(
-        outer,
-        3.4,
-        Paint()
-          ..blendMode = BlendMode.plus
-          ..color = palette.goldSoft.withValues(alpha: 0.22 * p),
-      );
-      canvas.drawCircle(outer, 1.7,
-          Paint()..color = palette.goldSoft.withValues(alpha: 0.85 * p));
-    }
-
-    // Cuore definito e luminoso.
-    canvas.drawCircle(
-      center,
-      r * 0.4,
-      Paint()
-        ..blendMode = BlendMode.plus
-        ..shader = RadialGradient(
-          colors: [
-            const Color(0xFFFFF6DC).withValues(alpha: 0.85 * p),
-            const Color(0x00FFF6DC),
-          ],
-        ).createShader(Rect.fromCircle(center: center, radius: r * 0.4)),
-    );
-    canvas.drawCircle(center, r * 0.09,
-        Paint()..color = const Color(0xFFFFF9E8).withValues(alpha: 0.95 * p));
   }
 
   void _paintSeeds(
