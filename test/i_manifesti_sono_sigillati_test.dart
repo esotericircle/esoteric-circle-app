@@ -277,6 +277,7 @@ void main() {
     'DQ': 16,
     'DR': 11,
     'DS': 9,
+    'DT': 20,
     'P': 40,
     'S': 29,
     'T': 2,
@@ -322,7 +323,7 @@ void main() {
   test('DS.01: OGNI MANIFESTO E COPERTO DAL SIGILLO, e il sigillo dice il vero',
       () {
     final manifesti = manifestiDelRepository();
-    cardinaleMinimo(manifesti.length, 89,
+    cardinaleMinimo(manifesti.length, 90,
         cosa: 'manifesti in docs/ordini',
         perche: 'Se la cartella non si legge, il sigillo sarebbe verde su '
             'niente.');
@@ -403,7 +404,7 @@ void main() {
     // ignore: avoid_print
     print('ORDINE DS VOCE 01: manifesti con la guardia '
         '${guardati - senza.length} su $guardati');
-    cardinaleMinimo(guardati, 89,
+    cardinaleMinimo(guardati, 90,
         cosa: 'manifesti a cui chiedere la guardia',
         perche: 'Su una cartella vuota nessuna guardia mancherebbe.');
     expect(senza, isEmpty,
