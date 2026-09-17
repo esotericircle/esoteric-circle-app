@@ -40,7 +40,7 @@ percio' le lunghezze nuove.
 | Rune, singola runa: verso d'ombra | 24 | 44 | 52 |
 | Rune, singola runa: verso dritto | 24 | 43 | 51 |
 | Tarocchi, bolla di posizione | 576 | 196 | 325 |
-| Tarocchi, consiglio | 192 | 829 | 994 |
+| Tarocchi, consiglio | 192 | 842 | 994 |
 | Tarocchi, domanda di chiusura | 192 | 52 | 73 |
 | Tarocchi, sintesi | 192 | 22 | 28 |
 
