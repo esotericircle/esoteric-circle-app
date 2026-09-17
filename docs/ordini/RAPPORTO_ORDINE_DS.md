@@ -675,6 +675,13 @@ Le ha trovate lo sbarramento, non una rilettura.
    Padre: **ordine DS voce 09**. Il Consiglio dei Tarocchi è cambiato: mediana da
    829 a **842** caratteri, massimo fermo a **994**. Rigenerata; nessun tetto
    superato.
+3. **Il cancello gratuito di GitHub è caduto sulla spinta di `eac1e559`**,
+   prima ancora dello sbarramento. Padre: **ordine DS voce 06**. `flutter
+   analyze` sull'intero progetto segnalava un'informazione, un import superfluo
+   di `foundation.dart` nella prova dell'ingresso del fotogramma, e il passo di
+   analisi esce con 1 anche per un'informazione. Io l'avevo fatto girare solo
+   sulle cartelle toccate. Tolto l'import, l'analisi dell'intero progetto dice
+   *No issues found*.
 
 ### L'esito dello sbarramento
 
@@ -684,6 +691,10 @@ QUESTA istruzione* e *le soglie delle quattro pose sono state misurate su un
 telefono*) e uno solo nuovo, **"il ramo locale non ha commit che il remoto non
 conosce"**, che si chiude spingendo; **le prove del server 98 su 98**; il
 corredo a scala 1,3 con 182 schermate montate e i soli rossi già accettati.
+
+**Rifatto dopo la spinta**, sul commit `eac1e559`: **solo rossi accettati,
+l'archivio si produce**, gettone scritto per la build **2265** con **5.443
+prove**; server 98 su 98.
 
 **Una stesura mia che mentiva, rimediata prima di consegnare**: nel registro
 avevo scritto *"figure ripetute in 704 Consigli"*; il numero misurato è 708
