@@ -128,8 +128,18 @@ void main() {
         () async {
       final t = await conVoce(_Voce(['Il tuo Sole in Cancro chiede riparo.']));
       // Si esaurisce il gratuito.
+      // **UNA DOMANDA DIVERSA A OGNI GIRO. Ordine DS voce 08.** Qui si
+      // mandava sempre 'ancora'. Da quando la stessa domanda nello stesso
+      // giorno ha una lettura sola, ridetta senza chiamare il modello e senza
+      // consumare, il secondo 'ancora' non costava piu' niente e questo ciclo
+      // non finiva: ha tenuto fermo lo sbarramento per venti minuti. Il tetto
+      // ai giri c'e' perche' un ciclo che aspetta un conto non si fida mai.
+      var giri = 0;
       while (t.conto.remaining(Tier.free) > 0) {
-        await t.chat.send('ancora');
+        await t.chat.send('ancora, la domanda numero $giri');
+        giri++;
+        expect(giri, lessThan(100),
+            reason: 'le domande non finiscono: qualcosa non consuma piu');
       }
       final consumateDopo = t.conto.usedToday();
       await t.chat.send('e adesso');
