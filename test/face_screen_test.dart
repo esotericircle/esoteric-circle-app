@@ -45,7 +45,13 @@ void main() {
     }
   }
 
-  testWidgets('La soglia mostra privacy, cielo e ingresso al ripiego',
+  // **LA SOGLIA NON MOSTRA PIU' RISERVATEZZA E CIELO. Ordine DS voce 06.**
+  // Qui si pretendevano il riquadro della riservatezza e la bolla "Lega al
+  // cielo di oggi". Il fondatore li ha fatti togliere: stavano sopra la piega
+  // e spingevano sotto cio' che la persona deve fare col volto. La garanzia
+  // resta nel motore, il cielo resta nel responso; la prova che non tornino
+  // vive in `la_costellazione_del_viso_si_capisce_e_parte_su_iphone_test`.
+  testWidgets('La soglia mostra immagine, porta e ingresso al ripiego',
       (tester) async {
     tester.view.physicalSize = const Size(430, 1600);
     tester.view.devicePixelRatio = 1.0;
@@ -55,8 +61,7 @@ void main() {
     await tester.pumpWidget(host());
     await passo(tester);
 
-    expect(find.byKey(const Key('face_privacy')), findsOneWidget);
-    expect(find.byKey(const Key('face_sky_setting')), findsOneWidget);
+    expect(find.byKey(const Key('face_immagine_apertura')), findsOneWidget);
     expect(find.byKey(const Key('face_start')), findsOneWidget);
     expect(find.byKey(const Key('face_fallback_entry')), findsOneWidget);
   });

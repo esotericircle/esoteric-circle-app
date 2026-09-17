@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:mediapipe_face_mesh/mediapipe_face_mesh.dart';
 
 import 'face_classifier.dart';
+import 'ingresso_del_fotogramma.dart';
 
 /// **LA PORTA UNICA VERSO IL MOTORE DEL VOLTO.** Ordine CR voce 02, 6
 /// settembre 2026.
@@ -42,6 +43,10 @@ abstract class MotoreDelVolto {
     required int altezza,
     required int rotazione,
     required bool specchiata,
+
+    /// Il formato dei byte, che dipende dalla piattaforma. Ordine DS voce 06:
+    /// su iOS i byte sono BGRA, e leggerli come NV21 non trova nessun volto.
+    required FormatoDelFotogramma formato,
 
     /// I byte di una riga del piano Y, come la fotocamera li dichiara.
     /// **Dedurli dalla larghezza sarebbe sbagliato**: molti telefoni

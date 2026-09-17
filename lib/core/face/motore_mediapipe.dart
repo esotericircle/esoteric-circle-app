@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:mediapipe_face_mesh/mediapipe_face_mesh.dart';
 
 import 'face_classifier.dart';
+import 'ingresso_del_fotogramma.dart';
 import 'inclinazione_del_capo.dart';
 import 'motore_del_volto.dart';
 import 'punti_del_volto.dart';
@@ -75,25 +76,51 @@ class MotoreMediaPipe extends MotoreDelVolto {
     required int altezza,
     required int rotazione,
     required bool specchiata,
+    required FormatoDelFotogramma formato,
     required int byteDiRiga,
   }) async {
     final catena = _catena;
     final espressione = _espressione;
     if (catena == null || espressione == null) return null;
 
-    final frame = FaceMeshNv21Image.tryFromSinglePlane(
-      bytes: byte,
-      width: larghezza,
-      height: altezza,
-      bytesPerRow: byteDiRiga,
-    );
-    if (frame == null) return null;
-
-    final esito = catena.processNv21(
-      frame,
-      rotationDegrees: rotazione,
-      mirrorHorizontal: specchiata,
-    );
+    // **DUE PORTE, UNA PER FORMATO. Ordine DS voce 06.** Il pacchetto lo
+    // scrive nel suo README: NV21 e' per i fotogrammi di Android, BGRA per
+    // quelli di iOS, e ognuno ha la sua chiamata. Prima tutti i telefoni
+    // passavano dalla porta di Android, e su iPhone il modello leggeva
+    // quattro byte di colore come se fossero luminanza: nessun volto.
+    final FaceMeshInferenceResult esito;
+    switch (formato) {
+      case FormatoDelFotogramma.nv21:
+        final frame = FaceMeshNv21Image.tryFromSinglePlane(
+          bytes: byte,
+          width: larghezza,
+          height: altezza,
+          bytesPerRow: byteDiRiga,
+        );
+        if (frame == null) return null;
+        esito = catena.processNv21(
+          frame,
+          rotationDegrees: rotazione,
+          mirrorHorizontal: specchiata,
+        );
+      case FormatoDelFotogramma.bgra:
+        // Il buffer deve contenere tutte le righe dichiarate: un fotogramma
+        // corto si scarta, invece di far sollevare il costruttore.
+        if (byteDiRiga <= 0 || byte.length < byteDiRiga * altezza) {
+          return null;
+        }
+        esito = catena.process(
+          FaceMeshImage(
+            pixels: byte,
+            width: larghezza,
+            height: altezza,
+            pixelFormat: FaceMeshPixelFormat.bgra,
+            bytesPerRow: byteDiRiga,
+          ),
+          rotationDegrees: rotazione,
+          mirrorHorizontal: specchiata,
+        );
+    }
     // **DUE GIUDIZI, E SI PRETENDONO TUTTI E DUE.** Ordine CR voce 01,
     // seconda stesura.
     //
@@ -122,9 +149,8 @@ class MotoreMediaPipe extends MotoreDelVolto {
       // rapporto fra una larghezza e un'altezza esce schiacciato.
       contorni: PuntiDelVolto.contorniDa(
         mesh.landmarks,
-        proporzioneDelFotogramma: mesh.imageHeight <= 0
-            ? 1.0
-            : mesh.imageWidth / mesh.imageHeight,
+        proporzioneDelFotogramma:
+            mesh.imageHeight <= 0 ? 1.0 : mesh.imageWidth / mesh.imageHeight,
       ),
       // **GLI ANGOLI VENGONO DAI PUNTI, NON DAL PACCHETTO.** Ordine CR
       // voce 03, seconda stesura.
@@ -147,9 +173,8 @@ class MotoreMediaPipe extends MotoreDelVolto {
       punti: mesh.landmarks,
       confidenzaDelRilevamento: rilevato.score,
       confidenzaDellaMesh: mesh.score,
-      proporzioneDelFotogramma: mesh.imageHeight <= 0
-          ? 1.0
-          : mesh.imageWidth / mesh.imageHeight,
+      proporzioneDelFotogramma:
+          mesh.imageHeight <= 0 ? 1.0 : mesh.imageWidth / mesh.imageHeight,
     );
   }
 
@@ -202,8 +227,10 @@ Offset puntoDa(FaceMeshLandmark l) => Offset(l.x * 1000, l.y * 1000);
 
 /// Estensione di comodo per leggere un contorno dai suoi indici.
 extension ContornoDaIndici on List<FaceMeshLandmark> {
-  List<Offset> lungo(List<int> indici) =>
-      [for (final i in indici) if (i < length) puntoDa(this[i])];
+  List<Offset> lungo(List<int> indici) => [
+        for (final i in indici)
+          if (i < length) puntoDa(this[i])
+      ];
 }
 
 /// Il tipo che il classificatore si aspetta, ricostruito dai landmark.

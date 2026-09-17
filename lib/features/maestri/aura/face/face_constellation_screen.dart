@@ -4,11 +4,13 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart' show defaultTargetPlatform;
 import 'package:flutter/material.dart';
 import '../../../sigilli/regia_del_cammino.dart';
 import '../../../../core/face/motore_del_volto.dart';
 import '../../../../core/face/quante_letture_del_viso.dart';
 import '../../../../core/face/motore_mediapipe.dart';
+import '../../../../core/face/ingresso_del_fotogramma.dart';
 import '../../../../core/face/scansione_a_pose.dart';
 import 'package:mediapipe_face_mesh/mediapipe_face_mesh.dart';
 import 'fascio_di_scansione.dart';
@@ -20,6 +22,7 @@ import 'colore_dell_elemento.dart';
 import 'lo_specchio_dell_istante.dart';
 import 'le_tue_letture_del_viso.dart';
 import 'maschera_che_segue.dart';
+import 'ovale_dell_inquadratura.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/archetypes/archetype_sky.dart';
@@ -148,8 +151,7 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
 
   /// La propria linea degli istanti, che da' senso al confronto dei
   /// ritorni. Sul disco ci finiscono solo una data e dei nomi di segni.
-  late final StoricoDegliIstanti _linea =
-      StoricoDegliIstanti(clock: _clock);
+  late final StoricoDegliIstanti _linea = StoricoDegliIstanti(clock: _clock);
 
   /// Cosa si e' venuti a fare: la prima volta o un ritorno.
   ModoDiCattura _modo = ModoDiCattura.piena;
@@ -352,8 +354,6 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
                       rimanenti: QuanteLettureDelViso.rimanenti(
                           fattiOggi: _storico.fattiOggi, tier: _tier),
                       ultimo: _storico.ultimo,
-                      conCielo: _conCielo,
-                      onCielo: (v) => setState(() => _conCielo = v),
                       onInizia: () => setState(() {
                         _modo = ModoDiCattura.piena;
                         _fase = _Fase.cattura;
@@ -425,8 +425,7 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
                           // compare si mangia un terzo di schermo per sempre e
                           // taglia il responso a meta'. Chiuderlo riporta il
                           // pulsante, cioe' il confronto resta a un tocco.
-                          onChiudi: () =>
-                              setState(() => _secondoVolto = null),
+                          onChiudi: () => setState(() => _secondoVolto = null),
                         ),
                       ],
                     ),
@@ -485,16 +484,27 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
   }
 }
 
-/// La soglia: si entra da qui, si sceglie il cielo di oggi PRIMA di iniziare, e
+/// La soglia: si entra da qui, si capisce guardando cosa fa la funzione, e
 /// c'e' l'ingresso alternativo al ripiego tattile.
+///
+/// **SI CAPISCE GUARDANDO, E LA COSA DA FARE SI VEDE. Ordine DS voce 06.** Il
+/// fondatore l'ha aperta sul telefono: un titolo, un paragrafo, un riquadro
+/// sulla riservatezza, una bolla col cielo, e solo in fondo, sotto la piega,
+/// cio' che la persona deve fare col volto. *"Chi arriva non capisce di cosa
+/// si tratta guardando."* Adesso in cima c'e' l'immagine della funzione, il
+/// riquadro e la bolla non ci sono piu', e le quattro pose si leggono grandi
+/// prima del pulsante che le fa compiere.
+///
+/// **Togliere la bolla del cielo non cambia nessuna lettura**: valeva spenta
+/// all'inizio, e il comando che lega il responso ai transiti vive gia' nel
+/// responso, dove si legge. **Togliere il riquadro non toglie la garanzia**:
+/// nessuna immagine lascia il telefono, e lo si legge dagli import del motore.
 class _Soglia extends StatelessWidget {
   const _Soglia({
     required this.palette,
     required this.consentito,
     required this.rimanenti,
     required this.ultimo,
-    required this.conCielo,
-    required this.onCielo,
     required this.onInizia,
     required this.onRitorno,
     required this.onRipiego,
@@ -505,8 +515,6 @@ class _Soglia extends StatelessWidget {
   final bool consentito;
   final int? rimanenti;
   final FaceEsito? ultimo;
-  final bool conCielo;
-  final ValueChanged<bool> onCielo;
   final VoidCallback onInizia;
 
   /// Il ritorno: la tenuta breve di fronte, solo l'istante.
@@ -524,7 +532,9 @@ class _Soglia extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: SpacingTokens.xl),
+          const SizedBox(height: SpacingTokens.md),
+          _ImmagineDiApertura(palette: palette),
+          const SizedBox(height: SpacingTokens.lg),
           Text('I tratti del tuo volto, una costellazione',
               style: TypographyTokens.cerimoniale()
                   .copyWith(color: palette.goldSoft)),
@@ -537,42 +547,6 @@ class _Soglia extends StatelessWidget {
                 .copyWith(color: ColorTokens.textPrimary, height: 1.5),
           ),
           const SizedBox(height: SpacingTokens.md),
-          // La rassicurazione sulla privacy.
-          DepthCard(
-            padding: const EdgeInsets.all(SpacingTokens.md),
-            child: Row(
-              children: [
-                Icon(Icons.lock_outline_rounded,
-                    size: 20, color: palette.goldSoft),
-                const SizedBox(width: SpacingTokens.sm),
-                Expanded(
-                  child: Text(
-                    'Tutto resta sul tuo dispositivo: nessuna immagine viene '
-                    'inviata, nessuna foto viene salvata oltre l\'uso del momento.',
-                    key: const Key('face_privacy'),
-                    style: TypographyTokens.didascalia().copyWith(
-                        color: ColorTokens.textSecondary, height: 1.4),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: SpacingTokens.lg),
-          // La scelta del cielo, PRIMA della cattura, come nel Test Archetipo.
-          DepthCard(
-            padding: const EdgeInsets.symmetric(
-                horizontal: SpacingTokens.md, vertical: SpacingTokens.xs),
-            child: InterruttoreDelCerchio(
-              key: const Key('face_sky_setting'),
-              acceso: conCielo,
-              onCambia: onCielo,
-              titolo: 'Lega al cielo di oggi',
-              sottotitolo:
-                  'I transiti del giorno si accostano alla tua lettura, come '
-                  'sincronicità.',
-            ),
-          ),
-          const SizedBox(height: SpacingTokens.lg),
           // **SI AVVERTE PRIMA, NON DOPO. Ordine CX voce 07.**
           //
           // **Parole del fondatore**: *"la lettura dovrebbe avvertire
@@ -644,6 +618,25 @@ class _Soglia extends StatelessWidget {
           //
           // Resta una porta sola, e fa la cosa intera.
           if (consentito) ...[
+            // **L'ISTRUZIONE DEI MOVIMENTI, GRANDE E PRIMA DEL PULSANTE.**
+            // Ordine DS voce 06: *"e' l'unica cosa che l'utente deve fare, e
+            // oggi e' la meno visibile della schermata"*. Era una didascalia
+            // grigia da **16 punti sotto il pulsante**, cioe' si leggeva dopo
+            // aver gia' deciso. Adesso e' un titolo di sezione da **22 punti**
+            // nell'oro di Aura, e sta sopra il gesto che la fa compiere.
+            //
+            // **La ragione del posto, che resta da prima**: una didascalia
+            // sola fra due pulsanti appartiene a tutti e due, e il fondatore
+            // aveva letto *"I tuoi tratti li ho gia'"* come una scansione
+            // negata. Qui sopra c'e' un pulsante solo, e la riga e' sua.
+            Text(
+                ultimo != null
+                    ? 'Quattro pose: i tuoi tratti si rimisurano da capo.'
+                    : 'Quattro pose guidate: destra, sinistra, alto, basso.',
+                key: const Key('face_didascalia_piena'),
+                style: TypographyTokens.titoloSezione()
+                    .copyWith(color: palette.goldSoft)),
+            const SizedBox(height: SpacingTokens.md),
             FilledButton.icon(
               key: const Key('face_start'),
               style: ultimo != null
@@ -670,14 +663,6 @@ class _Soglia extends StatelessWidget {
             // la attacca a cio' che viene dopo, e riceve il messaggio
             // opposto. **Una didascalia sola fra due pulsanti appartiene a
             // tutti e due**, quindi ognuno ha la sua.
-            const SizedBox(height: SpacingTokens.xs),
-            Text(
-                ultimo != null
-                    ? 'Quattro pose: i tuoi tratti si rimisurano da capo.'
-                    : 'Quattro pose guidate: destra, sinistra, alto, basso.',
-                key: const Key('face_didascalia_piena'),
-                style: TypographyTokens.didascalia()
-                    .copyWith(color: ColorTokens.textSecondary)),
             const SizedBox(height: SpacingTokens.sm),
             TextButton.icon(
               key: const Key('face_fallback_entry'),
@@ -721,6 +706,55 @@ class _Soglia extends StatelessWidget {
 }
 
 /// Limite raggiunto: mai un vicolo cieco, si mostra l'ultima lettura salvata.
+/// **L'IMMAGINE CHE FA CAPIRE LA FUNZIONE SENZA LEGGERE.** Ordine DS voce 06.
+///
+/// Un viso stilizzato coi tratti uniti a formare una costellazione. Non e' un
+/// disegno nuovo: e' **la stessa sagoma e la stessa costellazione** che la
+/// funzione disegna nel responso quando la lettura viene dal ripiego tattile,
+/// cosi' cio' che si vede all'ingresso e' cio' che si ricevera' alla fine.
+class _ImmagineDiApertura extends StatelessWidget {
+  const _ImmagineDiApertura({required this.palette});
+
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, vincoli) {
+        final lato = vincoli.maxWidth.clamp(0.0, 360.0);
+        return Center(
+          child: SizedBox(
+            key: const Key('face_immagine_apertura'),
+            width: lato,
+            height: lato * 0.86,
+            child: Semantics(
+              label: 'Un volto i cui tratti si uniscono in una costellazione',
+              image: true,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(SpacingTokens.radiusXl),
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    _FondoSagoma(palette: palette),
+                    CustomPaint(
+                      painter: FaceConstellationPainter(
+                        costellazione:
+                            FaceConstellation.da(FaceSilhouette.contorni()),
+                        palette: palette,
+                        risalto: 1.6,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
 class _Bloccato extends StatelessWidget {
   const _Bloccato(
       {required this.palette, required this.ultimo, required this.onRipiego});
@@ -798,8 +832,7 @@ class _Cattura extends StatefulWidget {
 
   final MaestroPalette palette;
   final void Function(FaceReading, FaceConstellation,
-      {String? fotoPath,
-      Map<FaceBlendshape, double> espressione}) onFatto;
+      {String? fotoPath, Map<FaceBlendshape, double> espressione}) onFatto;
   final VoidCallback onRipiego;
 
   /// La prima volta o un ritorno. Ordine CR voce 08.
@@ -833,6 +866,12 @@ class _CatturaState extends State<_Cattura>
   /// il motore si sostituisce, qui non cambia una riga.
   final MotoreDelVolto _motore = MotoreMediaPipe();
 
+  /// **Formato, rotazione e specchio della piattaforma.** Ordine DS voce 06:
+  /// scritti una volta sola per tutti erano giusti su Android e sbagliati su
+  /// iPhone, dove nessun volto veniva rilevato.
+  final IngressoDelFotogramma _ingresso =
+      IngressoDelFotogramma.per(defaultTargetPlatform);
+
   /// La scansione guidata a quattro pose, CR voce 03. Vive qui perche' e'
   /// legata a questa sessione di cattura e muore con lei.
   final ScansioneAPose _scansione = ScansioneAPose();
@@ -848,12 +887,10 @@ class _CatturaState extends State<_Cattura>
   bool get _pronta => _ritorno ? _tenuta.compiuta : _scansione.compiuta;
 
   /// Quanto manca, per il fascio.
-  double get _progresso =>
-      _ritorno ? _tenuta.progresso : _scansione.progresso;
+  double get _progresso => _ritorno ? _tenuta.progresso : _scansione.progresso;
 
   /// Falso finche' non c'e' niente da misurare.
-  bool get _agganciato =>
-      _ritorno ? _lettura != null : _scansione.agganciato;
+  bool get _agganciato => _ritorno ? _lettura != null : _scansione.agganciato;
 
   /// L'ultima lettura vera del motore, o nulla se nessun volto e' in scena.
   LetturaDelVolto? _lettura;
@@ -910,7 +947,9 @@ class _CatturaState extends State<_Cattura>
         frontale,
         ResolutionPreset.medium,
         enableAudio: false,
-        imageFormatGroup: ImageFormatGroup.nv21,
+        imageFormatGroup: _ingresso.formato == FormatoDelFotogramma.bgra
+            ? ImageFormatGroup.bgra8888
+            : ImageFormatGroup.nv21,
       );
       await controller.initialize();
       await _motore.avvia();
@@ -930,6 +969,12 @@ class _CatturaState extends State<_Cattura>
     try {
       final piano = image.planes.isEmpty ? null : image.planes.first;
       if (piano == null) return;
+      // **UNA ROTAZIONE SOLA, per il modello e per la maschera.** Ordine DS
+      // voce 06.
+      final rotazione = _ingresso.rotazione(
+        sensore: _camera!.description.sensorOrientation,
+        dispositivo: _camera!.value.deviceOrientation,
+      );
       final lettura = await _motore.leggi(
         byte: piano.bytes,
         larghezza: image.width,
@@ -939,9 +984,11 @@ class _CatturaState extends State<_Cattura>
         // porterebbe a leggere un'immagine storta in cui nessun volto si
         // trova. Ordine CR voce 02.
         byteDiRiga: piano.bytesPerRow,
-        rotazione: _camera!.description.sensorOrientation,
-        specchiata: _camera!.description.lensDirection ==
-            CameraLensDirection.front,
+        rotazione: rotazione,
+        specchiata: _ingresso.specchiata(
+            frontale: _camera!.description.lensDirection ==
+                CameraLensDirection.front),
+        formato: _ingresso.formato,
       );
       if (!mounted) return;
       final adesso = DateTime.now();
@@ -954,8 +1001,10 @@ class _CatturaState extends State<_Cattura>
       // forma del fotogramma la sa solo chi lo ha appena letto. La
       // rotazione del sensore scambia i lati, e su un telefono in piedi
       // sono scambiati quasi sempre.
-      final giroDispari =
-          (_camera!.description.sensorOrientation ~/ 90).isOdd;
+      // **E LA ROTAZIONE E' QUELLA DATA AL MODELLO.** Ordine DS voce 06: su
+      // iOS il fotogramma arriva gia' in piedi, e scambiare i lati col
+      // sensore avrebbe schiacciato la maschera.
+      final giroDispari = (rotazione ~/ 90).isOdd;
       final largo = giroDispari ? image.height : image.width;
       final alto = giroDispari ? image.width : image.height;
       setState(() {
@@ -1006,6 +1055,7 @@ class _CatturaState extends State<_Cattura>
       _occupato = false;
     }
   }
+
   Future<void> _scatta() async {
     // **IL CANCELLO. Ordine CR voce 01, 6 settembre 2026.**
     //
@@ -1042,9 +1092,8 @@ class _CatturaState extends State<_Cattura>
       final quandoBreve = _letturaQuando;
       final esitoBreve = CancelloDellaScansione.giudica(
         contorniVivi: _contorniVivi,
-        eta: quandoBreve == null
-            ? null
-            : DateTime.now().difference(quandoBreve),
+        eta:
+            quandoBreve == null ? null : DateTime.now().difference(quandoBreve),
       );
       if (esitoBreve is NessunVolto) {
         if (mounted) setState(() => _rifiuto = esitoBreve.perche);
@@ -1137,7 +1186,7 @@ class _CatturaState extends State<_Cattura>
       if (mounted) {
         setState(() => _rifiuto =
             'Nello scatto non c\'era più un volto: tieni il viso davanti '
-            'alla fotocamera anche nell\'istante dello scatto.');
+                'alla fotocamera anche nell\'istante dello scatto.');
       }
       return;
     }
@@ -1146,8 +1195,7 @@ class _CatturaState extends State<_Cattura>
     // quelli del momento in cui la persona ha scattato: leggerli dopo
     // vorrebbe dire leggere un altro istante.
     widget.onFatto(reading, cost,
-        fotoPath: foto,
-        espressione: _lettura?.espressione ?? const {});
+        fotoPath: foto, espressione: _lettura?.espressione ?? const {});
   }
 
   /// **I RAPPORTI MISURATI, UNO PER CATEGORIA, nel registro del telefono.**
@@ -1215,7 +1263,7 @@ class _CatturaState extends State<_Cattura>
   /// a video deve dire la stessa cosa che la macchina sta aspettando, o la
   /// persona insegue una richiesta che non e' quella vera.
   String _cosaChiedere() {
-    if (_lettura == null) return 'Centra il viso nel cerchio, sguardo dritto.';
+    if (_lettura == null) return 'Centra il viso nell\'ovale, sguardo dritto.';
     // **IL RITORNO CHIEDE UNA COSA SOLA.** Ordine CR voce 08: qui non si
     // gira la testa, si resta fermi. Una riga che chiedesse una posa in un
     // ritorno manderebbe la persona a inseguire un movimento che nessuna
@@ -1268,16 +1316,20 @@ class _CatturaState extends State<_Cattura>
           // sempre la stessa cosa: dice cosa manca adesso, una posa alla
           // volta, perche' chiedere quattro movimenti insieme vuol dire non
           // farne compiere nessuno.
-          Text(
-              _rifiuto ?? _cosaChiedere(),
+          Text(_rifiuto ?? _cosaChiedere(),
               key: const Key('face_guide'),
               textAlign: TextAlign.center,
-              style: TypographyTokens.didascalia()
+              // **GRANDE, PERCHE' E' LA COSA DA FARE. Ordine DS voce 06.**
+              // Era una didascalia da 16 punti sopra l'inquadratura: la
+              // persona guarda il suo volto e la riga che le dice come
+              // girarlo deve arrivarle senza cercarla. Adesso 22.
+              style: TypographyTokens.titoloSezione()
                   .copyWith(color: ColorTokens.textPrimary)),
           const SizedBox(height: SpacingTokens.md),
           Expanded(
             child: Center(
               child: AspectRatio(
+                key: const Key('face_inquadratura'),
                 aspectRatio: 3 / 4,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(SpacingTokens.radiusXl),
@@ -1313,9 +1365,7 @@ class _CatturaState extends State<_Cattura>
                           painter: MascheraCheSegue(
                             punti: _lettura!.punti,
                             colore: palette.gold,
-                            quota: _scansione.compiuta
-                                ? 1.0
-                                : _progresso,
+                            quota: _scansione.compiuta ? 1.0 : _progresso,
                             scorre: !ScrollReveal.motionOff(context),
                             proporzioneFotogramma: _proporzioneFotogramma,
                           ),
@@ -1326,6 +1376,19 @@ class _CatturaState extends State<_Cattura>
                       // tenuta. Chi guarda vede che la macchina sta
                       // misurando davvero, perche' il fascio si ferma quando
                       // la posa si perde.
+                      // **L'OVALE, SOPRA LA SCENA E SOTTO LA MASCHERA DEI
+                      // PUNTI NO: sopra tutto.** Ordine DS voce 06. Dice
+                      // dove mettere il viso, e si accende solo quando un
+                      // volto c'e' davvero.
+                      IgnorePointer(
+                        child: CustomPaint(
+                          key: const Key('face_ovale'),
+                          painter: OvaleDellInquadratura(
+                            colore: palette.gold,
+                            agganciato: _lettura != null,
+                          ),
+                        ),
+                      ),
                       if (_lettura != null && !_pronta)
                         AnimatedBuilder(
                           animation: _battito,
@@ -1354,23 +1417,23 @@ class _CatturaState extends State<_Cattura>
           if (!_ritorno)
             Row(
               key: const Key('face_pose_strip'),
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              for (var i = 0; i < ScansioneAPose.ordine.length; i++) ...[
-                if (i > 0) const SizedBox(width: SpacingTokens.xs),
-                Container(
-                  width: 34,
-                  height: 6,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(3),
-                    color: i < _scansione.compiute
-                        ? palette.gold
-                        : palette.gold.withValues(alpha: 0.22),
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (var i = 0; i < ScansioneAPose.ordine.length; i++) ...[
+                  if (i > 0) const SizedBox(width: SpacingTokens.xs),
+                  Container(
+                    width: 34,
+                    height: 6,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3),
+                      color: i < _scansione.compiute
+                          ? palette.gold
+                          : palette.gold.withValues(alpha: 0.22),
+                    ),
                   ),
-                ),
+                ],
               ],
-            ],
-          ),
+            ),
           const SizedBox(height: SpacingTokens.md),
           FilledButton.icon(
             key: const Key('face_shutter'),
@@ -1399,7 +1462,6 @@ class _CatturaState extends State<_Cattura>
       ),
     );
   }
-
 }
 
 /// Il fondo con la sagoma neutra del volto, quando non c'e' la fotocamera.
@@ -1560,8 +1622,7 @@ class _RisultatoState extends State<_Risultato>
                   key: const Key('face_non_ho_visto'),
                   padding: const EdgeInsets.all(SpacingTokens.md),
                   decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(SpacingTokens.radiusMd),
+                    borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
                     color: palette.surfaceElevated.withValues(alpha: 0.6),
                     border:
                         Border.all(color: palette.gold.withValues(alpha: 0.35)),
@@ -1653,11 +1714,10 @@ class _RisultatoState extends State<_Risultato>
                   key: const Key('face_elemento'),
                   padding: const EdgeInsets.all(SpacingTokens.md),
                   decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(SpacingTokens.radiusMd),
+                    borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
                     border: Border.all(
-                        color: ColoreDellElemento.di(e)
-                            .withValues(alpha: 0.65)),
+                        color:
+                            ColoreDellElemento.di(e).withValues(alpha: 0.65)),
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -1674,15 +1734,14 @@ class _RisultatoState extends State<_Risultato>
                         const SizedBox(width: SpacingTokens.sm),
                         Text('Elemento ${e.nome}',
                             style: TypographyTokens.etichetta().copyWith(
-                                color: palette.goldSoft,
-                                letterSpacing: 0.6)),
+                                color: palette.goldSoft, letterSpacing: 0.6)),
                       ]),
                       const SizedBox(height: SpacingTokens.xs),
                       // Da cosa si riconosce: chi legge deve poter
                       // verificare da se' che la forma corrisponde.
                       Text(e.comeSiRiconosce,
-                          style: TypographyTokens.didascalia().copyWith(
-                              color: ColorTokens.textSecondary)),
+                          style: TypographyTokens.didascalia()
+                              .copyWith(color: ColorTokens.textSecondary)),
                       const SizedBox(height: SpacingTokens.xs),
                       Text(e.lettura,
                           style: TypographyTokens.corpo().copyWith(
@@ -1691,8 +1750,8 @@ class _RisultatoState extends State<_Risultato>
                       Text(
                           'Mian Xiang, la fisiognomica cinese. La forma del '
                           'volto è una misura, la lettura è simbolica.',
-                          style: TypographyTokens.didascalia().copyWith(
-                              color: ColorTokens.textSecondary)),
+                          style: TypographyTokens.didascalia()
+                              .copyWith(color: ColorTokens.textSecondary)),
                     ],
                   ),
                 ),
@@ -1763,7 +1822,6 @@ class _RisultatoState extends State<_Risultato>
   }
 }
 
-
 /// **IL RESPONSO DEL RITORNO. Ordine CR voce 08.**
 ///
 /// Qui non compaiono i tratti, e non e' una dimenticanza: il ritorno legge
@@ -1812,18 +1870,15 @@ class _IlMomento extends StatelessWidget {
                 style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textPrimary, height: 1.5))
           else
-            LoSpecchioDellIstante(
-                coefficienti: espressione, palette: palette),
+            LoSpecchioDellIstante(coefficienti: espressione, palette: palette),
           if (c != null && segni.isNotEmpty) ...[
             const SizedBox(height: SpacingTokens.lg),
             Container(
               key: const Key('face_confronto_linea'),
               padding: const EdgeInsets.all(SpacingTokens.md),
               decoration: BoxDecoration(
-                borderRadius:
-                    BorderRadius.circular(SpacingTokens.radiusMd),
-                border:
-                    Border.all(color: palette.gold.withValues(alpha: 0.45)),
+                borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+                border: Border.all(color: palette.gold.withValues(alpha: 0.45)),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

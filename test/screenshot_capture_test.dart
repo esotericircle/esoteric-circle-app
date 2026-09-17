@@ -1150,7 +1150,9 @@ void main() {
     await loadFonts();
     final rootKey = await mountFace(tester, const FaceConstellationScreen(),
         size: const Size(360, 820));
-    expect(find.byKey(const Key('face_sky_setting')), findsOneWidget);
+    // Ordine DS voce 06: la bolla del cielo non c'e' piu', e la prima cosa
+    // della soglia e' l'immagine della funzione.
+    expect(find.byKey(const Key('face_immagine_apertura')), findsOneWidget);
     await capture(tester, rootKey, 'costellazione-viso-soglia.png');
   });
 
