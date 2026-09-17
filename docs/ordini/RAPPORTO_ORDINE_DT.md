@@ -344,6 +344,40 @@ all'ordine CODEMAGIC2; non conta.
   dell'Alba **guardate** (carte coperte uguali, il Matto dritto con la clausola
   dell'Aria, il dono e la chiusa di Medora interi).
 
+### La build 2266
+
+**Rifatto dopo la spinta**, sul commit `1cd53548`: **solo rossi accettati,
+l'archivio si produce**, gettone scritto per la build **2266** con **5.463
+prove**; server 100 su 100; corredo a scala 1,3 con 179 schermate e le sole
+tredici catture accettate. Il cancello di GitHub sullo stesso commit: **verde**.
+
+**La consegna.** Comando `flutter build apk --release --target-platform
+android-arm64`, 204.480.471 byte, `tool/verifica_apk.py` verde su tutte le
+famiglie. **La prima prova di accensione e' caduta**, e non per l'app: lo
+schermo del Realme era spento (`mWakefulness=Asleep`), il processo era vivo e
+nessun FATAL. Svegliato lo schermo, **processo vivo, primo fotogramma
+disegnato, nessun FATAL**, numero letto dal dispositivo 2266. Consegnata con
+App Distribution: release `63a4ae30vh3d8`, un invito accettato, registro da
+2265 a 2266. **La build iOS la lancia Mauro su Codemagic**, dopo la spunta
+verde del commit che porta questo rapporto.
+
+**Guardata a video sul Realme 767f596c, alle 18:00 del 17 settembre**: i dati
+di prima ci sono (*il Cerchio custodisce 15 tuoi momenti*); la striscia ha
+**quattro doni**, Alba, Soffio acceso alle 18, Tramonto e Notte; l'Arcano
+dell'Alba apre con **tre dorsi uguali e il solo ritorno**; girata la carta
+centrale, **l'Imperatrice dritta, lettera doppia di Venere**, il dono e la
+chiusa di Medora interi, nessun FATAL nel registro.
+
+**UN DIFETTO VISTO A VIDEO, E NESSUNA PROVA LO CERCAVA.** La carta girata alle
+18:01 si apriva con *"Stamani hai rivelato l'Imperatrice"*. **Quattordici
+aperture su quarantotto nominano il mattino** (*Stamattina*, *Al tuo
+risveglio*, *Nel primo mattino*, *Questa mattina* e altre dieci in
+`lib/core/rituals/arcano_dell_alba/forme_dell_alba.dart`), ma la carta si gira
+a qualunque ora dopo le sette: circa **tre volte su dieci** chi la gira dopo il
+mattino legge una frase falsa. Padre: **ordine DT, voce 08**, la scrittura
+delle aperture. Non l'ho corretto dentro questa build: e' testo del corpus, e
+una correzione chiede una build nuova. Vedi la decisione 17.
+
 ## 6. LE LACUNE APERTE E LE DECISIONI DI MAURO
 
 **Nessun rosso e' stato aggiunto a `tool/rossi_accettati.txt`.**
@@ -459,3 +493,12 @@ all'ordine CODEMAGIC2; non conta.
     Sigillo e l'Arcano dell'Alba sono di Medora: la mappa segue
     `sentieroDelGesto`, scritto dal generatore dei traguardi. Se il sentiero debba seguire il Maestro del dono lo
     decide Mauro, ed e' una riscrittura dei traguardi, non una riga.
+17. **Le aperture che nominano il mattino.** Due strade. **La prima,
+    raccomandata**: le quattordici aperture si riscrivono senza l'ora, come le
+    altre trentaquattro (*"Oggi hai scoperto"*, *"Ora hai in mano"*), e una
+    guardia vieta nelle aperture le parole del mattino. Costa un giro di
+    corpus e una build. **La seconda**: il diario sceglie le aperture del
+    mattino solo prima di mezzogiorno. Tiene il colore del risveglio, ma
+    aggiunge una condizione che si deve provare e che divide il registro delle
+    aperture in due. **La scelta e' di Mauro**, e con la correzione va la build
+    successiva.

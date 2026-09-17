@@ -3254,7 +3254,17 @@ decisione.** L'ordine non e' chiuso. Manifesto
 `docs/ordini/ORDINE_DT_MANIFESTO.md`, rapporto
 `docs/ordini/RAPPORTO_ORDINE_DT.md`, guardia `test/ordine_dt_guard_test.dart`.
 L'ordine vietava la build; **Mauro l'ha ordinata a lavoro finito**: la 2266
-e' la prima coi quattro doni, la 2265 ha ancora i cinque.
+e' la prima coi quattro doni, la 2265 ha ancora i cinque. **Build 2266**
+costruita dal commit `1cd53548`, sbarramento con soli rossi accettati e 5.463
+prove, accesa sul Realme 767f596c, consegnata con App Distribution: release
+`63a4ae30vh3d8`. **Guardata a video**: quattro doni nella striscia, tre dorsi
+uguali, l'Imperatrice dritta col dono e Medora. La build iOS la lancia Mauro su
+Codemagic.
+
+**Difetto visto a video, aperto**: quattordici aperture su quarantotto nominano
+il mattino, e la carta girata alle 18:01 diceva *"Stamani hai rivelato"*. Padre
+DT.08. La correzione e' una decisione di Mauro (rapporto DT, decisione 17) e va
+con la build dopo.
 
 **I DONI SONO QUATTRO.** Il Rito dell'Alba e l'Arcano del Giorno non esistono
 piu': al loro posto **l'Arcano dell'Alba**, di Medora, alle sette
