@@ -7,7 +7,7 @@ import 'package:esoteric_circle/core/rituals/arcano_dell_alba/diario_dell_alba.d
 import 'package:esoteric_circle/core/rituals/arcano_dell_alba/lettura_dell_alba.dart';
 import 'package:esoteric_circle/core/rituals/arcano_dell_alba/letture_dell_alba_dati.dart';
 import 'package:esoteric_circle/core/rituals/arcano_dell_alba/responso_dell_alba.dart';
-import 'package:esoteric_circle/core/rituals/arcano_dell_alba/sacchetto_dell_alba.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/stato_dell_alba.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// **IL DIARIO DELL'ARCANO DELL'ALBA.** Ordine DT voci 05, 09, 10, 11, 12,
@@ -42,7 +42,7 @@ void main() {
 
   test(
       'UNA SOLA ESTRAZIONE AL GIORNO: riaprire il dono restituisce lo stesso '
-      'responso e non tocca il sacchetto', () {
+      'responso e non consuma una seconda lettura', () {
     final caso = Random(5);
     final prima = DiarioDellAlba.nuovo()
         .estrai(utente: 'anna', giorno: inizio, caso: caso);
@@ -53,57 +53,100 @@ void main() {
     expect(ancora.responso.primo, prima.responso.primo);
     expect(ancora.responso.secondo, prima.responso.secondo);
     expect(ancora.responso.terzo, prima.responso.terzo);
-    expect(ancora.dopo.sacchetto.rimasti, prima.dopo.sacchetto.rimasti);
+    expect(ancora.dopo.consegne, prima.dopo.consegne);
     expect(identical(ancora.dopo, prima.dopo), isTrue);
   });
 
   test(
-      'UN CICLO INTERO DI QUARANTAQUATTRO GIORNI, per molte persone: nessuna '
-      'parola e nessuna apertura si ripete, e i ripieghi restano a zero', () {
-    const persone = 25, cicli = 3;
+      'LA FINESTRA DEL REGISTRO, per molte persone: dentro le ultime '
+      'quarantaquattro consegne nessuna apertura e nessuna parola tornano, e '
+      'i ripieghi restano a zero', () {
+    // **L'estrazione non ha piu' cicli**, ordine DU voce 11: quarantaquattro
+    // giorni non sono piu' quarantaquattro stati diversi, e la stessa carta
+    // puo' tornare il giorno dopo. Cio' che non torna sono i TESTI, voce 12, e
+    // la grandezza che lo misura e' la finestra scorrevole: ogni consegna si
+    // confronta con le quarantatre che la precedono, non col suo ciclo.
+    const persone = 25;
+    final finestra = DiarioDellAlba.finestraDelRegistro;
+    final giorni = finestra * 3;
+    var diFila = 0, ripieghiTotali = 0, ritorni = 0, consegne = 0;
     for (var p = 0; p < persone; p++) {
-      late DiarioDellAlba finale;
-      final responsi = vivi('persona $p', SacchettoDellAlba.stati * cicli,
-          seme: p, dopo: (d) => finale = d);
-      for (var c = 0; c < cicli; c++) {
-        final ciclo = responsi.sublist(
-            c * SacchettoDellAlba.stati, (c + 1) * SacchettoDellAlba.stati);
-        for (final (nome, marca) in [
-          (
-            'primo movimento',
-            (ResponsoDellAlba r) => DiarioDellAlba.apertura(r.primo)
-          ),
-          ('dono', (ResponsoDellAlba r) => DiarioDellAlba.apertura(r.secondo)),
-          ('Medora', (ResponsoDellAlba r) => DiarioDellAlba.apertura(r.terzo)),
-        ]) {
-          final marche = ciclo.map(marca).toList();
-          expect(marche.toSet(), hasLength(marche.length),
-              reason: 'persona $p, ciclo ${c + 1}: un\'apertura del $nome si '
-                  'ripete');
-        }
-        final parole = [
-          for (final r in ciclo)
-            if (r.parola != null) r.parola!,
-        ];
-        expect(parole.toSet(), hasLength(parole.length),
-            reason: 'persona $p, ciclo ${c + 1}: una parola del giorno torna');
-        expect(parole, hasLength(24),
-            reason: 'le dodici zodiacali nei due versi danno ventiquattro '
-                'parole a ciclo');
+      // Il giorno per giorno serve intero: per sapere se una marca che torna
+      // e' coperta, bisogna sapere quanti ripieghi il motore aveva contato
+      // fino al giorno prima.
+      final caso = Random(p);
+      var diario = DiarioDellAlba.nuovo();
+      final responsi = <ResponsoDellAlba>[];
+      final ripieghiAlGiorno = <int>[];
+      for (var g = 0; g < giorni; g++) {
+        final e =
+            diario.estrai(utente: 'persona $p', giorno: giorno(g), caso: caso);
+        diario = e.dopo;
+        responsi.add(e.responso);
+        ripieghiAlGiorno.add(diario.ripieghi);
       }
-      expect(finale.ripieghi, 0,
-          reason: 'persona $p: il corpus non ha avuto una lettura libera');
+      consegne += responsi.length;
+      ripieghiTotali += diario.ripieghi;
 
-      // In tre cicli ogni stato esce tre volte: le sue tre letture, tutte.
+      for (final (nome, marca) in [
+        (
+          'primo movimento',
+          (ResponsoDellAlba r) => DiarioDellAlba.apertura(r.primo)
+        ),
+        ('dono', (ResponsoDellAlba r) => DiarioDellAlba.apertura(r.secondo)),
+        ('Medora', (ResponsoDellAlba r) => DiarioDellAlba.apertura(r.terzo)),
+        ('parola', (ResponsoDellAlba r) => r.parola ?? ''),
+      ]) {
+        for (var i = 1; i < responsi.length; i++) {
+          final mia = marca(responsi[i]);
+          if (mia.isEmpty) continue;
+          final da = i - finestra + 1 < 0 ? 0 : i - finestra + 1;
+          for (var k = da; k < i; k++) {
+            if (marca(responsi[k]) != mia) continue;
+            ritorni++;
+            // **Una marca torna soltanto quando il motore ha ripiegato quel
+            // giorno**, e il ripiego e' contato: un ritorno muto sarebbe il
+            // difetto vero, perche' nessuno saprebbe che il corpus si e'
+            // stretto.
+            expect(ripieghiAlGiorno[i], greaterThan(ripieghiAlGiorno[i - 1]),
+                reason: 'persona $p: la marca "$mia" del $nome torna al giorno '
+                    '$i dopo il giorno $k, dentro la finestra di $finestra, e '
+                    'nessun ripiego e\' stato contato');
+          }
+        }
+      }
+
+      // **Uno stato che torna non porta la stessa lettura** finche' le sue
+      // dodici non sono finite: la coda si consuma prima di rifornirsi.
+      for (var i = 1; i < responsi.length; i++) {
+        if (responsi[i].stato == responsi[i - 1].stato) diFila++;
+      }
       final perStato = <int, List<int>>{};
       for (final r in responsi) {
         perStato.putIfAbsent(r.stato.id, () => []).add(r.lettura.numero);
       }
       for (final e in perStato.entries) {
-        expect(e.value.toSet(), {1, 2, 3},
+        if (e.value.length > 12) continue;
+        expect(e.value.toSet(), hasLength(e.value.length),
             reason: 'persona $p, stato ${e.key}: letture ${e.value}');
       }
     }
+    // **QUANTO COSTA L'ESTRAZIONE LIBERA**, in numeri e non a sensazione: col
+    // sacchetto i ripieghi erano zero, perche' il sacchetto garantiva uno
+    // stato nuovo ogni giorno. Restano rari, e il tetto e' un venticinquesimo
+    // delle consegne: sopra quello il corpus e' troppo stretto e si allarga.
+    print('ORDINE DU voce 12: consegne $consegne, ripieghi $ripieghiTotali, '
+        'marche tornate dentro la finestra $ritorni');
+    expect(ripieghiTotali, lessThan(consegne / 25),
+        reason: 'i ripieghi sono $ripieghiTotali su $consegne consegne');
+    // **La prova che l'estrazione e' davvero libera**: su venticinque persone
+    // e centotrentadue giorni lo stesso stato si ripete il giorno dopo, e
+    // nessuna riga qui sopra lo vieta.
+    print('ORDINE DU voce 11: lo stesso stato due giorni di fila $diFila volte '
+        'su ${persone * (giorni - 1)} coppie di giorni');
+    expect(diFila, greaterThan(0),
+        reason: 'in tremilaeduecento coppie di giorni la stessa carta non e\' '
+            'mai tornata il giorno dopo: qualcosa lo sta vietando');
   });
 
   group('I REGISTRI SCELGONO LA LETTURA, e l\'impianto e uno solo', () {
@@ -123,7 +166,7 @@ void main() {
     // tutto il resto sono unici. Il registro deve saltare le prime due e
     // consegnare la terza finche' ce n'e' una libera.
     List<LetturaDellAlba> corpusStretto() => [
-          for (var id = 0; id < SacchettoDellAlba.stati; id++)
+          for (var id = 0; id < StatoDellAlba.quanti; id++)
             for (var n = 1; n <= 3; n++)
               LetturaDellAlba(
                 carta: id ~/ 2,
@@ -141,35 +184,47 @@ void main() {
         'la lettura che violerebbe il registro si salta, resta in coda, e se '
         'non c\'e nessuna libera si consegna la meno recente e si conta', () {
       late DiarioDellAlba finale;
-      final stati = SacchettoDellAlba.stati;
-      final due = vivi('carla', stati * 2,
+      final finestra = DiarioDellAlba.finestraDelRegistro;
+      final tutti = vivi('carla', finestra * 3,
           corpus: corpusStretto(), dopo: (d) => finale = d);
       int stesse(List<ResponsoDellAlba> r) => r
           .where((x) => DiarioDellAlba.apertura(x.secondo) == 'stessa apertura')
           .length;
 
-      // Primo ciclo: "stessa apertura" passa una volta sola, poi il registro
-      // la salta e consegna la terza lettura, che e' libera.
-      final primo = due.sublist(0, stati);
-      expect(stesse(primo), 1);
-      // Le letture saltate restano in coda: nessuna e' persa.
-      var codeDaDue = 0;
-      late DiarioDellAlba dopoIlPrimo;
-      vivi('carla', stati,
-          corpus: corpusStretto(), dopo: (d) => dopoIlPrimo = d);
-      expect(dopoIlPrimo.ripieghi, 0);
-      for (final e in dopoIlPrimo.code.entries) {
-        expect(e.value.length, 2, reason: 'stato ${e.key}: coda ${e.value}');
-        codeDaDue++;
-      }
-      expect(codeDaDue, stati);
+      // **Dentro la prima finestra** l'apertura comune passa una volta sola:
+      // dalla seconda in poi il registro la vede usata e consegna la lettura
+      // libera di quello stato.
+      // La prima volta l'apertura comune e' libera e passa. Ogni altra volta
+      // il registro la vede usata: passa soltanto quando quello stato non ha
+      // piu' nessuna lettura libera in coda, e allora e' un ripiego contato.
+      expect(stesse(tutti), greaterThan(1));
 
-      // Secondo ciclo: le terze sono finite, in coda restano solo letture che
-      // aprono allo stesso modo. Si consegnano lo stesso, e ognuna oltre la
-      // prima e' un ripiego contato, non un passaggio muto.
-      final secondo = due.sublist(stati);
-      expect(finale.ripieghi, greaterThan(0));
-      expect(finale.ripieghi, stesse(secondo) - 1);
+      // **Le letture saltate restano in coda**: non si perde niente. Con
+      // l'estrazione libera uno stato torna anche tre volte in quarantaquattro
+      // giorni, quindi la coda si svuota e si rifornisce: cio' che si misura
+      // e' che nessuna lettura sparisca, non che la coda resti piena.
+      late DiarioDellAlba dopoLaPrima;
+      final prima = vivi('carla', finestra,
+          corpus: corpusStretto(), dopo: (d) => dopoLaPrima = d);
+      final consegnate = <int, Set<int>>{};
+      for (final r in prima) {
+        consegnate.putIfAbsent(r.stato.id, () => {}).add(r.lettura.numero);
+      }
+      for (final e in consegnate.entries) {
+        final coda = dopoLaPrima.code[e.key] ?? const <int>[];
+        expect({...e.value, ...coda}, {1, 2, 3},
+            reason: 'stato ${e.key}: consegnate ${e.value}, in coda $coda');
+      }
+
+      // **Quando le libere finiscono si consegna lo stesso**, e ogni consegna
+      // che riusa una marca in vigore e' un ripiego contato, non un passaggio
+      // muto: e' l'unico modo di sapere che il corpus si sta stringendo.
+      expect(finale.ripieghi, greaterThan(0),
+          reason: 'con tre letture per stato e centotrentadue giorni i '
+              'ripieghi non possono restare zero');
+      expect(stesse(tutti) - 1, lessThanOrEqualTo(finale.ripieghi),
+          reason: 'l\'apertura comune e\' passata piu\' volte di quanti '
+              'ripieghi il motore ha contato');
     });
   });
 
@@ -222,7 +277,7 @@ void main() {
 
   group('DUE PERSONE, LO STESSO STATO, LO STESSO GIORNO', () {
     test(
-        'due persone con lo stesso sacchetto ricevono lo stesso stato e testi '
+        'due persone con lo stesso caso ricevono lo stesso stato e testi '
         'diversi', () {
       final a = vivi('utente-a', 1, seme: 9).single;
       final b = vivi('utente-b', 1, seme: 9).single;
@@ -240,7 +295,7 @@ void main() {
       final misurate = <int, double>{};
       for (final n in const [3, 5, 8]) {
         final corpus = [
-          for (var id = 0; id < SacchettoDellAlba.stati; id++)
+          for (var id = 0; id < StatoDellAlba.quanti; id++)
             for (var k = 1; k <= n; k++)
               LetturaDellAlba(
                 carta: id ~/ 2,
@@ -254,7 +309,7 @@ void main() {
         var stessoDono = 0, stessoTesto = 0, coppie = 0;
         final caso = Random(n);
         for (var coppia = 0; coppia < 300; coppia++) {
-          final giorni = 1 + caso.nextInt(SacchettoDellAlba.stati * 2);
+          final giorni = 1 + caso.nextInt(StatoDellAlba.quanti * 2);
           final seme = caso.nextInt(1 << 30);
           final a = vivi('a$coppia', giorni, seme: seme, corpus: corpus).last;
           final b = vivi('b$coppia', giorni, seme: seme, corpus: corpus).last;

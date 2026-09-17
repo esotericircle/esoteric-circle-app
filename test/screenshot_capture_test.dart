@@ -1345,7 +1345,11 @@ void main() {
     await step(tester);
     await capture(tester, rootKey, 'arcano-alba-coperte.png');
 
-    await tester.tap(find.byKey(const Key('stesa_fan_11')));
+    // A meta' del volo: la carta sale con la scia di stelline dietro.
+    await tester.tap(find.byKey(const Key('arcano_alba_carta_9')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 450));
+    await capture(tester, rootKey, 'arcano-alba-volo.png');
     for (var i = 0; i < 16; i++) {
       await tester.pump(const Duration(milliseconds: 100));
     }

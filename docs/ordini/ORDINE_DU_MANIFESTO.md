@@ -39,15 +39,54 @@ di carte gia' parametrico (`carte`, riga 61), la posa a spirale, il respiro del
 ventaglio e il volo della carta scelta. **Non si scrive una seconda scena: si
 usa questa con ventidue dorsi.**
 
+**Questo fatto e' stato superato dal fondatore il 17 settembre 2026**, e resta
+scritto qui perche' spiega perche' la prima stesura era un ventaglio. Il
+riscontro sul codice era giusto, la conclusione no: riusare il ventaglio della
+Stesa dava all'Alba la stessa scena della Stesa, e l'Alba ha ventidue carte
+mentre la Stesa ne ha settantotto. La correzione sta qui sotto.
+
 ---
 
 ## LE DECISIONI DI MAURO, CHIESTE PRIMA DI COMINCIARE
 
 1. **La forma del dono**: ogni arcano da' la sua **parola**, legata alla carta,
    piu' l'azione. Nessuna carta resta senza parola.
-2. **La scena**: ventaglio davanti a Medora, ingresso a vortice.
+2. **La scena**: ventaglio davanti a Medora, ingresso a vortice. **Revocata
+   dal fondatore il 17 settembre 2026**, vedi la correzione di rotta.
 3. **Riaprendo**: si torna al responso, come oggi. La scena si rivede domani.
 4. **Il corpus**: **dodici letture per stato, 528 testi.**
+
+---
+
+## LA CORREZIONE DI ROTTA DEL 17 SETTEMBRE
+
+La prima stesura della scena e' stata mostrata a Mauro e respinta, con due
+messaggi che cambiano due voci e nessun'altra.
+
+**Il primo, sul ventaglio**: *"non mi piace il ventaglio, e' identico alla
+funzionalita' stesa dei tarocchi e vorrei qualcosa di originale. Essendo solo
+22 carte, queste potrebbero entrare in scena con animazione Wow e posizionarsi
+tutte sulla schermata magari su 2 righe da 11 carte leggermente sovrapposte, o
+3 righe, valuta tu mentre continuano a fluttuare. Puoi lasciare i pulsanti
+mischia e taglia, ma crea animazioni originali con stelline e scia di stelline
+che seguono la carta selezionata mentre gira per rivelarsi. Il responso va
+bene."*
+
+**Il secondo, su Medora**: *"togli anche la figura avatar di Medora."*
+
+Cosa cambia, e cosa no:
+
+| voce | prima | dopo |
+|---|---|---|
+| DU.04 | Medora in scena, le carte le orbitano intorno | **nessun avatar**: il tavolo e' la scena |
+| DU.05 | il ventaglio della Stesa con ventidue carte | **il tavolo dei ventidue**: tutte le carte in vista su piu' righe sovrapposte, mischia e taglia, stelline |
+| le altre dodici | | **invariate** |
+
+**La scelta del numero di righe e' mia, come Mauro ha chiesto**, e si misura:
+sopra i 420 punti di larghezza il tavolo fa due righe da undici, sotto ne fa
+tre da otto, sette e sette. Su un telefono da 360 punti undici carte per riga
+lascerebbero a ogni dorso meno di trentadue punti, e un dorso di trentadue
+punti non si distingue e non si tocca.
 
 ---
 
@@ -56,12 +95,17 @@ usa questa con ventidue dorsi.**
 - **DU.01**, il fatto: l'Arcano dell'Alba non e' una scena. Quest'ordine lo
   rende tale, e ogni voce qui sotto porta la sua misura. **APERTA**
 - **DU.02**, i ventidue dorsi: si vedono tutti e ventidue e si sceglie fra
-  tutti e ventidue, con l'arco sfogliabile. **APERTA**
+  tutti e ventidue, tutti in vista sul tavolo. **APERTA**
 - **DU.03**, i cartigli non restano vuoti, ne' sulla carta girata ne' dove una
   carta compare. **APERTA**
-- **DU.04**, Medora in scena, con le carte che le girano intorno. **APERTA**
-- **DU.05**, il ventaglio e' dinamico: entra, respira, si sfoglia col dito e
-  risponde al tocco. **APERTA**
+- **DU.04**, nessun avatar in scena: l'Arcano dell'Alba non monta Medora, per
+  decisione del fondatore del 17 settembre 2026. La voce nasceva col contrario
+  e resta qui col suo nuovo contenuto, perche' una voce revocata in silenzio e'
+  una voce che torna. **APERTA**
+- **DU.05**, il tavolo dei ventidue e' dinamico: le carte entrano a spirale, si
+  posano su righe sovrapposte, fluttuano ognuna col suo tempo, e mischia e
+  taglia le rimettono in gioco. La carta toccata sale con la scia di stelline.
+  **APERTA**
 - **DU.06**, nessuna voce: Medora non parla e non c'e' nessun Protoface.
   **APERTA**
 - **DU.07**, il verso non si sa prima: i dorsi restano simmetrici e nessun
@@ -87,10 +131,10 @@ Ogni voce ha la sua prova, e ogni prova nasce rossa.
 
 | voce | la grandezza misurata |
 |---|---|
-| 02 | i dorsi montati sono ventidue distinti, e ognuno dei ventidue si puo' raggiungere sfogliando |
+| 02 | i dorsi montati sono ventidue distinti, tutti sullo schermo, e ognuno dei ventidue si puo' toccare |
 | 03 | girata la carta, il cartiglio del numerale e quello del nome portano testo |
-| 04 | `MedoraStage` e' in scena mentre si sceglie, e le carte entrano dalla posa che le fa orbitare |
-| 05 | il ventaglio cambia posizione al trascinamento, e senza Riduci Movimento le pose dell'ingresso non sono quelle di riposo |
+| 04 | nessun `MedoraStage` e nessun avatar nella schermata dell'Alba |
+| 05 | senza Riduci Movimento le pose dell'ingresso non sono quelle di riposo, il tavolo respira, e mischia e taglia cambiano la disposizione senza cambiare l'esito |
 | 06 | nessun `Protoface`, nessun widget della voce, nessuna chiamata al parlato nella schermata |
 | 07 | il dorso ruotato di mezzo giro resta se stesso, e il verso non si legge da nessun dorso prima del tocco |
 | 08 | ogni lettura di ogni stato ha la sua parola, e la parola compare nel dono della stessa carta |

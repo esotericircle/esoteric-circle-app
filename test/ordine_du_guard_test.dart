@@ -8,11 +8,12 @@ import 'package:flutter_test/flutter_test.dart';
 /// **Non e' una promessa, e' una prova che non passa.** Legge il manifesto e
 /// resta rossa finche' le quattordici voci non hanno uno stato terminale.
 ///
-/// **E sorveglia le due cose che quest'ordine non vuole far tornare**: una
+/// **E sorveglia le tre cose che quest'ordine non vuole far tornare**: una
 /// scena senza scena, cioe' la schermata che monta le carte senza il fondo
-/// stellato e senza Medora; e una seconda porta per il ventaglio, cioe' un
-/// arco di dorsi scritto daccapo mentre quello della Stesa esiste, gira ed e'
-/// gia' parametrico nel numero delle carte.
+/// stellato; il ventaglio della Stesa e l'avatar di Medora dentro l'Alba, che
+/// il fondatore ha tolti il 17 settembre 2026 dopo averli visti; e un ventaglio
+/// riscritto daccapo dentro la scena nuova, mentre quello della Stesa esiste e
+/// resta della Stesa.
 void main() {
   final manifesto = File('docs/ordini/ORDINE_DU_MANIFESTO.md');
   final schermata = File('lib/features/rituals/arcano_dell_alba_screen.dart');
@@ -80,27 +81,47 @@ void main() {
         reason: 'una voce senza uno stato ammesso non si conta');
   });
 
-  test('LA SCENA E\' UNA SCENA: fondo stellato, Medora e il ventaglio', () {
-    // DU.01, DU.04, DU.05. **La grandezza misurata e' che la schermata monti
-    // le tre cose**, non che siano belle: la bellezza la guarda Mauro, la
-    // presenza la guarda questa riga. Il fondo nero del compitino era proprio
-    // l'assenza di `CosmosBackground`.
+  /// Il codice della schermata, senza le righe di commento: una guardia che
+  /// legge anche i commenti si conferma da sola con le parole che ho appena
+  /// scritto io.
+  String codiceDella(File f) => f
+      .readAsLinesSync()
+      .where((r) => !r.trimLeft().startsWith('//'))
+      .join('\n');
+
+  test('LA SCENA E\' UNA SCENA: fondo stellato e il tavolo dei ventidue', () {
+    // DU.01 e DU.05. **La grandezza misurata e' che la schermata monti le due
+    // cose**, non che siano belle: la bellezza la guarda Mauro, la presenza la
+    // guarda questa riga. Il fondo nero del compitino era proprio l'assenza di
+    // `CosmosBackground`.
     expect(schermata.existsSync(), isTrue);
-    final codice = schermata
-        .readAsLinesSync()
-        .where((r) => !r.trimLeft().startsWith('//'))
-        .join('\n');
-    for (final pezzo in ['CosmosBackground', 'MedoraStage', 'StesaFan']) {
+    final codice = codiceDella(schermata);
+    for (final pezzo in ['CosmosBackground', 'TavoloDeiVentidue']) {
       expect(codice.contains(pezzo), isTrue,
           reason: 'l\'Arcano dell\'Alba non monta piu\' $pezzo: la scena '
               'torna il compitino su fondo nero dell\'ordine DT');
     }
   });
 
-  test('NESSUNA SECONDA PORTA PER IL VENTAGLIO', () {
-    // Il ventaglio e' uno solo, quello della Stesa, e l'Alba lo usa con
-    // ventidue carte. Un arco scritto daccapo qui sarebbe la famiglia di
-    // difetti che questo progetto paga di piu'.
+  test('NESSUN AVATAR E NESSUN VENTAGLIO NELL\'ALBA', () {
+    // **DU.04 e DU.05 dopo la correzione di rotta del 17 settembre 2026.**
+    // Mauro ha tolto l'avatar di Medora e ha respinto il ventaglio, che era
+    // identico a quello della Stesa. Questa riga tiene fuori le due cose che
+    // tornerebbero da sole: la prima stesura di quest'ordine le montava
+    // entrambe, e senza una guardia il ripensamento durerebbe un ordine.
+    final codice = codiceDella(schermata);
+    for (final pezzo in ['MedoraStage', 'StesaFan', 'Protoface']) {
+      expect(codice.contains(pezzo), isFalse,
+          reason: 'l\'Arcano dell\'Alba monta $pezzo, che il fondatore ha '
+              'tolto dalla scena');
+    }
+  });
+
+  test('IL VENTAGLIO DELLA STESA RESTA DELLA STESA', () {
+    // Il ventaglio e' uno solo e ha un solo padrone. Prima della correzione
+    // questa riga pretendeva che l'Alba lo montasse: adesso pretende che non
+    // lo monti nessun altro, cosi' ne' l'Alba ne' una terza schermata se lo
+    // riprendono senza che si veda.
     final fan = File('lib/features/tarot/stesa_fan.dart');
     expect(fan.existsSync(), isTrue);
     final usano = <String>[];
@@ -115,8 +136,19 @@ void main() {
     }
     usano.sort();
     print('ORDINE DU: chi monta il ventaglio $usano');
-    expect(usano, contains('arcano_dell_alba_screen.dart'));
-    expect(usano, contains('stesa_tre_carte_screen.dart'));
+    expect(usano, ['stesa_tre_carte_screen.dart']);
+  });
+
+  test('IL TAVOLO NON E\' UNA SECONDA PORTA PER IL VENTAGLIO', () {
+    // Il tavolo e' una scena nuova, chiesta da Mauro, e nasce con l'obbligo
+    // di non rifare quello che esiste: non deve importare ne' ridisegnare il
+    // ventaglio della Stesa.
+    final tavolo = File('lib/features/rituals/tavolo_dei_ventidue.dart');
+    expect(tavolo.existsSync(), isTrue,
+        reason: 'la scena nuova dell\'Alba non esiste');
+    final codice = codiceDella(tavolo);
+    expect(codice.contains('stesa_fan.dart'), isFalse);
+    expect(codice.contains('StesaFan'), isFalse);
   });
 
   test('l\'ordine DU non e\' finito finche\' una voce resta aperta', () {

@@ -15,6 +15,7 @@ import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/rituals/arcano_dell_alba_screen.dart';
 import 'package:esoteric_circle/features/tarot/tarot_card_art.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,13 +23,34 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// **L'ARCANO DELL'ALBA SI GIRA.** Ordine DT voci 02, 03 e 04, 17 settembre
 /// 2026.
 ///
-/// Si misura la schermata come la usa la persona: carte coperte tutte uguali,
-/// un gesto solo e nessun altro comando; il verso deciso dal sistema e non
+/// Si misura la schermata come la usa la persona: **ventidue carte coperte
+/// tutte uguali**, ordine DU voce 02, coi soli due gesti del mazzo che il
+/// fondatore ha lasciato, Mischia e Taglia; il verso deciso dal sistema e non
 /// dalla carta toccata; il limite delle stese intatto; i due gesti del
 /// cammino; il dono che, riaperto, e' quello di prima; e il dorso del mazzo che
 /// al mezzo giro resta se stesso, cosi' che una carta coperta non dica niente.
 void main() {
+  final binding = TestWidgetsFlutterBinding.ensureInitialized();
   final adesso = DateTime(2026, 9, 18, 7, 40);
+
+  /// I sensori del telefono non esistono al banco: senza questo, la scena
+  /// che entra nel cammino solleva una MissingPluginException e la prova
+  /// cade per una ragione che non c'entra con cio' che misura.
+  void zittisciISensori() {
+    final m = binding.defaultBinaryMessenger;
+    m.setMockMethodCallHandler(
+        const MethodChannel('dev.fluttercommunity.plus/sensors/method'),
+        (c) async => null);
+    for (final n in const [
+      'dev.fluttercommunity.plus/sensors/accelerometer',
+      'dev.fluttercommunity.plus/sensors/user_accel',
+      'dev.fluttercommunity.plus/sensors/gyroscope',
+      'dev.fluttercommunity.plus/sensors/magnetometer',
+    ]) {
+      m.setMockStreamHandler(
+          EventChannel(n), MockStreamHandler.inline(onListen: (a, e) {}));
+    }
+  }
 
   Future<({DiarioDelCammino diario, QuestionAllowance conto})> monta(
       WidgetTester tester,
@@ -57,9 +79,28 @@ void main() {
     return (diario: diario, conto: conto);
   }
 
+  /// Tutti i dorsi montati, qualunque sia il loro indice.
+  final dorsi = find.byWidgetPredicate(
+      (w) => w.key.toString().contains('arcano_alba_dorso_'));
+
+  /// L'opacita' con cui una carta e' disegnata: le non scelte si spengono
+  /// invece di sparire, e senza guardare l'opacita' non si vedrebbe.
+  double opacitaDi(WidgetTester tester, Finder chi) {
+    final velo = find
+        .ancestor(of: chi, matching: find.byType(Opacity))
+        .evaluate()
+        .map((e) => (e.widget as Opacity).opacity);
+    return velo.isEmpty ? 1 : velo.reduce((a, b) => a * b);
+  }
+
   Future<void> gira(WidgetTester tester, int quale) async {
+    // L'ingresso a spirale dura un secondo e mezzo: si tocca dopo, come fa
+    // la persona, se no il tocco cade su una carta che sta ancora volando.
+    for (var i = 0; i < 18; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
     await tester.tap(find.byKey(Key('arcano_alba_carta_$quale')));
-    for (var i = 0; i < 12; i++) {
+    for (var i = 0; i < 20; i++) {
       await tester.pump(const Duration(milliseconds: 100));
     }
   }
@@ -67,28 +108,35 @@ void main() {
   setUp(() {
     SharedPreferences.setMockInitialValues({});
     ArchivioDellAlba.dimenticaLaMemoria();
+    zittisciISensori();
   });
 
   testWidgets(
       'UN GESTO SOLO: carte coperte tutte uguali e nessun altro comando',
       (tester) async {
     await monta(tester);
-    final carte = find.byKey(const Key('arcano_alba_dorso'));
-    expect(carte, findsNWidgets(ArcanoDellAlbaScreen.carteCoperte));
-    final immagini = tester.widgetList<Image>(carte).toList();
+    expect(dorsi, findsNWidgets(ArcanoDellAlbaScreen.dorsi));
+    expect(ArcanoDellAlbaScreen.dorsi, 22,
+        reason: 'i maggiori sono ventidue e si vedono tutti');
+    final immagini = tester.widgetList<Image>(dorsi).toList();
     expect(immagini.map((i) => (i.image as AssetImage).assetName).toSet(),
         {TarotDeck.dorsoFull},
         reason: 'le carte coperte non hanno lo stesso dorso');
     final misure = [
-      for (var i = 0; i < ArcanoDellAlbaScreen.carteCoperte; i++)
+      for (var i = 0; i < ArcanoDellAlbaScreen.dorsi; i++)
         tester.getSize(find.byKey(Key('arcano_alba_carta_$i'))),
     ];
     expect(misure.toSet(), hasLength(1),
         reason: 'le carte coperte non hanno la stessa misura: $misure');
-    // Nessun pulsante oltre al ritorno: niente cielo, transiti, arti, cuore.
+    // **I SOLI DUE GESTI CHE IL FONDATORE HA LASCIATO**: Mischia e Taglia.
+    // Niente cielo, transiti, arti, cuore, e nessun terzo pulsante entrato
+    // per abitudine.
+    expect(find.byKey(const Key('arcano_alba_mischia')), findsOneWidget);
+    expect(find.byKey(const Key('arcano_alba_taglia')), findsOneWidget);
+    expect(find.byType(TextButton), findsNWidgets(2),
+        reason: 'oltre a Mischia e Taglia c\'e\' un altro pulsante');
     for (final tipo in [
       ElevatedButton,
-      TextButton,
       OutlinedButton,
       FilledButton,
       PopupMenuButton,
@@ -103,7 +151,7 @@ void main() {
 
   testWidgets(
       'girata la carta: la faccia col suo verso e i tre movimenti, e '
-      'le carte coperte se ne vanno', (tester) async {
+      'le altre carte si spengono', (tester) async {
     await monta(tester);
     await gira(tester, 1);
     final oggi = await tester.runAsync(() => ArchivioDellAlba.diOggi(adesso));
@@ -112,7 +160,15 @@ void main() {
     expect(faccia.card.name, oggi!.carta.name);
     expect(faccia.reversed, oggi.stato.rovescio,
         reason: 'la faccia non porta il verso estratto');
-    expect(find.byKey(const Key('arcano_alba_dorso')), findsNothing);
+    // **Le altre non spariscono, si spengono**: restano montate perche' il
+    // tavolo e' uno solo dall'inizio alla fine, e a rivelazione compiuta sono
+    // a zero. Senza guardare l'opacita' questa riga non vedrebbe niente.
+    for (final i in [0, 7, 21]) {
+      if (i == 1) continue;
+      expect(opacitaDi(tester, find.byKey(Key('arcano_alba_dorso_$i'))),
+          lessThan(0.05),
+          reason: 'il dorso $i e\' ancora acceso dietro la carta girata');
+    }
     expect(find.text(oggi.primo), findsOneWidget);
     expect(find.text(oggi.terzo), findsOneWidget);
     expect(find.byKey(const Key('arcano_alba_dono')), findsOneWidget);
@@ -143,6 +199,9 @@ void main() {
   testWidgets('nella prima meta\' del giro si vede solo il dorso',
       (tester) async {
     await monta(tester);
+    for (var i = 0; i < 18; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
     await tester.tap(find.byKey(const Key('arcano_alba_carta_0')));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 150));
@@ -178,7 +237,7 @@ void main() {
     await tester.pumpWidget(const SizedBox());
     await monta(tester, caso: Random(999));
     await tester.pump(const Duration(milliseconds: 100));
-    expect(find.byKey(const Key('arcano_alba_dorso')), findsNothing,
+    expect(dorsi, findsNothing,
         reason: 'riaprendo il dono si torna alle carte coperte');
     expect(find.text(prima.primo), findsOneWidget);
   });
