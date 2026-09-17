@@ -7,9 +7,9 @@ oggi si leggono a schermo.
 ## Arcano dell'Alba
 
 - **titolo del rito**: IL RITO DI STAMATTINA
-- **cosa fai**: Scegli una carta fra quelle coperte e la giri: è l'arcano della tua giornata.
+- **cosa fai**: Scegli fra i ventidue arcani coperti e gira quello che ti chiama: è l'arcano della tua giornata.
 - **perche**: Il primo minuto della giornata decide il tono di tutte le ore che vengono dopo.
-- **cosa ti resta**: Il dono della carta, un respiro, un'azione o una parola, che stasera il Sigillo del Sogno ti richiamerà.
+- **cosa ti resta**: La parola della carta e il suo dono, che stasera il Sigillo del Sogno ti richiamerà.
 
 ## Soffio del Destino
 

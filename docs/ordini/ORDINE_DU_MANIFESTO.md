@@ -9,8 +9,8 @@ animazione, e riaprendo si vede solo la carta scelta. **Ha ragione, ed e' mio**:
 l'ordine DT non chiedeva una scena e io non l'ho proposta.
 
 VOCI_TOTALI: 14
-VOCI_CHIUSE: 0
-VOCI_APERTE: 14
+VOCI_CHIUSE: 14
+VOCI_APERTE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 
 Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_DU.md`.
@@ -82,6 +82,37 @@ Cosa cambia, e cosa no:
 | DU.05 | il ventaglio della Stesa con ventidue carte | **il tavolo dei ventidue**: tutte le carte in vista su piu' righe sovrapposte, mischia e taglia, stelline |
 | le altre dodici | | **invariate** |
 
+## LA SECONDA CORREZIONE, SULLA SCENA GIA' RIFATTA
+
+Il tavolo e' stato mostrato a Mauro e approvato, con quattro richieste:
+
+1. *"preferirei che le 3 file di carte siano disposte a ventaglio, formano una
+   curva e contemporaneamente fluttuano, respirano"*;
+2. *"usa anche il suono della carta che si gira che hai usato nella stesa dei
+   tarocchi se non l'hai gia' usato"*;
+3. *"Mischia e taglia all'interno di 2 bolle, come pulsanti"*;
+4. *"il testo in alto che invita a scegliere la carta e' un po' anonimo, serve
+   un titolo in giallo oro evocativo tipo 'la carta del destino di oggi' o
+   qualcosa del genere. E sotto il testo che c'e' gia'"*.
+
+Cosa e' cambiato, in numeri:
+
+| richiesta | cosa fa adesso |
+|---|---|
+| il ventaglio | ogni riga e' un arco: la carta centrale sta 11,1 punti piu' in alto dei bordi, e i bordi si inclinano di 0,13 radianti in versi opposti. Il respiro si somma alla posa, non la sostituisce |
+| il suono | il mezzo giro passa da `SensiDellaStesa`, la stessa porta della Stesa, e fa uscire `carta.mp3` dalla porta unica del Cerchio |
+| le bolle | Mischia e Taglia sono due cerchi da 92 punti, con l'alone del Maestro dentro e il bordo d'oro, e restano `TextButton` perche' la guardia dei comandi li conta |
+| il titolo | *"La carta del destino di oggi"*, nell'oro del Cerchio, sopra l'invito che resta dov'era |
+
+**Un difetto trovato guardando l'anteprima, non deducendo**: il titolo e
+l'invito non si spegnevano mentre la carta volava. L'opacita' si calcolava
+dentro la costruzione della schermata, che non ascolta il comando della
+rivelazione: restavano accesi per tutto il volo e sparivano di colpo alla fine.
+Adesso li avvolge un `AnimatedBuilder`, e una guardia misura l'opacita' a meta'
+volo.
+
+---
+
 **La scelta del numero di righe e' mia, come Mauro ha chiesto**, e si misura:
 sopra i 420 punti di larghezza il tavolo fa due righe da undici, sotto ne fa
 tre da otto, sette e sette. Su un telefono da 360 punti undici carte per riga
@@ -92,37 +123,72 @@ punti non si distingue e non si tocca.
 
 ## LE VOCI
 
-- **DU.01**, il fatto: l'Arcano dell'Alba non e' una scena. Quest'ordine lo
-  rende tale, e ogni voce qui sotto porta la sua misura. **APERTA**
+- **DU.01**, il fatto: l'Arcano dell'Alba non e' una scena. Adesso lo e': fondo
+  stellato, ventidue dorsi che entrano a spirale, si posano e respirano, e la
+  carta che sale girandosi con la scia di stelline.
+  `test/ordine_du_guard_test.dart` e `test/il_tavolo_dei_ventidue_test.dart`.
+  **CHIUSA.**
 - **DU.02**, i ventidue dorsi: si vedono tutti e ventidue e si sceglie fra
-  tutti e ventidue, tutti in vista sul tavolo. **APERTA**
+  tutti e ventidue, tutti in vista sul tavolo. Misurato a 360 punti: ventidue
+  dorsi larghi 56,3 punti, dentro lo schermo, ognuno col suo tocco.
+  **CHIUSA.**
 - **DU.03**, i cartigli non restano vuoti, ne' sulla carta girata ne' dove una
-  carta compare. **APERTA**
+  carta compare. Misurato sulla carta girata: il cartiglio del numerale e
+  quello del nome portano testo dipinto, a misura maggiore di zero.
+  **CHIUSA.**
 - **DU.04**, nessun avatar in scena: l'Arcano dell'Alba non monta Medora, per
   decisione del fondatore del 17 settembre 2026. La voce nasceva col contrario
   e resta qui col suo nuovo contenuto, perche' una voce revocata in silenzio e'
-  una voce che torna. **APERTA**
+  una voce che torna. Misurata: `MedoraStage` non compare piu' nel codice della
+  schermata, e la guardia e' stata vista rossa innestandolo.
+  **CHIUSA.**
 - **DU.05**, il tavolo dei ventidue e' dinamico: le carte entrano a spirale, si
-  posano su righe sovrapposte, fluttuano ognuna col suo tempo, e mischia e
-  taglia le rimettono in gioco. La carta toccata sale con la scia di stelline.
-  **APERTA**
-- **DU.06**, nessuna voce: Medora non parla e non c'e' nessun Protoface.
-  **APERTA**
+  posano su **tre archi a ventaglio** e fluttuano ognuna col suo tempo; mischia
+  e taglia, dentro due bolle, le rimettono in gioco; la carta toccata sale con
+  la scia di stelline e il suono della Stesa. Misurato: a un quarto di secondo
+  dall'ingresso le carte sono lontane dalla loro posa di riposo, a tavolo
+  posato continuano a muoversi con scarti diversi fra loro, Mischia sposta piu'
+  di quindici carte su ventidue, la carta centrale di ogni riga sta 11,1 punti
+  sopra i bordi e i bordi pendono in versi opposti.
+  **CHIUSA.**
+- **DU.06**, nessuna voce: Medora non parla e non c'e' nessun Protoface. Ne'
+  la schermata ne' il tavolo nominano `Protoface`, il parlato o una sintesi.
+  **CHIUSA.**
 - **DU.07**, il verso non si sa prima: i dorsi restano simmetrici e nessun
-  segno anticipa dritto o rovescio. **APERTA**
+  segno anticipa dritto o rovescio. Il dorso ruotato di mezzo giro scarta in
+  media 5,37 su 255 e oltre 48 in zero punti su 121.695; toccando due dorsi
+  diversi collo stesso caso esce lo stesso stato.
+  **CHIUSA.**
 - **DU.08**, il responso parte dalla carta: la parola e' della carta scelta, e
-  il dono e la chiusa nascono da lei. **APERTA**
+  il dono e la chiusa nascono da lei. Tutte e 528 le letture hanno la loro
+  parola, e in tutte il dono la porta.
+  **CHIUSA.**
 - **DU.09**, il respiro e' di Aura: come forma del dono dell'Alba non esiste
-  piu'. **APERTA**
-- **DU.10**, zero disclaimer. **APERTA**
+  piu'. Due doni lo prescrivevano ancora, *"allunga il respiro quattro volte"*
+  e *"rallenta il fiato"*: riscritti, e adesso una guardia guarda tutti e 528 i
+  doni e non ne lascia passare nessuno col fiato.
+  **CHIUSA.**
+- **DU.10**, zero disclaimer. Ne' la schermata ne' il tavolo ne nominano uno.
+  **CHIUSA.**
 - **DU.11**, l'estrazione non ha vincoli: la stessa carta puo' uscire due
-  giorni di fila, come alla roulette. **APERTA**
+  giorni di fila, come alla roulette. Su centomila giri la stessa carta torna
+  nel 4,5 per cento dei casi e lo stesso stato nel 2,2, cioe' le frequenze del
+  caso; il sacchetto e' stato tolto e nessuna riga di codice dei ventidue file
+  dell'Alba lo nomina piu'.
+  **CHIUSA.**
 - **DU.12**, zero ripetizioni nei testi: dodici letture per stato e i registri
-  della persona. **APERTA**
-- **DU.13**, il budget dei tarocchi resta intatto. **APERTA**
+  della persona. Le 528 letture passano la guardia su 4.193.280 combinazioni di
+  apertura, clausola e filo, e su 3.300 consegne simulate i ripieghi sono 4.
+  **CHIUSA.**
+- **DU.13**, il budget dei tarocchi resta intatto: girare la carta non muove il
+  contatore delle stese.
+  **CHIUSA.**
 - **DU.14**, il Soffio del Destino: via il cerchio disallineato, sono i petali
-  a ingrandirsi e a ridursi. **APERTA**
-
+  a ingrandirsi e a ridursi. Misurato sui pixel: senza anelli la circonferenza
+  piu' accesa sta al 6 per cento, coll'anello innestato al 69; le punte contate
+  sono ventiquattro e fra fiato pieno e fiato vuoto i petali cambiano di 17
+  punti in mediana.
+  **CHIUSA.**
 ---
 
 ## COME SI MISURA, VOCE PER VOCE
@@ -134,7 +200,7 @@ Ogni voce ha la sua prova, e ogni prova nasce rossa.
 | 02 | i dorsi montati sono ventidue distinti, tutti sullo schermo, e ognuno dei ventidue si puo' toccare |
 | 03 | girata la carta, il cartiglio del numerale e quello del nome portano testo |
 | 04 | nessun `MedoraStage` e nessun avatar nella schermata dell'Alba |
-| 05 | senza Riduci Movimento le pose dell'ingresso non sono quelle di riposo, il tavolo respira, e mischia e taglia cambiano la disposizione senza cambiare l'esito |
+| 05 | senza Riduci Movimento le pose dell'ingresso non sono quelle di riposo, il tavolo respira, ogni riga e' un arco con le carte dei bordi inclinate, mischia e taglia cambiano la disposizione senza cambiare l'esito, il titolo si spegne mentre la carta vola e il mezzo giro fa uscire il suono della carta dalla porta del Cerchio |
 | 06 | nessun `Protoface`, nessun widget della voce, nessuna chiamata al parlato nella schermata |
 | 07 | il dorso ruotato di mezzo giro resta se stesso, e il verso non si legge da nessun dorso prima del tocco |
 | 08 | ogni lettura di ogni stato ha la sua parola, e la parola compare nel dono della stessa carta |

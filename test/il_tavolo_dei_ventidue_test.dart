@@ -78,42 +78,146 @@ void main() {
     final rettangoli = pose(tester);
     expect(rettangoli, hasLength(22));
     for (var i = 0; i < 22; i++) {
-      final r = rettangoli[i];
-      expect(r.width, greaterThanOrEqualTo(32),
-          reason: 'il dorso $i e\' largo ${r.width.toStringAsFixed(1)} punti: '
-              'non si tocca con un dito');
-      expect(r.left, greaterThanOrEqualTo(-1),
-          reason: 'il dorso $i sborda a sinistra');
-      expect(r.right, lessThanOrEqualTo(361),
-          reason: 'il dorso $i sborda a destra');
+      final chiave = find.byKey(Key('arcano_alba_dorso_$i'));
+      // **La misura vera della carta e' quella del suo riquadro**, che non
+      // ruota con lei: da quando il ventaglio le inclina, il rettangolo che
+      // il banco restituisce non e' piu' il loro ingombro.
+      final misura = tester.getSize(chiave);
+      expect(misura.width, greaterThanOrEqualTo(32),
+          reason: 'il dorso $i e\' largo ${misura.width.toStringAsFixed(1)} '
+              'punti: non si tocca con un dito');
+      // E lo sbordo si guarda sui quattro angoli, che con la rotazione sono
+      // gli unici punti che stanno davvero dove sembrano.
+      final angoli = [
+        tester.getTopLeft(chiave),
+        tester.getTopRight(chiave),
+        tester.getBottomLeft(chiave),
+        tester.getBottomRight(chiave),
+      ];
+      for (final a in angoli) {
+        expect(a.dx, greaterThanOrEqualTo(-1),
+            reason: 'il dorso $i sborda a sinistra, fino a ${a.dx}');
+        expect(a.dx, lessThanOrEqualTo(361),
+            reason: 'il dorso $i sborda a destra, fino a ${a.dx}');
+      }
       expect(find.byKey(Key('arcano_alba_carta_$i')), findsOneWidget,
           reason: 'il dorso $i non si puo\' toccare');
     }
     print('ORDINE DU voce 02: a 360 punti le carte sono larghe '
-        '${rettangoli.first.width.toStringAsFixed(1)} punti, su '
-        '${TavoloDeiVentidue.righeDi(22, 360).length} righe');
+        '${tester.getSize(find.byKey(const Key('arcano_alba_dorso_0'))).width.toStringAsFixed(1)} '
+        'punti, su ${TavoloDeiVentidue.righeDi(22, 360).length} righe');
   });
+
+  /// Gli indici delle carte, riga per riga, come il tavolo le dispone.
+  List<List<int>> righeDelTavolo({double larghezza = 360}) {
+    final quante = TavoloDeiVentidue.righeDi(22, larghezza);
+    final righe = <List<int>>[];
+    var scorso = 0;
+    for (final n in quante) {
+      righe.add([for (var j = 0; j < n; j++) scorso + j]);
+      scorso += n;
+    }
+    return righe;
+  }
 
   testWidgets('SOVRAPPOSTE, ma non nascoste: ognuna resta distinguibile',
       (tester) async {
     await monta(tester, ridotto: true);
     final rettangoli = pose(tester);
-    final larga = rettangoli.first.width;
+    // **Le righe non si riconoscono piu' dal centro verticale**, perche' da
+    // quando sono archi ogni carta di una riga sta a una quota sua: si
+    // prendono dalla stessa funzione che le dispone.
     var coppieSovrapposte = 0;
-    for (var i = 1; i < 22; i++) {
-      final a = rettangoli[i - 1], b = rettangoli[i];
-      // Due carte sulla stessa riga hanno lo stesso centro verticale.
-      if ((a.center.dy - b.center.dy).abs() > 1) continue;
-      final passo = b.left - a.left;
-      expect(passo, lessThan(larga),
-          reason: 'le carte $i e ${i - 1} non si sovrappongono');
-      expect(passo, greaterThan(larga * 0.5),
-          reason: 'la carta $i copre piu\' di meta\' della vicina');
-      coppieSovrapposte++;
+    for (final riga in righeDelTavolo()) {
+      for (var k = 1; k < riga.length; k++) {
+        final a = rettangoli[riga[k - 1]], b = rettangoli[riga[k]];
+        final passo = b.center.dx - a.center.dx;
+        final larga = (a.width + b.width) / 2;
+        expect(passo, lessThan(larga),
+            reason: 'le carte ${riga[k - 1]} e ${riga[k]} non si '
+                'sovrappongono');
+        expect(passo, greaterThan(larga * 0.4),
+            reason: 'la carta ${riga[k]} copre troppo della vicina');
+        coppieSovrapposte++;
+      }
     }
     expect(coppieSovrapposte, greaterThanOrEqualTo(19),
         reason: 'coppie guardate $coppieSovrapposte: su un insieme vuoto '
             'questa prova sarebbe verde senza aver guardato niente');
+  });
+
+  testWidgets('OGNI RIGA E\' UN ARCO, e le carte dei bordi si inclinano',
+      (tester) async {
+    // **Richiesta del fondatore del 17 settembre 2026**: *"preferirei che le 3
+    // file di carte siano disposte a ventaglio, formano una curva"*.
+    //
+    // Due grandezze, e nessuna delle due si vede leggendo il codice: la carta
+    // centrale di ogni riga sta **piu' in alto** di quelle ai bordi, e le
+    // carte dei bordi sono **inclinate**. L'inclinazione si misura dal
+    // rettangolo che la carta occupa: una carta ruotata ne occupa uno piu'
+    // largo di una dritta, a parita' di disegno.
+    await monta(tester, ridotto: true);
+    final rettangoli = pose(tester);
+    var righeGuardate = 0;
+    for (final riga in righeDelTavolo()) {
+      final centrale = rettangoli[riga[riga.length ~/ 2]];
+      final sinistra = rettangoli[riga.first];
+      final destra = rettangoli[riga.last];
+      expect(centrale.center.dy, lessThan(sinistra.center.dy - 3),
+          reason: 'la carta centrale della riga non sta piu\' in alto del '
+              'bordo sinistro: la riga e\' piatta');
+      expect(centrale.center.dy, lessThan(destra.center.dy - 3),
+          reason: 'la carta centrale della riga non sta piu\' in alto del '
+              'bordo destro: la riga e\' piatta');
+      // **L'inclinazione si legge dagli angoli, non dal rettangolo.** Il
+      // rettangolo che il banco restituisce per una carta ruotata e'
+      // costruito su due soli vertici, e per una figura girata non e' il suo
+      // ingombro: misurato, dava la carta inclinata piu' STRETTA di quella
+      // dritta. Due angoli in cima allo stesso lato dicono la pendenza vera.
+      double pendenzaDi(int carta) {
+        final chiave = find.byKey(Key('arcano_alba_dorso_$carta'));
+        return tester.getTopRight(chiave).dy - tester.getTopLeft(chiave).dy;
+      }
+
+      final pendenzaSinistra = pendenzaDi(riga.first);
+      final pendenzaCentro = pendenzaDi(riga[riga.length ~/ 2]);
+      final pendenzaDestra = pendenzaDi(riga.last);
+      expect(pendenzaCentro.abs(), lessThan(2),
+          reason: 'la carta centrale della riga pende di $pendenzaCentro '
+              'punti: al centro il ventaglio sta dritto');
+      expect(pendenzaSinistra.abs(), greaterThan(4),
+          reason: 'la carta di sinistra non e\' inclinata');
+      expect(pendenzaDestra.abs(), greaterThan(4),
+          reason: 'la carta di destra non e\' inclinata');
+      expect(pendenzaSinistra * pendenzaDestra, lessThan(0),
+          reason: 'i due bordi pendono dalla stessa parte: e\' una riga '
+              'storta, non un ventaglio');
+      righeGuardate++;
+    }
+    expect(righeGuardate, 3,
+        reason: 'righe guardate $righeGuardate: a 360 punti sono tre');
+    final alzata = rettangoli[0].center.dy - rettangoli[4].center.dy;
+    print('ORDINE DU: l\'arco alza la carta centrale di '
+        '${alzata.toStringAsFixed(1)} punti sopra il bordo della riga');
+  });
+
+  testWidgets('MISCHIA E TAGLIA SONO DUE BOLLE', (tester) async {
+    // Richiesta del fondatore: *"Mischia e taglia all'interno di 2 bolle, come
+    // pulsanti"*. Una bolla e' tonda: si misura che il pulsante sia quadrato
+    // nel suo ingombro, cioe' un cerchio, e non una pillola larga e bassa.
+    await monta(tester, ridotto: true);
+    for (final chiave in ['arcano_alba_mischia', 'arcano_alba_taglia']) {
+      final misura = tester.getSize(find.byKey(Key(chiave)));
+      expect(misura.width, closeTo(misura.height, 1),
+          reason: '$chiave misura ${misura.width} per ${misura.height}: '
+              'non e\' una bolla');
+      expect(misura.width, greaterThanOrEqualTo(84),
+          reason: '$chiave e\' larga ${misura.width}: sotto gli 84 punti '
+              'l\'etichetta non ci sta');
+    }
+    // E dentro la bolla ci sono ancora le parole, non solo un segno.
+    expect(find.text('Mischia'), findsOneWidget);
+    expect(find.text('Taglia'), findsOneWidget);
   });
 
   testWidgets('ENTRANO E FLUTTUANO: le pose dell\'ingresso non sono il riposo',

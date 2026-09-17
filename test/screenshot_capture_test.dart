@@ -1336,9 +1336,9 @@ void main() {
         await precacheImage(AssetImage(carta.fullPath), elemento);
       }
     });
-    // **LA SCENA ENTRA**, ordine DU: le carte girano attorno a Medora e si
-    // posano a ventaglio. Si cattura a ingresso finito, come la vede chi
-    // aspetta due secondi.
+    // **LA SCENA ENTRA**, ordine DU seconda stesura: i ventidue dorsi entrano
+    // a spirale e si posano sulle righe sovrapposte del tavolo. Si cattura a
+    // ingresso finito, come la vede chi aspetta due secondi.
     for (var i = 0; i < 30; i++) {
       await tester.pump(const Duration(milliseconds: 100));
     }

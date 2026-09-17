@@ -4,6 +4,11 @@ import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
+import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/sensi/catalogo_suoni.dart';
+import 'package:esoteric_circle/core/sensi/palette_sensoriale.dart';
+import 'package:esoteric_circle/core/settings/settings_controller.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
@@ -54,7 +59,8 @@ void main() {
 
   Future<({DiarioDelCammino diario, QuestionAllowance conto})> monta(
       WidgetTester tester,
-      {Random? caso}) async {
+      {Random? caso,
+      bool suono = false}) async {
     tester.view.physicalSize = const Size(390, 1400);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
@@ -67,6 +73,11 @@ void main() {
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider<DiarioDelCammino>.value(value: diario),
         ChangeNotifierProvider<QuestionAllowance>.value(value: conto),
+        // **L'interruttore unico del suono.** Senza, la porta del Cerchio
+        // tace per prudenza, e una prova sul suono misurerebbe la propria
+        // mancanza invece della schermata.
+        ChangeNotifierProvider<SettingsController>.value(
+            value: SettingsController(effettiSonori: suono)),
       ],
       child: MaterialApp(
         home: MaestroScope(
@@ -218,7 +229,12 @@ void main() {
     await gira(tester, 0);
     await tester.runAsync(
         () => Future<void>.delayed(const Duration(milliseconds: 300)));
-    await tester.pump();
+    // **La vibrazione del giro dura oltre la fine della prova.** Lo schema
+    // della rivelazione sono due colpi separati da 110 millesimi, e l'estrazione
+    // che lo precede si compie solo dentro l'attesa vera qui sopra: senza
+    // questo respiro il banco trova un temporizzatore acceso e boccia una
+    // prova che parla d'altro.
+    await tester.pump(const Duration(milliseconds: 300));
     expect(montati.conto.steseRimaste(Tier.free), prima,
         reason: 'l\'Arcano dell\'Alba ha consumato una stesa');
     expect(montati.diario.haFatto('alba'), isTrue,
@@ -302,5 +318,75 @@ void main() {
         contains(oggi.carta.numeral.toUpperCase()));
     expect(scritti.every((s) => s.$2 > 0), isTrue,
         reason: 'un cartiglio ha il testo a misura zero: $scritti');
+  });
+
+  testWidgets('IL TITOLO D\'ORO STA SOPRA L\'INVITO, e non lo sostituisce',
+      (tester) async {
+    // **Richiesta del fondatore del 17 settembre 2026**: *"il testo in alto
+    // che invita a scegliere la carta e' un po' anonimo, serve un titolo in
+    // giallo oro evocativo... e sotto il testo che c'e' gia'"*. Due cose da
+    // misurare: che il titolo sia d'oro, e che l'invito sia ancora li' sotto.
+    await monta(tester);
+    final richiamo = find.byKey(const Key('arcano_alba_richiamo'));
+    expect(richiamo, findsOneWidget,
+        reason: 'il titolo della scena non c\'e\'');
+    final testo = tester.widget<Text>(richiamo);
+    final oro = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora)).gold;
+    expect(testo.style?.color, oro,
+        reason: 'il titolo non e\' dell\'oro del Cerchio: '
+            '${testo.style?.color}');
+    expect(testo.style!.fontSize!, greaterThanOrEqualTo(24),
+        reason: 'il titolo e\' grande come il testo che introduce');
+    final invito = find.byKey(const Key('arcano_alba_invito'));
+    expect(invito, findsOneWidget,
+        reason: 'il titolo ha preso il posto dell\'invito invece di stargli '
+            'sopra');
+    expect(
+        tester.getTopLeft(richiamo).dy, lessThan(tester.getTopLeft(invito).dy),
+        reason: 'il titolo non sta sopra l\'invito');
+  });
+
+  testWidgets('LA CARTA CHE SI GIRA SUONA, dalla porta unica del Cerchio',
+      (tester) async {
+    // Richiesta del fondatore: *"usa anche il suono della carta che si gira
+    // che hai usato nella stesa dei tarocchi"*. **Si arma la spia sulla porta
+    // del Cerchio**, come fa la guardia della Stesa: e' la sola forma di
+    // prova che vede il suono uscire davvero, e non la mappa che lo sceglie.
+    final sentiti = <SuonoDelCerchio>[];
+    PaletteSensoriale.spia = sentiti.add;
+    addTearDown(() => PaletteSensoriale.spia = null);
+    await monta(tester, suono: true);
+    await gira(tester, 4);
+    expect(sentiti, contains(SuonoDelCerchio.carta),
+        reason: 'girando la carta dell\'Alba non e\' uscito nessun suono '
+            'della carta: sentiti $sentiti');
+  });
+
+  testWidgets('IL TITOLO SI SPEGNE MENTRE LA CARTA VOLA', (tester) async {
+    // **Difetto visto sull'anteprima, non dedotto.** L'opacita' del titolo e
+    // dell'invito si calcolava dentro la costruzione della schermata, che non
+    // ascolta il comando della rivelazione: restavano accesi per tutto il volo
+    // e sparivano di colpo alla fine. La grandezza misurata e' l'opacita' a
+    // meta' volo, non la presenza del testo.
+    await monta(tester);
+    final titolo = find.byKey(const Key('arcano_alba_richiamo'));
+    expect(opacitaDi(tester, titolo), greaterThan(0.9),
+        reason: 'il titolo parte gia spento');
+    for (var i = 0; i < 18; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    await tester.tap(find.byKey(const Key('arcano_alba_carta_2')));
+    // L'estrazione si compie in un'attesa vera: senza, il volo non parte.
+    await tester.runAsync(
+        () => Future<void>.delayed(const Duration(milliseconds: 200)));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 450));
+    expect(opacitaDi(tester, titolo), lessThan(0.5),
+        reason: 'a meta\' volo il titolo e\' ancora acceso: la schermata non '
+            'ascolta il comando della rivelazione');
+    // E si lascia finire tutto, se no restano temporizzatori accesi.
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
   });
 }

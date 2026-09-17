@@ -462,4 +462,31 @@ void main() {
         reason: 'queste letture nominano il mattino come se fosse adesso:\n'
             '${letture.join('\n')}');
   });
+
+  test('IL RESPIRO E\' DI AURA: nessun dono dell\'Alba fa respirare', () {
+    // **Ordine DU voce 09.** Il respiro era una delle tre forme del
+    // dono, quella delle carte con la lettera madre. Il fondatore l'ha
+    // tolto: il respiro e' il dominio di Aura, e un dono dell'Alba che
+    // dice *"allunga il respiro quattro volte"* sta facendo il lavoro
+    // di un'altra Maestra.
+    //
+    // **Si guarda il dono, non Medora**: una chiusa puo' nominare il
+    // fiato come immagine, il dono no, perche' il dono e' cio' che si fa.
+    final delFiato = RegExp(
+        r'\brespir\w*|\bfiat\w*|\binspir\w*|\bespir\w*|\bsoffi\w*',
+        caseSensitive: false);
+    final colpevoli = [
+      for (final l in corpus)
+        if (delFiato.hasMatch(l.dono))
+          '${ResponsoDellAlba.cartaColVerso(l.stato)} ${l.numero}: ${l.dono}',
+    ];
+    print('ORDINE DU voce 09: doni guardati ${corpus.length}, col fiato '
+        '${colpevoli.length}');
+    cardinaleMinimo(corpus.length, 44 * 12,
+        cosa: 'doni dell\'Alba',
+        perche: 'Su un corpus vuoto nessun dono farebbe respirare.');
+    expect(colpevoli, isEmpty,
+        reason: 'questi doni dell\'Alba fanno il lavoro di Aura:\n'
+            '${colpevoli.join('\n')}');
+  });
 }

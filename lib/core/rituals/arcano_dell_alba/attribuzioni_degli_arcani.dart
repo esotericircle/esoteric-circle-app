@@ -2,14 +2,21 @@ import '../../astro/zodiac.dart';
 
 /// La famiglia di un arcano maggiore, dalla lettera ebraica che la Golden Dawn
 /// gli attribuisce sulla divisione del Sefer Yetzirah.
+///
+/// **La famiglia dice l'attribuzione, non la forma del dono.** Ordine DU voci
+/// 08 e 09, 17 settembre 2026: fino alla 2267 ogni famiglia aveva la sua forma,
+/// un respiro per le lettere madri, un'azione per le doppie, una parola per le
+/// semplici. Il fondatore ha deciso che **tutto parte dalla carta**: ogni
+/// arcano da' la sua parola e il suo dono, e il respiro torna ad Aura, che e'
+/// la Maestra del fiato.
 enum FamigliaDellArcano {
-  /// Le tre lettere madri: un elemento. Il responso e' un respiro.
+  /// Le tre lettere madri: un elemento.
   elementale('elementale', 'lettera madre'),
 
-  /// Le sette lettere doppie: un pianeta. Il responso e' un'azione.
+  /// Le sette lettere doppie: un pianeta.
   planetaria('planetaria', 'lettera doppia'),
 
-  /// Le dodici lettere semplici: un segno. Il responso e' una parola.
+  /// Le dodici lettere semplici: un segno.
   zodiacale('zodiacale', 'lettera semplice');
 
   const FamigliaDellArcano(this.nome, this.lettera);

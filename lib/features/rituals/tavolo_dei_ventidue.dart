@@ -285,7 +285,9 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
 
     var centro = disegno.centroDi(posto);
     var scala = 1.0;
-    var angolo = 0.0;
+    // **L'inclinazione del ventaglio e' la posa di base**, e il respiro le si
+    // somma sopra: senza, la carta respirerebbe tornando dritta a ogni onda.
+    var angolo = disegno.angoloDi(posto);
     var opacita = 1.0;
 
     if (!widget.ridotto) {
@@ -308,7 +310,7 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
         final fase = posto * 0.37;
         final onda = math.sin((_respiro.value + fase) * 2 * math.pi);
         centro = Offset(centro.dx, centro.dy + onda * 3.2);
-        angolo = math.sin((_respiro.value * 1.3 + fase) * 2 * math.pi) * 0.022;
+        angolo += math.sin((_respiro.value * 1.3 + fase) * 2 * math.pi) * 0.022;
         scala = 1 + onda * 0.008;
       }
 
@@ -433,8 +435,19 @@ class _DisegnoDelTavolo {
   /// Quanto una carta copre quella accanto: **leggermente sovrapposte**.
   static const double sovrapposizione = 0.74;
 
-  static const double _margine = 6;
-  static const double _passoVerticale = 0.96;
+  /// **L'ARCO DI OGNI RIGA.** Quanto sale la carta centrale rispetto a quelle
+  /// dei bordi, in frazione dell'altezza di una carta. Sotto lo 0,08 la curva
+  /// non si legge, sopra lo 0,20 le righe si mangiano fra loro.
+  static const double arco = 0.14;
+
+  /// Quanto si inclina la carta piu' esterna di una riga, in radianti: poco
+  /// piu' di sette gradi, come un ventaglio tenuto in mano.
+  static const double inclinazione = 0.13;
+
+  /// Il margine tiene conto anche di quello che l'inclinazione porta fuori:
+  /// una carta ruotata occupa piu' larghezza di una dritta.
+  static const double _margine = 14;
+  static const double _passoVerticale = 1.02;
 
   double get larghezzaCarta {
     final perRiga = righe.reduce(math.max);
@@ -445,7 +458,9 @@ class _DisegnoDelTavolo {
   double get altezzaCarta => larghezzaCarta / TarotFrame.aspect;
 
   double get altezza =>
-      altezzaCarta * (1 + (righe.length - 1) * _passoVerticale) + 16;
+      altezzaCarta * (1 + (righe.length - 1) * _passoVerticale) +
+      altezzaCarta * arco +
+      16;
 
   Offset get centroDelTavolo => Offset(larghezza / 2, altezza / 2);
 
@@ -453,25 +468,51 @@ class _DisegnoDelTavolo {
   double get scalaDellaRivelazione =>
       math.min(2.6, (larghezza * 0.62) / larghezzaCarta);
 
-  /// Il centro della casella [posto], contate riga per riga.
-  Offset centroDi(int posto) {
+  /// Dove sta il [posto] dentro la sua riga: la riga, l'indice e quanti sono.
+  ({int riga, int indice, int quanti}) rigaDi(int posto) {
     var scorso = 0;
     for (var r = 0; r < righe.length; r++) {
       if (posto < scorso + righe[r]) {
-        final j = posto - scorso;
-        final n = righe[r];
-        final passo = larghezzaCarta * sovrapposizione;
-        final largaRiga = larghezzaCarta + (n - 1) * passo;
-        final sinistra = (larghezza - largaRiga) / 2;
-        return Offset(
-          sinistra + j * passo + larghezzaCarta / 2,
-          8 + altezzaCarta * (0.5 + r * _passoVerticale),
-        );
+        return (riga: r, indice: posto - scorso, quanti: righe[r]);
       }
       scorso += righe[r];
     }
-    return centroDelTavolo;
+    return (riga: righe.length - 1, indice: 0, quanti: righe.last);
   }
+
+  /// Da meno uno a piu' uno: dove sta la carta lungo la sua riga, con lo zero
+  /// al centro. E' la misura da cui nascono l'arco e l'inclinazione.
+  double posizioneNellaRiga(int posto) {
+    final dove = rigaDi(posto);
+    if (dove.quanti <= 1) return 0;
+    return (dove.indice - (dove.quanti - 1) / 2) / ((dove.quanti - 1) / 2);
+  }
+
+  /// Il centro della casella [posto], contate riga per riga.
+  ///
+  /// **Ogni riga e' un arco**: la carta al centro sta piu' in alto e quelle
+  /// dei bordi scendono, come un ventaglio aperto sul tavolo.
+  Offset centroDi(int posto) {
+    final dove = rigaDi(posto);
+    final passo = larghezzaCarta * sovrapposizione;
+    final largaRiga = larghezzaCarta + (dove.quanti - 1) * passo;
+    final sinistra = (larghezza - largaRiga) / 2;
+    final t = posizioneNellaRiga(posto);
+    // La parabola: zero ai bordi, uno al centro.
+    final salita = (1 - t * t) * altezzaCarta * arco;
+    return Offset(
+      sinistra + dove.indice * passo + larghezzaCarta / 2,
+      8 +
+          altezzaCarta * (0.5 + dove.riga * _passoVerticale) +
+          altezzaCarta * arco -
+          salita,
+    );
+  }
+
+  /// **L'INCLINAZIONE DELLA POSA**, che e' cio' che fa leggere la curva come
+  /// un ventaglio e non come una gobba: la carta di sinistra pende a sinistra,
+  /// quella di destra a destra, e la centrale resta dritta.
+  double angoloDi(int posto) => posizioneNellaRiga(posto) * inclinazione;
 }
 
 /// Un dorso del mazzo. **Sono tutti lo stesso disegno**, e il dorso e'
@@ -607,7 +648,7 @@ class _ComandiDelMazzo extends StatelessWidget {
             icona: Icons.shuffle_rounded,
             palette: palette,
             onTap: onMischia),
-        const SizedBox(width: 18),
+        const SizedBox(width: 26),
         _Gesto(
             chiave: 'arcano_alba_taglia',
             testo: 'Taglia',
@@ -634,18 +675,58 @@ class _Gesto extends StatelessWidget {
   final MaestroPalette palette;
   final VoidCallback onTap;
 
+  /// Quanto misura la bolla: sotto gli 84 punti l'etichetta non ci sta senza
+  /// rimpicciolirsi, e un pulsante che rimpicciolisce il testo non si legge.
+  static const double misura = 92;
+
   @override
   Widget build(BuildContext context) {
-    return TextButton.icon(
+    return TextButton(
       key: Key(chiave),
       onPressed: onTap,
-      icon: Icon(icona, size: 18, color: palette.goldSoft),
-      label:
-          Text(testo, style: TextStyle(color: palette.goldSoft, fontSize: 16)),
       style: TextButton.styleFrom(
-        // L'area di tocco resta comoda anche con l'etichetta corta.
-        minimumSize: const Size(96, 44),
-        padding: const EdgeInsets.symmetric(horizontal: 12),
+        shape: const CircleBorder(),
+        padding: EdgeInsets.zero,
+        minimumSize: const Size(misura, misura),
+        fixedSize: const Size(misura, misura),
+      ),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          // L'alone dentro la bolla: il Maestro si riconosce dal colore,
+          // e la bolla non e' un disco piatto.
+          gradient: RadialGradient(
+            colors: [
+              palette.glow.withValues(alpha: 0.26),
+              palette.deepest.withValues(alpha: 0.42),
+            ],
+            stops: const [0.15, 1.0],
+          ),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.55)),
+          boxShadow: [
+            BoxShadow(
+              color: palette.glow.withValues(alpha: 0.18),
+              blurRadius: 14,
+              spreadRadius: 1,
+            ),
+          ],
+        ),
+        child: SizedBox(
+          width: misura,
+          height: misura,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icona, size: 22, color: palette.goldSoft),
+              const SizedBox(height: 4),
+              Text(
+                testo,
+                style: TextStyle(
+                    color: palette.goldSoft, fontSize: 15, letterSpacing: 0.2),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

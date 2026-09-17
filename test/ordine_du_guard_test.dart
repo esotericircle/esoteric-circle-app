@@ -17,6 +17,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final manifesto = File('docs/ordini/ORDINE_DU_MANIFESTO.md');
   final schermata = File('lib/features/rituals/arcano_dell_alba_screen.dart');
+  const tavolo = 'lib/features/rituals/tavolo_dei_ventidue.dart';
 
   const quante = 14;
 
@@ -117,6 +118,20 @@ void main() {
     }
   });
 
+  test('NESSUNA VOCE E NESSUN DISCLAIMER NELL\'ALBA', () {
+    // **DU.06 e DU.10.** La voce in questo progetto e' l'audio, e l'Alba e'
+    // muta: niente Protoface, niente parlato, nessuna chiamata a una sintesi.
+    // E nessun disclaimer, che si mostra una volta sola all'ingresso e non su
+    // ogni responso.
+    for (final f in [schermata, File(tavolo)]) {
+      final codice = codiceDella(f);
+      for (final pezzo in ['Protoface', 'Tts', 'parlato', 'isclaimer']) {
+        expect(codice.contains(pezzo), isFalse,
+            reason: '${f.path} nomina $pezzo');
+      }
+    }
+  });
+
   test('IL VENTAGLIO DELLA STESA RESTA DELLA STESA', () {
     // Il ventaglio e' uno solo e ha un solo padrone. Prima della correzione
     // questa riga pretendeva che l'Alba lo montasse: adesso pretende che non
@@ -143,10 +158,9 @@ void main() {
     // Il tavolo e' una scena nuova, chiesta da Mauro, e nasce con l'obbligo
     // di non rifare quello che esiste: non deve importare ne' ridisegnare il
     // ventaglio della Stesa.
-    final tavolo = File('lib/features/rituals/tavolo_dei_ventidue.dart');
-    expect(tavolo.existsSync(), isTrue,
+    expect(File(tavolo).existsSync(), isTrue,
         reason: 'la scena nuova dell\'Alba non esiste');
-    final codice = codiceDella(tavolo);
+    final codice = codiceDella(File(tavolo));
     expect(codice.contains('stesa_fan.dart'), isFalse);
     expect(codice.contains('StesaFan'), isFalse);
   });

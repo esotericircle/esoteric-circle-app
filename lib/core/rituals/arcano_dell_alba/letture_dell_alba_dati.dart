@@ -125,7 +125,7 @@ const List<LetturaDellAlba> lettureDellAlba = [
     numero: 1,
     parola: 'Misura',
     dono:
-        'Prendi la misura prima di accettare: fai sapere che deciderai domani, con una riga gentile.',
+        'Prendi la misura prima di accettare: fai sapere che rispondi domani, con una riga gentile.',
     medora:
         'Un rinvio di ventiquattro ore costa molto meno di un impegno sbagliato.',
   ),
@@ -425,7 +425,7 @@ const List<LetturaDellAlba> lettureDellAlba = [
     numero: 9,
     parola: 'Onestà',
     dono:
-        'Ammetti con onestà che non sai, dove oggi saresti tentato di improvvisare.',
+        'Ammetti con onestà che non sai, dove oggi verrebbe comodo improvvisare.',
     medora: 'Ammettere un limite costa un istante e salva settimane.',
   ),
   LetturaDellAlba(
@@ -1639,7 +1639,7 @@ const List<LetturaDellAlba> lettureDellAlba = [
     numero: 7,
     parola: 'Corazza',
     dono:
-        'Indossa una corazza gentile per un incontro difficile: decidi prima cosa non concederai.',
+        'Indossa una corazza gentile per un incontro difficile: decidi prima cosa tieni per te.',
     medora: 'Sapere il proprio limite prima rende la calma molto più facile.',
   ),
   LetturaDellAlba(
@@ -2323,7 +2323,7 @@ const List<LetturaDellAlba> lettureDellAlba = [
     numero: 9,
     parola: 'Fiducia',
     dono:
-        'Affida al tempo, con fiducia, quello che non puoi forzare: fissa quando lo riguarderai.',
+        'Affida al tempo, con fiducia, quello che non puoi forzare: fissa il giorno in cui lo riprendi.',
     medora:
         'Certe faccende maturano da sole, se nessuno le strapazza ogni giorno.',
   ),
@@ -2613,7 +2613,7 @@ const List<LetturaDellAlba> lettureDellAlba = [
     rovescio: true,
     numero: 4,
     parola: 'Aiuto',
-    dono: 'Chiedi aiuto su una cosa che ti sei intestato per orgoglio.',
+    dono: 'Chiedi aiuto su una cosa che ti ostini a fare da te, per orgoglio.',
     medora: 'Portare da soli quello che si può dividere non dimostra niente.',
   ),
   LetturaDellAlba(
@@ -2687,9 +2687,9 @@ const List<LetturaDellAlba> lettureDellAlba = [
     carta: 11,
     rovescio: true,
     numero: 12,
-    parola: 'Fiato',
+    parola: 'Rallentamento',
     dono:
-        'Rallenta il fiato prima di una prova: dieci conteggi lenti, con le spalle basse.',
+        'Rallenta i gesti prima di una prova: dieci conteggi lenti, con le spalle basse.',
     medora:
         'Il corpo calmo convince la testa molto più in fretta del contrario.',
   ),
@@ -2893,7 +2893,8 @@ const List<LetturaDellAlba> lettureDellAlba = [
     rovescio: true,
     numero: 10,
     parola: 'Gratitudine',
-    dono: 'Ringrazia con gratitudine chi ti ha aspettato mentre eri bloccato.',
+    dono:
+        'Ringrazia con gratitudine chi ti ha aspettato senza mai ricordartelo.',
     medora:
         'La pazienza degli altri è un credito che di solito nessuno reclama.',
   ),
@@ -2976,9 +2977,9 @@ const List<LetturaDellAlba> lettureDellAlba = [
     carta: 13,
     rovescio: false,
     numero: 7,
-    parola: 'Eredità',
+    parola: 'Lascito',
     dono:
-        'Raccogli un\'eredità che ti hanno lasciato: un mestiere, una ricetta, un modo di fare.',
+        'Raccogli quello che ti hanno lasciato: un mestiere, una ricetta, un modo di fare.',
     medora:
         'Chi ci ha preceduto continua nei gesti che ripetiamo senza pensarci.',
   ),
@@ -3231,11 +3232,11 @@ const List<LetturaDellAlba> lettureDellAlba = [
     carta: 14,
     rovescio: false,
     numero: 10,
-    parola: 'Respiro',
+    parola: 'Pausa',
     dono:
-        'Allunga il respiro quattro volte prima di una cosa che ti agita, contando lento.',
+        'Concediti una pausa di due minuti prima di una cosa che ti agita, senza schermi.',
     medora:
-        'Il fiato lungo è l\'unico comando diretto che abbiamo sulla paura.',
+        'Aspettare un momento è l\'unico comando diretto che abbiamo sulla fretta.',
   ),
   LetturaDellAlba(
     carta: 14,
@@ -3671,7 +3672,7 @@ const List<LetturaDellAlba> lettureDellAlba = [
     numero: 9,
     parola: 'Sgombero',
     dono:
-        'Fai uno sgombero fisico: butta quello che è rotto e non riparerai mai.',
+        'Fai uno sgombero fisico: butta quello che è rotto e nessuno ripara più.',
     medora: 'Gli oggetti guasti tenuti per scrupolo occupano spazio e umore.',
   ),
   LetturaDellAlba(
@@ -4504,7 +4505,7 @@ const List<LetturaDellAlba> lettureDellAlba = [
     numero: 3,
     parola: 'Perdono',
     dono:
-        'Concedi un perdono vecchio: scrivi una lettera che non manderai e chiudila.',
+        'Concedi un perdono vecchio: scrivi una lettera che non parte e chiudila.',
     medora:
         'Alcune pagine si girano da sole nel momento in cui vengono scritte.',
   ),
@@ -4549,10 +4550,9 @@ const List<LetturaDellAlba> lettureDellAlba = [
     carta: 20,
     rovescio: false,
     numero: 8,
-    parola: 'Eredità',
-    dono:
-        'Lascia in eredità una tua competenza: insegnala a qualcuno in mezz\'ora.',
-    medora: 'Quello che si trasmette sopravvive a chi lo trasmette.',
+    parola: 'Trasmissione',
+    dono: 'Trasmetti una tua competenza: insegnala a qualcuno in mezz\'ora.',
+    medora: 'Un sapere passato a qualcuno dura più a lungo di chi lo possiede.',
   ),
   LetturaDellAlba(
     carta: 20,

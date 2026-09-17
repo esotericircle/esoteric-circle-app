@@ -28,6 +28,7 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../services/avvisi_locali.dart';
 import '../sigilli/regia_del_cammino.dart';
+import '../tarot/stesa_senses.dart';
 import '../tarot/tarot_card_art.dart';
 import 'tavolo_dei_ventidue.dart';
 
@@ -109,6 +110,11 @@ class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
   /// tavolo lo fa salire al centro. Resta nullo su una carta ritrovata.
   int? _toccata;
 
+  /// **IL SUONO DELLA CARTA CHE SI GIRA**, lo stesso della Stesa: la porta e'
+  /// una sola, `SensiDellaStesa`, e da li' esce `carta.mp3` col silenzio e col
+  /// volume dell'app. Qui non si costruisce nessun secondo lettore.
+  final SensiDellaStesa _sensi = SensiDellaStesa();
+
   /// **LA RIVELAZIONE**: la carta scelta che sale, cresce e si gira, con la
   /// scia di stelline dietro. L'ingresso e il respiro del tavolo li governa
   /// il tavolo, che e' l'unico a sapere dove stanno le carte.
@@ -161,6 +167,10 @@ class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
       _responso = responso;
       _toccata = quale;
     });
+    // Il mezzo giro suona come nella Stesa, e vibra: parte insieme al volo,
+    // cosi' il suono accompagna la carta invece di arrivarle dietro.
+    await _sensi.momento(context, MomentoSensoriale.flip);
+    if (!mounted) return;
     if (_ridotto) {
       _rivelazione.value = 1;
     } else {
@@ -270,14 +280,41 @@ class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
                           if (scegliendo || _inRivelazione)
                             // L'invito si spegne mentre la carta sale, senza
                             // sparire di colpo.
-                            Opacity(
-                              opacity: (1 - _rivelazione.value * 2.4)
-                                  .clamp(0.0, 1.0),
-                              child: ParagrafiDiLettura(
-                                key: const Key('arcano_alba_invito'),
-                                testo: DailyElement.dawn.cosaFai,
-                                textAlign: TextAlign.center,
-                                stile: TypographyTokens.lettura(),
+                            // **CHI LEGGE UN'ANIMAZIONE DEVE ASCOLTARLA.**
+                            // Senza questo ascolto l'opacita' si calcolava una
+                            // volta sola, alla costruzione: il titolo e
+                            // l'invito restavano accesi per tutto il volo e
+                            // sparivano di colpo alla fine. Visto
+                            // sull'anteprima, non dedotto.
+                            AnimatedBuilder(
+                              animation: _rivelazione,
+                              builder: (context, figlio) => Opacity(
+                                opacity: (1 - _rivelazione.value * 2.4)
+                                    .clamp(0.0, 1.0),
+                                child: figlio,
+                              ),
+                              child: Column(
+                                children: [
+                                  // **IL TITOLO DELLA SCENA**, richiesto dal
+                                  // fondatore: l'invito da solo era anonimo.
+                                  // Sta qui e non nella barra in alto, che
+                                  // porta gia' il nome del dono: questo dice
+                                  // che cosa sta per succedere.
+                                  Text(
+                                    'La carta del destino di oggi',
+                                    key: const Key('arcano_alba_richiamo'),
+                                    textAlign: TextAlign.center,
+                                    style: TypographyTokens.cerimoniale()
+                                        .copyWith(color: _palette.gold),
+                                  ),
+                                  const SizedBox(height: SpacingTokens.sm),
+                                  ParagrafiDiLettura(
+                                    key: const Key('arcano_alba_invito'),
+                                    testo: DailyElement.dawn.cosaFai,
+                                    textAlign: TextAlign.center,
+                                    stile: TypographyTokens.lettura(),
+                                  ),
+                                ],
                               ),
                             )
                           else

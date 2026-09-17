@@ -3281,32 +3281,63 @@ giorno vengono dalle ancore dei doni e l'id di ogni avviso da un numero fisso
 per dono (`numeroDellAvviso`): un sesto dono non sposta gli altri. Il 1102
 dell'Arcano del Giorno e' fra le chiamate di prima da spegnere.
 
-**L'ARCANO DELL'ALBA.** Un gesto solo: tre carte coperte uguali, se ne sceglie
-una e si gira. **Il verso lo decide il caso sicuro al tocco, non la carta
-toccata**; la faccia compare solo dopo meta' giro e il dorso ruotato di mezzo
-giro scarta in media 5,37 su 255. Solo i ventidue maggiori, e **il limite delle
-stese non si tocca**. Il gesto vale per `alba` e per `oracolo` nel cammino
-(decisione di Mauro). Nessun comando oltre al ritorno: l'eccezione a CG.06 e
+**L'ARCANO DELL'ALBA E' UNA SCENA**, ordine DU del 17 settembre 2026. Prima
+erano tre carte coperte su un fondo nero, e il fondatore l'ha chiamato *"un
+compitino"*. Adesso: fondo stellato `CosmosBackground` e **il tavolo dei
+ventidue** (`lib/features/rituals/tavolo_dei_ventidue.dart`), dove i ventidue
+dorsi entrano a spirale uno dopo l'altro, si posano su **archi a ventaglio**
+leggermente sovrapposti e da fermi respirano ognuno con la sua fase. **Due
+righe da undici sopra i 420 punti di larghezza, tre da otto, sette e sette
+sotto**: a 360 punti le carte vengono larghe 53,7 punti, cioe' si toccano.
+**Ogni riga e' un arco**, seconda correzione del fondatore: la carta centrale
+sta 11,1 punti sopra i bordi e le carte dei bordi si inclinano di 0,13 radianti
+in versi opposti, col respiro che si somma alla posa. In cima sta il titolo
+d'oro *"La carta del destino di oggi"*, e sotto l'invito di sempre: tutti e due
+si spengono mentre la carta vola. La carta toccata sale al centro, cresce e si
+gira con una **scia di stelline** dietro e **il suono della carta**, `carta.mp3`
+dalla porta unica del Cerchio, la stessa della Stesa; le altre si spengono.
+Restano **Mischia e Taglia**, dentro due bolle d'oro da 92 punti, che muovono le
+figure sul tavolo e non l'esito, perche' la carta si estrae dal caso nel momento
+del tocco.
+
+**Niente ventaglio e niente avatar.** La prima stesura riusava `StesaFan` e
+`MedoraStage`: il fondatore l'ha respinta (*"e' identico alla funzionalita'
+stesa dei tarocchi"*, *"togli anche la figura avatar di Medora"*). Il ventaglio
+resta della Stesa, e una guardia lo tiene fuori dall'Alba.
+
+**Il verso lo decide il caso sicuro al tocco, non la carta toccata**; la faccia
+compare solo dopo meta' giro e il dorso ruotato di mezzo giro scarta in media
+5,37 su 255. Solo i ventidue maggiori, e **il limite delle stese non si tocca**.
+Il gesto vale per `alba` e per `oracolo` nel cammino (decisione di Mauro).
+Nessun comando oltre al ritorno e ai due gesti del mazzo: l'eccezione a CG.06 e
 CG.08 e' dichiarata in `arti_con_responso.dart`, `senzaAzioni`.
 
 **IL MOTORE, A CORPUS E SENZA MODELLO** (`lib/core/rituals/arcano_dell_alba/`).
 Le ventidue attribuzioni della Golden Dawn (tre madri, sette doppie, dodici
 semplici) stanno nel codice e nella riga di ogni maggiore di
-`docs/corpus/tarocchi.md`. **Il sacchetto**: quarantaquattro stati senza
-reimbussolamento, la stessa carta non torna prima di undici estrazioni, anche
-fra due cicli; l'estrazione sceglie solo fra gli stati che lasciano il resto
-componibile e non blocca mai. **Il corpus**: tre letture per stato, **132**,
-nella sezione *"Arcano dell'Alba, le letture del dono"* di `tarocchi.md`,
-generate in `letture_dell_alba_dati.dart` da `tool/genera_letture_dell_alba.py`;
-la famiglia decide la forma (respiro, azione, parola). **Tre movimenti**: la
+`docs/corpus/tarocchi.md`: **dicono l'attribuzione, non la forma del dono**.
+**L'ESTRAZIONE E' LIBERA**, ordine DU voce 11: il sacchetto senza
+reimbussolamento non esiste piu', ogni giorno si estrae a caso fra tutti e
+quarantaquattro gli stati, e la stessa carta puo' uscire due giorni di fila
+(*"alla roulette puo' uscire lo stesso numero due volte"*). Misurato su
+centomila giri: ogni stato fra 2.174 e 2.426 uscite, la stessa carta di fila nel
+4,5 per cento dei giri, lo stesso stato nel 2,2.
+**Il corpus**: **dodici letture per stato, 528**, decisione del fondatore, nella
+sezione *"Arcano dell'Alba, le letture del dono"* di `tarocchi.md`, generate in
+`letture_dell_alba_dati.dart` da `tool/genera_letture_dell_alba.py`. **Ogni
+carta da' la sua parola**, e il dono la porta: la forma per famiglia (respiro,
+azione, parola) non c'e' piu', e **il respiro e' tornato ad Aura**, con una
+guardia che non lascia passare nessun dono col fiato. **Tre movimenti**: la
 carta con la sua apertura e la sua clausola, il dono, Medora col filo con ieri
-solo quando c'e' una relazione documentata. **Il diario della persona**
-(`diario_dell_alba.dart`, chiave `arcano_alba.diario`): seme, sacchetto, code
-delle letture nell'ordine della persona, registri delle parole e delle aperture,
-contatore dei ripieghi. **I registri scelgono la lettura** invece di filtrare un
-testo: in tre cicli per venticinque persone zero ripieghi. **Un solo impianto
-anti ripetizione**, `lib/core/responsi/scelta_senza_ripetere.dart`, usato dalla
-Stesa e dall'Alba.
+solo quando c'e' una relazione documentata; la prova li confronta su 4.193.280
+combinazioni. **Il diario della persona** (`diario_dell_alba.dart`, chiave
+`arcano_alba.diario`): seme, code delle letture nell'ordine della persona,
+**registro a finestra scorrevole di quarantaquattro consegne** al posto del
+ciclo del sacchetto, contatore delle consegne e dei ripieghi. **I registri
+scelgono la lettura** invece di filtrare un testo: su 3.300 consegne simulate a
+venticinque persone i ripieghi sono 4, e ogni marca che torna dentro la finestra
+e' coperta da un ripiego contato. **Un solo impianto anti ripetizione**,
+`lib/core/responsi/scelta_senza_ripetere.dart`, usato dalla Stesa e dall'Alba.
 
 **LA CARTA DEL GIORNO DI MEDORA** in chat e' l'Arcano dell'Alba estratto quel
 giorno, col suo verso; senza carta girata la chat invita ad aprirlo e non
@@ -3322,6 +3353,15 @@ Mauro), non piu' una parola sua.
 sopravvive alla chiusura dell'app e non al cambio di telefono. Mauro ha dato il
 via e il permesso della sessione ha rifiutato la distribuzione in produzione:
 il comando e' il PASSO 8 di `docs/ordini/DISTRIBUZIONI_DAL_TUO_PC.md`.
+
+**IL DONO DEL SOFFIO DEL DESTINO NON HA PIU' CERCHI**, ordine DU voce 14. I due
+anelli fini attorno alla forma erano il cerchio disallineato che il fondatore
+aveva visto: tagliavano i nodi dei petali invece di contenerli. Adesso non si
+disegnano, e **il fiato sta nei petali**, ognuno con la sua fase. Il disegno e'
+uscito dal pittore privato della schermata ed e' `FormaDelDono`
+(`lib/features/rituals/forma_del_dono.dart`), perche' una scena si misura solo
+se una prova la puo' dipingere da sola: la guardia conta i pixel accesi sulle
+circonferenze, 6 per cento senza anelli contro 69 coll'anello innestato.
 
 **Le guardie.** Sei prove nuove e la guardia dell'ordine, tutte viste rosse
 prima; il registro scende da 436 a **434** (quattro nuove, sei tolte con le

@@ -1,7 +1,7 @@
 # Il contrasto dell'Arcano dell'Alba, misurato
 
-<!-- TESTI_MISURATI: 10 -->
-<!-- SOTTO_LA_SOGLIA: 0 -->
+<!-- TESTI_MISURATI: 13 -->
+<!-- SOTTO_LA_SOGLIA: 1 -->
 <!-- Generato da test/l_alba_si_legge_test.dart. Non si scrive a mano: si rigenera. -->
 
 Ordine P voce 11: **nessuna correzione prima che questa tabella esista.** Ogni riga e' misurata su un fotogramma vero della schermata, alla misura reale del telefono, 360 per 797 punti logici.
@@ -20,15 +20,20 @@ Le **soglie** vengono da `RegimeChiaro`: 4.5 a 1 per il testo di lettura e di co
 
 | Testo | Momento | File e riga | Ruolo | Misura | Peso | Inchiostro | Fondo reso | Contrasto | Soglia | Passa |
 | --- | --- | --- | --- | ---: | ---: | --- | --- | ---: | ---: | --- |
-| `arcano_alba_invito`, Scegli una carta fra quelle cop... | prima del gesto | lib/features/rituals/arcano_dell_alba_screen.dart:228 | lettura | 20 | 400 | #F4F1E8 | #010208 | **18.35** | 4.5 | si' |
-| `arcano_alba_titolo` | prima del gesto | lib/features/rituals/arcano_dell_alba_screen.dart:212 | titoloScheda | 20 | 600 | #F4F1E8 | #03060F | **17.93** | 3.0 | si' |
-| `arcano_alba_faccia`, XIII | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:381 | display a misura | 18 | 600 | #F0D77B | #010208 | **14.52** | 4.5 | si' |
-| `arcano_alba_faccia`, LA MORTE | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:381 | display a misura | 14 | 600 | #F0D77B | #01033F | **13.55** | 4.5 | si' |
-| `alba_riga_dono` | a rito compiuto | lib/design_system/components/riga_del_dono.dart:54 | corpo o didascalia | 16 | 400 | #5A94FF | #010208 | **7.02** | 4.5 | si' |
-| `arcano_alba_carta` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:419 | cerimoniale | 28 | 600 | #F0D77B | #010208 | **14.52** | 3.0 | si' |
-| `arcano_alba_parola` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:429 | cerimonialeGrande | 34 | 700 | #F0D77B | #010208 | **14.52** | 3.0 | si' |
-| `arcano_alba_dono`, Riconosci il passaggio che stai... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:436 | lettura | 20 | 400 | #F4F1E8 | #010208 | **18.35** | 4.5 | si' |
-| `arcano_alba_medora`, Il dolore che si guarda diventa... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:444 | lettura | 20 | 400 | #D2D0C9 | #010208 | **13.38** | 4.5 | si' |
-| `arcano_alba_titolo` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:212 | titoloScheda | 20 | 600 | #F4F1E8 | #0B0B1B | **17.25** | 3.0 | si' |
+| `arcano_alba_invito`, Scegli fra i ventidue arcani co... | prima del gesto | lib/features/rituals/arcano_dell_alba_screen.dart:302 | lettura | 20 | 400 | #F4F1E8 | #474F97 | **6.56** | 4.5 | si' |
+| `arcano_alba_mischia`, Mischia | prima del gesto | non trovato nel sorgente | corpo o didascalia | 16 | 400 | #F0D77B | #171A3C | **11.77** | 4.5 | si' |
+| `arcano_alba_taglia`, Taglia | prima del gesto | non trovato nel sorgente | corpo o didascalia | 16 | 400 | #F0D77B | #900000 | **6.73** | 4.5 | si' |
+| `arcano_alba_titolo` | prima del gesto | lib/features/rituals/arcano_dell_alba_screen.dart:239 | titoloScheda | 20 | 600 | #F4F1E8 | #0F1934 | **15.38** | 3.0 | si' |
+| `arcano_alba_invito`, Scegli fra i ventidue arcani co... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:302 | lettura | 20 | 400 | #F4F1E8 | #131F3F | **14.35** | 4.5 | si' |
+| `arcano_alba_faccia`, XII | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:389 | display a misura | 4 | 600 | #F0D77B | #463D2C | **7.49** | 4.5 | si' |
+| `arcano_alba_faccia`, L'APPESO | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:389 | display a misura | 4 | 600 | #F0D77B | #03063F | **13.35** | 4.5 | si' |
+| `alba_riga_dono` | a rito compiuto | lib/design_system/components/riga_del_dono.dart:54 | corpo o didascalia | 16 | 400 | #5A94FF | #2D3262 | **4.08** | 4.5 | **NO** |
+| `arcano_alba_carta` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:421 | cerimoniale | 28 | 600 | #F0D77B | #0E1633 | **12.45** | 3.0 | si' |
+| `arcano_alba_parola` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:431 | cerimonialeGrande | 34 | 700 | #F0D77B | #363976 | **7.34** | 3.0 | si' |
+| `arcano_alba_dono`, Fai qualcosa di utile tenendolo... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:438 | lettura | 20 | 400 | #F4F1E8 | #555596 | **5.95** | 4.5 | si' |
+| `arcano_alba_medora`, I gesti che restano anonimi son... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:446 | lettura | 20 | 400 | #DAD7D7 | #3A3A6E | **7.32** | 4.5 | si' |
+| `arcano_alba_titolo` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:239 | titoloScheda | 20 | 600 | #F4F1E8 | #151C3B | **14.74** | 3.0 | si' |
 
-Nessun testo sotto la sua soglia.
+## Sotto la soglia
+
+- `alba_riga_dono` (a rito compiuto) a lib/design_system/components/riga_del_dono.dart:54: 4.08 contro 4.5 (#5A94FF su #2D3262, 16 punti)

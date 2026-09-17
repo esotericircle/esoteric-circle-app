@@ -259,7 +259,7 @@ giorni di distanza, e con dodici letture per stato il testo non si ripete.
   - medora: Un gesto inatteso vale il doppio di uno promesso.
 - **rovesciato, lettura 1**
   - parola: Misura
-  - dono: Prendi la misura prima di accettare: fai sapere che deciderai domani, con una riga gentile.
+  - dono: Prendi la misura prima di accettare: fai sapere che rispondi domani, con una riga gentile.
   - medora: Un rinvio di ventiquattro ore costa molto meno di un impegno sbagliato.
 - **rovesciato, lettura 2**
   - parola: Radice
@@ -390,7 +390,7 @@ giorni di distanza, e con dodici letture per stato il testo non si ripete.
   - medora: L'attenzione è l'unica moneta che spendiamo senza accorgercene.
 - **rovesciato, lettura 9**
   - parola: Onestà
-  - dono: Ammetti con onestà che non sai, dove oggi saresti tentato di improvvisare.
+  - dono: Ammetti con onestà che non sai, dove oggi verrebbe comodo improvvisare.
   - medora: Ammettere un limite costa un istante e salva settimane.
 - **rovesciato, lettura 10**
   - parola: Lentezza
@@ -928,7 +928,7 @@ giorni di distanza, e con dodici letture per stato il testo non si ripete.
   - medora: Le piccole perdite continue svuotano più delle grandi una tantum.
 - **dritto, lettura 7**
   - parola: Corazza
-  - dono: Indossa una corazza gentile per un incontro difficile: decidi prima cosa non concederai.
+  - dono: Indossa una corazza gentile per un incontro difficile: decidi prima cosa tieni per te.
   - medora: Sapere il proprio limite prima rende la calma molto più facile.
 - **dritto, lettura 8**
   - parola: Viaggio
@@ -1233,7 +1233,7 @@ giorni di distanza, e con dodici letture per stato il testo non si ripete.
   - medora: Le stagioni cambiano anche senza che nessuno le annunci.
 - **dritto, lettura 9**
   - parola: Fiducia
-  - dono: Affida al tempo, con fiducia, quello che non puoi forzare: fissa quando lo riguarderai.
+  - dono: Affida al tempo, con fiducia, quello che non puoi forzare: fissa il giorno in cui lo riprendi.
   - medora: Certe faccende maturano da sole, se nessuno le strapazza ogni giorno.
 - **dritto, lettura 10**
   - parola: Espansione
@@ -1360,7 +1360,7 @@ giorni di distanza, e con dodici letture per stato il testo non si ripete.
   - medora: Insistere contro un segnale chiaro allunga i tempi invece di accorciarli.
 - **rovesciato, lettura 4**
   - parola: Aiuto
-  - dono: Chiedi aiuto su una cosa che ti sei intestato per orgoglio.
+  - dono: Chiedi aiuto su una cosa che ti ostini a fare da te, per orgoglio.
   - medora: Portare da soli quello che si può dividere non dimostra niente.
 - **rovesciato, lettura 5**
   - parola: Gentilezza
@@ -1391,8 +1391,8 @@ giorni di distanza, e con dodici letture per stato il testo non si ripete.
   - dono: Evita uno scontro inutile: lascia l'ultima parola a chi la sta cercando.
   - medora: Non tutte le provocazioni meritano una risposta, quasi nessuna la merita.
 - **rovesciato, lettura 12**
-  - parola: Fiato
-  - dono: Rallenta il fiato prima di una prova: dieci conteggi lenti, con le spalle basse.
+  - parola: Rallentamento
+  - dono: Rallenta i gesti prima di una prova: dieci conteggi lenti, con le spalle basse.
   - medora: Il corpo calmo convince la testa molto più in fretta del contrario.
 
 ### XII L'Appeso, Acqua
@@ -1483,7 +1483,7 @@ giorni di distanza, e con dodici letture per stato il testo non si ripete.
   - medora: Decidere in fretta le cose piccole allena la fretta giusta.
 - **rovesciato, lettura 10**
   - parola: Gratitudine
-  - dono: Ringrazia con gratitudine chi ti ha aspettato mentre eri bloccato.
+  - dono: Ringrazia con gratitudine chi ti ha aspettato senza mai ricordartelo.
   - medora: La pazienza degli altri è un credito che di solito nessuno reclama.
 - **rovesciato, lettura 11**
   - parola: Priorità
@@ -1521,8 +1521,8 @@ giorni di distanza, e con dodici letture per stato il testo non si ripete.
   - dono: Fai un taglio netto a un impegno che ti svuota: comunicalo oggi in due righe.
   - medora: Certe decisioni fanno male un giorno e riposare per mesi.
 - **dritto, lettura 7**
-  - parola: Eredità
-  - dono: Raccogli un'eredità che ti hanno lasciato: un mestiere, una ricetta, un modo di fare.
+  - parola: Lascito
+  - dono: Raccogli quello che ti hanno lasciato: un mestiere, una ricetta, un modo di fare.
   - medora: Chi ci ha preceduto continua nei gesti che ripetiamo senza pensarci.
 - **dritto, lettura 8**
   - parola: Rinascita
@@ -1632,9 +1632,9 @@ giorni di distanza, e con dodici letture per stato il testo non si ripete.
   - dono: Riequilibra un rapporto: fai tu il gesto che aspetti da tempo dall'altra parte.
   - medora: Aspettare in due che cominci l'altro ferma tutto a lungo.
 - **dritto, lettura 10**
-  - parola: Respiro
-  - dono: Allunga il respiro quattro volte prima di una cosa che ti agita, contando lento.
-  - medora: Il fiato lungo è l'unico comando diretto che abbiamo sulla paura.
+  - parola: Pausa
+  - dono: Concediti una pausa di due minuti prima di una cosa che ti agita, senza schermi.
+  - medora: Aspettare un momento è l'unico comando diretto che abbiamo sulla fretta.
 - **dritto, lettura 11**
   - parola: Alternanza
   - dono: Alterna sforzo e riposo con regola: cinquanta minuti di impegno, dieci di stacco.
@@ -1827,7 +1827,7 @@ giorni di distanza, e con dodici letture per stato il testo non si ripete.
   - medora: Chi non protesta viene contato fra quelli a cui va bene.
 - **dritto, lettura 9**
   - parola: Sgombero
-  - dono: Fai uno sgombero fisico: butta quello che è rotto e non riparerai mai.
+  - dono: Fai uno sgombero fisico: butta quello che è rotto e nessuno ripara più.
   - medora: Gli oggetti guasti tenuti per scrupolo occupano spazio e umore.
 - **dritto, lettura 10**
   - parola: Confronto
@@ -2199,7 +2199,7 @@ giorni di distanza, e con dodici letture per stato il testo non si ripete.
   - medora: Guardarsi indietro serve soltanto se si decide qualcosa di nuovo.
 - **dritto, lettura 3**
   - parola: Perdono
-  - dono: Concedi un perdono vecchio: scrivi una lettera che non manderai e chiudila.
+  - dono: Concedi un perdono vecchio: scrivi una lettera che non parte e chiudila.
   - medora: Alcune pagine si girano da sole nel momento in cui vengono scritte.
 - **dritto, lettura 4**
   - parola: Automatismo
@@ -2218,9 +2218,9 @@ giorni di distanza, e con dodici letture per stato il testo non si ripete.
   - dono: Prendi parola dove hai taciuto per convenienza, con una frase misurata.
   - medora: Il silenzio ripetuto diventa complicità agli occhi di tutti.
 - **dritto, lettura 8**
-  - parola: Eredità
-  - dono: Lascia in eredità una tua competenza: insegnala a qualcuno in mezz'ora.
-  - medora: Quello che si trasmette sopravvive a chi lo trasmette.
+  - parola: Trasmissione
+  - dono: Trasmetti una tua competenza: insegnala a qualcuno in mezz'ora.
+  - medora: Un sapere passato a qualcuno dura più a lungo di chi lo possiede.
 - **dritto, lettura 9**
   - parola: Riunione
   - dono: Riunisci le persone che ti servono per una cosa: scrivi a tre di loro oggi.

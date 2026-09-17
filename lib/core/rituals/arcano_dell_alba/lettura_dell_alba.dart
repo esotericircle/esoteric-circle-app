@@ -5,7 +5,7 @@ import 'stato_dell_alba.dart';
 /// tarocchi. Ordine DT voci 07, 08 e 09, 17 settembre 2026.
 ///
 /// Porta i due movimenti che dipendono dalla carta e non dal nome: il **dono**,
-/// che e' un respiro, un'azione o una parola secondo la famiglia, e la
+/// cioe' la parola della carta e la cosa da fare, ordine DU voci 08 e 09, e la
 /// chiusura di **Medora**. Il primo movimento, la carta nominata col verso e
 /// l'attribuzione, si compone dal nome e non sta qui.
 ///

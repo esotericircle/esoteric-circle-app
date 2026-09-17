@@ -9,9 +9,9 @@ import 'stato_dell_alba.dart';
 /// 17 settembre 2026.
 ///
 /// Tre compiti disgiunti, e nessun movimento fa quello di un altro: **la
-/// carta** nominata col verso e l'attribuzione; **il dono**, respiro, azione o
-/// parola secondo la famiglia; **la chiusura di Medora**, che e' il solo posto
-/// dove puo' comparire il filo con ieri.
+/// carta** nominata col verso e l'attribuzione; **il dono**, cioe' la parola
+/// della carta e la cosa da fare; **la chiusura di Medora**, che e' il solo
+/// posto dove puo' comparire il filo con ieri.
 ///
 /// **Nessun modello.** Decisione di Mauro del 17 settembre 2026 e voce 21: il
 /// testo si compone da letture scritte a mano, e che i movimenti non si
