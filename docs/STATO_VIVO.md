@@ -3293,9 +3293,11 @@ sotto**: a 360 punti le carte vengono larghe 53,7 punti, cioe' si toccano.
 sta 11,1 punti sopra i bordi e le carte dei bordi si inclinano di 0,13 radianti
 in versi opposti, col respiro che si somma alla posa. In cima sta il titolo
 d'oro *"La carta del destino di oggi"*, e sotto l'invito di sempre: tutti e due
-si spengono mentre la carta vola. La carta toccata sale al centro, cresce e si
-gira con una **scia di stelline** dietro e **il suono della carta**, `carta.mp3`
-dalla porta unica del Cerchio, la stessa della Stesa; le altre si spengono.
+si spengono mentre la carta vola. La carta toccata sale al centro, cresce fino al **sessanta per cento della
+larghezza dello schermo** e si gira con una **scia di stelline** dietro e **il
+suono della carta**, `carta.mp3` dalla porta unica del Cerchio, la stessa della
+Stesa; le altre si spengono, e il titolo che si spegne chiude anche il suo
+spazio, cosi' intorno alla carta non resta il vuoto.
 Restano **Mischia e Taglia**, dentro due bolle d'oro da 92 punti, che muovono le
 figure sul tavolo e non l'esito, perche' la carta si estrae dal caso nel momento
 del tocco.
@@ -3338,6 +3340,14 @@ scelgono la lettura** invece di filtrare un testo: su 3.300 consegne simulate a
 venticinque persone i ripieghi sono 4, e ogni marca che torna dentro la finestra
 e' coperta da un ripiego contato. **Un solo impianto anti ripetizione**,
 `lib/core/responsi/scelta_senza_ripetere.dart`, usato dalla Stesa e dall'Alba.
+
+**IL RESPONSO SI PRESENTA, ordine DU terza correzione.** I tre movimenti non
+sono piu' una colonna di testi senza nome: la riga del dono, la carta col verso
+e l'attribuzione, **La parola di oggi** con la parola in grande e la riga che
+dice cosa farne (*"Tienila a mente quando devi scegliere: e' il filo di
+oggi"*), **Il gesto di oggi** col dono, e la chiusa di Medora in corsivo. Le
+etichette e il loro ordine a video sono misurati da una guardia, e il blocco ha
+il suo velo scuro perche' il testo si legga dovunque cada sul cielo.
 
 **LA CARTA DEL GIORNO DI MEDORA** in chat e' l'Arcano dell'Alba estratto quel
 giorno, col suo verso; senza carta girata la chat invita ad aprirlo e non

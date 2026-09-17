@@ -67,6 +67,18 @@ un arco, la carta centrale sta 11,1 punti sopra i bordi e le carte dei bordi si
 inclinano in versi opposti, col respiro che si somma alla posa invece di
 sostituirla.
 
+**La terza correzione, sulle anteprime.** La carta rivelata occupava il 39 per
+cento della larghezza e il fondatore l'ha vista *"piccola, con molto spazio
+intorno"*: adesso sta al 60 per cento, e il titolo che si spegne chiude anche
+il suo spazio. Il rimedio ne ha scoperto un altro: la pila tagliava la carta
+ingrandita di trentasette punti, perche' il punto d'arrivo del volo e l'altezza
+della scatola erano due conti in due posti diversi.
+
+**E il responso adesso si presenta**: *"la parola deve essere dichiarata tipo
+'la parola di oggi:' e l'utente deve sapere cosa farsene"*. Ogni pezzo porta il
+suo nome, la parola porta anche il suo uso, e la guardia pretende l'ordine a
+video e non solo la presenza.
+
 **E guardando l'anteprima e' saltato fuori un difetto che nessuna prova
 cercava**: il titolo e l'invito non si spegnevano mentre la carta volava,
 perche' l'opacita' si calcolava fuori da chi ascolta l'animazione. Adesso c'e'

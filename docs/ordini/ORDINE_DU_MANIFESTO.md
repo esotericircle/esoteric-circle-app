@@ -104,6 +104,36 @@ Cosa e' cambiato, in numeri:
 | le bolle | Mischia e Taglia sono due cerchi da 92 punti, con l'alone del Maestro dentro e il bordo d'oro, e restano `TextButton` perche' la guardia dei comandi li conta |
 | il titolo | *"La carta del destino di oggi"*, nell'oro del Cerchio, sopra l'invito che resta dov'era |
 
+## LA TERZA CORREZIONE, SULLA CARTA E SUL RESPONSO
+
+Guardando le anteprime il fondatore ha visto altre due cose, e tutte e due
+erano vere e misurabili.
+
+**La carta rivelata era piccola**: *"c'e' molto spazio intorno e sembra una
+schermata vuota"*. Un tetto di 2,6 sulla scala la fermava a 140 punti su 360,
+cioe' il 39 per cento della larghezza. Adesso la carta arriva al **60 per
+cento**, e il titolo, mentre si spegne, **chiude anche il suo spazio** invece
+di lasciare il buco. Riparando il primo difetto e' venuto fuori il secondo: la
+pila del tavolo tagliava la carta ingrandita di trentasette punti, perche' la
+scatola cresceva ma il punto d'arrivo restava il centro della scatola di prima.
+I due conti adesso sono uno solo.
+
+**Il responso non diceva che cos'era.** *"La parola deve essere dichiarata tipo
+'la parola di oggi:' e l'utente deve sapere cosa farsene: vuole risposte
+chiare, dirette e ognuna guida"*. La parola stava da sola in maiuscolo grande.
+Adesso il responso scorre cosi', e la guardia pretende quest'ordine a video:
+
+| pezzo | cosa dice |
+|---|---|
+| la riga del dono | *Oggi Medora ha letto il tuo momento* |
+| il primo movimento | la carta col verso e l'attribuzione |
+| **La parola di oggi** | l'etichetta, poi la parola in grande |
+| la riga dell'uso | *Tienila a mente quando devi scegliere: e' il filo di oggi* |
+| **Il gesto di oggi** | l'etichetta, poi il dono, che e' la cosa da fare |
+| la chiusa | Medora, in corsivo, col filo di ieri quando c'e' |
+
+---
+
 **Un difetto trovato guardando l'anteprima, non deducendo**: il titolo e
 l'invito non si spegnevano mentre la carta volava. L'opacita' si calcolava
 dentro la costruzione della schermata, che non ascolta il comando della
