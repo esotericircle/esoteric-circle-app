@@ -382,10 +382,11 @@ class _Faccia extends StatelessWidget {
         card: responso.carta,
         palette: palette,
         reversed: responso.stato.rovescio,
-        // **I cartigli spenti**: il nome inciso sulla carta scende a otto
-        // punti a questa misura, e il nome col verso e l'attribuzione e' gia'
-        // scritto nel primo movimento, alla misura di lettura.
-        showCartigli: false,
+        // **I CARTIGLI ACCESI, per richiesta del fondatore del 17 settembre
+        // 2026**: una carta coi cartigli vuoti sembra una carta incompiuta.
+        // Il nome inciso e' arte della carta e sta sotto la misura di
+        // lettura come su ogni carta del mazzo; il nome col verso e
+        // l'attribuzione si leggono nel primo movimento, a misura piena.
       );
 }
 

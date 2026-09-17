@@ -212,4 +212,36 @@ void main() {
         reason: 'il dorso non e\' simmetrico: una carta coperta dice il verso');
     expect(oltre / punti, lessThan(0.01));
   });
+
+  testWidgets('LA CARTA GIRATA PORTA I SUOI CARTIGLI, col numerale e col nome',
+      (tester) async {
+    // **Richiesta del fondatore del 17 settembre 2026**, guardando la 2266
+    // sul telefono: i cartigli dell'Arcano dell'Alba erano vuoti, perche'
+    // la faccia li spegneva. Una carta coi cartigli vuoti sembra incompiuta.
+    await monta(tester);
+    await gira(tester, 2);
+    final oggi = await tester.runAsync(() => ArchivioDellAlba.diOggi(adesso));
+    final faccia = tester.widget<TarotCardArt>(find.byType(TarotCardArt));
+    expect(faccia.showCartigli, isTrue,
+        reason: 'la faccia dell\'Arcano dell\'Alba spegne i cartigli');
+    final numero = find.descendant(
+        of: find.byType(TarotCardArt), matching: find.byType(CartiglioNumero));
+    final nome = find.descendant(
+        of: find.byType(TarotCardArt), matching: find.byType(CartiglioNome));
+    expect(numero, findsOneWidget,
+        reason: 'il cartiglio del numerale e\' vuoto');
+    expect(nome, findsOneWidget, reason: 'il cartiglio del nome e\' vuoto');
+    expect(tester.widget<CartiglioNome>(nome).nome, oggi!.carta.name);
+    // **E SI VEDONO**: il testo e' dipinto dentro la carta, non solo montato.
+    final scritti = [
+      for (final t in tester.widgetList<Text>(find.descendant(
+          of: find.byType(TarotCardArt), matching: find.byType(Text))))
+        (t.data ?? '', t.style?.fontSize ?? 0),
+    ];
+    print('ORDINE DT, i cartigli di ${oggi.carta.name}: $scritti');
+    expect(scritti.map((s) => s.$1).join(' '),
+        contains(oggi.carta.numeral.toUpperCase()));
+    expect(scritti.every((s) => s.$2 > 0), isTrue,
+        reason: 'un cartiglio ha il testo a misura zero: $scritti');
+  });
 }

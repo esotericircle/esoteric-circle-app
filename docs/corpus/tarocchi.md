@@ -339,7 +339,7 @@ Ogni lettura ha due parti con compiti disgiunti. Il **dono** è il secondo movim
   - medora: Due che si ascoltano diventano più grandi della somma dei loro dubbi.
 - **dritto, lettura 3**
   - parola: Valori
-  - dono: Scrivi i tre valori a cui non rinunceresti e misura con quelli la prima decisione della mattina.
+  - dono: Scrivi i tre valori a cui non rinunceresti e misura con quelli la prossima decisione che prendi.
   - medora: Le cose importanti stanno sempre in una lista corta.
 - **rovesciato, lettura 1**
   - parola: Sincerità
@@ -366,7 +366,7 @@ Ogni lettura ha due parti con compiti disgiunti. Il **dono** è il secondo movim
   - medora: La padronanza non è forza bruta, è mano ferma su spinte che tirano altrove.
 - **dritto, lettura 3**
   - parola: Slancio
-  - dono: Usa lo slancio del mattino per la cosa più difficile della lista, prima che le piccole urgenze se lo prendano.
+  - dono: Usa lo slancio che senti adesso per la cosa più difficile della lista, prima che le piccole urgenze se lo prendano.
   - medora: Una vittoria costruita presto illumina anche le ore stanche della sera.
 - **rovesciato, lettura 1**
   - parola: Centro
@@ -641,7 +641,7 @@ Ogni lettura ha due parti con compiti disgiunti. Il **dono** è il secondo movim
   - medora: Certi passaggi si attraversano al buio, fidandosi del piede.
 - **dritto, lettura 2**
   - parola: Sogno
-  - dono: Al risveglio scrivi un frammento di sogno anche confuso e rileggilo prima di pranzo cercando ciò che ti somiglia.
+  - dono: Al risveglio di domani scrivi un frammento di sogno anche confuso e rileggilo prima di pranzo cercando ciò che ti somiglia.
   - medora: La notte parla per immagini: basta non avere fretta di tradurle.
 - **dritto, lettura 3**
   - parola: Prudenza
@@ -687,7 +687,7 @@ Ogni lettura ha due parti con compiti disgiunti. Il **dono** è il secondo movim
   - dono: Stai nell'ardore di una chiamata: tieni accesa per tutta la giornata la domanda su quale vita senti più tua e rispondi con un gesto prima di sera.
   - medora: Ci sono richiami che bussano finché qualcuno apre.
 - **dritto, lettura 2**
-  - dono: Abita il calore del risveglio: all'inizio di ogni ora alzati, stira la schiena e chiediti se stai vivendo la giornata che hai scelto.
+  - dono: Abita il calore che hai nel petto: all'inizio di ogni ora alzati, stira la schiena e chiediti se stai vivendo la giornata che hai scelto.
   - medora: Rinascere non vuol dire rinnegare chi eri, vuol dire portarlo con te più avanti.
 - **dritto, lettura 3**
   - dono: Resta vicino a una fiamma, anche piccola: accendi una candela per qualche minuto e fai un bilancio breve di ciò che è cambiato in te.

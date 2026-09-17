@@ -378,6 +378,34 @@ mattino legge una frase falsa. Padre: **ordine DT, voce 08**, la scrittura
 delle aperture. Non l'ho corretto dentro questa build: e' testo del corpus, e
 una correzione chiede una build nuova. Vedi la decisione 17.
 
+### La build 2267, subito dopo
+
+**Mauro, guardando la 2266: i cartigli delle carte sono vuoti.** Li avevo
+spenti io, perche' il nome inciso a quella misura sta sotto i sedici punti del
+censimento dei caratteri. **Accesi**: il cartiglio e' arte della carta, come su
+ogni carta del mazzo, e il nome si legge a misura piena nel primo movimento.
+Misurati sulla prova: il numerale a 17,6 punti, il nome a 8,7 quando va su due
+righe (*La Ruota della Fortuna*) e a 12,7 su una (*Il Diavolo*). Il censimento
+salta **solo** il testo dentro `CartiglioTesto`, ed e' stato visto rosso senza
+quell'eccezione. **Una guardia che non guardava, trovata strada facendo**: la
+scena *carta girata* del censimento non verificava che la carta fosse girata;
+adesso lo pretende. Prova nuova in `test/l_arcano_dell_alba_si_gira_test.dart`,
+*la carta girata porta i suoi cartigli*, vista rossa con i cartigli spenti.
+
+**Le aperture del mattino, corrette nella stessa build**, con la prima strada
+della decisione 17, perche' una seconda build solo per queste avrebbe fatto
+due giri. **Diciotto aperture** riscritte senza l'ora (sedici nominavano
+mattino, alba, risveglio o sera; due il principio della giornata), **quattro
+doni** che dicevano il mattino come se fosse adesso, e l'invito *"l'arcano che
+apre la tua giornata"* diventato *"l'arcano della tua giornata"*. La guardia
+*nessun testo dell'Alba nomina un'ora che puo' essere falsa*, in
+`test/il_corpus_dell_alba_regge_test.dart`, e' stata scritta prima e vista
+rossa su 16 aperture e 4 letture. Tre parole nuove si sono scontrate col
+rilevatore dei nuclei (*senti*, *occhi chiusi*, *domani* contro la parola
+*Domanda*) e sono state cambiate: sovrapposizione di nuovo a **zero su
+1.048.320 combinazioni**. **Se Mauro preferisce la seconda strada**, le
+aperture del mattino solo prima di mezzogiorno, e' un ritocco del diario.
+
 ## 6. LE LACUNE APERTE E LE DECISIONI DI MAURO
 
 **Nessun rosso e' stato aggiunto a `tool/rossi_accettati.txt`.**
@@ -493,7 +521,8 @@ una correzione chiede una build nuova. Vedi la decisione 17.
     Sigillo e l'Arcano dell'Alba sono di Medora: la mappa segue
     `sentieroDelGesto`, scritto dal generatore dei traguardi. Se il sentiero debba seguire il Maestro del dono lo
     decide Mauro, ed e' una riscrittura dei traguardi, non una riga.
-17. **Le aperture che nominano il mattino.** Due strade. **La prima,
+17. **Le aperture che nominano il mattino. APPLICATA LA PRIMA STRADA
+    nella 2267**, vedi la sezione della build; resta la scelta. **La prima,
     raccomandata**: le quattordici aperture si riscrivono senza l'ora, come le
     altre trentaquattro (*"Oggi hai scoperto"*, *"Ora hai in mano"*), e una
     guardia vieta nelle aperture le parole del mattino. Costa un giro di

@@ -349,7 +349,7 @@ const List<LetturaDellAlba> lettureDellAlba = [
     numero: 3,
     parola: 'Valori',
     dono:
-        'Scrivi i tre valori a cui non rinunceresti e misura con quelli la prima decisione della mattina.',
+        'Scrivi i tre valori a cui non rinunceresti e misura con quelli la prossima decisione che prendi.',
     medora: 'Le cose importanti stanno sempre in una lista corta.',
   ),
   LetturaDellAlba(
@@ -406,7 +406,7 @@ const List<LetturaDellAlba> lettureDellAlba = [
     numero: 3,
     parola: 'Slancio',
     dono:
-        'Usa lo slancio del mattino per la cosa più difficile della lista, prima che le piccole urgenze se lo prendano.',
+        'Usa lo slancio che senti adesso per la cosa più difficile della lista, prima che le piccole urgenze se lo prendano.',
     medora:
         'Una vittoria costruita presto illumina anche le ore stanche della sera.',
   ),
@@ -999,7 +999,7 @@ const List<LetturaDellAlba> lettureDellAlba = [
     numero: 2,
     parola: 'Sogno',
     dono:
-        'Al risveglio scrivi un frammento di sogno anche confuso e rileggilo prima di pranzo cercando ciò che ti somiglia.',
+        'Al risveglio di domani scrivi un frammento di sogno anche confuso e rileggilo prima di pranzo cercando ciò che ti somiglia.',
     medora: 'La notte parla per immagini: basta non avere fretta di tradurle.',
   ),
   LetturaDellAlba(
@@ -1100,7 +1100,7 @@ const List<LetturaDellAlba> lettureDellAlba = [
     rovescio: false,
     numero: 2,
     dono:
-        'Abita il calore del risveglio: all\'inizio di ogni ora alzati, stira la schiena e chiediti se stai vivendo la giornata che hai scelto.',
+        'Abita il calore che hai nel petto: all\'inizio di ogni ora alzati, stira la schiena e chiediti se stai vivendo la giornata che hai scelto.',
     medora:
         'Rinascere non vuol dire rinnegare chi eri, vuol dire portarlo con te più avanti.',
   ),

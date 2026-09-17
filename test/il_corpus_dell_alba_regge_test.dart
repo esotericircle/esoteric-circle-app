@@ -11,6 +11,7 @@ import 'package:esoteric_circle/core/rituals/arcano_dell_alba/sacchetto_dell_alb
 import 'package:esoteric_circle/core/tarot/figure_della_stesa.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'cardinale_minimo.dart';
 import 'nucleo_del_responso.dart';
 
 /// **IL CORPUS DELL'ARCANO DELL'ALBA REGGE, o non entra.** Ordine DT voci 07,
@@ -359,5 +360,42 @@ void main() {
               'Tieni il passo leggero.', 'Le intenzioni diventano reali.'),
           isNull);
     });
+  });
+
+  test('NESSUN TESTO DELL\'ALBA NOMINA UN\'ORA CHE PUO\' ESSERE FALSA', () {
+    // **Il fatto, visto a video il 17 settembre 2026** sulla 2266: la carta
+    // girata alle 18:01 diceva *"Stamani hai rivelato l'Imperatrice"*. La
+    // carta si gira a qualunque ora dopo le sette, quindi un testo che
+    // nomina il mattino, il risveglio o la sera mente a chi la gira dopo.
+    // **Una lettura puo' invitare a un momento che verra'** (*"al risveglio
+    // di domani"*), non dire che quel momento e' adesso.
+    final dellOra = RegExp(
+        r'stamattin|stamani|mattin|risvegli|\bsera\b|\balba\b|'
+        r'giornata si apre|apre la (tua )?giornata|giorno comincia',
+        caseSensitive: false);
+    final aperture = [
+      for (final a in FormeDellAlba.aperture)
+        if (dellOra.hasMatch(a)) a,
+    ];
+    final dellaLettura = RegExp(
+        r'stamattin|stamani|questa mattina|del mattino|della mattina|'
+        r'al mattino|risveglio(?! di domani)',
+        caseSensitive: false);
+    final letture = [
+      for (final l in corpus)
+        for (final t in [l.dono, l.medora])
+          if (dellaLettura.hasMatch(t)) '${l.carta} ${l.numero}: $t',
+    ];
+    print('ORDINE DT: aperture guardate ${FormeDellAlba.aperture.length}, '
+        'con l\'ora ${aperture.length}; letture guardate ${corpus.length}, '
+        'con l\'ora ${letture.length}');
+    cardinaleMinimo(FormeDellAlba.aperture.length, 44,
+        cosa: 'aperture dell\'Alba',
+        perche: 'Su un elenco vuoto nessuna apertura nominerebbe l\'ora.');
+    expect(aperture, isEmpty,
+        reason: 'queste aperture nominano un\'ora: $aperture');
+    expect(letture, isEmpty,
+        reason: 'queste letture nominano il mattino come se fosse adesso:\n'
+            '${letture.join('\n')}');
   });
 }

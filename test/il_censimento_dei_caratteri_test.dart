@@ -13,6 +13,7 @@ import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
 import 'package:esoteric_circle/features/rituals/arcano_dell_alba_screen.dart';
 import 'package:esoteric_circle/features/santuario/daily_strip.dart';
+import 'package:esoteric_circle/features/tarot/tarot_card_art.dart';
 import 'package:esoteric_circle/features/rituals/dream_rite_screen.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:flutter/material.dart';
@@ -229,8 +230,23 @@ void main() {
       }
     }
 
+    // **IL CARTIGLIO E' INCISO SULLA CARTA, NON E' UN TESTO DA LEGGERE.**
+    // Ordine DT, 17 settembre 2026, su richiesta del fondatore: l'Arcano
+    // dell'Alba mostra la carta coi suoi cartigli, e il nome inciso a quella
+    // misura sta sotto i sedici punti come sta su ogni carta del mazzo. Il
+    // nome della carta si legge nel primo movimento, alla misura di lettura:
+    // il cartiglio e' arte. Si salta **solo** cio' che sta dentro un
+    // `CartiglioTesto`, e nient'altro della carta.
+    final incisi = <RenderObject>{
+      for (final e in find
+          .descendant(
+              of: find.byType(CartiglioTesto), matching: find.byType(RichText))
+          .evaluate())
+        if (e.renderObject != null) e.renderObject!,
+    };
+
     void scendi(RenderObject r) {
-      if (r is RenderParagraph) {
+      if (r is RenderParagraph && !incisi.contains(r)) {
         dentroLoSpan(r.text, r.text.style?.fontSize);
       }
       r.visitChildren(scendi);
@@ -269,6 +285,12 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
     await tester.pump(const Duration(milliseconds: 200));
+    // **LA SCENA E' QUELLA CHE DICE DI ESSERE**: senza la faccia a video, la
+    // carta girata si misurerebbe coperta e il censimento direbbe il vero su
+    // un'altra schermata.
+    expect(find.byType(TarotCardArt), findsOneWidget,
+        reason: 'la carta non si e\' girata: il censimento misurerebbe le '
+            'carte coperte chiamandole carta girata');
     censisci(tester, 'Dono dell\'Arcano dell\'Alba, carta girata');
     tester.takeException();
     await apri(tester, SunsetRuneScreen(now: DateTime(2026, 7, 13, 20)),

@@ -3261,10 +3261,12 @@ prove, accesa sul Realme 767f596c, consegnata con App Distribution: release
 uguali, l'Imperatrice dritta col dono e Medora. La build iOS la lancia Mauro su
 Codemagic.
 
-**Difetto visto a video, aperto**: quattordici aperture su quarantotto nominano
-il mattino, e la carta girata alle 18:01 diceva *"Stamani hai rivelato"*. Padre
-DT.08. La correzione e' una decisione di Mauro (rapporto DT, decisione 17) e va
-con la build dopo.
+**Difetto visto a video, e corretto nella 2267**: le aperture nominavano il
+mattino, e la carta girata alle 18:01 diceva *"Stamani hai rivelato"*. Padre
+DT.08. Diciotto aperture e quattro doni riscritti senza l'ora, con una guardia
+sul corpus vista rossa prima. **E i cartigli delle carte accesi**, su richiesta
+di Mauro: erano vuoti nella 2266. Il censimento dei caratteri salta solo il
+testo inciso nei cartigli.
 
 **I DONI SONO QUATTRO.** Il Rito dell'Alba e l'Arcano del Giorno non esistono
 piu': al loro posto **l'Arcano dell'Alba**, di Medora, alle sette
