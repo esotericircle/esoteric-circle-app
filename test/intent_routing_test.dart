@@ -1,4 +1,5 @@
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
+import 'package:esoteric_circle/core/rituals/arcano_del_giorno.dart';
 import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'package:esoteric_circle/core/chat/immersive_intents.dart';
 import 'package:esoteric_circle/core/chat/intent_classifier.dart';
@@ -93,6 +94,45 @@ void main() {
       // L'AI non e' stata chiamata.
       expect(ai.replies, 0);
     });
+
+    // **LA CARTA DEL GIORNO CONSEGNA UNA CARTA. Ordine DS voce 08.**
+    //
+    // Sulle catture di un fondatore, *"Carta del giorno"* due volte, e due
+    // volte il modello parlava di Saturno e della Luna senza nominare nessun
+    // arcano. La carta adesso non la sceglie il modello: e' l'Arcano del
+    // Giorno, e deve essere **la stessa** che il Dono mostra alla persona.
+    for (final domanda in const [
+      'Carta del giorno',
+      'Tira una carta per me',
+      'qual e la mia carta di oggi?',
+    ]) {
+      test('"$domanda" nomina la carta del giorno, senza chiamare il modello',
+          () async {
+        final ai = _RecordingAi();
+        final nascita = DateTime(1984, 3, 9);
+        final oggi = DateTime(2026, 9, 17, 0, 21);
+        final controller = MaestroChatController(
+          maestro: Maestro.medora,
+          ai: ai,
+          memory: InMemoryMaestroMemoryRepository(),
+          nascita: () => nascita,
+          orologio: () => oggi,
+        );
+        await controller.init();
+        await controller.send(domanda);
+        final carta = ArcanoDelGiorno.di(oggi, nascita: nascita);
+        final last = controller.messages.last;
+        expect(last.isMaestro, isTrue);
+        expect(last.text, contains(carta.name),
+            reason: 'la risposta a "$domanda" non nomina la carta del giorno, '
+                '${carta.name}: "${last.text}"');
+        expect(last.intentId, ImmersiveTarget.arcanoDelGiorno.name,
+            reason: 'sotto la carta manca il pulsante che la apre');
+        expect(ai.replies, 0,
+            reason: 'la carta del giorno e passata dal modello, che la '
+                'inventerebbe');
+      });
+    }
 
     test('Una domanda normale chiama l\'AI come sempre', () async {
       final ai = _RecordingAi();

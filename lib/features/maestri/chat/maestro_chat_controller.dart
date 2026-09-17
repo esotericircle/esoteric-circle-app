@@ -21,6 +21,8 @@ import '../../../core/maestro/tempi_dell_attesa.dart';
 import '../../../core/maestro/lettura_di_ripiego.dart';
 import '../../../core/maestro/memoria_del_respiro.dart';
 import '../../../core/maestro/natal_context.dart';
+import '../../../core/chat/la_carta_del_giorno_in_chat.dart';
+import '../../../core/chat/immersive_intents.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../services/ai/maestro_ai_provider.dart';
 import '../../../services/ai/registro_dei_guasti.dart';
@@ -41,6 +43,8 @@ class MaestroChatController extends ChangeNotifier {
     QuestionAllowance? allowance,
     Tier Function()? tier,
     NatalContext Function()? natal,
+    DateTime? Function()? nascita,
+    DateTime Function()? orologio,
     Duration? attesaMinima,
     bool? demo,
     this.segnaNeiRicordi,
@@ -51,7 +55,19 @@ class MaestroChatController extends ChangeNotifier {
         _classifier = classifier,
         _allowance = allowance,
         _tier = tier,
-        _natal = natal;
+        _natal = natal,
+        _nascita = nascita,
+        _orologio = orologio;
+
+  /// **LA DATA DI NASCITA, per la carta del giorno.** Ordine DS voce 08: la
+  /// carta che la chat nomina e' l'Arcano del Giorno, e deve essere la stessa
+  /// che il Dono mostra, che nasce dalla stessa data.
+  final DateTime? Function()? _nascita;
+
+  /// L'ora di adesso: in app e' l'orologio, nelle prove si fissa.
+  final DateTime Function()? _orologio;
+
+  DateTime get _adesso => _orologio?.call() ?? DateTime.now();
 
   final Maestro maestro;
 
@@ -422,7 +438,13 @@ class MaestroChatController extends ChangeNotifier {
     if (intent != null) {
       final invite = ChatMessage(
         role: ChatRole.maestro,
-        text: intent.invite,
+        // **LA CARTA DEL GIORNO SI NOMINA. Ordine DS voce 08.** Per la carta
+        // l'invito non e' una frase fissa: dice QUALE carta, la stessa del
+        // Dono, perche' la persona l'ha chiesta e non va rimandata altrove
+        // per sapere il nome.
+        text: intent.target == ImmersiveTarget.arcanoDelGiorno
+            ? LaCartaDelGiornoInChat.invito(_adesso, nascita: _nascita?.call())
+            : intent.invite,
         at: DateTime.now(),
         intentId: intent.id,
       );

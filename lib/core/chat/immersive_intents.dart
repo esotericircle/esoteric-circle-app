@@ -6,6 +6,7 @@ enum ImmersiveTarget {
   cartaNatale,
   sinastriaVip,
   oroscopoGiorno,
+  arcanoDelGiorno,
   meditazione,
   breathwork,
   costellazioneViso,
@@ -63,7 +64,7 @@ class ImmersiveIntents {
       ],
       invite:
           'Le carte vogliono essere viste, non raccontate. Vieni, stendiamole insieme.',
-      buttonLabel: 'Apri la stesa',
+      buttonLabel: 'Apri la Stesa di Tarocchi',
     ),
     ImmersiveIntent(
       maestro: Maestro.medora,
@@ -76,7 +77,7 @@ class ImmersiveIntents {
       ],
       invite:
           'La tua mappa del cielo merita di essere guardata, non riassunta. Apriamola.',
-      buttonLabel: 'Apri la carta natale',
+      buttonLabel: 'Apri la Carta Natale interattiva',
     ),
     ImmersiveIntent(
       maestro: Maestro.medora,
@@ -103,6 +104,35 @@ class ImmersiveIntents {
       ],
       invite:
           'Il cielo di oggi si mostra meglio che a parole. Guardiamolo insieme.',
+      // **L'OROSCOPO APRE L'OROSCOPO. Ordine DS voce 07.** Questo pulsante
+      // diceva "Apri l'Arcano del Giorno" a chi aveva chiesto l'oroscopo, e
+      // apriva una carta: la promessa e la destinazione coincidevano fra
+      // loro, e nessuna delle due era cio' che la persona aveva chiesto.
+      buttonLabel: 'Apri l\'Oroscopo Personalizzato',
+    ),
+    // **LA CARTA DEL GIORNO CONSEGNA UNA CARTA. Ordine DS voce 08.**
+    //
+    // Il fatto, sulle catture di un fondatore: *"Carta del giorno"* due volte,
+    // e due volte nessuna carta, ma il cielo e Saturno. La domanda andava nuda
+    // al modello, perche' nessuna parola chiave la riconosceva: le parole della
+    // Stesa sono "tira le carte", e *"tira una carta"* non e' fra quelle.
+    //
+    // Adesso la carta non la sceglie il modello: e' l'Arcano del Giorno,
+    // deterministico dal giorno e dalla nascita, la stessa carta che il Dono
+    // mostra. L'invito la nomina, e il pulsante la apre.
+    ImmersiveIntent(
+      maestro: Maestro.medora,
+      target: ImmersiveTarget.arcanoDelGiorno,
+      keywords: [
+        'carta del giorno',
+        'arcano del giorno',
+        'carta di oggi',
+        'arcano di oggi',
+        'tira una carta',
+        'pesca una carta',
+        'una carta per me',
+      ],
+      invite: 'La carta di oggi ti aspetta. Aprila e guardala.',
       buttonLabel: 'Apri l\'Arcano del Giorno',
     ),
 
@@ -132,7 +162,7 @@ class ImmersiveIntents {
       ],
       invite:
           'Il respiro non si racconta, si fa. Seguimi, un soffio alla volta.',
-      buttonLabel: 'Apri il respiro',
+      buttonLabel: 'Apri il respiro della Meditazione',
     ),
     ImmersiveIntent(
       maestro: Maestro.aura,
@@ -157,7 +187,7 @@ class ImmersiveIntents {
       ],
       invite:
           'I tuoi centri si sentono meglio guardandoli. Facciamo lo scan con calma.',
-      buttonLabel: 'Apri lo scan dei chakra',
+      buttonLabel: 'Apri lo Scan dei Chakra',
     ),
     ImmersiveIntent(
       maestro: Maestro.aura,
@@ -170,7 +200,7 @@ class ImmersiveIntents {
       ],
       invite:
           'Le frequenze si ascoltano, non si descrivono. Mettiti le cuffie, ti guido.',
-      buttonLabel: 'Apri le frequenze',
+      buttonLabel: 'Apri le frequenze della Meditazione',
     ),
 
     // --- Caligo ---
@@ -187,14 +217,14 @@ class ImmersiveIntents {
       ],
       invite:
           'Le rune non si spiegano a parole, si gettano. Vieni, lanciamole.',
-      buttonLabel: 'Apri le rune',
+      buttonLabel: 'Apri l\'Estrazione Rune',
     ),
     ImmersiveIntent(
       maestro: Maestro.caligo,
       target: ImmersiveTarget.sigilloMagico,
       keywords: ['sigillo', 'sigillo magico', 'simbolo magico'],
       invite: 'Un sigillo si traccia, non si narra. Disegniamolo insieme.',
-      buttonLabel: 'Apri il Sigillo',
+      buttonLabel: 'Apri il Sigillo dell\'Intenzione',
     ),
     ImmersiveIntent(
       maestro: Maestro.caligo,

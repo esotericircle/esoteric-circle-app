@@ -4,6 +4,7 @@ import 'dart:async';
 import '../../ricordi/ricordi_screen.dart';
 
 import 'package:flutter/material.dart';
+import '../../../core/identity/profile_controller.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/entitlement/question_allowance.dart';
@@ -131,6 +132,16 @@ class MaestroChatScreen extends StatefulWidget {
                 natal: () => SorgenteNatale.daIdentita(
                     rotta.read<BirthIdentityController>(),
                     diario: _forseIlDiario(rotta)),
+                // **LA STESSA NASCITA DEL DONO. Ordine DS voce 08.** L'Arcano
+                // del Giorno la legge da qui, e la carta detta in chat deve
+                // essere la carta che il Dono mostra.
+                nascita: () {
+                  try {
+                    return rotta.read<BirthIdentityController>().details?.date;
+                  } catch (errore) {
+                    return null;
+                  }
+                },
               )..init(),
               // La chat appartiene a UN Maestro, quindi il suo colore e' il suo e non
               // quello di chi era attivo un istante prima. Senza questo `maestro:` lo
@@ -631,8 +642,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                   // illeggibili tutti e due. Qui stanno sopra la conversazione,
                   // che comincia dove loro finiscono.
                   const Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+                    padding: EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1037,7 +1047,26 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     _showComingSoon(context, intentId);
   }
 
-  Route<void>? _routeFor(ImmersiveTarget target) => immersiveRouteFor(target);
+  /// **LA ROTTA DELLO SCAFFALE, CON LA STESSA NASCITA.** Ordine DS voce 07:
+  /// la chat apre le arti dalla porta di `artRouteFor`, e le arti che
+  /// dipendono dal segno (l'Estrazione Rune, l'Oroscopo, la Sinastria) devono
+  /// ricevere la persona come la ricevono dalla card, o manderebbero a dare
+  /// una nascita gia' data.
+  Route<void>? _routeFor(ImmersiveTarget target) {
+    DateTime? nascita;
+    String? nome;
+    try {
+      final profilo = context.read<ProfileController>();
+      nascita =
+          profilo.identity.isExample ? null : profilo.identity.birthMoment;
+      nome = profilo.hasName ? profilo.vocative : null;
+    } catch (errore) {
+      // Senza profilo la rotta resta quella dello scaffale senza nascita:
+      // le arti che la chiedono portano a darla, mai a un vicolo cieco.
+      debugPrint('Chat: nessun profilo per la rotta. $errore');
+    }
+    return immersiveRouteFor(target, userBirth: nascita, userName: nome);
+  }
 
   void _showComingSoon(BuildContext context, String intentId) {
     final intent = ImmersiveIntents.all.firstWhere((i) => i.id == intentId);
@@ -1099,8 +1128,8 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     final birth = context.read<BirthIdentityController>();
     // Dalla sorgente unica, non ricostruito qui: era la seconda copia della
     // stessa riga, e le due copie servivano a due cose diverse.
-    final natal = SorgenteNatale.daIdentita(birth,
-        diario: _forseIlDiario(context));
+    final natal =
+        SorgenteNatale.daIdentita(birth, diario: _forseIlDiario(context));
     // In demo il benvenuto riprende la memoria come per il premium: la
     // demo mostra il prodotto vero. Ordine BG voce 03.
     final premium =
