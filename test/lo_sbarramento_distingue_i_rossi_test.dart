@@ -30,9 +30,21 @@ void main() {
     expect(registro.existsSync(), isTrue,
         reason: 'senza il registro un rosso accettato non ha dove essere '
             'scritto col suo nome e la sua ragione');
-    final build = File('codemagic.yaml').readAsStringSync();
-    expect(build.contains('tool/sbarramento.sh'), isTrue,
-        reason: 'il file di build non lancia piu\' lo sbarramento');
+    // **DALL'ORDINE CODEMAGIC2 lo sbarramento lo lancia il cancello
+    // gratuito**, e la build ne legge il verdetto sul suo commit: 46 minuti
+    // di Mac in meno, e nessuna build su un commit che non e' verde. Si
+    // leggono le righe di codice, non i commenti che raccontano il perche'.
+    String codiceDi(String f) => File(f)
+        .readAsLinesSync()
+        .where((r) => !r.trimLeft().startsWith('#'))
+        .join('\n');
+    expect(codiceDi('.github/workflows/verde.yml'),
+        contains('bash tool/sbarramento.sh'),
+        reason: 'il cancello gratuito non lancia piu\' lo sbarramento');
+    expect(codiceDi('codemagic.yaml'),
+        contains('bash tool/il_cancello_ha_detto_verde.sh'),
+        reason: 'il file di build non legge piu\' il verdetto del cancello, '
+            'e costruirebbe su un commit rosso');
     expect(
         sbarramento.readAsStringSync().contains('rossi_accettati.txt'), isTrue,
         reason: 'lo sbarramento non legge il registro dei rossi accettati: '
@@ -272,7 +284,8 @@ void main() {
     /// diceva *"rossi accettati, e solo quelli"* e costruiva l'archivio.
     const saltateEPoiUnaCaduta = '00:12 +3790 ~2 -1: $nome [E]\n';
 
-    test('Un rosso ACCETTATO prima dei salti e uno NUOVO dopo: l\'archivio non '
+    test(
+        'Un rosso ACCETTATO prima dei salti e uno NUOVO dopo: l\'archivio non '
         'si produce', () {
       if (bash.isEmpty) return;
       const prima = '00:10 +3700 -1: $nome [E]\n';

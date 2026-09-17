@@ -728,7 +728,7 @@ le altre.
 | `le_sette_chiavi_del_collaudo_test.dart` | le sette chiavi del collaudo | 1, 2 | dalla porta comune | mai | 3 |
 | `le_soglie_della_scansione_sono_provvisorie_test.dart` | le soglie della scansione sono provvisorie, ROSSA APPOSTA | 4 | non scopre insiemi di file | 06/09/2026, CR | 2 |
 | `le_stelle_della_festa_sono_stelle_test.dart` | le stelle della festa sono stelle, sui pixel | 2 | proprio, dichiarato | CO | 3 |
-| `lo_sbarramento_distingue_i_rossi_test.dart` | lo sbarramento distingue i rossi | 1, 2 | proprio, dichiarato | 01/09/2026, CM, il terzo cancello | 3 |
+| `lo_sbarramento_distingue_i_rossi_test.dart` | lo sbarramento distingue i rossi | 1, 2 | proprio, dichiarato | 17/09/2026, CODEMAGIC2, la build che non legge piu' il verdetto del cancello | 3 |
 | `lo_scuotimento_ha_una_porta_sola_test.dart` | lo scuotimento ha una porta sola | 1, 2 | dalla porta comune | mai | 2 |
 | `lo_spazio_dentro_lo_scroll_test.dart` | lo spazio dentro lo scroll | 1, 2 | dalla porta comune | mai | 3 |
 | `lo_specchio_dell_istante_arriva_test.dart` | lo specchio dell istante arriva | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |

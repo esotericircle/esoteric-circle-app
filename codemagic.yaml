@@ -23,6 +23,17 @@ workflows:
     instance_type: mac_mini_m2
     # Sessanta minuti: se una build si pianta, meglio che muoia da sola invece
     # di bruciare tutto il credito del mese in una volta.
+    #
+    # **E RESTA SESSANTA, ordine CODEMAGIC2 voce 04, 17 settembre 2026.** La
+    # build di quel giorno e' morta a questo tetto dopo 46 minuti e 23 secondi
+    # di sbarramento e 8 minuti e 2 secondi di archivio. Il tetto non era il
+    # difetto: il difetto era lo sbarramento rifatto qui, e quello e' tolto
+    # (vedi il primo passo degli script). Senza, i passi prima dell'archivio
+    # stanno in circa cinque minuti e il tetto lascia all'archivio piu' di
+    # cinquanta. **Il massimo ammesso e' 120** su tutti i piani, dalla pagina
+    # dei prezzi di Codemagic e dalla documentazione del file ("min 1, max
+    # 120"): alzarlo non toglierebbe un minuto di lavoro doppio e farebbe
+    # bruciare il doppio del credito a una build che si pianta.
     max_build_duration: 60
 
     # L'INTEGRAZIONE STA QUI, e non dentro `environment`.
@@ -47,6 +58,14 @@ workflows:
     # chiave stessa. Per questo non compaiono da nessuna parte in questo file.
     integrations:
       app_store_connect: esoteric_asc
+
+    # **IL RAMO DA CUI SI COSTRUISCE, ordine CODEMAGIC2 voce 06.** Questo
+    # workflow non ha `triggering`: parte solo a mano, da "Start new build", e
+    # il ramo lo sceglie chi preme. La documentazione di Codemagic non offre
+    # un campo che vincoli il ramo di una build manuale, quindi il vincolo sta
+    # nel primo script: se `CM_BRANCH` non e' il ramo canonico, la build si
+    # ferma in pochi secondi. `main` e' fermo al 9 luglio 2026, e un archivio
+    # costruito da li' non conterrebbe niente di cio' che si vuole provare.
 
     environment:
       # IL GRUPPO DELLE VARIABILI, e questa riga e' quella da togliere se il
@@ -85,6 +104,10 @@ workflows:
         # dall'orologio della macchina; questa riga e' la seconda meta' della
         # cura, e vale per tutto cio' che verra' scritto domani: le due
         # macchine girano nella stessa ora.
+        #
+        # **Dall'ordine CODEMAGIC2 le prove qui non girano piu'**: la riga
+        # resta perche' l'ora della macchina entra anche nei registri e
+        # nell'archivio, e toglierla non fa risparmiare niente.
         TZ: "Europe/Rome"
         # L'identificativo del pacchetto, lo stesso che sta su App Store
         # Connect e nel progetto Xcode. Se questi due divergono, la firma
@@ -155,6 +178,30 @@ workflows:
         - $HOME/Library/Caches/CocoaPods
 
     scripts:
+      # **IL CANCELLO, CHIESTO A GITHUB E NON RIFATTO QUI. Ordine CODEMAGIC2,
+      # 17 settembre 2026.**
+      #
+      # **Il fatto.** La build iOS del 17 settembre e' andata in timeout:
+      # qui girava `bash tool/sbarramento.sh`, 46 minuti e 23 secondi di Mac,
+      # e l'archivio e' stato tagliato a 8 minuti e 2 secondi dal tetto dei
+      # sessanta. Lo stesso comando, sullo stesso commit, con Flutter 3.44.5
+      # e `npm ci`, lo fa gia' `.github/workflows/verde.yml` a ogni spinta sul
+      # ramo, gratis: sul commit `65bd5811` verde in 22 minuti e 24 secondi.
+      # L'ordine CODEMAGIC1 aveva reso uguali le due domande e **aveva tenuto
+      # tutte e due**, di proposito: la sua guardia pretendeva il comando in
+      # tutti e due i file.
+      #
+      # **Adesso la domanda si fa una volta sola**, su GitHub, e qui si legge
+      # la risposta per ESATTAMENTE il commit che si costruisce. Rosso, non
+      # finito, mai partito o illeggibile: la build si ferma prima di spendere
+      # minuti, e lo dice. **Non si spedisce su rosso**, ordine P voce 03,
+      # resta vero; l'unico scavalco resta `SPEDISCO_SU_ROSSO`, e si stampa.
+      #
+      # E' il primo passo apposta: una build che deve fermarsi si ferma
+      # prima di installare pod e firme.
+      - name: Il cancello di GitHub e' verde su questo commit, e il ramo e' quello giusto
+        script: bash tool/il_cancello_ha_detto_verde.sh
+
       - name: Che strumenti ha questa macchina, prima di ogni altra cosa
         script: |
           # **QUESTO PASSO NON COSTRUISCE NIENTE: MISURA. Ordine BZ voce 02,
@@ -285,45 +332,6 @@ workflows:
           # I profili scaricati stanno su disco: e' questo comando a scriverli
           # dentro il progetto Xcode. Senza, la firma non arriva dove serve.
           xcode-project use-profiles
-
-      # **LE DIPENDENZE DEL SERVER, PRIMA DEL CANCELLO.** Ordine CODEMAGIC1
-      # voce 03, 16 settembre 2026.
-      #
-      # **Il fatto, letto nel registro della build 2264**, righe 11663 e
-      # seguenti: *"LE PROVE DEL SERVER NON SONO STATE ESEGUITE: manca
-      # /Users/builder/clone/functions/node_modules"*. Non era un caso di
-      # quella build: in questo file **non c'era nessun comando npm**, quindi
-      # quella cartella su questa macchina non e' mai esistita e la seconda
-      # suite non e' mai stata guardata, in nessuna build.
-      #
-      # **`npm ci` e non `npm install`**: installa esattamente cio' che
-      # `package-lock.json` dichiara, che e' la stessa cosa che gira sul
-      # cancello gratuito di GitHub. Due macchine che installano versioni
-      # diverse sono due cancelli diversi, e questo ordine esiste proprio per
-      # non averne due.
-      - name: Le dipendenze del server, per la seconda suite
-        script: |
-          cd functions && npm ci
-
-      - name: Le prove, prima di costruire, E SONO UNO SBARRAMENTO
-        script: |
-          # ORDINE P VOCE 03. Qui c'era `ignore_failure: true`, cioe' il
-          # permesso scritto di spedire su rosso: e' cosi' che la 2171 e'
-          # uscita con due test rossi. Adesso il comando ESCE CON ERRORE e
-          # l'archivio non si produce. L'unico scavalco cieco e' la variabile
-          # SPEDISCO_SU_ROSSO, che stampa il proprio nome nel registro: una
-          # spedizione su rosso resta possibile, in silenzio no.
-          #
-          # **E ORDINE BZ VOCE 02, che distingue due rossi.** La build 2167 e'
-          # arrivata sugli iPhone dei fondatori l'8 agosto 2026, quando questo
-          # passo era ancora `ignore_failure: true`; lo sbarramento e' entrato
-          # il 12 agosto, e da quando in suite vive un rosso DICHIARATO e
-          # accettato nessuna build puo' piu' uscire. Adesso lo sbarramento
-          # legge tool/rossi_accettati.txt: se la suite cade solo su prove
-          # elencate li', con nome e ragione, l'archivio si produce e il
-          # registro della build le stampa tutte; se cade su una prova NUOVA,
-          # anche una sola, l'archivio non si produce.
-          bash tool/sbarramento.sh
 
       - name: L'archivio
         script: |

@@ -15,8 +15,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// girava `bash tool/sbarramento.sh`. Se qualcuno li fa divergere di nuovo,
 /// questa prova cade prima che se ne accorga una macchina a pagamento.
 void main() {
-  final manifesto =
-      File('docs/ordini/ORDINE_CODEMAGIC1_MANIFESTO.md');
+  final manifesto = File('docs/ordini/ORDINE_CODEMAGIC1_MANIFESTO.md');
   final verde = File('.github/workflows/verde.yml');
   final codemagic = File('codemagic.yaml');
 
@@ -86,17 +85,32 @@ void main() {
     expect(aperte + attesa + premessa + chiuse, quante);
   });
 
+  /// Le righe che non sono commenti. **Riscritta con l'ordine CODEMAGIC2**:
+  /// dopo che lo sbarramento e' uscito da `codemagic.yaml`, questa guardia
+  /// restava verde perche' trovava il comando nel commento che racconta
+  /// perche' e' uscito.
+  String codiceDi(File f) => f
+      .readAsLinesSync()
+      .where((r) => !r.trimLeft().startsWith('#'))
+      .join('\n');
+
   test('IL CANCELLO GRATIS E QUELLO A PAGAMENTO FANNO LA STESSA DOMANDA', () {
     // **La grandezza misurata e' il comando**, non il nome del passo: due
     // cancelli sono lo stesso cancello solo se eseguono lo stesso comando.
+    //
+    // **E DALL'ORDINE CODEMAGIC2 LA DOMANDA SI FA UNA VOLTA SOLA.** La build
+    // iOS del 17 settembre 2026 e' morta al tetto dei sessanta minuti dopo
+    // 46 minuti di sbarramento rifatto sul Mac. Adesso lo sbarramento gira
+    // soltanto su GitHub, e Codemagic ne legge il verdetto su quel commit:
+    // la domanda resta la stessa perche' e' letteralmente la stessa risposta.
     expect(verde.existsSync(), isTrue);
     expect(codemagic.existsSync(), isTrue);
-    final g = verde.readAsStringSync();
-    final c = codemagic.readAsStringSync();
+    final g = codiceDi(verde);
+    final c = codiceDi(codemagic);
     const comando = 'bash tool/sbarramento.sh';
-    expect(c.contains(comando), isTrue,
-        reason: 'codemagic.yaml non esegue piu lo sbarramento: se il cancello '
-            'a pagamento cambia, questa guardia va riscritta con lui');
+    expect(c.contains('bash tool/il_cancello_ha_detto_verde.sh'), isTrue,
+        reason: 'codemagic.yaml non legge piu il verdetto del cancello '
+            'gratuito: costruirebbe senza sapere se il commit e verde');
     expect(g.contains(comando), isTrue,
         reason: 'il cancello gratuito non esegue lo sbarramento. E il buco da '
             'cui e passata la caduta della build 2264: un rosso che li non si '
@@ -113,17 +127,14 @@ void main() {
             'a se: $righeDeboli');
   });
 
-  test('LE DUE MACCHINE INSTALLANO LE DIPENDENZE DEL SERVER', () {
+  test('IL CANCELLO INSTALLA LE DIPENDENZE DEL SERVER', () {
     // Ordine CODEMAGIC1 voce 03: senza `functions/node_modules` lo
     // sbarramento salta la seconda suite e lo dice, e in ogni build fino alla
-    // 2264 l'ha saltata.
-    final g = verde.readAsStringSync();
-    final c = codemagic.readAsStringSync();
+    // 2264 l'ha saltata. **Dall'ordine CODEMAGIC2 lo sbarramento gira solo
+    // su GitHub**, e le dipendenze servono solo li'.
+    final g = codiceDi(verde);
     expect(g.contains('npm ci'), isTrue,
         reason: 'il cancello gratuito non installa le dipendenze del server');
-    expect(c.contains('npm ci'), isTrue,
-        reason: 'Codemagic non installa le dipendenze del server, e la '
-            'seconda suite resta non guardata');
     expect(File('functions/package-lock.json').existsSync(), isTrue,
         reason: 'npm ci pretende il lock: senza, le due macchine possono '
             'installare versioni diverse');

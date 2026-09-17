@@ -3207,6 +3207,45 @@ Tutte viste rosse prima della cura. Nessuna riga nei rossi accettati.
 **Da decidere per il fondatore**: DD e DN; RIPRESA e gli altri file di stato
 fermi; il manifesto di CX; la cattura da iPhone per DS.06.
 
+## L'ORDINE CODEMAGIC2, LA BUILD IOS NON RIFA PIU' LO SBARRAMENTO
+
+17 settembre 2026. Nasce da una build iOS andata in timeout. **Otto voci,
+tutte chiuse. Nessuna build lanciata**: la ordina Mauro. Manifesto e rapporto
+in `docs/ordini/`.
+
+**La causa.** Il Mac di Codemagic rifaceva `bash tool/sbarramento.sh` prima
+dell'archivio: **46 minuti e 23 secondi** su un tetto di 60, e l'archivio e'
+stato tagliato a 8 minuti e 2 secondi. **CODEMAGIC1 non l'aveva tolto e non
+doveva**: aveva reso uguali le domande di GitHub e di Codemagic e le aveva
+tenute tutte e due, con una guardia che lo pretendeva.
+
+**Adesso lo sbarramento gira solo su GitHub** (`verde.yml`, a ogni spinta sul
+ramo, verde su `65bd5811` in 22 minuti e 24 secondi). **Il primo passo della
+build iOS** e' `tool/il_cancello_ha_detto_verde.sh`: chiede a GitHub, senza
+credenziali, il verdetto su **esattamente** il commit che si costruisce, e
+ferma la build se non e' verde, se il cancello non ha finito o non e' partito,
+se GitHub non risponde, o se il ramo non e'
+`claude/esoteric-circle-master-order-e798aj`. Non si spedisce su rosso, come
+prima; lo scavalco resta `SPEDISCO_SU_ROSSO`. Tolto anche `npm ci` dal Mac.
+**Il tetto resta 60**, e il massimo di Codemagic e' 120 su tutti i piani.
+Android non aveva il doppio: su Codemagic non ha workflow e
+`android-build.yml` non esegue prove.
+
+**Come si lancia una build iOS da oggi**: si spinge, si aspetta la spunta
+verde del commit su GitHub, circa 25 minuti, e si lancia dal ramo canonico.
+Stima della build: fra 15 e 25 minuti, con l'archivio mai misurato intero.
+
+**Le guardie.** Nuova `test/ordine_codemagic2_guard_test.dart`, che fa girare
+lo script vero su nove risposte finte, vista rossa su due innesti.
+**Riscritte** la guardia di CODEMAGIC1 e `lo_sbarramento_distingue_i_rossi`,
+che dopo la modifica restavano verdi leggendo il commento che racconta il
+passo tolto: adesso leggono il codice, viste rosse. **La suite intera non e'
+girata in locale**: la gira il cancello sul commit spinto, cioe' la stessa
+risposta che la build legge.
+
+**L'ordine DT e' sospeso** per questo: tre commit sul ramo locale, non spinti,
+da riprendere sopra questo.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.

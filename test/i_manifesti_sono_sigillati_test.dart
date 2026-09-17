@@ -252,6 +252,7 @@ void main() {
     'CM': 11,
     'CN': 16,
     'CODEMAGIC1': 6,
+    'CODEMAGIC2': 8,
     'CO': 20,
     'CP': 10,
     'CQ': 61,
