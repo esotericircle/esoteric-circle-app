@@ -60,7 +60,7 @@ Il rapporto starà in `docs/ordini/RAPPORTO_ORDINE_DS.md`.
 
 ---
 
-## DS.00, I FATTI RIMISURATI
+## I FATTI RIMISURATI, LA REGOLA ZERO DELL'ORDINE
 
 **Regola DS.00.A**: ogni numero, percorso e riga dell'ordine è stato
 rimisurato prima di scrivere codice. Dove il mio numero diverge sta scritto qui
