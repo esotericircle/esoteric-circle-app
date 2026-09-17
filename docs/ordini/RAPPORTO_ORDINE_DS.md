@@ -692,6 +692,10 @@ telefono*) e uno solo nuovo, **"il ramo locale non ha commit che il remoto non
 conosce"**, che si chiude spingendo; **le prove del server 98 su 98**; il
 corredo a scala 1,3 con 182 schermate montate e i soli rossi già accettati.
 
+**La consegna.** Build **2265** costruita dal commit `3cf58e32`, accesa sul
+Realme 767f596c prima del caricamento, consegnata con App Distribution: release
+`5i9cus2b2100o`. La build iOS la produce Codemagic dallo stesso ramo.
+
 **Rifatto dopo la spinta**, sul commit `eac1e559`: **solo rossi accettati,
 l'archivio si produce**, gettone scritto per la build **2265** con **5.443
 prove**; server 98 su 98.

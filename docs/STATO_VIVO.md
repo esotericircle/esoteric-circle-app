@@ -3132,7 +3132,9 @@ censimento, la tavola delle API di iOS e il registro delle guardie.
 
 17 settembre 2026. **Nove voci: sette chiuse, DS.03 ferma su premessa falsa,
 DS.06 ferma in attesa delle mani del fondatore.** Manifesto e rapporto in
-`docs/ordini/`, catture del telefono in `docs/collaudo/DS/`. Build **2265**.
+`docs/ordini/`, catture del telefono in `docs/collaudo/DS/`. Build **2265**,
+consegnata con App Distribution il 17 settembre 2026, release `5i9cus2b2100o`;
+la build iOS la produce Codemagic dal ramo.
 
 **DS.06, LA COSTELLAZIONE DEL VISO SU IPHONE.** La causa del volto non
 rilevato erano tre scelte scritte una volta per tutti i telefoni e giuste solo
