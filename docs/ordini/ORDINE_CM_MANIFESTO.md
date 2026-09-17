@@ -317,7 +317,7 @@ tutte e tre viste rosse con l'innesto verificato prima:
 
 ## VOCE 11, QUANTE NE RESTANO E IN QUANTI ORDINI SI CHIUDONO
 
-**RESTANO QUINDICI SCHERMATE ROTTE AL TESTO MASSIMO, su centottantadue.**
+**RESTANO TREDICI SCHERMATE ROTTE AL TESTO MASSIMO, su centosettantanove.**
 
 **Erano diciotto quando quest'ordine si e' chiuso.** Sono scese a diciassette la
 sera stessa, quando l'ordine CN voce 12 ha portato la decisione sulla card da
@@ -341,6 +341,18 @@ traboccamento**, e va scritto qui perche' nessuno lo scambi per una cura.
 **A trovarlo e' stato il terzo cancello di questa stessa voce**, quello che
 rifiuta le righe accettate che zittiscono una prova ormai verde. E' la prima
 volta che quel cancello scatta.
+
+**E a TREDICI il 17 settembre 2026, con l'ordine DT, e non e' una cura.**
+Le due catture *il dono col colore del Maestro*, giorno 0 e giorno 1,
+fotografavano il Rito dell'Alba che cambiava colore col Maestro di turno.
+L'ordine DT ha tolto il Rito dell'Alba e la rotazione dei Maestri, e con loro
+**le due catture non esistono piu'**: il difetto della cornice piu' corta del
+contenuto non e' stato riparato, e' uscito insieme alla schermata. Le due righe
+le ha rifiutate il terzo cancello, perche' zittivano due prove che non cadono
+piu', e sono state tolte dal registro. Le catture del corredo scendono da
+centottantadue a centosettantanove: tolte quella del Rito dell'Alba, le due del
+colore del Maestro e quella dell'Arcano del Giorno, aggiunta quella dell'Arcano
+dell'Alba.
 
 **Il numero di stamattina non si cancella**: era vero quando e' stato scritto, e
 toglierlo toglierebbe la misura del cammino. Una su undici, contro una su

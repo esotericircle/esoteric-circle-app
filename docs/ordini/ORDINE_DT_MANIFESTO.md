@@ -68,9 +68,9 @@ Il rapporto starà in `docs/ordini/RAPPORTO_ORDINE_DT.md`.
   e' scritto nei due lati, provato e verde, ma `statoDelCerchio` non e'
   distribuita**: Mauro ha dato il via il 17 settembre, e il permesso di questa
   sessione ha rifiutato la distribuzione in produzione. Il comando e il suo
-  controllo stanno nel PASSO 8 di `docs/ordini/DISTRIBUZIONI_DAL_TUO_PC.md`.
-  **FERMATA IN ATTESA DI DECISIONE**, cioe' della distribuzione dal PC di
-  Mauro.
+  controllo stanno nel PASSO 8 di `docs/ordini/DISTRIBUZIONI_DAL_TUO_PC.md`:
+  si aspetta la distribuzione dal PC di Mauro.
+  **FERMATA IN ATTESA DI DECISIONE.**
 - **DT.06**, le ventidue attribuzioni della Golden Dawn nella riga di ogni
   maggiore del corpus dei tarocchi e nel codice. **CHIUSA.**
 - **DT.07**, le tre famiglie e le tre forme: respiro, azione, parola; il

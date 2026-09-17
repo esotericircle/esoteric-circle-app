@@ -287,7 +287,44 @@ col nome `dawn` restano di chi li aveva.
 **Girato intero sull'albero finale**, dopo il ribasamento sopra CODEMAGIC2 e
 con la build a 2266, prima della spinta.
 
-ESITO_DELLO_SBARRAMENTO_DA_SCRIVERE
+**Il giro del 17 settembre sera, sul commit `0b1bc191`**:
+
+| parte | esito |
+|---|---|
+| la suite Flutter | **5.460 prove passate, 11 saltate, 5 cadute** |
+| le prove del server | **100 su 100** |
+| il corredo a scala 1,3 | **179 schermate montate, 13 catture cadute** |
+
+**Le cinque cadute della suite, una per una:**
+
+1. *l'attribuzione cieca e' valida su QUESTA istruzione* e 2. *le soglie delle
+   quattro pose sono state misurate su un telefono*: **i due rossi accettati**.
+3. *il ramo locale non ha commit che il remoto non conosce*: si chiude
+   spingendo.
+4. `ordine_dt_guard_test`, *i marcatori dicono il vero*: **difetto mio, della
+   chiusura del manifesto**. Riscrivendo DT.05 avevo lasciato lo stato senza il
+   punto dentro il grassetto, e la guardia non lo contava. Corretto.
+5. `il_corpus_dell_alba_regge_test`, *il file dei dati dice cio' che dice il
+   corpus*: **difetto mio, di DT.21**. Dopo il cambio di ramo git ha riscritto
+   `docs/corpus/tarocchi.md` coi fine riga di Windows, e la prova confrontava
+   righe con un ritorno a capo in coda. Su GitHub, che lavora con fine riga
+   Unix, non sarebbe caduta. La prova adesso normalizza i fine riga.
+
+**Il corredo a scala massima ha fermato l'archivio per la ragione opposta**:
+le sue tredici cadute sono tutte accettate, ma **due righe accettate non
+zittivano piu' niente**, *il dono col colore del Maestro, giorno 0 e giorno 1*.
+Quelle due catture fotografavano il Rito dell'Alba che cambiava colore col
+Maestro di turno, e **le ha tolte DT.01** insieme al rito e alla rotazione. Le
+due righe sono state **tolte** da `tool/rossi_accettati.txt`, come il terzo
+cancello pretende, e il manifesto dell'ordine CM scende da quindici a
+**tredici** schermate, con la ragione scritta: non e' una cura, e' la
+schermata che non c'e' piu'. **Nessuna riga e' stata aggiunta.**
+
+**Dopo le correzioni**: le cinque prove toccate, cioe' la guardia CM, la
+guardia DT, il corpus dell'Alba, lo sbarramento che distingue i rossi e il
+sigillo dei manifesti, **50 prove, tutte verdi**. Lo sbarramento intero si
+rifa' dopo la spinta, che chiude anche la terza caduta, e il suo gettone e'
+quello che la consegna della 2266 pretende.
 
 **Rossi accettati**: nessuna riga e' stata aggiunta a
 `tool/rossi_accettati.txt`. Il primo giro, del 17 settembre alle 13:16, e'

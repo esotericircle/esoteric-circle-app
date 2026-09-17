@@ -263,7 +263,12 @@ void main() {
   });
 
   test('IL FILE DEI DATI DICE CIO CHE DICE IL CORPUS, lettura per lettura', () {
-    final testo = File('docs/corpus/tarocchi.md').readAsStringSync();
+    // I fine riga si normalizzano: su Windows git scrive il corpus con CRLF,
+    // e le righe con un ritorno a capo in coda non somigliano a quelle dei
+    // dati.
+    final testo = File('docs/corpus/tarocchi.md')
+        .readAsStringSync()
+        .replaceAll('\r\n', '\n');
     final inizio = testo.indexOf('## Arcano dell\'Alba, le letture del dono');
     expect(inizio, isNot(-1),
         reason: 'il corpus non ha la sezione delle letture');
