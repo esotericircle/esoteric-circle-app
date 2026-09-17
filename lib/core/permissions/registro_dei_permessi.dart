@@ -123,7 +123,7 @@ class RegistroDeiPermessi {
         'android.permission.RECEIVE_BOOT_COMPLETED',
       ],
       doveSiChiede: 'lib/services/avvisi_locali.dart',
-      ripiego: 'Il Rito dell\'Alba si apre lo stesso dall\'app. La striscia '
+      ripiego: 'L\'Arcano dell\'Alba si apre lo stesso dall\'app. La striscia '
           'del giorno dice che l\'avviso non arriverà.',
     ),
     VoceDelRegistro(

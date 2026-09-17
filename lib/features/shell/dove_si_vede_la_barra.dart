@@ -60,13 +60,12 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   'RicordiScreen': PresenzaDellaBarra.assente,
   'RicordoApertoScreen': PresenzaDellaBarra.assente,
 
-  // --- I CINQUE DONI DEL GIORNO ------------------------------------------
+  // --- I DONI DEL GIORNO --------------------------------------------------
   // Ognuno e' un appuntamento che si compie con un gesto: la barra li
   // interromperebbe proprio mentre il gesto e' in corso.
   'SentieroScreen': PresenzaDellaBarra.assente,
-  'DawnRiteScreen': PresenzaDellaBarra.assente,
+  'ArcanoDellAlbaScreen': PresenzaDellaBarra.assente,
   'BreathDestinyScreen': PresenzaDellaBarra.assente,
-  'DayOracleScreen': PresenzaDellaBarra.assente,
   'SunsetRuneScreen': PresenzaDellaBarra.assente,
   'DreamRiteScreen': PresenzaDellaBarra.assente,
 

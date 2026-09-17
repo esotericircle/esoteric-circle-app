@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/archivio_dell_alba.dart';
 import 'package:esoteric_circle/core/rituals/filo_del_giorno.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -22,6 +25,10 @@ import 'cardinale_minimo.dart';
 /// due o alle quattro del mattino non sta chiudendo ieri, sta cominciando
 /// oggi. La sua parola finiva sotto il giorno prima, e la sera dello stesso
 /// giorno il Sigillo la cercava sotto oggi e **non la trovava**.
+///
+/// **DALL'ORDINE DT LA PAROLA E' IL DONO DELLA CARTA DELL'ALBA**, e non si
+/// segna piu' in una chiave sua: si legge dall'archivio dell'Arcano dell'Alba.
+/// Le ore e le regole restano quelle di sempre, e si provano sul dono.
 ///
 /// **REGOLA H.** Non basta provare che la parola torna a chi si alza presto:
 /// si prova anche che **il confine delle cinque continua a funzionare** per il
@@ -62,15 +69,17 @@ void main() {
   for (final voce in casi.entries) {
     test('la parola torna: ${voce.key}', () async {
       SharedPreferences.setMockInitialValues(const {});
+      ArchivioDellAlba.dimenticaLaMemoria();
       final (quandoAlba, quandoSera, deveTornare) = voce.value;
-      await FiloDelGiorno.segnaLaParola('SOGLIA', quandoAlba);
-      final letta = await FiloDelGiorno.parolaDiStamattina(quandoSera);
+      final presa =
+          await ArchivioDellAlba.estraiOggi(quandoAlba, caso: Random(3));
+      final letta = (await FiloDelGiorno.donoDiStamattina(quandoSera))?.secondo;
       // ignore: avoid_print
       print('ORDINE CY: alba ${quandoAlba.hour}:00 del ${quandoAlba.day}, '
           'sigillo ${quandoSera.hour}:${quandoSera.minute.toString().padLeft(2, "0")} '
-          'del ${quandoSera.day}, parola ritrovata ${letta ?? "NESSUNA"}');
+          'del ${quandoSera.day}, dono ritrovato ${letta ?? "NESSUNO"}');
       if (deveTornare) {
-        expect(letta, 'SOGLIA',
+        expect(letta, presa.secondo,
             reason: 'la parola presa all\'alba delle ${quandoAlba.hour} non '
                 'torna nel Sigillo delle ${quandoSera.hour}: l\'Alba promette '
                 'che la sera verra\' ripresa, e non accade');
@@ -100,8 +109,12 @@ void main() {
     // **REGOLA H: e non promette il destino.** Promettere che le stelle la
     // mettano davanti e una promessa che questa app non puo mantenere.
     for (final vietata in const [
-      'destino ti', 'le stelle ti', 'la troverai', 'ti apparira',
-      'ti verra incontro', 'segno che',
+      'destino ti',
+      'le stelle ti',
+      'la troverai',
+      'ti apparira',
+      'ti verra incontro',
+      'segno che',
     ]) {
       expect(lente.toLowerCase().contains(vietata), isFalse,
           reason: 'la lente promette con "$vietata": e una promessa che '
@@ -141,13 +154,15 @@ void main() {
 
   test('REGOLA H, il seguito: la parola di ieri NON arriva stasera', () async {
     SharedPreferences.setMockInitialValues(const {});
+    ArchivioDellAlba.dimenticaLaMemoria();
     // Alba di ieri mattina.
-    await FiloDelGiorno.segnaLaParola('IERI', DateTime(2026, 9, 8, 7));
+    await ArchivioDellAlba.estraiOggi(DateTime(2026, 9, 8, 7), caso: Random(3));
     // Sigillo di stasera, un giorno dopo.
     final letta =
-        await FiloDelGiorno.parolaDiStamattina(DateTime(2026, 9, 9, 22, 30));
+        await FiloDelGiorno.donoDiStamattina(DateTime(2026, 9, 9, 22, 30));
     // ignore: avoid_print
-    print('ORDINE CY: parola di ieri richiamata stasera: ${letta ?? "nessuna"}');
+    print(
+        'ORDINE CY: parola di ieri richiamata stasera: ${letta ?? "nessuna"}');
     expect(letta, isNull,
         reason: 'il Sigillo di stasera richiama la parola di IERI mattina: '
             'chi la legge vede una parola che oggi non ha mai ricevuto');

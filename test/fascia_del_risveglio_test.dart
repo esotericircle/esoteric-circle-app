@@ -37,12 +37,12 @@ void main() {
           reason: 'l\'accento non nasce piu\' dal Maestro');
     });
 
-    test('il Maestro dell\'Alba e\' quello della rotazione, da un punto solo',
-        () {
+    test('il Maestro dell\'Alba e\' Medora, da un punto solo', () {
+      // **ORDINE DT VOCE 02**: l'Arcano dell'Alba e' di Medora e non ruota.
       for (var g = 0; g < 30; g++) {
         final quando = giorno.add(Duration(days: g));
-        expect(DailyElements.maestroFor(DailyElement.dawn, quando),
-            DailyRituals.dawnMaestro(quando),
+        expect(
+            DailyElements.maestroFor(DailyElement.dawn, quando), Maestro.medora,
             reason: 'la striscia e il rito userebbero due Maestri diversi');
       }
     });

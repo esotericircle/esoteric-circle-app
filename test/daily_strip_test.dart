@@ -7,7 +7,7 @@ import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/rituals/daily_elements.dart';
 import 'package:esoteric_circle/core/rituals/sunset_rune.dart';
 import 'package:esoteric_circle/features/maestri/domain_screen.dart';
-import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
+import 'package:esoteric_circle/features/rituals/arcano_dell_alba_screen.dart';
 import 'package:esoteric_circle/features/rituals/dream_rite_screen.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:esoteric_circle/features/santuario/daily_strip.dart';
@@ -64,7 +64,7 @@ Widget _host(Widget child) => MultiProvider(
       child: MaterialApp(home: Scaffold(body: child)),
     );
 
-/// La striscia degli appuntamenti quotidiani: i cinque elementi, quello dell'ora
+/// La striscia degli appuntamenti quotidiani: i Doni del giorno, quello dell'ora
 /// attiva in evidenza, l'header, il "?" per etichetta e l'apertura diretta a
 /// tocco singolo senza dominio intermedio.
 void main() {
@@ -75,18 +75,21 @@ void main() {
     );
   }
 
-  testWidgets('Mostra i cinque appuntamenti sotto l\'header', (tester) async {
+  testWidgets('Mostra gli appuntamenti sotto l\'header', (tester) async {
     await tester.pumpWidget(
         _host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
     await tester.pump();
     expect(find.byKey(const Key('santuario_daily_strip')), findsOneWidget);
     // La riga sottile che annuncia la striscia.
     expect(find.text('I tuoi doni del giorno'), findsOneWidget);
-    expect(DailyElement.values.length, 5);
+    // **Dall'ordine DT sono quattro**, e il numero lo dicono i Doni.
+    expect(DailyElement.values.length, 4);
     for (final e in DailyElement.values) {
       expect(find.byKey(Key('daily_element_${e.name}')), findsOneWidget);
     }
-    // Il quinto appuntamento, il Sigillo del Sogno, e' presente.
+    expect(find.byKey(const Key('daily_element_oracle')), findsNothing,
+        reason: 'la striscia mostra ancora l Arcano del Giorno');
+    // L'ultimo appuntamento, il Sigillo del Sogno, e' presente.
     expect(find.byKey(const Key('daily_element_night')), findsOneWidget);
     expect(find.text('Notte'), findsOneWidget);
   });
@@ -96,7 +99,7 @@ void main() {
         _host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
     await tester.pump();
     // Gli orari vivono solo nel popup, non sulla striscia.
-    for (final label in const ['7:00', '10:30', '13:00', '18:30', '22:30']) {
+    for (final label in const ['7:00', '13:00', '18:30', '22:30']) {
       expect(find.text(label), findsNothing);
     }
   });
@@ -303,7 +306,7 @@ void main() {
     expect((headerX - stripX).abs(), lessThan(1.0));
   });
 
-  testWidgets('Le cinque icone sono distinte, il Tramonto non e\' una luna',
+  testWidgets('Le icone sono distinte, il Tramonto non e\' una luna',
       (tester) async {
     await tester.pumpWidget(
         _host(DailyStrip(clock: () => DateTime(2026, 7, 14, 13, 0))));
@@ -319,10 +322,9 @@ void main() {
           matching: matching,
         );
 
-    // Oracolo sole pieno, Notte luna con stella, Soffio vento: icone Material
-    // chiaramente diverse.
-    expect(
-        inItem('oracle', find.byIcon(Icons.wb_sunny_rounded)), findsOneWidget);
+    // Notte luna con stella, Soffio vento: icone Material chiaramente
+    // diverse. Il sole pieno era dell'Arcano del Giorno, che non c'e' piu'.
+    expect(find.byIcon(Icons.wb_sunny_rounded), findsNothing);
     expect(inItem('night', find.byIcon(Icons.nights_stay_rounded)),
         findsOneWidget);
     expect(inItem('breath', find.byIcon(Icons.air_rounded)), findsOneWidget);
@@ -344,9 +346,6 @@ void main() {
     for (final label in const [
       'Alba',
       'Soffio',
-      // **ARCANO E NON PIU ORACOLO**, ordine AS voce 08: il dono ha cambiato
-      // natura ed e l estrazione di una carta degli Arcani Maggiori.
-      'Arcano',
       'Tramonto',
       'Notte',
     ]) {
@@ -383,8 +382,8 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 700));
 
-    // Si apre il Rito dell'Alba, non lo schermo di dominio di un Maestro.
-    expect(find.byType(DawnRiteScreen), findsOneWidget);
+    // Si apre l'Arcano dell'Alba, non lo schermo di dominio di un Maestro.
+    expect(find.byType(ArcanoDellAlbaScreen), findsOneWidget);
     expect(find.byType(DomainScreen), findsNothing);
   });
 
@@ -428,27 +427,28 @@ void main() {
     ));
     await tester.pump();
 
-    // Il cerchio "?" dell'Oracolo esiste ed e' separato dall'icona.
-    expect(find.byKey(const Key('daily_help_button_oracle')), findsOneWidget);
-    await tester.tap(find.byKey(const Key('daily_help_button_oracle')));
+    // Il cerchio "?" del Soffio esiste ed e' separato dall'icona.
+    expect(find.byKey(const Key('daily_help_button_breath')), findsOneWidget);
+    await tester.tap(find.byKey(const Key('daily_help_button_breath')));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
 
     // Si apre il popup, l'esperienza resta chiusa.
-    expect(find.byKey(const Key('daily_info_oracle')), findsOneWidget);
+    expect(find.byKey(const Key('daily_info_breath')), findsOneWidget);
     expect(opened, isNull);
-    // Spiega quale Maestro guida l'elemento e a che ora, che vive solo qui.
-    expect(find.textContaining('Medora'), findsOneWidget);
+    // Spiega quale Maestro guida l'elemento e a che ora, che vive solo qui:
+    // il Soffio alle tredici, ordine DT voce 14.
+    expect(find.textContaining('Aura'), findsOneWidget);
     expect(find.text('Alle 13:00'), findsOneWidget);
 
     // Si chiude col pulsante, mai un vicolo cieco.
-    await tester.tap(find.byKey(const Key('daily_info_close_oracle')));
+    await tester.tap(find.byKey(const Key('daily_info_close_breath')));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
-    expect(find.byKey(const Key('daily_info_oracle')), findsNothing);
+    expect(find.byKey(const Key('daily_info_breath')), findsNothing);
   });
 
-  testWidgets('Il popup del Sigillo del Sogno nomina il Maestro di turno',
+  testWidgets('Il popup del Sigillo del Sogno nomina Medora, non il turno',
       (tester) async {
     final now = DateTime(2026, 7, 14, 23, 0);
     await tester.pumpWidget(_host(DailyStrip(clock: () => now)));
@@ -459,7 +459,9 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
 
     expect(find.byKey(const Key('daily_info_night')), findsOneWidget);
-    expect(find.textContaining('Maestro di turno del giorno'), findsOneWidget);
+    // **ORDINE DT VOCE 15**: il Sigillo e' di Medora, e non ruota.
+    expect(find.textContaining('Maestro di turno del giorno'), findsNothing);
+    expect(find.textContaining('Guidato da Medora'), findsOneWidget);
     expect(find.text('Alle 22:30'), findsOneWidget);
   });
 }

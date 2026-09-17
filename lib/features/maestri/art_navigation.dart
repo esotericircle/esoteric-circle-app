@@ -14,7 +14,7 @@ import 'caligo/sigillo/sigillo_intenzione_screen.dart';
 import '../horoscope/oroscopo_screen.dart';
 import '../maestri/aura/meditation/meditation_screen.dart';
 import '../rituals/breath_destiny_screen.dart';
-import '../rituals/day_oracle_screen.dart';
+import '../rituals/arcano_dell_alba_screen.dart';
 import '../rituals/sunset_rune_screen.dart';
 import '../synastry/porta_della_sinastria.dart';
 import '../tarot/stesa_tre_carte_screen.dart';
@@ -128,8 +128,11 @@ Route<void>? artRouteFor(
       return StesaTreCarteScreen.route();
     case 'meditation':
       return MeditationScreen.route();
+    // **L'ARCANO DEL GIORNO E' DIVENTATO L'ARCANO DELL'ALBA**, ordine DT voci
+    // 01 e 26: chi arriva da qui, anche dal pulsante della chat, apre il dono
+    // del mattino. L'id resta quello, perche' e' la chiave dei conti.
     case 'day_oracle':
-      return DayOracleScreen.route();
+      return ArcanoDellAlbaScreen.route();
     case 'sunset_rune':
       return SunsetRuneScreen.route();
     case 'breath_destiny':

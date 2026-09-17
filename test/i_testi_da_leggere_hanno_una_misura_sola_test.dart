@@ -52,9 +52,10 @@ void main() {
   /// l'eccezione dichiarata dall'ordine CC voce 05**: li' la porta non si
   /// puo' usare, e si pretende la misura nuda.
   const daLeggere = <String, List<String>>{
-    'Arcano del Giorno': [
-      'lib/features/rituals/day_oracle_screen.dart',
-      "ParagrafiDiLettura(\n              key: const Key('arcano_responso')",
+    // L'Arcano dell'Alba prende il posto dell'Arcano del Giorno, ordine DT.
+    'Arcano dell\'Alba': [
+      'lib/features/rituals/arcano_dell_alba_screen.dart',
+      "ParagrafiDiLettura(\n            key: const Key('arcano_alba_dono')",
     ],
     'Runa del Tramonto': [
       'lib/features/rituals/sunset_rune_screen.dart',

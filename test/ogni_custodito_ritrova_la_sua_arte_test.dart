@@ -68,8 +68,13 @@ void main() {
         reason: 'queste arti dichiarano insieme di avere e di non avere '
             'un\'arte: $doppie');
 
-    // **E NESSUNA ARTE VIVA RESTA FUORI DAL CENSIMENTO.**
-    final tutte = ArtiConResponso.tutte.map((a) => a.arte).toSet();
+    // **E NESSUNA ARTE VIVA RESTA FUORI DAL CENSIMENTO.** Dall'ordine DT
+    // contano anche le arti dichiarate senza azioni: l'Alba e l'Oracolo non
+    // custodiscono piu' niente, ma i loro custoditi di prima si leggono ancora.
+    final tutte = {
+      ...ArtiConResponso.tutte.map((a) => a.arte),
+      ...ArtiConResponso.senzaAzioni.keys,
+    };
     final dimenticate = tutte.difference(conArte).difference(senza);
     expect(dimenticate, isEmpty,
         reason: 'queste arti producono un responso e nessuno ha detto se '
@@ -155,6 +160,9 @@ void main() {
     final scollate = <String>[];
     var controllate = 0;
     for (final voce in ArtworkDelRicordo.chiaviLette.entries) {
+      // I custoditi di un dono che non c'e' piu' non hanno una schermata che
+      // scriva le chiavi: si leggono come erano stati scritti.
+      if (ArtiConResponso.senzaAzioni.containsKey(voce.key)) continue;
       final arte = ArtiConResponso.di(voce.key);
       if (arte == null) {
         scollate.add('${voce.key} non e\' fra le arti con responso');
@@ -174,7 +182,9 @@ void main() {
         }
       }
     }
-    expect(controllate, greaterThan(8),
+    // OTTO dall'ordine DT: la chiave della carta dell'Arcano del Giorno non
+    // ha piu' una schermata che la scriva.
+    expect(controllate, greaterThanOrEqualTo(8),
         reason: 'questa prova ha controllato solo $controllate chiavi');
     expect(scollate, isEmpty,
         reason: 'queste chiavi non combaciano, e l\'artwork sparirebbe senza '

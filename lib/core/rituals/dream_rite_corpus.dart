@@ -2,7 +2,7 @@ import '../astro/night_sky.dart';
 import '../astro/zodiac.dart';
 import '../identity/birth_moon.dart';
 import '../maestro/maestro.dart';
-import 'daily_rituals.dart';
+import 'daily_elements.dart';
 import 'relazione_lunare.dart';
 import '../../core/chat/user_profile.dart';
 
@@ -20,7 +20,11 @@ class VoceDelSogno {
     required String giorno,
     required String riconoscimento,
     required String posa,
-  }) : _parola = parola, _immagine = immagine, _giorno = giorno, _riconoscimento = riconoscimento, _posa = posa;
+  })  : _parola = parola,
+        _immagine = immagine,
+        _giorno = giorno,
+        _riconoscimento = riconoscimento,
+        _posa = posa;
 
   /// Una parola sola, calmante, per la carta della notte.
   final String _parola;
@@ -232,7 +236,7 @@ class DreamRiteCorpus {
   /// **Chi non ha dato la nascita non perde il Dono**: senza data il saluto e'
   /// esattamente quello di prima.
   static String saluto(DateTime quando, {DateTime? nascita}) {
-    final maestro = DailyRituals.nightMaestro(quando);
+    final maestro = DailyElements.maestroFor(DailyElement.night, quando);
     final luna = lunaDi(quando);
     final v = voce(luna.sign);
     final base = '${aperturaMaestro(maestro)} ${aperturaLuna(luna)}, '

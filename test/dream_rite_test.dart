@@ -3,7 +3,7 @@ import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/identity/birth_moon.dart';
 import 'package:esoteric_circle/core/rituals/daily_elements.dart';
-import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
+import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/rituals/dream_rite_corpus.dart';
 import 'package:esoteric_circle/design_system/components/zodiac_figures.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -112,8 +112,9 @@ void main() {
       final b = DreamRiteCorpus.saluto(date);
       expect(a, b);
       expect(a.trim().endsWith('Buonanotte.'), isTrue, reason: a);
-      // Ruota col Maestro di turno, come il Rito dell'Alba.
-      expect(DailyRituals.nightMaestro(date), DailyRituals.dawnMaestro(date));
+      // **Non ruota piu': e' di Medora**, ordine DT voce 15.
+      expect(DailyElements.maestroFor(DailyElement.night, date),
+          Maestro.medora);
     });
 
     test('Nessun testo del rito e\' troncato o viola la regola di lingua', () {

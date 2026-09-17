@@ -1,5 +1,9 @@
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
-import 'package:esoteric_circle/core/rituals/arcano_del_giorno.dart';
+import 'dart:math';
+
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/archivio_dell_alba.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/responso_dell_alba.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'package:esoteric_circle/core/chat/immersive_intents.dart';
 import 'package:esoteric_circle/core/chat/intent_classifier.dart';
@@ -99,40 +103,64 @@ void main() {
     //
     // Sulle catture di un fondatore, *"Carta del giorno"* due volte, e due
     // volte il modello parlava di Saturno e della Luna senza nominare nessun
-    // arcano. La carta adesso non la sceglie il modello: e' l'Arcano del
-    // Giorno, e deve essere **la stessa** che il Dono mostra alla persona.
+    // arcano. La carta non la sceglie il modello.
+    //
+    // **E DALL'ORDINE DT VOCE 25 E' L'ARCANO DELL'ALBA DI OGGI**, col suo
+    // verso: la sola estrazione del giorno per quella persona, letta dal suo
+    // archivio. Se la carta non e' stata girata, la chat non ne estrae una
+    // seconda.
     for (final domanda in const [
       'Carta del giorno',
       'Tira una carta per me',
       'qual e la mia carta di oggi?',
     ]) {
-      test('"$domanda" nomina la carta del giorno, senza chiamare il modello',
-          () async {
+      test(
+          '"$domanda": estratto l\'Arcano dell\'Alba, la chat nomina la stessa '
+          'carta e lo stesso verso, senza chiamare il modello', () async {
+        SharedPreferences.setMockInitialValues({});
+        ArchivioDellAlba.dimenticaLaMemoria();
+        final oggi = DateTime(2026, 9, 17, 9, 21);
+        final alba = await ArchivioDellAlba.estraiOggi(oggi,
+            caso: Random(domanda.length));
         final ai = _RecordingAi();
-        final nascita = DateTime(1984, 3, 9);
-        final oggi = DateTime(2026, 9, 17, 0, 21);
         final controller = MaestroChatController(
           maestro: Maestro.medora,
           ai: ai,
           memory: InMemoryMaestroMemoryRepository(),
-          nascita: () => nascita,
           orologio: () => oggi,
         );
         await controller.init();
         await controller.send(domanda);
-        final carta = ArcanoDelGiorno.di(oggi, nascita: nascita);
         final last = controller.messages.last;
+        final attesa = ResponsoDellAlba.cartaColVerso(alba.stato);
         expect(last.isMaestro, isTrue);
-        expect(last.text, contains(carta.name),
-            reason: 'la risposta a "$domanda" non nomina la carta del giorno, '
-                '${carta.name}: "${last.text}"');
-        expect(last.intentId, ImmersiveTarget.arcanoDelGiorno.name,
+        expect(last.text, contains(attesa),
+            reason: 'la chat dice "${last.text}" e l\'Arcano dell\'Alba di '
+                'oggi e\' $attesa');
+        expect(last.intentId, ImmersiveTarget.arcanoDellAlba.name,
             reason: 'sotto la carta manca il pulsante che la apre');
         expect(ai.replies, 0,
             reason: 'la carta del giorno e passata dal modello, che la '
                 'inventerebbe');
       });
     }
+
+    test('senza la carta girata la chat non ne estrae una seconda', () async {
+      SharedPreferences.setMockInitialValues({});
+      ArchivioDellAlba.dimenticaLaMemoria();
+      final oggi = DateTime(2026, 9, 17, 9, 21);
+      final controller = MaestroChatController(
+        maestro: Maestro.medora,
+        ai: _RecordingAi(),
+        memory: InMemoryMaestroMemoryRepository(),
+        orologio: () => oggi,
+      );
+      await controller.init();
+      await controller.send('Carta del giorno');
+      expect(controller.messages.last.text, contains('ancora coperta'));
+      expect(await ArchivioDellAlba.diOggi(oggi), isNull,
+          reason: 'chiedere la carta in chat ha estratto la carta del dono');
+    });
 
     // **LA STESSA DOMANDA NELLO STESSO GIORNO DA' LA STESSA LETTURA. Ordine
     // DS voce 08.** Sulle catture di un fondatore la stessa domanda a due

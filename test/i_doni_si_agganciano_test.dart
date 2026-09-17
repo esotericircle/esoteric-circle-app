@@ -1,19 +1,11 @@
 import 'dart:io';
+import 'dart:math';
 
-import 'package:esoteric_circle/core/maestro/maestro.dart';
-import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
-import 'package:esoteric_circle/core/motion/parallax_controller.dart';
-import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/archivio_dell_alba.dart';
+
 import 'package:esoteric_circle/core/rituals/daily_elements.dart';
 import 'package:esoteric_circle/core/rituals/filo_del_giorno.dart';
-import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
-import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
-import 'package:esoteric_circle/features/rituals/day_oracle_screen.dart';
-import 'package:esoteric_circle/features/rituals/ritual_view.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// I DONI DEL GIORNO, ordine P voci 16, 17 e 18.
@@ -23,123 +15,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// si'.** Le tre voci sono tre modi di applicarla, e queste prove le misurano
 /// una per una.
 void main() {
-  final binding = TestWidgetsFlutterBinding.ensureInitialized();
+  TestWidgetsFlutterBinding.ensureInitialized();
 
-  void silenzia() {
-    final m = binding.defaultBinaryMessenger;
-    m.setMockMethodCallHandler(
-        const MethodChannel('dev.fluttercommunity.plus/sensors/method'),
-        (call) async => null);
-    for (final nome in const [
-      'dev.fluttercommunity.plus/sensors/accelerometer',
-      'dev.fluttercommunity.plus/sensors/user_accel',
-      'dev.fluttercommunity.plus/sensors/gyroscope',
-      'dev.fluttercommunity.plus/sensors/magnetometer',
-    ]) {
-      m.setMockStreamHandler(
-          EventChannel(nome), MockStreamHandler.inline(onListen: (a, e) {}));
-    }
-  }
-
-  Widget attorno(Widget scena) => MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => MaestroController()),
-          ChangeNotifierProvider(create: (_) => ParallaxController()),
-          ChangeNotifierProvider(create: (_) => QualityTierController()),
-        ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: MaestroScope(child: scena),
-        ),
-      );
-
-  group('P.16 l\'Oracolo del Giorno', () {
-    test('il gesto dell\'inclinazione esiste come valore, non come promessa',
-        () {
-      // **LA PREMESSA VERIFICATA.** L'Oracolo dichiarava, nel commento e a
-      // schermo, che si rivela inclinando il telefono. Prima di questa voce
-      // `RitualGesture` aveva quattro valori e nessuno leggeva il giroscopio:
-      // la promessa stava in due punti e il codice in nessuno.
-      expect(RitualGesture.values, contains(RitualGesture.tilt));
-    });
-
-    test('l\'Oracolo dichiara il gesto dell\'inclinazione', () {
-      final sorgente = File('lib/features/rituals/day_oracle_screen.dart')
-          .readAsStringSync();
-      expect(sorgente, contains('gesture: RitualGesture.tilt'),
-          reason: 'l\'Oracolo e\' tornato a un gesto che non e\' quello che '
-              'dichiara alla persona');
-      // E la vista legge davvero il sensore.
-      final vista =
-          File('lib/features/rituals/ritual_view.dart').readAsStringSync();
-      expect(vista, contains('TiltListener'),
-          reason: 'nessuno legge il giroscopio: il gesto e\' un valore vuoto');
-      expect(vista, contains('RitualGesture.tilt'),
-          reason: 'il gesto dell\'inclinazione non e\' collegato a niente');
-    });
-
-    testWidgets('dice cosa stai per ricevere PRIMA del gesto', (tester) async {
-      silenzia();
-      await tester.pumpWidget(
-          attorno(DayOracleScreen(now: DateTime(2026, 8, 12, 13, 0))));
-      await tester.pump();
-      final riga = find.byKey(const Key('rito_cosa_ricevi'));
-      expect(riga, findsOneWidget,
-          reason: 'nessuno compie un gesto senza sapere cosa ne esce');
-      final testo = tester.widget<Text>(riga).data!;
-      expect(testo.length, greaterThan(30));
-      expect(testo, isNot(contains('—')));
-      // E il responso non c'e' ancora.
-      expect(find.byKey(const Key('ritual_content')), findsNothing);
-    });
-
-    testWidgets('il ripiego tattile resta obbligatorio', (tester) async {
-      silenzia();
-      await tester.pumpWidget(
-          attorno(DayOracleScreen(now: DateTime(2026, 8, 12, 13, 0))));
-      await tester.pump();
-      // Nessun sensore in prova: il tocco deve bastare da solo.
-      await tester.tap(find.byKey(const Key('ritual_gesture')));
-      await tester.pump();
-      expect(find.byKey(const Key('ritual_content')), findsOneWidget,
-          reason: 'senza giroscopio l\'Oracolo resta chiuso: il ripiego '
-              'tattile non e\' un di piu\', e\' obbligatorio');
-      expect(find.byKey(const Key('rito_cosa_ricevi')), findsNothing);
-    });
-
-    testWidgets('nessuno stato senza uscita: il ripiego porta il Riprova',
-        (tester) async {
-      silenzia();
-      var riprovato = 0;
-      await tester.pumpWidget(attorno(RitualView(
-        title: 'Prova',
-        palette: MaestroPalette.forKey(const ThemeKey.of(Maestro.medora)),
-        gesture: RitualGesture.tilt,
-        prompt: 'Inclina',
-        cosaRicevi:
-            'Una riga del cielo di oggi, la stessa per tutta la giornata.',
-        sensorHint: 'Oppure tocca.',
-        ripiego: (
-          etichetta: 'Il cielo di oggi non si e\' lasciato leggere.',
-          riprova: () => riprovato++,
-        ),
-        visualBuilder: (_, __, ___, ____) => const SizedBox.shrink(),
-        revealed: const Text('non si deve vedere'),
-      )));
-      await tester.pump();
-      await tester.tap(find.byKey(const Key('ritual_gesture')));
-      await tester.pump();
-      expect(find.byKey(const Key('rito_ripiego')), findsOneWidget);
-      expect(find.byKey(const Key('ritual_content')), findsNothing,
-          reason: 'col ripiego in scena il responso vuoto non si mostra');
-      await tester.tap(find.byKey(const Key('rito_riprova')));
-      await tester.pump();
-      expect(riprovato, 1, reason: 'il Riprova non riprova niente');
-    });
-  });
+  // **IL GRUPPO P.16 NON C'E' PIU'**, ordine DT voce 01: misurava l'Arcano del
+  // Giorno e la sua vista rituale col giroscopio, che se ne sono andati col
+  // dono. L'Arcano dell'Alba ha un gesto solo, il tocco su una carta coperta,
+  // e le sue prove stanno in `l_arcano_dell_alba_si_gira_test.dart`.
 
   group('P.17 ogni rito dichiara cosa fa, perche\', e cosa resta', () {
-    test('tutti e cinque i doni dichiarano le tre righe', () {
+    test('tutti i doni dichiarano le tre righe', () {
       // SI ENUMERA, non si elencano a mano i riti che ci si ricorda.
       for (final rito in DailyElement.values) {
         for (final riga in [
@@ -203,8 +87,9 @@ void main() {
       // descrizione serve davvero. Cio' che esce e' la loro comparsa in cima
       // al responso.
       const schermate = [
-        'lib/features/rituals/ritual_gift_card.dart', // Alba e Soffio
-        'lib/features/rituals/ritual_view.dart', // Oracolo
+        'lib/features/rituals/ritual_gift_card.dart', // Soffio
+        // L'Arcano dell'Alba, ordine DT, al posto dell'Alba e dell'Oracolo.
+        'lib/features/rituals/arcano_dell_alba_screen.dart',
         'lib/features/rituals/sunset_rune_screen.dart', // Tramonto
         'lib/features/rituals/dream_rite_screen.dart', // Sogno
       ];
@@ -250,10 +135,14 @@ void main() {
           reason: 'il ponte verso il Soffio e\' tornato nella scheda del '
               'dono: la voce BB 07 lo ha tolto per decisione del fondatore');
       // E il respiro guidato e' UNO SOLO in tutto il progetto.
-      final quanti = Directory('lib')
+      final sorgenti = Directory('lib')
           .listSync(recursive: true)
           .whereType<File>()
           .where((f) => f.path.endsWith('.dart'))
+          .toList();
+      expect(sorgenti.length, greaterThan(100),
+          reason: 'la ricerca ha guardato ${sorgenti.length} sorgenti');
+      final quanti = sorgenti
           .where((f) => f.readAsStringSync().contains('class GuidaDelRespiro'))
           .length;
       expect(quanti, 1,
@@ -268,13 +157,16 @@ void main() {
 
     test('la parola del mattino torna la sera, e solo quella di oggi',
         () async {
+      // **Dall'ordine DT e' il dono della carta dell'alba.**
+      ArchivioDellAlba.dimenticaLaMemoria();
       final mattina = DateTime(2026, 8, 12, 7, 10);
-      await FiloDelGiorno.segnaLaParola('Soglia', mattina);
+      final presa = await ArchivioDellAlba.estraiOggi(mattina, caso: Random(5));
       final sera = DateTime(2026, 8, 12, 22, 40);
-      expect(await FiloDelGiorno.parolaDiStamattina(sera), 'Soglia');
-      // Domani sera quella parola non e' piu' "stamattina".
+      expect(
+          (await FiloDelGiorno.donoDiStamattina(sera))?.secondo, presa.secondo);
+      // Domani sera quel dono non e' piu' "stamattina".
       final domani = DateTime(2026, 8, 13, 22, 40);
-      expect(await FiloDelGiorno.parolaDiStamattina(domani), isNull,
+      expect(await FiloDelGiorno.donoDiStamattina(domani), isNull,
           reason: '"Stamattina la tua parola era X" con la parola di ieri e\' '
               'una bugia, e per giunta una che la persona riconosce');
     });
@@ -283,13 +175,15 @@ void main() {
       // Chi apre il Sigillo del Sogno all'una di notte sta chiudendo il giorno
       // prima: se il filo si rompesse li', si romperebbe proprio nel momento
       // in cui deve tenere.
+      ArchivioDellAlba.dimenticaLaMemoria();
       final mattina = DateTime(2026, 8, 12, 7, 0);
-      await FiloDelGiorno.segnaLaParola('Traccia', mattina);
+      final presa = await ArchivioDellAlba.estraiOggi(mattina, caso: Random(6));
       final notteFonda = DateTime(2026, 8, 13, 1, 20);
-      expect(await FiloDelGiorno.parolaDiStamattina(notteFonda), 'Traccia');
+      expect((await FiloDelGiorno.donoDiStamattina(notteFonda))?.secondo,
+          presa.secondo);
       // Ma dopo l'alba del giorno rituale successivo, no.
       final mattinaDopo = DateTime(2026, 8, 13, 7, 30);
-      expect(await FiloDelGiorno.parolaDiStamattina(mattinaDopo), isNull);
+      expect(await FiloDelGiorno.donoDiStamattina(mattinaDopo), isNull);
     });
 
     test('la domanda di Medora torna il mattino DOPO, non lo stesso giorno',

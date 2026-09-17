@@ -93,9 +93,6 @@ import 'package:esoteric_circle/features/shell/barra_dell_identita.dart';
 import 'package:esoteric_circle/features/onboarding/onboarding_screen.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
-import 'package:esoteric_circle/core/rituals/avvisi_del_rito.dart';
-import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
-import 'package:esoteric_circle/features/rituals/day_oracle_screen.dart';
 import 'package:esoteric_circle/core/rituals/sunset_rune.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_postcard.dart';
@@ -108,7 +105,6 @@ import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
 import 'package:esoteric_circle/core/tarot/tarot_topic.dart';
 import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
-import 'package:esoteric_circle/core/rituals/arcano_del_giorno.dart';
 import 'package:esoteric_circle/core/sigilli/sentieri.dart';
 import 'package:esoteric_circle/features/sigilli/sentiero_screen.dart';
 import 'package:esoteric_circle/features/tarot/stesa_share_card.dart';
@@ -147,6 +143,10 @@ import 'package:esoteric_circle/features/santuario/widgets/tue_arti_view.dart';
 import 'package:esoteric_circle/features/sigilli/la_mappa_del_sentiero.dart';
 import 'package:esoteric_circle/features/sigilli/spirale_di_stelle.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/archivio_dell_alba.dart';
+import 'package:esoteric_circle/features/rituals/arcano_dell_alba_screen.dart';
+import 'package:esoteric_circle/design_system/transizioni/passaggio_del_cerchio.dart';
+import 'dart:math' as math;
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -1301,172 +1301,59 @@ void main() {
     await tester.pump(const Duration(milliseconds: 2600));
     await capture(tester, rootKey, 'meditazione-aura.png');
   });
-  testWidgets('Cattura il Rito dell\'Alba, velato e col dono', (tester) async {
+
+  /// **L'ARCANO DELL'ALBA, coperto e girato.** Ordine DT voci 01 e 02: prende
+  /// il posto delle catture del Rito dell'Alba, della scheda col colore del
+  /// Maestro e dell'Arcano del Giorno, che mostravano doni che non ci sono
+  /// piu'. Le carte coperte, la carta girata col primo movimento, e il
+  /// responso intero scorrendo.
+  testWidgets('Cattura l\'Arcano dell\'Alba, coperto e girato', (tester) async {
     silenceSensors();
-    // Semina la continuita' in locale cosi' la cattura del dono mostra il chip
-    // dei giorni consecutivi e se ne validano posizione e stile. Ieri l'ultimo
-    // rito, sei di fila: il gesto di oggi lo porta a sette, come sul device di
-    // chi torna ogni mattina. La logica dello streak non cambia, si prepara solo
-    // lo stato di partenza che sul device arriva dai giorni precedenti.
+    // **IL CAMMINO E' GIA' PERCORSO**, per la stessa ragione di sempre:
+    // girare la carta matura un traguardo, e la festa coprirebbe la scena.
     SharedPreferences.setMockInitialValues({
       'onboarding.done': true,
       'santuario.greeted': true,
-      'ritual.dawn.lastDay': '2026-07-12',
-      'ritual.dawn.streak': 6,
-      // **IL CAMMINO E' GIA' PERCORSO, ordine AS voce 06.** Compiere il rito
-      // matura un traguardo, e la celebrazione si apre SOPRA il dono: la
-      // cattura usciva con la festa al posto della scheda, e chi la guardava
-      // credeva di vedere il dono. Con tutti i Sigilli gia' accesi non matura
-      // niente e sotto c'e' quello che si sta fotografando.
       'cammino.generazione': 2,
       'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
     });
+    ArchivioDellAlba.dimenticaLaMemoria();
     await loadFonts();
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    // Il Rito dell'Alba compone tre livelli reali: si precaricano cosi' nella
-    // cattura headless sono gia' decodificati e la scena appare, senza restare
-    // in caricamento.
-    final element = tester.element(find.byType(MaterialApp));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    unawaited(nav.push(PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
+          child: ArcanoDellAlbaScreen(
+            now: DateTime(2026, 7, 13, 7, 30),
+            caso: math.Random(13),
+          ),
+        ))));
     await tester.runAsync(() async {
-      for (final a in const [
-        'assets/ritual_backgrounds/dawn_sky_night.png',
-        'assets/ritual_backgrounds/dawn_sky_day.png',
-        'assets/ritual_backgrounds/dawn_sun.png',
-      ]) {
-        await precacheImage(AssetImage(a), element);
+      final elemento = tester.element(find.byType(MaterialApp));
+      await precacheImage(AssetImage(TarotDeck.dorsoFull), elemento);
+      for (final carta
+          in TarotDeck.cards.where((c) => c.arcana == TarotArcana.maggiore)) {
+        await precacheImage(AssetImage(carta.fullPath), elemento);
       }
     });
     await step(tester);
+    await step(tester);
+    await capture(tester, rootKey, 'arcano-alba-coperte.png');
 
-    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
-    // GLI AVVISI SPENTI, dall'ordine M: la rotta vera parla col servizio
-    // vero, che alla prima apertura porge la spiegazione del permesso. La
-    // cattura fotografa il RITO, non la richiesta: il servizio spento tiene
-    // la scena com'era, che e' quella approvata.
-    unawaited(nav.push(DawnRiteScreen.route(
-        now: DateTime(2026, 7, 13), avvisi: const AvvisiSpenti())));
-    await step(tester);
-    await step(tester);
-    // Lascia che lo screen risolva i tre livelli dalla cache immagini.
-    await tester.runAsync(() async {
-      await Future<void>.delayed(const Duration(milliseconds: 60));
-    });
-    await step(tester);
-    await step(tester);
-    // Stato velato: la notte con la luna e mezzo sole sull'orizzonte, l'invito.
-    await capture(tester, rootKey, 'rito-alba.png');
-
-    // Il gesto tattile solleva l'alba e porge il dono del giorno.
-    await tester.tap(find.byKey(const Key('ritual_gesture')));
+    await tester.tap(find.byKey(const Key('arcano_alba_carta_1')));
     for (var i = 0; i < 12; i++) {
       await tester.pump(const Duration(milliseconds: 100));
     }
     await step(tester);
-    await capture(tester, rootKey, 'rito-alba-dono.png');
+    await capture(tester, rootKey, 'arcano-alba-girata.png');
 
-    // **IL PONTE VERSO IL SOFFIO, ordine S voce 13.** La scheda del dono scorre:
-    // il respiro guidato che stava qui dentro e' uscito, e al suo posto c'e' una
-    // riga che porta nel Soffio del Destino. Si scorre la scheda fino in fondo,
-    // perche' e' li' che la riga vive.
-    // Di scorrimenti verticali ce n'e' piu' d'uno in scena: quello della scheda
-    // e' l'ULTIMO montato, cioe' il piu' interno.
-    final dentroLaScheda = tester
-        .state<ScrollableState>(find
-            .byWidgetPredicate(
-                (w) => w is Scrollable && w.axisDirection == AxisDirection.down)
-            .last)
-        .position;
-    dentroLaScheda.jumpTo(dentroLaScheda.maxScrollExtent);
+    await tester.drag(
+        find.byType(SingleChildScrollView).last, const Offset(0, -900));
     await step(tester);
-    await capture(tester, rootKey, 'alba-ponte-al-soffio.png');
-
-    // La base apribile del dono: da dove nasce, con l'ancora natale reale e i
-    // livelli provvisori chiaramente marcati. Superficie piu' alta, cosi'
-    // l'anteprima mostra il pannello intero, che sul device e' scorrevole.
-    await tester.tap(find.byKey(const Key('da_dove_nasce_apri')));
     await step(tester);
-    await montaLoSchermo(tester, const Size(360, 1150));
-    await step(tester);
-    await capture(tester, rootKey, 'rito-alba-base.png');
+    await capture(tester, rootKey, 'arcano-alba-responso.png');
   });
 
-  /// LA SCHEDA PIENA COL COLORE DEL MAESTRO DEL GIORNO, in due giorni diversi.
-  ///
-  /// Servono due catture e non una: il punto della voce e' che il colore
-  /// CAMBIA col Maestro, e una sola immagine non lo puo' mostrare. Le due date
-  /// non sono scelte a occhio, sono cercate finche' i due Maestri non risultano
-  /// diversi, cosi' la cattura non dipende da come ruota il calendario.
-  for (final quale in [0, 1]) {
-    testWidgets('Cattura il dono col colore del Maestro, giorno $quale',
-        (tester) async {
-      silenceSensors();
-      SharedPreferences.setMockInitialValues({
-        'onboarding.done': true,
-        'santuario.greeted': true,
-        'ritual.dawn.lastDay': '2026-07-12',
-        'ritual.dawn.streak': 6,
-      });
-
-      // Due giorni consecutivi con Maestri diversi, trovati e non supposti.
-      final partenza = DateTime(2026, 7, 13);
-      var secondo = partenza.add(const Duration(days: 1));
-      while (DailyRituals.dawnMaestro(secondo) ==
-          DailyRituals.dawnMaestro(partenza)) {
-        secondo = secondo.add(const Duration(days: 1));
-      }
-      final giorno = quale == 0 ? partenza : secondo;
-      final maestro = DailyRituals.dawnMaestro(giorno);
-      expect(DailyRituals.dawnMaestro(partenza),
-          isNot(DailyRituals.dawnMaestro(secondo)),
-          reason: 'le due anteprime mostrerebbero lo stesso Maestro, quindi '
-              'non direbbero che il colore cambia');
-
-      await loadFonts();
-      final rootKey = await mount(
-          tester, await buildServices(Maestro.medora, seeded: false));
-      final element = tester.element(find.byType(MaterialApp));
-      await tester.runAsync(() async {
-        for (final a in const [
-          'assets/ritual_backgrounds/dawn_sky_night.png',
-          'assets/ritual_backgrounds/dawn_sky_day.png',
-          'assets/ritual_backgrounds/dawn_sun.png',
-        ]) {
-          await precacheImage(AssetImage(a), element);
-        }
-      });
-      await step(tester);
-
-      final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
-      unawaited(nav.push(DawnRiteScreen.route(now: giorno)));
-      await step(tester);
-      await step(tester);
-      await tester.runAsync(() async {
-        await Future<void>.delayed(const Duration(milliseconds: 60));
-      });
-      await step(tester);
-      await step(tester);
-
-      await tester.tap(find.byKey(const Key('ritual_gesture')));
-      for (var i = 0; i < 12; i++) {
-        await tester.pump(const Duration(milliseconds: 100));
-      }
-      await step(tester);
-      await capture(tester, rootKey, 'rito-alba-dono-${maestro.id}.png');
-    });
-  }
-
-  /// LA CHAT DI AURA COL LOTO E L'INVITO, dalla strada vera dell'app.
-  ///
-  /// **La prima stesura montava il widget in isolamento, ed era inutile.**
-  /// Usciva col nastro di debug in alto a destra e con un fondo verde pieno
-  /// invece del cosmo condiviso: due segni che quella non era la schermata, era
-  /// il componente. Non diceva niente su come il loto appare dentro la chat di
-  /// Aura, che era l'unica cosa da giudicare.
-  ///
-  /// Adesso si entra come entra un dito: Santuario, busto, Consulta Aura,
-  /// domanda. La voce non risponde mai, e la scena del consulto vive
-  /// esattamente li'.
   testWidgets("Cattura la chat di Aura col loto e l'invito", (tester) async {
     silenceSensors();
     await loadFonts();
@@ -1666,53 +1553,6 @@ void main() {
     }
     await step(tester);
     await capture(tester, rootKey, 'soffio-destino-dono.png');
-  });
-
-  testWidgets('Cattura l\'Arcano del Giorno', (tester) async {
-    silenceSensors();
-    // Il cammino e' gia' percorso, ordine AS voce 08: rivelare la carta matura
-    // un traguardo, e la festa coprirebbe la scena da fotografare.
-    SharedPreferences.setMockInitialValues({
-      'onboarding.done': true,
-      'santuario.greeted': true,
-      'cammino.generazione': 2,
-      'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
-    });
-    await loadFonts();
-    final rootKey =
-        await mount(tester, await buildServices(Maestro.medora, seeded: false));
-    // **L'ARTE DELLA CARTA SI PRECARICA**, se no la cattura esce col ripiego
-    // dipinto a mano invece che con l'arte del mazzo: l'immagine e' un asset e
-    // in una prova headless non si decodifica da sola in tempo.
-    await tester.runAsync(() async {
-      final elemento = tester.element(find.byType(MaterialApp));
-      await precacheImage(
-          AssetImage(ArcanoDelGiorno.di(DateTime(2026, 7, 13)).fullPath),
-          elemento);
-      await precacheImage(AssetImage(TarotDeck.dorsoFull), elemento);
-    });
-    // **PRIMA DEL GESTO, ordine AU voce 12.** E' li' che vive la riga "cosa
-    // stai per ricevere", ed e' li' che il fondatore l'ha vista tagliata ai
-    // due lati sulla 2187: la cattura di sotto arriva DOPO la rivelazione,
-    // quando quella riga non c'e' piu', quindi non poteva mostrarlo.
-    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
-    unawaited(nav.push(DayOracleScreen.route(now: DateTime(2026, 7, 13))));
-    await step(tester);
-    await step(tester);
-    await capture(tester, rootKey, 'arcano-prima-del-gesto.png');
-    await tester.drag(
-        find.byKey(const Key('ritual_gesture')), const Offset(250, 0));
-    await tester.pump(const Duration(milliseconds: 700));
-    await capture(tester, rootKey, 'arcano-del-giorno.png');
-    // **IL RESPONSO STA SOTTO LA PIEGA.** Ordine CE voce 10: la misura del
-    // responso e' cio' che questa voce cambia, e nella cattura di sopra il
-    // testo non entra nemmeno nello schermo. Qui si scorre fino a lui.
-    await tester.drag(
-        find.byType(SingleChildScrollView).last, const Offset(0, -900));
-    // Il cosmo respira sempre: `pumpAndSettle` non tornerebbe mai.
-    await step(tester);
-    await step(tester);
-    await capture(tester, rootKey, 'arcano-il-responso.png');
   });
 
   // La Runa del Tramonto ha un flusso lungo: attesa, getto, incisione, due voci,
@@ -1949,7 +1789,7 @@ void main() {
     await montaLoSchermo(tester, const Size(460, 1100));
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
-    final maestro = DailyRituals.nightMaestro(quando);
+    final maestro = DailyElements.maestroFor(DailyElement.night, quando);
     final rootKey = GlobalKey();
     await tester.pumpWidget(MaterialApp(
       // IL NASTRO DI DEBUG SPENTO. Un'anteprima col nastro non e' cio' che la
@@ -6725,7 +6565,7 @@ void main() {
       (tester) async {
     final rootKey = await montaApp(tester, giaRisvegliato: true);
     final nav = tester.state<NavigatorState>(find.byType(Navigator).last);
-    nav.push(dailyElementRoute(DailyElement.oracle));
+    nav.push(dailyElementRoute(DailyElement.dawn));
     await step(tester);
     await capture(tester, rootKey, 'barra-assente-in-un-dono.png');
   });

@@ -30,20 +30,17 @@ void main() {
   ///
   /// **L'elenco sta qui e non si scopre a esecuzione**: un elenco scoperto
   /// leggendo una cartella sarebbe verde il giorno che una schermata sparisce.
-  const doni = <String, (String file, String risposta, String testo,
-      String fonte)>{
-    'Alba e Soffio': (
+  const doni =
+      <String, (String file, String risposta, String testo, String fonte)>{
+    'Soffio': (
       'lib/features/rituals/ritual_gift_card.dart',
       'alba_titolo_risposta',
       'alba_risposta',
       'gift_base_panel',
     ),
-    'Arcano del Giorno': (
-      'lib/features/rituals/day_oracle_screen.dart',
-      'arcano_sommario',
-      'arcano_responso',
-      'arcano_provenienza',
-    ),
+    // **L'ARCANO DEL GIORNO NON C'E' PIU'**, ordine DT. L'Arcano dell'Alba
+    // che lo sostituisce non porta la fonte dietro il tocco: DT.02 vieta ogni
+    // comando oltre alla carta, ed e' un conflitto riportato a Mauro.
     'Runa del Tramonto': (
       'lib/features/rituals/sunset_rune_screen.dart',
       'sunset_risposta',
@@ -95,8 +92,8 @@ void main() {
     // ignore: avoid_print
     print('ORDINE CQ VOCE 2.01: Doni guardati $guardati'
         '${tavola.map((r) => "${String.fromCharCode(10)}  $r").join()}');
-    cardinaleMinimo(guardati, 4,
-        cosa: 'schermate dei Doni guardate (Alba e Soffio ne condividono una)',
+    cardinaleMinimo(guardati, 3,
+        cosa: 'schermate dei Doni con la legge dei testi guardate',
         perche: 'Se una schermata sparisse dall elenco la sua gerarchia '
             'smetterebbe di essere sorvegliata senza che nessuno se ne '
             'accorga.');
@@ -118,6 +115,7 @@ void main() {
     print('ORDINE CQ VOCE 2.01: Doni che annunciano ancora un rito '
         '${conIlRito.length}');
     expect(conIlRito, isEmpty,
-        reason: 'questi Doni annunciano di nuovo un rito: ${conIlRito.join(", ")}');
+        reason:
+            'questi Doni annunciano di nuovo un rito: ${conIlRito.join(", ")}');
   });
 }

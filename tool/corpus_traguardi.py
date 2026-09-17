@@ -108,10 +108,12 @@ ARTE = {
     'ascendente': ('l’Ascendente', 'scopri il tuo Ascendente'),
     'oroscopo': ('l’Oroscopo', 'interroghi il cielo'),
     'stesa': ('la stesa di tarocchi', 'stendi le tre carte'),
-    'oracolo': ('l’Arcano del Giorno', 'scopri l’Arcano del Giorno'),
+    # Ordine DT voce 01: l'Arcano del Giorno e il Rito dell'Alba sono diventati
+    # un dono solo, e i due gesti vengono tutti e due dall'Arcano dell'Alba.
+    'oracolo': ('l’Arcano dell’Alba', 'scopri l’Arcano dell’Alba'),
     'sinastria': ('la Sinastria VIP', 'confronti il tuo cielo con un volto'),
     'angelo_custode': ('l’Angelo Custode', 'chiami il tuo Angelo Custode'),
-    'alba': ('il Rito dell’Alba', 'compi il Rito dell’Alba'),
+    'alba': ('l’Arcano dell’Alba', 'giri la carta dell’Arcano dell’Alba'),
     'soffio': ('il Soffio del Destino', 'liberi il Soffio del Destino'),
     'viso': ('la Costellazione del Viso',
              'leggi la tua Costellazione del Viso'),

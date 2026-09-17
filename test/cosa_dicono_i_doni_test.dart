@@ -53,9 +53,11 @@ void main() {
     // ignore: avoid_print
     print('ORDINE CQ VOCE 2.00: Doni guardati $guardati, e la prima cosa che '
         'ognuno dice e un compito annunciato da "${DailyElement.dawn.titoloDelRito}"');
-    cardinaleMinimo(guardati, 5,
+    // **QUATTRO DALL'ORDINE DT**: il Rito dell'Alba e l'Arcano del Giorno sono
+    // diventati l'Arcano dell'Alba. Il bersaglio non si e' perso, si e' fuso.
+    cardinaleMinimo(guardati, 4,
         cosa: 'Doni del giorno guardati',
-        perche: 'Con meno di cinque il foglio non racconterebbe la giornata '
+        perche: 'Con meno di quattro il foglio non racconterebbe la giornata '
             'intera, e la misura varrebbe per una parte sola.');
     Directory('docs/testi').createSync(recursive: true);
     File('docs/testi/cosa_dicono_i_doni.md')

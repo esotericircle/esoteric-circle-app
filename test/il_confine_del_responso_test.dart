@@ -10,7 +10,9 @@ import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'package:esoteric_circle/core/responsi/confine_del_responso.dart';
 import 'package:esoteric_circle/core/responsi/legge_del_responso.dart';
 import 'package:esoteric_circle/core/rituals/rito_alba.dart';
-import 'package:esoteric_circle/core/rituals/arcano_del_giorno.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/forme_dell_alba.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/letture_dell_alba_dati.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/responso_dell_alba.dart';
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/rituals/rune_presage.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
@@ -76,11 +78,14 @@ void main() {
     final giornalieri = <String>[];
     for (var giorno = 0; giorno < giorniDellAnno; giorno++) {
       final quando = DateTime(2026, 1, 1).add(Duration(days: giorno));
-      // **SI MISURA IL TESTO CHE LA PERSONA LEGGE DAVVERO.** Ordine CS,
-      // voce M1 della scansione, 6 settembre 2026. I pool statici di
-      // `DailyRituals` non li chiamava piu' nessun file di `lib`: questa
-      // guardia misurava testo che nessuno vede.
-      giornalieri.add(ArcanoDelGiorno.sommarioDi(quando));
+      // **SI MISURA IL TESTO CHE LA PERSONA LEGGE DAVVERO.** Ordine CS,
+
+      // voce M1 della scansione, 6 settembre 2026. I pool statici di
+
+      // `DailyRituals` non li chiamava piu' nessun file di `lib`: questa
+
+      // guardia misurava testo che nessuno vede.
+
       final rito = RitoAlba.diOggi(quando);
       if (rito != null) {
         giornalieri
@@ -90,6 +95,19 @@ void main() {
       }
     }
     tutto['Riti del giorno, le righe'] = giornalieri;
+    // **L'ARCANO DELL'ALBA, ordine DT**: ogni lettura con ogni apertura e
+    // ogni clausola del primo movimento, cioe' tutti i responsi che il dono
+    // puo' comporre.
+    final alba = <String>[];
+    for (final l in lettureDellAlba) {
+      for (var a = 0; a < FormeDellAlba.aperture.length; a++) {
+        for (var c = 0; c < 4; c++) {
+          final r = ResponsoDellAlba.componi(l, apertura: a, clausola: c);
+          alba.add('${r.primo} ${r.secondo} ${r.terzo}');
+        }
+      }
+    }
+    tutto['Arcano dell\'Alba, tutti i responsi'] = alba;
     return tutto;
   }
 
@@ -118,6 +136,15 @@ void main() {
   });
 
   test('il confine RICONOSCE cio\' che deve riconoscere', () {
+    // Il nome dell'arcano XIII non e' la morte rivolta alla persona; la
+    // morte in minuscolo, rivolta alla persona, resta una violazione.
+    expect(
+        ConfineDelResponso.violazioni(
+            'Stamattina il mazzo ti consegna la Morte dritta, carta dello '
+            'Scorpione.'),
+        isEmpty);
+    expect(
+        ConfineDelResponso.violazioni('La morte ti sta vicino.'), isNotEmpty);
     // **Una guardia che non ha mai visto un colpevole non e' una guardia.** Qui
     // si mostrano al confine le frasi dell'ordine, quella ammessa e quella
     // vietata, e si pretende che sappia distinguerle.

@@ -11,9 +11,8 @@ import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:esoteric_circle/features/rituals/breath_destiny_screen.dart';
-import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
+import 'package:esoteric_circle/features/rituals/arcano_dell_alba_screen.dart';
 import 'package:esoteric_circle/features/santuario/daily_strip.dart';
-import 'package:esoteric_circle/features/rituals/day_oracle_screen.dart';
 import 'package:esoteric_circle/features/rituals/dream_rite_screen.dart';
 import 'package:esoteric_circle/features/rituals/sunset_rune_screen.dart';
 import 'package:flutter/material.dart';
@@ -113,7 +112,8 @@ void main() {
   /// **Una scala si misura anche da sola.** I ruoli sono nove e si stampano
   /// tutti, cosi' il numero e' leggibile senza dover montare niente: e' la
   /// misura piu' economica che questo file potesse avere, e mancava.
-  test('la scala dichiara le sue misure, e nessun ruolo scende sotto i '
+  test(
+      'la scala dichiara le sue misure, e nessun ruolo scende sotto i '
       'quattordici', () {
     final misure = {
       for (final voce in ruoli.entries) voce.value: voce.key,
@@ -186,12 +186,11 @@ void main() {
       if (misura == null) return;
       if (misura < soglia) {
         final ruolo = ruoli[misura] ?? 'senza ruolo dichiarato';
-        final gia = piccoli
-            .any((v) => v.$1 == dove && v.$3 == misura && v.$4 == testo);
+        final gia =
+            piccoli.any((v) => v.$1 == dove && v.$3 == misura && v.$4 == testo);
         if (!gia) piccoli.add((dove, ruolo, misura, testo));
       }
-      if (misura < soglioDellaProsa &&
-          lunghezza >= quandoUnTestoDiventaProsa) {
+      if (misura < soglioDellaProsa && lunghezza >= quandoUnTestoDiventaProsa) {
         final ruolo = ruoli[misura] ?? 'senza ruolo dichiarato';
         final gia = prosaPiccola
             .any((v) => v.$1 == dove && v.$3 == misura && v.$4 == testo);
@@ -216,6 +215,11 @@ void main() {
     /// fuori misura, **e nessuno dei due sbagliava**: lui guardava righe che
     /// il documento non conteneva.
     void dentroLoSpan(InlineSpan span, double? ereditata) {
+      // **UN'ICONA NON E' UN TESTO**, ordine DT: il glifo di un'icona e' un
+      // paragrafo nel motore, con la misura dell'icona, ma non si legge. La
+      // riga di chi parla porta un'icona da quindici accanto a un testo alla
+      // misura giusta, ed e' il testo che il censimento deve guardare.
+      if (span.style?.fontFamily == 'MaterialIcons') return;
       final mia = span.style?.fontSize ?? ereditata;
       if (span is TextSpan) {
         if (span.text != null) segna(mia, span.text!);
@@ -256,9 +260,17 @@ void main() {
 
   testWidgets('si misura ogni testo dei Doni e se ne scrive il censimento',
       (tester) async {
-    await apri(tester, DawnRiteScreen(now: DateTime(2026, 7, 13, 7)),
-        'Dono dell\'Alba');
-    await apri(tester, const DayOracleScreen(), 'Dono dell\'Arcano');
+    // **L'ARCANO DELL'ALBA, ordine DT**, prende il posto del Dono dell'Alba e
+    // del Dono dell'Arcano: si misura con le carte coperte e, girata una
+    // carta, con i tre movimenti a video.
+    await apri(tester, ArcanoDellAlbaScreen(now: DateTime(2026, 7, 13, 7)),
+        'Dono dell\'Arcano dell\'Alba, carte coperte');
+    await tester.tap(find.byKey(const Key('arcano_alba_carta_0')));
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    await tester.pump(const Duration(milliseconds: 200));
+    censisci(tester, 'Dono dell\'Arcano dell\'Alba, carta girata');
+    tester.takeException();
     await apri(tester, SunsetRuneScreen(now: DateTime(2026, 7, 13, 20)),
         'Dono del Tramonto',
         maestro: Maestro.caligo);
@@ -340,8 +352,7 @@ void main() {
       if (prosaPiccola.isNotEmpty)
         '| schermata | misura | ruolo | cosa c\'e\' scritto |',
       if (prosaPiccola.isNotEmpty) '| --- | --- | --- | --- |',
-      for (final v in prosaPiccola)
-        '| ${v.$1} | ${v.$3} | ${v.$2} | ${v.$4} |',
+      for (final v in prosaPiccola) '| ${v.$1} | ${v.$3} | ${v.$2} | ${v.$4} |',
     ]);
     File('docs/tipografia/caratteri_piccoli.md')
         .writeAsStringSync('${righe.join('\n')}\n');
@@ -368,14 +379,13 @@ void main() {
     print('ORDINE CO VOCE 13: frasi da $quandoUnTestoDiventaProsa caratteri in '
         'su sotto i $soglioDellaProsa punti: ${prosaPiccola.length}');
     expect(prosaPiccola, isEmpty,
-        reason:
-            'QUESTE SONO FRASI, NON ETICHETTE, E STANNO SOTTO I DICIOTTO '
+        reason: 'QUESTE SONO FRASI, NON ETICHETTE, E STANNO SOTTO I DICIOTTO '
             'PUNTI:\n${prosaPiccola.map((v) => '  ${v.$1}: ${v.$3} punti, '
                 '"${v.$4}"').join('\n')}\n'
-                'Un testo lungo in un Dono si legge riga dopo riga, e sedici '
-                'punti sono il PAVIMENTO dell\'app, non la misura di lettura. '
-                'Il ruolo giusto esiste gia\' nella scala e si chiama '
-                '`lettura`. Non si abbassa questa soglia: si cambia il ruolo '
-                'del testo.');
+            'Un testo lungo in un Dono si legge riga dopo riga, e sedici '
+            'punti sono il PAVIMENTO dell\'app, non la misura di lettura. '
+            'Il ruolo giusto esiste gia\' nella scala e si chiama '
+            '`lettura`. Non si abbassa questa soglia: si cambia il ruolo '
+            'del testo.');
   });
 }

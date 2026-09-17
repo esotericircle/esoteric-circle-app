@@ -34,9 +34,17 @@ import 'accento_del_maestro.dart';
 /// e' un rito della sera, l'app e' notturna, e la scheda chiara era arrivata
 /// agli altri quattro Doni per eredita', non per una scelta.
 ///
-/// Quindi gli abiti sono **due**, e sono opposti: l'Alba resta di giorno, gli
-/// altri quattro tornano di notte. Fra chiaro e scuro non c'e' bisogno di
-/// misurare la distanza per sapere che si distinguono.
+/// Quindi gli abiti erano **due**, e opposti: l'Alba restava di giorno, gli
+/// altri quattro tornavano di notte.
+///
+/// **DALL'ORDINE DT L'ABITO E' UNO.** Il Rito dell'Alba, l'unico dono col
+/// vetro chiaro, non c'e' piu': l'Arcano dell'Alba e' una carta di Medora su
+/// una scena scura, e dargli l'abito del giorno avrebbe voluto dire scegliere
+/// gli accenti per un fondo chiaro che la schermata non dipinge. La misura sul
+/// fotogramma vero lo ha preso: la riga di chi parla a 2,21 contro 4,5. Il
+/// regime chiaro resta nel design system per le superfici chiare dichiarate;
+/// se l'Arcano dell'Alba debba avere un aspetto di giorno e' una decisione di
+/// Mauro, riportata nel rapporto.
 class AbitoDelResponso {
   const AbitoDelResponso._({
     required this.velatura,
@@ -66,7 +74,7 @@ class AbitoDelResponso {
   /// P voce 12, e vale anche per l'abito di notte.
   final Color superficiePeggiore;
 
-  /// Vero per il solo Rito dell'Alba.
+  /// Vero per un abito di giorno. Dall'ordine DT nessun dono lo porta.
   final bool diGiorno;
 
   /// L'accento del Maestro del giorno, portato dove si legge **su questo
@@ -75,19 +83,6 @@ class AbitoDelResponso {
   /// legge sul vetro crema sparirebbe sul vetro di notte, e viceversa.
   Color accentoDi(Maestro maestro) =>
       AccentoDelMaestro.su(maestro, superficie: superficiePeggiore);
-
-  /// **L'ABITO DI GIORNO, che e' quello di prima e non e' cambiato.** Era il
-  /// pezzo giusto da tenere fermo: ha la sua ragione narrativa, e il suo
-  /// contrasto e' gia' misurato a video dall'ordine P.
-  static final AbitoDelResponso _diGiorno = AbitoDelResponso._(
-    velatura: RegimeChiaro.velatura,
-    bordo: RegimeChiaro.bordoDellaVelatura,
-    inchiostro: RegimeChiaro.testoSuChiaro,
-    inchiostroMuto: _mutoDiGiorno,
-    incasso: RegimeChiaro.incassoSuChiaro,
-    superficiePeggiore: RegimeChiaro.superficieChiara,
-    diGiorno: true,
-  );
 
   /// **IL VETRO DI NOTTE E' PIU' OPACO DI QUELLO DI GIORNO, e non e' un
   /// dettaglio.** Il vetro chiaro sta al 78 per cento sopra una scena di sole
@@ -115,12 +110,6 @@ class AbitoDelResponso {
     diGiorno: false,
   );
 
-  /// L'inchiostro muto del giorno non e' una costante: passa dalla porta del
-  /// contrasto. Si copia qui il riferimento perche' un campo `const` non puo'
-  /// leggere un getter.
-  static final Color _mutoDiGiorno = RegimeChiaro.testoMutoSuChiaro;
-
   /// **L'unico punto che decide che abito porta un responso.**
-  static AbitoDelResponso di(DailyElement dono) =>
-      dono == DailyElement.dawn ? _diGiorno : _diNotte;
+  static AbitoDelResponso di(DailyElement dono) => _diNotte;
 }

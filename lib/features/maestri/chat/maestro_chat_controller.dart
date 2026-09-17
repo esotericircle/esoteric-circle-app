@@ -22,6 +22,7 @@ import '../../../core/maestro/lettura_di_ripiego.dart';
 import '../../../core/maestro/memoria_del_respiro.dart';
 import '../../../core/maestro/natal_context.dart';
 import '../../../core/chat/la_carta_del_giorno_in_chat.dart';
+import '../../../core/rituals/arcano_dell_alba/archivio_dell_alba.dart';
 import '../../../core/chat/la_lettura_del_giorno.dart';
 import '../../../core/astro/il_cielo_detto.dart';
 import '../../../core/chat/immersive_intents.dart';
@@ -45,7 +46,6 @@ class MaestroChatController extends ChangeNotifier {
     QuestionAllowance? allowance,
     Tier Function()? tier,
     NatalContext Function()? natal,
-    DateTime? Function()? nascita,
     DateTime Function()? orologio,
     Duration? attesaMinima,
     bool? demo,
@@ -58,13 +58,7 @@ class MaestroChatController extends ChangeNotifier {
         _allowance = allowance,
         _tier = tier,
         _natal = natal,
-        _nascita = nascita,
         _orologio = orologio;
-
-  /// **LA DATA DI NASCITA, per la carta del giorno.** Ordine DS voce 08: la
-  /// carta che la chat nomina e' l'Arcano del Giorno, e deve essere la stessa
-  /// che il Dono mostra, che nasce dalla stessa data.
-  final DateTime? Function()? _nascita;
 
   /// L'ora di adesso: in app e' l'orologio, nelle prove si fissa.
   final DateTime Function()? _orologio;
@@ -490,8 +484,9 @@ class MaestroChatController extends ChangeNotifier {
         // l'invito non e' una frase fissa: dice QUALE carta, la stessa del
         // Dono, perche' la persona l'ha chiesta e non va rimandata altrove
         // per sapere il nome.
-        text: intent.target == ImmersiveTarget.arcanoDelGiorno
-            ? LaCartaDelGiornoInChat.invito(_adesso, nascita: _nascita?.call())
+        text: intent.target == ImmersiveTarget.arcanoDellAlba
+            ? LaCartaDelGiornoInChat.invito(
+                await ArchivioDellAlba.diOggi(_adesso))
             : intent.invite,
         at: DateTime.now(),
         intentId: intent.id,

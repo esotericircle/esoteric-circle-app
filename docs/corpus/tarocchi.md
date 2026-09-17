@@ -316,7 +316,7 @@ Ogni lettura ha due parti con compiti disgiunti. Il **dono** è il secondo movim
   - medora: La sapienza vera non ti sostituisce, ti accompagna finché sai camminare.
 - **rovesciato, lettura 1**
   - parola: Domanda
-  - dono: Prendi una regola che segui per abitudine e rivolgile una domanda sincera: è ancora tua, o l'hai solo ereditata?
+  - dono: Prendi una regola che segui per abitudine e rivolgile una domanda sincera: è ancora tua, o l'hai solo ricevuta?
   - medora: Crescere a volte vuol dire uscire dal tracciato, con rispetto per chi l'ha disegnato.
 - **rovesciato, lettura 2**
   - parola: Sentiero
@@ -393,7 +393,7 @@ Ogni lettura ha due parti con compiti disgiunti. Il **dono** è il secondo movim
   - medora: Nessuna spiegazione lunga serve a ciò che è limpido.
 - **dritto, lettura 3**
   - parola: Responsabilità
-  - dono: Assumiti una responsabilità che fin qui hai lasciato in sospeso, anche solo annunciando quando te ne occuperai.
+  - dono: Assumiti una responsabilità che fin qui hai lasciato in sospeso, anche solo scegliendo il giorno in cui occupartene.
   - medora: Chi raccoglie con lucidità ciò che ha seminato non teme il raccolto.
 - **rovesciato, lettura 1**
   - parola: Chiarezza

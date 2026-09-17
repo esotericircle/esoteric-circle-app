@@ -116,19 +116,10 @@ class ChatOpeners {
   static String sigillo(String intenzione) =>
       'Ho sigillato questa intenzione: «$intenzione». Come la tengo viva?';
 
-  /// Dal Rito dell\'Alba verso Medora, con la parola del giorno.
-  static String alba(String parola) =>
-      'La mia parola di stamattina è «$parola». Come la porto dentro la '
-      'giornata?';
-
   /// Dal Soffio del Destino verso Aura, col responso del soffio.
   static String soffio(String responso) =>
       'Il mio soffio di oggi dice: «$responso». Cosa mi chiede di lasciare '
       'andare?';
-
-  /// Dall\'Arcano del Giorno verso Medora, con la carta uscita.
-  static String oracolo(String carta) =>
-      'L\'arcano di oggi è $carta. Cosa mi sta indicando adesso?';
 
   /// Dal Rito della Notte verso Caligo, col responso della notte.
   static String sogno(String responso) =>

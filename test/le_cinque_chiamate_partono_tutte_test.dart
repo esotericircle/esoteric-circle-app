@@ -44,7 +44,8 @@ void main() {
   test('Le cinque ore sono distinte e in ordine', () {
     final scelta = SceltaDegliAvvisi();
     final ore = [for (final d in scelta.quelliCheChiamano) scelta.minutiDi(d)];
-    expect(ore.length, 5, reason: 'le ore sono ${ore.length}');
+    expect(ore.length, DailyElement.values.length,
+        reason: 'le ore sono ${ore.length}');
     expect(ore.toSet().length, ore.length,
         reason: 'due Doni chiamano allo stesso minuto: $ore');
     final ordinate = [...ore]..sort();
@@ -62,11 +63,11 @@ void main() {
         for (final d in scelta.quelliCheChiamano) d: scelta.minutiDi(d),
       },
     );
-    expect(id.length, 5,
-        reason: 'le pianificazioni sono ${id.length} invece di cinque');
-    expect(id.toSet().length, 5,
+    expect(id.length, DailyElement.values.length,
+        reason: 'le pianificazioni sono ${id.length} invece di una per Dono');
+    expect(id.toSet().length, DailyElement.values.length,
         reason: 'due Doni condividono lo stesso id: $id');
-    expect(finto.programmate.length, 5,
+    expect(finto.programmate.length, DailyElement.values.length,
         reason: 'il servizio ha ricevuto ${finto.programmate.length} '
             'programmazioni: qualcuna e\' stata scartata per strada');
 
@@ -93,8 +94,7 @@ void main() {
     expect(manifest, contains('android.permission.RECEIVE_BOOT_COMPLETED'),
         reason: 'senza questo permesso gli avvisi programmati spariscono al '
             'riavvio del telefono e non tornano piu\'');
-    expect(manifest,
-        contains('ScheduledNotificationBootReceiver'),
+    expect(manifest, contains('ScheduledNotificationBootReceiver'),
         reason: 'manca il receiver che rimette le chiamate in coda');
 
     for (final azione in const [

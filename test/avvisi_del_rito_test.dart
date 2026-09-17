@@ -304,7 +304,7 @@ void main() {
     });
 
     test('non promette esiti', () {
-      const tutto = '${AvvisiDelRito.titolo} ${AvvisiDelRito.testo} '
+      final tutto = '${AvvisiDelRito.titolo} ${AvvisiDelRito.testo} '
           '${AvvisiDelRito.spiegazione}';
       for (final v in [
         'guarigione',

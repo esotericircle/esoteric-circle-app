@@ -10,7 +10,9 @@ import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'package:esoteric_circle/core/responsi/confine_del_responso.dart';
 import 'package:esoteric_circle/core/responsi/legge_del_responso.dart';
 import 'package:esoteric_circle/core/rituals/rito_alba.dart';
-import 'package:esoteric_circle/core/rituals/arcano_del_giorno.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/forme_dell_alba.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/letture_dell_alba_dati.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/responso_dell_alba.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -41,7 +43,6 @@ void main() {
       // testo vero non lo misurava nessuno.
       final rito = RitoAlba.diOggi(quando);
       final testi = <String, String>{
-        'arcano': ArcanoDelGiorno.sommarioDi(quando),
         if (rito != null) 'alba, parola': rito.parola,
         if (rito != null) 'alba, gesto': rito.gesto,
         if (rito != null) 'alba, respiro': rito.respiro,
@@ -53,7 +54,29 @@ void main() {
         }
       }
     }
-    expect(violazioni, isEmpty, reason: violazioni.take(8).join('\n'));
+    // **L'ARCANO DELL'ALBA, ORDINE DT**: il suo testo non dipende dal giorno
+    // ma dalla lettura, quindi si enumerano tutte le letture del corpus con
+    // ogni apertura e ogni clausola del primo movimento.
+    for (final l in lettureDellAlba) {
+      for (var a = 0; a < FormeDellAlba.aperture.length; a++) {
+        for (var c = 0; c < 4; c++) {
+          final r = ResponsoDellAlba.componi(l, apertura: a, clausola: c);
+          for (final voce in {
+            'arcano dell\'alba, carta': r.primo,
+            'arcano dell\'alba, dono': r.secondo,
+            'arcano dell\'alba, medora': r.terzo,
+          }.entries) {
+            final v = ConfineDelResponso.violazioni(voce.value);
+            if (v.isNotEmpty) {
+              violazioni
+                  .add('${voce.key} ${ResponsoDellAlba.cartaColVerso(l.stato)} '
+                      '${l.numero}: ${v.join("; ")}');
+            }
+          }
+        }
+      }
+    }
+    expect(violazioni.toSet(), isEmpty, reason: violazioni.toSet().take(12).join('\n'));
   });
 
   test('i doni sono UNA RIGA, e non fingono di essere un responso intero', () {
@@ -80,12 +103,25 @@ void main() {
       // qui sopra, che lo guarda insieme al respiro e alla parola.
       final rito = RitoAlba.diOggi(quando);
       for (final voce in {
-        'arcano': ArcanoDelGiorno.sommarioDi(quando),
         if (rito != null) 'alba, parola': rito.parola,
       }.entries) {
         if (voce.value.length > massimo) {
           massimo = voce.value.length;
           quale = '${voce.key} giorno $giorno';
+        }
+      }
+    }
+    // **E LA RIGA DELL'ARCANO DELL'ALBA**, ordine DT: il primo movimento, la
+    // carta col verso e l'attribuzione, e' il colpo d'occhio del dono.
+    for (final l in lettureDellAlba) {
+      for (var a = 0; a < FormeDellAlba.aperture.length; a++) {
+        for (var c = 0; c < 4; c++) {
+          final primo =
+              ResponsoDellAlba.componi(l, apertura: a, clausola: c).primo;
+          if (primo.length > massimo) {
+            massimo = primo.length;
+            quale = 'arcano dell\'alba: $primo';
+          }
         }
       }
     }

@@ -96,7 +96,7 @@ class ContiDelleArti {
 
   /// **I DONI DEL GIORNO, che arti del catalogo non sono.**
   ///
-  /// I cinque Doni non compaiono in `ArtCatalog` perche' non sono arti dello
+  /// I Doni non compaiono in `ArtCatalog` perche' non sono arti dello
   /// scaffale: sono il rito quotidiano. Contano lo stesso, e nella timeline
   /// sono le voci piu' frequenti di una giornata, quindi il loro conto va
   /// dichiarato qui invece di darlo per scontato.
@@ -107,7 +107,6 @@ class ContiDelleArti {
   static const Map<DailyElement, String> gestiDeiDoni = {
     DailyElement.dawn: 'alba',
     DailyElement.breath: 'soffio',
-    DailyElement.oracle: 'oracolo',
     DailyElement.rune: 'tramonto',
     DailyElement.night: 'sogno',
   };

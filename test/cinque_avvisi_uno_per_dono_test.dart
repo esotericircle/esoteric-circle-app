@@ -25,7 +25,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// impostazioni di Android.
 ///
 /// **Gli orari erano gia' scritti nei Doni**, e sono quelli concordati: Alba
-/// 7:00, Soffio 10:30, Arcano 13:00, Tramonto 18:30, Notte 22:30.
+/// 7:00, Soffio 13:00, Tramonto 18:30, Notte 22:30 (ordine DT: l'Arcano
+/// dell'Alba alle sette, il Soffio alle tredici, l'Arcano del Giorno tolto).
 class _AvvisiFinti extends ServizioAvvisi {
   @override
   Future<void> mostraAdesso({
@@ -81,7 +82,7 @@ void main() {
 
   setUp(() => SharedPreferences.setMockInitialValues(const {}));
 
-  test('BC.05: cinque Doni accesi fanno cinque chiamate, ognuna alla sua ora',
+  test('BC.05: i Doni accesi fanno una chiamata ciascuno, ognuna alla sua ora',
       () async {
     final finti = _AvvisiFinti();
     // Mezzanotte e un minuto: nessuna delle cinque ore e' ancora passata,
@@ -92,9 +93,10 @@ void main() {
       adesso: adesso,
       doniAccesi: DailyElement.values,
     );
-    expect(ids, hasLength(5),
-        reason: 'con tutti e cinque i Doni accesi le chiamate sono '
-            '${ids.length} invece di cinque');
+    // **Dall'ordine DT il numero non si scrive**: e' quello dei Doni.
+    expect(ids, hasLength(DailyElement.values.length),
+        reason: 'con tutti i Doni accesi le chiamate sono ${ids.length} '
+            'invece di ${DailyElement.values.length}');
 
     final righe = <String>[];
     for (final d in DailyElement.values) {
@@ -118,7 +120,7 @@ void main() {
     final canali = DailyElement.values
         .map((d) => finti.programmati[AvvisiDelRito.idDelDono(d)]!.canale)
         .toSet();
-    expect(canali, hasLength(5),
+    expect(canali, hasLength(DailyElement.values.length),
         reason: 'i canali distinti sono ${canali.length}: due Doni si '
             'spengono insieme dalle impostazioni di sistema');
   });
@@ -133,7 +135,7 @@ void main() {
       adesso: adesso,
       doniAccesi: DailyElement.values,
     );
-    expect(finti.programmati, hasLength(5));
+    expect(finti.programmati, hasLength(DailyElement.values.length));
 
     // Poi solo l'Alba.
     finti.annullati.clear();
@@ -194,7 +196,9 @@ void main() {
             'muta fino al giorno dopo');
   });
 
-  test('BC.05: le chiamate vecchie si spengono, e sono quattro', () {
+  test(
+      'BC.05: le chiamate vecchie si spengono, anche quella dell Arcano del Giorno',
+      () {
     // **SU UN TELEFONO CHE AGGIORNA L APP, le tre chiamate di prima sono gia
     // in coda dentro il sistema**: nessuno le annulla da solo, e resterebbero
     // a suonare accanto alle cinque nuove. Gli id nuovi partono da 1100
@@ -217,6 +221,12 @@ void main() {
     expect(regia.contains('idDelleChiamateDiPrima'), isTrue,
         reason: 'nessuno spegne le chiamate di prima: chi aggiorna l app le '
             'riceverebbe accanto alle nuove');
+    // **ORDINE DT VOCE 01**: il numero 1102 era l'Arcano del Giorno, e sui
+    // telefoni che aggiornano la sua chiamata delle tredici e' ancora in coda.
+    expect(AvvisiDelRito.idDelleChiamateDiPrima, contains(1102));
+    expect(
+        DailyElement.values.map(AvvisiDelRito.idDelDono), isNot(contains(1102)),
+        reason: 'un Dono di oggi usa il numero dell Arcano del Giorno');
   });
 
   test('BC.05: la scelta parte con TUTTI E CINQUE accesi', () async {
@@ -239,7 +249,7 @@ void main() {
     // ignore: avoid_print
     print('ORDINE BC VOCE 05: di partenza chiamano '
         '${scelta.quelliCheChiamano.map((d) => d.name).toList()}');
-    expect(scelta.quelliCheChiamano, hasLength(5));
+    expect(scelta.quelliCheChiamano, hasLength(DailyElement.values.length));
     for (final d in DailyElement.values) {
       expect(scelta.chiama(d), isTrue,
           reason: 'il Dono ${d.name} non chiama di partenza');
@@ -258,7 +268,6 @@ void main() {
     // che ognuno si gestisca per conto suo.
     for (final d in const [
       DailyElement.breath,
-      DailyElement.oracle,
       DailyElement.rune,
       DailyElement.night,
     ]) {
@@ -288,14 +297,13 @@ void main() {
     // notifica."
     final scelta = SceltaDegliAvvisi();
     await scelta.carica();
-    expect(
-        scelta.minutiDi(DailyElement.oracle), DailyElement.oracle.anchorMinutes,
+    expect(scelta.minutiDi(DailyElement.rune), DailyElement.rune.anchorMinutes,
         reason: 'di partenza vale l ora concordata');
-    expect(scelta.eLOraDiCasa(DailyElement.oracle), isTrue);
+    expect(scelta.eLOraDiCasa(DailyElement.rune), isTrue);
 
-    await scelta.scegliLOra(DailyElement.oracle, ora: 9, minuto: 5);
-    expect(scelta.minutiDi(DailyElement.oracle), 9 * 60 + 5);
-    expect(scelta.eLOraDiCasa(DailyElement.oracle), isFalse);
+    await scelta.scegliLOra(DailyElement.rune, ora: 9, minuto: 5);
+    expect(scelta.minutiDi(DailyElement.rune), 9 * 60 + 5);
+    expect(scelta.eLOraDiCasa(DailyElement.rune), isFalse);
 
     // **E LA CHIAMATA VA ALL ORA NUOVA**, se no l interruttore direbbe una
     // cosa e l agenda ne farebbe un altra.
@@ -303,13 +311,13 @@ void main() {
     await AvvisiDelRito.programmaLeChiamateDelGiorno(
       servizio: finti,
       adesso: DateTime(2026, 8, 23, 0, 1),
-      doniAccesi: const [DailyElement.oracle],
-      oreScelte: {DailyElement.oracle: scelta.minutiDi(DailyElement.oracle)},
+      doniAccesi: const [DailyElement.rune],
+      oreScelte: {DailyElement.rune: scelta.minutiDi(DailyElement.rune)},
     );
     final quando =
-        finti.programmati[AvvisiDelRito.idDelDono(DailyElement.oracle)]!.quando;
+        finti.programmati[AvvisiDelRito.idDelDono(DailyElement.rune)]!.quando;
     // ignore: avoid_print
-    print('ORDINE BC VOCE 05 coda: l Arcano spostato alle 09:05 chiama alle '
+    print('ORDINE BC VOCE 05 coda: la Runa spostata alle 09:05 chiama alle '
         '${quando.hour.toString().padLeft(2, '0')}:'
         '${quando.minute.toString().padLeft(2, '0')}');
     expect(quando.hour, 9);
@@ -317,9 +325,8 @@ void main() {
 
     // **E SI TORNA INDIETRO.** Chi sposta un ora per prova deve poter
     // rimettere quella di casa senza ricordarsela a memoria.
-    await scelta.rimettiLOraDiCasa(DailyElement.oracle);
-    expect(scelta.minutiDi(DailyElement.oracle),
-        DailyElement.oracle.anchorMinutes);
+    await scelta.rimettiLOraDiCasa(DailyElement.rune);
+    expect(scelta.minutiDi(DailyElement.rune), DailyElement.rune.anchorMinutes);
 
     // **E LA SCELTA SOPRAVVIVE ALLA CHIUSURA DELL APP.**
     await scelta.scegliLOra(DailyElement.night, ora: 21, minuto: 30);
@@ -396,8 +403,13 @@ void main() {
     // **DICE IL NUMERO VERO PRIMA CHE IL SISTEMA CHIEDA.** Con tutti e cinque
     // accesi di partenza, chi accetta deve sapere che sono cinque: e la
     // differenza fra un consenso informato e una sorpresa il giorno dopo.
-    expect(AvvisiDelRito.spiegazione, contains('cinque avvisi al giorno'),
+    // **Dall'ordine DT il numero e i nomi si compongono dai Doni.**
+    expect(AvvisiDelRito.spiegazione,
+        contains('${DailyElements.quantiInLettere} avvisi al giorno'),
         reason: 'la spiegazione non dice quanti avvisi arriveranno');
+    expect(AvvisiDelRito.spiegazione, contains(DailyElements.elencoInFrase),
+        reason: 'la spiegazione non nomina i Doni che chiameranno');
+    expect(AvvisiDelRito.spiegazione, isNot(contains('Arcano del Giorno')));
     expect(AvvisiDelRito.spiegazione, contains('spegnere'),
         reason: 'la spiegazione non dice che si possono spegnere');
     expect(AvvisiDelRito.spiegazione, contains('spostare'),

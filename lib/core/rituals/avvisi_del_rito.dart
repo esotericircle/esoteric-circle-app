@@ -155,11 +155,11 @@ class AvvisiDelRito {
   /// **Non nomina il Maestro di turno e non anticipa il dono.** Sapere prima
   /// che cosa arriva toglie al rito la sola cosa che ha, cioe' l'apertura. E
   /// non promette niente: dice che c'è, non che farà bene.
-  static const String titolo = 'Il Rito dell\'Alba';
+  static const String titolo = 'L\'Arcano dell\'Alba';
 
   /// Il testo dell'avviso, che invita ad aprire e basta.
   static const String testo =
-      'Il sole è sorto. Il rito di oggi ti aspetta quando vuoi.';
+      'Il sole è sorto. La tua carta di oggi ti aspetta coperta.';
 
   /// La spiegazione che si mostra PRIMA di chiedere il permesso.
   ///
@@ -172,10 +172,14 @@ class AvvisiDelRito {
   /// detta nel momento peggiore: **mentre si chiede un permesso**. Chi accetta
   /// deve sapere cosa sta accettando, e qui c'e' scritto il numero vero, chi
   /// sceglie e dove si cambia idea.
-  static const String spiegazione =
-      'Posso chiamarti quando un Dono del giorno è pronto: l\'Alba al '
-      'mattino, il Soffio, l\'Arcano, il Tramonto e il Sigillo del Sogno, '
-      'ciascuno alla sua ora. Sono cinque avvisi al giorno. Dal menù '
+  ///
+  /// **E DALL'ORDINE DT NON SCRIVE PIU' NE' I NOMI NE' IL NUMERO**: li compone
+  /// dai doni. Diceva *"sono cinque avvisi"* coi cinque nomi a mano, e
+  /// togliendo un dono sarebbe tornata a mentire nel momento peggiore.
+  static String get spiegazione =>
+      'Posso chiamarti quando un Dono del giorno è pronto, ciascuno alla sua '
+      'ora: ${DailyElements.elencoInFrase}. Sono '
+      '${DailyElements.quantiInLettere} avvisi al giorno. Dal menù '
       'Notifiche puoi spegnere quelli che non vuoi e spostare l\'ora di '
       'quelli che tieni. L\'orario è indicativo, perché il sistema consegna '
       'l\'avviso in una finestra attorno a quell\'ora e non al minuto. Se '
@@ -204,8 +208,8 @@ class AvvisiDelRito {
     final scelti = minutiScelti ?? ancora;
     if (scelti != ancora) {
       return (
-        istante: DateTime(quando.year, quando.month, quando.day, scelti ~/ 60,
-            scelti % 60),
+        istante: DateTime(
+            quando.year, quando.month, quando.day, scelti ~/ 60, scelti % 60),
         albaVera: false,
       );
     }
@@ -261,8 +265,7 @@ class AvvisiDelRito {
         istanteDellAvviso(giorno, posizione, minutiScelti: minutiScelti);
     if (!giaFatto && !quando.istante.isAfter(adesso)) {
       giorno = adesso.add(const Duration(days: 1));
-      quando =
-          istanteDellAvviso(giorno, posizione, minutiScelti: minutiScelti);
+      quando = istanteDellAvviso(giorno, posizione, minutiScelti: minutiScelti);
     }
 
     await servizio.annulla(idAvvisoAlba);
@@ -331,13 +334,27 @@ class AvvisiDelRito {
   /// nel sistema**: riusare i loro numeri vorrebbe dire sovrascriverne una a
   /// caso e lasciare le altre a suonare per sempre. Con un blocco nuovo, le
   /// vecchie si annullano una per una e le nuove nascono pulite.
-  static int idDelDono(DailyElement dono) =>
-      1100 + DailyElement.values.indexOf(dono);
+  ///
+  /// **Il numero e' del dono, non della sua posizione**, ordine DT voce 17:
+  /// togliendo l'Arcano del Giorno la posizione della Runa e del Sigillo
+  /// sarebbe scesa di uno, e l'avviso gia' in coda col numero vecchio non si
+  /// sarebbe piu' potuto annullare.
+  static int idDelDono(DailyElement dono) => 1100 + dono.numeroDellAvviso;
 
   /// Gli id delle chiamate di prima, che vanno spente sui telefoni che
   /// aggiornano: restano qui a nome perche' spegnere un numero a caso non e'
   /// una cosa che si scrive in linea.
-  static const List<int> idDelleChiamateDiPrima = [1001, 1002, 1003, 1004];
+  ///
+  /// **Il 1102 era l'Arcano del Giorno**, ordine DT voce 01: il dono non c'e'
+  /// piu', e sui telefoni che aggiornano la sua chiamata delle tredici e' ancora
+  /// in coda. Si spegne con le altre di prima.
+  static const List<int> idDelleChiamateDiPrima = [
+    1001,
+    1002,
+    1003,
+    1004,
+    1102,
+  ];
 
   /// Il canale di sistema di un Dono: uno per ciascuno, cosi' **ognuno si
   /// spegne anche dalle impostazioni di Android**, e chi spegne il Sigillo del
@@ -355,10 +372,9 @@ class AvvisiDelRito {
   /// che il momento e' arrivato, non cosa ci si trovera' dentro.
   static String testoDelDono(DailyElement dono) => switch (dono) {
         DailyElement.dawn =>
-          'Il sole è sorto. Il rito di oggi ti aspetta quando vuoi.',
+          'Il sole è sorto. La tua carta di oggi ti aspetta coperta.',
         DailyElement.breath =>
           'È l\'ora del respiro. Il Soffio del Destino ti aspetta.',
-        DailyElement.oracle => 'La carta di oggi è pronta a scoprirsi.',
         DailyElement.rune =>
           'Il sole scende: la tua runa della sera ti aspetta.',
         DailyElement.night =>

@@ -188,7 +188,9 @@ void main() {
       // Maestro reale, che nessuna parte dell'app esegue.
       // TRENTADUE dall'ordine DO voce 11: i sigilli dell'Intenzione vivi
       // insieme, uno due tre cinque, e la loro carica, sempre aperta.
-      expect(PlanCatalog.matrix.length, 32);
+      // TRENTUNO dall'ordine DT voce 01: le righe del Rito dell'Alba e
+      // dell'Arcano del Giorno sono diventate quella dell'Arcano dell'Alba.
+      expect(PlanCatalog.matrix.length, 31);
       final gettate =
           PlanCatalog.matrix.firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di

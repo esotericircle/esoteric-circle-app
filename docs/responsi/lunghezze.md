@@ -25,7 +25,8 @@ percio' le lunghezze nuove.
 
 | Responso | Quanti | Mediana | Massimo |
 | --- | --- | --- | --- |
-| Arcano del Giorno, il sommario | 366 | 20 | 26 |
+| Arcano dell'Alba, Medora | 132 | 64 | 85 |
+| Arcano dell'Alba, il dono | 132 | 114 | 148 |
 | Oroscopo, scheda «amore» | 4392 | 211 | 253 |
 | Oroscopo, scheda «carriera» | 4392 | 220 | 248 |
 | Oroscopo, scheda «fortuna» | 4392 | 200 | 247 |
@@ -46,7 +47,8 @@ percio' le lunghezze nuove.
 
 ## Il piu' lungo di ogni tipo, in testa
 
-- **Arcano del Giorno, il sommario** (26 caratteri): Il dono della sospensione.
+- **Arcano dell'Alba, Medora** (85 caratteri): Crescere a volte vuol dire uscire dal tracciato, con rispetto per chi l'ha disegnato.
+- **Arcano dell'Alba, il dono** (148 caratteri): Resta nell'aperto: quando una decisione ti stringe, esci sul balcone o spalanca una finest...
 - **Oroscopo, scheda «amore»** (253 caratteri): In amore vai diretto, come vuole la tua natura di fuoco e la tua sincerità disarma perché ...
 - **Oroscopo, scheda «carriera»** (248 caratteri): Sul lavoro convinci con la passione più che con la logica fredda e il tuo entusiasmo diven...
 - **Oroscopo, scheda «fortuna»** (247 caratteri): La tua fortuna passa dagli incontri e dall'informazione giusta al momento giusto ed è un d...

@@ -51,10 +51,10 @@ void main() {
     // qui e non si scopre: scoperto leggendo una cartella sarebbe verde il
     // giorno che una schermata sparisce.
     const schermate = <String, DailyElement>{
-      'lib/features/rituals/day_oracle_screen.dart': DailyElement.oracle,
+      'lib/features/rituals/arcano_dell_alba_screen.dart': DailyElement.dawn,
       'lib/features/rituals/dream_rite_screen.dart': DailyElement.night,
       'lib/features/rituals/sunset_rune_screen.dart': DailyElement.rune,
-      'lib/features/rituals/ritual_gift_card.dart': DailyElement.dawn,
+      'lib/features/rituals/ritual_gift_card.dart': DailyElement.breath,
     };
     final sbagliate = <String>[];
     var guardate = 0;
@@ -94,7 +94,7 @@ void main() {
   test('e sul fondo vero i tre accenti stanno sopra la soglia', () {
     // **QUESTO E' IL CONTO CHE MANCAVA**, e si fa sul fondo peggiore invece
     // che su quello dichiarato.
-    final peggiore = AbitoDelResponso.di(DailyElement.oracle).superficiePeggiore;
+    final peggiore = AbitoDelResponso.di(DailyElement.night).superficiePeggiore;
     final magri = <String>[];
     final tavola = <String>[];
     for (final maestro in Maestro.values) {
@@ -121,7 +121,7 @@ void main() {
     // superficie e' il modo in cui questo difetto e' nato, e sarebbe il modo
     // in cui tornerebbe.
     final quotaVera = quantoEScuro(
-        AbitoDelResponso.di(DailyElement.oracle).superficiePeggiore);
+        AbitoDelResponso.di(DailyElement.night).superficiePeggiore);
     final scritti = <String>[];
     var guardati = 0;
     for (final file in sorgentiDiLib()) {

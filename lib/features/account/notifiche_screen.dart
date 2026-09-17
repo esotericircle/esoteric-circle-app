@@ -125,7 +125,7 @@ class _NotificheScreenState extends State<NotificheScreen> {
       context,
       permission: AppPermission.notifications,
       palette: MaestroPalette.forKey(const ThemeKey.of(Maestro.medora)),
-      copy: const PermissionCopy(
+      copy: PermissionCopy(
         icon: Icons.notifications_active_rounded,
         title: 'Posso chiamarti quando è l\'ora?',
         body: AvvisiDelRito.spiegazione,

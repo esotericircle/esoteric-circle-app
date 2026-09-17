@@ -17,7 +17,7 @@ import '../../core/astro/moon_phase.dart';
 import '../../design_system/components/luna_reale.dart';
 import '../../core/identity/birth_moon.dart';
 import '../../core/maestro/maestro.dart';
-import '../../core/rituals/daily_rituals.dart';
+import '../../core/rituals/arcano_dell_alba/responso_dell_alba.dart';
 import '../../core/rituals/dream_rite_corpus.dart';
 import '../../core/rituals/filo_del_giorno.dart';
 import '../../core/maestro/il_respiro_di_oggi.dart';
@@ -173,7 +173,10 @@ enum _Fase { nebbia, cielo, messaggio }
 class _DreamRiteScreenState extends State<DreamRiteScreen>
     with TickerProviderStateMixin {
   late final DateTime _date = widget.now ?? DateTime.now();
-  late final Maestro _maestro = DailyRituals.nightMaestro(_date);
+  // **A MEDORA, ordine DT voce 15**: il Maestro del Sigillo e' quello del
+  // dono, dalla porta sola dei Maestri dei doni, e non ruota piu'.
+  late final Maestro _maestro =
+      DailyElements.maestroFor(DailyElement.night, _date);
   late final MaestroPalette _palette =
       MaestroPalette.forKey(ThemeKey.of(_maestro));
   late final BirthMoon _luna = DreamRiteCorpus.lunaDi(_date);
@@ -258,9 +261,12 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
     // saluto di Caligo, la card da condividere. Mancava che RACCOGLIESSE la
     // giornata. Con la parola dell'alba e la runa del tramonto dentro, il rito
     // della buonanotte diventa quello che il nome promette.
-    final parola = await FiloDelGiorno.parolaDiStamattina(_date);
-    if (parola != null && mounted) {
-      setState(() => _parolaDiStamattina = parola);
+    //
+    // **Dall'ordine DT e' il DONO della carta dell'alba**: la parola quando la
+    // carta e' zodiacale, l'azione o il respiro negli altri giorni.
+    final dono = await FiloDelGiorno.donoDiStamattina(_date);
+    if (dono != null && mounted) {
+      setState(() => _donoDiStamattina = dono);
     }
     // **E IL RESPIRO DI OGGI, se c'e' stato.** Ordine DA voce 06,
     // 10 settembre 2026.
@@ -285,8 +291,8 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
   /// Ordine DA voce 06.
   String? _respiroDiOggi;
 
-  /// La parola ricevuta all'alba di oggi, se il rito e' stato compiuto.
-  String? _parolaDiStamattina;
+  /// Il dono ricevuto all'alba di oggi, se la carta e' stata girata.
+  ResponsoDellAlba? _donoDiStamattina;
 
   @override
   void didChangeDependencies() {
@@ -685,8 +691,8 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
           // DICHIARATA, con otto centesimi di margine; sul fondo vero quello
           // stesso blu misura **3,15**. `AbitoDelResponso` dichiara gia' il
           // fondo peggiore, e la scheda dei Doni lo usava gia'.
-          superficie: AbitoDelResponso.di(DailyElement.night
-              ).superficiePeggiore,
+          superficie:
+              AbitoDelResponso.di(DailyElement.night).superficiePeggiore,
         ),
         // **QUI TORNA LA GIORNATA, ordine DD voce 04, 10 settembre 2026.**
         //
@@ -734,7 +740,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
                   color: _palette.goldSoft, letterSpacing: 0.3, height: 1.45)),
         ],
         // LA PAROLA DEL MATTINO, richiamata la sera. Ordine P voce 18.
-        if (_parolaDiStamattina != null) ...[
+        if (_donoDiStamattina?.parola != null) ...[
           const SizedBox(height: SpacingTokens.sm),
           // **LA PAROLA IN GRASSETTO DENTRO LA FRASE.** Ordine DD voce 02,
           // 10 settembre 2026: qui la parola aveva lo stesso peso di
@@ -742,8 +748,8 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
           // riconoscere. Le virgolette le mette la frase, il grassetto lo
           // mette questo widget.
           FraseConLaParola(
-              frase: FiloDelGiorno.richiamoDellaParola(_parolaDiStamattina!),
-              parola: _parolaDiStamattina!,
+              frase: FiloDelGiorno.richiamoDelDono(_donoDiStamattina!),
+              parola: _donoDiStamattina!.parola!,
               key: const Key('dream_parola_del_mattino'),
               textAlign: TextAlign.center,
               // **E DA SEDICI A DICIOTTO, ordine CO voce 13, 3 settembre 2026.**
@@ -754,6 +760,18 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
               // e la voce CG.14 ci ha portato SOPRA cio' che stava sotto. Da quel
               // giorno il pavimento e' stato scambiato per il traguardo. Questa e'
               // una frase che si legge, non un'etichetta: il suo ruolo e' `lettura`.
+              stile: TypographyTokens.lettura()
+                  .copyWith(color: _palette.goldSoft, height: 1.45)),
+        ],
+        // **L'AZIONE O IL RESPIRO DELLA CARTA, quando la parola non c'e'.**
+        // Ordine DT: stessa raccolta e stesso posto, senza grassetto, perche'
+        // qui la cosa da riconoscere e' una frase intera e non una parola.
+        if (_donoDiStamattina != null && _donoDiStamattina!.parola == null) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          ParagrafiDiLettura(
+              testo: FiloDelGiorno.richiamoDelDono(_donoDiStamattina!),
+              key: const Key('dream_parola_del_mattino'),
+              textAlign: TextAlign.center,
               stile: TypographyTokens.lettura()
                   .copyWith(color: _palette.goldSoft, height: 1.45)),
         ],

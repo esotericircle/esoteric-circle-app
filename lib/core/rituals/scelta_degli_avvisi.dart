@@ -71,7 +71,6 @@ class SceltaDegliAvvisi extends ChangeNotifier {
   static const Set<DailyElement> accesiDiPartenza = {
     DailyElement.dawn,
     DailyElement.breath,
-    DailyElement.oracle,
     DailyElement.rune,
     DailyElement.night,
   };

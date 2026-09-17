@@ -47,7 +47,8 @@ void main() {
               reason: '$maestro con $fatto non ha risposta');
         }
       }
-      cardinaleMinimo(coppie, Maestro.values.length * DatoDelCielo.values.length,
+      cardinaleMinimo(
+          coppie, Maestro.values.length * DatoDelCielo.values.length,
           cosa: 'coppie di lente e fatto del cielo',
           perche: 'Se un Maestro o un fatto sparisse dai loro elenchi, questa '
               'prova girerebbe su meno coppie e resterebbe verde per non aver '
@@ -173,8 +174,8 @@ void main() {
       for (var g = 0; g < 365; g++) {
         final giorno = DateTime(2026, 1, 1).add(Duration(days: g));
         for (final maestro in Maestro.values) {
-          final rito = RitoAlba.componi(
-              giorno, maestro, CieloDiStamattina.per(giorno));
+          final rito =
+              RitoAlba.componi(giorno, maestro, CieloDiStamattina.per(giorno));
           if (rito == null) continue;
           riti++;
           if (rito.risposta.titolo.trim().isNotEmpty &&
@@ -220,11 +221,11 @@ void main() {
       // gesto annunciato non compaia in nessuna delle cinque schermate. E' la
       // stessa legge portata fino in fondo.
       const schermate = <String, String>{
-        'lib/features/rituals/day_oracle_screen.dart': 'arcano_sommario',
+        'lib/features/rituals/arcano_dell_alba_screen.dart':
+            'arcano_alba_carta',
         'lib/features/rituals/sunset_rune_screen.dart': 'sunset_risposta',
         'lib/features/rituals/dream_rite_screen.dart': 'dream_message_title',
         'lib/features/rituals/ritual_gift_card.dart': 'risposta.titolo',
-        'lib/features/rituals/ritual_view.dart': 'rito_ripiego',
       };
       var guardate = 0;
       final conIlRito = <String>[];
@@ -247,21 +248,23 @@ void main() {
       expect(conIlRito, isEmpty,
           reason: 'queste schermate annunciano ancora un rito con le sue tre '
               'righe di istruzioni: ${conIlRito.join(", ")}');
-      cardinaleMinimo(guardate, 5,
+      // QUATTRO dall'ordine DT: l'Arcano dell'Alba al posto di due schermate,
+      // e la vista rituale uscita con l'Arcano del Giorno.
+      cardinaleMinimo(guardate, 4,
           cosa: 'schermate dei Doni con una gerarchia da sorvegliare',
           perche: 'Se una schermata sparisse da questo elenco, la sua '
               'gerarchia smetterebbe di essere sorvegliata senza che nessuno '
               'se ne accorga.');
     });
 
-    test('il componente delle tre righe non esiste piu in nessun sorgente',
-        () {
+    test('il componente delle tre righe non esiste piu in nessun sorgente', () {
       // **CIO' CHE NON DEVE COMPARIRE NON DEVE NEMMENO ESISTERE.** Un
       // componente che nessuno monta e' un invito a rimontarlo, e la prima
       // schermata nuova che ne avesse bisogno lo troverebbe li' pronto,
       // insieme al compito che il fondatore ha fatto togliere.
-      final vivo = File('lib/design_system/components/le_tre_righe_del_rito.dart')
-          .existsSync();
+      final vivo =
+          File('lib/design_system/components/le_tre_righe_del_rito.dart')
+              .existsSync();
       // ignore: avoid_print
       print('ORDINE CQ VOCE 2.03: il componente delle tre righe esiste $vivo');
       expect(vivo, isFalse,

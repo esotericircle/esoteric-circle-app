@@ -1,6 +1,6 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 148 -->
+<!-- VUOTI_CENSITI: 147 -->
 <!-- FILE_CON_VUOTI: 64 -->
 <!-- VUOTI_ECCESSIVI: 3 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
@@ -11,7 +11,7 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **148** |
+| Vuoti verticali dichiarati | **147** |
 | File che ne contengono | **64** |
 | Oltre la soglia di 48 punti | **3** |
 
@@ -22,7 +22,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 85 |
+| 2 | 84 |
 | 3 | 8 |
 | 4 | 21 |
 | 5 | 1 |
@@ -44,7 +44,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 
 - `lib/features/settings/interruttore_della_misura.dart:61` sizedBox 72 punti
 - `lib/features/synastry/sinastria_share_card.dart:132` padding 60 punti
-- `lib/features/synastry/sinastria_vip_screen.dart:762` padding 90 punti
+- `lib/features/synastry/sinastria_vip_screen.dart:810` padding 90 punti
 
 ## I vuoti, file per file
 
@@ -83,7 +83,6 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart` | 2 | 0 |
 | `lib/features/maestri/chat/widgets/chat_bubble.dart` | 2 | 0 |
 | `lib/features/onboarding/risveglio_journey.dart` | 2 | 0 |
-| `lib/features/rituals/ritual_gift_card.dart` | 2 | 0 |
 | `lib/features/rituals/sunset_rune_card.dart` | 2 | 0 |
 | `lib/features/rituals/sunset_rune_screen.dart` | 2 | 0 |
 | `lib/features/settings/riga_di_messa_a_punto.dart` | 2 | 0 |
@@ -107,6 +106,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/onboarding/natal_chart_reveal.dart` | 1 | 0 |
 | `lib/features/onboarding/riquadro_della_scelta.dart` | 1 | 0 |
 | `lib/features/rituals/dream_rite_card.dart` | 1 | 0 |
+| `lib/features/rituals/ritual_gift_card.dart` | 1 | 0 |
 | `lib/features/settings/interruttore_della_misura.dart` | 1 | 1 |
 | `lib/features/settings/riga_che_apre.dart` | 1 | 0 |
 | `lib/features/settings/settings_screen.dart` | 1 | 0 |

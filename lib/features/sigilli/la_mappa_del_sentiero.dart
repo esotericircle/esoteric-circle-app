@@ -86,9 +86,9 @@ class PortaDellArte {
 
   /// Come si chiama a schermo l'arte di quel gesto.
   static const Map<String, String> nomeDellArte = {
-    'alba': "Il Rito dell'Alba",
+    'alba': "L'Arcano dell'Alba",
     'soffio': 'Il Soffio del Destino',
-    'oracolo': 'Arcano del Giorno',
+    'oracolo': "L'Arcano dell'Alba",
     'oroscopo': "L'Oroscopo",
     'stesa': 'La Stesa di Tarocchi',
     'gettata': "L'Estrazione delle Rune",

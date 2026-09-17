@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:io';
 
 import 'package:esoteric_circle/core/maestro/maestro.dart';
@@ -8,11 +9,14 @@ import 'package:esoteric_circle/design_system/theme/accento_del_maestro.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/design_system/tokens/regime_chiaro.dart';
 import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
-import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/archivio_dell_alba.dart';
+import 'package:esoteric_circle/core/tarot/tarot_card.dart';
+import 'package:esoteric_circle/features/rituals/arcano_dell_alba_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
 import 'sorgenti_di_lib.dart';
@@ -74,7 +78,7 @@ void main() {
 
   /// I sorgenti in cui cercare la chiave di un testo.
   final sorgenti = <String>[
-    'lib/features/rituals/dawn_rite_screen.dart',
+    'lib/features/rituals/arcano_dell_alba_screen.dart',
     'lib/features/rituals/ritual_gift_card.dart',
     'lib/design_system/components/riga_del_dono.dart',
   ];
@@ -210,6 +214,8 @@ void main() {
       'La tabella del contrasto dell\'Alba esiste, e la scrive la misura',
       (tester) async {
     silenzia();
+    SharedPreferences.setMockInitialValues(const {});
+    ArchivioDellAlba.dimenticaLaMemoria();
     await caricaCaratteri();
     tester.view.physicalSize = schermoReale;
     tester.view.devicePixelRatio = 1.0;
@@ -228,9 +234,12 @@ void main() {
         home: RepaintBoundary(
           key: radice,
           child: MaestroScope(
-            // Il giorno e' fissato: il Maestro dell'alba ruota, e la tabella
-            // deve poter essere riletta domani e dire la stessa cosa.
-            child: DawnRiteScreen(now: DateTime(2026, 7, 14, 6, 0)),
+            // **DALL'ORDINE DT SI MISURA L'ARCANO DELL'ALBA**, che ha preso
+            // il posto del Rito dell'Alba. Il giorno e il caso sono fissati:
+            // la tabella deve poter essere riletta domani e dire la stessa
+            // cosa.
+            child: ArcanoDellAlbaScreen(
+                now: DateTime(2026, 7, 14, 7, 0), caso: Random(1)),
           ),
         ),
       ),
@@ -240,14 +249,8 @@ void main() {
     // sarebbe il nero del vuoto e la tabella dichiarerebbe un contrasto che
     // nessuno vede.
     await tester.runAsync(() async {
-      final elemento = tester.element(find.byType(DawnRiteScreen));
-      for (final asset in const [
-        'assets/ritual_backgrounds/dawn_sky_night.png',
-        'assets/ritual_backgrounds/dawn_sky_day.png',
-        'assets/ritual_backgrounds/dawn_sun.png',
-      ]) {
-        await precacheImage(AssetImage(asset), elemento);
-      }
+      final elemento = tester.element(find.byType(ArcanoDellAlbaScreen));
+      await precacheImage(AssetImage(TarotDeck.dorsoFull), elemento);
     });
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
@@ -291,142 +294,133 @@ void main() {
     /// asse: prima si escludeva per NOME, adesso non si esclude piu' per
     /// nome e si escludeva ancora per MOMENTO.
     Future<void> censisci(String momento) async {
-          // OGNI TESTO DEL RITO, enumerato dall'albero e non da un elenco scritto.
+      // OGNI TESTO DEL RITO, enumerato dall'albero e non da un elenco scritto.
 
-          // **SI MISURANO TUTTI I TESTI, NON SOLO QUELLI ISCRITTI.**
-          // Ordine CO voce 14, 3 settembre 2026.
-          //
-          // Qui c'era `.where((k) => k.value.startsWith('alba_'))`, cioe' **la
-          // tabella guardava soltanto i testi a cui qualcuno aveva dato una chiave
-          // che comincia per alba_**. Non era una svista di chi l'ha scritta: era
-          // il modo di poter risalire al file e alla riga. Ma il risultato e' una
-          // guardia che misura un insieme A ISCRIZIONE VOLONTARIA, e nessuno
-          // obbliga nessuno a iscriversi.
-          //
-          // **Il fondatore ha visto un testo giallo illeggibile in questa
-          // schermata mentre questa tabella diceva zero sotto soglia, e diceva il
-          // vero**: quel testo non aveva la chiave, quindi per la tabella non
-          // esisteva. Dieci righe misurate e tutte promosse sono una prova
-          // eccellente di dieci testi, e non dicono niente sull'undicesimo.
-          //
-          // Adesso si enumerano tutti i `Text` con qualcosa scritto dentro. Chi ha
-          // la chiave porta ancora file e riga; chi non ce l'ha porta le prime
-          // parole di cio' che dice, che al fondatore basta per riconoscerlo a
-          // schermo, ed e' l'informazione che serve davvero.
-          final trovati = <(Finder, String, String)>[];
-          for (final t in tester.widgetList<Text>(find.byType(Text))) {
-            final scritto = (t.data ?? t.textSpan?.toPlainText() ?? '').trim();
-            if (scritto.isEmpty) continue;
-            // **NON SI SALTA PIU' CHI IL COLORE LO EREDITA. Ordine CO
-            // voce 14**, 3 settembre 2026, e questa e' la riga che teneva
-            // fuori dalla tabella proprio il testo che il fondatore vedeva.
-            //
-            // L'etichetta di un pulsante non porta uno stile suo: colore e
-            // misura le arrivano dallo stile del pulsante che la contiene,
-            // attraverso il `DefaultTextStyle`. Per questa riga quei testi
-            // non avevano inchiostro, quindi non si potevano misurare,
-            // quindi venivano saltati **in silenzio**. I due pulsanti
-            // "Condividi" e "Custodisci" della scheda del Dono scrivevano in
-            // oro sul pannello chiaro, **1,30 a uno**, e la tabella diceva
-            // zero sotto soglia dicendo il vero su cio' che aveva guardato.
-            //
-            // Adesso lo stile si compone come lo compone Flutter: quello del
-            // `Text`, e per cio' che manca quello ereditato dal contesto.
-            if (t.data == null && t.textSpan == null) continue;
-            final k = t.key;
-            if (k is ValueKey<String> && k.value.startsWith('alba_')) {
-              trovati.add((find.byKey(k), '`${k.value}`', dove(k.value)));
-            } else {
-              final breve =
-                  scritto.length > 34 ? '${scritto.substring(0, 31)}...' : scritto;
-              // Il testo si ritrova per contenuto: e' l'unica ancora che ha.
-              trovati.add((
-                find.text(scritto),
-                breve.replaceAll('|', '/').replaceAll('\n', ' '),
-                'senza chiave'
-              ));
-            }
-          }
-          for (final voce in trovati) {
-            final trovato = voce.$1;
-            if (tester.widgetList(trovato).length != 1) continue;
-            final scatto = await scattoPer(trovato);
-            final dati = scatto.dati;
-            final larghezza = scatto.larghezza;
-            final altezza = scatto.altezza;
-            final testo = tester.widget<Text>(trovato);
-            final rettangolo = tester.getRect(trovato);
-            // **LO STILE COMPOSTO, come lo compone Flutter**: quello del
-            // `Text` sopra quello ereditato. E' il solo modo di conoscere il
-            // colore di un'etichetta di pulsante, che di suo non ne ha.
-            final ereditato =
-                DefaultTextStyle.of(tester.element(trovato)).style;
-            final stile = ereditato.merge(testo.style);
-            if (stile.color == null || stile.fontSize == null) continue;
-            // Un testo alto zero o largo zero non si vede, e campionarne il fondo
-            // vorrebbe dire leggere un punto a caso.
-            if (rettangolo.width < 2 || rettangolo.height < 2) continue;
-            final misura = stile.fontSize ?? 0;
-            final peso = pesoDi(stile);
-            final ruolo = ruoloDi(stile);
-            final fondo = fondoSotto(dati, larghezza, altezza, rettangolo,
-                // Chi il colore lo eredita e' un'etichetta di pulsante:
-                // per lei il fondo e' la moda di tutto il riquadro, perche'
-                // le lettere sono sottili e il riempimento e' la maggioranza.
-                tuttoIlRiquadro: testo.style?.color == null,
-                inchiostro: stile.color);
-            // **IL FONDO SI PORTA DIETRO CHI CI STA SOPRA. Ordine CQ voce
-            // 6.30, 5 settembre 2026.**
-            //
-            // Questa guardia e\' caduta su Codemagic, dove la build iOS gira
-            // su macOS, dicendo soltanto: *questi fondi resi sono piu\' scuri
-            // della superficie chiara dichiarata: #989282*. Un colore e
-            // nient\'altro. **Con quel colore in mano non si cura niente**: non
-            // si sa quale testo ci sta sopra, in quale momento, a quale riga.
-            //
-            // E\' la Regola C applicata a una guardia invece che a un rapporto:
-            // **ogni difetto ha un padre**, e un difetto senza padre torna.
-            fondiVisti.add((colore: fondo, chi: voce.$2, dove: voce.$3));
-            final inchiostro = Color.alphaBlend(stile.color!, fondo);
-            final contrasto = AccentoDelMaestro.contrastoFra(inchiostro, fondo);
-            final soglia = RegimeChiaro.sogliaPer(
-                etichetta: ruolo.etichetta, misura: misura, peso: peso);
-            censite++;
-            final passa = contrasto >= soglia;
-              righe.add('| ${voce.$2} | $momento | ${voce.$3} | ${ruolo.nome} | '
-                '${misura.toStringAsFixed(0)} | ${peso.toStringAsFixed(0)} | '
-                '${esa(inchiostro)} | ${esa(fondo)} | '
-                '**${contrasto.toStringAsFixed(2)}** | '
-                '${soglia.toStringAsFixed(1)} | ${passa ? 'si\'' : '**NO**'} |');
-            if (!passa) {
-                sotto.add('${voce.$2} ($momento) a ${voce.$3}: '
-                  '${contrasto.toStringAsFixed(2)} contro ${soglia.toStringAsFixed(1)} '
-                  '(${esa(inchiostro)} su ${esa(fondo)}, ${misura.toStringAsFixed(0)} punti)');
-            }
-          }
-
+      // **SI MISURANO TUTTI I TESTI, NON SOLO QUELLI ISCRITTI.**
+      // Ordine CO voce 14, 3 settembre 2026.
+      //
+      // Qui c'era `.where((k) => k.value.startsWith('alba_'))`, cioe' **la
+      // tabella guardava soltanto i testi a cui qualcuno aveva dato una chiave
+      // che comincia per alba_**. Non era una svista di chi l'ha scritta: era
+      // il modo di poter risalire al file e alla riga. Ma il risultato e' una
+      // guardia che misura un insieme A ISCRIZIONE VOLONTARIA, e nessuno
+      // obbliga nessuno a iscriversi.
+      //
+      // **Il fondatore ha visto un testo giallo illeggibile in questa
+      // schermata mentre questa tabella diceva zero sotto soglia, e diceva il
+      // vero**: quel testo non aveva la chiave, quindi per la tabella non
+      // esisteva. Dieci righe misurate e tutte promosse sono una prova
+      // eccellente di dieci testi, e non dicono niente sull'undicesimo.
+      //
+      // Adesso si enumerano tutti i `Text` con qualcosa scritto dentro. Chi ha
+      // la chiave porta ancora file e riga; chi non ce l'ha porta le prime
+      // parole di cio' che dice, che al fondatore basta per riconoscerlo a
+      // schermo, ed e' l'informazione che serve davvero.
+      final trovati = <(Finder, String, String)>[];
+      for (final t in tester.widgetList<Text>(find.byType(Text))) {
+        final scritto = (t.data ?? t.textSpan?.toPlainText() ?? '').trim();
+        if (scritto.isEmpty) continue;
+        // **NON SI SALTA PIU' CHI IL COLORE LO EREDITA. Ordine CO
+        // voce 14**, 3 settembre 2026, e questa e' la riga che teneva
+        // fuori dalla tabella proprio il testo che il fondatore vedeva.
+        //
+        // L'etichetta di un pulsante non porta uno stile suo: colore e
+        // misura le arrivano dallo stile del pulsante che la contiene,
+        // attraverso il `DefaultTextStyle`. Per questa riga quei testi
+        // non avevano inchiostro, quindi non si potevano misurare,
+        // quindi venivano saltati **in silenzio**. I due pulsanti
+        // "Condividi" e "Custodisci" della scheda del Dono scrivevano in
+        // oro sul pannello chiaro, **1,30 a uno**, e la tabella diceva
+        // zero sotto soglia dicendo il vero su cio' che aveva guardato.
+        //
+        // Adesso lo stile si compone come lo compone Flutter: quello del
+        // `Text`, e per cio' che manca quello ereditato dal contesto.
+        if (t.data == null && t.textSpan == null) continue;
+        final k = t.key;
+        if (k is ValueKey<String> &&
+            (k.value.startsWith('alba_') ||
+                k.value.startsWith('arcano_alba_'))) {
+          trovati.add((find.byKey(k), '`${k.value}`', dove(k.value)));
+        } else {
+          final breve =
+              scritto.length > 34 ? '${scritto.substring(0, 31)}...' : scritto;
+          // Il testo si ritrova per contenuto: e' l'unica ancora che ha.
+          trovati.add((
+            find.text(scritto),
+            breve.replaceAll('|', '/').replaceAll('\n', ' '),
+            'senza chiave'
+          ));
+        }
+      }
+      for (final voce in trovati) {
+        final trovato = voce.$1;
+        if (tester.widgetList(trovato).length != 1) continue;
+        final scatto = await scattoPer(trovato);
+        final dati = scatto.dati;
+        final larghezza = scatto.larghezza;
+        final altezza = scatto.altezza;
+        final testo = tester.widget<Text>(trovato);
+        final rettangolo = tester.getRect(trovato);
+        // **LO STILE COMPOSTO, come lo compone Flutter**: quello del
+        // `Text` sopra quello ereditato. E' il solo modo di conoscere il
+        // colore di un'etichetta di pulsante, che di suo non ne ha.
+        final ereditato = DefaultTextStyle.of(tester.element(trovato)).style;
+        final stile = ereditato.merge(testo.style);
+        if (stile.color == null || stile.fontSize == null) continue;
+        // Un testo alto zero o largo zero non si vede, e campionarne il fondo
+        // vorrebbe dire leggere un punto a caso.
+        if (rettangolo.width < 2 || rettangolo.height < 2) continue;
+        final misura = stile.fontSize ?? 0;
+        final peso = pesoDi(stile);
+        final ruolo = ruoloDi(stile);
+        final fondo = fondoSotto(dati, larghezza, altezza, rettangolo,
+            // Chi il colore lo eredita e' un'etichetta di pulsante:
+            // per lei il fondo e' la moda di tutto il riquadro, perche'
+            // le lettere sono sottili e il riempimento e' la maggioranza.
+            tuttoIlRiquadro: testo.style?.color == null,
+            inchiostro: stile.color);
+        // **IL FONDO SI PORTA DIETRO CHI CI STA SOPRA. Ordine CQ voce
+        // 6.30, 5 settembre 2026.**
+        //
+        // Questa guardia e\' caduta su Codemagic, dove la build iOS gira
+        // su macOS, dicendo soltanto: *questi fondi resi sono piu\' scuri
+        // della superficie chiara dichiarata: #989282*. Un colore e
+        // nient\'altro. **Con quel colore in mano non si cura niente**: non
+        // si sa quale testo ci sta sopra, in quale momento, a quale riga.
+        //
+        // E\' la Regola C applicata a una guardia invece che a un rapporto:
+        // **ogni difetto ha un padre**, e un difetto senza padre torna.
+        fondiVisti.add((colore: fondo, chi: voce.$2, dove: voce.$3));
+        final inchiostro = Color.alphaBlend(stile.color!, fondo);
+        final contrasto = AccentoDelMaestro.contrastoFra(inchiostro, fondo);
+        final soglia = RegimeChiaro.sogliaPer(
+            etichetta: ruolo.etichetta, misura: misura, peso: peso);
+        censite++;
+        final passa = contrasto >= soglia;
+        righe.add('| ${voce.$2} | $momento | ${voce.$3} | ${ruolo.nome} | '
+            '${misura.toStringAsFixed(0)} | ${peso.toStringAsFixed(0)} | '
+            '${esa(inchiostro)} | ${esa(fondo)} | '
+            '**${contrasto.toStringAsFixed(2)}** | '
+            '${soglia.toStringAsFixed(1)} | ${passa ? 'si\'' : '**NO**'} |');
+        if (!passa) {
+          sotto.add('${voce.$2} ($momento) a ${voce.$3}: '
+              '${contrasto.toStringAsFixed(2)} contro ${soglia.toStringAsFixed(1)} '
+              '(${esa(inchiostro)} su ${esa(fondo)}, ${misura.toStringAsFixed(0)} punti)');
+        }
+      }
     }
 
-    // **PRIMA DEL GESTO**: qui vive l'invito, sul cielo notturno che
-    // gia' si sta schiarendo.
+    // **PRIMA DEL GESTO**: qui vive l'invito, sopra le carte coperte.
     await censisci('prima del gesto');
 
-    // Il gesto si compie: e' l'unico stato in cui il pannello chiaro esiste.
-    await tester.tap(find.byKey(const Key('ritual_gesture')));
+    // Il gesto si compie: una carta coperta si gira, e arrivano i tre
+    // movimenti del responso.
+    await tester.tap(find.byKey(const Key('arcano_alba_carta_0')));
     await tester.pump();
     await tester.pump(const Duration(seconds: 2));
-    // La base del dono si apre, cosi' anche le sue righe entrano nella misura.
-    // Si porta in vista prima di toccarla: la scheda scorre, e su uno schermo
-    // reale il pulsante della base sta sotto la piega.
-    await tester.ensureVisible(find.byKey(const Key('da_dove_nasce_apri')));
-    await tester.pump();
-    await tester.tap(find.byKey(const Key('da_dove_nasce_apri')),
-        warnIfMissed: false);
-    await tester.pump();
-    await tester.pump(const Duration(milliseconds: 400));
-    expect(find.byKey(const Key('gift_base_panel')), findsOneWidget,
-        reason: 'la base del dono non si e\' aperta, quindi le sue righe non '
-            'entrerebbero nella misura');
+    expect(find.byKey(const Key('arcano_alba_dono')), findsOneWidget,
+        reason: 'la carta non si e\' girata, quindi il responso non '
+            'entrerebbe nella misura');
 
     /// UNO SCATTO PER TESTO, e non uno scatto per tutti.
     ///
@@ -437,7 +431,7 @@ void main() {
     await censisci('a rito compiuto');
 
     File('docs/tipografia/alba_contrasto.md').writeAsStringSync([
-      '# Il contrasto del Rito dell\'Alba, misurato',
+      '# Il contrasto dell\'Arcano dell\'Alba, misurato',
       '',
       '<!-- TESTI_MISURATI: $censite -->',
       '<!-- SOTTO_LA_SOGLIA: ${sotto.length} -->',
@@ -509,8 +503,9 @@ void main() {
     // **I TRE PIU\' SCURI SI STAMPANO SEMPRE**, anche a prova verde: su
     // Windows questa e\' verde e su macOS e\' rossa, e senza questi numeri
     // la differenza fra due macchine non si vede affatto.
-    final ordinati = [...fondiVisti]
-      ..sort((a, b) => quantoEScuro(b.colore).compareTo(quantoEScuro(a.colore)));
+    final ordinati = [
+      ...fondiVisti
+    ]..sort((a, b) => quantoEScuro(b.colore).compareTo(quantoEScuro(a.colore)));
     final iPiuScuri = ordinati
         .take(3)
         .map((f) => '${esa(f.colore)} sotto ${f.chi}')

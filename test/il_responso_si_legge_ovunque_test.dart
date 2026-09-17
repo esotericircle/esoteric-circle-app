@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:convert';
 import 'dart:io';
 
@@ -14,7 +15,8 @@ import 'package:esoteric_circle/design_system/components/zodiac_figures.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:esoteric_circle/features/maestri/caligo/animal/guide_animal_screen.dart';
-import 'package:esoteric_circle/features/rituals/dawn_rite_screen.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/archivio_dell_alba.dart';
+import 'package:esoteric_circle/features/rituals/arcano_dell_alba_screen.dart';
 import 'package:esoteric_circle/features/rituals/dream_rite_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -304,42 +306,41 @@ void main() {
       }
     });
 
-    testWidgets('Il dono dell\'Alba sta dentro la sua carta', (tester) async {
+    testWidgets('L\'Arcano dell\'Alba sta dentro lo schermo, girata la carta',
+        (tester) async {
+      // **ORDINE DT**: il Rito dell'Alba non c'e' piu', e al mattino si legge
+      // l'Arcano dell'Alba. La misura resta la stessa: a ogni altezza il
+      // responso arriva in scena, alla misura di lettura, senza traboccare.
       for (final altezza in schermi) {
         silenzia();
+        SharedPreferences.setMockInitialValues(const {});
+        ArchivioDellAlba.dimenticaLaMemoria();
         schermo(tester, altezza);
-        await tester
-            .pumpWidget(attorno(DawnRiteScreen(now: DateTime(2026, 7, 13, 7))));
+        await tester.pumpWidget(attorno(ArcanoDellAlbaScreen(
+            now: DateTime(2026, 7, 13, 7), caso: Random(4))));
         await tester.pump();
-        await seCeTocca(tester, const Key('ritual_gesture'));
-        for (var i = 0; i < 12; i++) {
+        await seCeTocca(tester, const Key('arcano_alba_carta_0'));
+        for (var i = 0; i < 14; i++) {
           await tester.pump(const Duration(milliseconds: 100));
         }
         final guaio = tester.takeException();
-        expect(find.byKey(const Key('alba_risposta')), findsOneWidget,
+        expect(find.byKey(const Key('arcano_alba_dono')), findsOneWidget,
             reason: 'a ${altezza.toStringAsFixed(0)} punti di altezza '
-                'l\'orientamento del giorno non arriva in scena');
-        // **IL TESTO STA DENTRO I PARAGRAFI. Ordine CY voce 06**, 8
-        // settembre 2026: `alba_orientamento` non si stampa piu' quando il
-        // rito c'e', e il responso passa da `alba_risposta`, che e' un
-        // `ParagrafiDiLettura` e non un `Text`. La misura resta la stessa: si
-        // legge il primo paragrafo che quel blocco dipinge.
+                'il dono della carta non arriva in scena');
         final testo = tester.widget<Text>(find
             .descendant(
-                of: find.byKey(const Key('alba_risposta')),
+                of: find.byKey(const Key('arcano_alba_dono')),
                 matching: find.byType(Text))
             .first);
         // ignore: avoid_print
-        print('ORDINE BV VOCE 6: Alba su 360 per '
-            '${altezza.toStringAsFixed(0)}, orientamento a '
-            '${testo.style!.fontSize} punti, traboccamenti '
-            '${guaio ?? "nessuno"}');
+        print('ORDINE DT: Arcano dell\'Alba su 360 per '
+            '${altezza.toStringAsFixed(0)}, dono a ${testo.style!.fontSize} '
+            'punti, traboccamenti ${guaio ?? "nessuno"}');
         expect(testo.style!.fontSize, TypographyTokens.lettura().fontSize,
-            reason: 'l\'orientamento del giorno non e\' alla misura di '
-                'lettura');
+            reason: 'il dono della carta non e\' alla misura di lettura');
         expect(guaio, isNull,
-            reason: 'con l\'orientamento alla misura di lettura la carta '
-                'dell\'Alba trabocca su 360 per $altezza: $guaio');
+            reason:
+                'l\'Arcano dell\'Alba trabocca su 360 per $altezza: $guaio');
       }
     });
   });

@@ -79,7 +79,11 @@ void main() {
     return dati!.buffer.asUint8List();
   }
 
-  test('BB.09: l Alba porta il giorno, gli altri quattro la notte', () {
+  test('DT: tutti i Doni portano la notte, e nessuno il giorno', () {
+    // **ORDINE DT.** L'Alba con il vetro chiaro non e' piu' un dono:
+    // l'Arcano dell'Alba e' una carta su una scena scura. La pretesa della
+    // voce BB.09 era che il chiaro fosse del solo rito che aveva la sua
+    // ragione; quel rito non c'e' piu', e il chiaro non va a nessuno.
     final diGiorno = <String>[];
     final diNotte = <String>[];
     for (final d in DailyElement.values) {
@@ -87,26 +91,9 @@ void main() {
     }
     // ignore: avoid_print
     print('ORDINE BB VOCE 09: di giorno $diGiorno, di notte $diNotte');
-    expect(diGiorno, ['dawn'],
-        reason: 'il regime chiaro esiste per la sola ragione che l alba e l '
-            'unico momento in cui il buio finisce: nessun altro rito ha quella '
-            'ragione, e chi ce l ha non deve perderla');
-    expect(diNotte, hasLength(4));
-  });
-
-  test('BB.09: i due abiti sono opposti, non due sfumature', () {
-    final giorno = AbitoDelResponso.di(DailyElement.dawn);
-    final notte = AbitoDelResponso.di(DailyElement.breath);
-    final quanto = contrasto(giorno.velatura, notte.velatura);
-    // ignore: avoid_print
-    print('ORDINE BB VOCE 09: fra il vetro del giorno e quello della notte '
-        'corrono ${quanto.toStringAsFixed(1)} a 1');
-    // **La soglia e quella della lettura, e non e un caso**: due superfici che
-    // stanno fra loro come un testo sta al suo fondo sono distinguibili da
-    // chiunque, in qualunque luce. Il tentativo buttato arrivava a 1,1 a 1.
-    expect(quanto, greaterThan(4.5),
-        reason: 'i due abiti sono due sfumature dello stesso vetro: e da qui '
-            'che nasce la somiglianza');
+    expect(diGiorno, isEmpty,
+        reason: 'un Dono porta ancora l abito del giorno su una scena scura');
+    expect(diNotte, hasLength(DailyElement.values.length));
   });
 
   test('BB.09: e l abito di notte si legge, che era il rischio vero', () {
@@ -175,57 +162,6 @@ void main() {
         reason: 'il fondo che il testo trova davvero e piu chiaro di quello '
             'dichiarato: gli inchiostri sono stati scelti su un fondo che non '
             'esiste, ed e lo stesso difetto dell ordine P voce 12');
-  });
-
-  testWidgets('BB.09: a video le due schede non si somigliano piu',
-      (tester) async {
-    // **QUESTA E LA PROVA CHE IL FONDATORE PUO CONTROLLARE CON GLI OCCHI.**
-    // Tutto il resto sono numeri sui token: qui si dipingono le due schede e
-    // si conta quanti punti su cento cambiano.
-    late List<int> alba;
-    await monta(tester, DailyElement.dawn);
-    await tester.runAsync(() async => alba = await pixelDellaScheda(tester));
-
-    // **LA CONTROPROVA VIENE PRIMA**, perche una misura differenziale che non
-    // sa dare zero non sa dare nemmeno il resto: la stessa scheda ridipinta
-    // deve cambiare zero punti.
-    late List<int> ancoraAlba;
-    await monta(tester, DailyElement.dawn);
-    await tester
-        .runAsync(() async => ancoraAlba = await pixelDellaScheda(tester));
-    var uguali = 0;
-    for (var i = 0; i < math.min(alba.length, ancoraAlba.length); i += 4) {
-      if (alba[i] != ancoraAlba[i]) uguali++;
-    }
-    // ignore: avoid_print
-    print('ORDINE BB VOCE 09: controprova, la stessa scheda ridipinta cambia '
-        '$uguali punti');
-    expect(uguali, 0,
-        reason: 'la misura si muove da sola: qualunque numero desse dopo non '
-            'vorrebbe dire niente');
-
-    late List<int> soffio;
-    await monta(tester, DailyElement.breath);
-    await tester.runAsync(() async => soffio = await pixelDellaScheda(tester));
-    expect(alba, hasLength(soffio.length),
-        reason: 'le due schede non hanno nemmeno la stessa misura: il '
-            'confronto punto per punto non direbbe niente');
-
-    var cambiati = 0, totale = 0;
-    for (var i = 0; i < alba.length; i += 4) {
-      totale++;
-      final scarto = (alba[i] - soffio[i]).abs() +
-          (alba[i + 1] - soffio[i + 1]).abs() +
-          (alba[i + 2] - soffio[i + 2]).abs();
-      if (scarto > 24) cambiati++;
-    }
-    final quota = cambiati / totale;
-    // ignore: avoid_print
-    print('ORDINE BB VOCE 09: fra l Alba e il Soffio cambiano $cambiati punti '
-        'su $totale, cioe il ${(quota * 100).toStringAsFixed(1)} per cento');
-    expect(quota, greaterThan(0.6),
-        reason: 'a video le due schede sono ancora la stessa scheda, ed e '
-            'esattamente il fatto del fondatore');
   });
 
   test('BB.09: e la scheda non tiene piu colori suoi per tutti', () {

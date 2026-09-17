@@ -6,8 +6,6 @@ import 'package:provider/provider.dart';
 import '../../core/quality/quality_tier.dart';
 import '../../core/rituals/daily_elements.dart';
 import '../../core/rituals/dawn_gift.dart';
-import '../../core/rituals/rito_alba.dart';
-import '../../core/rituals/filo_del_giorno.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/components/da_dove_nasce.dart';
 import '../../design_system/components/riga_del_dono.dart';
@@ -50,7 +48,6 @@ class RitualGiftCard extends StatefulWidget {
     required this.giorno,
     required this.streak,
     required this.onShare,
-    this.domandaDiIeri,
     this.azioni,
   });
 
@@ -66,11 +63,9 @@ class RitualGiftCard extends StatefulWidget {
   /// cura.
   final Widget? azioni;
 
-  /// LA DOMANDA CHE MEDORA HA LASCIATO IERI NELLA STESA. Ordine P voce 18.
-  ///
-  /// Nulla quando ieri non c'e' stata nessuna stesa, e in quel caso la riga non
-  /// compare: si mostra il dato che c'e', e di quello che manca non si parla.
-  final String? domandaDiIeri;
+  // **LA DOMANDA DI IERI E LA PAROLA NON STANNO PIU' QUI**, ordine DT voce
+  // 01: erano del Rito dell'Alba, che non e' piu' un dono. La scheda serve il
+  // Soffio del Destino.
 
   /// Quale dei cinque Doni e' questa scheda, e di che giorno: servono alla riga
   /// che dichiara chi parla. Non si ricavano dal `gift`, che porta il Maestro
@@ -84,90 +79,6 @@ class RitualGiftCard extends StatefulWidget {
 
   @override
   State<RitualGiftCard> createState() => _RitualGiftCardState();
-}
-
-/// **IL RIQUADRO DEL RITUALE.** Ordine CW voce 07.
-///
-/// Bordo e fondo dell'abito del responso, non un contenitore neutro preso da
-/// un'altra parte dell'app: l'ordine lo chiede per nome, e una scheda che
-/// cambia lingua visiva a meta' si legge come due schede incollate.
-class _IlRitualeDiOggi extends StatelessWidget {
-  const _IlRitualeDiOggi(
-      {required this.rito, required this.abito, required this.accento});
-
-  final RitoDiOggi rito;
-  final AbitoDelResponso abito;
-
-  /// **IL COLORE DEL MAESTRO, MISURATO SULL'ABITO.** La carta dell'Alba si
-  /// dipinge su un avorio, e li' l'oro chiaro del Maestro misura 1,18 contro
-  /// il 4,5 richiesto: `accentoDi` lo schiarisce finche' il contrasto sulla
-  /// superficie vera passa. Prenderlo dalla tavolozza a mano rimetterebbe il
-  /// difetto che quel metodo esiste per togliere.
-  final Color accento;
-
-  /// Il titolo esatto che il fondatore ha chiesto, in maiuscolo.
-  static const String titolo = 'IL MANTRA DI OGGI';
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      key: const Key('alba_riquadro_del_mantra'),
-      width: double.infinity,
-      padding: const EdgeInsets.all(SpacingTokens.md),
-      decoration: BoxDecoration(
-        color: accento.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-        border: Border.all(color: accento.withValues(alpha: 0.45)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // **IL RUOLO E' DIDASCALIA, NON ETICHETTA.** La voce P.13 vieta
-          // il ruolo etichetta nell'Alba, che vale il pavimento di dodici
-          // punti: il titolo del rituale e' una cosa che si legge, non una
-          // targhetta. Il maiuscolo lo chiede l'ordine CW voce 07 alla
-          // lettera, ed e' scritto nella stringa: nessun toUpperCase, che
-          // la stessa voce P.13 vieta.
-          Text(titolo,
-              key: const Key('alba_titolo_del_mantra'),
-              style: TypographyTokens.didascalia()
-                  .copyWith(color: accento, letterSpacing: 1.6)),
-          const SizedBox(height: SpacingTokens.xs),
-          // **IL GESTO, che e' il rituale vero.** Porta gia' dentro il dato
-          // del cielo di stamattina: non e' un'istruzione generica.
-          // **SOLO L'ISTRUZIONE, non la frase del cielo.** Ordine CY voce
-          // 01: il responso qui sopra il cielo lo ha gia' nominato, e due
-          // paragrafi di fila che aprono con "La Luna e' calante" si
-          // leggono come lo stesso testo ripetuto. Il gesto intero resta
-          // in `rito.gesto` per la card e per gli avvisi, che stanno soli.
-          Text(rito.soloIlGesto,
-              key: const Key('alba_testo_del_mantra'),
-              style: TypographyTokens.lettura()
-                  .copyWith(color: abito.inchiostro, height: 1.45)),
-          const SizedBox(height: SpacingTokens.xs),
-          // **E LA VIA COL DITO, SEMPRE.** Regola di casa: ogni esperienza
-          // che passa da un sensore ha il suo ripiego tattile, e qui il
-          // ripiego fa parte del rituale, non e' una nota a pie' di pagina.
-          // **E IL RIPIEGO SI ANNUNCIA. Ordine DD voce 02, 10 settembre
-          // 2026.** La via col dito stava attaccata al gesto, senza titolo:
-          // si leggeva come una seconda meta della stessa istruzione, e chi
-          // scorreva finiva per fare tutte e due le cose. Adesso una riga
-          // sola dice che quella sotto e un altra strada per lo stesso
-          // rituale, non un passo in piu.
-          const SizedBox(height: SpacingTokens.xs),
-          Text('IN ALTERNATIVA',
-              key: const Key('alba_titolo_della_via_tattile'),
-              style: TypographyTokens.didascalia()
-                  .copyWith(color: accento, letterSpacing: 1.6)),
-          const SizedBox(height: 2),
-          Text(rito.viaTattile,
-              key: const Key('alba_via_tattile_del_mantra'),
-              style: TypographyTokens.didascalia()
-                  .copyWith(color: abito.inchiostro.withValues(alpha: 0.8))),
-        ],
-      ),
-    );
-  }
 }
 
 class _RitualGiftCardState extends State<RitualGiftCard> {
@@ -336,13 +247,6 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
             // la firma del Maestro e i pulsanti di condivisione stanno sotto,
             // fuori: un riquadro che li inghiottisse direbbe che anche quelli
             // sono cose da fare.
-            if (widget.dono == DailyElement.dawn && gift.rito != null) ...[
-              const SizedBox(height: SpacingTokens.md),
-              _IlRitualeDiOggi(
-                  rito: gift.rito!,
-                  abito: abito,
-                  accento: accento),
-            ],
             // **LA PAROLA DEL GIORNO, SOLO ALL'ALBA E COL SUO SIGNIFICATO.**
             // Ordine BB voce 06.
             //
@@ -364,86 +268,6 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
             // compare: e' il rito dell'aria e del destino, non quello della
             // parola da portarsi dietro, e la stessa cosa in due riti
             // diversi li fa sembrare lo stesso rito.
-            if (widget.dono == DailyElement.dawn && word != null) ...[
-              const SizedBox(height: SpacingTokens.lg),
-              // **L'ETICHETTA DICE A COSA SERVE, non che categoria e'.**
-              // Ordine CQ voce 2.04, 3 settembre 2026, parole del fondatore:
-              // *la parola del giorno non dice a cosa serve.*
-              //
-              // "Parola del giorno" e' un nome di casella: dice dove sei, non
-              // cosa te ne fai. **Cio' che serve saperne sta gia' scritto nel
-              // dato**, in `cosaTiResta` del Dono dell'Alba: e' una parola da
-              // portare con te, che stasera il Sigillo del Sogno ti
-              // richiamera'. Quella riga viveva nelle tre righe del rito, che
-              // la voce 2.03 ha tolto da tutti i Doni, e senza di lei la
-              // parola era diventata un titolo senza scopo.
-              Text(
-                'LA PAROLA DA PORTARTI DIETRO',
-                key: const Key('alba_etichetta_parola'),
-                style: TypographyTokens.lettura().copyWith(
-                  color: abito.inchiostroMuto,
-                  letterSpacing: 0.6,
-                ),
-              ),
-              const SizedBox(height: SpacingTokens.xs),
-              Text(
-                word,
-                key: const Key('gift_word'),
-                style: TypographyTokens.cerimonialeGrande().copyWith(
-                  color: accento,
-                  letterSpacing: 1.4,
-                ),
-              ),
-              // **E SUBITO SOTTO, COSA VUOL DIRE.** E' la riga che mancava:
-              // senza, la parola resta un titolo senza testo.
-              if (gift.rito?.perche != null) ...[
-                const SizedBox(height: SpacingTokens.xs),
-                Text(
-                  gift.rito!.perche,
-                  key: const Key('alba_perche_della_parola'),
-                  style: TypographyTokens.lettura()
-                      .copyWith(color: abito.inchiostro, height: 1.4),
-                ),
-              ],
-              // **E COSA FARSENE, che e' la domanda vera.** Ordine CY,
-              // approvata dal fondatore il 9 settembre 2026.
-              //
-              // Il `perche` dice **cosa indica** la parola oggi. Restava senza
-              // risposta l'altra meta', ripetuta piu' volte: *"COSA DEVE
-              // FARSENE L'UTENTE DELLA PAROLA DEL GIORNO? DEVE CERCARLA NELLE
-              // ATTIVITA' QUOTIDIANE? O IL DESTINO GLIELA METTERA' DAVANTI?"*
-              //
-              // **Nessuna delle due.** Cercarla trasforma la giornata in una
-              // caccia al tesoro e la trova ovunque, che vale quanto non
-              // trovarla mai; promettere che il destino la porti e' una
-              // promessa che questa app non puo' mantenere. **E' una lente**:
-              // serve a riconoscere una cosa che c'era gia'. Ed e' per questo
-              // che stasera il Sigillo chiede DOVE l'hai riconosciuta, che e'
-              // una domanda a cui si puo' rispondere, invece di chiedere se
-              // l'hai trovata, che sarebbe un compito da superare.
-              const SizedBox(height: SpacingTokens.xs),
-              Text(
-                FiloDelGiorno.laLente(word),
-                key: const Key('alba_lente_della_parola'),
-                style: TypographyTokens.lettura().copyWith(
-                    color: abito.inchiostroMuto,
-                    height: 1.4,
-                    fontStyle: FontStyle.italic),
-              ),
-              // **E DOVE VA A FINIRE, che e' la seconda meta' della stessa
-              // domanda.** Ordine CQ voce 2.04. Una parola che non torna da
-              // nessuna parte e' una parola che si dimentica prima di sera:
-              // qui si dice che la sera torna, ed e' vero, perche' il Sigillo
-              // del Sogno la richiama davvero con `richiamoDellaParola`.
-              const SizedBox(height: SpacingTokens.xs),
-              Text(
-                'Stasera il Sigillo del Sogno te la richiama: il giorno si '
-                'chiude con lei.',
-                key: const Key('alba_dove_va_la_parola'),
-                style: TypographyTokens.lettura()
-                    .copyWith(color: abito.inchiostroMuto, height: 1.4),
-              ),
-            ],
             // **E NEMMENO IL PONTE VERSO IL SOFFIO.** Ordine BB voce 07,
             // parole del fondatore: "nel rito dell'Alba c'e' un testo
             // collegato che porta al soffio del destino, perche'?
@@ -458,25 +282,6 @@ class _RitualGiftCardState extends State<RitualGiftCard> {
             // arriva all'Alba non deve essere mandato altrove.
             // LA DOMANDA DI IERI, ordine P voce 18: il filo fra la stesa di
             // ieri e il dono di stamattina.
-            if (widget.domandaDiIeri != null) ...[
-              const SizedBox(height: SpacingTokens.md),
-              Container(
-                key: const Key('domanda_di_ieri'),
-                width: double.infinity,
-                padding: const EdgeInsets.all(SpacingTokens.sm),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(14),
-                  color: abito.incasso,
-                  border: Border.all(color: accento.withValues(alpha: 0.4)),
-                ),
-                child: Text(
-                  FiloDelGiorno.richiamoDellaDomanda(widget.domandaDiIeri!),
-                  key: const Key('alba_domanda_di_ieri'),
-                  style: TypographyTokens.lettura()
-                      .copyWith(color: abito.inchiostro, height: 1.4),
-                ),
-              ),
-            ],
             // **LIVELLO TRE: DA DOVE NASCE, e adesso e' la porta comune.**
             // Ordine CQ voce 6.24, 4 settembre 2026.
             //

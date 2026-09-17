@@ -242,9 +242,12 @@ void main() {
     // nel profilo"*. Li chiede alla porta unica dei Maestri, `SorgenteNatale`,
     // non tiene copie, e senza identita' scende col solo segno di nascita, da
     // cui viene l'animale.
-    expect(elenco.length, 16,
+    // QUATTORDICI DALL'ORDINE DT: il Rito dell'Alba e l'Arcano del Giorno
+    // non ci sono piu', e l'Arcano dell'Alba non chiede la nascita, perche'
+    // estrae dal sacchetto della persona.
+    expect(elenco.length, 14,
         reason: 'le funzionalita\' che chiedono i dati di nascita sono '
-            '${elenco.length} invece di 16:\n${elenco.join("\n")}\n'
+            '${elenco.length} invece di 14:\n${elenco.join("\n")}\n'
             'Se ne hai aggiunta una, verifica che riceva i dati dalla porta e '
             'aggiorna questo numero. Se ne hai tolta una, idem.');
   });

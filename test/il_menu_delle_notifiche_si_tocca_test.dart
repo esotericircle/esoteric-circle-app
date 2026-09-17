@@ -85,7 +85,7 @@ void main() {
     return scelta;
   }
 
-  testWidgets('BC.05: ci sono cinque righe, ognuna con la sua ora',
+  testWidgets('BC.05: c\'e una riga per ogni Dono, ognuna con la sua ora',
       (tester) async {
     await apri(tester);
     final ore = <String>[];
@@ -100,8 +100,8 @@ void main() {
     }
     // ignore: avoid_print
     print('ORDINE BC VOCE 05: nel menu si leggono $ore');
-    expect(find.byType(Switch), findsNWidgets(5),
-        reason: 'gli interruttori non sono cinque');
+    expect(find.byType(Switch), findsNWidgets(DailyElement.values.length),
+        reason: 'gli interruttori non sono uno per Dono');
   });
 
   testWidgets('BC.05: e toccare un interruttore cambia davvero la scelta',
@@ -139,13 +139,13 @@ void main() {
     // notifiche, l utente deve poter cambiare anche l orario di ogni
     // notifica."
     final scelta = await apri(tester);
-    expect(scelta.minutiDi(DailyElement.oracle),
-        DailyElement.oracle.anchorMinutes);
+    expect(scelta.minutiDi(DailyElement.rune),
+        DailyElement.rune.anchorMinutes);
 
     await tester
-        .ensureVisible(find.byKey(const Key('notifiche_tocco_ora_oracle')));
+        .ensureVisible(find.byKey(const Key('notifiche_tocco_ora_rune')));
     await tester.pump();
-    await tester.tap(find.byKey(const Key('notifiche_tocco_ora_oracle')));
+    await tester.tap(find.byKey(const Key('notifiche_tocco_ora_rune')));
     // **PUMP RIPETUTI E NON `pumpAndSettle`**: il cielo di questa schermata
     // pulsa senza fine, e aspettare che si fermi vuol dire aspettare per
     // sempre. E' la stessa ragione per cui tutto il progetto lo evita sulle
@@ -162,7 +162,7 @@ void main() {
         reason: 'toccando l ora non si apre nessun orologio: l ora e rimasta '
             'un etichetta');
     // ignore: avoid_print
-    print('ORDINE BC VOCE 05 coda: toccando l ora dell Arcano si apre '
+    print('ORDINE BC VOCE 05 coda: toccando l ora della Runa si apre '
         'l orologio di sistema');
 
     // E si esce senza cambiare niente: chi apre per sbaglio non deve
@@ -172,17 +172,17 @@ void main() {
       await tester.pump(const Duration(milliseconds: 120));
     }
     expect(
-        scelta.minutiDi(DailyElement.oracle), DailyElement.oracle.anchorMinutes,
+        scelta.minutiDi(DailyElement.rune), DailyElement.rune.anchorMinutes,
         reason: 'chiudendo l orologio senza confermare l ora e cambiata lo '
             'stesso');
   });
 
   testWidgets('BC.05 coda: e l ora mostrata e quella scelta', (tester) async {
     // **La riga deve dire l ora VERA, non quella di casa.** Se mostrasse
-    // sempre l ancora, chi ha spostato l Arcano alle nove leggerebbe le
-    // tredici e crederebbe che il cambiamento non abbia funzionato.
+    // sempre l ancora, chi ha spostato la Runa alle nove leggerebbe le
+    // diciotto e mezza e crederebbe che il cambiamento non abbia funzionato.
     SharedPreferences.setMockInitialValues({
-      SceltaDegliAvvisi.chiaveDellOraDi(DailyElement.oracle): 9 * 60 + 5,
+      SceltaDegliAvvisi.chiaveDellOraDi(DailyElement.rune): 9 * 60 + 5,
     });
     final scelta = SceltaDegliAvvisi();
     await scelta.carica();
@@ -203,9 +203,9 @@ void main() {
       await tester.pump(const Duration(milliseconds: 120));
     }
     final mostrata =
-        tester.widget<Text>(find.byKey(const Key('notifiche_ora_oracle')));
+        tester.widget<Text>(find.byKey(const Key('notifiche_ora_rune')));
     // ignore: avoid_print
-    print('ORDINE BC VOCE 05 coda: con l Arcano spostato, la riga mostra '
+    print('ORDINE BC VOCE 05 coda: con la Runa spostata, la riga mostra '
         '"${mostrata.data}"');
     expect(mostrata.data, '09:05',
         reason: 'la riga mostra l ora di casa invece di quella scelta');

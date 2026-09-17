@@ -32,6 +32,10 @@ class CioCheETuo {
     'account.',
     // Cosa hai usato oggi, il saldo degli Eos, la coda dei consumi.
     'allowance.',
+    // **IL DIARIO DELL'ARCANO DELL'ALBA, ordine DT voce 05**: il sacchetto
+    // delle carte, le letture gia' ricevute, i registri del ciclo e il seme
+    // con cui la persona le consuma.
+    'arcano_alba.',
     // Il tuo Archetipo e il suo storico.
     'archetipo.',
     // Le arti che hai messo fra le preferite. **Senza il punto**: la chiave

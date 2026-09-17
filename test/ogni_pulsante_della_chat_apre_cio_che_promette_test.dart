@@ -43,7 +43,7 @@ void main() {
 
   /// Il nome della funzione, quando non sta nel catalogo delle arti.
   const nomiFuoriCatalogo = <String, String>{
-    'day_oracle': 'Arcano del Giorno',
+    'day_oracle': 'Arcano dell\'Alba',
   };
 
   String nomeDi(String id) {

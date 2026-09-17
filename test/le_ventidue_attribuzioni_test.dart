@@ -1,6 +1,6 @@
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/rituals/arcano_dell_alba/attribuzioni_degli_arcani.dart';
-import 'package:esoteric_circle/core/rituals/arcano_del_giorno.dart';
+import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// **LE VENTIDUE ATTRIBUZIONI DELLA GOLDEN DAWN.** Ordine DT voci 06 e 10.
@@ -29,7 +29,8 @@ void main() {
   });
 
   test('ogni arcano maggiore del mazzo ha esattamente una attribuzione', () {
-    final maggiori = ArcanoDelGiorno.maggiori;
+    final maggiori =
+        TarotDeck.cards.where((c) => c.arcana == TarotArcana.maggiore).toList();
     expect(maggiori, hasLength(22));
     for (final carta in maggiori) {
       final quante = AttribuzioneDellArcano.tutte

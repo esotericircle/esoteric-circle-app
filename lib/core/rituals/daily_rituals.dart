@@ -38,6 +38,4 @@ class DailyRituals {
 
   /// Il Maestro del Rito della Buonanotte di oggi. Ruota come il Rito dell'Alba,
   /// quindi lo stesso giorno condivide lo stesso Maestro di turno.
-  static Maestro nightMaestro(DateTime date) => dawnMaestro(date);
-
 }

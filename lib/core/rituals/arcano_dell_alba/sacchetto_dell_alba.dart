@@ -221,7 +221,9 @@ class SacchettoDellAlba {
         ultimeCarte: List.unmodifiable(ultime),
         ciclo: ciclo,
       );
-    } catch (_) {
+    } catch (errore) {
+      // Si ignora apposta: un salvataggio illeggibile non e' un errore da
+      // mostrare, e' un sacchetto da ricomporre. Mai bloccare.
       return SacchettoDellAlba.nuovo();
     }
   }

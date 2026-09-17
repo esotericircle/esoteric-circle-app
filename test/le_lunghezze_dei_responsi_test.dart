@@ -4,7 +4,7 @@ import 'dart:math';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/rituals/rito_alba.dart';
-import 'package:esoteric_circle/core/rituals/arcano_del_giorno.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/letture_dell_alba_dati.dart';
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/rituals/rune_presage.dart';
 import 'package:esoteric_circle/core/rituals/runes.dart';
@@ -128,16 +128,16 @@ void main() {
       tutto['Oroscopo, scheda «${dominio.name}»'] = schede;
     }
 
-    // --- ORACOLO DEL GIORNO: la riga di mezza giornata ---
-    // **SI MISURA IL TESTO VIVO.** Ordine CS, voce M1: qui si chiamava
-    // `DailyRituals.dayOracle`, un pool statico che nessun file di `lib`
-    // chiama piu'. L'Arcano del Giorno e' cio' che la persona legge.
-    final oracoli = <String>[];
-    for (var giorno = 0; giorno < giorniDellAnno; giorno++) {
-      oracoli.add(ArcanoDelGiorno.sommarioDi(
-          DateTime(2026, 1, 1).add(Duration(days: giorno))));
-    }
-    tutto['Arcano del Giorno, il sommario'] = oracoli;
+    // --- L'ARCANO DELL'ALBA: il dono e la chiusura di Medora ---
+    // **SI MISURA IL TESTO VIVO.** Ordine CS, voce M1, e ordine DT: l'Arcano
+    // del Giorno non c'e' piu', e cio' che la persona legge al mattino sono
+    // le letture del corpus dell'Arcano dell'Alba.
+    tutto['Arcano dell\'Alba, il dono'] = [
+      for (final l in lettureDellAlba) l.dono,
+    ];
+    tutto['Arcano dell\'Alba, Medora'] = [
+      for (final l in lettureDellAlba) l.medora,
+    ];
 
     // --- SOGNO e ALBA: i messaggi del giorno ---
     // Stessa cura: il Rito dell'Alba ha il suo motore, e cio' che si

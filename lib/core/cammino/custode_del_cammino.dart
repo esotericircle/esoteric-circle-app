@@ -1,3 +1,4 @@
+import '../rituals/arcano_dell_alba/archivio_dell_alba.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 
@@ -130,6 +131,12 @@ class CustodeDelCammino {
       artiPreferite: arti,
       primoGiorno: diario?.primoGiorno,
       ultimoGiorno: diario?.ultimoGiorno,
+      // **IL DIARIO DELL'ALBA, SE UNA CARTA E' GIA' STATA SCELTA.** Ordine DT
+      // voce 05. Un diario mai usato non parte: porterebbe al Cerchio un seme
+      // che nessuna estrazione ha ancora legato alla persona.
+      arcanoDellAlba: ArchivioDellAlba.inMemoria?.ultima == null
+          ? null
+          : ArchivioDellAlba.inMemoria!.toJson(),
     );
   }
 
@@ -190,6 +197,10 @@ class CustodeDelCammino {
       }
       rinascitaDaRaccontare = true;
     }
+    if (!context.mounted) return const EsitoDelGiro();
+    // Il diario dell'Alba si legge dal disco prima di raccogliere, perche'
+    // la raccolta e' sincrona e lo prende dalla memoria.
+    await ArchivioDellAlba.leggi();
     if (!context.mounted) return const EsitoDelGiro();
     final mio = raccogli(context);
     quanteVolte++;
@@ -425,6 +436,10 @@ class CustodeDelCammino {
         // Senza il controller del profilo non c'e' niente da riprendere.
       }
     }
+    // **IL DIARIO DELL'ALBA TORNA SUL TELEFONO NUOVO**, ordine DT voce 05,
+    // se e' piu' avanti di quello che c'e'. Non serve il contesto: la porta e'
+    // l'archivio.
+    await ArchivioDellAlba.adottaDalCerchio(cammino.arcanoDellAlba);
     if (!context.mounted) return;
     if (cammino.artiPreferite.isNotEmpty) {
       try {

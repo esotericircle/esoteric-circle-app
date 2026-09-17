@@ -26,7 +26,7 @@ const Map<ImmersiveTarget, String?> artDellIntento = {
   ImmersiveTarget.cartaNatale: 'natal_chart',
   ImmersiveTarget.sinastriaVip: 'synastry_vip',
   ImmersiveTarget.oroscopoGiorno: 'horoscope',
-  ImmersiveTarget.arcanoDelGiorno: 'day_oracle',
+  ImmersiveTarget.arcanoDellAlba: 'day_oracle',
   ImmersiveTarget.meditazione: 'meditation',
   ImmersiveTarget.breathwork: 'meditation',
   ImmersiveTarget.frequenze: 'meditation',

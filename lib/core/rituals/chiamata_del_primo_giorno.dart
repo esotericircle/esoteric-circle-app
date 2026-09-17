@@ -124,7 +124,7 @@ class ChiamataDelPrimoGiorno {
       context,
       permission: AppPermission.notifications,
       palette: MaestroPalette.forKey(const ThemeKey.of(Maestro.medora)),
-      copy: const PermissionCopy(
+      copy: PermissionCopy(
         icon: Icons.notifications_active_rounded,
         // La stessa domanda del menu' Notifiche: due porte, una frase.
         title: 'Posso chiamarti quando è l\'ora?',

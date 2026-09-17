@@ -1327,9 +1327,11 @@ class _FiloDeiGiorni extends StatelessWidget {
   /// Il nome del rito come lo direbbe una persona, con l'articolo suo:
   /// la frase lo incolla a "di seguito", e "col Runa" sarebbe uno sfregio.
   static const Map<String, String> _nomi = {
-    'alba': "col Rito dell'Alba",
+    // L'alba e l'oracolo sono lo stesso dono dall'ordine DT: tutti e due i
+    // gesti arrivano dall'Arcano dell'Alba.
+    'alba': "con l'Arcano dell'Alba",
     'soffio': 'col Soffio del Destino',
-    'oracolo': "con l'Arcano del Giorno",
+    'oracolo': "con l'Arcano dell'Alba",
     'tramonto': 'con la Runa del Tramonto',
     'sogno': 'col Sigillo del Sogno',
   };

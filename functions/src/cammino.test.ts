@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   CamminoCustodito,
   VERSIONE_DEL_CAMMINO,
+  PESO_MASSIMO_DEL_DIARIO_DELL_ALBA,
   fondiCammini,
   leggiCammino,
 } from "./cammino";
@@ -150,4 +151,55 @@ test("l'ora di nascita arriva da chi ce l'ha", () => {
 test("due cammini vuoti danno un cammino vuoto, con la sola versione", () => {
   const fuso = fondiCammini(vuoto, vuoto);
   assert.deepEqual(fuso, {versione: VERSIONE_DEL_CAMMINO});
+});
+
+/**
+ * IL DIARIO DELL'ARCANO DELL'ALBA VIAGGIA COL CAMMINO. Ordine DT voce 05: il
+ * sacchetto e le letture sono per utente e sopravvivono al cambio di telefono.
+ */
+function diarioAlba(giorno: string, ciclo: number, rimasti: number) {
+  return {
+    seme: "abc",
+    sacchetto: {
+      rimasti: Array.from({length: rimasti}, (_, i) => i),
+      ultimeCarte: [],
+      ciclo,
+    },
+    ultima: {giorno, stato: 3, numero: 1, apertura: 0, clausola: 0},
+  };
+}
+
+test("il diario dell'Alba si legge intero, e uno troppo pesante no", () => {
+  const letto = leggiCammino({arcanoDellAlba: diarioAlba("2026-09-18", 1, 40)});
+  assert.equal(
+    (letto.arcanoDellAlba?.ultima as Record<string, unknown>).giorno,
+    "2026-09-18"
+  );
+  const enorme = {riempitivo: "x".repeat(PESO_MASSIMO_DEL_DIARIO_DELL_ALBA)};
+  assert.equal(leggiCammino({arcanoDellAlba: enorme}).arcanoDellAlba, undefined);
+  assert.equal(leggiCammino({arcanoDellAlba: [1, 2]}).arcanoDellAlba, undefined);
+});
+
+test("fra due diari dell'Alba vince il piu' avanti, e un telefono nuovo lo riceve", () => {
+  const server = diarioAlba("2026-09-20", 1, 30);
+  const telefonoVecchio = diarioAlba("2026-09-18", 1, 40);
+  assert.equal(
+    fondiCammini({arcanoDellAlba: server}, {arcanoDellAlba: telefonoVecchio})
+      .arcanoDellAlba,
+    server
+  );
+  const telefonoAvanti = diarioAlba("2026-09-21", 1, 29);
+  assert.equal(
+    fondiCammini({arcanoDellAlba: server}, {arcanoDellAlba: telefonoAvanti})
+      .arcanoDellAlba,
+    telefonoAvanti
+  );
+  assert.equal(
+    fondiCammini({arcanoDellAlba: server}, vuoto).arcanoDellAlba,
+    server
+  );
+  assert.equal(
+    fondiCammini(vuoto, {arcanoDellAlba: telefonoVecchio}).arcanoDellAlba,
+    telefonoVecchio
+  );
 });

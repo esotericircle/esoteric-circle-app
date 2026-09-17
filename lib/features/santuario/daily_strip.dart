@@ -16,11 +16,10 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../rituals/breath_destiny_screen.dart';
-import '../rituals/dawn_rite_screen.dart';
+import '../rituals/arcano_dell_alba_screen.dart';
 import '../../core/rituals/finestra_del_dono.dart';
 import '../../core/rituals/scelta_degli_avvisi.dart';
 import '../rituals/carta_del_dono_chiuso.dart';
-import '../rituals/day_oracle_screen.dart';
 import '../rituals/dream_rite_screen.dart';
 import '../rituals/sunset_rune_screen.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
@@ -34,11 +33,9 @@ const Color _gold = Color(0xFFE8C463);
 Route<void> dailyElementRoute(DailyElement element) {
   switch (element) {
     case DailyElement.dawn:
-      return DawnRiteScreen.route();
+      return ArcanoDellAlbaScreen.route();
     case DailyElement.breath:
       return BreathDestinyScreen.route();
-    case DailyElement.oracle:
-      return DayOracleScreen.route();
     case DailyElement.rune:
       return SunsetRuneScreen.route();
     case DailyElement.night:
@@ -70,8 +67,8 @@ void openDailyElement(BuildContext context, DailyElement element) {
   }
   if (avvisi != null &&
       !FinestraDelDono.aperto(element, avvisi: avvisi, adesso: adesso)) {
-    final quando = FinestraDelDono.quandoSiApre(element,
-        avvisi: avvisi, adesso: adesso);
+    final quando =
+        FinestraDelDono.quandoSiApre(element, avvisi: avvisi, adesso: adesso);
     // **DALLA PORTA COMUNE DELLE ROTTE**, ordine CC voce 04: il lampo fra le
     // schermate e' nero e vale ovunque, e una guardia conta le rotte scritte
     // per conto proprio.
@@ -94,9 +91,9 @@ void openDailyElement(BuildContext context, DailyElement element) {
 /// L'icona dell'elemento nella striscia del giorno, come widget cosi' Alba e
 /// Tramonto possono usare un disegno dedicato, inequivocabile su sale e scende.
 ///
-/// Alba: sole che sorge sull'orizzonte con raggi verso l'alto. Soffio: soffio di
-/// vento. Oracolo: sole pieno. Tramonto: sole caldo che scende sull'orizzonte,
-/// mai una luna. Notte: luna con una piccola stella.
+/// Arcano dell'Alba: sole che sorge sull'orizzonte con raggi verso l'alto.
+/// Soffio: soffio di vento. Tramonto: sole caldo che scende sull'orizzonte, mai
+/// una luna. Notte: luna con una piccola stella.
 Widget _elementIcon(DailyElement element,
     {required Color color, required double size}) {
   final key = Key('daily_icon_${element.name}');
@@ -105,8 +102,6 @@ Widget _elementIcon(DailyElement element,
       return _SunHorizonIcon(key: key, color: color, size: size, rising: true);
     case DailyElement.breath:
       return Icon(Icons.air_rounded, key: key, size: size, color: color);
-    case DailyElement.oracle:
-      return Icon(Icons.wb_sunny_rounded, key: key, size: size, color: color);
     case DailyElement.rune:
       return _SunHorizonIcon(key: key, color: color, size: size, rising: false);
     case DailyElement.night:

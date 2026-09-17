@@ -33,7 +33,7 @@ class AppStrings {
       'it': 'Costellazione del Viso',
       'en': 'Face Constellation'
     },
-    'day_oracle': {'it': 'Arcano del Giorno', 'en': 'Arcanum of the Day'},
+    'day_oracle': {'it': 'Arcano dell\'Alba', 'en': 'Dawn Arcanum'},
     'sunset_rune': {'it': 'Runa del Tramonto', 'en': 'Sunset Rune'},
     'meditation': {'it': 'Meditazione', 'en': 'Meditation'},
   };

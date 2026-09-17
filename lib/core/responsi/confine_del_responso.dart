@@ -90,6 +90,10 @@ class ConfineDelResponso {
     'mutuo',
   ];
 
+  /// I nomi dei simboli che contengono un tema delicato, con la maiuscola con
+  /// cui il mazzo li scrive: l'arcano XIII.
+  static final RegExp nomiDiSimboli = RegExp(r'\b(La|la) Morte\b');
+
   /// COME SI RICONOSCE CHE UNA FRASE E' RIVOLTA ALLA PERSONA.
   ///
   /// La seconda persona: il pronome, il possessivo, o un verbo alla seconda. E'
@@ -132,8 +136,6 @@ class ConfineDelResponso {
   static List<ViolazioneDelConfine> violazioni(String testo) {
     final trovate = <ViolazioneDelConfine>[];
     for (final frase in _frasi(testo)) {
-      final basso = frase.toLowerCase();
-
       // 1. LA PREVISIONE DATA PER CERTA, e questa vale da sola: non conta di
       //    cosa parla, conta che sia annunciata come certa.
       for (final forma in formeDellaPrevisione) {
@@ -149,8 +151,16 @@ class ConfineDelResponso {
       // 2. IL TEMA DELICATO RIVOLTO ALLA PERSONA. Nominare Othala non e' parlare
       //    di eredita': dire che l'eredita' ti aspetta lo e'.
       if (!rivoltaATe.hasMatch(frase)) continue;
+      // **IL NOME DI UN SIMBOLO NON E' IL TEMA**, ordine DT voce 08. L'Arcano
+      // dell'Alba dice *"il mazzo ti consegna la Morte dritta"*: e' il nome
+      // dell'arcano XIII, come Othala e' il nome di una runa, e la voce di
+      // prima lo leggeva come la morte rivolta alla persona. **Si cambia la
+      // grandezza misurata, non la soglia**: i nomi degli arcani, scritti con
+      // la maiuscola come il mazzo li scrive, si tolgono prima di cercare; la
+      // morte in minuscolo resta sotto il confine.
+      final senzaNomi = frase.replaceAll(nomiDiSimboli, '').toLowerCase();
       for (final tema in temiDelicati) {
-        if (!basso.contains(tema)) continue;
+        if (!senzaNomi.contains(tema)) continue;
         trovate.add(ViolazioneDelConfine(
           regola: 'tema delicato rivolto alla persona',
           trovato: tema,

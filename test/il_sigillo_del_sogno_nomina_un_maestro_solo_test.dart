@@ -26,10 +26,14 @@ import 'package:provider/provider.dart';
 /// giorni su tre** il saluto portava la voce di un Maestro e il pulsante ne
 /// nominava un altro.
 ///
-/// **Cio' che si misura qui non e' un giorno, sono tre.** Con un giorno solo la
-/// prova sarebbe verde un giorno su tre anche con la costante rimessa: il
-/// giorno in cui il Maestro di turno E' Caligo. Si scelgono tre date che danno
-/// tre Maestri diversi, e la prova lo verifica prima di guardare la schermata.
+/// **DALL'ORDINE DT VOCE 15 IL SIGILLO E' DI MEDORA, e non ruota piu'.** La
+/// pretesa della voce CW.02 resta intera, un Maestro solo fra testo e
+/// pulsante; cambia quale: sempre Medora.
+///
+/// **Cio' che si misura qui non e' un giorno, sono tre.** Si prendono tre date
+/// che la vecchia rotazione del giorno assegnava a tre Maestri diversi: se la
+/// rotazione tornasse nel Sigillo, almeno due di quei giorni nominerebbero un
+/// altro Maestro.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -48,41 +52,40 @@ void main() {
       m.setMockStreamHandler(
           EventChannel(n), MockStreamHandler.inline(onListen: (a, e) {}));
     }
-    for (final n in const ['xyz.luan/audioplayers', 'xyz.luan/audioplayers.global']) {
+    for (final n in const [
+      'xyz.luan/audioplayers',
+      'xyz.luan/audioplayers.global'
+    ]) {
       m.setMockMethodCallHandler(MethodChannel(n), (c) async => null);
     }
   }
 
-  /// Tre date che danno tre Maestri diversi, trovate contando e non scelte a
-  /// occhio: la rotazione e' sul giorno dell'anno modulo tre.
+  /// Tre date che la rotazione del giorno assegna a tre Maestri diversi,
+  /// trovate contando e non scelte a occhio.
   Map<Maestro, DateTime> treGiorniTreMaestri() {
     final trovati = <Maestro, DateTime>{};
     for (var g = 0; g < 12; g++) {
       final data = DateTime(2026, 9, 1 + g, 22);
-      trovati.putIfAbsent(DailyRituals.nightMaestro(data), () => data);
+      trovati.putIfAbsent(DailyRituals.dawnMaestro(data), () => data);
       if (trovati.length == Maestro.values.length) break;
     }
     return trovati;
   }
 
-  test('La rotazione del Rito della Notte esiste davvero', () {
-    final tre = treGiorniTreMaestri();
-    expect(tre.length, Maestro.values.length,
-        reason: 'su dodici giorni consecutivi il Rito della Notte nomina solo '
-            '${tre.length} Maestri su ${Maestro.values.length}: la rotazione '
-            'non ruota, e allora la voce CW.02 andava chiusa fissando il '
-            'Maestro invece che collegandolo');
+  test('le tre date danno davvero tre Maestri di turno', () {
+    expect(treGiorniTreMaestri().length, Maestro.values.length);
   });
 
   for (final voce in {'medora', 'aura', 'caligo'}) {
-    testWidgets('Il giorno di $voce testo e pulsante nominano lui',
+    testWidgets('Nel giorno di turno di $voce il Sigillo nomina Medora e basta',
         (tester) async {
       silenzio();
       final tre = treGiorniTreMaestri();
-      final maestro = Maestro.values.firstWhere((m) => m.id == voce);
-      final data = tre[maestro];
+      final diTurno = Maestro.values.firstWhere((m) => m.id == voce);
+      final data = tre[diTurno];
       expect(data, isNotNull,
           reason: 'nessuno dei dodici giorni provati tocca a $voce');
+      const maestro = Maestro.medora;
 
       tester.view.physicalSize = const Size(430, 2000);
       tester.view.devicePixelRatio = 1.0;
@@ -121,7 +124,8 @@ void main() {
 
       // **IL SALUTO PORTA IL SUO NOME**, ed e' la sorgente che ruotava gia'.
       expect(
-          find.textContaining('IL SALUTO DI ${maestro.displayName.toUpperCase()}'),
+          find.textContaining(
+              'IL SALUTO DI ${maestro.displayName.toUpperCase()}'),
           findsOneWidget,
           reason: 'il saluto non e\' attribuito a ${maestro.displayName}, '
               'cioe\' la sorgente del testo non e\' quella che ruota');

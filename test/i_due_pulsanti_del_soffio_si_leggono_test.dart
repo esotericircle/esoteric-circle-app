@@ -41,9 +41,10 @@ void main() {
   }
 
   /// Cosa si vede davvero sotto un colore con trasparenza, posato su un fondo.
-  Color composto(Color sopra, Color sotto) =>
-      Color.alphaBlend(sopra, Color.fromARGB(255, (sotto.r * 255).round(),
-          (sotto.g * 255).round(), (sotto.b * 255).round()));
+  Color composto(Color sopra, Color sotto) => Color.alphaBlend(
+      sopra,
+      Color.fromARGB(255, (sotto.r * 255).round(), (sotto.g * 255).round(),
+          (sotto.b * 255).round()));
 
   /// La soglia dichiarata da questa prova.
   const soglia = 4.5;
@@ -51,8 +52,12 @@ void main() {
   test('Il Soffio NON ha il vestito chiaro, e nessuno deve crederlo', () {
     // E' la premessa dell'intera voce: se un giorno il Soffio passasse al
     // regime chiaro, questa prova va riletta invece di aggiustata.
-    expect(AbitoDelResponso.di(DailyElement.dawn).diGiorno, isTrue,
-        reason: 'l\'Alba non ha piu\' il vestito chiaro');
+    // **Dall'ordine DT nessun dono ha il vestito chiaro**: il Rito dell'Alba,
+    // l'unico che lo portava, non c'e' piu'. La premessa della voce resta.
+    for (final d in DailyElement.values) {
+      expect(AbitoDelResponso.di(d).diGiorno, isFalse,
+          reason: '${d.name} porta il vestito chiaro');
+    }
     expect(AbitoDelResponso.di(DailyElement.breath).diGiorno, isFalse,
         reason: 'il Soffio ha il vestito chiaro: allora `suChiaro: true` era '
             'giusto e questa voce misurava la cosa sbagliata');
@@ -109,9 +114,9 @@ void main() {
             'contro $soglia');
 
     // Disabilitato: l'etichetta scende al trentotto per cento.
-    final spento =
-        contrasto(Color.alphaBlend(abito.inchiostro.withValues(alpha: 0.38),
-            fondo), fondo);
+    final spento = contrasto(
+        Color.alphaBlend(abito.inchiostro.withValues(alpha: 0.38), fondo),
+        fondo);
     // ignore: avoid_print
     print('ORDINE CW VOCE 08: premuto ${premuto.toStringAsFixed(2)}, '
         'disabilitato ${spento.toStringAsFixed(2)}');

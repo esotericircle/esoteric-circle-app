@@ -102,9 +102,8 @@ void main() {
     // proprio Dono. L'enumerazione resta, ed e' il punto: un sesto Dono senza
     // schermata dichiarata fa cadere questa prova invece di nascere muto.
     const schermatePerDono = <DailyElement, String>{
-      DailyElement.dawn: 'lib/features/rituals/ritual_gift_card.dart',
+      DailyElement.dawn: 'lib/features/rituals/arcano_dell_alba_screen.dart',
       DailyElement.breath: 'lib/features/rituals/ritual_gift_card.dart',
-      DailyElement.oracle: 'lib/features/rituals/day_oracle_screen.dart',
       DailyElement.rune: 'lib/features/rituals/sunset_rune_screen.dart',
       DailyElement.night: 'lib/features/rituals/dream_rite_screen.dart',
     };
@@ -128,7 +127,6 @@ void main() {
       // La scheda condivisa serve due Doni, quindi il valore glielo passano le
       // due schermate: qui si controlla che lo passino, e che sia il proprio.
       const chiPassa = <DailyElement, String>{
-        DailyElement.dawn: 'lib/features/rituals/dawn_rite_screen.dart',
         DailyElement.breath: 'lib/features/rituals/breath_destiny_screen.dart',
       };
       chiPassa.forEach((dono, file) {

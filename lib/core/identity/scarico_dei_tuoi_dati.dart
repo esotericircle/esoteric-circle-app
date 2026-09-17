@@ -65,6 +65,9 @@ class ScaricoDeiTuoiDati {
     // sul telefono e non comparivano ne' nell'oblio ne' nell'archivio che la
     // persona chiede.
     'arti_preferite': 'Le arti che hai messo fra le preferite',
+    // Ordine DT voce 05: il sacchetto delle carte e le letture ricevute.
+    'arcano_alba.':
+        'Il tuo Arcano dell\'Alba, con le carte uscite e le letture ricevute',
     'avvisi.': 'Gli avvisi che ti sono stati proposti',
     'carta.natale': 'La tua carta natale conservata',
     'carta_natale_': 'La tua carta natale, nella forma vecchia',
@@ -86,7 +89,8 @@ class ScaricoDeiTuoiDati {
     // Meditazione si cancella con tutto il resto, quindi qui c'e' anche il
     // suo nome: non si scarica meno di quello che si cancella.
     'loto.': 'I tuoi respiri nella Meditazione',
-    'viaggio.': 'I tuoi viaggi nel Mondo di Sotto, con le domande che hai portato giù',
+    'viaggio.':
+        'I tuoi viaggi nel Mondo di Sotto, con le domande che hai portato giù',
   };
 
   /// **IL GRUPPO DI CHI NON HA UN NOME, e non e' un dettaglio.** Ordine BZ

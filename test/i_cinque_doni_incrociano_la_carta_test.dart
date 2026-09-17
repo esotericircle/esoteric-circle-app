@@ -1,6 +1,4 @@
-import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
-import 'package:esoteric_circle/core/rituals/arcano_del_giorno.dart';
 import 'package:esoteric_circle/core/rituals/dawn_gift.dart';
 import 'package:esoteric_circle/core/rituals/dream_rite_corpus.dart';
 import 'package:esoteric_circle/core/rituals/sunset_rune.dart';
@@ -24,30 +22,18 @@ import 'package:flutter_test/flutter_test.dart';
 /// manifesto: la Runa del Tramonto l'incrocio ce l'aveva gia', il Sigillo del
 /// Sogno non aveva nessuna Luna di nascita, e l'Arcano era davvero la stessa
 /// carta per tutti.
+///
+/// **DALL'ORDINE DT I DONI SONO QUATTRO, E L'INCROCIO VALE PER TRE.** Il Rito
+/// dell'Alba e l'Arcano del Giorno non ci sono piu', e le loro misure se ne
+/// sono andate con loro. **L'Arcano dell'Alba non incrocia la carta natale**:
+/// estrae dal sacchetto della persona, per ordine. Lo scarto con questa
+/// promessa e' nel rapporto dell'ordine DT, come domanda a Mauro.
 void main() {
   // Due nascite lontane fra loro: segni solari diversi, Lune diverse, e
   // numeri della carta di nascita diversi.
   final unaNascita = DateTime(1975, 11, 2);
   final altraNascita = DateTime(1990, 6, 15);
   final giorno = DateTime(2026, 7, 13);
-
-  test('l\'Arcano del Giorno non e\' piu\' la stessa carta per tutti', () {
-    final una = ArcanoDelGiorno.di(giorno, nascita: unaNascita);
-    final altra = ArcanoDelGiorno.di(giorno, nascita: altraNascita);
-    // ignore: avoid_print
-    print('ORDINE CE VOCE 13: Arcano, ${una.name} contro ${altra.name}');
-    expect(una.name, isNot(altra.name),
-        reason: 'lo stesso giorno, due carte natali diverse, e la stessa '
-            'carta: l\'Arcano non incrocia niente');
-  });
-
-  test('e senza nascita resta il Dono del giorno, non un vuoto', () {
-    // **CHIEDERE LA NASCITA PER APRIRE UN DONO SAREBBE UN PEDAGGIO.** Chi
-    // arriva e non l'ha data riceve comunque la sua carta.
-    final senza = ArcanoDelGiorno.di(giorno);
-    expect(senza.name.trim(), isNotEmpty);
-    expect(ArcanoDelGiorno.responsoDi(giorno).trim(), isNotEmpty);
-  });
 
   test('il Sigillo del Sogno guarda anche la tua Luna', () {
     final uno = DreamRiteCorpus.saluto(giorno, nascita: unaNascita);
@@ -82,21 +68,6 @@ void main() {
         reason: 'la stessa sera, due nascite diverse, e la stessa runa');
   });
 
-  test('il Rito dell\'Alba porta l\'incrocio dentro cio\' che si legge', () {
-    // **PRIMA STAVA SOLO NELLA SCHEDA "DA DOVE NASCE".** Il segno solare
-    // natale finiva in `GiftSource` e non toccava ne' il gesto ne' la parola:
-    // chi compiva il rito non incontrava mai la propria carta.
-    final uno = DawnGift.forMaestro(giorno, Maestro.aura,
-        identity: _identita(unaNascita));
-    final altro = DawnGift.forMaestro(giorno, Maestro.aura,
-        identity: _identita(altraNascita));
-    // ignore: avoid_print
-    print('ORDINE CE VOCE 13: Alba, parola ${uno.word} contro ${altro.word}');
-    expect([uno.word, uno.orientation], isNot([altro.word, altro.orientation]),
-        reason: 'lo stesso mattino per due carte natali diverse: l\'incrocio '
-            'resta nella scheda e non entra nel rito');
-  });
-
   test('il Soffio del Destino nasce dai transiti, e li porta nel gesto', () {
     // Il Soffio e' l'unico dei cinque che l'ordine dava per gia' conforme, e
     // alla misura lo e': la sua risposta nasce dai transiti sulla carta, e
@@ -107,6 +78,3 @@ void main() {
         reason: 'senza identita\' il Dono si inventa un Sole natale');
   });
 }
-
-BirthIdentity _identita(DateTime nascita) =>
-    BirthIdentity(birthMoment: nascita);

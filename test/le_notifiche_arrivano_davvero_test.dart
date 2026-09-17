@@ -233,11 +233,13 @@ void main() {
     expect(await ChiamataDelPrimoGiorno.giaChiesto(), isTrue);
   });
 
-  test('La spiegazione che si mostra e\' quella dei cinque Doni', () {
+  test('La spiegazione che si mostra e\' quella dei Doni', () {
     // Non si riscrive una seconda spiegazione: e' la stessa del Rito
     // dell'Alba e del menu' Notifiche, che nomina i cinque Doni e le ore.
-    expect(AvvisiDelRito.spiegazione, contains('cinque avvisi al giorno'));
-    for (final parola in const ['Alba', 'Soffio', 'Arcano', 'Tramonto']) {
+    // **Dall'ordine DT il numero e i nomi vengono dai Doni.**
+    expect(AvvisiDelRito.spiegazione,
+        contains('${DailyElements.quantiInLettere} avvisi al giorno'));
+    for (final parola in const ['Alba', 'Soffio', 'Tramonto', 'Sogno']) {
       expect(AvvisiDelRito.spiegazione, contains(parola));
     }
   });

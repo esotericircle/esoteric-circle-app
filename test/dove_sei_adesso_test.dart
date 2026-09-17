@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/core/astro/city_catalog.dart';
 import 'package:esoteric_circle/core/astro/luogo_attuale.dart';
 import 'package:esoteric_circle/core/astro/sky_location.dart';
@@ -118,47 +116,9 @@ void main() {
     });
   });
 
-  group('Il punto in cui si chiede, con garbo', () {
-    test('la riga esiste e compare solo dove il rito sta tacendo', () {
-      // Si legge il sorgente: la condizione di comparsa e' la ragione per cui
-      // questa riga e' "con garbo" invece di essere una richiesta a tradimento.
-      final alba = _sorgente('lib/features/rituals/dawn_rite_screen.dart');
-      expect(alba, contains('DoveSeiAdesso('),
-          reason: 'il punto in cui si chiede non c\'e\' piu\', quindi il campo '
-              'del luogo attuale non lo riempira\' nessuno');
-      expect(alba, contains('.oraDichiarabile'),
-          reason: 'la riga non e\' piu\' legata al fatto che l\'ora non si '
-              'possa dire: comparirebbe anche a chi ha gia\' dato tutto');
-    });
-
-    test('le due strade ci sono, e la seconda non chiede permessi', () {
-      final riga = _sorgente('lib/features/rituals/dove_sei_adesso.dart');
-      expect(riga, contains('dove_sei_permesso'));
-      expect(riga, contains('dove_sei_scegli'));
-      expect(riga, contains('CityCatalog.search'),
-          reason: 'la seconda strada non passa dal catalogo delle citta\', '
-              'quindi non e\' la stessa porta del resto dell\'app');
-      // Il pre-avviso non usa il testo generico: dice l'unica cosa che questa
-      // richiesta ottiene.
-      expect(riga, contains('PermissionCopy('),
-          reason: 'il permesso si chiede col testo generico, che parla di '
-              'un\'altra cosa');
-    });
-
-    test('la seconda strada resta anche senza sensore', () {
-      // `location.available` governa SOLO il primo pulsante: chi non ha il
-      // sensore, o l\'ha negato per sempre, deve poter dire dove vive.
-      final riga = _sorgente('lib/features/rituals/dove_sei_adesso.dart');
-      final dopoIlPermesso = riga.substring(riga.indexOf('dove_sei_permesso'));
-      expect(dopoIlPermesso, contains('dove_sei_scegli'),
-          reason: 'la scelta della citta\' e\' finita dentro il ramo del '
-              'sensore: chi non ce l\'ha resterebbe senza nessuna strada');
-      expect(riga.indexOf('location.available'),
-          lessThan(riga.indexOf('dove_sei_permesso')),
-          reason: 'la disponibilita\' del sensore deve governare il solo primo '
-              'pulsante');
-    });
-  });
+  // **IL GRUPPO DEL PUNTO IN CUI SI CHIEDE NON C'E' PIU'**, ordine DT: la riga
+  // `DoveSeiAdesso` viveva nel Rito dell'Alba, che non e' piu' un dono, ed e'
+  // uscita con lui. Il luogo attuale e il catalogo delle citta' restano.
 
   group('Il catalogo delle citta\' regge la scelta', () {
     test('cercando una citta\' nota si trova col suo punto', () {
@@ -175,5 +135,3 @@ void main() {
     });
   });
 }
-
-String _sorgente(String percorso) => File(percorso).readAsStringSync();

@@ -5,6 +5,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../maestro/maestro.dart';
+import '../rituals/daily_elements.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// I permessi di sistema che l'app puo' chiedere. Ognuno si chiede solo nel
@@ -78,14 +79,15 @@ PermissionCopy permissionCopy(AppPermission p, {Maestro? maestro}) {
         cta: 'Attiva il movimento',
       );
     case AppPermission.notifications:
-      return const PermissionCopy(
+      return PermissionCopy(
         icon: Icons.notifications_none_rounded,
-        title: 'I tuoi cinque Doni del giorno',
+        title: 'I tuoi Doni del giorno',
         // Ordine BG voce 03: il testo di prima prometteva avvisi che nessuno
         // programma (le ricorrenze del cielo e i transiti). Gli avvisi veri
-        // sono i cinque Doni, ognuno col suo interruttore e il suo orario.
+        // sono i Doni, ognuno col suo interruttore e il suo orario. **Dall'
+        // ordine DT i nomi e il numero si compongono dai doni.**
         body:
-            'Un avviso per ciascun Dono del giorno, alla sua ora: Alba, Soffio, Arcano, Tramonto e Sogno. Ognuno si spegne e si sposta da solo.',
+            'Un avviso per ciascun Dono del giorno, alla sua ora: ${DailyElements.elencoInFrase}. Ognuno si spegne e si sposta da solo.',
         cta: 'Attiva gli avvisi',
       );
     case AppPermission.location:

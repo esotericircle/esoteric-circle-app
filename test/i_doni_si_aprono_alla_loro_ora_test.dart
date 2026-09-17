@@ -53,7 +53,7 @@ void main() {
     // ignore: avoid_print
     print('ORDINE DD VOCE 05: risposte guardate $risposte, sbagliate '
         '${sbagliate.length}');
-    cardinaleMinimo(risposte, 120,
+    cardinaleMinimo(risposte, 96,
         cosa: 'coppie Dono-ora guardate',
         perche: 'Con poche ore questa prova direbbe che la legge vale per '
             'averla vista in un punto del giorno.');
@@ -68,16 +68,19 @@ void main() {
     // la stessa risposta sbagliata con se stessa. Qui si pretende che le ore
     // di casa siano quelle che il fondatore ha concordato.
     final avvisi = SceltaDegliAvvisi();
+    // **Le ore dell'ordine DT**: l'Arcano dell'Alba tiene le sette del Rito
+    // dell'Alba, il Soffio passa alle tredici, l'Arcano del Giorno non c'e'.
     const attese = {
       DailyElement.dawn: 7 * 60,
-      DailyElement.breath: 10 * 60 + 30,
-      DailyElement.oracle: 13 * 60,
+      DailyElement.breath: 13 * 60,
       DailyElement.rune: 18 * 60 + 30,
       DailyElement.night: 22 * 60 + 30,
     };
-    cardinaleMinimo(DailyElement.values.length, 5,
+    expect(attese.keys.toSet(), DailyElement.values.toSet(),
+        reason: 'un Dono non ha la sua ora concordata in questa prova');
+    cardinaleMinimo(DailyElement.values.length, 4,
         cosa: 'Doni del giorno',
-        perche: 'Con meno di cinque Doni questa prova non copre la striscia.');
+        perche: 'Con meno di quattro Doni questa prova non copre la striscia.');
     for (final dono in DailyElement.values) {
       final m = avvisi.minutiDi(dono);
       // ignore: avoid_print
@@ -143,9 +146,9 @@ void main() {
           reason: 'la card chiusa di ${dono.shortLabel} annuncia un ora che '
               'non e la sua: dice "$detto" e apre alle $atteso');
     }
-    cardinaleMinimo(detti.length, 5,
+    cardinaleMinimo(detti.length, 4,
         cosa: 'frasi delle card chiuse',
-        perche: 'Con meno di cinque frasi non si e guardata tutta la '
+        perche: 'Con meno di quattro frasi non si e guardata tutta la '
             'striscia.');
   });
 
@@ -237,7 +240,7 @@ void main() {
     await tester.pumpWidget(striscia(DateTime(2026, 9, 10, 11, 30)));
     await tester.pump();
 
-    for (final dono in [DailyElement.dawn, DailyElement.breath]) {
+    for (final dono in [DailyElement.dawn]) {
       final casella = find.byKey(Key('daily_element_${dono.name}'));
       final orologio = find.descendant(
           of: casella, matching: find.byIcon(Icons.schedule_rounded));
@@ -249,7 +252,7 @@ void main() {
               'ora');
     }
     for (final dono in [
-      DailyElement.oracle,
+      DailyElement.breath,
       DailyElement.rune,
       DailyElement.night
     ]) {

@@ -38,10 +38,12 @@ class AvvisiLocali extends ServizioAvvisi {
   /// I CANALI, uno per chiamata, coi nomi che la persona riconosce nelle
   /// impostazioni di sistema: ognuno si spegne da solo, ordine M voce 2g.
   static const Map<String, (String, String)> canali = {
+    // L'id del canale resta `rito_alba`: e' il nome che Android ha gia'
+    // registrato sui telefoni. Cambia cio' che la persona legge.
     'rito_alba': (
-      'Rito dell\'Alba',
-      'Un avviso al giorno, quando il sole sorge, che il Rito dell\'Alba è '
-          'pronto.'
+      'Arcano dell\'Alba',
+      'Un avviso al giorno, quando il sole sorge, che la tua carta di oggi ti '
+          'aspetta.'
     ),
     'runa_tramonto': (
       'Runa del Tramonto',
@@ -60,18 +62,13 @@ class AvvisiLocali extends ServizioAvvisi {
     // del Sogno non perde il Rito dell'Alba. Dentro l'app gli stessi cinque
     // hanno il loro interruttore nel menu' Notifiche.
     'dono_dawn': (
-      'Rito dell\'Alba',
-      'Un avviso al mattino, quando il sole sorge, che il Rito dell\'Alba è '
-          'pronto.'
+      'Arcano dell\'Alba',
+      'Un avviso al mattino, quando il sole sorge, che la tua carta di oggi '
+          'ti aspetta.'
     ),
     'dono_breath': (
       'Soffio del Destino',
-      'Un avviso a metà mattina, quando è l\'ora del respiro.'
-    ),
-    'dono_oracle': (
-      'Arcano del Giorno',
-      'Un avviso a mezzogiorno passato, quando la carta di oggi si può '
-          'scoprire.'
+      'Un avviso a metà giornata, quando è l\'ora del respiro.'
     ),
     'dono_rune': (
       'Runa del Tramonto',

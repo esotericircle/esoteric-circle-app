@@ -6,7 +6,7 @@ enum ImmersiveTarget {
   cartaNatale,
   sinastriaVip,
   oroscopoGiorno,
-  arcanoDelGiorno,
+  arcanoDellAlba,
   meditazione,
   breathwork,
   costellazioneViso,
@@ -117,15 +117,16 @@ class ImmersiveIntents {
     // al modello, perche' nessuna parola chiave la riconosceva: le parole della
     // Stesa sono "tira le carte", e *"tira una carta"* non e' fra quelle.
     //
-    // Adesso la carta non la sceglie il modello: e' l'Arcano del Giorno,
-    // deterministico dal giorno e dalla nascita, la stessa carta che il Dono
-    // mostra. L'invito la nomina, e il pulsante la apre.
+    // Adesso la carta non la sceglie il modello: e' l'Arcano dell'Alba di
+    // oggi, la sola estrazione del giorno (ordine DT voce 25). L'invito la
+    // nomina se e' gia' girata, e il pulsante apre il dono.
     ImmersiveIntent(
       maestro: Maestro.medora,
-      target: ImmersiveTarget.arcanoDelGiorno,
+      target: ImmersiveTarget.arcanoDellAlba,
       keywords: [
         'carta del giorno',
         'arcano del giorno',
+        'arcano dell\'alba',
         'carta di oggi',
         'arcano di oggi',
         'tira una carta',
@@ -133,7 +134,7 @@ class ImmersiveIntents {
         'una carta per me',
       ],
       invite: 'La carta di oggi ti aspetta. Aprila e guardala.',
-      buttonLabel: 'Apri l\'Arcano del Giorno',
+      buttonLabel: 'Apri l\'Arcano dell\'Alba',
     ),
 
     // --- Aura ---

@@ -36,7 +36,7 @@ final List<Traguardo> sentieroDelLoto = [
     nome: 'Due albe',
     famiglia: FamigliaDelTraguardo.profondita,
     condizione: const GestiCompiuti('alba', 2, inGiorniDiversi: true),
-    frase: 'Hai compiuto il Rito dell’Alba in 2 giorni diversi.',
+    frase: 'Hai compiuto l’Arcano dell’Alba in 2 giorni diversi.',
     posizione: 2,
     percheConta: FamigliaDelTraguardo.profondita.percheContaLaFamiglia,
     cosaApre: 'La parola del giorno, che cambia con l’ora in cui ti alzi',
@@ -101,7 +101,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.giornata,
     condizione: const GiornateInsieme(['alba', 'soffio'], 4),
     frase:
-        '4 giornate chiuse con il Rito dell’Alba e il Soffio del Destino, nello stesso giorno.',
+        '4 giornate chiuse con l’Arcano dell’Alba e il Soffio del Destino, nello stesso giorno.',
     posizione: 6,
     percheConta: FamigliaDelTraguardo.giornata.percheContaLaFamiglia,
     cosaApre: 'Il rito del mattino completo, alba e Soffio uno dopo l’altro',
@@ -167,7 +167,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('alba', 6, 8),
     frase:
-        '6 giorni con il Rito dell’Alba negli ultimi 8: nessuno te l’ha chiesto.',
+        '6 giorni con l’Arcano dell’Alba negli ultimi 8: nessuno te l’ha chiesto.',
     posizione: 10,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'Il promemoria dell’Alba, che da qui sceglie la tua ora',
@@ -184,7 +184,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.cielo,
     condizione:
         const FinestraDelCielo(EventiDelCielo.primoQuarto, conGesto: 'alba'),
-    frase: 'La Luna è al primo quarto: tu eri qui con il Rito dell’Alba.',
+    frase: 'La Luna è al primo quarto: tu eri qui con l’Arcano dell’Alba.',
     posizione: 11,
     percheConta: FamigliaDelTraguardo.cielo.percheContaLaFamiglia,
     cosaApre: 'Il calendario lunare del Cerchio, con le fasi che verranno',
@@ -200,7 +200,7 @@ final List<Traguardo> sentieroDelLoto = [
     nome: 'L’Alba nella sua ora',
     famiglia: FamigliaDelTraguardo.cielo,
     condizione: const GestoNellOraGiusta('alba', 'alba', quanteVolte: 9),
-    frase: '9 volte il Rito dell’Alba nell’ora vera dell’alba.',
+    frase: '9 volte l’Arcano dell’Alba nell’ora vera dell’alba.',
     posizione: 12,
     percheConta: FamigliaDelTraguardo.cielo.percheContaLaFamiglia,
     cosaApre: 'Le ore rituali, che il Cerchio calcola sul tuo luogo vero',
@@ -250,7 +250,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const StessaOraPerGiorni('alba', 14),
     frase:
-        '14 giorni alla stessa ora con il Rito dell’Alba: l’abitudine ha trovato il suo posto.',
+        '14 giorni alla stessa ora con l’Arcano dell’Alba: l’abitudine ha trovato il suo posto.',
     posizione: 15,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'L’appuntamento con Aura, che da qui ti aspetta a quell’ora',
@@ -300,7 +300,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('alba', 18, 25),
     frase:
-        '18 giorni con il Rito dell’Alba negli ultimi 25: nessuno te l’ha chiesto.',
+        '18 giorni con l’Arcano dell’Alba negli ultimi 25: nessuno te l’ha chiesto.',
     posizione: 18,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'La costanza larga, che perdona un giorno saltato',
@@ -368,7 +368,7 @@ final List<Traguardo> sentieroDelLoto = [
     condizione: const FinestraDelCielo(EventiDelCielo.transitoSullaLuna,
         conGesto: 'alba'),
     frase:
-        'Un pianeta transita sulla tua Luna: tu eri qui con il Rito dell’Alba.',
+        'Un pianeta transita sulla tua Luna: tu eri qui con l’Arcano dell’Alba.',
     posizione: 22,
     percheConta: FamigliaDelTraguardo.cielo.percheContaLaFamiglia,
     cosaApre: 'Il registro dei transiti, con quelli che ti aspettano',
@@ -401,7 +401,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('alba', 35, 45),
     frase:
-        '35 giorni con il Rito dell’Alba negli ultimi 45: nessuno te l’ha chiesto.',
+        '35 giorni con l’Arcano dell’Alba negli ultimi 45: nessuno te l’ha chiesto.',
     posizione: 24,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'Il tuo ritmo del mattino, che si calcola solo con questa storia',
@@ -418,7 +418,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.giornata,
     condizione: const GiornateInsieme(['alba', 'meditazione'], 40),
     frase:
-        '40 giornate chiuse con il Rito dell’Alba e la Meditazione, nello stesso giorno.',
+        '40 giornate chiuse con l’Arcano dell’Alba e la Meditazione, nello stesso giorno.',
     posizione: 25,
     percheConta: FamigliaDelTraguardo.giornata.percheContaLaFamiglia,
     cosaApre: 'La meditazione dell’alba, che si sblocca con la costanza',
@@ -436,7 +436,7 @@ final List<Traguardo> sentieroDelLoto = [
     condizione: const FinestraDelCielo(EventiDelCielo.transitoSullAscendente,
         conGesto: 'alba'),
     frase:
-        'Un pianeta transita sul tuo Ascendente: tu eri qui con il Rito dell’Alba.',
+        'Un pianeta transita sul tuo Ascendente: tu eri qui con l’Arcano dell’Alba.',
     posizione: 26,
     percheConta: FamigliaDelTraguardo.cielo.percheContaLaFamiglia,
     cosaApre: 'Le soglie della vita, che i transiti sull’Ascendente aprono',
@@ -520,7 +520,7 @@ final List<Traguardo> sentieroDelLoto = [
     nome: 'Settantacinque albe',
     famiglia: FamigliaDelTraguardo.profondita,
     condizione: const GestiCompiuti('alba', 75, inGiorniDiversi: true),
-    frase: 'Hai compiuto il Rito dell’Alba in 75 giorni diversi.',
+    frase: 'Hai compiuto l’Arcano dell’Alba in 75 giorni diversi.',
     posizione: 31,
     percheConta: FamigliaDelTraguardo.profondita.percheContaLaFamiglia,
     cosaApre: 'Il confronto fra le tue albe e le stagioni che le hanno viste',
@@ -554,7 +554,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.cielo,
     condizione:
         const FinestraDelCielo(EventiDelCielo.eclissi, conGesto: 'alba'),
-    frase: 'Il cielo porta un’eclissi: tu eri qui con il Rito dell’Alba.',
+    frase: 'Il cielo porta un’eclissi: tu eri qui con l’Arcano dell’Alba.',
     posizione: 33,
     percheConta: FamigliaDelTraguardo.cielo.percheContaLaFamiglia,
     cosaApre: 'Il rito dell’eclissi, che il Cerchio conserva per sempre',
@@ -587,7 +587,7 @@ final List<Traguardo> sentieroDelLoto = [
     nome: 'Cento albe',
     famiglia: FamigliaDelTraguardo.profondita,
     condizione: const GestiCompiuti('alba', 100, inGiorniDiversi: true),
-    frase: 'Hai compiuto il Rito dell’Alba in 100 giorni diversi.',
+    frase: 'Hai compiuto l’Arcano dell’Alba in 100 giorni diversi.',
     posizione: 35,
     percheConta: FamigliaDelTraguardo.profondita.percheContaLaFamiglia,
     cosaApre: 'Lo Specchio del mattino, che confronta cento risvegli',
@@ -621,7 +621,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.cielo,
     condizione: const FinestraDelCielo(EventiDelCielo.mercurioDiretto,
         conGesto: 'alba'),
-    frase: 'Mercurio torna diretto: tu eri qui con il Rito dell’Alba.',
+    frase: 'Mercurio torna diretto: tu eri qui con l’Arcano dell’Alba.',
     posizione: 37,
     percheConta: FamigliaDelTraguardo.cielo.percheContaLaFamiglia,
     cosaApre: 'Il rito del ritorno, quando Mercurio riprende il cammino',
@@ -688,7 +688,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('alba', 160, 200),
     frase:
-        '160 giorni con il Rito dell’Alba negli ultimi 200: nessuno te l’ha chiesto.',
+        '160 giorni con l’Arcano dell’Alba negli ultimi 200: nessuno te l’ha chiesto.',
     posizione: 41,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'La stagione riconosciuta, con il tuo risveglio dell’anno',
@@ -721,7 +721,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const StessaOraPerGiorni('alba', 170),
     frase:
-        '170 giorni alla stessa ora con il Rito dell’Alba: l’abitudine ha trovato il suo posto.',
+        '170 giorni alla stessa ora con l’Arcano dell’Alba: l’abitudine ha trovato il suo posto.',
     posizione: 43,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'Il tuo rito fisso, che Aura protegge dalle notifiche',
@@ -756,7 +756,7 @@ final List<Traguardo> sentieroDelLoto = [
     nome: 'Centonovantuna albe',
     famiglia: FamigliaDelTraguardo.profondita,
     condizione: const GestiCompiuti('alba', 191, inGiorniDiversi: true),
-    frase: 'Hai compiuto il Rito dell’Alba in 191 giorni diversi.',
+    frase: 'Hai compiuto l’Arcano dell’Alba in 191 giorni diversi.',
     posizione: 45,
     percheConta: FamigliaDelTraguardo.profondita.percheContaLaFamiglia,
     cosaApre:
@@ -808,7 +808,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.cielo,
     condizione:
         const FinestraDelCielo(EventiDelCielo.gioveDiretto, conGesto: 'alba'),
-    frase: 'Giove torna diretto: tu eri qui con il Rito dell’Alba.',
+    frase: 'Giove torna diretto: tu eri qui con l’Arcano dell’Alba.',
     posizione: 48,
     percheConta: FamigliaDelTraguardo.cielo.percheContaLaFamiglia,
     cosaApre: 'Il capitolo dell’espansione, che apre l’anno che viene',
@@ -876,7 +876,7 @@ final List<Traguardo> sentieroDelLoto = [
     famiglia: FamigliaDelTraguardo.ritorno,
     condizione: const GiorniDentroUnArco('alba', 300, 340),
     frase:
-        '300 giorni con il Rito dell’Alba negli ultimi 340: nessuno te l’ha chiesto.',
+        '300 giorni con l’Arcano dell’Alba negli ultimi 340: nessuno te l’ha chiesto.',
     posizione: 52,
     percheConta: FamigliaDelTraguardo.ritorno.percheContaLaFamiglia,
     cosaApre: 'Il titolo di custode dell’Alba, che pochi vedranno',
@@ -928,7 +928,7 @@ final List<Traguardo> sentieroDelLoto = [
     condizione:
         const FinestraDelCielo(EventiDelCielo.ritornoSolare, conGesto: 'alba'),
     frase:
-        'Il Sole torna dov’era [quando sei nato|quando sei nata|alla tua nascita]: tu eri qui con il Rito dell’Alba.',
+        'Il Sole torna dov’era [quando sei nato|quando sei nata|alla tua nascita]: tu eri qui con l’Arcano dell’Alba.',
     posizione: 55,
     percheConta: FamigliaDelTraguardo.cielo.percheContaLaFamiglia,
     cosaApre: 'Il rito del ritorno solare, il risveglio del tuo anno nuovo',

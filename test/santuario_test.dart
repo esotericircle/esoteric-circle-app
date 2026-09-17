@@ -1,5 +1,5 @@
 import 'package:esoteric_circle/app.dart';
-import 'package:esoteric_circle/core/rituals/daily_rituals.dart';
+import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/design_system/components/cosmos_background.dart';
 import 'package:esoteric_circle/features/santuario/santuario_screen.dart';
 import 'package:esoteric_circle/features/santuario/sky_overview_screen.dart';
@@ -98,11 +98,11 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    // Fascia dell'Oracolo (12:30-18:00), guidata da Medora: al centro c'e' lei.
+    // Fascia dell'Arcano dell'Alba (7:00-13:00), di Medora: al centro c'e' lei.
     await tester.pumpWidget(EsotericCircleApp(
       conIntro: false,
       services: AppServices.offline(),
-      clock: () => DateTime(2026, 7, 14, 13, 0),
+      clock: () => DateTime(2026, 7, 14, 8, 0),
     ));
     await step(tester);
 
@@ -131,13 +131,13 @@ void main() {
       await step(tester);
     }
 
-    // Soffio del Destino (10:30-12:30) segue Aura.
-    await pumpAt(11, 0);
-    expect(find.text('Entra nel Dominio di Aura'), findsOneWidget);
-
-    // Oracolo del Giorno (12:30-18:00) segue Medora.
-    await pumpAt(13, 0);
+    // Arcano dell'Alba (7:00-13:00) segue Medora, ordine DT.
+    await pumpAt(8, 0);
     expect(find.text('Entra nel Dominio di Medora'), findsOneWidget);
+
+    // Soffio del Destino (13:00-18:30) segue Aura.
+    await pumpAt(14, 0);
+    expect(find.text('Entra nel Dominio di Aura'), findsOneWidget);
 
     // Runa del Tramonto (18:00-24:00) segue Caligo.
     await pumpAt(19, 0);
@@ -242,11 +242,11 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    // Fascia dell'Oracolo, guidata da Medora: pulsante e arti sono i suoi.
+    // Fascia dell'Arcano dell'Alba, di Medora: pulsante e arti sono i suoi.
     await tester.pumpWidget(EsotericCircleApp(
       conIntro: false,
       services: AppServices.offline(),
-      clock: () => DateTime(2026, 7, 14, 13, 0),
+      clock: () => DateTime(2026, 7, 14, 8, 0),
     ));
     await step(tester);
 
@@ -260,8 +260,7 @@ void main() {
     expect(find.text('Astrologia, Cartomanzia, Destino'), findsOneWidget);
   });
 
-  testWidgets(
-      'Per un rito che ruota, pulsante e arti seguono il Maestro di turno',
+  testWidgets('Di notte il Sigillo e\' di Medora: pulsante e arti sono i suoi',
       (tester) async {
     silenceSensors();
     tester.view.devicePixelRatio = 1.0;
@@ -269,9 +268,10 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
-    // Fascia della Buonanotte (dopo le 22:30): il centro e' il Maestro di turno.
+    // Fascia del Sigillo del Sogno (dopo le 22:30): dall'ordine DT voce 15 il
+    // centro e' Medora, e non piu' il Maestro di turno.
     final now = DateTime(2026, 7, 14, 23, 0);
-    final turno = DailyRituals.dawnMaestro(now);
+    const turno = Maestro.medora;
     await tester.pumpWidget(EsotericCircleApp(
       conIntro: false,
       services: AppServices.offline(),

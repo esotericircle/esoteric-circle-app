@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
@@ -10,7 +11,7 @@ import 'package:esoteric_circle/design_system/typography/paragrafi_di_lettura.da
 import 'package:esoteric_circle/features/rituals/dream_rite_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:esoteric_circle/core/rituals/filo_del_giorno.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/archivio_dell_alba.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
@@ -250,7 +251,11 @@ void main() {
     silenceSensors(tester);
     grande(tester);
     SharedPreferences.setMockInitialValues({});
-    await FiloDelGiorno.segnaLaParola('Soglia', quando);
+    ArchivioDellAlba.dimenticaLaMemoria();
+    // **DALL'ORDINE DT LA PAROLA E' IL DONO DELLA CARTA DELL'ALBA**: si gira
+    // la carta come la girerebbe la persona, e la sera il Sigillo la richiama.
+    final presa = await tester
+        .runAsync(() => ArchivioDellAlba.estraiOggi(quando, caso: Random(3)));
 
     await tester.pumpWidget(host());
     await passo(tester);
@@ -267,7 +272,12 @@ void main() {
         reason: 'la Parola dell Alba non torna a video nel Sigillo: il dato '
             'sopravvive, la frase non arriva, e per chi guarda la promessa '
             'dell Alba non e stata mantenuta');
-    expect(find.textContaining('Soglia'), findsWidgets,
-        reason: 'la riga c e ma non porta la parola di stamattina');
+    final frammento = presa!.parola ?? presa.secondo.substring(0, 24);
+    expect(
+        find.descendant(
+            of: riga,
+            matching: find.textContaining(frammento, findRichText: true)),
+        findsWidgets,
+        reason: 'la riga c e ma non porta il dono di stamattina: $frammento');
   });
 }

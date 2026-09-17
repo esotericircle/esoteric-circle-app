@@ -75,10 +75,10 @@ void main() {
     // cinque: accendere cio' che e' gia' acceso non lascerebbe niente da
     // dimenticare, e la prova guarderebbe un cambiamento che non c'e' stato.
     await avvisi.scegli(DailyElement.night, false);
-    await avvisi.scegliLOra(DailyElement.oracle, ora: 9, minuto: 5);
+    await avvisi.scegliLOra(DailyElement.rune, ora: 9, minuto: 5);
     expect(identita.name, 'Sofia');
     expect(avvisi.chiama(DailyElement.night), isFalse);
-    expect(avvisi.eLOraDiCasa(DailyElement.oracle), isFalse);
+    expect(avvisi.eLOraDiCasa(DailyElement.rune), isFalse);
 
     await tester.pumpWidget(MultiProvider(
       providers: [
@@ -124,7 +124,7 @@ void main() {
     expect(avvisi.chiama(DailyElement.night), isTrue,
         reason: 'le scelte di chi se n e andato restano sul telefono di chi '
             'arriva dopo');
-    expect(avvisi.eLOraDiCasa(DailyElement.oracle), isTrue,
+    expect(avvisi.eLOraDiCasa(DailyElement.rune), isTrue,
         reason: 'l ora spostata da chi se n e andato resta: e una sveglia '
             'orfana sul telefono di chi arriva dopo');
     expect(diario.accesi, isEmpty, reason: 'i traguardi restano');

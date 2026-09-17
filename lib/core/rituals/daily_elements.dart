@@ -1,32 +1,42 @@
 import '../maestro/maestro.dart';
 import 'daily_rituals.dart';
 
-/// I cinque appuntamenti giornalieri del Cerchio, con l'ora della loro fascia e
-/// il Maestro che ne porta il colore.
+/// Gli appuntamenti giornalieri del Cerchio, con l'ora della loro fascia e il
+/// Maestro che ne porta il colore.
 ///
-/// Il Rito dell'Alba e il Rito della Buonanotte non hanno un Maestro fisso
-/// (ruotano di giorno in giorno) e il loro accento resta l'oro; gli altri tre
-/// seguono il loro Maestro: Soffio del Destino verde di Aura, Oracolo del
-/// Giorno blu di Medora, Runa del Tramonto rosso di Caligo.
+/// **DA CINQUE A QUATTRO, ordine DT voce 01**, 17 settembre 2026: il Rito
+/// dell'Alba e l'Arcano del Giorno non sono piu' doni autonomi, e al loro
+/// posto c'e' l'Arcano dell'Alba. **Ogni dono ha adesso il suo Maestro**:
+/// l'Arcano dell'Alba e il Sigillo del Sogno a Medora, il Soffio del Destino ad
+/// Aura, la Runa del Tramonto a Caligo.
 ///
-/// L'ordine di dichiarazione e' anche l'ordine nella striscia: Alba, Soffio,
-/// Oracolo, Tramonto, Notte.
+/// **L'ordine di dichiarazione e' l'ordine della giornata**, e nessun conto
+/// dell'app lo scrive a mano: chi conta i doni conta `values`, e la fascia
+/// corrente si ricava dalle ancore. Un dono nuovo si aggiunge qui e basta
+/// (voce 17).
+///
+/// **La voce `dawn` e' l'Arcano dell'Alba**, e non ha cambiato nome: le
+/// preferenze, gli avvisi e le serie gia' salvate col nome `dawn` restano di
+/// chi le aveva.
 enum DailyElement {
   dawn(
-    cosaFai: 'Sollevi l\'alba con un gesto e ricevi la parola del giorno.',
+    cosaFai:
+        'Scegli una carta fra quelle coperte e la giri: è l\'arcano che apre la tua giornata.',
     perche:
         'Il primo minuto della giornata decide il tono di tutte le ore che vengono dopo.',
     cosaTiResta:
-        'Una parola da portare con te, che stasera il Sigillo del Sogno ti richiamerà.',
-    title: 'Rito dell\'Alba',
+        'Il dono della carta, un respiro, un\'azione o una parola, che stasera il Sigillo del Sogno ti richiamerà.',
+    title: 'Arcano dell\'Alba',
+    conArticolo: 'l\'Arcano dell\'Alba',
     shortLabel: 'Alba',
     anchorHour: 7,
     anchorMinute: 0,
-    guide: null,
+    guide: Maestro.medora,
     pushByDefault: true,
+    numeroDellAvviso: 0,
     description:
-        'Apre la giornata con una parola guida e l\'energia dell\'alba, '
-        'per orientare le tue prossime ore.',
+        'Un arcano maggiore scelto al mattino fra le carte coperte, col suo dono '
+        'per la giornata.',
   ),
   breath(
     cosaFai:
@@ -36,34 +46,17 @@ enum DailyElement {
     cosaTiResta: 'Il tuo destino del momento, con la tensione sciolta che '
         'resta nel corpo.',
     title: 'Soffio del Destino',
+    conArticolo: 'il Soffio del Destino',
     shortLabel: 'Soffio',
-    anchorHour: 10,
-    anchorMinute: 30,
-    guide: Maestro.aura,
-    pushByDefault: false,
-    description: 'Un respiro guidato che allinea il tuo destino del momento e '
-        'scioglie la tensione.',
-  ),
-  oracle(
-    // **LE TRE RIGHE SEGUONO IL DONO NUOVO, ordine AS voce 08.** Dicevano "il
-    // cielo di oggi si scopre" e "la riga del cielo di oggi", che erano vere
-    // finche' il dono era una frase estratta da un elenco: adesso e' una carta
-    // degli Arcani Maggiori, e un testo che nomina una cosa che non c'e' piu'
-    // e' un testo che mente.
-    cosaFai:
-        'Inclini il telefono oppure scorri col dito: la carta di oggi si scopre.',
-    perche:
-        'A metà giornata la domanda che porti si è già fatta più precisa: è lì che un responso serve.',
-    cosaTiResta:
-        'La carta del giorno con la sua risposta; il ritorno di domani nutre i traguardi della costanza.',
-    title: 'Arcano del Giorno',
-    shortLabel: 'Arcano',
+    // **ALLE TREDICI, ordine DT voce 14.** Era alle 10:30; le tredici erano
+    // l'ora dell'Arcano del Giorno, che se n'e' andato.
     anchorHour: 13,
     anchorMinute: 0,
-    guide: Maestro.medora,
-    pushByDefault: true,
-    description:
-        'Una carta degli Arcani Maggiori per la giornata, con la sua risposta.',
+    guide: Maestro.aura,
+    pushByDefault: false,
+    numeroDellAvviso: 1,
+    description: 'Un respiro guidato che allinea il tuo destino del momento e '
+        'scioglie la tensione.',
   ),
   rune(
     cosaFai: 'Estrai la runa della sera dal mazzo delle ventiquattro.',
@@ -73,11 +66,13 @@ enum DailyElement {
         'Una runa che il Sigillo del Sogno nominerà fra poche ore, con '
         'il suo presagio.',
     title: 'La Runa del Tramonto',
+    conArticolo: 'la Runa del Tramonto',
     shortLabel: 'Tramonto',
     anchorHour: 18,
     anchorMinute: 30,
     guide: Maestro.caligo,
     pushByDefault: false,
+    numeroDellAvviso: 3,
     description:
         'La runa della sera che raccoglie e custodisce quello che il giorno '
         'ti ha lasciato.',
@@ -90,11 +85,14 @@ enum DailyElement {
     cosaTiResta:
         'La tua costellazione della notte da condividere, col giorno raccolto in una carta.',
     title: 'Sigillo del Sogno',
+    conArticolo: 'il Sigillo del Sogno',
     shortLabel: 'Notte',
     anchorHour: 22,
     anchorMinute: 30,
-    guide: null,
+    // **A MEDORA, ordine DT voce 15.** Non ruota piu' fra i tre Maestri.
+    guide: Maestro.medora,
     pushByDefault: true,
+    numeroDellAvviso: 4,
     description:
         'Uno sguardo al giorno appena concluso: la nebbia si dirada col fiato, '
         'emergono le stelle del cielo notturno reale, unisci la costellazione '
@@ -107,11 +105,13 @@ enum DailyElement {
     required this.perche,
     required this.cosaTiResta,
     required this.title,
+    required this.conArticolo,
     required this.shortLabel,
     required this.anchorHour,
     required this.anchorMinute,
     required this.guide,
     required this.pushByDefault,
+    required this.numeroDellAvviso,
     required this.description,
   });
 
@@ -134,18 +134,32 @@ enum DailyElement {
   final String cosaTiResta;
 
   final String title;
+
+  /// Il nome dentro una frase, col suo articolo: *"il Soffio del Destino"*.
+  /// Serve agli elenchi che si compongono dai doni invece di scriverli.
+  final String conArticolo;
+
   final String shortLabel;
   final int anchorHour;
   final int anchorMinute;
 
-  /// Il Maestro che presta il colore all'elemento. Null per i due riti che
-  /// ruotano di giorno in giorno (Alba e Buonanotte), che restano oro.
+  /// Il Maestro che presta il colore all'elemento. **Dall'ordine DT tutti i
+  /// doni ne hanno uno**; resta annullabile perche' un dono futuro senza
+  /// Maestro fisso possa ancora esistere, e in quel caso ruota col giorno.
   final Maestro? guide;
 
   /// Se di default questo elemento invia una notifica push. Unico punto di
-  /// verita': di default solo Alba, Oracolo e Buonanotte notificano; Soffio e
-  /// Tramonto restano disponibili in app, attivabili in futuro dall'utente.
+  /// verita': di default l'Arcano dell'Alba e il Sigillo del Sogno notificano;
+  /// Soffio e Tramonto restano disponibili, attivabili dall'utente.
   final bool pushByDefault;
+
+  /// **IL NUMERO FISSO DELL'AVVISO DI QUESTO DONO**, ordine DT voce 17.
+  ///
+  /// L'id dell'avviso si ricavava dalla posizione nell'elenco: togliere un dono
+  /// spostava l'id di quelli dopo, e un avviso gia' in coda sul telefono
+  /// restava orfano col numero vecchio. **Il numero e' del dono, non del
+  /// posto**: il 2 era dell'Arcano del Giorno e non si riusa.
+  final int numeroDellAvviso;
 
   /// La spiegazione breve dell'elemento, cosa e' e a cosa serve, per il popup
   /// informativo della striscia.
@@ -173,7 +187,7 @@ enum DailyElement {
   ///
   /// **Le parole seguono l'ora del rito e non il suo nome**, ed e' la ragione
   /// per cui questo getter sta qui invece che nel testo della scheda. Le tre
-  /// righe vivono nel design system e le montano tutti e cinque i riti: un
+  /// righe vivono nel design system e le montano tutti i riti: un
   /// titolo scritto dentro la scheda dell'Alba direbbe "stamattina" anche
   /// sotto il Sigillo del Sogno, che apre alle ventidue. L'ora ce l'hanno gia'
   /// tutti, e da lei si ricava la parola giusta senza aggiungere un dato che
@@ -186,7 +200,7 @@ enum DailyElement {
       };
 
   /// L'orario di apertura della fascia, nel formato h:mm (ad esempio 7:00,
-  /// 10:30). Serve al riquadro orario nella striscia del giorno.
+  /// 13:00). Serve al riquadro orario nella striscia del giorno.
   String get clockLabel =>
       '$anchorHour:${anchorMinute.toString().padLeft(2, '0')}';
 
@@ -206,28 +220,48 @@ class DailyElements {
   const DailyElements._();
 
   /// L'elemento "corrente", scelto dalla fascia oraria attiva sull'ora locale.
-  /// La fascia va da un'ancora alla successiva; la fascia dopo le 22:30 e prima
-  /// delle 7:00 appartiene al Rito della Buonanotte, cosi' la notte fonda resta
-  /// sua.
+  /// La fascia va da un'ancora alla successiva; prima della prima ancora del
+  /// giorno la fascia e' ancora dell'ultimo dono della sera, cosi' la notte
+  /// fonda resta del Sigillo del Sogno.
+  ///
+  /// **Si legge dalle ancore, non da una catena scritta a mano** (ordine DT
+  /// voce 17): la catena nominava i cinque doni uno per uno, e togliendone uno
+  /// non compilava piu'; aggiungendone uno lo avrebbe ignorato in silenzio.
   static DailyElement current(DateTime now) {
     final minutes = now.hour * 60 + now.minute;
-    if (minutes < DailyElement.dawn.anchorMinutes) return DailyElement.night;
-    if (minutes < DailyElement.breath.anchorMinutes) return DailyElement.dawn;
-    if (minutes < DailyElement.oracle.anchorMinutes) return DailyElement.breath;
-    if (minutes < DailyElement.rune.anchorMinutes) return DailyElement.oracle;
-    if (minutes < DailyElement.night.anchorMinutes) return DailyElement.rune;
-    return DailyElement.night;
+    final perOra = [...DailyElement.values]
+      ..sort((a, b) => a.anchorMinutes.compareTo(b.anchorMinutes));
+    var corrente = perOra.last;
+    for (final e in perOra) {
+      if (e.anchorMinutes <= minutes) corrente = e;
+    }
+    return corrente;
   }
 
-  /// Il Maestro attivo di un elemento: per i riti che ruotano (Alba e
-  /// Buonanotte) e' il Maestro di turno del giorno; per gli altri tre e' il
-  /// loro Maestro fisso, Soffio ad Aura, Oracolo a Medora, Runa a Caligo.
+  /// Il Maestro attivo di un elemento: il suo Maestro fisso, e per un dono
+  /// senza Maestro fisso il Maestro di turno del giorno.
   static Maestro maestroFor(DailyElement element, DateTime now) =>
       element.guide ?? DailyRituals.dawnMaestro(now);
 
-  /// Gli elementi che di default inviano una notifica push: Rito dell'Alba,
-  /// Arcano del Giorno e Rito della Buonanotte. Soffio del Destino e Runa del
-  /// Tramonto restano disponibili in app senza push, attivabili in futuro.
+  /// Gli elementi che di default inviano una notifica push: l'Arcano
+  /// dell'Alba e il Sigillo del Sogno. Soffio del Destino e Runa del Tramonto
+  /// restano disponibili senza push, attivabili dall'utente.
+  /// **I DONI IN UNA FRASE**, dal primo all'ultimo: *"l'Arcano dell'Alba, il
+  /// Soffio del Destino, la Runa del Tramonto e il Sigillo del Sogno"*. Ordine
+  /// DT voce 17: gli elenchi a video si compongono da qui, e un dono nuovo ci
+  /// entra da solo.
+  static String get elencoInFrase {
+    final nomi = DailyElement.values.map((e) => e.conArticolo).toList();
+    if (nomi.length == 1) return nomi.single;
+    return '${nomi.sublist(0, nomi.length - 1).join(', ')} e ${nomi.last}';
+  }
+
+  /// Quanti sono i doni, in lettere: *"quattro"*.
+  static String get quantiInLettere => const [
+        'zero', 'uno', 'due', 'tre', 'quattro', 'cinque', 'sei', 'sette', //
+        'otto', 'nove', 'dieci',
+      ][DailyElement.values.length.clamp(0, 10)];
+
   static List<DailyElement> get defaultPushElements =>
       DailyElement.values.where((e) => e.pushByDefault).toList(growable: false);
 }

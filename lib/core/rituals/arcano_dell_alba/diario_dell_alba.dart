@@ -99,6 +99,7 @@ class ConsegnaDellAlba {
 /// dall'impianto unico** della voce 27, `SceltaSenzaRipetere`.
 class DiarioDellAlba {
   const DiarioDellAlba._({
+    required this.seme,
     required this.sacchetto,
     required this.code,
     required this.registro,
@@ -107,7 +108,8 @@ class DiarioDellAlba {
     required this.ripieghi,
   });
 
-  factory DiarioDellAlba.nuovo() => DiarioDellAlba._(
+  factory DiarioDellAlba.nuovo({String? seme}) => DiarioDellAlba._(
+        seme: seme ?? _semeNuovo(),
         sacchetto: SacchettoDellAlba.nuovo(),
         code: const {},
         registro: const {},
@@ -115,6 +117,17 @@ class DiarioDellAlba {
         ultima: null,
         ripieghi: 0,
       );
+
+  /// **IL SEME DELLA PERSONA**: da qui nasce l'ordine in cui consuma le
+  /// letture e le aperture. Nasce una volta sola, a caso, e viaggia col
+  /// diario: chi cambia telefono ritrova la sua sequenza, e non serve un
+  /// account per averne una.
+  final String seme;
+
+  static String _semeNuovo() {
+    final caso = Random.secure();
+    return List.generate(16, (_) => caso.nextInt(16).toRadixString(16)).join();
+  }
 
   final SacchettoDellAlba sacchetto;
 
@@ -197,9 +210,25 @@ class DiarioDellAlba {
         apertura: c.apertura, clausola: c.clausola, ieri: c.ieri, filo: c.filo);
   }
 
+  /// La consegna di [giorno], se oggi l'estrazione c'e' gia' stata: senza
+  /// estrarre. E' la porta da cui leggono la Carta del giorno di Medora e il
+  /// Sigillo del Sogno, perche' la carta di oggi e' una sola.
+  ResponsoDellAlba? diOggi(DateTime giorno,
+          {List<LetturaDellAlba> corpus = lettureDellAlba}) =>
+      diGiorno(iso(giorno), corpus: corpus);
+
+  /// La consegna del giorno [giorno], `aaaa-mm-gg`, se e' l'ultima.
+  ResponsoDellAlba? diGiorno(String giorno,
+      {List<LetturaDellAlba> corpus = lettureDellAlba}) {
+    final gia = ultima;
+    if (gia == null || gia.giorno != giorno) return null;
+    return responsoDi(gia, corpus: corpus);
+  }
+
   /// **IL DONO DI OGGI.** Se oggi e' gia' stato estratto, torna quello, e il
   /// sacchetto non si tocca: una sola estrazione al giorno, e la Carta del
-  /// giorno di Medora la legge da qui.
+  /// giorno di Medora la legge da qui. [utente] e' il seme dell'ordine delle
+  /// letture: l'archivio passa quello del diario.
   ({ResponsoDellAlba responso, DiarioDellAlba dopo}) estrai({
     required String utente,
     required DateTime giorno,
@@ -259,6 +288,7 @@ class DiarioDellAlba {
     );
 
     final dopo = DiarioDellAlba._(
+      seme: seme,
       sacchetto: estratto.dopo,
       code: {
         ...code,
@@ -280,6 +310,7 @@ class DiarioDellAlba {
   }
 
   Map<String, Object> toJson() => {
+        'seme': seme,
         'sacchetto': sacchetto.toJson(),
         'code': {
           for (final e in code.entries) '${e.key}': e.value,
@@ -314,7 +345,9 @@ class DiarioDellAlba {
     final registro = dati['registro'];
     final ciclo = dati['cicloDelRegistro'];
     final ripieghi = dati['ripieghi'];
+    final seme = dati['seme'];
     return DiarioDellAlba._(
+      seme: seme is String && seme.isNotEmpty ? seme : _semeNuovo(),
       sacchetto: SacchettoDellAlba.daJson(dati['sacchetto']),
       code: code,
       registro: registro is List ? registro.whereType<String>().toSet() : {},

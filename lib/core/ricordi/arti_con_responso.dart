@@ -135,33 +135,16 @@ class ArtiConResponso {
           'funzione nuova e non questa voce. Custodisci e Parlane ci sono, '
           'perché quelli non hanno bisogno di un\'immagine.',
     ),
-    // --- I CINQUE DONI DEL GIORNO -------------------------------------
+    // --- I DONI DEL GIORNO ---------------------------------------------
     // Non sono arti dello scaffale, ma un responso lo producono eccome, ed e'
-    // quello che una persona vede piu' spesso di ogni altro.
-    ArteConResponso(
-      arte: 'alba',
-      maestro: 'medora',
-      titolo: 'Rito dell\'Alba',
-      doveViveIlResponso: 'lib/features/rituals/dawn_rite_screen.dart',
-      apertura: 'alba',
-    ),
+    // quello che una persona vede piu' spesso di ogni altro. L'Arcano
+    // dell'Alba non e' qui: vedi `senzaAzioni`.
     ArteConResponso(
       arte: 'soffio',
       maestro: 'aura',
       titolo: 'Soffio del Destino',
       doveViveIlResponso: 'lib/features/rituals/breath_destiny_screen.dart',
       apertura: 'soffio',
-    ),
-    ArteConResponso(
-      arte: 'oracolo',
-      maestro: 'medora',
-      titolo: 'Arcano del Giorno',
-      doveViveIlResponso: 'lib/features/rituals/day_oracle_screen.dart',
-      apertura: 'oracolo',
-      perche: 'NON HA UN CONDIVIDI. Non è una dimenticanza: l\'artwork '
-          'del mazzo è arte del Cerchio e non un responso della persona, '
-          'quindi non c\'è una carta sua da mandare. Custodisci e Parlane '
-          'ci sono.',
     ),
     ArteConResponso(
       arte: 'tramonto',
@@ -172,7 +155,9 @@ class ArtiConResponso {
     ),
     ArteConResponso(
       arte: 'sogno',
-      maestro: 'caligo',
+      // **A MEDORA, ordine DT voce 15**: il Sigillo del Sogno non ruota piu'
+      // fra i tre Maestri, e il Parlane porta da lei.
+      maestro: 'medora',
       titolo: 'Rito della Notte',
       doveViveIlResponso: 'lib/features/rituals/dream_rite_screen.dart',
       apertura: 'sogno',
@@ -218,6 +203,21 @@ class ArtiConResponso {
         'passato: non c\'è nessun testo da custodire né da portare in chat. '
         'Un pulsante che promettesse di parlarne aprirebbe una conversazione '
         'su niente.',
+  };
+
+  /// **I RESPONSI CHE PER ORDINE NON OFFRONO AZIONI**, col loro perche'.
+  ///
+  /// Un'arte che produce un responso e non monta Custodisci, Parlane e
+  /// Condividi non e' dimenticata: e' dichiarata qui, e la ragione e' un
+  /// ordine scritto.
+  static const Map<String, String> senzaAzioni = {
+    'alba': 'l\'Arcano dell\'Alba ha un gesto solo e nessun altro comando: '
+        'l\'ordine DT voce 02 vieta sulla sua schermata ogni pulsante che non '
+        'sia girare la carta. È in contrasto con l\'ordine CG voci 06 e 08: '
+        'la decisione è riportata a Mauro nel rapporto dell\'ordine DT.',
+    'oracolo': 'l\'Arcano del Giorno non è più un dono: l\'ordine DT voce 01 '
+        'lo ha fuso nell\'Arcano dell\'Alba. I custoditi di prima restano e '
+        'si leggono.',
   };
 
   static ArteConResponso? di(String arte) {

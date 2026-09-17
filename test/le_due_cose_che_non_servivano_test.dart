@@ -41,38 +41,6 @@ void main() {
 
   final scheda = soloCodice('lib/features/rituals/ritual_gift_card.dart');
 
-  test('BB.06: la parola del giorno c e, e non e piu sola', () {
-    for (final segno in const [
-      "Key('gift_word')",
-      "Key('alba_etichetta_parola')",
-      // **LA RIGA CHE MANCAVA**: senza, la parola resta un titolo senza testo.
-      "Key('alba_perche_della_parola')",
-    ]) {
-      // ignore: avoid_print
-      print('ORDINE BB VOCE 06: "$segno" compare '
-          '${segno.allMatches(scheda).length} volte nel codice della scheda');
-      expect(scheda.contains(segno), isTrue,
-          reason: 'la scheda non porta $segno: la parola del giorno o non c e '
-              'o e tornata sola, che era il difetto');
-    }
-    expect(scheda.contains('gift.rito!.perche'), isTrue,
-        reason: 'sotto la parola non si legge cosa indica: resta la domanda '
-            '"cosa ne faccio adesso di questa parola"');
-  });
-
-  test('BB.06: e compare SOLO all Alba', () {
-    // **Nel Soffio la parola non c e**, e non e' un dettaglio: e' il rito
-    // dell'aria e del destino, non quello della parola da portarsi dietro. La
-    // stessa cosa in due riti diversi li fa sembrare lo stesso rito, ed e'
-    // proprio la lamentela della voce BB.09.
-    // ignore: avoid_print
-    print('ORDINE BB VOCE 06: il guardiano dell Alba nella scheda compare '
-        '${"DailyElement.dawn".allMatches(scheda).length} volte');
-    expect(scheda.contains('widget.dono == DailyElement.dawn'), isTrue,
-        reason: 'la parola si dipinge in tutti i doni: nel Soffio non ci deve '
-            'essere');
-  });
-
   test('BB.06: nel Soffio non si condivide nessuna parola', () {
     final soffio =
         soloCodice('lib/features/rituals/breath_destiny_screen.dart');
@@ -82,18 +50,6 @@ void main() {
     expect(soffio.contains('parola del giorno'), isFalse,
         reason: 'il Soffio condivide ancora una parola del giorno che non '
             'mostra');
-  });
-
-  test('BB.06: e all Alba si condivide la parola CON cio che indica', () {
-    final alba = soloCodice('lib/features/rituals/dawn_rite_screen.dart');
-    // ignore: avoid_print
-    print('ORDINE BB VOCE 06: la condivisione dell Alba nomina il perche '
-        '${'perche'.allMatches(alba).length} volte nel codice');
-    expect(alba.contains('parola del giorno'), isTrue,
-        reason: 'l Alba non condivide piu la sua parola');
-    expect(alba.contains('gift.rito?.perche'), isTrue,
-        reason: 'si condivide la parola nuda: a chi non ha l app davanti '
-            'arriva ancora piu muta che a schermo');
   });
 
   test('BB.07: dall Alba non si va piu al Soffio', () {

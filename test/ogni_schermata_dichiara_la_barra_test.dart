@@ -95,9 +95,8 @@ void main() {
     // qualcuno li spostasse fra le presenti, questa cadrebbe prima di ogni
     // altra.
     const maiLaBarra = [
-      'DawnRiteScreen',
+      'ArcanoDellAlbaScreen',
       'BreathDestinyScreen',
-      'DayOracleScreen',
       'SunsetRuneScreen',
       'DreamRiteScreen',
       'StesaTreCarteScreen',

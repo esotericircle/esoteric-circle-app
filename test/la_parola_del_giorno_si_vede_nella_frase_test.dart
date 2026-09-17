@@ -1,9 +1,8 @@
-import 'dart:io';
-
 import 'package:esoteric_circle/core/rituals/filo_del_giorno.dart';
 import 'package:esoteric_circle/design_system/components/frase_con_la_parola.dart';
 import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
-import 'package:esoteric_circle/features/maestri/chat/chat_openers.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/letture_dell_alba_dati.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/responso_dell_alba.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -35,7 +34,14 @@ void main() {
     final frasi = <String, String>{
       'il richiamo della sera nel Sigillo':
           FiloDelGiorno.richiamoDellaParola(parola),
-      'l apertura della chat dall Alba': ChatOpeners.alba(parola),
+      // **Dall'ordine DT la parola la da' l'Arcano dell'Alba**, e il Sigillo
+      // la richiama passando dal dono della carta: una carta del corpus che
+      // porta proprio questa parola.
+      'il richiamo del dono della carta nel Sigillo':
+          FiloDelGiorno.richiamoDelDono(ResponsoDellAlba.componi(
+              lettureDellAlba.firstWhere((l) => l.parola == parola),
+              apertura: 0,
+              clausola: 0)),
     };
     cardinaleMinimo(frasi.length, 2,
         cosa: 'frasi che portano dentro la Parola del giorno',
@@ -128,30 +134,5 @@ void main() {
     expect(nude, isEmpty,
         reason: 'queste frasi scrivono la Parola del giorno nuda, senza le '
             'virgolette basse: ${nude.join(" | ")}');
-  });
-
-  test('IL RIPIEGO DEL MANTRA SI ANNUNCIA', () {
-    // **Ordine DD voce 02**: sopra il ripiego tattile del mantra ci vuole un
-    // titolo, e il fondatore lo ha scritto: *IN ALTERNATIVA*. Senza, la via
-    // col dito si legge come la seconda meta della stessa istruzione e chi
-    // scorre fa tutte e due le cose.
-    //
-    // Si legge il sorgente perche' la scheda del Dono si monta solo con un
-    // Dono vero in mano, e il titolo e una costante: qui interessa che ci
-    // sia e che stia PRIMA della riga che annuncia.
-    final codice =
-        File('lib/features/rituals/ritual_gift_card.dart').readAsStringSync();
-    final titolo = codice.indexOf("Text('IN ALTERNATIVA'");
-    final via = codice.indexOf("Text(rito.viaTattile");
-    // ignore: avoid_print
-    print('ORDINE DD VOCE 02: il titolo del ripiego sta al carattere $titolo, '
-        'la via col dito al $via');
-    expect(titolo, greaterThan(-1),
-        reason: 'sopra il ripiego tattile del mantra non c e nessun titolo');
-    expect(via, greaterThan(-1),
-        reason: 'la via col dito non c e piu nella scheda del Dono');
-    expect(titolo, lessThan(via),
-        reason: 'il titolo IN ALTERNATIVA sta DOPO la via col dito, quindi '
-            'non la annuncia');
   });
 }

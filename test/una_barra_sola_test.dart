@@ -161,7 +161,7 @@ void main() {
 
     testWidgets('in un Dono del giorno non c\'e\' affatto', (tester) async {
       final nav = await monta(tester);
-      nav.push(dailyElementRoute(DailyElement.oracle));
+      nav.push(dailyElementRoute(DailyElement.dawn));
       await respira(tester);
       expect(quanteBarre(), 0,
           reason: 'Un Dono si compie con un gesto: una via d\'uscita sempre a '

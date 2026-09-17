@@ -65,13 +65,14 @@ class GestiDelleArti {
         gesto: 'soffio',
         schermata: 'lib/features/rituals/breath_destiny_screen.dart'),
     SorgenteDelGesto(
-        gesto: 'alba', schermata: 'lib/features/rituals/dawn_rite_screen.dart'),
+        gesto: 'alba',
+        schermata: 'lib/features/rituals/arcano_dell_alba_screen.dart'),
     SorgenteDelGesto(
         gesto: 'tramonto',
         schermata: 'lib/features/rituals/sunset_rune_screen.dart'),
     SorgenteDelGesto(
         gesto: 'oracolo',
-        schermata: 'lib/features/rituals/day_oracle_screen.dart'),
+        schermata: 'lib/features/rituals/arcano_dell_alba_screen.dart'),
     SorgenteDelGesto(
         gesto: 'sogno',
         schermata: 'lib/features/rituals/dream_rite_screen.dart'),

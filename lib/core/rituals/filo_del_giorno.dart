@@ -2,6 +2,10 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'arcano_dell_alba/archivio_dell_alba.dart';
+import 'arcano_dell_alba/attribuzioni_degli_arcani.dart';
+import 'arcano_dell_alba/responso_dell_alba.dart';
+
 /// IL FILO CHE LEGA I MOMENTI DELLA GIORNATA. Ordine P voce 18, e voce 09.
 ///
 /// **Il difetto che chiude.** La Parola del Giorno aveva una ragione d'essere
@@ -11,8 +15,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// esaurisce quando lo apri non produce ritorni.
 ///
 /// **Cosa fa.** Tiene i tre fili che attraversano la giornata e la notte:
-/// - la PAROLA del mattino, che il Sigillo del Sogno richiama la sera con la
-///   formula "Stamattina la tua parola era X";
+/// - il DONO del mattino, che il Sigillo del Sogno richiama la sera: la parola
+///   quando la carta dell'alba e' zodiacale, l'azione o il respiro negli altri
+///   giorni. **Dall'ordine DT non ha un magazzino suo**: si legge dall'archivio
+///   dell'Arcano dell'Alba, che e' la sola estrazione del giorno;
 /// - la DOMANDA lasciata da Medora nella stesa, che ricompare nel dono del
 ///   mattino successivo con la formula "Ieri Medora ti ha lasciato questa
 ///   domanda";
@@ -30,7 +36,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class FiloDelGiorno {
   const FiloDelGiorno._();
 
-  static const String _chiaveParola = 'filo.parola_del_giorno';
   static const String _chiaveDomanda = 'filo.domanda_di_medora';
 
   /// L'ora prima della quale si sta ancora chiudendo il giorno precedente.
@@ -81,23 +86,48 @@ class FiloDelGiorno {
       '${adesso.month.toString().padLeft(2, '0')}-'
       '${adesso.day.toString().padLeft(2, '0')}';
 
-  /// Segna la parola ricevuta all'alba di [adesso].
-  static Future<void> segnaLaParola(String parola, DateTime adesso) async {
-    if (parola.trim().isEmpty) return;
-    await _scrivi(_chiaveParola, {
-      'giorno': giornoDiChiApre(adesso),
-      'testo': parola,
-    });
+  /// **IL DONO DI STAMATTINA**, cioe' l'Arcano dell'Alba del giorno rituale
+  /// di [adesso], oppure nulla se stamattina la carta non e' stata girata.
+  ///
+  /// **Una porta sola, ordine DT voce 15.** La parola si scriveva in una
+  /// chiave sua quando la dava il Rito dell'Alba; adesso la da' la carta, e la
+  /// carta sta nel diario dell'Alba. Una seconda copia sarebbe una seconda
+  /// verita' sulla stessa mattina.
+  ///
+  /// La sera si richiama solo il dono di oggi: chi apre il Sigillo all'una di
+  /// notte ritrova quello della mattina prima, perche' il giorno rituale
+  /// glielo riporta, e con il dono di tre giorni fa nessuno.
+  static Future<ResponsoDellAlba?> donoDiStamattina(DateTime adesso) async {
+    try {
+      final diario = await ArchivioDellAlba.leggi();
+      return diario.diGiorno(giornoRituale(adesso));
+    } catch (errore) {
+      return null;
+    }
   }
 
-  /// La parola di STAMATTINA, oppure nulla se non c'e' o se e' di un altro
-  /// giorno rituale.
-  ///
-  /// La sera si richiama solo la parola di oggi: "Stamattina la tua parola era
-  /// X" con la parola di tre giorni fa sarebbe una bugia, e per giunta una
-  /// bugia che la persona riconosce.
+  /// La parola di STAMATTINA, oppure nulla: nei giorni in cui la carta
+  /// dell'alba non e' zodiacale una parola non c'e'.
   static Future<String?> parolaDiStamattina(DateTime adesso) async =>
-      _leggiDelGiorno(_chiaveParola, giornoRituale(adesso));
+      (await donoDiStamattina(adesso))?.parola;
+
+  /// **IL RICHIAMO DEL DONO, qualunque forma abbia.** Ordine DT, decisione di
+  /// Mauro del 17 settembre 2026: il Sigillo richiama il dono della carta. La
+  /// parola con la sua formula di sempre; l'azione e il respiro con la loro,
+  /// che dice anche che cosa erano, perche' la sera chi legge non ha piu' la
+  /// carta davanti.
+  static String richiamoDelDono(ResponsoDellAlba dono) {
+    final parola = dono.parola;
+    if (parola != null) return richiamoDellaParola(parola);
+    final testo = dono.secondo.trim().replaceFirst(RegExp(r'[.]$'), '');
+    return switch (dono.famiglia) {
+      FamigliaDellArcano.planetaria =>
+        'Stamattina la carta ti ha dato un\'azione: «$testo». Adesso chiude '
+            'il giro: com\'è andata?',
+      _ => 'Stamattina la carta ti ha dato un respiro: «$testo». Adesso '
+          'chiude il giro: dove ti ha accompagnato oggi?',
+    };
+  }
 
   /// La formula con cui il Sigillo del Sogno richiama la parola del mattino.
   /// **IL RICHIAMO CHIUDE IL GIRO, e prima lo apriva soltanto.**

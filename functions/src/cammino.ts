@@ -69,7 +69,17 @@ export interface CamminoCustodito {
   /** Il primo e l'ultimo giorno di cammino, in ISO. */
   primoGiorno?: string;
   ultimoGiorno?: string;
+  /**
+   * **IL DIARIO DELL'ARCANO DELL'ALBA**, ordine DT voce 05: il sacchetto dei
+   * quarantaquattro stati, le code delle letture, i registri del ciclo e il
+   * seme della persona. Il Cerchio non lo interpreta: lo custodisce intero e,
+   * fra due copie, tiene quella piu' avanti.
+   */
+  arcanoDellAlba?: Record<string, unknown>;
 }
+
+/** Quanto puo' pesare il diario dell'Alba, scritto: un ciclo pieno sta sotto. */
+export const PESO_MASSIMO_DEL_DIARIO_DELL_ALBA = 20000;
 
 /** Vero se e' una mappa di numeri utilizzabile. */
 function mappaDiNumeri(v: unknown): Record<string, number> {
@@ -165,7 +175,55 @@ export function leggiCammino(grezzo: unknown): CamminoCustodito {
 
   fuori.primoGiorno = testo(c.primoGiorno, 32);
   fuori.ultimoGiorno = testo(c.ultimoGiorno, 32);
+
+  const alba = c.arcanoDellAlba;
+  if (
+    alba &&
+    typeof alba === "object" &&
+    !Array.isArray(alba) &&
+    JSON.stringify(alba).length <= PESO_MASSIMO_DEL_DIARIO_DELL_ALBA
+  ) {
+    fuori.arcanoDellAlba = alba as Record<string, unknown>;
+  }
   return fuori;
+}
+
+/**
+ * **QUANTO E' AVANTI UN DIARIO DELL'ALBA**: il giorno dell'ultima estrazione,
+ * poi il ciclo, poi gli stati gia' usciti nel ciclo. Si confronta nell'ordine.
+ */
+function avanzamentoDellAlba(
+  d: Record<string, unknown> | undefined
+): [string, number, number] {
+  if (!d) return ["", 0, 0];
+  const ultima = d.ultima as Record<string, unknown> | undefined;
+  const giorno = typeof ultima?.giorno === "string" ? ultima.giorno : "";
+  const sacchetto = d.sacchetto as Record<string, unknown> | undefined;
+  const ciclo = typeof sacchetto?.ciclo === "number" ? sacchetto.ciclo : 0;
+  const rimasti = Array.isArray(sacchetto?.rimasti) ?
+    sacchetto.rimasti.length :
+    44;
+  return [giorno, ciclo, 44 - rimasti];
+}
+
+/**
+ * **FRA DUE DIARI DELL'ALBA VINCE IL PIU' AVANTI**, e a parita' il server. Non
+ * si fondono pezzo per pezzo: un sacchetto e' un tutto, e mescolarne due
+ * farebbe uscire uno stato due volte nello stesso ciclo.
+ */
+export function ilDiarioPiuAvanti(
+  server: Record<string, unknown> | undefined,
+  telefono: Record<string, unknown> | undefined
+): Record<string, unknown> | undefined {
+  if (!server) return telefono;
+  if (!telefono) return server;
+  const a = avanzamentoDellAlba(server);
+  const b = avanzamentoDellAlba(telefono);
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] > b[i]) return server;
+    if (a[i] < b[i]) return telefono;
+  }
+  return server;
 }
 
 /** Il piu' alto fra due conteggi, chiave per chiave. */
@@ -286,6 +344,9 @@ export function fondiCammini(
   if (primo) fuori.primoGiorno = primo;
   const ultimo = laPiuRecente(a.ultimoGiorno, b.ultimoGiorno);
   if (ultimo) fuori.ultimoGiorno = ultimo;
+
+  const alba = ilDiarioPiuAvanti(a.arcanoDellAlba, b.arcanoDellAlba);
+  if (alba) fuori.arcanoDellAlba = alba;
 
   return fuori;
 }

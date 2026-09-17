@@ -132,16 +132,6 @@ class MaestroChatScreen extends StatefulWidget {
                 natal: () => SorgenteNatale.daIdentita(
                     rotta.read<BirthIdentityController>(),
                     diario: _forseIlDiario(rotta)),
-                // **LA STESSA NASCITA DEL DONO. Ordine DS voce 08.** L'Arcano
-                // del Giorno la legge da qui, e la carta detta in chat deve
-                // essere la carta che il Dono mostra.
-                nascita: () {
-                  try {
-                    return rotta.read<BirthIdentityController>().details?.date;
-                  } catch (errore) {
-                    return null;
-                  }
-                },
               )..init(),
               // La chat appartiene a UN Maestro, quindi il suo colore e' il suo e non
               // quello di chi era attivo un istante prima. Senza questo `maestro:` lo

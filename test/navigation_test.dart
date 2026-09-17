@@ -143,13 +143,13 @@ void main() {
     await tester.pumpWidget(EsotericCircleApp(
       conIntro: false,
       services: AppServices.offline(),
-      clock: () => DateTime(2026, 7, 14, 13, 0),
+      clock: () => DateTime(2026, 7, 14, 8, 0),
     ));
     await step(tester);
     final ctx = tester.element(find.byType(MaterialApp));
     final maestro = ctx.read<MaestroController>();
 
-    // Al centro c'e' Medora (fascia Oracolo); i laterali sono Caligo e Aura.
+    // Al centro c'e' Medora (fascia dell'Arcano dell'Alba, ordine DT); i laterali sono Caligo e Aura.
     expect(maestro.activeMaestro, isNull);
     // Toccando un busto laterale lo si porta al centro, senza lasciare il
     // Santuario: nessun dominio spinto, cambia solo il centro.

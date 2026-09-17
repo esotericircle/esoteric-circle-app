@@ -83,8 +83,8 @@ void main() {
           reason: 'il diario non ricorda l\'ora dei gesti: la costanza '
               'dell\'ora non si puo\' misurare');
 
-      final ora = costruita(
-          'L\'ora fedele', const StessaOraPerGiorni('oroscopo', 5));
+      final ora =
+          costruita('L\'ora fedele', const StessaOraPerGiorni('oroscopo', 5));
       expect(ora.condizione.raggiunto(stato), isTrue,
           reason: 'cinque mattine alla stessa ora non accendono "${ora.nome}"');
     });
@@ -107,8 +107,8 @@ void main() {
         await diario.segna('oroscopo');
       }
       final stato = diario.statoDelCammino();
-      final ora = costruita(
-          'L\'ora fedele', const StessaOraPerGiorni('oroscopo', 5));
+      final ora =
+          costruita('L\'ora fedele', const StessaOraPerGiorni('oroscopo', 5));
       // ignore: avoid_print
       print('ORDINE CP VOCE 05: con quattro mattine, ora fedele a quota '
           '${stato.oraFedelePerGesto['oroscopo']}');
@@ -181,8 +181,8 @@ void main() {
       expect(stato.giorniSaltatiPerRito['soffio'], 3,
           reason: 'il buco del rito non si misura');
 
-      final voce = costruita(
-          'Il ritorno al Soffio', const RitornoAlRito('soffio', 3));
+      final voce =
+          costruita('Il ritorno al Soffio', const RitornoAlRito('soffio', 3));
       expect(voce.condizione.raggiunto(stato), isTrue,
           reason: 'tre giorni saltati non accendono "${voce.nome}"');
     });
@@ -237,8 +237,8 @@ void main() {
           reason: 'l\'assenza dall\'app non e\' zero: la prova non sta '
               'misurando il ritorno a UN Maestro');
 
-      final voce = costruita('Il ritorno a Medora',
-          const RitornoAlMaestro('costellazione', 7));
+      final voce = costruita(
+          'Il ritorno a Medora', const RitornoAlMaestro('costellazione', 7));
       expect(voce.condizione.raggiunto(stato), isTrue,
           reason: 'il ritorno a Medora non accende "${voce.nome}"');
     });
@@ -326,8 +326,8 @@ void main() {
       await diario.segna('soffio', dettagli: const {
         'tenuto': ['intero']
       });
-      final voce = costruita('Il Soffio tenuto',
-          const VarietaDelDettaglio('soffio', 'tenuto', 1));
+      final voce = costruita(
+          'Il Soffio tenuto', const VarietaDelDettaglio('soffio', 'tenuto', 1));
       expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
           reason: 'il Soffio tenuto non accende "${voce.nome}"');
       laScenaManda('lib/features/rituals/breath_destiny_screen.dart',
@@ -340,8 +340,8 @@ void main() {
       await diario.carica();
       // Il gesto c'e', il dettaglio no: e' il Soffio lasciato a meta'.
       await diario.segna('soffio');
-      final voce = costruita('Il Soffio tenuto',
-          const VarietaDelDettaglio('soffio', 'tenuto', 1));
+      final voce = costruita(
+          'Il Soffio tenuto', const VarietaDelDettaglio('soffio', 'tenuto', 1));
       expect(voce.condizione.raggiunto(diario.statoDelCammino()), isFalse,
           reason: 'un Soffio qualunque accende il gradino di chi lo tiene '
               'fino alla fine');
@@ -358,9 +358,9 @@ void main() {
           const VarietaDelDettaglio('alba', 'prima_del_sole', 1));
       expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
           reason: 'l\'Alba prima del sole non accende "${voce.nome}"');
-      laScenaManda('lib/features/rituals/dawn_rite_screen.dart',
+      laScenaManda('lib/features/rituals/arcano_dell_alba_screen.dart',
           "'prima_del_sole': ['si']", 'il sorgere vero');
-      laScenaManda('lib/features/rituals/dawn_rite_screen.dart',
+      laScenaManda('lib/features/rituals/arcano_dell_alba_screen.dart',
           'SunsetTime.albaPerData', 'il calcolo del sorgere');
     });
 
@@ -369,8 +369,8 @@ void main() {
       final diario = DiarioDelCammino(orologio: orologioDelleProve);
       await diario.carica();
       await diario.segna('runa_girata');
-      final voce = costruita('La pietra girata',
-          const GestiCompiuti('runa_girata', 1));
+      final voce =
+          costruita('La pietra girata', const GestiCompiuti('runa_girata', 1));
       expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
           reason: 'la pietra girata non accende "${voce.nome}"');
       laScenaManda('lib/features/maestri/caligo/rune/rune_draw_screen.dart',
@@ -381,14 +381,13 @@ void main() {
           reason: 'girare una pietra ha contato come una gettata');
     });
 
-    test('La scheda dell\'Ascendente letta fino in fondo accende',
-        () async {
+    test('La scheda dell\'Ascendente letta fino in fondo accende', () async {
       SharedPreferences.setMockInitialValues(const {});
       final diario = DiarioDelCammino(orologio: orologioDelleProve);
       await diario.carica();
       await diario.segna('ascendente');
-      final voce = costruita('La scheda dell\'Ascendente',
-          const GestiCompiuti('ascendente', 1));
+      final voce = costruita(
+          'La scheda dell\'Ascendente', const GestiCompiuti('ascendente', 1));
       expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
           reason: 'la lettura fino in fondo non accende "${voce.nome}"');
       laScenaManda('lib/features/onboarding/natal_chart_reveal.dart',
@@ -411,8 +410,7 @@ void main() {
       // firma sono un gradino detto due volte. Il fondatore puo' rovesciare
       // la scelta con una riga.
       final voce = costruita('Il cielo contrario',
-          const FinestraDelCielo('saturno_retrogrado',
-              conGesto: 'soffio'));
+          const FinestraDelCielo('saturno_retrogrado', conGesto: 'soffio'));
       final condizione = voce.condizione;
       // ignore: avoid_print
       print('ORDINE BX VOCE 1: il cielo contrario e\' tradotto con '
@@ -433,8 +431,7 @@ void main() {
           reason: 'il gradino si accende in un giorno qualunque');
     });
 
-    test('Lo stesso Arcano due volte in una settimana accende',
-        () async {
+    test('Lo stesso Arcano due volte in una settimana accende', () async {
       // **IL GESTO VERO**: l'Arcano del Giorno ricevuto lunedi' e di nuovo
       // giovedi', ed e' lo stesso. Prima il diario contava le ripetizioni DA
       // SEMPRE, quindi due uscite a due anni di distanza sarebbero valse
@@ -460,9 +457,9 @@ void main() {
       expect(voce.condizione.raggiunto(stato), isTrue,
           reason: 'due Arcani uguali in una settimana non accendono '
               '"${voce.nome}"');
-      final scena = File('lib/features/rituals/day_oracle_screen.dart')
+      final scena = File('lib/features/rituals/arcano_dell_alba_screen.dart')
           .readAsStringSync();
-      expect(scena.contains("'arcano': [carta.stem]"), isTrue,
+      expect(scena.contains("'arcano': [responso.carta.stem]"), isTrue,
           reason: 'la scena dell\'Arcano non manda piu\' quale carta e\' '
               'uscita: la condizione resta viva e nessuno la alimenta');
     });
@@ -649,8 +646,8 @@ void main() {
       SharedPreferences.setMockInitialValues(const {});
       final diario = DiarioDelCammino(orologio: orologioDelleProve);
       await diario.carica();
-      final voce = costruita(
-          'Il Bosco guardato', const GestiCompiuti('bosco', 1));
+      final voce =
+          costruita('Il Bosco guardato', const GestiCompiuti('bosco', 1));
       expect(voce.condizione.raggiunto(diario.statoDelCammino()), isFalse);
       await diario.segna('bosco');
       expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
@@ -680,8 +677,8 @@ void main() {
       SharedPreferences.setMockInitialValues(const {});
       final diario = DiarioDelCammino(orologio: orologioDelleProve);
       await diario.carica();
-      final voce = costruita(
-          'I Due Volti', const GestiCompiuti('due_volti', 1));
+      final voce =
+          costruita('I Due Volti', const GestiCompiuti('due_volti', 1));
       expect(voce.condizione.raggiunto(diario.statoDelCammino()), isFalse);
       await diario.segna('due_volti');
       expect(voce.condizione.raggiunto(diario.statoDelCammino()), isTrue,
@@ -694,7 +691,8 @@ void main() {
       expect(scena.contains('FaceReading? _secondoVolto'), isTrue,
           reason: 'il secondo volto non vive nella schermata');
       // ignore: avoid_print
-      print('ORDINE BX VOCE 3: due volti accendono i Due Volti, e il secondo volto '
+      print(
+          'ORDINE BX VOCE 3: due volti accendono i Due Volti, e il secondo volto '
           'vive solo dentro la schermata');
     });
   });

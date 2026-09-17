@@ -167,7 +167,7 @@ class PlanCatalog {
       identity: 'Esplora la soglia.',
       highlights: [
         'Accesso al Cerchio con i tre Maestri',
-        'I quattro elementi giornalieri: Rito dell\'Alba, Soffio del Destino, Arcano del Giorno, Runa del Tramonto',
+        'I Doni del giorno: Arcano dell\'Alba, Soffio del Destino, Runa del Tramonto e Sigillo del Sogno',
         'Carta natale occidentale in lettura base',
         'Tre domande al giorno a un Maestro, senza memoria',
         'Una carta di tarocchi al giorno',
@@ -481,9 +481,8 @@ class PlanCatalog {
       'Completa + transiti',
       'Completa + transiti'
     ]),
-    FeatureRow('Arcano del Giorno', ['Sì', 'Sì', 'Sì', 'Sì']),
     FeatureRow('Soffio del Destino', ['Sì', 'Sì', 'Sì', 'Sì']),
-    FeatureRow('Rito dell\'Alba', ['Sì', 'Sì', 'Sì', 'Sì']),
+    FeatureRow('Arcano dell\'Alba', ['Sì', 'Sì', 'Sì', 'Sì']),
     FeatureRow('La Runa del Tramonto', ['Sì', 'Sì', 'Sì', 'Sì']),
     FeatureRow('Oroscopo settimanale',
         ['Base', 'Dettagliato', 'Dettagliato', 'Dettagliato'],

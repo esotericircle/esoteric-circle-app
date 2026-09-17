@@ -110,14 +110,13 @@ void main() {
     }
   });
 
-  test('il censimento: sei punti chiedono un permesso, e nessuno tace', () {
+  test('il censimento: i punti che chiedono un permesso non tacciono', () {
     // **ENUMERATI, non campionati.** Ogni riga e' un punto in cui l'app
     // invita ad attivare qualcosa.
     const punti = <String, String>{
       'lib/features/onboarding/maestro_reveal_screen.dart': 'microfono',
       'lib/features/rituals/breath_destiny_screen.dart': 'microfono',
-      'lib/features/rituals/dawn_rite_screen.dart': 'notifiche',
-      'lib/features/rituals/dove_sei_adesso.dart': 'posizione',
+      // Il Rito dell'Alba e la sua riga del luogo sono usciti con l'ordine DT.
       'lib/features/rituals/sunset_rune_screen.dart': 'posizione',
       'lib/features/account/notifiche_screen.dart': 'notifiche',
     };
