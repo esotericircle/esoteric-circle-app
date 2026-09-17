@@ -658,6 +658,33 @@ Più le **diciotto guardie proprie dei manifesti**, che pretendono un valore e
 non entrano nel conto del registro, come le altre guardie d'ordine. **Nessuna
 riga aggiunta a `tool/rossi_accettati.txt`. Nessuna soglia abbassata.**
 
+### Due guardie di casa rotte dal mio lavoro e riparate
+
+Le ha trovate lo sbarramento, non una rilettura.
+
+1. **`un_ripiego_non_costa_test.dart` si è appesa per venti minuti.** Padre:
+   **ordine DS voce 08**. La prova brucia le domande del giorno mandando sempre
+   *"ancora"*, finché non ne restano: da quando la stessa domanda nello stesso
+   giorno è ridetta senza consumare, il ciclo non finiva più. **Non era un
+   difetto dell'app, era la prova che contava su un comportamento cambiato
+   apposta.** Adesso manda una domanda diversa a ogni giro e ha un tetto di cento
+   giri, perché un ciclo che aspetta un conto non deve poter appendere lo
+   sbarramento. Gli altri due cicli del genere, in `l_app_non_dice_il_falso`,
+   consumano il conto direttamente e non mandano domande: sani.
+2. **`le_lunghezze_dei_responsi_test.dart`, la tabella generata non tornava.**
+   Padre: **ordine DS voce 09**. Il Consiglio dei Tarocchi è cambiato: mediana da
+   829 a **842** caratteri, massimo fermo a **994**. Rigenerata; nessun tetto
+   superato.
+
+### L'esito dello sbarramento
+
+Sul commit `ee85fe43`, prima della spinta: suite Flutter con **tre rossi**, due
+dichiarati e voluti nei rossi accettati (*l'attribuzione cieca è valida su
+QUESTA istruzione* e *le soglie delle quattro pose sono state misurate su un
+telefono*) e uno solo nuovo, **"il ramo locale non ha commit che il remoto non
+conosce"**, che si chiude spingendo; **le prove del server 98 su 98**; il
+corredo a scala 1,3 con 182 schermate montate e i soli rossi già accettati.
+
 **Una stesura mia che mentiva, rimediata prima di consegnare**: nel registro
 avevo scritto *"figure ripetute in 704 Consigli"*; il numero misurato è 708
 ripetizioni su duemila Consigli. Corretto.
