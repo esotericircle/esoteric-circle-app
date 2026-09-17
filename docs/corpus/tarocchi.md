@@ -185,540 +185,2202 @@ Dorso del mazzo: tar_rw_dorso_medora_v1.
 
 ## Arcano dell'Alba, le letture del dono
 
-Ordine DT voci 07 e 09, 17 settembre 2026. Il dono del mattino si compone da qui, senza modello: per ognuno dei quarantaquattro stati, ventidue arcani maggiori nei due versi, ci sono tre letture scritte a mano. **La forma la decide la famiglia**, dall'attribuzione della Golden Dawn scritta accanto a ogni carta nella sezione dei Maggiori: le carte elementali danno un respiro, una condizione in cui stare con il modo di starci; le planetarie danno un'azione, una cosa precisa da fare; le zodiacali danno una parola del giorno. **Il contenuto nasce sempre dalla carta**, e il rovesciato attenua, trattiene o porta dentro: non è mai il contrario del dritto.
+Ordine DT voci 07 e 09; **rifatto dall'ordine DU voci 08, 09 e 12**, 17
+settembre 2026. Il dono si compone da qui, senza modello: per ognuno dei
+quarantaquattro stati, ventidue arcani maggiori nei due versi, ci sono
+**dodici letture scritte a mano**, cinquecentoventotto in tutto.
 
-Ogni lettura ha due parti con compiti disgiunti. Il **dono** è il secondo movimento del responso e non nomina la carta né la sua attribuzione. **Medora** è il terzo, la chiusura: non ripete il dono e non ne dà un altro. Il primo movimento, la carta nominata col verso e l'attribuzione, non sta qui perché si compone dal nome.
+**OGNI CARTA HA LA SUA PAROLA** (voce DU.08). Il respiro non e' piu' una forma
+del dono, perche' il respiro e' di Aura (voce DU.09): ogni lettura porta una
+**parola**, che nasce dalla carta e dal suo verso, e un **dono**, cioe' una
+cosa precisa da fare, che quella parola la contiene. **Il contenuto nasce
+sempre dalla carta**, e il rovesciato attenua, trattiene o porta dentro: non e'
+mai il contrario del dritto.
 
-### 0 Il Matto, Aria, respiro
+Ogni lettura ha tre parti con compiti disgiunti. La **parola** e' il colpo
+d'occhio. Il **dono** e' il secondo movimento del responso e non nomina la
+carta ne' la sua attribuzione. **Medora** e' il terzo, la chiusura: non ripete
+il dono e non ne da' un altro. Il primo movimento, la carta nominata col verso
+e l'attribuzione, non sta qui perche' si compone dal nome.
+
+**Dodici e non tre** (decisione di Mauro del 17 settembre 2026): dall'ordine DU
+l'estrazione non ha piu' vincoli, quindi la stessa carta puo' tornare a pochi
+giorni di distanza, e con dodici letture per stato il testo non si ripete.
+
+### 0 Il Matto, Aria
 
 - **dritto, lettura 1**
-  - dono: Tieni il passo leggero per tutta la giornata: prima di ogni impegno sciogli le spalle e parti senza portarti dietro il programma intero.
-  - medora: Chi cammina senza zavorra vede strade che dalla scrivania non si vedono.
+  - parola: Slancio
+  - dono: Dai slancio a quello che rimandi da giorni: fallo entro un'ora, anche male, senza rifinirlo.
+  - medora: La prima mossa non chiede di essere perfetta, chiede solo di essere fatta.
 - **dritto, lettura 2**
-  - dono: Stai dentro lo stupore di chi arriva per la prima volta: in ogni luogo cerca un dettaglio mai notato e fermati tre respiri a guardarlo.
-  - medora: La meraviglia è una porta che si apre da sola, basta non avere fretta di varcarla.
+  - parola: Stupore
+  - dono: Cerca uno stupore nel tragitto di sempre: una vetrina, un albero, una ringhiera mai guardata davvero.
+  - medora: Chi torna a meravigliarsi smette di attraversare la vita in apnea.
 - **dritto, lettura 3**
-  - dono: Resta nell'aperto: quando una decisione ti stringe, esci sul balcone o spalanca una finestra e aspetta che il petto si allarghi prima di rispondere.
-  - medora: Il vuoto davanti al salto non è un precipizio, è spazio che ti fa posto.
+  - parola: Leggerezza
+  - dono: Togli un peso dall'agenda con leggerezza: cancella un impegno accettato per abitudine e non rimpiazzarlo.
+  - medora: Alleggerire non è rinunciare, è scegliere che cosa merita le tue mani.
+- **dritto, lettura 4**
+  - parola: Partenza
+  - dono: Prepara una partenza minuscola: metti vicino alla porta un oggetto che ti serve per domani.
+  - medora: Le cose grandi cominciano da un gesto piccolo messo al posto giusto.
+- **dritto, lettura 5**
+  - parola: Curiosità
+  - dono: Segui una curiosità per un quarto d'ora, senza doverne ricavare niente: un video, un capitolo, una domanda.
+  - medora: Ciò che si impara per piacere resta più a lungo di ciò che si studia per dovere.
+- **dritto, lettura 6**
+  - parola: Fiducia
+  - dono: Affida con fiducia a un'altra persona un compito che faresti meglio tu, dicendole che lo sai.
+  - medora: Chi non consegna mai niente a nessuno finisce per portare tutto da solo.
+- **dritto, lettura 7**
+  - parola: Gioco
+  - dono: Metti un gioco dentro una cosa seria: scegli la strada più bella invece della più breve.
+  - medora: Anche una giornata piena regge una riga scritta per divertimento.
+- **dritto, lettura 8**
+  - parola: Apertura
+  - dono: Lascia un'apertura nel calendario: sessanta minuti vuoti, difesi come fosse un incontro.
+  - medora: Nello spazio libero entra quello che nessun programma sa prevedere.
+- **dritto, lettura 9**
+  - parola: Passo
+  - dono: Fai il passo che tocca a te e fermati lì, senza aggiungere già il secondo e il terzo.
+  - medora: Si avanza un piede alla volta, soprattutto nei tragitti lunghi.
+- **dritto, lettura 10**
+  - parola: Vento
+  - dono: Esci dove tira vento e resta fuori finché il freddo ti sveglia la pelle.
+  - medora: Certe idee arrivano soltanto quando il corpo esce di casa.
+- **dritto, lettura 11**
+  - parola: Inizio
+  - dono: Scrivi l'inizio del progetto che hai in testa, tre righe soltanto, sopra un foglio in vista.
+  - medora: Quello che rimane chiuso in testa non si misura mai col mondo.
+- **dritto, lettura 12**
+  - parola: Pensiero
+  - dono: Regala un pensiero a qualcuno: un biglietto lungo, un dolce, un libro sul tavolo.
+  - medora: Un gesto inatteso vale il doppio di uno promesso.
 - **rovesciato, lettura 1**
-  - dono: Abita una leggerezza raccolta: prima di dire sì a qualcosa di nuovo conta fino a dieci e chiediti se ti muove il desiderio o la voglia di scappare.
-  - medora: Anche il volo più bello comincia con un piede ancora appoggiato a terra.
+  - parola: Misura
+  - dono: Prendi la misura prima di accettare: fai sapere che deciderai domani, con una riga gentile.
+  - medora: Un rinvio di ventiquattro ore costa molto meno di un impegno sbagliato.
 - **rovesciato, lettura 2**
-  - dono: Tieni la sosta sull'orlo: quando senti l'impulso di cambiare tutto scrivilo su un foglio e rileggilo la sera, senza agire subito.
-  - medora: Un desiderio che sa aspettare qualche ora non si spegne, si chiarisce.
+  - parola: Radice
+  - dono: Torna a una radice tua: un posto, una persona o un'abitudine che c'era prima di questo periodo.
+  - medora: Chi sa da dove viene si perde molto meno per strada.
 - **rovesciato, lettura 3**
-  - dono: Resta nel fiato corto che precede il salto: tre volte inspira piano, trattieni un istante e lascialo uscire con calma prima di muoverti.
-  - medora: Non c'è viaggio che perda qualcosa da un minuto di ascolto in più.
+  - parola: Sosta
+  - dono: Concediti una sosta vera a metà del lavoro: nessuno schermo, nessun elenco, dodici minuti.
+  - medora: Il riposo preso prima della stanchezza vale il doppio di quello preso dopo.
+- **rovesciato, lettura 4**
+  - parola: Zavorra
+  - dono: Guarda che zavorra ti porti addosso: scrivi tre gesti che ripeti per inerzia, poi lasciane uno.
+  - medora: Molto di quello che ti appesantisce non conta niente per nessuno.
+- **rovesciato, lettura 5**
+  - parola: Cautela
+  - dono: Usa cautela sui soldi: rimanda di una settimana l'acquisto che ti chiama adesso.
+  - medora: Quello che vale davvero regge l'attesa di sette giorni.
+- **rovesciato, lettura 6**
+  - parola: Conto
+  - dono: Fai il conto delle ore vere che una promessa recente si prenderà: scrivilo su carta.
+  - medora: Promettere in fretta è il modo più educato di deludere.
+- **rovesciato, lettura 7**
+  - parola: Prova
+  - dono: Fai una prova piccola prima del salto: assaggia il cambiamento per un pomeriggio invece di deciderlo tutto.
+  - medora: Si assaggia prima di servire, anche quando si tratta della propria vita.
+- **rovesciato, lettura 8**
+  - parola: Confine
+  - dono: Metti un confine chiaro a una cosa che si allarga: decidi l'ora in cui smetti e smetti.
+  - medora: Ciò che non ha fine si mangia tutto il resto senza chiedere permesso.
+- **rovesciato, lettura 9**
+  - parola: Bagaglio
+  - dono: Alleggerisci un bagaglio concreto: svuota la borsa o lo zaino e rimetti dentro solo quello che usi.
+  - medora: Portare meno addosso cambia il passo più di quanto sembri.
+- **rovesciato, lettura 10**
+  - parola: Attesa
+  - dono: Lascia un'attesa dove vorresti subito una replica: manda il messaggio, poi metti via il telefono.
+  - medora: Fissare l'apparecchio non fa venire prima quello che deve arrivare.
+- **rovesciato, lettura 11**
+  - parola: Terra
+  - dono: Rimetti i piedi a terra: cammina dieci minuti sentendo il corpo spostarsi da una gamba all'altra.
+  - medora: La mente si calma quando il corpo ricorda dove sta.
+- **rovesciato, lettura 12**
+  - parola: Freno
+  - dono: Tieni il freno in una discussione: fai finire chi parla senza preparare mentalmente la risposta.
+  - medora: Chi lascia parlare fino in fondo vince scontri che non ha nemmeno cominciato.
 
-### I Il Mago, Mercurio, azione
+### I Il Mago, Mercurio
 
 - **dritto, lettura 1**
-  - dono: Scegli un'idea che rimandi da settimane e falle fare il primo gesto concreto entro mezzogiorno: una telefonata, una bozza, un acquisto piccolo.
-  - medora: Le intenzioni diventano reali quando qualcuno le vede sul tavolo.
+  - parola: Strumento
+  - dono: Scegli uno strumento solo per la cosa più importante di oggi e chiudi tutti gli altri.
+  - medora: Fare bene una cosa alla volta è la scorciatoia che sembra la via lunga.
 - **dritto, lettura 2**
-  - dono: Metti in fila i quattro strumenti della giornata, un quaderno, il telefono, il tempo libero, una persona: per ognuno decidi a cosa servirà.
-  - medora: Chi sa cosa ha in mano smette di aspettare le condizioni perfette.
+  - parola: Annuncio
+  - dono: Fai l'annuncio che rimandi: scrivi a chi deve saperlo e dillo in tre frasi chiare.
+  - medora: Le parole dette per prime tolgono spazio ai malintesi.
 - **dritto, lettura 3**
-  - dono: Manda prima di sera un messaggio che hai in testa da giorni, con frasi semplici e nessuna scusa.
-  - medora: Una cosa detta vale più di cento pensate bene.
+  - parola: Riparazione
+  - dono: Ripara qualcosa di concreto: aggiusta, cuci, monta o pulisci un oggetto che aspetta da tempo.
+  - medora: Rimettere in sesto una cosa insegna più di leggerne dieci.
+- **dritto, lettura 4**
+  - parola: Bozza
+  - dono: Butta giù una bozza brutta di quello che devi produrre e non correggerla fino a stasera.
+  - medora: Il foglio bianco si vince sporcandolo, non fissandolo.
+- **dritto, lettura 5**
+  - parola: Domanda
+  - dono: Fai la domanda che tieni per te: chiedila di persona, chiara, a chi può rispondere.
+  - medora: Quasi sempre la risposta era già lì e mancava soltanto la richiesta.
+- **dritto, lettura 6**
+  - parola: Tavolo
+  - dono: Libera il tavolo dove lavori: fuori tutto ciò che non serve alla cosa di oggi.
+  - medora: Lo spazio intorno alle mani diventa presto spazio dentro la testa.
+- **dritto, lettura 7**
+  - parola: Accordo
+  - dono: Chiudi un accordo rimasto in sospeso: scrivi chi fa cosa ed entro quando, anche in chat.
+  - medora: Le intese senza data restano desideri con un vestito serio.
+- **dritto, lettura 8**
+  - parola: Scintilla
+  - dono: Insegui la scintilla arrivata di recente: dedicale mezz'ora prima che si spenga da sola.
+  - medora: Le idee hanno una vita breve se nessuno le mette al lavoro.
+- **dritto, lettura 9**
+  - parola: Telefonata
+  - dono: Fai una telefonata invece di mandare testo: chiama chi avresti messo in chat.
+  - medora: Un tono si capisce in due secondi, una frase letta si fraintende.
+- **dritto, lettura 10**
+  - parola: Trucco
+  - dono: Insegna a qualcuno un trucco che sai fare: bastano cinque minuti e un esempio.
+  - medora: Ciò che si spiega diventa più chiaro anche per chi lo spiega.
+- **dritto, lettura 11**
+  - parola: Misura
+  - dono: Prendi la misura esatta di una cosa che stimavi a occhio: minuti, soldi o centimetri.
+  - medora: I numeri veri litigano spesso con le nostre impressioni.
+- **dritto, lettura 12**
+  - parola: Patto
+  - dono: Fai un patto con te per una settimana: una regola sola, scritta e appesa dove la vedi.
+  - medora: Una promessa scritta resiste dove una pensata si scioglie.
 - **rovesciato, lettura 1**
-  - dono: Rileggi una promessa fatta di recente e mantienila per cinque minuti, anche in modo minimo.
-  - medora: Il talento non si perde, si addormenta; basta svegliarlo con garbo.
+  - parola: Silenzio
+  - dono: Tieni in silenzio il progetto che vorresti raccontare e portalo avanti di mezz'ora.
+  - medora: Ciò che si racconta troppo presto perde la spinta di farsi.
 - **rovesciato, lettura 2**
-  - dono: Prima di raccontare a qualcuno un tuo progetto, portalo avanti di mezz'ora in silenzio: le parole possono slittare a domani.
-  - medora: Quando le mani arrivano prima della bocca, tutto torna credibile.
+  - parola: Verifica
+  - dono: Fai una verifica prima di fidarti: controlla la fonte della notizia che stai per passare ad altri.
+  - medora: Ripetere una cosa non la rende vera, la rende solo più diffusa.
 - **rovesciato, lettura 3**
-  - dono: Apri il cassetto, reale o del computer, dove tieni un lavoro lasciato a metà e dedicagli un quarto d'ora senza pretendere di finirlo.
-  - medora: Ciò che hai chiuso in fondo a un armadio aspetta soltanto un segno di attenzione.
+  - parola: Semplicità
+  - dono: Riscrivi con semplicità un messaggio complicato: metà delle parole, stesso contenuto.
+  - medora: Chi ha capito davvero sa dirlo corto.
+- **rovesciato, lettura 4**
+  - parola: Cassetto
+  - dono: Apri il cassetto dei lavori lasciati a metà e dedica un quarto d'ora al primo che vedi.
+  - medora: Quello che hai chiuso in fondo aspetta soltanto un segno di attenzione.
+- **rovesciato, lettura 5**
+  - parola: Scusa
+  - dono: Togli una scusa dal tuo discorso: dillo senza premesse e senza giustificazioni.
+  - medora: Le premesse lunghe indeboliscono anche le ragioni migliori.
+- **rovesciato, lettura 6**
+  - parola: Attrezzo
+  - dono: Rimetti a posto un attrezzo che usi spesso: affilalo, caricalo o puliscilo prima di averne bisogno.
+  - medora: La cura delle cose è un modo silenzioso di rispettare il proprio lavoro.
+- **rovesciato, lettura 7**
+  - parola: Promessa
+  - dono: Mantieni una promessa piccola fatta di recente, anche in modo minimo, entro stasera.
+  - medora: La fiducia si costruisce con cose minuscole ripetute, non con gesti grandi rari.
+- **rovesciato, lettura 8**
+  - parola: Filtro
+  - dono: Metti un filtro alle notifiche: spegni quelle di una applicazione per l'intera giornata.
+  - medora: L'attenzione è l'unica moneta che spendiamo senza accorgercene.
+- **rovesciato, lettura 9**
+  - parola: Onestà
+  - dono: Ammetti con onestà che non sai, dove oggi saresti tentato di improvvisare.
+  - medora: Ammettere un limite costa un istante e salva settimane.
+- **rovesciato, lettura 10**
+  - parola: Lentezza
+  - dono: Fai con lentezza voluta una cosa che sbrighi sempre: lavare, scrivere, sistemare.
+  - medora: La fretta fa risparmiare minuti e costa ore.
+- **rovesciato, lettura 11**
+  - parola: Confronto
+  - dono: Chiudi un confronto inutile: smetti di seguire chi ti fa sentire indietro.
+  - medora: Misurarsi con altri toglie il tempo per misurarsi con se stessi.
+- **rovesciato, lettura 12**
+  - parola: Ordine
+  - dono: Rimetti ordine nei file o nelle carte di un solo argomento, non di tutto.
+  - medora: Sistemare un angolo rende credibile l'idea di sistemare il resto.
 
-### II La Papessa, Luna, azione
+### II La Papessa, Luna
 
 - **dritto, lettura 1**
-  - dono: Concediti dieci minuti di silenzio vero prima di una decisione importante, telefono lontano e occhi chiusi: annota la prima risposta che emerge.
+  - parola: Silenzio
+  - dono: Prenditi dieci minuti di silenzio pieno prima di una scelta, col telefono in un'altra stanza.
   - medora: Certe verità arrivano solo a chi smette di interrogarle.
 - **dritto, lettura 2**
-  - dono: Tieni un quaderno vicino e scrivi tre intuizioni nel momento in cui arrivano, senza spiegarle né giudicarle.
-  - medora: Sentire prima di capire è già una forma di sapienza.
+  - parola: Intuizione
+  - dono: Scrivi tre intuizioni appena arrivano, senza spiegarle e senza giudicarle.
+  - medora: Sentire prima di capire è già una forma di sapere.
 - **dritto, lettura 3**
-  - dono: Rimanda di un giorno una replica che ti chiedono con fretta e dillo con serenità: ho bisogno di pensarci.
-  - medora: Non ogni domanda va soddisfatta nell'istante in cui nasce.
+  - parola: Riserbo
+  - dono: Tieni il riserbo su una cosa tua: non raccontarla oggi a nessuno, nemmeno per caso.
+  - medora: Non tutto ciò che è vero ha bisogno di pubblico.
+- **dritto, lettura 4**
+  - parola: Lettura
+  - dono: Dedica venti minuti a una lettura lenta, su carta, senza cercare niente di utile.
+  - medora: La mente si nutre anche di quello che non serve subito.
+- **dritto, lettura 5**
+  - parola: Sogno
+  - dono: Annota un sogno o un pensiero della notte e rileggilo prima di pranzo.
+  - medora: Quello che affiora al buio spesso sa già cosa ci manca.
+- **dritto, lettura 6**
+  - parola: Pausa
+  - dono: Metti una pausa fra la domanda ricevuta e quello che dici: conta fino a cinque, per un'ora.
+  - medora: In quel piccolo vuoto ci sta tutta la differenza fra reagire e scegliere.
+- **dritto, lettura 7**
+  - parola: Acqua
+  - dono: Stai vicino all'acqua: una doccia lunga, un lavandino, un fiume, lasciando andare i pensieri.
+  - medora: Il pensiero fermo si scioglie dove qualcosa scorre.
+- **dritto, lettura 8**
+  - parola: Attenzione
+  - dono: Porta attenzione a chi resta in disparte: chiedigli come sta, poi aspetta la seconda risposta.
+  - medora: La frase di cortesia viene per prima, quella vera viene dopo.
+- **dritto, lettura 9**
+  - parola: Segreto
+  - dono: Custodisci un segreto che ti hanno affidato: oggi non nominarlo nemmeno per allusioni.
+  - medora: Chi sa tacere riceve confidenze che agli altri non arrivano.
+- **dritto, lettura 10**
+  - parola: Buio
+  - dono: Resta al buio un quarto d'ora prima di dormire, senza schermi e senza musica.
+  - medora: Gli occhi riposati vedono cose che gli occhi stanchi giurano non esistano.
+- **dritto, lettura 11**
+  - parola: Libro
+  - dono: Apri un libro a caso e leggi la pagina che capita, poi chiudilo e pensaci camminando.
+  - medora: Le coincidenze diventano indizi per chi le sa ascoltare senza pretese.
+- **dritto, lettura 12**
+  - parola: Soglia
+  - dono: Fermati sulla soglia di una stanza prima di entrare e decidi con che faccia entri.
+  - medora: Si porta dentro casa l'umore che si sceglie sulla porta.
 - **rovesciato, lettura 1**
-  - dono: Spegni per un'ora una fonte di rumore, la radio, le notifiche, la televisione: ascolta cosa resta.
+  - parola: Rumore
+  - dono: Spegni una fonte di rumore per un'ora: radio, notifiche, televisione, poi ascolta cosa resta.
   - medora: Sotto il chiasso c'è una parte di te che sa già dove andare.
 - **rovesciato, lettura 2**
-  - dono: Quando ti trovi a spiegare troppo una scelta, fermati a metà frase e chiediti cosa sentivi prima di cominciare a ragionare.
-  - medora: L'intuito non ha bisogno di vincere una discussione per essere vero.
+  - parola: Chiarezza
+  - dono: Chiedi chiarezza dove hai capito a metà: fai ripetere e riassumi con parole tue.
+  - medora: Meglio una domanda banale adesso di un errore elegante domani.
 - **rovesciato, lettura 3**
-  - dono: Stasera, prima di dormire, scrivi una cosa che sai e non hai ancora confessato nemmeno a te, poi chiudi il foglio in un cassetto.
-  - medora: Un segreto accolto con gentilezza smette di pesare e comincia a parlare.
+  - parola: Confidenza
+  - dono: Fai una confidenza vera a una persona di cui ti fidi, una cosa sola e piccola.
+  - medora: Ciò che si dice a qualcuno smette di crescere nel silenzio.
+- **rovesciato, lettura 4**
+  - parola: Sospetto
+  - dono: Metti alla prova un sospetto invece di coltivarlo: chiedi direttamente come stanno le cose.
+  - medora: Immaginare le intenzioni altrui è il modo più rapido di sbagliarle.
+- **rovesciato, lettura 5**
+  - parola: Foglio
+  - dono: Scrivi su un foglio ciò che sai e non hai ancora ammesso, poi chiudilo in un cassetto.
+  - medora: Una cosa accolta con gentilezza smette di pesare e comincia a parlare.
+- **rovesciato, lettura 6**
+  - parola: Istinto
+  - dono: Segui l'istinto su una scelta minima: il piatto, la strada, il posto dove sederti.
+  - medora: Si allena sulle piccole cose la fiducia che servirà per le grandi.
+- **rovesciato, lettura 7**
+  - parola: Spiegazione
+  - dono: Togli le spiegazioni di troppo: rispondi con una frase sola, lasciando fuori il resto.
+  - medora: Giustificarsi a lungo è chiedere un permesso che nessuno ha imposto.
+- **rovesciato, lettura 8**
+  - parola: Notte
+  - dono: Porta una decisione alla notte: rimandala a domani e guarda come la vedi svegliandoti.
+  - medora: Il tempo mette in ordine ciò che l'urgenza confonde.
+- **rovesciato, lettura 9**
+  - parola: Ascolto
+  - dono: Dedica un ascolto intero a chi ti sta davanti: nessun consiglio, nessuna soluzione, poche domande.
+  - medora: Spesso chi parla non cerca rimedi, cerca testimoni.
+- **rovesciato, lettura 10**
+  - parola: Nebbia
+  - dono: Chiama nebbia quello che è confuso: elenca i tre punti che non ti sono chiari, senza risolverli.
+  - medora: Sapere dove non si vede è già un modo di vedere.
+- **rovesciato, lettura 11**
+  - parola: Specchio
+  - dono: Guardati allo specchio e riconosci a mezza bocca un tuo merito, senza ridere.
+  - medora: Ammettere di valere in qualcosa non ruba niente a nessuno.
+- **rovesciato, lettura 12**
+  - parola: Verità
+  - dono: Di' una verità scomoda con gentilezza a chi ha diritto di sentirla.
+  - medora: La franchezza senza durezza è un dono raro e si impara.
 
-### III L'Imperatrice, Venere, azione
+### III L'Imperatrice, Venere
 
 - **dritto, lettura 1**
-  - dono: Nutri qualcosa di vivo che dipende da te: annaffia una pianta, cucina con calma per qualcuno o dedica mezz'ora a un progetto che sta crescendo.
+  - parola: Cura
+  - dono: Dedica cura a qualcosa di vivo: annaffia, cucina con calma o segui un progetto che sta crescendo.
   - medora: Sotto mani gentili le cose crescono senza bisogno di essere tirate.
 - **dritto, lettura 2**
-  - dono: Prepara un piccolo regalo fatto da te, un biglietto, un dolce, un fiore: lascialo a una persona senza aspettare l'occasione.
-  - medora: La bellezza donata trova sempre la strada di casa.
+  - parola: Pensiero
+  - dono: Prepara un pensiero fatto da te, anche minimo, da portare a qualcuno senza aspettare l'occasione.
+  - medora: Ciò che esce dalle tue mani arriva dove nessun acquisto arriva.
 - **dritto, lettura 3**
-  - dono: Rendi bello in dieci minuti un angolo della casa: un panno, un vaso, la luce giusta.
-  - medora: Anche lo spazio intorno a te sa ricambiare la cura.
+  - parola: Bellezza
+  - dono: Regala bellezza a una stanza in dieci minuti: un panno pulito, un vaso, la lampada giusta.
+  - medora: Anche lo spazio intorno a te sa ricambiare l'attenzione.
+- **dritto, lettura 4**
+  - parola: Abbondanza
+  - dono: Riconosci l'abbondanza che c'è già: scrivi cinque cose che possiedi e che un tempo desideravi.
+  - medora: Chi conta quello che ha smette di vivere come se gli mancasse tutto.
+- **dritto, lettura 5**
+  - parola: Piacere
+  - dono: Concediti un piacere semplice senza schermi davanti: un frutto, una musica, un bagno caldo.
+  - medora: Il godimento senza colpa rimette in circolo energie che nessun riposo forzato ridà.
+- **dritto, lettura 6**
+  - parola: Semina
+  - dono: Fai una semina concreta: un vaso, un corso, un messaggio a chi può aprirti una porta.
+  - medora: Si raccoglie in una stagione che non si sceglie, quindi vale la pena partire adesso.
+- **dritto, lettura 7**
+  - parola: Tavola
+  - dono: Apparecchia la tavola con cura anche se mangi da solo: piatto vero, tovagliolo, niente fretta.
+  - medora: Trattarsi bene quando nessuno guarda è la forma più onesta di rispetto.
+- **dritto, lettura 8**
+  - parola: Corpo
+  - dono: Ascolta il corpo e dagli quello che aspetta da giorni: sonno, movimento o un pasto vero.
+  - medora: Prima avvisa piano per settimane, poi grida una volta sola.
+- **dritto, lettura 9**
+  - parola: Gentilezza
+  - dono: Usa gentilezza con chi lavora per te: chi porta, chi risponde, chi pulisce, guardandolo in faccia.
+  - medora: Si capisce chi hai davanti da come si rivolge a chi non gli serve.
+- **dritto, lettura 10**
+  - parola: Casa
+  - dono: Sistema il punto della casa che rimandi da settimane: un cassetto, una mensola, un davanzale.
+  - medora: Cambiare una stanza cambia i pensieri che ci si fanno dentro.
+- **dritto, lettura 11**
+  - parola: Frutto
+  - dono: Goditi un frutto del tuo lavoro passato: riguarda una cosa che hai fatto e riconoscila.
+  - medora: Chi non si volta mai indietro finisce per credere di non aver concluso nulla.
+- **dritto, lettura 12**
+  - parola: Calore
+  - dono: Porta calore in una conversazione difficile: comincia da quello che apprezzi dell'altro.
+  - medora: Si apre più facilmente una porta scaldata che una porta forzata.
 - **rovesciato, lettura 1**
-  - dono: Prenditi la stessa cura che dai agli altri con una pausa vera a pranzo, lontano dalla scrivania, senza fare nient'altro.
-  - medora: La radice va nutrita prima dei fiori: nessuno te ne farà una colpa.
+  - parola: Riposo
+  - dono: Prendi un riposo vero a metà lavoro, lontano dalla scrivania, senza riempirlo di altro.
+  - medora: Si nutre la pianta prima di pretendere i fiori, senza doversene scusare.
 - **rovesciato, lettura 2**
-  - dono: Cancella un piccolo impegno preso per compiacere qualcuno e usa quell'ora per riposare.
-  - medora: La terra fertile ogni tanto si ferma: così prepara la stagione dei frutti.
+  - parola: Rifiuto
+  - dono: Di' un rifiuto gentile a un impegno preso per compiacere qualcuno e usa quell'ora per te.
+  - medora: Ogni sì detto per paura toglie spazio a un sì detto per desiderio.
 - **rovesciato, lettura 3**
-  - dono: Mangia una cosa che ti piace davvero, lentamente e senza schermo davanti, sentendone il sapore fino in fondo.
-  - medora: Il piacere semplice è il primo modo di dirti che meriti attenzione.
-
-### IV L'Imperatore, Ariete, parola
-
-- **dritto, lettura 1**
-  - parola: Fondamenta
-  - dono: Rinforza le fondamenta prima di costruire altro: guarda cosa regge davvero la tua giornata e dedica la prima ora proprio a quello.
-  - medora: Una casa si riconosce da ciò che non si vede, sotto il pavimento.
-- **dritto, lettura 2**
   - parola: Confine
-  - dono: Traccia un confine chiaro fra il lavoro e il resto della giornata: rispettalo come una promessa.
-  - medora: Dentro un bordo sicuro si cresce senza disperdersi.
-- **dritto, lettura 3**
-  - parola: Fermezza
-  - dono: Porta con te la fermezza di chi ha deciso: scegli una cosa da concludere e non lasciarla scivolare a domani.
-  - medora: La disciplina scelta con amore diventa una cornice, non una gabbia.
-- **rovesciato, lettura 1**
-  - parola: Allentare
-  - dono: Allentare, per oggi, vuol dire scegliere una regola che ti stringe troppo e concederti di non seguirla fino a sera.
-  - medora: Una buona struttura sostiene la vita invece di trattenerla.
-- **rovesciato, lettura 2**
-  - parola: Sostegno
-  - dono: Chiedi sostegno a una persona su una cosa che finora hai retto in solitudine: basta una frase.
-  - medora: Anche i sovrani più saggi governano con un consiglio accanto.
-- **rovesciato, lettura 3**
-  - parola: Argine
-  - dono: Un argine, non un muro: quando dici di no a qualcosa, spiega in una riga cosa invece lasci passare.
-  - medora: Proteggere e chiudere sembrano simili, ma solo uno lascia entrare la luce.
+  - dono: Traccia un confine in casa: uno spazio o un'ora che restano tuoi e lo sanno tutti.
+  - medora: Chi non difende niente finisce per cedere tutto senza accorgersene.
+- **rovesciato, lettura 4**
+  - parola: Spesa
+  - dono: Guarda una spesa fatta per consolarti e decidi se la rifaresti oggi a mente fredda.
+  - medora: Comprare calma il momento e lascia intatta la ragione del momento.
+- **rovesciato, lettura 5**
+  - parola: Sazietà
+  - dono: Fermati alla sazietà: posa la forchetta a metà pasto, per capire se basta davvero.
+  - medora: L'organismo avverte quando è abbastanza, con un tono molto educato.
+- **rovesciato, lettura 6**
+  - parola: Aiuto
+  - dono: Chiedi aiuto per una cosa che porti da sola: nomina la persona e chiedile oggi.
+  - medora: Chiedere non toglie forza, la distribuisce dove serve.
+- **rovesciato, lettura 7**
+  - parola: Fondamenta
+  - dono: Cura le fondamenta invece del risultato: fai la parte noiosa che rende possibile il resto.
+  - medora: Il lavoro che nessuno vede è quello che tiene su tutto il resto.
+- **rovesciato, lettura 8**
+  - parola: Vanità
+  - dono: Togli una vanità dalla giornata: esci senza controllare come appari e vedi che succede.
+  - medora: Lo specchio raramente dice qualcosa che valga la pena di sentire.
+- **rovesciato, lettura 9**
+  - parola: Attesa
+  - dono: Accetta un'attesa che non dipende da te e occupa quel tempo con qualcosa di tuo.
+  - medora: Ciò che matura ha tempi che non chiedono il nostro parere.
+- **rovesciato, lettura 10**
+  - parola: Semplicità
+  - dono: Cerca la semplicità in un pasto: tre ingredienti veri e nient'altro.
+  - medora: Meno cose messe insieme lasciano sentire meglio ciascuna.
+- **rovesciato, lettura 11**
+  - parola: Perdono
+  - dono: Concedi un perdono piccolo a te per una cosa fatta male e passa avanti.
+  - medora: La colpa ripassata mille volte non ripara niente e consuma chi la ripassa.
+- **rovesciato, lettura 12**
+  - parola: Bilancio
+  - dono: Fai un bilancio di ciò che dai e ciò che ricevi in un legame, senza dirlo a nessuno.
+  - medora: Un rapporto in cui uno solo versa si svuota lentamente e in silenzio.
 
-### V Il Papa, Toro, parola
+### IV L'Imperatore, Ariete
 
 - **dritto, lettura 1**
-  - parola: Guida
-  - dono: Pensa a una guida che hai avuto, a scuola o nella vita: applica una sola cosa che ti ha insegnato.
-  - medora: L'insegnamento ricevuto diventa tuo quando lo metti in pratica.
+  - parola: Decisione
+  - dono: Prendi una decisione rimasta sospesa da settimane e comunicala oggi a chi aspetta.
+  - medora: Chi rimanda per prudenza spesso paga più di chi sbaglia in fretta.
 - **dritto, lettura 2**
-  - parola: Radici
-  - dono: Le radici della famiglia o del luogo da cui vieni hanno un gesto da regalarti: ripeti un'abitudine di chi ti ha cresciuto.
-  - medora: Appartenere a una storia lunga rende più saldi i passi di adesso.
+  - parola: Struttura
+  - dono: Dai una struttura alla settimana: tre appuntamenti fissi scritti sul calendario, non di più.
+  - medora: Un impianto semplice regge dove un programma perfetto crolla.
 - **dritto, lettura 3**
+  - parola: Comando
+  - dono: Assumi il comando di una faccenda che nessuno guida: convoca, decidi da dove si comincia.
+  - medora: Quando manca chi decide, ognuno resta fermo a guardare gli altri.
+- **dritto, lettura 4**
+  - parola: Regola
+  - dono: Scrivi una regola tua per il lavoro di questi mesi e appendila dove la vedi.
+  - medora: Le poche norme che ci si dà da soli valgono più di cento imposte.
+- **dritto, lettura 5**
+  - parola: Protezione
+  - dono: Offri protezione a chi conta su di te: risolvi un problema pratico al posto suo.
+  - medora: Difendere qualcuno vale più di mille rassicurazioni.
+- **dritto, lettura 6**
+  - parola: Territorio
+  - dono: Difendi il tuo territorio di lavoro: rifiuta l'interruzione che arriva sempre alla stessa ora.
+  - medora: Concentrarsi non è un privilegio da chiedere, è una condizione da costruire.
+- **dritto, lettura 7**
+  - parola: Fermezza
+  - dono: Rispondi con fermezza tranquilla a una richiesta fuori misura: no, senza giri di parole.
+  - medora: Il rifiuto detto con calma viene accolto meglio di quello urlato.
+- **dritto, lettura 8**
+  - parola: Piano
+  - dono: Scrivi il piano dei prossimi sette giorni in sei righe, poi mettilo via.
+  - medora: Un programma corto si rispetta, uno lungo si legge una volta sola.
+- **dritto, lettura 9**
+  - parola: Responsabilità
+  - dono: Prenditi la responsabilità di un errore recente davanti a chi ne ha subito le conseguenze.
+  - medora: Ammettere per primo toglie agli altri ogni bisogno di accusarti.
+- **dritto, lettura 10**
+  - parola: Ordine
+  - dono: Metti ordine nei conti: guarda entrate e uscite dell'ultimo mese, senza commentarle.
+  - medora: I numeri smettono di spaventare quando qualcuno li mette in fila.
+- **dritto, lettura 11**
+  - parola: Padre
+  - dono: Fai una cosa da padre verso un progetto giovane: dagli una scadenza e un budget.
+  - medora: Le cose crescono dentro forme chiare, non dentro possibilità infinite.
+- **dritto, lettura 12**
+  - parola: Parola data
+  - dono: Onora una parola data mesi fa: falla oggi, anche in versione ridotta.
+  - medora: Mantenere vale il doppio quando nessuno se lo ricorda più.
+- **rovesciato, lettura 1**
   - parola: Ascolto
-  - dono: Chiedi un parere a qualcuno più esperto di te su una questione aperta e concediti l'ascolto senza ribattere.
-  - medora: La sapienza vera non ti sostituisce, ti accompagna finché sai camminare.
+  - dono: Cedi l'ultima parola: in una discussione accetta la soluzione dell'altro con ascolto vero.
+  - medora: Avere ragione da soli è la vittoria più costosa che esista.
+- **rovesciato, lettura 2**
+  - parola: Morbidezza
+  - dono: Usa morbidezza dove eri rigido: concedi un'eccezione a una tua norma per un giorno.
+  - medora: Quello che non si piega mai finisce per spezzarsi in silenzio.
+- **rovesciato, lettura 3**
+  - parola: Delega
+  - dono: Fai una delega vera: lascia decidere un dettaglio a un altro senza correggerlo dopo.
+  - medora: Controllare tutto è il modo più elegante di non fidarsi di nessuno.
+- **rovesciato, lettura 4**
+  - parola: Debolezza
+  - dono: Mostra una debolezza a una persona vicina: dille una cosa in cui fai fatica.
+  - medora: La corazza tiene fuori i colpi insieme a tutto il resto.
+- **rovesciato, lettura 5**
+  - parola: Consiglio
+  - dono: Chiedi un consiglio a chi ne sa più di te su una scelta pratica.
+  - medora: Domandare fa risparmiare mesi a chi va di fretta.
+- **rovesciato, lettura 6**
+  - parola: Tregua
+  - dono: Firma una tregua con te: sospendi per oggi il giudizio sul tuo rendimento.
+  - medora: Nessuno lavora meglio con un sorvegliante che non dorme mai.
+- **rovesciato, lettura 7**
+  - parola: Confronto
+  - dono: Apri un confronto invece di imporre: chiedi come farebbero gli altri, prima di dire la tua.
+  - medora: Le idee migliori arrivano quasi sempre da chi non deve decidere.
+- **rovesciato, lettura 8**
+  - parola: Flessibilità
+  - dono: Usa flessibilità sugli orari: sposta un impegno per far spazio a una persona.
+  - medora: Un calendario che non si muove mai governa la vita invece di servirla.
+- **rovesciato, lettura 9**
+  - parola: Scusa
+  - dono: Chiedi scusa per un tono duro usato di recente, senza aggiungere spiegazioni.
+  - medora: Due parole dette in tempo cancellano settimane di gelo.
+- **rovesciato, lettura 10**
+  - parola: Riposo
+  - dono: Concediti un riposo dal ruolo: un'ora in cui nessuno dipende dalle tue decisioni.
+  - medora: Anche chi regge tutto ha diritto a deporre il carico ogni tanto.
+- **rovesciato, lettura 11**
+  - parola: Pazienza
+  - dono: Allena la pazienza con chi impara: spiega due volte senza far sentire il ritardo.
+  - medora: L'impazienza insegna soltanto ad avere paura di sbagliare.
+- **rovesciato, lettura 12**
+  - parola: Dubbio
+  - dono: Lascia vivere un dubbio per tutta la giornata invece di chiuderlo subito con una certezza.
+  - medora: Le certezze veloci somigliano molto alle abitudini travestite.
+
+### V Il Papa, Toro
+
+- **dritto, lettura 1**
+  - parola: Insegnamento
+  - dono: Chiedi un insegnamento a chi stimi: una domanda sola, precisa, fatta di persona.
+  - medora: Chi sa qualcosa è quasi sempre felice che gli venga chiesto.
+- **dritto, lettura 2**
+  - parola: Tradizione
+  - dono: Riprendi una tradizione di famiglia sospesa: una ricetta, una telefonata, una visita.
+  - medora: Certi gesti tengono insieme le persone senza dover spiegare niente.
+- **dritto, lettura 3**
+  - parola: Rito
+  - dono: Istituisci un rito settimanale tuo e segna sul calendario la prima volta.
+  - medora: Ciò che torna a scadenza fissa smette di dipendere dalla voglia.
+- **dritto, lettura 4**
+  - parola: Maestro
+  - dono: Ringrazia un maestro che hai avuto: mandagli un messaggio dicendo cosa ti è rimasto.
+  - medora: Sapere da chi si è imparato dà profondità a quello che si fa.
+- **dritto, lettura 5**
+  - parola: Studio
+  - dono: Dedica mezz'ora allo studio di una materia che ti serve davvero, non a caso.
+  - medora: Un'ora messa dove conta vale una settimana di letture sparse.
+- **dritto, lettura 6**
+  - parola: Consuetudine
+  - dono: Rendi consuetudine una cosa che ti fa bene: stessa ora, stesso posto, per sette giorni.
+  - medora: Quello che si ripete diventa facile, quello che si improvvisa resta faticoso.
+- **dritto, lettura 7**
+  - parola: Struttura
+  - dono: Dai struttura a un sapere sparso: scrivi in dieci righe quello che hai capito.
+  - medora: Mettere in fila le proprie idee mostra subito dove mancano i pezzi.
+- **dritto, lettura 8**
+  - parola: Consiglio
+  - dono: Offri un consiglio a chi comincia quello che tu hai già fatto, senza fargli lezione.
+  - medora: Chi ha fatto un tratto di strada può risparmiarne molta a un altro.
+- **dritto, lettura 9**
+  - parola: Custodia
+  - dono: Prendi in custodia quello che rischia di andare perso: foto, quaderni, registrazioni.
+  - medora: La memoria di una casa sta in mano a chi decide di tenerla.
+- **dritto, lettura 10**
+  - parola: Norma
+  - dono: Verifica una norma che segui per abitudine: chiediti se serve ancora oppure no.
+  - medora: Le regole vecchie sopravvivono alle ragioni che le avevano rese giuste.
+- **dritto, lettura 11**
+  - parola: Parola
+  - dono: Spendi una parola buona in pubblico per qualcuno che lavora bene.
+  - medora: Il riconoscimento detto davanti ad altri pesa dieci volte di più.
+- **dritto, lettura 12**
+  - parola: Comunità
+  - dono: Fai qualcosa per la comunità vicina: un'ora di aiuto concreto in un posto che conosci.
+  - medora: Il legame con gli altri si costruisce facendo, non dichiarando.
 - **rovesciato, lettura 1**
   - parola: Domanda
-  - dono: Prendi una regola che segui per abitudine e rivolgile una domanda sincera: è ancora tua, o l'hai solo ricevuta?
-  - medora: Crescere a volte vuol dire uscire dal tracciato, con rispetto per chi l'ha disegnato.
+  - dono: Metti in dubbio con una domanda una regola che ti hanno dato senza spiegazioni.
+  - medora: Obbedire senza capire regge fino al primo ordine sbagliato.
 - **rovesciato, lettura 2**
-  - parola: Sentiero
-  - dono: Cambia sentiero in una cosa piccola: una strada diversa per tornare, un modo nuovo di fare un gesto di sempre.
-  - medora: Riconosci ciò che ti appartiene perché ti allarga il petto.
+  - parola: Libertà
+  - dono: Prenditi la libertà di fare una cosa a modo tuo, dove non danneggi altri.
+  - medora: Ripetere il metodo di sempre conviene soltanto se rende ancora.
 - **rovesciato, lettura 3**
-  - parola: Coscienza
-  - dono: Ascolta la coscienza più delle convenzioni in una scelta concreta: annota com'è andata a fine giornata.
-  - medora: Nessun insegnamento vale quanto quello che nasce dentro di te.
+  - parola: Ribellione
+  - dono: Concediti una ribellione minima: salta un dovere sociale che ti pesa, senza giustificarti.
+  - medora: Certe usanze resistono soltanto perché non le ha mai rifiutate qualcuno.
+- **rovesciato, lettura 4**
+  - parola: Verità
+  - dono: Di' la tua verità dove tutti concordano per quieto vivere.
+  - medora: Un parere diverso fa più bene di dieci teste che annuiscono.
+- **rovesciato, lettura 5**
+  - parola: Autonomia
+  - dono: Prova l'autonomia su una decisione piccola: decidi senza chiedere conferma a chi ti circonda.
+  - medora: Consultare sempre trasforma la prudenza in dipendenza.
+- **rovesciato, lettura 6**
+  - parola: Etichetta
+  - dono: Togli un'etichetta che ti hanno messo addosso: fai oggi qualcosa che la smentisce.
+  - medora: Le definizioni degli altri diventano gabbie se uno ci sta comodo.
+- **rovesciato, lettura 7**
+  - parola: Confessione
+  - dono: Fai una confessione leggera: ammetti di non conoscere una cosa che tutti danno per ovvia.
+  - medora: Fingere di sapere costa più fatica di qualunque ignoranza.
+- **rovesciato, lettura 8**
+  - parola: Dogma
+  - dono: Guarda un dogma tuo: scrivi una convinzione che non hai mai messo in discussione.
+  - medora: Le idee che non si controllano da anni raramente sono ancora vere.
+- **rovesciato, lettura 9**
+  - parola: Perdono
+  - dono: Concedi perdono a chi ti ha giudicato male: smetti di raccontare quel torto.
+  - medora: Ripetere un'offesa la tiene viva più a lungo di chi l'ha fatta.
+- **rovesciato, lettura 10**
+  - parola: Silenzio
+  - dono: Tieni il silenzio dove di solito insegni: lascia sbagliare senza intervenire.
+  - medora: Si impara molto meglio dopo aver sbagliato da soli.
+- **rovesciato, lettura 11**
+  - parola: Strada propria
+  - dono: Cerca una strada propria per un problema: tenta un metodo che non ti ha suggerito nessuno.
+  - medora: Le soluzioni copiate rendono soltanto dove le condizioni combaciano.
+- **rovesciato, lettura 12**
+  - parola: Uguaglianza
+  - dono: Tratta con uguaglianza chi sta sotto di te per ruolo: chiedigli cosa cambierebbe.
+  - medora: Le gerarchie servono a ordinare il lavoro, non a stabilire chi vale.
 
-### VI Gli Amanti, Gemelli, parola
+### VI Gli Amanti, Gemelli
 
 - **dritto, lettura 1**
   - parola: Scelta
-  - dono: Davanti alla scelta di oggi, grande o piccola, chiediti se la vuole il tuo cuore e se la approva la tua testa: servono tutti e due.
-  - medora: Quando desiderio e valori camminano insieme, la strada smette di dividersi.
+  - dono: Fai la scelta che rimandi fra due possibilità: scrivile su un foglio e cancellane una.
+  - medora: Rinviare mette il timone in mano a qualcun altro.
 - **dritto, lettura 2**
-  - parola: Accordo
-  - dono: Cerca un accordo sincero con una persona cara su una cosa rimasta in sospeso, anche solo con un messaggio.
-  - medora: Due che si ascoltano diventano più grandi della somma dei loro dubbi.
+  - parola: Legame
+  - dono: Nutri un legame importante: chiedi a quella persona un incontro vero, non un messaggio.
+  - medora: Gli affetti campano di presenza, non di buone intenzioni.
 - **dritto, lettura 3**
-  - parola: Valori
-  - dono: Scrivi i tre valori a cui non rinunceresti e misura con quelli la prossima decisione che prendi.
-  - medora: Le cose importanti stanno sempre in una lista corta.
-- **rovesciato, lettura 1**
-  - parola: Sincerità
-  - dono: Regalati un momento di sincerità con te prima di scegliere con un altro: cosa vuoi davvero, senza testimoni?
-  - medora: Le decisioni pesano meno quando smetti di recitare una parte.
-- **rovesciato, lettura 2**
-  - parola: Tregua
-  - dono: Concedi una tregua a una discussione aperta: non cercare di vincerla, cerca solo di capire cosa difende l'altro.
-  - medora: Il disaccordo a volte è solo amore che parla due lingue diverse.
-- **rovesciato, lettura 3**
+  - parola: Richiamo
+  - dono: Segui un richiamo onesto: dedica un'ora a una cosa che ti attira davvero.
+  - medora: Quello che ci tira ha qualcosa da dire, anche quando sembra inutile.
+- **dritto, lettura 4**
+  - parola: Dialogo
+  - dono: Apri un dialogo rimandato: di' la cosa che eviti da settimane, con calma.
+  - medora: I discorsi rimandati diventano muri fatti di niente.
+- **dritto, lettura 5**
+  - parola: Alleanza
+  - dono: Proponi un'alleanza a qualcuno: un progetto piccolo da portare avanti insieme.
+  - medora: Le cose fatte in due durano più a lungo delle imprese solitarie.
+- **dritto, lettura 6**
+  - parola: Somiglianza
+  - dono: Cerca una somiglianza con chi ti irrita: scrivi una cosa in cui gli assomigli.
+  - medora: Quasi sempre ci dà fastidio negli altri quello che teniamo nascosto.
+- **dritto, lettura 7**
+  - parola: Casualità
+  - dono: Provoca un incontro casuale: vai in un posto dove potresti trovare qualcuno che stimi.
+  - medora: La fortuna nelle relazioni frequenta soprattutto chi esce di casa.
+- **dritto, lettura 8**
+  - parola: Desiderio
+  - dono: Nomina un desiderio con precisione: mettilo in una frase sola, senza attenuarlo.
+  - medora: Senza un nome, un bisogno non si può nemmeno cercare.
+- **dritto, lettura 9**
+  - parola: Complicità
+  - dono: Costruisci complicità: ricorda a qualcuno una cosa bella che avete vissuto insieme.
+  - medora: I ricordi condivisi tengono i rapporti dove le parole non bastano.
+- **dritto, lettura 10**
   - parola: Bivio
-  - dono: Se hai un bivio davanti, rimanda: metti pro e contro di ciascuna strada su due colonne e lascia riposare il foglio fino a domani.
-  - medora: Una scelta sospesa con consapevolezza è diversa da una scelta evitata.
+  - dono: Guarda un bivio in faccia: scrivi cosa perdi da una parte, cosa dall'altra.
+  - medora: Ogni decisione costa qualcosa, anche quella che sembra tutta guadagno.
+- **dritto, lettura 11**
+  - parola: Bellezza altrui
+  - dono: Di' a qualcuno che bellezza vedi in lui, indicando un dettaglio invece di un complimento.
+  - medora: Essere visti nel particolare vale cento frasi generiche.
+- **dritto, lettura 12**
+  - parola: Patto
+  - dono: Rinnova un patto: metti per iscritto una cosa che darai per scontata fra un mese.
+  - medora: Gli accordi si consumano se nessuno li rinnova mai.
+- **rovesciato, lettura 1**
+  - parola: Indecisione
+  - dono: Osserva l'indecisione senza risolverla: elenca cosa ti trattiene davvero.
+  - medora: Sotto ogni esitazione lunga c'è quasi sempre una paura corta.
+- **rovesciato, lettura 2**
+  - parola: Distanza
+  - dono: Prendi una distanza sana da un rapporto che ti consuma: rispondi domani invece di subito.
+  - medora: L'aria fra due persone mantiene il rispetto meglio della vicinanza continua.
+- **rovesciato, lettura 3**
+  - parola: Chiarimento
+  - dono: Chiedi un chiarimento invece di interpretare: fai la domanda diretta a chi sai tu.
+  - medora: Le storie che ci raccontiamo sono quasi sempre peggiori dei fatti.
+- **rovesciato, lettura 4**
+  - parola: Priorità
+  - dono: Metti una priorità fra due impegni in conflitto e avvisa chi resta indietro.
+  - medora: Promettere a tutti lo stesso posto significa deludere due volte.
+- **rovesciato, lettura 5**
+  - parola: Compromesso
+  - dono: Rifiuta un compromesso che ti costa troppo: nomina il prezzo che non vuoi pagare.
+  - medora: Alcuni accordi si firmano soltanto con pezzi di se stessi.
+- **rovesciato, lettura 6**
+  - parola: Gelosia
+  - dono: Ammetti una gelosia senza agirla: scrivi cosa desideri davvero sotto quell'emozione.
+  - medora: L'invidia indica spesso la direzione giusta con le parole sbagliate.
+- **rovesciato, lettura 7**
+  - parola: Verità detta
+  - dono: Di' una verità piccola che stai tacendo per non creare problemi.
+  - medora: I silenzi che proteggono diventano presto silenzi che allontanano.
+- **rovesciato, lettura 8**
+  - parola: Solitudine
+  - dono: Concediti una solitudine scelta: mezza giornata senza sentire nessuno.
+  - medora: Si torna dagli altri migliori dopo essere stati un po' da soli.
+- **rovesciato, lettura 9**
+  - parola: Confine
+  - dono: Difendi un confine in un rapporto: di' quale argomento non vuoi trattare adesso.
+  - medora: Anche l'affetto ha bisogno di porte che si possono chiudere.
+- **rovesciato, lettura 10**
+  - parola: Attenzione divisa
+  - dono: Togli l'attenzione divisa: stai con una persona senza telefono per un'ora intera.
+  - medora: Esserci a metà somiglia molto a non esserci affatto.
+- **rovesciato, lettura 11**
+  - parola: Aspettativa
+  - dono: Abbassa un'aspettativa: di' a qualcuno cosa ti aspetti davvero, invece di sperarlo.
+  - medora: Chi non sente un desiderio non può indovinarlo.
+- **rovesciato, lettura 12**
+  - parola: Riconciliazione
+  - dono: Fai un primo gesto di riconciliazione con chi non senti da mesi, senza aspettare il torto risolto.
+  - medora: Chi si muove per primo non perde, sceglie.
 
-### VII Il Carro, Cancro, parola
+### VII Il Carro, Cancro
 
 - **dritto, lettura 1**
   - parola: Direzione
-  - dono: Dai una direzione alla giornata prima di aprire la posta: scrivi la meta in una riga e tienila davanti agli occhi.
-  - medora: Chi conosce il traguardo sa anche quali deviazioni può permettersi.
+  - dono: Scegli una direzione per il mese: scrivi la meta in una frase e attaccala al muro.
+  - medora: Muoversi senza sapere dove porta lontano nello stesso punto.
 - **dritto, lettura 2**
-  - parola: Redini
-  - dono: Prendi le redini di una questione che lasci guidare agli altri e fai tu la prossima mossa, oggi stesso.
-  - medora: La padronanza non è forza bruta, è mano ferma su spinte che tirano altrove.
+  - parola: Spinta
+  - dono: Usa la spinta che senti adesso sulla cosa più difficile, non sulla più comoda.
+  - medora: L'energia arriva a ondate e non chiede mai il permesso di andarsene.
 - **dritto, lettura 3**
-  - parola: Slancio
-  - dono: Usa lo slancio che senti adesso per la cosa più difficile della lista, prima che le piccole urgenze se lo prendano.
-  - medora: Una vittoria costruita presto illumina anche le ore stanche della sera.
+  - parola: Guida
+  - dono: Prendi la guida di una faccenda ferma: chiama per primo e fissa la data.
+  - medora: Quasi sempre manca soltanto qualcuno che dica quando.
+- **dritto, lettura 4**
+  - parola: Vittoria
+  - dono: Riconosci una vittoria recente: raccontala a qualcuno invece di passare oltre.
+  - medora: Chi non festeggia niente finisce per ricordare soltanto le fatiche.
+- **dritto, lettura 5**
+  - parola: Casa
+  - dono: Porta con te un pezzo di casa dove vai: una foto, un oggetto, una bottiglia tua.
+  - medora: Si affronta meglio il fuori quando il dentro resta riconoscibile.
+- **dritto, lettura 6**
+  - parola: Controllo
+  - dono: Prendi il controllo di una spesa: disdici un abbonamento che paghi senza usare.
+  - medora: Le piccole perdite continue svuotano più delle grandi una tantum.
+- **dritto, lettura 7**
+  - parola: Corazza
+  - dono: Indossa una corazza gentile per un incontro difficile: decidi prima cosa non concederai.
+  - medora: Sapere il proprio limite prima rende la calma molto più facile.
+- **dritto, lettura 8**
+  - parola: Viaggio
+  - dono: Prepara un viaggio anche breve: scegli il posto e blocca il giorno adesso.
+  - medora: Un'attesa con una data dentro cambia il colore di tutte le settimane.
+- **dritto, lettura 9**
+  - parola: Disciplina
+  - dono: Applica una disciplina per oggi: la cosa importante prima di tutto il resto.
+  - medora: L'ordine in cui si fanno le cose decide quali si faranno davvero.
+- **dritto, lettura 10**
+  - parola: Protezione dei tuoi
+  - dono: Offri protezione concreta a chi ami: risolvi una pratica noiosa al posto suo.
+  - medora: L'affetto si vede nelle cose sbrigate senza farne un merito.
+- **dritto, lettura 11**
+  - parola: Ritmo
+  - dono: Trova un ritmo sostenibile: lavora quaranta minuti, poi fermati dieci, per tre giri.
+  - medora: La costanza batte l'intensità su ogni distanza lunga.
+- **dritto, lettura 12**
+  - parola: Confine mobile
+  - dono: Sposta un confine che ti sei dato per paura: fai una cosa appena fuori dalla tua zona.
+  - medora: Il territorio sicuro si allarga soltanto camminandoci sul bordo.
 - **rovesciato, lettura 1**
-  - parola: Centro
-  - dono: Se ti senti tirare da due parti, fermati un minuto e torna al centro: piedi a terra, spalle morbide, una sola priorità.
-  - medora: Rallentare per non uscire di strada è una forma di guida, non di resa.
-- **rovesciato, lettura 2**
-  - parola: Rotta
-  - dono: Controlla la rotta a metà giornata: guarda cosa hai fatto finora e correggi il tiro senza rimproverarti.
-  - medora: I grandi viaggi si vincono con piccoli aggiustamenti.
-- **rovesciato, lettura 3**
   - parola: Sosta
-  - dono: Concediti una sosta prima di ripartire in una cosa in cui corri da giorni senza sapere bene perché.
-  - medora: La meta non scappa se ti prendi il tempo di ricordare dove porta.
-
-### VIII La Giustizia, Bilancia, parola
-
-- **dritto, lettura 1**
-  - parola: Verità
-  - dono: Di' una verità semplice che serve a qualcuno, con calma e senza durezza.
-  - medora: L'onestà gentile è il modo più rapido per rimettere le cose in pari.
-- **dritto, lettura 2**
-  - parola: Equità
-  - dono: Pratica l'equità in una piccola divisione della giornata, il tempo, un compito, una spesa: a ciascuno la sua parte.
-  - medora: Nessuna spiegazione lunga serve a ciò che è limpido.
-- **dritto, lettura 3**
-  - parola: Responsabilità
-  - dono: Assumiti una responsabilità che fin qui hai lasciato in sospeso, anche solo scegliendo il giorno in cui occupartene.
-  - medora: Chi raccoglie con lucidità ciò che ha seminato non teme il raccolto.
-- **rovesciato, lettura 1**
-  - parola: Chiarezza
-  - dono: Porta chiarezza in un conto rimasto aperto, di soldi o di promesse: basta guardarlo in faccia e scriverlo su un foglio.
-  - medora: Una questione in ombra pesa sempre più di quanto peserebbe alla luce.
+  - dono: Concediti una sosta prima di ripartire: un pomeriggio senza obiettivi dichiarati.
+  - medora: Fermarsi per scelta evita di fermarsi per obbligo.
 - **rovesciato, lettura 2**
-  - parola: Onestà
-  - dono: Onestà con te prima che con gli altri: riconosci una scusa che ti racconti e chiamala col suo nome.
-  - medora: L'equilibrio torna nel momento in cui smetti di contrattare con te.
-- **rovesciato, lettura 3**
-  - parola: Pareggio
-  - dono: Cerca il pareggio in un rapporto dove dai troppo o prendi troppo, con un gesto piccolo che rimette i piatti alla stessa altezza.
-  - medora: Nessun conto si chiude con la colpa, si chiude con la cura.
-
-### IX L'Eremita, Vergine, parola
-
-- **dritto, lettura 1**
-  - parola: Lanterna
-  - dono: Accendi la tua lanterna su un passo solo: non pianificare la settimana, scegli la prossima cosa e falla bene.
-  - medora: Una luce piccola basta, se la tieni vicina ai piedi.
-- **dritto, lettura 2**
-  - parola: Silenzio
-  - dono: Ritagliati mezz'ora di silenzio in un luogo tuo, senza schermi: lascia che i pensieri si posino da soli.
-  - medora: Chi rallenta sente cose che la corsa copre.
-- **dritto, lettura 3**
-  - parola: Ricerca
-  - dono: Avvia una ricerca tua: una domanda che ti porti dietro, un libro, una passeggiata lunga per pensarci.
-  - medora: Andare dentro è un viaggio vero, con paesaggi suoi.
-- **rovesciato, lettura 1**
-  - parola: Ritorno
-  - dono: Dopo giorni passati in disparte, fai un ritorno piccolo verso qualcuno: un saluto, una domanda, un caffè.
-  - medora: Quel chiarore che porti serve anche a ritrovare la casa degli altri.
-- **rovesciato, lettura 2**
-  - parola: Compagnia
-  - dono: Scegli la compagnia di una persona che ti fa bene per un'attività che di solito fai in solitudine.
-  - medora: Raccogliersi è prezioso, nascondersi invece spegne.
-- **rovesciato, lettura 3**
-  - parola: Soglia
-  - dono: Siediti sulla soglia, davanti a una finestra aperta o su un balcone: osserva la vita che passa senza entrarci.
-  - medora: Anche guardare da lontano è un modo di tornare a far parte.
-
-### X La Ruota della Fortuna, Giove, azione
-
-- **dritto, lettura 1**
-  - dono: Accogli un cambiamento arrivato di recente facendo entro stasera una cosa che prima non potevi fare, proprio grazie a lui.
-  - medora: Chi oggi è in basso sale, se lascia che il cerchio compia il suo corso.
-- **dritto, lettura 2**
-  - dono: Di' di sì a un invito o a una proposta inattesa, anche piccola, senza cercare subito il motivo per rifiutare.
-  - medora: Le occasioni amano chi tiene la porta socchiusa.
-- **dritto, lettura 3**
-  - dono: Riordina il calendario della settimana tenendo conto di ciò che è cambiato: sposta un appuntamento, liberane un altro.
-  - medora: Muoversi con il giro è più facile che trattenerlo con le mani.
-- **rovesciato, lettura 1**
-  - dono: Usa la pausa di un progetto fermo per fare una cosa che lo prepara alla ripartenza: un elenco, un riordino, una telefonata.
-  - medora: Anche la quiete fa parte del movimento, come l'inverno fa parte dell'anno.
-- **rovesciato, lettura 2**
-  - dono: Scrivi su un foglio una situazione che sembra bloccata e segna un solo punto su cui hai ancora presa: occupatene subito.
-  - medora: Il freno di adesso, domani, diventa spinta.
-- **rovesciato, lettura 3**
-  - dono: Raccogli le forze: vai a dormire mezz'ora prima stasera e lascia a domani la decisione che adesso gira storta.
-  - medora: Il ciclo riprende sempre e trova più pronto chi ha saputo riposare.
-
-### XI La Forza, Leone, parola
-
-- **dritto, lettura 1**
-  - parola: Dolcezza
-  - dono: Tratta con dolcezza la parte di te che si agita, come faresti con un animale spaventato: gesti lenti e nessuna fretta.
-  - medora: La mano mite doma ciò che la stretta renderebbe feroce.
-- **dritto, lettura 2**
-  - parola: Coraggio
-  - dono: Il coraggio di oggi è gentile: affronta una conversazione difficile cominciando da ciò che apprezzi dell'altro.
-  - medora: Chi non alza il tono spesso è ascoltato più a lungo.
-- **dritto, lettura 3**
-  - parola: Tenerezza
-  - dono: Porta tenerezza dentro una fatica: quando qualcosa ti irrita, respira e rispondi con una frase più morbida di quella che avevi pronta.
-  - medora: Il potere autentico si riconosce da quanto poco ha bisogno di mostrarsi.
-- **rovesciato, lettura 1**
-  - parola: Mitezza
-  - dono: Usa mitezza con te: quando sbagli qualcosa, parlati come parleresti a una persona che ami.
-  - medora: Il controllo che credevi perso torna quando smetti di stringere.
-- **rovesciato, lettura 2**
-  - parola: Tenuta
-  - dono: Verifica la tua tenuta a metà giornata: se l'energia è bassa, togli un impegno invece di tirare avanti a denti serrati.
-  - medora: Non serve dimostrare niente a nessuno per restare in piedi.
-- **rovesciato, lettura 3**
-  - parola: Carezza
-  - dono: Offriti una carezza concreta, una doccia lunga, una crema, una tazza calda tenuta con due mani, prima di rimetterti al lavoro.
-  - medora: Chi impara a trattarsi con garbo ritrova la presa senza lottare.
-
-### XII L'Appeso, Acqua, respiro
-
-- **dritto, lettura 1**
-  - dono: Stai nella sospensione come si galleggia: quando una cosa non si sblocca, smetti di spingere per un'ora e lasciati portare dal resto della giornata.
-  - medora: Quando smetti di dimenarti, scopri cosa già ti sostiene.
-- **dritto, lettura 2**
-  - dono: Guarda capovolto: prendi un problema e descrivilo dal punto di vista di chi ti sta di fronte, restando in quel posto per qualche minuto.
-  - medora: Da un'angolazione nuova le cose ferme cominciano a muoversi.
-- **dritto, lettura 3**
-  - dono: Abita l'attesa come una marea: fra un impegno e l'altro non riempire i vuoti con il telefono, lasciali vuoti e senti cosa arriva.
-  - medora: Un tempo che sembra perso spesso sta preparando un raccolto.
-- **rovesciato, lettura 1**
-  - dono: Resta in un'attesa più corta: dai a una cosa ferma un limite, fino a stasera, poi scegli se aspettare ancora o scendere dall'albero.
-  - medora: Una rinuncia non è sempre nobile: a volte è solo stanchezza con un vestito elegante.
-- **rovesciato, lettura 2**
-  - dono: Immergiti nel flusso con una mano sul bordo: lascia cadere un piccolo sacrificio che non serve a nessuno e goditi quel tempo restituito.
-  - medora: Quello che si scioglie non si perde, torna a scorrere dove serve.
-- **rovesciato, lettura 3**
-  - dono: Tieni lo sguardo rovesciato solo per un istante: davanti a uno stallo, cambia la domanda invece di cercare una risposta.
-  - medora: A volte la porta non è chiusa, stavamo solo spingendo dal lato sbagliato.
-
-### XIII La Morte, Scorpione, parola
-
-- **dritto, lettura 1**
-  - parola: Congedo
-  - dono: Prendi congedo da una cosa finita: butta un oggetto, archivia una conversazione, cancella un promemoria che non serve più.
-  - medora: Ogni vuoto liberato è un invito rivolto a ciò che deve ancora arrivare.
-- **dritto, lettura 2**
-  - parola: Trasformazione
-  - dono: Prendi un'abitudine stanca e sottoponila a una trasformazione piccola: stessa cosa, ora diversa o luogo diverso.
-  - medora: Chi cambia pelle non muore, impara a respirare meglio.
-- **dritto, lettura 3**
-  - parola: Semina
-  - dono: Dove qualcosa si chiude, fai subito una semina: una riga su ciò che vorresti far nascere al suo posto.
-  - medora: La vita non lascia vuoti a lungo, li riempie di germogli.
-- **rovesciato, lettura 1**
-  - parola: Lasciare
-  - dono: Lasciare un poco alla volta: togli una sola cosa da ciò a cui ti aggrappi, una foto dal telefono, un'abitudine, una frase ripetuta.
-  - medora: Trattenere fa più male che aprire la mano, anche quando non sembra.
-- **rovesciato, lettura 2**
-  - parola: Passaggio
-  - dono: Riconosci il passaggio che stai attraversando dandogli un nome, scritto in fondo a una pagina, senza fretta di chiuderlo.
-  - medora: Il dolore che si guarda diventa strada, quello che si evita resta muro.
+  - parola: Rotta nuova
+  - dono: Cambia rotta su una cosa che non funziona da mesi, invece di insistere.
+  - medora: L'ostinazione somiglia al coraggio soltanto vista da lontano.
 - **rovesciato, lettura 3**
   - parola: Resa
-  - dono: Pratica una resa gentile verso un cambiamento già arrivato, smettendo per oggi di discuterlo con te.
-  - medora: La corrente porta lontano solo chi smette di nuotare contro.
+  - dono: Riconosci una resa che conviene: lascia andare un obiettivo che non desideri più.
+  - medora: Certe mete restano in lista molto dopo che il desiderio è finito.
+- **rovesciato, lettura 4**
+  - parola: Nido
+  - dono: Cura il nido: dedica un'ora alla tua casa senza che nessuno te lo chieda.
+  - medora: Lo spazio dove dormi decide come ti svegli.
+- **rovesciato, lettura 5**
+  - parola: Emozione
+  - dono: Aspetta che un'emozione forte scenda prima di decidere qualunque cosa.
+  - medora: Le decisioni prese a caldo si pagano quasi sempre a freddo.
+- **rovesciato, lettura 6**
+  - parola: Aiuto ricevuto
+  - dono: Accetta un aiuto offerto che di solito rifiuti, anche se sai fare da solo.
+  - medora: Dire di sì a una mano tesa fa sentire utile chi la porge.
+- **rovesciato, lettura 7**
+  - parola: Lentezza
+  - dono: Vai piano di proposito: fai una cosa con lentezza doppia rispetto al solito.
+  - medora: La corsa continua rende invisibile tutto quello che si attraversa.
+- **rovesciato, lettura 8**
+  - parola: Confini di casa
+  - dono: Metti dei confini domestici: un orario in cui il lavoro esce dalle stanze dove vivi.
+  - medora: Chi porta l'ufficio a letto non riposa e non lavora bene.
+- **rovesciato, lettura 9**
+  - parola: Ritorno
+  - dono: Fai un ritorno: rivedi una persona o un posto che hai lasciato senza chiudere.
+  - medora: Alcune porte rimangono aperte finché qualcuno non torna a chiuderle.
+- **rovesciato, lettura 10**
+  - parola: Fragilità
+  - dono: Racconta una fragilità di questi giorni a chi ti vuole bene.
+  - medora: Mostrarsi interi include anche le parti che tremano.
+- **rovesciato, lettura 11**
+  - parola: Porzione
+  - dono: Rivedi una meta troppo grande: dividila in porzioni e tieni soltanto la prima.
+  - medora: Gli obiettivi enormi paralizzano chi li guarda tutti insieme.
+- **rovesciato, lettura 12**
+  - parola: Cura
+  - dono: Metti la cura di te in agenda come un impegno con un altro, alla stessa ora.
+  - medora: Ci si tratta come una priorità soltanto quando lo si scrive.
 
-### XIV La Temperanza, Sagittario, parola
+### VIII La Giustizia, Bilancia
+
+- **dritto, lettura 1**
+  - parola: Equilibrio
+  - dono: Cerca un equilibrio concreto: dividi in due parti uguali un carico che oggi porti da solo.
+  - medora: Quello che sta tutto su una spalla prima o poi la piega.
+- **dritto, lettura 2**
+  - parola: Chiarezza
+  - dono: Porta chiarezza in un conto in sospeso: scrivi cifre e scadenze a chi riguarda.
+  - medora: I numeri detti per intero tolgono spazio ai risentimenti.
+- **dritto, lettura 3**
+  - parola: Verità
+  - dono: Di' una verità dovuta a chi ha diritto di conoscerla, senza abbellirla.
+  - medora: Chi riceve mezze notizie decide sempre nel modo peggiore.
+- **dritto, lettura 4**
+  - parola: Misura
+  - dono: Prendi la misura di un impegno: quante ore chiede davvero, contate una per una.
+  - medora: Si promette con il desiderio, si consegna con l'orologio.
+- **dritto, lettura 5**
+  - parola: Contratto
+  - dono: Rileggi un contratto o un accordo che hai firmato senza guardarlo bene.
+  - medora: Le clausole ignorate diventano visibili soltanto quando fanno male.
+- **dritto, lettura 6**
+  - parola: Ascolto
+  - dono: Ascolta la versione di chi non hai ancora sentito, prima di giudicare la faccenda.
+  - medora: Ogni storia ha due lati, anche quando uno sembra evidente.
+- **dritto, lettura 7**
+  - parola: Debito
+  - dono: Salda un debito piccolo, di soldi o di favori, che ti trascini da settimane.
+  - medora: I conti lasciati aperti pesano molto di più di quanto valgono.
+- **dritto, lettura 8**
+  - parola: Onestà
+  - dono: Usa onestà su un tuo errore: raccontalo com'è andato, senza cercare attenuanti.
+  - medora: Raccontare le cose come stanno rende leggeri in modo sorprendente.
+- **dritto, lettura 9**
+  - parola: Confronto
+  - dono: Guarda un confronto che ti tortura: paragona le condizioni di partenza, non i risultati.
+  - medora: Misurarsi con chi è partito da un altro punto non dimostra niente.
+- **dritto, lettura 10**
+  - parola: Responsabilità
+  - dono: Riconosci la tua parte di responsabilità in una faccenda andata storta, senza prenderti tutto.
+  - medora: Nessun disastro ha una causa sola, nemmeno quando conviene crederlo.
+- **dritto, lettura 11**
+  - parola: Decisione
+  - dono: Pesa una decisione su tre criteri scritti prima di scegliere, non dopo.
+  - medora: Decidere senza criteri significa lasciare che scelga l'umore.
+- **dritto, lettura 12**
+  - parola: Riparazione
+  - dono: Offri una riparazione concreta a chi hai danneggiato: non le scuse, il rimedio.
+  - medora: Il dispiacere serve a chi lo prova, il rimedio serve a chi lo riceve.
+- **rovesciato, lettura 1**
+  - parola: Indulgenza
+  - dono: Usa indulgenza con te: guarda un tuo sbaglio come lo guarderesti in un amico.
+  - medora: Il metro che usiamo su di noi raramente lo useremmo su altri.
+- **rovesciato, lettura 2**
+  - parola: Compromesso
+  - dono: Accetta un compromesso che non ti piace del tutto, per chiudere una faccenda lunga.
+  - medora: Certe cose finite male valgono più delle stesse cose infinite.
+- **rovesciato, lettura 3**
+  - parola: Squilibrio
+  - dono: Nomina uno squilibrio in un rapporto: di' cosa stai dando più del dovuto.
+  - medora: Quello che non si dice diventa rancore con le buone maniere.
+- **rovesciato, lettura 4**
+  - parola: Perdono
+  - dono: Concedi un perdono a chi non lo ha chiesto, per liberare te dalla faccenda.
+  - medora: Rimuginare un torto lo fa durare oltre il danno che ha fatto.
+- **rovesciato, lettura 5**
+  - parola: Rinuncia
+  - dono: Fai una rinuncia consapevole: lascia perdere una rivendicazione che costa più del valore.
+  - medora: Avere ragione fino in fondo a volte vale meno della pace.
+- **rovesciato, lettura 6**
+  - parola: Parzialità
+  - dono: Ammetti una parzialità tua: di' apertamente da che parte stai, invece di fingerti neutro.
+  - medora: La finta imparzialità confonde molto più di una posizione dichiarata.
+- **rovesciato, lettura 7**
+  - parola: Giudizio
+  - dono: Rimanda di un giorno un giudizio su una persona: raccogli un fatto in più.
+  - medora: Le opinioni veloci si attaccano addosso a chi le pronuncia.
+- **rovesciato, lettura 8**
+  - parola: Sproporzione
+  - dono: Guarda una sproporzione fra fatica e ricompensa e decidi se vale ancora.
+  - medora: Non tutto quello che merita impegno merita il tuo impegno.
+- **rovesciato, lettura 9**
+  - parola: Silenzio
+  - dono: Tieni il silenzio su una colpa altrui che non ti riguarda, anche se la conosci bene.
+  - medora: Raccontare gli sbagli degli assenti non aggiusta mai niente.
+- **rovesciato, lettura 10**
+  - parola: Riparazione
+  - dono: Ripara un'abitudine ingiusta verso qualcuno che vedi spesso.
+  - medora: I torti quotidiani si notano poco e lasciano il segno più a lungo.
+- **rovesciato, lettura 11**
+  - parola: Confessione
+  - dono: Ammetti con una confessione breve un vantaggio che hai avuto senza meritarlo.
+  - medora: Riconoscere la fortuna avuta non toglie niente al lavoro fatto.
+- **rovesciato, lettura 12**
+  - parola: Confronto
+  - dono: Metti a confronto un sì e un no che ti tengono sveglio, poi scegli entro domani.
+  - medora: Le questioni aperte consumano più energia di quelle risolte male.
+
+### IX L'Eremita, Vergine
+
+- **dritto, lettura 1**
+  - parola: Solitudine
+  - dono: Cerca una solitudine vera: un'ora in cui nessuno sa dove ti trovi.
+  - medora: Certe risposte parlano soltanto quando intorno non c'è nessuno.
+- **dritto, lettura 2**
+  - parola: Dettaglio
+  - dono: Cura un dettaglio che nessuno noterà: una rifinitura, un controllo, una riga in più.
+  - medora: La qualità abita nei punti che nessuno andrà a verificare.
+- **dritto, lettura 3**
+  - parola: Pulizia
+  - dono: Fai pulizia in un solo cassetto o in una sola cartella, fino in fondo.
+  - medora: Un angolo davvero pulito rende intollerabile il disordine accanto.
+- **dritto, lettura 4**
+  - parola: Metodo
+  - dono: Scrivi il metodo che usi per una cosa che sai fare, in cinque punti.
+  - medora: Quello che si sa fare diventa insegnabile solo quando si mette in fila.
+- **dritto, lettura 5**
+  - parola: Lampada
+  - dono: Accendi una lampada su una questione oscura: leggi il documento che eviti da tempo.
+  - medora: Quasi sempre la cosa temuta è più piccola dell'idea che ce ne facciamo.
+- **dritto, lettura 6**
+  - parola: Digiuno
+  - dono: Fai un digiuno di notizie per un'intera giornata, senza raccontarlo a nessuno.
+  - medora: Il mondo prosegue uguale anche quando smettiamo di seguirlo.
+- **dritto, lettura 7**
+  - parola: Consiglio
+  - dono: Offri un consiglio soltanto se te lo chiedono, oggi, anche quando vedi la soluzione.
+  - medora: Il parere non richiesto somiglia più a un giudizio che a un aiuto.
+- **dritto, lettura 8**
+  - parola: Cammino
+  - dono: Concediti un cammino a piedi da solo, almeno quaranta minuti, senza musica addosso.
+  - medora: Le gambe in movimento mettono in ordine quello che la sedia aggroviglia.
+- **dritto, lettura 9**
+  - parola: Essenziale
+  - dono: Riduci all'essenziale una cosa che hai scritto: togli un terzo delle parole.
+  - medora: Ciò che resta dopo il taglio è quasi sempre la parte vera.
+- **dritto, lettura 10**
+  - parola: Maestro
+  - dono: Fai il maestro di te: scrivi cosa diresti a un altro nella tua situazione, poi seguilo.
+  - medora: Sappiamo per gli altri quello che fingiamo di ignorare per noi.
+- **dritto, lettura 11**
+  - parola: Ritiro
+  - dono: Prenditi un ritiro vero: mezza giornata in disparte, con una data precisa.
+  - medora: Ci si ritrova negli spazi che nessuno riempie al posto nostro.
+- **dritto, lettura 12**
+  - parola: Precisione
+  - dono: Usa precisione con le parole: sostituisci un termine vago con quello esatto.
+  - medora: Chiamare le cose col nome giusto cambia quello che ci si può fare.
+- **rovesciato, lettura 1**
+  - parola: Compagnia
+  - dono: Cerca compagnia dove ti stai chiudendo: invita qualcuno senza motivo particolare.
+  - medora: L'isolamento comincia sempre come una scelta ragionevole.
+- **rovesciato, lettura 2**
+  - parola: Richiesta
+  - dono: Fai una richiesta chiara a chi può aiutarti: dillo con una frase diretta.
+  - medora: La gente aiuta volentieri, ma quasi mai indovina.
+- **rovesciato, lettura 3**
+  - parola: Bozza
+  - dono: Consegna una bozza invece di rifinirla per la quarta volta.
+  - medora: Il meglio rimandato vale meno del buono arrivato in tempo.
+- **rovesciato, lettura 4**
+  - parola: Racconto
+  - dono: Fai un racconto di quello che stai facendo a qualcuno che ti vuole bene.
+  - medora: Ciò che vive solo dentro di noi finisce per sembrare irreale.
+- **rovesciato, lettura 5**
+  - parola: Critica
+  - dono: Zittisci la critica interna per un'ora: fai una cosa senza valutarla mentre la fai.
+  - medora: Nessuno lavora bene con un giudice seduto accanto.
+- **rovesciato, lettura 6**
+  - parola: Disordine
+  - dono: Lascia in disordine un angolo per oggi, di proposito, poi guarda se crolla qualcosa.
+  - medora: L'ordine perfetto costa ore che nessuno ti restituirà.
+- **rovesciato, lettura 7**
+  - parola: Invito
+  - dono: Accetta un invito che rifiuteresti per abitudine, anche restando poco.
+  - medora: Le occasioni saltate per stanchezza somigliano presto a porte chiuse.
+- **rovesciato, lettura 8**
+  - parola: Domanda
+  - dono: Fai la domanda ingenua che tutti evitano, in una riunione o in famiglia.
+  - medora: La curiosità di chi non teme di sembrare sciocco apre le stanze chiuse.
+- **rovesciato, lettura 9**
+  - parola: Corpo
+  - dono: Torna al corpo dopo troppa testa: dieci minuti di movimento, subito, anche in casa.
+  - medora: Il pensiero gira a vuoto finché qualcosa non si muove davvero.
+- **rovesciato, lettura 10**
+  - parola: Gratitudine
+  - dono: Di' grazie con gratitudine precisa a chi ti ha aiutato senza farsi notare.
+  - medora: Il lavoro invisibile regge molte cose e riceve pochissimo.
+- **rovesciato, lettura 11**
+  - parola: Apertura
+  - dono: Racconta un'apertura di te a chi conosci poco: una passione, una paura, un progetto.
+  - medora: Si diventa vicini soltanto scoprendo qualcosa per primi.
+- **rovesciato, lettura 12**
+  - parola: Rientro
+  - dono: Programma il rientro da un ritiro troppo lungo: fissa un incontro per questa settimana.
+  - medora: Anche il silenzio migliore, se dura troppo, smette di dire qualcosa.
+
+### X La Ruota della Fortuna, Giove
+
+- **dritto, lettura 1**
+  - parola: Occasione
+  - dono: Cogli un'occasione che passa adesso: rispondi sì prima di analizzarla per giorni.
+  - medora: Alcune porte si aprono una volta sola e non bussano due.
+- **dritto, lettura 2**
+  - parola: Abbondanza
+  - dono: Condividi un'abbondanza che hai: tempo, cibo, contatti, competenza, con chi ne ha meno.
+  - medora: Quello che gira torna con una forma che non avevi previsto.
+- **dritto, lettura 3**
+  - parola: Cambiamento
+  - dono: Fai spazio a un cambiamento in arrivo: libera un'ora della settimana prossima.
+  - medora: Le novità trovano posto solo dove qualcosa si è spostato.
+- **dritto, lettura 4**
+  - parola: Rischio
+  - dono: Corri un rischio piccolo e misurato: manda la proposta, fai il numero, chiedi il prezzo.
+  - medora: Il caso frequenta quasi sempre chi si è messo in lista.
+- **dritto, lettura 5**
+  - parola: Gratitudine
+  - dono: Elenca con gratitudine cinque cose andate bene negli ultimi mesi, senza modestia.
+  - medora: Dimentichiamo in fretta i colpi favorevoli e per anni quelli contrari.
+- **dritto, lettura 6**
+  - parola: Giro
+  - dono: Cambia un giro abituale: strada diversa, bar diverso, ora diversa, una volta soltanto.
+  - medora: Gli incontri utili capitano fuori dai percorsi di sempre.
+- **dritto, lettura 7**
+  - parola: Generosità
+  - dono: Usa generosità con un estraneo: un caffè, un'informazione, un posto in fila.
+  - medora: Le piccole gentilezze anonime migliorano l'umore di chi le riceve.
+- **dritto, lettura 8**
+  - parola: Ciclo
+  - dono: Riconosci un ciclo che si chiude: scrivi cosa finisce e cosa comincia adesso.
+  - medora: Le stagioni cambiano anche senza che nessuno le annunci.
+- **dritto, lettura 9**
+  - parola: Fiducia
+  - dono: Affida al tempo, con fiducia, quello che non puoi forzare: fissa quando lo riguarderai.
+  - medora: Certe faccende maturano da sole, se nessuno le strapazza ogni giorno.
+- **dritto, lettura 10**
+  - parola: Espansione
+  - dono: Punta a un'espansione concreta: chiedi un contatto nuovo a chi conosci già.
+  - medora: Le cerchie crescono di una persona alla volta, non per magia.
+- **dritto, lettura 11**
+  - parola: Scommessa
+  - dono: Fai una scommessa su di te: iscriviti a qualcosa che comincia entro un mese.
+  - medora: Pagare in anticipo per una cosa buona la rende molto più probabile.
+- **dritto, lettura 12**
+  - parola: Imprevisto
+  - dono: Accogli un imprevisto senza combatterlo: riorganizza la giornata in cinque minuti.
+  - medora: La rigidità trasforma ogni sorpresa in un danno.
+- **rovesciato, lettura 1**
+  - parola: Pazienza
+  - dono: Esercita pazienza su una cosa ferma: controllala una volta sola, poi lasciala.
+  - medora: Guardare di continuo una faccenda non la fa muovere di un centimetro.
+- **rovesciato, lettura 2**
+  - parola: Risparmio
+  - dono: Metti da parte un risparmio piccolo, anche dieci euro, in un posto che non guardi.
+  - medora: I periodi magri arrivano senza preavviso e senza chiedere il permesso.
+- **rovesciato, lettura 3**
+  - parola: Ripetizione
+  - dono: Guarda una ripetizione nella tua vita: scrivi la scena che torna sempre uguale.
+  - medora: Ciò che insiste ha qualcosa da dire, non da subire.
+- **rovesciato, lettura 4**
+  - parola: Uscita
+  - dono: Prepara un'uscita da una situazione che gira a vuoto: scrivi il primo movimento.
+  - medora: Restare fermi dentro un giro non è pazienza, è abitudine.
+- **rovesciato, lettura 5**
+  - parola: Sorte
+  - dono: Smetti di aspettare un colpo di sorte: fai oggi la parte che dipende da te.
+  - medora: Le carte le distribuisce il caso, il gioco resta in mano a chi le tiene.
+- **rovesciato, lettura 6**
+  - parola: Limite
+  - dono: Riduci un rischio che hai preso troppo alla leggera: metti un limite scritto.
+  - medora: Il coraggio senza misura ha un altro nome molto meno gentile.
+- **rovesciato, lettura 7**
+  - parola: Attesa
+  - dono: Riempi un'attesa con una preparazione: impara qualcosa che ti servirà se arriva.
+  - medora: Chi si prepara durante la calma non rincorre durante la piena.
+- **rovesciato, lettura 8**
+  - parola: Spesa
+  - dono: Blocca una spesa dettata dall'entusiasmo: rileggi la cifra a mente fredda.
+  - medora: L'euforia firma contratti che la sobrietà non firmerebbe mai.
+- **rovesciato, lettura 9**
+  - parola: Umiltà
+  - dono: Riconosci con umiltà l'aiuto ricevuto in un successo recente, dicendolo a chi c'era.
+  - medora: Nessuno ottiene niente di grande completamente da solo.
+- **rovesciato, lettura 10**
+  - parola: Rinvio
+  - dono: Accetta un rinvio senza drammi: sposta la data e togli la questione dalla testa.
+  - medora: Quello che slitta di poco raramente cambia di molto.
+- **rovesciato, lettura 11**
+  - parola: Conto
+  - dono: Guarda un conto che eviti: apri l'estratto e leggi i numeri fino in fondo.
+  - medora: Le cifre non guardate crescono sempre nella direzione sbagliata.
+- **rovesciato, lettura 12**
+  - parola: Movimento
+  - dono: Fai il movimento più piccolo possibile verso una faccenda bloccata: una riga, una telefonata.
+  - medora: Le cose ferme ripartono con una spinta minima, ripetuta.
+
+### XI La Forza, Leone
+
+- **dritto, lettura 1**
+  - parola: Quiete
+  - dono: Tieni la quiete dove scatteresti: rispondi piano e rallenta il ritmo.
+  - medora: Chi resta calmo nella tensione guida la stanza senza alzarsi.
+- **dritto, lettura 2**
+  - parola: Coraggio
+  - dono: Fai con coraggio la telefonata che eviti da giorni, entro mezzogiorno.
+  - medora: La paura si sgonfia quasi sempre nel momento esatto in cui si agisce.
+- **dritto, lettura 3**
+  - parola: Dolcezza
+  - dono: Tratta con dolcezza una parte di te che disprezzi: dedicale una riga gentile.
+  - medora: Si domano molte più cose con la mano aperta che col pugno.
+- **dritto, lettura 4**
+  - parola: Generosità
+  - dono: Usa generosità con qualcuno prima che chieda: aiutalo in modo concreto, senza clamore.
+  - medora: Arrivare prima della richiesta è la forma più alta di attenzione.
+- **dritto, lettura 5**
+  - parola: Fierezza
+  - dono: Mostra fierezza per una cosa tua: pubblicala, raccontala o portala a qualcuno.
+  - medora: Nascondere sempre quello che si fa insegna agli altri a non cercarlo.
+- **dritto, lettura 6**
+  - parola: Resistenza
+  - dono: Allena la resistenza in una cosa noiosa: continua dieci minuti oltre il punto in cui smetteresti.
+  - medora: Il confine della fatica si sposta soltanto se lo si tocca.
+- **dritto, lettura 7**
+  - parola: Impulso
+  - dono: Senti un impulso forte senza agirlo: scrivilo, aspetta un'ora, poi decidi.
+  - medora: Fra lo stimolo e la risposta esiste uno spazio, dove abita la libertà.
+- **dritto, lettura 8**
+  - parola: Cuore
+  - dono: Metti il cuore in una cosa che fai per dovere: cambiale un dettaglio a modo tuo.
+  - medora: Anche i compiti imposti cambiano quando ci si mette qualcosa di proprio.
+- **dritto, lettura 9**
+  - parola: Difesa
+  - dono: Prendi la difesa di chi non riesce a rispondere, con una frase sola detta davanti a tutti.
+  - medora: Il silenzio dei presenti pesa quanto l'insulto di chi lo pronuncia.
+- **dritto, lettura 10**
+  - parola: Vitalità
+  - dono: Restituisci vitalità al corpo: venti flessioni, una rampa di scale, una corsa breve.
+  - medora: L'energia non si aspetta, si accende muovendosi.
+- **dritto, lettura 11**
+  - parola: Pazienza
+  - dono: Riprova con pazienza una cosa che ti è riuscita male, oggi, una volta sola.
+  - medora: La seconda prova insegna quello che la prima ha soltanto annunciato.
+- **dritto, lettura 12**
+  - parola: Sorriso
+  - dono: Porta un sorriso vero dove c'è tensione: saluta per primo chi ti mette a disagio.
+  - medora: Un volto disteso disarma più di dieci argomenti giusti.
+- **rovesciato, lettura 1**
+  - parola: Stanchezza
+  - dono: Ammetti una stanchezza invece di spingerla via: riduci un impegno di oggi.
+  - medora: Fingere di reggere costa più del riposo che si sta evitando.
+- **rovesciato, lettura 2**
+  - parola: Rabbia
+  - dono: Di' una rabbia in parole semplici a chi la riguarda, senza alzare il tono.
+  - medora: Ciò che non trova parole trova sempre un'altra via per uscire.
+- **rovesciato, lettura 3**
+  - parola: Limite
+  - dono: Rispetta un limite fisico di questi giorni: salta l'allenamento, dormendo mezz'ora in più.
+  - medora: Insistere contro un segnale chiaro allunga i tempi invece di accorciarli.
+- **rovesciato, lettura 4**
+  - parola: Aiuto
+  - dono: Chiedi aiuto su una cosa che ti sei intestato per orgoglio.
+  - medora: Portare da soli quello che si può dividere non dimostra niente.
+- **rovesciato, lettura 5**
+  - parola: Gentilezza
+  - dono: Parlati con gentilezza, come faresti con un amico in difficoltà, per tutto il giorno.
+  - medora: La durezza interna non ha mai migliorato il risultato di nessuno.
+- **rovesciato, lettura 6**
+  - parola: Paura
+  - dono: Scrivi la paura che ti blocca in una frase precisa, poi rileggila piano.
+  - medora: Un timore messo in parole perde molto della sua misura.
+- **rovesciato, lettura 7**
+  - parola: Controllo
+  - dono: Lascia andare il controllo su una cosa che riguarda altri: non chiedere aggiornamenti.
+  - medora: Sorvegliare gli altri stanca noi molto più di quanto aiuti loro.
+- **rovesciato, lettura 8**
+  - parola: Orgoglio
+  - dono: Torna su una posizione presa per orgoglio: scrivi che hai cambiato idea.
+  - medora: Cambiare parere in pubblico costa un istante di imbarazzo e salva mesi.
+- **rovesciato, lettura 9**
+  - parola: Riposo
+  - dono: Concediti un riposo dal dover piacere: un'ora senza messaggi da rileggere.
+  - medora: Anche l'affetto diventa un lavoro, se deve essere guadagnato ogni giorno.
+- **rovesciato, lettura 10**
+  - parola: Vittoria
+  - dono: Riconosci una vittoria minima di oggi e fermati un minuto a guardarla.
+  - medora: Le imprese grandi sono fatte di giorni che sembravano irrilevanti.
+- **rovesciato, lettura 11**
+  - parola: Scontro
+  - dono: Evita uno scontro inutile: lascia l'ultima parola a chi la sta cercando.
+  - medora: Non tutte le provocazioni meritano una risposta, quasi nessuna la merita.
+- **rovesciato, lettura 12**
+  - parola: Fiato
+  - dono: Rallenta il fiato prima di una prova: dieci conteggi lenti, con le spalle basse.
+  - medora: Il corpo calmo convince la testa molto più in fretta del contrario.
+
+### XII L'Appeso, Acqua
+
+- **dritto, lettura 1**
+  - parola: Sospensione
+  - dono: Concediti una sospensione: rimanda di ventiquattro ore la faccenda che ti tira di più.
+  - medora: Alcune risposte maturano soltanto dove nessuno le sollecita.
+- **dritto, lettura 2**
+  - parola: Ribaltamento
+  - dono: Ribalta un problema: scrivi come lo racconterebbe chi ti sta contro.
+  - medora: Girare l'immagine mostra dettagli che dall'altro lato restavano invisibili.
+- **dritto, lettura 3**
+  - parola: Attesa
+  - dono: Abita un'attesa senza riempirla: niente schermo mentre aspetti, per una volta.
+  - medora: Colmare ogni pausa impedisce alla mente di sistemarsi da sola.
+- **dritto, lettura 4**
+  - parola: Rinuncia
+  - dono: Fai una rinuncia volontaria oggi: salta una comodità piccola e nota cosa succede.
+  - medora: Quello che si toglie per scelta smette di comandare in silenzio.
+- **dritto, lettura 5**
+  - parola: Sete
+  - dono: Bevi quando senti la sete: fermati ogni volta a berla davvero, senza fare altro.
+  - medora: Il corpo chiede cose semplici, ma le chiede sul serio.
+- **dritto, lettura 6**
+  - parola: Silenzio
+  - dono: Tieni il silenzio in una conversazione dove di solito intervieni per primo.
+  - medora: Chi parla per ultimo sente cose che agli altri sfuggono.
+- **dritto, lettura 7**
+  - parola: Prospettiva
+  - dono: Cambia prospettiva su una difficoltà: chiediti che aspetto avrà fra dieci anni.
+  - medora: La distanza rimpicciolisce quasi tutto, tranne le cose che contano.
+- **dritto, lettura 8**
+  - parola: Accettazione
+  - dono: Pratica l'accettazione su un fatto immutabile: scrivilo per intero, poi lascialo stare.
+  - medora: Lottare con quello che non cambia consuma le forze che servono altrove.
+- **dritto, lettura 9**
+  - parola: Segreto
+  - dono: Fai qualcosa di utile tenendolo segreto, senza volere niente in ritorno.
+  - medora: I gesti che restano anonimi sono quelli che cambiano davvero chi li compie.
+- **dritto, lettura 10**
+  - parola: Lentezza
+  - dono: Lavora con lentezza scelta per un'ora: metà della velocità, nessuna scorciatoia.
+  - medora: Andare adagio mostra gli errori mentre nascono, non dopo.
+- **dritto, lettura 11**
+  - parola: Fiducia
+  - dono: Affida con fiducia una faccenda a chi la segue, senza chiedere aggiornamenti.
+  - medora: Il controllo continuo comunica soltanto sfiducia, mai attenzione.
+- **dritto, lettura 12**
+  - parola: Vuoto
+  - dono: Lascia un vuoto nella giornata: non riempire lo spazio che si libera per caso.
+  - medora: Le idee migliori si presentano quando trovano la stanza libera.
+- **rovesciato, lettura 1**
+  - parola: Uscita
+  - dono: Trova un'uscita da una situazione sospesa da troppo: scegli una delle due direzioni.
+  - medora: Restare a metà costa più di qualunque decisione presa male.
+- **rovesciato, lettura 2**
+  - parola: Azione
+  - dono: Fai un'azione concreta invece di riflettere ancora: la prima che ti viene in mente.
+  - medora: Pensare a lungo su cose piccole è un modo elegante di evitarle.
+- **rovesciato, lettura 3**
+  - parola: Sacrificio
+  - dono: Guarda un sacrificio che stai facendo e chiediti chi te lo ha chiesto davvero.
+  - medora: Certe rinunce nascono da un dovere che nessuno ha mai pronunciato.
+- **rovesciato, lettura 4**
+  - parola: Movimento
+  - dono: Metti in movimento il corpo appena senti la testa girare a vuoto: alzati, esci.
+  - medora: I pensieri fermi si sciolgono quasi sempre camminando.
+- **rovesciato, lettura 5**
+  - parola: Parola
+  - dono: Prendi la parola dove taci per non disturbare: di' quanto ti costa.
+  - medora: Chi non dice mai il prezzo finisce per pagarlo due volte.
+- **rovesciato, lettura 6**
+  - parola: Terra
+  - dono: Torna a terra con una cosa pratica: paga, prenota, ordina, chiudi una pratica.
+  - medora: Le questioni concrete non si risolvono meditando su di esse.
+- **rovesciato, lettura 7**
+  - parola: Confine
+  - dono: Metti un confine alla disponibilità: di' a che ora smetti di rispondere.
+  - medora: Essere sempre reperibili insegna agli altri che puoi aspettare tu.
+- **rovesciato, lettura 8**
+  - parola: Realtà
+  - dono: Verifica una realtà che immagini: chiedi conferma a chi la conosce.
+  - medora: Le storie costruite nella testa battono i fatti soltanto in drammaticità.
+- **rovesciato, lettura 9**
+  - parola: Scelta
+  - dono: Fai una scelta minima con decisione: il pranzo, la serie, la strada, senza esitare.
+  - medora: Decidere in fretta le cose piccole allena la fretta giusta.
+- **rovesciato, lettura 10**
+  - parola: Gratitudine
+  - dono: Ringrazia con gratitudine chi ti ha aspettato mentre eri bloccato.
+  - medora: La pazienza degli altri è un credito che di solito nessuno reclama.
+- **rovesciato, lettura 11**
+  - parola: Priorità
+  - dono: Tieni una priorità sola per la giornata, lasciando cadere le altre senza colpa.
+  - medora: Fare tutto a pezzi somiglia molto a non fare niente.
+- **rovesciato, lettura 12**
+  - parola: Ripresa
+  - dono: Riprendi una faccenda interrotta da mesi: dedicale quindici minuti adesso.
+  - medora: Le cose sospese consumano attenzione anche quando nessuno le tocca.
+
+### XIII La Morte, Scorpione
+
+- **dritto, lettura 1**
+  - parola: Chiusura
+  - dono: Porta a chiusura una faccenda finita: cancella, archivia, saluta, senza rimandare.
+  - medora: Quello che è concluso continua a occupare spazio finché non lo si dichiara.
+- **dritto, lettura 2**
+  - parola: Trasformazione
+  - dono: Avvia una trasformazione piccola: cambia una regola tua che non ti somiglia più.
+  - medora: Le persone cambiano a pezzi, non tutte insieme.
+- **dritto, lettura 3**
+  - parola: Congedo
+  - dono: Di' un congedo pulito a un'abitudine che hai superato, anche ringraziandola.
+  - medora: Si lascia meglio quello che si è riconosciuto come utile un tempo.
+- **dritto, lettura 4**
+  - parola: Pulizia
+  - dono: Fai una pulizia radicale in un posto solo: dieci oggetti fuori, senza ripensamenti.
+  - medora: Lo spazio liberato chiama qualcosa di nuovo molto in fretta.
+- **dritto, lettura 5**
+  - parola: Verità nuda
+  - dono: Guarda una verità che eviti e dilla a te per intero, senza addolcirla.
+  - medora: Le cose chiamate col loro nome smettono di crescere al buio.
+- **dritto, lettura 6**
+  - parola: Taglio
+  - dono: Fai un taglio netto a un impegno che ti svuota: comunicalo oggi in due righe.
+  - medora: Certe decisioni fanno male un giorno e riposare per mesi.
+- **dritto, lettura 7**
+  - parola: Eredità
+  - dono: Raccogli un'eredità che ti hanno lasciato: un mestiere, una ricetta, un modo di fare.
+  - medora: Chi ci ha preceduto continua nei gesti che ripetiamo senza pensarci.
+- **dritto, lettura 8**
+  - parola: Rinascita
+  - dono: Prepara una rinascita concreta: iscriviti, prenota, comincia una cosa nuova adesso.
+  - medora: Dopo ogni finale c'è una pagina bianca, che non resta tale a lungo.
+- **dritto, lettura 9**
+  - parola: Distacco
+  - dono: Prendi distacco da una discussione vecchia: smetti di rispondere a chi la riapre.
+  - medora: Alcune conversazioni vivono soltanto perché qualcuno continua a nutrirle.
+- **dritto, lettura 10**
+  - parola: Essenza
+  - dono: Cerca l'essenza di un progetto: taglia tutto quello che non serve al centro.
+  - medora: Togliere il superfluo rende visibile quello che stava già lì.
+- **dritto, lettura 11**
+  - parola: Onestà
+  - dono: Usa onestà su un rapporto finito: riconosci dentro di te che è finito.
+  - medora: Fingere che duri consuma molto più dell'ammetterlo.
+- **dritto, lettura 12**
+  - parola: Sfoltimento
+  - dono: Comincia uno sfoltimento: disdici, chiudi o annulla quello che non usi più.
+  - medora: Ogni abbonamento inutile è un pezzo di attenzione che paghi ogni mese.
+- **rovesciato, lettura 1**
+  - parola: Resistenza
+  - dono: Guarda una resistenza tua al cambiamento: scrivi cosa temi di perdere davvero.
+  - medora: Dietro ogni rifiuto testardo c'è spesso una paura molto ragionevole.
+- **rovesciato, lettura 2**
+  - parola: Gradualità
+  - dono: Procedi con gradualità dove volevi rivoluzionare: cambia un solo elemento questa settimana.
+  - medora: Le rivoluzioni istantanee durano in media pochissimi giorni.
+- **rovesciato, lettura 3**
+  - parola: Memoria
+  - dono: Onora una memoria: guarda una foto vecchia, racconta quella storia a qualcuno.
+  - medora: Il passato smette di tirare quando riceve una visita.
+- **rovesciato, lettura 4**
+  - parola: Lutto
+  - dono: Prenditi il tempo per un lutto qualunque: una perdita, un impiego, una città salutata.
+  - medora: Anche gli addii minori vogliono essere riconosciuti per finire davvero.
+- **rovesciato, lettura 5**
+  - parola: Pazienza
+  - dono: Esercita pazienza con una cosa che non finisce: fissa la data del prossimo controllo.
+  - medora: Non tutte le faccende si chiudono quando ci farebbe comodo.
+- **rovesciato, lettura 6**
+  - parola: Cura
+  - dono: Cura una cosa invece di sostituirla: aggiusta, lava, rimetti in uso.
+  - medora: Riparare tiene insieme la storia che comprare cancella.
+- **rovesciato, lettura 7**
+  - parola: Ritorno
+  - dono: Fai un ritorno a qualcosa che avevi abbandonato troppo presto, per una volta sola.
+  - medora: Certe strade lasciate a metà meritano un secondo sopralluogo.
+- **rovesciato, lettura 8**
+  - parola: Custodia
+  - dono: Custodisci una cosa che stavi per buttare: tienila e dalle un posto.
+  - medora: Non tutto quello che non serve adesso è da eliminare.
+- **rovesciato, lettura 9**
+  - parola: Tregua
+  - dono: Firma una tregua con una persona: proponi di sospendere il tema per un mese.
+  - medora: Mettere in pausa un conflitto lo sgonfia più di mille chiarimenti.
+- **rovesciato, lettura 10**
+  - parola: Dolcezza
+  - dono: Usa dolcezza nel dire una cosa dura, senza cambiare la sostanza.
+  - medora: Il come arriva prima del cosa, per chi ascolta.
+- **rovesciato, lettura 11**
+  - parola: Radici
+  - dono: Cerca le radici di un'abitudine che vuoi togliere: quando è cominciata e perché.
+  - medora: Si smette più facilmente quando si capisce a cosa serviva.
+- **rovesciato, lettura 12**
+  - parola: Maturazione
+  - dono: Lascia maturare una decisione grande per sette giorni, segnando la data sul calendario.
+  - medora: Le scelte importanti si sistemano da sole se gli si concede il tempo.
+
+### XIV La Temperanza, Sagittario
 
 - **dritto, lettura 1**
   - parola: Misura
-  - dono: Metti misura in una cosa che tende all'eccesso, il caffè, il lavoro, lo schermo: dimezzala e osserva la differenza.
-  - medora: Chi dosa con arte trasforma in medicina anche ciò che era veleno.
+  - dono: Trova la misura giusta in una cosa che esageri: metà della dose, per oggi.
+  - medora: Quasi tutto fa bene fino a un certo punto, poi comincia a togliere.
 - **dritto, lettura 2**
-  - parola: Armonia
-  - dono: Cerca l'armonia fra due parti della giornata che litigano, lavoro e riposo, dovere e piacere, alternandole ogni ora.
-  - medora: Gli opposti mescolati con pazienza fanno un colore che nessuno dei due aveva.
+  - parola: Mescolanza
+  - dono: Fai una mescolanza nuova: metti insieme due mondi che tieni distanti, lo studio e il gioco.
+  - medora: Le combinazioni inattese producono quello che nessun progetto prevedeva.
 - **dritto, lettura 3**
+  - parola: Equilibrio
+  - dono: Cerca l'equilibrio fra due impegni: sposta mezz'ora dall'uno all'altro.
+  - medora: Bilanciare non è dividere a metà, è dare a ognuno quanto chiede.
+- **dritto, lettura 4**
   - parola: Pazienza
-  - dono: Esercita la pazienza su un risultato che vorresti subito: fai il passo che gli spetta e lascia il resto al tempo.
-  - medora: Le ferite si chiudono piano, per questo guariscono bene.
+  - dono: Applica pazienza a una cura che hai cominciato: continua senza cercare risultati oggi.
+  - medora: I processi lenti mostrano i frutti quando si smette di pesarli ogni giorno.
+- **dritto, lettura 5**
+  - parola: Armonia
+  - dono: Porta armonia in un gruppo: ricorda a due persone in disaccordo su cosa concordano.
+  - medora: Quasi tutte le liti dimenticano in fretta quello che unisce.
+- **dritto, lettura 6**
+  - parola: Cucina
+  - dono: Cucina qualcosa mescolando con calma, sentendo cambiare gli odori mentre procede.
+  - medora: I gesti antichi calmano perché chiedono presenza senza chiedere pensiero.
+- **dritto, lettura 7**
+  - parola: Viaggio
+  - dono: Programma un viaggio mentale o reale: leggi di un posto dove vorresti andare.
+  - medora: Il desiderio di altrove tiene aperta una finestra dentro la routine.
+- **dritto, lettura 8**
+  - parola: Dieta
+  - dono: Scegli una dieta di qualcosa che ti travolge: notizie, dolci, discussioni, per un giorno.
+  - medora: Ridurre per una volta insegna quanto poco serviva davvero.
+- **dritto, lettura 9**
+  - parola: Riequilibrio
+  - dono: Riequilibra un rapporto: fai tu il gesto che aspetti da tempo dall'altra parte.
+  - medora: Aspettare in due che cominci l'altro ferma tutto a lungo.
+- **dritto, lettura 10**
+  - parola: Respiro
+  - dono: Allunga il respiro quattro volte prima di una cosa che ti agita, contando lento.
+  - medora: Il fiato lungo è l'unico comando diretto che abbiamo sulla paura.
+- **dritto, lettura 11**
+  - parola: Alternanza
+  - dono: Alterna sforzo e riposo con regola: cinquanta minuti di impegno, dieci di stacco.
+  - medora: La continuità senza pause rende meno di quanto costa.
+- **dritto, lettura 12**
+  - parola: Ricetta
+  - dono: Prova una ricetta nuova stasera, seguendo i tempi senza accorciarli.
+  - medora: Certe cose riescono soltanto se si rispetta l'ordine dei passaggi.
 - **rovesciato, lettura 1**
-  - parola: Ritmo
-  - dono: Ritrova il ritmo rallentando una sola attività, mangiare, camminare, rispondere, fino a sentirne i tempi.
-  - medora: Nessun equilibrio capita per caso: si costruisce un giorno dopo l'altro.
+  - parola: Eccesso
+  - dono: Riconosci un eccesso di questi giorni e riducilo della metà, senza eliminarlo.
+  - medora: Togliere del tutto dura poco, ridurre con criterio dura anni.
 - **rovesciato, lettura 2**
-  - parola: Dialogo
-  - dono: Apri un dialogo fra due parti di te che non si parlano: scrivi cosa vuole ciascuna, in due colonne, senza scegliere.
-  - medora: Se le metà si ascoltano, la fretta perde il suo potere.
+  - parola: Impazienza
+  - dono: Nota l'impazienza appena arriva e rallenta di proposito il gesto successivo.
+  - medora: La fretta produce quasi sempre un secondo lavoro poco dopo.
 - **rovesciato, lettura 3**
-  - parola: Rimedio
-  - dono: Trova un rimedio semplice per l'eccesso di questi giorni: un bicchiere d'acqua in più, una sera senza impegni, dieci minuti di cammino.
-  - medora: Raramente la guarigione fa rumore.
+  - parola: Separazione
+  - dono: Separa due cose che hai unito male: il mestiere e il letto, l'affetto e i conti.
+  - medora: Alcune cose funzionano insieme, altre soltanto a distanza.
+- **rovesciato, lettura 4**
+  - parola: Preferenza
+  - dono: Smetti di mediare fra due desideri: dichiara una preferenza per questa settimana.
+  - medora: Il compromesso continuo lascia insoddisfatte tutte le parti in causa.
+- **rovesciato, lettura 5**
+  - parola: Eccedenza
+  - dono: Regala un'eccedenza che tieni da parte: vestiti, libri, attrezzi fermi da anni.
+  - medora: Ciò che non usi da una stagione difficilmente tornerà utile.
+- **rovesciato, lettura 6**
+  - parola: Sincerità
+  - dono: Di' con sincerità che una situazione non ti sta bene, senza addolcire le parole.
+  - medora: La diplomazia continua finisce per nascondere anche a noi la posizione vera.
+- **rovesciato, lettura 7**
+  - parola: Ritmo
+  - dono: Spezza un ritmo che ti logora: cambia una cosa nella giornata tipo.
+  - medora: Le abitudini comode diventano gabbie senza mai fare rumore.
+- **rovesciato, lettura 8**
+  - parola: Reciprocità
+  - dono: Chiedi reciprocità dove dai soltanto tu: riduci per un mese, poi osserva cosa accade.
+  - medora: Un rapporto a senso unico si regge soltanto su chi si stanca.
+- **rovesciato, lettura 9**
+  - parola: Passione
+  - dono: Segui una passione per un'ora senza giustificarla con l'utilità.
+  - medora: Quello che facciamo per amore regge meglio delle cose ragionevoli.
+- **rovesciato, lettura 10**
+  - parola: Verifica
+  - dono: Verifica una promessa fatta di slancio: guarda se sta ancora in piedi a mente fredda.
+  - medora: L'entusiasmo firma cambiali che la quotidianità deve poi pagare.
+- **rovesciato, lettura 11**
+  - parola: Sobrietà
+  - dono: Prova la sobrietà con una cosa che ti accende troppo: un giorno intero senza.
+  - medora: Si capisce il proprio legame con qualcosa soltanto smettendo per poco.
+- **rovesciato, lettura 12**
+  - parola: Rientro
+  - dono: Rientra dentro i tuoi limiti: disdici un impegno preso oltre le tue forze.
+  - medora: Promettere oltre misura offende chi aspetta più di un rifiuto netto.
 
-### XV Il Diavolo, Capricorno, parola
+### XV Il Diavolo, Capricorno
 
 - **dritto, lettura 1**
   - parola: Catena
-  - dono: Guarda in faccia una catena, un'abitudine che ti comanda più di quanto ammetti: scrivi quando ti ha preso la mano.
-  - medora: Alla luce, quello che nomini smette di governarti nel buio.
+  - dono: Nomina una catena che ti tiene: scrivi quale abitudine decide al posto tuo.
+  - medora: Il legame che non si nomina governa senza mai essere discusso.
 - **dritto, lettura 2**
-  - parola: Ombra
-  - dono: Guarda senza vergogna un'ombra, una gelosia, un'invidia, una pigrizia: riconoscila per nome e lasciala lì, senza obbedirle.
-  - medora: La verità su di sé non umilia, libera il passo.
-- **dritto, lettura 3**
   - parola: Desiderio
-  - dono: Osserva un desiderio che insiste e chiediti se ti nutre o ti consuma, prima di assecondarlo.
-  - medora: Conoscere le proprie tentazioni vuol dire aver fatto metà della strada.
+  - dono: Ammetti un desiderio che ti vergogni di avere, scrivendolo per te soltanto.
+  - medora: Quello che si nega cresce al buio più di quello che si ammette.
+- **dritto, lettura 3**
+  - parola: Ambizione
+  - dono: Dichiara un'ambizione concreta a una persona di cui ti fidi, con una data.
+  - medora: Volere qualcosa apertamente dimezza la fatica di ottenerlo.
+- **dritto, lettura 4**
+  - parola: Materia
+  - dono: Occupati della materia: soldi, contratti, oggetti, per un'ora piena.
+  - medora: Le cose pratiche ignorate diventano problemi con gli interessi.
+- **dritto, lettura 5**
+  - parola: Piacere
+  - dono: Concediti un piacere scelto con cura, senza giustificarlo e senza esagerarlo.
+  - medora: Il godimento deciso in anticipo raramente diventa un eccesso.
+- **dritto, lettura 6**
+  - parola: Potere
+  - dono: Riconosci un potere che hai e non usi: una competenza, una posizione, un contatto.
+  - medora: Molte porte restano chiuse soltanto perché nessuno ha provato a spingerle.
+- **dritto, lettura 7**
+  - parola: Contratto
+  - dono: Rinegozia un contratto o un accordo che ti sta stretto: chiedi una condizione diversa.
+  - medora: Quasi tutto è trattabile, tranne quello che non si prova a trattare.
+- **dritto, lettura 8**
+  - parola: Ironia
+  - dono: Usa ironia su una tua ossessione: raccontala a qualcuno come una storia buffa.
+  - medora: Ridere di una cosa toglie a quella cosa metà del suo comando.
+- **dritto, lettura 9**
+  - parola: Corpo
+  - dono: Ascolta il corpo nei suoi appetiti: mangia, dormi o muoviti secondo quello che chiede.
+  - medora: Negare i bisogni fisici non li spegne, li rende soltanto più rumorosi.
+- **dritto, lettura 10**
+  - parola: Rifiuto
+  - dono: Di' un rifiuto a una richiesta ingiusta, senza aggiungere una spiegazione lunga.
+  - medora: Un no breve viene discusso molto meno di uno argomentato.
+- **dritto, lettura 11**
+  - parola: Denaro
+  - dono: Guarda il denaro in faccia: controlla il saldo e decidi una cosa concreta.
+  - medora: I numeri evitati crescono nella direzione che non conviene.
+- **dritto, lettura 12**
+  - parola: Istinto
+  - dono: Segui un istinto sano: fai quello che senti necessario da giorni.
+  - medora: Non tutti gli impulsi sono nemici, alcuni sono soltanto informazioni.
 - **rovesciato, lettura 1**
-  - parola: Nodo
-  - dono: Sciogli con dolcezza un nodo che hai già riconosciuto: fai una sola cosa diversa nel momento in cui scatta.
-  - medora: Quel che ti teneva non era più forte di te, era solo più nascosto.
+  - parola: Congedo
+  - dono: Fai un gesto di congedo: cancella un profilo, blocca un contatto, chiudi un conto.
+  - medora: Togliersi un peso di dosso si sente nel corpo prima che nella testa.
 - **rovesciato, lettura 2**
-  - parola: Libertà
-  - dono: Festeggia una piccola libertà riconquistata, un giorno senza quella abitudine, con un gesto che ti piace.
-  - medora: Vedere il legame è già mezzo passo fuori dalla stanza.
+  - parola: Verità
+  - dono: Di' una verità su una dipendenza tua a chi ti vuole bene, senza drammi.
+  - medora: Quello che smette di essere segreto perde gran parte della presa.
 - **rovesciato, lettura 3**
-  - parola: Chiave
-  - dono: Tieni in tasca una chiave vera, anche quella di casa: ogni volta che la tocchi, ricorda un legame che stai allentando.
-  - medora: Ogni giorno un filo in meno, finché la presa si arrende da sola.
+  - parola: Digiuno
+  - dono: Prova un digiuno breve da una cosa che ti chiama: un giorno solo, dichiarato.
+  - medora: Un intervallo scelto insegna quanto spazio occupa una cosa nella vita.
+- **rovesciato, lettura 4**
+  - parola: Aiuto
+  - dono: Chiedi aiuto per una cosa di cui ti vergogni, a una persona sola.
+  - medora: Dire una difficoltà a qualcuno la riduce a dimensioni umane.
+- **rovesciato, lettura 5**
+  - parola: Perdono
+  - dono: Concedi perdono a te per una ricaduta recente e riprendi da dove eri.
+  - medora: Ricominciare subito conta molto più di non aver mai smesso.
+- **rovesciato, lettura 6**
+  - parola: Alternativa
+  - dono: Prepara un'alternativa pronta per il punto critico: una camminata, una chiamata, un libro.
+  - medora: Le tentazioni si battono con una sostituzione, non con la volontà nuda.
+- **rovesciato, lettura 7**
+  - parola: Limite
+  - dono: Poni un limite tecnico: disinstalla l'applicazione che ti cattura, per questa settimana.
+  - medora: Rendere scomodo un gesto vale più di qualunque buon proposito.
+- **rovesciato, lettura 8**
+  - parola: Compagnia
+  - dono: Cerca compagnia dove cadi da solo: avvisa qualcuno prima che arrivi il momento storto.
+  - medora: Quasi nessuna trappola resiste alla presenza di un'altra persona.
+- **rovesciato, lettura 9**
+  - parola: Bilancio
+  - dono: Metti per iscritto un bilancio onesto di quanto ti costa un'abitudine, in soldi e in ore.
+  - medora: I conti precisi convincono dove i buoni propositi falliscono.
+- **rovesciato, lettura 10**
+  - parola: Gioia
+  - dono: Trova una gioia semplice che non lascia strascichi: musica, acqua, movimento.
+  - medora: Il piacere che non presenta il conto dopo è quello che nutre.
+- **rovesciato, lettura 11**
+  - parola: Distanza
+  - dono: Prendi distanza da chi ti trascina: rimanda un incontro senza inventare scuse.
+  - medora: Certe persone ci riportano indietro senza volerlo e senza accorgersene.
+- **rovesciato, lettura 12**
+  - parola: Libertà
+  - dono: Prenditi la libertà di scegliere una cosa soltanto perché la vuoi, senza convincere nessuno.
+  - medora: Si comincia a decidere da soli sulle cose piccole, prima che sulle grandi.
 
-### XVI La Torre, Marte, azione
+### XVI La Torre, Marte
 
 - **dritto, lettura 1**
-  - dono: Butta giù una cosa costruita sul falso: disdici un impegno preso solo per apparire o cancella una frase che non pensi davvero.
-  - medora: Dopo la scossa, quel che resta in piedi è il terreno su cui contare.
+  - parola: Scossa
+  - dono: Accogli una scossa recente senza rimetterla a posto subito: guarda cosa ha scoperto.
+  - medora: I crolli mostrano in un istante quello che nessuno voleva vedere.
 - **dritto, lettura 2**
-  - dono: Comunica entro mezzogiorno una notizia scomoda che stai rimandando, in modo breve e senza giri.
-  - medora: Una verità detta presto costa meno di una bugia mantenuta a lungo.
+  - parola: Verità
+  - dono: Di' la verità che romperebbe l'equilibrio finto di una situazione.
+  - medora: Gli equilibri costruiti sul non detto reggono soltanto finché nessuno parla.
 - **dritto, lettura 3**
-  - dono: Svuota un ripiano, un armadio o una cartella del computer fino in fondo e rimetti dentro solo ciò che usi davvero.
-  - medora: Dalle macerie ordinate nasce una base più onesta.
+  - parola: Demolizione
+  - dono: Fai una demolizione utile: cancella un progetto che tieni in vita per orgoglio.
+  - medora: Insistere su una cosa finita costa più che ricominciarne un'altra.
+- **dritto, lettura 4**
+  - parola: Urgenza
+  - dono: Tratta un'urgenza vera che rimandi: la pratica, il dolore fisico, la scadenza vicina.
+  - medora: Le cose rimandate diventano emergenze nei momenti peggiori.
+- **dritto, lettura 5**
+  - parola: Coraggio
+  - dono: Usa coraggio in una conversazione: nomina il problema centrale nei primi due minuti.
+  - medora: Il punto vero detto per ultimo non viene quasi mai discusso.
+- **dritto, lettura 6**
+  - parola: Rottura
+  - dono: Chiudi con una rottura netta un accordo che ti danneggia, senza trascinarlo ancora.
+  - medora: Certe separazioni fanno meno danno di un'attesa lunga.
+- **dritto, lettura 7**
+  - parola: Energia
+  - dono: Scarica energia col corpo: dieci minuti intensi, scale, corsa o carichi da spostare.
+  - medora: La rabbia trattenuta si deposita nei muscoli e resta lì.
+- **dritto, lettura 8**
+  - parola: Difesa
+  - dono: Prendi la difesa di un tuo diritto: scrivi il reclamo che rimandi da settimane.
+  - medora: Chi non protesta viene contato fra quelli a cui va bene.
+- **dritto, lettura 9**
+  - parola: Sgombero
+  - dono: Fai uno sgombero fisico: butta quello che è rotto e non riparerai mai.
+  - medora: Gli oggetti guasti tenuti per scrupolo occupano spazio e umore.
+- **dritto, lettura 10**
+  - parola: Confronto
+  - dono: Affronta un confronto rimandato: proponi un quarto d'ora a chi riguarda, oggi.
+  - medora: Le tensioni non affrontate non svaniscono, cambiano soltanto forma.
+- **dritto, lettura 11**
+  - parola: Cambiamento
+  - dono: Accetta un cambiamento che non hai scelto: scrivi due cose che adesso puoi decidere.
+  - medora: Quando la situazione si muove da sola, resta comunque una parte da governare.
+- **dritto, lettura 12**
+  - parola: Franchezza
+  - dono: Usa franchezza con chi ti chiede un parere, invece della risposta comoda.
+  - medora: Le opinioni addolcite non aiutano nessuno a decidere meglio.
 - **rovesciato, lettura 1**
-  - dono: Nomina con una persona fidata una crepa che vedi da tempo, prima che diventi una frattura.
-  - medora: Meglio un vero che vacilla di un falso che regge in apparenza.
+  - parola: Prevenzione
+  - dono: Fai prevenzione su una crepa che vedi: chiama il tecnico, prenota la visita, avvisa.
+  - medora: Le crepe si chiudono con poco finché restano crepe.
 - **rovesciato, lettura 2**
-  - dono: Fai una piccola scossa controllata: cambia l'ordine di una routine che non funziona più, per un giorno solo.
-  - medora: Lasciar cadere poco adesso risparmia un crollo più grande dopo.
+  - parola: Misura
+  - dono: Rispondi con misura a una provocazione: una frase breve, senza alzare il tono.
+  - medora: Chi resta quieto nella scintilla decide come finisce la storia.
 - **rovesciato, lettura 3**
-  - dono: Se stai uscendo da un periodo di scosse, ripara una cosa concreta, una cerniera, un rapporto, un conto, un pezzo alla volta.
-  - medora: Ricostruire lentamente è il modo più sicuro di non dover ricominciare.
+  - parola: Riparazione
+  - dono: Fai una riparazione concreta dopo uno scontro: il gesto pratico prima delle parole.
+  - medora: Si ricuce meglio con i fatti che con le spiegazioni.
+- **rovesciato, lettura 4**
+  - parola: Pausa
+  - dono: Lascia una pausa fra l'impulso e il gesto: scrivi il messaggio duro senza inviarlo, per oggi.
+  - medora: Molte frasi scritte di getto sarebbero costate anni a rimediare.
+- **rovesciato, lettura 5**
+  - parola: Ricostruzione
+  - dono: Avvia una ricostruzione: tira su qualcosa di minimo caduto di recente.
+  - medora: Dopo un crollo si riparte dal pezzo più vicino alla mano.
+- **rovesciato, lettura 6**
+  - parola: Pazienza
+  - dono: Esercita pazienza col recupero: non pretendere oggi il ritmo di prima.
+  - medora: Guarire ha tempi propri e non accetta trattative.
+- **rovesciato, lettura 7**
+  - parola: Aiuto
+  - dono: Chiedi aiuto dopo un periodo difficile, a una persona concreta e vicina.
+  - medora: Nessuno esce dalle macerie completamente da solo.
+- **rovesciato, lettura 8**
+  - parola: Priorità
+  - dono: Scegli una priorità dopo il disastro: quella che fa ripartire tutte le altre.
+  - medora: Non tutto va rifatto, quasi mai nella forma di prima.
+- **rovesciato, lettura 9**
+  - parola: Perdono
+  - dono: Concedi un perdono a chi ha rotto qualcosa senza volerlo, dicendoglielo.
+  - medora: Gli incidenti non chiedono un colpevole, chiedono una soluzione.
+- **rovesciato, lettura 10**
+  - parola: Prudenza
+  - dono: Usa prudenza su una spesa grossa: aspetta una settimana prima di firmare.
+  - medora: Le decisioni prese sotto pressione si pagano per mesi.
+- **rovesciato, lettura 11**
+  - parola: Sicurezza
+  - dono: Metti in sicurezza una cosa fragile: copia i file, chiudi la finestra, salva il numero.
+  - medora: Cinque minuti di previdenza valgono giornate di rimedi.
+- **rovesciato, lettura 12**
+  - parola: Gentilezza
+  - dono: Usa gentilezza con chi ha sbagliato per primo: offri una via d'uscita dignitosa.
+  - medora: Chi viene messo all'angolo difende l'errore invece di ammetterlo.
 
-### XVII La Stella, Acquario, parola
+### XVII La Stella, Acquario
 
 - **dritto, lettura 1**
   - parola: Speranza
-  - dono: Nutri la speranza con un gesto preciso: scrivi una cosa bella che ti aspetti dai prossimi mesi e appendila dove la vedi.
-  - medora: Dopo ogni tempesta c'è una luce che non fa rumore e resta.
+  - dono: Dai forma a una speranza: scrivi cosa vorresti che accadesse entro un anno.
+  - medora: Un desiderio scritto smette di essere un sogno vago.
 - **dritto, lettura 2**
   - parola: Ispirazione
-  - dono: Segui un'ispirazione senza chiederle garanzie: dedica venti minuti a un'idea nata di recente, solo per il piacere di darle forma.
-  - medora: I pensieri più limpidi arrivano quando il cielo si è appena schiarito.
+  - dono: Prendi un'ispirazione lontana dal tuo campo: una mostra, un libro, un mestiere diverso.
+  - medora: Le idee nuove arrivano quasi sempre da territori vicini, non dal proprio.
 - **dritto, lettura 3**
+  - parola: Generosità
+  - dono: Fai un gesto di generosità senza pubblico: un contributo, un aiuto, un'ora regalata.
+  - medora: Ciò che si dà in silenzio torna per strade che non si vedono.
+- **dritto, lettura 4**
+  - parola: Amicizia
+  - dono: Coltiva un'amicizia trascurata: proponi una data precisa a chi non senti da tempo.
+  - medora: I legami non muoiono di litigio, muoiono di rinvio.
+- **dritto, lettura 5**
+  - parola: Futuro
+  - dono: Prepara qualcosa per il tuo futuro: metti da parte, impara, pianta, iscriviti.
+  - medora: Chi costruisce per il proprio domani smette di temerlo.
+- **dritto, lettura 6**
+  - parola: Immersione
+  - dono: Bevi, lavati o immergiti con attenzione: senti l'acqua come se fosse la prima volta.
+  - medora: I gesti elementari danno una quiete che nessun discorso raggiunge.
+- **dritto, lettura 7**
+  - parola: Visione
+  - dono: Racconta una visione tua a qualcuno: come vorresti che fosse una cosa che ti sta a cuore.
+  - medora: Le immagini condivise attirano persone che da soli non si incontrerebbero.
+- **dritto, lettura 8**
+  - parola: Originalità
+  - dono: Metti un'originalità tua dove tutti fanno uguale: un dettaglio, una forma, una parola.
+  - medora: La differenza piccola viene ricordata più della perfezione anonima.
+- **dritto, lettura 9**
+  - parola: Gruppo
+  - dono: Porta qualcosa a un gruppo di cui fai parte: un'idea, una mano, una proposta.
+  - medora: Si appartiene davvero soltanto quando si contribuisce.
+- **dritto, lettura 10**
   - parola: Guarigione
-  - dono: Offri a una ferita vecchia un momento di guarigione, un bagno caldo, una lettera mai spedita, una camminata lenta.
-  - medora: Sei sulla strada giusta anche nei giorni in cui la stanchezza parla più forte.
+  - dono: Cura una guarigione in corso: rispetta la terapia, la pausa o l'esercizio prescritto.
+  - medora: Il corpo ripara meglio quando nessuno interrompe il suo mestiere.
+- **dritto, lettura 11**
+  - parola: Bellezza
+  - dono: Cerca la bellezza in alto: alza gli occhi per cinque minuti, senza fotografare.
+  - medora: Guardare senza catturare restituisce una calma che le immagini non danno.
+- **dritto, lettura 12**
+  - parola: Promessa
+  - dono: Fai una promessa ragionevole a una persona che conta e mantienila entro sette giorni.
+  - medora: La fiducia nasce dalle cose piccole mantenute, non dalle grandi annunciate.
 - **rovesciato, lettura 1**
-  - parola: Fiducia
-  - dono: Concedi alla fiducia un piccolo credito: fai una cosa come se andasse bene, senza aspettare la prova.
-  - medora: La luce velata non è spenta, aspetta solo che la nube passi.
+  - parola: Realismo
+  - dono: Applica realismo a un progetto: taglia del trenta per cento le tue previsioni.
+  - medora: L'ottimismo nei conti è il modo più gentile di prepararsi una delusione.
 - **rovesciato, lettura 2**
-  - parola: Barlume
-  - dono: Nella giornata grigia insegui un barlume, una frase gentile, un colore, un ricordo: fermati a guardarlo per qualche secondo.
-  - medora: Anche un punto piccolo di chiaro basta a orientarsi nella notte.
+  - parola: Scoraggiamento
+  - dono: Riconosci uno scoraggiamento invece di combatterlo: fai comunque una cosa minima.
+  - medora: Nei periodi grigi contano i gesti minuscoli ripetuti.
 - **rovesciato, lettura 3**
-  - parola: Quiete
-  - dono: Regalati la quiete di un quarto d'ora al buio prima di dormire, senza domandare niente al futuro.
-  - medora: Chi smette di pretendere risposte lascia posto a una speranza più tranquilla.
+  - parola: Sostegno
+  - dono: Chiedi sostegno a chi ti stima quando ti senti perso, con una frase semplice.
+  - medora: Le persone che ci vogliono bene aspettano soltanto di essere chiamate.
+- **rovesciato, lettura 4**
+  - parola: Riposo
+  - dono: Prenditi un riposo vero: una giornata senza produrre niente di utile.
+  - medora: Il vuoto riempie i pozzi che il lavoro continuo prosciuga.
+- **rovesciato, lettura 5**
+  - parola: Realtà
+  - dono: Guarda in faccia una realtà che eviti: controlla il dato, apri la lettera, leggi il referto.
+  - medora: L'ignoto immaginato spaventa più del fatto conosciuto.
+- **rovesciato, lettura 6**
+  - parola: Prove
+  - dono: Elenca tre prove che hai superato in passato, per rileggerle quando dubiti.
+  - medora: Quello che hai già attraversato dice meglio di tutto quanto reggi.
+- **rovesciato, lettura 7**
+  - parola: Vicinanza
+  - dono: Porta vicinanza dove manchi: una telefonata a chi sta attraversando un periodo duro.
+  - medora: Farsi vivi nei momenti difficili viene ricordato per anni.
+- **rovesciato, lettura 8**
+  - parola: Obiettivo
+  - dono: Riduci un obiettivo enorme alla sua prima ora di lavoro, facendo soltanto quella.
+  - medora: Le imprese immense si sciolgono in compiti di sessanta minuti.
+- **rovesciato, lettura 9**
+  - parola: Gratitudine
+  - dono: Scrivi con gratitudine tre cose che funzionano nella tua vita, anche banali.
+  - medora: Quando tutto sembra storto, l'inventario rimette le proporzioni al loro posto.
+- **rovesciato, lettura 10**
+  - parola: Distacco
+  - dono: Concediti un distacco di un giorno dalle vite degli altri sullo schermo.
+  - medora: Nessuno mostra la propria noia, eppure tutti la vivono.
+- **rovesciato, lettura 11**
+  - parola: Compassione
+  - dono: Usa compassione verso te: ripeti che stai facendo del tuo meglio.
+  - medora: Pretendere da sé oltre le forze non ha mai accelerato niente.
+- **rovesciato, lettura 12**
+  - parola: Oggetto
+  - dono: Prendi un oggetto bello che tieni nascosto, mettendolo dove si veda.
+  - medora: Circondarsi di poche cose belle cambia l'umore più di un discorso.
 
-### XVIII La Luna, Pesci, parola
+### XVIII La Luna, Pesci
 
 - **dritto, lettura 1**
-  - parola: Intuito
-  - dono: Procedi a intuito dove le cose non sono chiare: fai il passo che ti sembra giusto senza pretendere tutte le prove.
-  - medora: Certi passaggi si attraversano al buio, fidandosi del piede.
-- **dritto, lettura 2**
   - parola: Sogno
-  - dono: Al risveglio di domani scrivi un frammento di sogno anche confuso e rileggilo prima di pranzo cercando ciò che ti somiglia.
-  - medora: La notte parla per immagini: basta non avere fretta di tradurle.
+  - dono: Scrivi un sogno appena lo ricordi, anche a frammenti, senza volerlo spiegare.
+  - medora: Il buio interiore parla per immagini a chi le raccoglie.
+- **dritto, lettura 2**
+  - parola: Immaginazione
+  - dono: Lascia correre l'immaginazione per un quarto d'ora, con carta e matita.
+  - medora: La mente libera produce cose che la mente comandata non trova.
 - **dritto, lettura 3**
-  - parola: Prudenza
-  - dono: Metti prudenza in una situazione che ti appare diversa da ieri: aspetta un'informazione in più prima di muoverti.
-  - medora: Non tutto è come si mostra alla prima occhiata: il tempo porta i dettagli.
+  - parola: Sensibilità
+  - dono: Onora la tua sensibilità: evita oggi un ambiente che ti prosciuga, se puoi.
+  - medora: Chi sente molto ha bisogno di più silenzio, non di più forza.
+- **dritto, lettura 4**
+  - parola: Intuito
+  - dono: Segui un intuito su qualcuno: fai una domanda prima di agire.
+  - medora: Percepire è un dato, non ancora una conclusione.
+- **dritto, lettura 5**
+  - parola: Marea
+  - dono: Riconosci la marea del tuo umore: annota come stai adesso e rileggilo domani.
+  - medora: Gli stati interiori salgono e scendono come acqua, senza chiedere il permesso.
+- **dritto, lettura 6**
+  - parola: Confusione
+  - dono: Accetta una confusione senza risolverla: scrivi le domande aperte, senza risposte.
+  - medora: Certe cose si chiariscono soltanto dopo essere state guardate a lungo.
+- **dritto, lettura 7**
+  - parola: Sonno
+  - dono: Anticipa il sonno di mezz'ora, lasciando il telefono in un'altra stanza.
+  - medora: Il riposo profondo ripara quello che nessuna strategia risolve.
+- **dritto, lettura 8**
+  - parola: Simbolo
+  - dono: Cerca un simbolo che torna nella tua vita: un animale, un colore, una scena.
+  - medora: Le cose che tornano insistono finché qualcuno le ascolta.
+- **dritto, lettura 9**
+  - parola: Acqua
+  - dono: Fermati vicino all'acqua per mezz'ora: un fiume, una vasca, il mare, una fontana.
+  - medora: Davanti a qualcosa che scorre i pensieri si mettono in fila da soli.
+- **dritto, lettura 10**
+  - parola: Compassione
+  - dono: Usa compassione con una persona difficile: immagina che cosa sta portando.
+  - medora: Quasi tutte le durezze nascono da una fatica che non si vede.
+- **dritto, lettura 11**
+  - parola: Arte
+  - dono: Fai una cosa di arte senza scopo: disegna, canta, scrivi, per dieci minuti.
+  - medora: Creare senza obiettivo scarica quello che il pensiero non riesce a dire.
+- **dritto, lettura 12**
+  - parola: Mistero
+  - dono: Lascia un mistero senza indagarlo: rinuncia oggi a cercare una spiegazione.
+  - medora: Non tutto quello che accade deve diventare una teoria.
 - **rovesciato, lettura 1**
-  - parola: Chiarore
-  - dono: Accogli il chiarore che sta arrivando: prendi una paura degli ultimi giorni e valuta quanto è grande davvero.
-  - medora: Al buio sembrava enorme: alla luce ha le sue dimensioni vere.
+  - parola: Chiarezza
+  - dono: Cerca chiarezza su un punto confuso: elenca i fatti certi, separati dalle supposizioni.
+  - medora: Separare quello che si sa da quello che si teme dimezza l'angoscia.
 - **rovesciato, lettura 2**
-  - parola: Nebbia
-  - dono: Esci dalla nebbia con calma: sistema il dubbio più piccolo, quello che si scioglie con una domanda.
-  - medora: Ogni certezza ritrovata ne porta un'altra con sé.
+  - parola: Verifica
+  - dono: Verifica una paura: chiedi direttamente alla persona coinvolta come stanno le cose.
+  - medora: Le storie inventate nella testa hanno sempre il finale peggiore.
 - **rovesciato, lettura 3**
-  - parola: Sollievo
-  - dono: Concediti il sollievo di una paura che si è rivelata più piccola: raccontala a qualcuno ridendoci sopra, se puoi.
-  - medora: Le ombre perdono potere quando le si guarda con occhi nuovi.
+  - parola: Riduzione
+  - dono: Fai una riduzione di quello che usi per calmarti: metà dose, per questa settimana.
+  - medora: Ciò che tranquillizza in fretta manda il conto poco dopo.
+- **rovesciato, lettura 4**
+  - parola: Confine
+  - dono: Metti un confine con chi ti riempie di problemi: un limite di tempo dichiarato.
+  - medora: Ascoltare sempre tutti trasforma la gentilezza in un lavoro non pagato.
+- **rovesciato, lettura 5**
+  - parola: Faccenda
+  - dono: Occupati di una faccenda pratica rimasta indietro: modulo, bollette, appuntamento.
+  - medora: Le questioni terrene aspettano pazienti e non si risolvono da sole.
+- **rovesciato, lettura 6**
+  - parola: Regolarità
+  - dono: Datti una regolarità per coricarti e rispettala anche stanotte, contro l'abitudine.
+  - medora: Il corpo ringrazia gli orari fissi più di qualunque rimedio.
+- **rovesciato, lettura 7**
+  - parola: Malinteso
+  - dono: Chiudi un malinteso in due frasi, invece di rimandare ancora.
+  - medora: I fraintendimenti crescono in fretta dove nessuno li nomina.
+- **rovesciato, lettura 8**
+  - parola: Illuminazione
+  - dono: Porta illuminazione dove stai male: apri le tende, accendi, cambia postazione.
+  - medora: L'ambiente conta sull'umore molto più di quanto si creda.
+- **rovesciato, lettura 9**
+  - parola: Competenza
+  - dono: Cerca competenza vera per una faccenda che ti spaventa da mesi.
+  - medora: Certe paure si sciolgono davanti a chi conosce il mestiere.
+- **rovesciato, lettura 10**
+  - parola: Compagnia
+  - dono: Trova la compagnia di qualcuno in carne e ossa invece di uno schermo, per un'ora.
+  - medora: Una persona davanti calma quello che le chat agitano.
+- **rovesciato, lettura 11**
+  - parola: Ordine
+  - dono: Rimetti ordine dove regna il disordine, cominciando dal piano più visibile.
+  - medora: Lo spazio intorno racconta quello che dentro non si riesce a dire.
+- **rovesciato, lettura 12**
+  - parola: Mossa
+  - dono: Compi una mossa pratica verso un desiderio che tieni soltanto nella testa.
+  - medora: I desideri senza gesti restano un pensiero, non diventano vita.
 
-### XIX Il Sole, Sole, azione
+### XIX Il Sole, Sole
 
 - **dritto, lettura 1**
-  - dono: Racconta una gioia di oggi a una persona vicina, per intero, senza sminuirla.
-  - medora: Il bene condiviso non diminuisce, si moltiplica.
+  - parola: Chiarezza
+  - dono: Porta chiarezza in una faccenda ingarbugliata: spiegala a qualcuno in tre frasi.
+  - medora: Quello che si riesce a dire semplice è quello che si è capito davvero.
 - **dritto, lettura 2**
-  - dono: Esci all'aperto per almeno quindici minuti nelle ore luminose e lascia che il calore ti arrivi sulla pelle.
-  - medora: Il corpo ricorda la felicità prima ancora che la mente la nomini.
+  - parola: Gioia
+  - dono: Concediti una gioia dichiarata: fai una cosa che ti piace, senza chiamarla riposo.
+  - medora: Il piacere non ha bisogno di essere utile per meritare un posto.
 - **dritto, lettura 3**
-  - dono: Festeggia un risultato recente, anche piccolo, con un gesto visibile: un dolce, un fiore, un messaggio a chi ti ha aiutato.
-  - medora: Un successo riconosciuto diventa terreno per il prossimo.
+  - parola: Calore
+  - dono: Porta calore a qualcuno che sta indietro: una lode precisa, detta davanti ad altri.
+  - medora: Il riconoscimento pubblico vale dieci incoraggiamenti privati.
+- **dritto, lettura 4**
+  - parola: Visibilità
+  - dono: Prenditi una visibilità che eviti: mostra il tuo lavoro a chi può apprezzarlo.
+  - medora: Chi si nasconde per modestia insegna agli altri a non cercarlo.
+- **dritto, lettura 5**
+  - parola: Semplicità
+  - dono: Scegli la semplicità in una decisione: la soluzione più diretta, senza abbellirla.
+  - medora: Le strade complicate nascono spesso dal bisogno di sembrare bravi.
+- **dritto, lettura 6**
+  - parola: Infanzia
+  - dono: Riprendi un gioco dell'infanzia per mezz'ora: disegno, bicicletta, pallone, costruzioni.
+  - medora: Certe felicità si erano soltanto impolverate, non erano finite.
+- **dritto, lettura 7**
+  - parola: Successo
+  - dono: Racconta un successo tuo senza sminuirlo, a una persona che ti vuole bene.
+  - medora: Chi ridimensiona sempre quello che fa finisce per crederci davvero.
+- **dritto, lettura 8**
+  - parola: Cielo
+  - dono: Esci all'aperto per mezz'ora e stai sotto il cielo senza fare altro.
+  - medora: Il corpo ha bisogno di aria aperta quanto ha bisogno di cibo.
+- **dritto, lettura 9**
+  - parola: Complimento
+  - dono: Di' un complimento vero a qualcuno, oggi, senza costruirci intorno un discorso.
+  - medora: Le parole buone dette senza motivo restano addosso per anni.
+- **dritto, lettura 10**
+  - parola: Energia
+  - dono: Usa l'energia migliore della giornata sulla cosa che conta, non sulla posta.
+  - medora: Le ore buone sono poche, quasi sempre spese male.
+- **dritto, lettura 11**
+  - parola: Amicizia
+  - dono: Organizza qualcosa di allegro con due amici: una data, un posto, una scusa qualunque.
+  - medora: Dopo una certa età le occasioni non capitano, si costruiscono.
+- **dritto, lettura 12**
+  - parola: Fiducia
+  - dono: Mostra fiducia a chi sta imparando: lasciagli fare una cosa per intero, senza intervenire.
+  - medora: Si cresce dove qualcuno ha smesso di controllare ogni passaggio.
 - **rovesciato, lettura 1**
-  - dono: Dietro una nube c'è tepore: scrivi prima di cena tre cose andate bene, anche minuscole.
-  - medora: Qualcosa copre la luce per un poco, ma non l'ha spenta.
+  - parola: Modestia
+  - dono: Pratica una modestia vera: attribuisci apertamente un merito condiviso a chi lo ha avuto.
+  - medora: Il merito diviso non si dimezza, si moltiplica.
 - **rovesciato, lettura 2**
-  - dono: Lascia cadere un pensiero vecchio che ti spegne l'entusiasmo: scrivilo, strappa il foglio e apri la finestra.
-  - medora: Spesso la gioia aspetta solo che smettiamo di rimandarla.
+  - parola: Malumore
+  - dono: Ammetti un malumore senza combatterlo: annotalo e lascialo stare.
+  - medora: Anche le giornate storte fanno parte della vita di chiunque.
 - **rovesciato, lettura 3**
-  - dono: Concediti un'ora di una cosa semplice che ti rendeva felice nell'infanzia: un gioco, un disegno, una merenda.
-  - medora: Il calore torna in fretta a chi gli lascia uno spiraglio.
+  - parola: Esposizione
+  - dono: Riduci l'esposizione per un giorno: niente racconti di te su nessuno schermo.
+  - medora: Mostrarsi sempre stanca quanto lavorare.
+- **rovesciato, lettura 4**
+  - parola: Numeri
+  - dono: Verifica un entusiasmo recente: leggi i numeri veri prima di lanciarti.
+  - medora: L'euforia è un'ottima partenza e una pessima consigliera.
+- **rovesciato, lettura 5**
+  - parola: Pazienza
+  - dono: Esercita pazienza con una cosa che non decolla: dalle ancora due settimane.
+  - medora: Molte imprese hanno fallito il giorno prima di funzionare.
+- **rovesciato, lettura 6**
+  - parola: Ascolto
+  - dono: Ascolta senza brillare: in una conversazione parla per ultimo e poco.
+  - medora: Chi occupa tutto lo spazio non sa mai cosa avrebbe sentito.
+- **rovesciato, lettura 7**
+  - parola: Paragone
+  - dono: Smetti di misurarti con una persona: togli il paragone e guarda soltanto i tuoi progressi.
+  - medora: Correre la gara di un altro fa perdere la propria.
+- **rovesciato, lettura 8**
+  - parola: Cura
+  - dono: Fatti una cura in segreto: nessuno deve saperlo, nemmeno di sfuggita.
+  - medora: Il bene tenuto per sé resta interamente tuo.
+- **rovesciato, lettura 9**
+  - parola: Delusione
+  - dono: Osserva una delusione di questi giorni e scrivi che cosa ti aspettavi davvero.
+  - medora: Sotto ogni amarezza c'è un'aspettativa che nessuno aveva concordato.
+- **rovesciato, lettura 10**
+  - parola: Gioia
+  - dono: Cerca una gioia minima in una giornata pesante: un caffè, una canzone, una risata.
+  - medora: Nelle settimane dure contano soltanto le cose piccole.
+- **rovesciato, lettura 11**
+  - parola: Sincerità
+  - dono: Rispondi con sincerità a chi ti chiede come stai, invece del solito bene.
+  - medora: La risposta automatica tiene a distanza anche chi vorrebbe avvicinarsi.
+- **rovesciato, lettura 12**
+  - parola: Gratitudine
+  - dono: Ringrazia con gratitudine chi ti ha fatto un favore che avevi dato per scontato.
+  - medora: Le cose ricevute sempre smettono presto di essere notate.
 
-### XX Il Giudizio, Fuoco, respiro
+### XX Il Giudizio, Fuoco
 
 - **dritto, lettura 1**
-  - dono: Stai nell'ardore di una chiamata: tieni accesa per tutta la giornata la domanda su quale vita senti più tua e rispondi con un gesto prima di sera.
-  - medora: Ci sono richiami che bussano finché qualcuno apre.
+  - parola: Chiamata
+  - dono: Rispondi a una chiamata che senti da tempo: fai il primo atto concreto, oggi.
+  - medora: Le vocazioni rimandate diventano rimpianti con una puntualità impressionante.
 - **dritto, lettura 2**
-  - dono: Abita il calore che hai nel petto: all'inizio di ogni ora alzati, stira la schiena e chiediti se stai vivendo la giornata che hai scelto.
-  - medora: Rinascere non vuol dire rinnegare chi eri, vuol dire portarlo con te più avanti.
+  - parola: Bilancio
+  - dono: Fai un bilancio dell'anno a metà: tre cose andate bene, tre da cambiare.
+  - medora: Guardarsi indietro serve soltanto se si decide qualcosa di nuovo.
 - **dritto, lettura 3**
-  - dono: Resta vicino a una fiamma, anche piccola: accendi una candela per qualche minuto e fai un bilancio breve di ciò che è cambiato in te.
-  - medora: Un conto sincero con se stessi scalda invece di bruciare.
+  - parola: Perdono
+  - dono: Concedi un perdono vecchio: scrivi una lettera che non manderai e chiudila.
+  - medora: Alcune pagine si girano da sole nel momento in cui vengono scritte.
+- **dritto, lettura 4**
+  - parola: Automatismo
+  - dono: Rompi un automatismo: cambia l'ordine, il percorso o il modo, per una volta sola.
+  - medora: L'abitudine addormenta anche le giornate più interessanti.
+- **dritto, lettura 5**
+  - parola: Verità
+  - dono: Riconosci una verità che sapevi da tempo, comportandoti come se fosse vera.
+  - medora: Sapere una cosa senza agirla equivale a non saperla.
+- **dritto, lettura 6**
+  - parola: Rinascita
+  - dono: Comincia una rinascita minuscola: torna a una pratica lasciata, per un quarto d'ora.
+  - medora: Nessuna ripartenza deve essere grandiosa, deve soltanto cominciare.
+- **dritto, lettura 7**
+  - parola: Parola
+  - dono: Prendi parola dove hai taciuto per convenienza, con una frase misurata.
+  - medora: Il silenzio ripetuto diventa complicità agli occhi di tutti.
+- **dritto, lettura 8**
+  - parola: Eredità
+  - dono: Lascia in eredità una tua competenza: insegnala a qualcuno in mezz'ora.
+  - medora: Quello che si trasmette sopravvive a chi lo trasmette.
+- **dritto, lettura 9**
+  - parola: Riunione
+  - dono: Riunisci le persone che ti servono per una cosa: scrivi a tre di loro oggi.
+  - medora: Le imprese collettive cominciano sempre da un messaggio scomodo.
+- **dritto, lettura 10**
+  - parola: Riconoscimento
+  - dono: Porta un riconoscimento a qualcuno: digli quale suo lavoro ti ha cambiato, con un esempio.
+  - medora: Aver lasciato un segno tiene in piedi durante i periodi vuoti.
+- **dritto, lettura 11**
+  - parola: Scelta
+  - dono: Rivedi una scelta fatta anni fa: chiediti se la rifaresti oggi con i dati di adesso.
+  - medora: Alcune decisioni restano in vigore soltanto perché nessuno le ha riviste.
+- **dritto, lettura 12**
+  - parola: Purificazione
+  - dono: Fai una purificazione degli oggetti che appartengono a una fase chiusa: butta oppure dona.
+  - medora: Le cose di una vita finita tengono aperta una porta che vorresti serrata.
 - **rovesciato, lettura 1**
-  - dono: Stai in un tepore raccolto: invece di rimproverarti per ciò che non hai fatto, riconosci una cosa che hai fatto bene.
-  - medora: La rinascita nasce dall'ascolto, mai dalla condanna.
+  - parola: Indulgenza
+  - dono: Usa indulgenza su un tuo sbaglio antico: smetti di raccontarlo come una colpa.
+  - medora: Il rimorso ripassato non ripara niente e consuma chi lo ripassa.
 - **rovesciato, lettura 2**
-  - dono: Custodisci la brace coperta: niente grandi bilanci, solo una domanda gentile sulla direzione, lasciata maturare fino a sera.
-  - medora: Sotto la cenere qualcosa cova: non si spegne, aspetta il tempo buono.
+  - parola: Attesa
+  - dono: Concediti un'attesa invece di una risposta definitiva: rimanda il verdetto di una settimana.
+  - medora: Certe conclusioni arrivano soltanto quando smettiamo di forzarle.
 - **rovesciato, lettura 3**
-  - dono: Riposa nel tepore del perdono: scegli un errore passato e ripeti tre volte, piano, che puoi lasciarlo andare.
-  - medora: Comprendere prima di sentenziare vale soprattutto quando il processo è con te.
+  - parola: Compassione
+  - dono: Guarda con compassione una persona che stai condannando da mesi.
+  - medora: Nessuno merita di essere ridotto al suo giorno peggiore.
+- **rovesciato, lettura 4**
+  - parola: Attenzione
+  - dono: Riporta l'attenzione a quello che hai davanti: fai bene una cosa piccola, adesso.
+  - medora: Il passato si rimastica volentieri, ma non si può più cucinare.
+- **rovesciato, lettura 5**
+  - parola: Dubbio
+  - dono: Metti in dubbio un verdetto su di te: elenca tre fatti che lo contraddicono.
+  - medora: Le condanne che ci diamo raramente reggono a un esame serio.
+- **rovesciato, lettura 6**
+  - parola: Ripresa
+  - dono: Riprendi una cosa abbandonata con la dose minima: cinque minuti, senza pretese.
+  - medora: Ricominciare in piccolo è l'unico modo che dura.
+- **rovesciato, lettura 7**
+  - parola: Confessione
+  - dono: Fai una confessione breve a una persona: due frasi su quello che ti pesa, senza scuse.
+  - medora: Ciò che pronunciamo smette di occupare la stanza di dentro.
+- **rovesciato, lettura 8**
+  - parola: Tempo
+  - dono: Concedi tempo a una decisione che altri vogliono subito: chiedi quarantotto ore.
+  - medora: Le urgenze altrui non sono quasi mai urgenze tue.
+- **rovesciato, lettura 9**
+  - parola: Ricordo
+  - dono: Ricorda una cosa bella di un periodo che consideri brutto: scrivila tutta.
+  - medora: Nessuna stagione è stata soltanto quello che ne raccontiamo.
+- **rovesciato, lettura 10**
+  - parola: Umiltà
+  - dono: Con umiltà, chiedi a qualcuno come ha vissuto una faccenda che credevi di conoscere.
+  - medora: Ogni storia ha almeno una versione che ci manca.
+- **rovesciato, lettura 11**
+  - parola: Bene
+  - dono: Fai del bene senza collegarlo a nessun riscatto: aiuta e basta.
+  - medora: Non tutto quello che facciamo deve servire a dimostrare qualcosa.
+- **rovesciato, lettura 12**
+  - parola: Silenzio
+  - dono: Tieni il silenzio su un torto vecchio, anche dove verrebbe naturale rievocarlo.
+  - medora: Certe storie si spengono soltanto se nessuno le riaccende.
 
-### XXI Il Mondo, Saturno, azione
+### XXI Il Mondo, Saturno
 
 - **dritto, lettura 1**
-  - dono: Chiudi un cerchio: porta a termine una cosa iniziata e segnala come conclusa, con una riga o un messaggio.
-  - medora: Tutto ciò che hai attraversato adesso fa parte di te, intero.
+  - parola: Compimento
+  - dono: Porta a compimento una cosa al novanta per cento: finiscila oggi, anche imperfetta.
+  - medora: L'ultimo decimo di lavoro decide se tutto il resto è servito.
 - **dritto, lettura 2**
-  - dono: Dedica dieci minuti al percorso fatto quest'anno prima di cominciare qualcosa di nuovo e scrivi un traguardo raggiunto.
-  - medora: Ogni compimento merita una sosta prima del prossimo inizio.
+  - parola: Viaggio
+  - dono: Programma un viaggio vero: guarda le date, il costo e prenota una parte.
+  - medora: Un desiderio con una data smette di essere una fantasia.
 - **dritto, lettura 3**
-  - dono: Ringrazia una persona che ha contribuito a un tuo risultato recente, con parole precise su cosa ha fatto.
-  - medora: La pienezza si gusta meglio quando la si divide.
+  - parola: Appartenenza
+  - dono: Cerca un'appartenenza: entra in un gruppo, iscriviti, presentati a chi fa la tua stessa cosa.
+  - medora: Si va molto più lontano dove qualcuno ti aspetta.
+- **dritto, lettura 4**
+  - parola: Riconoscenza
+  - dono: Di' con riconoscenza a chi ti ha aiutato in un percorso lungo che cosa è cambiato.
+  - medora: Chi ci ha accompagnato raramente sa quanto ha contato.
+- **dritto, lettura 5**
+  - parola: Cerchio
+  - dono: Chiudi un cerchio: rispondi all'ultima cosa rimasta in sospeso di una faccenda vecchia.
+  - medora: Le questioni chiuse davvero non tornano a bussare di notte.
+- **dritto, lettura 6**
+  - parola: Maturità
+  - dono: Comportati con maturità in una tensione: di' la tua senza alzare il tono, poi ascolta.
+  - medora: Si misura una persona da come sta dentro un disaccordo.
+- **dritto, lettura 7**
+  - parola: Racconto
+  - dono: Guarda una faccenda tua dall'alto: scrivi come la racconteresti a uno straniero.
+  - medora: La distanza rimette le proporzioni dove la vicinanza le aveva tolte.
+- **dritto, lettura 8**
+  - parola: Competenza
+  - dono: Usa una competenza che hai per risolvere un problema di un altro, gratis.
+  - medora: Quello che per te è facile per qualcuno è una montagna.
+- **dritto, lettura 9**
+  - parola: Quartiere
+  - dono: Fai una cosa per il quartiere dove vivi: raccogli una cartaccia, cura una pianta pubblica.
+  - medora: Il luogo che abitiamo restituisce esattamente la cura che riceve.
+- **dritto, lettura 10**
+  - parola: Bilancio
+  - dono: Fai un bilancio degli ultimi cinque anni: scrivi tre cose che hai imparato davvero.
+  - medora: I periodi lunghi si giudicano soltanto da lontano.
+- **dritto, lettura 11**
+  - parola: Festa
+  - dono: Organizza una festa per una cosa conclusa, anche piccola: una cena, un brindisi, un regalo.
+  - medora: Chi non celebra mai niente ricorda soltanto la fatica di arrivarci.
+- **dritto, lettura 12**
+  - parola: Insegnamento
+  - dono: Manda un insegnamento a chi comincia: quello che avresti voluto sapere tu al principio.
+  - medora: L'esperienza diventa utile soltanto quando esce da chi la possiede.
 - **rovesciato, lettura 1**
-  - dono: Trova l'ultimo pezzo mancante di un lavoro quasi finito e dedicagli la prima ora utile della giornata.
-  - medora: Proprio vicino alla fine vale la pena non fermarsi.
+  - parola: Tassello
+  - dono: Cerca il tassello che manca a una cosa quasi finita, facendo soltanto quello.
+  - medora: Le opere restano ferme sempre per un dettaglio, mai per l'insieme.
 - **rovesciato, lettura 2**
-  - dono: Fai l'elenco dei dettagli che restano da sciogliere in un progetto lungo e cancellane almeno uno prima di sera.
-  - medora: Il cerchio si chiude con calma, un tratto alla volta.
+  - parola: Routine
+  - dono: Rompi una routine: cambia un elemento della giornata tipo, uno soltanto.
+  - medora: Le settimane identiche si cancellano dalla memoria come se non fossero state.
 - **rovesciato, lettura 3**
-  - dono: Rimetti in ordine le carte di una fase che sta finendo, documenti, foto, appunti, così che il passaggio sia pulito.
-  - medora: Un compimento preparato bene rende leggero il prossimo inizio.
+  - parola: Confine
+  - dono: Metti un confine a un impegno che allarga troppo il tuo raggio di azione.
+  - medora: Prendere tutto significa fare male quasi tutto.
+- **rovesciato, lettura 4**
+  - parola: Radicamento
+  - dono: Metti radici dove sei: conosci un vicino, un negoziante, chi lavora sotto casa.
+  - medora: Si sta meglio dove qualcuno conosce il tuo nome.
+- **rovesciato, lettura 5**
+  - parola: Pazienza
+  - dono: Accetta con pazienza che una faccenda lunga duri ancora: fissa il prossimo controllo.
+  - medora: I tempi delle cose grandi non trattano con la nostra fretta.
+- **rovesciato, lettura 6**
+  - parola: Fine
+  - dono: Ammetti la fine di una cosa e dillo: a te, a un socio, a una persona.
+  - medora: Tenere in vita quello che è morto costa più di qualunque congedo.
+- **rovesciato, lettura 7**
+  - parola: Sospensione
+  - dono: Riduci il numero delle cose che segui: sospendine una per un mese intero.
+  - medora: Meno fronti aperti rende ciascuno di loro molto più forte.
+- **rovesciato, lettura 8**
+  - parola: Rientro
+  - dono: Fai un rientro su una cosa tua lasciata per gli altri: dedicale un'ora vera.
+  - medora: Chi si dimentica sempre per ultimo finisce per non arrivarci mai.
+- **rovesciato, lettura 9**
+  - parola: Aspettativa
+  - dono: Taglia del venticinque per cento le aspettative su una cosa che comincia adesso.
+  - medora: Le previsioni prudenti fanno dormire meglio di quelle brillanti.
+- **rovesciato, lettura 10**
+  - parola: Lontananza
+  - dono: Chiama una persona lontana con cui condividevi un progetto: sentitevi per mezz'ora.
+  - medora: Certi legami reggono anni di silenzio e si riaccendono in cinque minuti.
+- **rovesciato, lettura 11**
+  - parola: Gratitudine
+  - dono: Elenca con gratitudine quattro cose che possiedi adesso e che un tempo desideravi.
+  - medora: L'abitudine cancella in fretta quello che una volta sembrava impossibile.
+- **rovesciato, lettura 12**
+  - parola: Inizio
+  - dono: Scegli l'inizio della prossima stagione e segnalo sul calendario adesso.
+  - medora: Ciò che non ha una data resta un'intenzione per anni.

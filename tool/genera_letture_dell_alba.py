@@ -35,8 +35,9 @@ def leggi():
     letture = []
     carta = None
     for riga in sezione.split('\n'):
-        m = re.match(r'^### (?:0|[IVXL]+) (.+?), [^,]+, '
-                     r'(respiro|azione|parola)$', riga)
+        # Ordine DU voce 09: l'intestazione porta il nome e l'attribuzione,
+        # e non piu' la forma, perche' la forma e' una sola per tutti.
+        m = re.match(r'^### (?:0|[IVXL]+) (.+?), [^,]+$', riga)
         if m:
             carta = CARTE.index(m.group(1))
             continue

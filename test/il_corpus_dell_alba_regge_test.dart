@@ -7,7 +7,7 @@ import 'package:esoteric_circle/core/rituals/arcano_dell_alba/forme_dell_alba.da
 import 'package:esoteric_circle/core/rituals/arcano_dell_alba/lettura_dell_alba.dart';
 import 'package:esoteric_circle/core/rituals/arcano_dell_alba/letture_dell_alba_dati.dart';
 import 'package:esoteric_circle/core/rituals/arcano_dell_alba/responso_dell_alba.dart';
-import 'package:esoteric_circle/core/rituals/arcano_dell_alba/sacchetto_dell_alba.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/stato_dell_alba.dart';
 import 'package:esoteric_circle/core/tarot/figure_della_stesa.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -25,35 +25,49 @@ import 'nucleo_del_responso.dart';
 void main() {
   const corpus = lettureDellAlba;
   final stati = [
-    for (var i = 0; i < SacchettoDellAlba.stati; i++) StatoDellAlba.daId(i),
+    for (var i = 0; i < StatoDellAlba.quanti; i++) StatoDellAlba.daId(i),
   ];
 
-  test('ogni stato ha almeno tre letture, numerate da uno senza buchi', () {
-    expect(corpus.length, greaterThanOrEqualTo(SacchettoDellAlba.stati * 3),
+  /// **DODICI PER STATO**, decisione di Mauro del 17 settembre 2026, ordine
+  /// DU voce 12: senza vincoli sull'estrazione le ripetizioni si vedrebbero
+  /// prima, e dodici letture sono il giro che una persona attraversa prima di
+  /// rivedere un testo dello stesso stato.
+  const perStato = 12;
+
+  test('ogni stato ha dodici letture, numerate da uno senza buchi', () {
+    expect(corpus.length, greaterThanOrEqualTo(StatoDellAlba.quanti * perStato),
         reason: 'il corpus ha ${corpus.length} letture');
     for (final s in stati) {
       final numeri = ResponsoDellAlba.lettureDi(s).map((l) => l.numero).toList()
         ..sort();
-      expect(numeri.length, greaterThanOrEqualTo(3),
+      expect(numeri.length, greaterThanOrEqualTo(perStato),
           reason: '${ResponsoDellAlba.cartaColVerso(s)}: ${numeri.length}');
       expect(numeri, List.generate(numeri.length, (i) => i + 1));
     }
   });
 
-  test(
-      'LA FAMIGLIA DECIDE LA FORMA: la parola solo alle zodiacali, e il dono '
-      'la porta', () {
+  test('OGNI CARTA HA LA SUA PAROLA, e il dono la porta', () {
+    // **Ordine DU voci 08 e 09.** Il respiro e' di Aura e non e' piu' una
+    // forma del dono; la parola non e' piu' un privilegio delle zodiacali:
+    // **tutto parte dalla carta**, quindi ogni lettura di ogni stato ha la
+    // sua parola, e la parola vive dentro il dono che la porta.
     expect(corpus, isNotEmpty);
+    final senzaParola = <String>[];
+    final nonPortate = <String>[];
     for (final l in corpus) {
-      final zodiacale = l.attribuzione.famiglia == FamigliaDellArcano.zodiacale;
       final nome = ResponsoDellAlba.cartaColVerso(l.stato);
-      expect(l.parola != null, zodiacale,
-          reason: '$nome lettura ${l.numero}: la parola spetta alle zodiacali');
-      if (l.parola != null) {
-        expect(NucleoDelResponso.nomina(l.dono, l.parola!), isTrue,
-            reason: '$nome: il dono non porta la parola ${l.parola}');
+      if (l.parola == null) {
+        senzaParola.add('$nome ${l.numero}');
+        continue;
+      }
+      if (!NucleoDelResponso.nomina(l.dono, l.parola!)) {
+        nonPortate.add('$nome ${l.numero}: la parola ${l.parola}');
       }
     }
+    expect(senzaParola, isEmpty,
+        reason: 'queste letture non hanno la parola della carta: $senzaParola');
+    expect(nonPortate, isEmpty,
+        reason: 'in queste letture il dono non porta la parola: $nonPortate');
   });
 
   test(
@@ -63,7 +77,7 @@ void main() {
     expect(corpus.map((l) => l.dono).toSet(), hasLength(corpus.length));
     expect(corpus.map((l) => l.medora).toSet(), hasLength(corpus.length));
     final stessoDono = <String>[];
-    for (var c = 0; c < SacchettoDellAlba.carte; c++) {
+    for (var c = 0; c < StatoDellAlba.carte; c++) {
       final dritte =
           ResponsoDellAlba.lettureDi(StatoDellAlba(c, rovescio: false));
       final rovesce =
@@ -114,32 +128,61 @@ void main() {
       'I REGISTRI POSSONO RESTARE A ZERO: parole, aperture del dono e di '
       'Medora tutte distinte, e piu aperture del primo movimento che giorni',
       () {
+    // **DENTRO LO STATO NON SI RIPETE NIENTE**, ed e' la misura che conta:
+    // chi riceve due volte la stessa carta legge dodici testi diversi, con
+    // dodici parole diverse e dodici attacchi diversi.
+    //
+    // **Fra stati diversi una parola puo' tornare**, ordine DU: con
+    // cinquecentoventotto letture pretendere cinquecentoventotto parole
+    // distinte avrebbe portato parole cercate col vocabolario invece che con
+    // la carta, e la voce 08 dice il contrario. A non farle tornare vicine
+    // pensa il registro della persona, che ricorda le ultime quarantaquattro
+    // consegne.
     expect(corpus, isNotEmpty);
-    final parole = [
-      for (final l in corpus)
-        if (l.parola != null) DiarioDellAlba.apertura(l.parola!),
-    ];
-    expect(parole.toSet(), hasLength(parole.length),
-        reason: 'una parola del giorno si ripete nel corpus');
+    for (final s in stati) {
+      final letture = ResponsoDellAlba.lettureDi(s);
+      final dove = ResponsoDellAlba.cartaColVerso(s);
+      for (final (nome, di) in [
+        ('parola', (LetturaDellAlba l) => l.parola ?? ''),
+        ('dono', (LetturaDellAlba l) => l.dono),
+        ('Medora', (LetturaDellAlba l) => l.medora),
+      ]) {
+        final viste = <String, int>{};
+        for (final l in letture) {
+          final a = DiarioDellAlba.apertura(di(l));
+          expect(viste[a], isNull,
+              reason: '$dove: l\'attacco "$a" del $nome torna nella lettura '
+                  '${l.numero} e nella ${viste[a]}');
+          viste[a] = l.numero;
+        }
+      }
+    }
+
+    // **E NESSUN ATTACCO E' PADRONE DEL CORPUS.** Un attacco usato ovunque
+    // svuoterebbe il registro di senso: si concede fino a un ventesimo delle
+    // letture, che su cinquecentoventotto fa ventisei.
+    final tetto = (corpus.length / 20).ceil();
     for (final (nome, di) in [
       ('dono', (LetturaDellAlba l) => l.dono),
       ('Medora', (LetturaDellAlba l) => l.medora),
     ]) {
-      final viste = <String, String>{};
+      final quante = <String, int>{};
       for (final l in corpus) {
         final a = DiarioDellAlba.apertura(di(l));
-        final prima = viste[a];
-        expect(prima, isNull,
-            reason: 'l\'apertura "$a" del $nome torna in '
-                '${ResponsoDellAlba.cartaColVerso(l.stato)} ${l.numero} e in '
-                '$prima');
-        viste[a] = '${ResponsoDellAlba.cartaColVerso(l.stato)} ${l.numero}';
+        quante[a] = (quante[a] ?? 0) + 1;
       }
+      final padroni = [
+        for (final e in quante.entries)
+          if (e.value > tetto) '${e.key} (${e.value})',
+      ]..sort();
+      expect(padroni, isEmpty,
+          reason: 'questi attacchi del $nome passano il tetto di $tetto: '
+              '$padroni');
     }
     final aperture =
         FormeDellAlba.aperture.map(DiarioDellAlba.apertura).toSet();
     expect(aperture, hasLength(FormeDellAlba.aperture.length));
-    expect(aperture.length, greaterThanOrEqualTo(SacchettoDellAlba.stati));
+    expect(aperture.length, greaterThanOrEqualTo(StatoDellAlba.quanti));
   });
 
   test(
@@ -293,9 +336,9 @@ void main() {
     }
 
     for (final riga in sezione.split('\n')) {
-      final c = RegExp(r'^### (?:0|[IVXL]+) (.+?), [^,]+, '
-              r'(respiro|azione|parola)$')
-          .firstMatch(riga);
+      // Ordine DU voce 09: l'intestazione porta il nome e l'attribuzione,
+      // e non piu' la forma.
+      final c = RegExp(r'^### (?:0|[IVXL]+) (.+?), [^,]+$').firstMatch(riga);
       if (c != null) {
         chiudi();
         carta = c.group(1)!;
@@ -359,6 +402,27 @@ void main() {
           NucleoDelResponso.condiviso(
               'Tieni il passo leggero.', 'Le intenzioni diventano reali.'),
           isNull);
+    });
+    test('l\'articolo di un nome non e\' il nome', () {
+      // Ordine DU voce 12: *"Gli affetti campano di presenza"* risultava
+      // nominare gli Amanti, perche' il rilevatore prendeva per nome anche
+      // l'articolo *gli*. Il nome della carta e' Amanti, e quello va preso.
+      expect(
+          NucleoDelResponso.contieneIlNome(
+              'Gli affetti campano di '
+                  'presenza, non di buone intenzioni.',
+              'Gli Amanti'),
+          isFalse,
+          reason: 'l\'articolo gli non nomina nessuna carta');
+      expect(
+          NucleoDelResponso.contieneIlNome(
+              'Le occasioni non capitano piu\' da sole.', 'Il Sole'),
+          isTrue,
+          reason: 'il nome vero invece va preso');
+      expect(
+          NucleoDelResponso.contieneIlNome(
+              'Scrivi una cosa in cui gli assomigli.', 'Gli Amanti'),
+          isFalse);
     });
   });
 

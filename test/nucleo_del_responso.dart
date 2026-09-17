@@ -80,12 +80,35 @@ abstract final class NucleoDelResponso {
     return parole(testo).any((p) => p.startsWith(corta));
   }
 
+  /// Gli articoli e le preposizioni che stanno dentro il nome di una carta e
+  /// non sono il suo nome: *"gli"* degli Amanti, *"della"* della Ruota della
+  /// Fortuna. Ordine DU voce 12: senza questo elenco una frase che comincia
+  /// con *"Gli affetti"* risultava nominare gli Amanti.
+  static const servizio = {
+    'del',
+    'dei',
+    'della',
+    'delle',
+    'dello',
+    'degli',
+    'dell',
+    'il',
+    'lo',
+    'la',
+    'i',
+    'gli',
+    'le',
+    'un',
+    'uno',
+    'una',
+  };
+
   /// Se [testo] contiene una qualunque delle parole piene di [nome]: anche
   /// solo *"Fortuna"* nomina la Ruota della Fortuna.
   static bool contieneIlNome(String testo, String nome) {
     final piene = [
       for (final p in parole(nome))
-        if (p.length >= 3 && !vuote.contains(p) && p != 'del' && p != 'dei') p,
+        if (p.length >= 3 && !vuote.contains(p) && !servizio.contains(p)) p,
     ];
     if (piene.isEmpty) return false;
     final t = parole(testo);
