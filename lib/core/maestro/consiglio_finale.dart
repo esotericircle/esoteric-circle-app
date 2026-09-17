@@ -34,6 +34,70 @@ import 'maestro.dart';
 /// stato rivelato. E' per questo che il testo del Maestro si spacca qui in due
 /// pezzi invece di essere mostrato com'e': il seguito si infila fra il corpo e
 /// il consiglio, e un consiglio in mezzo al testo non e' piu' un consiglio.
+/// **IL PROSSIMO CAMBIO DELLA LUNA, cercato ora per ora.** Ordine DS voce 08.
+///
+/// Cosa cambia, e fra quanti giorni di calendario. Sta qui accanto all'unico
+/// invito che lo usa, e chiede tutto a `NightSky` e `MoonPhase`: nessun
+/// calcolo astronomico nuovo.
+class ProssimoCambioDellaLuna {
+  const ProssimoCambioDellaLuna._(this.cosa, this.fraGiorni);
+
+  /// Il segno in cui la Luna entra, oppure la fase col suo articolo
+  /// (*"la Luna piena"*, *"il Primo quarto"*).
+  final String cosa;
+  final int fraGiorni;
+
+  static const _principali = {
+    'Primo quarto',
+    'Luna piena',
+    'Ultimo quarto',
+    'Luna nuova',
+  };
+
+  /// Quanto si guarda avanti: piu' di un ciclo lunare intero.
+  static const int _oreMassime = 24 * 32;
+
+  static int _giorni(DateTime da, DateTime a) =>
+      DateTime.utc(a.year, a.month, a.day)
+          .difference(DateTime.utc(da.year, da.month, da.day))
+          .inDays;
+
+  static String _colSuoArticolo(String fase) => switch (fase) {
+        'Primo quarto' => 'il Primo quarto',
+        'Ultimo quarto' => "l'Ultimo quarto",
+        'Luna piena' => 'la Luna piena',
+        'Luna nuova' => 'la Luna nuova',
+        _ => fase,
+      };
+
+  /// Il prossimo segno in cui la Luna entra.
+  static ProssimoCambioDellaLuna ingresso(DateTime da) {
+    final adesso = NightSky.moonSign(da);
+    for (var h = 1; h <= _oreMassime; h++) {
+      final t = DateTime(da.year, da.month, da.day, da.hour + h);
+      final segno = NightSky.moonSign(t);
+      if (segno != adesso) {
+        return ProssimoCambioDellaLuna._(segno.italianName, _giorni(da, t));
+      }
+    }
+    // La Luna cambia segno ogni due giorni e mezzo: qui non si arriva.
+    return ProssimoCambioDellaLuna._(adesso.italianName, 0);
+  }
+
+  /// La prossima fase principale che comincia.
+  static ProssimoCambioDellaLuna fase(DateTime da) {
+    final adesso = MoonPhase.forDate(da).italianName;
+    for (var h = 1; h <= _oreMassime; h++) {
+      final t = DateTime(da.year, da.month, da.day, da.hour + h);
+      final nome = MoonPhase.forDate(t).italianName;
+      if (nome != adesso && _principali.contains(nome)) {
+        return ProssimoCambioDellaLuna._(_colSuoArticolo(nome), _giorni(da, t));
+      }
+    }
+    return ProssimoCambioDellaLuna._(_colSuoArticolo(adesso), 0);
+  }
+}
+
 abstract final class ConsiglioFinale {
   /// IL MARCATORE che il modello scrive, e che la persona NON vede mai.
   ///
@@ -127,20 +191,38 @@ abstract final class ConsiglioFinale {
     // giorni del cambio d'ora, non l'ora dentro la giornata.
     final giro = ConfineDelGiorno.giorniDa(DateTime(2026), domani);
     switch (maestro) {
+      // **IL PROSSIMO CAMBIO DEL CIELO, CALCOLATO. Ordine DS voce 08.**
+      //
+      // Le tre forme di prima guardavano il cielo di DOMANI e lo davano per
+      // un cambio: *"Torna domani: la Luna passa in Capricorno"* anche quando
+      // la Luna era in Capricorno da due giorni, e *"Ripassa quando sara'
+      // luna crescente"* il 17 settembre, con la Luna crescente gia' da una
+      // settimana. Un fondatore l'ha letta sotto una risposta che parlava del
+      // Primo quarto in arrivo: le due frasi si smentivano, e la sbagliata
+      // era dell'app.
+      //
+      // **Adesso l'invito dice QUANDO il cielo cambia davvero**: il prossimo
+      // ingresso della Luna in un segno, oppure la prossima fase principale,
+      // cercati ora per ora dalla stessa porta dell'astronomia. **E non e' un
+      // consiglio sulla lettura**: *"quel che vedi cambia con lei"* se n'e'
+      // andato, perche' identico sotto due letture diverse sembrava parlare
+      // di quelle. Resta un appuntamento col cielo, e il verificatore
+      // `IlCieloDetto` lo controlla per un anno intero.
       case Maestro.medora:
-        final luna = NightSky.moonSign(domani);
-        final fase = MoonPhase.forDate(domani);
-        final forme = <String>[
-          'Torna domani: la Luna passa in ${luna.italianName}.',
-          'Domani il cielo si sposta, con la Luna in ${luna.italianName}: '
-              'rileggi da lì.',
-          // La fase si dice senza ripetere "Luna": `italianName` la porta gia'
-          // dentro, per esempio "luna calante", e "la Luna sara' luna calante"
-          // e' la stessa parola due volte nella stessa riga.
-          'Ripassa quando sarà ${fase.italianName.toLowerCase()}: '
-              'quel che vedi cambia con lei.',
-        ];
-        return forme[giro % forme.length];
+        final cambio = giro.isEven
+            ? ProssimoCambioDellaLuna.ingresso(quando)
+            : ProssimoCambioDellaLuna.fase(quando);
+        final dopo = switch (cambio.fraGiorni) {
+          0 => 'oggi, più tardi',
+          1 => 'domani',
+          final n => 'fra $n giorni',
+        };
+        // Le due forme cominciano con due parole diverse: due giorni vicini
+        // dicono due cambi diversi, e la guardia della somiglianza vuole che
+        // non si leggano come la stessa frase.
+        return giro.isEven
+            ? 'Rivediamoci $dopo: la Luna entra in ${cambio.cosa}.'
+            : 'Ripassa $dopo, per ${cambio.cosa}.';
       case Maestro.caligo:
         final estrazione = SunsetRune.estrai(
           domani.add(const Duration(hours: 18)),

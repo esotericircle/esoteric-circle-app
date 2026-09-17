@@ -134,6 +134,73 @@ void main() {
       });
     }
 
+    // **LA STESSA DOMANDA NELLO STESSO GIORNO DA' LA STESSA LETTURA. Ordine
+    // DS voce 08.** Sulle catture di un fondatore la stessa domanda a due
+    // minuti di distanza dava *"il cielo si vela di un'ombra sottile"* e
+    // *"una luce inattesa filtra tra le nubi"*. La regola sta nel briefing
+    // operativo, sezione 15: la stessa domanda nello stesso giorno da' lo
+    // stesso responso, e cambia il giorno dopo.
+    test('la stessa domanda tre volte nello stesso giorno: una lettura sola',
+        () async {
+      final ai = _RecordingAi();
+      var adesso = DateTime(2026, 9, 17, 0, 21);
+      final controller = MaestroChatController(
+        maestro: Maestro.medora,
+        ai: ai,
+        memory: InMemoryMaestroMemoryRepository(),
+        orologio: () => adesso,
+        attesaMinima: Duration.zero,
+      );
+      await controller.init();
+      final risposte = <String>[];
+      for (final domanda in const [
+        'Cosa mi dice il cielo oggi sul lavoro?',
+        'cosa mi dice il cielo oggi sul lavoro',
+        'Cosa mi dice il cielo, oggi, sul lavoro?!',
+      ]) {
+        await controller.send(domanda);
+        risposte.add(controller.messages.last.text);
+        adesso = adesso.add(const Duration(minutes: 2));
+      }
+      expect(ai.replies, 1,
+          reason: 'la stessa domanda nello stesso giorno e tornata al modello '
+              '${ai.replies} volte: ogni volta una lettura nuova');
+      final prima = risposte.first;
+      for (final r in risposte.skip(1)) {
+        expect(r, contains(prima),
+            reason: 'la lettura ripetuta non e la lettura data: "$r"');
+      }
+      // **E IL GIORNO DOPO LA LETTURA CAMBIA**, perche' il cielo e' un altro.
+      adesso = DateTime(2026, 9, 18, 9);
+      await controller.send('Cosa mi dice il cielo oggi sul lavoro?');
+      expect(ai.replies, 2,
+          reason: 'il giorno dopo la stessa domanda deve avere una lettura '
+              'nuova: il cielo e cambiato');
+    });
+
+    // **IL CIELO DETTO DAL MODELLO SI CONTROLLA COL CALCOLO. Ordine DS voce
+    // 08.** Il 17 settembre 2026 la Luna entra in Capricorno il 19: un
+    // modello che dice "domani" dice il falso, e la frase non arriva.
+    test('una frase sul cielo smentita dal calcolo non arriva a schermo',
+        () async {
+      final controller = MaestroChatController(
+        maestro: Maestro.medora,
+        ai: _CieloSbagliato(),
+        memory: InMemoryMaestroMemoryRepository(),
+        orologio: () => DateTime(2026, 9, 17, 0, 21),
+        attesaMinima: Duration.zero,
+      );
+      await controller.init();
+      await controller.send('Come si muove la Luna in questi giorni?');
+      final testo = controller.messages.last.text;
+      expect(testo, isNot(contains('Domani la Luna entra in Capricorno')),
+          reason:
+              'la frase smentita dal calcolo e arrivata a schermo: "$testo"');
+      expect(testo, contains('La tua Luna chiede ascolto.'),
+          reason: 'togliendo la frase sbagliata e sparito anche il resto');
+      expect(controller.frasiDelCieloSmentite, 1);
+    });
+
     test('Una domanda normale chiama l\'AI come sempre', () async {
       final ai = _RecordingAi();
       final controller = MaestroChatController(
@@ -148,6 +215,25 @@ void main() {
       expect(controller.messages.last.intentId, isNull);
     });
   });
+}
+
+/// Un modello che sbaglia il giorno di un ingresso della Luna.
+class _CieloSbagliato extends _RecordingAi {
+  @override
+  Future<String> reply({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory memory,
+    required List<dynamic> history,
+    required String userMessage,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
+    String? rispostaGiaData,
+  }) async {
+    replies++;
+    return 'La tua Luna chiede ascolto. Domani la Luna entra in Capricorno. '
+        'Tieni il passo lento.';
+  }
 }
 
 /// Provider AI che conta le chiamate, per provare che l'instradamento non
@@ -181,7 +267,9 @@ class _RecordingAi implements MaestroAiProvider {
     String? rispostaGiaData,
   }) async {
     replies++;
-    return 'Una risposta a testo.';
+    // Ogni chiamata risponde diverso, come il modello vero a temperatura
+    // alta: e' cosi' che due letture dello stesso giorno si smentivano.
+    return 'Una risposta a testo, la numero $replies.';
   }
 
   @override

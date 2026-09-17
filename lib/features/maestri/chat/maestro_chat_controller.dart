@@ -22,6 +22,8 @@ import '../../../core/maestro/lettura_di_ripiego.dart';
 import '../../../core/maestro/memoria_del_respiro.dart';
 import '../../../core/maestro/natal_context.dart';
 import '../../../core/chat/la_carta_del_giorno_in_chat.dart';
+import '../../../core/chat/la_lettura_del_giorno.dart';
+import '../../../core/astro/il_cielo_detto.dart';
 import '../../../core/chat/immersive_intents.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../services/ai/maestro_ai_provider.dart';
@@ -68,6 +70,17 @@ class MaestroChatController extends ChangeNotifier {
   final DateTime Function()? _orologio;
 
   DateTime get _adesso => _orologio?.call() ?? DateTime.now();
+
+  /// **TUTTA LA CRONOLOGIA CARICATA, non solo la conversazione corrente.**
+  /// Ordine DS voce 08: una domanda gia' fatta oggi in un'altra conversazione
+  /// e' la stessa domanda, e la sua lettura e' gia' stata data.
+  List<ChatMessage> _cronologiaCaricata = const [];
+
+  /// Quante letture sono state ridette invece di chiedere di nuovo al modello.
+  int lettureRidette = 0;
+
+  /// Quante frasi sul cielo sono state tolte perche' il calcolo le smentiva.
+  int frasiDelCieloSmentite = 0;
 
   final Maestro maestro;
 
@@ -331,6 +344,7 @@ class MaestroChatController extends ChangeNotifier {
         notifyListeners();
       }));
       final cronologia = results[2] as List<ChatMessage>;
+      _cronologiaCaricata = cronologia;
       // **LA CONVERSAZIONE CORRENTE E' QUELLA DEL MESSAGGIO PIU' RECENTE.**
       // Ordine CI voce 06: non si conserva da nessuna parte, si legge da cio'
       // che c'e' gia'. Un posto in piu' dove tenerla sarebbe un secondo conto
@@ -392,6 +406,40 @@ class MaestroChatController extends ChangeNotifier {
     final trimmed = text.trim();
     if (trimmed.isEmpty || _sending) return;
 
+    // **LA STESSA DOMANDA NELLO STESSO GIORNO: LA STESSA LETTURA.** Ordine DS
+    // voce 08. Viene prima del limite del giorno: ridire una lettura gia' data
+    // non costa niente e non chiama il modello, quindi non consuma una
+    // domanda, e negarla a chi ha finito le domande sarebbe negargli cio' che
+    // ha gia' ricevuto.
+    final giaData = LaLetturaDelGiorno.giaData(
+      domanda: trimmed,
+      messaggi: [..._cronologiaCaricata, ..._messages],
+      oggi: _adesso,
+    );
+    if (giaData != null) {
+      final domanda = ChatMessage(
+        role: ChatRole.user,
+        text: trimmed,
+        at: _adesso,
+        conversazione: _conversazione,
+      );
+      _messages.add(domanda);
+      unawaited(_persist(domanda));
+      segnaNeiRicordi?.call(domanda);
+      final ridetta = ChatMessage(
+        role: ChatRole.maestro,
+        text: LaLetturaDelGiorno.ridetta(giaData),
+        at: _adesso,
+        autore: maestro,
+        conversazione: _conversazione,
+      );
+      _messages.add(ridetta);
+      unawaited(_persist(ridetta));
+      lettureRidette++;
+      notifyListeners();
+      return;
+    }
+
     // Il limite del giorno vale su TUTTE le strade con cui si fa una domanda.
     // La schermata "Chiedi" consultava il contatore, la chat no: chi apriva la
     // chat aveva domande infinite qualunque piano avesse, cioe' il limite era
@@ -417,7 +465,7 @@ class MaestroChatController extends ChangeNotifier {
     final userMessage = ChatMessage(
       role: ChatRole.user,
       text: trimmed,
-      at: DateTime.now(),
+      at: _adesso,
       // La marcatura viaggia col messaggio: e' cosi' che una conversazione
       // nuova comincia a esistere, senza scrivere niente prima.
       conversazione: _conversazione,
@@ -870,10 +918,23 @@ class MaestroChatController extends ChangeNotifier {
         }
       }
 
+      // **IL CIELO DETTO E' IL CIELO CALCOLATO. Ordine DS voce 08.** Una frase
+      // sulla Luna che il calcolo smentisce non arriva a schermo: il modello
+      // interpreta il cielo, non lo decide.
+      final smentite = IlCieloDetto.smentite(reply, adesso: _adesso);
+      if (smentite.isNotEmpty) {
+        frasiDelCieloSmentite += smentite.length;
+        annotaGuastoInnocuo(
+          'frasi sul cielo smentite dal calcolo nella risposta di '
+          '${chiRisponde.displayName}: ${smentite.join('; ')}',
+          StateError('cielo detto diverso dal cielo calcolato'),
+        );
+        reply = IlCieloDetto.senzaLeSmentite(reply, adesso: _adesso);
+      }
       final answer = ChatMessage(
         role: ChatRole.maestro,
         text: reply,
-        at: DateTime.now(),
+        at: _adesso,
         autore: chiRisponde,
       );
       await _consegna(answer, cronometro);

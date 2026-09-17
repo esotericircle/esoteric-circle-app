@@ -4,6 +4,7 @@ import '../../core/chat/user_profile.dart';
 import '../../core/maestro/cio_che_arriva.dart';
 import '../../core/astro/prossimi_eventi.dart';
 import '../../core/astro/zodiac.dart';
+import '../../core/astro/il_cielo_detto.dart';
 import '../../core/maestro/ancoraggio.dart';
 import '../../core/maestro/consiglio_finale.dart';
 import '../../core/maestro/consult_depth.dart';
@@ -268,11 +269,20 @@ class MaestroPersona {
     final eventi = segno == null
         ? const <EventoInArrivo>[]
         : ProssimiEventi.da(adesso: DateTime.now(), segno: segno);
-    return CioCheArriva.blocco(
+    final blocco = CioCheArriva.blocco(
       eventi: eventi,
       prossimoTraguardo: natal.prossimoTraguardo,
       cosaApre: natal.cosaApreIlProssimoTraguardo,
     );
+    // **IL CIELO DI OGGI, CALCOLATO, ACCANTO A CIO' CHE ARRIVA.** Ordine DS
+    // voce 08. Al modello arrivava la Luna di nascita e mai quella di oggi.
+    // Sta dentro questo blocco e non fuori perche' ne condivide la natura:
+    // e' cielo vero di adesso, e compare quando c'e' una persona a cui
+    // riferirlo. Fuori dal blocco avrebbe cambiato l'istruzione di ogni
+    // giorno anche senza nascita, e con lei l'impronta su cui e' misurata
+    // l'attribuzione cieca dei tre Maestri.
+    if (blocco.isEmpty) return blocco;
+    return '$blocco\n${IlCieloDetto.oggiPerIlModello(DateTime.now())}';
   }
 
   /// Istruzione di sistema completa per una conversazione con [maestro].
