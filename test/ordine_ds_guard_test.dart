@@ -62,10 +62,17 @@ void main() {
     final testo = manifesto.readAsStringSync();
     final voci = vociDi(testo);
     expect(voci, hasLength(quante));
-    var aperte = 0, attesa = 0, premessa = 0, chiuse = 0;
+    var aperte = 0, attesa = 0, premessa = 0, chiuse = 0, mani = 0;
     for (final v in voci) {
       if (v.contains('**APERTA.**')) {
         aperte++;
+      } else if (v.contains('**FERMATA IN ATTESA DELLE MANI') &&
+          v.contains('DEL FONDATORE.**')) {
+        // **LA VOCE DS.06 ASPETTA UN IPHONE.** Non e' chiusa: la prova del
+        // rilevamento su iOS la fa un fondatore col suo telefono, e questa
+        // macchina non ne ha uno. Ha il suo marcatore, e non si confonde con
+        // una voce chiusa.
+        mani++;
       } else if (v.contains('**FERMATA IN ATTESA DI DECISIONE.**')) {
         attesa++;
       } else if (v.contains('**FERMATA SU PREMESSA FALSA.**')) {
@@ -81,7 +88,9 @@ void main() {
     expect(marcatore(testo, 'VOCI_CHIUSE'), chiuse);
     expect(marcatore(testo, 'VOCI_FERMATE_IN_ATTESA_DI_DECISIONE'), attesa);
     expect(marcatore(testo, 'VOCI_FERMATE_SU_PREMESSA_FALSA'), premessa);
-    expect(aperte + attesa + premessa + chiuse, quante,
+    expect(marcatore(testo, 'VOCI_FERMATE_IN_ATTESA_DELLE_MANI_DEL_FONDATORE'),
+        mani);
+    expect(aperte + attesa + premessa + chiuse + mani, quante,
         reason: 'una voce senza uno stato ammesso non si conta');
   });
 

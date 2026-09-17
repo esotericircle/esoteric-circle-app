@@ -3128,6 +3128,83 @@ sarebbe uscito da una rilettura del codice: tre guardie tipografiche insieme
 che **difendeva il punto decimale** e andava portata alla verita' nuova, il
 censimento, la tavola delle API di iOS e il registro delle guardie.
 
+## L'ORDINE DS, IL DEBITO E I DIFETTI DEL 17 SETTEMBRE
+
+17 settembre 2026. **Nove voci: sette chiuse, DS.03 ferma su premessa falsa,
+DS.06 ferma in attesa delle mani del fondatore.** Manifesto e rapporto in
+`docs/ordini/`, catture del telefono in `docs/collaudo/DS/`. Build **2265**.
+
+**DS.06, LA COSTELLAZIONE DEL VISO SU IPHONE.** La causa del volto non
+rilevato erano tre scelte scritte una volta per tutti i telefoni e giuste solo
+su Android: la fotocamera chiedeva NV21, che su iOS ricade in BGRA e il motore
+leggeva quei byte come NV21; la rotazione data al modello era quella del
+sensore, mentre il plugin iOS consegna il fotogramma gia' girato; e la frontale,
+gia' specchiata dal plugin, si specchiava una seconda volta. Adesso le tre
+scelte stanno insieme in `lib/core/face/ingresso_del_fotogramma.dart` e **su
+Android sono identiche a prima**. **La prova su iPhone non c'e'**: la fa un
+fondatore con la build Codemagic e la voce non e' chiusa finche' la cattura
+non arriva. Sulla soglia: immagine della costellazione in cima, via il riquadro
+della riservatezza e la bolla del cielo (nessuna lettura cambia: il cielo si
+lega ancora dal responso), l'istruzione delle pose da 16 a **22 punti** e prima
+del pulsante; durante la scansione l'ovale centrato e la guida da 22 punti.
+
+**DS.07, UNA PORTA SOLA PER LE ARTI.** La chat aveva la sua mappa delle
+destinazioni: **sei pulsanti su quattordici** aprivano altro da cio' che
+promettevano, fra cui le rune di Caligo sulla Runa del Tramonto. Adesso ogni
+pulsante nomina un'arte e la apre `artRouteFor`, la stessa funzione dello
+scaffale. Quindici pulsanti, zero sbagliati.
+
+**DS.08, MEDORA.** *"Carta del giorno"* nomina l'Arcano del Giorno, la stessa
+carta del Dono, senza chiamare il modello. **La stessa domanda nello stesso
+giorno ha una lettura sola** (`lib/core/chat/la_lettura_del_giorno.dart`),
+ridetta dichiarandolo e senza consumare domande: e' la regola del briefing
+operativo, sezione 15. **Le date degli eventi della Luna arrivavano al modello
+in ritardo di un giorno**, 205 su 220 in tre mesi, perche' il motore guardava a
+mezzanotte e dava l'evento al giorno dopo quello in cui comincia: il *"segno
+opposto fra tre giorni"* visto dal fondatore era un transito vero letto male.
+**La chiusa "Ripassa quando sara' luna crescente" era dell'app** e smentiva il
+calcolo 352 volte in un anno: adesso dice il prossimo cambio vero della Luna.
+Al modello arriva la Luna di oggi e `IlCieloDetto` toglie dalle risposte le
+frasi sulla Luna che il calcolo smentisce. **Limite dichiarato**: una domanda
+che differisce di un carattere e' una domanda nuova.
+
+**DS.05, LA MEDITAZIONE.** Il sintomo e' la via principale e ogni scheda dice
+la sua frequenza; la frequenza si sceglie da un menu' solo, al posto delle nove
+bolle; **scegliere non fa partire il suono, parte il play** e questo rovescia
+la regola dell'ordine DD voce 12. La sessione del giorno dura **cinque minuti**
+con *"Mancano 5:00"* e una pratica scelta dura quanto dichiara nella scheda.
+
+**DS.09, LA STESA.** Il Consiglio non dice due volte la stessa figura: su
+duemila le ripetizioni fra due pezzi erano 708, adesso zero. La coda *"che si
+sta sciogliendo"* segue l'aspetto e non il punto di nascita, anche nella frase
+dell'Oroscopo; *"E il cielo di oggi lo accompagna"* dice adesso a cosa si
+accosta.
+
+**DS.01 E DS.02, IL DEBITO DELLE GUARDIE.** Diciotto manifesti, da CW a DQ,
+non avevano la guardia propria e il sigillo ne guardava sei. Adesso **89
+manifesti, 89 guardie, 89 nel sigillo**, letti nei loro formati da
+`test/lettore_dei_manifesti.dart` e un manifesto nuovo senza guardia fa cadere
+lo sbarramento al primo giro. **Il 61 di CQ e' vero.** **DD e DN dichiarano il
+falso**, elencati e non corretti: DD nomina diciassette voci e ne dichiara
+sedici, DN ne ha undici e ne dichiara dieci. **CX non ha un manifesto.**
+
+**DS.04.** Le esenzioni degli accenti stanno sul contenuto della riga, undici e
+diciassette parole come prima e ogni esenzione deve trovare la sua riga, una
+sola.
+
+**DS.03, FERMATA.** L'ordine voleva `RIPRESA.md` riallineato e tenuto vivo;
+dal 24 agosto e' un archivio chiuso per decisione scritta qui sotto, nelle
+regole ferree. Il censimento dei file di stato e' nel rapporto: oltre a
+RIPRESA, `docs/HANDOFF_FASE_C.md` e `docs/STATO_ASSET.md` sono fermi da luglio
+e non li nomina nessuno e `CLAUDE.md` dichiara ancora il checkpoint C1.
+
+**Le guardie.** Sei nuove, il registro sale da 430 a **436** e due allargate;
+piu' le diciotto guardie proprie dei manifesti, che non entrano nel conto.
+Tutte viste rosse prima della cura. Nessuna riga nei rossi accettati.
+
+**Da decidere per il fondatore**: DD e DN; RIPRESA e gli altri file di stato
+fermi; il manifesto di CX; la cattura da iPhone per DS.06.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.
