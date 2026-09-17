@@ -5,7 +5,7 @@ import 'forme_dell_alba.dart';
 import 'lettura_dell_alba.dart';
 import 'letture_dell_alba_dati.dart';
 import 'responso_dell_alba.dart';
-import 'sacchetto_dell_alba.dart';
+import 'stato_dell_alba.dart';
 
 /// Cio' che e' stato consegnato in un giorno: le scelte, non il testo, cosi'
 /// che riaprire il dono ricomponga lo stesso responso.
@@ -57,7 +57,7 @@ class ConsegnaDellAlba {
         clausola is! int) {
       return null;
     }
-    bool statoValido(int id) => id >= 0 && id < SacchettoDellAlba.stati;
+    bool statoValido(int id) => id >= 0 && id < StatoDellAlba.quanti;
     if (!statoValido(stato) ||
         apertura < 0 ||
         apertura >= FormeDellAlba.aperture.length ||
@@ -77,46 +77,59 @@ class ConsegnaDellAlba {
   }
 }
 
-/// **IL DIARIO DELL'ARCANO DELL'ALBA, per utente.** Ordine DT voci 05, 09,
-/// 10, 11, 12, 22 e 23, 17 settembre 2026.
+/// **IL DIARIO DELL'ARCANO DELL'ALBA, per utente.** Ordine DT voci 09, 10, 11,
+/// 12, 22 e 23; **rifatto dall'ordine DU voci 11 e 12**, 17 settembre 2026.
 ///
-/// Tiene insieme tutto cio' che l'estrazione deve ricordare di una persona: il
-/// **sacchetto** dei quarantaquattro stati, la **coda delle letture** di ogni
-/// stato nell'ordine in cui quella persona le consuma, i **registri** del
-/// ciclo, l'ultima **consegna** e il **contatore dei ripieghi**.
+/// Tiene insieme tutto cio' che la consegna deve ricordare di una persona: la
+/// **coda delle letture** di ogni stato nell'ordine in cui quella persona le
+/// consuma, il **registro** delle ultime consegne, l'ultima **consegna** e il
+/// **contatore dei ripieghi**.
+///
+/// **IL SACCHETTO NON C'E' PIU', voce DU.11.** L'estrazione e' a caso fra i
+/// quarantaquattro stati, ogni giorno, senza memoria: la stessa carta puo'
+/// tornare domani. Cio' che non si ripete sono i testi, ed e' un'altra cosa.
 ///
 /// **LA VARIABILE PER UTENTE E' L'ORDINE DELLE LETTURE** (voci 12 e 22). Non
 /// c'e' un seme di generazione, perche' non c'e' generazione: due persone che
 /// ricevono lo stesso stato nello stesso giorno si trovano in punti diversi
-/// della propria sequenza, perche' ognuna ha la sua. Il residuo di collisione
-/// dipende da quante letture ha lo stato, ed e' un numero che decide Mauro.
+/// della propria sequenza, perche' ognuna ha la sua. Con dodici letture per
+/// stato, due persone leggono lo stesso dono una volta su dodici.
 ///
 /// **I REGISTRI SCELGONO, non filtrano** (voce 23). Le aperture dei tre
-/// movimenti e la parola del giorno consegnate nel ciclo sono marche usate: fra
-/// le letture in coda si consegna la prima che non ne tocca nessuna, e quella
-/// saltata resta in coda. Se nessuna e' libera il corpus e' insufficiente, e
-/// si consegna la meno recente contando il caso. **La scelta passa
-/// dall'impianto unico** della voce 27, `SceltaSenzaRipetere`.
+/// movimenti e la parola del giorno consegnate di recente sono marche usate:
+/// fra le letture in coda si consegna la prima che non ne tocca nessuna, e
+/// quella saltata resta in coda. **Di recente vuol dire nelle ultime
+/// [finestraDelRegistro] consegne**, che e' la finestra scorrevole con cui il
+/// registro ha preso il posto del ciclo del sacchetto: senza cicli, un
+/// registro che non dimentica mai avrebbe finito per vietare tutto. Se
+/// nessuna lettura e' libera si consegna la meno recente e si conta il
+/// ripiego. **La scelta passa dall'impianto unico**, `SceltaSenzaRipetere`.
 class DiarioDellAlba {
   const DiarioDellAlba._({
     required this.seme,
-    required this.sacchetto,
     required this.code,
+    required this.rifornite,
     required this.registro,
-    required this.cicloDelRegistro,
     required this.ultima,
     required this.ripieghi,
+    required this.consegne,
   });
 
   factory DiarioDellAlba.nuovo({String? seme}) => DiarioDellAlba._(
         seme: seme ?? _semeNuovo(),
-        sacchetto: SacchettoDellAlba.nuovo(),
         code: const {},
-        registro: const {},
-        cicloDelRegistro: 0,
+        rifornite: const {},
+        registro: const [],
         ultima: null,
         ripieghi: 0,
+        consegne: 0,
       );
+
+  /// **QUANTE CONSEGNE RICORDA IL REGISTRO.** Quarantaquattro, cioe' quanti
+  /// sono gli stati: e' il giro con cui una persona attraversa il mazzo intero
+  /// nei due versi, e dentro quel giro nessuna apertura e nessuna parola
+  /// torna.
+  static int get finestraDelRegistro => StatoDellAlba.quanti;
 
   /// **IL SEME DELLA PERSONA**: da qui nasce l'ordine in cui consuma le
   /// letture e le aperture. Nasce una volta sola, a caso, e viaggia col
@@ -129,19 +142,32 @@ class DiarioDellAlba {
     return List.generate(16, (_) => caso.nextInt(16).toRadixString(16)).join();
   }
 
-  final SacchettoDellAlba sacchetto;
-
   /// Per stato, i numeri delle letture ancora da consegnare, in ordine.
   final Map<int, List<int>> code;
 
-  /// Le marche consegnate nel ciclo del registro.
-  final Set<String> registro;
-  final int cicloDelRegistro;
+  /// Per stato, quante volte la coda e' stata rifornita: cambia il
+  /// mescolamento del giro dopo, cosi' dodici letture non tornano sempre
+  /// nello stesso ordine.
+  final Map<int, int> rifornite;
+
+  /// Le marche delle ultime consegne, la piu' recente in fondo: una lista per
+  /// consegna, lunga al massimo [finestraDelRegistro].
+  final List<List<String>> registro;
+
   final ConsegnaDellAlba? ultima;
 
   /// **Quante volte il corpus non ha avuto una lettura libera.** Un corpus
-  /// scritto bene lo tiene a zero su un ciclo intero, e la prova lo pretende.
+  /// scritto bene lo tiene a zero, e la prova lo pretende.
   final int ripieghi;
+
+  /// **Quante carte ha ricevuto questa persona, da sempre.** Cresce di uno a
+  /// ogni consegna e non torna mai indietro: e' il metro con cui il Cerchio
+  /// decide quale di due diari e' piu' avanti, ora che non c'e' piu' il ciclo
+  /// del sacchetto a dirlo.
+  final int consegne;
+
+  /// Le marche ancora in vigore, cioe' quelle delle consegne ricordate.
+  Set<String> get marcheInVigore => {for (final r in registro) ...r};
 
   /// Il giorno civile di [d].
   static String iso(DateTime d) => '${d.year.toString().padLeft(4, '0')}-'
@@ -225,10 +251,10 @@ class DiarioDellAlba {
     return responsoDi(gia, corpus: corpus);
   }
 
-  /// **IL DONO DI OGGI.** Se oggi e' gia' stato estratto, torna quello, e il
-  /// sacchetto non si tocca: una sola estrazione al giorno, e la Carta del
-  /// giorno di Medora la legge da qui. [utente] e' il seme dell'ordine delle
-  /// letture: l'archivio passa quello del diario.
+  /// **IL DONO DI OGGI.** Se oggi e' gia' stato estratto, torna quello e non
+  /// si estrae di nuovo: una sola carta al giorno, e la Carta del giorno di
+  /// Medora la legge da qui. [utente] e' il seme dell'ordine delle letture:
+  /// l'archivio passa quello del diario.
   ({ResponsoDellAlba responso, DiarioDellAlba dopo}) estrai({
     required String utente,
     required DateTime giorno,
@@ -242,10 +268,9 @@ class DiarioDellAlba {
       if (responso != null) return (responso: responso, dopo: this);
     }
 
-    final estratto = sacchetto.estrai(caso);
-    final stato = estratto.stato;
-    final ciclo = estratto.dopo.ciclo;
-    final usate = ciclo == cicloDelRegistro ? {...registro} : <String>{};
+    // **A CASO FRA TUTTI, ogni giorno**, voce DU.11.
+    final stato = StatoDellAlba.aCaso(caso);
+    final usate = marcheInVigore;
     var ripieghi = this.ripieghi;
 
     final letture = ResponsoDellAlba.lettureDi(stato, corpus: corpus);
@@ -254,9 +279,12 @@ class DiarioDellAlba {
       for (final n in code[stato.id] ?? const <int>[])
         if (tutti.contains(n)) n,
     ];
+    // La coda finita si rifornisce, mescolata in un ordine nuovo: dodici
+    // letture prima di rivedere un testo, e mai lo stesso giro due volte.
+    final giri = rifornite[stato.id] ?? 0;
     final coda = inCoda.isNotEmpty
         ? inCoda
-        : ordineDellUtente(utente, 'letture ${stato.id}', tutti);
+        : ordineDellUtente(utente, 'letture ${stato.id} giro $giri', tutti);
     LetturaDellAlba perNumero(int n) =>
         letture.firstWhere((l) => l.numero == n);
 
@@ -287,73 +315,117 @@ class DiarioDellAlba {
       filo: impronta([utente, oggi]) % 2,
     );
 
+    final restanti = [
+      for (final n in coda)
+        if (n != lettura.numero) n,
+    ];
+    final marche = [...marcheDi(lettura), _marcaDellApertura(apertura)];
+    final ricordate = [...registro, marche];
     final dopo = DiarioDellAlba._(
       seme: seme,
-      sacchetto: estratto.dopo,
-      code: {
-        ...code,
-        stato.id: [
-          for (final n in coda)
-            if (n != lettura.numero) n,
-        ],
+      code: {...code, stato.id: restanti},
+      rifornite: {
+        ...rifornite,
+        // Il giro si conta quando la coda si e' appena rifornita.
+        stato.id: inCoda.isEmpty ? giri + 1 : giri,
       },
-      registro: {
-        ...usate,
-        ...marcheDi(lettura),
-        _marcaDellApertura(apertura),
-      },
-      cicloDelRegistro: ciclo,
+      registro: ricordate.length > finestraDelRegistro
+          ? ricordate.sublist(ricordate.length - finestraDelRegistro)
+          : ricordate,
       ultima: consegna,
       ripieghi: ripieghi,
+      consegne: consegne + 1,
     );
     return (responso: responsoDi(consegna, corpus: corpus)!, dopo: dopo);
   }
 
   Map<String, Object> toJson() => {
         'seme': seme,
-        'sacchetto': sacchetto.toJson(),
         'code': {
           for (final e in code.entries) '${e.key}': e.value,
         },
-        'registro': registro.toList(),
-        'cicloDelRegistro': cicloDelRegistro,
+        'rifornite': {
+          for (final e in rifornite.entries) '${e.key}': e.value,
+        },
+        'registro': registro,
         if (ultima != null) 'ultima': ultima!.toJson(),
         'ripieghi': ripieghi,
+        'consegne': consegne,
       };
 
-  /// **LEGGE UN DIARIO SALVATO, e non si fida.** Il sacchetto si ricompone da
-  /// se' se e' illeggibile; una coda, un registro o una consegna che non
-  /// tornano si lasciano cadere, perche' mai bloccare vale anche qui.
+  /// **LEGGE UN DIARIO SALVATO, e non si fida.** Una coda, un registro o una
+  /// consegna che non tornano si lasciano cadere, perche' mai bloccare vale
+  /// anche qui.
+  ///
+  /// **E legge anche i diari della 2266 e della 2267**, che portavano il
+  /// sacchetto e un registro piatto: il sacchetto si ignora, perche' non
+  /// esiste piu', e il registro piatto entra come una consegna sola. Chi
+  /// aggiorna l'app non perde il suo seme ne' le sue code.
   static DiarioDellAlba daJson(Object? dati) {
     if (dati is! Map) return DiarioDellAlba.nuovo();
-    final code = <int, List<int>>{};
-    final grezze = dati['code'];
-    if (grezze is Map) {
+    Map<int, List<int>> leggiCode(Object? grezze) {
+      final code = <int, List<int>>{};
+      if (grezze is! Map) return code;
       for (final e in grezze.entries) {
         final stato = int.tryParse('${e.key}');
         final numeri = e.value;
         if (stato == null ||
             stato < 0 ||
-            stato >= SacchettoDellAlba.stati ||
+            stato >= StatoDellAlba.quanti ||
             numeri is! List ||
             numeri.any((n) => n is! int)) {
           continue;
         }
         code[stato] = numeri.cast<int>();
       }
+      return code;
     }
-    final registro = dati['registro'];
-    final ciclo = dati['cicloDelRegistro'];
+
+    final rifornite = <int, int>{};
+    final giri = dati['rifornite'];
+    if (giri is Map) {
+      for (final e in giri.entries) {
+        final stato = int.tryParse('${e.key}');
+        final quante = e.value;
+        if (stato == null ||
+            stato < 0 ||
+            stato >= StatoDellAlba.quanti ||
+            quante is! int ||
+            quante < 0) {
+          continue;
+        }
+        rifornite[stato] = quante;
+      }
+    }
+
+    // Il registro di oggi e' una lista di consegne; quello delle build
+    // precedenti era una lista piatta di marche.
+    final grezzo = dati['registro'];
+    final registro = <List<String>>[];
+    if (grezzo is List) {
+      final piatte = grezzo.whereType<String>().toList();
+      if (piatte.isNotEmpty) registro.add(piatte);
+      for (final r in grezzo.whereType<List>()) {
+        final marche = r.whereType<String>().toList();
+        if (marche.isNotEmpty) registro.add(marche);
+      }
+    }
     final ripieghi = dati['ripieghi'];
     final seme = dati['seme'];
     return DiarioDellAlba._(
       seme: seme is String && seme.isNotEmpty ? seme : _semeNuovo(),
-      sacchetto: SacchettoDellAlba.daJson(dati['sacchetto']),
-      code: code,
-      registro: registro is List ? registro.whereType<String>().toSet() : {},
-      cicloDelRegistro: ciclo is int ? ciclo : 0,
+      code: leggiCode(dati['code']),
+      rifornite: rifornite,
+      registro: registro.length > finestraDelRegistro
+          ? registro.sublist(registro.length - finestraDelRegistro)
+          : registro,
       ultima: ConsegnaDellAlba.daJson(dati['ultima']),
       ripieghi: ripieghi is int ? ripieghi : 0,
+      // I diari della 2266 e della 2267 non lo portavano: si riparte dal
+      // numero delle consegne ricordate, che e' un minimo onesto.
+      consegne: dati['consegne'] is int
+          ? dati['consegne']! as int
+          : registro.length,
     );
   }
 }

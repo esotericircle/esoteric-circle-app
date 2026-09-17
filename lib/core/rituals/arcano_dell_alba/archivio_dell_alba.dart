@@ -5,7 +5,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'diario_dell_alba.dart';
 import 'responso_dell_alba.dart';
-import 'sacchetto_dell_alba.dart';
 
 /// **L'ARCHIVIO DELL'ARCANO DELL'ALBA: la porta unica del diario.** Ordine DT
 /// voci 05 e 25, 17 settembre 2026.
@@ -92,20 +91,20 @@ abstract final class ArchivioDellAlba {
     if (identical(piuAvanti(tornato, mio), tornato)) await scrivi(tornato);
   }
 
-  /// Il piu' avanti di due diari: il giorno dell'ultima estrazione, poi il
-  /// ciclo, poi gli stati usciti nel ciclo. A parita' vince [primo].
+  /// Il piu' avanti di due diari: il giorno dell'ultima consegna, poi quante
+  /// carte ha ricevuto in tutto. A parita' vince [primo].
+  ///
+  /// **Ordine DU voce 11**: prima si confrontavano il ciclo del sacchetto e
+  /// gli stati usciti. Senza sacchetto il metro e' il contatore delle
+  /// consegne, che cresce e non torna indietro.
   static DiarioDellAlba piuAvanti(
       DiarioDellAlba primo, DiarioDellAlba secondo) {
-    (String, int, int) avanzamento(DiarioDellAlba d) => (
-          d.ultima?.giorno ?? '',
-          d.sacchetto.ciclo,
-          SacchettoDellAlba.stati - d.sacchetto.rimasti.length,
-        );
+    (String, int) avanzamento(DiarioDellAlba d) =>
+        (d.ultima?.giorno ?? '', d.consegne);
     final a = avanzamento(primo), b = avanzamento(secondo);
     final giorno = a.$1.compareTo(b.$1);
     if (giorno != 0) return giorno > 0 ? primo : secondo;
     if (a.$2 != b.$2) return a.$2 > b.$2 ? primo : secondo;
-    if (a.$3 != b.$3) return a.$3 > b.$3 ? primo : secondo;
     return primo;
   }
 }

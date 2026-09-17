@@ -21,11 +21,11 @@ import 'daily_rituals.dart';
 enum DailyElement {
   dawn(
     cosaFai:
-        'Scegli una carta fra quelle coperte e la giri: è l\'arcano della tua giornata.',
+        'Sfoglia i ventidue arcani coperti e gira quello che ti chiama: è l\'arcano della tua giornata.',
     perche:
         'Il primo minuto della giornata decide il tono di tutte le ore che vengono dopo.',
     cosaTiResta:
-        'Il dono della carta, un respiro, un\'azione o una parola, che stasera il Sigillo del Sogno ti richiamerà.',
+        'La parola della carta e il suo dono, che stasera il Sigillo del Sogno ti richiamerà.',
     title: 'Arcano dell\'Alba',
     conArticolo: 'l\'Arcano dell\'Alba',
     shortLabel: 'Alba',

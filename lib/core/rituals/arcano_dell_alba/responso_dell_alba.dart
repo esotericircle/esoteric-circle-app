@@ -3,7 +3,7 @@ import 'attribuzioni_degli_arcani.dart';
 import 'forme_dell_alba.dart';
 import 'lettura_dell_alba.dart';
 import 'letture_dell_alba_dati.dart';
-import 'sacchetto_dell_alba.dart';
+import 'stato_dell_alba.dart';
 
 /// **IL RESPONSO DELL'ARCANO DELL'ALBA, in tre movimenti.** Ordine DT voce 08,
 /// 17 settembre 2026.

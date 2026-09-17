@@ -8,6 +8,7 @@ import '../../core/astro/solar_time.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/rituals/arcano_dell_alba/archivio_dell_alba.dart';
 import '../../core/rituals/arcano_dell_alba/responso_dell_alba.dart';
+import '../../core/rituals/arcano_dell_alba/stato_dell_alba.dart';
 import '../../core/rituals/avvisi_del_rito.dart';
 import '../../core/rituals/rito_alba.dart';
 import '../../core/rituals/daily_elements.dart';
@@ -15,6 +16,8 @@ import '../../core/rituals/ritual_streak.dart';
 import '../../core/rituals/scelta_degli_avvisi.dart';
 import '../../core/sigilli/ora_rituale.dart';
 import '../../core/tarot/tarot_card.dart';
+import '../../core/tarot/tarot_spread.dart';
+import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/riga_del_dono.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../../design_system/theme/abito_del_responso.dart';
@@ -27,28 +30,39 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../services/avvisi_locali.dart';
 import '../sigilli/regia_del_cammino.dart';
+import '../tarot/medora_stage.dart';
+import '../tarot/stesa_choreography.dart';
+import '../tarot/stesa_fan.dart';
 import '../tarot/tarot_card_art.dart';
 
 /// **L'ARCANO DELL'ALBA, il dono del mattino di Medora.** Ordine DT voci 01,
-/// 02, 03 e 04, 17 settembre 2026.
+/// 02, 03 e 04; **rifatto in scena dall'ordine DU**, 17 settembre 2026.
 ///
-/// **Prende il posto di due doni**, il Rito dell'Alba e l'Arcano del Giorno,
-/// e ne tiene l'ora del primo, le sette.
+/// **IL FATTO CHE HA FATTO NASCERE L'ORDINE DU**, nelle parole del fondatore
+/// davanti alla 2267: *"un compitino, superficialita'"*. Tre carte coperte su
+/// un fondo nero, nessuna animazione, Medora assente. Aveva ragione.
 ///
-/// **UN GESTO SOLO.** Carte coperte, tutte uguali: se ne sceglie una e si
-/// gira. Nessun altro comando, nessuna opzione, nessun pulsante verso il cielo,
-/// i transiti o le altre arti. Il cuore delle preferite non c'e' per la stessa
-/// ragione: e' un comando.
+/// **ADESSO E' UNA SCENA, e la scena non e' nuova**: e' quella della Stesa dei
+/// Tarocchi, che gia' gira e che gia' e' provata. Il fondo stellato
+/// (`CosmosBackground`), Medora che presiede (`MedoraStage`), le carte che
+/// nascono dal fondo, le girano intorno e scendono a ventaglio
+/// (`StesaScene.ingresso` e `StesaFan`). Cambia una cosa sola: **i dorsi sono
+/// ventidue**, gli arcani maggiori, invece dei settantotto del mazzo intero.
+/// Scrivere un secondo ventaglio sarebbe stata la seconda porta che questo
+/// progetto paga piu' cara di ogni altra cosa.
 ///
-/// **IL VERSO LO DECIDE IL SISTEMA, e la carta scelta non conta.** Le carte
-/// coperte sono lo stesso dorso, disegnato uguale, nello stesso ordine e con
-/// la stessa animazione; lo stato si estrae dal sacchetto nel momento del
-/// tocco, dal caso sicuro del sistema, e quale carta si e' toccata non entra
-/// nel conto. Il verso compare solo quando la faccia si vede, e il dorso del
-/// mazzo e' simmetrico al mezzo giro: una carta coperta non puo' dire niente.
+/// **UN GESTO SOLO.** Si sfoglia l'arco, si sceglie un dorso, la carta sale e
+/// si gira. Nessun altro comando, nessuna opzione, nessun disclaimer (voce
+/// DU.10), **nessuna voce e nessun Protoface** (voce DU.06): Medora e' in
+/// scena e tace.
 ///
-/// **Solo i ventidue arcani maggiori, e il limite delle stese non si tocca**:
-/// questo dono non passa da `QuestionAllowance`.
+/// **IL VERSO LO DECIDE IL SISTEMA, e il dorso toccato non conta** (voce
+/// DU.07). I ventidue dorsi sono lo stesso disegno; lo stato si estrae dal
+/// caso sicuro nel momento del tocco, e il dorso del mazzo e' simmetrico al
+/// mezzo giro: una carta coperta non puo' dire niente.
+///
+/// **Solo i ventidue arcani maggiori, e il limite delle stese non si tocca**
+/// (voce DU.13): questo dono non passa da `QuestionAllowance`.
 ///
 /// **Nel cammino valgono tutti e due i gesti**, `alba` e `oracolo`: decisione
 /// di Mauro del 17 settembre 2026, cosi' nessuno dei traguardi che li
@@ -69,10 +83,10 @@ class ArcanoDellAlbaScreen extends StatefulWidget {
   /// Solo per le prove: il caso dell'estrazione. Nell'app e' quello sicuro.
   final math.Random? caso;
 
-  /// Quante carte coperte si mostrano. Non e' il numero dei doni ne' quello
-  /// del mazzo: e' quante se ne offrono alla mano, e nessun altro conto
-  /// dipende da lui.
-  static const int carteCoperte = 3;
+  /// **Quanti dorsi si offrono alla mano: tutti e ventidue.** Ordine DU voce
+  /// 02. Non e' il numero dei doni ne' quello del mazzo intero: sono gli
+  /// arcani maggiori, e l'arco li sfoglia tutti.
+  static int get dorsi => StatoDellAlba.carte;
 
   static Route<void> route(
           {DateTime? now, SkyLocation? location, ServizioAvvisi? avvisi}) =>
@@ -89,20 +103,22 @@ class ArcanoDellAlbaScreen extends StatefulWidget {
 }
 
 class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   /// Il responso di oggi, quando la carta e' stata scelta.
   ResponsoDellAlba? _responso;
-
-  /// Quale carta coperta si e' toccata, per sapere quale girare.
-  int? _toccata;
 
   /// Vero finche' non si sa se oggi la carta e' gia' stata scelta.
   bool _caricando = true;
 
-  /// Il giro della carta. **Nasce in initState e non alla prima lettura**: se
-  /// la schermata si chiude prima di aver letto l'archivio, una creazione
-  /// pigra lo farebbe nascere dentro dispose, a albero gia' smontato.
-  late final AnimationController _giro;
+  /// La scena della Stesa, riusata: ingresso, riposo, completa.
+  StesaScene _scena = StesaScene.ingresso;
+
+  /// **I tre tempi della scena.** L'ingresso e' il volo che gira attorno a
+  /// Medora; il respiro e' il battito del ventaglio fermo; la rivelazione e'
+  /// la carta scelta che sale e si gira.
+  late final AnimationController _ingresso;
+  late final AnimationController _respiro;
+  late final AnimationController _rivelazione;
 
   DateTime get _adesso => widget.now ?? DateTime.now();
 
@@ -112,46 +128,85 @@ class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
   @override
   void initState() {
     super.initState();
-    _giro = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 700),
-    );
+    _ingresso = AnimationController(
+        vsync: this, duration: StesaTiming.ingresso); // 2,2 secondi
+    _respiro = AnimationController(vsync: this, duration: StesaTiming.respiro);
+    _rivelazione =
+        AnimationController(vsync: this, duration: const Duration(seconds: 1));
     unawaited(_riprendi());
   }
 
   @override
   void dispose() {
-    _giro.dispose();
+    _ingresso.dispose();
+    _respiro.dispose();
+    _rivelazione.dispose();
     super.dispose();
   }
 
-  /// Se oggi la carta e' gia' stata scelta, la si ritrova girata: non si
-  /// sceglie due volte.
+  bool get _ridotto => MediaQuery.maybeOf(context)?.disableAnimations ?? false;
+
+  /// Se oggi la carta e' gia' stata scelta, si torna al responso: **la scena
+  /// si rivede domani**, decisione di Mauro del 17 settembre 2026. Chi riapre
+  /// vuole rileggere il suo dono, non ripetere il gesto.
   Future<void> _riprendi() async {
     final gia = await ArchivioDellAlba.diOggi(_adesso);
     if (!mounted) return;
     setState(() {
       _responso = gia;
       _caricando = false;
-      if (gia != null) _giro.value = 1;
+      if (gia != null) {
+        _scena = StesaScene.completa;
+        _rivelazione.value = 1;
+        _ingresso.value = 1;
+      }
     });
+    if (gia != null) return;
+    await _entrataInScena();
+  }
+
+  /// Le carte entrano, poi il ventaglio respira e aspetta la mano.
+  Future<void> _entrataInScena() async {
+    if (!mounted) return;
+    if (_ridotto) {
+      // **Riduci Movimento toglie il moto, non il contenuto**: il ventaglio
+      // c'e' gia' tutto, fermo, e si puo' sfogliare subito.
+      _ingresso.value = 1;
+      setState(() => _scena = StesaScene.riposo);
+      return;
+    }
+    await _ingresso.forward(from: 0);
+    if (!mounted) return;
+    setState(() => _scena = StesaScene.riposo);
+    _respiro.repeat();
+  }
+
+  /// **Chi tocca mentre le carte entrano non aspetta**: l'ingresso si chiude
+  /// subito e il ventaglio e' pronto. Nessuno deve guardare un'animazione che
+  /// non ha chiesto.
+  void _saltaLIngresso() {
+    if (_scena != StesaScene.ingresso) return;
+    _ingresso.value = 1;
+    setState(() => _scena = StesaScene.riposo);
+    if (!_ridotto) _respiro.repeat();
   }
 
   Future<void> _scegli(int quale) async {
-    if (_toccata != null || _responso != null || _caricando) return;
-    setState(() => _toccata = quale);
+    if (_responso != null || _caricando || _scena == StesaScene.completa) {
+      return;
+    }
+    setState(() => _scena = StesaScene.completa);
+    _respiro.stop();
     final responso =
         await ArchivioDellAlba.estraiOggi(_adesso, caso: widget.caso);
     if (!mounted) return;
     setState(() => _responso = responso);
-    final ridotto = MediaQuery.maybeOf(context)?.disableAnimations ?? false;
-    if (ridotto) {
-      _giro.value = 1;
+    if (_ridotto) {
+      _rivelazione.value = 1;
     } else {
-      await _giro.forward(from: 0);
+      await _rivelazione.forward(from: 0);
     }
     if (!mounted) return;
-    // La carta e' girata: l'invito se ne va e restano la carta e i movimenti.
     setState(() {});
     unawaited(_segnaIlDono(responso));
   }
@@ -194,13 +249,26 @@ class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
     );
   }
 
+  /// La carta di oggi come la guarda Medora: serve alla scena, non al testo.
+  DrawnCard? get _cartaDiMedora {
+    final r = _responso;
+    if (r == null) return null;
+    return DrawnCard(
+      card: r.carta,
+      position: SpreadPosition.presente,
+      reversed: r.stato.rovescio,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final responso = _responso;
+    final scegliendo = responso == null && !_caricando;
     return Scaffold(
-      backgroundColor: ColorTokens.neutralDeepest,
+      backgroundColor: Colors.transparent,
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: _palette.deepest.withValues(alpha: 0.4),
+        backgroundColor: Colors.transparent,
         elevation: 0,
         iconTheme: IconThemeData(color: _palette.goldSoft),
         leading: IconButton(
@@ -213,163 +281,190 @@ class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
             testo: DailyElement.dawn.title,
             stile: TypographyTokens.titoloDiSchermata()),
       ),
-      body: SafeArea(
-        top: false,
-        child: _caricando
-            ? const SizedBox.shrink()
-            : SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
-                    SpacingTokens.md, SpacingTokens.lg, SpacingTokens.xl),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    if (responso == null || _giro.value < 1) ...[
-                      ParagrafiDiLettura(
-                        key: const Key('arcano_alba_invito'),
-                        testo: DailyElement.dawn.cosaFai,
-                        textAlign: TextAlign.center,
-                        stile: TypographyTokens.lettura()
-                            .copyWith(color: ColorTokens.textPrimary),
+      // **IL FONDO NON E' PIU' NERO**, voce DU.01: il cielo del Cerchio, lo
+      // stesso della Stesa, con i pianeti e senza lo zodiaco.
+      body: CosmosBackground(
+        paletteOverride: _palette,
+        child: SafeArea(
+          child: _caricando
+              ? const SizedBox.shrink()
+              // **LA SCENA RIEMPIE LO SCHERMO.** Con la sola colonna, mentre
+              // si sceglie restava un terzo di vuoto sotto il ventaglio: qui
+              // la colonna e' alta almeno quanto la finestra e distribuisce
+              // Medora, l'invito e l'arco. A responso aperto torna a scorrere
+              // dall'alto, perche' li' il contenuto e' piu' lungo della
+              // finestra.
+              : LayoutBuilder(
+                  builder: (context, spazio) => SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
+                        SpacingTokens.sm, SpacingTokens.lg, SpacingTokens.xl),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                          minHeight: spazio.maxHeight -
+                              SpacingTokens.sm -
+                              SpacingTokens.xl),
+                      child: Column(
+                        key: const Key('arcano_alba_scena'),
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisAlignment: scegliendo
+                            ? MainAxisAlignment.spaceEvenly
+                            : MainAxisAlignment.start,
+                        children: [
+                          // **MEDORA E' IN SCENA**, voce DU.04, e tace.
+                          MedoraStage(
+                            palette: _palette,
+                            active: _cartaDiMedora,
+                            height: scegliendo ? 250 : 170,
+                            breathe: !_ridotto,
+                            bustoFactor: 0.72,
+                            bustoLarghezza: 0.86,
+                          ),
+                          if (scegliendo) ...[
+                            ParagrafiDiLettura(
+                              key: const Key('arcano_alba_invito'),
+                              testo: DailyElement.dawn.cosaFai,
+                              textAlign: TextAlign.center,
+                              stile: TypographyTokens.lettura(),
+                            ),
+                            const SizedBox(height: SpacingTokens.md),
+                            // **IL VENTAGLIO DEI VENTIDUE**, voci DU.02 e DU.05:
+                            // lo stesso arco della Stesa, con ventidue dorsi.
+                            GestureDetector(
+                              behavior: HitTestBehavior.deferToChild,
+                              onTapDown: (_) => _saltaLIngresso(),
+                              child: AnimatedBuilder(
+                                animation:
+                                    Listenable.merge([_ingresso, _respiro]),
+                                builder: (context, _) => StesaFan(
+                                  palette: _palette,
+                                  taken: const {},
+                                  onPick: _scegli,
+                                  scene: _scena,
+                                  ingresso: _ingresso.value,
+                                  respiro: _respiro.value,
+                                  taglio: 0,
+                                  mescolamento: 0,
+                                  taglioIndice: 0,
+                                  reduceMotion: _ridotto,
+                                  carte: ArcanoDellAlbaScreen.dorsi,
+                                ),
+                              ),
+                            ),
+                          ],
+                          if (responso != null) ...[
+                            const SizedBox(height: SpacingTokens.sm),
+                            _CartaCheSale(
+                              responso: responso,
+                              palette: _palette,
+                              rivelazione: _rivelazione,
+                            ),
+                            AnimatedBuilder(
+                              animation: _rivelazione,
+                              builder: (context, figlio) => Opacity(
+                                opacity: ((_rivelazione.value - 0.75) / 0.25)
+                                    .clamp(0, 1),
+                                child: figlio,
+                              ),
+                              child: _TreMovimenti(
+                                  responso: responso,
+                                  giorno: _adesso,
+                                  palette: _palette),
+                            ),
+                          ],
+                        ],
                       ),
-                      const SizedBox(height: SpacingTokens.lg),
-                    ],
-                    _Carte(
-                      giro: _giro,
-                      toccata: _toccata,
-                      responso: responso,
-                      palette: _palette,
-                      onScegli: _scegli,
                     ),
-                    if (responso != null)
-                      AnimatedBuilder(
-                        animation: _giro,
-                        builder: (context, figlio) =>
-                            _giro.value < 1 ? const SizedBox.shrink() : figlio!,
-                        child: _TreMovimenti(
-                            responso: responso,
-                            giorno: _adesso,
-                            palette: _palette),
-                      ),
-                  ],
+                  ),
                 ),
-              ),
+        ),
       ),
     );
   }
 }
 
-/// Le carte coperte, e quella toccata che si gira.
-class _Carte extends StatelessWidget {
-  const _Carte({
-    required this.giro,
-    required this.toccata,
+/// **LA CARTA SCELTA SALE E SI GIRA.**
+///
+/// Sale dal ventaglio verso il centro della scena crescendo, e a mezza strada
+/// comincia a girare: la faccia compare **solo dopo il mezzo giro**, perche'
+/// il verso non si puo' sapere prima (voce DU.07).
+class _CartaCheSale extends StatelessWidget {
+  const _CartaCheSale({
     required this.responso,
     required this.palette,
-    required this.onScegli,
+    required this.rivelazione,
   });
 
-  final AnimationController giro;
-  final int? toccata;
-  final ResponsoDellAlba? responso;
+  final ResponsoDellAlba responso;
   final MaestroPalette palette;
-  final ValueChanged<int> onScegli;
+  final AnimationController rivelazione;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: giro,
+      animation: rivelazione,
       builder: (context, _) {
-        final r = responso;
-        // A carta girata resta la sola carta, grande: le altre non servono
-        // piu' e non devono sembrare un'altra scelta possibile.
-        if (r != null && giro.value >= 1) {
-          return Center(
-            child: SizedBox(
-              width: 220,
-              child: AspectRatio(
-                aspectRatio: 0.62,
-                child: _Faccia(responso: r, palette: palette),
-              ),
-            ),
-          );
-        }
-        return Row(
-          children: [
-            for (var i = 0; i < ArcanoDellAlbaScreen.carteCoperte; i++) ...[
-              if (i > 0) const SizedBox(width: SpacingTokens.sm),
-              Expanded(
-                child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 300),
-                  opacity: toccata == null || toccata == i ? 1 : 0.25,
-                  child: Semantics(
-                    button: toccata == null,
-                    label: 'Carta coperta ${i + 1}. Toccala per girarla.',
-                    child: GestureDetector(
-                      key: Key('arcano_alba_carta_$i'),
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () => onScegli(i),
-                      child: AspectRatio(
-                        aspectRatio: 0.62,
-                        child: toccata == i && r != null
-                            ? _CartaCheSiGira(
-                                t: giro.value, responso: r, palette: palette)
-                            : const _Dorso(),
-                      ),
-                    ),
+        final t = rivelazione.value;
+        // La salita: parte piccola e in basso, come stava nell'arco, e
+        // arriva piena al centro.
+        final salita = Curves.easeOutCubic.transform((t / 0.45).clamp(0, 1));
+        final giro = Curves.easeInOut.transform(((t - 0.35) / 0.5).clamp(0, 1));
+        final scala = 0.62 + 0.38 * salita;
+        final su = 70 * (1 - salita);
+        final angolo = giro * math.pi;
+        final mostraLaFaccia = giro >= 0.5;
+        return Transform.translate(
+          offset: Offset(0, su),
+          child: Transform.scale(
+            scale: scala,
+            child: Center(
+              child: SizedBox(
+                width: 236,
+                child: AspectRatio(
+                  aspectRatio: TarotFrame.aspect,
+                  child: Transform(
+                    alignment: Alignment.center,
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, 0.0012)
+                      ..rotateY(angolo),
+                    child: mostraLaFaccia
+                        ? Transform(
+                            alignment: Alignment.center,
+                            // La faccia si rimette dritta: senza, dopo il
+                            // mezzo giro si vedrebbe specchiata.
+                            transform: Matrix4.identity()..rotateY(math.pi),
+                            child:
+                                _Faccia(responso: responso, palette: palette),
+                          )
+                        : const _Dorso(),
                   ),
                 ),
               ),
-            ],
-          ],
+            ),
+          ),
         );
       },
     );
   }
 }
 
-/// Il dorso del mazzo, uguale per ogni carta coperta.
+/// Il dorso del mazzo, uguale per tutte: **simmetrico al mezzo giro**, cosi'
+/// una carta coperta non dice il verso (voce DU.07).
 class _Dorso extends StatelessWidget {
   const _Dorso();
 
   @override
-  Widget build(BuildContext context) => Image.asset(
-        TarotDeck.dorsoFull,
-        key: const Key('arcano_alba_dorso'),
-        fit: BoxFit.contain,
+  Widget build(BuildContext context) => ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: Image.asset(
+          TarotDeck.dorsoFull,
+          key: const Key('arcano_alba_dorso'),
+          fit: BoxFit.cover,
+        ),
       );
 }
 
-/// **LA CARTA CHE SI GIRA sull'asse verticale.** Nella prima meta' del giro si
-/// vede il dorso, identico per ogni verso; la faccia, col suo verso, compare
-/// solo dalla seconda meta'.
-class _CartaCheSiGira extends StatelessWidget {
-  const _CartaCheSiGira(
-      {required this.t, required this.responso, required this.palette});
-
-  final double t;
-  final ResponsoDellAlba responso;
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    final angolo = t * math.pi;
-    final faccia = t >= 0.5;
-    return Transform(
-      alignment: Alignment.center,
-      transform: Matrix4.identity()
-        ..setEntry(3, 2, 0.001)
-        ..rotateY(angolo),
-      child: faccia
-          ? Transform(
-              alignment: Alignment.center,
-              transform: Matrix4.identity()..rotateY(math.pi),
-              child: _Faccia(responso: responso, palette: palette),
-            )
-          : const _Dorso(),
-    );
-  }
-}
-
+/// La faccia della carta, **coi suoi cartigli pieni** (voce DU.03): il
+/// numerale in alto e il nome in basso, come su ogni carta del mazzo.
 class _Faccia extends StatelessWidget {
   const _Faccia({required this.responso, required this.palette});
 
@@ -382,15 +477,9 @@ class _Faccia extends StatelessWidget {
         card: responso.carta,
         palette: palette,
         reversed: responso.stato.rovescio,
-        // **I CARTIGLI ACCESI, per richiesta del fondatore del 17 settembre
-        // 2026**: una carta coi cartigli vuoti sembra una carta incompiuta.
-        // Il nome inciso e' arte della carta e sta sotto la misura di
-        // lettura come su ogni carta del mazzo; il nome col verso e
-        // l'attribuzione si leggono nel primo movimento, a misura piena.
       );
 }
 
-/// **I TRE MOVIMENTI**, ciascuno col suo compito e la sua chiave.
 class _TreMovimenti extends StatelessWidget {
   const _TreMovimenti(
       {required this.responso, required this.giorno, required this.palette});

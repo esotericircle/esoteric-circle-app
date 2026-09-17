@@ -1,5 +1,5 @@
 import 'attribuzioni_degli_arcani.dart';
-import 'sacchetto_dell_alba.dart';
+import 'stato_dell_alba.dart';
 
 /// **UNA LETTURA DELL'ARCANO DELL'ALBA**, scritta a mano nel corpus dei
 /// tarocchi. Ordine DT voci 07, 08 e 09, 17 settembre 2026.

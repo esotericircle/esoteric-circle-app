@@ -1336,12 +1336,17 @@ void main() {
         await precacheImage(AssetImage(carta.fullPath), elemento);
       }
     });
-    await step(tester);
+    // **LA SCENA ENTRA**, ordine DU: le carte girano attorno a Medora e si
+    // posano a ventaglio. Si cattura a ingresso finito, come la vede chi
+    // aspetta due secondi.
+    for (var i = 0; i < 30; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
     await step(tester);
     await capture(tester, rootKey, 'arcano-alba-coperte.png');
 
-    await tester.tap(find.byKey(const Key('arcano_alba_carta_1')));
-    for (var i = 0; i < 12; i++) {
+    await tester.tap(find.byKey(const Key('stesa_fan_11')));
+    for (var i = 0; i < 16; i++) {
       await tester.pump(const Duration(milliseconds: 100));
     }
     await step(tester);
