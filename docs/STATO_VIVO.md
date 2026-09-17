@@ -3266,7 +3266,9 @@ mattino, e la carta girata alle 18:01 diceva *"Stamani hai rivelato"*. Padre
 DT.08. Diciotto aperture e quattro doni riscritti senza l'ora, con una guardia
 sul corpus vista rossa prima. **E i cartigli delle carte accesi**, su richiesta
 di Mauro: erano vuoti nella 2266. Il censimento dei caratteri salta solo il
-testo inciso nei cartigli.
+testo inciso nei cartigli. **Build 2267** dal commit `f79fa9a9`, gettone con
+5.465 prove, cancello verde, consegnata con App Distribution: release
+`10vvi451u9t10`, guardata a video col cartiglio pieno e l'apertura senza ora.
 
 **I DONI SONO QUATTRO.** Il Rito dell'Alba e l'Arcano del Giorno non esistono
 piu': al loro posto **l'Arcano dell'Alba**, di Medora, alle sette

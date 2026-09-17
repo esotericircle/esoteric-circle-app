@@ -406,6 +406,14 @@ rilevatore dei nuclei (*senti*, *occhi chiusi*, *domani* contro la parola
 1.048.320 combinazioni**. **Se Mauro preferisce la seconda strada**, le
 aperture del mattino solo prima di mezzogiorno, e' un ritocco del diario.
 
+**La consegna della 2267.** Sbarramento dopo la spinta sul commit `f79fa9a9`:
+soli rossi accettati, gettone per la **2267** con **5.465 prove**, server 100
+su 100; cancello di GitHub sullo stesso commit **verde**. Archivio di
+204.480.471 byte, famiglie verdi, acceso sul Realme, consegnato con App
+Distribution: release `10vvi451u9t10`, registro da 2266 a 2267. **Guardata a
+video**: i cartigli pieni, *III* e *L'IMPERATRICE*, e l'apertura di oggi
+*"Hai appena rivelato l'Imperatrice dritta, lettera doppia di Venere"*, senza
+nessuna ora.
 ## 6. LE LACUNE APERTE E LE DECISIONI DI MAURO
 
 **Nessun rosso e' stato aggiunto a `tool/rossi_accettati.txt`.**
