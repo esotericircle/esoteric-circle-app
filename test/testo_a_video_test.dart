@@ -124,6 +124,10 @@ void main() {
       // nascita": "dove era" elide in "dov'era" come "cosa e'" in "cos'e'".
       // Di nuovo la misura era da allargare, non il testo da storpiare.
       'dov',
+      // **"MEZZ'ORA" E "NIENT'ALTRO" SONO ELISIONI**, ordine DT voce 09. Le
+      // letture dell'Arcano dell'Alba dicono "dedica mezz'ora" e "senza fare
+      // nient'altro": "mezza ora" e "niente altro" elidono come "dove era".
+      'mezz', 'nient',
     };
     final parola = RegExp(r"([A-Za-zÀ-ÿ]+)'");
     final colpevoli = <String>[];

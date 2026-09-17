@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// LA GUARDIA DELL'ORDINE DT, I DONI DEL GIORNO, RIFONDAZIONE.
 ///
 /// **Non e' una promessa, e' una prova che non passa.** Legge il manifesto
-/// `docs/ordini/ORDINE_DT_MANIFESTO.md` e resta rossa finche' le venti voci
+/// `docs/ordini/ORDINE_DT_MANIFESTO.md` e resta rossa finche' le ventisette voci
 /// non hanno uno stato terminale.
 ///
 /// **E pretende cio' che l'ordine chiede al manifesto**: le ventidue
@@ -16,7 +16,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final manifesto = File('docs/ordini/ORDINE_DT_MANIFESTO.md');
 
-  const quante = 20;
+  const quante = 27;
 
   int marcatore(String testo, String nome) {
     final trovato =
@@ -47,7 +47,7 @@ void main() {
     return voci;
   }
 
-  test('il manifesto esiste e porta tutte e venti le voci', () {
+  test('il manifesto esiste e porta tutte e ventisette le voci', () {
     expect(manifesto.existsSync(), isTrue,
         reason: 'il manifesto nasce prima del codice');
     final testo = manifesto.readAsStringSync();
@@ -121,6 +121,6 @@ void main() {
     final aperte = marcatore(manifesto.readAsStringSync(), 'VOCI_APERTE');
     expect(aperte, 0,
         reason: 'restano $aperte voci APERTE. Questa riga e rossa apposta: '
-            'torna verde quando le venti voci hanno uno stato terminale');
+            'torna verde quando le ventisette voci hanno uno stato terminale');
   });
 }

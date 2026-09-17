@@ -1,3 +1,4 @@
+import '../responsi/scelta_senza_ripetere.dart';
 import 'figure_della_stesa.dart';
 import 'tarot_card.dart';
 import 'tarot_spread.dart';
@@ -590,14 +591,17 @@ abstract final class VoceDellaStesa {
       {List<String>? pezzi}) {
     final scelta = filo.scegli(forme);
     final da = forme.indexOf(scelta);
-    var tenuta = scelta;
-    for (var k = 0; k < forme.length; k++) {
-      final candidata = forme[(da + k) % forme.length];
-      if (FigureDellaStesa.di(candidata).intersection(usate).isEmpty) {
-        tenuta = candidata;
-        break;
-      }
-    }
+    // L'impianto e' uno solo dall'ordine DT voce 27: qui gli si danno le forme
+    // nell'ordine del filo e le figure come marche.
+    final tenuta = SceltaSenzaRipetere.primoLibero(
+          [
+            for (var k = 0; k < forme.length; k++)
+              forme[(da + k) % forme.length]
+          ],
+          FigureDellaStesa.di,
+          usate,
+        ) ??
+        scelta;
     usate.addAll(FigureDellaStesa.di(tenuta));
     pezzi?.add(tenuta);
     return tenuta;

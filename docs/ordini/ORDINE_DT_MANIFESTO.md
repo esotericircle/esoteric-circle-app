@@ -7,24 +7,32 @@ con l'ordine DS consegnato nella build 2265.
 **Nessuna build.** L'ordine lo vieta: se una build sembrasse necessaria, la
 domanda va a Mauro.
 
-**Venti voci, e una stima dichiarata prima di cominciare: dodici-quindici
-ore.** Sopra la soglia di un'ora e mezza, quindi il lavoro si è fermato prima
+**Ventisette voci**: le venti dell'ordine e le sette del chiarimento dello
+stesso giorno, che non è un ordine nuovo e le cui voci stanno qui accanto a
+quelle che toccano. **E una stima dichiarata prima di cominciare:
+dodici-quindici ore.** Sopra la soglia di un'ora e mezza, quindi il lavoro si è fermato prima
 di toccare un file e Mauro ha deciso, il 17 settembre 2026:
 
 1. **tutto l'ordine, a fasi**, ognuna committata;
 2. **il responso dell'Arcano dell'Alba si compone dal corpus, senza modello a
-   runtime**: le tre letture per stato sono scritte a mano, e i registri e la
-   guardia della sovrapposizione controllano il testo composto. Dove l'ordine
-   dice *rigenerare* si ricompone con un'altra variante, e dopo tre tentativi
-   si passa alla lettura successiva;
+   runtime**: le tre letture per stato sono scritte a mano. Nessuna chiamata a
+   Vertex o a Gemini per questo dono. **Il chiarimento dello stesso giorno ne
+   trae le conseguenze** e riscrive le voci 11, 12 e 13, che presupponevano una
+   generazione: i registri non filtrano un testo appena generato ma scelgono
+   quale lettura consegnare (DT.23), la variabile per utente è l'ordine in cui
+   ciascuno consuma le letture (DT.22), e la guardia della sovrapposizione è
+   una prova sul corpus e non un controllo a runtime (DT.24). **Non si rigenera
+   niente e non si contano tentativi**: ciò che quei meccanismi dovevano
+   garantire lo garantiscono la scelta fra letture già scritte e le prove che
+   impediscono a un corpus sbagliato di entrare;
 3. **nel Cammino il nuovo dono registra tutti e due i gesti**, `alba` e
    `oracolo`, così nessuno dei 46 traguardi che li nominano cambia;
 4. **il Sigillo del Sogno richiama il dono della carta**: la parola quando la
    carta è zodiacale, l'azione o il respiro negli altri giorni.
 
-VOCI_TOTALI: 20
+VOCI_TOTALI: 27
 VOCI_CHIUSE: 0
-VOCI_APERTE: 20
+VOCI_APERTE: 27
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 
@@ -38,6 +46,12 @@ Il rapporto starà in `docs/ordini/RAPPORTO_ORDINE_DT.md`.
   Giorno come voci autonome, nasce l'Arcano dell'Alba. **APERTA.**
 - **DT.02**, l'Arcano dell'Alba: Medora, l'orario del mattino, un gesto solo,
   scegliere una carta coperta e girarla. **APERTA.**
+- **DT.25**, la Carta del giorno di Medora è l'Arcano dell'Alba di oggi per
+  quell'utente, con il suo verso: nessuna seconda estrazione, e una prova che
+  lo misura. **APERTA.**
+- **DT.26**, i pulsanti della chat dopo la fusione: zero destinazioni
+  sbagliate, nessuno verso il Rito dell'Alba o l'Arcano del Giorno, e quello
+  che apriva l'Arcano del Giorno apre l'Arcano dell'Alba. **APERTA.**
 - **DT.03**, solo i ventidue arcani maggiori, e nessun consumo del limite dei
   tarocchi. **APERTA.**
 - **DT.04**, il verso lo decide il sistema, i dorsi non lo tradiscono, il
@@ -50,11 +64,36 @@ Il rapporto starà in `docs/ordini/RAPPORTO_ORDINE_DT.md`.
   parola. **APERTA.**
 - **DT.08**, i tre movimenti del responso, con compiti disgiunti. **APERTA.**
 - **DT.09**, tre letture per stato, scelte senza ripetere. **APERTA.**
+- **DT.21**, il responso è a corpus: le voci 11, 12 e 13 riscritte nella forma
+  che funziona senza modello, sostituendo e non cancellando ciò che dovevano
+  garantire. **APERTA.**
 - **DT.10**, il filo con ieri, solo dove la relazione è documentata.
   **APERTA.**
-- **DT.11**, i registri delle parole e delle aperture. **APERTA.**
-- **DT.12**, la variabile per utente. **APERTA.**
-- **DT.13**, la guardia contro la sovrapposizione interna. **APERTA.**
+- **DT.11**, i registri delle parole del giorno e delle aperture, per
+  utente: nessuna parola e nessuna apertura di movimento si ripete dentro il
+  ciclo di quarantaquattro giorni. **A corpus non filtrano un testo generato,
+  scelgono la lettura** (DT.23); una prova simula il ciclo intero. **APERTA.**
+- **DT.23**, i registri come criterio di scelta: se la lettura che tocca viola
+  un registro se ne consegna un'altra dello stesso stato che non lo viola, e
+  quella saltata resta in coda per il ciclo dopo; se nessuna è libera si
+  consegna la meno recente e un contatore lo registra, e la prova pretende zero
+  su un ciclo completo. **APERTA.**
+- **DT.27**, un solo impianto anti ripetizione: i registri riusano quello della
+  Stesa dell'ordine DS, generalizzato, oppure il rapporto dice il motivo
+  tecnico per cui non si può. **APERTA.**
+- **DT.12**, la variabile per utente: due utenti con lo stesso stato non
+  ricevono lo stesso testo. **A corpus la leva è l'ordine in cui ciascuno
+  consuma le letture dello stato**, che dipende dall'utente, dalla carta e dal
+  verso; non esiste un seme di generazione. **APERTA.**
+- **DT.22**, la probabilità di collisione fra due utenti nello stesso giorno al
+  variare delle letture per stato, con la tabella e il numero raccomandato: la
+  scelta del numero spetta a Mauro. **APERTA.**
+- **DT.13**, la sovrapposizione interna: due dei tre movimenti non condividono
+  il nucleo. **A corpus non è un controllo a runtime ma una prova sul corpus**
+  (DT.24). **APERTA.**
+- **DT.24**, la prova della sovrapposizione e quella della distanza fra le
+  letture girano sul corpus, per ogni lettura di ogni stato, e un corpus che
+  non le passa non entra; scritte prima del corpus. **APERTA.**
 - **DT.14**, il Soffio del Destino alle tredici. **APERTA.**
 - **DT.15**, il Sigillo del Sogno a Medora. **APERTA.**
 - **DT.16**, la Runa del Tramonto invariata. **APERTA.**
