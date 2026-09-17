@@ -10,6 +10,7 @@ import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/design_system/tokens/regime_chiaro.dart';
 import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:esoteric_circle/core/rituals/arcano_dell_alba/archivio_dell_alba.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/diario_dell_alba.dart';
 import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/features/rituals/arcano_dell_alba_screen.dart';
 import 'package:flutter/material.dart';
@@ -216,6 +217,11 @@ void main() {
     silenzia();
     SharedPreferences.setMockInitialValues(const {});
     ArchivioDellAlba.dimenticaLaMemoria();
+    // **ANCHE IL SEME E' FISSATO.** Col seme a caso la persona cambiava a ogni
+    // giro, e con lei la lettura e le aperture: la tabella usciva diversa dallo
+    // sbarramento del 17 settembre, con tre righe senza chiave.
+    await ArchivioDellAlba.scrivi(
+        DiarioDellAlba.nuovo(seme: 'la-tabella-del-contrasto'));
     await caricaCaratteri();
     tester.view.physicalSize = schermoReale;
     tester.view.devicePixelRatio = 1.0;
@@ -344,11 +350,31 @@ void main() {
         } else {
           final breve =
               scritto.length > 34 ? '${scritto.substring(0, 31)}...' : scritto;
+          final riga = breve.replaceAll('|', '/').replaceAll('\n', ' ');
+          // **LA CHIAVE PUO' STARE SOPRA IL TESTO.** Ordine DT: un testo
+          // lungo passa da `ParagrafiDiLettura`, che lo spezza in blocchi e
+          // tiene la chiave sul contenitore. Si risale all'antenato che la
+          // porta, cosi' file e riga restano quelli veri.
+          bool delRito(Widget w) {
+            final chiave = w.key;
+            return chiave is ValueKey<String> &&
+                (chiave.value.startsWith('alba_') ||
+                    chiave.value.startsWith('arcano_alba_'));
+          }
+
+          final sopra = tester
+              .widgetList(find.ancestor(
+                  of: find.text(scritto),
+                  matching: find.byWidgetPredicate(delRito)))
+              .toList();
+          final antenato = sopra.isEmpty
+              ? null
+              : (sopra.first.key! as ValueKey<String>).value;
           // Il testo si ritrova per contenuto: e' l'unica ancora che ha.
           trovati.add((
             find.text(scritto),
-            breve.replaceAll('|', '/').replaceAll('\n', ' '),
-            'senza chiave'
+            antenato == null ? riga : '`$antenato`, $riga',
+            antenato == null ? 'senza chiave' : dove(antenato),
           ));
         }
       }

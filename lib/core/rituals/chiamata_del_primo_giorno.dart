@@ -36,7 +36,7 @@ import 'avvisi_del_rito.dart';
 ///
 /// **La cura, e i suoi limiti scritti.** All'avvio, una volta sola nella vita
 /// dell'installazione, l'app mostra la stessa spiegazione del Rito dell'Alba
-/// (`AvvisiDelRito.spiegazione`, che nomina i cinque Doni e le loro ore) e poi
+/// (`AvvisiDelRito.spiegazione`, che nomina i Doni e le loro ore) e poi
 /// chiede al sistema. Una volta sola, perche' su Android il dialogo di sistema
 /// compare una volta e poi il no diventa definitivo: insistere non
 /// aggiungerebbe una possibilita', la toglierebbe.

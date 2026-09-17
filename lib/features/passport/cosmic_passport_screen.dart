@@ -1346,7 +1346,7 @@ class _FiloDeiGiorni extends StatelessWidget {
     }
     final serie = diario?.seriePerRito ?? const {};
     // Il diario tiene una serie per OGNI gesto, anche il passaporto o il
-    // viso: qui contano solo i cinque Doni del giorno, i riti veri.
+    // viso: qui contano solo i Doni del giorno, i riti veri.
     MapEntry<String, int>? migliore;
     for (final voce in serie.entries) {
       if (!_nomi.containsKey(voce.key)) continue;

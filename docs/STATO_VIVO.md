@@ -3243,8 +3243,83 @@ passo tolto: adesso leggono il codice, viste rosse. **La suite intera non e'
 girata in locale**: la gira il cancello sul commit spinto, cioe' la stessa
 risposta che la build legge.
 
-**L'ordine DT e' sospeso** per questo: tre commit sul ramo locale, non spinti,
-da riprendere sopra questo.
+**L'ordine DT era sospeso** per questo, e si e' chiuso subito dopo, sopra
+questo commit: la sezione qui sotto.
+
+## L'ORDINE DT, I DONI DEL GIORNO, RIFONDAZIONE
+
+17 settembre 2026. **Ventisette voci**, le venti dell'ordine e le sette del
+chiarimento dello stesso giorno: **ventisei chiuse, DT.05 ferma in attesa di
+decisione.** L'ordine non e' chiuso. Manifesto
+`docs/ordini/ORDINE_DT_MANIFESTO.md`, rapporto
+`docs/ordini/RAPPORTO_ORDINE_DT.md`, guardia `test/ordine_dt_guard_test.dart`.
+L'ordine vietava la build; **Mauro l'ha ordinata a lavoro finito**: la 2266
+e' la prima coi quattro doni, la 2265 ha ancora i cinque.
+
+**I DONI SONO QUATTRO.** Il Rito dell'Alba e l'Arcano del Giorno non esistono
+piu': al loro posto **l'Arcano dell'Alba**, di Medora, alle sette
+(`lib/features/rituals/arcano_dell_alba_screen.dart`). Poi il Soffio del
+Destino di Aura **alle tredici**, la Runa del Tramonto invariata e il Sigillo
+del Sogno **di Medora**, senza la rotazione dei Maestri. La voce
+`DailyElement.dawn` e' l'Arcano dell'Alba, `oracle` e' tolta; preferenze,
+serie e canali salvati col nome `dawn` restano di chi li aveva. Le fasce del
+giorno vengono dalle ancore dei doni e l'id di ogni avviso da un numero fisso
+per dono (`numeroDellAvviso`): un sesto dono non sposta gli altri. Il 1102
+dell'Arcano del Giorno e' fra le chiamate di prima da spegnere.
+
+**L'ARCANO DELL'ALBA.** Un gesto solo: tre carte coperte uguali, se ne sceglie
+una e si gira. **Il verso lo decide il caso sicuro al tocco, non la carta
+toccata**; la faccia compare solo dopo meta' giro e il dorso ruotato di mezzo
+giro scarta in media 5,37 su 255. Solo i ventidue maggiori, e **il limite delle
+stese non si tocca**. Il gesto vale per `alba` e per `oracolo` nel cammino
+(decisione di Mauro). Nessun comando oltre al ritorno: l'eccezione a CG.06 e
+CG.08 e' dichiarata in `arti_con_responso.dart`, `senzaAzioni`.
+
+**IL MOTORE, A CORPUS E SENZA MODELLO** (`lib/core/rituals/arcano_dell_alba/`).
+Le ventidue attribuzioni della Golden Dawn (tre madri, sette doppie, dodici
+semplici) stanno nel codice e nella riga di ogni maggiore di
+`docs/corpus/tarocchi.md`. **Il sacchetto**: quarantaquattro stati senza
+reimbussolamento, la stessa carta non torna prima di undici estrazioni, anche
+fra due cicli; l'estrazione sceglie solo fra gli stati che lasciano il resto
+componibile e non blocca mai. **Il corpus**: tre letture per stato, **132**,
+nella sezione *"Arcano dell'Alba, le letture del dono"* di `tarocchi.md`,
+generate in `letture_dell_alba_dati.dart` da `tool/genera_letture_dell_alba.py`;
+la famiglia decide la forma (respiro, azione, parola). **Tre movimenti**: la
+carta con la sua apertura e la sua clausola, il dono, Medora col filo con ieri
+solo quando c'e' una relazione documentata. **Il diario della persona**
+(`diario_dell_alba.dart`, chiave `arcano_alba.diario`): seme, sacchetto, code
+delle letture nell'ordine della persona, registri delle parole e delle aperture,
+contatore dei ripieghi. **I registri scelgono la lettura** invece di filtrare un
+testo: in tre cicli per venticinque persone zero ripieghi. **Un solo impianto
+anti ripetizione**, `lib/core/responsi/scelta_senza_ripetere.dart`, usato dalla
+Stesa e dall'Alba.
+
+**LA CARTA DEL GIORNO DI MEDORA** in chat e' l'Arcano dell'Alba estratto quel
+giorno, col suo verso; senza carta girata la chat invita ad aprirlo e non
+estrae. `ArcanoDelGiorno` e' tolto. Il pulsante della chat che apriva l'Arcano
+del Giorno apre l'Arcano dell'Alba: quindici pulsanti, zero sbagliati. **Il
+Sigillo del Sogno richiama il dono della carta** del mattino (decisione di
+Mauro), non piu' una parola sua.
+
+**DT.05, FERMATA.** Il diario viaggia nel cammino custodito:
+`cammino_da_custodire.dart` e `functions/src/cammino.ts` portano il campo
+`arcanoDellAlba` e tengono il diario piu' avanti, con le prove. **La funzione
+`statoDelCerchio` non e' distribuita**: finche' non lo e', il diario
+sopravvive alla chiusura dell'app e non al cambio di telefono. Mauro ha dato il
+via e il permesso della sessione ha rifiutato la distribuzione in produzione:
+il comando e' il PASSO 8 di `docs/ordini/DISTRIBUZIONI_DAL_TUO_PC.md`.
+
+**Le guardie.** Sei prove nuove e la guardia dell'ordine, tutte viste rosse
+prima; il registro scende da 436 a **434** (quattro nuove, sei tolte con le
+schermate che misuravano). Nessuna riga nei rossi accettati.
+
+**Da fare o decidere per il fondatore**: la distribuzione di
+`statoDelCerchio` dal suo PC (DT.05); il numero
+delle letture per stato, **raccomandate otto** (collisione fra due persone
+con lo stesso stato dal 36,7 al 14,3 per cento misurato); i testi delle push
+del server, da cambiare col rilascio; la domanda di Medora dalla Stesa e la
+lente della parola, scritte e non piu' lette; i fondali dell'alba rimasti nel
+bundle; i due sentieri che nominano lo stesso dono.
 
 ## Regole ferree
 

@@ -31,9 +31,9 @@ di toccare un file e Mauro ha deciso, il 17 settembre 2026:
    carta è zodiacale, l'azione o il respiro negli altri giorni.
 
 VOCI_TOTALI: 27
-VOCI_CHIUSE: 0
-VOCI_APERTE: 27
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_CHIUSE: 26
+VOCI_APERTE: 0
+VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 1
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 
 Il rapporto starà in `docs/ordini/RAPPORTO_ORDINE_DT.md`.
@@ -43,64 +43,79 @@ Il rapporto starà in `docs/ordini/RAPPORTO_ORDINE_DT.md`.
 ## LE VOCI
 
 - **DT.01**, da cinque doni a quattro: via il Rito dell'Alba e l'Arcano del
-  Giorno come voci autonome, nasce l'Arcano dell'Alba. **APERTA.**
-- **DT.02**, l'Arcano dell'Alba: Medora, l'orario del mattino, un gesto solo,
-  scegliere una carta coperta e girarla. **APERTA.**
-- **DT.25**, la Carta del giorno di Medora è l'Arcano dell'Alba di oggi per
-  quell'utente, con il suo verso: nessuna seconda estrazione, e una prova che
-  lo misura. **APERTA.**
-- **DT.26**, i pulsanti della chat dopo la fusione: zero destinazioni
-  sbagliate, nessuno verso il Rito dell'Alba o l'Arcano del Giorno, e quello
-  che apriva l'Arcano del Giorno apre l'Arcano dell'Alba. **APERTA.**
-- **DT.03**, solo i ventidue arcani maggiori, e nessun consumo del limite dei
-  tarocchi. **APERTA.**
-- **DT.04**, il verso lo decide il sistema, i dorsi non lo tradiscono, il
-  rovescio attenua e non nega. **APERTA.**
-- **DT.05**, il sacchetto di quarantaquattro stati senza reimbussolamento, e
-  undici giorni prima che una carta torni. **APERTA.**
-- **DT.06**, le attribuzioni della Golden Dawn nel corpus dei tarocchi.
-  **APERTA.**
-- **DT.07**, le tre famiglie e le tre forme del responso: respiro, azione,
-  parola. **APERTA.**
-- **DT.08**, i tre movimenti del responso, con compiti disgiunti. **APERTA.**
-- **DT.09**, tre letture per stato, scelte senza ripetere. **APERTA.**
-- **DT.21**, il responso è a corpus: le voci 11, 12 e 13 riscritte nella forma
-  che funziona senza modello, sostituendo e non cancellando ciò che dovevano
-  garantire. **APERTA.**
-- **DT.10**, il filo con ieri, solo dove la relazione è documentata.
-  **APERTA.**
-- **DT.11**, i registri delle parole del giorno e delle aperture, per
-  utente: nessuna parola e nessuna apertura di movimento si ripete dentro il
-  ciclo di quarantaquattro giorni. **A corpus non filtrano un testo generato,
-  scelgono la lettura** (DT.23); una prova simula il ciclo intero. **APERTA.**
-- **DT.23**, i registri come criterio di scelta: se la lettura che tocca viola
-  un registro se ne consegna un'altra dello stesso stato che non lo viola, e
-  quella saltata resta in coda per il ciclo dopo; se nessuna è libera si
-  consegna la meno recente e un contatore lo registra, e la prova pretende zero
-  su un ciclo completo. **APERTA.**
-- **DT.27**, un solo impianto anti ripetizione: i registri riusano quello della
-  Stesa dell'ordine DS, generalizzato, oppure il rapporto dice il motivo
-  tecnico per cui non si può. **APERTA.**
-- **DT.12**, la variabile per utente: due utenti con lo stesso stato non
-  ricevono lo stesso testo. **A corpus la leva è l'ordine in cui ciascuno
-  consuma le letture dello stato**, che dipende dall'utente, dalla carta e dal
-  verso; non esiste un seme di generazione. **APERTA.**
-- **DT.22**, la probabilità di collisione fra due utenti nello stesso giorno al
-  variare delle letture per stato, con la tabella e il numero raccomandato: la
-  scelta del numero spetta a Mauro. **APERTA.**
-- **DT.13**, la sovrapposizione interna: due dei tre movimenti non condividono
-  il nucleo. **A corpus non è un controllo a runtime ma una prova sul corpus**
-  (DT.24). **APERTA.**
-- **DT.24**, la prova della sovrapposizione e quella della distanza fra le
-  letture girano sul corpus, per ogni lettura di ogni stato, e un corpus che
-  non le passa non entra; scritte prima del corpus. **APERTA.**
-- **DT.14**, il Soffio del Destino alle tredici. **APERTA.**
-- **DT.15**, il Sigillo del Sogno a Medora. **APERTA.**
-- **DT.16**, la Runa del Tramonto invariata. **APERTA.**
-- **DT.17**, l'architettura pronta per sei doni. **APERTA.**
-- **DT.18**, il manifesto. **APERTA.**
-- **DT.19**, guardia propria, sigillo, sbarramento. **APERTA.**
-- **DT.20**, il rapporto. **APERTA.**
+  Giorno come voci autonome, nasce l'Arcano dell'Alba. La voce `dawn` resta e
+  diventa l'Arcano dell'Alba; `oracle` e' tolto; quattro voci e quattro icone
+  nella striscia; ogni riferimento e' nel rapporto col suo trattamento.
+  **CHIUSA.**
+- **DT.02**, l'Arcano dell'Alba: Medora, le sette, un gesto solo, scegliere una
+  carta coperta e girarla. `lib/features/rituals/arcano_dell_alba_screen.dart`:
+  tre carte coperte uguali, nessun comando oltre al ritorno. **CHIUSA.**
+- **DT.25**, la Carta del giorno di Medora e' l'Arcano dell'Alba di oggi, col
+  suo verso, letta dall'archivio dell'estrazione; il calcolo per conto proprio
+  (`ArcanoDelGiorno`) e' tolto; senza carta girata la chat invita e non estrae.
+  **CHIUSA.**
+- **DT.26**, i pulsanti della chat restano **quindici**, zero destinazioni
+  sbagliate; nessuno porta al Rito dell'Alba o all'Arcano del Giorno; quello
+  dell'Arcano apre l'Arcano dell'Alba. **CHIUSA.**
+- **DT.03**, solo i ventidue arcani maggiori; il limite delle stese non si
+  tocca, misurato a schermata. **CHIUSA.**
+- **DT.04**, il verso lo decide il caso sicuro al tocco e non la carta toccata;
+  la faccia compare dopo meta' giro; il dorso al mezzo giro scarta in media
+  5,37 su 255; il rovescio attenua e non nega, nel corpus. **CHIUSA.**
+- **DT.05**, il sacchetto di quarantaquattro stati senza reimbussolamento e
+  undici estrazioni prima che una carta torni, provato su 120 semi per 6 cicli;
+  il diario per persona sopravvive alla chiusura. **Il passaggio fra telefoni
+  e' scritto nei due lati, provato e verde, ma `statoDelCerchio` non e'
+  distribuita**: Mauro ha dato il via il 17 settembre, e il permesso di questa
+  sessione ha rifiutato la distribuzione in produzione. Il comando e il suo
+  controllo stanno nel PASSO 8 di `docs/ordini/DISTRIBUZIONI_DAL_TUO_PC.md`.
+  **FERMATA IN ATTESA DI DECISIONE**, cioe' della distribuzione dal PC di
+  Mauro.
+- **DT.06**, le ventidue attribuzioni della Golden Dawn nella riga di ogni
+  maggiore del corpus dei tarocchi e nel codice. **CHIUSA.**
+- **DT.07**, le tre famiglie e le tre forme: respiro, azione, parola; il
+  contenuto nasce dalla carta. **CHIUSA.**
+- **DT.08**, i tre movimenti con compiti disgiunti: la carta, il dono, Medora
+  col filo in fondo. **CHIUSA.**
+- **DT.09**, tre letture per stato, 132 nel corpus, scelte fra quelle non
+  ricevute; la distanza fra letture misurata sul corpus. **CHIUSA.**
+- **DT.21**, il responso e' a corpus: le voci 11, 12 e 13 riscritte qui sotto
+  nella forma che funziona senza modello. **CHIUSA.**
+- **DT.10**, il filo con ieri solo con una relazione documentata, mai il primo
+  giorno e mai dopo un giorno saltato. **CHIUSA.**
+- **DT.11**, i registri delle parole del giorno e delle aperture, per persona:
+  nessuna parola e nessuna apertura di movimento si ripete dentro il ciclo di
+  quarantaquattro giorni. **A corpus non filtrano un testo generato, scelgono la
+  lettura** (DT.23); una prova simula tre cicli per venticinque persone.
+  **CHIUSA.**
+- **DT.23**, i registri come criterio di scelta: la lettura che violerebbe si
+  salta e resta in coda; senza letture libere si consegna la meno recente e un
+  contatore lo registra; zero su un ciclo completo. **CHIUSA.**
+- **DT.27**, un solo impianto anti ripetizione: `SceltaSenzaRipetere`, nato
+  dalla Stesa e usato dalla Stesa e dall'Alba. **CHIUSA.**
+- **DT.12**, la variabile per utente e' l'ordine in cui ciascuno consuma le
+  letture e le aperture, dal seme della persona; non esiste un seme di
+  generazione. **CHIUSA.**
+- **DT.22**, la collisione fra due persone nello stesso giorno misurata al
+  variare delle letture per stato, con la tabella e la raccomandazione nel
+  rapporto; **il numero lo sceglie Mauro**. **CHIUSA.**
+- **DT.13**, la sovrapposizione interna: nessuno dei tre movimenti condivide il
+  nucleo con un altro. **A corpus e' una prova sul corpus** (DT.24).
+  **CHIUSA.**
+- **DT.24**, la prova della sovrapposizione e quella della distanza girano sul
+  corpus, su 1.048.320 combinazioni, e sono state viste rosse sul corpus vuoto
+  prima che il corpus entrasse. **CHIUSA.**
+- **DT.14**, il Soffio del Destino alle tredici, con testi, avvisi e prove.
+  **CHIUSA.**
+- **DT.15**, il Sigillo del Sogno a Medora, senza la rotazione. **CHIUSA.**
+- **DT.16**, la Runa del Tramonto invariata, allineata nelle liste.
+  **CHIUSA.**
+- **DT.17**, l'architettura pronta per sei doni: le fasce dalle ancore, i
+  numeri degli avvisi per dono, gli elenchi composti; i numeri rimasti scritti
+  a mano sono nel rapporto. **CHIUSA.**
+- **DT.18**, questo manifesto. **CHIUSA.**
+- **DT.19**, la guardia propria, il sigillo e lo sbarramento. **CHIUSA.**
+- **DT.20**, il rapporto, `docs/ordini/RAPPORTO_ORDINE_DT.md`. **CHIUSA.**
 
 ---
 
@@ -191,4 +206,49 @@ numero, e le due carte portano Bilancia e Leone come nella Golden Dawn.
 
 ## I TEST
 
-L'elenco si scrive a lavoro fatto, con ciò che ciascuno dimostra.
+### Le prove nuove, viste rosse prima
+
+| prova | cosa dimostra | voci | come e' stata vista rossa |
+|---|---|---|---|
+| `test/le_ventidue_attribuzioni_test.dart` | tre piu' sette piu' dodici fa ventidue; ogni maggiore del mazzo ha **una** attribuzione e nessuna resta senza carta; ogni pianeta e ogni segno una volta; le ventidue attribuzioni dell'ordine carta per carta; le relazioni del filo su coppie di cui la tradizione sa la risposta (stesso elemento, governo nei due sensi, opposizione, quadratura, famiglia) | 06, 10 | La Luna portata ai pianeti: 3, 8, 11 |
+| `test/il_sacchetto_dell_alba_test.dart` | **44 stati, ogni stato una volta per ciclo, la stessa carta mai prima di 11 estrazioni anche fra due cicli**, su 120 semi per 6 cicli; zero cicli ricomposti a meta'; il verso non segue la carta (prima uscita rovescia fra il 45 e il 55 per cento); il sacchetto sopravvive alla chiusura; sette salvataggi rotti o vuoti si ricompongono senza bloccare | 04, 05 | finestra tolta: la carta torna dopo una estrazione; prova di componibilita' tolta: un ciclo ricomposto a meta' |
+| `test/il_corpus_dell_alba_regge_test.dart` | almeno tre letture per stato, numerate; **la famiglia decide la forma** (parola solo alle zodiacali, e il dono la porta); carte diverse danno responsi diversi e i due versi della stessa carta hanno la stessa forma e un altro dono; **le letture dello stesso stato non condividono il nucleo**; parole, aperture del dono e di Medora tutte distinte e piu' aperture del primo movimento che giorni; **nessun movimento fa il compito di un altro su 1.048.320 combinazioni** di lettura, apertura, clausola e filo; la lingua; il file dei dati coincide col corpus; il rilevatore vede un caso costruito apposta e non vede cio' che non c'e' | 07, 08, 09, 11, 13, 24 | corpus vuoto: otto rosse; una chiusura di Medora innestata sul suo dono nei dati: una caduta |
+| `test/il_diario_dell_alba_test.dart` | una sola estrazione al giorno; **in tre cicli per 25 persone nessuna parola e nessuna apertura si ripete dentro il ciclo, 24 parole a ciclo, ripieghi a zero, e ogni stato consuma le sue tre letture**; il registro salta la lettura che lo viola, la lascia in coda, e al secondo ciclo senza letture libere consegna e conta; il filo con ieri solo con relazione, mai il primo giorno, spezzato da un giorno saltato; **due persone con lo stesso stato leggono testi diversi**; la collisione misurata al variare delle letture; il diario riletto continua identico; cinque salvataggi rotti non bloccano | 05, 09, 10, 11, 12, 22, 23, 27 | l'impianto unico che prende sempre il primo candidato: tre rosse qui e due nella Stesa |
+| `test/l_arcano_dell_alba_si_gira_test.dart` | carte coperte uguali per dorso e misura, **nessun comando oltre al ritorno**, nessuna faccia montata prima del gesto; girata la carta, la faccia porta il verso estratto e arrivano i tre movimenti; **il verso non lo decide la carta toccata**; nella prima meta' del giro solo il dorso; **il limite delle stese non si muove e nel cammino entrano alba e oracolo**; riaperto il dono la carta e' quella; **il dorso ruotato di mezzo giro scarta in media 5,37 su 255 e in nessun punto oltre 48** | 02, 03, 04 | la carta toccata che decide il caso; il gesto dell'oracolo tolto: due rosse |
+| `functions/src/cammino.test.ts`, due prove nuove | il diario dell'Alba si legge intero e non oltre il suo peso; **fra due diari vince il piu' avanti**, e un telefono nuovo lo riceve | 05 | il server che vince sempre: una rossa |
+| `test/intent_routing_test.dart`, riscritta | **estratto l'Arcano dell'Alba, la chat nomina la stessa carta e lo stesso verso**, tre domande, senza modello; senza carta girata la chat non ne estrae una seconda | 25 | la carta del giorno che ignora l'estrazione: tre rosse |
+| `test/daily_elements_test.dart`, riscritta | **quattro doni nell'ordine delle ore**; le fasce, alle 13 il Soffio; ogni minuto del giorno appartiene al dono dell'ultima ancora, senza nomi a mano; **Medora all'alba e al Sogno in tutti i 366 giorni**; il numero dell'avviso e' del dono e il 2 non torna; `oracle` non apre niente; i nomi a video; l'elenco e il numero in lettere composti dai doni | 01, 14, 15, 17 | Sigillo senza Maestro: due rosse |
+| `test/il_sigillo_del_sogno_nomina_un_maestro_solo_test.dart`, riscritta | nei tre giorni che la rotazione dava a tre Maestri diversi, **il Sigillo nomina Medora e nessun altro**, a video | 15 | Sigillo senza Maestro: due giorni su tre rossi |
+| `test/il_confine_del_responso_test.dart`, allargata | **29.994 responsi composti dell'Arcano dell'Alba** dentro il confine; il nome della Morte non e' la morte rivolta alla persona, la morte in minuscolo si' | 08, 13 | i nomi dei simboli tolti dall'eccezione: due rosse |
+
+### Le prove riallineate, e cosa hanno perso o guadagnato
+
+| prova | trattamento | perche' |
+|---|---|---|
+| `l_arcano_del_giorno_test.dart` | **tolta** | misurava `ArcanoDelGiorno`, tolto; le sue pretese (solo maggiori, stessa carta tutto il giorno, varieta', gesto `oracolo`) le portano il sacchetto, il diario e la schermata |
+| `il_disco_dell_oracolo_dice_cosa_e_test.dart` | **tolta** | misurava il disco della schermata dell'Arcano del Giorno |
+| `il_permesso_appena_dato_accende_tutte_e_cinque_test.dart` | **tolta** | misurava il permesso chiesto dal Rito dell'Alba; il menu' Notifiche riprogramma tutte le chiamate dopo il permesso (`notifiche_screen.dart`, riga 148) |
+| `il_mantra_di_oggi_ha_il_suo_riquadro_test.dart` | **tolta** | il riquadro del rituale era della scheda dell'Alba |
+| `la_parola_dice_a_cosa_serve_test.dart` | **tolta** | l'etichetta della parola era della scheda dell'Alba |
+| `i_testi_del_dono_non_stanno_sulla_carta_test.dart` | **tolta** | misurava la vista rituale dell'Arcano del Giorno, uscita col dono |
+| `l_alba_dice_dove_sei_test.dart` | **tolta** | misurava la riga del luogo del Rito dell'Alba, uscita col dono |
+| `daily_elements_test.dart` | **riscritta** | quattro doni, fasce dalle ancore, Medora, numeri degli avvisi |
+| `il_sigillo_del_sogno_nomina_un_maestro_solo_test.dart` | **riscritta** | Medora nei tre giorni che la rotazione dava a tre Maestri |
+| `intent_routing_test.dart` | **riscritta la carta del giorno** | la carta della chat e' l'Arcano dell'Alba estratto |
+| `l_arcano_e_del_singolo_test.dart` | **riscritta la meta' dell'Arcano** | due persone vedono lo stesso stato 11 giorni su 365, attesi 8,3 |
+| `i_cinque_doni_incrociano_la_carta_test.dart` | **ridotta** | tolte le misure dell'Arcano del Giorno e del Rito dell'Alba; restano Sigillo, Runa e Soffio |
+| `colore_del_dono_test.dart` | **ridotta** | tolte le misure del colore della parola sul vetro chiaro dell'Alba; resta il punto solo dell'accento, col cardinale |
+| `il_soffio_non_somiglia_all_alba_test.dart` | **ridotta** | tolti i confronti fra l'abito del giorno e quello della notte; nessun dono porta piu' il giorno |
+| `le_due_cose_che_non_servivano_test.dart` | **ridotta** | tolte le tre misure della parola condivisa dall'Alba |
+| `la_parola_del_giorno_si_vede_nella_frase_test.dart` | **ridotta e riallineata** | tolto il ripiego del mantra; la seconda frase e' il richiamo del dono di una carta del corpus |
+| `dove_sei_adesso_test.dart` | **ridotta** | tolto il gruppo della riga del luogo; restano il luogo attuale e il catalogo |
+| `i_doni_si_agganciano_test.dart` | **ridotta e riallineata** | tolto il gruppo P.16 dell'Arcano del Giorno; il filo della sera passa dall'archivio |
+| `il_censimento_dei_caratteri_test.dart` | **riallineata e allargata** | l'Arcano dell'Alba coperto e girato; i glifi delle icone non sono testo |
+| `l_alba_si_legge_test.dart` | **riallineata** | il contrasto misurato sull'Arcano dell'Alba, prima e dopo il gesto |
+| `il_responso_si_legge_ovunque_test.dart`, `il_confine_del_responso_test.dart`, `i_doni_e_la_chat_davanti_all_anatomia_test.dart`, `le_lunghezze_dei_responsi_test.dart` | **riallineate** | misurano i testi dell'Arcano dell'Alba al posto di quelli dell'Arcano del Giorno |
+| `la_parola_torna_la_sera_test.dart`, `dream_rite_screen_test.dart` | **riallineate** | il dono della carta torna la sera, dall'archivio |
+| `cinque_avvisi_uno_per_dono_test.dart`, `le_cinque_chiamate_partono_tutte_test.dart`, `le_notifiche_arrivano_davvero_test.dart`, `il_menu_delle_notifiche_si_tocca_test.dart`, `cancellare_dimentica_tutto_test.dart` | **riallineate** | il numero dei doni letto dall'enumerazione; il 1102 fra le chiamate da spegnere; la Runa al posto dell'Arcano dove serviva un dono qualunque |
+| `daily_strip_test.dart`, `santuario_test.dart`, `navigation_test.dart`, `i_doni_si_aprono_alla_loro_ora_test.dart`, `fascia_del_risveglio_test.dart` | **riallineate** | le ore nuove: alle tredici il Soffio di Aura, al mattino e di notte Medora |
+| `ogni_dono_dice_chi_parla_test.dart`, `nessun_accento_dichiara_un_fondo_che_non_ha_test.dart`, `i_testi_da_leggere_hanno_una_misura_sola_test.dart`, `i_cinque_doni_rispettano_la_legge_dei_testi_test.dart`, `il_dono_risponde_prima_di_chiedere_test.dart`, `le_descrizioni_hanno_una_misura_sola_test.dart`, `le_condizioni_costruite_test.dart`, `nessun_invito_a_un_permesso_e_muto_test.dart`, `ogni_schermata_dichiara_la_barra_test.dart`, `una_barra_sola_test.dart`, `nessun_catch_muto_test.dart` | **riallineate** | la schermata dell'Arcano dell'Alba al posto delle due tolte negli elenchi dei sorgenti |
+| `ogni_custodito_ritrova_la_sua_arte_test.dart`, `ogni_pulsante_della_chat_apre_cio_che_promette_test.dart`, `cosa_dicono_i_doni_test.dart`, `entitlement_test.dart`, `la_catena_dei_dati_di_nascita_test.dart`, `i_due_pulsanti_del_soffio_si_leggono_test.dart`, `rituals_test.dart`, `testo_a_video_test.dart` | **riallineate** | i numeri seguono il dato (quattro doni, 31 righe del piano, 14 consumatori della nascita, 8 chiavi dei custoditi) e le arti senza azioni dichiarate; le elisioni *mezz'* e *nient'* |
+

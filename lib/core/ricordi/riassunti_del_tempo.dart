@@ -48,8 +48,8 @@ class RiassuntoDelTempo {
 
   final int quantiTraguardi;
 
-  /// Quanti dei cinque Doni sono stati aperti in quel periodo, contati per
-  /// arte distinta e non per volte: cinque Doni aperti tre volte fanno cinque.
+  /// Quanti Doni sono stati aperti in quel periodo, contati per arte
+  /// distinta e non per volte: quattro Doni aperti tre volte fanno quattro.
   final int quantiDoni;
 
   final int eosGuadagnati;

@@ -449,3 +449,39 @@ npx firebase deploy --only functions:attivaIlPianoInDemo --project esoteric-circ
 
 Da quel momento il pulsante della Demo torna a non poter scrivere niente sul
 server, e non serve pubblicare nessuna versione nuova dell'app.
+
+## PASSO 8. IL DIARIO DELL'ARCANO DELL'ALBA, `statoDelCerchio`
+
+Ordine DT voce 05, 17 settembre 2026.
+
+**A cosa serve.** L'Arcano dell'Alba tiene per ogni persona un diario: le
+carte gia' uscite, le letture gia' ricevute, le parole da non ripetere. Il
+telefono lo manda al server insieme al cammino, e il server tiene il diario
+piu' avanti fra quello che ha e quello che arriva. **Finche' la funzione non e'
+distribuita, il server lo scarta**: il diario resta sul telefono, e chi cambia
+telefono ricomincia il sacchetto da capo. Non si rompe niente per nessuno: i
+telefoni con la build 2265 non lo mandano e non lo leggono.
+
+**Perche' non l'ho distribuita io.** Il permesso di questa sessione vieta le
+distribuzioni in produzione, e non si aggira: il comando lo lanci tu.
+
+**1. Porta la tua cartella alla testa nuova**, col PASSO 0 qui sopra, compreso
+il suo controllo.
+
+**2. Controlla che il diario sia davvero sul tuo disco.**
+
+```powershell
+Select-String -Path functions\src\cammino.ts -Pattern arcanoDellAlba
+```
+
+**Cosa devi leggere**: almeno una riga che nomina `arcanoDellAlba`. **Se non
+esce niente, FERMATI QUI** e rifai il passo 1.
+
+**3. Distribuisci la funzione.**
+
+```powershell
+npx firebase deploy --only functions:statoDelCerchio --project esoteric-circle
+```
+
+**Cosa devi leggere**: `Successful update operation` e poi `Deploy complete!`.
+Se leggi `Function failed on loading user code`, fermati e dimmelo.
