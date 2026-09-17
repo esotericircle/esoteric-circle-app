@@ -93,13 +93,34 @@ class _MeditationScreenState extends State<MeditationScreen>
   /// **LA MEDITAZIONE HA UNA FINE, ordine BF voce 05.b (ordine P voce 35).**
   /// Prima il respiro girava in cerchio per sempre: la schermata non
   /// arrivava a una chiusura, non accendeva traguardi e non funzionava come
-  /// rito. La sessione dura [cicliDellaSessione] cicli di respiro (dodici
+  /// rito. La sessione durava dodici cicli di respiro (dodici
   /// da undici secondi, poco piu' di due minuti): al compimento il tono si
   /// ferma, la scena lo dice, e la regia registra il gesto `meditazione`,
   /// che e' cio' che sveglia aur_50 e aur_51. Il tempo lo tiene un Timer e
   /// non l'animazione, cosi' il compimento arriva anche con Riduci
   /// Movimento, dove il respiro visivo sta fermo.
-  static const int cicliDellaSessione = 12;
+  /// **CINQUE MINUTI, E SI VEDONO. Ordine DS voce 05, 17 settembre 2026.**
+  ///
+  /// Il fondatore: *"durante la sessione non si sa quanto manchi alla fine"*.
+  /// La sessione durava dodici cicli, poco piu' di due minuti,
+  /// e l'unico numero a schermo era quello della fase del respiro. Adesso la
+  /// sessione del giorno dura **cinque minuti** e il conto alla rovescia li
+  /// dice.
+  ///
+  /// **E una pratica scelta dura quanto dichiara.** Sette pratiche su dodici
+  /// sono da cinque minuti; le altre dicono due, tre, sette e dieci minuti
+  /// nella loro scheda, e un conto di 5:00 sotto *"10 minuti"* direbbe il
+  /// falso proprio nel numero che questa voce aggiunge.
+  static const Duration durataDelGiorno = Duration(minutes: 5);
+
+  /// Quanto dura la sessione che sta per cominciare.
+  Duration get _durataDellaSessione =>
+      _praticaScelta?.durata ?? durataDelGiorno;
+
+  /// I secondi passati, per il solo conto alla rovescia: si ridisegna lui e
+  /// nient'altro.
+  final ValueNotifier<int> _secondiDelConto = ValueNotifier(0);
+
   Timer? _sessione;
   bool _compiuta = false;
 
@@ -297,6 +318,7 @@ class _MeditationScreenState extends State<MeditationScreen>
     // sempre. Che fosse una dimenticanza e non una scelta lo diceva il Rito del
     // Sogno, che con lo stesso lettore lo fermava gia'.
     _sessione?.cancel();
+    _secondiDelConto.dispose();
     widget.player.stop();
     _breath.dispose();
     _contaSecondi?.cancel();
@@ -398,14 +420,14 @@ class _MeditationScreenState extends State<MeditationScreen>
       // **IL CONTO DEI SECONDI PARTE COL RESPIRO.** Ordine DD voce 17.
       _secondiRespirati = 0;
       _contaSecondi?.cancel();
-      _contaSecondi = Timer.periodic(
-          const Duration(seconds: 1), (_) => _secondiRespirati++);
+      _secondiDelConto.value = 0;
+      _contaSecondi = Timer.periodic(const Duration(seconds: 1), (_) {
+        _secondiRespirati++;
+        _secondiDelConto.value = _secondiRespirati;
+      });
       widget.player.play(_preset);
       _sessione?.cancel();
-      _sessione = Timer(
-        const Duration(milliseconds: _cycleMs * cicliDellaSessione),
-        _alCompimento,
-      );
+      _sessione = Timer(_durataDellaSessione, _alCompimento);
     } else {
       // **QUI LA SESSIONE SI CHIUDE, E LA SUA DURATA RESTA.** Ordine DD voce
       // 17: e' il numero del titolo della card e il seme del sigillo, e
@@ -512,11 +534,14 @@ class _MeditationScreenState extends State<MeditationScreen>
     );
   }
 
-  /// **SCELTO IL SINTOMO, LA PRATICA PARTE SUBITO.** Ordine DD voce 12.
+  /// **SCELTO IL SINTOMO, LA PRATICA E' SCELTA: NON PARTE.** Ordine DS voce
+  /// 05, 17 settembre 2026.
   ///
-  /// *"Scelto il sintomo, Aura fa partire la pratica adatta subito, senza
-  /// altri passaggi da confermare."* Nessuna schermata in mezzo e nessuna
-  /// conferma: si tocca e si respira.
+  /// Qui l'ordine DD voce 12 aveva scritto *"scelto il sintomo, Aura fa
+  /// partire la pratica adatta subito"*. Il fondatore ha visto il suono
+  /// partire prima di aver deciso: **aprire e scegliere non e' cominciare**.
+  /// Vince la voce piu' recente. Se la sessione e' gia' viva, la scelta
+  /// cambia il suono, perche' la persona sta gia' ascoltando e ha scelto lei.
   ///
   /// **E LA FREQUENZA SEGUE LA PRATICA.** Una pratica del centro del cuore
   /// suona il tono del cuore: e' l'unico modo perche' il numero che la
@@ -530,26 +555,17 @@ class _MeditationScreenState extends State<MeditationScreen>
       // misurato sul telefono, zero pixel.
       _praticaScelta = r;
     });
-    if (!_active) {
-      _togglePlay();
-    } else {
-      widget.player.play(_preset);
-    }
+    if (_active) widget.player.play(_preset);
   }
 
-  /// **SCELTA UNA FREQUENZA, si accende e suona.** Ordine DD voce 17.
+  /// **SCELTA UNA FREQUENZA, si sceglie e basta.** Ordine DS voce 05.
   ///
-  /// **Se la sessione e' ferma, parte.** E' la stessa legge del sintomo della
-  /// voce DD.12: un comando che risponde e non lo dice e' un comando morto per
-  /// chi lo guarda, e toccare una frequenza senza sentirla cambiare non e'
-  /// una risposta.
+  /// Qui l'ordine DD voce 17 faceva partire la sessione. **La risposta al
+  /// tocco adesso si vede nel menu'**, che scrive la frequenza scelta, e il
+  /// suono parte dal play. A sessione viva il suono cambia subito.
   void _scegliLaFrequenza(MeditationPreset preset) {
     setState(() => _preset = preset);
-    if (_active) {
-      widget.player.play(preset);
-    } else {
-      _togglePlay();
-    }
+    if (_active) widget.player.play(preset);
   }
 
   @override
@@ -775,6 +791,33 @@ class _MeditationScreenState extends State<MeditationScreen>
                           ),
                         ],
                       ),
+                      // **QUANTO MANCA ALLA FINE. Ordine DS voce 05.** Solo a
+                      // sessione viva: a sessione ferma sarebbe un orologio.
+                      if (_active) ...[
+                        const SizedBox(height: SpacingTokens.sm),
+                        ValueListenableBuilder<int>(
+                          valueListenable: _secondiDelConto,
+                          builder: (context, passati, _) {
+                            final resta =
+                                _durataDellaSessione.inSeconds - passati;
+                            final r = resta < 0 ? 0 : resta;
+                            final mm = r ~/ 60;
+                            final ss = (r % 60).toString().padLeft(2, '0');
+                            return Text(
+                              'Mancano $mm:$ss',
+                              key: const Key('meditazione_quanto_manca'),
+                              textAlign: TextAlign.center,
+                              style: TypographyTokens.titoloSezione().copyWith(
+                                color: palette.goldSoft,
+                                fontFeatures: const [
+                                  FontFeature.tabularFigures()
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: SpacingTokens.md),
+                      ],
 
                       // **E SE UNA PRATICA E' STATA SCELTA, QUESTA RIGA TACE.
                       // Ordine DD voce 12, trovato sul telefono 767f596c il

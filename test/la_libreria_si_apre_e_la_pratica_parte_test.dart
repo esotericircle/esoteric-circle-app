@@ -76,9 +76,12 @@ void main() {
     expect(find.byKey(const Key('meditazione_apri_libreria')), findsOneWidget);
   });
 
-  testWidgets('IL PULSANTE DICE SCEGLI SINTOMO E FREQUENZA', (tester) async {
-    // **Ordine DD voce 12**, che lo detta parola per parola: *"un pulsante in
-    // evidenza, maiuscolo e in grassetto: SCEGLI SINTOMO E FREQUENZA"*.
+  testWidgets('IL PULSANTE DICE SCEGLI IL SINTOMO', (tester) async {
+    // **Ordine DS voce 05**, 17 settembre 2026. Qui si pretendeva *"SCEGLI
+    // SINTOMO E FREQUENZA"*, parola per parola dall'ordine DD voce 12. Il
+    // fondatore ha separato le due cose: **il sintomo e' la via**, e la
+    // frequenza e' un menu' a discesa accanto, con un pulsante suo. Il nome
+    // del pulsante adesso promette cio' che apre, e nient'altro.
     telefono(tester);
     await tester.pumpWidget(scena());
     final testo = tester
@@ -87,8 +90,8 @@ void main() {
             matching: find.byType(Text)))
         .data;
     // ignore: avoid_print
-    print('ORDINE DD VOCE 12: il pulsante della libreria dice "$testo"');
-    expect(testo, 'SCEGLI SINTOMO E FREQUENZA');
+    print('ORDINE DS VOCE 05: il pulsante della libreria dice "$testo"');
+    expect(testo, 'SCEGLI IL SINTOMO');
     final misura =
         tester.getSize(find.byKey(const Key('meditazione_apri_libreria')));
     expect(misura.height, greaterThanOrEqualTo(52),
@@ -100,8 +103,7 @@ void main() {
     telefono(tester);
     await tester.pumpWidget(scena());
     await apri(tester);
-    expect(
-        find.textContaining('${LibreriaDeiRespiri.quantePronte} pratiche'),
+    expect(find.textContaining('${LibreriaDeiRespiri.quantePronte} pratiche'),
         findsOneWidget,
         reason: 'la libreria non dice piu quante pratiche ha');
   });
@@ -131,7 +133,7 @@ void main() {
     }
   });
 
-  testWidgets('TOCCARE UNA VOCE FA PARTIRE LA PRATICA, E CHIUDE LA LIBRERIA',
+  testWidgets('TOCCARE UNA VOCE SCEGLIE LA PRATICA, E CHIUDE LA LIBRERIA',
       (tester) async {
     // **E' la voce dell'ordine, e nasce da una misura sul telefono**: prima,
     // toccando una voce cambiavano 603 pixel, cioe' si riempiva un cerchietto
@@ -146,11 +148,12 @@ void main() {
     await tester.tap(riga);
     await tester.pump();
     // ignore: avoid_print
-    print('ORDINE DD VOCE 12: toccata la voce ${prima.id}, e partita '
+    print('ORDINE DD VOCE 12: toccata la voce ${prima.id}, e scelta '
         '${scelta?.id ?? "nessuna"}');
     expect(scelta?.id, prima.id,
-        reason: 'toccando una voce non parte nessuna pratica: e esattamente il '
-            'difetto che il fondatore ha misurato sul telefono');
+        reason: 'toccando una voce non si sceglie nessuna pratica: e il '
+            'difetto che il fondatore ha misurato sul telefono. Che la scelta '
+            'NON avvii il suono lo pretende la_meditazione_parte_quando_lo_decidi');
     // **REGOLA H: e la libreria si chiude.** E' l'unico segno visibile quando
     // la sessione gira gia' sulla stessa frequenza, e senza di lui il tocco
     // cambia zero pixel.
@@ -173,74 +176,67 @@ void main() {
         reason: 'il pulsante che salva il rito e tornato');
   });
 
-  testWidgets(
-      'ORDINE DD VOCE 17: LE NOVE FREQUENZE STANNO DENTRO QUESTO PANNELLO',
+  testWidgets('ORDINE DS VOCE 05: LE NOVE FREQUENZE STANNO NEL MENU',
       (tester) async {
-    // **La decisione del fondatore**: *"elimina 'preferisco scegliere io', e'
-    // ridondante visto che dal pulsante puo' gia' scegliere sintomo e
-    // frequenza"*.
-    //
-    // **Aveva ragione, e il nome del pulsante lo diceva gia'.** Si chiama
-    // SCEGLI SINTOMO E FREQUENZA e apriva un pannello con i soli sintomi: la
-    // frequenza stava dietro un secondo interruttore, piu' in basso nella
-    // colonna, con parole sue. **Due porte per una promessa sola**, e chi non
-    // scorreva non trovava mai la seconda.
+    // **Qui stavano le nove pasticche**, dall'ordine DD voce 17. L'ordine DS
+    // voce 05 le ha tolte: *"la scelta della frequenza NON e' piu' una fila
+    // di bolle: e' UN PULSANTE SOLO che apre un menu' a discesa"*. Le nove
+    // frequenze restano tutte, e restano raggiungibili: cambia come si
+    // sceglie, non cosa si puo' scegliere.
     telefono(tester);
     await tester.pumpWidget(scena());
-    await apri(tester);
-
+    await tester.tap(find.byKey(const Key('meditazione_scelta_frequenza')));
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
     final mancanti = <String>[];
     for (final p in MeditationPreset.values) {
-      if (find.text(p.label).evaluate().isEmpty) mancanti.add(p.label);
+      if (find.byKey(Key('meditazione_frequenza_${p.id}')).evaluate().isEmpty) {
+        mancanti.add(p.label);
+      }
     }
     // ignore: avoid_print
-    print('ORDINE DD VOCE 17: frequenze nel pannello '
+    print('ORDINE DS VOCE 05: frequenze nel menu '
         '${MeditationPreset.values.length - mancanti.length} su '
         '${MeditationPreset.values.length}');
     cardinaleMinimo(MeditationPreset.values.length, 9,
-        cosa: 'frequenze che il pannello deve offrire',
+        cosa: 'frequenze che il menu deve offrire',
         perche: 'Con meno di nove la Meditazione e tornata a offrire una '
             'manciata di toni.');
     expect(mancanti, isEmpty,
-        reason: 'queste frequenze non sono nel pannello che le promette: '
-            '${mancanti.join(", ")}');
+        reason: 'queste frequenze non sono nel menu: ${mancanti.join(", ")}');
 
-    // **E TOCCARNE UNA RISPONDE.** Un elenco che non risponde e' cio' da cui
-    // quest'ordine e' nato.
-    await tester.tap(find.text(MeditationPreset.corona963.label));
-    await tester.pump();
-    // ignore: avoid_print
-    print('ORDINE DD VOCE 17: toccata la 963, il pannello ha risposto '
-        '${frequenza?.label}');
+    // **E TOCCARNE UNA RISPONDE.**
+    await tester
+        .tap(find.byKey(const Key('meditazione_frequenza_corona963')).last);
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
     expect(frequenza, MeditationPreset.corona963,
-        reason: 'toccata una frequenza, il pannello non lo dice a nessuno');
+        reason: 'scelta una frequenza, il menu non lo dice a nessuno');
   });
 
-  testWidgets('REGOLA H: E I DUE TITOLI DICONO COSA SI SCEGLIE',
+  testWidgets('REGOLA H: IL SINTOMO VIENE PRIMA DELLA FREQUENZA',
       (tester) async {
-    // **La meta che prova il contrario.** Nove pasticche e dodici voci in
-    // colonna, senza un titolo che le separi, sono un elenco solo: chi apre
-    // per il sintomo crede che le pasticche siano sintomi. Due parole in
-    // maiuscoletto costano niente e dividono le due cose.
+    // **Ordine DS voce 05**: *"LA VIA PRINCIPALE E' IL SINTOMO... La
+    // frequenza e' una conseguenza, non una domanda che gli si fa"*. Qui
+    // l'ordine DD voce 17 metteva la frequenza sopra, perche' nove pasticche
+    // si guardano in un colpo. Adesso la frequenza e' un controllo solo, e
+    // sta sotto il pulsante del sintomo.
     telefono(tester);
     await tester.pumpWidget(scena());
     await apri(tester);
-    expect(find.byKey(const Key('meditazione_titolo_frequenze')),
-        findsOneWidget,
-        reason: 'le nove pasticche non hanno un titolo che dica cosa sono');
     expect(find.byKey(const Key('meditazione_titolo_sintomi')), findsOneWidget,
         reason: 'le dodici voci non hanno un titolo che dica cosa sono');
-    // E la frequenza viene PRIMA, che e' l ordine deciso: nove pasticche si
-    // guardano in un colpo, dodici voci si scorrono.
-    final fr = tester.getRect(
-        find.byKey(const Key('meditazione_titolo_frequenze')));
-    final si =
-        tester.getRect(find.byKey(const Key('meditazione_titolo_sintomi')));
+    final sintomo =
+        tester.getRect(find.byKey(const Key('meditazione_apri_libreria')));
+    final frequenza =
+        tester.getRect(find.byKey(const Key('meditazione_scelta_frequenza')));
     // ignore: avoid_print
-    print('ORDINE DD VOCE 17: le frequenze a ${fr.top}, i sintomi a '
-        '${si.top}');
-    expect(fr.top, lessThan(si.top),
-        reason: 'i sintomi stanno sopra le frequenze: chi apre per una '
-            'frequenza deve scorrere dodici voci per trovarla');
+    print('ORDINE DS VOCE 05: il sintomo a ${sintomo.top}, la frequenza a '
+        '${frequenza.top}');
+    expect(sintomo.top, lessThan(frequenza.top),
+        reason: 'la frequenza sta sopra il sintomo: la via principale e il '
+            'sintomo');
   });
 }

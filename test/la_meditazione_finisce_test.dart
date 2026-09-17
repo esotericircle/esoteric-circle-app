@@ -97,9 +97,10 @@ void main() {
     await tester.pump(const Duration(seconds: 60));
     expect(find.byKey(const Key('meditazione_compiuta')), findsNothing);
 
-    // Dodici cicli da undici secondi: al compimento il tono si ferma, la
-    // scena lo dice, e il diario ha il gesto.
-    await tester.pump(const Duration(seconds: 80));
+    // **Cinque minuti, ordine DS voce 05**: erano dodici cicli da undici
+    // secondi. Al compimento il tono si ferma, la scena lo dice, e il diario
+    // ha il gesto.
+    await tester.pump(const Duration(seconds: 240));
     await tester.pump();
     expect(find.byKey(const Key('meditazione_compiuta')), findsOneWidget,
         reason: 'la sessione e\' finita in silenzio: la persona non sa di '
@@ -137,7 +138,10 @@ void main() {
     await tester.tap(find.byKey(const Key('meditation_play')));
     await tester.pump(const Duration(seconds: 30));
     await tester.tap(find.byKey(const Key('meditation_play')));
-    await tester.pump(const Duration(seconds: 150));
+    // **Oltre la fine di una sessione intera**: con la sessione di cinque
+    // minuti dell'ordine DS voce 05 i centocinquanta secondi di prima non ci
+    // arrivavano piu', e la prova sarebbe stata verde anche col timer vivo.
+    await tester.pump(const Duration(seconds: 330));
     expect(find.byKey(const Key('meditazione_compiuta')), findsNothing,
         reason: 'la sessione interrotta si e\' dichiarata compiuta lo '
             'stesso: il timer non e\' stato fermato');

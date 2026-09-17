@@ -192,10 +192,19 @@ void main() {
           reason: 'il menu delle frequenze e ancora in prima fila: il '
               'fondatore ha chiesto che Aura decida, e che la scelta stia '
               'sotto');
-      await tocca(tester, const Key('meditazione_apri_libreria'));
-      await tester.pump();
-      await tocca(tester, const Key('meditation_preset_theta'));
-      await tester.pump();
+      //
+      // **E LA PORTA E' CAMBIATA UNA TERZA VOLTA. Ordine DS voce 05, 17
+      // settembre 2026**: niente piu' pasticche, la frequenza si sceglie da
+      // un menu' a discesa col suo pulsante.
+      await tocca(tester, const Key('meditazione_scelta_frequenza'));
+      for (var i = 0; i < 6; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+      await tester
+          .tap(find.byKey(const Key('meditazione_frequenza_theta')).last);
+      for (var i = 0; i < 6; i++) {
+        await tester.pump(const Duration(milliseconds: 100));
+      }
       expect(find.textContaining('Metti le cuffie'), findsOneWidget);
     });
   });

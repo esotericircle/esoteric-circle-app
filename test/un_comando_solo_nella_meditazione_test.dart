@@ -133,8 +133,7 @@ void main() {
     await tester.pump(const Duration(milliseconds: 200));
     // ignore: avoid_print
     print('ORDINE DD VOCE 17: premuto play, la sessione gira ${inCorso()}');
-    expect(inCorso(), isTrue,
-        reason: 'premuto play la sessione non parte');
+    expect(inCorso(), isTrue, reason: 'premuto play la sessione non parte');
 
     // **Lo stesso pulsante spegne**, che e' cio' che l ordine chiede per nome.
     await tester.tap(play);
@@ -240,8 +239,9 @@ void main() {
         reason: 'la card arriva a meta sessione: si guarda un riquadro mentre '
             'si dovrebbero avere gli occhi socchiusi');
 
-    // E si arriva in fondo: dodici cicli da undici secondi.
-    for (var i = 0; i < 12; i++) {
+    // E si arriva in fondo. **Cinque minuti, ordine DS voce 05**: erano
+    // dodici cicli da undici secondi, poco piu' di due minuti.
+    for (var i = 0; i < 25; i++) {
       await tester.pump(const Duration(seconds: 11));
     }
     await tester.pump(const Duration(milliseconds: 400));
@@ -256,10 +256,9 @@ void main() {
     expect(condividi, findsOneWidget,
         reason: 'la card c e e non si puo condividere');
 
-    // **E PORTA IL NUMERO VERO**: due minuti e dodici, non "un momento".
-    final titolo = tester
-        .widget<Text>(find.byKey(const Key('card_respiro_titolo')))
-        .data!;
+    // **E PORTA IL NUMERO VERO**: cinque minuti, non "un momento".
+    final titolo =
+        tester.widget<Text>(find.byKey(const Key('card_respiro_titolo'))).data!;
     // ignore: avoid_print
     print('ORDINE DD VOCE 17: il titolo della card dice "$titolo"');
     expect(titolo.contains('MOMENTO'), isFalse,

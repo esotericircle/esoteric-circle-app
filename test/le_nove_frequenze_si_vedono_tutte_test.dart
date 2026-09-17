@@ -68,10 +68,17 @@ void main() {
     // **Questa guardia resta**, perche' misura una cosa che il pannello da
     // solo non prova: che le etichette **non vadano a capo** dentro la
     // schermata vera, con la sua larghezza vera.
-    final apre = find.byKey(const Key('meditazione_apri_libreria'));
+    //
+    // **E LA PORTA E' CAMBIATA ANCORA. Ordine DS voce 05, 17 settembre 2026.**
+    // Le pasticche non ci sono piu': le nove frequenze stanno in un menu' a
+    // discesa, e questa guardia misura adesso le sue voci. La domanda resta
+    // la stessa, cioe' se il nome di una frequenza va a capo dove si sceglie.
+    final apre = find.byKey(const Key('meditazione_scelta_frequenza'));
     await tester.scrollUntilVisible(apre, 200);
     await tester.tap(apre);
-    await tester.pump(const Duration(milliseconds: 300));
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
   }
 
   testWidgets('OGNI FREQUENZA SI LEGGE SU UNA RIGA, e sono nove',
@@ -79,6 +86,12 @@ void main() {
     await apriLaScelta(tester);
 
     final etichette = [for (final p in MeditationPreset.values) p.label];
+    final voci = {
+      for (final p in MeditationPreset.values)
+        p.label: find.descendant(
+            of: find.byKey(Key('meditazione_frequenza_${p.id}')).last,
+            matching: find.byType(Text)),
+    };
     cardinaleMinimo(etichette.length, 9,
         cosa: 'frequenze offerte nella scelta libera',
         perche: 'Con meno di nove la Meditazione e tornata a offrire una '
@@ -87,15 +100,16 @@ void main() {
 
     final spezzate = <String>[];
     for (final testo in etichette) {
-      final pasticca = find.text(testo);
+      final pasticca = voci[testo]!;
       expect(pasticca, findsWidgets,
-          reason: 'la frequenza "$testo" non e a schermo affatto');
+          reason: 'la frequenza "$testo" non e nel menu affatto');
       final widget = tester.widget<Text>(pasticca.first);
       final r = tester.getRect(pasticca.first);
 
-      // Quanto sarebbe alta e larga su una riga sola, nello stesso stile.
+      // Quanto sarebbe alta e larga su una riga sola, nello stesso stile e
+      // con lo stesso testo che il menu scrive.
       final misura = TextPainter(
-        text: TextSpan(text: testo, style: widget.style),
+        text: TextSpan(text: widget.data, style: widget.style),
         textDirection: TextDirection.ltr,
         maxLines: 1,
       )..layout();
@@ -150,8 +164,7 @@ void main() {
     }
   });
 
-  testWidgets(
-      'DUE FRASI NON DICONO DUE FREQUENZE DIVERSE, scelta una pratica',
+  testWidgets('DUE FRASI NON DICONO DUE FREQUENZE DIVERSE, scelta una pratica',
       (tester) async {
     // **TROVATO SUL TELEFONO 767f596c il 10 settembre 2026**, dopo la cura
     // della voce DD.12 e con la libreria che finalmente risponde.

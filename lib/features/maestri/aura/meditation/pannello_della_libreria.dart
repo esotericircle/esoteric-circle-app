@@ -27,8 +27,18 @@ import '../../../../design_system/tokens/typography_tokens.dart';
 ///
 /// **COSA C'E' ADESSO.** Ogni voce porta in testa **il sintomo a cui
 /// risponde**, scritto grande, e sotto la riga al verbo, cosa si fa e la
-/// fonte. **Toccarla fa partire la pratica**, senza altri passaggi da
-/// confermare.
+/// fonte.
+///
+/// **IL SINTOMO E' LA VIA, E TOCCARLO SCEGLIE: NON FA PARTIRE.** Ordine DS
+/// voce 05, 17 settembre 2026. L'ordine DD voce 12 voleva la pratica avviata
+/// al tocco; il fondatore, sulle catture del 16 e del 17 settembre, ha visto
+/// il suono partire prima di aver deciso qualcosa: *"aprire la schermata non
+/// e' un consenso a sentire un suono"*. **Vince la voce piu' recente.** Adesso
+/// la voce si sceglie, la scheda dice **prima** quale frequenza comporta, e
+/// il suono parte dal play.
+///
+/// **E LA FREQUENZA E' UN CONTROLLO SOLO**, un menu' a discesa, al posto delle
+/// nove pasticche: *"la scelta della frequenza si fa fra molte bolle"*.
 ///
 /// **IL CONFINE STA NEL VERBO, NON NEL SOSTANTIVO.** Si scrive *"per le sere
 /// in cui il sonno non arriva"*, non *"cura l'insonnia"*. Nessuna promessa di
@@ -45,7 +55,8 @@ class PannelloDellaLibreria extends StatefulWidget {
     required this.onFrequenza,
   });
 
-  /// La frequenza che sta suonando adesso, per accendere la sua pasticca.
+  /// La frequenza scelta adesso: la nomina il menu', e la nominano le schede
+  /// dei sintomi che non hanno un centro loro.
   final MeditationPreset frequenzaScelta;
 
   /// **E LA FREQUENZA SI SCEGLIE DA QUI.** Ordine DD voce 17, 10 settembre
@@ -59,9 +70,8 @@ class PannelloDellaLibreria extends StatefulWidget {
   /// L'indice del centro acceso oggi: le sue pratiche vengono per prime.
   final int centroDiOggi;
 
-  /// **COSA SUCCEDE AL TOCCO, e succede subito.** L'ordine lo dice per nome:
-  /// *"scelto il sintomo, Aura fa partire la pratica adatta subito, senza
-  /// altri passaggi da confermare"*.
+  /// **COSA SUCCEDE AL TOCCO: la pratica si sceglie.** Ordine DS voce 05: non
+  /// parte, e la scheda dice gia' che frequenza portera'.
   final void Function(Respiro) onSceglie;
 
   @override
@@ -96,10 +106,20 @@ class _PannelloDellaLibreriaState extends State<PannelloDellaLibreria> {
             minimumSize: const Size.fromHeight(54),
           ),
           child: Text(
-            _aperto ? 'CHIUDI LA LIBRERIA' : 'SCEGLI SINTOMO E FREQUENZA',
+            _aperto ? 'CHIUDI I SINTOMI' : 'SCEGLI IL SINTOMO',
             style: TypographyTokens.etichetta()
                 .copyWith(fontWeight: FontWeight.w700, letterSpacing: 1.2),
           ),
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        // **LA FREQUENZA, UN CONTROLLO SOLO. Ordine DS voce 05.** Un pulsante
+        // che dice quale suona, e al tocco apre il menu' delle nove. Sta
+        // sotto il sintomo perche' e' la seconda via: la frequenza e' una
+        // conseguenza del sintomo, non una domanda che gli si fa.
+        _MenuDellaFrequenza(
+          scelta: widget.frequenzaScelta,
+          palette: palette,
+          onScelta: widget.onFrequenza,
         ),
         if (_aperto) ...[
           const SizedBox(height: SpacingTokens.sm),
@@ -108,56 +128,25 @@ class _PannelloDellaLibreriaState extends State<PannelloDellaLibreria> {
           // e non si mostrano in grigio.
           Text(
             '${LibreriaDeiRespiri.quantePronte} pratiche, tutte pronte. '
-            'Toccane una e parte.',
+            'Toccane una per sceglierla. Poi comincia col play.',
             key: const Key('meditazione_ampiezza_libreria'),
             textAlign: TextAlign.center,
             style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textSecondary),
           ),
-          const SizedBox(height: SpacingTokens.sm),
-          // **E LE NOVE FREQUENZE STANNO QUI SOTTO. Ordine DD voce 17.**
-          //
-          // **Il pulsante che apre questo pannello si chiama SCEGLI SINTOMO E
-          // FREQUENZA**, e fino a oggi dava solo la prima meta': la frequenza
-          // viveva dietro un secondo interruttore, piu' in basso nella
-          // colonna, con parole sue. Due porte per una promessa sola, e chi
-          // non scorreva non trovava mai la seconda.
-          //
-          // **Stanno sopra i sintomi e non sotto**, perche' sono nove e i
-          // sintomi dodici: chi apre per scegliere una frequenza la trova
-          // subito, chi apre per il sintomo scorre di poco.
-          Text(
-            'LA FREQUENZA',
-            key: const Key('meditazione_titolo_frequenze'),
-            style: TypographyTokens.etichetta().copyWith(
-                color: palette.goldSoft, letterSpacing: 1.4),
-          ),
-          const SizedBox(height: SpacingTokens.xs),
-          Wrap(
-            spacing: SpacingTokens.sm,
-            runSpacing: SpacingTokens.xs,
-            children: [
-              for (final p in MeditationPreset.values)
-                PasticcaDellaFrequenza(
-                  preset: p,
-                  selected: p == widget.frequenzaScelta,
-                  palette: palette,
-                  onTap: () => widget.onFrequenza(p),
-                ),
-            ],
-          ),
           const SizedBox(height: SpacingTokens.md),
           Text(
             'IL SINTOMO',
             key: const Key('meditazione_titolo_sintomi'),
-            style: TypographyTokens.etichetta().copyWith(
-                color: palette.goldSoft, letterSpacing: 1.4),
+            style: TypographyTokens.etichetta()
+                .copyWith(color: palette.goldSoft, letterSpacing: 1.4),
           ),
           const SizedBox(height: SpacingTokens.xs),
           for (final r in [...sue, ...altre])
             _RigaDelRespiro(
               respiro: r,
               palette: palette,
+              frequenzaScelta: widget.frequenzaScelta,
               // **SCEGLIENDO, LA LIBRERIA SI CHIUDE.** Difetto misurato sul
               // telefono 767f596c dopo la prima cura: toccata una voce mentre
               // la sessione era gia' in corso, **cambiavano zero pixel**. La
@@ -182,12 +171,27 @@ class _RigaDelRespiro extends StatelessWidget {
   const _RigaDelRespiro({
     required this.respiro,
     required this.palette,
+    required this.frequenzaScelta,
     required this.onTap,
   });
 
   final Respiro respiro;
   final MaestroPalette palette;
+  final MeditationPreset frequenzaScelta;
   final VoidCallback onTap;
+
+  /// **LA FREQUENZA CHE QUESTO SINTOMO COMPORTA.** Ordine DS voce 05: *"chi
+  /// sceglie respiro corto deve leggere li' che frequenza gli tocca"*.
+  ///
+  /// Le pratiche di un centro suonano il tono del centro. **Quattro pratiche
+  /// non hanno un centro**, e suonano la frequenza gia' scelta: la scheda lo
+  /// dice col numero, invece di tacere o di inventarne una.
+  String get frequenzaDetta {
+    final sua = MeditationPreset.perCentro(respiro.centro);
+    return sua == null
+        ? 'Frequenza: quella scelta, ${frequenzaScelta.label}'
+        : 'Frequenza: ${sua.label}, ${sua.subtitle.toLowerCase()}';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -220,8 +224,7 @@ class _RigaDelRespiro extends StatelessWidget {
                 horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-              border: Border.all(
-                  color: palette.gold.withValues(alpha: 0.22)),
+              border: Border.all(color: palette.gold.withValues(alpha: 0.22)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -240,6 +243,13 @@ class _RigaDelRespiro extends StatelessWidget {
                   respiro.perQuando,
                   style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textPrimary),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  frequenzaDetta,
+                  key: Key('meditazione_frequenza_del_sintomo_${respiro.id}'),
+                  style: TypographyTokens.titoloDiRiga()
+                      .copyWith(color: palette.goldSoft),
                 ),
                 const SizedBox(height: SpacingTokens.xs),
                 // **E IL TESTO E' PIU' GRANDE DI PRIMA**, come l'ordine
@@ -270,77 +280,66 @@ class _RigaDelRespiro extends StatelessWidget {
   }
 }
 
-/// **UNA PASTICCA DI FREQUENZA.** Ordine DD voce 17, 10 settembre 2026.
+/// **IL MENU' DELLA FREQUENZA.** Ordine DS voce 05, 17 settembre 2026.
 ///
-/// **Viveva nella schermata ed e' passata qui**, insieme alle nove frequenze:
-/// adesso le pasticche stanno dentro il pannello che il pulsante apre, e
-/// quello che le mostrava in fondo alla colonna non esiste piu'.
-class PasticcaDellaFrequenza extends StatelessWidget {
-  const PasticcaDellaFrequenza({
-    super.key,
-    required this.preset,
-    required this.selected,
+/// **Qui c'erano le pasticche**, nove bolle in un `Wrap`, dall'ordine DD voce
+/// 17. Il fondatore ha chiesto un pulsante solo che apre un menu' a discesa,
+/// e la classe delle pasticche **se n'e' andata invece di restare spenta**:
+/// un componente che nessuno monta e' un componente che qualcuno rimonta.
+class _MenuDellaFrequenza extends StatelessWidget {
+  const _MenuDellaFrequenza({
+    required this.scelta,
     required this.palette,
-    required this.onTap,
+    required this.onScelta,
   });
 
-  final MeditationPreset preset;
-  final bool selected;
+  final MeditationPreset scelta;
   final MaestroPalette palette;
-  final VoidCallback onTap;
+  final void Function(MeditationPreset) onScelta;
 
   @override
   Widget build(BuildContext context) {
-    // **NIENTE `Expanded`, ordine DD voce 12.** Dentro un Wrap la pasticca
-    // prende la larghezza del suo nome; era `Expanded` perche' viveva in una
-    // Row, ed e' proprio quello che le stringeva tutte a un nono di schermo.
-    return GestureDetector(
-        key: Key('meditation_preset_${preset.id}'),
-        onTap: onTap,
-        behavior: HitTestBehavior.opaque,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          padding: const EdgeInsets.symmetric(
-              vertical: SpacingTokens.sm, horizontal: SpacingTokens.md),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-            gradient: selected
-                ? LinearGradient(colors: [
-                    palette.primary.withValues(alpha: 0.6),
-                    palette.surfaceElevated.withValues(alpha: 0.6),
-                  ])
-                : null,
-            border: Border.all(
-              color: selected
-                  ? palette.gold.withValues(alpha: 0.7)
-                  : palette.gold.withValues(alpha: 0.22),
+    return PopupMenuButton<MeditationPreset>(
+      key: const Key('meditazione_scelta_frequenza'),
+      tooltip: 'Scegli la frequenza',
+      initialValue: scelta,
+      onSelected: onScelta,
+      color: palette.surfaceElevated,
+      itemBuilder: (context) => [
+        for (final p in MeditationPreset.values)
+          PopupMenuItem<MeditationPreset>(
+            key: Key('meditazione_frequenza_${p.id}'),
+            value: p,
+            child: Text(
+              '${p.label}, ${p.subtitle.toLowerCase()}',
+              style: TypographyTokens.titoloDiRiga().copyWith(
+                  color:
+                      p == scelta ? palette.goldSoft : ColorTokens.textPrimary),
             ),
           ),
-          child: Column(
-            children: [
-              Text(
-                preset.label,
-                textAlign: TextAlign.center,
-                style: TypographyTokens.titoloDiRiga().copyWith(
-                  color:
-                      selected ? palette.goldSoft : ColorTokens.textSecondary,
-                ),
+      ],
+      child: Container(
+        constraints: const BoxConstraints(minHeight: 52),
+        padding: const EdgeInsets.symmetric(
+            horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                'FREQUENZA: ${scelta.label}',
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: palette.goldSoft, letterSpacing: 1.2),
               ),
-              const SizedBox(height: 2),
-              // Nessun troncamento: il sottotitolo va a capo per intero.
-              Text(
-                preset.subtitle,
-                textAlign: TextAlign.center,
-                style: TypographyTokens.etichetta().copyWith(
-                  color: selected
-                      ? palette.goldSoft.withValues(alpha: 0.8)
-                      : ColorTokens.textSecondary.withValues(alpha: 0.8),
-                  letterSpacing: 0.4,
-                ),
-              ),
-            ],
-          ),
-        ));
+            ),
+            Icon(Icons.arrow_drop_down_rounded, color: palette.goldSoft),
+          ],
+        ),
+      ),
+    );
   }
 }
 
