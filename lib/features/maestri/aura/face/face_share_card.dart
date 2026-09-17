@@ -55,7 +55,8 @@ class FaceShareCard extends StatelessWidget {
     // disegna anche su un responso a cui manca una categoria, e la pastiglia
     // dell'elemento sa gia' sparire da sola.
     final forma = reading.forse(FaceCategory.formaVolto);
-    final elemento = forma == null ? null : MianXiang.elementoDa(forma.tratto);
+    final elemento =
+        forma == null ? null : MianXiang.elementoDa(forma.tratto);
     // **UNA CARD CHE ESCE DAL TELEFONO SI DISEGNA A MISURA FISSA.**
     // Ordine CN voce 12: la scala del testo di chi la crea non entra
     // nell'immagine, perche' l'immagine la guardano altri.
@@ -172,11 +173,13 @@ class FaceShareCard extends StatelessWidget {
                 Container(
                   key: const Key('face_card_elemento'),
                   padding: const EdgeInsets.symmetric(
-                      horizontal: SpacingTokens.md, vertical: SpacingTokens.xs),
+                      horizontal: SpacingTokens.md,
+                      vertical: SpacingTokens.xs),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(SpacingTokens.radiusXl),
-                    border:
-                        Border.all(color: palette.gold.withValues(alpha: 0.55)),
+                    borderRadius:
+                        BorderRadius.circular(SpacingTokens.radiusXl),
+                    border: Border.all(
+                        color: palette.gold.withValues(alpha: 0.55)),
                   ),
                   child: Text('Elemento ${elemento.nome}',
                       style: TypographyTokens.etichetta().copyWith(

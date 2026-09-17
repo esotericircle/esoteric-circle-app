@@ -16,8 +16,8 @@ class FaceCorpus {
   static const Map<FaceTrait, String> _frasi = {
     FaceTrait.voltoTondo:
         '[Sei socievole e caloroso, attento|Sei socievole e calorosa, attenta|'
-            'Hai un carattere socievole e caloroso, attento] agli altri e a '
-            'metterli a proprio agio.',
+        'Hai un carattere socievole e caloroso, attento] agli altri e a '
+        'metterli a proprio agio.',
     FaceTrait.voltoQuadrato:
         'Hai forza interiore e determinazione, con un piglio pratico che va al sodo.',
     FaceTrait.voltoOvale:
@@ -28,7 +28,7 @@ class FaceCorpus {
         'Pensi in fretta e punti dritto al risultato, senza girarci intorno.',
     FaceTrait.fronteVerticale:
         '[Sei metodico|Sei metodica|Hai metodo]: analizzi prima di decidere e '
-            'costruisci un passo alla volta.',
+        'costruisci un passo alla volta.',
     FaceTrait.sopraccigliaDritte:
         'Ragioni per logica sui fatti, ti fidi di quello che si può verificare.',
     FaceTrait.sopraccigliaCurve:
@@ -41,57 +41,57 @@ class FaceCorpus {
         'Guardi largo, con una visione ampia e tollerante che non si fa incastrare.',
     FaceTrait.occhiGrandi:
         '[Sei espressivo e aperto|Sei espressiva e aperta|Hai un modo '
-            'espressivo e aperto] alle emozioni, che leggi e lasci passare.',
+        'espressivo e aperto] alle emozioni, che leggi e lasci passare.',
     FaceTrait.occhiRaccolti:
         '[Sei concentrato e intuitivo|Sei concentrata e intuitiva|Hai uno '
-            'spirito concentrato e intuitivo], con uno sguardo che va in '
-            'profondità.',
+        'spirito concentrato e intuitivo], con uno sguardo che va in '
+        'profondità.',
     FaceTrait.nasoLungo:
         'Pianifichi e valuti, misuri le conseguenze prima di muoverti.',
     FaceTrait.nasoCorto:
         'Vivi il presente e agisci, senza rimandare quello che si può fare adesso.',
     FaceTrait.labbraPiene:
         '[Sei generoso nel dare e nel parlare, caldo|Sei generosa nel dare e '
-            'nel parlare, calda|Hai generosità nel dare e nel parlare, calore] '
-            'nel condividere.',
+        'nel parlare, calda|Hai generosità nel dare e nel parlare, calore] '
+        'nel condividere.',
     FaceTrait.labbraSottili:
         '[Sei essenziale e misurato|Sei essenziale e misurata|Hai un modo '
-            'essenziale e misurato], scegli poche parole e le scegli bene.',
+        'essenziale e misurato], scegli poche parole e le scegli bene.',
     FaceTrait.fronteEquilibrata:
         'Rifletti quanto serve e poi decidi: non corri e non ti fermi a pensare troppo.',
     FaceTrait.occhiProporzionati:
         'Tieni insieme quello che senti e quello che osservi, senza che uno copra l altro.',
     FaceTrait.nasoEquilibrato:
         'Sai quando muoverti e quando aspettare. La differenza la riconosci '
-            '[da solo|da sola|senza aiuto].',
+        '[da solo|da sola|senza aiuto].',
     FaceTrait.labbraArmoniose:
         'Dai calore a chi ti sta vicino misurando le parole. Le due cose non ti costano.',
     FaceTrait.boccaEquilibrata:
         'Ti apri con chi se lo merita e non sprechi fiato con gli altri.',
     FaceTrait.mentoDefinito:
         '[Resti fermo|Resti ferma|Tieni il punto] su quello che conta e lasci '
-            'andare il resto senza farne una battaglia.',
+        'andare il resto senza farne una battaglia.',
     FaceTrait.mascellaMisurata:
         'Hai una determinazione tranquilla, che non ha bisogno di alzare la voce.',
     FaceTrait.boccaLarga:
         '[Sei generoso e aperto|Sei generosa e aperta|Hai un modo generoso e '
-            'aperto], comunichi con slancio e allarghi il cerchio.',
+        'aperto], comunichi con slancio e allarghi il cerchio.',
     FaceTrait.boccaPiccola:
         '[Sei raccolto|Sei raccolta|Hai un modo raccolto], tieni per te quello '
-            'che conta finché non è il momento.',
+        'che conta finché non è il momento.',
     FaceTrait.mentoAmpio:
         '[Sei costante e fermo|Sei costante e ferma|Hai costanza e fermezza], '
-            'tieni la rotta anche quando intorno cambia tutto.',
+        'tieni la rotta anche quando intorno cambia tutto.',
     FaceTrait.mentoAPunta:
         '[Sei rapido e adattabile|Sei rapida e adattabile|Hai prontezza e '
-            'adattabilità], cambi passo appena serve senza irrigidirti.',
+        'adattabilità], cambi passo appena serve senza irrigidirti.',
     FaceTrait.mascellaLarga:
         'Hai una volontà salda e tenace, che non molla quando ha deciso.',
     FaceTrait.mascellaStretta:
         'Sei flessibile, ti pieghi senza spezzarti e trovi la via che passa.',
     FaceTrait.zigomiAlti:
         'Ami la sfida e l\'avventura, cerchi il rischio che ti fa sentire '
-            '[vivo|viva|la vita addosso].',
+        '[vivo|viva|la vita addosso].',
     FaceTrait.zigomiMorbidi:
         'Cerchi calore più che conquista, il legame prima del traguardo.',
   };

@@ -29,7 +29,8 @@ class FaceEsito {
   /// che la persona puo' cancellare, non dentro le preferenze.
   final String? ritratto;
 
-  FaceEsito senzaRitratto() => FaceEsito(quando: quando, reading: reading);
+  FaceEsito senzaRitratto() =>
+      FaceEsito(quando: quando, reading: reading);
 
   Map<String, dynamic> toJson() => {
         'quando': quando.toIso8601String(),
@@ -188,7 +189,8 @@ class FaceHistory extends ChangeNotifier {
     }
   }
 
-  Future<FaceEsito> registra(FaceReading reading, {String? scatto}) async {
+  Future<FaceEsito> registra(FaceReading reading,
+      {String? scatto}) async {
     // **IL RITRATTO SI CONSERVA PRIMA DI SCRIVERE LA RIGA**, cosi' la riga
     // non promette un file che non esiste. Se lo scatto non si puo'
     // conservare, la lettura si registra lo stesso senza ritratto: il
@@ -221,10 +223,8 @@ class FaceHistory extends ChangeNotifier {
   /// togliere una cosa alla volta invece di dover buttare tutto.
   Future<void> dimentica(FaceEsito quale) async {
     await RitrattiDelViso.cancella(quale.ritratto);
-    _esiti = List.unmodifiable([
-      for (final e in _esiti)
-        if (e.quando != quale.quando) e
-    ]);
+    _esiti = List.unmodifiable(
+        [for (final e in _esiti) if (e.quando != quale.quando) e]);
     notifyListeners();
     await _scrivi();
   }

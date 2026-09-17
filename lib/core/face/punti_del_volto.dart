@@ -28,110 +28,31 @@ class PuntiDelVolto {
 
   /// Il contorno esterno del volto, dalla fronte al mento e ritorno.
   static const List<int> ovale = [
-    10,
-    338,
-    297,
-    332,
-    284,
-    251,
-    389,
-    356,
-    454,
-    323,
-    361,
-    288,
-    397,
-    365,
-    379,
-    378,
-    400,
-    377,
-    152,
-    148,
-    176,
-    149,
-    150,
-    136,
-    172,
-    58,
-    132,
-    93,
-    234,
-    127,
-    162,
-    21,
-    54,
-    103,
-    67,
-    109,
+    10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 288, 397, 365,
+    379, 378, 400, 377, 152, 148, 176, 149, 150, 136, 172, 58, 132, 93,
+    234, 127, 162, 21, 54, 103, 67, 109,
   ];
 
   /// Il sopracciglio sinistro del soggetto.
   static const List<int> sopraccioSinistro = [
-    276,
-    283,
-    282,
-    295,
-    285,
-    300,
-    293,
-    334,
-    296,
-    336,
+    276, 283, 282, 295, 285, 300, 293, 334, 296, 336,
   ];
 
   /// Il sopracciglio destro del soggetto.
   static const List<int> sopraccioDestro = [
-    46,
-    53,
-    52,
-    65,
-    55,
-    70,
-    63,
-    105,
-    66,
-    107,
+    46, 53, 52, 65, 55, 70, 63, 105, 66, 107,
   ];
 
   /// L'occhio sinistro del soggetto.
   static const List<int> occhioSinistro = [
-    263,
-    249,
-    390,
-    373,
-    374,
-    380,
-    381,
-    382,
-    362,
-    466,
-    388,
-    387,
-    386,
-    385,
-    384,
-    398,
+    263, 249, 390, 373, 374, 380, 381, 382, 362, 466, 388, 387, 386, 385,
+    384, 398,
   ];
 
   /// L'occhio destro del soggetto.
   static const List<int> occhioDestro = [
-    33,
-    7,
-    163,
-    144,
-    145,
-    153,
-    154,
-    155,
-    133,
-    246,
-    161,
-    160,
-    159,
-    158,
-    157,
-    173,
+    33, 7, 163, 144, 145, 153, 154, 155, 133, 246, 161, 160, 159, 158,
+    157, 173,
   ];
 
   /// Il ponte del naso, dalla radice alla punta.
@@ -142,32 +63,12 @@ class PuntiDelVolto {
 
   /// Il labbro superiore, bordo esterno.
   static const List<int> labbroSuperiore = [
-    61,
-    185,
-    40,
-    39,
-    37,
-    0,
-    267,
-    269,
-    270,
-    409,
-    291,
+    61, 185, 40, 39, 37, 0, 267, 269, 270, 409, 291,
   ];
 
   /// Il labbro inferiore, bordo esterno.
   static const List<int> labbroInferiore = [
-    61,
-    146,
-    91,
-    181,
-    84,
-    17,
-    314,
-    405,
-    321,
-    375,
-    291,
+    61, 146, 91, 181, 84, 17, 314, 405, 321, 375, 291,
   ];
 
   /// Lo zigomo sinistro del soggetto.

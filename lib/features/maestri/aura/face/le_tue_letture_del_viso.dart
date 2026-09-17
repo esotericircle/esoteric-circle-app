@@ -121,8 +121,9 @@ class _LeTueLettureDelVisoState extends State<LeTueLettureDelViso> {
             key: const Key('letture_conferma'),
             onPressed: () => Navigator.of(c).pop(true),
             child: Text('Cancella',
-                style: TypographyTokens.etichetta()
-                    .copyWith(color: palette.goldSoft)),
+                style:
+                    TypographyTokens.etichetta()
+                        .copyWith(color: palette.goldSoft)),
           ),
         ],
       ),
@@ -271,18 +272,8 @@ class _UnaLettura extends StatelessWidget {
 
   static String _quando(DateTime d) {
     const mesi = [
-      'gennaio',
-      'febbraio',
-      'marzo',
-      'aprile',
-      'maggio',
-      'giugno',
-      'luglio',
-      'agosto',
-      'settembre',
-      'ottobre',
-      'novembre',
-      'dicembre',
+      'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno',
+      'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre',
     ];
     final mese = mesi[(d.month - 1).clamp(0, 11)];
     final ora = d.hour.toString().padLeft(2, '0');
