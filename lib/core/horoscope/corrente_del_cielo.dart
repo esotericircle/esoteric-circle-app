@@ -403,10 +403,10 @@ class CorrenteDelCielo {
     // nomina proprio.
     switch (ripresa) {
       case RipresaDelCielo.stessoPianeta:
-        return '$pianeta forma anche $aspetto $bersaglio$coda$chiusa';
+        return '$pianeta forma anche $bersaglio $aspetto$coda$chiusa';
       case RipresaDelCielo.stessaCasa:
-        return '$pianeta, nella stessa casa, forma $aspetto '
-            '$bersaglio$coda$chiusa';
+        return '$pianeta, nella stessa casa, forma $bersaglio '
+            '$aspetto$coda$chiusa';
       case RipresaDelCielo.nessuna:
         break;
     }
@@ -426,25 +426,31 @@ class CorrenteDelCielo {
       // Senza ora di nascita non ci sono case: la forma si riduce, e non si
       // inventa un settore della vita per riempire lo schema.
       return '$pianeta è in transito nel tuo cielo. '
-          'Forma $aspetto $bersaglio$coda$chiusa';
+          'Forma $bersaglio $aspetto$coda$chiusa';
     }
 
     switch (forma) {
       case FormaDellaFrase.periodo:
         return '$pianeta sta attraversando la $dove. '
-            'Forma $aspetto $bersaglio$coda$chiusa';
+            'Forma $bersaglio $aspetto$coda$chiusa';
       case FormaDellaFrase.duePunti:
-        return '$pianeta attraversa la $dove: da lì forma $aspetto '
-            '$bersaglio$coda$chiusa';
+        return '$pianeta attraversa la $dove: da lì forma $bersaglio '
+            '$aspetto$coda$chiusa';
       case FormaDellaFrase.dallaCasa:
         return 'Dalla $dove, ${colSuoArticolo(v.transito, maiuscola: false)} '
-            'forma $aspetto $bersaglio$coda$chiusa';
+            'forma $bersaglio $aspetto$coda$chiusa';
       case FormaDellaFrase.aspettoPrima:
         final cap = aspetto[0].toUpperCase() + aspetto.substring(1);
         // Il pianeta qui sta in mezzo alla frase, quindi va minuscolo: "lo
         // porta il Sole", non "lo porta Il Sole". E la chiusa SOSTITUISCE il
         // punto invece di aggiungersene uno, che faceva "in pubblico..".
-        return '$cap $bersaglio$coda: ${pronomeDellAspetto[v.aspetto]} porta '
+        // **LA CODA STA ACCANTO ALL'ASPETTO. Ordine DS voce 09.** Qui l'aspetto
+        // apre la frase, quindi il punto natale va dopo la coda e fra due
+        // virgole: *"Una quadratura che si sta sciogliendo, al tuo Sole di
+        // nascita"*. Senza coda la virgola non serve.
+        final testa =
+            coda.isEmpty ? '$cap $bersaglio' : '$cap$coda, $bersaglio';
+        return '$testa: ${pronomeDellAspetto[v.aspetto]} porta '
             '${colSuoArticolo(v.transito, maiuscola: false)}, che attraversa '
             'la $dove$chiusa';
       case FormaDellaFrase.riceve:
@@ -534,8 +540,13 @@ class CorrenteDelCielo {
     // lo usava; nessuna prova la guardava perche' fino all'ordine BK nessuno
     // mostrava questa frase a video. L'ha trovata l'anteprima del secondo
     // momento, guardata: e' il motivo per cui le anteprime si guardano.
+    // **LA CODA SEGUE L'ASPETTO, NON IL PUNTO DI NASCITA. Ordine DS voce 09.**
+    // Era *"Oggi Venere forma una quadratura al tuo Sole di nascita che si sta
+    // sciogliendo"*: il relativo si attaccava al Sole, e un Sole di nascita non
+    // si scioglie. Un fondatore esterno l'ha sottolineata a mano. Adesso il
+    // punto natale viene prima e l'aspetto porta la sua coda.
     return 'Oggi ${colSuoArticolo(v.transito, maiuscola: false)} forma '
-        '${articoloDellAspetto[v.aspetto]} ${_alBersaglio(v)}$coda.';
+        '${_alBersaglio(v)} ${articoloDellAspetto[v.aspetto]}$coda.';
   }
 
   /// IL TESTO DEL GIORNO PER UN DOMINIO, oppure nullo se il cielo non c'e'.

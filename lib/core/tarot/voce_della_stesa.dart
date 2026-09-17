@@ -1,3 +1,4 @@
+import 'figure_della_stesa.dart';
 import 'tarot_card.dart';
 import 'tarot_spread.dart';
 import 'tarot_topic.dart';
@@ -557,15 +558,49 @@ abstract final class VoceDellaStesa {
   ];
 
   /// La riga dei versi e dei Maggiori, scelta dal filo.
-  static String letturaDeiVersi(TarotSpread spread, FiloDellaVoce filo) {
+  static String letturaDeiVersi(TarotSpread spread, FiloDellaVoce filo,
+      {Set<String>? usate, List<String>? pezzi}) {
+    final figure = usate ?? <String>{};
     final rovesciate = spread.cards.where((c) => c.reversed).length;
     final maggiori =
         spread.cards.where((c) => c.card.arcana == TarotArcana.maggiore).length;
-    final versi =
-        LaMarcaDelGenere.risolvi(filo.scegli(formeDeiVersi[rovesciate.clamp(0, 2)]!));
+    final formaDeiVersi = senzaRipetere(
+        filo, formeDeiVersi[rovesciate.clamp(0, 2)]!, figure,
+        pezzi: pezzi);
+    final versi = LaMarcaDelGenere.risolvi(formaDeiVersi);
     if (maggiori < 2) return versi;
+    final formaDeiMaggiori =
+        senzaRipetere(filo, formeDeiMaggiori, figure, pezzi: pezzi);
     return '$versi '
-        '${filo.scegli(formeDeiMaggiori).replaceAll('{quanti}', inLettere(maggiori))}';
+        '${formaDeiMaggiori.replaceAll('{quanti}', inLettere(maggiori))}';
+  }
+
+  /// **SCEGLIE UNA FORMA SENZA RIPETERE UN'IMMAGINE GIA' DETTA.** Ordine DS
+  /// voce 09.
+  ///
+  /// Il filo sceglie come sempre, e il filo consuma come sempre: le letture
+  /// che non incontravano una ripetizione restano identiche al carattere. Se
+  /// la forma scelta usa una figura che un altro pezzo ha gia' detto, si
+  /// passa alla forma successiva della stessa tavola che non la usa. Solo se
+  /// nessuna forma della tavola e' libera si tiene quella scelta: una tavola
+  /// intera sulla stessa figura sarebbe un difetto della tavola, e la guardia
+  /// lo direbbe.
+  static String senzaRipetere(
+      FiloDellaVoce filo, List<String> forme, Set<String> usate,
+      {List<String>? pezzi}) {
+    final scelta = filo.scegli(forme);
+    final da = forme.indexOf(scelta);
+    var tenuta = scelta;
+    for (var k = 0; k < forme.length; k++) {
+      final candidata = forme[(da + k) % forme.length];
+      if (FigureDellaStesa.di(candidata).intersection(usate).isEmpty) {
+        tenuta = candidata;
+        break;
+      }
+    }
+    usate.addAll(FigureDellaStesa.di(tenuta));
+    pezzi?.add(tenuta);
+    return tenuta;
   }
 
   /// **LE OTTO APERTURE DI UNA POSIZIONE.** Ordine DF voce 02, misura C.
@@ -674,8 +709,40 @@ abstract final class VoceDellaStesa {
     TarotTopic topic, {
     String? domandaScritta,
     String? fattoDelCielo,
+  }) =>
+      _componi(spread, topic,
+              domandaScritta: domandaScritta, fattoDelCielo: fattoDelCielo)
+          .paragrafi;
+
+  /// **I PEZZI DEL CONSIGLIO, uno per scelta.** Ordine DS voce 09: la guardia
+  /// delle figure li conta pezzo per pezzo, perche' un pezzo solo puo'
+  /// riprendere la sua parola (*"ha una radice. E la radice e'..."*) e due
+  /// pezzi diversi non devono dire la stessa immagine. Il fatto del cielo e'
+  /// un pezzo anche lui, e sta per primo.
+  static List<String> pezzi(
+    TarotSpread spread,
+    TarotTopic topic, {
+    String? domandaScritta,
+    String? fattoDelCielo,
+  }) =>
+      _componi(spread, topic,
+              domandaScritta: domandaScritta, fattoDelCielo: fattoDelCielo)
+          .pezzi;
+
+  static ({List<String> paragrafi, List<String> pezzi}) _componi(
+    TarotSpread spread,
+    TarotTopic topic, {
+    String? domandaScritta,
+    String? fattoDelCielo,
   }) {
     final filo = FiloDellaVoce.daStesa(spread);
+    // **LE FIGURE GIA' DETTE, a partire dal cielo**, che non si sceglie: e'
+    // il fatto vero del giorno, e sono le forme scelte a girargli intorno.
+    final cielo = fattoDelCielo?.trim() ?? '';
+    final usate = FigureDellaStesa.di(cielo);
+    final pezzi = <String>[if (cielo.isNotEmpty) cielo];
+    String scegli(List<String> forme) =>
+        senzaRipetere(filo, forme, usate, pezzi: pezzi);
     final naturaPresente = NaturaDellaCarta.di(spread.presente);
     final naturaFuturo = NaturaDellaCarta.di(spread.futuro);
 
@@ -696,7 +763,7 @@ abstract final class VoceDellaStesa {
     final sua = domandaScritta?.trim();
     final riconoscimento = sua == null || sua.isEmpty
         ? ''
-        : '${LaMarcaDelGenere.risolvi(filo.scegli(riconoscimentiDellaDomanda)).replaceAll('{domanda}', sua)} ';
+        : '${LaMarcaDelGenere.risolvi(scegli(riconoscimentiDellaDomanda)).replaceAll('{domanda}', sua)} ';
 
     // **ANCHE L ORDINE DENTRO IL PARAGRAFO VARIA.** Ordine DF voce 02, misura
     // C: due booleani raddoppiano due volte le forme senza scrivere una riga
@@ -704,18 +771,17 @@ abstract final class VoceDellaStesa {
     // somiglianza massima a coppie del solo Consiglio scende dal 42,4 per
     // cento, che era sopra la soglia, a un numero sotto.
     final apreLaCarta = filo.scegli(const [true, false]);
-    final aperturaDellaCarta =
-        maiuscola(riempi(filo.scegli(apertureDellaRisposta)));
+    final aperturaDellaCarta = maiuscola(riempi(scegli(apertureDellaRisposta)));
     final cosaDice =
-        LaMarcaDelGenere.risolvi(filo.scegli(cosaDiceIlPresente[naturaPresente]!));
+        LaMarcaDelGenere.risolvi(scegli(cosaDiceIlPresente[naturaPresente]!));
     final risposta = apreLaCarta
         ? '$riconoscimento$aperturaDellaCarta $cosaDice'
         : '$riconoscimento$cosaDice $aperturaDellaCarta';
 
-    final aggancio = maiuscola(riempi(filo.scegli(aggancioDellAzione)));
-    final cosaFare = LaMarcaDelGenere.risolvi(
-        '${filo.scegli(gestoPerNatura[naturaPresente]!)} '
-        '${filo.scegli(percheFarlo)}');
+    final aggancio = maiuscola(riempi(scegli(aggancioDellAzione)));
+    final cosaFare =
+        LaMarcaDelGenere.risolvi('${scegli(gestoPerNatura[naturaPresente]!)} '
+            '${scegli(percheFarlo)}');
     final aggancioPrima = filo.scegli(const [true, false]);
     // **LA RIGA DI COME SI VEDE NON ENTRA NEL CONSIGLIO, e la ragione e una
     // sola: la lunghezza.** Il fondatore, nell ordine DF: *"la lunghezza dei
@@ -725,29 +791,35 @@ abstract final class VoceDellaStesa {
     // rispetto di una misura che il fondatore ha dichiarato buona, vince la
     // misura**: l elenco resta scritto e pronto per il giorno in cui servira
     // altrove, per esempio nel dono del mattino dopo, dove lo spazio c e.
-    final azione = aggancioPrima
-        ? '$aggancio $cosaFare'
-        : '$cosaFare $aggancio';
+    final azione =
+        aggancioPrima ? '$aggancio $cosaFare' : '$cosaFare $aggancio';
 
-    final legame = maiuscola(riempi(filo.scegli(formeDelLegame)));
-    final futuro = riempi(filo.scegli(formeDelFuturo[naturaFuturo]!));
+    final legame = maiuscola(riempi(scegli(formeDelLegame)));
+    final futuro = riempi(scegli(formeDelFuturo[naturaFuturo]!));
 
     // **ANCHE L'ORDINE DEI DUE PEZZI VARIA**, e raddoppia le forme del terzo
     // paragrafo senza scrivere una riga di prosa in piu': a volte si guarda
     // indietro e poi avanti, a volte si apre sul futuro e si spiega da dove
     // viene. Sono due modi veri di raccontare la stessa cosa.
     final primaIlPassato = filo.scegli(const [true, false]);
-    return [
+    final versi = letturaDeiVersi(spread, filo, usate: usate, pezzi: pezzi);
+    final chiusura = LaMarcaDelGenere.risolvi(scegli(chiusure));
+    final paragrafi = [
       risposta,
       azione,
       [
         if (primaIlPassato) legame else futuro,
         if (primaIlPassato) futuro else legame,
-        letturaDeiVersi(spread, filo),
-        if (fattoDelCielo != null && fattoDelCielo.trim().isNotEmpty)
-          'E il cielo di oggi lo accompagna. $fattoDelCielo',
-        LaMarcaDelGenere.risolvi(filo.scegli(chiusure)),
+        versi,
+        // **IL CIELO DICE A COSA SI ACCOSTA. Ordine DS voce 09.** Era *"E il
+        // cielo di oggi lo accompagna"*, e il fondatore esterno ha chiesto:
+        // lo, chi? Il pronome non aveva niente a cui tornare, perche' la
+        // frase prima parlava del conto delle carte al rovescio.
+        if (cielo.isNotEmpty)
+          'Accanto a queste tre carte c\'è il cielo di oggi. $cielo',
+        chiusura,
       ].where((p) => p.trim().isNotEmpty).join(' '),
     ].where((p) => p.trim().isNotEmpty).toList();
+    return (paragrafi: paragrafi, pezzi: pezzi);
   }
 }
