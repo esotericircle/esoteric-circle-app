@@ -53,6 +53,8 @@ import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.da
 import 'package:esoteric_circle/features/maestri/caligo/rune/rune_share_card.dart';
 import 'package:esoteric_circle/features/maestri/chat/chat_openers.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
+import 'package:esoteric_circle/services/memory/firestore_maestro_memory_repository.dart';
+import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_share_card.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_silhouette.dart';
 import 'package:esoteric_circle/core/maestro/frase_di_ripiego.dart';
@@ -175,6 +177,7 @@ import 'package:esoteric_circle/core/primo_uso/suggerimenti_di_zona.dart';
 import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
 import 'package:esoteric_circle/features/synastry/schermata_del_gemello.dart';
 import 'package:esoteric_circle/core/synastry/gemello_astrale.dart';
+import 'server_fedele_della_memoria.dart';
 
 /// Cattura headless delle schermate, con font reali (corpo e icone), provider
 /// AI offline e conversazioni gia' seminate. Nessuna rete, nessun device.
@@ -2582,6 +2585,161 @@ void main() {
     await precacheFaces(tester);
     await capture(tester, rootKey, 'guide-animale-chat.png');
   });
+
+  /// Quanto aspettare perche' il turno del Maestro sia scritto e la coda
+  /// verso il server si sia svuotata: la pausa del consulto, la battuta, e
+  /// il ritardo della rete del server fedele.
+  Future<void> attendiLaRisposta(WidgetTester tester) async {
+    final quanto =
+        TempiDellAttesa.allaPrimaParola(0) + TempiDellAttesa.durataBattuta;
+    for (var i = 0; i < 12; i++) {
+      await tester.pump(quanto ~/ 8);
+    }
+    for (var i = 0; i < 10; i++) {
+      await tester.pump(const Duration(milliseconds: 400));
+    }
+  }
+
+  // --- ORDINE DV: le tre chat senza domande doppie ---
+  //
+  // **Il fatto**: nelle chat dei tre Maestri comparivano domande in coppia.
+  // La causa era la coda verso il server, che mandava la stessa domanda due
+  // volte: qui la chat parla col repository VERO e con un server fedele a
+  // quello vero, che risponde con un ritardo come la rete. Col repository in
+  // memoria delle altre catture il difetto non esisteva, quindi non si
+  // poteva nemmeno vedere corretto.
+  //
+  // Quattro momenti per Maestro, come chiede l'ordine: la domanda suggerita
+  // toccata DUE volte, che e' il caso peggiore di un dito; l'ingresso da un
+  // Dono del Giorno; e le stesse due chat riaperte da app chiusa, cioe' un
+  // controllore nuovo che rilegge dal server.
+  Future<GlobalKey> montaLaChatDv(
+      WidgetTester tester, AppServices servizi, Maestro maestro,
+      {String? daUnDono}) async {
+    await montaLoSchermo(tester, schermoReale);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    final rootKey = GlobalKey();
+    await tester.pumpWidget(RepaintBoundary(
+      key: rootKey,
+      child: MultiProvider(
+        providers: [
+          Provider<AppServices>.value(value: servizi),
+          ChangeNotifierProvider(
+              create: (_) => MaestroController(initial: ThemeKey.of(maestro))),
+          ChangeNotifierProvider(
+              create: (_) =>
+                  QualityTierController()..setTier(QualityTier.medium)),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
+          ChangeNotifierProvider(create: (_) => BirthIdentityController()),
+          ChangeNotifierProvider(create: (_) => EntitlementService()),
+          ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+          ChangeNotifierProvider(create: (_) => ProfileController()),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.dark(),
+          home: Navigator(
+            onGenerateRoute: (_) => MaestroChatScreen.route(
+              maestro: maestro,
+              services: servizi,
+              initialUserMessage: daUnDono,
+            ),
+          ),
+        ),
+      ),
+    ));
+    await attendiLaRisposta(tester);
+    return rootKey;
+  }
+
+  for (final (maestro, suggerita, dono) in [
+    (
+      Maestro.medora,
+      'Cosa dicono le stelle sul mio amore?',
+      ChatOpeners.oroscopo('Gemelli'),
+    ),
+    (
+      Maestro.caligo,
+      'Quale rito sostiene un mio traguardo?',
+      ChatOpeners.runaTramonto('Fehu', 'dritta'),
+    ),
+    (
+      Maestro.aura,
+      'Come apro il cuore all\'amore?',
+      ChatOpeners.soffio('La Luna è in Toro: lascia andare la fretta'),
+    ),
+  ]) {
+    final id = maestro.id;
+
+    testWidgets('Cattura DV, $id: la domanda suggerita e la chat riaperta',
+        (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final db = FakeFirebaseFirestore();
+      final server = ServerFedeleDellaMemoria(db, 'collaudo-dv');
+      AppServices servizi() => AppServices(
+            ai: _ScriptedMaestro(),
+            memory: FirestoreMaestroMemoryRepository(
+                uid: 'collaudo-dv', firestore: db, porta: server),
+            memoryPersistent: true,
+            diagnostics: 'Collaudo DV.',
+          );
+
+      var rootKey = await montaLaChatDv(tester, servizi(), maestro);
+      await tester.tap(find.byKey(const Key('chat_stelline')));
+      await step(tester);
+      await step(tester);
+      // **DUE TOCCHI**, uno dietro l'altro: il caso peggiore di un dito.
+      await tester.tap(find.text(suggerita), warnIfMissed: false);
+      await tester.pump(const Duration(milliseconds: 40));
+      if (find.text(suggerita).evaluate().isNotEmpty) {
+        await tester.tap(find.text(suggerita).first, warnIfMissed: false);
+      }
+      await attendiLaRisposta(tester);
+      await precacheFaces(tester);
+      await capture(
+          tester, rootKey, '../collaudo/DV/$id-1-domanda-suggerita.png');
+
+      // L'app si chiude: si smonta tutto, e si riapre con un repository
+      // nuovo che rilegge dal server.
+      await tester.pumpWidget(const SizedBox());
+      await step(tester);
+      rootKey = await montaLaChatDv(tester, servizi(), maestro);
+      await precacheFaces(tester);
+      await capture(tester, rootKey,
+          '../collaudo/DV/$id-3-domanda-suggerita-riaperta.png');
+    });
+
+    testWidgets('Cattura DV, $id: il Dono del Giorno e la chat riaperta',
+        (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final db = FakeFirebaseFirestore();
+      final server = ServerFedeleDellaMemoria(db, 'collaudo-dv');
+      AppServices servizi() => AppServices(
+            ai: _ScriptedMaestro(),
+            memory: FirestoreMaestroMemoryRepository(
+                uid: 'collaudo-dv', firestore: db, porta: server),
+            memoryPersistent: true,
+            diagnostics: 'Collaudo DV.',
+          );
+
+      var rootKey =
+          await montaLaChatDv(tester, servizi(), maestro, daUnDono: dono);
+      await precacheFaces(tester);
+      await capture(tester, rootKey, '../collaudo/DV/$id-2-da-un-dono.png');
+
+      await tester.pumpWidget(const SizedBox());
+      await step(tester);
+      rootKey = await montaLaChatDv(tester, servizi(), maestro);
+      await precacheFaces(tester);
+      await capture(
+          tester, rootKey, '../collaudo/DV/$id-4-da-un-dono-riaperta.png');
+    });
+  }
 
   // --- L'Estrazione Rune di Caligo: soglia, lancio, rivelazioni, card ---
   Future<void> precacheRune(WidgetTester tester) async {

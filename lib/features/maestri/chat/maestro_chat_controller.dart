@@ -11,6 +11,7 @@ import '../../../core/chat/altre_voci.dart';
 import '../../../core/maestro/consiglio_finale.dart';
 import '../../../core/maestro/seguito_della_lettura.dart';
 import '../../../core/chat/chat_message.dart';
+import '../../../core/chat/cronologia_senza_doppioni.dart';
 import '../../../core/chat/intent_classifier.dart';
 import '../../../core/chat/maestro_memory.dart';
 import '../../../core/chat/user_profile.dart';
@@ -337,7 +338,12 @@ class MaestroChatController extends ChangeNotifier {
         );
         notifyListeners();
       }));
-      final cronologia = results[2] as List<ChatMessage>;
+      // **SENZA I DOPPIONI CHE LA CODA HA LASCIATO.** Ordine DV: dall'11
+      // agosto al 18 settembre 2026 la coda verso il server mandava le
+      // domande due volte, e il server le ha scritte due volte. Si leggono
+      // una volta sola, sia a schermo sia nel contesto che torna al modello.
+      final cronologia =
+          CronologiaSenzaDoppioni.di(results[2] as List<ChatMessage>);
       _cronologiaCaricata = cronologia;
       // **LA CONVERSAZIONE CORRENTE E' QUELLA DEL MESSAGGIO PIU' RECENTE.**
       // Ordine CI voce 06: non si conserva da nessuna parte, si legge da cio'
@@ -398,8 +404,25 @@ class MaestroChatController extends ChangeNotifier {
   /// Invia un messaggio dell'utente e attende la risposta del Maestro.
   Future<void> send(String text) async {
     final trimmed = text.trim();
-    if (trimmed.isEmpty || _sending) return;
+    if (trimmed.isEmpty || _sending || _ricevendo) return;
+    // **UN INVIO ALLA VOLTA, SU TUTTE LE STRADE.** Ordine DV. `_sending` si
+    // alza soltanto dentro la generazione, quindi le strade che non generano,
+    // cioe' gli instradamenti e la lettura gia' data, accettavano un secondo
+    // invio mentre il primo era ancora in corso: un doppio tocco sul pannello
+    // dei suggerimenti diventava due domande. Si alza qui, all'ingresso, e si
+    // abbassa all'uscita qualunque strada si prenda.
+    _ricevendo = true;
+    try {
+      await _ricevi(trimmed);
+    } finally {
+      _ricevendo = false;
+    }
+  }
 
+  /// Vero mentre un invio della persona e' in corso, su qualunque strada.
+  bool _ricevendo = false;
+
+  Future<void> _ricevi(String trimmed) async {
     // **LA STESSA DOMANDA NELLO STESSO GIORNO: LA STESSA LETTURA.** Ordine DS
     // voce 08. Viene prima del limite del giorno: ridire una lettura gia' data
     // non costa niente e non chiama il modello, quindi non consuma una

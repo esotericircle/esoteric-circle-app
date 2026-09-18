@@ -12,8 +12,8 @@ sostiene un mio traguardo?"* due volte di fila; in Aura la domanda che cita il
 soffio del giorno, due volte di fila. Tutte domande suggerite dall'app.
 
 VOCI_TOTALI: 8
-VOCI_CHIUSE: 0
-VOCI_APERTE: 8
+VOCI_CHIUSE: 8
+VOCI_APERTE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 
 Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_DV.md`.
@@ -24,7 +24,7 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_DV.md`.
 
 | cosa dice l'ordine | il riscontro | esito |
 |---|---|---|
-| sono tutte domande suggerite | **vero**: vengono dal pannello dei suggerimenti (`chat_suggestions.dart`, `_send`) o dal testo con cui un Dono apre la chat (`maestro_chat_screen.dart`, `_maybeSendInitial`) | **VERO** |
+| sono tutte domande suggerite | **non tutte.** *"Estrai una runa per me"* e *"Quale rito sostiene un mio traguardo?"* sono del pannello (`domande_del_cerchio.dart`), la domanda del soffio e' l'apertura del Dono (`ChatOpeners.soffio`). **Ma *"Carta del giorno"* l'ho scritta io** sul telefono del fondatore, con `adb input text`, nella prova a video dell'ordine DS del 17 settembre (catture 08a, 08b, 08c); e *"Lettura generale energia oggi"* non compare in nessuna versione del codice, su nessun ramo | **IN PARTE FALSO** |
 | compaiono in coppia | **vero, e la causa e' nel salvataggio**: vedi sotto | **VERO** |
 | i contatori restano pieni | **da misurare**: due di quelle domande sono instradamenti, e per costruzione non consumano; le altre due vanno al modello | **IN PARTE ATTESO** |
 
@@ -54,23 +54,62 @@ repository in memoria, che non ha coda.
 ## LE VOCI
 
 - **DV.01**, il fatto: le domande suggerite compaiono due volte, in tutti e
-  tre i Maestri. **APERTA**
-- **DV.02**, i contatori: se i messaggi doppi hanno chiamato il modello, se
-  hanno consumato, se il contatore avrebbe dovuto muoversi, coi punti del
-  codice. **APERTA**
+  tre i Maestri. **Causa trovata e curata**: la coda che porta al server le
+  scritture della memoria si svuotava in due corse insieme, e ognuna mandava
+  la stessa domanda. Adesso la coda corre una volta sola
+  (`FirestoreMaestroMemoryRepository._svuotaLaCoda`). Sul codice di prima le
+  cinque domande delle catture, sui tre Maestri, arrivavano al server due
+  volte ciascuna; adesso una.
+  **CHIUSA.**
+- **DV.02**, i contatori. **I doppioni non hanno chiamato il modello e non
+  hanno consumato niente**: nascevano dopo l'invio, nella coda verso il
+  server, e non passavano ne' dalla generazione ne' dal contatore. Delle
+  quattro domande delle catture, *"Carta del giorno"* ed *"Estrai una runa per
+  me"* sono instradamenti, e per costruzione non chiamano il modello e non
+  consumano; *"Lettura generale energia oggi"* e *"Quale rito sostiene un mio
+  traguardo?"* vanno al modello, lo chiamano una volta e consumano una
+  domanda ciascuna. Misurato col contatore vero. **Che sul telefono il
+  contatore sia rimasto pieno dopo quelle due non si spiega dal codice della
+  chat**: il conto locale sale, e alla sincronizzazione il telefono prende il
+  numero del server (`QuestionAllowance.sincronizza`, `_count =
+  stato.spesi['domande']`). Si verifica sul telefono o sul server, vedi il
+  rapporto.
+  **CHIUSA.**
 - **DV.03**, nessun messaggio dell'utente compare senza un suo gesto, e
-  nessuno compare due volte: su tutti e tre i Maestri, dalle domande
-  suggerite, dai Doni del Giorno e da ogni altro percorso che apre una chat
-  con un testo pronto. **APERTA**
-- **DV.04**, dove nasce il difetto: nel salvataggio, nel caricamento o nella
-  presentazione. **APERTA**
-- **DV.05**, se resta dopo aver chiuso e riaperto l'app. **APERTA**
-- **DV.06**, i messaggi doppi gia' finiti nelle cronologie: se vanno puliti e
-  cosa serve per farlo. **APERTA**
-- **DV.07**, le prove che fanno cadere il difetto se torna. **APERTA**
-- **DV.08**, le catture delle tre chat dopo la correzione, da una domanda
-  suggerita, da un Dono del Giorno e da app riaperta, in `docs/collaudo/DV/`.
-  **APERTA**
+  nessuno compare due volte. La coda curata vale per ogni scrittura, quindi
+  per ogni strada; in piu' l'invio accetta una chiamata sola alla volta su
+  tutte le strade, anche quelle che non generano, dove un doppio tocco sul
+  pannello diventava due domande. **E una scoperta da dire per intero**:
+  *"Carta del giorno"* non e' una domanda dell'app. L'ho scritta io sul
+  telefono del fondatore durante la prova a video dell'ordine DS, il 17
+  settembre (catture 08a, 08b e 08c di quel rapporto). *"Lettura generale
+  energia oggi"* non compare in nessuna versione del codice.
+  **CHIUSA.**
+- **DV.04**, dove nasce il difetto: **nel salvataggio**. I doppioni esistono
+  davvero nei dati, perche' il server scrive ogni messaggio con un documento
+  nuovo. Non nel caricamento e non nella presentazione.
+  **CHIUSA.**
+- **DV.05**, dopo aver chiuso e riaperto l'app **il difetto restava**, perche'
+  la chat riaperta rilegge dal server. Adesso la chat riaperta non ha
+  doppioni, e quelli gia' scritti si leggono una volta sola.
+  **CHIUSA.**
+- **DV.06**, i doppioni gia' finiti nelle cronologie. **Il telefono li nasconde
+  gia'** (`CronologiaSenzaDoppioni`), sia a schermo sia nel contesto che torna
+  al modello. Per toglierli dai dati c'e' lo strumento
+  `functions/src/pulisci_doppioni.ts`, con la stessa regola del telefono e
+  le sue prove: per default conta e basta, cancella solo con `--davvero`. Va
+  lanciato dal PC con le credenziali di progetto.
+  **CHIUSA.**
+- **DV.07**, le prove: `nessun_messaggio_si_scrive_due_volte_test.dart`,
+  `la_chat_non_raddoppia_le_domande_test.dart` e `functions/src/doppioni.test.ts`.
+  Viste rosse con tre innesti: la coda di prima, l'invio senza guardia, la
+  lettura senza pulizia.
+  **CHIUSA.**
+- **DV.08**, le catture: dodici, in `docs/collaudo/DV/`, tre Maestri per
+  quattro momenti. **Sono catture del banco e non del telefono**: l'ordine
+  vieta la build, e senza una build il codice corretto non arriva sul
+  telefono. Le catture del telefono vengono con la prossima build.
+  **CHIUSA.**
 
 ---
 

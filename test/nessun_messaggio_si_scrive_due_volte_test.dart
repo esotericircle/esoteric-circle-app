@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
 import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
@@ -20,8 +18,9 @@ import 'package:flutter_test/flutter_test.dart';
 /// salva la domanda senza aspettare e subito dopo salva il turno del Maestro;
 /// le due chiamate svuotavano la coda **insieme**, ognuna leggeva il primo
 /// elemento, cioe' la stessa domanda, e la mandava. Poi ognuna toglieva il
-/// primo: la seconda toglieva il turno del Maestro, che al server non
-/// arrivava mai. **La domanda raddoppiava e la risposta spariva.**
+/// primo, e la seconda finiva a togliere da una coda gia' vuota. Misurato:
+/// il server riceveva *domanda, domanda, risposta*, e l'errore della coda
+/// vuota l'app lo inghiottiva. **La domanda raddoppiava, in silenzio.**
 ///
 /// Al banco il difetto non si vedeva perche' le prove della chat usano il
 /// repository in memoria, che non ha coda. Qui si usa quello vero, con una
@@ -104,8 +103,7 @@ void main() {
       'messaggio:La tua carta di oggi',
     ],
         reason: 'il server ha ricevuto ${server.scritti}: una domanda scritta '
-            'due volte e' ' un turno perso sono il difetto che il fondatore ha '
-            'visto sul telefono');
+            'due volte e\' il difetto che il fondatore ha visto sul telefono');
     expect(memoria.scrittureInAttesa, 0,
         reason: 'la coda non si e\' svuotata del tutto');
   });

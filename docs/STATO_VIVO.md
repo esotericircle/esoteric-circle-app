@@ -3385,6 +3385,44 @@ del server, da cambiare col rilascio; la domanda di Medora dalla Stesa e la
 lente della parola, scritte e non piu' lette; i fondali dell'alba rimasti nel
 bundle; i due sentieri che nominano lo stesso dono.
 
+## L'ORDINE DV, LE DOMANDE DOPPIE NELLE CHAT DEI MAESTRI
+
+Ordine del 18 settembre 2026, **otto voci, otto chiuse**, nessuna build.
+Manifesto `docs/ordini/ORDINE_DV_MANIFESTO.md`, rapporto
+`docs/ordini/RAPPORTO_ORDINE_DV.md`.
+
+**IL FATTO**: nelle chat dei tre Maestri le domande comparivano in coppia, e
+restavano in coppia riaprendo l'app. **LA CAUSA stava nel salvataggio.** La
+coda che porta al server le scritture della memoria
+(`FirestoreMaestroMemoryRepository._svuotaLaCoda`) si svuotava in due corse
+insieme: la chat salva la domanda senza aspettare e subito dopo il turno del
+Maestro, e tutte e due le corse mandavano la stessa domanda. Il server scrive
+ogni messaggio con un documento nuovo, quindi **dall'11 agosto 2026 (ordine N,
+commit `7797f63c`) ogni domanda ai Maestri e' stata scritta due volte**. Lo stesso
+commit aveva fatto nascere la coda gemella del contatore, e quella era nata
+protetta: la famiglia delle due porte.
+
+**LE CURE**: la coda corre una volta sola; l'invio accetta una chiamata alla
+volta su tutte le strade, anche instradamenti e letture ridette; la cronologia
+si legge senza i doppioni gia' scritti (`lib/core/chat/cronologia_senza_doppioni.dart`),
+a schermo e nel contesto del modello. **I doppioni restano nei dati**: lo
+strumento per toglierli e' `functions/src/pulisci_doppioni.ts`, da lanciare dal
+PC di Mauro, che per default conta e basta.
+
+**DUE DI QUELLE DOMANDE NON ERANO DELL'APP.** *"Carta del giorno"* l'ha scritta
+Code sul telefono del fondatore con `adb input text`, nella prova a video
+dell'ordine DS; *"Lettura generale energia oggi"* non esiste in nessuna versione
+del codice, provenienza ignota. **I contatori**: i doppioni non chiamavano il
+modello e non consumavano; le due domande al modello consumano una domanda
+ciascuna, e perche' sul telefono il contatore sia rimasto pieno resta da
+verificare sul telefono o sul server.
+
+**Le prove** usano per la prima volta il repository vero con un server finto
+fedele (`test/server_fedele_della_memoria.dart`): quelle di prima usavano il
+repository in memoria, che non ha coda, ed e' per questo che il difetto al banco
+non esisteva. Registro delle guardie a **438**. Le catture sono del banco, in
+`docs/collaudo/DV/`: quelle dal telefono vengono con la prossima build.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.

@@ -131,7 +131,42 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
     await _svuotaLaCoda();
   }
 
+  /// La corsa che sta svuotando la coda, se ce n'e' una.
+  Future<void>? _corsaInAtto;
+
+  /// **LA CODA SI SVUOTA UNA CORSA ALLA VOLTA.** Ordine DV, 18 settembre 2026.
+  ///
+  /// **Il difetto che c'era qui.** La chat salva la domanda senza aspettare e
+  /// subito dopo salva la risposta: erano due chiamate a questa funzione, e
+  /// svuotavano la coda **insieme**. Ognuna leggeva il primo elemento, cioe'
+  /// la stessa domanda, e la mandava al server; poi ognuna toglieva il primo,
+  /// e la seconda finiva a togliere da una coda gia' vuota. Misurato al banco:
+  /// il server riceveva *"Carta del giorno"* due volte, e l'errore della coda
+  /// vuota l'app lo inghiottiva perche' la cronologia non deve fermare la
+  /// chat. Il fondatore ha trovato nelle chat dei tre Maestri domande che non
+  /// aveva mai scritto, sempre in coppia.
+  ///
+  /// **Adesso la corsa e' una sola.** Chi arriva mentre un'altra sta
+  /// svuotando la aspetta: gli elementi che ha aggiunto li prende la corsa in
+  /// atto, che rilegge la coda a ogni giro. Se alla fine della corsa ne resta
+  /// qualcuno, perche' e' arrivato proprio mentre quella usciva, ne parte una
+  /// nuova. Controllo e assegnazione stanno nello stesso passo senza attese in
+  /// mezzo, quindi due corse non possono partire insieme.
   Future<void> _svuotaLaCoda() async {
+    while (_corsaInAtto != null) {
+      await _corsaInAtto;
+    }
+    if (_daMandare.isEmpty) return;
+    final corsa = _unaCorsa();
+    _corsaInAtto = corsa;
+    try {
+      await corsa;
+    } finally {
+      if (identical(_corsaInAtto, corsa)) _corsaInAtto = null;
+    }
+  }
+
+  Future<void> _unaCorsa() async {
     while (_daMandare.isNotEmpty) {
       final primo = _daMandare.first;
       final fatto = await _porta.scriviLaMemoria(
@@ -139,6 +174,9 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
         maestro: primo['maestro'] as String?,
         campi: (primo['campi'] as Map).cast<String, Object?>(),
       );
+      // Il server non ha risposto: l'elemento resta in testa e si riprova
+      // alla prossima scrittura, come prima. Non si ripiega mai sulla
+      // scrittura diretta.
       if (!fatto) return;
       _daMandare.removeAt(0);
     }
