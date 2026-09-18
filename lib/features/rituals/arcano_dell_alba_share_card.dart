@@ -179,7 +179,7 @@ class ArcanoDellAlbaShareCard extends StatelessWidget {
 /// guardando e dove trovarlo, invece di parlargli come se l'avesse girata lui.
 String testoDellArcanoCondiviso(ResponsoDellAlba r) {
   final parola = r.parola;
-  final laParola = parola == null ? '' : ' La mia parola: $parola.';
+  final laParola = parola == null ? '' : ' La mia parola: «$parola».';
   return 'Il mio Arcano dell\'Alba di oggi: '
       '${ResponsoDellAlba.cartaColVerso(r.stato)}.$laParola '
       'Gira il tuo su ${Brand.url}';

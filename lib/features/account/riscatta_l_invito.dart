@@ -63,8 +63,9 @@ Future<void> apriIlRiscattoDellInvito(BuildContext context) async {
                   .copyWith(color: palette.goldSoft)),
           const SizedBox(height: SpacingTokens.xs),
           ParagrafiDiLettura(
-            testo: 'Incolla qui il codice che hai ricevuto: chi ti ha portato '
-                'nel Cerchio riceverà il suo premio. Si fa una volta sola.',
+            testo: 'Incolla qui il codice che hai ricevuto: tu e chi ti ha '
+                'portato nel Cerchio ricevete un premio in Eos. Si fa una '
+                'volta sola.',
             stile: TypographyTokens.lettura()
                 .copyWith(color: ColorTokens.textSecondary),
           ),
@@ -134,7 +135,7 @@ Future<void> riscattaIlCodiceDellInvito(
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Text(accolto
         // Ordine DW voce 05: il premio arriva a tutti e due, e si dice.
-        ? 'Fatto: 60 Eos a te e 60 a chi ti ha invitato.'
+        ? 'Fatto: il premio in Eos arriva a te e a chi ti ha invitato.'
         : 'Questo codice non vale: forse è il tuo, o lo hai già usato.'),
   ));
 }

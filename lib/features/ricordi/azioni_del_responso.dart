@@ -37,6 +37,7 @@ import '../../core/ricordi/scrigno_dei_custoditi.dart';
 import '../../core/ricordi/voce_del_ricordo.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
+import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
 import '../maestri/chat/maestro_chat_screen.dart';
 import '../../core/sensi/catalogo_suoni.dart';
@@ -255,6 +256,15 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
     ));
   }
 
+  /// **LE ETICHETTE DELLE AZIONI A SEDICI PUNTI. Ordine DW voce 02.**
+  ///
+  /// Prendevano la misura di serie del pulsante, quattordici punti, e nessuno
+  /// se n'era accorto: sui Doni il censimento dei caratteri (ordine CG voce
+  /// 14) non arrivava fin quaggiu'. Con le azioni sull'Arcano dell'Alba le ha
+  /// misurate, sotto i sedici che i Doni pretendono. I pulsanti stanno uno
+  /// sotto l'altro a tutta larghezza, quindi il ruolo della riga ci sta.
+  static final TextStyle _misuraDelleAzioni = TypographyTokens.titoloDiRiga();
+
   @override
   Widget build(BuildContext context) {
     final palette = widget.palette;
@@ -270,6 +280,7 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
               child: FilledButton.icon(
                 key: const Key('responso_condividi'),
                 style: FilledButton.styleFrom(
+                  textStyle: _misuraDelleAzioni,
                   backgroundColor: palette.gold,
                   foregroundColor: palette.deepest,
                   padding: const EdgeInsets.symmetric(
@@ -291,6 +302,7 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
             OutlinedButton.icon(
               key: const Key('responso_condividi'),
               style: OutlinedButton.styleFrom(
+                  textStyle: _misuraDelleAzioni,
                   foregroundColor: widget.suChiaro
                       ? RegimeChiaro.testoSuChiaro
                       : palette.goldSoft,
@@ -307,6 +319,7 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
           OutlinedButton.icon(
             key: const Key('responso_custodisci'),
             style: OutlinedButton.styleFrom(
+                textStyle: _misuraDelleAzioni,
                 foregroundColor: widget.suChiaro
                     ? RegimeChiaro.testoSuChiaro
                     : palette.goldSoft,
@@ -339,6 +352,7 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
             // niente e il giorno che un primario cambia il conto si rifa' da
             // solo.
             style: FilledButton.styleFrom(
+                textStyle: _misuraDelleAzioni,
                 backgroundColor: AccentoDelMaestro.portatoSu(
                     palette.primary, palette.onPrimary),
                 foregroundColor: palette.onPrimary),

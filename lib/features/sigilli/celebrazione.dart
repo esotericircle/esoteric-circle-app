@@ -1111,7 +1111,8 @@ Future<void> condividiIlTraguardo(
         traguardo: traguardo,
         palette: MaestroScope.forse(context) ?? MaestroPalette.neutral),
     testo: TestoDellaCondivisione.perIlTraguardo(traguardo, modo,
-        codiceInvito: TestoDellaCondivisione.codiceDellInvito(uid, maestro)),
+        codiceInvito: TestoDellaCondivisione.codiceDellInvito(uid, maestro),
+        premioInvito: borsa.premioDellInvito),
     nomeDelFile: 'sigillo_${traguardo.id}.png',
   );
   if (!context.mounted) return;

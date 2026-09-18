@@ -88,14 +88,14 @@ class AccountScreen extends StatelessWidget {
       _AccountEntry(
         id: 'invita',
         title: 'Invita un amico',
-        subtitle: '60 Eos a te e 60 a chi entra dal tuo invito',
+        subtitle: 'Un premio in Eos a te e a chi entra dal tuo invito',
         icon: Icons.card_giftcard_outlined,
         onTap: (context) => invitaUnAmico(context),
       ),
       const _AccountEntry(
         id: 'invito',
         title: 'Chi ti ha invitato',
-        subtitle: 'Incolla il codice: 60 Eos a te e a chi ti ha invitato',
+        subtitle: 'Incolla il codice: un premio in Eos a te e a chi ti ha invitato',
         icon: Icons.person_add_alt_1_outlined,
         onTap: apriIlRiscattoDellInvito,
       ),

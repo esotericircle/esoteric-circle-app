@@ -200,7 +200,7 @@ class _DomandaDellInvitoState extends State<DomandaDellInvito> {
             const SizedBox(height: SpacingTokens.sm),
             ParagrafiDiLettura(
               testo: LaMarcaDelGenere.risolvi('Se [sei arrivato|sei arrivata|'
-                  'sei qui] da un invito, ricevete 60 Eos a testa, tu e chi '
+                  'sei qui] da un invito, ricevete un premio in Eos, tu e chi '
                   'te lo ha mandato. Tocca Incolla: dal link che hai '
                   'ricevuto prendiamo soltanto il codice. Si fa una volta '
                   'sola.'),

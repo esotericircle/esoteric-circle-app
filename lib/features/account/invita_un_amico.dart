@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/condivisione/porta_della_condivisione.dart';
+import '../../core/entitlement/question_allowance.dart';
 import '../../core/identity/account_del_cerchio.dart';
 import '../../core/sigilli/bonus_della_condivisione.dart';
 
@@ -23,6 +24,13 @@ Future<bool> invitaUnAmico(BuildContext context) async {
   } catch (senzaAccount) {
     uid = null;
   }
+  int? premio;
+  try {
+    premio = context.read<QuestionAllowance>().premioDellInvito;
+  } catch (senzaBorsa) {
+    premio = null;
+  }
   return PortaDellaCondivisione.testo(TestoDellaCondivisione.invitoLibero(
-      codiceInvito: TestoDellaCondivisione.codiceDellInvito(uid, null)));
+      codiceInvito: TestoDellaCondivisione.codiceDellInvito(uid, null),
+      premioInvito: premio));
 }

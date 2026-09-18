@@ -1,7 +1,7 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 149 -->
-<!-- FILE_CON_VUOTI: 65 -->
+<!-- VUOTI_CENSITI: 155 -->
+<!-- FILE_CON_VUOTI: 68 -->
 <!-- VUOTI_ECCESSIVI: 3 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
 
@@ -11,8 +11,8 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **149** |
-| File che ne contengono | **65** |
+| Vuoti verticali dichiarati | **155** |
+| File che ne contengono | **68** |
 | Oltre la soglia di 48 punti | **3** |
 
 ## Da dove viene la soglia
@@ -22,9 +22,9 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 84 |
+| 2 | 85 |
 | 3 | 8 |
-| 4 | 22 |
+| 4 | 27 |
 | 5 | 1 |
 | 6 | 13 |
 | 7 | 2 |
@@ -60,6 +60,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/horoscope/oroscopo_screen.dart` | 4 | 0 |
 | `lib/features/maestri/maestro_screen.dart` | 4 | 0 |
 | `lib/features/pricing/pricing_screen.dart` | 4 | 0 |
+| `lib/features/rituals/arcano_dell_alba_share_card.dart` | 4 | 0 |
 | `lib/features/shell/santuario_bottom_bar.dart` | 4 | 0 |
 | `lib/features/tarot/stesa_tre_carte_screen.dart` | 4 | 0 |
 | `lib/features/horoscope/oroscopo_share_card.dart` | 3 | 0 |
@@ -108,9 +109,11 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/onboarding/riquadro_della_scelta.dart` | 1 | 0 |
 | `lib/features/rituals/dream_rite_card.dart` | 1 | 0 |
 | `lib/features/rituals/ritual_gift_card.dart` | 1 | 0 |
+| `lib/features/rituals/soffio_share_card.dart` | 1 | 0 |
 | `lib/features/settings/interruttore_della_misura.dart` | 1 | 1 |
 | `lib/features/settings/riga_che_apre.dart` | 1 | 0 |
 | `lib/features/settings/settings_screen.dart` | 1 | 0 |
+| `lib/features/sigilli/card_del_sigillo_da_mandare.dart` | 1 | 0 |
 | `lib/features/sigilli/card_del_traguardo.dart` | 1 | 0 |
 | `lib/features/sigilli/disegno_del_sentiero.dart` | 1 | 0 |
 | `lib/features/synastry/sinastria_gallery_screen.dart` | 1 | 0 |

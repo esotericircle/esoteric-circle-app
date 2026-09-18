@@ -98,6 +98,12 @@ class QuestionAllowance extends ChangeNotifier {
 
   int? _premioDellInvitoAccolto;
 
+  /// **QUANTO VALE UN INVITO ACCOLTO, per tutti e due.** Ordine DW voce 05:
+  /// la cifra la dice il server (`EOS_DELL_INVITO_ACCOLTO`, uguale a
+  /// `EOS_A_CHI_ARRIVA_CON_UN_INVITO`), e i messaggi d'invito la leggono da
+  /// qui invece di scriverla a mano. Nulla finche' il server non ha risposto.
+  int? get premioDellInvito => _premioDellInvitoAccolto;
+
   int _condivisioniPremiateOggi = 0;
 
   /// **SE UNA CONDIVISIONE, ADESSO, VERREBBE PREMIATA.** Ordine BG voce 04:

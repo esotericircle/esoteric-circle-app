@@ -132,7 +132,7 @@ class TestoDellaCondivisione {
   /// alla persona giusta. Il link porta il codice dell'invito in tutti e tre i
   /// modi, perche' anche un messaggio privato puo' portare qualcuno dentro.
   static String perIlTraguardo(Traguardo traguardo, ModoDellaCondivisione modo,
-      {String? codiceInvito}) {
+      {String? codiceInvito, int? premioInvito}) {
     final link = (codiceInvito ?? '').isEmpty
         ? Brand.url
         : '${Brand.url}?invito=$codiceInvito';
@@ -140,7 +140,7 @@ class TestoDellaCondivisione {
       case ModoDellaCondivisione.invitoConDownload:
         return 'Ti invito nel Cerchio: ho appena acceso il Sigillo '
             '«${traguardo.nome}». Scarica ${Brand.name} e, quando ti '
-            'registri, incolla questo link: riceviamo 60 Eos a testa. $link';
+            'registri, incolla questo link${_aTesta(premioInvito)}. $link';
       case ModoDellaCondivisione.socialPubblico:
         return 'Ho acceso il Sigillo «${traguardo.nome}» su ${Brand.name}. '
             'Scopri il tuo cielo: $link';
@@ -153,14 +153,19 @@ class TestoDellaCondivisione {
   /// **L'INVITO DAL MENU', senza aspettare un traguardo. Ordine DW voce 05.**
   /// Invitare qualcuno si poteva solo dalla festa di un Sigillo: chi non ne
   /// aveva acceso nessuno non aveva modo di farlo.
-  static String invitoLibero({String? codiceInvito}) {
+  static String invitoLibero({String? codiceInvito, int? premioInvito}) {
     final link = (codiceInvito ?? '').isEmpty
         ? Brand.url
         : '${Brand.url}?invito=$codiceInvito';
     return 'Ti invito nel Cerchio, l\'app dei tre Maestri: astrologia, '
         'tarocchi, rune e chakra. Scarica ${Brand.name} e, quando ti '
-        'registri, incolla questo link: riceviamo 60 Eos a testa. $link';
+        'registri, incolla questo link${_aTesta(premioInvito)}. $link';
   }
+
+  /// **LA CIFRA LA DICE IL SERVER.** Ordine DW voce 05: il premio arriva con
+  /// lo stato; finche' non e' arrivato la frase non promette un numero.
+  static String _aTesta(int? premio) =>
+      premio == null ? '' : ': riceviamo $premio Eos a testa';
 }
 
 /// IL PREMIO DI UN TRAGUARDO, chiesto al server per nome e non per importo.

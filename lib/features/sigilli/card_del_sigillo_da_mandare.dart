@@ -61,7 +61,7 @@ class CardDelSigilloDaMandare extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('UN SIGILLO ACCESO NEL CERCHIO',
+            Text('SIGILLO ACCESO',
                 textAlign: TextAlign.center,
                 style: TypographyTokens.etichetta()
                     .copyWith(color: palette.goldSoft, letterSpacing: 2.4)),
@@ -134,7 +134,7 @@ Future<bool> mandaUnaCardFuoriCampo(
   } catch (fotoMancata) {
     // Nessun disco o nessuna foto: si manda il testo col link, e il perche'
     // resta scritto nel registro invece di sparire.
-    debugPrint('La card del Sigillo non si e\' fotografata: $fotoMancata');
+    debugPrint('La card del Sigillo non si è fotografata: $fotoMancata');
     percorso = null;
   } finally {
     voce.remove();
