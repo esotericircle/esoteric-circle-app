@@ -94,6 +94,9 @@ PC del fondatore: se lo vuole, e' un ordine a se'.
   del titolo non dichiarato. Padre: questo ordine, voce DZ.04. Curati tutti e
   due; per il secondo il prompt e' dichiarato fuori dalla prosa, perche'
   nomina un tema e non si rivolge alla persona.
+  Al giro dopo `scaricare_i_tuoi_dati` ha preso il terzo: la chiave si
+  cancellava ma non si scaricava. Aggiunta allo scarico dei dati
+  (`scarico_dei_tuoi_dati.dart`), come vuole la regola dell'ordine BC.
 
 ## 6. LA BUILD
 

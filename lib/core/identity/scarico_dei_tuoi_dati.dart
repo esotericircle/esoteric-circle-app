@@ -83,6 +83,9 @@ class ScaricoDeiTuoiDati {
     'sentiero.': 'Le mappe dei sentieri che hai aperto',
     'sinastria.': 'Le coppie che hai scoperto',
     'maestro.': 'Quali benvenuti ti hanno già detto i Maestri',
+    // Ordine DZ voce 04: i titoli che il modello ha dato alle tue
+    // conversazioni, come si cancellano cosi' si scaricano.
+    'chat.titoli.': 'I titoli delle tue conversazioni con i Maestri',
     'sunset_rune': 'Le tue Rune del Tramonto',
     'device.id': 'L\'identità di questo dispositivo',
     // **E IL LOTO, ORDINE CZ VOCE 10.** La traccia dei respiri della
