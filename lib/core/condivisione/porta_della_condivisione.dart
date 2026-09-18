@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:flutter/widgets.dart';
 import 'package:share_plus/share_plus.dart';
 import '../misura/misura_del_ritorno.dart';
 import '../misura/registro_del_ritorno.dart';
@@ -130,12 +131,34 @@ class PortaDellaCondivisione {
     return riuscita;
   }
 
+  /// **DA DOVE SI APRE IL FOGLIO. Ordine DW voce 07.**
+  ///
+  /// Su iPad il foglio di condivisione e' un riquadro sospeso, e share_plus
+  /// pretende di sapere a quale punto dello schermo agganciarlo: senza, solleva
+  /// un errore, la porta lo inghiotte e la condivisione non parte. Su iPhone e
+  /// su Android il valore si ignora. Si usa il centro della finestra, che esiste
+  /// sempre, invece del pulsante toccato, che la porta non conosce.
+  static Rect? origineDelFoglio() {
+    final viste = WidgetsBinding.instance.platformDispatcher.views;
+    if (viste.isEmpty) return null;
+    final vista = viste.first;
+    final misura = vista.physicalSize / vista.devicePixelRatio;
+    if (misura.isEmpty) return null;
+    return Rect.fromCenter(
+        center: Offset(misura.width / 2, misura.height / 2),
+        width: 1,
+        height: 1);
+  }
+
   /// Manda del TESTO. Torna falso se la condivisione non e' partita.
   static Future<bool> testo(String cosa, {String? oggetto}) async {
     if (cosa.trim().isEmpty) return false;
     try {
       final esito = await SharePlus.instance.share(
-        ShareParams(text: cosa, subject: oggetto),
+        ShareParams(
+            text: cosa,
+            subject: oggetto,
+            sharePositionOrigin: origineDelFoglio()),
       );
       return avvenuta(esito);
     } catch (errore) {
@@ -160,6 +183,7 @@ class PortaDellaCondivisione {
     try {
       final esito = await SharePlus.instance.share(
         ShareParams(
+          sharePositionOrigin: origineDelFoglio(),
           text: testo,
           files: [XFile(percorso, mimeType: tipo)],
         ),
@@ -190,6 +214,7 @@ class PortaDellaCondivisione {
     try {
       final esito = await SharePlus.instance.share(
         ShareParams(
+          sharePositionOrigin: origineDelFoglio(),
           text: testo,
           files: [for (final p in veri) XFile(p)],
         ),
@@ -211,6 +236,7 @@ class PortaDellaCondivisione {
     try {
       final esito = await SharePlus.instance.share(
         ShareParams(
+          sharePositionOrigin: origineDelFoglio(),
           text: testo,
           files: [XFile.fromData(byte, name: nome, mimeType: tipo)],
         ),

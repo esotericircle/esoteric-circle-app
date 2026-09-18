@@ -54,7 +54,8 @@ void main() {
     //
     // **Resta fuori l'indirizzo di posta** della privacy, che e' un recapito
     // e non un link.
-    final aMano = RegExp(r'''['"](https?://)?(www\.)?esotericircle\.(com|app)''');
+    final aMano =
+        RegExp(r'''['"](https?://)?(www\.)?esotericircle\.(com|app)''');
     final fuori = <String>[];
     var guardati = 0;
     for (final f in Directory('lib').listSync(recursive: true)) {
@@ -77,5 +78,31 @@ void main() {
     expect(fuori, isEmpty,
         reason: 'questi punti scrivono un dominio a mano invece di leggerlo '
             'da Brand: $fuori');
+  });
+  test(
+      'DW.07: OGNI FOGLIO DI CONDIVISIONE DICE DA DOVE SI APRE, come iPad '
+      'pretende', () {
+    // **Su iPad share_plus solleva un errore se non riceve l'origine del
+    // foglio**, e la porta lo inghiotte e torna falso: la condivisione non
+    // parte e nessuno lo vede. Apple rivede le app anche su iPad. Si pretende
+    // che ogni chiamata della porta passi `sharePositionOrigin`.
+    final porta = File('lib/core/condivisione/porta_della_condivisione.dart')
+        .readAsStringSync();
+    final chiamate = RegExp(r'ShareParams\(([^;]*?)\),\s*\);', dotAll: true)
+        .allMatches(porta)
+        .map((m) => m.group(1)!)
+        .toList();
+    cardinaleMinimo(chiamate.length, 4,
+        cosa: 'chiamate della porta',
+        perche: 'Su una porta vuota nessun foglio mancherebbe l\'origine.');
+    final senza = [
+      for (var i = 0; i < chiamate.length; i++)
+        if (!chiamate[i].contains('sharePositionOrigin')) i,
+    ];
+    print('ORDINE DW voce 07: chiamate della porta ${chiamate.length}, senza '
+        'origine ${senza.length}');
+    expect(senza, isEmpty,
+        reason: 'queste chiamate non dicono da dove si apre il foglio: su '
+            'iPad la condivisione non parte');
   });
 }
