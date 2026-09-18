@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 import 'dart:io';
 
-import 'package:esoteric_circle/core/rituals/arcano_dell_alba/attribuzioni_degli_arcani.dart';
 import 'package:esoteric_circle/core/rituals/arcano_dell_alba/diario_dell_alba.dart';
 import 'package:esoteric_circle/core/rituals/arcano_dell_alba/forme_dell_alba.dart';
 import 'package:esoteric_circle/core/rituals/arcano_dell_alba/lettura_dell_alba.dart';

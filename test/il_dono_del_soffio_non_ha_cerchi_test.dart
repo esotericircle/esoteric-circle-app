@@ -25,7 +25,7 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
   const lato = 420.0;
-  final centro = const Offset(lato / 2, lato / 2);
+  const centro = Offset(lato / 2, lato / 2);
 
   Future<ByteData> dipinta(double respiro, {bool fermo = false}) async {
     final registratore = ui.PictureRecorder();
@@ -73,23 +73,6 @@ void main() {
       if (massimo > soglia) accesi++;
     }
     return accesi / passi;
-  }
-
-  /// Fin dove arriva la luce, dal centro.
-  double estensione(ByteData dati, {int soglia = 90}) {
-    var massimo = 0.0;
-    for (var k = 0; k < 720; k++) {
-      final a = 2 * math.pi * k / 720;
-      for (var raggio = lato / 2 - 2; raggio > 0; raggio -= 0.5) {
-        final x = (centro.dx + math.cos(a) * raggio).round();
-        final y = (centro.dy + math.sin(a) * raggio).round();
-        if (luce(dati, x, y) > soglia) {
-          massimo = math.max(massimo, raggio);
-          break;
-        }
-      }
-    }
-    return massimo;
   }
 
   /// Fin dove arriva la luce lungo un raggio solo, nella direzione [a].
