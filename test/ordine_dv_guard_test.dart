@@ -6,13 +6,13 @@ import 'package:flutter_test/flutter_test.dart';
 /// LA GUARDIA DELL'ORDINE DV, i messaggi mai scritti e le domande doppie.
 ///
 /// **Non e' una promessa, e' una prova che non passa.** Legge il manifesto e
-/// resta rossa finche' le otto voci non hanno uno stato terminale. Le guardie
+/// resta rossa finche' le dodici voci non hanno uno stato terminale. Le guardie
 /// del difetto vivono nelle loro prove: questa sorveglia che l'ordine non
 /// venga dichiarato chiuso a meta'.
 void main() {
   final manifesto = File('docs/ordini/ORDINE_DV_MANIFESTO.md');
 
-  const quante = 8;
+  const quante = 12;
 
   int marcatore(String testo, String nome) {
     final trovato =
@@ -22,7 +22,7 @@ void main() {
     return int.parse(trovato!.group(1)!);
   }
 
-  test('il manifesto esiste e porta tutte e otto le voci', () {
+  test('il manifesto esiste e porta tutte e dodici le voci', () {
     expect(manifesto.existsSync(), isTrue,
         reason: 'il manifesto nasce prima del codice');
     final testo = manifesto.readAsStringSync();
@@ -79,6 +79,6 @@ void main() {
     final aperte = marcatore(manifesto.readAsStringSync(), 'VOCI_APERTE');
     expect(aperte, 0,
         reason: 'restano $aperte voci APERTE. Questa riga e\' rossa apposta: '
-            'torna verde quando le otto voci hanno uno stato terminale');
+            'torna verde quando le dodici voci hanno uno stato terminale');
   });
 }

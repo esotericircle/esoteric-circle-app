@@ -11,9 +11,9 @@ oggi"* due volte di fila; in Caligo *"Estrai una runa per me"* e *"Quale rito
 sostiene un mio traguardo?"* due volte di fila; in Aura la domanda che cita il
 soffio del giorno, due volte di fila. Tutte domande suggerite dall'app.
 
-VOCI_TOTALI: 8
+VOCI_TOTALI: 12
 VOCI_CHIUSE: 8
-VOCI_APERTE: 0
+VOCI_APERTE: 4
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 
 Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_DV.md`.
@@ -111,6 +111,38 @@ repository in memoria, che non ha coda.
   telefono. Le catture del telefono vengono con la prossima build.
   **CHIUSA.**
 
+
+**LE CORREZIONI DEL FONDATORE DOPO LA CONSEGNA**, 18 settembre 2026. Mauro,
+letto il rapporto: *"ok per la seconda difesa e per tutti i consigli che
+ritieni utili"*. E sull'Arcano dell'Alba, con due catture dal telefono: il
+testo del pannello e' attaccato ai bordi a destra e a sinistra; e *"il gesto
+di oggi"* non e' un gesto: *"l'utente deve sapere che gesto fare e deve
+essere chiaro e diretto e deve sapere lo scopo, il perche'"*, e il gesto col
+suo titolo va in un riquadro che lo stacchi dal resto. Alla domanda su quanto
+del corpus riscrivere ha scelto **tutti i 528**.
+
+- **DV.09**, la seconda difesa: **il server non scrive due volte lo stesso
+  messaggio**, anche se il telefono glielo manda due volte. Il telefono
+  decide l'identificativo del messaggio prima di accodarlo, e il server lo
+  crea con quell'identificativo: un secondo invio trova il documento gia'
+  scritto e non ne aggiunge un altro. Vale per il reinvio dopo una rete
+  caduta, che la coda curata non puo' escludere. Va distribuita dal PC del
+  fondatore.
+  **APERTA**
+- **DV.10**, l'errore inghiottito. Il difetto della coda e' rimasto un mese
+  senza che nessuno lo vedesse perche' la cronologia che non si scrive viene
+  ignorata in silenzio. Un salvataggio che fallisce deve lasciare una traccia
+  leggibile, senza fermare la chat.
+  **APERTA**
+- **DV.11**, il pannello dell'Arcano dell'Alba: il testo ha un margine
+  interno a destra e a sinistra, e il gesto sta in un riquadro col suo
+  titolo, staccato dal resto.
+  **APERTA**
+- **DV.12**, il gesto e' un gesto: tutti i 528 del corpus
+  (`docs/corpus/tarocchi.md`) dicono un'azione concreta che si puo' fare
+  oggi, e ognuno porta il suo **perche'**, mostrato nel riquadro.
+  **APERTA**
+
 ---
 
 ## COME SI MISURA, VOCE PER VOCE
@@ -125,3 +157,7 @@ repository in memoria, che non ha coda.
 | 06 | lo strumento che trova i doppioni gia' scritti, provato su una cronologia finta |
 | 07 | le prove sopra, viste rosse sul codice di prima |
 | 08 | le catture in `docs/collaudo/DV/` |
+| 09 | lo stesso messaggio mandato due volte al server, con lo stesso identificativo, e' un documento solo |
+| 10 | un salvataggio che fallisce lascia una riga di diagnosi, e la chat continua |
+| 11 | il margine fra il bordo del pannello e il testo, misurato a schermo, e il riquadro del gesto |
+| 12 | ogni lettura del corpus ha il suo perche', e nessun gesto comincia con un verbo d'atteggiamento |
