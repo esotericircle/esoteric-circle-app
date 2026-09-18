@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+
+import '../../../../core/brand/brand.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../../../core/archetypes/archetype.dart';
@@ -279,5 +281,5 @@ Future<bool> shareArchetypeCard({
   return PortaDellaCondivisione.daFile(file.path,
       testo: 'Il mio archetipo è ${dominante.conArticolo}. '
           'Scopri il tuo con Aura, su Esoteric Circle. '
-          'https://esotericircle.app/aura/archetype_test');
+          '${Brand.url}');
 }

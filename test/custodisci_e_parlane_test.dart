@@ -293,4 +293,36 @@ void main() {
         reason: 'queste arti aprono la chat per conto loro invece di passare '
             'da AzioniDelResponso: $fuori');
   });
+  test(
+      'DW.08: OGNI ARTE CHE CONDIVIDE MANDA UN\'IMMAGINE, e chi non condivide '
+      'lo dice a frase', () {
+    // **Il fatto, ordine DW**: l'Arcano dell'Alba non condivideva niente e il
+    // Soffio del Destino mandava un testo solo. Chi riceve un testo solo non
+    // vede che cosa l'altro ha ricevuto, e non vede il Cerchio.
+    //
+    // **Si misura la strada che la card fa per uscire**: una funzione
+    // `share...Card(` delle card, oppure la porta che manda un file o
+    // un'immagine. Il solo `PortaDellaCondivisione.testo(` non basta.
+    final cardOPorta = RegExp(r'\bshare\w*Card\(|'
+        r'PortaDellaCondivisione\.(daFile|immagine)\(');
+    final soloTesto = <String>[];
+    var guardate = 0;
+    for (final arte in ArtiConResponso.tutte) {
+      if (arte.perche != null) continue;
+      final file = File(arte.doveViveIlResponso);
+      if (!file.existsSync()) continue;
+      guardate++;
+      if (!cardOPorta.hasMatch(file.readAsStringSync())) {
+        soloTesto.add(arte.arte);
+      }
+    }
+    // ignore: avoid_print
+    print('ORDINE DW voce 08: arti che condividono guardate $guardate, '
+        'senza immagine ${soloTesto.length} $soloTesto');
+    expect(guardate, greaterThanOrEqualTo(11),
+        reason: 'su un censimento vuoto nessuna arte condividerebbe testo');
+    expect(soloTesto, isEmpty,
+        reason: 'queste arti condividono senza un\'immagine: $soloTesto. Una '
+            'card da mandare, o un perche\' scritto nel registro');
+  });
 }

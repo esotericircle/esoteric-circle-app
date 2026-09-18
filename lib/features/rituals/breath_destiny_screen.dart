@@ -37,10 +37,10 @@ import '../../core/astro/natal_chart_controller.dart';
 import '../../core/horoscope/cielo_di_oggi.dart';
 import '../../core/rituals/risposta_del_soffio.dart';
 import 'ritual_gift_card.dart';
-import '../../core/condivisione/porta_della_condivisione.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
+import 'soffio_share_card.dart';
 
 /// Soffio del Destino, dominio Aura.
 ///
@@ -432,11 +432,18 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
   /// riceve non trovera' aprendo l'app. Resta l'orientamento del giorno, che
   /// e' cio' che il dono dice davvero.
   /// **TORNA L\'ESITO invece di ingoiarlo, ordine CG voce 06.**
+  ///
+  /// **E PARTE COME CARD, ordine DW voce 03.** Qui partiva un testo solo:
+  /// chi lo riceveva leggeva una frase senza sapere da dove venisse. Adesso
+  /// la card si disegna fuori campo, si fotografa e parte col suo testo.
   Future<bool> _shareWord(DawnGift gift) async {
+    setState(() => _rendiLaCard = true);
     try {
-      final andata = await PortaDellaCondivisione.testo(
-          'Il mio Soffio del Destino di oggi: '
-          '${gift.orientation} Con Esoteric Circle.');
+      await WidgetsBinding.instance.endOfFrame;
+      await Future<void>.delayed(const Duration(milliseconds: 80));
+      final andata = await shareSoffioCard(
+          boundaryKey: _cardDaCondividere,
+          text: testoDelSoffioCondiviso(gift.orientation));
 // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
 // a condivisione davvero avvenuta.
       if (andata && mounted) {
@@ -451,8 +458,14 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
       );
       // Un errore non e' una condivisione avvenuta, quindi non custodisce.
       return false;
+    } finally {
+      if (mounted) setState(() => _rendiLaCard = false);
     }
   }
+
+  /// La card del Soffio, fuori campo: si disegna solo mentre si condivide.
+  final GlobalKey _cardDaCondividere = GlobalKey();
+  bool _rendiLaCard = false;
 
   /// LA SCENA E L'ANELLO, per misurare la distanza fra i due centri.
   ///
@@ -841,6 +854,26 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
                                               _gift!.orientation),
                                         ),
                                       ),
+                                      // La card da mandare, fuori campo.
+                                      if (_rendiLaCard)
+                                        Stack(
+                                          clipBehavior: Clip.none,
+                                          children: [
+                                            const SizedBox.shrink(),
+                                            Positioned(
+                                              left: -3000,
+                                              top: 0,
+                                              child: RepaintBoundary(
+                                                key: _cardDaCondividere,
+                                                child: SoffioShareCard(
+                                                  orientamento:
+                                                      _gift!.orientation,
+                                                  palette: palette,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       if (_risposta != null) ...[
                                         const SizedBox(
                                             height: SpacingTokens.lg),

@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+
+import '../../core/brand/brand.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../../core/astro/zodiac.dart';
@@ -260,7 +262,7 @@ class OroscopoShareCard extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TypographyTokens.etichetta()
                     .copyWith(color: palette.goldSoft, letterSpacing: 2.4)),
-            Text('esotericircle.com/oroscopo',
+            Text(Brand.domain,
                 textAlign: TextAlign.center,
                 style: TypographyTokens.etichetta().copyWith(
                     color: ColorTokens.textSecondary, letterSpacing: 0.6)),
