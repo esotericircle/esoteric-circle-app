@@ -13,11 +13,11 @@ dall'iPhone di un altro fondatore: *"c'è qualcosa che non va, devi anche
 controllare per iPhone"*.
 
 VOCI_TOTALI: 8
-VOCI_CHIUSE: 0
-VOCI_APERTE: 8
+VOCI_CHIUSE: 8
+VOCI_APERTE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 
-Il rapporto starà in `docs/ordini/RAPPORTO_ORDINE_DW.md`.
+Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_DW.md`.
 
 ---
 
@@ -38,33 +38,60 @@ Il rapporto starà in `docs/ordini/RAPPORTO_ORDINE_DW.md`.
   un invito, cosa parte davvero (testo, immagine, link, codice), il premio, e
   ogni funzione con un responso che non condivide o condivide solo testo. Sta
   in `docs/condivisione/CENSIMENTO.md`.
-  **APERTA**
+  **Fatto**: `docs/condivisione/CENSIMENTO.md`, prima e dopo, funzione
+  per funzione, e cio' che resta con il nome di chi lo deve fare.
+  **CHIUSA.**
 - **DW.02**, l'Arcano dell'Alba ha Custodisci, Parlane e Condividi, dalle
   azioni comuni, e **Condividi manda una card immagine**: la carta, la parola,
   il gesto col suo perche', la chiusura di Medora, il marchio. L'esenzione
   `senzaAzioni['alba']` si toglie.
-  **APERTA**
+  **Fatto**: le tre azioni comuni sotto la carta rivelata, solo a carta
+  girata; la card `ArcanoDellAlbaShareCard`; il Parlane con un'apertura
+  che non nomina l'Arcano, perche' il riconoscitore degli intenti la
+  rimanderebbe alla schermata. Vista rossa togliendo le azioni.
+  **CHIUSA.**
 - **DW.03**, il Soffio del Destino condivide una card immagine, non un testo
   solo.
-  **APERTA**
+  **Fatto**: `SoffioShareCard`, col soffione del rito e il loto di Aura.
+  La guardia DW.08 era rossa sul Soffio, e sul Soffio soltanto.
+  **CHIUSA.**
 - **DW.04**, la festa di un traguardo: il messaggio che parte e' scritto **per
   chi lo riceve**, porta il link all'app con l'invito, e ha la sua immagine.
   E' lo screenshot dell'iPhone.
-  **APERTA**
+  **Fatto**: i tre testi riscritti per chi li riceve, con il link
+  dell'invito in tutti e tre e le virgolette basse; la card del Sigillo
+  disegnata fuori campo. Vista rossa rimettendo la frase del traguardo:
+  cadono tutti i 165 Sigilli.
+  **CHIUSA.**
 - **DW.05**, invitare un amico e' facile: da dove si invita, quanti tocchi
   servono dalla home, cosa riceve l'amico, se il premio si attribuisce.
   Gli attriti trovati dal censimento si tolgono o si dichiarano.
-  **APERTA**
+  **Fatto, con le decisioni del fondatore**: *Invita un amico* nel menu'
+  Account; la domanda *Ti ha invitato qualcuno?* torna una volta, solo
+  dopo la prima registrazione e mai nel Santuario; 60 Eos a tutti e due
+  (`EOS_A_CHI_ARRIVA_CON_UN_INVITO`, da distribuire dal PC). Il link che
+  apre l'app e l'attribuzione automatica restano, dichiarati nel
+  censimento.
+  **CHIUSA.**
 - **DW.06**, un dominio solo: le card stampano indirizzi presi da un punto
   solo (`Brand`), e quell'indirizzo esiste.
-  **APERTA**
+  **Fatto**: Oroscopo e Stesa stampavano *esotericircle.com*,
+  l'Archetipo un percorso che nessuno gestisce; ora tutto legge `Brand`.
+  Vista rossa rimettendo il dominio a mano nella Stesa. **Il dominio
+  `esotericircle.app` non risponde in HTTPS**: lo attiva il fondatore.
+  **CHIUSA.**
 - **DW.07**, l'iPhone: i percorsi di condivisione hanno cio' che iOS pretende
   (l'origine del foglio di condivisione, i file temporanei), verificati sul
   codice e sulla build di Codemagic.
-  **APERTA**
+  **Fatto**: `PortaDellaCondivisione.origineDelFoglio`, passata da tutte
+  e quattro le chiamate. Vista rossa prima: quattro su quattro senza.
+  La prova su iPhone vera viene con la build di Codemagic.
+  **CHIUSA.**
 - **DW.08**, la guardia: ogni arte con un responso monta le azioni comuni con
   una card immagine, e un'esenzione vale solo se dichiarata a frase.
-  **APERTA**
+  **Fatto**: in `custodisci_e_parlane_test.dart`, sulle undici arti che
+  condividono. Rossa sul Soffio prima della sua card.
+  **CHIUSA.**
 
 ---
 
@@ -79,4 +106,4 @@ Il rapporto starà in `docs/ordini/RAPPORTO_ORDINE_DW.md`.
 | 05 | i tocchi dalla home fino all'invito, contati sul telefono |
 | 06 | nessuna card scrive a mano un dominio diverso da `Brand.domain` |
 | 07 | ogni chiamata di condivisione passa l'origine del foglio che iOS chiede |
-| 08 | la guardia vista rossa rimettendo l'esenzione dell'Alba |
+| 08 | la guardia vista rossa sul Soffio, che mandava un testo solo |

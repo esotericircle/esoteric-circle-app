@@ -3438,8 +3438,38 @@ verificare sul telefono o sul server.
 **Le prove** usano per la prima volta il repository vero con un server finto
 fedele (`test/server_fedele_della_memoria.dart`): quelle di prima usavano il
 repository in memoria, che non ha coda, ed e' per questo che il difetto al banco
-non esisteva. Registro delle guardie a **439**. Le catture sono del banco, in
+non esisteva. Registro delle guardie a **439** alla chiusura del DV. Le catture sono del banco, in
 `docs/collaudo/DV/`: quelle dal telefono vengono con la prossima build.
+
+## L'ORDINE DW, LA CONDIVISIONE E L'INVITO
+
+Ordine del 18 settembre 2026, **otto voci, otto chiuse**. Manifesto
+`docs/ordini/ORDINE_DW_MANIFESTO.md`, rapporto `docs/ordini/RAPPORTO_ORDINE_DW.md`,
+**censimento di ogni punto di condivisione e d'invito** in
+`docs/condivisione/CENSIMENTO.md`.
+
+**LA CONDIVISIONE.** L'Arcano dell'Alba ha le tre azioni comuni (Custodisci,
+Parlane con Medora, Condividi) e la sua card (`arcano_dell_alba_share_card.dart`):
+l'esenzione `senzaAzioni['alba']` dell'ordine DT voce 02 e' tolta. Il Soffio del
+Destino parte come card (`soffio_share_card.dart`). La festa di un Sigillo parte
+con la card del Sigillo (`card_del_sigillo_da_mandare.dart`, disegnata fuori
+campo nell'overlay) e con tre testi scritti per chi li riceve, tutti col link
+dell'invito. Tutte le card leggono il dominio da `Brand`. Ogni foglio di
+condivisione passa l'origine che iPad pretende
+(`PortaDellaCondivisione.origineDelFoglio`).
+
+**L'INVITO.** *Invita un amico* sta nel menu' Account, sempre
+(`lib/features/account/invita_un_amico.dart`). La domanda *Ti ha invitato
+qualcuno?* torna **una volta, solo dopo la prima registrazione**
+(`DomandaDellInvito.dopoLaPrimaRegistrazione`, chiamata da
+`CustodeDelCammino.dopoIlRiconoscimento`), mai nel Santuario. **60 Eos a tutti e
+due** (`EOS_A_CHI_ARRIVA_CON_UN_INVITO` in `functions/src/borsellino.ts`).
+
+**DA FARE DAL PC DI MAURO**: attivare HTTPS su `esotericircle.app`, che oggi non
+si apre ed e' l'indirizzo di tutti i link; distribuire `riscattaLInvito` e
+`scriviLaMemoria`. **Restano**: il link che apre l'app (App Links e Universal
+Links) e l'attribuzione automatica (Play Install Referrer su Android). Registro
+delle guardie a **440**.
 
 ## Regole ferree
 
