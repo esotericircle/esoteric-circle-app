@@ -1,8 +1,10 @@
 # RAPPORTO DELL'ORDINE DV, MESSAGGI MAI SCRITTI E DOMANDE DOPPIE
 
 **Data:** 18 settembre 2026. **Ramo:** `claude/esoteric-circle-master-order-e798aj`.
-**Manifesto:** `docs/ordini/ORDINE_DV_MANIFESTO.md`. **Nessuna build**: l'ordine
-la vieta, e nessuna e' stata costruita.
+**Manifesto:** `docs/ordini/ORDINE_DV_MANIFESTO.md`. **Nessuna build** nella
+prima parte, come l'ordine chiedeva; dopo le correzioni il fondatore ha chiesto
+la consegna: **Android 2269**, release `61j48k0b827oo`, accesa sul Realme; iOS
+da lanciare su Codemagic.
 
 **Dodici voci, dodici chiuse**: le otto dell'ordine e le quattro nate dalle correzioni del fondatore dopo la consegna, sezione 9.
 

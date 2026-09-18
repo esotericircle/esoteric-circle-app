@@ -3387,7 +3387,9 @@ bundle; i due sentieri che nominano lo stesso dono.
 
 ## L'ORDINE DV, LE DOMANDE DOPPIE NELLE CHAT DEI MAESTRI
 
-Ordine del 18 settembre 2026, **dodici voci, dodici chiuse**: le otto dell'ordine e quattro nate dalle correzioni del fondatore dopo la consegna. Consegnato con la build 2269.
+Ordine del 18 settembre 2026, **dodici voci, dodici chiuse**: le otto dell'ordine e quattro nate dalle correzioni del fondatore dopo la consegna. Consegnato con la build **2269**, release App Distribution
+`61j48k0b827oo` del 18 settembre 2026, accesa sul Realme; iOS da lanciare su
+Codemagic dal fondatore.
 Manifesto `docs/ordini/ORDINE_DV_MANIFESTO.md`, rapporto
 `docs/ordini/RAPPORTO_ORDINE_DV.md`.
 
