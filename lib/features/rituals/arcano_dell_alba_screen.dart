@@ -471,7 +471,11 @@ class _Etichetta extends StatelessWidget {
         testo,
         key: Key(chiave),
         style: TypographyTokens.titoloDiRiga().copyWith(
-          color: palette.gold,
+          // **L'oro chiaro, non l'oro pieno.** Un'etichetta e' testo piccolo e
+          // il censimento dei grigi le chiede sette a uno: l'oro pieno di Aura
+          // sulla sua casa fa 5,65, e l'etichetta si legge male proprio dove
+          // serve a orientare.
+          color: palette.goldSoft,
           letterSpacing: 0.6,
         ),
       );
@@ -525,10 +529,14 @@ class _TreMovimenti extends StatelessWidget {
                   .copyWith(color: palette.goldSoft, letterSpacing: 1.5),
             ),
             const SizedBox(height: SpacingTokens.xs),
-            Text(
-              'Tienila a mente quando devi scegliere: è il filo di oggi.',
+            // Il testo di lettura passa sempre dalla porta comune: un Text
+            // diretto nel ruolo lettura e' la famiglia delle due porte, e da
+            // li' torna il muro di testo.
+            ParagrafiDiLettura(
               key: const Key('arcano_alba_uso_della_parola'),
-              style: TypographyTokens.lettura().copyWith(
+              testo: 'Tienila a mente quando devi scegliere: '
+                  'è il filo di oggi.',
+              stile: TypographyTokens.lettura().copyWith(
                   color: ColorTokens.textPrimary.withValues(alpha: 0.88)),
             ),
             const SizedBox(height: SpacingTokens.md),

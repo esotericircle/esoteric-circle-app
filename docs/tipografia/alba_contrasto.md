@@ -27,16 +27,16 @@ Le **soglie** vengono da `RegimeChiaro`: 4.5 a 1 per il testo di lettura e di co
 | `arcano_alba_titolo` | prima del gesto | lib/features/rituals/arcano_dell_alba_screen.dart:239 | titoloScheda | 20 | 600 | #F4F1E8 | #0F1934 | **15.38** | 3.0 | si' |
 | `arcano_alba_richiamo` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:315 | cerimoniale | 28 | 600 | #D4AF37 | #131F3F | **7.71** | 3.0 | si' |
 | `arcano_alba_invito`, Scegli fra i ventidue arcani co... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:322 | lettura | 20 | 400 | #F4F1E8 | #0A1226 | **16.49** | 4.5 | si' |
-| `arcano_alba_faccia`, XII | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:441 | display a misura | 3 | 600 | #F0D77B | #5C5962 | **4.81** | 4.5 | si' |
-| `arcano_alba_faccia`, L'APPESO | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:441 | display a misura | 4 | 600 | #F0D77B | #050838 | **13.39** | 4.5 | si' |
+| `arcano_alba_faccia`, XII | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:446 | display a misura | 3 | 600 | #F0D77B | #5C5962 | **4.81** | 4.5 | si' |
+| `arcano_alba_faccia`, L'APPESO | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:446 | display a misura | 4 | 600 | #F0D77B | #050838 | **13.39** | 4.5 | si' |
 | `alba_riga_dono` | a rito compiuto | lib/design_system/components/riga_del_dono.dart:54 | corpo o didascalia | 16 | 400 | #5A94FF | #10162F | **6.04** | 4.5 | si' |
-| `arcano_alba_carta` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:500 | cerimoniale | 28 | 600 | #F0D77B | #0C1126 | **13.09** | 3.0 | si' |
-| `arcano_alba_etichetta_parola` | a rito compiuto | non trovato nel sorgente | display a misura | 16 | 600 | #D4AF37 | #070C1D | **9.25** | 4.5 | si' |
-| `arcano_alba_parola` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:518 | cerimonialeGrande | 34 | 700 | #F0D77B | #070C1C | **13.64** | 3.0 | si' |
-| `arcano_alba_uso_della_parola` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:525 | lettura | 20 | 400 | #D8D6D0 | #0A1024 | **12.99** | 4.5 | si' |
-| `arcano_alba_etichetta_gesto` | a rito compiuto | non trovato nel sorgente | display a misura | 16 | 600 | #D4AF37 | #0D1227 | **8.81** | 4.5 | si' |
-| `arcano_alba_dono`, Fai qualcosa di utile tenendolo... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:538 | lettura | 20 | 400 | #F4F1E8 | #10142A | **16.09** | 4.5 | si' |
-| `arcano_alba_medora`, I gesti che restano anonimi son... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:546 | lettura | 20 | 400 | #D4D2CD | #0C1024 | **12.40** | 4.5 | si' |
+| `arcano_alba_carta` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:509 | cerimoniale | 28 | 600 | #F0D77B | #0C1126 | **13.09** | 3.0 | si' |
+| `arcano_alba_etichetta_parola` | a rito compiuto | non trovato nel sorgente | display a misura | 16 | 600 | #F0D77B | #070C1D | **13.63** | 4.5 | si' |
+| `arcano_alba_parola` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:527 | cerimonialeGrande | 34 | 700 | #F0D77B | #070C1C | **13.64** | 3.0 | si' |
+| `arcano_alba_uso_della_parola`, Tienila a mente quando devi sce... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:536 | lettura | 20 | 400 | #D8D6D0 | #0A1024 | **12.99** | 4.5 | si' |
+| `arcano_alba_etichetta_gesto` | a rito compiuto | non trovato nel sorgente | display a misura | 16 | 600 | #F0D77B | #0D1227 | **12.99** | 4.5 | si' |
+| `arcano_alba_dono`, Fai qualcosa di utile tenendolo... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:551 | lettura | 20 | 400 | #F4F1E8 | #10142A | **16.09** | 4.5 | si' |
+| `arcano_alba_medora`, I gesti che restano anonimi son... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:559 | lettura | 20 | 400 | #D4D2CD | #0C1024 | **12.40** | 4.5 | si' |
 | `arcano_alba_titolo` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:239 | titoloScheda | 20 | 600 | #F4F1E8 | #151C3B | **14.74** | 3.0 | si' |
 
 Nessun testo sotto la sua soglia.
