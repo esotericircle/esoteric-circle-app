@@ -53,6 +53,11 @@ import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.da
 import 'package:esoteric_circle/features/maestri/caligo/rune/rune_share_card.dart';
 import 'package:esoteric_circle/features/maestri/chat/chat_openers.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
+import 'package:esoteric_circle/features/rituals/arcano_dell_alba_share_card.dart';
+import 'package:esoteric_circle/features/rituals/soffio_share_card.dart';
+import 'package:esoteric_circle/features/sigilli/card_del_sigillo_da_mandare.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/responso_dell_alba.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/letture_dell_alba_dati.dart';
 import 'package:esoteric_circle/services/memory/firestore_maestro_memory_repository.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:esoteric_circle/features/maestri/aura/face/face_share_card.dart';
@@ -2598,6 +2603,64 @@ void main() {
     for (var i = 0; i < 10; i++) {
       await tester.pump(const Duration(milliseconds: 400));
     }
+  }
+
+  // --- ORDINE DW: le card che partono dal telefono ---
+  //
+  // Tre card nate con l'ordine: l'Arcano dell'Alba, il Soffio del Destino e
+  // il Sigillo acceso. Si fotografano come le vede chi le riceve, a misura
+  // fissa, perche' il giudizio visivo lo da' il fondatore.
+  for (final (nome, costruisci) in <(String, Widget Function())>[
+    (
+      'arcano',
+      () => ArcanoDellAlbaShareCard(
+            responso: ResponsoDellAlba.componi(
+                lettureDellAlba.firstWhere((l) => l.carta == 8 && !l.rovescio),
+                apertura: 0,
+                clausola: 0),
+            palette: MaestroPalette.medora,
+          ),
+    ),
+    (
+      'soffio',
+      () => const SoffioShareCard(
+            orientamento: 'Oggi la Luna ti chiede di rallentare: scegli una '
+                'cosa sola e falla fino in fondo.',
+            palette: MaestroPalette.aura,
+          ),
+    ),
+    (
+      'sigillo',
+      () => CardDelSigilloDaMandare(
+            traguardo: Sentieri.tuttiITraguardi.first,
+            palette: MaestroPalette.medora,
+          ),
+    ),
+  ]) {
+    testWidgets('Cattura DW, la card da mandare: $nome', (tester) async {
+      silenceSensors();
+      await loadFonts();
+      tester.view.physicalSize = const Size(1200, 2600);
+      tester.view.devicePixelRatio = 3.0;
+      addTearDown(tester.view.resetPhysicalSize);
+      addTearDown(tester.view.resetDevicePixelRatio);
+      final rootKey = GlobalKey();
+      await tester.pumpWidget(MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.dark(),
+        home: Scaffold(
+          backgroundColor: Colors.black,
+          body: Center(
+            child: SingleChildScrollView(
+              child: RepaintBoundary(key: rootKey, child: costruisci()),
+            ),
+          ),
+        ),
+      ));
+      await step(tester);
+      await step(tester);
+      await capture(tester, rootKey, '../collaudo/DW/card-$nome.png');
+    });
   }
 
   // --- ORDINE DV: le tre chat senza domande doppie ---

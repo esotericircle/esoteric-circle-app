@@ -39,9 +39,9 @@ Le **soglie** vengono da `RegimeChiaro`: 4.5 a 1 per il testo di lettura e di co
 | `arcano_alba_etichetta_perche` | a rito compiuto | non trovato nel sorgente | display a misura | 16 | 600 | #F0D77B | #080D1E | **13.54** | 4.5 | si' |
 | `arcano_alba_perche`, Fare bene senza pubblico ti mos... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:615 | lettura | 20 | 400 | #D8D6D0 | #080D1E | **13.25** | 4.5 | si' |
 | `arcano_alba_medora`, I gesti che restano anonimi son... | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:705 | lettura | 20 | 400 | #D3D1CC | #0A0F22 | **12.50** | 4.5 | si' |
-| `arcano_alba_pannello`, Condividi | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:448 | etichetta | 14 | 400 | #F0D77B | #0E1329 | **12.86** | 4.5 | si' |
-| `arcano_alba_pannello`, Custodisci | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:448 | etichetta | 14 | 400 | #F0D77B | #101429 | **12.75** | 4.5 | si' |
-| `arcano_alba_pannello`, Parlane con Medora | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:448 | etichetta | 14 | 400 | #F4F1E8 | #2E4CA6 | **6.89** | 4.5 | si' |
+| `arcano_alba_pannello`, Condividi | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:448 | display a misura | 16 | 600 | #F0D77B | #0F1329 | **12.84** | 4.5 | si' |
+| `arcano_alba_pannello`, Custodisci | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:448 | display a misura | 16 | 600 | #F0D77B | #0F1328 | **12.86** | 4.5 | si' |
+| `arcano_alba_pannello`, Parlane con Medora | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:448 | display a misura | 16 | 600 | #F4F1E8 | #2E4CA6 | **6.89** | 4.5 | si' |
 | `arcano_alba_titolo` | a rito compiuto | lib/features/rituals/arcano_dell_alba_screen.dart:317 | titoloScheda | 20 | 600 | #F4F1E8 | #161D3D | **14.56** | 3.0 | si' |
 
 Nessun testo sotto la sua soglia.

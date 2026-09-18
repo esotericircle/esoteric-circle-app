@@ -4,7 +4,12 @@
 **Manifesto:** `docs/ordini/ORDINE_DW_MANIFESTO.md`. **Censimento:**
 `docs/condivisione/CENSIMENTO.md`.
 
-**Otto voci, otto chiuse.**
+**Otto voci, otto chiuse.** Consegnato con **Android 2270**, release
+`4dbhcbfokjhrg`, accesa sul Realme. **Visto sul telefono**: sotto l'Arcano
+girato ci sono Condividi, Custodisci e Parlane con Medora; Condividi apre il
+foglio di Android con il file `arcano_dell_alba.png`; dalla home *Invita un
+amico* e' a due tocchi (l'avatar, poi la voce) e apre il foglio col messaggio
+nuovo. Le tre card, fotografate al banco, stanno in `docs/collaudo/DW/`.
 
 ---
 

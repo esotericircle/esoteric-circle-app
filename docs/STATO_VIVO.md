@@ -3458,6 +3458,11 @@ dell'invito. Tutte le card leggono il dominio da `Brand`. Ogni foglio di
 condivisione passa l'origine che iPad pretende
 (`PortaDellaCondivisione.origineDelFoglio`).
 
+**CONSEGNATO CON LA 2270**, release `4dbhcbfokjhrg`, e visto sul Realme: le tre
+azioni sotto l'Arcano, la card che parte come file, l'invito a due tocchi.
+Card al banco in `docs/collaudo/DW/`. **Visto anche**: il foglio della
+registrazione si riapre a ogni avvio per chi resta anonimo.
+
 **L'INVITO.** *Invita un amico* sta nel menu' Account, sempre
 (`lib/features/account/invita_un_amico.dart`). La domanda *Ti ha invitato
 qualcuno?* torna **una volta, solo dopo la prima registrazione**
