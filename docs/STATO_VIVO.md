@@ -3513,6 +3513,8 @@ della cattura erano la preimpostata partita da sola e *"Indicate"*.
 18 settembre 2026: vale l'ordine 2161, il vetro della barra lascia vedere i
 messaggi che scorrono.
 
+**CONSEGNATO CON LA 2271**, release `479lvkjv5msbg`, accesa sul Realme; codice nel commit `b9ffd73d`, verde sul cancello di GitHub, da cui si lancia la build iOS su Codemagic. **Visto sul Realme**: *Parlane con Medora* dall'Oroscopo apre la chat con la domanda nel campo, e non parte niente. La dettatura su iPhone resta da vedere dal fondatore.
+
 **Padri**: l'invio automatico dal commit `80740852` del 23 luglio 2026,
 regola trasversale precedente ai manifesti; la dettatura senza lingua e
 l'invio che non la ferma dall'ordine CI voce 05. Registro delle guardie a

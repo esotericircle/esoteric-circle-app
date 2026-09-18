@@ -118,4 +118,28 @@ come `it_IT` se la piattaforma non elenca niente.
 
 ## 7. LA CONSEGNA
 
-Da completare a consegna fatta.
+- **Commit del codice**: `b9ffd73d`, spinto sul ramo canonico e verificato
+  con `git ls-remote`. **Cancello di GitHub su quel commit: "analyze e
+  sbarramento" verde**, cioe' il verdetto che la build iOS legge. La "Ronda
+  dei motori" e' rossa, com'era gia' sui commit precedenti.
+- **Sbarramento locale**: 5542 prove, rossi accettati e solo quelli,
+  gettone col numero 2271. Il primo giro era rosso per il corredo del DW e
+  per due fatti dell'albero (lavoro non spinto, fine riga CRLF): sezione 5.
+- **Android 2271**, release App Distribution `479lvkjv5msbg`, 204.677.187
+  byte, distribuita. **Prova di accensione sul Realme 767f596c**: processo
+  vivo, primo fotogramma disegnato, nessun FATAL, numero letto dal telefono
+  2271.
+- **Visto sul Realme con la 2271 (DX.01)**: dall'Oroscopo, *Parlane con
+  Medora* apre la chat con *"Ho letto il mio oroscopo di oggi, Gemelli. Cosa
+  vuole dirmi il cielo che non ho colto?"* nel campo; dopo dieci secondi
+  nessuna risposta e' partita. Cattura in
+  `docs/collaudo/DX/realme_2271_parlane_con_medora.png`. Non l'ho mandata.
+- **Non visto a video**: la dettatura su iPhone (DX.02) e il campo vuoto
+  dopo un invio dettato (DX.04); nessuna prova da banco parla a un telefono.
+  **Il giudizio visivo resta del fondatore.**
+- **iOS**: la build si lancia da Codemagic sul commit `b9ffd73d` o
+  successivo, gia' verde su GitHub. Sulla macchina non c'e' una chiave di
+  Codemagic, quindi la lancia il fondatore.
+- **Per costruire da questo worktree** sono serviti `android/key.properties`,
+  il keystore e `google-services.json`, copiati dall'albero principale: sono
+  esclusi da Git e non sono entrati in nessun commit.
