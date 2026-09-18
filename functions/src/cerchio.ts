@@ -9,6 +9,7 @@ import {initializeApp} from "firebase-admin/app";
 import {getFirestore, FieldValue} from "firebase-admin/firestore";
 import {getAuth} from "firebase-admin/auth";
 import {chiaveDelGiorno} from "./giorno";
+import {scriviIlMessaggio} from "./doppioni";
 import {
   Budget,
   Piano,
@@ -924,15 +925,15 @@ export const scriviLaMemoria = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     if (!maestro) {
       throw new HttpsError("invalid-argument", "Maestro mancante.");
     }
-    const rif = await utente(uid)
-      .collection("maestri")
-      .doc(maestro)
-      .collection("messages")
-      .add({
-        ...campi,
-        createdAt: FieldValue.serverTimestamp(),
-      });
-    return {scritto: true, id: rif.id};
+    // **Una volta sola, anche se il telefono rimanda.** Ordine DV voce 09:
+    // l'identificativo lo decide il telefono, e un secondo invio trova il
+    // documento gia' scritto. Vedi `scriviIlMessaggio` in doppioni.ts.
+    const {id, gia} = await scriviIlMessaggio(
+      utente(uid).collection("maestri").doc(maestro).collection("messages"),
+      campi,
+      (dati) => ({...dati, createdAt: FieldValue.serverTimestamp()}),
+    );
+    return {scritto: true, id, gia};
   }
   case "ultimoMessaggio": {
     if (!maestro) {

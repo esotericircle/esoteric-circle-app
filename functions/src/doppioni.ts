@@ -59,3 +59,63 @@ export function eDoppione(
     (prima.conversazione ?? null) === (dopo.conversazione ?? null)
   );
 }
+
+/**
+ * LA SECONDA DIFESA: IL SERVER NON SCRIVE DUE VOLTE. Ordine DV voce 09.
+ *
+ * La coda del telefono adesso manda ogni scrittura una volta per corsa, ma
+ * non puo' sapere cio' che la rete le nasconde: se il server scrive e la
+ * risposta si perde, il telefono rimanda. **Il telefono decide
+ * l'identificativo del messaggio prima di accodarlo**, e qui il documento si
+ * crea con quello: il secondo invio lo trova gia' scritto e non ne aggiunge
+ * un altro.
+ *
+ * Un telefono vecchio non manda l'identificativo, e il messaggio si aggiunge
+ * come prima: la difesa vale da quando entrambe le parti la conoscono.
+ */
+export interface CollezioneDeiMessaggi {
+  add(dati: Record<string, unknown>): Promise<{id: string}>;
+  doc(id: string): {create(dati: Record<string, unknown>): Promise<unknown>};
+}
+
+/** L'identificativo mandato dal telefono, se ha la forma di Firestore. */
+export function idDelMessaggio(valore: unknown): string | null {
+  return typeof valore === "string" && /^[A-Za-z0-9]{12,40}$/.test(valore) ?
+    valore :
+    null;
+}
+
+/** Vero se [errore] dice che il documento esiste gia'. */
+export function giaScritto(errore: unknown): boolean {
+  const e = errore as {code?: unknown; message?: unknown} | null;
+  return (
+    e?.code === 6 ||
+    e?.code === "already-exists" ||
+    /ALREADY_EXISTS/.test(String(e?.message ?? ""))
+  );
+}
+
+/**
+ * Scrive un messaggio una volta sola. [campi] arriva dal telefono;
+ * [conTempo] aggiunge l'orario del server.
+ */
+export async function scriviIlMessaggio(
+  col: CollezioneDeiMessaggi,
+  campi: Record<string, unknown>,
+  conTempo: (dati: Record<string, unknown>) => Record<string, unknown>,
+): Promise<{id: string; gia: boolean}> {
+  const {idMessaggio, ...resto} = campi;
+  const dati = conTempo(resto);
+  const id = idDelMessaggio(idMessaggio);
+  if (id === null) {
+    const rif = await col.add(dati);
+    return {id: rif.id, gia: false};
+  }
+  try {
+    await col.doc(id).create(dati);
+    return {id, gia: false};
+  } catch (errore) {
+    if (giaScritto(errore)) return {id, gia: true};
+    throw errore;
+  }
+}

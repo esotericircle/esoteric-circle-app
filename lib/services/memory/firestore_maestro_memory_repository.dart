@@ -270,7 +270,15 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
     await _scrivi(
       operazione: 'messaggio',
       maestro: maestro.id,
-      campi: _datiTrasportabili(message),
+      // **L'IDENTIFICATIVO LO DECIDE IL TELEFONO, ordine DV voce 09.** Si
+      // sceglie qui, prima della coda, ed e' lo stesso a ogni invio: se il
+      // server ha scritto ma la risposta si e' persa, il telefono rimanda, e
+      // il server trova il documento gia' scritto invece di aggiungerne un
+      // altro. `doc()` non tocca la rete, genera soltanto il nome.
+      campi: {
+        ..._datiTrasportabili(message),
+        'idMessaggio': _messagesCol(maestro).doc().id,
+      },
       dritto: () => _messagesCol(maestro).add(_datiDi(message)),
     );
     // Prese verso i livelli profondi: a vuoto per default.

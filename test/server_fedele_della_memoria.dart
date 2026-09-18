@@ -17,12 +17,18 @@ import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 /// DV non esisteva proprio per questo.
 class ServerFedeleDellaMemoria extends PortaDelCerchio {
   ServerFedeleDellaMemoria(this.db, this.uid,
-      {this.ritardo = const Duration(milliseconds: 15)});
+      {this.ritardo = const Duration(milliseconds: 15),
+      this.risposteDaPerdere = 0});
 
   final FakeFirebaseFirestore db;
   final String uid;
   final Duration ritardo;
   int _tempo = 0;
+
+  /// **LE RISPOSTE CHE LA RETE PERDE.** Ordine DV voce 09: il server scrive,
+  /// ma la risposta non arriva al telefono, che quindi rimanda la stessa
+  /// scrittura. E' il caso che la coda curata non puo' escludere.
+  int risposteDaPerdere;
 
   CollectionReference<Map<String, dynamic>> messaggiDi(Maestro m) =>
       _messaggi(m.id);
@@ -47,13 +53,28 @@ class ServerFedeleDellaMemoria extends PortaDelCerchio {
     final col = _messaggi(maestro);
     switch (operazione) {
       case 'messaggio':
-        await col.add({
-          ...campi,
+        // Come `scriviLaMemoria` dall'ordine DV voce 09: con l'identificativo
+        // deciso dal telefono il documento si crea una volta sola, e un
+        // secondo invio lo trova gia' scritto. Senza, si aggiunge.
+        final id = campi['idMessaggio'];
+        final dati = {
+          for (final e in campi.entries)
+            if (e.key != 'idMessaggio') e.key: e.value,
           // Il tempo del server cresce sempre: due scritture non hanno mai
           // lo stesso istante, come il timestamp vero.
           'createdAt': Timestamp.fromMillisecondsSinceEpoch(
               1789700000000 + (_tempo++) * 1000),
-        });
+        };
+        if (id is String) {
+          final doc = col.doc(id);
+          if (!(await doc.get()).exists) await doc.set(dati);
+        } else {
+          await col.add(dati);
+        }
+        if (risposteDaPerdere > 0) {
+          risposteDaPerdere--;
+          return false;
+        }
         return true;
       case 'ultimoMessaggio':
         final ultimi =

@@ -6,6 +6,8 @@ import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 import 'package:fake_cloud_firestore/fake_cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'server_fedele_della_memoria.dart';
+
 /// **NESSUN MESSAGGIO SI SCRIVE DUE VOLTE.** Ordine DV, 18 settembre 2026.
 ///
 /// **Il fatto, dalle catture del fondatore**: aprendo le chat dei tre Maestri
@@ -98,10 +100,12 @@ void main() {
     );
     await domanda;
 
-    expect(server.scritti, [
-      'messaggio:Carta del giorno',
-      'messaggio:La tua carta di oggi',
-    ],
+    expect(
+        server.scritti,
+        [
+          'messaggio:Carta del giorno',
+          'messaggio:La tua carta di oggi',
+        ],
         reason: 'il server ha ricevuto ${server.scritti}: una domanda scritta '
             'due volte e\' il difetto che il fondatore ha visto sul telefono');
     expect(memoria.scrittureInAttesa, 0,
@@ -125,7 +129,8 @@ void main() {
     expect(memoria.scrittureInAttesa, 0);
   });
 
-  test('una scrittura che arriva mentre la coda si sta svuotando non resta '
+  test(
+      'una scrittura che arriva mentre la coda si sta svuotando non resta '
       'indietro', () async {
     // Il caso di confine: la corsa sta finendo quando arriva la scrittura
     // nuova. Non deve restare in coda fino alla prossima domanda.
@@ -142,6 +147,39 @@ void main() {
     );
     await Future.wait([prima, seconda]);
     expect(server.scritti, ['messaggio:prima', 'messaggio:seconda']);
+    expect(memoria.scrittureInAttesa, 0);
+  });
+
+  test(
+      'LA SECONDA DIFESA, ordine DV voce 09: il server ha scritto ma la '
+      'risposta si e\' persa, il telefono rimanda, e il messaggio resta uno',
+      () async {
+    // La coda curata manda ogni scrittura una volta per corsa, ma se la rete
+    // perde la risposta il telefono non sa che il server ha scritto, e
+    // rimanda. E' giusto che rimandi: e' il server che non deve scrivere due
+    // volte.
+    final db = FakeFirebaseFirestore();
+    final server =
+        ServerFedeleDellaMemoria(db, 'chi-chiede', risposteDaPerdere: 1);
+    final memoria = FirestoreMaestroMemoryRepository(
+        uid: 'chi-chiede', firestore: db, porta: server);
+    await memoria.appendMessage(
+      Maestro.medora,
+      const ChatMessage(role: ChatRole.user, text: 'Tira una carta per me'),
+    );
+    expect(memoria.scrittureInAttesa, 1,
+        reason: 'la risposta persa lascia la domanda in coda');
+    await memoria.appendMessage(
+      Maestro.medora,
+      const ChatMessage(role: ChatRole.maestro, text: 'Ecco la tua carta'),
+    );
+    final scritti = [
+      for (final d in (await server.messaggiDi(Maestro.medora).get()).docs)
+        d.data()['text'],
+    ];
+    expect(scritti..sort(), ['Ecco la tua carta', 'Tira una carta per me'],
+        reason: 'il server ha scritto $scritti: la domanda rimandata dopo '
+            'una risposta persa non deve diventare due');
     expect(memoria.scrittureInAttesa, 0);
   });
 }
