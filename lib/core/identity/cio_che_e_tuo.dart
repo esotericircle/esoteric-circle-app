@@ -99,6 +99,9 @@ class CioCheETuo {
     // TROVATA LA PROVA**, non una persona: e' la quarantaseiesima chiave, e
     // non la cancellava nessuna delle due vie.
     'maestro.',
+    // I titoli delle conversazioni coi Maestri, scritti dal modello dopo la
+    // prima risposta: dicono di che cosa hai parlato. Ordine DZ voce 04.
+    'chat.titoli.',
     // Il gettone con cui il Cerchio raggiunge questo telefono per le
     // notifiche push, e cio' che si e' gia' mandato al server. Ordine CG
     // voce 16: e' un dato nuovo, e se ne va con te.

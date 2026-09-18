@@ -131,6 +131,11 @@ void main() {
     // parole. Non scrive una frase per la persona.
     'lib/core/viaggio/la_domanda_capita.dart':
         'il tema della domanda: un identificatore, non prosa',
+    // **FUORI, E DICHIARATO**, ordine DZ voce 04: il titolo di una
+    // conversazione nomina il tema in poche parole e non si rivolge alla
+    // persona, quindi non ha una forma di cortesia da rispettare.
+    'lib/services/ai/titoli_da_gemini.dart':
+        'il titolo di una conversazione: un nome del tema, non prosa',
   };
 
   test('nessun prompt nasce senza essere dichiarato', () {

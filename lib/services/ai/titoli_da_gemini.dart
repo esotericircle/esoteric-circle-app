@@ -31,12 +31,20 @@ class TitoliDaGemini extends ScrittoreDeiTitoli {
   /// L'istruzione, in italiano come l'app: poche parole, niente virgolette,
   /// niente nomi di Maestri, e mai il contenuto di un responso al posto del
   /// tema della domanda.
+  ///
+  /// **Scelta fra tre stesure con la sonda vera**, sei chiamate ciascuna nella
+  /// regione dei dati: chiedere di "non rivolgersi alla persona" faceva
+  /// scrivere *"Il cielo di oggi ti chiede di rallentare"*, cioe' la risposta
+  /// in seconda persona; l'etichetta di una cartella e il divieto della
+  /// seconda persona danno *"Oroscopo di oggi e cielo"*, *"Energia nelle
+  /// relazioni questa settimana"*, *"Fronte verticale e natura ricercatrice"*.
   static const String istruzione =
       'Scrivi il titolo di una conversazione fra una persona e un Maestro '
-      'esoterico. Il titolo dice di che cosa parla la persona, in tre-sei '
-      'parole, in italiano, con la maiuscola solo alla prima parola e ai nomi '
-      'propri. Niente virgolette, niente punto finale, niente emoji, niente '
-      'nome del Maestro. Rispondi solo col titolo.';
+      'esoterico, come l\'etichetta di una cartella: nomina il tema della '
+      'domanda della persona in tre-sei parole, in italiano, con la maiuscola '
+      'solo alla prima parola e ai nomi propri. Non usare la seconda persona. '
+      'Niente virgolette, niente punto finale, niente emoji, niente nome del '
+      'Maestro. Rispondi solo col titolo.';
 
   @override
   Future<String?> scrivi({

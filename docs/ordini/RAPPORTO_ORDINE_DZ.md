@@ -42,8 +42,11 @@ conversazione e da li' si continua.
 
 **Il titolo.** Dopo la prima risposta vera di una conversazione, una
 chiamata breve a `gemini-2.5-flash-lite` in europe-west1 scrive tre-sei
-parole. Sonda con tre casi veri: *Dubbi sull'oroscopo di oggi*, *Energia
-nelle relazioni questa settimana*, *La fronte verticale e la sua natura*.
+parole. Sonda con tre casi veri e tre stesure dell'istruzione, sei chiamate
+ciascuna: quella scelta da' *Oroscopo di oggi e cielo*, *Energia nelle
+relazioni questa settimana*, *Fronte verticale e natura ricercatrice*. Il
+titolo e' coperto dalla cancellazione dei dati (`chat.titoli.` in
+`CioCheETuo`).
 Finche' non c'e', o se il modello non risponde, il titolo e' la prima domanda
 accorciata. Costo: una chiamata del modello leggero per conversazione.
 **Letture**: centocinquanta messaggi al massimo, una volta per apertura della
@@ -84,6 +87,13 @@ PC del fondatore: se lo vuole, e' un ordine a se'.
 - **Registro delle guardie**: nessuna guardia nuova nel conto, le tre prove
   nuove sono prove di valore. Resta 442.
 - **Sigillo aggregato**: `'DZ': 4`.
+- **Due difetti miei, presi dallo sbarramento prima della build**:
+  `niente_resta_di_te` ha trovato la chiave `chat.titoli.` fuori da
+  `CioCheETuo` (chi cancella i suoi dati si sarebbe lasciato dietro i
+  titoli), e `ogni_prompt_di_prosa_dichiara_la_forma` ha trovato il prompt
+  del titolo non dichiarato. Padre: questo ordine, voce DZ.04. Curati tutti e
+  due; per il secondo il prompt e' dichiarato fuori dalla prosa, perche'
+  nomina un tema e non si rivolge alla persona.
 
 ## 6. LA BUILD
 

@@ -84,8 +84,11 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_DZ.md`.
   per conversazione dopo la prima risposta vera, mai sulla strada del turno,
   e lo ripulisce (riga 363). Il titolo si tiene sul telefono, un archivio
   per Maestro. **Sonda vera nella regione, tre chiamate REST con la stessa
-  istruzione**: *Dubbi sull'oroscopo di oggi*, *Energia nelle relazioni
-  questa settimana*, *La fronte verticale e la sua natura*. Prova in
+  istruzione, poi tre stesure a confronto**: la scelta da' *Oroscopo di oggi e cielo*, *Energia nelle relazioni
+  questa settimana*, *Fronte verticale e natura ricercatrice*; chiedere di non
+  rivolgersi alla persona faceva scrivere la risposta in seconda persona.
+  La chiave `chat.titoli.` sta in `CioCheETuo`, e il prompt e' dichiarato
+  fuori dalla prosa perche' nomina un tema. Prova in
   `chat_initial_message_test` con uno scrittore finto, rossa col titolo
   spento. **Un limite dichiarato**: i titoli stanno sul telefono che li ha
   scritti; su un altro telefono le stesse conversazioni hanno il titolo di
