@@ -12,8 +12,8 @@ sostiene un mio traguardo?"* due volte di fila; in Aura la domanda che cita il
 soffio del giorno, due volte di fila. Tutte domande suggerite dall'app.
 
 VOCI_TOTALI: 12
-VOCI_CHIUSE: 8
-VOCI_APERTE: 4
+VOCI_CHIUSE: 12
+VOCI_APERTE: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 
 Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_DV.md`.
@@ -126,22 +126,42 @@ del corpus riscrivere ha scelto **tutti i 528**.
   decide l'identificativo del messaggio prima di accodarlo, e il server lo
   crea con quell'identificativo: un secondo invio trova il documento gia'
   scritto e non ne aggiunge un altro. Vale per il reinvio dopo una rete
-  caduta, che la coda curata non puo' escludere. Va distribuita dal PC del
-  fondatore.
-  **APERTA**
+  caduta, che la coda curata non puo' escludere. **Fatto da tutte e due le
+  parti**: il telefono manda `idMessaggio`, generato prima della coda
+  (`FirestoreMaestroMemoryRepository.appendMessage`); il server crea il
+  documento con quel nome e un secondo invio lo trova gia' scritto
+  (`scriviIlMessaggio` in `functions/src/doppioni.ts`, usato da
+  `scriviLaMemoria`). Un telefono vecchio senza identificativo scrive come
+  prima. Vista rossa sul codice di prima: la domanda rimandata dopo una
+  risposta persa diventava due. **La funzione va distribuita dal PC del
+  fondatore**; finche' non lo e', il server vecchio conserva
+  l'identificativo come campo e non fa danni.
+  **CHIUSA.**
 - **DV.10**, l'errore inghiottito. Il difetto della coda e' rimasto un mese
   senza che nessuno lo vedesse perche' la cronologia che non si scrive viene
   ignorata in silenzio. Un salvataggio che fallisce deve lasciare una traccia
-  leggibile, senza fermare la chat.
-  **APERTA**
+  leggibile, senza fermare la chat. **Fatto**: `annotaGuastoInnocuo` inoltra
+  ogni guasto innocuo a Crashlytics come non fatale, con la frase che dice
+  cosa si stava facendo (`GuastiVersoIlCruscotto`, agganciato in `main.dart`
+  solo con Firebase vivo). Vista rossa togliendo l'inoltro.
+  **CHIUSA.**
 - **DV.11**, il pannello dell'Arcano dell'Alba: il testo ha un margine
   interno a destra e a sinistra, e il gesto sta in un riquadro col suo
-  titolo, staccato dal resto.
-  **APERTA**
+  titolo, staccato dal resto. **Fatto**: sedici punti di margine per lato
+  nel pannello, e il riquadro del gesto con un filo d'oro, il titolo, il
+  gesto, il titolo *Perché* e il perche'. Misurato a video: prima il testo
+  stava a zero punti dal bordo del pannello.
+  **CHIUSA.**
 - **DV.12**, il gesto e' un gesto: tutti i 528 del corpus
   (`docs/corpus/tarocchi.md`) dicono un'azione concreta che si puo' fare
-  oggi, e ognuno porta il suo **perche'**, mostrato nel riquadro.
-  **APERTA**
+  oggi, e ognuno porta il suo **perche'**, mostrato nel riquadro. **Fatto**:
+  528 gesti riscritti e letti uno per uno, 57 ritoccati alla lettura per il
+  genere (*"sei gia' arrivato"*, *"da solo"*, *"te stesso"*), le ore del
+  giorno (*"entro mezzogiorno"*), gli accenti e il contesto. La guardia nuova
+  nel test del corpus pretende il perche', vieta i verbi d'atteggiamento in
+  apertura e le ore del giorno; vista rossa rimettendo *"Accetta una
+  confusione"*.
+  **CHIUSA.**
 
 ---
 

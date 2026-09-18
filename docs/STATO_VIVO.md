@@ -3387,7 +3387,7 @@ bundle; i due sentieri che nominano lo stesso dono.
 
 ## L'ORDINE DV, LE DOMANDE DOPPIE NELLE CHAT DEI MAESTRI
 
-Ordine del 18 settembre 2026, **otto voci, otto chiuse**, nessuna build.
+Ordine del 18 settembre 2026, **dodici voci, dodici chiuse**: le otto dell'ordine e quattro nate dalle correzioni del fondatore dopo la consegna. Consegnato con la build 2269.
 Manifesto `docs/ordini/ORDINE_DV_MANIFESTO.md`, rapporto
 `docs/ordini/RAPPORTO_ORDINE_DV.md`.
 
@@ -3409,6 +3409,22 @@ a schermo e nel contesto del modello. **I doppioni restano nei dati**: lo
 strumento per toglierli e' `functions/src/pulisci_doppioni.ts`, da lanciare dal
 PC di Mauro, che per default conta e basta.
 
+**LA SECONDA DIFESA (DV.09)**: il telefono decide l'identificativo del messaggio
+prima della coda (`idMessaggio`), e `scriviLaMemoria` crea il documento con quel
+nome (`scriviIlMessaggio` in `functions/src/doppioni.ts`): un reinvio dopo una
+risposta persa non raddoppia piu'. **Va distribuita dal PC di Mauro**
+(`firebase deploy --only functions:scriviLaMemoria`); il server vecchio tiene
+l'identificativo come campo senza danni. **I GUASTI INNOCUI (DV.10)** arrivano a
+Crashlytics come non fatali (`GuastiVersoIlCruscotto` in
+`lib/services/ai/registro_dei_guasti.dart`, agganciato in `main.dart`).
+
+**L'ARCANO DELL'ALBA (DV.11 e DV.12)**: il pannello del responso ha sedici punti
+di margine per lato, e il gesto sta in un riquadro col titolo *Il gesto di oggi*,
+il gesto e sotto *Perché*. **I 528 gesti del corpus sono stati riscritti** come
+azioni concrete, ognuno col suo **perche'** (campo `perche` di
+`LetturaDellAlba`, generato da `docs/corpus/tarocchi.md`); una guardia nel test
+del corpus vieta i verbi d'atteggiamento in apertura e le ore del giorno.
+
 **DUE DI QUELLE DOMANDE NON ERANO DELL'APP.** *"Carta del giorno"* l'ha scritta
 Code sul telefono del fondatore con `adb input text`, nella prova a video
 dell'ordine DS; *"Lettura generale energia oggi"* non esiste in nessuna versione
@@ -3420,7 +3436,7 @@ verificare sul telefono o sul server.
 **Le prove** usano per la prima volta il repository vero con un server finto
 fedele (`test/server_fedele_della_memoria.dart`): quelle di prima usavano il
 repository in memoria, che non ha coda, ed e' per questo che il difetto al banco
-non esisteva. Registro delle guardie a **438**. Le catture sono del banco, in
+non esisteva. Registro delle guardie a **439**. Le catture sono del banco, in
 `docs/collaudo/DV/`: quelle dal telefono vengono con la prossima build.
 
 ## Regole ferree

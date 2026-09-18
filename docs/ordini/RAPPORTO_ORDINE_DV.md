@@ -4,7 +4,7 @@
 **Manifesto:** `docs/ordini/ORDINE_DV_MANIFESTO.md`. **Nessuna build**: l'ordine
 la vieta, e nessuna e' stata costruita.
 
-**Otto voci, otto chiuse.**
+**Dodici voci, dodici chiuse**: le otto dell'ordine e le quattro nate dalle correzioni del fondatore dopo la consegna, sezione 9.
 
 ---
 
@@ -136,11 +136,18 @@ quanti doppioni. Si legge il conto, e solo dopo si lancia con `--davvero`.
 Serve una sessione con i permessi sul progetto
 (`gcloud auth application-default login`).
 
-**Una seconda difesa, consigliata e non fatta**: rendere idempotente la
-scrittura sul server, con un identificativo del messaggio deciso dal telefono
-e un `set` al posto dell'`add`. Cosi' anche un reinvio vero, per esempio dopo
-una rete caduta, non raddoppierebbe. Tocca il server, quindi va distribuita dal
-tuo PC.
+**La seconda difesa e' fatta** (voce DV.09, dopo il via del fondatore): il
+telefono decide l'identificativo del messaggio prima di accodarlo, e il server
+crea il documento con quel nome, quindi anche un reinvio vero, per esempio dopo
+una rete caduta, non raddoppia. Tocca il server, quindi **va distribuita dal
+tuo PC**:
+
+```
+firebase deploy --only functions:scriviLaMemoria
+```
+
+Finche' non e' distribuita, il server vecchio salva l'identificativo come un
+campo in piu' e non fa danni.
 
 ---
 
@@ -187,3 +194,44 @@ una build il codice corretto non arriva sul telefono. Al banco la chat usa il
 repository vero e un server fedele, ma il Maestro che risponde e' finto: dice la
 stessa riga per tutti e tre, e per questo anche Aura parla di stelle. **Le
 catture dal telefono vengono con la prossima build, quando la ordini.**
+
+---
+
+## 9. LE CORREZIONI DOPO LA CONSEGNA
+
+Mauro, letto il rapporto: *"ok per la seconda difesa e per tutti i consigli che
+ritieni utili"*; e sull'Arcano dell'Alba, con due catture dal telefono, il testo
+attaccato ai bordi del pannello e *"il gesto di oggi"* che non era un gesto.
+
+- **DV.09, la seconda difesa**: sezione 5.
+- **DV.10, l'errore inghiottito.** Il difetto della coda e' rimasto un mese
+  senza traccia perche' la chat annotava il guasto in un log che si legge solo
+  col debugger. Adesso ogni guasto innocuo arriva a Crashlytics come non
+  fatale, con la frase che dice cosa si stava facendo. La chat continua come
+  prima.
+- **DV.11, il pannello**: sedici punti di margine per lato (prima zero, misurato
+  a video) e il gesto nel suo riquadro, con un filo d'oro, il titolo, il gesto,
+  il titolo *Perché* e il perche'.
+- **DV.12, il gesto e' un gesto.** Tutti i 528 gesti del corpus riscritti come
+  azioni concrete, con un oggetto, un numero o un tempo precisi, e ognuno col suo
+  perche'. Li ho letti tutti e ne ho ritoccati 57: frasi che parlavano solo a un
+  uomo (*"sei gia' arrivato"*, *"da solo"*, *"te stesso"*), ore che mentono a chi
+  gira la carta piu' tardi (*"entro mezzogiorno"*), due *"Dì"* senza apostrofo,
+  qualche frase che dava per scontata una situazione. Esempio, la Luna dritta
+  del telefono: prima *"Accetta una confusione senza risolverla"*; adesso
+  **gesto** *"Prendi un foglio e scrivi tre domande che oggi ti mettono in
+  confusione, senza cercare risposte."*, **perche'** *"Scritte, le domande
+  escono dalla testa e ti stanno davanti."*
+
+**Padri**, cercati nella storia con `git log -S`:
+
+- DV.11: il margine solo in alto nasce con la schermata, **ordine DT**, commit
+  `47b3c2be` del 17 settembre 2026; l'**ordine DU** gli ha messo sotto il velo
+  (commit `f8c33e41`) senza aggiungere i lati.
+- DV.12: *"Accetta una confusione"* e la forma *"atteggiamento: azione"*
+  entrano con le 528 letture, **ordine DU voce 12**, commit `ebaee64b` del 17
+  settembre 2026. Le voci DU.08 e DU.09 volevano la parola dentro il dono, e
+  molti doni la mettevano in un verbo d'atteggiamento.
+- DV.10: l'annotazione solo nel log nasce con `annotaGuastoInnocuo`, commit
+  `fe4395dd` del 2 agosto 2026. Il commit non dice l'ordine: **PROVENIENZA
+  IGNOTA** per la voce.
