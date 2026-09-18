@@ -24,6 +24,9 @@ import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:esoteric_circle/core/chat/le_conversazioni_passate.dart';
+import 'package:esoteric_circle/features/maestri/chat/maestro_chat_controller.dart';
 
 /// La chat che si apre da un pulsante di approfondimento ("Parlane con il
 /// Maestro", "Continua con") porta la domanda contestuale.
@@ -35,6 +38,8 @@ import 'package:provider/provider.dart';
 /// campo, nessuna domanda arriva al modello e nessuna si consuma finche' la
 /// persona non manda, e la persona puo' mandare un'altra domanda al suo posto.
 void main() {
+  setUp(() => SharedPreferences.setMockInitialValues({}));
+
   Future<AppServices> services(MaestroAiProvider ai) async {
     final memory = InMemoryMaestroMemoryRepository();
     // Disclaimer gia' accettato, cosi' non copre la chat con la modale.
@@ -165,6 +170,103 @@ void main() {
     // La domanda c'e' comunque, nel campo, e non c'e' stato nessun crash.
     expect(campo(tester), domanda);
   });
+  // --- ORDINE DZ ---------------------------------------------------------
+
+  /// Una conversazione di ieri con Caligo, gia' salvata.
+  Future<void> semina(AppServices svc) async {
+    await svc.memory.appendMessage(
+        Maestro.caligo,
+        ChatMessage(
+          role: ChatRole.user,
+          text: 'Vecchia domanda sul lavoro',
+          at: DateTime(2026, 9, 17, 10),
+          conversazione: 'c1',
+        ));
+    await svc.memory.appendMessage(
+        Maestro.caligo,
+        ChatMessage(
+          role: ChatRole.maestro,
+          text: 'Vecchia risposta sul lavoro',
+          at: DateTime(2026, 9, 17, 10, 1),
+          conversazione: 'c1',
+        ));
+  }
+
+  testWidgets(
+      'DZ.01: da un approfondimento la chat e\' pulita, e la conversazione '
+      'di prima si riapre dal menu\'', (tester) async {
+    final svc = await services(_ReadyAi());
+    await semina(svc);
+    await pumpChat(tester, svc, initial: domanda);
+
+    expect(find.text('Vecchia domanda sul lavoro'), findsNothing,
+        reason: 'la chat dall\'approfondimento mostra la conversazione di '
+            'prima: e\' la confusione della cattura del fondatore');
+    expect(campo(tester), domanda);
+
+    // DZ.03: la conversazione di prima e' nel menu', col suo titolo.
+    await tester.tap(find.byKey(const Key('chat_menu_della_barra')));
+    await tester.pumpAndSettle();
+    expect(
+        find.byKey(const Key('chat_conversazione_passata_0')), findsOneWidget,
+        reason: 'la conversazione di prima non e\' nel menu\'');
+    expect(find.text('Vecchia domanda sul lavoro'), findsOneWidget,
+        reason: 'senza un titolo scritto, il titolo e\' la prima domanda');
+
+    await tester.tap(find.byKey(const Key('chat_conversazione_passata_0')));
+    await tester.pumpAndSettle();
+    expect(find.text('Vecchia risposta sul lavoro'), findsOneWidget,
+        reason: 'toccando il titolo la conversazione non si riapre');
+  });
+
+  test('DZ.04: dopo la prima risposta vera la conversazione ha il suo titolo',
+      () async {
+    final svc = await services(_ReadyAi());
+    await semina(svc);
+    final scrittore = _ScrittoreFinto();
+    final chat = MaestroChatController(
+      maestro: Maestro.caligo,
+      ai: svc.ai,
+      memory: svc.memory,
+      titoli: scrittore,
+      attesaMinima: Duration.zero,
+    );
+    await chat.init();
+    for (var i = 0; i < 5; i++) {
+      await Future<void>.delayed(Duration.zero);
+    }
+    chat.iniziaUnaConversazioneNuova(adesso: DateTime(2026, 9, 18, 9));
+    await chat.send(domanda);
+    for (var i = 0; i < 10; i++) {
+      await Future<void>.delayed(Duration.zero);
+    }
+
+    expect(scrittore.chieste, [domanda],
+        reason: 'il titolo si chiede una volta, con la prima domanda');
+    chat.iniziaUnaConversazioneNuova(adesso: DateTime(2026, 9, 18, 10));
+    final titoli = [for (final c in chat.conversazioniPassate) c.titolo];
+    expect(titoli.first, 'Il lupo e la lealta',
+        reason: 'la conversazione appena lasciata non porta il titolo '
+            'scritto: $titoli');
+    expect(titoli, contains('Vecchia domanda sul lavoro'));
+    final letto = await LeConversazioniPassate.titoli(Maestro.caligo);
+    expect(letto.values, contains('Il lupo e la lealta'),
+        reason: 'il titolo non resta sul telefono');
+  });
+}
+
+class _ScrittoreFinto extends ScrittoreDeiTitoli {
+  final List<String> chieste = [];
+
+  @override
+  Future<String?> scrivi({
+    required Maestro maestro,
+    required String domanda,
+    required String risposta,
+  }) async {
+    chieste.add(domanda);
+    return '"Il lupo e la lealta."';
+  }
 }
 
 /// Un provider pronto che risponde una riga fissa.

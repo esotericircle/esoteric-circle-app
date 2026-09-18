@@ -38,7 +38,20 @@ class VistaDeiRicordi extends ChangeNotifier {
     DateTime Function()? orologio,
   })  : _registro = registro,
         _gestiDeiDoni = gestiDeiDoni,
-        _orologio = orologio ?? DateTime.now;
+        _orologio = orologio ?? DateTime.now {
+    // **CIO' CHE ARRIVA AL REGISTRO ARRIVA A CHI GUARDA. Ordine DZ voce 02.**
+    // La vista ascoltava solo i propri gesti: un turno segnato dopo il primo
+    // disegno restava fuori dalla griglia finche' qualcuno non toccava un
+    // filtro. Sul Realme il Journal aperto dalla chat di Medora diceva 0 in
+    // ogni mese, e 5 a settembre appena toccato un filtro.
+    _registro.addListener(notifyListeners);
+  }
+
+  @override
+  void dispose() {
+    _registro.removeListener(notifyListeners);
+    super.dispose();
+  }
 
   final RegistroDeiRicordi _registro;
   final Set<String> _gestiDeiDoni;

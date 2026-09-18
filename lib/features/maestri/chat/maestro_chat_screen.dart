@@ -1,6 +1,9 @@
 import '../../../core/sigilli/diario_del_cammino.dart';
 import 'dart:math' as math;
 import 'dart:async';
+import 'package:firebase_core/firebase_core.dart';
+import '../../../core/chat/le_conversazioni_passate.dart';
+import '../../../services/ai/titoli_da_gemini.dart';
 import '../../ricordi/ricordi_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -115,6 +118,14 @@ class MaestroChatScreen extends StatefulWidget {
                 // **I TURNI ENTRANO NEI RICORDI, ordine CI voce 06.** Qui,
                 // dove il registro c'e' gia': il controllore non conosce
                 // Firestore e non deve conoscerlo.
+                // **DA UN APPROFONDIMENTO, UNA CONVERSAZIONE PULITA. Ordine DZ
+                // voce 01.**
+                conversazioneNuova: initialUserMessage != null,
+                // **IL TITOLO LO SCRIVE GEMINI. Ordine DZ voce 04.** Solo
+                // dove Firebase c'e': nelle prove resta il titolo di ripiego.
+                titoli: Firebase.apps.isEmpty
+                    ? const ScrittoreDeiTitoliSpento()
+                    : const TitoliDaGemini(),
                 segnaNeiRicordi: (domanda) {
                   try {
                     rotta.read<RegistroDeiRicordi>().segna(VoceDelRicordo(
@@ -565,6 +576,9 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         speaking: controller.sending,
         mostraRicomincia: hasMessages,
         onRicomincia: () => _ConversazioneNuova.chiedi(context, controller),
+        // **LE ULTIME CINQUE CONVERSAZIONI NEL MENU'. Ordine DZ voce 03.**
+        conversazioni: controller.conversazioniPassate,
+        onApri: (c) => controller.apriLaConversazione(c.id),
         onDiagnostics: () => showChatDiagnostics(
           context,
           aiReady: controller.aiReady,
@@ -1148,6 +1162,8 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.speaking = false,
     this.mostraRicomincia = false,
     this.onRicomincia,
+    this.conversazioni = const [],
+    this.onApri,
     this.scalaDelTesto = 1,
     this.larghezzaDelTitolo = 248,
   });
@@ -1184,6 +1200,10 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// che non fa niente e' peggio di un comando assente.
   final bool mostraRicomincia;
   final VoidCallback? onRicomincia;
+
+  /// Le ultime conversazioni con questo Maestro, col titolo. Ordine DZ.
+  final List<ConversazionePassata> conversazioni;
+  final ValueChanged<ConversazionePassata>? onApri;
 
   /// Altezza dell'header: piu' alta quando l'avatar che sfonda il cerchio sta
   /// sopra il nome, cosi' la colonna centrata (avatar, nome, sottotitolo) ci sta
@@ -1353,11 +1373,20 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
       // e' rumore. I giorni prima invece c'e' sempre, quindi il menu' non e'
       // mai vuoto.
       actions: [
-        PopupMenuButton<_VoceDelMenu>(
+        // **LE CONVERSAZIONI STANNO FRA LE DUE VOCI. Ordine DZ voce 03.**
+        // Parole del fondatore: *"nel menu' a tendina comparissero le ultime
+        // 5 conversazioni con il loro titolo"*. Prima la nuova, poi le
+        // passate dalla piu' recente, poi i giorni prima, che portano al
+        // Journal per tutto il resto.
+        PopupMenuButton<Object>(
           key: const Key('chat_menu_della_barra'),
           tooltip: 'Altro',
           icon: const Icon(Icons.add_comment_outlined, size: 27),
           onSelected: (voce) {
+            if (voce is ConversazionePassata) {
+              onApri?.call(voce);
+              return;
+            }
             switch (voce) {
               case _VoceDelMenu.nuova:
                 onRicomincia?.call();
@@ -1368,7 +1397,7 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
           },
           itemBuilder: (context) => [
             if (mostraRicomincia)
-              const PopupMenuItem<_VoceDelMenu>(
+              const PopupMenuItem<Object>(
                 key: Key('chat_conversazione_nuova'),
                 value: _VoceDelMenu.nuova,
                 child: ListTile(
@@ -1377,7 +1406,24 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                   title: Text('Nuova conversazione'),
                 ),
               ),
-            const PopupMenuItem<_VoceDelMenu>(
+            if (conversazioni.isNotEmpty) const PopupMenuDivider(),
+            for (final (i, c) in conversazioni.indexed)
+              PopupMenuItem<Object>(
+                key: Key('chat_conversazione_passata_$i'),
+                value: c,
+                child: ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.chat_bubble_outline_rounded),
+                  title: Text(c.titolo,
+                      maxLines: 1, overflow: TextOverflow.ellipsis),
+                  subtitle: Text(
+                      LeConversazioniPassate.quando(
+                          c.ultimoMomento, DateTime.now()),
+                      maxLines: 1),
+                ),
+              ),
+            if (conversazioni.isNotEmpty) const PopupMenuDivider(),
+            const PopupMenuItem<Object>(
               key: Key('chat_i_giorni_prima'),
               value: _VoceDelMenu.giorniPrima,
               child: ListTile(

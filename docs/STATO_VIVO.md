@@ -3545,6 +3545,34 @@ difetto veniva dall'ordine AM voce 04, e la porta del CF voce 09 lo aveva
 ereditato. Guardia `il_testo_dei_fogli_non_passa_sotto_le_barre`, registro
 delle guardie a **442**.
 
+## L'ORDINE DZ, LA CHAT DI APPROFONDIMENTO E' PULITA E LE CONVERSAZIONI HANNO UN TITOLO
+
+Ordine del 18 settembre 2026, **quattro voci, quattro chiuse**. Manifesto
+`docs/ordini/ORDINE_DZ_MANIFESTO.md`, rapporto `docs/ordini/RAPPORTO_ORDINE_DZ.md`.
+Decisioni del fondatore: il titolo lo scrive Gemini, e una build sola, la
+2272, con DY e DZ.
+
+**LA CHAT DALL'APPROFONDIMENTO E' PULITA (DZ.01).** Da un *Parlane con* o da
+un *Continua con* la chat apre una conversazione nuova con la domanda nel
+campo; quella di prima non si perde e sta nel menu'.
+
+**LE CHAT SI MEMORIZZAVANO GIA', A MENTIRE ERA IL JOURNAL (DZ.02).** I
+messaggi stanno sul server con la loro conversazione e i turni entrano nei
+Ricordi. La griglia del Cosmic Journal ascoltava la vista e non il registro:
+aperta da *I giorni prima* diceva 0 in ogni mese finche' nessuno toccava un
+filtro. Adesso la vista inoltra il registro.
+
+**LE ULTIME CINQUE CONVERSAZIONI NEL MENU' (DZ.03)**, col titolo e il giorno,
+fra *Nuova conversazione* e *I giorni prima*; il tocco le riapre. Si
+raccolgono dai messaggi gia' salvati, 150 al massimo per apertura
+(`lib/core/chat/le_conversazioni_passate.dart`).
+
+**IL TITOLO LO SCRIVE GEMINI (DZ.04)**, `gemini-2.5-flash-lite` in
+europe-west1, una chiamata per conversazione dopo la prima risposta vera
+(`lib/services/ai/titoli_da_gemini.dart`); se il modello tace vale la prima
+domanda accorciata. **I titoli stanno sul telefono che li ha scritti**:
+portarli sul server chiede di cambiare `scriviLaMemoria`.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.
