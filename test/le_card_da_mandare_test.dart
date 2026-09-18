@@ -4,6 +4,9 @@ import 'dart:io';
 import 'package:esoteric_circle/core/brand/brand.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/rituals/soffio_share_card.dart';
+import 'package:esoteric_circle/core/sigilli/bonus_della_condivisione.dart';
+import 'package:esoteric_circle/core/sigilli/sentieri.dart';
+import 'package:esoteric_circle/features/sigilli/card_del_sigillo_da_mandare.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -104,5 +107,92 @@ void main() {
     expect(senza, isEmpty,
         reason: 'queste chiamate non dicono da dove si apre il foglio: su '
             'iPad la condivisione non parte');
+  });
+  test(
+      'DW.04: I TRE MESSAGGI DI UN SIGILLO PARLANO A CHI LI RICEVE e portano '
+      'il link', () {
+    // **Lo screenshot dell'iPhone di un fondatore**: *Manda a qualcuno*
+    // partiva con *"tu eri qui con l'Arcano dell'Alba"*, senza link. Si
+    // prendono tutti i Sigilli del cammino e tutti e tre i modi.
+    final sigilli = Sentieri.tuttiITraguardi;
+    cardinaleMinimo(sigilli.length, 50,
+        cosa: 'Sigilli del cammino',
+        perche:
+            'Su un catalogo vuoto nessun messaggio parlerebbe a sproposito.');
+    final cadute = <String>[];
+    for (final t in sigilli) {
+      for (final modo in ModoDellaCondivisione.values) {
+        final testo = TestoDellaCondivisione.perIlTraguardo(t, modo,
+            codiceInvito: 'abcdefgh12.medora');
+        if (!testo.contains('${Brand.url}?invito=abcdefgh12.medora')) {
+          cadute.add('${t.id} ${modo.name}: senza il link dell\'invito');
+        }
+        if (t.frase.trim().isNotEmpty && testo.contains(t.frase.trim())) {
+          cadute.add('${t.id} ${modo.name}: porta la frase scritta per chi '
+              'ha acceso il Sigillo');
+        }
+        if (testo.contains('"')) {
+          cadute.add('${t.id} ${modo.name}: virgolette dritte');
+        }
+      }
+    }
+    print('ORDINE DW voce 04: Sigilli guardati ${sigilli.length} per tre '
+        'modi, cadute ${cadute.length}');
+    expect(cadute, isEmpty, reason: cadute.take(10).join('\n'));
+  });
+
+  testWidgets('DW.04: LA CARD DI UN SIGILLO porta il suo nome e il dominio',
+      (tester) async {
+    tester.view.physicalSize = const Size(600, 1400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    final t = Sentieri.tuttiITraguardi.first;
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: SingleChildScrollView(
+          child: CardDelSigilloDaMandare(
+              traguardo: t, palette: MaestroPalette.medora),
+        ),
+      ),
+    ));
+    await tester.pump();
+    expect(tester.widget<Text>(find.byKey(const Key('sigillo_card_nome'))).data,
+        t.nome);
+    expect(
+        tester.widget<Text>(find.byKey(const Key('sigillo_card_dominio'))).data,
+        Brand.domain);
+  });
+
+  test(
+      'DW.05: SI INVITA SENZA ASPETTARE UN SIGILLO, chi arriva lo dice alla '
+      'registrazione, e il premio va a tutti e due', () {
+    final conto =
+        File('lib/features/account/account_screen.dart').readAsStringSync();
+    expect(conto.contains('invitaUnAmico(context)'), isTrue,
+        reason: 'il menu\' Account non offre piu\' Invita un amico: senza un '
+            'Sigillo acceso non si potrebbe invitare nessuno');
+    final libero =
+        TestoDellaCondivisione.invitoLibero(codiceInvito: 'abcdefgh12');
+    expect(libero, contains('${Brand.url}?invito=abcdefgh12'));
+    final custode =
+        File('lib/core/cammino/custode_del_cammino.dart').readAsStringSync();
+    expect(
+        custode.contains('DomandaDellInvito.dopoLaPrimaRegistrazione'), isTrue,
+        reason: 'chi si registra non si sente piu\' chiedere chi lo ha '
+            'invitato, e il codice si perde');
+    final santuario =
+        File('lib/features/santuario/santuario_screen.dart').readAsStringSync();
+    expect(santuario.contains('DomandaDellInvito'), isFalse,
+        reason: 'la domanda e\' tornata nel Santuario, dove l\'ordine CE voce '
+            '02 l\'aveva tolta');
+    final server = File('functions/src/cerchio.ts').readAsStringSync();
+    expect(server.contains('.doc("benvenuto-invito")'), isTrue,
+        reason: 'il server non paga piu\' chi arriva con un invito');
+    final listino = File('functions/src/borsellino.ts').readAsStringSync();
+    expect(listino.contains('EOS_A_CHI_ARRIVA_CON_UN_INVITO = 60'), isTrue,
+        reason: 'il messaggio promette 60 Eos a testa: il listino deve dire '
+            'la stessa cifra');
+    expect(listino.contains('EOS_DELL_INVITO_ACCOLTO = 60'), isTrue);
+    print('ORDINE DW voce 05: il messaggio dell\'invito libero: $libero');
   });
 }

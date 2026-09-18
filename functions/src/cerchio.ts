@@ -28,6 +28,7 @@ import {
   BONUS_DELLA_CONDIVISIONE,
   ACCREDITO_DEL_GIORNO,
   EOS_DELL_INVITO_ACCOLTO,
+  EOS_A_CHI_ARRIVA_CON_UN_INVITO,
   BENVENUTO,
   CAUSALI_CHIEDIBILI,
   PREZZI_DEL_RISCATTO,
@@ -795,7 +796,30 @@ export const riscattaLInvito = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
       quando: FieldValue.serverTimestamp(),
     });
   });
-  return esito;
+
+  // **E ANCHE A CHI ARRIVA. Ordine DW voce 05**, decisione del fondatore:
+  // sessanta Eos a tutti e due. Stesso impianto: movimento con
+  // identificativo fisso sul ramo di chi arriva, quindi un secondo riscatto
+  // non paga due volte.
+  await db.runTransaction(async (tx) => {
+    const doc = borsellinoDoc(uid);
+    const movimento = utente(uid)
+      .collection("movimenti")
+      .doc("benvenuto-invito");
+    const giaPagato = await tx.get(movimento);
+    if (giaPagato.exists) return;
+    const snap = await tx.get(doc);
+    const dati = (snap.data() ?? {}) as Record<string, unknown>;
+    const saldo = typeof dati.saldo === "number" ? dati.saldo : 0;
+    tx.set(doc, {saldo: saldo + EOS_A_CHI_ARRIVA_CON_UN_INVITO}, {merge: true});
+    tx.set(movimento, {
+      causale: "premio_rituale",
+      motivo: "arrivato_con_invito",
+      quanti: EOS_A_CHI_ARRIVA_CON_UN_INVITO,
+      quando: FieldValue.serverTimestamp(),
+    });
+  });
+  return {...esito, premio: EOS_A_CHI_ARRIVA_CON_UN_INVITO};
 });
 
 export const muoviGliEos = onCall(OPZIONI_DEL_CERCHIO, async (request) => {

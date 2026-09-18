@@ -98,6 +98,15 @@ export const TETTO_CONDIVISIONI_PREMIATE = 3;
 export const EOS_DELL_INVITO_ACCOLTO = 60;
 
 /**
+ * **E CHI ARRIVA CON UN INVITO RICEVE LO STESSO. Ordine DW voce 05.**
+ * Decisione del fondatore del 18 settembre 2026: *"60 Eos a tutti e due"*.
+ * L'invito diventa un regalo da offrire invece di una richiesta. Lo paga
+ * soltanto `riscattaLInvito`, con un movimento idempotente sul ramo di chi
+ * arriva.
+ */
+export const EOS_A_CHI_ARRIVA_CON_UN_INVITO = 60;
+
+/**
  * IL LISTINO DEL RISCATTO, ordine BG voce 05: quando un budget del giorno e'
  * finito, la persona puo' comprarne UN altro uso spendendo Eos. E' la strada
  * degli Eos del gating a due strade (ordine AN), accanto a quella

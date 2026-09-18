@@ -120,22 +120,46 @@ class TestoDellaCondivisione {
     return porta.isEmpty ? uid.trim() : '${uid.trim()}.$porta';
   }
 
+  /// **I TRE TESTI PARLANO A CHI LI RICEVE, e portano tutti il link. Ordine DW
+  /// voce 04.**
+  ///
+  /// Il fatto, da uno screenshot dell'iPhone di un fondatore: *Manda a
+  /// qualcuno* mandava *"Guarda cosa ho acceso nel Cerchio: ... tu eri qui con
+  /// l'Arcano dell'Alba"*. Tre difetti in una riga: la frase del traguardo e'
+  /// scritta per chi l'ha acceso, e letta dall'amico sembra rivolta a lui;
+  /// nessun link, quindi chi riceve non sa dove andare; virgolette dritte.
+  /// **La frase del traguardo non parte piu'**: resta nella festa, dove parla
+  /// alla persona giusta. Il link porta il codice dell'invito in tutti e tre i
+  /// modi, perche' anche un messaggio privato puo' portare qualcuno dentro.
   static String perIlTraguardo(Traguardo traguardo, ModoDellaCondivisione modo,
       {String? codiceInvito}) {
+    final link = (codiceInvito ?? '').isEmpty
+        ? Brand.url
+        : '${Brand.url}?invito=$codiceInvito';
     switch (modo) {
       case ModoDellaCondivisione.invitoConDownload:
-        final link = (codiceInvito ?? '').isEmpty
-            ? Brand.url
-            : '${Brand.url}?invito=$codiceInvito';
-        return 'Sto camminando nel Cerchio e ho appena acceso un Sigillo: '
-            '"${traguardo.nome}". Vieni a vedere il tuo cielo. $link';
+        return 'Ti invito nel Cerchio: ho appena acceso il Sigillo '
+            '«${traguardo.nome}». Scarica ${Brand.name} e, quando ti '
+            'registri, incolla questo link: riceviamo 60 Eos a testa. $link';
       case ModoDellaCondivisione.socialPubblico:
-        return 'Un Sigillo acceso nel Cerchio: "${traguardo.nome}". '
-            '${traguardo.frase} ${Brand.name}.';
+        return 'Ho acceso il Sigillo «${traguardo.nome}» su ${Brand.name}. '
+            'Scopri il tuo cielo: $link';
       case ModoDellaCondivisione.condivisionePrivata:
-        return 'Guarda cosa ho acceso nel Cerchio: "${traguardo.nome}". '
-            '${traguardo.frase}';
+        return 'Guarda cosa ho acceso nel Cerchio: il Sigillo '
+            '«${traguardo.nome}». Vieni a vedere il tuo cielo: $link';
     }
+  }
+
+  /// **L'INVITO DAL MENU', senza aspettare un traguardo. Ordine DW voce 05.**
+  /// Invitare qualcuno si poteva solo dalla festa di un Sigillo: chi non ne
+  /// aveva acceso nessuno non aveva modo di farlo.
+  static String invitoLibero({String? codiceInvito}) {
+    final link = (codiceInvito ?? '').isEmpty
+        ? Brand.url
+        : '${Brand.url}?invito=$codiceInvito';
+    return 'Ti invito nel Cerchio, l\'app dei tre Maestri: astrologia, '
+        'tarocchi, rune e chakra. Scarica ${Brand.name} e, quando ti '
+        'registri, incolla questo link: riceviamo 60 Eos a testa. $link';
   }
 }
 

@@ -19,10 +19,10 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
-import '../../core/condivisione/porta_della_condivisione.dart';
 import '../../core/entitlement/registro_degli_eos.dart';
 import '../../services/app_services.dart';
 import 'card_del_traguardo.dart';
+import 'card_del_sigillo_da_mandare.dart';
 import 'sentiero_screen.dart';
 import '../../design_system/components/icona_degli_eos.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
@@ -1103,10 +1103,18 @@ Future<void> condividiIlTraguardo(
     uid = null;
   }
   final maestro = MaestroScope.forse(context)?.key.maestro?.name;
-  final andata = await PortaDellaCondivisione.testo(
-    TestoDellaCondivisione.perIlTraguardo(traguardo, modo,
+  // **E PARTE CON LA SUA IMMAGINE, ordine DW voce 04.** Dalla festa partiva
+  // un testo solo: chi lo riceveva non vedeva niente del Sigillo.
+  final andata = await mandaUnaCardFuoriCampo(
+    context,
+    card: CardDelSigilloDaMandare(
+        traguardo: traguardo,
+        palette: MaestroScope.forse(context) ?? MaestroPalette.neutral),
+    testo: TestoDellaCondivisione.perIlTraguardo(traguardo, modo,
         codiceInvito: TestoDellaCondivisione.codiceDellInvito(uid, maestro)),
+    nomeDelFile: 'sigillo_${traguardo.id}.png',
   );
+  if (!context.mounted) return;
   if (!andata) return;
 
   // 2. SI SEGNA, cosi' il bonus in sospeso non resta in sospeso per sempre.

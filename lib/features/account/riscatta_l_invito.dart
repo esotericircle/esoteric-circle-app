@@ -133,7 +133,8 @@ Future<void> riscattaIlCodiceDellInvito(
   if (!context.mounted) return;
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: Text(accolto
-        ? 'Fatto: chi ti ha invitato riceverà il suo premio.'
+        // Ordine DW voce 05: il premio arriva a tutti e due, e si dice.
+        ? 'Fatto: 60 Eos a te e 60 a chi ti ha invitato.'
         : 'Questo codice non vale: forse è il tuo, o lo hai già usato.'),
   ));
 }

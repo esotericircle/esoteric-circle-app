@@ -16,6 +16,7 @@ import '../chat/user_profile.dart';
 import '../identity/profile_controller.dart';
 import '../sigilli/diario_del_cammino.dart';
 import '../../features/onboarding/scena_del_ritrovamento.dart';
+import '../../features/onboarding/domanda_dell_invito.dart';
 import '../onboarding/onboarding_controller.dart';
 import 'cammino_da_custodire.dart';
 import 'rinascita_del_cammino.dart';
@@ -273,6 +274,21 @@ class CustodeDelCammino {
   /// ritrovamento e' una notizia solo nel momento in cui si temeva di aver
   /// perso qualcosa.
   static Future<Ritrovamento?> dopoIlRiconoscimento(
+    BuildContext context, {
+    bool mostraLaScena = true,
+  }) async {
+    final esito =
+        await _dopoIlRiconoscimento(context, mostraLaScena: mostraLaScena);
+    // **E CHI SI E' APPENA REGISTRATO PUO' DIRE CHI LO HA INVITATO.** Ordine
+    // DW voce 05: una volta, dopo tutto il resto, e solo a chi ha appena
+    // ricevuto la dote di benvenuto.
+    if (mostraLaScena && context.mounted) {
+      await DomandaDellInvito.dopoLaPrimaRegistrazione(context);
+    }
+    return esito;
+  }
+
+  static Future<Ritrovamento?> _dopoIlRiconoscimento(
     BuildContext context, {
     bool mostraLaScena = true,
   }) async {

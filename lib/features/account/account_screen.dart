@@ -29,6 +29,7 @@ import '../settings/settings_screen.dart';
 import 'profile_screen.dart';
 import 'dati_di_nascita_screen.dart';
 import 'riscatta_l_invito.dart';
+import 'invita_un_amico.dart';
 import 'notifiche_screen.dart';
 import '../shell/vie_del_cerchio.dart';
 import '../onboarding/primo_approdo.dart';
@@ -81,10 +82,20 @@ class AccountScreen extends StatelessWidget {
       // porta: questa. Sta qui e non nell'onboarding perche' chi arriva col
       // link puo' riconoscere chi lo ha invitato quando vuole, e non solo nei
       // primi minuti.
+      // **INVITA UN AMICO, ordine DW voce 05.** Invitare qualcuno si poteva
+      // solo dalla festa di un Sigillo: senza un traguardo acceso non c'era
+      // nessuna strada.
+      _AccountEntry(
+        id: 'invita',
+        title: 'Invita un amico',
+        subtitle: '60 Eos a te e 60 a chi entra dal tuo invito',
+        icon: Icons.card_giftcard_outlined,
+        onTap: (context) => invitaUnAmico(context),
+      ),
       const _AccountEntry(
         id: 'invito',
         title: 'Chi ti ha invitato',
-        subtitle: 'Incolla il codice e chi ti ha portato riceve il premio',
+        subtitle: 'Incolla il codice: 60 Eos a te e a chi ti ha invitato',
         icon: Icons.person_add_alt_1_outlined,
         onTap: apriIlRiscattoDellInvito,
       ),
@@ -925,7 +936,8 @@ Future<bool> _neSeiDavveroSicuro(BuildContext context,
     builder: (dialogo) => AlertDialog(
       key: const Key('cancellazione_ultima_conferma'),
       backgroundColor: ColorTokens.neutralSurface,
-      title: Text(LaMarcaDelGenere.risolvi('[Ne sei davvero sicuro|'
+      title: Text(
+          LaMarcaDelGenere.risolvi('[Ne sei davvero sicuro|'
               'Ne sei davvero sicura|Vuoi davvero farlo]?'),
           style: TypographyTokens.titoloScheda()),
       content: Text(

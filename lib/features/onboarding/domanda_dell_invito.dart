@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../core/entitlement/question_allowance.dart';
+import 'package:provider/provider.dart';
 
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -102,6 +104,36 @@ class DomandaDellInvito extends StatefulWidget {
     );
   }
 
+  /// **LA DOMANDA TORNA, UNA VOLTA E AL MOMENTO GIUSTO. Ordine DW voce 05.**
+  ///
+  /// L'ordine CE voce 02 l'aveva tolta, e con ragione: compariva da sola a
+  /// chi apriva il Santuario, prima ancora di sapere dove fosse. Il fondatore,
+  /// davanti al censimento, l'ha rivoluta **all'ingresso, dopo la
+  /// registrazione**: e' il solo momento in cui chi arriva ha appena scelto di
+  /// restare, e il link dell'invito e' ancora negli appunti.
+  ///
+  /// Si chiede **solo a chi ha appena ricevuto la dote di benvenuto**, cioe'
+  /// a chi si e' registrato adesso per la prima volta, e **una volta sola**:
+  /// la memoria si segna prima di aprire il foglio, cosi' anche chi lo chiude
+  /// senza rispondere non lo rivede.
+  static Future<void> dopoLaPrimaRegistrazione(BuildContext context) async {
+    var appenaArrivato = false;
+    try {
+      appenaArrivato =
+          context.read<QuestionAllowance>().benvenutoAppenaArrivato;
+    } catch (senzaProvider) {
+      appenaArrivato = false;
+    }
+    if (!appenaArrivato) return;
+    if (await MemoriaDellInvito.giaChiesto()) return;
+    await MemoriaDellInvito.segnaChiesta();
+    if (!context.mounted) return;
+    final codice = await chiedi(context);
+    if (codice == null || !sembraUnCodiceDInvito(codice)) return;
+    if (!context.mounted) return;
+    await riscattaIlCodiceDellInvito(context, codice);
+  }
+
   @override
   State<DomandaDellInvito> createState() => _DomandaDellInvitoState();
 }
@@ -168,8 +200,8 @@ class _DomandaDellInvitoState extends State<DomandaDellInvito> {
             const SizedBox(height: SpacingTokens.sm),
             ParagrafiDiLettura(
               testo: LaMarcaDelGenere.risolvi('Se [sei arrivato|sei arrivata|'
-                  'sei qui] da un invito, chi te lo ha mandato '
-                  'riceve il suo premio. Tocca Incolla: dal link che hai '
+                  'sei qui] da un invito, ricevete 60 Eos a testa, tu e chi '
+                  'te lo ha mandato. Tocca Incolla: dal link che hai '
                   'ricevuto prendiamo soltanto il codice. Si fa una volta '
                   'sola.'),
               stile: TypographyTokens.lettura()
