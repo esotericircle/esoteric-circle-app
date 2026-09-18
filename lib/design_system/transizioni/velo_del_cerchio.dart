@@ -70,6 +70,18 @@ Future<T?> foglioDelCerchio<T>({
     shape: shape,
     constraints: constraints,
     barrierColor: VeloDelCerchio.barriera,
+    // **IL FOGLIO SI FERMA SOTTO LE BARRE IN ALTO. Ordine DY voce 03.**
+    //
+    // Il fatto, dal fondatore con due catture: il titolo di *Fonti e metodo*
+    // dentro la barra di stato e la prima riga sotto la barra dell'identita'.
+    // La causa: un foglio che puo' crescere (`isScrollControlled`) sale fino
+    // al bordo dello schermo, e la barra dell'identita', che vive sopra il
+    // Navigator, gli si disegna sopra. La barra dichiara la sua altezza nel
+    // `padding.top` proprio perche' ogni area sicura la rispetti: con questa
+    // riga il foglio la rispetta, e il suo testo scorre sotto di lei invece
+    // che dietro. Vale per tutti i fogli dell'app, perche' passano tutti da
+    // qui; un foglio basso non si accorge di niente.
+    useSafeArea: true,
   );
 }
 

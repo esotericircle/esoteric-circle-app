@@ -96,9 +96,17 @@ void main() {
     Future<void> monta(WidgetTester tester,
         {required bool armato,
         Size schermo = const Size(360, 800),
-        double altoIlBersaglio = 60}) async {
-      SharedPreferences.setMockInitialValues(
-          armato ? {MemoriaDelPrimoApprodo.chiaveArmata: true} : const {});
+        double altoIlBersaglio = 60,
+        Map<String, Object> disco = const {},
+        bool apertura = false}) async {
+      SharedPreferences.setMockInitialValues({
+        if (armato) MemoriaDelPrimoApprodo.chiaveArmata: true,
+        ...disco,
+      });
+      // **L'APERTURA E' IN MEMORIA, e le prove vivono in un processo solo.**
+      MemoriaDelPrimoApprodo.dimenticaLApertura();
+      addTearDown(MemoriaDelPrimoApprodo.dimenticaLApertura);
+      if (apertura) MemoriaDelPrimoApprodo.nuovaApertura();
       tester.view.devicePixelRatio = 1.0;
       tester.view.physicalSize = schermo;
       addTearDown(tester.view.resetPhysicalSize);
@@ -132,12 +140,22 @@ void main() {
       expect(find.text('1 di 5'), findsOneWidget);
     });
 
-    testWidgets('lo skip c\'e\' su tutti e cinque', (tester) async {
+    testWidgets('lo skip c\'e\' su tutti e cinque, e Disattiva accanto',
+        (tester) async {
       await monta(tester, armato: true);
       for (var i = 0; i < cinqueFumetti.length; i++) {
         expect(find.byKey(const Key('primo_approdo_salta')), findsOneWidget,
             reason: 'al fumetto ${i + 1} non si puo\' chiudere, e l\'ordine '
                 'chiede di poterlo fare in ogni momento');
+        // **DISATTIVA, ordine DY voce 01**, su tutti e cinque come Salta.
+        expect(find.byKey(const Key('primo_approdo_disattiva')), findsOneWidget,
+            reason: 'al fumetto ${i + 1} manca Disattiva');
+        final salta =
+            tester.getRect(find.byKey(const Key('primo_approdo_salta')));
+        final spegni =
+            tester.getRect(find.byKey(const Key('primo_approdo_disattiva')));
+        expect(salta.overlaps(spegni), isFalse,
+            reason: 'Salta e Disattiva si sovrappongono');
         expect(find.text('${i + 1} di 5'), findsOneWidget);
         if (i < cinqueFumetti.length - 1) {
           await tester.tap(find.byKey(const Key('primo_approdo_avanti')));
@@ -146,16 +164,90 @@ void main() {
       }
     });
 
-    testWidgets('saltando se ne va, e non torna piu\'', (tester) async {
-      await monta(tester, armato: true);
+    testWidgets('saltando se ne va per oggi, e all\'apertura dopo torna',
+        (tester) async {
+      // Chi ha visto il tutorial ha fatto il Risveglio.
+      await monta(tester, armato: true, disco: {'onboarding.done': true});
       await tester.tap(find.byKey(const Key('primo_approdo_salta')));
       await tester.pumpAndSettle();
       expect(find.text('IL CERCHIO TI ACCOGLIE'), findsNothing);
       final p = await SharedPreferences.getInstance();
-      expect(p.getBool(MemoriaDelPrimoApprodo.chiave), isTrue,
-          reason: 'chi ha saltato lo rivedra\' al prossimo avvio');
       expect(p.getBool(MemoriaDelPrimoApprodo.chiaveArmata), isNull,
-          reason: 'l\'innesco resta armato, e il tutorial riparte da solo');
+          reason: 'l\'innesco del Risveglio resta armato, e il tutorial '
+              'riparte da solo nella stessa apertura');
+      expect(p.getBool(MemoriaDelPrimoApprodo.chiaveDisattivato), isNull,
+          reason: 'Salta ha scritto la scelta di Disattiva');
+
+      // **ORDINE DY VOCE 01**: *"se preme su salta la prossima volta il
+      // tutorial si presenta ancora"*. L'apertura dopo, sullo stesso disco.
+      await tester.pumpWidget(const SizedBox());
+      MemoriaDelPrimoApprodo.nuovaApertura();
+      await tester.pumpWidget(const MaterialApp(
+          home: PrimoApprodo(child: Scaffold(body: SizedBox()))));
+      await tester.pumpAndSettle();
+      expect(find.text('IL CERCHIO TI ACCOGLIE'), findsOneWidget,
+          reason: 'chi ha saltato non lo rivede all\'apertura dopo');
+    });
+
+    testWidgets(
+        'DY.01: all\'apertura si presenta, anche a chi l\'ha gia\' visto',
+        (tester) async {
+      await monta(tester, armato: false, apertura: true, disco: {
+        'onboarding.done': true,
+        MemoriaDelPrimoApprodo.chiave: true,
+      });
+      expect(find.text('IL CERCHIO TI ACCOGLIE'), findsOneWidget,
+          reason: 'all\'apertura dopo la intro il tutorial deve attivarsi '
+              'sempre, finche\' non si disattiva');
+    });
+
+    testWidgets('DY.01: prima del Risveglio l\'apertura non lo accende',
+        (tester) async {
+      await monta(tester, armato: false, apertura: true);
+      expect(find.text('IL CERCHIO TI ACCOGLIE'), findsNothing,
+          reason: 'sopra il rito non si arriva alla home: il velo '
+              'coprirebbe la prima cosa che una persona nuova vede');
+    });
+
+    testWidgets('DY.01: disattivando se ne va, e non torna piu\'',
+        (tester) async {
+      await monta(tester,
+          armato: false, apertura: true, disco: {'onboarding.done': true});
+      await tester.tap(find.byKey(const Key('primo_approdo_disattiva')));
+      await tester.pumpAndSettle();
+      expect(find.text('IL CERCHIO TI ACCOGLIE'), findsNothing);
+      final p = await SharedPreferences.getInstance();
+      expect(p.getBool(MemoriaDelPrimoApprodo.chiaveDisattivato), isTrue);
+      expect(MemoriaDelPrimoApprodo.disattivato.value, isTrue);
+
+      await tester.pumpWidget(const SizedBox());
+      MemoriaDelPrimoApprodo.nuovaApertura();
+      await tester.pumpWidget(const MaterialApp(
+          home: PrimoApprodo(child: Scaffold(body: SizedBox()))));
+      await tester.pumpAndSettle();
+      expect(find.text('IL CERCHIO TI ACCOGLIE'), findsNothing,
+          reason: 'disattivato, si e\' presentato di nuovo all\'apertura');
+
+      // Riattivato dal menu', all'apertura dopo torna.
+      await MemoriaDelPrimoApprodo.riattiva();
+      await tester.pumpWidget(const SizedBox());
+      MemoriaDelPrimoApprodo.nuovaApertura();
+      await tester.pumpWidget(const MaterialApp(
+          home: PrimoApprodo(child: Scaffold(body: SizedBox()))));
+      await tester.pumpAndSettle();
+      expect(find.text('IL CERCHIO TI ACCOGLIE'), findsOneWidget,
+          reason: 'riattivato dal menu\', non torna all\'apertura');
+    });
+
+    testWidgets('DY.01: quando il Risveglio finisce, si presenta subito',
+        (tester) async {
+      await monta(tester, armato: false);
+      expect(find.text('IL CERCHIO TI ACCOGLIE'), findsNothing);
+      await tester.runAsync(MemoriaDelPrimoApprodo.arma);
+      await tester.pumpAndSettle();
+      expect(find.text('IL CERCHIO TI ACCOGLIE'), findsOneWidget,
+          reason: 'il tutorial montato sotto il Risveglio non si accorge che '
+              'il rito e\' finito, e aspetta l\'apertura dopo');
     });
 
     testWidgets('arrivando in fondo se ne va', (tester) async {
@@ -264,6 +356,7 @@ void main() {
       for (final chiave in const [
         MemoriaDelPrimoApprodo.chiave,
         MemoriaDelPrimoApprodo.chiaveArmata,
+        MemoriaDelPrimoApprodo.chiaveDisattivato,
       ]) {
         expect(chiave.startsWith('avvisi.'), isTrue,
             reason: '$chiave sta fuori dai prefissi che la cancellazione '
@@ -294,6 +387,24 @@ void main() {
           reason:
               'l\'arma e\' tornata dentro il controller, e da li\' si accende '
               'in ogni prova che dichiara l\'onboarding fatto');
+    });
+
+    test('DY.02: il menu\' utente lo attiva e lo disattiva', () {
+      final sorgente =
+          File('lib/features/account/account_screen.dart').readAsStringSync();
+      for (final pezzo in const [
+        "id: 'tutorial_all_apertura'",
+        'MemoriaDelPrimoApprodo.riattiva()',
+        'MemoriaDelPrimoApprodo.disattiva()',
+        'valueListenable: MemoriaDelPrimoApprodo.disattivato',
+      ]) {
+        expect(sorgente.contains(pezzo), isTrue,
+            reason: 'il menu\' utente non porta piu\' "$pezzo", e l\'ordine '
+                'DY chiede di attivarlo e disattivarlo da li\'');
+      }
+      final avvio = File('lib/main.dart').readAsStringSync();
+      expect(avvio.contains('MemoriaDelPrimoApprodo.nuovaApertura()'), isTrue,
+          reason: 'l\'app non arma piu\' il tutorial a ogni apertura');
     });
 
     test('il menu\' utente lo fa riapparire', () {

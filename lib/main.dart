@@ -12,6 +12,7 @@ import 'core/l10n/la_lingua_del_cerchio.dart';
 import 'services/app_services.dart';
 import 'services/ai/registro_dei_guasti.dart';
 import 'core/sigilli/distanza_fra_le_feste.dart';
+import 'features/onboarding/primo_approdo.dart';
 
 /// Punto di ingresso di Esoteric Circle.
 ///
@@ -99,5 +100,9 @@ Future<void> main() async {
   // finisce quando il processo finisce; azzerarlo qui lo rende esplicito
   // invece che affidato al fatto che una variabile statica nasca a zero.
   DistanzaFraLeFeste.nuovaApertura();
+  // **E IL TUTORIAL SI PRESENTA A OGNI APERTURA. Ordine DY voce 01.** Anche
+  // lui vive in memoria: "questa apertura" e' questo processo, e le prove,
+  // che non chiamano main(), non nascono con un velo sopra.
+  MemoriaDelPrimoApprodo.nuovaApertura();
   runApp(EsotericCircleApp(services: services));
 }

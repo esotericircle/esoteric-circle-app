@@ -54,258 +54,299 @@ class AccountScreen extends StatelessWidget {
       PassaggioDelCerchio.rotta<void>((_) => const AccountScreen(),
           settings: const RouteSettings(arguments: PortaDelCerchio.account));
 
-  @override
-  Widget build(BuildContext context) {
-    final entries = <_AccountEntry>[
-      _AccountEntry(
-        id: 'profilo',
-        title: 'Profilo',
-        subtitle: 'Nome, avatar e dati personali',
-        icon: Icons.person_outline_rounded,
-        onTap: (context) => Navigator.of(context).push(ProfileScreen.route()),
-      ),
-      // I DATI DI NASCITA SI CORREGGONO. Prima si raccoglievano una volta sola
-      // nel Risveglio e non c'era piu' modo di toccarli: chi l'aveva concluso
-      // senza dare l'ora non poteva piu' darla, e si rivedeva per sempre
-      // "l'Ascendente e le Case restano velati". Un dato che si raccoglie una
-      // volta sola e mai piu' non e' un dato, e' una trappola.
-      _AccountEntry(
-        id: 'nascita',
-        title: 'I tuoi dati di nascita',
-        subtitle: 'Giorno e ora esatta, per Ascendente e Case',
-        icon: Icons.cake_outlined,
-        onTap: (context) =>
-            Navigator.of(context).push(DatiDiNascitaScreen.route()),
-      ),
-      // **CHI TI HA INVITATO, ordine BX voce 02.** Il premio dell'invito lo
-      // paga l'ingresso vero di una persona, e l'ingresso ha bisogno di una
-      // porta: questa. Sta qui e non nell'onboarding perche' chi arriva col
-      // link puo' riconoscere chi lo ha invitato quando vuole, e non solo nei
-      // primi minuti.
-      // **INVITA UN AMICO, ordine DW voce 05.** Invitare qualcuno si poteva
-      // solo dalla festa di un Sigillo: senza un traguardo acceso non c'era
-      // nessuna strada.
-      _AccountEntry(
-        id: 'invita',
-        title: 'Invita un amico',
-        subtitle: 'Un premio in Eos a te e a chi entra dal tuo invito',
-        icon: Icons.card_giftcard_outlined,
-        onTap: (context) => invitaUnAmico(context),
-      ),
-      const _AccountEntry(
-        id: 'invito',
-        title: 'Chi ti ha invitato',
-        subtitle: 'Incolla il codice: un premio in Eos a te e a chi ti ha invitato',
-        icon: Icons.person_add_alt_1_outlined,
-        onTap: apriIlRiscattoDellInvito,
-      ),
-      // CUSTODIRE IL PROPRIO CIELO, ordine N voce 1c: la via che resta a chi
-      // ha rimandato. La voce compare SOLO a chi e' ancora anonimo, perche' a
-      // chi ha gia' custodito direbbe una cosa gia' fatta.
-      if (_eAnonimo(context))
+  /// **LE VOCI, in un metodo e non dentro `build`. Ordine DY voce 02.** La
+  /// voce del tutorial dice se e' attivo o disattivato, e al tocco cambia:
+  /// l'elenco si ricostruisce quando cambia la scelta, e per farlo deve
+  /// potersi ricostruire da solo.
+  List<_AccountEntry> _voci(BuildContext context) => <_AccountEntry>[
         _AccountEntry(
-          id: 'custodia',
-          title: 'Custodisci il tuo cielo',
-          // IL SOTTOTITOLO DICE A COSA SERVE, ordine AL voce 06, con parole
-          // che non richiedono l'Architetto per essere capite.
-          //
-          // **E DICE IL VERO, ordine AP voce 08.** Fino alla 2183 questa
-          // riga prometteva "non perdi nulla" mentre i traguardi accesi si
-          // perdevano davvero: Mauro lo ha misurato reinstallando l'app.
-          // Adesso il cammino e' custodito (voci 01 e 03) e la riga puo'
-          // NOMINARE cio' che torna, invece di promettere in blocco. Il
-          // cielo di nascita torna perche' torna la nascita, che e' cio' da
-          // cui si ricalcola: e' la stessa scelta della voce 01.
-          // **E DICHIARA IL PREMIO, ordine BH voce 01**: la prima
-          // registrazione porta il dono del server, e l'invito lo scrive.
-          subtitle: '${PromessaDellaRegistrazione.fraseCorta(context)}. '
-              'Cielo di nascita, traguardi accesi, ricordi e Eos tornano '
-              'su qualsiasi telefono',
-          icon: Icons.shield_moon_outlined,
+          id: 'profilo',
+          title: 'Profilo',
+          subtitle: 'Nome, avatar e dati personali',
+          icon: Icons.person_outline_rounded,
+          onTap: (context) => Navigator.of(context).push(ProfileScreen.route()),
+        ),
+        // I DATI DI NASCITA SI CORREGGONO. Prima si raccoglievano una volta sola
+        // nel Risveglio e non c'era piu' modo di toccarli: chi l'aveva concluso
+        // senza dare l'ora non poteva piu' darla, e si rivedeva per sempre
+        // "l'Ascendente e le Case restano velati". Un dato che si raccoglie una
+        // volta sola e mai piu' non e' un dato, e' una trappola.
+        _AccountEntry(
+          id: 'nascita',
+          title: 'I tuoi dati di nascita',
+          subtitle: 'Giorno e ora esatta, per Ascendente e Case',
+          icon: Icons.cake_outlined,
+          onTap: (context) =>
+              Navigator.of(context).push(DatiDiNascitaScreen.route()),
+        ),
+        // **CHI TI HA INVITATO, ordine BX voce 02.** Il premio dell'invito lo
+        // paga l'ingresso vero di una persona, e l'ingresso ha bisogno di una
+        // porta: questa. Sta qui e non nell'onboarding perche' chi arriva col
+        // link puo' riconoscere chi lo ha invitato quando vuole, e non solo nei
+        // primi minuti.
+        // **INVITA UN AMICO, ordine DW voce 05.** Invitare qualcuno si poteva
+        // solo dalla festa di un Sigillo: senza un traguardo acceso non c'era
+        // nessuna strada.
+        _AccountEntry(
+          id: 'invita',
+          title: 'Invita un amico',
+          subtitle: 'Un premio in Eos a te e a chi entra dal tuo invito',
+          icon: Icons.card_giftcard_outlined,
+          onTap: (context) => invitaUnAmico(context),
+        ),
+        const _AccountEntry(
+          id: 'invito',
+          title: 'Chi ti ha invitato',
+          subtitle:
+              'Incolla il codice: un premio in Eos a te e a chi ti ha invitato',
+          icon: Icons.person_add_alt_1_outlined,
+          onTap: apriIlRiscattoDellInvito,
+        ),
+        // CUSTODIRE IL PROPRIO CIELO, ordine N voce 1c: la via che resta a chi
+        // ha rimandato. La voce compare SOLO a chi e' ancora anonimo, perche' a
+        // chi ha gia' custodito direbbe una cosa gia' fatta.
+        if (_eAnonimo(context))
+          _AccountEntry(
+            id: 'custodia',
+            title: 'Custodisci il tuo cielo',
+            // IL SOTTOTITOLO DICE A COSA SERVE, ordine AL voce 06, con parole
+            // che non richiedono l'Architetto per essere capite.
+            //
+            // **E DICE IL VERO, ordine AP voce 08.** Fino alla 2183 questa
+            // riga prometteva "non perdi nulla" mentre i traguardi accesi si
+            // perdevano davvero: Mauro lo ha misurato reinstallando l'app.
+            // Adesso il cammino e' custodito (voci 01 e 03) e la riga puo'
+            // NOMINARE cio' che torna, invece di promettere in blocco. Il
+            // cielo di nascita torna perche' torna la nascita, che e' cio' da
+            // cui si ricalcola: e' la stessa scelta della voce 01.
+            // **E DICHIARA IL PREMIO, ordine BH voce 01**: la prima
+            // registrazione porta il dono del server, e l'invito lo scrive.
+            subtitle: '${PromessaDellaRegistrazione.fraseCorta(context)}. '
+                'Cielo di nascita, traguardi accesi, ricordi e Eos tornano '
+                'su qualsiasi telefono',
+            icon: Icons.shield_moon_outlined,
+            onTap: (context) async {
+              // **IL TOCCO RISPONDE SEMPRE, ordine AL voce 06.** Qui c'era
+              // un'attesa nuda su `quantiMomenti`, che sono SEI letture di rete
+              // in fila senza tetto: su una rete lenta il foglio arrivava dopo
+              // secondi o mai, e un'eccezione moriva inghiottita dal gesto.
+              // "Al tocco non succede nulla" era esattamente questo. Il numero
+              // dei momenti qui e' un ornamento: due secondi di tetto, poi si
+              // apre comunque, e il guasto si registra invece di sparire.
+              final servizi = context.read<AppServices>();
+              var momenti = 1;
+              try {
+                momenti = await servizi.memory
+                    .quantiMomenti()
+                    .timeout(const Duration(seconds: 2));
+              } catch (errore) {
+                servizi.guasti.registra(
+                  operazione: 'conta dei momenti per la custodia',
+                  errore: errore,
+                );
+              }
+              if (!context.mounted) return;
+              // Dall'area account si chiede sempre, anche con zero momenti: qui
+              // e' la persona ad averlo cercato, e un invito che non si apre
+              // sarebbe un vicolo cieco.
+              await mostraInvitoACustodire(context,
+                  momenti: momenti > 0 ? momenti : 1);
+            },
+          ),
+        // **LA VERIFICA DELL'EMAIL. Ordine AZ voce 06, situazione S18.** La
+        // voce compare solo a chi e' entrato con un'email e non l'ha ancora
+        // verificata: a chi e' entrato con Google o con Apple l'indirizzo lo ha
+        // gia' verificato il fornitore, e chiederglielo sarebbe un compito
+        // inventato.
+        if (_emailDaVerificare(context))
+          _AccountEntry(
+            id: 'verifica_email',
+            title: 'Verifica la tua email',
+            // **ANCHE IL PREMIO, ordine BH voce 04**: il benvenuto arriva a
+            // verifica compiuta, e la riga lo dice.
+            subtitle:
+                'Sblocca il dono di benvenuto e il recupero della Password',
+            icon: Icons.mark_email_unread_outlined,
+            onTap: (context) => _verificaLaTuaEmail(context),
+          ),
+        // **CAMBIARE L'EMAIL. Ordine CB voce 03.**
+        //
+        // Il fondatore aveva fatto una DOMANDA il 27 agosto, "dal menu' utente
+        // e' possibile cambiare email e password?", e il 29 l'ha resa un
+        // ordine. La risposta misurata era: la password si', l'email no.
+        //
+        // **Si mostra solo a chi e' entrato con un'email e una parola.** A chi
+        // entra con Google o con Apple l'indirizzo lo governa il fornitore: da
+        // qui si cambierebbe solo la copia tenuta da Firebase, e la persona si
+        // ritroverebbe due indirizzi diversi per lo stesso Cerchio senza aver
+        // fatto niente di sbagliato. E' la stessa regola che l'ordine AZ voce
+        // 12 ha gia' applicato alla parola.
+        if (_haUnaParola(context))
+          _AccountEntry(
+            id: 'cambia_email',
+            title: 'Cambia la tua email',
+            subtitle: 'Ti scriviamo al nuovo indirizzo. Cambia quando rispondi',
+            icon: Icons.alternate_email_rounded,
+            onTap: (context) => _chiediLEmailNuova(context),
+          ),
+        // **CAMBIARE LA PAROLA. Ordine AZ voce 12, situazione S20.** Anche
+        // questa solo a chi ha una parola da cambiare.
+        if (_haUnaParola(context))
+          _AccountEntry(
+            id: 'cambia_parola',
+            title: 'Cambia la Password',
+            subtitle: 'Serve un accesso recente, altrimenti te lo diciamo',
+            icon: Icons.password_rounded,
+            onTap: (context) => _chiediLaParolaNuova(context),
+          ),
+        // **RIVEDI IL PRIMO APPRODO. Ordine CB voce 02.** Parole del fondatore:
+        // "potra' farlo riapparire dal menu' utente".
+        //
+        // **Sta qui e non dentro Privacy e dati**, perche' non e' un dato ne'
+        // una impostazione: e' la spiegazione dell'app, e chi la cerca la cerca
+        // vicino al proprio nome. Al tocco riarma il tutorial e riporta al
+        // Cerchio, perche' i cinque fumetti puntano cose che vivono solo li':
+        // aprirlo da qui lascerebbe quattro frecce nel vuoto.
+        _AccountEntry(
+          id: 'rivedi_primo_approdo',
+          title: 'Rivedi il primo approdo',
+          subtitle: 'I cinque fumetti che spiegano il Cerchio, in un minuto',
+          icon: Icons.explore_outlined,
           onTap: (context) async {
-            // **IL TOCCO RISPONDE SEMPRE, ordine AL voce 06.** Qui c'era
-            // un'attesa nuda su `quantiMomenti`, che sono SEI letture di rete
-            // in fila senza tetto: su una rete lenta il foglio arrivava dopo
-            // secondi o mai, e un'eccezione moriva inghiottita dal gesto.
-            // "Al tocco non succede nulla" era esattamente questo. Il numero
-            // dei momenti qui e' un ornamento: due secondi di tetto, poi si
-            // apre comunque, e il guasto si registra invece di sparire.
-            final servizi = context.read<AppServices>();
-            var momenti = 1;
-            try {
-              momenti = await servizi.memory
-                  .quantiMomenti()
-                  .timeout(const Duration(seconds: 2));
-            } catch (errore) {
-              servizi.guasti.registra(
-                operazione: 'conta dei momenti per la custodia',
-                errore: errore,
-              );
-            }
+            await MemoriaDelPrimoApprodo.rivedi();
             if (!context.mounted) return;
-            // Dall'area account si chiede sempre, anche con zero momenti: qui
-            // e' la persona ad averlo cercato, e un invito che non si apre
-            // sarebbe un vicolo cieco.
-            await mostraInvitoACustodire(context,
-                momenti: momenti > 0 ? momenti : 1);
+            Navigator.of(context).popUntil((r) => r.isFirst);
+            rivediIlPrimoApprodo.value++;
           },
         ),
-      // **LA VERIFICA DELL'EMAIL. Ordine AZ voce 06, situazione S18.** La
-      // voce compare solo a chi e' entrato con un'email e non l'ha ancora
-      // verificata: a chi e' entrato con Google o con Apple l'indirizzo lo ha
-      // gia' verificato il fornitore, e chiederglielo sarebbe un compito
-      // inventato.
-      if (_emailDaVerificare(context))
+        // **IL TUTORIAL SI ATTIVA E SI DISATTIVA DA QUI. Ordine DY voce 02.**
+        // Parole del fondatore: *"la voce attiva e disattiva deve comparire
+        // anche nel menu' utente"*. E' la stessa scelta del pulsante Disattiva
+        // dentro il tutorial, scritta nello stesso posto: da qualunque parte la
+        // si cambi, l'altra la vede. Sta accanto a Rivedi, che lo mostra
+        // adesso; questa decide se si presenta all'apertura.
         _AccountEntry(
-          id: 'verifica_email',
-          title: 'Verifica la tua email',
-          // **ANCHE IL PREMIO, ordine BH voce 04**: il benvenuto arriva a
-          // verifica compiuta, e la riga lo dice.
-          subtitle: 'Sblocca il dono di benvenuto e il recupero della Password',
-          icon: Icons.mark_email_unread_outlined,
-          onTap: (context) => _verificaLaTuaEmail(context),
+          id: 'tutorial_all_apertura',
+          title: 'Tutorial all\'apertura',
+          subtitle: MemoriaDelPrimoApprodo.disattivato.value
+              ? 'Disattivato. Tocca per riattivarlo'
+              : 'Attivo a ogni apertura. Tocca per disattivarlo',
+          icon: MemoriaDelPrimoApprodo.disattivato.value
+              ? Icons.toggle_off_outlined
+              : Icons.toggle_on_outlined,
+          onTap: (context) async {
+            final eraSpento = MemoriaDelPrimoApprodo.disattivato.value;
+            if (eraSpento) {
+              await MemoriaDelPrimoApprodo.riattiva();
+            } else {
+              await MemoriaDelPrimoApprodo.disattiva();
+            }
+            if (!context.mounted) return;
+            ScaffoldMessenger.maybeOf(context)?.showSnackBar(SnackBar(
+              content: Text(eraSpento
+                  ? 'Il tutorial torna a ogni apertura.'
+                  : 'Il tutorial non si presenterà più.'),
+            ));
+          },
         ),
-      // **CAMBIARE L'EMAIL. Ordine CB voce 03.**
-      //
-      // Il fondatore aveva fatto una DOMANDA il 27 agosto, "dal menu' utente
-      // e' possibile cambiare email e password?", e il 29 l'ha resa un
-      // ordine. La risposta misurata era: la password si', l'email no.
-      //
-      // **Si mostra solo a chi e' entrato con un'email e una parola.** A chi
-      // entra con Google o con Apple l'indirizzo lo governa il fornitore: da
-      // qui si cambierebbe solo la copia tenuta da Firebase, e la persona si
-      // ritroverebbe due indirizzi diversi per lo stesso Cerchio senza aver
-      // fatto niente di sbagliato. E' la stessa regola che l'ordine AZ voce
-      // 12 ha gia' applicato alla parola.
-      if (_haUnaParola(context))
         _AccountEntry(
-          id: 'cambia_email',
-          title: 'Cambia la tua email',
-          subtitle: 'Ti scriviamo al nuovo indirizzo. Cambia quando rispondi',
-          icon: Icons.alternate_email_rounded,
-          onTap: (context) => _chiediLEmailNuova(context),
+          id: 'abbonamento',
+          title: 'Abbonamento',
+          subtitle: 'Il tuo piano e i livelli del Cerchio',
+          icon: Icons.workspace_premium_outlined,
+          onTap: (context) => Navigator.of(context).push(PricingScreen.route()),
         ),
-      // **CAMBIARE LA PAROLA. Ordine AZ voce 12, situazione S20.** Anche
-      // questa solo a chi ha una parola da cambiare.
-      if (_haUnaParola(context))
+        // LE VOCI IN ARRIVO PARLANO, ordine AL voce 06: al tocco rispondono con
+        // l'anticipo elegante del Santuario, mai il silenzio, e l'anticipo dice
+        // cosa arrivera' con parole sue, non con una frase qualunque.
+        // **LE NOTIFICHE SI ATTIVANO DA QUI, e prima era un anticipo.**
+        // Ordine BB voce 10, fatto del fondatore: "le notifiche agli orari di
+        // ogni dono del giorno non funzionano e nemmeno il pulsante nel menu
+        // utente".
+        //
+        // **Sul pulsante aveva ragione al cento per cento**: questa voce era un
+        // `teaser`, cioe' una voce che al tocco racconta cosa arrivera'. Non era
+        // rotta, **non esisteva**: prometteva "qui sceglierai" e non faceva
+        // scegliere niente.
+        //
+        // **La regia delle chiamate c'era gia' e funzionava**, e riprogramma a
+        // ogni avvio; ma si ferma alla prima riga se il permesso non c'e', e su
+        // Android 13 e oltre **il permesso va chiesto e nessuno lo chiedeva da
+        // qui**. Adesso il tocco lo chiede e poi programma davvero.
+        //
+        // **E DAL TOCCO SI APRE IL MENU', invece di decidere per la persona.**
+        // Ordine BC voce 05, parole del fondatore: "sara' proprio l'utente che
+        // potra' gestire e attivare o disattivare i singoli orari delle
+        // notifiche nel menu' notifiche". Prima il tocco chiedeva il permesso e
+        // programmava tutto insieme: un interruttore solo per cinque
+        // appuntamenti, e per spegnerne uno bisognava uscire dall'app.
+        // **I RICORDI DEL CERCHIO, ordine CG voce 01.** Prima porta delle tre:
+        // il menu' utente sotto il nome. Le altre due sono il rimando del
+        // Passaporto accanto ai traguardi e la riga in cima a ogni chat, e
+        // tutte e tre portano alla STESSA rotta: due schermate che mostrano le
+        // stesse cose sono la famiglia di difetti piu' numerosa del progetto.
         _AccountEntry(
-          id: 'cambia_parola',
-          title: 'Cambia la Password',
-          subtitle: 'Serve un accesso recente, altrimenti te lo diciamo',
-          icon: Icons.password_rounded,
-          onTap: (context) => _chiediLaParolaNuova(context),
+          id: 'ricordi',
+          title: 'Cosmic Journal',
+          subtitle: 'Il tuo cammino e i tuoi ricordi, giorno per giorno',
+          icon: Icons.auto_stories_outlined,
+          onTap: (context) => Navigator.of(context).push(RicordiScreen.route()),
         ),
-      // **RIVEDI IL PRIMO APPRODO. Ordine CB voce 02.** Parole del fondatore:
-      // "potra' farlo riapparire dal menu' utente".
-      //
-      // **Sta qui e non dentro Privacy e dati**, perche' non e' un dato ne'
-      // una impostazione: e' la spiegazione dell'app, e chi la cerca la cerca
-      // vicino al proprio nome. Al tocco riarma il tutorial e riporta al
-      // Cerchio, perche' i cinque fumetti puntano cose che vivono solo li':
-      // aprirlo da qui lascerebbe quattro frecce nel vuoto.
-      _AccountEntry(
-        id: 'rivedi_primo_approdo',
-        title: 'Rivedi il primo approdo',
-        subtitle: 'I cinque fumetti che spiegano il Cerchio, in un minuto',
-        icon: Icons.explore_outlined,
-        onTap: (context) async {
-          await MemoriaDelPrimoApprodo.rivedi();
-          if (!context.mounted) return;
-          Navigator.of(context).popUntil((r) => r.isFirst);
-          rivediIlPrimoApprodo.value++;
-        },
-      ),
-      _AccountEntry(
-        id: 'abbonamento',
-        title: 'Abbonamento',
-        subtitle: 'Il tuo piano e i livelli del Cerchio',
-        icon: Icons.workspace_premium_outlined,
-        onTap: (context) => Navigator.of(context).push(PricingScreen.route()),
-      ),
-      // LE VOCI IN ARRIVO PARLANO, ordine AL voce 06: al tocco rispondono con
-      // l'anticipo elegante del Santuario, mai il silenzio, e l'anticipo dice
-      // cosa arrivera' con parole sue, non con una frase qualunque.
-      // **LE NOTIFICHE SI ATTIVANO DA QUI, e prima era un anticipo.**
-      // Ordine BB voce 10, fatto del fondatore: "le notifiche agli orari di
-      // ogni dono del giorno non funzionano e nemmeno il pulsante nel menu
-      // utente".
-      //
-      // **Sul pulsante aveva ragione al cento per cento**: questa voce era un
-      // `teaser`, cioe' una voce che al tocco racconta cosa arrivera'. Non era
-      // rotta, **non esisteva**: prometteva "qui sceglierai" e non faceva
-      // scegliere niente.
-      //
-      // **La regia delle chiamate c'era gia' e funzionava**, e riprogramma a
-      // ogni avvio; ma si ferma alla prima riga se il permesso non c'e', e su
-      // Android 13 e oltre **il permesso va chiesto e nessuno lo chiedeva da
-      // qui**. Adesso il tocco lo chiede e poi programma davvero.
-      //
-      // **E DAL TOCCO SI APRE IL MENU', invece di decidere per la persona.**
-      // Ordine BC voce 05, parole del fondatore: "sara' proprio l'utente che
-      // potra' gestire e attivare o disattivare i singoli orari delle
-      // notifiche nel menu' notifiche". Prima il tocco chiedeva il permesso e
-      // programmava tutto insieme: un interruttore solo per cinque
-      // appuntamenti, e per spegnerne uno bisognava uscire dall'app.
-      // **I RICORDI DEL CERCHIO, ordine CG voce 01.** Prima porta delle tre:
-      // il menu' utente sotto il nome. Le altre due sono il rimando del
-      // Passaporto accanto ai traguardi e la riga in cima a ogni chat, e
-      // tutte e tre portano alla STESSA rotta: due schermate che mostrano le
-      // stesse cose sono la famiglia di difetti piu' numerosa del progetto.
-      _AccountEntry(
-        id: 'ricordi',
-        title: 'Cosmic Journal',
-        subtitle: 'Il tuo cammino e i tuoi ricordi, giorno per giorno',
-        icon: Icons.auto_stories_outlined,
-        onTap: (context) => Navigator.of(context).push(RicordiScreen.route()),
-      ),
-      _AccountEntry(
-        id: 'notifiche',
-        title: 'Notifiche',
-        subtitle: 'Gli appuntamenti dei doni del giorno',
-        icon: Icons.notifications_none_rounded,
-        onTap: (context) => Navigator.of(context).push(NotificheScreen.route()),
-      ),
-      _AccountEntry(
-        id: 'impostazioni',
-        title: 'Impostazioni',
-        subtitle: 'Preferenze, lingua, qualità grafica',
-        icon: Icons.settings_outlined,
-        onTap: (context) => Navigator.of(context).push(SettingsScreen.route()),
-      ),
-      // **SI ESCE. Ordine AZ voce 07, situazioni S09, S13 e S23.** Non
-      // esisteva: in tutto `lib/` c'era un `signOut` solo, quello di Google
-      // dentro `dimentica()`, e non toccava Firebase. Chi sbagliava account
-      // non aveva via di ritorno, e due persone sullo stesso telefono non
-      // erano previste. La voce compare solo a chi ha custodito: a un anonimo
-      // uscire vorrebbe dire buttare il proprio cammino senza averlo mai
-      // messo al sicuro, ed e' esattamente cio' che non deve poter succedere
-      // per sbaglio.
-      if (!_eAnonimo(context))
         _AccountEntry(
-          id: 'esci',
-          title: 'Esci dal Cerchio',
-          subtitle: 'Il tuo cammino resta custodito e ti ritrova al rientro',
-          icon: Icons.logout_rounded,
-          onTap: (context) => _chiediDiUscire(context),
+          id: 'notifiche',
+          title: 'Notifiche',
+          subtitle: 'Gli appuntamenti dei doni del giorno',
+          icon: Icons.notifications_none_rounded,
+          onTap: (context) =>
+              Navigator.of(context).push(NotificheScreen.route()),
         ),
-      // **PRIVACY E DATI, IL SOTTOMENU. Ordine BH voce 06.** Parole del
-      // fondatore: "la cancellazione dell'account e dati e anche privacy
-      // policy siano in fondo o magari in sotto menu, non direttamente
-      // accessibili, anche perche' sono poco utilizzate e per evitare click
-      // accidentali". Il vecchio anticipo "Privacy" e' diventato questa
-      // porta vera, ultima della lista: dentro ci stanno la policy, lo
-      // scarico dei dati e le due cancellazioni coi loro passi di
-      // protezione.
-      _AccountEntry(
-        id: 'privacy_e_dati',
-        title: 'Privacy e dati',
-        subtitle: 'La policy, i tuoi dati, le cancellazioni',
-        icon: Icons.shield_outlined,
-        onTap: (context) =>
-            Navigator.of(context).push(PrivacyEDatiScreen.route()),
-      ),
-    ];
+        _AccountEntry(
+          id: 'impostazioni',
+          title: 'Impostazioni',
+          subtitle: 'Preferenze, lingua, qualità grafica',
+          icon: Icons.settings_outlined,
+          onTap: (context) =>
+              Navigator.of(context).push(SettingsScreen.route()),
+        ),
+        // **SI ESCE. Ordine AZ voce 07, situazioni S09, S13 e S23.** Non
+        // esisteva: in tutto `lib/` c'era un `signOut` solo, quello di Google
+        // dentro `dimentica()`, e non toccava Firebase. Chi sbagliava account
+        // non aveva via di ritorno, e due persone sullo stesso telefono non
+        // erano previste. La voce compare solo a chi ha custodito: a un anonimo
+        // uscire vorrebbe dire buttare il proprio cammino senza averlo mai
+        // messo al sicuro, ed e' esattamente cio' che non deve poter succedere
+        // per sbaglio.
+        if (!_eAnonimo(context))
+          _AccountEntry(
+            id: 'esci',
+            title: 'Esci dal Cerchio',
+            subtitle: 'Il tuo cammino resta custodito e ti ritrova al rientro',
+            icon: Icons.logout_rounded,
+            onTap: (context) => _chiediDiUscire(context),
+          ),
+        // **PRIVACY E DATI, IL SOTTOMENU. Ordine BH voce 06.** Parole del
+        // fondatore: "la cancellazione dell'account e dati e anche privacy
+        // policy siano in fondo o magari in sotto menu, non direttamente
+        // accessibili, anche perche' sono poco utilizzate e per evitare click
+        // accidentali". Il vecchio anticipo "Privacy" e' diventato questa
+        // porta vera, ultima della lista: dentro ci stanno la policy, lo
+        // scarico dei dati e le due cancellazioni coi loro passi di
+        // protezione.
+        _AccountEntry(
+          id: 'privacy_e_dati',
+          title: 'Privacy e dati',
+          subtitle: 'La policy, i tuoi dati, le cancellazioni',
+          icon: Icons.shield_outlined,
+          onTap: (context) =>
+              Navigator.of(context).push(PrivacyEDatiScreen.route()),
+        ),
+      ];
 
+  @override
+  Widget build(BuildContext context) {
+    // La scelta del tutorial si legge dal disco all'apertura del menu', cosi'
+    // la voce dice il vero anche prima che il tutorial sia mai partito.
+    MemoriaDelPrimoApprodo.carica();
     return Scaffold(
       backgroundColor: ColorTokens.neutralDeepest,
       appBar: AppBar(
@@ -345,14 +386,21 @@ class AccountScreen extends StatelessWidget {
             // richiamo per chi aveva chiesto l'oblio e' stato rimosso con
             // la regola che lo rendeva necessario.
             Expanded(
-              child: ListView.separated(
-                key: const Key('account_list'),
-                padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
-                    SpacingTokens.md, SpacingTokens.lg, SpacingTokens.xxxl),
-                itemCount: entries.length,
-                separatorBuilder: (_, __) =>
-                    const SizedBox(height: SpacingTokens.sm),
-                itemBuilder: (context, i) => _AccountTile(entry: entries[i]),
+              child: ValueListenableBuilder<bool>(
+                valueListenable: MemoriaDelPrimoApprodo.disattivato,
+                builder: (context, _, __) {
+                  final entries = _voci(context);
+                  return ListView.separated(
+                    key: const Key('account_list'),
+                    padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
+                        SpacingTokens.md, SpacingTokens.lg, SpacingTokens.xxxl),
+                    itemCount: entries.length,
+                    separatorBuilder: (_, __) =>
+                        const SizedBox(height: SpacingTokens.sm),
+                    itemBuilder: (context, i) =>
+                        _AccountTile(entry: entries[i]),
+                  );
+                },
               ),
             ),
           ],

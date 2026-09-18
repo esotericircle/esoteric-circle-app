@@ -278,8 +278,13 @@ abstract final class MemoriaDelPrimoApprodo {
   /// di guasti che questo progetto ha gia' pagato col provider preteso.
   static const chiaveArmata = 'avvisi.primoApprodo.armato';
 
-  /// Quello che il tutorial scrive quando e' finito o saltato: chi l'ha visto
-  /// non lo rivede da solo, nemmeno se qualcuno riarma per sbaglio.
+  /// Quello che il tutorial scrive quando e' finito o saltato.
+  ///
+  /// **Non lo tiene piu' lontano. Ordine DY voce 01.** Fino alla build 2271
+  /// chi l'aveva visto non lo rivedeva da solo: era la regola dell'ordine CB,
+  /// *"solo appena l'utente approda per la prima volta"*. Il fondatore l'ha
+  /// cambiata: si presenta a ogni apertura finche' non si disattiva, e la
+  /// sola cosa che lo tiene lontano e' [chiaveDisattivato].
   static const chiave = 'avvisi.primoApprodo.visto';
 
   /// **ARMA IL PRIMO APPRODO**, cioe' dice che la prossima volta che si vede
@@ -288,13 +293,83 @@ abstract final class MemoriaDelPrimoApprodo {
   static Future<void> arma() async {
     final p = await SharedPreferences.getInstance();
     await p.setBool(chiaveArmata, true);
+    // **E LO DICE AL TUTORIAL GIA' MONTATO. Ordine DY voce 01.** Il Risveglio
+    // e' una rotta spinta sopra il guscio, e il tutorial vive sotto di lei
+    // dall'avvio: decideva solo alla nascita, quindi dopo il primo rito non
+    // compariva, e aspettava l'apertura dopo.
+    approdoDopoIlRito.value++;
   }
 
-  /// Vero solo se qualcuno ha armato E la persona non l'ha ancora visto.
+  /// **LA SCELTA DI NON VEDERLO PIU'. Ordine DY voci 01 e 02.**
+  ///
+  /// La scrive *Disattiva* nel tutorial e la voce del menu' utente, e la
+  /// toglie la stessa voce quando lo si riattiva. Sta sotto `avvisi.` come le
+  /// altre due: chi cancella tutto e torna e' una persona nuova.
+  static const chiaveDisattivato = 'avvisi.primoApprodo.disattivato';
+
+  /// Lo stato della scelta, per chi lo deve mostrare mentre cambia: la voce
+  /// del menu' utente dice "attivo" o "disattivato" e si ridisegna al tocco.
+  static final ValueNotifier<bool> disattivato = ValueNotifier<bool>(false);
+
+  /// **L'APERTURA DI OGGI. Ordine DY voce 01.** Parole del fondatore:
+  /// *"all'apertura dell'app, quando l'utente accede alla home dopo la
+  /// intro, il tutorial deve sempre attivarsi"*.
+  ///
+  /// **Vive in memoria e non su disco**, perche' "questa apertura" finisce
+  /// quando il processo finisce. La accende `main()`, cioe' l'app vera:
+  /// le prove e le anteprime non chiamano `main()`, quindi non nascono con un
+  /// velo sopra, che e' la ragione per cui il tutorial non e' mai nato acceso.
+  /// E' la stessa forma di `DistanzaFraLeFeste.nuovaApertura`.
+  static bool _questaApertura = false;
+
+  /// Chiamata da `main()` a ogni avvio del processo.
+  static void nuovaApertura() => _questaApertura = true;
+
+  /// Per le prove, che vivono tutte nello stesso processo: un'apertura finta
+  /// non deve passare da una prova all'altra.
+  @visibleForTesting
+  static void dimenticaLApertura() => _questaApertura = false;
+
+  /// La chiave del rito fatto, scritta da `OnboardingController.complete`.
+  /// Chi non ha ancora fatto il Risveglio non arriva alla home: sopra di lei
+  /// c'e' il rito, e un velo sopra il rito coprirebbe la prima cosa che vede.
+  static const _ritoFatto = 'onboarding.done';
+
+  /// **SI MOSTRA SE NON E' DISATTIVATO, e se questa e' un'apertura vera o il
+  /// Risveglio l'ha appena armato.** Ordine DY voce 01: *Salta* non scrive
+  /// piu' niente che lo tenga lontano, quindi all'apertura dopo torna.
   static Future<bool> daMostrare() async {
     final p = await SharedPreferences.getInstance();
-    if (!(p.getBool(chiaveArmata) ?? false)) return false;
-    return !(p.getBool(chiave) ?? false);
+    final spento = p.getBool(chiaveDisattivato) ?? false;
+    disattivato.value = spento;
+    if (spento) return false;
+    if (p.getBool(chiaveArmata) ?? false) return true;
+    return _questaApertura && (p.getBool(_ritoFatto) ?? false);
+  }
+
+  /// Legge la scelta dal disco, per chi la mostra senza aprire il tutorial.
+  static Future<bool> carica() async {
+    try {
+      final p = await SharedPreferences.getInstance();
+      disattivato.value = p.getBool(chiaveDisattivato) ?? false;
+    } catch (errore) {
+      debugPrint('Primo approdo: la scelta non si legge. $errore');
+    }
+    return disattivato.value;
+  }
+
+  /// *Disattiva*, dal tutorial o dal menu': non si presenta piu'.
+  static Future<void> disattiva() async {
+    disattivato.value = true;
+    final p = await SharedPreferences.getInstance();
+    await p.setBool(chiaveDisattivato, true);
+  }
+
+  /// Dal menu': torna a presentarsi all'apertura dopo la intro.
+  static Future<void> riattiva() async {
+    disattivato.value = false;
+    final p = await SharedPreferences.getInstance();
+    await p.remove(chiaveDisattivato);
   }
 
   /// **VERO SE IL TUTORIAL E' GIA' STATO VISTO.** Ordine CC voce 09.
@@ -312,6 +387,10 @@ abstract final class MemoriaDelPrimoApprodo {
   }
 
   static Future<void> segnaVisto() async {
+    // **L'APERTURA DI OGGI E' SERVITA.** Chi salta o arriva in fondo non lo
+    // rivede finche' il processo vive, anche se il guscio si rimonta: torna
+    // all'apertura dopo, che e' cio' che *Salta* promette.
+    _questaApertura = false;
     final p = await SharedPreferences.getInstance();
     await p.setBool(chiave, true);
     await p.remove(chiaveArmata);
@@ -338,6 +417,11 @@ abstract final class MemoriaDelPrimoApprodo {
 /// rotta spinta sopra il guscio, quindi non puo' accendere il tutorial da
 /// solo: alza questa bandierina, torna al Cerchio, e il tutorial la vede.
 final ValueNotifier<int> rivediIlPrimoApprodo = ValueNotifier<int>(0);
+
+/// **IL RISVEGLIO E' FINITO, e la prossima cosa che si vede e' la home.**
+/// Ordine DY voce 01: il tutorial la ascolta e si chiede di nuovo se deve
+/// presentarsi, con la stessa regola dell'apertura.
+final ValueNotifier<int> approdoDopoIlRito = ValueNotifier<int>(0);
 
 /// IL TUTORIAL, sopra tutto il resto.
 ///
@@ -372,12 +456,14 @@ class _PrimoApprodoState extends State<PrimoApprodo> {
   void initState() {
     super.initState();
     rivediIlPrimoApprodo.addListener(_riapri);
+    approdoDopoIlRito.addListener(_forseApri);
     _forseApri();
   }
 
   @override
   void dispose() {
     rivediIlPrimoApprodo.removeListener(_riapri);
+    approdoDopoIlRito.removeListener(_forseApri);
     super.dispose();
   }
 
@@ -390,7 +476,7 @@ class _PrimoApprodoState extends State<PrimoApprodo> {
   }
 
   Future<void> _forseApri() async {
-    if (!widget.attivo) return;
+    if (!widget.attivo || _inScena) return;
     if (PrimoApprodo.sempreAllaProva) {
       if (mounted) setState(() => _inScena = true);
       return;
@@ -402,6 +488,15 @@ class _PrimoApprodoState extends State<PrimoApprodo> {
 
   Future<void> _chiudi() async {
     setState(() => _inScena = false);
+    await MemoriaDelPrimoApprodo.segnaVisto();
+  }
+
+  /// **DISATTIVA. Ordine DY voce 01.** Chiude come *Salta*, e in piu' scrive
+  /// la scelta: all'apertura dopo il tutorial non si presenta piu'. Si
+  /// riattiva dal menu' utente.
+  Future<void> _disattiva() async {
+    setState(() => _inScena = false);
+    await MemoriaDelPrimoApprodo.disattiva();
     await MemoriaDelPrimoApprodo.segnaVisto();
   }
 
@@ -425,6 +520,7 @@ class _PrimoApprodoState extends State<PrimoApprodo> {
             quanti: cinqueFumetti.length,
             avanti: _avanti,
             salta: _chiudi,
+            disattiva: _disattiva,
           ),
       ],
     );
@@ -438,6 +534,7 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
     required this.quanti,
     required this.avanti,
     required this.salta,
+    required this.disattiva,
   });
 
   final FumettoDelPrimoApprodo fumetto;
@@ -445,6 +542,9 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
   final int quanti;
   final VoidCallback avanti;
   final VoidCallback salta;
+
+  /// *Disattiva*, ordine DY voce 01: chiude e non torna piu'.
+  final VoidCallback disattiva;
 
   /// Quanto respiro fra il bersaglio e il fumetto, e quanto e' alta la freccia.
   static const double _aria = SpacingTokens.sm;
@@ -516,6 +616,7 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
       quanti: quanti,
       avanti: avanti,
       salta: salta,
+      disattiva: disattiva,
       palette: palette,
       larghezza: larghezza,
     );
@@ -642,6 +743,7 @@ class _Carta extends StatelessWidget {
     required this.quanti,
     required this.avanti,
     required this.salta,
+    required this.disattiva,
     required this.palette,
     required this.larghezza,
   });
@@ -651,6 +753,9 @@ class _Carta extends StatelessWidget {
   final int quanti;
   final VoidCallback avanti;
   final VoidCallback salta;
+
+  /// *Disattiva*, ordine DY voce 01: chiude e non torna piu'.
+  final VoidCallback disattiva;
   final MaestroPalette palette;
   final double larghezza;
 
@@ -707,6 +812,19 @@ class _Carta extends StatelessWidget {
               // **LO SKIP C'E' SEMPRE, su tutti e cinque.** L'ordine lo
               // chiede per nome: "l'utente potra' cmq decidere in ogni momento
               // se proseguire o chiudere il tutorial".
+              // **DISATTIVA ACCANTO A SALTA. Ordine DY voce 01.** Parole del
+              // fondatore: *"il tutorial deve contenere anche il pulsante
+              // disattiva oltre che salta"*. Salta chiude per oggi e torna
+              // all'apertura dopo; Disattiva chiude e non torna piu', finche'
+              // non lo si riattiva dal menu' utente. Stessa veste di Salta:
+              // sono due uscite, e nessuna delle due e' il passo avanti.
+              TextButton(
+                key: const Key('primo_approdo_disattiva'),
+                onPressed: disattiva,
+                child: Text('Disattiva',
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: palette.goldSoft)),
+              ),
               TextButton(
                 key: const Key('primo_approdo_salta'),
                 onPressed: salta,
