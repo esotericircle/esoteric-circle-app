@@ -26,6 +26,10 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
+import '../../core/condivisione/premio_della_condivisione.dart';
+import '../maestri/chat/chat_openers.dart';
+import '../ricordi/azioni_del_responso.dart';
+import 'arcano_dell_alba_share_card.dart';
 import '../../services/avvisi_locali.dart';
 import '../sigilli/regia_del_cammino.dart';
 import '../tarot/stesa_senses.dart';
@@ -125,6 +129,80 @@ class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
   bool get _inRivelazione => _toccata != null;
 
   DateTime get _adesso => widget.now ?? DateTime.now();
+
+  /// **LA CARTA DA MANDARE, fuori campo.** Ordine DW voce 02: si disegna
+  /// solo mentre si condivide, a sinistra dello schermo, e si fotografa da
+  /// qui.
+  final GlobalKey _cartaDaCondividere = GlobalKey();
+  bool _rendiLaCarta = false;
+
+  /// **CONDIVIDE LA CARD, e torna l'esito vero.** Il vero e' cio' su cui le
+  /// azioni comuni custodiscono il responso e su cui si paga il premio
+  /// dichiarato sul pulsante.
+  Future<bool> _condividi() async {
+    final responso = _responso;
+    if (responso == null) return false;
+    setState(() => _rendiLaCarta = true);
+    try {
+      await WidgetsBinding.instance.endOfFrame;
+      await Future<void>.delayed(const Duration(milliseconds: 80));
+      final andata = await shareArcanoDellAlbaCard(
+          boundaryKey: _cartaDaCondividere,
+          text: testoDellArcanoCondiviso(responso));
+      if (andata && mounted) {
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso l\'Arcano dell\'Alba');
+      }
+      return andata;
+    } finally {
+      if (mounted) setState(() => _rendiLaCarta = false);
+    }
+  }
+
+  /// **LE TRE AZIONI DA UNA PORTA SOLA**, ordine DW voce 02: Custodisci,
+  /// Parlane con Medora e Condividi. L'ordine DT voce 02 le aveva tolte
+  /// tutte; il fondatore le ha rivolute, e la card da mandare con loro.
+  Widget _azioni(ResponsoDellAlba responso) => Stack(
+        clipBehavior: Clip.none,
+        children: [
+          AzioniDelResponso(
+            palette: _palette,
+            maestro: Maestro.medora,
+            responso: ResponsoDaCustodire(
+              arte: 'alba',
+              titolo: 'Il tuo Arcano dell\'Alba: '
+                  '${ArcanoDellAlbaShareCard.titoloDi(responso)}',
+              testo: [
+                responso.primo,
+                if (responso.parola != null)
+                  'La parola di oggi: ${responso.parola}.',
+                responso.secondo,
+                if (responso.perche.trim().isNotEmpty) responso.perche,
+                responso.terzo,
+              ].join('\n\n'),
+              dati: {
+                'carta': responso.carta.name,
+                'verso': responso.stato.rovescio ? 'rovesciata' : 'dritta',
+                if (responso.parola != null) 'parola': responso.parola!,
+              },
+            ),
+            condividi: _condividi,
+            aperturaDellaChat: ChatOpeners.arcanoAlba(
+                ResponsoDellAlba.cartaColVerso(responso.stato),
+                responso.secondo),
+          ),
+          if (_rendiLaCarta)
+            Positioned(
+              left: -3000,
+              top: 0,
+              child: RepaintBoundary(
+                key: _cartaDaCondividere,
+                child: ArcanoDellAlbaShareCard(
+                    responso: responso, palette: _palette),
+              ),
+            ),
+        ],
+      );
 
   static final MaestroPalette _palette =
       MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
@@ -393,7 +471,8 @@ class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
                                 child: _TreMovimenti(
                                     responso: responso,
                                     giorno: _adesso,
-                                    palette: _palette),
+                                    palette: _palette,
+                                    azioni: _azioni(responso)),
                               ),
                             ),
                           ],
@@ -548,11 +627,17 @@ class _RiquadroDelGesto extends StatelessWidget {
 
 class _TreMovimenti extends StatelessWidget {
   const _TreMovimenti(
-      {required this.responso, required this.giorno, required this.palette});
+      {required this.responso,
+      required this.giorno,
+      required this.palette,
+      this.azioni});
 
   final ResponsoDellAlba responso;
   final DateTime giorno;
   final MaestroPalette palette;
+
+  /// Custodisci, Parlane e Condividi, sotto la chiusura di Medora.
+  final Widget? azioni;
 
   @override
   Widget build(BuildContext context) {
@@ -623,6 +708,10 @@ class _TreMovimenti extends StatelessWidget {
                 color: ColorTokens.textPrimary.withValues(alpha: 0.86),
                 fontStyle: FontStyle.italic),
           ),
+          if (azioni != null) ...[
+            const SizedBox(height: SpacingTokens.lg),
+            azioni!,
+          ],
         ],
       ),
     );

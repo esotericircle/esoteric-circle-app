@@ -4,6 +4,10 @@ import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
+import 'package:esoteric_circle/core/brand/brand.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/letture_dell_alba_dati.dart';
+import 'package:esoteric_circle/core/rituals/arcano_dell_alba/responso_dell_alba.dart';
+import 'package:esoteric_circle/features/rituals/arcano_dell_alba_share_card.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/sensi/catalogo_suoni.dart';
 import 'package:esoteric_circle/core/sensi/palette_sensoriale.dart';
@@ -538,5 +542,68 @@ void main() {
         reason: 'il perche\' del corpus non arriva a video');
     print('ORDINE DV voce 11: margini sinistro/destro nel pannello $misure; '
         'il perche\' a video: ${oggi.perche}');
+  });
+  testWidgets(
+      'DW.02: LA CARTA RIVELATA SI CUSTODISCE, SE NE PARLA E SI CONDIVIDE, '
+      'e prima del gesto quei comandi non ci sono', (tester) async {
+    // **Il fondatore, sul telefono**: *"ti sei dimenticato di aggiungere i
+    // pulsanti per la condivisione che inserisci sempre e quindi non crea
+    // nemmeno la card di condivisione"*. L'ordine DT voce 02 li aveva tolti
+    // tutti; qui si pretende che ci siano, e solo a carta girata.
+    await monta(tester);
+    for (final chiave in [
+      'responso_condividi',
+      'responso_custodisci',
+      'responso_parlane',
+    ]) {
+      expect(find.byKey(Key(chiave)), findsNothing,
+          reason: '$chiave c\'e\' gia\' prima di girare la carta');
+    }
+    await gira(tester, 5);
+    final trovate = <String>[];
+    for (final chiave in [
+      'responso_condividi',
+      'responso_custodisci',
+      'responso_parlane',
+    ]) {
+      if (find.byKey(Key(chiave)).evaluate().isNotEmpty) trovate.add(chiave);
+    }
+    print('ORDINE DW voce 02: azioni sotto la carta rivelata $trovate');
+    expect(trovate, hasLength(3),
+        reason: 'sotto la carta rivelata mancano delle azioni: ci sono '
+            'soltanto $trovate');
+  });
+
+  testWidgets(
+      'DW.02: LA CARD DA MANDARE porta la carta, la parola, il gesto col suo '
+      'perche\' e il dominio del marchio', (tester) async {
+    tester.view.physicalSize = const Size(600, 1600);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    final lettura = lettureDellAlba.firstWhere((l) => l.parola != null);
+    final responso =
+        ResponsoDellAlba.componi(lettura, apertura: 0, clausola: 0);
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: SingleChildScrollView(
+          child: ArcanoDellAlbaShareCard(
+              responso: responso, palette: MaestroPalette.medora),
+        ),
+      ),
+    ));
+    await tester.pump();
+    String testo(String chiave) =>
+        tester.widget<Text>(find.byKey(Key(chiave))).data!;
+    expect(find.byType(TarotCardArt), findsOneWidget,
+        reason: 'la card non mostra la carta');
+    expect(testo('arcano_card_parola'), lettura.parola!.toUpperCase());
+    expect(testo('arcano_card_gesto'), lettura.dono);
+    expect(testo('arcano_card_perche'), lettura.perche);
+    expect(testo('arcano_card_dominio'), Brand.domain,
+        reason: 'la card stampa un dominio che non e\' quello del marchio');
+    final accompagna = testoDellArcanoCondiviso(responso);
+    expect(accompagna, contains(Brand.url),
+        reason: 'il testo che parte con la card non dice dove trovare l\'app');
+    print('ORDINE DW voce 02: il testo che accompagna la card: $accompagna');
   });
 }

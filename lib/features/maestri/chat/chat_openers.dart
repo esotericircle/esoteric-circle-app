@@ -122,6 +122,17 @@ class ChatOpeners {
       'andare?';
 
   /// Dal Rito della Notte verso Caligo, col responso della notte.
+  /// **L'ARCANO DELL'ALBA ENTRA NELLA CHAT, ordine DW voce 02.** La frase
+  /// non dice *"Arcano dell'Alba"* ne' *"carta di oggi"*: sono le parole che
+  /// il riconoscitore degli intenti manda alla schermata dell'Arcano, e il
+  /// Parlane tornerebbe da dove e' partito invece di aprire il dialogo.
+  static String arcanoAlba(String cartaColVerso, String gesto) {
+    final g = gesto.trim();
+    final senzaPunto = g.endsWith('.') ? g.substring(0, g.length - 1) : g;
+    return 'Oggi mi è uscita $cartaColVerso, col gesto «$senzaPunto». '
+        'Come lo porto nella mia giornata?';
+  }
+
   static String sogno(String responso) =>
       'Stanotte il Cerchio mi dice: «$responso». Cosa porto nel sonno?';
 }

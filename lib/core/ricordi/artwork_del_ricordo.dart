@@ -80,6 +80,9 @@ class ArtworkDelRicordo {
   static const Map<String, List<String>> chiaviLette = {
     'stesa': ['carte'],
     'oracolo': ['carta'],
+    // Ordine DW voce 02: l'Arcano dell'Alba custodisce la sua carta, e il
+    // Ricordo la rivede come l'Arcano del Giorno di prima.
+    'alba': ['carta'],
     'gettata': ['rune'],
     'tramonto': ['runa', 'verso'],
     'animale_guida': ['animale'],
@@ -102,8 +105,6 @@ class ArtworkDelRicordo {
     'sigillo': 'il Sigillo dell\'Intenzione è un segno tracciato col dito, '
         'diverso ogni volta: non è arte del Cerchio, è un gesto della '
         'persona. I dati custoditi ne conservano la via, non il tratto.',
-    'alba': 'il Rito dell\'Alba consegna una parola: una parola si legge, '
-        'non si guarda.',
     'soffio': 'il Soffio del Destino è un\'esperienza di respiro: quello che '
         'resta quando finisce è il testo, non una figura.',
     'sogno': 'il Rito della Notte raccoglie un sogno raccontato dalla '
@@ -122,6 +123,7 @@ class ArtworkDelRicordo {
       case 'stesa':
         return _tarocchi(dati['carte']);
       case 'oracolo':
+      case 'alba':
         return _tarocchi(dati['carta']);
       case 'gettata':
         return _rune(dati['rune']);

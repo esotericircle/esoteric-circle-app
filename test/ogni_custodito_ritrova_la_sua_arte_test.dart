@@ -35,6 +35,9 @@ void main() {
       'carte': TarotDeck.cards.take(3).map((c) => c.name).join(','),
     },
     'oracolo': {'carta': TarotDeck.cards.first.name},
+    // Ordine DW voce 02: l'Arcano dell'Alba custodisce la carta per nome,
+    // come l'Arcano del Giorno di prima.
+    'alba': {'carta': TarotDeck.cards[11].name, 'verso': 'dritta'},
     'gettata': {
       'gettata': 'tre rune',
       'rune': kElderFuthark

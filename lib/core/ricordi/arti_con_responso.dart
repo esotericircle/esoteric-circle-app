@@ -137,8 +137,19 @@ class ArtiConResponso {
     ),
     // --- I DONI DEL GIORNO ---------------------------------------------
     // Non sono arti dello scaffale, ma un responso lo producono eccome, ed e'
-    // quello che una persona vede piu' spesso di ogni altro. L'Arcano
-    // dell'Alba non e' qui: vedi `senzaAzioni`.
+    // quello che una persona vede piu' spesso di ogni altro.
+    //
+    // **L'ARCANO DELL'ALBA E' TORNATO QUI, ordine DW voce 02.** L'ordine DT
+    // voce 02 gli aveva tolto ogni comando e stava in `senzaAzioni`; il
+    // fondatore, sul telefono, ha visto che non si poteva condividere e l'ha
+    // voluto come gli altri doni: Custodisci, Parlane e Condividi con la card.
+    ArteConResponso(
+      arte: 'alba',
+      maestro: 'medora',
+      titolo: 'Arcano dell\'Alba',
+      doveViveIlResponso: 'lib/features/rituals/arcano_dell_alba_screen.dart',
+      apertura: 'arcanoAlba',
+    ),
     ArteConResponso(
       arte: 'soffio',
       maestro: 'aura',
@@ -211,10 +222,6 @@ class ArtiConResponso {
   /// Condividi non e' dimenticata: e' dichiarata qui, e la ragione e' un
   /// ordine scritto.
   static const Map<String, String> senzaAzioni = {
-    'alba': 'l\'Arcano dell\'Alba ha un gesto solo e nessun altro comando: '
-        'l\'ordine DT voce 02 vieta sulla sua schermata ogni pulsante che non '
-        'sia girare la carta. È in contrasto con l\'ordine CG voci 06 e 08: '
-        'la decisione è riportata a Mauro nel rapporto dell\'ordine DT.',
     'oracolo': 'l\'Arcano del Giorno non è più un dono: l\'ordine DT voce 01 '
         'lo ha fuso nell\'Arcano dell\'Alba. I custoditi di prima restano e '
         'si leggono.',
