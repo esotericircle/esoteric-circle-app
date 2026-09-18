@@ -26,7 +26,7 @@ percio' le lunghezze nuove.
 | Responso | Quanti | Mediana | Massimo |
 | --- | --- | --- | --- |
 | Arcano dell'Alba, Medora | 528 | 62 | 84 |
-| Arcano dell'Alba, il dono | 528 | 80 | 107 |
+| Arcano dell'Alba, il dono | 528 | 91 | 116 |
 | Oroscopo, scheda «amore» | 4392 | 211 | 253 |
 | Oroscopo, scheda «carriera» | 4392 | 220 | 248 |
 | Oroscopo, scheda «fortuna» | 4392 | 200 | 247 |
@@ -48,7 +48,7 @@ percio' le lunghezze nuove.
 ## Il piu' lungo di ogni tipo, in testa
 
 - **Arcano dell'Alba, Medora** (84 caratteri): Si raccoglie in una stagione che non si sceglie, quindi vale la pena partire adesso.
-- **Arcano dell'Alba, il dono** (107 caratteri): Segui una curiosità per un quarto d'ora, senza doverne ricavare niente: un video, un capit...
+- **Arcano dell'Alba, il dono** (116 caratteri): Chiama la persona che non hai ancora sentito su una faccenda e dedicale dieci minuti di as...
 - **Oroscopo, scheda «amore»** (253 caratteri): In amore vai diretto, come vuole la tua natura di fuoco e la tua sincerità disarma perché ...
 - **Oroscopo, scheda «carriera»** (248 caratteri): Sul lavoro convinci con la passione più che con la logica fredda e il tuo entusiasmo diven...
 - **Oroscopo, scheda «fortuna»** (247 caratteri): La tua fortuna passa dagli incontri e dall'informazione giusta al momento giusto ed è un d...

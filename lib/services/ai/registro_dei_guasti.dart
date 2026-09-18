@@ -23,9 +23,14 @@ void annotaGuastoInnocuo(String cosa, Object errore, [StackTrace? traccia]) {
   if (inoltro == null) return;
   try {
     inoltro(cosa, errore, traccia);
-  } catch (_) {
+  } catch (inoltroFallito) {
     // Un'annotazione non deve mai diventare un guasto: se il cruscotto non
-    // risponde, il guasto resta nel log qui sopra e la chiamata finisce.
+    // risponde, il guasto resta nel log qui sopra, e anche questo lo dice.
+    developer.log(
+      'il cruscotto non ha preso il guasto: $cosa',
+      name: RegistroDeiGuasti.nomeDelLog,
+      error: inoltroFallito,
+    );
   }
 }
 

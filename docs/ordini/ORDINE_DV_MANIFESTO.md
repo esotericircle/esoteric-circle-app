@@ -155,7 +155,7 @@ del corpus riscrivere ha scelto **tutti i 528**.
 - **DV.12**, il gesto e' un gesto: tutti i 528 del corpus
   (`docs/corpus/tarocchi.md`) dicono un'azione concreta che si puo' fare
   oggi, e ognuno porta il suo **perche'**, mostrato nel riquadro. **Fatto**:
-  528 gesti riscritti e letti uno per uno, 57 ritoccati alla lettura per il
+  528 gesti riscritti e letti uno per uno, 61 ritoccati alla lettura per il
   genere (*"sei gia' arrivato"*, *"da solo"*, *"te stesso"*), le ore del
   giorno (*"entro mezzogiorno"*), gli accenti e il contesto. La guardia nuova
   nel test del corpus pretende il perche', vieta i verbi d'atteggiamento in

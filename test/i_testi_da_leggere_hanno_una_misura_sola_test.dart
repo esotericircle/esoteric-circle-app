@@ -55,7 +55,9 @@ void main() {
     // L'Arcano dell'Alba prende il posto dell'Arcano del Giorno, ordine DT.
     'Arcano dell\'Alba': [
       'lib/features/rituals/arcano_dell_alba_screen.dart',
-      "ParagrafiDiLettura(\n            key: const Key('arcano_alba_dono')",
+      // Ordine DV voce 11: il gesto sta nel suo riquadro, un livello piu' in
+      // dentro.
+      "ParagrafiDiLettura(\n              key: const Key('arcano_alba_dono')",
     ],
     'Runa del Tramonto': [
       'lib/features/rituals/sunset_rune_screen.dart',

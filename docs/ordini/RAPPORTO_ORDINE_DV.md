@@ -214,10 +214,14 @@ attaccato ai bordi del pannello e *"il gesto di oggi"* che non era un gesto.
   il titolo *Perché* e il perche'.
 - **DV.12, il gesto e' un gesto.** Tutti i 528 gesti del corpus riscritti come
   azioni concrete, con un oggetto, un numero o un tempo precisi, e ognuno col suo
-  perche'. Li ho letti tutti e ne ho ritoccati 57: frasi che parlavano solo a un
+  perche'. Li ho letti tutti e ne ho ritoccati 61: frasi che parlavano solo a un
   uomo (*"sei gia' arrivato"*, *"da solo"*, *"te stesso"*), ore che mentono a chi
   gira la carta piu' tardi (*"entro mezzogiorno"*), due *"Dì"* senza apostrofo,
-  qualche frase che dava per scontata una situazione. Esempio, la Luna dritta
+  qualche frase che dava per scontata una situazione. Lo sbarramento ne ha
+  trovati altri quattro: un *"sei disposto"*, due *"a quattr'occhi"* che la
+  guardia degli apostrofi legge come accenti mancati, e un gesto della Stella
+  che parlava di terapie e di guarigione della persona, fuori dal confine del
+  responso. Esempio, la Luna dritta
   del telefono: prima *"Accetta una confusione senza risolverla"*; adesso
   **gesto** *"Prendi un foglio e scrivi tre domande che oggi ti mettono in
   confusione, senza cercare risposte."*, **perche'** *"Scritte, le domande

@@ -584,7 +584,7 @@ giorni di distanza, e con dodici letture per stato il testo non si ripete.
   - medora: Ammettere di valere in qualcosa non ruba niente a nessuno.
 - **rovesciato, lettura 12**
   - parola: Verità
-  - dono: Di' una verità scomoda con gentilezza a chi ha diritto di sentirla, a quattr'occhi.
+  - dono: Di' una verità scomoda con gentilezza a chi ha diritto di sentirla, in privato.
   - perche: Detta con garbo, una cosa difficile si ascolta invece di ferire.
   - medora: La franchezza senza durezza è un dono raro e si impara.
 
@@ -1007,7 +1007,7 @@ giorni di distanza, e con dodici letture per stato il testo non si ripete.
 - **dritto, lettura 10**
   - parola: Bivio
   - dono: Dividi un foglio in due colonne e scrivi cosa perdi da ciascuna parte del bivio che hai davanti.
-  - perche: Vedere le due perdite affiancate ti dice quale sei disposto a sopportare.
+  - perche: Vedere le due perdite affiancate ti dice quale riesci a sopportare.
   - medora: Ogni decisione costa qualcosa, anche quella che sembra tutta guadagno.
 - **dritto, lettura 11**
   - parola: Bellezza altrui
@@ -1671,7 +1671,7 @@ giorni di distanza, e con dodici letture per stato il testo non si ripete.
   - medora: Sorvegliare gli altri stanca noi molto più di quanto aiuti loro.
 - **rovesciato, lettura 8**
   - parola: Orgoglio
-  - dono: Torna da chi hai contraddetto per orgoglio e digli a quattr'occhi che ci hai ripensato.
+  - dono: Torna da chi hai contraddetto per orgoglio e digli in privato che ci hai ripensato.
   - perche: Un ripensamento detto chiaro ti rende più credibile, non più debole.
   - medora: Cambiare parere in pubblico costa un istante di imbarazzo e salva mesi.
 - **rovesciato, lettura 9**
@@ -2359,8 +2359,8 @@ giorni di distanza, e con dodici letture per stato il testo non si ripete.
   - medora: Si appartiene davvero soltanto quando si contribuisce.
 - **dritto, lettura 10**
   - parola: Guarigione
-  - dono: Metti una sveglia per ogni terapia, pausa o esercizio che serve alla tua guarigione e rispettala.
-  - perche: Con la sveglia non devi ricordartene tu, così la cura prosegue senza buchi.
+  - dono: Mangia un frutto in più e spegni gli schermi un'ora prima di dormire. La guarigione comincia da attenzioni minime.
+  - perche: Sono cure alla portata di tutti: sommate, si sentono.
   - medora: Il corpo ripara meglio quando nessuno interrompe il suo mestiere.
 - **dritto, lettura 11**
   - parola: Bellezza
