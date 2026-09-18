@@ -2640,10 +2640,10 @@ void main() {
     testWidgets('Cattura DW, la card da mandare: $nome', (tester) async {
       silenceSensors();
       await loadFonts();
-      tester.view.physicalSize = const Size(1200, 2600);
-      tester.view.devicePixelRatio = 3.0;
-      addTearDown(tester.view.resetPhysicalSize);
-      addTearDown(tester.view.resetDevicePixelRatio);
+      // **DALLA PORTA UNICA, ordine DX.** Qui il rapporto era scritto a mano
+      // (ordine DW), e il corredo pretende che si imposti in un punto solo:
+      // la stessa misura fisica, 1200 per 2600, a rapporto tre.
+      await montaLoSchermo(tester, const Size(400, 2600 / 3));
       final rootKey = GlobalKey();
       await tester.pumpWidget(MaterialApp(
         debugShowCheckedModeBanner: false,

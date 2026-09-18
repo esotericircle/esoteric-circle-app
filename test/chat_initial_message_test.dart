@@ -25,40 +25,50 @@ import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
-/// La chat che si apre da "Parlane con il Maestro" riceve e manda la prima
-/// domanda contestuale come turno dell'utente.
+/// La chat che si apre da un pulsante di approfondimento ("Parlane con il
+/// Maestro", "Continua con") porta la domanda contestuale.
+///
+/// **ORDINE DX VOCE 01: LA DOMANDA STA NEL CAMPO, NON PARTE.** Fino alla build
+/// 2270 partiva da sola appena la chat era pronta, e il fondatore l'ha vista
+/// consumare una delle tre domande del giorno senza toccare niente. Queste
+/// prove misurano tre cose che il fondatore ha chiesto: la domanda e' nel
+/// campo, nessuna domanda arriva al modello e nessuna si consuma finche' la
+/// persona non manda, e la persona puo' mandare un'altra domanda al suo posto.
 void main() {
-  Future<AppServices> services({required bool ready}) async {
+  Future<AppServices> services(MaestroAiProvider ai) async {
     final memory = InMemoryMaestroMemoryRepository();
     // Disclaimer gia' accettato, cosi' non copre la chat con la modale.
     await memory
         .saveProfile(UserProfile(disclaimerAcceptedAt: DateTime(2026, 7, 1)));
     return AppServices(
-      ai: ready ? _ReadyAi() : _OfflineAi(),
+      ai: ai,
       memory: memory,
       memoryPersistent: false,
       diagnostics: 'test',
     );
   }
 
-  Future<void> pumpChat(WidgetTester tester, AppServices svc,
+  const domanda = 'Il mio animale guida e\' il Lupo, cosa vuole dirmi?';
+  const risposta = 'Il Lupo ti parla di lealta\'.';
+
+  Future<QuestionAllowance> pumpChat(WidgetTester tester, AppServices svc,
       {required String initial}) async {
     tester.view.physicalSize = const Size(430, 1600);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
+    final contatore = QuestionAllowance(freeDailyLimit: 3);
     await tester.pumpWidget(MultiProvider(
       providers: [
         Provider<AppServices>.value(value: svc),
         ChangeNotifierProvider(create: (_) => MaestroController()),
         ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
-        ChangeNotifierProvider(create: (_) => QuestionAllowance()),
+        ChangeNotifierProvider<QuestionAllowance>.value(value: contatore),
         ChangeNotifierProvider(create: (_) => EntitlementService()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),
         ChangeNotifierProvider(create: (_) => BirthIdentityController()),
-        ChangeNotifierProvider(create: (_) => EntitlementService()),
         ChangeNotifierProvider(create: (_) => ProfileController()),
       ],
       child: MaterialApp(
@@ -75,34 +85,85 @@ void main() {
         ),
       ),
     ));
-    for (var i = 0; i < 8; i++) {
+    // Un secondo e mezzo: quanto bastava alla vecchia chat per mandare la
+    // domanda da sola e ricevere la risposta.
+    for (var i = 0; i < 10; i++) {
+      await tester.pump(const Duration(milliseconds: 150));
+    }
+    return contatore;
+  }
+
+  String campo(WidgetTester tester) => tester
+      .widget<TextField>(find.descendant(
+          of: find.byKey(const Key('chat_campo')),
+          matching: find.byType(TextField)))
+      .controller!
+      .text;
+
+  Future<void> manda(WidgetTester tester) async {
+    await tester.tap(find.byKey(const Key('chat_invio')));
+    for (var i = 0; i < 10; i++) {
       await tester.pump(const Duration(milliseconds: 150));
     }
   }
 
   testWidgets(
-      'Col Maestro pronto, la domanda contestuale e\' inviata e risposta',
+      'DX.01: la domanda contestuale sta nel campo, non parte e non consuma',
       (tester) async {
-    final svc = await services(ready: true);
-    await pumpChat(tester, svc,
-        initial: 'Il mio animale guida e\' il Lupo, cosa vuole dirmi?');
+    final ai = _ReadyAi();
+    final contatore =
+        await pumpChat(tester, await services(ai), initial: domanda);
 
-    // La domanda dell'utente c'e' come primo turno.
-    expect(find.text('Il mio animale guida e\' il Lupo, cosa vuole dirmi?'),
-        findsOneWidget);
-    // E il Maestro ha risposto.
-    expect(find.text('Il Lupo ti parla di lealta\'.'), findsOneWidget);
+    expect(campo(tester), domanda,
+        reason: 'la domanda preimpostata deve aspettare nel campo');
+    expect(ai.chieste, isEmpty,
+        reason: 'nessuna domanda arriva al modello finche\' non si manda');
+    expect(find.text(risposta), findsNothing,
+        reason: 'il Maestro ha risposto senza che nessuno mandasse niente');
+    expect(contatore.usedToday(), 0,
+        reason: 'si e\' consumata una domanda senza toccare la freccia');
+  });
+
+  testWidgets(
+      'DX.01: mandata dalla persona, parte, risponde, consuma una e svuota',
+      (tester) async {
+    final ai = _ReadyAi();
+    final contatore =
+        await pumpChat(tester, await services(ai), initial: domanda);
+    await manda(tester);
+
+    expect(ai.chieste, [domanda]);
+    expect(find.text(risposta), findsOneWidget);
+    expect(contatore.usedToday(), 1);
+    expect(campo(tester), isEmpty,
+        reason: 'DX.04: dopo l\'invio il campo e\' vuoto');
+  });
+
+  testWidgets(
+      'DX.01: la persona cambia la domanda e parte la sua, non quella scritta',
+      (tester) async {
+    final ai = _ReadyAi();
+    final contatore =
+        await pumpChat(tester, await services(ai), initial: domanda);
+    await tester.enterText(
+        find.descendant(
+            of: find.byKey(const Key('chat_campo')),
+            matching: find.byType(TextField)),
+        'Cosa devo fare della mia lettura?');
+    await manda(tester);
+
+    expect(ai.chieste, ['Cosa devo fare della mia lettura?']);
+    expect(find.text(domanda), findsNothing,
+        reason: 'la domanda preimpostata non doveva partire');
+    expect(contatore.usedToday(), 1);
   });
 
   testWidgets('Col Maestro offline, la domanda resta e la chat non si rompe',
       (tester) async {
-    final svc = await services(ready: false);
-    await pumpChat(tester, svc,
-        initial: 'Il mio animale guida e\' il Lupo, cosa vuole dirmi?');
+    await pumpChat(tester, await services(_OfflineAi()), initial: domanda);
 
-    // La domanda c'e' comunque, e non c'e' stato nessun crash.
-    expect(find.text('Il mio animale guida e\' il Lupo, cosa vuole dirmi?'),
-        findsOneWidget);
+    // La domanda c'e' comunque, nel campo, e non c'e' stato nessun crash.
+    expect(campo(tester), domanda);
   });
 }
 
@@ -122,6 +183,9 @@ class _ReadyAi implements MaestroAiProvider {
   @override
   bool get isReady => true;
 
+  /// Le domande arrivate al modello, cioe' quelle che costano.
+  final List<String> chieste = [];
+
   @override
   Future<String> reply({
     required Maestro maestro,
@@ -132,8 +196,10 @@ class _ReadyAi implements MaestroAiProvider {
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
     String? rispostaGiaData,
-  }) async =>
-      'Il Lupo ti parla di lealta\'.';
+  }) async {
+    chieste.add(userMessage);
+    return 'Il Lupo ti parla di lealta\'.';
+  }
 
   @override
   Future<MaestroReply> consult({

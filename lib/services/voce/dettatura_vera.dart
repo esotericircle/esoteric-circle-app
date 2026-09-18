@@ -16,14 +16,78 @@
 library;
 
 import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart' show Locale;
 import 'package:speech_to_text/speech_to_text.dart';
 
 import '../../core/voce/dettatura.dart';
 
 class DettaturaVera extends Dettatura {
-  DettaturaVera({SpeechToText? motore}) : _motore = motore ?? SpeechToText();
+  DettaturaVera({SpeechToText? motore, Locale? Function()? lingua})
+      : _motore = motore ?? SpeechToText(),
+        _lingua = lingua;
 
   final SpeechToText _motore;
+
+  /// **LA LINGUA IN CUI SI ASCOLTA E' QUELLA DELL'APP. Ordine DX voce 02.**
+  ///
+  /// Il fatto: su un iPhone la frase *"quindi, cosa devo fare della mia
+  /// lettura?"* e' arrivata nel campo come *"Indicate"*. La causa: senza una
+  /// lingua il plugin iOS ascolta con `Locale.current`, e per un'app
+  /// `Locale.current` e' la lingua scelta fra quelle che l'app DICHIARA. Il
+  /// progetto iOS dichiara solo l'inglese, quindi la voce italiana finiva a un
+  /// riconoscitore inglese, che sente "quindi" e scrive "Indicate". Su Android
+  /// il plugin prende la lingua del sistema, ed e' per questo che al banco del
+  /// telefono Android il difetto non c'era.
+  ///
+  /// Una funzione e non un valore: la lingua dell'app si puo' cambiare dal
+  /// profilo mentre la chat e' aperta, e la dettatura deve seguirla al tocco.
+  final Locale? Function()? _lingua;
+
+  /// **LA VOCE DEL RICONOSCITORE CHE PARLA QUELLA LINGUA**, scelta fra quelle
+  /// che la piattaforma dichiara di avere.
+  ///
+  /// I nomi arrivano in due forme, `it_IT` e `it-IT`, secondo la piattaforma:
+  /// si confrontano senza badare al separatore e alle maiuscole, e si
+  /// restituisce il nome COSI' COME la piattaforma l'ha dato. Preferenza: la
+  /// lingua col suo paese se l'app lo dice, poi la lingua col paese omonimo
+  /// (`it_IT` prima di `it_CH`), poi la prima di quella lingua. Se la
+  /// piattaforma non dice niente si costruisce `it_IT` da soli: meglio una
+  /// voce italiana chiesta per nome che nessuna voce, perche' nessuna voce
+  /// vuol dire l'inglese.
+  @visibleForTesting
+  static String? voceDellaLingua(Locale? lingua, List<String> disponibili) {
+    if (lingua == null || lingua.languageCode.isEmpty) return null;
+    String piano(String id) => id.replaceAll('-', '_').toLowerCase();
+    final codice = lingua.languageCode.toLowerCase();
+    final paese = lingua.countryCode?.toLowerCase();
+    final stessaLingua = [
+      for (final id in disponibili)
+        if (piano(id).split('_').first == codice) id,
+    ];
+    if (paese != null && paese.isNotEmpty) {
+      for (final id in stessaLingua) {
+        if (piano(id) == '${codice}_$paese') return id;
+      }
+    }
+    for (final id in stessaLingua) {
+      if (piano(id) == '${codice}_$codice') return id;
+    }
+    if (stessaLingua.isNotEmpty) return stessaLingua.first;
+    final suo = (paese != null && paese.isNotEmpty) ? paese : codice;
+    return '${codice}_${suo.toUpperCase()}';
+  }
+
+  Future<String?> _voceDaUsare() async {
+    final lingua = _lingua?.call();
+    if (lingua == null) return null;
+    var disponibili = const <String>[];
+    try {
+      disponibili = [for (final l in await _motore.locales()) l.localeId];
+    } catch (errore) {
+      debugPrint('Dettatura: la piattaforma non elenca le lingue. $errore');
+    }
+    return voceDellaLingua(lingua, disponibili);
+  }
 
   /// **L'AVVIO SI FA UNA VOLTA SOLA.** `initialize` va chiamato prima di
   /// qualunque altra cosa, e chiamarlo a ogni tocco vorrebbe dire rifare il
@@ -77,10 +141,14 @@ class DettaturaVera extends Dettatura {
     required void Function() finito,
   }) async {
     if (!await _accendi()) return false;
+    final voce = await _voceDaUsare();
     try {
       await _motore.listen(
         onResult: (esito) => parole(esito.recognizedWords),
         listenOptions: SpeechListenOptions(
+          // Nulla solo quando nessuno ha detto la lingua dell'app: allora
+          // decide la piattaforma, come prima.
+          localeId: voce,
           // **I RISULTATI PARZIALI SERVONO**, ed e' una scelta: il campo si
           // riempie mentre si parla, cosi' chi detta vede che sta funzionando
           // invece di fissare un campo vuoto e chiedersi se il microfono

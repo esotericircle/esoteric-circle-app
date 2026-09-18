@@ -84,10 +84,16 @@ class MaestroChatScreen extends StatefulWidget {
   /// della domanda si apre gia' scritto, cosi' la conversazione riprende da li'.
   final String? initialTheme;
 
-  /// Una prima domanda contestuale, gia' inviata come turno dell'utente appena
-  /// la chat e' pronta: si arriva qui da un pulsante "Parlane con il Maestro" dal
-  /// responso di un'arte, e il Maestro risponde subito su quel tema. Se il
-  /// Maestro e' offline la chat resta normale, senza rompersi.
+  /// Una prima domanda contestuale, con cui si arriva da un pulsante di
+  /// approfondimento ("Parlane con il Maestro", "Continua con").
+  ///
+  /// **SI SCRIVE NEL CAMPO, NON SI MANDA. Ordine DX voce 01.** Prima partiva
+  /// da sola appena la chat era pronta, e il fondatore l'ha vista consumare
+  /// una delle tre domande del giorno senza aver toccato niente. Parole sue:
+  /// *"la risposta non deve partire in automatico perche' costa un utilizzo e
+  /// perche' l'utente potrebbe voler chiedere altro"*. Adesso la domanda sta
+  /// nel campo: la persona la manda, la cambia, la cancella o ne detta
+  /// un'altra, e finche' non tocca la freccia niente si consuma.
   final String? initialUserMessage;
 
   /// Route pronta all'uso: monta il controller con i servizi e la palette del
@@ -181,7 +187,6 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
   /// e chiudere la chat mentre una risposta arriva lo lasciava vivo. Se ne e'
   /// accorta la cattura delle anteprime, che non c'entrava niente.
   Timer? _attesaDellaMisura;
-  bool _initialSent = false;
 
   /// La firma del turno, e non piu' il solo conteggio dei messaggi.
   ///
@@ -220,7 +225,13 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
   /// il motore del riconoscimento chiede al sistema operativo di accendersi,
   /// e rifarlo a ogni ricostruzione vorrebbe dire rifare quel giro mentre la
   /// persona sta scrivendo.
-  late final Dettatura _dettatura = widget.dettatura ?? DettaturaVera();
+  ///
+  /// **E ASCOLTA NELLA LINGUA DELL'APP. Ordine DX voce 02**: senza, su iPhone
+  /// ascoltava in inglese e scriveva "Indicate" al posto di "quindi". La
+  /// lingua e' quella che l'app dichiara a `MaterialApp`, letta al tocco.
+  late final Dettatura _dettatura = widget.dettatura ??
+      DettaturaVera(
+          lingua: () => mounted ? Localizations.maybeLocaleOf(context) : null);
   double _altezzaComposer = 88;
 
   void _misuraComposer() {
@@ -478,18 +489,6 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     );
   }
 
-  void _maybeSendInitial(MaestroChatController controller) {
-    if (_initialSent || controller.loading) return;
-    final testo = widget.initialUserMessage?.trim();
-    if (testo == null || testo.isEmpty) return;
-    _initialSent = true;
-    // Solo su una conversazione nuova, cosi' non si sovrascrive uno storico.
-    if (controller.messages.isNotEmpty) return;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) controller.send(testo);
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final controller = context.watch<MaestroChatController>();
@@ -507,11 +506,6 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     // bisognava chiudere per poter parlare col Maestro: una porta sbarrata
     // messa davanti alla prima cosa che l'app promette. Adesso il disclaimer
     // vive in un posto solo, nell'area privacy dell'utente.
-
-    // La prima domanda contestuale, inviata una sola volta quando la chat e'
-    // pronta e la conversazione e' ancora vuota: si arriva da "Parlane con il
-    // Maestro" con la domanda sulla fonte gia' pronta.
-    _maybeSendInitial(controller);
 
     // DOVE SI FERMA LA CHAT, e cambia a seconda di CHE COSA e' arrivato.
     //
@@ -826,7 +820,14 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                     '${widget.maestro.displayName}',
                 // A chat vuota, se si arriva dalla chiusura del cerchio, il
                 // campo si apre gia' col tema del Consulta.
-                initialText: hasMessages ? null : widget.initialTheme,
+                //
+                // **DA UN APPROFONDIMENTO IL CAMPO SI APRE CON LA DOMANDA,
+                // sempre.** Ordine DX voce 01: la persona e' venuta a chiedere
+                // di quel responso, quindi la domanda l'aspetta anche se con
+                // quel Maestro c'e' gia' una conversazione. Il compositore la
+                // legge una volta sola, alla nascita.
+                initialText: widget.initialUserMessage ??
+                    (hasMessages ? null : widget.initialTheme),
                 onSend: controller.send,
                 // Il pannello e' raggiungibile in QUALUNQUE momento, anche a chat
                 // vuota: ordine 2163, voce 3. Le famiglie gli arrivano gia'

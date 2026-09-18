@@ -3,9 +3,11 @@ import 'package:esoteric_circle/core/voce/dettatura.dart';
 import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/chat_composer.dart';
+import 'package:esoteric_circle/services/voce/dettatura_vera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
 /// IL MICROFONO DELLA CHAT. Ordine CI voce 05.
 ///
@@ -94,6 +96,67 @@ void main() {
             'nessun comando deve poter buttare via il testo di qualcuno');
   });
 
+  testWidgets(
+      'DX.04: dopo l\'invio il campo resta vuoto anche se la dettatura '
+      'manda ancora parole', (tester) async {
+    final inviati = <String>[];
+    final finta = _DettaturaFinta();
+    await tester.pumpWidget(scena(finta, onSend: inviati.add));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(const Key('chat_microfono')));
+    await tester.pumpAndSettle();
+    finta.di('Indicate');
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('chat_invio')));
+    await tester.pumpAndSettle();
+    // Il risultato FINALE del riconoscitore arriva dopo il tocco: e' il
+    // fatto della cattura del fondatore.
+    finta.di('Indicate');
+    await tester.pumpAndSettle();
+
+    expect(inviati, ['Indicate']);
+    expect(tester.widget<TextField>(find.byType(TextField)).controller!.text,
+        isEmpty,
+        reason: 'la parola appena mandata e\' tornata nel campo: la '
+            'dettatura ascoltava ancora e ha riscritto il risultato finale');
+    expect(finta.fermate, 1,
+        reason: 'chi manda ha finito di dettare: l\'ascolto va fermato');
+    expect(find.byKey(const Key('chat_microfono')), findsOneWidget);
+  });
+
+  group('DX.02: la dettatura ascolta nella lingua dell\'app', () {
+    test('sceglie la voce italiana fra quelle della piattaforma', () {
+      const ios = ['en-US', 'en-GB', 'it-CH', 'it-IT', 'fr-FR'];
+      const android = ['en_US', 'it_IT', 'de_DE'];
+      expect(DettaturaVera.voceDellaLingua(const Locale('it'), ios), 'it-IT',
+          reason: 'l\'app dichiara l\'italiano senza paese: prima it-IT, '
+              'non la svizzera che nell\'elenco viene prima');
+      expect(
+          DettaturaVera.voceDellaLingua(const Locale('it'), android), 'it_IT');
+      expect(DettaturaVera.voceDellaLingua(const Locale('it', 'CH'), ios),
+          'it-CH');
+      expect(
+          DettaturaVera.voceDellaLingua(const Locale('it'), const []), 'it_IT',
+          reason: 'senza elenco si chiede per nome, mai nessuna voce: '
+              'nessuna voce vuol dire l\'inglese su iPhone');
+      expect(DettaturaVera.voceDellaLingua(null, ios), isNull);
+    });
+
+    test('la lingua arriva DAVVERO al riconoscitore', () async {
+      final motore = _MotoreFinto(const ['en_US', 'it_IT']);
+      final dettatura =
+          DettaturaVera(motore: motore, lingua: () => const Locale('it'));
+      final partita = await dettatura.ascolta(parole: (_) {}, finito: () {});
+
+      expect(partita, isTrue);
+      expect(motore.lingueChieste, ['it_IT'],
+          reason: 'il riconoscitore ha ascoltato senza lingua, cioe\' con '
+              'quella che la piattaforma sceglie: su iPhone l\'inglese, ed '
+              'e\' cosi\' che "quindi" e\' diventato "Indicate"');
+    });
+  });
+
   testWidgets('col permesso negato compare la riga che porta fuori',
       (tester) async {
     final finta = _DettaturaFinta()..permessoConcesso = false;
@@ -149,6 +212,39 @@ class _DettaturaFinta extends Dettatura {
     return true;
   }
 
+  int fermate = 0;
+
   @override
-  Future<void> ferma() async {}
+  Future<void> ferma() async => fermate++;
+}
+
+/// **UN RICONOSCITORE FINTO, dietro la dettatura VERA.** Ordine DX voce 02.
+///
+/// Non implementa a mano la firma di `listen`, che ha dodici parametri e ne
+/// cambia a ogni versione del plugin: guarda le chiamate che gli arrivano e
+/// tiene la lingua chiesta. Cosi' la prova passa dal codice vero di
+/// `DettaturaVera`, che e' proprio dove il difetto stava.
+class _MotoreFinto implements SpeechToText {
+  _MotoreFinto(this.lingueDellaPiattaforma);
+
+  final List<String> lingueDellaPiattaforma;
+  final List<String?> lingueChieste = [];
+
+  @override
+  dynamic noSuchMethod(Invocation chiamata) {
+    switch (chiamata.memberName) {
+      case #initialize:
+        return Future<bool>.value(true);
+      case #locales:
+        return Future<List<LocaleName>>.value([
+          for (final id in lingueDellaPiattaforma) LocaleName(id, id),
+        ]);
+      case #listen:
+        final opzioni =
+            chiamata.namedArguments[#listenOptions] as SpeechListenOptions?;
+        lingueChieste.add(opzioni?.localeId);
+        return Future<void>.value();
+    }
+    return null;
+  }
 }

@@ -62,6 +62,16 @@ class _ChatComposerState extends State<ChatComposer> {
   /// qualcuno ha gia' scritto e' un danno che nessun comando deve poter fare.
   String _primaDiDettare = '';
 
+  /// **IL GIRO DELLA DETTATURA. Ordine DX voce 04.**
+  ///
+  /// Il fatto: dopo l'invio la parola dettata era ancora nel campo. La causa:
+  /// l'invio svuotava il campo ma non fermava la dettatura, e il riconoscitore
+  /// manda il risultato FINALE dopo i parziali, cioe' spesso dopo il tocco
+  /// sulla freccia: arrivava e riscriveva nel campo la stessa frase appena
+  /// mandata. Ogni ascolto ha il suo numero, l'invio lo fa avanzare, e cio'
+  /// che arriva con un numero vecchio non si scrive piu'.
+  int _giroDellaDettatura = 0;
+
   /// L'esito del permesso quando NON e' concesso: finche' e' qui, sopra le
   /// due bolle compare la riga che lo dice, e quella riga porta
   /// all'impostazione di sistema invece di lasciare un vicolo cieco.
@@ -119,11 +129,12 @@ class _ChatComposerState extends State<ChatComposer> {
     }
     setState(() => _permessoNegato = null);
     _primaDiDettare = _controller.text;
+    final giro = ++_giroDellaDettatura;
     final partito = await widget.dettatura.ascolta(
       // **LA DETTATURA COMPILA, NON INVIA.** Vincolo a dell'ordine: la
       // persona resta padrona della domanda, la rilegge e la corregge.
       parole: (dette) {
-        if (!mounted) return;
+        if (!mounted || giro != _giroDellaDettatura) return;
         final unito =
             _primaDiDettare.isEmpty ? dette : '$_primaDiDettare $dette';
         _controller.value = TextEditingValue(
@@ -132,10 +143,14 @@ class _ChatComposerState extends State<ChatComposer> {
         );
       },
       finito: () {
-        if (mounted) setState(() => _staAscoltando = false);
+        if (mounted && giro == _giroDellaDettatura) {
+          setState(() => _staAscoltando = false);
+        }
       },
     );
-    if (mounted) setState(() => _staAscoltando = partito);
+    if (mounted && giro == _giroDellaDettatura) {
+      setState(() => _staAscoltando = partito);
+    }
   }
 
   @override
@@ -148,6 +163,14 @@ class _ChatComposerState extends State<ChatComposer> {
   void _submit() {
     final text = _controller.text.trim();
     if (text.isEmpty || !widget.enabled) return;
+    // **CHI MANDA HA FINITO DI DETTARE.** Ordine DX voce 04: si chiude il
+    // giro prima di svuotare, cosi' nessun risultato in ritardo riempie di
+    // nuovo il campo con la domanda appena partita.
+    _giroDellaDettatura++;
+    if (_staAscoltando) {
+      _staAscoltando = false;
+      widget.dettatura.ferma();
+    }
     widget.onSend(text);
     _controller.clear();
     _focus.requestFocus();
