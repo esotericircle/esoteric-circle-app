@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -9,6 +10,7 @@ import 'app.dart';
 import 'core/diagnosi/briciole.dart';
 import 'core/l10n/la_lingua_del_cerchio.dart';
 import 'services/app_services.dart';
+import 'services/ai/registro_dei_guasti.dart';
 import 'core/sigilli/distanza_fra_le_feste.dart';
 
 /// Punto di ingresso di Esoteric Circle.
@@ -83,6 +85,12 @@ Future<void> main() async {
       FirebaseCrashlytics.instance.recordError(errore, pila, fatal: true);
       return true;
     };
+    // **E I GUASTI CHE NON FERMANO NIENTE**, ordine DV voce 10: arrivano
+    // come non fatali, con la frase che dice cosa si stava facendo. Il
+    // raddoppio delle domande e' rimasto un mese in un log che nessuno vede.
+    GuastiVersoIlCruscotto.inoltro = (cosa, errore, traccia) => unawaited(
+        FirebaseCrashlytics.instance
+            .recordError(errore, traccia, reason: cosa, fatal: false));
     Briciole.lascia('crashlytics_armato');
   }
 

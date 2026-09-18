@@ -19,6 +19,31 @@ void annotaGuastoInnocuo(String cosa, Object errore, [StackTrace? traccia]) {
     error: errore,
     stackTrace: traccia,
   );
+  final inoltro = GuastiVersoIlCruscotto.inoltro;
+  if (inoltro == null) return;
+  try {
+    inoltro(cosa, errore, traccia);
+  } catch (_) {
+    // Un'annotazione non deve mai diventare un guasto: se il cruscotto non
+    // risponde, il guasto resta nel log qui sopra e la chiamata finisce.
+  }
+}
+
+/// **I GUASTI INNOCUI ARRIVANO AL CRUSCOTTO.** Ordine DV voce 10, 18
+/// settembre 2026.
+///
+/// Il log di sviluppo sul telefono non lo legge nessuno: la coda della
+/// memoria ha mandato ogni domanda due volte per piu' di un mese, e l'errore
+/// che lo diceva finiva qui, in un log che si vede solo col cavo e il
+/// debugger. **Adesso l'annotazione arriva anche a Crashlytics, come guasto
+/// non fatale** e con la frase che dice cosa si stava facendo: la chat
+/// continua come prima, e chi guarda il cruscotto lo vede.
+///
+/// Il cruscotto lo aggancia `main.dart`, e solo quando Firebase c'e': qui non
+/// si importa Firebase, e nelle prove l'inoltro resta spento.
+abstract final class GuastiVersoIlCruscotto {
+  static void Function(String cosa, Object errore, StackTrace? traccia)?
+      inoltro;
 }
 
 /// Un guasto della voce dei Maestri, con tutto cio' che serve per riconoscerlo
