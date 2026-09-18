@@ -52,6 +52,9 @@ class ResponsoDellAlba {
   FamigliaDellArcano get famiglia => attribuzione.famiglia;
   String? get parola => lettura.parola;
 
+  /// A che cosa serve il gesto del secondo movimento.
+  String get perche => lettura.perche;
+
   /// La carta del mazzo dall'indice delle attribuzioni, per nome.
   static TarotCard cartaDi(int indice) {
     final nome = AttribuzioneDellArcano.tutte[indice].nomeDellaCarta;

@@ -294,7 +294,7 @@ void main() {
       'lungo, e la parola voce resta all\'audio', () {
     expect(corpus, isNotEmpty);
     final testi = [
-      for (final l in corpus) ...[l.dono, l.medora],
+      for (final l in corpus) ...[l.dono, l.perche, l.medora],
       ...FormeDellAlba.aperture,
       for (final f in FormeDellAlba.filo.values) ...f,
     ];
@@ -303,6 +303,114 @@ void main() {
       expect(t.contains('—'), isFalse, reason: t);
       expect(NucleoDelResponso.parole(t), isNot(contains('voce')), reason: t);
     }
+  });
+
+  test(
+      'IL GESTO E\' UN GESTO, e porta il suo perche\': ordine DV voce 12, '
+      'su ogni lettura di ogni stato', () {
+    // **Il fatto, dal telefono del fondatore, 18 settembre 2026.** Sotto *Il
+    // gesto di oggi* c'era *"Accetta una confusione senza risolverla"*: un
+    // atteggiamento, non un gesto. *"L'utente deve sapere che gesto fare e
+    // deve essere chiaro e diretto e deve sapere lo scopo, il perche'."*
+    //
+    // **Si misura l'attacco del gesto**, perche' e' li' che un atteggiamento
+    // si dichiara: un gesto comincia con cio' che le mani fanno. E si pretende
+    // il perche', con compiti suoi: dice a che cosa serve il gesto, non
+    // ripete la chiusura di Medora e non nomina la carta.
+    const atteggiamenti = {
+      'accetta',
+      'accogli',
+      'concediti',
+      'permettiti',
+      'riconosci',
+      'ammetti',
+      'sii',
+      'resta',
+      'coltiva',
+      'nutri',
+      'onora',
+      'custodisci',
+      'lascia',
+      'ricorda',
+      'fidati',
+      'credi',
+      'senti',
+      'immagina',
+      'pensa',
+      'considera',
+      'rifletti',
+      'medita',
+      'apriti',
+      'abbandona',
+      'perdona',
+      'abbraccia',
+      'vivi',
+      'goditi',
+      'sentiti',
+      'ama',
+      'amati',
+      'trova',
+      'affidati',
+      'arrenditi',
+      'celebra',
+    };
+    // Le ore che una carta girata a qualunque ora puo' smentire.
+    final dellOra = RegExp(
+        r'stamattin|stamani|mattin|risvegli|\bsera\b|stasera|\balba\b|'
+        r'mezzogiorno|pomeriggio|pranzo',
+        caseSensitive: false);
+    cardinaleMinimo(corpus.length, 44 * 12,
+        cosa: 'gesti dell\'Alba',
+        perche: 'Su un corpus vuoto nessun gesto sarebbe un atteggiamento.');
+    final cadute = <String>[];
+    for (final l in corpus) {
+      final chi = '${ResponsoDellAlba.cartaColVerso(l.stato)} ${l.numero}';
+      final attacco = NucleoDelResponso.parole(l.dono).first;
+      if (atteggiamenti.contains(attacco)) {
+        cadute.add('$chi: il gesto comincia con un atteggiamento, "$attacco"');
+      }
+      if (l.perche.trim().isEmpty) {
+        cadute.add('$chi: il gesto non ha il suo perche\'');
+        continue;
+      }
+      if (NucleoDelResponso.parole(l.perche).first == 'perche') {
+        cadute.add('$chi: il perche\' ripete l\'etichetta');
+      }
+      if (l.dono.length > 150) {
+        cadute.add('$chi: il gesto ha ${l.dono.length} caratteri');
+      }
+      if (l.perche.length > 120) {
+        cadute.add('$chi: il perche\' ha ${l.perche.length} caratteri');
+      }
+      for (final (nome, testo) in [('gesto', l.dono), ('perche\'', l.perche)]) {
+        if (dellOra.hasMatch(testo)) {
+          cadute.add('$chi: il $nome nomina un\'ora del giorno');
+        }
+      }
+      if (NucleoDelResponso.contieneIlNome(
+              l.perche, l.attribuzione.nomeDellaCarta) ||
+          NucleoDelResponso.contieneIlNome(l.perche, l.attribuzione.nome)) {
+        cadute.add('$chi: il perche\' nomina la carta o l\'attribuzione');
+      }
+      final comune = NucleoDelResponso.condiviso(l.perche, l.medora);
+      if (comune != null) {
+        cadute.add('$chi: il perche\' ripete Medora, $comune');
+      }
+    }
+    for (final s in stati) {
+      final viste = <String, int>{};
+      for (final l in ResponsoDellAlba.lettureDi(s)) {
+        final a = DiarioDellAlba.apertura(l.perche);
+        if (viste[a] != null) {
+          cadute.add('${ResponsoDellAlba.cartaColVerso(s)}: il perche\' '
+              'attacca con "$a" nelle letture ${viste[a]} e ${l.numero}');
+        }
+        viste[a] = l.numero;
+      }
+    }
+    print('ORDINE DV voce 12: gesti guardati ${corpus.length}, '
+        'cadute ${cadute.length}');
+    expect(cadute, isEmpty, reason: cadute.take(40).join('\n'));
   });
 
   test('IL FILE DEI DATI DICE CIO CHE DICE IL CORPUS, lettura per lettura', () {
@@ -329,6 +437,7 @@ void main() {
         voce['numero'],
         voce['parola'] ?? '',
         voce['dono'],
+        voce['perche'] ?? '',
         voce['medora'],
       ].join(' | '));
       voce = {};
@@ -351,7 +460,7 @@ void main() {
         continue;
       }
       final campo =
-          RegExp(r'^  - (parola|dono|medora): (.+)$').firstMatch(riga);
+          RegExp(r'^  - (parola|dono|perche|medora): (.+)$').firstMatch(riga);
       if (campo != null) voce[campo.group(1)!] = campo.group(2)!.trim();
     }
     chiudi();
@@ -363,6 +472,7 @@ void main() {
           '${l.numero}',
           l.parola ?? '',
           l.dono,
+          l.perche,
           l.medora,
         ].join(' | '),
     ];

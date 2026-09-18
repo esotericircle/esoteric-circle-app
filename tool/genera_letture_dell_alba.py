@@ -47,7 +47,7 @@ def leggi():
                             m.group(1) == 'rovesciato',
                             'numero': int(m.group(2))})
             continue
-        m = re.match(r'^  - (parola|dono|medora): (.+)$', riga)
+        m = re.match(r'^  - (parola|dono|perche|medora): (.+)$', riga)
         if m:
             letture[-1][m.group(1)] = m.group(2).strip()
     return letture
@@ -74,6 +74,7 @@ def scrivi(letture):
         if 'parola' in l:
             righe.append('    parola: %s,' % dart(l['parola']))
         righe.append('    dono: %s,' % dart(l['dono']))
+        righe.append('    perche: %s,' % dart(l['perche']))
         righe.append('    medora: %s,' % dart(l['medora']))
         righe.append('  ),')
     righe.append('];')

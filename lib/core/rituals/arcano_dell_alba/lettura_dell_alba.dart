@@ -20,6 +20,7 @@ class LetturaDellAlba {
     required this.numero,
     this.parola,
     required this.dono,
+    this.perche = '',
     required this.medora,
   });
 
@@ -33,8 +34,14 @@ class LetturaDellAlba {
   /// La parola del giorno, solo per le carte zodiacali.
   final String? parola;
 
-  /// Il secondo movimento: il dono.
+  /// Il secondo movimento: il dono, cioe' il gesto da fare.
   final String dono;
+
+  /// **A CHE COSA SERVE IL GESTO.** Ordine DV voce 12, 18 settembre 2026:
+  /// il fondatore vuole che la persona sappia che cosa fare e perche'. Sta
+  /// nel riquadro del gesto, sotto il gesto. Vuoto solo nelle letture
+  /// costruite a mano dalle prove.
+  final String perche;
 
   /// Il terzo movimento: la chiusura di Medora.
   final String medora;

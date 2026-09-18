@@ -367,6 +367,7 @@ class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
                               // leggibile dovunque cada nella scena, invece di
                               // dipendere da dove passa una stella.
                               child: DecoratedBox(
+                                key: const Key('arcano_alba_pannello'),
                                 decoration: BoxDecoration(
                                   // Il velo e' un pannello, non un taglio: in
                                   // cima si arrotonda come le altre superfici
@@ -481,6 +482,70 @@ class _Etichetta extends StatelessWidget {
       );
 }
 
+/// **IL RIQUADRO DEL GESTO.** Ordine DV voci 11 e 12, 18 settembre 2026.
+///
+/// Il fondatore ha letto *"Accetta una confusione senza risolverla"* sotto
+/// *Il gesto di oggi* e ha detto: non e' un gesto, e chi legge deve sapere
+/// che cosa fare e a che cosa serve. Il corpus e' stato riscritto, e qui il
+/// gesto ha il suo riquadro con due parti: che cosa fare, e perche'.
+class _RiquadroDelGesto extends StatelessWidget {
+  const _RiquadroDelGesto({required this.responso, required this.palette});
+
+  final ResponsoDellAlba responso;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    final perche = responso.perche.trim();
+    return DecoratedBox(
+      key: const Key('arcano_alba_riquadro_del_gesto'),
+      decoration: BoxDecoration(
+        // Un fondo appena piu' scuro del velo e un filo d'oro: il riquadro si
+        // stacca senza accendersi, e il testo resta sul fondo che il
+        // censimento del contrasto misura.
+        color: palette.deepest.withValues(alpha: 0.55),
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
+        border: Border.all(color: palette.goldSoft.withValues(alpha: 0.45)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(SpacingTokens.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _Etichetta(
+              chiave: 'arcano_alba_etichetta_gesto',
+              testo: 'Il gesto di oggi',
+              palette: palette,
+            ),
+            const SizedBox(height: SpacingTokens.xs),
+            ParagrafiDiLettura(
+              key: const Key('arcano_alba_dono'),
+              testo: responso.secondo,
+              stile: TypographyTokens.lettura()
+                  .copyWith(color: ColorTokens.textPrimary),
+            ),
+            if (perche.isNotEmpty) ...[
+              const SizedBox(height: SpacingTokens.sm),
+              _Etichetta(
+                chiave: 'arcano_alba_etichetta_perche',
+                testo: 'Perché',
+                palette: palette,
+              ),
+              const SizedBox(height: SpacingTokens.xs),
+              ParagrafiDiLettura(
+                key: const Key('arcano_alba_perche'),
+                testo: perche,
+                stile: TypographyTokens.lettura().copyWith(
+                    color: ColorTokens.textPrimary.withValues(alpha: 0.88)),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class _TreMovimenti extends StatelessWidget {
   const _TreMovimenti(
       {required this.responso, required this.giorno, required this.palette});
@@ -493,7 +558,11 @@ class _TreMovimenti extends StatelessWidget {
   Widget build(BuildContext context) {
     final parola = responso.parola;
     return Padding(
-      padding: const EdgeInsets.only(top: SpacingTokens.lg),
+      // **IL TESTO NON TOCCA I BORDI DEL PANNELLO.** Ordine DV voce 11: sul
+      // telefono del fondatore le righe correvano attaccate ai lati del velo,
+      // a destra e a sinistra, perche' qui c'era solo il margine in alto.
+      padding: const EdgeInsets.fromLTRB(SpacingTokens.md, SpacingTokens.lg,
+          SpacingTokens.md, SpacingTokens.lg),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -541,18 +610,10 @@ class _TreMovimenti extends StatelessWidget {
             ),
             const SizedBox(height: SpacingTokens.md),
           ],
-          _Etichetta(
-            chiave: 'arcano_alba_etichetta_gesto',
-            testo: 'Il gesto di oggi',
-            palette: palette,
-          ),
-          const SizedBox(height: SpacingTokens.xs),
-          ParagrafiDiLettura(
-            key: const Key('arcano_alba_dono'),
-            testo: responso.secondo,
-            stile: TypographyTokens.lettura()
-                .copyWith(color: ColorTokens.textPrimary),
-          ),
+          // **IL GESTO STA NEL SUO RIQUADRO**, ordine DV voce 11: e' la sola
+          // cosa del responso che chiede di essere fatta, e il fondatore l'ha
+          // voluta staccata dal resto. Dentro, cosa fare e perche'.
+          _RiquadroDelGesto(responso: responso, palette: palette),
           const SizedBox(height: SpacingTokens.md),
           // Il terzo: Medora chiude, e solo qui c'e' il filo con ieri.
           ParagrafiDiLettura(

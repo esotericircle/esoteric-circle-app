@@ -473,4 +473,70 @@ void main() {
     print('ORDINE DU: il responso si legge in questo ordine, alle quote '
         '${quote.map((q) => q.round()).toList()}');
   });
+
+  testWidgets(
+      'IL TESTO HA IL SUO MARGINE E IL GESTO IL SUO RIQUADRO, col perche\', '
+      'ordine DV voci 11 e 12', (tester) async {
+    // **Il fondatore, sulle catture del telefono**: *"tutto il testo non ha
+    // margini nel riquadro sottostante, il testo e' attaccato ai margini del
+    // riquadro sia a destra che a sinistra"*. E: *"metti il gesto con titolo
+    // in un riquadro per evidenziarlo dal resto del testo"*, con il perche'.
+    //
+    // Si misura la distanza vera fra il bordo del pannello e ogni testo, e
+    // fra il bordo del riquadro e cio' che contiene.
+    await monta(tester);
+    await gira(tester, 3);
+    final oggi = await tester.runAsync(() => ArchivioDellAlba.diOggi(adesso));
+    final pannello =
+        tester.getRect(find.byKey(const Key('arcano_alba_pannello')));
+    final riquadro =
+        tester.getRect(find.byKey(const Key('arcano_alba_riquadro_del_gesto')));
+    const margine = 12.0;
+    final misure = <String>[];
+    for (final (nome, chiave) in [
+      ('la carta', 'arcano_alba_carta'),
+      ('la parola', 'arcano_alba_parola'),
+      ('l\'uso della parola', 'arcano_alba_uso_della_parola'),
+      ('la chiusura di Medora', 'arcano_alba_medora'),
+      ('il riquadro del gesto', 'arcano_alba_riquadro_del_gesto'),
+    ]) {
+      final r = tester.getRect(find.byKey(Key(chiave)));
+      final sinistra = r.left - pannello.left;
+      final destra = pannello.right - r.right;
+      misure.add('$nome ${sinistra.round()}/${destra.round()}');
+      expect(sinistra, greaterThanOrEqualTo(margine),
+          reason: '$nome sta a ${sinistra.toStringAsFixed(1)} punti dal bordo '
+              'sinistro del pannello');
+      expect(destra, greaterThanOrEqualTo(margine),
+          reason: '$nome sta a ${destra.toStringAsFixed(1)} punti dal bordo '
+              'destro del pannello');
+    }
+    // Dentro il riquadro: il titolo, il gesto, il titolo del perche' e il
+    // perche', ognuno col suo margine.
+    for (final chiave in [
+      'arcano_alba_etichetta_gesto',
+      'arcano_alba_dono',
+      'arcano_alba_etichetta_perche',
+      'arcano_alba_perche',
+    ]) {
+      final r = tester.getRect(find.byKey(Key(chiave)));
+      expect(r.left - riquadro.left, greaterThanOrEqualTo(margine),
+          reason: '$chiave non ha margine nel riquadro');
+      expect(riquadro.right - r.right, greaterThanOrEqualTo(margine),
+          reason: '$chiave non ha margine a destra nel riquadro');
+      expect(r.top, greaterThanOrEqualTo(riquadro.top + margine),
+          reason: '$chiave esce dal riquadro in alto');
+      expect(r.bottom, lessThanOrEqualTo(riquadro.bottom - margine),
+          reason: '$chiave esce dal riquadro in basso');
+    }
+    expect(
+        tester
+            .widget<Text>(find.byKey(const Key('arcano_alba_etichetta_perche')))
+            .data,
+        'Perché');
+    expect(find.text(oggi!.perche, findRichText: true), findsWidgets,
+        reason: 'il perche\' del corpus non arriva a video');
+    print('ORDINE DV voce 11: margini sinistro/destro nel pannello $misure; '
+        'il perche\' a video: ${oggi.perche}');
+  });
 }
