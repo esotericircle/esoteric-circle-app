@@ -108,6 +108,11 @@ riscrive i file con CRLF.
 
 ## 7. LA BUILD
 
-**Serve una build per vedere a video le tre voci**, e l'ordine non la
-concede: la chiedo al fondatore. Sarebbe la 2272. Sul telefono di collaudo
-oggi c'e' la 2271, che non ha il DY.
+**La build l'ha ordinata il fondatore**, insieme all'ordine DZ: **Android
+2272**, release `3a338u03u8i8o`, del 19 settembre 2026, accesa sul Realme.
+**Visto sul Realme**: all'apertura, dopo la intro, il tutorial si presenta
+con *1 di 5*, *Disattiva* e *Salta* (`docs/collaudo/DY/`). **Visto anche**:
+si presenta sopra il foglio della registrazione, che per chi resta anonimo
+si riapre a ogni avvio; e' una decisione aperta del fondatore, e adesso i
+due si sovrappongono a ogni apertura. **Non visto a video**: *Disattiva*
+all'apertura dopo, la voce del menu' utente, i fogli sotto le barre.

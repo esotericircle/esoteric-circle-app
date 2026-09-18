@@ -100,4 +100,19 @@ PC del fondatore: se lo vuole, e' un ordine a se'.
 
 ## 6. LA BUILD
 
-La 2272, con DY e DZ, si costruisce dopo lo sbarramento su questo commit.
+**Android 2272**, release `3a338u03u8i8o`, del 19 settembre 2026, dal commit
+`10b68606`, dopo lo sbarramento sul suo albero (5572 prove, rossi accettati
+e solo quelli). Accesa sul Realme: processo vivo, primo fotogramma, nessun
+FATAL, numero letto dal telefono 2272.
+
+**Visto sul Realme con la 2272** (`docs/collaudo/DZ/`): dall'Oroscopo,
+*Parlane con Medora* apre la chat **pulita**, col saluto di Medora e la
+domanda nel campo; nel menu' c'e' la conversazione di prima, *Carta del
+giorno*, *Ieri*, e sotto *I giorni prima*. Una sola, perche' tutte le
+domande a Medora erano nella stessa conversazione; il titolo e' quello di
+ripiego perche' e' nata prima della 2272. **Un difetto mio, visto a video**:
+a chat vuota, senza *Nuova conversazione*, il menu' comincia con una riga
+divisoria vuota. Padre: DZ.03. Va nella prossima build.
+
+**Non visto a video**: il titolo scritto da Gemini su una conversazione
+nuova, e il Journal che non dice piu' zero.

@@ -3525,8 +3525,10 @@ l'invio che non la ferma dall'ordine CI voce 05. Registro delle guardie a
 Ordine del 18 settembre 2026, **tre voci, tre chiuse**. Manifesto
 `docs/ordini/ORDINE_DY_MANIFESTO.md`, con il censimento dei diciassette
 pannelli informativi; rapporto `docs/ordini/RAPPORTO_ORDINE_DY.md`.
-**Nessuna build**: l'ordine la vieta senza un ordine del fondatore, e il
-rapporto la chiede; sul telefono di collaudo c'e' la 2271, senza il DY.
+**CONSEGNATO CON LA 2272**, insieme al DZ, release `3a338u03u8i8o` del 19
+settembre 2026. Visto sul Realme: il tutorial all'apertura con *Disattiva* e
+*Salta*; si sovrappone al foglio della registrazione, che si riapre a ogni
+avvio per chi resta anonimo.
 
 **IL TUTORIAL A OGNI APERTURA (DY.01).** `main()` arma l'apertura
 (`MemoriaDelPrimoApprodo.nuovaApertura`), e il Primo Approdo si presenta dopo
@@ -3572,6 +3574,11 @@ europe-west1, una chiamata per conversazione dopo la prima risposta vera
 (`lib/services/ai/titoli_da_gemini.dart`); se il modello tace vale la prima
 domanda accorciata. **I titoli stanno sul telefono che li ha scritti**:
 portarli sul server chiede di cambiare `scriviLaMemoria`.
+
+**CONSEGNATO CON LA 2272**, release `3a338u03u8i8o`, dal commit `10b68606`.
+Visto sul Realme: la chat pulita dall'Oroscopo e la conversazione di prima
+nel menu'. **Resta un difetto piccolo**: a chat vuota il menu' comincia con
+una riga divisoria vuota; va nella prossima build.
 
 ## Regole ferree
 
