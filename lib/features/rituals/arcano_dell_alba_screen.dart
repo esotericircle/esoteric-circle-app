@@ -1,0 +1,719 @@
+import 'dart:async';
+import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
+
+import '../../core/astro/sky_location.dart';
+import '../../core/astro/solar_time.dart';
+import '../../core/maestro/maestro.dart';
+import '../../core/rituals/arcano_dell_alba/archivio_dell_alba.dart';
+import '../../core/rituals/arcano_dell_alba/responso_dell_alba.dart';
+import '../../core/rituals/arcano_dell_alba/stato_dell_alba.dart';
+import '../../core/rituals/avvisi_del_rito.dart';
+import '../../core/rituals/rito_alba.dart';
+import '../../core/rituals/daily_elements.dart';
+import '../../core/rituals/ritual_streak.dart';
+import '../../core/rituals/scelta_degli_avvisi.dart';
+import '../../core/sigilli/ora_rituale.dart';
+import '../../design_system/components/cosmos_background.dart';
+import '../../design_system/components/riga_del_dono.dart';
+import '../../design_system/components/titolo_che_non_si_rompe.dart';
+import '../../design_system/theme/abito_del_responso.dart';
+import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/theme/maestro_scope.dart';
+import '../../design_system/tokens/color_tokens.dart';
+import '../../design_system/tokens/spacing_tokens.dart';
+import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
+import '../../core/condivisione/premio_della_condivisione.dart';
+import '../maestri/chat/chat_openers.dart';
+import '../ricordi/azioni_del_responso.dart';
+import 'arcano_dell_alba_share_card.dart';
+import '../../services/avvisi_locali.dart';
+import '../sigilli/regia_del_cammino.dart';
+import '../tarot/stesa_senses.dart';
+import '../tarot/tarot_card_art.dart';
+import 'tavolo_dei_ventidue.dart';
+
+/// **L'ARCANO DELL'ALBA, il dono del mattino di Medora.** Ordine DT voci 01,
+/// 02, 03 e 04; **rifatto in scena dall'ordine DU**, 17 settembre 2026.
+///
+/// **IL FATTO CHE HA FATTO NASCERE L'ORDINE DU**, nelle parole del fondatore
+/// davanti alla 2267: *"un compitino, superficialita'"*. Tre carte coperte su
+/// un fondo nero, nessuna animazione, Medora assente. Aveva ragione.
+///
+/// **ADESSO E' UNA SCENA SUA.** La prima stesura riusava il ventaglio della
+/// Stesa e metteva Medora in cima: **il fondatore ha bocciato tutti e due**,
+/// *"e' identico alla Stesa"*, e ha chiesto di togliere anche l'avatar.
+/// Adesso c'e' il fondo stellato (`CosmosBackground`) e **il tavolo dei
+/// ventidue** (`TavoloDeiVentidue`): i dorsi entrano a spirale, si posano su
+/// righe leggermente sovrapposte e continuano a respirare; la carta scelta
+/// sale al centro con una scia di stelline e si gira.
+///
+/// **I due gesti del mazzo**, mischia e taglia, muovono le figure sul tavolo
+/// e non l'esito: la carta si estrae dal caso sicuro nel momento del tocco.
+/// Nessun disclaimer (voce DU.10), **nessuna voce e nessun Protoface** (voce
+/// DU.06).
+///
+/// **IL VERSO LO DECIDE IL SISTEMA, e il dorso toccato non conta** (voce
+/// DU.07). I ventidue dorsi sono lo stesso disegno; lo stato si estrae dal
+/// caso sicuro nel momento del tocco, e il dorso del mazzo e' simmetrico al
+/// mezzo giro: una carta coperta non puo' dire niente.
+///
+/// **Solo i ventidue arcani maggiori, e il limite delle stese non si tocca**
+/// (voce DU.13): questo dono non passa da `QuestionAllowance`.
+///
+/// **Nel cammino valgono tutti e due i gesti**, `alba` e `oracolo`: decisione
+/// di Mauro del 17 settembre 2026, cosi' nessuno dei traguardi che li
+/// nominano cambia.
+class ArcanoDellAlbaScreen extends StatefulWidget {
+  const ArcanoDellAlbaScreen({
+    super.key,
+    this.now,
+    this.location = const DisabledSkyLocation(),
+    this.avvisi = const AvvisiSpenti(),
+    this.caso,
+  });
+
+  final DateTime? now;
+  final SkyLocation location;
+  final ServizioAvvisi avvisi;
+
+  /// Solo per le prove: il caso dell'estrazione. Nell'app e' quello sicuro.
+  final math.Random? caso;
+
+  /// **Quanti dorsi si offrono alla mano: tutti e ventidue.** Ordine DU voce
+  /// 02. Non e' il numero dei doni ne' quello del mazzo intero: sono gli
+  /// arcani maggiori, e l'arco li sfoglia tutti.
+  static int get dorsi => StatoDellAlba.carte;
+
+  static Route<void> route(
+          {DateTime? now, SkyLocation? location, ServizioAvvisi? avvisi}) =>
+      PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
+            child: ArcanoDellAlbaScreen(
+              now: now,
+              location: location ?? const GeolocatorSkyLocation(),
+              avvisi: avvisi ?? avvisiDelCerchio,
+            ),
+          ));
+
+  @override
+  State<ArcanoDellAlbaScreen> createState() => _ArcanoDellAlbaScreenState();
+}
+
+class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
+    with TickerProviderStateMixin {
+  /// Il responso di oggi, quando la carta e' stata scelta.
+  ResponsoDellAlba? _responso;
+
+  /// Vero finche' non si sa se oggi la carta e' gia' stata scelta.
+  bool _caricando = true;
+
+  /// Quale dorso e' stato toccato, quando la scelta e' avvenuta adesso: il
+  /// tavolo lo fa salire al centro. Resta nullo su una carta ritrovata.
+  int? _toccata;
+
+  /// **IL SUONO DELLA CARTA CHE SI GIRA**, lo stesso della Stesa: la porta e'
+  /// una sola, `SensiDellaStesa`, e da li' esce `carta.mp3` col silenzio e col
+  /// volume dell'app. Qui non si costruisce nessun secondo lettore.
+  final SensiDellaStesa _sensi = SensiDellaStesa();
+
+  /// **LA RIVELAZIONE**: la carta scelta che sale, cresce e si gira, con la
+  /// scia di stelline dietro. L'ingresso e il respiro del tavolo li governa
+  /// il tavolo, che e' l'unico a sapere dove stanno le carte.
+  late final AnimationController _rivelazione;
+
+  /// Vero quando la carta e' stata scelta in questa sessione: in quel caso la
+  /// carta grande la disegna il tavolo, alla fine del volo.
+  bool get _inRivelazione => _toccata != null;
+
+  DateTime get _adesso => widget.now ?? DateTime.now();
+
+  /// **LA CARTA DA MANDARE, fuori campo.** Ordine DW voce 02: si disegna
+  /// solo mentre si condivide, a sinistra dello schermo, e si fotografa da
+  /// qui.
+  final GlobalKey _cartaDaCondividere = GlobalKey();
+  bool _rendiLaCarta = false;
+
+  /// **CONDIVIDE LA CARD, e torna l'esito vero.** Il vero e' cio' su cui le
+  /// azioni comuni custodiscono il responso e su cui si paga il premio
+  /// dichiarato sul pulsante.
+  Future<bool> _condividi() async {
+    final responso = _responso;
+    if (responso == null) return false;
+    setState(() => _rendiLaCarta = true);
+    try {
+      await WidgetsBinding.instance.endOfFrame;
+      await Future<void>.delayed(const Duration(milliseconds: 80));
+      final andata = await shareArcanoDellAlbaCard(
+          boundaryKey: _cartaDaCondividere,
+          text: testoDellArcanoCondiviso(responso));
+      if (andata && mounted) {
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso l\'Arcano dell\'Alba');
+      }
+      return andata;
+    } finally {
+      if (mounted) setState(() => _rendiLaCarta = false);
+    }
+  }
+
+  /// **LE TRE AZIONI DA UNA PORTA SOLA**, ordine DW voce 02: Custodisci,
+  /// Parlane con Medora e Condividi. L'ordine DT voce 02 le aveva tolte
+  /// tutte; il fondatore le ha rivolute, e la card da mandare con loro.
+  Widget _azioni(ResponsoDellAlba responso) => Stack(
+        clipBehavior: Clip.none,
+        children: [
+          AzioniDelResponso(
+            palette: _palette,
+            maestro: Maestro.medora,
+            responso: ResponsoDaCustodire(
+              arte: 'alba',
+              titolo: 'Il tuo Arcano dell\'Alba: '
+                  '${ArcanoDellAlbaShareCard.titoloDi(responso)}',
+              testo: [
+                responso.primo,
+                if (responso.parola != null)
+                  'La parola di oggi: ${responso.parola}.',
+                responso.secondo,
+                if (responso.perche.trim().isNotEmpty) responso.perche,
+                responso.terzo,
+              ].join('\n\n'),
+              dati: {
+                'carta': responso.carta.name,
+                'verso': responso.stato.rovescio ? 'rovesciata' : 'dritta',
+                if (responso.parola != null) 'parola': responso.parola!,
+              },
+            ),
+            condividi: _condividi,
+            aperturaDellaChat: ChatOpeners.arcanoAlba(
+                ResponsoDellAlba.cartaColVerso(responso.stato),
+                responso.secondo),
+          ),
+          if (_rendiLaCarta)
+            Positioned(
+              left: -3000,
+              top: 0,
+              child: RepaintBoundary(
+                key: _cartaDaCondividere,
+                child: ArcanoDellAlbaShareCard(
+                    responso: responso, palette: _palette),
+              ),
+            ),
+        ],
+      );
+
+  static final MaestroPalette _palette =
+      MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+
+  @override
+  void initState() {
+    super.initState();
+    _rivelazione = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 1400));
+    unawaited(_riprendi());
+  }
+
+  @override
+  void dispose() {
+    _rivelazione.dispose();
+    super.dispose();
+  }
+
+  bool get _ridotto => MediaQuery.maybeOf(context)?.disableAnimations ?? false;
+
+  /// Se oggi la carta e' gia' stata scelta, si torna al responso: **la scena
+  /// si rivede domani**, decisione di Mauro del 17 settembre 2026. Chi riapre
+  /// vuole rileggere il suo dono, non ripetere il gesto.
+  Future<void> _riprendi() async {
+    final gia = await ArchivioDellAlba.diOggi(_adesso);
+    if (!mounted) return;
+    setState(() {
+      _responso = gia;
+      _caricando = false;
+      if (gia != null) _rivelazione.value = 1;
+    });
+  }
+
+  Future<void> _scegli(int quale) async {
+    if (_responso != null || _caricando || _toccata != null) return;
+    final responso =
+        await ArchivioDellAlba.estraiOggi(_adesso, caso: widget.caso);
+    if (!mounted) return;
+    setState(() {
+      _responso = responso;
+      _toccata = quale;
+    });
+    // Il mezzo giro suona come nella Stesa, e vibra: parte insieme al volo,
+    // cosi' il suono accompagna la carta invece di arrivarle dietro.
+    await _sensi.momento(context, MomentoSensoriale.flip);
+    if (!mounted) return;
+    if (_ridotto) {
+      _rivelazione.value = 1;
+    } else {
+      await _rivelazione.forward(from: 0);
+    }
+    if (!mounted) return;
+    setState(() {});
+    unawaited(_segnaIlDono(responso));
+  }
+
+  /// Il dono ricevuto entra nel cammino, nella serie e negli avvisi.
+  Future<void> _segnaIlDono(ResponsoDellAlba responso) async {
+    final adesso = _adesso;
+    await const RitualStreak(id: 'dawn').recordToday(adesso);
+    if (!mounted) return;
+    final luogo = await widget.location.resolveSeConcesso();
+    if (!mounted) return;
+    final posizione = PosizioneDiStamattina.da(luogo, adesso.timeZoneOffset);
+    final sorgere = SunsetTime.albaPerData(adesso,
+        lat: posizione.lat, lon: posizione.lon, offset: adesso.timeZoneOffset);
+    final primaDelSole = sorgere != null && adesso.isBefore(sorgere);
+    // **TUTTI E DUE I GESTI.** L'alba porta ancora il sorgere vero, per il
+    // traguardo "prima che il sole sorga davvero"; l'oracolo porta l'arcano
+    // uscito, per i traguardi che contano le carte nella settimana. Uno dopo
+    // l'altro e non insieme: scrivono tutti e due nello stesso diario.
+    await RegiaDelCammino.dopoUnGesto(context, 'alba',
+        oraRituale: OraRituale.diAdesso(adesso: adesso),
+        dettagli: primaDelSole
+            ? const {
+                'prima_del_sole': ['si']
+              }
+            : const <String, Object?>{});
+    if (!mounted) return;
+    await RegiaDelCammino.dopoUnGesto(context, 'oracolo',
+        oraRituale: OraRituale.diAdesso(adesso: adesso),
+        dettagli: {
+          'arcano': [responso.carta.stem]
+        });
+    final scelta = SceltaDegliAvvisi();
+    await scelta.carica();
+    await AvvisiDelRito.programmaProssimo(
+      servizio: widget.avvisi,
+      adesso: adesso,
+      posizione: posizione,
+      minutiScelti: scelta.minutiDi(DailyElement.dawn),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final responso = _responso;
+    final scegliendo = responso == null && !_caricando;
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: IconThemeData(color: _palette.goldSoft),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_rounded),
+          tooltip: 'Indietro',
+          onPressed: () => Navigator.of(context).maybePop(),
+        ),
+        title: TitoloCheNonSiRompe(
+            chiaveDelTesto: const Key('arcano_alba_titolo'),
+            testo: DailyElement.dawn.title,
+            stile: TypographyTokens.titoloDiSchermata()),
+      ),
+      // **IL FONDO NON E' PIU' NERO**, voce DU.01: il cielo del Cerchio, lo
+      // stesso della Stesa, con i pianeti e senza lo zodiaco.
+      body: CosmosBackground(
+        paletteOverride: _palette,
+        child: SafeArea(
+          child: _caricando
+              ? const SizedBox.shrink()
+              // **LA SCENA RIEMPIE LO SCHERMO.** Con la sola colonna, mentre
+              // si sceglie restava un terzo di vuoto sotto il ventaglio: qui
+              // la colonna e' alta almeno quanto la finestra e distribuisce
+              // Medora, l'invito e l'arco. A responso aperto torna a scorrere
+              // dall'alto, perche' li' il contenuto e' piu' lungo della
+              // finestra.
+              : LayoutBuilder(
+                  builder: (context, spazio) => SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
+                        SpacingTokens.sm, SpacingTokens.lg, SpacingTokens.xl),
+                    child: ConstrainedBox(
+                      constraints: BoxConstraints(
+                          minHeight: spazio.maxHeight -
+                              SpacingTokens.sm -
+                              SpacingTokens.xl),
+                      child: Column(
+                        key: const Key('arcano_alba_scena'),
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        // **LA SCENA NON SALTA MENTRE LA CARTA VOLA**: la
+                        // colonna resta distribuita finche' il volo finisce,
+                        // e solo dopo il responso scorre dall'alto.
+                        mainAxisAlignment: scegliendo || _inRivelazione
+                            ? MainAxisAlignment.spaceEvenly
+                            : MainAxisAlignment.start,
+                        children: [
+                          // **L'INVITO LASCIA IL POSTO, NON LA LISTA.**
+                          // Togliendolo, il tavolo cambiava indice fra i
+                          // figli e Flutter lo ricostruiva da capo: le carte
+                          // rientravano in scena a meta' del volo. Visto
+                          // sull'anteprima, non dedotto.
+                          if (scegliendo || _inRivelazione)
+                            // L'invito si spegne mentre la carta sale, senza
+                            // sparire di colpo.
+                            // **CHI LEGGE UN'ANIMAZIONE DEVE ASCOLTARLA.**
+                            // Senza questo ascolto l'opacita' si calcolava una
+                            // volta sola, alla costruzione: il titolo e
+                            // l'invito restavano accesi per tutto il volo e
+                            // sparivano di colpo alla fine. Visto
+                            // sull'anteprima, non dedotto.
+                            AnimatedBuilder(
+                              animation: _rivelazione,
+                              builder: (context, figlio) {
+                                final acceso = (1 - _rivelazione.value * 2.4)
+                                    .clamp(0.0, 1.0);
+                                // **IL VUOTO SI CHIUDE COL TESTO.** Spegnere
+                                // il titolo non basta: lo spazio che occupava
+                                // restava li', e la carta rivelata sembrava
+                                // persa in una schermata vuota. Visto
+                                // sull'anteprima dal fondatore.
+                                return Align(
+                                  alignment: Alignment.topCenter,
+                                  heightFactor: acceso,
+                                  child:
+                                      Opacity(opacity: acceso, child: figlio),
+                                );
+                              },
+                              child: Column(
+                                children: [
+                                  // **IL TITOLO DELLA SCENA**, richiesto dal
+                                  // fondatore: l'invito da solo era anonimo.
+                                  // Sta qui e non nella barra in alto, che
+                                  // porta gia' il nome del dono: questo dice
+                                  // che cosa sta per succedere.
+                                  Text(
+                                    'La carta del destino di oggi',
+                                    key: const Key('arcano_alba_richiamo'),
+                                    textAlign: TextAlign.center,
+                                    style: TypographyTokens.cerimoniale()
+                                        .copyWith(color: _palette.gold),
+                                  ),
+                                  const SizedBox(height: SpacingTokens.sm),
+                                  ParagrafiDiLettura(
+                                    key: const Key('arcano_alba_invito'),
+                                    testo: DailyElement.dawn.cosaFai,
+                                    textAlign: TextAlign.center,
+                                    stile: TypographyTokens.lettura(),
+                                  ),
+                                ],
+                              ),
+                            )
+                          else
+                            const SizedBox.shrink(),
+                          // **IL TAVOLO DEI VENTIDUE**, voci DU.02, DU.04 e
+                          // DU.05: i ventidue dorsi entrano a spirale, si
+                          // posano su righe sovrapposte e respirano; la carta
+                          // scelta sale al centro con la sua scia di stelline.
+                          // Resta in scena anche durante la rivelazione,
+                          // perche' e' lui a farla.
+                          if (scegliendo || _inRivelazione)
+                            TavoloDeiVentidue(
+                              key: const ValueKey('tavolo_dei_ventidue'),
+                              palette: _palette,
+                              onScegli: _scegli,
+                              rivelazione: _rivelazione,
+                              scelta: _toccata,
+                              ridotto: _ridotto,
+                              quante: ArcanoDellAlbaScreen.dorsi,
+                              faccia: (context) => _Faccia(
+                                  responso: _responso!, palette: _palette),
+                            ),
+                          if (responso != null && !_inRivelazione) ...[
+                            const SizedBox(height: SpacingTokens.sm),
+                            _CartaGrande(responso: responso, palette: _palette),
+                          ],
+                          if (responso != null) ...[
+                            AnimatedBuilder(
+                              animation: _rivelazione,
+                              builder: (context, figlio) => Opacity(
+                                opacity: ((_rivelazione.value - 0.75) / 0.25)
+                                    .clamp(0, 1),
+                                child: figlio,
+                              ),
+                              // **IL RESPONSO HA IL SUO FONDO.** I tre
+                              // movimenti stanno sul cielo, e il cielo in quel
+                              // punto e' chiaro: la riga del dono ci stava
+                              // sopra a 4,25 contro il 4,5 preteso. Un velo
+                              // scuro che sfuma dall'alto tiene il testo
+                              // leggibile dovunque cada nella scena, invece di
+                              // dipendere da dove passa una stella.
+                              child: DecoratedBox(
+                                key: const Key('arcano_alba_pannello'),
+                                decoration: BoxDecoration(
+                                  // Il velo e' un pannello, non un taglio: in
+                                  // cima si arrotonda come le altre superfici
+                                  // del Cerchio.
+                                  borderRadius: const BorderRadius.vertical(
+                                      top: Radius.circular(18)),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    // **IL VELO COMINCIA GIA' SCURO.** Con la
+                                    // prima fermata trasparente, la riga del
+                                    // dono cadeva proprio li' e il contrasto
+                                    // scendeva a 3,20: un velo che sfuma dove
+                                    // comincia il testo non copre il testo.
+                                    colors: [
+                                      _palette.deepest.withValues(alpha: 0.62),
+                                      _palette.deepest.withValues(alpha: 0.86),
+                                      _palette.deepest.withValues(alpha: 0.88),
+                                    ],
+                                    stops: const [0.0, 0.10, 1.0],
+                                  ),
+                                ),
+                                child: _TreMovimenti(
+                                    responso: responso,
+                                    giorno: _adesso,
+                                    palette: _palette,
+                                    azioni: _azioni(responso)),
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+        ),
+      ),
+    );
+  }
+}
+
+/// La carta grande, ferma: e' quella che si rivede riaprendo il dono, quando
+/// il volo e il giro sono gia' avvenuti in un altro momento.
+class _CartaGrande extends StatelessWidget {
+  const _CartaGrande({required this.responso, required this.palette});
+
+  final ResponsoDellAlba responso;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) => LayoutBuilder(
+        builder: (context, spazio) => Center(
+          child: SizedBox(
+            // **LA STESSA MISURA DELLA CARTA APPENA RIVELATA**, cioe' il
+            // sessantadue per cento della larghezza: chi riapre il dono
+            // ritrova la carta grande come l'ha lasciata, e non un numero
+            // scritto a mano che vale solo su un telefono.
+            width: spazio.maxWidth * TavoloDeiVentidue.parteDellaLarghezza,
+            child: AspectRatio(
+              aspectRatio: TarotFrame.aspect,
+              child: _Faccia(responso: responso, palette: palette),
+            ),
+          ),
+        ),
+      );
+}
+
+/// La faccia della carta, **coi suoi cartigli pieni** (voce DU.03): il
+/// numerale in alto e il nome in basso, come su ogni carta del mazzo.
+class _Faccia extends StatelessWidget {
+  const _Faccia({required this.responso, required this.palette});
+
+  final ResponsoDellAlba responso;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) => TarotCardArt(
+        key: const Key('arcano_alba_faccia'),
+        card: responso.carta,
+        palette: palette,
+        reversed: responso.stato.rovescio,
+      );
+}
+
+/// **L'ETICHETTA DI UN MOVIMENTO**: dice che cos'e' cio' che viene dopo.
+///
+/// Sta in una classe sua perche' sono tre in una schermata sola e devono
+/// essere identiche: tre stili copiati a mano diventano tre stili diversi al
+/// primo ritocco.
+class _Etichetta extends StatelessWidget {
+  const _Etichetta({
+    required this.chiave,
+    required this.testo,
+    required this.palette,
+  });
+
+  final String chiave;
+  final String testo;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) => Text(
+        testo,
+        key: Key(chiave),
+        style: TypographyTokens.titoloDiRiga().copyWith(
+          // **L'oro chiaro, non l'oro pieno.** Un'etichetta e' testo piccolo e
+          // il censimento dei grigi le chiede sette a uno: l'oro pieno di Aura
+          // sulla sua casa fa 5,65, e l'etichetta si legge male proprio dove
+          // serve a orientare.
+          color: palette.goldSoft,
+          letterSpacing: 0.6,
+        ),
+      );
+}
+
+/// **IL RIQUADRO DEL GESTO.** Ordine DV voci 11 e 12, 18 settembre 2026.
+///
+/// Il fondatore ha letto *"Accetta una confusione senza risolverla"* sotto
+/// *Il gesto di oggi* e ha detto: non e' un gesto, e chi legge deve sapere
+/// che cosa fare e a che cosa serve. Il corpus e' stato riscritto, e qui il
+/// gesto ha il suo riquadro con due parti: che cosa fare, e perche'.
+class _RiquadroDelGesto extends StatelessWidget {
+  const _RiquadroDelGesto({required this.responso, required this.palette});
+
+  final ResponsoDellAlba responso;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    final perche = responso.perche.trim();
+    return DecoratedBox(
+      key: const Key('arcano_alba_riquadro_del_gesto'),
+      decoration: BoxDecoration(
+        // Un fondo appena piu' scuro del velo e un filo d'oro: il riquadro si
+        // stacca senza accendersi, e il testo resta sul fondo che il
+        // censimento del contrasto misura.
+        color: palette.deepest.withValues(alpha: 0.55),
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
+        border: Border.all(color: palette.goldSoft.withValues(alpha: 0.45)),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(SpacingTokens.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            _Etichetta(
+              chiave: 'arcano_alba_etichetta_gesto',
+              testo: 'Il gesto di oggi',
+              palette: palette,
+            ),
+            const SizedBox(height: SpacingTokens.xs),
+            ParagrafiDiLettura(
+              key: const Key('arcano_alba_dono'),
+              testo: responso.secondo,
+              stile: TypographyTokens.lettura()
+                  .copyWith(color: ColorTokens.textPrimary),
+            ),
+            if (perche.isNotEmpty) ...[
+              const SizedBox(height: SpacingTokens.sm),
+              _Etichetta(
+                chiave: 'arcano_alba_etichetta_perche',
+                testo: 'Perché',
+                palette: palette,
+              ),
+              const SizedBox(height: SpacingTokens.xs),
+              ParagrafiDiLettura(
+                key: const Key('arcano_alba_perche'),
+                testo: perche,
+                stile: TypographyTokens.lettura().copyWith(
+                    color: ColorTokens.textPrimary.withValues(alpha: 0.88)),
+              ),
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _TreMovimenti extends StatelessWidget {
+  const _TreMovimenti(
+      {required this.responso,
+      required this.giorno,
+      required this.palette,
+      this.azioni});
+
+  final ResponsoDellAlba responso;
+  final DateTime giorno;
+  final MaestroPalette palette;
+
+  /// Custodisci, Parlane e Condividi, sotto la chiusura di Medora.
+  final Widget? azioni;
+
+  @override
+  Widget build(BuildContext context) {
+    final parola = responso.parola;
+    return Padding(
+      // **IL TESTO NON TOCCA I BORDI DEL PANNELLO.** Ordine DV voce 11: sul
+      // telefono del fondatore le righe correvano attaccate ai lati del velo,
+      // a destra e a sinistra, perche' qui c'era solo il margine in alto.
+      padding: const EdgeInsets.fromLTRB(SpacingTokens.md, SpacingTokens.lg,
+          SpacingTokens.md, SpacingTokens.lg),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          RigaDelDono(
+            dono: DailyElement.dawn,
+            giorno: giorno,
+            superficie:
+                AbitoDelResponso.di(DailyElement.dawn).superficiePeggiore,
+          ),
+          // Il primo movimento: la carta, il verso, l'attribuzione.
+          Text(
+            responso.primo,
+            key: const Key('arcano_alba_carta'),
+            style: TypographyTokens.cerimoniale()
+                .copyWith(color: palette.goldSoft, height: 1.25),
+          ),
+          const SizedBox(height: SpacingTokens.md),
+          // **IL SECONDO MOVIMENTO SI PRESENTA.** La parola stava qui da sola,
+          // in maiuscolo grande, e chi leggeva doveva indovinare che fosse la
+          // sua parola del giorno e che cosa farsene. Adesso porta il suo nome
+          // e il suo uso, e il gesto porta il suo.
+          if (parola != null) ...[
+            _Etichetta(
+              chiave: 'arcano_alba_etichetta_parola',
+              testo: 'La parola di oggi',
+              palette: palette,
+            ),
+            const SizedBox(height: SpacingTokens.xs),
+            Text(
+              parola.toUpperCase(),
+              key: const Key('arcano_alba_parola'),
+              style: TypographyTokens.cerimonialeGrande()
+                  .copyWith(color: palette.goldSoft, letterSpacing: 1.5),
+            ),
+            const SizedBox(height: SpacingTokens.xs),
+            // Il testo di lettura passa sempre dalla porta comune: un Text
+            // diretto nel ruolo lettura e' la famiglia delle due porte, e da
+            // li' torna il muro di testo.
+            ParagrafiDiLettura(
+              key: const Key('arcano_alba_uso_della_parola'),
+              testo: 'Tienila a mente quando devi scegliere: '
+                  'è il filo di oggi.',
+              stile: TypographyTokens.lettura().copyWith(
+                  color: ColorTokens.textPrimary.withValues(alpha: 0.88)),
+            ),
+            const SizedBox(height: SpacingTokens.md),
+          ],
+          // **IL GESTO STA NEL SUO RIQUADRO**, ordine DV voce 11: e' la sola
+          // cosa del responso che chiede di essere fatta, e il fondatore l'ha
+          // voluta staccata dal resto. Dentro, cosa fare e perche'.
+          _RiquadroDelGesto(responso: responso, palette: palette),
+          const SizedBox(height: SpacingTokens.md),
+          // Il terzo: Medora chiude, e solo qui c'e' il filo con ieri.
+          ParagrafiDiLettura(
+            key: const Key('arcano_alba_medora'),
+            testo: responso.terzo,
+            stile: TypographyTokens.lettura().copyWith(
+                color: ColorTokens.textPrimary.withValues(alpha: 0.86),
+                fontStyle: FontStyle.italic),
+          ),
+          if (azioni != null) ...[
+            const SizedBox(height: SpacingTokens.lg),
+            azioni!,
+          ],
+        ],
+      ),
+    );
+  }
+}

@@ -304,7 +304,7 @@ Il modello prevede un livello gratuito e tre livelli a pagamento. Ogni livello a
 | Free | Viandante | 0 | Esplora la soglia | Accesso base con piccolo banner inferiore |
 | Tier 1 | L Iniziato | Sett 2,90 │ Mese 9,90 │ Anno 89,90 (7,49/mese, -24%) | I Maestri ti conoscono e ti ricordano | Memoria AI persistente, zero pubblicità |
 | Tier 2 | L Adepto | Sett 4,90 │ Mese 19,90 │ Anno 179,90 (14,99/mese, -25%) | I Maestri ti parlano, anche con la voce | Voce dei Maestri, tutto illimitato salvo le funzioni costose |
-| Tier 3 | L Illuminato | Sett 6,90 │ Mese 29,90 │ Anno 269,90 (22,49/mese, -25%) | Sei oltre il velo | Tutto illimitato, accesso anticipato, esclusive spirituali, Maestro reale |
+| Tier 3 | L Illuminato | Sett 6,90 │ Mese 29,90 │ Anno 269,90 (22,49/mese, -25%) | Sei oltre il velo | Tutto illimitato, accesso anticipato, esclusive spirituali |
 
 Free, il Viandante. Vetrina completa con uso reale ma limitato e frustrazione costruttiva, reset giornaliero ovunque. Include: carta natale completa in sola lettura base; Oracolo del Giorno, Soffio del Destino e Rito dell Alba gratuiti ogni giorno; una domanda al giorno a un Maestro senza memoria; una carta di tarocchi al giorno; Sinastria Celeb fino a tre al giorno (è la leva virale, deve girare); Angel Numbers e Angelo Custode una tantum gratuiti; Mood Tracker base senza correlazione transiti; piccolo banner inferiore e reward video opzionali.
 
@@ -312,7 +312,7 @@ Tier 1, l Iniziato, 9,90 euro. La soglia della relazione e il principale driver 
 
 Tier 2, l Adepto, 19,90 euro. Obiettivo principale di conversione. Voce AI di tutti e tre i Maestri (esclusiva). Tutto illimitato, tranne le funzioni che comportano un costo reale di inferenza o generazione, limitate con tetto giornaliero ampio: dieci domande al giorno ai Maestri, cinque stese di cartomanzia al giorno, cinque Sinastria Celeb al giorno. Illimitati invece gli oracoli secondari, le meditazioni, il journal con AI, il transit tracker con alert, l oroscopo mensile. Memoria piena, nessuna pubblicità.
 
-Tier 3, l Illuminato, 29,90 euro. Tutto ciò che nel Tier 2 era limitato qui diventa davvero illimitato. In più: una domanda al mese al Maestro reale con risposta entro quarantotto ore (ponte verso i consulti premium); accesso anticipato alle nuove funzioni; le esclusive del Modulo Spirituale, ovvero la Compatibilità a tre livelli e l Albero della Vita dinamico; Eos bonus mensili più alti, card dal design premium e report PDF esportabili.
+Tier 3, l Illuminato, 29,90 euro. Tutto ciò che nel Tier 2 era limitato qui diventa davvero illimitato. In più: accesso anticipato alle nuove funzioni; le esclusive del Modulo Spirituale, ovvero la Compatibilità a tre livelli e l Albero della Vita dinamico; Eos bonus mensili più alti, card dal design premium e report PDF esportabili.
 
 ## 22. Mappa completa funzionalità per tier
 
@@ -340,7 +340,6 @@ La tabella seguente è il riferimento operativo per lo sviluppo. Tutti i limiti 
 | Cosmic Journal | Base | Completo | Completo + AI | Completo + AI + report |
 | Compatibilità a tre livelli | No | No | No | Esclusiva |
 | Albero della Vita dinamico | Contemplativo | Contemplativo | Contemplativo | Dinamico esclusivo |
-| Domanda al Maestro reale | No | No | No | 1/mese |
 | Accesso anticipato nuove funzioni | No | No | No | Sì |
 | Eos bonus mensili | No | Medio | Alto | Massimo |
 
@@ -494,7 +493,7 @@ Foto di persone sconosciute: feature scartata per incompatibilità con il GDPR e
 | Memoria AI | Esclusiva del Tier 1, non acquistabile con Eos |
 | Voce AI | Esclusiva del Tier 2 |
 | Tier 2 | Tutto illimitato salvo funzioni costose (10 domande, 5 stese, 5 sinastria al giorno) |
-| Tier 3 | Tutto illimitato, Maestro reale, compatibilità a tre livelli, Albero dinamico |
+| Tier 3 | Tutto illimitato, compatibilità a tre livelli, Albero dinamico |
 | Sinastria Celeb | Inclusa nel MVP, leva virale principale |
 | Sinastria AR | Spostata alle fasi successive |
 | Foto sconosciuti | Scartata per GDPR |
