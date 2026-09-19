@@ -94,8 +94,15 @@ void main() {
   test('la pagina monta la policy e il sottomenu la apre', () {
     final schermo = File('lib/features/account/privacy_policy_screen.dart')
         .readAsStringSync();
-    expect(schermo.contains('sezioniDellaPolicy'), isTrue,
+    // **LA PAGINA E' UNA SOLA, ordine EA voce 18**: monta le tre parti da
+    // `paginaLegale`, che mette in fila la policy, le condizioni d'uso e il
+    // disclaimer. Qui si pretendeva `sezioniDellaPolicy` per nome, e quel
+    // nome adesso vive un passo piu' in la'.
+    expect(schermo.contains('paginaLegale'), isTrue,
         reason: 'la pagina non monta piu\' il testo di casa');
+    final pagina = File('lib/core/legal/pagina_legale.dart').readAsStringSync();
+    expect(pagina.contains('sezioni: sezioniDellaPolicy'), isTrue,
+        reason: 'la pagina unica non porta piu\' la privacy policy');
     final menu =
         File('lib/features/account/account_screen.dart').readAsStringSync();
     expect(menu.contains('PrivacyPolicyScreen.route()'), isTrue,

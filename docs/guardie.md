@@ -40,10 +40,12 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 137 |
-| Guardie con un cardinale proprio dichiarato | 115 |
-| Guardie che non scoprono nessun insieme di file | 195 |
-| **Somma delle categorie** | **447** |
-| **Guardie secondo la definizione** | **447** |
+| Guardie con un cardinale proprio dichiarato | 116 |
+| Guardie che non scoprono nessun insieme di file | 196 |
+| **Somma delle categorie** | **449** |
+| **Guardie secondo la definizione** | **449** |
+
+**Ricontate a ordine EA, voce 18**, 20 settembre 2026, i tre testi legali in una pagina: **due guardie nuove**, `i_tre_testi_in_una_pagina` (col cardinale proprio: tre parti, i file di lib che nominano la cornice) e `la_pagina_legale_sul_web`. Il totale sale da 447 a **449** e le tre categorie a **137, 116 e 196**. **Viste rosse con tre innesti**: le condizioni tolte dalla pagina, il disclaimer tolto dal Risveglio, la pagina web non rigenerata. **Al secondo innesto la guardia era cieca**, e l'ha detto il grep: pescava il proprio commento, che cita `ArtCatalog.disclaimerCornice` per spiegare da dove viene il testo, e restava verde su un Risveglio muto; adesso guarda il codice senza i commenti. **Una guardia di casa ha cambiato la sua pretesa**: `la_policy_dice_il_vero` chiedeva che la schermata montasse `sezioniDellaPolicy`, e adesso chiede che monti `paginaLegale` e che la pagina unica porti la policy.
 
 **Ricontate a ordine EA, voce 22**, 20 settembre 2026, la pietra di Ingwaz che portava Othala: **una guardia nuova**, `ogni_pietra_porta_la_sua_runa`, col cardinale proprio (ventiquattro pietre, ventiquattro impronte). Il totale sale da 446 a **447** e le tre categorie a **137, 115 e 195**. **Vista rossa** rimettendo al posto di Ingwaz la pietra di Othala. **E una guardia buttata prima di scriverla**: il confronto fra il solco inciso e il disegno a tratti dava dal 7 per cento di Uruz al 92 di Berkano su pietre tutte giuste, perche' i sassi sono fotografati storti; una soglia li' dentro sarebbe stata scelta per far passare la prova, e il giudizio sul segno resta dell'occhio, sulla tavola `docs/anteprime/rune_incise.png`.
 
@@ -491,6 +493,7 @@ le altre.
 | `i_tre_esiti_del_permesso_test.dart` | i tre esiti del permesso | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `i_tre_lucchetti_del_cielo_test.dart` | i tre lucchetti del cielo | 1, 2, 4 | proprio, dichiarato | mai | 3 |
 | `i_tre_maestri_dominano_la_home_test.dart` | i tre maestri dominano la home | 4 | non scopre insiemi di file | mai | 3 |
+| `i_tre_testi_in_una_pagina_test.dart` | privacy policy, condizioni d'uso e disclaimer in una pagina sola, e il disclaimer all'ingresso | 1, 4 | proprio, dichiarato | 20/09/2026, EA | 1 |
 | `i_tre_sentieri_si_disegnano_test.dart` | i tre sentieri si disegnano | 4 | non scopre insiemi di file | mai | 3 |
 | `icona_cerchio_capture_test.dart` | icona cerchio capture | 4 | non scopre insiemi di file | mai | 3 |
 | `il_benvenuto_e_la_dote_test.dart` | il benvenuto e la dote | 1, 2 | dalla porta comune | mai | 3 |
@@ -707,6 +710,7 @@ le altre.
 | `la_musica_riprende_solo_se_stava_suonando_test.dart` | la musica riprende solo se stava suonando | 1, 2 | non scopre insiemi di file | 07/09/2026, CW | 2 |
 | `la_musica_segue_il_luogo_test.dart` | la musica segue il luogo | 1, 2 | dalla porta comune | CO | 3 |
 | `la_nota_non_mente_test.dart` | la nota non mente | 1, 2 | dalla porta comune | mai | 3 |
+| `la_pagina_legale_sul_web_test.dart` | la pagina legale pubblicata porta gli stessi testi dell'app | 1, 4 | non scopre insiemi di file | 20/09/2026, EA | 2 |
 | `la_parola_del_giorno_si_vede_nella_frase_test.dart` | la parola del giorno si vede nella frase | 1, 2 | dalla porta comune | 10/09/2026, DD (rossa tre volte con la parola nuda innestata) | 1 |
 | `la_parola_torna_la_sera_test.dart` | la parola del giorno torna la sera | 1 | proprio, dichiarato | 09/09/2026, CY | 2 |
 | `la_parola_voce_resta_allaudio_test.dart` | la parola voce resta allaudio | 1 | dalla porta comune | mai | 3 |

@@ -10,8 +10,8 @@ lotti di fila e poi una sola build; la Ronda dei motori legge i rossi
 accettati come lo sbarramento, e i due rossi voluti restano dichiarati.
 
 VOCI_TOTALI: 22
-VOCI_CHIUSE: 16
-VOCI_APERTE: 6
+VOCI_CHIUSE: 17
+VOCI_APERTE: 5
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 
 Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
@@ -281,7 +281,52 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
   **CHIUSA.**
 - **EA.18**, privacy policy, condizioni d'uso e disclaimer in una sola
   pagina.
-  **APERTA**
+
+  **DOVE VIVEVANO I TRE TESTI.**
+
+  | testo | dove stava | dove sta adesso |
+  |---|---|---|
+  | privacy policy | `lib/core/legal/privacy_policy.dart`, undici sezioni, montate da `privacy_policy_screen.dart` | prima parte della pagina unica, ancora `#privacy` |
+  | condizioni d'uso | **non esistevano**: zero testo, zero schermata, e il codice lo dichiarava per iscritto (*"il Cerchio non ha termini di servizio"*, ordine CF) | `lib/core/legal/condizioni_uso.dart`, undici sezioni scritte per quest'ordine, ancora `#condizioni` |
+  | disclaimer | `ArtCatalog.disclaimerCornice`, due frasi, stampate dentro Privacy e permessi | terza parte, ancora `#disclaimer`, **col testo delle arti e non una copia** |
+
+  **Le condizioni d'uso le ho scritte io, per decisione del fondatore del 20
+  settembre 2026**, e dentro il file c'e' scritto che vanno lette da lui o da
+  un legale prima della pubblicazione: sono scritte per essere oneste e
+  chiare, non sono un parere legale.
+
+  **Dove vive la pagina unica.** I tre testi si compongono in
+  `lib/core/legal/pagina_legale.dart` e li monta `PrivacyPolicyScreen`, che
+  si apre sulla parte chiesta e tiene in cima le tre porte. **Sul web**, per
+  l'indirizzo che Apple e Google chiedono nelle schede, la stessa pagina
+  nasce dagli stessi dati in `hosting/index.html`, e Firebase Hosting la
+  pubblica con gli indirizzi diretti `/privacy`, `/condizioni` e
+  `/disclaimer` (`firebase.json`). **Non e' uno strumento in `tool/` e il
+  perche' e' scritto**: `dart run` non compila questo progetto, il
+  compilatore cade sulla trasformazione FFI di un plugin; la pagina nasce da
+  una prova, con `AGGIORNA_PAGINA_LEGALE=1`, che e' anche la guardia.
+
+  **I LINK, uno per uno.**
+
+  | dove | file e riga | dove porta adesso |
+  |---|---|---|
+  | menu' utente, Privacy e dati, voce *Privacy policy* | `account_screen.dart:1377` | pagina unica, parte privacy |
+  | foglio dei consensi, *"Continuando accetti la privacy policy"* | `consensi_della_registrazione.dart` | pagina unica, parte privacy |
+  | foglio dei consensi, *condizioni d'uso* (**nuovo**) | `consensi_della_registrazione.dart` | pagina unica, parte condizioni |
+  | foglio dei consensi, *Leggi il disclaimer* (**nuovo**) | `consensi_della_registrazione.dart` | pagina unica, parte disclaimer |
+  | Privacy e permessi, *Leggi il disclaimer per esteso* (**nuovo**) | `privacy_e_permessi_screen.dart` | pagina unica, parte disclaimer |
+
+  **Il disclaimer all'ingresso, come vuole CLAUDE.md.** Non si mostrava piu'
+  da nessuna parte: adesso si dice **alla fine del Risveglio**, nell'ultimo
+  passo del Sigillo (`sigillo_step.dart`, chiave `risveglio_disclaimer`), e
+  **nel foglio della registrazione**, col rimando alla sua sezione. Mai su
+  ogni carta: i file che lo nominano sono cinque, e la guardia li conta.
+
+  Guardie `test/i_tre_testi_in_una_pagina_test.dart` e
+  `test/la_pagina_legale_sul_web_test.dart`, viste rosse con tre innesti.
+  **Prodotto e agganciato; la pagina web e' scritta e va pubblicata da Mauro
+  (passo per passo nel rapporto); a video con la build dell'ordine.**
+  **CHIUSA.**
 - **EA.19**, la registrazione con email con un link senza password, e App
   Check.
   **APERTA**
