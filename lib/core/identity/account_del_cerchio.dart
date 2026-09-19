@@ -213,7 +213,19 @@ class IdentitaRiconosciuta {
     required this.nome,
     required this.credenziale,
     this.via,
+    this.dallErrore = false,
   });
+
+  /// **LA CREDENZIALE VIENE DAL RIFIUTO, ed e' fresca.** Ordine EA voce 11,
+  /// 20 settembre 2026.
+  ///
+  /// Quando il collegamento fallisce perche' quell'identita' e' gia' di un
+  /// altro Cerchio, Firebase **restituisce una credenziale dentro l'errore**:
+  /// non e' il gettone che abbiamo speso noi, e' quella con cui si entra. Con
+  /// questa dichiarata vera, *"Continua come"* la usa e **il selettore di
+  /// Google non si riapre**; se non entra, resta la strada di prima, che
+  /// rifa' il giro chiedendone una nuova.
+  final bool dallErrore;
 
   /// **DA QUALE VIA E' ARRIVATO IL RICONOSCIMENTO.** Ordine AZ.
   ///
@@ -465,6 +477,9 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
             nome: errore.email ?? email,
             credenziale: errore.credential ?? tentata,
             via: via,
+            // Vera solo quando la credenziale viene dal rifiuto: quella
+            // tentata da noi e' gia' spesa e non entrerebbe.
+            dallErrore: errore.credential != null,
           );
           return EsitoDellaCustodia.giaDiUnAltroCerchio;
         case 'web-context-canceled':
@@ -682,6 +697,32 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
     // Adesso si ripercorre la via da cui il riconoscimento e' arrivato, che
     // chiede una credenziale nuova: **una sola strada per entrare, e non
     // due**.
+    // **PRIMA SI PROVA LA CREDENZIALE DEL RIFIUTO. Ordine EA voce 11.**
+    //
+    // Il fondatore: *"la scelta dell'account Google si fa una volta sola"*.
+    // Misurato sul Realme il 20 settembre 2026: al primo tocco il selettore
+    // si apre, il collegamento fallisce perche' quell'identita' e' gia' di un
+    // altro Cerchio, e il *"Continua come"* rifaceva tutto il giro, selettore
+    // compreso. La credenziale che Firebase mette DENTRO l'errore non e'
+    // quella che abbiamo speso noi: con quella si entra senza chiedere di
+    // nuovo chi sei.
+    //
+    // **La strada di prima resta**, come rete: se questa credenziale non
+    // entra, si rifa' il giro. Cosi' la cura non toglie niente a chi arriva
+    // da una via che non la porta.
+    final riconosciuta = _riconosciuta;
+    if (riconosciuta != null &&
+        riconosciuta.dallErrore &&
+        riconosciuta.credenziale != null) {
+      try {
+        await _auth.signInWithCredential(riconosciuta.credenziale!);
+        _riconosciuta = null;
+        await ricarica();
+        return EsitoDellaCustodia.riuscita;
+      } catch (errore) {
+        // Non entra: si rifa' la strada, che chiede una credenziale nuova.
+      }
+    }
     final via = _riconosciuta?.via;
     if (via != null) {
       final esito = await entraDirettamente(via);

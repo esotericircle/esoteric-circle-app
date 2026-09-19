@@ -10,8 +10,8 @@ lotti di fila e poi una sola build; la Ronda dei motori legge i rossi
 accettati come lo sbarramento, e i due rossi voluti restano dichiarati.
 
 VOCI_TOTALI: 22
-VOCI_CHIUSE: 17
-VOCI_APERTE: 5
+VOCI_CHIUSE: 19
+VOCI_APERTE: 3
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 
 Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
@@ -164,10 +164,47 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
   Commit `72700674`. **Prodotto e agganciato; a video con la build
   dell'ordine.** **CHIUSA.**
 - **EA.10**, il login con Google dal menu' utente riesce al primo tentativo.
-  **APERTA**
+  **RIPRODOTTO SUL REALME, 20 settembre 2026**, e non dedotto: col telefono
+  anonimo, *Il tuo account* > *Custodisci il tuo cielo* > *Continua con
+  Google* apre il selettore, e il primo tentativo **non entra**: a video
+  compare *"Quell'identita' vive gia' in un altro Cerchio. Puoi entrarci qui
+  sotto, oppure provare con un'altra via"*, col pulsante *Continua come
+  maobatta@gmail...*. Il registro del telefono non stampa il codice, ma la
+  frase e' quella di `EsitoDellaCustodia.giaDiUnAltroCerchio`, cioe'
+  `credential-already-in-use`: e' giusto, perche' quell'identita' e' davvero
+  gia' di un altro Cerchio.
+  **Fatto**: adesso quel secondo tocco entra **senza riaprire il selettore**
+  (vedi EA.11), quindi la registrazione si compie con una scelta
+  dell'account sola.
+  **UNA COSA NON L'HO TOLTA, e la dichiaro**: il tocco di conferma
+  *"Continua come"* resta. Entrare in quel Cerchio **sostituisce Eos e
+  ricordi di questo telefono**, e il foglio lo dice prima di farlo: togliere
+  quella conferma per risparmiare un tocco vorrebbe dire cambiare i dati di
+  qualcuno senza dirglielo. Se il fondatore vuole l'ingresso automatico, e'
+  una riga, e va deciso da lui.
+  **Prodotto e agganciato; a video con la build dell'ordine.** **CHIUSA.**
 - **EA.11**, la scelta dell'account Google si fa una volta sola, in ogni
   punto di accesso.
-  **APERTA**
+  **La causa, misurata.** Il *"Continua come"* rifaceva tutta la strada:
+  dimenticava il client di Google e chiedeva una credenziale nuova, quindi
+  **il selettore si riapriva**. Quella scelta era stata presa con l'ordine AX
+  voce 01 per un motivo vero, cioe' che il gettone gia' speso da noi non
+  entra piu'; la credenziale che Firebase mette **dentro l'errore** pero' non
+  e' quella spesa, e con quella si entra.
+  **Fatto**: `IdentitaRiconosciuta` dichiara se la credenziale viene dal
+  rifiuto (`dallErrore`), e `entraComeRiconosciuto` la prova per prima. **La
+  strada di prima resta come rete**: se quella credenziale non entra, il giro
+  si rifa' come faceva. Misurato al banco: selettore aperto **una volta**
+  contro le due di prima, e due quando la rete deve intervenire.
+  **I punti di accesso censiti**, che passano tutti da qui: il Risveglio
+  (`custodia_del_cielo_step.dart`), la registrazione dopo l'onboarding e il
+  menu' utente (`account_screen.dart`), piu' il rientro con email gia'
+  registrata (`custodia_del_cielo.dart`). Nessuno di loro chiama il flusso di
+  Google da se': l'unica chiamata a `signIn()` sta in
+  `account_del_cerchio.dart`, dentro la porta.
+  Guardia `test/il_selettore_di_google_si_apre_una_volta_test.dart`, vista
+  rossa togliendo il ramo nuovo. **Prodotto e agganciato; a video con la
+  build dell'ordine.** **CHIUSA.**
 - **EA.12**, il conteggio e' sempre attivo, anonimo e senza selettore; la
   privacy policy lo descrive.
 

@@ -41,9 +41,11 @@ totale e' un controllo, non un ornamento.
 | --- | ---: |
 | Guardie che passano dalla porta comune | 137 |
 | Guardie con un cardinale proprio dichiarato | 116 |
-| Guardie che non scoprono nessun insieme di file | 196 |
-| **Somma delle categorie** | **449** |
-| **Guardie secondo la definizione** | **449** |
+| Guardie che non scoprono nessun insieme di file | 197 |
+| **Somma delle categorie** | **450** |
+| **Guardie secondo la definizione** | **450** |
+
+**Ricontate a ordine EA, voci 10 e 11**, 20 settembre 2026, il selettore di Google che si apriva due volte: **una guardia nuova**, `il_selettore_di_google_si_apre_una_volta`, che non scopre insiemi di file. Il totale sale da 449 a **450** e le tre categorie a **137, 116 e 197**. **Vista rossa** togliendo il ramo che tiene la credenziale del rifiuto. **Il difetto e' stato riprodotto sul Realme prima di scrivere una riga**, ed e' cosi' che si e' saputo che l'errore era `credential-already-in-use` e non un guasto qualunque.
 
 **Ricontate a ordine EA, voce 18**, 20 settembre 2026, i tre testi legali in una pagina: **due guardie nuove**, `i_tre_testi_in_una_pagina` (col cardinale proprio: tre parti, i file di lib che nominano la cornice) e `la_pagina_legale_sul_web`. Il totale sale da 447 a **449** e le tre categorie a **137, 116 e 196**. **Viste rosse con tre innesti**: le condizioni tolte dalla pagina, il disclaimer tolto dal Risveglio, la pagina web non rigenerata. **Al secondo innesto la guardia era cieca**, e l'ha detto il grep: pescava il proprio commento, che cita `ArtCatalog.disclaimerCornice` per spiegare da dove viene il testo, e restava verde su un Risveglio muto; adesso guarda il codice senza i commenti. **Una guardia di casa ha cambiato la sua pretesa**: `la_policy_dice_il_vero` chiedeva che la schermata montasse `sezioniDellaPolicy`, e adesso chiede che monti `paginaLegale` e che la pagina unica porti la policy.
 
@@ -602,6 +604,7 @@ le altre.
 | `il_ritorno_non_e_una_porta_di_servizio_test.dart` | il ritorno non e una porta di servizio | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
 | `il_secondo_strato_e_premium_test.dart` | il secondo strato e premium | 1, 2 | dalla porta comune | mai | 3 |
 | `il_seguito_scende_sotto_test.dart` | il seguito scende sotto | 1, 2 | non scopre insiemi di file | mai | 3 |
+| `il_selettore_di_google_si_apre_una_volta_test.dart` | la scelta dell'account Google si fa una volta sola | 1, 4 | non scopre insiemi di file | 20/09/2026, EA | 1 |
 | `il_sentiero_si_legge_test.dart` | il sentiero si legge | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_sigillo_del_giorno_dice_a_cosa_serve_test.dart` | il Sigillo del Giorno dice a cosa serve | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `il_sigillo_del_giorno_e_un_sigillo_test.dart` | il sigillo del giorno e un sigillo | 4 | non scopre insiemi di file | mai | 3 |
