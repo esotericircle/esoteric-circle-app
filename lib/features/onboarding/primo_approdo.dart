@@ -432,9 +432,23 @@ class PrimoApprodo extends StatefulWidget {
     super.key,
     required this.child,
     this.attivo = true,
+    this.sullaHome,
+    this.cambiDellaPila,
   });
 
   final Widget child;
+
+  /// **SOLO SULLA HOME. Ordine EA voce 02.** Parole del fondatore: *"il
+  /// tutorial deve comparire solo quando si arriva in home, non puo' e non
+  /// deve coprire la registrazione"*. Il tutorial vive sopra il Navigator,
+  /// quindi copriva qualunque cosa ci fosse: il foglio della registrazione,
+  /// una schermata spinta sopra. Chi lo monta dice se la pila e' sulla home
+  /// e avvisa quando cambia; finche' non lo e', il velo non si disegna, e il
+  /// tutorial riprende dallo stesso fumetto appena si torna alla home.
+  /// Nullo nelle prove che montano il tutorial da solo: li' la home c'e'
+  /// sempre.
+  final bool Function()? sullaHome;
+  final Listenable? cambiDellaPila;
 
   /// Spento nelle prove e nelle anteprime che non lo riguardano, cosi' una
   /// scena qualunque non nasce con un velo sopra.
@@ -457,6 +471,7 @@ class _PrimoApprodoState extends State<PrimoApprodo> {
     super.initState();
     rivediIlPrimoApprodo.addListener(_riapri);
     approdoDopoIlRito.addListener(_forseApri);
+    widget.cambiDellaPila?.addListener(_laPilaECambiata);
     _forseApri();
   }
 
@@ -464,8 +479,15 @@ class _PrimoApprodoState extends State<PrimoApprodo> {
   void dispose() {
     rivediIlPrimoApprodo.removeListener(_riapri);
     approdoDopoIlRito.removeListener(_forseApri);
+    widget.cambiDellaPila?.removeListener(_laPilaECambiata);
     super.dispose();
   }
+
+  void _laPilaECambiata() {
+    if (mounted && _inScena) setState(() {});
+  }
+
+  bool get _sullaHome => widget.sullaHome?.call() ?? true;
 
   void _riapri() {
     if (!mounted) return;
@@ -513,7 +535,7 @@ class _PrimoApprodoState extends State<PrimoApprodo> {
     return Stack(
       children: [
         widget.child,
-        if (_inScena)
+        if (_inScena && _sullaHome)
           _VeloDelPrimoApprodo(
             fumetto: cinqueFumetti[_passo],
             passo: _passo,

@@ -22,6 +22,7 @@ import 'package:esoteric_circle/features/maestri/chat/maestro_chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
+import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -57,19 +58,23 @@ void main() {
   const risposta = 'Il Lupo ti parla di lealta\'.';
 
   Future<QuestionAllowance> pumpChat(WidgetTester tester, AppServices svc,
-      {required String initial}) async {
+      {String? initial,
+      Tier piano = Tier.free,
+      bool serverHaParlato = false}) async {
     tester.view.physicalSize = const Size(430, 1600);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     final contatore = QuestionAllowance(freeDailyLimit: 3);
+    if (serverHaParlato) contatore.ilServerHaParlato();
     await tester.pumpWidget(MultiProvider(
       providers: [
         Provider<AppServices>.value(value: svc),
         ChangeNotifierProvider(create: (_) => MaestroController()),
         ChangeNotifierProvider(create: (_) => ArchetypeHistory()),
         ChangeNotifierProvider<QuestionAllowance>.value(value: contatore),
-        ChangeNotifierProvider(create: (_) => EntitlementService()),
+        ChangeNotifierProvider(
+            create: (_) => EntitlementService(initial: piano)),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),
@@ -252,6 +257,111 @@ void main() {
     final letto = await LeConversazioniPassate.titoli(Maestro.caligo);
     expect(letto.values, contains('Il lupo e la lealta'),
         reason: 'il titolo non resta sul telefono');
+  });
+  // --- ORDINE EA ---------------------------------------------------------
+
+  testWidgets(
+      'EA.06: la chat aperta senza approfondimento e\' nuova e vuota, e la '
+      'conversazione di prima sta nel menu\'', (tester) async {
+    final svc = await services(_ReadyAi());
+    await semina(svc);
+    await pumpChat(tester, svc);
+
+    expect(find.text('Vecchia domanda sul lavoro'), findsNothing,
+        reason: 'la chat si e\' aperta sulla conversazione di prima: e\' la '
+            'cattura del fondatore con "Carta del giorno" e "Lettura '
+            'generale energia oggi"');
+    expect(find.text('Vecchia risposta sul lavoro'), findsNothing);
+    expect(campo(tester), isEmpty);
+
+    await tester.tap(find.byKey(const Key('chat_menu_della_barra')));
+    await tester.pumpAndSettle();
+    expect(
+        find.byKey(const Key('chat_conversazione_passata_0')), findsOneWidget,
+        reason: 'la conversazione di prima non e\' raggiungibile dal menu\'');
+  });
+
+  testWidgets(
+      'EA.01 e EA.08: a chat vuota il menu\' non comincia con un separatore, '
+      'e ogni voce e\' alta quanto un tocco', (tester) async {
+    final svc = await services(_ReadyAi());
+    await semina(svc);
+    await pumpChat(tester, svc);
+    await tester.tap(find.byKey(const Key('chat_menu_della_barra')));
+    await tester.pumpAndSettle();
+
+    final prima =
+        tester.getRect(find.byKey(const Key('chat_conversazione_passata_0')));
+    for (final d in tester.widgetList(find.byType(PopupMenuDivider))) {
+      final r = tester.getRect(find.byWidget(d));
+      expect(r.top, greaterThan(prima.top),
+          reason: 'un separatore sta sopra la prima voce: il menu\' comincia '
+              'con una riga vuota');
+    }
+    for (final chiave in const [
+      'chat_conversazione_passata_0',
+      'chat_i_giorni_prima',
+    ]) {
+      final alta = tester.getSize(find.byKey(Key(chiave))).height;
+      expect(alta, lessThanOrEqualTo(48),
+          reason: '$chiave e\' alta $alta punti: il menu\' non e\' compatto');
+    }
+  });
+
+  testWidgets(
+      'EA.07: dal menu\' si cancella una conversazione, con la conferma',
+      (tester) async {
+    final svc = await services(_ReadyAi());
+    await semina(svc);
+    await pumpChat(tester, svc);
+    await tester.tap(find.byKey(const Key('chat_menu_della_barra')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('chat_cancella_passata_0')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('chat_conferma_cancella')), findsOneWidget,
+        reason: 'si cancella senza chiedere');
+    await tester.tap(find.byKey(const Key('chat_conferma_cancella_si')));
+    await tester.pumpAndSettle();
+
+    final rimasti = await svc.memory.recentMessages(Maestro.caligo);
+    expect(rimasti.where((m) => m.conversazione == 'c1'), isEmpty,
+        reason: 'i messaggi della conversazione cancellata sono ancora li\'');
+    final nascoste = await LeConversazioniPassate.nascoste(Maestro.caligo);
+    expect(nascoste, contains('c1'),
+        reason:
+            'il telefono non ricorda la cancellata: senza server tornerebbe');
+
+    await tester.tap(find.byKey(const Key('chat_menu_della_barra')));
+    await tester.pumpAndSettle();
+    expect(find.byKey(const Key('chat_conversazione_passata_0')), findsNothing,
+        reason: 'la conversazione cancellata e\' ancora nel menu\'');
+  });
+
+  testWidgets('EA.09: i due contatori in cima alla chat stanno vicini',
+      (tester) async {
+    final svc = await services(_ReadyAi());
+    // Un piano con gli approfondimenti, cosi' le due righe ci sono tutte e due.
+    // I conteggi tacciono finche' il server non ha parlato: qui parla.
+    await pumpChat(tester, svc, piano: Tier.tier1, serverHaParlato: true);
+    final domande = find.byKey(const Key('chat_residuo_domande'));
+    final approfondimenti =
+        find.byKey(const Key('chat_residuo_approfondimenti'));
+    final testi = [
+      for (final f in [domande, approfondimenti])
+        find.descendant(of: f, matching: find.byType(Text)),
+    ];
+    if (testi.any((t) => t.evaluate().isEmpty)) {
+      fail('i contatori non si vedono nella scena di prova: la misura non '
+          'guarda niente');
+    }
+    final a = tester.getRect(testi[0]);
+    final b = tester.getRect(testi[1]);
+    final aria = b.top - a.bottom;
+    // ignore: avoid_print
+    print('EA.09: aria fra i due contatori ${aria.toStringAsFixed(1)} punti, '
+        'righe alte ${a.height.toStringAsFixed(1)}');
+    expect(aria, lessThanOrEqualTo(1),
+        reason: 'fra le due righe restano $aria punti di aria');
   });
 }
 

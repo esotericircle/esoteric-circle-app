@@ -63,6 +63,13 @@ class InMemoryMaestroMemoryRepository implements MaestroMemoryRepository {
   }
 
   @override
+  Future<bool> cancellaLaConversazione(
+      Maestro maestro, String? conversazione) async {
+    _messages[maestro]?.removeWhere((m) => m.conversazione == conversazione);
+    return true;
+  }
+
+  @override
   Future<void> appendMessage(Maestro maestro, ChatMessage message) async {
     (_messages[maestro] ??= []).add(message);
     // Prese verso i livelli profondi: a vuoto per default.

@@ -67,4 +67,9 @@ abstract interface class MaestroMemoryRepository {
   /// livelli profondi predisposti (indice semantico, archivio freddo). Isolata
   /// al solo utente corrente. Dopo, il cerchio riparte come al primo giorno.
   Future<void> deleteAllData();
+
+  /// **Cancella i messaggi di una conversazione con un Maestro.** Ordine EA
+  /// voce 07. Vero se sono stati tolti davvero; la conversazione nulla e' la
+  /// prima, quella dei messaggi senza marcatura.
+  Future<bool> cancellaLaConversazione(Maestro maestro, String? conversazione);
 }

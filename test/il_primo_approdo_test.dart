@@ -239,6 +239,29 @@ void main() {
           reason: 'riattivato dal menu\', non torna all\'apertura');
     });
 
+    testWidgets(
+        'EA.02: sopra un foglio o una schermata non si disegna, e riprende '
+        'appena si torna alla home', (tester) async {
+      final sullaHome = ValueNotifier<bool>(false);
+      SharedPreferences.setMockInitialValues(
+          {MemoriaDelPrimoApprodo.chiaveArmata: true});
+      MemoriaDelPrimoApprodo.dimenticaLApertura();
+      await tester.pumpWidget(MaterialApp(
+          home: PrimoApprodo(
+              sullaHome: () => sullaHome.value,
+              cambiDellaPila: sullaHome,
+              child: const Scaffold(body: SizedBox()))));
+      await tester.pumpAndSettle();
+      expect(find.text('IL CERCHIO TI ACCOGLIE'), findsNothing,
+          reason: 'il tutorial copre il foglio della registrazione: e\' la '
+              'cattura del fondatore sulla 2272');
+
+      sullaHome.value = true;
+      await tester.pumpAndSettle();
+      expect(find.text('IL CERCHIO TI ACCOGLIE'), findsOneWidget,
+          reason: 'tornati alla home il tutorial non riprende');
+    });
+
     testWidgets('DY.01: quando il Risveglio finisce, si presenta subito',
         (tester) async {
       await monta(tester, armato: false);

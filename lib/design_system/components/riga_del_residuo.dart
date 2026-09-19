@@ -32,7 +32,15 @@ class RigaDelResiduo extends StatelessWidget {
     super.key,
     required this.budget,
     this.allineamento = MainAxisAlignment.start,
+    this.stretta = false,
   });
+
+  /// **LE DUE RIGHE DELLA CHAT PIU' VICINE. Ordine EA voce 09.** Parole del
+  /// fondatore: *"i 2 contatori in alto, le 2 frasi devono essere piu'
+  /// vicine, riduci l'interlinea"*. Stretta vuol dire niente aria attorno e
+  /// un'interlinea di poco sopra il corpo del testo; le altre schermate che
+  /// mostrano un conteggio solo restano come sono.
+  final bool stretta;
 
   final BudgetDelGiorno budget;
   final MainAxisAlignment allineamento;
@@ -56,7 +64,9 @@ class RigaDelResiduo extends StatelessWidget {
       // Il fondatore ha chiesto di stringere le due righe e lo spazio
       // attorno, ed e lo stesso principio della voce CT.01: lo spazio
       // guadagnato qui va alla conversazione.
-      padding: const EdgeInsets.symmetric(vertical: SpacingTokens.xxs),
+      padding: stretta
+          ? EdgeInsets.zero
+          : const EdgeInsets.symmetric(vertical: SpacingTokens.xxs),
       child: Row(
         mainAxisAlignment: allineamento,
         children: [
@@ -68,8 +78,9 @@ class RigaDelResiduo extends StatelessWidget {
           Flexible(
             child: Text(
               detto,
-              style: TypographyTokens.didascalia()
-                  .copyWith(color: ColorTokens.textSecondary),
+              style: TypographyTokens.didascalia().copyWith(
+                  color: ColorTokens.textSecondary,
+                  height: stretta ? 1.15 : null),
             ),
           ),
         ],

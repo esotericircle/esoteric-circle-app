@@ -1103,6 +1103,53 @@ export const azzeraIDatiDelCerchio = onCall(
   },
 );
 
+/**
+ * CANCELLA UNA CONVERSAZIONE CON UN MAESTRO. Ordine EA voce 07.
+ *
+ * Il fondatore: "l'utente deve avere la possibilita' di cancellare le chat
+ * precedenti anche dal menu' a discesa". Il telefono non scrive e non
+ * cancella da se' (regole di Firestore): lo fa questa porta, sotto il solo
+ * utente che chiama, e solo i messaggi di quella conversazione di quel
+ * Maestro. La conversazione nulla e' la prima, quella dei messaggi senza
+ * marcatura, scritti prima dell'ordine CI.
+ */
+export const cancellaLaConversazione = onCall(
+  OPZIONI_DEL_CERCHIO,
+  async (request) => {
+    const uid = uidDi(request);
+    const dati = (request.data ?? {}) as {
+      maestro?: unknown;
+      conversazione?: unknown;
+    };
+    const maestro = String(dati.maestro ?? "");
+    if (!["medora", "aura", "caligo"].includes(maestro)) {
+      throw new HttpsError("invalid-argument", "Maestro sconosciuto.");
+    }
+    const conversazione =
+      typeof dati.conversazione === "string" ? dati.conversazione : null;
+    const messaggi = utente(uid)
+      .collection("maestri")
+      .doc(maestro)
+      .collection("messages");
+    const tutti = await messaggi.get();
+    const daTogliere = tutti.docs.filter((d) => {
+      const c = d.get("conversazione");
+      return conversazione === null ?
+        c === undefined || c === null :
+        c === conversazione;
+    });
+    for (let i = 0; i < daTogliere.length; i += 400) {
+      const batch = db.batch();
+      for (const d of daTogliere.slice(i, i + 400)) batch.delete(d.ref);
+      await batch.commit();
+    }
+    logger.info("cancellaLaConversazione", {
+      uid, maestro, conversazione, tolti: daTogliere.length,
+    });
+    return {tolti: daTogliere.length};
+  },
+);
+
 export const cancellaIlCerchio = onCall(
   OPZIONI_DEL_CERCHIO,
   async (request) => {

@@ -89,6 +89,7 @@ class MaestroChatController extends ChangeNotifier {
   /// cinque pronte per il menu'.
   List<ChatMessage> _archivio = const [];
   Map<String, String> _titoliScritti = const {};
+  Set<String> _nascoste = const {};
   List<ConversazionePassata> _passate = const [];
   List<ConversazionePassata> get conversazioniPassate => _passate;
   final Set<String> _titoliInCorso = {};
@@ -310,6 +311,28 @@ class MaestroChatController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// **CANCELLA UNA CONVERSAZIONE PASSATA. Ordine EA voce 07.** Esce subito
+  /// dal menu' e dal telefono; sul server la toglie la funzione
+  /// `cancellaLaConversazione`. Se il server non risponde, il telefono la
+  /// tiene nascosta, e non torna alla prossima apertura.
+  Future<void> cancellaLaConversazione(String? id) async {
+    final k = LeConversazioniPassate.chiave(id);
+    _nascoste = {..._nascoste, k};
+    _archivio = [
+      for (final m in _archivio)
+        if (LeConversazioniPassate.chiave(m.conversazione) != k) m,
+    ];
+    _aggiornaLePassate();
+    notifyListeners();
+    await LeConversazioniPassate.nascondi(maestro, id);
+    try {
+      await _memory.cancellaLaConversazione(maestro, id);
+    } catch (errore, traccia) {
+      annotaGuastoInnocuo('cancellando una conversazione con '
+          '${maestro.displayName}', errore, traccia);
+    }
+  }
+
   /// I messaggi detti in questa sessione entrano nell'archivio prima di
   /// cambiare conversazione, altrimenti quella appena lasciata sparirebbe
   /// dal menu' fino alla prossima apertura della chat.
@@ -334,6 +357,7 @@ class MaestroChatController extends ChangeNotifier {
       _archivio,
       titoli: _titoliScritti,
       corrente: _conversazione,
+      nascoste: _nascoste,
     );
   }
 
@@ -346,6 +370,7 @@ class MaestroChatController extends ChangeNotifier {
           limit: LeConversazioniPassate.messaggiDaLeggere);
       _archivio = CronologiaSenzaDoppioni.di(letti);
       _titoliScritti = await LeConversazioniPassate.titoli(maestro);
+      _nascoste = await LeConversazioniPassate.nascoste(maestro);
       _mettiInArchivio();
       _aggiornaLePassate();
       notifyListeners();

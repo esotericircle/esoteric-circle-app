@@ -102,6 +102,9 @@ class CioCheETuo {
     // I titoli delle conversazioni coi Maestri, scritti dal modello dopo la
     // prima risposta: dicono di che cosa hai parlato. Ordine DZ voce 04.
     'chat.titoli.',
+    // Le conversazioni cancellate dal menu' della chat, finche' il server
+    // non le ha tolte. Ordine EA voce 07.
+    'chat.cancellate.',
     // Il gettone con cui il Cerchio raggiunge questo telefono per le
     // notifiche push, e cio' che si e' gia' mandato al server. Ordine CG
     // voce 16: e' un dato nuovo, e se ne va con te.

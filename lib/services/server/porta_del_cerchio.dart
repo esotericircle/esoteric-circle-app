@@ -350,6 +350,13 @@ abstract class PortaDelCerchio {
 
   Future<bool> azzeraIDatiDicendo(String? perche) => azzeraIDati();
 
+  /// **CANCELLA UNA CONVERSAZIONE CON UN MAESTRO. Ordine EA voce 07.** Vero
+  /// solo se il server ha tolto i messaggi; falso di difetto, e chi chiama
+  /// tiene la conversazione nascosta sul telefono finche' il server non lo fa.
+  Future<bool> cancellaLaConversazione(
+          String maestro, String? conversazione) async =>
+      false;
+
   /// LA SONDA DELL'INGRESSO, ordine BI voce 01: il server dice se una email
   /// ha gia' un Cerchio e con quali vie. Nulla quando il server non
   /// risponde: la porta allora offre le vie senza promettere niente.
@@ -520,6 +527,16 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
   Future<bool> azzeraIDati() async {
     final risposta = await _chiama('azzeraIDatiDelCerchio', const {});
     return risposta is Map && risposta['datiAzzerati'] == true;
+  }
+
+  @override
+  Future<bool> cancellaLaConversazione(
+      String maestro, String? conversazione) async {
+    final risposta = await _chiama('cancellaLaConversazione', {
+      'maestro': maestro,
+      'conversazione': conversazione,
+    });
+    return risposta is Map && risposta['tolti'] is int;
   }
 
   @override

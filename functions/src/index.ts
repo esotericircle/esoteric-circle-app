@@ -15,6 +15,9 @@ export {
   riscattaLInvito,
   scriviLaMemoria,
   azzeraIDatiDelCerchio,
+  // ORDINE EA VOCE 07: una conversazione con un Maestro si cancella dal
+  // menu' della chat.
+  cancellaLaConversazione,
   cancellaIlCerchio,
   esisteIlCerchio,
   // ORDINE CQ VOCE 1.01: la porta che scrive il piano in Demo, chiusa da

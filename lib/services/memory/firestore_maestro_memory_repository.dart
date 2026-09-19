@@ -360,6 +360,15 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
   }
 
   @override
+  Future<bool> cancellaLaConversazione(
+      Maestro maestro, String? conversazione) async {
+    // Il telefono non cancella da se' (regole di Firestore): lo fa il server,
+    // sotto il solo utente che chiama. Ordine EA voce 07.
+    if (!_porta.viva) return false;
+    return _porta.cancellaLaConversazione(maestro.id, conversazione);
+  }
+
+  @override
   Future<void> deleteAllData() async {
     // **IL RAMO SI AZZERA, L'ACCOUNT NON SI TOCCA. Ordine BH voce 06.**
     // Qui c'era `cancellaIlCerchio`, cioe' la cancellazione dell'ACCOUNT:

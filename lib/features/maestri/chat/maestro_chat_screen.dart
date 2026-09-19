@@ -118,9 +118,12 @@ class MaestroChatScreen extends StatefulWidget {
                 // **I TURNI ENTRANO NEI RICORDI, ordine CI voce 06.** Qui,
                 // dove il registro c'e' gia': il controllore non conosce
                 // Firestore e non deve conoscerlo.
-                // **DA UN APPROFONDIMENTO, UNA CONVERSAZIONE PULITA. Ordine DZ
-                // voce 01.**
-                conversazioneNuova: initialUserMessage != null,
+                // **OGNI APERTURA E' UNA CONVERSAZIONE NUOVA E VUOTA. Ordine
+                // EA voce 06**, che allarga la DZ voce 01 (solo dagli
+                // approfondimenti). Parole del fondatore: *"quando apro la
+                // chat con i maestri, deve aprirsi da capo, una chat vuota
+                // nuova"*. Le conversazioni di prima stanno nel menu'.
+                conversazioneNuova: true,
                 // **IL TITOLO LO SCRIVE GEMINI. Ordine DZ voce 04.** Solo
                 // dove Firebase c'e': nelle prove resta il titolo di ripiego.
                 titoli: Firebase.apps.isEmpty
@@ -579,6 +582,8 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         // **LE ULTIME CINQUE CONVERSAZIONI NEL MENU'. Ordine DZ voce 03.**
         conversazioni: controller.conversazioniPassate,
         onApri: (c) => controller.apriLaConversazione(c.id),
+        onCancella: (c) =>
+            _ConversazioneDaCancellare.chiedi(context, controller, c),
         onDiagnostics: () => showChatDiagnostics(
           context,
           aiReady: controller.aiReady,
@@ -645,12 +650,15 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Strette, ordine EA voce 09.
                         RigaDelResiduo(
                             key: Key('chat_residuo_domande'),
-                            budget: BudgetDelGiorno.domande),
+                            budget: BudgetDelGiorno.domande,
+                            stretta: true),
                         RigaDelResiduo(
                             key: Key('chat_residuo_approfondimenti'),
-                            budget: BudgetDelGiorno.approfondimenti),
+                            budget: BudgetDelGiorno.approfondimenti,
+                            stretta: true),
                       ],
                     ),
                   ),
@@ -1164,6 +1172,7 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.onRicomincia,
     this.conversazioni = const [],
     this.onApri,
+    this.onCancella,
     this.scalaDelTesto = 1,
     this.larghezzaDelTitolo = 248,
   });
@@ -1204,6 +1213,9 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// Le ultime conversazioni con questo Maestro, col titolo. Ordine DZ.
   final List<ConversazionePassata> conversazioni;
   final ValueChanged<ConversazionePassata>? onApri;
+
+  /// Il cestino di una conversazione passata. Ordine EA voce 07.
+  final ValueChanged<ConversazionePassata>? onCancella;
 
   /// Altezza dell'header: piu' alta quando l'avatar che sfonda il cerchio sta
   /// sopra il nome, cosi' la colonna centrata (avatar, nome, sottotitolo) ci sta
@@ -1395,41 +1407,60 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                     .push(RicordiScreen.route(maestro: maestro));
             }
           },
+          // **COMPATTO, COME I MENU' DEI CHATBOT. Ordine EA voce 08.** Parole
+          // del fondatore: *"lo spazio verticale occupato e' eccessivo, devi
+          // ispirarti alle chatbot ai loro menu'"*. Ogni voce era un
+          // `ListTile` col titolo in maiuscoletto e il giorno sotto, alta
+          // quasi ottanta punti; adesso e' una riga sola di quarantaquattro,
+          // la misura minima di un tocco, col giorno piccolo a destra.
+          //
+          // **Nessun separatore in cima. Ordine EA voce 01.** A chat vuota
+          // *Nuova conversazione* non c'e', e il separatore restava primo.
           itemBuilder: (context) => [
             if (mostraRicomincia)
               const PopupMenuItem<Object>(
                 key: Key('chat_conversazione_nuova'),
                 value: _VoceDelMenu.nuova,
-                child: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: Icon(Icons.add_comment_outlined),
-                  title: Text('Nuova conversazione'),
+                height: _VoceCompatta.altezza,
+                child: _VoceCompatta(
+                  icona: Icons.add_comment_outlined,
+                  testo: 'Nuova conversazione',
                 ),
               ),
-            if (conversazioni.isNotEmpty) const PopupMenuDivider(),
+            if (mostraRicomincia && conversazioni.isNotEmpty)
+              const PopupMenuDivider(height: 9),
             for (final (i, c) in conversazioni.indexed)
               PopupMenuItem<Object>(
                 key: Key('chat_conversazione_passata_$i'),
                 value: c,
-                child: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: const Icon(Icons.chat_bubble_outline_rounded),
-                  title: Text(c.titolo,
-                      maxLines: 1, overflow: TextOverflow.ellipsis),
-                  subtitle: Text(
-                      LeConversazioniPassate.quando(
-                          c.ultimoMomento, DateTime.now()),
-                      maxLines: 1),
+                height: _VoceCompatta.altezza,
+                padding: const EdgeInsets.only(left: 16, right: 4),
+                child: _VoceCompatta(
+                  icona: Icons.chat_bubble_outline_rounded,
+                  testo: c.titolo,
+                  giorno: LeConversazioniPassate.quando(
+                      c.ultimoMomento, DateTime.now()),
+                  // **SI CANCELLA DA QUI. Ordine EA voce 07.** Il cestino
+                  // chiude il menu' e chiede conferma: una conversazione
+                  // cancellata non torna.
+                  cancella: onCancella == null
+                      ? null
+                      : () {
+                          Navigator.of(context).pop();
+                          onCancella!(c);
+                        },
+                  chiaveDelCestino: Key('chat_cancella_passata_$i'),
                 ),
               ),
-            if (conversazioni.isNotEmpty) const PopupMenuDivider(),
+            if (conversazioni.isNotEmpty || mostraRicomincia)
+              const PopupMenuDivider(height: 9),
             const PopupMenuItem<Object>(
               key: Key('chat_i_giorni_prima'),
               value: _VoceDelMenu.giorniPrima,
-              child: ListTile(
-                contentPadding: EdgeInsets.zero,
-                leading: Icon(Icons.history_rounded),
-                title: Text('I giorni prima'),
+              height: _VoceCompatta.altezza,
+              child: _VoceCompatta(
+                icona: Icons.history_rounded,
+                testo: 'I giorni prima',
               ),
             ),
           ],
@@ -1765,5 +1796,99 @@ DiarioDelCammino? _forseIlDiario(BuildContext context) {
     // chi monta questa schermata da sola. Il Cammino non entra nel contesto,
     // e il resto della schermata funziona.
     return null;
+  }
+}
+
+/// **UNA VOCE DEL MENU' DELLA CHAT, COMPATTA. Ordine EA voce 08.** Una riga
+/// sola, alta quanto un tocco: l'icona piccola, il testo di lettura, il
+/// giorno a destra in piccolo, e per le conversazioni passate il cestino.
+class _VoceCompatta extends StatelessWidget {
+  const _VoceCompatta({
+    required this.icona,
+    required this.testo,
+    this.giorno,
+    this.cancella,
+    this.chiaveDelCestino,
+  });
+
+  static const double altezza = 44;
+
+  final IconData icona;
+  final String testo;
+  final String? giorno;
+  final VoidCallback? cancella;
+  final Key? chiaveDelCestino;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Icon(icona, size: 20, color: ColorTokens.textSecondary),
+        const SizedBox(width: SpacingTokens.sm),
+        Expanded(
+          child: Text(testo,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textPrimary)),
+        ),
+        if (giorno != null && giorno!.isNotEmpty) ...[
+          const SizedBox(width: SpacingTokens.xs),
+          Text(giorno!,
+              maxLines: 1,
+              style: TypographyTokens.didascalia()
+                  .copyWith(fontSize: 13, color: ColorTokens.textSecondary)),
+        ],
+        if (cancella != null)
+          IconButton(
+            key: chiaveDelCestino,
+            tooltip: 'Cancella questa conversazione',
+            icon: const Icon(Icons.delete_outline_rounded, size: 20),
+            color: ColorTokens.textSecondary,
+            constraints: const BoxConstraints(minWidth: 44, minHeight: 44),
+            padding: EdgeInsets.zero,
+            onPressed: cancella,
+          ),
+      ],
+    );
+  }
+}
+
+/// **LA CONFERMA PRIMA DI CANCELLARE. Ordine EA voce 07.** Una conversazione
+/// cancellata non si ritrova: lo si dice, e si aspetta il si'.
+abstract final class _ConversazioneDaCancellare {
+  static Future<void> chiedi(BuildContext context,
+      MaestroChatController controller, ConversazionePassata c) async {
+    // Il colore si prende dalla chat, che ha il suo Maestro: il dialogo vive
+    // sulla rotta radice, dove lo scope del Maestro puo' non esserci.
+    final superficie = context.palette.surface;
+    final si = await dialogoDelCerchio<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        key: const Key('chat_conferma_cancella'),
+        backgroundColor: superficie,
+        title: Text('Cancelliamo questa conversazione?',
+            style: TypographyTokens.titoloScheda()),
+        content: ParagrafiDiLettura(
+          testo: '«${c.titolo}» esce dal menu e dal Cerchio, con tutto '
+              'quello che vi siete detti. Non si può ritrovare.',
+          stile: TypographyTokens.lettura(),
+        ),
+        actions: [
+          TextButton(
+            style: TextButton.styleFrom(
+                foregroundColor: ColorTokens.textSecondary),
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Tienila'),
+          ),
+          FilledButton(
+            key: const Key('chat_conferma_cancella_si'),
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Cancella'),
+          ),
+        ],
+      ),
+    );
+    if (si == true) await controller.cancellaLaConversazione(c.id);
   }
 }

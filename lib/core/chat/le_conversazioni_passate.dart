@@ -83,6 +83,33 @@ abstract final class LeConversazioniPassate {
   static String _chiaveDellArchivio(Maestro maestro) =>
       'chat.titoli.${maestro.id}';
 
+  /// **LE CONVERSAZIONI CANCELLATE DAL MENU'. Ordine EA voce 07.** Il
+  /// telefono le ricorda finche' il server non le ha tolte davvero: senza,
+  /// una conversazione cancellata tornerebbe alla prossima apertura.
+  static String _chiaveDelleNascoste(Maestro maestro) =>
+      'chat.cancellate.${maestro.id}';
+
+  static Future<Set<String>> nascoste(Maestro maestro) async {
+    try {
+      final p = await SharedPreferences.getInstance();
+      return {...?p.getStringList(_chiaveDelleNascoste(maestro))};
+    } catch (errore) {
+      debugPrint('Conversazioni: le cancellate non si leggono. $errore');
+      return {};
+    }
+  }
+
+  static Future<void> nascondi(Maestro maestro, String? id) async {
+    try {
+      final p = await SharedPreferences.getInstance();
+      final tutte = await nascoste(maestro)
+        ..add(chiave(id));
+      await p.setStringList(_chiaveDelleNascoste(maestro), tutte.toList());
+    } catch (errore) {
+      debugPrint('Conversazioni: la cancellata non si ricorda. $errore');
+    }
+  }
+
   /// **IL TITOLO DI RIPIEGO**: la prima domanda, fino a sei parole e a
   /// quarantadue caratteri, con i puntini se e' stata tagliata.
   static String titoloDiRipiego(String domanda) {
@@ -147,6 +174,7 @@ abstract final class LeConversazioniPassate {
     List<ChatMessage> messaggi, {
     required Map<String, String> titoli,
     required String? corrente,
+    Set<String> nascoste = const {},
     int quanteAlPiu = quante,
   }) {
     final prima = <String, String>{};
@@ -164,7 +192,7 @@ abstract final class LeConversazioniPassate {
     }
     final fuori = <ConversazionePassata>[];
     for (final k in ordine.reversed) {
-      if (k == chiave(corrente)) continue;
+      if (k == chiave(corrente) || nascoste.contains(k)) continue;
       final domanda = prima[k];
       if (domanda == null) continue;
       fuori.add(ConversazionePassata(

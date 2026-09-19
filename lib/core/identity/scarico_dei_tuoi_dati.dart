@@ -86,6 +86,7 @@ class ScaricoDeiTuoiDati {
     // Ordine DZ voce 04: i titoli che il modello ha dato alle tue
     // conversazioni, come si cancellano cosi' si scaricano.
     'chat.titoli.': 'I titoli delle tue conversazioni con i Maestri',
+    'chat.cancellate.': 'Le conversazioni che hai cancellato dal menu della chat',
     'sunset_rune': 'Le tue Rune del Tramonto',
     'device.id': 'L\'identità di questo dispositivo',
     // **E IL LOTO, ORDINE CZ VOCE 10.** La traccia dei respiri della

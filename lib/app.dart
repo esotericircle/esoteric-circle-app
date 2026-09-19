@@ -598,6 +598,11 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>
                               // viene prima: il tutorial e' cio' che si trova ad apertura
                               // finita.
                               PrimoApprodo(
+                            // **SOLO SULLA HOME, ordine EA voce 02**: la pila
+                            // radice ha la sola home, nessun foglio e nessuna
+                            // schermata sopra.
+                            sullaHome: () => _pila.pila.length <= 1,
+                            cambiDellaPila: _pila.cambi,
                             child: BarraDelCerchio(
                               observatore: _pila,
                               // **LO SCOPE SOPRA IL NAVIGATOR, ordine AL voce 04.** I
