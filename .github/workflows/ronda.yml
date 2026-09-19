@@ -63,5 +63,22 @@ jobs:
       - name: LA RONDA, i motori sono collegati e rispondono agli input
         run: flutter test test/ronda_dei_motori_test.dart --reporter expanded
 
-      - name: La suite intera
-        run: flutter test
+      # **LA SUITE PASSA DALLO SBARRAMENTO, ordine EA voce 03, 20 settembre
+      # 2026.** Il fondatore la vuole verde. Qui c'era `flutter test` nudo,
+      # che non conosce `tool/rossi_accettati.txt`: i due rossi dichiarati e
+      # voluti (l'attribuzione cieca dell'ordine BY voce 04, le soglie della
+      # scansione dell'ordine CR voce 13) la facevano rossa ogni notte, e una
+      # Ronda rossa per motivi noti smette di dire qualcosa quando si rompe
+      # davvero. Lo sbarramento e' lo stesso comando del cancello e di
+      # Codemagic: passa sui rossi elencati, stampandoli col loro nome e la
+      # loro ragione, e si ferma su qualunque rosso che nessuno ha dichiarato.
+      - name: La suite intera, dallo sbarramento che legge i rossi accettati
+        run: |
+          set -o pipefail
+          bash tool/sbarramento.sh 2>&1 | tee /tmp/sbarramento.txt
+
+      # Il verdetto dove si legge senza credenziali, come nel cancello: i
+      # registri delle azioni chiedono un accesso, le annotazioni no.
+      - name: Il verdetto della Ronda, leggibile senza credenziali
+        if: failure()
+        run: bash tool/il_verdetto_del_cancello.sh /tmp/sbarramento.txt
