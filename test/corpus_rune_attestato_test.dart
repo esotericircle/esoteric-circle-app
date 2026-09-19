@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:esoteric_circle/core/astro/moon_phase.dart';
+import 'package:esoteric_circle/core/astro/zodiac.dart';
 
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/rituals/rune_lore.g.dart';
@@ -156,17 +158,22 @@ void main() {
               'dentro il giorno.');
     });
 
-    test('la voce sta dentro il cielo vero del giorno', () {
-      // Il 7 agosto 2026 il Sole sta in Leone: la voce lo nomina, perche'
-      // l'aggancio e' al cielo calcolato, non a un cielo di scena.
+    test('la voce sta dentro il cielo vero del giorno, senza segni', () {
+      // **LA LUNA VERA, E NESSUN SEGNO. Ordine EA voce 05.** Qui si
+      // pretendeva il Sole in Leone del 7 agosto 2026; col fondatore che
+      // toglie l'astrologia dalle rune resta la Luna di quel giorno, calcolata,
+      // e nessun segno zodiacale.
+      final giorno = DateTime(2026, 8, 7);
       final a = RuneVoce.voce(
-          runa: runa,
-          persona: 'aries',
-          giorno: DateTime(2026, 8, 7),
-          domanda: '');
-      expect(a.contains('Leone'), isTrue,
-          reason: 'La voce del 7 agosto non nomina il Sole in Leone: '
-              'l\'aggancio al cielo vero si e\' staccato.');
+          runa: runa, persona: 'aries', giorno: giorno, domanda: '');
+      final luna = MoonPhase.comeSiDice(MoonPhase.forDate(giorno).italianName);
+      expect(a.contains('con la Luna $luna'), isTrue,
+          reason: 'La voce del 7 agosto non porta la Luna di quel giorno '
+              '($luna): l\'aggancio al cielo vero si e\' staccato. $a');
+      for (final z in Zodiac.values) {
+        expect(a.contains(z.italianName), isFalse,
+            reason: 'la voce nomina ${z.italianName}: $a');
+      }
       // **QUESTA RIGA E' STATA RISCRITTA DALLA VOCE S.24 DELL'ORDINE S, e il
       // perche' va letto prima di rimetterla com'era.**
       //

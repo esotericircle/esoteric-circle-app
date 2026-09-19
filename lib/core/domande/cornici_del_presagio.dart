@@ -60,7 +60,8 @@ class CorniceDelPresagio {
     required this.domanda,
     required String apertura,
     required String chiusura,
-  }) : _apertura = apertura, _chiusura = chiusura;
+  })  : _apertura = apertura,
+        _chiusura = chiusura;
 
   /// Il TESTO ESATTO della domanda a cui questa cornice appartiene. E' la chiave
   /// dell'accostamento: non l'indice, non la famiglia.
@@ -160,31 +161,14 @@ class CorniciDelPresagio {
     ),
   ];
 
-  /// LE OTTO PERSONALI. Le quattro il cui dato non e' ancora agganciato (Luna,
-  /// Ascendente, animale guida, archetipo) hanno gia' la loro cornice: quando il
-  /// dato arriva, la domanda si mostra e la cornice e' pronta.
+  /// LE QUATTRO PERSONALI. Animale guida e archetipo hanno gia' la loro
+  /// cornice anche se il dato non e' ancora agganciato: quando arriva, la
+  /// domanda si mostra e la cornice e' pronta.
+  ///
+  /// **Erano otto. Ordine EA voce 05**: con le quattro domande astrologiche
+  /// sono uscite le loro cornici, Sole, Luna, Ascendente e segno. Le cornici
+  /// in tutto sono dodici, non piu' sedici.
   static const List<CorniceDelPresagio> personali = [
-    CorniceDelPresagio(
-      domanda: 'Il mio Sole: dove mi chiede coraggio?',
-      apertura: 'Il tuo Sole non chiede coraggio dove sei già bravo. Lo chiede '
-          'dove ti esponi e le pietre indicano il punto.',
-      chiusura: 'Fai oggi, in piccolo, la cosa che ti espone. Il coraggio si '
-          'allena in scala ridotta, non si aspetta in scala grande.',
-    ),
-    CorniceDelPresagio(
-      domanda: 'La mia Luna: cosa chiede adesso?',
-      apertura: 'La tua Luna chiede quasi sempre la stessa cosa e quasi sempre '
-          'a bassa voce. Adesso le pietre la dicono forte.',
-      chiusura: 'Concedile la cosa più piccola che chiede, oggi stesso. Una '
-          'Luna ascoltata smette di insistere.',
-    ),
-    CorniceDelPresagio(
-      domanda: 'Il mio Ascendente: cosa mostro e cosa nascondo?',
-      apertura: 'Il tuo Ascendente è la porta: chi arriva vede quella e crede '
-          'che sia la casa. Le pietre dicono cosa resta dietro.',
-      chiusura: 'Con una persona sola, oggi, mostra mezzo passo in più di '
-          'quanto mostri di solito. Mezzo, non uno.',
-    ),
     CorniceDelPresagio(
       domanda: 'La runa di ieri sera: cosa continua oggi?',
       apertura: 'Ieri sera hai chiuso il giorno con un segno e quella cosa non '
@@ -198,15 +182,6 @@ class CorniciDelPresagio {
           'pietre dicono dove passa adesso.',
       chiusura: 'Prima di sera trova un momento della giornata in cui quella '
           'parola è già successa e riconoscilo. Non serve cercarne un altro.',
-    ),
-    CorniceDelPresagio(
-      domanda: 'Il mio segno in questo periodo: cosa cambia?',
-      apertura: 'Nel tuo segno questo periodo non porta un colpo di scena: '
-          'sposta un peso da una parte all’altra. Le pietre dicono da dove '
-          'a dove.',
-      chiusura:
-          'Guarda cosa hai smesso di fare senza deciderlo. Il cambiamento '
-          'si vede nelle abitudini prima che nei pensieri.',
     ),
     CorniceDelPresagio(
       domanda: 'Il mio animale guida: cosa mi dice ora?',
@@ -248,7 +223,7 @@ class CorniciDelPresagio {
         'assomiglia, domani la domanda ce l\u2019hai gi\u00e0.',
   );
 
-  /// Tutte e sedici.
+  /// Tutte e dodici, dall'ordine EA voce 05.
   static List<CorniceDelPresagio> get tutte => [...generiche, ...personali];
 
   /// LA CORNICE DI UNA DOMANDA, per testo esatto.

@@ -67,7 +67,16 @@ ATTESA = {
     'ritorno_solare': 365,
 }
 
-# L'evento detto in italiano, per la frase che la persona legge.
+# L'evento detto in italiano, per la frase che la persona legge.# IL RITORNO DI UN EVENTO DEL CIELO, in giorni: ogni quanto si ripresenta.
+# Ordine EA voce 05. Serve solo agli eventi che un traguardo chiede piu' di
+# una volta: l'attesa dice quanto si aspetta la PRIMA, il ritorno quanto ogni
+# altra. Il mese sinodico e' di 29,53 giorni, qui arrotondato a trenta.
+RITORNO = {
+    'luna_piena': 30,
+}
+
+
+
 INPAROLE = {
     'luna_crescente': 'la Luna cresce',
     'luna_calante': 'la Luna cala',
@@ -228,6 +237,11 @@ def costo(c):
     if t == 'RitornoDopoAssenza':
         return c['giorniDiAssenza'] + 1
     if t == 'FinestraDelCielo':
+        # ORDINE EA VOCE 05: una finestra chiesta piu' volte costa l'attesa
+        # della prima piu' il ritorno dell'evento per tutte le altre.
+        volte = c.get('volte', 1)
+        if volte > 1:
+            return ATTESA[c['evento']] + (volte - 1) * RITORNO[c['evento']]
         return ATTESA[c['evento']]
     if t == 'PezzoDellIdentita':
         return 1
@@ -256,10 +270,12 @@ def seguito(r, n):
     return {'tipo': 'GiorniDiSeguito', 'rito': r, 'quanti': n}
 
 
-def cielo(ev, g=None):
+def cielo(ev, g=None, volte=1):
     c = {'tipo': 'FinestraDelCielo', 'evento': ev}
     if g:
         c['conGesto'] = g
+    if volte > 1:
+        c['volte'] = volte
     return c
 
 

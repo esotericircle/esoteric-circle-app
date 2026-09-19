@@ -1349,8 +1349,7 @@ void main() {
           ),
           home: RepaintBoundary(
             key: radice,
-            child:
-                RuneDrawScreen(userSign: Zodiac.aries, random: math.Random(7)),
+            child: RuneDrawScreen(random: math.Random(7)),
           ),
         ),
       ));
@@ -1503,7 +1502,8 @@ void main() {
     for (var i = 0; i < 16; i++) {
       await tester.pump(const Duration(milliseconds: 500));
     }
-    await tester.tap(find.byKey(const Key('chat_stelline')), warnIfMissed: false);
+    await tester.tap(find.byKey(const Key('chat_stelline')),
+        warnIfMissed: false);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));
 
@@ -2396,9 +2396,7 @@ void main() {
           unawaited(nav.push(FaceConstellationScreen.route()));
         case 'rune':
           unawaited(nav.push(RuneDrawScreen.route(
-              userSign: Zodiac.aries,
-              userBirth: DateTime(1990, 6, 15),
-              random: math.Random(7))));
+              userBirth: DateTime(1990, 6, 15), random: math.Random(7))));
       }
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
@@ -2458,9 +2456,7 @@ void main() {
       switch (scena) {
         case 'rune_telo' || 'rune_scheda' || 'rune_presagio' || 'rune_sigillo':
           unawaited(nav.push(RuneDrawScreen.route(
-              userSign: Zodiac.aries,
-              userBirth: DateTime(1990, 6, 15),
-              random: math.Random(7))));
+              userBirth: DateTime(1990, 6, 15), random: math.Random(7))));
           await attesa();
           // La gettata sul telo, che e' la scena dell'ordine.
           await tester.ensureVisible(find.text('Il getto sul telo'));
@@ -2788,8 +2784,7 @@ void main() {
                 debugShowCheckedModeBanner: false,
                 theme: AppTheme.dark(),
                 builder: (ctx, child) => MaestroScope(child: child!),
-                home: RuneDrawScreen(
-                    userSign: Zodiac.aries, random: math.Random(9)),
+                home: RuneDrawScreen(random: math.Random(9)),
               ),
             ),
           ));
@@ -2986,8 +2981,7 @@ void main() {
               debugShowCheckedModeBanner: false,
               theme: AppTheme.dark(),
               builder: (ctx, child) => MaestroScope(child: child!),
-              home: RuneDrawScreen(
-                  userSign: Zodiac.aries, random: math.Random(9)),
+              home: RuneDrawScreen(random: math.Random(9)),
             ),
           ),
         ));

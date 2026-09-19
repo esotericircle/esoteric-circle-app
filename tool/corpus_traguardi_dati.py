@@ -401,9 +401,14 @@ ALBERO = [
      'L’Albero intero, con tutti e sei i riti in una sola pagina'),
     (volte('gettata', 340), 'Trecentoquaranta gettate',
      'Le rune che ti conoscono, con quella che ti è uscita di più'),
-    (cielo('luna_piena_nel_tuo_segno', 'tramonto'),
-     'Il Tramonto della tua Luna piena',
-     'La runa della Luna piena nel tuo segno, una volta l’anno'),
+    # **SENZA IL TUO SEGNO, ordine EA voce 05, 19 settembre 2026.** Chiedeva
+    # la Luna piena NEL TUO SEGNO, che e' astrologia, e il fondatore vuole la
+    # Runa del Tramonto senza. La sola Luna piena pero' torna ogni mese, e
+    # questo e' l'ultimo gradino dell'anno: se ne chiedono dodici, cioe' un
+    # anno di lune, e il costo sale da quindici giorni a trecentoquarantacinque.
+    (cielo('luna_piena', 'tramonto', volte=12),
+     'Il Tramonto delle dodici Lune',
+     'Le dodici rune delle Lune piene, una accanto all’altra'),
 ]
 
 SENTIERI = [

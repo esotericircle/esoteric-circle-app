@@ -109,8 +109,10 @@ Route<void>? artRouteFor(
     case 'magic_sigil':
       return SigilloIntenzioneScreen.route();
     case 'rune_draw':
-      if (userSign == null) return DatiDiNascitaScreen.route();
-      return RuneDrawScreen.route(userSign: userSign, userBirth: userBirth);
+      // **SI APRE SEMPRE. Ordine EA voce 05**: senza data di nascita si
+      // veniva mandati a darla, perche' l'arte voleva il segno. Il segno e'
+      // uscito con l'astrologia, e le rune non chiedono niente per parlare.
+      return RuneDrawScreen.route(userBirth: userBirth);
     case 'horoscope':
       // Senza data non c'e' oroscopo: si va a darla, invece di leggere il
       // cielo di qualcun altro.

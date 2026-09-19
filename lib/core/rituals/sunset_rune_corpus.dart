@@ -1,12 +1,13 @@
 import '../astro/moon_phase.dart';
-import '../astro/zodiac.dart';
 import 'rune_cast.dart' show RuneVerso;
 import 'sunset_rune.dart';
 import '../../core/chat/user_profile.dart';
 
 /// Le due voci di una runa in un verso: cosa lasci fuori e cosa porti dentro.
 class VoceRuna {
-  const VoceRuna(String lasciare, String porta) : _lasciare = lasciare, _porta = porta;
+  const VoceRuna(String lasciare, String porta)
+      : _lasciare = lasciare,
+        _porta = porta;
 
   /// Voce A, "Cosa lasci fuori": l'atto di posare qualcosa sulla soglia.
   final String _lasciare;
@@ -257,35 +258,6 @@ class SunsetRuneCorpus {
         "La luna cala verso il buio: lascia fuori il vecchio, la notte lo prende con sé.",
   };
 
-  // Clausola di segno, Voce B frase due: l'incrocio col segno solare, dodici,
-  // una per segno, che si innesta sulla notte.
-  static const Map<String, String> _clausolaSegno = {
-    "aries":
-        "Con l'ardore d'Ariete nel petto, lascia che la brace covi: domani riaccende da sé.",
-    "taurus":
-        "Con la calma del Toro, posa il corpo come un peso che finalmente si appoggia.",
-    "gemini":
-        "Con la mente dei Gemelli ancora viva, lascia posare le parole: al buio non chiedono risposta.",
-    "cancer":
-        "Con la Luna del Cancro a casa sua, la notte ti custodisce come un guscio.",
-    "leo":
-        "Con il cuore del Leone, abbassa la fiamma senza spegnerla: brilla piano anche nel sonno.",
-    "virgo":
-        "Con la cura della Vergine, lascia i dettagli al domani: stanotte niente va sistemato.",
-    "libra":
-        "Con la soglia della Bilancia, posa i piatti: la notte non chiede equilibrio, chiede riposo.",
-    "scorpio":
-        "Con la profondità dello Scorpione, lascia scendere lo sguardo al fondo: al buio la verità non ferisce.",
-    "sagittarius":
-        "Con lo slancio del Sagittario, abbassa l'arco: gli orizzonti aspettano il mattino.",
-    "capricorn":
-        "Con la misura del Capricorno, lascia la salita: stanotte nessuna vetta ti chiama.",
-    "aquarius":
-        "Con l'ampiezza dell'Acquario, lascia andare il pensiero largo: la notte lo custodisce.",
-    "pisces":
-        "Con il sogno dei Pesci, lascia sciogliere i confini: l'acqua che confonde qui guarisce.",
-  };
-
   // Le quattro clausole di insistenza, per la runa che torna entro sette sere.
   static const List<String> _insistenza = [
     "E se torna: non hai ancora finito di ascoltarla.",
@@ -319,12 +291,6 @@ class SunsetRuneCorpus {
   static String registroLunare(MoonPhase fase) =>
       _registroLunare[fase.italianName] ?? _registroNeutro;
 
-  /// La clausola del segno solare, oppure stringa vuota quando il segno non si
-  /// sa o non e' in mappa: la frase deve reggere anche senza, e la Voce B non
-  /// lascia mai uno spazio pendente ne' nomina un segno che l'utente non ha dato.
-  static String clausolaSegno(Zodiac? segno) =>
-      segno == null ? "" : (_clausolaSegno[segno.id] ?? "");
-
   /// La clausola di insistenza numero [i], modulo quattro.
   static String insistenza(int i) => _insistenza[i % _insistenza.length];
 
@@ -336,12 +302,13 @@ class SunsetRuneCorpus {
     return _unisci([voce.lasciare, registroLunare(e.fase), insistenzaClausola]);
   }
 
-  /// La Voce B completa: cosa porti dentro la notte, più la clausola di segno,
-  /// più la clausola di insistenza quando la runa ritorna.
+  /// La Voce B completa: cosa porti dentro la notte, più la clausola di
+  /// insistenza quando la runa ritorna. **Senza la clausola del segno, ordine
+  /// EA voce 05**: le dodici frasi dei segni sono uscite con l'astrologia.
   static String vocePortare(EstrazioneTramonto e,
       {String? insistenzaClausola}) {
     final voce = voceRuna(e.rune.name, e.verso);
-    return _unisci([voce.porta, clausolaSegno(e.segno), insistenzaClausola]);
+    return _unisci([voce.porta, insistenzaClausola]);
   }
 
   /// Unisce i pezzi non vuoti con un solo spazio, così una clausola assente non
@@ -385,17 +352,12 @@ class SunsetRuneCorpus {
     return ritiDellaSera[seme % ritiDellaSera.length];
   }
 
-  /// La riga di trasparenza dei fattori: runa e verso, fase lunare, e il segno
-  /// solo quando si sa. Senza segno la riga si chiude sulla fase, senza nominare
-  /// un segno che l'utente non ha dato.
+  /// La riga di trasparenza dei fattori: runa e verso, e la fase lunare
+  /// della sera. Il segno non c'e' piu', ordine EA voce 05.
   static String trasparenza(EstrazioneTramonto e) {
     // Merkstave si traduce, ordine AS voce 09.
     final v = e.inOmbra ? "in merkstave (rovesciata)" : "dritta";
-    final segno = e.segno;
-    final testa = "${e.rune.name} $v, ${e.fase.italianName.toLowerCase()}";
-    return segno == null
-        ? "$testa."
-        : "$testa, sotto il segno ${segno.italianName}.";
+    return "${e.rune.name} $v, ${e.fase.italianName.toLowerCase()}.";
   }
 
   /// L'intestazione della runa che torna entro sette sere.
@@ -407,6 +369,5 @@ class SunsetRuneCorpus {
   static Map<String, VoceRuna> get dritto => _dritto;
   static Map<String, VoceRuna> get ombra => _ombra;
   static Map<String, String> get registri => _registroLunare;
-  static Map<String, String> get clausole => _clausolaSegno;
   static List<String> get insistenze => _insistenza;
 }

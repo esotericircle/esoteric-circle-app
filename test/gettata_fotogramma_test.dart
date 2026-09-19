@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
-import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/features/maestri/caligo/rune/rune_draw_screen.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +51,7 @@ void main() {
       ],
       child: MaterialApp(
         builder: (ctx, child) => MaestroScope(child: child!),
-        home: RuneDrawScreen(userSign: Zodiac.aries, random: math.Random(7)),
+        home: RuneDrawScreen(random: math.Random(7)),
       ),
     ));
     await tester.pump(const Duration(milliseconds: 400));
@@ -134,7 +133,7 @@ void main() {
           data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
           child: MaestroScope(child: child!),
         ),
-        home: RuneDrawScreen(userSign: Zodiac.aries, random: math.Random(7)),
+        home: RuneDrawScreen(random: math.Random(7)),
       ),
     ));
     await tester.pump(const Duration(milliseconds: 400));

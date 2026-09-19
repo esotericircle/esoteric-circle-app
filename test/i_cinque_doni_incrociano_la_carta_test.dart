@@ -56,10 +56,8 @@ void main() {
     // costruito niente, ha misurato.
     final sera = DateTime(2026, 7, 13, 20);
     final una = SunsetRune.estrai(sera,
-        dataNascita: unaNascita,
         identita: SunsetRune.identitaPer(nascita: unaNascita, deviceId: 'x'));
     final altra = SunsetRune.estrai(sera,
-        dataNascita: altraNascita,
         identita: SunsetRune.identitaPer(nascita: altraNascita, deviceId: 'x'));
     // ignore: avoid_print
     print('ORDINE CE VOCE 13: Runa, ${una.rune.name} contro '

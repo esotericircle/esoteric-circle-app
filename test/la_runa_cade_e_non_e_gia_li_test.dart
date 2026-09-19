@@ -110,8 +110,7 @@ void main() {
     final visti = <String>{};
     for (var g = 0; g < 8; g++) {
       final quando = DateTime(2026, 8, 1).add(Duration(days: g));
-      final e = SunsetRune.estrai(quando,
-          dataNascita: DateTime(1975, 11, 2), identita: 'prova');
+      final e = SunsetRune.estrai(quando, identita: 'prova');
       visti.add(SunsetRuneCorpus.ritoDellaSera(e));
     }
     // ignore: avoid_print

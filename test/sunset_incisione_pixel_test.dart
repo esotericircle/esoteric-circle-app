@@ -93,8 +93,13 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
     await tester.pumpWidget(MaterialApp(
+        // **LA SERA E' QUELLA DI LAGUZ DRITTA, su cui le soglie sono state
+        // tarate.** Era il 13 luglio 2026; con l'ordine EA voce 05 il segno
+        // e' uscito dalla chiave della runa, e per questa nascita il 13 luglio
+        // da' Hagalaz. Si sposta la sera, non le soglie: il 31 luglio, con la
+        // chiave nuova, esce di nuovo Laguz dritta.
         home: SunsetRuneScreen(
-            now: DateTime(2026, 7, 13, 20),
+            now: DateTime(2026, 7, 31, 20),
             dataNascita: DateTime(1975, 11, 2))));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));

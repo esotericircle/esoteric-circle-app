@@ -43,3 +43,15 @@ const Map<String, int> attesaTipicaDelCielo = {
   'venere_diretta': 290,
   'venere_retrograda': 290,
 };
+
+// GENERATO DA tool/genera_corpus_f.py: NON SI SCRIVE A MANO.
+// Ordine EA voce 05.
+//
+// **OGNI QUANTO UN EVENTO DEL CIELO TORNA, in giorni.** L'attesa qui sopra
+// dice quanto si aspetta la PRIMA volta; questa dice quanto si aspetta ogni
+// altra, e serve ai traguardi che la stessa finestra la chiedono piu' volte.
+// Il mese sinodico della Luna e' di 29,53 giorni, qui arrotondato a trenta.
+
+const Map<String, int> ritornoDelCielo = {
+  'luna_piena': 30,
+};

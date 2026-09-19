@@ -121,9 +121,11 @@ void main() {
     expect(CorniciDelPresagio.corniciSenzaDomanda(), isEmpty,
         reason: 'queste cornici non hanno piu\' la loro domanda: '
             '${CorniciDelPresagio.corniciSenzaDomanda().join(", ")}');
-    // Sedici, come l'allegato: otto e otto.
+    // Dodici: otto generiche e quattro personali. Erano sedici, come
+    // l'allegato; con l'ordine EA voce 05 sono uscite le cornici delle
+    // quattro domande astrologiche, Sole, Luna, Ascendente e segno.
     expect(CorniciDelPresagio.generiche.length, 8);
-    expect(CorniciDelPresagio.personali.length, 8);
+    expect(CorniciDelPresagio.personali.length, 4);
   });
 
   test('nessuna cornice nomina una runa', () {
@@ -336,8 +338,9 @@ void main() {
     // E si trova per la domanda vuota, che e' il modo in cui il motore la chiede.
     expect(CorniciDelPresagio.perDomanda(''), same(g));
     expect(CorniciDelPresagio.perDomanda('   '), same(g));
-    // Ma NON compare fra le sedici: se vi entrasse, la misura (b) la prenderebbe.
-    expect(CorniciDelPresagio.tutte.length, 16);
+    // Ma NON compare fra le dodici (erano sedici fino all'ordine EA voce 05):
+    // se vi entrasse, la misura (b) la prenderebbe.
+    expect(CorniciDelPresagio.tutte.length, 12);
     expect(CorniciDelPresagio.tutte.contains(g), isFalse);
   });
 }

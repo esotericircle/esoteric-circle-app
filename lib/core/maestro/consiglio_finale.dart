@@ -1,7 +1,6 @@
 import '../tempo/confine_del_giorno.dart';
 import '../astro/moon_phase.dart';
 import '../astro/night_sky.dart';
-import '../astro/zodiac.dart';
 import '../rituals/sunset_rune.dart';
 import 'chakra_del_giorno.dart';
 import 'maestro.dart';
@@ -180,7 +179,6 @@ abstract final class ConsiglioFinale {
     Maestro maestro, {
     required DateTime quando,
     required String identita,
-    Zodiac? segno,
   }) {
     final domani = DateTime(quando.year, quando.month, quando.day)
         .add(const Duration(days: 1));
@@ -224,10 +222,11 @@ abstract final class ConsiglioFinale {
             ? 'Rivediamoci $dopo: la Luna entra in ${cambio.cosa}.'
             : 'Ripassa $dopo, per ${cambio.cosa}.';
       case Maestro.caligo:
+        // Senza segno, come l'arte: ordine EA voce 05. La runa che Caligo
+        // annuncia e' quella che il Tramonto dara' davvero.
         final estrazione = SunsetRune.estrai(
           domani.add(const Duration(hours: 18)),
           identita: identita,
-          segno: segno,
         );
         final nome = estrazione.rune.name;
         final forme = <String>[
@@ -259,12 +258,11 @@ abstract final class ConsiglioFinale {
     required String testo,
     required DateTime quando,
     required String identita,
-    Zodiac? segno,
   }) {
     final corpo = corpoDa(testo);
     if (corpo.trim().isEmpty && sintesiDa(testo) == null) return '';
-    final invito = invitoDelRitorno(maestro,
-        quando: quando, identita: identita, segno: segno);
+    final invito =
+        invitoDelRitorno(maestro, quando: quando, identita: identita);
     // **SENZA MARCATORE RESTA IL SOLO INVITO**, e non e' un ripiego muto: e'
     // una scelta fra due cose degradate. La sintesi del Maestro non c'e', e
     // l'unica altra frase che potremmo mettere qui sta gia' a schermo poche

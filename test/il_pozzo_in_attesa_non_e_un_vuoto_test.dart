@@ -1,7 +1,6 @@
 import 'dart:math';
 import 'dart:ui' as ui;
 
-import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
@@ -90,7 +89,7 @@ void main() {
       child: MaterialApp(
         builder: (ctx, child) =>
             RepaintBoundary(key: chiave, child: MaestroScope(child: child!)),
-        home: RuneDrawScreen(userSign: Zodiac.aries, random: Random(3)),
+        home: RuneDrawScreen(random: Random(3)),
       ),
     ));
     // Frami dichiarati: la comparsa degli elementi ha un ritardo per strato, e
@@ -167,7 +166,7 @@ void main() {
           data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
           child: MaestroScope(child: child!),
         ),
-        home: RuneDrawScreen(userSign: Zodiac.aries, random: Random(3)),
+        home: RuneDrawScreen(random: Random(3)),
       ),
     ));
     for (var i = 0; i < 4; i++) {

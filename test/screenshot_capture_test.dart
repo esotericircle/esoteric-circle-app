@@ -2865,8 +2865,7 @@ void main() {
   testWidgets('Cattura la soglia dell\'Estrazione Rune', (tester) async {
     silenceSensors();
     await loadFonts();
-    final rootKey = await mountAnimal(
-        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(7)),
+    final rootKey = await mountAnimal(tester, RuneDrawScreen(random: Random(7)),
         size: const Size(360, 1960));
     expect(find.byKey(const Key('rune_selector')), findsOneWidget);
     await capture(tester, rootKey, 'rune-soglia.png');
@@ -2875,8 +2874,7 @@ void main() {
   testWidgets('Cattura il lancio nel Pozzo di Urdhr', (tester) async {
     silenceSensors();
     await loadFonts();
-    final rootKey = await mountAnimal(
-        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(5)),
+    final rootKey = await mountAnimal(tester, RuneDrawScreen(random: Random(5)),
         size: const Size(360, 840));
     await precacheRune(tester);
     await lancia(tester, 'norne');
@@ -2892,8 +2890,7 @@ void main() {
     // 2900 il sigillo restava FUORI dalla finestra, e `ScrollReveal` non rivela
     // cio' che non e' mai entrato in scena. L'anteprima mostrava la sua scatola
     // vuota e sembrava un difetto del sigillo.
-    final rootKey = await mountAnimal(
-        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(5)),
+    final rootKey = await mountAnimal(tester, RuneDrawScreen(random: Random(5)),
         size: const Size(360, 3400));
     await precacheRune(tester);
     await lancia(tester, 'norne');
@@ -2905,8 +2902,7 @@ void main() {
   testWidgets('Cattura la Runa di Odino, una runa', (tester) async {
     silenceSensors();
     await loadFonts();
-    final rootKey = await mountAnimal(
-        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(9)),
+    final rootKey = await mountAnimal(tester, RuneDrawScreen(random: Random(9)),
         size: const Size(360, 2120));
     await precacheRune(tester);
     await lancia(tester, 'odino');
@@ -2916,8 +2912,7 @@ void main() {
   testWidgets('Cattura la Croce delle Cinque', (tester) async {
     silenceSensors();
     await loadFonts();
-    final rootKey = await mountAnimal(
-        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(4)),
+    final rootKey = await mountAnimal(tester, RuneDrawScreen(random: Random(4)),
         size: const Size(360, 3500));
     await precacheRune(tester);
     await lancia(tester, 'croce');
@@ -2927,8 +2922,7 @@ void main() {
   testWidgets('Cattura il getto sul telo, la sorte libera', (tester) async {
     silenceSensors();
     await loadFonts();
-    final rootKey = await mountAnimal(
-        tester, RuneDrawScreen(userSign: Zodiac.aries, random: Random(6)),
+    final rootKey = await mountAnimal(tester, RuneDrawScreen(random: Random(6)),
         size: const Size(360, 3100));
     await precacheRune(tester);
     await lancia(tester, 'telo');

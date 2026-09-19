@@ -69,7 +69,6 @@ class RigaDelConsiglio extends StatelessWidget {
       testo: testo,
       quando: quando,
       identita: identita,
-      segno: nascita.sunSign,
     );
     if (riga.isEmpty) return const SizedBox.shrink();
 

@@ -334,7 +334,6 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     required EsitoGettata esito,
     required String domanda,
     required UserProfile profile,
-    NatalContext natal = NatalContext.none,
   }) async {
     final d = domanda.trim();
     // **FLASH-LITE, come le risposte brevi.** E' una bolla per gettata e nel piano
@@ -346,7 +345,6 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
         MaestroPersona.presagioInstruction(
           profile: profile,
           memory: MaestroMemory.empty,
-          natal: natal,
           conDomanda: d.isNotEmpty,
         ),
       ),

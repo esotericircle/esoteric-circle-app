@@ -100,6 +100,12 @@ def frase(c):
                 % (c['quanteVolte'], _arte(c['gesto']),
                    ORA_INPAROLE[c['ora']]))
     if t == 'FinestraDelCielo':
+        # ORDINE EA VOCE 05: la finestra chiesta piu' volte non si racconta
+        # al presente, perche' non e' la sera di oggi: e' un anno di sere.
+        if c.get('volte', 1) > 1:
+            return ('%d volte %s mentre %s.'
+                    % (c['volte'], _arte(c['conGesto']),
+                       ct.INPAROLE[c['evento']]))
         return ('%s: tu eri qui con %s.'
                 % (_maiuscola(ct.INPAROLE[c['evento']]),
                    _arte(c['conGesto'])))
@@ -175,6 +181,10 @@ def dart(c):
         return ("const GestoNellOraGiusta('%s', '%s', quanteVolte: %d)"
                 % (c['gesto'], c['ora'], c['quanteVolte']))
     if t == 'FinestraDelCielo':
+        if c.get('volte', 1) > 1:
+            return ("const FinestraDelCielo(EventiDelCielo.%s, volte: %d, "
+                    "conGesto: '%s')"
+                    % (_camel(c['evento']), c['volte'], c['conGesto']))
         return ("const FinestraDelCielo(EventiDelCielo.%s, conGesto: '%s')"
                 % (_camel(c['evento']), c['conGesto']))
     if t == 'GiornateInsieme':
@@ -323,6 +333,17 @@ def scriviMaestroDelGesto(sentieri):
     return ''.join(righe)
 
 
+RITORNO_INTESTAZIONE = '''// GENERATO DA tool/genera_corpus_f.py: NON SI SCRIVE A MANO.
+// Ordine EA voce 05.
+//
+// **OGNI QUANTO UN EVENTO DEL CIELO TORNA, in giorni.** L'attesa qui sopra
+// dice quanto si aspetta la PRIMA volta; questa dice quanto si aspetta ogni
+// altra, e serve ai traguardi che la stessa finestra la chiedono piu' volte.
+// Il mese sinodico della Luna e' di 29,53 giorni, qui arrotondato a trenta.
+
+const Map<String, int> ritornoDelCielo = {
+'''
+
 ATTESA_INTESTAZIONE = '''// GENERATO DA tool/genera_corpus_f.py: NON SI SCRIVE A MANO.
 // Ordine CP voce 05.
 //
@@ -343,6 +364,10 @@ def scriviAttesa():
     righe = [ATTESA_INTESTAZIONE]
     for evento in sorted(ct.ATTESA):
         righe.append("  '%s': %d,\n" % (evento, ct.ATTESA[evento]))
+    righe.append('};\n\n')
+    righe.append(RITORNO_INTESTAZIONE)
+    for evento in sorted(ct.RITORNO):
+        righe.append("  '%s': %d,\n" % (evento, ct.RITORNO[evento]))
     righe.append('};\n')
     return ''.join(righe)
 

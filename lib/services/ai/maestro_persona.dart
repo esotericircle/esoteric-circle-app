@@ -366,7 +366,6 @@ class MaestroPersona {
   static String presagioInstruction({
     required UserProfile profile,
     required MaestroMemory memory,
-    NatalContext natal = NatalContext.none,
     bool conDomanda = true,
   }) {
     final parti = ParteDelResponso.nelResponso
@@ -378,7 +377,12 @@ class MaestroPersona {
       '',
       _commonRules(profile),
       '',
-      _natalContext(natal),
+      // **LE RUNE SENZA ASTROLOGIA. Ordine EA voce 05.** Qui entrava il
+      // contesto natale (segno solare, lunare, Ascendente); e' uscito, e la
+      // riga sotto lo dice al modello, che la voce di Caligo da sola non lo
+      // sa.
+      'Le rune parlano da sé: non nominare segni zodiacali, pianeti, '
+          'Ascendente né carta natale.',
       _memoryContext(memory),
       '',
       MisuraDellaRisposta.letturaDellaChat.istruzione,

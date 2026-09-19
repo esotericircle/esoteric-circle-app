@@ -1,17 +1,22 @@
 import '../astro/moon_phase.dart';
-import '../astro/zodiac.dart';
 import 'rune_cast.dart' show RuneVerso, kRuneSimmetriche;
 import 'runes.dart';
 
-/// L'estrazione della Runa del Tramonto: runa, verso, fase lunare e segno, tutti
-/// reali e deterministici dal giorno rituale incrociato con la carta di nascita.
+/// L'estrazione della Runa del Tramonto: runa, verso e fase lunare, tutti
+/// reali e deterministici dal giorno rituale incrociato con la nascita.
+///
+/// **SENZA ASTROLOGIA. Ordine EA voce 05.** Parole del fondatore: *"la runa
+/// del tramonto e estrazione rune non devono essere collegate
+/// all'astrologia"*. Qui c'era il segno solare, dentro la chiave della runa e
+/// nella seconda voce; e' uscito da tutti e due. La fase lunare della sera
+/// resta, per decisione del fondatore del 19 settembre 2026: e' il cielo
+/// vero di stasera, non un segno.
 class EstrazioneTramonto {
   const EstrazioneTramonto({
     required this.giornoRituale,
     required this.rune,
     required this.verso,
     required this.fase,
-    required this.segno,
     required this.identita,
   });
 
@@ -21,11 +26,6 @@ class EstrazioneTramonto {
   final Rune rune;
   final RuneVerso verso;
   final MoonPhase fase;
-
-  /// Il segno solare, se l'utente lo ha davvero dato o se si deriva dalla sua
-  /// data di nascita. Null quando non si sa: l'app non ne inventa uno, e la
-  /// clausola del segno si omette invece di dire il falso su chi legge.
-  final Zodiac? segno;
 
   /// L'identita' usata nella chiave: la nascita o l'id del dispositivo. La
   /// conserva cosi' l'insistenza usa la stessa, senza ricalcolarla.
@@ -48,8 +48,8 @@ class EstrazioneTramonto {
 ///
 /// Il Dono appartiene al tramonto, non alla data di calendario: il giorno
 /// rituale ha confine a mezzogiorno locale. La runa nasce da un hash FNV-1a a 64
-/// bit sulla data del tramonto incrociata con la nascita e col segno, cosi' non
-/// e' piu' la stessa per tutti ne ciclica. Il set delle rune simmetriche e' quello
+/// bit sulla data del tramonto incrociata con la nascita, cosi' non e' piu' la
+/// stessa per tutti ne ciclica. Il set delle rune simmetriche e' quello
 /// dell'Estrazione Rune, riusato, non duplicato.
 class SunsetRune {
   const SunsetRune._();
@@ -86,23 +86,16 @@ class SunsetRune {
 
   /// Estrae la runa del tramonto per [ora] locale. L'[identita] e' la chiave
   /// personale, la nascita o l'id del dispositivo: chi chiama la passa sempre.
-  /// La [dataNascita] serve solo a derivare il segno quando [segno] manca.
   /// L'[istanteTramonto], se noto, e' l'istante reale del tramonto per la fase
   /// lunare: runa e verso NON ne dipendono, restano legati al solo giorno.
   /// Deterministica e offline.
   static EstrazioneTramonto estrai(
     DateTime ora, {
-    DateTime? dataNascita,
-    Zodiac? segno,
     required String identita,
     DateTime? istanteTramonto,
   }) {
     final giorno = giornoRituale(ora);
-    // Il segno si usa solo se dato o derivabile dalla nascita. Se non si sa,
-    // resta null: nessun segno inventato, e la chiave lo dichiara assente.
-    final segnoUtente =
-        segno ?? (dataNascita != null ? Zodiac.fromDate(dataNascita) : null);
-    final chiave = _chiave(giorno, identita, segnoUtente);
+    final chiave = _chiave(giorno, identita);
 
     final indice = _fnv1a(chiave) % kElderFuthark.length;
     final rune = kElderFuthark[indice];
@@ -121,7 +114,6 @@ class SunsetRune {
       rune: rune,
       verso: verso,
       fase: fase,
-      segno: segnoUtente,
       identita: identita,
     );
   }
@@ -129,7 +121,7 @@ class SunsetRune {
   /// L'indice deterministico di insistenza, da 0 a 3, per la clausola del
   /// ritorno. Usa la stessa identita' dell'estrazione, non la ricalcola.
   static int indiceInsistenza(EstrazioneTramonto e) {
-    final chiave = _chiave(e.giornoRituale, e.identita, e.segno);
+    final chiave = _chiave(e.giornoRituale, e.identita);
     return _fnv1a("$chiave|insistenza") % 4;
   }
 
@@ -141,10 +133,13 @@ class SunsetRune {
       "${d.month.toString().padLeft(2, '0')}-"
       "${d.day.toString().padLeft(2, '0')}";
 
-  static String _chiave(DateTime giorno, String identita, Zodiac? segno) {
-    // "nessuno" quando il segno non si sa: la chiave resta stabile e distinta,
-    // senza far finta che l'utente sia dell'Ariete.
-    return "sunset_rune|${iso(giorno)}|$identita|${segno?.id ?? 'nessuno'}";
+  static String _chiave(DateTime giorno, String identita) {
+    // **IL SUFFISSO RESTA QUELLO DI CHI IL SEGNO NON L'AVEVA. Ordine EA voce
+    // 05.** Il segno e' uscito dalla chiave; tenendo `nessuno` in coda, chi
+    // non aveva dato la nascita ritrova la sua runa di sempre. Chi l'aveva
+    // data la vede cambiare una volta, il giorno in cui arriva questa
+    // versione: e' il prezzo dichiarato di togliere l'astrologia dal calcolo.
+    return "sunset_rune|${iso(giorno)}|$identita|nessuno";
   }
 
   /// FNV-1a a 64 bit. Su interi nativi a 64 bit l'overflow avvolge, quindi e'

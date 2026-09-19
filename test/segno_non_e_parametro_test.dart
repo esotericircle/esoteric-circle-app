@@ -77,13 +77,14 @@ void main() {
   });
 
   test('Le arti che mostrano un segno sono enumerate', () {
-    // Quattro: Oroscopo, Animale Guida, Estrazione Rune, Sinastria VIP. Se ne
-    // nasce una quinta che pretende il segno, chi la scrive vede questa prova
-    // cadere e legge da dove deve prenderlo.
+    // Tre: Oroscopo, Animale Guida, Sinastria VIP. L'Estrazione Rune e'
+    // uscita con l'ordine EA voce 05, perche' le rune non sono piu' collegate
+    // all'astrologia. Se ne nasce una quarta che pretende il segno, chi la
+    // scrive vede questa prova cadere e legge da dove deve prenderlo.
     final sorgente =
         File('lib/features/maestri/art_navigation.dart').readAsStringSync();
     final quante = 'userSign:'.allMatches(sorgente).length;
-    expect(quante, 4,
+    expect(quante, 3,
         reason: 'le arti che ricevono un segno sono $quante: verifica che la '
             'nuova lo prenda dalla sorgente e non da un chiamante');
   });

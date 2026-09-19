@@ -153,28 +153,34 @@ stai evitando di guardare. Una volta sola basta.
 
 # LE OTTO PERSONALI
 
-## P1. "Il mio Sole: dove mi chiede coraggio?"
+## P1. "Il mio Sole: dove mi chiede coraggio?", RITIRATA
 
-**Apertura.** Il tuo Sole non chiede coraggio dove sei gia' bravo. Lo chiede dove
+*Ritirata dall'ordine EA voce 05, 19 settembre 2026: il fondatore vuole l'Estrazione Rune senza astrologia, e la sua domanda non si propone piu'. Il testo resta com'era, per memoria.*
+
+**Apertura, ritirata.** Il tuo Sole non chiede coraggio dove sei gia' bravo. Lo chiede dove
 ti esponi, e le pietre indicano il punto.
 
-**Chiusura.** Fai oggi, in piccolo, la cosa che ti espone. Il coraggio si allena
+**Chiusura, ritirata.** Fai oggi, in piccolo, la cosa che ti espone. Il coraggio si allena
 in scala ridotta, non si aspetta in scala grande.
 
-## P2. "La mia Luna: cosa chiede adesso?"
+## P2. "La mia Luna: cosa chiede adesso?", RITIRATA
 
-**Apertura.** La tua Luna chiede quasi sempre la stessa cosa, e quasi sempre a
+*Ritirata dall'ordine EA voce 05, 19 settembre 2026: il fondatore vuole l'Estrazione Rune senza astrologia, e la sua domanda non si propone piu'. Il testo resta com'era, per memoria.*
+
+**Apertura, ritirata.** La tua Luna chiede quasi sempre la stessa cosa, e quasi sempre a
 bassa voce. Adesso le pietre la dicono forte.
 
-**Chiusura.** Concedile la cosa piu' piccola che chiede, oggi stesso. Una Luna
+**Chiusura, ritirata.** Concedile la cosa piu' piccola che chiede, oggi stesso. Una Luna
 ascoltata smette di insistere.
 
-## P3. "Il mio Ascendente: cosa mostro e cosa nascondo?"
+## P3. "Il mio Ascendente: cosa mostro e cosa nascondo?", RITIRATA
 
-**Apertura.** Il tuo Ascendente e' la porta: chi arriva vede quella e crede che
+*Ritirata dall'ordine EA voce 05, 19 settembre 2026: il fondatore vuole l'Estrazione Rune senza astrologia, e la sua domanda non si propone piu'. Il testo resta com'era, per memoria.*
+
+**Apertura, ritirata.** Il tuo Ascendente e' la porta: chi arriva vede quella e crede che
 sia la casa. Le pietre dicono cosa resta dietro.
 
-**Chiusura.** Con una persona sola, oggi, mostra mezzo passo in piu' di quanto
+**Chiusura, ritirata.** Con una persona sola, oggi, mostra mezzo passo in piu' di quanto
 mostri di solito. Mezzo, non uno.
 
 ## P4. "La runa di ieri sera: cosa continua oggi?"
@@ -193,12 +199,14 @@ pietre dicono dove passa adesso.
 **Chiusura.** Prima di sera trova un momento della giornata in cui quella parola
 e' gia' successa, e riconoscilo. Non serve cercarne un altro.
 
-## P6. "Il mio segno in questo periodo: cosa cambia?"
+## P6. "Il mio segno in questo periodo: cosa cambia?", RITIRATA
 
-**Apertura.** Nel tuo segno questo periodo non porta un colpo di scena: sposta un
+*Ritirata dall'ordine EA voce 05, 19 settembre 2026: il fondatore vuole l'Estrazione Rune senza astrologia, e la sua domanda non si propone piu'. Il testo resta com'era, per memoria.*
+
+**Apertura, ritirata.** Nel tuo segno questo periodo non porta un colpo di scena: sposta un
 peso da una parte all'altra. Le pietre dicono da dove a dove.
 
-**Chiusura.** Guarda cosa hai smesso di fare senza deciderlo. Il cambiamento si
+**Chiusura, ritirata.** Guarda cosa hai smesso di fare senza deciderlo. Il cambiamento si
 vede nelle abitudini prima che nei pensieri.
 
 ## P7. "Il mio animale guida: cosa mi dice ora?"

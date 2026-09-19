@@ -128,7 +128,7 @@ void main() {
     return fuori;
   }
 
-  test('la fonte esiste e porta diciassette cornici', () {
+  test('la fonte esiste e porta tredici cornici vive', () {
     final fonte = leggiLaFonte();
     expect(File('docs/responsi/cornici.md').existsSync(), isTrue,
         reason: 'la fonte delle cornici non e\' nel repository: senza di lei '
@@ -136,9 +136,13 @@ void main() {
     // Sedici piu' la diciassettesima: se la fonte ne perdesse una, il confronto
     // qui sotto non se ne accorgerebbe, perche' guarda il codice e cerca la sua
     // riga nella fonte.
-    expect(fonte.length, 17,
-        reason: 'nella fonte ci sono ${fonte.length} cornici invece di '
-            'diciassette: ${fonte.keys.join(" | ")}');
+    // **TREDICI, dall'ordine EA voce 05.** Le quattro personali
+    // astrologiche (P1 Sole, P2 Luna, P3 Ascendente, P6 segno) restano nella
+    // fonte, marcate RITIRATA e con le etichette cambiate, cosi' il testo
+    // dell'Architetto non si perde e questa lettura non le prende.
+    expect(fonte.length, 13,
+        reason: 'nella fonte ci sono ${fonte.length} cornici vive invece di '
+            'tredici: ${fonte.keys.join(" | ")}');
   });
 
   test('nessuna parola tronca sfugge alla tavola degli accenti', () {

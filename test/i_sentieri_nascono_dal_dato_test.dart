@@ -129,7 +129,10 @@ void main() {
         'StessaOraPerGiorni' => 'orafedele:${c['gesto']}:${c['quantiGiorni']}',
         'GestoNellOraGiusta' =>
           'ora:${c['gesto']}:${c['ora']}:${c['quanteVolte']}',
-        'FinestraDelCielo' => 'cielo:${c['evento']}:${c['conGesto']}',
+        // **E LE VOLTE, quando sono piu' di una. Ordine EA voce 05**: il
+        // corpus le dichiara, e la firma dell'app le porta.
+        'FinestraDelCielo' => 'cielo:${c['evento']}:${c['conGesto']}'
+            '${(c['volte'] ?? 1) == 1 ? '' : ':x${c['volte']}'}',
         'GiornateInsieme' =>
           'giornate:${(c['gesti'] as List).join("+")}:${c['quantiGiorni']}',
         'PezzoDellIdentita' => 'identita:${c['pezzo']}',

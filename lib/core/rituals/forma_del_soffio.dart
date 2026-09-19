@@ -51,8 +51,29 @@ class FormaDelSoffio {
   /// sola non apre niente. Serve a non far girare la trasformata sul silenzio.
   static const double energiaMinima = 0.0025;
 
-  /// **QUANTO PIATTO.** Il rumore bianco vale circa uno, una nota pura vale
-  /// quasi zero. Sopra questa soglia lo spettro non ha una nota dentro.
+  /// **QUANTO PIATTO, DOPO LA PRE-ENFASI. Ordine EA voce 20.** Il rumore
+  /// bianco vale circa uno, una nota pura vale quasi zero. Sopra questa soglia
+  /// lo spettro non ha una nota dentro.
+  ///
+  /// **Il fatto del fondatore, sulla 2272**: *"il soffio con microfono non
+  /// funziona piu'. funziona solo il gesto col dito"*. Sul Realme il microfono
+  /// registrava davvero (sessione MIC a 16 kHz, non silenziata, letta da
+  /// `dumpsys audio`): il flusso arrivava, ed era il riconoscimento a
+  /// scartarlo. **La causa, misurata**: un fiato sul microfono di un telefono
+  /// e' vento, cioe' rumore con quasi tutta l'energia in basso. Sulla
+  /// planarita' nuda il rumore marrone vale **0,007**, trenta volte sotto la
+  /// soglia di prima, e anche il rumore rosa della guardia, con un altro seme,
+  /// scendeva sotto **0,20** in qualche finestra e spezzava la catena: la
+  /// soglia reggeva solo il campione su cui era stata tarata.
+  ///
+  /// **Si cambia la grandezza, non la soglia da sola**: la planarita' si
+  /// misura dopo la pre-enfasi, la differenza fra un campione e il precedente
+  /// ([_preEnfasi]), che e' il passo di scuola dell'analisi della voce per
+  /// raddrizzare uno spettro che pende verso il basso. Misurato sui campioni:
+  /// rumore bianco **0,29**, rosa **0,47**, marrone **0,53**, voce **0,046**.
+  /// La soglia sta a **0,15**, tre volte la voce e la meta' del soffio piu'
+  /// debole. La doppia pre-enfasi e' stata provata e scartata: rende piatta
+  /// anche la voce, a **0,23**.
   ///
   /// **Il numero viene dalle misure**, non dal gusto. Sui campioni della
   /// guardia: rumore bianco **0,580**, soffio d'aria **0,260**, voce che parla
@@ -60,7 +81,7 @@ class FormaDelSoffio {
   /// soffio e il primo dei suoni con una nota dentro ci sono **due ordini di
   /// grandezza**, e la soglia sta in mezzo con margine da tutte e due le
   /// parti.
-  static const double planaritaMinima = 0.20;
+  static const double planaritaMinima = 0.15;
 
   /// **QUANTO A LUNGO**, in finestre consecutive. Sei finestre da trentadue
   /// millisecondi sono circa **due decimi di secondo** di aria continua.
@@ -131,7 +152,7 @@ class FormaDelSoffio {
       _diFila = 0;
       return;
     }
-    planarita = planaritaSpettrale(campioni);
+    planarita = planaritaSpettrale(_preEnfasi(campioni));
     if (planarita >= planaritaMinima) {
       _diFila++;
       if (_diFila >= fotogrammiRichiesti) _visto = true;
@@ -139,6 +160,17 @@ class FormaDelSoffio {
       _diFila = 0;
     }
   }
+
+  /// **LA PRE-ENFASI**: ogni campione meno quasi tutto il precedente. Alza le
+  /// frequenze alte rispetto alle basse, cosi' il vento di un fiato, che pende
+  /// verso il basso, torna piatto come l'aria che e'; una voce resta una voce,
+  /// con le sue righe. Ordine EA voce 20.
+  static List<int> _preEnfasi(List<int> campioni) => [
+        for (var n = 0; n < campioni.length; n++)
+          (campioni[n] - 0.97 * (n == 0 ? 0 : campioni[n - 1]))
+              .round()
+              .clamp(-32768, 32767),
+      ];
 
   static double _energiaDi(List<int> campioni) {
     var somma = 0.0;

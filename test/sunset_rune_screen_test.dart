@@ -425,10 +425,7 @@ void main() {
     // La runa di stasera e' gia' uscita tre sere fa: la clausola d'insistenza
     // deve essere gia' nel testo al momento in cui si compone e si persiste.
     final giorno = SunsetRune.giornoRituale(ora);
-    final stasera = SunsetRune.estrai(ora,
-            dataNascita: DateTime(1988, 7, 5), identita: '1988-07-05')
-        .rune
-        .name;
+    final stasera = SunsetRune.estrai(ora, identita: '1988-07-05').rune.name;
     final treFa = SunsetRune.iso(giorno.subtract(const Duration(days: 3)));
     SharedPreferences.setMockInitialValues({
       'sunset_rune.settimana':
@@ -446,13 +443,26 @@ void main() {
     final bloccoUno = find.descendant(
         of: find.byKey(const Key('sunset_voce_uno')),
         matching: find.byType(Text));
-    final mostrato = tester.widgetList<Text>(bloccoUno).last.data!;
+    // **I PARAGRAFI RIUNITI, non l'ultimo.** Ordine EA voce 05: la voce si
+    // divide in paragrafi frase per frase, e con la runa che questa nascita
+    // riceve dopo l'uscita del segno dalla chiave i paragrafi sono piu' d'uno.
+    // Prendere l'ultimo misurava quante frasi ha la runa, non se il testo
+    // mostrato e' quello salvato.
+    final testi = tester
+        .widgetList<Text>(bloccoUno)
+        .map((t) => t.data)
+        .whereType<String>()
+        .toList();
 
     // E il testo salvato e' lo stesso, clausola compresa.
     final settimana = await SunsetRuneMemory.settimanaCorrente(giorno);
     final oggi =
         settimana.firstWhere((s) => s.giorno == SunsetRune.iso(giorno));
-    expect(oggi.lasciare, mostrato);
+    var mostrato = '';
+    for (var da = 0; da < testi.length && mostrato != oggi.lasciare; da++) {
+      mostrato = testi.sublist(da).join(' ');
+    }
+    expect(oggi.lasciare, mostrato, reason: 'a video: $testi');
     // La clausola c'e' davvero: il testo salvato e' piu' lungo della sola voce.
     expect(oggi.lasciare.length, greaterThan(60));
   });
@@ -541,10 +551,7 @@ void main() {
   testWidgets('Il sigillo dice l\'assenza d\'insistenza a sette segni diversi',
       (tester) async {
     final giorno = SunsetRune.giornoRituale(ora);
-    final stasera = SunsetRune.estrai(ora,
-            dataNascita: DateTime(1988, 7, 5), identita: '1988-07-05')
-        .rune
-        .name;
+    final stasera = SunsetRune.estrai(ora, identita: '1988-07-05').rune.name;
     // Sei nomi distinti, tutti diversi da quello di stasera: sette segni diversi.
     final pool = kElderFuthark
         .map((r) => r.name)

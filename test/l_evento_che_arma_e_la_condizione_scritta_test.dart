@@ -39,18 +39,25 @@ void main() {
       case GiorniDiSeguito(:final rito, :final quanti):
         return StatoDelCammino(seriePerRito: {rito: quanti - meno});
       case StessaOraPerGiorni(:final gesto, :final quantiGiorni):
-        return StatoDelCammino(
-            oraFedelePerGesto: {gesto: quantiGiorni - meno});
+        return StatoDelCammino(oraFedelePerGesto: {gesto: quantiGiorni - meno});
       case GestoNellOraGiusta(:final gesto, :final ora, :final quanteVolte):
         return StatoDelCammino(
             gestiNellOraGiusta: {'$gesto@$ora': quanteVolte - meno});
       case GiornateInsieme(:final chiave, :final quantiGiorni):
-        return StatoDelCammino(
-            giornateInsieme: {chiave: quantiGiorni - meno});
+        return StatoDelCammino(giornateInsieme: {chiave: quantiGiorni - meno});
       case PezzoDellIdentita(:final pezzo):
         // **IL MENO, per un pezzo che si ha o non si ha, e' non averlo.**
         return StatoDelCammino(
             pezziDellIdentita: meno == 0 ? {pezzo} : const <String>{});
+      case FinestraDelCielo(:final evento, :final conGesto, :final volte)
+          when volte > 1:
+        // **LA FINESTRA CHIESTA PIU' VOLTE, ordine EA voce 05.** Le sere
+        // passate non stanno nel cielo di oggi: stanno nei dettagli del
+        // gesto, dove l'arte scrive l'evento che l'ha accompagnato. Il meno
+        // e' una sera in meno.
+        return StatoDelCammino(massimeRipetizioni: {
+          '$conGesto.$evento': volte - meno,
+        });
       case FinestraDelCielo(:final evento, :final conGesto):
         // **IL MENO, per una finestra del cielo, e' il gesto senza
         // l'evento**: e' il caso che conta, perche' un gradino che si
@@ -110,7 +117,11 @@ void main() {
     final regalati = <String>[];
     for (final t in Sentieri.tuttiITraguardi) {
       final c = t.condizione;
-      if (c is! FinestraDelCielo || c.conGesto == null) continue;
+      // La finestra chiesta piu' volte non si arma col cielo di oggi, e
+      // questa misura non la riguarda: ha la sua, qui sopra.
+      if (c is! FinestraDelCielo || c.conGesto == null || c.volte > 1) {
+        continue;
+      }
       provati++;
       final soloCielo = StatoDelCammino(eventiDelCieloDiOggi: {c.evento});
       if (c.raggiunto(soloCielo)) {
@@ -121,7 +132,10 @@ void main() {
     // ignore: avoid_print
     print('ORDINE CP VOCE 07: finestre del cielo provate senza gesto '
         '$provati');
-    expect(provati, 48);
+    expect(provati, 47,
+        reason: 'le finestre del cielo con un gesto erano 48, e con l\'ordine '
+            'EA voce 05 il Sigillo delle dodici Lune e\' passato alla forma '
+            'ripetuta, che si prova qui sopra');
     expect(regalati, isEmpty, reason: regalati.join('\n'));
   });
 
@@ -145,9 +159,8 @@ void main() {
       for (var i = 0; i < giorni; i++) {
         o.sposta(quando);
         await o.diario.segna(gesto, oraRituale: 'alba');
-        quando = quando.add(Duration(days: saltaOgni > 0 && i % saltaOgni == 0
-            ? 2
-            : 1));
+        quando = quando
+            .add(Duration(days: saltaOgni > 0 && i % saltaOgni == 0 ? 2 : 1));
       }
       return o.diario.statoDelCammino();
     }
@@ -192,7 +205,8 @@ void main() {
       expect(t.condizione.raggiunto(giusto), isTrue);
     });
 
-    test('GiornateInsieme: quattro giornate col cielo e le carte accendono '
+    test(
+        'GiornateInsieme: quattro giornate col cielo e le carte accendono '
         'med_6', () async {
       final t = Sentieri.tuttiITraguardi.firstWhere((t) => t.id == 'med_6');
       final c = t.condizione as GiornateInsieme;

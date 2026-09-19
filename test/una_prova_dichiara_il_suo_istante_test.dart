@@ -20,6 +20,12 @@ void main() {
   /// esenzioni comode: sono i due punti dove l'ora vera E' l'oggetto della
   /// prova, e accanto a ognuno sta scritto cosa sorveglia.
   const dichiarate = <String, String>{
+    'il_cancello_aspetta_il_limite_test.dart':
+        'ordine EA voce 15: il cancello di Codemagic legge l\'ora di '
+            'riapertura del limite di GitHub come secondi dal 1970, e la '
+            'confronta con l\'orologio vero della macchina. La prova scrive '
+            'quell\'ora come ADESSO piu\' novanta secondi: un istante fisso '
+            'sarebbe gia\' passato, e il cancello non aspetterebbe niente',
     'il_fuso_che_il_server_accetta_test.dart':
         'ordine CQ voce 1.09: misura che il fuso prodotto ADESSO dal telefono '
             'passi il controllo del server. Un istante fisso direbbe se '

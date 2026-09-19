@@ -109,9 +109,15 @@ void main() {
             giorno: DateTime(2026, 8, 13),
             domanda: '',
           );
-          // Il cielo di oggi c'e' sempre: nomina il segno del Sole e la Luna.
-          if (!voce.contains('Sole')) {
+          // Il cielo di oggi c'e' sempre: la Luna. Il segno del Sole e'
+          // uscito con l'ordine EA voce 05, e non deve tornare.
+          if (!voce.contains('con la Luna')) {
             povere.add('${r.rune.name}: la voce non porta il cielo di oggi');
+          }
+          for (final z in Zodiac.values) {
+            if (voce.contains(z.italianName)) {
+              povere.add('${r.rune.name}: la voce nomina ${z.italianName}');
+            }
           }
           if (voce.trim().length < 80) {
             povere.add('${r.rune.name}: la voce e\' rimasta un moncone di '
@@ -145,8 +151,7 @@ void main() {
     // prima runa riporta la domanda com'e' stata scritta, e la prova cerca
     // quella: **una prova che insegue una formula cade quando la formula
     // migliora.**
-    final quante =
-        'Nel lavoro, quale passo fare?'.allMatches(con).length;
+    final quante = 'Nel lavoro, quale passo fare?'.allMatches(con).length;
     expect(quante, 1,
         reason: 'la domanda compare $quante volte nella voce invece di una');
   });
@@ -194,7 +199,7 @@ void main() {
           data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
           child: MaestroScope(child: child!),
         ),
-        home: RuneDrawScreen(userSign: Zodiac.aries, random: Random(3)),
+        home: RuneDrawScreen(random: Random(3)),
       ),
     ));
     for (var i = 0; i < 4; i++) {

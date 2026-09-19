@@ -2,10 +2,16 @@
 ///
 /// **La lettura non e' la scheda della runa: e' la runa dentro la domanda e
 /// dentro il giorno.** Si compone senza AI da quattro dati, persona, giorno,
-/// domanda e runa uscita, e si aggancia al cielo VERO che l'app gia' calcola:
-/// il segno solare da `NightSky.sunSign` e la Luna da `MoonPhase.forDate`,
-/// le porte che esistono, nessuna nuova. Cosi' la stessa runa parla in modo
-/// diverso a due persone senza che nulla venga inventato.
+/// domanda e runa uscita, e si aggancia alla Luna VERA del giorno, da
+/// `MoonPhase.forDate`, la porta che esiste. Cosi' la stessa runa parla in
+/// modo diverso a due persone senza che nulla venga inventato.
+///
+/// **SENZA ASTROLOGIA. Ordine EA voce 05.** Parole del fondatore: *"la runa
+/// del tramonto e estrazione rune non devono essere collegate
+/// all'astrologia"*. Qui c'era anche il segno che il Sole attraversa oggi,
+/// *"col Sole in Vergine"*: e' uscito. La fase della Luna resta, come nel
+/// Tramonto, per decisione del fondatore del 19 settembre 2026: e' il cielo
+/// che si vede, non un segno.
 ///
 /// **Vale la lezione dell'Oroscopo: sopra un fatto si apre un ventaglio di
 /// DIZIONE, mai di sostanza.** La sostanza e' il verso della runa dal
@@ -15,7 +21,6 @@
 library;
 
 import '../astro/moon_phase.dart';
-import '../astro/night_sky.dart';
 import 'rune_cast.dart';
 import 'rune_lore.g.dart';
 
@@ -34,9 +39,10 @@ const String kRuneFontiPoemi =
     "col suo nome anglosassone o norreno, non dell'antica. Le traduzioni "
     "italiane sono nostre.\n\n"
     "La Voce della Runa. La lettura personale si compone in modo "
-    "deterministico da chi sei, dal giorno e dalla tua domanda, agganciata "
-    "al cielo calcolato del giorno. È curatela di Caligo, non tradizione: "
-    "sopra lo stesso fatto cambia la dizione, mai la sostanza.";
+    "deterministico da chi sei, dal giorno e dalla tua domanda, con la fase "
+    "della Luna di quel giorno. Nessun segno zodiacale entra nella lettura: "
+    "le rune parlano da sé. È curatela di Caligo, non tradizione: sopra lo "
+    "stesso fatto cambia la dizione, mai la sostanza.";
 
 /// Il motore della Voce.
 class RuneVoce {
@@ -69,9 +75,12 @@ class RuneVoce {
     'Ascolta da dove viene:',
   ];
 
+  // Ogni ponte regge la coda *con la Luna ...*. Ordine EA voce 05: il
+  // secondo era *Sopra di te, intanto,*, che reggeva il Sole e non la Luna
+  // da sola.
   static const List<String> _pontiCielo = [
     'Il cielo di oggi le fa eco,',
-    'Sopra di te, intanto,',
+    'Sopra di te veglia la notte,',
     'E il cielo accompagna,',
     'Il giorno la sostiene,',
   ];
@@ -94,6 +103,7 @@ class RuneVoce {
     required String persona,
     required DateTime giorno,
     required String domanda,
+
     /// Quale delle rune della gettata e', da zero.
     ///
     /// **Serve perche' l'eco della domanda non si ripeta, ordine CQ voce
@@ -114,9 +124,8 @@ class RuneVoce {
     final lore = kRuneLore[runa.rune.name];
     final materia = lore == null ? '' : ' ${_senzaFonte(lore.materia)}.';
 
-    // IL CIELO VERO, dalle porte che esistono: il segno che il Sole
-    // attraversa oggi e la Luna come sta.
-    final segno = NightSky.sunSign(giorno);
+    // IL CIELO VERO, dalla porta che esiste: la Luna come sta. Il Sole nel
+    // suo segno e' uscito con l'astrologia, ordine EA voce 05.
     final luna = MoonPhase.forDate(giorno);
     // **LA LUNA SI DICE COME SI DICE, ordine CQ voce 6.14.**
     //
@@ -128,8 +137,8 @@ class RuneVoce {
     // *all'ultimo quarto*: **la porta giusta c'era e nessuno ci passava.**
     // Cambia anche l'articolo, perche' "e la all'ultimo quarto" sarebbe
     // sgrammaticato quanto prima.
-    final cielo = '$ponte col Sole in ${segno.italianName} e la Luna '
-        '${MoonPhase.comeSiDice(luna.italianName)}.';
+    final cielo =
+        '$ponte con la Luna ${MoonPhase.comeSiDice(luna.italianName)}.';
 
     // **E LA DOMANDA SI NOMINA, UNA VOLTA SOLA. Ordine CQ voce 6.16.**
     //

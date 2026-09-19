@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
@@ -79,7 +78,7 @@ void main() {
             data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
             child: MaestroScope(child: child!),
           ),
-          home: RuneDrawScreen(userSign: Zodiac.aries, random: Random(3)),
+          home: RuneDrawScreen(random: Random(3)),
         ),
       );
 
@@ -134,9 +133,8 @@ void main() {
     /// mai come un blocco solo e cercarla darebbe verde sempre.
     final colpe = <String>[];
     for (final voce in materia.entries) {
-      final pezzo = voce.value.length > 60
-          ? voce.value.substring(0, 60)
-          : voce.value;
+      final pezzo =
+          voce.value.length > 60 ? voce.value.substring(0, 60) : voce.value;
       if (tuttoAVista.contains(pezzo)) {
         colpe.add('${voce.key}: "$pezzo..."');
       }
@@ -165,8 +163,7 @@ void main() {
         reason: 'l Estrazione Rune non ha la porta comune: senza, la materia '
             'storica o apre la scena o sparisce, e sparire vorrebbe dire '
             'rompere la promessa che nulla e inventato');
-    final dentro = find.descendant(
-      of: porta, matching: find.byType(Text));
+    final dentro = find.descendant(of: porta, matching: find.byType(Text));
     expect(dentro, findsWidgets,
         reason: 'la porta c e ma non ha niente dietro: un tocco che apre sul '
             'nulla e peggio di nessun tocco');

@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 
-import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
@@ -69,7 +68,7 @@ void main() {
           data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
           child: MaestroScope(child: child!),
         ),
-        home: RuneDrawScreen(userSign: Zodiac.aries, random: math.Random(3)),
+        home: RuneDrawScreen(random: math.Random(3)),
       ),
     ));
     await tester.pump(const Duration(milliseconds: 400));

@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/domande/cornici_del_presagio.dart';
 import 'package:esoteric_circle/core/domande/domande_del_cerchio.dart';
@@ -69,7 +68,7 @@ void main() {
             data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
             child: MaestroScope(child: child!),
           ),
-          home: RuneDrawScreen(userSign: Zodiac.aries, random: Random(3)),
+          home: RuneDrawScreen(random: Random(3)),
         ),
       );
 
@@ -297,9 +296,18 @@ void main() {
             'si mostrerebbero anche quando quel dato manca:\n'
             '${senzaDato.join("\n")}');
 
-    // Otto e otto, come Mauro ha deciso.
+    // Otto generiche e quattro personali: erano otto e otto, e con l'ordine
+    // EA voce 05 sono uscite le quattro personali astrologiche (Sole, Luna,
+    // Ascendente e segno), perche' le rune non sono collegate all'astrologia.
     expect(DomandeDelCerchio.generichePerLaGettata.length, 8);
-    expect(DomandeDelCerchio.personaliPerLaGettata.length, 8);
+    expect(DomandeDelCerchio.personaliPerLaGettata.length, 4);
+    for (final d in DomandeDelCerchio.personaliPerLaGettata) {
+      for (final parola in const ['Sole', 'Luna', 'Ascendente', 'segno']) {
+        expect(d.testo.contains(parola), isFalse,
+            reason: 'la domanda "${d.testo}" riporta l\'astrologia nella '
+                'gettata');
+      }
+    }
   });
 
   test('senza dati si mostrano le generiche e nessuna personale', () {
@@ -314,11 +322,12 @@ void main() {
             datiDisponibili: const {}).length,
         8,
         reason: 'le generiche non chiedono dati, quindi ci sono sempre tutte');
-    // Con un dato solo compare la sua domanda e nient'altro.
-    final conSegno = DomandeDelCerchio.perLaGettata(
+    // Con un dato solo compare la sua domanda e nient'altro. Il dato era il
+    // segno, uscito con l'ordine EA voce 05: adesso e' la runa di ieri sera.
+    final conLaRuna = DomandeDelCerchio.perLaGettata(
         FamigliaDellaDomanda.personali,
-        datiDisponibili: const {DatoPerLaDomanda.segno});
-    expect(conSegno.length, 1);
-    expect(conSegno.single.dato, DatoPerLaDomanda.segno);
+        datiDisponibili: const {DatoPerLaDomanda.runaDiIeriSera});
+    expect(conLaRuna.length, 1);
+    expect(conLaRuna.single.dato, DatoPerLaDomanda.runaDiIeriSera);
   });
 }

@@ -58,9 +58,9 @@ void main() {
     var uguali = 0;
     for (final giorno in anno) {
       final una = SunsetRune.estrai(giorno.add(const Duration(hours: 20)),
-          dataNascita: primaNascita, identita: unaIdentita);
+          identita: unaIdentita);
       final altra = SunsetRune.estrai(giorno.add(const Duration(hours: 20)),
-          dataNascita: altraNascita, identita: altraIdentita);
+          identita: altraIdentita);
       if (una.rune.name == altra.rune.name && una.verso == altra.verso) {
         uguali++;
       }

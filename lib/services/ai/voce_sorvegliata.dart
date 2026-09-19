@@ -164,7 +164,6 @@ class VoceSorvegliata implements MaestroAiProvider {
     required EsitoGettata esito,
     required String domanda,
     required UserProfile profile,
-    NatalContext natal = NatalContext.none,
   }) {
     return _sorvegliando(
       'presagioDelleRune',
@@ -172,7 +171,6 @@ class VoceSorvegliata implements MaestroAiProvider {
         esito: esito,
         domanda: domanda,
         profile: profile,
-        natal: natal,
       ),
     );
   }

@@ -52,11 +52,9 @@ class AperturaDelleChiamate {
             Zodiac.fromDate(DateTime.now());
         return OroscopoScreen.route(userSign: segno);
       case AvvisiDelRito.caricoGettate:
+        // Senza segno, ordine EA voce 05.
         final profilo = context.read<ProfileController>();
-        final segno =
-            profilo.identity.sunSign ?? Zodiac.fromDate(DateTime.now());
-        return RuneDrawScreen.route(
-            userSign: segno, userBirth: profilo.identity.birthDate);
+        return RuneDrawScreen.route(userBirth: profilo.identity.birthDate);
       default:
         return null;
     }

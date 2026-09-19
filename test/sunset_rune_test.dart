@@ -14,10 +14,8 @@ void main() {
   // Estrae passando l'identita' derivata dalla nascita, oppure da un id di
   // dispositivo di prova quando la nascita manca: la firma chiede sempre l'identita'.
   EstrazioneTramonto estrai(DateTime ora,
-          {DateTime? nascita, Zodiac? segno, String device = 'dev-anon'}) =>
+          {DateTime? nascita, String device = 'dev-anon'}) =>
       SunsetRune.estrai(ora,
-          dataNascita: nascita,
-          segno: segno,
           identita: SunsetRune.identitaPer(nascita: nascita, deviceId: device));
 
   group('Il giorno rituale', () {
@@ -161,7 +159,6 @@ void main() {
         DateTime(2026, 7, 13, 21, 15),
       ]) {
         final e = SunsetRune.estrai(DateTime(2026, 7, 13, 20),
-            dataNascita: nascita,
             identita: SunsetRune.identitaPer(nascita: nascita, deviceId: 'x'),
             istanteTramonto: istante);
         expect(e.giornoRituale, giorno);
@@ -180,8 +177,7 @@ void main() {
   });
 
   group('Il corpus e\' robusto', () {
-    test('Ogni runa, segno e fase compone voci piene, mai vuote ne\' eccezioni',
-        () {
+    test('Ogni runa e fase compone voci piene, mai vuote ne\' eccezioni', () {
       const fasi = [
         'Luna nuova',
         'Luna crescente',
@@ -193,7 +189,7 @@ void main() {
         'Luna calante',
       ];
       for (final r in kElderFuthark) {
-        for (final segno in Zodiac.values) {
+        {
           for (final nomeFase in fasi) {
             final fase = MoonPhase(
                 fraction: 0.1,
@@ -209,15 +205,12 @@ void main() {
                 rune: r,
                 verso: v,
                 fase: fase,
-                segno: segno,
                 identita: 'x',
               );
               final a = SunsetRuneCorpus.vocePrimaLasciare(e);
               final b = SunsetRuneCorpus.vocePortare(e);
-              expect(a.trim(), isNotEmpty,
-                  reason: '${r.name} $segno $nomeFase');
-              expect(b.trim(), isNotEmpty,
-                  reason: '${r.name} $segno $nomeFase');
+              expect(a.trim(), isNotEmpty, reason: '${r.name} $nomeFase');
+              expect(b.trim(), isNotEmpty, reason: '${r.name} $nomeFase');
               // Nessuno spazio doppio ne' in coda.
               expect(a.contains('  '), isFalse);
               expect(b.endsWith(' '), isFalse);
@@ -244,13 +237,9 @@ void main() {
       expect(ombra.porta.trim(), isNotEmpty);
     });
 
-    test('Otto registri lunari e dodici clausole di segno, complete', () {
+    test('Otto registri lunari e quattro insistenze, complete', () {
+      // Le dodici clausole di segno sono uscite con l'ordine EA voce 05.
       expect(SunsetRuneCorpus.registri.length, 8);
-      expect(SunsetRuneCorpus.clausole.length, 12);
-      for (final z in Zodiac.values) {
-        expect(SunsetRuneCorpus.clausole.containsKey(z.id), isTrue,
-            reason: z.id);
-      }
       expect(SunsetRuneCorpus.insistenze.length, 4);
     });
 
@@ -262,38 +251,45 @@ void main() {
         ],
         for (final v in SunsetRuneCorpus.ombra.values) ...[v.lasciare, v.porta],
         ...SunsetRuneCorpus.registri.values,
-        ...SunsetRuneCorpus.clausole.values,
         ...SunsetRuneCorpus.insistenze,
       ];
       expect(tutte.toSet().length, tutte.length);
     });
 
-    test('La trasparenza dichiara i tre fattori', () {
+    test('La trasparenza dichiara runa, verso e fase', () {
       final e = estrai(DateTime(2026, 7, 13, 20), nascita: nascita);
       final t = SunsetRuneCorpus.trasparenza(e);
       expect(t, contains(e.rune.name));
       expect(t, contains(e.fase.italianName.toLowerCase()));
-      expect(t, contains(e.segno!.italianName));
     });
 
-    test('Senza segno noto nessun segno viene nominato, in nessuna riga', () {
-      // Anonimo puro: nessuna data di nascita, nessun segno dichiarato.
-      final e = SunsetRune.estrai(DateTime(2026, 7, 13, 20),
-          identita: 'device-anonimo');
-      expect(e.segno, isNull);
-      final testi = <String>[
-        SunsetRuneCorpus.trasparenza(e),
-        SunsetRuneCorpus.vocePrimaLasciare(e),
-        SunsetRuneCorpus.vocePortare(e),
-      ];
-      for (final t in testi) {
-        expect(t.trim(), isNotEmpty);
-        expect(t.contains('  '), isFalse);
-        for (final z in Zodiac.values) {
-          expect(t.toLowerCase(), isNot(contains(z.italianName.toLowerCase())),
-              reason: 'nomina ${z.italianName} in: $t');
+    // **NESSUN SEGNO ZODIACALE, NEMMENO CON LA NASCITA DATA. Ordine EA voce
+    // 05.** Prima questa prova guardava il solo anonimo, perche' chi dava la
+    // nascita riceveva il suo segno nella seconda voce e nella trasparenza.
+    // Adesso la regola vale per tutti: si prende una nascita vera e un anno
+    // intero di sere, e in nessuna riga deve comparire un segno.
+    test('Nessun segno zodiacale in nessuna riga, per un anno di sere', () {
+      var sere = 0;
+      for (var g = 0; g < 365; g++) {
+        final e = estrai(DateTime(2026, 1, 1, 20).add(Duration(days: g)),
+            nascita: nascita);
+        final testi = <String>[
+          SunsetRuneCorpus.trasparenza(e),
+          SunsetRuneCorpus.vocePrimaLasciare(e),
+          SunsetRuneCorpus.vocePortare(e),
+        ];
+        for (final t in testi) {
+          expect(t.trim(), isNotEmpty);
+          expect(t.contains('  '), isFalse);
+          for (final z in Zodiac.values) {
+            expect(
+                t.toLowerCase(), isNot(contains(z.italianName.toLowerCase())),
+                reason: 'la sera ${e.giornoIso} nomina ${z.italianName}: $t');
+          }
         }
+        sere++;
       }
+      expect(sere, 365);
     });
   });
 

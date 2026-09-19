@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import '../../core/sigilli/eventi_del_cielo.dart';
 import '../../core/sigilli/ora_rituale.dart';
 
 import '../sigilli/regia_del_cammino.dart';
@@ -20,7 +21,6 @@ import 'package:sensors_plus/sensors_plus.dart';
 
 import '../../core/astro/sky_location.dart';
 import '../../core/astro/solar_time.dart';
-import '../../core/astro/zodiac.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/identity/device_id.dart';
@@ -49,8 +49,8 @@ import '../../design_system/transizioni/velo_del_cerchio.dart';
 /// La Runa del Tramonto, dominio Caligo, versione definitiva.
 ///
 /// Il Dono appartiene al tramonto. La runa nasce deterministica dal giorno
-/// rituale incrociato con la carta di nascita e il segno; il responso e' runa,
-/// verso, fase lunare reale e segno solare. Si getta la pietra scuotendo o
+/// rituale incrociato con la nascita; il responso e' runa, verso e fase
+/// lunare reale. Senza astrologia, ordine EA voce 05. Si getta la pietra scuotendo o
 /// toccando, la si incide tenendo il dito, poi due voci: cosa lasci fuori e cosa
 /// porti dentro la notte. Alla settima sera le rune si legano in una bindrune.
 /// Zero rete, zero AI, ogni sensore ha il suo ripiego tattile.
@@ -59,13 +59,11 @@ class SunsetRuneScreen extends StatefulWidget {
     super.key,
     this.now,
     this.dataNascita,
-    this.segno,
     this.location = const DisabledSkyLocation(),
   });
 
   final DateTime? now;
   final DateTime? dataNascita;
-  final Zodiac? segno;
 
   /// Sorgente della posizione per l'ora del tramonto, non bloccante. Di default
   /// spenta: l'ora e' stimata dal fuso, come nelle anteprime e nei test.
@@ -74,7 +72,6 @@ class SunsetRuneScreen extends StatefulWidget {
   static Route<void> route({
     DateTime? now,
     DateTime? dataNascita,
-    Zodiac? segno,
     SkyLocation location = const GeolocatorSkyLocation(),
   }) =>
       PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
@@ -82,7 +79,6 @@ class SunsetRuneScreen extends StatefulWidget {
             child: SunsetRuneScreen(
               now: now,
               dataNascita: dataNascita,
-              segno: segno,
               location: location,
             ),
           ));
@@ -349,11 +345,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     final identita = SunsetRune.identitaPer(
         nascita: _nascita, oraNota: _oraNota, deviceId: deviceId);
     _identita = identita;
-    final e = SunsetRune.estrai(_ora,
-        dataNascita: _nascita,
-        segno: widget.segno,
-        identita: identita,
-        istanteTramonto: stimato);
+    final e =
+        SunsetRune.estrai(_ora, identita: identita, istanteTramonto: stimato);
     // Se stasera e' gia' stata vissuta, riproduci le voci salvate.
     final settimana = await SunsetRuneMemory.settimanaCorrente(e.giornoRituale);
     SeraSalvata? seraOggi;
@@ -420,8 +413,6 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   /// runa e il verso nascono dal giorno rituale e restano quelli.
   EstrazioneTramonto _riestrai(DateTime istante) => SunsetRune.estrai(
         _ora,
-        dataNascita: _nascita,
-        segno: widget.segno,
         identita: _identita,
         istanteTramonto: istante,
       );
@@ -533,9 +524,20 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     // condizione "tutte le ventiquattro rune" e "la stessa runa in due sere"
     // vivono di questo dettaglio, e la scena ce l'ha in mano: e' il segno che
     // ha appena finito di incidere.
+    // **E LA LUNA PIENA VIAGGIA COL GESTO. Ordine EA voce 05.** Il Sigillo
+    // in cima al sentiero di Caligo chiede dodici Tramonti sotto la Luna
+    // piena, e la fotografia del Cammino sa solo che cosa c'e' in cielo OGGI:
+    // la memoria delle sere passate sta qui, nei dettagli. Il dettaglio c'e'
+    // solo quando la Luna e' piena davvero, e la prova e' la stessa degli
+    // eventi del cielo, non una soglia scritta una seconda volta.
+    final lunaPiena = EventiDelCielo.diOggi(adesso: DateTime.now())
+        .contains(EventiDelCielo.lunaPiena);
     unawaited(RegiaDelCammino.dopoUnGesto(context, 'tramonto',
         oraRituale: OraRituale.diAdesso(),
-        dettagli: {'runa': _estrazione?.rune.name}));
+        dettagli: {
+          'runa': _estrazione?.rune.name,
+          if (lunaPiena) EventiDelCielo.lunaPiena: 'si',
+        }));
     // Crossfade dai tratti all'arte incisa, poi la lettura.
     Future<void>.delayed(const Duration(milliseconds: 1200), () async {
       if (!mounted) return;
@@ -1185,8 +1187,8 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
             // DICHIARATA, con otto centesimi di margine; sul fondo vero quello
             // stesso blu misura **3,15**. `AbitoDelResponso` dichiara gia' il
             // fondo peggiore, e la scheda dei Doni lo usava gia'.
-            superficie: AbitoDelResponso.di(DailyElement.rune
-                ).superficiePeggiore,
+            superficie:
+                AbitoDelResponso.di(DailyElement.rune).superficiePeggiore,
           ),
           // **LE TRE RIGHE SCENDONO SOTTO LA PIETRA, ordine S voce 11.** Stavano
           // QUI, fra chi parla e la pietra: tre etichette con tre frasi spingono
@@ -1694,9 +1696,10 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         "verso d'ombra o merkstave è una convenzione moderna: otto segni sono "
         "simmetrici e non lo hanno, quindi restano sempre dritti.\n\n"
         "L'estrazione è deterministica: nasce dalla data del tramonto incrociata "
-        "con la tua data di nascita e col tuo segno, quindi la runa è tua e non "
-        "la stessa per tutti. Il responso si compone di quattro fattori reali: la "
-        "runa, il suo verso, la fase lunare vera della sera e il tuo segno solare.\n\n"
+        "con la tua data di nascita, quindi la runa è tua e non la stessa per "
+        "tutti. Il responso si compone di tre fattori reali: la runa, il suo "
+        "verso e la fase lunare vera della sera. Nessun segno zodiacale entra "
+        "nel calcolo: le rune parlano da sé.\n\n"
         "$oraRiga L'ora usa l'algoritmo NOAA, sul dispositivo, senza rete.";
   }
 }

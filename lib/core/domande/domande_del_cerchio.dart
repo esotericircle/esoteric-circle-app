@@ -35,11 +35,11 @@ enum FamigliaDellaDomanda {
 enum DoveServeLaDomanda { chat, gettata }
 
 /// Il dato di cui una domanda personale ha bisogno per avere senso.
+///
+/// **Sole, Luna, Ascendente e segno sono usciti. Ordine EA voce 05**: erano i
+/// dati delle quattro domande astrologiche della gettata, e l'Estrazione Rune
+/// non e' piu' collegata all'astrologia.
 enum DatoPerLaDomanda {
-  sole,
-  luna,
-  ascendente,
-  segno,
   runaDiIeriSera,
   parolaDiStamattina,
   animaleGuida,
@@ -107,23 +107,14 @@ class DomandeDelCerchio {
         dove: {DoveServeLaDomanda.gettata}),
   ];
 
-  /// LE OTTO PERSONALI DELLA GETTATA, che nascono da CARTA E CAMMINO insieme,
-  /// come Mauro ha deciso: i tre luminari dalla carta, la runa di ieri sera e la
-  /// parola di stamattina dal filo fra i riti. Ognuna dichiara il suo dato, e
-  /// senza quel dato non si mostra.
+  /// LE QUATTRO PERSONALI DELLA GETTATA, che nascono dal CAMMINO: la runa di
+  /// ieri sera e la parola di stamattina dal filo fra i riti, l'animale guida e
+  /// l'archetipo. Ognuna dichiara il suo dato, e senza quel dato non si mostra.
+  ///
+  /// **Erano otto. Ordine EA voce 05**: sono uscite le quattro della carta del
+  /// cielo, *Il mio Sole*, *La mia Luna*, *Il mio Ascendente* e *Il mio segno
+  /// in questo periodo*, perche' il fondatore vuole le rune senza astrologia.
   static const List<DomandaDelCerchio> personaliPerLaGettata = [
-    DomandaDelCerchio('Il mio Sole: dove mi chiede coraggio?',
-        famiglia: FamigliaDellaDomanda.personali,
-        dove: {DoveServeLaDomanda.gettata},
-        dato: DatoPerLaDomanda.sole),
-    DomandaDelCerchio('La mia Luna: cosa chiede adesso?',
-        famiglia: FamigliaDellaDomanda.personali,
-        dove: {DoveServeLaDomanda.gettata},
-        dato: DatoPerLaDomanda.luna),
-    DomandaDelCerchio('Il mio Ascendente: cosa mostro e cosa nascondo?',
-        famiglia: FamigliaDellaDomanda.personali,
-        dove: {DoveServeLaDomanda.gettata},
-        dato: DatoPerLaDomanda.ascendente),
     DomandaDelCerchio('La runa di ieri sera: cosa continua oggi?',
         famiglia: FamigliaDellaDomanda.personali,
         dove: {DoveServeLaDomanda.gettata},
@@ -132,10 +123,6 @@ class DomandeDelCerchio {
         famiglia: FamigliaDellaDomanda.personali,
         dove: {DoveServeLaDomanda.gettata},
         dato: DatoPerLaDomanda.parolaDiStamattina),
-    DomandaDelCerchio('Il mio segno in questo periodo: cosa cambia?',
-        famiglia: FamigliaDellaDomanda.personali,
-        dove: {DoveServeLaDomanda.gettata},
-        dato: DatoPerLaDomanda.segno),
     DomandaDelCerchio('Il mio animale guida: cosa mi dice ora?',
         famiglia: FamigliaDellaDomanda.personali,
         dove: {DoveServeLaDomanda.gettata},

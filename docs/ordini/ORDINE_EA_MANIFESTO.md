@@ -10,8 +10,8 @@ lotti di fila e poi una sola build; la Ronda dei motori legge i rossi
 accettati come lo sbarramento, e i due rossi voluti restano dichiarati.
 
 VOCI_TOTALI: 21
-VOCI_CHIUSE: 11
-VOCI_APERTE: 10
+VOCI_CHIUSE: 14
+VOCI_APERTE: 7
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 
 Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
@@ -38,7 +38,21 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
   agganciato; a video con la build dell'ordine.** **CHIUSA.**
 - **EA.03**, la Ronda dei motori e' verde: legge i rossi accettati, e i
   rossi che non lo sono si riparano.
-  **APERTA**
+  **Fatto**: in `.github/workflows/ronda.yml` la suite intera non si lancia
+  piu' con `flutter test` nudo, che il registro dei rossi accettati non lo
+  conosce: passa da `tool/sbarramento.sh`, lo stesso comando del cancello e
+  di Codemagic, che sui rossi elencati passa stampandoli col loro nome e la
+  loro ragione e si ferma su qualunque rosso non dichiarato. La Ronda
+  pubblica anche il verdetto leggibile senza credenziali, come il cancello.
+  **I rossi non accettati non c'erano**, ed e' misurato e non dedotto: sul
+  commit `007b360f` la Ronda dava *5568 passate, 4 cadute*, e sullo stesso
+  commit il cancello `verde.yml`, che gia' passa dallo sbarramento, era
+  **verde** (giro 35403654414). Quattro cadute che lo sbarramento lascia
+  passare sono quattro rossi dichiarati. La Ronda dei motori vera e propria,
+  cioe' il passo che prova i motori, non e' mai caduta in nessuno dei tre
+  giri guardati. Guardia `test/la_ronda_legge_i_rossi_accettati_test.dart`,
+  vista rossa rimettendo il `flutter test` nudo. **Prodotto e agganciato; si
+  vedra' verde al primo giro notturno dopo la spinta.** **CHIUSA.**
 - **EA.04**, due decisioni registrate: DX.06 non si corregge; il tutorial
   finito fino in fondo torna all'apertura dopo.
   **Fatto**: in `docs/ordini/ORDINE_DX_MANIFESTO.md` (la voce, la riga 34 e
@@ -53,7 +67,60 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
   `STATO_VIVO.md`. Nessun codice. **CHIUSA.**
 - **EA.05**, la Runa del Tramonto e l'Estrazione Rune senza astrologia; la
   fase lunare della sera resta.
-  **APERTA**
+
+  **IL CENSIMENTO DEI LEGAMI, e cosa ne e' stato.**
+
+  *La Runa del Tramonto:*
+
+  | posto | dove stava | cosa ne e' stato |
+  |---|---|---|
+  | il calcolo | `sunset_rune.dart`, il segno derivato dalla nascita dentro la chiave della runa | tolto; la chiave tiene il suffisso `nessuno`, cosi' chi non aveva dato la nascita ritrova la sua runa di sempre |
+  | il responso | `sunset_rune_corpus.dart`, dodici clausole di segno nella Voce B | tolte tutte e dodici |
+  | il responso | `sunset_rune_corpus.dart`, `trasparenza` chiudeva con *"sotto il segno X"* | chiude sulla fase lunare |
+  | i testi a video | `sunset_rune_screen.dart`, *"col tuo segno"* e *"il tuo segno solare"* nelle Fonti | riscritti: tre fattori, la runa, il verso e la fase lunare della sera |
+  | l'apertura | `sunset_rune_screen.dart`, il parametro `segno` nella schermata e nella rotta | tolto; nessun chiamante lo passava |
+  | l'invito di Caligo | `consiglio_finale.dart`, annunciava la runa di domani sera calcolata col segno | senza segno: la runa annunciata e' quella che l'arte dara' |
+  | i prompt | nessuno: il Tramonto non chiama Gemini | niente da fare |
+  | il Cammino | il Sigillo `cal_55` chiedeva *la Luna piena nel tuo segno* col Tramonto | **decisione del fondatore del 19 settembre 2026, *"legalo solo alla luna piena"***: adesso chiede dodici Lune piene col Tramonto, vedi sotto |
+
+  *L'Estrazione Rune:*
+
+  | posto | dove stava | cosa ne e' stato |
+  |---|---|---|
+  | il calcolo | la scelta delle rune e' caso vero, il segno non la toccava | niente |
+  | i semi | `rune_draw_screen.dart`, senza nascita la persona era `userSign.name` nel seme della caduta e della dizione | identita' comune `cerchio` |
+  | il responso | `rune_voce.dart`, *"col Sole in Vergine e la Luna crescente"* | resta la sola Luna: *"con la Luna crescente"*; un ponte e' stato riscritto perche' reggesse quella coda |
+  | le domande | `domande_del_cerchio.dart`, quattro personali astrologiche (Sole, Luna, Ascendente, segno) su otto | tolte; le personali della gettata sono quattro |
+  | le cornici | `cornici_del_presagio.dart`, le quattro cornici di quelle domande | tolte; le cornici sono dodici, ed erano sedici |
+  | la fonte delle cornici | `docs/responsi/cornici.md`, sezioni P1, P2, P3 e P6 | restano nel documento, marcate RITIRATA: il testo dell'Architetto non si taglia, e il lettore del codice non le prende piu' |
+  | le Fonti e metodo | `rune_voce.dart`, *"agganciata al cielo calcolato del giorno"* | *"con la fase della Luna di quel giorno. Nessun segno zodiacale entra nella lettura"* |
+  | i prompt | `maestro_persona.dart` e `firebase_maestro_ai_provider.dart`, il presagio portava il contesto natale (segno solare, lunare, Ascendente), oggi sempre vuoto | la porta e' chiusa, e al modello si dice per iscritto di non nominare segni, pianeti, Ascendente ne' carta natale |
+  | l'apertura | `art_navigation.dart`, senza data di nascita l'arte non si apriva e mandava a darla | si apre sempre |
+  | il pulsante *influenza del cielo* | **non esiste**: a video non c'e', e *"Il cielo con la domanda"* e' un commento nel codice | niente |
+
+  **La fase lunare della sera resta**, per decisione del fondatore del 19
+  settembre 2026: nel Tramonto e' il registro lunare della Voce A e la riga
+  della trasparenza, nelle Rune e' la Luna del giorno nella frase del cielo.
+
+  **Cosa cambia per chi usa l'app**: chi ha dato la data di nascita vedra' la
+  sua Runa del Tramonto cambiare **una volta**, il giorno in cui arriva questa
+  versione. E' il prezzo dichiarato di togliere il segno dal calcolo.
+
+  **Il Sigillo delle dodici Lune.** La sola Luna piena torna ogni mese, e
+  `cal_55` e' l'ultimo gradino dell'anno di Caligo, da centotrenta Eos:
+  chiederne una lo avrebbe reso il gradino piu' facile in cima alla scala.
+  Adesso ne chiede **dodici**, e costa 345 giorni, l'attesa della prima piu'
+  undici ritorni della Luna; il gradino prima ne costa 340, quindi la scala
+  non scende. Il corpus e' stato toccato **alla fonte**
+  (`tool/corpus_traguardi_dati.py` e `tool/corpus_traguardi.py`) e rigenerato.
+  La memoria delle sere passate vive nei dettagli del gesto, dove la Runa del
+  Tramonto scrive la Luna piena quando c'e' davvero.
+
+  Guardie: `il_tramonto_delle_dodici_lune` (nuova, vista rossa con due
+  innesti) e, in zona, `sunset_rune` con la prova nuova *nessun segno
+  zodiacale in nessuna riga, per un anno di sere*, `corpus_rune_attestato` e
+  `la_scheda_della_runa_non_si_ripete`, tutte viste rosse rimettendo il segno.
+  **Prodotto e agganciato; a video con la build dell'ordine.** **CHIUSA.**
 - **EA.06**, la chat con un Maestro si apre sempre nuova e vuota; le
   precedenti stanno nel menu'.
   **Il censimento dei punti di apertura.** Sul ramo la chat si apre da una
@@ -179,7 +246,27 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
   va solo il gesto col dito. Aggiunta dal fondatore il 19 settembre 2026
   mentre l'ordine era in corso: *"nel soffio del destino, il soffio con
   microfono non funziona piu'. funziona solo il gesto col dito"*.
-  **APERTA**
+  **Il microfono si accende davvero**, verificato sul Realme con l'app
+  aperta sul Soffio: `dumpsys audio` dichiara una sessione viva, sorgente
+  MIC, un canale a 16 kHz, non silenziata. Il flusso arriva, ed era il
+  riconoscimento a scartarlo.
+  **La causa, e ha un padre**: ordine DD voce 01, 10 settembre 2026, che ha
+  sostituito la soglia di volume con la planarita' spettrale. La soglia,
+  0,20, era tarata su un campione sintetico solo, rumore rosa. Un fiato vero
+  su un telefono e' vento, cioe' rumore con quasi tutta l'energia in basso:
+  misurato, planarita' **0,003**. Anche il rumore rosa della guardia, con un
+  altro seme, scendeva sotto la soglia in qualche finestra e spezzava la
+  catena delle sei.
+  **Fatto**: la planarita' si misura dopo la **pre-enfasi**, la differenza fra
+  un campione e il precedente, che e' il passo di scuola per raddrizzare uno
+  spettro inclinato. Misurato dopo: rumore bianco 0,29, rosa 0,49, vento
+  0,53, voce 0,050, musica 0,000; la soglia sta a **0,15**. La doppia
+  pre-enfasi e' stata provata e scartata, perche' rende piatta anche la voce.
+  Le aperture false restano **zero su tre**. Guardia
+  `il_soffio_si_riconosce_dalla_forma`, con due campioni nuovi (il vento e lo
+  stesso fiato con un altro seme), vista rossa con la misura di prima.
+  **Prodotto e agganciato; il riconoscimento vero si vede col fiato sul
+  telefono, e lo prova il fondatore con la build.** **CHIUSA.**
 - **EA.21**, il foglio degli Eos e dell'abbonamento aperto da *Chiedi anche
   agli altri* sta sotto la barra in basso e non si tocca. Aggiunta dal
   fondatore il 19 settembre 2026 mentre l'ordine era in corso: *"il banner

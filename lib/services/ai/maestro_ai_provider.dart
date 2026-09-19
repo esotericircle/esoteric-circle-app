@@ -97,11 +97,12 @@ abstract interface class MaestroAiProvider {
   /// e chi chiama cade sul ripiego deterministico: cornice dell'allegato B piu' la
   /// frase della runa. **Il ripiego non si dichiara mai come ripiego**, quindi la
   /// persona non deve poter capire quale dei due sta leggendo.
+  /// **Senza contesto natale, ordine EA voce 05**: il presagio delle rune non
+  /// e' collegato all'astrologia, e la porta per passarglielo non c'e' piu'.
   Future<Responso> presagioDelleRune({
     required EsitoGettata esito,
     required String domanda,
     required UserProfile profile,
-    NatalContext natal = NatalContext.none,
   });
 
   /// Genera la Sintesi comparativa di "Consulta un Maestro" quando i Maestri
@@ -203,7 +204,6 @@ class UnavailableMaestroAiProvider implements MaestroAiProvider {
     required EsitoGettata esito,
     required String domanda,
     required UserProfile profile,
-    NatalContext natal = NatalContext.none,
   }) async {
     throw const MaestroAiUnavailable();
   }

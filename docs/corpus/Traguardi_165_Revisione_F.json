@@ -3854,7 +3854,7 @@
         },
         {
           "id": "cal_55",
-          "nome": "Il Tramonto della tua Luna piena",
+          "nome": "Il Tramonto delle dodici Lune",
           "posizione": 55,
           "fascia": "L'anno",
           "sezione": "KETHER, LA CORONA",
@@ -3864,12 +3864,13 @@
           "ragione": "Cielo",
           "condizione": {
             "tipo": "FinestraDelCielo",
-            "evento": "luna_piena_nel_tuo_segno",
-            "conGesto": "tramonto"
+            "evento": "luna_piena",
+            "conGesto": "tramonto",
+            "volte": 12
           },
-          "costoInGiorni": 365,
-          "frase": "La Luna è piena nel tuo segno: tu eri qui con la Runa del Tramonto.",
-          "cosaApre": "La runa della Luna piena nel tuo segno, una volta l’anno",
+          "costoInGiorni": 345,
+          "frase": "12 volte la Runa del Tramonto mentre la Luna è piena.",
+          "cosaApre": "Le dodici rune delle Lune piene, una accanto all’altra",
           "gestiNominati": [
             "tramonto"
           ]

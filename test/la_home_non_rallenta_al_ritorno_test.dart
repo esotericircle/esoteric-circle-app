@@ -126,7 +126,7 @@ void main() {
       for (final rotta in <Route<void> Function()>[
         () => OroscopoScreen.route(userSign: Zodiac.leo),
         () => StesaTreCarteScreen.route(seed: 7),
-        () => RuneDrawScreen.route(userSign: Zodiac.leo),
+        () => RuneDrawScreen.route(),
       ]) {
         final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
         nav.push(rotta());

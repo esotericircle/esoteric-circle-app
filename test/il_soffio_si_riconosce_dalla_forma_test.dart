@@ -113,12 +113,46 @@ void main() {
     }, 0.6, 0.9);
   }
 
+  /// **IL VENTO SUL MICROFONO. Ordine EA voce 20.** Un fiato vero su un
+  /// telefono non e' rumore rosa: e' vento, con l'energia ancora piu' in
+  /// basso, cioe' rumore marrone. La guardia di prima non lo provava, e la
+  /// regola lo scartava: e' il soffio che sul Realme non apriva il dono.
+  List<int> vento() {
+    final rnd = math.Random(5);
+    var marrone = 0.0;
+    return componi((t) {
+      marrone = (marrone + (rnd.nextDouble() * 2 - 1) * 0.05) * 0.998;
+      final busta = math.sin(math.pi * (t / 0.6).clamp(0.0, 1.0));
+      return (marrone * 4).clamp(-1.0, 1.0) * busta;
+    }, 0.6, 0.9);
+  }
+
+  /// **LO STESSO FIATO ROSA CON UN ALTRO SEME. Ordine EA voce 20.** Con la
+  /// soglia di prima il rosa passava col seme della guardia e cadeva con
+  /// altri: una regola che regge solo il campione su cui e' tarata non e' una
+  /// regola.
+  List<int> soffioAltroSeme() {
+    final rnd = math.Random(5);
+    var b0 = 0.0, b1 = 0.0, b2 = 0.0;
+    return componi((t) {
+      final bianco = rnd.nextDouble() * 2 - 1;
+      b0 = 0.99765 * b0 + bianco * 0.0990460;
+      b1 = 0.96300 * b1 + bianco * 0.2965164;
+      b2 = 0.57000 * b2 + bianco * 1.0526913;
+      final rosa = (b0 + b1 + b2 + bianco * 0.1848) / 3.5;
+      final busta = math.sin(math.pi * (t / 0.6).clamp(0.0, 1.0));
+      return rosa * busta;
+    }, 0.6, 0.9);
+  }
+
   test('LA FORMA SEPARA IL SOFFIO DAGLI ALTRI TRE, e il volume no', () {
     final campioni = <String, (List<int>, bool)>{
       'voce che parla': (voce(), false),
       'musica, tre note': (musica(), false),
       'tonfo, la porta che sbatte': (tonfo(), false),
       'soffio, il fiato sul microfono': (soffio(), true),
+      'soffio, lo stesso fiato con un altro seme': (soffioAltroSeme(), true),
+      'soffio, il vento di un fiato vero sul telefono': (vento(), true),
     };
     cardinaleMinimo(campioni.length, 4,
         cosa: 'famiglie di suono provate',

@@ -737,12 +737,24 @@ class RitornoAlMaestro extends CondizioneDelTraguardo {
 }
 
 /// LA FINESTRA DEL CIELO: si apre quando il cielo vuole, non quando vuoi tu.
+/// **E PUO' CHIEDERNE PIU' DI UNA. Ordine EA voce 05, 19 settembre 2026.**
+///
+/// Il fondatore ha deciso che la Runa del Tramonto non e' piu' legata
+/// all'astrologia, e il Sigillo che chiedeva *la Luna piena nel tuo segno* si
+/// lega alla sola Luna piena. Una Luna piena pero' torna ogni mese, e quel
+/// Sigillo e' l'ultimo gradino dell'anno di Caligo: chiederne UNA lo avrebbe
+/// reso il gradino piu' facile in cima alla scala. Con [volte] ne chiede
+/// dodici, cioe' un anno di lune, e il costo segue il ritorno dell'evento.
 class FinestraDelCielo extends CondizioneDelTraguardo {
   const FinestraDelCielo(this.evento,
-      {this.conGesto, this.conSentiero, this.nellOra});
+      {this.volte = 1, this.conGesto, this.conSentiero, this.nellOra});
 
   /// Il nome dell'evento, dal catalogo di `EventiDelCielo`.
   final String evento;
+
+  /// Quante volte la finestra va colta, in giorni diversi. Uno vuol dire
+  /// **la prima volta che capita**, ed e' il caso di tutte le altre.
+  final int volte;
 
   /// Il gesto da compiere dentro la finestra. Nullo vuol dire che basta
   /// esserci: aprire l'app quel giorno.
@@ -769,7 +781,8 @@ class FinestraDelCielo extends CondizioneDelTraguardo {
   @override
   String get firma => 'cielo:$evento:'
       '${conGesto ?? conSentiero ?? "presenza"}'
-      '${nellOra == null ? "" : ":$nellOra"}';
+      '${nellOra == null ? "" : ":$nellOra"}'
+      '${volte > 1 ? ":x$volte" : ""}';
 
   @override
   Set<String> get gestiNominati =>
@@ -780,10 +793,23 @@ class FinestraDelCielo extends CondizioneDelTraguardo {
   /// come traguardo solo se l'attesa e' quella che si dichiara. La tavola sta
   /// in `docs/regole_dei_traguardi.md` e in `attesa_del_cielo.dart`.
   @override
-  int get costoInGiorni => attesaTipicaDelCielo[evento]!;
+  int get costoInGiorni => volte <= 1
+      ? attesaTipicaDelCielo[evento]!
+      : attesaTipicaDelCielo[evento]! +
+          (volte - 1) * ritornoDelCielo[evento]!;
 
   @override
   bool raggiunto(StatoDelCammino stato) {
+    // **PIU' VOLTE SI CONTA SUI DETTAGLI DEL GESTO, ordine EA voce 05.** La
+    // fotografia dice cosa c'e' in cielo OGGI, non cosa c'era nelle sere
+    // passate: la memoria di quelle sere sta nei dettagli, dove l'arte
+    // scrive l'evento che ha accompagnato il gesto. Il dettaglio porta un
+    // valore solo, quindi le ripetizioni massime sono le sere.
+    if (volte > 1) {
+      final gesto = conGesto;
+      if (gesto == null) return false;
+      return (stato.massimeRipetizioni['$gesto.$evento'] ?? 0) >= volte;
+    }
     if (!stato.eventiDelCieloDiOggi.contains(evento)) return false;
     if (conSentiero != null) {
       for (final fatto

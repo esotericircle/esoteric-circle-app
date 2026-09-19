@@ -9,7 +9,8 @@ import 'rune_cast.dart';
 ///
 /// Segnali di sintesi: quante rune escono in merkstave, l'aett dominante, il
 /// verso della posizione d'esito. Il gancio [rifinitura] e' predisposto per una
-/// futura personalizzazione Gemini sul cielo della persona: quando ci sara',
+/// futura rifinitura di Gemini, mai sul cielo della persona (ordine EA voce 05,
+/// le rune senza astrologia): quando ci sara',
 /// riceve il presagio deterministico e lo rifinisce. Ora e' sempre null e non e'
 /// collegato, cosi' la Demo resta senza AI a runtime.
 ///
@@ -131,8 +132,8 @@ class RunePresagio {
   /// Le rune con la stessa glossa si raccolgono: la glossa si dice UNA volta e le
   /// letture seguono come frasi loro, con la maiuscola, perche' da sole stanno in
   /// piedi. Nelle gettate fisse il comportamento non cambia di una virgola.
-  static List<String> _perPosizione(List<RunaGettata> rune,
-      FiloDellaVoce filo) {
+  static List<String> _perPosizione(
+      List<RunaGettata> rune, FiloDellaVoce filo) {
     final fuori = <String>[];
     var i = 0;
     while (i < rune.length) {
@@ -503,8 +504,7 @@ class RunePresagio {
   };
 
   static String _daQualeGettata(GettataRune gettata, FiloDellaVoce filo) =>
-      filo.scegli(
-          formeDellaGettata[gettata.id] ?? formeDellaGettata['telo']!);
+      filo.scegli(formeDellaGettata[gettata.id] ?? formeDellaGettata['telo']!);
 
   /// L'EQUILIBRIO DEL TELO, per il getto libero: si legge per prossimita' al
   /// centro invece che per posizione fissa.

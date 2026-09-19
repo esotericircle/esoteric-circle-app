@@ -7,7 +7,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/astro/zodiac.dart';
 import '../../../../core/entitlement/entitlement_service.dart';
 import '../../../../core/entitlement/plan_catalog.dart';
 import '../../../../core/entitlement/question_allowance.dart';
@@ -59,7 +58,6 @@ import '../../../../core/entitlement/budget_del_giorno.dart';
 class RuneDrawScreen extends StatefulWidget {
   const RuneDrawScreen({
     super.key,
-    required this.userSign,
     this.userBirth,
     this.random,
     this.scuotimento,
@@ -69,11 +67,19 @@ class RuneDrawScreen extends StatefulWidget {
   /// null e la schermata usa la porta unica dell'app.
   final AscoltatoreScuotimento? scuotimento;
 
-  final Zodiac userSign;
-
-  /// La data di nascita, se nota. Non usata ora: e' il gancio per la futura
-  /// personalizzazione del presagio sul cielo della persona.
+  /// La data di nascita, se nota. Serve solo come identita' della persona nei
+  /// semi della caduta e della dizione, mai come cielo.
+  ///
+  /// **IL SEGNO NON C'E' PIU'. Ordine EA voce 05.** Qui c'era `userSign`,
+  /// obbligatorio: chi apriva l'arte senza la data di nascita veniva mandato a
+  /// darla, e il segno faceva da seme. Il fondatore vuole le rune senza
+  /// astrologia: l'arte si apre sempre, e senza nascita la persona ha
+  /// l'identita' comune [personaSenzaNascita].
   final DateTime? userBirth;
+
+  /// L'identita' di chi non ha dato la nascita, nei semi della caduta e della
+  /// voce. Una sola per tutti: la sorte vera resta il caso del lancio.
+  static const String personaSenzaNascita = 'cerchio';
 
   /// Sorgente del caso, iniettabile nei test e nelle catture per un lancio
   /// riproducibile. A runtime resta null, un vero lancio senza seme.
@@ -98,12 +104,11 @@ class RuneDrawScreen extends StatefulWidget {
       );
 
   static Route<void> route({
-    required Zodiac userSign,
     DateTime? userBirth,
     math.Random? random,
   }) {
-    return PassaggioDelCerchio.rotta<void>((_) => conLaSoglia(RuneDrawScreen(
-        userSign: userSign, userBirth: userBirth, random: random)));
+    final schermata = RuneDrawScreen(userBirth: userBirth, random: random);
+    return PassaggioDelCerchio.rotta<void>((_) => conLaSoglia(schermata));
   }
 
   @override
@@ -126,22 +131,19 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
 
   /// I DATI CHE LE DOMANDE PERSONALI CHIEDONO, e solo quelli che ci sono davvero.
   ///
-  /// Ordine S voce 21, decisione D4: le personali nascono da CARTA E CAMMINO. Il
-  /// segno c'e' sempre; il Sole lo si sa quando c'e' la data di nascita; la runa di
-  /// ieri sera e la parola di stamattina arrivano dal filo fra i riti e si leggono
-  /// dal disco.
+  /// Ordine S voce 21, decisione D4, ristretta dall'ordine EA voce 05: le
+  /// personali nascono dal CAMMINO. La runa di ieri sera e la parola di
+  /// stamattina arrivano dal filo fra i riti e si leggono dal disco. Segno e
+  /// Sole non ci sono piu': l'Estrazione Rune non e' collegata all'astrologia.
   ///
-  /// **Luna, Ascendente, animale guida e archetipo NON sono qui, e va detto.** Le
-  /// loro domande esistono nel punto unico e non si mostrano ancora, perche' questa
-  /// schermata non riceve la carta natale ne' il risultato del Test: agganciarle
-  /// vorrebbe dire passare qui altri quattro dati, ed e' un lavoro che si fa quando
-  /// le loro voci servono, non prima. Meglio quattro voci in meno che quattro voci
-  /// che nominano cio' che l'app non sa.
-  Set<DatoPerLaDomanda> _datiDisponibili = const {DatoPerLaDomanda.segno};
+  /// **Animale guida e archetipo NON sono qui, e va detto.** Le loro domande
+  /// esistono nel punto unico e non si mostrano ancora, perche' questa
+  /// schermata non riceve il risultato del Test: meglio due voci in meno che
+  /// due voci che nominano cio' che l'app non sa.
+  Set<DatoPerLaDomanda> _datiDisponibili = const {};
 
   Future<void> _leggiIDatiDelleDomande() async {
-    final trovati = <DatoPerLaDomanda>{DatoPerLaDomanda.segno};
-    if (widget.userBirth != null) trovati.add(DatoPerLaDomanda.sole);
+    final trovati = <DatoPerLaDomanda>{};
     final parola = await FiloDelGiorno.parolaDiStamattina(DateTime.now());
     if (parola != null && parola.trim().isNotEmpty) {
       trovati.add(DatoPerLaDomanda.parolaDiStamattina);
@@ -392,10 +394,14 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
   /// sopra un fatto si apre un ventaglio di dizione e mai di sostanza: qui
   /// sopra una sorte si apre una caduta, e la caduta non e' una seconda
   /// sorte.
+  /// Chi getta, nei semi: la nascita se c'e', altrimenti l'identita' comune.
+  /// Mai il segno, ordine EA voce 05.
+  String get _persona =>
+      widget.userBirth?.toIso8601String() ?? RuneDrawScreen.personaSenzaNascita;
+
   int _semeDellaGettata(EsitoGettata esito) {
-    final persona = widget.userBirth?.toIso8601String() ?? widget.userSign.name;
     return FisicaDellaGettata.semeDa(
-      persona,
+      _persona,
       DateTime.now(),
       _domanda.text.trim(),
       [
@@ -463,8 +469,7 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
                   domanda: _domanda.text.trim(),
                   presagioDelModello: _presagioDelModello,
                   presagioInArrivo: _presagioInArrivo,
-                  persona: widget.userBirth?.toIso8601String() ??
-                      widget.userSign.name,
+                  persona: _persona,
                   giorno: DateTime.now(),
                   animazioni: _animazioni,
                   onAncora: _gettaAncora,
@@ -2460,6 +2465,7 @@ class _IlRestoDellaRuna extends StatefulWidget {
 
   final int indice;
   final MaestroPalette palette;
+
   /// **PUO' MANCARE, ordine CQ voce 6.19.** Dentro la porta adesso va la
   /// materia storica della voce, e una runa senza lore non ne ha: in quel
   /// caso la porta si apre sulla sola strofa.
@@ -2515,8 +2521,7 @@ class _IlRestoDellaRunaState extends State<_IlRestoDellaRuna> {
               // dalla porta col significato del segno: **due cose diverse
               // non portano lo stesso nome**, o la prima guardia che le
               // cerca ne trova una per l'altra.
-              if (widget.simbolo != null &&
-                  widget.simbolo!.trim().isNotEmpty)
+              if (widget.simbolo != null && widget.simbolo!.trim().isNotEmpty)
                 ParagrafiDiLettura(
                     key: Key('rune_da_dove_nasce_${widget.indice}'),
                     testo: widget.simbolo!,
