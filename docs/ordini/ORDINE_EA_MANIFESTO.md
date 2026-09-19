@@ -10,8 +10,8 @@ lotti di fila e poi una sola build; la Ronda dei motori legge i rossi
 accettati come lo sbarramento, e i due rossi voluti restano dichiarati.
 
 VOCI_TOTALI: 22
-VOCI_CHIUSE: 19
-VOCI_APERTE: 3
+VOCI_CHIUSE: 20
+VOCI_APERTE: 2
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 
 Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
@@ -253,7 +253,34 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
   **CHIUSA.**
 - **EA.13**, i dati dopo il login: cio' che Mauro ha visto e' il
   comportamento previsto, o si ripara.
-  **APERTA**
+
+  **LA SEQUENZA, passo per passo, letta sul ramo.**
+
+  | passo | cosa fa il codice | file |
+  |---|---|---|
+  | *Cancella i tuoi dati* | `azzeraIDatiDelCerchio` cancella a fondo `users/{uid}` e lascia vivo l'account | `functions/src/cerchio.ts` |
+  | *Esci* | si esce verso un anonimo NUOVO, perche' l'app senza identita' non sta in piedi | `account_del_cerchio.dart` |
+  | onboarding da anonimo | il nuovo anonimo riceve i suoi 20 Eos del giorno piu' 10 | `functions/src/cerchio.ts` |
+  | login con lo stesso Google | si rientra nel Cerchio di prima, che e' stato svuotato: **zero eventi e zero ricordi sono il comportamento previsto**, perche' la cancellazione ha tolto i dati dal server e rientrare non li resuscita | |
+  | i 250 Eos del benvenuto non tornano | e' l'antifrode voluto: la **lapide del benvenuto** ricorda che quel Cerchio il dono l'ha gia' avuto, e serve a impedire che ci si cancelli e si torni per incassarlo di nuovo | `functions/src/cerchio.ts` |
+
+  **Quindi cio' che il fondatore ha visto e' il comportamento previsto**, e
+  nasce dalla sua stessa cancellazione.
+
+  **MA SUL RAMO C'ERA ANCHE UN DIFETTO VERO, e non e' quello.** Il registro
+  della memoria (`FirestoreMaestroMemoryRepository`) nasce una volta sola
+  all'avvio e si teneva **l'uid di allora**: chi entra nel proprio Cerchio
+  DOPO l'avvio cambia identita', e la memoria continuava a leggere e a
+  scrivere sotto quella anonima di prima. I propri turni non comparivano, e
+  quelli nuovi finivano nel posto sbagliato, finche' l'app non veniva
+  riavviata. **Padre: PROVENIENZA IGNOTA** per esteso, perche' l'uid e' nato
+  fisso col repository e nessun ordine risulta averlo reso fisso.
+  **Fatto**: il repository chiede **chi e' adesso** (`uidVivo`), e l'app
+  gliela passa dalla porta dell'identita'; se la risposta e' nulla vale
+  quella di partenza, perche' un nullo vuol dire *non lo so*, non *nessuno*.
+  Guardia `test/la_memoria_segue_chi_entra_test.dart`, vista rossa tornando
+  all'uid fisso. **Prodotto e agganciato; a video con la build dell'ordine.**
+  **CHIUSA.**
 - **EA.14**, registrazione e login su iPhone con Google, Apple ed email.
   **APERTA**
 - **EA.15**, il cancello di Codemagic aspetta il limite di GitHub e riprova

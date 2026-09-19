@@ -41,9 +41,11 @@ totale e' un controllo, non un ornamento.
 | --- | ---: |
 | Guardie che passano dalla porta comune | 137 |
 | Guardie con un cardinale proprio dichiarato | 116 |
-| Guardie che non scoprono nessun insieme di file | 197 |
-| **Somma delle categorie** | **450** |
-| **Guardie secondo la definizione** | **450** |
+| Guardie che non scoprono nessun insieme di file | 198 |
+| **Somma delle categorie** | **451** |
+| **Guardie secondo la definizione** | **451** |
+
+**Ricontate a ordine EA, voce 13**, 20 settembre 2026, la memoria che restava sull'anonimo dell'avvio: **una guardia nuova**, `la_memoria_segue_chi_entra`. Il totale sale da 450 a **451** e le tre categorie a **137, 116 e 198**. **Vista rossa** rimettendo l'uid fisso. La guardia cammina anche fino ad `app_services.dart`, perche' un repository che sa seguire l'identita' e un'app che non gliela passa sarebbero una cura silenziosa.
 
 **Ricontate a ordine EA, voci 10 e 11**, 20 settembre 2026, il selettore di Google che si apriva due volte: **una guardia nuova**, `il_selettore_di_google_si_apre_una_volta`, che non scopre insiemi di file. Il totale sale da 449 a **450** e le tre categorie a **137, 116 e 197**. **Vista rossa** togliendo il ramo che tiene la credenziale del rifiuto. **Il difetto e' stato riprodotto sul Realme prima di scrivere una riga**, ed e' cosi' che si e' saputo che l'errore era `credential-already-in-use` e non un guasto qualunque.
 
@@ -705,6 +707,7 @@ le altre.
 | `la_maschera_segue_solo_un_volto_vero_test.dart` | la maschera segue solo un volto vero | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
 | `la_materia_storica_non_apre_la_scena_test.dart` | la materia storica non apre la scena, sta dietro la porta | 1, 2 | proprio, dichiarato | 05/09/2026, CQ | 2 |
 | `la_meditazione_non_nomina_malattie_test.dart` | la meditazione non nomina malattie | 1, 2 | proprio, dichiarato | 09/09/2026, DB | 2 |
+| `la_memoria_segue_chi_entra_test.dart` | la memoria legge e scrive sotto chi e' entrato, non sotto l'anonimo dell'avvio | 3, 4 | non scopre insiemi di file | 20/09/2026, EA | 1 |
 | `la_misura_del_ritorno_test.dart` | la misura del ritorno, sempre attiva e anonima | 1, 2 | dalla porta comune | 20/09/2026, EA (rossa col conteggio rimesso sotto consenso e con la frase tolta rimessa a video) | 2 |
 | `la_lingua_del_modello_e_un_parametro_test.dart` | in italiano la riga che dice al modello in che lingua scrivere e' identica al byte a quella di prima; il prompt vero del Sigillo cambia con la lingua e solo per quella parola; **nessun prompt di `lib` si scrive la lingua dentro** | 1, 2 | dalla porta comune | 16/09/2026, DM (rossa con una riga cablata rimessa in `maestro_persona`) | 2 |
 | `la_lingua_e_un_dato_solo_test.dart` | la lingua scende su `AppStrings` e sulla marca del genere da un posto solo; si ricorda fra un avvio e l'altro; l'italiano resta il default e non lo decide il telefono; un codice sconosciuto ripiega senza sollevare; la chiave sta nella verita' unica di `CioCheETuo`; **nessun file di `lib` scrive la lingua fuori dalla sua porta** | 1, 2 | dalla porta comune | 16/09/2026, DM (rossa con una scrittura di `AppStrings.languageCode` innestata in `vie_del_cerchio`) | 2 |

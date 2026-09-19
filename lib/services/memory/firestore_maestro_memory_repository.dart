@@ -23,6 +23,7 @@ import 'memory_hooks.dart';
 class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
   FirestoreMaestroMemoryRepository({
     required this.uid,
+    this.uidVivo,
     FirebaseFirestore? firestore,
     SemanticIndexHook semanticIndex = const NoopSemanticIndexHook(),
     HistoryArchiveHook archive = const NoopHistoryArchiveHook(),
@@ -57,7 +58,30 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
 
   int get scrittureInAttesa => _daMandare.length;
 
+  /// L'identita' con cui il repository e' nato. **Non e' sempre quella
+  /// giusta**, ed e' il difetto dell'ordine EA voce 13.
   final String uid;
+
+  /// **CHI E' ADESSO, non chi era all'avvio. Ordine EA voce 13, 20 settembre
+  /// 2026.**
+  ///
+  /// **Il fatto, dal fondatore**: *"quando finalmente riconosce l'email, non
+  /// mi vengono aggiornati i miei dati, traguardi, EOS, ecc."*.
+  ///
+  /// **La causa, misurata sul ramo**: questo repository nasce una volta sola,
+  /// all'avvio (`app_services.dart`), e si teneva l'uid di allora. Chi entra
+  /// nel proprio Cerchio dopo l'avvio cambia identita', ma la memoria
+  /// continuava a leggere e a scrivere sotto quella **anonima di prima**:
+  /// la conversazione coi Maestri e i turni restavano quelli del telefono, e
+  /// i propri non comparivano finche' l'app non veniva riavviata.
+  ///
+  /// Qui si chiede chi e' adesso. Nullo vuol dire "non lo so", e allora vale
+  /// quello di partenza: senza questa rete una risposta vuota cancellerebbe
+  /// la strada verso i dati.
+  final String? Function()? uidVivo;
+
+  /// L'identita' con cui si legge e si scrive in questo momento.
+  String get _uid => uidVivo?.call() ?? uid;
   final FirebaseFirestore _db;
 
   // Prese verso i livelli profondi (pgvector, Cloud Storage), a vuoto per
@@ -66,7 +90,7 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
   final HistoryArchiveHook _archive;
 
   DocumentReference<Map<String, dynamic>> get _userDoc =>
-      _db.collection('users').doc(uid);
+      _db.collection('users').doc(_uid);
 
   DocumentReference<Map<String, dynamic>> _maestroDoc(Maestro maestro) =>
       _userDoc.collection('maestri').doc(maestro.id);
@@ -230,7 +254,7 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
       const vuoto = MemoryDigest(summary: '', facts: []);
       final snap = await _db
           .collection('users')
-          .doc(uid)
+          .doc(_uid)
           .collection('maestri')
           .doc(maestro.id)
           .collection('sintesi')
@@ -282,8 +306,8 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
       dritto: () => _messagesCol(maestro).add(_datiDi(message)),
     );
     // Prese verso i livelli profondi: a vuoto per default.
-    await _semanticIndex.index(uid, maestro, message);
-    await _archive.archive(uid, maestro, message);
+    await _semanticIndex.index(_uid, maestro, message);
+    await _archive.archive(_uid, maestro, message);
   }
 
   @override
@@ -305,8 +329,8 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
       campi: _datiTrasportabili(messaggio),
       dritto: () => ultimo.docs.first.reference.set(_datiDi(messaggio)),
     );
-    await _semanticIndex.index(uid, maestro, messaggio);
-    await _archive.archive(uid, maestro, messaggio);
+    await _semanticIndex.index(_uid, maestro, messaggio);
+    await _archive.archive(_uid, maestro, messaggio);
   }
 
   /// I CAMPI DI UN MESSAGGIO, TUTTI.

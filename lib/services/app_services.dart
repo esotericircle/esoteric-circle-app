@@ -234,7 +234,11 @@ class AppServices {
       final uid = await identita.assicuraUnAccount();
       if (uid != null) {
         porta = PortaVeraDelCerchio();
-        memory = FirestoreMaestroMemoryRepository(uid: uid, porta: porta);
+        // **L'IDENTITA' SI CHIEDE OGNI VOLTA. Ordine EA voce 13**: chi
+        // entra nel proprio Cerchio dopo l'avvio cambia uid, e la memoria
+        // deve seguirlo invece di restare su quella anonima di prima.
+        memory = FirestoreMaestroMemoryRepository(
+            uid: uid, uidVivo: () => identita?.uid, porta: porta);
         ricordi = PortaVeraDeiRicordi();
         scrigno = PortaVeraDelloScrigno();
         penna = const PennaVeraDelMese();
