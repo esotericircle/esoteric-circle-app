@@ -164,6 +164,9 @@ void main() {
         'CM_BRANCH': ramoDellaBuild,
         'RISPOSTA_FINTA_DEL_CANCELLO': f.path.replaceAll(r'\', '/'),
         'ATTESA_FRA_I_TENTATIVI': '0',
+        // **Ordine EA voce 15**: il limite di GitHub adesso si aspetta. Nelle
+        // prove l'attesa e' zero, e il conto verso il tetto resta quello vero.
+        'ATTESA_DEL_LIMITE_FORZATA': '0',
       });
     }
 

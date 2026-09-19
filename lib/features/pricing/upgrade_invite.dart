@@ -36,6 +36,16 @@ Future<bool> showUpgradeInvite(
   final result = await foglioDelCerchio<bool>(
     context: context,
     backgroundColor: Colors.transparent,
+    // **IL FOGLIO CRESCE FINO ALLE BARRE IN ALTO, E SE NON BASTA SCORRE.
+    // Ordine EA voce 21.** Il fatto, dal fondatore con due catture della
+    // 2272: da *Chiedi anche agli altri* il foglio restava sotto la barra in
+    // basso e *Non ora* e *Vedi i piani* non si toccavano. Non era spinto
+    // sotto: era TAGLIATO. Un foglio che non puo' crescere ha per tetto 9/16
+    // dell'altezza sotto le barre in alto, e col titolo su due righe e il
+    // riscatto su tre il contenuto lo superava; il fondo, cioe' i pulsanti,
+    // finiva dove disegna la barra. Adesso il tetto e' lo schermo intero
+    // sotto le barre, e oltre quello il contenuto scorre invece di sparire.
+    isScrollControlled: true,
     builder: (sheetContext) => Container(
       key: const Key('upgrade_invite'),
       padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
@@ -52,78 +62,81 @@ Future<bool> showUpgradeInvite(
       ),
       child: SafeArea(
         top: false,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(Icons.auto_awesome, color: palette.goldSoft, size: 22),
-                const SizedBox(width: SpacingTokens.sm),
-                Expanded(
-                  child: Text(title,
-                      style: TypographyTokens.titoloDiSchermata()
-                          .copyWith(color: palette.goldSoft)),
-                ),
-              ],
-            ),
-            const SizedBox(height: SpacingTokens.sm),
-            Text(message,
-                style: TypographyTokens.corpo()
-                    .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
-            const SizedBox(height: SpacingTokens.lg),
-            if (riscattoLabel != null) ...[
-              SizedBox(
-                width: double.infinity,
-                child: OutlinedButton.icon(
-                  key: const Key('invito_riscatto'),
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: onRiscatta == null
-                        ? ColorTokens.textSecondary
-                        : palette.goldSoft,
-                    side: BorderSide(
-                        color: palette.gold.withValues(
-                            alpha: onRiscatta == null ? 0.25 : 0.6)),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.auto_awesome, color: palette.goldSoft, size: 22),
+                  const SizedBox(width: SpacingTokens.sm),
+                  Expanded(
+                    child: Text(title,
+                        style: TypographyTokens.titoloDiSchermata()
+                            .copyWith(color: palette.goldSoft)),
                   ),
-                  onPressed: onRiscatta == null
-                      ? null
-                      : () async {
-                          Navigator.of(sheetContext).pop(false);
-                          await onRiscatta();
-                        },
-                  // L'icona del denaro del Cerchio, non un gettone di
-                  // serie: la legge di S.05 vale anche qui, dove il numero
-                  // in Eos e' un prezzo. Il colore segue lo stato della riga.
-                  icon: IconaDegliEos(
-                      misura: 18,
-                      colore: onRiscatta == null
-                          ? ColorTokens.textSecondary
-                          : palette.goldSoft),
-                  label: Text(riscattoLabel, style: TypographyTokens.label()),
-                ),
+                ],
               ),
               const SizedBox(height: SpacingTokens.sm),
-            ],
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed: () => Navigator.of(sheetContext).pop(false),
-                  child: Text('Non ora',
-                      style: TypographyTokens.label(size: 13)
-                          .copyWith(color: ColorTokens.textSecondary)),
+              Text(message,
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
+              const SizedBox(height: SpacingTokens.lg),
+              if (riscattoLabel != null) ...[
+                SizedBox(
+                  width: double.infinity,
+                  child: OutlinedButton.icon(
+                    key: const Key('invito_riscatto'),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: onRiscatta == null
+                          ? ColorTokens.textSecondary
+                          : palette.goldSoft,
+                      side: BorderSide(
+                          color: palette.gold.withValues(
+                              alpha: onRiscatta == null ? 0.25 : 0.6)),
+                    ),
+                    onPressed: onRiscatta == null
+                        ? null
+                        : () async {
+                            Navigator.of(sheetContext).pop(false);
+                            await onRiscatta();
+                          },
+                    // L'icona del denaro del Cerchio, non un gettone di
+                    // serie: la legge di S.05 vale anche qui, dove il numero
+                    // in Eos e' un prezzo. Il colore segue lo stato della riga.
+                    icon: IconaDegliEos(
+                        misura: 18,
+                        colore: onRiscatta == null
+                            ? ColorTokens.textSecondary
+                            : palette.goldSoft),
+                    label: Text(riscattoLabel, style: TypographyTokens.label()),
+                  ),
                 ),
-                const SizedBox(width: SpacingTokens.sm),
-                TextButton(
-                  key: const Key('upgrade_see_plans'),
-                  onPressed: () => Navigator.of(sheetContext).pop(true),
-                  child: Text('Vedi i piani',
-                      style: TypographyTokens.label(size: 13)
-                          .copyWith(color: palette.goldSoft)),
-                ),
+                const SizedBox(height: SpacingTokens.sm),
               ],
-            ),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    key: const Key('upgrade_non_ora'),
+                    onPressed: () => Navigator.of(sheetContext).pop(false),
+                    child: Text('Non ora',
+                        style: TypographyTokens.label(size: 13)
+                            .copyWith(color: ColorTokens.textSecondary)),
+                  ),
+                  const SizedBox(width: SpacingTokens.sm),
+                  TextButton(
+                    key: const Key('upgrade_see_plans'),
+                    onPressed: () => Navigator.of(sheetContext).pop(true),
+                    child: Text('Vedi i piani',
+                        style: TypographyTokens.label(size: 13)
+                            .copyWith(color: palette.goldSoft)),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     ),

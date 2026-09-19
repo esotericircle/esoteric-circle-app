@@ -10,8 +10,8 @@ lotti di fila e poi una sola build; la Ronda dei motori legge i rossi
 accettati come lo sbarramento, e i due rossi voluti restano dichiarati.
 
 VOCI_TOTALI: 21
-VOCI_CHIUSE: 9
-VOCI_APERTE: 12
+VOCI_CHIUSE: 11
+VOCI_APERTE: 10
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 
 Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
@@ -111,7 +111,22 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
   **APERTA**
 - **EA.15**, il cancello di Codemagic aspetta il limite di GitHub e riprova
   da solo, senza token nuovi.
-  **APERTA**
+  **Fatto**: in `tool/il_cancello_ha_detto_verde.sh` il rifiuto per limite
+  (lo dice il messaggio, *"rate limit"*, o lo dicono le intestazioni, zero
+  domande rimaste) non consuma piu' i tre tentativi. Il cancello legge la
+  riapertura da `retry-after`, altrimenti da `x-ratelimit-reset`, stampa
+  che sta aspettando il limite, quanti secondi e l'ora UTC in cui riprova, e
+  riprova. **Il tetto**, `ATTESA_MASSIMA_DEL_LIMITE` a 1500 secondi, perche'
+  la build ha sessanta minuti in tutto: se la riapertura cade oltre, si
+  ferma subito e dice a che ora rilanciare. Le altre fermate (ramo, rosso,
+  in corso, mai partito, illeggibile tre volte) sono identiche. Nessun token:
+  niente CODEMAGIC3, niente `GITHUB_TOKEN_CANCELLO`, e la guardia lo
+  pretende. Provato contro GitHub vero sul commit `007b360f`: verde.
+  Guardia `test/il_cancello_aspetta_il_limite_test.dart`, vista rossa sul
+  cancello di prima e con un token innestato; `ordine_codemagic2_guard`
+  vista rossa prima di toccare (Regola B) e verde dopo. **Prodotto e
+  agganciato; sul Mac di Codemagic si vedra' alla prima build che trova il
+  limite.** **CHIUSA.**
 - **EA.16**, la bolla della carta di nascita nel Passport ha solo il primo
   paragrafo; l'icona delle fonti va nella schermata della carta.
   **Fatto**: in `cosmic_passport_screen.dart` la bolla porta etichetta,
@@ -170,4 +185,19 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
   fondatore il 19 settembre 2026 mentre l'ordine era in corso: *"il banner
   resta sotto la barra di navigazione inferiore e non posso selezionare
   nulla"*.
-  **APERTA**
+  **La causa, misurata sulla cattura**: il foglio non era spinto sotto la
+  barra, era TAGLIATO. `showUpgradeInvite` apriva un foglio che non puo'
+  crescere, e Flutter gli da' per tetto 9/16 dell'altezza sotto le barre in
+  alto; col titolo su due righe e il riscatto su tre il contenuto superava il
+  tetto, e il fondo, cioe' *Non ora* e *Vedi i piani*, finiva dove disegna
+  la barra. Il bordo alto del foglio nella cattura cade proprio a quel tetto.
+  **Padre**: ordine BG voce 05, che ha aggiunto la riga del riscatto a un
+  foglio che non poteva crescere; col titolo lungo del confronto il conto
+  supera il tetto.
+  **Fatto**: in `lib/features/pricing/upgrade_invite.dart` il foglio e'
+  `isScrollControlled` e il contenuto scorre se non ci sta. Vale per tutti
+  gli otto punti dell'app che aprono l'invito, perche' passano tutti da li'.
+  Prova `test/l_invito_degli_eos_si_tocca_intero_test.dart`, rossa sul
+  codice della 2272 (il contenuto sforava di 216 e 105 punti, *Vedi i piani*
+  sotto la barra) e verde dopo, con il testo a 1,3 su 360x740 e 390x844.
+  **Prodotto e agganciato; a video con la build dell'ordine.** **CHIUSA.**

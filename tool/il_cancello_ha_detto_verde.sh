@@ -22,7 +22,20 @@
 # - il cancello su questo commit non ha ancora finito: si rilancia quando
 #   la spunta su GitHub e' verde, di solito 25 minuti dopo la spinta;
 # - il cancello su questo commit non e' mai partito;
-# - GitHub non risponde o rifiuta la domanda, dopo tre tentativi.
+# - GitHub non risponde o rifiuta la domanda, dopo tre tentativi;
+# - il limite delle domande di GitHub non si riapre entro il tetto d'attesa.
+#
+# **IL LIMITE DI GITHUB SI ASPETTA, NON FERMA. Ordine EA voce 15.** Senza
+# credenziali GitHub risponde a sessanta domande all'ora per indirizzo, e i
+# Mac di Codemagic escono da indirizzi condivisi: la build del fondatore si
+# e' fermata su *"API rate limit exceeded"* senza che il cancello fosse rosso.
+# Adesso quel rifiuto non consuma i tre tentativi: il cancello legge dalle
+# intestazioni l'ora in cui il limite si riapre (`retry-after`, altrimenti
+# `x-ratelimit-reset`), stampa che sta aspettando, quanto e fino a che ora, e
+# riprova. Nessun token nuovo. **Il tetto** e' `ATTESA_MASSIMA_DEL_LIMITE`,
+# 1500 secondi, perche' la build ha sessanta minuti in tutto: se la
+# riapertura cade oltre, lo dice subito con l'ora a cui rilanciare, invece di
+# tenere acceso un Mac che non arrivera' in fondo.
 #
 # **L'unico scavalco** resta `SPEDISCO_SU_ROSSO`, lo stesso nome che lo
 # sbarramento stampava: una spedizione senza cancello resta possibile, in
@@ -106,23 +119,93 @@ else:
     print("assente")
 '
 
-esito=""
-for tentativo in 1 2 3; do
-  # La risposta finta esiste solo per la guardia dell'ordine CODEMAGIC2, che
-  # prova ogni esito senza chiedere a GitHub; su Codemagic non e' mai
-  # impostata, e se lo fosse il registro lo direbbe qui sotto.
+ATTESA_MASSIMA_DEL_LIMITE="${ATTESA_MASSIMA_DEL_LIMITE:-1500}"
+INTESTAZIONI="$(mktemp 2>/dev/null || echo "/tmp/cancello_intestazioni_$$")"
+trap 'rm -f "$INTESTAZIONI"' EXIT
+domanda=0
+
+chiedi() {
+  domanda=$((domanda + 1))
+  # La risposta finta esiste solo per le guardie degli ordini CODEMAGIC2 ed
+  # EA, che provano ogni esito senza chiedere a GitHub; su Codemagic non e'
+  # mai impostata, e se lo fosse il registro lo direbbe qui sotto. Una
+  # risposta numerata (`.1`, `.2`) vale per quella domanda, e le sue
+  # intestazioni stanno accanto (`.intestazioni`).
   if [ -n "${RISPOSTA_FINTA_DEL_CANCELLO:-}" ]; then
-    echo "   RISPOSTA FINTA, da $RISPOSTA_FINTA_DEL_CANCELLO"
-    risposta="$(cat "$RISPOSTA_FINTA_DEL_CANCELLO")"
+    local finta="$RISPOSTA_FINTA_DEL_CANCELLO"
+    if [ -f "$finta.$domanda" ]; then finta="$finta.$domanda"; fi
+    echo "   RISPOSTA FINTA, da $finta"
+    if [ -f "$finta.intestazioni" ]; then
+      cp "$finta.intestazioni" "$INTESTAZIONI"
+    else
+      : > "$INTESTAZIONI"
+    fi
+    risposta="$(cat "$finta")"
   else
-    risposta="$(curl -sS --max-time 30 -H 'Accept: application/vnd.github+json' "$INDIRIZZO" 2>&1)"
+    risposta="$(curl -sS --max-time 30 -D "$INTESTAZIONI" -H 'Accept: application/vnd.github+json' "$INDIRIZZO" 2>&1)"
   fi
+}
+
+# Il rifiuto e' il limite quando lo dice il messaggio o lo dicono le
+# intestazioni: le domande rimaste sono zero.
+e_il_limite() {
+  case "$(printf '%s' "$1" | tr '[:upper:]' '[:lower:]')" in
+    rifiutata*"rate limit"*) return 0 ;;
+  esac
+  tr -d '\r' < "$INTESTAZIONI" 2>/dev/null \
+    | grep -qi '^x-ratelimit-remaining:[[:space:]]*0[[:space:]]*$'
+}
+
+# Quanti secondi mancano alla riapertura, piu' due di margine.
+quanto_aspettare() {
+  local ora dopo reset
+  ora="$(date +%s)"
+  dopo="$(grep -i '^retry-after:' "$INTESTAZIONI" 2>/dev/null | head -1 | tr -dc '0-9')"
+  if [ -n "$dopo" ]; then echo $((dopo + 2)); return; fi
+  reset="$(grep -i '^x-ratelimit-reset:' "$INTESTAZIONI" 2>/dev/null | head -1 | tr -dc '0-9')"
+  if [ -n "$reset" ] && [ "$reset" -gt "$ora" ]; then
+    echo $((reset - ora + 2))
+    return
+  fi
+  echo 60
+}
+
+# L'ora, in UTC, fra quanti secondi: GNU date su Linux, BSD date sul Mac.
+ora_fra() {
+  local quando=$(( $(date +%s) + $1 ))
+  date -u -d "@$quando" +%H:%M:%S 2>/dev/null || date -u -r "$quando" +%H:%M:%S
+}
+
+esito=""
+tentativo=0
+aspettato=0
+while :; do
+  chiedi
   esito="$(printf '%s' "$risposta" | "$PY" -c "$LETTORE" "$COMMIT")"
   case "$esito" in
     verde|rosso|in_corso|assente) break ;;
   esac
+  if e_il_limite "$esito"; then
+    attesa="$(quanto_aspettare)"
+    if [ $((aspettato + attesa)) -gt "$ATTESA_MASSIMA_DEL_LIMITE" ]; then
+      riapre="$(ora_fra "$attesa")"
+      esito="limite"
+      break
+    fi
+    echo ""
+    echo "== GITHUB HA RAGGIUNTO IL LIMITE DELLE DOMANDE SENZA CREDENZIALI =="
+    echo "   Non e' un rosso: e' GitHub che per ora non risponde a questo indirizzo."
+    echo "   Aspetto $attesa secondi e riprovo alle $(ora_fra "$attesa") UTC."
+    echo "   Attesi finora $aspettato secondi, al massimo $ATTESA_MASSIMA_DEL_LIMITE."
+    sleep "${ATTESA_DEL_LIMITE_FORZATA:-$attesa}"
+    aspettato=$((aspettato + attesa))
+    echo "   Riprovo adesso."
+    continue
+  fi
+  tentativo=$((tentativo + 1))
   echo "Tentativo $tentativo: GitHub non ha dato una risposta leggibile ($esito)."
-  if [ "$tentativo" -lt 3 ]; then sleep "${ATTESA_FRA_I_TENTATIVI:-20}"; fi
+  if [ "$tentativo" -ge 3 ]; then break; fi
+  sleep "${ATTESA_FRA_I_TENTATIVI:-20}"
 done
 
 ferma() {
@@ -154,6 +237,10 @@ case "$esito" in
   assente)
     ferma "IL CANCELLO NON E' MAI PARTITO SU QUESTO COMMIT." \
       "Nessun giro di $CANCELLO per $COMMIT: si lancia a mano da GitHub, Run workflow, sul ramo canonico."
+    ;;
+  limite)
+    ferma "IL LIMITE DI GITHUB NON SI RIAPRE IN TEMPO PER QUESTA BUILD." \
+      "GitHub risponde di nuovo alle $riapre UTC, oltre i $ATTESA_MASSIMA_DEL_LIMITE secondi d'attesa che la build si puo' permettere: si rilancia la build dopo quell'ora. Il cancello non e' rosso."
     ;;
   *)
     ferma "GITHUB NON HA RISPOSTO, TRE VOLTE: $esito" \
