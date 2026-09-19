@@ -1,9 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
+import '../../core/arts/art_catalog.dart';
+import '../../core/legal/pagina_legale.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
+import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'privacy_policy_screen.dart';
 
@@ -69,6 +71,18 @@ class _ConsensiDellaRegistrazioneState
     _apri.onTap = () {
       if (mounted) Navigator.of(context).push(PrivacyPolicyScreen.route());
     };
+    _apriLeCondizioni.onTap = () {
+      if (mounted) {
+        Navigator.of(context)
+            .push(PrivacyPolicyScreen.route(parte: ParteLegale.condizioni));
+      }
+    };
+    _apriIlDisclaimer.onTap = () {
+      if (mounted) {
+        Navigator.of(context)
+            .push(PrivacyPolicyScreen.route(parte: ParteLegale.disclaimer));
+      }
+    };
   }
 
   @override
@@ -92,14 +106,50 @@ class _ConsensiDellaRegistrazioneState
                     decoration: TextDecoration.underline),
                 recognizer: _apri,
               ),
+              const TextSpan(text: ' e le '),
+              TextSpan(
+                text: 'condizioni d\'uso',
+                style: TextStyle(
+                    color: palette.goldSoft,
+                    decoration: TextDecoration.underline),
+                recognizer: _apriLeCondizioni,
+              ),
               const TextSpan(text: ' del Cerchio.'),
             ],
           ),
           key: const Key('consenso_informativa'),
         ),
+        const SizedBox(height: SpacingTokens.sm),
+        // **IL DISCLAIMER, UNA VOLTA SOLA, ALLA REGISTRAZIONE.** Ordine EA
+        // voce 18 e regola di CLAUDE.md: si dice all'onboarding e qui, mai su
+        // ogni carta. Il testo e' quello di `ArtCatalog.disclaimerCornice`, e
+        // il nome porta alla sua sezione nella pagina legale.
+        Text.rich(
+          TextSpan(
+            style: TypographyTokens.didascalia()
+                .copyWith(color: ColorTokens.textSecondary),
+            children: [
+              const TextSpan(text: '${ArtCatalog.disclaimerCornice} '),
+              TextSpan(
+                text: 'Leggi il disclaimer',
+                style: TextStyle(
+                    color: palette.goldSoft,
+                    decoration: TextDecoration.underline),
+                recognizer: _apriIlDisclaimer,
+              ),
+              const TextSpan(text: '.'),
+            ],
+          ),
+          key: const Key('consenso_disclaimer'),
+        ),
       ],
     );
   }
+
+  /// I riconoscitori dei tocchi sulle condizioni e sul disclaimer, sorelle di
+  /// quello della policy: ordine EA voce 18.
+  final TapGestureRecognizer _apriLeCondizioni = TapGestureRecognizer();
+  final TapGestureRecognizer _apriIlDisclaimer = TapGestureRecognizer();
 
   /// Il riconoscitore del tocco sul nome della policy, tenuto qui perche' viva
   /// e muoia con lo stato di questa riga: un riconoscitore creato dentro
@@ -109,6 +159,8 @@ class _ConsensiDellaRegistrazioneState
   @override
   void dispose() {
     _apri.dispose();
+    _apriLeCondizioni.dispose();
+    _apriIlDisclaimer.dispose();
     super.dispose();
   }
 }

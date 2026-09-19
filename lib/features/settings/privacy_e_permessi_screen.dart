@@ -13,6 +13,8 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import 'permessi_di_sistema.dart';
 import '../account/vestito_del_menu_utente.dart';
+import '../account/privacy_policy_screen.dart';
+import '../../core/legal/pagina_legale.dart';
 
 /// PRIVACY E PERMESSI, il sotto menu' dedicato. Ordine CE voce 03.
 ///
@@ -85,10 +87,31 @@ class PrivacyEPermessiScreen extends StatelessWidget {
                   Icon(Icons.eco_outlined, size: 18, color: palette.goldSoft),
                   const SizedBox(width: SpacingTokens.md),
                   Expanded(
-                    child: ParagrafiDiLettura(
-                      testo: ArtCatalog.disclaimerCornice,
-                      stile: TypographyTokens.lettura()
-                          .copyWith(color: ColorTokens.textSecondary),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ParagrafiDiLettura(
+                          testo: ArtCatalog.disclaimerCornice,
+                          stile: TypographyTokens.lettura()
+                              .copyWith(color: ColorTokens.textSecondary),
+                        ),
+                        // **E LA PORTA ALLA SUA SEZIONE. Ordine EA voce 18**:
+                        // il disclaimer per esteso vive nella pagina legale,
+                        // insieme a privacy policy e condizioni d'uso.
+                        TextButton(
+                          key: const Key('disclaimer_per_esteso'),
+                          style: TextButton.styleFrom(
+                              padding: EdgeInsets.zero,
+                              minimumSize: const Size(44, 44),
+                              alignment: Alignment.centerLeft),
+                          onPressed: () => Navigator.of(context).push(
+                              PrivacyPolicyScreen.route(
+                                  parte: ParteLegale.disclaimer)),
+                          child: Text('Leggi il disclaimer per esteso',
+                              style: TypographyTokens.label(size: 13)
+                                  .copyWith(color: palette.goldSoft)),
+                        ),
+                      ],
                     ),
                   ),
                 ],

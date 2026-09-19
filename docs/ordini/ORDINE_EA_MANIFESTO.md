@@ -9,8 +9,8 @@ non c'e' nessun `ORDINE_EA_*`. **Data:** 19 settembre 2026. **Ramo:**
 lotti di fila e poi una sola build; la Ronda dei motori legge i rossi
 accettati come lo sbarramento, e i due rossi voluti restano dichiarati.
 
-VOCI_TOTALI: 21
-VOCI_CHIUSE: 15
+VOCI_TOTALI: 22
+VOCI_CHIUSE: 16
 VOCI_APERTE: 6
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 
@@ -330,4 +330,41 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
   Prova `test/l_invito_degli_eos_si_tocca_intero_test.dart`, rossa sul
   codice della 2272 (il contenuto sforava di 216 e 105 punti, *Vedi i piani*
   sotto la barra) e verde dopo, con il testo a 1,3 su 360x740 e 390x844.
+  **Prodotto e agganciato; a video con la build dell'ordine.** **CHIUSA.**
+- **EA.22**, la pietra di Ingwaz portava il segno di Othala. Aggiunta dal
+  fondatore il 20 settembre 2026 mentre l'ordine era in corso, dalla
+  segnalazione di un fondatore: *"quella nello screenshot e' la runa othala e
+  non ingwaz"*, con la richiesta di un controllo su tutte le rune
+  nell'Estrazione Rune e nella Runa del Tramonto.
+  **Il censimento, fatto a occhio su tutte e ventiquattro le pietre**: il
+  difetto era in una sola, `rune_bone_22_ingwaz_v1`, che portava il rombo con
+  le gambe, cioe' Othala. Le altre ventitre sono giuste, comprese quelle che
+  ho riguardato da vicino perche' somigliano ad altre (nauthiz, jera, eihwaz,
+  perthro). **I dati erano in ordine**: nome, glifo e nome del file di tutte e
+  ventiquattro coincidono e seguono l'ordine dell'Elder Futhark. Anche il
+  ripiego a tratti (`rune_strokes.dart`) disegnava Ingwaz come rombo chiuso.
+  **La Runa del Tramonto usa le stesse pietre** (`sunset_rune_screen.dart`
+  monta `fullPath` e la miniatura), quindi mostrava lo stesso segno sbagliato:
+  la correzione vale per tutte e due le arti.
+  **Fatto**: `tool/ingwaz_non_e_othala.py`. La pietra non si rigenera col
+  modello, perche' a parita' di seme un prompt diverso restituisce un altro
+  sasso, e in una gettata a tre si vedrebbe. **Othala e' Ingwaz piu' due
+  gambe**: si tiene l'incisione fino alla riga in cui il rombo si chiude,
+  misurata e non decisa a occhio (la larghezza del solco cala fino a 139
+  pixel, i due tratti si toccano, poi si riaprono fino a 300), e sotto
+  tornano i pixel della pietra vergine della stessa runa, nata da questa
+  immagine togliendole l'incisione. La miniatura nasce dalla pietra corretta.
+  **Un primo tentativo e' stato buttato**: richiudere il solco col
+  riempimento delle pietre vergini lasciava una chiazza piatta e chiara,
+  perche' quel riempimento serve a solchi sottili, non a mezza pietra.
+  **La guardia non misura la forma, e il perche' e' scritto dentro**: il
+  confronto fra il solco inciso e il disegno a tratti, provato, dava dal 7 per
+  cento di Uruz al 92 di Berkano su pietre tutte giuste, perche' i sassi sono
+  fotografati storti; qualunque soglia li' dentro sarebbe stata scelta per far
+  passare la prova. `test/ogni_pietra_porta_la_sua_runa_test.dart` tiene
+  invece i nomi dei file legati al nome e al posto della runa, l'esistenza di
+  arte e miniatura, e **l'impronta di ogni immagine** dopo la revisione a
+  occhio; la tavola che l'occhio guarda sta in
+  `docs/anteprime/rune_incise.png` e la genera `tool/tavola_delle_rune.py`.
+  Vista rossa rimettendo al posto di Ingwaz la pietra di Othala.
   **Prodotto e agganciato; a video con la build dell'ordine.** **CHIUSA.**

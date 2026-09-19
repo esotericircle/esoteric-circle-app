@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../core/diagnosi/briciole.dart';
 import '../../core/identity/circle_seal.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../../core/arts/art_catalog.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -267,11 +268,32 @@ class _SigilloStepState extends State<SigilloStep>
               child: AnimatedOpacity(
                 opacity: _chiuso ? 1 : 0,
                 duration: const Duration(milliseconds: 420),
-                child: Text(
-                  'Il Cerchio ti riconosce',
-                  textAlign: TextAlign.center,
-                  style: TypographyTokens.titoloSezione()
-                      .copyWith(color: widget.palette.goldSoft),
+                child: Column(
+                  children: [
+                    Text(
+                      'Il Cerchio ti riconosce',
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.titoloSezione()
+                          .copyWith(color: widget.palette.goldSoft),
+                    ),
+                    const SizedBox(height: SpacingTokens.sm),
+                    // **IL DISCLAIMER, UNA VOLTA SOLA, ALL'INGRESSO.** Ordine
+                    // EA voce 18, regola di CLAUDE.md. Il Risveglio finisce
+                    // qui, e qui la cornice si dice: non su ogni carta e non
+                    // su ogni responso. Il testo e' lo stesso che vive in
+                    // `ArtCatalog.disclaimerCornice`, non una seconda copia.
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: SpacingTokens.lg),
+                      child: Text(
+                        ArtCatalog.disclaimerCornice,
+                        key: const Key('risveglio_disclaimer'),
+                        textAlign: TextAlign.center,
+                        style: TypographyTokens.didascalia().copyWith(
+                            color: ColorTokens.textSecondary, height: 1.4),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

@@ -16,7 +16,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final manifesto = File('docs/ordini/ORDINE_EA_MANIFESTO.md');
 
-  const quante = 21;
+  const quante = 22;
 
   int marcatore(String testo, String nome) {
     final trovato =
@@ -26,7 +26,7 @@ void main() {
     return int.parse(trovato!.group(1)!);
   }
 
-  test('il manifesto esiste e porta tutte e ventuno le voci', () {
+  test('il manifesto esiste e porta tutte e ventidue le voci', () {
     expect(manifesto.existsSync(), isTrue,
         reason: 'il manifesto nasce prima del codice');
     final testo = manifesto.readAsStringSync();
@@ -83,6 +83,6 @@ void main() {
     final aperte = marcatore(manifesto.readAsStringSync(), 'VOCI_APERTE');
     expect(aperte, 0,
         reason: 'restano $aperte voci APERTE. Questa riga e\' rossa apposta: '
-            'torna verde quando le ventuno voci hanno uno stato terminale');
+            'torna verde quando le ventidue voci hanno uno stato terminale');
   });
 }

@@ -40,10 +40,12 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 137 |
-| Guardie con un cardinale proprio dichiarato | 114 |
+| Guardie con un cardinale proprio dichiarato | 115 |
 | Guardie che non scoprono nessun insieme di file | 195 |
-| **Somma delle categorie** | **446** |
-| **Guardie secondo la definizione** | **446** |
+| **Somma delle categorie** | **447** |
+| **Guardie secondo la definizione** | **447** |
+
+**Ricontate a ordine EA, voce 22**, 20 settembre 2026, la pietra di Ingwaz che portava Othala: **una guardia nuova**, `ogni_pietra_porta_la_sua_runa`, col cardinale proprio (ventiquattro pietre, ventiquattro impronte). Il totale sale da 446 a **447** e le tre categorie a **137, 115 e 195**. **Vista rossa** rimettendo al posto di Ingwaz la pietra di Othala. **E una guardia buttata prima di scriverla**: il confronto fra il solco inciso e il disegno a tratti dava dal 7 per cento di Uruz al 92 di Berkano su pietre tutte giuste, perche' i sassi sono fotografati storti; una soglia li' dentro sarebbe stata scelta per far passare la prova, e il giudizio sul segno resta dell'occhio, sulla tavola `docs/anteprime/rune_incise.png`.
 
 **Ricontate a ordine EA, terzo lotto**, 20 settembre 2026, il conteggio sempre attivo e anonimo: **nessuna guardia nuova nel conto**, perche' le prove nuove vivono dentro `la_misura_del_ritorno`, che il registro conosce gia'. Il totale resta **446**. **Vista rossa due volte**: il conteggio rimesso sotto consenso, e la frase *"Conta i gesti, non me"* rimessa come testo a video; al primo innesto la frase era in un commento e la guardia non l'ha presa, ed e' giusto cosi', perche' guarda il codice senza i commenti e le righe che spiegano perche' la frase e' uscita la citano. **Tre guardie di casa hanno cambiato legge, non numero**: `i_consensi_stanno_nella_registrazione` e `una_porta_sola_per_la_privacy` pretendevano l'interruttore, adesso pretendono che non ci sia, e `la_misura_del_ritorno` pretendeva che senza consenso non partisse niente.
 
@@ -795,6 +797,7 @@ le altre.
 | `nove_arti_test.dart` | nove arti | 1, 2 | dalla porta comune | mai | 3 |
 | `numero_e_colore_hanno_la_stessa_altezza_test.dart` | numero e colore hanno la stessa altezza | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa sul difetto vero: 61,0 contro 84,0) | 1 |
 | `ogni_decimale_a_video_passa_dalla_lingua_test.dart` | ogni `toStringAsFixed` con almeno un decimale che sopravvive in `lib` e' **dichiarato con la sua ragione**, o passa dalla porta della lingua; e una ragione che non ha piu' nessun decimale sotto fa cadere la prova, come una riga di troppo nel registro dei rossi accettati | 1, 2 | dalla porta comune | 16/09/2026, DM (rossa con un decimale rimesso in `angels_screen`, file non dichiarato) | 2 |
+| `ogni_pietra_porta_la_sua_runa_test.dart` | ogni pietra incisa e' quella della sua runa, e non cambia senza che qualcuno la riguardi | 2, 4 | proprio, dichiarato | 20/09/2026, EA | 1 |
 | `ogni_arte_dichiara_la_fonte_test.dart` | ogni arte dichiara la fonte | 4 | non scopre insiemi di file | 06/09/2026, CS | 3 |
 | `ogni_arte_entra_nel_cammino_test.dart` | ogni arte entra nel cammino | 1, 2 | non scopre insiemi di file | 03/09/2026, CP | 3 |
 | `ogni_budget_dichiara_il_suo_residuo_test.dart` | ogni budget dichiara il suo residuo | 1, 2 | dalla porta comune | CO | 2 |
