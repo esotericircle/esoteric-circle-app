@@ -42,7 +42,7 @@ contatore diceva *1 domanda su 3*.
 | DX.03 il censimento | si', tredici porte nel manifesto | la guardia confronta il codice col censimento | non serve |
 | DX.04 il campo vuoto dopo l'invio | si' | si' | **da vedere dettando**: nessuna prova da banco parla al telefono |
 | DX.05 dove si consuma | risposta, senza codice | il consumo resta solo sugli invii veri | con DX.01 |
-| DX.06 il testo sotto la barra | nessun codice: resta il 2161, per decisione | | |
+| DX.06 il testo sotto la barra | nessun codice: non si corregge, per decisione del 19 settembre 2026 | | |
 
 **La cura della DX.02 non tocca la dichiarazione delle lingue iOS.**
 Aggiungere l'italiano al progetto iOS cambierebbe anche la lingua dei
@@ -53,9 +53,14 @@ come `it_IT` se la piattaforma non elenca niente.
 
 ## 3. LE DECISIONI DEL FONDATORE
 
-- **DX.06, resta il 2161.** Gli ho chiesto se tagliare la chat sopra la barra
-  o lasciare il vetro che mostra i messaggi, come aveva deciso con l'ordine
-  2161 (`maestro_chat_screen.dart:604-609`). Ha scelto di lasciarlo.
+- **DX.06, non si corregge.** Gli ho chiesto se tagliare la chat sopra la
+  barra o lasciare il vetro che mostra i messaggi, come aveva deciso con
+  l'ordine 2161. Ha scelto di lasciarlo. **La ragione, dal 19 settembre 2026,
+  e' la sua decisione di quel giorno**, *"la DX.06 non deve essere
+  corretta"*, registrata dall'ordine EA voce 04 al posto del rimando al
+  2161. Il commento del 2161 sul ramo sta alla riga 612 di
+  `maestro_chat_screen.dart` al commit `007b360f`: le righe 604-609 citate
+  qui erano spostate.
 - **Build**: autorizzata in corsa d'ordine, *"quando hai finito crea nuova
   Build anche per codemagic e consegna su AppTester"*.
 
@@ -66,8 +71,9 @@ come `it_IT` se la piattaforma non elenca niente.
   seconda.** Il campo si svuotava davvero (`chat_composer.dart:152` nella
   2270), e la dettatura ci riscriveva.
 - **Voce 06**, l'ordine lo chiama difetto. **E' una decisione del fondatore**,
-  l'ordine 2161, scritta nel codice alle righe 604-609 di
-  `maestro_chat_screen.dart`. Chiesta conferma, resta.
+  l'ordine 2161, scritta nel codice alla riga 612 di
+  `maestro_chat_screen.dart` al commit `007b360f`. Resta per decisione del
+  19 settembre 2026 (ordine EA voce 04).
 - **Voce 02**, l'ordine dice *"la dettatura non funziona"*. Sul ramo funziona
   su Android e sbaglia la lingua su iPhone: il difetto e' di una piattaforma
   sola.

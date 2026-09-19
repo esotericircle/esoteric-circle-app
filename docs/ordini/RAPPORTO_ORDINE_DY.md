@@ -32,6 +32,8 @@ del fondatore, e qui sotto la chiedo.
 fumetti vale come *Salta*. La regola del fondatore dice che il tutorial si
 presenta sempre finche' non si disattiva, quindi l'unica cosa che lo ferma e'
 *Disattiva*. Se preferisce che chi lo finisce non lo riveda, e' una riga.
+**Il fondatore l'ha confermata il 19 settembre 2026**, *"ok cosi'"*: e' una
+sua decisione, registrata dall'ordine EA voce 04.
 
 ## 2. GLI SCARTI FRA L'ORDINE E IL RAMO
 

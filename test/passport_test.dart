@@ -83,8 +83,12 @@ void main() {
               'delle note d\'esempio qui sotto misurerebbe meno tessere di '
               'quante il passaporto ne dichiara');
     }
+    // **UNA TESSERA SENZA NOTA, PER DECISIONE. Ordine EA voce 16.** La
+    // bolla della Carta di nascita tiene solo etichetta, nome e prima frase:
+    // parole del fondatore, "tutto il resto del testo esce dalla bolla".
+    const senzaNota = <String>{'passport_carta_di_nascita'};
     final note = find.textContaining('Valore d\'esempio');
-    expect(note, findsNWidgets(tessereVive.length),
+    expect(note, findsNWidgets(tessereVive.length - senzaNota.length),
         reason: 'le tessere vive dichiarate sono ${tessereVive.length} e le '
             'note d\'esempio a video sono '
             '${tester.widgetList(note).length}: una tessera viva che usa il '

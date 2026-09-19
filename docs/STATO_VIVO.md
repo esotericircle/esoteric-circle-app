@@ -3510,8 +3510,10 @@ non e' cambiato: consuma una risposta vera a un invio vero. Le due domande
 della cattura erano la preimpostata partita da sola e *"Indicate"*.
 
 **IL TESTO SOTTO LA BARRA (DX.06) RESTA**, per decisione del fondatore del
-18 settembre 2026: vale l'ordine 2161, il vetro della barra lascia vedere i
-messaggi che scorrono.
+19 settembre 2026, *"la DX.06 non deve essere corretta"*, registrata
+dall'ordine EA voce 04 al posto del rimando alla scelta sull'ordine 2161: il
+vetro della barra lascia vedere i messaggi che scorrono. Il commento del 2161
+sta in `maestro_chat_screen.dart`, riga 617 dopo l'ordine EA.
 
 **CONSEGNATO CON LA 2271**, release `479lvkjv5msbg`, accesa sul Realme; codice nel commit `b9ffd73d`, verde sul cancello di GitHub, da cui si lancia la build iOS su Codemagic. **Visto sul Realme**: *Parlane con Medora* dall'Oroscopo apre la chat con la domanda nel campo, e non parte niente. La dettatura su iPhone resta da vedere dal fondatore.
 
@@ -3533,7 +3535,9 @@ avvio per chi resta anonimo.
 **IL TUTORIAL A OGNI APERTURA (DY.01).** `main()` arma l'apertura
 (`MemoriaDelPrimoApprodo.nuovaApertura`), e il Primo Approdo si presenta dopo
 la intro se il Risveglio e' fatto e non e' disattivato. *Salta* e l'arrivo in
-fondo lo rimandano all'apertura dopo; *Disattiva*, nuovo accanto a *Salta*,
+fondo lo rimandano all'apertura dopo (l'arrivo in fondo come *Salta* e'
+decisione del fondatore del 19 settembre 2026, *"ok cosi'"*, registrata
+dall'ordine EA voce 04); *Disattiva*, nuovo accanto a *Salta*,
 lo spegne (`avvisi.primoApprodo.disattivato`). Dopo il primo Risveglio adesso
 si presenta subito, e prima aspettava l'apertura dopo.
 

@@ -1837,7 +1837,7 @@ class _VoceCompatta extends StatelessWidget {
           Text(giorno!,
               maxLines: 1,
               style: TypographyTokens.didascalia()
-                  .copyWith(fontSize: 13, color: ColorTokens.textSecondary)),
+                  .copyWith(color: ColorTokens.textSecondary)),
         ],
         if (cancella != null)
           IconButton(

@@ -594,6 +594,24 @@ void main() {
     await step(tester);
   }
 
+  /// **LA CONVERSAZIONE DI PRIMA SI RIAPRE DAL MENU'. Ordine EA voce 06.**
+  ///
+  /// Dal 19 settembre 2026 la chat si apre sempre nuova e vuota, e le
+  /// conversazioni di prima stanno nel menu'. Le catture che seminano una
+  /// conversazione la fotografavano aperta da sola: adesso la riaprono come
+  /// fa una persona. Senza questo passo la chat seminata non scorre, e la
+  /// cattura "barra fuori" fotografava la barra dentro.
+  Future<void> riapriLaConversazioneDiPrima(WidgetTester tester) async {
+    await tester.tap(find.byKey(const Key('chat_menu_della_barra')));
+    await step(tester);
+    final voce = find.byKey(const Key('chat_conversazione_passata_0'));
+    expect(voce, findsOneWidget,
+        reason: 'il menu\' della chat non offre la conversazione seminata');
+    await tester.tap(voce);
+    await step(tester);
+    await step(tester);
+  }
+
   /// PRECARICA DA SOLO OGNI IMMAGINE CHE LA SCENA MONTA.
   ///
   /// **La porta che si riapriva.** In cattura headless nessuno decodifica gli
@@ -4930,6 +4948,7 @@ void main() {
     );
     final rootKey = await mount(tester, services);
     await openChat(tester, Maestro.medora);
+    await riapriLaConversazioneDiPrima(tester);
     await precacheFaces(tester);
     await capture(tester, rootKey, 'chat-riaperta-turno-fallito.png');
   });
@@ -4944,6 +4963,7 @@ void main() {
       final rootKey =
           await mount(tester, await buildServices(maestro, seeded: true));
       await openChat(tester, maestro);
+      await riapriLaConversazioneDiPrima(tester);
       await precacheFaces(tester);
       // **SI ASPETTA CHE LA VOCE FINISCA DI SCRIVERE.** Ordine BY, giro di
       // grazia: la bolla riserva l'altezza della frase intera mentre il testo
@@ -6472,6 +6492,7 @@ void main() {
     final rootKey = await mount(
         tester, await buildServices(Maestro.medora, seeded: true, giri: 6));
     await openChat(tester, Maestro.medora);
+    await riapriLaConversazioneDiPrima(tester);
     await precacheFaces(tester);
     await step(tester);
     final schermo = tester.getRect(find.byType(MaterialApp));
@@ -6580,6 +6601,7 @@ void main() {
     final rootKey =
         await mount(tester, await buildServices(Maestro.medora, seeded: true));
     await openChat(tester, Maestro.medora);
+    await riapriLaConversazioneDiPrima(tester);
     await precacheFaces(tester);
     await step(tester);
     final gesto = await aFondoCorsa(tester, find.byType(Scrollable).first);

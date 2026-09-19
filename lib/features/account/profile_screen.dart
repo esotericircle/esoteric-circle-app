@@ -9,6 +9,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../synastry/user_photo.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
+import 'vestito_del_menu_utente.dart';
 
 /// La sezione Profilo dell'Area Utente: qui l'utente da' un volto al suo posto
 /// nel Cerchio, la sua foto oppure l'identita' di default a tema (il segno, le
@@ -23,15 +24,15 @@ class ProfileScreen extends StatelessWidget {
   final UserPhotoService? photoService;
 
   static Route<void> route({UserPhotoService? photoService}) =>
-      PassaggioDelCerchio.rotta<void>(
-          (_) => ProfileScreen(photoService: photoService));
+      PassaggioDelCerchio.rotta<void>((_) => VestitoDelMenuUtente(
+          seme: 11, child: ProfileScreen(photoService: photoService)));
 
   @override
   Widget build(BuildContext context) {
     final profile = context.watch<ProfileController>();
 
     return Scaffold(
-      backgroundColor: ColorTokens.neutralDeepest,
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,

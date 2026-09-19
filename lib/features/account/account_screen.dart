@@ -17,7 +17,6 @@ import '../../services/app_services.dart';
 // `PortaDelCerchio`, quella del server e quella delle vie della barra, e
 // senza prefisso il compilatore non sa quale delle due si intende.
 import 'custodia_del_cielo.dart';
-import '../../design_system/theme/maestro_scope.dart';
 import 'privacy_policy_screen.dart';
 import 'festa_della_registrazione.dart';
 
@@ -30,6 +29,7 @@ import 'profile_screen.dart';
 import 'dati_di_nascita_screen.dart';
 import 'riscatta_l_invito.dart';
 import 'invita_un_amico.dart';
+import 'vestito_del_menu_utente.dart';
 import 'notifiche_screen.dart';
 import '../shell/vie_del_cerchio.dart';
 import '../onboarding/primo_approdo.dart';
@@ -50,9 +50,10 @@ class AccountScreen extends StatelessWidget {
   /// **LA ROTTA DICHIARA LA SUA DESTINAZIONE.** Ordine AU voce 10: senza
   /// questa riga nessuno puo' accorgersi che il menu' utente e' gia' aperto, e
   /// ogni tocco ne impila un altro sopra quello di prima.
-  static Route<void> route() =>
-      PassaggioDelCerchio.rotta<void>((_) => const AccountScreen(),
-          settings: const RouteSettings(arguments: PortaDelCerchio.account));
+  static Route<void> route() => PassaggioDelCerchio.rotta<void>(
+      // **VIOLA SU COSMO, ordine EA voce 17.**
+      (_) => const VestitoDelMenuUtente(child: AccountScreen()),
+      settings: const RouteSettings(arguments: PortaDelCerchio.account));
 
   /// **LE VOCI, in un metodo e non dentro `build`. Ordine DY voce 02.** La
   /// voce del tutorial dice se e' attivo o disattivato, e al tocco cambia:
@@ -348,7 +349,7 @@ class AccountScreen extends StatelessWidget {
     // la voce dice il vero anche prima che il tutorial sia mai partito.
     MemoriaDelPrimoApprodo.carica();
     return Scaffold(
-      backgroundColor: ColorTokens.neutralDeepest,
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -1267,10 +1268,12 @@ class _AccountTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
         child: Container(
           padding: const EdgeInsets.all(SpacingTokens.md),
+          // **LA BOLLA E' VIOLA. Ordine EA voce 17.** Era il colore del
+          // Cerchio a meta' trasparenza sul nero, cioe' blu notte a video.
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-            color: ColorTokens.neutralSurface.withValues(alpha: 0.5),
-            border: Border.all(color: ColorTokens.gold.withValues(alpha: 0.2)),
+            color: VestitoDelMenuUtente.bolla.withValues(alpha: 0.88),
+            border: Border.all(color: ColorTokens.gold.withValues(alpha: 0.25)),
           ),
           child: Row(
             children: [
@@ -1279,7 +1282,7 @@ class _AccountTile extends StatelessWidget {
                 height: 46,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: ColorTokens.neutralDeep,
+                  color: VestitoDelMenuUtente.cerchietto,
                   border: Border.all(
                       color: ColorTokens.gold.withValues(alpha: 0.4)),
                 ),
@@ -1360,7 +1363,7 @@ class PrivacyEDatiScreen extends StatelessWidget {
   const PrivacyEDatiScreen({super.key});
 
   static Route<void> route() => PassaggioDelCerchio.rotta<void>(
-      (_) => const MaestroScope(child: PrivacyEDatiScreen()));
+      (_) => const VestitoDelMenuUtente(seme: 9, child: PrivacyEDatiScreen()));
 
   @override
   Widget build(BuildContext context) {
@@ -1428,7 +1431,7 @@ class PrivacyEDatiScreen extends StatelessWidget {
       ),
     ];
     return Scaffold(
-      backgroundColor: ColorTokens.neutralDeepest,
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,

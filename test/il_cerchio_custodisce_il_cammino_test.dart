@@ -207,8 +207,15 @@ void main() {
     // limite giornaliero raggiunto con l'Illuminato attivo. La callable e'
     // sbarrata a chiave: senza la variabile DEMO_APERTA a uno risponde
     // failed-precondition e non scrive niente.
-    expect(callable.length, 11,
-        reason: 'le callable non sono piu\' dieci: $callable. Se ne serviva '
+    // **DODICI, ordine EA voce 07**, 19 settembre 2026: e' entrata
+    // `cancellaLaConversazione`. Il fondatore vuole cancellare dal menu' della
+    // chat ogni conversazione di prima, e i messaggi stanno sul server, dove
+    // le regole vietano al telefono di scrivere: la cancellazione deve
+    // passare da una porta del server, che toglie solo i messaggi di chi
+    // chiama e di quella conversazione. Non poteva viaggiare dentro
+    // `azzeraIDatiDelCerchio`, che toglie tutto.
+    expect(callable.length, 12,
+        reason: 'le callable non sono piu\' dodici: $callable. Se ne serviva '
             'una nuova andava dichiarata e motivata nel rapporto');
   });
 

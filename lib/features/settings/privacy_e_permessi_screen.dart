@@ -13,6 +13,7 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import 'interruttore_della_misura.dart';
 import 'permessi_di_sistema.dart';
+import '../account/vestito_del_menu_utente.dart';
 
 /// PRIVACY E PERMESSI, il sotto menu' dedicato. Ordine CE voce 03.
 ///
@@ -40,15 +41,15 @@ import 'permessi_di_sistema.dart';
 class PrivacyEPermessiScreen extends StatelessWidget {
   const PrivacyEPermessiScreen({super.key});
 
-  static Route<void> route() =>
-      PassaggioDelCerchio.rotta<void>((_) => const PrivacyEPermessiScreen());
+  static Route<void> route() => PassaggioDelCerchio.rotta<void>((_) =>
+      const VestitoDelMenuUtente(seme: 15, child: PrivacyEPermessiScreen()));
 
   @override
   Widget build(BuildContext context) {
     final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
     return Scaffold(
       key: const Key('privacy_e_permessi'),
-      backgroundColor: palette.deepest,
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,

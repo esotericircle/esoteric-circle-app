@@ -30,6 +30,7 @@ Future<void> mostraLaCartaIngrandita(
   BuildContext context, {
   required PosizioneLetta letta,
   required MaestroPalette palette,
+  Widget? inFondo,
 }) {
   final riduciMovimento = MediaQuery.of(context).disableAnimations;
   return dialogoGeneraleDelCerchio<void>(
@@ -54,6 +55,7 @@ Future<void> mostraLaCartaIngrandita(
       palette: palette,
       entrata: entrata,
       riduciMovimento: riduciMovimento,
+      inFondo: inFondo,
       // **IL FONDO DICHIARATO, ordine AL voce 04.** Questa porta non e' un
       // foglio di Material e non ha nessuna superficie da vestire: il fondo
       // e' il velo, e la carta ci galleggia sopra. Dirlo qui invece di
@@ -74,7 +76,14 @@ class CartaIngrandita extends StatelessWidget {
     required this.entrata,
     required this.riduciMovimento,
     this.backgroundColor = Colors.transparent,
+    this.inFondo,
   });
+
+  /// **CIO' CHE STA SOTTO IL TESTO DELLA CARTA. Ordine EA voce 16.** Il
+  /// Passport ci mette la porta delle fonti della Carta di nascita, che non
+  /// sta piu' nella sua bolla: parole del fondatore, *"deve esserci nella
+  /// schermata della carta, cioe' quando l'utente fa click sulla carta"*.
+  final Widget? inFondo;
 
   final PosizioneLetta letta;
   final MaestroPalette palette;
@@ -209,6 +218,10 @@ class CartaIngrandita extends StatelessWidget {
             testo: letta.testo,
             stile: TypographyTokens.lettura()
                 .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
+        if (inFondo != null) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          inFondo!,
+        ],
       ],
     );
     if (riduciMovimento) return blocco;

@@ -31,7 +31,7 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_DX.md`.
 | la dettatura scrive "Indicate" | **causa trovata**: `DettaturaVera.ascolta` (`lib/services/voce/dettatura_vera.dart:82-96`) non passa nessuna lingua al riconoscitore. Il plugin iOS allora usa `Locale.current` (`speech_to_text-7.4.0/darwin/.../SpeechToTextPlugin.swift:376-378`), e per un'app `Locale.current` e' la lingua fra quelle che l'app DICHIARA: il progetto iOS dichiara solo l'inglese (`ios/Runner.xcodeproj/project.pbxproj:202-207`, `developmentRegion = en`, `knownRegions` = en e Base; in `ios/Runner/Info.plist` nessun `CFBundleLocalizations`). Su un iPhone in italiano la dettatura ascolta con il riconoscitore inglese, che sente "quindi" e scrive "Indicate". Su Android il plugin usa la lingua del sistema (`SpeechToTextPlugin.kt:135`), per questo al banco del Realme non si vedeva | **VERO, CAUSA NEL CODICE** |
 | "Indicate" resta nel campo dopo l'invio | **causa trovata**: `_submit` (`lib/features/maestri/chat/widgets/chat_composer.dart:148-154`) svuota il campo ma non ferma la dettatura, e la callback `parole` (riga 125-133) continua a scrivere nel campo ogni risultato che arriva dopo. Con `partialResults: true` il risultato finale arriva DOPO il tocco di invio, e riscrive nel campo la stessa parola appena mandata | **VERO** |
 | le due domande consumate | **vero**: tutte e due passano da `MaestroChatController.send` e generano, e il consumo avviene in `lib/features/maestri/chat/maestro_chat_controller.dart:531-533` (`contatore.record(piano)` se `CostoDelTurno.consuma(esito)`). Tre del piano gratuito meno due: uno | **VERO** |
-| il testo si legge sotto la barra | **vero, ed e' una decisione del fondatore**: `maestro_chat_screen.dart:604-609`, ordine 2161, *"i messaggi scorrono sotto il compositore e sotto la barra, il vetro della barra si legge perche' sotto c'e' contenuto"*. Chiesto al fondatore il 18 settembre 2026: **resta il 2161** | **VOLUTO** |
+| il testo si legge sotto la barra | **vero, ed e' una decisione del fondatore**: `maestro_chat_screen.dart:604-609`, ordine 2161, *"i messaggi scorrono sotto il compositore e sotto la barra, il vetro della barra si legge perche' sotto c'e' contenuto"*. Chiesto al fondatore il 18 settembre 2026. **Non si corregge, per decisione del fondatore del 19 settembre 2026** (*"la DX.06 non deve essere corretta"*, ordine EA voce 04); il commento del 2161 sta alla riga 612 al commit `007b360f` | **VOLUTO** |
 
 ---
 
@@ -92,11 +92,16 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_DX.md`.
   preimpostata non consuma piu' finche' non si manda; il consumo resta
   solo sugli invii veri, misurato nelle prove di DX.01. **CHIUSA.**
 - **DX.06**, il testo della chat sotto la barra in basso.
-  **Decisione del fondatore, 18 settembre 2026**: interrogato sullo scarto
-  con l'ordine 2161 (`maestro_chat_screen.dart:604-609`), ha scelto *"Resta
-  il 2161"*: i messaggi continuano a scorrere sotto la barra e il vetro li
-  lascia vedere. Il campo di scrittura e' gia' opaco dall'ordine 2163.
-  Nessun codice toccato. **CHIUSA.**
+  **Non si corregge, per decisione del fondatore del 19 settembre 2026**:
+  *"la DX.06 non deve essere corretta"*. I messaggi continuano a scorrere
+  sotto la barra e il vetro li lascia vedere. Il campo di scrittura e' gia'
+  opaco dall'ordine 2163. Nessun codice toccato. **CHIUSA.**
+  *Registrato dall'ordine EA voce 04*: fino al 19 settembre qui la ragione
+  era un rimando alla scelta sull'ordine 2161. Quella scelta sul ramo c'e':
+  e' il commento *"L'ECCEZIONE SULLA CHAT E' REVOCATA DA MAURO, ordine
+  2161"* in `lib/features/maestri/chat/maestro_chat_screen.dart`, alla riga
+  612 al commit `007b360f` e alla 617 dopo l'ordine EA. Le righe 604-609
+  scritte qui prima erano spostate di otto righe.
 
 ---
 
@@ -113,19 +118,19 @@ riga 252), una dal *Continua con* del Consiglio.
 
 | funzione | file e riga della porta | apertura | DX.01 | DX.02 | DX.04 | DX.05 | DX.06 |
 |---|---|---|---|---|---|---|---|
-| Oroscopo | `lib/features/horoscope/oroscopo_screen.dart:1671` | `ChatOpeners.oroscopo` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | resta il 2161 |
-| Test dell'Archetipo | `lib/features/maestri/aura/archetype/archetype_test_screen.dart:975` | `ChatOpeners.archetipo` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | resta il 2161 |
-| Costellazione del Viso | `lib/features/maestri/aura/face/face_constellation_screen.dart:1790` | `ChatOpeners.viso` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | resta il 2161 |
-| Animale Guida | `lib/features/maestri/caligo/animal/guide_animal_screen.dart:765` | `ChatOpeners.animale` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | resta il 2161 |
-| Estrazione delle Rune | `lib/features/maestri/caligo/rune/rune_draw_screen.dart:1614` | `ChatOpeners.runa` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | resta il 2161 |
-| Sigillo dell'Intenzione | `lib/features/maestri/caligo/sigillo/sigillo_intenzione_screen.dart:790` | `ChatOpeners.sigillo` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | resta il 2161 |
-| Arcano dell'Alba | `lib/features/rituals/arcano_dell_alba_screen.dart:168` | `ChatOpeners.arcanoAlba` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | resta il 2161 |
-| Soffio del Destino | `lib/features/rituals/breath_destiny_screen.dart:824` | `ChatOpeners.soffio` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | resta il 2161 |
-| Rito del Sogno | `lib/features/rituals/dream_rite_screen.dart:1071` | `ChatOpeners.sogno` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | resta il 2161 |
-| Runa del Tramonto | `lib/features/rituals/sunset_rune_screen.dart:2359` | `ChatOpeners.runaTramonto` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | resta il 2161 |
-| Sinastria VIP | `lib/features/synastry/sinastria_vip_screen.dart:1102` | `ChatOpeners.sinastria` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | resta il 2161 |
-| Stesa delle Tre Carte | `lib/features/tarot/stesa_tre_carte_screen.dart:1725` | `ChatOpeners.stesa` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | resta il 2161 |
-| Consiglio dei Maestri, *Continua con* | `lib/features/maestri/ask/ask_maestri_screen.dart:421` (pulsante alla riga 659) | `ChatOpeners.consiglio` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | resta il 2161 |
+| Oroscopo | `lib/features/horoscope/oroscopo_screen.dart:1671` | `ChatOpeners.oroscopo` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
+| Test dell'Archetipo | `lib/features/maestri/aura/archetype/archetype_test_screen.dart:975` | `ChatOpeners.archetipo` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
+| Costellazione del Viso | `lib/features/maestri/aura/face/face_constellation_screen.dart:1790` | `ChatOpeners.viso` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
+| Animale Guida | `lib/features/maestri/caligo/animal/guide_animal_screen.dart:765` | `ChatOpeners.animale` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
+| Estrazione delle Rune | `lib/features/maestri/caligo/rune/rune_draw_screen.dart:1614` | `ChatOpeners.runa` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
+| Sigillo dell'Intenzione | `lib/features/maestri/caligo/sigillo/sigillo_intenzione_screen.dart:790` | `ChatOpeners.sigillo` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
+| Arcano dell'Alba | `lib/features/rituals/arcano_dell_alba_screen.dart:168` | `ChatOpeners.arcanoAlba` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
+| Soffio del Destino | `lib/features/rituals/breath_destiny_screen.dart:824` | `ChatOpeners.soffio` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
+| Rito del Sogno | `lib/features/rituals/dream_rite_screen.dart:1071` | `ChatOpeners.sogno` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
+| Runa del Tramonto | `lib/features/rituals/sunset_rune_screen.dart:2359` | `ChatOpeners.runaTramonto` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
+| Sinastria VIP | `lib/features/synastry/sinastria_vip_screen.dart:1102` | `ChatOpeners.sinastria` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
+| Stesa delle Tre Carte | `lib/features/tarot/stesa_tre_carte_screen.dart:1725` | `ChatOpeners.stesa` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
+| Consiglio dei Maestri, *Continua con* | `lib/features/maestri/ask/ask_maestri_screen.dart:421` (pulsante alla riga 659) | `ChatOpeners.consiglio` | nel campo, non parte | lingua dell'app | campo vuoto | consuma solo all'invio | non si corregge, decisione del 19/9 |
 
 **Le due porte che NON sono di approfondimento**, e restano fuori perimetro:
 *Consulta* dall'arte in arrivo (`lib/features/maestri/art_intro_screen.dart:114`)

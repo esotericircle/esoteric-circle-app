@@ -176,10 +176,17 @@ void main() {
   testWidgets('La tradizione della Carta di nascita si puo\' leggere',
       (tester) async {
     await monta(tester, date['1990-08-10']!);
+    // **LA PORTA DELLE FONTI STA NELLA CARTA APERTA. Ordine EA voce 16.**
+    // Nella bolla non c'e' piu'; si apre la carta e la si trova sotto il testo.
     final porta = find.byKey(const Key('fonti_carta_di_nascita_bottone'));
+    expect(porta, findsNothing,
+        reason: 'la porta delle fonti e\' ancora nella bolla del Passport');
+    await tester.ensureVisible(tessera);
+    await tester.tap(tessera);
+    await tester.pumpAndSettle();
     expect(porta, findsOneWidget,
-        reason: 'la Carta di nascita non offre le sue fonti: il calcolo '
-            'sembra una regola inventata dall\'app');
+        reason: 'la Carta di nascita aperta non offre le sue fonti: il '
+            'calcolo sembra una regola inventata dall\'app');
     await tester.ensureVisible(porta);
     await tester.tap(porta);
     await tester.pumpAndSettle();

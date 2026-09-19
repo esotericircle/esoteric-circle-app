@@ -40,10 +40,12 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 137 |
-| Guardie con un cardinale proprio dichiarato | 113 |
+| Guardie con un cardinale proprio dichiarato | 114 |
 | Guardie che non scoprono nessun insieme di file | 192 |
-| **Somma delle categorie** | **442** |
-| **Guardie secondo la definizione** | **442** |
+| **Somma delle categorie** | **443** |
+| **Guardie secondo la definizione** | **443** |
+
+**Ricontate a ordine EA, primo lotto**, 19 settembre 2026, le correzioni dopo la 2272: **una guardia nuova**, `il_menu_utente_e_viola_su_cosmo`, col cardinale proprio (sette file del menu' utente censiti, otto rotte). Il totale sale da 442 a **443** e le tre categorie a **137, 114 e 192**. **Vista rossa con tre innesti**, ognuno verificato col grep e ripristinato con lo sha1: la rotta delle Notifiche senza il vestito, lo Scaffold del Profilo di nuovo nero pieno, la bolla di nuovo blu notte. **Al primo giro misurava male**: cercava `palette.deepest` come pezzo di riga, e prendeva la barra in alto delle Impostazioni, che e' a trasparenza e lascia vedere il cielo; adesso cerca il fondo pieno, con la virgola dopo. Le prove nuove della chat (EA.01, 06, 07, 08, 09) e del tutorial (EA.02) sono prove di valore, fuori dal conto, viste rosse ciascuna prima di essere credute.
 
 **Ricontate a ordine DZ**, 18 settembre 2026, la chat di approfondimento pulita e le conversazioni col titolo: **nessuna guardia nuova nel conto**, perche' le tre prove nuove sono prove di valore (`il_journal_vede_i_turni_appena_arrivano`, `le_conversazioni_hanno_un_titolo` e le due di `chat_initial_message`). Il totale resta **442**. **Viste rosse lo stesso, con cinque innesti**: la chat pulita spenta, il menu' senza conversazioni, la riapertura spenta, il titolo mai chiesto, la vista del Journal che non ascolta il registro; quest'ultima era rossa anche sul codice della 2271. **Guardie di casa riviste in zona (Regola B)**: `una_conversazione_nuova_non_cancella` rossa con la conversazione nuova che non svuota la chat, `la_timeline_dei_ricordi` rossa col filtro per Maestro spento.
 
@@ -562,6 +564,7 @@ le altre.
 | `il_luogo_di_nascita_e_la_sua_nazione_test.dart` | il luogo di nascita e la sua nazione | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `il_luogo_pulsa_e_si_trova_test.dart` | il luogo pulsa e si trova | 4 | non scopre insiemi di file | mai | 3 |
 | `il_maestro_non_resta_muto_test.dart` | il maestro non resta muto | 1 | non scopre insiemi di file | mai | 3 |
+| `il_menu_utente_e_viola_su_cosmo_test.dart` | il menu' utente e' viola su cosmo, in tutte le sue schermate | 1, 3 | proprio, dichiarato | 19/09/2026, EA | 2 |
 | `il_menu_delle_notifiche_si_tocca_test.dart` | il menu delle notifiche si tocca | 1 | non scopre insiemi di file | mai | 3 |
 | `il_mian_xiang_non_promette_test.dart` | il Mian Xiang non promette e non diagnostica | 1, 2 | proprio, dichiarato | 06/09/2026, CR | 2 |
 | `il_mood_del_cerchio_test.dart` | il mood del Cerchio: titolo corto, una porta sola, venti punti | 1, 2 | dalla porta comune | 04/09/2026, CQ | 2 |

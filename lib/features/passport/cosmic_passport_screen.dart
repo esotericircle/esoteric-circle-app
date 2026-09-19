@@ -616,8 +616,10 @@ class _GuideAnimalCardState extends State<_GuideAnimalCard> {
 /// stessa scena che la Stesa ha gia': la figura si gira verso chi guarda e il
 /// testo sale da sotto.
 ///
-/// La porta delle fonti sta sotto la lettura, perche' questa tradizione ha
-/// nomi e opere precise e vanno raggiungibili da qui.
+/// **La porta delle fonti sta nella carta aperta, non nella bolla. Ordine
+/// EA voce 16.** Questa tradizione ha nomi e opere precise, e restano
+/// raggiungibili da dove si legge la carta intera; nella bolla restano
+/// l'etichetta, il numero, il nome e la prima frase.
 class _CartaDiNascitaCard extends StatelessWidget {
   const _CartaDiNascitaCard({required this.identity});
 
@@ -631,8 +633,13 @@ class _CartaDiNascitaCard extends StatelessWidget {
       cardKey: const Key('passport_carta_di_nascita'),
       overline: 'Carta di nascita',
       value: '${carta.numeral} \u00b7 ${carta.name}',
-      meaning: carta.upright,
-      isExample: identity.isExample,
+      // **SOLO IL PRIMO PARAGRAFO. Ordine EA voce 16.** Parole del
+      // fondatore: *"la bolla per la carta di nascita e' troppo ampia e
+      // descrittiva, e' sufficiente lasciare il primo paragrafo"*. Il testo
+      // intero resta nella carta che si apre al tocco, e la riga del valore
+      // d'esempio esce dalla bolla con il resto.
+      meaning: primaFraseDellaCarta(carta.upright),
+      isExample: false,
       onTap: () => mostraLaCartaIngrandita(
         context,
         palette: palette,
@@ -642,11 +649,19 @@ class _CartaDiNascitaCard extends StatelessWidget {
           // passa la presente perche' il tipo la vuole, non perche' voglia
           // dire qualcosa.
           drawn: DrawnCard(
-              card: carta,
-              position: SpreadPosition.presente,
-              reversed: false),
+              card: carta, position: SpreadPosition.presente, reversed: false),
           apertura: 'La tua Carta di nascita',
           testo: carta.upright,
+        ),
+        // La porta delle fonti vive qui, nella carta aperta. Ordine EA.16.
+        inFondo: Align(
+          alignment: Alignment.centerLeft,
+          child: FoglioDelleFonti.bottone(
+            context,
+            palette: palette,
+            testo: TestiDelleFonti.cartaDiNascita,
+            chiave: 'fonti_carta_di_nascita',
+          ),
         ),
       ),
       emblem: Container(
@@ -667,17 +682,17 @@ class _CartaDiNascitaCard extends StatelessWidget {
           ),
         ),
       ),
-      sotto: Align(
-        alignment: Alignment.centerLeft,
-        child: FoglioDelleFonti.bottone(
-          context,
-          palette: palette,
-          testo: TestiDelleFonti.cartaDiNascita,
-          chiave: 'fonti_carta_di_nascita',
-        ),
-      ),
     );
   }
+}
+
+/// **LA PRIMA FRASE DI UNA CARTA, cioe' il suo primo paragrafo a video.**
+/// Ordine EA voce 16. Il testo si divide in paragrafi frase per frase, quindi
+/// il primo paragrafo e' la prima frase: fino al primo punto seguito da uno
+/// spazio. Senza un punto, il testo intero.
+String primaFraseDellaCarta(String testo) {
+  final fine = RegExp(r'[.!?](\s|$)').firstMatch(testo);
+  return fine == null ? testo : testo.substring(0, fine.start + 1).trim();
 }
 
 /// La tessera viva della carta natale.
@@ -767,7 +782,6 @@ class _ActiveFactCard extends StatelessWidget {
     required this.emblem,
     required this.isExample,
     this.onTap,
-    this.sotto,
   });
 
   final Key cardKey;
@@ -776,12 +790,6 @@ class _ActiveFactCard extends StatelessWidget {
   final String meaning;
   final Widget emblem;
   final bool isExample;
-
-  /// Cio' che sta sotto la lettura, quando la tessera ha qualcosa in piu' da
-  /// offrire. Oggi lo usa la sola Carta di nascita, per la porta delle fonti:
-  /// la sua tradizione ha nomi e opere precise, e vanno raggiungibili da dove
-  /// si legge la carta.
-  final Widget? sotto;
 
   /// Se la tessera apre qualcosa al tocco, la freccia lo dice.
   final VoidCallback? onTap;
@@ -820,10 +828,6 @@ class _ActiveFactCard extends StatelessWidget {
                 if (isExample) ...[
                   const SizedBox(height: SpacingTokens.sm),
                   _ExampleNote(palette: palette),
-                ],
-                if (sotto != null) ...[
-                  const SizedBox(height: SpacingTokens.xs),
-                  sotto!,
                 ],
               ],
             ),

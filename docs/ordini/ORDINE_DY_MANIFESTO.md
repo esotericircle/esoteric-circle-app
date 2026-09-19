@@ -64,7 +64,8 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_DY.md`.
   rosse con cinque innesti. **Una scelta dichiarata, perche' l'ordine tace**:
   arrivare in fondo ai cinque fumetti vale come *Salta*, quindi all'apertura
   dopo il tutorial torna; lo ferma solo *Disattiva*, come dice la regola del
-  fondatore. **Prodotto e agganciato; a video da vedere con una build.**
+  fondatore. **Confermata dal fondatore il 19 settembre 2026**, *"ok
+  cosi'"*, e registrata come sua decisione dall'ordine EA voce 04. **Prodotto e agganciato; a video da vedere con una build.**
   **CHIUSA.**
 - **DY.02**, nel menu' utente la voce che lo attiva e lo disattiva.
   **Fatto**: *Tutorial all'apertura* in `account_screen.dart`, accanto a

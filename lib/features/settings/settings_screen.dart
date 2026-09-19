@@ -22,6 +22,7 @@ import 'riga_interruttore.dart';
 import 'riga_che_apre.dart';
 import 'suono_screen.dart';
 import 'la_riga_della_lingua.dart';
+import '../account/vestito_del_menu_utente.dart';
 
 /// Schermata Impostazioni, in stile 2.5D e nella palette del Maestro attivo.
 ///
@@ -32,8 +33,8 @@ import 'la_riga_della_lingua.dart';
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
-  static Route<void> route() => PassaggioDelCerchio.rotta<void>(
-      (_) => const MaestroScope(child: SettingsScreen()));
+  static Route<void> route() => PassaggioDelCerchio.rotta<void>((_) =>
+      const VestitoDelMenuUtente(soloIlColore: true, child: SettingsScreen()));
 
   @override
   Widget build(BuildContext context) {

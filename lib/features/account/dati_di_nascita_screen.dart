@@ -7,7 +7,6 @@ import '../../core/identity/birth_identity.dart';
 import '../../core/identity/birth_place.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../design_system/components/cosmos_background.dart';
-import '../../core/maestro/maestro.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -16,6 +15,7 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import 'dart:async';
 import '../../core/astro/luogo_attuale.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import 'vestito_del_menu_utente.dart';
 
 /// DOVE SI CORREGGONO I DATI DI NASCITA DOPO IL RISVEGLIO.
 ///
@@ -46,8 +46,10 @@ class DatiDiNascitaScreen extends StatefulWidget {
   /// Una schermata che dipende da uno scope deve portarselo, non sperare che
   /// glielo dia chi la apre.
   static Route<void> route() =>
-      PassaggioDelCerchio.rotta<void>((_) => const MaestroScope(
-            maestro: Maestro.medora,
+      // **VIOLA, ordine EA voce 17**: vestiva il blu di Medora; il cosmo
+      // lo disegna gia' la schermata, qui serve solo il colore.
+      PassaggioDelCerchio.rotta<void>((_) => const VestitoDelMenuUtente(
+            soloIlColore: true,
             child: DatiDiNascitaScreen(),
           ));
 

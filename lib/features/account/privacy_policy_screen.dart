@@ -7,6 +7,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import 'vestito_del_menu_utente.dart';
 
 /// LA PAGINA DELLA PRIVACY POLICY. Ordine BH voce 07.
 ///
@@ -17,8 +18,8 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 class PrivacyPolicyScreen extends StatelessWidget {
   const PrivacyPolicyScreen({super.key});
 
-  static Route<void> route() => PassaggioDelCerchio.rotta<void>(
-      (_) => const MaestroScope(child: PrivacyPolicyScreen()));
+  static Route<void> route() => PassaggioDelCerchio.rotta<void>((_) =>
+      const VestitoDelMenuUtente(seme: 13, child: PrivacyPolicyScreen()));
 
   @override
   Widget build(BuildContext context) {
