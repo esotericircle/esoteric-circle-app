@@ -62,6 +62,15 @@ export const SCADENZE: Record<string, Scadenza> = {
       "l'anno scorso vale; oltre l'anno nessuno rilegge e ogni messaggio in " +
       "piu' pesa sul contesto e sullo storage senza cambiare una risposta.",
   },
+  ritorno: {
+    nome: "I contatori anonimi di come va l'app",
+    giorni: 730,
+    perche:
+      "sono numeri per giorno, senza nessun identificativo, e servono a " +
+      "capire cosa funziona confrontando un anno con l'altro: due anni " +
+      "bastano a quel confronto, e la privacy policy promette proprio " +
+      "ventiquattro mesi. Ordine EA voce 12.",
+  },
   movimenti: {
     nome: "Il registro dei movimenti degli Eos",
     giorni: 730,
@@ -167,6 +176,13 @@ export async function pulisciCioCheEScaduto(
     "messaggi",
     db.collectionGroup("messages")
       .where("createdAt", "<", confineDi("messaggi", adesso))
+  );
+  // **I CONTATORI ANONIMI, ordine EA voce 12.** Non stanno sotto nessun
+  // utente: si scorre la collezione, non un gruppo di collezioni.
+  await portaVia(
+    "ritorno",
+    db.collection("ritorno")
+      .where("quando", "<", confineDi("ritorno", adesso))
   );
   await portaVia(
     "movimenti",

@@ -161,7 +161,6 @@ import 'istante_dichiarato.dart';
 import 'package:esoteric_circle/core/sensi/palette_sensoriale.dart';
 import 'package:esoteric_circle/features/maestri/caligo/animal/bosco_del_cerchio.dart';
 import 'package:esoteric_circle/features/onboarding/domanda_dell_invito.dart';
-import 'package:esoteric_circle/features/settings/consenso_alla_misura.dart';
 import 'package:esoteric_circle/design_system/tokens/color_tokens.dart';
 import 'package:esoteric_circle/features/onboarding/mappa_della_nazione.dart';
 import 'package:esoteric_circle/features/onboarding/planisfero.dart';
@@ -5349,35 +5348,6 @@ void main() {
     ));
     await tester.pump(const Duration(milliseconds: 400));
     await capture(tester, rootKey, 'domanda-dell-invito.png');
-  });
-
-  testWidgets('Cattura la domanda della misura', (tester) async {
-    silenceSensors();
-    await loadFonts();
-    SharedPreferences.setMockInitialValues(const {});
-    await montaLoSchermo(tester, schermoReale);
-    final rootKey = GlobalKey();
-    await tester.pumpWidget(RepaintBoundary(
-      key: rootKey,
-      child: MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => MaestroController()),
-        ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          builder: (ctx, child) => MaestroScope(child: child!),
-          home: Scaffold(
-            backgroundColor: ColorTokens.medoraDeepest,
-            body: Align(
-              alignment: Alignment.bottomCenter,
-              child: DomandaDellaMisura(onRisposta: (_) {}),
-            ),
-          ),
-        ),
-      ),
-    ));
-    await tester.pump(const Duration(milliseconds: 400));
-    await capture(tester, rootKey, 'domanda-della-misura.png');
   });
 
   // --- LA SCENA DEL RITROVAMENTO, ordine AP voce 05 ---

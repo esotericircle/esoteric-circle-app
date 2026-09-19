@@ -52,8 +52,10 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
     corpo: 'Per darti il servizio che chiedi (esecuzione del contratto): '
         'calcolo del cielo, risposte dei Maestri, borsellino, cammino '
         'custodito. Col tuo consenso: notifiche e sensori, che puoi '
-        'revocare quando vuoi dalle impostazioni. Per legittimo interesse: '
-        'sicurezza e prevenzione degli abusi, come descritto più sotto.',
+        'revocare quando vuoi da Privacy e permessi, nel menu del tuo '
+        'account. Per legittimo interesse: sicurezza e prevenzione degli '
+        'abusi, e i contatori anonimi con cui vediamo come va l\'app, '
+        'entrambi descritti più sotto.',
   ),
   SezioneDellaPolicy(
     titolo: 'Intelligenza artificiale',
@@ -128,14 +130,20 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
     // affermazioni al codice: qui i cinque eventi sono gli stessi cinque che
     // il client dichiara e che il server ammette, e se le tre liste divergono
     // la prova cade.
-    corpo: 'Se ce lo permetti, contiamo cinque gesti per capire cosa '
-        'funziona: le aperture dell\'app, i riti cominciati, i riti finiti, i '
-        'ritorni da una notifica e i responsi condivisi. Sono numeri per '
-        'giorno, non un profilo: non registriamo chi ha fatto cosa, non '
-        'registriamo niente che tu abbia scritto e non usiamo nessun '
-        'identificativo pubblicitario. Te lo chiediamo una volta e la '
-        'risposta si cambia dalle Impostazioni; se dici no, l\'app resta '
-        'esattamente com\'è. I conti restano 24 mesi.',
+    corpo: 'Contiamo cinque gesti per capire cosa funziona: le aperture '
+        'dell\'app, i riti cominciati, i riti finiti, i ritorni da una '
+        'notifica e i responsi condivisi. Sono soltanto numeri aggregati per '
+        'giorno, anonimi: non salviamo chi ha fatto cosa, non salviamo niente '
+        'che tu abbia scritto e nei conti non finisce nessun identificativo '
+        'del telefono, dell\'installazione o tuo, nessun indirizzo IP e '
+        'nessun identificativo pubblicitario. L\'indirizzo IP compare, come '
+        'in ogni collegamento a internet, nei registri tecnici del fornitore '
+        'che ospita il Cerchio: si cancellano da soli dopo trenta giorni e '
+        'non li usiamo per questi conti. Li '
+        'guardiamo solo noi, non li incrociamo con altri dati e non li '
+        'cediamo a nessuno per i suoi scopi. Per questo non ti chiediamo il '
+        'permesso e non c\'è niente da spegnere: non c\'è nessun dato tuo da '
+        'proteggere, ci sono contatori. I conti restano 24 mesi.',
   ),
   SezioneDellaPolicy(
     titolo: 'I tuoi diritti',

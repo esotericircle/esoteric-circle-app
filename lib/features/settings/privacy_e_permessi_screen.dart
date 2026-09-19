@@ -11,7 +11,6 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
-import 'interruttore_della_misura.dart';
 import 'permessi_di_sistema.dart';
 import '../account/vestito_del_menu_utente.dart';
 
@@ -102,10 +101,23 @@ class PrivacyEPermessiScreen extends StatelessWidget {
               subtitle: 'Numeri per giorno, mai un profilo.',
             ),
             const SizedBox(height: SpacingTokens.sm),
+            // **NIENTE INTERRUTTORE. Ordine EA voce 12.** Qui c'era
+            // `InterruttoreDellaMisura`, *"Conta i gesti, non te"*: il
+            // fondatore l'ha tolto e il conteggio e' sempre attivo. Resta il
+            // racconto di cosa si conta, che e' la cosa che serve a chi apre
+            // questa schermata, e la policy lo dice per esteso.
             DepthCard(
               raised: true,
-              padding: EdgeInsets.zero,
-              child: InterruttoreDellaMisura(palette: palette),
+              child: Text(
+                key: const Key('cosa_contiamo'),
+                'Contiamo cinque gesti in numeri per giorno: le aperture '
+                'dell\'app, i riti cominciati, i riti finiti, i ritorni da '
+                'una notifica e i responsi condivisi. Sono contatori anonimi, '
+                'senza nome e senza nessun identificativo del telefono o tuo: '
+                'servono a capire cosa funziona.',
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textSecondary),
+              ),
             ),
             const SizedBox(height: SpacingTokens.xl),
 

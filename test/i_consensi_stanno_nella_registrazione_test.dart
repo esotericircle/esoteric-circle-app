@@ -1,6 +1,5 @@
 import 'dart:io';
 
-import 'package:esoteric_circle/core/misura/misura_del_ritorno.dart';
 import 'package:esoteric_circle/features/account/consensi_della_registrazione.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -26,6 +25,8 @@ void main() {
       final vivi = <String>[];
       for (final segno in const [
         'DomandaDellInvito',
+        // `DomandaDellaMisura` non c'e' piu' in nessun file: l'ordine EA
+        // voce 12 ha tolto il foglio, che era gia' orfano.
         'DomandaDellaMisura',
         '_forseChiediLInvito',
         '_forseChiediLaMisura',
@@ -119,42 +120,27 @@ void main() {
   });
 
   group('CE.01, il consenso si da\' una volta, con un atto', () {
-    testWidgets('l\'interruttore della misura nasce SPENTO', (tester) async {
-      // **Un consenso pre-acceso non e' un consenso.** Il GDPR lo dice, e il
-      // fondatore ha chiesto una soluzione "che rispetti le norme": e' l'unica
-      // cosa qui dentro che la legge chiama consenso, e nasce spento anche per
-      // chi lo aveva gia' concesso, perche' questa e' la schermata dove si da'
-      // e non dove si rilegge.
-      SharedPreferences.setMockInitialValues(
-          const {'permesso.misuraDelRitorno': true});
-      await tester.pumpWidget(const MaterialApp(
-        home: Scaffold(body: ConsensiDellaRegistrazione()),
-      ));
-      await tester.pumpAndSettle();
-      final acceso = tester
-          .widget<Switch>(find.byKey(const Key('consenso_misura_interruttore')))
-          .value;
-      // ignore: avoid_print
-      print('ORDINE CE VOCE 01: l\'interruttore nasce acceso? $acceso');
-      expect(acceso, isFalse,
-          reason: 'il consenso alla misura e\' pre-acceso, e un consenso '
-              'pre-acceso non e\' libero');
-    });
-
-    testWidgets('nessun consenso si da\' senza un tocco', (tester) async {
+    testWidgets('la misura non si chiede piu\', e non c\'e\' niente da toccare',
+        (tester) async {
+      // **QUI C'ERANO DUE PROVE, ordine CE voce 01**: che l'interruttore
+      // della misura nascesse spento e che nessun consenso si desse senza un
+      // tocco. **L'ordine EA voce 12 ha tolto l'interruttore**: il fondatore
+      // vuole il conteggio sempre attivo e non disturbante, e cio' che resta
+      // sono contatori per giorno senza nessun identificativo, che non sono
+      // un dato personale. Restano le altre due cose che questa schermata
+      // deve dire, ed e' quello che si prova qui: la riga della privacy
+      // policy e il fatto che nessuna casella chieda niente.
       SharedPreferences.setMockInitialValues(const {});
       await tester.pumpWidget(const MaterialApp(
         home: Scaffold(body: ConsensiDellaRegistrazione()),
       ));
       await tester.pumpAndSettle();
-      // Montare la schermata non e' un atto della persona.
-      expect(await ConsensoDellaMisura.letto(), ConsensoAllaMisura.nonChiesto,
-          reason: 'il consenso e\' stato scritto senza che nessuno toccasse '
-              'niente');
-      await tester.tap(find.byKey(const Key('consenso_misura_interruttore')));
-      await tester.pumpAndSettle();
-      expect(await ConsensoDellaMisura.letto(), ConsensoAllaMisura.concesso,
-          reason: 'il tocco non ha concesso niente');
+      expect(find.byType(Switch), findsNothing,
+          reason: 'e\' tornato un interruttore nel foglio dei consensi');
+      expect(find.byType(Checkbox), findsNothing,
+          reason: 'e\' comparsa una casella da spuntare');
+      expect(find.textContaining('privacy policy'), findsOneWidget,
+          reason: 'la riga che dice cosa si accetta e\' sparita');
     });
 
     test('i consensi vivono in un punto solo, sopra le vie d\'accesso', () {
@@ -183,17 +169,22 @@ void main() {
               'dire cosa si accetta');
     });
 
-    test('chi non si registra non viene contato', () {
-      // La sola porta dove il consenso si da' e' la registrazione: chi non
-      // passa di li' resta `nonChiesto`, e il registro non manda niente.
+    test('il conteggio non guarda piu\' nessun consenso', () {
+      // **ERA IL CONTRARIO, ordine CE voce 01**: si pretendeva che il
+      // registro non mandasse niente a chi non aveva concesso. L'ordine EA
+      // voce 12 ha tolto il consenso, perche' cio' che parte non porta
+      // nessun identificativo: un nome di evento da un elenco chiuso e, al
+      // massimo, una parola di contesto da un elenco chiuso.
       final registro =
           File('lib/core/misura/registro_del_ritorno.dart').readAsStringSync();
-      expect(
-          registro.contains(
-              'if (_consenso != ConsensoAllaMisura.concesso) return false'),
-          isTrue,
-          reason: 'il registro manda eventi anche a chi non ha mai concesso '
-              'niente');
+      for (final segno in const [
+        'ConsensoAllaMisura',
+        'ConsensoDellaMisura',
+        'rileggiIlConsenso',
+      ]) {
+        expect(registro.contains(segno), isFalse,
+            reason: 'il registro chiede di nuovo un permesso: $segno');
+      }
     });
   });
 }

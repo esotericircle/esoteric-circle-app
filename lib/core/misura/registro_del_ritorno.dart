@@ -37,10 +37,6 @@ class RegistroDelRitorno {
     corrente?.segnaSenzaAspettare(evento, contesto: contesto);
   }
 
-  /// Il consenso letto una volta e tenuto: leggerlo dal disco a ogni gesto
-  /// vorrebbe dire un accesso al disco per ogni tocco.
-  ConsensoAllaMisura? _consenso;
-
   /// **QUANTI EVENTI AL MASSIMO IN UNA SESSIONE.** Ordine CC voce 09.
   ///
   /// Non e' un limite di comodo: senza, un guasto che chiama [segna] in un
@@ -55,20 +51,17 @@ class RegistroDelRitorno {
   /// la misura che le prove guardano, invece di frugare nel server finto.
   int get mandati => _mandati;
 
-  /// Rilegge il consenso dal disco. Da chiamare quando la persona risponde
-  /// alla domanda, cosi' il primo evento dopo il si' parte davvero.
-  Future<void> rileggiIlConsenso() async {
-    _consenso = await ConsensoDellaMisura.letto();
-  }
-
-  /// **SEGNA UN EVENTO, se e solo se qualcuno lo ha concesso.**
+  /// **SEGNA UN EVENTO. Sempre, ordine EA voce 12.**
+  ///
+  /// Qui c'era il cancello del consenso: senza un si' esplicito non partiva
+  /// niente. Il fondatore lo ha tolto, e cio' che parte non porta con se'
+  /// nessun identificativo: un nome di evento da un elenco chiuso e, al
+  /// massimo, una parola di contesto da un elenco chiuso.
   ///
   /// Torna vero solo quando l'evento e' partito davvero: serve alle prove, che
   /// altrimenti non potrebbero distinguere "non mandato perche' negato" da
   /// "non mandato perche' la rete non c'era".
   Future<bool> segna(EventoDelRitorno evento, {String? contesto}) async {
-    _consenso ??= await ConsensoDellaMisura.letto();
-    if (_consenso != ConsensoAllaMisura.concesso) return false;
     if (_mandati >= quantiPerSessione) return false;
     if (!_porta.viva) return false;
     _mandati++;

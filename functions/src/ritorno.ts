@@ -7,12 +7,18 @@
  * settimana. **Non costruisce nessun profilo**: non esiste una riga per
  * persona con dentro cosa ha fatto, esistono contatori.
  *
- * **Perche' due posti e non uno.** Il contatore del giorno sta sotto l'utente,
- * `users/{uid}/ritorno/{giorno}`, perche' solo li' le regole di sicurezza gia'
- * scritte impediscono al telefono di scrivere. L'aggregato, che e' il numero
- * che si legge davvero, sta in `ritorno/{giorno}` fuori dal ramo utente:
- * quello e' un conto, non un dato di nessuno, e sopravvive alla cancellazione
- * perche' non contiene niente da cancellare.
+ * **UN POSTO SOLO, E ANONIMO. Ordine EA voce 12, 19 settembre 2026.** Qui si
+ * scrivevano DUE documenti: l'aggregato `ritorno/{giorno}` e un contatore
+ * sotto l'utente, `users/{uid}/ritorno/{giorno}`. Il secondo era l'unica cosa
+ * che rendeva questi numeri riferibili a qualcuno, ed e' uscito: il fondatore
+ * vuole *"soltanto numeri aggregati per giorno, anonimi, senza alcun
+ * identificativo del telefono, dell'installazione o dell'utente"*. Resta
+ * `ritorno/{giorno}`, che e' un conto e non un dato di nessuno.
+ *
+ * **La chiamata vuole ancora un account, anche anonimo, e non lo scrive.**
+ * Senza quel cancello questa porta sarebbe aperta al mondo e chiunque potrebbe
+ * gonfiare i contatori dall'esterno. L'uid serve a entrare e finisce li': non
+ * viene scritto in nessun documento e non viene messo in nessun registro.
  *
  * **L'elenco degli eventi e' CHIUSO.** Un nome che non e' in questa lista non
  * viene registrato, e la funzione risponde di no. E' l'unico modo perche' la
@@ -87,19 +93,14 @@ export const segnaLEvento = onCall(OPZIONI, async (request: CallableRequest) => 
   const campo = contesto ? `${nome}__${contesto}` : nome;
 
   try {
-    const suo = db
-      .collection("users").doc(uid)
-      .collection("ritorno").doc(giorno);
     const tutti = db.collection("ritorno").doc(giorno);
-    // Due incrementi, nessuna lettura: e' un contatore, e due contatori non
-    // hanno bisogno di sapere cosa c'era prima.
-    await Promise.all([
-      suo.set({[campo]: FieldValue.increment(1)}, {merge: true}),
-      tutti.set(
-        {[campo]: FieldValue.increment(1), quando: FieldValue.serverTimestamp()},
-        {merge: true}
-      ),
-    ]);
+    // Un incremento, nessuna lettura: e' un contatore, e un contatore non ha
+    // bisogno di sapere cosa c'era prima. Il campo `quando` serve anche alla
+    // scadenza dei 24 mesi (`scadenze.ts`), che e' la promessa della policy.
+    await tutti.set(
+      {[campo]: FieldValue.increment(1), quando: FieldValue.serverTimestamp()},
+      {merge: true}
+    );
     return {segnato: true};
   } catch (errore) {
     logger.warn("segnaLEvento: non registrato", {nome});

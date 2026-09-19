@@ -10,8 +10,8 @@ lotti di fila e poi una sola build; la Ronda dei motori legge i rossi
 accettati come lo sbarramento, e i due rossi voluti restano dichiarati.
 
 VOCI_TOTALI: 21
-VOCI_CHIUSE: 14
-VOCI_APERTE: 7
+VOCI_CHIUSE: 15
+VOCI_APERTE: 6
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 
 Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
@@ -170,7 +170,50 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
   **APERTA**
 - **EA.12**, il conteggio e' sempre attivo, anonimo e senza selettore; la
   privacy policy lo descrive.
-  **APERTA**
+
+  **COSA RACCOGLIEVA IL CONTEGGIO PRIMA DI QUEST'ORDINE.**
+
+  | cosa | dove | c'era un identificativo? |
+  |---|---|---|
+  | cinque nomi di evento, elenco chiuso | `lib/core/misura/misura_del_ritorno.dart:34-59` | no |
+  | una parola di contesto da elenco chiuso (nome del rito, del dono, canale della condivisione) | `porta_del_cerchio.dart:430-433`, tagliata a 40 caratteri in `functions/src/ritorno.ts:82-84` | no |
+  | contatore per giorno **sotto l'utente**, `users/{uid}/ritorno/{giorno}` | `functions/src/ritorno.ts:90-92, 97` | **si', l'uid** |
+  | contatore per giorno aggregato, `ritorno/{giorno}` | `functions/src/ritorno.ts:93, 98-101` | no |
+  | la chiamata pretende un account, anche anonimo | `functions/src/ritorno.ts:68-74` | l'uid serve a entrare |
+  | l'indirizzo IP | non lo scrive nessuna riga del Cerchio; compare nei registri tecnici del fornitore, come in ogni collegamento a internet | fuori dai conti |
+
+  **Lo scarto era uno**, ed e' riparato: il documento sotto l'utente. Adesso
+  si scrive **solo** `ritorno/{giorno}`
+  (`functions/src/ritorno.ts`), e l'uid non finisce in nessun documento e in
+  nessun registro del Cerchio. La chiamata continua a pretendere un account,
+  anche anonimo, perche' senza quel cancello la porta sarebbe aperta al mondo
+  e chiunque potrebbe gonfiare i contatori dall'esterno: l'uid serve a
+  entrare e non viene scritto.
+
+  **Fatto sul telefono**: la riga *"Conta i gesti, non me"* e il suo
+  interruttore sono usciti dalla registrazione
+  (`consensi_della_registrazione.dart`); l'interruttore *"Conta i gesti, non
+  te"* e' uscito da Privacy e permessi, dove resta il racconto di cosa si
+  conta (`privacy_e_permessi_screen.dart`, chiave `cosa_contiamo`); i due
+  file `interruttore_della_misura.dart` e `consenso_alla_misura.dart` sono
+  stati cancellati, il secondo era gia' orfano; il consenso e' uscito dal
+  codice (`misura_del_ritorno.dart`, `registro_del_ritorno.dart`) e con lui
+  la chiave `permesso.misuraDelRitorno`. **Il conteggio adesso vale anche per
+  chi non si registra**, e prima no.
+
+  **La policy** descrive il conteggio nella sezione *La misura di come va
+  l'app* (`lib/core/legal/privacy_policy.dart`) e dice cio' che accade
+  davvero: numeri aggregati per giorno, anonimi, nessun identificativo,
+  guardati solo dal titolare, non incrociati e non ceduti. **Due frasi
+  dicevano il falso e sono riparate**: *"la risposta si cambia dalle
+  Impostazioni"*, che era falsa da quando l'interruttore e' passato nel menu'
+  utente (ordine CF voce 16), e *"I conti restano 24 mesi"*, che nessuna
+  scadenza manteneva. Adesso la scadenza c'e': voce `ritorno` a 730 giorni in
+  `functions/src/scadenze.ts`, eseguita dal giro di pulizia.
+
+  Guardia `la_misura_del_ritorno`, vista rossa due volte. **Prodotto e
+  agganciato; il lato server vale dopo che Mauro pubblica le funzioni.**
+  **CHIUSA.**
 - **EA.13**, i dati dopo il login: cio' che Mauro ha visto e' il
   comportamento previsto, o si ripara.
   **APERTA**

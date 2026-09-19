@@ -80,15 +80,21 @@ void main() {
     // **NON SI SACRIFICANO ALLA PULIZIA, e l'ordine li nomina.** Primo:
     // l'attribuzione delle fonti e' obbligatoria, perche' il catalogo delle
     // citta' e' sotto licenza CC BY 4.0, che pretende un'attribuzione
-    // raggiungibile dall'utente. Secondo: il diritto di revocare il consenso
-    // alla misura deve restare raggiungibile, e l'interruttore e' la via.
+    // raggiungibile dall'utente. Secondo: **la persona deve poter leggere
+    // cosa si conta**. Fino all'ordine EA voce 12 qui si pretendeva
+    // l'interruttore della misura, perche' il consenso si doveva poter
+    // revocare; il consenso non c'e' piu', e cio' che resta da garantire e'
+    // il racconto, che e' quello che questa schermata deve dire.
     final schermata =
         codice('lib/features/settings/privacy_e_permessi_screen.dart');
     expect(schermata.contains('fontiDeiDati'), isTrue,
         reason: 'l\'attribuzione delle fonti non e\' piu\' in questa '
             'schermata, e la licenza CC BY 4.0 la pretende raggiungibile');
-    expect(schermata.contains('InterruttoreDellaMisura('), isTrue,
-        reason: 'l\'interruttore della misura non e\' piu\' in questa '
-            'schermata: senza, il consenso non si revoca piu\'');
+    expect(schermata.contains('InterruttoreDellaMisura('), isFalse,
+        reason: 'e\' tornato l\'interruttore della misura, che l\'ordine EA '
+            'voce 12 ha tolto');
+    expect(schermata.contains("Key('cosa_contiamo')"), isTrue,
+        reason: 'la schermata non dice piu\' cosa si conta: senza, la '
+            'persona non ha nessun posto dove leggerlo fuori dalla policy');
   });
 }

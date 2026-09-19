@@ -1,5 +1,3 @@
-import 'package:shared_preferences/shared_preferences.dart';
-
 /// LA MISURA DEL RITORNO. Ordine CC voce 09.
 ///
 /// **Cosa chiede la voce:** "non si sa quante persone tornano il giorno dopo,
@@ -22,8 +20,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// **3. Il consenso si chiede, e chi dice no usa l'app intera.** E' scritto
 /// nella voce, ed e' anche l'unica forma onesta: una misura che serve a noi
-/// non puo' costare niente a chi la concede e non deve togliere niente a chi
-/// la nega. Senza consenso questa classe non manda niente, e nemmeno accoda.
+/// **IL CONSENSO E' USCITO. Ordine EA voce 12, 19 settembre 2026.** Parole
+/// del fondatore: *"la frase e selettore 'conta i gesti non me' deve sparire:
+/// la memorizzazione deve essere cmq attiva"*, e *"i dati servono e vanno
+/// memorizzati"*. Il conteggio adesso e' sempre attivo e non chiede niente:
+/// regge senza consenso perche' cio' che resta non e' un dato personale, sono
+/// contatori per giorno, anonimi, senza nessun identificativo del telefono,
+/// dell'installazione o della persona. Il documento per utente sul server e'
+/// stato tolto con lo stesso ordine: restava li' un legame con l'uid, ed era
+/// l'unica cosa che rendeva questi numeri riferibili a qualcuno.
 ///
 /// **4. Gli eventi sono POCHI e dichiarati uno per uno.** Un elenco chiuso e'
 /// l'unico modo perche' la privacy policy possa dire il vero: se domani
@@ -56,41 +61,4 @@ enum EventoDelRitorno {
   /// Il nome che viaggia verso il server. Corto e stabile: un nome che cambia
   /// spezza in due la serie storica.
   final String nome;
-}
-
-/// IL CONSENSO ALLA MISURA, e la memoria di cosa e' stato chiesto.
-///
-/// **Tre stati, non due.** Non chiesto, concesso, negato. Senza il terzo, chi
-/// ha detto no e chi non ha ancora risposto sarebbero la stessa cosa, e l'app
-/// glielo richiederebbe a ogni avvio.
-enum ConsensoAllaMisura { nonChiesto, concesso, negato }
-
-/// LA MEMORIA DEL CONSENSO, sotto un prefisso che la cancellazione porta via.
-abstract final class ConsensoDellaMisura {
-  /// **La chiave sta sotto `permesso.`**, che e' gia' nell'elenco di
-  /// `CioCheETuo`: chi cancella tutto se ne va anche da qui, e al rientro la
-  /// domanda torna, che e' giusto perche' per l'app e' una persona nuova.
-  static const String chiave = 'permesso.misuraDelRitorno';
-
-  static Future<ConsensoAllaMisura> letto() async {
-    try {
-      final p = await SharedPreferences.getInstance();
-      final v = p.getBool(chiave);
-      if (v == null) return ConsensoAllaMisura.nonChiesto;
-      return v ? ConsensoAllaMisura.concesso : ConsensoAllaMisura.negato;
-    } catch (errore) {
-      // Senza disco non si presume nessun consenso: e' l'unico verso in cui
-      // sbagliare non costa niente a nessuno.
-      return ConsensoAllaMisura.nonChiesto;
-    }
-  }
-
-  static Future<void> segna(bool concesso) async {
-    try {
-      final p = await SharedPreferences.getInstance();
-      await p.setBool(chiave, concesso);
-    } catch (errore) {
-      // Best effort: senza disco la domanda tornera', e non e' un guasto.
-    }
-  }
 }

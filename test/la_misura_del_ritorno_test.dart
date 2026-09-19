@@ -6,6 +6,8 @@ import 'package:esoteric_circle/core/misura/registro_del_ritorno.dart';
 import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
 import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import 'cardinale_minimo.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'sorgenti_di_lib.dart';
@@ -84,7 +86,7 @@ void main() {
             'nessuna riga dell\'app li manda: $orfani');
   });
 
-  test('il consenso si chiede nella registrazione, e mai in casa', () {
+  test('il consenso non si chiede piu\' da nessuna parte', () {
     // **HA CAMBIATO CASA, ordine CE voci 01 e 02.** Prima la domanda era un
     // foglio che il Santuario mostrava dopo il tutorial; il fondatore ha fatto
     // togliere quel foglio con parole non equivocabili, e adesso il consenso
@@ -94,42 +96,84 @@ void main() {
         File('lib/features/santuario/santuario_screen.dart').readAsStringSync();
     expect(casa.contains('DomandaDellaMisura'), isFalse,
         reason: 'il foglio della misura e\' tornato nel Santuario');
+    // **E NON SI CHIEDE PIU' NEMMENO NELLA REGISTRAZIONE. Ordine EA voce
+    // 12.** La riga *"Conta i gesti, non me"* col suo interruttore e' uscita:
+    // il conteggio e' sempre attivo e non chiede niente, perche' cio' che
+    // resta sono contatori per giorno senza nessun identificativo. Il foglio
+    // dei consensi resta, e dice cosa si accetta continuando.
     final vie =
         File('lib/features/account/custodia_del_cielo.dart').readAsStringSync();
     expect(vie.contains('ConsensiDellaRegistrazione()'), isTrue,
-        reason: 'il consenso non si chiede piu\' da nessuna parte, quindi '
-            'nessuno potrebbe mai concederlo');
+        reason: 'il foglio che dice cosa si accetta e\' sparito dalle vie '
+            'd\'accesso');
+    final registrazione =
+        File('lib/features/account/consensi_della_registrazione.dart')
+            .readAsStringSync();
+    for (final segno in const [
+      'consenso_misura_interruttore',
+      "Key('consenso_misura')",
+      'Switch(',
+    ]) {
+      expect(registrazione.contains(segno), isFalse,
+          reason: 'e\' tornato l\'interruttore della misura nella '
+              'registrazione: $segno');
+    }
   });
 
-  test('senza consenso non parte niente', () async {
+  test('la frase e l\'interruttore non vivono piu\' in nessun file di lib', () {
+    // **L'ASSENZA SI MISURA SU TUTTO `lib`, ordine EA voce 12.** Toglierli da
+    // due schermate e lasciarli in una terza sarebbe peggio di non averli
+    // tolti: la persona vedrebbe un interruttore che non governa niente.
+    final file = Directory('lib')
+        .listSync(recursive: true)
+        .whereType<File>()
+        .where((f) => f.path.endsWith('.dart'))
+        .toList();
+    cardinaleMinimo(file.length, 300,
+        cosa: 'file di lib guardati per la frase della misura',
+        perche: 'Se la cartella si svuota questa prova non trova niente '
+            'perche\' non ha guardato niente.');
+    // **SI GUARDA IL CODICE, NON I COMMENTI.** Le righe che spiegano perche'
+    // la frase e' uscita la citano, ed e' giusto che la citino: una guardia
+    // che pescasse il proprio commento costringerebbe a cancellare la
+    // spiegazione per farla tacere.
+    final colpevoli = <String>[];
+    for (final f in file) {
+      final testo = senzaCommenti(f.readAsStringSync());
+      for (final vietato in const [
+        'Conta i gesti',
+        'InterruttoreDellaMisura',
+        'DomandaDellaMisura',
+        'ConsensoDellaMisura',
+        'ConsensoAllaMisura',
+        'permesso.misuraDelRitorno',
+      ]) {
+        if (testo.contains(vietato)) colpevoli.add('${f.path}: $vietato');
+      }
+    }
+    expect(colpevoli, isEmpty, reason: colpevoli.join('\n'));
+  });
+
+  test('parte senza aver chiesto niente, e tutti e cinque gli eventi',
+      () async {
+    // **SEMPRE ATTIVO. Ordine EA voce 12.** Qui si pretendeva il contrario,
+    // cioe' che senza un si' non partisse niente: era la legge di prima.
     SharedPreferences.setMockInitialValues(const {});
     final porta = _PortaCheConta();
     final registro = RegistroDelRitorno(porta: porta);
     for (final e in EventoDelRitorno.values) {
-      expect(await registro.segna(e), isFalse);
+      expect(await registro.segna(e), isTrue,
+          reason: 'l\'evento ${e.nome} non parte, e nessuno ha piu\' niente '
+              'da concedere');
     }
     // ignore: avoid_print
-    print('ORDINE CC VOCE 09: senza risposta, eventi partiti '
+    print('ORDINE EA VOCE 12: senza nessuna domanda, eventi partiti '
         '${porta.segnati.length}');
-    expect(porta.segnati, isEmpty,
-        reason: 'si misura senza aver chiesto niente a nessuno');
+    expect(porta.segnati.length, EventoDelRitorno.values.length);
   });
 
-  test('con il no non parte niente, e non si richiede piu\'', () async {
+  test('porta solo il nome e una parola, mai un identificativo', () async {
     SharedPreferences.setMockInitialValues(const {});
-    await ConsensoDellaMisura.segna(false);
-    expect(await ConsensoDellaMisura.letto(), ConsensoAllaMisura.negato,
-        reason:
-            'il no non viene ricordato, e la domanda tornerebbe ogni volta');
-    final porta = _PortaCheConta();
-    final registro = RegistroDelRitorno(porta: porta);
-    expect(await registro.segna(EventoDelRitorno.apertura), isFalse);
-    expect(porta.segnati, isEmpty);
-  });
-
-  test('col si\' parte, e porta solo il nome e una parola', () async {
-    SharedPreferences.setMockInitialValues(const {});
-    await ConsensoDellaMisura.segna(true);
     final porta = _PortaCheConta();
     final registro = RegistroDelRitorno(porta: porta);
     expect(
@@ -142,7 +186,6 @@ void main() {
 
   test('il tetto per sessione esiste, e si vede', () async {
     SharedPreferences.setMockInitialValues(const {});
-    await ConsensoDellaMisura.segna(true);
     final porta = _PortaCheConta();
     final registro = RegistroDelRitorno(porta: porta);
     for (var i = 0; i < RegistroDelRitorno.quantiPerSessione + 20; i++) {
@@ -159,15 +202,34 @@ void main() {
 
   test('la porta spenta non finge di aver registrato', () async {
     SharedPreferences.setMockInitialValues(const {});
-    await ConsensoDellaMisura.segna(true);
     final registro = RegistroDelRitorno(porta: const PortaSpentaDelCerchio());
     expect(await registro.segna(EventoDelRitorno.apertura), isFalse,
         reason: 'una misura che si finge riuscita e\' peggio di una che manca');
   });
 
-  test('la chiave del consenso se ne va con la cancellazione', () {
-    expect(ConsensoDellaMisura.chiave.startsWith('permesso.'), isTrue,
-        reason: 'la risposta sulla misura sopravvivrebbe a chi se ne va');
+  test('il server scrive un contatore solo, e non sotto nessun utente', () {
+    // **NIENTE UID NEI DOCUMENTI. Ordine EA voce 12.** Il conteggio scriveva
+    // anche `users/{uid}/ritorno/{giorno}`, ed era l'unica cosa che rendeva
+    // questi numeri riferibili a qualcuno.
+    final server = File('functions/src/ritorno.ts').readAsStringSync();
+    final codice = server
+        .split('\n')
+        .where((r) =>
+            !r.trimLeft().startsWith('*') &&
+            !r.trimLeft().startsWith('//') &&
+            !r.trimLeft().startsWith('/*'))
+        .join('\n');
+    expect(codice.contains('collection("users")'), isFalse,
+        reason: 'il conteggio scrive di nuovo sotto l\'utente');
+    expect(codice.contains('db.collection("ritorno")'), isTrue,
+        reason: 'il contatore aggregato non si scrive piu\'');
+    // E i 24 mesi che la policy promette sono scritti nel listino.
+    final scadenze = File('functions/src/scadenze.ts').readAsStringSync();
+    expect(
+        RegExp(r'ritorno:\s*\{[^}]*giorni:\s*730').hasMatch(scadenze), isTrue,
+        reason: 'i contatori non scadono a 24 mesi, e la policy lo promette');
+    expect(scadenze.contains('db.collection("ritorno")'), isTrue,
+        reason: 'la scadenza e\' dichiarata e nessuno la esegue');
   });
 }
 

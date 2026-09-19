@@ -1,12 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../../core/misura/misura_del_ritorno.dart';
-import '../../core/misura/registro_del_ritorno.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
-import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'privacy_policy_screen.dart';
 
@@ -40,24 +37,22 @@ import 'privacy_policy_screen.dart';
 /// un'informativa e un contratto. Una casella da spuntare in piu' sarebbe un
 /// ostacolo che la legge non chiede.
 ///
-/// **2. La misura del ritorno e' un interruttore separato, e nasce SPENTO.**
-/// Questa e' l'unica cosa qui dentro che il GDPR chiama consenso, e un
-/// consenso pre-acceso non e' libero: sarebbe illecito, e il fondatore ha
-/// chiesto una soluzione "che rispetti le norme". Sta nella stessa schermata,
-/// quindi non e' un secondo passo e non e' un popup: e' una riga sopra i
-/// pulsanti, e accenderla costa un tocco.
+/// **2. LA MISURA NON SI CHIEDE PIU'. Ordine EA voce 12, 19 settembre 2026.**
+/// Qui c'era una riga, *"Conta i gesti, non me"*, con il suo interruttore
+/// spento. Il fondatore l'ha tolta: *"la frase e selettore ... deve sparire:
+/// la memorizzazione deve essere cmq attiva"*, e *"mi serve la soluzione meno
+/// invasiva e meno disturbante per l'utente"*. Cio' che si conta non e' un
+/// dato personale, sono contatori per giorno senza nessun identificativo, e
+/// la privacy policy lo descrive nella sezione dei dati raccolti.
 ///
 /// **3. Nessun testo lungo qui.** La policy intera sta dietro il suo nome, e
 /// il disclaimer e le fonti stanno nel sotto menu' della voce CE.03. Chi vuole
 /// leggere legge, chi vuole entrare entra.
 ///
-/// **4. Chi non si registra non viene contato.** L'app si usa per intero senza
-/// registrarsi, e da quando i due fogli sono usciti dal Santuario, voce CE.02,
-/// questa e' l'unica porta dove il consenso alla misura si puo' dare. Chi non
-/// passa di qui resta `nonChiesto`, e il registro non manda niente: e' la
-/// scelta piu' veloce, la meno invasiva e l'unica che regge davanti alle norme,
-/// perche' contare qualcuno che non ha mai avuto modo di dire di no sarebbe
-/// contare senza consenso.
+/// **4. Anche chi non si registra viene contato, ordine EA voce 12**, e non
+/// e' un peggioramento per nessuno: i contatori non sanno chi sono le persone
+/// che li hanno mossi. Prima chi non passava di qui restava `nonChiesto` e
+/// non veniva mai contato, e i numeri dicevano molto meno del vero.
 class ConsensiDellaRegistrazione extends StatefulWidget {
   const ConsensiDellaRegistrazione({super.key});
 
@@ -68,23 +63,12 @@ class ConsensiDellaRegistrazione extends StatefulWidget {
 
 class _ConsensiDellaRegistrazioneState
     extends State<ConsensiDellaRegistrazione> {
-  /// **Nasce spento, sempre**, e non si legge da disco: questa e' la schermata
-  /// dove il consenso si DA', non dove si rilegge. Chi lo ha gia' dato lo
-  /// cambia dal sotto menu' Privacy e permessi.
-  bool _misura = false;
-
   @override
   void initState() {
     super.initState();
     _apri.onTap = () {
       if (mounted) Navigator.of(context).push(PrivacyPolicyScreen.route());
     };
-  }
-
-  Future<void> _cambia(bool acceso) async {
-    setState(() => _misura = acceso);
-    await ConsensoDellaMisura.segna(acceso);
-    await RegistroDelRitorno.corrente?.rileggiIlConsenso();
   }
 
   @override
@@ -94,38 +78,6 @@ class _ConsensiDellaRegistrazioneState
       key: const Key('consensi_della_registrazione'),
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          key: const Key('consenso_misura'),
-          children: [
-            Expanded(
-              child: Text(
-                'Conta i gesti, non me: numeri per giorno, senza nome, per '
-                'capire cosa funziona.',
-                style: TypographyTokens.didascalia()
-                    .copyWith(color: ColorTokens.textSecondary),
-              ),
-            ),
-            const SizedBox(width: SpacingTokens.sm),
-            Switch(
-              key: const Key('consenso_misura_interruttore'),
-              value: _misura,
-              onChanged: _cambia,
-              thumbColor: WidgetStateProperty.resolveWith(
-                (stati) => stati.contains(WidgetState.selected)
-                    ? palette.deepest
-                    : palette.goldSoft.withValues(alpha: 0.7),
-              ),
-              trackColor: WidgetStateProperty.resolveWith(
-                (stati) => stati.contains(WidgetState.selected)
-                    ? palette.gold
-                    : palette.surfaceElevated,
-              ),
-              trackOutlineColor:
-                  WidgetStateProperty.all(palette.gold.withValues(alpha: 0.35)),
-            ),
-          ],
-        ),
-        const SizedBox(height: SpacingTokens.xs),
         // **LA RIGA CHE DICE COSA SI ACCETTA, e il pulsante e' l'atto.**
         Text.rich(
           TextSpan(
