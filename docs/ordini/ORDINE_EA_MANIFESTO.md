@@ -11,8 +11,8 @@ accettati come lo sbarramento, e i due rossi voluti restano dichiarati.
 
 VOCI_TOTALI: 22
 VOCI_CHIUSE: 21
-VOCI_APERTE: 1
-VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+VOCI_APERTE: 0
+VOCI_FERMATE_IN_ATTESA_DELLE_MANI_DEL_FONDATORE: 1
 
 Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
 
@@ -282,7 +282,16 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
   all'uid fisso. **Prodotto e agganciato; a video con la build dell'ordine.**
   **CHIUSA.**
 - **EA.14**, registrazione e login su iPhone con Google, Apple ed email.
-  **APERTA**
+  **Non si puo' chiudere da qui, e non e' una scelta**: non c'e' nessun
+  iPhone collegato a questa macchina e nessun simulatore parte. Il codice
+  delle tre vie e' lo stesso per i due sistemi, e cio' che su iPhone si
+  comporta diversamente e' dichiarato: Apple e' l'unica via che passa da
+  `signInWithProvider` (`account_del_cerchio.dart`), il link d'ingresso porta
+  il dominio nei diritti dell'app (`ios/Runner/Runner.entitlements`), e App
+  Check userebbe App Attest. Le voci 10, 11, 12, 13 e 19 sono applicate al
+  codice condiviso, quindi valgono anche li'. **La prova la fa il fondatore**
+  con la build iOS di Codemagic, dopo i passi in console del rapporto.
+  **FERMATA IN ATTESA DELLE MANI DEL FONDATORE.**
 - **EA.15**, il cancello di Codemagic aspetta il limite di GitHub e riprova
   da solo, senza token nuovi.
   **Fatto**: in `tool/il_cancello_ha_detto_verde.sh` il rifiuto per limite

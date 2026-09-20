@@ -85,7 +85,7 @@ void main() {
   test('l\'indirizzo del link se ne va con chi cancella i propri dati',
       () async {
     expect(MemoriaDellEmailDelLink.chiave.startsWith('ingresso.'), isTrue);
-    final prefissi = CioCheETuo.prefissi;
+    const prefissi = CioCheETuo.prefissi;
     cardinaleMinimo(prefissi.length, 10,
         cosa: 'prefissi delle chiavi che sono di chi usa l\'app',
         perche: 'Se l\'elenco si svuota, questa prova direbbe di si\' a '

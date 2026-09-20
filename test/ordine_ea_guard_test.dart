@@ -63,7 +63,7 @@ void main() {
     for (final v in voci) {
       if (v.contains('**APERTA**')) {
         aperte++;
-      } else if (v.contains('**FERMATA IN ATTESA DI DECISIONE.**')) {
+      } else if (v.contains('**FERMATA IN ATTESA DELLE MANI DEL FONDATORE.**')) {
         attesa++;
       } else if (v.contains('**CHIUSA.**')) {
         chiuse++;
@@ -74,7 +74,7 @@ void main() {
     expect(marcatore(testo, 'VOCI_TOTALI'), voci.length);
     expect(marcatore(testo, 'VOCI_APERTE'), aperte);
     expect(marcatore(testo, 'VOCI_CHIUSE'), chiuse);
-    expect(marcatore(testo, 'VOCI_FERMATE_IN_ATTESA_DI_DECISIONE'), attesa);
+    expect(marcatore(testo, 'VOCI_FERMATE_IN_ATTESA_DELLE_MANI_DEL_FONDATORE'), attesa);
     expect(aperte + attesa + chiuse, quante,
         reason: 'una voce senza uno stato ammesso non si conta');
   });
