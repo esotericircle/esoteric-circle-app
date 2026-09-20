@@ -263,7 +263,7 @@ class _FoglioDelLinkState extends State<_FoglioDelLink> {
             TextButton(
               key: const Key('link_piu_tardi'),
               onPressed: () => Navigator.of(context).pop(),
-              child: Text('Piu\u0300 tardi',
+              child: Text('Più tardi',
                   style: TypographyTokens.label()
                       .copyWith(color: ColorTokens.textSecondary)),
             ),
