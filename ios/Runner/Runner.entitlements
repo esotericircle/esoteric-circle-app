@@ -15,5 +15,16 @@
 	<array>
 		<string>Default</string>
 	</array>
+	<!-- IL LINK D'INGRESSO APRE L'APP ANCHE SU IPHONE. Ordine EA voce 19.
+
+	     Senza questa riga il messaggio aprirebbe Safari, e la persona
+	     resterebbe davanti a una pagina che non sa dove mandarla. Apple
+	     controlla da se' che il dominio sia nostro, leggendo
+	     https://esotericircle.app/.well-known/apple-app-site-association,
+	     che Firebase Hosting pubblica. -->
+	<key>com.apple.developer.associated-domains</key>
+	<array>
+		<string>applinks:esotericircle.app</string>
+	</array>
 </dict>
 </plist>

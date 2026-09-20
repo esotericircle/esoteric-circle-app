@@ -1,4 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
+
+import 'link_di_ingresso.dart';
 import 'dimenticanza_del_telefono.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -169,6 +171,30 @@ abstract class PortaDellIdentita {
   /// era custodito con un'email e aveva dimenticato la parola **era fuori dal
   /// proprio Cerchio per sempre**, senza nessuna via.
   Future<EsitoDellaCustodia> mandaLaViaPerLaParola(String email);
+
+  /// **IL LINK CHE ENTRA, SENZA PAROLA. Ordine EA voce 19, 20 settembre
+  /// 2026.**
+  ///
+  /// Parole del fondatore: *"non ho ancora provato la registrazione con
+  /// e-mail, ma dobbiamo tenerci al sicuro dai bot ... la soluzione piu'
+  /// veloce e che disturba meno l'utente"*, e la sua scelta: *"Link piu' App
+  /// Check"*.
+  ///
+  /// Si scrive l'indirizzo, arriva un messaggio, si tocca il link e si e'
+  /// dentro: **nessuna parola da inventare, nessuna da ricordare, nessuna da
+  /// perdere**. L'indirizzo risulta verificato per costruzione, perche' il
+  /// link ci e' arrivato.
+  Future<EsitoDellaCustodia> mandaIlLinkDIngresso(String email);
+
+  /// Vero se questo indirizzo e' un link d'ingresso del Cerchio.
+  bool eUnLinkDIngresso(String link);
+
+  /// **SI ENTRA COL LINK APPENA TOCCATO.** Se il telefono ha gia' un anonimo,
+  /// l'identita' gli si ATTACCA, cosi' il cammino fatto da anonimo non si
+  /// perde; se l'attacco non si puo' fare perche' quell'indirizzo e' gia' di
+  /// un altro Cerchio, si entra in quello, come fa Google.
+  Future<EsitoDellaCustodia> entraColLink(
+      {required String link, required String email});
 
   /// **LA VERIFICA DELL'EMAIL.** Ordine AZ voce 06, situazione S18.
   ///
@@ -581,6 +607,82 @@ class PortaDellIdentitaFirebase implements PortaDellIdentita {
   }
 
   @override
+  Future<EsitoDellaCustodia> mandaIlLinkDIngresso(String email) async {
+    try {
+      await _auth.sendSignInLinkToEmail(
+        email: email,
+        actionCodeSettings: impostazioniDelLink(),
+      );
+      await MemoriaDellEmailDelLink.segna(email);
+      return EsitoDellaCustodia.riuscita;
+    } on FirebaseAuthException catch (errore) {
+      switch (errore.code) {
+        case 'invalid-email':
+          return EsitoDellaCustodia.nonRiconosciuto;
+        default:
+          return EsitoDellaCustodia.nonRiuscita;
+      }
+    } catch (imprevisto) {
+      return EsitoDellaCustodia.nonRiuscita;
+    }
+  }
+
+  @override
+  bool eUnLinkDIngresso(String link) {
+    try {
+      return _auth.isSignInWithEmailLink(link);
+    } catch (errore) {
+      return false;
+    }
+  }
+
+  @override
+  Future<EsitoDellaCustodia> entraColLink({
+    required String link,
+    required String email,
+  }) async {
+    final credenziale =
+        EmailAuthProvider.credentialWithLink(email: email, emailLink: link);
+    final utente = _auth.currentUser;
+    try {
+      // **PRIMA SI ATTACCA, POI SI ENTRA.** Chi sta usando l'app da anonimo
+      // ha un cammino addosso: attaccare l'identita' lo tiene dov'e'. Se
+      // quell'indirizzo ha gia' un Cerchio suo, l'attacco fallisce e allora
+      // si entra in quello, che e' cio' che la persona voleva.
+      if (utente != null && utente.isAnonymous) {
+        try {
+          await utente.linkWithCredential(credenziale);
+          await MemoriaDellEmailDelLink.dimentica();
+          await ricarica();
+          return EsitoDellaCustodia.riuscita;
+        } on FirebaseAuthException catch (errore) {
+          if (errore.code != 'credential-already-in-use' &&
+              errore.code != 'email-already-in-use' &&
+              errore.code != 'provider-already-linked') {
+            rethrow;
+          }
+        }
+      }
+      await _auth.signInWithCredential(credenziale);
+      await MemoriaDellEmailDelLink.dimentica();
+      await ricarica();
+      return EsitoDellaCustodia.riuscita;
+    } on FirebaseAuthException catch (errore) {
+      switch (errore.code) {
+        case 'invalid-action-code':
+        case 'expired-action-code':
+          // **UN LINK SI USA UNA VOLTA E SCADE**, e va detto con parole di
+          // persona: e' il caso piu' frequente, non un guasto.
+          return EsitoDellaCustodia.nonRiconosciuto;
+        default:
+          return EsitoDellaCustodia.nonRiuscita;
+      }
+    } catch (imprevisto) {
+      return EsitoDellaCustodia.nonRiuscita;
+    }
+  }
+
+  @override
   Future<EsitoDellaCustodia> mandaLaViaPerLaParola(String email) async {
     try {
       await _auth.sendPasswordResetEmail(email: email);
@@ -809,6 +911,18 @@ class IdentitaAssente implements PortaDellIdentita {
   bool? get emailVerificata => null;
 
   @override
+  Future<EsitoDellaCustodia> mandaIlLinkDIngresso(String email) async =>
+      EsitoDellaCustodia.nonRiuscita;
+
+  @override
+  bool eUnLinkDIngresso(String link) => false;
+
+  @override
+  Future<EsitoDellaCustodia> entraColLink(
+          {required String link, required String email}) async =>
+      EsitoDellaCustodia.nonRiuscita;
+
+  @override
   Future<EsitoDellaCustodia> mandaLaViaPerLaParola(String email) async =>
       EsitoDellaCustodia.nonRiuscita;
 
@@ -1035,4 +1149,23 @@ class AccountDelCerchio extends ChangeNotifier {
     rileggi();
     return esito;
   }
+
+  /// **MANDA IL LINK D'INGRESSO. Ordine EA voce 19.** Non cambia niente
+  /// adesso: l'ingresso avviene quando la persona tocca il link, e lo
+  /// raccoglie chi ascolta i link in arrivo.
+  Future<EsitoDellaCustodia> mandaIlLinkDIngresso(String email) =>
+      _porta.mandaIlLinkDIngresso(email);
+
+  /// **ENTRA COL LINK APPENA TOCCATO. Ordine EA voce 19.**
+  Future<EsitoDellaCustodia> entraColLink({
+    required String link,
+    required String email,
+  }) async {
+    final esito = await _porta.entraColLink(link: link, email: email);
+    rileggi();
+    return esito;
+  }
+
+  /// Vero se questo indirizzo e' un link d'ingresso del Cerchio.
+  bool eUnLinkDIngresso(String link) => _porta.eUnLinkDIngresso(link);
 }

@@ -1,5 +1,8 @@
 import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'core/identity/link_di_ingresso.dart';
+import 'features/account/custodia_del_cielo.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 
@@ -115,6 +118,10 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>
   /// anche quando il tocco arriva a app spenta. Ordine M voce 2f.
   final GlobalKey<NavigatorState> _navigatore = GlobalKey<NavigatorState>();
 
+  /// L'ascolto dei link in arrivo, da chiudere quando l'albero muore.
+  /// Ordine EA voce 19.
+  StreamSubscription<String>? _linkVivi;
+
   @override
   void initState() {
     super.initState();
@@ -128,6 +135,14 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>
       final rotta = AperturaDelleChiamate.rottaPer(carico, ctx);
       if (rotta != null) nav.push(rotta);
     };
+    // **IL LINK D'INGRESSO SI RACCOGLIE QUI. Ordine EA voce 19.**
+    //
+    // Due momenti, e servono tutti e due: il link puo' aver APERTO l'app, e
+    // allora arriva come primo link, oppure arrivare mentre l'app e' viva.
+    // Chi ne ascoltasse uno solo lascerebbe fuori meta' delle persone: chi
+    // tocca il messaggio ad app chiusa, o chi lo tocca mentre l'app e'
+    // aperta dietro.
+    WidgetsBinding.instance.addPostFrameCallback((_) => _ascoltaILink());
     // LA REGIA DELLE CHIAMATE DEL GIORNO: a ogni avvio, se il permesso e'
     // gia' stato concesso, si riprogrammano le chiamate coi dati veri del
     // momento. Dopo il primo fotogramma, quando i provider sono vivi.
@@ -157,6 +172,49 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>
     // Non si aspetta: se non riesce nemmeno adesso, si riprovera' al prossimo
     // ritorno, e intanto resta l'ultimo saldo conosciuto invece di uno zero.
     _custodisciIlCammino();
+  }
+
+  /// **CHI ASCOLTA I LINK IN ARRIVO. Ordine EA voce 19.**
+  ///
+  /// Un link d'ingresso vale per l'indirizzo a cui e' stato mandato, e
+  /// quell'indirizzo sta sul telefono che l'ha chiesto: senza, Firebase
+  /// rifiuta, ed e' giusto, perche' se no chiunque intercetti il messaggio
+  /// potrebbe usarlo.
+  Future<void> _entraCol(String link) async {
+    final ctx = _navigatore.currentContext;
+    if (ctx == null || !ctx.mounted) return;
+    final account = ctx.read<AccountDelCerchio>();
+    if (!account.eUnLinkDIngresso(link)) return;
+    final email = await MemoriaDellEmailDelLink.letta();
+    if (email == null) {
+      // **NON SI TACE.** Senza l'indirizzo il link non si puo' usare, e la
+      // persona deve sapere che non e' colpa sua e cosa fare.
+      _diLo('Apri il link dal telefono da cui lo hai chiesto, oppure '
+          'richiedilo da qui: serve a sapere che sei tu.');
+      return;
+    }
+    final esito = await account.entraColLink(link: link, email: email);
+    if (esito == EsitoDellaCustodia.riuscita) {
+      _diLo('Sei dentro: il tuo cielo e\' custodito.');
+      return;
+    }
+    _diLo(frasePerEsito(esito) ??
+        'Quel link non vale piu\': chiedine un altro, ci vuole un istante.');
+  }
+
+  void _diLo(String frase) {
+    final ctx = _navigatore.currentContext;
+    if (ctx == null || !ctx.mounted) return;
+    ScaffoldMessenger.maybeOf(ctx)?.showSnackBar(
+        SnackBar(key: const Key('esito_del_link'), content: Text(frase)));
+  }
+
+  Future<void> _ascoltaILink() async {
+    final porta = widget.services?.linkInArrivo;
+    if (porta == null) return;
+    _linkVivi = porta.flusso().listen(_entraCol);
+    final primo = await porta.primoLink();
+    if (primo != null) await _entraCol(primo);
   }
 
   Future<void> _programmaLeChiamate() async {
@@ -244,6 +302,8 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>
   void dispose() {
     // Se non si spegne qui, l'attesa sopravvive all'albero che l'ha chiesta.
     _attesa?.cancel();
+    // E lo stesso vale per i link in arrivo. Ordine EA voce 19.
+    _linkVivi?.cancel();
     WidgetsBinding.instance.removeObserver(this);
     _guardia.dispose();
     super.dispose();

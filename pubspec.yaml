@@ -168,6 +168,7 @@ dependencies:
   # NSPhotoLibraryAddUsageDescription. Su Android lo sfondo lo imposta
   # WallpaperManager dal canale di MainActivity, e gal li' non si chiama.
   gal: ^2.3.3
+  app_links: ^7.2.1
 
 # Un solo blocco, per un guasto a monte che ferma la build Android.
 #

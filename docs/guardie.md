@@ -40,10 +40,12 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 137 |
-| Guardie con un cardinale proprio dichiarato | 116 |
+| Guardie con un cardinale proprio dichiarato | 117 |
 | Guardie che non scoprono nessun insieme di file | 198 |
-| **Somma delle categorie** | **451** |
-| **Guardie secondo la definizione** | **451** |
+| **Somma delle categorie** | **452** |
+| **Guardie secondo la definizione** | **452** |
+
+**Ricontate a ordine EA, voce 19**, 20 settembre 2026, il link d'ingresso senza parola: **una guardia nuova**, `il_link_entra_senza_parola`, col cardinale proprio (i prefissi di cio' che e' tuo). Il totale sale da 451 a **452** e le tre categorie a **137, 117 e 198**. **Vista rossa con tre innesti**: il link che non si apre nell'app, il dominio non verificato da Android, il campo della parola rimesso. **Una guardia di casa e' stata riscritta sulla legge nuova**: `il_foglio_dell_email_dice_cosa_non_va` misurava la parola corta e la parola persa, che non esistono piu'; resta a guardia della stessa cosa di sempre, cioe' che il foglio parli invece di tacere.
 
 **Ricontate a ordine EA, voce 13**, 20 settembre 2026, la memoria che restava sull'anonimo dell'avvio: **una guardia nuova**, `la_memoria_segue_chi_entra`. Il totale sale da 450 a **451** e le tre categorie a **137, 116 e 198**. **Vista rossa** rimettendo l'uid fisso. La guardia cammina anche fino ad `app_services.dart`, perche' un repository che sa seguire l'identita' e un'app che non gliela passa sarebbero una cura silenziosa.
 
@@ -569,6 +571,7 @@ le altre.
 | `il_gradino_aspetta_il_congedo_test.dart` | il gradino aspetta il congedo | 1 | proprio, dichiarato | mai | 2 |
 | `il_journal_arriva_in_fondo_test.dart` | il journal arriva in fondo | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `il_lettore_riceve_la_musica_test.dart` | il lettore riceve la musica | 4 | non scopre insiemi di file | mai | 3 |
+| `il_link_entra_senza_parola_test.dart` | la via dell'email entra col link, e i due sistemi dichiarano il dominio | 1, 4 | proprio, dichiarato | 20/09/2026, EA | 1 |
 | `il_listino_non_promette_il_maestro_reale_test.dart` | nessuna stringa di lib offre o annuncia la Domanda al Maestro reale, ordine DJ voce 09; i vantaggi dell'Illuminato e la matrice dei piani non la contano | 1, 2 | dalla porta comune | 13/09/2026, DJ voce 09 (un rosso: la voce rimessa fra i vantaggi dell'Illuminato) | 1 |
 | `il_listino_vivo_test.dart` | il listino vivo | 1 | dalla porta comune | mai | 3 |
 | `il_livello_visivo_prima_del_testo_nei_riti_test.dart` | il livello visivo prima del testo nei riti | 1, 2 | dalla porta comune | mai | 3 |

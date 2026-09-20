@@ -80,6 +80,20 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+            <!-- IL LINK D'INGRESSO APRE L'APP. Ordine EA voce 19.
+                 Senza questo filtro il messaggio aprirebbe il browser, e la
+                 persona resterebbe davanti a una pagina web che non sa dove
+                 mandarla. `autoVerify` dice ad Android di controllare da se'
+                 che quel dominio sia nostro, leggendo
+                 https://esotericircle.app/.well-known/assetlinks.json. -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="https"
+                      android:host="esotericircle.app"
+                      android:pathPrefix="/entra"/>
+            </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->

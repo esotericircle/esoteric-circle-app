@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/cammino/custode_del_cammino.dart';
@@ -90,13 +89,14 @@ class VieDellaCustodia extends StatelessWidget {
           onPressed: inCorso != null
               ? null
               : () async {
-                  final dati = await _chiediEmail(context);
-                  if (dati == null) return;
-                  suScelta(
-                    ViaDellaCustodia.email,
-                    email: dati.$1,
-                    parola: dati.$2,
-                  );
+                  // **SOLO L'INDIRIZZO, e poi arriva un link. Ordine EA voce
+                  // 19.** Qui si chiedevano email e parola: adesso la parola
+                  // non si inventa, non si ricorda e non si perde, perche'
+                  // non c'e'. Il `null` al posto della parola e' il segnale
+                  // che chi riceve legge: *manda il link*.
+                  final email = await _chiediSoloLEmail(context);
+                  if (email == null) return;
+                  suScelta(ViaDellaCustodia.email, email: email);
                 },
           child: Text(
             'Preferisco un\'email',
@@ -118,22 +118,122 @@ class VieDellaCustodia extends StatelessWidget {
   /// non succedeva nulla, e nessuno spiegava che mancava una chiocciola o che
   /// la parola era corta. Era un vicolo cieco muto in mezzo alla
   /// registrazione.
-  static Future<(String, String)?> _chiediEmail(BuildContext context) {
+  /// **SOLO L'INDIRIZZO. Ordine EA voce 19.** Il foglio con la parola resta
+  /// nel codice, perche' serve a chi una parola ce l'ha gia' dai tempi in cui
+  /// si chiedeva, ma la via nuova passa di qui.
+  static Future<String?> _chiediSoloLEmail(BuildContext context) {
     final email = TextEditingController();
-    final parola = TextEditingController();
     final palette = context.palette;
-    return dialogoDelCerchio<(String, String)>(
+    return dialogoDelCerchio<String>(
       context: context,
-      builder: (dialogo) => _FoglioDellEmail(
+      builder: (dialogo) => _FoglioDelLink(
         email: email,
-        parola: parola,
         palette: palette,
-        // **IL FONDO SI DICHIARA DOVE LA PORTA SI APRE.** Ordine AL voce 04:
-        // una porta che lascia decidere il fondo a Material si apre bianca
-        // sopra un cielo notturno. Il foglio lo riceve invece di sceglierlo,
-        // cosi' chi legge questa chiamata vede su cosa si apre.
         backgroundColor: palette.surfaceElevated,
       ),
+    );
+  }
+}
+
+/// **IL FOGLIO CHE CHIEDE SOLO L'INDIRIZZO. Ordine EA voce 19.**
+///
+/// Un campo, un pulsante, e la promessa di cio' che accade dopo. **Il foglio
+/// con la parola e' uscito con quest'ordine**: non si chiede piu' di
+/// inventare una parola, e chi una parola ce l'ha gia' entra lo stesso col
+/// link, perche' il link vale per l'indirizzo e non per il modo in cui quel
+/// Cerchio era nato. Con lui e' uscita la via per la parola persa, che senza
+/// parole non ha piu' niente da recuperare.
+class _FoglioDelLink extends StatefulWidget {
+  const _FoglioDelLink({
+    required this.email,
+    required this.palette,
+    required this.backgroundColor,
+  });
+
+  final TextEditingController email;
+  final MaestroPalette palette;
+  final Color backgroundColor;
+
+  @override
+  State<_FoglioDelLink> createState() => _FoglioDelLinkState();
+}
+
+class _FoglioDelLinkState extends State<_FoglioDelLink> {
+  String? _guaio;
+
+  void _manda() {
+    final scritto = widget.email.text.trim();
+    // **IL FOGLIO PARLA, ordine AZ voce 10**: un pulsante che non fa niente
+    // e non dice niente e' un vicolo cieco muto, ed e' un difetto che questa
+    // casa ha gia' pagato una volta.
+    if (!scritto.contains('@') || !scritto.contains('.')) {
+      setState(() => _guaio = 'Manca qualcosa in questo indirizzo: '
+          'controlla la chiocciola e il punto.');
+      return;
+    }
+    Navigator.of(context).pop(scritto);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = widget.palette;
+    return AlertDialog(
+      key: const Key('custodia_email_form'),
+      backgroundColor: widget.backgroundColor,
+      title: Text('Entra con la tua email',
+          style: TypographyTokens.titoloScheda()
+              .copyWith(color: palette.goldSoft)),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Ti mandiamo un link: lo tocchi da questo telefono e sei dentro. '
+            'Nessuna parola da inventare e nessuna da ricordare.',
+            style: TypographyTokens.didascalia()
+                .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+          ),
+          const SizedBox(height: SpacingTokens.md),
+          TextField(
+            key: const Key('custodia_email_campo'),
+            controller: widget.email,
+            keyboardType: TextInputType.emailAddress,
+            autocorrect: false,
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textPrimary),
+            decoration: InputDecoration(
+              // L'errore si dice DENTRO il campo, dove la persona guarda.
+              errorText: _guaio,
+              errorMaxLines: 2,
+              labelText: 'La tua email',
+              labelStyle: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textSecondary),
+              enabledBorder: UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(color: palette.gold.withValues(alpha: 0.4))),
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: palette.gold)),
+            ),
+            onSubmitted: (_) => _manda(),
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          key: const Key('link_piu_tardi'),
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text('Più tardi',
+              style: TypographyTokens.label(size: 13)
+                  .copyWith(color: ColorTokens.textSecondary)),
+        ),
+        FilledButton(
+          key: const Key('custodia_email_conferma'),
+          style: FilledButton.styleFrom(
+              backgroundColor: palette.gold, foregroundColor: palette.deepest),
+          onPressed: _manda,
+          child: Text('Mandami il link', style: TypographyTokens.label()),
+        ),
+      ],
     );
   }
 }
@@ -397,6 +497,10 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
   String? _guaio;
   bool _riconosciuto = false;
 
+  /// L'indirizzo a cui il link e' appena partito, per dirlo a schermo.
+  /// Ordine EA voce 19.
+  String? _linkMandatoA;
+
   Future<void> _custodisci(ViaDellaCustodia via,
       {String? email, String? parola}) async {
     setState(() {
@@ -423,6 +527,24 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
     // catturano tutto, ma `rileggi()` sopra di loro no: **una sola eccezione
     // da li' lasciava la scheda bloccata per sempre**, e la persona doveva
     // chiudere e riaprire l'app. Il `finally` toglie quel per sempre.
+    // **LA VIA DELL'EMAIL MANDA UN LINK. Ordine EA voce 19.** Senza parola
+    // non c'e' niente da collegare adesso: si manda il messaggio e si
+    // aspetta che la persona lo tocchi. L'ingresso avviene al ritorno, e lo
+    // raccoglie chi ascolta i link in arrivo.
+    if (via == ViaDellaCustodia.email && parola == null) {
+      final indirizzo = email ?? '';
+      final esitoDelLink = await widget.account.mandaIlLinkDIngresso(indirizzo);
+      if (!mounted) return;
+      setState(() {
+        _inCorso = null;
+        _guaio = esitoDelLink == EsitoDellaCustodia.riuscita
+            ? null
+            : frasePerEsito(esitoDelLink);
+        _linkMandatoA =
+            esitoDelLink == EsitoDellaCustodia.riuscita ? indirizzo : null;
+      });
+      return;
+    }
     EsitoDellaCustodia esito;
     try {
       esito = widget.perChiTorna
@@ -552,6 +674,19 @@ class _FoglioDellInvitoState extends State<_FoglioDellInvito> {
                     style: TypographyTokens.didascalia()
                         .copyWith(color: palette.goldSoft, height: 1.4)),
               ],
+              // **IL LINK E' PARTITO, e si dice dove. Ordine EA voce 19.**
+              // Senza questa riga la persona tocca, non succede niente a
+              // schermo, e va a cercare un messaggio che non sa se esiste.
+              if (_linkMandatoA != null) ...[
+                const SizedBox(height: SpacingTokens.sm),
+                Text(
+                  'Ti abbiamo mandato un link a $_linkMandatoA. Aprilo da '
+                  'questo telefono ed entri: niente parola da inventare.',
+                  key: const Key('link_mandato'),
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: palette.goldSoft, height: 1.4),
+                ),
+              ],
               // LA VIA IN AVANTI, ordine AL voce 07: quando il Cerchio e' di
               // un altro, si puo' entrarci col proprio nome, dopo la riga
               // onesta. "Piu' tardi" resta qui sotto, come sempre.
@@ -673,180 +808,6 @@ String? guaioDellaPassword(String parola) {
 const String regolaDellaPassword =
     'Almeno 8 caratteri, con una maiuscola, un numero e un carattere '
     'speciale';
-
-class _FoglioDellEmail extends StatefulWidget {
-  const _FoglioDellEmail({
-    required this.email,
-    required this.parola,
-    required this.palette,
-    required this.backgroundColor,
-  });
-
-  final TextEditingController email;
-  final TextEditingController parola;
-  final MaestroPalette palette;
-
-  /// Il fondo su cui il foglio si apre, dichiarato da chi lo apre.
-  final Color backgroundColor;
-
-  @override
-  State<_FoglioDellEmail> createState() => _FoglioDellEmailState();
-}
-
-class _FoglioDellEmailState extends State<_FoglioDellEmail> {
-  String? _guaioEmail;
-  String? _guaioParola;
-  String? _detto;
-
-  /// L'occhiolino, ordine BI voce 02: "l'utente deve essere certo di
-  /// quello che scrive". Parte coperta, si rivela con un tocco.
-  bool _passwordCoperta = true;
-
-  void _prova() {
-    final email = widget.email.text.trim();
-    final parola = widget.parola.text;
-    setState(() {
-      _detto = null;
-      _guaioEmail = guaioDellEmail(email);
-      // **LA REGOLA DEL FONDATORE, ordine BI voce 02**: otto caratteri,
-      // maiuscola, numero, carattere speciale, scritti e validati.
-      _guaioParola = guaioDellaPassword(parola);
-    });
-    if (_guaioEmail != null || _guaioParola != null) return;
-    // Il gestore password del dispositivo riceve il segnale che le
-    // credenziali sono buone e vanno ricordate.
-    TextInput.finishAutofillContext();
-    Navigator.of(context).pop((email, parola));
-  }
-
-  Future<void> _parolaPersa() async {
-    final email = widget.email.text.trim();
-    if (!email.contains('@')) {
-      setState(() => _guaioEmail =
-          "Scrivi qui la tua email e te ne mandiamo una per reimpostare "
-              "la Password");
-      return;
-    }
-    final account = context.read<AccountDelCerchio>();
-    await account.mandaLaViaPerLaParola(email);
-    if (!mounted) return;
-    // **LA STESSA FRASE IN TUTTI I CASI, ed e' una scelta.** Dire "quella
-    // email non esiste" regalerebbe a chiunque un modo per sapere chi fa
-    // parte del Cerchio.
-    setState(() {
-      _guaioEmail = null;
-      _detto = "Se quell'indirizzo fa parte del Cerchio, ti abbiamo mandato "
-          "una email per reimpostare la Password.";
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = widget.palette;
-    return AlertDialog(
-      key: const Key('custodia_email_form'),
-      backgroundColor: widget.backgroundColor,
-      title: Text('Registrati con la tua email',
-          style: TypographyTokens.titoloScheda()
-              .copyWith(color: palette.goldSoft)),
-      // **IL GESTORE PASSWORD, ordine BI voce 02**: il gruppo di autofill
-      // con i suggerimenti giusti fa offrire al dispositivo di salvare le
-      // credenziali appena la registrazione riesce.
-      content: AutofillGroup(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              key: const Key('custodia_email_campo'),
-              controller: widget.email,
-              keyboardType: TextInputType.emailAddress,
-              autocorrect: false,
-              autofillHints: const [
-                AutofillHints.username,
-                AutofillHints.email
-              ],
-              style: TypographyTokens.corpo()
-                  .copyWith(color: ColorTokens.textPrimary),
-              decoration: InputDecoration(
-                labelText: 'La tua email',
-                errorText: _guaioEmail,
-                errorMaxLines: 3,
-              ),
-            ),
-            const SizedBox(height: SpacingTokens.sm),
-            TextField(
-              key: const Key('custodia_parola_campo'),
-              controller: widget.parola,
-              obscureText: _passwordCoperta,
-              autofillHints: const [AutofillHints.newPassword],
-              style: TypographyTokens.corpo()
-                  .copyWith(color: ColorTokens.textPrimary),
-              decoration: InputDecoration(
-                labelText: 'Password',
-                helperText: regolaDellaPassword,
-                helperMaxLines: 2,
-                errorText: _guaioParola,
-                errorMaxLines: 2,
-                // **L'OCCHIOLINO, ordine BI voce 02**: si rivela e si copre
-                // con un tocco, cosi' si e' certi di quello che si scrive.
-                suffixIcon: IconButton(
-                  key: const Key('custodia_occhiolino'),
-                  icon: Icon(
-                    _passwordCoperta
-                        ? Icons.visibility_outlined
-                        : Icons.visibility_off_outlined,
-                    color: ColorTokens.textSecondary,
-                  ),
-                  onPressed: () =>
-                      setState(() => _passwordCoperta = !_passwordCoperta),
-                ),
-              ),
-            ),
-            if (_detto != null) ...[
-              const SizedBox(height: SpacingTokens.sm),
-              Text(
-                _detto!,
-                key: const Key('custodia_parola_persa_detto'),
-                style: TypographyTokens.didascalia()
-                    .copyWith(color: palette.goldSoft),
-              ),
-            ],
-            const SizedBox(height: SpacingTokens.xs),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: TextButton(
-                key: const Key('custodia_parola_persa'),
-                onPressed: _parolaPersa,
-                child: Text(
-                  'Hai perso la Password?',
-                  style: TypographyTokens.didascalia()
-                      .copyWith(color: palette.goldSoft),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      // **I BOTTONI COI COLORI DI CASA, ordine BI voce 02**: il blu del
-      // tema di Material non si legge sul fondo notturno. L'azione che
-      // conferma e' in oro, quella che lascia in grigio leggibile.
-      actions: [
-        TextButton(
-          style:
-              TextButton.styleFrom(foregroundColor: ColorTokens.textSecondary),
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text('Annulla'),
-        ),
-        TextButton(
-          key: const Key('custodia_email_conferma'),
-          style: TextButton.styleFrom(foregroundColor: palette.goldSoft),
-          onPressed: _prova,
-          child: const Text('Registrati'),
-        ),
-      ],
-    );
-  }
-}
 
 /// LA SONDA DELL'INGRESSO. Ordine BI voce 01.
 ///

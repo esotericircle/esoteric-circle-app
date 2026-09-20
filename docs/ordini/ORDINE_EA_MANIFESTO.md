@@ -10,8 +10,8 @@ lotti di fila e poi una sola build; la Ronda dei motori legge i rossi
 accettati come lo sbarramento, e i due rossi voluti restano dichiarati.
 
 VOCI_TOTALI: 22
-VOCI_CHIUSE: 20
-VOCI_APERTE: 2
+VOCI_CHIUSE: 21
+VOCI_APERTE: 1
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
 
 Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
@@ -393,7 +393,58 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
   **CHIUSA.**
 - **EA.19**, la registrazione con email con un link senza password, e App
   Check.
-  **APERTA**
+
+  **LO STATO DI PARTENZA, letto sul ramo.** La via dell'email chiedeva
+  **indirizzo e parola** (`custodia_del_cielo.dart`, il foglio
+  `_FoglioDellEmail`), collegava l'identita' con
+  `linkWithCredential(EmailAuthProvider.credential(...))`
+  (`account_del_cerchio.dart`) e mandava subito la verifica dell'indirizzo;
+  chi dimenticava la parola passava da *parola persa*
+  (`sendPasswordResetEmail`). **Di link d'ingresso non c'era niente**: zero
+  `sendSignInLinkToEmail`, zero `isSignInWithEmailLink`, nessun filtro per i
+  link nel manifesto di Android, nessun dominio dichiarato su iPhone.
+
+  **Fatto, e la parola non si inventa piu'.** Si scrive l'indirizzo, arriva
+  un messaggio, si tocca il link e si e' dentro:
+  `mandaIlLinkDIngresso`, `eUnLinkDIngresso` ed `entraColLink` nella porta
+  dell'identita'; le impostazioni del link in un punto solo
+  (`lib/core/identity/link_di_ingresso.dart`), con il ritorno su
+  `https://esotericircle.app/entra`; l'indirizzo a cui il link e' stato
+  mandato resta sul telefono sotto la chiave `ingresso.`, che la
+  cancellazione dei dati porta via; il link in arrivo lo raccoglie
+  `lib/services/link_in_arrivo.dart` e lo usa `app.dart`, **in tutti e due i
+  momenti**, cioe' sia quando il link apre l'app sia quando arriva mentre
+  l'app e' viva.
+  **Chi entra da anonimo non perde niente**: l'identita' si ATTACCA al
+  Cerchio di questo telefono, e solo se quell'indirizzo ha gia' un Cerchio
+  suo si entra in quello.
+  **Android e iPhone dichiarano il dominio**: filtro `autoVerify` per
+  `https://esotericircle.app/entra` nel manifesto, `applinks:` nei diritti di
+  iPhone.
+  **Il foglio con la parola e' uscito**, e con lui la via per la parola
+  persa: senza parole non ha piu' niente da recuperare. Chi una parola ce
+  l'ha gia' entra lo stesso col link, perche' il link vale per l'indirizzo e
+  non per il modo in cui quel Cerchio era nato.
+
+  **APP CHECK: c'e', e resta spento in release per una ragione datata.**
+  `lib/services/firebase/attestazione.dart` lo installa fuori dalla release e
+  lo tiene spento in release **dal 2 agosto 2026**, perche' le build arrivano
+  da App Distribution e Play Integrity non attesta un'app installata fuori
+  dal Play Store: accenderlo oggi fermerebbe ogni chiamata **delle build di
+  prova del fondatore**. L'interruttore e' uno solo,
+  `Attestazione.installaSempre`, e si gira il giorno in cui l'app sta su una
+  traccia di test interno del Play Store. **Sul server l'imposizione e'
+  spenta** (`enforceAppCheck: false`), e si accende dopo, quando i telefoni
+  mandano il gettone: accenderla prima chiuderebbe fuori tutti.
+
+  **COSA SERVE DA MAURO, nella console, passo per passo.** Sta nel rapporto
+  `docs/ordini/RAPPORTO_ORDINE_EA.md`, sezione *I passi di Mauro*.
+
+  Guardia `test/il_link_entra_senza_parola_test.dart`, vista rossa con tre
+  innesti; `il_foglio_dell_email_dice_cosa_non_va` riscritta sulla legge
+  nuova e rimasta a guardia della stessa cosa di sempre, cioe' che il foglio
+  parli. **Prodotto e agganciato; il viaggio vero del link si vede solo dopo
+  i passi in console, e lo prova il fondatore con la build.** **CHIUSA.**
 - **EA.20**, il Soffio del Destino col microfono torna a funzionare; oggi
   va solo il gesto col dito. Aggiunta dal fondatore il 19 settembre 2026
   mentre l'ordine era in corso: *"nel soffio del destino, il soffio con

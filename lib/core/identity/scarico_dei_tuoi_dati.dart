@@ -87,6 +87,7 @@ class ScaricoDeiTuoiDati {
     // conversazioni, come si cancellano cosi' si scaricano.
     'chat.titoli.': 'I titoli delle tue conversazioni con i Maestri',
     'chat.cancellate.': 'Le conversazioni che hai cancellato dal menu della chat',
+    'ingresso.': 'L\'indirizzo a cui il Cerchio ha mandato il link d\'ingresso',
     'sunset_rune': 'Le tue Rune del Tramonto',
     'device.id': 'L\'identità di questo dispositivo',
     // **E IL LOTO, ORDINE CZ VOCE 10.** La traccia dei respiri della

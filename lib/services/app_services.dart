@@ -18,6 +18,7 @@ import 'firebase/app_check_debug.dart';
 import 'firebase/attestazione.dart';
 import 'memory/firestore_maestro_memory_repository.dart';
 import 'memory/in_memory_maestro_memory_repository.dart';
+import 'link_in_arrivo.dart';
 import 'server/porta_del_cerchio.dart';
 import '../core/identity/account_del_cerchio.dart';
 import 'memory/maestro_memory_repository.dart';
@@ -43,11 +44,17 @@ class AppServices {
     this.scrigno,
     this.penna,
     this.push,
+    this.linkInArrivo = const PortaSpentaDeiLinkInArrivo(),
   });
 
   /// LA PORTA DEL SERVER, ordine N: contatori, memoria e saldo passano di
   /// qui. Spenta nei servizi offline e nelle prove, viva nell'app vera.
   final PortaDelCerchio porta;
+
+  /// **LA PORTA DEI LINK IN ARRIVO. Ordine EA voce 19.** Spenta ovunque
+  /// tranne che nell'app vera: aprire una porta di sistema in una prova o in
+  /// un'anteprima vorrebbe dire aprire una finestra vera.
+  final PortaDeiLinkInArrivo linkInArrivo;
 
   /// LA PORTA DELL'IDENTITA', per elevare l'account anonimo ad account vero
   /// senza perdere niente. Nulla quando Firebase non e' partito.
@@ -93,6 +100,8 @@ class AppServices {
     String? diagnostics,
     PortaDelCerchio porta = const PortaSpentaDelCerchio(),
     PortaDellIdentita? identita,
+    // Ordine EA voce 19: chi ascolta i link di sistema.
+    PortaDeiLinkInArrivo linkInArrivo = const PortaSpentaDeiLinkInArrivo(),
     PortaDeiRicordi? ricordi,
     PortaDelloScrigno? scrigno,
     PennaDelMese? penna,
@@ -108,6 +117,7 @@ class AppServices {
     return AppServices._(
       ai: sorvegliata,
       guasti: sorvegliata.registro,
+      linkInArrivo: linkInArrivo,
       memory: memory,
       memoryPersistent: memoryPersistent,
       attestazione: attestazione,
@@ -260,6 +270,8 @@ class AppServices {
       memoryPersistent: persistent,
       porta: porta,
       identita: identita,
+      // Ordine EA voce 19: nell'app vera i link di sistema si ascoltano.
+      linkInArrivo: PortaVeraDeiLinkInArrivo(),
       ricordi: ricordi,
       scrigno: scrigno,
       penna: penna,

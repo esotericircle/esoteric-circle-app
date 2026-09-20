@@ -271,4 +271,19 @@ class _PortaCheRiconosce implements PortaDellIdentita {
 
   @override
   Future<String?> nomeGiaProposto() async => propone;
+
+  // **I TRE DEL LINK D'INGRESSO. Ordine EA voce 19.** Questo finto non manda
+  // messaggi e non riceve link: risponde di no, che e' la verita'.
+  @override
+  Future<EsitoDellaCustodia> mandaIlLinkDIngresso(String email) async =>
+      EsitoDellaCustodia.nonRiuscita;
+
+  @override
+  bool eUnLinkDIngresso(String link) => false;
+
+  @override
+  Future<EsitoDellaCustodia> entraColLink(
+          {required String link, required String email}) async =>
+      EsitoDellaCustodia.nonRiuscita;
+
 }

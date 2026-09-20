@@ -105,6 +105,8 @@ class CioCheETuo {
     // Le conversazioni cancellate dal menu' della chat, finche' il server
     // non le ha tolte. Ordine EA voce 07.
     'chat.cancellate.',
+    // Ordine EA voce 19: l'indirizzo a cui e' stato mandato il link.
+    'ingresso.',
     // Il gettone con cui il Cerchio raggiunge questo telefono per le
     // notifiche push, e cio' che si e' gia' mandato al server. Ordine CG
     // voce 16: e' un dato nuovo, e se ne va con te.
