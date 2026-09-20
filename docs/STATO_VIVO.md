@@ -3584,6 +3584,124 @@ Visto sul Realme: la chat pulita dall'Oroscopo e la conversazione di prima
 nel menu'. **Resta un difetto piccolo**: a chat vuota il menu' comincia con
 una riga divisoria vuota; va nella prossima build.
 
+## L'ORDINE EA, LE CORREZIONI DOPO LA 2272
+
+Ordine del 19 e 20 settembre 2026, **ventidue voci: ventuno chiuse, una ferma
+in attesa delle mani del fondatore**. Manifesto
+`docs/ordini/ORDINE_EA_MANIFESTO.md`, rapporto
+`docs/ordini/RAPPORTO_ORDINE_EA.md`, guardia
+`test/ordine_ea_guard_test.dart`. Parte dal commit `007b360f`, la 2272.
+Decisioni del fondatore prese all'avvio: **i tre lotti di fila e poi una sola
+build**, e la Ronda dei motori legge i rossi accettati come lo sbarramento.
+Tre voci sono arrivate a lavoro in corso, col telefono in mano: la 20, la 21 e
+la 22.
+
+**LA CHAT SI APRE SEMPRE NUOVA E VUOTA (EA.06), E UNA CONVERSAZIONE SI
+CANCELLA (EA.07).** Aprire la chat non riapre piu' quella di prima: la
+conversazione precedente resta nel menu' e si riapre col tocco. Dal menu' si
+cancella, e la cancellazione arriva al server con la callable
+`cancellaLaConversazione`, che porta le callable da undici a dodici. **Il menu'
+e' compatto (EA.08)** e i due contatori stanno piu' vicini (EA.09). **In cima
+non c'e' piu' la riga divisoria vuota (EA.01)**, che era il difetto piccolo
+lasciato aperto dalla DZ.
+
+**IL TUTORIAL COMPARE SOLO SULLA HOME (EA.02)**, mai sopra un foglio o una
+schermata: `PrimoApprodo` legge la pila dall'`OsservatoreDellaPila` e il velo
+si disegna solo quando nella pila c'e' la sola home.
+
+**LA RUNA DEL TRAMONTO E L'ESTRAZIONE RUNE NON HANNO PIU' NIENTE DI
+ASTROLOGICO (EA.05).** Il segno zodiacale e' uscito dalla chiave, dal calcolo
+e dal testo delle Fonti: restano tre fattori reali, la runa, il suo verso e la
+fase lunare vera della sera. Scelta del fondatore, *"legalo solo alla luna
+piena"*, poi **dodici lune piene** come ciclo del sigillo.
+
+**LA PIETRA DI INGWAZ PORTAVA IL SEGNO DI OTHALA (EA.22).** Segnalata da un
+fondatore con lo screenshot. L'arte era nata sbagliata dal modello
+generativo, e nessuna guardia guardava i segni: **PROVENIENZA IGNOTA**.
+Corretta senza rigenerare il sasso, fondendo la pietra vergine ingrandita
+sotto il rombo (`tool/ingwaz_non_e_othala.py`). **Il controllo automatico
+della forma e' stato provato e buttato**: misurava fra il 7 e il 92 per cento
+su pietre giuste, cioe' non misurava. Al suo posto le ventiquattro impronte
+sha1 fissate in `test/ogni_pietra_porta_la_sua_runa_test.dart` e **la tavola
+delle ventiquattro** in `docs/anteprime/rune_incise.png`, che un occhio umano
+guarda una volta.
+
+**L'ACCESSO CAMBIA VIA: IL LINK AL POSTO DELLA PAROLA (EA.19).** Scelta del
+fondatore, *"la soluzione piu' veloce e che disturba meno l'utente"*. Si
+scrive l'indirizzo, arriva un messaggio, si tocca il link e si e' dentro:
+niente parola da inventare, da ricordare o da perdere, e l'indirizzo risulta
+verificato per costruzione. Il foglio con la parola e la via per la parola
+persa sono usciti. Il link torna su `https://esotericircle.app/entra`, Android
+lo dichiara nel manifesto con `autoVerify` e iPhone nei diritti con
+`applinks:`. **Il viaggio vero del link aspetta i passi in console**, che
+stanno nel rapporto.
+
+**IL SELETTORE DI GOOGLE SI APRE UNA VOLTA SOLA (EA.10, EA.11).** Quando
+l'indirizzo scelto ha gia' un Cerchio suo, Firebase restituisce l'errore con
+dentro **una credenziale fresca**: adesso si riusa quella invece di rifare la
+strada, e il selettore si apre una volta al posto di due. Misurato al banco.
+
+**LA MEMORIA SEGUE CHI ENTRA (EA.13).** Il repository dei Ricordi era legato
+all'uid dell'avvio, cioe' all'anonimo: chi entrava continuava a scrivere nel
+Cerchio di prima. Adesso ogni percorso legge l'uid vivo. **PROVENIENZA
+IGNOTA**: l'uid e' nato fisso col repository e nessun ordine risulta averlo
+reso tale. La sequenza che il fondatore aveva visto, invece, era il
+comportamento previsto: i dati li aveva cancellati lui.
+
+**IL CONTEGGIO E' SEMPRE ATTIVO E ANONIMO (EA.12).** Il consenso e' uscito, il
+server scrive solo `ritorno/{giorno}` e non piu' niente che riporti a una
+persona, con scadenza a 730 giorni. La privacy policy e' stata riscritta di
+conseguenza: **diceva "dalle Impostazioni"** quando l'interruttore stava nel
+menu' utente (colpa della CF voce 16) **e prometteva 24 mesi** che nessuno
+manteneva (colpa della CC voce 09).
+
+**I TRE TESTI LEGALI IN UNA PAGINA SOLA (EA.18)**, privacy policy, condizioni
+d'uso e disclaimer, con le tre ancore, sul telefono e sul web
+(`hosting/index.html`), e il disclaimer all'ingresso. **Le condizioni d'uso le
+scrive il fondatore**, e poi si rivedono: sua decisione. L'indirizzo pubblico
+nasce da **Firebase Hosting**, sempre sua decisione.
+
+**IL MENU' UTENTE E' VIOLA SU COSMO (EA.17)** con
+`lib/features/account/vestito_del_menu_utente.dart`, **la bolla della Carta di
+nascita e' a posto (EA.16)** e **l'invito degli Eos non finisce piu' sotto la
+barra (EA.21)**: non era un problema di ordine fra le cose a schermo, era un
+taglio a 9/16, e si vedeva ingrandendo il testo. Padre: la BG voce 05, che
+aveva aggiunto una riga a un foglio che non poteva crescere.
+
+**IL SOFFIO COL MICROFONO NON SI APRIVA PIU' (EA.20).** Il microfono
+registrava davvero, a mancare era la misura: la planarita' spettrale era stata
+tarata su un campione solo dalla DD voce 01, e un soffio vero segnava 0,007
+contro una soglia di 0,20. **Cambiata la grandezza misurata, non la soglia**,
+con la preaccentuazione. Chi prova a soffiare e' il fondatore: qui non puo'
+farlo nessuno.
+
+**IL CANCELLO DI CODEMAGIC ASPETTA IL LIMITE DI GITHUB (EA.15)**:
+`tool/il_cancello_ha_detto_verde.sh` legge `retry-after` e
+`x-ratelimit-reset`, aspetta fino a venticinque minuti e dichiara la nuova
+fermata `limite` invece di dire che il verde non c'era. **E LA RONDA DEI
+MOTORI LEGGE I ROSSI ACCETTATI (EA.03)**: il confronto fra la Ronda, quattro
+cadute, e `verde.yml`, riuscito, sullo stesso commit `007b360f` ha provato che
+rossi non accettati non ce n'erano.
+
+**COSA RESTA, E NON E' UNA SCELTA: EA.14, la registrazione e l'accesso su
+iPhone.** Non c'e' nessun iPhone collegato a questa macchina e nessun
+simulatore parte. Il codice delle tre vie e' condiviso, e cio' che su iPhone
+si comporta diversamente e' dichiarato: Apple e' l'unica via che passa da
+`signInWithProvider`, il link porta il dominio nei diritti dell'app, App Check
+userebbe App Attest. **La prova la fa il fondatore con la build iOS di
+Codemagic**, dopo i passi in console.
+
+**I PASSI CHE ASPETTANO LE MANI DEL FONDATORE** stanno nel rapporto, sezione
+*I passi di Mauro*, e sono cinque: pubblicare le funzioni
+(`firebase deploy --only functions`, senza cui la cancellazione di una
+conversazione resta sul telefono), pubblicare la pagina legale
+(`firebase deploy --only hosting`), accendere **Email link (passwordless
+sign-in)** in Authentication e autorizzare il dominio, registrare l'impronta
+SHA-256 di Android e l'ID team di iPhone perche' i telefoni riconoscano il
+link, e **App Check quando l'app sara' sul Play Store**, che resta spento in
+release dal 2 agosto 2026 perche' Play Integrity non attesta un'app
+installata da App Distribution.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.
