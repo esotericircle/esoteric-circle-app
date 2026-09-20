@@ -177,69 +177,99 @@ class _FoglioDelLinkState extends State<_FoglioDelLink> {
   @override
   Widget build(BuildContext context) {
     final palette = widget.palette;
-    return AlertDialog(
+    // **UNA COLONNA SOLA CHE SCORRE, e non un AlertDialog. Ordine EA,
+    // difetto visto a video sulla 2273.**
+    //
+    // Com'era: titolo, contenuto e pulsanti in tre scomparti di AlertDialog.
+    // Quando lo spazio non basta, quei tre scomparti non si accorciano in
+    // proporzione: **il titolo e i pulsanti si servono per primi e al
+    // contenuto resta quello che avanza**, che sul Realme con la tastiera
+    // aperta era vicino a zero. Il testo e il campo continuavano a
+    // disegnarsi, ma fuori dal loro scomparto, cioe' SOPRA i pulsanti. Chi
+    // scriveva il proprio indirizzo se lo vedeva sparire sotto "Mandami il
+    // link". Misurato al banco: lo scomparto del contenuto alto ZERO punti.
+    //
+    // **Lo spazio e' poco perche' se lo prendono in tre**: la barra
+    // dell'identita' dichiara la sua altezza nel bordo di sopra, la barra del
+    // Cerchio in quello di sotto, e la tastiera si prende trecentosei punti
+    // degli ottocento dello schermo.
+    //
+    // Adesso e' una colonna sola dentro un solo scorrimento: niente si serve
+    // per primo, e quando non ci sta tutto **si scorre**, che e' il gesto che
+    // chiunque conosce. I pulsanti stanno l'uno sotto l'altro per larghezza
+    // intera, come ovunque nell'app.
+    return Dialog(
       key: const Key('custodia_email_form'),
       backgroundColor: widget.backgroundColor,
-      title: Text('Entra con la tua email',
-          style: TypographyTokens.titoloScheda()
-              .copyWith(color: palette.goldSoft)),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Ti mandiamo un link: lo tocchi da questo telefono e sei dentro. '
-            'Nessuna parola da inventare e nessuna da ricordare.',
-            style: TypographyTokens.didascalia()
-                .copyWith(color: ColorTokens.textSecondary, height: 1.4),
-          ),
-          const SizedBox(height: SpacingTokens.md),
-          TextField(
-            key: const Key('custodia_email_campo'),
-            controller: widget.email,
-            keyboardType: TextInputType.emailAddress,
-            // **Il telefono suggerisce l'indirizzo**: con la parola questo
-            // foglio stava dentro un AutofillGroup e il gestore offriva di
-            // salvare. Senza parola non c'e' piu' niente da salvare, ma
-            // l'indirizzo si scrive ancora, e scriverlo a mano su una
-            // tastiera piccola e' il punto in cui si sbaglia.
-            autofillHints: const [AutofillHints.email],
-            autocorrect: false,
-            style: TypographyTokens.corpo()
-                .copyWith(color: ColorTokens.textPrimary),
-            decoration: InputDecoration(
-              // L'errore si dice DENTRO il campo, dove la persona guarda.
-              errorText: _guaio,
-              errorMaxLines: 2,
-              labelText: 'La tua email',
-              labelStyle: TypographyTokens.didascalia()
-                  .copyWith(color: ColorTokens.textSecondary),
-              enabledBorder: UnderlineInputBorder(
-                  borderSide:
-                      BorderSide(color: palette.gold.withValues(alpha: 0.4))),
-              focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: palette.gold)),
+      insetPadding: const EdgeInsets.symmetric(
+          horizontal: SpacingTokens.lg, vertical: SpacingTokens.lg),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
+      child: SingleChildScrollView(
+        padding: const EdgeInsets.all(SpacingTokens.lg),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text('Entra con la tua email',
+                style: TypographyTokens.titoloScheda()
+                    .copyWith(color: palette.goldSoft)),
+            const SizedBox(height: SpacingTokens.sm),
+            Text(
+              'Ti mandiamo un link: lo tocchi da questo telefono e sei dentro. '
+              'Nessuna parola da inventare e nessuna da ricordare.',
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textSecondary, height: 1.4),
             ),
-            onSubmitted: (_) => _manda(),
-          ),
-        ],
+            const SizedBox(height: SpacingTokens.md),
+            TextField(
+              key: const Key('custodia_email_campo'),
+              controller: widget.email,
+              keyboardType: TextInputType.emailAddress,
+              // **Il telefono suggerisce l'indirizzo**: con la parola questo
+              // foglio stava dentro un AutofillGroup e il gestore offriva di
+              // salvare. Senza parola non c'e' piu' niente da salvare, ma
+              // l'indirizzo si scrive ancora, e scriverlo a mano su una
+              // tastiera piccola e' il punto in cui si sbaglia.
+              autofillHints: const [AutofillHints.email],
+              autocorrect: false,
+              style: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textPrimary),
+              decoration: InputDecoration(
+                // L'errore si dice DENTRO il campo, dove la persona guarda.
+                errorText: _guaio,
+                errorMaxLines: 2,
+                labelText: 'La tua email',
+                labelStyle: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary),
+                enabledBorder: UnderlineInputBorder(
+                    borderSide:
+                        BorderSide(color: palette.gold.withValues(alpha: 0.4))),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: palette.gold)),
+              ),
+              onSubmitted: (_) => _manda(),
+            ),
+            const SizedBox(height: SpacingTokens.md),
+            FilledButton(
+              key: const Key('custodia_email_conferma'),
+              style: FilledButton.styleFrom(
+                  backgroundColor: palette.gold,
+                  foregroundColor: palette.deepest,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: SpacingTokens.md)),
+              onPressed: _manda,
+              child: Text('Mandami il link', style: TypographyTokens.label()),
+            ),
+            TextButton(
+              key: const Key('link_piu_tardi'),
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('Piu\u0300 tardi',
+                  style: TypographyTokens.label()
+                      .copyWith(color: ColorTokens.textSecondary)),
+            ),
+          ],
+        ),
       ),
-      actions: [
-        TextButton(
-          key: const Key('link_piu_tardi'),
-          onPressed: () => Navigator.of(context).pop(),
-          child: Text('Più tardi',
-              style: TypographyTokens.label()
-                  .copyWith(color: ColorTokens.textSecondary)),
-        ),
-        FilledButton(
-          key: const Key('custodia_email_conferma'),
-          style: FilledButton.styleFrom(
-              backgroundColor: palette.gold, foregroundColor: palette.deepest),
-          onPressed: _manda,
-          child: Text('Mandami il link', style: TypographyTokens.label()),
-        ),
-      ],
     );
   }
 }

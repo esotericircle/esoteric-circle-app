@@ -41,9 +41,11 @@ totale e' un controllo, non un ornamento.
 | --- | ---: |
 | Guardie che passano dalla porta comune | 137 |
 | Guardie con un cardinale proprio dichiarato | 117 |
-| Guardie che non scoprono nessun insieme di file | 198 |
-| **Somma delle categorie** | **452** |
-| **Guardie secondo la definizione** | **452** |
+| Guardie che non scoprono nessun insieme di file | 199 |
+| **Somma delle categorie** | **453** |
+| **Guardie secondo la definizione** | **453** |
+
+**Ricontate a ordine EA, il difetto della 2273**, 20 settembre 2026, il foglio del link sotto la tastiera: **una guardia nuova**, `il_foglio_del_link_regge_la_tastiera`. Il totale sale da 452 a **453** e le tre categorie a **137, 117 e 199**. **Non e' stata vista rossa con un innesto: e' nata rossa sul difetto vero**, trovato guardando lo schermo del Realme dopo la consegna della 2273. Nessuna prova l'aveva visto, e la prima stesura di questa guardia **girava in una finestra comoda, 390 per 844, e restava verde**: e' diventata rossa solo dopo aver pinnato i numeri letti sul telefono, cioe' 360 per 800 punti, la tastiera a 306 e i due bordi delle barre. **Una guardia che misura la geometria vale quanto la finestra in cui gira.**
 
 **Ricontate a ordine EA, voce 19**, 20 settembre 2026, il link d'ingresso senza parola: **una guardia nuova**, `il_link_entra_senza_parola`, col cardinale proprio (i prefissi di cio' che e' tuo). Il totale sale da 451 a **452** e le tre categorie a **137, 117 e 198**. **Vista rossa con tre innesti**: il link che non si apre nell'app, il dominio non verificato da Android, il campo della parola rimesso. **Una guardia di casa e' stata riscritta sulla legge nuova**: `il_foglio_dell_email_dice_cosa_non_va` misurava la parola corta e la parola persa, che non esistono piu'; resta a guardia della stessa cosa di sempre, cioe' che il foglio parli invece di tacere.
 
@@ -538,6 +540,7 @@ le altre.
 | `il_diario_dell_alba_test.dart` | **una sola estrazione al giorno; in un ciclo di quarantaquattro giorni nessuna parola ne' apertura si ripete e i ripieghi restano a zero**; il registro sceglie, la lettura saltata resta in coda e i ripieghi si contano; il filo con ieri solo con una relazione; due persone, lo stesso stato, testi diversi; il diario sopravvive | 1 | non scopre insiemi in `lib` | 17/09/2026, DT (impianto unico che prende sempre il primo candidato: tre rosse qui e due nella Stesa) | 2 |
 | `il_dono_risponde_prima_di_chiedere_test.dart` | il Dono risponde prima di chiedere | 1, 2, 3 | proprio, dichiarato | CO | 2 |
 | `il_filo_si_traccia_test.dart` | il filo si traccia | 1, 2 | dalla porta comune | mai | 3 |
+| `il_foglio_del_link_regge_la_tastiera_test.dart` | il foglio del link regge la tastiera | 1, 2 | non scopre insiemi di file | 20/09/2026, EA (rossa da se': il difetto era nel codice consegnato con la 2273, e la prova l'ha nominato prima della cura) | 3 |
 | `il_foglio_dell_email_dice_cosa_non_va_test.dart` | il foglio dell email dice cosa non va | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_freno_del_gesto_ripetuto_test.dart` | il freno del gesto ripetuto | 1, 2 | proprio, dichiarato | 03/09/2026, CQ | 2 |
 | `il_fuso_che_il_server_accetta_test.dart` | il fuso che il server accetta | 1, 2 | dalla porta comune | 03/09/2026, CQ | 1 |

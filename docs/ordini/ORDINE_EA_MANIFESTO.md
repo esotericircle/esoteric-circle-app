@@ -548,3 +548,48 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
   `docs/anteprime/rune_incise.png` e la genera `tool/tavola_delle_rune.py`.
   Vista rossa rimettendo al posto di Ingwaz la pietra di Othala.
   **Prodotto e agganciato; a video con la build dell'ordine.** **CHIUSA.**
+
+---
+
+## IL DIFETTO DELLA 2273, TROVATO GUARDANDO LO SCHERMO
+
+Non e' una voce dell'ordine: e' un guasto che l'ordine stesso ha prodotto, e
+che si ripara qui invece di rimandarlo a un ordine nuovo.
+
+**Il fatto.** Consegnata la 2273 e aperta sul Realme 767f596c, toccato
+*Preferisco un'email* e poi il campo: **appena la tastiera e' salita, i due
+pulsanti si sono disegnati SOPRA il testo e sopra il campo**. *Mandami il
+link* copriva l'indirizzo appena scritto. Ricontrollato tre minuti dopo, per
+escludere che fosse un fotogramma di passaggio: c'era ancora.
+
+**Padre: EA voce 19**, che ha scritto quel foglio con tre righe di
+spiegazione sopra il campo, dove prima c'erano due campi e nessun discorso.
+
+**La causa, misurata e non immaginata.** `AlertDialog` tiene titolo,
+contenuto e pulsanti in tre scomparti, e quando lo spazio non basta **non li
+accorcia in proporzione: il titolo e i pulsanti si servono per primi**. Al
+banco, con i numeri del telefono, lo scomparto del contenuto risultava alto
+**zero punti**, e il testo e il campo continuavano a disegnarsi fuori da lui.
+Lo spazio e' poco perche' se lo prendono in tre: la barra dell'identita'
+dichiara la sua altezza nel bordo di sopra, la barra del Cerchio in quello di
+sotto, e la tastiera si prende 306 punti degli 800 dello schermo.
+
+**LA PRIMA STESURA DELLA GUARDIA ERA VERDE SU UN DIFETTO CHE SI VEDEVA A
+OCCHIO**, e vale piu' della cura. Girava a 390 per 844 punti, una finestra
+comoda, e li' i rettangoli non si toccavano. E' diventata rossa solo dopo
+aver pinnato i numeri letti sul telefono: `wm size` 1080x2400, `wm density`
+480, quindi 360 per 800 punti, la tastiera a 306 da
+`dumpsys window displays`, e i due bordi delle barre ricavati dai pixel della
+cattura. **Una guardia che misura geometria vale quanto la finestra in cui
+gira.**
+
+**La cura.** Il foglio non e' piu' un `AlertDialog` a tre scomparti: e' un
+`Dialog` con **una colonna sola dentro un solo scorrimento**. Nessuno si
+serve per primo, e quando non ci sta tutto si scorre. I due pulsanti stanno
+l'uno sotto l'altro a larghezza intera, come ovunque nell'app.
+
+Guardia `test/il_foglio_del_link_regge_la_tastiera_test.dart`, **nata rossa
+sul difetto vero**, non su un innesto: misura che il pulsante non tocchi il
+campo, che il campo resti sopra la tastiera, **e che il pulsante si
+raggiunga davvero scorrendo**, perche' un pulsante fuori dal foglio non
+sarebbe una cura. **Riparato nella build 2274.**
