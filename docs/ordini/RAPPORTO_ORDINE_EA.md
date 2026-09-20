@@ -168,6 +168,29 @@ punto 3.
 **I due rossi accettati** restano rossi per scelta, come prima dell'ordine, e
 sono elencati in `tool/rossi_accettati.txt`.
 
+## 4bis. IL DIFETTO CHE LA CONSEGNA HA FATTO USCIRE
+
+La 2273 e' stata consegnata e guardata sul telefono. **Aperto il foglio del
+link e toccato il campo, appena la tastiera saliva i due pulsanti si
+disegnavano sopra il testo e sopra il campo**: "Mandami il link" copriva
+l'indirizzo appena scritto. Ricontrollato tre minuti dopo per escludere un
+fotogramma di passaggio: c'era ancora. **Padre: EA voce 19.**
+
+La causa, misurata e non immaginata: `AlertDialog` tiene titolo, contenuto e
+pulsanti in tre scomparti, e quando lo spazio non basta **titolo e pulsanti
+si servono per primi**. Al banco, coi numeri del telefono, lo scomparto del
+contenuto risultava alto **zero punti**. Il foglio adesso e' una colonna sola
+dentro un solo scorrimento.
+
+**La lezione non e' la cura, e' la guardia.** La prima stesura girava in una
+finestra comoda, 390 per 844 punti, e restava **verde** su un difetto che si
+vedeva a occhio. E' diventata rossa solo dopo aver letto i numeri veri dal
+telefono. Una guardia che misura geometria vale quanto la finestra in cui
+gira.
+
+**Riparato e consegnato con la 2274**, release `09le7u4m4jiig`, e visto a
+video con la tastiera aperta.
+
 ## 5. IL LAVORO A VIDEO
 
 Tutto cio' che tocca lo schermo e' **prodotto e agganciato**, e si vede con la

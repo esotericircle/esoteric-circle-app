@@ -3691,6 +3691,32 @@ si comporta diversamente e' dichiarato: Apple e' l'unica via che passa da
 userebbe App Attest. **La prova la fa il fondatore con la build iOS di
 Codemagic**, dopo i passi in console.
 
+**CONSEGNATA CON LA 2274, release `09le7u4m4jiig`.** La 2273 era uscita
+prima, e sul telefono ha mostrato un difetto che nessuna prova aveva visto:
+**aperto il foglio del link e toccato il campo, appena la tastiera saliva i
+due pulsanti si disegnavano sopra il testo e sopra il campo**, e "Mandami il
+link" copriva l'indirizzo appena scritto. Padre: la voce 19, che ha scritto
+quel foglio con tre righe di spiegazione sopra il campo. La causa, misurata:
+`AlertDialog` tiene titolo, contenuto e pulsanti in tre scomparti e, quando
+lo spazio non basta, **titolo e pulsanti si servono per primi**; al banco lo
+scomparto del contenuto risultava alto ZERO punti e il resto si disegnava
+fuori da lui. Lo spazio e' poco perche' se lo prendono in tre: la barra
+dell'identita' sopra, la barra del Cerchio sotto, la tastiera 306 punti degli
+800. Adesso il foglio e' un `Dialog` con **una colonna sola dentro un solo
+scorrimento**, e i due pulsanti stanno l'uno sotto l'altro a larghezza
+intera. Guardia `test/il_foglio_del_link_regge_la_tastiera_test.dart`.
+**Visto a video sulla 2274**: con la tastiera aperta titolo, testo, campo
+con l'indirizzo scritto e pulsante stanno tutti a schermo e nessuno tocca
+l'altro.
+
+**E LA PRIMA STESURA DI QUELLA GUARDIA ERA VERDE SUL DIFETTO**, che e'
+l'insegnamento piu' caro di quest'ordine: girava a 390 per 844 punti, una
+finestra comoda, e li' i rettangoli non si toccavano. E' diventata rossa solo
+dopo aver pinnato i numeri letti sul telefono con `wm size`, `wm density` e
+`dumpsys window displays`. **Una guardia che misura geometria vale quanto la
+finestra in cui gira**, e una finestra scelta per comodita' e' una guardia
+che non guarda.
+
 **I PASSI CHE ASPETTANO LE MANI DEL FONDATORE** stanno nel rapporto, sezione
 *I passi di Mauro*, e sono cinque: pubblicare le funzioni
 (`firebase deploy --only functions`, senza cui la cancellazione di una
