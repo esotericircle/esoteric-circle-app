@@ -55,7 +55,8 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
   void _vaiA(ParteLegale parte) {
     final contesto = _ancore[parte]?.currentContext;
     if (contesto == null) return;
-    Scrollable.ensureVisible(contesto, duration: Duration.zero, alignment: 0.05);
+    Scrollable.ensureVisible(contesto,
+        duration: Duration.zero, alignment: 0.05);
   }
 
   @override
@@ -85,7 +86,7 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
                     key: Key('pagina_legale_vai_${p.ancora}'),
                     onPressed: () => _vaiA(p),
                     child: Text(p.titolo,
-                        style: TypographyTokens.label(size: 13)
+                        style: TypographyTokens.label()
                             .copyWith(color: palette.goldSoft)),
                   ),
               ],

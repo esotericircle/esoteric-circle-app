@@ -108,7 +108,7 @@ class PrivacyEPermessiScreen extends StatelessWidget {
                               PrivacyPolicyScreen.route(
                                   parte: ParteLegale.disclaimer)),
                           child: Text('Leggi il disclaimer per esteso',
-                              style: TypographyTokens.label(size: 13)
+                              style: TypographyTokens.label()
                                   .copyWith(color: palette.goldSoft)),
                         ),
                       ],

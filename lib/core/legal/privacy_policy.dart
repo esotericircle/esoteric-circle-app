@@ -54,7 +54,7 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
         'custodito. Col tuo consenso: notifiche e sensori, che puoi '
         'revocare quando vuoi da Privacy e permessi, nel menu del tuo '
         'account. Per legittimo interesse: sicurezza e prevenzione degli '
-        'abusi, e i contatori anonimi con cui vediamo come va l\'app, '
+        'abusi, oltre ai contatori anonimi con cui vediamo come va l\'app, '
         'entrambi descritti più sotto.',
   ),
   SezioneDellaPolicy(

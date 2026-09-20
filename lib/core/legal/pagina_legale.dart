@@ -66,9 +66,9 @@ const List<SezioneDellaPolicy> sezioniDelDisclaimer = [
     corpo: 'I responsi del Cerchio accompagnano il respiro, l\'umore, il '
         'presagio e il simbolo come cammino di consapevolezza. Non '
         'sostituiscono un medico, uno psicologo, un avvocato o un '
-        'consulente, e non predicono il futuro. Il cielo, quando entra in un '
-        'responso, e\' calcolato davvero, e l\'app dice sempre da dove viene '
-        'il dato: l\'interpretazione, invece, e\' lettura simbolica.',
+        'consulente. Non predicono il futuro. Il cielo, quando entra in un '
+        'responso, è calcolato davvero: l\'app dice sempre da dove viene '
+        'il dato: l\'interpretazione, invece, è lettura simbolica.',
   ),
 ];
 

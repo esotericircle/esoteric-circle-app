@@ -456,7 +456,7 @@ le altre.
 | `corpus_rune_attestato_test.dart` | corpus rune attestato | 1, 2 | proprio, dichiarato | mai | 3 |
 | `corredo_anteprime_test.dart` | corredo anteprime | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `cosa_dicono_i_doni_test.dart` | cosa dicono i Doni | 1 | non scopre insiemi di file | 04/09/2026, CQ | 3 |
-| `cosmo_e_interruttori_test.dart` | cosmo e interruttori | 1, 2 | dalla porta comune | mai | 3 |
+| `cosmo_e_interruttori_test.dart` | cosmo e interruttori | 1, 2 | dalla porta comune | 20/09/2026, EA (rossa da se': l'interruttore del consenso e' uscito con la voce 12 e l'elenco non quadrava piu') | 3 |
 | `costellazione_ripetuta_test.dart` | costellazione ripetuta | 1, 2 | dalla porta comune | mai | 3 |
 | `dati_nascita_sbloccano_test.dart` | dati nascita sbloccano | 1, 2 | dalla porta comune | mai | 3 |
 | `dove_si_spendono_eos_test.dart` | dove si spendono eos | 1, 2 | dalla porta comune | 01/09/2026, CM, cardinale al caricamento | 3 |
@@ -826,7 +826,7 @@ le altre.
 | `ogni_tessera_che_apre_lo_dice_test.dart` | ogni tessera che apre lo dice | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `ogni_testo_dice_da_dove_nasce_test.dart` | ogni testo dice da dove nasce | 4 | non scopre insiemi di file | 07/09/2026, CS | 3 |
 | `ogni_traguardo_acceso_ha_la_sua_festa_test.dart` | ogni traguardo acceso ha la sua festa | 1, 2 | proprio, dichiarato | 08/09/2026, CZ | 2 |
-| `ogni_via_dice_cosa_si_accetta_test.dart` | ogni via dice cosa si accetta | 1, 2 | proprio, dichiarato | mai | 3 |
+| `ogni_via_dice_cosa_si_accetta_test.dart` | ogni via dice cosa si accetta | 1, 2 | proprio, dichiarato | 20/09/2026, EA (Regola A sulla pretesa riscritta: tre innesti, il tocco tolto alle condizioni, il disclaimer rinominato, il dispose commentato; il terzo l'ha colta mentre pescava il proprio commento) | 3 |
 | `ora_di_nascita_test.dart` | ora di nascita | 1, 2 | dalla porta comune | mai | 3 |
 | `ora_e_luogo_sopravvivono_test.dart` | ora e luogo sopravvivono | 1, 2 | dalla porta comune | mai | 3 |
 | `ora_si_puo_correggere_test.dart` | ora si puo correggere | 1, 2 | dalla porta comune | mai | 3 |

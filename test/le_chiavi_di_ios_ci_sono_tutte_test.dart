@@ -62,6 +62,13 @@ void main() {
     'audioplayers': null,
     'geocoding': null,
     'share_plus': null,
+    // **IL LINK D'INGRESSO**, ordine EA voce 19, 20 settembre 2026. Letta la
+    // sua cartella `ios/` quel giorno, versione 7.2.1: il plugin e' un file
+    // solo, `AppLinksIosPlugin.swift`, che importa **Flutter e UIKit e basta**
+    // e lavora sugli `NSUserActivity` degli Universal Links. Il podspec non
+    // dichiara nessun framework oltre a Flutter. **Nessuna purpose string**:
+    // ricevere un link non e' un'API sensibile per Apple.
+    'app_links': null,
     // --- Firebase ---
     'firebase_core': null,
     'firebase_ai': null,

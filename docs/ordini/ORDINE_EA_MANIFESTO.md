@@ -430,10 +430,21 @@ Il rapporto sta in `docs/ordini/RAPPORTO_ORDINE_EA.md`.
   **Android e iPhone dichiarano il dominio**: filtro `autoVerify` per
   `https://esotericircle.app/entra` nel manifesto, `applinks:` nei diritti di
   iPhone.
-  **Il foglio con la parola e' uscito**, e con lui la via per la parola
-  persa: senza parole non ha piu' niente da recuperare. Chi una parola ce
-  l'ha gia' entra lo stesso col link, perche' il link vale per l'indirizzo e
-  non per il modo in cui quel Cerchio era nato.
+  **Il foglio con la parola e' uscito**, e con lui la via per la parola persa
+  *che stava dentro quel foglio* (`custodia_parola_campo`,
+  `custodia_occhiolino`, `custodia_parola_persa`): dove nessuna parola si
+  inventa piu', non c'e' niente da recuperare. Chi una parola ce l'ha gia'
+  entra lo stesso col link, perche' il link vale per l'indirizzo e non per il
+  modo in cui quel Cerchio era nato.
+  **MA LA PORTA DI CHI TORNA LA PAROLA LA CHIEDE ANCORA, ed e' giusto cosi'.**
+  Quando la sonda scopre che quell'indirizzo ha gia' un Cerchio nato con una
+  parola, mostra il suo campo (`sonda_parola_campo`), il suo occhiolino
+  (`sonda_occhiolino`) e la sua via per la parola persa
+  (`sonda_parola_persa`), che continua a passare da `sendPasswordResetEmail`.
+  **Questo capoverso corregge quello che c'era scritto prima**, cioe' che la
+  parola persa fosse uscita del tutto: era vero per il foglio della
+  registrazione, non per la porta di chi torna, e la prova
+  `la_porta_sonda_e_la_password` adesso misura tutte e due le meta'.
 
   **APP CHECK: c'e', e resta spento in release per una ragione datata.**
   `lib/services/firebase/attestazione.dart` lo installa fuori dalla release e

@@ -20,19 +20,21 @@ import 'privacy_policy_screen.dart';
 ///
 /// **LA FORMA L'HO SCELTA IO, e queste sono le quattro decisioni.**
 ///
-/// **1. Un solo atto attivo, ed e' il pulsante stesso.** Sopra le vie d'accesso
-/// c'e' una riga sola che dice cosa si accetta, **con UN nome toccabile e non
-/// due**.
+/// **1. Un solo atto attivo, ed e' il pulsante stesso.** Sopra le vie
+/// d'accesso c'e' una riga sola che dice cosa si accetta.
 ///
 /// **QUI SI PROMETTEVANO DUE NOMI TOCCABILI, e non era vero. Ordine CF
 /// voce 15.** Il fondatore ha chiesto conto della riga del consenso e la
-/// verifica ha trovato dell'altro: **il Cerchio non ha termini di servizio.**
-/// Misurato: zero occorrenze della parola in tutto `lib/`, nessun indirizzo,
-/// nessuna schermata. La riga nomina la sola privacy policy, che esiste, e
-/// **questo commento adesso lo dichiara invece di promettere un secondo nome
-/// che non c'e'**. Il giorno che i termini esisteranno, la riga li nomina e
-/// questa nota si cancella: e' una decisione del fondatore, non un lavoro
-/// che si possa fare qui.
+/// verifica ha trovato dell'altro: **il Cerchio non aveva termini di
+/// servizio.** Misurato allora: zero occorrenze della parola in tutto `lib/`,
+/// nessun indirizzo, nessuna schermata. La riga nomino' la sola privacy
+/// policy, che esisteva, e quel commento lo dichiaro' invece di promettere un
+/// secondo nome che non c'era. **La nota diceva che il giorno in cui i
+/// termini fossero esistiti la riga li avrebbe nominati: quel giorno e' il
+/// 20 settembre 2026, ordine EA voce 18.** Le condizioni d'uso le ha scritte
+/// il fondatore, stanno in `lib/core/legal/condizioni_uso.dart` con la
+/// privacy policy e il disclaimer, e **i nomi toccabili adesso sono tre**,
+/// uno per parte.
 /// Premere "Continua con Google" e' l'accettazione: e' la forma che ogni app
 /// che il fondatore ha nominato usa, ed e' lecita perche' la privacy policy e
 /// le condizioni non sono un consenso ai sensi del GDPR, sono

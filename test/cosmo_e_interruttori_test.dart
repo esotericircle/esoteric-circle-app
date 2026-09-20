@@ -86,11 +86,15 @@ void main() {
       // della privacy e' andato nel suo sotto menu': e' lo stesso comando di
       // sistema di prima, in un file suo.
       'lib/features/settings/riga_interruttore.dart',
-      // **IL CONSENSO ALLA MISURA DEL RITORNO**, ordine CE voce 01: vive
-      // dentro il gesto della registrazione ed e' un comando di sistema,
-      // non un gesto dentro un'arte. Nasce spento, e la levetta che la
-      // persona riconosce da ogni altra app e' quella di Material.
-      'lib/features/account/consensi_della_registrazione.dart',
+      // **IL CONSENSO ALLA MISURA DEL RITORNO E' USCITO DA QUI. Ordine EA
+      // voce 12, 19 settembre 2026.** Stava in
+      // `lib/features/account/consensi_della_registrazione.dart`, nasceva
+      // spento e portava la levetta di Material. Il fondatore ha tolto la
+      // riga e il suo selettore, *"la memorizzazione deve essere cmq
+      // attiva"*: adesso quel file non disegna piu' nessun interruttore, e
+      // l'elenco si e' accorciato di uno. **Il file esiste ancora** ed e'
+      // vivo, quindi qui non manca per sparizione ma per un interruttore in
+      // meno a schermo.
       'lib/features/tarot/tarot_selectors.dart',
     };
     final trovati = <String>{};

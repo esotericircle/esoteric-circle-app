@@ -23,24 +23,54 @@ void main() {
     expect(regolaDellaPassword, contains('maiuscola'));
   });
 
-  test('il foglio dell\'email parla come tutti, con l\'occhiolino', () {
+  test(
+      'il foglio dell\'email parla come tutti, e l\'occhiolino resta dov\'e\' '
+      'rimasta una parola', () {
+    // **LA PAROLA E' USCITA DA QUESTO FOGLIO. Ordine EA voce 19, 20 settembre
+    // 2026.** Qui si pretendevano il campo Password, la via per la parola
+    // persa, l'occhiolino che la rivela e il gruppo di autofill che offre di
+    // salvarla: **oggi non esistono piu' in questo foglio**, perche' ci si
+    // registra con un link e non c'e' nessuna parola da inventare. Pretenderli
+    // ancora vorrebbe dire chiedere indietro il difetto.
+    //
+    // **La legge di questa prova non cambia**: il foglio parla la lingua di
+    // casa, dice cosa succedera' prima che succeda, e porta i colori di casa e
+    // non il blu del tema.
     final s = leggi('lib/features/account/custodia_del_cielo.dart');
+    expect(s.contains("Key('custodia_occhiolino')"), isFalse,
+        reason: 'e\' tornato l\'occhiolino di una parola che non si chiede '
+            'piu\'');
+    expect(s.contains("Key('custodia_parola_persa')"), isFalse,
+        reason: 'e\' tornata la via per la parola persa DENTRO IL FOGLIO DELLA '
+            'REGISTRAZIONE, dove nessuna parola si inventa piu\'');
+    expect(s.contains('Ti mandiamo un link'), isTrue,
+        reason: 'il foglio non dice cosa succede quando si conferma');
+    expect(s.contains("labelText: 'La tua email'"), isTrue,
+        reason: 'il campo non dice cosa vuole');
+    expect(s.contains('Mandami il link'), isTrue,
+        reason: 'il pulsante non dice cosa fa');
+    expect(s.contains('autofillHints: const [AutofillHints.email]'), isTrue,
+        reason: 'il telefono non suggerisce piu\' l\'indirizzo, e scriverlo a '
+            'mano e\' il punto in cui si sbaglia');
+
+    // **DOVE UNA PAROLA C'E' ANCORA, l'occhiolino c'e' ancora.** Chi ha un
+    // Cerchio nato con una parola entra sempre cosi', e quel campo resta: la
+    // legge di prima vale ancora su di lui.
+    expect(s.contains("Key('sonda_parola_campo')"), isTrue,
+        reason: 'chi ha gia\' una parola non ha piu\' dove scriverla');
     expect(s.contains("labelText: 'Password'"), isTrue,
-        reason: 'il campo non si chiama piu\' Password');
+        reason: 'il campo di chi ha gia\' una parola non si chiama piu\' '
+            'Password');
+    expect(s.contains("Key('sonda_occhiolino')"), isTrue,
+        reason: 'l\'occhiolino per rivelare la password e\' sparito anche di '
+            'li\'');
     expect(s.contains('Hai perso la Password?'), isTrue,
-        reason: 'la via della password persa non parla come tutti');
-    expect(s.contains("'Ho perso la parola'"), isFalse,
-        reason: 'la vecchia frase e\' tornata');
-    expect(s.contains("Key('custodia_occhiolino')"), isTrue,
-        reason: 'l\'occhiolino per rivelare la password e\' sparito');
-    expect(s.contains('AutofillGroup('), isTrue,
-        reason: 'senza il gruppo di autofill il gestore password del '
-            'dispositivo non offre di salvare');
-    expect(s.contains('AutofillHints.newPassword'), isTrue);
-    expect(s.contains('TextInput.finishAutofillContext()'), isTrue,
-        reason: 'senza il segnale di chiusura il gestore non salva');
-    expect(s.contains('helperText: regolaDellaPassword'), isTrue,
-        reason: 'la regola non sta piu\' scritta sotto il campo');
+        reason: 'chi una parola ce l\'ha gia\' puo\' perderla, e li\' la via '
+            'per recuperarla serve ancora');
+    expect(s.contains("Key('sonda_parola_persa')"), isTrue);
+    expect(s.contains('AutofillHints.password'), isTrue,
+        reason: 'il gestore del dispositivo non offre piu\' la parola salvata');
+
     // I bottoni del foglio coi colori di casa, mai il blu del tema.
     expect(s.contains('foregroundColor: palette.goldSoft'), isTrue,
         reason: 'l\'azione che conferma e\' tornata del colore del tema');

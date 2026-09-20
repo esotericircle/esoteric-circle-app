@@ -195,11 +195,11 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>
     }
     final esito = await account.entraColLink(link: link, email: email);
     if (esito == EsitoDellaCustodia.riuscita) {
-      _diLo('Sei dentro: il tuo cielo e\' custodito.');
+      _diLo('Sei dentro: il tuo cielo è custodito.');
       return;
     }
     _diLo(frasePerEsito(esito) ??
-        'Quel link non vale piu\': chiedine un altro, ci vuole un istante.');
+        'Quel link non vale più: chiedine un altro, ci vuole un istante.');
   }
 
   void _diLo(String frase) {

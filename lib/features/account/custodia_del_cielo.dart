@@ -198,6 +198,12 @@ class _FoglioDelLinkState extends State<_FoglioDelLink> {
             key: const Key('custodia_email_campo'),
             controller: widget.email,
             keyboardType: TextInputType.emailAddress,
+            // **Il telefono suggerisce l'indirizzo**: con la parola questo
+            // foglio stava dentro un AutofillGroup e il gestore offriva di
+            // salvare. Senza parola non c'e' piu' niente da salvare, ma
+            // l'indirizzo si scrive ancora, e scriverlo a mano su una
+            // tastiera piccola e' il punto in cui si sbaglia.
+            autofillHints: const [AutofillHints.email],
             autocorrect: false,
             style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textPrimary),
@@ -223,7 +229,7 @@ class _FoglioDelLinkState extends State<_FoglioDelLink> {
           key: const Key('link_piu_tardi'),
           onPressed: () => Navigator.of(context).pop(),
           child: Text('Più tardi',
-              style: TypographyTokens.label(size: 13)
+              style: TypographyTokens.label()
                   .copyWith(color: ColorTokens.textSecondary)),
         ),
         FilledButton(

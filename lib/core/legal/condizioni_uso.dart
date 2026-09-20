@@ -35,7 +35,7 @@ const List<SezioneDellaPolicy> sezioniDelleCondizioni = [
     titolo: 'Che cosa non è',
     corpo: 'Non è medicina, non è psicoterapia, non è consulenza legale e '
         'non è consulenza finanziaria. Nessun responso è una diagnosi, una '
-        'cura o una previsione certa, e nessuno va usato per decisioni di '
+        'cura o una previsione certa. Nessuno va usato per decisioni di '
         'salute, di denaro o di legge: per quelle esistono i professionisti. '
         'Le scelte importanti restano sempre tue.',
   ),
@@ -50,7 +50,7 @@ const List<SezioneDellaPolicy> sezioniDelleCondizioni = [
         'registri, l\'accesso è tuo e non si presta: quello che accade da '
         'quell\'account è tuo. Puoi cancellare i tuoi dati o l\'intero '
         'account quando vuoi, dal menu del tuo account; la cancellazione '
-        'dell\'account è definitiva, e con lui se ne vanno il cammino, i '
+        'dell\'account è definitiva: con lui se ne vanno il cammino, i '
         'Sigilli e gli Eos.',
   ),
   SezioneDellaPolicy(
@@ -59,23 +59,23 @@ const List<SezioneDellaPolicy> sezioniDelleCondizioni = [
         'l\'app, non sono denaro, non hanno valore fuori di qui, non si '
         'convertono e non si rimborsano in denaro. I piani in abbonamento si '
         'acquistano e si disdicono dallo store da cui hai scaricato l\'app, '
-        'Apple o Google, e sono le loro regole a governare pagamenti, '
+        'Apple o Google. Sono le loro regole a governare pagamenti, '
         'rinnovi e rimborsi. Quello che hai già pagato e non hai ancora '
         'usato resta tuo finché il piano è attivo.',
   ),
   SezioneDellaPolicy(
-    titolo: 'Come si usa, e come non si usa',
+    titolo: 'Come si usa e come non si usa',
     corpo: 'Non usare l\'app per fare del male a qualcuno, per aggirarne le '
         'difese, per automatizzarne le richieste o per rivendere quello che '
         'ti restituisce come se fosse un servizio tuo. Non scrivere ai '
         'Maestri dati di altre persone senza che loro lo sappiano. Se un uso '
         'mette a rischio il servizio o le altre persone, possiamo sospendere '
-        'l\'accesso, e ti diciamo perché.',
+        'l\'accesso dicendoti perché.',
   ),
   SezioneDellaPolicy(
     titolo: 'I testi, le immagini e quello che scrivi tu',
     corpo: 'Le illustrazioni, i testi, i nomi e il disegno dell\'app sono '
-        'nostri o di chi ce li ha concessi, e restano loro: puoi usarli '
+        'nostri o di chi ce li ha concessi: restano loro, puoi usarli '
         'dentro l\'app e condividere i responsi che l\'app ti offre di '
         'condividere. Quello che scrivi tu resta tuo: ci serve solo per '
         'darti la risposta, per ricordare la conversazione e per farti '
@@ -87,7 +87,7 @@ const List<SezioneDellaPolicy> sezioniDelleCondizioni = [
         'artificiale a partire dalle tradizioni e dai calcoli veri del '
         'cielo. Possono sbagliare, possono ripetersi e non sono verità '
         'verificate: sono una lettura simbolica. Il calcolo astronomico, '
-        'invece, è calcolo, e quando un responso poggia su di lui l\'app '
+        'invece, è calcolo: quando un responso poggia su di lui l\'app '
         'dice da dove viene.',
   ),
   SezioneDellaPolicy(
@@ -96,20 +96,20 @@ const List<SezioneDellaPolicy> sezioniDelleCondizioni = [
         'possiamo prometterti che sia sempre raggiungibile: la rete cade, i '
         'fornitori si fermano, una versione nuova può avere difetti. Non '
         'rispondiamo dei danni che nascono dall\'aver preso un responso per '
-        'un consiglio professionale, e non escludiamo nessuna '
+        'un consiglio professionale. Non escludiamo nessuna '
         'responsabilità che la legge non permetta di escludere, a cominciare '
         'dai casi di dolo e colpa grave.',
   ),
   SezioneDellaPolicy(
     titolo: 'Se queste condizioni cambiano',
     corpo: 'Se cambiamo qualcosa di importante te lo diciamo dentro l\'app '
-        'prima che valga, e la data in testa a questa pagina dice sempre '
+        'prima che valga. La data in testa a questa pagina dice sempre '
         'quando è stata scritta l\'ultima versione. Se non sei d\'accordo '
         'puoi smettere di usare l\'app e cancellare l\'account.',
   ),
   SezioneDellaPolicy(
     titolo: 'Legge e contatti',
-    corpo: 'Vale la legge italiana, e restano fermi i diritti che la legge '
+    corpo: 'Vale la legge italiana. Restano fermi i diritti che la legge '
         'riconosce ai consumatori, compreso il foro del luogo in cui vivi. '
         'Per qualunque cosa scrivi a info@esotericircle.com.',
   ),
