@@ -8,8 +8,8 @@ settembre 2026. **Ramo:** `claude/esoteric-circle-master-order-e798aj`. Parte
 dal commit `cf58dd6c`, l'ordine EC chiuso.
 
 VOCI_TOTALI: 5
-VOCI_CHIUSE: 4
-VOCI_APERTE: 1
+VOCI_CHIUSE: 5
+VOCI_APERTE: 0
 
 Il rapporto stara' in `docs/ordini/RAPPORTO_ORDINE_ED.md`.
 
@@ -277,4 +277,24 @@ dell'accensione. **E' l'unica build di quest'ordine.**
 A video il fondatore guarda il verso delle carte nei Ricordi, nuovi e vecchi,
 e le chat dei tre Maestri: **quel giudizio e' suo**.
 
-**APERTA.**
+### Fatto
+
+**Build Android 2275**, `flutter build apk --release`, archivio di
+204.817.807 byte, prodotta dopo che le voci da ED.01 a ED.04 erano chiuse e
+spinte col commit `a0b07aa1`, come l ordine impone.
+
+**Accensione sul Realme 767f596c: riuscita.** Processo vivo, **primo
+fotogramma disegnato in 1,36 secondi**, **nessun FATAL EXCEPTION**, e il
+numero letto dal dispositivo e **2275**, cioe quello dell archivio.
+
+**Il telefono va svegliato prima**, o l accensione risulta falsa rossa: il
+primo tentativo e caduto per questo, dopo che il Realme si era riaddormentato
+durante gli otto minuti della build. Nessun crash, zero eccezioni nel log.
+
+**Il numero della release e la conferma della distribuzione stanno nel
+rapporto**, sezione della consegna.
+
+**A video il fondatore guarda il verso delle carte nei Ricordi, nuovi e
+vecchi, e le chat dei tre Maestri: quel giudizio e suo, e qui non si da per
+fatto.** **CHIUSA.**
+

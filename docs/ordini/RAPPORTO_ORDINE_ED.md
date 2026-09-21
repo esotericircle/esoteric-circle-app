@@ -18,7 +18,29 @@ e che **nessun documento del repo nomina un ordine ED** (zero righe su
 | ED.02 | il conto grezzo del lessico | si' | si' | si', quattro giri riportati qui sotto |
 | ED.03 | la rete che richiede la risposta, dichiarata | non c'e' codice nuovo | la rete era gia' agganciata | si', misurata nei quattro giri |
 | ED.04 | CLAUDE.md sui modelli veri | si' | la guardia legge il file | si', nata rossa sulla bugia vera |
-| ED.05 | la build alla fine | **da fare** | | |
+| ED.05 | la build alla fine | si', build **2275** | consegnata su App Distribution | **si', accesa sul Realme 767f596c** |
+
+## 1-quater. VOCE ED.05, LA BUILD
+
+**Build Android 2275**, `flutter build apk --release`, archivio di
+**204.817.807 byte**, prodotta dopo che le voci da ED.01 a ED.04 erano chiuse
+e spinte col commit `a0b07aa1`, come l'ordine impone. Dentro ci sono l'ordine
+EC e quest'ordine.
+
+**Accensione sul Realme 767f596c: riuscita.** Processo vivo, **primo
+fotogramma disegnato in 1,36 secondi**, **nessun FATAL EXCEPTION**, e il
+numero letto dal dispositivo e' **2275**, cioe' quello dell'archivio.
+
+**Il primo tentativo di consegna e' caduto, e non era l'app.** Il Realme si
+era riaddormentato durante gli otto minuti della build, e `consegna.py`
+aspetta la riga `Displayed` del sistema: senza schermo acceso quella riga non
+arriva mai. Zero eccezioni nel log, zero `FATAL`. **Il telefono va svegliato
+subito prima**, ed e' un inciampo gia' pagato da questa casa.
+
+**Il secondo tentativo si e' fermato allo sbarramento**, che ha fatto il suo
+mestiere: il gettone che aveva in mano portava il numero **2274** e
+l'archivio era il **2275**, quindi veniva da un altro albero. Rilanciato sul
+numero giusto.
 
 ## 1-bis. L'ESITO DEL GIRO FINALE, MOSSA PER MOSSA E MAESTRO PER MAESTRO
 
