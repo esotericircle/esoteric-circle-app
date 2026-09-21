@@ -1731,6 +1731,18 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               testo: _spread.reading,
               dati: {
                 'carte': _spread.cards.map((c) => c.card.name).join(','),
+                // **IL VERSO SI CUSTODISCE. Ordine EC voce 05.** Il
+                // nome resta nudo perche' e' con quello che il
+                // Ricordo ritrova la carta nel mazzo; il verso viaggia
+                // accanto, uno per carta e nello stesso ordine. Una
+                // carta rovesciata custodita come dritta e' un altro
+                // responso, non una sfumatura.
+                // La parola del rovescio si prende da `reversedWord`, mai
+                // scritta a mano: e' accordata al genere della carta, ed e'
+                // l'unico punto in cui quella parola si ricava.
+                'versi': _spread.cards
+                    .map((c) => c.reversed ? c.card.reversedWord : 'dritta')
+                    .join(','),
               },
             ),
             condividi: _onShare,

@@ -28,6 +28,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'il_verso_recuperato.dart';
 import 'ricordo_custodito.dart';
 
 /// Chi porta i custoditi al server.
@@ -105,6 +106,27 @@ class ScrignoDeiCustoditi extends ChangeNotifier {
     } catch (errore) {
       debugPrint('Scrigno: i custoditi non si leggono. $errore');
     }
+    // **IL VERSO SI RECUPERA QUI, alla prima apertura dopo l'aggiornamento.**
+    // Ordine EC voce 06, 21 settembre 2026. I Ricordi salvati prima della
+    // voce EC.05 non hanno la chiave dei versi, e il verso sta nel loro
+    // testo: si ricostruisce da li' **dove il testo lo dice**, e dove non lo
+    // dice il Ricordo resta esattamente com'era. Nessun verso si inventa.
+    //
+    // **Una volta sola, e innocuo se si ripete**: un Ricordo che la chiave ce
+    // l'ha gia' non viene nemmeno guardato, quindi al secondo giro non c'e'
+    // niente da fare e non si riscrive niente.
+    var recuperati = 0;
+    for (final voce in _dentro.entries.toList()) {
+      final dati = IlVersoRecuperato.datiRecuperati(voce.value);
+      if (dati == null) continue;
+      _dentro[voce.key] = voce.value.conDati(dati);
+      recuperati++;
+    }
+    if (recuperati > 0) {
+      debugPrint('Scrigno: verso recuperato su $recuperati custoditi.');
+      await _salva();
+    }
+
     _caricato = true;
     notifyListeners();
   }

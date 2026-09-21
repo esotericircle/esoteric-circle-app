@@ -120,15 +120,25 @@ class ArtworkDelRicordo {
   static List<ImmagineDelRicordo> perArte(
       String arte, Map<String, String> dati) {
     switch (arte) {
+      // **IL VERSO ARRIVA FINO AL DISEGNO. Ordine EC voce 05.**
+      //
+      // Prima lo leggeva il solo `tramonto`. La Stesa e l'Estrazione non lo
+      // salvavano affatto, e **l'Arcano dell'Alba lo salvava da sempre senza
+      // che nessuno lo leggesse**: una carta rovesciata si custodiva e si
+      // rimostrava dritta, che e' un altro responso.
+      //
+      // I nomi restano nudi nella loro chiave, perche' e' con quelli che si
+      // ritrova l'arte nel mazzo: il verso viaggia accanto, in una chiave
+      // sua, una voce per figura e nello stesso ordine.
       case 'stesa':
-        return _tarocchi(dati['carte']);
+        return _tarocchi(dati['carte'], versi: _versi(dati['versi']));
       case 'oracolo':
       case 'alba':
-        return _tarocchi(dati['carta']);
+        return _tarocchi(dati['carta'], versi: [_eRovescio(dati['verso'])]);
       case 'gettata':
-        return _rune(dati['rune']);
+        return _rune(dati['rune'], versi: _versi(dati['versi']));
       case 'tramonto':
-        return _rune(dati['runa'], inOmbra: dati['verso'] == 'ombra');
+        return _rune(dati['runa'], versi: [_eRovescio(dati['verso'])]);
       case 'animale_guida':
         return _animale(dati['animale']);
       case 'sinastria':
@@ -160,16 +170,37 @@ class ArtworkDelRicordo {
       .where((s) => s.isNotEmpty)
       .toList(growable: false);
 
-  static List<ImmagineDelRicordo> _tarocchi(String? nomi) {
+  /// **I VERSI, uno per figura e nello stesso ordine dei nomi.** Ordine EC
+  /// voce 05. **Le parole ammesse sono esattamente quelle che le quattro
+  /// schermate scrivono**, non una di piu': *rovesciata* e *rovesciato* per
+  /// le carte, accordate al genere, e *ombra* per le rune. Tutto il resto
+  /// vale dritto, perche' un verso che non si riconosce non si inventa.
+  static List<bool> _versi(String? grezzo) =>
+      [for (final p in _pezzi(grezzo)) _eRovescio(p)];
+
+  static bool _eRovescio(String? parola) {
+    final p = (parola ?? '').trim().toLowerCase();
+    return p == 'rovesciata' || p == 'rovesciato' || p == 'ombra';
+  }
+
+  /// Il verso della figura numero [i], o dritto se l'elenco non arriva fin
+  /// li': un Ricordo salvato da una versione vecchia non ha quella chiave, e
+  /// deve restare leggibile com'e'.
+  static bool _versoDi(List<bool> versi, int i) => i < versi.length && versi[i];
+
+  static List<ImmagineDelRicordo> _tarocchi(String? nomi,
+      {List<bool> versi = const []}) {
     final fuori = <ImmagineDelRicordo>[];
-    for (final nome in _pezzi(nomi)) {
+    final pezzi = _pezzi(nomi);
+    for (var i = 0; i < pezzi.length; i++) {
       for (final c in TarotDeck.cards) {
-        if (!_stessoNome(c.name, nome)) continue;
+        if (!_stessoNome(c.name, pezzi[i])) continue;
         fuori.add(ImmagineDelRicordo(
           nome: c.name,
           miniatura: c.thumbPath,
           piena: c.fullPath,
           carta: c,
+          rovesciata: _versoDi(versi, i),
         ));
         break;
       }
@@ -177,11 +208,13 @@ class ArtworkDelRicordo {
     return fuori;
   }
 
-  static List<ImmagineDelRicordo> _rune(String? nomi, {bool inOmbra = false}) {
+  static List<ImmagineDelRicordo> _rune(String? nomi,
+      {List<bool> versi = const []}) {
     final fuori = <ImmagineDelRicordo>[];
-    for (final nome in _pezzi(nomi)) {
+    final pezzi = _pezzi(nomi);
+    for (var i = 0; i < pezzi.length; i++) {
       for (final r in kElderFuthark) {
-        if (!_stessoNome(r.name, nome)) continue;
+        if (!_stessoNome(r.name, pezzi[i])) continue;
         // Le rune senza arte agganciata restano fuori: un percorso composto su
         // uno stem che non c'e' darebbe un riquadro rotto.
         final piena = r.fullPath;
@@ -191,7 +224,7 @@ class ArtworkDelRicordo {
           nome: r.name,
           miniatura: mini,
           piena: piena,
-          rovesciata: inOmbra,
+          rovesciata: _versoDi(versi, i),
         ));
         break;
       }

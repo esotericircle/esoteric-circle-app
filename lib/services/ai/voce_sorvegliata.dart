@@ -153,19 +153,19 @@ class VoceSorvegliata implements MaestroAiProvider {
       if (LaVoceNonSiConfonde.siConfonde(maestro, scelta)) {
         registro.registra(
           operazione: 'reply',
-          errore: 'la voce di ${maestro.id} si e\' confusa due volte con un '
-              'altro Maestro: '
+          errore: '${maestro.id} si è confuso due volte con un altro Maestro: '
               '${LaVoceNonSiConfonde.paroleAltruiIn(maestro, scelta).join(", ")}',
         );
       }
       return scelta;
-    } catch (_) {
+    } catch (e) {
       // Il secondo tentativo non e' riuscito: vale la prima risposta, che
-      // c'e'. Il guasto del ritentativo l'ha gia' scritto chi lo sorveglia.
+      // c'e'. **L'errore si scrive per intero**: un guasto inghiottito qui
+      // e' un Maestro che tace senza dire perche'.
       registro.registra(
         operazione: 'reply',
-        errore: 'la voce di ${maestro.id} si e\' confusa con un altro Maestro '
-            '(${altrui.join(", ")}) e il ritentativo non e\' riuscito',
+        errore: '${maestro.id} si è confuso con un altro Maestro '
+            '(${altrui.join(", ")}) e il secondo tentativo non è riuscito: $e',
       );
       return prima;
     }

@@ -40,10 +40,16 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 139 |
-| Guardie con un cardinale proprio dichiarato | 123 |
+| Guardie con un cardinale proprio dichiarato | 125 |
 | Guardie che non scoprono nessun insieme di file | 202 |
-| **Somma delle categorie** | **464** |
-| **Guardie secondo la definizione** | **464** |
+| **Somma delle categorie** | **466** |
+| **Guardie secondo la definizione** | **466** |
+
+**Ricontate a ordine EC, parte seconda**, 21 settembre 2026, il verso nel Ricordo custodito: **due guardie nuove**, `il_ricordo_custodito_porta_il_verso` e `il_verso_si_recupera_dove_si_puo`, tutte e due col cardinale proprio. Il totale sale da 464 a **466** e le tre categorie a **139, 125 e 202**.
+
+**LA PRIMA E' NATA ROSSA SU TRE DIFETTI INSIEME, e il piu' grave l'ordine non lo nominava.** Due arti su quattro non salvavano il verso, e **una sola su quattro lo mostrava**: il ramo che disegna una carta tornava PRIMA della rotazione, e quella rotazione parlava di rune e di rune sole. **L'Arcano dell'Alba il verso lo salvava da sempre e non lo ha mai mostrato.**
+
+**E una guardia di casa era viva ma guardava uno solo.** `ogni_custodito_ritrova_la_sua_arte` asserisce il verso per il `tramonto`, ed era l'unica asserzione sul verso in tutta la suite: vista rossa togliendo il verso al tramonto, e passata.
 
 **Ricontate a ordine EC, parte prima**, 21 settembre 2026, il collaudo delle chat con Gemini vero: **tre guardie nuove**, `i_controlli_del_collaudo_prendono_i_difetti` e `la_lettura_ridetta_ha_la_voce_di_chi_la_ridice` col cardinale proprio, `ordine_ec_guard` che non scopre insiemi. Il totale sale da 461 a **464** e le tre categorie a **139, 123 e 202**.
 
@@ -589,6 +595,8 @@ le altre.
 | `il_genere_si_decide_in_un_posto_solo_test.dart` | il genere scelto si decide in una porta sola: una sola decisione fra maschile e femminile per la lingua, nessun `AddressForm`, nessun uso del sesso anagrafico per la lingua | 1, 2 | dalla porta comune | 14/09/2026, DL (rossa: una seconda decisione innestata fuori dalla porta; e **rossa senza innesto** sul difetto vero della voce DL.07, la desinenza contraria alla forma decisa con un suo `masculine ? 'a' : 'o'` in `le_forme_del_genere.dart`, riparata facendola passare dalla porta) | 2 |
 | `il_maestro_risponde_nel_merito_test.dart` | i tre Maestri ricevono la regola della risposta nel merito, e sta in un punto solo | 1, 2 | dalla porta comune | 21/09/2026, EB (tre innesti: il blocco staccato da tutti e tre, il divieto tolto dal testo, la regola copiata due volte) | 3 |
 | `il_pulsante_solo_se_lo_chiedi_test.dart` | nominare un'arte non e' chiederla: il pulsante compare solo su una richiesta vera | 1, 2 | proprio, dichiarato | 21/09/2026, EB (nata rossa sul difetto vero: nove frasi su undici aprivano un pulsante che nessuno aveva chiesto) | 3 |
+| `il_ricordo_custodito_porta_il_verso_test.dart` | le quattro arti con figure salvano il verso, e il verso salvato arriva al disegno | 1, 2 | proprio, dichiarato | 21/09/2026, EC (nata rossa sui tre difetti insieme: due arti su quattro non lo salvavano, una su quattro lo mostrava) | 3 |
+| `il_verso_si_recupera_dove_si_puo_test.dart` | il verso dei Ricordi gia' salvati si ricostruisce dal testo, e dove il testo tace non si inventa | 1, 2 | proprio, dichiarato | 21/09/2026, EC (due innesti: inventare dritta dove non si sa, rifare il lavoro a ogni apertura) | 3 |
 | `l_arcano_dell_alba_si_gira_test.dart` | **un gesto solo e nessun altro comando** sull'Arcano dell'Alba; carte coperte uguali; la faccia solo dopo meta' giro; **il verso non lo decide la carta toccata**; il limite delle stese intatto; nel cammino i gesti alba e oracolo; il dorso uguale a se stesso al mezzo giro | 1 | non scopre insiemi in `lib` | 18/09/2026, DW.02 (le azioni tolte: sotto la carta rivelata non c'e' niente); prima: 18/09/2026, DV.11 (il margine solo in alto: la carta a zero punti dal bordo del pannello); prima: 17/09/2026, DT (caso deciso dalla carta toccata e gesto dell'oracolo tolto: due rosse) | 2 |
 | `l_estrazione_dell_alba_e_libera_test.dart` | **l'estrazione dell'Arcano dell'Alba non ha vincoli**: i quarantaquattro stati equiprobabili su centomila giri; la stessa carta due volte di fila con la frequenza del caso; il verso rovescio attorno alla meta' su ogni carta; **nessuna riga di codice dei file dell'Alba nomina piu' un sacchetto, una distanza minima o le ultime carte** | 1 | proprio, dichiarato | 17/09/2026, DU (`SacchettoDellAlba` innestato nel diario) | 2 |
 | `la_lettura_ridetta_ha_la_voce_di_chi_la_ridice_test.dart` | i tre ridicono la lettura del giorno ognuno con la sua voce, senza il lessico degli altri | 1, 2 | proprio, dichiarato | 21/09/2026, EC (nata rossa: la premessa era una frase sola per i tre e diceva cielo) | 3 |

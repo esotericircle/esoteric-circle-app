@@ -75,6 +75,20 @@ class RicordoCustodito {
 
   final ComeENato comeENato;
 
+  /// **LO STESSO RICORDO CON DATI DIVERSI, e nient'altro cambia.**
+  /// Ordine EC voce 06: il recupero del verso aggiunge una chiave ai dati
+  /// di un custodito gia' salvato, e **non deve poter perdere niente**.
+  /// Data, arte, Maestro, titolo, testo e come e' nato restano quelli.
+  RicordoCustodito conDati(Map<String, String> nuovi) => RicordoCustodito(
+        quando: quando,
+        arte: arte,
+        maestro: maestro,
+        titolo: titolo,
+        testo: testo,
+        comeENato: comeENato,
+        dati: nuovi,
+      );
+
   /// IL TETTO DI PESO DI UN CUSTODITO, in byte, dichiarato dall'ordine.
   static const int pesoMassimo = 1000;
 

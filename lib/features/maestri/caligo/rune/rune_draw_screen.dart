@@ -1625,7 +1625,19 @@ class _AzioniState extends State<_Azioni> {
                   testo: widget.presagio,
                   dati: {
                     'gettata': widget.esito.gettata.nome,
-                    'rune': widget.esito.rune.map((r) => r.rune.name).join(',')
+                    'rune': widget.esito.rune.map((r) => r.rune.name).join(','),
+                    // **IL VERSO SI CUSTODISCE. Ordine EC voce 05.** Come
+                    // per la Stesa: il nome resta nudo perche' e' con quello
+                    // che il Ricordo ritrova la runa, e il verso viaggia
+                    // accanto, uno per runa e nello stesso ordine. Una runa
+                    // in merkstave dice il contrario di una dritta, e
+                    // mostrarla dritta e' un altro presagio.
+                    // La parola custodita e' quella che usa gia' il Rito del
+                    // Tramonto, per non avere due vocabolari per la stessa
+                    // cosa in due arti dello stesso Maestro.
+                    'versi': widget.esito.rune
+                        .map((r) => r.inOmbra ? 'ombra' : 'dritta')
+                        .join(','),
                   },
                 ),
                 condividi: _condividi,

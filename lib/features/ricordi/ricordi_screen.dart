@@ -1064,8 +1064,18 @@ class _ArtworkDiUnRicordo extends StatelessWidget {
         // Sotto una certa misura i cartigli non si leggono, ed e' la stessa
         // soglia che il mazzo usa altrove: meglio nessuna scritta che una
         // scritta illeggibile sopra il disegno.
+        // **LA CARTA IN ROVESCIO SI GUARDA CAPOVOLTA. Ordine EC voce 05.**
+        // Questo ramo tornava prima della rotazione qui sotto, e quella
+        // rotazione parlava di rune e di rune sole: **una carta rovesciata si
+        // disegnava sempre dritta**, anche quando il dato diceva il
+        // contrario, e l'Arcano dell'Alba il verso lo salvava da sempre senza
+        // mostrarlo mai.
         child: TarotCardArt(
-            card: carta, palette: palette, showCartigli: larghezza >= 96),
+          card: carta,
+          palette: palette,
+          reversed: immagine.rovesciata,
+          showCartigli: larghezza >= 96,
+        ),
       );
     }
     final figura = MiniaturaIntera(

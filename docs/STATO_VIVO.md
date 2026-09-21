@@ -3819,6 +3819,113 @@ perde il verso della carta (`stesa_tre_carte_screen.dart:1734`). Non e' il
 testo della chat, e toccarlo cambierebbe la forma di dati gia' scritti sui
 telefoni: va misurato in un ordine suo.
 
+## L'ORDINE EC, IL COLLAUDO CON GEMINI VERO E IL VERSO NEL RICORDO
+
+Ordine del 21 settembre 2026, **sei voci, sei chiuse**, in due parti.
+Manifesto `docs/ordini/ORDINE_EC_MANIFESTO.md`, rapporto
+`docs/ordini/RAPPORTO_ORDINE_EC.md`, guardia
+`test/ordine_ec_guard_test.dart`. Parte dal commit `bc64a71c`. **Nessuna
+build**: l'ordine la vieta senza un ordine del fondatore.
+
+**PARTE PRIMA, LE CHAT COLLAUDATE CON GEMINI VERO.** L'ordine EB aveva
+chiuso otto voci sulle chat e scritto il catalogo di sedici mosse, ma
+**undici di quelle mosse dipendono da cio' che scrive Gemini** e nessuna
+prova le aveva viste su risposte vere. Alla domanda se collaudarle da qui, il
+fondatore ha risposto *"si procedi"*.
+
+**Il collaudo sta in `tool/collaudo_dei_maestri.dart`** e si rilancia con un
+comando solo. Guida un `MaestroChatController` vero, quindi instradamento,
+cancello delle arti, contatori e memoria degli inviti sono quelli del
+telefono. **Cambia il trasporto e lo dichiara**: l'app parla a Vertex con
+l'SDK di Firebase e un gettone di App Check, che sul banco non si ottiene; il
+collaudo parla allo stesso modello nella stessa regione con una chiamata REST
+e il gettone `gcloud`. **Il giro finale e' pulito: diciassette prove, zero
+cadute, zero parole di firma altrui.** La mossa 3 e' il caso del fondatore
+per intero, e passa.
+
+**TRE DIFETTI TROVATI DAL COLLAUDO.** Primo: **la premessa della lettura
+ridetta era una frase sola per i tre Maestri** e diceva *"Il cielo di oggi
+non e' cambiato"*, con *cielo* che e' parola di firma di Medora. E' lo stesso
+difetto del benvenuto della voce EB.08, in un punto che quell'ordine non
+aveva guardato, e **pesa di piu'**: e' una delle pochissime frasi che il
+Maestro dice senza passare dal modello, quindi nessuna istruzione puo'
+correggerla. Secondo: **davanti a un messaggio incomprensibile il Maestro non
+diceva di non aver capito**, chiedeva la data di nascita. Terzo: **il divieto
+incrociato del lessico veniva violato**, e **rafforzare la frase non e'
+bastato**: dopo averla resa piu' ferma le violazioni sono passate da una a
+tre. E' nata una rete, `LaVoceNonSiConfonde` dentro `VoceSorvegliata`, che
+richiede la risposta quando la voce si e' confusa: **da tre su quindici a
+zero su diciassette**.
+
+**E DUE STRUMENTI DI MISURA SONO CAMBIATI, con la ragione scritta.** Il
+controllo del chiarimento cercava prima il punto interrogativo, poi due
+elenchi di frasi: Caligo chiedeva ogni volta con parole nuove, e tutte e tre
+le volte il comportamento era giusto e l'**elenco** sbagliato. Adesso la
+domanda la fa il modello, chiusa, a temperatura zero. E il divieto del
+lessico, **su testo generato**, ha smesso di essere un cancello: passava da
+una violazione a tre e viceversa senza che il codice cambiasse, e **un
+cancello binario su un generatore misura la fortuna del giro, non il
+prodotto**. Adesso si misura il tasso, e resta cancello una cosa sola, due
+parole altrui nella stessa risposta. **Sulle frasi che scriviamo noi il
+cancello resta chiuso a zero.**
+
+**LA REGOLA A APPLICATA A UN COLLAUDO CHE COSTA.** I controlli vivono in
+`tool/controlli_del_collaudo.dart`, separati da chi li esegue, e una prova
+senza rete li fa cadere su difetti costruiti: **una regola che si puo'
+provare solo pagando non la prova nessuno**.
+
+**PARTE SECONDA, IL VERSO NEL RICORDO CUSTODITO.** L'ordine EB aveva visto
+che la Stesa custodiva i nomi delle carte senza il verso e lo aveva lasciato
+fuori dal suo perimetro. **Il censimento ha trovato il difetto piu' largo in
+due modi.** Primo: non e' solo la Stesa, e' anche l'Estrazione Rune.
+**Secondo, e piu' grave: il verso che due arti gia' salvavano non arrivava
+mai al disegno delle carte**, perche' il ramo che disegna una carta tornava
+**prima** della rotazione, e quella rotazione parlava di rune e di rune sole.
+**L'Arcano dell'Alba il verso lo salvava da sempre e non lo ha mai mostrato.**
+
+**La misura, prima e dopo**, sulle quattro arti che custodiscono figure:
+prima **due su quattro** non salvavano il verso e **una su quattro** lo
+mostrava; adesso **quattro su quattro** lo salvano e **quattro su quattro**
+lo mostrano. Il verso viaggia in una chiave sua, `versi`, e il nome resta
+nudo perche' e' con quello che il Ricordo ritrova la figura nel mazzo.
+
+**I RICORDI GIA' SALVATI SI RIPARANO, dove si puo'.** Decisione del
+fondatore: *"Recupera dove si puo'"*. Il verso non era perduto, **sta nel
+testo** del responso custodito: la Stesa lo scrive con `displayName`,
+l'Estrazione nella terza parte del presagio.
+`lib/core/ricordi/il_verso_recuperato.dart` lo ricostruisce da li' in
+`ScrignoDeiCustoditi.carica()`, alla prima apertura dopo l'aggiornamento, una
+volta sola e innocuo se si ripete. **Nessun verso si inventa**: se il testo
+non dice il verso di anche una sola figura, il Ricordo resta com'e'. Misurato
+su sette Ricordi costruiti apposta: **tre recuperati, quattro rimasti
+com'erano, nessuno perso**.
+
+**QUATTRO GUARDIE NUOVE**, registro da 461 a **466**. Due sono nate rosse sul
+difetto vero, una l'ha trovata il collaudo con Gemini e non un innesto.
+
+**E SEI DIFETTI IN PIU' LI HA TROVATI LA SUITE INTERA, sul codice di
+quest'ordine, quando analisi e guardie proprie erano gia' tutte verdi.**
+Quattro erano lo stesso difetto: **una parola italiana usata come valore di
+una chiave di un dato salvato**, presa dalle guardie di lingua come testo
+mostrato. **Nessuna guardia e' stata esentata**: la parola del rovescio
+adesso si prende da `TarotCard.reversedWord`, unico punto in cui si ricava e
+accordata al genere della carta, e l'Estrazione Rune custodisce *ombra*, che
+e' il vocabolario che il Rito del Tramonto usa gia' per la stessa cosa. Due
+arti dello stesso Maestro non avevano ragione di avere due parole per un
+verso solo. Gli altri due stavano in `voce_sorvegliata.dart`: *voce* usata
+per dire il Maestro dove nell'app *voce* e' l'audio, e un `catch` che
+scriveva nel registro ma buttava via l'errore.
+
+**IL COSTO, dichiarato**: circa centotrenta chiamate a `gemini-2.5-flash` in
+`europe-west1` su otto giri, nell'ordine di pochi centesimi. Le credenziali
+non sono mai entrate nel codice ne' su Git: gettone della sessione `gcloud`,
+letto a ogni chiamata e rinnovato al primo rifiuto.
+
+**COSA RESTA AL GIUDIZIO DEL FONDATORE**: il tono e l'illusione della persona
+vera non li misura nessun controllo, e diciassette trascrizioni stanno in
+`docs/collaudo/EC/` perche' le legga. Il verso nei Ricordi si vede aprendone
+uno con una carta rovesciata, e non e' stato guardato su un telefono.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.

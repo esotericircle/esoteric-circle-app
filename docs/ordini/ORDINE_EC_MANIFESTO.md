@@ -7,8 +7,8 @@ settembre 2026. **Ramo:** `claude/esoteric-circle-master-order-e798aj`. Parte
 dal commit `bc64a71c`, l'ordine EB chiuso.
 
 VOCI_TOTALI: 6
-VOCI_CHIUSE: 4
-VOCI_APERTE: 2
+VOCI_CHIUSE: 6
+VOCI_APERTE: 0
 
 Il rapporto stara' in `docs/ordini/RAPPORTO_ORDINE_EC.md`.
 
@@ -281,7 +281,40 @@ Le due arti che perdono il verso lo salvano; l'`alba` lo fa leggere; il
 disegno capovolge anche le carte. Le otto arti senza carte ne' rune restano
 invariate.
 
-**APERTA**
+
+### Fatto
+
+**Tre difetti, non uno.**
+
+**1. La Stesa e l'Estrazione non salvavano il verso**, e adesso lo salvano in
+una chiave sua, `versi`, una voce per figura e nello stesso ordine dei nomi.
+**Il nome resta nudo** perche' e' con quello che il Ricordo ritrova la figura
+nel mazzo: cambiarlo in `displayName` avrebbe rotto il riconoscimento, e la
+carta sarebbe sparita invece di girarsi.
+
+**2. Il verso salvato non arrivava al disegno delle carte.** In
+`ricordi_screen.dart` il ramo della carta tornava con `TarotCardArt`
+**prima** della rotazione, e quella rotazione parlava di rune e di rune sole.
+`TarotCardArt` sapeva gia' disegnare una carta rovesciata, `reversed`:
+mancava chi glielo dicesse. **L'Arcano dell'Alba il verso lo salvava da
+sempre e non lo ha mai mostrato.** **Padre: PROVENIENZA IGNOTA**, la
+rotazione nasce per le rune.
+
+**3. `ArtworkDelRicordo` leggeva il verso per il solo `tramonto`.** Adesso lo
+legge per tutte e quattro, e un Ricordo vecchio senza quella chiave resta
+leggibile com'e': dove l'elenco dei versi non arriva, la figura vale dritta.
+
+**La misura, prima e dopo**, sulle quattro arti con figure: prima **due su
+quattro** non salvavano il verso e **una su quattro** lo mostrava; adesso
+**quattro su quattro** lo salvano e **quattro su quattro** lo mostrano.
+
+Guardia `test/il_ricordo_custodito_porta_il_verso_test.dart`, col cardinale
+minimo sulle quattro arti, **nata rossa sui tre difetti insieme**. Legge il
+sorgente senza i commenti, perche' i commenti di questa cura nominano il
+difetto che cura.
+
+**Prodotto e agganciato; a video lo vede il fondatore aprendo un Ricordo con
+una carta rovesciata.** **CHIUSA.**
 
 ## VOCE EC.06, I RICORDI GIA' SALVATI: IL VERSO SI RECUPERA DOVE SI PUO'
 
@@ -299,7 +332,43 @@ Ricordo resta com'e'**: nessun verso inventato.
 versione in `RicordoCustodito.aMappa()` (`ricordo_custodito.dart:94-102`) e
 nessun codice che riscriva i dati di un custodito esistente.
 
-**APERTA**
+
+### Fatto
+
+**Il recupero legge il testo, perche' e' li' che il verso e' rimasto.**
+`lib/core/ricordi/il_verso_recuperato.dart`: per la Stesa cerca il nome della
+carta seguito dalla parola del rovescio accordata al suo genere, che e'
+esattamente come `DrawnCard.displayName` l'ha scritto; per l'Estrazione
+guarda cosa segue il nome della runa nella terza parte del presagio, *"in
+merkstave"*, *"rovesciata"*, *"diritta"* o *"dritta"*.
+
+**NESSUN VERSO SI INVENTA, ed e' la regola che comanda su tutte.** Se il
+testo non dice il verso di **anche una sola** figura di quel Ricordo, il
+Ricordo resta esattamente com'e'. Un elenco a meta' scriverebbe *dritta* dove
+non si sa, e **un Ricordo senza verso non dice niente, un Ricordo con un
+verso supposto dice il falso**.
+
+**Dove gira**: in `ScrignoDeiCustoditi.carica()`, cioe' alla prima apertura
+dopo l'aggiornamento. **Una volta sola e innocuo se si ripete**: un Ricordo
+che la chiave ce l'ha gia' non viene nemmeno guardato, quindi al secondo giro
+non c'e' niente da fare e lo scrigno non si riscrive.
+
+**Non si perde niente.** Il recupero passa da `RicordoCustodito.conDati`, che
+rifa' lo stesso Ricordo cambiando i soli dati: data, arte, Maestro, titolo,
+testo e come e' nato restano quelli, e i dati vecchi pure. La guardia lo
+misura campo per campo.
+
+**L'esito misurato su sette Ricordi costruiti apposta: tre recuperati,
+quattro rimasti com'erano, nessuno perso.** I quattro intatti sono i casi
+giusti: due col testo che non dice il verso, uno che la chiave ce l'ha gia',
+uno di un'arte senza figure.
+
+Guardia `test/il_verso_si_recupera_dove_si_puo_test.dart`, col cardinale
+minimo sui casi, **vista rossa con due innesti**: inventare *dritta* dove non
+si sa, e rifare il lavoro a ogni apertura.
+
+**Prodotto e agganciato; a video lo vede il fondatore aprendo un Ricordo
+vecchio con una carta rovesciata.** **CHIUSA.**
 
 ---
 
