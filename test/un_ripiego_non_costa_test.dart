@@ -38,6 +38,12 @@ void main() {
     EsitoDelTurno.erroreGenerico: false,
     EsitoDelTurno.limiteRaggiunto: false,
     EsitoDelTurno.instradamento: false,
+    // **NUOVO CON L'ORDINE EB VOCE 04, 21 settembre 2026.** Il turno che
+    // finisce con la lettura del giorno ridetta esisteva gia' e non era in
+    // questo elenco, perche' tornava con un `return` nudo senza costruire
+    // nessun esito. **Non costa**: quella risposta la persona l'aveva gia'
+    // pagata la prima volta.
+    EsitoDelTurno.letturaGiaData: false,
   };
 
   test('Ogni esito possibile dice se costa, e uno solo costa', () {

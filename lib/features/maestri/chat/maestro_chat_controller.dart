@@ -136,6 +136,20 @@ class MaestroChatController extends ChangeNotifier {
   bool _invitoGiaDato(String intentId) =>
       _messages.any((m) => m.intentId == intentId);
 
+  /// **La regola del costo, applicata da un punto solo.** Ordine EB voce 04.
+  ///
+  /// Prima i rami che non generavano tornavano con un `return` nudo, e la
+  /// regola non li vedeva: l'effetto era giusto, ma a tenerlo in piedi era il
+  /// `return` e non `CostoDelTurno`. Adesso ogni strada del turno passa di
+  /// qui, e chi ne aprira' una nuova dovra' dire come finisce.
+  void _applicaIlCosto(EsitoDelTurno esito) {
+    final piano = _tier?.call();
+    final contatore = _allowance;
+    if (piano != null && contatore != null && CostoDelTurno.consuma(esito)) {
+      contatore.record(piano);
+    }
+  }
+
   /// Il contatore delle domande del giorno. Esiste, ed era usato da una sola
   /// delle due strade con cui si fa una domanda a un Maestro: la schermata
   /// "Chiedi" lo consultava, la chat no.
@@ -620,6 +634,7 @@ class MaestroChatController extends ChangeNotifier {
       unawaited(_persist(ridetta));
       lettureRidette++;
       notifyListeners();
+      _applicaIlCosto(EsitoDelTurno.letturaGiaData);
       return;
     }
 
@@ -641,6 +656,7 @@ class MaestroChatController extends ChangeNotifier {
         tipo: TipoDiMessaggio.limiteRaggiunto,
       ));
       notifyListeners();
+      _applicaIlCosto(EsitoDelTurno.limiteRaggiunto);
       return;
     }
 
@@ -699,7 +715,10 @@ class MaestroChatController extends ChangeNotifier {
       _messages.add(invite);
       unawaited(_persist(invite));
       notifyListeners();
-      // EsitoDelTurno.instradamento: il costo vive dentro la funzione immersiva.
+      // **L'ESITO SI COSTRUISCE, non si nomina in un commento.** Ordine
+      // EB voce 04: qui c'era il nome di un valore che nessuno
+      // produceva, e a tenere in piedi la regola era il `return`.
+      _applicaIlCosto(EsitoDelTurno.instradamento);
       return;
     }
 

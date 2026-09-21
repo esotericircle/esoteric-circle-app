@@ -350,14 +350,32 @@ void main() {
             premium: false,
             rotation: r,
           );
-      for (var r = 0; r < MaestroWelcome.openings.length + 2; r++) {
+      for (var r = 0; r < 14; r++) {
         expect(openingOf(r) == openingOf(r + 1), isFalse,
             reason: 'le aperture $r e ${r + 1} coincidono');
       }
     });
 
-    test('Il pool ha almeno dieci formule', () {
-      expect(MaestroWelcome.openings.length, greaterThanOrEqualTo(10));
+    test('Il pool ha almeno dieci formule, per ognuno dei tre', () {
+      // **LA GRANDEZZA CHE CONTA E' IL BENVENUTO COMPOSTO, non la lista.**
+      // Ordine EB voce 08: le aperture non sono piu' una lista sola per
+      // tutti, sono i saluti e gli inviti di ciascun Maestro. Sei saluti e
+      // quattro inviti danno dodici benvenuti diversi prima di ripetersi,
+      // ed e' quello che una persona vede.
+      for (final m in Maestro.values) {
+        final composti = {
+          for (var r = 0; r < 24; r++)
+            MaestroWelcome.compose(
+              maestro: m,
+              profile: profileF,
+              premium: false,
+              rotation: r,
+            ),
+        };
+        expect(composti.length, greaterThanOrEqualTo(10),
+            reason: '${m.id} ripete il benvenuto dopo ${composti.length} '
+                'aperture');
+      }
     });
 
     test('Free: il contesto usa i dati natali, con nome e domanda d\'azione',
@@ -391,7 +409,7 @@ void main() {
     });
 
     test('Il benvenuto non usa il trattino lungo e ha accenti veri', () {
-      for (var r = 0; r < MaestroWelcome.openings.length; r++) {
+      for (var r = 0; r < 12; r++) {
         final w = MaestroWelcome.compose(
           maestro: Maestro.medora,
           profile: profileF,

@@ -71,6 +71,8 @@ class VoceDelMaestro {
     required this.tipoDiChiusura,
     required this.lente,
     required this.frasiDelConsulto,
+    required this.saluti,
+    required this.inviti,
   });
 
   /// Come suona la voce in una riga: e' la prima cosa che il modello legge.
@@ -133,6 +135,23 @@ class VoceDelMaestro {
   /// firma: quest'ultima e' la riga che impedisce alla pausa di scivolare nel
   /// registro di un altro, ed e' lo stesso difetto che la chiusura generica ha
   /// gia' fatto pagare una volta.
+  /// **COME SALUTA, ordine EB voce 08, 21 settembre 2026.**
+  ///
+  /// Il benvenuto della chat prendeva il Maestro fra i suoi parametri e non
+  /// lo usava: dodici aperture e sei domande, **le stesse per tutti e tre**.
+  /// Ed era peggio che uguale, perche' quelle frasi condivise contenevano le
+  /// parole di firma di tutti e tre: ognuno diceva *soglia*, *respiro* e
+  /// *cielo*, cioe' il saluto violava il divieto incrociato del lessico
+  /// proprio dove il modello non c'entra niente.
+  ///
+  /// Il segnaposto `{voc}` porta il vocativo.
+  final List<String> saluti;
+
+  /// Le domande con cui apre il discorso, nella sua voce. Nessun participio
+  /// riferito alla persona: la forma di cortesia si decide altrove, e una
+  /// frase fatta al maschile la smentirebbe.
+  final List<String> inviti;
+
   final List<String> frasiDelConsulto;
 
   /// Quante frasi del consulto servono come minimo. Sotto questo numero la
@@ -293,6 +312,20 @@ class VoceDelMaestro {
         'misuro il transito che viene',
         'chiedo all\'arcano dove guardare',
       ],
+      saluti: [
+        '{voc}, il cielo di oggi ti parla.',
+        '{voc}, ti leggo il momento in cui sei.',
+        '{voc}, ogni cosa qui ha il suo tempo. Adesso c\'è il tuo.',
+        '{voc}, l\'arcano giusto arriva quando serve.',
+        '{voc}, guardiamo insieme dove porta questo passaggio.',
+        '{voc}, sono qui. Il tempo non ci manca.',
+      ],
+      inviti: [
+        'Che cosa vuoi sapere?',
+        'Da dove vuoi che cominci a guardare?',
+        'Quale scelta ti pesa di più?',
+        'Che cosa vuoi capire per primo?',
+      ],
     ),
     Maestro.aura: VoceDelMaestro(
       timbro:
@@ -335,6 +368,20 @@ class VoceDelMaestro {
         'seguo il respiro fino alla corona',
         'lascio che la domanda scenda nel sentire',
         'guardo quale centro si è chiuso',
+      ],
+      saluti: [
+        '{voc}, prenditi un respiro. Non c\'è fretta.',
+        '{voc}, sono qui e ti ascolto.',
+        '{voc}, quello che provi ha un posto, qui.',
+        '{voc}, cominciamo da come stai adesso.',
+        '{voc}, il tuo centro sa già qualcosa.',
+        '{voc}, resto accanto a te, con calma.',
+      ],
+      inviti: [
+        'Che cosa provi, adesso?',
+        'Da cosa vuoi che partiamo?',
+        'Che cosa ti pesa di più, in questo momento?',
+        'Che cosa vuoi lasciare andare oggi?',
       ],
     ),
     Maestro.caligo: VoceDelMaestro(
@@ -400,6 +447,20 @@ class VoceDelMaestro {
         'seguo il sentiero fino al segno',
         'incido il sigillo che ti serve',
         'chiamo la runa per nome',
+      ],
+      saluti: [
+        '{voc}, la soglia è aperta.',
+        '{voc}, hai fatto bene a venire.',
+        '{voc}, qui si parla piano. Si dice il vero.',
+        '{voc}, ogni sentiero comincia con una domanda.',
+        '{voc}, la runa che ti serve esiste già.',
+        '{voc}, il presagio non si fa attendere.',
+      ],
+      inviti: [
+        'Che cosa vuoi chiedere?',
+        'Qual è il nodo?',
+        'Che segno stai cercando?',
+        'Da che parte vuoi cominciare?',
       ],
     ),
   };

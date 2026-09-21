@@ -11,8 +11,8 @@ m'interessa quanto tempo ci vorra', ma devi creare un ordine che preveda ogni
 mossa ed eviti ogni errore"*.
 
 VOCI_TOTALI: 8
-VOCI_CHIUSE: 5
-VOCI_APERTE: 3
+VOCI_CHIUSE: 8
+VOCI_APERTE: 0
 
 Il rapporto stara' in `docs/ordini/RAPPORTO_ORDINE_EB.md`.
 
@@ -401,6 +401,33 @@ chiuso non protegge piu' niente. Il lavoro li fa **costruire davvero**, cosi'
 la regola passa da `CostoDelTurno` come per tutti gli altri, e una guardia
 pretende che ogni esito dichiarato sia prodotto da almeno un punto del codice.
 
+### Fatto
+
+**Il comportamento non e' cambiato, ed e' la cosa giusta da dire.** La voce 04
+era gia' rispettata dal ramo: dei sette esiti dichiarati uno solo costava, e
+gli Eos non scendevano mai per una risposta.
+
+**E' cambiata la tenuta.** I due esiti che nessuno costruiva adesso li
+costruisce il controller, e con loro un terzo che mancava del tutto,
+`letturaGiaData`: il turno che finisce con la lettura del giorno ridetta
+esisteva e stava fuori dall'elenco che si dichiara chiuso. **Tutte le strade
+del turno passano da `_applicaIlCosto`**, che e' il solo punto in cui la
+regola si applica, e chi ne aprira' una nuova dovra' dire come finisce.
+
+**Il numero:** gli esiti erano sette, di cui **due mai costruiti**; adesso
+sono otto, **tutti costruiti**, e uno solo costa.
+
+**E una guardia di casa ha fatto il suo mestiere.** `un_ripiego_non_costa`
+dichiara: *"Se qualcuno aggiunge un esito e non lo dichiara qui, questa
+cade"*. E' caduta, ed e' stata dichiarata invece di aggirata.
+
+Guardia `test/ogni_esito_del_turno_e_costruito_test.dart`, col cardinale
+minimo sugli esiti e sulle sorgenti, **nata rossa sul difetto vero** (due
+valori a zero costruzioni) e poi **vista rossa con due innesti**:
+l'instradamento tornato a non costruire niente, e il ripiego fatto costare.
+**Prodotto e agganciato; niente da vedere a video, perche' niente cambia per
+chi usa l'app.** **CHIUSA.**
+
 ---
 
 ## VOCE EB.05, NIENTE RIPETIZIONI E NIENTE PROPOSTE GIA' RIFIUTATE
@@ -529,6 +556,29 @@ cosa dice, se compare un pulsante, se qualcosa viene consumato.**
 Le mosse 13, 14, 15 e 16 non erano nell'elenco dell'ordine: le ha aggiunte
 chi ha scritto il catalogo, come l'ordine chiede.
 
+### Fatto
+
+Il censimento e il catalogo stanno per intero qui sopra, come l'ordine
+chiede. **Ed e' eseguito, non solo scritto**: la guardia
+`test/il_catalogo_delle_mosse_e_eseguito_test.dart` pretende che il manifesto
+porti tutte e sedici le mosse numerate, e che ognuna punti a un posto del
+codice che **esiste davvero**.
+
+**Cosa la prova NON puo' fare, e si dichiara invece di fingerlo.** Undici
+mosse su sedici le governa l'istruzione di sistema, cioe' il modello: nessuna
+prova deterministica puo' garantire che Gemini la rispetti. Quello che si
+prova e' che **la regola gli arrivi**, che e' la sola meta' che sta a noi.
+L'altra meta' la guarda il fondatore parlando coi Maestri.
+
+**Cinque mosse su sedici non dipendono dal modello, e per quelle si misura il
+comportamento**: la 1 e la 2 in `il_pulsante_solo_se_lo_chiedi`, la 3, la 7 e
+la 10 in `un_rifiuto_vale_per_tutta_la_conversazione`. **La mossa 7, il
+messaggio vuoto, e' stata misurata e non dedotta**: tre invii vuoti, zero
+messaggi nella conversazione, zero chiamate al modello.
+
+**Prodotto e agganciato; le undici mosse del modello le prova a video il
+fondatore.** **CHIUSA.**
+
 ---
 
 ## VOCE EB.08, LE TRE PERSONALITA' E L'ILLUSIONE DELLA PERSONA VERA
@@ -554,6 +604,44 @@ identiche a ogni ripetizione, e non passano dalla voce del Maestro.** Sono il
 punto esatto in cui l'illusione si rompe, ed e' il punto che il fondatore ha
 visto due volte di fila. Dove l'invito resta legittimo, cioe' la mossa 2 del
 catalogo, **la frase nasce dalla voce del Maestro** e non da una costante.
+
+### Fatto
+
+**Trovata una risposta preconfezionata uguale per tutti e tre, ed era la
+prima cosa che una persona legge.** Il benvenuto della chat
+(`lib/core/maestro/maestro_welcome.dart`) prendeva il Maestro fra i suoi
+parametri e **non lo usava**: dodici aperture e sei domande, le stesse per
+Medora, Aura e Caligo.
+
+**Ed era peggio che uguale.** Quelle frasi condivise contenevano le parole di
+firma di tutti e tre: *"la soglia e' aperta"* e' di Caligo, *"prenditi un
+respiro"* e' di Aura, *"le voci del cielo"* e' di Medora. **Ognuno dei tre le
+diceva tutte**, cioe' il saluto violava il divieto incrociato del lessico che
+l'ordine BP aveva imposto al modello, proprio nel punto in cui il modello non
+c'entra niente. **Misurato: dodici benvenuti identici su dodici, e venti
+saluti col lessico di un altro.**
+
+**La cura.** Saluti e inviti vivono adesso in `VoceDelMaestro`, accanto al
+resto della persona di ciascuno: sei saluti e quattro inviti a testa, nel
+lessico proprio e senza participi riferiti alla persona. Le due liste
+condivise sono uscite. **Il pool composto non si e' accorciato**: sei per
+quattro danno dodici benvenuti diversi prima di ripetersi, esattamente come
+prima.
+
+**E due prove di casa misuravano la lista invece della cosa.**
+`consulta_maestro` contava le formule del pool e ne pretendeva almeno dieci;
+adesso conta i **benvenuti composti**, per ognuno dei tre, che e' quello che
+una persona vede. `i_tre_maestri_sono_tre` guardava le aperture vietate sulla
+lista comune; adesso le guarda sui saluti di ciascuno.
+
+**Gli inviti alle funzioni restano frasi per arte**, e non erano il difetto:
+sono gia' diversi fra i tre Maestri e scritti nel tono di ognuno. A romperli
+era la **ripetizione**, curata dalla voce 05.
+
+Guardia `test/ogni_maestro_saluta_con_la_sua_voce_test.dart`, **nata rossa
+sul difetto vero**, coi cardinali minimi sui Maestri, sui benvenuti di
+ciascuno e sulle parole vietate. **Prodotto e agganciato; a video lo vede il
+fondatore aprendo le tre chat.** **CHIUSA.**
 
 ---
 

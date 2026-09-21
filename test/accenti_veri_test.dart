@@ -87,6 +87,16 @@ class Esenzione {
 /// un'esenzione rimasta su un numero sbagliato esentava in silenzio una riga
 /// qualunque. Undici esenzioni prima, undici dopo.
 const esenzioni = <Esenzione>[
+  // Ordine EB voce 03, 21 settembre 2026: la preposizione "da" dentro
+  // l'elenco delle parole di servizio del cancello delle arti. Non e' il
+  // verbo "da" con l'accento, e non si mostra a nessuno: e' una parola
+  // che il cancello toglie dalla frase prima di decidere se la persona
+  // stia chiedendo un'arte.
+  Esenzione(
+      'lib/core/chat/la_richiesta_di_un_arte.dart',
+      "'da',",
+      'e la preposizione dentro le parole di servizio del cancello delle '
+          'arti, non il verbo, e non si mostra a nessuno'),
   // Ordine DI voce 02, 12 settembre 2026: un indizio della tabella che
   // capisce le domande libere, "non so se trasferirmi", dove "se" e' la
   // congiunzione e la stringa finisce legittimamente cosi'. Non si mostra.

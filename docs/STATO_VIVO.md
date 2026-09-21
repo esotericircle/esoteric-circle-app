@@ -3728,6 +3728,97 @@ link, e **App Check quando l'app sara' sul Play Store**, che resta spento in
 release dal 2 agosto 2026 perche' Play Integrity non attesta un'app
 installata da App Distribution.
 
+## L'ORDINE EB, LE CHAT DEI MAESTRI: OGNI MOSSA HA LA SUA RISPOSTA
+
+Ordine del 21 settembre 2026, **otto voci, otto chiuse**. Manifesto
+`docs/ordini/ORDINE_EB_MANIFESTO.md`, rapporto
+`docs/ordini/RAPPORTO_ORDINE_EB.md`, guardia
+`test/ordine_eb_guard_test.dart`. Parte dal commit `1c7a1eb4`, la 2274.
+**Nessuna build**: l'ordine lo vieta senza un ordine del fondatore.
+
+**IL FATTO.** Stesa di tarocchi con domanda *lavoro e carriera*, tocco su
+*Parlane con Medora*. La chat si apre col testo *"Nella mia stesa sono uscite
+Il Papa, Re di Spade e Dieci di Spade..."*, che porta le carte ma **non la
+domanda**. All'invio Medora risponde *"Le carte vogliono essere viste, non
+raccontate. Vieni, stendiamole insieme."* con un pulsante, invece di
+interpretare. Il fondatore scrive che non vuole un'altra stesa e riceve **la
+stessa identica frase e lo stesso pulsante**.
+
+**LA CAUSA, MISURATA.** Il classificatore cercava la parola dell'arte dentro
+il testo e il controller tornava **prima di chiamare il modello**: nessuna
+nozione di intenzione, solo la presenza di una parola. Passate le frasi vere
+delle catture, quattro su cinque instradavano alla Stesa, *"non voglio una
+stesa"* compresa: **la negazione pesava zero**. E la domanda preimpostata
+conteneva essa stessa la parola *stesa*, quindi si autodistruggeva.
+**PROVENIENZA IGNOTA**: il classificatore nasce col file.
+
+**IL CANCELLO STRETTO (EB.03).** `lib/core/chat/la_richiesta_di_un_arte.dart`
+risponde a una domanda sola: questa frase **chiede** l'arte, la **nomina**, o
+la **rifiuta**? Guarda la proposizione che contiene la parola dell'arte, non
+tutta la frase. Una negazione vince su tutto, poi viene il responso gia'
+avuto, poi il segno di richiesta; e **la richiesta nuda apre**, perche' chi
+scrive *"Carta del giorno"* e basta la sta chiedendo. **Delle undici frasi
+che nominano un'arte senza chiederla, prima ne passavano nove, adesso zero;
+delle sei che la chiedono davvero, passano ancora tutte e sei.**
+
+**E IL CANCELLO PUO' ESSERE STRETTO SOLO PERCHE' IL RISCHIO SI E'
+SPOSTATO.** Prima, un cancello che non scattava voleva dire **nessuna
+risposta**, e per questo era largo. Adesso vuol dire **una risposta vera**.
+E' l'insegnamento dell'ordine, e vale oltre le sue voci.
+
+**LA SECONDA META' (EB.02).** Un Maestro puo' proporre una stesa con parole
+sue, senza nessun pulsante: il blocco `LaRispostaNelMerito` entra nelle
+istruzioni di tutti e tre, in un punto solo, e dice cinque cose. Non proporre
+una funzione al posto della risposta; interpretare il responso che la persona
+ha gia'; chiedere cio' che manca invece di rimandare altrove; non ripetere
+una frase gia' detta; non riproporre cio' che e' stato rifiutato.
+**L'istruzione e' cambiata e non in silenzio**: le tre impronte riregistrate,
+le vecchie nello storico.
+
+**LE CARTE RISPONDONO A UNA DOMANDA (EB.01).** Il testo che apre la chat
+dalla Stesa porta adesso **la domanda** (quella scritta a mano se c'e',
+altrimenti l'argomento della tendina) e **le carte col verso**. La domanda
+era a video centoquarantatre righe sopra il punto che componeva l'apertura, e
+gia' lavorata dal motore del responso: a lasciarla cadere era la sola chat.
+**E la Stesa era l'unica porta con carte o rune a perdere il verso.** La cura
+esisteva gia', applicata a **una porta su tredici**: solo il Consiglio
+portava con se' la domanda.
+
+**UN RIFIUTO VALE PER TUTTA LA CONVERSAZIONE (EB.05).** Tre reti: l'invito
+non si ripete mai nella stessa conversazione, un'arte rifiutata resta chiusa
+fino alla fine, e il modello riceve la stessa regola a parole. **In tutti e
+due i casi il Maestro risponde**, e la guardia lo misura: un pulsante tolto
+che lascia il vuoto non sarebbe una cura.
+
+**I CONTATORI ERANO GIA' A POSTO (EB.04), e si dichiara invece di fingere un
+lavoro.** Dei sette esiti del turno uno solo costava, e gli Eos non scendono
+mai per una risposta. **A non essere a posto era la tenuta**: due esiti erano
+dichiarati e non li costruiva nessuno, e a reggere la regola era un `return`
+anticipato. Adesso sono otto, tutti costruiti, e ogni strada passa da un
+punto solo.
+
+**IL BENVENUTO ERA UGUALE PER I TRE (EB.08).** La prima cosa che una persona
+legge aprendo una chat: dodici aperture e sei domande **le stesse per Medora,
+Aura e Caligo**, e la funzione prendeva il Maestro senza usarlo. **Ed era
+peggio che uguale**: quelle frasi contenevano le parole di firma di tutti e
+tre, quindi ognuno diceva *soglia*, *respiro* e *cielo*, violando il divieto
+incrociato del lessico proprio dove il modello non c'entra. Misurato: dodici
+benvenuti identici su dodici, venti saluti col lessico altrui. Adesso saluti
+e inviti vivono in `VoceDelMaestro`, sei e quattro a testa.
+
+**IL CATALOGO DELLE SEDICI MOSSE (EB.07)** sta per intero nel manifesto ed e'
+eseguito: ogni mossa punta a un posto del codice che esiste. **Cinque su
+sedici non dipendono dal modello** e sono misurate; le altre undici le
+governa l'istruzione, e quello che si prova e' che la regola gli arrivi.
+
+**SETTE GUARDIE NUOVE**, registro da 453 a **461**. Tre sono **nate rosse sul
+difetto vero** invece che su un innesto.
+
+**UNA COSA VISTA E LASCIATA FUORI, DICHIARATA**: anche il Ricordo custodito
+perde il verso della carta (`stesa_tre_carte_screen.dart:1734`). Non e' il
+testo della chat, e toccarlo cambierebbe la forma di dati gia' scritti sui
+telefoni: va misurato in un ordine suo.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.

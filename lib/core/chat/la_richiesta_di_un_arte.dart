@@ -65,7 +65,7 @@ abstract final class LaRichiestaDiUnArte {
     'consulta', 'consultiamo', 'consultiamolo', 'consultiamola',
     'interroga', 'interroghiamo',
     // Le forme interrogative con cui si chiede una cosa che l'app da'.
-    'qual e', 'quale e', 'quali sono',
+    'qual è', 'quale è', 'quali sono',
   ];
 
   /// **LE NEGAZIONI**, che in italiano stanno prima di cio' che negano.
@@ -91,19 +91,19 @@ abstract final class LaRichiestaDiUnArte {
   /// ottenuto non sta chiedendo di rifarlo, e questa e' precisamente la
   /// situazione che il fondatore ha incontrato.
   static const List<String> responsiGiaAvuti = [
-    'ho gia',
-    'gia fatto',
-    'gia fatta',
-    'gia fatte',
-    'gia tirato',
+    'ho già',
+    'già fatto',
+    'già fatta',
+    'già fatte',
+    'già tirato',
     'sono uscite',
     'sono usciti',
-    'e uscita',
-    'e uscito',
+    'è uscita',
+    'è uscito',
     'erano uscite',
     'erano usciti',
-    'mi e uscita',
-    'mi e uscito',
+    'mi è uscita',
+    'mi è uscito',
     'nella mia',
     'nel mio',
     'che ho fatto',
@@ -115,7 +115,7 @@ abstract final class LaRichiestaDiUnArte {
     'ho tracciato',
     'ho consultato',
     'di ieri',
-    'dell altra volta',
+    'dell\'altra volta',
     'la mia estrazione',
     'il mio responso',
     'la mia lettura',
@@ -185,9 +185,16 @@ abstract final class LaRichiestaDiUnArte {
     final chiave = normalizza(parolaChiave);
     final pezzo = _proposizioneCon(norm, chiave);
 
-    final negato = negazioni.any((n) => contieneLaParola(pezzo, n));
-    final giaAvuto = responsiGiaAvuti.any((r) => contieneLaParola(pezzo, r));
-    final chiesto = segniDiRichiesta.any((s) => contieneLaParola(pezzo, s));
+    // **ANCHE LA PAROLA CERCATA SI NORMALIZZA.** Prima le chiavi erano
+    // scritte senza accento, perche' il testo arrivava normalizzato:
+    // una scorciatoia che nascondeva una trappola, visto che chi avesse
+    // aggiunto una parola accentata non avrebbe mai combaciato. E sono
+    // stringhe di `lib`, quindi la regola di casa vuole gli accenti veri.
+    final negato = negazioni.any((n) => contieneLaParola(pezzo, normalizza(n)));
+    final giaAvuto =
+        responsiGiaAvuti.any((r) => contieneLaParola(pezzo, normalizza(r)));
+    final chiesto =
+        segniDiRichiesta.any((s) => contieneLaParola(pezzo, normalizza(s)));
 
     // **L'ordine conta, ed e' questo.** Una negazione vince su tutto, perche'
     // chi dice di non volere una cosa lo dice anche quando la nomina con un

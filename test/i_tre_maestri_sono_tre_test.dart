@@ -1,6 +1,5 @@
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/frase_di_ripiego.dart';
-import 'package:esoteric_circle/core/maestro/maestro_welcome.dart';
 import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/core/maestro/voce_del_maestro.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
@@ -262,11 +261,15 @@ void main() {
         }
       }
 
-      // 3. Le aperture del benvenuto.
-      for (final apertura in MaestroWelcome.openings) {
-        final vietata = VoceDelMaestro.aperturaVietataDi(apertura);
-        if (vietata != null) {
-          colpe.add('benvenuto: "$apertura" comincia con "$vietata"');
+      // 3. Le aperture del benvenuto, che dall'ordine EB voce 08 sono i
+      //    saluti di ciascun Maestro e non piu' una lista sola per tutti.
+      for (final maestro in Maestro.values) {
+        for (final apertura in VoceDelMaestro.di(maestro).saluti) {
+          final vietata = VoceDelMaestro.aperturaVietataDi(apertura);
+          if (vietata != null) {
+            colpe.add('benvenuto di ${maestro.id}: "$apertura" comincia con '
+                '"$vietata"');
+          }
         }
       }
 

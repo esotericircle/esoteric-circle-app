@@ -31,6 +31,15 @@ enum EsitoDelTurno {
 
   /// La richiesta apriva una funzione immersiva: il costo vive dentro quella.
   instradamento,
+
+  /// **La lettura di oggi era gia' stata data, e il Maestro l'ha ridetta.**
+  /// Ordine EB voce 04, 21 settembre 2026.
+  ///
+  /// Mancava, e il turno che finisce cosi' esiste dal giorno in cui la
+  /// lettura del giorno e' diventata una sola: tornava con un `return` nudo,
+  /// fuori dall'elenco che si dichiara chiuso. **Non costa**, perche' la
+  /// persona quella risposta l'aveva gia' pagata la prima volta.
+  letturaGiaData,
 }
 
 /// Quanto costa un turno, e la regola sta QUI.
@@ -52,7 +61,18 @@ class CostoDelTurno {
   ///
   /// Costa SOLO la risposta vera. Non costano il ripiego, la risposta troncata,
   /// l'errore di attestazione, l'errore generico, il rifiuto per limite gia'
-  /// raggiunto e l'instradamento verso una funzione immersiva.
+  /// raggiunto, l'instradamento verso una funzione immersiva e la lettura del
+  /// giorno ridetta.
+  ///
+  /// **E ADESSO OGNI ESITO LO COSTRUISCE QUALCUNO. Ordine EB voce 04, 21
+  /// settembre 2026.** Due valori, `limiteRaggiunto` e `instradamento`, erano
+  /// dichiarati e non li produceva nessun punto del codice: i loro rami
+  /// tornavano con un `return` nudo. L'effetto coincideva con la regola, ma a
+  /// tenerlo in piedi era il `return`, non l'elenco chiuso, e chi avesse
+  /// tolto quel `return` avrebbe cambiato il costo senza che nessuna prova se
+  /// ne accorgesse. La guardia
+  /// `test/ogni_esito_del_turno_e_costruito_test.dart` pretende che ogni
+  /// valore sia costruito almeno una volta.
   ///
   /// **Una risposta troncata NON e' una risposta consegnata.** Il 2 agosto 2026
   /// la chat consegnava "Un velo" e si prendeva una delle tre domande del

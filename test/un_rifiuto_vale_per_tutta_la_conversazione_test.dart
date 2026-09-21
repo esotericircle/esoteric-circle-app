@@ -86,6 +86,37 @@ void main() {
         reason: 'alla seconda richiesta il Maestro deve rispondere, non '
             'tacere');
   });
+
+  _laMossaSette();
+}
+
+/// **LA MOSSA 7 DEL CATALOGO: un messaggio vuoto non parte.** Ordine EB voce
+/// 07. Sta qui e non nella prova del catalogo perche' qui il Maestro finto
+/// c'e' gia', e una seconda copia di settanta righe sarebbe due copie che un
+/// giorno divergono.
+void _laMossaSette() {
+  test('un messaggio vuoto non parte, e non costa niente', () async {
+    final ai = _AiCheConta();
+    final controller = MaestroChatController(
+      maestro: Maestro.medora,
+      ai: ai,
+      memory: InMemoryMaestroMemoryRepository(),
+    );
+    await controller.init();
+    final prima = controller.messages.length;
+
+    await controller.send('');
+    await controller.send('   ');
+    await controller.send('\n\t ');
+
+    print('ORDINE EB VOCE 07, mossa 7: messaggi prima $prima, dopo '
+        '${controller.messages.length}, chiamate al modello ${ai.quante}');
+    expect(controller.messages.length, prima,
+        reason: 'un messaggio vuoto e\' finito nella conversazione');
+    expect(ai.quante, 0,
+        reason: 'un messaggio vuoto ha chiamato il modello, e un modello '
+            'chiamato a vuoto e\' una domanda pagata per niente');
+  });
 }
 
 /// Un modello finto che conta quante volte lo chiamano. E' la stessa
