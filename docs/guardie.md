@@ -41,9 +41,22 @@ totale e' un controllo, non un ornamento.
 | --- | ---: |
 | Guardie che passano dalla porta comune | 137 |
 | Guardie con un cardinale proprio dichiarato | 117 |
-| Guardie che non scoprono nessun insieme di file | 199 |
-| **Somma delle categorie** | **453** |
-| **Guardie secondo la definizione** | **453** |
+| Guardie che non scoprono nessun insieme di file | 200 |
+| **Somma delle categorie** | **454** |
+| **Guardie secondo la definizione** | **454** |
+
+**Ricontate a ordine EB**, 21 settembre 2026, le chat dei Maestri: **una guardia nuova**, `ordine_eb_guard`, la guardia propria del manifesto. Il totale sale da 453 a **454** e le tre categorie a **137, 117 e 200**.
+
+**REGOLA B, e il suo esito va scritto perche' insegna.** La zona toccata e' l'instradamento della chat verso le funzioni. Quattro innesti a mano in `lib/core/chat/immersive_intents.dart` e `lib/core/chat/intent_classifier.dart`, ognuno verificato col grep prima di leggere l'esito:
+
+1. la Stesa passata da Medora a Caligo: **rossa** `intent_routing`;
+2. il confine di parola tolto al classificatore: **rossa** `intent_routing`;
+3. l'invito della Stesa cambiato in una frase qualunque: **rossa** `intent_routing`;
+4. il pulsante della Stesa che smette di nominare l'arte: **rossa** `ogni_pulsante_della_chat_apre_cio_che_promette`.
+
+**E un innesto e' stato buttato invece di credergli.** Il primo tentato, togliere la sola parola `stesa` dall'elenco delle chiavi, **non ha fatto cadere niente**, e non perche' la guardia fosse cieca: la parola `tarocchi` copre la stessa frase da sola, quindi l'innesto era ridondante. Si e' cambiata la grandezza innestata, non la soglia.
+
+**E una guardia registrata e' rimasta verde sui primi tre innesti senza essere degradata**: `ogni_pulsante_della_chat_apre_cio_che_promette` misura che un pulsante apra l'arte che nomina, non chi scatta l'instradamento ne' cosa dice l'invito. I primi tre innesti cadevano fuori dalla sua zona. **Una guardia verde su un innesto non e' automaticamente una guardia morta: prima si guarda se quell'innesto stava nella sua zona.** Provata dentro la sua, col quarto, e' rossa.
 
 **Ricontate a ordine EA, il difetto della 2273**, 20 settembre 2026, il foglio del link sotto la tastiera: **una guardia nuova**, `il_foglio_del_link_regge_la_tastiera`. Il totale sale da 452 a **453** e le tre categorie a **137, 117 e 199**. **Non e' stata vista rossa con un innesto: e' nata rossa sul difetto vero**, trovato guardando lo schermo del Realme dopo la consegna della 2273. Nessuna prova l'aveva visto, e la prima stesura di questa guardia **girava in una finestra comoda, 390 per 844, e restava verde**: e' diventata rossa solo dopo aver pinnato i numeri letti sul telefono, cioe' 360 per 800 punti, la tastiera a 306 e i due bordi delle barre. **Una guardia che misura la geometria vale quanto la finestra in cui gira.**
 
@@ -822,7 +835,7 @@ le altre.
 | `ogni_freccia_mantiene_test.dart` | ogni freccia mantiene | 1, 2 | proprio, dichiarato | 31/08/2026, CG | 3 |
 | `ogni_guardia_dichiara_quanto_guarda_test.dart` | ogni guardia dichiara quanto guarda | 1, 2 | dalla porta comune | mai | 2 |
 | `ogni_perla_porta_alla_sua_voce_test.dart` | ogni perla porta alla sua voce | 1 | non scopre insiemi di file | mai | 3 |
-| `ogni_pulsante_della_chat_apre_cio_che_promette_test.dart` | la chat non ha una mappa sua delle schermate; **ogni pulsante nomina l'arte che apre e si apre se dallo scaffale si apre**; un pulsante senza arte si dichiara; le rune aprono l'Estrazione, l'oroscopo l'Oroscopo | 1, 2 | proprio, dichiarato | 17/09/2026, DS (sulle destinazioni vecchie scritte nella forma nuova: dieci sbagli, le rune e l'oroscopo) | 2 |
+| `ogni_pulsante_della_chat_apre_cio_che_promette_test.dart` | la chat non ha una mappa sua delle schermate; **ogni pulsante nomina l'arte che apre e si apre se dallo scaffale si apre**; un pulsante senza arte si dichiara; le rune aprono l'Estrazione, l'oroscopo l'Oroscopo | 1, 2 | proprio, dichiarato | 17/09/2026, DS (sulle destinazioni vecchie scritte nella forma nuova: dieci sbagli, le rune e l'oroscopo) | 21/09/2026, EB (Regola B: verde sui primi tre innesti perche' cadevano fuori dalla sua zona, rossa col quarto dentro, il pulsante che non nomina piu' l'arte) |
 | `ogni_rotta_passa_dal_nero_test.dart` | ogni rotta passa dal nero | 1, 2 | dalla porta comune | mai | 3 |
 | `ogni_schermata_dichiara_la_barra_test.dart` | ogni schermata dichiara la barra | 1 | dalla porta comune | 15/09/2026, DQ (rossa da sola sul Diario dei viaggi, schermata nuova che non diceva se porta la barra) | 2 |
 | `ogni_sensore_ha_il_suo_ripiego_test.dart` | ogni sensore ha il suo ripiego | 1, 2 | dalla porta comune | mai | 3 |
@@ -833,6 +846,7 @@ le altre.
 | `ora_di_nascita_test.dart` | ora di nascita | 1, 2 | dalla porta comune | mai | 3 |
 | `ora_e_luogo_sopravvivono_test.dart` | ora e luogo sopravvivono | 1, 2 | dalla porta comune | mai | 3 |
 | `ora_si_puo_correggere_test.dart` | ora si puo correggere | 1, 2 | dalla porta comune | mai | 3 |
+| `ordine_eb_guard_test.dart` | ordine eb guard | 1, 2 | non scopre insiemi di file | 21/09/2026, EB (rossa da se': l'ordine nasce con otto voci aperte, e la guardia lo dice) | 3 |
 | `ordine_ch_guard_test.dart` | ordine ch guard | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `ordine_cl_guard_test.dart` | ordine cl guard | 4 | non scopre insiemi di file | mai | 3 |
 | `ordine_cm_guard_test.dart` | ordine cm guard | 1, 2 | dalla porta comune | mai | 2 |
