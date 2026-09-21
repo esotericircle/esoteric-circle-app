@@ -3926,6 +3926,80 @@ vera non li misura nessun controllo, e diciassette trascrizioni stanno in
 `docs/collaudo/EC/` perche' le legga. Il verso nei Ricordi si vede aprendone
 uno con una carta rovesciata, e non e' stato guardato su un telefono.
 
+## L'ORDINE ED, IL COLLAUDO SUI TRE MAESTRI E I MODELLI VERI IN CLAUDE.MD
+
+Ordine del 21 settembre 2026, **cinque voci**. Manifesto
+`docs/ordini/ORDINE_ED_MANIFESTO.md`, rapporto
+`docs/ordini/RAPPORTO_ORDINE_ED.md`, guardia
+`test/ordine_ed_guard_test.dart`. Parte dal commit `cf58dd6c`.
+
+**IL COLLAUDO ADESSO GIRA SU TUTTI E TRE I MAESTRI.** Quello dell'ordine EC
+provava ogni mossa su **un Maestro solo**, diciassette conversazioni per
+sedici mosse: adesso sono **quarantacinque**, quindici mosse per tre, perche'
+la mossa 7, il messaggio vuoto, non manda niente al modello e vive nella
+suite. **Il catalogo non e' piu' un elenco di frasi**: e' sedici
+comportamenti detti con le parole di ciascun Maestro, `DizioneDelMaestro` in
+`tool/collaudo_dei_maestri.dart`. Mandare lo stesso testo a tutti e tre non
+provava la stessa mossa, ne provava un'altra: *"Puoi farmi uno scan dei
+chakra?"* e' la mossa 4 per Medora, ma per Aura e' la mossa 2, dove il
+pulsante **deve** comparire.
+
+**E DUE MOSSE DEL CATALOGO DI EB ERANO MAL POSTE, contro il catalogo delle
+arti.** La mossa 5 chiedeva della numerologia karmica come domanda *fuori dal
+dominio*, ma **la Numerologia e' un'arte di Caligo**, `art_catalog.dart:663`
+e `:865`: a Medora era la mossa 4, a Caligo la mossa 2. La mossa 14 chiedeva
+di leggere la mano come funzione *che non esiste*, ma **la Chiromanzia esiste
+ed e' di Aura, in Coming soon**, `feature_catalog.dart:96`, e una funzione
+Coming soon ha un anticipo da mostrare. **Padre di tutte e due: ordine EB
+voce 07**, che ha scritto il catalogo senza confrontarlo col catalogo delle
+arti.
+
+**IL DIFETTO PIU' GRAVE, E IL NUMERO CHE L'HA MOSTRATO.** L'ordine EC aveva
+aggiunto la riga *"Se non capisci quello che ti e' stato scritto, dillo e
+chiedi"* e l'aveva vista rispettata: **su Caligo soltanto**. Provata sui tre e
+su tre giri, veniva violata **sei volte su nove**, Aura tre su tre, Caligo
+due, Medora una. Aura ha letto in *asdf qwerty zzz* *"un richiamo senza forma,
+quasi un suono puro"* e **ha fatto scendere il contatore**: la persona ha
+pagato un errore di battitura.
+
+**La causa non era la forza della frase, ed e' la cosa che vale oltre
+quest'ordine.** Ogni Maestro ha una forma obbligatoria, un'apertura di rito e
+una chiusura con un gesto o un consiglio. **Un "non ho capito" non ha ne'
+l'una ne' l'altra**, quindi per obbedire alla forma il modello doveva trovare
+un significato. La cura e' stata **togliere il conflitto**, con una riga che
+dice che quando non hai capito **la forma decade**. Dopo: **zero su nove**.
+
+**IL CONTO GREZZO DEL LESSICO, che lo zero cadute non diceva piu'.** Il
+collaudo adesso conta le parole di firma altrui **prima e dopo la rete**, e
+lo fa senza toccare la rete: sta sotto `VoceSorvegliata`, quindi la prima
+risposta che il provider restituisce in un turno e' quella di prima. Sul
+giro di partenza: **tre violazioni prima, zero dopo**.
+
+**LA RETE E' DICHIARATA, col file e la riga.** Gira **dentro l'app** per le
+persone vere, `lib/services/app_services.dart:115`. Fa **al massimo una
+chiamata in piu' per turno**, `voce_sorvegliata.dart:150-161`, senza ciclo.
+Aggiunge **1477 ms in media e 2258 nel caso peggiore**, e solo dove
+interviene. **Non fa scendere nessun contatore**: la richiesta parte dal
+provider, sotto il controller, che vede un turno solo. Su mille turni sono
+circa **sessantasette chiamate in piu', il 6,7 per cento**.
+
+**CLAUDE.MD DICEVA IL FALSO SUI MODELLI, e nessuna guardia lo leggeva.** La
+riga 96 diceva *"Gemini 3 Pro per i Maestri, Gemini 3 Flash per i task
+ripetitivi"*: **nessun punto dell'app chiama un modello della famiglia 3**.
+Adesso dice i modelli veri e la regola della profondita',
+`FirebaseMaestroAiProvider.modelForDepth`: `gemini-2.5-flash` per la chat,
+per la Profonda e per il distillato, `gemini-2.5-flash-lite` per la Breve,
+per il Free e per il presagio delle rune. **E il buco e' chiuso**: la guardia
+`i_modelli_stanno_nella_regione_dei_dati` legge anche CLAUDE.md, e misura la
+**famiglia**, non il nome esatto, perche' la bugia era scritta in discorso e
+una ricerca del nome col trattino non l'avrebbe mai vista.
+
+**UNA GUARDIA NUOVA**, `ordine_ed_guard`, registro da 466 a **467**.
+
+**COSA RESTA AL GIUDIZIO DEL FONDATORE**: il tono e l'illusione della persona
+vera non li misura nessun controllo, e **quarantacinque trascrizioni** stanno
+in `docs/collaudo/ED/` perche' le legga.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.

@@ -36,10 +36,10 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        '8c29878388fc30df823697e977d477d327b233c9ec5f626e46ccb81c55dcb3b0',
-    'aura': 'a2cb8b3dfb965097c5f278b4aa186862504f46f913295cbd7a54886d684bf0c7',
+        '66b59ec37b2cdd6ffb212f77b9851a241168b02dcd89311a338697cd14b56404',
+    'aura': 'bd1eea19f317b9c526ac94d2695e65d51d9e27a5038f9b49b53afb5fa1666529',
     'caligo':
-        '09b0aa2d48aea39e85e198f6fb88765267fe102fcd9a39227f8fba7db0b73d49',
+        '7001570fae460675ad011039e6358011dd16ced9378f5bee6f9f22e76ab84cd3',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
@@ -53,6 +53,25 @@ class ImprontaDellIstruzione {
   /// cancella niente: quando l'istruzione cambia, l'impronta vecchia scende in
   /// questo elenco con la sua data e con cio' che le e' successo.
   static const List<String> storicoDelleImpronte = [
+    'DAL 21 SETTEMBRE 2026, POCHE ORE, LA SECONDA. Impronte: medora '
+        '8c29878388fc30df823697e977d477d327b233c9ec5f626e46ccb81c55dcb3b0, '
+        'aura a2cb8b3dfb965097c5f278b4aa186862504f46f913295cbd7a54886d684bf0c7, '
+        'caligo 09b0aa2d48aea39e85e198f6fb88765267fe102fcd9a39227f8fba7db0b73d49. '
+        '**SU QUESTA STRINGA NON È STATA PRESA NESSUNA MISURA DI ATTRIBUZIONE '
+        'CIECA**: è vissuta poche ore, fra l\'ordine EC e l\'ordine ED dello '
+        'stesso giorno. Caduta con l\'ordine ED voce 01. Questa volta il '
+        'numero c\'è. L\'ordine EC aveva aggiunto la riga del non capito e '
+        'l\'aveva vista rispettata su Caligo: **il suo collaudo provava ogni '
+        'mossa su un Maestro solo**. Provata sui tre e su tre giri, la riga '
+        'veniva violata **sei volte su nove**, Aura tre su tre, Caligo due, '
+        'Medora una. La causa non era la forza della frase: era che **la '
+        'forma obbligatoria della risposta non lasciava posto a un "non ho '
+        'capito"**. Ogni Maestro deve aprire di rito e chiudere con un gesto '
+        'o un consiglio. Un "non ho capito" non ha né l\'una né l\'altro, '
+        'quindi il modello trovava un significato per poterla rispettare: '
+        'Aura ha letto in *asdf qwerty zzz* un richiamo senza forma da '
+        'accogliere col respiro. È stata aggiunta una riga che fa **decadere '
+        'la forma** quando non si è capito. Dopo: **zero su nove**.',
     'DAL 21 SETTEMBRE 2026, POCHE ORE. Impronte: medora '
         '829ba6659efc997d2b7895766ec58b27379ab9e7a3402db0c9e34711c1f5ff68, '
         'aura c0722a957beb63cfa51d327ba11a74d4f27959ea5b826129bb00d92266cc31c6, '

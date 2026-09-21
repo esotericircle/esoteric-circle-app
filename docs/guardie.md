@@ -41,9 +41,15 @@ totale e' un controllo, non un ornamento.
 | --- | ---: |
 | Guardie che passano dalla porta comune | 139 |
 | Guardie con un cardinale proprio dichiarato | 125 |
-| Guardie che non scoprono nessun insieme di file | 202 |
-| **Somma delle categorie** | **466** |
-| **Guardie secondo la definizione** | **466** |
+| Guardie che non scoprono nessun insieme di file | 203 |
+| **Somma delle categorie** | **467** |
+| **Guardie secondo la definizione** | **467** |
+
+**Ricontate a ordine ED**, 21 settembre 2026, il collaudo sui tre Maestri: **una guardia nuova**, `ordine_ed_guard`, che non scopre insiemi. Il totale sale da 466 a **467** e le tre categorie a **139, 125 e 203**.
+
+**E UNA GUARDIA DI CASA HA SMESSO DI AVERE UN BUCO LARGO UN DOCUMENTO.** `i_modelli_stanno_nella_regione_dei_dati` guardava `lib` e il server, e li' faceva il suo lavoro: **CLAUDE.md non lo guardava nessuno**, e la sua riga dei modelli ha nominato per settimane una famiglia che l'app non ha mai chiamato. E' il documento che l'agente legge per primo a ogni apertura. Adesso quella guardia legge anche CLAUDE.md, e **misura la famiglia, non il nome esatto**, perche' la bugia era scritta in discorso e una ricerca del nome col trattino non l'avrecbe mai vista. Nata rossa sulla bugia vera, rimessa nel file e verificata col grep.
+
+**LA REGOLA B HA PARLATO DUE VOLTE, e tutte e due le volte la rete era viva.** `i_modelli_stanno_nella_regione_dei_dati` vista rossa con un modello inesistente innestato in `titoli_da_gemini`; `i_controlli_del_collaudo_prendono_i_difetti` vista rossa spegnendo il controllo del pulsante, e ha risposto con due prove invece di una.
 
 **Ricontate a ordine EC, parte seconda**, 21 settembre 2026, il verso nel Ricordo custodito: **due guardie nuove**, `il_ricordo_custodito_porta_il_verso` e `il_verso_si_recupera_dove_si_puo`, tutte e due col cardinale proprio. Il totale sale da 464 a **466** e le tre categorie a **139, 125 e 202**.
 
@@ -516,7 +522,7 @@ le altre.
 | `i_cinque_doni_rispettano_la_legge_dei_testi_test.dart` | i cinque Doni rispettano la legge dei testi | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `i_cinque_elementi_colorano_e_si_leggono_test.dart` | i cinque elementi colorano e si leggono | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
 | `dream_rite_screen_test.dart` | la schermata del Sigillo del Sogno | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa sul difetto vero: la Parola dell Alba non arrivava a video) | 2 |
-| `i_controlli_del_collaudo_prendono_i_difetti_test.dart` | ogni controllo del collaudo con Gemini vero cade su un difetto costruito apposta | 1, 2 | proprio, dichiarato | 21/09/2026, EC (e' la regola A applicata a un collaudo che costa: il difetto si costruisce invece di aspettare che il modello sbagli) | 3 |
+| `i_controlli_del_collaudo_prendono_i_difetti_test.dart` | ogni controllo del collaudo con Gemini vero cade su un difetto costruito apposta | 1, 2 | proprio, dichiarato | 21/09/2026, EC (e' la regola A applicata a un collaudo che costa: il difetto si costruisce invece di aspettare che il modello sbagli; **rivista rossa il 21/09/2026, ED**, spegnendo il controllo del pulsante: ha risposto con due prove) | 3 |
 | `i_doni_si_aprono_alla_loro_ora_test.dart` | i doni si aprono alla loro ora | 1, 2 | proprio, dichiarato | 10/09/2026, DD (rossa: 73 risposte sbagliate su 120 col difetto innestato) | 1 |
 | `i_doni_si_agganciano_test.dart` | i doni si agganciano | 1, 2 | proprio, dichiarato | mai | 3 |
 | `i_due_grigi_si_distinguono_test.dart` | i due grigi si distinguono | 1, 4 | non scopre insiemi di file | mai | 2 |
@@ -528,7 +534,7 @@ le altre.
 | `i_maestri_sanno_cosa_arriva_test.dart` | i Maestri sanno cosa arriva | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `i_maestri_sui_pixel_e_non_sui_rettangoli_test.dart` | i maestri sui pixel e non sui rettangoli | 4 | non scopre insiemi di file | mai | 3 |
 | `i_manifesti_sono_sigillati_test.dart` | i manifesti sono sigillati; **dall'ordine DS tutti, scoperti a esecuzione e letti nei loro formati**: ognuno nel sigillo, ognuno con la sua guardia, nessun file coi marcatori senza nome; DD e DN riportati come falsi in attesa del fondatore | 1, 2 | proprio, dichiarato | 04/09/2026, CQ; 17/09/2026, DS (manifesto finto ZZ senza guardia e fuori dal sigillo, nome diverso ZY, marcatore di CW cambiato, lettore senza intestazioni); 17/09/2026, DT (DT entra con ventisette voci) | 2 |
-| `i_modelli_stanno_nella_regione_dei_dati_test.dart` | ogni modello nominato in lib e nel server sta fra i modelli verificati nella regione dei dati, e nessuna chiamata a Vertex parte da global; le chiamate dell'app leggono la regione da LaRegioneDeiDati, ordine DJ voce 03 | 1, 2 | dalla porta comune | 13/09/2026, DJ voce 03 (due rossi: un modello non verificato nella scena, una chiamata da global nei Maestri; il primo giro prendeva anche il prefisso della famiglia, e la grandezza e' diventata il nome col suo modello) | 1 |
+| `i_modelli_stanno_nella_regione_dei_dati_test.dart` | ogni modello nominato in lib e nel server sta fra i modelli verificati nella regione dei dati, e nessuna chiamata a Vertex parte da global; le chiamate dell'app leggono la regione da LaRegioneDeiDati, ordine DJ voce 03 | 1, 2 | dalla porta comune | 13/09/2026, DJ voce 03 (due rossi: un modello non verificato nella scena, una chiamata da global nei Maestri; il primo giro prendeva anche il prefisso della famiglia, e la grandezza e' diventata il nome col suo modello; **rivista rossa il 21/09/2026, ED voce 04**, con un modello inesistente innestato in titoli_da_gemini, e allargata a CLAUDE.md, dove nasce rossa sulla bugia vera della riga dei modelli) | 1 |
 | `i_movimenti_dicono_il_guadagno_test.dart` | i movimenti dicono il guadagno | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `i_nomi_non_si_sovrappongono_test.dart` | i nomi non si sovrappongono | 4 | non scopre insiemi di file | mai | 3 |
 | `i_nove_ereditati_test.dart` | i nove ereditati | 1, 2 | dalla porta comune | mai | 3 |
@@ -893,6 +899,7 @@ le altre.
 | `ordine_cp_guard_test.dart` | ordine CP guard | 1, 2 | proprio, dichiarato | mai | 2 |
 | `ordine_cq_guard_test.dart` | ordine CQ guard | 1, 2 | proprio, dichiarato | mai | 2 |
 | `ordine_ec_guard_test.dart` | ordine ec guard | 1, 2 | non scopre insiemi di file | 21/09/2026, EC (rossa da se': l'ordine nasce con sei voci aperte) | 3 |
+| `ordine_ed_guard_test.dart` | ordine ed guard | 1, 2 | non scopre insiemi di file | 21/09/2026, ED (due innesti verificati col grep: tolta una riga della tavola delle sedici mosse, e un marcatore VOCI_TOTALI falso) | 3 |
 | `palette_sensoriale_test.dart` | palette sensoriale | 1, 2 | dalla porta comune | 01/09/2026, CN | 3 |
 | `passport_carta_natale_test.dart` | passport carta natale | 1, 2 | dalla porta comune | mai | 3 |
 | `passport_test.dart` | passport | 1 | non scopre insiemi di file | mai | 3 |

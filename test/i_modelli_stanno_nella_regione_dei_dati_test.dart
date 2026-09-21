@@ -72,6 +72,43 @@ void main() {
     expect(daGlobal, isEmpty, reason: daGlobal.join('\n'));
   });
 
+  test('E IL DOCUMENTO CHE L AGENTE LEGGE NON NOMINA UNA FAMIGLIA DI MODELLI '
+      'CHE L APP NON CHIAMA', () {
+    // **IL BUCO CHE HA FATTO NASCERE QUESTA PROVA.** Ordine ED voce 04, 21
+    // settembre 2026. La prova qui sopra guarda `lib` e il server, e li'
+    // faceva il suo lavoro. **CLAUDE.md non lo guardava nessuno**, e la sua
+    // riga 96 ha detto per settimane *"Gemini 3 Pro per i Maestri, Gemini 3
+    // Flash per i task ripetitivi"* mentre l'app non ha mai chiamato un
+    // modello della famiglia 3. E' il documento che l'agente legge per primo
+    // a ogni apertura: una bugia li' vale piu' di una bugia in un commento.
+    //
+    // **Si misura la FAMIGLIA, non il nome esatto**, perche' la bugia era
+    // scritta a parole e in discorso, *"Gemini 3 Pro"*, e una ricerca del
+    // nome col trattino non l'avrecbe mai vista. `Gemini-TTS` non porta
+    // numero e non entra, ed e' giusto: non e' un modello di testo.
+    final famiglie = LaRegioneDeiDati.modelliVerificati.keys
+        .map((m) => RegExp(r'gemini-([0-9][0-9.]*)').firstMatch(m)?.group(1))
+        .whereType<String>()
+        .toSet();
+    final documento = File('CLAUDE.md').readAsStringSync();
+    final nominate = RegExp(r'[Gg]emini[- ]([0-9][0-9.]*)')
+        .allMatches(documento)
+        .map((m) => m.group(1)!)
+        .toSet();
+    // ignore: avoid_print
+    print('ORDINE ED VOCE 04: famiglie in CLAUDE.md $nominate, '
+        'verificate in ${LaRegioneDeiDati.regione} $famiglie');
+    cardinaleMinimo(nominate.length, 1,
+        cosa: 'famiglie di modelli nominate in CLAUDE.md',
+        perche: 'Se la riga dei modelli sparisse, questa prova direbbe di '
+            'si\' a niente: il documento deve dire quali modelli girano.');
+    final fuori = nominate.difference(famiglie).toList();
+    expect(fuori, isEmpty,
+        reason: 'CLAUDE.md nomina la famiglia Gemini $fuori, che l\'app non '
+            'chiama da nessuna parte: chi legge il documento per primo si fa '
+            'un\'idea falsa di cosa gira. Le famiglie vere sono $famiglie');
+  });
+
   test('LE CHIAMATE DELL APP PARTONO DALLA REGIONE DEI DATI, coi modelli '
       'verificati', () {
     expect(LaRegioneDeiDati.regione, 'europe-west1');

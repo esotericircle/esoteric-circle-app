@@ -79,10 +79,28 @@ EsitoDeiControlli controllaIlTurno({
             '"$deviazione": il Maestro rimanda altrove invece di rispondere');
       }
     }
-    for (final parola in attese.deveNominare) {
-      if (!risposta.text.toLowerCase().contains(parola.toLowerCase())) {
-        cadute.add('turno $n: la risposta non nomina "$parola", quindi non '
-            'risponde nel merito di quello che e\' stato chiesto');
+    // **ALMENO UNA DELLE FIGURE, non una in particolare.** Ordine ED voce 01.
+    //
+    // **Il difetto che ha cambiato questa misura.** Pretendeva che la
+    // risposta nominasse OGNI parola dell'elenco, e sulla gettata di Caligo
+    // l'elenco era la prima runa: al rifiuto Caligo rispondeva *"Hai gia'
+    // compiuto la tua gettata, non ti chiedo di farne un'altra, il mio
+    // compito e' interpretare i segni che hai gia' rivelato"* e nominava
+    // **Ansuz**, che e' una delle tre. Il comportamento era esatto e la
+    // misura sbagliata. **La grandezza giusta e' stare nel merito di quel
+    // responso**, cioe' nominarne almeno una figura: quale, lo decide il
+    // Maestro. Non e' una soglia abbassata, e' un'altra grandezza: su una
+    // risposta che non ne nomina nessuna questo controllo cade come prima.
+    if (attese.deveNominare.isNotEmpty) {
+      final basso = risposta.text.toLowerCase();
+      final nominate = attese.deveNominare
+          .where((p) => basso.contains(p.toLowerCase()))
+          .toList();
+      if (nominate.isEmpty) {
+        cadute.add('turno $n: la risposta non nomina nessuna delle figure '
+            'del responso che la persona ha in mano '
+            '(${attese.deveNominare.join(", ")}), quindi non risponde nel '
+            'merito di quello che e\' stato chiesto');
       }
     }
   }

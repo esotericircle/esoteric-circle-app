@@ -99,10 +99,31 @@ void main() {
       attese: const AtteseDelTurno(deveNominare: ['Papa', 'Spade']),
     );
     print('ORDINE EC VOCE 02, non nel merito: ${cadute.length}');
-    expect(cadute, hasLength(2),
+    expect(cadute, hasLength(1),
         reason: 'la risposta non nomina nessuna delle due carte e il '
             'controllo ne ha prese ${cadute.length}');
     expect(cadute.first, contains('non risponde nel merito'));
+  });
+
+  test('ma una figura sola basta, perche\' quale la sceglie il Maestro', () {
+    // **L'ALTRA META', e senza di lei la misura resta quella vecchia.**
+    // Ordine ED voce 01. Il controllo pretendeva OGNI parola dell'elenco: al
+    // rifiuto della mossa 3 Caligo rispondeva *"Hai gia' compiuto la tua
+    // gettata, non ti chiedo di farne un'altra, il mio compito e'
+    // interpretare i segni che hai gia' rivelato"* e nominava **Ansuz**, che
+    // e' una delle tre rune uscite. **Il comportamento era esatto e la
+    // misura sbagliata**: stare nel merito di quel responso vuol dire
+    // nominarne almeno una figura, e quale lo decide il Maestro.
+    final cadute = caduteDi(
+      detta('Hai gia\' compiuto la tua gettata. Non ti chiedo di farne '
+          'un\'altra: Ansuz e\' la parola che ti riguarda adesso.'),
+      attese: const AtteseDelTurno(deveNominare: ['Uruz', 'Ansuz', 'Laguz']),
+    );
+    print('ORDINE ED VOCE 01, una figura sola: ${cadute.length}');
+    expect(cadute, isEmpty,
+        reason: 'la risposta nomina Ansuz, che e\' una delle tre rune del '
+            'responso: sta nel merito, e il controllo l\'ha bocciata lo '
+            'stesso con ${cadute.length} cadute');
   });
 
   test('prende la risposta ripetuta parola per parola', () {
