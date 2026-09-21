@@ -291,8 +291,14 @@ numero letto dal dispositivo e **2275**, cioe quello dell archivio.
 primo tentativo e caduto per questo, dopo che il Realme si era riaddormentato
 durante gli otto minuti della build. Nessun crash, zero eccezioni nel log.
 
-**Il numero della release e la conferma della distribuzione stanno nel
-rapporto**, sezione della consegna.
+**Consegnata su App Distribution**, release **`44kmnbckhkdsg`**, esito
+`RELEASE_CREATED`, distribuita a `cloud@esotericircle.app`, **inviti
+accettati 1** riletti dal server, registro aggiornato da 2274 a 2275.
+
+**Lo sbarramento ha fermato la consegna tre volte, e tutte e tre aveva
+ragione**: un gettone di un altro albero, un rosso nuovo che era il
+lavoro non committato, e il comando di build non dichiarato. Nessuno dei
+tre era un difetto del prodotto.
 
 **A video il fondatore guarda il verso delle carte nei Ricordi, nuovi e
 vecchi, e le chat dei tre Maestri: quel giudizio e suo, e qui non si da per

@@ -3996,9 +3996,25 @@ una ricerca del nome col trattino non l'avrebbe mai vista.
 
 **UNA GUARDIA NUOVA**, `ordine_ed_guard`, registro da 466 a **467**.
 
+**LA BUILD 2275 E' CONSEGNATA E ACCESA.** `flutter build apk --release`,
+archivio di 204.817.807 byte, release **`44kmnbckhkdsg`** su App Distribution,
+distribuita a `cloud@esotericircle.app` con **un invito accettato riletto dal
+server**. Accesa sul Realme 767f596c: **primo fotogramma in 1,36 secondi,
+nessun FATAL EXCEPTION**, numero 2275 letto dal dispositivo. Dentro ci sono
+l'ordine EC e l'ordine ED.
+
+**Lo sbarramento ha fermato la consegna tre volte, e tutte e tre aveva
+ragione**: un gettone che veniva da un altro albero, un rosso nuovo che era
+il lavoro non ancora committato, e il comando di build non dichiarato.
+Nessuno dei tre era un difetto del prodotto. **E il telefono va svegliato
+subito prima della consegna**: il primo tentativo e' caduto perche' il Realme
+si era riaddormentato durante gli otto minuti della build, e `consegna.py`
+aspetta la riga `Displayed` del sistema.
+
 **COSA RESTA AL GIUDIZIO DEL FONDATORE**: il tono e l'illusione della persona
 vera non li misura nessun controllo, e **quarantacinque trascrizioni** stanno
-in `docs/collaudo/ED/` perche' le legga.
+in `docs/collaudo/ED/` perche' le legga. **A video, sulla 2275**, il verso
+delle carte nei Ricordi, nuovi e vecchi, e le chat dei tre Maestri.
 
 ## Regole ferree
 

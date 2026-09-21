@@ -37,10 +37,34 @@ aspetta la riga `Displayed` del sistema: senza schermo acceso quella riga non
 arriva mai. Zero eccezioni nel log, zero `FATAL`. **Il telefono va svegliato
 subito prima**, ed e' un inciampo gia' pagato da questa casa.
 
-**Il secondo tentativo si e' fermato allo sbarramento**, che ha fatto il suo
-mestiere: il gettone che aveva in mano portava il numero **2274** e
-l'archivio era il **2275**, quindi veniva da un altro albero. Rilanciato sul
-numero giusto.
+**Consegnata su App Distribution**, e verificato sul server e non sulla
+parola:
+
+| cosa | valore |
+|---|---|
+| numero della build | **2275** |
+| release | **`44kmnbckhkdsg`** |
+| esito dell'operazione | `RELEASE_CREATED` |
+| distribuita a | `cloud@esotericircle.app` |
+| inviti accettati, riletti dal server | **1** |
+| registro `versione_distribuita.json` | aggiornato, **2274 -> 2275** |
+| comando di build dichiarato | `flutter build apk --release` |
+
+**LO SBARRAMENTO HA FERMATO LA CONSEGNA TRE VOLTE, e tutte e tre aveva
+ragione.** Vale la pena scriverlo, perche' e' la rete che l'ordine BZ ha
+messo li' per non ripetere la 2171.
+
+1. **Il gettone veniva da un altro albero**: portava il numero 2274 mentre
+   l'archivio era il 2275. Rilanciato.
+2. **Rosso nuovo, non accettato da nessuno**: `niente_lavoro_non_spinto`, cioe'
+   il manifesto e il rapporto ancora non committati. Committati e spinti,
+   rilanciato.
+3. **`COMANDO_DI_BUILD` non dichiarato**: il registro sarebbe rimasto senza
+   il comando che ha prodotto l'archivio, *"ed e' esattamente il buco della
+   2215"*. Dichiarato.
+
+**Nessuno di questi tre era un difetto del prodotto**, e tutti e tre erano
+difetti veri della consegna. Al quarto tentativo e' passata.
 
 ## 1-bis. L'ESITO DEL GIRO FINALE, MOSSA PER MOSSA E MAESTRO PER MAESTRO
 
