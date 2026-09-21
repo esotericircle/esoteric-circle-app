@@ -161,3 +161,28 @@ rovesciata**, nuovo o vecchio. Non e' stato guardato su un telefono.
 
 **Nessuna build**, come l'ordine impone. **Serve una build** per vedere a
 video le due parti: se il fondatore la vuole, lo dica e si fa.
+
+## 9. DOVE STA IL LAVORO, E COSA DICE LA SUITE INTERA
+
+Due commit sul ramo `claude/esoteric-circle-master-order-e798aj`, tutti e due
+verificati con `git ls-remote` e non col codice di uscita:
+
+| commit | cosa |
+|---|---|
+| `9aaa9ff2` | parte prima, le chat collaudate con Gemini vero |
+| `9592d79f` | parte seconda, il verso nel Ricordo, e le sei riparazioni |
+
+**La suite intera dopo il lavoro: 5664 passate, 11 saltate, 3 cadute.** Le
+tre, per nome:
+
+1. **`i_doni_e_la_chat_davanti_all_anatomia`**, l'attribuzione cieca:
+   **rossa apposta per ordine del fondatore**, e non si ripara scrivendo
+   codice. L'ultima misura sta dentro la prova stessa.
+2. **`le_soglie_della_scansione_sono_provvisorie`**: **rossa apposta**,
+   ordine CR voce 13, finche' le soglie non si misurano su un telefono vero.
+3. **`niente_lavoro_non_spinto`**: era rossa perche' il lavoro non era ancora
+   committato, e **il commit `9592d79f` l'ha spenta**.
+
+**Il primo giro della suite intera ne aveva fatte cadere nove**, e sei erano
+difetti veri del codice di quest'ordine: stanno nella sezione 3 col loro
+padre. Sono state riparate tutte prima del commit.
