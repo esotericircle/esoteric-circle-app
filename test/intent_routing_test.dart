@@ -47,8 +47,22 @@ void main() {
               .classify(Maestro.aura, 'guidami in una meditazione')
               ?.target,
           ImmersiveTarget.meditazione);
+      // **"PARLAMI" NON APRE PIU' NIENTE, ed e' un cambio di legge voluto.**
+      // Ordine EB voci 02 e 03, 21 settembre 2026. Qui si pretendeva che
+      // *"parlami dei miei chakra"* aprisse lo Scan: chi chiedeva PAROLE
+      // riceveva un pulsante e nessuna risposta. Il fondatore ha deciso che
+      // il pulsante compare *"solo se l'utente lo chiede"*, e chiedere di
+      // parlare di una cosa non e' chiedere di farla. Adesso Aura risponde, e
+      // la persona puo' sempre chiedere lo Scan dopo.
       expect(
-          classifier.classify(Maestro.aura, 'parlami dei miei chakra')?.target,
+          classifier.classify(Maestro.aura, 'parlami dei miei chakra'), isNull,
+          reason: 'chi chiede parole riceve di nuovo un pulsante al posto '
+              'della risposta');
+      // E chi lo Scan lo chiede davvero lo apre ancora.
+      expect(
+          classifier
+              .classify(Maestro.aura, 'facciamo lo scan dei chakra')
+              ?.target,
           ImmersiveTarget.scanChakra);
       expect(
           classifier.classify(Maestro.caligo, 'lancia le rune per me')?.target,

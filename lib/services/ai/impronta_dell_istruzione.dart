@@ -36,14 +36,14 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        '662b4df8aa771b4760bb8c922b05a2a027eb6679796212408345d79b85d4ba07',
-    'aura': '2d1b581b379e13a71f2eae3d4d36abb536d575d6a12ace887f68909855f5870f',
+        '829ba6659efc997d2b7895766ec58b27379ab9e7a3402db0c9e34711c1f5ff68',
+    'aura': 'c0722a957beb63cfa51d327ba11a74d4f27959ea5b826129bb00d92266cc31c6',
     'caligo':
-        'b3d92b6b6e2d6db28d47d2474dc95b847951616685690956113250fbf41528d3',
+        '0dafdc5fad426c543c741665a398c568576c0c060232dc554f670b0fd0629024',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
-  static const String registrateIl = '14 settembre 2026';
+  static const String registrateIl = '21 settembre 2026';
 
   /// LO STORICO DELLE IMPRONTE, cioe' le stringhe che non esistono piu'.
   ///
@@ -53,6 +53,19 @@ class ImprontaDellIstruzione {
   /// cancella niente: quando l'istruzione cambia, l'impronta vecchia scende in
   /// questo elenco con la sua data e con cio' che le e' successo.
   static const List<String> storicoDelleImpronte = [
+    'DAL 14 AL 21 SETTEMBRE 2026. Impronte: medora '
+        '662b4df8aa771b4760bb8c922b05a2a027eb6679796212408345d79b85d4ba07, '
+        'aura 2d1b581b379e13a71f2eae3d4d36abb536d575d6a12ace887f68909855f5870f, '
+        'caligo b3d92b6b6e2d6db28d47d2474dc95b847951616685690956113250fbf41528d3. '
+        '**SU QUESTA STRINGA LA MISURA DELL\'ATTRIBUZIONE CIECA ERA GIA\' '
+        'DICHIARATA NON VALIDA**, e resta tale. Caduta il 21 settembre 2026 '
+        'con l\'ordine EB voci 02, 05 e 06: l\'istruzione di tutti e tre i '
+        'Maestri ha un blocco in piu\', LaRispostaNelMerito, che vieta di '
+        'proporre una funzione dell\'app al posto della risposta, chiede di '
+        'interpretare il responso che la persona ha gia\' in mano, di '
+        'chiedere cio\' che manca invece di rimandare altrove, di non '
+        'ripetere una frase gia\' detta e di non riproporre cio\' che la '
+        'persona ha rifiutato.',
     'DAL 30 AGOSTO AL 14 SETTEMBRE 2026. Impronte: medora '
         '47eda20aab8dfdc8dc74a64a6b861f6b9002eaa6b0e5c287f46d7ebae1ec591f, '
         'aura ee70fb027222e348c4abcb7b0deaa20fa01f2bafe199b275ad1bb05825ebd266, '

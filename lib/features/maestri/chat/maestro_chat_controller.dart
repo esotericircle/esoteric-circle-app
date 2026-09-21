@@ -13,6 +13,7 @@ import '../../../core/maestro/seguito_della_lettura.dart';
 import '../../../core/chat/chat_message.dart';
 import '../../../core/chat/cronologia_senza_doppioni.dart';
 import '../../../core/chat/intent_classifier.dart';
+import '../../../core/chat/la_richiesta_di_un_arte.dart';
 import '../../../core/chat/maestro_memory.dart';
 import '../../../core/chat/user_profile.dart';
 import '../../../core/maestro/ancoraggio.dart';
@@ -121,6 +122,19 @@ class MaestroChatController extends ChangeNotifier {
   final MaestroAiProvider _ai;
   final MaestroMemoryRepository _memory;
   final IntentClassifier _classifier;
+
+  /// **LE ARTI CHE LA PERSONA HA RIFIUTATO in questa conversazione.** Ordine
+  /// EB voce 05, 21 settembre 2026. Un rifiuto non si dimentica al messaggio
+  /// dopo: il fondatore ha detto di non volere una stesa e se l'e' vista
+  /// offrire di nuovo, con la stessa identica frase.
+  final Set<String> _artiRifiutate = <String>{};
+
+  /// Vero se in questa conversazione l'invito a quell'arte e' gia' stato
+  /// dato. **Un invito non si ripete mai.** Ordine EB voce 05: l'invito e'
+  /// una frase sola, e ridirla identica e' il modo piu' rapido di far capire
+  /// a una persona che sta parlando con una macchina.
+  bool _invitoGiaDato(String intentId) =>
+      _messages.any((m) => m.intentId == intentId);
 
   /// Il contatore delle domande del giorno. Esiste, ed era usato da una sola
   /// delle due strade con cui si fa una domanda a un Maestro: la schermata
@@ -328,8 +342,11 @@ class MaestroChatController extends ChangeNotifier {
     try {
       await _memory.cancellaLaConversazione(maestro, id);
     } catch (errore, traccia) {
-      annotaGuastoInnocuo('cancellando una conversazione con '
-          '${maestro.displayName}', errore, traccia);
+      annotaGuastoInnocuo(
+          'cancellando una conversazione con '
+          '${maestro.displayName}',
+          errore,
+          traccia);
     }
   }
 
@@ -644,11 +661,27 @@ class MaestroChatController extends ChangeNotifier {
     // lavora, perche' Firestore non sa cercare dentro un testo lungo.
     segnaNeiRicordi?.call(userMessage);
 
-    // Instradamento: se la richiesta e' un'esperienza immersiva dedicata, il
-    // Maestro invita ad aprire la funzione, senza chiamare l'AI e senza
-    // consumare la domanda del giorno. Il costo e la quota vivono dentro la
-    // funzione immersiva, con le sue regole.
-    final intent = _classifier.classify(maestro, trimmed);
+    // Instradamento: se la persona CHIEDE un'esperienza immersiva dedicata,
+    // aprirla e' la risposta nel merito, e il Maestro la apre senza chiamare
+    // l'AI e senza consumare la domanda del giorno. Il costo e la quota
+    // vivono dentro la funzione immersiva, con le sue regole.
+    //
+    // **NOMINARE UN'ARTE NON E' CHIEDERLA. Ordine EB voce 03.** Il cancello
+    // sta in `LaRichiestaDiUnArte`: qui bastava la presenza della parola, e
+    // *"non voglio una stesa"* apriva la Stesa come *"fammi una stesa"*.
+    final nominata = _classifier.riconosci(maestro, trimmed);
+    // **UN RIFIUTO VALE PER TUTTA LA CONVERSAZIONE. Ordine EB voce 05.** Il
+    // fondatore ha detto di non volere una stesa e se l'e' vista offrire di
+    // nuovo, con la stessa identica frase. Da qui in avanti un'arte rifiutata
+    // resta chiusa: il Maestro risponde, e basta.
+    if (nominata?.modo == ModoDiNominareUnArte.rifiuto) {
+      _artiRifiutate.add(nominata!.intento.id);
+    }
+    final intent = nominata?.modo == ModoDiNominareUnArte.richiesta &&
+            !_artiRifiutate.contains(nominata!.intento.id) &&
+            !_invitoGiaDato(nominata.intento.id)
+        ? nominata.intento
+        : null;
     if (intent != null) {
       final invite = ChatMessage(
         role: ChatRole.maestro,

@@ -1,76 +1,71 @@
 import '../maestro/maestro.dart';
 import 'immersive_intents.dart';
+import 'la_richiesta_di_un_arte.dart';
 
 /// Classificatore d'intento leggero e deterministico, senza AI.
 ///
-/// Normalizza il testo (minuscolo, accenti ridotti) e cerca le parole chiave
-/// dell'allow-list del Maestro. Se trova un intento immersivo lo restituisce,
-/// cosi' la chat apre la funzione dedicata invece di generare una lettura a
-/// testo. La logica sta qui, le parole chiave nel file di configurazione.
+/// Trova l'arte di cui il testo parla con le parole chiave dell'allow-list del
+/// Maestro, e poi **chiede al cancello se quella e' una richiesta**.
+///
+/// **LA PAROLA DA SOLA NON BASTA PIU'. Ordine EB voce 03, 21 settembre 2026.**
+/// Qui bastava la presenza della parola, e la negazione pesava zero: *"non
+/// voglio una stesa"* apriva la Stesa come *"fammi una stesa"*. La lettura
+/// della forma vive in `LaRichiestaDiUnArte`, che dice anche **perche' il
+/// cancello adesso puo' essere stretto**: un cancello che non scatta non
+/// lascia piu' la persona senza risposta.
 class IntentClassifier {
   const IntentClassifier();
 
-  /// Restituisce l'intento immersivo per il testo, oppure null se e' una
-  /// domanda normale del dominio, da rispondere a testo.
+  /// L'intento immersivo da aprire, oppure null se al testo si risponde.
   ImmersiveIntent? classify(Maestro maestro, String text) {
-    final norm = _normalize(text);
+    final trovato = riconosci(maestro, text);
+    if (trovato == null) return null;
+    return trovato.modo == ModoDiNominareUnArte.richiesta
+        ? trovato.intento
+        : null;
+  }
+
+  /// L'arte nominata dal testo e **in che modo**, anche quando non si apre.
+  ///
+  /// Serve a chi deve sapere che un'arte e' stata rifiutata per non
+  /// riproporgliela piu' (voce 05): il rifiuto va riconosciuto proprio quando
+  /// il pulsante non compare.
+  ArteNominata? riconosci(Maestro maestro, String text) {
+    final norm = LaRichiestaDiUnArte.normalizza(text);
     if (norm.isEmpty) return null;
 
-    ImmersiveIntent? best;
-    var bestLen = 0;
+    ImmersiveIntent? migliore;
+    var chiaveMigliore = '';
     for (final intent in ImmersiveIntents.forMaestro(maestro)) {
       for (final keyword in intent.keywords) {
-        final k = _normalize(keyword);
+        final k = LaRichiestaDiUnArte.normalizza(keyword);
         if (k.isEmpty) continue;
-        if (_containsWord(norm, k) && k.length > bestLen) {
-          best = intent;
-          bestLen = k.length;
+        if (LaRichiestaDiUnArte.contieneLaParola(norm, k) &&
+            k.length > chiaveMigliore.length) {
+          migliore = intent;
+          chiaveMigliore = k;
         }
       }
     }
-    return best;
+    if (migliore == null) return null;
+    return ArteNominata(
+      intento: migliore,
+      parolaChiave: chiaveMigliore,
+      modo: LaRichiestaDiUnArte.modoDi(text, chiaveMigliore),
+    );
   }
+}
 
-  // Minuscolo e accenti ridotti alle vocali semplici, cosi' "affinità" e
-  // "affinita" combaciano senza sorprese.
-  static String _normalize(String s) {
-    final lower = s.toLowerCase();
-    const map = {
-      'à': 'a',
-      'è': 'e',
-      'é': 'e',
-      'ì': 'i',
-      'ò': 'o',
-      'ù': 'u',
-    };
-    final buffer = StringBuffer();
-    for (final ch in lower.split('')) {
-      buffer.write(map[ch] ?? ch);
-    }
-    return buffer.toString();
-  }
+/// Un'arte nominata da un testo, con la parola che l'ha fatta riconoscere e il
+/// modo in cui e' stata nominata.
+class ArteNominata {
+  const ArteNominata({
+    required this.intento,
+    required this.parolaChiave,
+    required this.modo,
+  });
 
-  // La chiave deve comparire come parola o frase intera, non dentro un'altra
-  // parola: "rune" non scatta dentro "prune".
-  static bool _containsWord(String haystack, String needle) {
-    var from = 0;
-    while (true) {
-      final i = haystack.indexOf(needle, from);
-      if (i < 0) return false;
-      final before = i == 0 ? ' ' : haystack[i - 1];
-      final afterIndex = i + needle.length;
-      final after = afterIndex >= haystack.length ? ' ' : haystack[afterIndex];
-      if (!_isWordChar(before) && !_isWordChar(after)) return true;
-      from = i + 1;
-    }
-  }
-
-  static bool _isWordChar(String c) {
-    if (c.isEmpty) return false;
-    final code = c.codeUnitAt(0);
-    final isDigit = code >= 48 && code <= 57;
-    final isLower = code >= 97 && code <= 122;
-    final isUpper = code >= 65 && code <= 90;
-    return isDigit || isLower || isUpper;
-  }
+  final ImmersiveIntent intento;
+  final String parolaChiave;
+  final ModoDiNominareUnArte modo;
 }

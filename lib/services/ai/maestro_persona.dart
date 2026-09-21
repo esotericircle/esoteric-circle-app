@@ -18,6 +18,7 @@ import '../../core/responsi/anatomia_del_responso.dart';
 import '../../core/responsi/confine_del_responso.dart';
 import '../../core/responsi/legge_del_responso.dart';
 import '../../core/chat/il_blocco_di_cortesia.dart';
+import '../../core/chat/la_risposta_nel_merito.dart';
 import '../../core/l10n/la_lingua_del_modello.dart';
 
 /// Costruisce le istruzioni di sistema (la persona) di un Maestro per Gemini.
@@ -103,7 +104,13 @@ class MaestroPersona {
       ..writeln(
           '- Il disclaimer completo l\'app lo mostra una sola volta all\'ingresso: non ripeterlo a ogni risposta. Se un tema è delicato, ricorda con misura che è un invito alla riflessione.')
       ..writeln(
-          '- Se una domanda esce dal tuo dominio, riconoscilo e indica con garbo il Maestro giusto del cerchio.');
+          '- Se una domanda esce dal tuo dominio, riconoscilo e indica con garbo il Maestro giusto del cerchio.')
+      ..writeln()
+      // **LA RISPOSTA NEL MERITO, ordine EB voci 02, 05 e 06.** Il pulsante
+      // verso una funzione lo governa il cancello di `LaRichiestaDiUnArte`,
+      // che e' deterministico; questo blocco governa cio' che il modello
+      // scrive di suo, che e' l'altra meta' dello stesso difetto.
+      ..writeln(LaRispostaNelMerito.perIlModello);
 
     // Come rivolgersi all'utente, dal profilo.
     buffer

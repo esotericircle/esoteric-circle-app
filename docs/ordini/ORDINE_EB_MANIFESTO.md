@@ -11,8 +11,8 @@ m'interessa quanto tempo ci vorra', ma devi creare un ordine che preveda ogni
 mossa ed eviti ogni errore"*.
 
 VOCI_TOTALI: 8
-VOCI_CHIUSE: 1
-VOCI_APERTE: 7
+VOCI_CHIUSE: 5
+VOCI_APERTE: 3
 
 Il rapporto stara' in `docs/ordini/RAPPORTO_ORDINE_EB.md`.
 
@@ -210,6 +210,40 @@ e' un invito che prende il posto della risposta, e' la risposta. Quando
 l'utente chiede l'interpretazione di carte che ha gia', la risposta e'
 l'interpretazione, e nessun pulsante puo' sostituirla.
 
+### Fatto
+
+**Due meta', perche' il difetto ne aveva due.**
+
+**La prima e' il cancello**, `lib/core/chat/la_richiesta_di_un_arte.dart`:
+l'instradamento non scatta piu' sulla presenza di una parola, e quindi non
+prende piu' il posto della risposta. Sta nella voce 03.
+
+**La seconda e' cio' che il modello scrive di suo**, e senza di lei il
+cancello non basterebbe: un Maestro puo' proporre una stesa con parole sue,
+senza nessun pulsante. Il blocco `LaRispostaNelMerito`
+(`lib/core/chat/la_risposta_nel_merito.dart`) entra nelle istruzioni di
+sistema di tutti e tre i Maestri, in un punto solo, e dice cinque cose: non
+proporre una funzione al posto della risposta, interpretare il responso che
+la persona ha gia' in mano, chiedere cio' che manca invece di rimandare
+altrove, non ripetere una frase gia' detta, non riproporre cio' che e' stato
+rifiutato.
+
+**L'istruzione e' cambiata, e non in silenzio.** Le tre impronte di
+`ImprontaDellIstruzione` sono state riregistrate e le vecchie sono scese
+nello storico con la data e con cio' che le ha fatte cadere, come pretende la
+guardia che le sorveglia. **La misura dell'attribuzione cieca era gia'
+dichiarata non valida prima di quest'ordine e resta tale**: e' uno dei due
+rossi accettati, e nessuna riga di quest'ordine lo tocca.
+
+**Lettura dichiarata delle voci 02 e 03 insieme**, gia' scritta sopra: quando
+l'utente chiede *"fammi una stesa"*, aprirla **e'** la risposta nel merito.
+
+Guardia `test/il_maestro_risponde_nel_merito_test.dart`, col cardinale minimo
+sui tre Maestri, **vista rossa con tre innesti**: il blocco staccato da tutti
+e tre i Maestri, il divieto di proporre una funzione tolto dal testo, la
+regola copiata in un secondo punto. **Prodotto e agganciato; la prova a video
+la fa il fondatore parlando coi Maestri.** **CHIUSA.**
+
 ---
 
 ## VOCE EB.03, IL PULSANTE SOLO SE L'UTENTE LO CHIEDE
@@ -275,6 +309,39 @@ E due regole di conversazione, che vengono dalla voce 05:
 5. **l'invito di quell'arte non e' gia' stato dato in questa conversazione**;
 6. **l'utente non ha rifiutato quell'arte in questa conversazione**: un
    rifiuto chiude quel cancello per il resto della conversazione.
+
+### Fatto
+
+Il cancello vive in `lib/core/chat/la_richiesta_di_un_arte.dart` e risponde a
+una domanda sola: **questa frase chiede l'arte, la nomina, o la rifiuta?**
+Guarda la **proposizione** che contiene la parola dell'arte, non tutta la
+frase, perche' in *"fammi una stesa, non importa quale"* la negazione sta in
+un pezzo che dell'arte non parla.
+
+L'ordine delle regole e' dichiarato nel codice: **una negazione vince su
+tutto**, perche' chi dice di non volere una cosa la nomina anche con un verbo
+di richiesta; poi viene il **responso gia' avuto**, perche' chi ne parla non
+sta chiedendo di rifarlo; il segno di richiesta apre solo quando non c'e' ne'
+l'una ne' l'altro. **E la richiesta nuda apre**: chi scrive *"Carta del
+giorno"* e basta la sta chiedendo, e si riconosce dal fatto che, tolto il
+nome dell'arte, nella proposizione non resta altro che parole di servizio.
+
+**La misura, sulle stesse frasi con cui il difetto era stato provato:** delle
+undici che nominano un'arte senza chiederla, prima ne passavano **nove**,
+adesso **zero**; delle sei che la chiedono davvero, passano ancora tutte e
+sei.
+
+**UN CAMBIO DI LEGGE VOLUTO, dichiarato invece che nascosto.** La guardia
+`intent_routing` pretendeva che *"parlami dei miei chakra"* aprisse lo Scan.
+Chi chiedeva PAROLE riceveva un pulsante e nessuna risposta: e' il difetto
+della voce 02 in un'altra arte. Adesso Aura risponde, e la persona puo'
+chiedere lo Scan quando lo vuole. La pretesa e' stata riscritta col suo
+perche' dentro.
+
+Guardia `test/il_pulsante_solo_se_lo_chiedi_test.dart`, coi cardinali minimi
+sui due elenchi, **nata rossa sul difetto vero**: nove frasi su undici
+aprivano un pulsante che nessuno aveva chiesto. **Prodotto e agganciato; a
+video con la prossima build.** **CHIUSA.**
 
 ---
 
@@ -350,6 +417,30 @@ conversazione, e un'arte rifiutata resta chiusa per il resto della
 conversazione. Dove il cancello non scatta piu', **il Maestro risponde**: non
 tace e non ripete.
 
+### Fatto
+
+**Tre reti, e servono tutte e tre.**
+
+1. **Un invito non si ripete mai nella stessa conversazione.** Il controller
+   guarda se quell'arte ha gia' un invito fra i messaggi
+   (`_invitoGiaDato`): se si', non lo rimanda, e **il Maestro risponde**.
+2. **Un'arte rifiutata resta chiusa per il resto della conversazione.**
+   Quando il cancello legge un rifiuto, l'arte entra in `_artiRifiutate` e da
+   li' in avanti non si ripropone piu'.
+3. **Il modello riceve la stessa regola a parole**, nel blocco della voce 02:
+   non ripetere una frase gia' detta, non riproporre cio' che e' stato
+   rifiutato.
+
+**In tutti e due i casi il Maestro risponde**, e la guardia lo misura: un
+pulsante tolto che lascia il vuoto non sarebbe una cura, sarebbe lo stesso
+difetto vestito meglio.
+
+Guardia `test/un_rifiuto_vale_per_tutta_la_conversazione_test.dart`, che
+percorre **le due frasi vere delle catture nell'ordine in cui il fondatore le
+ha scritte** e misura inviti e chiamate al modello. **Vista rossa con due
+innesti**: il rifiuto dimenticato, l'invito ripetibile. **Prodotto e
+agganciato; a video con la prossima build.** **CHIUSA.**
+
 ---
 
 ## VOCE EB.06, QUANDO MANCANO I DATI, IL MAESTRO LI CHIEDE
@@ -362,6 +453,26 @@ vecchia o scrive senza passare da una porta.
 rispondere, il Maestro **chiede** cio' che gli serve con la sua voce, e non
 rimanda a una funzione. Finche' non risponde nel merito non consuma, e questo
 il ramo lo garantisce gia' (voce 04).
+
+### Fatto
+
+La regola sta nel blocco della voce 02, e dice due cose in una: *"Se ti manca
+qualcosa per rispondere, chiedilo con parole tue e aspetta. Chiedere e' una
+risposta; rimandare a un'altra parte dell'app non lo e'."*
+
+**E il caso si e' ristretto da solo con la voce 01**: il responso di partenza
+adesso viaggia dentro il testo che apre la chat, quindi il Maestro non resta
+senza le carte ne' senza la domanda. Resta per chi riapre una conversazione
+vecchia o scrive senza passare da una porta.
+
+**Che chiedere non costi niente lo garantisce gia' il ramo**, e non e' stato
+necessario cambiarlo: finche' il turno non produce una `rispostaVera` nessun
+contatore scende (voce 04). Una domanda del Maestro **e'** una risposta vera,
+quindi consuma, ed e' giusto: e' un turno in cui il Maestro ha parlato.
+
+Misurato dalla guardia della voce 02, che pretende la riga del *chiedilo*
+dentro il blocco. **Prodotto e agganciato; a video con la prossima build.**
+**CHIUSA.**
 
 ---
 

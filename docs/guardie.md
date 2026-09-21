@@ -39,11 +39,17 @@ totale e' un controllo, non un ornamento.
 
 | categoria | quante |
 | --- | ---: |
-| Guardie che passano dalla porta comune | 137 |
-| Guardie con un cardinale proprio dichiarato | 118 |
-| Guardie che non scoprono nessun insieme di file | 200 |
-| **Somma delle categorie** | **455** |
-| **Guardie secondo la definizione** | **455** |
+| Guardie che passano dalla porta comune | 138 |
+| Guardie con un cardinale proprio dichiarato | 119 |
+| Guardie che non scoprono nessun insieme di file | 201 |
+| **Somma delle categorie** | **458** |
+| **Guardie secondo la definizione** | **458** |
+
+**Ricontate a ordine EB, voci 02, 03, 05 e 06**, 21 settembre 2026: **tre guardie nuove**, `il_maestro_risponde_nel_merito` dalla porta comune, `il_pulsante_solo_se_lo_chiedi` col cardinale proprio, `un_rifiuto_vale_per_tutta_la_conversazione` che non scopre insiemi. Il totale sale da 455 a **458** e le tre categorie a **138, 119 e 201**.
+
+**Una di loro non e' stata vista rossa con un innesto: e' nata rossa sul difetto vero.** `il_pulsante_solo_se_lo_chiedi` gira sulle frasi vere delle due catture del fondatore, e alla prima esecuzione **nove frasi su undici** aprivano un pulsante che nessuno aveva chiesto, *"non voglio una stesa"* compresa. Le altre due sono state viste rosse con cinque innesti in tutto.
+
+**E una pretesa di casa e' stata riscritta con dentro il suo perche'.** `intent_routing` voleva che *"parlami dei miei chakra"* aprisse lo Scan: chi chiedeva parole riceveva un pulsante e nessuna risposta. E' lo stesso difetto della voce 02 in un'altra arte, e adesso Aura risponde.
 
 **Ricontate a ordine EB**, 21 settembre 2026, le chat dei Maestri: **una guardia nuova**, `ordine_eb_guard`, la guardia propria del manifesto. Il totale sale da 453 a **454** e le tre categorie a **137, 117 e 200**.
 
@@ -565,6 +571,8 @@ le altre.
 | `il_gemello_ha_la_sua_schermata_test.dart` | il gemello ha la sua schermata | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_genere_non_si_indovina_test.dart` | il genere non si indovina: nessuna stringa di `lib` si rivolge alla persona con una forma di genere fuori da una marca a tre campi o dalla porta, col dizionario delle forme dell'ordine DL voce 06 | 1, 2 | dalla porta comune | 14/09/2026, DL (rossa: un participio e un aggettivo innestati fuori dalle marche, *Sei arrivato* e *Sei stanco*; il criterio si e' stretto, il dizionario non si e' mai allargato) | 2 |
 | `il_genere_si_decide_in_un_posto_solo_test.dart` | il genere scelto si decide in una porta sola: una sola decisione fra maschile e femminile per la lingua, nessun `AddressForm`, nessun uso del sesso anagrafico per la lingua | 1, 2 | dalla porta comune | 14/09/2026, DL (rossa: una seconda decisione innestata fuori dalla porta; e **rossa senza innesto** sul difetto vero della voce DL.07, la desinenza contraria alla forma decisa con un suo `masculine ? 'a' : 'o'` in `le_forme_del_genere.dart`, riparata facendola passare dalla porta) | 2 |
+| `il_maestro_risponde_nel_merito_test.dart` | i tre Maestri ricevono la regola della risposta nel merito, e sta in un punto solo | 1, 2 | dalla porta comune | 21/09/2026, EB (tre innesti: il blocco staccato da tutti e tre, il divieto tolto dal testo, la regola copiata due volte) | 3 |
+| `il_pulsante_solo_se_lo_chiedi_test.dart` | nominare un'arte non e' chiederla: il pulsante compare solo su una richiesta vera | 1, 2 | proprio, dichiarato | 21/09/2026, EB (nata rossa sul difetto vero: nove frasi su undici aprivano un pulsante che nessuno aveva chiesto) | 3 |
 | `l_arcano_dell_alba_si_gira_test.dart` | **un gesto solo e nessun altro comando** sull'Arcano dell'Alba; carte coperte uguali; la faccia solo dopo meta' giro; **il verso non lo decide la carta toccata**; il limite delle stese intatto; nel cammino i gesti alba e oracolo; il dorso uguale a se stesso al mezzo giro | 1 | non scopre insiemi in `lib` | 18/09/2026, DW.02 (le azioni tolte: sotto la carta rivelata non c'e' niente); prima: 18/09/2026, DV.11 (il margine solo in alto: la carta a zero punti dal bordo del pannello); prima: 17/09/2026, DT (caso deciso dalla carta toccata e gesto dell'oracolo tolto: due rosse) | 2 |
 | `l_estrazione_dell_alba_e_libera_test.dart` | **l'estrazione dell'Arcano dell'Alba non ha vincoli**: i quarantaquattro stati equiprobabili su centomila giri; la stessa carta due volte di fila con la frequenza del caso; il verso rovescio attorno alla meta' su ogni carta; **nessuna riga di codice dei file dell'Alba nomina piu' un sacchetto, una distanza minima o le ultime carte** | 1 | proprio, dichiarato | 17/09/2026, DU (`SacchettoDellAlba` innestato nel diario) | 2 |
 | `le_card_da_mandare_test.dart` | **le card da mandare e l'invito**: la card del Soffio e quella di un Sigillo portano cio' che dicono e il dominio del marchio; nessun file di `lib` scrive un dominio a mano; ogni foglio di condivisione passa l'origine che iPad pretende; i tre messaggi di un Sigillo parlano a chi li riceve e portano il link; l'invito si fa dal menu', la domanda torna solo dopo la prima registrazione e il premio va a tutti e due | 1 | proprio, dichiarato | 18/09/2026, DW (dominio a mano nella Stesa; quattro chiamate senza origine; la frase del traguardo rimessa: 165 cadute) | 1 |
@@ -887,6 +895,7 @@ le altre.
 | `tipografia_minimi_test.dart` | tipografia minimi | 1 | dalla porta comune | mai | 3 |
 | `un_comando_solo_nella_meditazione_test.dart` | un comando solo nella meditazione | 1 | non scopre insiemi di file | 11/09/2026, DD (rossa: la pressione lunga innestata sul fiore) | 1 |
 | `un_comando_di_distribuzione_ha_il_suo_controllo_test.dart` | un comando di distribuzione ha il suo controllo | 1, 3 | proprio, dichiarato | 04/09/2026, CQ | 2 |
+| `un_rifiuto_vale_per_tutta_la_conversazione_test.dart` | un invito non si ripete e un'arte rifiutata resta chiusa, e il Maestro risponde lo stesso | 1, 2 | non scopre insiemi di file | 21/09/2026, EB (due innesti: il rifiuto dimenticato, l'invito ripetibile) | 3 |
 | `un_ripiego_non_costa_test.dart` | un ripiego non costa | 1, 2 | dalla porta comune | mai | 3 |
 | `un_solo_istante_test.dart` | un solo istante | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `una_barra_sola_test.dart` | una barra sola | 1 | non scopre insiemi di file | mai | 3 |
