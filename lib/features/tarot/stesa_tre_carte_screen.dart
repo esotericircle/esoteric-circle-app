@@ -1273,8 +1273,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           // schermata. Adesso Medora cresce quando il responso entra in
           // scena, che e' il momento in cui parla davvero.
           height: _responsoInScena ? 300 : 170,
-          bustoFactor:
-              _responsoInScena ? MedoraStage.bustoPieno : 0.34,
+          bustoFactor: _responsoInScena ? MedoraStage.bustoPieno : 0.34,
           bustoLarghezza: _responsoInScena ? 1.0 : 0.72,
         ),
         const SizedBox(height: SpacingTokens.sm),
@@ -1345,13 +1344,13 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               carte: _spread.cards.take(_drawn).toList(),
               palette: palette,
             ),
-          // **DODICI DIVENTANO OTTO, DUE VOLTE. Ordine CQ voce 2.11.** Le
-          // etichette sono salite da dodici a quattordici punti e il
-          // ventaglio e' finito sei punti e mezzo sotto la piega: la guardia
-          // della coreografia lo ha visto. Gli otto punti si riprendono da
-          // due arie fra blocchi, non dal testo: e' la stessa cura
-          // dell'ordine BU voce 01, che aveva gia' fatto questo scambio.
-          const SizedBox(height: SpacingTokens.xs),
+            // **DODICI DIVENTANO OTTO, DUE VOLTE. Ordine CQ voce 2.11.** Le
+            // etichette sono salite da dodici a quattordici punti e il
+            // ventaglio e' finito sei punti e mezzo sotto la piega: la guardia
+            // della coreografia lo ha visto. Gli otto punti si riprendono da
+            // due arie fra blocchi, non dal testo: e' la stessa cura
+            // dell'ordine BU voce 01, che aveva gia' fatto questo scambio.
+            const SizedBox(height: SpacingTokens.xs),
           ],
         ],
         // Colpo d'occhio: il ventaglio coperto, finche' restano carte da pescare.
@@ -1735,8 +1734,17 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
               },
             ),
             condividi: _onShare,
+            // **LA CHAT RICEVE LA DOMANDA E IL VERSO. Ordine EB voce 01.**
+            // Qui passavano i soli `c.card.name`: tre nomi nudi, senza la
+            // domanda a cui rispondevano e senza il rovescio. Adesso passa
+            // `displayName`, che e' il nome col verso accordato, e la domanda
+            // vera: quella scritta a mano se c'e', altrimenti l'argomento
+            // della tendina, che e' la stessa scelta che la schermata fa per
+            // dire a video a cosa si sta rispondendo.
             aperturaDellaChat: ChatOpeners.stesa(
-                _spread.cards.map((c) => c.card.name).toList()),
+              _spread.cards.map((c) => c.displayName).toList(),
+              domanda: _setup.domandaScritta ?? _setup.topic.label,
+            ),
           ),
         ],
         // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
@@ -1879,32 +1887,32 @@ class _Slot extends StatelessWidget {
                   child: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text('Carta Chiave',
-                      key: Key('stesa_parole_chiave_${position.name}'),
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      softWrap: false,
-                      // **E LE PAROLE SONO D'ORO, non azzurre.** Ordine
-                      // CO voce 08, 3 settembre 2026. Il fondatore:
-                      // "Carta Chiave e' azzurro su blu, non si legge".
-                      //
-                      // **Misurato, e aveva ragione**: `palette.glow` di
-                      // Medora sui fondi veri di questa schermata sta fra
-                      // 3,35 e 4,96 a uno, e la soglia per una lettera di
-                      // tredici punti e' 4,5. Nessuna guardia lo aveva
-                      // preso perche' nessuna stava guardando li': quella
-                      // dei grigi spazza i due token di TESTO grigi, e
-                      // l'accento del Maestro non e' un token di testo,
-                      // e' il colore degli aloni e dei bordi, dove la
-                      // soglia e' tre a uno. **Non c'era una guardia
-                      // cieca: c'era un insieme senza guardia**, e adesso
-                      // ce l'ha, gli_accenti_non_sono_inchiostro_test.
-                      //
-                      // L'oro sta fra 9,29 e 13,81, ed e' gia' la lingua
-                      // con cui la bolla di questa stessa carta scrive
-                      // "LA CHIAVE" piu' in basso: due posti che dicono
-                      // la stessa cosa adesso la dicono nello stesso modo.
-                      style: TypographyTokens.etichetta().copyWith(
-                          color: palette.goldSoft, letterSpacing: 1.1)),
+                        key: Key('stesa_parole_chiave_${position.name}'),
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        softWrap: false,
+                        // **E LE PAROLE SONO D'ORO, non azzurre.** Ordine
+                        // CO voce 08, 3 settembre 2026. Il fondatore:
+                        // "Carta Chiave e' azzurro su blu, non si legge".
+                        //
+                        // **Misurato, e aveva ragione**: `palette.glow` di
+                        // Medora sui fondi veri di questa schermata sta fra
+                        // 3,35 e 4,96 a uno, e la soglia per una lettera di
+                        // tredici punti e' 4,5. Nessuna guardia lo aveva
+                        // preso perche' nessuna stava guardando li': quella
+                        // dei grigi spazza i due token di TESTO grigi, e
+                        // l'accento del Maestro non e' un token di testo,
+                        // e' il colore degli aloni e dei bordi, dove la
+                        // soglia e' tre a uno. **Non c'era una guardia
+                        // cieca: c'era un insieme senza guardia**, e adesso
+                        // ce l'ha, gli_accenti_non_sono_inchiostro_test.
+                        //
+                        // L'oro sta fra 9,29 e 13,81, ed e' gia' la lingua
+                        // con cui la bolla di questa stessa carta scrive
+                        // "LA CHIAVE" piu' in basso: due posti che dicono
+                        // la stessa cosa adesso la dicono nello stesso modo.
+                        style: TypographyTokens.etichetta().copyWith(
+                            color: palette.goldSoft, letterSpacing: 1.1)),
                   ),
                 )
               : null,

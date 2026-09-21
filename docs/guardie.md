@@ -40,10 +40,10 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 137 |
-| Guardie con un cardinale proprio dichiarato | 117 |
+| Guardie con un cardinale proprio dichiarato | 118 |
 | Guardie che non scoprono nessun insieme di file | 200 |
-| **Somma delle categorie** | **454** |
-| **Guardie secondo la definizione** | **454** |
+| **Somma delle categorie** | **455** |
+| **Guardie secondo la definizione** | **455** |
 
 **Ricontate a ordine EB**, 21 settembre 2026, le chat dei Maestri: **una guardia nuova**, `ordine_eb_guard`, la guardia propria del manifesto. Il totale sale da 453 a **454** e le tre categorie a **137, 117 e 200**.
 
@@ -57,6 +57,8 @@ totale e' un controllo, non un ornamento.
 **E un innesto e' stato buttato invece di credergli.** Il primo tentato, togliere la sola parola `stesa` dall'elenco delle chiavi, **non ha fatto cadere niente**, e non perche' la guardia fosse cieca: la parola `tarocchi` copre la stessa frase da sola, quindi l'innesto era ridondante. Si e' cambiata la grandezza innestata, non la soglia.
 
 **E una guardia registrata e' rimasta verde sui primi tre innesti senza essere degradata**: `ogni_pulsante_della_chat_apre_cio_che_promette` misura che un pulsante apra l'arte che nomina, non chi scatta l'instradamento ne' cosa dice l'invito. I primi tre innesti cadevano fuori dalla sua zona. **Una guardia verde su un innesto non e' automaticamente una guardia morta: prima si guarda se quell'innesto stava nella sua zona.** Provata dentro la sua, col quarto, e' rossa.
+
+**E la voce 01 ne ha portata una seconda**, `la_chat_sa_a_cosa_rispondono_le_carte`, col cardinale proprio sui tredici compositori delle aperture. Il totale sale da 454 a **455** e le tre categorie a **137, 118 e 200**. **Legge il sorgente senza i commenti**, e non e' un dettaglio: il commento che spiega quella cura nomina il difetto che cura, e la prima stesura della guardia lo pescava e cadeva su se stessa. **E guarda il solo sito di chiamata, non tutto il file**: il nome nudo della carta compare anche nel Ricordo custodito, che e' un'altra cosa e sta fuori dal perimetro dell'ordine.
 
 **Ricontate a ordine EA, il difetto della 2273**, 20 settembre 2026, il foglio del link sotto la tastiera: **una guardia nuova**, `il_foglio_del_link_regge_la_tastiera`. Il totale sale da 452 a **453** e le tre categorie a **137, 117 e 199**. **Non e' stata vista rossa con un innesto: e' nata rossa sul difetto vero**, trovato guardando lo schermo del Realme dopo la consegna della 2273. Nessuna prova l'aveva visto, e la prima stesura di questa guardia **girava in una finestra comoda, 390 per 844, e restava verde**: e' diventata rossa solo dopo aver pinnato i numeri letti sul telefono, cioe' 360 per 800 punti, la tastiera a 306 e i due bordi delle barre. **Una guardia che misura la geometria vale quanto la finestra in cui gira.**
 
@@ -573,6 +575,7 @@ le altre.
 | `i_guasti_innocui_arrivano_al_cruscotto_test.dart` | **i guasti innocui arrivano al cruscotto**: l'annotazione passa a Crashlytics con la frase e l'errore; un cruscotto che non risponde non diventa un guasto; l'app vera aggancia Crashlytics come non fatale, nel ramo con Firebase vivo | 1 | non scopre insiemi in `lib` | 18/09/2026, DV.10 (tolto l'inoltro: il guasto resta nel log di sviluppo) | 1 |
 | `il_tavolo_dei_ventidue_test.dart` | **il tavolo dei ventidue**: le righe vengono dal conto e non da un numero a mano; ventidue dorsi tutti a video, toccabili e dentro lo schermo; sovrapposti senza nascondersi; l'ingresso e il respiro diversi dalla posa di riposo; fermi con Riduci Movimento; **mischia e taglia muovono le figure e non la sorte** | 1 | non scopre insiemi in `lib` | 17/09/2026, DU (soglia delle righe a 300 punti; consegna del posto invece della carta) | 1 |
 | `il_dono_del_soffio_non_ha_cerchi_test.dart` | **il dono del Soffio del Destino non ha anelli**, misurato sui pixel dipinti: nessun raggio ha la circonferenza accesa oltre meta'; le punte sono ventiquattro; fra fiato pieno e fiato vuoto i petali cambiano lunghezza; con Riduci Movimento la figura sta ferma | 1 | proprio, dichiarato | 17/09/2026, DU (i due anelli rimessi nel disegno: dal 6 al 69 per cento acceso) | 2 |
+| `la_chat_sa_a_cosa_rispondono_le_carte_test.dart` | la chat che si apre dalla Stesa porta la domanda e le carte col verso | 1, 2 | proprio, dichiarato | 21/09/2026, EB (tre innesti: il nome nudo al posto del displayName, la domanda passata vuota, la domanda scritta scavalcata dall'argomento) | 3 |
 | `la_costellazione_del_viso_si_capisce_e_parte_su_iphone_test.dart` | **la catena del fotogramma non e' piu' quella di Android per tutti**: BGRA su iOS, il motore legge BGRA come BGRA, la rotazione data al modello e alla maschera e' la stessa; il riquadro della riservatezza e la bolla del cielo non tornano; l'immagine di apertura e' la prima cosa della soglia; l'istruzione delle pose e la guida sono da 22 punti; l'ovale c'e' ed e' centrato | 2, 4 | non scopre insiemi di file | 17/09/2026, DS (sette rosse sul codice di prima, prima della cura) | 2 |
 | `la_meditazione_parte_quando_lo_decidi_test.dart` | nessun suono all'apertura ne' alla scelta di un sintomo o di una frequenza, parte solo al play; **le bolle delle frequenze non tornano**, un menu' solo; ogni scheda di sintomo nomina la sua frequenza; il conto alla rovescia da 5:00 a zero, e la pratica scelta conta la durata che dichiara | 1, 4 | non scopre insiemi di file | 17/09/2026, DS (quattro rosse sul codice di prima, prima della cura) | 2 |
 | `la_prossima_data_e_il_giorno_in_cui_comincia_test.dart` | la data di ogni evento della Luna e' il giorno in cui comincia, **misurato ora per ora e nell'ultima ora minuto per minuto**, su tre mesi e tre segni; il caso del fondatore del 17 settembre | 1, 2 | proprio, dichiarato | 17/09/2026, DS (205 datati male su 220 con la griglia oraria, 220 su 220 con quella al minuto e la regola di prima) | 2 |

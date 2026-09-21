@@ -11,8 +11,8 @@ m'interessa quanto tempo ci vorra', ma devi creare un ordine che preveda ogni
 mossa ed eviti ogni errore"*.
 
 VOCI_TOTALI: 8
-VOCI_CHIUSE: 0
-VOCI_APERTE: 8
+VOCI_CHIUSE: 1
+VOCI_APERTE: 7
 
 Il rapporto stara' in `docs/ordini/RAPPORTO_ORDINE_EB.md`.
 
@@ -150,6 +150,43 @@ come dritta e' un responso sbagliato, non una sfumatura.
 
 **Resta valido l'ordine DX voce 01**: il testo aspetta nel campo e parte solo
 quando l'utente invia.
+
+### Fatto
+
+`ChatOpeners.stesa` prende adesso la domanda e la incornicia senza sommare la
+propria punteggiatura alla sua, come gia' faceva la porta del Consiglio, e il
+sito di chiamata (`stesa_tre_carte_screen.dart:1745`) le passa **la domanda
+scritta a mano se c'e', altrimenti l'etichetta dell'argomento**: e' la stessa
+scelta che la schermata fa per dire a video a cosa si sta rispondendo. Le
+carte partono con `c.displayName`, cioe' **col verso accordato**, al posto di
+`c.card.name`.
+
+Il testo che apre la chat diventa:
+*"Ho chiesto alle carte: «Lavoro e carriera». Sono uscite Il Papa, Re di Spade
+rovesciato e Dieci di Spade. Come si legge questa sequenza sulla mia
+situazione?"*
+
+**E non dice piu' "stesa".** Quella parola e' una chiave dell'instradamento
+(voce 03): il cancello lo ripara quella voce, ma una frase che scriviamo noi
+non ha nessun motivo di andarci a sbattere.
+
+**Una cosa vista e lasciata fuori, dichiarata invece di curata di nascosto.**
+A `stesa_tre_carte_screen.dart:1734` il `ResponsoDaCustodire` scrive i nomi
+delle carte con `c.card.name`, quindi **anche il Ricordo custodito perde il
+verso**. Non e' il testo che apre la chat e non e' il perimetro di
+quest'ordine, che riguarda le chat: toccarlo cambierebbe la forma di dati
+gia' scritti sui telefoni delle persone. **Va misurato e deciso in un ordine
+suo.**
+
+Guardia `test/la_chat_sa_a_cosa_rispondono_le_carte_test.dart`, col cardinale
+minimo sui tredici compositori, **vista rossa con tre innesti**: il nome nudo
+al posto del `displayName`, la domanda passata vuota, la domanda scritta a
+mano scavalcata dall'argomento della tendina. **La guardia legge il sorgente
+senza i commenti**, perche' il commento che spiega questa cura nomina il
+difetto che cura, ed e' un inciampo che questa casa ha gia' pagato due volte.
+
+**Prodotto e agganciato; a video lo vede il fondatore con la prossima build.**
+**CHIUSA.**
 
 ---
 

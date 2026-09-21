@@ -102,10 +102,31 @@ class ChatOpeners {
       'Ho letto il mio oroscopo di oggi, $segno. Cosa vuole dirmi il cielo che '
       'non ho colto?';
 
-  /// Dalla Stesa di Tarocchi verso Medora, con le carte uscite.
-  static String stesa(List<String> carte) =>
-      'Nella mia stesa sono uscite ${_elenco(carte)}. Come si legge questa '
-      'sequenza sulla mia situazione?';
+  /// Dalla Stesa di Tarocchi verso Medora, con la domanda e le carte uscite.
+  ///
+  /// **LE CARTE RISPONDONO A UNA DOMANDA. Ordine EB voce 01, 21 settembre
+  /// 2026.** Parole del fondatore, davanti a una chat che portava tre nomi di
+  /// carte e nient'altro. La domanda era gia' a video centoquarantatre righe
+  /// sopra il punto che chiama questa funzione, ed era gia' lavorata dal
+  /// motore del responso, che da lei ricava la lente fra sedici: a lasciarla
+  /// cadere era la sola chat.
+  ///
+  /// **E il testo non dice piu' "stesa".** Non e' un vezzo: quella parola e'
+  /// una chiave dell'instradamento, e il testo che porta le carte da
+  /// interpretare veniva letto come richiesta di estrarne altre. Il cancello
+  /// lo ripara la voce 03, ma una frase che scriviamo noi non ha nessun
+  /// motivo di andarci a sbattere.
+  static String stesa(List<String> carte, {required String domanda}) {
+    final d = domanda.trim();
+    // La punteggiatura della persona non si somma alla nostra, come gia' fa
+    // la porta del Consiglio.
+    final senzaCoda = d.endsWith('.') || d.endsWith('?') || d.endsWith('!')
+        ? d.substring(0, d.length - 1)
+        : d;
+    return 'Ho chiesto alle carte: «$senzaCoda». Sono uscite '
+        '${_elenco(carte)}. Come si legge questa sequenza sulla mia '
+        'situazione?';
+  }
 
   /// Dalla Sinastria verso Medora, col nome del VIP e la percentuale.
   static String sinastria(String nome, int punteggio) =>

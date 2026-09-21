@@ -107,10 +107,15 @@ void main() {
         'aperte $aperte, ferme $ferme');
     expect(marcatore(testo, 'VOCI_TOTALI'), voci.length);
     expect(marcatore(testo, 'VOCI_CHIUSE'), chiuse);
-    // Finche' nessuna voce e' chiusa, le aperte le dichiara il marcatore e il
-    // conto sulle voci non puo' quadrare: si pretende solo che la somma degli
-    // stati dichiarati non superi il totale.
-    expect(chiuse + ferme, lessThanOrEqualTo(quante));
+    // **Le aperte non si dichiarano: si contano per differenza.** Una voce
+    // aperta non porta nessun marcatore di stato dentro di se', quindi
+    // l'unico modo di saperle e' togliere dal totale quelle che uno stato
+    // terminale ce l'hanno. Se il marcatore lo scrivesse una persona,
+    // potrebbe dire zero su un manifesto pieno di voci non fatte, ed e'
+    // esattamente la bugia che questa guardia esiste per impedire.
+    expect(marcatore(testo, 'VOCI_APERTE'), voci.length - chiuse - ferme,
+        reason: 'VOCI_APERTE non e\' il numero delle voci senza stato '
+            'terminale: il manifesto dichiara un conto che le voci smentiscono');
   });
 
   test('l\'ordine EB non e\' finito finche\' una voce resta aperta', () {
