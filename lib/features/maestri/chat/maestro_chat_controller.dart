@@ -625,7 +625,7 @@ class MaestroChatController extends ChangeNotifier {
       segnaNeiRicordi?.call(domanda);
       final ridetta = ChatMessage(
         role: ChatRole.maestro,
-        text: LaLetturaDelGiorno.ridetta(giaData),
+        text: LaLetturaDelGiorno.ridetta(giaData, maestro),
         at: _adesso,
         autore: maestro,
         conversazione: _conversazione,

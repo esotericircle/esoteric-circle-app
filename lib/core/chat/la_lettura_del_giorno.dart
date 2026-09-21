@@ -1,3 +1,5 @@
+import '../maestro/maestro.dart';
+
 import 'chat_message.dart';
 
 /// **LA STESSA DOMANDA NELLO STESSO GIORNO DA' LA STESSA LETTURA.** Ordine DS
@@ -20,10 +22,30 @@ import 'chat_message.dart';
 /// domanda nello stesso giorno, e la risposta che l'ha seguita. Il Maestro la
 /// ridice dichiarandolo, e il modello non viene chiamato.
 abstract final class LaLetturaDelGiorno {
-  /// La riga che precede la lettura ridetta.
-  static const String premessa =
-      'Me l’hai già chiesto oggi. Il cielo di oggi non è cambiato: '
-      'la lettura resta questa.';
+  /// **LA RIGA CHE PRECEDE LA LETTURA RIDETTA, E LA DICE OGNUNO CON LA SUA
+  /// VOCE.** Ordine EC voce 03, 21 settembre 2026.
+  ///
+  /// **Come e' stato trovato**: dal collaudo con Gemini vero, al primo giro,
+  /// sulla mossa 10 del catalogo dell'ordine EB fatta ad Aura. Qui c'era una
+  /// frase sola per tutti e tre, e diceva *"Il cielo di oggi non e'
+  /// cambiato"*: **cielo e' una parola di firma di Medora**, e la dicevano
+  /// anche Aura e Caligo. E' lo stesso difetto del benvenuto della voce
+  /// EB.08, in un secondo punto che quell'ordine non aveva guardato.
+  ///
+  /// **Pesa piu' di quanto sembri**: e' una delle pochissime frasi che il
+  /// Maestro dice senza passare dal modello, quindi nessuna istruzione puo'
+  /// correggerla. Quello che e' scritto qui e' quello che la persona legge.
+  static String premessaDi(Maestro maestro) => switch (maestro) {
+        // Medora misura il tempo, e il cielo e' parola sua.
+        Maestro.medora => 'Me l’hai già chiesto oggi. Il cielo non si '
+            'è mosso da allora: la lettura resta questa.',
+        // Aura sta nel corpo e nel presente, e il cielo non lo nomina.
+        Maestro.aura => 'Me l’hai già chiesto oggi. Da allora non è '
+            'cambiato niente: la lettura resta questa.',
+        // Caligo custodisce i segni.
+        Maestro.caligo => 'Me l’hai già chiesto oggi. Il segno non è '
+            'mutato: la lettura resta questa.',
+      };
 
   /// La domanda ridotta a cio' che conta: minuscole, niente accenti, niente
   /// punteggiatura, spazi semplici. *"Cosa mi dice il cielo, oggi?!"* e
@@ -86,11 +108,22 @@ abstract final class LaLetturaDelGiorno {
 
   /// La lettura senza la premessa, se l'aveva gia': ridire tre volte non deve
   /// accumulare tre premesse.
+  /// **Si toglie la premessa di CHIUNQUE, non di uno solo.** Ordine EC voce
+  /// 03: da quando ogni Maestro ha la sua, una lettura salvata puo' portare
+  /// la premessa di un altro, e riconoscerne una sola lascerebbe la seconda
+  /// attaccata al testo.
   static String senzaPremessa(String testo) {
     final t = testo.trimLeft();
-    return t.startsWith(premessa) ? t.substring(premessa.length).trim() : testo;
+    for (final maestro in Maestro.values) {
+      final p = premessaDi(maestro);
+      if (t.startsWith(p)) return t.substring(p.length).trim();
+    }
+    return testo;
   }
 
   /// Cio' che il Maestro dice quando la domanda torna nello stesso giorno.
-  static String ridetta(String lettura) => '$premessa\n\n$lettura';
+  /// La lettura ridetta: prima si dichiara che si sta ridicendo, con
+  /// la voce di chi la ridice, poi si ridice.
+  static String ridetta(String lettura, Maestro maestro) =>
+      '${premessaDi(maestro)}\n\n$lettura';
 }

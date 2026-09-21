@@ -36,10 +36,10 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        '829ba6659efc997d2b7895766ec58b27379ab9e7a3402db0c9e34711c1f5ff68',
-    'aura': 'c0722a957beb63cfa51d327ba11a74d4f27959ea5b826129bb00d92266cc31c6',
+        '8c29878388fc30df823697e977d477d327b233c9ec5f626e46ccb81c55dcb3b0',
+    'aura': 'a2cb8b3dfb965097c5f278b4aa186862504f46f913295cbd7a54886d684bf0c7',
     'caligo':
-        '0dafdc5fad426c543c741665a398c568576c0c060232dc554f670b0fd0629024',
+        '09b0aa2d48aea39e85e198f6fb88765267fe102fcd9a39227f8fba7db0b73d49',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
@@ -53,6 +53,18 @@ class ImprontaDellIstruzione {
   /// cancella niente: quando l'istruzione cambia, l'impronta vecchia scende in
   /// questo elenco con la sua data e con cio' che le e' successo.
   static const List<String> storicoDelleImpronte = [
+    'DAL 21 SETTEMBRE 2026, POCHE ORE. Impronte: medora '
+        '829ba6659efc997d2b7895766ec58b27379ab9e7a3402db0c9e34711c1f5ff68, '
+        'aura c0722a957beb63cfa51d327ba11a74d4f27959ea5b826129bb00d92266cc31c6, '
+        'caligo 0dafdc5fad426c543c741665a398c568576c0c060232dc554f670b0fd0629024. '
+        '**SU QUESTA STRINGA NON E\' STATA PRESA NESSUNA MISURA**: e\' vissuta '
+        'poche ore, fra l\'ordine EB e l\'ordine EC dello stesso giorno. '
+        'Caduta con l\'ordine EC voce 03: il collaudo con Gemini vero ha '
+        'trovato che il Maestro, davanti a un messaggio incomprensibile, '
+        'chiedeva dati che non gli servivano invece di dire che non '
+        'aveva capito, e che il divieto incrociato del lessico veniva '
+        'violato una volta su quindici risposte. Sono state aggiunte una '
+        'riga sul non capito e una stretta al divieto incrociato.',
     'DAL 14 AL 21 SETTEMBRE 2026. Impronte: medora '
         '662b4df8aa771b4760bb8c922b05a2a027eb6679796212408345d79b85d4ba07, '
         'aura 2d1b581b379e13a71f2eae3d4d36abb536d575d6a12ace887f68909855f5870f, '

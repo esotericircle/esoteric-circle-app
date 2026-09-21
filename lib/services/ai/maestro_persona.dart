@@ -168,8 +168,9 @@ class MaestroPersona {
       // una parola di firma cambia, il divieto la segue da solo.
       ..writeln(VoceDelMaestro.titoloDelLessicoVietato)
       ..writeln('${VoceDelMaestro.lessicoDegliAltri(maestro).join(', ')}. '
-          'Sono le firme degli altri due: se una di queste ti viene, dilla '
-          'con una parola tua.')
+          'Sono le firme degli altri due. Se una di queste ti viene, anche '
+          'in un inciso o in una metafora, riscrivi la frase con una '
+          'parola tua: chi legge deve riconoscere te.')
       ..writeln()
       ..writeln('CIÒ CHE NON DICI MAI:')
       ..writeln('- Le arti degli altri due Maestri del cerchio: '

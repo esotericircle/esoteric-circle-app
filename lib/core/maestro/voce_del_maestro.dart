@@ -483,7 +483,7 @@ class VoceDelMaestro {
   /// cerca un titolo che il prompt non scrive piu' e passa senza guardare
   /// niente.
   static const String titoloDelLessicoVietato =
-      'LE PAROLE DEGLI ALTRI DUE, CHE NON DICI MAI:';
+      'LE PAROLE DEGLI ALTRI DUE, CHE NON DICI MAI, NEMMENO UNA VOLTA E NEMMENO DI SFUGGITA:';
 
   /// Le parole di firma degli ALTRI Maestri, cioe' quelle che [maestro] non usa
   /// mai perche' sono la firma di qualcun altro.

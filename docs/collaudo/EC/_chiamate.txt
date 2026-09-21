@@ -1,0 +1,4 @@
+Chiamate a Gemini nel giro: 17
+Domande chiuse al giudice: 1
+Modello: gemini-2.5-flash
+Regione: europe-west1

@@ -2,6 +2,7 @@ import '../../core/chat/chat_message.dart';
 import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/maestro/consult_depth.dart';
+import '../../core/maestro/la_voce_non_si_confonde.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_reply.dart';
 import '../../core/maestro/natal_context.dart';
@@ -117,20 +118,57 @@ class VoceSorvegliata implements MaestroAiProvider {
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
     String? rispostaGiaData,
-  }) {
-    return _sorvegliando(
-      'reply',
-      () => _voce.reply(
-        maestro: maestro,
-        profile: profile,
-        memory: memory,
-        history: history,
-        userMessage: userMessage,
-        natal: natal,
-        insistiSullAncoraggio: insistiSullAncoraggio,
-        rispostaGiaData: rispostaGiaData,
-      ),
-    );
+  }) async {
+    Future<String> chiedi() => _voce.reply(
+          maestro: maestro,
+          profile: profile,
+          memory: memory,
+          history: history,
+          userMessage: userMessage,
+          natal: natal,
+          insistiSullAncoraggio: insistiSullAncoraggio,
+          rispostaGiaData: rispostaGiaData,
+        );
+
+    final prima = await _sorvegliando('reply', chiedi);
+
+    // **LA VOCE NON SI CONFONDE CON QUELLA DI UN ALTRO. Ordine EC voce 03.**
+    //
+    // Il divieto incrociato del lessico vive nell'istruzione dall'ordine BP
+    // voce 1, e il modello lo rispetta quasi sempre. **Quasi**: il collaudo
+    // con Gemini vero ha trovato quattro risposte su trenta con una parola di
+    // firma altrui, diverse a ogni giro. Rafforzare la frase non e' bastato,
+    // fra un giro e l'altro le violazioni sono passate da una a tre. Qui si
+    // guarda cio' che e' tornato e, se si e' confuso, si chiede un'altra
+    // volta.
+    //
+    // **Un ritentativo solo, e la persona non resta mai senza risposta**: se
+    // anche la seconda si confonde passa quella con meno parole altrui, e il
+    // guasto resta nel registro.
+    if (!LaVoceNonSiConfonde.siConfonde(maestro, prima)) return prima;
+    final altrui = LaVoceNonSiConfonde.paroleAltruiIn(maestro, prima);
+    try {
+      final poi = await chiedi();
+      final scelta = LaVoceNonSiConfonde.laMenoConfusa(maestro, prima, poi);
+      if (LaVoceNonSiConfonde.siConfonde(maestro, scelta)) {
+        registro.registra(
+          operazione: 'reply',
+          errore: 'la voce di ${maestro.id} si e\' confusa due volte con un '
+              'altro Maestro: '
+              '${LaVoceNonSiConfonde.paroleAltruiIn(maestro, scelta).join(", ")}',
+        );
+      }
+      return scelta;
+    } catch (_) {
+      // Il secondo tentativo non e' riuscito: vale la prima risposta, che
+      // c'e'. Il guasto del ritentativo l'ha gia' scritto chi lo sorveglia.
+      registro.registra(
+        operazione: 'reply',
+        errore: 'la voce di ${maestro.id} si e\' confusa con un altro Maestro '
+            '(${altrui.join(", ")}) e il ritentativo non e\' riuscito',
+      );
+      return prima;
+    }
   }
 
   @override

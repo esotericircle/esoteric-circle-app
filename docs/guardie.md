@@ -40,10 +40,18 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 139 |
-| Guardie con un cardinale proprio dichiarato | 121 |
-| Guardie che non scoprono nessun insieme di file | 201 |
-| **Somma delle categorie** | **461** |
-| **Guardie secondo la definizione** | **461** |
+| Guardie con un cardinale proprio dichiarato | 123 |
+| Guardie che non scoprono nessun insieme di file | 202 |
+| **Somma delle categorie** | **464** |
+| **Guardie secondo la definizione** | **464** |
+
+**Ricontate a ordine EC, parte prima**, 21 settembre 2026, il collaudo delle chat con Gemini vero: **tre guardie nuove**, `i_controlli_del_collaudo_prendono_i_difetti` e `la_lettura_ridetta_ha_la_voce_di_chi_la_ridice` col cardinale proprio, `ordine_ec_guard` che non scopre insiemi. Il totale sale da 461 a **464** e le tre categorie a **139, 123 e 202**.
+
+**UNA E' NATA ROSSA DA UN COLLAUDO, NON DA UN INNESTO, ed e' la prima volta.** Il collaudo manda le sedici mosse del catalogo dell'ordine EB ai tre Maestri con il vero servizio Gemini. Al primo giro, sulla mossa 10 fatta ad Aura, ha trovato che la premessa della lettura ridetta era **una frase sola per tutti e tre** e diceva *"Il cielo di oggi non e' cambiato"*: **cielo e' una parola di firma di Medora**. E' lo stesso difetto del benvenuto della voce EB.08, in un punto che quell'ordine non aveva guardato.
+
+**E UN CONTROLLO HA CAMBIATO STRUMENTO TRE VOLTE PRIMA DI MISURARE LA COSA GIUSTA.** Il controllo del chiarimento cercava il punto interrogativo, poi un elenco di frasi, poi un elenco piu' lungo: Caligo chiedeva chiarimento ogni volta con parole nuove, e tutte e tre le volte il comportamento era giusto e l'elenco sbagliato. **Un elenco chiuso non insegue la lingua libera**: adesso la domanda la fa il modello, chiusa, a temperatura zero.
+
+**E UNO HA SMESSO DI ESSERE UN CANCELLO.** Il divieto incrociato del lessico su testo GENERATO passava da una violazione su quindici a tre e viceversa, su mosse diverse a ogni giro: un cancello binario su un generatore misura la fortuna del giro, non il prodotto. Adesso si misura il tasso, e resta cancello una cosa sola, **due parole di firma altrui nella stessa risposta**. Sulle frasi che scriviamo noi il cancello resta chiuso a zero.
 
 **Ricontate a ordine EB, voci 04, 07 e 08**, 21 settembre 2026: **tre guardie nuove**, `ogni_esito_del_turno_e_costruito` dalla porta comune, `ogni_maestro_saluta_con_la_sua_voce` e `il_catalogo_delle_mosse_e_eseguito` col cardinale proprio. Il totale sale da 458 a **461** e le tre categorie a **139, 121 e 201**.
 
@@ -502,6 +510,7 @@ le altre.
 | `i_cinque_doni_rispettano_la_legge_dei_testi_test.dart` | i cinque Doni rispettano la legge dei testi | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `i_cinque_elementi_colorano_e_si_leggono_test.dart` | i cinque elementi colorano e si leggono | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
 | `dream_rite_screen_test.dart` | la schermata del Sigillo del Sogno | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa sul difetto vero: la Parola dell Alba non arrivava a video) | 2 |
+| `i_controlli_del_collaudo_prendono_i_difetti_test.dart` | ogni controllo del collaudo con Gemini vero cade su un difetto costruito apposta | 1, 2 | proprio, dichiarato | 21/09/2026, EC (e' la regola A applicata a un collaudo che costa: il difetto si costruisce invece di aspettare che il modello sbagli) | 3 |
 | `i_doni_si_aprono_alla_loro_ora_test.dart` | i doni si aprono alla loro ora | 1, 2 | proprio, dichiarato | 10/09/2026, DD (rossa: 73 risposte sbagliate su 120 col difetto innestato) | 1 |
 | `i_doni_si_agganciano_test.dart` | i doni si agganciano | 1, 2 | proprio, dichiarato | mai | 3 |
 | `i_due_grigi_si_distinguono_test.dart` | i due grigi si distinguono | 1, 4 | non scopre insiemi di file | mai | 2 |
@@ -582,6 +591,7 @@ le altre.
 | `il_pulsante_solo_se_lo_chiedi_test.dart` | nominare un'arte non e' chiederla: il pulsante compare solo su una richiesta vera | 1, 2 | proprio, dichiarato | 21/09/2026, EB (nata rossa sul difetto vero: nove frasi su undici aprivano un pulsante che nessuno aveva chiesto) | 3 |
 | `l_arcano_dell_alba_si_gira_test.dart` | **un gesto solo e nessun altro comando** sull'Arcano dell'Alba; carte coperte uguali; la faccia solo dopo meta' giro; **il verso non lo decide la carta toccata**; il limite delle stese intatto; nel cammino i gesti alba e oracolo; il dorso uguale a se stesso al mezzo giro | 1 | non scopre insiemi in `lib` | 18/09/2026, DW.02 (le azioni tolte: sotto la carta rivelata non c'e' niente); prima: 18/09/2026, DV.11 (il margine solo in alto: la carta a zero punti dal bordo del pannello); prima: 17/09/2026, DT (caso deciso dalla carta toccata e gesto dell'oracolo tolto: due rosse) | 2 |
 | `l_estrazione_dell_alba_e_libera_test.dart` | **l'estrazione dell'Arcano dell'Alba non ha vincoli**: i quarantaquattro stati equiprobabili su centomila giri; la stessa carta due volte di fila con la frequenza del caso; il verso rovescio attorno alla meta' su ogni carta; **nessuna riga di codice dei file dell'Alba nomina piu' un sacchetto, una distanza minima o le ultime carte** | 1 | proprio, dichiarato | 17/09/2026, DU (`SacchettoDellAlba` innestato nel diario) | 2 |
+| `la_lettura_ridetta_ha_la_voce_di_chi_la_ridice_test.dart` | i tre ridicono la lettura del giorno ognuno con la sua voce, senza il lessico degli altri | 1, 2 | proprio, dichiarato | 21/09/2026, EC (nata rossa: la premessa era una frase sola per i tre e diceva cielo) | 3 |
 | `le_card_da_mandare_test.dart` | **le card da mandare e l'invito**: la card del Soffio e quella di un Sigillo portano cio' che dicono e il dominio del marchio; nessun file di `lib` scrive un dominio a mano; ogni foglio di condivisione passa l'origine che iPad pretende; i tre messaggi di un Sigillo parlano a chi li riceve e portano il link; l'invito si fa dal menu', la domanda torna solo dopo la prima registrazione e il premio va a tutti e due | 1 | proprio, dichiarato | 18/09/2026, DW (dominio a mano nella Stesa; quattro chiamate senza origine; la frase del traguardo rimessa: 165 cadute) | 1 |
 | `il_testo_dei_fogli_non_passa_sotto_le_barre_test.dart` | **il testo dei fogli non passa sotto le barre in alto**: il foglio delle fonti coi sette testi veri e uno quattro volte il piu' lungo, a 360 per 640 e scala 1,3, comincia sotto la barra di stato e la barra dell'identita'; ogni pannello informativo apre un foglio della porta comune; la porta rispetta l'area sicura; nessun foglio fuori dalla porta | 1, 4 | dalla porta comune | 18/09/2026, DY (la porta senza l'area sicura: otto testi su otto sotto le barre) | 1 |
 | `le_porte_di_approfondimento_non_mandano_da_sole_test.dart` | **le porte di approfondimento non mandano da sole**: le funzioni col Parlane del codice sono quelle del censimento DX.03, le porte che aprono la chat con una domanda sono le due censite, e la chat scrive la domanda nel campo senza mai mandarla | 1, 4 | dalla porta comune | 18/09/2026, DX (tredicesima porta innestata nell'arte in arrivo; la chat che rimanda la domanda da sola) | 1 |
@@ -874,6 +884,7 @@ le altre.
 | `ordine_co_guard_test.dart` | ordine co guard | 1, 2 | proprio, dichiarato | CO, nata rossa sul manifesto assente | 3 |
 | `ordine_cp_guard_test.dart` | ordine CP guard | 1, 2 | proprio, dichiarato | mai | 2 |
 | `ordine_cq_guard_test.dart` | ordine CQ guard | 1, 2 | proprio, dichiarato | mai | 2 |
+| `ordine_ec_guard_test.dart` | ordine ec guard | 1, 2 | non scopre insiemi di file | 21/09/2026, EC (rossa da se': l'ordine nasce con sei voci aperte) | 3 |
 | `palette_sensoriale_test.dart` | palette sensoriale | 1, 2 | dalla porta comune | 01/09/2026, CN | 3 |
 | `passport_carta_natale_test.dart` | passport carta natale | 1, 2 | dalla porta comune | mai | 3 |
 | `passport_test.dart` | passport | 1 | non scopre insiemi di file | mai | 3 |
