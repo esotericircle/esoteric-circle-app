@@ -239,9 +239,23 @@ class DreamRiteCorpus {
     final maestro = DailyElements.maestroFor(DailyElement.night, quando);
     final luna = lunaDi(quando);
     final v = voce(luna.sign);
+    // **IL SALUTO NON RIPETE IL TITOLO.** Ordine EE voce 05, 23 settembre
+    // 2026.
+    //
+    // **Come ci si e' arrivati, ed e' una cura che ne ha lasciato meta'.**
+    // Fino all'ordine CO voce 17 la `posa` viveva solo qui, in fondo al
+    // saluto. Quell'ordine l'ha promossa a **titolo** della schermata,
+    // perche' *"la gerarchia vuole al primo posto un titolo diretto che sia
+    // gia' una risposta"*, e il suo commento dichiara che *"il saluto per
+    // intero non cambia di una virgola"*: era vero, ed e' precisamente il
+    // difetto. La stessa frase compariva **due volte nella stessa
+    // schermata**, in cima grande e in fondo al testo.
+    //
+    // **Padre: ordine CO voce 17.** Adesso la posa sta dove l'ordine CO l'ha
+    // messa, cioe' nel titolo, e il saluto chiude sul riconoscimento.
     final base = '${aperturaMaestro(maestro)} ${aperturaLuna(luna)}, '
         '${v.immagine}. Oggi ${v.giorno}. Se guardi indietro, '
-        '${v.riconoscimento}. Ora ${v.posa}.';
+        '${v.riconoscimento}.';
     final tua = nascita == null ? null : lunaDi(nascita);
     if (tua == null) return '$base Buonanotte.';
     final r = RelazioneLunare.fra(luna.sign, tua.sign);
