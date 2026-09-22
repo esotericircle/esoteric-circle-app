@@ -112,7 +112,9 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
 
   static const Duration _durataIngresso = Duration(milliseconds: 1500);
   static const Duration _durataRespiro = Duration(seconds: 7);
-  static const Duration _durataMischia = Duration(milliseconds: 1100);
+  /// **Ordine EE voce 01**: tre tempi, raccolta, mescolata e stesa, non
+  /// stanno in 1100 millesimi senza sembrare uno strappo.
+  static const Duration _durataMischia = Duration(milliseconds: 1800);
   static const Duration _durataTaglio = Duration(milliseconds: 900);
 
   @override
@@ -155,9 +157,21 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
       setState(() => _posti = _mescolati());
       return;
     }
-    await _mischia.forward(from: 0);
+    // **LE CARTE SI MESCOLANO QUANDO SONO NEL MAZZO, non alla fine.**
+    // Ordine EE voce 01.
+    //
+    // Prima i posti nuovi si assegnavano a corsa finita: durante tutta
+    // l'animazione le carte puntavano al posto VECCHIO, e la stesa finale
+    // le riportava dov'erano. Adesso il mazzo si chiude, i posti cambiano
+    // **mentre le carte sono raccolte e nessuno le vede muoversi**, e la
+    // seconda meta' le stende al posto nuovo.
+    _mischia.forward(from: 0);
+    // A meta' della raccolta il mazzo e' chiuso: e' li' che si mescola.
+    await Future<void>.delayed(_durataMischia * 0.5);
     if (!mounted) return;
     setState(() => _posti = _mescolati());
+    await _mischia.forward();
+    if (!mounted) return;
     _mischia.value = 0;
   }
 
@@ -345,16 +359,59 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
         scala = 1 + onda * 0.008;
       }
 
-      // Il mescolamento: le carte si raccolgono in cerchio e tornano.
+      // **IL MISCHIA E' UN MAZZO CHE SI RICOMPONE, SI MESCOLA E SI
+      // RISTENDE.** Ordine EE voce 01, 23 settembre 2026.
+      //
+      // **Il fondatore, verbatim**: *"quando premo su Mischia le carte devono
+      // ricomporsi in un mazzo, mischiarsi e poi stendersi nuovamente a
+      // ventaglio su 3 righe"*.
+      //
+      // **Cosa faceva prima**: ogni carta girava attorno al PROPRIO posto,
+      // tornandoci. Nessun mazzo si componeva, e da fuori si vedeva
+      // un'ondata che passava sul ventaglio senza toglierlo di mezzo.
+      //
+      // **I tre tempi**, letti dal solo `_mischia.value`, che va da zero a
+      // uno:
+      //
+      // - **fino a 0,35 le carte si radunano** nel mazzo, al centro del
+      //   tavolo, e si raddrizzano: il ventaglio si chiude;
+      // - **da 0,35 a 0,65 il mazzo si mescola** restando dov'e', con le
+      //   carte che scorrono l'una sull'altra a ventagli stretti;
+      // - **da 0,65 in poi si ristendono** verso il posto NUOVO, che la
+      //   griglia ha gia' assegnato a tre righe.
+      //
+      // **Il posto nuovo e' gia' in `centro`**, perche' `_mescolati()` viene
+      // applicato a fine animazione: qui si interpola fra il mazzo e quel
+      // posto, quindi le carte arrivano stese dove staranno.
       if (_mischia.value > 0) {
-        final onda = math.sin(_mischia.value * math.pi);
-        final giro = posto / widget.quante * 2 * math.pi + _mischia.value * 4;
-        final raggio = disegno.larghezza * 0.3 * onda;
-        centro = Offset(
-          centro.dx + math.cos(giro) * raggio,
-          centro.dy + math.sin(giro) * raggio * 0.45,
+        final t = _mischia.value;
+        final mazzo = Offset(disegno.larghezza * 0.5, disegno.altezza * 0.42);
+        // Quanto la carta sta nel mazzo invece che al suo posto: uno vuol
+        // dire mazzo chiuso, zero ventaglio steso.
+        final double raccolta;
+        if (t < 0.35) {
+          raccolta = Curves.easeInOut.transform(t / 0.35);
+        } else if (t < 0.65) {
+          raccolta = 1;
+        } else {
+          raccolta = 1 - Curves.easeOutCubic.transform((t - 0.65) / 0.35);
+        }
+        // Nel mazzo le carte non stanno esattamente sovrapposte: un mazzo
+        // vero ha uno scarto di pochi punti, o sembrerebbe una carta sola.
+        final scartoNelMazzo = Offset(
+          (posto % 5 - 2) * 1.6,
+          (posto ~/ 5 - 2) * 1.1,
         );
-        angolo += onda * 0.5;
+        centro = Offset.lerp(centro, mazzo + scartoNelMazzo, raccolta)!;
+        // Raddrizzate nel mazzo, e con un filo di scorrimento mentre si
+        // mescolano.
+        angolo *= 1 - raccolta;
+        if (t >= 0.35 && t < 0.65) {
+          final dentro = (t - 0.35) / 0.3;
+          final scorre = math.sin(dentro * math.pi * 3 + posto * 0.7);
+          centro = Offset(centro.dx + scorre * 9, centro.dy + scorre * 2.5);
+          angolo += scorre * 0.08;
+        }
       }
 
       // Il taglio: le due meta' si scostano e si scambiano di quota.
