@@ -5,7 +5,6 @@ import '../maestri/chat/chat_openers.dart';
 import '../ricordi/azioni_del_responso.dart';
 import 'dart:math' as math;
 import 'dart:typed_data';
-import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +26,8 @@ import '../../design_system/theme/accento_del_maestro.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import 'forma_del_dono.dart';
+import '../../services/ai/registro_dei_guasti.dart';
+import 'soffione_inciso.dart';
 import '../sigilli/regia_del_cammino.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -100,6 +101,146 @@ class SuperficiDelSoffio {
         misura.width * centroDelDisco.dx,
         misura.height * centroDelDisco.dy,
       );
+
+  // ===========================================================================
+  // DOVE STA IL SOFFIONE. Ordine EF voce 01, 23 settembre 2026.
+  // ===========================================================================
+  //
+  // **Il difetto, e perche' non poteva non succedere.** Il soffione lo
+  // dipingeva il pittore con numeri suoi, `h * 0.46` per il centro e
+  // `h * 0.86` per l'altezza; il riquadro del respiro lo disponeva il layout
+  // con un `Align` al centro della propria zona. **Due sistemi diversi che
+  // decidono due posizioni sulla stessa scena si sovrappongono prima o poi**,
+  // ed e' precisamente la lezione che questa classe porta scritta poche righe
+  // piu' su per il disco e l'anello. Sulla build 2276 il riquadro copriva la
+  // testa del soffione quasi per intero: a riposo se ne vedeva un dito sopra
+  // il bordo.
+  //
+  // **Adesso il numero e' uno solo e lo leggono tutti e due.** Il pittore
+  // prende di qui il centro e il raggio della testa; il layout prende di qui
+  // il fondo della figura e ci appoggia sotto il riquadro. Non e' un margine
+  // azzeccato: e' un'impossibilita' di sovrapporsi.
+
+  /// Dove cade il centro della testa del soffione, in frazioni della scena.
+  static const Offset centroDellaTesta = Offset(0.5, 0.225);
+
+  /// Il raggio della testa a riposo, in frazione della LARGHEZZA.
+  ///
+  /// **Il numero discende da una guardia, non da un gusto.** L'ordine DD voce
+  /// 03 pretende che la figura che respira prenda almeno il settanta per
+  /// cento della larghezza al culmine, e nasce dal fondatore che diceva *"il
+  /// cerchio del respiro e' piccolo"*. Col respiro che apre fino a
+  /// [aperturaMassima] e gli ombrellini che sporgono oltre la punta dei
+  /// gambi, 0,22 porta il soffione a poco piu' di settanta al culmine.
+  static const double raggioDellaTesta = 0.22;
+
+  /// Quanto la testa si allarga al culmine dell'inspirazione e quanto si
+  /// stringe a fine espirazione.
+  static const double aperturaMassima = 1.40;
+  static const double chiusuraMinima = 0.80;
+
+  /// Il centro della testa in punti, dentro una scena di [misura].
+  static Offset testaDentro(Size misura) => Offset(
+        misura.width * centroDellaTesta.dx,
+        misura.height * centroDellaTesta.dy,
+      );
+
+  /// **QUANTO IN BASSO PUO' ARRIVARE LA FIGURA**, in frazione dell'altezza.
+  ///
+  /// Sotto questa riga comincia il territorio del riquadro del respiro, e il
+  /// riquadro non deve mai salire sulla figura: la voce 01 lo chiede per
+  /// nome. **Il limite serve perche' la larghezza da sola non basta.** Su uno
+  /// schermo da 640 punti con le barre alte e il testo alla scala massima, la
+  /// figura dimensionata sulla sola larghezza arrivava fino a 338 punti e il
+  /// riquadro non aveva piu' dove stare: la guardia
+  /// `il_riquadro_non_copre_la_figura` l'ha misurato su due geometrie della
+  /// griglia, fino a **47,0 punti coperti**.
+  ///
+  /// **A cedere e' la figura, non il riquadro**, ed e' una scelta dichiarata:
+  /// una figura un po' piu' piccola la nota chi la cerca, un riquadro che
+  /// copre il disegno lo vede chiunque, e il fondatore l'ha visto.
+  static const double quotaMassimaDellaFigura = 0.46;
+
+  /// Di quanto la figura si stringe perche' ci stia, da zero a uno.
+  ///
+  /// **Su uno schermo comodo vale uno e non cambia niente** di cio' che il
+  /// fondatore ha gia' approvato: si stringe solo dove la figura non ci
+  /// starebbe.
+  static double scalaDellaFigura(Size misura) {
+    final disponibile = misura.height * quotaMassimaDellaFigura;
+    final serve = _fondoNudo(misura);
+    final cima = math.min(testaDentro(misura).dy, discoDentro(misura).dy);
+    if (serve <= disponibile) return 1.0;
+    // Si stringe solo la parte che sporge sotto il centro: il centro resta
+    // dov'e', o la figura scivolerebbe verso l'alto mentre si rimpicciolisce.
+    final sotto = serve - cima;
+    if (sotto <= 0) return 1.0;
+    return ((disponibile - cima) / sotto).clamp(0.35, 1.0);
+  }
+
+  /// Il fondo che la figura avrebbe senza nessuna stretta.
+  static double _fondoNudo(Size misura) {
+    final rCulmine = misura.width * raggioDellaTesta * aperturaMassima;
+    final rFermo = misura.width * raggioDellaTesta;
+    final testa =
+        testaDentro(misura).dy + rCulmine * SoffioneInciso.sporgenzaDelPappo;
+    final stelo = testaDentro(misura).dy +
+        rFermo * 0.10 +
+        rFermo * SoffioneInciso.steloSuRaggio;
+    final dono = discoDentro(misura).dy +
+        FormaDelDono.raggio(misura.width, 1.0,
+            apertura: FormaDelDono.aperturaMassima);
+    return math.max(math.max(testa, stelo), dono);
+  }
+
+  /// Il raggio della testa in punti, col respiro gia' applicato.
+  ///
+  /// [respiro] arriva dalla guida nella corsa 0,55 - 1,0 e qui si apre sulla
+  /// corsa vera della figura: **la guida era tarata su un cerchio, che poteva
+  /// essere largo quanto si voleva; un soffione ha uno stelo e un limite.**
+  static double raggioDellaTestaDentro(Size misura, {double respiro = 1.0}) {
+    final quanto = chiusuraMinima +
+        ((respiro - 0.55) / 0.45).clamp(0.0, 1.0) *
+            (aperturaMassima - chiusuraMinima);
+    return misura.width * raggioDellaTesta * quanto * scalaDellaFigura(misura);
+  }
+
+  /// Dove finisce il soffione, stelo e ombrellini compresi, **al culmine**.
+  ///
+  /// Si misura sempre al culmine e mai alla misura del momento: una riga che
+  /// si sposta col respiro farebbe ballare il riquadro sotto a ogni
+  /// inspirazione.
+  static double fondoDelSoffione(Size misura) {
+    final k = scalaDellaFigura(misura);
+    final rCulmine = misura.width * raggioDellaTesta * aperturaMassima * k;
+    final rFermo = misura.width * raggioDellaTesta * k;
+    final testa =
+        testaDentro(misura).dy + rCulmine * SoffioneInciso.sporgenzaDelPappo;
+    final stelo = testaDentro(misura).dy +
+        rFermo * 0.10 +
+        rFermo * SoffioneInciso.steloSuRaggio;
+    return math.max(testa, stelo);
+  }
+
+  /// Dove finisce il dono al culmine del respiro.
+  ///
+  /// **Serve quanto il fondo del soffione, e per la stessa ragione.** Nella
+  /// fase del respiro il soffione non c'e' piu': la figura a schermo e' il
+  /// dono, ed e' lei che il riquadro non deve coprire.
+  static double fondoDelDono(Size misura) =>
+      discoDentro(misura).dy +
+      FormaDelDono.raggio(misura.width, 1.0,
+              apertura: FormaDelDono.aperturaMassima) *
+          scalaDellaFigura(misura);
+
+  /// Il fondo della figura che sta a schermo, qualunque delle due sia.
+  ///
+  /// **Si prende sempre la piu' bassa delle due e mai quella del momento.**
+  /// Un tetto che cambia col passare del rito farebbe saltare il riquadro
+  /// da una posizione all'altra a meta' del gesto, e la persona lo vedrebbe
+  /// come uno scatto.
+  static double fondoDellaFigura(Size misura) =>
+      math.max(fondoDelSoffione(misura), fondoDelDono(misura));
 }
 
 class BreathDestinyScreen extends StatefulWidget {
@@ -143,7 +284,6 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
   // IL PRATO NON SI CARICA PIU', ordine P voce 26: il fondale e' il cosmo
   // condiviso, e un asset che nessuno dipinge sarebbe memoria decodificata per
   // niente.
-  ui.Image? _dandelionImg;
 
   final AudioRecorder _recorder = AudioRecorder();
   StreamSubscription<Uint8List>? _micStream;
@@ -182,38 +322,15 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
       vsync: this,
       duration: const Duration(seconds: 8),
     )..repeat();
-    _loadLayers();
+    // **NIENTE PIU' LIVELLI DA CARICARE. Ordine EF voce 03.**
+    //
+    // Qui si caricava `breath_dandelion.png`, la fotografia del soffione, e
+    // quel caricamento non era solo lento: **era la ragione per cui questa
+    // schermata era cieca alle prove**. Il pittore usciva subito quando
+    // l'immagine mancava, e sotto `flutter test` mancava sempre, quindi
+    // nessuna misura sul layout poteva vedere il soffione. Adesso il
+    // soffione e' disegnato, `SoffioneInciso`, e c'e' anche nelle prove.
     _startMic();
-  }
-
-  Future<void> _loadLayers() async {
-    try {
-      final soffione =
-          await _resolveAsset('assets/ritual_backgrounds/breath_dandelion.png');
-      if (!mounted) return;
-      setState(() => _dandelionImg = soffione);
-    } catch (_) {
-      // Senza livelli il motore non disegna la scena, ma il rito resta
-      // compibile col ripiego e il dono appare comunque.
-    }
-  }
-
-  Future<ui.Image> _resolveAsset(String asset) {
-    final completer = Completer<ui.Image>();
-    final stream = AssetImage(asset).resolve(const ImageConfiguration());
-    late final ImageStreamListener listener;
-    listener = ImageStreamListener(
-      (info, _) {
-        if (!completer.isCompleted) completer.complete(info.image);
-        stream.removeListener(listener);
-      },
-      onError: (error, stack) {
-        if (!completer.isCompleted) completer.completeError(error);
-        stream.removeListener(listener);
-      },
-    );
-    stream.addListener(listener);
-    return completer.future;
   }
 
   // Chiede il permesso del microfono e ascolta il livello audio: un soffio e' un
@@ -256,15 +373,67 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
       // guarda quanto e' **piatto** lo spettro, non quanto e' forte il suono:
       // l'aria non ha una nota dentro, la voce e la musica si'.
       _formaDelSoffio.ricomincia();
+      // **IL MICROFONO DICE SE HA SENTITO. Ordine EF voce 04.**
+      //
+      // **Il fatto del fondatore, verbatim**: *"se soffio al microfono, NON
+      // FUNZIONA, DEVO PER FORZA USARE IL DITO!"*. Il permesso sul suo
+      // Realme risultava **concesso**, quindi la causa stava piu' avanti, e
+      // qui non c'era niente che la potesse dire: i campioni entravano,
+      // venivano misurati e nessuno sapeva con che numeri.
+      //
+      // Qui si tiene il conto di cio' che e' passato: quanti campioni sono
+      // arrivati e quanto e' stata piatta la cosa piu' piatta che si e'
+      // sentita. **Non e' strumentazione da buttare dopo**: e' cio' che
+      // distingue "il microfono non arriva" da "il microfono arriva e la
+      // soglia non scatta", e sono due guasti diversi con due cure diverse.
       _micStream = stream.listen((byte) {
         if (_revealed) return;
+        _campioniDalMicrofono += byte.length;
         _formaDelSoffio.aggiungiCampioni(byte);
+        if (_formaDelSoffio.planarita > _planaritaMassimaSentita) {
+          _planaritaMassimaSentita = _formaDelSoffio.planarita;
+        }
+        // Una riga ogni due secondi circa, e non a ogni pacchetto: serve a
+        // sapere **con che numeri** il microfono del telefono sente, e
+        // trentadue righe al secondo non le legge nessuno.
+        if (_campioniDalMicrofono ~/ 64000 != _ultimoRapportoDelMicrofono) {
+          _ultimoRapportoDelMicrofono = _campioniDalMicrofono ~/ 64000;
+          debugPrint('SOFFIO: campioni $_campioniDalMicrofono, planarita piu '
+              'alta ${_planaritaMassimaSentita.toStringAsFixed(3)}, soglia '
+              '${FormaDelSoffio.planaritaMinima}');
+        }
         if (_formaDelSoffio.eSoffio) _complete();
+      }, onError: (Object errore, StackTrace traccia) {
+        GuastiVersoIlCruscotto.inoltro
+            ?.call('soffio, flusso del microfono', errore, traccia);
+        debugPrint('SOFFIO: il flusso del microfono e caduto. $errore');
       });
-    } catch (_) {
-      // Microfono non disponibile o permesso negato: vale il ripiego.
+    } catch (errore, traccia) {
+      // **NIENTE PIU' CATCH MUTO QUI. Ordine EF voce 04.**
+      //
+      // Questo `catch (_)` vuoto e' la ragione per cui il soffio al
+      // microfono poteva essere rotto da settimane senza che nessuno lo
+      // sapesse: se `startStream` non riesce sul telefono, il rito resta
+      // compibile col dito e **sembra che vada tutto bene**. Il ripiego
+      // tattile resta, ed e' obbligatorio, ma il guasto adesso si scrive.
+      GuastiVersoIlCruscotto.inoltro
+          ?.call('soffio, apertura del microfono', errore, traccia);
+      debugPrint('SOFFIO: il microfono non si e aperto. $errore');
     }
   }
+
+  /// Quanti byte di audio sono arrivati dal microfono da quando la schermata
+  /// e' aperta. Zero vuol dire che il microfono non parla, ed e' un guasto
+  /// diverso da una soglia che non scatta.
+  int _campioniDalMicrofono = 0;
+
+  /// La planarita' piu' alta sentita: se resta molto sotto
+  /// `FormaDelSoffio.planaritaMinima` anche mentre la persona soffia, allora
+  /// il microfono arriva e a non scattare e' il riconoscimento.
+  double _planaritaMassimaSentita = 0;
+
+  /// A che blocco di due secondi si e' fermato l'ultimo rapporto.
+  int _ultimoRapportoDelMicrofono = -1;
 
   Future<void> _stopMic() async {
     await _micAmplitude?.cancel();
@@ -281,7 +450,6 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
     _disperse.dispose();
     _ambient.dispose();
     _respiro.dispose();
-    _dandelionImg?.dispose();
     super.dispose();
   }
 
@@ -499,6 +667,16 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
   /// mordeva e i numeri restavano identici al punto.
   final GlobalKey _laGuida = GlobalKey();
 
+  /// **Il fondo della FIGURA, in punti dall'alto della colonna.** Ordine EF
+  /// voce 01.
+  ///
+  /// La geometria della figura vive in coordinate della scena, che comincia
+  /// sotto la barra; il riquadro e l'invito vivono nella colonna, che
+  /// comincia sotto l'area sicura. **Convertire una volta sola, a frame
+  /// finito, evita che ognuno si faccia i conti suoi**, ed e' esattamente
+  /// l'errore che ha prodotto questo difetto la prima volta.
+  double _fondoFiguraInColonna = 0;
+
   /// Il fondo della guida del respiro, in punti dall'alto della colonna.
   /// Zero finche' non c'e' niente da misurare, e con zero la colonna si
   /// divide come si e' sempre divisa.
@@ -513,15 +691,53 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
   ///
   /// Si ferma da sola: appena i due coincidono lo scarto e' sotto il mezzo
   /// punto e non si chiede piu' nessun ridisegno.
-  void _allineaLAnello() {
+  void _appoggiaLaGuidaSottoIlSoffione() {
     final scena = _scena.currentContext?.findRenderObject();
-    final anello = _anello.currentContext?.findRenderObject();
-    if (scena is! RenderBox || anello is! RenderBox) return;
-    if (!scena.hasSize || !anello.hasSize) return;
-    final centroAnello = scena
-        .globalToLocal(anello.localToGlobal(anello.size.center(Offset.zero)));
-    final voluto = SuperficiDelSoffio.discoDentro(scena.size);
-    final manca = voluto.dy - centroAnello.dy;
+    if (scena is! RenderBox || !scena.hasSize) return;
+
+    // **IL FONDO DELLA FIGURA SI MISURA SEMPRE, anche quando la guida non
+    // c'e'.** Ordine EF voce 01: prima del soffio la guida del respiro non
+    // esiste ancora, ma l'invito al gesto si', e anche lui deve stare sotto
+    // la figura. La prima stesura di questo metodo usciva subito se la guida
+    // mancava, quindi nella fase del soffio il fondo restava zero e la
+    // pastiglia dell'invito finiva in cima allo schermo, **sopra i pappi**:
+    // difetto visto in una cattura del banco, non nel codice.
+    final colonnaPrima = _colonna.currentContext?.findRenderObject();
+    if (colonnaPrima is RenderBox && colonnaPrima.hasSize) {
+      final fondo = colonnaPrima
+          .globalToLocal(scena.localToGlobal(
+              Offset(0, SuperficiDelSoffio.fondoDellaFigura(scena.size))))
+          .dy;
+      if ((fondo - _fondoFiguraInColonna).abs() >= 0.5 && mounted) {
+        setState(() => _fondoFiguraInColonna = fondo);
+      }
+    }
+
+    final guidaBox = _laGuida.currentContext?.findRenderObject();
+    if (guidaBox is! RenderBox || !guidaBox.hasSize) return;
+
+    // **QUI SI INSEGUIVA UN ANELLO CHE NON ESISTE PIU'. Ordine EF voce 01.**
+    //
+    // Questo metodo si chiamava `_allineaLAnello` e portava il centro della
+    // figura del respiro sul centro del disco luminoso, a 0,26 dell'altezza.
+    // Aveva senso finche' la figura era un cerchio d'oro. **L'ordine EE voce
+    // 02 ha svuotato quella figura**, `figura: const SizedBox.shrink()`,
+    // perche' a respirare doveva essere il soffione: da quel momento la
+    // rincorsa inseguiva **un punto largo zero**, e trascinava tutto il
+    // riquadro del respiro fin sopra la testa del soffione. Sulla cattura
+    // della 2276 il riquadro la copriva quasi per intero.
+    //
+    // **Padre: ordine EE voce 02**, che ha tolto il soggetto e lasciato viva
+    // la rincorsa.
+    //
+    // Adesso non si insegue niente: **si appoggia**. Il tetto del riquadro va
+    // sotto il fondo dichiarato del soffione, e i due numeri vengono dallo
+    // stesso posto, quindi non possono sovrapporsi per costruzione.
+    final tettoAttuale =
+        scena.globalToLocal(guidaBox.localToGlobal(Offset.zero)).dy;
+    final fondoFigura = SuperficiDelSoffio.fondoDellaFigura(scena.size);
+    final voluto = fondoFigura + respiroFraLeDueZone;
+    final manca = voluto - tettoAttuale;
 
     // **E SI MISURA ANCHE DOVE LA GUIDA FINISCE. Ordine DR voce 11.**
     //
@@ -592,7 +808,8 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.aura));
     // La misura si prende a frame finito, quando i due riquadri esistono
     // davvero: durante il build hanno ancora la misura del giro precedente.
-    WidgetsBinding.instance.addPostFrameCallback((_) => _allineaLAnello());
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _appoggiaLaGuidaSottoIlSoffione());
 
     // IL FONDALE E' IL COSMO CONDIVISO, ordine P voce 26. Prima il Soffio si
     // dipingeva un prato suo dentro il pittore della scena: adesso passa da
@@ -664,7 +881,6 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
                           ambient: _reduceMotion ? 0 : _ambient.value,
                           reduceMotion: _reduceMotion,
                           palette: palette,
-                          dandelion: _dandelionImg,
                           // Ordine EE voce 02: a respirare e' lui.
                           respiro: _reduceMotion ? 1.0 : _respiro.value,
                         ),
@@ -735,10 +951,35 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
                                 child: Stack(
                                   alignment: Alignment.center,
                                   children: [
+                                    // **L'INVITO STA SOTTO LA FIGURA, NON
+                                    // SOPRA. Ordine EF voce 01.**
+                                    //
+                                    // **Difetto trovato guardando una
+                                    // cattura, non leggendo il codice.** Qui
+                                    // c'era `Alignment(0, -0.55)`, cioe' un
+                                    // punto deciso a mano dentro la zona del
+                                    // respiro, e la pastiglia *"Soffia,
+                                    // oppure spazza col dito"* si appoggiava
+                                    // in mezzo alla testa del soffione. E'
+                                    // lo stesso difetto del riquadro del
+                                    // respiro, nello stato di prima: **due
+                                    // sistemi che decidono due posizioni
+                                    // sulla stessa scena**.
+                                    //
+                                    // Adesso legge lo stesso fondo della
+                                    // figura che legge il riquadro, gia'
+                                    // portato nelle coordinate della colonna.
                                     if (!_revealed)
-                                      Align(
-                                        alignment: const Alignment(0, -0.55),
-                                        child: _BreathPrompt(palette: palette),
+                                      Positioned(
+                                        left: 0,
+                                        right: 0,
+                                        top: _fondoFiguraInColonna +
+                                            respiroFraLeDueZone,
+                                        child: Align(
+                                          alignment: Alignment.topCenter,
+                                          child:
+                                              _BreathPrompt(palette: palette),
+                                        ),
                                       ),
                                     // L'ESITO DEL MICROFONO, detto a schermo: il rito
                                     // resta compibile col dito in ogni caso, ma chi ha
@@ -1073,7 +1314,6 @@ class _BreathScenePainter extends CustomPainter {
     required this.ambient,
     required this.reduceMotion,
     required this.palette,
-    required this.dandelion,
     this.respiro = 1.0,
   });
 
@@ -1090,12 +1330,6 @@ class _BreathScenePainter extends CustomPainter {
   final double ambient;
   final bool reduceMotion;
   final MaestroPalette palette;
-  final ui.Image? dandelion;
-
-  // Testa del soffione nell'immagine (centro e raggio come frazioni).
-  static const double _headFx = 0.501;
-  static const double _headFy = 0.440;
-  static const double _headRFrac = 0.244; // del lato dell'immagine
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -1112,8 +1346,6 @@ class _BreathScenePainter extends CustomPainter {
     // Sogno. Sotto il soffione resta l'alone verde di Aura, che c'era gia' e
     // che adesso fa anche da terreno: un soffione sospeso nel vuoto non e'
     // quello che si voleva.
-    final dandelion = this.dandelion;
-    if (dandelion == null) return;
     final p = progress.clamp(0.0, 1.0);
     final w = size.width, h = size.height;
     final rect = Offset.zero & size;
@@ -1132,31 +1364,24 @@ class _BreathScenePainter extends CustomPainter {
         ).createShader(rect),
     );
 
-    // Geometria del soffione montato sul prato.
-    final dw = dandelion.width.toDouble(), dh = dandelion.height.toDouble();
-    // **IL SOFFIONE CRESCE, ordine EE voce 02.** Era al 62 per cento
-    // dell'altezza e la sua testa prendeva il 36,4 per cento della
-    // larghezza: meno della meta' del cerchio che sostituisce, e l'ordine
-    // DD voce 03 nasceva proprio dal fondatore che diceva *"il cerchio del
-    // respiro e' piccolo"*. Portarlo al 62 avrebbe curato una cosa
-    // peggiorandone un'altra.
-    final dstH = h * 0.86;
-    final dstW = dstH * dw / dh;
-    // **IL SOFFIONE SALE, ordine EE voce 02.** Il fondatore: *"alza piu' in
-    // alto il soffione e il pulsante, e cosi' l'area per la bolla di
-    // descrizione sara' piu' ampia in verticale"*. Era al 52 per cento
-    // dell'altezza, adesso al 46: sei punti percentuali che vanno tutti alla
-    // bolla sotto, che era la parte piu' stretta della schermata.
-    final headCenter = Offset(w * 0.5, h * 0.46);
-    final dstTop = headCenter.dy - _headFy * dstH;
-    final dstLeft = w * 0.5 - _headFx * dstW;
-    final headR = _headRFrac * dstW;
+    // **LA GEOMETRIA LA DICHIARA `SuperficiDelSoffio`, non questo pittore.**
+    // Ordine EF voce 01: qui c'erano `h * 0.86` per l'altezza e `h * 0.46`
+    // per il centro, mentre il riquadro del respiro si posizionava per conto
+    // suo nel layout. **Due sistemi che decidono due posizioni sulla stessa
+    // scena finiscono per coprirsi**, e sulla 2276 si coprivano.
+    final headCenter = SuperficiDelSoffio.testaDentro(size);
+    final headR =
+        SuperficiDelSoffio.raggioDellaTestaDentro(size, respiro: respiro);
     final giftCenter = SuperficiDelSoffio.discoDentro(size);
 
     // --- Il dono: un soffione di luce che si accende man mano che le
     // scintille dei semi salgono a comporlo. **Ordine DU voce 14**: il disegno
     // sta in `FormaDelDono`, che e' pubblica perche' una scena si misura solo
     // se una prova la puo' dipingere da sola.
+    // **E IL DONO RESPIRA, ordine EF voce 01.** Finito il soffio, la figura
+    // che sta a schermo mentre la persona respira e' questa: il soffione di
+    // semi e' gia' volato via, ed e' il dono a doversi allargare e stringere
+    // col fiato.
     FormaDelDono.dipingi(
       canvas,
       centro: giftCenter,
@@ -1165,92 +1390,45 @@ class _BreathScenePainter extends CustomPainter {
       respiro: ambient,
       palette: palette,
       fermo: reduceMotion,
+      // La stessa stretta che si applica al soffione: su uno schermo dove
+      // la figura non ci sta, a cedere e' lei e non il riquadro.
+      apertura: (reduceMotion ? 1.0 : FormaDelDono.aperturaDaRespiro(respiro)) *
+          SuperficiDelSoffio.scalaDellaFigura(size),
     );
 
-    // --- Alone morbido d'aria attorno al soffione, appena un respiro ---
-    final auraR = headR * 1.9;
-    canvas.drawCircle(
-      headCenter,
-      auraR,
-      Paint()
-        ..shader = RadialGradient(
-          colors: [
-            palette.goldSoft.withValues(alpha: 0.16),
-            palette.glow.withValues(alpha: 0.06),
-            const Color(0x00000000),
-          ],
-          stops: const [0.0, 0.55, 1.0],
-        ).createShader(Rect.fromCircle(center: headCenter, radius: auraR)),
-    );
-
-    // --- Soffione in composizione normale: l'alpha cotto dal fondo nero tiene
-    // il dettaglio reale, i pappi coi bordi morbidi e lo stelo piantato. Niente
-    // additivo, niente bruciatura a bianco. In due parti: lo stelo col
-    // ricettacolo resta sempre, la testa si svuota progressivamente col soffio.
-    const headBottomFy = 0.63, stemTopFy = 0.60;
-    // **LO STELO SE NE VA DOPO I PETALI. Ordine AS voce 07.**
+    // --- IL SOFFIONE, DISEGNATO E NON FOTOGRAFATO. Ordine EF voce 03. ---
     //
-    // Qui c'era scritto "sempre piantato nel prato", e si disegnava con una
-    // `Paint()` piena: a soffio finito restava un gambo nudo in mezzo alla
-    // scena, sotto il dono, come il resto di una cosa che non c'e' piu'. Un
-    // soffione soffiato via non lascia il suo stelo in primo piano.
+    // Qui c'erano due `drawImageRect` sulla fotografia: uno per lo stelo e
+    // uno per la testa, ritagliati a frazioni dell'immagine. La fotografia
+    // aveva un alone scuro frastagliato attorno alla testa e lo stelo
+    // spezzato da uno scalino a meta', e stava in mezzo a un'app incisa in
+    // oro. **Adesso e' un disegno**, nello stesso vocabolario di
+    // `FormaDelDono`, e **respira per davvero**: la testa si allarga e si
+    // stringe perche' il raggio che arriva qui porta gia' il respiro dentro.
     //
-    // Adesso lo stelo resta intero mentre la testa si dirada, cioe' finche' il
-    // gesto e' in corso, e si dissolve nell'ULTIMO TERZO del soffio: quando i
-    // pappi hanno finito di volare, se ne va anche lui. La soglia e' una sola
-    // costante dichiarata qui, non un numero sparso nel disegno.
+    // **LO STELO SE NE VA DOPO I PAPPI. Ordine AS voce 07.** Un soffione
+    // soffiato via non lascia il suo gambo in primo piano: lo stelo resta
+    // intero mentre la testa si dirada, e si dissolve nell'ultimo terzo del
+    // soffio, quando i pappi hanno finito di volare.
     const quandoLoSteloSiRitira = 0.7;
     final steloOpacita = p <= quandoLoSteloSiRitira
         ? 1.0
         : (1 - (p - quandoLoSteloSiRitira) / (1 - quandoLoSteloSiRitira))
             .clamp(0.0, 1.0);
-    if (steloOpacita > 0.01) {
-      canvas.drawImageRect(
-        dandelion,
-        Rect.fromLTWH(0, stemTopFy * dh, dw, dh * (1 - stemTopFy)),
-        Rect.fromLTWH(
-            dstLeft, dstTop + stemTopFy * dstH, dstW, dstH * (1 - stemTopFy)),
-        Paint()..color = Colors.white.withValues(alpha: steloOpacita),
-      );
-    }
-    // La testa, che si dirada fino allo spoglio col progredire del soffio.
-    //
-    // **E RESPIRA, ordine EE voce 02**: si allarga e si stringe attorno al
-    // proprio centro, che e' `headCenter`. Prima lo faceva un cerchio d'oro
-    // disegnato sopra di lei, e il fondatore l'aveva gia' chiesto: *"deve
-    // essere il soffione sotto ad allargarsi e ridursi"*.
-    //
-    // **Si scala attorno al centro della testa e non attorno all'origine**,
-    // o il soffione scivolerebbe di lato mentre respira.
-    final headOpacity = (1 - p).clamp(0.0, 1.0);
-    if (headOpacity > 0.01) {
-      // **IL RESPIRO SI AMPLIFICA SULLA TESTA, e non e' un vezzo.** La
-      // guida manda una misura che va da 0,55 a 1,0, tarata su un cerchio
-      // che poteva essere largo quanto si voleva. Il soffione no: ha uno
-      // stelo, e crescere oltre l'86 per cento dell'altezza vorrebbe dire
-      // farglielo uscire dallo schermo. Con la misura nuda al culmine la
-      // testa prendeva il 50,8 per cento della larghezza, contro il
-      // settanta che l'ordine DD voce 03 pretende dalla figura che respira,
-      // e quell'ordine nasce dal fondatore che diceva *"il cerchio del
-      // respiro e' piccolo"*.
-      //
-      // Qui la corsa 0,55 - 1,0 si apre su 0,80 - 1,40: **la figura resta
-      // dentro lo schermo a riposo e al culmine si vede davvero**.
-      const chiuso = 0.80, aperto = 1.40;
-      final quanto = chiuso +
-          ((respiro - 0.55) / 0.45).clamp(0.0, 1.0) * (aperto - chiuso);
-      canvas.save();
-      canvas.translate(headCenter.dx, headCenter.dy);
-      canvas.scale(quanto);
-      canvas.translate(-headCenter.dx, -headCenter.dy);
-      canvas.drawImageRect(
-        dandelion,
-        Rect.fromLTWH(0, 0, dw, dh * headBottomFy),
-        Rect.fromLTWH(dstLeft, dstTop, dstW, dstH * headBottomFy),
-        Paint()..color = Colors.white.withValues(alpha: headOpacity),
-      );
-      canvas.restore();
-    }
+    SoffioneInciso.dipingi(
+      canvas,
+      centro: headCenter,
+      // **LO STELO NON RESPIRA, LA TESTA SI.** Il raggio che disegna i pappi
+      // porta il respiro; quello che misura lo stelo no, o il gambo si
+      // allungherebbe e accorcerebbe a ogni fiato come un elastico.
+      raggio: headR,
+      raggioDelloStelo: size.width * SuperficiDelSoffio.raggioDellaTesta,
+      palette: palette,
+      spoglio: p,
+      steloOpacita: steloOpacita,
+      aria: reduceMotion ? 0.0 : ambient,
+      fermo: reduceMotion,
+    );
 
     // --- IL TERRENO: un orizzonte sfumato che assorbe la fine dello stelo ---
     //
@@ -1329,6 +1507,5 @@ class _BreathScenePainter extends CustomPainter {
       old.ambient != ambient ||
       old.reduceMotion != reduceMotion ||
       old.palette != palette ||
-      old.dandelion != dandelion ||
       old.respiro != respiro;
 }

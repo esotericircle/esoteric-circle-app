@@ -29,7 +29,30 @@ abstract final class FormaDelDono {
   static const double respiroDelPetalo = 0.12;
 
   /// Il raggio della figura, dato lo spazio [w] e il soffio [p] gia' fatto.
-  static double raggio(double w, double p) => w * (0.13 + 0.10 * p);
+  ///
+  /// **[apertura] e' il respiro, ordine EF voce 01.** Finito il soffio, la
+  /// figura che sta a schermo mentre la persona respira e' questa: il
+  /// soffione di semi se n'e' volato via, ed e' il dono a doversi allargare e
+  /// stringere col fiato. Uno quando non si respira.
+  static double raggio(double w, double p, {double apertura = 1.0}) =>
+      w * (0.13 + 0.10 * p) * apertura;
+
+  /// Quanto il dono si allarga al culmine dell'inspirazione.
+  ///
+  /// **Il numero non e' un gusto: e' la quota dell'ordine DD voce 03**, che
+  /// pretende almeno il settanta per cento della larghezza dalla figura che
+  /// respira, e nasce dal fondatore che diceva *"il cerchio del respiro e'
+  /// piccolo"*. A soffio finito il raggio nudo e' 0,23 della larghezza, cioe'
+  /// 0,46 di diametro: serve una corsa che lo porti oltre 0,70.
+  static const double aperturaMassima = 1.58;
+  static const double chiusuraMinima = 0.90;
+
+  /// L'apertura, data la misura del respiro che manda la guida nella corsa
+  /// 0,55 - 1,0.
+  static double aperturaDaRespiro(double respiro) =>
+      chiusuraMinima +
+      ((respiro - 0.55) / 0.45).clamp(0.0, 1.0) *
+          (aperturaMassima - chiusuraMinima);
 
   /// Dipinge il dono: alone, petali che respirano, cuore.
   ///
@@ -44,10 +67,11 @@ abstract final class FormaDelDono {
     required double respiro,
     required MaestroPalette palette,
     bool fermo = false,
+    double apertura = 1.0,
   }) {
     final p = soffio.clamp(0.0, 1.0);
     if (p <= 0.02) return;
-    final r = raggio(larghezza, p);
+    final r = raggio(larghezza, p, apertura: apertura);
 
     // Alone verde-oro d'aria, morbido, dietro alla forma.
     canvas.drawCircle(
