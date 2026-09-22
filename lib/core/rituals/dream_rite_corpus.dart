@@ -253,10 +253,33 @@ class DreamRiteCorpus {
     //
     // **Padre: ordine CO voce 17.** Adesso la posa sta dove l'ordine CO l'ha
     // messa, cioe' nel titolo, e il saluto chiude sul riconoscimento.
-    final base = '${aperturaMaestro(maestro)} ${aperturaLuna(luna)}, '
-        '${v.immagine}. Oggi ${v.giorno}. Se guardi indietro, '
-        '${v.riconoscimento}.';
     final tua = nascita == null ? null : lunaDi(nascita);
+
+    // **CIO' CHE HAI FATTO OGGI LO DICE LA TUA LUNA, NON QUELLA DI
+    // STANOTTE.** Ordine EE voce 04, 23 settembre 2026.
+    //
+    // **Il difetto che il fondatore ha chiamato "generico".** Le due frasi
+    // *"Oggi hai pensato in largo, per tutti"* e *"hai tenuto uno sguardo
+    // libero"* affermano cosa ha fatto **quella persona**, e le prendevano
+    // dal segno della Luna **di stanotte**: cioe' da un dato che stanotte e'
+    // lo stesso per chiunque apra l'app. Il rito diceva a tutti gli utenti
+    // che quel giorno avevano pensato in largo. Le altre frasi erano vere,
+    // la Luna cresce davvero in Acquario e l'angolo con la Luna natale e'
+    // davvero quello: **erano vere queste due, e solo queste, a essere false
+    // per chi le leggeva**.
+    //
+    // La cura non aggiunge un dato nuovo: usa quello che c'era gia' e non
+    // veniva usato, **la Luna di nascita**, che e' il segno sotto cui quella
+    // persona guarda il proprio giorno. L'immagine e la posa restano della
+    // Luna di stanotte, perche' quelle parlano della notte e non di lei.
+    //
+    // **Chi non ha dato la nascita non perde niente**: per lui il saluto
+    // resta esattamente quello di prima, e dice cio' che il cielo di
+    // stanotte suggerisce.
+    final suo = tua == null ? v : voce(tua.sign);
+    final base = '${aperturaMaestro(maestro)} ${aperturaLuna(luna)}, '
+        '${v.immagine}. Oggi ${suo.giorno}. Se guardi indietro, '
+        '${suo.riconoscimento}.';
     if (tua == null) return '$base Buonanotte.';
     final r = RelazioneLunare.fra(luna.sign, tua.sign);
     return '$base ${r.riga} Buonanotte.';
