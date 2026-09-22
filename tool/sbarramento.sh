@@ -229,8 +229,32 @@ fi
 # ragione. Questo no: una riga fra gli accettati vorrebbe dire *"si puo'
 # dichiarare chiusa una voce senza prova"*, che e' esattamente la cosa che il
 # fondatore ha vietato. Il cancello si chiude e basta.
+#
+# **E DISTINGUE DUE ASSENZE CHE NON SI SOMIGLIANO.** Scritto la prima volta,
+# questo cancello fermava la build ogni volta che non trovava la guardia, e
+# cosi' ha fatto cadere **dodici prove** di
+# `lo_sbarramento_distingue_i_rossi`, che monta lo sbarramento in una cartella
+# finta senza `test/` accanto. Le due assenze dicono cose opposte: **la
+# guardia sparita mentre il progetto c'e'** e' qualcuno che ha tolto la rete,
+# e la build si ferma; **nessun albero del progetto affatto** vuol dire che
+# siamo in una cartella di prova, e allora si dichiara non eseguito a voce
+# alta, come fa gia' il terzo cancello col corredo.
+#
+# **E l'albero si riconosce dal `pubspec.yaml`, non dall'esistenza di
+# `test/`.** La prima misura era l'esistenza della cartella, e ha lasciato
+# rossa una prova su dodici: la tana che prova il corredo a scala massima una
+# `test/` ce l'ha, col solo corredo finto dentro, ed era indistinguibile da un
+# albero vero a cui qualcuno avesse tolto la guardia. Il `pubspec.yaml` e' la
+# cosa che c'e' **sempre** in un albero di questo progetto e **mai** in una
+# cartella temporanea, quindi separa i due casi per davvero. E' la Regola A
+# applicata alla lettera: quando il rosso non scattava dove doveva, **si e'
+# cambiata la grandezza misurata, non la soglia**.
 CHIUSURE="ogni_voce_chiusa_porta_la_sua_prova_test.dart"
-if [ -f "$QUI/../test/$CHIUSURE" ]; then
+if [ ! -f "$QUI/../pubspec.yaml" ]; then
+  echo ""
+  echo "!! LE CHIUSURE NON SONO STATE CONTROLLATE: non c'e' nessun"
+  echo "!! pubspec.yaml accanto a tool/. Questo non e' un albero del progetto."
+elif [ -f "$QUI/../test/$CHIUSURE" ]; then
   echo ""
   echo "== LE CHIUSURE DICHIARATE PORTANO LA LORO PROVA =="
   # **`if ! cmd | tee` LEGGE L'USCITA DI `tee`, CHE E' SEMPRE ZERO.** Scritto

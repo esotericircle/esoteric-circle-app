@@ -144,6 +144,26 @@ Riparato con `PIPESTATUS`, come gli altri tre cancelli del file. **Senza la
 Regola A questo cancello sarebbe entrato in casa senza chiudersi mai**, ed e'
 il difetto peggiore possibile per una rete di sicurezza: sembra esserci.
 
+**E POI HA COLTO UN SECONDO DIFETTO, NELLA GRANDEZZA MISURATA.** Riparato il
+primo, il cancello fermava la build ogni volta che non trovava la guardia, e
+cosi' ha fatto cadere **dodici prove** di `lo_sbarramento_distingue_i_rossi`,
+che monta lo sbarramento in cartelle finte. Le due assenze non si somigliano:
+**la guardia sparita mentre il progetto c'e'** e' qualcuno che ha tolto la
+rete, e la build si ferma; **nessun albero del progetto affatto** e' una
+cartella di prova, e si dichiara non eseguito a voce alta.
+
+La prima distinzione, *"esiste la cartella `test/`?"*, ha lasciato rossa una
+prova su dodici: la tana del corredo a scala massima una `test/` ce l'ha, col
+solo corredo finto dentro. **Si e' cambiata la grandezza, non la soglia**,
+come pretende la Regola A: un albero di questo progetto si riconosce dal
+`pubspec.yaml`, che c'e' sempre in un albero vero e mai in una cartella
+temporanea.
+
+**I quattro casi, misurati sulla versione finale**: albero a posto **0**;
+albero vero con la guardia cancellata **1**, col suo messaggio; tana senza
+pubspec **0**, dichiarato non eseguito; manifesto con una chiusura senza prova
+**1**, col suo messaggio.
+
 **CHIUSA.**
 DOMANDA: "SE UN ORDINE E' DICHIARATO CONCLUSO E CHIUSO IO VOLGIO LA GARANZIA CHE SIA LA VERITA'!"
 PROVA: test/ogni_voce_chiusa_porta_la_sua_prova_test.dart

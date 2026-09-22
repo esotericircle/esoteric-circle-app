@@ -4289,6 +4289,18 @@ fra gli accettati vorrebbe dire *"si puo' dichiarare chiusa una voce senza
 prova"*, che e' la cosa vietata. Se la guardia stessa sparisse, il cancello
 ferma la build lo stesso.
 
+**E LA PROVA DEL ROSSO HA CORRETTO QUEL CANCELLO DUE VOLTE.** Scritto come
+`if ! flutter test ... | tee`, leggeva l'uscita di `tee`, **sempre zero**: col
+difetto innestato non si chiudeva, e lo sbarramento si fermava per un altro
+motivo. Riparato con `PIPESTATUS`, fermava la build ogni volta che non
+trovava la guardia, e faceva cadere **dodici prove** di
+`lo_sbarramento_distingue_i_rossi`, che monta lo sbarramento in cartelle
+finte. **Si e' cambiata la grandezza, non la soglia**: un albero del progetto
+si riconosce dal `pubspec.yaml`, non dall'esistenza di `test/`, perche' la
+tana del corredo a scala massima una `test/` ce l'ha. Quattro casi misurati
+sulla versione finale, quattro esiti giusti. **Nessuna delle due volte lo
+avrebbe preso una rilettura del codice.**
+
 **DICIASSETTE GUARDIE NOMINATE COME VIVE, E CANCELLATE DA ANNI.** La guardia
 nuova, girata su **105 manifesti** con **404 guardie nominate**, ne ha trovate
 diciassette che non esistono piu', in sei manifesti: AO 2, AS 3, AT 2, AU 1,

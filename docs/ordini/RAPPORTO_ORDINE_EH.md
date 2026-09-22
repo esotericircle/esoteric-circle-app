@@ -110,6 +110,26 @@ che e' l'unica cosa che la Regola A chiede. Riparato con `PIPESTATUS`, come gli
 altri tre cancelli del file, e riprovato sul blocco vero: **col difetto uscita
 1 e il suo messaggio stampato, senza difetto uscita 0**.
 
+**E POI HA COLTO UN SECONDO DIFETTO, NELLA GRANDEZZA MISURATA.** Riparato il
+primo, il cancello fermava la build ogni volta che non trovava la guardia, e
+cosi' ha fatto cadere **dodici prove** di `lo_sbarramento_distingue_i_rossi`,
+che monta lo sbarramento in cartelle finte. Le due assenze non si somigliano:
+**la guardia sparita mentre il progetto c'e'** e' qualcuno che ha tolto la
+rete, e la build si ferma; **nessun albero del progetto affatto** e' una
+cartella di prova, e si dichiara non eseguito a voce alta.
+
+La prima distinzione, *"esiste la cartella `test/`?"*, ha lasciato rossa una
+prova su dodici: la tana del corredo a scala massima una `test/` ce l'ha, col
+solo corredo finto dentro. **Si e' cambiata la grandezza, non la soglia**,
+come pretende la Regola A: un albero di questo progetto si riconosce dal
+`pubspec.yaml`, che c'e' sempre in un albero vero e mai in una cartella
+temporanea.
+
+**I quattro casi, misurati sulla versione finale**: albero a posto **0**;
+albero vero con la guardia cancellata **1**, col suo messaggio; tana senza
+pubspec **0**, dichiarato non eseguito; manifesto con una chiusura senza prova
+**1**, col suo messaggio.
+
 ---
 
 ## VOCE EH.03, COSA HA TROVATO LA RILETTURA
