@@ -190,3 +190,4 @@ tool/node_modules/
 # Firestore) e non si versionano, come quelle di tool/ e di functions/.
 /node_modules/
 transition/
+.firebase/
