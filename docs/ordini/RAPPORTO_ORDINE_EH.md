@@ -4,7 +4,9 @@
 2026. **Voci:** 3, tutte chiuse.
 
 **Spinto**, verificato con `git ls-remote`: il ramo canonico e questo albero
-stanno entrambi su `5b1996f3`. **La suite intera, a macchina libera: 5.047
+portano entrambi il lavoro di quest'ordine. Il codice e le guardie stanno
+su `5b1996f3`; i commit dopo quello toccano soltanto questo rapporto e il
+manifesto. **La suite intera, a macchina libera: 5.744
 prove passate, 11 saltate, 3 cadute.** Due sono rosse per ordine del fondatore
 (`l'attribuzione cieca`, `le soglie della scansione`), la terza era la guardia
 del lavoro non spinto, verde dopo il push.
@@ -147,7 +149,7 @@ trova niente: **"in docs/ordini ci sono solo 0 manifesti"**.
 
 **E una caduta che non era una caduta.** Nella suite intera
 `il_cancello_aspetta_il_limite` e' caduta una volta e passa da sola: misura
-attese in secondi, e sotto il carico di quattromilatrecento prove i tempi si
+attese in secondi, e sotto il carico di cinquemilasettecento prove i tempi si
 allungano. E' il caso gia' noto delle misure di tempo sotto carico, non un
 difetto di quest'ordine.
 

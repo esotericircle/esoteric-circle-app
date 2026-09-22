@@ -175,7 +175,7 @@ trova niente: **"in docs/ordini ci sono solo 0 manifesti"**.
 
 **E una caduta che non era una caduta.** Nella suite intera
 `il_cancello_aspetta_il_limite` e' caduta una volta e passa da sola: misura
-attese in secondi, e sotto il carico di quattromilatrecento prove i tempi si
+attese in secondi, e sotto il carico di cinquemilasettecento prove i tempi si
 allungano. E' il caso gia' noto delle misure di tempo sotto carico, non un
 difetto di quest'ordine.
 
