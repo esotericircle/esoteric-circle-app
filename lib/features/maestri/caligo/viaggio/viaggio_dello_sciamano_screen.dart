@@ -1091,9 +1091,25 @@ class _ViaggioDelloSciamanoScreenState
     );
     // **DENTRO IL CAMMINO SI TOCCA E SI SCENDE**, ordine DQ voce 01: tre
     // volte su quattro la persona non scrive niente.
+    // **SI SCENDE DOPO UNA SCELTA, NON PRIMA.** Ordine EE voce 14, 23
+    // settembre 2026, parole del fondatore: *"anche se non seleziono o
+    // scrivo una domanda o non seleziono 'solo incontro' il pulsante
+    // 'scendi' e' cmq attivo e posso avviare la discesa senza aver
+    // selezionato nulla"*.
+    //
+    // **Il difetto stava in `perche == null`, e non era una svista.** Quel
+    // `perche` e' il motivo per cui la domanda scritta non va bene, e a
+    // mani vuote non c'e' nessun motivo: quindi era `null`, e il pulsante
+    // si accendeva. **Lo faceva per decisione**, ordini DC voce 05 e DQ
+    // voce 03: *"la domanda e' facoltativa alla prima discesa di un
+    // cammino"*. Il fondatore adesso chiede il contrario, e la sua parola
+    // e' piu' recente: **la porta del solo incontro resta**, ed e' li' che
+    // va chi non vuole chiedere niente. Scegliere di non chiedere e' una
+    // scelta; non toccare niente non lo e'.
+    final domandaScritta = _domanda.text.trim().isNotEmpty && perche == null;
     final pronto = siPuo &&
         (_nelCammino ||
-            perche == null ||
+            domandaScritta ||
             _temaScelto != null ||
             _via == ViaDellaDomanda.incontro);
     final schermo = MediaQuery.of(context).size;

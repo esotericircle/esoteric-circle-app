@@ -75,7 +75,7 @@ class DreamRiteCorpus {
           "lascia che la scintilla si abbassi, la notte non chiede slancio, chiede riposo",
     ),
     Zodiac.taurus: VoceDelSogno(
-      parola: 'Radice',
+      parola: 'Terra',
       immagine: 'la terra che tiene',
       giorno: 'hai retto il peso senza fare rumore',
       riconoscimento: 'hai dato stabilità a chi ti sta intorno',
@@ -93,7 +93,7 @@ class DreamRiteCorpus {
       parola: 'Rifugio',
       immagine: 'la conchiglia che custodisce',
       giorno: 'hai protetto qualcuno, forse senza dirlo',
-      riconoscimento: 'hai fatto sentire qualcuno a casa',
+      riconoscimento: 'hai dato a qualcuno un posto dove stare',
       posa: 'chiudi il guscio, la notte non chiede cura, chiede riposo',
     ),
     Zodiac.leo: VoceDelSogno(
@@ -142,7 +142,7 @@ class DreamRiteCorpus {
           'lascia la salita a domani, la notte non chiede disciplina, chiede riposo',
     ),
     Zodiac.aquarius: VoceDelSogno(
-      parola: 'Respiro',
+      parola: 'Spazio',
       immagine: "l'aria che non si lascia stringere",
       giorno: 'hai pensato in largo, per tutti',
       riconoscimento: 'hai tenuto uno sguardo libero',
