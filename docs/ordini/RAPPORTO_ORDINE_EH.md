@@ -3,6 +3,12 @@
 **Ramo:** `claude/esoteric-circle-master-order-e798aj`. **Date:** 24 settembre
 2026. **Voci:** 3, tutte chiuse.
 
+**Spinto**, verificato con `git ls-remote`: il ramo canonico e questo albero
+stanno entrambi su `5b1996f3`. **La suite intera, a macchina libera: 5.047
+prove passate, 11 saltate, 3 cadute.** Due sono rosse per ordine del fondatore
+(`l'attribuzione cieca`, `le soglie della scansione`), la terza era la guardia
+del lavoro non spinto, verde dopo il push.
+
 ---
 
 ## LA RISPOSTA ALLA DOMANDA, IN CIMA E IN QUATTRO RIGHE
