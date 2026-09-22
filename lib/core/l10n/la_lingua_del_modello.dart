@@ -63,8 +63,8 @@ abstract final class LaLinguaDelModello {
   /// **Vale per tutti e tre i Maestri**, non per il solo Caligo: la carta
   /// puo' comparire in qualunque lettura.
   static const String ilGenereDelleCarte =
-      "- I numeri delle carte sono maschili: si scrive 'il Tre di Denari', "
-      "'il Dieci di Spade', 'l'Asso di Coppe', mai 'la Tre' o 'la Dieci'. "
+      "- I numeri delle carte sono maschili: si scrive «il Tre di Denari», "
+      "«il Dieci di Spade», «l’Asso di Coppe», mai «la Tre» o «la Dieci». "
       "Le figure seguono il loro genere: il Re, il Cavaliere, il Fante, "
       "la Regina.";
 }

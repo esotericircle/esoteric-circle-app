@@ -36,14 +36,14 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        'b1f5fe92aa5c1a21f3f4e254fe1d3d1545d5d197ded0bd06299a37e901d22efa',
-    'aura': '4652498ed09966a0f2a73079d15678173216ec1bc839110de3ff54ef221a5cbf',
+        '9822c5fe5b97ede775d164aa681df4653294e81d18cae049ef553be5a29b9531',
+    'aura': '9951bac681153c5da242ac4ce3918282abd90dd32948321371a36ec67804d01a',
     'caligo':
-        '60b906c648dd8eb9b6d81e1278a2e95b86c996cfa3c1d6cc1de0500b1f64e443',
+        '0c4e16c94b53332297d1f63d09df268863f8cb200d8b30399be82b0651fc565c',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
-  static const String registrateIl = '21 settembre 2026';
+  static const String registrateIl = '23 settembre 2026';
 
   /// LO STORICO DELLE IMPRONTE, cioe' le stringhe che non esistono piu'.
   ///

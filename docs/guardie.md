@@ -40,10 +40,16 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 139 |
-| Guardie con un cardinale proprio dichiarato | 125 |
-| Guardie che non scoprono nessun insieme di file | 203 |
-| **Somma delle categorie** | **467** |
-| **Guardie secondo la definizione** | **467** |
+| Guardie con un cardinale proprio dichiarato | 131 |
+| Guardie che non scoprono nessun insieme di file | 210 |
+| **Somma delle categorie** | **480** |
+| **Guardie secondo la definizione** | **480** |
+
+**Ricontate a ordine EE**, 23 settembre 2026, i Doni del Giorno, il Consiglio e i dati sull'account: **quattordici guardie nuove**, di cui sei col cardinale proprio e otto che non scoprono insiemi, e **una sostituita**. Il totale sale da 467 a **480** e le tre categorie a **139, 131 e 210**.
+
+**UNA GUARDIA HA CAMBIATO SOGGETTO INVECE DI MORIRE.** `il_cerchio_del_soffio_riempie_la_scena`, ordine DD voce 03, pretendeva che il cerchio del respiro occupasse il settanta per cento dello schermo. La voce EE.02 toglie quel cerchio, perche' a respirare deve essere il soffione: messo davanti al conflitto fra i due ordini, **il fondatore ha deciso di riscrivere la misura sul soggetto nuovo**. La quota resta, e adesso la prende il soffione, misurato sui pixel: al culmine il 71,0 per cento. Due prove che misuravano l'anello inesistente hanno preso una lapide che dice dov'e' andata la misura.
+
+**E DUE GUARDIE DI CASA SONO STATE VISTE VERDI SU UNA ZONA CHE NON COPRIVANO.** `la_citta_si_cerca_uguale_dalle_due_porte` e `dati_nascita_sbloccano` sono rimaste verdi col catalogo dei luoghi spento: misurano che le due porte chiamino la stessa ricerca, non che la ricerca abbia qualcosa su cui cercare. E' il caso che la Regola B prevede, e la prima cosa riparata e' stata la rete.
 
 **Ricontate a ordine ED**, 21 settembre 2026, il collaudo sui tre Maestri: **una guardia nuova**, `ordine_ed_guard`, che non scopre insiemi. Il totale sale da 466 a **467** e le tre categorie a **139, 125 e 203**.
 
@@ -564,10 +570,11 @@ le altre.
 | `il_capo_alzato_e_abbassato_non_si_scambiano_test.dart` | il capo alzato e abbassato non si scambiano | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
 | `il_catalogo_copre_il_mondo_test.dart` | il catalogo copre il mondo | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_catalogo_delle_mosse_e_eseguito_test.dart` | le sedici mosse del catalogo ci sono tutte, e ognuna punta a un posto che esiste | 1, 2 | proprio, dichiarato | 21/09/2026, EB | 3 |
-| `il_cerchio_del_soffio_riempie_la_scena_test.dart` | il cerchio del soffio riempie la scena | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa sul difetto vero: 35,9 per cento invece di 70) | 1 |
+| `il_catalogo_si_carica_anche_a_mani_vuote_test.dart` | il catalogo dei luoghi si carica anche quando la persona non ha ancora dato niente, che e' il solo caso in cui il Viaggio dello Sciamano apre quella schermata | 1, 2 | non scopre insiemi di file | 23/09/2026, EE (nata rossa rimettendo ensureLoaded dopo il return sui dati d'esempio: 65 citta' del seme invece di 40.846) | 3 |
 | `il_censimento_dei_grigi_test.dart` | il censimento dei grigi | 1, 2 | proprio, dichiarato | 01/09/2026, CI | 2 |
 | `il_censimento_delle_stringhe_dice_il_vero_test.dart` | il censimento delle stringhe dice il vero | 1, 2 | dalla porta comune | mai | 2 |
 | `il_centro_viaggia_col_gesto_test.dart` | il centro viaggia col gesto | 1, 2 | proprio, dichiarato | 09/09/2026, DB | 2 |
+| `il_chiarimento_non_costa_test.dart` | un turno in cui il Maestro chiede un chiarimento non fa scendere nessun contatore, e una risposta vera continua a costare | 1, 2 | proprio, dichiarato | 23/09/2026, EE (nata rossa facendo costare il chiarimento; sei casi presi dalle risposte vere del collaudo ED) | 3 |
 | `il_cielo_arriva_al_maestro_test.dart` | il cielo arriva al maestro | 1, 2 | dalla porta comune | mai | 3 |
 | `il_cielo_detto_e_il_cielo_calcolato_test.dart` | **nessuna chiusa di Medora dice un cielo che il calcolo smentisce**, due volte al giorno per un anno, e ognuna dice un cielo controllabile; il verificatore prende la chiusa del 17 settembre, gli ingressi e le fasi nel giorno sbagliato | 1, 2 | proprio, dichiarato | 17/09/2026, DS (352 smentite e 732 chiuse vaghe sul codice di prima) | 2 |
 | `il_cielo_di_nascita_si_muove_test.dart` | il cielo di nascita si muove | 2, 4 | non scopre insiemi di file | mai | 3 |
@@ -575,6 +582,7 @@ le altre.
 | `il_cielo_si_muove_davvero_test.dart` | il cielo si muove davvero | 4 | non scopre insiemi di file | mai | 3 |
 | `il_cielo_si_muove_test.dart` | il cielo si muove | 1, 2, 4 | dalla porta comune | mai | 3 |
 | `il_compimento_dei_tre_sentieri_test.dart` | il compimento dei tre sentieri | 4, 1 | non scopre insiemi di file | mai | 3 |
+| `il_confronto_comprato_si_riceve_test.dart` | il Consiglio chiede ai RIMASTI e non al piano, cosi' chi compra un confronto con gli Eos riceve tutte e tre le letture | 1, 2 | non scopre insiemi di file | 23/09/2026, EE (nata rossa rimettendo canCompare: col credito comprato il piano dice no e i rimasti si') | 3 |
 | `il_confronto_ha_il_suo_tetto_test.dart` | il confronto ha il suo tetto | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_consiglio_in_oro_test.dart` | il consiglio in oro | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_consiglio_mostra_tre_voci_test.dart` | il consiglio mostra tre voci | 1, 2 | dalla porta comune | mai | 3 |
@@ -593,6 +601,7 @@ le altre.
 | `il_foglio_dell_email_dice_cosa_non_va_test.dart` | il foglio dell email dice cosa non va | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_freno_del_gesto_ripetuto_test.dart` | il freno del gesto ripetuto | 1, 2 | proprio, dichiarato | 03/09/2026, CQ | 2 |
 | `il_fuso_che_il_server_accetta_test.dart` | il fuso che il server accetta | 1, 2 | dalla porta comune | 03/09/2026, CQ | 1 |
+| `il_genere_delle_carte_arriva_ai_maestri_test.dart` | la regola del genere dei numeri delle carte arriva ai tre Maestri e alla sintesi, e dice anche il femminile delle figure | 1, 2 | proprio, dichiarato | 23/09/2026, EE (nata rossa togliendo la regola: tre Maestri su tre senza) | 3 |
 | `il_gesto_che_scosta_test.dart` | ogni discesa scosta esattamente un quarto del corpo e poi il dito non scopre piu'; il bordo segue il dito e non fa fasce; la cenere copre ogni cella coperta per intero; il cumulo copre tutto il rettangolo della testa e non la sua forma; il gesto non si chiama gratta e vinci in nessun file di lib; cio' che si e' scostato si ritrova riaprendo, ed e' dell'animale che lo ha; la schermata passa al velo le celle del Diario e ci conserva le nuove | 1, 2 | dalla porta comune | 15/09/2026, DQ (la mano misurata in punti e non in celle, ordine DQ voce 05); 13/09/2026, DI (undici rossi: la quantita' senza fine, il quarto senza la testa, la fascia al posto della mano, il pezzo di cenere piu' stretto della cella, le celle fuori dal tracciato, la cenere che segue la testa, il nome vietato in un commento, le celle date a un altro animale, le celle che non arrivano al velo, il gesto che non arriva al Diario) | 1 |
 | `il_giallo_delle_rune_parla_adesso_test.dart` | il giallo delle rune parla adesso | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa sul difetto vero: 3 prose dorate su 9 invece di 1) | 1 |
 | `il_gating_non_ha_fondi_bianchi_test.dart` | il gating non ha fondi bianchi | 1 | dalla porta comune | mai | 3 |
@@ -600,12 +609,19 @@ le altre.
 | `il_genere_non_si_indovina_test.dart` | il genere non si indovina: nessuna stringa di `lib` si rivolge alla persona con una forma di genere fuori da una marca a tre campi o dalla porta, col dizionario delle forme dell'ordine DL voce 06 | 1, 2 | dalla porta comune | 14/09/2026, DL (rossa: un participio e un aggettivo innestati fuori dalle marche, *Sei arrivato* e *Sei stanco*; il criterio si e' stretto, il dizionario non si e' mai allargato) | 2 |
 | `il_genere_si_decide_in_un_posto_solo_test.dart` | il genere scelto si decide in una porta sola: una sola decisione fra maschile e femminile per la lingua, nessun `AddressForm`, nessun uso del sesso anagrafico per la lingua | 1, 2 | dalla porta comune | 14/09/2026, DL (rossa: una seconda decisione innestata fuori dalla porta; e **rossa senza innesto** sul difetto vero della voce DL.07, la desinenza contraria alla forma decisa con un suo `masculine ? 'a' : 'o'` in `le_forme_del_genere.dart`, riparata facendola passare dalla porta) | 2 |
 | `il_maestro_risponde_nel_merito_test.dart` | i tre Maestri ricevono la regola della risposta nel merito, e sta in un punto solo | 1, 2 | dalla porta comune | 21/09/2026, EB (tre innesti: il blocco staccato da tutti e tre, il divieto tolto dal testo, la regola copiata due volte) | 3 |
+| `il_mischia_ricompone_il_mazzo_test.dart` | il Mischia dell'Arcano dell'Alba raccoglie le carte in un punto solo, le mescola a mazzo chiuso e le ristende | 1, 2 | non scopre insiemi di file | 23/09/2026, EE (nata rossa rimettendo la mescolata a corsa finita, che riportava le carte ai posti di prima) | 3 |
 | `il_pulsante_solo_se_lo_chiedi_test.dart` | nominare un'arte non e' chiederla: il pulsante compare solo su una richiesta vera | 1, 2 | proprio, dichiarato | 21/09/2026, EB (nata rossa sul difetto vero: nove frasi su undici aprivano un pulsante che nessuno aveva chiesto) | 3 |
 | `il_ricordo_custodito_porta_il_verso_test.dart` | le quattro arti con figure salvano il verso, e il verso salvato arriva al disegno | 1, 2 | proprio, dichiarato | 21/09/2026, EC (nata rossa sui tre difetti insieme: due arti su quattro non lo salvavano, una su quattro lo mostrava) | 3 |
+| `il_saluto_della_notte_non_ripete_il_titolo_test.dart` | nessuno dei dodici segni lunari ripete la propria posa fra il titolo e il saluto del Sigillo del Sogno | 1, 2 | proprio, dichiarato | 23/09/2026, EE (nata rossa rimettendo la posa in fondo al saluto: due segni su dodici la ripetevano nella stessa schermata) | 3 |
+| `il_saluto_della_notte_parla_di_te_test.dart` | due persone con Lune di nascita diverse non si sentono dire la stessa giornata nella stessa notte | 1, 2 | proprio, dichiarato | 23/09/2026, EE (nata rossa rimettendo la Luna di stanotte: dieci nascite diverse ricevevano sei saluti) | 3 |
+| `il_sigillo_del_sogno_parla_con_la_voce_di_medora_test.dart` | nessuno dei sessanta campi del corpus del sogno porta parole di firma di Aura o di Caligo | 1, 2 | proprio, dichiarato | 23/09/2026, EE (nata rossa rimettendo Respiro all'Acquario; il censimento ne ha trovate tre, non una) | 3 |
+| `il_soffione_respira_test.dart` | il soffione del Soffio del Destino si allarga e si stringe col respiro, e al culmine prende almeno il settanta per cento della larghezza | 1, 2 | non scopre insiemi di file | 23/09/2026, EE (prende il posto di il_cerchio_del_soffio_riempie_la_scena, ordine DD voce 03: la misura resta, cambia il soggetto, per decisione del fondatore del 23/09/2026) | 3 |
 | `il_verso_si_recupera_dove_si_puo_test.dart` | il verso dei Ricordi gia' salvati si ricostruisce dal testo, e dove il testo tace non si inventa | 1, 2 | proprio, dichiarato | 21/09/2026, EC (due innesti: inventare dritta dove non si sa, rifare il lavoro a ogni apertura) | 3 |
+| `il_viaggio_vive_sull_account_test.dart` | le otto chiavi del Viaggio dello Sciamano si raccolgono, entrano nel cammino custodito e tornano dal Cerchio | 1, 2 | proprio, dichiarato | 23/09/2026, EE (nata rossa togliendo il Viaggio dal corpo che parte) | 3 |
 | `l_arcano_dell_alba_si_gira_test.dart` | **un gesto solo e nessun altro comando** sull'Arcano dell'Alba; carte coperte uguali; la faccia solo dopo meta' giro; **il verso non lo decide la carta toccata**; il limite delle stese intatto; nel cammino i gesti alba e oracolo; il dorso uguale a se stesso al mezzo giro | 1 | non scopre insiemi in `lib` | 18/09/2026, DW.02 (le azioni tolte: sotto la carta rivelata non c'e' niente); prima: 18/09/2026, DV.11 (il margine solo in alto: la carta a zero punti dal bordo del pannello); prima: 17/09/2026, DT (caso deciso dalla carta toccata e gesto dell'oracolo tolto: due rosse) | 2 |
 | `l_estrazione_dell_alba_e_libera_test.dart` | **l'estrazione dell'Arcano dell'Alba non ha vincoli**: i quarantaquattro stati equiprobabili su centomila giri; la stessa carta due volte di fila con la frequenza del caso; il verso rovescio attorno alla meta' su ogni carta; **nessuna riga di codice dei file dell'Alba nomina piu' un sacchetto, una distanza minima o le ultime carte** | 1 | proprio, dichiarato | 17/09/2026, DU (`SacchettoDellAlba` innestato nel diario) | 2 |
 | `la_lettura_ridetta_ha_la_voce_di_chi_la_ridice_test.dart` | i tre ridicono la lettura del giorno ognuno con la sua voce, senza il lessico degli altri | 1, 2 | proprio, dichiarato | 21/09/2026, EC (nata rossa: la premessa era una frase sola per i tre e diceva cielo) | 3 |
+| `la_sintesi_conosce_il_tuo_nome_test.dart` | la sintesi comparativa riceve il profilo come lo ricevono i Maestri, e non dichiara di non conoscere un nome che l'app conosce | 1, 2 | non scopre insiemi di file | 23/09/2026, EE (nata rossa rimettendo il profilo vuoto) | 3 |
 | `le_card_da_mandare_test.dart` | **le card da mandare e l'invito**: la card del Soffio e quella di un Sigillo portano cio' che dicono e il dominio del marchio; nessun file di `lib` scrive un dominio a mano; ogni foglio di condivisione passa l'origine che iPad pretende; i tre messaggi di un Sigillo parlano a chi li riceve e portano il link; l'invito si fa dal menu', la domanda torna solo dopo la prima registrazione e il premio va a tutti e due | 1 | proprio, dichiarato | 18/09/2026, DW (dominio a mano nella Stesa; quattro chiamate senza origine; la frase del traguardo rimessa: 165 cadute) | 1 |
 | `il_testo_dei_fogli_non_passa_sotto_le_barre_test.dart` | **il testo dei fogli non passa sotto le barre in alto**: il foglio delle fonti coi sette testi veri e uno quattro volte il piu' lungo, a 360 per 640 e scala 1,3, comincia sotto la barra di stato e la barra dell'identita'; ogni pannello informativo apre un foglio della porta comune; la porta rispetta l'area sicura; nessun foglio fuori dalla porta | 1, 4 | dalla porta comune | 18/09/2026, DY (la porta senza l'area sicura: otto testi su otto sotto le barre) | 1 |
 | `le_porte_di_approfondimento_non_mandano_da_sole_test.dart` | **le porte di approfondimento non mandano da sole**: le funzioni col Parlane del codice sono quelle del censimento DX.03, le porte che aprono la chat con una domanda sono le due censite, e la chat scrive la domanda nel campo senza mai mandarla | 1, 4 | dalla porta comune | 18/09/2026, DX (tredicesima porta innestata nell'arte in arrivo; la chat che rimanda la domanda da sola) | 1 |
@@ -900,6 +916,7 @@ le altre.
 | `ordine_cq_guard_test.dart` | ordine CQ guard | 1, 2 | proprio, dichiarato | mai | 2 |
 | `ordine_ec_guard_test.dart` | ordine ec guard | 1, 2 | non scopre insiemi di file | 21/09/2026, EC (rossa da se': l'ordine nasce con sei voci aperte) | 3 |
 | `ordine_ed_guard_test.dart` | ordine ed guard | 1, 2 | non scopre insiemi di file | 21/09/2026, ED (due innesti verificati col grep: tolta una riga della tavola delle sedici mosse, e un marcatore VOCI_TOTALI falso) | 3 |
+| `ordine_ee_guard_test.dart` | ordine ee guard | 1, 2 | non scopre insiemi di file | 23/09/2026, EE (due innesti verificati col grep: tolta una riga della tavola dei luoghi, e un marcatore VOCI_TOTALI falso) | 3 |
 | `palette_sensoriale_test.dart` | palette sensoriale | 1, 2 | dalla porta comune | 01/09/2026, CN | 3 |
 | `passport_carta_natale_test.dart` | passport carta natale | 1, 2 | dalla porta comune | mai | 3 |
 | `passport_test.dart` | passport | 1 | non scopre insiemi di file | mai | 3 |
@@ -917,6 +934,8 @@ le altre.
 | `segno_non_e_parametro_test.dart` | segno non e parametro | 1 | non scopre insiemi di file | mai | 3 |
 | `segno_vero_test.dart` | segno vero | 1 | non scopre insiemi di file | mai | 3 |
 | `senza_volto_non_c_e_responso_test.dart` | senza volto non c e responso: il cancello della scansione | 1, 2 | proprio, dichiarato | 06/09/2026, CR | 2 |
+| `sette_sere_di_fila_test.dart` | la settimana della Runa del Tramonto e' una serie consecutiva, e una sera saltata la spezza | 1, 2 | non scopre insiemi di file | 23/09/2026, EE (nata rossa rimettendo la finestra mobile: col salto contava sei sere invece di una) | 3 |
+| `si_scende_dopo_una_scelta_test.dart` | il pulsante Scendi del Viaggio dello Sciamano e' attivo solo dopo una scelta, e col solo incontro si scende | 1, 2 | non scopre insiemi di file | 23/09/2026, EE (nata rossa rimettendo perche == null, che a mani vuote accendeva il pulsante) | 3 |
 | `sigillo_al_centro_test.dart` | sigillo al centro | 1 | non scopre insiemi di file | mai | 3 |
 | `simboli_dello_zodiaco_test.dart` | simboli dello zodiaco | 1, 2 | dalla porta comune | mai | 3 |
 | `sinastria_accents_test.dart` | sinastria accents | 1 | non scopre insiemi di file | mai | 3 |
