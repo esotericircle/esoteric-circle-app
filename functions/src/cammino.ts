@@ -46,6 +46,27 @@ export interface IdentitaCustodita {
   latitudine?: number;
   longitudine?: number;
   fuso?: string;
+  /**
+   * **LA FORMA DI CORTESIA, e il server la buttava via.** Ordine EE voce 13.
+   *
+   * Il telefono la spedisce dall'ordine CF voce 07, `cammino_da_custodire`
+   * riga 228, e la riadotta al ritorno in `custode_del_cammino`: ma questa
+   * interfaccia dichiarava sette campi su nove, quindi `forma` e `scarto`
+   * venivano scartati al primo parsing e non tornavano mai. **Il ramo che li
+   * riadotta non si e' mai acceso in vita sua**, e il codice del telefono e'
+   * scritto e commentato come se funzionasse: chi legge il repository
+   * conclude che il difetto dell'ordine CF sia chiuso, e non lo e'.
+   *
+   * Effetto sulla persona: chi reinstalla si sente chiamare col genere
+   * sbagliato, che e' esattamente cio' che l'ordine CF voleva impedire.
+   */
+  forma?: string;
+  /**
+   * Lo scarto dall'UTC del luogo di nascita, in minuti. Stessa storia della
+   * `forma`: spedito a riga 236 e scartato qui. Senza di lui chi e' nato in
+   * una citta' fuori dal catalogo prende l'ora di Roma.
+   */
+  scarto?: number;
 }
 
 /** Il cammino intero, come viaggia fra telefono e Cerchio. */
@@ -76,6 +97,20 @@ export interface CamminoCustodito {
    * fra due copie, tiene quella piu' avanti.
    */
   arcanoDellAlba?: Record<string, unknown>;
+  /**
+   * **IL DIARIO DEL VIAGGIO DELLO SCIAMANO**, ordine EE voce 13.
+   *
+   * **Il fatto che l'ha fatto nascere.** Il Viaggio viveva su sette chiavi di
+   * `SharedPreferences` e **non aveva nessuna porta verso il Cerchio**: zero
+   * chiamate in novecento righe di `diario_dei_viaggi.dart`. Il fondatore ha
+   * aggiornato l'app e si e' ritrovato da rifare da zero un viaggio che
+   * aveva concluso, e che per sua stessa dichiarazione **costa quattro
+   * giorni**: quattro discese, una al giorno.
+   *
+   * Come per l'Alba, il Cerchio non lo interpreta: lo custodisce intero e,
+   * fra due copie, tiene quella piu' avanti.
+   */
+  viaggioDelloSciamano?: Record<string, unknown>;
 }
 
 /** Quanto puo' pesare il diario dell'Alba, scritto: un ciclo pieno sta sotto. */
@@ -139,6 +174,10 @@ export function leggiCammino(grezzo: unknown): CamminoCustodito {
       latitudine: numero(i.latitudine),
       longitudine: numero(i.longitudine),
       fuso: testo(i.fuso, 64),
+      // Ordine EE voce 13: questi due il telefono li mandava gia', e si
+      // fermavano qui.
+      forma: testo(i.forma, 16),
+      scarto: numero(i.scarto),
     };
     // Si tiene solo se qualcosa c'e' davvero: un guscio vuoto in piu' nel
     // documento non dice niente a nessuno.
@@ -185,6 +224,17 @@ export function leggiCammino(grezzo: unknown): CamminoCustodito {
   ) {
     fuori.arcanoDellAlba = alba as Record<string, unknown>;
   }
+
+  // Ordine EE voce 13: lo stesso trattamento per il Viaggio dello Sciamano.
+  const viaggio = c.viaggioDelloSciamano;
+  if (
+    viaggio &&
+    typeof viaggio === "object" &&
+    !Array.isArray(viaggio) &&
+    JSON.stringify(viaggio).length <= PESO_MASSIMO_DEL_DIARIO_DELL_ALBA
+  ) {
+    fuori.viaggioDelloSciamano = viaggio as Record<string, unknown>;
+  }
   return fuori;
 }
 
@@ -219,6 +269,37 @@ export function ilDiarioPiuAvanti(
   if (!telefono) return server;
   const a = avanzamentoDellAlba(server);
   const b = avanzamentoDellAlba(telefono);
+  for (let i = 0; i < a.length; i++) {
+    if (a[i] > b[i]) return server;
+    if (a[i] < b[i]) return telefono;
+  }
+  return server;
+}
+
+/**
+ * **FRA DUE VIAGGI DELLO SCIAMANO, QUELLO PIU' AVANTI.** Ordine EE voce 13.
+ *
+ * **Il criterio non e' quello dell'Alba, e non poteva esserlo.** L'Alba si
+ * misura sul suo ciclo di quarantaquattro stati; il Viaggio ha una soglia
+ * sola che conta davvero, **il riconoscimento**, che arriva dopo quattro
+ * discese in quattro giorni. Quindi: chi ha riconosciuto batte chi no, e a
+ * parita' vince chi ha fatto piu' discese.
+ *
+ * **A parita' piena vince il server**, come per il resto di questa fusione:
+ * e' la copia che sopravvive ai telefoni.
+ */
+export function ilViaggioPiuAvanti(
+  server: Record<string, unknown> | undefined,
+  telefono: Record<string, unknown> | undefined
+): Record<string, unknown> | undefined {
+  if (!server) return telefono;
+  if (!telefono) return server;
+  const passo = (v: Record<string, unknown>): [number, number] => [
+    v.riconosciuto === true ? 1 : 0,
+    typeof v.quante === "number" ? v.quante : 0,
+  ];
+  const a = passo(server);
+  const b = passo(telefono);
   for (let i = 0; i < a.length; i++) {
     if (a[i] > b[i]) return server;
     if (a[i] < b[i]) return telefono;
@@ -290,6 +371,8 @@ export function fondiCammini(
       latitudine: uno.latitudine ?? due.latitudine,
       longitudine: uno.longitudine ?? due.longitudine,
       fuso: uno.fuso ?? due.fuso,
+      forma: uno.forma ?? due.forma,
+      scarto: uno.scarto ?? due.scarto,
     };
     for (const chiave of Object.keys(dentro) as (keyof IdentitaCustodita)[]) {
       if (dentro[chiave] === undefined) delete dentro[chiave];
@@ -347,6 +430,11 @@ export function fondiCammini(
 
   const alba = ilDiarioPiuAvanti(a.arcanoDellAlba, b.arcanoDellAlba);
   if (alba) fuori.arcanoDellAlba = alba;
+  const viaggio = ilViaggioPiuAvanti(
+    a.viaggioDelloSciamano,
+    b.viaggioDelloSciamano
+  );
+  if (viaggio) fuori.viaggioDelloSciamano = viaggio;
 
   return fuori;
 }

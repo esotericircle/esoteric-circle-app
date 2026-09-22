@@ -1,4 +1,5 @@
 import '../rituals/arcano_dell_alba/archivio_dell_alba.dart';
+import '../viaggio/il_viaggio_custodito.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 
@@ -62,7 +63,7 @@ class CustodeDelCammino {
   /// Legge dalle porte uniche che gia' esistono, mai da una copia sua: il
   /// diario per i gesti e i Sigilli, il profilo e l'identita' di nascita per
   /// chi sei, lo storico dell'archetipo, le arti preferite.
-  static CamminoDaCustodire raccogli(BuildContext context) {
+  static Future<CamminoDaCustodire> raccogli(BuildContext context) async {
     DiarioDelCammino? diario;
     try {
       diario = context.read<DiarioDelCammino>();
@@ -138,6 +139,10 @@ class CustodeDelCammino {
       arcanoDellAlba: ArchivioDellAlba.inMemoria?.ultima == null
           ? null
           : ArchivioDellAlba.inMemoria!.toJson(),
+      // **IL VIAGGIO DELLO SCIAMANO**, ordine EE voce 13. Viveva su otto
+      // chiavi del telefono e non lasciava il telefono: chi aggiornava l'app
+      // rifaceva da zero quattro discese in quattro giorni.
+      viaggioDelloSciamano: await IlViaggioCustodito.daCustodire(),
     );
   }
 
@@ -203,7 +208,7 @@ class CustodeDelCammino {
     // la raccolta e' sincrona e lo prende dalla memoria.
     await ArchivioDellAlba.leggi();
     if (!context.mounted) return const EsitoDelGiro();
-    final mio = raccogli(context);
+    final mio = await raccogli(context);
     quanteVolte++;
     // **IL NO DEL SERVER NON MUORE PIU' NEL GESTO.** Ordine AZ voce 01, ed e'
     // il fatto F1. `PortaVeraDelCerchio` RILANCIA apposta su `unauthenticated`,
@@ -456,6 +461,9 @@ class CustodeDelCammino {
     // se e' piu' avanti di quello che c'e'. Non serve il contesto: la porta e'
     // l'archivio.
     await ArchivioDellAlba.adottaDalCerchio(cammino.arcanoDellAlba);
+    // **E IL VIAGGIO DELLO SCIAMANO TORNA COL SUO ACCOUNT**, ordine EE voce
+    // 13. Come per l'Alba, non serve il contesto: la porta sono le chiavi.
+    await IlViaggioCustodito.adottaDalCerchio(cammino.viaggioDelloSciamano);
     if (!context.mounted) return;
     if (cammino.artiPreferite.isNotEmpty) {
       try {

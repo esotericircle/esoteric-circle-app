@@ -203,3 +203,83 @@ test("fra due diari dell'Alba vince il piu' avanti, e un telefono nuovo lo ricev
     telefonoVecchio
   );
 });
+
+/**
+ * LA FORMA DI CORTESIA E LO SCARTO ARRIVANO AL CERCHIO E TORNANO INDIETRO.
+ * Ordine EE voce 13.
+ *
+ * Il telefono li spediva dall'ordine CF voce 07 e il server li scartava,
+ * perche' IdentitaCustodita ne dichiarava sette su nove. Il ramo del telefono
+ * che riadotta la forma non si e' mai acceso: chi reinstallava si sentiva
+ * chiamare col genere sbagliato, cioe' proprio cio' che CF.07 voleva
+ * impedire, e il codice era commentato come se funzionasse.
+ */
+test("la forma di cortesia e lo scarto sopravvivono al giro dal Cerchio", () => {
+  const letto = leggiCammino({
+    identita: {
+      nome: "Mauro",
+      giorno: "1974-07-08",
+      luogo: "Piacenza",
+      forma: "maschile",
+      scarto: 120,
+    },
+  });
+  assert.equal(letto.identita?.forma, "maschile");
+  assert.equal(letto.identita?.scarto, 120);
+});
+
+test("e la fusione non li perde per strada", () => {
+  const server: CamminoCustodito = {identita: {nome: "Mauro"}};
+  const telefono: CamminoCustodito = {
+    identita: {forma: "maschile", scarto: 120},
+  };
+  const fuso = fondiCammini(server, telefono);
+  assert.equal(fuso.identita?.nome, "Mauro");
+  assert.equal(fuso.identita?.forma, "maschile");
+  assert.equal(fuso.identita?.scarto, 120);
+});
+
+/**
+ * IL VIAGGIO DELLO SCIAMANO VIAGGIA COL CAMMINO. Ordine EE voce 13.
+ *
+ * Viveva su sette chiavi di SharedPreferences, senza nessuna porta verso il
+ * Cerchio: un aggiornamento dell'app lo riportava a zero, e il Viaggio costa
+ * quattro discese in quattro giorni.
+ */
+test("il Viaggio dello Sciamano arriva al Cerchio", () => {
+  const letto = leggiCammino({
+    viaggioDelloSciamano: {riconosciuto: true, quante: 4, animale: "lupo"},
+  });
+  assert.equal(letto.viaggioDelloSciamano?.riconosciuto, true);
+  assert.equal(letto.viaggioDelloSciamano?.quante, 4);
+});
+
+test("e fra due Viaggi vince quello piu' avanti, non il piu' recente", () => {
+  const concluso = {riconosciuto: true, quante: 4};
+  const appenaIniziato = {riconosciuto: false, quante: 1};
+  // Il telefono appena aggiornato ha perso tutto e ricomincia: non deve
+  // cancellare il Viaggio concluso che il Cerchio custodisce.
+  assert.equal(
+    fondiCammini({viaggioDelloSciamano: concluso}, {
+      viaggioDelloSciamano: appenaIniziato,
+    }).viaggioDelloSciamano,
+    concluso
+  );
+  // E al contrario, se e' il Cerchio a essere indietro, vince il telefono.
+  assert.equal(
+    fondiCammini({viaggioDelloSciamano: appenaIniziato}, {
+      viaggioDelloSciamano: concluso,
+    }).viaggioDelloSciamano,
+    concluso
+  );
+});
+
+test("a parita' di riconoscimento vince chi ha piu' discese", () => {
+  const tre = {riconosciuto: false, quante: 3};
+  const una = {riconosciuto: false, quante: 1};
+  assert.equal(
+    fondiCammini({viaggioDelloSciamano: una}, {viaggioDelloSciamano: tre})
+      .viaggioDelloSciamano,
+    tre
+  );
+});

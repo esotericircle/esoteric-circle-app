@@ -35,6 +35,7 @@ class CamminoDaCustodire {
     this.primoGiorno,
     this.ultimoGiorno,
     this.arcanoDellAlba,
+    this.viaggioDelloSciamano,
   });
 
   /// L'identita' di nascita: cio' che la persona ha DATO, non cio' che si
@@ -74,6 +75,11 @@ class CamminoDaCustodire {
   /// non ha mai scelto una carta.
   final Map<String, Object?>? arcanoDellAlba;
 
+  /// **IL DIARIO DEL VIAGGIO DELLO SCIAMANO**, ordine EE voce 13: viaggia
+  /// intero, e il Cerchio fra due copie tiene quella piu' avanti. Null
+  /// finche' la persona non e' mai scesa.
+  final Map<String, Object?>? viaggioDelloSciamano;
+
   /// Vero se non c'e' proprio niente da custodire: si evita di mandare un
   /// guscio vuoto a ogni apertura.
   bool get eVuoto =>
@@ -85,7 +91,8 @@ class CamminoDaCustodire {
       sigilli.isEmpty &&
       archetipoDominante == null &&
       artiPreferite.isEmpty &&
-      arcanoDellAlba == null;
+      arcanoDellAlba == null &&
+      viaggioDelloSciamano == null;
 
   Map<String, Object?> aMappa() => {
         if (identita != null) 'identita': identita!.aMappa(),
@@ -109,6 +116,8 @@ class CamminoDaCustodire {
         if (ultimoGiorno != null)
           'ultimoGiorno': ultimoGiorno!.toIso8601String(),
         if (arcanoDellAlba != null) 'arcanoDellAlba': arcanoDellAlba,
+        if (viaggioDelloSciamano != null)
+          'viaggioDelloSciamano': viaggioDelloSciamano,
       };
 
   /// Rilegge il cammino che il Cerchio ha restituito.
@@ -171,6 +180,9 @@ class CamminoDaCustodire {
       ultimoGiorno: DateTime.tryParse('${risposta['ultimoGiorno']}'),
       arcanoDellAlba: risposta['arcanoDellAlba'] is Map
           ? Map<String, Object?>.from(risposta['arcanoDellAlba'] as Map)
+          : null,
+      viaggioDelloSciamano: risposta['viaggioDelloSciamano'] is Map
+          ? Map<String, Object?>.from(risposta['viaggioDelloSciamano'] as Map)
           : null,
     );
   }

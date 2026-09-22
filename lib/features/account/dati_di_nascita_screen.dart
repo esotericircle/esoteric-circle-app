@@ -80,6 +80,40 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
     if (_caricato) return;
     _caricato = true;
     final identita = context.read<ProfileController>().identity;
+
+    // **IL CATALOGO SI CARICA SEMPRE, E PRIMA DI TUTTO.** Ordine EE voce 11.
+    //
+    // **Il difetto, e perche' si vedeva in un punto solo.** Questa riga
+    // stava DOPO il `return` sui dati d'esempio, ed e' il `return` che si
+    // prende chi non ha ancora dato niente. Ma il Viaggio dello Sciamano
+    // apre questa schermata **se e solo se** l'identita' e' d'esempio
+    // (`art_navigation.dart:89-91`, che ci manda quando manca il segno):
+    // quindi il caricamento saltava **esattamente e soltanto** nel caso in
+    // cui la schermata serviva davvero a raccogliere i dati. In memoria
+    // restavano le 65 citta' del seme compilato invece delle circa 40.846
+    // dell'asset, e chi cercava il suo paese non vedeva niente. Dal menu'
+    // utente funzionava, perche' li' i dati ci sono gia' e il `return` non
+    // scatta: due porte sulla stessa schermata, una viva e una muta.
+    //
+    // **E si rifa' la ricerca quando l'asset arriva**, come fa il Risveglio
+    // in `onboarding_screen.dart:319`: leggere l'asset non e' istantaneo, e
+    // le lettere battute nei primi decimi di secondo cadevano sul seme senza
+    // che nessuno le ripetesse.
+    CityCatalog.ensureLoaded().then((_) {
+      if (!mounted) return;
+      final scritto = _luogoCtrl.text.trim();
+      if (scritto.isNotEmpty) _cercaLuogo(scritto);
+      final dove = _doveCtrl.text.trim();
+      if (dove.isNotEmpty) _cercaDove(dove);
+    });
+
+    // Il luogo attuale gia' dichiarato, se c'e': si mostra invece di
+    // chiederlo di nuovo. Vale anche per chi non ha ancora dato la nascita.
+    DoveSonoAdesso.letto().then((luogo) {
+      if (!mounted || luogo == null) return;
+      setState(() => _doveCtrl.text = luogo.citta);
+    });
+
     // I dati d'esempio non si mostrano come se fossero i tuoi: chi arriva qui
     // senza aver dato niente trova i campi vuoti, non la nascita di qualcun altro.
     if (identita.isExample) return;
@@ -89,14 +123,8 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
       _minuto = identita.birthMoment.minute;
     }
     _luogo = identita.birthPlace;
+    _luogoGiaDato = _luogo != null;
     if (_luogo != null) _luogoCtrl.text = _luogo!.city;
-    CityCatalog.ensureLoaded();
-    // Il luogo attuale gia' dichiarato, se c'e': si mostra invece di
-    // chiederlo di nuovo.
-    DoveSonoAdesso.letto().then((luogo) {
-      if (!mounted || luogo == null) return;
-      setState(() => _doveCtrl.text = luogo.citta);
-    });
   }
 
   @override
@@ -199,7 +227,22 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
     FocusScope.of(context).unfocus();
   }
 
-  bool get _completo => _data != null;
+  /// **IL LUOGO SERVE, E IL TASTO DEVE DIRLO.** Ordine EE voce 11.
+  ///
+  /// **Il difetto: si usciva senza luogo e senza accorgersene.** Il tasto si
+  /// accendeva con la sola data, e `_salva` scrive `_luogo ?? quello di
+  /// prima`: chi arrivava qui **senza** un luogo di prima, cioe' chi ci
+  /// arriva dal Viaggio dello Sciamano, usciva col luogo a `null` e la carta
+  /// natale continuava a essere rifiutata **senza che niente glielo dicesse**.
+  /// E' la seconda meta' del *"anche forzando l'invio non funziona"*.
+  ///
+  /// **Chi corregge non e' toccato**: se un luogo c'e' gia', il tasto si
+  /// comporta come prima, perche' questa schermata deve poter correggere la
+  /// sola ora senza pretendere che si ridichiari la citta'.
+  bool get _completo => _data != null && (_luogo != null || _luogoGiaDato);
+
+  /// Vero se un luogo di nascita c'era gia' quando la schermata si e' aperta.
+  bool _luogoGiaDato = false;
 
   void _salva() {
     final data = _data;
