@@ -28,6 +28,13 @@ void main() {
     'lib/core/maestro/ritmo_della_voce.dart':
         'e la riga di diagnosi stampata accanto alla matrice di confusione, '
             'per chi sviluppa: un referto tecnico non e un testo a video',
+    'lib/features/rituals/breath_destiny_screen.dart':
+        'e la riga di diagnosi del microfono, ordine EF: energia e planarita '
+            'accanto alle loro soglie, che sono costanti del codice. Chi la '
+            'legge la confronta con quelle costanti, quindi il punto e la '
+            'forma giusta: con la virgola i due numeri non si potrebbero '
+            'piu accostare. Finisce in logcat e non sotto gli occhi di '
+            'nessuno che legga italiano',
     'lib/core/sigilli/lettura_degli_ancoraggi.dart':
         'e il referto della lettura degli ancoraggi, numeri per chi sviluppa',
     'lib/core/viaggio/diario_dei_viaggi.dart':

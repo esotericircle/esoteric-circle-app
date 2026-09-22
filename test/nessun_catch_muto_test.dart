@@ -68,7 +68,11 @@ void main() {
     'lib/features/intro/sequenza_intro.dart': 1,
     'lib/features/maestri/aura/face/face_constellation_screen.dart': 3,
     'lib/features/maestri/chat/maestro_chat_screen.dart': 1,
-    'lib/features/rituals/breath_destiny_screen.dart': 5,
+    // **SCESO DA CINQUE A TRE CON L'ORDINE EF**, 23 settembre 2026: il
+    // `catch (_)` che inghiottiva i guasti del microfono e quello del flusso
+    // adesso scrivono al cruscotto, ed e' la ragione per cui il fondatore ha
+    // potuto sapere che il permesso era concesso e la causa stava dopo.
+    'lib/features/rituals/breath_destiny_screen.dart': 3,
     'lib/features/rituals/sunset_rune_screen.dart': 3,
     'lib/features/santuario/greeting_controller.dart': 1,
     'lib/features/santuario/sky_overview_screen.dart': 5,

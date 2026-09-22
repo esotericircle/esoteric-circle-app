@@ -527,9 +527,9 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
         // trentadue righe al secondo non le legge nessuno.
         if (_campioniDalMicrofono ~/ 64000 != _ultimoRapportoDelMicrofono) {
           _ultimoRapportoDelMicrofono = _campioniDalMicrofono ~/ 64000;
-          debugPrint('SOFFIO: campioni $_campioniDalMicrofono, energia piu '
+          debugPrint('SOFFIO: campioni $_campioniDalMicrofono, energia più '
               'alta ${_energiaMassimaSentita.toStringAsFixed(5)} su '
-              '${FormaDelSoffio.energiaMinima}, planarita piu alta '
+              '${FormaDelSoffio.energiaMinima}, planarità più alta '
               '${_planaritaMassimaSentita.toStringAsFixed(3)} su '
               '${FormaDelSoffio.planaritaMinima}');
         }
@@ -537,7 +537,7 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
       }, onError: (Object errore, StackTrace traccia) {
         GuastiVersoIlCruscotto.inoltro
             ?.call('soffio, flusso del microfono', errore, traccia);
-        debugPrint('SOFFIO: il flusso del microfono e caduto. $errore');
+        debugPrint('SOFFIO: il flusso del microfono è caduto. $errore');
       });
     } catch (errore, traccia) {
       // **NIENTE PIU' CATCH MUTO QUI. Ordine EF voce 04.**
@@ -549,7 +549,7 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
       // tattile resta, ed e' obbligatorio, ma il guasto adesso si scrive.
       GuastiVersoIlCruscotto.inoltro
           ?.call('soffio, apertura del microfono', errore, traccia);
-      debugPrint('SOFFIO: il microfono non si e aperto. $errore');
+      debugPrint('SOFFIO: il microfono non si è aperto. $errore');
     }
   }
 

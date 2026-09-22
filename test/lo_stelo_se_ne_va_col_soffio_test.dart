@@ -48,10 +48,19 @@ void main() {
         reason: 'la soglia del ritiro dello stelo non esiste piu');
     expect(sorgente.contains('final steloOpacita'), isTrue,
         reason: 'lo stelo non calcola piu la sua opacita');
-    expect(
-        sorgente.contains(
-            'Paint()..color = Colors.white.withValues(alpha: steloOpacita)'),
-        isTrue,
+    // **LA FORMA E' CAMBIATA, IL FATTO NO.** Ordine EF voce 03, 23 settembre
+    // 2026: qui si cercava la riga esatta
+    // `Paint()..color = Colors.white.withValues(alpha: steloOpacita)`, che
+    // dipingeva **la fotografia** del soffione. Adesso il soffione e'
+    // disegnato e l'opacita' dello stelo arriva a `SoffioneInciso` come
+    // argomento. **Una guardia legata alla riga cade quando il codice
+    // migliora**: il fatto da misurare e' che quell'opacita' **vada a
+    // finire nel disegno**, non come ci arriva.
+    //
+    // La prova che lo stelo si dissolva davvero resta quella sotto, che
+    // rifa' l'aritmetica coi numeri dichiarati: e' li' che si misura il
+    // comportamento, e qui solo che il valore non venga buttato via.
+    expect(sorgente.contains('steloOpacita: steloOpacita'), isTrue,
         reason: 'lo stelo non usa piu la propria opacita quando si dipinge: '
             'la calcola e la butta via, quindi resta pieno come prima');
   });
