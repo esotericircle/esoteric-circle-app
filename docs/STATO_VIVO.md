@@ -4149,6 +4149,77 @@ parole nuove del Sigillo, la frase delle sette sere, e soprattutto **che il
 Viaggio concluso ricompaia dopo un aggiornamento**, che si vede solo
 aggiornando l'app.
 
+## L'ORDINE EF, IL SOFFIO DEL DESTINO RIFATTO E GUARDATO A VIDEO
+
+Ordine del 23 settembre 2026, **cinque voci, cinque chiuse** (la 02 come
+scarto dichiarato). Manifesto `docs/ordini/ORDINE_EF_MANIFESTO.md`, rapporto
+`docs/ordini/RAPPORTO_ORDINE_EF.md`, guardia `test/ordine_ef_guard_test.dart`,
+catture in `docs/collaudo/EF/`. Parte dal commit `b7f84d7b`.
+
+**NASCE DA UNA DOMANDA GIUSTA DEL FONDATORE**: *"MA A CHE CAZZO SERVONO LE
+PROVE A VIDEO CHE FA CODE? MA LE FA?"*. La risposta e' no, e c'era una
+ragione strutturale: **il pittore della scena usciva subito quando l'immagine
+del soffione mancava, e sotto `flutter test` un asset PNG non si carica mai**.
+In ogni prova di layout mai scritta su quella schermata il soffione non
+esisteva: non c'era niente da coprire, quindi nessun difetto da trovare.
+
+**IL SOFFIONE ADESSO E' DISEGNATO, NON FOTOGRAFATO.** `SoffioneInciso`, nello
+stesso vocabolario d'oro di `FormaDelDono`: pappi su una sfera di Fibonacci
+con l'ombrellino di filamenti, ricettacolo, stelo curvo con le brattee. Via
+l'alone frastagliato e il gambo spezzato della fotografia, che resta nel
+pacchetto **solo per la card da condividere**, fuori perimetro e dichiarata.
+E da qui in poi **il soffione c'e' anche nelle prove**.
+
+**LA MISURA DELL'ORDINE EE ERA FALSA.** `il_soffione_respira` dichiarava
+*"71,0 per cento al culmine"* dipingendo il pittore col soffio a zero e il
+respiro in corso: **una combinazione che a video non esiste mai**, perche' nel
+rito prima si soffia e poi si respira, e a quel punto la testa ha opacita'
+zero. Riscritta sul soggetto vero, il dono, con la lapide.
+
+**LE ANIMAZIONI DEL RITO DURAVANO UN VENTESIMO, ed e' il difetto piu' grande
+dell'ordine.** Quando la piattaforma dichiara `disableAnimations`, Flutter
+**non spegne** un `AnimationController`: **ne moltiplica la durata per 0,05**.
+Su Android quel flag e' la scala di durata degli animatori, un numero che
+moltissimi mettono a zero per far sembrare il telefono piu' rapido, e sul
+Realme del fondatore le tre scale sono a zero. **Il volo dei semi durava 45
+millisecondi invece di 900, il respiro 1,4 secondi invece di 28**, e la
+schermata diceva *"Il respiro e' compiuto"* dopo otto secondi. Cura,
+`AnimationBehavior.preserve` sui tre motori del rito; e sono spariti **due
+interruttori nostri** che spegnevano il volo e il respiro sotto Riduci
+Movimento.
+
+**E LA SCHERMATA RESTAVA BLOCCATA PER SEMPRE DOPO IL SOFFIO.** `_complete()`
+non aveva nessuna guardia di rientro, e `FormaDelSoffio.eSoffio` e' un fermo:
+ogni pacchetto audio faceva ripartire l'animazione da zero, e riavviare un
+`AnimationController` **annulla** il suo `TickerFuture`, che quindi non chiama
+il `then`. **Il dono non si rivelava mai.** Era nascosto dal ramo di Riduci
+Movimento tolto nello stesso ordine.
+
+**LA BOLLA DESCRITTIVA, IN TRE PASSATE.** Le prime due hanno guadagnato mezzo
+punto percentuale; il colpevole vero era **il pavimento fisso dei sei noni**
+ereditato dall'ordine 2164 voce 8, che teneva la zona del respiro a 529 punti
+quando ne chiedeva 479. Sul telefono la bolla comincia adesso a **y 1200 su
+2400** invece che a 1697, e mostra **sei righe invece di tre**. Il prezzo,
+dichiarato e deciso dal fondatore: la figura scende dal 73,7 al **59,1 per
+cento** della larghezza, e la quota dell'ordine DD voce 03 passa da settanta a
+cinquantasei.
+
+**IL TITOLO TRONCATO: LA CURA ESISTEVA E NON ERA AGGANCIATA.**
+`TitoloCheNonSiRompe`, dall'ordine S voce 05, lo usano ventidue schermate; il
+Soffio aveva un `Text` nudo. Agganciato. **Il difetto e' piu' largo**: in
+`lib/features/` ci sono **quarantadue** punti con un titolo nudo, e restano da
+fare perche' stanno fuori dal perimetro.
+
+**VERIFICATO A VIDEO SUL REALME**, che e' la cosa che quest'ordine doveva
+soprattutto fare: sei catture, una per stato. Dopo la cura il respiro e'
+**ancora in corso a venticinque secondi** dove prima finiva entro otto, e la
+figura ha **142 pixel di escursione** fra i fotogrammi dove prima ne aveva
+**zero**.
+
+**CINQUE GUARDIE NUOVE**, tutte nate rosse, due su difetti veri e non
+innestati. E una lezione: **una differenza fra il banco e il telefono puo'
+stare nel tempo, e nessuna guardia di geometria la vede**.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.

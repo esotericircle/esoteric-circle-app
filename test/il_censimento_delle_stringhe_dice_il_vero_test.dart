@@ -74,11 +74,29 @@ void main() {
     expect(Directory('lib/l10n').existsSync(), isFalse,
         reason: 'e\' comparsa lib/l10n: il generatore di Flutter e\' entrato, '
             'e con lui un secondo posto dove vivono i testi');
-    final arb = Directory('.')
-        .listSync(recursive: true)
-        .whereType<File>()
-        .where((f) => f.path.endsWith('.arb') && !f.path.contains('.dart_tool'))
-        .toList();
+    // **SI GUARDA IL CODICE, NON CIO' CHE LA MACCHINA PRODUCE.** Ordine EF,
+    // 23 settembre 2026.
+    //
+    // Questa riga scandagliava l'albero intero, `build/` compreso, e su
+    // Windows le cartelle temporanee di Gradle la facevano cadere con un
+    // `PathNotFoundException`: **una guardia rossa senza nessun difetto**,
+    // che e' un danno quanto una verde cieca, perche' chi la vede rossa la
+    // prima volta impara a non guardarla piu'. Bastava aver costruito un apk
+    // sulla stessa macchina.
+    //
+    // Un file `.arb` comparirebbe nelle sorgenti, mai in `build/`: la
+    // grandezza da misurare non cambia, cambia dove la si cerca.
+    const fuoriDalCodice = ['.dart_tool', 'build'];
+    final arb = [
+      for (final cartella in ['lib', 'test', 'tool', 'assets'])
+        if (Directory(cartella).existsSync())
+          ...Directory(cartella)
+              .listSync(recursive: true)
+              .whereType<File>()
+              .where((f) =>
+                  f.path.endsWith('.arb') &&
+                  !fuoriDalCodice.any(f.path.contains)),
+    ];
     expect(arb, isEmpty, reason: 'sono comparsi file .arb: $arb');
 
     // **E L'IMPALCATURA DEVE ESSERCI**, che e' il rovescio della stessa
