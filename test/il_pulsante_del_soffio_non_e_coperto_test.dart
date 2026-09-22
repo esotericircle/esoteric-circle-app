@@ -111,33 +111,18 @@ void main() {
     await tester.pump(const Duration(milliseconds: 200));
   });
 
-  testWidgets('dietro il titolo non c\'e\' una macchia che tocca il mandala',
-      (tester) async {
-    await soffio(tester);
-    final pulsante = find.byKey(const Key('respiro_tocca'));
-    if (pulsante.evaluate().isEmpty) {
-      markTestSkipped('Il rito di questo giorno non porta un respiro '
-          'contato.');
-      return;
-    }
-    // IL VELO DELLA PAROLA non deve arrivare sulla figura del respiro: sullo
-    // scatto di Mauro entrava sopra il mandala. Si misura sui rettangoli
-    // veri, non a occhio.
-    final figura = find.byKey(const Key('respiro_figura'));
-    expect(figura, findsOneWidget);
-    final rFigura = tester.getRect(figura);
-    final velo = find.byKey(const Key('respiro_velo'));
-    expect(velo, findsOneWidget,
-        reason: 'Il velo della parola non ha una chiave: non si misura.');
-    final rVelo = tester.getRect(velo);
-    final invasione = rFigura.bottom - rVelo.top;
-    // ignore: avoid_print
-    print('SOFFIO: figura fino a ${rFigura.bottom.toStringAsFixed(1)}, velo '
-        'da ${rVelo.top.toStringAsFixed(1)}, invasione '
-        '${invasione.toStringAsFixed(1)} punti');
-    expect(rVelo.top, greaterThanOrEqualTo(rFigura.bottom - 0.5),
-        reason:
-            'Il velo dietro il titolo entra ${invasione.toStringAsFixed(1)} '
-            'punti sopra il mandala.');
-  });
+  // **LAPIDE, ordine EE voce 02, 23 settembre 2026.** Qui viveva la prova
+  // «dietro il titolo non c'e' una macchia che tocca il mandala», e misurava l'anello d'oro del respiro.
+  //
+  // **Quell'anello non esiste piu'.** Il fondatore lo aveva chiesto: *"non
+  // fare vedere un Cerchio sovrapposto che si allarga e si riduce per
+  // simulare il respiro, deve essere il soffione sotto ad allargarsi e
+  // ridursi"*. A respirare adesso e' il soffione dipinto, e una figura
+  // dipinta non si misura con `getRect`.
+  //
+  // **La misura non e' andata persa, ha cambiato casa**:
+  // `test/il_soffione_respira_test.dart`, che dipinge il pittore vero e
+  // guarda i pixel. Al culmine il soffione prende il 71,0 per cento della
+  // larghezza, cioe' la quota che l'ordine DD voce 03 pretendeva.
+
 }

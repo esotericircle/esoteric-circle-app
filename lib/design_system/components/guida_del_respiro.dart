@@ -37,7 +37,28 @@ class GuidaDelRespiro extends StatefulWidget {
     this.figura,
     this.onFinito,
     this.chiaveDellaFigura,
+    this.misuraDelRespiro,
   });
+
+  /// **DOVE LA SCENA LEGGE QUANTO E' APERTO IL RESPIRO.** Ordine EE voce 02,
+  /// 23 settembre 2026.
+  ///
+  /// **Il fatto del fondatore, verbatim**: *"avevo gia' chiesto di non fare
+  /// vedere un Cerchio sovrapposto che si allarga e si riduce per simulare
+  /// il respiro, ma deve essere il soffione sotto ad allargarsi e
+  /// ridursi"*.
+  ///
+  /// **Perche' un canale e non la figura.** La guida sa gia' ricevere una
+  /// figura da far respirare, e per un simbolo dentro la colonna basta
+  /// quello. Ma il soffione del Soffio del Destino **non sta nella
+  /// colonna**: e' lo sfondo dipinto a schermo intero da un `CustomPainter`,
+  /// sotto tutto il resto. Non si puo' passare a nessuno: si puo' solo dirgli
+  /// quanto respirare.
+  ///
+  /// Chi lo aggancia riceve la misura corrente, uno al culmine
+  /// dell'inspirazione e meno a ogni espirazione, e ci fa cio' che vuole.
+  /// Nullo per chi non ne ha bisogno.
+  final ValueNotifier<double>? misuraDelRespiro;
 
   /// Chi ha bisogno di sapere DOVE sta la figura che respira la aggancia qui.
   ///
@@ -163,6 +184,19 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
         // scende da li' a 0,55: percio' il lato a riposo E' la quota, e il
         // respiro la fa scendere. Nessun conto all'indietro da fare.
         final larghezzaDelloSchermo = MediaQuery.sizeOf(context).width;
+        // **LA MISURA ESCE DA QUI, per chi respira fuori dalla colonna.**
+        // Ordine EE voce 02. Si scrive dentro il build perche' e' l'unico
+        // punto in cui la misura corrente esiste gia' calcolata: scriverla
+        // altrove vorrebbe dire ricalcolarla, cioe' avere due misure dello
+        // stesso respiro.
+        final fuori = widget.misuraDelRespiro;
+        if (fuori != null && fuori.value != misura) {
+          // Dopo il fotogramma: un notifier che cambia durante il build fa
+          // ricostruire chi lo ascolta mentre si sta gia' costruendo.
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) fuori.value = misura;
+          });
+        }
         final figura = widget.figura ??
             _CerchioDiRipiego(
               colore: widget.colore,
