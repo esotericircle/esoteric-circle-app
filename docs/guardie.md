@@ -40,10 +40,12 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 140 |
-| Guardie con un cardinale proprio dichiarato | 133 |
-| Guardie che non scoprono nessun insieme di file | 212 |
-| **Somma delle categorie** | **485** |
-| **Guardie secondo la definizione** | **485** |
+| Guardie con un cardinale proprio dichiarato | 136 |
+| Guardie che non scoprono nessun insieme di file | 214 |
+| **Somma delle categorie** | **490** |
+| **Guardie secondo la definizione** | **490** |
+
+**Ricontate a ordine EH**, 24 settembre 2026, l'ordine straordinario nato da un ordine dichiarato chiuso che chiuso non era: **cinque guardie nuove**, tre col cardinale proprio e due che non scoprono insiemi. Il totale sale da 485 a **490** e le tre categorie a **140, 136 e 214**. **Due sono nate rosse rimettendo a mano il difetto di un ordine precedente**, che e' il modo piu' scomodo e piu' onesto in cui una guardia possa nascere. E una, `i_doni_del_giorno_non_ripetono`, ha dovuto **alzare** la sua soglia: a cinque distinti su sette il difetto vero passava, e cinque era un numero scelto a occhio mentre sette e' la richiesta del fondatore.
 
 **Ricontate a ordine EF**, 23 settembre 2026, il Soffio del Destino rifatto e guardato a video: **cinque guardie nuove**, due col cardinale proprio, una dalla porta comune e due che non scoprono insiemi. Il totale sale da 480 a **485** e le tre categorie a **140, 133 e 212**. **Due sono nate rosse su difetti VERI e non innestati**, che e' il modo migliore in cui una guardia puo' nascere: il riquadro copriva la figura di 47,0 punti su due geometrie della griglia. E `il_soffione_respira` ha cambiato soggetto per la seconda volta in due giorni, perche' la misura dell'ordine EE descriveva una combinazione che a video non esiste mai.
 
@@ -531,6 +533,7 @@ le altre.
 | `i_cinque_elementi_colorano_e_si_leggono_test.dart` | i cinque elementi colorano e si leggono | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
 | `dream_rite_screen_test.dart` | la schermata del Sigillo del Sogno | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa sul difetto vero: la Parola dell Alba non arrivava a video) | 2 |
 | `i_controlli_del_collaudo_prendono_i_difetti_test.dart` | ogni controllo del collaudo con Gemini vero cade su un difetto costruito apposta | 1, 2 | proprio, dichiarato | 21/09/2026, EC (e' la regola A applicata a un collaudo che costa: il difetto si costruisce invece di aspettare che il modello sbagli; **rivista rossa il 21/09/2026, ED**, spegnendo il controllo del pulsante: ha risposto con due prove; **rivista rossa il 22/09/2026, EE**, facendo rendere a mano tutti i nomi invece di cercarli: ha risposto con due prove del controllo della sintesi) | 3 |
+| `i_doni_del_giorno_non_ripetono_test.dart` | nessuno dei tre Doni del giorno dice a una stessa persona la stessa cosa due giorni di fila, misurato su sette giorni | 1 | proprio, dichiarato | 24/09/2026, EH (**nata rossa rimettendo il difetto vero della voce EE.04**; e la prima soglia, cinque su sette, lo lasciava passare: alzata a sette su sette, che e' la richiesta del fondatore) | 3 |
 | `i_doni_si_aprono_alla_loro_ora_test.dart` | i doni si aprono alla loro ora | 1, 2 | proprio, dichiarato | 10/09/2026, DD (rossa: 73 risposte sbagliate su 120 col difetto innestato) | 1 |
 | `i_doni_si_agganciano_test.dart` | i doni si agganciano | 1, 2 | proprio, dichiarato | mai | 3 |
 | `i_due_grigi_si_distinguono_test.dart` | i due grigi si distinguono | 1, 4 | non scopre insiemi di file | mai | 2 |
@@ -617,6 +620,7 @@ le altre.
 | `il_riquadro_non_copre_la_figura_test.dart` | il riquadro del respiro e l'invito al gesto stanno sotto la figura, su ventiquattro geometrie, e la figura non esce dal bordo di sopra | 1, 2 | proprio, dichiarato | 23/09/2026, EF (**nata rossa su un difetto VERO e non innestato**: meno 47,0 punti di figura coperta su due geometrie della griglia; e l'invito nato rosso rimettendolo dov'era, 81,6 punti) | 2 |
 | `il_saluto_della_notte_non_ripete_il_titolo_test.dart` | nessuno dei dodici segni lunari ripete la propria posa fra il titolo e il saluto del Sigillo del Sogno | 1, 2 | proprio, dichiarato | 23/09/2026, EE (nata rossa rimettendo la posa in fondo al saluto: due segni su dodici la ripetevano nella stessa schermata) | 3 |
 | `il_saluto_della_notte_parla_di_te_test.dart` | due persone con Lune di nascita diverse non si sentono dire la stessa giornata nella stessa notte | 1, 2 | proprio, dichiarato | 23/09/2026, EE (nata rossa rimettendo la Luna di stanotte: dieci nascite diverse ricevevano sei saluti) | 3 |
+| `il_sigillo_del_sogno_non_ripete_la_notte_prima_test.dart` | sette notti di fila per la stessa persona non danno due saluti identici, e la frase sulla giornata prende piu' forme; la riga che spiega la figura tace quando la Luna cambia segno | 1 | proprio, dichiarato | 24/09/2026, EH (nata rossa col difetto della voce EE.04 rimesso: da tre forme a una) | 4 |
 | `il_sigillo_del_sogno_parla_con_la_voce_di_medora_test.dart` | nessuno dei sessanta campi del corpus del sogno porta parole di firma di Aura o di Caligo | 1, 2 | proprio, dichiarato | 23/09/2026, EE (nata rossa rimettendo Respiro all'Acquario; il censimento ne ha trovate tre, non una) | 3 |
 | `il_soffio_non_riparte_da_capo_test.dart` | un gesto che arriva mentre il volo dei semi e' in corso non lo fa ripartire da capo, e il dono si rivela entro la durata dichiarata | 1 | non scopre insiemi di file | 23/09/2026, EF (nata rossa togliendo la guardia di rientro; **la prima stesura restava verde sul difetto**, perche' tre gesti distanziati lasciano finire il volo: rifatta misurando il tempo) | 1 |
 | `il_soffione_respira_test.dart` | la figura che sta a schermo MENTRE si respira si allarga e si stringe col respiro, e al culmine prende almeno il cinquantasei per cento della larghezza; e prima del soffio il soffione inciso si vede | 1, 2 | non scopre insiemi di file | 23/09/2026, EF (**la misura di EE era falsa**: dipingeva il pittore col soffio a zero e il respiro in corso, una combinazione che a video non esiste mai, perche' nel rito prima si soffia e poi si respira. Riscritta sul dono, che e' la figura vera di quel momento. La quota scende da settanta a cinquantasei per decisione del fondatore, che voleva piu' spazio per la bolla: la lapide sta nel file); prima 23/09/2026, EE | 3 |
@@ -909,6 +913,7 @@ le altre.
 | `ogni_testo_dice_da_dove_nasce_test.dart` | ogni testo dice da dove nasce | 4 | non scopre insiemi di file | 07/09/2026, CS | 3 |
 | `ogni_traguardo_acceso_ha_la_sua_festa_test.dart` | ogni traguardo acceso ha la sua festa | 1, 2 | proprio, dichiarato | 08/09/2026, CZ | 2 |
 | `ogni_via_dice_cosa_si_accetta_test.dart` | ogni via dice cosa si accetta | 1, 2 | proprio, dichiarato | 20/09/2026, EA (Regola A sulla pretesa riscritta: tre innesti, il tocco tolto alle condizioni, il disclaimer rinominato, il dispose commentato; il terzo l'ha colta mentre pescava il proprio commento) | 3 |
+| `ogni_voce_chiusa_porta_la_sua_prova_test.dart` | ogni voce dichiarata CHIUSA porta DOMANDA, PROVA e MISURA, e la prova e' un file che esiste e non e' vuoto | 1 | proprio, dichiarato | 24/09/2026, EH (nata rossa su una voce chiusa senza le tre righe: tre colpe) | 1 |
 | `ora_di_nascita_test.dart` | ora di nascita | 1, 2 | dalla porta comune | mai | 3 |
 | `ora_e_luogo_sopravvivono_test.dart` | ora e luogo sopravvivono | 1, 2 | dalla porta comune | mai | 3 |
 | `ora_si_puo_correggere_test.dart` | ora si puo correggere | 1, 2 | dalla porta comune | mai | 3 |
@@ -924,6 +929,8 @@ le altre.
 | `ordine_ed_guard_test.dart` | ordine ed guard | 1, 2 | non scopre insiemi di file | 21/09/2026, ED (due innesti verificati col grep: tolta una riga della tavola delle sedici mosse, e un marcatore VOCI_TOTALI falso) | 3 |
 | `ordine_ee_guard_test.dart` | ordine ee guard | 1, 2 | non scopre insiemi di file | 23/09/2026, EE (due innesti verificati col grep: tolta una riga della tavola dei luoghi, e un marcatore VOCI_TOTALI falso) | 3 |
 | `ordine_ef_guard_test.dart` | ordine ef guard | 1 | non scopre insiemi di file | 23/09/2026, EF (nata rossa su un manifesto con le voci ancora aperte e senza i numeri misurati) | 3 |
+| `ordine_eg_guard_test.dart` | ordine eg guard, a ordine interrotto | 1 | non scopre insiemi di file | 23/09/2026, EG | 3 |
+| `ordine_eh_guard_test.dart` | ordine eh guard, e la DOMANDA riporta parole vere del fondatore | 1 | non scopre insiemi di file | 24/09/2026, EH | 3 |
 | `palette_sensoriale_test.dart` | palette sensoriale | 1, 2 | dalla porta comune | 01/09/2026, CN | 3 |
 | `passport_carta_natale_test.dart` | passport carta natale | 1, 2 | dalla porta comune | mai | 3 |
 | `passport_test.dart` | passport | 1 | non scopre insiemi di file | mai | 3 |

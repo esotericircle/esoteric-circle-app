@@ -4220,6 +4220,70 @@ figura ha **142 pixel di escursione** fra i fotogrammi dove prima ne aveva
 innestati. E una lezione: **una differenza fra il banco e il telefono puo'
 stare nel tempo, e nessuna guardia di geometria la vede**.
 
+## L'ORDINE EH, SONO INCAZZATO NERO, E LA REGOLA CHE NE E' NATA
+
+Ordine straordinario del 24 settembre 2026, **tre voci, tre chiuse**, che ha
+interrotto l'ordine EG. Manifesto `docs/ordini/ORDINE_EH_MANIFESTO.md`,
+prove in `docs/collaudo/EH/`.
+
+**NASCE DA UN ORDINE DICHIARATO CHIUSO CHE CHIUSO NON ERA.** Parole del
+fondatore: *"IO MI SENTO PRESO OER IL CULO QUANDO MI VIENE INDICATO UN ORDINE
+COME CONCLUSO E INVECE NON E' STATO FATTO UN CAZZO. Passo meta' del mio tempo
+a verificare"*.
+
+**IL DIFETTO, E LA SUA CAUSA VERA.** Il Sigillo del Sogno diceva le stesse
+parole a due sere di distanza. La voce EE.04 doveva curare proprio quel testo
+e **l'ha peggiorato**: ha portato *"Oggi hai..."* dalla Luna di stanotte alla
+**Luna di nascita**, che e' la sorgente giusta ma **non cambia mai**. Una
+frase uguale per tutti e' diventata una frase uguale per sempre, per ciascuno.
+
+**E la misura che chiudeva quella voce diceva il vero rispondendo a un'altra
+domanda**: *"nella stessa notte dieci nascite ricevono dieci saluti diversi"*
+misura che **due persone** leggano cose diverse; il fondatore guardava **una
+persona in due notti**.
+
+**LA REGOLA DEFINITIVA, IN CLAUDE.MD.** Da qui in avanti una voce si scrive
+CHIUSA solo con tre righe che una macchina legge: `DOMANDA`, le parole del
+fondatore alla lettera; `PROVA`, il percorso di un file che esiste; `MISURA`,
+la grandezza coi numeri. La guardia
+`ogni_voce_chiusa_porta_la_sua_prova_test.dart` le pretende, e **il manifesto
+EH e' il primo ad averle**. C'e' un terzo stato nuovo, `APERTA IN ATTESA DI
+VERIFICA`: prima gli stati erano due e una voce fatta a meta' sceglieva
+CHIUSA.
+
+**Perche' `DOMANDA` e non un controllo di date**: la prova della EE.04 esisteva
+ed era fresca. Nessun controllo meccanico l'avrebbe presa. Quella riga mette
+le parole del fondatore a due righe dalla misura, e **chi le vede accostate ci
+mette tre secondi**.
+
+**LA CURA DEL SIGILLO, MISURATA.** L'apertura del Maestro era uno `switch` sul
+solo Maestro, una frase per sempre: adesso sono quattro per Maestro e la notte
+ne sceglie una. Ogni segno sa dire **tre** cose vere della giornata e il giorno
+rituale sceglie quale. Su sette notti di fila per la stessa persona: da **una
+coppia identica parola per parola** a **zero**, e da **un solo** modo di dire
+la giornata a **tre**.
+
+**LA COSTELLAZIONE RESTA QUELLA DEL SEGNO LUNARE, per decisione del
+fondatore**, perche' e' la cosa piu' vera che il cielo di stanotte offre. **E
+adesso lo dice**: *"La Luna resta in Pesci ancora 2 notti: per tutte queste
+sere la figura del cielo e' questa."* Su trenta notti la riga compare **16
+volte** e tace **14**, cioe' quando la Luna cambia segno e non c'e' niente da
+spiegare.
+
+**IL DIFETTO ERA UNICO FRA I DONI, E LO DICE UNA MISURA.** Runa del Tramonto e
+Arcano dell'Alba, misurati sulla stessa grandezza: **sette su sette** distinti,
+gia' sani. **E una mia misura sbagliata ha quasi accusato l'Alba**, perche'
+confrontava `toString()` di un oggetto senza override, che rende sempre la
+stessa stringa su qualunque codice.
+
+**COSA RESTA E DECIDE IL FONDATORE**: i manifesti da DX a EA usano una forma
+vecchia che nessun conto automatico rilegge, **cinquantasette voci**; e fra i
+manifesti nuovi **dodici voci chiuse non portano una prova apribile**, elencate
+nel rapporto in ordine di gravita'.
+
+**CINQUE GUARDIE NUOVE**, registro da 485 a **490**. Due nate rosse rimettendo
+a mano il difetto di un ordine precedente.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.

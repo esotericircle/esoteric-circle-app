@@ -666,6 +666,27 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
             textAlign: TextAlign.center,
             style: TypographyTokens.lettura()
                 .copyWith(color: ColorTokens.textSecondary, height: 1.45)),
+        // **PERCHE' LA FIGURA E' QUELLA DI IERI.** Ordine EH voce 01,
+        // decisione del fondatore del 24 settembre 2026.
+        //
+        // La Luna resta in un segno circa due giorni e mezzo, quindi due sere
+        // di fila la costellazione e' la stessa. Il fondatore ha deciso di non
+        // cambiarla, perche' e' la cosa piu' vera che il cielo di stanotte
+        // offre, e di **dirlo**: *"L'utente si rendera' conto cosi' che non si
+        // tratta di un errore o un refuso"*.
+        //
+        // La riga non c'e' quando la Luna cambia segno stanotte: li' non c'e'
+        // niente da spiegare, e una spiegazione che non serve e' rumore.
+        if (DreamRiteCorpus.perchePosaLaStessaFigura(_date) !=
+            null) ...[
+          const SizedBox(height: SpacingTokens.xs),
+          Text(
+              DreamRiteCorpus.perchePosaLaStessaFigura(_date)!,
+              key: const Key('dream_durata_figura'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.lettura()
+                  .copyWith(color: ColorTokens.textMuted, height: 1.45)),
+        ],
         const SizedBox(height: SpacingTokens.sm),
         _Riga(
           palette: _palette,

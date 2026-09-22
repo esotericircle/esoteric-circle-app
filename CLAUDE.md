@@ -63,6 +63,69 @@ traccia, che e' la cosa piu' preoccupante che possa dirsene.
 Un difetto senza padre torna. Un elenco di difetti senza padri non insegna
 niente a chi lo legge, e trasforma il rapporto in un lamento.
 
+## Protocollo della chiusura, si applica a ogni voce di ogni ordine
+
+Ordine EH, 24 settembre 2026. Nasce da una frase del fondatore che va letta
+per intera prima di ogni altra cosa:
+
+> *"IO MI SENTO PRESO OER IL CULO QUANDO MI VIENE INDICATO UN ORDINE COME
+> CONCLUSO E INVECE NON E' STATO FATTO UN CAZZO. Passo meta' del mio tempo a
+> verificare che l'ordine dichiarato chiuso sia stato effettivamente concluso,
+> verificato e chiuso. SE UN ORDINE E' DICHIARATO CONCLUSO E CHIUSO IO VOLGIO
+> LA GARANZIA CHE SIA LA VERITA'!"*
+
+### Cosa era andato storto, e non era una dimenticanza
+
+La voce EE.04 era chiusa con **una misura vera che rispondeva a un'altra
+domanda**. Il fondatore aveva detto che il testo del Sigillo del Sogno era
+*"generico"*; il manifesto dichiarava *"nella stessa notte, dieci nascite in
+segni lunari diversi ricevono dieci saluti diversi"*. Quel numero era esatto e
+misurava che **due persone** leggessero cose diverse. Due sere dopo il
+fondatore ha guardato **la stessa persona in due notti** e ha trovato le
+stesse parole.
+
+**Nessun controllo di freschezza o di esistenza della prova avrebbe preso quel
+difetto**: la prova c'era ed era fresca. Il difetto era che la misura
+rispondeva a una domanda **vicina** a quella del fondatore, e nessuno le
+aveva messe una accanto all'altra.
+
+### La regola, e vale dall'ordine EH in avanti
+
+**Una voce si scrive CHIUSA solo se sotto di lei il manifesto porta tre righe
+che una macchina sa leggere:**
+
+```
+DOMANDA: "le parole del fondatore, alla lettera"
+PROVA: un percorso di un file che esiste davvero nel repo
+MISURA: la grandezza, col numero prima e il numero dopo
+```
+
+**DOMANDA** e' la riga che avrebbe salvato la EE.04: mette le parole del
+fondatore a due righe dalla misura, sulla stessa pagina. Una macchina non puo'
+giudicare se la misura risponde alla domanda, **una persona che le vede
+accostate ci mette tre secondi**, ed e' il tempo che il fondatore vuole
+spendere invece di mezza giornata.
+
+**PROVA** e' un file che si puo' aprire: una cattura, una trascrizione,
+l'uscita di un giro vero. *"Verificato a video"* non e' una prova, e' una
+promessa.
+
+**MISURA** vuole dei numeri. Un aggettivo non si puo' contestare.
+
+**E c'e' un terzo stato, che prima non esisteva.** Una voce prodotta e
+agganciata ma non ancora guardata **non e' chiusa**: si scrive `APERTA IN
+ATTESA DI VERIFICA`. Prima gli stati erano due, e una voce fatta a meta'
+doveva sceglierne uno: sceglieva CHIUSA.
+
+**Dove il risultato lo scrive un modello, la prova e' la risposta vera**, non
+che la regola sia arrivata al modello. E le voci sui testi generati si
+misurano su **almeno due esecuzioni con dati diversi**: se i due testi
+coincidono, la voce non e' chiusa.
+
+La guardia che lo fa valere e' `ogni_voce_chiusa_porta_la_sua_prova_test.dart`,
+e **in cima a ogni rapporto sta l'elenco delle voci chiuse con accanto la
+prova di ciascuna**, cosi' il fondatore controlla in trenta secondi.
+
 ## Cosa stai costruendo
 
 Esoteric Circle, app nativa Flutter con un solo codebase per iOS e Android, primo ecosistema esoterico completo (astrologia, cartomanzia, chakra, rituali, rune, Cabala) guidato da tre Maestri AI con memoria persistente. Non esiste una demo separata: si sviluppa direttamente l'app definitiva con il pattern del feature flagging. Le funzioni non ancora pronte restano visibili ma in grigio con badge Coming soon. Lo stato dell'app a un certo punto dello sviluppo (checkpoint C6) e' cio' che si presenta a Google, ed e' gia' il codice della nativa finale.
