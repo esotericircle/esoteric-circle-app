@@ -237,3 +237,19 @@ VOCI_CHIUSE: 7
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 3
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+
+
+---
+
+## LE GUARDIE DI QUEST'ORDINE CHE NON ESISTONO PIU'
+
+**Aggiunto dall'ordine EH voce 03, 24 settembre 2026.** Questo manifesto
+nominava guardie che nel frattempo un ordine successivo ha tolto. Toglierle
+era lecito; **lasciarle scritte come vive non lo era**, perche' chi apriva
+questo documento per controllare una chiusura leggeva di una rete che non
+c'era piu'. Ogni riga porta il suo padre.
+
+GUARDIA RIMOSSA: il_webp_animato_si_decodifica_test - ordine AV voce 01, commit 994311be: i filmati sono usciti di scena e al loro posto e' nata la spirale di stelle.
+
+GUARDIA RIMOSSA: lo_stacco_arriva_al_frame_21_test - ordine AV voce 01, commit 994311be: stessa uscita dei filmati: non c'e' piu' nessun fotogramma ventuno.
+

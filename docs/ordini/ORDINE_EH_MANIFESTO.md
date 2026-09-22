@@ -125,10 +125,29 @@ le vede accostate ci mette tre secondi**.
 VERIFICA`. Prima gli stati erano due, e una voce fatta a meta' doveva
 sceglierne uno: sceglieva CHIUSA.
 
+### E UNA GUARDIA DA SOLA NON BASTA: IL QUARTO CANCELLO
+
+La guardia gira dentro la suite intera, ma **solo quando la suite intera
+gira**: chi passa un corredo ristretto non la tocca, e chi ha fretta e' chi ne
+ha piu' bisogno. `tool/sbarramento.sh` ha adesso un **QUARTO CANCELLO** che la
+esegue **sempre**, qualunque cosa ci sia in coda al comando, e che **non passa
+dai rossi accettati**: e' l'unico cancello del file senza deroga possibile,
+perche' una riga fra gli accettati vorrebbe dire *"si puo' dichiarare chiusa
+una voce senza prova"*. Se la guardia stessa sparisse dal repo, il cancello
+ferma la build lo stesso.
+
+**E LA PROVA DEL ROSSO HA TROVATO CHE IL CANCELLO ERA CIECO.** Scritto la
+prima volta come `if ! flutter test ... | tee`, leggeva l'uscita di `tee`, che
+e' **sempre zero**: col difetto innestato a mano lo sbarramento si e' fermato,
+ma per un altro motivo, e il cancello nuovo non ha stampato una riga.
+Riparato con `PIPESTATUS`, come gli altri tre cancelli del file. **Senza la
+Regola A questo cancello sarebbe entrato in casa senza chiudersi mai**, ed e'
+il difetto peggiore possibile per una rete di sicurezza: sembra esserci.
+
 **CHIUSA.**
 DOMANDA: "SE UN ORDINE E' DICHIARATO CONCLUSO E CHIUSO IO VOLGIO LA GARANZIA CHE SIA LA VERITA'!"
 PROVA: test/ogni_voce_chiusa_porta_la_sua_prova_test.dart
-MISURA: manifesti sotto la regola 1, voci chiuse guardate 3; nata rossa con 3 colpe su una voce chiusa senza prova
+MISURA: manifesti sotto la regola 1, voci chiuse guardate 3; nata rossa con 3 colpe su una voce chiusa senza prova. Il quarto cancello provato sul blocco vero dello sbarramento: col difetto innestato uscita 1 e il suo messaggio stampato, senza difetto uscita 0
 
 ## VOCE EH.03, LE CHIUSURE GIA' DICHIARATE SI RILEGGONO
 

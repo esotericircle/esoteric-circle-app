@@ -59,7 +59,7 @@ void main() {
   /// **E si puo' pretendere perche' il codice lo sa fare**: il cielo si muove
   /// piano, ma la scelta di quale cosa vera dire cambia ogni notte. Misurati
   /// oggi: Sogno sette su sette, Tramonto sette su sette, Alba sette su sette.
-  final minimoDistinti = giorni;
+  const minimoDistinti = giorni;
 
   test('il Sigillo del Sogno dice sette cose diverse in sette notti', () {
     final saluti = <String>{};

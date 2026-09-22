@@ -391,3 +391,21 @@ VOCI_CHIUSE: 11
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_SU_DECISIONE_DEL_FONDATORE: 1
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+
+
+---
+
+## LE GUARDIE DI QUEST'ORDINE CHE NON ESISTONO PIU'
+
+**Aggiunto dall'ordine EH voce 03, 24 settembre 2026.** Questo manifesto
+nominava guardie che nel frattempo un ordine successivo ha tolto. Toglierle
+era lecito; **lasciarle scritte come vive non lo era**, perche' chi apriva
+questo documento per controllare una chiusura leggeva di una rete che non
+c'era piu'. Ogni riga porta il suo padre.
+
+GUARDIA RIMOSSA: anche_la_festa_breve_ha_la_materia_test - ordine AT voci 03 e 04, commit f268cd69: le particelle sono state demolite: la materia che questa guardia contava non esiste piu'.
+
+GUARDIA RIMOSSA: tre_feste_una_per_maestro_test - ordine AT voci 03 e 04, commit f268cd69: stessa demolizione delle particelle.
+
+GUARDIA RIMOSSA: l_arcano_del_giorno_test - ordine DT, commit 47b3c2be: i cinque doni sono diventati quattro e l'Arcano dell'Alba e' entrato nell'app con una forma nuova.
+

@@ -252,3 +252,30 @@ numero, e le due carte portano Bilancia e Leone come nella Golden Dawn.
 | `ogni_dono_dice_chi_parla_test.dart`, `nessun_accento_dichiara_un_fondo_che_non_ha_test.dart`, `i_testi_da_leggere_hanno_una_misura_sola_test.dart`, `i_cinque_doni_rispettano_la_legge_dei_testi_test.dart`, `il_dono_risponde_prima_di_chiedere_test.dart`, `le_descrizioni_hanno_una_misura_sola_test.dart`, `le_condizioni_costruite_test.dart`, `nessun_invito_a_un_permesso_e_muto_test.dart`, `ogni_schermata_dichiara_la_barra_test.dart`, `una_barra_sola_test.dart`, `nessun_catch_muto_test.dart` | **riallineate** | la schermata dell'Arcano dell'Alba al posto delle due tolte negli elenchi dei sorgenti |
 | `ogni_custodito_ritrova_la_sua_arte_test.dart`, `ogni_pulsante_della_chat_apre_cio_che_promette_test.dart`, `cosa_dicono_i_doni_test.dart`, `entitlement_test.dart`, `la_catena_dei_dati_di_nascita_test.dart`, `i_due_pulsanti_del_soffio_si_leggono_test.dart`, `rituals_test.dart`, `testo_a_video_test.dart` | **riallineate** | i numeri seguono il dato (quattro doni, 31 righe del piano, 14 consumatori della nascita, 8 chiavi dei custoditi) e le arti senza azioni dichiarate; le elisioni *mezz'* e *nient'* |
 
+
+---
+
+## LE GUARDIE DI QUEST'ORDINE CHE NON ESISTONO PIU'
+
+**Aggiunto dall'ordine EH voce 03, 24 settembre 2026.** Questo manifesto
+nominava guardie che nel frattempo un ordine successivo ha tolto. Toglierle
+era lecito; **lasciarle scritte come vive non lo era**, perche' chi apriva
+questo documento per controllare una chiusura leggeva di una rete che non
+c'era piu'. Ogni riga porta il suo padre.
+
+GUARDIA RIMOSSA: il_sacchetto_dell_alba_test - ordine DU, commit 72723db7: le prove nate col sacchetto misurano l'estrazione libera e la scena nuova.
+
+GUARDIA RIMOSSA: l_arcano_del_giorno_test - ordine DT stesso, commit 47b3c2be: sostituita dalle prove dell'Arcano nell'app.
+
+GUARDIA RIMOSSA: il_disco_dell_oracolo_dice_cosa_e_test - ordine DT, commit 47b3c2be: il disco dell'Oracolo e' uscito coi cinque doni.
+
+GUARDIA RIMOSSA: il_permesso_appena_dato_accende_tutte_e_cinque_test - ordine DT, commit 47b3c2be: i doni sono quattro: non ci sono piu' cinque cose da accendere.
+
+GUARDIA RIMOSSA: il_mantra_di_oggi_ha_il_suo_riquadro_test - ordine DT, commit 47b3c2be: il mantra e' uscito con la forma vecchia dei doni.
+
+GUARDIA RIMOSSA: la_parola_dice_a_cosa_serve_test - ordine DT, commit 47b3c2be: stessa riforma dei doni.
+
+GUARDIA RIMOSSA: l_alba_dice_dove_sei_test - ordine DT, commit 47b3c2be: l'Alba e' stata riscritta nell'app e la sua posizione la misurano le prove nuove.
+
+GUARDIA RIMOSSA: i_testi_del_dono_non_stanno_sulla_carta_test - ordine DT, commit 47b3c2be: da cinque doni a quattro.
+

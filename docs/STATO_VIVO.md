@@ -4281,6 +4281,36 @@ vecchia che nessun conto automatico rilegge, **cinquantasette voci**; e fra i
 manifesti nuovi **dodici voci chiuse non portano una prova apribile**, elencate
 nel rapporto in ordine di gravita'.
 
+**IL CANCELLO, PERCHE' UNA GUARDIA DA SOLA NON BASTA.** `tool/sbarramento.sh`
+ha un **QUARTO CANCELLO** che gira quella guardia **sempre**, anche quando si
+passa un corredo ristretto in coda al comando: chi ha fretta e' chi ne ha piu'
+bisogno. **E non passa dai rossi accettati**, unico cancello del file: una riga
+fra gli accettati vorrebbe dire *"si puo' dichiarare chiusa una voce senza
+prova"*, che e' la cosa vietata. Se la guardia stessa sparisse, il cancello
+ferma la build lo stesso.
+
+**DICIASSETTE GUARDIE NOMINATE COME VIVE, E CANCELLATE DA ANNI.** La guardia
+nuova, girata su **105 manifesti** con **404 guardie nominate**, ne ha trovate
+diciassette che non esistono piu', in sei manifesti: AO 2, AS 3, AT 2, AU 1,
+DT 8, S 1. Chi apriva quei documenti per controllare una chiusura leggeva di
+una rete che non c'era. **Toglierle era lecito**, un ordine dopo puo' demolire
+cio' che un ordine prima sorvegliava; **il reato era lasciarle scritte come
+vive**. Ognuna porta adesso il suo padre, con ordine e commit, nella forma che
+la guardia sa leggere: `GUARDIA RIMOSSA: <nome> - <ordine e commit>:
+<ragione>`. I padri sono gli ordini AR.10 `3ba909f9`, AT.03/04 `f268cd69`,
+AV.01 `994311be`, BF.05.g `b0bccfaf`, DT `47b3c2be`, DU `72723db7`.
+
+**E LA SOGLIA SCELTA A OCCHIO HA QUASI LASCIATO PASSARE IL DIFETTO VERO.** La
+guardia dei Doni chiedeva cinque testi distinti su sette; rimesso il difetto a
+mano, il Sogno ne rendeva **esattamente cinque** e restava verde. Adesso la
+soglia e' quella del fondatore, *"non deve essere uguale a ieri"*, cioe'
+**sette su sette**.
+
+**TRE GUARDIE DI CASA ROSSE SUL TESTO NUOVO**, tutte con padre ordine EH voce
+01: sei stringhe con la virgola prima della *"e"* e due che davano del maschile
+a chi legge (*"sei stato il punto fermo"*, *"non ti sei accontentato"*).
+Riscritte tutte e dieci.
+
 **CINQUE GUARDIE NUOVE**, registro da 485 a **490**. Due nate rosse rimettendo
 a mano il difetto di un ordine precedente.
 

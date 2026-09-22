@@ -129,6 +129,86 @@ void main() {
     return voci;
   }
 
+  /// **E QUESTA VALE SU TUTTI I MANIFESTI, ANCHE I PIU' VECCHI.**
+  ///
+  /// La regola delle tre righe vale dall'ordine EH in avanti, perche'
+  /// riscrivere a mano **mille e una** voci gia' dichiarate chiuse non
+  /// sarebbe una garanzia: sarebbe una bugia piu' grande, l'affermazione di
+  /// aver riverificato mille cose.
+  ///
+  /// **Ma una cosa sul passato si puo' pretendere a macchina, ed e' quella
+  /// che conta**: che la rete a cui una chiusura si appoggia **esista
+  /// ancora**. Un manifesto che nomina `la_barra_si_ritira_da_sola_test` e'
+  /// una voce chiusa che si appoggia a una guardia; se quel file non c'e'
+  /// piu', quella chiusura poggia sul vuoto **e nessuno se n'era accorto**.
+  ///
+  /// Misurato il 24 settembre 2026, prima della cura: **diciotto guardie
+  /// nominate nei manifesti non esistevano piu'**, sparse su otto ordini.
+  ///
+  /// **Una guardia che sparisce non e' un reato: rinominarla e' lecito.** Il
+  /// reato e' che il manifesto continui a nominarla, perche' da quel momento
+  /// il documento dice una cosa falsa a chiunque lo legga per controllare.
+  test('nessun manifesto nomina una guardia che non esiste piu', () {
+    final colpe = <String>[];
+    var manifestiGuardati = 0;
+    var guardieGuardate = 0;
+
+    for (final f in manifesti) {
+      final testo = f.readAsStringSync();
+      if (!testo.contains('CHIUSA')) continue;
+      manifestiGuardati++;
+      // **LA REGOLA DI LETTURA E' STATA SBAGLIATA DUE VOLTE, e sta scritto
+      // qui perche' non si ripeta.**
+      //
+      // La prima stesura leggeva `[a-z0-9_]+_test`: si fermava sulla prima
+      // maiuscola, quindi da `il_disco_dellOracolo_dice_cosa_e_test.dart`
+      // ricavava `racolo_dice_cosa_e_test` e lo dichiarava sparito. **Era la
+      // misura a essere rotta, non il manifesto.**
+      //
+      // E prendeva per nome anche i **modelli**, come
+      // `test/ordine_<sigla>_guard_test.dart`, che non e' il nome di un file:
+      // e' la forma che un nome deve avere. Da li' usciva `_guard_test`.
+      //
+      // Adesso si accettano le maiuscole e si scartano le righe che portano
+      // un segnaposto fra parentesi angolari.
+      final nominate = RegExp(r'([A-Za-z0-9_]+_test)[.]dart')
+          .allMatches(testo)
+          .map((m) => m.group(1)!)
+          .where((g) => !g.contains('<') && !g.startsWith('_'))
+          .toSet();
+      // **UNA GUARDIA PUO' MORIRE, MA VA DICHIARATA.** Rinominarla o toglierla
+      // e' lecito: un ordine dopo puo' demolire cio' che un ordine prima
+      // sorvegliava, ed e' successo diciassette volte. **Il reato e' che il
+      // manifesto continui a nominarla come viva**, perche' da quel momento
+      // dice una cosa falsa a chi lo apre per controllare, e chi controlla e'
+      // il fondatore.
+      //
+      // La forma della dichiarazione e' una riga sola:
+      // `GUARDIA RIMOSSA: <nome> - <ordine e commit> <ragione>`
+      final dichiarateMorte =
+          RegExp(r'^GUARDIA RIMOSSA:\s*([A-Za-z0-9_]+)', multiLine: true)
+              .allMatches(testo)
+              .map((m) => m.group(1)!)
+              .toSet();
+      for (final g in nominate) {
+        guardieGuardate++;
+        if (File('test/$g.dart').existsSync()) continue;
+        if (dichiarateMorte.contains(g)) continue;
+        colpe.add('${siglaDi(f)}: nomina $g.dart, che non esiste piu, e non '
+            'dichiara dove sia finita la misura');
+      }
+    }
+
+    print('ORDINE EH VOCE 03: manifesti con chiusure $manifestiGuardati, '
+        'guardie nominate $guardieGuardate');
+    // **Il cardinale**: un giorno in cui nessun manifesto nominasse piu'
+    // nessuna guardia, questa prova sarebbe verde avendo guardato il vuoto.
+    expect(guardieGuardate, greaterThanOrEqualTo(50),
+        reason: 'i manifesti nominano solo $guardieGuardate guardie: o si '
+            'sono spostati, o la forma dei nomi e cambiata');
+    expect(colpe, isEmpty, reason: colpe.join(String.fromCharCode(10)));
+  });
+
   test('ogni voce CHIUSA porta DOMANDA, PROVA e MISURA, e la prova esiste', () {
     final colpe = <String>[];
     var vociGuardate = 0;

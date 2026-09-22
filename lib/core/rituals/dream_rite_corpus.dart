@@ -138,7 +138,7 @@ class DreamRiteCorpus {
       ],
       altriRiconoscimenti: [
         'hai fatto durare quello che tocchi',
-        'sei stato il punto fermo di qualcuno',
+        'hai fatto da punto fermo a qualcuno',
       ],
       posa: 'posa il carico, la notte non chiede solidità, chiede riposo',
     ),
@@ -149,7 +149,7 @@ class DreamRiteCorpus {
       riconoscimento: 'hai tenuto vivi i fili con gli altri',
       altriGiorni: [
         'hai tenuto insieme due cose che non stavano insieme',
-        'hai cambiato idea, e non è stato un tradimento',
+        'hai cambiato idea senza che fosse un tradimento',
       ],
       altriRiconoscimenti: [
         'hai fatto arrivare una parola dove serviva',
@@ -199,7 +199,7 @@ class DreamRiteCorpus {
       ],
       altriRiconoscimenti: [
         'hai tolto un peso a qualcuno senza dirlo',
-        'hai fatto funzionare una cosa, e basta',
+        'hai fatto funzionare una cosa e basta',
       ],
       posa:
           'lascia il resto per domani, la notte non chiede precisione, chiede riposo',
@@ -229,7 +229,7 @@ class DreamRiteCorpus {
         'hai tenuto un silenzio che pesava',
       ],
       altriRiconoscimenti: [
-        'non ti sei accontentato di una spiegazione comoda',
+        'non ti è bastata una spiegazione comoda',
         'hai retto un\'intensità che altri avrebbero schivato',
       ],
       posa:
@@ -273,7 +273,7 @@ class DreamRiteCorpus {
       riconoscimento: 'hai tenuto uno sguardo libero',
       altriGiorni: [
         'hai visto la cosa da un lato che non guardava nessuno',
-        'hai tenuto la tua distanza, e ti serviva',
+        'hai tenuto la tua distanza perché ti serviva',
       ],
       altriRiconoscimenti: [
         'hai difeso una idea che non conveniva',
@@ -405,20 +405,20 @@ class DreamRiteCorpus {
   static const Map<Maestro, List<String>> _attacchi = {
     Maestro.medora: [
       'Il cielo ha girato una carta sola, oggi.',
-      'Il giorno si chiude, e il cielo lo sa prima di te.',
-      'Una carta si posa, e la notte la lascia riposare.',
+      'Il giorno si chiude e il cielo lo sa prima di te.',
+      'Una carta si posa e la notte la lascia riposare.',
       'Il cielo ha finito di parlare, per oggi.',
     ],
     Maestro.aura: [
       'Il corpo ha portato il giorno fin qui.',
       'Il respiro ha tenuto il tempo, dal mattino a adesso.',
-      'Il giorno si è fermato nelle spalle, e adesso può andare.',
+      'Il giorno si è fermato nelle spalle e adesso può andare.',
       'Il corpo chiede quello che chiede ogni sera.',
     ],
     Maestro.caligo: [
       'Il giorno ha lasciato la sua ombra lunga.',
-      'Le ore si sono fatte segno, e il segno resta.',
-      'Il giorno si ritira, e lascia scritto qualcosa.',
+      'Le ore si sono fatte segno e il segno resta.',
+      'Il giorno si ritira e lascia scritto qualcosa.',
       'Quello che è passato oggi ha inciso la sua riga.',
     ],
   };
@@ -504,7 +504,8 @@ class DreamRiteCorpus {
     // decide, mescolato con la nascita perche' due persone diverse nella stessa
     // notte non sentano la stessa frase.
     final giornoDelRito = DateTime.utc(quando.year, quando.month, quando.day)
-        .difference(DateTime.utc(2000)).inDays;
+        .difference(DateTime.utc(2000))
+        .inDays;
     final semeDellaNotte =
         giornoDelRito + (nascita == null ? 0 : nascita.day * 7);
 

@@ -1672,3 +1672,17 @@ VOCI_TOTALI: 29
 VOCI_CHIUSE: 28
 VOCI_FERMATE_SU_PREMESSA_FALSA: 1
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+
+
+---
+
+## LE GUARDIE DI QUEST'ORDINE CHE NON ESISTONO PIU'
+
+**Aggiunto dall'ordine EH voce 03, 24 settembre 2026.** Questo manifesto
+nominava guardie che nel frattempo un ordine successivo ha tolto. Toglierle
+era lecito; **lasciarle scritte come vive non lo era**, perche' chi apriva
+questo documento per controllare una chiusura leggeva di una rete che non
+c'era piu'. Ogni riga porta il suo padre.
+
+GUARDIA RIMOSSA: il_disco_dellOracolo_dice_cosa_e_test - ordine BF voce 05.g, commit b0bccfaf: rinominata nella cura che ha portato analyze a zero, e poi uscita con i cinque doni nell'ordine DT.
+

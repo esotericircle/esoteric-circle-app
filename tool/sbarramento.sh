@@ -208,6 +208,71 @@ else
   echo "!! test/$CORREDO. Questa build non ha guardato il testo grande."
 fi
 
+# **IL QUARTO CANCELLO: LE CHIUSURE DICHIARATE. Ordine EH voce 03.**
+#
+# **Il fatto che lo motiva, con le parole di chi lo ha subito.** Il 24
+# settembre 2026 il fondatore ha scritto: *"Passo meta' del mio tempo a
+# verificare che l'ordine dichiarato chiuso sia stato effettivamente concluso,
+# verificato e chiuso"*, e *"SE UN ORDINE E' DICHIARATO CONCLUSO E CHIUSO IO
+# VOLGIO LA GARANZIA CHE SIA LA VERITA'"*. Aveva ragione: la voce EE.04 era
+# scritta CHIUSA con una misura vera che rispondeva a **un'altra domanda**, e
+# nessun cancello poteva accorgersene.
+#
+# **Perche' e' un cancello suo e non una prova come le altre.** La guardia
+# `ogni_voce_chiusa_porta_la_sua_prova` gira gia' dentro la suite intera, ma
+# solo quando la suite intera gira: chi passa un corredo ristretto in "$@" non
+# la tocca, e proprio chi ha fretta e' chi ha piu' bisogno di questo controllo.
+# Qui si esegue **sempre**, qualunque cosa ci sia in "$@".
+#
+# **E non passa dai rossi accettati.** Ogni altro rosso di questo file puo'
+# essere messo a tacere scrivendolo in `tool/rossi_accettati.txt` con una
+# ragione. Questo no: una riga fra gli accettati vorrebbe dire *"si puo'
+# dichiarare chiusa una voce senza prova"*, che e' esattamente la cosa che il
+# fondatore ha vietato. Il cancello si chiude e basta.
+CHIUSURE="ogni_voce_chiusa_porta_la_sua_prova_test.dart"
+if [ -f "$QUI/../test/$CHIUSURE" ]; then
+  echo ""
+  echo "== LE CHIUSURE DICHIARATE PORTANO LA LORO PROVA =="
+  # **`if ! cmd | tee` LEGGE L'USCITA DI `tee`, CHE E' SEMPRE ZERO.** Scritto
+  # cosi' la prima volta, questo cancello non si e' chiuso su un difetto
+  # innestato a mano: si e' fermato lo sbarramento, ma per un altro motivo, e
+  # il cancello nuovo non ha stampato una riga. **L'ha trovato la prova del
+  # rosso, che e' esattamente cio' per cui la Regola A esiste.**
+  flutter test -r expanded "test/$CHIUSURE" 2>&1 | tee -a "$REGISTRO"
+  if [ "${PIPESTATUS[0]}" -ne 0 ]; then
+    echo ""
+    echo "======================================================================"
+    echo "  UN MANIFESTO DICHIARA CHIUSA UNA VOCE CHE NON PORTA LA SUA PROVA,"
+    echo "  OPPURE NOMINA UNA GUARDIA CHE NON ESISTE PIU'."
+    echo "======================================================================"
+    echo "  Questo cancello non ha deroghe e non si mette a tacere con una"
+    echo "  riga fra i rossi accettati: una deroga qui vorrebbe dire che si"
+    echo "  puo' dichiarare chiusa una voce senza prova, ed e' la cosa che"
+    echo "  l'ordine EH ha vietato."
+    echo ""
+    echo "  Si ripara in uno dei tre modi, tutti onesti:"
+    echo "  - si scrivono le righe DOMANDA, PROVA e MISURA sotto la voce;"
+    echo "  - si riporta la voce ad APERTA IN ATTESA DI VERIFICA;"
+    echo "  - se la guardia e' stata tolta da un ordine dopo, si dichiara"
+    echo "    nel manifesto: GUARDIA RIMOSSA: <nome> - <ordine e commit>."
+    echo "  L'ARCHIVIO NON SI PRODUCE."
+    echo "======================================================================"
+    rm -f "$REGISTRO"
+    exit 1
+  fi
+else
+  echo ""
+  echo "======================================================================"
+  echo "  LA GUARDIA DELLE CHIUSURE NON ESISTE PIU': test/$CHIUSURE"
+  echo "======================================================================"
+  echo "  Era la garanzia che un ordine dichiarato chiuso lo fosse davvero."
+  echo "  Se e' sparita, questa build non ha nessuna garanzia da offrire."
+  echo "  L'ARCHIVIO NON SI PRODUCE."
+  echo "======================================================================"
+  rm -f "$REGISTRO"
+  exit 1
+fi
+
 # **LE CADUTE E GLI ACCETTATI SI LEGGONO PRIMA DEL BIVIO. Ordine CH voce 04.**
 #
 # Fino al 31 agosto 2026 questo confronto viveva soltanto nel ramo rosso, e

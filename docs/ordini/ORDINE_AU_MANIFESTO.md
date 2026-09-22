@@ -455,3 +455,17 @@ ordini hanno ancora voci aperte; il disegno di albero e loto che tocca il bordo
 della tela; l'attribuzione cieca dei doni; e il peso dell'alone di un traguardo
 acceso, che varia di 5,1 volte fra i tre sentieri. **Nessuna di loro e' stata
 toccata da quest'ordine, e nessuna e' stata allentata per farla tacere.**
+
+
+---
+
+## LE GUARDIE DI QUEST'ORDINE CHE NON ESISTONO PIU'
+
+**Aggiunto dall'ordine EH voce 03, 24 settembre 2026.** Questo manifesto
+nominava guardie che nel frattempo un ordine successivo ha tolto. Toglierle
+era lecito; **lasciarle scritte come vive non lo era**, perche' chi apriva
+questo documento per controllare una chiusura leggeva di una rete che non
+c'era piu'. Ogni riga porta il suo padre.
+
+GUARDIA RIMOSSA: i_testi_del_dono_non_stanno_sulla_carta_test - ordine DT, commit 47b3c2be: da cinque doni a quattro, e la carta del dono e' cambiata sotto la guardia.
+

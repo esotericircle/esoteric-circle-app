@@ -311,3 +311,19 @@ VOCI_APERTE: 0
 VOCI_CHIUSE: 8
 VOCI_FERMATE_SU_PREMESSA_FALSA: 0
 VOCI_FERMATE_IN_ATTESA_DI_DECISIONE: 0
+
+
+---
+
+## LE GUARDIE DI QUEST'ORDINE CHE NON ESISTONO PIU'
+
+**Aggiunto dall'ordine EH voce 03, 24 settembre 2026.** Questo manifesto
+nominava guardie che nel frattempo un ordine successivo ha tolto. Toglierle
+era lecito; **lasciarle scritte come vive non lo era**, perche' chi apriva
+questo documento per controllare una chiusura leggeva di una rete che non
+c'era piu'. Ogni riga porta il suo padre.
+
+GUARDIA RIMOSSA: la_barra_si_ritira_da_sola_test - ordine AR voce 10, commit 3ba909f9: la barra e' passata a un solo stato e i tre bersagli navigano al primo tocco: non c'e' piu' nessun ritirarsi da sorvegliare.
+
+GUARDIA RIMOSSA: ogni_maestro_ha_la_sua_festa_test - ordine AT voci 03 e 04, commit f268cd69: le particelle sono state demolite e al loro posto e' nato il lettore di transizione.
+
