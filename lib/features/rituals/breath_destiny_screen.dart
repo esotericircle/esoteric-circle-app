@@ -27,6 +27,7 @@ import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import 'forma_del_dono.dart';
 import '../../services/ai/registro_dei_guasti.dart';
+import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import 'soffione_inciso.dart';
 import '../sigilli/regia_del_cammino.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -640,7 +641,33 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
     _complete();
   }
 
+  /// Vero da quando il soffio e' stato riconosciuto a quando il dono si
+  /// rivela.
+  ///
+  /// **SENZA QUESTO LA SCHERMATA RESTAVA BLOCCATA PER SEMPRE, e il difetto si
+  /// vede solo sul telefono.** Ordine EF, 23 settembre 2026.
+  ///
+  /// Il riconoscimento del soffio, `FormaDelSoffio.eSoffio`, e' un **fermo**:
+  /// una volta acceso resta acceso. Il flusso del microfono continua ad
+  /// arrivare a pacchetti, e ogni pacchetto rientrava qui e faceva ripartire
+  /// l'animazione **da zero**. Riavviare un `AnimationController` **annulla**
+  /// il `TickerFuture` di prima, e un futuro annullato non chiama il suo
+  /// `then`: quindi `_reveal()` non scattava mai. Il soffione spariva, il
+  /// dono restava a meta' e l'invito *"Soffia, oppure spazza col dito"*
+  /// rimaneva a video all'infinito.
+  ///
+  /// **Perche' nessuno l'aveva mai visto.** Il ramo di `_reduceMotion`
+  /// portava il soffio a uno e chiamava `_reveal()` **nello stesso
+  /// fotogramma**, senza animazione da annullare: sul telefono del fondatore,
+  /// che ha la scala degli animatori a zero, la strada rotta non si
+  /// percorreva. Tolto quel ramo nello stesso ordine, il blocco e' venuto a
+  /// galla alla prima prova a video. **PROVENIENZA IGNOTA**: il rientro non
+  /// e' mai stato guardato da nessun ordine.
+  bool _soffioInCorso = false;
+
   void _complete() {
+    if (_soffioInCorso) return;
+    _soffioInCorso = true;
     // **IL VOLO DEI SEMI NON SI SPEGNE PIU'. Ordine EF, 23 settembre 2026.**
     //
     // Qui `_reduceMotion` saltava l'animazione e portava il soffio a uno in
@@ -977,8 +1004,25 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
             tooltip: 'Indietro',
             onPressed: () => Navigator.of(context).maybePop(),
           ),
-          title: Text('Soffio del Destino',
-              style: TypographyTokens.titoloDiSchermata()),
+          // **IL TITOLO NON SI TRONCA PIU'.** Ordine EF, 23 settembre 2026.
+          //
+          // **Il fatto del fondatore, verbatim**: *"Ti faccio anche notare il
+          // titolo in alto troncato con dei puntini 'Soffio del destin...'"*.
+          //
+          // **La cura esisteva gia' e questa schermata non la usava.**
+          // `TitoloCheNonSiRompe` nasce dall'ordine S voce 05 proprio per
+          // questo, e lo usano ventidue schermate: va a capo fra le parole,
+          // e se la parola piu' lunga non entra rimpicciolisce la misura fino
+          // al pavimento invece di tagliare. Qui c'era un `Text` nudo, che in
+          // una barra con tre azioni a destra non ha altra scelta che i
+          // puntini.
+          //
+          // **Il difetto e' piu' largo di questa schermata**, e sta fuori dal
+          // perimetro dell'ordine: nel rapporto c'e' il conto di quante altre
+          // barre hanno ancora il titolo nudo.
+          title: TitoloCheNonSiRompe(
+              testo: 'Soffio del Destino',
+              stile: TypographyTokens.titoloDiSchermata()),
           // **LA FONTE ARRIVA A CHI LEGGE.** Ordine CS, voce S2 della
           // scansione: il Soffio nasce dai transiti veri di oggi sul cielo
           // di nascita, la stessa porta dell'Oroscopo, e a video non lo

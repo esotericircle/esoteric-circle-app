@@ -1,14 +1,16 @@
 # ORDINE EF, IL SOFFIO DEL DESTINO RIFATTO E GUARDATO PRIMA DI CONSEGNARLO
 
-```
-ORDINE: EF
-DATA: 23 settembre 2026
-RAMO: claude/esoteric-circle-master-order-e798aj
-PARTENZA: b7f84d7b
-VOCI: 5
-VOCI_CHIUSE: 0
-VOCI_APERTE: 5
-```
+**Sigla:** EF, riverificata sul ramo il 23 settembre 2026: in `docs/ordini`
+non c'e' nessun `ORDINE_EF_*` e in `test/` nessuna `ordine_ef_guard`.
+**Data:** 23 settembre 2026. **Ramo:**
+`claude/esoteric-circle-master-order-e798aj`. Parte dal commit `b7f84d7b`,
+l'ordine EE chiuso e la build 2276 consegnata.
+
+VOCI_TOTALI: 5
+VOCI_CHIUSE: 5
+VOCI_APERTE: 0
+
+Il rapporto stara' in `docs/ordini/RAPPORTO_ORDINE_EF.md`.
 
 **Il fatto del fondatore, verbatim**: *"il soffione fa cagare, addirittura
 peggio di prima. Giudica tu da screenshot, ASSURDO! MA A CHE CAZZO SERVONO LE
@@ -108,7 +110,82 @@ scoperta e prendere almeno il settanta per cento della larghezza occupa
 verticalmente cio' che alla bolla non resta. **Cio' che e' cambiato davvero
 non e' la dimensione della bolla: e' che la figura adesso si vede.**
 
-**APERTA**, in attesa delle catture della voce 05.
+### E LA BOLLA, TERZA PASSATA: IL COLPEVOLE ERA UN ALTRO
+
+Le prime due passate hanno tolto il riquadro da sopra la figura e separato le
+due fasi, e la bolla ha guadagnato **mezzo punto percentuale**. Il fondatore
+l'ha visto subito: *"l'AREA DEDICATA ALLA DESCRIZIONE IN BASSO E' TROPPO
+PICCOLA, TI HO FATTO ALZARE TUTTO"*.
+
+**Il colpevole era il pavimento fisso dei sei noni**, ereditato dall'ordine
+2164 voce 8, che teneva la zona del respiro a 529 punti quando ne chiedeva
+479. Nasceva quando la zona era decisa da un rapporto e non c'era nessuna
+misura da credere; adesso il riquadro si appoggia a un fondo dichiarato e la
+misura e' deterministica, quindi il pavimento vale **solo al primo
+fotogramma**.
+
+**E per alzare ancora ho dovuto rimpicciolire la figura**, perche' era gia'
+attaccata al bordo di sopra: la quota dell'ordine DD voce 03 scende da
+settanta a **cinquantasei** per decisione del fondatore, e la guardia porta la
+lapide che lo dice. Quella pretesa nasceva da un cerchio che ne prendeva
+trentasei.
+
+**Misurato sul Realme, sulla schermata vera:**
+
+| | build 2276 | dopo |
+|---|---|---|
+| dove comincia la bolla | y 1697 su 2400 | **y 1200** |
+| righe di testo visibili | tre | **sei** |
+| tetto del riquadro, al banco | 542 | **248** |
+| punti che restano alla bolla | 276 | **415** |
+
+**CHIUSA.**
+
+## IL DIFETTO PIU' GRANDE DELL'ORDINE NON ERA IN NESSUNA VOCE
+
+**Il fatto del fondatore, verbatim**: *"L'animazione del soffione ha sempre
+funzionato, quindi non dire cazzate e sistemalo"*, e poi *"il soffio sonoro ha
+funzionato, ma l'immagine e' cambiata di botto e non c'e' stata animazione con
+i petali che si sono staccati e allontanati dal centro del soffione"*.
+
+**Aveva ragione lui.** Le animazioni giravano: **duravano venti volte meno**.
+Quando la piattaforma dichiara `disableAnimations`, Flutter non spegne un
+`AnimationController`, **ne moltiplica la durata per 0,05**, ed e' il
+comportamento di partenza. Su Android quel flag viene dalla scala di durata
+degli animatori, **un numero che moltissimi mettono a zero per far sembrare il
+telefono piu' rapido**: sul Realme del fondatore le tre scale sono a zero,
+lette con `adb shell settings get global`, e **non si toccano**.
+
+| animazione | durata dichiarata | durata vera sul telefono |
+|---|---|---|
+| volo dei semi | 900 ms | **45 ms** |
+| respiro guidato | 28 s | **1,4 s** |
+
+La schermata diceva *"Il respiro e' compiuto"* dopo otto secondi. **Cura**:
+`AnimationBehavior.preserve` sui tre motori del rito, che e' il modo
+documentato di dire che quell'animazione e' il contenuto e non un
+abbellimento. Guardia `le_animazioni_del_rito_non_si_accorciano`, nata rossa
+togliendolo.
+
+**E c'erano due interruttori NOSTRI oltre a quello di Flutter**: `_complete()`
+saltava del tutto il volo dei semi sotto Riduci Movimento, e il respiro
+restava bloccato alla misura ferma. Tolti tutti e due: resta legata a quel
+flag la sola decorazione, il luccichio d'ambiente e il vento che devia i semi.
+
+**HO SBAGLIATO DIAGNOSI DUE VOLTE PRIMA DI ARRIVARCI, e va scritto.** Ho
+detto al fondatore che era il telefono ad avere le animazioni spente: falso.
+Poi che era il nostro codice a spegnerle: vero solo a meta'. La causa vera
+l'ha trovata **una cattura del telefono che diceva "compiuto" troppo presto**,
+non una lettura del codice.
+
+**Verificato dopo la cura, sul telefono:**
+
+| | prima | dopo |
+|---|---|---|
+| il respiro e' ancora in corso a 25 secondi | no | **si'** |
+| escursione della figura fra i fotogrammi | 0 px | **142 px** |
+
+---
 
 ## VOCE EF.02, OTTO RESPIRI
 
@@ -165,26 +242,81 @@ nelle prove, ed e' per questo che la guardia della voce 01 puo' esistere.
 Misurato: prima del soffio il soffione inciso prende **57,7 per cento** della
 larghezza.
 
-**APERTA**, in attesa delle catture della voce 05.
+**Verificata a video sul Realme**, cattura `docs/collaudo/EF/1_prima_del_soffio.png`:
+soffione d'oro inciso, intero, senza alone ne' gambo spezzato, con l'invito
+sotto. Prima del soffio prende il **46,5 per cento** della larghezza.
+
+**CHIUSA.**
 
 ## VOCE EF.04, IL SOFFIO AL MICROFONO FUNZIONA
 
-Soffiare nel microfono fa volare i semi. La causa dichiarata col file e la
-riga. Il gesto col dito resta come alternativa, che
-`CLAUDE.md` rende obbligatoria. Nel rapporto: cosa e' verificato qui e cosa
-resta alla prova del fondatore, perche' un soffio vero lo puo' dare solo una
-persona.
+**LA CATENA FUNZIONA, MISURATA SUL TELEFONO DEL FONDATORE.** Il permesso
+risulta **concesso** (`dumpsys package`), il flusso rende campioni senza
+interruzioni, e con un rumore a banda larga vero, che spettralmente e' cio'
+che e' un soffio, la catena scatta: **energia 0,0628 contro una soglia di
+0,0025, planarita' 0,369 contro 0,15**, e il dono si e' aperto.
 
-**APERTA.**
+**Il difetto che teneva il rito fermo non era il riconoscimento, era dopo.**
+Vedi la voce 05: `_complete()` non aveva nessuna guardia di rientro, e il
+riconoscimento del soffio e' un fermo. Ogni pacchetto audio faceva ripartire
+il volo da zero, annullando il futuro precedente: **il dono non si rivelava
+mai**. A video sembrava che il microfono non funzionasse.
+
+**Cosa resta alla prova del fondatore**: un soffio vero, che solo una persona
+puo' dare. Se non scattasse, adesso il registro dice **quale dei due filtri**
+lo ferma, perche' la riga stampa energia e planarita' accanto alle loro
+soglie. E il `catch` muto che nascondeva i guasti del microfono non c'e' piu'.
+
+**CHIUSA per cio' che si poteva verificare qui, e dichiarata per il resto.**
 
 ## VOCE EF.05, OGNI STATO SI GUARDA PRIMA DI CONSEGNARE
 
-Col lavoro installato sul Realme, una cattura per ogni stato: prima di
-cominciare, "Inspira", "Espira", il momento del soffio, il volo dei semi, il
-responso. Ogni cattura confrontata coi criteri, uno per uno, con l'esito nel
-rapporto. Le catture finali in `docs/collaudo/EF/`.
+**E GUARDARE HA TROVATO DUE DIFETTI CHE NESSUN ORDINE NOMINAVA, ed e' la
+risposta alla domanda del fondatore.**
 
-**APERTA.**
+**Il primo, in una cattura del banco**: l'invito *"Soffia, oppure spazza col
+dito"* stava appoggiato in mezzo alla testa del soffione. Stessa malattia del
+riquadro, fase diversa. Guardia nuova, nata rossa: rimettendolo dov'era copre
+fino a **81,6 punti** su ventiquattro geometrie.
+
+**Il secondo, solo sul telefono, ed e' il piu' grave dell'ordine: la
+schermata restava bloccata per sempre.** Dopo il soffio il soffione spariva,
+il dono restava a meta' e l'invito non se ne andava piu'. Il registro lo
+conferma: il microfono macinava campioni all'infinito, segno che la
+rivelazione non era mai scattata. **Causa**: `_complete()` senza guardia di
+rientro, e `FormaDelSoffio.eSoffio` e' un fermo che resta acceso, quindi ogni
+pacchetto audio faceva ripartire l'animazione da zero; riavviare un
+`AnimationController` **annulla** il suo `TickerFuture`, e un futuro annullato
+non chiama il `then`. **PROVENIENZA IGNOTA**: il rientro non e' mai stato
+guardato da nessun ordine. Era nascosto dal ramo di Riduci Movimento, che
+rivelava il dono nello stesso fotogramma; tolto quel ramo in quest'ordine, il
+blocco e' venuto a galla alla prima prova a video.
+
+**LE CATTURE, in `docs/collaudo/EF/`**, fatte sul Realme 767f596c:
+
+| cattura | cosa mostra | esito dei criteri |
+|---|---|---|
+| `1_prima_del_soffio` | soffione inciso intero, invito sotto | tutti passati |
+| `3_prima_di_respirare` | dono intero, riquadro sotto, bolla a sei righe | tutti passati |
+| `4_inspira` | primo giro del respiro | tutti passati |
+| `5_secondo_giro` | secondo giro | tutti passati |
+| `6_respiro_compiuto` | il rito chiuso | tutti passati |
+| `7_il_responso` | la scheda del dono | tutti passati |
+
+**Cosa NON e' stato catturato, e si dichiara**: il volo dei semi. Dura
+novecento millisecondi e `screencap` ne impiega circa settecento fra uno
+scatto e l'altro: fra due catture il volo si chiude. Che duri davvero e' stato
+misurato per altra via, sul respiro, che dura ventotto secondi ed e'
+campionabile.
+
+**E IL RESPIRO, MISURATO SUL TELEFONO, PRIMA E DOPO:**
+
+| | prima | dopo |
+|---|---|---|
+| il respiro e' ancora in corso a 25 secondi | no, finito entro 8 | **si'** |
+| escursione della figura fra i fotogrammi | **0 px** | **142 px**, 13,1 punti percentuali |
+
+**CHIUSA.**
 
 ---
 
