@@ -52,29 +52,59 @@ class CernieraSogno {
 
 /// La memoria settimanale della Runa del Tramonto, su `shared_preferences`.
 ///
-/// Finestra mobile su SETTE GIORNI RITUALI, non su sette aperture: i giorni
-/// saltati non consumano slot, la finestra e' per data. Best-effort come gli
-/// altri store: se le preferenze non ci sono, non lancia, ritorna il vuoto.
+/// **SETTE SERE DI FILA**, ordine EE voce 03: la settimana e' una serie, e
+/// una sera saltata la spezza. Fino al 23 settembre 2026 era una finestra
+/// mobile per data in cui i giorni saltati non consumavano posto, e la
+/// schermata non lo diceva da nessuna parte. Best-effort come gli altri
+/// store: se le preferenze non ci sono, non lancia, ritorna il vuoto.
 class SunsetRuneMemory {
   const SunsetRuneMemory._();
 
   static const String _chiaveSettimana = "sunset_rune.settimana";
   static const int _giorniFinestra = 7;
 
-  /// Le sere della settimana corrente, quelle entro i sette giorni rituali fino
-  /// a [giornoRituale] compreso, in ordine dalla piu' vecchia alla piu' recente.
+  /// **LE SERE DI FILA CHE ARRIVANO FINO A [giornoRituale].** Ordine EE voce
+  /// 03, 23 settembre 2026.
+  ///
+  /// **Come funzionava prima, e perche' nessuno lo capiva.** Era una
+  /// finestra mobile su sette giorni di calendario: i giorni saltati **non
+  /// consumavano posto**, quindi chi faceva la runa il primo, il terzo e il
+  /// quinto giorno si trovava "terza sera su sette" senza aver saltato
+  /// niente di visibile. Non si azzerava saltando una sera, ma non
+  /// pretendeva nemmeno che fossero di fila: era una terza cosa, che la
+  /// schermata non diceva e che il fondatore ha chiesto di chiarire.
+  ///
+  /// **Adesso e' una serie**: si risale indietro un giorno per volta finche'
+  /// le sere si toccano, e alla prima mancante ci si ferma. Una sera saltata
+  /// interrompe la serie, e la striscia riparte dalla prima.
+  ///
+  /// La finestra resta a sette perche' e' la lunghezza della serie che porta
+  /// al riassunto: oltre la settima non si guarda.
   static Future<List<SeraSalvata>> settimanaCorrente(
       DateTime giornoRituale) async {
-    final tutte = await _leggi();
-    final inizio =
-        giornoRituale.subtract(const Duration(days: _giorniFinestra - 1));
-    final dentro = tutte
-        .where(
-            (s) => !s.data.isBefore(inizio) && !s.data.isAfter(giornoRituale))
-        .toList()
+    final tutte = await _leggi()
       ..sort((a, b) => a.data.compareTo(b.data));
-    return dentro;
+    final serie = <SeraSalvata>[];
+    var atteso = giornoRituale;
+    for (var i = tutte.length - 1; i >= 0; i--) {
+      final sera = tutte[i];
+      if (sera.data.isAfter(giornoRituale)) continue;
+      if (_stessoGiorno(sera.data, atteso)) {
+        serie.insert(0, sera);
+        if (serie.length >= _giorniFinestra) break;
+        atteso = atteso.subtract(const Duration(days: 1));
+        continue;
+      }
+      // La sera piu' recente rimasta non e' quella che serviva: la serie
+      // finisce qui, e cio' che c'e' prima appartiene a un'altra striscia.
+      break;
+    }
+    return serie;
   }
+
+  /// Vero se le due date sono lo stesso giorno rituale.
+  static bool _stessoGiorno(DateTime a, DateTime b) =>
+      a.year == b.year && a.month == b.month && a.day == b.day;
 
   /// Vero se la stessa runa e' gia' uscita nei sette giorni rituali che
   /// precedono [giornoRituale], oggi escluso.

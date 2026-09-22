@@ -27,7 +27,18 @@ enum ComeENato {
 
   /// La condivisione e' AVVENUTA, e condividere e' gia' la dichiarazione piu'
   /// forte che una persona possa fare su un contenuto.
-  condivisione('c');
+  condivisione('c'),
+
+  /// **UN EVENTO DEL CERCHIO, non un gesto della persona.** Ordine EE voce
+  /// 03, 23 settembre 2026.
+  ///
+  /// Il riassunto delle sette sere di fila entra nel Journal **da solo**,
+  /// quando la settima sera si chiude: la persona non tocca niente, e non
+  /// deve. Nasce distinto dagli altri due perche' il Journal deve poterlo
+  /// mostrare come evento speciale invece che come una voce fra le altre, e
+  /// perche' chi rilegge il proprio diario deve poter sapere che **quello
+  /// non l'ha custodito lui**.
+  evento('e');
 
   const ComeENato(this.sigla);
 

@@ -28,6 +28,8 @@ import '../../core/rituals/runes.dart';
 import '../../core/rituals/sunset_rune.dart';
 import '../../core/rituals/sunset_rune_corpus.dart';
 import '../../core/rituals/sunset_rune_memory.dart';
+import '../../core/ricordi/ricordo_custodito.dart';
+import '../../core/ricordi/scrigno_dei_custoditi.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -559,6 +561,9 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
     final settimana =
         await SunsetRuneMemory.settimanaCorrente(_e.giornoRituale);
     if (mounted) setState(() => _settimana = settimana);
+    // **ALLA SETTIMA SERA IL RIASSUNTO ENTRA DA SOLO NEL JOURNAL.** Ordine
+    // EE voce 03: la persona non tocca niente, e non deve.
+    if (settimana.length >= 7) await _custodisciLaSettimana(settimana);
     // La lettura e' aperta: da qui in poi l'inclinazione svela la seconda voce.
     _ascoltaInclinazione();
   }
@@ -1545,13 +1550,27 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
                 .copyWith(color: _palette.goldSoft)),
       );
 
+  /// **LA RIGA DICE LA REGOLA, E LA REGOLA E' SETTE SERE DI FILA.** Ordine
+  /// EE voce 03, 23 settembre 2026.
+  ///
+  /// **Il fondatore non riusciva a capirla, e aveva ragione**: *"non capisco
+  /// come memorizza le rune estratte nei giorni precedenti, forse memorizza
+  /// solo se estrai ogni giorno una runa e si azzera se salti un giorno?"*.
+  /// Non era ne' l'una ne' l'altra cosa: era una finestra di sette giorni di
+  /// calendario in cui i salti non contavano, e **la striscia non lo diceva
+  /// da nessuna parte**. Adesso la regola e' quella che il fondatore ha
+  /// chiesto, sette sere di fila, e **queste righe la dicono**: la parola
+  /// "di fila" compare dalla prima sera, non alla prima interruzione.
+  ///
+  /// Il tono e' quello di Caligo, e **lo giudica il fondatore sulla build**.
   String _rigaSettimana() {
     final n = _settimana.length;
     if (n <= 1) {
-      return 'La prima delle sette. Questa striscia si riempie una sera per volta.';
+      return 'La prima di sette sere di fila. Salti una sera e il filo si '
+          'spezza: si riparte da qui.';
     }
     if (n >= 7) {
-      return 'Sette sere su sette. Le tue rune si sono legate.';
+      return 'Sette sere di fila. Le tue rune si sono legate.';
     }
     const parole = [
       'zero',
@@ -1562,30 +1581,69 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
       'quinta',
       'sesta'
     ];
-    return '${_capitale(parole[n])} sera su sette. '
-        'Alla settima le tue rune si legheranno.';
+    return '${_capitale(parole[n])} sera di fila, su sette. '
+        'Salta una sera e il filo si spezza: alla settima le tue rune si '
+        'legheranno.';
   }
 
   String _capitale(String s) =>
       s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);
 
-  Widget _sigilloSettimana() {
-    // Il sigillo si compone solo alla settima sera, quindi la settimana e'
-    // sempre piena: niente ramo "incompleta", che sarebbe irraggiungibile.
-    final rune = _runeSettimana;
+  /// **LA FRASE DEL RIASSUNTO, in un punto solo.** Ordine EE voce 03.
+  ///
+  /// Stava dentro `_sigilloSettimana`, cioe' dentro un widget: il Ricordo
+  /// che entra nel Journal avrebbe dovuto riscriverla, e sarebbero state due
+  /// frasi per la stessa cosa. E' la famiglia di difetti piu' numerosa di
+  /// questo progetto, quindi qui la frase nasce una volta e la leggono in
+  /// due.
+  static String didascaliaDellaSettimana(List<String> rune) {
     final conteggi = <String, int>{};
     for (final r in rune) {
       conteggi[r] = (conteggi[r] ?? 0) + 1;
     }
     final ordinate = conteggi.entries.toList()
       ..sort((a, b) => b.value.compareTo(a.value));
+    if (ordinate.isEmpty) return '';
     final ripetute = ordinate.any((e) => e.value > 1);
     final dueDom = ordinate.take(2).map((e) => e.key).toList();
-    final didascalia = ripetute
+    return ripetute
         ? 'La settimana lega ${dueDom.first} e ${dueDom.last}: due segni che '
             'tornano, un legame solo.'
         : 'Sette segni diversi in sette sere: nessuno ha insistito, la '
             'settimana ti ha parlato una volta sola per volta.';
+  }
+
+  /// Custodisce il riassunto delle sette sere come **evento del Cerchio**.
+  ///
+  /// **Non e' un gesto della persona**, ed e' per questo che nasce
+  /// `ComeENato.evento`: chi rilegge il diario deve poter sapere che quella
+  /// voce non l'ha messa lui.
+  Future<void> _custodisciLaSettimana(List<SeraSalvata> settimana) async {
+    final rune = settimana.map((s) => s.rune).toList();
+    try {
+      final scrigno = context.read<ScrignoDeiCustoditi>();
+      await scrigno.custodisci(RicordoCustodito(
+        quando: _e.giornoRituale,
+        arte: 'settimana_rune',
+        maestro: 'caligo',
+        titolo: 'Sette sere di fila: le tue rune si sono legate',
+        testo: didascaliaDellaSettimana(rune),
+        comeENato: ComeENato.evento,
+        dati: {'rune': rune.join(',')},
+      ));
+    } catch (errore) {
+      // **Un provider assente non spegne la settima sera.** Il sigillo si
+      // vede comunque a schermo: qui si perde la voce nel Journal, non il
+      // riassunto.
+      debugPrint('Tramonto: il riassunto non entra nel Journal. $errore');
+    }
+  }
+
+  Widget _sigilloSettimana() {
+    // Il sigillo si compone solo alla settima sera, quindi la settimana e'
+    // sempre piena: niente ramo "incompleta", che sarebbe irraggiungibile.
+    final rune = _runeSettimana;
+    final didascalia = didascaliaDellaSettimana(rune);
     return Container(
       key: const Key('sunset_sigillo'),
       padding: const EdgeInsets.all(SpacingTokens.md),
