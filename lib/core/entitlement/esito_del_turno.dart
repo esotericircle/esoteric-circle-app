@@ -40,6 +40,21 @@ enum EsitoDelTurno {
   /// fuori dall'elenco che si dichiara chiuso. **Non costa**, perche' la
   /// persona quella risposta l'aveva gia' pagata la prima volta.
   letturaGiaData,
+
+  /// **IL MAESTRO HA CHIESTO, NON HA RISPOSTO.** Ordine EE voce 07, 23
+  /// settembre 2026.
+  ///
+  /// **Decisione del fondatore, verbatim**: *"Chiede lui i dati"*, con
+  /// l'opzione scelta *"Nessun consumo finche' non risponde davvero"*.
+  ///
+  /// **E' uno scarto dichiarato con l'ordine EB voce 06**, che diceva il
+  /// contrario: *"Una domanda del Maestro e' una risposta vera, quindi
+  /// consuma"*, e segnava `consuma: si'` per la mossa del messaggio
+  /// incomprensibile. **Padre dello scarto: EB voce 06.** La parola del
+  /// fondatore e' del 22 settembre e prevale: chi scrive male una parola e
+  /// si sente chiedere cosa intendeva non ha ricevuto nessuna lettura, e
+  /// pagarla sarebbe pagare un malinteso.
+  chiarimentoChiesto,
 }
 
 /// Quanto costa un turno, e la regola sta QUI.
@@ -82,6 +97,8 @@ class CostoDelTurno {
   /// **Un Riprova riuscito costa**, perche' il Maestro ha risposto davvero, e
   /// il tentativo fallito che lo precede non aveva pagato niente: la persona
   /// paga una domanda per una risposta, mai per un errore.
+  /// **E UN CHIARIMENTO CHIESTO NON COSTA**, ordine EE voce 07: finche' il
+  /// Maestro chiede, la persona non ha ancora ricevuto niente.
   static bool consuma(EsitoDelTurno esito) =>
       esito == EsitoDelTurno.rispostaVera;
 }

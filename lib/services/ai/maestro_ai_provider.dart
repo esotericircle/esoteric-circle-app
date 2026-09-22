@@ -118,6 +118,7 @@ abstract interface class MaestroAiProvider {
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
+
     /// **Chi sta chiedendo.** Ordine EE voce 09: senza, la sintesi dichiara
     /// di non conoscere un nome che l'app conosce.
     UserProfile? profile,

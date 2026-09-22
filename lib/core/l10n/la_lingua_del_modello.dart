@@ -45,4 +45,26 @@ abstract final class LaLinguaDelModello {
   /// un posto solo, invece che in tre prompt lontani.
   static String get laRigaConGliAccenti =>
       '- Scrivi sempre e solo in $nome, con accenti veri.';
+
+  /// **IL GENERE DEI NOMI DELLE CARTE.** Ordine EE voce 10, 23 settembre
+  /// 2026.
+  ///
+  /// **Il fatto del fondatore, sulla cattura del Consiglio**: Caligo scriveva
+  /// *"la Tre di Denari"* e *"La Tre di Coppe"*. Il numero di una carta e'
+  /// maschile: **il** Tre di Denari, **il** Dieci di Spade, **l'**Asso di
+  /// Coppe.
+  ///
+  /// **Nessuna regola lo diceva**, e il modello tirava a indovinare: "carta"
+  /// e' femminile, "tre" no, e in italiano la concordanza la decide il numero
+  /// che fa da nome. L'app il genere lo sa da se' dove scrive lei
+  /// (`ReversedAgreement` in `tarot_card.dart`), ma i Maestri i nomi li
+  /// scrivono di loro, e li' non arrivava niente.
+  ///
+  /// **Vale per tutti e tre i Maestri**, non per il solo Caligo: la carta
+  /// puo' comparire in qualunque lettura.
+  static const String ilGenereDelleCarte =
+      "- I numeri delle carte sono maschili: si scrive 'il Tre di Denari', "
+      "'il Dieci di Spade', 'l'Asso di Coppe', mai 'la Tre' o 'la Dieci'. "
+      "Le figure seguono il loro genere: il Re, il Cavaliere, il Fante, "
+      "la Regina.";
 }

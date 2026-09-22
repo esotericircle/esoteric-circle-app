@@ -11,6 +11,7 @@ import '../../../core/chat/altre_voci.dart';
 import '../../../core/maestro/consiglio_finale.dart';
 import '../../../core/maestro/seguito_della_lettura.dart';
 import '../../../core/chat/chat_message.dart';
+import '../../../core/chat/la_risposta_che_chiede.dart';
 import '../../../core/chat/cronologia_senza_doppioni.dart';
 import '../../../core/chat/intent_classifier.dart';
 import '../../../core/chat/la_richiesta_di_un_arte.dart';
@@ -1165,7 +1166,14 @@ class MaestroChatController extends ChangeNotifier {
       // leggerebbe la stessa risposta di seguito a se stessa.
       _turnsSinceDistill++;
       unawaited(_maybeDistill());
-      return EsitoDelTurno.rispostaVera;
+      // **SE HA CHIESTO, NON HA ANCORA RISPOSTO.** Ordine EE voce 07,
+      // decisione del fondatore: *"Nessun consumo finche' non risponde
+      // davvero"*. Il criterio sta in `LaRispostaCheChiede` ed e' largo
+      // apposta: in dubbio non si paga, perche' far pagare un malinteso e'
+      // un danno per chi paga, e non farlo e' un danno per noi.
+      return LaRispostaCheChiede.eUnaDomanda(reply)
+          ? EsitoDelTurno.chiarimentoChiesto
+          : EsitoDelTurno.rispostaVera;
     } on MaestroAiUnavailable {
       await _consegna(
           pending.copyWith(

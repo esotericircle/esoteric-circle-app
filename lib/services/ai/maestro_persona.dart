@@ -41,6 +41,10 @@ class MaestroPersona {
           '- Non usare mai il trattino lungo. Al suo posto usa la virgola, i due punti oppure una parentesi.')
       ..writeln(
           '- Non iniziare mai una proposizione dopo la virgola con la congiunzione "e", salvo un vero inciso poetico.')
+      // **IL GENERE DELLE CARTE, ordine EE voce 10.** Caligo scriveva "la
+      // Tre di Denari": nessuna regola diceva il contrario, e in italiano
+      // la concordanza la decide il numero, non la parola "carta".
+      ..writeln(LaLinguaDelModello.ilGenereDelleCarte)
       // QUANTO LUNGA sia la risposta non si dice qui.
       //
       // Diceva "Poche righe per risposta", e quella riga arrivava al modello
@@ -586,6 +590,8 @@ class MaestroPersona {
       LaLinguaDelModello.laRigaConGliAccenti,
       '- Non usare mai il trattino lungo. Al suo posto usa la virgola, i due punti oppure una parentesi.',
       '- Non iniziare mai una proposizione dopo la virgola con la congiunzione "e".',
+      // Ordine EE voce 10: vale anche per la sintesi, che le carte le nomina.
+      LaLinguaDelModello.ilGenereDelleCarte,
       '- Poche righe, calde e chiare. Nessuna emoji, nessun markdown.',
       '',
       // Il profilo vero quando c'e': il nome, la forma, cio' che i Maestri

@@ -36,10 +36,10 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        '66b59ec37b2cdd6ffb212f77b9851a241168b02dcd89311a338697cd14b56404',
-    'aura': 'bd1eea19f317b9c526ac94d2695e65d51d9e27a5038f9b49b53afb5fa1666529',
+        'b1f5fe92aa5c1a21f3f4e254fe1d3d1545d5d197ded0bd06299a37e901d22efa',
+    'aura': '4652498ed09966a0f2a73079d15678173216ec1bc839110de3ff54ef221a5cbf',
     'caligo':
-        '7001570fae460675ad011039e6358011dd16ced9378f5bee6f9f22e76ab84cd3',
+        '60b906c648dd8eb9b6d81e1278a2e95b86c996cfa3c1d6cc1de0500b1f64e443',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
@@ -53,6 +53,19 @@ class ImprontaDellIstruzione {
   /// cancella niente: quando l'istruzione cambia, l'impronta vecchia scende in
   /// questo elenco con la sua data e con cio' che le e' successo.
   static const List<String> storicoDelleImpronte = [
+    'DAL 21 AL 23 SETTEMBRE 2026. Impronte: medora '
+        '66b59ec37b2cdd6ffb212f77b9851a241168b02dcd89311a338697cd14b56404, '
+        'aura bd1eea19f317b9c526ac94d2695e65d51d9e27a5038f9b49b53afb5fa1666529, '
+        'caligo 7001570fae460675ad011039e6358011dd16ced9378f5bee6f9f22e76ab84cd3. '
+        'La stringa dell\'ordine ED, quella che ha portato la riga sul non '
+        'capito con la forma che decade. **MISURA PRESA SU DI LEI: è questa la '
+        'sola che valga**: il collaudo dei tre Maestri, quarantacinque '
+        'conversazioni, zero cadute, sette parole di firma altrui grezze su '
+        'centottanta conversazioni e zero dopo la rete. Caduta con l\'ordine '
+        'EE voce 10: il fondatore ha letto nel Consiglio *"la Tre di Denari"* '
+        'e *"La Tre di Coppe"*. Nessuna regola diceva che i numeri delle '
+        'carte sono maschili. Aggiunta una riga, in un punto solo, che vale '
+        'per i tre Maestri e per la sintesi comparativa.',
     'DAL 21 SETTEMBRE 2026, POCHE ORE, LA SECONDA. Impronte: medora '
         '8c29878388fc30df823697e977d477d327b233c9ec5f626e46ccb81c55dcb3b0, '
         'aura a2cb8b3dfb965097c5f278b4aa186862504f46f913295cbd7a54886d684bf0c7, '
