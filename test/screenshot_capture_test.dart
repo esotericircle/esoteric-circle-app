@@ -7201,6 +7201,7 @@ class _ScriptedMaestro implements MaestroAiProvider {
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
+    UserProfile? profile,
   }) async =>
       throw const MaestroAiUnavailable();
 
@@ -7283,6 +7284,7 @@ class _VoceInDueStrati implements MaestroAiProvider {
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
+    UserProfile? profile,
   }) =>
       Completer<String>().future;
 
@@ -7340,6 +7342,7 @@ class _VoceCheFaAspettare implements MaestroAiProvider {
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
+    UserProfile? profile,
   }) =>
       Completer<String>().future;
 

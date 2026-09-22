@@ -353,6 +353,7 @@ class _VoceViva implements MaestroAiProvider {
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
+    UserProfile? profile,
   }) async =>
       'La sintesi del confronto, che da sola occupa la sua parte di schermo.';
 

@@ -118,6 +118,9 @@ abstract interface class MaestroAiProvider {
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
+    /// **Chi sta chiedendo.** Ordine EE voce 09: senza, la sintesi dichiara
+    /// di non conoscere un nome che l'app conosce.
+    UserProfile? profile,
   });
 
   /// Distilla la conversazione in una sintesi piu' pochi fatti stabili, per
@@ -213,6 +216,7 @@ class UnavailableMaestroAiProvider implements MaestroAiProvider {
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
+    UserProfile? profile,
   }) async {
     throw const MaestroAiUnavailable();
   }

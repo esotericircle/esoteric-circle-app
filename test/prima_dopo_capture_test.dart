@@ -3645,6 +3645,7 @@ class _VoceConUnTesto implements MaestroAiProvider {
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
+    UserProfile? profile,
   }) async =>
       throw const MaestroAiUnavailable();
 
@@ -3704,6 +3705,7 @@ class _VoceCheRisponde implements MaestroAiProvider {
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
+    UserProfile? profile,
   }) async =>
       throw const MaestroAiUnavailable();
 
@@ -3763,6 +3765,7 @@ class _VoceCheTace implements MaestroAiProvider {
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
+    UserProfile? profile,
   }) async =>
       throw Exception('firebasevertexai.googleapis.com non abilitata');
 
@@ -3828,6 +3831,7 @@ class _VoceLenta implements MaestroAiProvider {
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
+    UserProfile? profile,
   }) async =>
       throw const MaestroAiUnavailable();
 

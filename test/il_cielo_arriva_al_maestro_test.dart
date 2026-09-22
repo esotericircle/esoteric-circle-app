@@ -320,6 +320,7 @@ class _VoceFinta implements MaestroAiProvider {
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
+    UserProfile? profile,
   }) async =>
       throw const MaestroAiUnavailable();
 

@@ -218,10 +218,12 @@ class VoceSorvegliata implements MaestroAiProvider {
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
+    UserProfile? profile,
   }) {
     return _sorvegliando(
       'synthesize',
-      () => _voce.synthesize(theme: theme, lenses: lenses, natal: natal),
+      () => _voce.synthesize(
+          theme: theme, lenses: lenses, natal: natal, profile: profile),
     );
   }
 

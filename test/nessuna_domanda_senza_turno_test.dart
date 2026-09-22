@@ -248,6 +248,7 @@ class _VoceCheNonTornaMai implements MaestroAiProvider {
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
+    UserProfile? profile,
   }) =>
       Completer<String>().future;
 
@@ -295,6 +296,7 @@ abstract class _VoceDiProva implements MaestroAiProvider {
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
+    UserProfile? profile,
   }) async =>
       throw UnimplementedError();
 

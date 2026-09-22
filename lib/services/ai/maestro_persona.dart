@@ -564,8 +564,20 @@ class MaestroPersona {
   /// persona, e fino a quest'ordine non riceveva nemmeno la sua forma. La
   /// forma arriva dalla porta del genere, che la conosce gia': chi chiama la
   /// sintesi non deve portarla con se'.
+  /// **LA SINTESI CONOSCE LA PERSONA COME LA CONOSCONO I MAESTRI.** Ordine
+  /// EE voce 09, 23 settembre 2026.
+  ///
+  /// **Il fatto del fondatore, verbatim**: *"nel confronto dei maestri alla
+  /// fine, nel riepilogo, mi scrive che non conosce il mio nome"*, mentre
+  /// nella stessa schermata Aura e Caligo lo chiamavano per nome.
+  ///
+  /// **La causa era qui.** Questa istruzione riceveva la sola forma di
+  /// cortesia e si costruiva un `UserProfile` **vuoto** per il blocco di
+  /// cortesia: un profilo senza nome, che al modello dice di non conoscerlo.
+  /// I Maestri il profilo vero ce l'hanno, perche' `reply` lo riceve; la
+  /// sintesi era l'unica chiamata della catena a non averlo.
   static String synthesisInstruction(
-      {NatalContext? natal, CourtesyForm? forma}) {
+      {NatalContext? natal, CourtesyForm? forma, UserProfile? profilo}) {
     final natalBlock = _natalContext(natal);
     return [
       'Sei la voce del cerchio di Esoteric Circle che tira le fila di più sguardi su una stessa domanda.',
@@ -576,7 +588,9 @@ class MaestroPersona {
       '- Non iniziare mai una proposizione dopo la virgola con la congiunzione "e".',
       '- Poche righe, calde e chiare. Nessuna emoji, nessun markdown.',
       '',
-      bloccoDiCortesia(
+      // Il profilo vero quando c'e': il nome, la forma, cio' che i Maestri
+      // gia' sanno. Senza, si ripiega sulla sola forma come prima.
+      bloccoDiCortesia(profilo ??
           UserProfile(courtesyForm: forma ?? LaMarcaDelGenere.formaCorrente)),
       if (natalBlock.isNotEmpty) ...['', natalBlock],
       '',

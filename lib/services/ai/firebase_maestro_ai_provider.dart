@@ -218,6 +218,7 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
+    UserProfile? profile,
   }) async {
     final t = theme.trim();
     if (t.isEmpty || lenses.length < 2) {
@@ -228,7 +229,9 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     final model = _ai.generativeModel(
       model: kMaestroProfondaModel,
       systemInstruction: Content.system(
-        MaestroPersona.synthesisInstruction(natal: natal),
+        // Ordine EE voce 09: il profilo arriva fin qui, o la sintesi
+        // dichiara di non conoscere un nome che l'app conosce.
+        MaestroPersona.synthesisInstruction(natal: natal, profilo: profile),
       ),
       generationConfig: configurazionePer(
         MisuraDellaRisposta.sintesi,

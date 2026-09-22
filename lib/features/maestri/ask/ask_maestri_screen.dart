@@ -352,6 +352,11 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
         theme: theme,
         lenses: lenses,
         natal: natal,
+        // **CHI STA CHIEDENDO, ordine EE voce 09.** La sintesi diceva di non
+        // conoscere il nome mentre i Maestri, nella stessa schermata, lo
+        // usavano: era l'unica chiamata della catena a non ricevere il
+        // profilo.
+        profile: context.read<ProfileController>().profile,
       );
       if (!mounted) return;
       // Vale solo se le lenti nel frattempo non sono cambiate di numero.
