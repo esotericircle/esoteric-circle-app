@@ -38,7 +38,11 @@ export {pulisciLeScadenze} from "./pulizia";
 
 // IL LIVE DEI MAESTRI, ordine EG voce 07: la porta che elenca gli avatar di
 // Protoface senza che la chiave lasci mai il server.
-export {gliAvatarDiProtoface} from "./live";
+export {
+  gliAvatarDiProtoface,
+  apriUnaSessioneLive,
+  statoDellaSessioneLive,
+} from "./live";
 
 // LA RICERCA DEL LUOGO NEL MONDO INTERO, ordine DR voce 10: il catalogo
 // offline risponde per primo e senza rete, e quando non conosce un posto la

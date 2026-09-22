@@ -17,6 +17,7 @@
   "dependencies": {
     "firebase-admin": "^14.3.0",
     "firebase-functions": "^7.3.2",
+    "livekit-server-sdk": "^2.19.1",
     "nodemailer": "^9.0.5"
   },
   "devDependencies": {
