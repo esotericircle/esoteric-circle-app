@@ -164,6 +164,21 @@ albero vero con la guardia cancellata **1**, col suo messaggio; tana senza
 pubspec **0**, dichiarato non eseguito; manifesto con una chiusura senza prova
 **1**, col suo messaggio.
 
+**E UNA GUARDIA DI CASA HA COLTO LA MIA GUARDIA NUOVA.**
+`ogni_guardia_dichiara_quanto_guarda` l'ha presa mentre dichiarava il proprio
+cardinale su una grandezza **derivata**, il numero di guardie nominate, e non
+sull'**insieme che elenca a esecuzione**, cioe' i file di `docs/ordini`. La
+differenza non e' formale: col filtro dei file rotto, la prova contava zero
+guardie in zero manifesti e sarebbe stata verde avendo guardato il vuoto.
+Aggiunta la riga sui file e vista rossa rimettendo a mano un filtro che non
+trova niente: **"in docs/ordini ci sono solo 0 manifesti"**.
+
+**E una caduta che non era una caduta.** Nella suite intera
+`il_cancello_aspetta_il_limite` e' caduta una volta e passa da sola: misura
+attese in secondi, e sotto il carico di quattromilatrecento prove i tempi si
+allungano. E' il caso gia' noto delle misure di tempo sotto carico, non un
+difetto di quest'ordine.
+
 **CHIUSA.**
 DOMANDA: "SE UN ORDINE E' DICHIARATO CONCLUSO E CHIUSO IO VOLGIO LA GARANZIA CHE SIA LA VERITA'!"
 PROVA: test/ogni_voce_chiusa_porta_la_sua_prova_test.dart
