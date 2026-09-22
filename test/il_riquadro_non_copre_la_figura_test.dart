@@ -99,10 +99,27 @@ void main() {
           final riquadro = tester.renderObject<RenderBox>(guida);
           final tetto =
               scena.globalToLocal(riquadro.localToGlobal(Offset.zero)).dy;
-          final fondoFigura = SuperficiDelSoffio.fondoDellaFigura(scena.size);
+          final fondoFigura = SuperficiDelSoffio.fondoDelDono(scena.size);
           final margine = tetto - fondoFigura;
           geometrieGuardate++;
           if (margine < peggiore) peggiore = margine;
+          // **E LA FIGURA NON DEVE ESSERE TAGLIATA IN CIMA.** Alzarla per
+          // dare spazio alla bolla ha un limite: portato il centro a 0,165
+          // dell'altezza, la testa al culmine usciva di tredici punti sopra
+          // il bordo. **"Per intero" vale anche di sopra.**
+          for (final (nome, cima) in [
+            ('il dono', SuperficiDelSoffio.cimaDelDono(scena.size)),
+            ('il soffione', SuperficiDelSoffio.cimaDelSoffione(scena.size)),
+          ]) {
+            // Mezzo punto di tolleranza: la stretta porta la figura
+            // ESATTAMENTE sul bordo, e uno zero negativo di virgola mobile
+            // non e' un taglio. Sotto il pixel fisico non si vede niente.
+            if (cima < -0.5) {
+              guasti.add('${altezza.toStringAsFixed(0)} / $rientri / $scala: '
+                  '$nome esce dal bordo di sopra per '
+                  '${(-cima).toStringAsFixed(1)} punti');
+            }
+          }
           if (margine < 0) {
             guasti.add('${altezza.toStringAsFixed(0)} / $rientri / $scala: '
                 'il riquadro copre la figura per '
@@ -122,6 +139,72 @@ void main() {
             'al respiro, quella geometria non e\' stata guardata.');
     print('ORDINE EF VOCE 01: geometrie guardate $geometrieGuardate, '
         'margine peggiore fra figura e riquadro '
+        '${peggiore.toStringAsFixed(1)} punti');
+    expect(guasti, isEmpty, reason: guasti.join('\n'));
+  });
+
+  /// **E NEANCHE L'INVITO AL GESTO COPRE IL SOFFIONE.** Ordine EF voce 01.
+  ///
+  /// **Difetto trovato guardando una cattura, non leggendo il codice, e
+  /// l'ordine non lo nominava.** Curato il riquadro del respiro, la prima
+  /// cattura del banco ha mostrato la pastiglia *"Soffia, oppure spazza col
+  /// dito"* appoggiata in mezzo alla testa del soffione: stessa malattia,
+  /// fase diversa. Prima di quest'ordine nessuno poteva vederla, perche' il
+  /// soffione nelle prove non esisteva.
+  testWidgets('E L\'INVITO AL GESTO STA SOTTO IL SOFFIONE', (tester) async {
+    final guasti = <String>[];
+    var geometrieGuardate = 0;
+    var peggiore = double.infinity;
+
+    for (final altezza in altezze) {
+      for (final rientri in barre) {
+        for (final scala in scale) {
+          SharedPreferences.setMockInitialValues({});
+          final finestra = Size(411, altezza);
+          tester.view.physicalSize = finestra;
+          tester.view.devicePixelRatio = 1.0;
+          addTearDown(tester.view.reset);
+          await tester.pumpWidget(attornoAlSoffio(
+            BreathDestinyScreen(now: DateTime(2026, 8, 7, 10, 30)),
+            finestra: finestra,
+            rientri: rientri,
+            scala: scala,
+          ));
+          await tester.pump();
+          await tester.pump(const Duration(milliseconds: 600));
+          // **Niente gesto: qui si guarda la fase PRIMA del soffio**, che e'
+          // l'unica in cui il soffione e' a schermo.
+          final scena = tester
+              .renderObject<RenderBox>(find.byKey(const Key('soffio_scena')));
+          final invito = find.byKey(const Key('soffio_invito_al_gesto'));
+          if (invito.evaluate().isEmpty) {
+            guasti.add('${altezza.toStringAsFixed(0)} / $rientri / $scala: '
+                'l\'invito al gesto non c\'e\'');
+            continue;
+          }
+          final pastiglia = tester.renderObject<RenderBox>(invito);
+          final tetto =
+              scena.globalToLocal(pastiglia.localToGlobal(Offset.zero)).dy;
+          final fondo = SuperficiDelSoffio.fondoDelSoffione(scena.size);
+          final margine = tetto - fondo;
+          geometrieGuardate++;
+          if (margine < peggiore) peggiore = margine;
+          if (margine < 0) {
+            guasti.add('${altezza.toStringAsFixed(0)} / $rientri / $scala: '
+                'l\'invito copre il soffione per '
+                '${(-margine).toStringAsFixed(1)} punti');
+          }
+        }
+      }
+    }
+
+    cardinaleMinimo(
+        geometrieGuardate, altezze.length * barre.length * scale.length,
+        cosa: 'geometrie in cui l\'invito al gesto e\' stato misurato',
+        perche: 'Sono tutte le combinazioni della griglia: se in una l\'invito '
+            'non compare, quella geometria non e\' stata guardata.');
+    print('ORDINE EF VOCE 01: geometrie guardate $geometrieGuardate, '
+        'margine peggiore fra soffione e invito '
         '${peggiore.toStringAsFixed(1)} punti');
     expect(guasti, isEmpty, reason: guasti.join('\n'));
   });

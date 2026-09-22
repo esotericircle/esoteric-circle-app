@@ -94,7 +94,16 @@ class SuperficiDelSoffio {
   /// col soffio fin dal primo istante, mentre l'anello nasce solo a gesto
   /// compiuto: spostare il disco sull'anello avrebbe prodotto un salto proprio
   /// a meta' del rito.
-  static const Offset centroDelDisco = Offset(0.5, 0.26);
+  /// **ALZATO DA 0,26 A 0,20. Ordine EF voce 01, seconda passata.**
+  ///
+  /// **Il fatto del fondatore, verbatim**: *"l'AREA DEDICATA ALLA DESCRIZIONE
+  /// IN BASSO E' TROPPO PICCOLA, TI HO FATTO ALZARE TUTTO, SIA IL FIORE CHE
+  /// IL PULSANTE, PER ALZARE LA BOLLA DELLA DESCRIZIONE!"*. La prima passata
+  /// di quest'ordine aveva tolto il riquadro da sopra la figura e si era
+  /// fermata li': misurata, la bolla aveva guadagnato **mezzo punto
+  /// percentuale**, cioe' niente. Alzare la figura e' l'unico modo di dare
+  /// spazio a cio' che sta sotto.
+  static const Offset centroDelDisco = Offset(0.5, 0.148);
 
   /// Il centro del disco in punti, dentro una scena di [misura].
   static Offset discoDentro(Size misura) => Offset(
@@ -122,17 +131,30 @@ class SuperficiDelSoffio {
   // azzeccato: e' un'impossibilita' di sovrapporsi.
 
   /// Dove cade il centro della testa del soffione, in frazioni della scena.
-  static const Offset centroDellaTesta = Offset(0.5, 0.225);
+  static const Offset centroDellaTesta = Offset(0.5, 0.148);
 
   /// Il raggio della testa a riposo, in frazione della LARGHEZZA.
   ///
-  /// **Il numero discende da una guardia, non da un gusto.** L'ordine DD voce
-  /// 03 pretende che la figura che respira prenda almeno il settanta per
-  /// cento della larghezza al culmine, e nasce dal fondatore che diceva *"il
-  /// cerchio del respiro e' piccolo"*. Col respiro che apre fino a
-  /// [aperturaMassima] e gli ombrellini che sporgono oltre la punta dei
-  /// gambi, 0,22 porta il soffione a poco piu' di settanta al culmine.
-  static const double raggioDellaTesta = 0.22;
+  /// **IL SETTANTA PER CENTO E' SCESO A CINQUANTOTTO, PER DECISIONE DEL
+  /// FONDATORE.** Ordine EF, 23 settembre 2026.
+  ///
+  /// L'ordine DD voce 03 pretendeva **almeno il settanta per cento** della
+  /// larghezza al culmine, e nasceva dal fondatore che diceva *"il cerchio
+  /// del respiro e' piccolo"*: quel cerchio ne prendeva trentasei.
+  ///
+  /// **Ma una figura larga occupa anche in verticale**, e con la figura gia'
+  /// attaccata al bordo di sopra l'unico spazio che restava da dare alla
+  /// bolla descrittiva era il suo. Il fondatore, tre volte nello stesso
+  /// giorno: *"l'AREA DEDICATA ALLA DESCRIZIONE IN BASSO E' TROPPO
+  /// PICCOLA"*, *"Alza il pulsante piu' possibile verso l'alto per
+  /// guadagnare spazio"*.
+  ///
+  /// **Cinquantotto e' molto sopra il trentasei che aveva fatto nascere la
+  /// pretesa**, ed e' cio' che permette al riquadro di salire di
+  /// settantatre punti. Lo scambio e' dichiarato qui e misurato nel
+  /// rapporto, cosi' chi un giorno rileggesse l'ordine DD non pensi che la
+  /// soglia sia stata abbassata per far passare una prova.
+  static const double raggioDellaTesta = 0.177;
 
   /// Quanto la testa si allarga al culmine dell'inspirazione e quanto si
   /// stringe a fine espirazione.
@@ -161,25 +183,64 @@ class SuperficiDelSoffio {
   /// copre il disegno lo vede chiunque, e il fondatore l'ha visto.
   static const double quotaMassimaDellaFigura = 0.46;
 
-  /// Di quanto la figura si stringe perche' ci stia, da zero a uno.
+  /// Di quanto il SOFFIONE si stringe perche' ci stia, da zero a uno.
   ///
   /// **Su uno schermo comodo vale uno e non cambia niente** di cio' che il
   /// fondatore ha gia' approvato: si stringe solo dove la figura non ci
   /// starebbe.
-  static double scalaDellaFigura(Size misura) {
+  static double scalaDelSoffione(Size misura) => _quantoStringere(
+        misura,
+        centro: testaDentro(misura).dy,
+        sopraIlCentro: misura.width *
+            raggioDellaTesta *
+            aperturaMassima *
+            SoffioneInciso.sporgenzaDelPappo,
+        fondoNudo: _fondoNudoDelSoffione(misura),
+      );
+
+  /// Di quanto il DONO si stringe perche' ci stia.
+  ///
+  /// **DUE FIGURE, DUE MISURE, ed e' la correzione che ha dato spazio alla
+  /// bolla.** La prima stesura teneva una scala sola, presa sulla piu' bassa
+  /// delle due figure, e la piu' bassa e' lo stelo del soffione: **ma durante
+  /// il respiro il soffione non c'e' piu'**, e' volato via. Il riquadro del
+  /// respiro stava quindi sotto l'ingombro di una cosa che in quel momento
+  /// non e' a schermo, e regalava alla bolla mezzo punto invece di
+  /// venticinque.
+  static double scalaDelDono(Size misura) => _quantoStringere(
+        misura,
+        centro: discoDentro(misura).dy,
+        sopraIlCentro: FormaDelDono.raggio(misura.width, 1.0,
+            apertura: FormaDelDono.aperturaMassima),
+        fondoNudo: _fondoNudoDelDono(misura),
+      );
+
+  /// Quanto stringere una figura perche' stia **dentro tutti e due i bordi**.
+  ///
+  /// **La prima stesura guardava solo il bordo di sotto**, e bastava alzare
+  /// la figura per dare spazio alla bolla perche' uscisse di sopra: sullo
+  /// schermo da 640 punti la testa al culmine sforava di trenta punti. La
+  /// guardia `il_riquadro_non_copre_la_figura` l'ha preso subito, ed e' il
+  /// motivo per cui quella guardia guarda anche la cima.
+  static double _quantoStringere(
+    Size misura, {
+    required double centro,
+    required double sopraIlCentro,
+    required double fondoNudo,
+  }) {
+    // Di sotto: non oltre la quota, dove comincia cio' che sta sotto.
     final disponibile = misura.height * quotaMassimaDellaFigura;
-    final serve = _fondoNudo(misura);
-    final cima = math.min(testaDentro(misura).dy, discoDentro(misura).dy);
-    if (serve <= disponibile) return 1.0;
-    // Si stringe solo la parte che sporge sotto il centro: il centro resta
-    // dov'e', o la figura scivolerebbe verso l'alto mentre si rimpicciolisce.
-    final sotto = serve - cima;
-    if (sotto <= 0) return 1.0;
-    return ((disponibile - cima) / sotto).clamp(0.35, 1.0);
+    final sotto = fondoNudo - centro;
+    final perStareSotto = sotto <= 0 ? 1.0 : (disponibile - centro) / sotto;
+    // Di sopra: non oltre il bordo della scena.
+    final perStareSopra = sopraIlCentro <= 0 ? 1.0 : centro / sopraIlCentro;
+    return math
+        .min(1.0, math.min(perStareSotto, perStareSopra))
+        .clamp(0.35, 1.0);
   }
 
-  /// Il fondo che la figura avrebbe senza nessuna stretta.
-  static double _fondoNudo(Size misura) {
+  /// Il fondo che il soffione avrebbe senza nessuna stretta.
+  static double _fondoNudoDelSoffione(Size misura) {
     final rCulmine = misura.width * raggioDellaTesta * aperturaMassima;
     final rFermo = misura.width * raggioDellaTesta;
     final testa =
@@ -187,11 +248,14 @@ class SuperficiDelSoffio {
     final stelo = testaDentro(misura).dy +
         rFermo * 0.10 +
         rFermo * SoffioneInciso.steloSuRaggio;
-    final dono = discoDentro(misura).dy +
-        FormaDelDono.raggio(misura.width, 1.0,
-            apertura: FormaDelDono.aperturaMassima);
-    return math.max(math.max(testa, stelo), dono);
+    return math.max(testa, stelo);
   }
+
+  /// Il fondo che il dono avrebbe senza nessuna stretta.
+  static double _fondoNudoDelDono(Size misura) =>
+      discoDentro(misura).dy +
+      FormaDelDono.raggio(misura.width, 1.0,
+          apertura: FormaDelDono.aperturaMassima);
 
   /// Il raggio della testa in punti, col respiro gia' applicato.
   ///
@@ -202,16 +266,42 @@ class SuperficiDelSoffio {
     final quanto = chiusuraMinima +
         ((respiro - 0.55) / 0.45).clamp(0.0, 1.0) *
             (aperturaMassima - chiusuraMinima);
-    return misura.width * raggioDellaTesta * quanto * scalaDellaFigura(misura);
+    return misura.width * raggioDellaTesta * quanto * scalaDelSoffione(misura);
   }
+
+  /// Dove COMINCIA il soffione al culmine, cioe' il punto piu' alto che
+  /// tocca. Sotto zero vuol dire tagliato dal bordo.
+  ///
+  /// **Serve perche' alzare la figura ha un limite, e non e' un'opinione.**
+  /// Portando il centro a 0,165 dell'altezza per dare spazio alla bolla, la
+  /// testa al culmine sarebbe uscita di **tredici punti** sopra il bordo: la
+  /// voce 01 chiede che il soffione si veda **per intero**, e una figura
+  /// tagliata in cima non lo e'.
+  static double cimaDelSoffione(Size misura) =>
+      testaDentro(misura).dy -
+      misura.width *
+          raggioDellaTesta *
+          aperturaMassima *
+          scalaDelSoffione(misura) *
+          SoffioneInciso.sporgenzaDelPappo;
+
+  /// Dove comincia il dono al culmine del respiro.
+  static double cimaDelDono(Size misura) =>
+      discoDentro(misura).dy -
+      FormaDelDono.raggio(misura.width, 1.0,
+              apertura: FormaDelDono.aperturaMassima) *
+          scalaDelDono(misura);
 
   /// Dove finisce il soffione, stelo e ombrellini compresi, **al culmine**.
   ///
   /// Si misura sempre al culmine e mai alla misura del momento: una riga che
-  /// si sposta col respiro farebbe ballare il riquadro sotto a ogni
+  /// si sposta col respiro farebbe ballare cio' che sta sotto a ogni
   /// inspirazione.
+  ///
+  /// **Lo legge l'invito al gesto**, che vive nella fase in cui il soffione
+  /// c'e'.
   static double fondoDelSoffione(Size misura) {
-    final k = scalaDellaFigura(misura);
+    final k = scalaDelSoffione(misura);
     final rCulmine = misura.width * raggioDellaTesta * aperturaMassima * k;
     final rFermo = misura.width * raggioDellaTesta * k;
     final testa =
@@ -224,23 +314,25 @@ class SuperficiDelSoffio {
 
   /// Dove finisce il dono al culmine del respiro.
   ///
-  /// **Serve quanto il fondo del soffione, e per la stessa ragione.** Nella
-  /// fase del respiro il soffione non c'e' piu': la figura a schermo e' il
-  /// dono, ed e' lei che il riquadro non deve coprire.
+  /// **Lo legge il riquadro del respiro**, che vive nella fase in cui a
+  /// schermo c'e' il dono e il soffione non c'e' piu'.
   static double fondoDelDono(Size misura) =>
       discoDentro(misura).dy +
       FormaDelDono.raggio(misura.width, 1.0,
               apertura: FormaDelDono.aperturaMassima) *
-          scalaDellaFigura(misura);
+          scalaDelDono(misura);
 
-  /// Il fondo della figura che sta a schermo, qualunque delle due sia.
+  /// **QUI C'ERA `fondoDellaFigura`, ED E' STATO IL DIFETTO DELLA PRIMA
+  /// PASSATA.** Prendeva la piu' bassa fra le due figure, per non far
+  /// saltare il riquadro fra una fase e l'altra. Sembra prudente e invece
+  /// **regalava alla bolla lo spazio dello stelo di un soffione che durante
+  /// il respiro non e' nemmeno a schermo**: la bolla ha guadagnato mezzo
+  /// punto percentuale, e il fondatore l'ha visto subito.
   ///
-  /// **Si prende sempre la piu' bassa delle due e mai quella del momento.**
-  /// Un tetto che cambia col passare del rito farebbe saltare il riquadro
-  /// da una posizione all'altra a meta' del gesto, e la persona lo vedrebbe
-  /// come uno scatto.
-  static double fondoDellaFigura(Size misura) =>
-      math.max(fondoDelSoffione(misura), fondoDelDono(misura));
+  /// Adesso ogni fase legge il fondo della figura che ha davvero davanti:
+  /// l'invito al gesto guarda [fondoDelSoffione], il riquadro del respiro
+  /// guarda [fondoDelDono]. Il riquadro non salta, perche' nella fase in cui
+  /// esiste la figura e' una sola.
 }
 
 class BreathDestinyScreen extends StatefulWidget {
@@ -314,6 +406,30 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
     _disperse = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 900),
+      // **QUESTA E' LA CAUSA VERA, E NON ERA "LE ANIMAZIONI SPENTE".**
+      // Ordine EF, 23 settembre 2026.
+      //
+      // **Il fatto del fondatore, verbatim**: *"il soffio sonoro ha
+      // funzionato, ma l'immagine e' cambiata di botto e non c'e' stata
+      // animazione con i petali che si sono staccati e allontanati dal
+      // centro del soffione"*.
+      //
+      // **Flutter, quando la piattaforma dichiara `disableAnimations`, non
+      // spegne le animazioni: ne moltiplica la durata per 0,05**, cioe' le
+      // fa correre venti volte piu' in fretta. E' il comportamento di
+      // `AnimationBehavior.normal`, che e' quello di partenza. Su Android
+      // `disableAnimations` e' la scala di durata degli animatori, un numero
+      // che moltissimi mettono a zero per far sembrare il telefono piu'
+      // rapido: sul Realme del fondatore e' a zero.
+      //
+      // Quindi **il volo dei semi durava quarantacinque millisecondi invece
+      // di novecento**: girava, e finiva prima che l'occhio la vedesse. Da
+      // qui *"e' cambiata di botto"*.
+      //
+      // `AnimationBehavior.preserve` e' il modo documentato di dire che
+      // **questa animazione e' il contenuto e non un abbellimento**: il volo
+      // dei semi e' il gesto del rito, non una transizione.
+      animationBehavior: AnimationBehavior.preserve,
     )..addListener(() {
         final anim = _disperseAnim;
         if (anim != null) setState(() => _progress = anim.value);
@@ -321,6 +437,9 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
     _ambient = AnimationController(
       vsync: this,
       duration: const Duration(seconds: 8),
+      // Otto secondi di respiro d'aria diventerebbero quattro decimi: non
+      // un'ambientazione, uno stroboscopio.
+      animationBehavior: AnimationBehavior.preserve,
     )..repeat();
     // **NIENTE PIU' LIVELLI DA CARICARE. Ordine EF voce 03.**
     //
@@ -393,13 +512,24 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
         if (_formaDelSoffio.planarita > _planaritaMassimaSentita) {
           _planaritaMassimaSentita = _formaDelSoffio.planarita;
         }
+        // **E L'ENERGIA, perche' senza di lei il rapporto non decide
+        // niente.** La planarita' vale zero per due ragioni diverse: o il
+        // suono non e' piatto, o non e' arrivato abbastanza forte da essere
+        // misurato, perche' sotto `energiaMinima` la finestra si scarta
+        // prima. Con le due grandezze accanto il rapporto dice **quale dei
+        // due filtri** ha fermato il soffio.
+        if (_formaDelSoffio.energia > _energiaMassimaSentita) {
+          _energiaMassimaSentita = _formaDelSoffio.energia;
+        }
         // Una riga ogni due secondi circa, e non a ogni pacchetto: serve a
         // sapere **con che numeri** il microfono del telefono sente, e
         // trentadue righe al secondo non le legge nessuno.
         if (_campioniDalMicrofono ~/ 64000 != _ultimoRapportoDelMicrofono) {
           _ultimoRapportoDelMicrofono = _campioniDalMicrofono ~/ 64000;
-          debugPrint('SOFFIO: campioni $_campioniDalMicrofono, planarita piu '
-              'alta ${_planaritaMassimaSentita.toStringAsFixed(3)}, soglia '
+          debugPrint('SOFFIO: campioni $_campioniDalMicrofono, energia piu '
+              'alta ${_energiaMassimaSentita.toStringAsFixed(5)} su '
+              '${FormaDelSoffio.energiaMinima}, planarita piu alta '
+              '${_planaritaMassimaSentita.toStringAsFixed(3)} su '
               '${FormaDelSoffio.planaritaMinima}');
         }
         if (_formaDelSoffio.eSoffio) _complete();
@@ -431,6 +561,10 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
   /// `FormaDelSoffio.planaritaMinima` anche mentre la persona soffia, allora
   /// il microfono arriva e a non scattare e' il riconoscimento.
   double _planaritaMassimaSentita = 0;
+
+  /// L'energia piu' alta sentita, da confrontare con
+  /// `FormaDelSoffio.energiaMinima`.
+  double _energiaMassimaSentita = 0;
 
   /// A che blocco di due secondi si e' fermato l'ultimo rapporto.
   int _ultimoRapportoDelMicrofono = -1;
@@ -507,11 +641,24 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
   }
 
   void _complete() {
-    if (_reduceMotion) {
-      setState(() => _progress = 1);
-      _reveal();
-      return;
-    }
+    // **IL VOLO DEI SEMI NON SI SPEGNE PIU'. Ordine EF, 23 settembre 2026.**
+    //
+    // Qui `_reduceMotion` saltava l'animazione e portava il soffio a uno in
+    // un fotogramma: **il gesto del rito spariva**, i semi non volavano e il
+    // dono compariva di colpo. E `_reduceMotion` legge
+    // `disableAnimations`, che su Android e' la scala di durata degli
+    // animatori: **un numero che moltissimi mettono a zero per far sembrare
+    // il telefono piu' rapido**, non una richiesta di accessibilita'. Flutter
+    // non ci obbedisce da solo, le sue animazioni girano lo stesso: era il
+    // nostro codice a spegnerle.
+    //
+    // **Il fondatore, verbatim**: *"L'animazione del soffione ha sempre
+    // funzionato, quindi non dire cazzate e sistemalo"*. Aveva ragione lui, e
+    // il telefono non c'entrava.
+    //
+    // Cio' che resta legato a `reduceMotion` e' la **decorazione**: il
+    // luccichio d'ambiente, il vento che devia i semi, l'onda dei petali. Il
+    // gesto e il respiro no: sono il rito.
     _animateTo(1, onDone: _reveal);
   }
 
@@ -706,7 +853,7 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
     if (colonnaPrima is RenderBox && colonnaPrima.hasSize) {
       final fondo = colonnaPrima
           .globalToLocal(scena.localToGlobal(
-              Offset(0, SuperficiDelSoffio.fondoDellaFigura(scena.size))))
+              Offset(0, SuperficiDelSoffio.fondoDelSoffione(scena.size))))
           .dy;
       if ((fondo - _fondoFiguraInColonna).abs() >= 0.5 && mounted) {
         setState(() => _fondoFiguraInColonna = fondo);
@@ -735,7 +882,9 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
     // stesso posto, quindi non possono sovrapporsi per costruzione.
     final tettoAttuale =
         scena.globalToLocal(guidaBox.localToGlobal(Offset.zero)).dy;
-    final fondoFigura = SuperficiDelSoffio.fondoDellaFigura(scena.size);
+    // Il riquadro del respiro guarda il DONO: nella sua fase il soffione e'
+    // gia' volato via.
+    final fondoFigura = SuperficiDelSoffio.fondoDelDono(scena.size);
     final voluto = fondoFigura + respiroFraLeDueZone;
     final manca = voluto - tettoAttuale;
 
@@ -881,8 +1030,11 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
                           ambient: _reduceMotion ? 0 : _ambient.value,
                           reduceMotion: _reduceMotion,
                           palette: palette,
-                          // Ordine EE voce 02: a respirare e' lui.
-                          respiro: _reduceMotion ? 1.0 : _respiro.value,
+                          // **E IL RESPIRO ARRIVA SEMPRE. Ordine EF.**
+                          // Qui `_reduceMotion` lo bloccava a uno, cioe' la
+                          // figura ferma: una guida del respiro che non
+                          // respira non guida niente.
+                          respiro: _respiro.value,
                         ),
                       ),
                     ),
@@ -917,7 +1069,47 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
                       // **IL PAVIMENTO E' IL RAPPORTO DI PRIMA**: finche' la
                       // guida ci sta comoda, questa schermata e' identica a
                       // quella che il fondatore ha gia' approvato.
-                      final pavimento = vincoli.maxHeight * 6 / 9;
+                      // **IL PAVIMENTO SCENDE DA SEI NONI A 0,42. Ordine EF
+                      // voce 01, seconda passata.**
+                      //
+                      // **Il fatto del fondatore, verbatim**: *"l'AREA
+                      // DEDICATA ALLA DESCRIZIONE IN BASSO E' TROPPO
+                      // PICCOLA, TI HO FATTO ALZARE TUTTO, SIA IL FIORE CHE
+                      // IL PULSANTE, PER ALZARE LA BOLLA DELLA
+                      // DESCRIZIONE!"*.
+                      //
+                      // **Misurato: era il pavimento a tenere ferma la
+                      // bolla, non la figura.** Alzata la figura e separate
+                      // le due fasi, la zona del respiro chiedeva 479 punti
+                      // su 818 e il pavimento la teneva a 529: la bolla
+                      // guadagnava mezzo punto percentuale invece di
+                      // diciassette. Il pavimento dei sei noni veniva
+                      // dall'ordine 2164 voce 8, quando la zona era decisa da
+                      // un rapporto fisso e non c'era nessuna misura da
+                      // credere.
+                      //
+                      // **Adesso la misura c'e' ed e' deterministica**: il
+                      // riquadro si appoggia sotto un fondo dichiarato, non
+                      // insegue piu' niente. Il pavimento resta solo per il
+                      // primo fotogramma, quando la misura non esiste
+                      // ancora, e non deve mai essere lui a decidere.
+                      // **E IL PAVIMENTO VALE SOLO FINCHE' LA MISURA NON
+                      // C'E'.** Abbassarlo e basta schiacciava la guida
+                      // prima che qualcuno l'avesse misurata: sulla
+                      // geometria piu' stretta della griglia la sua colonna
+                      // **traboccava di ventinove pixel**, e il pulsante
+                      // finiva sotto la striscia gialla e nera invece che
+                      // sotto il dito. Preso da `la_scheda_non_sale_mai_sul_
+                      // respiro`, che quel tocco lo prova davvero.
+                      //
+                      // Quindi: al primo fotogramma il pavimento resta quello
+                      // largo di sempre, cosi' la guida si dispone comoda e
+                      // si lascia misurare; dal secondo in poi comanda la
+                      // misura, e il pavimento scende a un minimo che non
+                      // decide niente.
+                      final pavimento = _fondoDellaGuida > 0
+                          ? vincoli.maxHeight * 0.30
+                          : vincoli.maxHeight * 6 / 9;
                       // **E NON C'E' NESSUN TETTO SOTTO LO SCHERMO.** Un tetto
                       // e' un numero che qualcuno decide, ed e' esattamente la
                       // cosa che ha fatto tornare il difetto: messo a
@@ -1392,8 +1584,19 @@ class _BreathScenePainter extends CustomPainter {
       fermo: reduceMotion,
       // La stessa stretta che si applica al soffione: su uno schermo dove
       // la figura non ci sta, a cedere e' lei e non il riquadro.
-      apertura: (reduceMotion ? 1.0 : FormaDelDono.aperturaDaRespiro(respiro)) *
-          SuperficiDelSoffio.scalaDellaFigura(size),
+      // **CON RIDUCI MOVIMENTO LA FIGURA STA AL CULMINE, non a riposo.**
+      // Ordine EF voce 01, misurato sul Realme del fondatore: **le tre scale
+      // di animazione di quel telefono sono a zero**, quindi Flutter dichiara
+      // Riduci Movimento e qui non si muove niente. Con l'apertura a uno la
+      // figura restava ferma alla misura piu' piccola, **il 42,1 per cento
+      // della larghezza**, e chi ha le animazioni spente vedeva per sempre la
+      // versione rimpicciolita di una cosa che non si muove.
+      //
+      // Se non si muove, che stia grande: e' la stessa scelta gia' fatta per
+      // il soffione inciso, che con Riduci Movimento riceve `respiro: 1.0`,
+      // cioe' il culmine.
+      apertura: FormaDelDono.aperturaDaRespiro(respiro) *
+          SuperficiDelSoffio.scalaDelDono(size),
     );
 
     // --- IL SOFFIONE, DISEGNATO E NON FOTOGRAFATO. Ordine EF voce 03. ---

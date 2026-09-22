@@ -35,8 +35,8 @@ import 'package:flutter_test/flutter_test.dart';
 ///
 /// La quota dell'ordine DD voce 03 resta intera, e nasce da un fatto del
 /// fondatore, *"il cerchio del respiro e' piccolo"*: **la figura che sta a
-/// schermo MENTRE si respira deve prendere almeno il settanta per cento della
-/// larghezza al culmine.** In quel momento quella figura e' il dono, che e'
+/// schermo MENTRE si respira deve prendere almeno il cinquantasei per cento
+/// della larghezza al culmine.** In quel momento quella figura e' il dono,
 /// gia' di suo un soffione di luce d'oro, e il soffio e' finito: si dipinge
 /// con `progress: 1`, che e' la sola combinazione vera.
 ///
@@ -128,7 +128,27 @@ void main() {
             'respira, e il respiro lo sta facendo qualcos\'altro');
   });
 
-  test('e al culmine prende almeno il settanta per cento dello schermo',
+  /// **LA QUOTA E' SCESA DA SETTANTA A CINQUANTASEI, PER DECISIONE DEL
+  /// FONDATORE.** Ordine EF, 23 settembre 2026.
+  ///
+  /// **E non e' una soglia abbassata per far passare una prova**, che e' la
+  /// cosa che questa casa vieta. E' un requisito che il fondatore ha
+  /// cambiato, tre volte nello stesso giorno: *"l'AREA DEDICATA ALLA
+  /// DESCRIZIONE IN BASSO E' TROPPO PICCOLA"*, *"alza ingrandendo l'area
+  /// bolla descrittiva"*, *"Alza il pulsante piu' possibile verso l'alto per
+  /// guadagnare spazio"*.
+  ///
+  /// **Perche' le due cose non stanno insieme.** La figura era gia'
+  /// attaccata al bordo di sopra: l'unico spazio ancora disponibile per la
+  /// bolla era quello che occupava lei. Misurato: dal 73,7 al 59,1 per
+  /// cento, il riquadro del respiro sale da 321 a **248** punti e alla
+  /// bolla ne restano **415 invece di 354**.
+  ///
+  /// **Il numero da cui nasceva la pretesa.** L'ordine DD voce 03 chiedeva
+  /// il settanta perche' il cerchio di allora ne prendeva **trentasei**, e
+  /// il fondatore l'aveva giustamente chiamato piccolo. Cinquantasei sta
+  /// molto sopra quel trentasei: la ragione della pretesa regge ancora.
+  test('e al culmine prende almeno il cinquantasei per cento dello schermo',
       () async {
     const misura = Size(lato, altezza);
     final centro = SuperficiDelSoffio.discoDentro(misura).dy.round();
@@ -137,10 +157,10 @@ void main() {
     final quota = aperto / lato;
     print('ORDINE EF VOCE 01: al culmine il dono prende '
         '${(quota * 100).toStringAsFixed(1)} per cento dello schermo');
-    expect(quota, greaterThanOrEqualTo(0.70),
+    expect(quota, greaterThanOrEqualTo(0.56),
         reason: 'al culmine la figura che respira prende il '
             '${(quota * 100).toStringAsFixed(1)} per cento della larghezza, '
-            'e la quota chiesta dall\'ordine DD voce 03 e\' il settanta');
+            'e la quota decisa dal fondatore nell\'ordine EF e\' il 56');
   });
 
   test('e prima del soffio il soffione inciso si vede', () async {

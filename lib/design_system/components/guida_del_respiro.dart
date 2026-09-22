@@ -91,6 +91,17 @@ class _GuidaDelRespiroState extends State<GuidaDelRespiro>
   late final AnimationController _motore = AnimationController(
     vsync: this,
     duration: widget.tempi.intero,
+    // **IL RESPIRO E' IL CONTENUTO, NON UNA TRANSIZIONE.** Ordine EF, 23
+    // settembre 2026: con `AnimationBehavior.normal`, che e' quello di
+    // partenza, Flutter accorcia venti volte la durata quando la piattaforma
+    // dichiara `disableAnimations`. **Un respiro di ventotto secondi ne
+    // durava uno e quattro**, e sul telefono del fondatore la schermata
+    // diceva "Il respiro e' compiuto" prima che lui avesse finito di
+    // inspirare la prima volta.
+    //
+    // Una guida del respiro che corre venti volte piu' in fretta del respiro
+    // non e' una guida: e' il contrario di cio' che serve a chi la usa.
+    animationBehavior: AnimationBehavior.preserve,
   );
   bool _avvisato = false;
 

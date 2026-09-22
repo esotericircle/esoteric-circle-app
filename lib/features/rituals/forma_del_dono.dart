@@ -44,7 +44,7 @@ abstract final class FormaDelDono {
   /// respira, e nasce dal fondatore che diceva *"il cerchio del respiro e'
   /// piccolo"*. A soffio finito il raggio nudo e' 0,23 della larghezza, cioe'
   /// 0,46 di diametro: serve una corsa che lo porti oltre 0,70.
-  static const double aperturaMassima = 1.58;
+  static const double aperturaMassima = 1.26;
   static const double chiusuraMinima = 0.90;
 
   /// L'apertura, data la misura del respiro che manda la guida nella corsa
