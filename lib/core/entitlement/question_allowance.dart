@@ -376,6 +376,22 @@ class QuestionAllowance extends ChangeNotifier {
   /// Ordine BG voce 05.
   bool puoiConfrontare(Tier tier) => confrontiRimasti(tier) > 0;
 
+  /// **IL CREDITO COMPRATO, per chi lo deve provare.** Ordine EE voce 08.
+  ///
+  /// Il riscatto porta il contatore sotto zero, ed e' cosi' che un credito
+  /// comprato vive fuori dal proprio piano. Una prova non puo' passare da
+  /// `riscatta`, che vuole il server: qui si mette il contatore dove il
+  /// riscatto lo lascerebbe, e si misura cio' che ne segue.
+  @visibleForTesting
+  set confrontiPerLaProva(int quanti) {
+    // Prima il cambio di giorno, o sarebbe lui a riazzerare il credito un
+    // istante dopo: il primo lettore chiama `_rollover` e su preferenze
+    // vuote il giorno non c'e' ancora.
+    _rollover();
+    _confronti = quanti;
+    notifyListeners();
+  }
+
   /// Registra un confronto consumato.
   void registraConfronto(Tier tier) {
     // Come sopra: il credito fuori piano si consuma contandolo. BG voce 05.

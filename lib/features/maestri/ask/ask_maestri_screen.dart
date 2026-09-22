@@ -461,7 +461,32 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
     // entrare: aprirlo di nuovo appena dentro vorrebbe dire accogliere chi
     // arriva con una finestra di vendita, e per due volte di fila.
     final piano = context.read<EntitlementService>().tier;
-    final puoConfrontare = context.read<QuestionAllowance>().canCompare(piano);
+    // **SI GUARDANO I RIMASTI, NON IL PIANO.** Ordine EE voce 08, 23
+    // settembre 2026.
+    //
+    // **Il fatto del fondatore, verbatim**: *"ho acquistato con 150 EOS
+    // l'approfondimento con il confronto dei 3 maestri [...] una volta
+    // aperto l'approfondimento, mi ha mostrato solo la risposta di Medora e
+    // non gli altri Maestri. allora ho sottoscritto l'abbonamento e i
+    // contatori si sono aggiornati"*.
+    //
+    // **La causa era questa riga.** `canCompare` chiede al PIANO se il
+    // confronto gli spetta, e sul piano senza confronti la risposta e' no:
+    // le altre due lenti non venivano **nemmeno chieste**. Ma chi compra un
+    // confronto con gli Eos non cambia piano: il riscatto porta il contatore
+    // **sotto zero**, e il credito vive nei rimasti, che sono uno.
+    //
+    // **La regola giusta esisteva gia' e non era stata applicata qui.**
+    // L'ordine BG voce 05 l'ha scritta per gli approfondimenti e per le
+    // stese: *"il cancello guarda i rimasti, non il piano, cosi' il credito
+    // riscattato con gli Eos si spende davvero"*. `puoiConfrontare` la
+    // rispetta gia', ed e' a lei che si chiede. **Padre: ordine BG voce 05**,
+    // che ha lasciato fuori proprio la porta del confronto.
+    //
+    // Chi paga e riceve meno di quanto ha pagato e' il difetto piu' grave
+    // che questa app possa avere.
+    final puoConfrontare =
+        context.read<QuestionAllowance>().puoiConfrontare(piano);
 
     for (final m in Maestro.fixedOrder) {
       if (!mounted) return;
