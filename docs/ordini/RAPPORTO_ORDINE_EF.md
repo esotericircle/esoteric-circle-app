@@ -135,7 +135,15 @@ entra rimpicciolisce fino al pavimento invece di tagliare. **Lo usano
 ventidue schermate.** Il Soffio aveva un `Text` nudo, che in una barra con
 tre azioni a destra non ha altra scelta che i puntini.
 
-**Agganciato qui, che e' dentro il perimetro.**
+**Agganciato qui, che e' dentro il perimetro. Ma agganciarlo non bastava.**
+Quel componente evita che una parola si spezzi a meta', **pero' quando il
+titolo intero vuole piu' righe di quelle concesse rende lo stesso una
+misura**: il testo non si rompe, l'ultima riga sparisce. E' successo sul
+Viaggio dello Sciamano nell'ordine DQ voce 14, dove la barra diceva *"Il
+Viaggio dello"*. Avevo dichiarato la cura senza misurarne l'esito: adesso c'e'
+la misura, sulla geometria vera del tuo telefono, **360 punti e non i 390 del
+banco**. Con due azioni nella barra restano **208 punti** e il titolo ci sta
+intero a corpo venti su due righe, come si vede nelle catture.
 
 **E il conto di quanto e' largo**: in `lib/features/` ci sono **quarantadue**
 punti con un `title: Text(` nudo (alcuni sono finestre di dialogo, non barre).

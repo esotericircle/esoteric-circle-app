@@ -292,16 +292,34 @@ guardato da nessun ordine. Era nascosto dal ramo di Riduci Movimento, che
 rivelava il dono nello stesso fotogramma; tolto quel ramo in quest'ordine, il
 blocco e' venuto a galla alla prima prova a video.
 
+**Il terzo, segnalato dal fondatore guardando la sua stessa cattura**: *"il
+titolo in alto troncato con dei puntini"*. La cura esisteva gia',
+`TitoloCheNonSiRompe` dall'ordine S voce 05, e ventidue schermate la usano; il
+Soffio aveva un `Text` nudo.
+
+**E AGGANCIARE IL COMPONENTE GIUSTO NON BASTAVA.** Quel componente evita che
+una parola si spezzi a meta', ma quando il titolo intero vuole piu' righe di
+quelle concesse **rende lo stesso una misura**: il testo non si rompe,
+l'ultima riga sparisce. L'ordine DQ voce 14 l'aveva gia' pagato sul Viaggio,
+dove la barra diceva *"Il Viaggio dello"*. Sostituire il widget e fermarsi li'
+sarebbe stato dichiarare una cura senza misurarne l'esito: adesso c'e' la
+misura, **sulla geometria vera del Realme, 360 punti e non i 390 del banco**,
+perche' su 390 il titolo ci sta e una guardia montata li' sarebbe stata verde
+davanti alla cattura. Con due azioni nella barra restano **208 punti**, e il
+titolo ci sta intero a corpo venti su due righe.
+
 **LE CATTURE, in `docs/collaudo/EF/`**, fatte sul Realme 767f596c:
 
 | cattura | cosa mostra | esito dei criteri |
 |---|---|---|
-| `1_prima_del_soffio` | soffione inciso intero, invito sotto | tutti passati |
+| `1_prima_del_soffio` | soffione inciso intero, invito sotto, **titolo per intero su due righe** | tutti passati |
 | `3_prima_di_respirare` | dono intero, riquadro sotto, bolla a sei righe | tutti passati |
 | `4_inspira` | primo giro del respiro | tutti passati |
 | `5_secondo_giro` | secondo giro | tutti passati |
 | `6_respiro_compiuto` | il rito chiuso | tutti passati |
 | `7_il_responso` | la scheda del dono | tutti passati |
+
+**LE CATTURE SONO STATE RIFATTE DUE VOLTE**, e la prima serie e' stata buttata: era stata presa prima della correzione del titolo, quindi **mostrava troncato cio' che il rapporto dichiarava intero**. Una cattura che contraddice il rapporto che dovrebbe provare e' peggio di nessuna cattura.
 
 **Cosa NON e' stato catturato, e si dichiara**: il volo dei semi. Dura
 novecento millisecondi e `screencap` ne impiega circa settecento fra uno
