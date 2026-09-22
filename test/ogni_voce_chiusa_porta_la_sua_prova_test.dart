@@ -201,8 +201,19 @@ void main() {
 
     print('ORDINE EH VOCE 03: manifesti con chiusure $manifestiGuardati, '
         'guardie nominate $guardieGuardate');
-    // **Il cardinale**: un giorno in cui nessun manifesto nominasse piu'
-    // nessuna guardia, questa prova sarebbe verde avendo guardato il vuoto.
+    // **Il cardinale, e va dichiarato sull'insieme scoperto.** Questa prova
+    // elenca una cartella a esecuzione: il giorno che quella cartella fosse
+    // vuota, o che i manifesti non nominassero piu' nessuna guardia, sarebbe
+    // verde avendo guardato il vuoto. **Il primo numero e' quello dei file
+    // trovati**, perche' e' l'insieme che si scopre; il secondo dice che
+    // dentro quei file c'e' davvero qualcosa da leggere.
+    //
+    // La riga sui file e' nata dopo le altre due: `ogni_guardia_dichiara_
+    // quanto_guarda` ha colto questa prova mentre dichiarava il cardinale su
+    // una grandezza **derivata** e non sull'insieme elencato.
+    expect(manifesti.length, greaterThan(80),
+        reason: 'in docs/ordini ci sono solo ${manifesti.length} manifesti: '
+            'o si sono spostati, o il filtro non li riconosce piu');
     expect(guardieGuardate, greaterThanOrEqualTo(50),
         reason: 'i manifesti nominano solo $guardieGuardate guardie: o si '
             'sono spostati, o la forma dei nomi e cambiata');

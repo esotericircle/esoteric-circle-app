@@ -116,6 +116,21 @@ totale e' un controllo, non un ornamento.
 
 **Ricontate a ordine EA, terzo lotto**, 20 settembre 2026, il conteggio sempre attivo e anonimo: **nessuna guardia nuova nel conto**, perche' le prove nuove vivono dentro `la_misura_del_ritorno`, che il registro conosce gia'. Il totale resta **446**. **Vista rossa due volte**: il conteggio rimesso sotto consenso, e la frase *"Conta i gesti, non me"* rimessa come testo a video; al primo innesto la frase era in un commento e la guardia non l'ha presa, ed e' giusto cosi', perche' guarda il codice senza i commenti e le righe che spiegano perche' la frase e' uscita la citano. **Tre guardie di casa hanno cambiato legge, non numero**: `i_consensi_stanno_nella_registrazione` e `una_porta_sola_per_la_privacy` pretendevano l'interruttore, adesso pretendono che non ci sia, e `la_misura_del_ritorno` pretendeva che senza consenso non partisse niente.
 
+**Ricontate a ordine EH**, 24 settembre 2026, la garanzia che un ordine chiuso
+sia davvero chiuso. **Nessuna guardia nuova**, il totale resta **490**: le
+cinque dell'ordine erano gia' entrate col commit precedente. **Regola B, e per
+una volta l'ha applicata il lavoro da se'**:
+`lo_sbarramento_distingue_i_rossi` e' stata **vista rossa su dodici prove
+dentro lo stesso lavoro che la stava rompendo**, cioe' il quarto cancello
+appena scritto, esattamente come nell'ordine CM. Riparata la grandezza, e'
+tornata verde con le altre due dello sbarramento,
+`la_ronda_legge_i_rossi_accettati` e `nessun_rosso_attraversa_una_consegna`.
+**E la guardia delle chiusure ha cambiato cio' che pretende**: accetta adesso
+una guardia nominata che sia viva **oppure** dichiarata morta con la riga
+`GUARDIA RIMOSSA: <nome> - <ordine e commit>`, perche' diciassette guardie
+nominate in sei manifesti erano state cancellate da ordini successivi senza
+che nessuno lo scrivesse.
+
 **Ricontate a ordine EA, secondo lotto**, 19 e 20 settembre 2026, le rune senza astrologia, il Soffio col microfono e la Ronda verde: **due guardie nuove**, `la_ronda_legge_i_rossi_accettati` (EA.03), vista rossa rimettendo il `flutter test` nudo nel workflow, e `il_tramonto_delle_dodici_lune` (EA.05), che non scopre insiemi di file. Il totale sale da 444 a **446** e le tre categorie a **137, 114 e 195**. **Vista rossa con due innesti**: il Tramonto che smette di scrivere la Luna piena nei dettagli del gesto, e il Sigillo rimesso sulla Luna piena nel tuo segno. **Guardie di casa riviste in zona (Regola B)**: `il_soffio_si_riconosce_dalla_forma`, vista rossa rimettendo la misura di prima, la planarita' nuda con la soglia a 0,20, che sul vento di un fiato vero da' 0,003 e non apre il dono: e' il difetto che il fondatore ha visto sulla 2272; `sunset_rune`, `corpus_rune_attestato` e `la_scheda_della_runa_non_si_ripete` viste rosse rimettendo un segno nella voce; `ordine_codemagic2_guard` vista rossa prima di toccare il cancello. **Tre guardie hanno cambiato il numero che pretendevano, e il numero segue il dato**: le cornici della fonte da diciassette a tredici vive, le arti che ricevono un segno da quattro a tre, le callable del server da undici a dodici.
 
 **Ricontate a ordine EA, primo lotto**, 19 settembre 2026, le correzioni dopo la 2272: **una guardia nuova**, `il_menu_utente_e_viola_su_cosmo`, col cardinale proprio (sette file del menu' utente censiti, otto rotte). Il totale sale da 442 a **443** e le tre categorie a **137, 114 e 192**. **Poi una seconda**, `il_cancello_aspetta_il_limite` (EA.15), che esegue il cancello di Codemagic su risposte finte e non scopre insiemi di file: il totale sale a **444** e le categorie a **137, 114 e 193**. **Vista rossa** rimettendo al suo posto il cancello di prima (cadono le tre prove del limite, restano verdi le due fermate che non cambiano) e innestando un'intestazione di credenziali; al primo innesto la scrittura del file e' stata rifiutata, il grep lo ha mostrato e il verde di quel giro non e' stato creduto. **Regola B**: `ordine_codemagic2_guard`, fuori dal conto, vista rossa facendo passare il rosso per verde prima di toccare il cancello. **Vista rossa con tre innesti**, ognuno verificato col grep e ripristinato con lo sha1: la rotta delle Notifiche senza il vestito, lo Scaffold del Profilo di nuovo nero pieno, la bolla di nuovo blu notte. **Al primo giro misurava male**: cercava `palette.deepest` come pezzo di riga, e prendeva la barra in alto delle Impostazioni, che e' a trasparenza e lascia vedere il cielo; adesso cerca il fondo pieno, con la virgola dopo. Le prove nuove della chat (EA.01, 06, 07, 08, 09) e del tutorial (EA.02) sono prove di valore, fuori dal conto, viste rosse ciascuna prima di essere credute.
@@ -861,7 +876,7 @@ le altre.
 | `le_sette_chiavi_del_collaudo_test.dart` | le sette chiavi del collaudo | 1, 2 | dalla porta comune | mai | 3 |
 | `le_soglie_della_scansione_sono_provvisorie_test.dart` | le soglie della scansione sono provvisorie, ROSSA APPOSTA | 4 | non scopre insiemi di file | 06/09/2026, CR | 2 |
 | `le_stelle_della_festa_sono_stelle_test.dart` | le stelle della festa sono stelle, sui pixel | 2 | proprio, dichiarato | CO | 3 |
-| `lo_sbarramento_distingue_i_rossi_test.dart` | lo sbarramento distingue i rossi | 1, 2 | proprio, dichiarato | 17/09/2026, CODEMAGIC2, la build che non legge piu' il verdetto del cancello | 3 |
+| `lo_sbarramento_distingue_i_rossi_test.dart` | lo sbarramento distingue i rossi | 1, 2 | proprio, dichiarato | 24/09/2026, EH.03, vista rossa su dodici prove dal quarto cancello mentre lo si scriveva | 3 |
 | `lo_scuotimento_ha_una_porta_sola_test.dart` | lo scuotimento ha una porta sola | 1, 2 | dalla porta comune | mai | 2 |
 | `lo_spazio_dentro_lo_scroll_test.dart` | lo spazio dentro lo scroll | 1, 2 | dalla porta comune | mai | 3 |
 | `lo_specchio_dell_istante_arriva_test.dart` | lo specchio dell istante arriva | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
