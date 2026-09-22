@@ -4127,6 +4127,23 @@ di morire**: `il_cerchio_del_soffio_riempie_la_scena` pretendeva il settanta
 per cento dal cerchio, e il fondatore, messo davanti al conflitto fra i due
 ordini, ha deciso di riscrivere la misura sul soffione.
 
+**LA BUILD 2276 E' CONSEGNATA E ACCESA.** `flutter build apk --release`,
+195,3 MB, 204.817.807 byte, 724 voci di asset, otto famiglie dell'arte
+dichiarate e nessuna incompleta. **Prova di accensione sul Realme 767f596c:
+processo vivo, primo fotogramma disegnato, nessun FATAL EXCEPTION**, numero
+2276 letto dal dispositivo. Sbarramento passato con **5720 prove** e i soli
+rossi del registro degli accettati. Release `2pkf3e7c0bar0`, distribuita, un
+invito accettato. Parte dal commit `abd95d72`.
+
+**Una cosa da sapere leggendo il registro della consegna**: la riga *"note
+rilette dal server"* esce dalla stampa di Python con gli accenti degradati a
+cp1252 quando l'uscita finisce in un file. **Il dato e' giusto e il server ha
+il testo intero**, lo dicono i byte: nel file c'e' un `0xE8` pulito, che e'
+proprio la lettera, mentre un testo davvero rotto avrebbe lasciato un
+`U+FFFD` o la coppia `Ã¨`. **E' la stampa a mentire, non la consegna**, ma
+chi rilegge quel registro puo' crederci: `tool/consegna.py` dovrebbe
+dichiarare UTF-8 sulla propria uscita.
+
 **COSA RESTA AL GIUDIZIO DEL FONDATORE**: le due animazioni, il tono delle tre
 parole nuove del Sigillo, la frase delle sette sere, e soprattutto **che il
 Viaggio concluso ricompaia dopo un aggiornamento**, che si vede solo

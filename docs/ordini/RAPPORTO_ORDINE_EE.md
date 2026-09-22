@@ -220,6 +220,27 @@ gettone della sessione `gcloud`. **Nessuna chiamata alle API Anthropic.**
 
 ---
 
+## 6bis. LA BUILD, E UNA RIGA DEL SUO REGISTRO DI CUI NON FIDARSI
+
+**Build 2276, consegnata e accesa.** 195,3 MB, prova di accensione sul Realme:
+processo vivo, primo fotogramma disegnato, nessun FATAL EXCEPTION, numero 2276
+letto dal dispositivo. Sbarramento passato con 5720 prove e i soli rossi del
+registro degli accettati. Release `2pkf3e7c0bar0`, un invito accettato.
+
+**E una cosa che ho visto e che devi sapere.** Il registro della consegna
+stampa *"note rilette dal server"*, e li' gli accenti escono rotti. **Il testo
+sul server e' giusto**: quando l'uscita di Python finisce in un file, la
+stampa degrada a cp1252, e nel file resta un `0xE8` pulito, che e' proprio la
+lettera. Un testo davvero rotto avrebbe lasciato un `U+FFFD` o la coppia
+`Ã¨`, che sono un'altra cosa.
+
+**Non l'ho corretto**, perche' e' uno strumento di consegna e l'ordine non lo
+chiedeva: `tool/consegna.py` dovrebbe dichiarare UTF-8 sulla propria uscita, o
+la sua riga piu' importante continuera' a far sembrare rotto cio' che e'
+intero. **Dimmi tu se lo tocco.**
+
+---
+
 ## 7. UNA COSA CHE HO IMPARATO, E VALE OLTRE QUEST'ORDINE
 
 **Un difetto che si vede da una porta sola non e' un difetto raro: e' un
