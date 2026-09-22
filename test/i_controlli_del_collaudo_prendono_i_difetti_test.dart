@@ -177,6 +177,85 @@ void main() {
         reason: 'un turno che ha fatto scendere il contatore due volte passa');
   });
 
+  // **IL CONTROLLO DELLA SINTESI COMPARATIVA.** Ordine EE voce 10, 23
+  // settembre 2026.
+  //
+  // **La prima grandezza era sbagliata, e il numero l'ha detto.** Si misurava
+  // se la sintesi nominasse una relazione fra gli sguardi, e in tre giri veri
+  // ha risposto si' tutte e tre le volte: quella della cattura apre proprio
+  // con *"Le letture convergono"*. La regola A dice che quando il rosso non
+  // scatta **si cambia la grandezza, mai la soglia**, e rileggendo il testo la
+  // grandezza giusta si vede: **non nomina mai nessuno dei tre**.
+  group('la sintesi comparativa', () {
+    // Il testo vero della cattura del fondatore del 23 settembre 2026.
+    const dellaCattura =
+        'Le letture convergono su un momento di raccolto. Tutti gli sguardi '
+        'sottolineano il valore del lavoro fatto insieme. Si evidenzia la '
+        'maestria di chi ha costruito con pazienza. La Ruota della Fortuna, '
+        'per tutti, segna un ciclo che si rinnova.';
+    const iNomi = ['Medora', 'Caligo', 'Aura'];
+    const letture = [
+      'Il Tre di Denari suggerisce che il tuo lavoro trovera\' '
+          'riconoscimento, spesso attraverso l\'abilita\' di costruire con '
+          'gli altri.',
+      'Il Tre di Denari indica la maestria nel tuo operare.',
+      'Il Tre di Coppe sboccia come la gioia che nasce dalla condivisione.',
+    ];
+
+    test('prende la sintesi che non nomina nessuno dei Maestri', () {
+      final esito = controllaLaSintesi(
+        sintesi: dellaCattura,
+        letture: letture,
+        nomiDeiMaestri: iNomi,
+      );
+      print('ORDINE EE VOCE 10, la sintesi della cattura: Maestri nominati '
+          '${esito.maestriNominati}, parla di relazione '
+          '${esito.parlaDiRelazione}, cadute ${esito.cadute.length}');
+      expect(esito.maestriNominati, 0);
+      expect(esito.cadute, hasLength(1),
+          reason: 'un confronto senza i termini da confrontare e\' un '
+              'riassunto, e deve far cadere');
+      // **La prova che la grandezza vecchia sarebbe stata verde.** Resta
+      // scritta qui perche' chi un giorno pensasse di rimetterla veda subito
+      // che su questo testo non scattava.
+      expect(esito.parlaDiRelazione, isTrue,
+          reason: 'la sintesi della cattura parla eccome di relazione, e per '
+              'questo la prima grandezza non prendeva niente');
+    });
+
+    test('ne bastano due: un confronto vero non cade', () {
+      final esito = controllaLaSintesi(
+        sintesi: 'Medora guarda al riconoscimento del lavoro, Caligo '
+            'all\'espansione che ne segue.',
+        letture: letture,
+        nomiDeiMaestri: iNomi,
+      );
+      expect(esito.maestriNominati, 2);
+      expect(esito.cadute, isEmpty,
+          reason: 'pretendere tutti e tre i nomi farebbe cadere una sintesi '
+              'che sta confrontando');
+    });
+
+    test('conta le sequenze riprese per intero dalle letture', () {
+      final ripete = controllaLaSintesi(
+        sintesi: 'Medora: il Tre di Coppe sboccia come la gioia che nasce '
+            'dalla condivisione.',
+        letture: letture,
+        nomiDeiMaestri: iNomi,
+      );
+      final sua = controllaLaSintesi(
+        sintesi: 'Medora vede un raccolto che arriva per mani altrui.',
+        letture: letture,
+        nomiDeiMaestri: iNomi,
+      );
+      print('ORDINE EE VOCE 10, sequenze riprese: ripete '
+          '${ripete.sequenzeRipetute}, con parole sue '
+          '${sua.sequenzeRipetute}');
+      expect(ripete.sequenzeRipetute, greaterThan(0));
+      expect(sua.sequenzeRipetute, 0);
+    });
+  });
+
   test('le frasi che deviano sono tutte quelle del codice', () {
     // **Il cardinale, perche' questa gira su un insieme scoperto.** Se gli
     // intenti sparissero, l'elenco delle deviazioni sarebbe vuoto e il

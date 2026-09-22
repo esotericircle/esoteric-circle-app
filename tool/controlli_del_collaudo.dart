@@ -157,3 +157,110 @@ String? controllaIlContatore({required int scese, required int attese}) =>
         ? null
         : 'il contatore e\' sceso di $scese e i turni che dovevano costare '
             'erano $attese';
+
+/// **LA SINTESI CONFRONTA, NON RIASSUME.** Ordine EE voce 10, 23 settembre
+/// 2026.
+///
+/// **Il fatto del fondatore**, sulla cattura del Consiglio: la sintesi
+/// ripeteva i contenuti delle tre letture con frasi valide per chiunque, *"La
+/// Ruota della Fortuna, per tutti, segna un ciclo che si rinnova"*, invece di
+/// confrontare i tre sguardi.
+///
+/// **LA PRIMA GRANDEZZA ERA SBAGLIATA, e il numero l'ha detto.** Si misurava
+/// se la sintesi nominasse una relazione fra gli sguardi: in tre giri ha
+/// risposto **si' tutte e tre le volte**. E infatti la sintesi della cattura
+/// apre proprio con *"Le letture convergono"*. La regola A dice che quando il
+/// rosso non scatta **si cambia la grandezza, mai la soglia**, e rileggendo
+/// quel testo la grandezza giusta si vede:
+///
+/// > *"Le letture convergono... Tutti gli sguardi sottolineano... Si
+/// > evidenzia la maestria... La Ruota della Fortuna, per tutti..."*
+///
+/// **Non nomina mai nessuno dei tre.** Dice quattro volte "tutti e tre dicono
+/// lo stesso", che e' un riassunto: un confronto ha bisogno di due termini, e
+/// i termini qui sono i Maestri. **Chi confronta nomina chi confronta.**
+///
+/// **Non e' un cancello sul singolo testo, e' un tasso.** L'ordine EC ha
+/// insegnato che su testo generato un cancello binario misura la fortuna del
+/// giro: si riportano i numeri, e cade solo il caso grosso, cioe' una sintesi
+/// che **non nomina nessuno dei Maestri di cui sta parlando**.
+class EsitoDellaSintesi {
+  const EsitoDellaSintesi({
+    required this.maestriNominati,
+    required this.parlaDiRelazione,
+    required this.sequenzeRipetute,
+    required this.paroleProprie,
+  });
+
+  /// Quanti dei Maestri interpellati la sintesi chiama per nome.
+  final int maestriNominati;
+
+  /// Vero se nomina almeno un rapporto fra gli sguardi. **Si riporta e non
+  /// fa cadere**: la misura ha gia' mostrato che il modello lo fa da se'.
+  final bool parlaDiRelazione;
+
+  /// Quante sequenze di cinque parole riprende dalle letture per intero.
+  final int sequenzeRipetute;
+
+  /// Quante parole ha in tutto, per leggere il tasso.
+  final int paroleProprie;
+
+  List<String> get cadute => [
+        if (maestriNominati == 0)
+          'la sintesi non nomina nessuno dei Maestri di cui parla: dice '
+              '"le letture", "tutti gli sguardi", "si evidenzia", e un '
+              'confronto senza i termini da confrontare resta un riassunto',
+      ];
+}
+
+/// Le parole con cui si nomina un rapporto fra sguardi.
+const List<String> paroleDellaRelazione = [
+  'concordano',
+  'convergono',
+  'divergono',
+  'si incontrano',
+  'si allontanano',
+  'mentre',
+  'invece',
+  'diversamente',
+  'al contrario',
+  'tutti e tre',
+  'entrambi',
+  'in comune',
+  'differisce',
+  'si distingue',
+];
+
+/// Misura una sintesi comparativa contro le letture da cui nasce.
+EsitoDellaSintesi controllaLaSintesi({
+  required String sintesi,
+  required List<String> letture,
+  required List<String> nomiDeiMaestri,
+}) {
+  final basso = sintesi.toLowerCase();
+  final nominati =
+      nomiDeiMaestri.where((n) => basso.contains(n.toLowerCase())).length;
+  final parlaDiRelazione = paroleDellaRelazione.any(basso.contains);
+
+  // Le sequenze di cinque parole della sintesi che compaiono identiche in
+  // una delle letture: e' il modo piu' semplice di dire "questa frase
+  // l'aveva gia' detta lui".
+  final sue = basso
+      .replaceAll(RegExp(r'[^a-zàèéìòù ]'), ' ')
+      .split(RegExp(r'\s+'))
+      .where((p) => p.isNotEmpty)
+      .toList();
+  final loro = letture
+      .map((l) => l.toLowerCase().replaceAll(RegExp(r'[^a-zàèéìòù ]'), ' '))
+      .join(' ');
+  var ripetute = 0;
+  for (var i = 0; i + 5 <= sue.length; i++) {
+    if (loro.contains(sue.sublist(i, i + 5).join(' '))) ripetute++;
+  }
+  return EsitoDellaSintesi(
+    maestriNominati: nominati,
+    parlaDiRelazione: parlaDiRelazione,
+    sequenzeRipetute: ripetute,
+    paroleProprie: sue.length,
+  );
+}

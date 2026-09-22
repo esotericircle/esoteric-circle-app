@@ -8,8 +8,8 @@ non c'e' nessun `ORDINE_EE_*`, in `test/` nessuna `ordine_ee_guard`, e
 l'ordine ED chiuso e la build 2275 consegnata.
 
 VOCI_TOTALI: 14
-VOCI_CHIUSE: 13
-VOCI_APERTE: 1
+VOCI_CHIUSE: 14
+VOCI_APERTE: 0
 
 Il rapporto stara' in `docs/ordini/RAPPORTO_ORDINE_EE.md`.
 
@@ -449,20 +449,58 @@ regola**: tre Maestri su tre senza. La guardia misura che la regola **arrivi**,
 non che il modello la rispetti: quello si misura col collaudo, ed e' scritto
 nel rapporto.
 
-**LA SINTESI CHE RIPETE INVECE DI CONFRONTARE, seconda meta': NON FATTA.**
-L'istruzione della sintesi gia' chiede di *"mettere a confronto le loro prese
-di posizione, dove convergono e dove divergono, senza ripetere per intero ogni
-lettura"*, e il modello non la rispetta. **E' lo stesso quadro dell'ordine EC
-voce 03**: una regola che c'e' e non ha morso, e quell'ordine ha insegnato che
-rafforzarla non serve e che serve una misura prima e dopo. **Quella misura
-vuole un giro di collaudo sul Consiglio con una stesa vera, e non e' stata
-fatta.** Si dichiara invece di darla per chiusa.
+**LA SINTESI CHE RIPETE INVECE DI CONFRONTARE, seconda meta'.** Il collaudo
+si e' esteso al Consiglio, come l'ordine chiedeva: **mossa 17**, la sintesi
+comparativa sulla stesa vera della cattura del fondatore, le stesse tre
+letture, lo stesso modello, la stessa istruzione, lo stesso materiale. Prima
+di toccare niente, la misura.
 
-**La prima meta' e' fatta e provata. La seconda no, e questa voce resta
-APERTA invece di dichiararsi chiusa a meta': una voce mezza chiusa e' una
-voce aperta con una parola gentile davanti.**
+**LA PRIMA GRANDEZZA ERA SBAGLIATA, E IL NUMERO L'HA DETTO.** Si misurava se
+la sintesi nominasse una relazione fra gli sguardi: **tre giri, tre volte
+si'**. E infatti quella della cattura apre con *"Le letture convergono"*. La
+regola A dice che quando il rosso non scatta **si cambia la grandezza, mai la
+soglia**, e rileggendo il testo la grandezza giusta si vede: *"Le letture
+convergono... Tutti gli sguardi sottolineano... Si evidenzia la maestria...
+La Ruota della Fortuna, per tutti"*. **Non nomina mai nessuno dei tre.** Un
+confronto ha bisogno di due termini, e i termini qui sono i Maestri.
 
-**APERTA.**
+**IL DIFETTO NON E' LA REGOLA, E' UN'ESTRAZIONE SFORTUNATA.** Con la
+grandezza giusta: **dieci giri veri, tre Maestri su tre nominati tutte e
+dieci le volte**, col profilo e senza, per escludere che l'avesse gia' curato
+la voce 09. Prima di crederci si e' verificato che il banco sia fedele
+all'app: stesso `kMaestroChatModel`, stessa `synthesisInstruction`, stesso
+materiale costruito con gli stessi campi, stessa configurazione. **Il difetto
+c'e' ma e' raro**, al massimo uno su undici per le prove in mano.
+
+**E QUI RAFFORZARE LA FRASE NON ERA NEMMENO MISURABILE**, perche' il prima e'
+gia' verde: e' esattamente la trappola dell'ordine EC voce 03. **La cura e'
+una rete, la stessa forma che quell'ordine ha dato alla voce che si
+confonde**: si guarda cio' che e' tornato e si richiede una volta. La sintesi
+era **l'unica voce della catena a passare da `VoceSorvegliata` senza nessun
+controllo sul prodotto**: protetta dai guasti del trasporto, non da cio' che
+tornava scritto. **Padre: PROVENIENZA IGNOTA**, il controllo non e' mai
+esistito.
+
+**IL CANCELLO E' A ZERO NOMI, NON A TRE.** Una sintesi che ne nomina due su
+tre sta confrontando, e pretenderne tre farebbe richiedere una sintesi buona:
+zero e' il testo che non ha termini da confrontare affatto, cioe' il difetto
+vero della cattura.
+
+Modulo `LaSintesiNominaChiConfronta`, rete in `VoceSorvegliata.synthesize`,
+prove in `la_sintesi_nomina_chi_confronta_test.dart`, **nate rosse due volte**:
+spegnendo la rete, tre prove su otto; e stringendo il cancello a tutti e tre i
+nomi, due. Il controllo del collaudo e' nato rosso a sua volta, facendogli
+rendere a mano tutti i nomi invece di cercarli nel testo. **La mossa 17 misura
+il prodotto intero**, cioe' passa dalla rete come fa l'app, e non il provider
+nudo.
+
+**Regola B, prima di toccare `voce_sorvegliata`**: `nessun_catch_muto` vista
+rossa con un `catch (_) {}` innestato, e `il_429_e_invisibile` vista rossa
+spegnendo il riconoscimento del guasto temporaneo. Il primo innesto non
+compilava e non e' stato contato: un file che non compila non e' una guardia
+rossa, e' un errore di chi innesta.
+
+**CHIUSA.**
 
 
 ---

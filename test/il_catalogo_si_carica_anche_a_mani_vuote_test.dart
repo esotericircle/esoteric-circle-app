@@ -93,16 +93,28 @@ void main() {
     final sorgente = senzaCommenti(
         File('lib/features/account/dati_di_nascita_screen.dart')
             .readAsStringSync());
+    // **SI CERCA LA CONDIZIONE, NON UNA RIGA INTERA.** La prima versione di
+    // questa prova cercava `if (identita.isExample) return;` per intero, e il
+    // 22 settembre 2026 e' diventata rossa senza nessun difetto: la voce
+    // EE.13 ha aperto quel ramo in un blocco, per segnare anche la prima
+    // volta, e la riga cercata non esisteva piu'. **Una guardia legata al
+    // token cade quando il codice migliora**: il fatto da misurare e' che il
+    // catalogo parta PRIMA dell'uscita sui dati d'esempio, e l'uscita si
+    // riconosce dalla condizione piu' il `return` che la chiude.
     final dove = sorgente.indexOf('CityCatalog.ensureLoaded');
-    final ritorno = sorgente.indexOf('if (identita.isExample) return;');
+    final ritorno = sorgente.indexOf('identita.isExample');
     print('ORDINE EE VOCE 11: ensureLoaded a $dove, '
-        'return sui dati d\'esempio a $ritorno');
+        'uscita sui dati d\'esempio a $ritorno');
     expect(dove, greaterThan(-1),
         reason: 'la schermata non carica piu\' il catalogo: chi arriva dal '
             'Viaggio dello Sciamano trova le sessantacinque citta\' del seme');
     expect(ritorno, greaterThan(-1),
-        reason: 'il return sui dati d\'esempio non c\'e\' piu\': questa prova '
+        reason: 'l\'uscita sui dati d\'esempio non c\'e\' piu\': questa prova '
             'misurerebbe un ordine fra due righe di cui una non esiste');
+    expect(sorgente.substring(ritorno, ritorno + 120), contains('return;'),
+        reason: 'la condizione sui dati d\'esempio non esce piu\' dal metodo, '
+            'quindi non c\'e\' nessuna uscita da precedere e questa prova '
+            'misurerebbe un ordine che non vuol dire niente');
     expect(dove, lessThan(ritorno),
         reason: 'CityCatalog.ensureLoaded sta DOPO il return sui dati '
             'd\'esempio, quindi non si carica proprio nel caso in cui la '

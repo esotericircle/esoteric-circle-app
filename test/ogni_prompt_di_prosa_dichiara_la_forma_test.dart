@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:esoteric_circle/core/chat/il_blocco_di_cortesia.dart';
+import 'package:esoteric_circle/core/l10n/la_lingua_del_modello.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/magic/il_sigillo_dal_modello.dart';
@@ -88,7 +89,22 @@ void main() {
         // imponeva il femminile con una frase sua, fuori da ogni blocco:
         // un'istruzione di genere scritta altrove contraddice la forma
         // scelta, e nessuna prova sulle frasi di ieri la vede.
-        final fuori = testo.replaceAll(IlBloccoDiCortesia.riga(f), '');
+        //
+        // **L'UNICA ESENZIONE, E PERCHE' NON E' UNA SOGLIA ABBASSATA.**
+        // Ordine EE voce 10, 23 settembre 2026: la regola sul genere dei
+        // numeri delle carte nomina il maschile, e questa guardia l'ha presa
+        // il 22 settembre come se fosse un'istruzione sulla persona. **Non lo
+        // e': parla delle carte, non di chi legge.** La grandezza giusta non
+        // e' "quante volte compare la parola maschile", e' "si dice alla
+        // persona di che genere e', fuori dal blocco che lo decide". Quindi
+        // si toglie quella costante per intero, come si toglie la riga del
+        // blocco, **e l'esenzione ha il suo cancello qui sotto**: se un
+        // giorno qualcuno ci infilasse dentro un'istruzione sulla persona,
+        // questa guardia smetterebbe di vederla, ed e' precisamente il modo
+        // in cui un'esenzione diventa un buco.
+        final fuori = testo
+            .replaceAll(IlBloccoDiCortesia.riga(f), '')
+            .replaceAll(LaLinguaDelModello.ilGenereDelleCarte, '');
         final genere = RegExp(r'(femminil|maschil)', caseSensitive: false)
             .firstMatch(fuori);
         if (genere != null) {
@@ -101,6 +117,44 @@ void main() {
     print('ORDINE DL VOCE 04: prompt di prosa guardati ${prosa.length}, per '
         'tre forme ciascuno; colpe ${colpe.length}');
     expect(colpe, isEmpty, reason: colpe.join('\n'));
+  });
+
+  /// **IL CANCELLO DELL'UNICA ESENZIONE.** Ordine EE voce 10.
+  ///
+  /// La prova qui sopra toglie `ilGenereDelleCarte` prima di cercare il
+  /// genere, perche' quella regola parla delle carte. **Un'esenzione senza
+  /// cancello e' un buco**: qui si pretende che quella costante resti cio'
+  /// che dice di essere, cioe' che parli di carte e non di chi legge.
+  test('l\'esenzione sul genere delle carte parla di carte, non di chi legge',
+      () {
+    final regola = LaLinguaDelModello.ilGenereDelleCarte.toLowerCase();
+    expect(regola, contains('carte'),
+        reason: 'se non parla piu\' di carte non e\' piu\' l\'esenzione che '
+            'la prova qui sopra si sente autorizzata a togliere');
+    // Le parole con cui un'istruzione si rivolge alla persona. Se compaiono
+    // qui dentro, la regola non sta piu' parlando di un mazzo.
+    const allaPersona = [
+      'la persona',
+      'l\'utente',
+      'chi legge',
+      'chi ti parla',
+      'ti rivolgi',
+      'rivolgiti',
+      'parla di te',
+      'di lei',
+      'di lui',
+    ];
+    final trovate = [
+      for (final p in allaPersona)
+        if (regola.contains(p)) p
+    ];
+    // ignore: avoid_print
+    print('ORDINE EE VOCE 10: parole rivolte alla persona nella regola del '
+        'genere delle carte ${trovate.length}');
+    expect(trovate, isEmpty,
+        reason: 'la regola sul genere delle carte si rivolge alla persona '
+            '($trovate): cosi\' l\'esenzione della prova qui sopra nasconde '
+            'proprio il difetto che quella prova esiste per prendere');
   });
 
   test('la lettura del mese non impone piu\' il femminile', () {

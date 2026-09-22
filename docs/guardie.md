@@ -528,7 +528,7 @@ le altre.
 | `i_cinque_doni_rispettano_la_legge_dei_testi_test.dart` | i cinque Doni rispettano la legge dei testi | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
 | `i_cinque_elementi_colorano_e_si_leggono_test.dart` | i cinque elementi colorano e si leggono | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
 | `dream_rite_screen_test.dart` | la schermata del Sigillo del Sogno | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa sul difetto vero: la Parola dell Alba non arrivava a video) | 2 |
-| `i_controlli_del_collaudo_prendono_i_difetti_test.dart` | ogni controllo del collaudo con Gemini vero cade su un difetto costruito apposta | 1, 2 | proprio, dichiarato | 21/09/2026, EC (e' la regola A applicata a un collaudo che costa: il difetto si costruisce invece di aspettare che il modello sbagli; **rivista rossa il 21/09/2026, ED**, spegnendo il controllo del pulsante: ha risposto con due prove) | 3 |
+| `i_controlli_del_collaudo_prendono_i_difetti_test.dart` | ogni controllo del collaudo con Gemini vero cade su un difetto costruito apposta | 1, 2 | proprio, dichiarato | 21/09/2026, EC (e' la regola A applicata a un collaudo che costa: il difetto si costruisce invece di aspettare che il modello sbagli; **rivista rossa il 21/09/2026, ED**, spegnendo il controllo del pulsante: ha risposto con due prove; **rivista rossa il 22/09/2026, EE**, facendo rendere a mano tutti i nomi invece di cercarli: ha risposto con due prove del controllo della sintesi) | 3 |
 | `i_doni_si_aprono_alla_loro_ora_test.dart` | i doni si aprono alla loro ora | 1, 2 | proprio, dichiarato | 10/09/2026, DD (rossa: 73 risposte sbagliate su 120 col difetto innestato) | 1 |
 | `i_doni_si_agganciano_test.dart` | i doni si agganciano | 1, 2 | proprio, dichiarato | mai | 3 |
 | `i_due_grigi_si_distinguono_test.dart` | i due grigi si distinguono | 1, 4 | non scopre insiemi di file | mai | 2 |
@@ -861,7 +861,7 @@ le altre.
 | `nessun_accento_dichiara_un_fondo_che_non_ha_test.dart` | nessun accento dichiara un fondo che non ha | 1, 2 | dalla porta comune | 04/09/2026, CQ; 17/09/2026, DT (riletta sull'Arcano dell'Alba) | 2 |
 | `nessun_anello_si_dipinge_fuori_dal_suo_riquadro_test.dart` | nessun anello si dipinge fuori dal suo riquadro | 4 | non scopre insiemi di file | 07/09/2026, CT | 3 |
 | `nessun_campo_dice_di_aspettare_test.dart` | nessun campo dice di aspettare | 1, 2 | proprio, dichiarato | mai | 3 |
-| `nessun_catch_muto_test.dart` | nessun catch muto | 1 | dalla porta comune | 13/09/2026, DI (rossa nella suite intera su un difetto vero: tre catch muti, voci DI.03 e DI.14); prima 01/09/2026, CN | 3 |
+| `nessun_catch_muto_test.dart` | nessun catch muto | 1 | dalla porta comune | 22/09/2026, EE (regola B, prima di mettere la rete nella sintesi: rossa con un `catch (_) {}` innestato in `voce_sorvegliata`); prima 13/09/2026, DI (rossa nella suite intera su un difetto vero: tre catch muti, voci DI.03 e DI.14); prima 01/09/2026, CN | 3 |
 | `nessun_foglio_e_bianco_test.dart` | nessun foglio e bianco | 1, 2 | proprio, dichiarato | mai | 3 |
 | `nessun_invito_a_un_permesso_e_muto_test.dart` | nessun invito a un permesso e muto | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `nessun_pittore_dipinge_sul_nulla_test.dart` | nessun pittore dipinge sul nulla | 1, 2 | dalla porta comune | 10/09/2026, DC | 1 |

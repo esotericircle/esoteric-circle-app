@@ -4018,8 +4018,7 @@ delle carte nei Ricordi, nuovi e vecchi, e le chat dei tre Maestri.
 
 ## L'ORDINE EE, I DONI DEL GIORNO, IL CONSIGLIO E I DATI SULL'ACCOUNT
 
-Ordine del 23 settembre 2026, **quattordici voci, quattordici chiuse** (una a
-meta', dichiarata). Manifesto `docs/ordini/ORDINE_EE_MANIFESTO.md`, rapporto
+Ordine del 23 settembre 2026, **quattordici voci, quattordici chiuse**. Manifesto `docs/ordini/ORDINE_EE_MANIFESTO.md`, rapporto
 `docs/ordini/RAPPORTO_ORDINE_EE.md`, guardia
 `test/ordine_ee_guard_test.dart`. Parte dal commit `0ebaaec8`.
 
@@ -4090,11 +4089,37 @@ conosce: era l'unica chiamata della catena a non riceverlo. E i **numeri delle
 carte sono maschili**, regola che non era mai esistita e che adesso vive in un
 punto solo.
 
-**RESTA APERTA META' DELLA VOCE 10, dichiarata e non chiusa a occhio**: la
-sintesi ripete le tre letture invece di confrontarle, e l'istruzione gia'
-chiede il contrario. E' il quadro dell'ordine EC voce 03, e curarlo senza una
-misura prima e dopo vorrebbe dire scambiare una speranza per una cura: quella
-misura vuole un giro di collaudo sul Consiglio con una stesa vera.
+**LA SINTESI DEL CONSIGLIO: IL DIFETTO ERA RARO, E LA MISURA L'HA DETTO.** Il
+collaudo si e' esteso al Consiglio, mossa 17, sulla stesa vera della cattura
+del fondatore. **La prima grandezza era sbagliata**: chiedeva se la sintesi
+nominasse una relazione fra gli sguardi, e in tre giri ha risposto si' tutte e
+tre le volte, perche' quella della cattura apre proprio con *"Le letture
+convergono"*. Cambiata la grandezza e non la soglia, come vuole la regola A:
+quel testo **non nomina mai nessuno dei tre Maestri**, e un confronto senza i
+termini da confrontare e' un riassunto. Con la grandezza giusta, **dieci giri
+veri e dieci volte tre nomi su tre**, col profilo e senza, dopo aver
+verificato che il banco usi lo stesso modello, la stessa istruzione e lo
+stesso materiale dell'app. **Quindi il difetto c'e' ma e' raro**, al massimo
+uno su undici, e rafforzare l'istruzione non era nemmeno misurabile perche' il
+prima era gia' verde. **La cura e' una rete**, la stessa forma dell'ordine EC
+voce 03: `LaSintesiNominaChiConfronta` dentro `VoceSorvegliata` guarda cio'
+che e' tornato e richiede una volta quando la sintesi non nomina nessuno. **La
+sintesi era l'unica voce della catena a passare dalla sorveglianza senza
+nessun controllo sul prodotto.**
+
+**LA SUITE INTERA HA TROVATO SEI DIFETTI DELL'ORDINE STESSO, tutti lontani
+dai file toccati.** Un esito nuovo del turno non dichiarato nella tabella dei
+costi (voce 07); due guardie legate a un token invece che a un fatto, una che
+cercava `if (identita.isExample) return;` per intero dopo che la voce 13 lo
+aveva aperto in blocco, e una che prendeva per istruzione sulla persona la
+regola sul genere delle carte (voci 13 e 10); e **tre prove che difendevano la
+regola vecchia** della settimana, quando la voce 03 l'ha trasformata da
+finestra mobile di sette giorni a sette sere di fila. Le tre sono state
+riscritte sulla regola nuova **con la lapide**, e a una si e' affiancata la
+meta' che la tiene onesta, cioe' che due sere attaccate restino attaccate:
+senza, sarebbe passata anche con un codice che mostra sempre solo l'ultima
+sera. **L'esenzione della guardia di lingua ha un cancello suo**, nato rosso
+infilando un'istruzione sulla persona dentro la regola delle carte.
 
 **QUATTORDICI GUARDIE NUOVE E UNA SOSTITUITA**, registro da 467 a **480**.
 Tutte nate rosse sul difetto vero. **Una guardia ha cambiato soggetto invece

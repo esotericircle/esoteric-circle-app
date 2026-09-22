@@ -2,6 +2,7 @@ import '../../core/chat/chat_message.dart';
 import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/maestro/consult_depth.dart';
+import '../../core/maestro/la_sintesi_nomina_chi_confronta.dart';
 import '../../core/maestro/la_voce_non_si_confonde.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_reply.dart';
@@ -219,12 +220,54 @@ class VoceSorvegliata implements MaestroAiProvider {
     required List<MaestroLens> lenses,
     NatalContext? natal,
     UserProfile? profile,
-  }) {
-    return _sorvegliando(
-      'synthesize',
-      () => _voce.synthesize(
-          theme: theme, lenses: lenses, natal: natal, profile: profile),
-    );
+  }) async {
+    Future<String> chiedi() => _voce.synthesize(
+        theme: theme, lenses: lenses, natal: natal, profile: profile);
+
+    final prima = await _sorvegliando('synthesize', chiedi);
+
+    // **LA SINTESI NOMINA CHI CONFRONTA. Ordine EE voce 10.**
+    //
+    // La sintesi era **l'unica voce della catena a passare di qui senza
+    // nessun controllo sul prodotto**: la sorveglianza la proteggeva dai
+    // guasti del trasporto e non da cio' che tornava scritto. Sulla cattura
+    // del fondatore era tornata una sintesi che non nominava nessuno dei tre
+    // Maestri, cioe' un riassunto al posto di un confronto.
+    //
+    // **Si guarda cio' che e' tornato e si richiede, perche' rafforzare la
+    // frase qui non era nemmeno misurabile**: il collaudo, mossa 17, ha
+    // rifatto quella sintesi sette volte con lo stesso materiale e ha avuto
+    // sette volte tre nomi su tre. E' un difetto raro di un generatore, e un
+    // difetto raro si prende con una rete, non con un'istruzione piu' forte.
+    final interpellati = [for (final l in lenses) l.maestro];
+    if (!LaSintesiNominaChiConfronta.nonNominaNessuno(interpellati, prima)) {
+      return prima;
+    }
+    try {
+      final poi = await chiedi();
+      final scelta =
+          LaSintesiNominaChiConfronta.laPiuNominata(interpellati, prima, poi);
+      if (LaSintesiNominaChiConfronta.nonNominaNessuno(interpellati, scelta)) {
+        registro.registra(
+          operazione: 'synthesize',
+          errore: 'la sintesi non ha nominato nessuno dei Maestri di cui '
+              'parla (${interpellati.map((m) => m.displayName).join(", ")}) '
+              'nemmeno alla seconda richiesta: la persona legge un riassunto '
+              'al posto di un confronto',
+        );
+      }
+      return scelta;
+    } catch (e) {
+      // Vale la prima, che c'e': una sintesi generica resta meglio di
+      // nessuna sintesi. **Ma il guasto si scrive per intero**, o si
+      // perderebbe proprio il caso in cui la rete non ha potuto lavorare.
+      registro.registra(
+        operazione: 'synthesize',
+        errore: 'la sintesi non nominava nessun Maestro e la seconda '
+            'richiesta non è riuscita: $e',
+      );
+      return prima;
+    }
   }
 
   /// Il distillato di memoria e' l'unica operazione che per contratto non

@@ -122,6 +122,49 @@ void main() {
     }
   }
 
+  // **LA SINTESI COMPARATIVA DEL CONSIGLIO.** Ordine EE voce 10, 23
+  // settembre 2026.
+  //
+  // **Il fatto del fondatore**: la sintesi ripeteva i contenuti delle tre
+  // letture con frasi valide per chiunque invece di confrontare i tre
+  // sguardi. L'istruzione gia' chiede il contrario, quindi **non si
+  // rafforza una frase senza prima misurare**: e' cio' che l'ordine EC voce
+  // 03 ha insegnato a questa casa.
+  //
+  // **La stesa e' quella vera del fondatore**, Tre di Denari, Tre di Coppe e
+  // La Ruota della Fortuna sul tema del denaro: le tre letture sono quelle
+  // della cattura del 23 settembre, cosi' la misura parte dallo stesso
+  // materiale che ha generato la sintesi che lui ha letto.
+  test('ED mossa 17, la sintesi comparativa del Consiglio', () async {
+    // **SI MISURA IL PRODOTTO INTERO, non la sola chiamata al modello.** Dal
+    // 23 settembre 2026 la sintesi passa da `VoceSorvegliata`, che quando il
+    // modello non nomina nessuno dei Maestri richiede una volta: chiamare qui
+    // il provider nudo misurerebbe una strada che nell'app non esiste.
+    final sorvegliata =
+        VoceSorvegliata(voce: voce, registro: RegistroDeiGuasti());
+    final lenti = LeLentiDellaCattura.tutte;
+    final sintesi = await sorvegliata.synthesize(
+      theme: LeLentiDellaCattura.domanda,
+      lenses: lenti,
+      profile: UserProfile(
+          displayName: 'Mauro', courtesyForm: CourtesyForm.masculine),
+    );
+    final esito = controllaLaSintesi(
+      sintesi: sintesi,
+      letture: [for (final l in lenti) '${l.glance} ${l.reading}'],
+      nomiDeiMaestri: [for (final l in lenti) l.maestro.displayName],
+    );
+    print('ED MOSSA 17 sintesi: parole ${esito.paroleProprie}, '
+        'Maestri nominati ${esito.maestriNominati} su ${lenti.length}, '
+        'sequenze riprese dalle letture ${esito.sequenzeRipetute}, '
+        'parla di relazione ${esito.parlaDiRelazione}, '
+        'cadute ${esito.cadute.length}');
+    _scriviLaSintesi(cartella, LeLentiDellaCattura.domanda, sintesi, esito);
+    expect(esito.cadute, isEmpty,
+        reason: '${esito.cadute.join('\n')}\n'
+            'La trascrizione sta in docs/collaudo/ED/sintesi.md');
+  }, timeout: const Timeout(Duration(minutes: 6)));
+
   tearDownAll(() {
     print('ED: chiamate a Gemini in tutto il giro ${voce.chiamate}, '
         'piu ${voce.giudizi} domande chiuse al giudice');
@@ -983,14 +1026,84 @@ class _VoceVeraDiGemini implements MaestroAiProvider {
   }) async =>
       throw const MaestroAiUnavailable();
 
+  /// **LA SINTESI COMPARATIVA, CHIESTA A GEMINI VERO.** Ordine EE voce 10.
+  ///
+  /// Prima qui c'era un rifiuto: il collaudo provava le chat, non il
+  /// Consiglio. La seconda meta' della voce 10 dice che la sintesi ripete le
+  /// tre letture invece di confrontarle, e **senza una misura prima e dopo
+  /// non si sa se una cura ha funzionato**: e' cio' che l'ordine EC voce 03
+  /// ha insegnato a questa casa.
   @override
   Future<String> synthesize({
     required String theme,
     required List<MaestroLens> lenses,
     NatalContext? natal,
     UserProfile? profile,
-  }) async =>
-      throw const MaestroAiUnavailable();
+  }) async {
+    final corpo = jsonEncode({
+      'systemInstruction': {
+        'parts': [
+          {
+            'text': MaestroPersona.synthesisInstruction(
+                natal: natal, profilo: profile)
+          }
+        ]
+      },
+      'contents': [
+        {
+          'role': 'user',
+          'parts': [
+            {'text': _materialeDellaSintesi(theme, lenses)}
+          ]
+        }
+      ],
+      'generationConfig': {
+        'temperature': 0.7,
+        'topP': 0.95,
+        'maxOutputTokens': MisuraDellaRisposta.sintesi.tetto,
+        'thinkingConfig': {
+          'thinkingBudget': MisuraDellaRisposta.sintesi.ragionamento
+        },
+      },
+    });
+    var risposta = await _chiedi(corpo);
+    if (risposta.$1 == 401 || risposta.$1 == 403) {
+      _gettoneInCache = null;
+      risposta = await _chiedi(corpo);
+    }
+    chiamate++;
+    if (risposta.$1 != 200) {
+      throw MaestroAiUnavailable('Vertex ha risposto ${risposta.$1}');
+    }
+    final mappa = jsonDecode(risposta.$2) as Map<String, dynamic>;
+    final candidati = mappa['candidates'] as List?;
+    if (candidati == null || candidati.isEmpty) {
+      throw const MaestroAiUnavailable('Nessun candidato nella sintesi.');
+    }
+    final primo = candidati.first as Map<String, dynamic>;
+    final parti =
+        ((primo['content'] as Map<String, dynamic>?)?['parts'] as List?) ?? [];
+    final testo =
+        parti.map((p) => ((p as Map)['text'] ?? '') as String).join().trim();
+    if (testo.isEmpty) {
+      throw const MaestroAiUnavailable('La sintesi non ha trovato le parole.');
+    }
+    return TestoDelResponso.pulisci(testo);
+  }
+
+  /// Il materiale della sintesi, **nella stessa forma del provider vero**:
+  /// la domanda e le letture gia' date, una per Maestro.
+  String _materialeDellaSintesi(String theme, List<MaestroLens> lenses) {
+    final b = StringBuffer('Domanda della persona: «${theme.trim()}».\n\n');
+    for (final l in lenses) {
+      b
+        ..writeln('${l.maestro.displayName} (${l.maestro.domainArtsPhrase}):')
+        ..writeln('- Colpo d\'occhio: ${l.glance.trim()}')
+        ..writeln('- Lettura: ${l.reading.trim()}')
+        ..writeln();
+    }
+    return b.toString();
+  }
 
   @override
   Future<MemoryDigest?> distill({
@@ -1000,4 +1113,99 @@ class _VoceVeraDiGemini implements MaestroAiProvider {
     required List<dynamic> history,
   }) async =>
       null;
+}
+
+/// **LE TRE LETTURE DELLA CATTURA DEL FONDATORE.** Ordine EE voce 10.
+///
+/// Sono quelle vere del 23 settembre 2026, sul Consiglio aperto da una stesa
+/// "Denaro e fortuna" con Tre di Denari, Tre di Coppe e La Ruota della
+/// Fortuna. **Si parte dallo stesso materiale che ha generato la sintesi che
+/// il fondatore ha letto**, o si misurerebbe un'altra cosa.
+abstract final class LeLentiDellaCattura {
+  static const String domanda = 'Denaro e fortuna';
+
+  static final List<MaestroLens> tutte = [
+    MaestroLens.strati(
+      maestro: Maestro.medora,
+      glance: 'Il cielo si apre oggi sul tuo Cancro solare, un richiamo '
+          'all\'intuizione più profonda.',
+      reading: 'Le lame ti parlano di un momento in cui la cooperazione e la '
+          'gioia condivisa sono fondamentali per il tuo benessere materiale. '
+          'Il Tre di Denari suggerisce che il tuo lavoro, la tua dedizione, '
+          'troveranno riconoscimento, spesso attraverso l\'abilità di '
+          'costruire con gli altri. Segue il Tre di Coppe, un arcano che '
+          'celebra la felicità, la festa, la condivisione di successi. La '
+          'Ruota della Fortuna indica che il ciclo sta girando a tuo favore, '
+          'portando con sé opportunità inattese.',
+      invite: 'Ripassa fra 4 giorni, per la Luna piena.',
+    ),
+    MaestroLens.strati(
+      maestro: Maestro.caligo,
+      glance: 'Il simbolo del denaro e la sua espansione sono presenti.',
+      reading: 'Il Tre di Denari indica la maestria nel tuo operare, la '
+          'realizzazione di un progetto. Il Tre di Coppe celebra l\'unione '
+          'delle forze, la condivisione del successo. La Ruota della Fortuna '
+          'segna un cambiamento, un ciclo che si rinnova. Questi segni '
+          'parlano di un lavoro ben fatto che porta frutto, unito a '
+          'un\'espansione sociale o creativa.',
+      invite: 'Domani al tramonto ti aspetta Ehwaz: portala con te.',
+    ),
+    MaestroLens.strati(
+      maestro: Maestro.aura,
+      glance: 'Denaro e fortuna, un respiro che accoglie l\'abbondanza nel '
+          'presente.',
+      reading: 'Immagina il denaro come un seme che hai piantato, un lavoro '
+          'che prendi in mano con cura. Il Tre di Denari lo vedo come '
+          'l\'impegno che metti nel tuo fare. Poi, il Tre di Coppe sboccia '
+          'come la gioia che nasce dalla condivisione. E la Ruota della '
+          'Fortuna è il ritmo della vita che gira, un movimento che ti invita '
+          'a danzare con il flusso del momento.',
+      invite: 'Domani lavora il fuoco: rileggi con quello acceso.',
+    ),
+  ];
+}
+
+/// La trascrizione della sintesi, per il giudizio del fondatore.
+void _scriviLaSintesi(
+  Directory cartella,
+  String domanda,
+  String sintesi,
+  EsitoDellaSintesi esito,
+) {
+  final b = StringBuffer()
+    ..writeln('# Mossa 17, la sintesi comparativa del Consiglio')
+    ..writeln()
+    ..writeln('**Domanda:** $domanda. **Le tre letture sono quelle vere della '
+        'cattura del fondatore del 23 settembre 2026.**')
+    ..writeln()
+    ..writeln('---')
+    ..writeln()
+    ..writeln('## La sintesi')
+    ..writeln()
+    ..writeln('> ${sintesi.replaceAll('\n', '\n> ')}')
+    ..writeln()
+    ..writeln('---')
+    ..writeln()
+    ..writeln('## Esito dei controlli')
+    ..writeln()
+    ..writeln('- parole della sintesi: ${esito.paroleProprie}')
+    ..writeln('- Maestri chiamati per nome: ${esito.maestriNominati}')
+    ..writeln('- sequenze di cinque parole riprese dalle letture: '
+        '${esito.sequenzeRipetute}')
+    ..writeln('- nomina almeno una relazione fra gli sguardi: '
+        '${esito.parlaDiRelazione ? 'si' : 'NO'}')
+    ..writeln();
+  if (esito.cadute.isEmpty) {
+    b.writeln('Nessuna caduta.');
+  } else {
+    for (final c in esito.cadute) {
+      b.writeln('- $c');
+    }
+  }
+  b
+    ..writeln()
+    ..writeln('**Se la sintesi confronti davvero i tre sguardi, invece di '
+        'riassumerli, lo giudica il fondatore leggendo questa pagina: i '
+        'controlli qui sopra non lo misurano.**');
+  File('${cartella.path}/sintesi.md').writeAsStringSync(b.toString());
 }

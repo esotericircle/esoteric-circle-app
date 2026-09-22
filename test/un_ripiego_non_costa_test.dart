@@ -44,6 +44,14 @@ void main() {
     // nessun esito. **Non costa**: quella risposta la persona l'aveva gia'
     // pagata la prima volta.
     EsitoDelTurno.letturaGiaData: false,
+    // **NUOVO CON L'ORDINE EE VOCE 07, 23 settembre 2026.** Il turno in cui il
+    // Maestro **chiede** un chiarimento invece di rispondere. **Non costa**:
+    // la persona non ha ancora avuto la risposta che ha chiesto, e farle
+    // pagare la domanda che il Maestro non ha capito sarebbe farle pagare un
+    // nostro inciampo. **Questa guardia ha preso proprio quell'aggiunta**: il
+    // 22 settembre 2026 l'esito era nell'enumerazione e non qui, e la suite
+    // intera l'ha detto prima che la voce fosse spinta.
+    EsitoDelTurno.chiarimentoChiesto: false,
   };
 
   test('Ogni esito possibile dice se costa, e uno solo costa', () {

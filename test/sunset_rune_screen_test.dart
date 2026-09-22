@@ -403,7 +403,14 @@ void main() {
 
     expect(find.byKey(const Key('sunset_settimana')), findsOneWidget);
     expect(find.byKey(const Key('sunset_sigillo')), findsNothing);
-    expect(find.textContaining('La prima delle sette'), findsOneWidget);
+    // **LA FRASE E' CAMBIATA CON L'ORDINE EE VOCE 03**, perche' e' cambiata
+    // la regola: diceva *"La prima delle sette"*, che valeva per una finestra
+    // mobile di sette giorni. Adesso sono sette sere **di fila**, e la riga
+    // lo dice per intero. Questa prova e' rimasta rossa nella suite intera
+    // del 22 settembre, ed e' cosi' che si e' saputo che difendeva la frase
+    // vecchia.
+    expect(
+        find.textContaining('La prima di sette sere di fila'), findsOneWidget);
   });
 
   testWidgets('La cerniera scrive la runa portata dentro la notte',
@@ -499,9 +506,17 @@ void main() {
     expect(find.byKey(const Key('sunset_voce_uno')), findsNothing);
   });
 
-  testWidgets('La striscia riempie per data, un giorno saltato resta vuoto',
+  // **QUI MISURAVA LA REGOLA DI PRIMA.** Fino al 22 settembre 2026 questa
+  // prova si chiamava *"La striscia riempie per data, un giorno saltato resta
+  // vuoto"* e pretendeva che la sera di tre giorni fa restasse nella striscia
+  // anche con due sere vuote in mezzo: la settimana era una finestra mobile.
+  //
+  // **L'ordine EE voce 03 l'ha fatta diventare una serie**, e la striscia
+  // mostra il filo che arriva fino a stasera: chi ha saltato riparte da qui,
+  // ed e' proprio quello che la riga sotto la striscia promette.
+  testWidgets('La striscia mostra il filo, e un giorno saltato lo spezza',
       (tester) async {
-    // Oggi e tre giorni fa fatte, ieri e l'altro ieri saltati.
+    // Le stesse sere di prima: oggi e tre giorni fa fatte, in mezzo due vuote.
     final giorno = SunsetRune.giornoRituale(ora);
     final treFa = SunsetRune.iso(giorno.subtract(const Duration(days: 3)));
     final ieri = SunsetRune.iso(giorno.subtract(const Duration(days: 1)));
@@ -515,11 +530,35 @@ void main() {
     await passo(tester);
     await compi(tester);
 
-    // La casella di tre giorni fa e di oggi ci sono, quella di ieri no.
-    expect(find.byKey(Key('sunset_casella_$treFa')), findsOneWidget);
+    // C'e' solo stasera: il filo si e' spezzato e la serie riparte da qui.
     expect(find.byKey(Key('sunset_casella_${SunsetRune.iso(giorno)}')),
         findsOneWidget);
+    expect(find.byKey(Key('sunset_casella_$treFa')), findsNothing,
+        reason: 'fra quella sera e stasera ce ne sono due vuote, quindi non '
+            'fa parte del filo che arriva a oggi');
     expect(find.byKey(Key('sunset_casella_$ieri')), findsNothing);
+  });
+
+  testWidgets('Due sere attaccate restano attaccate nella striscia',
+      (tester) async {
+    // **La meta' che tiene onesta la prova qui sopra.** Senza questa, la
+    // striscia potrebbe mostrare sempre e solo l'ultima sera e passare lo
+    // stesso: la regola non e' "vale l'ultima", e' "vale il filo".
+    final giorno = SunsetRune.giornoRituale(ora);
+    final ieri = SunsetRune.iso(giorno.subtract(const Duration(days: 1)));
+    SharedPreferences.setMockInitialValues({
+      'sunset_rune.settimana':
+          '[{"giorno":"$ieri","rune":"Fehu","ombra":false,"lasciare":"a","porta":"b"}]',
+    });
+    silenceSensors(tester);
+    grande(tester);
+    await tester.pumpWidget(host());
+    await passo(tester);
+    await compi(tester);
+
+    expect(find.byKey(Key('sunset_casella_$ieri')), findsOneWidget);
+    expect(find.byKey(Key('sunset_casella_${SunsetRune.iso(giorno)}')),
+        findsOneWidget);
   });
 
   // Semina sei sere coi nomi dati, per portare la settima a sette.
