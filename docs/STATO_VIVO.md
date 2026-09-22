@@ -4016,6 +4016,97 @@ vera non li misura nessun controllo, e **quarantacinque trascrizioni** stanno
 in `docs/collaudo/ED/` perche' le legga. **A video, sulla 2275**, il verso
 delle carte nei Ricordi, nuovi e vecchi, e le chat dei tre Maestri.
 
+## L'ORDINE EE, I DONI DEL GIORNO, IL CONSIGLIO E I DATI SULL'ACCOUNT
+
+Ordine del 23 settembre 2026, **quattordici voci, quattordici chiuse** (una a
+meta', dichiarata). Manifesto `docs/ordini/ORDINE_EE_MANIFESTO.md`, rapporto
+`docs/ordini/RAPPORTO_ORDINE_EE.md`, guardia
+`test/ordine_ee_guard_test.dart`. Parte dal commit `0ebaaec8`.
+
+**LE DISTRIBUZIONI ERANO TUTTE DA FARE, E LE HA FATTE CODE.** Questa macchina
+e' autenticata come `cloud@esotericircle.app` e ha la CLI di Firebase: **dal
+PC del fondatore non serve piu' niente**. Le funzioni erano ferme al **16
+settembre** contro **sette commit** del ramo su `functions/src/`. Funzioni e
+hosting distribuiti il 22 settembre 2026, verificato sul server col loro
+`updateTime`.
+
+**LA PORTA VERSO I LUOGHI DEL MONDO NON ERA MAI STATA APERTA.** La callable
+`cercaIlLuogoNelMondo` esiste nel codice dal 16 settembre, ordine DR, e il suo
+`createTime` sul server e' **2026-09-22T01:33:55**, cioe' quella
+distribuzione. **Per sei giorni la ricerca nel mondo ha chiamato una funzione
+che non esisteva, fallendo in silenzio**, perche' `il_mondo_intero.dart`
+inghiotte l'errore e torna un elenco vuoto. Ecco perche' *Borgo di Rivalta*
+non si trovava: non e' nel catalogo offline (40.846 luoghi, che contiene
+*Rivalta di Torino* e *Rivalta Bormida*) e il ripiego non rispondeva. **Padre:
+ordine DR**, il cui commit avvertiva che il server andava distribuito.
+
+**IL VIAGGIO DELLO SCIAMANO NON LASCIAVA IL TELEFONO.** Viveva su **otto
+chiavi di SharedPreferences** con **zero chiamate al server**: non era un
+difetto di sincronizzazione, era un dato che non aveva mai lasciato il
+telefono, e che il diario stesso dichiara costare **quattro giorni**. Adesso
+viaggia nel cammino custodito come sacchetto opaco, col criterio di fusione
+suo, `ilViaggioPiuAvanti`: chi ha riconosciuto batte chi no, e a parita' vince
+chi ha piu' discese. **E la forma di cortesia con lo scarto UTC erano un dato
+perso in transito**: il telefono spediva nove campi dell'identita' e
+`IdentitaCustodita` ne dichiarava **sette**, quindi il ramo che riadotta la
+forma **non si e' mai acceso in vita sua**. **Padre: ordine CF voce 07.**
+
+**IL CONFRONTO COMPRATO NON SI RICEVEVA.** Il Consiglio chiedeva a
+`canCompare`, che guarda **il piano**: chi compra un confronto con gli Eos non
+cambia piano, e il credito vive nei **rimasti**. Misurato: col credito
+comprato il piano risponde **false** e i rimasti **true**, quindi le altre due
+letture **non venivano nemmeno chieste**. **Padre: ordine BG voce 05**, che ha
+scritto la regola giusta e l'ha applicata agli approfondimenti e alle stese,
+lasciando fuori proprio il confronto.
+
+**E IL LUOGO NON SI CERCAVA DAL VIAGGIO PER UNA RIGA.** Il Viaggio non ha un
+modulo suo: apre la stessa `DatiDiNascitaScreen` del menu' utente, e la apre
+**se e solo se** l'identita' e' d'esempio. `CityCatalog.ensureLoaded()` stava
+**dopo** il `return` sui dati d'esempio, quindi il catalogo non si caricava
+**esattamente e soltanto nel caso in cui serviva**: 65 citta' del seme invece
+di 40.846.
+
+**I DONI DEL GIORNO.** Il **Mischia** dell'Arcano dell'Alba adesso ricompone
+il mazzo, lo mescola a mazzo chiuso e lo ristende a ventaglio: prima ogni
+carta girava attorno al proprio posto e ci tornava. Nel **Soffio del Destino**
+a respirare e' il soffione e non piu' un cerchio sovrapposto, e la quota del
+settanta per cento che l'ordine DD voce 03 pretendeva **e' passata a lui**,
+misurata sui pixel: **71,0 per cento al culmine**, contro il 36,4 che aveva
+alla sua misura naturale. La **Runa del Tramonto** vuole **sette sere di
+fila**: prima era una finestra mobile di sette giorni in cui i salti non
+contavano, e alla settima sera il riassunto entra da solo nel Cosmic Journal
+come **evento**, il terzo modo in cui un Ricordo nasce. Il **Sigillo del
+Sogno** non ripete piu' il titolo nel saluto (padre: ordine CO voce 17), non
+porta piu' parole di firma di Aura (erano **tre** su cinquantacinque campi,
+non una) e **dice la giornata dalla Luna di nascita** invece che da quella di
+stanotte: prima dieci persone con Lune diverse ricevevano **sei** saluti
+uguali, adesso ne ricevono **dieci diversi**.
+
+**LA CHAT E IL CONSIGLIO.** Un turno in cui il Maestro **chiede** un
+chiarimento non fa scendere nessun contatore, ed e' uno scarto dichiarato con
+l'ordine EB voce 06. La **sintesi comparativa** riceve il profilo come lo
+ricevono i Maestri, e non dichiara piu' di non conoscere un nome che l'app
+conosce: era l'unica chiamata della catena a non riceverlo. E i **numeri delle
+carte sono maschili**, regola che non era mai esistita e che adesso vive in un
+punto solo.
+
+**RESTA APERTA META' DELLA VOCE 10, dichiarata e non chiusa a occhio**: la
+sintesi ripete le tre letture invece di confrontarle, e l'istruzione gia'
+chiede il contrario. E' il quadro dell'ordine EC voce 03, e curarlo senza una
+misura prima e dopo vorrebbe dire scambiare una speranza per una cura: quella
+misura vuole un giro di collaudo sul Consiglio con una stesa vera.
+
+**QUATTORDICI GUARDIE NUOVE E UNA SOSTITUITA**, registro da 467 a **480**.
+Tutte nate rosse sul difetto vero. **Una guardia ha cambiato soggetto invece
+di morire**: `il_cerchio_del_soffio_riempie_la_scena` pretendeva il settanta
+per cento dal cerchio, e il fondatore, messo davanti al conflitto fra i due
+ordini, ha deciso di riscrivere la misura sul soffione.
+
+**COSA RESTA AL GIUDIZIO DEL FONDATORE**: le due animazioni, il tono delle tre
+parole nuove del Sigillo, la frase delle sette sere, e soprattutto **che il
+Viaggio concluso ricompaia dopo un aggiornamento**, che si vede solo
+aggiornando l'app.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.

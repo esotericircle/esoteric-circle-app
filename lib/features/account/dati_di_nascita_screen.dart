@@ -116,14 +116,16 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
 
     // I dati d'esempio non si mostrano come se fossero i tuoi: chi arriva qui
     // senza aver dato niente trova i campi vuoti, non la nascita di qualcun altro.
-    if (identita.isExample) return;
+    if (identita.isExample) {
+      _primaVolta = true;
+      return;
+    }
     _data = identita.birthDate;
     if (identita.hasBirthTime) {
       _ora = identita.birthMoment.hour;
       _minuto = identita.birthMoment.minute;
     }
     _luogo = identita.birthPlace;
-    _luogoGiaDato = _luogo != null;
     if (_luogo != null) _luogoCtrl.text = _luogo!.city;
   }
 
@@ -239,10 +241,20 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
   /// **Chi corregge non e' toccato**: se un luogo c'e' gia', il tasto si
   /// comporta come prima, perche' questa schermata deve poter correggere la
   /// sola ora senza pretendere che si ridichiari la citta'.
-  bool get _completo => _data != null && (_luogo != null || _luogoGiaDato);
+  bool get _completo => _data != null && (_luogo != null || !_primaVolta);
 
-  /// Vero se un luogo di nascita c'era gia' quando la schermata si e' aperta.
-  bool _luogoGiaDato = false;
+  /// **Vero se qui si stanno RACCOGLIENDO i dati, non correggendoli.**
+  ///
+  /// E' il caso di chi arriva dal Viaggio dello Sciamano, che manda qui
+  /// quando manca il segno solare. **Solo qui il luogo e' obbligatorio**:
+  /// chi ha gia' un'identita' deve poter correggere la sola ora senza
+  /// ridichiarare la citta', ed e' esattamente cio' per cui questa
+  /// schermata e' nata.
+  ///
+  /// **La prima stesura pretendeva il luogo anche in correzione** e ha fatto
+  /// cadere `ora_si_puo_correggere`, che sorveglia proprio quel caso: chi
+  /// aveva concluso il Risveglio senza ora si trovava il tasto spento.
+  bool _primaVolta = false;
 
   void _salva() {
     final data = _data;

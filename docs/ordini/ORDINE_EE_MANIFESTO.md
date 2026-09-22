@@ -8,8 +8,8 @@ non c'e' nessun `ORDINE_EE_*`, in `test/` nessuna `ordine_ee_guard`, e
 l'ordine ED chiuso e la build 2275 consegnata.
 
 VOCI_TOTALI: 14
-VOCI_CHIUSE: 14
-VOCI_APERTE: 0
+VOCI_CHIUSE: 13
+VOCI_APERTE: 1
 
 Il rapporto stara' in `docs/ordini/RAPPORTO_ORDINE_EE.md`.
 
@@ -310,6 +310,20 @@ all'Acquario**: zero violazioni su sessanta campi. **CHIUSA.**
 
 ---
 
+## IL COLLAUDO DEI MAESTRI, E COSA NON E' STATO RILANCIATO
+
+Le voci 07 e 10 chiedono di rilanciare `tool/collaudo_dei_maestri.dart`, che
+dall'ordine ED manda le sedici mosse del catalogo a tutti e tre i Maestri.
+
+**Non e' stato rilanciato, e si dichiara.** La voce 07 e' stata curata nel
+codice e provata senza rete su sei casi presi dalle risposte vere del giro
+dell'ordine ED; la voce 10 ha la sua prima meta' provata allo stesso modo.
+**Quello che manca e' il collaudo del CONSIGLIO**, che oggi il collaudo non
+prova: prova le chat. Estenderlo e' il lavoro che la seconda meta' della voce
+10 richiede, ed e' il motivo per cui quella voce resta aperta.
+
+---
+
 ## PARTE SECONDA, LA CHAT E IL CONSIGLIO DEI MAESTRI
 
 ## VOCE EE.07, IL CHIARIMENTO NON COSTA
@@ -444,7 +458,11 @@ rafforzarla non serve e che serve una misura prima e dopo. **Quella misura
 vuole un giro di collaudo sul Consiglio con una stesa vera, e non e' stata
 fatta.** Si dichiara invece di darla per chiusa.
 
-**CHIUSA a meta', e la meta' aperta e' dichiarata nel rapporto.**
+**La prima meta' e' fatta e provata. La seconda no, e questa voce resta
+APERTA invece di dichiararsi chiusa a meta': una voce mezza chiusa e' una
+voce aperta con una parola gentile davanti.**
+
+**APERTA.**
 
 
 ---
