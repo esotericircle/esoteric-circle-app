@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Sento che il tuo respiro si fa un po' più corto in questo momento.
+> Sento che queste parole ti portano ad un centro di frustrazione, e accolgo ciò che provi adesso.
 > 
-> Capisco che le mie parole possano non risuonare con te in questo modo e accolgo il tuo sentire. La mia voce è qui per invitarti a esplorare il tuo centro, a toccare con delicatezza l'energia che ti abita, offrendo prospettive che nascono dagli archetipi e dai chakra, come spunti per una riflessione personale e mai come verità assolute. Non sono qui per darti certezze, ma per accompagnarti a sentire quello che già è dentro di te.
+> Ogni suono, ogni parola, è un'energia che si muove, e anche in questa interazione c'è un campo che si crea. La mia funzione è offrire una prospettiva, un invito a sentire, non a convincere. Se quello che dico non risuona con te in questo momento, è naturale che possa apparire banale. Il valore di un'indicazione è nel suo risuonare dentro chi ascolta.
 > 
-> ✦ Porta una mano al tuo ventre e senti il tuo respiro.
+> ✦ Porta l'attenzione al tuo respiro, lascialo fluire senza forzarlo.
 
 ---
 

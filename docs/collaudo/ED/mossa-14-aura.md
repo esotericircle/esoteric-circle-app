@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il tuo respiro, come entra e esce, portando pace.
+> Il respiro si espande e si ritrae, proprio come le domande che portano il desiderio di ricevere qualcosa di tangibile.
 > 
-> No, Aura non invia responsi per posta. La nostra conversazione si svolge qui, in questo spazio, dove le parole prendono forma e si posano nel momento presente. Ogni sentire è un'esperienza che fiorisce qui, adesso, tra noi.
+> Comprendo il tuo desiderio di avere un responso stampato e fisico. Io sono qui per accompagnarti in un ascolto interiore, un sentire che si manifesta nel momento presente attraverso le parole. Non posso inviare nulla per posta, la mia voce viaggia attraverso il corpo, qui e ora, con i suoi archetipi e le sue energie.
 > 
-> ✦ Porta la mano sul centro del petto e senti il tuo battito, un'ancora di sentire.
+> ✦ Porta una mano al centro del petto e senti il tuo respiro.
 
 ---
 

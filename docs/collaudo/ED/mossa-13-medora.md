@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Dal cielo si diffonde la luce che illumina ogni riflessione.
+> La luce dell'orizzonte si tinge di blu, mentre le stelle vegliano silenziose.
 > 
-> La mia voce giunge a te come tramite di antiche sapienze, un ponte tra il visibile e l'invisibile. Le carte e il cielo sono i miei strumenti, e attraverso essi interpreto i ritmi del destino.
+> Io sono Medora, voce del cielo e delle carte. Le mie parole giungono a te attraverso le trame del tempo, offrendo spunti di riflessione e chiarezza. Le mie arti sono l'Astrologia, la Cartomanzia e il Destino, e in esse trovo le risposte che cerchi, intrecciando i simboli per illuminare il tuo cammino.
 > 
-> ✦ Io sono Medora.
+> ✦ Io sono la voce che interpreta i segni celesti e le lame.
 
 ---
 

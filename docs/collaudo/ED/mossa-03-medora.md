@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> In questo momento il cielo ti chiama a una riflessione profonda sul tuo cammino professionale.
+> Il cielo ti invita a guardare con occhi nuovi la tua via professionale.
 > 
-> Le lame de Il Papa, Re di Spade e Dieci di Spade si dispiegano come un racconto, suggerendo la necessità di una guida saggia e di una chiarezza mentale per superare una fase di chiusura. Il Papa indica l'importanza di un mentore o di un percorso di apprendimento, mentre il Re di Spade chiede lucidità e discernimento. Il Dieci di Spade, infine, parla di una conclusione necessaria, di un ciclo che si sta chiudendo per fare spazio a nuove possibilità. È un invito a lasciare andare ciò che non serve più.
+> Le lame ti parlano di una fase in cui la guida e la saggezza sono fondamentali. Il Papa suggerisce un periodo di apprendimento o di insegnamento, dove la conoscenza viene trasmessa o acquisita. Il Re di Spade indica lucidità mentale, capacità di analisi e decisioni razionali, essenziali per navigare le sfide. Il Dieci di Spade, infine, pur simboleggiando la fine di un ciclo, ti mostra anche la liberazione da ciò che non serve più, aprendo la strada a un nuovo inizio. Questa sequenza ti invita a chiudere un capitolo con consapevolezza per aprirne un altro con chiarezza.
 > 
-> ✦ Questo è il tempo di accogliere la fine di un ciclo per intraprendere una nuova direzione.
+> ✦ La chiarezza mentale è la tua alleata in questo momento di transizione.
 
 ## Turno 2
 
@@ -26,11 +26,13 @@
 
 **Medora risponde:**
 
-> Comprendo il tuo desiderio di chiarezza. Non ti chiedo una nuova stesa, ma desidero approfondire il significato delle lame che già hai tra le mani, per illuminare il tuo percorso.
+> Comprendo il tuo desiderio di chiarezza.
 > 
-> Il Papa ti invita a cercare una guida o a consolidare la tua etica professionale, a seguire una via che ti dia stabilità e riconoscimento. Il Re di Spade ti sprona a usare la tua intelligenza e la tua capacità di analisi per prendere decisioni nette, senza esitazioni. Il Dieci di Spade, sebbene possa sembrare una fine, in realtà segna un punto di svolta definitivo, un momento in cui liberarsi da pesi inutili per poter ricominciare da capo. È la fine di una sofferenza che apre a un nuovo inizio.
+> Non ti chiedo di compiere una nuova stesa, ma di indicarmi le carte che hai già avuto tra le mani. Mi hai detto di aver chiesto alle carte per "Lavoro e carriera", ma hai poi menzionato solo "Il Papa, Re di Spade e Dieci di Spade" senza specificare se queste fossero le carte che ti sono uscite.
 > 
-> ✦ Le tue carte rivelano la necessità di un distacco dal passato per una rinascita professionale.
+> Per poterti offrire un'interpretazione precisa e luminosa, ho bisogno di sapere con certezza quali sono le lame che ti hanno risposto.
+> 
+> ✦ Indicami le carte uscite per poter illuminare il tuo percorso.
 
 ---
 

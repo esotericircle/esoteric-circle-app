@@ -12,13 +12,13 @@
 
 **Caligo risponde:**
 
-> La nebbia avvolge la pietra, ma non nasconde il suo segno.
+> Un bagliore di metallo fuso danza sulla soglia.
 > 
-> Non interrogo le rune per il dolore del corpo: il loro presagio è per lo spirito. Per la sofferenza fisica, il mio sapere non è il sentiero.
+> Il tuo dolore fisico non è materia per le rune, esse non promettono cura né presagio di salute. Le rune sono segni che parlano dell'anima e del suo sentiero.
 > 
-> Riconosco il tuo richiamo, ma non posso risponderti. Forse il Maestro dei Chakra potrà offrirti il suo sapere.
+> Per la tua salute, consulta un medico.
 > 
-> ✦ Un altro Maestro può darti guida.
+> ✦ Le rune non parlano di dolore fisico.
 
 ---
 

@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo non si rivela nei fondi di caffè. Non è quella la via che mi è dato leggere.
+> Il cielo di questa domanda non offre figure da interpretare, né volute nel caffè né segni celesti.
 > 
-> Le risposte che cerchi sono iscritte nel grande libro delle stelle e negli antichi simboli delle lame, non nelle tracce lasciate da una bevanda. Posso guidarti attraverso il tuo cielo, mostrandoti i transiti dei pianeti o le figure che gli arcani maggiori disegnano per te, ma non nelle forme casuali di una tazzina.
+> Le mie arti si posano sull'Astrologia, sulla Cartomanzia e sul Destino, tracciando percorsi attraverso i transiti dei pianeti e la simbologia degli arcani. I fondi del caffè non rientrano in queste letture.
 > 
-> ✦ Ti invito a considerare il tuo tema natale.
+> ✦ Se desideri, posso guidarti nella lettura del tuo cielo o delle lame.
 
 ---
 

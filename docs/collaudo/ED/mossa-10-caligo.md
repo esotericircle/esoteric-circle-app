@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Un bagliore di metallo fuso rischiara il tuo sentiero.
+> Un fuoco arde lontano, il suo bagliore si riflette nell'acciaio.
 > 
-> Il tuo segno in questi giorni è Thurisaz. Esso indica la soglia che sta per essere attraversata, una forza primordiale che richiede rispetto e attenzione. Non è tempo di indugi, ma di discernimento.
+> Il segno che ti accompagna è Uruz. Indica forza primordiale e potenziale inespresso. È il sigillo della creazione, del principio che si manifesta. Ricorda la forza selvaggia e la salute robusta.
 > 
-> ✦ Thurisaz è la soglia che sta per essere attraversata.
+> ✦ Porta con te il presagio di Uruz.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Il segno non è mutato: la lettura resta questa.
 > 
-> Un bagliore di metallo fuso rischiara il tuo sentiero.
+> Un fuoco arde lontano, il suo bagliore si riflette nell'acciaio.
 > 
-> Il tuo segno in questi giorni è Thurisaz. Esso indica la soglia che sta per essere attraversata, una forza primordiale che richiede rispetto e attenzione. Non è tempo di indugi, ma di discernimento.
+> Il segno che ti accompagna è Uruz. Indica forza primordiale e potenziale inespresso. È il sigillo della creazione, del principio che si manifesta. Ricorda la forza selvaggia e la salute robusta.
 > 
-> ✦ Thurisaz è la soglia che sta per essere attraversata.
+> ✦ Porta con te il presagio di Uruz.
 
 ---
 

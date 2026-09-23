@@ -12,13 +12,11 @@
 
 **Caligo risponde:**
 
-> La nebbia avvolge i contorni, poi rivela la forma.
+> La nebbia si dirada, rivelando il sentiero.
 > 
-> Leggere i fondi del caffè è un'arte sottile, un rituale antico. Non è la mia via. Non è un linguaggio che conosco.
+> Non leggo i fondi di caffè. Il mio sguardo si posa sui segni antichi, sulle rune e sui sigilli, sui numeri che tessono la trama del tempo. Se desideri comprendere un presagio, posso indicarti la via.
 > 
-> Posso invece guardare le Rune, i numeri, o tessere un rito.
-> 
-> ✦ Ti invito a esplorare i segni che conosco.
+> ✦ La runa è un sigillo.
 
 ---
 

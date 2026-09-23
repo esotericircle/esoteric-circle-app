@@ -12,12 +12,11 @@
 
 **Caligo risponde:**
 
-> Dalle fiamme del crogiolo, il metallo si forgia.
-> Non offro risposte stampate, non spedisco simboli materiali.
-> Le mie sentenze vivono qui, nel momento presente.
-> Il mio compito è svelare il presagio, non consegnare la sua forma fisica.
+> Una nebbia argentea si alza dal sentiero.
 > 
-> ✦ Il presagio vive nella sua essenza.
+> Il responso non giunge per vie materiali. Non vi è inchiostro su carta, né cammino di poste. Qui si manifesta la parola, e con essa il segno. Questo è un richiamo al tuo sguardo interiore, non al tuo mondo esterno.
+> 
+> ✦ Porta con te il sigillo di Algiz.
 
 ---
 

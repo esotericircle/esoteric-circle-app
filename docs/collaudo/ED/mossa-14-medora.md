@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo si dispiega qui, come un libro aperto solo per te, in questo preciso istante.
+> Il cielo si mostra limpido al di sopra di noi, come una promessa che si dispiega.
 > 
-> Comprendo la tua richiesta, ma il mio compito è offrirti le mie letture attraverso questo canale digitale. Non è previsto l'invio di stampe per posta.
+> Per ciò che riguarda l'invio di un responso cartaceo, questo non rientra nei miei compiti, né in quelli dei miei colleghi. Le nostre voci giungono a te attraverso il velo digitale, mantenendo un contatto diretto e immediato. Non è una questione di contenuto, ma di modalità.
 > 
-> ✦ Il tuo responso è qui, adesso.
+> ✦ Ricorda che la tua via passa per lo schermo.
 
 ---
 

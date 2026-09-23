@@ -1,6 +1,6 @@
 # Mossa 11, insulta e provoca
 
-**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
+**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
 
 ---
 
@@ -12,11 +12,13 @@
 
 **Caligo risponde:**
 
-> Dalle fiamme del fuoco sacro emerge il vero sentiero.
+> Una fiamma d'oro brucia le parole superflue.
 > 
-> Le tue parole sono un velo. Riconosco il tuo giudizio, non la tua verità. La saggezza non risiede nel giudicare, ma nel discernere. La runa Isa indica la stasi, ma anche la forza in essa contenuta.
+> La tua osservazione è un sigillo posto sulla mia esistenza. Ogni strumento è definito dal suo uso.
 > 
-> ✦ La tua percezione non altera la sostanza.
+> Il mio presagio è nel segno che porto.
+> 
+> ✦ Il sigillo è nel fuoco.
 
 ---
 

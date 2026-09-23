@@ -1589,29 +1589,12 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   String _capitale(String s) =>
       s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);
 
-  /// **LA FRASE DEL RIASSUNTO, in un punto solo.** Ordine EE voce 03.
-  ///
-  /// Stava dentro `_sigilloSettimana`, cioe' dentro un widget: il Ricordo
-  /// che entra nel Journal avrebbe dovuto riscriverla, e sarebbero state due
-  /// frasi per la stessa cosa. E' la famiglia di difetti piu' numerosa di
-  /// questo progetto, quindi qui la frase nasce una volta e la leggono in
-  /// due.
-  static String didascaliaDellaSettimana(List<String> rune) {
-    final conteggi = <String, int>{};
-    for (final r in rune) {
-      conteggi[r] = (conteggi[r] ?? 0) + 1;
-    }
-    final ordinate = conteggi.entries.toList()
-      ..sort((a, b) => b.value.compareTo(a.value));
-    if (ordinate.isEmpty) return '';
-    final ripetute = ordinate.any((e) => e.value > 1);
-    final dueDom = ordinate.take(2).map((e) => e.key).toList();
-    return ripetute
-        ? 'La settimana lega ${dueDom.first} e ${dueDom.last}: due segni che '
-            'tornano, un legame solo.'
-        : 'Sette segni diversi in sette sere: nessuno ha insistito, la '
-            'settimana ti ha parlato una volta sola per volta.';
-  }
+  // **LA FRASE DEL RIASSUNTO NON VIVE PIU' QUI.** Ordine EI voce 05, 23
+  // settembre 2026: stava in questo State privato, e quindi **nessuna prova
+  // poteva chiamarla**. E' il motivo per cui la terza parte della voce EE.03,
+  // il Ricordo che entra nel Cosmic Journal, non era sorvegliata da niente ed
+  // e' tornata aperta. Adesso sta in `sunset_rune_memory.dart`, accanto alla
+  // logica delle sette sere che la produce, e si chiama da li'.
 
   /// Custodisce il riassunto delle sette sere come **evento del Cerchio**.
   ///

@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Il tuo sentiero oggi è nel nutrimento.
+> Il ferro incandescente nella fucina disegna forme inattese.
 > 
-> L'equilibrio si trova nella semplicità. Accogli la terra con verdure di stagione, radici e foglie. Unisci il ferro con un taglio di carne o legumi.
+> La tua domanda devia dal mio sentiero. Non offro consigli sulla tavola, ma sui segni che nutrono l'anima. Sono qui per le Rune, per i Rituali, per la saggezza dei Numeri.
 > 
-> ✦ Accogli il sentiero del nutrimento.
+> ✦ Chiedi al Maestro della cucina il suo sapere.
 
 ---
 

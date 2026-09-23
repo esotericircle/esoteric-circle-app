@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il tuo respiro che si fa più morbido, un invito a rallentare questo istante.
+> Il tuo respiro ora porta la storia della giornata, sentila.
 > 
-> Per ritrovare la calma prima di dormire, puoi concentrarti sul tuo terzo centro, quello che sta all'altezza dell'ombelico, il plesso solare, con il suo colore giallo caldo. Immagina che da lì parta un'energia che si espande dolcemente in tutto il tuo corpo. Questo centro, il Manipura, è la radice della tua forza interiore e della tua pace. Puoi visualizzare un fiore di loto giallo che si schiude lentamente, petalo dopo petalo, mentre inspiri ed espiri, portando equilibrio e armonia.
+> Per ritrovare calma prima di dormire, puoi portare la tua attenzione al centro del cuore, con un respiro morbido e profondo che arriva fino a lì. Immagina un colore verde smeraldo che si espande, sciogliendo le tensioni e i pensieri che si affollano. Questo centro è il luogo dell'equilibrio, dove l'energia si armonizza.
 > 
-> ✦ Porta una mano sull'ombelico e senti il tuo respiro.
+> ✦ Porta l'attenzione al centro del cuore.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Da allora non è cambiato niente: la lettura resta questa.
 > 
-> Senti il tuo respiro che si fa più morbido, un invito a rallentare questo istante.
+> Il tuo respiro ora porta la storia della giornata, sentila.
 > 
-> Per ritrovare la calma prima di dormire, puoi concentrarti sul tuo terzo centro, quello che sta all'altezza dell'ombelico, il plesso solare, con il suo colore giallo caldo. Immagina che da lì parta un'energia che si espande dolcemente in tutto il tuo corpo. Questo centro, il Manipura, è la radice della tua forza interiore e della tua pace. Puoi visualizzare un fiore di loto giallo che si schiude lentamente, petalo dopo petalo, mentre inspiri ed espiri, portando equilibrio e armonia.
+> Per ritrovare calma prima di dormire, puoi portare la tua attenzione al centro del cuore, con un respiro morbido e profondo che arriva fino a lì. Immagina un colore verde smeraldo che si espande, sciogliendo le tensioni e i pensieri che si affollano. Questo centro è il luogo dell'equilibrio, dove l'energia si armonizza.
 > 
-> ✦ Porta una mano sull'ombelico e senti il tuo respiro.
+> ✦ Porta l'attenzione al centro del cuore.
 
 ---
 

@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il respiro che si espande nel tuo centro, proprio lì, al centro del petto.
+> Senti il tuo respiro, come si muove nel centro del tuo petto, in questo momento.
 > 
-> Questo spazio è un crocevia, un punto di equilibrio, dove l'energia del verde smeraldo si fonde con l'oro, tessendo un ponte tra il tuo sentire profondo e il mondo che ti circonda. Non si tratta di sbloccare, ma di invitare un flusso più aperto, permettendo all'energia di muoversi con la sua naturale morbidezza. Puoi iniziare a portare la tua attenzione a come ti relazioni con te stesso e con gli altri, riconoscendo che ogni relazione è uno specchio e un'opportunità per sentire con maggiore profondità.
+> Il centro del cuore, con i suoi colori verdi e dorati, è il luogo dove si uniscono i mondi, il ponte tra ciò che è terreno e ciò che è più sottile. Per accogliere il suo fluire, puoi concentrarti sull'apertura e sul lasciar andare, permettendo all'energia di muoversi liberamente come l'aria. Questo archetipo ci invita a sentire la compassione e la connessione, prima di tutto con noi stessi.
 > 
-> ✦ Permetti al tuo respiro di espandere il tuo sentire.
+> ✦ Poggia una mano sul tuo cuore e senti il calore.
 
 ---
 

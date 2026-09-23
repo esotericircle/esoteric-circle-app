@@ -197,3 +197,34 @@ class SunsetRuneMemory {
         porta: porta,
       );
 }
+
+/// **LA FRASE DEL RIASSUNTO DELLA SETTIMANA, in un punto solo e raggiungibile.**
+/// Ordine EE voce 03, spostata qui dall'ordine EI voce 05 il 23 settembre 2026.
+///
+/// **Perche' si e' spostata.** Stava dentro `_SunsetRuneScreenState`, cioe'
+/// dentro uno **State privato**: la leggevano lo schermo e il Ricordo che
+/// entra nel Cosmic Journal, ma **nessuno da fuori poteva chiamarla**. E'
+/// questa la ragione per cui la terza parte della voce EE.03 non era toccata
+/// da nessuna prova, ed e' la ragione per cui la voce e' tornata aperta:
+/// **una frase che l'utente legge nel diario e che nessuna prova puo'
+/// raggiungere non e' sorvegliata da niente.**
+///
+/// Qui sta accanto alla logica della settimana, che e' il suo posto: chi
+/// cambia la finestra delle sette sere vede anche la frase che quella
+/// finestra produce.
+String didascaliaDellaSettimana(List<String> rune) {
+  final conteggi = <String, int>{};
+  for (final r in rune) {
+    conteggi[r] = (conteggi[r] ?? 0) + 1;
+  }
+  final ordinate = conteggi.entries.toList()
+    ..sort((a, b) => b.value.compareTo(a.value));
+  if (ordinate.isEmpty) return '';
+  final ripetute = ordinate.any((e) => e.value > 1);
+  final dueDom = ordinate.take(2).map((e) => e.key).toList();
+  return ripetute
+      ? 'La settimana lega ${dueDom.first} e ${dueDom.last}: due segni che '
+          'tornano, un legame solo.'
+      : 'Sette segni diversi in sette sere: nessuno ha insistito, la '
+          'settimana ti ha parlato una volta sola per volta.';
+}

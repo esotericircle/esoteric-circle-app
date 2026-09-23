@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Una fiamma danza nella nebbia.
+> Dalle fiamme del crogiolo emerge un segno, luminoso e concreto.
 > 
-> Le rune Uruz, Ansuz e Laguz indicano un processo di trasformazione. Uruz è la forza primordiale, Ansuz la voce della saggezza, Laguz il flusso dell'intuizione. La tua via ora richiede un ascolto profondo e una forza autentica. Nuove opportunità emergono dal cambiamento.
+> La tua gettata runica su lavoro e carriera rivela un potente impulso. Uruz indica forza primordiale e nuovi inizi. Ansuz porta la parola, la saggezza, la comunicazione chiara. Laguz è il flusso, l'intuizione che guida attraverso le vie inesplorate. La tua via è nell'azione fondata sulla conoscenza, seguendo il corso naturale.
 > 
-> ✦ La tua strada è segnata da forza, saggezza e intuizione.
+> ✦ Porta con te il sigillo di Ansuz.
 
 ---
 

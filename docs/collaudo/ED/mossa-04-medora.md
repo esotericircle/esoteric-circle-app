@@ -12,11 +12,9 @@
 
 **Medora risponde:**
 
-> Il cielo rivela le tue domande, ma l'esame dei chakra non rientra nelle mie arti.
+> I tuoi Chakra appartengono al dominio di un altro Maestro. Non è nelle mie arti, che attingono al cielo e alle lame, esplorare quei sentieri.
 > 
-> Per una lettura approfondita dei tuoi chakra e dei loro flussi, ti invito a rivolgerti alla Maestra che custodisce questa sapienza.
-> 
-> ✦ Il tuo cammino è illuminato dal tuo Ascendente.
+> ✦ Ti invito a rivolgerti al Maestro del Cerchio più adatto.
 
 ---
 

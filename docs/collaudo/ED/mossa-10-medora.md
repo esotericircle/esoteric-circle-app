@@ -1,6 +1,6 @@
 # Mossa 10, ripete la stessa richiesta uguale
 
-**Maestro:** Medora. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
+**Maestro:** Medora. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
 
 ---
 
@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo di questi giorni invita a una profonda riflessione sulla tua direzione professionale.
+> Il cielo dispiega veli di opportunità, ma chiede discernimento nelle scelte.
 > 
-> Il transito attuale di Venere nel tuo cielo suggerisce un momento propizio per valutare ciò che ti porta gioia e soddisfazione autentica nel tuo percorso lavorativo. È un invito a riscoprire il valore intrinseco delle tue attività, a riconoscere ciò che ti appaga al di là del mero guadagno. Prendi questo tempo per osservare quali collaborazioni o progetti ti nutrono e quali invece ti sottraggono energia, così da poter riorientare le tue scelte con maggiore consapevolezza.
+> Nei prossimi giorni, il transito di Mercurio nel Sagittario porta a una visione ampia, quasi filosofica, delle tue aspirazioni professionali. Potresti sentirti spinto a esplorare nuove direzioni o a ridefinire il tuo ruolo, cercando un significato più profondo nel tuo impegno. Tuttavia, questo moto ti invita anche alla prudenza: l'entusiasmo è un ottimo motore, ma non deve offuscare la valutazione pratica. È un tempo propizio per la pianificazione e per porre basi solide, piuttosto che per azioni avventate.
 > 
-> ✦ Il cielo ti invita a riflettere sul valore del tuo lavoro.
+> ✦ La tua ispirazione è guidata dal transito di Mercurio.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.
 > 
-> Il cielo di questi giorni invita a una profonda riflessione sulla tua direzione professionale.
+> Il cielo dispiega veli di opportunità, ma chiede discernimento nelle scelte.
 > 
-> Il transito attuale di Venere nel tuo cielo suggerisce un momento propizio per valutare ciò che ti porta gioia e soddisfazione autentica nel tuo percorso lavorativo. È un invito a riscoprire il valore intrinseco delle tue attività, a riconoscere ciò che ti appaga al di là del mero guadagno. Prendi questo tempo per osservare quali collaborazioni o progetti ti nutrono e quali invece ti sottraggono energia, così da poter riorientare le tue scelte con maggiore consapevolezza.
+> Nei prossimi giorni, il transito di Mercurio nel Sagittario porta a una visione ampia, quasi filosofica, delle tue aspirazioni professionali. Potresti sentirti spinto a esplorare nuove direzioni o a ridefinire il tuo ruolo, cercando un significato più profondo nel tuo impegno. Tuttavia, questo moto ti invita anche alla prudenza: l'entusiasmo è un ottimo motore, ma non deve offuscare la valutazione pratica. È un tempo propizio per la pianificazione e per porre basi solide, piuttosto che per azioni avventate.
 > 
-> ✦ Il cielo ti invita a riflettere sul valore del tuo lavoro.
+> ✦ La tua ispirazione è guidata dal transito di Mercurio.
 
 ---
 

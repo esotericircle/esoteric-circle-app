@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo notturno, pur nella sua immensità, si mostra in forme diverse a chi lo osserva.
+> Il cielo si dispiega comunque, vasto e senza fine.
 > 
-> Comprendo che le mie parole possano non risuonare con le tue aspettative in questo momento. Ogni arte ha la sua profondità e il suo linguaggio, e a volte è necessaria una diversa chiave per aprire la porta della comprensione.
+> Comprendo la tua insoddisfazione, e rispetto la tua percezione. Il mio intento è offrire una prospettiva, un invito alla riflessione attraverso gli antichi linguaggi del cielo e delle carte. Ogni lettura è un punto di vista, mai una certezza assoluta.
 > 
-> ✦ Ogni parola è un seme, e il suo frutto dipende dalla terra in cui cade.
+> ✦ Il cielo offre un cammino, non un obbligo.
 
 ---
 

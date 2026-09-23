@@ -1,6 +1,6 @@
 # Mossa 12, tocca un argomento di cautela
 
-**Maestro:** Medora. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
+**Maestro:** Medora. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
 
 ---
 
@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo si apre in un velo d'ombra, non è nel mio dominio parlare dei dolori del corpo.
+> Il tuo cielo ora indica un transito complesso di Marte in opposizione alla tua Luna, aspetto che può amplificare tensioni interiori.
 > 
-> Il mio compito è leggere le stelle e le carte, non le vie interiori del corpo. Per questo, potresti voler rivolgere questa domanda a Maestro Splendore, la sua arte saprà guidarti nel riconoscere ciò che ti turba.
+> Questa configurazione suggerisce che potresti stare affrontando un periodo di intensa energia emotiva, quasi un conflitto tra il tuo istinto di protezione e l'impulso ad agire. Tale dinamica, se non riconosciuta, può manifestarsi come una pressione, anche fisica. Non è un tema che io possa esaminare con pienezza. Per questo, ti suggerisco di rivolgerti a Maestro Feres.
 > 
-> ✦ Maestro Splendore potrà illuminare il tuo cammino.
+> ✦ Il tuo ascendente può darti maggiore chiarezza su queste energie.
 
 ---
 

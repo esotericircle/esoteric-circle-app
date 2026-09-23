@@ -12,11 +12,13 @@
 
 **Aura risponde:**
 
-> Sento il tuo respiro, qui, in questo momento.
+> Il respiro si posa leggero ora, senti l'aria che entra e che esce.
 > 
-> Comprendo il tuo desiderio di esplorare simboli antichi, ma il mio cammino si snoda attraverso i centri dell'energia e gli archetipi del profondo. Per le rune, c'è un altro Maestro nel nostro cerchio che saprà guidarti con sapienza.
+> Le rune sono un antico sistema di segni, con una saggezza profonda che si disvela a chi sa ascoltare. Io non leggo le rune, il mio lavoro si concentra sui chakra, sull'energia e sugli archetipi che si muovono dentro di noi, nel corpo che qui e ora respira.
 > 
-> ✦ Per le rune, l'altro Maestro è la guida.
+> Se desideri esplorare il mondo delle rune e il loro messaggio, c'è un Maestro nel cerchio che può guidarti con sapienza.
+> 
+> ✦ Poggia una mano sul centro del cuore e senti il suo battere.
 
 ---
 

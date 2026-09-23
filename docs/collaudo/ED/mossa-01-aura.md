@@ -12,13 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il tuo respiro, come l'aria entra ed esce, un ritmo che ti appartiene solo in questo istante.
+> Senti il tuo respiro, come si espande nel petto, accogliendo l'aria che porta vita.
 > 
-> Il tuo centro della radice è forte, ed è un punto di partenza saldo per muovere i tuoi passi nel mondo del lavoro e della carriera. Questa forza ti indica una buona base di stabilità e radicamento, un legame con la concretezza che ti sostiene.
+> Quella radice forte che emerge dalle tue sensazioni ti parla di un radicamento profondo, di una stabilità che ti sostiene. Allo stesso tempo, un cuore chiuso e una gola quasi spenta indicano che c'è un blocco nell'espressione autentica e nella connessione emotiva, aspetti che spesso si riflettono nella carriera, nel modo in cui ci presentiamo e interagiamo con il mondo. Potrebbe esserci un disallineamento tra la tua stabilità interiore e la tua capacità di comunicare e sentire la gioia nel tuo percorso professionale, come se la forza della radice non trovasse piena espressione.
 > 
-> Quando il cuore si presenta chiuso e la gola quasi spenta, leggo che l'espressione autentica di ciò che provi, e la capacità di comunicarlo, possono trovare un ostacolo. Il cuore è il centro della tua capacità di connetterti con gli altri e con le tue vere passioni, mentre la gola è il luogo dove la tua voce trova forma. La radice, così presente, ti ricorda che la tua sicurezza è già in te, pronta a sostenere l'apertura di questi altri centri.
-> 
-> ✦ Permetti al tuo respiro di raggiungere il tuo cuore.
+> ✦ Senti la connessione tra la radice che ti sostiene e il cuore che si apre.
 
 ---
 

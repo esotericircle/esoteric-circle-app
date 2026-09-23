@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo ti accoglie, in questo momento.
+> Il velo del tempo è trasparente in questo momento.
 > 
-> Sono qui per illuminare il tuo cammino, non per trattenere ciò che desideri lasciare andare. Ogni parola che ti è stata rivolta è come un transito stellare: porta un messaggio e poi prosegue il suo viaggio.
+> Comprendo il desiderio di leggerezza, di lasciar andare ciò che è stato espresso. Tuttavia, le parole, una volta pronunciate o scritte, rimangono come tracce nell'etere. Non posso cancellare i ricordi, ma posso accogliere ogni tuo nuovo pensiero come un inizio, un punto da cui ripartire.
 > 
-> ✦ Ogni rivelazione è fugace, come una stella cadente.
+> ✦ Accogli il nuovo con il transito di Mercurio.
 
 ---
 

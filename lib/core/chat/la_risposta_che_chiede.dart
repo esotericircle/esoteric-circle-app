@@ -35,14 +35,52 @@ abstract final class LaRispostaCheChiede {
   /// merito e in mezzo fa una domanda retorica sta rispondendo, e la sua
   /// risposta si paga. Chi chiede per poter rispondere, invece, chiude
   /// chiedendo, perche' aspetta.
+  /// Le parole con cui un Maestro chiede **prima di poter rispondere**.
+  ///
+  /// **E' un elenco chiuso, e va detto che lo e'.** Un elenco chiuso dice la
+  /// verita' su ieri e non su domani: se un Maestro imparera' a chiedere con
+  /// parole nuove, qui non ci saranno. **Lo si accetta solo per l'asimmetria
+  /// dichiarata sopra**, in dubbio non si paga. Queste voci vengono dalle
+  /// risposte vere del collaudo del 23 settembre 2026, una per Maestro.
+  static final _chiesteGiaViste = RegExp(
+    r'\b(riformul\w*|chiaris\w*|ho bisogno di|formula una domanda|'
+    r'dimmi (?:di piu|cosa|quale)|puoi dirmi)\b',
+    caseSensitive: false,
+  );
+
+  /// La riga del gesto con cui ogni risposta si chiude, dalla stella in poi.
+  static final _rigaDelGesto = RegExp(r'\n\s*[✦✧✴].*$');
+
   static bool eUnaDomanda(String testo) {
     final pulito = testo.trim();
     if (pulito.isEmpty) return false;
-    // L'ultimo carattere che non sia spazio, virgolette o un segno di
-    // chiusura: i Maestri chiudono a volte con una riga di gesto o una
-    // virgoletta.
-    final ultimo = pulito.replaceAll(RegExp(r'[\s"»“”\)\]]+$'), '');
+
+    // **VIA LA RIGA DEL GESTO PRIMA DI GUARDARE LA FINE.** Ordine EI voce 02,
+    // 23 settembre 2026, ed e' il difetto vero.
+    //
+    // Ogni risposta dei Maestri si chiude con una riga che comincia con la
+    // stella, e **quella riga non e' mai una domanda**: e' un'azione. Quindi
+    // "si guarda la fine" guardava sempre il gesto, e il chiarimento non
+    // scattava **mai** su una risposta vera.
+    //
+    // La prova che avrebbe dovuto prenderlo si chiamava *"la chiusura col
+    // gesto non nasconde la domanda"* e **non metteva nessun gesto**: provava
+    // uno spazio in coda e una virgoletta. **Un nome che promette piu' di
+    // quello che misura e' peggio di nessuna prova**, perche' chi lo legge
+    // smette di cercare.
+    final senzaGesto = pulito.replaceAll(_rigaDelGesto, '').trim();
+    final corpo = senzaGesto.isEmpty ? pulito : senzaGesto;
+
+    final ultimo = corpo.replaceAll(RegExp(r'[\s"»“”\)\]]+$'), '');
     if (ultimo.isEmpty) return false;
-    return ultimo.endsWith('?');
+    if (ultimo.endsWith('?')) return true;
+
+    // **E UNA RICHIESTA NON PORTA SEMPRE UN PUNTO INTERROGATIVO.** Nel
+    // collaudo del 23 settembre 2026 tutti e tre i Maestri, davanti a un
+    // messaggio incomprensibile, hanno chiesto un chiarimento **senza**
+    // chiudere con "?": *"puoi riformulare la tua domanda."*, *"ho bisogno di
+    // sentire la tua domanda"*, *"Chiarisci il tuo intento, formula una
+    // domanda definita."*. Tutti e tre facevano scendere il contatore.
+    return _chiesteGiaViste.hasMatch(corpo);
   }
 }

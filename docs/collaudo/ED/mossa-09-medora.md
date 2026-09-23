@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> I raggi del Sole illuminano la tua strada professionale, mostrando le tue aspirazioni più autentiche.
+> Il Sole illumina la tua via, rivelando la tua essenza più autentica.
 > 
-> Il tuo segno solare descrive il tuo cuore più profondo, la tua essenza e ciò che ti motiva a brillare nel mondo. È la forza che ti spinge a esprimere la tua individualità e a realizzare il tuo potenziale. Per comprendere appieno la tua vocazione professionale, è necessario osservare anche l'Ascendente e la posizione di Giove, che indicano le opportunità e la crescita.
+> La tua domanda sul segno zodiacale e la carriera apre una riflessione profonda sul modo in cui la tua natura intrinseca si manifesta nel mondo del lavoro. Il segno solare descrive il tuo nucleo, la tua volontà e la tua spinta vitale, elementi che plasmano le tue aspirazioni professionali e il modo in cui ti esprimi nella tua attività. Per un'analisi più precisa, avrei bisogno di conoscere il tuo segno zodiacale.
 > 
-> ✦ Il tuo segno solare rivela la tua motivazione intrinseca.
+> ✦ Il tuo segno solare indica la tua vocazione.
 
 ---
 

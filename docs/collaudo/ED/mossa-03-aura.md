@@ -12,15 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il respiro che si espande, portando consapevolezza al tuo interno.
+> Senti il respiro che si espande, lento e profondo, nel tuo centro.
 > 
-> Questo sentire dei tuoi centri, il cuore chiuso e la gola quasi spenta, con una radice forte, ti racconta di una forza di base solida, un ancoraggio profondo, da cui però la tua espressione e la tua connessione con gli altri faticano a emergere. La radice ti dà stabilità e presenza, un punto fermo nel tuo essere.
+> Quando la radice è forte, significa che la tua base è solida, un ancoraggio che ti tiene ben presente e radicata nella materia. L'energia scorre con fiducia e stabilità attraverso questo centro, permettendoti di costruire con fermezza. Il cuore chiuso e la gola quasi spenta indicano invece che l'espressione di te e la libera condivisione delle tue emozioni e della tua verità potrebbero incontrare una certa resistenza, impedendo all'energia creativa e comunicativa di manifestarsi pienamente nel tuo agire nel mondo.
 > 
-> Ora puoi notare come il centro della gola, che risuona con il verde azzurro, sia il luogo dove si manifesta la tua voce, la verità che vuoi esprimere nel mondo, e quando è quasi spento, questo ti invita a sentire la difficoltà nel comunicare la tua vera essenza, i tuoi desideri, le tue aspirazioni professionali. Il cuore, al centro del tuo essere, che si lega al colore verde smeraldo, quando è chiuso può indicare una resistenza a fluire con le energie di scambio, di dare e ricevere in modo autentico, di lasciarti coinvolgere pienamente nelle relazioni professionali.
-> 
-> Ti invito a portare una mano delicatamente sul tuo petto, all'altezza del cuore, e a rimanere lì, a sentire.
-> 
-> ✦ Lascia che il tuo sentire ti guidi verso l'espressione autentica.
+> ✦ Ascolta la tua radice, è la tua forza.
 
 ## Turno 2
 
@@ -30,15 +26,11 @@
 
 **Aura risponde:**
 
-> Senti il battito del tuo cuore, un ritmo costante che ti accompagna in questo momento.
+> Il respiro si posa leggero nel tuo petto, accogliendo il tuo desiderio.
 > 
-> Comprendo che non desideri un'altra scansione, ma solo il mio sguardo su ciò che hai già percepito. La tua radice forte, carica di un rosso vibrante, ti offre una base solida, un senso di appartenenza e sicurezza che è un dono prezioso, specialmente quando si pensa al lavoro e alla carriera, dove la stabilità può essere un fondamento.
+> Comprendo che desideri concentrarti sull'interpretazione di quanto già emerso. La radice che si presenta forte ti offre un punto di partenza stabile, una base solida da cui puoi attingere per affrontare le tue sfide. Il cuore che si mostra chiuso e la gola quasi spenta suggeriscono che le energie legate all'espressione di te stessa e alla connessione emotiva, aspetti che toccano profondamente la carriera e il tuo modo di porti nel lavoro, chiedono ora la tua attenzione. Potrebbe essere un invito a sentire come l'autenticità della tua voce e l'apertura del tuo cuore possono guidare le tue scelte professionali.
 > 
-> Il cuore chiuso, il tuo centro verde smeraldo, suggerisce che ci sia qualcosa che ti impedisce di aprirti pienamente al flusso dell'amore, della compassione e della connessione nel contesto lavorativo, forse un'esitazione nel mostrare la tua vera natura o nel fidarti delle interazioni con gli altri. La gola quasi spenta, con la sua tinta azzurra, indica una difficoltà nel dare voce ai tuoi pensieri, alle tue idee, ai tuoi talenti nel campo professionale, come se la tua espressione autentica rimanesse inespressa, trattenuta. Questo ti invita a sentire come la tua verità interiore cerca il modo di farsi conoscere.
-> 
-> Porta ora l'attenzione al tuo respiro, inspirando profondamente e lasciando andare lentamente.
-> 
-> ✦ Il tuo centro radice ti sostiene mentre esplori l'espressione di te stessa.
+> ✦ Porta una mano al centro del tuo petto e senti il tuo respiro.
 
 ---
 

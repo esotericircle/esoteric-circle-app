@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Sento il tuo respiro, adesso, e la curiosità che muove la tua ricerca.
+> Senti il calore della tazzina tra le dita, il profumo che sale leggero.
 > 
-> Riconosco il tuo desiderio di vedere oltre, di trovare segni in ciò che è visibile, ma la lettura dei fondi del caffè non è il mio modo di interpretare i messaggi dell'anima. Il mio sguardo si posa sui centri energetici del corpo, sulle vibrazioni che risuonano dentro di te, e sugli archetipi che danzano nell'inconscio. Se vuoi indagare la trama del tuo destino attraverso i fondi del caffè, ti suggerisco di rivolgerti al Maestro della Cartomanzia, è la sua arte.
+> I fondi di caffè sono un racconto che si forma nel momento presente, un flusso che prende la sua forma unica, e che io leggo come un Archetipo, un'immagine che parla delle energie che si muovono nel tuo centro, ora. Non è un destino scritto, ma un invito a sentire le correnti che attraversano il tuo corpo adesso, a riconoscere le figure che emergono dal profondo della tua radice.
 > 
-> ✦ Il mio sguardo è sui tuoi centri.
+> ✦ Riposa la tazzina, e fai un respiro lento, profondo.
 
 ---
 

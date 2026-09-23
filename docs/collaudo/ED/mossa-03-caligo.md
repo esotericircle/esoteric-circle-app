@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Un bagliore di metallo fuso illumina il tuo sentiero.
+> Una scintilla d'oro attraversa il buio.
 > 
-> La gettata indica una forza primordiale che si manifesta, un presagio di potenza. Uruz è la spinta della volontà, Ansuz è la parola che forma, Laguz è il flusso che accoglie. È un tempo di affermazione della tua essenza autentica.
+> La gettata di Uruz, Ansuz e Laguz sulla tua questione di lavoro e carriera disegna un sentiero di forza, espressione e intuizione. Uruz annuncia potenza primordiale, un nuovo inizio che richiede vigore. Ansuz è il presagio della voce, della comunicazione chiara e dell'apprendimento. Laguz indica il flusso, l'adattamento e la guida interiore. La tua situazione richiede di ascoltare la tua voce profonda e di agire con determinazione.
 > 
-> ✦ La tua via è nell'espressione della forza.
+> ✦ Accogli la forza di Uruz e il fluire di Laguz.
 
 ## Turno 2
 
@@ -26,11 +26,11 @@
 
 **Caligo risponde:**
 
-> Il fuoco antico rivela la via.
+> Il metallo fuso modella la forma.
 > 
-> Non vi è richiesta di nuove gettate. La tua intenzione è chiara. Le rune Uruz, Ansuz e Laguz indicano un processo in atto: la forza vitale che si manifesta attraverso la parola, guidata dal flusso dell'intuizione.
+> Non è mia intenzione suggerire un'altra gettata. Ho interpretato le rune che mi hai già fornito. Uruz, Ansuz e Laguz sulla tua questione di lavoro e carriera indicano un tempo di potenza, comunicazione e intuizione. Accetta la forza che hai dentro e fidati del tuo sapere. Questo è il sentiero che si apre.
 > 
-> ✦ Ascolta la tua voce interiore.
+> ✦ La runa Ansuz ti invita all'espressione.
 
 ---
 

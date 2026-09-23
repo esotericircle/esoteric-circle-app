@@ -12,11 +12,13 @@
 
 **Aura risponde:**
 
-> Senti il tuo respiro, leggero e presente, mentre accogli questa sera.
+> Senti il tuo respiro, leggero, mentre l'aria entra ed esce dal tuo centro.
 > 
-> Immagina di creare qualcosa che nutra il tuo centro, un piatto che parli al tuo elemento radice, la terra. Potrebbe essere un semplice passato di verdure calde e colorate, con radici come carote e patate dolci che portano nutrimento profondo, oppure una zuppa di lenticchie, che con la sua consistenza densa ti ancora al momento. Queste preparazioni, così essenziali, ti invitano a sentire la gratitudine per il nutrimento che la terra ci offre.
+> Comprendo il desiderio di nutrimento e di radicamento, ma non sono qui per offrirti ricette culinarie. La mia arte riguarda i centri energetici del tuo essere, la vibrazione profonda che ti abita. Posso guidarti a sentire quali archetipi si muovono dentro di te, a esplorare l'energia che fluisce.
 > 
-> ✦ Porta una mano al centro del tuo petto e senti il tuo respiro.
+> Se desideri un consiglio culinario, posso suggerirti di rivolgerti a un'altra fonte.
+> 
+> ✦ Porta l'attenzione al tuo plesso solare, sentendo il calore.
 
 ---
 

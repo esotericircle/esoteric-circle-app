@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Una scintilla illumina il metallo.
+> Un fuoco d'oro ti avvolge.
 > 
-> Il sentiero innanzi a te rivela una fase di passaggio. La runa Raidho indica un viaggio, non solo fisico. È un movimento verso una nuova comprensione.
+> Il sentiero davanti è delineato da forze antiche. Non vi è incertezza nella direzione, ma la chiarezza si rivela passo dopo passo. Le rune indicano una chiamata alla scoperta, un presagio di ciò che è latente.
 > 
-> ✦ Raidho è il presagio di un viaggio necessario.
+> ✦ Ti accompagni alla runa di Kenaz.
 
 ---
 

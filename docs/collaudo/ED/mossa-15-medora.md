@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo si schiude oggi con la dolcezza di un mattino di primavera.
+> Sì, ti ho accolto.
 > 
-> È un piacere ritrovarti. La giornata si apre con un invito alla riflessione sui tuoi desideri più profondi, quelli che spesso restano celati. Oggi, il transito della Luna nel tuo cielo ti invita a riconoscere le tue vere aspirazioni.
+> Oggi il cielo si mostra con una luce diversa. È naturale che un giorno segua l'altro, portando nuove energie. Osserva come la Luna, oggi, transita nel segno della Bilancia, invitando a una riflessione sull'equilibrio interiore e sulle relazioni.
 > 
-> ✦ Osserva cosa ti muove dall'interno.
+> ✦ Torna a me quando desideri esplorare il tuo cielo.
 
 ---
 

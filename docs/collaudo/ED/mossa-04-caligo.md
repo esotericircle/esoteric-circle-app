@@ -12,13 +12,11 @@
 
 **Caligo risponde:**
 
-> Una nebbia argentea avvolge la tua domanda.
+> La luce del metallo illumina un bivio.
 > 
-> La lettura dei Tarocchi appartiene al Maestro che scruta il velo. Io interpreto i segni antichi incisi nella pietra e nel metallo. Ogni sentiero ha il suo custode.
+> I tarocchi appartengono a un altro sentiero, non al mio. Sono custode dei segni antichi, delle Rune e dei Rituali, delle vie della Numerologia. Se il tuo sguardo cerca un presagio in questi segni, potrò parlarti.
 > 
-> Per la stesa che cerchi, il Maestro dei veli è il tuo giusto riferimento.
-> 
-> ✦ Ti affido Thurisaz.
+> ✦ Chiedi una runa, un numero o un rito.
 
 ---
 

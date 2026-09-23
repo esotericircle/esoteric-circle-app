@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Una luce metallica si riflette sui vecchi segni.
+> La fiamma danza, tracciando figure nell'aria densa.
 > 
-> Il tuo ringraziamento porta un riconoscimento, un'eco. Ogni gesto ha un suo numero, un suo presagio. È il legame tra le azioni e il loro riverbero.
+> Non vi è un segno specifico per ieri. Ogni istante porta la sua vibrazione, la sua lezione. Il passato è come una runa incisa: il suo significato si rivela nell'oggi.
 > 
-> ✦ Porta con te il sigillo del ringraziamento.
+> ✦ Il presagio è nell'ora che si dispiega.
 
 ---
 

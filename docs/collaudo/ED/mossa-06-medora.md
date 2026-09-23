@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo della sera ti suggerisce di cercare semplicità, ma con un tocco che nutra l'anima.
+> Il cielo non porta indicazioni specifiche per la tua tavola di stasera.
 > 
-> Per la tua cena, potresti considerare un piatto che unisca elementi della terra e del sole, come un risotto ai funghi porcini, arricchito da un filo d'olio d'oliva a crudo. È un nutrimento che non appesantisce, lasciando spazio alla leggerezza dello spirito.
+> Le mie arti possono guidarti in ciò che attiene al tuo destino, ai transiti che influenzano il tuo cammino, o agli arcani che illuminano la tua strada. Non posso darti suggerimenti culinari.
 > 
-> ✦ Il risotto è un piatto che offre un'esperienza nutritiva e non appesantisce.
+> ✦ Puoi chiedere a un altro Maestro un consiglio per un piatto.
 
 ---
 
