@@ -39,11 +39,11 @@ totale e' un controllo, non un ornamento.
 
 | categoria | quante |
 | --- | ---: |
-| Guardie che passano dalla porta comune | 140 |
-| Guardie con un cardinale proprio dichiarato | 136 |
+| Guardie che passano dalla porta comune | 141 |
+| Guardie con un cardinale proprio dichiarato | 139 |
 | Guardie che non scoprono nessun insieme di file | 214 |
-| **Somma delle categorie** | **490** |
-| **Guardie secondo la definizione** | **490** |
+| **Somma delle categorie** | **494** |
+| **Guardie secondo la definizione** | **494** |
 
 **Ricontate a ordine EH**, 24 settembre 2026, l'ordine straordinario nato da un ordine dichiarato chiuso che chiuso non era: **cinque guardie nuove**, tre col cardinale proprio e due che non scoprono insiemi. Il totale sale da 485 a **490** e le tre categorie a **140, 136 e 214**. **Due sono nate rosse rimettendo a mano il difetto di un ordine precedente**, che e' il modo piu' scomodo e piu' onesto in cui una guardia possa nascere. E una, `i_doni_del_giorno_non_ripetono`, ha dovuto **alzare** la sua soglia: a cinque distinti su sette il difetto vero passava, e cinque era un numero scelto a occhio mentre sette e' la richiesta del fondatore.
 
@@ -115,6 +115,21 @@ totale e' un controllo, non un ornamento.
 **Ricontate a ordine EA, voce 22**, 20 settembre 2026, la pietra di Ingwaz che portava Othala: **una guardia nuova**, `ogni_pietra_porta_la_sua_runa`, col cardinale proprio (ventiquattro pietre, ventiquattro impronte). Il totale sale da 446 a **447** e le tre categorie a **137, 115 e 195**. **Vista rossa** rimettendo al posto di Ingwaz la pietra di Othala. **E una guardia buttata prima di scriverla**: il confronto fra il solco inciso e il disegno a tratti dava dal 7 per cento di Uruz al 92 di Berkano su pietre tutte giuste, perche' i sassi sono fotografati storti; una soglia li' dentro sarebbe stata scelta per far passare la prova, e il giudizio sul segno resta dell'occhio, sulla tavola `docs/anteprime/rune_incise.png`.
 
 **Ricontate a ordine EA, terzo lotto**, 20 settembre 2026, il conteggio sempre attivo e anonimo: **nessuna guardia nuova nel conto**, perche' le prove nuove vivono dentro `la_misura_del_ritorno`, che il registro conosce gia'. Il totale resta **446**. **Vista rossa due volte**: il conteggio rimesso sotto consenso, e la frase *"Conta i gesti, non me"* rimessa come testo a video; al primo innesto la frase era in un commento e la guardia non l'ha presa, ed e' giusto cosi', perche' guarda il codice senza i commenti e le righe che spiegano perche' la frase e' uscita la citano. **Tre guardie di casa hanno cambiato legge, non numero**: `i_consensi_stanno_nella_registrazione` e `una_porta_sola_per_la_privacy` pretendevano l'interruttore, adesso pretendono che non ci sia, e `la_misura_del_ritorno` pretendeva che senza consenso non partisse niente.
+
+**Ricontate a ordine EI**, 23 settembre 2026, le dodici voci che tornano
+aperte: **quattro guardie nuove**, tre col cardinale proprio e una dalla porta
+comune. Il totale sale da 490 a **494** e le tre categorie a **141, 139 e
+214**. **Tutte e quattro nate rosse**, e due dei rossi valgono raccontarli:
+`la_settima_sera_entra_nel_diario` ha preteso di spostare la frase del
+riassunto **fuori da uno State privato**, perche' li' dentro nessuna prova
+poteva chiamarla, ed e' per quello che un terzo della voce EE.03 non era
+sorvegliato da niente; `il_gesto_finale_non_nasconde_il_chiarimento` ha
+sostituito una prova che **prometteva piu' di quanto misurasse**, chiamata *"e
+la chiusura col gesto non nasconde la domanda"* e senza nessun gesto dentro.
+**Regola B**: `la_chat_sa_a_cosa_rispondono_le_carte`, `sette_sere_di_fila` e
+`il_chiarimento_non_costa` viste rosse prima di toccare le loro zone. **E una
+prova del rosso non e' valsa**: aveva rotto la compilazione, e una prova che
+non compila non misura la guardia, misura un errore di chi l'ha innestata.
 
 **Ricontate a ordine EH, voce 04**, 23 settembre 2026, gli otto suggerimenti
 dell'Architetto. **Nessun file nuovo**, il totale resta **490**: la prova nuova
@@ -540,6 +555,7 @@ le altre.
 | `corpus_rune_attestato_test.dart` | corpus rune attestato | 1, 2 | proprio, dichiarato | mai | 3 |
 | `corredo_anteprime_test.dart` | corredo anteprime | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `cosa_dicono_i_doni_test.dart` | cosa dicono i Doni | 1 | non scopre insiemi di file | 04/09/2026, CQ | 3 |
+| `cosa_spedisce_davvero_il_conteggio_test.dart` | cosa spedisce davvero il conteggio | 1, 2 | porta comune, piu' il numero esatto degli eventi | 23/09/2026, EI.07 | 4 |
 | `cosmo_e_interruttori_test.dart` | cosmo e interruttori | 1, 2 | dalla porta comune | 20/09/2026, EA (rossa da se': l'interruttore del consenso e' uscito con la voce 12 e l'elenco non quadrava piu') | 3 |
 | `costellazione_ripetuta_test.dart` | costellazione ripetuta | 1, 2 | dalla porta comune | mai | 3 |
 | `dati_nascita_sbloccano_test.dart` | dati nascita sbloccano | 1, 2 | dalla porta comune | mai | 3 |
@@ -633,6 +649,7 @@ le altre.
 | `il_fuso_che_il_server_accetta_test.dart` | il fuso che il server accetta | 1, 2 | dalla porta comune | 03/09/2026, CQ | 1 |
 | `il_genere_delle_carte_arriva_ai_maestri_test.dart` | la regola del genere dei numeri delle carte arriva ai tre Maestri e alla sintesi, e dice anche il femminile delle figure | 1, 2 | proprio, dichiarato | 23/09/2026, EE (nata rossa togliendo la regola: tre Maestri su tre senza) | 3 |
 | `il_gesto_che_scosta_test.dart` | ogni discesa scosta esattamente un quarto del corpo e poi il dito non scopre piu'; il bordo segue il dito e non fa fasce; la cenere copre ogni cella coperta per intero; il cumulo copre tutto il rettangolo della testa e non la sua forma; il gesto non si chiama gratta e vinci in nessun file di lib; cio' che si e' scostato si ritrova riaprendo, ed e' dell'animale che lo ha; la schermata passa al velo le celle del Diario e ci conserva le nuove | 1, 2 | dalla porta comune | 15/09/2026, DQ (la mano misurata in punti e non in celle, ordine DQ voce 05); 13/09/2026, DI (undici rossi: la quantita' senza fine, il quarto senza la testa, la fascia al posto della mano, il pezzo di cenere piu' stretto della cella, le celle fuori dal tracciato, la cenere che segue la testa, il nome vietato in un commento, le celle date a un altro animale, le celle che non arrivano al velo, il gesto che non arriva al Diario) | 1 |
+| `il_gesto_finale_non_nasconde_il_chiarimento_test.dart` | il gesto finale non nasconde il chiarimento | 2 | proprio, dichiarato | 23/09/2026, EI.02 | 7 |
 | `il_giallo_delle_rune_parla_adesso_test.dart` | il giallo delle rune parla adesso | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa sul difetto vero: 3 prose dorate su 9 invece di 1) | 1 |
 | `il_gating_non_ha_fondi_bianchi_test.dart` | il gating non ha fondi bianchi | 1 | dalla porta comune | mai | 3 |
 | `il_gemello_ha_la_sua_schermata_test.dart` | il gemello ha la sua schermata | 1, 2 | non scopre insiemi di file | mai | 3 |
@@ -655,11 +672,13 @@ le altre.
 | `l_arcano_dell_alba_si_gira_test.dart` | **un gesto solo e nessun altro comando** sull'Arcano dell'Alba; carte coperte uguali; la faccia solo dopo meta' giro; **il verso non lo decide la carta toccata**; il limite delle stese intatto; nel cammino i gesti alba e oracolo; il dorso uguale a se stesso al mezzo giro | 1 | non scopre insiemi in `lib` | 18/09/2026, DW.02 (le azioni tolte: sotto la carta rivelata non c'e' niente); prima: 18/09/2026, DV.11 (il margine solo in alto: la carta a zero punti dal bordo del pannello); prima: 17/09/2026, DT (caso deciso dalla carta toccata e gesto dell'oracolo tolto: due rosse) | 2 |
 | `l_estrazione_dell_alba_e_libera_test.dart` | **l'estrazione dell'Arcano dell'Alba non ha vincoli**: i quarantaquattro stati equiprobabili su centomila giri; la stessa carta due volte di fila con la frequenza del caso; il verso rovescio attorno alla meta' su ogni carta; **nessuna riga di codice dei file dell'Alba nomina piu' un sacchetto, una distanza minima o le ultime carte** | 1 | proprio, dichiarato | 17/09/2026, DU (`SacchettoDellAlba` innestato nel diario) | 2 |
 | `la_lettura_ridetta_ha_la_voce_di_chi_la_ridice_test.dart` | i tre ridicono la lettura del giorno ognuno con la sua voce, senza il lessico degli altri | 1, 2 | proprio, dichiarato | 21/09/2026, EC (nata rossa: la premessa era una frase sola per i tre e diceva cielo) | 3 |
+| `la_settima_sera_entra_nel_diario_test.dart` | la settima sera entra nel diario | 2 | proprio, dichiarato | 23/09/2026, EI.05 | 3 |
 | `la_sintesi_conosce_il_tuo_nome_test.dart` | la sintesi comparativa riceve il profilo come lo ricevono i Maestri, e non dichiara di non conoscere un nome che l'app conosce | 1, 2 | non scopre insiemi di file | 23/09/2026, EE (nata rossa rimettendo il profilo vuoto) | 3 |
 | `le_animazioni_del_rito_non_si_accorciano_test.dart` | ogni motore del rito dichiara AnimationBehavior.preserve, o su un telefono con la scala degli animatori a zero durera' un ventesimo | 1 | proprio, dichiarato | 23/09/2026, EF (nata rossa togliendolo dal conteggio del respiro) | 1 |
 | `le_card_da_mandare_test.dart` | **le card da mandare e l'invito**: la card del Soffio e quella di un Sigillo portano cio' che dicono e il dominio del marchio; nessun file di `lib` scrive un dominio a mano; ogni foglio di condivisione passa l'origine che iPad pretende; i tre messaggi di un Sigillo parlano a chi li riceve e portano il link; l'invito si fa dal menu', la domanda torna solo dopo la prima registrazione e il premio va a tutti e due | 1 | proprio, dichiarato | 18/09/2026, DW (dominio a mano nella Stesa; quattro chiamate senza origine; la frase del traguardo rimessa: 165 cadute) | 1 |
 | `il_testo_dei_fogli_non_passa_sotto_le_barre_test.dart` | **il testo dei fogli non passa sotto le barre in alto**: il foglio delle fonti coi sette testi veri e uno quattro volte il piu' lungo, a 360 per 640 e scala 1,3, comincia sotto la barra di stato e la barra dell'identita'; ogni pannello informativo apre un foglio della porta comune; la porta rispetta l'area sicura; nessun foglio fuori dalla porta | 1, 4 | dalla porta comune | 18/09/2026, DY (la porta senza l'area sicura: otto testi su otto sotto le barre) | 1 |
 | `le_porte_di_approfondimento_non_mandano_da_sole_test.dart` | **le porte di approfondimento non mandano da sole**: le funzioni col Parlane del codice sono quelle del censimento DX.03, le porte che aprono la chat con una domanda sono le due censite, e la chat scrive la domanda nel campo senza mai mandarla | 1, 4 | dalla porta comune | 18/09/2026, DX (tredicesima porta innestata nell'arte in arrivo; la chat che rimanda la domanda da sola) | 1 |
+| `le_tredici_porte_si_leggono_test.dart` | le tredici porte si leggono | 2 | proprio, col cardinale minimo | 23/09/2026, EI.01 | 3 |
 | `nessun_messaggio_si_scrive_due_volte_test.dart` | **la coda verso il server non manda due volte la stessa scrittura**: la domanda e il turno del Maestro arrivano una volta sola e tutti e due; dieci scritture insieme ognuna una volta e in ordine; una scrittura arrivata mentre la coda finiva non resta indietro | 1 | non scopre insiemi in `lib` | 18/09/2026, DV.09 (senza l'identificativo del telefono, la domanda rimandata dopo una risposta persa diventava due); prima: 18/09/2026, DV (la coda di prima: *Carta del giorno* scritta due volte e RangeError sulla coda vuota) | 1 |
 | `la_chat_non_raddoppia_le_domande_test.dart` | **la chat col repository vero non raddoppia le domande**: le cinque domande delle catture sui tre Maestri arrivano al server una volta; il doppio tocco fa una domanda sola anche sugli instradamenti; la chat riaperta non ha doppioni; i doppioni gia' scritti si leggono una volta; i contatori contano una domanda vera e nessun instradamento | 1 | non scopre insiemi in `lib` | 18/09/2026, DV (coda di prima: nove rosse; invio senza guardia: il doppio tocco; lettura senza pulizia: i doppioni gia' scritti) | 1 |
 | `i_guasti_innocui_arrivano_al_cruscotto_test.dart` | **i guasti innocui arrivano al cruscotto**: l'annotazione passa a Crashlytics con la frase e l'errore; un cruscotto che non risponde non diventa un guasto; l'app vera aggancia Crashlytics come non fatale, nel ramo con Firebase vivo | 1 | non scopre insiemi in `lib` | 18/09/2026, DV.10 (tolto l'inoltro: il guasto resta nel log di sviluppo) | 1 |

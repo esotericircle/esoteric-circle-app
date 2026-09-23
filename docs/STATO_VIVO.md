@@ -4333,6 +4333,58 @@ albero precedente agli ultimi commit ai documenti**, e i documenti sono
 proprio cio' che le guardie nuove leggono: una suite verde su un albero che
 non e' quello spinto non dice niente sull'albero spinto.
 
+## L'ORDINE EI, LE DODICI VOCI CHE TORNANO APERTE
+
+Ordine del 23 settembre 2026, **dieci voci** che raccolgono le dodici che
+l'ordine EH aveva trovato dichiarate chiuse **senza una prova apribile**.
+Decisione del fondatore: **"Riaprirle tutte"** per le dodici, **"Restano
+chiuse"** per le cinquantasette in forma vecchia, **"Prima le 12 voci"** per la
+precedenza sull'ordine EG. Manifesto `docs/ordini/ORDINE_EI_MANIFESTO.md`,
+prove in `docs/collaudo/EI/`.
+
+**PER DIECI VOCI SU DODICI IL CODICE C'ERA GIA'**, con le sue guardie vive.
+Quello che mancava era la prova apribile: il file che il fondatore apre per
+vedere coi suoi occhi. Il censimento sul ramo lo ha stabilito prima di
+scrivere una riga.
+
+**IL DIFETTO PIU' GRAVE, E LE SUE DUE META' CHE SI COPRIVANO A VICENDA.** Al
+collaudo con Gemini, davanti a un messaggio incomprensibile, **tutti e tre i
+Maestri chiedevano di riformulare e tutti e tre facevano scendere il contatore
+di uno**: la persona pagava un malinteso. `eUnaDomanda` guardava la fine del
+testo, e ogni risposta si chiude con la riga del gesto, che **non e' mai una
+domanda**. E il collaudo **pretendeva che quel turno costasse 1**, perche'
+portava ancora la regola dell'ordine EB voce 06 che l'ordine EE voce 07 aveva
+rovesciato: l'app dava 1, il collaudo ne pretendeva 1, il giro restava verde.
+**Due punti che si danno ragione a vicenda mentre la regola in vigore dice
+un'altra cosa sono peggio di un punto solo che sbaglia.** Padre: ordine EE
+voce 07.
+
+**LA PRIMA CURA E' CADUTA IN UN GIRO, E LA LEZIONE ERA IN CASA.** Cercava le
+parole del chiarimento in un elenco chiuso; il giro dopo il modello ne ha usate
+di nuove. Il collaudo stesso lo aveva gia' scritto: *"allungarlo ancora sarebbe
+stato inseguire la lingua di ieri"*. **La cura vera: il Maestro lo dichiara**,
+con `[[CHIEDO]]` in cima, e l'app toglie il segno prima di mostrarlo.
+
+**IL CRITERIO DI CHIUSURA E' CAMBIATO, E LO HA DECISO IL FONDATORE.** L'ordine
+diceva *"il giro si rilancia finche' non ne resta nessuna"*. **Nove giri
+dicono che quel verde arriva per caso**: il primo giro e' uscito a zero cadute
+**avendo dentro** il difetto dei contatori. Cadute per giro: **0, 2, 4, 1, 5,
+3, 3, 2, 2**. Messo davanti al dato, il fondatore ha scelto **la misura a
+frequenza**, come gia' si fa per l'attribuzione cieca. **9 giri, 405
+conversazioni, 423 chiamate a Gemini, 22 cadute pari al 5,4 per cento,
+escursione da 0 a 5, la piu' ostinata 3 volte su 9, e 11 mosse su 16 non
+cadono mai.**
+
+**UNA FRASE CHE VIVEVA IN UNO STATE PRIVATO NON ERA SORVEGLIATA DA NIENTE.** Il
+riassunto delle sette sere entra nel Cosmic Journal, e
+`didascaliaDellaSettimana` stava dentro `_SunsetRuneScreenState`: nessuna prova
+poteva chiamarla. Spostata in `sunset_rune_memory.dart`, accanto alla logica
+che la produce.
+
+**QUATTRO GUARDIE NUOVE**, registro da 490 a **494**, tutte nate rosse. Sette
+voci chiuse su dieci al 23 settembre 2026; restano le tre che vogliono le
+catture sul Realme, per le quali il fondatore ha autorizzato la build.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.
