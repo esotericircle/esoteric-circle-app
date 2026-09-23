@@ -1,30 +1,31 @@
-Build 2277, ordini EH, EI ed EG.
+Build 2278, ordine EG: la voce viva dei Maestri, rifatta.
 
-COSA GUARDARE PER PRIMO, e sono due cose.
+COSA HO PROVATO IO SUL TELEFONO PRIMA DI CONSEGNARE.
 
-1) IL SOFFIO DEL DESTINO, col microfono. È l'unica voce rimasta aperta
-dell'ordine EI: apri il Soffio e soffia davvero. Se i semi volano, la voce si
-chiude. Il gesto col dito funziona già, l'ho provato io sul telefono.
+Menu della chat di un Maestro, "Parlami a voce". Il Maestro ti saluta a voce
+appena compare, e la bocca si muove con le parole. Poi tocchi il microfono e
+parli, oppure scrivi: ti risponde a voce, con la stessa memoria e le stesse
+regole della chat, e quello che vi dite resta scritto nella conversazione.
 
-2) LA VOCE VIVA DEI MAESTRI. In fondo al menu della chat di ogni Maestro c'è
-"Parlami a voce". È la prima fetta del LIVE: si apre una sessione vera, e
-finché il volto non arriva vedi il Maestro fermo che respira. Puoi anche
-scrivere invece di parlare, in qualunque momento.
+Misure sul Realme: dalla fine della tua frase alla voce del Maestro circa 5
+secondi; il saluto parte quasi subito. Provati Medora, Aura e Caligo.
 
-Se il LIVE dice che non è aperto per te, non è un errore: il tuo account deve
-stare fra i fondatori nel documento configurazione/live di Firestore.
+Il volto sta in una finestra ad arco con la cornice d'oro, senza il riquadro
+bianco e senza il filo chiaro attorno alla figura. Lo sfondo è nero.
 
-COSA È CAMBIATO SOTTO.
+Se per trenta secondi nessuno parla o scrive, la voce si chiude da sola, e il
+Maestro ti dice perché. Protoface non consuma più minuti a vuoto.
 
-I Maestri non ti fanno più pagare quando non ti hanno capito. Se scrivi
-qualcosa di incomprensibile e il Maestro ti chiede di riformulare, quel turno
-non consuma niente: prima consumava, per tutti e tre.
+La voce viva non consuma più le domande del giorno della chat.
 
-Il Sigillo del Sogno non ripete più il testo della notte prima, e quando la
-Luna resta nello stesso segno te lo dice invece di lasciarti credere a un
-refuso.
+Nel piano attuale, in Demo, il badge segue il livello che hai attivato.
 
-Il Maestro non ti chiede più di spiegargli il responso che ti abbiamo dato
-noi.
+COSA RESTA APERTO.
 
-L'app pesa dodici megabyte in più: è il motore video che serve alla voce viva.
+La scelta del motore di voce e delle voci, il pulsante LIVE nella testata
+della chat e i contatori dei minuti al mese: non ci sono ancora, o non li ho
+provati. E resta da provare il Soffio del Destino col microfono, dall'ordine
+EI.
+
+Il primo turno dopo un po' di tempo può partire uno o due secondi più tardi:
+la funzione della voce sul server si sveglia.
