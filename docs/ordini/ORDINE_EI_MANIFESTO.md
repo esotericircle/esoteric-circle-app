@@ -10,8 +10,8 @@ coda sono EA, EB, EC, ED, EE, EF, EG, EH. **Data:** 23 settembre 2026.
 e' chiuso e verificato.
 
 VOCI_TOTALI: 10
-VOCI_CHIUSE: 7
-VOCI_APERTE: 3
+VOCI_CHIUSE: 9
+VOCI_APERTE: 1
 
 ---
 
@@ -415,21 +415,75 @@ MISURA: 5 eventi nel codice e 5 promessi dalla schermata; 0 identificativi su 11
 Le catture dei tre momenti sul Realme, con la misura di dove comincia la bolla
 e di quanto e' alta.
 
-**APERTA IN ATTESA DI VERIFICA.**
+### MISURATO SUI PIXEL, NON A OCCHIO
+
+Build **2277** installata sul Realme `767f596c` il 23 settembre 2026, e le
+catture misurate leggendo i pixel: il viola saturo della bolla si distingue dal
+cielo, e l'oro chiaro della figura dal fondo scuro.
+
+| momento | fondo della figura | cima della bolla | spazio fra le due | altezza della bolla |
+|---|---|---|---|---|
+| *"preparati a respirare"* | 877, il 36,5 per cento | 1443, il 60,1 per cento | **566 pixel** | **957 pixel, il 39,9 per cento** |
+| il respiro in corso, giro 1 di 7 | 944, il 39,3 per cento | 1443, il 60,1 per cento | **499 pixel** | **957 pixel, il 39,9 per cento** |
+
+**La figura non e' coperta in nessuno dei due momenti**, e non di poco: fra il
+suo fondo e la cima della bolla restano quasi cinquecento pixel su
+ventiquattromila di schermo.
+
+**Una nota su come si misura.** La prima passata dava *"cima della figura
+160"*, che e' la **barra del titolo**: anche lei e' oro. La misura parte da
+420 in giu', sotto la barra, e usa solo il fondo della figura, che e' la
+grandezza che conta per sapere se qualcosa la copre.
+
+**CHIUSA.**
+DOMANDA: "l'AREA DEDICATA ALLA DESCRIZIONE IN BASSO E' TROPPO PICCOLA, TI HO FATTO ALZARE TUTTO, SIA IL FIORE CHE IL PULSANTE, PER ALZARE LA BOLLA DELLA DESCRIZIONE!"
+PROVA: docs/collaudo/EI/il_soffione_e_la_bolla.txt
+MISURA: sul Realme, build 2277: fra il fondo della figura e la cima della bolla restano 566 pixel prima del respiro e 499 durante; la bolla occupa il 39,9 per cento dello schermo
 
 ## VOCE EI.09, EF.02 RIAPERTA: LA CADENZA DEL RESPIRO
 
 **Riformulata per lo scarto 1**, con la conferma del fondatore: la cadenza
-resta quella del rito del giorno. Si prova che la scritta e il conteggio dei
-giri leggono **sempre gli stessi numeri**, su tutti i riti del corpus, e la
-cattura lo mostra a video.
+resta quella del rito del giorno.
 
-**APERTA IN ATTESA DI VERIFICA.**
+### CIO' CHE SI VEDE SUL TELEFONO
+
+La scritta dice *"Quattro tempi dentro, quattro fuori. Sette volte."* e il
+conteggio dice *"giro 1 di 7"*. **Quattro e sette, non cinque e otto**, perche'
+quei numeri vengono dal rito del giorno.
+
+**Le due cose che contano sono provate a video insieme**: la scritta e il
+conteggio dicono **lo stesso numero**, e lo dicono perche' leggono la stessa
+sorgente, `tempi_del_respiro.dart:136`. Non possono divergere per costruzione,
+ed e' questa la cosa vera da provare: non che il numero sia otto, ma che i due
+posti dove compare non si contraddicano mai.
+
+**CHIUSA**, con lo scarto dichiarato rispetto al testo dell'ordine.
+DOMANDA: "Lascio come sta, decide il rito"
+PROVA: docs/collaudo/EI/il_soffione_e_la_bolla.txt
+MISURA: sul Realme, build 2277: la scritta dice quattro tempi e sette volte, il conteggio dice giro 1 di 7, e tutti e due leggono i numeri del rito del giorno
 
 ## VOCE EI.10, EF.04 RIAPERTA: IL SOFFIO AL MICROFONO
 
 Cio' che si puo' misurare sul segnale del microfono, dichiarato col file e la
-riga. **La prova finale, il soffio vero, resta del fondatore**: si dichiara e
-non si da' per fatta.
+riga. **La prova finale, il soffio vero, resta del fondatore**.
 
-**APERTA IN ATTESA DI VERIFICA.**
+### COSA E' PROVATO, E COSA NO
+
+**Il ripiego tattile funziona sul telefono vero.** I semi sono volati con una
+spazzata del dito sul soffione, fra la cattura 03 e la 04: e' il comando
+`input swipe` mandato al Realme, non una prova al banco. `breath_destiny_
+screen.dart`, `_onPanUpdate` riga 620 e `_onPanEnd` riga 627.
+
+**Cio' che si misura del microfono** sta in `breath_destiny_screen.dart`: il
+riconoscimento per **forma dello spettro e non per volume**, righe 488 e 495 e
+519; il contatore dei byte arrivati, righe 556 e 563, che distingue *"il
+microfono non parla"* da *"il riconoscimento non scatta"*; e l'inoltro al
+cruscotto invece del catch muto, righe 538 e 552. La guardia che lo sorveglia
+e' `il_soffio_si_riconosce_dalla_forma`.
+
+**IL SOFFIO VERO RESTA PROVA DEL FONDATORE**, e non si da' per fatto. Un fiato
+in un microfono non si puo' simulare da qui: il segnale sintetico prova la
+funzione che lo giudica, non che il telefono in mano a una persona lo senta.
+
+**APERTA IN ATTESA DI VERIFICA**, e resta aperta apposta: chiuderla senza il
+fiato del fondatore sarebbe esattamente il difetto che l'ordine EH ha vietato.

@@ -4381,9 +4381,22 @@ riassunto delle sette sere entra nel Cosmic Journal, e
 poteva chiamarla. Spostata in `sunset_rune_memory.dart`, accanto alla logica
 che la produce.
 
-**QUATTRO GUARDIE NUOVE**, registro da 490 a **494**, tutte nate rosse. Sette
-voci chiuse su dieci al 23 settembre 2026; restano le tre che vogliono le
-catture sul Realme, per le quali il fondatore ha autorizzato la build.
+**QUATTRO GUARDIE NUOVE**, registro da 490 a **494**, tutte nate rosse.
+
+**NOVE VOCI CHIUSE SU DIECI**, e la decima resta aperta apposta. Build **2277**
+autorizzata dal fondatore, installata sul Realme `767f596c` e aperta fino al
+Soffio del Destino: fra il fondo della figura e la cima della bolla restano
+**566 pixel** prima del respiro e **499** durante, misurati sui pixel della
+cattura e non a occhio, e la bolla occupa il **39,9 per cento** dello schermo.
+La cadenza a video dice *"quattro tempi dentro, quattro fuori, sette volte"* e
+*"giro 1 di 7"*: **lo stesso numero nei due posti**, che e' la cosa vera da
+provare.
+
+**LA VOCE EI.10 RESTA APERTA PERCHE' IL FIATO VERO NON SI PUO' SIMULARE.** Il
+ripiego tattile e' provato sul telefono, i semi sono volati con una spazzata
+del dito; che il microfono senta il soffio di una persona lo puo' dire solo il
+fondatore. **Chiuderla senza il suo fiato sarebbe il difetto che l'ordine EH ha
+vietato.**
 
 ## Regole ferree
 
