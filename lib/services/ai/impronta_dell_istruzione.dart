@@ -36,14 +36,14 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        '9822c5fe5b97ede775d164aa681df4653294e81d18cae049ef553be5a29b9531',
-    'aura': '9951bac681153c5da242ac4ce3918282abd90dd32948321371a36ec67804d01a',
+        'cac874340e6043a1860b4b40ead48a7cbfd01eb6da0c25072be313f989882127',
+    'aura': 'f9cdb18090cece5305b697e6b3a29218a401dda9e9c0d8abe2368343db601f03',
     'caligo':
-        '0c4e16c94b53332297d1f63d09df268863f8cb200d8b30399be82b0651fc565c',
+        '3ba39980ccf2bc367a5555c4b4ae8953da64c39f6a9bb21c7c804b3c8a105abf',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
-  static const String registrateIl = '23 settembre 2026';
+  static const String registrateIl = '23 settembre 2026, la sera';
 
   /// LO STORICO DELLE IMPRONTE, cioe' le stringhe che non esistono piu'.
   ///
@@ -53,6 +53,20 @@ class ImprontaDellIstruzione {
   /// cancella niente: quando l'istruzione cambia, l'impronta vecchia scende in
   /// questo elenco con la sua data e con cio' che le e' successo.
   static const List<String> storicoDelleImpronte = [
+    'DAL 23 SETTEMBRE 2026, LA MATTINA. Impronte: medora '
+        '9822c5fe5b97ede775d164aa681df4653294e81d18cae049ef553be5a29b9531, '
+        'aura 9951bac681153c5da242ac4ce3918282abd90dd32948321371a36ec67804d01a, '
+        'caligo 0c4e16c94b53332297d1f63d09df268863f8cb200d8b30399be82b0651fc565c. '
+        'La stringa dell\'ordine EE voce 10, quella che ha portato la riga sul '
+        'genere dei numeri delle carte. **MISURA PRESA SU DI LEI**: il collaudo '
+        'dei tre Maestri, UN giro, quarantacinque conversazioni, zero cadute. '
+        '**E quel giro verde aveva dentro un difetto grave**, scoperto solo '
+        'leggendo il referto a mano: tutti e tre i Maestri facevano pagare un '
+        'malinteso. Caduta con l\'ordine EI voce 02 e voce 03, che le hanno '
+        'aggiunto tre cose: il marcatore [[CHIEDO]] con cui il Maestro dichiara '
+        'di stare chiedendo invece di rispondere, la regola del responso in mano '
+        'allargata a OGNI arte e non solo a carte, rune e archetipo. E la '
+        'precisazione che dire di no e\' una risposta.',
     'DAL 21 AL 23 SETTEMBRE 2026. Impronte: medora '
         '66b59ec37b2cdd6ffb212f77b9851a241168b02dcd89311a338697cd14b56404, '
         'aura bd1eea19f317b9c526ac94d2695e65d51d9e27a5038f9b49b53afb5fa1666529, '
@@ -230,6 +244,15 @@ class ImprontaDellIstruzione {
   /// l'escursione, cinque la dichiarano.** Sono cinque giri della stessa misura
   /// sulla stessa istruzione, non cinque misure in disaccordo.
   static const String ultimaMisuraNota =
+      'ATTENZIONE. VA LETTO PRIMA DI TUTTO IL RESTO: DAL 23 SETTEMBRE 2026, '
+      'ORDINE EI VOCI 02 E 03, L\'ISTRUZIONE E\' CAMBIATA DI NUOVO. Nessuna '
+      'delle misure qui sotto e\' stata presa sulla stringa di oggi: '
+      'appartengono tutte a stringhe che stanno nello storico. Le tre cose '
+      'aggiunte sono il marcatore con cui il Maestro dichiara di stare '
+      'chiedendo, la regola del responso in mano allargata a ogni arte e la '
+      'precisazione che dire di no e\' una risposta. Si tengono per intero '
+      'perche\' dicono da dove si parte, non dove si e\' arrivati. Come si '
+      'rimisura sta scritto in fondo. '
       'TRE GIRI DEL 14 SETTEMBRE 2026, SU QUESTE IMPRONTE, ordine DL: 86,7 '
       'per cento (52 su 60), poi 83,3 (50 su 60), poi 86,4 (51 su 59, un '
       'verdetto illeggibile); media 85,5 per cento (153 su 179). Il giro '
