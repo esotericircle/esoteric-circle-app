@@ -273,4 +273,71 @@ void main() {
             'o la sigla di partenza non e\' piu\' quella');
     expect(colpe, isEmpty, reason: colpe.join('\n'));
   });
+
+  test('il rapporto porta in cima le voci chiuse con la prova di ciascuna', () {
+    // **SUGGERIMENTI 3 E 8 DELL'ARCHITETTO**, riconsegnati il 23 settembre
+    // 2026 e accolti: *"in cima a ogni rapporto un elenco delle voci chiuse,
+    // ognuna con accanto il nome della sua prova, cosi' Mauro controlla in
+    // trenta secondi invece che in mezza giornata"*.
+    //
+    // **PERCHE' SERVIVA UNA PROVA E NON BASTAVA LA REGOLA SCRITTA.** La regola
+    // stava gia' in `CLAUDE.md` dall'ordine EH, ed era una buona intenzione:
+    // **nessuna guardia leggeva i rapporti**, verificato col grep su `test/`
+    // il 23 settembre 2026, zero file. Un rapporto poteva nascere senza
+    // elenco e nessuno se ne accorgeva, che e' la stessa forma di difetto che
+    // quest'ordine combatte: una regola che vale finche' qualcuno se la
+    // ricorda.
+    //
+    // **Cosa pretende, e cosa NON pretende.** Non giudica la qualita' del
+    // rapporto: guarda che nella **prima meta'** del documento ci siano il
+    // nome di ogni voce chiusa e, accanto, il percorso della sua prova. In
+    // cima vuol dire in cima: un elenco in fondo non fa risparmiare i trenta
+    // secondi a chi legge, ed e' quello il punto del suggerimento.
+    final colpe = <String>[];
+    var rapportiGuardati = 0;
+    var vociCercate = 0;
+
+    for (final f in manifesti) {
+      final sigla = siglaDi(f);
+      if (eAntica(sigla) || sigla.compareTo(daQuandoVale) < 0) continue;
+      final rapporto = File('docs/ordini/RAPPORTO_ORDINE_$sigla.md');
+      // Un ordine ancora in corso non ha un rapporto, ed e' giusto: questa
+      // prova guarda i rapporti che esistono.
+      if (!rapporto.existsSync()) continue;
+      rapportiGuardati++;
+      final testo = rapporto.readAsStringSync();
+      final cima = testo.substring(0, (testo.length / 2).round());
+
+      for (final voce in vociDi(f.readAsStringSync())) {
+        if (!RegExp(r'^\*\*CHIUSA[.,*]', multiLine: true)
+            .hasMatch(voce.corpo)) {
+          continue;
+        }
+        vociCercate++;
+        final prova = RegExp(r'^PROVA:\s*(.+)$', multiLine: true)
+            .firstMatch(voce.corpo)
+            ?.group(1)
+            ?.trim();
+        if (!cima.contains(voce.nome)) {
+          colpe.add('il rapporto dell\'ordine $sigla non nomina ${voce.nome} '
+              'nella sua prima meta\': chi lo apre non trova l\'elenco in '
+              'cima, e ci mette mezza giornata invece di trenta secondi');
+          continue;
+        }
+        if (prova != null && !cima.contains(prova)) {
+          colpe.add('il rapporto dell\'ordine $sigla nomina ${voce.nome} ma '
+              'non le mette accanto la sua prova, $prova');
+        }
+      }
+    }
+
+    print('ORDINE EH VOCE 04: rapporti guardati $rapportiGuardati, voci '
+        'chiuse cercate in cima $vociCercate');
+    // **Il cardinale**: senza questa riga, il giorno che nessun rapporto
+    // esistesse piu' questa prova sarebbe verde avendo letto il vuoto.
+    expect(rapportiGuardati, greaterThanOrEqualTo(1),
+        reason: 'nessun rapporto sotto la regola: o si sono spostati, o il '
+            'nome RAPPORTO_ORDINE_<sigla>.md non e\' piu\' quello');
+    expect(colpe, isEmpty, reason: colpe.join('\n'));
+  });
 }

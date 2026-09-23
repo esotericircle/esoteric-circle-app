@@ -1,7 +1,7 @@
 # RAPPORTO DELL'ORDINE EH, SONO INCAZZATO NERO
 
 **Ramo:** `claude/esoteric-circle-master-order-e798aj`. **Date:** 24 settembre
-2026. **Voci:** 3, tutte chiuse.
+2026. **Voci:** 4, tutte chiuse.
 
 **Spinto e misurato sull'albero spinto**, verificato con `git ls-remote`.
 
@@ -47,6 +47,7 @@ mano il difetto, la build si ferma e stampa la ragione.
 | **EH.01** | il Sigillo del Sogno non ripete la notte prima | `docs/collaudo/EH/sette_notti.txt` | 7 notti di fila, stessa persona: saluti identici **da 1 coppia a 0**; modi di dire la giornata **da 1 a 3**; la riga che spiega la figura compare **16 volte su 30** e tace 14 |
 | **EH.02** | la garanzia che un ordine chiuso sia chiuso | `test/ogni_voce_chiusa_porta_la_sua_prova_test.dart` | **105 manifesti** letti, **99** con chiusure, **404 guardie nominate** controllate una per una |
 | **EH.03** | le chiusure gia' dichiarate si rileggono | `docs/collaudo/EH/i_tre_doni.txt` | 3 Doni del giorno su 7 giorni: il Sogno **da 1 distinto su 7 a 7 su 7**, Tramonto e Alba gia' sani; **17 guardie fantasma** riparate |
+| **EH.04** | gli otto suggerimenti dell'Architetto, valutati uno per uno | `test/ogni_voce_chiusa_porta_la_sua_prova_test.dart` | **8 valutati**: 6 presi interi, 1 in forma ridotta, 1 scartato nella forma e preso nella sostanza |
 
 ---
 

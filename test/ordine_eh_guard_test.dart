@@ -10,7 +10,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final manifesto = File('docs/ordini/ORDINE_EH_MANIFESTO.md');
 
-  const quante = 3;
+  const quante = 4;
 
   int marcatore(String testo, String nome) {
     final trovato =
@@ -20,7 +20,7 @@ void main() {
     return int.parse(trovato!.group(1)!);
   }
 
-  test('il manifesto esiste e porta tutte e tre le voci', () {
+  test('il manifesto esiste e porta tutte e quattro le voci', () {
     expect(manifesto.existsSync(), isTrue,
         reason: 'il manifesto nasce prima del codice');
     final testo = manifesto.readAsStringSync();

@@ -116,6 +116,16 @@ totale e' un controllo, non un ornamento.
 
 **Ricontate a ordine EA, terzo lotto**, 20 settembre 2026, il conteggio sempre attivo e anonimo: **nessuna guardia nuova nel conto**, perche' le prove nuove vivono dentro `la_misura_del_ritorno`, che il registro conosce gia'. Il totale resta **446**. **Vista rossa due volte**: il conteggio rimesso sotto consenso, e la frase *"Conta i gesti, non me"* rimessa come testo a video; al primo innesto la frase era in un commento e la guardia non l'ha presa, ed e' giusto cosi', perche' guarda il codice senza i commenti e le righe che spiegano perche' la frase e' uscita la citano. **Tre guardie di casa hanno cambiato legge, non numero**: `i_consensi_stanno_nella_registrazione` e `una_porta_sola_per_la_privacy` pretendevano l'interruttore, adesso pretendono che non ci sia, e `la_misura_del_ritorno` pretendeva che senza consenso non partisse niente.
 
+**Ricontate a ordine EH, voce 04**, 23 settembre 2026, gli otto suggerimenti
+dell'Architetto. **Nessun file nuovo**, il totale resta **490**: la prova nuova
+`il rapporto porta in cima le voci chiuse con la prova di ciascuna` nasce
+dentro `ogni_voce_chiusa_porta_la_sua_prova`, che e' gia' nel registro.
+**Nata rossa** togliendo dalla cima del rapporto EH il percorso della prova
+della voce EH.01, verificato col grep prima di leggere l'esito. **Copre un
+buco che stava aperto in piena vista**: la regola *"in cima a ogni rapporto
+l'elenco delle voci chiuse"* stava in `CLAUDE.md` dall'ordine EH, e **nessuna
+guardia leggeva i rapporti**, zero file sul grep di `test/`.
+
 **Ricontate a ordine EH**, 24 settembre 2026, la garanzia che un ordine chiuso
 sia davvero chiuso. **Nessuna guardia nuova**, il totale resta **490**: le
 cinque dell'ordine erano gia' entrate col commit precedente. **Regola B, e per

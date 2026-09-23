@@ -8,8 +8,8 @@ file del repo nomina un ordine EH. **Data:** 24 settembre 2026. **Ramo:**
 **URGENTE E STRAORDINARIO. Interrompe l'ordine EG**, che riprende solo quando
 questo e' finito e verificato.
 
-VOCI_TOTALI: 3
-VOCI_CHIUSE: 3
+VOCI_TOTALI: 4
+VOCI_CHIUSE: 4
 VOCI_APERTE: 0
 
 ---
@@ -229,3 +229,71 @@ si potrebbero chiudere cosi'. Elencate qui in ordine di gravita' nel rapporto,
 DOMANDA: "Passo meta' del mio tempo a verificare che l'ordine dichiarato chiuso sia stato effettivamente concluso, verificato e chiuso"
 PROVA: docs/collaudo/EH/i_tre_doni.txt
 MISURA: 3 Doni del giorno misurati su 7 giorni, da 1 distinto su 7 a 7 su 7 per il Sogno; 57 voci in forma vecchia e 12 senza prova apribile, elencate
+
+
+## VOCE EH.04, GLI OTTO SUGGERIMENTI DELL'ARCHITETTO
+
+Il fondatore aveva chiesto che i suggerimenti dell'Architetto fossero valutati
+uno per uno, *"chiaramente dei suggerimenti che code valutera' se accettare o
+no"*. Erano andati persi in una compattazione e li ha riconsegnati il 23
+settembre 2026.
+
+| # | il suggerimento, in breve | esito |
+|---|---|---|
+| 1 | la prova nasce dall'esecuzione vera ed e' allegata alla voce | **PRESO**, gia' in opera: e' la riga `PROVA` |
+| 2 | una guardia confronta l'istante della prova col commit della cura | **SCARTATO nella forma**, preso nella sostanza |
+| 3 | tre stati distinti, e il rapporto dice in cima quelle non verificate | **PRESO**, e reso guardato qui |
+| 4 | i testi generati si misurano su due esecuzioni con dati diversi | **PRESO**, gia' in `CLAUDE.md` |
+| 5 | dove scrive il modello, la prova e' la risposta vera | **PRESO**, gia' in `CLAUDE.md` |
+| 6 | un collaudo automatico rilegge il manifesto voce per voce | **PRESO**, gia' in opera: guardia piu' quarto cancello |
+| 7 | la chiusura la firma un secondo sguardo, il custode-memoria | **PRESO in forma ridotta**: riferisce, non firma |
+| 8 | in cima al rapporto l'elenco delle voci chiuse con la loro prova | **PRESO**, e reso guardato qui |
+
+### Il solo che respingo nella forma proposta, il numero 2
+
+Due ragioni, e la seconda e' decisiva.
+
+**Git non conserva i tempi di modifica.** Su un clone fresco tutti i file
+nascono nello stesso istante: quella guardia direbbe cose diverse su macchine
+diverse, verde sul PC di chi lavora e rossa in CI, senza che niente sia
+cambiato. Una guardia che dipende dalla macchina insegna a non crederle.
+
+**E soprattutto: la prova della EE.04, quella che ha fatto nascere quest'ordine,
+era fresca.** Un controllo di anzianita' non l'avrebbe presa. Il difetto non
+era l'eta' della prova, era **a quale domanda rispondeva**.
+
+**La sostanza la prendo, legata a come la prova nasce e non a quando**: le
+prove si scrivono **dentro il test che le misura**, cosi' a ogni giro si
+rigenerano o cadono con lui. Le due prove di quest'ordine nascono gia' cosi',
+verificato col grep su `test/`: `sette_notti.txt` dentro
+`il_sigillo_del_sogno_non_ripete_la_notte_prima`, `i_tre_doni.txt` dentro
+`i_doni_del_giorno_non_ripetono`.
+
+### Il numero 7, preso in forma ridotta
+
+Un agente non e' deterministico: **se firma la chiusura, due giri sullo stesso
+codice possono dire due cose**, e una firma che a volte sbaglia e' peggio di
+nessuna firma, perche' autorizza a non guardare. Resta come **secondo sguardo
+che riferisce e non firma**: a fine ordine si invoca `custode-memoria` e il suo
+referto, con gli scarti, entra nel rapporto. La chiusura resta appesa alla
+guardia e al cancello, che sono ripetibili.
+
+### I numeri 3 e 8 erano una buona intenzione, adesso sono una rete
+
+La regola *"in cima a ogni rapporto l'elenco delle voci chiuse"* stava gia' in
+`CLAUDE.md` dall'ordine EH. **Ma nessuna guardia leggeva i rapporti**,
+verificato col grep su `test/` il 23 settembre 2026: **zero file**. Un rapporto
+poteva nascere senza elenco e nessuno se ne accorgeva, che e' la stessa forma
+di difetto che quest'ordine combatte: una regola che vale finche' qualcuno se
+la ricorda.
+
+Adesso la prova `il rapporto porta in cima le voci chiuse con la prova di
+ciascuna` pretende che nella **prima meta'** del rapporto ci siano il nome di
+ogni voce chiusa e, accanto, il percorso della sua prova. In cima vuol dire in
+cima: un elenco in fondo non fa risparmiare i trenta secondi a chi legge, ed e'
+quello il punto del suggerimento.
+
+**CHIUSA.**
+DOMANDA: "fornaci consigli su come evitare che il problema ricapiti, ma devono solo essere chiaramente dei suggerimenti che code valutera' se accettare o no"
+PROVA: test/ogni_voce_chiusa_porta_la_sua_prova_test.dart
+MISURA: 8 suggerimenti valutati, 6 presi interi, 1 preso in forma ridotta, 1 scartato nella forma e preso nella sostanza; la prova nuova guarda 1 rapporto e 3 voci chiuse, nata rossa togliendo dalla cima del rapporto la prova della voce EH.01
