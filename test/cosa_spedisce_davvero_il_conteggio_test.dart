@@ -29,7 +29,7 @@ import 'sorgenti_di_lib.dart';
 /// veri che il codice sa spedire.
 void main() {
   test('gli eventi che il conteggio sa spedire sono cinque, e sono quelli', () {
-    final eventi = EventoDelRitorno.values;
+    const eventi = EventoDelRitorno.values;
     print('ORDINE EI VOCE 07: eventi del conteggio ${eventi.length}');
     // **Il cardinale, e qui e' il numero esatto**: la schermata promette
     // *cinque* gesti, e se un domani ne nascesse un sesto senza che nessuno
@@ -152,7 +152,7 @@ void main() {
     final comeAVideo =
         promessa?.replaceAll(RegExp(r"'\s*\n\s*'"), '').replaceAll("\\'", "'");
     b
-      ..writeln('    ${comeAVideo ?? "(la frase non si e\' potuta leggere "
+      ..writeln('    ${comeAVideo ?? "(la frase non si e potuta leggere "
           "dal sorgente)"}')
       ..writeln()
       ..writeln('--- E NON C\'E\' NESSUN SELETTORE:')

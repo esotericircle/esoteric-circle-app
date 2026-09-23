@@ -1,0 +1,24 @@
+IL LIVE NON E' MAI UN VICOLO CIECO
+Ordine EG voci 05 e 06.
+
+LE TRE RAGIONI PER CUI IL LIVE PUO' NON APRIRSI, e cosa la
+persona legge in ciascuna:
+
+--- nonEPerTe
+    La voce viva non e' ancora aperta per te. Continua a scrivermi: ti rispondo qui, come sempre.
+
+--- minutiFiniti
+    Per questo mese la mia voce si e' spesa tutta. Resto qui, in silenzio e per iscritto, finche' non torna.
+
+--- guasto
+    La voce non arriva, stasera. Scrivimi: quello che ci siamo detti non si perde.
+
+IL TEMPO, voce 06: tetto di 1200 secondi, cioe' venti minuti.
+    a 0 secondi passati il Maestro non saluta ancora
+    a 1141 secondi mancano meno di 60 secondi: SALUTA
+    a 1200 il tempo e' finito
+    a 1300 il tempo rimasto resta 0, mai negativo
+
+IL RIPIEGO TATTILE, regola di CLAUDE.md: si puo' scrivere sia
+a sessione viva sia mentre il volto non e' ancora arrivato.
+Chi ha il microfono rotto non resta mai fermo a guardare.

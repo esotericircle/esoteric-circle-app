@@ -134,10 +134,9 @@ void main() {
             '${ComeENato.evento.name} e non come gesto della persona')
         ..writeln();
     }
-    b
-      ..writeln('E UNA SERIE INTERROTTA NON FA SETTIMANA: la prova che lo '
-          'misura e\' sette_sere_di_fila_test.dart, che salta una sera e '
-          'verifica che la striscia riparta da capo.');
+    b.writeln('E UNA SERIE INTERROTTA NON FA SETTIMANA: la prova che lo '
+        'misura e\' sette_sere_di_fila_test.dart, che salta una sera e '
+        'verifica che la striscia riparta da capo.');
 
     final cartella = Directory('docs/collaudo/EI')..createSync(recursive: true);
     final f = File('${cartella.path}/sette_sere_e_il_diario.txt')

@@ -121,7 +121,7 @@ void main() {
     // giro dopo il modello ne ha usate di nuove: *"Ti invito a formulare una
     // richiesta chiara"*, che l'elenco non prendeva. Adesso e' il Maestro a
     // dichiararlo, e non si indovina piu' niente.
-    final conMarcatore = '${LaRispostaCheChiede.marcatore}\n'
+    const conMarcatore = '${LaRispostaCheChiede.marcatore}\n'
         'Il cielo non rivela il significato di queste parole. Non posso '
         'interpretare quello che mi hai scritto.\n'
         '\n'
