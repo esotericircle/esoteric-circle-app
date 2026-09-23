@@ -4398,6 +4398,52 @@ del dito; che il microfono senta il soffio di una persona lo puo' dire solo il
 fondatore. **Chiuderla senza il suo fiato sarebbe il difetto che l'ordine EH ha
 vietato.**
 
+## L'ORDINE EG, IL LIVE DEI MAESTRI, RIPRESO DOPO L'INTERRUZIONE
+
+Ordine del 23 settembre 2026, **nove voci**, ripreso dopo che l'ordine EH lo
+aveva interrotto. **Due voci chiuse**, la fetta verticale in piedi. Manifesto
+`docs/ordini/ORDINE_EG_MANIFESTO.md`, prove in `docs/collaudo/EG/`.
+
+**IL RISCHIO PIU' GROSSO E' SUPERATO: LiveKit sta nell'app e la build Android
+regge.** L'archivio passa da 195,3 a **218,4 megabyte**, ed e' il motore WebRTC.
+Era la cosa che poteva far saltare l'ordine intero.
+
+**LA PORTA NON PORTA NESSUNA CHIAVE**, ed e' la voce 01. Il telefono riceve dal
+server un gettone **buono per una stanza sola**: chi avesse il segreto di
+LiveKit entrerebbe in qualunque stanza di chiunque, cioe' nella sessione
+privata di un'altra persona. La guardia cerca i tre segreti e perfino
+l'indirizzo di Protoface in **675 file di `lib`**.
+
+**LA MACCHINA DEGLI STATI STA FUORI DAL WIDGET**, ed e' la lezione dell'ordine
+EI: quello che nessuna prova puo' raggiungere non e' sorvegliato da niente.
+Dentro ci sono **il ripiego tattile** (si scrive anche mentre il volto non e'
+arrivato: in treno e' l'unico modo di usare il LIVE) e **le tre frasi diverse
+per i tre rifiuti**, nessuna delle quali e' un messaggio d'errore.
+
+**LA VOCE VIVA STA IN FONDO AL MENU' DELLA CHAT, e in fondo apposta**: una
+voce in cima avrebbe spinto sotto la piega tutte le altre e fatto morire le
+catture, com'e' gia' successo col menu' dell'account.
+
+**LO SBARRAMENTO HA TROVATO QUATTRO ROSSI, TUTTI MIEI**: un `catch` che taceva,
+una rotta costruita nel menu' invece che dichiarata dalla schermata,
+**`livekit_client` non classificato** per le API sensibili di Apple, e la
+guardia dell'ordine EI rossa perche' una voce aspetta il fondatore. L'ultima e'
+dichiarata fra i rossi accettati con la ragione: **un ordine in corso ha la sua
+guardia rossa per costruzione**, e quando chiude quella riga diventa di troppo
+e lo sbarramento la fa cadere da solo.
+
+**TRE VOLTE IN DUE ORDINI UNA GUARDIA HA ACCUSATO UN COMMENTO** che spiegava
+perche' quella cosa NON si fa: `uid` nell'ordine EI, l'avatar e
+`MaterialPageRoute` qui. Tutte e tre curate a saltare i commenti, e **tutte e
+tre riprovate rosse su un uso vero**: il verde sul commento non e' una deroga.
+
+**DUE GUARDIE NUOVE**, registro da 494 a **496**.
+
+**BUILD 2277 CONSEGNATA SU APP DISTRIBUTION** il 23 settembre 2026, release
+`6tgbum9gusts0`, verificata sul server e non sulla parola dello strumento.
+Sbarramento passato con **5.775 prove**. L'app si e' accesa sul Realme prima
+del caricamento: processo vivo, primo fotogramma disegnato, nessun crash.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.
