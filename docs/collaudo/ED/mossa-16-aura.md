@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il tuo respiro, leggero, mentre attraversa le tue narici e si diffonde dentro di te.
+> Sento il tuo respiro che cerca leggerezza in questo momento, come una foglia che si stacca delicata dal ramo.
 > 
-> Ogni momento è nuovo, ogni incontro è un qui e ora, un'onda che si alza e poi si ritira. Ciò che è stato detto si posa, come la sabbia sulla riva. L'attenzione si rinnova, pronta ad accogliere ciò che si presenta, senza portare il peso di ciò che è passato. È nell'attimo presente che risiede la pienezza.
+> Ogni interazione è un flusso, un battito presente che accogliamo insieme. Le parole che condividiamo si disperdono poi nell'ampiezza dell'energia, non si fissano in un luogo dove possano pesare. Quello che senti ora, il tuo desiderio di lasciare andare, è un movimento naturale del centro che ti abita.
 > 
-> ✦ Porta l'attenzione al tuo sentire, adesso.
+> ✦ Fai un respiro profondo e senti l'aria sciogliere ogni ricordo.
 
 ---
 

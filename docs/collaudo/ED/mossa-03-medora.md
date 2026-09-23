@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo ti invita a guardare con occhi nuovi la tua via professionale.
+> Un transito celeste di riflessione illumina il tuo percorso lavorativo.
 > 
-> Le lame ti parlano di una fase in cui la guida e la saggezza sono fondamentali. Il Papa suggerisce un periodo di apprendimento o di insegnamento, dove la conoscenza viene trasmessa o acquisita. Il Re di Spade indica lucidità mentale, capacità di analisi e decisioni razionali, essenziali per navigare le sfide. Il Dieci di Spade, infine, pur simboleggiando la fine di un ciclo, ti mostra anche la liberazione da ciò che non serve più, aprendo la strada a un nuovo inizio. Questa sequenza ti invita a chiudere un capitolo con consapevolezza per aprirne un altro con chiarezza.
+> Il Papa indica una fase di apprendimento, di guida o di adesione a principi elevati. Accanto al Re di Spade, un arcano che rappresenta la chiarezza mentale e l'autorità logica, questa sequenza suggerisce che nel tuo ambiente professionale potresti trovare un mentore saggio, o che tu stesso sarai chiamato a guidare con discernimento. Il Dieci di Spade, pur sembrando un termine, qui parla di una conclusione necessaria per fare spazio a un nuovo inizio, una fase di liberazione da ciò che non serve più. Guarda a questo come a un momento di trasformazione, dove la saggezza e la decisione portano a un cambiamento definitivo e liberatorio.
 > 
-> ✦ La chiarezza mentale è la tua alleata in questo momento di transizione.
+> ✦ Il Dieci di Spade chiude un ciclo per aprirne uno nuovo.
 
 ## Turno 2
 
@@ -26,18 +26,16 @@
 
 **Medora risponde:**
 
-> Comprendo il tuo desiderio di chiarezza.
+> Il cielo si mostra limpido per la tua ricerca di chiarezza.
 > 
-> Non ti chiedo di compiere una nuova stesa, ma di indicarmi le carte che hai già avuto tra le mani. Mi hai detto di aver chiesto alle carte per "Lavoro e carriera", ma hai poi menzionato solo "Il Papa, Re di Spade e Dieci di Spade" senza specificare se queste fossero le carte che ti sono uscite.
+> La tua richiesta è chiara, non vi sarà un'altra lettura di carte. La mia funzione è interpretare la sequenza che mi hai presentato, non di aggiungervi. Le lame che hai ricevuto sono il tuo messaggio attuale, esse si dispiegano davanti a te per essere comprese.
 > 
-> Per poterti offrire un'interpretazione precisa e luminosa, ho bisogno di sapere con certezza quali sono le lame che ti hanno risposto.
-> 
-> ✦ Indicami le carte uscite per poter illuminare il tuo percorso.
+> ✦ Ascolta la voce delle lame che già hai.
 
 ---
 
 ## Esito dei controlli
 
-Nessuna caduta: la mossa rispetta le regole dell'ordine EB.
+- turno 2: la risposta non nomina nessuna delle figure del responso che la persona ha in mano (Papa, Spade), quindi non risponde nel merito di quello che e' stato chiesto
 
 **Il tono e l'illusione della persona vera li giudica il fondatore leggendo questa pagina: i controlli qui sopra non li misurano.**

@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti come il respiro, delicato, entra e poi esce, portando con sé un piccolo movimento nel tuo addome.
+> Senti il tuo respiro, come si muove nel corpo in questo momento.
 > 
-> Ieri è stato un incontro, un momento in cui abbiamo esplorato insieme un pezzo del tuo sentire. Ogni volta che ti rivolgi a me, porto attenzione a ciò che affiora, ai movimenti sottili dell'energia che ti attraversa. Ogni domanda è un punto di luce che si accende, e io sono qui per illuminare quel punto, accompagnando il tuo sentire in questa direzione.
+> È un piacere accoglierti di nuovo. Ogni incontro è un'opportunità per sentire e riconoscere ciò che si muove dentro, senza fretta, solo osservando.
 > 
-> ✦ Porta una mano al centro del tuo petto, senti il battito.
+> ✦ Senti il tuo respiro, il tuo centro.
 
 ---
 

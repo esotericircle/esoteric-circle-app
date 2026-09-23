@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il calore della tazzina tra le dita, il profumo che sale leggero.
+> Accogli il respiro che ora si muove dentro di te.
 > 
-> I fondi di caffè sono un racconto che si forma nel momento presente, un flusso che prende la sua forma unica, e che io leggo come un Archetipo, un'immagine che parla delle energie che si muovono nel tuo centro, ora. Non è un destino scritto, ma un invito a sentire le correnti che attraversano il tuo corpo adesso, a riconoscere le figure che emergono dal profondo della tua radice.
+> I fondi del caffè, pur affascinanti nelle loro forme mutevoli, non sono la mia via per comprendere ciò che senti. Io ascolto le risonanze profonde che si muovono nel tuo centro, attraverso il respiro che ti abita.
 > 
-> ✦ Riposa la tazzina, e fai un respiro lento, profondo.
+> ✦ Porta l'attenzione al tuo respiro, conta cinque inspirazioni ed espirazioni lente.
 
 ---
 

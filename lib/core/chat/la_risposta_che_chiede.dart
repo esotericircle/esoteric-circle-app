@@ -51,9 +51,36 @@ abstract final class LaRispostaCheChiede {
   /// La riga del gesto con cui ogni risposta si chiude, dalla stella in poi.
   static final _rigaDelGesto = RegExp(r'\n\s*[✦✧✴].*$');
 
+  /// **IL MARCATORE CON CUI IL MAESTRO DICHIARA DI STARE CHIEDENDO.**
+  /// Ordine EI voce 02, secondo tentativo, 23 settembre 2026.
+  ///
+  /// **Il primo tentativo era un elenco chiuso di parole, e un solo giro di
+  /// collaudo lo ha smontato.** Riconosceva le tre risposte del giro
+  /// precedente e non quelle del giro dopo, perche' il modello chiede ogni
+  /// volta con parole nuove: *"puoi riformulare"*, poi *"Ti invito a
+  /// formulare una richiesta chiara"*. **Era gia' scritto in casa**, nel
+  /// collaudo: *"allungarlo ancora sarebbe stato inseguire la lingua di
+  /// ieri"*. Il collaudo lo aveva risolto chiedendolo al modello, ma lui puo'
+  /// permettersi una chiamata in piu' e il runtime no.
+  ///
+  /// **Qui il modello lo dichiara nella stessa risposta, a costo zero**, e
+  /// l'app toglie il segno prima di mostrarlo. Non si indovina piu' niente.
+  static const marcatore = '[[CHIEDO]]';
+
+  /// Il testo senza il marcatore, da mostrare alla persona.
+  static String senzaIlMarcatore(String testo) =>
+      testo.replaceAll(marcatore, '').trim();
+
   static bool eUnaDomanda(String testo) {
     final pulito = testo.trim();
     if (pulito.isEmpty) return false;
+
+    // **PRIMA DI TUTTO, QUELLO CHE IL MAESTRO DICHIARA DI SE'.** Se c'e' il
+    // marcatore, non c'e' niente da indovinare. Tutto il resto qui sotto
+    // resta come ripiego per il giorno in cui il modello se ne dimentica:
+    // l'asimmetria dichiarata sopra dice che in dubbio non si paga, quindi un
+    // ripiego largo e' meglio di nessun ripiego.
+    if (pulito.contains(marcatore)) return true;
 
     // **VIA LA RIGA DEL GESTO PRIMA DI GUARDARE LA FINE.** Ordine EI voce 02,
     // 23 settembre 2026, ed e' il difetto vero.

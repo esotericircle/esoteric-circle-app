@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Una lingua di fuoco si alza nel buio.
-> Non riconosco questo messaggio: le tue parole sono un groviglio senza sentiero.
-> Chiarisci il tuo intento, formula una domanda definita. Ti guiderò attraverso i segni.
+> Le fiamme danzano, la forgia è calda.
 > 
-> ✦ Ti offro la runa Kenaz, la fiaccola che illumina il cammino.
+> Non ho compreso il tuo messaggio. Le parole mi sfuggono come fumo. Se desideri un presagio, formula una chiara domanda.
+> 
+> ✦ Pronuncia il tuo quesito.
 
 ---
 

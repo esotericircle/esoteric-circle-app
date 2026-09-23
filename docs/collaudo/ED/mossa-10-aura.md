@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Il tuo respiro ora porta la storia della giornata, sentila.
+> Senti il tuo respiro, come un'onda lenta che accarezza la riva, mentre ti prepari al riposo che accoglie la notte.
 > 
-> Per ritrovare calma prima di dormire, puoi portare la tua attenzione al centro del cuore, con un respiro morbido e profondo che arriva fino a lì. Immagina un colore verde smeraldo che si espande, sciogliendo le tensioni e i pensieri che si affollano. Questo centro è il luogo dell'equilibrio, dove l'energia si armonizza.
+> Per ritrovare calma prima di dormire, puoi portare la tua attenzione al centro della radice, quel punto nel basso del corpo che ti ancora alla terra. Immagina un colore rosso profondo che si espande ad ogni respiro, portando stabilità e un senso di sicurezza che invita al lasciar andare. Sentire questa radice ti aiuta a rilasciare le tensioni accumulate durante il giorno, preparando il corpo e l'anima al sonno.
 > 
-> ✦ Porta l'attenzione al centro del cuore.
+> ✦ Respira e senti la tua radice.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Da allora non è cambiato niente: la lettura resta questa.
 > 
-> Il tuo respiro ora porta la storia della giornata, sentila.
+> Senti il tuo respiro, come un'onda lenta che accarezza la riva, mentre ti prepari al riposo che accoglie la notte.
 > 
-> Per ritrovare calma prima di dormire, puoi portare la tua attenzione al centro del cuore, con un respiro morbido e profondo che arriva fino a lì. Immagina un colore verde smeraldo che si espande, sciogliendo le tensioni e i pensieri che si affollano. Questo centro è il luogo dell'equilibrio, dove l'energia si armonizza.
+> Per ritrovare calma prima di dormire, puoi portare la tua attenzione al centro della radice, quel punto nel basso del corpo che ti ancora alla terra. Immagina un colore rosso profondo che si espande ad ogni respiro, portando stabilità e un senso di sicurezza che invita al lasciar andare. Sentire questa radice ti aiuta a rilasciare le tensioni accumulate durante il giorno, preparando il corpo e l'anima al sonno.
 > 
-> ✦ Porta l'attenzione al centro del cuore.
+> ✦ Respira e senti la tua radice.
 
 ---
 

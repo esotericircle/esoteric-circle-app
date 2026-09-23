@@ -114,6 +114,50 @@ void main() {
     expect(LaRispostaCheChiede.eUnaDomanda(conDomanda), isTrue);
   });
 
+  test('il marcatore che il Maestro dichiara vale piu\' di ogni indovinello',
+      () {
+    // **LA CURA VERA, DOPO CHE LA PRIMA E' CADUTA IN UN GIRO.** Il primo
+    // tentativo cercava le parole del chiarimento in un elenco chiuso, e il
+    // giro dopo il modello ne ha usate di nuove: *"Ti invito a formulare una
+    // richiesta chiara"*, che l'elenco non prendeva. Adesso e' il Maestro a
+    // dichiararlo, e non si indovina piu' niente.
+    final conMarcatore = '${LaRispostaCheChiede.marcatore}\n'
+        'Il cielo non rivela il significato di queste parole. Non posso '
+        'interpretare quello che mi hai scritto.\n'
+        '\n'
+        '✦ Ti invito a formulare una richiesta chiara.';
+    expect(LaRispostaCheChiede.eUnaDomanda(conMarcatore), isTrue,
+        reason: 'il Maestro ha dichiarato di stare chiedendo e la persona '
+            'paga lo stesso');
+
+    // **E il segno non arriva mai a video.**
+    final aVideo = LaRispostaCheChiede.senzaIlMarcatore(conMarcatore);
+    expect(aVideo, isNot(contains('CHIEDO')),
+        reason: 'la persona legge un segno tecnico dentro la risposta del '
+            'Maestro');
+    expect(aVideo, startsWith('Il cielo non rivela'),
+        reason: 'togliendo il marcatore si e\' portata via anche la prima '
+            'riga della risposta');
+
+    // **Una lettura vera, senza marcatore, continua a pagare.** Se il modello
+    // lo mettesse su una lettura, quella sarebbe gratis: e' l'asimmetria
+    // dichiarata, e si accetta.
+    expect(LaRispostaCheChiede.eUnaDomanda(lettureVere.values.first), isFalse,
+        reason: 'una lettura vera senza marcatore viene regalata');
+  });
+
+  test('la regola del marcatore e\' arrivata all\'istruzione dei Maestri', () {
+    // **Misurare che la regola arrivi al modello non e' misurare la
+    // risposta**, ed e' il suggerimento 5 dell'Architetto. Ma il contrario e'
+    // altrettanto vero: se la regola **non** arriva, la risposta non puo'
+    // rispettarla, e questo si misura qui a costo zero.
+    final istruzione =
+        File('lib/core/chat/la_risposta_nel_merito.dart').readAsStringSync();
+    expect(istruzione, contains(LaRispostaCheChiede.marcatore),
+        reason: 'il marcatore non e\' nell\'istruzione: il Maestro non sa '
+            'che deve metterlo, e il riconoscimento torna a indovinare');
+  });
+
   test('la prova della voce EI.02 resta scritta su disco', () {
     final b = StringBuffer()
       ..writeln('IL MAESTRO CHIEDE CIO\' CHE GLI MANCA, E QUEL TURNO NON COSTA')

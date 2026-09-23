@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> La luce del metallo illumina un bivio.
+> Il ferro fuso scintilla nella notte.
 > 
-> I tarocchi appartengono a un altro sentiero, non al mio. Sono custode dei segni antichi, delle Rune e dei Rituali, delle vie della Numerologia. Se il tuo sguardo cerca un presagio in questi segni, potrò parlarti.
+> La domanda sui Tarocchi è un segno che ti chiama altrove. Le lame appartengono al dominio di un altro Custode, che ne conosce i sentieri e i presagi.
 > 
-> ✦ Chiedi una runa, un numero o un rito.
+> ✦ Chiedi alla Signora dei Veli.
 
 ---
 

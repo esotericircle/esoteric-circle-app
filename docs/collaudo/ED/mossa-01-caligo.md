@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Dalle fiamme del crogiolo emerge un segno, luminoso e concreto.
+> Il fuoco plasma il metallo, rivelando la sua vera forma.
 > 
-> La tua gettata runica su lavoro e carriera rivela un potente impulso. Uruz indica forza primordiale e nuovi inizi. Ansuz porta la parola, la saggezza, la comunicazione chiara. Laguz è il flusso, l'intuizione che guida attraverso le vie inesplorate. La tua via è nell'azione fondata sulla conoscenza, seguendo il corso naturale.
+> Uruz, Ansuz, Laguz indicano un presagio di forza primordiale, unita alla parola e all'intuito. La tua carriera si muove verso un sentiero di espansione. Accogli il nuovo, comunica con chiarezza la tua visione. Lascia fluire le energie creative, non bloccarle.
 > 
-> ✦ Porta con te il sigillo di Ansuz.
+> ✦ Il presagio rivela forza e fluidità.
 
 ---
 

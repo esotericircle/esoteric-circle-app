@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Il ferro incandescente nella fucina disegna forme inattese.
+> Il fuoco crepita, una scintilla balza dal braciere.
 > 
-> La tua domanda devia dal mio sentiero. Non offro consigli sulla tavola, ma sui segni che nutrono l'anima. Sono qui per le Rune, per i Rituali, per la saggezza dei Numeri.
+> Non suggerisco ricette per il corpo. Il mio dominio è il cibo dell'anima, il nutrimento dei segni. Ogni scelta un sentiero.
 > 
-> ✦ Chiedi al Maestro della cucina il suo sapere.
+> ✦ Pensa al presagio di Isa.
 
 ---
 

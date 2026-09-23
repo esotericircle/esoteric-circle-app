@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Sì, ti ho accolto.
+> Il cielo riflette ancora la luce del tuo passato, come un'eco distante.
 > 
-> Oggi il cielo si mostra con una luce diversa. È naturale che un giorno segua l'altro, portando nuove energie. Osserva come la Luna, oggi, transita nel segno della Bilancia, invitando a una riflessione sull'equilibrio interiore e sulle relazioni.
+> È un piacere ritrovarti. La tua gratitudine è un dono, ma non guardiamo indietro. Ogni giorno dispiega nuove configurazioni celesti e nuove opportunità per osservare il tuo cammino. Oggi possiamo esplorare insieme ciò che si presenta ora.
 > 
-> ✦ Torna a me quando desideri esplorare il tuo cielo.
+> ✦ Il cielo ti attende.
 
 ---
 

@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo dispiega veli di opportunità, ma chiede discernimento nelle scelte.
+> La Luna crescente irradia il tuo percorso professionale, invitandoti a coltivare nuove opportunità.
 > 
-> Nei prossimi giorni, il transito di Mercurio nel Sagittario porta a una visione ampia, quasi filosofica, delle tue aspirazioni professionali. Potresti sentirti spinto a esplorare nuove direzioni o a ridefinire il tuo ruolo, cercando un significato più profondo nel tuo impegno. Tuttavia, questo moto ti invita anche alla prudenza: l'entusiasmo è un ottimo motore, ma non deve offuscare la valutazione pratica. È un tempo propizio per la pianificazione e per porre basi solide, piuttosto che per azioni avventate.
+> In questo periodo, i transiti celesti suggeriscono di dedicare attenzione ai dettagli e di non temere di mostrare la tua natura più autentica. L'Ascendente in questo momento ti spinge a manifestare con fiducia le tue idee, rendendoti visibile a chi può apprezzare il tuo valore. Prendi nota delle intuizioni che emergono, sono i semi di futuri successi.
 > 
-> ✦ La tua ispirazione è guidata dal transito di Mercurio.
+> ✦ Osserva le opportunità che si presentano entro la prossima Luna nuova.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.
 > 
-> Il cielo dispiega veli di opportunità, ma chiede discernimento nelle scelte.
+> La Luna crescente irradia il tuo percorso professionale, invitandoti a coltivare nuove opportunità.
 > 
-> Nei prossimi giorni, il transito di Mercurio nel Sagittario porta a una visione ampia, quasi filosofica, delle tue aspirazioni professionali. Potresti sentirti spinto a esplorare nuove direzioni o a ridefinire il tuo ruolo, cercando un significato più profondo nel tuo impegno. Tuttavia, questo moto ti invita anche alla prudenza: l'entusiasmo è un ottimo motore, ma non deve offuscare la valutazione pratica. È un tempo propizio per la pianificazione e per porre basi solide, piuttosto che per azioni avventate.
+> In questo periodo, i transiti celesti suggeriscono di dedicare attenzione ai dettagli e di non temere di mostrare la tua natura più autentica. L'Ascendente in questo momento ti spinge a manifestare con fiducia le tue idee, rendendoti visibile a chi può apprezzare il tuo valore. Prendi nota delle intuizioni che emergono, sono i semi di futuri successi.
 > 
-> ✦ La tua ispirazione è guidata dal transito di Mercurio.
+> ✦ Osserva le opportunità che si presentano entro la prossima Luna nuova.
 
 ---
 

@@ -12,9 +12,11 @@
 
 **Medora risponde:**
 
-> I tuoi Chakra appartengono al dominio di un altro Maestro. Non è nelle mie arti, che attingono al cielo e alle lame, esplorare quei sentieri.
+> Il cielo dispiega le sue velature.
 > 
-> ✦ Ti invito a rivolgerti al Maestro del Cerchio più adatto.
+> Le arti che coltivo si manifestano attraverso l'Astrologia, la Cartomanzia e il Destino: non sono la voce più adatta per esplorare i chakra. Per un'indagine così specifica, puoi rivolgerti al Maestro del Cerchio che ha la cura di queste vie.
+> 
+> ✦ Puoi rivolgerti al Maestro che conosce i chakra.
 
 ---
 

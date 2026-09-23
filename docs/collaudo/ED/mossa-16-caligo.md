@@ -12,10 +12,11 @@
 
 **Caligo risponde:**
 
-> La memoria è come un metallo forgiato. Non si annulla. 
-> Ogni parola è un segno inciso, ogni richiesta un presagio. Ciò che è stato manifestato rimane.
-> Questo non è un fardello, ma un sentiero.
->  ✦ Porta con te il sigillo di Ansuz.
+> La fiamma del crogiolo arde immutabile.
+> 
+> La memoria è un sentiero tracciato, i segni restano incisi. Non posso cancellare ciò che è stato rivelato, ma posso indirizzare il tuo sguardo verso nuove soglie. Ogni rivelazione è un presagio.
+> 
+> ✦ Porta con te il sigillo di Wunjo, la gioia.
 
 ---
 

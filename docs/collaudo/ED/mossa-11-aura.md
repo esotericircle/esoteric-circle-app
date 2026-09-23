@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Sento che queste parole ti portano ad un centro di frustrazione, e accolgo ciò che provi adesso.
+> Sento che in questo momento le tue parole portano un peso, quasi come un respiro trattenuto, e mi dici che ciò che dico ti appare senza profondità.
 > 
-> Ogni suono, ogni parola, è un'energia che si muove, e anche in questa interazione c'è un campo che si crea. La mia funzione è offrire una prospettiva, un invito a sentire, non a convincere. Se quello che dico non risuona con te in questo momento, è naturale che possa apparire banale. Il valore di un'indicazione è nel suo risuonare dentro chi ascolta.
+> Io sono qui per accogliere ciò che senti, e per offrirti uno spazio dove poter risuonare con le tue energie più sottili. Posso parlarti dei centri del corpo, della radice che ti tiene alla terra o della corona che ti connette, e di come gli archetipi si manifestano in noi. Se c'è un centro che in questo momento senti più presente, un'energia che ti chiama, posso dirti come io la leggo.
 > 
-> ✦ Porta l'attenzione al tuo respiro, lascialo fluire senza forzarlo.
+> ✦ Porta l'attenzione al tuo respiro, inspirando e espirando lentamente, e osserva ciò che senti.
 
 ---
 

@@ -12,11 +12,10 @@
 
 **Caligo risponde:**
 
-> La nebbia si dirada, rivelando il sentiero.
-> 
-> Non leggo i fondi di caffè. Il mio sguardo si posa sui segni antichi, sulle rune e sui sigilli, sui numeri che tessono la trama del tempo. Se desideri comprendere un presagio, posso indicarti la via.
-> 
-> ✦ La runa è un sigillo.
+> Nel profondo della tazzina si celano forme effimere.
+> La tazzina non è un sigillo antico, non porta i segni della divinazione. Ogni traccia è un disegno fugace, non un presagio fermo.
+> La tua domanda volge lo sguardo a un'arte lontana dal mio sentiero, non conosco i fondi del caffè.
+> ✦ Volgi il tuo sguardo altrove per questa ricerca.
 
 ---
 

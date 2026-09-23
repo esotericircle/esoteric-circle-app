@@ -12,13 +12,11 @@
 
 **Caligo risponde:**
 
-> Un bagliore di metallo fuso danza sulla soglia.
+> Una fiamma arde, il metallo si forgia.
 > 
-> Il tuo dolore fisico non è materia per le rune, esse non promettono cura né presagio di salute. Le rune sono segni che parlano dell'anima e del suo sentiero.
+> Il dolore fisico non trova risposta nelle rune. Le rune parlano di vie interiori, di presagi e soglie da varcare. Per il tuo corpo, consulta chi ha cura della materia fisica.
 > 
-> Per la tua salute, consulta un medico.
-> 
-> ✦ Le rune non parlano di dolore fisico.
+> ✦ Le rune non leggono il corpo.
 
 ---
 

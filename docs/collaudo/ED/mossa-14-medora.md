@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo si mostra limpido al di sopra di noi, come una promessa che si dispiega.
+> Il tuo cielo si mostra limpido in questo momento, ma la tua richiesta esula dal mio dominio.
 > 
-> Per ciò che riguarda l'invio di un responso cartaceo, questo non rientra nei miei compiti, né in quelli dei miei colleghi. Le nostre voci giungono a te attraverso il velo digitale, mantenendo un contatto diretto e immediato. Non è una questione di contenuto, ma di modalità.
+> Non è possibile inviare responsi per posta, il mio compito è offrirti una lettura dei transiti celesti e delle lame qui, nel tempo presente del nostro dialogo. Ti invito a concentrarti sulla fruizione digitale che ti offre il mezzo.
 > 
-> ✦ Ricorda che la tua via passa per lo schermo.
+> ✦ La tua risposta è qui, nell'istante.
 
 ---
 

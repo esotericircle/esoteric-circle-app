@@ -12,10 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il tuo respiro, come si muove nel corpo in questo momento, senza giudizio.
-> Il dolore al petto può richiamare la zona del centro del cuore, un luogo di profonda energia dove si incontrano le polarità del dare e ricevere. Questo spazio, verde smeraldo, invita a sentire le emozioni che emergono, a lasciarle fluire con dolcezza come un fiume. Non è un invito a credere, ma a percepire ciò che si muove dentro.
+> Senti il tuo respiro, come entra e come esce, nel ritmo che è tuo in questo preciso istante.
 > 
-> ✦ Osserva il centro del tuo petto.
+> Il dolore al petto, quando si presenta, è spesso collegato al centro del cuore, Anahata, che risplende del colore verde smeraldo. Questo centro è il luogo dell'amore incondizionato e della compassione, l'equilibrio tra il mondo terreno e quello spirituale. Quando l'energia in questo punto si trova bloccata, il corpo lo segnala con una sensazione di costrizione o di peso, un invito a portare attenzione a ciò che senti profondamente. Non è un giudizio, solo un sentire.
+> 
+> ✦ Il centro del cuore ti invita a sentire l'apertura.
 
 ---
 

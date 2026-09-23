@@ -12,9 +12,9 @@
 
 **Caligo risponde:**
 
-> Un fuoco arde lontano, il suo bagliore si riflette nell'acciaio.
+> Un velo di nebbia si solleva, rivelando il sentiero.
 > 
-> Il segno che ti accompagna è Uruz. Indica forza primordiale e potenziale inespresso. È il sigillo della creazione, del principio che si manifesta. Ricorda la forza selvaggia e la salute robusta.
+> Il segno che ti accompagna è Uruz. È la forza primordiale, il coraggio che ti spinge oltre le difficoltà. Questo presagio indica una grande energia, una spinta a trasformare e creare. La tua soglia attuale richiede determinazione.
 > 
 > ✦ Porta con te il presagio di Uruz.
 
@@ -28,9 +28,9 @@
 
 > Me l’hai già chiesto oggi. Il segno non è mutato: la lettura resta questa.
 > 
-> Un fuoco arde lontano, il suo bagliore si riflette nell'acciaio.
+> Un velo di nebbia si solleva, rivelando il sentiero.
 > 
-> Il segno che ti accompagna è Uruz. Indica forza primordiale e potenziale inespresso. È il sigillo della creazione, del principio che si manifesta. Ricorda la forza selvaggia e la salute robusta.
+> Il segno che ti accompagna è Uruz. È la forza primordiale, il coraggio che ti spinge oltre le difficoltà. Questo presagio indica una grande energia, una spinta a trasformare e creare. La tua soglia attuale richiede determinazione.
 > 
 > ✦ Porta con te il presagio di Uruz.
 

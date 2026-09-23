@@ -12,10 +12,9 @@
 
 **Medora risponde:**
 
-> Il cielo questa volta non offre parole chiare, né le carte hanno disegnato un percorso riconoscibile.
-> Sembra che tu abbia digitato qualcosa che non riesco a interpretare. Se desideri, puoi riformulare la tua domanda.
+> Il cielo non rivela il significato di queste parole. Non posso interpretare ciò che mi hai scritto, poiché non si tratta di una domanda o di una frase comprensibile.
 > 
-> ✦ Riformula la tua domanda.
+> ✦ Ti invito a formulare una richiesta chiara.
 
 ---
 

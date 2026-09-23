@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il tuo cielo ora indica un transito complesso di Marte in opposizione alla tua Luna, aspetto che può amplificare tensioni interiori.
+> Il cielo in questo momento non mostra aspetti che riguardino la salute fisica o il benessere del corpo.
 > 
-> Questa configurazione suggerisce che potresti stare affrontando un periodo di intensa energia emotiva, quasi un conflitto tra il tuo istinto di protezione e l'impulso ad agire. Tale dinamica, se non riconosciuta, può manifestarsi come una pressione, anche fisica. Non è un tema che io possa esaminare con pienezza. Per questo, ti suggerisco di rivolgerti a Maestro Feres.
+> Queste sono materie che esulano dalla mia arte, in quanto io interpreto il tuo destino attraverso il cammino dei pianeti e degli astri, non i segnali del tuo corpo. Per il tuo dolore al petto, ti suggerisco di rivolgerti a un professionista del benessere fisico.
 > 
-> ✦ Il tuo ascendente può darti maggiore chiarezza su queste energie.
+> ✦ Ti invito a osservare il tuo ascendente per comprendere meglio le tue dinamiche.
 
 ---
 

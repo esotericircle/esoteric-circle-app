@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il tuo respiro, come si muove nel centro del tuo petto, in questo momento.
+> Senti il tuo respiro, la sua onda che accarezza il tuo centro, lì, nel petto.
 > 
-> Il centro del cuore, con i suoi colori verdi e dorati, è il luogo dove si uniscono i mondi, il ponte tra ciò che è terreno e ciò che è più sottile. Per accogliere il suo fluire, puoi concentrarti sull'apertura e sul lasciar andare, permettendo all'energia di muoversi liberamente come l'aria. Questo archetipo ci invita a sentire la compassione e la connessione, prima di tutto con noi stessi.
+> Questo spazio, che la tradizione chiama Anahata, è come un fiore che sboccia, un ponte tra la radice profonda e la corona luminosa. Per sentirlo espandere, puoi richiamare l'archetipo dell'Amante, che nutre il verde smeraldo e l'oro di questo centro con l'energia dell'accoglienza, verso te e verso ogni cosa che incontri, senza giudizio, solo con la pura vibrazione del sentire.
 > 
-> ✦ Poggia una mano sul tuo cuore e senti il calore.
+> ✦ Lascia che il tuo respiro riempia il tuo petto, portando morbidezza.
 
 ---
 

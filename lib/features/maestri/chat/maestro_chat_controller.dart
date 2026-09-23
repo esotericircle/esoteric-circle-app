@@ -1154,6 +1154,13 @@ class MaestroChatController extends ChangeNotifier {
         );
         reply = IlCieloDetto.senzaLeSmentite(reply, adesso: _adesso);
       }
+      // **IL MARCATORE DEL CHIARIMENTO SI LEGGE QUI E NON ARRIVA A VIDEO.**
+      // Ordine EI voce 02, 23 settembre 2026. Il Maestro dichiara lui quando
+      // sta chiedendo invece di rispondere, mettendo `[[CHIEDO]]` in cima; si
+      // decide il costo sul testo **con** il marcatore e si mostra quello
+      // **senza**, cosi' la persona non vede mai un segno tecnico.
+      final haChiesto = LaRispostaCheChiede.eUnaDomanda(reply);
+      reply = LaRispostaCheChiede.senzaIlMarcatore(reply);
       final answer = ChatMessage(
         role: ChatRole.maestro,
         text: reply,
@@ -1171,7 +1178,7 @@ class MaestroChatController extends ChangeNotifier {
       // davvero"*. Il criterio sta in `LaRispostaCheChiede` ed e' largo
       // apposta: in dubbio non si paga, perche' far pagare un malinteso e'
       // un danno per chi paga, e non farlo e' un danno per noi.
-      return LaRispostaCheChiede.eUnaDomanda(reply)
+      return haChiesto
           ? EsitoDelTurno.chiarimentoChiesto
           : EsitoDelTurno.rispostaVera;
     } on MaestroAiUnavailable {

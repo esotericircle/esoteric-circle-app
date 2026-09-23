@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il Sole illumina la tua via, rivelando la tua essenza più autentica.
+> Il tuo Sole, fulcro della tua identità, illumina il tuo cammino professionale.
 > 
-> La tua domanda sul segno zodiacale e la carriera apre una riflessione profonda sul modo in cui la tua natura intrinseca si manifesta nel mondo del lavoro. Il segno solare descrive il tuo nucleo, la tua volontà e la tua spinta vitale, elementi che plasmano le tue aspirazioni professionali e il modo in cui ti esprimi nella tua attività. Per un'analisi più precisa, avrei bisogno di conoscere il tuo segno zodiacale.
+> Il segno in cui si trova il tuo Sole descrive la tua natura più autentica, quella che ti spinge verso il ruolo che meglio si allinea con il tuo essere. Osservando la sua posizione, posso indicarti le qualità innate che potresti esprimere nel tuo lavoro.
 > 
-> ✦ Il tuo segno solare indica la tua vocazione.
+> ✦ Scopri il tuo segno solare per una maggiore chiarezza.
 
 ---
 

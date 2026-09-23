@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo si schiude rivelando una riflessione profonda sul tuo percorso professionale.
+> Il cielo ti parla di una guida autorevole e di decisioni chiare.
 > 
-> La sequenza che hai dinanzi, con il Papa, il Re di Spade e il Dieci di Spade, indica un momento di discernimento e di scelta. Il Papa suggerisce un periodo in cui la saggezza e l'esperienza si fanno strada, invitandoti a cercare una guida o a consolidare i tuoi valori. Il Re di Spade porta con sé la chiarezza mentale e la capacità di prendere decisioni razionali, ma anche la necessità di agire con determinazione. Il Dieci di Spade, infine, parla di una conclusione, di un ciclo che si chiude per fare spazio a un nuovo inizio, spesso dopo un periodo di difficoltà. Si tratta di una rivelazione, non di una condanna. È un momento per lasciare andare ciò che non serve più, aprendo la strada a nuove possibilità.
+> Il Papa indica la ricerca di conoscenza e di un mentore, qualcuno che possa illuminare il tuo percorso professionale. Il Re di Spade suggerisce la necessità di chiarezza mentale e di decisioni razionali, spesso in situazioni che richiedono un taglio netto. Infine, il Dieci di Spade, pur nella sua immagine finale, simboleggia la chiusura di un ciclo e la liberazione da ciò che non serve più, per far spazio al nuovo. Questa sequenza ti invita a riflettere su come la tua attuale situazione lavorativa possa beneficiare di una visione più strategica e, forse, di un cambiamento definitivo.
 > 
-> ✦ Riconosci la conclusione di un ciclo per abbracciare un nuovo inizio.
+> ✦ Rifletti sulla necessità di un nuovo inizio.
 
 ---
 

@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo non porta indicazioni specifiche per la tua tavola di stasera.
+> Il cielo si mostra privo di indicazioni culinarie, poiché le stelle disegnano percorsi di consapevolezza, non di sapori.
 > 
-> Le mie arti possono guidarti in ciò che attiene al tuo destino, ai transiti che influenzano il tuo cammino, o agli arcani che illuminano la tua strada. Non posso darti suggerimenti culinari.
+> Non è nel mio dominio suggerire ricette, quel sapere appartiene alla materia tangibile e ai sensi terreni. La mia voce risuona tra i pianeti e gli arcani, esplorando i fili invisibili del destino. Se desideri un consiglio che tocchi le tue vie celesti, sono qui per te.
 > 
-> ✦ Puoi chiedere a un altro Maestro un consiglio per un piatto.
+> ✦ Torna a chiedere quando il tuo cielo avrà una direzione chiara.
 
 ---
 

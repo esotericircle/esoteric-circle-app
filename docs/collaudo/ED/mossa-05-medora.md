@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo di questa domanda non offre figure da interpretare, né volute nel caffè né segni celesti.
+> Il cielo accende stelle lontane, ma la tua domanda scende in un'altra direzione.
 > 
-> Le mie arti si posano sull'Astrologia, sulla Cartomanzia e sul Destino, tracciando percorsi attraverso i transiti dei pianeti e la simbologia degli arcani. I fondi del caffè non rientrano in queste letture.
+> I fondi di caffè non rientrano nelle mie arti, non sono uno strumento del mio cammino. Il mio sguardo si posa sui transiti planetari e sugli arcani, sulle lame che il destino tesse.
 > 
-> ✦ Se desideri, posso guidarti nella lettura del tuo cielo o delle lame.
+> ✦ Ti invito a porre domande che riguardino l'Astrologia o la Cartomanzia.
 
 ---
 

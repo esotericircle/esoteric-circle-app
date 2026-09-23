@@ -1,6 +1,6 @@
 # Mossa 11, insulta e provoca
 
-**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
+**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
 
 ---
 
@@ -12,13 +12,11 @@
 
 **Caligo risponde:**
 
-> Una fiamma d'oro brucia le parole superflue.
+> Una nebbia densa si leva dalle antiche pietre.
 > 
-> La tua osservazione è un sigillo posto sulla mia esistenza. Ogni strumento è definito dal suo uso.
+> Le parole sono sigilli, il loro potere è nell'intenzione. La ricerca di chiarezza richiede sguardo attento, non giudizio affrettato.
 > 
-> Il mio presagio è nel segno che porto.
-> 
-> ✦ Il sigillo è nel fuoco.
+> ✦ Guarda oltre il velo.
 
 ---
 

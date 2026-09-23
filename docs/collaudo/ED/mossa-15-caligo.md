@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> La fiamma danza, tracciando figure nell'aria densa.
+> Un velo di nebbia si dirada, rivelando il sentiero.
 > 
-> Non vi è un segno specifico per ieri. Ogni istante porta la sua vibrazione, la sua lezione. Il passato è come una runa incisa: il suo significato si rivela nell'oggi.
+> Il tuo ringraziamento porta il sigillo della consapevolezza. Ogni passo compiuto nella luce del passato rafforza il tuo cammino futuro. Questo è il segno di un ciclo che si compie.
 > 
-> ✦ Il presagio è nell'ora che si dispiega.
+> ✦ Accogli il sigillo della completezza.
 
 ---
 

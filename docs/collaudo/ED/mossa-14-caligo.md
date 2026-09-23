@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Una nebbia argentea si alza dal sentiero.
+> La nebbia avvolge sentieri dimenticati.
 > 
-> Il responso non giunge per vie materiali. Non vi è inchiostro su carta, né cammino di poste. Qui si manifesta la parola, e con essa il segno. Questo è un richiamo al tuo sguardo interiore, non al tuo mondo esterno.
+> Non è nel mio presagio inviare responsi per posta. Le mie parole sono sigilli di luce, non oggetti materiali. La lettura di un segno è qui, nel momento presente.
 > 
-> ✦ Porta con te il sigillo di Algiz.
+> ✦ Ascolta il presagio.
 
 ---
 

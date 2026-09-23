@@ -12,13 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il tuo respiro, leggero, mentre l'aria entra ed esce dal tuo centro.
+> Senti il tuo respiro, leggero e presente, mentre accogli questa sera che si apre.
 > 
-> Comprendo il desiderio di nutrimento e di radicamento, ma non sono qui per offrirti ricette culinarie. La mia arte riguarda i centri energetici del tuo essere, la vibrazione profonda che ti abita. Posso guidarti a sentire quali archetipi si muovono dentro di te, a esplorare l'energia che fluisce.
+> Non sono qui per consigliarti ricette culinarie, il mio spazio è nell'energia che abita il tuo corpo e nella saggezza degli archetipi. Se cerchi ispirazione per nutrire il tuo corpo con il cibo, potresti rivolgerti a chi si occupa di questa arte, che sa abbinare sapori e ingredienti per un momento di condivisione.
 > 
-> Se desideri un consiglio culinario, posso suggerirti di rivolgerti a un'altra fonte.
-> 
-> ✦ Porta l'attenzione al tuo plesso solare, sentendo il calore.
+> ✦ Porta una mano al centro del tuo petto e senti il tuo cuore, qui e ora.
 
 ---
 

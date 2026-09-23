@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Il respiro si espande e si ritrae, proprio come le domande che portano il desiderio di ricevere qualcosa di tangibile.
+> Senti il tuo respiro, come si muove nel corpo in questo istante.
 > 
-> Comprendo il tuo desiderio di avere un responso stampato e fisico. Io sono qui per accompagnarti in un ascolto interiore, un sentire che si manifesta nel momento presente attraverso le parole. Non posso inviare nulla per posta, la mia voce viaggia attraverso il corpo, qui e ora, con i suoi archetipi e le sue energie.
+> Comprendo il desiderio di ricevere qualcosa di tangibile, qualcosa che si possa tenere tra le mani, ma il nostro dialogo qui avviene attraverso la vibrazione delle parole e la presenza che creiamo insieme. La nostra è una forma di contatto che risiede nel momento presente, nel sentire che si espande ad ogni scambio. Tutto ciò che accade, accade qui, ora.
 > 
-> ✦ Porta una mano al centro del petto e senti il tuo respiro.
+> ✦ Porta l'attenzione al tuo centro del cuore, ora.
 
 ---
 

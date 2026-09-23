@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Un fuoco d'oro ti avvolge.
+> Un metallo incandescente fonde le forme del noto.
 > 
-> Il sentiero davanti è delineato da forze antiche. Non vi è incertezza nella direzione, ma la chiarezza si rivela passo dopo passo. Le rune indicano una chiamata alla scoperta, un presagio di ciò che è latente.
+> Le rune rivelano un sentiero di trasformazione. La forza antica di Uruz ti guida verso nuove manifestazioni, una spinta primordiale. Per te si apre un tempo di costruzione e di nuova determinazione. Non temere i cambiamenti, sono fondamento.
 > 
-> ✦ Ti accompagni alla runa di Kenaz.
+> ✦ Porti con te il presagio di Uruz.
 
 ---
 

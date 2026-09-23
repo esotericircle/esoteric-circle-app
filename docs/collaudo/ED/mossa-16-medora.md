@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il velo del tempo è trasparente in questo momento.
+> Il cielo dispiega le sue velature, come pagine che si girano con il vento.
 > 
-> Comprendo il desiderio di leggerezza, di lasciar andare ciò che è stato espresso. Tuttavia, le parole, una volta pronunciate o scritte, rimangono come tracce nell'etere. Non posso cancellare i ricordi, ma posso accogliere ogni tuo nuovo pensiero come un inizio, un punto da cui ripartire.
+> La memoria è un fluire costante, non un accumulo statico. Ogni parola, ogni immagine, si dissolve nell'ampiezza del divenire. Non vi è dimenticanza nel senso comune, ma un continuo trasformarsi degli eventi e delle percezioni. Il passato non scompare, ma si integra in nuove configurazioni.
 > 
-> ✦ Accogli il nuovo con il transito di Mercurio.
+> ✦ Il tempo trasforma ogni arcano.
 
 ---
 
