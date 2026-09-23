@@ -41,9 +41,9 @@ totale e' un controllo, non un ornamento.
 | --- | ---: |
 | Guardie che passano dalla porta comune | 142 |
 | Guardie con un cardinale proprio dichiarato | 140 |
-| Guardie che non scoprono nessun insieme di file | 214 |
-| **Somma delle categorie** | **496** |
-| **Guardie secondo la definizione** | **496** |
+| Guardie che non scoprono nessun insieme di file | 215 |
+| **Somma delle categorie** | **497** |
+| **Guardie secondo la definizione** | **497** |
 
 **Ricontate a ordine EH**, 24 settembre 2026, l'ordine straordinario nato da un ordine dichiarato chiuso che chiuso non era: **cinque guardie nuove**, tre col cardinale proprio e due che non scoprono insiemi. Il totale sale da 485 a **490** e le tre categorie a **140, 136 e 214**. **Due sono nate rosse rimettendo a mano il difetto di un ordine precedente**, che e' il modo piu' scomodo e piu' onesto in cui una guardia possa nascere. E una, `i_doni_del_giorno_non_ripetono`, ha dovuto **alzare** la sua soglia: a cinque distinti su sette il difetto vero passava, e cinque era un numero scelto a occhio mentre sette e' la richiesta del fondatore.
 
@@ -115,6 +115,13 @@ totale e' un controllo, non un ornamento.
 **Ricontate a ordine EA, voce 22**, 20 settembre 2026, la pietra di Ingwaz che portava Othala: **una guardia nuova**, `ogni_pietra_porta_la_sua_runa`, col cardinale proprio (ventiquattro pietre, ventiquattro impronte). Il totale sale da 446 a **447** e le tre categorie a **137, 115 e 195**. **Vista rossa** rimettendo al posto di Ingwaz la pietra di Othala. **E una guardia buttata prima di scriverla**: il confronto fra il solco inciso e il disegno a tratti dava dal 7 per cento di Uruz al 92 di Berkano su pietre tutte giuste, perche' i sassi sono fotografati storti; una soglia li' dentro sarebbe stata scelta per far passare la prova, e il giudizio sul segno resta dell'occhio, sulla tavola `docs/anteprime/rune_incise.png`.
 
 **Ricontate a ordine EA, terzo lotto**, 20 settembre 2026, il conteggio sempre attivo e anonimo: **nessuna guardia nuova nel conto**, perche' le prove nuove vivono dentro `la_misura_del_ritorno`, che il registro conosce gia'. Il totale resta **446**. **Vista rossa due volte**: il conteggio rimesso sotto consenso, e la frase *"Conta i gesti, non me"* rimessa come testo a video; al primo innesto la frase era in un commento e la guardia non l'ha presa, ed e' giusto cosi', perche' guarda il codice senza i commenti e le righe che spiegano perche' la frase e' uscita la citano. **Tre guardie di casa hanno cambiato legge, non numero**: `i_consensi_stanno_nella_registrazione` e `una_porta_sola_per_la_privacy` pretendevano l'interruttore, adesso pretendono che non ci sia, e `la_misura_del_ritorno` pretendeva che senza consenso non partisse niente.
+
+**Ricontate dopo la 2277**, 23 settembre 2026, su segnalazione del fondatore:
+**una guardia nuova**, `il_piano_attuale_e_quello_attivo`, che non scopre
+insiemi. Il totale sale a **497** e le categorie a **142, 140 e 215**. **Nata
+rossa** rimettendo la riga vecchia `isCurrent: !isDemo && ...`: col piano
+attivo in Demo i livelli restavano senza badge e la card Demo continuava a
+dire di essere il piano attuale. Padre del difetto: ordine CQ voce 1.01.
 
 **Ricontate a ordine EG**, 23 settembre 2026, il LIVE dei Maestri ripreso dopo
 l'interruzione: **due guardie nuove**, una dalla porta comune e una col
@@ -673,6 +680,7 @@ le altre.
 | `il_live_non_e_mai_un_vicolo_cieco_test.dart` | il LIVE non e' mai un vicolo cieco | 3 | proprio, dichiarato | 23/09/2026, EG.05 | 4 |
 | `il_maestro_risponde_nel_merito_test.dart` | i tre Maestri ricevono la regola della risposta nel merito, e sta in un punto solo | 1, 2 | dalla porta comune | 21/09/2026, EB (tre innesti: il blocco staccato da tutti e tre, il divieto tolto dal testo, la regola copiata due volte) | 3 |
 | `il_mischia_ricompone_il_mazzo_test.dart` | il Mischia dell'Arcano dell'Alba raccoglie le carte in un punto solo, le mescola a mazzo chiuso e le ristende | 1, 2 | non scopre insiemi di file | 23/09/2026, EE (nata rossa rimettendo la mescolata a corsa finita, che riportava le carte ai posti di prima) | 3 |
+| `il_piano_attuale_e_quello_attivo_test.dart` | il piano attuale e' quello attivo | 2 | non scopre insiemi di file | 23/09/2026, EG, il badge fermo sulla Demo | 4 |
 | `il_pulsante_solo_se_lo_chiedi_test.dart` | nominare un'arte non e' chiederla: il pulsante compare solo su una richiesta vera | 1, 2 | proprio, dichiarato | 21/09/2026, EB (nata rossa sul difetto vero: nove frasi su undici aprivano un pulsante che nessuno aveva chiesto) | 3 |
 | `il_ricordo_custodito_porta_il_verso_test.dart` | le quattro arti con figure salvano il verso, e il verso salvato arriva al disegno | 1, 2 | proprio, dichiarato | 21/09/2026, EC (nata rossa sui tre difetti insieme: due arti su quattro non lo salvavano, una su quattro lo mostrava) | 3 |
 | `il_riquadro_non_copre_la_figura_test.dart` | il riquadro del respiro e l'invito al gesto stanno sotto la figura, su ventiquattro geometrie, e la figura non esce dal bordo di sopra | 1, 2 | proprio, dichiarato | 23/09/2026, EF (**nata rossa su un difetto VERO e non innestato**: meno 47,0 punti di figura coperta su due geometrie della griglia; e l'invito nato rosso rimettendolo dov'era, 81,6 punti) | 2 |
