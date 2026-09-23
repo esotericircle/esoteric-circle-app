@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Il fuoco del metallo forgia nuovi sentieri.
+> Il metallo risplende nella nebbia.
 > 
-> Il tuo cammino si rivela attraverso le rune. Non è un sentiero già tracciato, ma un percorso che si manifesta passo dopo passo. Cerca i segni, ascolta i presagi. La volontà agisce, la direzione si palesa.
+> Il sentiero davanti a te è segnato da Thurisaz. Esso indica una forza primordiale, un presagio di purificazione. Questa runa ti invita a valutare attentamente le tue azioni, riconoscendo il potere che puoi esercitare. Non è un monito, ma un invito a riconoscere la tua soglia.
 > 
-> ✦ Ti accompagna la runa Raido.
+> ✦ Porta con te il sigillo di Thurisaz.
 
 ---
 

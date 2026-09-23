@@ -1,6 +1,6 @@
 CONTO DEL GIRO, ordine ED voci 02 e 03
 
-Chiamate a Gemini nel giro: 49
+Chiamate a Gemini nel giro: 47
 Domande chiuse al giudice: 3
 Modello: gemini-2.5-flash
 Regione: europe-west1
@@ -8,17 +8,17 @@ Regione: europe-west1
 IL LESSICO INCROCIATO, parole di firma altrui.
 prima = come Gemini ha risposto, dopo = come si e' chiuso il turno.
 
-medora: conversazioni 15, prima della rete 1, dopo la rete 0, richieste della rete 1
-  mosse con parole altrui prima: [10]
+medora: conversazioni 15, prima della rete 0, dopo la rete 0, richieste della rete 0
+  mosse con parole altrui prima: []
   mosse con parole altrui dopo:  []
 aura: conversazioni 15, prima della rete 0, dopo la rete 0, richieste della rete 0
   mosse con parole altrui prima: []
   mosse con parole altrui dopo:  []
-caligo: conversazioni 15, prima della rete 1, dopo la rete 1, richieste della rete 1
-  mosse con parole altrui prima: [13]
-  mosse con parole altrui dopo:  [13]
+caligo: conversazioni 15, prima della rete 1, dopo la rete 0, richieste della rete 1
+  mosse con parole altrui prima: [15]
+  mosse con parole altrui dopo:  []
 
 IL TEMPO CHE LA RETE AGGIUNGE, voce ED.03.
-conversazioni in cui ha richiesto: 2 su 45
-tempo aggiunto in media: 1149 ms
-caso peggiore: 1220 ms
+conversazioni in cui ha richiesto: 1 su 45
+tempo aggiunto in media: 1367 ms
+caso peggiore: 1367 ms

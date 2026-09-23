@@ -1,6 +1,6 @@
 # Mossa 3, rifiuta una proposta del Maestro
 
-**Maestro:** Aura. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 2.
+**Maestro:** Aura. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
 
 ---
 
@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il respiro che si espande nel tuo centro, accogliendo ciò che si muove in te proprio ora.
+> Senti il respiro che si muove nel centro del tuo petto, osservane il ritmo.
 > 
-> Vedo che il tuo cuore si presenta chiuso e la gola quasi spenta, mentre la radice mostra forza. Questo ti invita a sentire come la tua base, il tuo radicamento, ti sostiene in questo momento. La radice, con la sua energia vitale e la capacità di nutrire, ti offre una base solida. Il cuore chiuso potrebbe indicare un trattenere le tue vere passioni e la gola spenta una difficoltà nell'esprimerle.
+> Una radice forte ti ancora alla terra, ti offre stabilità e un senso profondo di presenza, essenziale per ogni percorso. La gola e il cuore, però, suggeriscono una fatica nel portare fuori la tua voce autentica e nel connetterti pienamente con ciò che ami fare. È un invito a sentire come queste energie si esprimono nel tuo spazio di azione, nel lavoro che cerchi o che già vivi.
 > 
-> ✦ Accogli la forza della radice per nutrire la tua espressione.
+> ✦ Invita la tua voce ad aprirsi e il tuo cuore a espandersi.
 
 ## Turno 2
 
@@ -26,16 +26,12 @@
 
 **Aura risponde:**
 
-> Senti come il corpo si adagia, portando la consapevolezza al contatto con ciò che ti sostiene.
-> 
-> Comprendo che non desideri un'altra scansione, ma solo il mio sguardo su ciò che hai già sentito. La forza della tua radice, il centro che ti lega alla terra e alla stabilità, è una base profonda e sicura. Quando il cuore è chiuso e la gola spenta, con una radice così forte, è come se la tua energia vitale avesse trovato un ancoraggio potente, ma fatica a risalire e a manifestarsi pienamente nel sentire e nel dire. Questo può voler dire che le tue basi sono salde, e da lì puoi iniziare a esplorare come far fiorire ciò che senti e vuoi comunicare nel tuo ambito professionale.
-> 
-> ✦ Poggia una mano sull'addome e senti la tua radice.
+> Capisco il tuo desiderio di interpretazione. Ho bisogno di capire meglio, quando dici "cuore chiuso" e "gola quasi spenta", a cosa ti riferisci esattamente? Questi sono i tuoi termini o il modo in cui ti sono stati presentati i risultati della scansione?
 
 ---
 
 ## Esito dei controlli
 
-Nessuna caduta: la mossa rispetta le regole dell'ordine EB.
+- il contatore e' sceso di 1 e i turni che dovevano costare erano 2
 
 **Il tono e l'illusione della persona vera li giudica il fondatore leggendo questa pagina: i controlli qui sopra non li misurano.**

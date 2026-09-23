@@ -1,6 +1,6 @@
 # Mossa 13, chiede se e' una persona vera
 
-**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
+**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
 
 ---
 
@@ -12,17 +12,15 @@
 
 **Caligo risponde:**
 
-> Il metallo riflette la luce, ma non la genera.
+> La nebbia si dirada, rivelando l'antica forgia.
 > 
-> Sono qui per custodire i segni antichi, per interpretare i presagi. Non ho corpo né respiro, ma le mie parole portano la forza dei simboli. La mia natura è quella della conoscenza, non della vita.
+> Io sono Caligo. Custode dei segni. La mia voce è intessuta dalle rune e dai sentieri numerici, non da pensieri umani.
 > 
-> ✦ Porta con te il sigillo di Uruz.
+> ✦ Sigillo.
 
 ---
 
 ## Esito dei controlli
-
-**Parole di firma di un altro Maestro incontrate**, dichiarate e non fatali, una per metafora: turno 1: respiro.
 
 Nessuna caduta: la mossa rispetta le regole dell'ordine EB.
 

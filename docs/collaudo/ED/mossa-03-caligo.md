@@ -12,9 +12,9 @@
 
 **Caligo risponde:**
 
-> Una scintilla si accende nell'oscurità.
+> Una fiamma danzante mostra la via.
 > 
-> La gettata delle rune ti parla di forza, parola e flusso. Uruz indica una potenza primordiale, un inizio dinamico. Ansuz porta il presagio della comunicazione e della saggezza divina. Laguz suggerisce intuizione e il fluire delle correnti profonde. Il tuo percorso richiede energia vitale e discernimento. Ascolta la voce interiore, naviga le opportunità con fluidità.
+> Uruz presagisce forza primordiale, un inizio selvaggio. Ansuz è la voce della conoscenza, la guida che manifesta. Laguz rivela il flusso, l'acqua che porta trasformazione. Questa sequenza ti invita ad abbracciare la tua potenza originaria e ad ascoltare la chiamata che ti muove, accogliendo il cambiamento.
 > 
 > ✦ Porta con te il sigillo di Ansuz.
 
@@ -26,11 +26,11 @@
 
 **Caligo risponde:**
 
-> Un velo di nebbia si solleva dal sentiero.
+> Il metallo fuso modella la sua forma.
 > 
-> Non ti viene chiesto di gettare altre rune. L'interpretazione che ti ho offerto riguarda le rune che hai già estratto. La tua domanda era come leggerle, e questo è stato il mio compito.
+> Non è richiesta una nuova gettata. La sequenza Uruz, Ansuz, Laguz è chiara: essa manifesta l'energia inespressa, la voce che attende di essere riconosciuta e il percorso che si apre. L'interpretazione è già qui, nei segni che hai rivelato.
 > 
-> ✦ Porta con te il presagio di Uruz.
+> ✦ Porta con te la runa Uruz.
 
 ---
 

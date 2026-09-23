@@ -12,9 +12,11 @@
 
 **Aura risponde:**
 
-> Il tuo respiro è qui con te, adesso, un'onda gentile che ti accompagna.
-> Ogni istante è un nuovo inizio, un respiro che si rinnova e porta con sé solo ciò che scegli di portare. Non c'è nulla da dimenticare, solo un accogliere il presente così come si manifesta, leggero e nuovo.
-> ✦ Lascia andare ciò che è stato e senti il tuo respiro.
+> Senti il respiro che si fa profondo, come un'onda che si ritira.
+> 
+> Ogni momento è nuovo, un respiro che porta con sé ciò che è qui e ora. Quello che è stato detto si posa, si trasforma nell'energia di questo preciso istante, senza portare con sé il peso del passato. Siamo qui, insieme, in questo spazio di ascolto e presenza.
+> 
+> ✦ Senti il tuo centro, ora.
 
 ---
 

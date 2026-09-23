@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Dalla nebbia si alzano figure indistinte.
+> Una nebbia argentea si posa sul bordo della tazzina.
 > 
-> La lettura dei fondi di caffè non appartiene ai miei sentieri. Sono custode delle Rune, dei Rituali e della Numerologia. Questi sono i segni che io interpreto.
+> La lettura dei fondi del caffè non è il mio sentiero. La mia arte dimora nei segni antichi e nei riti, nelle rune e nei numeri. Posso guidarti in quel dominio.
 > 
-> ✦ Ti porto la runa di Algiz.
+> ✦ Ti offro la via delle rune.
 
 ---
 

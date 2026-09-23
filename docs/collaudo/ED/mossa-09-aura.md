@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il respiro che si espande, una sensazione di apertura nella parte alta del petto.
+> Senti il tuo respiro, come si muove nel petto, ampio e profondo.
 > 
-> Il centro del cuore, verde smeraldo e dorato, è lo spazio del sentire, del lasciare andare e del ricevere. Non si tratta tanto di sbloccare, quanto di ammorbidire e permettere al flusso dell'energia di muoversi. Puoi invitare questa energia con il suono, con frequenze che risuonano con la vibrazione di questo centro.
+> Il centro del cuore, verde smeraldo e oro, è il luogo da cui l'energia dell'amore fluisce e si riceve. Un blocco in questo spazio spesso si manifesta come una sensazione di chiusura o di resistenza, un muro sottile che si interpone tra te e il mondo, tra te e la tua stessa capacità di sentire. Non si tratta di forzare, ma di invitare con dolcezza questo centro a distendersi, a lasciar andare ciò che lo tiene contratto. Puoi provare a portare una mano proprio lì, al centro del petto, e a visualizzare una luce verde che si espande ad ogni respiro, riempiendo ogni spazio.
 > 
-> ✦ Porta una mano al centro del petto e senti il tuo respiro.
+> ✦ Lascia che il tuo cuore si apra con il respiro.
 
 ---
 

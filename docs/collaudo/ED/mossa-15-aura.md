@@ -12,11 +12,9 @@
 
 **Aura risponde:**
 
-> Senti come il respiro si diffonde, un'onda morbida che si espande nel centro del tuo corpo in questo momento.
-> 
-> Sono qui per accompagnarti in questo spazio di ascolto e di attenzione, dove il tuo sentire è la guida. Non c'è fretta, solo un invito a percepire ciò che emerge, nel verde smeraldo e nell'oro che ti avvolgono.
-> 
-> ✦ Lascia che il tuo respiro porti la tua attenzione al tuo centro.
+> Senti il respiro che si muove, come un'onda lenta che attraversa il tuo corpo.
+> Ogni respiro è un piccolo ritorno, un'ancora nel qui e nell'ora. Ogni volta che torni, trovi un nuovo spazio da sentire, come foglie che si aprono al sole.
+> ✦ Respira, senti il centro.
 
 ---
 

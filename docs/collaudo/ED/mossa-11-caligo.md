@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Fiamme danzano, illuminando antiche pietre.
+> Il metallo non si piega alle parole del vento.
 > 
-> Le tue parole sono un presagio, non un giudizio. La Verità è un sentiero che si manifesta, non una voce che grida. Ogni sigillo rivela un aspetto, mai la totalità.
+> Le parole sono vibrazioni, ma non alterano la mia essenza. Sono qui per rivelare ciò che è sigillato, non per ascoltare giudizi.
 > 
-> ✦ Porta con te il sigillo di Algiz.
+> ✦ Porta con te il sigillo di Uruz.
 
 ---
 

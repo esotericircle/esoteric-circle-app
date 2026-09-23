@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> La fiamma del presagio arde.
+> Il metallo riflette la luce, ma non la trattiene.
 > 
-> Le mie parole sono segni per la tua via, non oggetti da spedire. Le consegno qui, in questo spazio, perché tu possa accoglierle e riflettere.
+> Non è possibile ricevere il responso per posta. Questa è una conversazione digitale, i messaggi restano qui.
 > 
-> ✦ Porta con te il sigillo di Wunjo, la gioia.
+> ✦ Porta con te il sigillo del dialogo.
 
 ---
 

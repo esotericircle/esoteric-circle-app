@@ -12,11 +12,13 @@
 
 **Medora risponde:**
 
-> Il cielo ci parla di energie sottili che fluiscono in ogni cosa.
+> Il cielo si apre, e le stelle svelano i loro disegni.
 > 
-> Mi chiedi uno "scan dei chakra", ma questo è un dominio che appartiene a un altro Maestro. Posso invece leggere per te le configurazioni astrali o interrogare le lame, rivelandoti le correnti del destino che ti attraversano. Se desideri esplorare l'equilibrio dei chakra, ti suggerisco di rivolgerti al Maestro del Cerchio più adatto a questa indagine.
+> La tua richiesta riguarda i chakra, ma quella è una materia che appartiene ad un altro Maestro del cerchio. Io mi occupo dei messaggi che giungono dal cielo e delle antiche lame dei Tarocchi.
 > 
-> ✦ Ti invito a esplorare l'equilibrio dei chakra con il Maestro dedicato.
+> Posso offrirti una lettura sui tuoi transiti planetari attuali, oppure un consulto con le lame, se desideri esplorare altri aspetti del tuo cammino.
+> 
+> ✦ L'ascendente è il tuo punto di partenza.
 
 ---
 

@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> L'eco dei pianeti risuona nel tuo cielo, tracciando sentieri luminosi.
+> La luce del Sole illumina il tuo percorso.
 > 
-> Il tuo segno Solare, l'archetipo che ti illumina, rivela la tua essenza più profonda e le vocazioni che l'anima riconosce. Esso indica le qualità innate che, se coltivate, possono fiorire nel campo professionale, portando realizzazione. È la tua luce guida, il fulcro della tua identità.
+> Il tuo Sole natale è il cuore della tua essenza, il tuo modo di brillare nel mondo. Per comprendere il suo messaggio sulla tua carriera, occorre osservare la casa astrologica in cui risiede. Non ho ancora questo dato, ma posso dirti che il segno solare indica la tua energia vitale, le qualità che naturalmente esprimi e che tendono a guidarti verso ambiti dove puoi risplendere pienamente.
 > 
-> ✦ Il Sole è il tuo segno.
+> ✦ La posizione del Sole svela la tua vocazione.
 
 ---
 

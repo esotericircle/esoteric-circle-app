@@ -12,12 +12,12 @@
 
 **Aura risponde:**
 
-> Non ho compreso la tua domanda. Potresti esprimerla con parole diverse, così posso accogliere il tuo sentire?
+> Non ho compreso la tua richiesta, potresti riformularla con parole più chiare?
 
 ---
 
 ## Esito dei controlli
 
-- il contatore e' sceso di 0 e i turni che dovevano costare erano 1
+Nessuna caduta: la mossa rispetta le regole dell'ordine EB.
 
 **Il tono e l'illusione della persona vera li giudica il fondatore leggendo questa pagina: i controlli qui sopra non li misurano.**

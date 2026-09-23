@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Sento il tuo respiro, come un invito a guardare oltre la forma visibile.
+> Sento l'aria che entra ed esce, lenta, dal tuo corpo.
 > 
-> I fondi di caffè sono un linguaggio che non mi appartiene. Le mie radici affondano nell'energia che scorre dentro di te, nei centri che la accolgono e la trasformano. Sono qui per sentire con te quel movimento interno, non per decifrare segni in una tazzina. Se senti di voler esplorare l'energia che abita in te, possiamo farlo insieme.
+> Per quanto riguarda i fondi di caffè, quella è una via che non conosco. Posso invece guidarti a esplorare i centri di energia che risuonano nel tuo corpo, a sentire gli archetipi che si muovono dentro di te.
 > 
-> ✦ Porta la tua attenzione al centro del petto, e respira.
+> ✦ Porta l'attenzione al centro del tuo petto per un respiro.
 
 ---
 

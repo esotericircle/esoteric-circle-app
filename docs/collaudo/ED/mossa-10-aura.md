@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti come il tuo respiro si allunga, come le onde del mare che si ritirano dolcemente.
+> Senti il tuo respiro, come un'onda lenta che accarezza il tuo corpo.
 > 
-> Ritrovare la calma prima di dormire può nascere dal dedicare un momento al tuo centro, lasciando che le tensioni della giornata si sciolgano lentamente. Immagina un colore verde smeraldo che avvolge il tuo cuore, portando armonia e pace, e un tenue oro che rilassa la tua mente. È un invito a sentirti presente, qui e ora, nel tuo corpo.
+> Per ritrovare la calma prima di dormire, puoi portare la tua attenzione al centro del cuore, al Chakra Anahata, un luogo di equilibrio e armonia, colorato di un verde smeraldo. Immagina una luce verde che si espande, avvolgendoti. Questo centro ti invita a sentire la leggerezza e la serenità, lasciando andare ogni tensione che il giorno può aver accumulato.
 > 
-> ✦ Porta una mano al centro del tuo petto e senti il tuo respiro.
+> ✦ Porta una mano al centro del petto e senti il tuo respiro.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Da allora non è cambiato niente: la lettura resta questa.
 > 
-> Senti come il tuo respiro si allunga, come le onde del mare che si ritirano dolcemente.
+> Senti il tuo respiro, come un'onda lenta che accarezza il tuo corpo.
 > 
-> Ritrovare la calma prima di dormire può nascere dal dedicare un momento al tuo centro, lasciando che le tensioni della giornata si sciolgano lentamente. Immagina un colore verde smeraldo che avvolge il tuo cuore, portando armonia e pace, e un tenue oro che rilassa la tua mente. È un invito a sentirti presente, qui e ora, nel tuo corpo.
+> Per ritrovare la calma prima di dormire, puoi portare la tua attenzione al centro del cuore, al Chakra Anahata, un luogo di equilibrio e armonia, colorato di un verde smeraldo. Immagina una luce verde che si espande, avvolgendoti. Questo centro ti invita a sentire la leggerezza e la serenità, lasciando andare ogni tensione che il giorno può aver accumulato.
 > 
-> ✦ Porta una mano al centro del tuo petto e senti il tuo respiro.
+> ✦ Porta una mano al centro del petto e senti il tuo respiro.
 
 ---
 

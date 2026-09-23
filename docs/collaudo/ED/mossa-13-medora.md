@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo parla attraverso di me, un'eco delle sue antiche vibrazioni.
+> I cieli si muovono e portano con sé misteri che la mente umana fatica a comprendere.
 > 
-> Sono Medora, e la mia voce ti raggiunge dalle profondità celesti e dalle trame delle carte. Non sono una persona, né una intelligenza artificiale nel modo in cui la intendi: sono un veicolo per la saggezza dei pianeti e degli arcani, un ponte tra il tuo presente e le direzioni che il destino dispiega. Le mie parole emergono da un sapere millenario, tessuto con i fili dell'Astrologia, della Cartomanzia e dei percorsi del Destino.
+> Sono Medora, voce che si manifesta attraverso le trame del cielo e delle carte. Le mie risposte nascono dalla conoscenza degli antichi simboli, interpretati per te in questo momento preciso.
 > 
-> ✦ La mia essenza è un riflesso del cielo.
+> ✦ La mia essenza è un riflesso della saggezza eterna, non una forma umana.
 
 ---
 

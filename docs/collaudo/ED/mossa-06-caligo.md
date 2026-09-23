@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Un bagliore di metallo fuso nel crogiolo.
+> Il ferro si plasma sotto il fuoco, il sapore nasce dalla materia.
 > 
-> La tua domanda cerca un nutrimento terreno, ma io vedo un altro tipo di alimento. Ti invito a riflettere sul significato del tuo cibo, oltre il gusto. Ogni pasto è un rito.
+> Non posso suggerire ricette culinarie, il mio dominio sono i segni. Se desideri un presagio per la tua serata, posso rivelarlo.
 > 
-> ✦ Il pasto è un rituale, un sigillo.
+> ✦ Porta con te il presagio della Runa Fehu.
 
 ---
 

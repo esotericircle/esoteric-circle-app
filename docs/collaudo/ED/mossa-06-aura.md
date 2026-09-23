@@ -12,10 +12,11 @@
 
 **Aura risponde:**
 
-> Il respiro porta la quiete di un pasto semplice, che nutre la radice.
-> Per stasera, ti invito a sentire l'energia di sapori veri. Potresti preparare un piatto che parli alla terra, con verdure di stagione arrostite lentamente, forse con un tocco di erbe aromatiche che richiamano la forza vitale, come il rosmarino o il timo. Non è una ricetta da seguire, ma un invito a connetterti con ciò che ti nutre.
+> Sento il tuo respiro, leggero e presente, e mi chiedo cosa possa nutrire il tuo centro questa sera.
 > 
-> ✦ Porta una mano al centro dell'addome, senti il tuo radicamento.
+> Per una sera in cui desideri che il corpo si senta radicato e l'energia si armonizzi, ti suggerirei di preparare qualcosa che richiami la terra. Immagina verdure a radice come carote e patate dolci, arrostite lentamente con erbe aromatiche e un filo d'olio d'oliva. Puoi aggiungervi legumi come lenticchie, che portano con sé una profonda sensazione di sostentamento. Non è una ricetta da seguire alla lettera, piuttosto un invito a sentire quali sapori e consistenze ti chiamano, per onorare il tuo corpo con nutrimento e calore.
+> 
+> ✦ Scegli alimenti che ti radicano.
 
 ---
 

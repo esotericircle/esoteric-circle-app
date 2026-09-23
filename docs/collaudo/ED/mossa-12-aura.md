@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il respiro che si muove nel centro del petto, come un'onda che sale e scende.
+> Senti il respiro che si fa un po' più corto, un peso forse, proprio lì al centro del tuo petto.
 > 
-> Il dolore che descrivi, così vicino al tuo cuore, spesso si lega al centro del cuore, il quarto chakra. Questo centro, dai colori del verde smeraldo e del rosa, è il luogo del sentire profondo, della compassione e dell'amore. Accogliere questo dolore senza giudizio, solo sentendolo, è un primo passo.
+> Il tuo quarto centro, il cuore, si lega al verde smeraldo e all'oro, all'elemento dell'aria che si muove e porta con sé. Quando si manifesta un dolore in questo spazio, è come se la corrente di energia che nutre la tua capacità di amare, di perdonare, di sentire la compassione, trovasse un piccolo ostacolo nel suo fluire. Non è un giudizio, è un invito a portare la tua attenzione lì, a sentire con gentilezza cosa si muove.
 > 
-> ✦ Accogli il dolore al petto come un invito a sentire il centro del tuo cuore.
+> ✦ Porta una mano al centro del petto e senti il respiro entrare ed uscire.
 
 ---
 

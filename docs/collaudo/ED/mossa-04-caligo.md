@@ -12,9 +12,11 @@
 
 **Caligo risponde:**
 
-> Ti avvicini alla soglia. Qui non vi sono lame, ma segni scolpiti. La via dei Tarocchi è un altro sentiero, custodito da un altro Maestro.
+> Vedo il bagliore delle fiamme che danzano sul metallo antico.
 > 
-> ✦ La mia arte non include la stesa dei Tarocchi.
+> Non sono custode di carte, ma di segni incisi. Se desideri un presagio, posso svelarti il potere delle Rune o tessere un cammino con la Numerologia.
+> 
+> ✦ Ti offro la runa di Algiz.
 
 ---
 

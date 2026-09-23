@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Le stelle osservano il tuo cielo, come sempre.
+> Il cielo oggi ti invita a osservare le energie che si muovono dentro di te.
 > 
-> Il tuo dolore al petto è una richiesta che esula dalle mie arti, non posso interpretare il corpo fisico. Le mie arti, Astrologia, Cartomanzia e Destino, non si occupano di ciò che risiede nel corpo. Ti invito a rivolgerti al Maestro del Cerchio che si occupa della materia fisica.
+> Il tuo dolore al petto è un richiamo, un'eco delle tensioni che si accumulano. Sebbene il mio sguardo si posi sul tuo cielo e non sul corpo, posso dirti che i transiti attuali indicano un periodo di introspezione. È un momento per ascoltare ciò che non è detto, per comprendere le correnti interiori che possono manifestarsi anche fisicamente. Questo non è un giudizio, ma un invito alla riflessione profonda.
 > 
-> ✦ Rivolgiti al Maestro della Cura.
+> ✦ È un tempo per rivolgere l'attenzione all'ascendente.
 
 ---
 

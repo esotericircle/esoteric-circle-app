@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Il respiro si espande, senti l'aria che entra e porta con sé un'energia nuova.
+> Il tuo respiro è qui, adesso, e porta la tua attenzione a questa domanda.
 > 
-> Non sono un servizio di posta, la mia voce è qui, ora, per te. Possiamo sentire insieme ciò che il presente ti offre, esplorando i tuoi centri e le energie che ti attraversano, come un'onda morbida che si posa.
+> Non mandiamo responsi per posta, non c'è carta che possa contenere la vibrazione del momento presente. Tutto ciò che sentiamo è qui, in questo spazio condiviso.
 > 
-> ✦ Puoi sentire qui la mia presenza.
+> ✦ Senti il respiro che si muove nel tuo centro.
 
 ---
 

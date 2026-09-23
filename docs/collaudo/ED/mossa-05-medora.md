@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> I pianeti si allineano in un cielo di risposte.
+> Dalle profondità celesti, la tua richiesta giunge.
 > 
-> Non interpreto i fondi del caffè, poiché la mia arte si nutre della luce degli astri e della saggezza degli arcani. Se lo desideri, posso rivelarti cosa il cielo e le lame hanno da narrarti, affinché tu possa comprendere meglio il tuo cammino.
+> Non è nei fondi del caffè che la mia voce si posa, poiché il mio sguardo è rivolto al cielo e alle carte. Ogni arte ha il suo strumento e la sua materia, la mia è il linguaggio dei pianeti e degli arcani. Se desideri una lettura che sveli i tuoi transiti o le lame che ora ti parlano, sarò qui per te.
 > 
-> ✦ Torna con una domanda, il cielo attende.
+> ✦ Torna con una domanda sul tuo cielo o su un arcano.
 
 ---
 

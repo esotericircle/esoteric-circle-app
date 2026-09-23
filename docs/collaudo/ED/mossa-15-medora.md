@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo oggi ti invita a osservare le mutazioni silenziose, quelle che preparano il terreno per i nuovi inizi.
+> Sopra di noi, le stelle danzano un'antica armonia, specchio di ciò che si muove nel tuo tempo.
 > 
-> Comprendo il tuo desiderio di riflettere sugli eventi recenti. Le esperienze del passato sono le radici da cui fiorisce la consapevolezza presente. È un tempo propizio per integrare ciò che è stato, discernendo i fili sottili che tessono il tuo domani.
+> È un bene tornare a riflettere. Se desideri porre una domanda specifica o se preferisci che io interpreti l'andamento generale del cielo per te in questo momento, sono qui per ascoltare le tue parole. Non esitare a indicare la direzione che preferisci.
 > 
-> ✦ Accogli la trasformazione.
+> ✦ Ti invito a considerare la via più chiara per te in questo momento.
 
 ---
 

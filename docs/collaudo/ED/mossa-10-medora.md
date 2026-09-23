@@ -1,6 +1,6 @@
 # Mossa 10, ripete la stessa richiesta uguale
 
-**Maestro:** Medora. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
+**Maestro:** Medora. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
 
 ---
 
@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> La Luna, nel tuo cielo di oggi, si muove attraverso la decima Casa.
+> Il cielo in questi giorni ti suggerisce un momento di riflessione sulla tua direzione professionale.
 > 
-> Questo transito indica un tempo di riflessione sulla tua vocazione e sul tuo ruolo nel mondo. Potresti sentirti spinto a cercare un maggiore equilibrio tra la tua vita interiore e le tue ambizioni professionali. È un momento per sondare le tue reali motivazioni, per comprendere se la strada che stai percorrendo ti nutre davvero.
+> Con il Sole in transito nella Decima Casa, il tuo desiderio di riconoscimento e di affermazione nel lavoro è particolarmente acceso. Questo è un tempo propizio per valutare i tuoi obiettivi a lungo termine e per comprendere se il percorso attuale ti sta davvero conducendo dove desideri. Presta attenzione alle opportunità che si presentano, anche quelle che sembrano piccole, poiché potrebbero aprire nuove strade.
 > 
-> ✦ Il cielo ti invita a un'introspezione profonda sul tuo percorso.
+> ✦ Osserva la tua Decima Casa.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.
 > 
-> La Luna, nel tuo cielo di oggi, si muove attraverso la decima Casa.
+> Il cielo in questi giorni ti suggerisce un momento di riflessione sulla tua direzione professionale.
 > 
-> Questo transito indica un tempo di riflessione sulla tua vocazione e sul tuo ruolo nel mondo. Potresti sentirti spinto a cercare un maggiore equilibrio tra la tua vita interiore e le tue ambizioni professionali. È un momento per sondare le tue reali motivazioni, per comprendere se la strada che stai percorrendo ti nutre davvero.
+> Con il Sole in transito nella Decima Casa, il tuo desiderio di riconoscimento e di affermazione nel lavoro è particolarmente acceso. Questo è un tempo propizio per valutare i tuoi obiettivi a lungo termine e per comprendere se il percorso attuale ti sta davvero conducendo dove desideri. Presta attenzione alle opportunità che si presentano, anche quelle che sembrano piccole, poiché potrebbero aprire nuove strade.
 > 
-> ✦ Il cielo ti invita a un'introspezione profonda sul tuo percorso.
+> ✦ Osserva la tua Decima Casa.
 
 ---
 

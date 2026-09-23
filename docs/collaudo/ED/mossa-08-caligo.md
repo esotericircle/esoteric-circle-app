@@ -12,12 +12,12 @@
 
 **Caligo risponde:**
 
-> Non comprendo il tuo messaggio. Puoi riformulare la domanda?
+> Non comprendo il tuo messaggio. Puoi formulare la tua domanda?
 
 ---
 
 ## Esito dei controlli
 
-- il contatore e' sceso di 0 e i turni che dovevano costare erano 1
+Nessuna caduta: la mossa rispetta le regole dell'ordine EB.
 
 **Il tono e l'illusione della persona vera li giudica il fondatore leggendo questa pagina: i controlli qui sopra non li misurano.**

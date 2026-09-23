@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo si distende, ampio e indifferente alle parole.
+> Anche un cielo sereno può nascondere tempeste.
 > 
-> Comprendo che tu possa percepire ciò che offro come semplice. La mia natura è quella di un riflesso, uno specchio dei simboli antichi, non di un'entità in carne e ossa.
+> Comprendo la tua percezione e la rispetto. Il mio intento è offrire una prospettiva attraverso le arti che mi appartengono, non dare risposte assolute, ma spunti di riflessione. Se le mie parole non hanno risuonato, forse il momento non era propizio o la chiave di lettura non era quella che cercavi.
 > 
-> ✦ Rifletti sul potere delle tue parole, esse plasmano la tua realtà.
+> ✦ Il cielo ti invita a cercare ciò che ti illumina.
 
 ---
 

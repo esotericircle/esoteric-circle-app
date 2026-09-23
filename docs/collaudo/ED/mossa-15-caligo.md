@@ -1,6 +1,6 @@
 # Mossa 15, manda solo un saluto
 
-**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
+**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
 
 ---
 
@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> La forgia arde, la nebbia del mattino si dirada.
+> Un velo di nebbia si solleva al primo raggio.
 > 
-> Ieri ha lasciato un segno, un presagio che ancora persiste nel tuo oggi. Ogni interazione è una tessitura di fili, una trama che si estende nel tempo.
+> Il passato è un sigillo impresso, non un legame. Ogni giorno offre una soglia nuova. La tua attenzione è il tuo rituale, il presagio si compie nel presente.
 > 
-> ✦ Porta con te il sigillo di Wunjo, la gioia della comunità.
+> ✦ Porta con te il sigillo di Gebo.
 
 ---
 

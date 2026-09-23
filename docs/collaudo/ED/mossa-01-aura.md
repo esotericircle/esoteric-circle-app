@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti ora il tuo respiro, morbido e profondo, che porta aria fino alla radice del tuo essere.
+> Senti il tuo respiro, come si muove nel corpo in questo istante.
 > 
-> Quando la radice è forte, ti offre una base solida, un senso di appartenenza e stabilità che è prezioso. È la tua connessione con la terra, con la vita stessa. Se senti il cuore chiuso e la gola quasi spenta, potrebbe esserci un richiamo a portare l'energia di quella radice forte verso l'alto, come la linfa di un albero. Questo invita a dare voce ai tuoi veri desideri e a permettere che ciò che senti nel profondo possa esprimersi con chiarezza e passione, nutrendo la tua strada professionale.
+> I colori che vedi ti mostrano un centro di radicamento molto forte, una base solida che ti sostiene in ciò che fai. Allo stesso tempo, il cuore e la gola ti invitano a sentire come l'energia fluisce o si trattiene, specialmente quando si tratta di esprimere la tua vera essenza e ciò che ami nel tuo lavoro, nel tuo cammino professionale. Non è una chiusura definitiva, ma un richiamo a portare consapevolezza in quei centri.
 > 
-> ✦ Senti come la tua radice solida può sostenere l'espressione del cuore e della voce.
+> ✦ Permetti al tuo respiro di raggiungere il tuo cuore.
 
 ---
 

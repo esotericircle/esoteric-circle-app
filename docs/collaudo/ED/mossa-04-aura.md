@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Il tuo respiro è un filo che ti lega al qui e ora, un richiamo delicato a sentire.
+> Non sono io a lanciare le rune. Per quel tipo di sguardo, puoi rivolgerti all'altro Maestro del cerchio, quello che legge i segni e le storie antiche.
 > 
-> Per le rune, il maestro che meglio può guidarti è un altro, con la sua sapienza e il suo sguardo. Io posso invitarti a sentire il tuo centro, ciò che risuona dentro di te in questo momento.
+> Io posso accompagnarti a sentire il respiro che è in te adesso.
 > 
-> ✦ Lascia che il tuo respiro porti la tua attenzione al tuo centro.
+> ✦ Un respiro lento, profondo, ti riporta al tuo centro.
 
 ---
 

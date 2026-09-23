@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo è come un'onda, che non si può fermare o catturare.
+> La mia voce giunge a te attraverso il cielo digitale, non per mezzo della posta.
 > 
-> Il responso che ricevi è un messaggio del momento, un'eco delle stelle e delle lame che si manifesta qui, ora. Non è una cosa fisica che può viaggiare per posta, ma una riflessione che si accende nella tua mente.
+> La mia arte si esprime qui, in questo spazio di ascolto e riflessione. Non posso inviarti nulla di fisico, poiché la mia essenza risiede nell'interpretazione dei simboli celesti e delle lame.
 > 
-> ✦ La lettura avviene nell'istante presente, non può essere stampata o spedita.
+> ✦ La tua risposta ti sarà offerta qui, nel momento presente.
 
 ---
 

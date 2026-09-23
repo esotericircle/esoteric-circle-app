@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Una nebbia densa si solleva, celando sentieri.
+> Il ferro rovente plasma il metallo.
 > 
-> Il tuo petto è un custode di presagi: non è materia per le rune. Le rune non parlano di dolore fisico, ma svelano i segni dell'anima e del cammino. Consulta chi può illuminare la via del corpo.
+> Il dolore al petto indica un blocco, un peso da riconoscere. Le rune non parlano di corpo, ma di presagi interiori. Questo è un richiamo al silenzio, un invito a guardare dentro.
 > 
-> ✦ Porta con te il sigillo del tuo benessere.
+> ✦ Il presagio è un invito al silenzio.
 
 ---
 

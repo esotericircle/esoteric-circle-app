@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo di stasera si vela di una Luna in quadratura, suggerendo un momento di riflessione piuttosto che di creazione culinaria complessa.
+> Dalle stelle non giunge consiglio per le ricette terrene, ma posso offrirti una riflessione sul tempo che precede la tua serata.
 > 
-> Non posso offrirti una ricetta, poiché il mio dominio è il movimento dei pianeti e il linguaggio delle lame, non quello della cucina. Posso però illuminare il tuo momento presente e suggerire una direzione per la tua serata.
+> La scelta del cibo è un gesto che ti lega alla terra, non al cielo, e qui non trovi le risposte che cerchi. Il mio dominio è il tempo e le sue correnti invisibili. Se desideri esplorare ciò che il cielo ti riserva, o la direzione che le carte ti indicano, rivolgiti nuovamente a me.
 > 
-> ✦ Osserva i tuoi desideri più semplici.
+> ✦ Pensa al tuo desiderio.
 
 ---
 

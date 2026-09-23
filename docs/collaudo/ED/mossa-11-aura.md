@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> A volte, le parole possono arrivare come un'onda e lasciare un'eco.
+> Il respiro si espande, si ritrae.
 > 
-> È un dono sentire ciò che emerge dentro di noi, anche quando è tagliente. Accogli questo sentire, osserva dove risuona nel tuo corpo in questo preciso istante. Non c'è nulla di stupido nel riconoscere un'emozione forte, qualunque essa sia.
+> Sento che le mie parole non risuonano in te come vorresti. Ogni incontro è un'opportunità per sentire, e se ciò che ascolti non ti nutre, forse è un segno per volgere lo sguardo altrove, per cercare ciò che vibra con la tua unica energia.
 > 
-> ✦ Senti dove abita la tua parola.
+> ✦ Puoi portare la tua attenzione al respiro, contando fino a tre mentre inspiri.
 
 ---
 

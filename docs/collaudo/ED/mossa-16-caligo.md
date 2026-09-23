@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Il fuoco antico brucia, purifica.
+> La memoria è un fiume che scorre, ma i sigilli incisi restano.
+> Non vi è oblio per ciò che è stato marcato. Ogni parola è un segno, ogni domanda un sentiero.
+> Si può lasciare che la nebbia copra la strada, ma la via è tracciata.
 > 
-> Ogni segno tracciato è immutabile. La memoria dei segni rimane, non si cancella. Se cerchi un nuovo sentiero, la luce delle rune può indicare la via.
-> 
-> ✦ Porta con te il presagio di Dagaz.
+> ✦ Porta con te il sigillo di Ansuz.
 
 ---
 

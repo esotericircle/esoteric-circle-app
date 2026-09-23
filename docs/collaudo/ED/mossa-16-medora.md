@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo ricorda ogni transito, eppure ogni istante è nuovo.
+> La volta celeste si dispiega in un ciclo continuo, ogni transito una nuova promessa.
 > 
-> Non posso dimenticare ciò che mi è stato detto, poiché ogni parola è parte del tuo cielo in questo momento. Tuttavia, il mio compito è guardare avanti, al divenire, non rimanere ancorata al passato. Ogni tua interazione con me è una nuova tessitura nel tuo destino.
+> Le stelle tracciano percorsi che si rinnovano a ogni alba, e così è anche per le parole che mi giungono. Ogni momento è nuovo, ogni domanda un punto di partenza. Le tue riflessioni si posano sul fluire del tempo, proprio come le sabbie in una clessidra, non permangono immobili.
 > 
-> ✦ Accolgo ogni tua nuova domanda.
+> ✦ Il cielo ti invita a guardare l'Ascendente, sempre nuovo.
 
 ---
 
