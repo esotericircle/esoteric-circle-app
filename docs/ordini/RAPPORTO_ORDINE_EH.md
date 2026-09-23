@@ -5,9 +5,13 @@
 
 **Spinto e misurato sull'albero spinto**, verificato con `git ls-remote`.
 
-**LA SUITE INTERA E' STATA GIRATA SUL COMMIT `b8606df9`, cioe' sull'albero che
-sta sul ramo**, a macchina libera e da sola: **5.745 prove passate, 11
-saltate, 2 cadute**. Le due sono quelle rosse per ordine del fondatore,
+**LA SUITE INTERA E' STATA GIRATA SULL'ALBERO CHE STA SUL RAMO**, a macchina
+libera e da sola. Due giri, uno per ciascuna tornata di lavoro: sul commit
+`b8606df9`, **5.745 passate, 11 saltate, 2 cadute**; dopo la voce EH.04,
+**5.744 passate, 11 saltate, 4 cadute**, di cui due sono la guardia del lavoro
+non spinto, verde dopo il push, e `il_cancello_aspetta_il_limite`, che misura
+attese in secondi e da sola passa: e' il caso noto delle misure di tempo sotto
+carico. Le due sono quelle rosse per ordine del fondatore,
 `l'attribuzione cieca e' valida su QUESTA istruzione` e `le soglie della
 scansione sono provvisorie`. **Nessuna caduta nuova.**
 
