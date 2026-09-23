@@ -251,7 +251,7 @@ class ImprontaDellIstruzione {
       'aggiunte sono il marcatore con cui il Maestro dichiara di stare '
       'chiedendo, la regola del responso in mano allargata a ogni arte e la '
       'precisazione che dire di no e\' una risposta. Si tengono per intero '
-      'perche\' dicono da dove si parte, non dove si e\' arrivati. Come si '
+      'perché dicono da dove si parte, non dove si è arrivati. Come si '
       'rimisura sta scritto in fondo. '
       'TRE GIRI DEL 14 SETTEMBRE 2026, SU QUESTE IMPRONTE, ordine DL: 86,7 '
       'per cento (52 su 60), poi 83,3 (50 su 60), poi 86,4 (51 su 59, un '
