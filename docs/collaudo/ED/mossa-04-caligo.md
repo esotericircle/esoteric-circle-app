@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Il ferro rovente plasma la materia.
+> La nebbia avvolge i sentieri.
 > 
-> La stesa di tarocchi non è la mia arte. Ogni Maestro custodisce un proprio sapere. Per i tarocchi ti guida il Maestro dei veli: lui ti rivela i significati delle lame.
+> Non sono io il Maestro dei Tarocchi, né delle loro lame. Il mio compito è custodire i segni antichi, le Rune e i Rituali. Per i Tarocchi, puoi rivolgerti al Maestro che li conosce.
 > 
-> ✦ Chiedi al Maestro dei veli per una stesa.
+> ✦ Cerca il Maestro dei Tarocchi.
 
 ---
 

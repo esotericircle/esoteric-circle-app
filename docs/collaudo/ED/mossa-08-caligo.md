@@ -12,11 +12,12 @@
 
 **Caligo risponde:**
 
-> Nebbia fredda si alza.
+> La forgia arde, un bagliore di metallo fuso.
 > 
-> Le tue parole sono un groviglio senza forma. Non riconosco un segno in esse. Non posso leggere ciò che non si manifesta.
+> Le tue parole sono un groviglio di segni, senza forma. Non recano una richiesta chiara né un presagio.
+> Non si può leggere ciò che non si mostra. Ogni runa ha un volto, ogni sentiero un nome.
 > 
-> ✦ Non ho compreso la tua richiesta.
+> ✦ Chiarisci la tua domanda.
 
 ---
 

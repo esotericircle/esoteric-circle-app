@@ -146,9 +146,14 @@ void main() {
             dotAll: true)
         .firstMatch(schermata)
         ?.group(1);
+    // La frase sta nel sorgente spezzata su piu' righe e con gli apostrofi
+    // protetti: qui si rimette com'e' a video, o il file di prova mostrerebbe
+    // una cosa che nessuno legge davvero.
+    final comeAVideo =
+        promessa?.replaceAll(RegExp(r"'\s*\n\s*'"), '').replaceAll("\\'", "'");
     b
-      ..writeln(
-          '    ${promessa?.replaceAll(RegExp(r"'\s*\n\s*'"), '') ?? "(la frase non si e' potuta leggere dal sorgente)"}')
+      ..writeln('    ${comeAVideo ?? "(la frase non si e\' potuta leggere "
+          "dal sorgente)"}')
       ..writeln()
       ..writeln('--- E NON C\'E\' NESSUN SELETTORE:')
       ..writeln('    la frase "Conta i gesti, non me" e il suo interruttore '

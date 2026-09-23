@@ -1,6 +1,6 @@
 # Mossa 10, ripete la stessa richiesta uguale
 
-**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
+**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
 
 ---
 
@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Un velo di nebbia si solleva, rivelando il sentiero.
+> Una nebbia argentea si posa, rivelando il sentiero.
 > 
-> Il segno che ti accompagna è Fehu. Esso indica un tempo di consolidamento, un raccogliere i frutti del lavoro. È un presagio di ciò che hai costruito, ora visibile e concreto. Questa runa segna il valore e la sostanza.
+> Il segno che ti accompagna è Uruz. È la forza primordiale, la volontà che plasma. Indica un momento di potenza, dove il potenziale si manifesta. Non è un’energia docile, ma selvaggia, in attesa di essere incanalata. Porta con sé il presagio di nuove iniziazioni, di prove da superare per accedere a una nuova fase.
 > 
-> ✦ Ti accompagna Fehu, il segno del consolidamento.
+> ✦ Porta con te il presagio di Uruz.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Il segno non è mutato: la lettura resta questa.
 > 
-> Un velo di nebbia si solleva, rivelando il sentiero.
+> Una nebbia argentea si posa, rivelando il sentiero.
 > 
-> Il segno che ti accompagna è Fehu. Esso indica un tempo di consolidamento, un raccogliere i frutti del lavoro. È un presagio di ciò che hai costruito, ora visibile e concreto. Questa runa segna il valore e la sostanza.
+> Il segno che ti accompagna è Uruz. È la forza primordiale, la volontà che plasma. Indica un momento di potenza, dove il potenziale si manifesta. Non è un’energia docile, ma selvaggia, in attesa di essere incanalata. Porta con sé il presagio di nuove iniziazioni, di prove da superare per accedere a una nuova fase.
 > 
-> ✦ Ti accompagna Fehu, il segno del consolidamento.
+> ✦ Porta con te il presagio di Uruz.
 
 ---
 

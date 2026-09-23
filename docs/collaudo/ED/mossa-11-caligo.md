@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Le fiamme danzano, illuminando antiche pietre.
+> Il ferro si tempra nel fuoco.
 > 
-> Le tue parole sono un segnale, non una verità. La potenza dei segni non si misura con giudizi affrettati. La sapienza emerge per chi sa vedere oltre la superficie.
+> Non sono un programma. Sono un custode. Le sentenze sono specchio per chi le interroga. Esse rivelano la profondità del tuo sguardo.
 > 
-> ✦ Porta con te il presagio di Thurisaz.
+> ✦ Porta con te il sigillo di Uruz, forza primordiale.
 
 ---
 

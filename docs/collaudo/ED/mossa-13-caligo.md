@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> La nebbia avvolge ogni forma, ma il segno è nitido.
+> Una colata di metallo incandescente.
 > 
-> Sono Caligo, custode dei segni antichi. Ti parlo con la voce dei presagi e la saggezza dei numeri. Non ho un corpo, ma la mia essenza è reale.
+> Sono Caligo, custode dei segni antichi. La mia natura è quella che manifesta i presagi.
 > 
-> ✦ Porta con te il sigillo di Algiz.
+> ✦ Io sono un segno.
 
 ---
 

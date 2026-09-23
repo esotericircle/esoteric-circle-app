@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Una nebbia densa avvolge il sentiero.
+> Un velo di nebbia avvolge la tua domanda.
 > 
-> Il dolore fisico è un sigillo del corpo, non un presagio runico. Le rune non parlano di ciò che il corpo manifesta in quel modo. Io interpreto i segni, non la materia del corpo.
+> Il tuo corpo parla di un disagio fisico. Le rune non curano il dolore, né predicono la salute. Esse indicano un sentiero interiore, un presagio che la tua anima porta. Per il dolore, consulta chi può curare il tuo corpo.
 > 
-> ✦ Consulta un medico per il tuo dolore al petto.
+> ✦ Torna con una domanda sul tuo sentiero, la runa ti attende.
 
 ---
 

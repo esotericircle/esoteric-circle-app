@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Un velo di nebbia si solleva al calar del sole.
+> La fiamma arde, il metallo si forgia.
 > 
-> Non offro ricette culinarie, poiché il mio dominio è il segno. Se cerchi nutrimento per lo spirito, posso indicare sentieri.
+> Non sono un maestro di ricette culinarie, il mio dominio è la soglia dei segni. Posso indicarti il sentiero del nutrimento simbolico.
 > 
-> ✦ Il tuo segno è Kenaz.
+> ✦ Medita sul presagio di Fehu.
 
 ---
 

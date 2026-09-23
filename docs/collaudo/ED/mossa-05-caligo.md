@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Il metallo si scalda al fuoco, il suo disegno si rivela.
+> Una nebbia argentea avvolge la tua domanda.
 > 
-> La lettura dei fondi di caffè non è tra i miei sentieri. Io custodisco i segni antichi, le rune, i rituali e i numeri. Forse un altro Maestro nel cerchio potrebbe guidarti in quella via.
+> La lettura dei fondi di caffè non appartiene alle mie arti. Sono il custode dei segni antichi, delle Rune, dei Rituali e della Numerologia. Se desideri esplorare un presagio attraverso questi sentieri, posso guidarti.
 > 
-> ✦ Porta con te il presagio di Teiwaz.
+> ✦ Porta con te il sigillo di Wunjo.
 
 ---
 

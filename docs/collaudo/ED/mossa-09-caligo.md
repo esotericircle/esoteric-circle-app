@@ -12,9 +12,11 @@
 
 **Caligo risponde:**
 
-> Un velo di nebbia si dirada.
-> Il tuo sentiero è segnato da un richiamo interno, da una forza che spinge al divenire. La runa Kenaz annuncia una luce che si rivela, chiarezza di visione. Non è un inizio facile, ma una purificazione necessaria.
-> ✦ Il presagio è di rivelazione.
+> Una scintilla si accende nel buio della forgia.
+> 
+> Il presagio delle rune è chiaro, indica un sentiero di scoperta. Vedo Ansuz e Raidho: la prima parla della parola, della comunicazione che illumina. La seconda simboleggia il viaggio, il movimento verso un obiettivo. Non è un cammino solitario.
+> 
+> ✦ La strada davanti a te è un viaggio illuminato dalla comunicazione.
 
 ---
 
