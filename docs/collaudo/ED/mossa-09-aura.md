@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il tuo respiro scorrere lento, come un fiume calmo dentro di te. Il centro del cuore, con i suoi colori smeraldo e oro, si apre e si chiude con ogni battito, un richiamo all'equilibrio e all'armonia.
+> Senti il tuo respiro scorrere, un fiume lento che porta vita.
 > 
-> Questo centro è il luogo dove risiede la tua capacità di amare e di ricevere amore, di connetterti profondamente con gli altri e con te stesso. Se senti una chiusura, forse è un invito a prestare attenzione a questa zona, a darle spazio per espandersi. Non c'è bisogno di forzare, solo di ascoltare. Puoi immaginare un raggio di luce verde che si diffonde dal centro del tuo petto, portando pace e apertura.
+> Quando la tua domanda porta al centro del cuore, al chakra Anahata, sento che si muove un'energia delicata. Questo centro, con il suo verde smeraldo, parla di connessione, di armonia nel dare e nel ricevere. Invita a un ascolto profondo, senza giudizio, verso ciò che si manifesta dentro di te. Per sentire questa energia fluire, puoi accogliere il tuo sentire, l'emozione che emerge, e darle spazio.
 > 
-> ✦ Porta una mano al centro del tuo petto e senti il tuo respiro.
+> ✦ Senti il respiro che si espande nel tuo petto.
 
 ---
 

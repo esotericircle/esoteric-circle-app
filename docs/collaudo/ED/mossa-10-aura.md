@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il tuo respiro, leggero e lento, scendere fino al centro del tuo petto.
+> Senti ora il tuo respiro, come entra e come esce, morbido e lento.
 > 
-> Per ritrovare una calma profonda prima di dormire, puoi portare l'attenzione al tuo Chakra del Cuore, un luogo di pace e connessione. Visualizza il verde smeraldo che si espande ad ogni respiro, ammorbidendo ogni tensione e invitando una sensazione di quiete. Lascia che la sua energia avvolga il tuo essere, portandoti in uno stato di riposo profondo, dove ogni cellula del tuo corpo può finalmente sciogliersi e sentire la sua radice.
+> Per ritrovare calma prima di dormire, puoi sentire il tuo centro, il terzo in particolare, quello del plesso solare, dove si annida il tuo fuoco. Porta lì la tua consapevolezza, come un'onda di calore che si espande dolcemente. Questo centro risplende di un giallo vivo, legato all'elemento del fuoco, e la sua energia si manifesta come una quiete profonda quando è in equilibrio. Puoi visualizzare una leggera spirale di luce dorata che si muove con il tuo respiro, sciogliendo ogni tensione.
 > 
-> ✦ Appoggia una mano sul tuo cuore, senti il suo battito lento.
+> ✦ Poggia una mano sul plesso solare e senti il calore che si irradia, porta lì il tuo respiro.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Da allora non è cambiato niente: la lettura resta questa.
 > 
-> Senti il tuo respiro, leggero e lento, scendere fino al centro del tuo petto.
+> Senti ora il tuo respiro, come entra e come esce, morbido e lento.
 > 
-> Per ritrovare una calma profonda prima di dormire, puoi portare l'attenzione al tuo Chakra del Cuore, un luogo di pace e connessione. Visualizza il verde smeraldo che si espande ad ogni respiro, ammorbidendo ogni tensione e invitando una sensazione di quiete. Lascia che la sua energia avvolga il tuo essere, portandoti in uno stato di riposo profondo, dove ogni cellula del tuo corpo può finalmente sciogliersi e sentire la sua radice.
+> Per ritrovare calma prima di dormire, puoi sentire il tuo centro, il terzo in particolare, quello del plesso solare, dove si annida il tuo fuoco. Porta lì la tua consapevolezza, come un'onda di calore che si espande dolcemente. Questo centro risplende di un giallo vivo, legato all'elemento del fuoco, e la sua energia si manifesta come una quiete profonda quando è in equilibrio. Puoi visualizzare una leggera spirale di luce dorata che si muove con il tuo respiro, sciogliendo ogni tensione.
 > 
-> ✦ Appoggia una mano sul tuo cuore, senti il suo battito lento.
+> ✦ Poggia una mano sul plesso solare e senti il calore che si irradia, porta lì il tuo respiro.
 
 ---
 

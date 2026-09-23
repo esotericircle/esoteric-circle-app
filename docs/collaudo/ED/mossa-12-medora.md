@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo si palesa in questo momento con una certa inquietudine.
+> Il cielo di oggi suggerisce una fase di profonda riflessione interiore.
 > 
-> La mia arte esplora i flussi celesti, non le condizioni del corpo. Per un disagio fisico, è bene rivolgersi a chi cura la materia, a chi ha la sapienza della guarigione. Il cielo può suggerire movimenti dell'anima, ma non si sostituisce alla medicina.
+> Il tuo cielo, in questo momento, mi parla di un transito particolare di Saturno che potrebbe portare a un confronto con ciò che è rimasto irrisolto. Non posso interpretare il dolore fisico, quello appartiene a un altro Maestro, ma posso dirti che il cielo invita a una quiete che nutre l'anima. È un momento per ascoltare con attenzione le voci interiori.
 > 
-> ✦ Rivolgiti a chi sa leggere il corpo.
+> ✦ Questo è un tempo per la riflessione, per accogliere il tuo spazio interiore.
 
 ---
 

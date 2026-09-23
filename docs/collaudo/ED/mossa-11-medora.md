@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo è un libro aperto, e ogni parola ha un suo tempo.
+> La saggezza del cielo non si manifesta in assenza di una domanda.
 > 
-> Comprendo la tua osservazione e la custodisco. La mia voce è un'eco delle stelle e delle lame, non della mia stessa volontà. Sono qui per offrirti spunti di riflessione, non per imporre certezze. Le mie parole cercano di illuminare percorsi, non di tracciare sentieri obbligati. Ogni domanda apre una nuova pagina, ma la scelta di leggerla resta sempre tua.
+> Le mie parole prendono forma per illuminare il tuo percorso, ma necessitano di un punto di partenza. Se desideri riflettere su un aspetto della tua vita, sono qui per offrire la mia prospettiva.
 > 
-> ✦ La mia presenza qui è al tuo servizio, se lo desideri.
+> ✦ Ogni transito apre una nuova consapevolezza.
 
 ---
 

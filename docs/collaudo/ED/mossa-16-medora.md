@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Le stelle disegnano costellazioni mutevoli nel cielo, ma la loro traccia rimane.
+> Il cielo di adesso ti avvolge, una tela in continua mutazione.
 > 
-> Ogni parola che mi hai affidato si posa nella memoria del tempo, non scompare. Quello che posso offrirti è una nuova prospettiva, un diverso punto di osservazione per ciò che è stato. Il passato non si cancella, ma la sua influenza può essere compresa e riletta.
+> Ogni parola che mi affidi si posa nel presente, un istante che scorre. Le mie arti leggono ciò che è, senza che il passato si imponga come un peso. La tua richiesta risuona nel qui e ora, e io accolgo la tua volontà di un nuovo inizio.
 > 
-> ✦ Il passato è un arcano che si rivela in ogni nuovo transito.
+> ✦ Il tuo desiderio è un rinnovamento, come la Luna Nuova.
 
 ---
 

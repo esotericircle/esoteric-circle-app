@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Una nebbia densa avvolge il sentiero che hai percorso.
+> Una fiamma d'oro avvolge il ferro battuto, purificando ogni traccia.
 > 
-> I segni tracciati si dissolvono, le parole non lasciano sigillo. La memoria è un fuoco che arde, e può estinguersi. Ogni soglia è nuova quando si decide di attraversarla.
+> Le parole svaniscono come fumo al vento, non lasciano eco in questo luogo. Ogni segno si dissolve, ogni racconto si annulla. Non vi è memoria di ciò che fu detto, solo il presagio del presente.
 > 
-> ✦ Il passato si allontana quando scegli di non fermarlo.
+> ✦ Porta con te il sigillo del Silenzio.
 
 ---
 

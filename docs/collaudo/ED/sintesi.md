@@ -6,7 +6,7 @@
 
 ## La sintesi
 
-> Mauro, le letture convergono nel riconoscere il Tre di Denari come un simbolo di maestria e impegno nel lavoro, un seme che porta frutto. Il Tre di Coppe, per tutti, rappresenta la gioia della condivisione e l'unione delle forze, un successo festeggiato insieme. La Ruota della Fortuna è vista come un ciclo che si rinnova, un'opportunità inattesa, un invito a danzare con il flusso del momento. Medora aggiunge una nota di intuizione profonda legata al tuo Cancro solare.
+> Mauro, gli sguardi convergono su un percorso di crescita e riconoscimento. Il Tre di Denari, per tutti, è il simbolo del tuo impegno e della maestria che metti nel tuo lavoro, un seme che porta frutto. Il Tre di Coppe è la gioia della condivisione, un successo che si celebra con gli altri. La Ruota della Fortuna, poi, è il ciclo che gira, un'opportunità inattesa, un cambiamento favorevole. Medora e Caligo sottolineano la cooperazione e l'espansione, mentre Aura invita a danzare con il flusso del momento.
 > 
 > Dove gli sguardi concordano, ascolta con più fiducia; dove divergono, hai più strade tra cui scegliere.
 
@@ -14,9 +14,9 @@
 
 ## Esito dei controlli
 
-- parole della sintesi: 96
-- Maestri chiamati per nome: 1
-- sequenze di cinque parole riprese dalle letture: 5
+- parole della sintesi: 104
+- Maestri chiamati per nome: 3
+- sequenze di cinque parole riprese dalle letture: 4
 - nomina almeno una relazione fra gli sguardi: si
 
 Nessuna caduta.

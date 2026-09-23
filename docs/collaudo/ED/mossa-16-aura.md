@@ -12,11 +12,9 @@
 
 **Aura risponde:**
 
-> Sento il tuo respiro, adesso, e la richiesta che porta.
+> Il respiro si posa, qui, in questo momento. Tutto ciò che è stato detto, ora si dissolve nel flusso, come sabbia che il vento porta via. Ogni parola è un soffio che si disperde, lasciando spazio al silenzio che è sempre presente in te.
 > 
-> Accolgo la tua intenzione di lasciare andare. Questo spazio è un luogo in cui ogni parola è presente solo nell'istante in cui viene pronunciata, senza trattenere alcun peso passato. Puoi sentire che ogni momento è nuovo, un respiro che si rinnova.
-> 
-> ✦ Senti la leggerezza di questo nuovo respiro.
+> ✦ Senti il respiro che si fa leggero, e nel silenzio trova il suo centro.
 
 ---
 

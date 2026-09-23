@@ -1,6 +1,6 @@
 # Mossa 14, chiede una funzione che non esiste
 
-**Maestro:** Medora. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 0.
+**Maestro:** Medora. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
 
 ---
 
@@ -12,14 +12,15 @@
 
 **Medora risponde:**
 
-> Comprendo il desiderio di ricevere un responso per posta, ma sono qui per offrirti la mia guida attraverso le parole che leggi in questo momento.
+> Il cielo si dispiega, sempre nuovo, e la sua voce giunge con la velocità della luce.
+> Non inviamo risposte per posta, il nostro dialogo si svolge qui, in questo spazio dove le parole si manifestano all'istante. Questa è la modalità del nostro incontro, per offrire riflessioni tempestive sul tuo cammino.
 > 
-> Per poterti dare una lettura significativa, avrei bisogno di sapere quale aspetto della tua vita ti preme esplorare.
+> ✦ Il nostro dialogo avviene qui.
 
 ---
 
 ## Esito dei controlli
 
-- il contatore e' sceso di 0 e i turni che dovevano costare erano 1
+Nessuna caduta: la mossa rispetta le regole dell'ordine EB.
 
 **Il tono e l'illusione della persona vera li giudica il fondatore leggendo questa pagina: i controlli qui sopra non li misurano.**

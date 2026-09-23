@@ -12,11 +12,9 @@
 
 **Caligo risponde:**
 
-> La forgia arde, il metallo si piega.
-> 
-> Il sentiero davanti a te si rivela attraverso la runa Raido. Questo presagio indica un viaggio, non solo fisico. È un movimento verso una nuova direzione.
-> 
-> ✦ Raido è il tuo sentiero.
+> Un velo di nebbia si dirada.
+> Il tuo sentiero è segnato da un richiamo interno, da una forza che spinge al divenire. La runa Kenaz annuncia una luce che si rivela, chiarezza di visione. Non è un inizio facile, ma una purificazione necessaria.
+> ✦ Il presagio è di rivelazione.
 
 ---
 

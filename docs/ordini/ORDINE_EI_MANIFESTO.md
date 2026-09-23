@@ -10,8 +10,8 @@ coda sono EA, EB, EC, ED, EE, EF, EG, EH. **Data:** 23 settembre 2026.
 e' chiuso e verificato.
 
 VOCI_TOTALI: 10
-VOCI_CHIUSE: 3
-VOCI_APERTE: 7
+VOCI_CHIUSE: 4
+VOCI_APERTE: 6
 
 ---
 
@@ -281,7 +281,41 @@ tre sguardi invece di ripeterli.
 La schermata della registrazione a video, l'elenco di cio' che il conteggio
 spedisce davvero, e il punto della privacy policy.
 
-**APERTA IN ATTESA DI VERIFICA.**
+### COSA MANCAVA, VISTO CHE LE GUARDIE C'ERANO GIA'
+
+`la_misura_del_ritorno` gia' provava che la frase e l'interruttore non vivono
+piu' in `lib` e che il conteggio parte senza chiedere niente. **Quello che non
+c'era era il file apribile**: l'elenco, in una pagina sola, di **cosa esce
+davvero dal telefono**, messo accanto a cio' che la schermata promette che
+esca.
+
+Per una promessa sulla privacy la differenza non e' formale. La schermata dice
+*"cinque gesti in numeri per giorno [...] senza nessun identificativo del
+telefono o tuo"*: adesso quella frase sta su disco accanto ai cinque eventi
+veri, `apertura`, `ritornoDaAvviso`, `ritoCominciato`, `ritoCompiuto`,
+`responsoCondiviso`, e chi legge verifica in dieci secondi che **cinque** sia
+cinque.
+
+**Il cardinale e' il numero esatto e non un minimo**: se nascesse un sesto
+evento senza che nessuno aggiorni quella frase, la promessa diventerebbe falsa
+e la prova cade.
+
+### IL FALSO POSITIVO CHE MI SONO TROVATO ADDOSSO
+
+La prova sugli identificativi leggeva il sorgente intero e cadeva su `uid`, che
+compare due volte in `misura_del_ritorno.dart`: **dentro due commenti che
+dichiarano che quel legame e' stato tolto**. Una prova che accusa il codice per
+aver spiegato cosa non fa piu' **insegna a cancellare le spiegazioni**, ed e'
+il contrario di quello che serve a questo progetto. Adesso salta i commenti,
+come fa gia' la prova sulla frase.
+
+**Vista rossa** innestando un `userId` in `registro_del_ritorno.dart`,
+verificato col grep prima di leggere l'esito.
+
+**CHIUSA.**
+DOMANDA: "La frase «Conta i gesti, non me» e il suo selettore non esistono piu' in nessun punto. Il conteggio e' sempre attivo e raccoglie soltanto numeri aggregati per giorno, senza identificativi"
+PROVA: docs/collaudo/EI/cosa_spedisce_il_conteggio.txt
+MISURA: 5 eventi nel codice e 5 promessi dalla schermata; 0 identificativi su 11 cercati; 673 file di lib guardati e 0 che nominano la frase o l'interruttore fuori dai commenti che ne dichiarano la rimozione
 
 ## VOCE EI.08, EF.01 RIAPERTA: IL SOFFIONE SI VEDE PER INTERO
 

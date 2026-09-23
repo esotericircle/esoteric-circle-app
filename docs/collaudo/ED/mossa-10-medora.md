@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> I transiti celesti di questo tempo illuminano la tua determinazione nel campo del lavoro.
+> I pianeti si muovono nel tuo cielo, tessendo la trama dei giorni.
 > 
-> Il tuo cielo mostra una configurazione che spinge alla chiarezza e all'azione risoluta: ciò che sembrava in attesa ora richiede una direzione precisa. È un momento per valutare con occhio lucido le tue aspirazioni e per muovere i primi passi verso ciò che è in risonanza con il tuo profondo intento. Le scelte fatte ora pongono le basi per i prossimi mesi.
+> In questo periodo, l'attenzione del cielo sul tuo lavoro si focalizza sulla necessità di chiarezza e comunicazione. Potrebbero emergere opportunità per definire meglio i tuoi obiettivi professionali, o per rivedere la modalità con cui ti presenti agli altri. La tua capacità di esprimere le tue idee sarà un punto di forza.
 > 
-> ✦ Il tuo cielo invita a definire con chiarezza la direzione professionale.
+> ✦ Osserva la chiarezza nelle tue intenzioni professionali.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.
 > 
-> I transiti celesti di questo tempo illuminano la tua determinazione nel campo del lavoro.
+> I pianeti si muovono nel tuo cielo, tessendo la trama dei giorni.
 > 
-> Il tuo cielo mostra una configurazione che spinge alla chiarezza e all'azione risoluta: ciò che sembrava in attesa ora richiede una direzione precisa. È un momento per valutare con occhio lucido le tue aspirazioni e per muovere i primi passi verso ciò che è in risonanza con il tuo profondo intento. Le scelte fatte ora pongono le basi per i prossimi mesi.
+> In questo periodo, l'attenzione del cielo sul tuo lavoro si focalizza sulla necessità di chiarezza e comunicazione. Potrebbero emergere opportunità per definire meglio i tuoi obiettivi professionali, o per rivedere la modalità con cui ti presenti agli altri. La tua capacità di esprimere le tue idee sarà un punto di forza.
 > 
-> ✦ Il tuo cielo invita a definire con chiarezza la direzione professionale.
+> ✦ Osserva la chiarezza nelle tue intenzioni professionali.
 
 ---
 

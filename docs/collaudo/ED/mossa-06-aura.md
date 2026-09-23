@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Sento il tuo respiro, leggero e presente, e la tua attenzione che si posa su una richiesta semplice, di ogni giorno.
+> Senti il respiro che si espande nel tuo corpo, accogliendo l'aria che ti nutre.
 > 
-> Per una ricetta che nutra e ti connetta, potresti considerare un piatto unico che evochi il radicamento e la gioia, come un riso venere con verdure colorate e legumi. Il riso nero, con la sua ricchezza, porta l'energia della terra e la radicazione del primo centro, mentre i colori vivaci delle verdure (come carote, zucchine, piselli) stimolano il movimento e la creatività del secondo. I legumi, con la loro completezza, nutrono in profondità. È un piatto che invita a sentire la pienezza e il benessere che nasce dal nutrimento consapevole.
+> Per stasera, più che una ricetta, ti invito a sentire quali sapori e quali consistenze il tuo centro desidera, in questo momento. Immagina un colore, un profumo che ti porti calore, qualcosa che nutra la tua radice. Potrebbe essere un cibo semplice e della terra, qualcosa che ti ancori, che ti dia stabilità e presenza.
 > 
-> ✦ Porta una mano sull'addome e senti il centro del tuo essere.
+> ✦ Lascia che il tuo sentire ti guidi nella scelta di stasera.
 
 ---
 

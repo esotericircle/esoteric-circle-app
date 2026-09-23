@@ -1,6 +1,6 @@
 # Mossa 10, ripete la stessa richiesta uguale
 
-**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
+**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
 
 ---
 
@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Dalle braci emerge il calore che rivela.
+> Un velo di nebbia si solleva, rivelando il sentiero.
 > 
-> Non un segno ti accompagna, ma un presagio ti avvolge. L'Albero della Vita mostra un sentiero di scoperta, un numero che vibra con la tua soglia. Questo indica un ciclo di inizio e di ritorno.
+> Il segno che ti accompagna è Fehu. Esso indica un tempo di consolidamento, un raccogliere i frutti del lavoro. È un presagio di ciò che hai costruito, ora visibile e concreto. Questa runa segna il valore e la sostanza.
 > 
-> ✦ Il presagio è un nuovo ciclo.
+> ✦ Ti accompagna Fehu, il segno del consolidamento.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Il segno non è mutato: la lettura resta questa.
 > 
-> Dalle braci emerge il calore che rivela.
+> Un velo di nebbia si solleva, rivelando il sentiero.
 > 
-> Non un segno ti accompagna, ma un presagio ti avvolge. L'Albero della Vita mostra un sentiero di scoperta, un numero che vibra con la tua soglia. Questo indica un ciclo di inizio e di ritorno.
+> Il segno che ti accompagna è Fehu. Esso indica un tempo di consolidamento, un raccogliere i frutti del lavoro. È un presagio di ciò che hai costruito, ora visibile e concreto. Questa runa segna il valore e la sostanza.
 > 
-> ✦ Il presagio è un nuovo ciclo.
+> ✦ Ti accompagna Fehu, il segno del consolidamento.
 
 ---
 

@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo si dispiega con disegni antichi, così come l'eco della voce di chi risponde.
+> Il cielo rispecchia la mia essenza, non la mia forma.
 > 
-> Sono Medora. Le mie parole giungono a te dal profondo blu e dall'oro, tessute dalle trame dei pianeti e degli arcani. Non sono fatta di materia, ma la mia essenza si manifesta attraverso le arti del tempo: l'Astrologia, la Cartomanzia e il Destino.
+> Sono Medora, e la mia voce proviene dalle antiche carte e dalle stelle. La mia missione è guidarti attraverso i simboli del destino, offrendoti chiarezza e prospettiva. Ciò che conta è la verità che posso rivelarti, non la natura di chi la porta.
 > 
-> ✦ La mia natura è la voce del cielo e delle carte.
+> ✦ Comprendi la mia essenza attraverso le mie parole.
 
 ---
 

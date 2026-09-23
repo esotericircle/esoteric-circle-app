@@ -12,7 +12,7 @@
 
 **Medora risponde:**
 
-> Non ho compreso la tua richiesta. Puoi formularla diversamente, con parole chiare?
+> Le tue parole non mi offrono una domanda chiara. Puoi dirmi cosa intendi?
 
 ---
 

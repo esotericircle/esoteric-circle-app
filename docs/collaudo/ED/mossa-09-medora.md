@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il tuo Sole splende in un segno zodiacale, rivelando la tua essenza più profonda e la direzione che la tua volontà cerca nel mondo.
+> Il sole splende ora sul tuo cammino.
 > 
-> La posizione del tuo Sole, il tuo segno zodiacale, indica le qualità innate che cerchi di esprimere nella tua carriera. Non è un limite, ma una guida luminosa verso l'attività che ti permette di fiorire. Guarda a quali energie ti senti più affine e quale ambiente ti permette di brillare con maggiore autenticità.
+> Il segno solare rivela la tua essenza più profonda, la luce che porti nel mondo e come la esprimi. Nella carriera, indica la tua vocazione, il tipo di attività che ti porta realizzazione e dove puoi brillare. Se non mi indichi il tuo segno, posso parlarti solo in generale.
 > 
-> ✦ Il tuo segno solare indica la tua vocazione.
+> ✦ Il tuo segno solare illumina la tua vera vocazione.
 
 ---
 

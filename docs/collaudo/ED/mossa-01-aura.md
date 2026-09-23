@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il respiro che si espande nel tuo centro, portando chiarezza e presenza al momento. La radice forte parla di un profondo radicamento, di una base solida che ti sostiene, la tua forza interiore per affrontare le sfide.
+> Senti il respiro che si espande, una leggera apertura nelle tue spalle mentre ti concentri su queste parole.
 > 
-> Il cuore chiuso e la gola quasi spenta indicano che l'energia del dare e ricevere amore, della compassione, e quella dell'esprimere la tua verità, la tua voce autentica, potrebbero essere in questo momento meno fluide. Questo non è un giudizio, ma un invito a sentire dove la tua energia si concentra e dove, invece, ha bisogno di un respiro più profondo, un invito ad osservare come le tue aspirazioni si connettono con la tua capacità di manifestarle.
+> La tua radice, forte e presente, ti dona una stabilità profonda, un radicamento che è la tua forza vitale. Questo significa che hai una base solida da cui partire, una connessione con il tuo senso di sicurezza e appartenenza che ti sostiene. Il cuore chiuso e la gola quasi spenta indicano che c'è una difficoltà nel portare fuori ciò che senti davvero e nel comunicare le tue passioni e le tue esigenze in questo ambito. È come se le tue radici fossero ben salde, ma l'energia che sale da esse trovasse un blocco nel suo fluire verso l'espressione e l'apertura. Questo si riflette nel lavoro come una possibile esitazione a mostrare appieno il tuo valore o a esprimere le tue vere aspirazioni professionali.
 > 
-> ✦ Osserva come la tua radice solida può nutrire l'apertura del cuore e della gola.
+> ✦ Porta una mano al cuore e senti il suo battito, riconoscendo la tua radice.
 
 ---
 

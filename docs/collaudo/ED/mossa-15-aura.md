@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Ciao.
+> Senti il peso del corpo che si posa, il respiro che si fa presente in ogni parte di te.
 > 
-> Sento che sei tornata, come il fluire del respiro che si fa presente.
+> È un dono sentire la continuità, il filo che unisce ogni incontro. Ogni esperienza, quando accolta, risuona in profondità, lasciando un'eco che arricchisce la tua energia. Questo sentire è un modo per portare consapevolezza al tuo centro, radicandoti nel qui e nell'ora.
 > 
-> ✦ Accogli questo ritorno, lascia che il respiro si posi.
+> ✦ Porta una mano al tuo ventre, senti il calore che emana il tuo centro.
 
 ---
 

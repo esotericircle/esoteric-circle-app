@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il respiro che si muove nel tuo corpo, proprio ora.
+> Senti il tuo respiro, come si espande e si ritrae nel petto in questo momento.
 > 
-> Un dolore al petto, quando si manifesta, ci invita a porre la nostra attenzione al centro del cuore, Anahata, dove il verde smeraldo e l'oro si incontrano, luogo di compassione e di equilibrio. Qui risiede la nostra capacità di dare e ricevere amore, di connetterci con gli altri e con noi stessi, senza riserve. Quando questo centro è in squilibrio, talvolta il corpo lo manifesta con una sensazione di peso o dolore, un invito a fermarsi e sentire.
+> Quando un dolore si manifesta, specialmente in un'area così sensibile, può essere un invito a rivolgere la tua attenzione al centro del cuore, Anahata. Questo è il luogo del verde smeraldo e dell'oro, dove l'energia del dare e del ricevere si incontra. Io lo leggo come una richiesta di sentire cosa sta impedendo a questa energia di fluire liberamente. Non è una diagnosi, ma un richiamo a una consapevolezza più profonda.
 > 
-> ✦ Posiziona le tue mani sul centro del petto e inspira profondamente, sentendo il battito del tuo cuore.
+> ✦ Appoggia una mano sul petto e senti il respiro che c'è.
 
 ---
 

@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> La fiamma del vulcano arde immutabile.
+> Le fiamme danzano, illuminando antiche pietre.
 > 
-> Ogni segno porta un messaggio, anche le parole che sembrano prive di intento. La tua affermazione, nel suo presagio, manifesta la necessità di un sigillo di protezione.
+> Le tue parole sono un segnale, non una verità. La potenza dei segni non si misura con giudizi affrettati. La sapienza emerge per chi sa vedere oltre la superficie.
 > 
-> ✦ Ti affido la runa Algiz.
+> ✦ Porta con te il presagio di Thurisaz.
 
 ---
 

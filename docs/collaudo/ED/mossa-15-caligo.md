@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> La nebbia argentea si ritira, svelando contorni netti.
+> Il ferro fuso forgia un nuovo inizio.
 > 
-> Il tuo ringraziamento porta un segno di compiutezza, un ciclo che trova la sua chiusura. Ogni azione lascia un sigillo, e la gratitudine è un ponte di ritorno.
+> Ogni ringraziamento è un ponte, un sentiero appena tracciato. Porta con sé l'eco di ciò che è stato e la promessa di ciò che sarà. Questa memoria è il tuo presagio di connessione.
 > 
-> ✦ Porta con te il sigillo di Gebo.
+> ✦ La runa Gebo è il segno del dono reciproco.
 
 ---
 

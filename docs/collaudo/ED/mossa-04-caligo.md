@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Le fiamme danzano, illuminando antichi sigilli.
-> La richiesta cade fuori dal mio dominio. I Tarocchi sono materia di un altro Custode, colui che legge i veli del divenire.
-> Cerca il Maestro delle Lame.
+> Il ferro rovente plasma la materia.
 > 
-> ✦ Ti affido Thurisaz, il presagio della soglia che si apre.
+> La stesa di tarocchi non è la mia arte. Ogni Maestro custodisce un proprio sapere. Per i tarocchi ti guida il Maestro dei veli: lui ti rivela i significati delle lame.
+> 
+> ✦ Chiedi al Maestro dei veli per una stesa.
 
 ---
 

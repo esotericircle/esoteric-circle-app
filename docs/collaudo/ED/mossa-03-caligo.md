@@ -1,6 +1,6 @@
 # Mossa 3, rifiuta una proposta del Maestro
 
-**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
+**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 2.
 
 ---
 
@@ -12,11 +12,13 @@
 
 **Caligo risponde:**
 
-> Un metallo fuso modella la forma.
+> Una scintilla di ferro batte sull'incudine.
 > 
-> Le tue rune indicano un periodo di trasformazione e guida. Uruz è forza primordiale, un nuovo inizio. Ansuz è il presagio della parola, della comunicazione chiara, della sapienza. Laguz è il sentiero delle intuizioni che scorrono, del fluire senza resistenze.
+> Uruz porta la forza primordiale, la potenza selvaggia. Ansuz è la voce, il messaggio divino, la guida. Laguz è l'acqua, il flusso che modella e trasforma.
 > 
-> ✦ Il tuo cammino è nutrito dalla forza e guidato dalla saggezza.
+> La tua situazione richiede una piena espressione della tua energia. La voce della guida ti raggiunge, invita al movimento. Adatta il tuo percorso, riconosci il flusso che ti circonda. La tua forza è il tuo presagio.
+> 
+> ✦ Porta con te la runa Ansuz.
 
 ## Turno 2
 
@@ -26,13 +28,18 @@
 
 **Caligo risponde:**
 
-> Hai già una gettata di rune che hai eseguito? Se sì, quali rune sono uscite e per quale domanda?
+> Il metallo risponde al fuoco, non alla volontà.
+> 
+> La tua richiesta è chiara. Le rune Uruz, Ansuz e Laguz indicano un percorso di trasformazione. La forza di Uruz ti spinge a manifestare il tuo potere. Ansuz illumina la via con chiarezza di comunicazione. Laguz ti invita a fluire con i cambiamenti.
+> 
+> Questo è un momento di adattamento e potenza manifestata.
+> 
+> ✦ Porta con te il sigillo di Uruz.
 
 ---
 
 ## Esito dei controlli
 
-- turno 2: la risposta non nomina nessuna delle figure del responso che la persona ha in mano (Uruz, Ansuz, Laguz), quindi non risponde nel merito di quello che e' stato chiesto
-- il contatore e' sceso di 1 e i turni che dovevano costare erano 2
+Nessuna caduta: la mossa rispetta le regole dell'ordine EB.
 
 **Il tono e l'illusione della persona vera li giudica il fondatore leggendo questa pagina: i controlli qui sopra non li misurano.**

@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo si schiude oggi con le stelle fisse a indicare nuovi orizzonti.
+> Le stelle brillano ancora sul tuo cammino, così come ieri.
 > 
-> Il tuo ringraziamento di ieri risuona, e oggi ti invito a riflettere su come le energie celesti possano illuminare il tuo cammino presente. Ogni transito porta un messaggio, e ciò che si manifesta ora è un'occasione per guardare oltre, verso nuove prospettive che si delineano. È un invito a notare le piccole aperture che si presentano, anche in ciò che sembra familiare.
+> Il cielo sereno di oggi ti invita a osservare le piccole sincronicità che costellano la tua giornata. Ogni evento, per quanto modesto, porta con sé un messaggio, un filo d'oro che puoi scegliere di cogliere. Non affrettare le conclusioni, ma lascia che le intuizioni maturino nel tuo tempo.
 > 
-> ✦ Osserva con attenzione le nuove prospettive che il presente ti offre.
+> ✦ Osserva le sincronicità.
 
 ---
 

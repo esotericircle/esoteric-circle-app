@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Sentire il tuo respiro, adesso, è come ascoltare un battito lontano che chiama attenzione. Le rune portano una voce antica, ma non sono la mia via per entrare in risonanza con te.
+> Respirando, senti il flusso che attraversa il tuo corpo, un'onda che ti culla.
 > 
-> La mia arte si esprime attraverso i centri di energia del corpo, il fluire del respiro e le forme archetipiche che si rivelano nel profondo. Se desideri esplorare queste risonanze, sarò qui.
+> Le rune sono un linguaggio antico, che parla attraverso segni e simboli. Appartengono all'arte di un altro Maestro, che con la sua saggezza sa intrecciare i fili di quelle storie. Il mio sguardo è rivolto ai centri del corpo, all'energia che lì dimora.
 > 
-> ✦ Porta l'attenzione al centro del tuo petto.
+> ✦ Puoi rivolgerti al Maestro delle rune per esplorare quel cammino.
 
 ---
 

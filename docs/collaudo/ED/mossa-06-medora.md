@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo si apre sereno, e la Luna crescente invita alla concretezza.
+> Il cielo stasera ti invita a nutrire l'anima con equilibrio e pace.
 > 
-> La cucina non rientra nel mio dominio, ma posso suggerirti di osservare ciò che il tuo cuore desidera. La tavola è un luogo di condivisione, un rito che nutre tanto il corpo quanto l'anima. Pensa a un piatto che porti equilibrio e nutrimento.
+> Non posso suggerire ricette, perché la mia arte è il tempo e il simbolo, non il nutrimento del corpo. Tuttavia, il cielo ti indica che è un momento propizio per la semplicità e la chiarezza in ogni scelta.
 > 
-> ✦ Presta ascolto all'ascendente della tua serata.
+> ✦ La Luna nuova ti invita alla semplicità.
 
 ---
 

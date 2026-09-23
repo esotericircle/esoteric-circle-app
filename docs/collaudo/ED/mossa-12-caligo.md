@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Nebbia e silenzio si posano sul tuo petto.
+> Una nebbia densa avvolge il sentiero.
 > 
-> Il tuo stato non è materia di presagio, non è questione di rune. La tua domanda merita ascolto e analisi attenta. Non è mio compito darti risposta in questo ambito.
+> Il dolore fisico è un sigillo del corpo, non un presagio runico. Le rune non parlano di ciò che il corpo manifesta in quel modo. Io interpreto i segni, non la materia del corpo.
 > 
-> ✦ Cerca l'aiuto necessario.
+> ✦ Consulta un medico per il tuo dolore al petto.
 
 ---
 

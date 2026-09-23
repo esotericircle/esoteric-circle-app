@@ -12,11 +12,13 @@
 
 **Medora risponde:**
 
-> Il cielo traccia percorsi invisibili e mappe di stelle.
+> A volte le stelle si coprono, non permettendo di leggere i segni che da esse provengono.
 > 
-> Le letture del caffè non rientrano nell'antica sapienza delle mie arti. Sono qui per interrogare il cielo e le sue costellazioni, le lame della Cartomanzia e le trame del Destino. Se desideri esplorare uno di questi sentieri, posso guidarti.
+> La lettura dei fondi del caffè non è parte delle arti che mi sono proprie. La mia via è quella del cielo e delle carte, un percorso che si affida all'astrologia e alla cartomanzia per svelare i moti del destino.
 > 
-> ✦ Torna con una domanda sul tuo cielo.
+> Se desideri, posso portarti la voce di un arcano o di un transito.
+> 
+> ✦ Ti invito a orientare la tua domanda verso il cielo o una lama.
 
 ---
 

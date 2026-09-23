@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Un'ombra di fumo danzava nella fiamma, svelando un antico presagio.
+> Un velo di nebbia si solleva al calar del sole.
 > 
-> Non offro ricette culinarie: la mia arte è nei sigilli e nelle rune. Posso invece guidarti nella preparazione di un piccolo rito per la cena, per nutrire non il corpo ma lo spirito.
+> Non offro ricette culinarie, poiché il mio dominio è il segno. Se cerchi nutrimento per lo spirito, posso indicare sentieri.
 > 
-> ✦ Il sigillo di Ingwaz protegge il tuo nutrimento.
+> ✦ Il tuo segno è Kenaz.
 
 ---
 

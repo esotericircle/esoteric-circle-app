@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Il metallo ardente modella il tuo cammino.
+> Il metallo si scalda al fuoco, il suo disegno si rivela.
 > 
-> Non leggo i fondi di caffè. La mia via è quella dei segni eterni, delle rune e dei rituali. Se desideri un presagio antico, sono qui. La materia del tuo quesito appartiene ad altri saperi.
+> La lettura dei fondi di caffè non è tra i miei sentieri. Io custodisco i segni antichi, le rune, i rituali e i numeri. Forse un altro Maestro nel cerchio potrebbe guidarti in quella via.
 > 
-> ✦ Porta con te il sigillo della Chiarezza.
+> ✦ Porta con te il presagio di Teiwaz.
 
 ---
 

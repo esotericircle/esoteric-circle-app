@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il tuo respiro, e come si muove nel centro del petto, ora.
+> Senti ora il tuo respiro, come entra e come esce, portando calma in ogni parte del corpo che adesso ti abita.
 > 
-> Quando la radice è forte, significa che c'è una solida base, un senso di appartenenza e sicurezza che ti sostiene, anche quando fuori tutto sembra incerto. Il cuore chiuso e la gola quasi spenta indicano che c'è un blocco nel tuo esprimerti e nel lasciare fluire le emozioni, specialmente in relazione al tuo percorso, al tuo valore, al tuo dare e ricevere nel mondo. Questo squilibrio suggerisce che l'energia che ti radica non riesce a salire liberamente verso l'espressione di te e la connessione con gli altri. Non è assenza, ma un invito a portare dolcezza lì.
+> Vedo che la tua radice è forte, ed è una base solida che ti ancora alla terra, doti di stabilità e presenza che ti sono proprie. La gola quasi spenta suggerisce che la tua voce, il tuo modo di esprimere la verità interiore e la creatività, stia cercando spazio per fiorire. Un cuore chiuso indica che forse le tue passioni più autentiche e la connessione con gli altri nel tuo ambito lavorativo desiderano aprirsi e fluire con più libertà, permettendo all'energia di scorrere liberamente.
 > 
-> ✦ Porta una mano al centro del petto e respira, senti il cuore.
+> ✦ Poggia una mano sul tuo cuore, respirando la forza della tua radice.
 
 ## Turno 2
 
@@ -26,11 +26,11 @@
 
 **Aura risponde:**
 
-> Senti la terra sotto di te, adesso.
+> Comprendo che non desideri un'altra scansione, e sono qui per offrirti la mia interpretazione di ciò che hai sentito.
 > 
-> Non ti chiedo di fare una scansione, ma di sentire il tuo corpo, proprio ora. L'interpretazione dei tuoi centri, come ti sono apparsi, ci parla di una base solida, di radici ben piantate, che ti danno una forza interiore notevole. Al tempo stesso, l'energia del cuore e della gola che si mostrano in modo meno vibrante, ti invitano a guardare a come comunichi il tuo valore, le tue passioni, e come ti permetti di ricevere ciò che desideri nel tuo percorso professionale. È un richiamo a portare consapevolezza e dolcezza in queste aree, a permettere all'energia forte della radice di salire e nutrire l'espressione di te.
+> Il tuo sentire, che ha rivelato una radice forte, parla di un radicamento profondo, un senso di sicurezza che ti sostiene nelle fondamenta della tua esistenza, anche nel contesto del lavoro e della carriera. La gola quasi spenta suggerisce un potenziale inespresso nella comunicazione e nell'espressione autentica di te, come se le parole e le idee volessero emergere con più vigore. Un cuore chiuso può indicare che la passione e la gioia nel tuo percorso professionale cercano una via per manifestarsi pienamente, invitandoti a connetterti con ciò che ami davvero.
 > 
-> ✦ Porta un respiro al tuo centro.
+> ✦ Porta l'attenzione al centro della tua gola, e senti il tuo respiro.
 
 ---
 
