@@ -12,7 +12,7 @@
 
 **Caligo risponde:**
 
-> Non comprendo il tuo messaggio. Puoi formulare la tua domanda?
+> Non comprendo il significato di quanto hai scritto. Puoi chiarire la tua domanda?
 
 ---
 

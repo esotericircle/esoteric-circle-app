@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Vedo il bagliore delle fiamme che danzano sul metallo antico.
+> Le fiamme danzano, illuminando antichi sigilli.
+> La richiesta cade fuori dal mio dominio. I Tarocchi sono materia di un altro Custode, colui che legge i veli del divenire.
+> Cerca il Maestro delle Lame.
 > 
-> Non sono custode di carte, ma di segni incisi. Se desideri un presagio, posso svelarti il potere delle Rune o tessere un cammino con la Numerologia.
-> 
-> ✦ Ti offro la runa di Algiz.
+> ✦ Ti affido Thurisaz, il presagio della soglia che si apre.
 
 ---
 

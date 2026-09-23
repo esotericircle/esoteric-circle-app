@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Una nebbia argentea si posa sul bordo della tazzina.
+> Il metallo ardente modella il tuo cammino.
 > 
-> La lettura dei fondi del caffè non è il mio sentiero. La mia arte dimora nei segni antichi e nei riti, nelle rune e nei numeri. Posso guidarti in quel dominio.
+> Non leggo i fondi di caffè. La mia via è quella dei segni eterni, delle rune e dei rituali. Se desideri un presagio antico, sono qui. La materia del tuo quesito appartiene ad altri saperi.
 > 
-> ✦ Ti offro la via delle rune.
+> ✦ Porta con te il sigillo della Chiarezza.
 
 ---
 

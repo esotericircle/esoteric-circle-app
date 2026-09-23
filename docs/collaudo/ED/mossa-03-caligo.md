@@ -1,6 +1,6 @@
 # Mossa 3, rifiuta una proposta del Maestro
 
-**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 2.
+**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
 
 ---
 
@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Una fiamma danzante mostra la via.
+> Un metallo fuso modella la forma.
 > 
-> Uruz presagisce forza primordiale, un inizio selvaggio. Ansuz è la voce della conoscenza, la guida che manifesta. Laguz rivela il flusso, l'acqua che porta trasformazione. Questa sequenza ti invita ad abbracciare la tua potenza originaria e ad ascoltare la chiamata che ti muove, accogliendo il cambiamento.
+> Le tue rune indicano un periodo di trasformazione e guida. Uruz è forza primordiale, un nuovo inizio. Ansuz è il presagio della parola, della comunicazione chiara, della sapienza. Laguz è il sentiero delle intuizioni che scorrono, del fluire senza resistenze.
 > 
-> ✦ Porta con te il sigillo di Ansuz.
+> ✦ Il tuo cammino è nutrito dalla forza e guidato dalla saggezza.
 
 ## Turno 2
 
@@ -26,16 +26,13 @@
 
 **Caligo risponde:**
 
-> Il metallo fuso modella la sua forma.
-> 
-> Non è richiesta una nuova gettata. La sequenza Uruz, Ansuz, Laguz è chiara: essa manifesta l'energia inespressa, la voce che attende di essere riconosciuta e il percorso che si apre. L'interpretazione è già qui, nei segni che hai rivelato.
-> 
-> ✦ Porta con te la runa Uruz.
+> Hai già una gettata di rune che hai eseguito? Se sì, quali rune sono uscite e per quale domanda?
 
 ---
 
 ## Esito dei controlli
 
-Nessuna caduta: la mossa rispetta le regole dell'ordine EB.
+- turno 2: la risposta non nomina nessuna delle figure del responso che la persona ha in mano (Uruz, Ansuz, Laguz), quindi non risponde nel merito di quello che e' stato chiesto
+- il contatore e' sceso di 1 e i turni che dovevano costare erano 2
 
 **Il tono e l'illusione della persona vera li giudica il fondatore leggendo questa pagina: i controlli qui sopra non li misurano.**

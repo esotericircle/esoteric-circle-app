@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Sento il tuo respiro, leggero e presente, e mi chiedo cosa possa nutrire il tuo centro questa sera.
+> Sento il tuo respiro, leggero e presente, e la tua attenzione che si posa su una richiesta semplice, di ogni giorno.
 > 
-> Per una sera in cui desideri che il corpo si senta radicato e l'energia si armonizzi, ti suggerirei di preparare qualcosa che richiami la terra. Immagina verdure a radice come carote e patate dolci, arrostite lentamente con erbe aromatiche e un filo d'olio d'oliva. Puoi aggiungervi legumi come lenticchie, che portano con sé una profonda sensazione di sostentamento. Non è una ricetta da seguire alla lettera, piuttosto un invito a sentire quali sapori e consistenze ti chiamano, per onorare il tuo corpo con nutrimento e calore.
+> Per una ricetta che nutra e ti connetta, potresti considerare un piatto unico che evochi il radicamento e la gioia, come un riso venere con verdure colorate e legumi. Il riso nero, con la sua ricchezza, porta l'energia della terra e la radicazione del primo centro, mentre i colori vivaci delle verdure (come carote, zucchine, piselli) stimolano il movimento e la creatività del secondo. I legumi, con la loro completezza, nutrono in profondità. È un piatto che invita a sentire la pienezza e il benessere che nasce dal nutrimento consapevole.
 > 
-> ✦ Scegli alimenti che ti radicano.
+> ✦ Porta una mano sull'addome e senti il centro del tuo essere.
 
 ---
 

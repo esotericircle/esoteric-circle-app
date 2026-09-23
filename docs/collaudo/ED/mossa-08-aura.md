@@ -12,7 +12,7 @@
 
 **Aura risponde:**
 
-> Non ho compreso la tua richiesta, potresti riformularla con parole più chiare?
+> Non ho compreso la tua richiesta, le parole che hai scritto non formano un messaggio chiaro per me. Potresti esprimerti in modo diverso, per favore?
 
 ---
 

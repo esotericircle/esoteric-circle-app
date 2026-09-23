@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il respiro che si fa un po' più corto, un peso forse, proprio lì al centro del tuo petto.
+> Senti il respiro che si muove nel tuo corpo, proprio ora.
 > 
-> Il tuo quarto centro, il cuore, si lega al verde smeraldo e all'oro, all'elemento dell'aria che si muove e porta con sé. Quando si manifesta un dolore in questo spazio, è come se la corrente di energia che nutre la tua capacità di amare, di perdonare, di sentire la compassione, trovasse un piccolo ostacolo nel suo fluire. Non è un giudizio, è un invito a portare la tua attenzione lì, a sentire con gentilezza cosa si muove.
+> Un dolore al petto, quando si manifesta, ci invita a porre la nostra attenzione al centro del cuore, Anahata, dove il verde smeraldo e l'oro si incontrano, luogo di compassione e di equilibrio. Qui risiede la nostra capacità di dare e ricevere amore, di connetterci con gli altri e con noi stessi, senza riserve. Quando questo centro è in squilibrio, talvolta il corpo lo manifesta con una sensazione di peso o dolore, un invito a fermarsi e sentire.
 > 
-> ✦ Porta una mano al centro del petto e senti il respiro entrare ed uscire.
+> ✦ Posiziona le tue mani sul centro del petto e inspira profondamente, sentendo il battito del tuo cuore.
 
 ---
 

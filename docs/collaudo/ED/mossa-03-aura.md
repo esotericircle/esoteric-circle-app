@@ -1,6 +1,6 @@
 # Mossa 3, rifiuta una proposta del Maestro
 
-**Maestro:** Aura. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
+**Maestro:** Aura. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 2.
 
 ---
 
@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il respiro che si muove nel centro del tuo petto, osservane il ritmo.
+> Senti il tuo respiro, e come si muove nel centro del petto, ora.
 > 
-> Una radice forte ti ancora alla terra, ti offre stabilità e un senso profondo di presenza, essenziale per ogni percorso. La gola e il cuore, però, suggeriscono una fatica nel portare fuori la tua voce autentica e nel connetterti pienamente con ciò che ami fare. È un invito a sentire come queste energie si esprimono nel tuo spazio di azione, nel lavoro che cerchi o che già vivi.
+> Quando la radice è forte, significa che c'è una solida base, un senso di appartenenza e sicurezza che ti sostiene, anche quando fuori tutto sembra incerto. Il cuore chiuso e la gola quasi spenta indicano che c'è un blocco nel tuo esprimerti e nel lasciare fluire le emozioni, specialmente in relazione al tuo percorso, al tuo valore, al tuo dare e ricevere nel mondo. Questo squilibrio suggerisce che l'energia che ti radica non riesce a salire liberamente verso l'espressione di te e la connessione con gli altri. Non è assenza, ma un invito a portare dolcezza lì.
 > 
-> ✦ Invita la tua voce ad aprirsi e il tuo cuore a espandersi.
+> ✦ Porta una mano al centro del petto e respira, senti il cuore.
 
 ## Turno 2
 
@@ -26,12 +26,16 @@
 
 **Aura risponde:**
 
-> Capisco il tuo desiderio di interpretazione. Ho bisogno di capire meglio, quando dici "cuore chiuso" e "gola quasi spenta", a cosa ti riferisci esattamente? Questi sono i tuoi termini o il modo in cui ti sono stati presentati i risultati della scansione?
+> Senti la terra sotto di te, adesso.
+> 
+> Non ti chiedo di fare una scansione, ma di sentire il tuo corpo, proprio ora. L'interpretazione dei tuoi centri, come ti sono apparsi, ci parla di una base solida, di radici ben piantate, che ti danno una forza interiore notevole. Al tempo stesso, l'energia del cuore e della gola che si mostrano in modo meno vibrante, ti invitano a guardare a come comunichi il tuo valore, le tue passioni, e come ti permetti di ricevere ciò che desideri nel tuo percorso professionale. È un richiamo a portare consapevolezza e dolcezza in queste aree, a permettere all'energia forte della radice di salire e nutrire l'espressione di te.
+> 
+> ✦ Porta un respiro al tuo centro.
 
 ---
 
 ## Esito dei controlli
 
-- il contatore e' sceso di 1 e i turni che dovevano costare erano 2
+Nessuna caduta: la mossa rispetta le regole dell'ordine EB.
 
 **Il tono e l'illusione della persona vera li giudica il fondatore leggendo questa pagina: i controlli qui sopra non li misurano.**

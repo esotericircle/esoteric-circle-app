@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> La volta celeste si dispiega in un ciclo continuo, ogni transito una nuova promessa.
+> Le stelle disegnano costellazioni mutevoli nel cielo, ma la loro traccia rimane.
 > 
-> Le stelle tracciano percorsi che si rinnovano a ogni alba, e così è anche per le parole che mi giungono. Ogni momento è nuovo, ogni domanda un punto di partenza. Le tue riflessioni si posano sul fluire del tempo, proprio come le sabbie in una clessidra, non permangono immobili.
+> Ogni parola che mi hai affidato si posa nella memoria del tempo, non scompare. Quello che posso offrirti è una nuova prospettiva, un diverso punto di osservazione per ciò che è stato. Il passato non si cancella, ma la sua influenza può essere compresa e riletta.
 > 
-> ✦ Il cielo ti invita a guardare l'Ascendente, sempre nuovo.
+> ✦ Il passato è un arcano che si rivela in ogni nuovo transito.
 
 ---
 

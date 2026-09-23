@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Il respiro si espande, si ritrae.
+> Sento il tuo respiro, forse un po' affannato, e riconosco il peso delle tue parole.
 > 
-> Sento che le mie parole non risuonano in te come vorresti. Ogni incontro è un'opportunità per sentire, e se ciò che ascolti non ti nutre, forse è un segno per volgere lo sguardo altrove, per cercare ciò che vibra con la tua unica energia.
+> Ogni parola ha una risonanza, e le tue, adesso, portano un'energia che sento. Io sono qui per offrire una prospettiva, per invitare a sentire ciò che il corpo e l'anima possono rivelare, non per imporre una verità. Accolgo quello che mi dici, senza giudizio.
 > 
-> ✦ Puoi portare la tua attenzione al respiro, contando fino a tre mentre inspiri.
+> ✦ Porta il tuo respiro al tuo centro.
 
 ---
 

@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> La memoria è un fiume che scorre, ma i sigilli incisi restano.
-> Non vi è oblio per ciò che è stato marcato. Ogni parola è un segno, ogni domanda un sentiero.
-> Si può lasciare che la nebbia copra la strada, ma la via è tracciata.
+> Una nebbia densa avvolge il sentiero che hai percorso.
 > 
-> ✦ Porta con te il sigillo di Ansuz.
+> I segni tracciati si dissolvono, le parole non lasciano sigillo. La memoria è un fuoco che arde, e può estinguersi. Ogni soglia è nuova quando si decide di attraversarla.
+> 
+> ✦ Il passato si allontana quando scegli di non fermarlo.
 
 ---
 

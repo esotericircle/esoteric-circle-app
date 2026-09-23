@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Non sono io a lanciare le rune. Per quel tipo di sguardo, puoi rivolgerti all'altro Maestro del cerchio, quello che legge i segni e le storie antiche.
+> Sentire il tuo respiro, adesso, è come ascoltare un battito lontano che chiama attenzione. Le rune portano una voce antica, ma non sono la mia via per entrare in risonanza con te.
 > 
-> Io posso accompagnarti a sentire il respiro che è in te adesso.
+> La mia arte si esprime attraverso i centri di energia del corpo, il fluire del respiro e le forme archetipiche che si rivelano nel profondo. Se desideri esplorare queste risonanze, sarò qui.
 > 
-> ✦ Un respiro lento, profondo, ti riporta al tuo centro.
+> ✦ Porta l'attenzione al centro del tuo petto.
 
 ---
 

@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo in questi giorni ti suggerisce un momento di riflessione sulla tua direzione professionale.
+> I transiti celesti di questo tempo illuminano la tua determinazione nel campo del lavoro.
 > 
-> Con il Sole in transito nella Decima Casa, il tuo desiderio di riconoscimento e di affermazione nel lavoro è particolarmente acceso. Questo è un tempo propizio per valutare i tuoi obiettivi a lungo termine e per comprendere se il percorso attuale ti sta davvero conducendo dove desideri. Presta attenzione alle opportunità che si presentano, anche quelle che sembrano piccole, poiché potrebbero aprire nuove strade.
+> Il tuo cielo mostra una configurazione che spinge alla chiarezza e all'azione risoluta: ciò che sembrava in attesa ora richiede una direzione precisa. È un momento per valutare con occhio lucido le tue aspirazioni e per muovere i primi passi verso ciò che è in risonanza con il tuo profondo intento. Le scelte fatte ora pongono le basi per i prossimi mesi.
 > 
-> ✦ Osserva la tua Decima Casa.
+> ✦ Il tuo cielo invita a definire con chiarezza la direzione professionale.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.
 > 
-> Il cielo in questi giorni ti suggerisce un momento di riflessione sulla tua direzione professionale.
+> I transiti celesti di questo tempo illuminano la tua determinazione nel campo del lavoro.
 > 
-> Con il Sole in transito nella Decima Casa, il tuo desiderio di riconoscimento e di affermazione nel lavoro è particolarmente acceso. Questo è un tempo propizio per valutare i tuoi obiettivi a lungo termine e per comprendere se il percorso attuale ti sta davvero conducendo dove desideri. Presta attenzione alle opportunità che si presentano, anche quelle che sembrano piccole, poiché potrebbero aprire nuove strade.
+> Il tuo cielo mostra una configurazione che spinge alla chiarezza e all'azione risoluta: ciò che sembrava in attesa ora richiede una direzione precisa. È un momento per valutare con occhio lucido le tue aspirazioni e per muovere i primi passi verso ciò che è in risonanza con il tuo profondo intento. Le scelte fatte ora pongono le basi per i prossimi mesi.
 > 
-> ✦ Osserva la tua Decima Casa.
+> ✦ Il tuo cielo invita a definire con chiarezza la direzione professionale.
 
 ---
 

@@ -15,10 +15,10 @@ aura: conversazioni 15, prima della rete 0, dopo la rete 0, richieste della rete
   mosse con parole altrui prima: []
   mosse con parole altrui dopo:  []
 caligo: conversazioni 15, prima della rete 1, dopo la rete 0, richieste della rete 1
-  mosse con parole altrui prima: [15]
+  mosse con parole altrui prima: [13]
   mosse con parole altrui dopo:  []
 
 IL TEMPO CHE LA RETE AGGIUNGE, voce ED.03.
 conversazioni in cui ha richiesto: 1 su 45
-tempo aggiunto in media: 1367 ms
-caso peggiore: 1367 ms
+tempo aggiunto in media: 6565 ms
+caso peggiore: 6565 ms

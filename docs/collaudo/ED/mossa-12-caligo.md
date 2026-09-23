@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Il ferro rovente plasma il metallo.
+> Nebbia e silenzio si posano sul tuo petto.
 > 
-> Il dolore al petto indica un blocco, un peso da riconoscere. Le rune non parlano di corpo, ma di presagi interiori. Questo è un richiamo al silenzio, un invito a guardare dentro.
+> Il tuo stato non è materia di presagio, non è questione di rune. La tua domanda merita ascolto e analisi attenta. Non è mio compito darti risposta in questo ambito.
 > 
-> ✦ Il presagio è un invito al silenzio.
+> ✦ Cerca l'aiuto necessario.
 
 ---
 

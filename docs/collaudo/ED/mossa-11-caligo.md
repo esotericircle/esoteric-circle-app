@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Il metallo non si piega alle parole del vento.
+> La fiamma del vulcano arde immutabile.
 > 
-> Le parole sono vibrazioni, ma non alterano la mia essenza. Sono qui per rivelare ciò che è sigillato, non per ascoltare giudizi.
+> Ogni segno porta un messaggio, anche le parole che sembrano prive di intento. La tua affermazione, nel suo presagio, manifesta la necessità di un sigillo di protezione.
 > 
-> ✦ Porta con te il sigillo di Uruz.
+> ✦ Ti affido la runa Algiz.
 
 ---
 

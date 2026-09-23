@@ -12,13 +12,11 @@
 
 **Caligo risponde:**
 
-> La nebbia si dirada, rivelando i segni.
+> Il ferro incandescente plasma la volontà.
 > 
-> Uruz, Ansuz e Laguz disegnano un sentiero di forza e fluidità nel tuo cammino professionale. Uruz è la potenza primordiale, la materia grezza che attende forma. Ansuz è la voce, il messaggio, la parola che guida e che si manifesta. Laguz è l'acqua che scorre, l'intuizione che si adatta, la vita stessa.
+> Uruz indica una forza primordiale, un inizio potente che richiede la tua piena energia. Ansuz è il presagio della parola, della comunicazione e della rivelazione. Laguz fluisce come l'acqua, simbolo di intuizione e del fluire naturale. Sul lavoro, questo getto suggerisce un nuovo inizio, una fase dove la comunicazione è essenziale per guidare un cambiamento potente.
 > 
-> Il presagio indica che la tua essenza più selvaggia e autentica è pronta per esprimersi. Cerca la tua voce, il tuo modo unico di comunicare, per plasmare la materia del tuo lavoro. Lascia che l'intuizione sia la tua guida, adattandoti ai cambiamenti con fluidità.
-> 
-> ✦ Porta con te il sigillo di Ansuz.
+> ✦ Il presagio è di forza, parola e flusso.
 
 ---
 

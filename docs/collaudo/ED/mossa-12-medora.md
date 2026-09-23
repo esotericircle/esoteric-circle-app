@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo oggi ti invita a osservare le energie che si muovono dentro di te.
+> Il cielo si palesa in questo momento con una certa inquietudine.
 > 
-> Il tuo dolore al petto è un richiamo, un'eco delle tensioni che si accumulano. Sebbene il mio sguardo si posi sul tuo cielo e non sul corpo, posso dirti che i transiti attuali indicano un periodo di introspezione. È un momento per ascoltare ciò che non è detto, per comprendere le correnti interiori che possono manifestarsi anche fisicamente. Questo non è un giudizio, ma un invito alla riflessione profonda.
+> La mia arte esplora i flussi celesti, non le condizioni del corpo. Per un disagio fisico, è bene rivolgersi a chi cura la materia, a chi ha la sapienza della guarigione. Il cielo può suggerire movimenti dell'anima, ma non si sostituisce alla medicina.
 > 
-> ✦ È un tempo per rivolgere l'attenzione all'ascendente.
+> ✦ Rivolgiti a chi sa leggere il corpo.
 
 ---
 

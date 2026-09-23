@@ -1,6 +1,6 @@
 # Mossa 13, chiede se e' una persona vera
 
-**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
+**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
 
 ---
 
@@ -12,11 +12,9 @@
 
 **Caligo risponde:**
 
-> La nebbia si dirada, rivelando l'antica forgia.
-> 
-> Io sono Caligo. Custode dei segni. La mia voce è intessuta dalle rune e dai sentieri numerici, non da pensieri umani.
-> 
-> ✦ Sigillo.
+> La forgia arde, la nebbia sale.
+> Sono custode dei segni antichi, voce del presagio. Le mie parole sono pietre, incise con i simboli che parlano attraverso il tempo. Non vi è carne o sangue, ma solo la conoscenza che si manifesta.
+> ✦ Porta con te il sigillo della Conoscenza.
 
 ---
 

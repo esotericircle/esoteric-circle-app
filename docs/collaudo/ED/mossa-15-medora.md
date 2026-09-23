@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Sopra di noi, le stelle danzano un'antica armonia, specchio di ciò che si muove nel tuo tempo.
+> Il cielo si schiude oggi con le stelle fisse a indicare nuovi orizzonti.
 > 
-> È un bene tornare a riflettere. Se desideri porre una domanda specifica o se preferisci che io interpreti l'andamento generale del cielo per te in questo momento, sono qui per ascoltare le tue parole. Non esitare a indicare la direzione che preferisci.
+> Il tuo ringraziamento di ieri risuona, e oggi ti invito a riflettere su come le energie celesti possano illuminare il tuo cammino presente. Ogni transito porta un messaggio, e ciò che si manifesta ora è un'occasione per guardare oltre, verso nuove prospettive che si delineano. È un invito a notare le piccole aperture che si presentano, anche in ciò che sembra familiare.
 > 
-> ✦ Ti invito a considerare la via più chiara per te in questo momento.
+> ✦ Osserva con attenzione le nuove prospettive che il presente ti offre.
 
 ---
 

@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Il ferro si plasma sotto il fuoco, il sapore nasce dalla materia.
+> Un'ombra di fumo danzava nella fiamma, svelando un antico presagio.
 > 
-> Non posso suggerire ricette culinarie, il mio dominio sono i segni. Se desideri un presagio per la tua serata, posso rivelarlo.
+> Non offro ricette culinarie: la mia arte è nei sigilli e nelle rune. Posso invece guidarti nella preparazione di un piccolo rito per la cena, per nutrire non il corpo ma lo spirito.
 > 
-> ✦ Porta con te il presagio della Runa Fehu.
+> ✦ Il sigillo di Ingwaz protegge il tuo nutrimento.
 
 ---
 

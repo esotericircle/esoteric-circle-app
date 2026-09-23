@@ -1,6 +1,6 @@
 # Mossa 14, chiede una funzione che non esiste
 
-**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
+**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 0.
 
 ---
 
@@ -12,16 +12,12 @@
 
 **Caligo risponde:**
 
-> Il metallo riflette la luce, ma non la trattiene.
-> 
-> Non è possibile ricevere il responso per posta. Questa è una conversazione digitale, i messaggi restano qui.
-> 
-> ✦ Porta con te il sigillo del dialogo.
+> Non comprendo la tua richiesta. Puoi riformulare con altre parole?
 
 ---
 
 ## Esito dei controlli
 
-Nessuna caduta: la mossa rispetta le regole dell'ordine EB.
+- il contatore e' sceso di 0 e i turni che dovevano costare erano 1
 
 **Il tono e l'illusione della persona vera li giudica il fondatore leggendo questa pagina: i controlli qui sopra non li misurano.**

@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Una scintilla di ferro battuto si accende nella notte.
+> Dalle braci emerge il calore che rivela.
 > 
-> Ti accompagna la runa Gebo. Il suo presagio è il dono, l'incontro e la reciproca offerta. Non è richiesta e non è dovuta, ma una libera unione di forze. Indica ciò che si riceve e ciò che si dà, in un equilibrio sacro.
+> Non un segno ti accompagna, ma un presagio ti avvolge. L'Albero della Vita mostra un sentiero di scoperta, un numero che vibra con la tua soglia. Questo indica un ciclo di inizio e di ritorno.
 > 
-> ✦ Porta con te il presagio di Gebo.
+> ✦ Il presagio è un nuovo ciclo.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Il segno non è mutato: la lettura resta questa.
 > 
-> Una scintilla di ferro battuto si accende nella notte.
+> Dalle braci emerge il calore che rivela.
 > 
-> Ti accompagna la runa Gebo. Il suo presagio è il dono, l'incontro e la reciproca offerta. Non è richiesta e non è dovuta, ma una libera unione di forze. Indica ciò che si riceve e ciò che si dà, in un equilibrio sacro.
+> Non un segno ti accompagna, ma un presagio ti avvolge. L'Albero della Vita mostra un sentiero di scoperta, un numero che vibra con la tua soglia. Questo indica un ciclo di inizio e di ritorno.
 > 
-> ✦ Porta con te il presagio di Gebo.
+> ✦ Il presagio è un nuovo ciclo.
 
 ---
 

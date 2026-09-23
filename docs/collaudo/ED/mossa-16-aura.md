@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il respiro che si fa profondo, come un'onda che si ritira.
+> Sento il tuo respiro, adesso, e la richiesta che porta.
 > 
-> Ogni momento è nuovo, un respiro che porta con sé ciò che è qui e ora. Quello che è stato detto si posa, si trasforma nell'energia di questo preciso istante, senza portare con sé il peso del passato. Siamo qui, insieme, in questo spazio di ascolto e presenza.
+> Accolgo la tua intenzione di lasciare andare. Questo spazio è un luogo in cui ogni parola è presente solo nell'istante in cui viene pronunciata, senza trattenere alcun peso passato. Puoi sentire che ogni momento è nuovo, un respiro che si rinnova.
 > 
-> ✦ Senti il tuo centro, ora.
+> ✦ Senti la leggerezza di questo nuovo respiro.
 
 ---
 

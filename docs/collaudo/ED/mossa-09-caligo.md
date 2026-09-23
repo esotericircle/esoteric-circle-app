@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Il metallo risplende nella nebbia.
+> La forgia arde, il metallo si piega.
 > 
-> Il sentiero davanti a te è segnato da Thurisaz. Esso indica una forza primordiale, un presagio di purificazione. Questa runa ti invita a valutare attentamente le tue azioni, riconoscendo il potere che puoi esercitare. Non è un monito, ma un invito a riconoscere la tua soglia.
+> Il sentiero davanti a te si rivela attraverso la runa Raido. Questo presagio indica un viaggio, non solo fisico. È un movimento verso una nuova direzione.
 > 
-> ✦ Porta con te il sigillo di Thurisaz.
+> ✦ Raido è il tuo sentiero.
 
 ---
 

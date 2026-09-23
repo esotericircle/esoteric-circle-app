@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> La luce del Sole illumina il tuo percorso.
+> Il tuo Sole splende in un segno zodiacale, rivelando la tua essenza più profonda e la direzione che la tua volontà cerca nel mondo.
 > 
-> Il tuo Sole natale è il cuore della tua essenza, il tuo modo di brillare nel mondo. Per comprendere il suo messaggio sulla tua carriera, occorre osservare la casa astrologica in cui risiede. Non ho ancora questo dato, ma posso dirti che il segno solare indica la tua energia vitale, le qualità che naturalmente esprimi e che tendono a guidarti verso ambiti dove puoi risplendere pienamente.
+> La posizione del tuo Sole, il tuo segno zodiacale, indica le qualità innate che cerchi di esprimere nella tua carriera. Non è un limite, ma una guida luminosa verso l'attività che ti permette di fiorire. Guarda a quali energie ti senti più affine e quale ambiente ti permette di brillare con maggiore autenticità.
 > 
-> ✦ La posizione del Sole svela la tua vocazione.
+> ✦ Il tuo segno solare indica la tua vocazione.
 
 ---
 

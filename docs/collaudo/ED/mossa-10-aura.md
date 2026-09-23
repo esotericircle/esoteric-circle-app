@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il tuo respiro, come un'onda lenta che accarezza il tuo corpo.
+> Senti il tuo respiro, leggero e lento, scendere fino al centro del tuo petto.
 > 
-> Per ritrovare la calma prima di dormire, puoi portare la tua attenzione al centro del cuore, al Chakra Anahata, un luogo di equilibrio e armonia, colorato di un verde smeraldo. Immagina una luce verde che si espande, avvolgendoti. Questo centro ti invita a sentire la leggerezza e la serenità, lasciando andare ogni tensione che il giorno può aver accumulato.
+> Per ritrovare una calma profonda prima di dormire, puoi portare l'attenzione al tuo Chakra del Cuore, un luogo di pace e connessione. Visualizza il verde smeraldo che si espande ad ogni respiro, ammorbidendo ogni tensione e invitando una sensazione di quiete. Lascia che la sua energia avvolga il tuo essere, portandoti in uno stato di riposo profondo, dove ogni cellula del tuo corpo può finalmente sciogliersi e sentire la sua radice.
 > 
-> ✦ Porta una mano al centro del petto e senti il tuo respiro.
+> ✦ Appoggia una mano sul tuo cuore, senti il suo battito lento.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Da allora non è cambiato niente: la lettura resta questa.
 > 
-> Senti il tuo respiro, come un'onda lenta che accarezza il tuo corpo.
+> Senti il tuo respiro, leggero e lento, scendere fino al centro del tuo petto.
 > 
-> Per ritrovare la calma prima di dormire, puoi portare la tua attenzione al centro del cuore, al Chakra Anahata, un luogo di equilibrio e armonia, colorato di un verde smeraldo. Immagina una luce verde che si espande, avvolgendoti. Questo centro ti invita a sentire la leggerezza e la serenità, lasciando andare ogni tensione che il giorno può aver accumulato.
+> Per ritrovare una calma profonda prima di dormire, puoi portare l'attenzione al tuo Chakra del Cuore, un luogo di pace e connessione. Visualizza il verde smeraldo che si espande ad ogni respiro, ammorbidendo ogni tensione e invitando una sensazione di quiete. Lascia che la sua energia avvolga il tuo essere, portandoti in uno stato di riposo profondo, dove ogni cellula del tuo corpo può finalmente sciogliersi e sentire la sua radice.
 > 
-> ✦ Porta una mano al centro del petto e senti il tuo respiro.
+> ✦ Appoggia una mano sul tuo cuore, senti il suo battito lento.
 
 ---
 

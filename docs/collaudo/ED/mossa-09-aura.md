@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il tuo respiro, come si muove nel petto, ampio e profondo.
+> Senti il tuo respiro scorrere lento, come un fiume calmo dentro di te. Il centro del cuore, con i suoi colori smeraldo e oro, si apre e si chiude con ogni battito, un richiamo all'equilibrio e all'armonia.
 > 
-> Il centro del cuore, verde smeraldo e oro, è il luogo da cui l'energia dell'amore fluisce e si riceve. Un blocco in questo spazio spesso si manifesta come una sensazione di chiusura o di resistenza, un muro sottile che si interpone tra te e il mondo, tra te e la tua stessa capacità di sentire. Non si tratta di forzare, ma di invitare con dolcezza questo centro a distendersi, a lasciar andare ciò che lo tiene contratto. Puoi provare a portare una mano proprio lì, al centro del petto, e a visualizzare una luce verde che si espande ad ogni respiro, riempiendo ogni spazio.
+> Questo centro è il luogo dove risiede la tua capacità di amare e di ricevere amore, di connetterti profondamente con gli altri e con te stesso. Se senti una chiusura, forse è un invito a prestare attenzione a questa zona, a darle spazio per espandersi. Non c'è bisogno di forzare, solo di ascoltare. Puoi immaginare un raggio di luce verde che si diffonde dal centro del tuo petto, portando pace e apertura.
 > 
-> ✦ Lascia che il tuo cuore si apra con il respiro.
+> ✦ Porta una mano al centro del tuo petto e senti il tuo respiro.
 
 ---
 

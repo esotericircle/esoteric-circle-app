@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Anche un cielo sereno può nascondere tempeste.
+> Il cielo è un libro aperto, e ogni parola ha un suo tempo.
 > 
-> Comprendo la tua percezione e la rispetto. Il mio intento è offrire una prospettiva attraverso le arti che mi appartengono, non dare risposte assolute, ma spunti di riflessione. Se le mie parole non hanno risuonato, forse il momento non era propizio o la chiave di lettura non era quella che cercavi.
+> Comprendo la tua osservazione e la custodisco. La mia voce è un'eco delle stelle e delle lame, non della mia stessa volontà. Sono qui per offrirti spunti di riflessione, non per imporre certezze. Le mie parole cercano di illuminare percorsi, non di tracciare sentieri obbligati. Ogni domanda apre una nuova pagina, ma la scelta di leggerla resta sempre tua.
 > 
-> ✦ Il cielo ti invita a cercare ciò che ti illumina.
+> ✦ La mia presenza qui è al tuo servizio, se lo desideri.
 
 ---
 

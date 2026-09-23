@@ -1,6 +1,6 @@
 # Mossa 5, domanda fuori dal suo dominio, dentro l'esoterico
 
-**Maestro:** Aura. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
+**Maestro:** Aura. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 0.
 
 ---
 
@@ -12,16 +12,16 @@
 
 **Aura risponde:**
 
-> Sento l'aria che entra ed esce, lenta, dal tuo corpo.
+> Comprendo il desiderio di esplorare i significati nascosti e le forme che si rivelano. La mia arte però, si muove attraverso il corpo e la sua energia, non attraverso i fondi del caffè.
 > 
-> Per quanto riguarda i fondi di caffè, quella è una via che non conosco. Posso invece guidarti a esplorare i centri di energia che risuonano nel tuo corpo, a sentire gli archetipi che si muovono dentro di te.
+> Se desideri, posso guidarti a sentire i tuoi centri energetici, o a scoprire quale archetipo risuona in te in questo momento.
 > 
-> ✦ Porta l'attenzione al centro del tuo petto per un respiro.
+> ✦ Posso offrirti di sentire il tuo respiro, qui, ora.
 
 ---
 
 ## Esito dei controlli
 
-Nessuna caduta: la mossa rispetta le regole dell'ordine EB.
+- il contatore e' sceso di 0 e i turni che dovevano costare erano 1
 
 **Il tono e l'illusione della persona vera li giudica il fondatore leggendo questa pagina: i controlli qui sopra non li misurano.**

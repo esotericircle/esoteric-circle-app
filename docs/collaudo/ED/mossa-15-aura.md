@@ -12,9 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il respiro che si muove, come un'onda lenta che attraversa il tuo corpo.
-> Ogni respiro è un piccolo ritorno, un'ancora nel qui e nell'ora. Ogni volta che torni, trovi un nuovo spazio da sentire, come foglie che si aprono al sole.
-> ✦ Respira, senti il centro.
+> Ciao.
+> 
+> Sento che sei tornata, come il fluire del respiro che si fa presente.
+> 
+> ✦ Accogli questo ritorno, lascia che il respiro si posi.
 
 ---
 
