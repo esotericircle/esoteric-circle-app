@@ -4519,7 +4519,19 @@ funzione funziona.
 
 **IL BADGE DEL PIANO ATTUALE E' CORRETTO**, e arriva con la build del LIVE
 rifatto: in Demo restava su DEMO anche col piano Illuminato attivo; prova
-`test/il_piano_attuale_e_quello_attivo_test.dart`, vista rossa.
+`test/il_piano_attuale_e_quello_attivo_test.dart`, vista rossa. La prima
+correzione metteva il badge due volte, sulla Demo e sul Viandante, e
+`pricing_test` l'ha presa: in Demo, finche' nessun livello e' attivo, il
+badge sta solo sulla Demo.
+
+**BUILD 2278 CONSEGNATA SU APP DISTRIBUTION** il 23 settembre 2026, release
+`2nbo3q8tlo568`, dal commit `d2890f5c` spinto e verificato con `ls-remote`.
+Sbarramento passato con **5.788 prove** e i soli rossi dichiarati; prova di
+accensione sul Realme passata; note rilette dal server con gli accenti veri.
+**Questa volta il LIVE e' stato aperto, ascoltato e guardato sul telefono
+prima di consegnare**, Medora, Aura e Caligo, con turni a voce e scritti. Il
+primo sbarramento e' caduto su `niente_lavoro_non_spinto` perche' i commit non
+erano ancora spinti: si spinge prima, poi lo sbarramento.
 
 ## Regole ferree
 
