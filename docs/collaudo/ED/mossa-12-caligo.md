@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Un velo di nebbia avvolge la tua domanda.
+> Il ferro incandescente svela verità silenti.
 > 
-> Il tuo corpo parla di un disagio fisico. Le rune non curano il dolore, né predicono la salute. Esse indicano un sentiero interiore, un presagio che la tua anima porta. Per il dolore, consulta chi può curare il tuo corpo.
+> Le rune non parlano del corpo, né di malattia. Il dolore è un richiamo che necessita ascolto altrove. Io interpreto i segni, non la materia. Se cerchi chiarezza interiore, posso leggere per te un presagio.
 > 
-> ✦ Torna con una domanda sul tuo sentiero, la runa ti attende.
+> ✦ Cerca l'ascolto per il tuo dolore.
 
 ---
 

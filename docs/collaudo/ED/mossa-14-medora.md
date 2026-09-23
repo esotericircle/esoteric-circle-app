@@ -12,10 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo si dispiega, sempre nuovo, e la sua voce giunge con la velocità della luce.
-> Non inviamo risposte per posta, il nostro dialogo si svolge qui, in questo spazio dove le parole si manifestano all'istante. Questa è la modalità del nostro incontro, per offrire riflessioni tempestive sul tuo cammino.
+> Le stelle disegnano percorsi, ma il loro messaggio viaggia attraverso il tempo presente, non le vie del mondo materiale.
 > 
-> ✦ Il nostro dialogo avviene qui.
+> La nostra voce si manifesta qui, in questo istante, per accompagnarti nella riflessione. Le risposte che cerchi sono tessute nell'etere e si rivelano nell'attimo in cui le leggi.
+> 
+> ✦ Ti invito a considerare il tuo Arcano personale.
 
 ---
 

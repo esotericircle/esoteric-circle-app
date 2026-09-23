@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Le stelle brillano ancora sul tuo cammino, così come ieri.
+> Il cielo di oggi si dispiega, come una carta nuova, per mostrarti le sue linee.
 > 
-> Il cielo sereno di oggi ti invita a osservare le piccole sincronicità che costellano la tua giornata. Ogni evento, per quanto modesto, porta con sé un messaggio, un filo d'oro che puoi scegliere di cogliere. Non affrettare le conclusioni, ma lascia che le intuizioni maturino nel tuo tempo.
+> È un bene tornare a riflettere su ciò che si è vissuto, per ricavarne la trama che ti guida. Ogni esperienza, anche quella passata, è un filo che si lega al presente e all'avvenire. È nell'osservare con lucidità che si trova il vero senso.
 > 
-> ✦ Osserva le sincronicità.
+> ✦ Ricerca la chiarezza in ogni tuo passo, è la tua lama.
 
 ---
 

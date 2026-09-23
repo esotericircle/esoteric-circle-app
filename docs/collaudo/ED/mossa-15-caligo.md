@@ -12,11 +12,9 @@
 
 **Caligo risponde:**
 
-> Il ferro fuso forgia un nuovo inizio.
-> 
-> Ogni ringraziamento è un ponte, un sentiero appena tracciato. Porta con sé l'eco di ciò che è stato e la promessa di ciò che sarà. Questa memoria è il tuo presagio di connessione.
-> 
-> ✦ La runa Gebo è il segno del dono reciproco.
+> Come fiamma su pietra antica, la tua presenza è segno.
+> Ogni tuo passo disegna una soglia. I ricordi sono sentieri tracciati. Il valore del tuo cammino è nel riconoscere il segno.
+> ✦ Accogli il presagio di Jera.
 
 ---
 

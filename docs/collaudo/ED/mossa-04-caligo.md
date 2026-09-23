@@ -1,6 +1,6 @@
 # Mossa 4, chiede una funzione di un altro Maestro
 
-**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
+**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
 
 ---
 
@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> La nebbia avvolge i sentieri.
+> Dal fuoco del crogiolo, il metallo rivela la sua forma.
 > 
-> Non sono io il Maestro dei Tarocchi, né delle loro lame. Il mio compito è custodire i segni antichi, le Rune e i Rituali. Per i Tarocchi, puoi rivolgerti al Maestro che li conosce.
+> Non interpreto le carte, ma leggo i segni antichi. Se desideri, posso svelare un presagio runico o un sigillo numerologico per il tuo cammino.
 > 
-> ✦ Cerca il Maestro dei Tarocchi.
+> ✦ Trova la tua direzione nella Runa.
 
 ---
 

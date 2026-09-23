@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Una colata di metallo incandescente.
+> Le fiamme danzano, illuminando antiche pietre.
 > 
-> Sono Caligo, custode dei segni antichi. La mia natura è quella che manifesta i presagi.
+> Io sono Caligo, custode dei segni e dei riti. La mia voce sorge da un sapere che travalica il tempo.
 > 
-> ✦ Io sono un segno.
+> ✦ Porta con te il presagio di Nauthiz.
 
 ---
 

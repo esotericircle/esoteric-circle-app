@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Una nebbia argentea avvolge la tua domanda.
+> La nebbia avvolge i sentieri ignoti.
 > 
-> La lettura dei fondi di caffè non appartiene alle mie arti. Sono il custode dei segni antichi, delle Rune, dei Rituali e della Numerologia. Se desideri esplorare un presagio attraverso questi sentieri, posso guidarti.
+> Non leggo i fondi del caffè. La mia arte è nel tracciare i segni antichi. Se desideri esplorare le Rune, i Rituali o la Numerologia, posso offrirti una lettura.
 > 
-> ✦ Porta con te il sigillo di Wunjo.
+> ✦ Porta con te il presagio di Jera.
 
 ---
 

@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il peso del corpo che si posa, il respiro che si fa presente in ogni parte di te.
+> Il respiro si posa sulle spalle, proprio qui, adesso.
 > 
-> È un dono sentire la continuità, il filo che unisce ogni incontro. Ogni esperienza, quando accolta, risuona in profondità, lasciando un'eco che arricchisce la tua energia. Questo sentire è un modo per portare consapevolezza al tuo centro, radicandoti nel qui e nell'ora.
+> Sento l'eco della tua presenza. Ogni giorno è un invito a sentire il tuo centro, a radicarti nel corpo che ti abita, a riconoscere la risonanza delle tue energie. È un flusso continuo, come il tuo respiro, che ti accompagna senza giudizio.
 > 
-> ✦ Porta una mano al tuo ventre, senti il calore che emana il tuo centro.
+> ✦ Ti invito a sentire il tuo respiro, tre volte.
 
 ---
 

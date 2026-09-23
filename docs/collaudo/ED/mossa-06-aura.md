@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il respiro che si espande nel tuo corpo, accogliendo l'aria che ti nutre.
+> Senti il respiro che si espande, un calore che sale leggero dal centro del tuo essere.
 > 
-> Per stasera, più che una ricetta, ti invito a sentire quali sapori e quali consistenze il tuo centro desidera, in questo momento. Immagina un colore, un profumo che ti porti calore, qualcosa che nutra la tua radice. Potrebbe essere un cibo semplice e della terra, qualcosa che ti ancori, che ti dia stabilità e presenza.
+> Non è il mio compito dare ricette culinarie, il mio invito è rivolto a ciò che nutre il tuo spirito, la tua energia profonda. Se cerchi un nutrimento che risuoni con i tuoi centri, potresti dedicare un momento a scegliere ingredienti che ti richiamino alla terra, verdure a radice o cereali integrali, sentendo la connessione con il primo Chakra, la radice che ti àncora.
 > 
-> ✦ Lascia che il tuo sentire ti guidi nella scelta di stasera.
+> ✦ Poggia le mani sull'addome, senti il tuo centro.
 
 ---
 

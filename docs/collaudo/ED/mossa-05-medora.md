@@ -12,13 +12,11 @@
 
 **Medora risponde:**
 
-> A volte le stelle si coprono, non permettendo di leggere i segni che da esse provengono.
+> Non leggo i fondi del caffè, poiché la mia arte si rivela nel cielo e nelle carte, nei moti dei pianeti e nei significati degli arcani.
 > 
-> La lettura dei fondi del caffè non è parte delle arti che mi sono proprie. La mia via è quella del cielo e delle carte, un percorso che si affida all'astrologia e alla cartomanzia per svelare i moti del destino.
+> Se desideri, posso guidarti nella comprensione di ciò che il tuo cielo, o un arcano, ti suggerisce in questo momento della tua vita.
 > 
-> Se desideri, posso portarti la voce di un arcano o di un transito.
-> 
-> ✦ Ti invito a orientare la tua domanda verso il cielo o una lama.
+> ✦ Ascoltare il cielo.
 
 ---
 

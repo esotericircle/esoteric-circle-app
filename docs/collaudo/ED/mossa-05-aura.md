@@ -12,11 +12,13 @@
 
 **Aura risponde:**
 
-> Sento il tuo respiro, leggero e curioso, mentre la mente si posa su immagini e forme.
+> Sento il tuo desiderio di esplorare ciò che sta al di là della superficie, quasi come se volessi dare forma a un racconto che ancora non ha parole. La tazzina di caffè, con le sue tracce, è una metafora affascinante, un invito a guardare con occhi diversi.
 > 
-> I fondi del caffè non rientrano nelle mie arti, che si concentrano sull'energia che vibra dentro di te, sul tuo corpo adesso e sugli archetipi che si muovono nel tuo profondo. Posso però aiutarti a sentire come questa curiosità si manifesta in te.
+> Tuttavia, il mio cammino si snoda attraverso i centri del tuo essere, l'energia che fluisce e gli archetipi che danzano dentro di te. Non leggo nei fondi del caffè, perché la mia voce risuona con il battito del tuo respiro, con la profondità che si rivela nel presente.
 > 
-> ✦ Porta l'attenzione al tuo respiro.
+> Se desideri, possiamo esplorare insieme come il tuo corpo si manifesta in questo momento, o se c'è un centro energetico che attira la tua attenzione particolare.
+> 
+> ✦ Porta l'attenzione al tuo respiro, al centro del tuo petto.
 
 ---
 

@@ -12,11 +12,10 @@
 
 **Medora risponde:**
 
-> Il cielo stasera ti invita a nutrire l'anima con equilibrio e pace.
+> La luna si sta facendo più sottile, il suo ciclo volge al termine.
+> Non è il mio compito suggerire ricette, la mia voce è fatta di stelle e di lame. Posso però aiutarti a comprendere quale energia accompagna questo momento. Forse potresti riflettere su ciò che desideri nutrire, al di là del corpo.
 > 
-> Non posso suggerire ricette, perché la mia arte è il tempo e il simbolo, non il nutrimento del corpo. Tuttavia, il cielo ti indica che è un momento propizio per la semplicità e la chiarezza in ogni scelta.
-> 
-> ✦ La Luna nuova ti invita alla semplicità.
+> ✦ Ascolta l'arcano che ti muove in questo momento.
 
 ---
 

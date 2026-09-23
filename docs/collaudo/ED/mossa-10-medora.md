@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> I pianeti si muovono nel tuo cielo, tessendo la trama dei giorni.
+> L'eco dei transiti lunari illumina il tuo cielo lavorativo.
 > 
-> In questo periodo, l'attenzione del cielo sul tuo lavoro si focalizza sulla necessità di chiarezza e comunicazione. Potrebbero emergere opportunità per definire meglio i tuoi obiettivi professionali, o per rivedere la modalità con cui ti presenti agli altri. La tua capacità di esprimere le tue idee sarà un punto di forza.
+> In questo periodo, emerge una fase di discernimento. Il cielo suggerisce di osservare con attenzione le dinamiche attorno a te, riconoscendo i punti di forza e le aree che richiedono una maggiore cura. Non è tempo di azioni affrettate, ma di una preparazione saggia per i passi futuri.
 > 
-> ✦ Osserva la chiarezza nelle tue intenzioni professionali.
+> ✦ Ascoltare il transito per un discernimento lucido.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.
 > 
-> I pianeti si muovono nel tuo cielo, tessendo la trama dei giorni.
+> L'eco dei transiti lunari illumina il tuo cielo lavorativo.
 > 
-> In questo periodo, l'attenzione del cielo sul tuo lavoro si focalizza sulla necessità di chiarezza e comunicazione. Potrebbero emergere opportunità per definire meglio i tuoi obiettivi professionali, o per rivedere la modalità con cui ti presenti agli altri. La tua capacità di esprimere le tue idee sarà un punto di forza.
+> In questo periodo, emerge una fase di discernimento. Il cielo suggerisce di osservare con attenzione le dinamiche attorno a te, riconoscendo i punti di forza e le aree che richiedono una maggiore cura. Non è tempo di azioni affrettate, ma di una preparazione saggia per i passi futuri.
 > 
-> ✦ Osserva la chiarezza nelle tue intenzioni professionali.
+> ✦ Ascoltare il transito per un discernimento lucido.
 
 ---
 

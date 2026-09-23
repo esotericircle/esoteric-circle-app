@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Respirando, senti il flusso che attraversa il tuo corpo, un'onda che ti culla.
+> Sento il tuo respiro, come un'onda leggera che cerca una riva.
 > 
-> Le rune sono un linguaggio antico, che parla attraverso segni e simboli. Appartengono all'arte di un altro Maestro, che con la sua saggezza sa intrecciare i fili di quelle storie. Il mio sguardo è rivolto ai centri del corpo, all'energia che lì dimora.
+> Per le rune, il maestro che puoi sentire è un altro, con un suo modo di stare nel tempo e con le immagini antiche. Io porto il respiro e i centri di energia, il verde smeraldo e l'oro che puoi sentire ora, nel tuo corpo.
 > 
-> ✦ Puoi rivolgerti al Maestro delle rune per esplorare quel cammino.
+> ✦ Porta il tuo sentire al respiro, adesso.
 
 ---
 

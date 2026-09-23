@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> La fiamma arde, il metallo si forgia.
+> Il fuoco danza nel braciere, la fiamma purifica.
 > 
-> Non sono un maestro di ricette culinarie, il mio dominio è la soglia dei segni. Posso indicarti il sentiero del nutrimento simbolico.
+> La cucina non è dominio mio. Non offro ricette, non preparo cibi. Il tuo percorso è altrove.
 > 
-> ✦ Medita sul presagio di Fehu.
+> ✦ Chiedi al Maestro della Terra la tua ricetta.
 
 ---
 

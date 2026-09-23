@@ -12,11 +12,13 @@
 
 **Medora risponde:**
 
-> Il cielo si mostra oggi con una luce diffusa, senza un particolare transito che inviti a guardare dentro i sette vortici che menzioni.
+> Il cielo si mostra come uno specchio d'acqua, fermo e profondo.
 > 
-> Le arti che coltivo, l'Astrologia e la Cartomanzia, si volgono all'incontro tra i pianeti e le stelle, o all'apertura delle lame del Tarocco, per leggere il cammino. Per lo scan dei chakra, ti indicherei di rivolgerti alla Maestra che opera su quel piano, lei saprà guidarti con la sua profonda conoscenza.
+> Comprendo la tua richiesta, ma il mio dominio riguarda il tempo, i movimenti celesti e le trame del destino. L'indagine sui chakra è una via che non percorro.
 > 
-> ✦ Chiedi alla Maestra di Chakra per la tua prossima lettura.
+> Ti invito a rivolgerti a Maestro Fuoco, lui saprà guidarti in quella ricerca.
+> 
+> ✦ Rivolgiti a Maestro Fuoco.
 
 ---
 

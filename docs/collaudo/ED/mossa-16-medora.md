@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo di adesso ti avvolge, una tela in continua mutazione.
+> Il cielo è un archivio vasto e silenzioso, e ogni eco si dissolve nel tempo.
 > 
-> Ogni parola che mi affidi si posa nel presente, un istante che scorre. Le mie arti leggono ciò che è, senza che il passato si imponga come un peso. La tua richiesta risuona nel qui e ora, e io accolgo la tua volontà di un nuovo inizio.
+> Le parole che mi hai affidato si posano come stelle effimere, destinate a svanire nel grande affresco celeste. Il tuo percorso, le tue domande, sono un momento presente, e la mia memoria si concentra su ciò che è ora.
 > 
-> ✦ Il tuo desiderio è un rinnovamento, come la Luna Nuova.
+> ✦ Il passato si dissolve come nebbia al sole.
 
 ---
 

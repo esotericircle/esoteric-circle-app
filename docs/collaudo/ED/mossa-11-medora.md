@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> La saggezza del cielo non si manifesta in assenza di una domanda.
+> Ogni cielo ha le sue nubi e le sue stelle.
 > 
-> Le mie parole prendono forma per illuminare il tuo percorso, ma necessitano di un punto di partenza. Se desideri riflettere su un aspetto della tua vita, sono qui per offrire la mia prospettiva.
+> Comprendo che tu possa percepire le mie parole in questo modo, ma il mio compito è offrire una prospettiva attraverso le arti che mi sono proprie. Non sono qui per convincerti, ma per illuminare ciò che le lame e i transiti svelano.
 > 
-> ✦ Ogni transito apre una nuova consapevolezza.
+> ✦ Osserva il tuo cuore con la Lama del Giudizio.
 
 ---
 

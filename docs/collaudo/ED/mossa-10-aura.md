@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti ora il tuo respiro, come entra e come esce, morbido e lento.
+> Senti il respiro che si fa lento, un'onda che sale e scende dentro di te.
 > 
-> Per ritrovare calma prima di dormire, puoi sentire il tuo centro, il terzo in particolare, quello del plesso solare, dove si annida il tuo fuoco. Porta lì la tua consapevolezza, come un'onda di calore che si espande dolcemente. Questo centro risplende di un giallo vivo, legato all'elemento del fuoco, e la sua energia si manifesta come una quiete profonda quando è in equilibrio. Puoi visualizzare una leggera spirale di luce dorata che si muove con il tuo respiro, sciogliendo ogni tensione.
+> Ritrovare calma prima di dormire può nascere dal concentrarsi sul centro del cuore, il Chakra Anahata, che si colora di verde smeraldo. Invita l'energia a danzare in questo spazio, portando armonia e serenità. Puoi immaginare un leggero battito di campana che risuona dolcemente proprio lì, aiutando a lasciare andare le tensioni della giornata. Ogni respiro porta quiete.
 > 
-> ✦ Poggia una mano sul plesso solare e senti il calore che si irradia, porta lì il tuo respiro.
+> ✦ Posizionando una mano sul cuore, senti il tuo respiro.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Da allora non è cambiato niente: la lettura resta questa.
 > 
-> Senti ora il tuo respiro, come entra e come esce, morbido e lento.
+> Senti il respiro che si fa lento, un'onda che sale e scende dentro di te.
 > 
-> Per ritrovare calma prima di dormire, puoi sentire il tuo centro, il terzo in particolare, quello del plesso solare, dove si annida il tuo fuoco. Porta lì la tua consapevolezza, come un'onda di calore che si espande dolcemente. Questo centro risplende di un giallo vivo, legato all'elemento del fuoco, e la sua energia si manifesta come una quiete profonda quando è in equilibrio. Puoi visualizzare una leggera spirale di luce dorata che si muove con il tuo respiro, sciogliendo ogni tensione.
+> Ritrovare calma prima di dormire può nascere dal concentrarsi sul centro del cuore, il Chakra Anahata, che si colora di verde smeraldo. Invita l'energia a danzare in questo spazio, portando armonia e serenità. Puoi immaginare un leggero battito di campana che risuona dolcemente proprio lì, aiutando a lasciare andare le tensioni della giornata. Ogni respiro porta quiete.
 > 
-> ✦ Poggia una mano sul plesso solare e senti il calore che si irradia, porta lì il tuo respiro.
+> ✦ Posizionando una mano sul cuore, senti il tuo respiro.
 
 ---
 

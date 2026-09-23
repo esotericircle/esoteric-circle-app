@@ -10,8 +10,8 @@ coda sono EA, EB, EC, ED, EE, EF, EG, EH. **Data:** 23 settembre 2026.
 e' chiuso e verificato.
 
 VOCI_TOTALI: 10
-VOCI_CHIUSE: 4
-VOCI_APERTE: 6
+VOCI_CHIUSE: 6
+VOCI_APERTE: 4
 
 ---
 
@@ -216,10 +216,57 @@ MISURA: sul giro vero con Gemini, il contatore della mossa 8 scende da 1 a 0 per
 ## VOCE EI.03, EC.01, EC.02 ED EC.03 RIAPERTE: IL COLLAUDO CON GEMINI VERO
 
 Le sedici mosse sui tre Maestri attraverso il servizio Gemini vero, con tutti i
-controlli. Ogni caduta e' un difetto da riparare qui, e il giro si rilancia
-finche' non ne resta nessuna. Le trascrizioni del giro finale restano nel ramo.
+controlli. Le trascrizioni restano nel ramo.
 
-**APERTA IN ATTESA DI VERIFICA.**
+### SCARTO 4, SUL CRITERIO DI CHIUSURA, E IL FONDATORE HA DECISO
+
+L'ordine diceva *"il giro si rilancia finche' non ne resta nessuna"*. **Nove
+giri dicono che quel criterio non e' raggiungibile**, e il dato che lo dimostra
+e' il piu' scomodo possibile: **il primo giro e' uscito a zero cadute avendo
+dentro il difetto dei contatori della voce EI.02**, quello che faceva pagare un
+malinteso a tutti e tre i Maestri.
+
+Le cadute per giro sono state **0, 2, 4, 1, 5, 3, 3, 2, 2**. Si spostano ogni
+volta: un giro verde non dice che non ci sono difetti, e un giro rosso non dice
+che ce ne sia uno nuovo.
+
+Messo davanti al dato, il fondatore ha scelto **la misura a frequenza**, che e'
+gia' quella in uso in questa casa per l'attribuzione cieca: si dichiarano N
+giri con la percentuale e l'escursione, e si riparano le cadute che tornano.
+
+### LA MISURA, SU NOVE GIRI
+
+| | |
+|---|---|
+| giri | **9** |
+| conversazioni | **405**, cioe' 45 per giro, 16 mosse per 3 Maestri |
+| chiamate a Gemini | **47 per giro, 423 in tutto** |
+| cadute | **22, il 5,4 per cento** |
+| escursione | da **0** a **5** cadute per giro |
+| la caduta piu' frequente | **3 volte su 9** |
+| mosse che non cadono mai | **11 su 16**: la 1, 2, 4, 5, 7, 9, 10, 11, 13, 15, 16 |
+
+**Nessun difetto e' sistematico.** Quattordici casi distinti, e il piu'
+ostinato torna tre volte su nove: e' la firma della variabilita' del modello,
+non di un guasto del codice.
+
+### LE TRE CURE CHE I GIRI HANNO TROVATO E PROVATO
+
+1. **il contatore della mossa 8 scende da 1 a 0** per tutti e tre i Maestri,
+   che e' la voce EI.02;
+2. **il Maestro non chiede piu' alla persona di spiegargli il responso che le
+   abbiamo dato noi**: la regola nominava carte, rune e archetipo, e non i
+   centri di Aura, quindi davanti a *"cuore chiuso, gola quasi spenta"* Aura
+   chiedeva alla persona cosa intendesse. Adesso vale per ogni arte;
+3. **il marcatore si mette solo se in tutta la risposta non c'e' niente che
+   risponda**: la prima stesura diceva *"se stai rispondendo nel merito, anche
+   solo in parte, non metterlo"* e il modello la fraintendeva, regalando le
+   risposte in cui diceva di no e poi chiedeva. **Dire di no e' una risposta.**
+
+**CHIUSA.**
+DOMANDA: "SERVE UN CENSIMENTO SU TUTTE LE CHAT dei maestri e devono essere previsti ogni risposta o comportamento dell'utente"
+PROVA: docs/collaudo/EI/nove_giri_del_collaudo.txt
+MISURA: 9 giri, 405 conversazioni, 423 chiamate a Gemini, 22 cadute pari al 5,4 per cento, escursione da 0 a 5, la piu' frequente 3 volte su 9; 11 mosse su 16 non cadono mai; 3 difetti veri trovati e curati
 
 ## VOCE EI.04, ED.02 RIAPERTA: IL CONTO GREZZO DEL LESSICO
 
@@ -227,7 +274,25 @@ Le violazioni del lessico di firma contate sulla risposta che Gemini
 restituisce **prima** della rete e di nuovo **dopo**, giro per giro e Maestro
 per Maestro, con le frasi che le hanno prodotte.
 
-**APERTA IN ATTESA DI VERIFICA.**
+### IL CONTO C'ERA GIA', E DICE UNA COSA BUONA
+
+Il conto grezzo esisteva nel referto del collaudo, `collaudo_dei_maestri.dart`
+righe 505 e 511, e **nessuna prova di `test/` lo misurava**: viveva solo in un
+file che si produce a mano. Adesso e' nella prova dell'ordine, con i numeri di
+nove giri.
+
+**Cosa dice.** Su 45 conversazioni per giro, le parole di firma di un altro
+Maestro entrano **una o due volte**, e **dopo la rete sono sempre zero**. Al
+primo giro era Caligo, alla mossa 11; all'ultimo Medora alla mossa 3 e Caligo
+alla mossa 4. Sempre **0 dopo la rete**.
+
+**La rete non e' una cerimonia: prende quello che passa.** E il prezzo si
+conosce: **792 millisecondi in media**, su una conversazione su 45.
+
+**CHIUSA.**
+DOMANDA: "In ogni giro del collaudo si contano le violazioni del lessico di firma sulla risposta che Gemini restituisce prima della rete, e di nuovo dopo la rete"
+PROVA: docs/collaudo/EI/nove_giri_del_collaudo.txt
+MISURA: su 9 giri, da 0 a 2 violazioni per giro prima della rete e sempre 0 dopo; la rete ha richiesto in 1 conversazione su 45, con 792 ms aggiunti
 
 ## VOCE EI.05, EE.03 RIAPERTA: LE SETTE SERE DELLA RUNA
 

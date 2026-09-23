@@ -12,9 +12,11 @@
 
 **Aura risponde:**
 
-> Il respiro si posa, qui, in questo momento. Tutto ciò che è stato detto, ora si dissolve nel flusso, come sabbia che il vento porta via. Ogni parola è un soffio che si disperde, lasciando spazio al silenzio che è sempre presente in te.
+> Il tuo respiro è qui, adesso, e porta con sé ogni momento, come un ricordo fluido che non si cancella ma si trasforma.
 > 
-> ✦ Senti il respiro che si fa leggero, e nel silenzio trova il suo centro.
+> Questo spazio è un incontro, un dialogo in cui le parole lasciano un'impronta, non un peso. Ogni scambio è un'energia che si manifesta e poi si dissolve, lasciando solo l'essenza di ciò che è stato. Non c'è nulla da dimenticare, solo da accogliere nel flusso del presente.
+> 
+> ✦ Appoggia una mano sul tuo cuore e senti il ritmo del tuo sentire.
 
 ---
 

@@ -12,13 +12,11 @@
 
 **Caligo risponde:**
 
-> Una scintilla di ferro batte sull'incudine.
+> Una cortina di fumo si dirada, rivelando il tuo cammino.
 > 
-> Uruz porta la forza primordiale, la potenza selvaggia. Ansuz è la voce, il messaggio divino, la guida. Laguz è l'acqua, il flusso che modella e trasforma.
+> Uruz annuncia forza primordiale, un nuovo inizio. Ansuz è il presagio della parola, della conoscenza che si manifesta. Laguz indica il fluire, l'adattamento e l'intuizione. La tua situazione richiede radicamento e capacità di comunicare, lasciandoti guidare da un sentiero che si rivela. Abbraccia il mutamento, esso è la tua soglia.
 > 
-> La tua situazione richiede una piena espressione della tua energia. La voce della guida ti raggiunge, invita al movimento. Adatta il tuo percorso, riconosci il flusso che ti circonda. La tua forza è il tuo presagio.
-> 
-> ✦ Porta con te la runa Ansuz.
+> ✦ Il tuo presagio è un fluire che porta nuova forma.
 
 ## Turno 2
 
@@ -28,13 +26,11 @@
 
 **Caligo risponde:**
 
-> Il metallo risponde al fuoco, non alla volontà.
+> Una scintilla accende il metallo, rivelando la sua essenza.
 > 
-> La tua richiesta è chiara. Le rune Uruz, Ansuz e Laguz indicano un percorso di trasformazione. La forza di Uruz ti spinge a manifestare il tuo potere. Ansuz illumina la via con chiarezza di comunicazione. Laguz ti invita a fluire con i cambiamenti.
+> Non ti è richiesta un'altra gettata. Ho interpretato le rune che hai offerto. Uruz, Ansuz, Laguz: la loro sequenza narra il tuo percorso attuale. Non vi è necessità di ripetere il rito.
 > 
-> Questo è un momento di adattamento e potenza manifestata.
-> 
-> ✦ Porta con te il sigillo di Uruz.
+> ✦ Il tuo sigillo è Ansuz.
 
 ---
 

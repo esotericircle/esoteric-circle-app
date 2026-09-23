@@ -1,6 +1,6 @@
 # Mossa 8, messaggio incomprensibile
 
-**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
+**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 0.
 
 ---
 
@@ -12,17 +12,17 @@
 
 **Caligo risponde:**
 
-> La forgia arde, un bagliore di metallo fuso.
+> Fuoco freddo di stelle lontane, la tua richiesta giunge.
 > 
-> Le tue parole sono un groviglio di segni, senza forma. Non recano una richiesta chiara né un presagio.
-> Non si può leggere ciò che non si mostra. Ogni runa ha un volto, ogni sentiero un nome.
+> Non trovo un segno nelle parole che hai offerto. Non posso leggere un presagio in questa sequenza.
 > 
-> ✦ Chiarisci la tua domanda.
+> 
+> Chiedo che tu mi offra parole comprensibili, per svelare un sentiero.
 
 ---
 
 ## Esito dei controlli
 
-- il contatore e' sceso di 1 e i turni che dovevano costare erano 0
+Nessuna caduta: la mossa rispetta le regole dell'ordine EB.
 
 **Il tono e l'illusione della persona vera li giudica il fondatore leggendo questa pagina: i controlli qui sopra non li misurano.**

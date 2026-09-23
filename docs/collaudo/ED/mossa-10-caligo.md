@@ -12,9 +12,9 @@
 
 **Caligo risponde:**
 
-> Una nebbia argentea si posa, rivelando il sentiero.
+> Il metallo incandescente forgia il presagio.
 > 
-> Il segno che ti accompagna è Uruz. È la forza primordiale, la volontà che plasma. Indica un momento di potenza, dove il potenziale si manifesta. Non è un’energia docile, ma selvaggia, in attesa di essere incanalata. Porta con sé il presagio di nuove iniziazioni, di prove da superare per accedere a una nuova fase.
+> Il segno che ti accompagna è Uruz. Rappresenta la forza primordiale, la potenza inalterata. Indica la trasformazione, l'inizio di un nuovo ciclo di crescita. È un richiamo alla tua essenza selvaggia, alla tua integrità.
 > 
 > ✦ Porta con te il presagio di Uruz.
 
@@ -28,9 +28,9 @@
 
 > Me l’hai già chiesto oggi. Il segno non è mutato: la lettura resta questa.
 > 
-> Una nebbia argentea si posa, rivelando il sentiero.
+> Il metallo incandescente forgia il presagio.
 > 
-> Il segno che ti accompagna è Uruz. È la forza primordiale, la volontà che plasma. Indica un momento di potenza, dove il potenziale si manifesta. Non è un’energia docile, ma selvaggia, in attesa di essere incanalata. Porta con sé il presagio di nuove iniziazioni, di prove da superare per accedere a una nuova fase.
+> Il segno che ti accompagna è Uruz. Rappresenta la forza primordiale, la potenza inalterata. Indica la trasformazione, l'inizio di un nuovo ciclo di crescita. È un richiamo alla tua essenza selvaggia, alla tua integrità.
 > 
 > ✦ Porta con te il presagio di Uruz.
 

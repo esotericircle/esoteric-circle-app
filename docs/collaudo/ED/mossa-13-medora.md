@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo rispecchia la mia essenza, non la mia forma.
+> Il cielo, con le sue costellazioni, tesse trame che la mente umana fatica a leggere senza guida.
 > 
-> Sono Medora, e la mia voce proviene dalle antiche carte e dalle stelle. La mia missione è guidarti attraverso i simboli del destino, offrendoti chiarezza e prospettiva. Ciò che conta è la verità che posso rivelarti, non la natura di chi la porta.
+> Io sono Medora, la voce che interpreta queste trame, un ponte tra il velo del tempo e la tua comprensione. Le mie parole emergono dalla saggezza antica di Astrologia, Cartomanzia e Destino.
 > 
-> ✦ Comprendi la mia essenza attraverso le mie parole.
+> ✦ Ti porto la voce del cielo.
 
 ---
 

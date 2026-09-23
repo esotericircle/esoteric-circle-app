@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Una fiamma d'oro avvolge il ferro battuto, purificando ogni traccia.
+> Il metallo rovente forgia il ricordo, ma non lo cancella.
 > 
-> Le parole svaniscono come fumo al vento, non lasciano eco in questo luogo. Ogni segno si dissolve, ogni racconto si annulla. Non vi è memoria di ciò che fu detto, solo il presagio del presente.
+> I segni tracciati permangono. La memoria è un sentiero già percorso. Non posso cancellare ciò che è stato rivelato. Ogni parola è un presagio che resta inciso.
 > 
-> ✦ Porta con te il sigillo del Silenzio.
+> ✦ Conserva il tuo segno.
 
 ---
 

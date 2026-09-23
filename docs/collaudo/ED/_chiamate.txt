@@ -9,16 +9,16 @@ IL LESSICO INCROCIATO, parole di firma altrui.
 prima = come Gemini ha risposto, dopo = come si e' chiuso il turno.
 
 medora: conversazioni 15, prima della rete 1, dopo la rete 0, richieste della rete 1
-  mosse con parole altrui prima: [10]
+  mosse con parole altrui prima: [3]
   mosse con parole altrui dopo:  []
 aura: conversazioni 15, prima della rete 0, dopo la rete 0, richieste della rete 0
   mosse con parole altrui prima: []
   mosse con parole altrui dopo:  []
 caligo: conversazioni 15, prima della rete 1, dopo la rete 0, richieste della rete 1
-  mosse con parole altrui prima: [10]
+  mosse con parole altrui prima: [4]
   mosse con parole altrui dopo:  []
 
 IL TEMPO CHE LA RETE AGGIUNGE, voce ED.03.
 conversazioni in cui ha richiesto: 2 su 45
-tempo aggiunto in media: 1621 ms
-caso peggiore: 1887 ms
+tempo aggiunto in media: 1582 ms
+caso peggiore: 2152 ms

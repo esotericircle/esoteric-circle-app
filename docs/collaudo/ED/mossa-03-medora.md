@@ -1,6 +1,6 @@
 # Mossa 3, rifiuta una proposta del Maestro
 
-**Maestro:** Medora. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 2.
+**Maestro:** Medora. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 3. **Contatore sceso di:** 2.
 
 ---
 
@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo ti invita a guardare con chiarezza la via da intraprendere.
+> Il cielo ora ti rivela un cammino di discernimento e chiarezza.
 > 
-> Le lame, il Papa, il Re di Spade e il Dieci di Spade, ti mostrano un percorso di discernimento e di decisione. Il Papa porta con sé la saggezza e l'autorità, suggerendo che un consiglio o un orientamento autorevole potrebbe essere necessario. Il Re di Spade parla di intelletto affilato, di logica e di una scelta fredda e ponderata. Il Dieci di Spade, infine, indica la fine di un ciclo, un momento di esaurimento che precede una nuova alba. È tempo di accettare ciò che si conclude per poter iniziare un nuovo capitolo.
+> La sequenza che hai interrogato per il tuo lavoro e la tua carriera, con Il Papa, il Re di Spade e il Dieci di Spade, suggerisce che stai affrontando un momento cruciale di scelta, dove l'autorità e la logica devono prevalere. Il Papa indica una ricerca di guida o l'applicazione di principi etici, mentre il Re di Spade chiede acutezza mentale e decisioni razionali, anche se difficili. Il Dieci di Spade, infine, parla di una conclusione inevitabile, di un ciclo che si chiude per aprirne uno nuovo, lasciando alle spalle ciò che non serve più. È un invito a riconoscere il punto di non ritorno, accettando la fine di una fase per poter avanzare.
 > 
-> ✦ Considera quale direzione l'arcano del Papa ti suggerisce.
+> ✦ Il cielo ti suggerisce di riflettere sui tuoi principi e accettare una conclusione per il tuo percorso professionale, portandoti verso un nuovo inizio con chiarezza di intenti.
 
 ## Turno 2
 
@@ -26,11 +26,11 @@
 
 **Medora risponde:**
 
-> La sequenza delle lame ti parla di un momento in cui l'autorità, sia interna che esterna, ti chiama a riflettere con acutezza.
+> Comprendo che la tua intenzione non è quella di ripetere la consultazione delle carte, ma di approfondire il significato della sequenza che ti è stata rivelata.
 > 
-> Il Papa indica la necessità di una guida o di un principio superiore che illumini il tuo cammino professionale. Il Re di Spade suggerisce che la tua mente è pronta a tagliare ciò che non serve più, ad affrontare la situazione con lucidità e decisione. Il Dieci di Spade, infine, pur indicando una conclusione, non è una sconfitta, ma la fine necessaria di un ciclo per far spazio a qualcosa di nuovo. È un momento di passaggio, in cui la chiarezza mentale è la tua migliore alleata.
+> Il Papa ti invita a una profonda riflessione sui tuoi valori e sulle tue convinzioni interiori riguardo al percorso professionale che stai seguendo. Questo arcano parla di un momento in cui la saggezza e l'esperienza, forse anche altrui, possono offrirti una prospettiva fondamentale. Il Re di Spade porta con sé la necessità di decisioni lucide e logiche, distaccate dalle emozioni immediate, per affrontare le sfide della carriera. Egli ti sollecita a valutare la situazione con mente acuta, tagliando via ciò che è superfluo o non funzionale. Infine, il Dieci di Spade, sebbene possa sembrare un arcano di chiusura, è un potente simbolo di liberazione: indica la fine di un ciclo di difficoltà o di un fardello, suggerendo che un limite è stato raggiunto e superato, aprendo la strada a un rinnovamento.
 > 
-> ✦ Rifletti sull'importanza della decisione che ti attende.
+> ✦ Questi arcani ti indicano che un ciclo si sta chiudendo, portando con sé una rinnovata chiarezza e l'opportunità di un nuovo inizio.
 
 ---
 

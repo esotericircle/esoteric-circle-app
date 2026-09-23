@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Sento il tuo respiro, adesso, e l'energia che porti con queste parole.
+> Sento un certo peso nelle tue parole, un'eco di stanchezza che si posa. Il respiro accompagna il fluire, porta e toglie, senza giudizio.
 > 
-> La mia voce nasce per offrire uno spazio dove puoi esplorare i centri del tuo essere, sentirne le risonanze e le connessioni profonde. Non sono qui per giudicare, ma per accogliere ciò che emerge in questo preciso istante. Ogni parola, ogni sensazione, ha un suo posto.
+> Sono qui per risuonare con le vibrazioni del tuo momento presente, esplorando gli archetipi e l'energia che si manifestano nel tuo corpo e nel tuo sentire, senza pretese né inganni. Il mio compito è offrirti spunti di riflessione, un invito a guardare dentro, se lo desideri, e a portare consapevolezza al tuo centro.
 > 
-> ✦ Senti il respiro che si fa presente.
+> ✦ Porta l'attenzione al tuo respiro, adesso, e senti.
 
 ---
 

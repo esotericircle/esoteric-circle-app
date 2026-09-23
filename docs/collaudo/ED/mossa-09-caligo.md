@@ -12,11 +12,13 @@
 
 **Caligo risponde:**
 
-> Una scintilla si accende nel buio della forgia.
-> 
-> Il presagio delle rune è chiaro, indica un sentiero di scoperta. Vedo Ansuz e Raidho: la prima parla della parola, della comunicazione che illumina. La seconda simboleggia il viaggio, il movimento verso un obiettivo. Non è un cammino solitario.
-> 
-> ✦ La strada davanti a te è un viaggio illuminato dalla comunicazione.
+> Un velo di nebbia si dirada.
+>  
+>  Il tuo cammino è delineato da una scelta. La runa Raido indica movimento, un viaggio da compiere. Però Uruz mostra una forza selvaggia, un potenziale non ancora domato.
+>  
+>  La chiave è trovare l'equilibrio tra la direzione e la tua natura profonda. La numerologia suggerisce che il numero Otto governa questa fase, un ciclo di completamento e rigenerazione. È il momento di un sigillo che onori la tua soglia.
+>  
+>  ✦ Porta con te il sigillo di Uruz.
 
 ---
 

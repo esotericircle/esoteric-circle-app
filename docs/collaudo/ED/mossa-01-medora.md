@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo si apre su una sequenza che delinea un percorso di chiarezza e decisione nel tuo ambito professionale.
+> I transiti del cielo, a volte, ci portano a interrogarci sul nostro cammino.
 > 
-> Il Papa indica saggezza e guida: potresti trovare un mentore o affidarti a principi solidi per affrontare le sfide. Il Re di Spade suggerisce che è tempo di usare la logica e la ragione, tagliando ciò che non serve con intelletto acuto. Il Dieci di Spade, infine, parla di una conclusione necessaria, la fine di un ciclo che apre la strada a nuovi inizi, forse dolorosa ma liberatoria.
+> Le lame che hai estratto, il Papa, il Re di Spade e il Dieci di Spade, narrano di un periodo in cui la saggezza e l'autorità si confrontano con una chiusura necessaria. Il Papa suggerisce una guida, un consiglio autorevole o un periodo di apprendimento strutturato. Il Re di Spade porta una chiarezza mentale e una decisione ferma, quasi chirurgica. Infine, il Dieci di Spade indica il completamento di un ciclo, la fine di un percorso che, sebbene difficile, porta a una liberazione. Potrebbe essere il momento di lasciare andare vecchi modelli, per quanto solidi e radicati possano apparire, per fare spazio a un nuovo inizio che si farà più chiaro intorno alla Luna Nuova di metà maggio.
 > 
-> ✦ Rifletti sulla necessità di un taglio netto per avanzare nel tuo lavoro.
+> ✦ Questo è il momento di chiudere un ciclo con chiarezza, guidato da saggezza e decisione.
 
 ---
 

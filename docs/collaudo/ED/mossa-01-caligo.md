@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Una forgia ardente modella il metallo.
+> Un velo di nebbia si alza, svelando contorni netti.
 > 
-> Uruz è potenza inespressa, Ansuz è voce del maestro. Laguz è il flusso che conduce. La tua situazione presenta una forza grezza che attende guida. È tempo di ascoltare e di lasciarsi condurre verso una forma nuova, un sentiero di crescita.
+> Uruz annuncia forza primordiale, un impulso potente che chiede di essere domato. Ansuz suggerisce una voce interiore, la necessità di esprimere la tua verità. Laguz porta intuizione, un fluire che guida il tuo cammino. Sulla tua situazione lavorativa, questo indica un potenziale grezzo da raffinare e una direzione da ascoltare.
 > 
-> ✦ Ti è indicata la runa Ansuz, la voce della sapienza.
+> ✦ Porta con te la runa Ansuz.
 
 ---
 

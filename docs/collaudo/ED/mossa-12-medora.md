@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo di oggi suggerisce una fase di profonda riflessione interiore.
+> Il cielo ti mostra la Luna che transita nel Toro, portando la tua attenzione verso la stabilità e il tuo radicamento.
 > 
-> Il tuo cielo, in questo momento, mi parla di un transito particolare di Saturno che potrebbe portare a un confronto con ciò che è rimasto irrisolto. Non posso interpretare il dolore fisico, quello appartiene a un altro Maestro, ma posso dirti che il cielo invita a una quiete che nutre l'anima. È un momento per ascoltare con attenzione le voci interiori.
+> Il dolore che descrivi, tuttavia, non rientra nel dominio della mia arte, che si occupa di pianeti, stelle e arcani, non del corpo. Per un responso attinente a ciò che senti fisicamente, ti invito a rivolgerti al Maestro che legge le energie del corpo.
 > 
-> ✦ Questo è un tempo per la riflessione, per accogliere il tuo spazio interiore.
+> ✦ Torna a guardarmi al prossimo transito.
 
 ---
 
