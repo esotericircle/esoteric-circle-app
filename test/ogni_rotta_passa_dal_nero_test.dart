@@ -41,7 +41,17 @@ void main() {
     for (final f in dentroLib) {
       final p = f.path.replaceAll(r'\', '/');
       if (p.endsWith('passaggio_del_cerchio.dart')) continue;
-      final testo = f.readAsStringSync();
+      // **I COMMENTI NON COSTRUISCONO ROTTE, ordine EG voce 05.** La prova
+      // leggeva il file intero e ha accusato la schermata LIVE per **una riga
+      // di commento** che spiegava perche' NON usa `MaterialPageRoute`.
+      //
+      // **E' la terza volta in due ordini**, dopo `uid` nell'ordine EI e
+      // l'avatar nella guardia del busto: una prova che accusa il codice per
+      // aver spiegato cosa non fa **insegna a cancellare le spiegazioni**, e
+      // in questo progetto le spiegazioni sono cio' che rende le guardie
+      // credibili. Si saltano i commenti, e si verifica che la prova resti
+      // rossa su un uso vero.
+      final testo = _senzaCommenti(f.readAsStringSync());
       if (testo.contains('MaterialPageRoute')) {
         fuoriLegge.add('$p usa MaterialPageRoute');
       }
@@ -110,4 +120,20 @@ void main() {
     expect(velo.contains('PassaggioDelCerchio.nero'), isTrue,
         reason: 'il velo della stesa non usa il nero del Passaggio');
   });
+}
+
+/// Il file senza le righe di commento, per non accusare chi spiega.
+///
+/// **Sta qui e non dentro la prova** perche' la stessa cosa serve gia' a due
+/// altre guardie, `il_busto_e_la_forma_del_maestro` e
+/// `cosa_spedisce_davvero_il_conteggio`: il giorno che se ne scrivesse una
+/// quarta, il posto giusto sarebbe una porta comune in `test/`.
+String _senzaCommenti(String testo) {
+  final b = StringBuffer();
+  for (final r in testo.split('\n')) {
+    final t = r.trim();
+    if (t.startsWith('//') || t.startsWith('*') || t.startsWith('/*')) continue;
+    b.writeln(r);
+  }
+  return b.toString();
 }
