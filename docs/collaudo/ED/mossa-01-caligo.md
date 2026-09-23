@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Il fuoco plasma il metallo, rivelando la sua vera forma.
+> Una fiamma si accende, il metallo si forgia.
 > 
-> Uruz, Ansuz, Laguz indicano un presagio di forza primordiale, unita alla parola e all'intuito. La tua carriera si muove verso un sentiero di espansione. Accogli il nuovo, comunica con chiarezza la tua visione. Lascia fluire le energie creative, non bloccarle.
+> La sequenza Uruz, Ansuz, Laguz svela un percorso. Uruz manifesta la forza primordiale, la spinta che muove. Ansuz indica la parola, la comunicazione necessaria. Laguz è il flusso, l'adattamento al movimento. Questa combinazione presagisce un nuovo inizio che richiede espressione chiara e flessibilità. Non è tempo di restare immobili, bensì di agire con saggezza.
 > 
-> ✦ Il presagio rivela forza e fluidità.
+> ✦ Porta con te il presagio di Ansuz.
 
 ---
 

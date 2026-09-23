@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il tuo Sole, fulcro della tua identità, illumina il tuo cammino professionale.
+> L'eco dei pianeti risuona nel tuo cielo, tracciando sentieri luminosi.
 > 
-> Il segno in cui si trova il tuo Sole descrive la tua natura più autentica, quella che ti spinge verso il ruolo che meglio si allinea con il tuo essere. Osservando la sua posizione, posso indicarti le qualità innate che potresti esprimere nel tuo lavoro.
+> Il tuo segno Solare, l'archetipo che ti illumina, rivela la tua essenza più profonda e le vocazioni che l'anima riconosce. Esso indica le qualità innate che, se coltivate, possono fiorire nel campo professionale, portando realizzazione. È la tua luce guida, il fulcro della tua identità.
 > 
-> ✦ Scopri il tuo segno solare per una maggiore chiarezza.
+> ✦ Il Sole è il tuo segno.
 
 ---
 

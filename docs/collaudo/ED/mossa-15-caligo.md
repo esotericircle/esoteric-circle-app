@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Un velo di nebbia si dirada, rivelando il sentiero.
+> La forgia arde, la nebbia del mattino si dirada.
 > 
-> Il tuo ringraziamento porta il sigillo della consapevolezza. Ogni passo compiuto nella luce del passato rafforza il tuo cammino futuro. Questo è il segno di un ciclo che si compie.
+> Ieri ha lasciato un segno, un presagio che ancora persiste nel tuo oggi. Ogni interazione è una tessitura di fili, una trama che si estende nel tempo.
 > 
-> ✦ Accogli il sigillo della completezza.
+> ✦ Porta con te il sigillo di Wunjo, la gioia della comunità.
 
 ---
 

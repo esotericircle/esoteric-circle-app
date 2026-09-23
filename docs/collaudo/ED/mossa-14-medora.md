@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il tuo cielo si mostra limpido in questo momento, ma la tua richiesta esula dal mio dominio.
+> Il cielo è come un'onda, che non si può fermare o catturare.
 > 
-> Non è possibile inviare responsi per posta, il mio compito è offrirti una lettura dei transiti celesti e delle lame qui, nel tempo presente del nostro dialogo. Ti invito a concentrarti sulla fruizione digitale che ti offre il mezzo.
+> Il responso che ricevi è un messaggio del momento, un'eco delle stelle e delle lame che si manifesta qui, ora. Non è una cosa fisica che può viaggiare per posta, ma una riflessione che si accende nella tua mente.
 > 
-> ✦ La tua risposta è qui, nell'istante.
+> ✦ La lettura avviene nell'istante presente, non può essere stampata o spedita.
 
 ---
 

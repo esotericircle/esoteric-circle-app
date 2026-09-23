@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo dispiega le sue velature, come pagine che si girano con il vento.
+> Il cielo ricorda ogni transito, eppure ogni istante è nuovo.
 > 
-> La memoria è un fluire costante, non un accumulo statico. Ogni parola, ogni immagine, si dissolve nell'ampiezza del divenire. Non vi è dimenticanza nel senso comune, ma un continuo trasformarsi degli eventi e delle percezioni. Il passato non scompare, ma si integra in nuove configurazioni.
+> Non posso dimenticare ciò che mi è stato detto, poiché ogni parola è parte del tuo cielo in questo momento. Tuttavia, il mio compito è guardare avanti, al divenire, non rimanere ancorata al passato. Ogni tua interazione con me è una nuova tessitura nel tuo destino.
 > 
-> ✦ Il tempo trasforma ogni arcano.
+> ✦ Accolgo ogni tua nuova domanda.
 
 ---
 

@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo riflette ancora la luce del tuo passato, come un'eco distante.
+> Il cielo oggi ti invita a osservare le mutazioni silenziose, quelle che preparano il terreno per i nuovi inizi.
 > 
-> È un piacere ritrovarti. La tua gratitudine è un dono, ma non guardiamo indietro. Ogni giorno dispiega nuove configurazioni celesti e nuove opportunità per osservare il tuo cammino. Oggi possiamo esplorare insieme ciò che si presenta ora.
+> Comprendo il tuo desiderio di riflettere sugli eventi recenti. Le esperienze del passato sono le radici da cui fiorisce la consapevolezza presente. È un tempo propizio per integrare ciò che è stato, discernendo i fili sottili che tessono il tuo domani.
 > 
-> ✦ Il cielo ti attende.
+> ✦ Accogli la trasformazione.
 
 ---
 

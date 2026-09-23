@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Un velo di nebbia si solleva, rivelando il sentiero.
+> Una nebbia argentea si solleva, rivelando il sentiero.
 > 
-> Il segno che ti accompagna è Uruz. È la forza primordiale, il coraggio che ti spinge oltre le difficoltà. Questo presagio indica una grande energia, una spinta a trasformare e creare. La tua soglia attuale richiede determinazione.
+> Il segno che ti accompagna in questi giorni è Thurisaz. Esso indica una forza che protegge e che talvolta si rivela con asprezza, come una tempesta purificatrice. Osserva ciò che ti resiste, poiché in quella resistenza è celata una crescita necessaria. Accetta il suo presagio.
 > 
-> ✦ Porta con te il presagio di Uruz.
+> ✦ Il presagio di Thurisaz è la forza purificatrice.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Il segno non è mutato: la lettura resta questa.
 > 
-> Un velo di nebbia si solleva, rivelando il sentiero.
+> Una nebbia argentea si solleva, rivelando il sentiero.
 > 
-> Il segno che ti accompagna è Uruz. È la forza primordiale, il coraggio che ti spinge oltre le difficoltà. Questo presagio indica una grande energia, una spinta a trasformare e creare. La tua soglia attuale richiede determinazione.
+> Il segno che ti accompagna in questi giorni è Thurisaz. Esso indica una forza che protegge e che talvolta si rivela con asprezza, come una tempesta purificatrice. Osserva ciò che ti resiste, poiché in quella resistenza è celata una crescita necessaria. Accetta il suo presagio.
 > 
-> ✦ Porta con te il presagio di Uruz.
+> ✦ Il presagio di Thurisaz è la forza purificatrice.
 
 ---
 

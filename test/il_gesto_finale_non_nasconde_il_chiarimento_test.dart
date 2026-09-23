@@ -158,6 +158,44 @@ void main() {
             'che deve metterlo, e il riconoscimento torna a indovinare');
   });
 
+  test('nel catalogo del collaudo, ogni mossa che chiede non costa', () {
+    // **LA CONTRADDIZIONE CHE HA TENUTO NASCOSTO IL DIFETTO PER UN MESE.**
+    // Il catalogo del collaudo pretendeva che il messaggio incomprensibile
+    // costasse 1, perche' cosi' diceva l'ordine EB voce 06. L'ordine EE voce
+    // 07 ha rovesciato la regola e **il catalogo non e' stato aggiornato**:
+    // l'app faceva scendere il contatore di 1, il collaudo ne pretendeva 1, e
+    // il giro restava verde. **Due punti che si danno ragione a vicenda
+    // mentre la regola in vigore dice un'altra cosa sono peggio di un punto
+    // solo che sbaglia**, perche' il verde diventa una conferma.
+    //
+    // Qui si misura la regola sul catalogo: un turno che si aspetta una
+    // richiesta di chiarimento non puo' aspettarsi anche di pagarla.
+    final sorgente = File('tool/collaudo_dei_maestri.dart').readAsStringSync();
+    final turniCheChiedono =
+        RegExp(r'TurnoAtteso\((?:[^()]|\([^()]*\))*deveChiedere:\s*true'
+                r'(?:[^()]|\([^()]*\))*\)')
+            .allMatches(sorgente)
+            .map((m) => m.group(0)!)
+            .toList();
+
+    // **Il cardinale**: se la forma del catalogo cambiasse, questa prova
+    // troverebbe zero turni e sarebbe verde senza aver guardato niente.
+    expect(turniCheChiedono, isNotEmpty,
+        reason: 'nessun turno del catalogo si aspetta una richiesta di '
+            'chiarimento: o sono spariti, o la forma non e\' piu\' quella');
+
+    final paganti = [
+      for (final t in turniCheChiedono)
+        if (!t.contains('consuma: false')) t
+    ];
+    print('ORDINE EI VOCE 02: turni del catalogo che chiedono '
+        '${turniCheChiedono.length}, di cui a pagamento ${paganti.length}');
+    expect(paganti, isEmpty,
+        reason: 'questi turni si aspettano che il Maestro chieda E che la '
+            'persona paghi, e sono due cose che non stanno insieme dall\'ordine '
+            'EE voce 07: $paganti');
+  });
+
   test('la prova della voce EI.02 resta scritta su disco', () {
     final b = StringBuffer()
       ..writeln('IL MAESTRO CHIEDE CIO\' CHE GLI MANCA, E QUEL TURNO NON COSTA')

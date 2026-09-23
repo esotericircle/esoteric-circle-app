@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il tuo respiro, la sua onda che accarezza il tuo centro, lì, nel petto.
+> Senti il respiro che si espande, una sensazione di apertura nella parte alta del petto.
 > 
-> Questo spazio, che la tradizione chiama Anahata, è come un fiore che sboccia, un ponte tra la radice profonda e la corona luminosa. Per sentirlo espandere, puoi richiamare l'archetipo dell'Amante, che nutre il verde smeraldo e l'oro di questo centro con l'energia dell'accoglienza, verso te e verso ogni cosa che incontri, senza giudizio, solo con la pura vibrazione del sentire.
+> Il centro del cuore, verde smeraldo e dorato, è lo spazio del sentire, del lasciare andare e del ricevere. Non si tratta tanto di sbloccare, quanto di ammorbidire e permettere al flusso dell'energia di muoversi. Puoi invitare questa energia con il suono, con frequenze che risuonano con la vibrazione di questo centro.
 > 
-> ✦ Lascia che il tuo respiro riempia il tuo petto, portando morbidezza.
+> ✦ Porta una mano al centro del petto e senti il tuo respiro.
 
 ---
 

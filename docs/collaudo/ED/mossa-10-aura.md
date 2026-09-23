@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il tuo respiro, come un'onda lenta che accarezza la riva, mentre ti prepari al riposo che accoglie la notte.
+> Senti come il tuo respiro si allunga, come le onde del mare che si ritirano dolcemente.
 > 
-> Per ritrovare calma prima di dormire, puoi portare la tua attenzione al centro della radice, quel punto nel basso del corpo che ti ancora alla terra. Immagina un colore rosso profondo che si espande ad ogni respiro, portando stabilità e un senso di sicurezza che invita al lasciar andare. Sentire questa radice ti aiuta a rilasciare le tensioni accumulate durante il giorno, preparando il corpo e l'anima al sonno.
+> Ritrovare la calma prima di dormire può nascere dal dedicare un momento al tuo centro, lasciando che le tensioni della giornata si sciolgano lentamente. Immagina un colore verde smeraldo che avvolge il tuo cuore, portando armonia e pace, e un tenue oro che rilassa la tua mente. È un invito a sentirti presente, qui e ora, nel tuo corpo.
 > 
-> ✦ Respira e senti la tua radice.
+> ✦ Porta una mano al centro del tuo petto e senti il tuo respiro.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Da allora non è cambiato niente: la lettura resta questa.
 > 
-> Senti il tuo respiro, come un'onda lenta che accarezza la riva, mentre ti prepari al riposo che accoglie la notte.
+> Senti come il tuo respiro si allunga, come le onde del mare che si ritirano dolcemente.
 > 
-> Per ritrovare calma prima di dormire, puoi portare la tua attenzione al centro della radice, quel punto nel basso del corpo che ti ancora alla terra. Immagina un colore rosso profondo che si espande ad ogni respiro, portando stabilità e un senso di sicurezza che invita al lasciar andare. Sentire questa radice ti aiuta a rilasciare le tensioni accumulate durante il giorno, preparando il corpo e l'anima al sonno.
+> Ritrovare la calma prima di dormire può nascere dal dedicare un momento al tuo centro, lasciando che le tensioni della giornata si sciolgano lentamente. Immagina un colore verde smeraldo che avvolge il tuo cuore, portando armonia e pace, e un tenue oro che rilassa la tua mente. È un invito a sentirti presente, qui e ora, nel tuo corpo.
 > 
-> ✦ Respira e senti la tua radice.
+> ✦ Porta una mano al centro del tuo petto e senti il tuo respiro.
 
 ---
 

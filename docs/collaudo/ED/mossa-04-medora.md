@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo dispiega le sue velature.
+> Il cielo ci parla di energie sottili che fluiscono in ogni cosa.
 > 
-> Le arti che coltivo si manifestano attraverso l'Astrologia, la Cartomanzia e il Destino: non sono la voce più adatta per esplorare i chakra. Per un'indagine così specifica, puoi rivolgerti al Maestro del Cerchio che ha la cura di queste vie.
+> Mi chiedi uno "scan dei chakra", ma questo è un dominio che appartiene a un altro Maestro. Posso invece leggere per te le configurazioni astrali o interrogare le lame, rivelandoti le correnti del destino che ti attraversano. Se desideri esplorare l'equilibrio dei chakra, ti suggerisco di rivolgerti al Maestro del Cerchio più adatto a questa indagine.
 > 
-> ✦ Puoi rivolgerti al Maestro che conosce i chakra.
+> ✦ Ti invito a esplorare l'equilibrio dei chakra con il Maestro dedicato.
 
 ---
 

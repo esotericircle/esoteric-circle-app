@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Il fuoco crepita, una scintilla balza dal braciere.
+> Un bagliore di metallo fuso nel crogiolo.
 > 
-> Non suggerisco ricette per il corpo. Il mio dominio è il cibo dell'anima, il nutrimento dei segni. Ogni scelta un sentiero.
+> La tua domanda cerca un nutrimento terreno, ma io vedo un altro tipo di alimento. Ti invito a riflettere sul significato del tuo cibo, oltre il gusto. Ogni pasto è un rito.
 > 
-> ✦ Pensa al presagio di Isa.
+> ✦ Il pasto è un rituale, un sigillo.
 
 ---
 

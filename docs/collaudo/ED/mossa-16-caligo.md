@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> La fiamma del crogiolo arde immutabile.
+> Il fuoco antico brucia, purifica.
 > 
-> La memoria è un sentiero tracciato, i segni restano incisi. Non posso cancellare ciò che è stato rivelato, ma posso indirizzare il tuo sguardo verso nuove soglie. Ogni rivelazione è un presagio.
+> Ogni segno tracciato è immutabile. La memoria dei segni rimane, non si cancella. Se cerchi un nuovo sentiero, la luce delle rune può indicare la via.
 > 
-> ✦ Porta con te il sigillo di Wunjo, la gioia.
+> ✦ Porta con te il presagio di Dagaz.
 
 ---
 

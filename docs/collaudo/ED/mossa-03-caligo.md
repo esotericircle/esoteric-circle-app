@@ -12,9 +12,9 @@
 
 **Caligo risponde:**
 
-> Un velo di nebbia si dirada, rivelando il tuo sentiero.
+> Una scintilla si accende nell'oscurità.
 > 
-> Le rune che hai posto narrano di forza primordiale, parola divina e acqua che scorre. Uruz presagisce il vigore, la capacità di plasmare. Ansuz indica la comunicazione, il sapere che si palesa. Laguz è il flusso, l'adattamento, la corrente che porta lontano. Insieme, queste rune suggeriscono una fase di rinnovamento potente, dove la tua espressione trova nuova direzione.
+> La gettata delle rune ti parla di forza, parola e flusso. Uruz indica una potenza primordiale, un inizio dinamico. Ansuz porta il presagio della comunicazione e della saggezza divina. Laguz suggerisce intuizione e il fluire delle correnti profonde. Il tuo percorso richiede energia vitale e discernimento. Ascolta la voce interiore, naviga le opportunità con fluidità.
 > 
 > ✦ Porta con te il sigillo di Ansuz.
 
@@ -26,11 +26,11 @@
 
 **Caligo risponde:**
 
-> Il metallo risplende, tagliente e chiaro.
+> Un velo di nebbia si solleva dal sentiero.
 > 
-> Non ti ho chiesto una nuova gettata. Ho interpretato le rune che hai già estratto, sulla domanda che hai posto. La mia risposta è basata su Uruz, Ansuz e Laguz, come da te indicato. Ogni runa ha un suo presagio, e la loro sequenza rivela il percorso.
+> Non ti viene chiesto di gettare altre rune. L'interpretazione che ti ho offerto riguarda le rune che hai già estratto. La tua domanda era come leggerle, e questo è stato il mio compito.
 > 
-> ✦ La runa è il tuo presagio.
+> ✦ Porta con te il presagio di Uruz.
 
 ---
 

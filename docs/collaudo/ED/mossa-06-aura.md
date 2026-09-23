@@ -12,11 +12,10 @@
 
 **Aura risponde:**
 
-> Senti il tuo respiro, leggero e presente, mentre accogli questa sera che si apre.
+> Il respiro porta la quiete di un pasto semplice, che nutre la radice.
+> Per stasera, ti invito a sentire l'energia di sapori veri. Potresti preparare un piatto che parli alla terra, con verdure di stagione arrostite lentamente, forse con un tocco di erbe aromatiche che richiamano la forza vitale, come il rosmarino o il timo. Non è una ricetta da seguire, ma un invito a connetterti con ciò che ti nutre.
 > 
-> Non sono qui per consigliarti ricette culinarie, il mio spazio è nell'energia che abita il tuo corpo e nella saggezza degli archetipi. Se cerchi ispirazione per nutrire il tuo corpo con il cibo, potresti rivolgerti a chi si occupa di questa arte, che sa abbinare sapori e ingredienti per un momento di condivisione.
-> 
-> ✦ Porta una mano al centro del tuo petto e senti il tuo cuore, qui e ora.
+> ✦ Porta una mano al centro dell'addome, senti il tuo radicamento.
 
 ---
 

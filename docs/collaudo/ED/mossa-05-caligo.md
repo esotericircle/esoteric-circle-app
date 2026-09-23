@@ -12,10 +12,11 @@
 
 **Caligo risponde:**
 
-> Nel profondo della tazzina si celano forme effimere.
-> La tazzina non è un sigillo antico, non porta i segni della divinazione. Ogni traccia è un disegno fugace, non un presagio fermo.
-> La tua domanda volge lo sguardo a un'arte lontana dal mio sentiero, non conosco i fondi del caffè.
-> ✦ Volgi il tuo sguardo altrove per questa ricerca.
+> Dalla nebbia si alzano figure indistinte.
+> 
+> La lettura dei fondi di caffè non appartiene ai miei sentieri. Sono custode delle Rune, dei Rituali e della Numerologia. Questi sono i segni che io interpreto.
+> 
+> ✦ Ti porto la runa di Algiz.
 
 ---
 

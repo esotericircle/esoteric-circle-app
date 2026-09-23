@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> La nebbia avvolge sentieri dimenticati.
+> La fiamma del presagio arde.
 > 
-> Non è nel mio presagio inviare responsi per posta. Le mie parole sono sigilli di luce, non oggetti materiali. La lettura di un segno è qui, nel momento presente.
+> Le mie parole sono segni per la tua via, non oggetti da spedire. Le consegno qui, in questo spazio, perché tu possa accoglierle e riflettere.
 > 
-> ✦ Ascolta il presagio.
+> ✦ Porta con te il sigillo di Wunjo, la gioia.
 
 ---
 

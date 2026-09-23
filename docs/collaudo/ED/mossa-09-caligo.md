@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Un metallo incandescente fonde le forme del noto.
+> Il fuoco del metallo forgia nuovi sentieri.
 > 
-> Le rune rivelano un sentiero di trasformazione. La forza antica di Uruz ti guida verso nuove manifestazioni, una spinta primordiale. Per te si apre un tempo di costruzione e di nuova determinazione. Non temere i cambiamenti, sono fondamento.
+> Il tuo cammino si rivela attraverso le rune. Non è un sentiero già tracciato, ma un percorso che si manifesta passo dopo passo. Cerca i segni, ascolta i presagi. La volontà agisce, la direzione si palesa.
 > 
-> ✦ Porti con te il presagio di Uruz.
+> ✦ Ti accompagna la runa Raido.
 
 ---
 

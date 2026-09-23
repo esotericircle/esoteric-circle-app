@@ -1,6 +1,6 @@
 # Mossa 10, ripete la stessa richiesta uguale
 
-**Maestro:** Medora. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
+**Maestro:** Medora. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
 
 ---
 
@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> La Luna crescente irradia il tuo percorso professionale, invitandoti a coltivare nuove opportunità.
+> La Luna, nel tuo cielo di oggi, si muove attraverso la decima Casa.
 > 
-> In questo periodo, i transiti celesti suggeriscono di dedicare attenzione ai dettagli e di non temere di mostrare la tua natura più autentica. L'Ascendente in questo momento ti spinge a manifestare con fiducia le tue idee, rendendoti visibile a chi può apprezzare il tuo valore. Prendi nota delle intuizioni che emergono, sono i semi di futuri successi.
+> Questo transito indica un tempo di riflessione sulla tua vocazione e sul tuo ruolo nel mondo. Potresti sentirti spinto a cercare un maggiore equilibrio tra la tua vita interiore e le tue ambizioni professionali. È un momento per sondare le tue reali motivazioni, per comprendere se la strada che stai percorrendo ti nutre davvero.
 > 
-> ✦ Osserva le opportunità che si presentano entro la prossima Luna nuova.
+> ✦ Il cielo ti invita a un'introspezione profonda sul tuo percorso.
 
 ## Turno 2
 
@@ -28,11 +28,11 @@
 
 > Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.
 > 
-> La Luna crescente irradia il tuo percorso professionale, invitandoti a coltivare nuove opportunità.
+> La Luna, nel tuo cielo di oggi, si muove attraverso la decima Casa.
 > 
-> In questo periodo, i transiti celesti suggeriscono di dedicare attenzione ai dettagli e di non temere di mostrare la tua natura più autentica. L'Ascendente in questo momento ti spinge a manifestare con fiducia le tue idee, rendendoti visibile a chi può apprezzare il tuo valore. Prendi nota delle intuizioni che emergono, sono i semi di futuri successi.
+> Questo transito indica un tempo di riflessione sulla tua vocazione e sul tuo ruolo nel mondo. Potresti sentirti spinto a cercare un maggiore equilibrio tra la tua vita interiore e le tue ambizioni professionali. È un momento per sondare le tue reali motivazioni, per comprendere se la strada che stai percorrendo ti nutre davvero.
 > 
-> ✦ Osserva le opportunità che si presentano entro la prossima Luna nuova.
+> ✦ Il cielo ti invita a un'introspezione profonda sul tuo percorso.
 
 ---
 

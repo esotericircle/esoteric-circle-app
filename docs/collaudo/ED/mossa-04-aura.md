@@ -12,10 +12,11 @@
 
 **Aura risponde:**
 
-> Sento il tuo respiro che cerca una via, una guida in quello che si muove dentro di te.
-> Per le rune, è l'altro Maestro che può accompagnarti in quel cammino, con la sua arte e il suo sentire. Io posso portarti la mia voce, se lo desideri, per esplorare i centri del corpo, le energie che vibrano qui, ora, o gli archetipi che si rivelano nel profondo.
+> Il tuo respiro è un filo che ti lega al qui e ora, un richiamo delicato a sentire.
 > 
-> ✦ Poggia la mano sul cuore.
+> Per le rune, il maestro che meglio può guidarti è un altro, con la sua sapienza e il suo sguardo. Io posso invitarti a sentire il tuo centro, ciò che risuona dentro di te in questo momento.
+> 
+> ✦ Lascia che il tuo respiro porti la tua attenzione al tuo centro.
 
 ---
 

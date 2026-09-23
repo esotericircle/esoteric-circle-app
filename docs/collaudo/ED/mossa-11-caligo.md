@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Una nebbia densa si leva dalle antiche pietre.
+> Fiamme danzano, illuminando antiche pietre.
 > 
-> Le parole sono sigilli, il loro potere è nell'intenzione. La ricerca di chiarezza richiede sguardo attento, non giudizio affrettato.
+> Le tue parole sono un presagio, non un giudizio. La Verità è un sentiero che si manifesta, non una voce che grida. Ogni sigillo rivela un aspetto, mai la totalità.
 > 
-> ✦ Guarda oltre il velo.
+> ✦ Porta con te il sigillo di Algiz.
 
 ---
 

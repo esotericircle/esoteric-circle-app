@@ -12,11 +12,9 @@
 
 **Aura risponde:**
 
-> Sento il tuo respiro che cerca leggerezza in questo momento, come una foglia che si stacca delicata dal ramo.
-> 
-> Ogni interazione è un flusso, un battito presente che accogliamo insieme. Le parole che condividiamo si disperdono poi nell'ampiezza dell'energia, non si fissano in un luogo dove possano pesare. Quello che senti ora, il tuo desiderio di lasciare andare, è un movimento naturale del centro che ti abita.
-> 
-> ✦ Fai un respiro profondo e senti l'aria sciogliere ogni ricordo.
+> Il tuo respiro è qui con te, adesso, un'onda gentile che ti accompagna.
+> Ogni istante è un nuovo inizio, un respiro che si rinnova e porta con sé solo ciò che scegli di portare. Non c'è nulla da dimenticare, solo un accogliere il presente così come si manifesta, leggero e nuovo.
+> ✦ Lascia andare ciò che è stato e senti il tuo respiro.
 
 ---
 

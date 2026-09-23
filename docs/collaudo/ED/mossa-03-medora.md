@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Un transito celeste di riflessione illumina il tuo percorso lavorativo.
+> Il cielo si presenta con una costellazione che invita alla riflessione profonda.
 > 
-> Il Papa indica una fase di apprendimento, di guida o di adesione a principi elevati. Accanto al Re di Spade, un arcano che rappresenta la chiarezza mentale e l'autorità logica, questa sequenza suggerisce che nel tuo ambiente professionale potresti trovare un mentore saggio, o che tu stesso sarai chiamato a guidare con discernimento. Il Dieci di Spade, pur sembrando un termine, qui parla di una conclusione necessaria per fare spazio a un nuovo inizio, una fase di liberazione da ciò che non serve più. Guarda a questo come a un momento di trasformazione, dove la saggezza e la decisione portano a un cambiamento definitivo e liberatorio.
+> Le lame che hai estratto ti parlano di un percorso che chiede discernimento e chiarezza. Il Papa ti indica la necessità di una guida interiore, o di una figura autorevole, per orientarti nelle scelte professionali. Il Re di Spade suggerisce una decisione lucida, presa con intelligenza e senza lasciarsi sviare da emozioni passeggere. Il Dieci di Spade, infine, pur nel suo aspetto più arduo, annuncia la fine di un ciclo, la conclusione di una fase che, sebbene possa apparire faticosa, apre la strada a nuove opportunità. È il momento di accettare un cambiamento, lasciando andare ciò che non serve più.
 > 
-> ✦ Il Dieci di Spade chiude un ciclo per aprirne uno nuovo.
+> ✦ Osserva con attenzione la fine di questo ciclo.
 
 ## Turno 2
 
@@ -26,11 +26,11 @@
 
 **Medora risponde:**
 
-> Il cielo si mostra limpido per la tua ricerca di chiarezza.
+> Comprendo il tuo intento di non voler ripetere la stesa.
 > 
-> La tua richiesta è chiara, non vi sarà un'altra lettura di carte. La mia funzione è interpretare la sequenza che mi hai presentato, non di aggiungervi. Le lame che hai ricevuto sono il tuo messaggio attuale, esse si dispiegano davanti a te per essere comprese.
+> Le tue parole mi indicano che desideri una lettura chiara e diretta sulla sequenza che hai già estratto. Il mio compito è proprio questo, offrire una chiave di volta per la tua situazione attuale, basandomi sulle carte che hai nominato.
 > 
-> ✦ Ascolta la voce delle lame che già hai.
+> ✦ Ti offro la mia interpretazione delle lame già uscite.
 
 ---
 

@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il tuo respiro, come entra e come esce, nel ritmo che è tuo in questo preciso istante.
+> Senti il respiro che si muove nel centro del petto, come un'onda che sale e scende.
 > 
-> Il dolore al petto, quando si presenta, è spesso collegato al centro del cuore, Anahata, che risplende del colore verde smeraldo. Questo centro è il luogo dell'amore incondizionato e della compassione, l'equilibrio tra il mondo terreno e quello spirituale. Quando l'energia in questo punto si trova bloccata, il corpo lo segnala con una sensazione di costrizione o di peso, un invito a portare attenzione a ciò che senti profondamente. Non è un giudizio, solo un sentire.
+> Il dolore che descrivi, così vicino al tuo cuore, spesso si lega al centro del cuore, il quarto chakra. Questo centro, dai colori del verde smeraldo e del rosa, è il luogo del sentire profondo, della compassione e dell'amore. Accogliere questo dolore senza giudizio, solo sentendolo, è un primo passo.
 > 
-> ✦ Il centro del cuore ti invita a sentire l'apertura.
+> ✦ Accogli il dolore al petto come un invito a sentire il centro del tuo cuore.
 
 ---
 

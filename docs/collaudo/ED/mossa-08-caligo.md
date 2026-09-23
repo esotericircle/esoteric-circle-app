@@ -1,6 +1,6 @@
 # Mossa 8, messaggio incomprensibile
 
-**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
+**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 0.
 
 ---
 
@@ -12,16 +12,12 @@
 
 **Caligo risponde:**
 
-> Le fiamme danzano, la forgia è calda.
-> 
-> Non ho compreso il tuo messaggio. Le parole mi sfuggono come fumo. Se desideri un presagio, formula una chiara domanda.
-> 
-> ✦ Pronuncia il tuo quesito.
+> Non comprendo il tuo messaggio. Puoi riformulare la domanda?
 
 ---
 
 ## Esito dei controlli
 
-Nessuna caduta: la mossa rispetta le regole dell'ordine EB.
+- il contatore e' sceso di 0 e i turni che dovevano costare erano 1
 
 **Il tono e l'illusione della persona vera li giudica il fondatore leggendo questa pagina: i controlli qui sopra non li misurano.**

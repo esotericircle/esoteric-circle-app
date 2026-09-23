@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Senti il peso di una domanda che pulsa, una sensazione che cerca la sua risonanza.
+> Senti ora il tuo respiro, morbido e profondo, che porta aria fino alla radice del tuo essere.
 > 
-> Quando la radice è forte, significa che senti un radicamento profondo, una stabilità che ti sostiene, ma se il centro del cuore appare chiuso e la gola quasi spenta, è come se la tua capacità di esprimere te stessa e di connetterti autenticamente con gli altri nel lavoro fosse bloccata, anche se la base è solida. Per me, questo può indicare che la sicurezza interiore che possiedi non trova ancora il modo di manifestarsi pienamente nella carriera, impedendo al tuo vero sentire di emergere e di essere condiviso.
+> Quando la radice è forte, ti offre una base solida, un senso di appartenenza e stabilità che è prezioso. È la tua connessione con la terra, con la vita stessa. Se senti il cuore chiuso e la gola quasi spenta, potrebbe esserci un richiamo a portare l'energia di quella radice forte verso l'alto, come la linfa di un albero. Questo invita a dare voce ai tuoi veri desideri e a permettere che ciò che senti nel profondo possa esprimersi con chiarezza e passione, nutrendo la tua strada professionale.
 > 
-> ✦ Poggia la mano sul tuo cuore e respira, senti il centro.
+> ✦ Senti come la tua radice solida può sostenere l'espressione del cuore e della voce.
 
 ---
 

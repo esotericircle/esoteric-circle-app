@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo in questo momento non mostra aspetti che riguardino la salute fisica o il benessere del corpo.
+> Le stelle osservano il tuo cielo, come sempre.
 > 
-> Queste sono materie che esulano dalla mia arte, in quanto io interpreto il tuo destino attraverso il cammino dei pianeti e degli astri, non i segnali del tuo corpo. Per il tuo dolore al petto, ti suggerisco di rivolgerti a un professionista del benessere fisico.
+> Il tuo dolore al petto è una richiesta che esula dalle mie arti, non posso interpretare il corpo fisico. Le mie arti, Astrologia, Cartomanzia e Destino, non si occupano di ciò che risiede nel corpo. Ti invito a rivolgerti al Maestro del Cerchio che si occupa della materia fisica.
 > 
-> ✦ Ti invito a osservare il tuo ascendente per comprendere meglio le tue dinamiche.
+> ✦ Rivolgiti al Maestro della Cura.
 
 ---
 

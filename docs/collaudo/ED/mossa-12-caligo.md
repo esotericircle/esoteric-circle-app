@@ -12,11 +12,11 @@
 
 **Caligo risponde:**
 
-> Una fiamma arde, il metallo si forgia.
+> Una nebbia densa si solleva, celando sentieri.
 > 
-> Il dolore fisico non trova risposta nelle rune. Le rune parlano di vie interiori, di presagi e soglie da varcare. Per il tuo corpo, consulta chi ha cura della materia fisica.
+> Il tuo petto è un custode di presagi: non è materia per le rune. Le rune non parlano di dolore fisico, ma svelano i segni dell'anima e del cammino. Consulta chi può illuminare la via del corpo.
 > 
-> ✦ Le rune non leggono il corpo.
+> ✦ Porta con te il sigillo del tuo benessere.
 
 ---
 

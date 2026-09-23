@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo accende stelle lontane, ma la tua domanda scende in un'altra direzione.
+> I pianeti si allineano in un cielo di risposte.
 > 
-> I fondi di caffè non rientrano nelle mie arti, non sono uno strumento del mio cammino. Il mio sguardo si posa sui transiti planetari e sugli arcani, sulle lame che il destino tesse.
+> Non interpreto i fondi del caffè, poiché la mia arte si nutre della luce degli astri e della saggezza degli arcani. Se lo desideri, posso rivelarti cosa il cielo e le lame hanno da narrarti, affinché tu possa comprendere meglio il tuo cammino.
 > 
-> ✦ Ti invito a porre domande che riguardino l'Astrologia o la Cartomanzia.
+> ✦ Torna con una domanda, il cielo attende.
 
 ---
 

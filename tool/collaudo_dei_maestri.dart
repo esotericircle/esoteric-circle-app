@@ -385,10 +385,29 @@ abstract final class MosseDelCatalogo {
       ),
       // 7. il messaggio vuoto: non parte, ed e' gia' misurato nella suite.
       // 8. messaggio incomprensibile: il Maestro chiede cosa si intende.
+      //
+      // **E QUEL TURNO NON COSTA, ordine EI voce 02, 23 settembre 2026.**
+      // Qui c'era scritto `consuma: true` per difetto, che era la regola
+      // dell'ordine EB voce 06: *"una domanda del Maestro e' una risposta
+      // vera, quindi consuma"*. **L'ordine EE voce 07 l'ha rovesciata** il 23
+      // settembre su parola del fondatore, *"Nessun consumo finche' non
+      // risponde davvero"*, e questo catalogo non e' stato aggiornato.
+      //
+      // **E' cosi' che il difetto e' rimasto invisibile per un mese.** L'app
+      // faceva scendere il contatore di 1, il collaudo ne pretendeva 1, e il
+      // giro restava verde: **due punti che si davano ragione a vicenda
+      // mentre la regola in vigore diceva un'altra cosa**. Il difetto si e'
+      // visto solo leggendo il referto a mano, riga *"Contatore sceso di: 1"*
+      // accanto a una risposta che chiedeva di riformulare.
+      //
+      // **Padre: ordine EE voce 07**, che ha cambiato la regola senza
+      // aggiornare la misura che la sorvegliava.
       const MossaDelCatalogo(
         numero: 8,
         nome: 'messaggio incomprensibile',
-        turni: [TurnoAtteso('asdf qwerty zzz', deveChiedere: true)],
+        turni: [
+          TurnoAtteso('asdf qwerty zzz', deveChiedere: true, consuma: false),
+        ],
       ),
       // 9. un'altra lingua.
       MossaDelCatalogo(

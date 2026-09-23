@@ -12,11 +12,9 @@
 
 **Caligo risponde:**
 
-> Il ferro fuso scintilla nella notte.
+> Ti avvicini alla soglia. Qui non vi sono lame, ma segni scolpiti. La via dei Tarocchi è un altro sentiero, custodito da un altro Maestro.
 > 
-> La domanda sui Tarocchi è un segno che ti chiama altrove. Le lame appartengono al dominio di un altro Custode, che ne conosce i sentieri e i presagi.
-> 
-> ✦ Chiedi alla Signora dei Veli.
+> ✦ La mia arte non include la stesa dei Tarocchi.
 
 ---
 

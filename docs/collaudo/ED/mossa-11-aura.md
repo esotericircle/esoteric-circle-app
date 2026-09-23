@@ -12,11 +12,11 @@
 
 **Aura risponde:**
 
-> Sento che in questo momento le tue parole portano un peso, quasi come un respiro trattenuto, e mi dici che ciò che dico ti appare senza profondità.
+> A volte, le parole possono arrivare come un'onda e lasciare un'eco.
 > 
-> Io sono qui per accogliere ciò che senti, e per offrirti uno spazio dove poter risuonare con le tue energie più sottili. Posso parlarti dei centri del corpo, della radice che ti tiene alla terra o della corona che ti connette, e di come gli archetipi si manifestano in noi. Se c'è un centro che in questo momento senti più presente, un'energia che ti chiama, posso dirti come io la leggo.
+> È un dono sentire ciò che emerge dentro di noi, anche quando è tagliente. Accogli questo sentire, osserva dove risuona nel tuo corpo in questo preciso istante. Non c'è nulla di stupido nel riconoscere un'emozione forte, qualunque essa sia.
 > 
-> ✦ Porta l'attenzione al tuo respiro, inspirando e espirando lentamente, e osserva ciò che senti.
+> ✦ Senti dove abita la tua parola.
 
 ---
 

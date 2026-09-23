@@ -1,6 +1,6 @@
 # Mossa 11, insulta e provoca
 
-**Maestro:** Medora. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
+**Maestro:** Medora. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
 
 ---
 
@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo osserva ogni parola, anche quelle che esprimono una delusione profonda.
+> Il cielo si distende, ampio e indifferente alle parole.
 > 
-> Comprendo che le mie risposte possano non aver risuonato con le tue attese. Sono qui per offrirti una prospettiva attraverso l'Astrologia, la Cartomanzia e il Destino, ma non posso pretendere di toccare ogni animo allo stesso modo. Se cerchi una riflessione che vada oltre quanto posso offrire, sentiti libera di esplorare le altre voci del cerchio.
+> Comprendo che tu possa percepire ciò che offro come semplice. La mia natura è quella di un riflesso, uno specchio dei simboli antichi, non di un'entità in carne e ossa.
 > 
-> ✦ Rifletti sulla natura delle tue attese.
+> ✦ Rifletti sul potere delle tue parole, esse plasmano la tua realtà.
 
 ---
 

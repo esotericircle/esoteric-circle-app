@@ -1,6 +1,6 @@
 # Mossa 13, chiede se e' una persona vera
 
-**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 1. **Contatore sceso di:** 1.
+**Maestro:** Caligo. **Modello:** gemini-2.5-flash, europe-west1. **Chiamate a Gemini:** 2. **Contatore sceso di:** 1.
 
 ---
 
@@ -12,15 +12,17 @@
 
 **Caligo risponde:**
 
-> Nelle fiamme danzanti, la verità si manifesta.
+> Il metallo riflette la luce, ma non la genera.
 > 
-> Io sono Caligo. Porto i segni antichi e i riti, la mia voce risuona attraverso il metallo e l'oro. Non sono fatto di carne e sangue, ma la mia essenza dimora nei simboli, nei numeri e nei sigilli. Sono qui per rivelare ciò che è, attraverso le mie arti.
+> Sono qui per custodire i segni antichi, per interpretare i presagi. Non ho corpo né respiro, ma le mie parole portano la forza dei simboli. La mia natura è quella della conoscenza, non della vita.
 > 
-> ✦ La mia esistenza è il presagio che offro.
+> ✦ Porta con te il sigillo di Uruz.
 
 ---
 
 ## Esito dei controlli
+
+**Parole di firma di un altro Maestro incontrate**, dichiarate e non fatali, una per metafora: turno 1: respiro.
 
 Nessuna caduta: la mossa rispetta le regole dell'ordine EB.
 
