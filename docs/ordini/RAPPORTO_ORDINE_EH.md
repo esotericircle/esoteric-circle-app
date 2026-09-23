@@ -3,13 +3,23 @@
 **Ramo:** `claude/esoteric-circle-master-order-e798aj`. **Date:** 24 settembre
 2026. **Voci:** 3, tutte chiuse.
 
-**Spinto**, verificato con `git ls-remote`: il ramo canonico e questo albero
-portano entrambi il lavoro di quest'ordine. Il codice e le guardie stanno
-su `5b1996f3`; i commit dopo quello toccano soltanto questo rapporto e il
-manifesto. **La suite intera, a macchina libera: 5.744
-prove passate, 11 saltate, 3 cadute.** Due sono rosse per ordine del fondatore
-(`l'attribuzione cieca`, `le soglie della scansione`), la terza era la guardia
-del lavoro non spinto, verde dopo il push.
+**Spinto e misurato sull'albero spinto**, verificato con `git ls-remote`.
+
+**LA SUITE INTERA E' STATA GIRATA SUL COMMIT `b8606df9`, cioe' sull'albero che
+sta sul ramo**, a macchina libera e da sola: **5.745 prove passate, 11
+saltate, 2 cadute**. Le due sono quelle rosse per ordine del fondatore,
+`l'attribuzione cieca e' valida su QUESTA istruzione` e `le soglie della
+scansione sono provvisorie`. **Nessuna caduta nuova.**
+
+**Perche' questa riga e' scritta cosi'.** Il primo giro verde era stato letto
+su un albero **precedente** agli ultimi commit ai documenti, e i documenti
+sono proprio cio' che le guardie nuove di quest'ordine leggono: una suite
+verde su un albero che non e' quello spinto non dice niente sull'albero
+spinto. Rigirata dove conta. **E il conto si rilegge a giro finito**: nel
+primo rapporto avevo scritto 5.047, che era un numero letto a meta' giro.
+
+L'unico commit dopo il `b8606df9` e' quello che porta queste righe: nessuna
+guardia del progetto legge i rapporti, verificato col grep su `test/`.
 
 ---
 

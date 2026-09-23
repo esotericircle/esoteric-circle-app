@@ -4326,6 +4326,13 @@ Riscritte tutte e dieci.
 **CINQUE GUARDIE NUOVE**, registro da 485 a **490**. Due nate rosse rimettendo
 a mano il difetto di un ordine precedente.
 
+**LA SUITE INTERA, GIRATA SULL'ALBERO SPINTO** (commit `b8606df9`), a macchina
+libera e da sola: **5.745 passate, 11 saltate, 2 cadute**, che sono le due
+rosse per ordine del fondatore. **Il primo giro verde era stato letto su un
+albero precedente agli ultimi commit ai documenti**, e i documenti sono
+proprio cio' che le guardie nuove leggono: una suite verde su un albero che
+non e' quello spinto non dice niente sull'albero spinto.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.
