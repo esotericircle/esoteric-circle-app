@@ -87,6 +87,13 @@ void main() {
     'sensors_plus': 'NSMotionUsageDescription',
     'geolocator': 'NSLocationWhenInUseUsageDescription',
     'record': 'NSMicrophoneUsageDescription',
+    // **LIVEKIT PRENDE IL MICROFONO, ordine EG voce 05.** E' il motore della
+    // voce viva dei Maestri: apre una stanza WebRTC e ci manda il fiato della
+    // persona. **Tocca anche la fotocamera** nel suo codice nativo, perche' la
+    // libreria e' la stessa per le chiamate video, e Apple guarda il codice
+    // che c'e' e non quello che si usa: la chiave della fotocamera sta gia'
+    // nel plist per la Costellazione del Viso, e vale anche qui.
+    'livekit_client': 'NSMicrophoneUsageDescription',
     // record_linux NON sta fra le dipendenze: e' un blocco in
     // dependency_overrides, messo per un guasto di risoluzione a monte, e
     // su iOS non esiste affatto.

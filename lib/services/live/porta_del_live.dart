@@ -1,6 +1,7 @@
 import 'package:cloud_functions/cloud_functions.dart';
 
 import '../../core/maestro/maestro.dart';
+import '../ai/registro_dei_guasti.dart';
 
 /// **LA PORTA DEL LIVE.** Ordine EG voci 01, 04 e 06.
 ///
@@ -163,10 +164,20 @@ abstract final class PortaDelLive {
     try {
       final m = await chiama('statoDellaSessioneLive', {'sessione': sessione});
       return StatoDelLive.daMappa(m);
-    } catch (_) {
+    } catch (errore) {
       // **Un guasto nel chiedere lo stato non spegne la sessione.** La
       // sessione vive su LiveKit, non qui: se questa domanda non risponde, si
       // dice soltanto che il volto non e' ancora arrivato.
+      //
+      // **Ma non si tace, ed e' la guardia dei catch muti ad averlo preteso.**
+      // Il primo tentativo scriveva `catch (_)`: se il volto non fosse mai
+      // arrivato, nessuno avrebbe potuto sapere se era Protoface a non
+      // rispondere o la sessione a non partire, e sono due guasti diversi con
+      // due cure diverse.
+      annotaGuastoInnocuo(
+        'lo stato della sessione LIVE non si legge, sessione $sessione',
+        errore,
+      );
       return const StatoDelLive(stato: 'queued', secondiFatturati: 0);
     }
   }

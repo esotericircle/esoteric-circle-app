@@ -9,6 +9,7 @@ import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
 import '../../../services/live/porta_del_live.dart';
 import '../widgets/busto_del_maestro.dart';
+import '../../../design_system/transizioni/passaggio_del_cerchio.dart';
 import 'stato_della_schermata_live.dart';
 
 /// **LA SCHERMATA LIVE.** Ordine EG voce 05.
@@ -23,6 +24,15 @@ import 'stato_della_schermata_live.dart';
 /// LiveKit, il riquadro del video e la tastiera.
 class SchermataLive extends StatefulWidget {
   const SchermataLive({super.key, required this.maestro});
+
+  /// **LA ROTTA LA DICHIARA LA SCHERMATA, non chi la apre.** La guardia
+  /// `nessuna schermata costruisce una rotta per conto suo` l'ha preteso, e ha
+  /// ragione: una `MaterialPageRoute` scritta nel menu' della chat avrebbe
+  /// saltato il passaggio del Cerchio, cioe' la transizione che tutta l'app
+  /// usa, e il LIVE sarebbe entrato con un'animazione diversa da ogni altra
+  /// schermata senza che nessuno l'avesse deciso.
+  static Route<void> route({required Maestro maestro}) =>
+      PassaggioDelCerchio.rotta<void>((_) => SchermataLive(maestro: maestro));
 
   final Maestro maestro;
 

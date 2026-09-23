@@ -67,3 +67,19 @@ SCALA 1,3: Cattura la galleria di scelta della Sinastria VIP | Sfora 6 punti in 
 # LE TRE DELLA CARD DELLE RUNE SONO USCITE, ordine CN voce 12 del 1 settembre
 # 2026: la card da condividere si disegna a misura fissa, quindi il testo non
 # cresce piu' dentro la cornice e non sfonda di 137 punti.
+
+# UN ORDINE IN CORSO HA LA SUA GUARDIA ROSSA, ED E' GIUSTO COSI'.
+#
+# Le guardie d'ordine pretendono zero voci aperte, cioe' pretendono che
+# l'ordine sia finito: finche' non lo e', sono rosse per costruzione. E'
+# voluto, perche' e' l'unico modo perche' una voce rimasta indietro si veda
+# invece di essere dimenticata, che e' il difetto da cui nasce l'ordine EH.
+#
+# MA COSI' NESSUNA BUILD USCIREBBE MAI durante un ordine, e allora la riga
+# sta qui con la sua ragione. Il verso e' obbligato: quando l'ordine chiude,
+# questa riga diventa "di troppo" e lo sbarramento la fa cadere da solo.
+#
+# EI.10 resta aperta perche' IL FIATO VERO NON SI PUO' SIMULARE: che il
+# microfono senta il soffio di una persona lo puo' dire solo il fondatore.
+# EG e' in corso, ripreso dopo l'interruzione dell'ordine EH.
+ogni voce dichiara uno stato terminale, e i conti tornano | Rosso DICHIARATO E VOLUTO, 23 settembre 2026. Le guardie degli ordini EI ed EG pretendono zero voci aperte, e i due ordini sono in corso: EI.10 aspetta il soffio vero del fondatore, che nessuna prova puo' dare al posto suo, ed EG e' ripartito da poco. Si toglie quando i due ordini chiudono, e lo sbarramento fa cadere questa riga da solo se resta scritta dopo.
