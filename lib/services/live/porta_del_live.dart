@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:cloud_functions/cloud_functions.dart';
 
 import '../../core/maestro/maestro.dart';
@@ -23,6 +26,7 @@ class SessioneLive {
     required this.stanza,
     required this.sessione,
     required this.avatar,
+    this.lavoratore = 'protoface-worker',
     required this.minutiRimasti,
     required this.durataMassimaSecondi,
   });
@@ -42,6 +46,11 @@ class SessioneLive {
   /// L'avatar che parlera', cioe' il volto del Maestro.
   final String avatar;
 
+  /// **A chi si manda la voce del Maestro.** L'identita' con cui il volto di
+  /// Protoface sta nella stanza: la dichiara il server, che firma il suo
+  /// gettone, e il telefono la usa come destinatario del flusso audio.
+  final String lavoratore;
+
   /// Quanti minuti restano alla persona in questo mese.
   final int minutiRimasti;
 
@@ -54,6 +63,7 @@ class SessioneLive {
         stanza: '${m['stanza'] ?? ''}',
         sessione: '${m['sessione'] ?? ''}',
         avatar: '${m['avatar'] ?? ''}',
+        lavoratore: '${m['lavoratore'] ?? 'protoface-worker'}',
         minutiRimasti: (m['minutiRimasti'] as num?)?.toInt() ?? 0,
         durataMassimaSecondi:
             (m['durataMassimaSecondi'] as num?)?.toInt() ?? 20 * 60,
@@ -78,7 +88,10 @@ class StatoDelLive {
 
   static StatoDelLive daMappa(Map<Object?, Object?> m) => StatoDelLive(
         stato: '${m['stato'] ?? 'queued'}',
-        secondiFatturati: (m['secondiFatturati'] as num?)?.toInt() ?? 0,
+        // **Il nome e' quello del server**, `secondiFatturabili`. La prima
+        // stesura leggeva `secondiFatturati`, che il server non manda: il
+        // consumo vero sarebbe arrivato sempre a zero.
+        secondiFatturati: (m['secondiFatturabili'] as num?)?.toInt() ?? 0,
       );
 }
 
@@ -156,6 +169,53 @@ abstract final class PortaDelLive {
       throw IlLiveNonSiApre(perchePerIlCodice(e.code), e.message);
     } catch (e) {
       throw IlLiveNonSiApre(PerchePerILiveNonSiApre.guasto, '$e');
+    }
+  }
+
+  /// **La stessa porta, a flusso.** Sostituibile nelle prove come [chiama].
+  static Stream<Map<Object?, Object?>> Function(
+    String porta,
+    Map<String, Object?> dati,
+  ) aFlusso = _dallaCallableAFlusso;
+
+  static Stream<Map<Object?, Object?>> _dallaCallableAFlusso(
+    String porta,
+    Map<String, Object?> dati,
+  ) async* {
+    final p = FirebaseFunctions.instanceFor(region: 'europe-west1')
+        .httpsCallable(porta,
+            options: HttpsCallableOptions(
+              timeout: const Duration(seconds: 60),
+            ));
+    await for (final r in p.stream<Object?, Object?>(dati)) {
+      if (r is Chunk<Object?, Object?>) {
+        yield (r.partialData as Map?)?.cast<Object?, Object?>() ?? const {};
+      }
+    }
+  }
+
+  /// **LA VOCE DEL MAESTRO A FLUSSO.** Ordine EG voce 01, dopo la prima prova
+  /// del fondatore del 23 settembre 2026: *"la risposta arriva molti secondi
+  /// dopo"*.
+  ///
+  /// [voce] aspettava l'audio intero di una frase, da 4,4 a 11,7 secondi
+  /// misurati; qui ogni pezzo arriva appena Gemini-TTS lo compone, il primo
+  /// in meno di un secondo, e si puo' mandare al volto subito.
+  static Stream<({Uint8List pcm, int tasso, int canali})> voceAFlusso(
+    Maestro maestro,
+    String testo,
+  ) async* {
+    await for (final m in aFlusso(
+      'laVoceDelMaestro',
+      {'maestro': maestro.name, 'testo': testo},
+    )) {
+      final audio = '${m['audio'] ?? ''}';
+      if (audio.isEmpty) continue;
+      yield (
+        pcm: base64Decode(audio),
+        tasso: (m['tasso'] as num?)?.toInt() ?? 24000,
+        canali: (m['canali'] as num?)?.toInt() ?? 1,
+      );
     }
   }
 

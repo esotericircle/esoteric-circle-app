@@ -143,7 +143,19 @@ class MaestroChatController extends ChangeNotifier {
   /// regola non li vedeva: l'effetto era giusto, ma a tenerlo in piedi era il
   /// `return` e non `CostoDelTurno`. Adesso ogni strada del turno passa di
   /// qui, e chi ne aprira' una nuova dovra' dire come finisce.
+  /// **VERO MENTRE LA CONVERSAZIONE PASSA DALLA VOCE VIVA.** Ordine EG voce
+  /// 06: *"Il LIVE consuma solo i suoi minuti."*
+  ///
+  /// Il LIVE usa **questo stesso controller**, cioe' lo stesso Maestro, la
+  /// stessa memoria e le stesse regole della chat scritta, che e' cio' che la
+  /// voce EG.01 pretende; e ogni turno detto a voce resta scritto nella
+  /// conversazione. Ma il conto non e' lo stesso: i minuti li conta il server
+  /// all'apertura della sessione, e far scendere anche le domande del giorno
+  /// vorrebbe dire far pagare due volte lo stesso turno.
+  bool nelLive = false;
+
   void _applicaIlCosto(EsitoDelTurno esito) {
+    if (nelLive) return;
     final piano = _tier?.call();
     final contatore = _allowance;
     if (piano != null && contatore != null && CostoDelTurno.consuma(esito)) {
@@ -645,7 +657,12 @@ class MaestroChatController extends ChangeNotifier {
     // promesso e non imposto.
     final piano = _tier?.call();
     final contatore = _allowance;
-    if (piano != null && contatore != null && !contatore.canAsk(piano)) {
+    // Nel LIVE il limite delle domande non vale: vale quello dei minuti, che
+    // il server ha gia' controllato aprendo la sessione.
+    if (!nelLive &&
+        piano != null &&
+        contatore != null &&
+        !contatore.canAsk(piano)) {
       _messages.add(ChatMessage(
         role: ChatRole.maestro,
         // La frase viene dal DATO, e il numero pure: se domani il limite
@@ -730,9 +747,11 @@ class MaestroChatController extends ChangeNotifier {
       priorHistory: priorHistory,
       userText: trimmed,
     );
-    if (piano != null && contatore != null && CostoDelTurno.consuma(esito)) {
-      contatore.record(piano);
-    }
+    // **Anche questa strada passa dal punto unico.** Qui si addebitava a
+    // mano, e il LIVE, che il costo lo spegne in `_applicaIlCosto`, pagava lo
+    // stesso ogni turno detto a voce con una domanda del giorno: il fondatore
+    // si e' trovato senza domande dopo una prova a voce. Ordine EG voce 06.
+    _applicaIlCosto(esito);
     // Il titolo nasce dopo una risposta vera, e mai sulla strada del turno:
     // chi aspetta la risposta non aspetta anche il titolo.
     if (CostoDelTurno.consuma(esito)) unawaited(_forseIlTitolo());
@@ -982,11 +1001,7 @@ class MaestroChatController extends ChangeNotifier {
     // Un Riprova RIUSCITO costa, perche' il Maestro ha risposto davvero, e il
     // tentativo fallito che lo precede non aveva pagato niente: si paga una
     // domanda per una risposta, mai per un errore.
-    final piano = _tier?.call();
-    final contatore = _allowance;
-    if (piano != null && contatore != null && CostoDelTurno.consuma(esito)) {
-      contatore.record(piano);
-    }
+    _applicaIlCosto(esito);
   }
 
   /// Genera la risposta e dice COM'E' ANDATA. Restituisce l'esito invece di
@@ -1321,10 +1336,17 @@ class MaestroChatController extends ChangeNotifier {
   /// troncatura, il ripiego e l'errore: **una risposta che fallisce non fa
   /// sparire la scena di colpo**, la fa arrivare al suo tempo come le altre.
   Future<void> _consegna(ChatMessage messaggio, Stopwatch da) async {
-    final minima = _attesaMinima ??
-        (riduciMovimento
-            ? TempiDellAttesa.durataMinimaRidotta
-            : TempiDellAttesa.durataMinima);
+    // **Nel LIVE la scena non c'e', e la pausa sarebbe attesa pura.** Quattro
+    // secondi di minimo a ogni turno detto a voce, anche quando Gemini ha
+    // risposto in uno: al banco non si vedevano, perche' il telefono di
+    // collaudo ha le animazioni spente e la pausa scende a 0,7. Ordine EG voce
+    // 05, dopo la prova del fondatore: "la risposta arriva molti secondi dopo".
+    final minima = nelLive
+        ? Duration.zero
+        : _attesaMinima ??
+            (riduciMovimento
+                ? TempiDellAttesa.durataMinimaRidotta
+                : TempiDellAttesa.durataMinima);
     final mancante = minima.inMilliseconds - da.elapsedMilliseconds;
     if (mancante > 0) {
       await Future<void>.delayed(Duration(milliseconds: mancante));

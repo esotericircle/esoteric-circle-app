@@ -1,0 +1,95 @@
+ORDINE EG, LA VOCE VIVA MISURATA SUL REALME 767f596c, 23 SETTEMBRE 2026
+
+Righe copiate dal logcat dell'app (tag flutter, prefisso LIVE) e dai registri
+del server (funzione laVoceDelMaestro), nell'ordine in cui sono avvenute.
+Nessuna riga e' stimata.
+
+------------------------------------------------------------------------
+1. PRIMA: LA 2277 E LA PRIMA CATENA
+------------------------------------------------------------------------
+
+La 2277 apriva la sessione e il volto restava fermo e muto: nessuno mandava
+audio a Protoface (sessione del fondatore sess_01M377F0BQ5CM44DW8B47RZGFX).
+
+Prima catena, voce chiesta intera frase per frase (registri del server):
+  14:25:34  7,07 s per 156 caratteri
+  14:25:42 11,75 s per 181 caratteri
+  14:25:54  4,40 s per  47 caratteri
+Pausa scenica minima della chat: 4.000 ms (0,7 s solo col movimento ridotto).
+Ritmo della voce di Medora col modo "calda, lenta e brunita":
+  saluto di 68 caratteri lungo 9,01 s parlati, 8,0 caratteri al secondo.
+Il fondatore l'ha sentita: "la voce e' rallentata parecchio e la risposta
+arriva molti secondi dopo".
+
+------------------------------------------------------------------------
+2. LA VOCE: RITMO E PRIMO SUONO, CHIAMATE VERE A gemini-2.5-flash-tts
+   IN europe-west1
+------------------------------------------------------------------------
+
+stream | "Parla in italiano con voce calda e brunita di donna matura, a ritmo
+         sciolto e spedito" | Sulafat | 13,9 e 13,1 caratteri/s | primo audio
+         0,75 e 0,68 s | composta in 6,58 e 4,53 s per 11,7 e 12,4 s di voce
+stream | Autonoe, "chiara e luminosa" | 14,7 e 13,9 caratteri/s | primo audio
+         0,69 e 0,70 s
+stream | Algenib, "maschile grave e profonda" | 14,3 e 13,5 caratteri/s |
+         primo audio 0,61 e 0,65 s
+intero | stessa frase senza flusso | primo audio 4,63-5,43 s
+
+------------------------------------------------------------------------
+3. DOPO: LA CATENA SUL TELEFONO, BUILD DI COLLAUDO
+------------------------------------------------------------------------
+
+Saluto di Medora all'apertura:
+  LIVE: primo suono al volto dopo 797 ms, voce di 6.4 s, scritta in 3606 ms
+  LIVE: il volto ha finito dopo 8136 ms, lo ha detto lui
+
+Turno a voce, domanda detta dal portatile vicino al telefono
+("E per il lavoro, che cosa vedi questa settimana?"), fine della frase
+18:16:22.801:
+  18:16:24.967 LIVE: frase chiusa (un secondo e mezzo senza parole) 1501 ms
+               dopo l'ultima parola
+  18:16:27.279 LIVE: la chat ha risposto in 2309 ms (rigenerazioni finora:
+               ancoraggio 0, troncatura 0)
+  LIVE: primo suono al volto dopo 686 ms, voce di 42.5 s
+  LIVE: il volto ha finito dopo 44054 ms, lo ha detto lui
+  Dalla fine della frase della persona alla voce del Maestro: 5,2 s.
+
+Turno scritto ("Cosa dice il cielo stasera per me?"):
+  LIVE: la chat ha risposto in 4528 ms   (build con la pausa scenica)
+  LIVE: primo suono al volto dopo 692 ms, voce di 30.0 s
+  LIVE: il volto ha finito dopo 31528 ms, lo ha detto lui
+
+Chiusura per silenzio:
+  17:35:37.962 LIVE: il volto ha finito dopo 10365 ms, lo ha detto lui
+  17:36:07.597 LIVE: chiusa dopo 30 secondi di silenzio
+
+Aura e Caligo, saluto:
+  Aura:   primo suono al volto dopo 774 ms, voce di 4.5 s, finito 6342 ms
+  Caligo: primo suono al volto dopo 652 ms, voce di 4.8 s, finito 6280 ms
+
+------------------------------------------------------------------------
+4. LA BOCCA: SI MUOVE QUANDO PARLA, E SOLO ALLORA
+------------------------------------------------------------------------
+
+Raffica di 88 schermate fatte dal telefono durante il saluto di Medora e i
+quindici secondi di silenzio dopo. Differenza media fra fotogrammi consecutivi
+nella zona della bocca (scala di grigi, 0-255):
+  mentre parla:  23 coppie, media 20,86, massima 47,92
+  mentre tace:   46 coppie, media  2,12, massima  5,75
+Striscia: la_bocca_di_medora_parla_e_tace.png (sopra parla, sotto tace).
+
+------------------------------------------------------------------------
+5. IL FONDO BIANCO E LA FINESTRA
+------------------------------------------------------------------------
+
+Il video di Protoface e' un quadrato col fondo bianco (WebRTC non porta il
+canale alpha, e la sessione non ha opzioni di sfondo). Il filtro toglie i
+pixel sopra una media di 250 per canale. Il busto dentro il quadrato, misurato
+dal video vero:
+  Medora: orizzontale 0,181-0,772, testa 0,148, taglio 0,852, centro 0,494
+  Aura:   orizzontale 0,080-0,943, testa 0,026, taglio 0,998, centro 0,523
+  Caligo: orizzontale 0,057-0,946, testa 0,159, taglio 0,851, centro 0,480
+    (prima misura di Caligo 0,885, sbagliata di 0,032: vedi il manifesto)
+Catture: la_finestra_dei_tre_maestri.png (Medora, Aura, Caligo).
+Nella cattura dopo la correzione il busto di Caligo entra nell'oro alla riga
+1.609 come quelli di Medora e Aura: nessuna fascia nera, nessun filo chiaro.

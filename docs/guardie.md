@@ -40,10 +40,10 @@ totale e' un controllo, non un ornamento.
 | categoria | quante |
 | --- | ---: |
 | Guardie che passano dalla porta comune | 142 |
-| Guardie con un cardinale proprio dichiarato | 140 |
-| Guardie che non scoprono nessun insieme di file | 215 |
-| **Somma delle categorie** | **497** |
-| **Guardie secondo la definizione** | **497** |
+| Guardie con un cardinale proprio dichiarato | 141 |
+| Guardie che non scoprono nessun insieme di file | 217 |
+| **Somma delle categorie** | **500** |
+| **Guardie secondo la definizione** | **500** |
 
 **Ricontate a ordine EH**, 24 settembre 2026, l'ordine straordinario nato da un ordine dichiarato chiuso che chiuso non era: **cinque guardie nuove**, tre col cardinale proprio e due che non scoprono insiemi. Il totale sale da 485 a **490** e le tre categorie a **140, 136 e 214**. **Due sono nate rosse rimettendo a mano il difetto di un ordine precedente**, che e' il modo piu' scomodo e piu' onesto in cui una guardia possa nascere. E una, `i_doni_del_giorno_non_ripetono`, ha dovuto **alzare** la sua soglia: a cinque distinti su sette il difetto vero passava, e cinque era un numero scelto a occhio mentre sette e' la richiesta del fondatore.
 
@@ -122,6 +122,18 @@ insiemi. Il totale sale a **497** e le categorie a **142, 140 e 215**. **Nata
 rossa** rimettendo la riga vecchia `isCurrent: !isDemo && ...`: col piano
 attivo in Demo i livelli restavano senza badge e la card Demo continuava a
 dire di essere il piano attuale. Padre del difetto: ordine CQ voce 1.01.
+
+**Ricontate a ordine EG, la voce viva rifatta**, 23 settembre 2026, dopo che
+la 2277 era arrivata al fondatore con Medora ferma e muta: **tre guardie
+nuove**, `la_finestra_sul_volto` col cardinale proprio e
+`il_parlato_del_maestro` e `il_live_consuma_solo_i_suoi_minuti` che non
+scoprono insiemi. Il totale sale da 497 a **500** e le categorie a **142, 141
+e 217**. **Tutte e tre viste rosse con l'innesto verificato col grep**, e la
+guardia di casa `i_modelli_stanno_nella_regione_dei_dati` e' stata vista rossa
+sul modello della voce prima che entrasse nell'elenco dei verificati.
+**E la guardia dei grigi ha preso un difetto vero di quest'ordine**, il
+pulsante del congedo nel viola del tema, cosi' come `pricing_test` ha preso
+il doppio badge della prima correzione del piano attuale.
 
 **Ricontate a ordine EG**, 23 settembre 2026, il LIVE dei Maestri ripreso dopo
 l'interruzione: **due guardie nuove**, una dalla porta comune e una col
@@ -677,9 +689,11 @@ le altre.
 | `il_gemello_ha_la_sua_schermata_test.dart` | il gemello ha la sua schermata | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_genere_non_si_indovina_test.dart` | il genere non si indovina: nessuna stringa di `lib` si rivolge alla persona con una forma di genere fuori da una marca a tre campi o dalla porta, col dizionario delle forme dell'ordine DL voce 06 | 1, 2 | dalla porta comune | 14/09/2026, DL (rossa: un participio e un aggettivo innestati fuori dalle marche, *Sei arrivato* e *Sei stanco*; il criterio si e' stretto, il dizionario non si e' mai allargato) | 2 |
 | `il_genere_si_decide_in_un_posto_solo_test.dart` | il genere scelto si decide in una porta sola: una sola decisione fra maschile e femminile per la lingua, nessun `AddressForm`, nessun uso del sesso anagrafico per la lingua | 1, 2 | dalla porta comune | 14/09/2026, DL (rossa: una seconda decisione innestata fuori dalla porta; e **rossa senza innesto** sul difetto vero della voce DL.07, la desinenza contraria alla forma decisa con un suo `masculine ? 'a' : 'o'` in `le_forme_del_genere.dart`, riparata facendola passare dalla porta) | 2 |
+| `il_live_consuma_solo_i_suoi_minuti_test.dart` | un turno detto nel LIVE non consuma la domanda del giorno e non aspetta la pausa scenica della chat; fuori dal LIVE lo stesso turno costa e la pausa resta | 2 | non scopre insiemi di file | 23/09/2026, EG voci 05 e 06 (l'addebito a mano rimesso sul turno; il ramo del LIVE tolto dalla pausa, 4.003 ms) | 1 |
 | `il_live_non_e_mai_un_vicolo_cieco_test.dart` | il LIVE non e' mai un vicolo cieco | 3 | proprio, dichiarato | 23/09/2026, EG.05 | 4 |
 | `il_maestro_risponde_nel_merito_test.dart` | i tre Maestri ricevono la regola della risposta nel merito, e sta in un punto solo | 1, 2 | dalla porta comune | 21/09/2026, EB (tre innesti: il blocco staccato da tutti e tre, il divieto tolto dal testo, la regola copiata due volte) | 3 |
 | `il_mischia_ricompone_il_mazzo_test.dart` | il Mischia dell'Arcano dell'Alba raccoglie le carte in un punto solo, le mescola a mazzo chiuso e le ristende | 1, 2 | non scopre insiemi di file | 23/09/2026, EE (nata rossa rimettendo la mescolata a corsa finita, che riportava le carte ai posti di prima) | 3 |
+| `il_parlato_del_maestro_test.dart` | la risposta scritta diventa voce a pezzi senza perdere parole, senza segni che la voce leggerebbe e sotto il tetto di 220 caratteri; ogni Maestro saluta con una frase sua | 2 | non scopre insiemi di file | 23/09/2026, EG voce 01 (l'ultimo pezzo non aggiunto) | 2 |
 | `il_piano_attuale_e_quello_attivo_test.dart` | il piano attuale e' quello attivo | 2 | non scopre insiemi di file | 23/09/2026, EG, il badge fermo sulla Demo | 4 |
 | `il_pulsante_solo_se_lo_chiedi_test.dart` | nominare un'arte non e' chiederla: il pulsante compare solo su una richiesta vera | 1, 2 | proprio, dichiarato | 21/09/2026, EB (nata rossa sul difetto vero: nove frasi su undici aprivano un pulsante che nessuno aveva chiesto) | 3 |
 | `il_ricordo_custodito_porta_il_verso_test.dart` | le quattro arti con figure salvano il verso, e il verso salvato arriva al disegno | 1, 2 | proprio, dichiarato | 21/09/2026, EC (nata rossa sui tre difetti insieme: due arti su quattro non lo salvavano, una su quattro lo mostrava) | 3 |
@@ -695,6 +709,7 @@ le altre.
 | `il_viaggio_vive_sull_account_test.dart` | le otto chiavi del Viaggio dello Sciamano si raccolgono, entrano nel cammino custodito e tornano dal Cerchio | 1, 2 | proprio, dichiarato | 23/09/2026, EE (nata rossa togliendo il Viaggio dal corpo che parte) | 3 |
 | `l_arcano_dell_alba_si_gira_test.dart` | **un gesto solo e nessun altro comando** sull'Arcano dell'Alba; carte coperte uguali; la faccia solo dopo meta' giro; **il verso non lo decide la carta toccata**; il limite delle stese intatto; nel cammino i gesti alba e oracolo; il dorso uguale a se stesso al mezzo giro | 1 | non scopre insiemi in `lib` | 18/09/2026, DW.02 (le azioni tolte: sotto la carta rivelata non c'e' niente); prima: 18/09/2026, DV.11 (il margine solo in alto: la carta a zero punti dal bordo del pannello); prima: 17/09/2026, DT (caso deciso dalla carta toccata e gesto dell'oracolo tolto: due rosse) | 2 |
 | `l_estrazione_dell_alba_e_libera_test.dart` | **l'estrazione dell'Arcano dell'Alba non ha vincoli**: i quarantaquattro stati equiprobabili su centomila giri; la stessa carta due volte di fila con la frequenza del caso; il verso rovescio attorno alla meta' su ogni carta; **nessuna riga di codice dei file dell'Alba nomina piu' un sacchetto, una distanza minima o le ultime carte** | 1 | proprio, dichiarato | 17/09/2026, DU (`SacchettoDellAlba` innestato nel diario) | 2 |
+| `la_finestra_sul_volto_test.dart` | la finestra del LIVE ha il bordo basso sul taglio del busto di ogni Maestro, la testa dentro, niente fuori dal video; toppa e zona intatta stanno dentro la finestra; trenta secondi di silenzio chiudono | 1, 2 | proprio, 3 Maestri e 2 zone | 23/09/2026, EG voce 05 (finestra piu' alta di 0,05 sotto il taglio; toppa spostata fuori dalla finestra) | 2 |
 | `la_lettura_ridetta_ha_la_voce_di_chi_la_ridice_test.dart` | i tre ridicono la lettura del giorno ognuno con la sua voce, senza il lessico degli altri | 1, 2 | proprio, dichiarato | 21/09/2026, EC (nata rossa: la premessa era una frase sola per i tre e diceva cielo) | 3 |
 | `la_porta_del_live_non_porta_chiavi_test.dart` | la porta del LIVE non porta chiavi | 1, 2 | porta comune, piu' i codici del server | 23/09/2026, EG.01 | 5 |
 | `la_settima_sera_entra_nel_diario_test.dart` | la settima sera entra nel diario | 2 | proprio, dichiarato | 23/09/2026, EI.05 | 3 |

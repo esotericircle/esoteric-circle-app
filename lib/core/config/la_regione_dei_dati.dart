@@ -24,8 +24,14 @@ abstract final class LaRegioneDeiDati {
   /// Verificati il 13 settembre 2026 alle 16:56 UTC con una chiamata vera a
   /// `europe-west1-aiplatform.googleapis.com`, risposta 200. Nella stessa
   /// verifica Gemini 3.6 Flash e Gemini 3.5 Flash Lite hanno risposto 404.
+  ///
+  /// **La voce del Maestro nel LIVE**, ordine EG voce 01, verificata il 23
+  /// settembre 2026 con una chiamata vera a `generateContent` in
+  /// `europe-west1`: risposta 200 con audio `audio/L16;codec=pcm;rate=24000`.
+  /// La guardia l'ha vista rossa prima che entrasse qui.
   static const Map<String, String> modelliVerificati = {
     'gemini-2.5-flash': '13 settembre 2026',
     'gemini-2.5-flash-lite': '13 settembre 2026',
+    'gemini-2.5-flash-tts': '23 settembre 2026',
   };
 }

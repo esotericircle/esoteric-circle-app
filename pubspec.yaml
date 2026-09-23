@@ -213,6 +213,11 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  # **IL VOLTO DEL LIVE SENZA IL FONDO BIANCO**, ordine EG voce 05: toglie il
+  # fondo e il filo chiaro lungo la sagoma del video di Protoface.
+  shaders:
+    - shaders/volto_senza_fondo.frag
+
   # Asset consumati a runtime.
   assets:
     # I cinque suoni del Cerchio. La cartella e' dichiarata anche se vuota:

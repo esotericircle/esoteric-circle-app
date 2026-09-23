@@ -42,6 +42,7 @@ export {
   gliAvatarDiProtoface,
   apriUnaSessioneLive,
   statoDellaSessioneLive,
+  laVoceDelMaestro,
 } from "./live";
 
 // LA RICERCA DEL LUOGO NEL MONDO INTERO, ordine DR voce 10: il catalogo

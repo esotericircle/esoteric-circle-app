@@ -97,7 +97,13 @@ class PricingScreen extends StatelessWidget {
                       // chat diventavano quelli dell'Illuminato, e questa
                       // schermata continuava a dire "Demo". **Padre: ordine
                       // CQ voce 1.01.**
-                      isCurrent: plan.tier == current,
+                      //
+                      // **Ma un badge solo.** In Demo, finche' nessun livello
+                      // e' attivo, il piano attuale e' la Demo e non il
+                      // Viandante: la prima stesura lo metteva su tutte e
+                      // due, e `pricing_test` l'ha presa.
+                      isCurrent: plan.tier == current &&
+                          !(isDemo && current == Tier.free),
                       palette: palette,
                     ),
                     const SizedBox(height: SpacingTokens.md),

@@ -1407,8 +1407,12 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                 Navigator.of(context)
                     .push(RicordiScreen.route(maestro: maestro));
               case _VoceDelMenu.voceViva:
-                Navigator.of(context)
-                    .push(SchermataLive.route(maestro: maestro));
+                // **Il LIVE risponde con la stessa chat**, stesso Maestro,
+                // stessa memoria: per questo gli si passa il controllore.
+                Navigator.of(context).push(SchermataLive.route(
+                  maestro: maestro,
+                  chat: context.read<MaestroChatController>(),
+                ));
             }
           },
           // **COMPATTO, COME I MENU' DEI CHATBOT. Ordine EA voce 08.** Parole

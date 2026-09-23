@@ -4401,8 +4401,78 @@ vietato.**
 ## L'ORDINE EG, IL LIVE DEI MAESTRI, RIPRESO DOPO L'INTERRUZIONE
 
 Ordine del 23 settembre 2026, **nove voci**, ripreso dopo che l'ordine EH lo
-aveva interrotto. **Due voci chiuse**, la fetta verticale in piedi. Manifesto
+aveva interrotto. **Due voci chiuse, EG.01 ed EG.05, ma chiuse due volte**:
+la prima chiusura era falsa, e la 2277 e' arrivata al fondatore con Medora
+**"fissa e muta"**. Riaperte, rifatte, provate sul Realme prima di
+consegnare, e richiuse con DOMANDA, PROVA e MISURA. Sette voci aperte. Manifesto
 `docs/ordini/ORDINE_EG_MANIFESTO.md`, prove in `docs/collaudo/EG/`.
+
+**LA PRIMA CHIUSURA MISURAVA LA DOMANDA ACCANTO.** EG.01 era stata chiusa
+perche' le chiavi non scendevano sul telefono; la voce chiedeva che nel LIVE
+rispondesse il nostro Maestro, e nella stanza nessuno mandava audio al volto.
+La sessione del fondatore `sess_01M377F0BQ5CM44DW8B47RZGFX` si e' aperta e il
+suo "chi sei?" non e' arrivato a nessuno. E' il difetto dell'ordine EH
+commesso dentro l'ordine che doveva impedirlo. **Da qui in avanti una voce del
+LIVE si consegna solo dopo averla sentita e vista sul telefono.**
+
+**LA CATENA, COM'E' ADESSO.** Il LIVE usa lo stesso `MaestroChatController`
+della chat aperta: stesso Maestro, stessa memoria, stesse regole, e ogni turno
+detto a voce resta scritto nella conversazione. La voce nasce sul server,
+porta `laVoceDelMaestro`, con `gemini-2.5-flash-tts` in `europe-west1`, **a
+flusso**; il telefono la manda al volto sul flusso di byte `lk.audio_stream`
+e aspetta che Protoface dica `lk.playback_finished` prima di tornare ad
+ascoltare. Il saluto si compone mentre il volto entra nella stanza. Misure sul
+Realme: dalla fine della frase della persona alla voce del Maestro **5,2
+secondi** (prima 13-18), primo suono al volto fra 0,64 e 0,80 secondi, la bocca
+fra fotogrammi consecutivi si muove **20,86** mentre parla e **2,12** mentre
+tace. Righe in `docs/collaudo/EG/la_voce_viva_misurata.txt`.
+
+**TRE DIFETTI TROVATI DAL FONDATORE MENTRE PROVAVA, TUTTI CURATI.** La voce
+**rallentata**: il modo di Medora diceva "lenta", 8,0 caratteri al secondo;
+adesso "a ritmo sciolto e spedito", fra 13,1 e 14,7 per le tre voci. La
+risposta **molti secondi dopo**: la voce intera per frase costava fino a 11,7
+secondi, e sotto c'era la **pausa scenica di quattro secondi della chat**,
+applicata anche nel LIVE dove la scena non si vede; **il Realme di collaudo
+non la mostrava perche' ha le animazioni spente**, e li' la pausa scende a 0,7.
+E il LIVE **consumava le domande della chat**: il turno principale addebitava
+a mano, fuori dal punto unico dove il LIVE spegne il costo.
+
+**IL VOLTO STA IN UNA FINESTRA AD ARCO, SUL NERO.** Il video di Protoface e'
+un quadrato col fondo bianco: WebRTC non porta l'alpha e la sessione non ha
+opzioni di sfondo. Un filtro colore toglie il bianco; il busto sta dietro una
+finestra ad arco con doppio filo d'oro e l'alone del Maestro, **col bordo
+basso sul taglio del busto**, come ha chiesto il fondatore. Il ritaglio e'
+misurato Maestro per Maestro in `InquadraturaDelVolto`, perche' ognuno sta
+nel video a modo suo. **Il filo chiaro lungo la sagoma, che il fondatore ha
+respinto, lo toglie uno shader** (`shaders/volto_senza_fondo.frag`) che guarda
+il vicinato di ogni pixel e tratta come fondo solo il bianco neutro; due
+eccezioni che nessuna regola automatica distingue sono dichiarate a mano, la
+**toppa** sul buco del mantello di Medora (un buco dell'immagine da cui
+l'avatar e' nato) e la **zona intatta** sul cristallo della spilla di Caligo.
+Sei stesure provate sul telefono prima di questa. Prove in
+`docs/collaudo/EG/la_finestra_dei_tre_maestri.png` e
+`il_contorno_prima_e_dopo.png`.
+
+**SUL REALME C'E' CLEAN MASTER**, che si mette in primo piano dopo ogni
+installazione: una volta i tocchi automatici della prova sono caduti sul suo
+AppLock, senza attivare niente. Da allora ogni tocco controlla prima che
+davanti ci sia l'app.
+
+**TRE GUARDIE NUOVE**, registro da 497 a **500**: `la_finestra_sul_volto`,
+`il_parlato_del_maestro`, `il_live_consuma_solo_i_suoi_minuti`, tutte viste
+rosse.
+
+**TRENTA SECONDI SENZA CONVERSAZIONE CHIUDONO LA VOCE VIVA**, chiesto dal
+fondatore perche' Protoface si paga a tempo: il Maestro dice perche' e offre il
+ritorno alla chat. Sotto, la rete del server: Protoface chiude da se' dopo 60
+secondi senza audio, prima 180.
+
+**IL LIVE E' APERTO AI TIER 2 E 3**, scelta del fondatore: `apertoAlTier2`
+acceso in `configurazione/live`, i fondatori restano per uid. **Il diritto e i
+minuti li decide il server.**
+
+**L'AVATAR DI MEDORA E' CAMBIATO**: quello usato prima era a figura intera e il
+fondatore l'ha eliminato; adesso e' `av_01KZ9637K1YZ45H3GNZE95YN6E`.
 
 **IL RISCHIO PIU' GROSSO E' SUPERATO: LiveKit sta nell'app e la build Android
 regge.** L'archivio passa da 195,3 a **218,4 megabyte**, ed e' il motore WebRTC.
@@ -4443,6 +4513,13 @@ tre riprovate rosse su un uso vero**: il verde sul commento non e' una deroga.
 `6tgbum9gusts0`, verificata sul server e non sulla parola dello strumento.
 Sbarramento passato con **5.775 prove**. L'app si e' accesa sul Realme prima
 del caricamento: processo vivo, primo fotogramma disegnato, nessun crash.
+**Ma il LIVE di quella build era muto**, e nessuno l'aveva aperto prima di
+consegnarla: la prova di accensione dice che l'app parte, non che una
+funzione funziona.
+
+**IL BADGE DEL PIANO ATTUALE E' CORRETTO**, e arriva con la build del LIVE
+rifatto: in Demo restava su DEMO anche col piano Illuminato attivo; prova
+`test/il_piano_attuale_e_quello_attivo_test.dart`, vista rossa.
 
 ## Regole ferree
 

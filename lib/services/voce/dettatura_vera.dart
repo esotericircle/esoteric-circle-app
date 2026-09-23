@@ -139,12 +139,20 @@ class DettaturaVera extends Dettatura {
   Future<bool> ascolta({
     required void Function(String parole) parole,
     required void Function() finito,
+    void Function(String frase)? frase,
   }) async {
     if (!await _accendi()) return false;
     final voce = await _voceDaUsare();
     try {
       await _motore.listen(
-        onResult: (esito) => parole(esito.recognizedWords),
+        onResult: (esito) {
+          parole(esito.recognizedWords);
+          // **LA FRASE FINITA LA DICHIARA IL RICONOSCITORE**, appena la
+          // persona smette di parlare. Il LIVE la usa per rispondere subito,
+          // invece di aspettare i tre secondi di silenzio che servono alla
+          // chat scritta per chi si ferma a pensare. Ordine EG voce 05.
+          if (esito.finalResult) frase?.call(esito.recognizedWords);
+        },
         listenOptions: SpeechListenOptions(
           // Nulla solo quando nessuno ha detto la lingua dell'app: allora
           // decide la piattaforma, come prima.
