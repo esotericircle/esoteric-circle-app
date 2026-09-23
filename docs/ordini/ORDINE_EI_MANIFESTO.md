@@ -10,8 +10,8 @@ coda sono EA, EB, EC, ED, EE, EF, EG, EH. **Data:** 23 settembre 2026.
 e' chiuso e verificato.
 
 VOCI_TOTALI: 10
-VOCI_CHIUSE: 0
-VOCI_APERTE: 10
+VOCI_CHIUSE: 1
+VOCI_APERTE: 9
 
 ---
 
@@ -118,7 +118,43 @@ Tre domande girate prima di cominciare, e tre risposte.
 Per ciascuna delle tredici porte di approfondimento, il testo che apre la chat
 come lo vede una persona, catturato da un'esecuzione vera.
 
-**APERTA IN ATTESA DI VERIFICA.**
+### Cosa e' stato fatto
+
+**Il codice c'era e non era il problema.** La guardia che gia' copriva la zona,
+`la_chat_sa_a_cosa_rispondono_le_carte`, e' stata vista rossa prima di toccare
+niente (Regola B), rinominando il parametro di `ChatOpeners.consiglio`: cade
+sulla misura giusta, non in compilazione. La prima prova del rosso **non
+valeva** e va detto: aveva rotto la compilazione, e una prova che non compila
+non misura la guardia, misura un errore di chi l'ha innestata.
+
+**Cio' che mancava era il file apribile.** La guardia vecchia misura la cosa
+giusta **dentro il codice**, per nome di funzione e presenza di parametro: per
+controllarla il fondatore doveva leggere il codice. Adesso
+`docs/collaudo/EI/tredici_porte.txt` porta tutte e tredici le aperture **come
+le legge una persona**, una sotto l'altra, e nasce dentro la prova che le
+misura, quindi si rigenera a ogni giro o cade con lei.
+
+**E il censimento ha chiarito una cosa che l'ordine dava per scontata.** Delle
+tredici porte, **soltanto due possono portare una domanda della persona**, la
+Stesa e il Consiglio, perche' sono le uniche due arti in cui una domanda la
+persona la pone. Le altre undici nascono da un gesto o da un dato: l'Oroscopo
+dal segno, la Runa dalla gettata, il Viso dal tratto. Pretendere che portino
+una domanda che non esiste vorrebbe dire pretendere che se la inventino.
+
+### Il finto difetto che il file apribile ha mostrato, e che era mio
+
+Letto il file, la porta del Viso diceva *"Il mio tratto dominante e' gli alti e
+larghi"*, che sembrava un difetto della lingua. **Non lo era**: avevo scritto a
+mano un esempio inventato. I nomi veri dei tratti stanno in `FaceTrait` e sono
+`Zigomi morbidi`, `Sopracciglia folte`, e l'articolo li accorda bene. La prova
+adesso prende il dato dall'enum, e il testo dice *"gli zigomi morbidi"*.
+**Un esempio inventato fa vedere difetti che non esistono e nasconde quelli
+veri.**
+
+**CHIUSA.**
+DOMANDA: "la chat con una domanda preimpostata che secondo me e' incompleta perche' dovrebbe contenere anche la domanda oltre che le carte estratte, giusto? le carte rispondono a una domanda"
+PROVA: docs/collaudo/EI/tredici_porte.txt
+MISURA: 13 porte su 13 scritte nella prova col testo che legge una persona; 2 nascono da una domanda della persona e tutte e 2 la portano per intero; la guardia della zona vista rossa prima di toccarla
 
 ## VOCE EI.02, EB.06 RIAPERTA: IL MAESTRO CHIEDE CIO' CHE GLI MANCA
 
