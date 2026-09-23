@@ -64,6 +64,7 @@ import '../../../core/entitlement/budget_del_giorno.dart';
 import '../../../design_system/components/riga_del_residuo.dart';
 import '../../../core/primo_uso/suggerimenti_di_zona.dart';
 import '../../../design_system/components/suggerimento_al_primo_uso.dart';
+import '../live/schermata_live.dart';
 
 class MaestroChatScreen extends StatefulWidget {
   const MaestroChatScreen({
@@ -1160,7 +1161,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
 
 /// Barra superiore cerimoniale con il nome del Maestro e il suo dominio.
 /// Le due voci del menu' della barra. Ordine CT voce 03.
-enum _VoceDelMenu { nuova, giorniPrima }
+enum _VoceDelMenu { nuova, giorniPrima, voceViva }
 
 class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   const _ChatAppBar({
@@ -1405,6 +1406,10 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
               case _VoceDelMenu.giorniPrima:
                 Navigator.of(context)
                     .push(RicordiScreen.route(maestro: maestro));
+              case _VoceDelMenu.voceViva:
+                Navigator.of(context).push(MaterialPageRoute<void>(
+                  builder: (_) => SchermataLive(maestro: maestro),
+                ));
             }
           },
           // **COMPATTO, COME I MENU' DEI CHATBOT. Ordine EA voce 08.** Parole
@@ -1461,6 +1466,25 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
               child: _VoceCompatta(
                 icona: Icons.history_rounded,
                 testo: 'I giorni prima',
+              ),
+            ),
+            // **LA VOCE VIVA STA IN FONDO, E NON E' UN VEZZO.** Ordine EG
+            // voce 04. Una voce nuova in cima spingerebbe sotto la piega
+            // tutte quelle sotto, e le catture che le toccano morirebbero:
+            // e' gia' successo col menu' dell'account.
+            //
+            // **E non si chiede il permesso prima di mostrarla.** Chi non ha
+            // diritto non trova una voce nascosta ne' un lucchetto muto:
+            // tocca, e il Maestro gli dice con la sua voce che la voce viva
+            // non e' ancora aperta per lui. Il cancello sta sul server, che
+            // guarda l'abbonamento e i minuti; qui c'e' solo una porta.
+            const PopupMenuItem<Object>(
+              key: Key('chat_voce_viva'),
+              value: _VoceDelMenu.voceViva,
+              height: _VoceCompatta.altezza,
+              child: _VoceCompatta(
+                icona: Icons.graphic_eq_rounded,
+                testo: 'Parlami a voce',
               ),
             ),
           ],
