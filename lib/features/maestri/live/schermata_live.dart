@@ -232,7 +232,7 @@ class _SchermataLiveState extends State<SchermataLive> {
               key: const Key('live_attesa'),
               _quadro.momento == MomentoDelLive.siApre
                   ? 'Sto arrivando.'
-                  : 'Un momento, e sono con te.',
+                  : 'Un momento e sono con te.',
               style: TypographyTokens.corpo(),
             ),
           ],

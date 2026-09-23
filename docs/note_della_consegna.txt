@@ -1,0 +1,30 @@
+Build 2277, ordini EH, EI ed EG.
+
+COSA GUARDARE PER PRIMO, e sono due cose.
+
+1) IL SOFFIO DEL DESTINO, col microfono. È l'unica voce rimasta aperta
+dell'ordine EI: apri il Soffio e soffia davvero. Se i semi volano, la voce si
+chiude. Il gesto col dito funziona già, l'ho provato io sul telefono.
+
+2) LA VOCE VIVA DEI MAESTRI. In fondo al menu della chat di ogni Maestro c'è
+"Parlami a voce". È la prima fetta del LIVE: si apre una sessione vera, e
+finché il volto non arriva vedi il Maestro fermo che respira. Puoi anche
+scrivere invece di parlare, in qualunque momento.
+
+Se il LIVE dice che non è aperto per te, non è un errore: il tuo account deve
+stare fra i fondatori nel documento configurazione/live di Firestore.
+
+COSA È CAMBIATO SOTTO.
+
+I Maestri non ti fanno più pagare quando non ti hanno capito. Se scrivi
+qualcosa di incomprensibile e il Maestro ti chiede di riformulare, quel turno
+non consuma niente: prima consumava, per tutti e tre.
+
+Il Sigillo del Sogno non ripete più il testo della notte prima, e quando la
+Luna resta nello stesso segno te lo dice invece di lasciarti credere a un
+refuso.
+
+Il Maestro non ti chiede più di spiegargli il responso che ti abbiamo dato
+noi.
+
+L'app pesa dodici megabyte in più: è il motore video che serve alla voce viva.

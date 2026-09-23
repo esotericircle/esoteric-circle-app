@@ -100,11 +100,11 @@ class QuadroDelLive {
   /// d'errore: sono cose che un Maestro direbbe.
   String laFraseDelRifiuto() => switch (perche) {
         PerchePerILiveNonSiApre.nonEPerTe =>
-          'La voce viva non e\' ancora aperta per te. Continua a scrivermi: '
+          'La voce viva non è ancora aperta per te. Continua a scrivermi: '
               'ti rispondo qui, come sempre.',
         PerchePerILiveNonSiApre.minutiFiniti =>
-          'Per questo mese la mia voce si e\' spesa tutta. Resto qui, in '
-              'silenzio e per iscritto, finche\' non torna.',
+          'Per questo mese ho finito il fiato. Resto qui, in silenzio e '
+              'per iscritto, finché non torna.',
         _ => 'La voce non arriva, stasera. Scrivimi: quello che ci siamo '
             'detti non si perde.',
       };
