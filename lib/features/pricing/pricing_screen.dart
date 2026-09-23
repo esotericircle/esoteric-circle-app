@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/config/app_flags.dart';
 import '../../core/entitlement/entitlement_service.dart';
 import '../../core/entitlement/plan_catalog.dart';
+import '../../core/entitlement/tier.dart';
 import '../../core/entitlement/question_allowance.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -71,15 +72,32 @@ class PricingScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: SpacingTokens.lg),
                   if (isDemo) ...[
-                    _DemoCard(palette: palette),
+                    _DemoCard(
+                      palette: palette,
+                      // **IL BADGE SEGUE IL PIANO VERO, ordine EG.** Finche'
+                      // nessun livello e' attivo il piano attuale e' la Demo;
+                      // appena se ne attiva uno, il badge se ne va di la'.
+                      eIlPianoAttuale: current == Tier.free,
+                    ),
                     const SizedBox(height: SpacingTokens.md),
                   ],
                   for (final plan in PlanCatalog.plans) ...[
                     _PlanCard(
                       plan: plan,
-                      // In Demo il "Piano Attuale" sta sulla card Demo, non sui
-                      // livelli; fuori Demo sta sul tier corrente.
-                      isCurrent: !isDemo && plan.tier == current,
+                      // **IL BADGE DICE QUAL E' IL PIANO ATTIVO, ANCHE IN
+                      // DEMO.** Qui c'era `!isDemo && plan.tier == current`:
+                      // in Demo il badge non compariva **mai** sui livelli e
+                      // restava inchiodato alla card Demo.
+                      //
+                      // Era giusto finche' in Demo nessun livello era davvero
+                      // attivo. **L'ordine CQ voce 1.01 ha cambiato quel
+                      // fatto**, dando alla Demo un piano vero scritto sul
+                      // server, e questa riga e' rimasta indietro: il
+                      // fondatore attivava l'Illuminato, i contatori della
+                      // chat diventavano quelli dell'Illuminato, e questa
+                      // schermata continuava a dire "Demo". **Padre: ordine
+                      // CQ voce 1.01.**
+                      isCurrent: plan.tier == current,
                       palette: palette,
                     ),
                     const SizedBox(height: SpacingTokens.md),
@@ -126,9 +144,16 @@ class PricingScreen extends StatelessWidget {
 /// La card Demo, in cima: sblocca tutto per la presentazione, col badge "Piano
 /// Attuale". Dietro il flag isDemo, sparisce nell'MVP.
 class _DemoCard extends StatelessWidget {
-  const _DemoCard({required this.palette});
+  const _DemoCard({required this.palette, this.eIlPianoAttuale = true});
 
   final MaestroPalette palette;
+
+  /// **Vero solo finche' nessun livello e' stato attivato.** In Demo si puo'
+  /// attivare un piano vero, scritto sul server: da quel momento il piano
+  /// attuale e' quello, e questa card non puo' continuare a dire di esserlo
+  /// lei. Due badge "Piano Attuale" nella stessa schermata sono una schermata
+  /// che mente su meta' di se'.
+  final bool eIlPianoAttuale;
 
   @override
   Widget build(BuildContext context) {
@@ -146,7 +171,8 @@ class _DemoCard extends StatelessWidget {
               Expanded(
                 child: Text('Demo', style: TypographyTokens.titoloSezione()),
               ),
-              _Badge(text: 'Piano Attuale', palette: palette),
+              if (eIlPianoAttuale)
+                _Badge(text: 'Piano Attuale', palette: palette),
             ],
           ),
           const SizedBox(height: 2),
