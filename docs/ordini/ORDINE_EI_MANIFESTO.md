@@ -10,8 +10,8 @@ coda sono EA, EB, EC, ED, EE, EF, EG, EH. **Data:** 23 settembre 2026.
 e' chiuso e verificato.
 
 VOCI_TOTALI: 10
-VOCI_CHIUSE: 6
-VOCI_APERTE: 4
+VOCI_CHIUSE: 7
+VOCI_APERTE: 3
 
 ---
 
@@ -339,7 +339,35 @@ Almeno una stesa vera portata fino al Consiglio e alla sintesi, con i testi per
 intero. Il genere dei numeri delle carte e' giusto, e la sintesi confronta i
 tre sguardi invece di ripeterli.
 
-**APERTA IN ATTESA DI VERIFICA.**
+### LA SINTESI VERA, E COSA RESTA DEL FONDATORE
+
+La sintesi sta in `docs/collaudo/EI/il_consiglio_e_la_sintesi.md`, ed e' nata
+dalle **tre letture vere della cattura del fondatore del 23 settembre 2026**,
+sulla domanda *"Denaro e fortuna"*. I controlli di quel giro: 104 parole, **3
+Maestri chiamati per nome**, **una sola** sequenza di cinque parole ripresa
+dalle letture, e nomina almeno una relazione fra gli sguardi.
+
+**Se la sintesi confronti davvero i tre sguardi invece di riassumerli lo
+giudica il fondatore leggendo quella pagina.** Qui non si da' per fatto, e la
+voce lo dichiara: nessun controllo automatico sa distinguere un confronto da
+un riassunto ben scritto.
+
+### IL GENERE DELLE CARTE, MISURATO SULLE RISPOSTE E NON SULLA REGOLA
+
+La regola vive in un punto solo, `la_lingua_del_modello.dart:65`, e tre prove
+gia' verificavano **che arrivasse ai tre Maestri**. Ma **misurare che una
+regola arrivi al modello non e' misurare la risposta**, ed e' il suggerimento
+5 dell'Architetto accolto nell'ordine EH.
+
+Qui si guarda cio' che Gemini ha **scritto davvero** nei nove giri: **11 nomi
+di carte con numero, 0 con l'articolo femminile sbagliato**. Undici e' un
+campione piccolo e va detto che lo e'; ma e' undici volte piu' di quanto
+misurasse prima chiunque.
+
+**CHIUSA.**
+DOMANDA: "il genere dei numeri delle carte e' giusto, il Tre di Denari e il Tre di Coppe"
+PROVA: docs/collaudo/EI/il_genere_delle_carte_nelle_risposte.txt
+MISURA: 11 nomi di carte con numero scritti da Gemini nei 9 giri, 0 con l'articolo sbagliato; la sintesi vera porta 104 parole, 3 Maestri per nome e 1 sola sequenza di 5 parole ripresa dalle letture
 
 ## VOCE EI.07, EE.12 RIAPERTA: IL CONTEGGIO ANONIMO SENZA SELETTORE
 
