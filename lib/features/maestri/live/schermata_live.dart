@@ -8,6 +8,7 @@ import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
 import '../../../services/live/porta_del_live.dart';
+import '../widgets/busto_del_maestro.dart';
 import 'stato_della_schermata_live.dart';
 
 /// **LA SCHERMATA LIVE.** Ordine EG voce 05.
@@ -215,7 +216,17 @@ class _SchermataLiveState extends State<SchermataLive> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(widget.maestro.avatarAsset, height: 220),
+            // **L'IMMAGINE LA SCEGLIE LA PORTA, non questa schermata.**
+            // La prima stesura faceva `Image.asset(maestro.avatarAsset)` e la
+            // guardia `il_busto_e_la_forma_del_maestro` l'ha presa: ogni file
+            // che si prende l'avatar da se' e' **una seconda porta**, e due
+            // porte sullo stesso asset divergono al primo ritocco. Qui si usa
+            // quella che c'e' gia', che sa anche farlo respirare.
+            BustoDelMaestro(
+              maestro: widget.maestro,
+              height: 220,
+              respira: true,
+            ),
             const SizedBox(height: SpacingTokens.lg),
             Text(
               key: const Key('live_attesa'),

@@ -53,10 +53,28 @@ void main() {
       // La definizione del percorso, accanto al Maestro stesso.
       'lib/core/maestro/maestro.dart',
     };
+    // **I COMMENTI NON CONTANO, ordine EG voce 05.** La prova leggeva il file
+    // intero e ha accusato la schermata LIVE per **una riga di commento** che
+    // raccontava di non prendersi l'immagine da se'. Una prova che accusa il
+    // codice per aver spiegato cosa NON fa insegna a cancellare le
+    // spiegazioni, ed e' il contrario di quello che serve a questo progetto:
+    // e' la seconda volta che capita, dopo `uid` nell'ordine EI.
+    String soloCodice(String testo) {
+      final b = StringBuffer();
+      for (final r in testo.split('\n')) {
+        final t = r.trim();
+        if (t.startsWith('//') || t.startsWith('*') || t.startsWith('/*')) {
+          continue;
+        }
+        b.writeln(r);
+      }
+      return b.toString();
+    }
+
     final colpe = <String>[];
     for (final f in sorgentiDiLib()) {
       final percorso = f.path.replaceAll(r'\', '/');
-      final s = f.readAsStringSync();
+      final s = soloCodice(f.readAsStringSync());
       if (!s.contains('avatarAsset') && !s.contains('avatars_webp')) continue;
       if (!ammessi.contains(percorso)) colpe.add(percorso);
     }

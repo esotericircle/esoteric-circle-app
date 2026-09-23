@@ -39,11 +39,11 @@ totale e' un controllo, non un ornamento.
 
 | categoria | quante |
 | --- | ---: |
-| Guardie che passano dalla porta comune | 141 |
-| Guardie con un cardinale proprio dichiarato | 139 |
+| Guardie che passano dalla porta comune | 142 |
+| Guardie con un cardinale proprio dichiarato | 140 |
 | Guardie che non scoprono nessun insieme di file | 214 |
-| **Somma delle categorie** | **494** |
-| **Guardie secondo la definizione** | **494** |
+| **Somma delle categorie** | **496** |
+| **Guardie secondo la definizione** | **496** |
 
 **Ricontate a ordine EH**, 24 settembre 2026, l'ordine straordinario nato da un ordine dichiarato chiuso che chiuso non era: **cinque guardie nuove**, tre col cardinale proprio e due che non scoprono insiemi. Il totale sale da 485 a **490** e le tre categorie a **140, 136 e 214**. **Due sono nate rosse rimettendo a mano il difetto di un ordine precedente**, che e' il modo piu' scomodo e piu' onesto in cui una guardia possa nascere. E una, `i_doni_del_giorno_non_ripetono`, ha dovuto **alzare** la sua soglia: a cinque distinti su sette il difetto vero passava, e cinque era un numero scelto a occhio mentre sette e' la richiesta del fondatore.
 
@@ -115,6 +115,21 @@ totale e' un controllo, non un ornamento.
 **Ricontate a ordine EA, voce 22**, 20 settembre 2026, la pietra di Ingwaz che portava Othala: **una guardia nuova**, `ogni_pietra_porta_la_sua_runa`, col cardinale proprio (ventiquattro pietre, ventiquattro impronte). Il totale sale da 446 a **447** e le tre categorie a **137, 115 e 195**. **Vista rossa** rimettendo al posto di Ingwaz la pietra di Othala. **E una guardia buttata prima di scriverla**: il confronto fra il solco inciso e il disegno a tratti dava dal 7 per cento di Uruz al 92 di Berkano su pietre tutte giuste, perche' i sassi sono fotografati storti; una soglia li' dentro sarebbe stata scelta per far passare la prova, e il giudizio sul segno resta dell'occhio, sulla tavola `docs/anteprime/rune_incise.png`.
 
 **Ricontate a ordine EA, terzo lotto**, 20 settembre 2026, il conteggio sempre attivo e anonimo: **nessuna guardia nuova nel conto**, perche' le prove nuove vivono dentro `la_misura_del_ritorno`, che il registro conosce gia'. Il totale resta **446**. **Vista rossa due volte**: il conteggio rimesso sotto consenso, e la frase *"Conta i gesti, non me"* rimessa come testo a video; al primo innesto la frase era in un commento e la guardia non l'ha presa, ed e' giusto cosi', perche' guarda il codice senza i commenti e le righe che spiegano perche' la frase e' uscita la citano. **Tre guardie di casa hanno cambiato legge, non numero**: `i_consensi_stanno_nella_registrazione` e `una_porta_sola_per_la_privacy` pretendevano l'interruttore, adesso pretendono che non ci sia, e `la_misura_del_ritorno` pretendeva che senza consenso non partisse niente.
+
+**Ricontate a ordine EG**, 23 settembre 2026, il LIVE dei Maestri ripreso dopo
+l'interruzione: **due guardie nuove**, una dalla porta comune e una col
+cardinale proprio. Il totale sale da 494 a **496** e le tre categorie a **142,
+140 e 214**. Tutte e due **nate rosse**: la prima innestando l'indirizzo di
+Protoface in `lib`, la seconda togliendo alla schermata la possibilita' di
+scrivere mentre il volto non e' ancora arrivato, che e' il ripiego tattile.
+
+**E una guardia di casa e' stata resa piu' precisa, non piu' debole**:
+`il_busto_e_la_forma_del_maestro` accusava la schermata LIVE per **una riga di
+commento** che raccontava di non prendersi l'immagine da se'. Adesso salta i
+commenti, e **si e' verificato che resti rossa su un uso vero**: il verde sul
+commento non e' una deroga, e' la fine di un falso positivo. E' la seconda
+volta che capita dopo `uid` nell'ordine EI: **una prova che accusa il codice
+per aver spiegato cosa non fa insegna a cancellare le spiegazioni.**
 
 **Ricontate a ordine EI**, 23 settembre 2026, le dodici voci che tornano
 aperte: **quattro guardie nuove**, tre col cardinale proprio e una dalla porta
@@ -655,6 +670,7 @@ le altre.
 | `il_gemello_ha_la_sua_schermata_test.dart` | il gemello ha la sua schermata | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_genere_non_si_indovina_test.dart` | il genere non si indovina: nessuna stringa di `lib` si rivolge alla persona con una forma di genere fuori da una marca a tre campi o dalla porta, col dizionario delle forme dell'ordine DL voce 06 | 1, 2 | dalla porta comune | 14/09/2026, DL (rossa: un participio e un aggettivo innestati fuori dalle marche, *Sei arrivato* e *Sei stanco*; il criterio si e' stretto, il dizionario non si e' mai allargato) | 2 |
 | `il_genere_si_decide_in_un_posto_solo_test.dart` | il genere scelto si decide in una porta sola: una sola decisione fra maschile e femminile per la lingua, nessun `AddressForm`, nessun uso del sesso anagrafico per la lingua | 1, 2 | dalla porta comune | 14/09/2026, DL (rossa: una seconda decisione innestata fuori dalla porta; e **rossa senza innesto** sul difetto vero della voce DL.07, la desinenza contraria alla forma decisa con un suo `masculine ? 'a' : 'o'` in `le_forme_del_genere.dart`, riparata facendola passare dalla porta) | 2 |
+| `il_live_non_e_mai_un_vicolo_cieco_test.dart` | il LIVE non e' mai un vicolo cieco | 3 | proprio, dichiarato | 23/09/2026, EG.05 | 4 |
 | `il_maestro_risponde_nel_merito_test.dart` | i tre Maestri ricevono la regola della risposta nel merito, e sta in un punto solo | 1, 2 | dalla porta comune | 21/09/2026, EB (tre innesti: il blocco staccato da tutti e tre, il divieto tolto dal testo, la regola copiata due volte) | 3 |
 | `il_mischia_ricompone_il_mazzo_test.dart` | il Mischia dell'Arcano dell'Alba raccoglie le carte in un punto solo, le mescola a mazzo chiuso e le ristende | 1, 2 | non scopre insiemi di file | 23/09/2026, EE (nata rossa rimettendo la mescolata a corsa finita, che riportava le carte ai posti di prima) | 3 |
 | `il_pulsante_solo_se_lo_chiedi_test.dart` | nominare un'arte non e' chiederla: il pulsante compare solo su una richiesta vera | 1, 2 | proprio, dichiarato | 21/09/2026, EB (nata rossa sul difetto vero: nove frasi su undici aprivano un pulsante che nessuno aveva chiesto) | 3 |
@@ -672,6 +688,7 @@ le altre.
 | `l_arcano_dell_alba_si_gira_test.dart` | **un gesto solo e nessun altro comando** sull'Arcano dell'Alba; carte coperte uguali; la faccia solo dopo meta' giro; **il verso non lo decide la carta toccata**; il limite delle stese intatto; nel cammino i gesti alba e oracolo; il dorso uguale a se stesso al mezzo giro | 1 | non scopre insiemi in `lib` | 18/09/2026, DW.02 (le azioni tolte: sotto la carta rivelata non c'e' niente); prima: 18/09/2026, DV.11 (il margine solo in alto: la carta a zero punti dal bordo del pannello); prima: 17/09/2026, DT (caso deciso dalla carta toccata e gesto dell'oracolo tolto: due rosse) | 2 |
 | `l_estrazione_dell_alba_e_libera_test.dart` | **l'estrazione dell'Arcano dell'Alba non ha vincoli**: i quarantaquattro stati equiprobabili su centomila giri; la stessa carta due volte di fila con la frequenza del caso; il verso rovescio attorno alla meta' su ogni carta; **nessuna riga di codice dei file dell'Alba nomina piu' un sacchetto, una distanza minima o le ultime carte** | 1 | proprio, dichiarato | 17/09/2026, DU (`SacchettoDellAlba` innestato nel diario) | 2 |
 | `la_lettura_ridetta_ha_la_voce_di_chi_la_ridice_test.dart` | i tre ridicono la lettura del giorno ognuno con la sua voce, senza il lessico degli altri | 1, 2 | proprio, dichiarato | 21/09/2026, EC (nata rossa: la premessa era una frase sola per i tre e diceva cielo) | 3 |
+| `la_porta_del_live_non_porta_chiavi_test.dart` | la porta del LIVE non porta chiavi | 1, 2 | porta comune, piu' i codici del server | 23/09/2026, EG.01 | 5 |
 | `la_settima_sera_entra_nel_diario_test.dart` | la settima sera entra nel diario | 2 | proprio, dichiarato | 23/09/2026, EI.05 | 3 |
 | `la_sintesi_conosce_il_tuo_nome_test.dart` | la sintesi comparativa riceve il profilo come lo ricevono i Maestri, e non dichiara di non conoscere un nome che l'app conosce | 1, 2 | non scopre insiemi di file | 23/09/2026, EE (nata rossa rimettendo il profilo vuoto) | 3 |
 | `le_animazioni_del_rito_non_si_accorciano_test.dart` | ogni motore del rito dichiara AnimationBehavior.preserve, o su un telefono con la scala degli animatori a zero durera' un ventesimo | 1 | proprio, dichiarato | 23/09/2026, EF (nata rossa togliendolo dal conteggio del respiro) | 1 |

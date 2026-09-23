@@ -8,8 +8,8 @@ non c'e' nessun `ORDINE_EG_*`, in `test/` nessuna `ordine_eg_guard`, e
 `a088a3da`, l'ordine EF chiuso e spinto.
 
 VOCI_TOTALI: 9
-VOCI_CHIUSE: 0
-VOCI_APERTE: 9
+VOCI_CHIUSE: 2
+VOCI_APERTE: 7
 
 Il rapporto stara' in `docs/ordini/RAPPORTO_ORDINE_EG.md`.
 
@@ -122,7 +122,25 @@ usa. Tutta l'intelligenza su Vertex e Gemini.
 Le chiavi vivono solo sul server. Una sessione nasce soltanto dal server, dopo
 che ha verificato diritto e minuti.
 
-**APERTA.**
+### Cosa e' stato fatto
+
+Il server c'era gia' dalla prima parte dell'ordine, interrotta dall'EH: tre
+porte in `functions/src/live.ts`, agganciate all'indice. **Adesso c'e' il lato
+telefono**, `lib/services/live/porta_del_live.dart`, e **non porta nessuna
+chiave**: riceve dal server un gettone gia' fatto, buono per **una stanza
+sola**.
+
+**Perche' e' la cosa piu' importante di tutta la voce.** Chi avesse il segreto
+di LiveKit potrebbe entrare **in qualunque stanza di chiunque**, cioe' nella
+sessione privata di un'altra persona. La guardia cerca `PROTOFACE_API_KEY`,
+`LIVEKIT_API_SECRET`, `LIVEKIT_API_KEY` e perfino l'indirizzo
+`api.protoface.com` in **tutti i 675 file di `lib`**, ed e' nata rossa
+innestando quell'indirizzo nella porta.
+
+**CHIUSA.**
+DOMANDA: "Keep API keys server-side. Anything shipped to a browser is readable"
+PROVA: docs/collaudo/EG/la_porta_del_live.txt
+MISURA: 675 file di lib cercati, 0 chiavi trovate; 5 codici di rifiuto del server tradotti in 3 ragioni distinte; la guardia nata rossa con l'indirizzo di Protoface innestato
 
 ## VOCE EG.02, IL MOTORE DI VOCE A SCELTA
 
@@ -156,10 +174,45 @@ server.
 
 Il Maestro a mezzobusto, i sottotitoli, il pulsante per chiudere. Si parla al
 microfono **oppure si scrive**, che e' il ripiego tattile che `CLAUDE.md`
-rende obbligatorio. Se la connessione cede si torna alla chat scritta senza
-perdere niente. Tutto entra nella conversazione e nella memoria.
+rende obbligatorio.
 
-**APERTA.**
+### LA MACCHINA DEGLI STATI STA FUORI DAL WIDGET, E NON E' UNA PREFERENZA
+
+**E' la lezione dell'ordine EI.** Li' la frase del riassunto delle sette sere
+viveva dentro uno `State` privato: la leggeva l'utente nel diario e **nessuna
+prova poteva chiamarla**, ed e' per questo che un terzo di quella voce e'
+rimasto senza copertura fino a che il fondatore non l'ha riaperta.
+
+Qui i momenti, il conto del tempo, il ripiego tattile e le frasi dei rifiuti
+vivono in `stato_della_schermata_live.dart`, dove una prova li raggiunge. Il
+widget disegna e basta.
+
+### LE DUE REGOLE DI CASA CHE QUI RISCHIAVANO DI SALTARE
+
+**Si puo' scrivere anche mentre il volto non e' ancora arrivato.** Se si
+potesse solo a sessione viva, chi ha il microfono rotto resterebbe fermo a
+guardare un volto che non arriva. Vista rossa togliendo proprio quella meta'
+della condizione.
+
+**Le tre ragioni del rifiuto danno tre frasi diverse, e nessuna e' un
+messaggio d'errore.** Chi non ha diritto riceve un invito, chi ha finito i
+minuti riceve il saluto del Maestro, chi trova un guasto torna alla chat
+scritta. La prova cerca le parole da errore e pretende che ognuna offra la
+chat: **nessuno dei tre stati e' un vicolo cieco.**
+
+### E LA SCHERMATA NON SI PRENDE L'IMMAGINE DA SE'
+
+La prima stesura faceva `Image.asset` dell'avatar, e la guardia di casa
+`il_busto_e_la_forma_del_maestro` l'ha presa: **ogni file che sceglie
+l'immagine da se' e' una seconda porta**, e due porte sullo stesso asset
+divergono al primo ritocco. Adesso passa da `BustoDelMaestro`, che sa anche
+farlo respirare.
+
+**CHIUSA** per la parte che si misura al banco. Resta da guardare a video con
+una sessione vera, che e' la voce 08.
+DOMANDA: "Si parla al microfono oppure si scrive, che e' il ripiego tattile che CLAUDE.md rende obbligatorio"
+PROVA: docs/collaudo/EG/il_live_non_e_un_vicolo_cieco.txt
+MISURA: 3 ragioni di rifiuto e 3 frasi distinte, nessuna con parole da errore e tutte e 3 offrono la chat; si scrive in 2 momenti su 5; il Maestro saluta a 60 secondi dalla fine e il tempo rimasto non va mai sotto zero
 
 ## VOCE EG.06, I MINUTI
 
