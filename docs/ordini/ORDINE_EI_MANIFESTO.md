@@ -10,8 +10,8 @@ coda sono EA, EB, EC, ED, EE, EF, EG, EH. **Data:** 23 settembre 2026.
 e' chiuso e verificato.
 
 VOCI_TOTALI: 10
-VOCI_CHIUSE: 1
-VOCI_APERTE: 9
+VOCI_CHIUSE: 3
+VOCI_APERTE: 7
 
 ---
 
@@ -161,7 +161,57 @@ MISURA: 13 porte su 13 scritte nella prova col testo che legge una persona; 2 na
 Conversazioni vere con i tre Maestri in cui i dati mancano, con la risposta per
 intero e il valore dei contatori prima e dopo.
 
-**APERTA IN ATTESA DI VERIFICA.**
+### IL DIFETTO ERA DOPPIO, E LE DUE META' SI COPRIVANO A VICENDA
+
+**Prima meta': l'app faceva pagare un malinteso.** Al collaudo del 23 settembre
+2026, mossa 8, tutti e tre i Maestri hanno chiesto di riformulare e **tutti e
+tre hanno fatto scendere il contatore di uno**. La regola della voce EE.07 dice
+il contrario. La causa: `eUnaDomanda` guardava la fine del testo, e ogni
+risposta si chiude con la riga del gesto, che **non e' mai una domanda**.
+Quindi guardava sempre il gesto, e il chiarimento non scattava mai su una
+risposta vera.
+
+**E la prova che avrebbe dovuto prenderlo prometteva piu' di quanto
+misurasse**: si chiamava *"e la chiusura col gesto non nasconde la domanda"* e
+**non metteva nessun gesto**, provava uno spazio in coda e una virgoletta.
+
+**Seconda meta', ed e' quella che lo teneva invisibile: il collaudo pretendeva
+che quel turno costasse 1.** Era la regola dell'ordine EB voce 06, *"una
+domanda del Maestro e' una risposta vera, quindi consuma"*. **L'ordine EE voce
+07 l'ha rovesciata e il catalogo non e' stato aggiornato.** L'app dava 1, il
+collaudo ne pretendeva 1, il giro restava verde: **due punti che si danno
+ragione a vicenda mentre la regola in vigore dice un'altra cosa**, e un verde
+cosi' e' peggio di un rosso, perche' diventa una conferma. **Padre: ordine EE
+voce 07**, che ha cambiato la regola senza aggiornare la misura che la
+sorvegliava.
+
+### LA PRIMA CURA E' CADUTA IN UN GIRO, E LA LEZIONE ERA GIA' IN CASA
+
+Il primo tentativo cercava le parole del chiarimento in **un elenco chiuso**.
+Riconosceva le tre risposte del primo giro; al secondo il modello ne ha usate
+di nuove, *"Ti invito a formulare una richiesta chiara"*, e la cura non l'ha
+visto.
+
+**Era scritto a un file di distanza**, nel collaudo stesso: *"le prime due
+stesure cercavano le parole del chiarimento in un elenco chiuso [...] Caligo
+chiedeva chiarimento ogni volta con parole nuove [...] allungarlo ancora
+sarebbe stato inseguire la lingua di ieri"*. Il collaudo lo aveva risolto
+**chiedendolo al modello**, ma lui puo' permettersi una chiamata in piu' e il
+runtime no.
+
+**La cura vera: il Maestro lo dichiara.** Mette `[[CHIEDO]]` in cima quando
+chiede invece di rispondere; si decide il costo sul testo col marcatore e si
+mostra quello senza. Non si indovina piu' niente, non costa una chiamata in
+piu', e non dipende dalle parole che il modello sceglie domani.
+
+**E una guardia nuova impedisce ai due punti di tornare a contraddirsi**: nel
+catalogo, un turno che si aspetta una richiesta di chiarimento non puo'
+aspettarsi anche di pagarla.
+
+**CHIUSA.**
+DOMANDA: "l'utente paga per ogni risposta e le risposte devono essere corrette e coerenti"
+PROVA: docs/collaudo/EI/il_chiarimento_non_costa.txt
+MISURA: sul giro vero con Gemini, il contatore della mossa 8 scende da 1 a 0 per tutti e tre i Maestri; 3 chiarimenti veri riconosciuti su 3 e 2 letture vere che continuano a pagare su 2; 1 turno del catalogo che chiede, 0 a pagamento
 
 ## VOCE EI.03, EC.01, EC.02 ED EC.03 RIAPERTE: IL COLLAUDO CON GEMINI VERO
 
@@ -184,7 +234,39 @@ per Maestro, con le frasi che le hanno prodotte.
 L'esecuzione delle sette sere e di una serie interrotta, con la striscia a
 video e la voce nata nel Cosmic Journal.
 
-**APERTA IN ATTESA DI VERIFICA.**
+### LA LACUNA VERA: UN TERZO DELLA VOCE NON ERA SORVEGLIATO
+
+La voce EE.03 ha tre parti. La serie di sette sere e la riga che la spiega a
+video erano provate. **Il riassunto che alla settima sera entra da solo nel
+Cosmic Journal non era toccato da nessun file di `test/`**: ne'
+`ComeENato.evento` ne' `didascaliaDellaSettimana` comparivano da nessuna parte.
+
+**E c'era una ragione meccanica, non una dimenticanza.** La frase viveva dentro
+`_SunsetRuneScreenState`, cioe' dentro uno **State privato**: la leggevano lo
+schermo e il Ricordo, ma **nessuno da fuori poteva chiamarla**. Una frase che
+la persona legge nel diario e che nessuna prova puo' raggiungere non e'
+sorvegliata da niente.
+
+Spostata in `sunset_rune_memory.dart`, accanto alla logica delle sette sere che
+la produce: chi cambia la finestra vede anche la frase che quella finestra
+genera. Lo schermo la chiama da li', e la copia nello State non esiste piu'.
+
+**Cosa misura la prova nuova.** Che la frase **dica il vero sulle rune di
+quella settimana**: sette rune diverse ricevono *"nessuno ha insistito"*, una
+runa che torna tre volte fa nominare **quella** runa, e le due frasi devono
+essere **diverse** fra loro. Quest'ultima e' la grandezza che prende il difetto
+del Sigillo del Sogno: una frase che dice la stessa cosa in tutti i casi non
+guarda il dato. E che il Ricordo si dichiari **nato dal Cerchio e non dalla
+persona**, che e' la ragione per cui `ComeENato.evento` esiste: se nascesse
+come gesto, il diario direbbe una cosa falsa su chi lo rilegge.
+
+**Regola B rispettata**: `sette_sere_di_fila` vista rossa prima di toccare la
+zona, accorciando a tre la finestra dei sette giorni.
+
+**CHIUSA.**
+DOMANDA: "Il riassunto della settimana arriva soltanto dopo sette Rune del Tramonto in sette sere consecutive [...] Alla settima sera il riassunto entra da solo nel Cosmic Journal come evento speciale"
+PROVA: docs/collaudo/EI/sette_sere_e_il_diario.txt
+MISURA: 2 settimane misurate, con e senza ripetizioni, e le due frasi risultano diverse; il Ricordo porta ComeENato.evento, il maestro caligo e tutte e 7 le rune; la frase esce dallo State privato e diventa raggiungibile da una prova
 
 ## VOCE EI.06, EE.10 RIAPERTA: I TESTI DEL CONSIGLIO
 

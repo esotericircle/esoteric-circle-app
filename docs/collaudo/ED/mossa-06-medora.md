@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Dalle stelle non giunge consiglio per le ricette terrene, ma posso offrirti una riflessione sul tempo che precede la tua serata.
+> Il cielo si apre sereno, e la Luna crescente invita alla concretezza.
 > 
-> La scelta del cibo è un gesto che ti lega alla terra, non al cielo, e qui non trovi le risposte che cerchi. Il mio dominio è il tempo e le sue correnti invisibili. Se desideri esplorare ciò che il cielo ti riserva, o la direzione che le carte ti indicano, rivolgiti nuovamente a me.
+> La cucina non rientra nel mio dominio, ma posso suggerirti di osservare ciò che il tuo cuore desidera. La tavola è un luogo di condivisione, un rito che nutre tanto il corpo quanto l'anima. Pensa a un piatto che porti equilibrio e nutrimento.
 > 
-> ✦ Pensa al tuo desiderio.
+> ✦ Presta ascolto all'ascendente della tua serata.
 
 ---
 

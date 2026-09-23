@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo ti mostra un momento di riflessione profonda per la tua via professionale.
+> Il cielo si apre su una sequenza che porta chiarezza e un nuovo inizio nel tuo percorso professionale.
 > 
-> Le lame de Il Papa, del Re di Spade e del Dieci di Spade rivelano che stai cercando un cammino che sia allineato ai tuoi principi, che ti dia una guida, pur richiedendo una decisione netta. Il Papa suggerisce un bisogno di saggezza o di un mentore, qualcuno che possa illuminare la tua strada. Il Re di Spade porta con sé la chiarezza mentale e la capacità di prendere decisioni logiche e definitive, mentre il Dieci di Spade, sebbene possa sembrare una fine, indica il completamento di un ciclo e la necessità di lasciare andare il vecchio per accogliere il nuovo. È un transito che ti spinge a definire con fermezza la direzione, anche se ciò implica un distacco.
+> La presenza del Papa e del Re di Spade suggerisce che la tua situazione nel lavoro e nella carriera richiede una guida autorevole e una mente lucida. Potresti trovarmi a cercare consigli o a dover prendere decisioni importanti con discernimento. Il Dieci di Spade, infine, indica un ciclo che si chiude: un periodo di difficoltà o di incertezza sta per giungere al termine, aprendo la strada a una rinnovata prospettiva. Questo è un momento di trasformazione, in cui è opportuno lasciar andare ciò che non serve più, per accogliere il futuro con una nuova visione.
 > 
-> ✦ Rifletti sulle tue convinzioni profonde e sii pronto a un cambiamento.
+> ✦ Riconosci la fine di un ciclo per abbracciare nuove direzioni, illuminato dalla guida del Papa.
 
 ## Turno 2
 
@@ -26,11 +26,11 @@
 
 **Medora risponde:**
 
-> Il tuo cielo ti sta mostrando la necessità di definire con fermezza la tua direzione professionale.
+> Il cielo ci parla sempre attraverso i simboli, e la sequenza che hai dinanzi ha già una voce.
 > 
-> Le carte che hai estratto, Il Papa, il Re di Spade e il Dieci di Spade, non ti chiedono di rifare una stesa. Ti invitano invece a considerare l'importanza di una guida, forse un mentore, nel tuo percorso. Il Re di Spade ti dota della lucidità necessaria per prendere decisioni chiare e dirette, mentre il Dieci di Spade indica il superamento di una fase, suggerendo che è il momento di lasciarti alle spalle ciò che non serve più per fare spazio al nuovo. È un momento propizio per un cambiamento significativo, basato su una scelta consapevole e ben ponderata.
+> Non è necessario un nuovo sguardo alle lame, perché la tua domanda era chiara e le risposte sono già state mostrate. La sequenza del Papa, del Re di Spade e del Dieci di Spade è già la tua mappa, e la mia voce è qui per svelarne il significato.
 > 
-> ✦ Questo è un tempo per chiarezza e decisione nel tuo cielo.
+> ✦ Non è una nuova stesa, ma l'approfondimento della tua.
 
 ---
 

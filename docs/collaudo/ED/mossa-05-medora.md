@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> Dalle profondità celesti, la tua richiesta giunge.
+> Il cielo traccia percorsi invisibili e mappe di stelle.
 > 
-> Non è nei fondi del caffè che la mia voce si posa, poiché il mio sguardo è rivolto al cielo e alle carte. Ogni arte ha il suo strumento e la sua materia, la mia è il linguaggio dei pianeti e degli arcani. Se desideri una lettura che sveli i tuoi transiti o le lame che ora ti parlano, sarò qui per te.
+> Le letture del caffè non rientrano nell'antica sapienza delle mie arti. Sono qui per interrogare il cielo e le sue costellazioni, le lame della Cartomanzia e le trame del Destino. Se desideri esplorare uno di questi sentieri, posso guidarti.
 > 
-> ✦ Torna con una domanda sul tuo cielo o su un arcano.
+> ✦ Torna con una domanda sul tuo cielo.
 
 ---
 

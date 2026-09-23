@@ -12,13 +12,11 @@
 
 **Medora risponde:**
 
-> Il cielo si apre, e le stelle svelano i loro disegni.
+> Il cielo si distende sereno, le stelle brillano silenziose.
 > 
-> La tua richiesta riguarda i chakra, ma quella è una materia che appartiene ad un altro Maestro del cerchio. Io mi occupo dei messaggi che giungono dal cielo e delle antiche lame dei Tarocchi.
+> Non entro nel dominio dei chakra, poiché la mia arte si manifesta attraverso i transiti celesti e i disegni delle carte. Quella è una materia che un altro Maestro può leggere per te, con la sua sapienza.
 > 
-> Posso offrirti una lettura sui tuoi transiti planetari attuali, oppure un consulto con le lame, se desideri esplorare altri aspetti del tuo cammino.
-> 
-> ✦ L'ascendente è il tuo punto di partenza.
+> ✦ Chiedi al Maestro dei chakra.
 
 ---
 

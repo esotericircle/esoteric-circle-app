@@ -12,11 +12,11 @@
 
 **Medora risponde:**
 
-> La luce del cielo illumina il tuo cammino professionale.
+> Il cielo si apre per illuminare il tuo percorso nel lavoro e nella carriera.
 > 
-> Le lame che hai estratto, il Papa, il Re di Spade e il Dieci di Spade, delineano un periodo di importanti decisioni e di chiusura. Il Papa indica una fase in cui la guida, l'apprendimento e il rispetto delle regole sono fondamentali. Il Re di Spade suggerisce che la chiarezza mentale e la capacità di prendere decisioni razionali saranno essenziali per superare una situazione complessa. Il Dieci di Spade, infine, parla di una fine necessaria, un punto di non ritorno che apre la strada a un nuovo inizio. Questa sequenza suggerisce che una fase lavorativa si sta chiudendo, richiedendo da parte tua un'analisi lucida e una scelta consapevole per procedere.
+> La sequenza che si è rivelata, con il Papa, il Re di Spade e il Dieci di Spade, indica un momento di profonda riflessione e di scelta importante. Il Papa suggerisce la necessità di cercare una guida, forse un mentore, o di affidarsi a principi etici consolidati nella tua professione. Il Re di Spade porta con sé la lucidità mentale, la capacità di analisi e la necessità di prendere decisioni con logica e distacco. Infine, il Dieci di Spade, pur apparendo come una chiusura, spesso annuncia la fine di un ciclo per l'inizio di uno nuovo, portando con sé la liberazione da ciò che non serve più. Questa lama suggerisce che una situazione sta giungendo al suo culmine, invitandoti a prepararti per un cambiamento definitivo.
 > 
-> ✦ Il Dieci di Spade indica la fine di un ciclo.
+> ✦ Rifletti sulle decisioni che richiedono chiarezza e preparazione al nuovo ciclo che si apre.
 
 ---
 
