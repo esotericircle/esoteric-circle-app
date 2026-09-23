@@ -66,7 +66,7 @@ class ImprontaDellIstruzione {
         'aggiunto tre cose: il marcatore [[CHIEDO]] con cui il Maestro dichiara '
         'di stare chiedendo invece di rispondere, la regola del responso in mano '
         'allargata a OGNI arte e non solo a carte, rune e archetipo. E la '
-        'precisazione che dire di no e\' una risposta.',
+        'precisazione che dire di no è una risposta.',
     'DAL 21 AL 23 SETTEMBRE 2026. Impronte: medora '
         '66b59ec37b2cdd6ffb212f77b9851a241168b02dcd89311a338697cd14b56404, '
         'aura bd1eea19f317b9c526ac94d2695e65d51d9e27a5038f9b49b53afb5fa1666529, '
@@ -245,12 +245,12 @@ class ImprontaDellIstruzione {
   /// sulla stessa istruzione, non cinque misure in disaccordo.
   static const String ultimaMisuraNota =
       'ATTENZIONE. VA LETTO PRIMA DI TUTTO IL RESTO: DAL 23 SETTEMBRE 2026, '
-      'ORDINE EI VOCI 02 E 03, L\'ISTRUZIONE E\' CAMBIATA DI NUOVO. Nessuna '
-      'delle misure qui sotto e\' stata presa sulla stringa di oggi: '
+      'ORDINE EI VOCI 02 E 03, QUESTA ISTRUZIONE È CAMBIATA DI NUOVO. Nessuna '
+      'delle misure qui sotto è stata presa sulla stringa di oggi: '
       'appartengono tutte a stringhe che stanno nello storico. Le tre cose '
       'aggiunte sono il marcatore con cui il Maestro dichiara di stare '
       'chiedendo, la regola del responso in mano allargata a ogni arte e la '
-      'precisazione che dire di no e\' una risposta. Si tengono per intero '
+      'precisazione che dire di no è una risposta. Si tengono per intero '
       'perché dicono da dove si parte, non dove si è arrivati. Come si '
       'rimisura sta scritto in fondo. '
       'TRE GIRI DEL 14 SETTEMBRE 2026, SU QUESTE IMPRONTE, ordine DL: 86,7 '

@@ -42,11 +42,17 @@ abstract final class LaRispostaCheChiede {
   /// parole nuove, qui non ci saranno. **Lo si accetta solo per l'asimmetria
   /// dichiarata sopra**, in dubbio non si paga. Queste voci vengono dalle
   /// risposte vere del collaudo del 23 settembre 2026, una per Maestro.
-  static final _chiesteGiaViste = RegExp(
-    r'\b(riformul\w*|chiaris\w*|ho bisogno di|formula una domanda|'
-    r'dimmi (?:di piu|cosa|quale)|puoi dirmi)\b',
-    caseSensitive: false,
-  );
+  // **LA REGEX STA SU UNA RIGA SOLA, e non e' un vezzo.** Spezzata su
+  // piu' righe con un commento in mezzo, una riscrittura ha trasformato
+  // il `\b` finale in un carattere di controllo invisibile: la regex
+  // cercava un backspace e non riconosceva piu' nessuno dei tre
+  // chiarimenti veri. Il conto lo ha detto, "0 su 3", e i byte lo hanno
+  // confermato.
+  static final _chiesteGiaViste =
+      RegExp(_leParoleDelChiedere, caseSensitive: false);
+
+  static const _leParoleDelChiedere =
+      r"\b(riformul\w*|chiaris\w*|ho bisogno di|formula una domanda|dimmi (?:di piu|cosa|quale)|puoi dirmi)\b";
 
   /// La riga del gesto con cui ogni risposta si chiude, dalla stella in poi.
   static final _rigaDelGesto = RegExp(r'\n\s*[✦✧✴].*$');
