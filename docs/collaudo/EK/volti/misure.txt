@@ -1,0 +1,78 @@
+ORDINE EK VOCE 04, I VOLTI DEL LIVE. Misure del 24 settembre 2026 (orologio della macchina).
+Stato della voce: APERTA. Medora mostrata al fondatore, in attesa del suo si'
+prima di Calìgo e Aura e prima di creare qualunque avatar su Protoface. I tre
+avatar di oggi restano dove sono.
+
+GLI ORIGINALI DELLE IMMAGINI CARICATE SU PROTOFACE.
+Riconosciuti con SIFT e RANSAC fra ogni candidato della cartella
+D:\Clienti Roogly\Rituali Cartomanzia\App\Avatar e l'immagine caricata.
+
+  Medora  Ok/Medora-1.png     847 x 1264  ->  Protoface/Medora-Protoface.png  1700 x 1200  ingrandita 3,49 volte (245 punti)
+  Caligo  Ok/Caligo-1.png     848 x 1261  ->  Protoface/Caligo-Protoface.png  1700 x 1200  ingrandita 3,17 volte (575 punti)
+  Aura    Ok/Aura/Aura-1.png  848 x 1261  ->  Protoface/Aura-Protoface.png    1200 x 1200  ingrandita 3,16 volte (242 punti)
+
+Le versioni HD della cartella Ok sono ingrandimenti degli stessi originali:
+Medora-HD-1 3388 x 5056 e Caligo-HD-1 3392 x 5044 sono esattamente quattro
+volte, Aura-HD-1 2752 x 4096 e' 3,25 volte. Piu' pixel, nessun dettaglio in piu'.
+
+IL PERCORSO DI UN PIXEL DI MEDORA, OGGI.
+  originale 847 x 1264 -> x3,49 -> tela caricata 1700 x 1200 -> x0,293 ->
+  video Protoface 512 x 512 (la finestra ne mostra 317 x 352) -> x2,95 ->
+  finestra del LIVE sul Realme 936 x 1170 pixel veri.
+  Un pixel dell'originale diventa 1,02 pixel del video.
+  Scala tela -> schermo misurata con SIFT sulla cattura vera
+  docs/collaudo/EJ/volto/volto_standard.png: 0,8663 (298 punti).
+
+IL RESTAURO.
+  Imagen 4 upscale (imagen-4.0-upscale-preview) risponde 404 in europe-west1,
+  us-central1 e global: non e' accessibile al progetto.
+  Usato gemini-3-pro-image (Nano Banana Pro) su Vertex AI, endpoint global,
+  uscita 4K, 5056 x 3392, poi riallineato con SIFT alla tela caricata e
+  riportato a 1700 x 1200, fondo bianco pulito.
+  Primo tentativo scartato: occhi castani e diadema cambiato
+  (medora_primo_tentativo_scartato.jpg). Secondo tentativo: attributi scritti
+  nella richiesta, temperatura 0,2, occhi grigio-azzurri tenuti
+  (medora_volto_prima_e_dopo.jpg, medora_restaurata_1700x1200.jpg).
+  Cambiamenti visibili: pietre laterali del diadema tonde e nere, foglie di
+  vetro piu' chiare, guance piu' rosate, pelle piu' liscia. Il fondatore:
+  "non m'interessa che l'immagine sia fedele al 100%, l'importante e' che sia nitida".
+
+IL VOLTO NEL LIVE, SIMULATO (medora_live_cinque_casi.jpg).
+  Grandezza misurata: varianza del laplaciano sul grigio, solo dentro il
+  volto (tela x 700-960, y 250-470), dove lo sfondo non entra.
+  Simulazione: tela -> video (0,293, INTER_AREA) -> schermo (2,95, INTER_LINEAR).
+  B: quadrato di 1100 a x 266 della tela -> video 512 -> schermo 936.
+
+  oggi, cattura vera dal Realme                 42,4
+  oggi, simulato                                18,4
+  A  restaurata, inquadratura di oggi           13,8
+  B  restaurata, inquadratura quadrata          32,8
+  B  immagine di oggi, inquadratura quadrata    38,6
+
+  Il LIVE vero misura piu' della simulazione: le cinque misure si leggono fra
+  loro, non contro la cattura. La grana del pennello conta come dettaglio:
+  per questo l'immagine di oggi misura piu' della restaurata.
+  NEL LIVE IL DETTAGLIO DEL VOLTO LO AUMENTA L'INQUADRATURA QUADRATA, NON IL
+  RESTAURO: 1,59 volte piu' pixel di video per lato sulla figura.
+
+MANI E SPALLE (caligo_movimento_nel_live.jpg, caligo_movimento_nel_live.txt).
+  Domanda del fondatore: "verificare su Protoface se l'animazione dell'immagine
+  puo' riguardare solo il volto o magari anche le mani ... o muovere
+  leggermente anche le spalle".
+  Documentazione (docs.protoface.com, indice completo llms.txt): nessuna
+  opzione e nessuna pagina su corpo, gesti o movimento. Le tre immagini
+  caricate sono busti, senza mani.
+  Prova vera: build 2279 sul Realme, LIVE di Calìgo aperto due volte (13 e 20
+  secondi a video), raffica di 44 fotogrammi in 10,5 secondi. All'arrivo del
+  video la figura intera si sposta una volta di 16 pixel (impaginazione); la
+  misura usa i 31 fotogrammi dopo, 7,3 secondi.
+  Spostamento misurato, in pixel dello schermo: testa 10,9; occhi 8,6; bocca
+  e barba 8,0; spalla sinistra 0,05; spalla destra 0,02; petto 0,01.
+  PROTOFACE MUOVE SOLO LA TESTA.
+
+I CREDITI DELLA PROVA, dal registro del server (Uso di Protoface nel mese).
+  08:26:00 UTC  155 crediti, 7.713 secondi (prima apertura)
+  08:27:50 UTC  157 crediti, 7.783 secondi (seconda apertura)
+  La prima apertura, 13 secondi a video, e' stata fatturata 70 secondi e 2
+  crediti: vedi il guasto della sessione che non si chiude nel rapporto EK.
+  La seconda si leggera' alla prossima apertura.

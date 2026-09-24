@@ -4601,6 +4601,55 @@ rosse per la Regola B; una trovata cieca e riparata,
 `l_emblema_sta_nel_suo_riquadro`, che trascinava una lista che non si
 muoveva. Registro a 506.
 
+## L'ORDINE EK, LA BUILD, LE RISPOSTE DIRETTE, I NOMI E I VOLTI
+
+Ordine del 25 settembre 2026, **cinque voci**, lavorato dal 24 settembre 2026
+sull'orologio della macchina. **In corso**: manifesto e rapporto si scrivono
+alla chiusura, le prove stanno in `docs/collaudo/EK/`.
+
+**BUILD 2279 CONSEGNATA SU APP DISTRIBUTION** il 24 settembre 2026, release
+`6gqoq7qjcg7eg`, col lavoro dell'ordine EJ, costruita dal commit `b8b4a6a7`;
+registro e note nel commit `76be6933`, spinto e verificato con `ls-remote`.
+Sbarramento passato con **5.823 prove** e i soli rossi dichiarati; prova di
+accensione sul Realme passata; note rilette dal server con gli accenti veri;
+un invito accettato. Tocca al fondatore provare il selettore delle voci
+(EJ.02, serve l'account fondatore), Calìgo con l'accento (EJ.04), la
+pastiglia d'oro (EJ.10) e il microfono con la sua voce (EJ.01).
+
+**I VOLTI, VOCE 04, APERTA.** Gli avatar di oggi vengono da originali larghi
+847 e 848 pixel, ingranditi da 3,16 a 3,49 volte prima di Protoface: la
+tabella e il percorso di un pixel stanno in `docs/collaudo/EK/volti/misure.txt`.
+Medora e' restaurata con Nano Banana Pro a 4K e mostrata al fondatore;
+Imagen 4 upscale non e' accessibile al progetto. **Nel LIVE il dettaglio del
+volto lo aumenta l'inquadratura quadrata, non il restauro**: il video di
+Protoface e' di 512 pixel: oggi ogni pixel dell'originale ne diventa uno del
+video. Si aspetta il si' del fondatore su Medora e sull'inquadratura prima di
+Calìgo e Aura e prima di creare qualunque avatar: i tre di oggi restano dove
+sono.
+
+**PROTOFACE MUOVE SOLO LA TESTA.** Misurato sul Realme con una raffica di
+fotogrammi durante il LIVE di Calìgo: la testa si sposta fino a 10,9 pixel
+dello schermo, le spalle 0,05 e 0,02, il petto 0,01. La documentazione non ha
+nessuna opzione per il corpo o i gesti. Le tre immagini sono busti senza
+mani.
+
+**DUE GUASTI TROVATI FUORI DAL PERIMETRO, IN ATTESA DEL PERMESSO DEL FONDATORE.**
+Il primo: `statoDelCerchio` cade dal 23 settembre 2026 alle 11:50 UTC con
+*"Property arcanoDellAlba contains an invalid nested entity"*, perche'
+`DiarioDellAlba.toJson` manda `registro` come lista di liste, che Firestore
+non accetta. Il telefono non riceve piu' piano, residui e giorno: sul Realme
+la pastiglia "Dal vivo" resta grigia e i conti restano a zero. 182 cadute il
+23 settembre, 18 il 24. Padre: ordine DU, commit `b8cf8106`. Il secondo:
+**la sessione di Protoface non si chiude quando si esce dal LIVE**. Il
+telefono lascia solo la stanza (`_chiudi` in `schermata_live.dart`) e nessuno
+chiama `POST /v1/sessions/{id}/end`, che la documentazione offre; la sessione
+resta accesa fino al silenzio tollerato di 60 secondi. Misurato su una
+sessione: 13 secondi a video fatturati 70, due crediti. Padre: ordine EG,
+commit `1104da29` e `3687c223`.
+
+**LE VOCI 02, 03 E 05** aspettano la scelta del fondatore sulla via da
+seguire: la stima supera un'ora e mezza.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.
