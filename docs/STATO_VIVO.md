@@ -4533,9 +4533,77 @@ prima di consegnare**, Medora, Aura e Caligo, con turni a voce e scritti. Il
 primo sbarramento e' caduto su `niente_lavoro_non_spinto` perche' i commit non
 erano ancora spinti: si spinge prima, poi lo sbarramento.
 
+## L'ORDINE EJ, IL MICROFONO, LE VOCI, LE RISPOSTE, LA BARRA E LA PASTIGLIA
+
+Ordine del 25 settembre 2026 con un'aggiunta dello stesso giorno, **dieci
+voci**, lavorate il 24 settembre 2026 sull'orologio della macchina. **Tre
+chiuse con DOMANDA, PROVA e MISURA**: EJ.01, EJ.07 ed EJ.09. **Tre in attesa
+di verifica** del fondatore: EJ.02, EJ.04 ed EJ.10. **Quattro aperte**: EJ.03,
+EJ.05, EJ.06 ed EJ.08. Manifesto `docs/ordini/ORDINE_EJ_MANIFESTO.md`,
+rapporto `docs/ordini/RAPPORTO_ORDINE_EJ.md`, prove in `docs/collaudo/EJ/`.
+Nessuna build consegnata; quattro build locali sul Realme.
+
+**IL MICROFONO DEL LIVE, com'e' adesso.** Non c'e' piu' il riconoscitore di
+Android. `lib/services/voce/l_orecchio_del_live.dart` registra a 16 kHz e non
+chiude mai il microfono fra una frase e l'altra; `il_silenzio_vero.dart`
+decide quando una frase e' finita (due secondi di silenzio vero dopo aver
+parlato, 12 decibel sopra il fondo per cominciare e 4 per continuare, fondo
+mai sotto -70); `le_frasi_della_persona.dart` unisce i pezzi se la persona
+riprende a parlare prima che la trascrizione torni, e butta il rumore; la
+trascrizione la fa Gemini flash-lite in europe-west1. Il microfono si tiene
+premuto per parlare senza limiti. **Misurato sul Realme**: il silenzio del
+telefono sta fra -85 e -91 dB, la voce attacca a -42 e le sue code scendono
+fino a -75. Il rumore non tiene piu' viva la sessione. Sul registro del
+telefono c'e' una riga `ORECCHIO` ogni quarto di secondo coi livelli.
+
+**IL VOLTO DEL LIVE, misurato.** Protoface manda 384 per 384 pixel, poi 512
+per 512; la finestra sul Realme e' di 936 per 1.170 pixel veri, quindi il
+volto e' ingrandito tre o quattro volte. **Le immagini sorgente non sono il
+limite.** Il livello pro costa quanto lo standard, un credito al minuto
+arrotondato, e manda lo stesso video. Il livello si sceglie su Firestore,
+`configurazione/live.qualita`, oggi assente cioe' standard; il server scrive
+l'uso del mese nel registro a ogni apertura. **La decisione sul volto e' del
+fondatore.** `configurazione/live.apertoAlTier2` e' vero.
+
+**LE VOCI DEI MAESTRI SI SCELGONO DAL SERVER.** Sedici candidate in
+`functions/src/live.ts`, `LE_CANDIDATE`; la scelta sta in
+`configurazione/live.voci` e vale solo se e' fra le candidate. Il selettore
+sta nel LIVE, `il_selettore_delle_voci.dart`, e lo vede solo un fondatore:
+il Realme di collaudo non lo e'. **Si dice Calìgo**: il nome arriva alla voce
+con l'accento, `IlParlatoDelMaestro.pronunciato`, e la riga 31 del file di
+addestramento del fondatore e' corretta.
+
+**LE RISPOSTE DEI MAESTRI.** L'invito a tornare sta solo sotto l'ultima
+risposta e non nomina mai la runa, la carta o il centro di domani; la riga
+d'oro e' il passo concreto; i dati della persona si chiedono alla prima
+risposta e poi solo se servono; la prima frase risponde, e Medora e Calìgo
+hanno l'esempio sbagliato accanto a quello giusto; le frasi vietate, il
+trattino lungo e la virgola davanti a "e" si tolgono anche quando il modello
+li scrive (`la_risposta_ripulita.dart`). Collaudo con Gemini vero,
+`tool/collaudo_ej.dart`: chiusure ripetute 15 su 18 prima e 0 dopo,
+anticipazioni 12 e 0, risposte non dirette 15 e 7-10, dati ripetuti 17 e 3-7.
+**L'attribuzione cieca e' valida di nuovo**: tre giri a 95,0, 100,0 e 91,7
+per cento sull'istruzione di oggi, media 95,6, impronte aggiornate, e il rosso accettato che
+la riguardava e' tolto.
+
+**LA BARRA NELLE CHAT E LA PASTIGLIA "DAL VIVO".** Nelle chat dei Maestri la
+barra si apre ritirata, compare scorrendo verso i messaggi di prima e si
+ritira quando si legge in avanti o si tocca il campo; la conversazione
+guadagna 112 punti. E' l'unica eccezione alla regola ferrea su Esplora, qui
+sotto. Nella testata di ogni chat, sopra l'icona della conversazione nuova, la
+pastiglia "Dal vivo": d'oro dal tier 2 in su e porta nel LIVE, grigia col
+lucchetto sotto, e apre un foglio con le parole del Maestro e la strada al
+piano dell'Adepto (`la_porta_del_vivo.dart`). La riga delle arti sotto il
+nome si rimpicciolisce un poco per farle posto.
+
+**LE GUARDIE.** Sei nuove, tutte viste rosse; undici delle zone toccate viste
+rosse per la Regola B; una trovata cieca e riparata,
+`l_emblema_sta_nel_suo_riquadro`, che trascinava una lista che non si
+muoveva. Registro a 506.
+
 ## Regole ferree
 
-**ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto.
+**ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.
 
 **L'UTENTE CERCA RISPOSTE E VUOLE SAPERE COSA FARE. NON USA L'APP PER IMPARARE.** Regola trasversale dettata da Mauro il 21 agosto 2026 con l'ordine AS, e vale su TUTTA l'app da qui in avanti. Ogni responso, ogni scheda, ogni dono: meno testo, piu' diretto. Un minimo di spiegazione va bene, ma transiti, pianeti e meccaniche non sono il contenuto: sono la ragione nascosta dietro la risposta. **Dove un testo si puo' togliere, si toglie invece di rimpicciolirlo.** I testi piccoli si ingrandiscono.
 
