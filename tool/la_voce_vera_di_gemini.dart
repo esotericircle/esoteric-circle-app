@@ -42,6 +42,14 @@ class RispostaGrezza {
 }
 
 class VoceVeraDiGemini implements MaestroAiProvider {
+  VoceVeraDiGemini({this.ritocco});
+
+  /// **LA PROVA PER ESCLUSIONE, ordine EK voce 02.** Un ritocco applicato
+  /// all'istruzione che l'app compone, prima di mandarla: toglie o cambia una
+  /// riga alla volta, e il collaudo misura che cosa cambia nelle risposte.
+  /// Senza ritocco l'istruzione e' quella dell'app, carattere per carattere.
+  final String Function(Maestro maestro, String istruzione)? ritocco;
+
   int chiamate = 0;
 
   /// **Ogni risposta che il provider restituisce, in ordine.** La rete della
@@ -75,7 +83,7 @@ class VoceVeraDiGemini implements MaestroAiProvider {
     final misura = rispostaGiaData == null
         ? MisuraDellaRisposta.perChat
         : MisuraDellaRisposta.perIlSeguito;
-    final istruzione = MaestroPersona.systemInstruction(
+    final composta = MaestroPersona.systemInstruction(
       maestro: maestro,
       profile: profile,
       memory: memory,
@@ -88,6 +96,7 @@ class VoceVeraDiGemini implements MaestroAiProvider {
           if (m.isMaestro) m.text
       ],
     );
+    final istruzione = ritocco?.call(maestro, composta) ?? composta;
     // La cronologia come la manda l'app: solo i messaggi veri, in ordine.
     final contents = <Map<String, dynamic>>[
       for (final m in history.cast<ChatMessage>())
@@ -246,7 +255,24 @@ class VoceVeraDiGemini implements MaestroAiProvider {
         .trim();
   }
 
+  /// **IL 429 SI ASPETTA, NON SI SUBISCE.** Ordine EK voce 02: il primo giro
+  /// "prima" e' caduto a meta' perche' una prova parallela aveva esaurito la
+  /// quota di Vertex, e Calìgo e la taratura sono usciti con un 429 invece
+  /// che con una misura. Il limite e' momentaneo: si aspetta e si riprova,
+  /// fino a cinque volte, con attese che raddoppiano. La richiesta resta
+  /// identica, quindi la misura non cambia.
   Future<(int, String)> _chiedi(String corpo) async {
+    var attesa = const Duration(seconds: 10);
+    for (var volta = 0;; volta++) {
+      final esito = await _chiediUnaVolta(corpo);
+      if (esito.$1 != 429 || volta >= 5) return esito;
+      print('Vertex ha risposto 429: riprovo fra ${attesa.inSeconds} s');
+      await Future<void>.delayed(attesa);
+      attesa *= 2;
+    }
+  }
+
+  Future<(int, String)> _chiediUnaVolta(String corpo) async {
     final gettone = _gettoneInCache ??= await _leggiIlGettone();
     final uri = Uri.https(
       '$_regione-aiplatform.googleapis.com',

@@ -246,8 +246,8 @@ abstract final class PortaDelLive {
   /// La frase di prova detta da [voce], per ascoltarla.
   static Future<({Uint8List pcm, int tasso})> ascoltaUnaVoce(
       Maestro maestro, String voce) async {
-    final m = await chiama(
-        'ascoltaUnaVoce', {'maestro': maestro.name, 'voce': voce});
+    final m =
+        await chiama('ascoltaUnaVoce', {'maestro': maestro.name, 'voce': voce});
     return (
       pcm: base64Decode('${m['audio'] ?? ''}'),
       tasso: (m['tasso'] as num?)?.toInt() ?? 24000,
@@ -257,6 +257,27 @@ abstract final class PortaDelLive {
   /// [voce] diventa la voce di [maestro], per tutti e senza build nuova.
   static Future<void> scegliLaVoce(Maestro maestro, String voce) =>
       chiama('scegliLaVoce', {'maestro': maestro.name, 'voce': voce});
+
+  /// **LA SESSIONE DI PROTOFACE SI CHIUDE QUANDO SI ESCE.** Guasto trovato
+  /// nell'ordine EK il 24 settembre 2026, padre l'ordine EG: uscendo si
+  /// lasciava solo la stanza di LiveKit, e Protoface teneva accesa la sessione
+  /// fino al silenzio tollerato, sessanta secondi. Sul registro del server 13
+  /// secondi a video sono stati fatturati 70, due crediti. La chiusura la
+  /// chiede il server, perche' la chiave di Protoface non esce da li'.
+  ///
+  /// **Non ferma niente se non risponde**: la persona sta gia' uscendo, e il
+  /// silenzio tollerato resta la rete sotto. Ma non si tace: un guasto qui
+  /// costa minuti, e deve potersi leggere.
+  static Future<void> chiudi(String sessione) async {
+    try {
+      await chiama('chiudiLaSessioneLive', {'sessione': sessione});
+    } catch (errore) {
+      annotaGuastoInnocuo(
+        'la sessione LIVE non si chiude dal telefono, sessione $sessione',
+        errore,
+      );
+    }
+  }
 
   /// Chiede se il volto e' arrivato, e quanto e' costata finora.
   static Future<StatoDelLive> stato(String sessione) async {

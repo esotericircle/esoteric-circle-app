@@ -16,6 +16,7 @@ import '../../../services/live/porta_del_live.dart';
 import '../../../services/voce/l_orecchio_del_live.dart';
 import '../chat/maestro_chat_controller.dart';
 import '../widgets/busto_del_maestro.dart';
+import '../../../core/sensi/lo_schermo_acceso.dart';
 import '../../../core/sensi/wav_da_pcm.dart';
 import 'il_parlato_del_maestro.dart';
 import 'le_frasi_della_persona.dart';
@@ -108,6 +109,10 @@ class _SchermataLiveState extends State<SchermataLive> {
   @override
   void initState() {
     super.initState();
+    // **Lo schermo non si spegne mentre si parla.** Ordine EK: il LIVE si fa
+    // senza toccare il telefono, e allo spegnimento automatico il microfono
+    // taceva e il LIVE si chiudeva. Vedi `LoSchermoAcceso`.
+    unawaited(LoSchermoAcceso.tieni(true));
     unawaited(_apri());
     unawaited(_caricaIlFiltroDelVolto());
   }
@@ -126,7 +131,8 @@ class _SchermataLiveState extends State<SchermataLive> {
       // video intero**: il motore gli passa solo cio' che il ritaglio lascia
       // vedere, e la prima prova con le coordinate del video non ha
       // riempito niente. Qui la toppa si porta nelle frazioni della finestra.
-      final inquadratura = InquadraturaDelVolto.di(widget.maestro);
+      final inquadratura =
+          InquadraturaDelVolto.di(widget.maestro, avatar: _avatarDellaSessione);
       final r = inquadratura.ritaglio;
       Rect nellaFinestra(Rect? t) => t == null
           ? const Rect.fromLTRB(-1, -1, -1, -1)
@@ -165,7 +171,28 @@ class _SchermataLiveState extends State<SchermataLive> {
     // **La stanza si chiude sempre**, anche col tasto indietro: una stanza
     // lasciata aperta continua a consumare minuti che nessuno usa.
     unawaited(_stanza?.disconnect());
+    _chiudiLaSessione();
+    unawaited(LoSchermoAcceso.tieni(false));
     super.dispose();
+  }
+
+  /// L'avatar che il server ha scelto per questa sessione: decide
+  /// l'inquadratura, `InquadraturaDelVolto.di`. Ordine EK voce 04.
+  String? _avatarDellaSessione;
+
+  /// La sessione di Protoface aperta da questa schermata, finche' non la si
+  /// chiude: si chiude una volta sola.
+  String? _sessioneAperta;
+
+  /// **LASCIARE LA STANZA NON CHIUDE LA SESSIONE.** Ordine EK, guasto trovato
+  /// fuori dal perimetro, padre l'ordine EG: Protoface la teneva accesa
+  /// sessanta secondi dopo l'uscita, e li faceva pagare. Si chiama da ogni
+  /// strada che esce: la croce, il tempo finito, il silenzio, il tasto
+  /// indietro, e il volto che non arriva.
+  void _chiudiLaSessione() {
+    final id = _sessioneAperta;
+    _sessioneAperta = null;
+    if (id != null) unawaited(PortaDelLive.chiudi(id));
   }
 
   Future<void> _apri() async {
@@ -185,6 +212,11 @@ class _SchermataLiveState extends State<SchermataLive> {
     });
     try {
       s = await PortaDelLive.apri(widget.maestro);
+      _sessioneAperta = s.sessione;
+      // **L'inquadratura la decide l'avatar che il server ha scelto**, e il
+      // filtro del fondo si riconfigura su di lei. Ordine EK voce 04.
+      _avatarDellaSessione = s.avatar;
+      unawaited(_caricaIlFiltroDelVolto());
     } on IlLiveNonSiApre catch (e) {
       if (!mounted) return;
       setState(() => _quadro = _quadro.con(
@@ -214,6 +246,7 @@ class _SchermataLiveState extends State<SchermataLive> {
       await stanza.connect(s.url, s.gettone);
       if (!mounted) {
         await stanza.disconnect();
+        _chiudiLaSessione();
         return;
       }
       setState(() {
@@ -232,6 +265,7 @@ class _SchermataLiveState extends State<SchermataLive> {
           '${s.sessione}',
           StateError('nessun ${s.lavoratore} in 20 secondi'),
         );
+        _chiudiLaSessione();
         if (!mounted) return;
         setState(() => _quadro = _quadro.con(
               momento: MomentoDelLive.nonSiApre,
@@ -314,7 +348,9 @@ class _SchermataLiveState extends State<SchermataLive> {
 
       context.visitChildElements(cerca);
       final dpr = MediaQuery.devicePixelRatioOf(context);
-      final ritaglio = InquadraturaDelVolto.di(widget.maestro).ritaglio;
+      final ritaglio =
+          InquadraturaDelVolto.di(widget.maestro, avatar: _avatarDellaSessione)
+              .ritaglio;
       final f = finestra;
       debugPrint('LIVE VIDEO: ricevuto ${stat?.frameWidth}x'
           '${stat?.frameHeight} a ${stat?.framesPerSecond} fps, codec '
@@ -338,6 +374,7 @@ class _SchermataLiveState extends State<SchermataLive> {
     _orologio?.cancel();
     await _orecchio.ferma();
     await _stanza?.disconnect();
+    _chiudiLaSessione();
     if (!mounted) return;
     setState(() =>
         _quadro = _quadro.con(momento: MomentoDelLive.finito, fine: come));
@@ -751,7 +788,8 @@ class _SchermataLiveState extends State<SchermataLive> {
             ]),
             child: lk.VideoTrackRenderer(traccia, fit: lk.VideoViewFit.contain),
           );
-    return _FinestraDelVolto(maestro: widget.maestro, volto: volto);
+    return _FinestraDelVolto(
+        maestro: widget.maestro, avatar: _avatarDellaSessione, volto: volto);
   }
 
   /// Quanto in fretta l'opacita' scende quando i tre canali insieme passano
@@ -865,9 +903,13 @@ class _SchermataLiveState extends State<SchermataLive> {
 /// cosi' il busto non finisce nel vuoto ma sul davanzale. Il ritaglio lo
 /// decide [InquadraturaDelVolto], misurato Maestro per Maestro.
 class _FinestraDelVolto extends StatelessWidget {
-  const _FinestraDelVolto({required this.maestro, required this.volto});
+  const _FinestraDelVolto(
+      {required this.maestro, required this.avatar, required this.volto});
 
   final Maestro maestro;
+
+  /// L'avatar della sessione: decide l'inquadratura. Ordine EK voce 04.
+  final String? avatar;
   final Widget volto;
 
   static const _cornice = 4.0;
@@ -879,7 +921,7 @@ class _FinestraDelVolto extends StatelessWidget {
       Maestro.aura => (ColorTokens.auraDeep, ColorTokens.auraGlow),
       Maestro.caligo => (ColorTokens.caligoDeep, ColorTokens.caligoGlow),
     };
-    final ritaglio = InquadraturaDelVolto.di(maestro).ritaglio;
+    final ritaglio = InquadraturaDelVolto.di(maestro, avatar: avatar).ritaglio;
     return LayoutBuilder(builder: (context, spazio) {
       const margine = SpacingTokens.lg;
       final altezzaMassima = spazio.maxHeight - margine;

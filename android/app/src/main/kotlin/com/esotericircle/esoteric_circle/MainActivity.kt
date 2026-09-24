@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.WindowManager
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.embedding.engine.FlutterEngineCache
@@ -115,10 +116,33 @@ class MainActivity : FlutterActivity() {
                     }
                 }.start()
             }
+        // LO SCHERMO RESTA ACCESO NEL LIVE. Ordine EK, guasto trovato alla
+        // prova sul Realme del 24 settembre 2026: il LIVE si fa parlando senza
+        // toccare il telefono, e lo schermo si spegneva da solo al suo tempo,
+        // cinque minuti su quel telefono, trenta secondi su molti altri. Con
+        // lo schermo spento il microfono tace e il LIVE si chiude. Il segno
+        // sulla finestra non chiede permessi e se ne va con la finestra.
+        MethodChannel(flutterEngine.dartExecutor.binaryMessenger, SCHERMO)
+            .setMethodCallHandler { chiamata, risposta ->
+                if (chiamata.method != "tieniAcceso") {
+                    risposta.notImplemented()
+                    return@setMethodCallHandler
+                }
+                val acceso = chiamata.arguments as? Boolean ?: false
+                runOnUiThread {
+                    if (acceso) {
+                        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                    } else {
+                        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+                    }
+                    risposta.success(null)
+                }
+            }
     }
 
     companion object {
         const val CANALE = "esoteric_circle/sfondo"
+        const val SCHERMO = "esoteric_circle/schermo"
         const val MOTORE = "esoteric_circle/motore"
     }
 }

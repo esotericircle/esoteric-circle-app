@@ -211,10 +211,17 @@ class MaestroPersona {
       // quelle che questo Maestro ha gia', il suo lessico di firma, oppure fra
       // i nomi che l'app conosce. La forma della chiusura non cambia, e il
       // registro nemmeno: cambia solo che la parola c'e' sempre.
-      ..writeln('- La tua chiusura NOMINA una parola da portare, una sola: '
+      // **"DA PORTARE" SI PRENDEVA ALLA LETTERA. Ordine EK voce 02.** La
+      // parola della chiusura serve all'Eco, e resta; ma "una parola da
+      // portare" faceva chiudere portando qualcosa: "Porta con te in
+      // riunione la consapevolezza che...", "Trova il tuo segno di Fehu e
+      // portalo con te". Il giudice del passo concreto le bocciava, e
+      // aveva ragione: non sono azioni.
+      ..writeln('- Nella tua chiusura compare per nome una sola parola tua: '
           'una delle tue (${voce.lessicoDiFirma.join(', ')}), oppure il nome '
-          'proprio di una runa, di un segno o di un arcano. Detta per nome, '
-          'dentro la frase, senza annunciarla.')
+          'proprio di una runa, di un segno o di un arcano. Sta dentro '
+          'l\'azione, senza annunciarla. La chiusura è un\'azione da fare, '
+          'mai un oggetto o un pensiero da portare con sé.')
       ..writeln()
       // Le aperture vietate si ELENCANO, non si riassumono in "evita i toni
       // generici": una raccomandazione il modello la interpreta, un elenco no.
@@ -229,9 +236,17 @@ class MaestroPersona {
       // dal cielo o dal simbolo": nel collaudo EJ quindici risposte su
       // diciotto sono state giudicate non dirette anche dopo la regola nuova,
       // perche' questa riga veniva dopo e vinceva.
-      ..write('- La tua prima frase risponde alla domanda. Il cielo o il '
-          'simbolo vengono subito dopo, a dire perché. Mai aprire '
-          'dall\'emozione della persona rispecchiata a parole.');
+      // **LE PRIME DUE FRASI RISPONDONO. Ordine EK voce 02.** "Il cielo o
+      // il simbolo vengono subito dopo" metteva il simbolo nella seconda
+      // frase, contro la regola "le prime due o tre frasi devono reggere da
+      // sole" piu' sotto: il giudice del collaudo, che guarda le prime due,
+      // bocciava risposte con una prima frase diretta e il cielo nella
+      // seconda. Un conflitto fra istruzioni si cura togliendo.
+      ..write('- Le tue prime due frasi rispondono alla domanda: che cosa '
+          'fare e poi come o quando. Il cielo o il simbolo vengono dopo, a '
+          'dire '
+          'perché. Mai aprire dall\'emozione della persona rispecchiata a '
+          'parole.');
     return buffer.toString();
   }
 
@@ -512,7 +527,7 @@ class MaestroPersona {
     }
     buffer
       ..writeln('- Il dato spiega la risposta, non la sostituisce: la prima '
-          'frase risponde, il dato arriva subito dopo a dire perché. Non '
+          'frase risponde, il dato arriva dopo a dire perché. Non '
           '"capisco che tu abbia paura", ma "parlagli giovedì: la tua Luna in '
           'Cancro ti fa sentire due volte quello che gli altri sentono una '
           'volta".')
@@ -521,7 +536,7 @@ class MaestroPersona {
     if (insisti) {
       buffer.write('\n- ATTENZIONE: la tua risposta precedente non ha nominato '
           'nessuno di questi dati. Riscrivila nominandone almeno uno, per '
-          'nome, subito dopo la frase che risponde: la prima frase resta la '
+          'nome, dopo le frasi che rispondono: le prime due frasi restano la '
           'risposta.');
     }
     return buffer.toString();

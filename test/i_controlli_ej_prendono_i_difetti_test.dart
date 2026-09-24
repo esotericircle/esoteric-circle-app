@@ -91,4 +91,15 @@ void main() {
         erroriDiRegola(r("Il cielo e' chiaro perche' parla.")), hasLength(2));
     expect(erroriDiRegola(r('Il cielo è chiaro e parla.')), isEmpty);
   });
+
+  test('"IL CALMO DEL TUO RESPIRO" E\' UN ERRORE DI LINGUA', () {
+    // Ordine EK voce 02: l'errore di Aura nel collaudo EJ, "senti il calmo
+    // del tuo respiro", entra nel controllo della lingua. "Calmo" e'
+    // aggettivo: usato come nome e' sbagliato ("la calma"); davanti a un nome
+    // e' giusto ("il calmo respiro"), e il controllo non deve prenderlo.
+    expect(erroriDiRegola(r('Senti il calmo del tuo respiro.')), hasLength(1));
+    expect(erroriDiRegola(r('Resta nel calmo della sera.')), hasLength(1));
+    expect(erroriDiRegola(r('Segui il calmo respiro della sera.')), isEmpty);
+    expect(erroriDiRegola(r('Senti la calma del tuo respiro.')), isEmpty);
+  });
 }

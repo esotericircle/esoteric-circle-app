@@ -42,6 +42,8 @@ export {
   gliAvatarDiProtoface,
   apriUnaSessioneLive,
   statoDellaSessioneLive,
+  chiudiLaSessioneLive,
+  gliAvatarNuoviDiProtoface,
   laVoceDelMaestro,
   leVociDelMaestro,
   ascoltaUnaVoce,

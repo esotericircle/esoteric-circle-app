@@ -1,4 +1,4 @@
-import {onCall, HttpsError} from "firebase-functions/v2/https";
+import {onCall, onRequest, HttpsError} from "firebase-functions/v2/https";
 import {defineSecret} from "firebase-functions/params";
 import * as logger from "firebase-functions/logger";
 import {getFirestore} from "firebase-admin/firestore";
@@ -118,6 +118,27 @@ const AVATAR: Record<string, string> = {
   caligo: "av_01KZVB6FCP27NR3GZQ47WJ7QJG",
 };
 
+/**
+ * **GLI AVATAR SI AGGANCIANO DA FIRESTORE, E LA TABELLA QUI SOPRA E' LA
+ * RISERVA.** Ordine EK voce 04, 24 settembre 2026.
+ *
+ * Il fondatore ha approvato gli avatar nati dalle immagini restaurate. Se
+ * l'aggancio stesse solo nella tabella, cambiare un avatar vorrebbe dire
+ * pubblicare di nuovo le funzioni; e tornare indietro, pubblicarle ancora.
+ * Adesso la scelta sta in `configurazione/live.avatar`, una mappa dal Maestro
+ * all'identificativo, e la scrive solo la porta di amministrazione qui sotto,
+ * dopo che Protoface ha dichiarato l'avatar pronto. **Tornare agli avatar di
+ * prima e' togliere quel campo**: la tabella resta com'era, e i tre avatar di
+ * prima restano su Protoface.
+ */
+async function lAvatarDi(maestro: string): Promise<string | undefined> {
+  const snap = await getFirestore().doc("configurazione/live").get();
+  const scelti = (snap.data()?.avatar ?? {}) as Record<string, unknown>;
+  const scelto = scelti[maestro];
+  if (typeof scelto === "string" && scelto.startsWith("av_")) return scelto;
+  return AVATAR[maestro];
+}
+
 /** I minuti LIVE del mese, per piano. Ordine EG voce 06. */
 const MINUTI_DEL_MESE: Record<string, number> = {
   free: 0,
@@ -225,7 +246,7 @@ export const apriUnaSessioneLive = onCall(
     if (!uid) throw new HttpsError("unauthenticated", "Serve un account.");
 
     const maestro = String(request.data?.maestro ?? "");
-    const avatarId = AVATAR[maestro];
+    const avatarId = AVATAR[maestro] ? await lAvatarDi(maestro) : undefined;
     if (!avatarId) {
       throw new HttpsError("invalid-argument", `Maestro sconosciuto: ${maestro}`);
     }
@@ -403,6 +424,179 @@ export const statoDellaSessioneLive = onCall(
       secondiFatturabili: s.usage?.billable_seconds ?? 0,
       fotogrammi: s.usage?.frames ?? 0,
     };
+  }
+);
+
+/**
+ * Vero se [stanza] e' una stanza aperta da [uid]: `apriUnaSessioneLive` la
+ * chiama `live_<uid>_<istante>` e la scrive nei metadati della sessione.
+ */
+export function laStanzaE(uid: string, stanza: string): boolean {
+  return uid.length > 0 && stanza.startsWith(`live_${uid}_`);
+}
+
+/**
+ * **LA SESSIONE SI CHIUDE QUANDO LA PERSONA ESCE.** Guasto trovato
+ * nell'ordine EK il 24 settembre 2026, fuori dal perimetro, e curato col
+ * permesso del fondatore.
+ *
+ * **Il difetto, misurato.** Il telefono, uscendo, lasciava solo la stanza di
+ * LiveKit (`_chiudi` in `schermata_live.dart`), e nessuno diceva a Protoface
+ * che la sessione era finita: restava accesa fino al silenzio tollerato,
+ * sessanta secondi. Sul registro del server la prima prova del giorno, 13
+ * secondi a video, e' stata fatturata 70 secondi e due crediti. Padre:
+ * ordine EG, commit 1104da29 e 3687c223, che scrivevano "chi chiude davvero
+ * e' il telefono" senza che il telefono chiudesse la sessione.
+ *
+ * **La cura.** La documentazione offre `POST /v1/sessions/{id}/end`,
+ * *"Terminate a session immediately. Idempotent"*: il telefono la chiede qui
+ * uscendo, e la chiave non lascia il server.
+ *
+ * **Solo la propria.** La sessione porta nei metadati la sua stanza, e la
+ * stanza porta chi l'ha aperta: chi non e' quella persona non la chiude.
+ */
+export const chiudiLaSessioneLive = onCall(
+  {region: "europe-west1", secrets: [PROTOFACE_API_KEY]},
+  async (request) => {
+    const uid = request.auth?.uid;
+    if (!uid) throw new HttpsError("unauthenticated", "Serve un account.");
+    const id = String(request.data?.sessione ?? "");
+    if (!id.startsWith("sess_")) {
+      throw new HttpsError("invalid-argument", "sessione sconosciuta");
+    }
+    const chiave = {Authorization: `Bearer ${PROTOFACE_API_KEY.value()}`};
+    const letta = await fetch(`${PROTOFACE}/sessions/${id}`, {headers: chiave});
+    if (!letta.ok) {
+      throw new HttpsError(
+        "unavailable",
+        `Protoface ha risposto ${letta.status}`
+      );
+    }
+    const s = (await letta.json()) as Record<string, any>;
+    const stanza = String(s.metadata?.customer_session_id ?? "");
+    if (!laStanzaE(uid, stanza)) {
+      throw new HttpsError("permission-denied", "Non e' la tua sessione.");
+    }
+    const fine = await fetch(`${PROTOFACE}/sessions/${id}/end`, {
+      method: "POST",
+      headers: chiave,
+    });
+    if (!fine.ok) {
+      const testo = await fine.text();
+      logger.error("Protoface non chiude la sessione", {
+        stato: fine.status,
+        corpo: testo.slice(0, 500),
+        sessione: id,
+      });
+      throw new HttpsError(
+        "unavailable",
+        `Protoface ha risposto ${fine.status}`
+      );
+    }
+    const chiusa = (await fine.json()) as Record<string, unknown>;
+    logger.info("LIVE chiuso dal telefono", {
+      uid,
+      sessione: id,
+      stato: chiusa.status ?? null,
+    });
+    return {stato: chiusa.status ?? null};
+  }
+);
+
+/**
+ * **GLI AVATAR NUOVI, CREATI E AGGANCIATI DAL SERVER.** Ordine EK voce 04,
+ * dopo il si' del fondatore del 25 settembre 2026 alle immagini restaurate:
+ * *"Approvo tutto e ti autorizzo a fare tutto"*.
+ *
+ * **Una porta di amministrazione, e non una callable.** Creare un avatar
+ * vuole la chiave di Protoface, che non lascia il server; nessun telefono ha
+ * motivo di farlo. La porta e' chiusa dall'IAM (`invoker: "private"`): la
+ * chiama solo chi amministra il progetto, col suo gettone Google.
+ *
+ * Tre azioni, nel corpo JSON:
+ * - `crea`: `maestro`, `nome` e `immagine` in base64; manda l'immagine a
+ *   `POST /v1/avatars` e torna l'identificativo, che nasce `processing`;
+ * - `stato`: `avatar`; chiede a Protoface se e' pronto;
+ * - `aggancia`: `maestro` e `avatar`; solo se Protoface lo dice `ready`, lo
+ *   scrive in `configurazione/live.avatar`, da dove lo legge `lAvatarDi`.
+ */
+export const gliAvatarNuoviDiProtoface = onRequest(
+  {
+    region: "europe-west1",
+    secrets: [PROTOFACE_API_KEY],
+    invoker: "private",
+    memory: "512MiB",
+  },
+  async (req, res) => {
+    const corpo = (req.body ?? {}) as Record<string, unknown>;
+    const azione = String(corpo.azione ?? "");
+    const maestro = String(corpo.maestro ?? "");
+    const chiave = {Authorization: `Bearer ${PROTOFACE_API_KEY.value()}`};
+    try {
+      if (azione === "crea") {
+        if (!AVATAR[maestro]) {
+          res.status(400).json({errore: `Maestro sconosciuto: ${maestro}`});
+          return;
+        }
+        const immagine = Buffer.from(String(corpo.immagine ?? ""), "base64");
+        if (immagine.length < 1000) {
+          res.status(400).json({errore: "immagine assente o troppo piccola"});
+          return;
+        }
+        const modulo = new FormData();
+        modulo.append(
+          "image",
+          new Blob([immagine], {type: "image/png"}),
+          `${maestro}.png`
+        );
+        modulo.append("name", String(corpo.nome ?? `${maestro}-EK`));
+        const r = await fetch(`${PROTOFACE}/avatars`, {
+          method: "POST",
+          headers: chiave,
+          body: modulo,
+        });
+        const testo = await r.text();
+        logger.info("Avatar nuovo chiesto a Protoface", {
+          maestro,
+          stato: r.status,
+          byte: immagine.length,
+        });
+        res.status(r.ok ? 200 : 502).type("application/json").send(testo);
+        return;
+      }
+      if (azione === "stato") {
+        const id = String(corpo.avatar ?? "");
+        const r = await fetch(`${PROTOFACE}/avatars/${id}`, {headers: chiave});
+        res.status(r.ok ? 200 : 502)
+          .type("application/json")
+          .send(await r.text());
+        return;
+      }
+      if (azione === "aggancia") {
+        const id = String(corpo.avatar ?? "");
+        if (!AVATAR[maestro] || !id.startsWith("av_")) {
+          res.status(400).json({errore: "maestro o avatar non validi"});
+          return;
+        }
+        const r = await fetch(`${PROTOFACE}/avatars/${id}`, {headers: chiave});
+        const a = (await r.json()) as Record<string, unknown>;
+        if (!r.ok || a.status !== "ready") {
+          res.status(409).json({errore: "l'avatar non e' pronto", stato: a.status});
+          return;
+        }
+        await getFirestore().doc("configurazione/live").set(
+          {avatar: {[maestro]: id}},
+          {merge: true}
+        );
+        logger.info("Avatar agganciato al LIVE", {maestro, avatar: id});
+        res.status(200).json({maestro, avatar: id, agganciato: true});
+        return;
+      }
+      res.status(400).json({errore: `azione sconosciuta: ${azione}`});
+    } catch (e) {
+      logger.error("La porta degli avatar nuovi e' caduta", {errore: String(e)});
+      res.status(500).json({errore: String(e)});
+    }
   }
 );
 

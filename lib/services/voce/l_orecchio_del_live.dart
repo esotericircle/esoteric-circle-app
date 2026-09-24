@@ -6,8 +6,12 @@ import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/foundation.dart';
 import 'package:record/record.dart';
 
+import '../../core/astro/zodiac.dart';
+import '../../core/maestro/chakra_del_giorno.dart';
 import '../../core/permissions/app_permission.dart';
 import '../../core/permissions/esito_del_permesso.dart';
+import '../../core/rituals/runes.dart';
+import '../../core/tarot/tarot_card.dart';
 import '../../features/maestri/live/il_silenzio_vero.dart';
 import '../ai/firebase_maestro_ai_provider.dart';
 import '../ai/registro_dei_guasti.dart';
@@ -182,6 +186,44 @@ abstract final class LaTrascrizione {
   /// Il segno con cui Gemini dice che nella registrazione non c'e' parola.
   static const String silenzio = '[SILENZIO]';
 
+  /// **I NOMI CHE UNA PERSONA DICE AI MAESTRI.** Ordine EK voce 03, 24
+  /// settembre 2026.
+  ///
+  /// Il rapporto EJ: *"la trascrizione del LIVE ha scritto "Mezz'ora" invece
+  /// di "Medora""*; sul Realme anche *"Mei d'ora"*. Il fondatore: *"è Calìgo e
+  /// non Càligo"*. Chi trascrive non sapeva di trovarsi davanti a tre Maestri
+  /// e alle loro arti, e un nome che non conosce lo sente come la parola
+  /// comune piu' vicina. Qui glieli si dice, **presi dai cataloghi dell'app e
+  /// non scritti a mano**: se un catalogo cresce, cresce anche l'elenco, e la
+  /// guardia `i_nomi_del_live_si_trascrivono_giusti` pretende che ci siano
+  /// tutti.
+  static List<String> get nomiDelleArti => [
+        'Medora',
+        'Aura',
+        'Calìgo',
+        for (final c in TarotDeck.cards)
+          if (c.arcana == TarotArcana.maggiore) c.name,
+        'Bastoni',
+        'Coppe',
+        'Spade',
+        'Denari',
+        for (final r in kElderFuthark) r.name,
+        for (final z in Zodiac.values) z.italianName,
+        for (final c in ChakraDelGiorno.tutti) c.nome,
+      ];
+
+  /// Cio' che si chiede a Gemini insieme alla registrazione.
+  static String get istruzione =>
+      'Trascrivi esattamente, nella lingua in cui parla, ciò che dice la '
+      'persona in questa registrazione, dalla prima all\'ultima parola. '
+      'Scrivi solo le sue parole, senza commenti e senza virgolette. Se non '
+      'si sente nessuna parola, scrivi soltanto $silenzio.\n'
+      'La persona parla con tre Maestri di un\'app di astrologia, carte, '
+      'rune e chakra: può nominarli o nominare le loro arti. Questi nomi '
+      'scrivili esattamente così quando li senti, anche se somigliano a una '
+      'parola comune: ${nomiDelleArti.join(', ')}. Non aggiungerli se la '
+      'persona non li dice.';
+
   static Future<String> _daGemini(Uint8List wav) async {
     final modello =
         FirebaseAI.vertexAI(location: FirebaseMaestroAiProvider.kVertexLocation)
@@ -195,11 +237,7 @@ abstract final class LaTrascrizione {
     );
     final risposta = await modello.generateContent([
       Content.multi([
-        const TextPart('Trascrivi esattamente, nella lingua in cui parla, '
-            'ciò che dice la persona in questa registrazione, dalla prima '
-            'all\'ultima parola. '
-            'Scrivi solo le sue parole, senza commenti e senza virgolette. Se '
-            'non si sente nessuna parola, scrivi soltanto $silenzio.'),
+        TextPart(istruzione),
         InlineDataPart('audio/wav', wav),
       ]),
     ]);

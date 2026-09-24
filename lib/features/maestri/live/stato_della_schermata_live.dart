@@ -111,7 +111,58 @@ class InquadraturaDelVolto {
   /// fascia su un lato di 1.494, cioe' 0,032 in meno; e il taglio sta un filo
   /// piu' su ancora, perche' sull'ultima riga del busto c'e' una linea chiara
   /// che e' il bordo dell'immagine da cui l'avatar e' nato.
-  static InquadraturaDelVolto di(Maestro maestro) => switch (maestro) {
+  /// **QUALE INQUADRATURA, LO DICE L'AVATAR.** Ordine EK voce 04, 24
+  /// settembre 2026.
+  ///
+  /// Gli avatar nati prima dell'ordine EK vengono da tele larghe 1700 per 1200
+  /// (Aura 1200 per 1200), che Protoface metteva nel quadrato del video con
+  /// due fasce: per loro valgono le misure prese sul Realme dall'ordine EG,
+  /// qui sotto in [_diPrima]. Gli avatar nuovi nascono dalle immagini
+  /// restaurate e tagliate quadrate, testa e spalle, e il video E' il
+  /// quadrato: le loro misure stanno in [_quadrata].
+  ///
+  /// **L'avatar lo dice il server**, che lo manda con la sessione
+  /// (`SessioneLive.avatar`): un telefono con questa build inquadra giusto
+  /// sia gli avatar di prima sia quelli nuovi, e il giorno in cui il server
+  /// passa ai nuovi nessuno deve aggiornare l'app. Senza avatar, cioe' prima
+  /// che la sessione esista e quindi senza video, vale l'inquadratura nuova.
+  static const Set<String> avatarDiPrima = {
+    'av_01KZ9637K1YZ45H3GNZE95YN6E',
+    'av_01KZVCNV16EAMMG75TXFC9D475',
+    'av_01KZVB6FCP27NR3GZQ47WJ7QJG',
+  };
+
+  static InquadraturaDelVolto di(Maestro maestro, {String? avatar}) =>
+      avatarDiPrima.contains(avatar) ? _diPrima(maestro) : _quadrata(maestro);
+
+  /// **L'INQUADRATURA B, per le immagini quadrate.** Ordine EK voce 04.
+  ///
+  /// Le misure si leggono dall'immagine: ogni quadrato e' stato tagliato con
+  /// la cima della testa a 0,08 del lato e la testa al centro, e il busto
+  /// arriva al bordo basso (0,995, un filo sopra la riga chiara che Protoface
+  /// lascia sull'ultima riga). La toppa di Medora e il cristallo di Caligo li
+  /// ha trovati il filtro del volto rifatto in Python sulle immagini nuove,
+  /// dopo averlo provato sulle immagini di prima: li' ritrova esattamente le
+  /// due zone misurate sul Realme dall'ordine EG. Prove in
+  /// `docs/collaudo/EK/volti/`.
+  static InquadraturaDelVolto _quadrata(Maestro maestro) => switch (maestro) {
+        Maestro.medora => const InquadraturaDelVolto(
+            alto: 0.080,
+            basso: 0.995,
+            centro: 0.500,
+            toppa: Rect.fromLTRB(0.195, 0.745, 0.267, 0.796),
+          ),
+        Maestro.aura =>
+          const InquadraturaDelVolto(alto: 0.080, basso: 0.995, centro: 0.500),
+        Maestro.caligo => const InquadraturaDelVolto(
+            alto: 0.080,
+            basso: 0.995,
+            centro: 0.500,
+            intatto: Rect.fromLTRB(0.387, 0.839, 0.474, 0.986),
+          ),
+      };
+
+  static InquadraturaDelVolto _diPrima(Maestro maestro) => switch (maestro) {
         Maestro.medora => const InquadraturaDelVolto(
             alto: 0.148,
             basso: 0.852,

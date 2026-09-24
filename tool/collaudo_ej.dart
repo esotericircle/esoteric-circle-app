@@ -50,6 +50,11 @@ import 'la_voce_vera_di_gemini.dart';
 /// giudica il fondatore leggendole**: i conti non lo misurano.
 const String fase = String.fromEnvironment('FASE', defaultValue: 'dopo');
 
+/// **L'ordine che lancia il collaudo, ordine EK voce 02.** Stesso giudice e
+/// stesse conversazioni di EJ, come l'ordine EK pretende: cambia solo la
+/// cartella in cui finiscono le trascrizioni, `docs/collaudo/<ORDINE>/`.
+const String ordine = String.fromEnvironment('ORDINE', defaultValue: 'EJ');
+
 const natal = NatalContext(
   sunSign: 'Cancro',
   ascendant: 'Gemelli',
@@ -101,7 +106,7 @@ class EsitoDellaRisposta {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
   final voce = VoceVeraDiGemini();
-  final cartella = Directory('docs/collaudo/EJ/risposte/$fase');
+  final cartella = Directory('docs/collaudo/$ordine/risposte/$fase');
   final conto = StringBuffer();
 
   setUpAll(() {

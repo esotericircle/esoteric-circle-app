@@ -130,6 +130,16 @@ List<String> erroriDiRegola(RispostaLetta r) {
       .allMatches(t)) {
     errori.add('apostrofo al posto dell\'accento: "${m.group(0)}"');
   }
+  // **"SENTI IL CALMO DEL TUO RESPIRO", ordine EK voce 02.** L'errore di Aura
+  // nel collaudo EJ entra nel controllo: "calmo" e' un aggettivo, e usato come
+  // nome ("il calmo del", "nel calmo della") e' sbagliato. Davanti a un nome
+  // ("il calmo respiro") e' giusto, e non si prende.
+  final calmo = RegExp(
+      r'\b(il|nel|al|del|dal|sul|col) calmo (di|del|della|dello|dei|delle|degli)\b',
+      caseSensitive: false);
+  for (final m in calmo.allMatches(t)) {
+    errori.add('aggettivo usato come nome: "${m.group(0)}"');
+  }
   return errori;
 }
 
