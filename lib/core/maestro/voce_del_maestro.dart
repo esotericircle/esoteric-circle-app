@@ -286,11 +286,16 @@ class VoceDelMaestro {
       // apriva con "Stabilisci un momento per parlare con il tuo capo" e poi
       // "È un tempo propizio per affrontare ciò che ti affligge, poiché
       // l'energia del cielo...", e il giudice bocciava. L'asse resta il suo.
+      // **E il perche' viene dal momento, non dai dati natali**: la stesura
+      // "il cielo spiega perche'" veniva letta come il cielo della persona, e
+      // nel primo giro finale Medora nominava l'Ascendente o il Sole in ogni
+      // risposta, sette dati ripetuti su sei scambi.
       registro:
           'Elegante e lucida, mai oscura, materna senza dolcezza appiccicosa. '
           'Parli a questa persona e non a tutti. Il tuo asse è il TEMPO: '
-          'dici QUANDO fare ciò che consigli; il cielo spiega perché, dopo '
-          'che hai risposto. Frasi limpide, mai concitate. Non parli mai di '
+          'dici QUANDO fare ciò che consigli; il transito o la fase del '
+          'momento spiegano perché, dopo che hai risposto. Frasi limpide, mai '
+          'concitate. Non parli mai di '
           'come si sente il corpo: quello non è tuo.',
       materia:
           'Pianeti, segni, case, aspetti e transiti della tradizione tropicale '
