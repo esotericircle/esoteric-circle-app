@@ -1,7 +1,13 @@
 ORDINE EK VOCE 04, I VOLTI DEL LIVE. Misure del 24 settembre 2026 (orologio della macchina).
-Stato della voce: APERTA. Medora mostrata al fondatore, in attesa del suo si'
-prima di Calìgo e Aura e prima di creare qualunque avatar su Protoface. I tre
-avatar di oggi restano dove sono.
+Stato della voce: APERTA IN ATTESA DI VERIFICA. Il fondatore ha approvato
+("Approvo tutto e ti autorizzo a fare tutto"); i tre avatar nuovi sono creati
+su Protoface, agganciati al LIVE e misurati sul Realme. Il giudizio sui volti
+resta suo: i numeri qui sotto dicono quanti pixel arrivano, non se il volto
+gli piace.
+Fino alle 10:36 questo file diceva: Medora mostrata al fondatore, in attesa
+del suo si' prima di Calìgo e Aura e prima di creare qualunque avatar; i tre
+avatar di allora restavano dove erano. Le sezioni fino a MANI E SPALLE sono di
+quell'ora e restano com'erano.
 
 GLI ORIGINALI DELLE IMMAGINI CARICATE SU PROTOFACE.
 Riconosciuti con SIFT e RANSAC fra ogni candidato della cartella
@@ -75,4 +81,118 @@ I CREDITI DELLA PROVA, dal registro del server (Uso di Protoface nel mese).
   08:27:50 UTC  157 crediti, 7.783 secondi (seconda apertura)
   La prima apertura, 13 secondi a video, e' stata fatturata 70 secondi e 2
   crediti: vedi il guasto della sessione che non si chiude nel rapporto EK.
-  La seconda si leggera' alla prossima apertura.
+  La seconda, letta all'apertura successiva (11:19:12 UTC, 159 crediti,
+  7.863 secondi), e' stata fatturata 80 secondi e 2 crediti.
+
+======================================================================
+DOPO IL SI' DEL FONDATORE
+======================================================================
+
+IL RESTAURO DI CALÌGO E AURA, stesso metodo di Medora.
+  gemini-3-pro-image su Vertex AI, endpoint global, temperatura 0,2, gli
+  attributi di ciascuno scritti nella richiesta perche' il modello non li
+  cambi, uscita 4K; poi riallineamento SIFT e ritorno nella tela caricata.
+  Calìgo: risposta in 49,7 secondi, 826 gettoni in ingresso e 2.000 in
+    uscita, restauro 5056 x 3392, riallineato con scala 0,9953 su 139 punti,
+    somiglianza alla scala di un terzo 0,9735.
+  Aura: risposta in 48,0 secondi, 815 e 2.000 gettoni, restauro 4096 x 4096,
+    riallineata con scala 0,9997 su 189 punti, somiglianza 0,9982.
+  Prima e dopo: caligo_intera_prima_e_dopo.jpg, caligo_volto_prima_e_dopo.jpg,
+  aura_intera_prima_e_dopo.jpg, aura_volto_prima_e_dopo.jpg.
+  Chiamate a gemini-3-pro-image in tutto l'ordine: 4 (Medora 2, di cui una
+  scartata; Calìgo 1; Aura 1).
+
+L'INQUADRATURA B, UN QUADRATO PER MAESTRO.
+  Da ogni tela restaurata un quadrato testa e spalle con l'8 per cento di
+  bianco sopra la testa: Medora 1100, Calìgo 1275, Aura 1060 pixel di lato
+  (medora_quadrata_B_1100.jpg, caligo_quadrata_B.jpg, aura_quadrata_B.jpg,
+  quadrati_B_con_la_finestra.jpg). Con un'immagine quadrata il video di
+  Protoface E' il quadrato, quindi le misure dell'inquadratura nel codice
+  (InquadraturaDelVolto, il ramo _quadrata) si calcolano dall'immagine. Il
+  filtro del LIVE rifatto in Python sui tre quadrati:
+  filtro_simulato_tre_B.jpg.
+
+GLI AVATAR CREATI SU PROTOFACE, dalla porta gliAvatarNuoviDiProtoface (la
+chiave di Protoface resta sul server).
+  medora  av_01M39N3ZQ0EA9YT3P1Y6JQS9NS  Medora-EK-quadrata    scartato: il buco sulla spalla, qui sotto
+  aura    av_01M39N47R0743K6EJJMQR76XZ0  Aura-EK-quadrata      agganciato alle 12:39:06 UTC
+  caligo  av_01M39N4G8A4YJAEBX34BSDHB82  Caligo-EK-quadrata    agganciato alle 12:39:06 UTC
+  medora  av_01M39QP0C5N598DQZHG77PJGDR  Medora-EK-quadrata-2  agganciato alle 12:55:31 UTC
+  Tutti "ready" prima dell'aggancio: la porta rifiuta di agganciare un
+  avatar che Protoface non da' per pronto. Gli avatar di prima (medora
+  av_01KZ9637K1YZ45H3GNZE95YN6E, aura av_01KZVCNV16EAMMG75TXFC9D475, caligo
+  av_01KZVB6FCP27NR3GZQ47WJ7QJG) restano su Protoface e nel codice come
+  ripiego (AVATAR in functions/src/live.ts); vince configurazione/live.avatar.
+  L'app riconosce dalla sessione quale avatar le arriva e sceglie
+  l'inquadratura giusta (InquadraturaDelVolto.di, avatarDiPrima). **Chi ha la
+  build 2279 vede gli avatar nuovi con l'inquadratura vecchia** finche' non
+  installa la 2280.
+  Le immagini caricate stanno anche nella cartella del fondatore,
+  D:\Clienti Roogly\Rituali Cartomanzia\App\Avatar\Protoface:
+  Medora-Protoface-EK-quadrata-2.png (quella dell'avatar agganciato),
+  Medora-Protoface-EK-quadrata.png (quella col bianco sulla spalla),
+  Caligo-Protoface-EK-quadrata.png, Aura-Protoface-EK-quadrata.png. I file
+  di prima non sono stati toccati.
+
+IL BUCO SULLA SPALLA DI MEDORA, E LA SUA CURA.
+  Col primo avatar quadrato di Medora il Realme mostrava una macchia nera
+  sulla spalla sinistra: video x 0,206-0,257, y 0,753-0,786, 1.116 pixel di
+  schermo, in 4 catture su 4. Era un bianco puro chiuso dentro il bordo
+  dorato del manto, che il filtro del LIVE toglie come fondo; la toppa
+  dichiarata nel codice non lo copriva sul telefono. Il filtro rifatto in
+  Python lo ritrova nello stesso posto (x 0,204-0,258, y 0,754-0,787).
+  Curato nell'immagine e non nel filtro: il bianco chiuso, 1.019 pixel del
+  quadrato fra x 212-278 e y 827-862, ridipinto coi colori attorno
+  (cv2.inpaint, metodo TELEA, medora_spalla_ridipinta.jpg). Il filtro
+  rifatto in Python: zero buchi chiusi, anche senza toppa. Avatar rifatto e
+  riagganciato; sul Realme la macchia manca in 4 catture su 4
+  (live_medora_spalla_col_buco_e_rifatta.jpg).
+  Padre: ordine EK voce 04, l'inquadratura B di Medora.
+
+IL VOLTO SUL REALME, PRIMA E DOPO.
+  Quattro catture per Maestro e per fase, LIVE vero sul Realme, build 2280
+  installata (gli avatar di prima con l'inquadratura di prima, gli avatar
+  nuovi con la loro). Volto = dalle sopracciglia alla bocca, portato dalla
+  sorgente alla cattura con SIFT. Immagini: live_medora_prima_e_dopo.jpg,
+  live_caligo_prima_e_dopo.jpg, live_aura_prima_e_dopo.jpg e i tre
+  live_*_volto_prima_e_dopo.jpg.
+
+                        immagine    volto nel VIDEO   video->schermo   laplaciano a 256 px
+  Medora  prima       1700 x 1200      78 x 66            2,88              22,7
+          dopo        1100 x 1100     121 x 102           2,26              19,8
+  Calìgo  prima       1700 x 1200      93 x 51            2,92              11,6
+          dopo        1275 x 1275     124 x 68            2,26              15,4
+  Aura    prima       1200 x 1200     107 x 73            2,23               8,0
+          dopo        1060 x 1060     121 x 82            2,26              11,9
+
+  Pixel del video che cadono sul volto, per lato: Medora 1,55 volte, Calìgo
+  1,33, Aura 1,13 (di area 2,39, 1,78 e 1,28).
+
+QUANTO PUO' MIGLIORARE IL VOLTO NEL LIVE, DETTO CON ONESTA'.
+  Il video di Protoface resta di 512 pixel e nessuna immagine lo cambia. Si
+  puo' soltanto dare al volto una parte piu' grande di quei 512: e' cio' che
+  fa l'inquadratura B, piu' del restauro. Medora e Calìgo guadagnano molto
+  (1,55 e 1,33 volte per lato), Aura poco (1,13), perche' la sua immagine
+  era gia' quadrata.
+  Il tetto: sullo schermo il volto e' largo circa 275 pixel; per mostrarlo
+  senza ingrandire il video servirebbero 275 pixel di video sul volto, piu'
+  del doppio di oggi. Si arriva piu' vicino solo con un'inquadratura ancora
+  piu' stretta, quasi solo il volto, oppure con un video piu' grande, che
+  Protoface non offre.
+  La varianza del laplaciano sale per Calìgo e Aura e scende per Medora:
+  conta come dettaglio anche la grana del pennello dell'immagine di prima,
+  che il restauro ha tolto. Non e' una misura di bellezza. **Se il volto e'
+  piu' nitido lo giudica il fondatore guardandolo.**
+
+I CREDITI DOPO LA CHIUSURA DELLA SESSIONE, dal registro del server.
+  Dalle 12:33 UTC l'app chiude la sessione di Protoface quando si esce dal
+  LIVE (chiudiLaSessioneLive, riga "LIVE chiuso dal telefono", stato
+  ending). Sette LIVE di prova aperti e chiusi fra le 12:33 e le 12:57 UTC:
+  38-42 secondi veri, fatturati 40-44 secondi, 1 credito ciascuno. Prima della cura 13 secondi a video
+  erano stati fatturati 70, 2 crediti.
+  La creazione degli avatar costa crediti: +15 fra le 12:08 e le 12:33 UTC
+  con i tre avatar (piu' 2 della sessione di 70 secondi), +5 fra le 12:42 e
+  le 12:56 col quarto (piu' 1 della sessione): 5 crediti per avatar, letto
+  dai salti del registro e non da un listino.
+  Registro alle 13:09:20 UTC: 197 crediti, 8.705 secondi, 50 sessioni nel
+  mese.
