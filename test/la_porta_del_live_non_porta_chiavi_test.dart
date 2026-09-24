@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 import 'dart:io';
 
-import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/services/live/porta_del_live.dart';
 import 'package:flutter_test/flutter_test.dart';
 

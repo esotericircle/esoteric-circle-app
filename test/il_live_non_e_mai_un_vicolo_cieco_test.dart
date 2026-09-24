@@ -51,7 +51,7 @@ void main() {
     // fermo a guardare un volto che non arriva, senza poter fare niente.
     expect(vivoDopo(0).siPuoScrivere, isTrue);
     expect(
-        QuadroDelLive(
+        const QuadroDelLive(
           momento: MomentoDelLive.siAspettaIlVolto,
           maestro: Maestro.medora,
           sessione: sessione,

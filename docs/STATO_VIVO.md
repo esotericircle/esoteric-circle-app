@@ -10,6 +10,7 @@ Regola numero uno: prima di dire cosa e' fatto, cosa manca o quanti sono, VERIFI
 - Working tree locale di Mauro: `C:\Users\user\Desktop\esoteric-circle-app`. Contiene il repo piu' la cartella `output/` con gli asset sorgente e gli script Python che li generano. La cartella `output/` non e' versionata su Git.
 - Firma del progetto: sempre e solo Mauro Battaglia, `cloud@esotericircle.app`, sia come autore sia come committer. Nei messaggi di commit non va nessun trailer: ne' `Co-Authored-By`, ne' `Claude-Session`, che portava in chiaro nella cronologia un indirizzo privato di Mauro. Il taglio e' automatico: `.claude/settings.json` porta `"includeCoAuthoredBy": false` accanto al blocco `hooks`, e da li' in poi i trailer non vengono piu' aggiunti. **L'AZIONE DEGLI SCREENSHOT NON ESISTE PIU', disattivata su GitHub e tolta dal repository il 12 agosto 2026 dopo DUE conflitti**: committava da sola sul ramo canonico, cioe' aggiungeva alla cronologia del ramo su cui si lavora un commit che nessuno si aspettava, da riconciliare a mano ogni volta. Le anteprime le rigenera chi lavora, con AGGIORNA_ANTEPRIME=1, nello stesso commit del codice, e `test/nessuna_azione_committa_da_sola_test.dart` cade se un workflow torna a portare `git commit`, `git push` o `contents: write`: toglierlo non bastava, perche' domani se ne scrive un altro con lo stesso buon motivo. Cosa aveva gia' imparato prima di essere tolta, che vale per chiunque ci riprovi: metteva in stage il solo `docs/preview/medora-chat.png`, cioe' l'unica anteprima che produceva davvero, e non piu' l'intera cartella: cosi' committava anche `cielo-sopra-di-te.png`, che dipende dall'ora reale e cambia a ogni esecuzione, accumulando circa nove megabyte di blob per un aggiornamento che nessuno aveva chiesto, per giunta sotto un messaggio che parlava d'altro. Il messaggio dice ora "aggiorna anteprima chat Medora", al singolare, che e' la verita'. Congelare l'ora di `cielo-sopra-di-te.png` NON e' stato fatto e va deciso a parte: la schermata `SkyOverviewScreen` accetta un `now`, ma la cattura ci arriva passando dal Santuario, che chiama `SkyOverviewScreen.route()` senza parametri, quindi il punto di iniezione utilizzabile dalla cattura non esiste e crearlo era fuori scope. Anche il workflow `.github/workflows/chat-screenshot.yml` committa come Mauro Battaglia invece che come `github-actions[bot]`: il push continua a funzionare perche' l'autenticazione viene dal `GITHUB_TOKEN` gia' configurato da `actions/checkout`, non dall'identita' git, e il `[skip ci]` nel messaggio resta, cosi' il workflow non si riavvia da solo. La cronologia passata non si riscrive: decisione presa, il passato resta com'e'. Nel codice non compaiono nomi di fornitori AI di sviluppo: i due commenti che citavano la regola d'oro dello stack in `lib/services/ai/maestro_ai_provider.dart` e `lib/services/service_interfaces.dart` ora dicono soltanto che l'AI a runtime e' Gemini. Anche il commento di `pubspec.yaml` e' stato riscritto e dice ora soltanto che l'AI a runtime e' Gemini su Vertex, e che non ci sono chiavi nel client: con quello, `lib/`, `test/`, `tool/` e `pubspec.yaml` sono puliti, verificato col grep. Restano citazioni soltanto nei documenti di cantiere, cioe' `CLAUDE.md`, la cartella `.claude/`, i quattro briefing in `docs/`, `docs/RELAZIONE_NOTTE.md`, `docs/C3_CHAT_MEDORA_SETUP.md` e questo stesso file, dove per giunta il nome del branch canonico contiene la parola: non sono prodotto e si valutano alla pubblicazione.
 - L'Architetto in Cowork raggiunge il PC di Mauro con un ponte (device desktop-aktdgut) e legge il repo su GitHub in sola lettura. Prima di chiedere a Mauro dove sta un file, lo cerca da solo.
+- **LA FATTURAZIONE DI GOOGLE CLOUD E' CHIUSA dal 24 settembre 2026**, fra le 15:43 e le 16:22 UTC: nei registri del server l'ultima chiamata riuscita e' delle 15:43:12 e la prima respinta con *"billing is disabled for this project"* delle 16:22:23. `gcloud billing projects describe esoteric-circle` dice `billingEnabled: false`; il conto `01DF7B-A56CB5-A30419`, "Il mio account di fatturazione", dice `open: false`: e' il credito di prova. Da allora Vertex AI e Cloud Monitoring rispondono 403, i Maestri non rispondono, il LIVE mostra *«La voce non arriva, stasera»*, `statoDelCerchio` cade e la pastiglia "Dal vivo" torna grigia; nessuna API nuova si accende (*"UREQ_PROJECT_BILLING_NOT_OPEN"*). **Riaprirla spetta a Mauro**, con un conto a pagamento; chi trova questa riga verifica con `gcloud billing projects describe` prima di crederle.
 
 ## Asset grafici, conteggio verificato a mano il 17 luglio 2026
 
@@ -4565,11 +4566,27 @@ arrotondato, e manda lo stesso video. Il livello si sceglie su Firestore,
 l'uso del mese nel registro a ogni apertura. **La decisione sul volto e' del
 fondatore.** `configurazione/live.apertoAlTier2` e' vero.
 
-**LE VOCI DEI MAESTRI SI SCELGONO DAL SERVER.** Sedici candidate in
-`functions/src/live.ts`, `LE_CANDIDATE`; la scelta sta in
-`configurazione/live.voci` e vale solo se e' fra le candidate. Il selettore
-sta nel LIVE, `il_selettore_delle_voci.dart`, e lo vede solo un fondatore:
-il Realme di collaudo non lo e'. **Si dice Calìgo**: il nome arriva alla voce
+**LE VOCI DEI MAESTRI SI SCELGONO DAL SERVER.** Con l'ordine EJ erano
+sedici candidate; dal 24 settembre 2026, su richiesta del fondatore durante
+l'ordine EK (*"vorrei un selettore con le voci in modo che posso sceglierle
+io"*), sono tutte le voci di Gemini-TTS del genere del Maestro, quattordici
+femminili per Medora e Aura e sedici maschili per Calìgo
+(`functions/src/live.ts`, `LE_VOCI_DI_GEMINI` e `LE_CANDIDATE`, commit
+`d7d98447`, pubblicato alle 15:23 UTC). La scelta sta in
+`configurazione/live.voci` e vale solo se e' fra le candidate; il modello
+della voce sta in `configurazione/live.modelliDellaVoce`, `gemini-2.5-flash-tts`
+o `gemini-2.5-pro-tts`; senza scelta e' Flash. Alla voce si chiedono la
+pronuncia di una madrelingua italiana e una calma naturale, non piu' *"a
+ritmo sciolto e spedito"*: sulla stessa voce e la stessa frase parla un po'
+piu' lento, 9,5, 10,9 e 8,5 caratteri al secondo contro 10,1, 13,6 e 9,1
+(Medora, Aura, Calìgo, un campione ciascuno); il ritmo lo giudica il
+fondatore. Il fondatore sceglie dalla pagina "Le voci dei
+Maestri", https://claude.ai/artifact/7xJ4NGT3tcVTGjB9C6dboQ, 88 campioni
+fra Flash e Pro; Claude porta la scelta in configurazione; le voci Chirp
+3 HD aspettano l'API Text-to-Speech, che non si accende finche' la
+fatturazione e' chiusa. Il selettore sta anche nel LIVE,
+`il_selettore_delle_voci.dart`: lo vede solo un fondatore: il Realme di
+collaudo non lo e'. **Si dice Calìgo**: il nome arriva alla voce
 con l'accento, `IlParlatoDelMaestro.pronunciato`, e la riga 31 del file di
 addestramento del fondatore e' corretta.
 
@@ -4583,8 +4600,10 @@ li scrive (`la_risposta_ripulita.dart`). Collaudo con Gemini vero,
 `tool/collaudo_ej.dart`: chiusure ripetute 15 su 18 prima e 0 dopo,
 anticipazioni 12 e 0, risposte non dirette 15 e 7-10, dati ripetuti 17 e 3-7.
 **L'attribuzione cieca e' valida di nuovo**: tre giri a 95,0, 100,0 e 91,7
-per cento sull'istruzione di oggi, media 95,6, impronte aggiornate, e il rosso accettato che
-la riguardava e' tolto.
+per cento sull'istruzione dell'ordine EJ, media 95,6, impronte aggiornate, e il rosso accettato che
+la riguardava e' tolto. Con l'ordine EK l'istruzione e' cambiata di nuovo e
+la misura e' stata rifatta, media 96,1; il fondatore ha voluto che la
+chiusura resti sua, e sta nel paragrafo dell'ordine EK qui sotto.
 
 **LA BARRA NELLE CHAT E LA PASTIGLIA "DAL VIVO".** Nelle chat dei Maestri la
 barra si apre ritirata, compare scorrendo verso i messaggi di prima e si
@@ -4603,9 +4622,15 @@ muoveva. Registro a 506.
 
 ## L'ORDINE EK, LA BUILD, LE RISPOSTE DIRETTE, I NOMI E I VOLTI
 
-Ordine del 25 settembre 2026, **cinque voci**, lavorato dal 24 settembre 2026
-sull'orologio della macchina. **In corso**: manifesto e rapporto si scrivono
-alla chiusura, le prove stanno in `docs/collaudo/EK/`.
+Ordine del 25 settembre 2026, **cinque voci**, lavorato il 24 settembre 2026
+sull'orologio della macchina. Manifesto `docs/ordini/ORDINE_EK_MANIFESTO.md`,
+rapporto `docs/ordini/RAPPORTO_ORDINE_EK.md`, prove in `docs/collaudo/EK/`.
+**Due voci chiuse, EK.01 ed EK.05; tre aperte**: EK.02 perche' lo zero non
+c'e', EK.03 in attesa della misura intera sul Realme, fermata dalla chiusura
+della fatturazione, EK.04 in attesa dello sguardo del fondatore sui volti. Il fondatore ha scritto *"Approvo tutto e ti autorizzo a fare tutto,
+non fermarti più e sistema tutto"* e *"Non devi lasciare nulla in coda"*:
+da li' anche i guasti fuori dal perimetro sono stati curati; si consegna
+anche la 2280, dopo lo sbarramento sull'albero finale.
 
 **BUILD 2279 CONSEGNATA SU APP DISTRIBUTION** il 24 settembre 2026, release
 `6gqoq7qjcg7eg`, col lavoro dell'ordine EJ, costruita dal commit `b8b4a6a7`;
@@ -4614,41 +4639,136 @@ Sbarramento passato con **5.823 prove** e i soli rossi dichiarati; prova di
 accensione sul Realme passata; note rilette dal server con gli accenti veri;
 un invito accettato. Tocca al fondatore provare il selettore delle voci
 (EJ.02, serve l'account fondatore), Calìgo con l'accento (EJ.04), la
-pastiglia d'oro (EJ.10) e il microfono con la sua voce (EJ.01).
+pastiglia d'oro (EJ.10) e il microfono con la sua voce (EJ.01). **Con la
+2279 gli avatar nuovi del LIVE si vedono con l'inquadratura vecchia**:
+sono stati agganciati sul server dopo quella consegna; l'inquadratura
+giusta per loro sta nella 2280.
 
-**I VOLTI, VOCE 04, APERTA.** Gli avatar di oggi vengono da originali larghi
-847 e 848 pixel, ingranditi da 3,16 a 3,49 volte prima di Protoface: la
-tabella e il percorso di un pixel stanno in `docs/collaudo/EK/volti/misure.txt`.
-Medora e' restaurata con Nano Banana Pro a 4K e mostrata al fondatore;
-Imagen 4 upscale non e' accessibile al progetto. **Nel LIVE il dettaglio del
-volto lo aumenta l'inquadratura quadrata, non il restauro**: il video di
-Protoface e' di 512 pixel: oggi ogni pixel dell'originale ne diventa uno del
-video. Si aspetta il si' del fondatore su Medora e sull'inquadratura prima di
-Calìgo e Aura e prima di creare qualunque avatar: i tre di oggi restano dove
-sono.
+**LE RISPOSTE DIRETTE, VOCE 02, APERTA.** Stesso giudice e stesse
+conversazioni di EJ (`tool/collaudo_ej.dart` con `ORDINE=EK`), diciotto
+risposte per giro. Prima, sulla 2279: 7, 7 e 6 non dirette, 20 su 54;
+**Medora non era la meno diretta**, 3, 3 e 2 come Calìgo. La causa era
+comune: tre regole nostre mettevano il cielo o il simbolo nella seconda
+frase, quella che il giudice legge. Prima stesura, da 20 a 7 su 54: le prime
+due frasi rispondono, il cielo viene dopo, la chiusura fa qualcosa invece di
+"portare" qualcosa. Seconda stesura e ritocco, l'istruzione finale: il
+"subito dopo" tolto anche ad Aura e Calìgo, un esempio per Medora che parla
+d'altro, la chiusura come azione nel mondo, il perche' di Medora dal
+transito o dalla fase del momento e non dai dati natali; **2, 2 e 4, cioe' 8
+su 54**. Una terza stesura (*"Una frase che andrebbe bene per chiunque non
+risponde"*) ha fatto 2, 1 e 6 ed e' stata tolta. Zero chiusure ripetute e
+zero anticipazioni in tutti i quattordici giri; senza passo concreto 10 su
+54 prima e 6 dopo; dati ripetuti 9 e 14. Le conversazioni che restano
+bocciate: Aura sul sonno, Calìgo sulla paura di sbagliare. Per arrivare a
+zero serve un controllo dopo la risposta che la faccia riscrivere: **la
+scelta e' del fondatore**. *"Senti il calmo del tuo respiro"* e' nel
+controllo della lingua, regola `calmo` di `tool/controlli_ej.dart`.
+
+**I NOMI NEL LIVE, VOCE 03, IN ATTESA DI VERIFICA.** Sei frasi con
+diciannove nomi, dette dal portatile al Realme nel LIVE di Medora: sulla 2279
+7 nomi giusti su 19 ("Nei giorni d'oggi" per Medora, "Canigo" per Calìgo).
+Con i nomi dei Maestri e delle arti nell'istruzione di chi trascrive
+(`LaTrascrizione.nomiDelleArti`, settantadue nomi presi dai cataloghi) 15 su
+19, ma Flash-Lite a volte ricopiava l'elenco al posto della frase. Al banco,
+stessi audio (`docs/collaudo/EK/nomi/banco_orecchio.txt`), Flash 42 nomi
+giusti su 44 e nessun elenco ricopiato: la trascrizione ora la fa Flash, una
+trascrizione fatta solo di tre o piu' nomi consecutivi dell'elenco vale come
+silenzio, "Caligo" e "Càligo" diventano "Calìgo" (`ripulita` in
+`lib/services/voce/l_orecchio_del_live.dart`). **La musica dell'app suonava
+sotto il LIVE** e il microfono la prendeva per una persona che parla, cosi'
+la frase non si chiudeva mai (padre ordine EG): `SchermataLive` non e' fra i
+nomi che la regia della musica riconosce. Adesso `liveCheZittisce`, in
+`lib/features/shell/quale_musica_suona.dart`, la tace finche' il LIVE e'
+aperto, come il velo dell'intro. Con tutte le cure sul Realme una frase
+sola, tre nomi su tre (`docs/collaudo/EK/nomi/finale_2280.txt`), poi il
+fondatore ha chiesto il telefono e la fatturazione si e' chiusa: le altre
+cinque frasi e la misura diretta della musica spenta nel LIVE si fanno
+appena si riapre (scratchpad `sessione_nomi.sh` e `musica_attiva.sh`, che
+legge le tracce attive dell'audio_flinger: `dumpsys audio` segna "idle" il
+lettore di audioplayers anche mentre suona).
+
+**I VOLTI, VOCE 04, IN ATTESA DI VERIFICA.** Gli avatar di prima venivano da
+originali larghi 847 e 848 pixel, ingranditi da 3,16 a 3,49 volte prima di
+Protoface: la tabella e il percorso di un pixel stanno in
+`docs/collaudo/EK/volti/misure.txt`. Restauro con `gemini-3-pro-image` a 4K
+(Imagen 4 upscale non e' accessibile al progetto), quattro chiamate; dopo il
+si' del fondatore un quadrato testa e spalle per ciascuno (Medora 1100,
+Calìgo 1275, Aura 1060 pixel) e tre avatar nuovi su Protoface, creati dalla
+porta `gliAvatarNuoviDiProtoface`, chiusa dall'IAM, poi agganciati in
+`configurazione/live.avatar`: Medora `av_01M39QP0C5N598DQZHG77PJGDR`, Aura
+`av_01M39N47R0743K6EJJMQR76XZ0`, Calìgo `av_01M39N4G8A4YJAEBX34BSDHB82`. Gli
+avatar di prima restano come ripiego in `functions/src/live.ts`; l'app sceglie
+l'inquadratura dall'avatar che le arriva (`InquadraturaDelVolto.di`). **Chi
+ha la 2279 vede gli avatar nuovi con l'inquadratura vecchia.** Il primo
+avatar quadrato di Medora aveva una macchia nera sulla spalla, un bianco
+chiuso che il filtro del LIVE toglie come fondo: ridipinto nell'immagine e
+avatar rifatto, sparita in 4 catture su 4. **Sul Realme il volto riceve piu'
+pixel del video: Medora 78 x 66 poi 121 x 102, Calìgo 93 x 51 poi 124 x 68,
+Aura 107 x 73 poi 121 x 82.** Il video resta di 512 pixel: nel LIVE il
+dettaglio lo aumenta l'inquadratura piu' del restauro; per non ingrandire
+il volto servirebbe piu' del doppio dei pixel. Le immagini caricate stanno
+nella cartella del fondatore col suffisso `-EK-quadrata`; i file di prima non
+sono stati toccati, il file delle voci nemmeno.
 
 **PROTOFACE MUOVE SOLO LA TESTA.** Misurato sul Realme con una raffica di
 fotogrammi durante il LIVE di Calìgo: la testa si sposta fino a 10,9 pixel
 dello schermo, le spalle 0,05 e 0,02, il petto 0,01. La documentazione non ha
 nessuna opzione per il corpo o i gesti. Le tre immagini sono busti senza
-mani.
+mani. **Creare un avatar costa 5 crediti**, letti dai salti del registro del
+server.
 
-**DUE GUASTI TROVATI FUORI DAL PERIMETRO, IN ATTESA DEL PERMESSO DEL FONDATORE.**
-Il primo: `statoDelCerchio` cade dal 23 settembre 2026 alle 11:50 UTC con
-*"Property arcanoDellAlba contains an invalid nested entity"*, perche'
-`DiarioDellAlba.toJson` manda `registro` come lista di liste, che Firestore
-non accetta. Il telefono non riceve piu' piano, residui e giorno: sul Realme
-la pastiglia "Dal vivo" resta grigia e i conti restano a zero. 182 cadute il
-23 settembre, 18 il 24. Padre: ordine DU, commit `b8cf8106`. Il secondo:
-**la sessione di Protoface non si chiude quando si esce dal LIVE**. Il
-telefono lascia solo la stanza (`_chiudi` in `schermata_live.dart`) e nessuno
-chiama `POST /v1/sessions/{id}/end`, che la documentazione offre; la sessione
-resta accesa fino al silenzio tollerato di 60 secondi. Misurato su una
-sessione: 13 secondi a video fatturati 70, due crediti. Padre: ordine EG,
-commit `1104da29` e `3687c223`.
+**L'ATTRIBUZIONE CIECA, VOCE 05, CHIUSA.** Tre giri sull'istruzione finale:
+96,7, 95,0 e 96,7 per cento, media 96,1 (nell'ordine EJ 95,0, 100,0 e 91,7).
+Impronte nuove in `lib/services/ai/impronta_dell_istruzione.dart`, quelle di
+EJ e del commit `a936c133` nello storico. `attribuzioneValida` resta vera
+perche' la misura passa; **la chiusura e' del fondatore**: sta in
+`chiusaDalFondatore`, falso, con la prova *"l'attribuzione cieca l'ha chiusa
+il fondatore"* rossa per costruzione e scritta fra i rossi accettati.
 
-**LE VOCI 02, 03 E 05** aspettano la scelta del fondatore sulla via da
-seguire: la stima supera un'ora e mezza.
+**TRE GUASTI TROVATI FUORI DAL PERIMETRO, CURATI.** `statoDelCerchio` cadeva
+dal 23 settembre 2026 alle 11:50 UTC con *"Property arcanoDellAlba contains
+an invalid nested entity"*, perche' `DiarioDellAlba.toJson` manda `registro`
+come lista di liste (182 cadute il 23, 18 il 24; padre ordine DU, commit
+`b8cf8106`): il telefono non riceveva piu' piano, residui e giorno, la
+pastiglia "Dal vivo" restava grigia e i conti a zero. La cura: il server adesso scrive il cammino con `perFirestore` e lo
+rilegge con `daFirestore` (`functions/src/cammino.ts`), senza liste dentro
+liste e senza nomi di campo riservati; il piano arriva al telefono e la
+pastiglia e' d'oro. **La sessione di Protoface non si chiudeva** uscendo dal
+LIVE (padre ordine EG, commit `1104da29` e `3687c223`): il telefono lasciava
+solo la stanza (`_chiudi` in `schermata_live.dart`) e la sessione restava
+accesa fino al silenzio tollerato di 60 secondi. Adesso l'app chiama
+`chiudiLaSessioneLive`, che controlla che la stanza sia di chi chiede e manda
+`POST /v1/sessions/{id}/end`; sette LIVE di prova da 38-42 secondi fatturati
+40-44 secondi, 1 credito ciascuno, prima 13 secondi ne costavano 70. **Lo
+schermo si spegneva durante il LIVE** e il LIVE si chiudeva da solo (padre
+ordine EG): `LoSchermoAcceso` tiene acceso lo schermo finche' la schermata e'
+aperta, `FLAG_KEEP_SCREEN_ON` su Android e `isIdleTimerDisabled` su iOS.
+
+**LE GUARDIE.** Tre nuove, `i_nomi_del_live_si_trascrivono_giusti`,
+`il_live_chiude_la_sessione_e_tiene_lo_schermo` e `ordine_ek_guard`, nate
+rosse con l'innesto verificato; `la_finestra_sul_volto` allargata alle due
+inquadrature; la prova della musica che tace nel LIVE nata rossa quattro
+volte; nove guardie delle zone toccate viste rosse per la Regola B.
+Registro a 509.
+
+**LE CHIAMATE A GEMINI**, lette da Cloud Monitoring per tutto il progetto
+dalle 04:00 alle 14:34:48 UTC del 24 settembre 2026, coi prezzi del
+catalogo di Cloud Billing: `gemini-2.5-flash` 8.954 chiamate e 8,22
+dollari, `gemini-2.5-flash-lite` 88 e meno di un centesimo,
+`gemini-2.5-flash-tts` 212 e 0,50, `gemini-3-pro-image` 4 e 1,11; **totale
+9,82 dollari**, al massimo 15,68 se tutto l'ingresso di Flash fosse audio,
+perche' il contatore non li separa. Dopo, fino alla chiusura della
+fatturazione, fra 0,25 e 0,35 dollari stimati coi prezzi e non letti:
+Cloud Monitoring risponde 403. Protoface a parte, a crediti.
+
+**LE VOCI DEI MAESTRI, RICHIESTA DEL FONDATORE DURANTE L'ORDINE.** La
+pagina di scelta, il server con le trenta voci e i due modelli, le voci
+Chirp 3 HD che aspettano la fatturazione: sono nel paragrafo *"LE VOCI DEI
+MAESTRI SI SCELGONO DAL SERVER"*, nell'ordine EJ qui sopra. **La prova del
+cancello che cadeva a macchina ferma**, `il_cancello_aspetta_il_limite`, e'
+curata: `tool/il_cancello_ha_detto_verde.sh` non prova piu' il rimando
+`python3` del negozio di Windows, che senza console impiega 3,1 secondi
+(padre ordine CODEMAGIC2, commit `a216d443`; cura `335b0126`).
 
 ## Regole ferree
 
