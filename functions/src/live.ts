@@ -668,42 +668,90 @@ const LE_VOCI_DI_PARTENZA: Record<string, {voce: string; modo: string}> = {
  * voce, non il carattere. **Il ritmo resta misurato**: "anziana" da sola
  * rallentava Medora a nove caratteri al secondo, per questo il modo dice
  * anche di non rallentare.
+ *
+ * **TUTTE LE VOCI, SCELTE DAL FONDATORE.** 24 settembre 2026, durante
+ * l'ordine EK: *"vorrei un selettore con le voci in modo che posso sceglierle
+ * io. Quelle sentite finora fanno schifo"*. Le candidate non le sceglie piu'
+ * nessuno al posto suo: sono tutte le trenta voci di Gemini-TTS del genere
+ * del Maestro, quattordici femminili per Medora e Aura, sedici maschili per
+ * Caligo, ascoltate prima su una pagina con Flash e con Pro.
  */
-const LE_CANDIDATE: Record<string, {voce: string; descrizione: string}[]> = {
-  medora: [
-    {voce: "Gacrux", descrizione: "matura"},
-    {voce: "Sulafat", descrizione: "calda"},
-    {voce: "Kore", descrizione: "decisa"},
-    {voce: "Vindemiatrix", descrizione: "gentile"},
-    {voce: "Erinome", descrizione: "limpida"},
-  ],
-  caligo: [
-    {voce: "Algenib", descrizione: "roca"},
-    {voce: "Charon", descrizione: "grave e informativa"},
-    {voce: "Alnilam", descrizione: "decisa"},
-    {voce: "Rasalgethi", descrizione: "autorevole"},
-    {voce: "Orus", descrizione: "ferma"},
-    {voce: "Enceladus", descrizione: "soffiata"},
-  ],
-  aura: [
-    {voce: "Leda", descrizione: "giovane"},
-    {voce: "Achernar", descrizione: "morbida"},
-    {voce: "Despina", descrizione: "vellutata"},
-    {voce: "Aoede", descrizione: "leggera"},
-    {voce: "Autonoe", descrizione: "luminosa"},
-  ],
+const LE_VOCI_DI_GEMINI: {voce: string; genere: "f" | "m";
+  descrizione: string}[] = [
+  {voce: "Zephyr", genere: "f", descrizione: "luminosa"},
+  {voce: "Kore", genere: "f", descrizione: "decisa"},
+  {voce: "Leda", genere: "f", descrizione: "giovane"},
+  {voce: "Aoede", genere: "f", descrizione: "leggera"},
+  {voce: "Callirrhoe", genere: "f", descrizione: "rilassata"},
+  {voce: "Autonoe", genere: "f", descrizione: "luminosa"},
+  {voce: "Despina", genere: "f", descrizione: "vellutata"},
+  {voce: "Erinome", genere: "f", descrizione: "limpida"},
+  {voce: "Laomedeia", genere: "f", descrizione: "vivace"},
+  {voce: "Achernar", genere: "f", descrizione: "morbida"},
+  {voce: "Gacrux", genere: "f", descrizione: "matura"},
+  {voce: "Pulcherrima", genere: "f", descrizione: "diretta"},
+  {voce: "Vindemiatrix", genere: "f", descrizione: "gentile"},
+  {voce: "Sulafat", genere: "f", descrizione: "calda"},
+  {voce: "Puck", genere: "m", descrizione: "vivace"},
+  {voce: "Charon", genere: "m", descrizione: "informativa"},
+  {voce: "Fenrir", genere: "m", descrizione: "eccitabile"},
+  {voce: "Orus", genere: "m", descrizione: "ferma"},
+  {voce: "Enceladus", genere: "m", descrizione: "soffiata"},
+  {voce: "Iapetus", genere: "m", descrizione: "chiara"},
+  {voce: "Umbriel", genere: "m", descrizione: "rilassata"},
+  {voce: "Algieba", genere: "m", descrizione: "morbida"},
+  {voce: "Algenib", genere: "m", descrizione: "roca"},
+  {voce: "Rasalgethi", genere: "m", descrizione: "autorevole"},
+  {voce: "Alnilam", genere: "m", descrizione: "decisa"},
+  {voce: "Schedar", genere: "m", descrizione: "uniforme"},
+  {voce: "Achird", genere: "m", descrizione: "amichevole"},
+  {voce: "Zubenelgenubi", genere: "m", descrizione: "informale"},
+  {voce: "Sadachbia", genere: "m", descrizione: "vivace"},
+  {voce: "Sadaltager", genere: "m", descrizione: "competente"},
+];
+
+/** Il genere della voce di ogni Maestro. */
+const IL_GENERE: Record<string, "f" | "m"> = {
+  medora: "f", aura: "f", caligo: "m",
 };
 
+export const LE_CANDIDATE: Record<string, {voce: string;
+  descrizione: string}[]> = Object.fromEntries(
+  Object.entries(IL_GENERE).map(([maestro, genere]) => [
+    maestro,
+    LE_VOCI_DI_GEMINI.filter((v) => v.genere === genere)
+      .map(({voce, descrizione}) => ({voce, descrizione})),
+  ])
+);
+
+/**
+ * **IL MODO: PRONUNCIA DI MADRELINGUA E CALMA NATURALE.** Fino al 24
+ * settembre 2026 diceva "a ritmo sciolto e spedito, come in una
+ * conversazione vivace", per correggere la lentezza misurata il 23. Il
+ * fondatore ha trovato brutte tutte le voci sentite con quel modo: questo e'
+ * il modo dei campioni che ha ascoltato sulla pagina di scelta, e la voce che
+ * sceglie nel LIVE deve suonare come l'ha sentita li'.
+ */
 const I_MODI: Record<string, string> = {
-  medora: "Parla in italiano con la voce profonda e calda di una donna " +
-    "anziana e saggia, che parla con naturalezza e senza mai rallentare, a " +
-    "ritmo sciolto e spedito, come in una conversazione vivace:",
-  caligo: "Parla in italiano con la voce profonda e grave di un uomo anziano " +
-    "e saggio, che parla con naturalezza e senza mai rallentare, a ritmo " +
-    "sciolto e spedito, come in una conversazione vivace:",
-  aura: "Parla in italiano con la voce giovane, calma e chiara di una donna, " +
-    "a ritmo sciolto e spedito, come in una conversazione vivace:",
+  medora: "Leggi in italiano, con la pronuncia di una madrelingua italiana, " +
+    "con voce calda e matura di donna, con calma naturale:",
+  caligo: "Leggi in italiano, con la pronuncia di un madrelingua italiano, " +
+    "con voce grave e matura di uomo, con calma naturale:",
+  aura: "Leggi in italiano, con la pronuncia di una madrelingua italiana, " +
+    "con voce giovane, calma e chiara di donna:",
 };
+
+/**
+ * **I MODELLI DELLA VOCE FRA CUI SI SCEGLIE**, tutti e due verificati con
+ * una chiamata vera in europe-west1: Flash il 23 settembre 2026, Pro il 24.
+ * Primo suono a flusso misurato il 24 settembre, tre giri ciascuno: Flash
+ * 0,66-0,75 secondi, Pro 1,06-1,13. Il modello si sceglie per Maestro in
+ * `configurazione/live.modelliDellaVoce`; un valore sconosciuto vale Flash.
+ */
+export const I_MODELLI_DELLA_VOCE = [
+  "gemini-2.5-flash-tts",
+  "gemini-2.5-pro-tts",
+];
 
 /**
  * **La frase su cui si confrontano le voci**, la stessa per tutte le
@@ -719,30 +767,46 @@ const LA_FRASE_DI_PROVA: Record<string, string> = {
   aura: "Sono Aura. Prendi un respiro con me, poi dimmi cosa senti.",
 };
 
-let scelteInCache: {quando: number; voci: Record<string, string>} | null =
-  null;
+let scelteInCache: {
+  quando: number;
+  voci: Record<string, string>;
+  modelli: Record<string, string>;
+} | null = null;
 
 /**
  * **La voce di un Maestro, come l'ha scelta il fondatore.** Vive in
- * `configurazione/live`, campo `voci`, e cambia senza una build nuova; si
- * rilegge al massimo una volta al minuto. Una voce che non sta fra le
- * candidate non vale, e resta quella di partenza.
+ * `configurazione/live`, campi `voci` e `modelliDellaVoce`, e cambia senza
+ * una build nuova; si rilegge al massimo una volta al minuto. Una voce che
+ * non sta fra le candidate non vale, e resta quella di partenza; un modello
+ * che non sta fra i modelli verificati vale Flash.
  */
-async function laVoceScelta(
+export async function laVoceScelta(
   maestro: string
-): Promise<{voce: string; modo: string}> {
+): Promise<{voce: string; modo: string; modello: string}> {
   const ora = Date.now();
   if (!scelteInCache || ora - scelteInCache.quando > 60000) {
     const doc = await getFirestore().doc("configurazione/live").get();
-    scelteInCache = {quando: ora, voci: doc.data()?.voci ?? {}};
+    scelteInCache = {
+      quando: ora,
+      voci: doc.data()?.voci ?? {},
+      modelli: doc.data()?.modelliDellaVoce ?? {},
+    };
   }
   const scelta = scelteInCache.voci[maestro];
   const valida = (LE_CANDIDATE[maestro] ?? []).some((c) => c.voce === scelta);
   const partenza = LE_VOCI_DI_PARTENZA[maestro];
+  const modello = scelteInCache.modelli[maestro];
   return {
     voce: valida ? scelta : partenza.voce,
     modo: I_MODI[maestro] ?? partenza.modo,
+    modello: I_MODELLI_DELLA_VOCE.includes(modello) ?
+      modello : MODELLO_DELLA_VOCE,
   };
+}
+
+/** Dimentica le scelte lette: serve alle prove, che cambiano il documento. */
+export function dimenticaLeScelte(): void {
+  scelteInCache = null;
 }
 
 /** I livelli di qualita' che Protoface accetta, dal piu' leggero. */
@@ -794,13 +858,14 @@ async function soloFondatori(uid: string | undefined): Promise<void> {
 /** L'audio intero di una frase, non a flusso: serve all'ascolto di prova. */
 async function laVoceIntera(
   testo: string,
-  voce: string
+  voce: string,
+  modello: string = MODELLO_DELLA_VOCE
 ): Promise<{audio: string; tasso: number}> {
   const credenziale = await applicationDefault().getAccessToken();
   const indirizzo =
     `https://${REGIONE_DELLA_VOCE}-aiplatform.googleapis.com/v1/projects/` +
     `${process.env.GCLOUD_PROJECT}/locations/${REGIONE_DELLA_VOCE}/` +
-    `publishers/google/models/${MODELLO_DELLA_VOCE}:generateContent`;
+    `publishers/google/models/${modello}:generateContent`;
   const risposta = await fetch(indirizzo, {
     method: "POST",
     headers: {
@@ -854,9 +919,12 @@ export const ascoltaUnaVoce = onCall(
     if (!(LE_CANDIDATE[maestro] ?? []).some((c) => c.voce === voce)) {
       throw new HttpsError("invalid-argument", "Voce non fra le candidate.");
     }
+    // Col modello scelto per quel Maestro: l'ascolto di prova deve suonare
+    // come il LIVE.
+    const {modello} = await laVoceScelta(maestro);
     const {audio, tasso} = await laVoceIntera(
-      `${I_MODI[maestro]} ${LA_FRASE_DI_PROVA[maestro]}`, voce);
-    logger.info("ascolto di una voce", {maestro, voce});
+      `${I_MODI[maestro]} ${LA_FRASE_DI_PROVA[maestro]}`, voce, modello);
+    logger.info("ascolto di una voce", {maestro, voce, modello});
     return {audio, tasso, canali: 1};
   }
 );
@@ -913,7 +981,7 @@ export const laVoceDelMaestro = onCall(
     const indirizzo =
       `https://${REGIONE_DELLA_VOCE}-aiplatform.googleapis.com/v1/projects/` +
       `${process.env.GCLOUD_PROJECT}/locations/${REGIONE_DELLA_VOCE}/` +
-      `publishers/google/models/${MODELLO_DELLA_VOCE}:` +
+      `publishers/google/models/${come.modello}:` +
       "streamGenerateContent?alt=sse";
     const risposta = await fetch(indirizzo, {
       method: "POST",

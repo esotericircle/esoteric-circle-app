@@ -235,7 +235,7 @@ abstract final class LaTrascrizione {
   /// **UN ELENCO DI NOMI NON E' UNA FRASE.** Ordine EK voce 03. Sul Realme un
   /// pezzo di frase che cominciava con "Aura, sento un blocco" e' tornato
   /// *"Medora Aura Calìgo"*; al banco Flash-Lite ha risposto con l'elenco
-  /// intero, settantuno nomi, a due frasi su sei. Una trascrizione fatta
+  /// intero, settantadue nomi, a due frasi su sei. Una trascrizione fatta
   /// soltanto di tre o piu' nomi consecutivi dell'elenco, e di nient'altro,
   /// e' il modello che ricopia l'istruzione: nessuno parla ai Maestri
   /// recitando il loro elenco. Vale come silenzio.

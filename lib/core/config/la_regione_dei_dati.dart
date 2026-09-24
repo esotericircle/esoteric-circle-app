@@ -29,9 +29,16 @@ abstract final class LaRegioneDeiDati {
   /// settembre 2026 con una chiamata vera a `generateContent` in
   /// `europe-west1`: risposta 200 con audio `audio/L16;codec=pcm;rate=24000`.
   /// La guardia l'ha vista rossa prima che entrasse qui.
+  ///
+  /// **La voce Pro**, verificata il 24 settembre 2026 durante l'ordine EK,
+  /// quando il fondatore ha chiesto di scegliere lui le voci dei Maestri:
+  /// `generateContent` in `europe-west1` risponde 200 con audio a 24.000
+  /// campioni al secondo, e `streamGenerateContent` da' il primo suono in
+  /// 1,06-1,13 secondi su tre giri. La guardia l'ha vista rossa prima.
   static const Map<String, String> modelliVerificati = {
     'gemini-2.5-flash': '13 settembre 2026',
     'gemini-2.5-flash-lite': '13 settembre 2026',
     'gemini-2.5-flash-tts': '23 settembre 2026',
+    'gemini-2.5-pro-tts': '24 settembre 2026',
   };
 }

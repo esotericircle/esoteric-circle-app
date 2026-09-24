@@ -2,7 +2,7 @@ import {test} from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {join} from "node:path";
-import {laStanzaE} from "./live";
+import {I_MODELLI_DELLA_VOCE, LE_CANDIDATE, laStanzaE} from "./live";
 
 /**
  * LA SESSIONE DEL LIVE SI CHIUDE, E SOLO DA CHI L'HA APERTA. Ordine EK, guasto
@@ -42,6 +42,38 @@ test("l'apertura legge l'avatar da Firestore, con la tabella come riserva", () =
   const corpo = corpoDi("apriUnaSessioneLive");
   assert.match(corpo, /await lAvatarDi\(maestro\)/);
   assert.match(sorgente, /doc\("configurazione\/live"\)[\s\S]{0,200}avatar/);
+});
+
+/**
+ * LE VOCI LE SCEGLIE IL FONDATORE, fra tutte. 24 settembre 2026, durante
+ * l'ordine EK: "vorrei un selettore con le voci in modo che posso sceglierle
+ * io. Quelle sentite finora fanno schifo".
+ */
+test("le candidate sono tutte le voci di Gemini del genere del Maestro", () => {
+  const nomi = (m: string) => (LE_CANDIDATE[m] ?? []).map((c) => c.voce);
+  assert.equal(nomi("medora").length, 14);
+  assert.equal(nomi("aura").length, 14);
+  assert.equal(nomi("caligo").length, 16);
+  assert.deepEqual(nomi("medora"), nomi("aura"));
+  for (const v of ["Gacrux", "Sulafat", "Kore", "Leda", "Autonoe"]) {
+    assert.ok(nomi("medora").includes(v), `${v} manca fra le voci di Medora`);
+  }
+  for (const v of ["Charon", "Algenib", "Rasalgethi", "Orus"]) {
+    assert.ok(nomi("caligo").includes(v), `${v} manca fra le voci di Caligo`);
+  }
+  assert.ok(!nomi("caligo").some((v) => nomi("medora").includes(v)),
+    "una voce femminile e' finita fra quelle di Caligo");
+});
+
+test("il modello della voce si sceglie solo fra quelli verificati, e lo usano il LIVE e l'ascolto", () => {
+  assert.deepEqual(I_MODELLI_DELLA_VOCE,
+    ["gemini-2.5-flash-tts", "gemini-2.5-pro-tts"]);
+  assert.match(sorgente,
+    /I_MODELLI_DELLA_VOCE\.includes\(modello\) \?\s*modello : MODELLO_DELLA_VOCE/);
+  assert.match(corpoDi("laVoceDelMaestro"),
+    /publishers\/google\/models\/\$\{come\.modello\}:/);
+  assert.match(corpoDi("ascoltaUnaVoce"),
+    /laVoceIntera\([\s\S]*?voce, modello\)/);
 });
 
 test("la porta degli avatar nuovi e' chiusa dall'IAM e aggancia solo un avatar pronto", () => {
