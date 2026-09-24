@@ -76,7 +76,8 @@ void main() {
         }
       }
     }
-    expect(violazioni.toSet(), isEmpty, reason: violazioni.toSet().take(12).join('\n'));
+    expect(violazioni.toSet(), isEmpty,
+        reason: violazioni.toSet().take(12).join('\n'));
   });
 
   test('i doni sono UNA RIGA, e non fingono di essere un responso intero', () {
@@ -289,5 +290,16 @@ void main() {
             'istruzione. Ultima misura nota: '
             '${ImprontaDellIstruzione.ultimaMisuraNota} Come si rimisura: '
             '${ImprontaDellIstruzione.comeSiRimisura}');
+  });
+
+  test('l\'attribuzione cieca l\'ha chiusa il fondatore', () {
+    // **ROSSA PER COSTRUZIONE, ordine EK voce 05.** La misura e' valida e
+    // passa la soglia, e la prova qui sopra lo dice; ma il fondatore ha
+    // scritto che l'attribuzione cieca "resta fra i rossi accettati" e che
+    // "la decisione di chiuderla resta di Mauro". Questa riga dice il vero:
+    // la chiusura aspetta lui, e nessun codice la puo' dare al posto suo.
+    expect(ImprontaDellIstruzione.chiusaDalFondatore, isTrue,
+        reason: 'L\'ATTRIBUZIONE CIECA NON L\'HA ANCORA CHIUSA IL FONDATORE. '
+            'Ultima misura nota: ${ImprontaDellIstruzione.ultimaMisuraNota}');
   });
 }

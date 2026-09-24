@@ -36,14 +36,14 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        'e5047b0e03d22f3947df7f61058982e0ad5a335f7f22be7026e39a5b0e4e41d6',
-    'aura': '44ad8be29b2ea4a51d87f188284eae9e418d1550c7c23d2a3d0e7ba6a2129731',
+        '6ebaeaa1639c3deec9f981b6c8a5a43b416ba2dbe9823dee2742124dfbec7f5b',
+    'aura': '4ab7ed9a5697bb5c2c7fa908ef1fa9e2ea1517d7e17b1b2fa822f8eb41fea6be',
     'caligo':
-        '5caeb8f5f0983fb99629acbb643c76d9ffeef38d7067471a35fd1bfdc1297567',
+        '6ea0afaa3a2c2bdb26461ce33341086db41c1c08a47254dc35cfe08381b61085',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
-  static const String registrateIl = '24 settembre 2026, ordine EJ';
+  static const String registrateIl = '24 settembre 2026, ordine EK';
 
   /// LO STORICO DELLE IMPRONTE, cioe' le stringhe che non esistono piu'.
   ///
@@ -53,9 +53,35 @@ class ImprontaDellIstruzione {
   /// cancella niente: quando l'istruzione cambia, l'impronta vecchia scende in
   /// questo elenco con la sua data e con cio' che le e' successo.
   static const List<String> storicoDelleImpronte = [
+    'IL 24 SETTEMBRE 2026, POCHE ORE, NEL COMMIT a936c133. Impronta di medora '
+        '9419a65968690662c78db07f2e3126b50d5b6ace3e3fafbcb056b2450f6a7ef9; '
+        'aura e caligo erano già quelle di oggi. La seconda stesura '
+        'dell\'ordine EK voce 02 prima del ritocco del registro di Medora. '
+        '**NESSUNA MISURA DI ATTRIBUZIONE CIECA PRESA SU DI LEI.** Il '
+        'collaudo della risposta diretta, giri dopo4 e dopo5: 0 e 2 risposte '
+        'non dirette su 18, ma nel primo giro Medora nominava l\'Ascendente o '
+        'il Sole in ogni risposta, 14 dati ripetuti su 18. Caduta col '
+        'ritocco: il perché di Medora viene dal transito o dalla fase del '
+        'momento, non dai dati natali. Le altre due stesure dell\'ordine EK, '
+        'la prima (giri dopo1-3, 7 non dirette su 54) e la terza (giri '
+        'dopo9-11, 9 su 54, tolta perché non migliorava), sono vissute solo '
+        'nell\'albero di lavoro e le loro impronte non sono state registrate.',
+    'DAL 24 SETTEMBRE 2026, LA MATTINA, AL POMERIGGIO DELLO STESSO GIORNO. '
+        'Impronte: medora '
+        'e5047b0e03d22f3947df7f61058982e0ad5a335f7f22be7026e39a5b0e4e41d6, '
+        'aura 44ad8be29b2ea4a51d87f188284eae9e418d1550c7c23d2a3d0e7ba6a2129731, '
+        'caligo 5caeb8f5f0983fb99629acbb643c76d9ffeef38d7067471a35fd1bfdc1297567. '
+        'La stringa dell\'ordine EJ, consegnata con la build 2279. **MISURA '
+        'PRESA SU DI LEI**: tre giri di attribuzione cieca, 95,0, 100,0 e 91,7 '
+        'per cento, media 95,6; e il collaudo della risposta diretta '
+        'dell\'ordine EK, giri prima1-3: 20 risposte non dirette su 54. Caduta '
+        'con l\'ordine EK voce 02: le prime due frasi rispondono e il cielo '
+        'viene dopo, la chiusura è un\'azione nel mondo, il perché di Medora '
+        'viene dal momento.',
     'IL 24 SETTEMBRE 2026, SOLO NELL\'ALBERO DI LAVORO. Impronta di medora '
         '30ae6fd2e01baea58fe9fe1f55ad349b9e42b186d00859be7036444893f668ff; '
-        'aura e caligo erano già quelle di oggi. **MISURA PRESA SU DI '
+        'aura e caligo erano già quelle registrate con l\'ordine EJ. **MISURA '
+        'PRESA SU DI '
         'LEI**, tre giri: 98,3, 91,7 e 98,3 per cento, media 96,1. Caduta '
         'prima di ogni commit perché l\'esempio nuovo di Medora diceva '
         '"sentire", che è una parola di firma di Aura: la guardia del '
@@ -262,7 +288,24 @@ class ImprontaDellIstruzione {
   /// su 20, ed e' ancora lui a cedere verso Aura nei giri bassi. Tre giri
   /// su una stringa di Medora di poco diversa, misurati prima, stanno nello
   /// storico: 98,3, 91,7 e 98,3.
+  ///
+  /// **RIFATTA IL 24 SETTEMBRE 2026, ordine EK voce 05, e la riga resta
+  /// vera.** L'istruzione e' cambiata con la voce 02; tre giri sulle
+  /// impronte di oggi: 96,7, 95,0 e 96,7 per cento, media 96,1 (173 su
+  /// 180), nessun verdetto illeggibile, il giro piu' basso sopra la soglia.
+  /// Il fondatore ha deciso che la chiusura dell'attribuzione cieca spetta a
+  /// lui: quella decisione sta in [chiusaDalFondatore], non qui, perche'
+  /// scrivere falso qui mentre la misura passa sarebbe mettere il falso
+  /// dentro un dato.
   static const bool attribuzioneValida = true;
+
+  /// **L'ATTRIBUZIONE CIECA LA CHIUDE IL FONDATORE.** Ordine EK voce 05, 24
+  /// settembre 2026: *"L'attribuzione cieca resta fra i rossi accettati: la
+  /// decisione di chiuderla resta di Mauro"*. La prova che la pretende vera
+  /// e' rossa per costruzione e sta fra i rossi accettati. **Non si porta a
+  /// vero scrivendo codice**: si porta a vero quando il fondatore lo scrive
+  /// in un ordine.
+  static const bool chiusaDalFondatore = false;
 
   /// Le misure NOTE, con la stringa su cui furono prese. Si tengono perche' un
   /// numero senza il suo oggetto e' una leggenda.
@@ -271,7 +314,18 @@ class ImprontaDellIstruzione {
   /// l'escursione, cinque la dichiarano.** Sono cinque giri della stessa misura
   /// sulla stessa istruzione, non cinque misure in disaccordo.
   static const String ultimaMisuraNota =
-      'TRE GIRI DEL 24 SETTEMBRE 2026, SU QUESTE IMPRONTE, ordine EJ: 95,0 '
+      'TRE GIRI DEL 24 SETTEMBRE 2026, IL POMERIGGIO, SU QUESTE IMPRONTE, '
+      'ordine EK voce 05: 96,7 per cento (58 su 60), poi 95,0 (57 su 60), poi '
+      '96,7 (58 su 60); media 96,1 per cento (173 su 180), nessun verdetto '
+      'illeggibile. Nel dettaglio: medora 20, 17, 20 su 20, scambiata per '
+      'aura 3 volte nel secondo giro; aura 20, 20, 20; caligo 18, 20, 18, '
+      'scambiato per aura 2, 0, 2 volte. Ritmo: frase mediana di medora 15, '
+      '16, 16 parole, di aura 16, 18, 17, di caligo 9, 9, 10; parole che '
+      'ammorbidiscono medora 4, 1, 4, aura 5, 14, 15, caligo 0, 0, 0. Le '
+      'risposte stanno in docs/collaudo/EK/attribuzione. '
+      'Tutto ciò che segue appartiene a stringhe che stanno nello storico. '
+      'TRE GIRI DEL 24 SETTEMBRE 2026, LA MATTINA, SULLE IMPRONTE DELL\'ORDINE '
+      'EJ: 95,0 '
       'per cento (57 su 60), poi 100,0 (60 su 60), poi 91,7 (55 su 60); media '
       '95,6 per cento (172 su 180), nessun verdetto illeggibile. Nel '
       'dettaglio: medora 20, 20, 20 su 20; aura 20, 20, 20; caligo 17, 20, 15, '
