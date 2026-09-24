@@ -224,11 +224,69 @@ abstract final class LaTrascrizione {
       'parola comune: ${nomiDelleArti.join(', ')}. Non aggiungerli se la '
       'persona non li dice.';
 
+  /// Le parole di un testo, minuscole, senza segni: "L'Appeso" fa "l",
+  /// "appeso".
+  static List<String> _parole(String testo) => testo
+      .toLowerCase()
+      .split(RegExp(r'[^\p{L}]+', unicode: true))
+      .where((p) => p.isNotEmpty)
+      .toList();
+
+  /// **UN ELENCO DI NOMI NON E' UNA FRASE.** Ordine EK voce 03. Sul Realme un
+  /// pezzo di frase che cominciava con "Aura, sento un blocco" e' tornato
+  /// *"Medora Aura Calìgo"*; al banco Flash-Lite ha risposto con l'elenco
+  /// intero, settantuno nomi, a due frasi su sei. Una trascrizione fatta
+  /// soltanto di tre o piu' nomi consecutivi dell'elenco, e di nient'altro,
+  /// e' il modello che ricopia l'istruzione: nessuno parla ai Maestri
+  /// recitando il loro elenco. Vale come silenzio.
+  static bool eUnPezzoDellElenco(String testo) {
+    final parole = _parole(testo);
+    if (parole.isEmpty) return false;
+    final nomi = [for (final n in nomiDelleArti) _parole(n)];
+    for (var primo = 0; primo < nomi.length; primo++) {
+      var lette = 0;
+      var quanti = 0;
+      while (primo + quanti < nomi.length && lette < parole.length) {
+        final nome = nomi[primo + quanti];
+        if (lette + nome.length > parole.length) break;
+        var uguale = true;
+        for (var k = 0; k < nome.length && uguale; k++) {
+          uguale = parole[lette + k] == nome[k];
+        }
+        if (!uguale) break;
+        lette += nome.length;
+        quanti++;
+      }
+      if (lette == parole.length && quanti >= 3) return true;
+    }
+    return false;
+  }
+
+  /// Il nome del Maestro scritto senza accento, o con quello sbagliato.
+  static final RegExp _caligo =
+      RegExp(r'(?<!\p{L})[Cc][aàá]l[iìí]go(?!\p{L})', unicode: true);
+
+  /// **LA TRASCRIZIONE RIPULITA, prima di diventare una domanda.** Il
+  /// fondatore: *"è Calìgo e non Càligo"*. Al banco Flash ha scritto
+  /// "Caligo" due volte su quattro: il nome giusto lo conosce l'app, e lo
+  /// rimette lei. Poi l'elenco ricopiato vale come silenzio.
+  static String ripulita(String testo) {
+    final giusto = testo.replaceAll(_caligo, 'Calìgo');
+    return eUnPezzoDellElenco(giusto) ? '' : giusto;
+  }
+
   static Future<String> _daGemini(Uint8List wav) async {
     final modello =
         FirebaseAI.vertexAI(location: FirebaseMaestroAiProvider.kVertexLocation)
             .generativeModel(
-      model: FirebaseMaestroAiProvider.kMaestroBreveModel,
+      // **FLASH E NON FLASH-LITE. Ordine EK voce 03.** Al banco
+      // (`tool/banco_orecchio_ek.dart`, stessi audio e stessa istruzione)
+      // Flash-Lite ha ricopiato l'elenco dei nomi al posto della frase in due
+      // frasi su sei, ha scritto "Medora" su tre secondi di fruscio e
+      // "Ariete" dentro una frase interrotta; Flash nessuna delle tre cose,
+      // 42 nomi giusti su 44 contro 40, e un tempo mediano di 1.060 ms
+      // contro 1.161. Il modello sta nella regione dei dati.
+      model: FirebaseMaestroAiProvider.kMaestroChatModel,
       generationConfig: GenerationConfig(
         temperature: 0,
         maxOutputTokens: 600,
@@ -245,6 +303,6 @@ abstract final class LaTrascrizione {
     // e a capo nella bolla sembrerebbe un elenco. Visto sul Realme.
     final testo =
         (risposta.text ?? '').replaceAll(RegExp(r'\s*\n+\s*'), ' ').trim();
-    return testo == silenzio ? '' : testo;
+    return testo == silenzio ? '' : ripulita(testo);
   }
 }

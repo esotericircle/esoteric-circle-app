@@ -55,4 +55,47 @@ void main() {
         reason:
             'la richiesta con i nomi c\'e\', ma a Gemini ne arriva un\'altra');
   });
+
+  test('LA TRASCRIZIONE LA FA FLASH, E PASSA DALLA RIPULITURA', () {
+    // Ordine EK voce 03, `tool/banco_orecchio_ek.dart`: con l'elenco dei nomi
+    // nell'istruzione Flash-Lite ha ricopiato l'elenco al posto della frase
+    // in due frasi su sei e ha scritto "Medora" su tre secondi di fruscio;
+    // Flash nessuna delle due cose.
+    final sorgente =
+        File('lib/services/voce/l_orecchio_del_live.dart').readAsStringSync();
+    final corpo =
+        sorgente.substring(sorgente.indexOf('Future<String> _daGemini('));
+    expect(
+        corpo.contains('model: FirebaseMaestroAiProvider.kMaestroChatModel,'),
+        isTrue,
+        reason: 'la trascrizione non la fa piu\' Flash: Flash-Lite ricopia '
+            'l\'elenco dei nomi al posto della frase');
+    expect(corpo.contains('ripulita(testo)'), isTrue,
+        reason: 'cio\' che torna da Gemini diventa domanda senza passare dalla '
+            'ripulitura: l\'elenco ricopiato partirebbe come domanda');
+  });
+
+  test('UN ELENCO DI NOMI NON E\' UNA FRASE, E CALÌGO HA L\'ACCENTO', () {
+    final elenco = LaTrascrizione.nomiDelleArti;
+    // Cio' che e' tornato sul Realme, e cio' che Flash-Lite ha dato al banco.
+    expect(LaTrascrizione.ripulita('Medora Aura Calìgo'), isEmpty);
+    expect(LaTrascrizione.ripulita('${elenco.join(', ')}.'), isEmpty);
+    expect(LaTrascrizione.ripulita('Fehu, Uruz, Thurisaz'), isEmpty);
+    // Le frasi vere restano com'erano, anche quelle fatte di nomi.
+    const vere = [
+      'Medora, ho pescato la Torre e poi l\'Appeso.',
+      'Fehu, Thurisaz e Algiz.',
+      'La Torre',
+      'Medora',
+      'Sono dello Scorpione con ascendente Sagittario e la Luna in Capricorno.',
+    ];
+    for (final frase in vere) {
+      expect(LaTrascrizione.ripulita(frase), frase,
+          reason: 'una frase vera e\' stata presa per un elenco ricopiato');
+    }
+    // Il fondatore: "è Calìgo e non Càligo".
+    expect(LaTrascrizione.ripulita('Caligo, che cosa significa Eihwaz?'),
+        'Calìgo, che cosa significa Eihwaz?');
+    expect(LaTrascrizione.ripulita('ciao Càligo'), 'ciao Calìgo');
+  });
 }
