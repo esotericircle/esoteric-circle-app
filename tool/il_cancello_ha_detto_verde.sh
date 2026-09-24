@@ -78,8 +78,14 @@ fi
 
 # Un Python che GIRA, non uno che c'e' soltanto: su Windows `python3` puo'
 # essere il rimando al negozio, che esiste nel PATH ed esce con errore.
+# **E non si prova nemmeno**, ordine EK, 24 settembre 2026: lanciato senza
+# console il rimando impiega 3,1 secondi a uscire, e sommati alle letture
+# falsavano di dieci secondi l'attesa del limite di GitHub ("Aspetto 82
+# secondi" invece di 92): la prova del cancello cadeva anche a macchina
+# ferma. Il rimando sta sempre in WindowsApps.
 PY=""
 for candidato in python3 python; do
+  case "$(command -v "$candidato" 2>/dev/null)" in *WindowsApps*) continue ;; esac
   if command -v "$candidato" >/dev/null 2>&1 \
      && "$candidato" -c 'import json' >/dev/null 2>&1; then
     PY="$candidato"
