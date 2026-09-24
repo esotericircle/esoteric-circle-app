@@ -18,6 +18,7 @@ import '../chat/maestro_chat_controller.dart';
 import '../widgets/busto_del_maestro.dart';
 import '../../../core/sensi/lo_schermo_acceso.dart';
 import '../../../core/sensi/wav_da_pcm.dart';
+import '../../shell/quale_musica_suona.dart';
 import 'il_parlato_del_maestro.dart';
 import 'le_frasi_della_persona.dart';
 import 'il_selettore_delle_voci.dart';
@@ -113,6 +114,10 @@ class _SchermataLiveState extends State<SchermataLive> {
     // senza toccare il telefono, e allo spegnimento automatico il microfono
     // taceva e il LIVE si chiudeva. Vedi `LoSchermoAcceso`.
     unawaited(LoSchermoAcceso.tieni(true));
+    // **La musica tace finche' il LIVE e' aperto.** Ordine EK voce 03: il
+    // microfono la sentiva come una persona che parla, e la frase non si
+    // chiudeva mai. Vedi `liveCheZittisce`.
+    liveCheZittisce.value = true;
     unawaited(_apri());
     unawaited(_caricaIlFiltroDelVolto());
   }
@@ -173,6 +178,7 @@ class _SchermataLiveState extends State<SchermataLive> {
     unawaited(_stanza?.disconnect());
     _chiudiLaSessione();
     unawaited(LoSchermoAcceso.tieni(false));
+    liveCheZittisce.value = false;
     super.dispose();
   }
 

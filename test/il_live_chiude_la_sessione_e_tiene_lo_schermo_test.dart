@@ -1,6 +1,9 @@
 import 'dart:io';
 
+import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/sensi/catalogo_musiche.dart';
 import 'package:esoteric_circle/core/sensi/lo_schermo_acceso.dart';
+import 'package:esoteric_circle/features/shell/quale_musica_suona.dart';
 import 'package:esoteric_circle/services/live/porta_del_live.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -79,6 +82,52 @@ void main() {
     expect(chieste, [true, false]);
     LoSchermoAcceso.chiedi = (_) async => throw MissingPluginException();
     await LoSchermoAcceso.tieni(true);
+  });
+
+  test('LA MUSICA TACE FINCHE\' IL LIVE E\' APERTO', () {
+    // **Ordine EK voce 03.** La musica del Maestro suonava sotto il LIVE, il
+    // microfono la sentiva come una persona che parla e nessuna frase si
+    // chiudeva: Medora non riceveva la domanda. Il LIVE alza il segnale
+    // aprendosi e lo lascia cadere uscendo, il custode lo ascolta, e la regia
+    // col segnale alzato sceglie il silenzio anche dove un Maestro dichiara la
+    // sua traccia. **Si legge il codice senza i commenti**, perche' il
+    // commento che spiega il segnale non e' il segnale.
+    String senzaCommenti(String codice) => codice
+        .split('\n')
+        .map((riga) => riga.replaceFirst(RegExp(r'//.*'), ''))
+        .join('\n');
+    expect(
+        senzaCommenti(corpoDi('void initState()'))
+            .contains('liveCheZittisce.value = true'),
+        isTrue,
+        reason: 'il LIVE si apre e la musica continua sotto il microfono');
+    expect(
+        senzaCommenti(corpoDi('void dispose()'))
+            .contains('liveCheZittisce.value = false'),
+        isTrue,
+        reason: 'uscendo dal LIVE il segnale resterebbe alzato e la musica '
+            'muta per sempre');
+    final custode = senzaCommenti(
+        File('lib/features/shell/custode_della_musica.dart')
+            .readAsStringSync());
+    expect(custode.contains('liveCheZittisce.addListener(_guarda)'), isTrue,
+        reason: 'il custode non ascolta il LIVE: aprirlo non cambia la '
+            'schermata che la regia conosce, e la musica non si ferma');
+    expect(custode.contains('liveCheZittisce.removeListener(_guarda)'), isTrue,
+        reason: 'chi si mette in ascolto si toglie');
+
+    addTearDown(() => liveCheZittisce.value = false);
+    liveCheZittisce.value = false;
+    expect(cosaSuonaSu('MaestroChatScreen', Maestro.medora).traccia,
+        MusicaDelCerchio.medora,
+        reason:
+            'senza il LIVE la chat di Medora porta la sua traccia: se gia\' '
+            'qui tacesse, la prova che segue non dimostrerebbe niente');
+    liveCheZittisce.value = true;
+    final voce = cosaSuonaSu('MaestroChatScreen', Maestro.medora);
+    expect(voce.cosa, CosaSuonaQui.silenzio,
+        reason: 'col LIVE aperto suona ancora la traccia del Maestro');
+    expect(voce.traccia, isNull);
   });
 
   test('ANDROID E IOS RISPONDONO SUL CANALE DELLO SCHERMO', () {

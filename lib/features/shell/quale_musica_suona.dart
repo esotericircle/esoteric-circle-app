@@ -97,6 +97,24 @@ const Map<String, VoceDellaMusica> musicaPerSchermata = {
 /// tocco. La caduta del velo **e' essa stessa un cambiamento**, e va detta.
 final ValueNotifier<bool> veloCheZittisce = ValueNotifier<bool>(false);
 
+/// **IL LIVE ZITTISCE LA MUSICA, finche' e' aperto.** Ordine EK voce 03, 24
+/// settembre 2026.
+///
+/// Il LIVE ascolta la persona col microfono e chiude la frase dopo due
+/// secondi di silenzio vero: una musica che suona sotto e' una persona che
+/// non smette mai di parlare. Sul Realme il lettore della musica e' nato alle
+/// 15:47:13 e si e' messo in pausa solo alle 15:57:33, attraverso il LIVE
+/// delle 15:49: l'orecchio ha segnato "parlato" per due minuti, nessuna frase
+/// si e' chiusa e Medora non ha ricevuto la domanda. Il fondatore l'ha
+/// sentita: *"il rumore di fondo è anche la musica di sottofondo dell'app"*.
+///
+/// **E' un segnale come il velo, e non una riga della mappa**, per la stessa
+/// ragione dell'ordine CO: la mappa si interroga col nome della schermata in
+/// cima, e `SchermataLive` non e' fra i nomi che la pila riconosce. Una riga
+/// per lei sarebbe morta. Lo alza il LIVE quando si apre e lo lascia cadere
+/// quando si chiude, da qualunque strada.
+final ValueNotifier<bool> liveCheZittisce = ValueNotifier<bool>(false);
+
 /// **Cosa deve suonare, date la schermata in cima e il Maestro che dichiara.**
 ///
 /// L'ordine dei controlli conta: prima cio' che la schermata dice di se',
@@ -107,7 +125,7 @@ VoceDellaMusica cosaSuonaSu(String? schermata, Maestro? maestro) {
   // intero conta piu' di qualunque cosa dichiari la schermata di sotto:
   // mentre l'intro si vede, la home sotto di essa non e' la cosa che si sta
   // guardando, e la sua traccia non e' la cosa che si deve ascoltare.
-  if (veloCheZittisce.value) {
+  if (veloCheZittisce.value || liveCheZittisce.value) {
     return (cosa: CosaSuonaQui.silenzio, traccia: null);
   }
 

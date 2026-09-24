@@ -44,6 +44,10 @@ class _CustodeDellaMusicaState extends State<CustodeDellaMusica> {
     // fermo a guardare un velo caduto, in silenzio, fino al primo tocco della
     // persona. **La caduta del velo e' essa stessa un cambiamento.**
     veloCheZittisce.addListener(_guarda);
+    // **E SI ASCOLTA IL LIVE**, ordine EK voce 03: aprirlo e chiuderlo non
+    // cambia il nome in cima alla pila che la regia conosce, quindi senza
+    // questo ascolto la musica del Maestro continuerebbe sotto il microfono.
+    liveCheZittisce.addListener(_guarda);
     // Il primo giro dopo il frame: alla costruzione la pila e' ancora vuota,
     // e chiedere adesso vorrebbe dire chiedere del nulla.
     WidgetsBinding.instance.addPostFrameCallback((_) => _guardaOra());
@@ -53,6 +57,7 @@ class _CustodeDellaMusicaState extends State<CustodeDellaMusica> {
   void dispose() {
     widget.pila.cambi.removeListener(_guarda);
     veloCheZittisce.removeListener(_guarda);
+    liveCheZittisce.removeListener(_guarda);
     super.dispose();
   }
 
