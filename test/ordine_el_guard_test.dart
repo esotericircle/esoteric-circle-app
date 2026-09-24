@@ -14,7 +14,9 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   final manifesto = File('docs/ordini/ORDINE_EL_MANIFESTO.md');
 
-  const quante = 1;
+  // **Due voci**: la seconda, il Taglia che ricompone il mazzo, l'ha
+  // aggiunta il fondatore in chat la sera del 24 settembre 2026.
+  const quante = 2;
 
   int marcatore(String testo, String nome) {
     final trovato =
@@ -30,6 +32,8 @@ void main() {
     final testo = manifesto.readAsStringSync();
     expect(testo.contains('## VOCE EL.01,'), isTrue,
         reason: 'la voce EL.01 non e\' nominata');
+    expect(testo.contains('## VOCE EL.02,'), isTrue,
+        reason: 'la voce EL.02, il Taglia, non e\' nominata');
   });
 
   test('ogni voce dichiara uno stato terminale, e i conti tornano', () {
@@ -47,7 +51,8 @@ void main() {
         reason: 'restano $aperte voci aperte: l\'ordine non e\' chiuso');
   });
 
-  test('il vecchio ingresso, chi l\'ha tolto e la richiesta mancante sono '
+  test(
+      'il vecchio ingresso, chi l\'ha tolto e la richiesta mancante sono '
       'dichiarati col commit, il file e la riga', () {
     // L'ordine lo pretende: "dichiara il commit, il file e la riga in cui
     // viveva", "dichiara nel rapporto perche' non e' stato fatto, con il
@@ -69,6 +74,31 @@ void main() {
         if (!testo.contains(p.value)) '${p.key} (${p.value})'
     ];
     // Il cardinale, su un elenco scritto a mano.
+    expect(pretese.length, 7);
+    expect(mancanti, isEmpty, reason: 'il manifesto non dichiara: $mancanti');
+  });
+
+  test(
+      'la voce del Taglia porta le parole del fondatore, la sua guardia, la '
+      'cecita\' trovata e la differenza col Mischia', () {
+    // Ordine EL voce 02. La correzione del fondatore sta accanto alla sua
+    // prima frase: senza, chi legge crederebbe che si sia rifatto il Mischia.
+    final testo = manifesto.readAsStringSync();
+    const pretese = <String, String>{
+      'la richiesta del fondatore': 'il mazzo viene tagliato e poi dal mazzo '
+          'le carte si ristendono',
+      'la sua correzione': 'Scusa non Mischia. Ma "taglia"',
+      'la guardia nuova': 'il_taglia_ricompone_il_mazzo_test.dart',
+      'la cecita\' della prova del tavolo, col suo tempo': '1.550',
+      'il padre della cecita\'': 'ordine EE voce 01',
+      'il Taglia che si vede anche col movimento ridotto':
+          'AnimationBehavior.preserve',
+      'il Mischia lasciato com\'era, detto': 'Mischia resta com\'era',
+    };
+    final mancanti = [
+      for (final p in pretese.entries)
+        if (!testo.contains(p.value)) '${p.key} (${p.value})'
+    ];
     expect(pretese.length, 7);
     expect(mancanti, isEmpty, reason: 'il manifesto non dichiara: $mancanti');
   });

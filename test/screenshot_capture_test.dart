@@ -1397,6 +1397,31 @@ void main() {
     await step(tester);
     await capture(tester, rootKey, 'arcano-alba-coperte.png');
 
+    // **IL TAGLIA**, ordine EL voce 02: il mazzo raccolto, il pacchetto di
+    // sopra che si alza, i due pacchetti affiancati, quello che era sotto
+    // che si posa sopra l'altro, e le carte che si ristendono dal mazzo. Gli
+    // istanti vengono dai tempi del taglio, in duemila millesimi.
+    await tester.tap(find.byKey(const Key('arcano_alba_taglia')));
+    await tester.pump();
+    var trascorso = 0;
+    for (final (istante, nome) in const [
+      (600, 'arcano-alba-taglio-mazzo.png'),
+      (800, 'arcano-alba-taglio-sollevato.png'),
+      (1040, 'arcano-alba-taglio-aperto.png'),
+      (1280, 'arcano-alba-taglio-si-posa.png'),
+      (1650, 'arcano-alba-taglio-ristesa.png'),
+    ]) {
+      while (trascorso < istante) {
+        await tester.pump(const Duration(milliseconds: 20));
+        trascorso += 20;
+      }
+      await capture(tester, rootKey, nome);
+    }
+    // Il gesto finisce a duemila millesimi: il dorso si sceglie dopo.
+    for (var i = 0; i < 25; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+
     // A meta' del volo: la carta sale con la scia di stelline dietro.
     await tester.tap(find.byKey(const Key('arcano_alba_carta_9')));
     await tester.pump();

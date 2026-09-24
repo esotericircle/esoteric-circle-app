@@ -4801,10 +4801,12 @@ curata: `tool/il_cancello_ha_detto_verde.sh` non prova piu' il rimando
 
 ## L'ORDINE EL, L'ALBA SI APRE ALZANDO IL SOLE
 
-Ordine del 25 settembre 2026, **una voce**, lavorato il 24 settembre 2026
+Ordine del 25 settembre 2026, **due voci**, lavorato il 24 settembre 2026
 sera in coda all'ordine EK. Manifesto `docs/ordini/ORDINE_EL_MANIFESTO.md`,
 rapporto `docs/ordini/RAPPORTO_ORDINE_EL.md`, prove in `docs/collaudo/EL/`.
-**La voce EL.01 e' chiusa.** Il fondatore: *"l'ingresso del dono doveva
+**Due voci, chiuse tutte e due**: la EL.02, il Taglia che ricompone il
+mazzo, l'ha aggiunta il fondatore in chat la sera stessa. **La voce EL.01,
+l'ingresso del sole.** Il fondatore: *"l'ingresso del dono doveva
 essere lo stesso del precedente ovvero l'utente che col dito alza il sole
 verso il cielo e la scena si illumina"*.
 
@@ -4840,7 +4842,28 @@ spirale non si vedono, e le mostrano le anteprime
 `ordine_el_guard`, nate rosse con l'innesto verificato; otto guardie della
 zona viste rosse per la Regola B; le prove che aprono l'Arcano passano dal
 gesto vero con `test/alzare_il_sole.dart`. L'invito sul cielo notturno si
-legge a 12,23 contro il 4,5 preteso. Registro a 511.
+legge a 12,23 contro il 4,5 preteso. Registro a 512.
+
+**LA VOCE EL.02, IL TAGLIA.** Il fondatore: *"le carte si devono ricomporre
+in un mazzo, il mazzo viene tagliato e poi dal mazzo le carte si
+ristendono"*, riferito al Taglia (*"Il pulsante "Mischia" è già ok"*). In
+`lib/features/rituals/tavolo_dei_ventidue.dart` il Taglia dura 2.000
+millesimi: raccolta nel mazzo fino a 0,25 della corsa, il pacchetto di sopra
+che si alza e va a destra fra 0,31 e 0,49, lo scambio dei posti a 0,52 coi
+pacchetti separati, il pacchetto che era sotto che si posa sopra fra 0,55 e
+0,73, poi la stesa. **Si vede anche con le animazioni di sistema spente**
+(`AnimationBehavior.preserve`); **il Mischia resta com'era**, e col movimento
+ridotto cambia i posti senza animazione. Prima il Taglia (ordine DU, commit
+`5e1064f2`) scostava le due meta' del ventaglio e sul Realme non mostrava
+niente; registrandolo, una volta **il tavolo e' rimasto vuoto per un
+secondo**. Il meccanismo che poteva farlo, le ventidue immagini ricreate a
+ogni scambio di posti perche' la chiave stava sul dorso e non sul figlio
+della pila, e' tolto: 0 ricreate su 22 contro 22. Sul Realme con la build
+2280: mazzo a 0,60 secondi dal tocco, due pacchetti fra 1,08 e
+1,52, tavolo di nuovo steso a 2,21 (`docs/collaudo/EL/prova_del_taglio.txt`).
+Guardia nuova `il_taglia_ricompone_il_mazzo`; e `il_tavolo_dei_ventidue` era
+cieca sul Taglia dall'ordine EE voce 01 (commit `14088e9f`): lo toccava col
+Mischia ancora in corsa.
 
 ## Regole ferree
 

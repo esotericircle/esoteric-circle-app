@@ -32,6 +32,11 @@ import '../../design_system/tokens/typography_tokens.dart';
 /// del tocco**: mescolare o tagliare muove le figure sul tavolo, non il
 /// risultato. Restano perche' sono il gesto che una persona fa con un mazzo
 /// vero, e perche' aiutano ad aspettare un istante prima di scegliere.
+///
+/// **E sono tutti e due un mazzo che si ricompone.** Il Mischia raccoglie,
+/// mescola e ristende (ordine EE voce 01); il Taglia raccoglie, divide il
+/// mazzo in due pacchetti, posa quello di sotto sopra l'altro e ristende
+/// (ordine EL voce 02).
 class TavoloDeiVentidue extends StatefulWidget {
   const TavoloDeiVentidue({
     super.key,
@@ -105,6 +110,11 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
   late final AnimationController _mischia;
   late final AnimationController _taglio;
 
+  /// Se in questo taglio i posti si sono gia' scambiati. Lo scambio avviene
+  /// una volta sola, a meta' corsa, e da li' il pacchetto di ogni carta si
+  /// legge dal posto nuovo.
+  bool _tagliato = false;
+
   /// Dove sta ogni carta sul tavolo: la posizione nella griglia. Mischiare
   /// rimescola questo, e siccome i dorsi sono uguali cambia la scena, non la
   /// sorte.
@@ -112,10 +122,35 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
 
   static const Duration _durataIngresso = Duration(milliseconds: 1500);
   static const Duration _durataRespiro = Duration(seconds: 7);
+
   /// **Ordine EE voce 01**: tre tempi, raccolta, mescolata e stesa, non
   /// stanno in 1100 millesimi senza sembrare uno strappo.
   static const Duration _durataMischia = Duration(milliseconds: 1800);
-  static const Duration _durataTaglio = Duration(milliseconds: 900);
+
+  /// **Ordine EL voce 02**: raccolta, taglio, mazzo rifatto e stesa sono
+  /// quattro tempi, e in 900 millesimi, la durata del taglio di prima, il
+  /// taglio stesso durerebbe un quinto di secondo.
+  static const Duration _durataTaglio = Duration(milliseconds: 2000);
+
+  /// **I TEMPI DEL TAGLIO**, in frazione della corsa. Fino a
+  /// [_finoAllaRaccolta] le carte si radunano nel mazzo; fra
+  /// [_siApreIlTaglio] e [_taglioAperto] il pacchetto di sopra si alza e va a
+  /// destra mentre l'altro scivola a sinistra; a [_loScambio], con i due
+  /// pacchetti separati, i posti si scambiano; fra [_siRichiude] e
+  /// [_mazzoRifatto] il pacchetto che era sotto si alza e si posa sopra
+  /// l'altro; poi le carte si ristendono dal mazzo.
+  static const double _finoAllaRaccolta = 0.25;
+  static const double _siApreIlTaglio = 0.31;
+  static const double _taglioAperto = 0.49;
+  static const double _loScambio = 0.52;
+  static const double _siRichiude = 0.55;
+  static const double _mazzoRifatto = 0.73;
+
+  /// **Lo spessore del mazzo**: di quanto una carta si scosta da quella
+  /// sotto. Ventidue dorsi perfettamente sovrapposti sembrerebbero una carta
+  /// sola; cosi' il mazzo ha un bordo, e il pacchetto che si alza si vede
+  /// staccarsi dall'altro.
+  static const Offset _spessore = Offset(-0.3, -0.5);
 
   @override
   void initState() {
@@ -123,7 +158,16 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
     _ingresso = AnimationController(vsync: this, duration: _durataIngresso);
     _respiro = AnimationController(vsync: this, duration: _durataRespiro);
     _mischia = AnimationController(vsync: this, duration: _durataMischia);
-    _taglio = AnimationController(vsync: this, duration: _durataTaglio);
+    // **IL TAGLIO NON SI ACCORCIA.** E' il contenuto del pulsante: i
+    // ventidue dorsi sono uguali, e un taglio corso venti volte piu' in
+    // fretta, come Flutter fa coi controllori `normal` quando la scala degli
+    // animatori e' a zero, non si vedrebbe. Vedi la guardia dell'ordine EF,
+    // `le_animazioni_del_rito_non_si_accorciano_test.dart`.
+    _taglio = AnimationController(
+      vsync: this,
+      duration: _durataTaglio,
+      animationBehavior: AnimationBehavior.preserve,
+    )..addListener(_scambiaNelTaglio);
     if (widget.ridotto) {
       _ingresso.value = 1;
     } else {
@@ -175,17 +219,37 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
     _mischia.value = 0;
   }
 
+  /// **IL TAGLIO SI VEDE ANCHE CON RIDUCI MOVIMENTO**, ordine EL voce 02, e
+  /// il Mischia no: e' una differenza dichiarata. Col movimento ridotto il
+  /// Mischia cambia i posti senza animazione, come l'ha lasciato l'ordine
+  /// EE, e il fondatore ha detto che il Mischia va bene cosi'. Il Taglia
+  /// invece e' stato chiesto proprio come gesto da vedere, e sul telefono di
+  /// collaudo, che ha la scala degli animatori a zero, senza il gesto un
+  /// tocco su Taglia non mostrerebbe niente: i dorsi sono uguali.
   Future<void> _taglia() async {
     if (!_sceglibile || _mischia.isAnimating || _taglio.isAnimating) return;
     _saltaLIngresso();
-    if (widget.ridotto) {
-      setState(() => _posti = _tagliati());
-      return;
-    }
+    _tagliato = false;
     await _taglio.forward(from: 0);
     if (!mounted) return;
-    setState(() => _posti = _tagliati());
-    _taglio.value = 0;
+    setState(() {
+      _taglio.value = 0;
+      _tagliato = false;
+    });
+  }
+
+  /// **I POSTI SI SCAMBIANO MENTRE I DUE PACCHETTI STANNO SEPARATI**, uno
+  /// accanto all'altro: nessuna carta ne copre un'altra, e il cambio di quota
+  /// fra i due pacchetti non si vede. Da li' il pacchetto che era sotto e'
+  /// disegnato dopo l'altro, cioe' sopra, ed e' lui che si posa sul mazzo.
+  /// Scambiare a corsa finita, come faceva il taglio di prima, fa saltare le
+  /// carte sotto gli occhi.
+  void _scambiaNelTaglio() {
+    if (_tagliato || _taglio.value < _loScambio) return;
+    setState(() {
+      _posti = _tagliati();
+      _tagliato = true;
+    });
   }
 
   List<int> _mescolati() {
@@ -325,8 +389,11 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
   Widget _carta(_DisegnoDelTavolo disegno, int posto) {
     final carta = _posti[posto];
     final scelta = widget.scelta;
-    // La carta scelta esce dalla griglia: la disegna _cartaScelta.
-    if (scelta != null && carta == scelta) return const SizedBox.shrink();
+    // La carta scelta esce dalla griglia: la disegna _cartaScelta. Il vuoto
+    // che lascia porta la sua chiave, come ogni carta: vedi sotto.
+    if (scelta != null && carta == scelta) {
+      return SizedBox.shrink(key: ValueKey<int>(carta));
+    }
 
     var centro = disegno.centroDi(posto);
     var scala = 1.0;
@@ -334,6 +401,10 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
     // somma sopra: senza, la carta respirerebbe tornando dritta a ogni onda.
     var angolo = disegno.angoloDi(posto);
     var opacita = 1.0;
+
+    // **IL PUNTO DEL TAVOLO DOVE SI FA IL MAZZO**, lo stesso per il Mischia e
+    // per il Taglia: due numeri scritti in due posti farebbero due mazzi.
+    final mazzo = Offset(disegno.larghezza * 0.5, disegno.altezza * 0.42);
 
     if (!widget.ridotto) {
       // **L'INGRESSO A SPIRALE**, una carta dopo l'altra.
@@ -385,7 +456,6 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
       // posto, quindi le carte arrivano stese dove staranno.
       if (_mischia.value > 0) {
         final t = _mischia.value;
-        final mazzo = Offset(disegno.larghezza * 0.5, disegno.altezza * 0.42);
         // Quanto la carta sta nel mazzo invece che al suo posto: uno vuol
         // dire mazzo chiuso, zero ventaglio steso.
         final double raccolta;
@@ -413,16 +483,34 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
           angolo += scorre * 0.08;
         }
       }
+    }
 
-      // Il taglio: le due meta' si scostano e si scambiano di quota.
-      if (_taglio.value > 0) {
-        final onda = math.sin(_taglio.value * math.pi);
-        final sopra = posto < widget.quante / 2;
-        centro = Offset(
-          centro.dx + (sopra ? 1 : -1) * disegno.larghezza * 0.22 * onda,
-          centro.dy + (sopra ? -1 : 1) * 26 * onda,
-        );
-      }
+    // **IL TAGLIA E' UN MAZZO CHE SI RICOMPONE, SI TAGLIA E SI RISTENDE.**
+    // Ordine EL voce 02, 24 settembre 2026 sera.
+    //
+    // **Il fondatore, verbatim**: *"con il click al tasto "Mischia" le carte
+    // si devono ricomporre in un mazzo, il mazzo viene tagliato e poi dal
+    // mazzo le carte si ristendono"*, e subito dopo: *"Scusa non Mischia. Ma
+    // "taglia". Il pulsante "Mischia" è già ok"*.
+    //
+    // **Cosa faceva prima**: le due meta' del ventaglio si scostavano a
+    // destra e a sinistra e tornavano ognuna al suo posto, e a corsa finita i
+    // posti si scambiavano di colpo. Nessun mazzo e nessun taglio da vedere.
+    //
+    // **Sta fuori dal ramo del movimento**, e il commento di `_taglia` dice
+    // perche'.
+    if (_taglio.value > 0) {
+      final posa = _posaNelTaglio(
+        disegno: disegno,
+        posto: posto,
+        mazzo: mazzo,
+        centro: centro,
+        angolo: angolo,
+        scala: scala,
+      );
+      centro = posa.centro;
+      angolo = posa.angolo;
+      scala = posa.scala;
     }
 
     // Quando una carta e' stata scelta, le altre si spengono piano e
@@ -432,6 +520,16 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
     }
 
     return _posata(
+      // **LA CHIAVE STA SUL FIGLIO DELLA PILA, non solo sul dorso.** Ordine
+      // EL voce 02. Le carte stanno nella pila in ordine di posto, cosi' chi
+      // e' sopra si disegna dopo; quando Mischia e Taglia scambiano i posti,
+      // senza questa chiave Flutter non poteva spostare le carte e ricreava
+      // tutte e ventidue le immagini, che restano vuote finche' non
+      // ritrovano il loro disegno. Sul Realme, con la build di prova di
+      // prima, un tocco su Taglia ha lasciato il tavolo vuoto per circa un
+      // secondo. Con la chiave qui ogni carta si sposta e l'immagine resta la
+      // sua: lo misura `il_taglia_ricompone_il_mazzo_test.dart`.
+      chiave: ValueKey<int>(carta),
       disegno: disegno,
       centro: centro,
       scala: scala,
@@ -440,8 +538,93 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
       figlio: _Dorso(
         indice: carta,
         attivo: _sceglibile,
-        onTap: () => widget.onScegli(carta),
+        onTap: () {
+          // **Mentre un gesto del mazzo corre, nessun dorso si sceglie**: con
+          // le carte raccolte il tocco prenderebbe quella in cima al mazzo, e
+          // il volo partirebbe dal suo posto sul tavolo, lontano da dove la
+          // si vede. Il blocco sta qui e non in `attivo`, perche' spegnere il
+          // tocco da li' cambierebbe la forma del dorso: vedi `_Dorso`.
+          if (_mischia.isAnimating || _taglio.isAnimating) return;
+          widget.onScegli(carta);
+        },
       ),
+    );
+  }
+
+  /// **LA POSA DI UNA CARTA DURANTE IL TAGLIO**, dal solo `_taglio.value`.
+  ///
+  /// Il pacchetto di ogni carta si legge dal posto: prima dello scambio il
+  /// pacchetto di sopra sono i posti dalla meta' in su, dopo lo scambio i
+  /// primi. L'indice dentro il pacchetto resta lo stesso nei due casi, cosi'
+  /// allo scambio nessuna carta si sposta di un punto.
+  ({Offset centro, double angolo, double scala}) _posaNelTaglio({
+    required _DisegnoDelTavolo disegno,
+    required int posto,
+    required Offset mazzo,
+    required Offset centro,
+    required double angolo,
+    required double scala,
+  }) {
+    final t = _taglio.value;
+    final quante = widget.quante;
+    // Il taglio divide il mazzo a meta', come `_tagliati`.
+    final sotto = quante ~/ 2;
+    final sopra = quante - sotto;
+    Offset nelMazzo(int p) => mazzo + _spessore * (p - (quante - 1) / 2);
+
+    // La raccolta e la stesa: fra il posto sul tavolo e il mazzo.
+    if (t < _finoAllaRaccolta || t >= _mazzoRifatto) {
+      final raccolta = t < _finoAllaRaccolta
+          ? Curves.easeInOut.transform(t / _finoAllaRaccolta)
+          : 1 -
+              Curves.easeOutCubic
+                  .transform((t - _mazzoRifatto) / (1 - _mazzoRifatto));
+      return (
+        centro: Offset.lerp(centro, nelMazzo(posto), raccolta)!,
+        angolo: angolo * (1 - raccolta),
+        scala: 1 + (scala - 1) * (1 - raccolta),
+      );
+    }
+
+    final diSopra = _tagliato ? posto < sopra : posto >= sotto;
+    final indice = _tagliato
+        ? (diSopra ? posto : posto - sopra)
+        : (diSopra ? posto - sotto : posto);
+    final nelPacchetto =
+        _spessore * (indice - ((diSopra ? sopra : sotto) - 1) / 2);
+    // Il pacchetto di sopra va a destra e l'altro a sinistra, abbastanza
+    // lontani da non coprirsi: i due centri stanno a una carta e sette
+    // decimi l'uno dall'altro.
+    final lato = diSopra ? 1.0 : -1.0;
+    final aperto =
+        mazzo + Offset(lato * disegno.larghezzaCarta * 0.85, 0) + nelPacchetto;
+
+    // Quanto il mazzo e' aperto, da zero a uno, e quanto e' sollevato il
+    // pacchetto che si muove sopra l'altro.
+    final double apertura;
+    final double sollevato;
+    final Offset chiuso;
+    if (t < _siRichiude) {
+      // **Il taglio**: si alza il pacchetto di sopra.
+      final s = ((t - _siApreIlTaglio) / (_taglioAperto - _siApreIlTaglio))
+          .clamp(0.0, 1.0);
+      apertura = Curves.easeInOut.transform(s);
+      sollevato = diSopra ? math.sin(s * math.pi) : 0;
+      chiuso = nelMazzo(diSopra ? sotto + indice : indice);
+    } else {
+      // **Il mazzo si rifa'**: si alza il pacchetto che era sotto e si posa
+      // sopra l'altro.
+      final r =
+          ((t - _siRichiude) / (_mazzoRifatto - _siRichiude)).clamp(0.0, 1.0);
+      apertura = 1 - Curves.easeInOut.transform(r);
+      sollevato = diSopra ? 0 : math.sin(r * math.pi);
+      chiuso = nelMazzo(diSopra ? indice : sopra + indice);
+    }
+    return (
+      centro:
+          Offset.lerp(chiuso, aperto, apertura)!.translate(0, -14 * sollevato),
+      angolo: lato * (diSopra ? 0.07 : 0.05) * apertura,
+      scala: 1 + 0.06 * sollevato,
     );
   }
 
@@ -483,6 +666,7 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
     required double opacita,
     required Widget figlio,
     Matrix4? trasforma,
+    Key? chiave,
   }) {
     final w = disegno.larghezzaCarta;
     final h = disegno.altezzaCarta;
@@ -492,6 +676,7 @@ class _TavoloDeiVentidueState extends State<TavoloDeiVentidue>
           alignment: Alignment.center, transform: trasforma, child: corpo);
     }
     return Positioned(
+      key: chiave,
       left: centro.dx - w / 2,
       top: centro.dy - h / 2,
       width: w,
@@ -637,11 +822,17 @@ class _Dorso extends StatelessWidget {
         fit: BoxFit.cover,
       ),
     );
-    if (!attivo) return immagine;
+    // **LA FORMA NON CAMBIA QUANDO IL TOCCO SI SPEGNE.** Ordine EL voce 02.
+    // Restituire l'immagine nuda quando la carta non si sceglie, e il
+    // `GestureDetector` quando si sceglie, cambiava il tipo del widget a ogni
+    // passaggio: Flutter ricreava l'immagine, che resta vuota finche' non
+    // ritrova il suo disegno. Succedeva a tutte e ventidue nel momento in
+    // cui una carta viene scelta, cioe' mentre le altre devono spegnersi
+    // piano. Adesso il rilevatore c'e' sempre e il tocco e' spento.
     return GestureDetector(
       key: Key('arcano_alba_carta_$indice'),
       behavior: HitTestBehavior.opaque,
-      onTap: onTap,
+      onTap: attivo ? onTap : null,
       child: immagine,
     );
   }

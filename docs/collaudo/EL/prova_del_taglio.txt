@@ -1,0 +1,54 @@
+ORDINE EL VOCE 02, IL TAGLIA RICOMPONE IL MAZZO: LA REGISTRAZIONE DELLO SCHERMO DEL REALME.
+
+La domanda del fondatore, in chat la sera del 24 settembre 2026: "le carte si devono ricomporre in un
+mazzo, il mazzo viene tagliato e poi dal mazzo le carte si ristendono", riferita al Taglia ("Il pulsante
+"Mischia" è già ok").
+
+Realme 767f596c, Android 13, build 2280 (sha1 7ba2996a1cf8) installata il 24 settembre 2026 alle 22:39
+ora del telefono, dall'albero col Taglia nuovo e con la chiave sul figlio della pila. Le tre scale delle
+animazioni di sistema sono a 0,0 (lette, mai cambiate): e' il caso piu' duro, perche' li' l'app lavora
+col movimento ridotto.
+
+COME E' FATTA. Il Realme non ha screenrecord: tre cicli di screencap in parallelo in /data/local/tmp,
+83 fotogrammi grezzi in 6,48 secondi, col nome dato dall'orologio del telefono (scratchpad
+raffica_taglio.sh). I fotogrammi diventano il video registrazione_del_taglio.mp4, ognuno per la durata
+vera che e' rimasto a schermo (scratchpad montaggio_taglio.py). Il tocco su Taglia lo fa adb.
+
+LA MISURA, per ogni fotogramma (taglio_carte_nel_tempo.txt): nella fascia del tavolo, da 1050 a 1800
+pixel di altezza, una colonna e' "carta" se porta almeno 8 pixel dell'oro delle cornici. AMPIEZZA e' da
+quale colonna a quale ci sono carte; GRUPPI sono i blocchi di colonne separati da un vuoto di piu' di 12
+pixel: un mazzo o un tavolo steso fanno un gruppo, due pacchetti affiancati ne fanno due.
+
+LA SEQUENZA, dall'istante del tocco (tavola_del_taglio.png):
+  -0,36 s  il tavolo steso, tre righe                       ampiezza 849 px, 1 gruppo
+   0,37 s  le carte si raccolgono                          ampiezza 608 px
+   0,60 s  il mazzo                                         ampiezza 122 px, 1 gruppo
+   0,67 s  il mazzo, il piu' stretto                        ampiezza 121 px
+   1,08 s  il mazzo tagliato: due pacchetti affiancati      ampiezza 343 px, 2 gruppi
+   1,14 s  i due pacchetti al massimo della distanza        ampiezza 363 px, 2 gruppi
+   1,52 s  quello che era sotto si posa sopra l'altro       ampiezza 175 px, 2 gruppi
+   1,59 s  il mazzo rifatto                                 ampiezza 124 px, 1 gruppo
+   1,82 s  le carte si ristendono dal mazzo                 ampiezza 689 px
+   2,21 s  il tavolo di nuovo steso                         ampiezza 849 px, 1 gruppo
+Nessun fotogramma senza carte. Il gesto dura i suoi due secondi anche con le animazioni di sistema
+spente: il controllore del taglio dichiara AnimationBehavior.preserve.
+
+PRIMA DELL'ORDINE, stessa misura sulla build di prova di prima (sha1 fc3d8a07bbbc), registrata alle 22:16
+ora del telefono (taglio_prima_carte_nel_tempo.txt): il tavolo largo 849 pixel e in un gruppo solo prima e
+dopo il tocco, cioe' a video niente, perche' col movimento ridotto il Taglia di prima scambiava i posti
+subito e i ventidue dorsi sono uguali. E fra 0,60 e 1,61 secondi dal tocco IL TAVOLO VUOTO: ampiezza 0,
+le carte sparite per circa un secondo (taglio_prima_tavolo_vuoto.png, il fotogramma prima, quello vuoto e
+quello dopo).
+
+IL TAVOLO VUOTO NON SI E' RIPETUTO con la build nuova in tre registrazioni (il Taglia una volta, il Mischia
+due, una delle due dopo due minuti di schermo fermo), e la causa esatta non si e' potuta riprodurre: la
+build vecchia era aperta da tre ore. Il meccanismo che poteva svuotarlo e' tolto e misurato dalla prova
+test/il_taglia_ricompone_il_mazzo_test.dart: a ogni scambio di posti Flutter ricreava tutte e ventidue le
+immagini dei dorsi (22 su 22), adesso nessuna (0 su 22).
+
+UNA REGISTRAZIONE SCARTATA. La prima con la build definitiva, due cicli di screencap, ha un buco fra 0,93
+e 3,02 secondi, proprio sul taglio: screencap si e' fermato, come la memoria del progetto avverte. Resta
+nello scratchpad; la prova e' questa, con tre cicli: fra un fotogramma e il successivo al massimo 0,21
+secondi.
+
+IL GIUDIZIO A VIDEO RESTA DEL FONDATORE.

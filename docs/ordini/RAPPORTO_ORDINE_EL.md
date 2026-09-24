@@ -5,7 +5,7 @@ settembre 2026 sera sull'orologio della macchina, in coda all'ordine EK come
 hai chiesto. Ramo `claude/esoteric-circle-master-order-e798aj`. Manifesto
 `docs/ordini/ORDINE_EL_MANIFESTO.md`, prove in `docs/collaudo/EL/`.
 
-## LA VOCE CHIUSA, CON LA SUA PROVA
+## LE VOCI CHIUSE, CON LA LORO PROVA
 
 - **EL.01, l'ingresso del sole**: `docs/collaudo/EL/registrazione_del_sole.mp4`,
   col foglio `prova_del_sole.txt` e la tavola `tavola_del_sole.png`. Sul Realme,
@@ -13,6 +13,14 @@ hai chiesto. Ramo `claude/esoteric-circle-master-order-e798aj`. Manifesto
   sull'orizzonte e l'invito, il dito alza il sole e il cielo si illumina fino
   a 5,71 secondi, a 6,14 secondi le carte. Prima dell'ordine EL il dono si
   apriva direttamente sulle carte.
+- **EL.02, il Taglia che ricompone il mazzo**, la voce che hai aggiunto in
+  chat: `docs/collaudo/EL/registrazione_del_taglio.mp4`, col foglio
+  `prova_del_taglio.txt` e la tavola `tavola_del_taglio.png`. Sul Realme, dal
+  tocco su Taglia: il tavolo largo 849 pixel diventa un mazzo largo
+  121 pixel a 0,60 secondi, due pacchetti affiancati fra
+  1,08 e 1,52 secondi, e il tavolo e' di nuovo steso a
+  2,21 secondi. Prima il Taglia non mostrava niente sul Realme, e una
+  volta ha lasciato il tavolo vuoto per un secondo.
 
 **Il giudizio a video resta tuo.**
 
@@ -91,13 +99,47 @@ La guardia dell'ordine, `ordine_el_guard`, vista rossa con due innesti nel
 manifesto. Le prove che aprono l'Arcano passano tutte dal gesto vero con
 `test/alzare_il_sole.dart`, che pretende il sole prima delle carte.
 **L'invito sul cielo notturno si legge**: la tabella del contrasto dell'Alba
-lo misura 12,23 contro il 4,5 preteso. Registro delle guardie a 511.
+lo misura 12,23 contro il 4,5 preteso. **Per il Taglia**: `il_tavolo_dei_ventidue` e `il_mischia_ricompone_il_mazzo` viste rosse prima di toccare il tavolo, e la prima era cieca sul Taglia (lo toccava col Mischia ancora in corsa); la guardia nuova `il_taglia_ricompone_il_mazzo`, quattro prove, nata rossa sul Taglia di prima e vista rossa con quattro innesti. Registro delle guardie a 512.
+
+## IL TAGLIA, VOCE EL.02
+
+**Prima**: le due meta' del ventaglio si scostavano e tornavano al loro posto,
+nessun mazzo; col movimento ridotto, cioe' sul Realme, a video non cambiava
+niente. **Adesso**, in due secondi: le carte si raccolgono nel mazzo, il
+pacchetto di sopra si alza e va a destra, i due pacchetti restano affiancati,
+quello che era sotto si posa sopra l'altro, e le carte si ristendono dal
+mazzo. **Si vede anche con le animazioni di sistema spente**, perche' e' il
+contenuto del pulsante. Il Mischia resta com'era, come hai detto: col
+movimento ridotto cambia i posti senza animazione. Se vuoi che anche lui si
+veda sul telefono con le animazioni spente, e' una riga.
+
+**Il tavolo vuoto.** Registrando il Taglia di prima sul Realme, le carte sono
+sparite per circa un secondo dopo il tocco. Con la build nuova non si e'
+ripetuto, e la causa esatta non l'ho riprodotta; ma il meccanismo che poteva
+farlo c'era: a ogni scambio di posti le ventidue immagini venivano distrutte
+e ricreate. Ora le carte si spostano e le immagini restano le loro, 0
+ricreate su 22 contro 22 su 22, e c'e' una prova che lo pretende.
 
 ## I DIFETTI E I LORO PADRI
 
 - L'ingresso del sole perso: **ordine DT**, voci DT.01 e DT.02, commit
   `47b3c2be`.
-- Nessun altro difetto nuovo in quest'ordine.
+- Il Taglia senza mazzo e senza niente da vedere col movimento ridotto:
+  **ordine DU**, commit `5e1064f2`.
+- Le ventidue immagini ricreate a ogni scambio di posti, e il dorso che
+  cambiava forma quando il tocco si spegneva: **ordine DU**, commit
+  `5e1064f2`. **E una volta l'ho allargato io**, ordine EL voce 02: per non
+  far scegliere un dorso durante i gesti spegnevo il tocco cambiando la forma
+  del dorso, e le immagini si ricreavano anche all'inizio e alla fine di ogni
+  gesto. L'ha presa la prova nuova prima di ogni consegna, era nella build di
+  prova installata sul Realme e non in quella consegnata.
+- La prova del tavolo cieca sul Taglia: **ordine EE voce 01**, commit
+  `14088e9f`, che ha portato il Mischia da 1.100 a 1.800 millesimi senza
+  aggiornare l'attesa della prova, scritta nell'ordine DU.
+- L'invito del sole caduto su `etichette_e_lettura`: **ordine EL voce 01**,
+  l'invito nel file nuovo; e il file del Rito dell'Alba rimasto fra gli
+  ammessi dopo che l'ordine DT l'aveva cancellato: **ordine DT**, commit
+  `47b3c2be`.
 
 ## LA BUILD
 

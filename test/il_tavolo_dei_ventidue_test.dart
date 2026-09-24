@@ -293,11 +293,37 @@ void main() {
     await tester.pump(const Duration(milliseconds: 700));
     await tester.pump(const Duration(milliseconds: 300));
 
+    // **IL TAGLIA DEVE PARTIRE DAVVERO**, ordine EL voce 02. Il Mischia dura
+    // 1.800 millesimi dall'ordine EE, e questa prova toccava Taglia a 1.550:
+    // col Mischia ancora in corsa il tocco viene ignorato, e da allora il
+    // Taglia qui non girava piu'. **Contare le carte mosse non basta**: in
+    // quel mezzo secondo le muove ancora il Mischia. Si guarda che il Taglia
+    // abbia raccolto il mazzo, cosa che il Mischia a quell'ora non fa.
+    //
+    // **E si aspetta la fine del Mischia a fotogrammi piccoli.** A salti
+    // lunghi la seconda meta' del Mischia riparte dal valore dell'ultimo
+    // fotogramma e finisce piu' tardi che sul telefono: due secondi a passi
+    // di cento millesimi bastano in tutti e due i casi.
+    for (var k = 0; k < 20; k++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
     await tester.tap(find.byKey(const Key('arcano_alba_taglia')));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 450));
+    final nelTaglio = [for (final r in pose(tester)) r.center];
+    final medio = nelTaglio.reduce((a, b) => a + b) / 22;
+    final sparse = nelTaglio
+        .map((c) => (c - medio).distance)
+        .fold<double>(0, (m, d) => d > m ? d : m);
+    expect(sparse, lessThan(30),
+        reason: 'a 450 millesimi dal tocco su Taglia le carte stanno ancora '
+            'entro ${sparse.toStringAsFixed(1)} punti dal loro centro: il '
+            'tocco e\' caduto mentre il Mischia correva, e il Taglia non e\' '
+            'partito');
     await tester.pump(const Duration(milliseconds: 600));
     await tester.pump(const Duration(milliseconds: 300));
+    // Il taglio dura 2.000 millesimi dall'ordine EL voce 02.
+    await tester.pump(const Duration(milliseconds: 800));
 
     await tester.tap(find.byKey(const Key('arcano_alba_carta_3')));
     await tester.pump();
