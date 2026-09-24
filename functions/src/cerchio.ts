@@ -21,8 +21,10 @@ import {
 } from "./budget";
 import {
   CamminoCustodito,
+  daFirestore,
   fondiCammini,
   leggiCammino,
+  perFirestore,
 } from "./cammino";
 import {
   BONUS_DELLA_CONDIVISIONE,
@@ -454,9 +456,13 @@ export const statoDelCerchio = onCall(OPZIONI_DELLO_STATO, async (request) => {
   const cammino = await db.runTransaction(async (tx) => {
     const doc = camminoDoc(uid);
     const snap = await tx.get(doc);
+    // **Il custodito si legge e si scrive attraverso il bordo col database**,
+    // `daFirestore` e `perFirestore`: Firestore non accetta una lista dentro
+    // una lista, e il diario dell'Alba ne porta una (guasto trovato
+    // nell'ordine EK, padre l'ordine DU).
     const custodito = azzeraIlCammino
       ? ({} as CamminoCustodito)
-      : ((snap.data() ?? {}) as CamminoCustodito);
+      : daFirestore((snap.data() ?? {}) as CamminoCustodito);
     const fuso = fondiCammini(custodito, camminoDalTelefono);
     // Si scrive solo se c'e' qualcosa da custodire: un documento vuoto in
     // piu' per ogni utente anonimo non dice niente a nessuno.
@@ -467,7 +473,7 @@ export const statoDelCerchio = onCall(OPZIONI_DELLO_STATO, async (request) => {
     // ancora niente da mandare.
     if (daScrivere.length > 0 || azzeraIlCammino) {
       tx.set(doc, {
-        ...fuso,
+        ...perFirestore(fuso),
         aggiornato: FieldValue.serverTimestamp(),
       });
     }

@@ -447,3 +447,78 @@ export function senzaVuoti<T extends Record<string, unknown>>(dato: T): T {
   }
   return fuori;
 }
+
+/**
+ * **FIRESTORE NON ACCETTA UNA LISTA DENTRO UNA LISTA.** Guasto trovato
+ * nell'ordine EK il 24 settembre 2026, fuori dal perimetro, e curato col
+ * permesso del fondatore.
+ *
+ * Il diario dell'Alba porta `registro`, una lista di consegne che sono a loro
+ * volta liste di marche (ordine DU, commit b8cf8106). Firestore rifiuta di
+ * scriverlo con *"Property arcanoDellAlba contains an invalid nested
+ * entity"*, e con lui cadeva `statoDelCerchio` intera: dal 23 settembre 2026
+ * alle 11:50 UTC chi aveva pescato una carta dell'Alba non riceveva piu' ne'
+ * il piano ne' i residui ne' il giorno, 182 cadute il primo giorno.
+ *
+ * **Il telefono continua a mandare la sua forma e continua a riceverla.** La
+ * traduzione vive solo sul bordo col database: una lista dentro una lista
+ * diventa `{"_lista_annidata": [...]}` quando si scrive, e torna lista quando
+ * si legge. Vale per il documento intero e non solo per il registro, cosi' il
+ * prossimo diario con una lista annidata non fa cadere di nuovo tutto.
+ *
+ * **La chiave non e' `__lista__`, e c'e' una ragione misurata.** La prima
+ * versione pubblicata la usava, e Firestore l'ha respinta con *"field name
+ * '__lista__' is reserved"*: i nomi fra due doppi trattini bassi sono suoi.
+ * Nessuna prova in locale poteva saperlo; l'ha detto il registro del server
+ * alla prima apertura del Realme, e adesso la prova lo pretende.
+ */
+export const CHIAVE_DELLA_LISTA = "_lista_annidata";
+
+function oggettoSemplice(v: unknown): v is Record<string, unknown> {
+  if (v === null || typeof v !== "object" || Array.isArray(v)) return false;
+  const proto = Object.getPrototypeOf(v);
+  return proto === Object.prototype || proto === null;
+}
+
+function codifica(v: unknown, inUnaLista: boolean): unknown {
+  if (Array.isArray(v)) {
+    const lista = v.map((x) => codifica(x, true));
+    return inUnaLista ? {[CHIAVE_DELLA_LISTA]: lista} : lista;
+  }
+  // Solo gli oggetti semplici: un Timestamp o un FieldValue passano intatti.
+  if (oggettoSemplice(v)) {
+    const fuori: Record<string, unknown> = {};
+    for (const [chiave, valore] of Object.entries(v)) {
+      fuori[chiave] = codifica(valore, false);
+    }
+    return fuori;
+  }
+  return v;
+}
+
+function decodifica(v: unknown): unknown {
+  if (Array.isArray(v)) return v.map(decodifica);
+  if (oggettoSemplice(v)) {
+    const chiavi = Object.keys(v);
+    const lista = v[CHIAVE_DELLA_LISTA];
+    if (chiavi.length === 1 && Array.isArray(lista)) {
+      return lista.map(decodifica);
+    }
+    const fuori: Record<string, unknown> = {};
+    for (const [chiave, valore] of Object.entries(v)) {
+      fuori[chiave] = decodifica(valore);
+    }
+    return fuori;
+  }
+  return v;
+}
+
+/** Cio' che si scrive su Firestore: nessuna lista dentro una lista. */
+export function perFirestore<T>(dato: T): T {
+  return codifica(dato, false) as T;
+}
+
+/** Cio' che si legge da Firestore, riportato alla forma del telefono. */
+export function daFirestore<T>(dato: T): T {
+  return decodifica(dato) as T;
+}

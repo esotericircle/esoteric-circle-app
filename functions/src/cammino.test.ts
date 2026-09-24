@@ -1,11 +1,15 @@
 import {test} from "node:test";
 import assert from "node:assert/strict";
+import {readFileSync} from "node:fs";
+import {join} from "node:path";
 import {
   CamminoCustodito,
   VERSIONE_DEL_CAMMINO,
   PESO_MASSIMO_DEL_DIARIO_DELL_ALBA,
+  daFirestore,
   fondiCammini,
   leggiCammino,
+  perFirestore,
 } from "./cammino";
 
 /**
@@ -202,6 +206,77 @@ test("fra due diari dell'Alba vince il piu' avanti, e un telefono nuovo lo ricev
     fondiCammini(vuoto, {arcanoDellAlba: telefonoVecchio}).arcanoDellAlba,
     telefonoVecchio
   );
+});
+
+/** I nomi di campo che Firestore riserva a se': `__qualcosa__`. */
+function chiaviRiservate(v: unknown): string[] {
+  if (Array.isArray(v)) return ([] as string[]).concat(...v.map(chiaviRiservate));
+  if (v !== null && typeof v === "object") {
+    return ([] as string[]).concat(
+      ...Object.entries(v).map(([k, x]) =>
+        (/^__.*__$/.test(k) ? [k] : []).concat(chiaviRiservate(x))
+      )
+    );
+  }
+  return [];
+}
+
+/** I percorsi delle liste che stanno direttamente dentro un'altra lista. */
+function listeDentroListe(v: unknown, dove = "", inUnaLista = false): string[] {
+  if (Array.isArray(v)) {
+    const qui = inUnaLista ? [dove] : [];
+    return qui.concat(
+      ...v.map((x, i) => listeDentroListe(x, `${dove}[${i}]`, true))
+    );
+  }
+  if (v !== null && typeof v === "object") {
+    return ([] as string[]).concat(
+      ...Object.entries(v).map(([k, x]) => listeDentroListe(x, `${dove}.${k}`))
+    );
+  }
+  return [];
+}
+
+/**
+ * **IL CAMMINO CHE VA SU FIRESTORE NON HA LISTE DENTRO LISTE.** Ordine EK,
+ * guasto trovato fuori dal perimetro e curato col permesso del fondatore.
+ *
+ * Il telefono manda il diario dell'Alba col registro delle consegne, una
+ * lista di liste dall'ordine DU; Firestore lo rifiutava e con lui cadeva
+ * `statoDelCerchio` intera. Il diario di prova porta la forma VERA del
+ * telefono, e la prima asserzione pretende che il difetto ci sia davvero:
+ * senza, la prova sarebbe verde senza aver guardato niente.
+ */
+test("il cammino che va su Firestore non ha liste dentro liste, e torna uguale", () => {
+  const diario = {
+    ...diarioAlba("2026-09-24", 1, 3),
+    registro: [["c:0", "a:2"], ["c:5"]],
+  };
+  const dalTelefono = leggiCammino({arcanoDellAlba: diario});
+  assert.deepEqual(listeDentroListe(dalTelefono), [
+    ".arcanoDellAlba.registro[0]",
+    ".arcanoDellAlba.registro[1]",
+  ]);
+  const scritto = perFirestore(dalTelefono);
+  assert.deepEqual(
+    listeDentroListe(scritto),
+    [],
+    "una lista dentro una lista arriverebbe a Firestore"
+  );
+  assert.deepEqual(daFirestore(scritto), dalTelefono);
+  // Firestore riserva i nomi fra due doppi trattini bassi: la prima versione
+  // pubblicata usava `__lista__` e il server l'ha respinta.
+  assert.deepEqual(
+    chiaviRiservate(scritto),
+    [],
+    "un nome di campo riservato da Firestore"
+  );
+});
+
+test("statoDelCerchio legge e scrive il cammino attraverso il bordo col database", () => {
+  const sorgente = readFileSync(join(__dirname, "..", "src", "cerchio.ts"), "utf8");
+  assert.match(sorgente, /\.\.\.perFirestore\(fuso\)/);
+  assert.match(sorgente, /daFirestore\(\(snap\.data\(\)/);
 });
 
 /**
