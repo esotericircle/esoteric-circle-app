@@ -10,7 +10,7 @@ Regola numero uno: prima di dire cosa e' fatto, cosa manca o quanti sono, VERIFI
 - Working tree locale di Mauro: `C:\Users\user\Desktop\esoteric-circle-app`. Contiene il repo piu' la cartella `output/` con gli asset sorgente e gli script Python che li generano. La cartella `output/` non e' versionata su Git.
 - Firma del progetto: sempre e solo Mauro Battaglia, `cloud@esotericircle.app`, sia come autore sia come committer. Nei messaggi di commit non va nessun trailer: ne' `Co-Authored-By`, ne' `Claude-Session`, che portava in chiaro nella cronologia un indirizzo privato di Mauro. Il taglio e' automatico: `.claude/settings.json` porta `"includeCoAuthoredBy": false` accanto al blocco `hooks`, e da li' in poi i trailer non vengono piu' aggiunti. **L'AZIONE DEGLI SCREENSHOT NON ESISTE PIU', disattivata su GitHub e tolta dal repository il 12 agosto 2026 dopo DUE conflitti**: committava da sola sul ramo canonico, cioe' aggiungeva alla cronologia del ramo su cui si lavora un commit che nessuno si aspettava, da riconciliare a mano ogni volta. Le anteprime le rigenera chi lavora, con AGGIORNA_ANTEPRIME=1, nello stesso commit del codice, e `test/nessuna_azione_committa_da_sola_test.dart` cade se un workflow torna a portare `git commit`, `git push` o `contents: write`: toglierlo non bastava, perche' domani se ne scrive un altro con lo stesso buon motivo. Cosa aveva gia' imparato prima di essere tolta, che vale per chiunque ci riprovi: metteva in stage il solo `docs/preview/medora-chat.png`, cioe' l'unica anteprima che produceva davvero, e non piu' l'intera cartella: cosi' committava anche `cielo-sopra-di-te.png`, che dipende dall'ora reale e cambia a ogni esecuzione, accumulando circa nove megabyte di blob per un aggiornamento che nessuno aveva chiesto, per giunta sotto un messaggio che parlava d'altro. Il messaggio dice ora "aggiorna anteprima chat Medora", al singolare, che e' la verita'. Congelare l'ora di `cielo-sopra-di-te.png` NON e' stato fatto e va deciso a parte: la schermata `SkyOverviewScreen` accetta un `now`, ma la cattura ci arriva passando dal Santuario, che chiama `SkyOverviewScreen.route()` senza parametri, quindi il punto di iniezione utilizzabile dalla cattura non esiste e crearlo era fuori scope. Anche il workflow `.github/workflows/chat-screenshot.yml` committa come Mauro Battaglia invece che come `github-actions[bot]`: il push continua a funzionare perche' l'autenticazione viene dal `GITHUB_TOKEN` gia' configurato da `actions/checkout`, non dall'identita' git, e il `[skip ci]` nel messaggio resta, cosi' il workflow non si riavvia da solo. La cronologia passata non si riscrive: decisione presa, il passato resta com'e'. Nel codice non compaiono nomi di fornitori AI di sviluppo: i due commenti che citavano la regola d'oro dello stack in `lib/services/ai/maestro_ai_provider.dart` e `lib/services/service_interfaces.dart` ora dicono soltanto che l'AI a runtime e' Gemini. Anche il commento di `pubspec.yaml` e' stato riscritto e dice ora soltanto che l'AI a runtime e' Gemini su Vertex, e che non ci sono chiavi nel client: con quello, `lib/`, `test/`, `tool/` e `pubspec.yaml` sono puliti, verificato col grep. Restano citazioni soltanto nei documenti di cantiere, cioe' `CLAUDE.md`, la cartella `.claude/`, i quattro briefing in `docs/`, `docs/RELAZIONE_NOTTE.md`, `docs/C3_CHAT_MEDORA_SETUP.md` e questo stesso file, dove per giunta il nome del branch canonico contiene la parola: non sono prodotto e si valutano alla pubblicazione.
 - L'Architetto in Cowork raggiunge il PC di Mauro con un ponte (device desktop-aktdgut) e legge il repo su GitHub in sola lettura. Prima di chiedere a Mauro dove sta un file, lo cerca da solo.
-- **LA FATTURAZIONE DI GOOGLE CLOUD E' CHIUSA dal 24 settembre 2026**, fra le 15:43 e le 16:22 UTC: nei registri del server l'ultima chiamata riuscita e' delle 15:43:12 e la prima respinta con *"billing is disabled for this project"* delle 16:22:23. `gcloud billing projects describe esoteric-circle` dice `billingEnabled: false`; il conto `01DF7B-A56CB5-A30419`, "Il mio account di fatturazione", dice `open: false`: e' il credito di prova. Da allora Vertex AI e Cloud Monitoring rispondono 403, i Maestri non rispondono, il LIVE mostra *«La voce non arriva, stasera»*, `statoDelCerchio` cade e la pastiglia "Dal vivo" torna grigia; nessuna API nuova si accende (*"UREQ_PROJECT_BILLING_NOT_OPEN"*). **Riaprirla spetta a Mauro**, con un conto a pagamento; chi trova questa riga verifica con `gcloud billing projects describe` prima di crederle.
+- **LA FATTURAZIONE DI GOOGLE CLOUD SI E' CHIUSA il 24 settembre 2026, E MAURO L'HA RIAPERTA LA SERA STESSA.** Si e' chiusa fra le 15:43 e le 16:22 UTC: nei registri del server l'ultima chiamata riuscita e' delle 15:43:12 e la prima respinta con *"billing is disabled for this project"* delle 16:22:23. `gcloud billing projects describe esoteric-circle` dice `billingEnabled: false`; il conto `01DF7B-A56CB5-A30419`, "Il mio account di fatturazione", dice `open: false`: e' il credito di prova. Da allora Vertex AI e Cloud Monitoring rispondono 403, i Maestri non rispondono, il LIVE mostra *«La voce non arriva, stasera»*, `statoDelCerchio` cade e la pastiglia "Dal vivo" torna grigia; nessuna API nuova si accende (*"UREQ_PROJECT_BILLING_NOT_OPEN"*). **Riaperta alle 17:31 UTC**: `billingEnabled: true`, conto aperto, Flash e Flash-Lite di nuovo a HTTP 200 in europe-west1. Chi vede di nuovo i 403 verifica con `gcloud billing projects describe` prima di cercare un difetto nell'app: la riapertura spetta a Mauro, con un conto a pagamento.
 
 ## Asset grafici, conteggio verificato a mano il 17 luglio 2026
 
@@ -4582,9 +4582,15 @@ piu' lento, 9,5, 10,9 e 8,5 caratteri al secondo contro 10,1, 13,6 e 9,1
 (Medora, Aura, Calìgo, un campione ciascuno); il ritmo lo giudica il
 fondatore. Il fondatore sceglie dalla pagina "Le voci dei
 Maestri", https://claude.ai/artifact/7xJ4NGT3tcVTGjB9C6dboQ, 88 campioni
-fra Flash e Pro; Claude porta la scelta in configurazione; le voci Chirp
-3 HD aspettano l'API Text-to-Speech, che non si accende finche' la
-fatturazione e' chiusa. Il selettore sta anche nel LIVE,
+fra Flash e Pro, e dal 24 settembre sera 49 campioni Chirp; Claude porta
+la scelta in configurazione. **Le voci Chirp**: l'API Text-to-Speech e'
+accesa dal 24 settembre sera, ma **le Chirp 3 HD non stanno nella regione
+dei dati** (in europe-west1 *"Voice it-IT-Chirp3-HD-Aoede not found"*; le
+trenta voci italiane rispondono su "eu" e "global"). In europe-west1 ci
+sono solo tre Chirp HD, D maschile, F e O femminili. Il LIVE parla ancora
+solo con Gemini: la strada per Chirp si scrive quando il fondatore
+sceglie, e una Chirp 3 vuole prima il suo si' a un'eccezione alla regola
+dei modelli nella regione dei dati. Il selettore sta anche nel LIVE,
 `il_selettore_delle_voci.dart`: lo vede solo un fondatore: il Realme di
 collaudo non lo e'. **Si dice Calìgo**: il nome arriva alla voce
 con l'accento, `IlParlatoDelMaestro.pronunciato`, e la riga 31 del file di
@@ -4626,8 +4632,7 @@ Ordine del 25 settembre 2026, **cinque voci**, lavorato il 24 settembre 2026
 sull'orologio della macchina. Manifesto `docs/ordini/ORDINE_EK_MANIFESTO.md`,
 rapporto `docs/ordini/RAPPORTO_ORDINE_EK.md`, prove in `docs/collaudo/EK/`.
 **Due voci chiuse, EK.01 ed EK.05; tre aperte**: EK.02 perche' lo zero non
-c'e', EK.03 in attesa della misura intera sul Realme, fermata dalla chiusura
-della fatturazione, EK.04 in attesa dello sguardo del fondatore sui volti. Il fondatore ha scritto *"Approvo tutto e ti autorizzo a fare tutto,
+c'e', EK.03 per Aura, scritta "Laura" (18 nomi su 19 sul Realme), EK.04 in attesa dello sguardo del fondatore sui volti. Il fondatore ha scritto *"Approvo tutto e ti autorizzo a fare tutto,
 non fermarti più e sistema tutto"* e *"Non devi lasciare nulla in coda"*:
 da li' anche i guasti fuori dal perimetro sono stati curati; si consegna
 anche la 2280, dopo lo sbarramento sull'albero finale.
@@ -4664,7 +4669,7 @@ zero serve un controllo dopo la risposta che la faccia riscrivere: **la
 scelta e' del fondatore**. *"Senti il calmo del tuo respiro"* e' nel
 controllo della lingua, regola `calmo` di `tool/controlli_ej.dart`.
 
-**I NOMI NEL LIVE, VOCE 03, IN ATTESA DI VERIFICA.** Sei frasi con
+**I NOMI NEL LIVE, VOCE 03, APERTA PER AURA.** Sei frasi con
 diciannove nomi, dette dal portatile al Realme nel LIVE di Medora: sulla 2279
 7 nomi giusti su 19 ("Nei giorni d'oggi" per Medora, "Canigo" per Calìgo).
 Con i nomi dei Maestri e delle arti nell'istruzione di chi trascrive
@@ -4679,13 +4684,22 @@ sotto il LIVE** e il microfono la prendeva per una persona che parla, cosi'
 la frase non si chiudeva mai (padre ordine EG): `SchermataLive` non e' fra i
 nomi che la regia della musica riconosce. Adesso `liveCheZittisce`, in
 `lib/features/shell/quale_musica_suona.dart`, la tace finche' il LIVE e'
-aperto, come il velo dell'intro. Con tutte le cure sul Realme una frase
-sola, tre nomi su tre (`docs/collaudo/EK/nomi/finale_2280.txt`), poi il
-fondatore ha chiesto il telefono e la fatturazione si e' chiusa: le altre
-cinque frasi e la misura diretta della musica spenta nel LIVE si fanno
-appena si riapre (scratchpad `sessione_nomi.sh` e `musica_attiva.sh`, che
-legge le tracce attive dell'audio_flinger: `dumpsys audio` segna "idle" il
-lettore di audioplayers anche mentre suona).
+aperto, come il velo dell'intro: **visto sul Realme** dopo la riapertura
+della fatturazione, nessuna traccia di musica nel LIVE e la musica di
+nuovo sei secondi dopo l'uscita (scratchpad `musica_attiva.sh`, che legge
+le tracce attive dell'audio_flinger: `dumpsys audio` segna "idle" il
+lettore di audioplayers anche mentre suona). **L'orologio del silenzio
+chiudeva il LIVE mentre la domanda si scriveva**: i secondi della
+trascrizione contavano come silenzio, e a 30 il LIVE si chiudeva prima che
+la domanda tornasse scritta (padre ordine EJ voce 01, commit `5b160747`).
+Curato col commit `61c937cb`: `QuadroDelLive.eUnSecondoDiSilenzio`, e la
+schermata conta le frasi in trascrizione in un `finally`. **Con tutte le
+cure, sul Realme 18 nomi su 19** (`docs/collaudo/EK/nomi/cura_silenzio_2280.txt`):
+Medora 2 su 2, Calìgo 2 su 2 con l'accento, arcani, rune, segni e chakra
+tutti giusti; **Aura scritta "Laura"** una volta su una, e nessuna
+correzione a macchina, perche' "Laura" in apertura di frase puo' essere
+una persona vera. La scelta fra una prova con la voce del fondatore e una
+regola solo per il LIVE di Aura e' del fondatore.
 
 **I VOLTI, VOCE 04, IN ATTESA DI VERIFICA.** Gli avatar di prima venivano da
 originali larghi 847 e 848 pixel, ingranditi da 3,16 a 3,49 volte prima di
@@ -4732,8 +4746,8 @@ come lista di liste (182 cadute il 23, 18 il 24; padre ordine DU, commit
 `b8cf8106`): il telefono non riceveva piu' piano, residui e giorno, la
 pastiglia "Dal vivo" restava grigia e i conti a zero. La cura: il server adesso scrive il cammino con `perFirestore` e lo
 rilegge con `daFirestore` (`functions/src/cammino.ts`), senza liste dentro
-liste e senza nomi di campo riservati; il piano arriva al telefono e la
-pastiglia e' d'oro. **La sessione di Protoface non si chiudeva** uscendo dal
+liste e senza nomi di campo riservati; il piano arrivava al telefono e la
+pastiglia era d'oro finche' la fatturazione e' rimasta aperta. **La sessione di Protoface non si chiudeva** uscendo dal
 LIVE (padre ordine EG, commit `1104da29` e `3687c223`): il telefono lasciava
 solo la stanza (`_chiudi` in `schermata_live.dart`) e la sessione restava
 accesa fino al silenzio tollerato di 60 secondi. Adesso l'app chiama
@@ -4752,14 +4766,29 @@ volte; nove guardie delle zone toccate viste rosse per la Regola B.
 Registro a 509.
 
 **LE CHIAMATE A GEMINI**, lette da Cloud Monitoring per tutto il progetto
-dalle 04:00 alle 14:34:48 UTC del 24 settembre 2026, coi prezzi del
-catalogo di Cloud Billing: `gemini-2.5-flash` 8.954 chiamate e 8,22
-dollari, `gemini-2.5-flash-lite` 88 e meno di un centesimo,
-`gemini-2.5-flash-tts` 212 e 0,50, `gemini-3-pro-image` 4 e 1,11; **totale
-9,82 dollari**, al massimo 15,68 se tutto l'ingresso di Flash fosse audio,
-perche' il contatore non li separa. Dopo, fino alla chiusura della
-fatturazione, fra 0,25 e 0,35 dollari stimati coi prezzi e non letti:
-Cloud Monitoring risponde 403. Protoface a parte, a crediti.
+dalle 04:00 alle 19:03 UTC del 24 settembre 2026, ordini EK ed EL, coi
+prezzi del catalogo di Cloud Billing: `gemini-2.5-flash` 8.275 chiamate e
+5,74 dollari, `gemini-2.5-flash-lite` 72 e meno di un centesimo,
+`gemini-2.5-flash-tts` 131 e 0,30, `gemini-2.5-pro-tts` 51 e 0,15,
+`gemini-3-pro-image` 4 e 1,11 (Nano Banana, il restauro dei volti);
+**totale 7,30 dollari**, al massimo 10,84 se tutto l'ingresso di Flash
+fosse audio, perche' il contatore non li separa. **Le prime letture erano
+sbagliate**: lo strumento chiedeva somme su periodi fissi di 24 ore e ogni
+lettura restituiva le 24 ore prima della fine della finestra (9,82 e 9,93
+dollari scritti prima). Adesso il periodo e' la finestra stessa: chi legge
+i consumi con `aggregation.alignmentPeriod` lo mette uguale alla durata
+della finestra. Protoface a parte, un credito vale un centesimo di dollaro:
+155 crediti del mese alle 08:26 UTC e 215 alle 18:54.
+
+**QUANTO COSTA UN MINUTO DI LIVE**, misurato sulla sessione vera delle
+18:54:18-19:00:58 UTC, 6 minuti e 40 secondi con Medora: Protoface 7
+crediti, cioe' **0,0100 dollari al minuto**, un credito per minuto
+iniziato; la voce del Maestro, Flash-TTS a 25 token per secondo di voce,
+1,5 centesimi per minuto di voce, qui 0,0099 al minuto perche' Medora ha
+parlato il 65 per cento del tempo; trascrizione e risposte circa 0,0007;
+LiveKit gratis fino a 5.000 minuti-partecipante al mese, due partecipanti
+per LIVE, poi 0,001 al minuto. **Totale 0,0205 dollari al minuto**, 0,0215
+oltre il gratuito di LiveKit.
 
 **LE VOCI DEI MAESTRI, RICHIESTA DEL FONDATORE DURANTE L'ORDINE.** La
 pagina di scelta, il server con le trenta voci e i due modelli, le voci
@@ -4769,6 +4798,49 @@ cancello che cadeva a macchina ferma**, `il_cancello_aspetta_il_limite`, e'
 curata: `tool/il_cancello_ha_detto_verde.sh` non prova piu' il rimando
 `python3` del negozio di Windows, che senza console impiega 3,1 secondi
 (padre ordine CODEMAGIC2, commit `a216d443`; cura `335b0126`).
+
+## L'ORDINE EL, L'ALBA SI APRE ALZANDO IL SOLE
+
+Ordine del 25 settembre 2026, **una voce**, lavorato il 24 settembre 2026
+sera in coda all'ordine EK. Manifesto `docs/ordini/ORDINE_EL_MANIFESTO.md`,
+rapporto `docs/ordini/RAPPORTO_ORDINE_EL.md`, prove in `docs/collaudo/EL/`.
+**La voce EL.01 e' chiusa.** Il fondatore: *"l'ingresso del dono doveva
+essere lo stesso del precedente ovvero l'utente che col dito alza il sole
+verso il cielo e la scena si illumina"*.
+
+**IL VECCHIO INGRESSO** viveva nel Rito dell'Alba, commit `8a19e6b8`,
+`lib/features/rituals/dawn_rite_screen.dart` (il trascinamento alle righe
+252-269, il motore del sole alle 804-946), nato col commit `bf5661e9` del 15
+luglio 2026; **l'ha tolto l'ordine DT**, voci DT.01 e DT.02, commit
+`47b3c2be` del 17 settembre 2026, cancellando la schermata intera. La
+richiesta del fondatore di tenerlo **non e' scritta sul ramo**: scarto
+dichiarato nel manifesto.
+
+**ADESSO** il motore sta in `lib/features/rituals/il_sole_dell_alba.dart`
+(`IlSoleDellAlba` e `PittoreDellAlba`), rimesso com'era: trascinare in
+alto per 220 punti alza il sole, oltre lo 0,55 al rilascio l'alba si compie
+da sola, un tocco o un tocco prolungato la compiono comunque; i tre
+livelli `assets/ritual_backgrounds/dawn_sky_night.png`, `dawn_sky_day.png`
+e `dawn_sun.png` tornano a servire. L'Arcano dell'Alba
+(`arcano_dell_alba_screen.dart`) mette il sole sopra la scena finche' la
+persona non lo alza; la scena illuminata resta 450 millesimi, poi si
+dissolve in 700 mentre il tavolo dei ventidue entra; da li' in avanti
+niente e' cambiato. Riaprendo il dono nello stesso giorno si torna al
+responso e il sole non si ripete.
+
+**LA PROVA SUL REALME** (`docs/collaudo/EL/registrazione_del_sole.mp4`,
+83 fotogrammi di `screencap`, il Realme non ha `screenrecord`): a 0,54
+secondi dal tocco sul dono la notte col sole sull'orizzonte, il cielo che
+si illumina col dito fino a 215 di luminosita' a 5,71 secondi, le carte a
+6,14. Il Realme ha le animazioni di sistema a 0,0: li' dissolvenza e
+spirale non si vedono, e le mostrano le anteprime
+`docs/preview/arcano-alba-sole-*.png`.
+
+**LE GUARDIE.** Due nuove, `l_arcano_dell_alba_si_apre_col_sole` e
+`ordine_el_guard`, nate rosse con l'innesto verificato; otto guardie della
+zona viste rosse per la Regola B; le prove che aprono l'Arcano passano dal
+gesto vero con `test/alzare_il_sole.dart`. L'invito sul cielo notturno si
+legge a 12,23 contro il 4,5 preteso. Registro a 511.
 
 ## Regole ferree
 

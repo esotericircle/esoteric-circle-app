@@ -20,8 +20,9 @@ dice `billingEnabled: false`; il conto "Il mio account di fatturazione"
 dice `open: false`. Da allora Vertex AI risponde 403, con
 lui i Maestri, il LIVE, la trascrizione, le voci e la lettura dei consumi.
 E' il credito di prova che CLAUDE.md dava in scadenza intorno al 23
-settembre. **Riaprirla spetta al fondatore**, con un conto a pagamento;
-le misure che restano sul telefono si fanno dopo.
+settembre. **Il fondatore l'ha riaperta la sera stessa**: alle 17:31 UTC
+`billingEnabled: true`, conto aperto, Flash e Flash-Lite di nuovo a HTTP 200
+in europe-west1; le misure rimaste sul telefono sono state fatte dopo.
 
 VOCI_TOTALI: 5
 VOCI_CHIUSE: 2
@@ -303,13 +304,32 @@ bisogno di cell e pc"*); alla ripresa, alle 16:24 UTC, Vertex AI
 rispondeva gia' 403, *"This API method requires billing to be enabled"*, mentre
 il LIVE sul Realme mostrava *«La voce non arriva, stasera»*.
 
-**APERTA IN ATTESA DI VERIFICA.** Le cure ci sono tutte: i nomi dai
-cataloghi, la trascrizione su Flash, l'elenco ricopiato che vale come
-silenzio, "Calìgo" con l'accento, la musica che tace nel LIVE e la
-sessione di prova che aspetta il silenzio prima di ogni frase. Al banco
-Flash scrive 42 nomi giusti su 44; sul Realme una frase su sei e' stata
-misurata. La misura intera sul Realme si fa appena la fatturazione torna
-aperta: e' `sessione_nomi.sh` nello scratchpad, cinque minuti.
+**Dopo la riapertura della fatturazione**, due prove sul Realme.
+
+La prima (`docs/collaudo/EK/nomi/riaperta_2280.txt`, 17:35 UTC) ha misurato
+**la musica nel LIVE**: nessuna traccia di musica dell'app finche' il LIVE e'
+a schermo, la musica di nuovo sei secondi dopo l'uscita. E ha trovato **un
+difetto dell'orologio del silenzio**: la frase detta 28 secondi dopo il
+saluto si e' trascritta in 1,6 secondi, quei secondi contavano come
+silenzio, e a 30 il LIVE si e' chiuso 134 millisecondi prima che la domanda
+tornasse scritta. Padre: ordine EJ voce 01, commit `5b160747`. Curato col
+commit `61c937cb`: la regola sta in `QuadroDelLive.eUnSecondoDiSilenzio`, e
+la schermata conta le frasi in trascrizione in un `finally`.
+
+La seconda (`docs/collaudo/EK/nomi/cura_silenzio_2280.txt`, 18:54-19:01
+UTC), con la cura dentro: **18 nomi giusti su 19**. Medora 2 su 2 e Calìgo 2
+su 2 con l'accento, tutti gli arcani, le rune, i segni e i chakra; **Aura
+scritta "Laura"**, una volta su una. Dopo il saluto 30,6 secondi di voci
+nella stanza e il LIVE e' rimasto aperto; la musica spenta nel LIVE e di
+nuovo accesa all'uscita, come nella prima.
+
+**APERTA.** Le due segnalazioni del fondatore sono risolte: Medora non e'
+piu' "Mezz'ora" e Calìgo ha il suo accento. Ma la voce chiede anche Aura, e
+Aura e' stata scritta "Laura". Non c'e' una correzione a macchina:
+"Laura" in apertura di frase puo' essere una persona vera di cui si parla.
+La scelta e' del fondatore: una prova con la sua voce, perche' quella di
+prova e' la voce sintetica di Windows, o una regola solo per il LIVE di
+Aura.
 
 ## VOCE EK.04, LE IMMAGINI DEI MEZZIBUSTI
 
@@ -444,9 +464,16 @@ e non cambia i conti qui sopra.
   contro 9,1. Il 23 settembre il fondatore aveva trovato *"rallentata
   parecchio"* una voce a 8,0. La pagina fa sentire lo stesso modo del LIVE:
   il giudizio sul ritmo e' del fondatore.
-- Chirp 3 HD: serve l'API Text-to-Speech, spenta nel progetto; accenderla e'
-  stato rifiutato con *"UREQ_PROJECT_BILLING_NOT_OPEN"*, perche' la
-  fatturazione e' chiusa. Si fa appena si riapre, verificando la regione.
+- Chirp: l'API Text-to-Speech, rifiutata a fatturazione chiusa con
+  *"UREQ_PROJECT_BILLING_NOT_OPEN"*, e' stata accesa dopo la riapertura.
+  **Le Chirp 3 HD non stanno nella regione dei dati**: in europe-west1 la
+  sintesi risponde *"Voice it-IT-Chirp3-HD-Aoede not found"*, le trenta
+  voci italiane rispondono su "eu" e "global". In europe-west1 ci sono solo
+  tre **Chirp HD**: D maschile, F e O femminili. Sulla pagina 49 campioni in
+  piu', le Chirp 3 segnate *"Chirp 3 · eu"* e le Chirp HD *"nella regione
+  dei dati"*. Il LIVE parla ancora solo con Gemini: la strada per Chirp
+  si scrive quando il fondatore sceglie, e per una Chirp 3 serve prima il
+  suo si' a un'eccezione alla regola dei modelli nella regione dei dati.
 
 **Il cancello che cadeva a macchina ferma.** La prova
 `il_cancello_aspetta_il_limite` ha letto due volte 82 secondi invece di 92:

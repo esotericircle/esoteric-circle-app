@@ -20,31 +20,29 @@ macchina. Ramo `claude/esoteric-circle-master-order-e798aj`. Manifesto
 
 - **EK.02, i Maestri sempre diretti**, aperta: le risposte non dirette
   scendono da 20 su 54 a 8 su 54, non a zero. L'ultimo giro ne ha 4.
-- **EK.03, i nomi giusti nel LIVE**, in attesa di verifica: le cure ci sono
-  tutte e al banco Flash scrive 42 nomi giusti su 44, ma sul Realme ho
-  misurato una frase sola (tre nomi su tre) prima che la fatturazione si
-  chiudesse. Le altre cinque si dicono appena si riapre.
+- **EK.03, i nomi giusti nel LIVE**, aperta: sul Realme **18 nomi su 19**
+  (prima 7 su 19), Medora e Calìgo sempre giusti, ma **Aura e' stata
+  scritta "Laura"** una volta su una (`docs/collaudo/EK/nomi/cura_silenzio_2280.txt`).
 - **EK.04, le immagini dei mezzibusti**, in attesa di verifica: immagini
   restaurate, avatar creati e agganciati, volti misurati sul Realme. Se sono
   piu' nitidi lo giudichi tu guardandoli.
 
-## LA FATTURAZIONE DI GOOGLE CLOUD SI E' CHIUSA: SERVE TE
+## LA FATTURAZIONE DI GOOGLE CLOUD SI E' CHIUSA, E L'HAI RIAPERTA
 
 Il 24 settembre 2026, fra le 15:43 e le 16:22 UTC (l'ultima chiamata
 riuscita del server e la prima respinta), il progetto `esoteric-circle` ha
 perso la fatturazione: `billingEnabled: false`; il conto "Il mio account
-di fatturazione" (`01DF7B-A56CB5-A30419`) risulta chiuso. E' il credito di prova, che CLAUDE.md dava in scadenza intorno al
-23 settembre. **Da allora Vertex AI risponde 403**: i Maestri non
+di fatturazione" (`01DF7B-A56CB5-A30419`) risulta chiuso. E' il credito
+di prova, che CLAUDE.md dava in scadenza intorno al 23 settembre. **Da allora Vertex AI risponde 403**: i Maestri non
 rispondono, il LIVE non si apre (sul Realme: *«La voce non arriva,
 stasera»*), la pastiglia "Dal vivo" e' tornata grigia perche' il server non
 manda piu' il piano; non si leggono nemmeno i consumi. Non e' un difetto
 dell'app e non l'ha causato questo lavoro.
 
-**Riaprirla spetta a te**: nella console di Google Cloud, alla voce
-Fatturazione del progetto `esoteric-circle`, si attiva un conto a
-pagamento (serve un metodo di pagamento: non posso inserirlo io). Appena
-e' aperta, faccio le misure rimaste sul telefono: i nomi nel LIVE e la
-musica che tace nel LIVE.
+**L'hai riaperta la sera stessa**: alle 17:31 UTC `billingEnabled: true`,
+il conto aperto, e Gemini risponde di nuovo in europe-west1 (Flash e
+Flash-Lite, HTTP 200). Da li' ho fatto le misure rimaste sul telefono, la
+musica nel LIVE e i nomi, e ho acceso l'API delle voci Chirp.
 
 ---
 
@@ -140,6 +138,16 @@ Medora (le trascrizioni esatte sono in `docs/collaudo/EK/nomi/`).
 | 2279 | Flash-Lite, senza i nomi | 7 su 19 |
 | 2280 di prova | Flash-Lite, con i nomi | 15 su 19 |
 | 2280 con tutte le cure | Flash, con i nomi e la ripulitura | 3 su 3, una frase sola: poi la fatturazione si e' chiusa |
+| 2280 dopo la riapertura, con l'orologio del silenzio curato | Flash, con i nomi e la ripulitura | **18 su 19** |
+
+Nell'ultima riga Medora 2 su 2, Calìgo 2 su 2 con l'accento, tutti gli arcani,
+le rune, i segni e i chakra giusti. **L'unico sbagliato e' Aura**: *"Laura,
+sento un blocco ad Anahata"*. Fuori dai nomi, *"la runa"* e' diventata
+*"la Luna"*. Per Aura non ho messo una correzione a macchina: *"Laura"*
+in apertura di frase puo' essere anche una persona vera di cui si parla, e
+una regola cieca la cambierebbe in Aura. **La scelta e' tua**: provarla con
+la tua voce, perche' quella di prova e' la voce sintetica di Windows, oppure
+farmi scrivere una regola solo per il LIVE di Aura.
 
 **Che cosa ho trovato strada facendo.**
 
@@ -153,7 +161,17 @@ Medora (le trascrizioni esatte sono in `docs/collaudo/EK/nomi/`).
 - **La musica dell'app suonava sotto il LIVE**, come hai sentito tu: il
   microfono la prendeva per una persona che parla, la frase non si chiudeva
   mai e il Maestro non riceveva la domanda. Adesso la musica tace finche' il
-  LIVE e' aperto e torna quando esci.
+  LIVE e' aperto e torna quando esci: **visto sul Realme** dopo la
+  riapertura, nessuna traccia di musica nel LIVE per tutte e due le prove e
+  la musica di nuovo sei secondi dopo l'uscita.
+- **Il LIVE si chiudeva mentre la tua domanda si scriveva.** Nella prima
+  prova dopo la riapertura la frase detta 28 secondi dopo il saluto si e'
+  trascritta in 1,6 secondi, quei secondi contavano come silenzio, e a 30 il
+  LIVE si e' chiuso 134 millisecondi prima che la domanda tornasse scritta:
+  la domanda si e' persa. Adesso il tempo della trascrizione non e'
+  silenzio (`QuadroDelLive.eUnSecondoDiSilenzio`, commit `61c937cb`). Sul
+  Realme, con la cura: 30,6 secondi di voci nella stanza dopo il saluto, e
+  il LIVE e' rimasto aperto.
 - **Il rumore della stanza ferma il LIVE nello stesso modo**: con voci
   attorno la frase non si chiude. Per quei casi c'e' il microfono da tenere
   premuto, che manda la frase quando lo lasci.
@@ -237,8 +255,9 @@ Con il tuo *"sistema tutto"*:
 - **`statoDelCerchio` cadeva dal 23 settembre alle 11:50 UTC** (182 cadute
   quel giorno, 18 il 24): il diario dell'Alba mandava a Firestore una lista
   di liste. Il server adesso scrive il cammino senza liste dentro liste e
-  lo rilegge uguale; provato sul telefono: il piano arriva, la pastiglia
-  "Dal vivo" e' d'oro e porta nel LIVE.
+  lo rilegge uguale; provato sul telefono prima che la fatturazione si
+  chiudesse: il piano arrivava, la pastiglia "Dal vivo" era d'oro e
+  portava nel LIVE.
 - **La sessione di Protoface non si chiudeva uscendo dal LIVE**: veniva
   fatturata fino a 60 secondi di silenzio. Adesso l'app la chiude: sette
   LIVE di prova da 38-42 secondi fatturati 40-44 secondi, 1 credito
@@ -281,44 +300,85 @@ avevi trovato *"rallentata parecchio"* una voce a 8,0. Nella pagina senti
 esattamente il modo che usa il LIVE: se li trovi lenti, il modo si cambia in
 una riga e rifaccio i campioni.
 
-**Le voci Chirp 3 HD**, che hai chiesto di aggiungere: le fa un'altra API,
-Text-to-Speech, spenta nel progetto. Accenderla e' stato rifiutato perche'
-la fatturazione e' chiusa (*"UREQ_PROJECT_BILLING_NOT_OPEN"*). Appena la
-riapri la accendo, verifico quali voci rispondono nella regione dei dati e
-le aggiungo alla pagina e al server.
+**Le voci Chirp**, che hai chiesto di aggiungere. Le fa un'altra API,
+Text-to-Speech: rifiutata a fatturazione chiusa, l'ho accesa dopo la
+riapertura. **Le Chirp 3 HD, le piu' nuove, non stanno nella regione dei
+dati**: in europe-west1 la sintesi risponde *"Voice it-IT-Chirp3-HD-Aoede
+not found"*, mentre le trenta voci italiane rispondono sui punti d'accesso
+"eu" e "global". In europe-west1 ci sono solo tre voci **Chirp HD**,
+della generazione di prima: D maschile, F e O femminili. Sono tutte sulla
+pagina, 49 campioni in piu': le Chirp 3 accanto alle voci Gemini dello
+stesso nome, segnate *"Chirp 3 · eu"*, e le Chirp HD in un elenco loro,
+*"nella regione dei dati"*. Non ricevono il modo: dicono la frase cosi'
+com'e'. **La regola dei modelli nella regione dei dati e' tua**: se
+scegli una Chirp HD la collego al LIVE; se scegli una Chirp 3 serve prima
+il tuo si' a un'eccezione per "eu". Il LIVE oggi parla solo con Gemini:
+la strada per Chirp nel server la scrivo quando scegli.
 
 ## LE CHIAMATE A GEMINI E IL LORO COSTO
 
 **Letti da Google**: il contatore dei token di Vertex AI su Cloud
 Monitoring, modello per modello, per tutto il progetto, dalle 04:00 UTC del
-24 settembre 2026, quando si e' chiuso l'ordine EJ, alle 14:34:48; i prezzi
-dal catalogo di Cloud Billing.
+24 settembre 2026, quando si e' chiuso l'ordine EJ, alle 19:03, cioe' gli
+ordini EK ed EL insieme; i prezzi dal catalogo di Cloud Billing.
 
 | modello | chiamate | token in ingresso | token in uscita | dollari |
 | --- | ---: | ---: | ---: | ---: |
-| `gemini-2.5-flash` | 8.954 | 8.349.779 | 2.284.723 | 8,22 |
-| `gemini-2.5-flash-lite` | 88 | 37.360 | 2.187 | 0,005 |
-| `gemini-2.5-flash-tts` | 212 | 13.513 | 48.897 | 0,50 |
+| `gemini-2.5-flash` | 8.275 | 5.051.898 | 1.688.472 | 5,74 |
+| `gemini-2.5-flash-lite` | 72 | 23.685 | 1.541 | 0,003 |
+| `gemini-2.5-flash-tts` | 131 | 7.893 | 29.424 | 0,30 |
+| `gemini-2.5-pro-tts` | 51 | 2.293 | 7.614 | 0,15 |
 | `gemini-3-pro-image` | 4 | 3.213 | 9.170 | 1,11 |
-| **totale** | **9.258** | | | **9,82** |
+| **totale** | **8.533** | | | **7,30** |
+
+**Le cifre che ti avevo dato prima erano sbagliate, e l'errore e' mio.** Lo
+strumento chiedeva a Google somme su periodi fissi di 24 ore, e ogni
+lettura restituiva le 24 ore prima della fine della finestra, non la
+finestra: i 9,82 dollari erano il giorno fino alle 14:34, i 9,93 il giorno
+fino alle 18:28, con dentro il lavoro dell'ordine EJ della notte. Me ne sono
+accorto leggendo quattro minuti di LIVE e trovando i totali di un giorno.
+Adesso il periodo e' la finestra stessa, e ogni cifra qui sopra e' riletta.
+Nano Banana, cioe' `gemini-3-pro-image`, e' la riga dei 1,11 dollari: il
+restauro dei volti, quattro chiamate.
 
 Il contatore non separa l'audio dal testo in ingresso: se tutto l'ingresso
 di Flash fosse audio, che costa di piu', il totale salirebbe al massimo a
-15,68 dollari. Il contatore non dice chi ha chiamato: ci sono dentro i
+10,84 dollari. Il contatore non dice chi ha chiamato: ci sono dentro i
 collaudi coi loro giudici (quattordici giri delle risposte dirette, tre
 dell'attribuzione cieca), le prove sul Realme e il server. Le quattro
 chiamate a `gemini-3-pro-image` sono il restauro dei volti.
 
-**Dopo le 14:34:48 Google non si lascia piu' leggere**: dalla chiusura della
-fatturazione Cloud Monitoring risponde 403. Fra le 14:34 e la chiusura ho
-fatto io circa cinquanta chiamate a Flash-TTS e cinquanta a Pro-TTS per i
-campioni delle voci (44 e 44 sulla pagina, piu' le prove del primo suono e
-le voci di oggi), piu' un LIVE e poche chiamate a Flash: **fra 0,25 e 0,35
-dollari, stimati da me coi prezzi del catalogo e non letti da Google**. In
-tutto l'ordine circa 10,1 dollari.
+I campioni Chirp non passano da Vertex: Text-to-Speech li conta a
+caratteri, circa 2.600 per le Chirp 3 HD, 0,08 dollari a listino.
 
-Protoface si paga a crediti, a parte: sette LIVE di prova da un credito
-l'uno e quattro avatar creati da cinque crediti
+## QUANTO COSTA UN MINUTO DI LIVE
+
+Misurato sulla sessione vera delle 18:54:18-19:00:58 UTC, 6 minuti e 40
+secondi con Medora, sei domande (`docs/collaudo/EK/nomi/cura_silenzio_2280.txt`).
+
+| voce | come si paga | nella sessione | al minuto |
+| --- | --- | ---: | ---: |
+| Protoface, il volto | 1 credito per minuto iniziato, 1 credito = 1 centesimo di dollaro (listino pubblico) | 7 crediti, 0,07 $ | 0,0100 $ |
+| Gemini, la voce del Maestro | 25 token per secondo di voce, 10 $ al milione | 261 s di voce, 0,066 $ | circa 0,0099 $ |
+| Gemini, trascrizione e risposte | Flash e Flash-Lite, pochi token | 0,005 $ | circa 0,0007 $ |
+| LiveKit, la stanza | gratis fino a 5.000 minuti-partecipante al mese, poi 0,0005 $ | 13 minuti-partecipante | 0 $, 0,001 $ oltre il gratuito |
+| **totale** | | **0,14 $** | **0,0205 $**, 0,0215 $ oltre il gratuito di LiveKit |
+
+**Circa due centesimi di dollaro al minuto**, e una sessione di dieci
+minuti circa 21 centesimi. Il costo segue soprattutto quanto parla il
+Maestro, 1,5 centesimi per minuto di voce: qui Medora ha parlato il 65 per
+cento del tempo. Quattro risposte su sei sono arrivate dalla memoria della
+chat, senza chiamare Gemini; una risposta nuova costa circa 0,002 dollari,
+quindi anche con tutte nuove il minuto resta sotto i 2,2 centesimi. Il
+gratuito di LiveKit, con due partecipanti per LIVE, vale circa 2.500 minuti
+di LIVE al mese in tutta l'app.
+
+Protoface si paga a crediti, a parte, e un credito vale un centesimo di
+dollaro. Il server scrive l'uso del mese a ogni apertura del LIVE: 155
+crediti alle 08:26 UTC e 215 alle 18:54, cioe' 60 durante l'ordine, 0,60
+dollari, di cui 20 per i quattro avatar creati; la sessione di stasera ne
+ha aggiunti 7. Da quando l'app chiude la
+sessione, un LIVE di prova da 38-42 secondi costa 1 credito
 (`docs/collaudo/EK/volti/misure.txt`).
 
 ## SCARTI FRA L'ORDINE E IL RAMO
@@ -374,6 +434,13 @@ Col file e la riga, per esteso nel manifesto:
 - Gli errori di italiano *"un ancora"* e *"ad una"* nelle risposte: li
   scrive il modello; il controllo della lingua (**ordine EJ voce 08**)
   non li conosce.
+- Il LIVE che si chiudeva mentre la domanda si trascriveva: **ordine EJ
+  voce 01**, commit `5b160747`, che ha dato la presenza solo alla frase
+  trascritta con parole senza fermare l'orologio durante la
+  trascrizione; curato col commit `61c937cb`.
+- I consumi di Gemini letti male, le 24 ore prima della fine invece della
+  finestra: **ordine EK**, lo strumento di lettura dei consumi (periodo
+  fisso di 86.400 secondi); corretto, e ogni cifra riletta.
 - La prova del cancello che cadeva a macchina ferma: **ordine CODEMAGIC2**,
   commit `a216d443`, che sceglieva Python provando anche il rimando del
   negozio di Windows; il 24 settembre quel rimando ha cominciato a metterci
@@ -412,3 +479,5 @@ Date in `docs/guardie.md`, registro a 509.
 - Se aggiungere il controllo dopo la risposta per arrivare a zero risposte
   non dirette.
 - Se chiudere l'attribuzione cieca.
+- Aura scritta "Laura": provarla con la tua voce, o una regola solo per il
+  LIVE di Aura.
