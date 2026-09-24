@@ -277,6 +277,26 @@ class QuadroDelLive {
       momento == MomentoDelLive.vivo &&
       secondiDiSilenzio >= secondiDiSilenzioCheChiudono;
 
+  /// **UN SECONDO E' SILENZIO SOLO SE NESSUNO STA FACENDO NIENTE**, e nemmeno
+  /// mentre una frase appena detta si sta trascrivendo. Ordine EK, 24
+  /// settembre 2026: sul Realme la persona ha parlato 28 secondi dopo il
+  /// saluto; l'orologio si e' fermato mentre parlava, ma gli 1,6 secondi
+  /// della trascrizione contavano, e a 30 il LIVE si e' chiuso 134
+  /// millisecondi prima che la domanda tornasse scritta: la domanda si e'
+  /// persa. Padre: ordine EJ voce 01, commit `5b160747`, che ha dato la
+  /// presenza solo alla frase trascritta con parole. Giusto, perche' il
+  /// rumore non e' presenza; ma il tempo di scriverla non e' silenzio.
+  static bool eUnSecondoDiSilenzio({
+    required bool parlaIlMaestro,
+    required bool pensaIlMaestro,
+    required bool parlaLaPersona,
+    required int frasiInTrascrizione,
+  }) =>
+      !parlaIlMaestro &&
+      !pensaIlMaestro &&
+      !parlaLaPersona &&
+      frasiInTrascrizione == 0;
+
   QuadroDelLive con({
     MomentoDelLive? momento,
     SessioneLive? sessione,

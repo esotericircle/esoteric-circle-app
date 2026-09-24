@@ -89,4 +89,47 @@ void main() {
     expect(vivo.con(fine: ComeFinisce.tempo).laFraseDellaFine(),
         isNot(contains('trenta secondi')));
   });
+
+  test('IL TEMPO DELLA TRASCRIZIONE NON E\' SILENZIO', () {
+    // **Ordine EK, 24 settembre 2026, sul Realme.** La persona parla 28
+    // secondi dopo il saluto, per otto secondi; la frase si chiude dopo due
+    // secondi di silenzio vero e si trascrive in un secondo e mezzo. Con
+    // l'orologio di prima quei secondi contavano: a 30 il LIVE si chiudeva
+    // prima che la domanda tornasse scritta, e la domanda si perdeva.
+    bool unSecondo(
+            {bool maestro = false,
+            bool pensa = false,
+            bool persona = false,
+            int frasi = 0}) =>
+        QuadroDelLive.eUnSecondoDiSilenzio(
+            parlaIlMaestro: maestro,
+            pensaIlMaestro: pensa,
+            parlaLaPersona: persona,
+            frasiInTrascrizione: frasi);
+    expect(unSecondo(), isTrue,
+        reason: 'nessuno fa niente: se questo non e\' silenzio, la prova sotto '
+            'non dimostra niente');
+    expect(unSecondo(maestro: true), isFalse);
+    expect(unSecondo(pensa: true), isFalse);
+    expect(unSecondo(persona: true), isFalse);
+    expect(unSecondo(frasi: 1), isFalse,
+        reason: 'una frase detta si sta trascrivendo: non e\' silenzio');
+
+    var silenzio = 0;
+    void secondi(int quanti, bool eSilenzio) {
+      for (var i = 0; i < quanti; i++) {
+        if (eSilenzio) silenzio++;
+      }
+    }
+
+    secondi(28, unSecondo()); // il saluto e' finito, la persona esita
+    secondi(10, unSecondo(persona: true)); // la frase e i due secondi dopo
+    secondi(2, unSecondo(frasi: 1)); // la trascrizione
+    const vivo =
+        QuadroDelLive(momento: MomentoDelLive.vivo, maestro: Maestro.medora);
+    expect(silenzio, 28);
+    expect(vivo.chiudePerSilenzio(silenzio), isFalse,
+        reason: 'il LIVE si chiude mentre la domanda della persona si sta '
+            'trascrivendo, e la domanda si perde');
+  });
 }

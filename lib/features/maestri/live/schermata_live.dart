@@ -318,8 +318,14 @@ class _SchermataLiveState extends State<SchermataLive> {
     setState(() => _quadro = _quadro.con(secondiPassati: passati));
     if (passati == 8 || passati == 25) unawaited(_misuraIlVideo());
     // Mentre il Maestro parla o compone la risposta non e' silenzio, e
-    // nemmeno mentre la persona dice una frase lunga o tiene premuto.
-    if (!_parla && !_pensa && !_orecchio.staParlando) {
+    // nemmeno mentre la persona dice una frase lunga o tiene premuto, o
+    // mentre la sua frase si trascrive.
+    if (QuadroDelLive.eUnSecondoDiSilenzio(
+      parlaIlMaestro: _parla,
+      pensaIlMaestro: _pensa,
+      parlaLaPersona: _orecchio.staParlando,
+      frasiInTrascrizione: _frasiInTrascrizione,
+    )) {
       _secondiDiSilenzio++;
     }
     if (_quadro.ilTempoEFinito) {
@@ -373,6 +379,10 @@ class _SchermataLiveState extends State<SchermataLive> {
   /// Secondi passati senza che nessuno abbia detto o scritto niente.
   int _secondiDiSilenzio = 0;
 
+  /// Le frasi della persona che si stanno trascrivendo adesso: quel tempo non
+  /// e' silenzio (`QuadroDelLive.eUnSecondoDiSilenzio`).
+  int _frasiInTrascrizione = 0;
+
   /// Qualcuno ha detto o scritto qualcosa: il silenzio riparte da zero.
   void _cePresenza() => _secondiDiSilenzio = 0;
 
@@ -416,11 +426,14 @@ class _SchermataLiveState extends State<SchermataLive> {
     final pezzi = _frasi.pezziInAttesa;
     final orologio = Stopwatch()..start();
     var detto = '';
+    _frasiInTrascrizione++;
     try {
       detto = await LaTrascrizione.trascrivi(
           wavDaPcm(daTrascrivere.pcm, tasso: LOrecchioDelLive.tasso));
     } catch (errore) {
       annotaGuastoInnocuo('la frase del LIVE non si trascrive', errore);
+    } finally {
+      _frasiInTrascrizione--;
     }
     final domanda = _frasi.trascritta(daTrascrivere.biglietto, detto,
         parlaDiNuovo: _orecchio.staParlando);

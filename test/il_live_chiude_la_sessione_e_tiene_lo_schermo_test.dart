@@ -130,6 +130,35 @@ void main() {
     expect(voce.traccia, isNull);
   });
 
+  test('L\'OROLOGIO DEL SILENZIO SI FERMA MENTRE LA FRASE SI TRASCRIVE', () {
+    // **Ordine EK, 24 settembre 2026.** La regola sta in
+    // `QuadroDelLive.eUnSecondoDiSilenzio` e la prova in
+    // `la_finestra_sul_volto_test.dart`; qui si guarda che la schermata la
+    // usi davvero, e che conti le frasi in trascrizione dall'inizio alla fine
+    // della chiamata, anche quando la chiamata cade. Senza i commenti.
+    String senzaCommenti(String codice) => codice
+        .split('\n')
+        .map((riga) => riga.replaceFirst(RegExp(r'//.*'), ''))
+        .join('\n');
+    final batti = senzaCommenti(corpoDi('void _batti()'));
+    expect(batti.contains('QuadroDelLive.eUnSecondoDiSilenzio('), isTrue,
+        reason: 'l\'orologio del silenzio non passa dalla regola comune');
+    expect(batti.contains('frasiInTrascrizione: _frasiInTrascrizione'), isTrue,
+        reason: 'l\'orologio non sa che una frase si sta trascrivendo');
+    final frase = senzaCommenti(corpoDi('Future<void> _unaFrase('));
+    final sale = frase.indexOf('_frasiInTrascrizione++;');
+    final trascrive = frase.indexOf('LaTrascrizione.trascrivi(');
+    final scende = frase.indexOf('_frasiInTrascrizione--;');
+    expect(sale, greaterThanOrEqualTo(0),
+        reason: 'la frase si trascrive senza fermare l\'orologio');
+    expect(sale < trascrive && trascrive < scende, isTrue,
+        reason: 'il conto deve salire prima della trascrizione e scendere '
+            'dopo');
+    expect(frase.substring(trascrive, scende).contains('finally'), isTrue,
+        reason: 'se la trascrizione cade il conto resta alto e l\'orologio '
+            'non riparte piu\': il LIVE non si chiuderebbe mai');
+  });
+
   test('ANDROID E IOS RISPONDONO SUL CANALE DELLO SCHERMO', () {
     final android = File(
             'android/app/src/main/kotlin/com/esotericircle/esoteric_circle/MainActivity.kt')
