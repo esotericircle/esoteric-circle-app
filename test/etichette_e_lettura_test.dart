@@ -138,8 +138,17 @@ void main() {
       // i testi piccoli si ingrandiscono: spezzarle in paragrafi non
       // vorrebbe dire niente.
       //
-      // L'invito del Rito dell'Alba, sei parole sopra il cielo notturno.
-      'lib/features/rituals/dawn_rite_screen.dart',
+      // L'invito dell'Alba sopra il cielo notturno, cinque parole: "Trascina
+      // in alto, oppure tocca". **Qui c'era il file del Rito dell'Alba**,
+      // `dawn_rite_screen.dart`, che l'ordine DT ha cancellato il 17
+      // settembre 2026 (commit `47b3c2be`) lasciando in questo elenco un
+      // percorso che non esisteva piu'. **L'ordine EL voce 01 ha rimesso il
+      // gesto del sole nell'Arcano dell'Alba** e l'invito e' tornato con lui,
+      // in un file suo che porta solo il sole e questa riga: ammetterlo non
+      // toglie la sorveglianza a nessuna prosa. Questa guardia l'ha preso
+      // rosso alla suite intera, `il_sole_dell_alba.dart:288`, 24 settembre
+      // 2026 sera.
+      'lib/features/rituals/il_sole_dell_alba.dart',
       // L'invito del Soffio del Destino, cinque parole.
       'lib/features/rituals/breath_destiny_screen.dart',
       // Il colpo d'occhio dell'Arcano del Giorno: una frase sola, che viene

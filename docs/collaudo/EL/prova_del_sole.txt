@@ -43,4 +43,7 @@ LA PRIMA REGISTRAZIONE, con tre cicli di screencap, ha un buco di tre secondi do
 screencap si e' fermato, come la memoria del progetto avverte, e il fotogramma che porta il nome di 6,03
 secondi mostra gia' il tavolo posato. Resta nello scratchpad; la prova e' la seconda, che non ha buchi.
 
+IL TOCCO AL POSTO DEL DITO. Alle 19:12 UTC, stessa build, un tocco solo sulla scena notturna invece del
+trascinamento: 2,5 secondi dopo il tavolo delle carte era a schermo (tocco_del_sole.png, prima e dopo).
+
 IL GIUDIZIO A VIDEO RESTA DEL FONDATORE.
