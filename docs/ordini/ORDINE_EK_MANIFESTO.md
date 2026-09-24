@@ -423,7 +423,10 @@ valida e passa la soglia; la decisione del fondatore sta in un campo nuovo,
 `ImprontaDellIstruzione.chiusaDalFondatore`, falso; sta anche nella prova
 *"l'attribuzione cieca l'ha chiusa il fondatore"*, rossa per costruzione e
 scritta in `tool/rossi_accettati.txt` (scarto 11). Si spegne quando il
-fondatore la chiude in un ordine.
+fondatore la chiude in un ordine. **Il fondatore l'ha chiusa con l'ordine EM
+voce 03**, il 25 settembre 2026: *"Si il 96 è sufficiente per chiuderla."*
+Il campo e' vero, la prova e' verde e la sua riga e' uscita dai rossi
+accettati.
 
 **CHIUSA.**
 DOMANDA: "Ancora un giro"

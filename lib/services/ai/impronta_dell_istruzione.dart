@@ -302,10 +302,15 @@ class ImprontaDellIstruzione {
   /// **L'ATTRIBUZIONE CIECA LA CHIUDE IL FONDATORE.** Ordine EK voce 05, 24
   /// settembre 2026: *"L'attribuzione cieca resta fra i rossi accettati: la
   /// decisione di chiuderla resta di Mauro"*. La prova che la pretende vera
-  /// e' rossa per costruzione e sta fra i rossi accettati. **Non si porta a
-  /// vero scrivendo codice**: si porta a vero quando il fondatore lo scrive
+  /// era rossa per costruzione e stava fra i rossi accettati. **Non si porta
+  /// a vero scrivendo codice**: si porta a vero quando il fondatore lo scrive
   /// in un ordine.
-  static const bool chiusaDalFondatore = false;
+  ///
+  /// **E il fondatore l'ha scritto.** Ordine EM voce 03, 25 settembre 2026,
+  /// alla domanda se la media del 96,1 per cento (173 su 180, tre giri
+  /// dell'istruzione dell'ordine EK) gli bastasse per chiuderla: *"Si il 96
+  /// è sufficiente per chiuderla."* La riga dei rossi accettati e' tolta.
+  static const bool chiusaDalFondatore = true;
 
   /// Le misure NOTE, con la stringa su cui furono prese. Si tengono perche' un
   /// numero senza il suo oggetto e' una leggenda.
