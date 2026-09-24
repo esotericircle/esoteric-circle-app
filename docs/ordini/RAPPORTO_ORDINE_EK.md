@@ -27,6 +27,17 @@ macchina. Ramo `claude/esoteric-circle-master-order-e798aj`. Manifesto
   restaurate, avatar creati e agganciati, volti misurati sul Realme. Se sono
   piu' nitidi lo giudichi tu guardandoli.
 
+## LA BUILD 2280, CONSEGNATA
+
+Su App Distribution il 24 settembre 2026, release `49fukh3t6c3n8`, con gli
+ordini EK ed EL insieme, costruita dal commit `7776ee25`; archivio di
+218.561.962 byte, sha1 `7ba2996a1cf8`. Sbarramento passato con **5.850
+prove** e i soli rossi dichiarati; un invito accettato. Prima di consegnarla l'ho
+installata sul Realme e ho registrato il sole che si alza col dito e il
+Taglia che ricompone il mazzo (`docs/collaudo/EL/`). Le note sono in
+`docs/note_della_consegna.txt`: a te restano i volti, il sole e il Taglia a
+video, il selettore delle voci e il microfono con la tua voce.
+
 ## LA FATTURAZIONE DI GOOGLE CLOUD SI E' CHIUSA, E L'HAI RIAPERTA
 
 Il 24 settembre 2026, fra le 15:43 e le 16:22 UTC (l'ultima chiamata

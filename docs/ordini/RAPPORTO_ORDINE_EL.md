@@ -144,4 +144,7 @@ ricreate su 22 contro 22 su 22, e c'e' una prova che lo pretende.
 ## LA BUILD
 
 L'ordine chiede, finito tutto, una build nuova su App Tester: e' la 2280, con
-gli ordini EK ed EL insieme. I dati della consegna sono nel rapporto EK.
+gli ordini EK ed EL insieme, **consegnata** il 24 settembre 2026, release
+`49fukh3t6c3n8`, costruita dal commit `7776ee25`. Lo stesso archivio, sha1
+`7ba2996a1cf8`, e' quello delle registrazioni del sole e del Taglia sul
+Realme. Gli altri dati della consegna sono nel rapporto EK.

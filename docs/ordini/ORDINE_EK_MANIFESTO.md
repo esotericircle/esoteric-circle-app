@@ -8,8 +8,9 @@ dell'ordine e' un giorno avanti, ed e' dichiarata qui invece di corretta.
 **Ramo:** `claude/esoteric-circle-master-order-e798aj`. Durante il lavoro il
 fondatore ha scritto *"Approvo tutto e ti autorizzo a fare tutto, non fermarti
 più e sistema tutto"* e *"Non devi lasciare nulla in coda"*: da li' anche i
-guasti trovati fuori dal perimetro sono stati curati; si consegna una
-seconda build, la 2280, che l'ordine diceva di chiedere nel rapporto.
+guasti trovati fuori dal perimetro sono stati curati; **la seconda build,
+la 2280, e' consegnata**: release `49fukh3t6c3n8`, con gli ordini EK ed EL
+insieme.
 
 **La fatturazione di Google Cloud si e' chiusa durante l'ordine.** Il 24
 settembre 2026, fra le 15:43 e le 16:22 UTC: nei registri del server

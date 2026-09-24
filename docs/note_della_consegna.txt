@@ -1,34 +1,43 @@
-Build 2279, ordine EK voce 01: il lavoro dell'ordine EJ.
+Build 2280, ordini EK ed EL: l'Arcano dell'Alba si apre alzando il sole e il Taglia ricompone il mazzo, i volti nuovi del LIVE, i nomi giusti nella trascrizione, la musica che tace nel LIVE.
 
 COSA HO PROVATO IO SUL TELEFONO PRIMA DI CONSEGNARE.
 
-Il microfono del LIVE non tronca più. Si apre quando il Maestro ha finito e
-resta aperto. Il Maestro risponde solo dopo due secondi di silenzio vero: una
-pausa a metà frase non spezza la domanda. Provato sul Realme con una domanda
-di quattro frasi e tre pause: arriva intera. Oppure tieni premuto il
-microfono e parla quanto vuoi: la frase parte quando lo lasci.
+L'Arcano dell'Alba si apre come il vecchio Rito dell'Alba: è notte, il sole
+aspetta sull'orizzonte e col dito lo alzi verso il cielo; la scena si
+illumina e poi arrivano le carte. Se non vuoi trascinare, basta un tocco.
 
-Nelle chat dei Maestri la barra Esplora non c'è più all'apertura. Compare se
-scorri verso i messaggi di prima e si ritira quando torni a leggere o tocchi
-il campo: la conversazione ha più spazio.
+Nell'Arcano dell'Alba il Taglia raccoglie le carte in un mazzo, lo taglia
+in due pacchetti, posa quello di sotto sopra l'altro e ristende le carte.
+Si vede anche sul telefono con le animazioni di sistema spente. Il
+Mischia è come prima.
 
-Nella testata di ogni chat c'è la pastiglia "Dal vivo". Sul Realme l'ho vista
-grigia col lucchetto: al tocco si apre il foglio del Maestro, con le sue
-parole, che porta al piano dell'Adepto.
+I tre Maestri hanno un volto nuovo nel LIVE. Le immagini sono restaurate e
+tagliate a quadrato su testa e spalle: il volto riceve più pixel del video,
+Medora 1,55 volte per lato, Calìgo 1,33, Aura 1,13. Sulla spalla di Medora
+non c'è più la macchia nera.
+
+Nel LIVE la musica dell'app tace, e torna quando esci: prima il microfono la
+prendeva per una persona che parla e la domanda non arrivava.
+
+La trascrizione del LIVE scrive giusti Medora e Calìgo, con l'accento, e i
+nomi di arcani, rune, segni e chakra: 18 nomi su 19 nella mia prova.
+
+Il LIVE non si chiude più mentre la tua domanda si sta scrivendo.
+
+Lo schermo resta acceso finché il LIVE è aperto. Quando esci dal LIVE la
+sessione si chiude subito: si pagano i secondi veri.
 
 DA PROVARE TU, PERCHÉ IL REALME NON PUÒ.
 
-La pastiglia d'oro: dal tier 2 in su è d'oro e porta nel LIVE. Sul Realme non
-l'ho vista d'oro, perché il telefono di prova non riceve il suo piano dal
-server: è un guasto che ti spiego nel rapporto.
+Se i volti ti piacciono. Il sole dell'Alba con le animazioni accese: sul
+telefono di prova sono spente, e lì la scena passa alle carte senza la
+dissolvenza.
 
-Il timbro dei Maestri: nel LIVE l'icona in alto è solo per i fondatori, cosa
-che il Realme non è. Lì ascolti le voci candidate sulla stessa frase
-e scegli quella del Maestro. Non l'ho vista sul telefono.
-
-Il nome Calìgo con l'accento nella voce del LIVE di Calìgo. E il microfono
-con la tua voce.
+Dall'ordine EJ restano tue: il selettore delle voci dal tuo account di
+fondatore e il microfono con la tua voce.
 
 COSA SO CHE NON VA ANCORA.
 
-A volte la trascrizione del LIVE scrive "Mezz'ora" invece di "Medora".
+Nella mia prova "Aura" è stata scritta "Laura". Le risposte dei Maestri sono
+più dirette ma non sempre: nel collaudo 8 su 54 non rispondono nelle prime
+due frasi, prima erano 20.

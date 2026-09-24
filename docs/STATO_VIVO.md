@@ -4634,8 +4634,18 @@ rapporto `docs/ordini/RAPPORTO_ORDINE_EK.md`, prove in `docs/collaudo/EK/`.
 **Due voci chiuse, EK.01 ed EK.05; tre aperte**: EK.02 perche' lo zero non
 c'e', EK.03 per Aura, scritta "Laura" (18 nomi su 19 sul Realme), EK.04 in attesa dello sguardo del fondatore sui volti. Il fondatore ha scritto *"Approvo tutto e ti autorizzo a fare tutto,
 non fermarti più e sistema tutto"* e *"Non devi lasciare nulla in coda"*:
-da li' anche i guasti fuori dal perimetro sono stati curati; si consegna
-anche la 2280, dopo lo sbarramento sull'albero finale.
+da li' anche i guasti fuori dal perimetro sono stati curati; **la 2280 e'
+consegnata**, con gli ordini EK ed EL insieme.
+
+**BUILD 2280 CONSEGNATA SU APP DISTRIBUTION** il 24 settembre 2026, release
+`49fukh3t6c3n8`, coi lavori degli ordini EK ed EL, costruita dal commit
+`7776ee25` (sha1 dell'archivio `7ba2996a1cf8`, 218.561.962 byte). Sbarramento
+passato con **5.850 prove** e i soli rossi dichiarati; un invito accettato.
+Prima di consegnare, sul Realme con quello stesso archivio: il sole che si
+alza col dito e il Taglia che ricompone il mazzo, registrati
+(`docs/collaudo/EL/`). Note della consegna in `docs/note_della_consegna.txt`:
+tocca al fondatore giudicare i volti (EK.04), il sole e il Taglia a video, il
+selettore delle voci e il microfono con la sua voce.
 
 **BUILD 2279 CONSEGNATA SU APP DISTRIBUTION** il 24 settembre 2026, release
 `6gqoq7qjcg7eg`, col lavoro dell'ordine EJ, costruita dal commit `b8b4a6a7`;
