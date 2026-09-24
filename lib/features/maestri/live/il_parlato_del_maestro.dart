@@ -29,6 +29,14 @@ abstract final class IlParlatoDelMaestro {
     return t.replaceAll(RegExp(r'\s{2,}'), ' ').trim();
   }
 
+  /// **SI DICE CALÌGO.** Ordine EJ voce 04, 24 settembre 2026. Il
+  /// fondatore: *"l'accento del nome di Caligo è errata: è Calìgo e non
+  /// Càligo"*. A video il nome resta com'e'; alla voce arriva con l'accento
+  /// scritto, che Gemini-TTS segue. **Un'indicazione nel modo di parlare non
+  /// funziona**: provata lo stesso giorno, la voce la leggeva ad alta voce.
+  static String pronunciato(String testo) =>
+      testo.replaceAll(RegExp(r'\bCaligo\b'), 'Calìgo');
+
   /// I pezzi da chiedere alla voce, nell'ordine in cui si dicono.
   ///
   /// Si taglia **alla fine delle frasi**, mai a meta': una frase spezzata in
@@ -36,7 +44,7 @@ abstract final class IlParlatoDelMaestro {
   /// si uniscono fino al tetto, cosi' una risposta di dieci frasi non costa
   /// dieci chiamate.
   static List<String> pezzi(String scritto) {
-    final pulito = daDire(scritto);
+    final pulito = pronunciato(daDire(scritto));
     if (pulito.isEmpty) return const [];
     final frasi = RegExp(r'[^.!?…]+[.!?…]+|[^.!?…]+$')
         .allMatches(pulito)

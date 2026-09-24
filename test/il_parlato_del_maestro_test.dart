@@ -42,6 +42,16 @@ void main() {
     }
   });
 
+  test('SI DICE CALÌGO: alla voce arriva l\'accento, a video no', () {
+    // Ordine EJ voce 04.
+    const scritto = 'Io sono Caligo, e le rune di Caligo non mentono.';
+    final pezzi = IlParlatoDelMaestro.pezzi(scritto);
+    expect(pezzi.join(' '), contains('Calìgo'));
+    expect(pezzi.join(' '), isNot(contains('Caligo')));
+    expect(IlParlatoDelMaestro.daDire(scritto), contains('Caligo'),
+        reason: 'il sottotitolo mostra il nome come si scrive');
+  });
+
   test('UNA RISPOSTA VUOTA NON CHIEDE NESSUNA VOCE', () {
     expect(IlParlatoDelMaestro.pezzi(''), isEmpty);
     expect(IlParlatoDelMaestro.pezzi('  ✦ ** \n '), isEmpty);
