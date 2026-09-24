@@ -683,7 +683,10 @@ void main() {
     });
 
     test('Non tocca il testo che non ha marcatori', () {
-      const sana = 'Il ciclo lunare si chiuderà fra sette giorni, e allora la '
+      // **La frase di prova era scritta contro la regola di lingua**: aveva
+      // la virgola davanti a "e". Dall'ordine EJ voce 08 la ripulitura la
+      // toglie, e il testo sano si scrive come la regola lo vuole.
+      const sana = 'Il ciclo lunare si chiuderà fra sette giorni e allora la '
           'stessa domanda avrà una risposta diversa.';
       expect(TestoDelResponso.pulisci(sana), sana);
     });

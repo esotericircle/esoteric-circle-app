@@ -33,6 +33,7 @@ class ChatBubble extends StatefulWidget {
     super.key,
     required this.message,
     required this.maestro,
+    this.conInvito = true,
     this.onOpenIntent,
     this.onRetry,
     this.onApprofondisci,
@@ -48,6 +49,10 @@ class ChatBubble extends StatefulWidget {
 
   final ChatMessage message;
   final Maestro maestro;
+
+  /// Se la riga d'oro porta l'invito a tornare: lo decide
+  /// `ConsiglioFinale.invitoSotto`. Ordine EJ voce 05.
+  final bool conInvito;
 
   /// Apre la funzione immersiva instradata, dato l'id dell'intento.
   final void Function(String intentId)? onOpenIntent;
@@ -422,6 +427,7 @@ class _ChatBubbleState extends State<ChatBubble> {
                           maestro: maestro,
                           testo: message.text,
                           quando: message.at ?? DateTime.now(),
+                          conInvito: widget.conInvito,
                         ),
                       // "Vai piu' a fondo" sta SOTTO la risposta, dentro la sua
                       // bolla: la profondita' non si sceglie prima di leggere, si

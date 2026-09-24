@@ -36,14 +36,14 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        'cac874340e6043a1860b4b40ead48a7cbfd01eb6da0c25072be313f989882127',
-    'aura': 'f9cdb18090cece5305b697e6b3a29218a401dda9e9c0d8abe2368343db601f03',
+        'e5047b0e03d22f3947df7f61058982e0ad5a335f7f22be7026e39a5b0e4e41d6',
+    'aura': '44ad8be29b2ea4a51d87f188284eae9e418d1550c7c23d2a3d0e7ba6a2129731',
     'caligo':
-        '3ba39980ccf2bc367a5555c4b4ae8953da64c39f6a9bb21c7c804b3c8a105abf',
+        '5caeb8f5f0983fb99629acbb643c76d9ffeef38d7067471a35fd1bfdc1297567',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
-  static const String registrateIl = '23 settembre 2026, la sera';
+  static const String registrateIl = '24 settembre 2026, ordine EJ';
 
   /// LO STORICO DELLE IMPRONTE, cioe' le stringhe che non esistono piu'.
   ///
@@ -53,6 +53,23 @@ class ImprontaDellIstruzione {
   /// cancella niente: quando l'istruzione cambia, l'impronta vecchia scende in
   /// questo elenco con la sua data e con cio' che le e' successo.
   static const List<String> storicoDelleImpronte = [
+    'IL 24 SETTEMBRE 2026, SOLO NELL\'ALBERO DI LAVORO. Impronta di medora '
+        '30ae6fd2e01baea58fe9fe1f55ad349b9e42b186d00859be7036444893f668ff; '
+        'aura e caligo erano già quelle di oggi. **MISURA PRESA SU DI '
+        'LEI**, tre giri: 98,3, 91,7 e 98,3 per cento, media 96,1. Caduta '
+        'prima di ogni commit perché l\'esempio nuovo di Medora diceva '
+        '"sentire", che è una parola di firma di Aura: la guardia del '
+        'lessico l\'ha presa. L\'esempio è stato riscritto.',
+    'DAL 23 SETTEMBRE 2026, LA SERA, AL 24 SETTEMBRE 2026. Impronte: medora '
+        'cac874340e6043a1860b4b40ead48a7cbfd01eb6da0c25072be313f989882127, '
+        'aura f9cdb18090cece5305b697e6b3a29218a401dda9e9c0d8abe2368343db601f03, '
+        'caligo 3ba39980ccf2bc367a5555c4b4ae8953da64c39f6a9bb21c7c804b3c8a105abf. '
+        'La stringa dell\'ordine EI voci 02 e 03. **NESSUNA MISURA PRESA SU '
+        'DI LEI.** Caduta con l\'ordine EJ voci 05, 06, 07 e 08: la prima '
+        'frase risponde, il dato torna solo quando serve, niente '
+        'anticipazioni dei doni, la riga d\'oro è il passo concreto. I '
+        'registri di Medora e di Caligo portano l\'esempio sbagliato accanto '
+        'a quello giusto.',
     'DAL 23 SETTEMBRE 2026, LA MATTINA. Impronte: medora '
         '9822c5fe5b97ede775d164aa681df4653294e81d18cae049ef553be5a29b9531, '
         'aura 9951bac681153c5da242ac4ce3918282abd90dd32948321371a36ec67804d01a, '
@@ -235,7 +252,17 @@ class ImprontaDellIstruzione {
   /// **RIFATTA IL 14 SETTEMBRE 2026, ordine DL**, perche' il blocco di
   /// cortesia e' cambiato per tutti e tre: tre giri, 86,7, 83,3 e 86,4, media
   /// 85,5. Un giro sotto la soglia: la riga resta falsa.
-  static const bool attribuzioneValida = false;
+  ///
+  /// **RIFATTA IL 24 SETTEMBRE 2026, ordine EJ, e la riga diventa vera.**
+  /// Tre giri sulle impronte di oggi: 95,0, poi 100,0, poi 91,7 per cento,
+  /// media 95,6 (172 su 180), nessun verdetto illeggibile. **Il giro piu'
+  /// basso sta a 91,7, sopra la soglia di 85**, che era la condizione del
+  /// fondatore nell'ordine BY: finche' un giro poteva cadere sotto, la riga
+  /// restava falsa. Caligo, che era la voce che si perdeva, fa 17, 20 e 15
+  /// su 20, ed e' ancora lui a cedere verso Aura nei giri bassi. Tre giri
+  /// su una stringa di Medora di poco diversa, misurati prima, stanno nello
+  /// storico: 98,3, 91,7 e 98,3.
+  static const bool attribuzioneValida = true;
 
   /// Le misure NOTE, con la stringa su cui furono prese. Si tengono perche' un
   /// numero senza il suo oggetto e' una leggenda.
@@ -244,6 +271,14 @@ class ImprontaDellIstruzione {
   /// l'escursione, cinque la dichiarano.** Sono cinque giri della stessa misura
   /// sulla stessa istruzione, non cinque misure in disaccordo.
   static const String ultimaMisuraNota =
+      'TRE GIRI DEL 24 SETTEMBRE 2026, SU QUESTE IMPRONTE, ordine EJ: 95,0 '
+      'per cento (57 su 60), poi 100,0 (60 su 60), poi 91,7 (55 su 60); media '
+      '95,6 per cento (172 su 180), nessun verdetto illeggibile. Nel '
+      'dettaglio: medora 20, 20, 20 su 20; aura 20, 20, 20; caligo 17, 20, 15, '
+      'scambiato per aura 3, 0, 4 volte e per medora 0, 0, 1. Ritmo: frase '
+      'mediana di medora 17, 16, 16 parole, di aura 21, 20, 20, di caligo 10, '
+      '10,5, 11; parole che ammorbidiscono aura 14, 12, 14, caligo 1, 0, 2. '
+      'Tutto ciò che segue appartiene a stringhe che stanno nello storico. '
       'ATTENZIONE. VA LETTO PRIMA DI TUTTO IL RESTO: DAL 23 SETTEMBRE 2026, '
       'ORDINE EI VOCI 02 E 03, QUESTA ISTRUZIONE È CAMBIATA DI NUOVO. Nessuna '
       'delle misure qui sotto è stata presa sulla stringa di oggi: '

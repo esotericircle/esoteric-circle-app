@@ -225,8 +225,13 @@ class MaestroPersona {
       ..writeln('- Non cominciare MAI una risposta con nessuna di queste '
           'formule, neppure con una loro variante: '
           '${VoceDelMaestro.apertureVietate.map((a) => '"$a"').join(', ')}.')
-      ..write('- Apri sempre dal cielo o dal simbolo, mai dall\'emozione della '
-          'persona rispecchiata a parole.');
+      // **LA PRIMA FRASE RISPONDE.** Ordine EJ voce 06. Diceva "apri sempre
+      // dal cielo o dal simbolo": nel collaudo EJ quindici risposte su
+      // diciotto sono state giudicate non dirette anche dopo la regola nuova,
+      // perche' questa riga veniva dopo e vinceva.
+      ..write('- La tua prima frase risponde alla domanda. Il cielo o il '
+          'simbolo vengono subito dopo, a dire perché. Mai aprire '
+          'dall\'emozione della persona rispecchiata a parole.');
     return buffer.toString();
   }
 
@@ -305,6 +310,8 @@ class MaestroPersona {
     NatalContext natal = NatalContext.none,
     bool insistiSullAncoraggio = false,
     String? rispostaGiaData,
+    bool primaRisposta = true,
+    List<String> testiGiaDetti = const [],
   }) {
     final natalBlock = _natalContext(natal);
     final ancoraggi = VerificaAncoraggio.disponibiliPer(
@@ -318,7 +325,8 @@ class MaestroPersona {
       _commonRules(profile),
       '',
       if (natalBlock.isNotEmpty) ...[natalBlock, ''],
-      _regolaDellAncoraggio(ancoraggi, insisti: insistiSullAncoraggio),
+      _regolaDellAncoraggio(ancoraggi,
+          insisti: insistiSullAncoraggio, primaRisposta: primaRisposta),
       // LO STESSO DATO, TRE LENTI. Senza questa riga tutti e tre dicevano il
       // cielo allo stesso modo, e a rimetterci era Medora, per cui il cielo
       // era la firma.
@@ -361,6 +369,13 @@ class MaestroPersona {
       // legge. Non e' un contenuto premium, e' la cosa che una persona di
       // fretta legge al posto di tutto il resto.
       ConsiglioFinale.istruzione,
+      // **LE RIGHE GIA' SCRITTE, PER NOME.** Ordine EJ voce 05: la regola
+      // "non ripetere una riga gia' scritta" non bastava, e Medora ha scritto
+      // la stessa riga d'oro tre volte in sei scambi del collaudo EJ.
+      if (ConsiglioFinale.righeGiaScritte(testiGiaDetti).isNotEmpty) ...[
+        '',
+        ConsiglioFinale.righeGiaScritte(testiGiaDetti),
+      ],
     ].join('\n');
   }
 
@@ -450,12 +465,15 @@ class MaestroPersona {
   static String regolaDellAncoraggio(
     List<Ancoraggio> disponibili, {
     bool insisti = false,
+    bool primaRisposta = true,
   }) =>
-      _regolaDellAncoraggio(disponibili, insisti: insisti);
+      _regolaDellAncoraggio(disponibili,
+          insisti: insisti, primaRisposta: primaRisposta);
 
   static String _regolaDellAncoraggio(
     List<Ancoraggio> disponibili, {
     required bool insisti,
+    bool primaRisposta = true,
   }) {
     final buffer = StringBuffer('ANCORAGGIO, REGOLA CHE VIENE PRIMA DEL TONO:');
     if (disponibili.isEmpty) {
@@ -477,19 +495,34 @@ class MaestroPersona {
     for (final ancoraggio in disponibili) {
       buffer.writeln('  ${ancoraggio.nome}: ${ancoraggio.valore}');
     }
+    // **LA PRIMA RISPOSTA LI NOMINA, LE ALTRE SOLO SE SERVONO.** Ordine EJ
+    // voce 05. La regola diceva "ogni risposta ne nomina almeno uno", e la
+    // chat rigenerava chi non lo faceva: il fondatore ha letto l'Ascendente
+    // Gemelli, il Cancro solare e il numero 3 in ogni risposta, e il
+    // collaudo EJ ne ha contati da quattro a nove ritorni in sei scambi.
+    if (primaRisposta) {
+      buffer.writeln('- La tua prima risposta ne nomina ALMENO UNO, per '
+          'nome, presto. Una risposta che non ne porta nessuno potrebbe '
+          'essere stata scritta per chiunque altro.');
+    } else {
+      buffer.writeln('- In questa conversazione glieli hai già detti. Nominane '
+          'uno SOLO se serve a questa risposta, mai per abitudine: '
+          'ripetere l\'Ascendente, il Sole o il numero a ogni risposta è una '
+          'formula. La persona li conosce già.');
+    }
     buffer
-      ..writeln('- Ogni risposta ne nomina ALMENO UNO, per nome, presto. '
-          'Una risposta che non ne porta nessuno potrebbe essere stata scritta '
-          'per chiunque altro.')
-      ..writeln('- Apri DA LÌ, non dall\'emozione. Non "capisco che tu abbia '
-          'paura", ma "la tua Luna in Cancro ti fa sentire due volte quello '
-          'che gli altri sentono una volta".')
+      ..writeln('- Il dato spiega la risposta, non la sostituisce: la prima '
+          'frase risponde, il dato arriva subito dopo a dire perché. Non '
+          '"capisco che tu abbia paura", ma "parlagli giovedì: la tua Luna in '
+          'Cancro ti fa sentire due volte quello che gli altri sentono una '
+          'volta".')
       ..write('- Non aggiungere dati che non sono in questo elenco. '
           'Quello che non è scritto qui, tu non lo sai.');
     if (insisti) {
       buffer.write('\n- ATTENZIONE: la tua risposta precedente non ha nominato '
           'nessuno di questi dati. Riscrivila nominandone almeno uno, per '
-          'nome, nella prima frase.');
+          'nome, subito dopo la frase che risponde: la prima frase resta la '
+          'risposta.');
     }
     return buffer.toString();
   }

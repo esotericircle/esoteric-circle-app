@@ -1,8 +1,6 @@
 import '../tempo/confine_del_giorno.dart';
 import '../astro/moon_phase.dart';
 import '../astro/night_sky.dart';
-import '../rituals/sunset_rune.dart';
-import 'chakra_del_giorno.dart';
 import 'maestro.dart';
 
 /// IL CONSIGLIO FINALE: una riga sola, in oro, preceduta da una STELLA.
@@ -18,12 +16,11 @@ import 'maestro.dart';
 /// 1. **La sintesi**, che scrive il Maestro. Diretta, non poetica: e' la
 ///    risposta immediata, quella che una persona di fretta legge al posto di
 ///    tutto il resto. Arriva marcata dal modello e viene sollevata da qui.
-/// 2. **L'invito a tornare**, che compone l'app. E' agganciato a qualcosa che
-///    cambia da solo: il cielo di domani per Medora, la runa della sera per
-///    Caligo, il chakra del giorno per Aura. **E' diverso perche' il mondo e'
-///    diverso**, non perche' il modello ha pescato un sinonimo, ed e' il
-///    motivo per cui non lo si lascia scrivere a lui: un modello a cui si
-///    chiede di variare produce sinonimi, non fatti nuovi.
+/// 2. **L'invito a tornare**, che compone l'app. Per Medora e' agganciato al
+///    prossimo cambio del cielo; per Caligo e Aura invita a tornare **senza
+///    svelare** la runa o il centro di domani, dall'ordine EJ voce 07: ogni
+///    dono si scopre nel suo momento. **Sta solo sotto l'ultima risposta**,
+///    ordine EJ voce 05, perche' un congedo si dice una volta.
 ///
 /// **Sta nella risposta breve, per tutti i livelli, Viandante compreso.** Non
 /// e' un contenuto premium: e' la cosa che la persona legge se legge solo
@@ -119,11 +116,29 @@ abstract final class ConsiglioFinale {
       'IL CONSIGLIO FINALE, SEMPRE, IN OGNI RISPOSTA:\n'
       '- Chiudi con una riga a sé, l\'ultima, che comincia col carattere $stella '
       'seguito da uno spazio.\n'
-      '- Quella riga riassume in modo DIRETTO ciò che hai appena detto, in una '
-      'frase sola e breve. Niente immagini, niente poesia: è la risposta '
-      'immediata per chi legge solo quella.\n'
+      '- Quella riga è il PASSO CONCRETO: un\'azione precisa che la persona può '
+      'fare, con un oggetto, un momento o un modo definiti, per esempio '
+      '"Stasera scrivi su un foglio le tre cose che vuoi dirgli". Una frase '
+      'sola e breve, niente immagini, niente poesia. Mai un invito generico '
+      'come "trova la tua strada" o "parti da te".\n'
+      '- Non ripetere mai una riga con $stella già scritta in questa '
+      'conversazione.\n'
       '- Non aggiungere altro dopo di essa. All\'invito a tornare non pensare '
       'tu: ci pensa l\'app, che sa cosa cambia nel cielo di domani.';
+
+  /// **LE RIGHE D'ORO GIA' SCRITTE**, dai testi delle risposte precedenti
+  /// della conversazione, per chiedere al modello di non ripeterle. Ordine EJ
+  /// voce 05. Vuota quando non ce ne sono.
+  static String righeGiaScritte(Iterable<String> testi) {
+    final righe = [
+      for (final t in testi)
+        if (sintesiDa(t) case final r?) r,
+    ];
+    if (righe.isEmpty) return '';
+    return 'RIGHE CON $stella GIÀ SCRITTE IN QUESTA CONVERSAZIONE: NON '
+        'RIPETERNE NESSUNA E NON RIFORMULARLE, IL PASSO DI OGGI È UN ALTRO:\n'
+        '${righe.map((r) => '- $r').join('\n')}';
+  }
 
   /// La sintesi che il Maestro ha marcato, oppure null se non l'ha scritta.
   static String? sintesiDa(String testo) {
@@ -221,28 +236,24 @@ abstract final class ConsiglioFinale {
         return giro.isEven
             ? 'Rivediamoci $dopo: la Luna entra in ${cambio.cosa}.'
             : 'Ripassa $dopo, per ${cambio.cosa}.';
+      // **NESSUN DONO SI SVELA PRIMA DEL SUO MOMENTO.** Ordine EJ voce 07,
+      // decisione del fondatore del 17 settembre 2026 sui Doni del Giorno.
+      // Qui Caligo annunciava la runa che il Tramonto avrebbe dato domani
+      // (*"Torna domani sera: la runa che scende è Fehu"*) e Aura il centro
+      // del giorno dopo (*"Torna domani: si apre la gola"*): il fondatore le
+      // ha lette nelle catture della 2278. Adesso invitano a tornare, e basta.
       case Maestro.caligo:
-        // Senza segno, come l'arte: ordine EA voce 05. La runa che Caligo
-        // annuncia e' quella che il Tramonto dara' davvero.
-        final estrazione = SunsetRune.estrai(
-          domani.add(const Duration(hours: 18)),
-          identita: identita,
-        );
-        final nome = estrazione.rune.name;
         final forme = <String>[
-          'Torna domani sera: la runa che scende è $nome.',
-          'Domani al tramonto ti aspetta $nome: portala con te.',
-          'Rivediamoci quando cala il sole, con $nome sulla soglia.',
+          'Torna domani sera: la runa che scende la scopri solo allora.',
+          'Domani al tramonto una runa nuova ti aspetta.',
+          'Rivediamoci quando cala il sole.',
         ];
         return forme[giro % forme.length];
       case Maestro.aura:
-        final chakra = ChakraDelGiorno.di(domani);
         final forme = <String>[
-          'Torna domani: si apre ${chakra.italiano}, che governa '
-              '${chakra.governa}.',
-          'Domani lavora ${chakra.italiano}: rileggi con quello acceso.',
-          'Ripassa quando sarà il giorno di ${chakra.nome}, '
-              '${chakra.governa}.',
+          'Torna domani: il corpo avrà un altro centro da ascoltare.',
+          'Domani rileggi con il respiro di un giorno nuovo.',
+          'Ripassa domani, quando il corpo è di nuovo in ascolto.',
         ];
         return forme[giro % forme.length];
     }
@@ -258,11 +269,13 @@ abstract final class ConsiglioFinale {
     required String testo,
     required DateTime quando,
     required String identita,
+    bool conInvito = true,
   }) {
     final corpo = corpoDa(testo);
     if (corpo.trim().isEmpty && sintesiDa(testo) == null) return '';
-    final invito =
-        invitoDelRitorno(maestro, quando: quando, identita: identita);
+    final invito = conInvito
+        ? invitoDelRitorno(maestro, quando: quando, identita: identita)
+        : '';
     // **SENZA MARCATORE RESTA IL SOLO INVITO**, e non e' un ripiego muto: e'
     // una scelta fra due cose degradate. La sintesi del Maestro non c'e', e
     // l'unica altra frase che potremmo mettere qui sta gia' a schermo poche
@@ -275,6 +288,24 @@ abstract final class ConsiglioFinale {
         const ['.', '!', '?', '…'].contains(sintesi[sintesi.length - 1])
             ? sintesi
             : '$sintesi.';
-    return '$chiusa $invito';
+    return invito.isEmpty ? chiusa : '$chiusa $invito';
   }
+
+  /// **SOTTO QUALE RISPOSTA VA L'INVITO A TORNARE.** Ordine EJ voce 05.
+  ///
+  /// [posizione] e' l'indice della risposta nella conversazione,
+  /// [ultimaDelMaestro] quello dell'ultima risposta vera del Maestro. La
+  /// bolla della chat e il collaudo chiedono qui, cosi' misurano la stessa
+  /// cosa.
+  ///
+  /// **Solo sotto l'ultima.** L'invito stava sotto ogni risposta, e il
+  /// fondatore ha letto *"Ripassa fra 2 giorni, per la Luna piena."* in fondo
+  /// a cinque risposte di fila; il collaudo EJ ha contato cinque chiusure
+  /// ripetute su sei scambi, per tutti e tre i Maestri. Un invito a tornare
+  /// e' un congedo, e un congedo si dice una volta, alla fine.
+  static bool invitoSotto({
+    required int posizione,
+    required int ultimaDelMaestro,
+  }) =>
+      posizione == ultimaDelMaestro;
 }

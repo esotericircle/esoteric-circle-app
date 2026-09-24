@@ -1133,7 +1133,11 @@ class MaestroChatController extends ChangeNotifier {
       // UNA rigenerazione sola, mai due: alla seconda si consegna cio' che c'e'
       // e si registra. Far aspettare la persona una terza volta per una regola
       // nostra sarebbe farle pagare il nostro difetto.
-      if (!VerificaAncoraggio.eAncorata(reply, disponibili)) {
+      // **SOLO NELLA PRIMA RISPOSTA.** Ordine EJ voce 05: dopo, un dato
+      // della persona torna solo se serve, e rigenerare chi non lo nomina
+      // riportava i tre dati in ogni risposta.
+      final primaRisposta = !priorHistory.any((m) => m.isMaestro);
+      if (primaRisposta && !VerificaAncoraggio.eAncorata(reply, disponibili)) {
         rigenerazioniPerAncoraggio++;
         final secondo = await _ai.reply(
           maestro: chiRisponde,

@@ -33,7 +33,11 @@ class RigaDelConsiglio extends StatelessWidget {
     required this.testo,
     required this.quando,
     this.palette,
+    this.conInvito = true,
   });
+
+  /// Se in fondo alla riga va l'invito a tornare. Ordine EJ voce 05.
+  final bool conInvito;
 
   /// Chi ha parlato. Decide a cosa e' agganciato l'invito a tornare.
   final Maestro maestro;
@@ -69,6 +73,7 @@ class RigaDelConsiglio extends StatelessWidget {
       testo: testo,
       quando: quando,
       identita: identita,
+      conInvito: conInvito,
     );
     if (riga.isEmpty) return const SizedBox.shrink();
 

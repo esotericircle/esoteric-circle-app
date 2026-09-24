@@ -129,6 +129,11 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
           natal: natal,
           insistiSullAncoraggio: insistiSullAncoraggio,
           rispostaGiaData: rispostaGiaData,
+          primaRisposta: !history.any((m) => m.isMaestro),
+          testiGiaDetti: [
+            for (final m in history)
+              if (m.isMaestro) m.text
+          ],
         ),
       ),
       // La PRIMA risposta arriva sempre alla stessa misura per tutti: la

@@ -1,6 +1,7 @@
 import '../astro/zodiac.dart';
 import '../rituals/runes.dart';
 import '../tarot/tarot_card.dart';
+import 'la_risposta_ripulita.dart';
 
 /// COME ARRIVA A VIDEO IL TESTO DI UN RESPONSO.
 ///
@@ -92,7 +93,9 @@ class TestoDelResponso {
     );
     // I titoli, solo a inizio riga.
     testo = testo.replaceAll(RegExp(r'^#{1,6}\s*', multiLine: true), '');
-    return testo;
+    // **Le frasi fatte e gli errori di regola, a valle.** Ordine EJ voci 05
+    // e 08: vedi `LaRispostaRipulita`.
+    return LaRispostaRipulita.applica(testo);
   }
 
   /// I nomi che l'app CONOSCE GIA', e che quindi puo' evidenziare con
