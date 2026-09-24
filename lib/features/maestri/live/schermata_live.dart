@@ -13,10 +13,13 @@ import '../../../design_system/tokens/typography_tokens.dart';
 import '../../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../../services/ai/registro_dei_guasti.dart';
 import '../../../services/live/porta_del_live.dart';
-import '../../../services/voce/dettatura_vera.dart';
+import '../../../services/voce/l_orecchio_del_live.dart';
 import '../chat/maestro_chat_controller.dart';
 import '../widgets/busto_del_maestro.dart';
+import '../../../core/sensi/wav_da_pcm.dart';
 import 'il_parlato_del_maestro.dart';
+import 'le_frasi_della_persona.dart';
+import 'il_selettore_delle_voci.dart';
 import 'stato_della_schermata_live.dart';
 
 /// **LA SCHERMATA LIVE.** Ordine EG voce 05.
@@ -33,15 +36,18 @@ import 'stato_della_schermata_live.dart';
 /// 1. Si apre la sessione sul server, che controlla diritto e minuti.
 /// 2. Si entra nella stanza e si aspetta che il volto ci sia.
 /// 3. Il Maestro saluta a voce, e il volto comincia a muoversi.
-/// 4. Si ascolta la persona con la dettatura del telefono, oppure si legge
-///    cio' che scrive: il ripiego tattile che `CLAUDE.md` rende obbligatorio.
+/// 4. Si ascolta la persona registrandola, e la frase intera si trascrive
+///    quando ha finito davvero (`LOrecchioDelLive`, ordine EJ voce 01);
+///    oppure la persona tiene premuto il microfono e parla quanto vuole;
+///    oppure si legge cio' che scrive: il ripiego tattile che `CLAUDE.md`
+///    rende obbligatorio.
 /// 5. La risposta la da' **la stessa chat scritta**, con lo stesso Maestro, la
 ///    stessa memoria e le stesse regole, e resta scritta nella conversazione.
 /// 6. La risposta diventa voce una frase alla volta, sul server con
 ///    Gemini-TTS, e il telefono la manda al volto sul flusso `lk.audio_stream`.
 /// 7. Quando il volto ha finito di parlare, si torna ad ascoltare.
 ///
-/// **Si ascolta solo quando il Maestro tace.** La dettatura sentirebbe la
+/// **Si ascolta solo quando il Maestro tace.** Il microfono sentirebbe la
 /// voce del Maestro dall'altoparlante e la prenderebbe per una domanda.
 class SchermataLive extends StatefulWidget {
   const SchermataLive({super.key, required this.maestro, this.chat});
@@ -73,18 +79,17 @@ class _SchermataLiveState extends State<SchermataLive> {
   Timer? _orologio;
   final _campo = TextEditingController();
 
-  /// **Nella lingua dell'app, come nella chat. Ordine DX voce 02**: senza,
-  /// su iPhone il riconoscitore ascolta in inglese e scrive "Indicate" al
-  /// posto di "quindi". **E si risponde appena la frase e' finale**, senza
-  /// aspettare i tre secondi di silenzio della chat scritta: a ogni turno si
-  /// sentirebbero. Un silenzio piu' corto non era la cura, e' stato provato:
-  /// valeva anche per il silenzio iniziale, e l'ascolto moriva prima che la
-  /// persona cominciasse a parlare.
-  late final _dettatura = DettaturaVera(
-    lingua: () => mounted ? Localizations.maybeLocaleOf(context) : null,
-  );
-  final _dallUltimaParola = Stopwatch();
-  Timer? _attesaDellaFrase;
+  /// **L'ORECCHIO, ordine EJ voce 01.** Prima c'era il riconoscitore del
+  /// telefono, che chiudeva da solo: dopo il silenzio iniziale e dopo ogni
+  /// pausa, e la domanda troncata partiva lo stesso. Il fondatore, sulla
+  /// 2278: *"mi lascia circa un secondo per parlare"*. Adesso l'app registra
+  /// e decide lei quando la persona ha finito, con `IlSilenzioVero`.
+  final _orecchio = LOrecchioDelLive();
+
+  /// Il livello del microfono, fra 0 e 1, per la barra dell'ascolto. Sta in
+  /// un notificatore suo perche' cambia venti volte al secondo, e ridisegnare
+  /// la schermata intera ridisegnerebbe anche il volto.
+  final _livello = ValueNotifier<double>(0);
 
   /// Vero mentre il Maestro sta parlando: in quel tempo non si ascolta.
   bool _parla = false;
@@ -92,10 +97,12 @@ class _SchermataLiveState extends State<SchermataLive> {
   /// Vero mentre la chat compone la risposta.
   bool _pensa = false;
 
-  /// Vero mentre la dettatura e' in ascolto.
+  /// Vero mentre il microfono e' aperto.
   bool _ascolta = false;
 
-  String _ultimeParole = '';
+  /// Le frasi dette finora, che diventano domanda quando la persona smette.
+  final _frasi = LeFrasiDellaPersona();
+
   Completer<void>? _fineDellaVoce;
 
   @override
@@ -151,9 +158,9 @@ class _SchermataLiveState extends State<SchermataLive> {
   @override
   void dispose() {
     _orologio?.cancel();
-    _attesaDellaFrase?.cancel();
     _campo.dispose();
-    unawaited(_dettatura.ferma());
+    unawaited(_orecchio.dispose());
+    _livello.dispose();
     widget.chat?.nelLive = false;
     // **La stanza si chiude sempre**, anche col tasto indietro: una stanza
     // lasciata aperta continua a consumare minuti che nessuno usa.
@@ -269,13 +276,55 @@ class _SchermataLiveState extends State<SchermataLive> {
     if (!mounted) return;
     final passati = _quadro.secondiPassati + 1;
     setState(() => _quadro = _quadro.con(secondiPassati: passati));
-    // Mentre il Maestro parla o compone la risposta non e' silenzio.
-    if (!_parla && !_pensa) _secondiDiSilenzio++;
+    if (passati == 8 || passati == 25) unawaited(_misuraIlVideo());
+    // Mentre il Maestro parla o compone la risposta non e' silenzio, e
+    // nemmeno mentre la persona dice una frase lunga o tiene premuto.
+    if (!_parla && !_pensa && !_orecchio.staParlando) {
+      _secondiDiSilenzio++;
+    }
     if (_quadro.ilTempoEFinito) {
       unawaited(_chiudi(ComeFinisce.tempo));
     } else if (_quadro.chiudePerSilenzio(_secondiDiSilenzio)) {
       debugPrint('LIVE: chiusa dopo $_secondiDiSilenzio secondi di silenzio');
       unawaited(_chiudi(ComeFinisce.silenzio));
+    }
+  }
+
+  /// **QUANTO E' GRANDE IL VOLTO CHE ARRIVA, E QUANTO LO SI MOSTRA.** Ordine
+  /// EJ voce 03: il fondatore vede i mezzibusti sfocati. Si scrive nel
+  /// registro la risoluzione del video ricevuto e la finestra a schermo in
+  /// pixel veri, cosi' si sa se il limite e' il flusso, l'ingrandimento o
+  /// l'immagine di partenza.
+  Future<void> _misuraIlVideo() async {
+    try {
+      final traccia = _primaTracciaVideo();
+      final stat = traccia is lk.RemoteVideoTrack
+          ? await traccia.getReceiverStats()
+          : null;
+      if (!mounted) return;
+      Size? finestra;
+      void cerca(Element e) {
+        if (finestra != null) return;
+        if (e.widget.key == const Key('live_finestra')) {
+          finestra = (e.renderObject as RenderBox?)?.size;
+          return;
+        }
+        e.visitChildElements(cerca);
+      }
+
+      context.visitChildElements(cerca);
+      final dpr = MediaQuery.devicePixelRatioOf(context);
+      final ritaglio = InquadraturaDelVolto.di(widget.maestro).ritaglio;
+      final f = finestra;
+      debugPrint('LIVE VIDEO: ricevuto ${stat?.frameWidth}x'
+          '${stat?.frameHeight} a ${stat?.framesPerSecond} fps, codec '
+          '${stat?.mimeType}, decoder ${stat?.decoderImplementation}; '
+          'finestra ${f == null ? '?' : '${(f.width * dpr).round()}x'
+              '${(f.height * dpr).round()}'} px veri, ritaglio '
+          '${(ritaglio.width * 1000).round()}x'
+          '${(ritaglio.height * 1000).round()} millesimi del video');
+    } catch (errore) {
+      annotaGuastoInnocuo('la misura del video non riesce', errore);
     }
   }
 
@@ -287,7 +336,7 @@ class _SchermataLiveState extends State<SchermataLive> {
 
   Future<void> _chiudi([ComeFinisce? come]) async {
     _orologio?.cancel();
-    await _dettatura.ferma();
+    await _orecchio.ferma();
     await _stanza?.disconnect();
     if (!mounted) return;
     setState(() =>
@@ -296,52 +345,65 @@ class _SchermataLiveState extends State<SchermataLive> {
 
   // --- ASCOLTARE --------------------------------------------------------
 
+  /// **Il microfono si apre quando il Maestro ha finito, e resta aperto.**
+  /// Nessun tempo massimo per cominciare: il silenzio della stanza lo misura
+  /// l'orologio dei trenta secondi, che chiude la sessione intera e non una
+  /// frase. Il microfono resta aperto anche fra una frase e l'altra, e
+  /// `LeFrasiDellaPersona` decide quando i pezzi detti diventano la domanda.
   Future<void> _ascoltaLaPersona() async {
     if (!mounted || _parla || _pensa || _ascolta) return;
     if (_quadro.momento != MomentoDelLive.vivo) return;
-    _ultimeParole = '';
-    var chiuso = false;
-    // La frase si chiude una volta sola: la dettatura puo' dichiararla finale
-    // e poi dire anche "finito", e il Maestro risponde una volta.
-    void chiudi(String perche) {
-      _attesaDellaFrase?.cancel();
-      if (chiuso) return;
-      chiuso = true;
-      if (mounted) setState(() => _ascolta = false);
-      final detto = _ultimeParole.trim();
-      if (detto.isEmpty) return;
-      debugPrint('LIVE: frase chiusa ($perche) '
-          '${_dallUltimaParola.elapsedMilliseconds} ms dopo l\'ultima parola');
-      unawaited(_turno(detto));
-    }
+    _frasi.dimentica();
+    _orecchio.suLivello = (l) => _livello.value = l;
+    _orecchio.suFrase = (pcm) => unawaited(_unaFrase(pcm));
+    setState(() => _ascolta = true);
+    final aperto = await _orecchio.ascolta();
+    if (mounted && !aperto) setState(() => _ascolta = false);
+  }
 
-    final parte = await _dettatura.ascolta(
-      parole: (p) {
-        _ultimeParole = p;
-        _cePresenza();
-        _dallUltimaParola
-          ..reset()
-          ..start();
-        // **Un secondo e mezzo senza parole nuove chiude la frase.** Il
-        // riconoscitore di Android la chiudeva da se' 2,6 secondi dopo
-        // l'ultima parola, misurati sul Realme il 23 settembre 2026: in una
-        // conversazione e' un secondo di troppo a ogni turno. Il silenzio
-        // iniziale non e' toccato: questo orologio parte solo dalla prima
-        // parola, e prima c'e' la pausa di tre secondi della dettatura.
-        _attesaDellaFrase?.cancel();
-        _attesaDellaFrase = Timer(
-          const Duration(milliseconds: 1500),
-          () => chiudi('un secondo e mezzo senza parole'),
-        );
-        if (mounted) setState(() => _quadro = _quadro.con(sottotitolo: p));
-      },
-      frase: (p) {
-        _ultimeParole = p;
-        chiudi('frase finale');
-      },
-      finito: () => chiudi('fine ascolto'),
-    );
-    if (mounted) setState(() => _ascolta = parte);
+  /// Una frase si e' chiusa: si trascrive tutto cio' che la persona ha detto
+  /// finora, e parte come domanda solo se lei ha smesso di parlare.
+  ///
+  /// **IL RUMORE NON E' PRESENZA.** Sul Realme un rumore apriva ogni tanto
+  /// una "frase" che Gemini trovava vuota, e ogni volta l'orologio del
+  /// silenzio ripartiva da zero: la sessione non si chiudeva mai e consumava
+  /// crediti. La presenza la da' solo una frase con parole.
+  Future<void> _unaFrase(Uint8List pcm) async {
+    final daTrascrivere = _frasi.chiusa(pcm);
+    final pezzi = _frasi.pezziInAttesa;
+    final orologio = Stopwatch()..start();
+    var detto = '';
+    try {
+      detto = await LaTrascrizione.trascrivi(
+          wavDaPcm(daTrascrivere.pcm, tasso: LOrecchioDelLive.tasso));
+    } catch (errore) {
+      annotaGuastoInnocuo('la frase del LIVE non si trascrive', errore);
+    }
+    final domanda = _frasi.trascritta(daTrascrivere.biglietto, detto,
+        parlaDiNuovo: _orecchio.staParlando);
+    debugPrint('LIVE: frase di ${daTrascrivere.pcm.length ~/ 32} ms in '
+        '$pezzi pezzi, trascritta in ${orologio.elapsedMilliseconds} ms: '
+        '«$detto» ${domanda == null ? '(si ascolta ancora)' : '(parte)'}');
+    if (domanda == null || !mounted) return;
+    if (_quadro.momento != MomentoDelLive.vivo || _parla || _pensa) return;
+    _cePresenza();
+    await _turno(domanda);
+  }
+
+  /// **PREMI PER PARLARE.** Finche' la persona tiene premuto la frase non si
+  /// chiude, qualunque pausa faccia; quando lascia, parte.
+  Future<void> _premi() async {
+    if (_parla || _pensa) return;
+    _orecchio.aMano = true;
+    _cePresenza();
+    if (!_ascolta) unawaited(_ascoltaLaPersona());
+    setState(() {});
+  }
+
+  Future<void> _lascia() async {
+    if (!_orecchio.aMano) return;
+    _orecchio.lascia();
+    if (mounted) setState(() {});
   }
 
   // --- RISPONDERE -------------------------------------------------------
@@ -350,9 +412,12 @@ class _SchermataLiveState extends State<SchermataLive> {
   Future<void> _turno(String testo) async {
     final chat = widget.chat;
     if (chat == null || _pensa || _parla) return;
-    await _dettatura.ferma();
+    await _orecchio.ferma();
+    _frasi.dimentica();
+    _livello.value = 0;
     _cePresenza();
     setState(() {
+      _ascolta = false;
       _pensa = true;
       _quadro = _quadro.con(sottotitolo: testo);
     });
@@ -446,6 +511,11 @@ class _SchermataLiveState extends State<SchermataLive> {
           onTimeout: () => false);
       debugPrint('LIVE: il volto ha finito dopo ${orologio.elapsedMilliseconds}'
           ' ms, ${detto ? 'lo ha detto lui' : 'per tempo scaduto'}');
+      // **LA CODA DELLA VOCE DEL VOLTO.** Il volto dice di aver finito quando
+      // ha mandato l'ultimo pezzo, ma l'altoparlante lo sta ancora suonando:
+      // sul Realme il microfono, riaperto subito, sentiva quella coda e apriva
+      // una frase vuota dopo ogni risposta. Ordine EJ voce 01.
+      await Future<void>.delayed(const Duration(milliseconds: 700));
     } catch (errore) {
       annotaGuastoInnocuo('l\'audio del Maestro non arriva al volto', errore);
     } finally {
@@ -502,6 +572,16 @@ class _SchermataLiveState extends State<SchermataLive> {
         backgroundColor: Colors.transparent,
         title: Text(widget.maestro.displayName),
         actions: [
+          // **Il selettore delle voci, ordine EJ voce 02.** Lo vede solo chi
+          // il server riconosce come fondatore.
+          if (_quadro.sessione?.eFondatore ?? false)
+            IconButton(
+              key: const Key('live_voci'),
+              tooltip: 'Scegli il timbro',
+              icon: const Icon(Icons.record_voice_over),
+              onPressed: () =>
+                  IlSelettoreDelleVoci.apri(context, widget.maestro),
+            ),
           if (_quadro.sessione != null)
             Padding(
               padding: const EdgeInsets.only(right: SpacingTokens.md),
@@ -549,17 +629,24 @@ class _SchermataLiveState extends State<SchermataLive> {
             if (_quadro.momento == MomentoDelLive.vivo)
               Padding(
                 padding: const EdgeInsets.only(bottom: SpacingTokens.sm),
-                child: Text(
-                  key: const Key('live_stato'),
-                  _pensa
-                      ? 'Sto pensando.'
-                      : _parla
-                          ? ''
-                          : _ascolta
-                              ? 'Ti ascolto.'
-                              : 'Tocca il microfono o scrivimi.',
-                  style: TypographyTokens.didascalia()
-                      .copyWith(color: ColorTokens.textSecondary),
+                child: Column(
+                  children: [
+                    Text(
+                      key: const Key('live_stato'),
+                      _pensa
+                          ? 'Sto pensando.'
+                          : _parla
+                              ? ''
+                              : _orecchio.aMano
+                                  ? 'Parla quanto vuoi, poi lascia.'
+                                  : _ascolta
+                                      ? 'Ti ascolto. Prenditi il tempo che serve.'
+                                      : 'Tieni premuto il microfono o scrivimi.',
+                      style: TypographyTokens.didascalia()
+                          .copyWith(color: ColorTokens.textSecondary),
+                    ),
+                    if (_ascolta) _laBarraDellAscolto(),
+                  ],
                 ),
               ),
             if (_quadro.siPuoScrivere) _laTastiera(),
@@ -683,15 +770,74 @@ class _SchermataLiveState extends State<SchermataLive> {
     return null;
   }
 
+  /// Il livello del microfono mentre si ascolta: la persona vede che la
+  /// sua voce arriva, e che il microfono e' ancora aperto durante le pause.
+  Widget _laBarraDellAscolto() => Padding(
+        padding: const EdgeInsets.only(top: SpacingTokens.xs),
+        child: ValueListenableBuilder<double>(
+          valueListenable: _livello,
+          builder: (_, l, __) => SizedBox(
+            key: const Key('live_livello'),
+            width: 120,
+            height: 3,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(2),
+              child: LinearProgressIndicator(
+                value: l,
+                backgroundColor:
+                    ColorTokens.textSecondary.withValues(alpha: 0.2),
+                valueColor: const AlwaysStoppedAnimation(ColorTokens.goldLight),
+              ),
+            ),
+          ),
+        ),
+      );
+
   Widget _laTastiera() => Padding(
         padding: const EdgeInsets.all(SpacingTokens.md),
         child: Row(
           children: [
-            IconButton(
-              key: const Key('live_microfono'),
-              icon: Icon(_ascolta ? Icons.mic : Icons.mic_none),
-              onPressed: _parla || _pensa ? null : _ascoltaLaPersona,
+            // **Tocca per aprire, tieni premuto per parlare senza limiti.**
+            // Ordine EJ voce 01: finche' il dito resta sul microfono la frase
+            // non si chiude, e parte quando lo si lascia.
+            Semantics(
+              button: true,
+              label: 'Tieni premuto per parlare',
+              child: GestureDetector(
+                key: const Key('live_microfono'),
+                behavior: HitTestBehavior.opaque,
+                onTap: _parla || _pensa
+                    ? null
+                    : () => unawaited(_ascoltaLaPersona()),
+                onLongPressStart:
+                    _parla || _pensa ? null : (_) => unawaited(_premi()),
+                onLongPressEnd: (_) => unawaited(_lascia()),
+                onLongPressCancel: () => unawaited(_lascia()),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 160),
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: _orecchio.aMano
+                        ? ColorTokens.goldLight.withValues(alpha: 0.25)
+                        : Colors.transparent,
+                    border: Border.all(
+                      color: _ascolta
+                          ? ColorTokens.goldLight
+                          : ColorTokens.textSecondary,
+                    ),
+                  ),
+                  child: Icon(
+                    _ascolta ? Icons.mic : Icons.mic_none,
+                    color: _parla || _pensa
+                        ? ColorTokens.textSecondary
+                        : ColorTokens.goldLight,
+                  ),
+                ),
+              ),
             ),
+            const SizedBox(width: SpacingTokens.sm),
             Expanded(
               child: TextField(
                 key: const Key('live_campo'),
