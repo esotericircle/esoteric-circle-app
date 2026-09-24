@@ -1,31 +1,34 @@
-Build 2278, ordine EG: la voce viva dei Maestri, rifatta.
+Build 2279, ordine EK voce 01: il lavoro dell'ordine EJ.
 
 COSA HO PROVATO IO SUL TELEFONO PRIMA DI CONSEGNARE.
 
-Menu della chat di un Maestro, "Parlami a voce". Il Maestro ti saluta a voce
-appena compare, e la bocca si muove con le parole. Poi tocchi il microfono e
-parli, oppure scrivi: ti risponde a voce, con la stessa memoria e le stesse
-regole della chat, e quello che vi dite resta scritto nella conversazione.
+Il microfono del LIVE non tronca più. Si apre quando il Maestro ha finito e
+resta aperto. Il Maestro risponde solo dopo due secondi di silenzio vero: una
+pausa a metà frase non spezza la domanda. Provato sul Realme con una domanda
+di quattro frasi e tre pause: arriva intera. Oppure tieni premuto il
+microfono e parla quanto vuoi: la frase parte quando lo lasci.
 
-Misure sul Realme: dalla fine della tua frase alla voce del Maestro circa 5
-secondi; il saluto parte quasi subito. Provati Medora, Aura e Caligo.
+Nelle chat dei Maestri la barra Esplora non c'è più all'apertura. Compare se
+scorri verso i messaggi di prima e si ritira quando torni a leggere o tocchi
+il campo: la conversazione ha più spazio.
 
-Il volto sta in una finestra ad arco con la cornice d'oro, senza il riquadro
-bianco e senza il filo chiaro attorno alla figura. Lo sfondo è nero.
+Nella testata di ogni chat c'è la pastiglia "Dal vivo". Sul Realme l'ho vista
+grigia col lucchetto: al tocco si apre il foglio del Maestro, con le sue
+parole, che porta al piano dell'Adepto.
 
-Se per trenta secondi nessuno parla o scrive, la voce si chiude da sola, e il
-Maestro ti dice perché. Protoface non consuma più minuti a vuoto.
+DA PROVARE TU, PERCHÉ IL REALME NON PUÒ.
 
-La voce viva non consuma più le domande del giorno della chat.
+La pastiglia d'oro: dal tier 2 in su è d'oro e porta nel LIVE. Sul Realme non
+l'ho vista d'oro, perché il telefono di prova non riceve il suo piano dal
+server: è un guasto che ti spiego nel rapporto.
 
-Nel piano attuale, in Demo, il badge segue il livello che hai attivato.
+Il timbro dei Maestri: nel LIVE l'icona in alto è solo per i fondatori, cosa
+che il Realme non è. Lì ascolti le voci candidate sulla stessa frase
+e scegli quella del Maestro. Non l'ho vista sul telefono.
 
-COSA RESTA APERTO.
+Il nome Calìgo con l'accento nella voce del LIVE di Calìgo. E il microfono
+con la tua voce.
 
-La scelta del motore di voce e delle voci, il pulsante LIVE nella testata
-della chat e i contatori dei minuti al mese: non ci sono ancora, o non li ho
-provati. E resta da provare il Soffio del Destino col microfono, dall'ordine
-EI.
+COSA SO CHE NON VA ANCORA.
 
-Il primo turno dopo un po' di tempo può partire uno o due secondi più tardi:
-la funzione della voce sul server si sveglia.
+A volte la trascrizione del LIVE scrive "Mezz'ora" invece di "Medora".
