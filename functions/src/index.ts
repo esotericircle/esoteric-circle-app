@@ -43,6 +43,9 @@ export {
   apriUnaSessioneLive,
   statoDellaSessioneLive,
   laVoceDelMaestro,
+  leVociDelMaestro,
+  ascoltaUnaVoce,
+  scegliLaVoce,
 } from "./live";
 
 // LA RICERCA DEL LUOGO NEL MONDO INTERO, ordine DR voce 10: il catalogo

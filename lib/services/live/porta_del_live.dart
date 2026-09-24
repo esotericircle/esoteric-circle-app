@@ -29,7 +29,12 @@ class SessioneLive {
     this.lavoratore = 'protoface-worker',
     required this.minutiRimasti,
     required this.durataMassimaSecondi,
+    this.eFondatore = false,
   });
+
+  /// **Il selettore delle voci si mostra solo ai fondatori.** Ordine EJ voce
+  /// 02: lo dice il server, che conosce l'elenco; il telefono non decide.
+  final bool eFondatore;
 
   /// L'indirizzo del server LiveKit a cui il telefono si collega.
   final String url;
@@ -67,6 +72,7 @@ class SessioneLive {
         minutiRimasti: (m['minutiRimasti'] as num?)?.toInt() ?? 0,
         durataMassimaSecondi:
             (m['durataMassimaSecondi'] as num?)?.toInt() ?? 20 * 60,
+        eFondatore: m['eFondatore'] == true,
       );
 }
 
@@ -219,6 +225,39 @@ abstract final class PortaDelLive {
     }
   }
 
+  /// **LE VOCI DI UN MAESTRO, per il selettore dei fondatori.** Ordine EJ
+  /// voce 02: le candidate con la loro descrizione, la frase di prova e la
+  /// voce scelta oggi.
+  static Future<LeVociDelMaestro> leVoci(Maestro maestro) async {
+    final m = await chiama('leVociDelMaestro', {'maestro': maestro.name});
+    return LeVociDelMaestro(
+      candidate: [
+        for (final c in (m['candidate'] as List? ?? const []))
+          (
+            voce: '${(c as Map)['voce']}',
+            descrizione: '${c['descrizione'] ?? ''}',
+          ),
+      ],
+      scelta: '${m['scelta'] ?? ''}',
+      frase: '${m['frase'] ?? ''}',
+    );
+  }
+
+  /// La frase di prova detta da [voce], per ascoltarla.
+  static Future<({Uint8List pcm, int tasso})> ascoltaUnaVoce(
+      Maestro maestro, String voce) async {
+    final m = await chiama(
+        'ascoltaUnaVoce', {'maestro': maestro.name, 'voce': voce});
+    return (
+      pcm: base64Decode('${m['audio'] ?? ''}'),
+      tasso: (m['tasso'] as num?)?.toInt() ?? 24000,
+    );
+  }
+
+  /// [voce] diventa la voce di [maestro], per tutti e senza build nuova.
+  static Future<void> scegliLaVoce(Maestro maestro, String voce) =>
+      chiama('scegliLaVoce', {'maestro': maestro.name, 'voce': voce});
+
   /// Chiede se il volto e' arrivato, e quanto e' costata finora.
   static Future<StatoDelLive> stato(String sessione) async {
     try {
@@ -241,4 +280,17 @@ abstract final class PortaDelLive {
       return const StatoDelLive(stato: 'queued', secondiFatturati: 0);
     }
   }
+}
+
+/// Le voci di un Maestro come le da' il server. Ordine EJ voce 02.
+class LeVociDelMaestro {
+  const LeVociDelMaestro({
+    required this.candidate,
+    required this.scelta,
+    required this.frase,
+  });
+
+  final List<({String voce, String descrizione})> candidate;
+  final String scelta;
+  final String frase;
 }

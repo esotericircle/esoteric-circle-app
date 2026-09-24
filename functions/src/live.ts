@@ -282,6 +282,11 @@ export const apriUnaSessioneLive = onCall(
     const gettoneDelLavoratore = await gettone(LAVORATORE, "avatar");
 
     // --- LA SESSIONE DI PROTOFACE.
+    // **IL LIVELLO DI QUALITA' SI SCEGLIE DAL SERVER.** Ordine EJ voce 03: il
+    // fondatore vede i mezzibusti sfocati, e il costo del livello superiore
+    // non e' pubblicato. Senza scelta non si manda niente e Protoface usa il
+    // suo predefinito, standard, come fino all'ordine EG.
+    const qualita = await laQualitaScelta();
     const risposta = await fetch(`${PROTOFACE}/sessions`, {
       method: "POST",
       headers: {
@@ -301,6 +306,7 @@ export const apriUnaSessioneLive = onCall(
         // manda il telefono, con la voce del Maestro, e il modo si dichiara
         // invece di contare su un default che nessuno aveva letto.
         idle_timeout_seconds: SILENZIO_TOLLERATO,
+        ...(qualita ? {quality: qualita} : {}),
         transport: {
           type: "livekit",
           url: LIVEKIT_URL.value(),
@@ -337,8 +343,13 @@ export const apriUnaSessioneLive = onCall(
       maestro,
       stanza,
       sessione: sessione.id,
+      qualita: sessione.quality,
       rimasti,
     });
+    // L'uso del mese a ogni apertura: la differenza fra due aperture e' il
+    // costo vero della sessione di mezzo, livello per livello. Non ferma
+    // l'apertura se non risponde.
+    void lUsoDelMese();
 
     return {
       url: LIVEKIT_URL.value(),
@@ -349,6 +360,8 @@ export const apriUnaSessioneLive = onCall(
       lavoratore: LAVORATORE,
       minutiRimasti: rimasti,
       durataMassimaSecondi: durata,
+      // Ordine EJ voce 02: il selettore delle voci si mostra ai fondatori.
+      eFondatore,
     };
   }
 );
@@ -423,7 +436,7 @@ const REGIONE_DELLA_VOCE = "europe-west1";
  * Caligo maschile grave e matura. **Il giudizio sul tono e' del fondatore**:
  * qui c'e' una prima scelta dichiarata, che cambia in una riga.
  */
-const LE_VOCI: Record<string, {voce: string; modo: string}> = {
+const LE_VOCI_DI_PARTENZA: Record<string, {voce: string; modo: string}> = {
   // **IL RITMO E' MISURATO, NON SCELTO A ORECCHIO.** La prima stesura diceva
   // "voce calda, lenta e brunita": il fondatore l'ha sentita nel LIVE il 23
   // settembre 2026 e l'ha trovata "rallentata parecchio". Misurata sul
@@ -447,6 +460,231 @@ const LE_VOCI: Record<string, {voce: string; modo: string}> = {
   },
 };
 
+/**
+ * **LE VOCI DA SCEGLIERE.** Ordine EJ voce 02, 24 settembre 2026.
+ *
+ * Il fondatore: *"le voci non mi convincono, ma non era previsto un selettore
+ * in cui potevo sentire e scegliere la voce di ogni maestro?"*, e *"preferirei
+ * voci anziane e profonde per Caligo e Medora, mentre piu' giovane e calma per
+ * Aura"*. Le candidate seguono quelle preferenze, fra le voci di Gemini-TTS
+ * provate con una chiamata vera in europe-west1 il 24 settembre 2026; la
+ * descrizione e' quella di Google, tradotta.
+ *
+ * **Il modo e' uno per Maestro**, e vale per tutte le sue candidate: cambia la
+ * voce, non il carattere. **Il ritmo resta misurato**: "anziana" da sola
+ * rallentava Medora a nove caratteri al secondo, per questo il modo dice
+ * anche di non rallentare.
+ */
+const LE_CANDIDATE: Record<string, {voce: string; descrizione: string}[]> = {
+  medora: [
+    {voce: "Gacrux", descrizione: "matura"},
+    {voce: "Sulafat", descrizione: "calda"},
+    {voce: "Kore", descrizione: "decisa"},
+    {voce: "Vindemiatrix", descrizione: "gentile"},
+    {voce: "Erinome", descrizione: "limpida"},
+  ],
+  caligo: [
+    {voce: "Algenib", descrizione: "roca"},
+    {voce: "Charon", descrizione: "grave e informativa"},
+    {voce: "Alnilam", descrizione: "decisa"},
+    {voce: "Rasalgethi", descrizione: "autorevole"},
+    {voce: "Orus", descrizione: "ferma"},
+    {voce: "Enceladus", descrizione: "soffiata"},
+  ],
+  aura: [
+    {voce: "Leda", descrizione: "giovane"},
+    {voce: "Achernar", descrizione: "morbida"},
+    {voce: "Despina", descrizione: "vellutata"},
+    {voce: "Aoede", descrizione: "leggera"},
+    {voce: "Autonoe", descrizione: "luminosa"},
+  ],
+};
+
+const I_MODI: Record<string, string> = {
+  medora: "Parla in italiano con la voce profonda e calda di una donna " +
+    "anziana e saggia, che parla con naturalezza e senza mai rallentare, a " +
+    "ritmo sciolto e spedito, come in una conversazione vivace:",
+  caligo: "Parla in italiano con la voce profonda e grave di un uomo anziano " +
+    "e saggio, che parla con naturalezza e senza mai rallentare, a ritmo " +
+    "sciolto e spedito, come in una conversazione vivace:",
+  aura: "Parla in italiano con la voce giovane, calma e chiara di una donna, " +
+    "a ritmo sciolto e spedito, come in una conversazione vivace:",
+};
+
+/**
+ * **La frase su cui si confrontano le voci**, la stessa per tutte le
+ * candidate di un Maestro. Caligo pronuncia il suo nome: e' anche la prova
+ * della voce EJ.04, *"si dice Calìgo"*. **L'indicazione dell'accento non va
+ * nel modo**: provata il 24 settembre, la voce la leggeva ad alta voce e la
+ * frase durava undici secondi invece di sei. Basta l'accento scritto.
+ */
+const LA_FRASE_DI_PROVA: Record<string, string> = {
+  medora: "Sono Medora. Il cielo di stasera ascolta con me: dimmi cosa ti " +
+    "porta qui.",
+  caligo: "Sono Calìgo. Le rune tacciono finché non parli tu.",
+  aura: "Sono Aura. Prendi un respiro con me, poi dimmi cosa senti.",
+};
+
+let scelteInCache: {quando: number; voci: Record<string, string>} | null =
+  null;
+
+/**
+ * **La voce di un Maestro, come l'ha scelta il fondatore.** Vive in
+ * `configurazione/live`, campo `voci`, e cambia senza una build nuova; si
+ * rilegge al massimo una volta al minuto. Una voce che non sta fra le
+ * candidate non vale, e resta quella di partenza.
+ */
+async function laVoceScelta(
+  maestro: string
+): Promise<{voce: string; modo: string}> {
+  const ora = Date.now();
+  if (!scelteInCache || ora - scelteInCache.quando > 60000) {
+    const doc = await getFirestore().doc("configurazione/live").get();
+    scelteInCache = {quando: ora, voci: doc.data()?.voci ?? {}};
+  }
+  const scelta = scelteInCache.voci[maestro];
+  const valida = (LE_CANDIDATE[maestro] ?? []).some((c) => c.voce === scelta);
+  const partenza = LE_VOCI_DI_PARTENZA[maestro];
+  return {
+    voce: valida ? scelta : partenza.voce,
+    modo: I_MODI[maestro] ?? partenza.modo,
+  };
+}
+
+/** I livelli di qualita' che Protoface accetta, dal piu' leggero. */
+const LE_QUALITA = ["lite", "standard", "pro"];
+
+/**
+ * Il livello scelto in `configurazione/live.qualita`, oppure nessuno. Ordine
+ * EJ voce 03: si cambia senza una build, e un valore sconosciuto non passa.
+ */
+async function laQualitaScelta(): Promise<string | undefined> {
+  const doc = await getFirestore().doc("configurazione/live").get();
+  const q = doc.data()?.qualita;
+  return typeof q === "string" && LE_QUALITA.includes(q) ? q : undefined;
+}
+
+/**
+ * **L'USO DEL MESE, NEL REGISTRO.** Ordine EJ voce 03. Protoface non pubblica
+ * quanto costa un livello rispetto all'altro: dice solo un credito al minuto,
+ * arrotondato. Il riepilogo `/v1/usage` porta i crediti addebitati e i
+ * secondi per livello, e scritto a ogni apertura misura la sessione prima.
+ */
+async function lUsoDelMese(): Promise<void> {
+  try {
+    const r = await fetch(`${PROTOFACE}/usage?period=current_month`, {
+      headers: {Authorization: `Bearer ${PROTOFACE_API_KEY.value()}`},
+    });
+    const u = (await r.json()) as Record<string, unknown>;
+    logger.info("Uso di Protoface nel mese", {
+      stato: r.status,
+      crediti: u.credits_charged,
+      secondi: u.billable_seconds,
+      perQualita: u.by_quality,
+      sessioni: u.sessions,
+    });
+  } catch (errore) {
+    logger.warn("L'uso di Protoface non si legge", {errore: String(errore)});
+  }
+}
+
+/** Solo i fondatori scelgono le voci. */
+async function soloFondatori(uid: string | undefined): Promise<void> {
+  if (!uid) throw new HttpsError("unauthenticated", "Serve un account.");
+  const {eFondatore} = await ilDirittoAlLive(uid);
+  if (!eFondatore) {
+    throw new HttpsError("permission-denied", "Le voci le scelgono i fondatori.");
+  }
+}
+
+/** L'audio intero di una frase, non a flusso: serve all'ascolto di prova. */
+async function laVoceIntera(
+  testo: string,
+  voce: string
+): Promise<{audio: string; tasso: number}> {
+  const credenziale = await applicationDefault().getAccessToken();
+  const indirizzo =
+    `https://${REGIONE_DELLA_VOCE}-aiplatform.googleapis.com/v1/projects/` +
+    `${process.env.GCLOUD_PROJECT}/locations/${REGIONE_DELLA_VOCE}/` +
+    `publishers/google/models/${MODELLO_DELLA_VOCE}:generateContent`;
+  const risposta = await fetch(indirizzo, {
+    method: "POST",
+    headers: {
+      "Authorization": `Bearer ${credenziale.access_token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      contents: [{role: "user", parts: [{text: testo}]}],
+      generationConfig: {
+        responseModalities: ["AUDIO"],
+        speechConfig: {voiceConfig: {prebuiltVoiceConfig: {voiceName: voce}}},
+      },
+    }),
+  });
+  if (!risposta.ok) {
+    throw new HttpsError("internal", `La voce ha risposto ${risposta.status}`);
+  }
+  const dati = (await risposta.json()) as {
+    candidates?: {content?: {parts?: {inlineData?: {
+      mimeType?: string; data?: string;
+    }}[]}}[];
+  };
+  const parte = dati.candidates?.[0]?.content?.parts?.[0]?.inlineData;
+  if (!parte?.data) throw new HttpsError("internal", "La voce e' vuota.");
+  const tasso = Number(/rate=(\d+)/.exec(parte.mimeType ?? "")?.[1] ?? 24000);
+  return {audio: parte.data, tasso};
+}
+
+/** Le candidate di un Maestro, la frase di prova e la scelta di oggi. */
+export const leVociDelMaestro = onCall(
+  {region: "europe-west1"},
+  async (request) => {
+    await soloFondatori(request.auth?.uid);
+    const maestro = String(request.data?.maestro ?? "");
+    const candidate = LE_CANDIDATE[maestro];
+    if (!candidate) {
+      throw new HttpsError("invalid-argument", `Maestro sconosciuto: ${maestro}`);
+    }
+    const {voce} = await laVoceScelta(maestro);
+    return {candidate, scelta: voce, frase: LA_FRASE_DI_PROVA[maestro]};
+  }
+);
+
+/** La frase di prova detta da una candidata, per ascoltarla. */
+export const ascoltaUnaVoce = onCall(
+  {region: "europe-west1", timeoutSeconds: 60},
+  async (request) => {
+    await soloFondatori(request.auth?.uid);
+    const maestro = String(request.data?.maestro ?? "");
+    const voce = String(request.data?.voce ?? "");
+    if (!(LE_CANDIDATE[maestro] ?? []).some((c) => c.voce === voce)) {
+      throw new HttpsError("invalid-argument", "Voce non fra le candidate.");
+    }
+    const {audio, tasso} = await laVoceIntera(
+      `${I_MODI[maestro]} ${LA_FRASE_DI_PROVA[maestro]}`, voce);
+    logger.info("ascolto di una voce", {maestro, voce});
+    return {audio, tasso, canali: 1};
+  }
+);
+
+/** La voce scelta diventa quella del Maestro, per tutti, senza build. */
+export const scegliLaVoce = onCall(
+  {region: "europe-west1"},
+  async (request) => {
+    await soloFondatori(request.auth?.uid);
+    const maestro = String(request.data?.maestro ?? "");
+    const voce = String(request.data?.voce ?? "");
+    if (!(LE_CANDIDATE[maestro] ?? []).some((c) => c.voce === voce)) {
+      throw new HttpsError("invalid-argument", "Voce non fra le candidate.");
+    }
+    await getFirestore().doc("configurazione/live").set(
+      {voci: {[maestro]: voce}}, {merge: true});
+    scelteInCache = null;
+    logger.info("voce scelta", {maestro, voce, uid: request.auth?.uid});
+    return {maestro, voce};
+  }
+);
+
 /** Il tetto di una frase: la voce si chiede una frase alla volta. */
 const FRASE_MASSIMA = 1200;
 
@@ -458,8 +696,7 @@ export const laVoceDelMaestro = onCall(
     await ilDirittoAlLive(uid);
 
     const maestro = String(request.data?.maestro ?? "");
-    const come = LE_VOCI[maestro];
-    if (!come) {
+    if (!LE_VOCI_DI_PARTENZA[maestro]) {
       throw new HttpsError("invalid-argument", `Maestro sconosciuto: ${maestro}`);
     }
     const testo = String(request.data?.testo ?? "").trim();
@@ -467,6 +704,8 @@ export const laVoceDelMaestro = onCall(
     if (testo.length > FRASE_MASSIMA) {
       throw new HttpsError("invalid-argument", "Frase troppo lunga.");
     }
+    // Ordine EJ voce 02: la voce e' quella scelta dal fondatore.
+    const come = await laVoceScelta(maestro);
 
     // **LA VOCE ARRIVA A FLUSSO.** La prima stesura chiedeva l'audio intero
     // e lo restituiva in un colpo: 4,4 secondi per 47 caratteri, 11,7 per
