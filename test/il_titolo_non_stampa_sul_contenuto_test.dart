@@ -224,6 +224,20 @@ void main() {
         MaestroChatScreen.route(maestro: Maestro.medora, services: servizi));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));
+    // **NELLA CHAT LA BARRA SI APRE RITIRATA. Ordine EJ voce 09**, 25
+    // settembre 2026, per decisione del fondatore: a riposo il titolo sta
+    // sotto il bordo dello schermo, e questa prova lo cercava fuori
+    // dall'immagine. Si fa comparire col gesto della persona, il dito che
+    // scende, e poi si misura come nelle altre tre.
+    final dito = await tester.startGesture(const Offset(215, 450));
+    for (var i = 0; i < 30; i++) {
+      await dito.moveBy(const Offset(0, 8));
+      await tester.pump();
+    }
+    await dito.up();
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 60));
+    }
     await misura('chat');
 
     nav.push(AskMaestriScreen.perLaSintesi(

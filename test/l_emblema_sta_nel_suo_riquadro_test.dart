@@ -1,6 +1,5 @@
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
-import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/app.dart';
 import 'package:esoteric_circle/core/chat/chat_message.dart';
@@ -16,7 +15,6 @@ import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -31,19 +29,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// Due misure:
 /// - il corpo dell'emblema sta DENTRO il rettangolo del riquadro;
-/// - a pixel: durante la composizione dell'emblema, che e' il momento in
-///   cui tutto si muove, i pixel nella fascia SOTTO il riquadro, dove
-///   vivono l'ultima bolla e i tre puntini, NON cambiano. La scena e'
-///   clippata nel suo riquadro: se gli passasse sopra, la composizione
-///   farebbe lampeggiare la fascia. Le bolle DIETRO il riquadro opaco
-///   invece spariscono, ed e' il comportamento voluto: coperte, mai
-///   mischiate.
+/// - la finestra della conversazione comincia dove il riquadro finisce:
+///   nessuna bolla si legge attraverso la scena. Fino all'ordine EJ voce 09
+///   questa seconda misura si faceva a pixel ed era cieca, la storia sta
+///   accanto alla misura.
 ///
 /// Il minimo garantito del 2161 non si tocca: la sua prova resta viva.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
-
-  const pixelDiversiMassimi = 40;
 
   void silenzia() {
     final messenger = binding.defaultBinaryMessenger;
@@ -62,16 +55,6 @@ void main() {
         MockStreamHandler.inline(onListen: (args, events) {}),
       );
     }
-  }
-
-  Future<Uint8List> pixelDi(WidgetTester tester, GlobalKey radice) async {
-    final rb =
-        radice.currentContext!.findRenderObject()! as RenderRepaintBoundary;
-    final img = await rb.toImage(pixelRatio: 1.0);
-    final dati = (await img.toByteData(format: ui.ImageByteFormat.rawRgba))!;
-    final byte = dati.buffer.asUint8List();
-    img.dispose();
-    return byte;
   }
 
   testWidgets('nella chat di Aura la scena resta nel riquadro', (tester) async {
@@ -127,40 +110,30 @@ void main() {
         reason: 'L\'emblema ($corpo) sborda dal riquadro ($riquadro): '
             'e\' di nuovo grande mezzo schermo sopra la conversazione.');
 
-    // LA GRANDEZZA GIUSTA, e la storia della sbagliata: la prima stesura
+    // LA GRANDEZZA GIUSTA, e la storia delle sbagliate. La prima stesura
     // misurava la fascia SOTTO il riquadro durante la composizione, e il
-    // rosso non scattava, perche' anche col velo trasparente l'emblema
-    // resta nel suo strato di 320 punti: negli screenshot di Mauro le
-    // bolle non stavano SOTTO la scena, si leggevano ATTRAVERSO. La misura
-    // e' quindi la stessa della voce 1: dentro il riquadro i pixel non
-    // dipendono da cio' che scorre dietro. A TEMPO FERMO (pump a durata
-    // zero: i ticker della scena non avanzano) si sposta la lista dietro
-    // e si confrontano le due rese.
-    final prima = await tester.runAsync(() => pixelDi(tester, radice));
-    await tester.drag(find.byType(ListView).first, const Offset(0, 90),
-        warnIfMissed: false);
-    await tester.pump(Duration.zero);
-    final dopo = await tester.runAsync(() => pixelDi(tester, radice));
-    final larghezza = tester.view.physicalSize.width.round();
-    final dentro = riquadro.deflate(3);
-    var diversi = 0;
-    for (var y = dentro.top.ceil(); y < dentro.bottom.floor(); y++) {
-      for (var x = dentro.left.ceil(); x < dentro.right.floor(); x++) {
-        final i = (y * larghezza + x) * 4;
-        if ((prima![i] - dopo![i]).abs() > 3 ||
-            (prima[i + 1] - dopo[i + 1]).abs() > 3 ||
-            (prima[i + 2] - dopo[i + 2]).abs() > 3) {
-          diversi++;
-        }
-      }
-    }
+    // rosso non scattava. La seconda misurava i pixel DENTRO il riquadro
+    // trascinando la conversazione dietro: **era cieca**, e lo si e' scoperto
+    // con l'ordine EJ voce 09, 25 settembre 2026. Il trascinamento non
+    // muoveva la lista, da 0,0 a 0,0 punti, quindi "zero pixel cambiati" non
+    // aveva guardato niente. Fatta muovere davvero, i pixel cambiati erano
+    // 2.608, ed erano le stelle del fondo che scorrono con la lista, non
+    // bolle: dall'ordine 2164 voce 6 il riquadro non e' piu' opaco, la scena
+    // si riserva la sua fascia e la conversazione sta SOTTO. PROVENIENZA:
+    // ordine 2164 voce 6, che ha tolto il riquadro opaco senza cambiare
+    // questa misura.
+    //
+    // Si misura quindi cio' che quella voce garantisce: la finestra della
+    // conversazione, che taglia ogni bolla al suo bordo, comincia dove il
+    // riquadro della scena finisce. Nessuna bolla puo' leggersi attraverso.
+    final finestra = tester.getRect(find.byType(Scrollable).first);
     // ignore: avoid_print
-    print('RIQUADRO: pixel cambiati dentro il riquadro spostando la '
-        'conversazione dietro = $diversi (massimo $pixelDiversiMassimi)');
-    expect(diversi, lessThanOrEqualTo(pixelDiversiMassimi),
-        reason: 'Dentro il riquadro della scena $diversi pixel cambiano '
-            'quando la conversazione scorre dietro: le bolle si leggono '
-            'ATTRAVERSO la scena, che e\' cio\' che Mauro ha visto.');
+    print('RIQUADRO: la scena finisce a ${riquadro.bottom}, la conversazione '
+        'comincia a ${finestra.top}');
+    expect(finestra.top, greaterThanOrEqualTo(riquadro.bottom - 1),
+        reason: 'La conversazione ($finestra) entra nel riquadro della scena '
+            '($riquadro): le bolle si leggono ATTRAVERSO la scena, che e\' '
+            'cio\' che Mauro ha visto.');
 
     // Si esaurisce l'attesa residua.
     for (var i = 0; i < 12; i++) {

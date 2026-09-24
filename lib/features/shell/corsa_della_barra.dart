@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
+import 'santuario_bottom_bar.dart';
+
 /// QUANTO LA BARRA E' SCESA, per chi le sta appoggiato sopra.
 ///
 /// **Il fatto che l'ha fatta nascere**, ordine CI voce 03. Quando la barra si
@@ -37,14 +39,21 @@ class CorsaDellaBarra extends InheritedNotifier<ValueNotifier<CorsaBersaglio>> {
   });
 
   /// La corsa da ascoltare. Quando sopra non c'e' nessuna barra, per esempio
-  /// nelle prove che montano una schermata da sola, torna una corsa ferma a
-  /// zero: chi ascolta non deve sapere se la barra c'e'.
+  /// nelle prove che montano una schermata da sola, torna una corsa ferma:
+  /// chi ascolta non deve sapere se la barra c'e'.
+  ///
+  /// **Senza barra, la barra e' tutta scesa.** Ordine EJ voce 09: fino a
+  /// quell'ordine la corsa senza barra valeva zero, cioe' "barra in vista", e
+  /// il campo della chat restava alzato sopra una barra che non c'era. Era
+  /// innocuo finche' la lista teneva il posto alla barra; da quando la chat
+  /// lo da' alla conversazione, il campo alzato copriva l'ultimo messaggio.
   static ValueListenable<CorsaBersaglio> di(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<CorsaDellaBarra>()?.notifier ??
       _ferma;
 
   static final ValueNotifier<CorsaBersaglio> _ferma =
-      ValueNotifier<CorsaBersaglio>(const CorsaBersaglio());
+      ValueNotifier<CorsaBersaglio>(
+          const CorsaBersaglio(discesa: SantuarioBottomBar.altezzaResa));
 }
 
 /// Dove sta andando la barra, e se ci sta andando per un tocco.
@@ -67,4 +76,13 @@ class CorsaBersaglio {
 
   @override
   int get hashCode => Object.hash(discesa, perUnTocco);
+}
+
+/// **LA PERSONA COMINCIA A SCRIVERE.** Ordine EJ voce 09, 25 settembre 2026.
+///
+/// Il campo della chat la manda su per l'albero quando lo si tocca, e la
+/// barra del Cerchio, che sta sopra il Navigator, si ritira: *"torna a
+/// nascondersi quando la persona riprende a leggere o a scrivere"*.
+class LaPersonaScrive extends Notification {
+  const LaPersonaScrive();
 }

@@ -87,6 +87,10 @@ class ChatEmptyState extends StatelessWidget {
               altezzaMinimaDelBusto, BustoDelMaestro.altezzaCanonica);
 
           return SingleChildScrollView(
+            // **SCORRE ANCHE QUANDO CI STA TUTTO. Ordine EJ voce 09**: nella
+            // chat la barra del Cerchio parte ritirata e compare col dito, e
+            // una pagina che non scorre non manderebbe nessun gesto.
+            physics: const AlwaysScrollableScrollPhysics(),
             padding: const EdgeInsets.all(SpacingTokens.lg),
             child: Column(
               children: [

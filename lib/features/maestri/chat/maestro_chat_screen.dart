@@ -8,6 +8,7 @@ import '../../ricordi/ricordi_screen.dart';
 
 import 'package:flutter/material.dart';
 import '../../../core/identity/profile_controller.dart';
+import '../../../core/maestro/consiglio_finale.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/entitlement/question_allowance.dart';
@@ -65,6 +66,7 @@ import '../../../design_system/components/riga_del_residuo.dart';
 import '../../../core/primo_uso/suggerimenti_di_zona.dart';
 import '../../../design_system/components/suggerimento_al_primo_uso.dart';
 import '../live/schermata_live.dart';
+import 'widgets/la_porta_del_vivo.dart';
 
 class MaestroChatScreen extends StatefulWidget {
   const MaestroChatScreen({
@@ -573,7 +575,12 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         // stessa non puo' chiederlo a nessuno.
         scalaDelTesto: MediaQuery.textScalerOf(context).scale(1),
         // Lo schermo meno i due angoli, dove stanno la freccia e il pulsante.
-        larghezzaDelTitolo: MediaQuery.sizeOf(context).width - 112,
+        // Ordine EJ voce 10: la colonna di destra e' larga quanto la
+        // pastiglia "Dal vivo", non piu' quanto l'icona, e il titolo cede
+        // la differenza.
+        larghezzaDelTitolo: MediaQuery.sizeOf(context).width -
+            112 -
+            (LaPortaDelVivo.larghezza + SpacingTokens.xs - 48),
         // Il volto appare nell'header a conversazione avviata: il mezzo busto
         // dello stato vuoto si e' rimpicciolito qui. Pulsa quando risponde.
         showAvatar: hasMessages,
@@ -798,80 +805,96 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
               Transform.translate(offset: Offset(0, quanto), child: dentro),
           child: figlio,
         ),
-        child: KeyedSubtree(
-          key: _chiaveComposer,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // **LA ZONA SI PRESENTA, la prima volta e una sola.** Ordine CE
-              // voce 12. Sta qui e non dentro la lista dei messaggi perche' la
-              // lista e' ROVESCIATA: un suggerimento infilato li' comparirebbe
-              // in fondo alla conversazione invece che davanti agli occhi.
-              // Sopra il campo e' il punto in cui si sta per scrivere, cioe'
-              // il momento in cui quel che dice serve. Il compositore misura la
-              // propria altezza a ogni fotogramma e la lista si accorcia di
-              // conseguenza, quindi non copre niente.
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
-                child: SuggerimentoAlPrimoUso(zona: ZonaDelCerchio.chat),
-              ),
-              // **QUANTO TI RESTA STA IN CIMA, NON QUI. Ordine CT voci 04 e
-              // 05.** Le due righe erano qui sopra il campo, e da qui
-              // passavano SOPRA le parole del Maestro: la conversazione scorre
-              // dietro il compositore per una decisione presa, quindi il testo
-              // che sale finiva sotto queste due righe e nessuno dei due si
-              // leggeva piu'. Adesso vivono in cima, nello spazio che la riga
-              // dei giorni prima ha lasciato libero.
-              //
-              // La ragione dell'ordine CE voce 04 resta intera: *"l'utente
-              // deve Sapere quante ne mancano"*, e lo sa prima di scrivere.
-              // Cambia dove lo legge, non se lo legge.
-              // L'avviso di configurazione e' uno strumento come il campo:
-              // sta sopra di lui, non in fondo alla colonna del contenuto,
-              // altrimenti torna la fascia piena sotto la barra.
-              if (!controller.aiReady)
-                _ConfigNotice(
-                    palette: context.palette, maestro: widget.maestro),
-              ChatComposer(
-                // **LA DETTATURA VERA, e questo e' l'unico punto che la
-                // costruisce.** Ordine CI voce 05: le prove e chiunque monti
-                // il compositore altrove ricevono quella spenta, quindi il
-                // microfono non compare dove non puo' funzionare.
-                dettatura: _dettatura,
-                enabled: controller.aiReady && !controller.sending,
-                hintText: 'Scrivi ${aEuphonic(widget.maestro.displayName)} '
-                    '${widget.maestro.displayName}',
-                // A chat vuota, se si arriva dalla chiusura del cerchio, il
-                // campo si apre gia' col tema del Consulta.
+        // **CHI TOCCA IL CAMPO RITIRA LA BARRA.** Ordine EJ voce 09: la
+        // barra torna a nascondersi quando la persona comincia a scrivere.
+        child: Listener(
+          onPointerDown: (_) => const LaPersonaScrive().dispatch(context),
+          child: KeyedSubtree(
+            key: _chiaveComposer,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // **LA ZONA SI PRESENTA, la prima volta e una sola.** Ordine CE
+                // voce 12. Sta qui e non dentro la lista dei messaggi perche' la
+                // lista e' ROVESCIATA: un suggerimento infilato li' comparirebbe
+                // in fondo alla conversazione invece che davanti agli occhi.
+                // Sopra il campo e' il punto in cui si sta per scrivere, cioe'
+                // il momento in cui quel che dice serve. Il compositore misura la
+                // propria altezza a ogni fotogramma e la lista si accorcia di
+                // conseguenza, quindi non copre niente.
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
+                  child: SuggerimentoAlPrimoUso(zona: ZonaDelCerchio.chat),
+                ),
+                // **QUANTO TI RESTA STA IN CIMA, NON QUI. Ordine CT voci 04 e
+                // 05.** Le due righe erano qui sopra il campo, e da qui
+                // passavano SOPRA le parole del Maestro: la conversazione scorre
+                // dietro il compositore per una decisione presa, quindi il testo
+                // che sale finiva sotto queste due righe e nessuno dei due si
+                // leggeva piu'. Adesso vivono in cima, nello spazio che la riga
+                // dei giorni prima ha lasciato libero.
                 //
-                // **DA UN APPROFONDIMENTO IL CAMPO SI APRE CON LA DOMANDA,
-                // sempre.** Ordine DX voce 01: la persona e' venuta a chiedere
-                // di quel responso, quindi la domanda l'aspetta anche se con
-                // quel Maestro c'e' gia' una conversazione. Il compositore la
-                // legge una volta sola, alla nascita.
-                initialText: widget.initialUserMessage ??
-                    (hasMessages ? null : widget.initialTheme),
-                onSend: controller.send,
-                // Il pannello e' raggiungibile in QUALUNQUE momento, anche a chat
-                // vuota: ordine 2163, voce 3. Le famiglie gli arrivano gia'
-                // filtrate sul vero dalla porta unica _famiglieCorrenti.
-                onSuggestions: () {
-                  final famiglie = _famiglieCorrenti(context);
-                  showSuggestionsPanel(
-                    context,
-                    maestro: widget.maestro,
-                    onSend: controller.send,
-                    frequenti: famiglie.frequenti,
-                    personali: famiglie.personali,
-                  );
-                },
-              ),
-            ],
+                // La ragione dell'ordine CE voce 04 resta intera: *"l'utente
+                // deve Sapere quante ne mancano"*, e lo sa prima di scrivere.
+                // Cambia dove lo legge, non se lo legge.
+                // L'avviso di configurazione e' uno strumento come il campo:
+                // sta sopra di lui, non in fondo alla colonna del contenuto,
+                // altrimenti torna la fascia piena sotto la barra.
+                if (!controller.aiReady)
+                  _ConfigNotice(
+                      palette: context.palette, maestro: widget.maestro),
+                ChatComposer(
+                  // **LA DETTATURA VERA, e questo e' l'unico punto che la
+                  // costruisce.** Ordine CI voce 05: le prove e chiunque monti
+                  // il compositore altrove ricevono quella spenta, quindi il
+                  // microfono non compare dove non puo' funzionare.
+                  dettatura: _dettatura,
+                  enabled: controller.aiReady && !controller.sending,
+                  hintText: 'Scrivi ${aEuphonic(widget.maestro.displayName)} '
+                      '${widget.maestro.displayName}',
+                  // A chat vuota, se si arriva dalla chiusura del cerchio, il
+                  // campo si apre gia' col tema del Consulta.
+                  //
+                  // **DA UN APPROFONDIMENTO IL CAMPO SI APRE CON LA DOMANDA,
+                  // sempre.** Ordine DX voce 01: la persona e' venuta a chiedere
+                  // di quel responso, quindi la domanda l'aspetta anche se con
+                  // quel Maestro c'e' gia' una conversazione. Il compositore la
+                  // legge una volta sola, alla nascita.
+                  initialText: widget.initialUserMessage ??
+                      (hasMessages ? null : widget.initialTheme),
+                  onSend: controller.send,
+                  // Il pannello e' raggiungibile in QUALUNQUE momento, anche a chat
+                  // vuota: ordine 2163, voce 3. Le famiglie gli arrivano gia'
+                  // filtrate sul vero dalla porta unica _famiglieCorrenti.
+                  onSuggestions: () {
+                    final famiglie = _famiglieCorrenti(context);
+                    showSuggestionsPanel(
+                      context,
+                      maestro: widget.maestro,
+                      onSend: controller.send,
+                      frequenti: famiglie.frequenti,
+                      personali: famiglie.personali,
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+
+  /// **LO SPAZIO SOTTO IL CAMPO, SENZA LA BARRA.** Ordine EJ voce 09, 25
+  /// settembre 2026. Nella chat la barra del Cerchio parte ritirata e si
+  /// ritira quando si legge o si scrive: la conversazione quindi non le tiene
+  /// piu' il posto, e l'ultimo messaggio sta subito sopra il campo. Quando la
+  /// barra compare, scorrendo verso i messaggi di prima, il campo sale sopra
+  /// di lei e i messaggi le scorrono dietro, come prima. Resta il bordo di
+  /// sistema, che e' del telefono e non della barra.
+  double get _spazioSottoIlCampo =>
+      SpazioDellaBarraNelloScroll.quanto(context) -
+      SpazioDellaBarraNelloScroll.altezzaDellaBarra;
 
   Widget _buildBody(MaestroChatController controller) {
     if (controller.loading) {
@@ -896,8 +919,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       return ChatEmptyState(
         maestro: widget.maestro,
         greeting: _welcomeFor(controller),
-        spazioInFondo:
-            _altezzaComposer + SpazioDellaBarraNelloScroll.quanto(context),
+        spazioInFondo: _altezzaComposer + _spazioSottoIlCampo,
       );
     }
     // ROVESCIATA, e non e' un dettaglio di scorrimento: e' il motivo per cui
@@ -912,6 +934,10 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       key: _chiaveDellaLista,
       controller: _scroll,
       reverse: true,
+      // **SCORRE ANCHE A CONVERSAZIONE CORTA. Ordine EJ voce 09**: la barra
+      // del Cerchio qui parte ritirata e compare col dito, e una lista che
+      // non scorre non manderebbe nessun gesto.
+      physics: const AlwaysScrollableScrollPhysics(),
       // LA LISTA DICE QUANTO E' ALTA, invece di prendersi tutto.
       //
       // Senza questo la conversazione riempirebbe sempre l'altezza che le si
@@ -927,9 +953,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         SpacingTokens.md,
         SpacingTokens.md,
         SpacingTokens.md,
-        SpacingTokens.md +
-            _altezzaComposer +
-            SpazioDellaBarraNelloScroll.quanto(context),
+        SpacingTokens.md + _altezzaComposer + _spazioSottoIlCampo,
       ),
       // **UNA VOCE IN PIU', ED E' LA PRESENZA DEL MAESTRO. Ordine CO voce
       // 12**, 3 settembre 2026.
@@ -959,6 +983,8 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         // Rovesciata la lista, l'indice zero e' l'ultimo turno.
         final posizione = ultimo - index;
         final messaggio = messaggi[posizione];
+        final ultimaDelMaestro =
+            messaggi.lastIndexWhere((m) => !m.isUser && m.portaUnResponso);
         // OGNI BOLLA PORTA IL SUO MAESTRO, e con lui la sua palette.
         //
         // Prima il volto e il colore li dava la schermata, che ne conosce uno
@@ -975,6 +1001,10 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                 : null,
             message: messaggio,
             maestro: autore,
+            conInvito: ConsiglioFinale.invitoSotto(
+              posizione: posizione,
+              ultimaDelMaestro: ultimaDelMaestro,
+            ),
             // Si scrive SOLO l'ultima, solo se e' appena arrivata, e solo se e'
             // UNA LETTURA VERA.
             //
@@ -1332,6 +1362,10 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
             maxWidth: double.infinity);
   }
 
+  /// L'altezza dell'icona della conversazione nuova sotto la pastiglia
+  /// "Dal vivo", ordine EJ voce 10: le due insieme stanno nella testata.
+  static const double _altezzaDelMenu = 34;
+
   @override
   Size get preferredSize => Size.fromHeight(_barHeight);
 
@@ -1391,107 +1425,131 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
         // 5 conversazioni con il loro titolo"*. Prima la nuova, poi le
         // passate dalla piu' recente, poi i giorni prima, che portano al
         // Journal per tutto il resto.
-        PopupMenuButton<Object>(
-          key: const Key('chat_menu_della_barra'),
-          tooltip: 'Altro',
-          icon: const Icon(Icons.add_comment_outlined, size: 27),
-          onSelected: (voce) {
-            if (voce is ConversazionePassata) {
-              onApri?.call(voce);
-              return;
-            }
-            switch (voce) {
-              case _VoceDelMenu.nuova:
-                onRicomincia?.call();
-              case _VoceDelMenu.giorniPrima:
-                Navigator.of(context)
-                    .push(RicordiScreen.route(maestro: maestro));
-              case _VoceDelMenu.voceViva:
-                // **Il LIVE risponde con la stessa chat**, stesso Maestro,
-                // stessa memoria: per questo gli si passa il controllore.
-                Navigator.of(context).push(SchermataLive.route(
-                  maestro: maestro,
-                  chat: context.read<MaestroChatController>(),
-                ));
-            }
-          },
-          // **COMPATTO, COME I MENU' DEI CHATBOT. Ordine EA voce 08.** Parole
-          // del fondatore: *"lo spazio verticale occupato e' eccessivo, devi
-          // ispirarti alle chatbot ai loro menu'"*. Ogni voce era un
-          // `ListTile` col titolo in maiuscoletto e il giorno sotto, alta
-          // quasi ottanta punti; adesso e' una riga sola di quarantaquattro,
-          // la misura minima di un tocco, col giorno piccolo a destra.
-          //
-          // **Nessun separatore in cima. Ordine EA voce 01.** A chat vuota
-          // *Nuova conversazione* non c'e', e il separatore restava primo.
-          itemBuilder: (context) => [
-            if (mostraRicomincia)
-              const PopupMenuItem<Object>(
-                key: Key('chat_conversazione_nuova'),
-                value: _VoceDelMenu.nuova,
-                height: _VoceCompatta.altezza,
-                child: _VoceCompatta(
-                  icona: Icons.add_comment_outlined,
-                  testo: 'Nuova conversazione',
-                ),
-              ),
-            if (mostraRicomincia && conversazioni.isNotEmpty)
-              const PopupMenuDivider(height: 9),
-            for (final (i, c) in conversazioni.indexed)
-              PopupMenuItem<Object>(
-                key: Key('chat_conversazione_passata_$i'),
-                value: c,
-                height: _VoceCompatta.altezza,
-                padding: const EdgeInsets.only(left: 16, right: 4),
-                child: _VoceCompatta(
-                  icona: Icons.chat_bubble_outline_rounded,
-                  testo: c.titolo,
-                  giorno: LeConversazioniPassate.quando(
-                      c.ultimoMomento, DateTime.now()),
-                  // **SI CANCELLA DA QUI. Ordine EA voce 07.** Il cestino
-                  // chiude il menu' e chiede conferma: una conversazione
-                  // cancellata non torna.
-                  cancella: onCancella == null
-                      ? null
-                      : () {
-                          Navigator.of(context).pop();
-                          onCancella!(c);
-                        },
-                  chiaveDelCestino: Key('chat_cancella_passata_$i'),
-                ),
-              ),
-            if (conversazioni.isNotEmpty || mostraRicomincia)
-              const PopupMenuDivider(height: 9),
-            const PopupMenuItem<Object>(
-              key: Key('chat_i_giorni_prima'),
-              value: _VoceDelMenu.giorniPrima,
-              height: _VoceCompatta.altezza,
-              child: _VoceCompatta(
-                icona: Icons.history_rounded,
-                testo: 'I giorni prima',
-              ),
+        // **LA PASTIGLIA "DAL VIVO" SOPRA L'ICONA DELLA CONVERSAZIONE
+        // NUOVA. Ordine EJ voce 10.** Accanto a lei e non in fila: in fila
+        // avrebbe tolto al titolo novanta punti, e il nome del Maestro non ci
+        // stava piu'. Impilate, il titolo cede solo la differenza fra la
+        // pastiglia e l'icona.
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            LaPortaDelVivo(
+              maestro: maestro,
+              onEntra: () => Navigator.of(context).push(SchermataLive.route(
+                maestro: maestro,
+                chat: context.read<MaestroChatController>(),
+              )),
             ),
-            // **LA VOCE VIVA STA IN FONDO, E NON E' UN VEZZO.** Ordine EG
-            // voce 04. Una voce nuova in cima spingerebbe sotto la piega
-            // tutte quelle sotto, e le catture che le toccano morirebbero:
-            // e' gia' successo col menu' dell'account.
-            //
-            // **E non si chiede il permesso prima di mostrarla.** Chi non ha
-            // diritto non trova una voce nascosta ne' un lucchetto muto:
-            // tocca, e il Maestro gli dice con la sua voce che la voce viva
-            // non e' ancora aperta per lui. Il cancello sta sul server, che
-            // guarda l'abbonamento e i minuti; qui c'e' solo una porta.
-            const PopupMenuItem<Object>(
-              key: Key('chat_voce_viva'),
-              value: _VoceDelMenu.voceViva,
-              height: _VoceCompatta.altezza,
-              child: _VoceCompatta(
-                icona: Icons.graphic_eq_rounded,
-                testo: 'Parlami a voce',
+            SizedBox(
+              height: _altezzaDelMenu,
+              child: PopupMenuButton<Object>(
+                key: const Key('chat_menu_della_barra'),
+                tooltip: 'Altro',
+                padding: EdgeInsets.zero,
+                icon: const Icon(Icons.add_comment_outlined, size: 27),
+                onSelected: (voce) {
+                  if (voce is ConversazionePassata) {
+                    onApri?.call(voce);
+                    return;
+                  }
+                  switch (voce) {
+                    case _VoceDelMenu.nuova:
+                      onRicomincia?.call();
+                    case _VoceDelMenu.giorniPrima:
+                      Navigator.of(context)
+                          .push(RicordiScreen.route(maestro: maestro));
+                    case _VoceDelMenu.voceViva:
+                      // **Il LIVE risponde con la stessa chat**, stesso Maestro,
+                      // stessa memoria: per questo gli si passa il controllore.
+                      Navigator.of(context).push(SchermataLive.route(
+                        maestro: maestro,
+                        chat: context.read<MaestroChatController>(),
+                      ));
+                  }
+                },
+                // **COMPATTO, COME I MENU' DEI CHATBOT. Ordine EA voce 08.** Parole
+                // del fondatore: *"lo spazio verticale occupato e' eccessivo, devi
+                // ispirarti alle chatbot ai loro menu'"*. Ogni voce era un
+                // `ListTile` col titolo in maiuscoletto e il giorno sotto, alta
+                // quasi ottanta punti; adesso e' una riga sola di quarantaquattro,
+                // la misura minima di un tocco, col giorno piccolo a destra.
+                //
+                // **Nessun separatore in cima. Ordine EA voce 01.** A chat vuota
+                // *Nuova conversazione* non c'e', e il separatore restava primo.
+                itemBuilder: (context) => [
+                  if (mostraRicomincia)
+                    const PopupMenuItem<Object>(
+                      key: Key('chat_conversazione_nuova'),
+                      value: _VoceDelMenu.nuova,
+                      height: _VoceCompatta.altezza,
+                      child: _VoceCompatta(
+                        icona: Icons.add_comment_outlined,
+                        testo: 'Nuova conversazione',
+                      ),
+                    ),
+                  if (mostraRicomincia && conversazioni.isNotEmpty)
+                    const PopupMenuDivider(height: 9),
+                  for (final (i, c) in conversazioni.indexed)
+                    PopupMenuItem<Object>(
+                      key: Key('chat_conversazione_passata_$i'),
+                      value: c,
+                      height: _VoceCompatta.altezza,
+                      padding: const EdgeInsets.only(left: 16, right: 4),
+                      child: _VoceCompatta(
+                        icona: Icons.chat_bubble_outline_rounded,
+                        testo: c.titolo,
+                        giorno: LeConversazioniPassate.quando(
+                            c.ultimoMomento, DateTime.now()),
+                        // **SI CANCELLA DA QUI. Ordine EA voce 07.** Il cestino
+                        // chiude il menu' e chiede conferma: una conversazione
+                        // cancellata non torna.
+                        cancella: onCancella == null
+                            ? null
+                            : () {
+                                Navigator.of(context).pop();
+                                onCancella!(c);
+                              },
+                        chiaveDelCestino: Key('chat_cancella_passata_$i'),
+                      ),
+                    ),
+                  if (conversazioni.isNotEmpty || mostraRicomincia)
+                    const PopupMenuDivider(height: 9),
+                  const PopupMenuItem<Object>(
+                    key: Key('chat_i_giorni_prima'),
+                    value: _VoceDelMenu.giorniPrima,
+                    height: _VoceCompatta.altezza,
+                    child: _VoceCompatta(
+                      icona: Icons.history_rounded,
+                      testo: 'I giorni prima',
+                    ),
+                  ),
+                  // **LA VOCE VIVA STA IN FONDO, E NON E' UN VEZZO.** Ordine EG
+                  // voce 04. Una voce nuova in cima spingerebbe sotto la piega
+                  // tutte quelle sotto, e le catture che le toccano morirebbero:
+                  // e' gia' successo col menu' dell'account.
+                  //
+                  // **E non si chiede il permesso prima di mostrarla.** Chi non ha
+                  // diritto non trova una voce nascosta ne' un lucchetto muto:
+                  // tocca, e il Maestro gli dice con la sua voce che la voce viva
+                  // non e' ancora aperta per lui. Il cancello sta sul server, che
+                  // guarda l'abbonamento e i minuti; qui c'e' solo una porta.
+                  const PopupMenuItem<Object>(
+                    key: Key('chat_voce_viva'),
+                    value: _VoceDelMenu.voceViva,
+                    height: _VoceCompatta.altezza,
+                    child: _VoceCompatta(
+                      icona: Icons.graphic_eq_rounded,
+                      testo: 'Parlami a voce',
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
         ),
+        const SizedBox(width: SpacingTokens.xs),
         const AngoloDellaBarra(),
       ],
       // **IL CERCHIETTO A SINISTRA E LE DUE RIGHE ACCANTO.** Ordine CT voce

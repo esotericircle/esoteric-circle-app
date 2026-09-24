@@ -197,3 +197,20 @@ bool barraSottileSiVede(String? nomeSchermata) =>
 /// Vero se su questa schermata la barra si vede.
 bool barraSiVede(String? nomeSchermata) =>
     presenzaPerSchermata[nomeSchermata] == PresenzaDellaBarra.presente;
+
+/// **LE SCHERMATE DOVE LA BARRA C'E' MA PARTE NASCOSTA.** Ordine EJ voce 09,
+/// 25 settembre 2026.
+///
+/// Il fondatore: *"le chat dei maestri partono all'apertura della schermata
+/// con il menù sotto ESPLORA visibile e non mi piace, occupa spazio inutile,
+/// il menù dovrebbe restare nascosto e compare con lo scrolling"*. Nella chat
+/// la barra resta presente, cioe' la regola del 6 agosto 2026 non cambia: si
+/// apre ritirata, compare scorrendo verso i messaggi di prima, e si ritira di
+/// nuovo quando la persona torna a leggere in avanti o comincia a scrivere.
+/// E' la sola eccezione alla regola ferrea su Esplora, scritta in
+/// `docs/STATO_VIVO.md`.
+const Set<String> barraNascostaAllApertura = {'MaestroChatScreen'};
+
+/// Vero se su questa schermata la barra si apre ritirata.
+bool barraParteNascosta(String? nomeSchermata) =>
+    barraNascostaAllApertura.contains(nomeSchermata);

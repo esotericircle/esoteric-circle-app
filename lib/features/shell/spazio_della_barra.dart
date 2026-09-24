@@ -54,6 +54,10 @@ class SpazioDellaBarraNelloScroll extends StatelessWidget {
         : vivo + SantuarioBottomBar.altezzaResa;
   }
 
+  /// L'altezza della barra sola, senza il bordo di sistema: la chat la
+  /// toglie da [quanto], ordine EJ voce 09.
+  static const double altezzaDellaBarra = SantuarioBottomBar.altezzaResa;
+
   @override
   Widget build(BuildContext context) => SizedBox(height: quanto(context));
 }

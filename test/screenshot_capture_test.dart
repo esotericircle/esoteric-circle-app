@@ -21,6 +21,8 @@ import 'package:esoteric_circle/core/chat/immersive_intents.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
+import 'package:esoteric_circle/features/maestri/live/il_selettore_delle_voci.dart';
+import 'package:esoteric_circle/services/live/porta_del_live.dart';
 import 'package:esoteric_circle/features/maestri/chat/widgets/chat_empty_state.dart';
 import 'package:esoteric_circle/core/voce/dettatura.dart';
 import 'package:esoteric_circle/features/shell/santuario_bottom_bar.dart';
@@ -6491,6 +6493,23 @@ void main() {
     // la barra ci reagisce come a un gesto finito. A passi da sei punti, con
     // un fotogramma fra l'uno e l'altro, la barra segue il dito come fa in
     // mano a una persona, e lo stato intermedio esiste davvero.
+    //
+    // **PRIMA SI FA COMPARIRE LA BARRA. Ordine EJ voce 09**, 25 settembre
+    // 2026: nella chat la barra si apre ritirata, per decisione del
+    // fondatore, e questa prova misurava 2 punti a meta' gesto perche' la
+    // barra era gia' fuori prima di cominciare. Un dito che scende verso i
+    // messaggi di prima la porta in vista, ed e' il gesto che la persona fa.
+    final rivela = await tester.startGesture(tester.getCenter(lista));
+    await rivela.moveBy(const Offset(0, kDragSlopDefault));
+    await tester.pump();
+    for (var i = 0; i < (BarraDelCerchio.corsa + 12) ~/ 6; i++) {
+      await rivela.moveBy(const Offset(0, 6));
+      await tester.pump();
+    }
+    await rivela.up();
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 60));
+    }
     final gesto = await tester.startGesture(tester.getCenter(lista));
     await gesto.moveBy(const Offset(0, -kDragSlopDefault));
     await tester.pump();
@@ -6526,6 +6545,62 @@ void main() {
             'cioe\' mezza ESPLORA che non se ne va: la barra non ha uno '
             'stato finale e resta dove il dito l\'ha lasciata');
     await capture(tester, rootKey, 'barra-aggancio-a-dito-alzato.png');
+  });
+
+  // **EJ.10: LA PASTIGLIA "DAL VIVO", GRIGIA E D'ORO.** Ordine EJ voce 10, 25
+  // settembre 2026. La prova chiede la testata nei due stati per tutti e tre
+  // i Maestri; sul telefono di collaudo il piano e' il Viandante, quindi lo
+  // stato d'oro si fotografa qui, col piano portato al tier 2.
+  for (final maestro in Maestro.values) {
+    testWidgets('EJ.10: la pastiglia Dal vivo di ${maestro.displayName}',
+        (tester) async {
+      silenceSensors();
+      await loadFonts();
+      final rootKey =
+          await mount(tester, await buildServices(maestro, seeded: false));
+      await openChat(tester, maestro);
+      await step(tester);
+      expect(find.byKey(const Key('chat_dal_vivo_chiusa')), findsOneWidget);
+      await capture(tester, rootKey, 'ej-dal-vivo-grigia-${maestro.id}.png');
+      tester
+          .element(find.byType(MaterialApp))
+          .read<EntitlementService>()
+          .setTier(Tier.tier2);
+      await step(tester);
+      expect(find.byKey(const Key('chat_dal_vivo_aperta')), findsOneWidget);
+      await capture(tester, rootKey, 'ej-dal-vivo-oro-${maestro.id}.png');
+    });
+  }
+
+  // **EJ.02: IL SELETTORE DELLE VOCI.** Ordine EJ voce 02. Lo vede solo un
+  // fondatore, e il telefono di collaudo non lo e': qui il server e' finto e
+  // porta le stesse candidate di `functions/src/live.ts`, LE_CANDIDATE.
+  testWidgets('EJ.02: il selettore delle voci di Medora', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final prima = PortaDelLive.chiama;
+    addTearDown(() => PortaDelLive.chiama = prima);
+    PortaDelLive.chiama = (porta, dati) async => {
+          'candidate': [
+            {'voce': 'Gacrux', 'descrizione': 'matura'},
+            {'voce': 'Sulafat', 'descrizione': 'calda'},
+            {'voce': 'Kore', 'descrizione': 'decisa'},
+            {'voce': 'Vindemiatrix', 'descrizione': 'gentile'},
+            {'voce': 'Erinome', 'descrizione': 'limpida'},
+          ],
+          'scelta': 'Sulafat',
+          'frase': 'Sono Medora. Il cielo di stasera ascolta con me: dimmi '
+              'cosa ti porta qui.',
+        };
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    await openChat(tester, Maestro.medora);
+    unawaited(IlSelettoreDelleVoci.apri(
+        tester.element(find.byType(MaestroChatScreen)), Maestro.medora));
+    await step(tester);
+    await step(tester);
+    expect(find.byKey(const Key('voce_Gacrux')), findsOneWidget);
+    await capture(tester, rootKey, 'ej-selettore-delle-voci.png');
   });
 
   // **IL MICROFONO SI PUO' GUARDARE.** Ordine CI voce 05.

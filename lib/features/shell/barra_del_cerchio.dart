@@ -123,8 +123,9 @@ class _BarraDelCerchioState extends State<BarraDelCerchio> {
           _schermata = widget.observatore.schermataInCima();
           _maestro = NavigazioneDellaBarra.maestroCorrente;
           // Cambiando schermata la barra torna in vista: lo scorrimento di
-          // prima apparteneva a un'altra lettura.
-          _discesa = 0;
+          // prima apparteneva a un'altra lettura. **Nella chat invece si apre
+          // ritirata**, ordine EJ voce 09: lo spazio va alla conversazione.
+          _discesa = barraParteNascosta(_schermata) ? BarraDelCerchio.corsa : 0;
           _perUnTocco = true;
           _diciLaCorsa();
         });
@@ -226,20 +227,36 @@ class _BarraDelCerchioState extends State<BarraDelCerchio> {
             });
             return false;
           },
-          child: MediaQuery(
-            data: mq.copyWith(
-              padding:
-                  mq.padding.copyWith(bottom: mq.padding.bottom + quantoOccupa),
-              viewPadding: mq.viewPadding
-                  .copyWith(bottom: mq.viewPadding.bottom + quantoOccupa),
-            ),
-            // **LO SPAZIO RISERVATO RESTA COSTANTE**, cioe' la regola del 6
-            // agosto 2026 non si tocca: qui sotto passa solo la NOTIZIA di
-            // quanto la barra e' scesa, e chi la ascolta si sposta
-            // dipingendosi altrove, senza che niente venga rilayato.
-            child: CorsaDellaBarra(
-              notifier: _corsa,
-              child: widget.child,
+          // **CHI SCRIVE RITIRA LA BARRA.** Ordine EJ voce 09: nella chat la
+          // barra torna a nascondersi quando la persona comincia a scrivere.
+          // La chiede il campo con una notizia che sale l'albero, cosi' il
+          // campo non deve sapere dove sta la barra.
+          child: NotificationListener<LaPersonaScrive>(
+            onNotification: (_) {
+              if (siVede && _discesa != BarraDelCerchio.corsa) {
+                setState(() {
+                  _perUnTocco = true;
+                  _discesa = BarraDelCerchio.corsa;
+                  _diciLaCorsa();
+                });
+              }
+              return true;
+            },
+            child: MediaQuery(
+              data: mq.copyWith(
+                padding: mq.padding
+                    .copyWith(bottom: mq.padding.bottom + quantoOccupa),
+                viewPadding: mq.viewPadding
+                    .copyWith(bottom: mq.viewPadding.bottom + quantoOccupa),
+              ),
+              // **LO SPAZIO RISERVATO RESTA COSTANTE**, cioe' la regola del 6
+              // agosto 2026 non si tocca: qui sotto passa solo la NOTIZIA di
+              // quanto la barra e' scesa, e chi la ascolta si sposta
+              // dipingendosi altrove, senza che niente venga rilayato.
+              child: CorsaDellaBarra(
+                notifier: _corsa,
+                child: widget.child,
+              ),
             ),
           ),
         ),
