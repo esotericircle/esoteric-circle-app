@@ -24,6 +24,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'alzare_il_sole.dart';
+
 /// IL RESPONSO SI LEGGE OVUNQUE, NON SOLO DA MEDORA. Ordine BV voce 06.
 ///
 /// **Parole del fondatore sulla build 2209**: "il testo del consiglio di Medora
@@ -316,9 +318,15 @@ void main() {
         SharedPreferences.setMockInitialValues(const {});
         ArchivioDellAlba.dimenticaLaMemoria();
         schermo(tester, altezza);
+        // **ALBERO VUOTO FRA UN'ALTEZZA E L'ALTRA**, ordine EL: se no la
+        // schermata conserva lo stato del giro prima, la carta risulta gia'
+        // scelta e si misura la scena di un'altra altezza.
+        await tester.pumpWidget(const SizedBox());
         await tester.pumpWidget(attorno(ArcanoDellAlbaScreen(
             now: DateTime(2026, 7, 13, 7), caso: Random(4))));
         await tester.pump();
+        // L'Arcano si apre alzando il sole, ordine EL.
+        await alzaIlSole(tester);
         await seCeTocca(tester, const Key('arcano_alba_carta_0'));
         for (var i = 0; i < 14; i++) {
           await tester.pump(const Duration(milliseconds: 100));

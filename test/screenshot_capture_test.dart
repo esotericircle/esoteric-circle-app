@@ -1362,7 +1362,32 @@ void main() {
           in TarotDeck.cards.where((c) => c.arcana == TarotArcana.maggiore)) {
         await precacheImage(AssetImage(carta.fullPath), elemento);
       }
+      for (final livello in const [
+        'assets/ritual_backgrounds/dawn_sky_night.png',
+        'assets/ritual_backgrounds/dawn_sky_day.png',
+        'assets/ritual_backgrounds/dawn_sun.png',
+      ]) {
+        await precacheImage(AssetImage(livello), elemento);
+      }
     });
+    // **SI APRE ALZANDO IL SOLE**, ordine EL: il sole sull'orizzonte col suo
+    // invito, il dito a meta' corsa, la scena illuminata. Il dito resta
+    // giu' fra una cattura e l'altra, come quello della persona.
+    await step(tester);
+    await capture(tester, rootKey, 'arcano-alba-sole-prima.png');
+    final dito = await tester.startGesture(
+        tester.getCenter(find.byKey(const Key('arcano_alba_sole'))));
+    await dito.moveBy(const Offset(0, -20));
+    await dito.moveBy(const Offset(0, -110));
+    await tester.pump();
+    await capture(tester, rootKey, 'arcano-alba-sole-meta.png');
+    await dito.moveBy(const Offset(0, -140));
+    await tester.pump();
+    await dito.up();
+    for (var i = 0; i < 8; i++) {
+      await tester.pump(const Duration(milliseconds: 100));
+    }
+    await capture(tester, rootKey, 'arcano-alba-sole-illuminata.png');
     // **LA SCENA ENTRA**, ordine DU seconda stesura: i ventidue dorsi entrano
     // a spirale e si posano sulle righe sovrapposte del tavolo. Si cattura a
     // ingresso finito, come la vede chi aspetta due secondi.

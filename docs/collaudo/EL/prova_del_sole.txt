@@ -1,0 +1,46 @@
+ORDINE EL VOCE 01, L'INGRESSO DEL SOLE: LA REGISTRAZIONE DELLO SCHERMO DEL REALME.
+
+Realme 767f596c, Android 13, build 2280 di prova (sha1 fc3d8a07bbbc) installata il 24 settembre 2026 alle
+18:33 UTC, dall'albero con l'ingresso del sole. Sul telefono la carta di oggi non era ancora stata girata.
+
+COME E' FATTA. Il Realme non ha screenrecord: due cicli di screencap in parallelo in /data/local/tmp,
+83 fotogrammi grezzi in 10 secondi, uno ogni 0,1-0,2 secondi, col nome dato dall'orologio del telefono
+(scratchpad raffica_el.sh). I fotogrammi diventano il video registrazione_del_sole.mp4, 11 secondi,
+ognuno per la durata vera che e' rimasto a schermo (scratchpad montaggio_el.py). Il tocco sul dono e il
+gesto li fa adb: un tocco sull'icona dell'Alba nella striscia dei doni, poi un dito che sale dal mare
+verso il cielo per 900 pixel, cioe' 300 punti, in un secondo e mezzo.
+
+LA SEQUENZA, dall'istante del tocco sul dono (luce_nel_tempo.txt, tavola_del_sole.png):
+   0,12 s  la home, col dono dell'Alba nella striscia                  cielo  63
+   0,54 s  l'Arcano dell'Alba si apre: notte, luna, sole sull'orizzonte cielo  49
+           e l'invito "Trascina in alto, oppure tocca"
+   3,99 s  parte il gesto
+   4,31 s  il cielo comincia a schiarire col dito                       cielo  66
+   4,59 s  il sole sale sopra l'orizzonte                               cielo 104
+   4,93 s  il sole raggiunge la luna                                    cielo 147
+   5,17 s  quasi giorno, l'invito ancora a schermo col dito giu'        cielo 185
+   5,71 s  la scena e' illuminata: giorno, sole alto, riflesso sul mare cielo 215
+   6,09 s  ancora illuminata                                            cielo 215
+   6,14 s  le carte: "La carta del destino di oggi", i ventidue dorsi,  cielo  63
+           Mischia e Taglia
+   8,44 s  le carte, ferme sul tavolo                                   cielo  63
+La luminosita' e' la media 0-255 della fascia del cielo, dal 12 al 45 per cento dell'altezza.
+
+PRIMA DELL'ORDINE EL il codice dell'Arcano dell'Alba (commit 61c937cb, arcano_dell_alba_screen.dart)
+apriva il dono direttamente sulle carte, come nella cattura arcano-alba-coperte delle anteprime dell'ordine
+DU: zero secondi di sole, nessun gesto prima del tavolo.
+
+PERCHE' SUL REALME NON SI VEDONO LA DISSOLVENZA E LA SPIRALE. Il telefono di collaudo ha le tre scale
+delle animazioni di sistema a 0,0 (letto con settings get global animator_duration_scale,
+transition_animation_scale e window_animation_scale, senza cambiarle). Con le animazioni spente l'app
+rispetta Riduci Movimento: il sole segue il dito, la luce resta ferma 450 millesimi, che non e'
+un'animazione, e poi le carte arrivano subito, senza la dissolvenza di 700 millesimi e senza l'ingresso a
+spirale. Con le animazioni accese, come sul telefono del fondatore, ci sono tutte e due: le mostrano le
+anteprime docs/preview/arcano-alba-sole-*.png e le misura la guardia
+test/l_arcano_dell_alba_si_apre_col_sole_test.dart.
+
+LA PRIMA REGISTRAZIONE, con tre cicli di screencap, ha un buco di tre secondi dopo la scena illuminata:
+screencap si e' fermato, come la memoria del progetto avverte, e il fotogramma che porta il nome di 6,03
+secondi mostra gia' il tavolo posato. Resta nello scratchpad; la prova e' la seconda, che non ha buchi.
+
+IL GIUDIZIO A VIDEO RESTA DEL FONDATORE.

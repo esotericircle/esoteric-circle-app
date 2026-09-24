@@ -30,6 +30,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'alzare_il_sole.dart';
+
 /// **L'ARCANO DELL'ALBA SI GIRA.** Ordine DT voci 02, 03 e 04, 17 settembre
 /// 2026.
 ///
@@ -65,7 +67,8 @@ void main() {
   Future<({DiarioDelCammino diario, QuestionAllowance conto})> monta(
       WidgetTester tester,
       {Random? caso,
-      bool suono = false}) async {
+      bool suono = false,
+      bool conIlSole = true}) async {
     tester.view.physicalSize = const Size(390, 1400);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
@@ -92,6 +95,9 @@ void main() {
     ));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 50));
+    // **L'ARCANO SI APRE ALZANDO IL SOLE**, ordine EL: le carte arrivano
+    // dopo il gesto. Riaprendo il dono nello stesso giorno il gesto non c'e'.
+    if (conIlSole) await alzaIlSole(tester);
     return (diario: diario, conto: conto);
   }
 
@@ -256,7 +262,7 @@ void main() {
     final prima =
         (await tester.runAsync(() => ArchivioDellAlba.diOggi(adesso)))!;
     await tester.pumpWidget(const SizedBox());
-    await monta(tester, caso: Random(999));
+    await monta(tester, caso: Random(999), conIlSole: false);
     await tester.pump(const Duration(milliseconds: 100));
     expect(dorsi, findsNothing,
         reason: 'riaprendo il dono si torna alle carte coperte');

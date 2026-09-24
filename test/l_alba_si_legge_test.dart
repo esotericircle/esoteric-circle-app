@@ -20,6 +20,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
+import 'alzare_il_sole.dart';
 import 'sorgenti_di_lib.dart';
 
 /// L'ALBA SI LEGGE, ordine P voci da 11 a 15.
@@ -257,6 +258,15 @@ void main() {
     await tester.runAsync(() async {
       final elemento = tester.element(find.byType(ArcanoDellAlbaScreen));
       await precacheImage(AssetImage(TarotDeck.dorsoFull), elemento);
+      // **I TRE LIVELLI DELLA SCENA DEL SOLE**, ordine EL: senza, l'invito
+      // al gesto si misurerebbe sul nero del vuoto.
+      for (final livello in const [
+        'assets/ritual_backgrounds/dawn_sky_night.png',
+        'assets/ritual_backgrounds/dawn_sky_day.png',
+        'assets/ritual_backgrounds/dawn_sun.png',
+      ]) {
+        await precacheImage(AssetImage(livello), elemento);
+      }
     });
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
@@ -435,6 +445,12 @@ void main() {
         }
       }
     }
+
+    // **PRIMA DEL SOLE, ordine EL**: l'invito al gesto sta sul cielo
+    // notturno della scena dell'alba, e si misura come ogni altro testo.
+    await censisci('prima del sole');
+    await alzaIlSole(tester);
+    await tester.pump(const Duration(seconds: 1));
 
     // **PRIMA DEL GESTO**: qui vive l'invito, sopra le carte coperte.
     await censisci('prima del gesto');

@@ -30,6 +30,7 @@ import '../../core/condivisione/premio_della_condivisione.dart';
 import '../maestri/chat/chat_openers.dart';
 import '../ricordi/azioni_del_responso.dart';
 import 'arcano_dell_alba_share_card.dart';
+import 'il_sole_dell_alba.dart';
 import '../../services/avvisi_locali.dart';
 import '../sigilli/regia_del_cammino.dart';
 import '../tarot/stesa_senses.dart';
@@ -67,6 +68,12 @@ import 'tavolo_dei_ventidue.dart';
 /// **Nel cammino valgono tutti e due i gesti**, `alba` e `oracolo`: decisione
 /// di Mauro del 17 settembre 2026, cosi' nessuno dei traguardi che li
 /// nominano cambia.
+///
+/// **SI APRE ALZANDO IL SOLE**, ordine EL, 25 settembre 2026: prima del
+/// tavolo la persona alza col dito il sole verso il cielo e la scena si
+/// illumina (`IlSoleDellAlba`, il gesto del Rito dell'Alba rimesso com'era);
+/// poi arrivano le carte e tutto il resto, senza cambiamenti. Riaprendo il
+/// dono nello stesso giorno si torna al responso e il gesto non si ripete.
 class ArcanoDellAlbaScreen extends StatefulWidget {
   const ArcanoDellAlbaScreen({
     super.key,
@@ -127,6 +134,13 @@ class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
   /// Vero quando la carta e' stata scelta in questa sessione: in quel caso la
   /// carta grande la disegna il tavolo, alla fine del volo.
   bool get _inRivelazione => _toccata != null;
+
+  /// **IL SOLE E' GIA' SALITO**, ordine EL: finche' non lo e', al posto del
+  /// tavolo c'e' la scena dell'alba col suo gesto.
+  bool _soleSorto = false;
+
+  /// La scena dell'alba illuminata che si dissolve sopra il tavolo che entra.
+  late final AnimationController _dissolvenza;
 
   DateTime get _adesso => widget.now ?? DateTime.now();
 
@@ -212,13 +226,32 @@ class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
     super.initState();
     _rivelazione = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 1400));
+    _dissolvenza = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 700))
+      ..addStatusListener((stato) {
+        // Finita la dissolvenza la scena dell'alba esce dall'albero.
+        if (stato == AnimationStatus.completed && mounted) setState(() {});
+      });
     unawaited(_riprendi());
   }
 
   @override
   void dispose() {
     _rivelazione.dispose();
+    _dissolvenza.dispose();
     super.dispose();
+  }
+
+  /// **IL SOLE E' SALITO E LA SCENA SI E' ILLUMINATA**: arrivano le carte, e
+  /// la scena dell'alba si dissolve sopra il tavolo che entra a spirale.
+  void _sorto() {
+    if (_soleSorto || !mounted) return;
+    setState(() => _soleSorto = true);
+    if (_ridotto) {
+      _dissolvenza.value = 1;
+    } else {
+      unawaited(_dissolvenza.forward(from: 0));
+    }
   }
 
   bool get _ridotto => MediaQuery.maybeOf(context)?.disableAnimations ?? false;
@@ -301,6 +334,11 @@ class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
   Widget build(BuildContext context) {
     final responso = _responso;
     final scegliendo = responso == null && !_caricando;
+    // **PRIMA IL SOLE, POI LE CARTE**, ordine EL: il tavolo entra solo quando
+    // il sole e' salito, e la scena dell'alba resta sopra finche' non si e'
+    // dissolta.
+    final carteInScena = scegliendo && _soleSorto;
+    final soleInScena = scegliendo && (!_soleSorto || _dissolvenza.value < 1);
     return Scaffold(
       backgroundColor: Colors.transparent,
       extendBodyBehindAppBar: true,
@@ -320,168 +358,197 @@ class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
       ),
       // **IL FONDO NON E' PIU' NERO**, voce DU.01: il cielo del Cerchio, lo
       // stesso della Stesa, con i pianeti e senza lo zodiaco.
-      body: CosmosBackground(
-        paletteOverride: _palette,
-        child: SafeArea(
-          child: _caricando
-              ? const SizedBox.shrink()
-              // **LA SCENA RIEMPIE LO SCHERMO.** Con la sola colonna, mentre
-              // si sceglie restava un terzo di vuoto sotto il ventaglio: qui
-              // la colonna e' alta almeno quanto la finestra e distribuisce
-              // Medora, l'invito e l'arco. A responso aperto torna a scorrere
-              // dall'alto, perche' li' il contenuto e' piu' lungo della
-              // finestra.
-              : LayoutBuilder(
-                  builder: (context, spazio) => SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
-                        SpacingTokens.sm, SpacingTokens.lg, SpacingTokens.xl),
-                    child: ConstrainedBox(
-                      constraints: BoxConstraints(
-                          minHeight: spazio.maxHeight -
-                              SpacingTokens.sm -
-                              SpacingTokens.xl),
-                      child: Column(
-                        key: const Key('arcano_alba_scena'),
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        // **LA SCENA NON SALTA MENTRE LA CARTA VOLA**: la
-                        // colonna resta distribuita finche' il volo finisce,
-                        // e solo dopo il responso scorre dall'alto.
-                        mainAxisAlignment: scegliendo || _inRivelazione
-                            ? MainAxisAlignment.spaceEvenly
-                            : MainAxisAlignment.start,
-                        children: [
-                          // **L'INVITO LASCIA IL POSTO, NON LA LISTA.**
-                          // Togliendolo, il tavolo cambiava indice fra i
-                          // figli e Flutter lo ricostruiva da capo: le carte
-                          // rientravano in scena a meta' del volo. Visto
-                          // sull'anteprima, non dedotto.
-                          if (scegliendo || _inRivelazione)
-                            // L'invito si spegne mentre la carta sale, senza
-                            // sparire di colpo.
-                            // **CHI LEGGE UN'ANIMAZIONE DEVE ASCOLTARLA.**
-                            // Senza questo ascolto l'opacita' si calcolava una
-                            // volta sola, alla costruzione: il titolo e
-                            // l'invito restavano accesi per tutto il volo e
-                            // sparivano di colpo alla fine. Visto
-                            // sull'anteprima, non dedotto.
-                            AnimatedBuilder(
-                              animation: _rivelazione,
-                              builder: (context, figlio) {
-                                final acceso = (1 - _rivelazione.value * 2.4)
-                                    .clamp(0.0, 1.0);
-                                // **IL VUOTO SI CHIUDE COL TESTO.** Spegnere
-                                // il titolo non basta: lo spazio che occupava
-                                // restava li', e la carta rivelata sembrava
-                                // persa in una schermata vuota. Visto
-                                // sull'anteprima dal fondatore.
-                                return Align(
-                                  alignment: Alignment.topCenter,
-                                  heightFactor: acceso,
-                                  child:
-                                      Opacity(opacity: acceso, child: figlio),
-                                );
-                              },
-                              child: Column(
-                                children: [
-                                  // **IL TITOLO DELLA SCENA**, richiesto dal
-                                  // fondatore: l'invito da solo era anonimo.
-                                  // Sta qui e non nella barra in alto, che
-                                  // porta gia' il nome del dono: questo dice
-                                  // che cosa sta per succedere.
-                                  Text(
-                                    'La carta del destino di oggi',
-                                    key: const Key('arcano_alba_richiamo'),
-                                    textAlign: TextAlign.center,
-                                    style: TypographyTokens.cerimoniale()
-                                        .copyWith(color: _palette.gold),
-                                  ),
-                                  const SizedBox(height: SpacingTokens.sm),
-                                  ParagrafiDiLettura(
-                                    key: const Key('arcano_alba_invito'),
-                                    testo: DailyElement.dawn.cosaFai,
-                                    textAlign: TextAlign.center,
-                                    stile: TypographyTokens.lettura(),
-                                  ),
-                                ],
-                              ),
-                            )
-                          else
-                            const SizedBox.shrink(),
-                          // **IL TAVOLO DEI VENTIDUE**, voci DU.02, DU.04 e
-                          // DU.05: i ventidue dorsi entrano a spirale, si
-                          // posano su righe sovrapposte e respirano; la carta
-                          // scelta sale al centro con la sua scia di stelline.
-                          // Resta in scena anche durante la rivelazione,
-                          // perche' e' lui a farla.
-                          if (scegliendo || _inRivelazione)
-                            TavoloDeiVentidue(
-                              key: const ValueKey('tavolo_dei_ventidue'),
-                              palette: _palette,
-                              onScegli: _scegli,
-                              rivelazione: _rivelazione,
-                              scelta: _toccata,
-                              ridotto: _ridotto,
-                              quante: ArcanoDellAlbaScreen.dorsi,
-                              faccia: (context) => _Faccia(
-                                  responso: _responso!, palette: _palette),
-                            ),
-                          if (responso != null && !_inRivelazione) ...[
-                            const SizedBox(height: SpacingTokens.sm),
-                            _CartaGrande(responso: responso, palette: _palette),
-                          ],
-                          if (responso != null) ...[
-                            AnimatedBuilder(
-                              animation: _rivelazione,
-                              builder: (context, figlio) => Opacity(
-                                opacity: ((_rivelazione.value - 0.75) / 0.25)
-                                    .clamp(0, 1),
-                                child: figlio,
-                              ),
-                              // **IL RESPONSO HA IL SUO FONDO.** I tre
-                              // movimenti stanno sul cielo, e il cielo in quel
-                              // punto e' chiaro: la riga del dono ci stava
-                              // sopra a 4,25 contro il 4,5 preteso. Un velo
-                              // scuro che sfuma dall'alto tiene il testo
-                              // leggibile dovunque cada nella scena, invece di
-                              // dipendere da dove passa una stella.
-                              child: DecoratedBox(
-                                key: const Key('arcano_alba_pannello'),
-                                decoration: BoxDecoration(
-                                  // Il velo e' un pannello, non un taglio: in
-                                  // cima si arrotonda come le altre superfici
-                                  // del Cerchio.
-                                  borderRadius: const BorderRadius.vertical(
-                                      top: Radius.circular(18)),
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topCenter,
-                                    end: Alignment.bottomCenter,
-                                    // **IL VELO COMINCIA GIA' SCURO.** Con la
-                                    // prima fermata trasparente, la riga del
-                                    // dono cadeva proprio li' e il contrasto
-                                    // scendeva a 3,20: un velo che sfuma dove
-                                    // comincia il testo non copre il testo.
-                                    colors: [
-                                      _palette.deepest.withValues(alpha: 0.62),
-                                      _palette.deepest.withValues(alpha: 0.86),
-                                      _palette.deepest.withValues(alpha: 0.88),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          CosmosBackground(
+            paletteOverride: _palette,
+            child: SafeArea(
+              child: _caricando
+                  ? const SizedBox.shrink()
+                  // **LA SCENA RIEMPIE LO SCHERMO.** Con la sola colonna, mentre
+                  // si sceglie restava un terzo di vuoto sotto il ventaglio: qui
+                  // la colonna e' alta almeno quanto la finestra e distribuisce
+                  // Medora, l'invito e l'arco. A responso aperto torna a scorrere
+                  // dall'alto, perche' li' il contenuto e' piu' lungo della
+                  // finestra.
+                  : LayoutBuilder(
+                      builder: (context, spazio) => SingleChildScrollView(
+                        padding: const EdgeInsets.fromLTRB(
+                            SpacingTokens.lg,
+                            SpacingTokens.sm,
+                            SpacingTokens.lg,
+                            SpacingTokens.xl),
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                              minHeight: spazio.maxHeight -
+                                  SpacingTokens.sm -
+                                  SpacingTokens.xl),
+                          child: Column(
+                            key: const Key('arcano_alba_scena'),
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            // **LA SCENA NON SALTA MENTRE LA CARTA VOLA**: la
+                            // colonna resta distribuita finche' il volo finisce,
+                            // e solo dopo il responso scorre dall'alto.
+                            mainAxisAlignment: carteInScena || _inRivelazione
+                                ? MainAxisAlignment.spaceEvenly
+                                : MainAxisAlignment.start,
+                            children: [
+                              // **L'INVITO LASCIA IL POSTO, NON LA LISTA.**
+                              // Togliendolo, il tavolo cambiava indice fra i
+                              // figli e Flutter lo ricostruiva da capo: le carte
+                              // rientravano in scena a meta' del volo. Visto
+                              // sull'anteprima, non dedotto.
+                              if (carteInScena || _inRivelazione)
+                                // L'invito si spegne mentre la carta sale, senza
+                                // sparire di colpo.
+                                // **CHI LEGGE UN'ANIMAZIONE DEVE ASCOLTARLA.**
+                                // Senza questo ascolto l'opacita' si calcolava una
+                                // volta sola, alla costruzione: il titolo e
+                                // l'invito restavano accesi per tutto il volo e
+                                // sparivano di colpo alla fine. Visto
+                                // sull'anteprima, non dedotto.
+                                AnimatedBuilder(
+                                  animation: _rivelazione,
+                                  builder: (context, figlio) {
+                                    final acceso =
+                                        (1 - _rivelazione.value * 2.4)
+                                            .clamp(0.0, 1.0);
+                                    // **IL VUOTO SI CHIUDE COL TESTO.** Spegnere
+                                    // il titolo non basta: lo spazio che occupava
+                                    // restava li', e la carta rivelata sembrava
+                                    // persa in una schermata vuota. Visto
+                                    // sull'anteprima dal fondatore.
+                                    return Align(
+                                      alignment: Alignment.topCenter,
+                                      heightFactor: acceso,
+                                      child: Opacity(
+                                          opacity: acceso, child: figlio),
+                                    );
+                                  },
+                                  child: Column(
+                                    children: [
+                                      // **IL TITOLO DELLA SCENA**, richiesto dal
+                                      // fondatore: l'invito da solo era anonimo.
+                                      // Sta qui e non nella barra in alto, che
+                                      // porta gia' il nome del dono: questo dice
+                                      // che cosa sta per succedere.
+                                      Text(
+                                        'La carta del destino di oggi',
+                                        key: const Key('arcano_alba_richiamo'),
+                                        textAlign: TextAlign.center,
+                                        style: TypographyTokens.cerimoniale()
+                                            .copyWith(color: _palette.gold),
+                                      ),
+                                      const SizedBox(height: SpacingTokens.sm),
+                                      ParagrafiDiLettura(
+                                        key: const Key('arcano_alba_invito'),
+                                        testo: DailyElement.dawn.cosaFai,
+                                        textAlign: TextAlign.center,
+                                        stile: TypographyTokens.lettura(),
+                                      ),
                                     ],
-                                    stops: const [0.0, 0.10, 1.0],
+                                  ),
+                                )
+                              else
+                                const SizedBox.shrink(),
+                              // **IL TAVOLO DEI VENTIDUE**, voci DU.02, DU.04 e
+                              // DU.05: i ventidue dorsi entrano a spirale, si
+                              // posano su righe sovrapposte e respirano; la carta
+                              // scelta sale al centro con la sua scia di stelline.
+                              // Resta in scena anche durante la rivelazione,
+                              // perche' e' lui a farla.
+                              if (carteInScena || _inRivelazione)
+                                TavoloDeiVentidue(
+                                  key: const ValueKey('tavolo_dei_ventidue'),
+                                  palette: _palette,
+                                  onScegli: _scegli,
+                                  rivelazione: _rivelazione,
+                                  scelta: _toccata,
+                                  ridotto: _ridotto,
+                                  quante: ArcanoDellAlbaScreen.dorsi,
+                                  faccia: (context) => _Faccia(
+                                      responso: _responso!, palette: _palette),
+                                ),
+                              if (responso != null && !_inRivelazione) ...[
+                                const SizedBox(height: SpacingTokens.sm),
+                                _CartaGrande(
+                                    responso: responso, palette: _palette),
+                              ],
+                              if (responso != null) ...[
+                                AnimatedBuilder(
+                                  animation: _rivelazione,
+                                  builder: (context, figlio) => Opacity(
+                                    opacity:
+                                        ((_rivelazione.value - 0.75) / 0.25)
+                                            .clamp(0, 1),
+                                    child: figlio,
+                                  ),
+                                  // **IL RESPONSO HA IL SUO FONDO.** I tre
+                                  // movimenti stanno sul cielo, e il cielo in quel
+                                  // punto e' chiaro: la riga del dono ci stava
+                                  // sopra a 4,25 contro il 4,5 preteso. Un velo
+                                  // scuro che sfuma dall'alto tiene il testo
+                                  // leggibile dovunque cada nella scena, invece di
+                                  // dipendere da dove passa una stella.
+                                  child: DecoratedBox(
+                                    key: const Key('arcano_alba_pannello'),
+                                    decoration: BoxDecoration(
+                                      // Il velo e' un pannello, non un taglio: in
+                                      // cima si arrotonda come le altre superfici
+                                      // del Cerchio.
+                                      borderRadius: const BorderRadius.vertical(
+                                          top: Radius.circular(18)),
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        // **IL VELO COMINCIA GIA' SCURO.** Con la
+                                        // prima fermata trasparente, la riga del
+                                        // dono cadeva proprio li' e il contrasto
+                                        // scendeva a 3,20: un velo che sfuma dove
+                                        // comincia il testo non copre il testo.
+                                        colors: [
+                                          _palette.deepest
+                                              .withValues(alpha: 0.62),
+                                          _palette.deepest
+                                              .withValues(alpha: 0.86),
+                                          _palette.deepest
+                                              .withValues(alpha: 0.88),
+                                        ],
+                                        stops: const [0.0, 0.10, 1.0],
+                                      ),
+                                    ),
+                                    child: _TreMovimenti(
+                                        responso: responso,
+                                        giorno: _adesso,
+                                        palette: _palette,
+                                        azioni: _azioni(responso)),
                                   ),
                                 ),
-                                child: _TreMovimenti(
-                                    responso: responso,
-                                    giorno: _adesso,
-                                    palette: _palette,
-                                    azioni: _azioni(responso)),
-                              ),
-                            ),
-                          ],
-                        ],
+                              ],
+                            ],
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+            ),
+          ),
+          // **LA SCENA DELL'ALBA**, ordine EL: copre il cielo del Cerchio finche'
+          // la persona non alza il sole; poi si dissolve mentre il tavolo
+          // entra, e da sole sorto lascia passare i tocchi alle carte.
+          if (soleInScena)
+            Positioned.fill(
+              child: AnimatedBuilder(
+                animation: _dissolvenza,
+                builder: (context, figlio) =>
+                    Opacity(opacity: 1 - _dissolvenza.value, child: figlio),
+                child: IgnorePointer(
+                  ignoring: _soleSorto,
+                  child: IlSoleDellAlba(palette: _palette, onSorto: _sorto),
                 ),
-        ),
+              ),
+            ),
+        ],
       ),
     );
   }

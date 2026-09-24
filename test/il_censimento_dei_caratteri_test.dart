@@ -23,6 +23,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'alzare_il_sole.dart';
+
 /// IL CENSIMENTO DEI CARATTERI CHE UNA PERSONA LEGGE. Ordine CF voce 10.
 ///
 /// **Il fatto del fondatore, verbatim**: "Avevo anche chiesto di uniformare
@@ -279,8 +281,13 @@ void main() {
     // **L'ARCANO DELL'ALBA, ordine DT**, prende il posto del Dono dell'Alba e
     // del Dono dell'Arcano: si misura con le carte coperte e, girata una
     // carta, con i tre movimenti a video.
+    // **SI APRE ALZANDO IL SOLE, ordine EL**: si misura la scena del sole,
+    // poi le carte coperte dopo il gesto, poi la carta girata.
     await apri(tester, ArcanoDellAlbaScreen(now: DateTime(2026, 7, 13, 7)),
-        'Dono dell\'Arcano dell\'Alba, carte coperte');
+        'Dono dell\'Arcano dell\'Alba, il sole da alzare');
+    await alzaIlSole(tester);
+    censisci(tester, 'Dono dell\'Arcano dell\'Alba, carte coperte');
+    tester.takeException();
     await tester.tap(find.byKey(const Key('arcano_alba_carta_0')));
     await tester.pump();
     await tester.pump(const Duration(seconds: 1));
