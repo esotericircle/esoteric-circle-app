@@ -109,6 +109,17 @@ Regola B, all'inizio, nove guardie delle zone toccate viste rosse; e la
 guardia di casa `etichette_e_lettura` ha preso da sola la domanda del LIVE
 nella serif della lettura. Il registro e' `docs/guardie.md`.
 
+## LA BUILD 2281, CONSEGNATA
+
+Su App Distribution il 25 settembre 2026, release `5vsm81pka88sg`, costruita dal
+commit `803c19b4`, spinto e verificato con `ls-remote`; archivio di 218.627.498
+byte, sha1 `01d5475a996b`. Sbarramento passato con **5.899 prove** e i soli
+rossi dichiarati; un invito accettato. Prima di consegnarla l'ho installata sul Realme:
+una domanda nuova coi nomi dei chakra arrivata intera, e la scena della
+televisione, con la domanda intera, 11 parole su 11, e il LIVE chiuso da
+solo dopo trenta secondi con la televisione accesa. Le note sono in
+`docs/note_della_consegna.txt`.
+
 ## COSA TI CHIEDO
 
 1. **Aggiungi l'account del Realme ai fondatori**, se vuoi che provi io il

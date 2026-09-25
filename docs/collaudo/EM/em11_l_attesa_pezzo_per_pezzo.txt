@@ -34,6 +34,11 @@ DOPO, build 2281 finale (commit e2950a45), 25 settembre 2026 05:37-05:47 (regist
   ** la trascrizione anticipata e' tornata vuota; la seconda trascrizione dell'audio intero ha salvato la
      domanda: 1,4 secondi in piu', invece della domanda persa.
 
+SULLA BUILD DI CONSEGNA (commit 803c19b4), 06:57, una domanda nuova: "Aura, oggi sento Muladhara pesante e
+Svadhisthana chiuso. Da quale chakra comincio?", arrivata intera. La trascrizione anticipata e' tornata vuota e la
+seconda ha preso 2.939 ms; il turno in attesa si e' salvato su Firestore in 1.866 ms invece dei soliti 200: il volto
+ha parlato a 11.860 ms. E' il caso peggiore visto, e dice dove sta il tempo quando la rete rallenta.
+
 LA CHAT, dentro (registro CHAT TEMPI, risposte nuove): il turno in attesa salvato su Firestore a 206-259 ms, la
 risposta del modello a 1.411-2.142 ms, la consegna salvata a 1.653-2.446 ms, per 305-760 caratteri.
 

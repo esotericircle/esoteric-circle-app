@@ -4935,6 +4935,15 @@ Con una risposta nuova della chat il primo audio arriva a 5,0-5,1 secondi
 secondi che non troncano e Protoface: le strade per scendere sono del
 fondatore.
 
+**BUILD 2281 CONSEGNATA SU APP DISTRIBUTION** il 25 settembre 2026, release
+`5vsm81pka88sg`, col lavoro dell'ordine EM, costruita dal commit `803c19b4` (sha1
+dell'archivio `01d5475a996b`, 218.627.498 byte). Sbarramento passato con **5.899
+prove** e i soli rossi dichiarati; un invito accettato. Prima di consegnare, sul Realme con
+quello stesso archivio: una domanda nuova arrivata intera e la scena della
+televisione (`docs/collaudo/EM/`). Note della consegna in
+`docs/note_della_consegna.txt`: tocca al fondatore il respiro e la televisione
+veri, il selettore delle voci e le Chirp, l'orecchio su Calìgo e l'attesa.
+
 **LE GUARDIE.** Sette nuove, tutte viste rosse; nove della zona viste rosse
 per la Regola B; registro a **519**. Una prova rimasta verde al primo
 innesto e riscritta; una prova del respiro rivista rossa perche' del primo

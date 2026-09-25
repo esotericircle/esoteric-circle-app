@@ -50,6 +50,12 @@ respiro2, build di banco 3: il respiro non apre la frase; chiusa 1.994 ms dopo l
   se non ho problemi. E anche a Vishuddha. Cosa posso fare questa settimana per riaprirli?". LIVE chiuso
   dopo 30 secondi di respiro.
 
+tv6, build di consegna 2281 (commit 803c19b4), 06:59: la frase di sola televisione chiede due controlli
+  vuoti prima di essere scartata (a 6,5 e a 9,7 secondi: senza un sottofondo conosciuto ne servono due), la
+  stanza impara il sottofondo a -27 dB e la televisione non apre piu' frasi; la domanda arriva intera,
+  "Aura, sento un blocco ad Anahata e anche a Vishuddha. Cosa posso fare questa settimana per riaprirli?", 11
+  parole su 11; il volto parla a 5,9 secondi dalla fine; LIVE chiuso dopo 30 secondi con la televisione accesa.
+
 LA CHIUSURA DELLA SESSIONE SUL SERVER (voce EM.05), registro di Cloud Run, ora UTC:
   01:50:19 apriunasessionelive "Uso di Protoface nel mese" secondi 11850 crediti 257
   01:52:34 chiudilasessionelive "LIVE chiuso dal telefono" stato ending        (scena tv2, televisione accesa)
