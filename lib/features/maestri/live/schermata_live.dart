@@ -24,6 +24,7 @@ import 'il_parlato_del_maestro.dart';
 import 'le_frasi_della_persona.dart';
 import 'il_selettore_delle_voci.dart';
 import 'la_scena_del_live.dart';
+import 'la_cornice_della_finestra.dart';
 import 'stato_della_schermata_live.dart';
 
 /// **LA SCHERMATA LIVE.** Ordine EG voce 05.
@@ -1115,6 +1116,7 @@ class _FinestraDelVolto extends StatelessWidget {
   final Widget volto;
 
   static const _cornice = 4.0;
+  static const _raggioBasso = 6.0;
 
   @override
   Widget build(BuildContext context) {
@@ -1136,67 +1138,75 @@ class _FinestraDelVolto extends StatelessWidget {
       }
       final arco = BorderRadius.vertical(
         top: Radius.circular(larghezza / 2),
-        bottom: const Radius.circular(6),
+        bottom: const Radius.circular(_raggioBasso),
       );
       final arcoDentro = BorderRadius.vertical(
         top: Radius.circular(larghezza / 2 - _cornice),
         bottom: const Radius.circular(3),
       );
+      // **LA CORNICE D'ALTARE, ordine EN voce 03**: il filo esterno, il
+      // filetto interno, la chiave di volta e il davanzale, disegnati sopra
+      // la finestra e attorno a lei. La forma e la fascia restano quelle.
       return Center(
-        child: Container(
-          key: const Key('live_finestra'),
-          width: larghezza,
-          height: altezza,
-          padding: const EdgeInsets.all(_cornice),
-          decoration: BoxDecoration(
-            borderRadius: arco,
-            gradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                ColorTokens.goldBright,
-                ColorTokens.gold,
-                ColorTokens.goldDeep,
-                ColorTokens.gold,
+        child: CustomPaint(
+          key: const Key('live_cornice'),
+          foregroundPainter: const LaCorniceDellaFinestra(
+              fascia: _cornice, raggioBasso: _raggioBasso),
+          child: Container(
+            key: const Key('live_finestra'),
+            width: larghezza,
+            height: altezza,
+            padding: const EdgeInsets.all(_cornice),
+            decoration: BoxDecoration(
+              borderRadius: arco,
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  ColorTokens.goldBright,
+                  ColorTokens.gold,
+                  ColorTokens.goldDeep,
+                  ColorTokens.gold,
+                ],
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: alone.withValues(alpha: 0.35),
+                  blurRadius: 32,
+                  spreadRadius: 2,
+                ),
               ],
             ),
-            boxShadow: [
-              BoxShadow(
-                color: alone.withValues(alpha: 0.35),
-                blurRadius: 32,
-                spreadRadius: 2,
-              ),
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: arcoDentro,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: RadialGradient(
-                  center: const Alignment(0, -0.35),
-                  radius: 0.95,
-                  colors: [profondo, Colors.black],
+            child: ClipRRect(
+              borderRadius: arcoDentro,
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: RadialGradient(
+                    center: const Alignment(0, -0.35),
+                    radius: 0.95,
+                    colors: [profondo, Colors.black],
+                  ),
                 ),
+                position: DecorationPosition.background,
+                child: LayoutBuilder(builder: (context, dentro) {
+                  // Il lato del video, perche' la larghezza del ritaglio riempia
+                  // la finestra; e il video si appoggia in basso, perche' il
+                  // taglio del busto cada esattamente sul bordo.
+                  final lato = dentro.maxWidth / ritaglio.width;
+                  return Stack(
+                    clipBehavior: Clip.hardEdge,
+                    children: [
+                      Positioned(
+                        left: -ritaglio.left * lato,
+                        top: dentro.maxHeight - ritaglio.bottom * lato,
+                        width: lato,
+                        height: lato,
+                        child: volto,
+                      ),
+                    ],
+                  );
+                }),
               ),
-              position: DecorationPosition.background,
-              child: LayoutBuilder(builder: (context, dentro) {
-                // Il lato del video, perche' la larghezza del ritaglio riempia
-                // la finestra; e il video si appoggia in basso, perche' il
-                // taglio del busto cada esattamente sul bordo.
-                final lato = dentro.maxWidth / ritaglio.width;
-                return Stack(
-                  clipBehavior: Clip.hardEdge,
-                  children: [
-                    Positioned(
-                      left: -ritaglio.left * lato,
-                      top: dentro.maxHeight - ritaglio.bottom * lato,
-                      width: lato,
-                      height: lato,
-                      child: volto,
-                    ),
-                  ],
-                );
-              }),
             ),
           ),
         ),

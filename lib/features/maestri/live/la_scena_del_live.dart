@@ -23,8 +23,9 @@ import '../../../design_system/tokens/typography_tokens.dart';
 /// muoveva il volto di sette punti. Padre: ordine EG voce 05, che ha fatto il
 /// sottotitolo alto quanto il suo testo.
 ///
-/// **Adesso la zona del testo ha un'altezza fissa**, [parteDelTesto] dello
-/// spazio, qualunque cosa ci sia scritto: la domanda in grande e in oro, e
+/// **Adesso la zona del testo ha un'altezza fissa**, qualunque cosa ci sia
+/// scritto: dall'ordine EN voce 02 si misura in righe, [zonaDelTesto], e non
+/// scende mai sotto [parteDelTesto] dello spazio: la domanda in grande e in oro, e
 /// sotto la risposta, che scorre dentro la sua zona. La riga dello stato e
 /// il posto della barra ci sono sempre, anche vuoti. Il volto non cambia mai
 /// misura. **Sta qui, fuori dalla schermata**, perche' una prova la monti e la
@@ -59,10 +60,58 @@ class LaScenaDelLive extends StatelessWidget {
   /// La tastiera, quando si puo' scrivere.
   final Widget? tastiera;
 
-  /// **Quanta parte dello spazio ha la zona del testo, sempre la stessa.**
-  /// Poco piu' di un quarto: tre righe di domanda in grande e quattro di
-  /// risposta, su un telefono da 844 punti.
+  /// **Quanta parte dello spazio ha almeno la zona del testo.** Era la
+  /// misura intera fino all'ordine EN: poco piu' di un quarto, e sul Realme
+  /// sotto tre righe di domanda restavano due righe e mezza di risposta.
   static const double parteDelTesto = 0.27;
+
+  /// **LE RIGHE DI RISPOSTA CHE SI LEGGONO SEMPRE: CINQUE.** Ordine EN voce
+  /// 02. Il fondatore: *"Per ora leggo solo 3 righe della risposta del
+  /// maestro, ma possiamo arrivare almeno a 5."* La zona non si misura piu'
+  /// come una parte dello schermo ma dalle righe che deve contenere: le
+  /// [righeDellaDomanda] della domanda nel suo stile, piu' queste della
+  /// risposta nel suo, alla scala del testo che la persona ha scelto.
+  static const int righeDellaRisposta = 5;
+
+  /// Le righe che la domanda puo' prendere, al massimo.
+  static const int righeDellaDomanda = 3;
+
+  /// Oltre questa parte dello spazio la zona non cresce, anche con la scala
+  /// del testo al massimo: il volto deve restare un volto.
+  static const double parteMassima = 0.5;
+
+  /// Lo stile della domanda: la serif della lettura, in grassetto e in oro.
+  static TextStyle get stileDellaDomanda =>
+      TypographyTokens.lettura(weight: 600)
+          .copyWith(color: ColorTokens.goldLight);
+
+  /// Lo stile della risposta.
+  static TextStyle get stileDellaRisposta => TypographyTokens.corpo();
+
+  /// L'altezza di [righe] righe di [stile], alla scala [scala].
+  static double altezzaDiRighe(TextStyle stile, int righe, TextScaler scala) {
+    final pittore = TextPainter(
+      text: TextSpan(
+          text: List.filled(righe, 'Ag').join(String.fromCharCode(10)),
+          style: stile),
+      textDirection: TextDirection.ltr,
+      textScaler: scala,
+      maxLines: righe,
+    )..layout();
+    final alta = pittore.height;
+    pittore.dispose();
+    return alta;
+  }
+
+  /// **L'altezza della zona del testo**, sempre la stessa qualunque cosa ci
+  /// sia scritto: e' la regola dell'ordine EM, il volto non cambia misura.
+  static double zonaDelTesto(double spazio, TextScaler scala) {
+    final righe = altezzaDiRighe(stileDellaDomanda, righeDellaDomanda, scala) +
+        SpacingTokens.sm +
+        altezzaDiRighe(stileDellaRisposta, righeDellaRisposta, scala) +
+        SpacingTokens.xs;
+    return righe.clamp(spazio * parteDelTesto, spazio * parteMassima);
+  }
 
   /// Il posto della barra dell'ascolto: largo e alto sempre uguale.
   static const Size postoDellaBarra = Size(120, 3);
@@ -70,7 +119,8 @@ class LaScenaDelLive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, spazio) {
-      final zona = spazio.maxHeight * parteDelTesto;
+      final zona =
+          zonaDelTesto(spazio.maxHeight, MediaQuery.textScalerOf(context));
       return Column(
         children: [
           Expanded(child: volto),
@@ -126,15 +176,14 @@ class _LaZonaDelTesto extends StatelessWidget {
             Text(
               key: const Key('live_domanda'),
               domanda,
-              maxLines: 3,
+              maxLines: LaScenaDelLive.righeDellaDomanda,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               // **La serif della lettura, in grassetto e in oro.** Sul Realme
               // il maiuscoletto dei titoli era grande ma una domanda lunga si
               // leggeva male: la domanda e' prosa, e la prosa che si legge ha
               // una misura sola.
-              style: TypographyTokens.lettura(weight: 600)
-                  .copyWith(color: ColorTokens.goldLight),
+              style: LaScenaDelLive.stileDellaDomanda,
             ),
             const SizedBox(height: SpacingTokens.sm),
           ],
@@ -143,7 +192,7 @@ class _LaZonaDelTesto extends StatelessWidget {
               child: Text(
                 key: const Key('live_sottotitolo'),
                 risposta,
-                style: TypographyTokens.corpo(),
+                style: LaScenaDelLive.stileDellaRisposta,
                 textAlign: TextAlign.center,
               ),
             ),
