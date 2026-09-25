@@ -264,7 +264,9 @@ tu. Le note sono in `docs/note_della_consegna.txt`.
 4. **La pagina legale del sito**: fatto. Col tuo *"Sì, pubblica la pagina
    legale"* l'ho pubblicata alle 16:23; sul sito "Costellazione del Viso" e'
    passata da 1 volta a 0 su cinque indirizzi
-   (`docs/collaudo/EN/en11_pagina_legale_pubblicata.txt`).
+   (`docs/collaudo/EN/en11_pagina_legale_pubblicata.txt`). La data della
+   privacy, "24 agosto 2026", la porto a "25 settembre 2026" con la prossima
+   build, come hai deciso: nell'app e sul sito insieme.
 
 ## COSA DIVERGE FRA L'ORDINE E CIO' CHE HO FATTO
 

@@ -5063,7 +5063,17 @@ si' del fondatore (*"Sì, pubblica la pagina legale"*): `firebase deploy --only
 hosting`, un file solo, una riga cambiata. Su
 `https://esoteric-circle.web.app/` e sugli altri quattro indirizzi
 "Costellazione del Viso" da 1 volta a 0
-(`docs/collaudo/EN/en11_pagina_legale_pubblicata.txt`).
+(`docs/collaudo/EN/en11_pagina_legale_pubblicata.txt`). **DA FARE CON LA
+PROSSIMA BUILD, decisione del fondatore del 25 settembre 2026** (*"La farai
+con la prossima build"*): la privacy dice ancora "Ultimo aggiornamento: 24
+agosto 2026"; il testo e' cambiato il 25 settembre 2026 col nome della
+Mappa del Viso. Si porta `dataDellaPolicy` in
+`lib/core/legal/privacy_policy.dart` a "25 settembre 2026", la data della
+revisione vera; la data si mostra soltanto e non decide il consenso. Si
+rigenera la pagina con `AGGIORNA_PAGINA_LEGALE=1 flutter test
+test/la_pagina_legale_sul_web_test.dart`; dopo la consegna si pubblica con
+`firebase deploy --only hosting`: app e sito dicono la stessa data lo stesso
+giorno.
 
 **LE GUARDIE.** Sei nuove, `ordine_en_guard`,
 `i_maestri_si_conoscono_e_non_rifiutano`,

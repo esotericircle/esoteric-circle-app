@@ -543,8 +543,11 @@ del Viso" da 1 volta a 0, "Mappa del Viso" da 0 a 1; aperta nel browser, la
 frase e' *"Le immagini della Mappa del Viso e le foto per le card si
 elaborano sul dispositivo e non vengono caricate."* La prova:
 `docs/collaudo/EN/en11_pagina_legale_pubblicata.txt`. La data "Ultimo
-aggiornamento: 24 agosto 2026" resta: e' cambiato il nome di una funzione,
-non cio' che la privacy promette.
+aggiornamento: 24 agosto 2026" resta per adesso: e' cambiato il nome di una
+funzione, non cio' che la privacy promette. Il fondatore, lo stesso giorno:
+*"La farai con la prossima build"*. Con la prossima build la data diventa
+"25 settembre 2026" nell'app e sul sito (il passo per passo sta in
+`docs/STATO_VIVO.md`, sezione dell'ordine EN).
 
 **CHIUSA.**
 DOMANDA: "Mappa del Viso senza articolo" e "Va bene mappa del viso"
