@@ -53,6 +53,22 @@ enum MisuraDellaRisposta {
   /// esattamente cio' da cui questa voce doveva liberarci.
   letturaBreve(parole: 50, inLettere: 'cinquanta', ragionamento: 0),
 
+  /// **LA RISPOSTA DETTA NEL LIVE.** Ordine EN voce 01, 25 settembre 2026.
+  ///
+  /// Il fondatore, sulla build 2281: *"il problema resta da quando faccio la
+  /// domanda a quando ricevo la risposta, troppo tempo, bisogna ridurre
+  /// questa pausa"*; e alla domanda su quale strada prendere, *"ok per il
+  /// tuo consiglio"*, cioe' risposte del LIVE piu' brevi.
+  ///
+  /// **Trentacinque, e il conto e' misurato.** Nel LIVE il Maestro chiedeva
+  /// la misura della chat, cinquanta parole, e ne scriveva da 305 a 760
+  /// caratteri (registro "CHAT TEMPI" sul Realme, ordine EM): da 15 a 60
+  /// secondi di voce, e fino a 2,1 secondi di modello prima che la voce
+  /// cominciasse. Una risposta detta si ascolta una volta sola e non si
+  /// rilegge: trentacinque parole sono una risposta intera, detta in una
+  /// quindicina di secondi.
+  nelLive(parole: 35, inLettere: 'trentacinque', ragionamento: 0),
+
   /// IL SEGUITO, cioe' cio' che si scrive SOTTO la risposta gia' data.
   ///
   /// **Centotrenta, che e' la differenza.** La lettura intera vale
@@ -162,6 +178,10 @@ enum MisuraDellaRisposta {
   /// parole che potrebbe non leggere mai. Resta come misura del testo INTERO,
   /// cioe' breve piu' seguito, che e' il numero su cui si fa il conto.
   static MisuraDellaRisposta get perChat => letturaBreve;
+
+  /// La misura della prima risposta di un turno, nella chat o nel LIVE.
+  static MisuraDellaRisposta perIlTurno({required bool nelLive}) =>
+      nelLive ? MisuraDellaRisposta.nelLive : perChat;
 
   /// La misura del seguito, quando la persona tocca la freccia.
   static MisuraDellaRisposta get perIlSeguito => seguito;

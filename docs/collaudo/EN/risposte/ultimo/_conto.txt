@@ -1,0 +1,19 @@
+EN ultimo chat medora altro_maestro: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 232/283, nomina aura si
+EN ultimo chat medora chi_sono: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 262, altri nominati 2 su 2, lettura non chiesta no
+EN ultimo chat medora moglie: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 611/340, riti sulla volonta 0, parte legale indicata 2 su 2, parole in comune fra le due risposte 23 per cento
+EN ultimo chat aura altro_maestro: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 506/448, nomina caligo si
+EN ultimo chat aura chi_sono: inventati 0, fuori dai tre a macchina 1, rifiuti 0, caratteri 318, altri nominati 2 su 2, lettura non chiesta no
+EN ultimo chat aura moglie: inventati 2, fuori dai tre a macchina 0, rifiuti 0, caratteri 734/851, riti sulla volonta 0, parte legale indicata 2 su 2, parole in comune fra le due risposte 29 per cento
+EN ultimo chat caligo altro_maestro: inventati 0, fuori dai tre a macchina 1, rifiuti 0, caratteri 362/328, nomina medora si
+EN ultimo chat caligo chi_sono: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 174, altri nominati 2 su 2, lettura non chiesta no
+EN ultimo chat caligo moglie: inventati 1, fuori dai tre a macchina 0, rifiuti 0, caratteri 372/147, riti sulla volonta 0, parte legale indicata 1 su 2, parole in comune fra le due risposte 7 per cento
+EN ultimo live medora altro_maestro: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 410/275, nomina aura si
+EN ultimo live medora chi_sono: inventati 0, fuori dai tre a macchina 1, rifiuti 0, caratteri 171, altri nominati 2 su 2, lettura non chiesta no
+EN ultimo live medora moglie: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 403/281, riti sulla volonta 0, parte legale indicata 1 su 2, parole in comune fra le due risposte 16 per cento
+EN ultimo live aura altro_maestro: inventati 0, fuori dai tre a macchina 2, rifiuti 0, caratteri 278/297, nomina caligo si
+EN ultimo live aura chi_sono: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 195, altri nominati 2 su 2, lettura non chiesta no
+EN ultimo live aura moglie: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 488/356, riti sulla volonta 0, parte legale indicata 2 su 2, parole in comune fra le due risposte 13 per cento
+EN ultimo live caligo altro_maestro: inventati 0, fuori dai tre a macchina 1, rifiuti 0, caratteri 250/228, nomina medora si
+EN ultimo live caligo chi_sono: inventati 0, fuori dai tre a macchina 2, rifiuti 0, caratteri 101, altri nominati 2 su 2, lettura non chiesta no
+EN ultimo live caligo moglie: inventati 0, fuori dai tre a macchina 0, rifiuti 0, caratteri 329/353, riti sulla volonta 0, parte legale indicata 2 su 2, parole in comune fra le due risposte 27 per cento
+Chiamate a Gemini per i Maestri 41, domande al giudice 126. Modello gemini-2.5-flash, europe-west1.

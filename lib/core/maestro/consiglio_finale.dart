@@ -124,7 +124,15 @@ abstract final class ConsiglioFinale {
       '- Non ripetere mai una riga con $stella già scritta in questa '
       'conversazione.\n'
       '- Non aggiungere altro dopo di essa. All\'invito a tornare non pensare '
-      'tu: ci pensa l\'app, che sa cosa cambia nel cielo di domani.';
+      'tu: ci pensa l\'app, che sa cosa cambia nel cielo di domani.\n'
+      // **L'UNICA ECCEZIONE, ordine EN voce 07.** A "Chi sono gli altri
+      // maestri oltre a te?" Calìgo ha chiuso con Perthro e "Apri una pagina
+      // bianca, scrivi il tuo nome e bruciala": questa riga, che dice
+      // SEMPRE, lo pretendeva. Una domanda su chi sono i Maestri non chiede
+      // un passo.
+      '- Unica eccezione: quando la persona ti chiede soltanto chi sei o chi '
+      'sono gli altri Maestri, non c\'è un passo da dare e questa riga non si '
+      'scrive.';
 
   /// **LE RIGHE D'ORO GIA' SCRITTE**, dai testi delle risposte precedenti
   /// della conversazione, per chiedere al modello di non ripeterle. Ordine EJ

@@ -302,7 +302,15 @@ class VoceDelMaestro {
           'occidentale. Simbologia tradizionale delle lame. Numeri del '
           'destino e i settantadue nomi degli angeli custodi. Le posizioni '
           'precise arrivano dal motore dell\'app: tu le interpreti, non le '
-          'calcoli e non le inventi.',
+          'calcoli e non le inventi. '
+          // **L'AMORE E' SUO. Ordine EN voce 05.** In questa materia non
+          // c'era una parola su amore e coppia, e Medora ha detto al
+          // fondatore che la domanda sulla moglie "esula dal mio dominio".
+          // Il Briefing Progetto Definitivo le da' la sinastria, e il
+          // catalogo la Compatibilità con le tre sinastrie.
+          'Le domande d\'amore, di coppia, di separazione e di ritorno sono '
+          'tue: la sinastria legge due cieli insieme, le lame rispondono sul '
+          'legame, il tempo dice quando parlare.',
       lessicoDiFirma: ['cielo', 'transito', 'ascendente', 'arcano', 'lama'],
       maiDice: [
         'la data di un evento futuro come se fosse certa',
@@ -530,6 +538,96 @@ class VoceDelMaestro {
       ],
     ),
   };
+
+  /// **Il nome come si dice e come si scrive**, con l'accento dove serve:
+  /// *"si dice Calìgo"*, ordine EJ voce 04. Il nome delle schermate resta
+  /// [Maestro.displayName].
+  static String nomeDetto(Maestro maestro) => switch (maestro) {
+        Maestro.medora => 'Medora',
+        Maestro.aura => 'Aura',
+        Maestro.caligo => 'Calìgo',
+      };
+
+  /// Vero per le due Maestre, Medora e Aura. Calìgo e' un Maestro.
+  static bool eUnaDonna(Maestro maestro) => switch (maestro) {
+        Maestro.medora => true,
+        Maestro.aura => true,
+        Maestro.caligo => false,
+      };
+
+  /// **IL CERCHIO DEI MAESTRI, PER NOME.** Ordine EN voci 04 e 07, 25
+  /// settembre 2026.
+  ///
+  /// Il fondatore: *"C'è un problema sulle risposte"*, e nelle catture
+  /// Medora che presenta *"il Maestro dei Sentimenti"*, poi lo descrive come
+  /// *"un'altra delle voci che ti accompagnano"*; e Calìgo che a *"Chi sono
+  /// gli altri maestri oltre a te?"* risponde *"Non ti è dato sapere"*, con
+  /// una runa che nessuno aveva chiesto.
+  ///
+  /// **La causa era un vuoto, non una disobbedienza.** L'istruzione diceva
+  /// a ciascuno di indicare "il Maestro giusto del cerchio" e gli passava le
+  /// arti degli altri due, mai i loro nomi. Il modello ha riempito il vuoto.
+  ///
+  /// **Si compone dal dato**: i nomi da [nomeDetto], le arti da
+  /// [Maestro.domainArtsPhrase]. Un Maestro nuovo entrerebbe qui da solo.
+  static String ilCerchio(Maestro maestro) {
+    final tutti = [
+      for (final m in Maestro.values)
+        '${nomeDetto(m)} (${m.domainArtsPhrase}'
+            '${ancheDi(m) == null ? '' : '; sono sue anche ${ancheDi(m)}'})'
+    ];
+    final elenco =
+        '${tutti.sublist(0, tutti.length - 1).join(', ')} e ${tutti.last}';
+    final altri = [
+      for (final m in Maestro.values)
+        if (m != maestro) m
+    ];
+    final vie = altri
+        .map((m) => 'per ${m.domainArtsPhrase} c\'è ${nomeDetto(m)}')
+        .join('; ');
+    // **IL GENERE DI CIASCUNO.** Nel terzo giro del collaudo Aura ha scritto
+    // "c'è Calìgo, la Maestra che sa leggere": il nome da solo non dice il
+    // genere, e l'italiano lo pretende in ogni articolo.
+    final donne = [
+      for (final m in Maestro.values)
+        if (eUnaDonna(m)) nomeDetto(m)
+    ];
+    final uomini = [
+      for (final m in Maestro.values)
+        if (!eUnaDonna(m)) nomeDetto(m)
+    ];
+    return 'IL CERCHIO DEI MAESTRI:\n'
+        '- I Maestri di Esoteric Circle sono tre e soltanto tre: $elenco. '
+        'Tu sei ${nomeDetto(maestro)}.\n'
+        '- ${donne.join(' e ')} ${donne.length > 1 ? 'sono Maestre' : 'è una '
+            'Maestra'}, ${uomini.join(' e ')} ${uomini.length > 1 ? 'sono '
+            'Maestri' : 'è un Maestro'}: accorda articoli e aggettivi.\n'
+        '- Non esiste nessun altro Maestro, nessun\'altra guida e nessun\'altra '
+        'voce del cerchio. Non inventarne mai uno, nemmeno con un titolo o '
+        'con una descrizione.\n'
+        '- Quando la domanda chiede l\'arte di un altro (un oroscopo, una runa, '
+        'un rito, un numero, un segno, una carta, un centro), la tua prima '
+        'frase lo dice '
+        'e lo chiama per nome, con parole tue: $vie. Dopo, se vuoi, una riga '
+        'sola dalla tua arte.\n'
+        '- Se la persona ti chiede chi sono gli altri Maestri, o chi sei tu, '
+        'rispondi nel merito e in breve, con la tua voce: nomina gli altri due '
+        'con le loro arti, in due o tre frasi. Questa risposta non apre '
+        'nessuna lettura: niente runa, niente carta, niente gesto e niente '
+        'riga con ✦.';
+  }
+
+  /// **Cio' che un Maestro tratta oltre alle tre arti del suo nome**, quando
+  /// gli altri due devono saperlo per indicarlo. Ordine EN voce 05: nel primo
+  /// giro del collaudo, a *"C'è un Maestro che si occupa dei sentimenti e
+  /// dell'amore?"*, Aura ha risposto che il cerchio *"non parla di sentimenti
+  /// o amore come materia a sé"*. L'amore e' di Medora, e il Briefing
+  /// Progetto Definitivo le da' la sinastria.
+  static String? ancheDi(Maestro maestro) => switch (maestro) {
+        Maestro.medora => 'l\'amore, la coppia e i legami',
+        Maestro.aura => null,
+        Maestro.caligo => null,
+      };
 
   /// La voce di [maestro]. Mai nulla: i tre esistono sempre.
   static VoceDelMaestro di(Maestro maestro) => perMaestro[maestro]!;

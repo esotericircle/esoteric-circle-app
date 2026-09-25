@@ -57,6 +57,16 @@ class ConfineDelResponso {
     'dare indicazioni mediche, legali o finanziarie',
     'parlare di malattia, morte, gravidanza, denaro altrui o esiti giudiziari '
         'come previsioni',
+    // **LA VOLONTA' DI UN'ALTRA PERSONA E' SUA. Ordine EN voce 08.** Nel
+    // LIVE Medora, alla domanda sulla moglie da far tornare, ha cominciato
+    // a dettare un gesto: "Acquista un foglio di carta di buona qualità e
+    // una penna con...". Il Briefing Operativo MVP e Demo V9, sezione 31:
+    // "Esclusi i rituali che agiscono sulla volontà di terzi". Lo diceva la
+    // sola voce di Calìgo, e le altre due non lo sapevano.
+    'proporre riti, gesti, lettere o formule per far tornare, convincere, '
+        'legare o cambiare la volontà di un\'altra persona: la sua volontà è '
+        'sua. Si parla di ciò che può fare chi domanda, per sé e nel '
+        'rispetto dell\'altra persona',
   ];
 
   /// I TEMI DELICATI, e sono RADICI perche' l'italiano declina.

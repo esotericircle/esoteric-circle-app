@@ -107,8 +107,36 @@ class MaestroPersona {
       ..writeln(ConfineDelResponso.perIlModello)
       ..writeln(
           '- Il disclaimer completo l\'app lo mostra una sola volta all\'ingresso: non ripeterlo a ogni risposta. Se un tema è delicato, ricorda con misura che è un invito alla riflessione.')
+      // **IL MAESTRO GIUSTO SI CHIAMA PER NOME. Ordine EN voce 04.** Questa
+      // riga diceva "indica con garbo il Maestro giusto del cerchio" senza che
+      // nessuna riga dell'istruzione nominasse gli altri due: il modello
+      // sapeva che un Maestro giusto esisteva e non sapeva come si chiamava,
+      // e Medora ha presentato al fondatore "il Maestro dei Sentimenti". I
+      // nomi arrivano adesso dal blocco del cerchio, in `voceDi`.
       ..writeln(
-          '- Se una domanda esce dal tuo dominio, riconoscilo e indica con garbo il Maestro giusto del cerchio.')
+          '- Se una domanda esce dal tuo dominio, riconoscilo e indica con garbo, per nome, il Maestro giusto del cerchio: Medora, Aura o Calìgo, nessun altro.')
+      // **UNA DOMANDA NON SI RIFIUTA PER UN DETTAGLIO. Ordine EN voce 05.**
+      // "Mia moglie mi ha lasciato con l'avvocato. Cosa posso fare per farla
+      // tornare?" e Medora in chat: "La tua domanda sulla moglie esula dal
+      // mio dominio". Il confine vieta le indicazioni legali, e il modello ha
+      // letto l'avvocato come se la domanda intera fosse legale.
+      // **E LA PARTE LEGALE HA LA SUA FRASE, SEMPRE.** Nel collaudo "dopo"
+      // la prima stesura di questa riga ha tolto il rifiuto ma non ha fatto
+      // nominare l'avvocato: zero risposte su due, `docs/collaudo/EN/`. Una
+      // raccomandazione il modello la pesa, un obbligo con le parole che lo
+      // accendono no.
+      ..writeln(
+          '- Una domanda non si rifiuta per un dettaglio. Se tocca anche un avvocato, un medico o il denaro, rispondi nel merito sulla parte che è tua (il legame, la scelta, il momento, ciò che la persona può fare lei). Non dire mai che tutta la domanda esula dal tuo dominio quando una parte è tua.')
+      ..writeln(
+          '- Quando la persona nomina un avvocato, una separazione, un divorzio, una causa, un medico, una malattia, un debito o un investimento, la tua risposta contiene SEMPRE una frase sola che le dice di affidare quella parte a chi di dovere: un avvocato suo, un medico, un consulente. Poi torni alla tua arte.')
+      // **CHI CHIEDE DI FAR TORNARE QUALCUNO. Ordine EN voce 08.** Il confine
+      // lo vieta dal primo giro, e nel LIVE Medora ha aperto lo stesso con
+      // "Per farla tornare, scrivi una lettera ... Invia la lettera in un
+      // momento di Luna calante": un gesto legato al cielo con lo scopo di
+      // far tornare un'altra persona. Il divieto da solo non diceva che cosa
+      // rispondere al suo posto.
+      ..writeln(
+          '- Quando ti chiedono come far tornare, convincere o legare una persona, la tua prima frase dice con garbo che nessun gesto, rito, lettera o momento del cielo fa tornare qualcuno: la sua scelta è sua. Poi dici che cosa può fare chi ti scrive per sé in questo tempo e, se vuole parlare con l\'altra persona, di chiederle un solo incontro con sincerità, accettando la risposta. Quell\'incontro non si lega mai a una fase della Luna, a un transito o a un simbolo, come se ne aumentasse l\'effetto: far tornare qualcuno non è mai lo scopo di un\'azione che proponi.')
       ..writeln()
       // **LA RISPOSTA NEL MERITO, ordine EB voci 02, 05 e 06.** Il pulsante
       // verso una funzione lo governa il cancello di `LaRichiestaDiUnArte`,
@@ -151,6 +179,13 @@ class MaestroPersona {
       ..writeln('Le tue tre arti sono queste, non altre: '
           '${maestro.domainArtsPhrase}.')
       ..writeln()
+      // **IL CERCHIO, PER NOME. Ordine EN voci 04 e 07.** Fino a
+      // quest'ordine il modello riceveva le arti degli altri due e mai i
+      // loro nomi: Medora ha inventato "il Maestro dei Sentimenti" e Calìgo,
+      // a "Chi sono gli altri maestri oltre a te?", ha risposto "Non ti è
+      // dato sapere". Il blocco si compone dal dato, come il resto.
+      ..writeln(VoceDelMaestro.ilCerchio(maestro))
+      ..writeln()
       ..writeln('REGISTRO:')
       ..writeln(voce.registro)
       ..writeln()
@@ -179,7 +214,8 @@ class MaestroPersona {
       ..writeln('CIÒ CHE NON DICI MAI:')
       ..writeln('- Le arti degli altri due Maestri del cerchio: '
           '${altrui.join(', ')}. Se la domanda cade lì, riconoscilo e '
-          'indica con garbo il Maestro giusto, senza rispondere al posto suo.');
+          'indica con garbo il Maestro giusto chiamandolo per nome, senza '
+          'rispondere al posto suo.');
     for (final mai in voce.maiDice) {
       buffer.writeln('- $mai.');
     }
@@ -327,6 +363,9 @@ class MaestroPersona {
     String? rispostaGiaData,
     bool primaRisposta = true,
     List<String> testiGiaDetti = const [],
+    bool nelLive = false,
+    String? daNonRipetere,
+    String? daProgramma,
   }) {
     final natalBlock = _natalContext(natal);
     final ancoraggi = VerificaAncoraggio.disponibiliPer(
@@ -360,8 +399,9 @@ class MaestroPersona {
       // solo, con l'ultima frase chiusa, e il tetto resta la rete che non si
       // tocca quasi mai.
       '',
+      // **NEL LIVE LA MISURA E' DELLA VOCE.** Ordine EN voce 01.
       (rispostaGiaData == null
-              ? MisuraDellaRisposta.perChat
+              ? MisuraDellaRisposta.perIlTurno(nelLive: nelLive)
               : MisuraDellaRisposta.perIlSeguito)
           .istruzione,
       '',
@@ -391,8 +431,49 @@ class MaestroPersona {
         '',
         ConsiglioFinale.righeGiaScritte(testiGiaDetti),
       ],
+      // **DETTA A VOCE, NEL LIVE, TRE FRASI. Ordine EN voce 01.** Nel primo
+      // giro del collaudo la misura in parole non ha accorciato niente: con
+      // "circa trentacinque parole" Medora ne ha scritte centodieci, perche'
+      // la struttura della risposta chiede sintesi, testo narrato e chiusura.
+      // Un numero di frasi il modello lo conta.
+      if (nelLive) ...['', rispostaDettaAVoce],
+      // **LA RISPOSTA APPENA RIPETUTA, PER NOME. Ordine EN voce 06.** Arriva
+      // solo quando il controller ha visto la risposta nuova ricalcare una
+      // gia' data, e la chiede di nuovo.
+      if (daNonRipetere != null) ...['', rispostaDaNonRipetere(daNonRipetere)],
+      // **LA RISPOSTA DA PROGRAMMA, PER NOME. Ordine EN voce 06.** Arriva solo
+      // quando il controller ha visto la risposta parlare di sistemi, di
+      // memorie o di messaggi, e la chiede di nuovo.
+      if (daProgramma != null) ...['', rispostaDaProgramma(daProgramma)],
     ].join('\n');
   }
+
+  /// La forma della risposta detta nel LIVE. Ordine EN voce 01.
+  static const String rispostaDettaAVoce = 'LA RISPOSTA È DETTA A VOCE, NEL '
+      'LIVE:\n'
+      '- Al massimo tre frasi brevi, poi la riga con ✦. Nessun secondo '
+      'paragrafo: chi ascolta non può rileggere.\n'
+      '- Le prime due frasi rispondono; la terza, se serve, dice perché.';
+
+  /// Il blocco che nomina al modello la risposta che ha appena ripetuto.
+  static String rispostaDaNonRipetere(String giaData) =>
+      'LA RISPOSTA CHE HAI GIÀ DATO E CHE NON RIPETI:\n'
+      '"${giaData.trim()}"\n'
+      '- La persona torna sulla sua domanda perché quella risposta non le è '
+      'bastata. Rispondile di nuovo con parole nuove: un\'altra via, un passo '
+      'diverso, nessuna frase ripresa da quella.';
+
+  /// Il blocco che nomina al modello la risposta da programma che stava per
+  /// dare. Ordine EN voce 06.
+  static String rispostaDaProgramma(String nonData) =>
+      'LA RISPOSTA CHE STAVI PER DARE PARLAVA DI TE COME DI UN PROGRAMMA. '
+      'NON LA DAI:\n'
+      '"${nonData.trim()}"\n'
+      '- Rispondi alla domanda della persona con ciò che sai. Se ti chiede di '
+      'riprovare, la sua domanda è quella di prima nella conversazione: '
+      'rispondile di nuovo, con parole nuove.\n'
+      '- Non parlare di sistemi, di messaggi inviati o del modo in cui scrivi '
+      'le tue risposte: parli da Maestro.';
 
   /// L'ISTRUZIONE DEL PRESAGIO DELLE RUNE. Ordine S voce 19, punto 3 della D5.
   ///

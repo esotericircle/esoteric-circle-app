@@ -17,6 +17,7 @@ import '../../core/maestro/natal_context.dart';
 import 'maestro_ai_provider.dart';
 import 'maestro_oracle.dart';
 import 'maestro_persona.dart';
+import 'la_richiesta_del_turno.dart';
 import 'registro_dei_guasti.dart';
 
 /// Implementazione dell'AI dei Maestri su Gemini via Firebase AI Logic.
@@ -119,6 +120,9 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     bool insistiSullAncoraggio = false,
     String? rispostaGiaData,
   }) async {
+    // **CIO' CHE IL TURNO CHIEDE E LA FIRMA NON PORTA.** Ordine EN voci 01
+    // e 06: nel LIVE la misura della voce, e la risposta da non ripetere.
+    final turno = LaRichiestaDelTurno.corrente;
     final model = _ai.generativeModel(
       model: chatModel,
       systemInstruction: Content.system(
@@ -134,13 +138,16 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
             for (final m in history)
               if (m.isMaestro) m.text
           ],
+          nelLive: turno.nelLive,
+          daNonRipetere: turno.daNonRipetere,
+          daProgramma: turno.daProgramma,
         ),
       ),
       // La PRIMA risposta arriva sempre alla stessa misura per tutti: la
       // profondita' non si sceglie prima, si chiede dopo aver letto.
       generationConfig: configurazionePer(
         rispostaGiaData == null
-            ? MisuraDellaRisposta.perChat
+            ? MisuraDellaRisposta.perIlTurno(nelLive: turno.nelLive)
             : MisuraDellaRisposta.perIlSeguito,
         temperature: 0.9,
         topP: 0.95,

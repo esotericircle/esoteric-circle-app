@@ -27,6 +27,11 @@ import '../../../core/maestro/natal_context.dart';
 import '../../../core/chat/la_carta_del_giorno_in_chat.dart';
 import '../../../core/rituals/arcano_dell_alba/archivio_dell_alba.dart';
 import '../../../core/chat/la_lettura_del_giorno.dart';
+import '../../../core/chat/la_risposta_ripetuta.dart';
+import '../../../core/chat/la_risposta_da_programma.dart';
+import '../../../core/chat/chi_di_dovere.dart';
+import '../../../core/chat/i_ricordi_degli_altri.dart';
+import '../../../services/ai/la_richiesta_del_turno.dart';
 import '../../../core/astro/il_cielo_detto.dart';
 import '../../../core/chat/immersive_intents.dart';
 import '../../../core/maestro/maestro.dart';
@@ -215,6 +220,35 @@ class MaestroChatController extends ChangeNotifier {
   /// consegnata comunque. Mai due rigenerazioni: qui finisce il conto.
   int consegneSenzaAncoraggio = 0;
 
+  /// Quante risposte si sono richieste perche' ne ricalcavano una gia' data.
+  /// Ordine EN voce 06.
+  int rigenerazioniPerRipetizione = 0;
+
+  /// Quante risposte si sono richieste perche' parlavano da programma.
+  /// Ordine EN voce 06.
+  int rigenerazioniPerProgramma = 0;
+
+  /// **CIO' CHE LA PERSONA HA DETTO AGLI ALTRI DUE MAESTRI.** Ordine EN voce
+  /// 09: le righe di [IRicordiDegliAltri], lette all'apertura. Non entrano
+  /// nella memoria di questo Maestro, che si salva: si aggiungono ai fatti
+  /// soltanto nel contesto che parte verso il modello.
+  List<String> _ricordiDegliAltri = const [];
+  List<String> get ricordiDegliAltri => List.unmodifiable(_ricordiDegliAltri);
+
+  /// La memoria come la riceve il modello: quella di questo Maestro, piu'
+  /// cio' che la persona ha detto agli altri due.
+  MaestroMemory get _memoriaPerIlModello => _ricordiDegliAltri.isEmpty
+      ? _memoryState
+      : _memoryState
+          .copyWith(facts: [..._memoryState.facts, ..._ricordiDegliAltri]);
+
+  /// **IL SALVATAGGIO DEL TURNO IN ATTESA, CHE NON FA PIU' ASPETTARE IL
+  /// MODELLO.** Ordine EN voce 01: si salvava prima di chiamare Gemini, da
+  /// 206 a 259 millesimi sul Realme e 1.866 una volta con la rete lenta. Adesso
+  /// parte insieme alla chiamata, e la consegna lo aspetta prima di sostituire
+  /// il turno: nella cronologia l'ordine resta quello di prima.
+  Future<void>? _salvataggioInAttesa;
+
   /// Quante volte una risposta e' arrivata tronca e si e' rigenerata. Pubblico
   /// per la stessa ragione dell'ancoraggio: se cresce, il tetto e' di nuovo
   /// stretto, e lo si scopre dal numero invece che da uno screenshot.
@@ -230,7 +264,7 @@ class MaestroChatController extends ChangeNotifier {
       VerificaAncoraggio.disponibiliPer(
         natal: _natal?.call() ?? NatalContext.none,
         profile: _profile,
-        memory: _memoryState,
+        memory: _memoriaPerIlModello,
       );
 
   /// Ogni quanti turni dell'utente rinfrescare il distillato di memoria.
@@ -547,6 +581,7 @@ class MaestroChatController extends ChangeNotifier {
         _messages.clear();
       }
       unawaited(_caricaLePassate());
+      await _caricaCioCheSannoGliAltri();
     } catch (errore, traccia) {
       // Un errore di lettura non deve impedire di iniziare a parlare, ma non
       // deve nemmeno sparire: senza annotazione una memoria che non si carica
@@ -558,6 +593,64 @@ class MaestroChatController extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  /// Legge cio' che la persona ha detto agli altri due Maestri. Ordine EN
+  /// voce 09. Vale la stessa legge della memoria: la ricorda chi ha un piano
+  /// con la memoria, e la demo.
+  Future<void> _caricaCioCheSannoGliAltri() async {
+    final piano = _tier?.call();
+    final memoriaViva = _demo || piano == null || PlanCatalog.haMemoria(piano);
+    if (!memoriaViva) return;
+    final altri = [
+      for (final m in Maestro.values)
+        if (m != maestro) m
+    ];
+    final letti = await Future.wait([
+      for (final altro in altri)
+        _memory
+            .recentMessages(altro, limit: IRicordiDegliAltri.messaggiDaLeggere)
+            .then<List<ChatMessage>>((m) => m)
+            .catchError((Object errore, StackTrace traccia) {
+          annotaGuastoInnocuo(
+              'leggendo ciò che la persona ha detto a ${altro.displayName}',
+              errore,
+              traccia);
+          return const <ChatMessage>[];
+        }),
+    ]);
+    _ricordiDegliAltri = [
+      for (var i = 0; i < altri.length; i++)
+        ...IRicordiDegliAltri.righe(
+            altri[i], CronologiaSenzaDoppioni.di(letti[i]),
+            adesso: _adesso),
+    ];
+  }
+
+  /// **LA DOMANDA AL MODELLO, CON CIO' CHE IL TURNO CHIEDE.** Ordine EN voci
+  /// 01 e 06: nel LIVE la misura della voce, e la risposta da non ripetere,
+  /// viaggiano nella zona della chiamata (`LaRichiestaDelTurno`).
+  Future<String> _chiediAlMaestro({
+    required Maestro chi,
+    required List<ChatMessage> storia,
+    required String domanda,
+    required NatalContext natal,
+    bool insisti = false,
+    String? daNonRipetere,
+    String? daProgramma,
+  }) =>
+      LaRichiestaDelTurno(
+        nelLive: nelLive,
+        daNonRipetere: daNonRipetere,
+        daProgramma: daProgramma,
+      ).per(() => _ai.reply(
+            maestro: chi,
+            profile: _profile,
+            memory: _memoriaPerIlModello,
+            history: storia,
+            userMessage: domanda,
+            natal: natal,
+            insistiSullAncoraggio: insisti,
+          ));
 
   /// NESSUN TURNO TORNA IN ATTESA.
   ///
@@ -927,7 +1020,7 @@ class MaestroChatController extends ChangeNotifier {
       final grezzo = await _ai.reply(
         maestro: prima.autoreEffettivo(maestro),
         profile: _profile,
-        memory: _memoryState,
+        memory: _memoriaPerIlModello,
         history: _messages.sublist(0, indice - 1).toList(),
         userMessage: domanda,
         natal: natal,
@@ -1046,12 +1139,14 @@ class MaestroChatController extends ChangeNotifier {
         autore: chiRisponde,
         conversazione: _conversazione);
     _messages.add(pending);
-    await _persist(pending);
     // **I TEMPI DEL TURNO, PEZZO PER PEZZO, NEL LIVE.** Ordine EM voce 11: il
     // fondatore aspetta "circa 4" secondi, e sul Realme la chat ne prendeva
     // da 3,1 a 4,7. Si scrive quanto costa ogni passo, perche' si sappia
     // quale accorciare.
-    final salvataInAttesa = cronometro.elapsedMilliseconds;
+    // **IL MODELLO NON ASPETTA PIU' IL SALVATAGGIO.** Ordine EN voce 01.
+    var salvataInAttesa = -1;
+    _salvataggioInAttesa = _persist(pending)
+        .then((_) => salvataInAttesa = cronometro.elapsedMilliseconds);
     notifyListeners();
 
     try {
@@ -1059,7 +1154,7 @@ class MaestroChatController extends ChangeNotifier {
       final disponibili = VerificaAncoraggio.disponibiliPer(
         natal: natal,
         profile: _profile,
-        memory: _memoryState,
+        memory: _memoriaPerIlModello,
       );
 
       // UNA RISPOSTA TRONCA NON SI CONSEGNA, e non si fa pagare.
@@ -1080,23 +1175,19 @@ class MaestroChatController extends ChangeNotifier {
       // subito, piu' una seconda chiamata solo per chi approfondisce.
       String reply;
       try {
-        reply = await _ai.reply(
-          maestro: chiRisponde,
-          profile: _profile,
-          memory: _memoryState,
-          history: priorHistory,
-          userMessage: userText,
+        reply = await _chiediAlMaestro(
+          chi: chiRisponde,
+          storia: priorHistory,
+          domanda: userText,
           natal: natal,
         );
       } on MaestroAiTroncata {
         rigenerazioniPerTroncatura++;
         try {
-          reply = await _ai.reply(
-            maestro: chiRisponde,
-            profile: _profile,
-            memory: _memoryState,
-            history: priorHistory,
-            userMessage: userText,
+          reply = await _chiediAlMaestro(
+            chi: chiRisponde,
+            storia: priorHistory,
+            domanda: userText,
             natal: natal,
           );
         } on MaestroAiTroncata catch (errore, traccia) {
@@ -1117,7 +1208,7 @@ class MaestroChatController extends ChangeNotifier {
                   domanda: userText,
                   natal: natal,
                   profile: _profile,
-                  memory: _memoryState,
+                  memory: _memoriaPerIlModello,
                 ),
                 pending: false,
                 failed: true,
@@ -1142,16 +1233,20 @@ class MaestroChatController extends ChangeNotifier {
       // della persona torna solo se serve, e rigenerare chi non lo nomina
       // riportava i tre dati in ogni risposta.
       final primaRisposta = !priorHistory.any((m) => m.isMaestro);
-      if (primaRisposta && !VerificaAncoraggio.eAncorata(reply, disponibili)) {
+      // **NEL LIVE NON SI RIGENERA PER L'ANCORAGGIO.** Ordine EN voce 01: la
+      // seconda chiamata intera raddoppiava l'attesa di chi sta parlando e
+      // ascoltando. La regola resta nell'istruzione, e il modello la segue
+      // quasi sempre; nella chat scritta la rete resta.
+      if (!nelLive &&
+          primaRisposta &&
+          !VerificaAncoraggio.eAncorata(reply, disponibili)) {
         rigenerazioniPerAncoraggio++;
-        final secondo = await _ai.reply(
-          maestro: chiRisponde,
-          profile: _profile,
-          memory: _memoryState,
-          history: priorHistory,
-          userMessage: userText,
+        final secondo = await _chiediAlMaestro(
+          chi: chiRisponde,
+          storia: priorHistory,
+          domanda: userText,
           natal: natal,
-          insistiSullAncoraggio: true,
+          insisti: true,
         );
         reply = secondo;
         if (!VerificaAncoraggio.eAncorata(secondo, disponibili)) {
@@ -1164,6 +1259,73 @@ class MaestroChatController extends ChangeNotifier {
           );
         }
       }
+
+      // **UN MAESTRO NON PARLA DA PROGRAMMA. Ordine EN voce 06.** Nel
+      // collaudo con Gemini vero, alla richiesta di riprovare, Calìgo ha
+      // risposto "Non ho memoria delle conversazioni precedenti" con la
+      // regola gia' scritta nell'istruzione. Una richiesta sola, nominando la
+      // risposta da non dare; se anche la seconda parla da programma, resta
+      // la prima e il guasto resta nel registro.
+      if (LaRispostaDaProgramma.segno(reply) != null) {
+        rigenerazioniPerProgramma++;
+        final altra = await _chiediAlMaestro(
+          chi: chiRisponde,
+          storia: priorHistory,
+          domanda: userText,
+          natal: natal,
+          daProgramma: reply,
+        );
+        if (LaRispostaDaProgramma.segno(altra) == null) {
+          reply = altra;
+        } else {
+          annotaGuastoInnocuo(
+            'risposta da programma consegnata comunque, '
+            '${chiRisponde.displayName}',
+            StateError('la risposta parla da programma dopo una seconda '
+                'richiesta'),
+          );
+        }
+      }
+
+      // **UNA RISPOSTA GIA' DATA NON SI RIDA'. Ordine EN voce 06.** Medora ha
+      // restituito al fondatore la stessa risposta parola per parola: la
+      // regola nell'istruzione c'era e non e' bastata. Una richiesta sola,
+      // nominando la risposta da non ripetere; se anche la seconda ricalca,
+      // passa la meno simile e il guasto resta nel registro.
+      final giaDate = [
+        for (final m in priorHistory)
+          if (m.isMaestro && m.portaUnResponso && m.text.trim().isNotEmpty)
+            m.text
+      ];
+      final ripetuta = LaRispostaRipetuta.quale(reply, giaDate);
+      if (ripetuta != null) {
+        rigenerazioniPerRipetizione++;
+        final altra = await _chiediAlMaestro(
+          chi: chiRisponde,
+          storia: priorHistory,
+          domanda: userText,
+          natal: natal,
+          daNonRipetere: ripetuta,
+        );
+        if (LaRispostaRipetuta.inComune(altra, ripetuta) <
+            LaRispostaRipetuta.inComune(reply, ripetuta)) {
+          reply = altra;
+        }
+        if (LaRispostaRipetuta.quale(reply, giaDate) != null) {
+          annotaGuastoInnocuo(
+            'risposta ripetuta consegnata comunque, '
+            '${chiRisponde.displayName}',
+            StateError('la risposta ricalca una già data dopo una '
+                'seconda richiesta'),
+          );
+        }
+      }
+
+      // **CHI DI DOVERE, SEMPRE. Ordine EN voce 08.** Se la persona ha
+      // nominato un avvocato, un medico o il denaro e la risposta non le dice
+      // a chi rivolgersi, la frase si aggiunge, con la voce di chi parla.
+      reply = ChiDiDovere.conLaFrase(
+          maestro: chiRisponde, domanda: userText, risposta: reply);
 
       // **IL CIELO DETTO E' IL CIELO CALCOLATO. Ordine DS voce 08.** Una frase
       // sulla Luna che il calcolo smentisce non arriva a schermo: il modello
@@ -1243,7 +1405,7 @@ class MaestroChatController extends ChangeNotifier {
               domanda: userText,
               natal: natal,
               profile: _profile,
-              memory: _memoryState,
+              memory: _memoriaPerIlModello,
             ),
             pending: false,
             failed: true,
@@ -1371,7 +1533,25 @@ class MaestroChatController extends ChangeNotifier {
     // OGNI consegna passa di qui, non solo quella riuscita: il ripiego, la
     // troncatura e l'errore sono turni quanto una lettura vera, e riaprendo
     // devono esserci.
-    await _sostituisci(messaggio);
+    // **PRIMA IL TURNO IN ATTESA, POI LA SUA SOSTITUZIONE.** Ordine EN voce
+    // 01: il turno in attesa si salva in parallelo al modello, e qui lo si
+    // aspetta, perche' la sostituzione non arrivi prima di lui.
+    final inAttesa = _salvataggioInAttesa;
+    _salvataggioInAttesa = null;
+    Future<void> salva() async {
+      if (inAttesa != null) await inAttesa;
+      await _sostituisci(messaggio);
+    }
+
+    // **NEL LIVE LA VOCE NON ASPETTA FIRESTORE.** Ordine EN voce 01: la
+    // voce partiva dopo il salvataggio della risposta, da 250 a 300
+    // millesimi sul Realme. Il salvataggio continua dietro, nello stesso
+    // ordine.
+    if (nelLive) {
+      unawaited(salva());
+    } else {
+      await salva();
+    }
   }
 
   /// Completa nella cronologia il turno che era rimasto in attesa.

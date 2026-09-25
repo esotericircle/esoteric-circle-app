@@ -17,6 +17,7 @@ import 'package:esoteric_circle/services/ai/firebase_maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
+import 'package:esoteric_circle/services/ai/la_richiesta_del_turno.dart';
 
 /// **LA VOCE VERA DI GEMINI PER I BANCHI.** Estratta il 24 settembre 2026 da
 /// `collaudo_dei_maestri.dart`, ordine EJ, perche' il collaudo delle risposte
@@ -80,8 +81,11 @@ class VoceVeraDiGemini implements MaestroAiProvider {
     bool insistiSullAncoraggio = false,
     String? rispostaGiaData,
   }) async {
+    // Ordine EN voci 01 e 06: cio' che il turno chiede, come lo legge il
+    // provider dell'app.
+    final turno = LaRichiestaDelTurno.corrente;
     final misura = rispostaGiaData == null
-        ? MisuraDellaRisposta.perChat
+        ? MisuraDellaRisposta.perIlTurno(nelLive: turno.nelLive)
         : MisuraDellaRisposta.perIlSeguito;
     final composta = MaestroPersona.systemInstruction(
       maestro: maestro,
@@ -95,6 +99,9 @@ class VoceVeraDiGemini implements MaestroAiProvider {
         for (final m in history.cast<ChatMessage>())
           if (m.isMaestro) m.text
       ],
+      nelLive: turno.nelLive,
+      daNonRipetere: turno.daNonRipetere,
+      daProgramma: turno.daProgramma,
     );
     final istruzione = ritocco?.call(maestro, composta) ?? composta;
     // La cronologia come la manda l'app: solo i messaggi veri, in ordine.
