@@ -45,6 +45,13 @@ void main() {
         'e l etichetta di debug della misura della scena',
     'lib/features/maestri/aura/face/face_constellation_screen.dart':
         'e il rapporto tecnico della costellazione, con il ripiego "nullo"',
+    'lib/services/voce/l_orecchio_del_live.dart':
+        'e la riga ORECCHIO del registro del LIVE, ordine EM voce 04: quanto '
+            'un pezzo di audio e voce, da zero a uno, accanto alla soglia '
+            '0,55 che e una costante del codice e che si tara leggendo '
+            'proprio questa riga. Finisce in logcat e non sotto gli occhi di '
+            'nessuno che legga italiano. Questa prova l ha presa rossa alla '
+            'suite intera del 25 settembre 2026',
     'lib/features/santuario/sky_overview_screen.dart':
         'sono LATITUDINE e LONGITUDINE a quattro decimali. Il punto e la '
             'forma internazionale delle coordinate, e scriverle con la '

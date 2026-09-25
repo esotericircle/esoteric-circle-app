@@ -588,7 +588,7 @@ class _SchermataLiveState extends State<SchermataLive> {
             _frasi.dimentica();
           } else {
             debugPrint('LIVE: la frase $frase non si scarta: sta sopra il '
-                'sottofondo, o e\' il primo controllo vuoto senza sottofondo');
+                'sottofondo, o è il primo controllo vuoto senza sottofondo');
           }
         case CosaFareDellaFrase.chiudi:
           if (giro != _frasi.giro) return;
