@@ -530,10 +530,26 @@ nome. Il dettaglio, file per file, in `docs/collaudo/EN/en11_la_mappa_del_viso.t
 **Una frase resta, per scelta**: nella schermata *"I tratti del tuo
 volto, una costellazione"* descrive il disegno, i punti del volto uniti come stelle: non e' il nome dell'arte.
 
+**La pagina legale pubblica, pubblicata col si' del fondatore.** Il testo
+della privacy nomina l'arte: la pagina del sito si compone dagli stessi dati
+(`hosting/index.html`, ordine EA voce 18). Rigenerata nel repo con la voce,
+era rimasta sul sito col nome vecchio. Il fondatore, 25 settembre 2026,
+alla domanda 4 del rapporto: *"Sì, pubblica la pagina legale"*. Pubblicata
+alle 16:23 con `firebase deploy --only hosting`, un file solo; prima e dopo
+la pagina differisce di una riga, quella dei sensori. Su
+`https://esoteric-circle.web.app/` e sugli indirizzi `/privacy`,
+`/condizioni`, `/disclaimer` e sul dominio `firebaseapp.com`: "Costellazione
+del Viso" da 1 volta a 0, "Mappa del Viso" da 0 a 1; aperta nel browser, la
+frase e' *"Le immagini della Mappa del Viso e le foto per le card si
+elaborano sul dispositivo e non vengono caricate."* La prova:
+`docs/collaudo/EN/en11_pagina_legale_pubblicata.txt`. La data "Ultimo
+aggiornamento: 24 agosto 2026" resta: e' cambiato il nome di una funzione,
+non cio' che la privacy promette.
+
 **CHIUSA.**
 DOMANDA: "Mappa del Viso senza articolo" e "Va bene mappa del viso"
 PROVA: docs/collaudo/EN/en11_mappa_del_viso_la_schermata.jpg
-MISURA: righe di codice a video col vecchio nome, da 23 in 15 file a 0 (piu' la parola chiave dichiarata della chat); righe col nome nuovo da 0 a 23; sul Realme il nome nuovo nella scheda del dominio di Aura e nel titolo della schermata, 2 su 2
+MISURA: righe di codice a video col vecchio nome, da 23 in 15 file a 0 (piu' la parola chiave dichiarata della chat); righe col nome nuovo da 0 a 23; sul Realme il nome nuovo nella scheda del dominio di Aura e nel titolo della schermata, 2 su 2; sulla pagina legale pubblica, cinque indirizzi, "Costellazione del Viso" da 1 volta a 0 e "Mappa del Viso" da 0 a 1
 
 ## VOCE EN.12, RESPIRO DELLA LUNA E AFFINITÀ LUNARE ENTRANO IN MVP
 

@@ -1,0 +1,39 @@
+ORDINE EN VOCE 11, LA PAGINA LEGALE PUBBLICA CON LA MAPPA DEL VISO, 25 SETTEMBRE 2026
+
+La risposta del fondatore alla domanda 4 del rapporto EN: "Sì, pubblica la pagina legale". Pubblicata soltanto la
+pagina legale, cioe' la cartella hosting/ di firebase.json, che contiene un file solo: hosting/index.html.
+
+PRIMA, letta alle 16:20 del 25 settembre 2026 (ora di Roma):
+  rilascio sul canale live del sito esoteric-circle: 2026-09-22 03:35:10
+  https://esoteric-circle.web.app/  HTTP 200, 12.060 byte, Last-Modified Tue, 22 Sep 2026 01:35:10 GMT,
+  ETag "62df1393a5c9162f75ae9d2d463798b344377a3439f91f7796755078e9e52cdf"
+  "Costellazione del Viso": 1 volta; "Mappa del Viso": 0 volte
+  identica, riga per riga, a hosting/index.html del commit 20d6591c del 20 settembre 2026
+  fra la pagina pubblica e quella nuova del repo UNA riga diversa, il paragrafo "I sensori restano sul tuo telefono":
+    prima: "Le immagini della Costellazione del Viso e le foto per le card si elaborano sul dispositivo..."
+    dopo:  "Le immagini della Mappa del Viso e le foto per le card si elaborano sul dispositivo..."
+  la configurazione dell'hosting in firebase.json non e' cambiata dal 20 settembre (commit 99ff1096)
+
+LA PUBBLICAZIONE, 16:23 del 25 settembre 2026:
+  firebase deploy --only hosting --project esoteric-circle --message "Ordine EN voce 11: Mappa del Viso nella pagina legale"
+  Firebase CLI 15.22.4, account del progetto. Solo l'hosting: niente funzioni, niente regole di Firestore.
+  "found 1 files in hosting", "file upload complete", "version finalized", "release complete"
+
+DOPO, letta alle 16:23 (con un parametro in coda all'indirizzo, perche' la cache non rispondesse al posto del sito):
+  rilascio sul canale live: 2026-09-25 16:23:06
+  https://esoteric-circle.web.app/            HTTP 200, 12.052 byte, "Costellazione del Viso": 0, "Mappa del Viso": 1
+  https://esoteric-circle.web.app/privacy     HTTP 200, 12.052 byte, "Costellazione del Viso": 0, "Mappa del Viso": 1
+  https://esoteric-circle.web.app/condizioni  HTTP 200, 12.052 byte, "Costellazione del Viso": 0, "Mappa del Viso": 1
+  https://esoteric-circle.web.app/disclaimer  HTTP 200, 12.052 byte, "Costellazione del Viso": 0, "Mappa del Viso": 1
+  https://esoteric-circle.firebaseapp.com/    HTTP 200, 12.052 byte, "Costellazione del Viso": 0, "Mappa del Viso": 1
+  Last-Modified Fri, 25 Sep 2026 14:23:06 GMT, ETag "53619c27fc161513fb4e96d157c099675ce4f000de9d87fa39f5587b5080adb2"
+  la pagina pubblica e' identica a hosting/index.html del repo (commit 3653665f)
+  Gli 8 byte in meno sono "Costellazione" (13 lettere) diventata "Mappa" (5).
+
+APERTA NEL BROWSER, https://esoteric-circle.web.app/privacy, testo della pagina come lo legge una persona:
+  "Costellazione del Viso": 0; "Mappa del Viso": 1, nella frase
+  "Le immagini della Mappa del Viso e le foto per le card si elaborano sul dispositivo e non vengono caricate."
+
+UNA NOTA: la privacy porta ancora "Ultimo aggiornamento: 24 agosto 2026". Non l'ho cambiata: e' cambiato il nome di
+una funzione, non cio' che la privacy promette. La stessa data sta nell'app (lib/core/legal/privacy_policy.dart): la
+pagina del sito si compone dagli stessi dati.

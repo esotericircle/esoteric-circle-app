@@ -177,7 +177,9 @@ Presi dalla suite intera prima del commit, dalle guardie di casa:
 - **La pagina legale pubblica col nome vecchio**: il testo della privacy
   e' cambiato con la Mappa del Viso e la pagina del sito si compone dallo
   stesso testo. Padre: voce EN.11. Rigenerata nel repo
-  (`hosting/index.html`); la pubblicazione sul sito e' tua (sotto).
+  (`hosting/index.html`); pubblicata sul sito il 25 settembre alle 16:23 col
+  tuo si', una riga cambiata e nient'altro
+  (`docs/collaudo/EN/en11_pagina_legale_pubblicata.txt`).
 - **La rete della risposta ripetuta scambiava per ripetizione due risposte
   brevi**: *"Una risposta a testo, la numero 1."* e *"...la numero 2."*
   contano tre parole uguali su tre. Padre: voce EN.06, la mia prima stesura
@@ -259,10 +261,10 @@ tu. Le note sono in `docs/note_della_consegna.txt`.
    (EN.03).
 3. Se vuoi mezzo secondo in meno al primo suono, **una voce Chirp** nel
    selettore.
-4. **La pagina legale del sito** porta ancora "Costellazione del Viso": il
-   file nel repo e' gia' rigenerato, la pubblicazione su Firebase Hosting e'
-   un'azione pubblica e non l'ho fatta senza il tuo si'. Se vuoi, dimmelo e
-   la pubblico io.
+4. **La pagina legale del sito**: fatto. Col tuo *"Sì, pubblica la pagina
+   legale"* l'ho pubblicata alle 16:23; sul sito "Costellazione del Viso" e'
+   passata da 1 volta a 0 su cinque indirizzi
+   (`docs/collaudo/EN/en11_pagina_legale_pubblicata.txt`).
 
 ## COSA DIVERGE FRA L'ORDINE E CIO' CHE HO FATTO
 

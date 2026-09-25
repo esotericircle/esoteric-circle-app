@@ -5058,7 +5058,12 @@ impronte dell'ordine EK sono scese nello storico
 `docs/collaudo/EN/attribuzione/`.
 
 **LA PAGINA LEGALE DEL SITO.** `hosting/index.html` e' rigenerata col nome
-nuovo; la pubblicazione su Firebase Hosting aspetta il si' del fondatore.
+nuovo e pubblicata su Firebase Hosting il 25 settembre 2026 alle 16:23, col
+si' del fondatore (*"Sì, pubblica la pagina legale"*): `firebase deploy --only
+hosting`, un file solo, una riga cambiata. Su
+`https://esoteric-circle.web.app/` e sugli altri quattro indirizzi
+"Costellazione del Viso" da 1 volta a 0
+(`docs/collaudo/EN/en11_pagina_legale_pubblicata.txt`).
 
 **LE GUARDIE.** Sei nuove, `ordine_en_guard`,
 `i_maestri_si_conoscono_e_non_rifiutano`,
