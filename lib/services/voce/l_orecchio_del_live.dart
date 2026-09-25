@@ -7,6 +7,7 @@ import 'package:flutter/foundation.dart';
 import 'package:record/record.dart';
 
 import '../../core/astro/zodiac.dart';
+import '../../core/maestro/maestro.dart';
 import '../../core/maestro/chakra_del_giorno.dart';
 import '../../core/permissions/app_permission.dart';
 import '../../core/permissions/esito_del_permesso.dart';
@@ -39,7 +40,15 @@ class LOrecchioDelLive {
 
   final AudioRecorder _registratore;
   StreamSubscription<Uint8List>? _flusso;
-  IlSilenzioVero _silenzio = IlSilenzioVero();
+
+  /// **La stanza si ricorda il fondo e il sottofondo da una frase
+  /// all'altra.** Ordine EM voce 04: una televisione accesa si impara una
+  /// volta, non a ogni frase.
+  final _stanza = LaStanza();
+  late IlSilenzioVero _silenzio = IlSilenzioVero(stanza: _stanza);
+
+  /// Quanto ogni pezzo e' voce. Ordine EM voce 04.
+  final _misura = LaMisuraDellaVoce(tasso: tasso);
   final _parlato = BytesBuilder(copy: false);
   bool _inAscolto = false;
   bool _parlavaGia = false;
@@ -53,14 +62,54 @@ class LOrecchioDelLive {
   static const int tasso = 16000;
   static const int _unSecondo = tasso * 2; // 16 bit mono
 
+  /// **COME SI APRE IL MICROFONO DEL LIVE**, in un posto solo e pubblico
+  /// perche' una prova lo guardi. Ordine EM voci 04 e 08, 25 settembre 2026.
+  ///
+  /// - **La sorgente e' quella delle chiamate**, `voiceCommunication`, con la
+  ///   soppressione del rumore e dell'eco del telefono: e' l'elaborazione che
+  ///   il telefono usa per far sentire chi parla vicino e non la stanza.
+  ///   Prima era la sorgente di serie, senza filtri.
+  /// - **Il microfono non si ferma quando un altro suono prende l'audio.** Il
+  ///   registratore, di serie, chiede il fuoco audio e alla prima perdita si
+  ///   mette in pausa per sempre: la ripresa esiste solo nel modo
+  ///   `pauseResume`. L'anteprima delle voci nel selettore suona con un
+  ///   lettore che chiede il fuoco, e dopo averla ascoltata il microfono del
+  ///   LIVE restava muto. Il fondatore: *"Quando torno indietro dal selettore,
+  ///   il microfono non funziona più."* Padre: ordine EJ voce 01, che ha
+  ///   aperto il microfono col modo di serie. Adesso il microfono non chiede
+  ///   il fuoco e non lo perde.
+  static const RecordConfig configurazione = RecordConfig(
+    encoder: AudioEncoder.pcm16bits,
+    sampleRate: tasso,
+    numChannels: 1,
+    androidConfig: AndroidRecordConfig(
+      audioSource: AndroidAudioSource.voiceCommunication,
+    ),
+    noiseSuppress: true,
+    echoCancel: true,
+    audioInterruption: AudioInterruptionMode.none,
+  );
+
   /// Vero mentre la persona tiene premuto: la frase non si chiude da sola.
   bool aMano = false;
 
   /// Il livello istantaneo, fra 0 e 1, per chi disegna l'ascolto.
   void Function(double livello)? suLivello;
 
-  /// Una frase si e' chiusa: il suo PCM a 16 bit, mono, a [tasso].
-  void Function(Uint8List pcm)? suFrase;
+  /// Una frase si e' chiusa: il suo PCM a 16 bit, mono, a [tasso], e la
+  /// pausa che l'ha chiusa, cioe' il numero dato da [suPausa]; -1 quando
+  /// l'ha chiusa la mano che lascia il pulsante.
+  void Function(Uint8List pcm, int pausa)? suFrase;
+
+  /// **LA FRASE E' IN PAUSA, E FORSE FINITA.** Ordine EM voce 11: dopo
+  /// settecento millesimi di silenzio l'orecchio da' l'audio detto finora col
+  /// numero della pausa, e la schermata comincia a trascriverlo; se la frase
+  /// si chiude con quella stessa pausa, la trascrizione e' gia' pronta.
+  void Function(Uint8List pcm, int pausa)? suPausa;
+
+  /// L'istante dell'ultimo pezzo di voce: la fine del parlato, da cui si
+  /// misura l'attesa della risposta. Ordine EM voce 11.
+  DateTime? ultimaVoce;
 
   bool get inAscolto => _inAscolto;
 
@@ -79,24 +128,26 @@ class LOrecchioDelLive {
     if (esito != EsitoDelPermesso.concesso) return false;
     _nuovaFrase();
     _inAscolto = true;
-    final flusso = await _registratore.startStream(const RecordConfig(
-      encoder: AudioEncoder.pcm16bits,
-      sampleRate: tasso,
-      numChannels: 1,
-    ));
+    final flusso = await _registratore.startStream(configurazione);
     var dalRegistro = Duration.zero;
     _flusso = flusso.listen((pezzo) {
       final db = decibelDi(pezzo);
       final durata = Duration(microseconds: pezzo.length * 500000 ~/ tasso);
-      _silenzio.senti(db, durata);
+      final voce = _misura.aggiungi(pezzo);
+      final eraInPausa = _silenzio.inPausa;
+      _silenzio.senti(db, durata, voce: voce);
+      if (_silenzio.parlaAdesso) ultimaVoce = DateTime.now();
       // **IL REGISTRO DEI LIVELLI**, una riga ogni quarto di secondo: la
       // regola del silenzio si tara sui numeri veri del telefono, non su
-      // quelli immaginati. Ordine EJ voce 01.
+      // quelli immaginati. Ordine EJ voce 01; la voce e il sottofondo,
+      // ordine EM voce 04.
       dalRegistro += durata;
       if (dalRegistro >= const Duration(milliseconds: 250)) {
         dalRegistro = Duration.zero;
         debugPrint('ORECCHIO db ${db.round()} fondo '
-            '${_silenzio.fondo?.round()} parlato ${_silenzio.haParlato} '
+            '${_silenzio.fondo?.round()} sottofondo '
+            '${_stanza.sottofondo?.round()} voce ${voce.toStringAsFixed(2)} '
+            'parla ${_silenzio.parlaAdesso} parlato ${_silenzio.haParlato} '
             'silenzio ${_silenzio.silenzioDiFila.inMilliseconds} mano $aMano');
       }
       suLivello?.call(((db + 60) / 50).clamp(0.0, 1.0));
@@ -117,13 +168,16 @@ class LOrecchioDelLive {
           _byteDiPrima -= _prima.removeAt(0).length;
         }
       }
-      if (_silenzio.fraseChiusa && !aMano) _consegna();
+      if (!eraInPausa && _silenzio.inPausa && !aMano) {
+        suPausa?.call(_parlato.toBytes(), _silenzio.pause);
+      }
+      if (_silenzio.fraseChiusa && !aMano) _consegna(_silenzio.pause);
     });
     return true;
   }
 
   void _nuovaFrase() {
-    _silenzio = IlSilenzioVero();
+    _silenzio = IlSilenzioVero(stanza: _stanza);
     _parlato.clear();
     _prima.clear();
     _byteDiPrima = 0;
@@ -131,10 +185,10 @@ class LOrecchioDelLive {
   }
 
   /// La frase finita esce, e l'ascolto ricomincia da una frase nuova.
-  void _consegna() {
+  void _consegna([int pausa = -1]) {
     final pcm = _parlato.takeBytes();
     _nuovaFrase();
-    if (pcm.isNotEmpty) suFrase?.call(pcm);
+    if (pcm.isNotEmpty) suFrase?.call(pcm, pausa);
   }
 
   /// La persona ha lasciato il pulsante: la frase finisce adesso.
@@ -212,12 +266,35 @@ abstract final class LaTrascrizione {
         for (final c in ChakraDelGiorno.tutti) c.nome,
       ];
 
+  /// **LE VOCI DI SOTTOFONDO NON SONO LA PERSONA.** Ordine EM voce 04, 25
+  /// settembre 2026: il fondatore usa "Ok Google" con la televisione accesa
+  /// e vuole la stessa tolleranza. La regola del silenzio lascia fuori la
+  /// televisione che sta sotto chi parla al telefono; quando una frase di
+  /// sola televisione passa lo stesso, e' chi trascrive a riconoscerla.
+  static const String sottofondo =
+      'Trascrivi soltanto la persona che parla vicino al telefono: ignora le '
+      'voci lontane o di sottofondo, come la televisione, la radio, la musica '
+      'o altre persone nella stanza. Se si sentono solo voci di sottofondo, '
+      'scrivi soltanto $silenzio.';
+
+  /// **NEL LIVE DI AURA, "LAURA" E' AURA.** Ordine EM voce 01, 25 settembre
+  /// 2026. Sul Realme, nell'ordine EK voce 03, la trascrizione ha scritto
+  /// "Laura" per "Aura" una volta su una. Il fondatore ha scelto la regola
+  /// solo per il LIVE di Aura, *"Sì"*, sapendo che una Laura vera di cui la
+  /// persona parla diventerebbe Aura. Negli altri LIVE il testo resta com'e'.
+  static String nelLiveDi(Maestro maestro, String testo) =>
+      maestro == Maestro.aura ? testo.replaceAll(_laura, 'Aura') : testo;
+
+  static final RegExp _laura =
+      RegExp(r'(?<!\p{L})Laura(?!\p{L})', unicode: true);
+
   /// Cio' che si chiede a Gemini insieme alla registrazione.
   static String get istruzione =>
       'Trascrivi esattamente, nella lingua in cui parla, ciò che dice la '
       'persona in questa registrazione, dalla prima all\'ultima parola. '
       'Scrivi solo le sue parole, senza commenti e senza virgolette. Se non '
       'si sente nessuna parola, scrivi soltanto $silenzio.\n'
+      '$sottofondo\n'
       'La persona parla con tre Maestri di un\'app di astrologia, carte, '
       'rune e chakra: può nominarli o nominare le loro arti. Questi nomi '
       'scrivili esattamente così quando li senti, anche se somigliano a una '

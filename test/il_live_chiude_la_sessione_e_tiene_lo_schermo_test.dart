@@ -147,7 +147,18 @@ void main() {
         reason: 'l\'orologio non sa che una frase si sta trascrivendo');
     final frase = senzaCommenti(corpoDi('Future<void> _unaFrase('));
     final sale = frase.indexOf('_frasiInTrascrizione++;');
-    final trascrive = frase.indexOf('LaTrascrizione.trascrivi(');
+    // **Ordine EM voci 01 e 11**: la frase si trascrive con `_trascrivi`, che
+    // applica la regola del LIVE di Aura, oppure si prende la trascrizione
+    // cominciata in pausa. Tutte e due stanno dentro il conto; e `_trascrivi`
+    // deve essere davvero la trascrizione.
+    final trascrive = frase.indexOf('anticipata.testo');
+    expect(frase.indexOf('await _trascrivi(') > trascrive, isTrue,
+        reason: 'alla chiusura la frase non si trascrive piu\'');
+    expect(
+        senzaCommenti(corpoDi('Future<String> _trascrivi('))
+            .contains('LaTrascrizione.trascrivi('),
+        isTrue,
+        reason: '_trascrivi non chiama la trascrizione');
     final scende = frase.indexOf('_frasiInTrascrizione--;');
     expect(sale, greaterThanOrEqualTo(0),
         reason: 'la frase si trascrive senza fermare l\'orologio');

@@ -219,6 +219,7 @@ class QuadroDelLive {
     this.perche,
     this.secondiPassati = 0,
     this.sottotitolo = '',
+    this.domanda = '',
     this.fine,
   });
 
@@ -228,8 +229,17 @@ class QuadroDelLive {
   final PerchePerILiveNonSiApre? perche;
   final int secondiPassati;
 
-  /// L'ultima cosa detta, che si legge a video. Ordine EG voce 05.
+  /// L'ultima cosa detta dal Maestro, che si legge a video. Ordine EG voce
+  /// 05.
   final String sottotitolo;
+
+  /// **LA DOMANDA DELLA PERSONA, SOPRA LA RISPOSTA.** Ordine EM voce 09, 25
+  /// settembre 2026. Il fondatore: *"Quando faccio una domanda, la domanda
+  /// dovrebbe comparire in grande e in giallo anche nel testo subito sopra la
+  /// risposta, invece adesso compare solo la risposta."* Prima domanda e
+  /// risposta erano lo stesso testo, [sottotitolo], e la risposta cancellava
+  /// la domanda. Adesso la domanda resta finche' non ne arriva un'altra.
+  final String domanda;
 
   /// Perche' si e' chiusa, quando si e' chiusa da sola.
   final ComeFinisce? fine;
@@ -286,16 +296,22 @@ class QuadroDelLive {
   /// persa. Padre: ordine EJ voce 01, commit `5b160747`, che ha dato la
   /// presenza solo alla frase trascritta con parole. Giusto, perche' il
   /// rumore non e' presenza; ma il tempo di scriverla non e' silenzio.
+  ///
+  /// **E NEMMENO MENTRE IL FONDATORE SCEGLIE LA VOCE.** Ordine EM voce 08:
+  /// col selettore aperto il microfono tace apposta, e ascoltare le voci non
+  /// e' una conversazione finita.
   static bool eUnSecondoDiSilenzio({
     required bool parlaIlMaestro,
     required bool pensaIlMaestro,
     required bool parlaLaPersona,
     required int frasiInTrascrizione,
+    bool nelSelettore = false,
   }) =>
       !parlaIlMaestro &&
       !pensaIlMaestro &&
       !parlaLaPersona &&
-      frasiInTrascrizione == 0;
+      frasiInTrascrizione == 0 &&
+      !nelSelettore;
 
   QuadroDelLive con({
     MomentoDelLive? momento,
@@ -303,6 +319,7 @@ class QuadroDelLive {
     PerchePerILiveNonSiApre? perche,
     int? secondiPassati,
     String? sottotitolo,
+    String? domanda,
     ComeFinisce? fine,
   }) =>
       QuadroDelLive(
@@ -312,6 +329,7 @@ class QuadroDelLive {
         perche: perche ?? this.perche,
         secondiPassati: secondiPassati ?? this.secondiPassati,
         sottotitolo: sottotitolo ?? this.sottotitolo,
+        domanda: domanda ?? this.domanda,
         fine: fine ?? this.fine,
       );
 

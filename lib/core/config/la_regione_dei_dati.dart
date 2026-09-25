@@ -41,4 +41,26 @@ abstract final class LaRegioneDeiDati {
     'gemini-2.5-flash-tts': '23 settembre 2026',
     'gemini-2.5-pro-tts': '24 settembre 2026',
   };
+
+  /// **L'UNICA ECCEZIONE: LE VOCI CHIRP 3 HD, SOLO SULL'ENDPOINT "eu".**
+  /// Ordine EM voce 02, 25 settembre 2026.
+  ///
+  /// Il fondatore aveva chiesto le voci Chirp nel selettore del LIVE (ordine
+  /// EK, *"Prova ad aggiungere anche le voci Chirp nel selettore"*), e le
+  /// Chirp 3 HD in [regione] non ci sono: il 24 settembre 2026
+  /// `europe-west1-texttospeech.googleapis.com` ha risposto *"Voice
+  /// it-IT-Chirp3-HD-Aoede not found"*, mentre le trenta voci italiane
+  /// rispondono su "eu" e su "global". Alla domanda se concedere
+  /// un'eccezione limitata alla voce sull'endpoint multiregionale "eu", che
+  /// tiene i dati nell'Unione Europea, il fondatore ha risposto *"Sì"*.
+  ///
+  /// **Cosa vale e cosa no.** Vale per la sola sintesi delle voci Chirp 3 HD,
+  /// e solo sull'indirizzo qui sotto; **mai "global"**, e tutto il resto,
+  /// compresa la voce Gemini-TTS, resta in [regione]. La guardia
+  /// `le_voci_stanno_in_europa_test.dart` pretende che ogni indirizzo della
+  /// voce scritto nell'app e nel server stia in [regione] o in questo elenco.
+  static const Map<String, String> eccezioniDellaVoce = {
+    'eu-texttospeech.googleapis.com':
+        'le voci Chirp 3 HD, 25 settembre 2026, ordine EM voce 02',
+  };
 }

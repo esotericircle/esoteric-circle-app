@@ -236,6 +236,11 @@ abstract final class PortaDelLive {
           (
             voce: '${(c as Map)['voce']}',
             descrizione: '${c['descrizione'] ?? ''}',
+            // **Il nome e la famiglia**, ordine EM voce 02: una voce Chirp
+            // si salva col suo prefisso e si mostra col suo nome. Un server
+            // di prima non li manda, e il nome e' la voce stessa.
+            nome: '${c['nome'] ?? c['voce']}',
+            famiglia: '${c['famiglia'] ?? 'Gemini'}',
           ),
       ],
       scelta: '${m['scelta'] ?? ''}',
@@ -311,7 +316,8 @@ class LeVociDelMaestro {
     required this.frase,
   });
 
-  final List<({String voce, String descrizione})> candidate;
+  final List<({String voce, String descrizione, String nome, String famiglia})>
+      candidate;
   final String scelta;
   final String frase;
 }

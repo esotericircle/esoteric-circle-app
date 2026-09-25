@@ -4,6 +4,7 @@ import * as logger from "firebase-functions/logger";
 import {getFirestore} from "firebase-admin/firestore";
 import {applicationDefault} from "firebase-admin/app";
 import {AccessToken} from "livekit-server-sdk";
+import {TextToSpeechClient} from "@google-cloud/text-to-speech";
 
 /**
  * IL LIVE DEI MAESTRI, LATO SERVER. Ordine EG, 23 settembre 2026.
@@ -715,13 +716,93 @@ const IL_GENERE: Record<string, "f" | "m"> = {
   medora: "f", aura: "f", caligo: "m",
 };
 
-export const LE_CANDIDATE: Record<string, {voce: string;
-  descrizione: string}[]> = Object.fromEntries(
-  Object.entries(IL_GENERE).map(([maestro, genere]) => [
-    maestro,
-    LE_VOCI_DI_GEMINI.filter((v) => v.genere === genere)
-      .map(({voce, descrizione}) => ({voce, descrizione})),
-  ])
+/**
+ * **LE VOCI CHIRP 3 HD.** Ordine EM voce 02, 25 settembre 2026.
+ *
+ * Il fondatore, sulla pagina delle voci dell'ordine EK: *"Prova ad aggiungere
+ * anche le voci Chirp nel selettore"*. Le voci italiane di Chirp 3 HD sono
+ * trenta, con gli stessi nomi e lo stesso genere di quelle di Gemini-TTS:
+ * lette da `/v1/voices` sull'endpoint "eu" il 25 settembre 2026, quattordici
+ * femminili e sedici maschili, a 24.000 campioni al secondo.
+ *
+ * **L'UNICA ECCEZIONE ALLA REGIONE DEI DATI.** Chirp 3 HD non sta in
+ * europe-west1: il 24 settembre 2026 quell'endpoint ha risposto *"Voice
+ * it-IT-Chirp3-HD-Aoede not found"*. Il fondatore, il 25 settembre 2026, ha
+ * detto si' a un'eccezione limitata alla voce e all'endpoint multiregionale
+ * "eu", che tiene i dati nell'Unione Europea; **mai "global"**. Sta scritta,
+ * con la data, in `lib/core/config/la_regione_dei_dati.dart`, e la guardia
+ * `le_voci_stanno_in_europa_test.dart` pretende che nessun altro indirizzo
+ * della voce esca dalla regione.
+ *
+ * **A flusso.** `streamingSynthesize` da' il primo suono in 210-318
+ * millesimi, misurati dal PC il 25 settembre 2026
+ * (`docs/collaudo/EM/chirp_primo_suono.txt`); la sintesi intera ne voleva
+ * 1.150-1.611. **Le voci Chirp non ricevono il modo**: dicono il testo cosi'
+ * com'e', e un modo lo leggerebbero ad alta voce.
+ */
+const PUNTO_DELLE_VOCI_CHIRP = "eu-texttospeech.googleapis.com";
+const PREFISSO_CHIRP = "Chirp3-HD-";
+const TASSO_CHIRP = 24000;
+
+let ilClienteChirp: TextToSpeechClient | null = null;
+
+function clienteChirp(): TextToSpeechClient {
+  ilClienteChirp ??= new TextToSpeechClient({apiEndpoint: PUNTO_DELLE_VOCI_CHIRP});
+  return ilClienteChirp;
+}
+
+/** Vero per una voce Chirp 3 HD, cioe' un nome col suo prefisso. */
+export function eUnaVoceChirp(voce: string): boolean {
+  return voce.startsWith(PREFISSO_CHIRP);
+}
+
+/**
+ * La voce Chirp a flusso: ogni pezzo di PCM a 16 bit, mono, a 24.000
+ * campioni, appena arriva.
+ */
+async function laVoceChirpAFlusso(
+  testo: string,
+  voce: string,
+  suPezzo: (pcm: Buffer) => Promise<void> | void
+): Promise<void> {
+  const flusso = clienteChirp().streamingSynthesize();
+  flusso.write({
+    streamingConfig: {
+      voice: {languageCode: "it-IT", name: `it-IT-${voce}`},
+      streamingAudioConfig: {audioEncoding: "PCM", sampleRateHertz: TASSO_CHIRP},
+    },
+  });
+  flusso.write({input: {text: testo}});
+  flusso.end();
+  for await (const r of flusso) {
+    const audio = (r as {audioContent?: Uint8Array | string | null}).audioContent;
+    if (audio && audio.length > 0) {
+      await suPezzo(typeof audio === "string" ?
+        Buffer.from(audio, "base64") : Buffer.from(audio));
+    }
+  }
+}
+
+/**
+ * Le candidate di ogni Maestro: le voci di Gemini-TTS del suo genere e le
+ * stesse in Chirp 3 HD. **Il nome si mostra, la voce si salva**: per Chirp la
+ * voce porta il prefisso, cosi' la scelta dice anche la famiglia.
+ */
+export const LE_CANDIDATE: Record<string, {voce: string; nome: string;
+  famiglia: string; descrizione: string}[]> = Object.fromEntries(
+  Object.entries(IL_GENERE).map(([maestro, genere]) => {
+    const delGenere = LE_VOCI_DI_GEMINI.filter((v) => v.genere === genere);
+    return [maestro, [
+      ...delGenere.map(({voce, descrizione}) =>
+        ({voce, nome: voce, famiglia: "Gemini", descrizione})),
+      ...delGenere.map(({voce, descrizione}) => ({
+        voce: `${PREFISSO_CHIRP}${voce}`,
+        nome: voce,
+        famiglia: "Chirp 3 HD",
+        descrizione,
+      })),
+    ]];
+  })
 );
 
 /**
@@ -735,8 +816,18 @@ export const LE_CANDIDATE: Record<string, {voce: string;
 const I_MODI: Record<string, string> = {
   medora: "Leggi in italiano, con la pronuncia di una madrelingua italiana, " +
     "con voce calda e matura di donna, con calma naturale:",
+  // **CALÌGO NON RALLENTA PIU'.** Ordine EM voce 12, 25 settembre 2026. Il
+  // fondatore: *"qualunque voce di Caligo è rallentata."* Misurato su tutte
+  // le sedici voci col testo lungo dell'ordine EK: col modo "con voce grave e
+  // matura di uomo, con calma naturale" parlavano fra 9,1 e 11,1 caratteri al
+  // secondo, mediana 10,1, e il parlato italiano naturale sta fra 13 e 15.
+  // **Qualunque parola sul timbro rallenta**: "voce profonda di uomo" pesava
+  // anche insieme a "a ritmo sciolto e spedito" (10,9-12,0). Resta la
+  // pronuncia di madrelingua, e il ritmo di conversazione: fra 11,8 e 15,3,
+  // mediana 13,4, due giri per voce (`docs/collaudo/EM/caligo/`). Il timbro
+  // lo da' la voce che il fondatore sceglie, non il modo.
   caligo: "Leggi in italiano, con la pronuncia di un madrelingua italiano, " +
-    "con voce grave e matura di uomo, con calma naturale:",
+    "a ritmo di conversazione:",
   aura: "Leggi in italiano, con la pronuncia di una madrelingua italiana, " +
     "con voce giovane, calma e chiara di donna:",
 };
@@ -774,6 +865,23 @@ let scelteInCache: {
 } | null = null;
 
 /**
+ * **QUANTO VALE UNA LETTURA DELLA SCELTA: TRE SECONDI.** Ordine EM voce 06,
+ * 25 settembre 2026. Il fondatore: *"Quando seleziono la voce nel selettore
+ * anche se scelgo una voce diversa, questa non viene applicata realmente,
+ * funziona solo il preview della voce."*
+ *
+ * **La causa.** La scelta restava in memoria un minuto, e **ogni porta del
+ * server gira in un servizio Cloud Run suo, con la sua memoria**:
+ * `scegliLaVoce` azzerava la propria, ma la porta che parla nel LIVE,
+ * `laVoceDelMaestro`, continuava a usare la voce di prima finche' il suo
+ * minuto non scadeva. E nel suo registro non scriveva quale voce usava, quindi
+ * nessuno poteva leggerlo. Padre: ordine EJ voce 02, che ha scritto la memoria
+ * di un minuto e l'azzeramento in una porta sola. Adesso la scelta si rilegge
+ * se ha piu' di tre secondi, e ogni voce detta scrive nel registro quale era.
+ */
+const LA_SCELTA_VALE_MS = 3000;
+
+/**
  * **La voce di un Maestro, come l'ha scelta il fondatore.** Vive in
  * `configurazione/live`, campi `voci` e `modelliDellaVoce`, e cambia senza
  * una build nuova; si rilegge al massimo una volta al minuto. Una voce che
@@ -782,9 +890,10 @@ let scelteInCache: {
  */
 export async function laVoceScelta(
   maestro: string
-): Promise<{voce: string; modo: string; modello: string}> {
+): Promise<{voce: string; modo: string; modello: string;
+  famiglia: "gemini" | "chirp3"}> {
   const ora = Date.now();
-  if (!scelteInCache || ora - scelteInCache.quando > 60000) {
+  if (!scelteInCache || ora - scelteInCache.quando > LA_SCELTA_VALE_MS) {
     const doc = await getFirestore().doc("configurazione/live").get();
     scelteInCache = {
       quando: ora,
@@ -796,11 +905,13 @@ export async function laVoceScelta(
   const valida = (LE_CANDIDATE[maestro] ?? []).some((c) => c.voce === scelta);
   const partenza = LE_VOCI_DI_PARTENZA[maestro];
   const modello = scelteInCache.modelli[maestro];
+  const voce = valida ? scelta : partenza.voce;
   return {
-    voce: valida ? scelta : partenza.voce,
+    voce,
     modo: I_MODI[maestro] ?? partenza.modo,
     modello: I_MODELLI_DELLA_VOCE.includes(modello) ?
       modello : MODELLO_DELLA_VOCE,
+    famiglia: eUnaVoceChirp(voce) ? "chirp3" : "gemini",
   };
 }
 
@@ -919,6 +1030,22 @@ export const ascoltaUnaVoce = onCall(
     if (!(LE_CANDIDATE[maestro] ?? []).some((c) => c.voce === voce)) {
       throw new HttpsError("invalid-argument", "Voce non fra le candidate.");
     }
+    // **Una voce Chirp si ascolta com'e'**, senza modo, dall'endpoint "eu":
+    // ordine EM voce 02.
+    if (eUnaVoceChirp(voce)) {
+      const pezzi: Buffer[] = [];
+      await laVoceChirpAFlusso(LA_FRASE_DI_PROVA[maestro], voce, (p) => {
+        pezzi.push(p);
+      });
+      logger.info("ascolto di una voce", {
+        maestro, voce, famiglia: "chirp3", punto: PUNTO_DELLE_VOCI_CHIRP,
+      });
+      return {
+        audio: Buffer.concat(pezzi).toString("base64"),
+        tasso: TASSO_CHIRP,
+        canali: 1,
+      };
+    }
     // Col modello scelto per quel Maestro: l'ascolto di prova deve suonare
     // come il LIVE.
     const {modello} = await laVoceScelta(maestro);
@@ -968,6 +1095,52 @@ export const laVoceDelMaestro = onCall(
     }
     // Ordine EJ voce 02: la voce e' quella scelta dal fondatore.
     const come = await laVoceScelta(maestro);
+
+    // **LA VOCE CHIRP, A FLUSSO DALL'ENDPOINT "eu".** Ordine EM voce 02.
+    if (come.famiglia === "chirp3") {
+      const aFlussoChirp = request.acceptsStreaming;
+      const tuttoChirp: Buffer[] = [];
+      let pezziChirp = 0;
+      let byteChirp = 0;
+      let primoChirp = -1;
+      const partenzaChirp = Date.now();
+      await laVoceChirpAFlusso(testo, come.voce, async (pcm) => {
+        if (primoChirp < 0) primoChirp = Date.now() - partenzaChirp;
+        pezziChirp++;
+        byteChirp += pcm.length;
+        if (aFlussoChirp) {
+          await response?.sendChunk(
+            {audio: pcm.toString("base64"), tasso: TASSO_CHIRP, canali: 1});
+        } else {
+          tuttoChirp.push(pcm);
+        }
+      });
+      if (pezziChirp === 0) {
+        logger.error("la voce Chirp del Maestro e' tornata vuota",
+          {maestro, voce: come.voce});
+        throw new HttpsError("internal", "La voce e' tornata vuota.");
+      }
+      logger.info("voce del Maestro", {
+        maestro,
+        voce: come.voce,
+        famiglia: come.famiglia,
+        punto: PUNTO_DELLE_VOCI_CHIRP,
+        caratteri: testo.length,
+        byte: byteChirp,
+        tasso: TASSO_CHIRP,
+        pezzi: pezziChirp,
+        aFlusso: aFlussoChirp,
+        primoMs: primoChirp,
+        totaleMs: Date.now() - partenzaChirp,
+      });
+      return aFlussoChirp ?
+        {fine: true, tasso: TASSO_CHIRP, canali: 1} :
+        {
+          audio: Buffer.concat(tuttoChirp).toString("base64"),
+          tasso: TASSO_CHIRP,
+          canali: 1,
+        };
+    }
 
     // **LA VOCE ARRIVA A FLUSSO.** La prima stesura chiedeva l'audio intero
     // e lo restituiva in un colpo: 4,4 secondi per 47 caratteri, 11,7 per
@@ -1056,6 +1229,10 @@ export const laVoceDelMaestro = onCall(
     }
     logger.info("voce del Maestro", {
       maestro,
+      voce: come.voce,
+      famiglia: come.famiglia,
+      modello: come.modello,
+      punto: `${REGIONE_DELLA_VOCE}-aiplatform.googleapis.com`,
       caratteri: testo.length,
       byte,
       tasso,

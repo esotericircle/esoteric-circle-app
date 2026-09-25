@@ -24,6 +24,22 @@ class LeFrasiDellaPersona {
   /// Quanti pezzi aspettano di diventare una domanda.
   int get pezziInAttesa => _pezzi.length;
 
+  /// Il giro corrente: cambia a ogni frase chiusa e a ogni ripartenza.
+  int get giro => _giro;
+
+  /// **TUTTO CIO' CHE LA PERSONA HA DETTO FINORA, SENZA CHIUDERE NIENTE.**
+  /// Ordine EM voce 11: quando la frase va in pausa la schermata comincia a
+  /// trascriverla, e le serve l'audio intero, i pezzi gia' chiusi e quello
+  /// in corso, senza che il pezzo in corso diventi una frase.
+  Uint8List anteprima(Uint8List inCorso) {
+    final tutto = BytesBuilder(copy: true);
+    for (final p in _pezzi) {
+      tutto.add(p);
+    }
+    tutto.add(inCorso);
+    return tutto.toBytes();
+  }
+
   /// Una frase si e' chiusa col silenzio. Torna tutto l'audio da trascrivere
   /// e il biglietto con cui la trascrizione dovra' presentarsi.
   ({Uint8List pcm, int biglietto}) chiusa(Uint8List pcm) {

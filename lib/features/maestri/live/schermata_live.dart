@@ -22,6 +22,7 @@ import '../../shell/quale_musica_suona.dart';
 import 'il_parlato_del_maestro.dart';
 import 'le_frasi_della_persona.dart';
 import 'il_selettore_delle_voci.dart';
+import 'la_scena_del_live.dart';
 import 'stato_della_schermata_live.dart';
 
 /// **LA SCHERMATA LIVE.** Ordine EG voce 05.
@@ -107,6 +108,31 @@ class _SchermataLiveState extends State<SchermataLive> {
 
   Completer<void>? _fineDellaVoce;
 
+  /// **Vero mentre il fondatore sceglie la voce.** Ordine EM voce 08: col
+  /// selettore aperto il microfono tace, e riparte quando si chiude.
+  bool _nelSelettore = false;
+
+  /// **LA TRASCRIZIONE ANTICIPATA.** Ordine EM voce 11, 25 settembre 2026.
+  /// Il fondatore: *"Da quando faccio una domanda a quando ottengo risposta
+  /// passano diversi secondi, circa 4."* Misurato sul Realme con la 2280, nel
+  /// LIVE di Aura: dopo la fine del parlato due secondi di silenzio per
+  /// chiudere la frase, poi da 1,31 a 1,93 secondi di trascrizione, da 1,59
+  /// a 4,44 di risposta della chat e da 0,60 a 0,74 per il primo suono. La
+  /// trascrizione aspettava che la frase fosse chiusa. Adesso comincia quando
+  /// la frase va in pausa, a settecento millesimi: se la frase si chiude con
+  /// quella stessa pausa, la trascrizione e' gia' pronta o quasi, e i due
+  /// secondi di silenzio, che restano quelli dell'ordine EJ, lavorano
+  /// invece di aspettare.
+  ({int pausa, int giro, Future<String?> testo})? _anticipata;
+
+  /// **L'ATTESA, MISURATA PEZZO PER PEZZO.** Ordine EM voce 11: dalla fine
+  /// del parlato alla frase chiusa, alla trascrizione, alla risposta, al
+  /// primo audio mandato al volto, al volto che parla nella stanza.
+  DateTime? _fineDelParlato;
+  final Map<String, int> _tappe = {};
+  bool _attesaAperta = false;
+  lk.EventsListener<lk.RoomEvent>? _ascoltatoreDellaStanza;
+
   @override
   void initState() {
     super.initState();
@@ -169,6 +195,7 @@ class _SchermataLiveState extends State<SchermataLive> {
   @override
   void dispose() {
     _orologio?.cancel();
+    unawaited(_ascoltatoreDellaStanza?.dispose());
     _campo.dispose();
     unawaited(_orecchio.dispose());
     _livello.dispose();
@@ -249,6 +276,18 @@ class _SchermataLiveState extends State<SchermataLive> {
         return '';
       });
       stanza.addListener(_quandoLaStanzaCambia);
+      // **Il volto che parla davvero nella stanza** chiude la misura
+      // dell'attesa: e' il momento in cui la persona lo sente. Ordine EM voce
+      // 11.
+      _ascoltatoreDellaStanza = stanza.createListener()
+        ..on<lk.ActiveSpeakersChangedEvent>((e) {
+          if (_attesaAperta &&
+              e.speakers.any((p) => p.identity == s.lavoratore)) {
+            _attesaAperta = false;
+            _segnaTappa('il volto parla');
+            _scriviLAttesa();
+          }
+        });
       await stanza.connect(s.url, s.gettone);
       if (!mounted) {
         await stanza.disconnect();
@@ -325,6 +364,7 @@ class _SchermataLiveState extends State<SchermataLive> {
       pensaIlMaestro: _pensa,
       parlaLaPersona: _orecchio.staParlando,
       frasiInTrascrizione: _frasiInTrascrizione,
+      nelSelettore: _nelSelettore,
     )) {
       _secondiDiSilenzio++;
     }
@@ -404,11 +444,13 @@ class _SchermataLiveState extends State<SchermataLive> {
   /// frase. Il microfono resta aperto anche fra una frase e l'altra, e
   /// `LeFrasiDellaPersona` decide quando i pezzi detti diventano la domanda.
   Future<void> _ascoltaLaPersona() async {
-    if (!mounted || _parla || _pensa || _ascolta) return;
+    if (!mounted || _parla || _pensa || _ascolta || _nelSelettore) return;
     if (_quadro.momento != MomentoDelLive.vivo) return;
     _frasi.dimentica();
+    _anticipata = null;
     _orecchio.suLivello = (l) => _livello.value = l;
-    _orecchio.suFrase = (pcm) => unawaited(_unaFrase(pcm));
+    _orecchio.suFrase = (pcm, pausa) => unawaited(_unaFrase(pcm, pausa));
+    _orecchio.suPausa = _inPausa;
     setState(() => _ascolta = true);
     final aperto = await _orecchio.ascolta();
     if (mounted && !aperto) setState(() => _ascolta = false);
@@ -421,15 +463,28 @@ class _SchermataLiveState extends State<SchermataLive> {
   /// una "frase" che Gemini trovava vuota, e ogni volta l'orologio del
   /// silenzio ripartiva da zero: la sessione non si chiudeva mai e consumava
   /// crediti. La presenza la da' solo una frase con parole.
-  Future<void> _unaFrase(Uint8List pcm) async {
+  Future<void> _unaFrase(Uint8List pcm, int pausa) async {
+    final fineDelParlato = _orecchio.ultimaVoce;
+    final chiusaAl = DateTime.now();
+    final anticipata = _anticipata;
+    _anticipata = null;
+    final giroPrima = _frasi.giro;
     final daTrascrivere = _frasi.chiusa(pcm);
     final pezzi = _frasi.pezziInAttesa;
     final orologio = Stopwatch()..start();
     var detto = '';
+    var comeTrascritta = 'alla chiusura';
     _frasiInTrascrizione++;
     try {
-      detto = await LaTrascrizione.trascrivi(
-          wavDaPcm(daTrascrivere.pcm, tasso: LOrecchioDelLive.tasso));
+      String? pronto;
+      if (anticipata != null &&
+          pausa >= 0 &&
+          anticipata.pausa == pausa &&
+          anticipata.giro == giroPrima) {
+        pronto = await anticipata.testo;
+        if (pronto != null) comeTrascritta = 'in pausa';
+      }
+      detto = pronto ?? await _trascrivi(daTrascrivere.pcm);
     } catch (errore) {
       annotaGuastoInnocuo('la frase del LIVE non si trascrive', errore);
     } finally {
@@ -438,12 +493,55 @@ class _SchermataLiveState extends State<SchermataLive> {
     final domanda = _frasi.trascritta(daTrascrivere.biglietto, detto,
         parlaDiNuovo: _orecchio.staParlando);
     debugPrint('LIVE: frase di ${daTrascrivere.pcm.length ~/ 32} ms in '
-        '$pezzi pezzi, trascritta in ${orologio.elapsedMilliseconds} ms: '
-        '«$detto» ${domanda == null ? '(si ascolta ancora)' : '(parte)'}');
+        '$pezzi pezzi, trascritta in ${orologio.elapsedMilliseconds} ms '
+        'dalla chiusura, $comeTrascritta: «$detto» '
+        '${domanda == null ? '(si ascolta ancora)' : '(parte)'}');
     if (domanda == null || !mounted) return;
     if (_quadro.momento != MomentoDelLive.vivo || _parla || _pensa) return;
     _cePresenza();
+    _fineDelParlato = fineDelParlato ?? chiusaAl;
+    _tappe
+      ..clear()
+      ..['frase chiusa'] = chiusaAl.difference(_fineDelParlato!).inMilliseconds;
+    _segnaTappa('trascritta');
     await _turno(domanda);
+  }
+
+  /// **La frase e' in pausa: si comincia a trascriverla.** Ordine EM voce 11.
+  /// Un guasto qui non si vede: alla chiusura la frase si trascrive di nuovo.
+  void _inPausa(Uint8List pcm, int pausa) {
+    final orologio = Stopwatch()..start();
+    final audio = _frasi.anteprima(pcm);
+    final testo = _trascrivi(audio).then<String?>((t) {
+      debugPrint('LIVE: trascrizione anticipata in '
+          '${orologio.elapsedMilliseconds} ms, pausa $pausa');
+      return t;
+    }).catchError((Object errore) {
+      annotaGuastoInnocuo('la trascrizione anticipata non riesce', errore);
+      return null;
+    });
+    _anticipata = (pausa: pausa, giro: _frasi.giro, testo: testo);
+  }
+
+  /// La trascrizione di [pcm], con le regole del LIVE di questo Maestro.
+  Future<String> _trascrivi(Uint8List pcm) async {
+    final detto = await LaTrascrizione.trascrivi(
+        wavDaPcm(pcm, tasso: LOrecchioDelLive.tasso));
+    // **Nel LIVE di Aura "Laura" e' Aura.** Ordine EM voce 01.
+    return LaTrascrizione.nelLiveDi(widget.maestro, detto);
+  }
+
+  /// Segna una tappa dell'attesa, in millesimi dalla fine del parlato.
+  void _segnaTappa(String nome) {
+    final da = _fineDelParlato;
+    if (da == null) return;
+    _tappe[nome] = DateTime.now().difference(da).inMilliseconds;
+  }
+
+  /// **Il registro dell'attesa**, una riga per domanda. Ordine EM voce 11.
+  void _scriviLAttesa() {
+    debugPrint('LIVE ATTESA dalla fine del parlato: '
+        '${_tappe.entries.map((e) => '${e.key} ${e.value} ms').join(', ')}');
   }
 
   /// **PREMI PER PARLARE.** Finche' la persona tiene premuto la frase non si
@@ -475,12 +573,15 @@ class _SchermataLiveState extends State<SchermataLive> {
     setState(() {
       _ascolta = false;
       _pensa = true;
-      _quadro = _quadro.con(sottotitolo: testo);
+      // **La domanda resta a video, e la risposta arrivera' sotto.** Ordine
+      // EM voce 09.
+      _quadro = _quadro.con(domanda: testo, sottotitolo: '');
     });
     final prima = chat.messages.length;
     final orologio = Stopwatch()..start();
     try {
       await chat.send(testo);
+      _segnaTappa('risposta');
       debugPrint('LIVE: la chat ha risposto in '
           '${orologio.elapsedMilliseconds} ms (rigenerazioni finora: '
           'ancoraggio ${chat.rigenerazioniPerAncoraggio}, troncatura '
@@ -495,7 +596,11 @@ class _SchermataLiveState extends State<SchermataLive> {
       if (m.role == ChatRole.maestro && !m.pending) risposta = m;
     }
     setState(() => _pensa = false);
-    if (risposta != null) await _dillo(risposta.text);
+    if (risposta != null) {
+      await _dillo(risposta.text, conAttesa: true);
+    } else {
+      _fineDelParlato = null;
+    }
     await _ascoltaLaPersona();
   }
 
@@ -513,6 +618,7 @@ class _SchermataLiveState extends State<SchermataLive> {
   Future<void> _dillo(
     String scritto, {
     Future<List<({Uint8List pcm, int tasso, int canali})>>? giaPronta,
+    bool conAttesa = false,
   }) async {
     final stanza = _stanza;
     final s = _quadro.sessione;
@@ -547,6 +653,10 @@ class _SchermataLiveState extends State<SchermataLive> {
               'num_channels': '${voce.canali}',
             },
           ));
+          if (primoSuono == null && conAttesa) {
+            _segnaTappa('primo audio al volto');
+            _attesaAperta = true;
+          }
           primoSuono ??= orologio.elapsed;
           secondiDiVoce += voce.pcm.length / (2 * voce.canali * voce.tasso);
           await _scriviAPezzi(scrittore, voce.pcm);
@@ -605,6 +715,31 @@ class _SchermataLiveState extends State<SchermataLive> {
     }
   }
 
+  /// **IL SELETTORE DELLE VOCI FERMA L'ASCOLTO, E LO RIPRENDE.** Ordine EM
+  /// voce 08, 25 settembre 2026. Il fondatore: *"Quando torno indietro dal
+  /// selettore, il microfono non funziona più."* Due difetti insieme: il
+  /// microfono restava aperto mentre le anteprime suonavano, e le avrebbe
+  /// trascritte come domande; e il registratore, alla prima anteprima,
+  /// perdeva il fuoco audio e si fermava per sempre (la cura sta in
+  /// `LOrecchioDelLive.configurazione`). Adesso il microfono si chiude
+  /// quando il selettore si apre, l'orologio del silenzio non conta, e alla
+  /// chiusura l'ascolto riparte.
+  Future<void> _apriIlSelettore() async {
+    if (_nelSelettore) return;
+    _nelSelettore = true;
+    await _orecchio.ferma();
+    if (mounted) setState(() => _ascolta = false);
+    try {
+      if (mounted) await IlSelettoreDelleVoci.apri(context, widget.maestro);
+    } finally {
+      _nelSelettore = false;
+      if (mounted) {
+        _cePresenza();
+        unawaited(_ascoltaLaPersona());
+      }
+    }
+  }
+
   /// **IL RIPIEGO TATTILE**: chi non puo' parlare scrive, e il Maestro
   /// risponde a voce lo stesso.
   Future<void> _mandaScritto() async {
@@ -635,8 +770,7 @@ class _SchermataLiveState extends State<SchermataLive> {
               key: const Key('live_voci'),
               tooltip: 'Scegli il timbro',
               icon: const Icon(Icons.record_voice_over),
-              onPressed: () =>
-                  IlSelettoreDelleVoci.apri(context, widget.maestro),
+              onPressed: () => unawaited(_apriIlSelettore()),
             ),
           if (_quadro.sessione != null)
             Padding(
@@ -660,53 +794,27 @@ class _SchermataLiveState extends State<SchermataLive> {
           ),
         ],
       ),
+      // **La scena ha le sue misure fisse**: il volto non cambia misura fra
+      // una domanda e una risposta. Ordine EM voci 09 e 10, vedi
+      // `LaScenaDelLive`.
       body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(child: _ilVolto()),
-            if (_quadro.sottotitolo.isNotEmpty)
-              // **Il sottotitolo non ruba la finestra.** Una risposta di
-              // trenta secondi, scritta per intero, spingeva il volto a meta'
-              // schermo: qui ha un tetto, e oltre scorre.
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxHeight: MediaQuery.sizeOf(context).height * 0.2,
-                ),
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.all(SpacingTokens.md),
-                  child: Text(
-                    key: const Key('live_sottotitolo'),
-                    _quadro.sottotitolo,
-                    style: TypographyTokens.corpo(),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            if (_quadro.momento == MomentoDelLive.vivo)
-              Padding(
-                padding: const EdgeInsets.only(bottom: SpacingTokens.sm),
-                child: Column(
-                  children: [
-                    Text(
-                      key: const Key('live_stato'),
-                      _pensa
-                          ? 'Sto pensando.'
-                          : _parla
-                              ? ''
-                              : _orecchio.aMano
-                                  ? 'Parla quanto vuoi, poi lascia.'
-                                  : _ascolta
-                                      ? 'Ti ascolto. Prenditi il tempo che serve.'
-                                      : 'Tieni premuto il microfono o scrivimi.',
-                      style: TypographyTokens.didascalia()
-                          .copyWith(color: ColorTokens.textSecondary),
-                    ),
-                    if (_ascolta) _laBarraDellAscolto(),
-                  ],
-                ),
-              ),
-            if (_quadro.siPuoScrivere) _laTastiera(),
-          ],
+        child: LaScenaDelLive(
+          volto: _ilVolto(),
+          domanda: _quadro.domanda,
+          risposta: _quadro.sottotitolo,
+          stato: _quadro.momento != MomentoDelLive.vivo
+              ? ''
+              : _pensa
+                  ? 'Sto pensando.'
+                  : _parla
+                      ? ''
+                      : _orecchio.aMano
+                          ? 'Parla quanto vuoi, poi lascia.'
+                          : _ascolta
+                              ? 'Ti ascolto. Prenditi il tempo che serve.'
+                              : 'Tieni premuto il microfono o scrivimi.',
+          livello: _ascolta ? _laBarraDellAscolto() : null,
+          tastiera: _quadro.siPuoScrivere ? _laTastiera() : null,
         ),
       ),
     );
@@ -829,22 +937,18 @@ class _SchermataLiveState extends State<SchermataLive> {
 
   /// Il livello del microfono mentre si ascolta: la persona vede che la
   /// sua voce arriva, e che il microfono e' ancora aperto durante le pause.
-  Widget _laBarraDellAscolto() => Padding(
-        padding: const EdgeInsets.only(top: SpacingTokens.xs),
-        child: ValueListenableBuilder<double>(
-          valueListenable: _livello,
-          builder: (_, l, __) => SizedBox(
-            key: const Key('live_livello'),
-            width: 120,
-            height: 3,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(2),
-              child: LinearProgressIndicator(
-                value: l,
-                backgroundColor:
-                    ColorTokens.textSecondary.withValues(alpha: 0.2),
-                valueColor: const AlwaysStoppedAnimation(ColorTokens.goldLight),
-              ),
+  Widget _laBarraDellAscolto() => ValueListenableBuilder<double>(
+        valueListenable: _livello,
+        builder: (_, l, __) => SizedBox(
+          key: const Key('live_livello'),
+          width: 120,
+          height: 3,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(2),
+            child: LinearProgressIndicator(
+              value: l,
+              backgroundColor: ColorTokens.textSecondary.withValues(alpha: 0.2),
+              valueColor: const AlwaysStoppedAnimation(ColorTokens.goldLight),
             ),
           ),
         ),
