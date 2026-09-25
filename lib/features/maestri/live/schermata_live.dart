@@ -499,6 +499,17 @@ class _SchermataLiveState extends State<SchermataLive> {
         }
       }
       detto = pronto ?? await _trascrivi(daTrascrivere.pcm);
+      // **UNA FRASE DI VOCE VERA NON TORNA VUOTA AL PRIMO COLPO.** Ordine EM
+      // voce 04, secondo giro. Sul Realme, nella stanza silenziosa, "Sono
+      // dello Scorpione con ascendente Sagittario e la Luna in Capricorno"
+      // e' tornata vuota dalla trascrizione anticipata, mentre il controllo
+      // di un secondo e mezzo prima ne aveva quasi tutte le parole: la
+      // domanda si e' persa e il LIVE si e' chiuso per silenzio. Con piu' di
+      // un secondo di voce vera, si trascrive di nuovo l'audio intero.
+      if (detto.isEmpty && _orecchio.voceDellaFrase(frase) >= laVoceChiara) {
+        detto = await _trascrivi(daTrascrivere.pcm);
+        comeTrascritta = '$comeTrascritta, poi di nuovo';
+      }
       trascritta = true;
     } catch (errore) {
       annotaGuastoInnocuo('la frase del LIVE non si trascrive', errore);
@@ -515,6 +526,21 @@ class _SchermataLiveState extends State<SchermataLive> {
         '$pezzi pezzi, trascritta in ${orologio.elapsedMilliseconds} ms '
         'dalla chiusura, $comeTrascritta: «$detto» '
         '${domanda == null ? '(si ascolta ancora)' : '(parte)'}');
+    // **SE NEMMENO LA SECONDA PROVA SENTE PAROLE, IL MAESTRO CHIEDE DI
+    // RIPETERE**, invece di tacere mentre l'orologio del silenzio chiude il
+    // LIVE: e' cio' che fa "Ok Google" quando non capisce.
+    if (domanda == null &&
+        trascritta &&
+        detto.isEmpty &&
+        mounted &&
+        _orecchio.voceDellaFrase(frase) >= laVoceChiara &&
+        !_orecchio.staParlando &&
+        _quadro.momento == MomentoDelLive.vivo &&
+        !_parla &&
+        !_pensa) {
+      await _nonHoSentito();
+      return;
+    }
     if (domanda == null || !mounted) return;
     if (_quadro.momento != MomentoDelLive.vivo || _parla || _pensa) return;
     _cePresenza();
@@ -524,6 +550,33 @@ class _SchermataLiveState extends State<SchermataLive> {
       ..['frase chiusa'] = chiusaAl.difference(_fineDelParlato!).inMilliseconds;
     _segnaTappa('trascritta');
     await _turno(domanda);
+  }
+
+  /// **Quanta voce vera rende incredibile una trascrizione vuota.** Ordine
+  /// EM voce 04, secondo giro.
+  static const Duration laVoceChiara = Duration(seconds: 1);
+
+  /// **La frase del Maestro quando non ha sentito le parole.** Ordine EM
+  /// voce 04, secondo giro.
+  static const String nonHoSentito = 'Non ho sentito bene: me lo ripeti?';
+
+  /// **NON HO SENTITO BENE.** Ordine EM voce 04, secondo giro: una frase con
+  /// voce vera e' tornata vuota due volte. Il Maestro lo dice, l'orologio
+  /// del silenzio riparte, e il microfono si riapre.
+  Future<void> _nonHoSentito() async {
+    debugPrint('LIVE: la frase ha voce ma nessuna parola, due volte: il '
+        'Maestro chiede di ripetere');
+    await _orecchio.ferma();
+    _frasi.dimentica();
+    _cePresenza();
+    if (!mounted) return;
+    setState(() {
+      _ascolta = false;
+      _quadro = _quadro.con(domanda: '', sottotitolo: '');
+    });
+    await _dillo(nonHoSentito);
+    if (!mounted) return;
+    await _ascoltaLaPersona();
   }
 
   /// **La frase e' in pausa: si comincia a trascriverla.** Ordine EM voce 11.
@@ -563,8 +616,8 @@ class _SchermataLiveState extends State<SchermataLive> {
           if (_orecchio.scarta(frase)) {
             _frasi.dimentica();
           } else {
-            debugPrint('LIVE: la frase $frase sta sopra il sottofondo: non si '
-                'scarta');
+            debugPrint('LIVE: la frase $frase non si scarta: sta sopra il '
+                'sottofondo, o e\' il primo controllo vuoto senza sottofondo');
           }
         case CosaFareDellaFrase.chiudi:
           if (giro != _frasi.giro) return;

@@ -298,12 +298,95 @@ void main() {
           reason: 'lo scarto non si chiede se la frase era sottofondo');
       expect(guardia < scarta.indexOf('_stanza.imparaTutte('), isTrue,
           reason: 'lo scarto impara prima di chiedersi se era sottofondo');
+      final era = orecchio.substring(orecchio.indexOf('void eraSottofondo('));
       expect(
-          orecchio.contains(
-              'if (voci != null && _stanza.sembraSottofondo(voci)) {'),
+          era
+              .substring(0, era.indexOf('\n  }'))
+              .contains('_stanza.sembraSottofondo(voci)'),
           isTrue,
           reason: 'una frase chiusa e trovata vuota insegna alla stanza la '
               'voce della persona');
+    });
+  });
+
+  group('UNA DOMANDA VERA NON SI PERDE', () {
+    // Sul Realme, stanza silenziosa, build finale della 2281: "Sono dello
+    // Scorpione con ascendente Sagittario e la Luna in Capricorno" e' tornata
+    // vuota dalla trascrizione anticipata, la domanda si e' persa e il LIVE si
+    // e' chiuso per silenzio ventun secondi dopo.
+    test('LA FRASE SA QUANTA VOCE VERA HA SENTITO', () {
+      final s = IlSilenzioVero();
+      for (var t = 0; t < 500; t += 50) {
+        s.senti(-70, pezzo, voce: 0.2);
+      }
+      for (var t = 0; t < 1000; t += 50) {
+        s.senti(-25, pezzo, voce: 0.9);
+      }
+      // Un respiro dopo la voce non e' voce.
+      for (var t = 0; t < 500; t += 50) {
+        s.senti(-40, pezzo, voce: 0.2);
+      }
+      expect(s.voceDellaFrase, const Duration(milliseconds: 1000));
+    });
+
+    test(
+        'SENZA SOTTOFONDO LA STANZA NON IMPARA UNA FRASE VUOTA, E NON SCARTA '
+        'AL PRIMO CONTROLLO', () {
+      final orecchio =
+          File('lib/services/voce/l_orecchio_del_live.dart').readAsStringSync();
+      final scarta = orecchio.substring(orecchio.indexOf('bool scarta('));
+      final dueVolte = scarta
+          .indexOf('if (_stanza.sottofondo == null && ++_scartiChiesti < 2) '
+              'return false;');
+      expect(dueVolte, greaterThanOrEqualTo(0),
+          reason: 'senza sottofondo il primo controllo vuoto scarta la frase');
+      expect(dueVolte < scarta.indexOf('_stanza.imparaTutte('), isTrue);
+      final era = orecchio.substring(orecchio.indexOf('void eraSottofondo('));
+      expect(
+          era
+              .substring(0, era.indexOf('\n  }'))
+              .contains('_stanza.sottofondo != null &&'),
+          isTrue,
+          reason: 'nella stanza silenziosa una domanda vera tornata vuota '
+              'diventa la soglia');
+    });
+
+    test(
+        'UNA FRASE DI VOCE VERA TORNATA VUOTA SI TRASCRIVE DI NUOVO, POI IL '
+        'MAESTRO CHIEDE DI RIPETERE', () {
+      final schermata = File('lib/features/maestri/live/schermata_live.dart')
+          .readAsStringSync();
+      final frase = schermata.substring(
+          schermata.indexOf('Future<void> _unaFrase('),
+          schermata.indexOf('Future<void> _nonHoSentito()'));
+      final seconda = frase
+          .indexOf('if (detto.isEmpty && _orecchio.voceDellaFrase(frase) >= '
+              'laVoceChiara) {');
+      expect(seconda, greaterThanOrEqualTo(0),
+          reason: 'una trascrizione vuota di una frase con voce vera non si '
+              'riprova');
+      expect(
+          frase
+              .substring(seconda)
+              .startsWith(RegExp(r'[^}]*detto = await _trascrivi\(')),
+          isTrue,
+          reason: 'la seconda prova non trascrive di nuovo');
+      expect(frase.contains('await _nonHoSentito();'), isTrue,
+          reason: 'dopo due trascrizioni vuote il Maestro tace, e il LIVE si '
+              'chiude per silenzio');
+      final non = schermata
+          .substring(schermata.indexOf('Future<void> _nonHoSentito()'));
+      final corpo = non.substring(0, non.indexOf('\n  }\n'));
+      final ordine = [
+        corpo.indexOf('await _orecchio.ferma();'),
+        corpo.indexOf('_cePresenza();'),
+        corpo.indexOf('await _dillo(nonHoSentito);'),
+        corpo.indexOf('await _ascoltaLaPersona();'),
+      ];
+      expect(ordine.every((i) => i >= 0), isTrue,
+          reason: 'manca un passo di "non ho sentito": $ordine');
+      expect([...ordine]..sort(), ordine,
+          reason: 'i passi di "non ho sentito" sono fuori ordine: $ordine');
     });
   });
 

@@ -190,6 +190,7 @@ class IlSilenzioVero {
   final _silenzi = <(bool, Duration)>[];
   Duration _codaMisurata = Duration.zero;
   final _vociSentite = <double>[];
+  Duration _voceDellaFrase = Duration.zero;
 
   /// Vero quando la persona ha parlato abbastanza da contare come parlato.
   bool get haParlato => _haParlato;
@@ -221,6 +222,11 @@ class IlSilenzioVero {
   /// **I livelli dei pezzi di voce di questa frase**, per la stanza, se la
   /// frase si rivela sottofondo. Ordine EM voce 04, secondo giro.
   List<double> get vociSentite => List.unmodifiable(_vociSentite);
+
+  /// **Quanta voce vera c'e' nella frase**: la somma dei pezzi di voce, per
+  /// sapere se una trascrizione vuota e' credibile. Ordine EM voce 04,
+  /// secondo giro.
+  Duration get voceDellaFrase => _voceDellaFrase;
 
   /// **Vero quando negli ultimi [controlloOgni] il suono e' stato
   /// continuo**: il tempo preso per silenzio e' meno di [quotaDiSilenzio].
@@ -325,8 +331,9 @@ class IlSilenzioVero {
     // La stanza impara la media di mezzo secondo, la stessa grandezza con
     // cui poi si confronta.
     if (!parla && !continua && eVoce) stanza.impara(livello);
-    if (eVoce && (parla || continua) && _vociSentite.length < 600) {
-      _vociSentite.add(livello);
+    if (eVoce && (parla || continua)) {
+      _voceDellaFrase += durata;
+      if (_vociSentite.length < 600) _vociSentite.add(livello);
     }
     if (parla) {
       _voce += durata;

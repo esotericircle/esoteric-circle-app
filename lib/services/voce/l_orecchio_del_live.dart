@@ -78,6 +78,10 @@ class LOrecchioDelLive {
   /// se chi trascrive le trova vuote, la stanza li impara.
   int _ultimaConsegnata = -1;
   final _vociConsegnate = <int, List<double>>{};
+  final _voceConsegnata = <int, Duration>{};
+
+  /// Quante volte un controllo ha chiesto di scartare la frase in ascolto.
+  int _scartiChiesti = 0;
 
   /// I pezzi sentiti dall'ultima riga del registro, per il registro fine.
   final _pezziDelRegistro = <String>[];
@@ -263,8 +267,14 @@ class LOrecchioDelLive {
     _primaParla.clear();
     _byteDiPrima = 0;
     _parlavaGia = false;
+    _scartiChiesti = 0;
     _frase++;
   }
+
+  /// **Quanta voce vera aveva la frase consegnata [frase].** Ordine EM voce
+  /// 04, secondo giro: una frase con piu' di un secondo di voce che torna
+  /// vuota e' un inciampo di chi trascrive, non silenzio.
+  Duration voceDellaFrase(int frase) => _voceConsegnata[frase] ?? Duration.zero;
 
   /// La frase finita esce, e l'ascolto ricomincia da una frase nuova. [pausa]
   /// e' il numero della pausa che l'ha chiusa; -1 la mano che lascia; -2 il
@@ -273,14 +283,19 @@ class LOrecchioDelLive {
     final pcm = _parlato.takeBytes();
     final numero = _frase;
     final voci = _silenzio.vociSentite;
+    final voce = _silenzio.voceDellaFrase;
     _nuovaFrase();
     _ultimaConsegnata = numero;
     _vociConsegnate[numero] = voci;
+    _voceConsegnata[numero] = voce;
     if (IlBancoDellOrecchio.acceso && pcm.isNotEmpty) {
       unawaited(IlBancoDellOrecchio.registra(pcm, numero, tasso));
     }
     while (_vociConsegnate.length > 4) {
       _vociConsegnate.remove(_vociConsegnate.keys.first);
+    }
+    while (_voceConsegnata.length > 4) {
+      _voceConsegnata.remove(_voceConsegnata.keys.first);
     }
     if (pcm.isNotEmpty) suFrase?.call(pcm, pausa);
   }
@@ -290,7 +305,13 @@ class LOrecchioDelLive {
   /// 04, secondo giro.
   void eraSottofondo(int frase) {
     final voci = _vociConsegnate.remove(frase);
-    if (voci != null && _stanza.sembraSottofondo(voci)) {
+    // **Solo se la stanza conosce gia' un sottofondo.** Sul Realme, nella
+    // stanza silenziosa, una domanda vera e' tornata vuota: senza un
+    // sottofondo a cui confrontarla la voce della persona sarebbe diventata
+    // la soglia. Una televisione che apre frasi la impara il controllo.
+    if (voci != null &&
+        _stanza.sottofondo != null &&
+        _stanza.sembraSottofondo(voci)) {
       _stanza.imparaTutte(voci);
     }
   }
@@ -306,6 +327,11 @@ class LOrecchioDelLive {
     // Una frase che sta sopra il sottofondo conosciuto e' voce vicina: non si
     // butta per una trascrizione vuota. `LaStanza.sembraSottofondo`.
     if (!_stanza.sembraSottofondo(_silenzio.vociSentite)) return false;
+    // **Senza un sottofondo conosciuto servono due controlli vuoti di fila.**
+    // Sul Realme un controllo e' tornato vuoto su una domanda vera, tre
+    // volte su tre sullo stesso audio: al primo, una persona che parla
+    // da tre secondi verrebbe scartata e imparata come sottofondo.
+    if (_stanza.sottofondo == null && ++_scartiChiesti < 2) return false;
     _stanza.imparaTutte(_silenzio.vociSentite);
     final tutto = _parlato.takeBytes();
     const margine = 3 * _unSecondo;
