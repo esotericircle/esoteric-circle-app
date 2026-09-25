@@ -26,8 +26,8 @@ settembre. **Il fondatore l'ha riaperta la sera stessa**: alle 17:31 UTC
 in europe-west1; le misure rimaste sul telefono sono state fatte dopo.
 
 VOCI_TOTALI: 5
-VOCI_CHIUSE: 2
-VOCI_APERTE: 3
+VOCI_CHIUSE: 3
+VOCI_APERTE: 2
 
 Le prove stanno in `docs/collaudo/EK/`.
 
@@ -324,13 +324,25 @@ scritta "Laura"**, una volta su una. Dopo il saluto 30,6 secondi di voci
 nella stanza e il LIVE e' rimasto aperto; la musica spenta nel LIVE e di
 nuovo accesa all'uscita, come nella prima.
 
-**APERTA.** Le due segnalazioni del fondatore sono risolte: Medora non e'
-piu' "Mezz'ora" e Calìgo ha il suo accento. Ma la voce chiede anche Aura, e
-Aura e' stata scritta "Laura". Non c'e' una correzione a macchina:
+Le due segnalazioni del fondatore erano risolte: Medora non era piu'
+"Mezz'ora" e Calìgo aveva il suo accento. Ma la voce chiedeva anche Aura, e
+Aura era stata scritta "Laura". Non c'era una correzione a macchina:
 "Laura" in apertura di frase puo' essere una persona vera di cui si parla.
-La scelta e' del fondatore: una prova con la sua voce, perche' quella di
+La scelta era del fondatore: una prova con la sua voce, perche' quella di
 prova e' la voce sintetica di Windows, o una regola solo per il LIVE di
 Aura.
+
+**Il fondatore ha scelto la regola**, *"Sì"*, e l'ordine EM voce 01 l'ha
+scritta: nel LIVE di Aura "Laura" diventa "Aura". **La misura di questa voce
+ripetuta nel LIVE di Aura** il 25 settembre 2026, build 2281:
+diciannove nomi giusti su diciannove, nessun "Laura", le sei frasi intere
+(`docs/collaudo/EM/em01_i_nomi_nel_live_di_aura.txt`). Come vuole l'ordine
+EM, con la voce EM.01 si chiude anche questa.
+
+**CHIUSA** con l'ordine EM, 25 settembre 2026.
+DOMANDA: "è Calìgo e non Càligo"
+PROVA: docs/collaudo/EM/em01_i_nomi_nel_live_di_aura.txt
+MISURA: nomi giusti nelle sei frasi, da 7 su 19 sulla 2279 a 19 su 19 sulla 2281
 
 ## VOCE EK.04, LE IMMAGINI DEI MEZZIBUSTI
 

@@ -22,8 +22,8 @@ accesa e gemini riconosce la mia voce Senza problemi. Ho bisogno dello stesso
 livello di accuratezza e tolleranza"*.
 
 VOCI_TOTALI: 12
-VOCI_CHIUSE: 1
-VOCI_APERTE: 11
+VOCI_CHIUSE: 4
+VOCI_APERTE: 8
 
 Le prove stanno in `docs/collaudo/EM/`.
 
@@ -87,7 +87,30 @@ Fonte: `docs/ordini/ORDINE_EK_MANIFESTO.md`, voce EK.03, e la risposta del
 fondatore del 25 settembre 2026, *"Sì"*, alla regola solo per il LIVE di
 Aura.
 
-**APERTA.**
+**Fatto**: `LaTrascrizione.nelLiveDi` (`lib/services/voce/l_orecchio_del_live.dart`)
+scrive "Aura" dove la trascrizione scrive "Laura", **solo nel LIVE di Aura** e
+solo come parola intera; la schermata la applica a ogni frase trascritta. La
+domanda girata al fondatore era la regola solo per il LIVE di Aura, sapendo che
+una Laura vera di cui la persona parla diventerebbe "Aura". Prova nuova
+`test/la_risposta_arriva_prima_e_aura_si_scrive_giusta_test.dart`, vista rossa
+portando la regola sul LIVE di Medora (`regola_a_client_em`).
+
+**La misura della voce EK.03 nel LIVE di Aura**, le sei frasi con i
+diciannove nomi (`docs/collaudo/EM/em01_i_nomi_nel_live_di_aura.txt`): sulla
+2280 18 nomi giusti su 19, Aura scritta "Laura"; sulla 2281 finale **19 su
+19**, nessun "Laura", le sei frasi intere. In questo giro la regola non e'
+dovuta intervenire: la misura dice il risultato a video, la prova dice la
+regola. Nello stesso giro hanno lavorato due salvagenti della voce EM.04: la
+frase 3, tornata vuota dalla trascrizione anticipata, e' arrivata intera dalla
+seconda; il controllo vuoto della frase 4 non l'ha scartata.
+
+**Con questa voce si chiude la voce EK.03**, come vuole l'ordine: il suo
+manifesto porta la chiusura.
+
+**CHIUSA.**
+DOMANDA: "Sì"
+PROVA: docs/collaudo/EM/em01_i_nomi_nel_live_di_aura.txt
+MISURA: nomi giusti nelle sei frasi della voce EK.03 nel LIVE di Aura, da 18 su 19 (Aura scritta "Laura") a 19 su 19
 
 ## VOCE EM.02, LE VOCI CHIRP 3 HD NEL LIVE, CON UN'ECCEZIONE SOLO PER LA VOCE
 
@@ -269,6 +292,13 @@ Maestro"* con la voce, la famiglia, il modello e il punto. Prova nuova in
 il registro dice quale voce ha parlato"*, vista rossa riportando il tempo a
 un minuto e togliendo la voce dal registro (`regola_a_server_em`).
 
+**Nel LIVE vero, sul Realme, con le scelte che il fondatore aveva gia'
+fatto** la sera del 24 settembre (Despina per Medora, Orus per Calìgo): il
+registro del server scrive *"voce del Maestro"* con Orus per le tre frasi di
+Calìgo e Despina per il saluto di Medora; Aura, senza scelta, con Autonoe
+(`docs/collaudo/EM/em06_em12_le_voci_nel_live.txt`). Prima nessun registro
+diceva quale voce avesse parlato.
+
 **APERTA IN ATTESA DI VERIFICA.** Per ordine la chiude una registrazione di
 un LIVE dopo la scelta, con la voce uguale all'anteprima: il selettore sul
 Realme aspetta l'account fra i fondatori (voce EM.02), e il confronto con
@@ -385,7 +415,39 @@ MISURA: altezza del volto fra la domanda e la risposta, da 656 e 567 punti a 497
 Fonte: il fondatore, 25 settembre 2026: *"Da quando faccio una domanda a
 quando ottengo risposta passano diversi secondi, circa 4."*
 
-**APERTA.**
+**La causa**, misurata sul Realme con la 2280 frase per frase: dopo i due
+secondi di silenzio che chiudono la frase, la trascrizione cominciava solo a
+frase chiusa e prendeva da 1,31 a 1,93 secondi; poi la chat, da 1,59 a 4,44,
+e il primo audio, da 0,60 a 0,74. Padre: ordine EJ voce 01, che trascrive a
+frase chiusa.
+
+**Fatto** (commit `f80e2ced`): la trascrizione comincia quando la frase va in
+pausa, a 700 millesimi di silenzio (`IlSilenzioVero.silenzioDiPausa`,
+`_inPausa` nella schermata), e se la frase si chiude con quella stessa pausa e'
+gia' pronta. I due secondi dell'ordine EJ restano, per non troncare. Il
+registro scrive l'attesa pezzo per pezzo (*"LIVE ATTESA"*, fino all'evento del
+volto che parla) e, dalla chat, *"CHAT TEMPI"*. Prova nuova
+`test/la_risposta_arriva_prima_e_aura_si_scrive_giusta_test.dart`, vista rossa
+togliendo la condizione della stessa pausa (`regola_a_client_em`).
+
+**La misura** (`docs/collaudo/EM/em11_l_attesa_pezzo_per_pezzo.txt`): la
+trascrizione, dopo la chiusura, e' passata **da 1.311-1.930 millesimi a
+0-451** (1.387 quando serve la seconda prova della voce EM.04). Con una
+risposta nuova della chat il primo audio arriva a 5,0-5,1 secondi dalla fine
+della domanda, contro 5,8-9,1 della 2280 (mediana 6,3), e il volto parla a 6,5.
+
+**Cosa resta, e non e' di quest'ordine deciderlo.** La chat, da 1,4 a 4,7
+secondi secondo la lunghezza della risposta: le risposte del LIVE durano da 15
+a 60 secondi di voce, e dentro la chat due scritture su Firestore costano circa
+mezzo secondo. I due secondi di silenzio, che accorciati riportano la domanda
+troncata della voce EJ.01. Protoface, da 1,3 a 1,6 secondi dal primo audio al
+volto che parla, fuori dal nostro codice. Le strade per scendere ancora sono
+scelte del fondatore: risposte del LIVE piu' brevi, o la voce che comincia
+mentre la chat scrive, che oggi non si puo' fare senza saltare i controlli
+della risposta intera (troncatura, ancoraggio, cielo smentito).
+
+**APERTA IN ATTESA DI VERIFICA**: *"circa 4"* secondi li ha contati il
+fondatore sul suo telefono; se l'attesa di adesso gli basta lo dice lui.
 
 ## VOCE EM.12, LE VOCI DI CALÌGO RALLENTATE
 
@@ -410,7 +472,10 @@ nel modo (`regola_a_server_caligo`).
 europe-west1: prima fra 9,1 e 11,1 caratteri al secondo, mediana 10,1 su
 sedici voci; dopo fra 11,8 e 15,3, mediana 13,5 su trentasette misure in tre
 giri (`docs/collaudo/EM/caligo/ritmo_delle_voci.txt`), con le sedici
-registrazioni prima e dopo nella stessa cartella.
+registrazioni prima e dopo nella stessa cartella. **Nel LIVE vero sul Realme**,
+con Orus, la voce scelta dal fondatore: una risposta di 331 caratteri in 24,0
+secondi di voce, **13,8 caratteri al secondo** pause comprese
+(`docs/collaudo/EM/em06_em12_le_voci_nel_live.txt`).
 
 **APERTA IN ATTESA DI VERIFICA**: il giudizio all'orecchio e' del
 fondatore, per ordine.

@@ -14,15 +14,23 @@ macchina. Ramo `claude/esoteric-circle-master-order-e798aj`. Manifesto
   `docs/collaudo/EK/attribuzione/giro_1.txt` (e `giro_2`, `giro_3`).
   Sull'istruzione finale 58, 57 e 58 su 60, cioe' 96,7, 95,0 e 96,7 per
   cento, media 96,1; nell'ordine EJ 95,0, 100,0 e 91,7. Resta fra i rossi
-  accettati come hai scritto: la chiusura e' tua.
+  accettati come hai scritto: la chiusura e' tua. **Chiusa da te**
+  nell'ordine EM, voce EM.03, *"Si il 96 è sufficiente per chiuderla."*
+- **EK.03, i nomi giusti nel LIVE**, **chiusa con l'ordine EM** il 25
+  settembre 2026: `docs/collaudo/EM/em01_i_nomi_nel_live_di_aura.txt`. Hai
+  scelto la regola solo per il LIVE di Aura, *"Sì"*; ripetuta la misura nel
+  LIVE di Aura sulla 2281, **19 nomi su 19**, nessun "Laura" (prima 7 su 19
+  sulla 2279, 18 su 19 sulla 2280).
 
 ## LE VOCI CHE RESTANO APERTE, E PERCHE'
 
 - **EK.02, i Maestri sempre diretti**, aperta: le risposte non dirette
   scendono da 20 su 54 a 8 su 54, non a zero. L'ultimo giro ne ha 4.
-- **EK.03, i nomi giusti nel LIVE**, aperta: sul Realme **18 nomi su 19**
-  (prima 7 su 19), Medora e Calìgo sempre giusti, ma **Aura e' stata
-  scritta "Laura"** una volta su una (`docs/collaudo/EK/nomi/cura_silenzio_2280.txt`).
+- **EK.03, i nomi giusti nel LIVE**, era aperta alla consegna della 2280:
+  sul Realme **18 nomi su 19** (prima 7 su 19), Medora e Calìgo sempre
+  giusti, ma **Aura e' stata scritta "Laura"** una volta su una
+  (`docs/collaudo/EK/nomi/cura_silenzio_2280.txt`). Chiusa con l'ordine EM,
+  qui sopra.
 - **EK.04, le immagini dei mezzibusti**, in attesa di verifica: immagini
   restaurate, avatar creati e agganciati, volti misurati sul Realme. Se sono
   piu' nitidi lo giudichi tu guardandoli.

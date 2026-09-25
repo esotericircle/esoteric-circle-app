@@ -3,7 +3,7 @@ ORDINE EM VOCE 03, L'ATTRIBUZIONE CIECA CHIUSA DAL FONDATORE.
 Il fondatore, 25 settembre 2026: "Si il 96 è sufficiente per chiuderla."
 
 PRIMA: nello sbarramento della build 2280 (24 settembre 2026 sera, 5.850 prove) la prova
-"l'attribuzione cieca l'ha chiusa il fondatore" era rossa per costruzione, e tool/rossi_accettati.txt
+"l'attribuzione cieca l'ha chiusa il fondatore" era rossa per costruzione; tool/rossi_accettati.txt
 portava la sua riga (1 riga).
 
 DOPO, 2026-09-24T23:31:04Z: ImprontaDellIstruzione.chiusaDalFondatore = true, la riga tolta.

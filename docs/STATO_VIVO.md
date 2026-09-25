@@ -4875,6 +4875,72 @@ Guardia nuova `il_taglia_ricompone_il_mazzo`; e `il_tavolo_dei_ventidue` era
 cieca sul Taglia dall'ordine EE voce 01 (commit `14088e9f`): lo toccava col
 Mischia ancora in corsa.
 
+## L'ORDINE EM, IL LIVE CHE ASCOLTA GIUSTO, LE VOCI SCELTE E TRE DECISIONI SU EK
+
+Ordine del 25 settembre 2026, **dodici voci**, lavorato lo stesso giorno
+dalla notte al mattino. Manifesto `docs/ordini/ORDINE_EM_MANIFESTO.md`,
+rapporto `docs/ordini/RAPPORTO_ORDINE_EM.md`, prove in `docs/collaudo/EM/`.
+Le due scelte del fondatore: *"Tutto, una build"*; *"Sintetico, poi il
+mio"* per il respiro. **Quattro voci chiuse** (EM.01, EM.03, EM.09, EM.10);
+**otto in attesa del fondatore** (EM.02, EM.04-EM.08, EM.11, EM.12). Con la
+EM.01 si chiude anche la voce **EK.03**; con la EM.03 l'attribuzione cieca
+della EK.05 esce dai rossi accettati.
+
+**IL MICROFONO DEL LIVE (EM.04, EM.05).** Un pezzo e' parlato solo se e'
+voce (`LaMisuraDellaVoce`, autocorrelazione fra 70 e 400 cicli al secondo,
+soglia 0,55) e sta sopra il sottofondo della stanza (`LaStanza`), con la
+sorgente delle chiamate e i suoi filtri. Sul Realme la prima stesura ha
+tenuto aperta una frase sulla televisione finta **141,6 secondi**: il
+secondo giro confronta la media di mezzo secondo con il sottofondo, fa
+controllare dalla trascrizione ogni frase aperta su un suono continuo
+(`IlGiudizioDellaFrase`: scarta, chiude o aspetta), impara la televisione
+dalle frasi scartate, la dimentica dopo dieci secondi senza voce, non impara
+mai una frase sopra il sottofondo conosciuto o una frase vuota nella stanza
+silenziosa, fa cominciare la frase 400 ms prima della voce vicina quando c'e'
+un sottofondo, trascrive di nuovo una frase con voce vera tornata vuota.
+Adesso la domanda con la televisione accesa si chiude a 2,0 secondi dalla
+fine; il LIVE si chiude da solo dopo trenta secondi con la televisione o col
+respiro; la sessione di Protoface si ferma col telefono (137 secondi
+addebitati per una sessione di 135). **Il respiro vero resta al fondatore.**
+Un "me lo ripeti?" detto dal Maestro e' stato provato e tolto: scattava sulla
+coda della sua voce. Il banco del collaudo (`IlBancoDellOrecchio`) salva
+l'audio delle frasi solo con `--dart-define=EM_BANCO=true`.
+
+**LE VOCI (EM.02, EM.06, EM.12).** Fra le candidate del selettore ci sono le
+trenta voci Chirp 3 HD, dall'endpoint `eu-texttospeech.googleapis.com` e mai
+da global: l'eccezione e' scritta in `LaRegioneDeiDati.eccezioniDellaVoce`
+e in `CLAUDE.md`, sorvegliata da `le_voci_stanno_in_europa`. La scelta si
+rilegge entro tre secondi in ogni servizio; il registro scrive *"voce del
+Maestro"* a ogni frase. Nel LIVE vero Calìgo parla con Orus e Medora con
+Despina, le scelte del fondatore del 24 settembre. Il modo di Calìgo non
+porta piu' parole sul timbro: da 9,1-11,1 a 11,8-15,3 caratteri al secondo,
+13,8 nel LIVE vero. **Le Chirp non sono state provate in un LIVE**: il
+selettore lo aprono solo i fondatori e l'account del Realme,
+`iToukegmg2P3LBmlyYGJjkxvFbs1`, non e' in `configurazione/live.fondatori`;
+la scrittura su Firestore di produzione e' stata fermata due volte dal
+controllo dell'ambiente. Il fondatore l'aggiunge dalla console; lo toglie
+a prove finite.
+
+**LA SCHERMATA (EM.07-EM.10).** L'elenco delle voci scorre; il microfono non
+si ferma piu' quando suona un'anteprima e il selettore lo riapre alla
+chiusura. `LaScenaDelLive` tiene fissa la zona del testo: il volto e' alto
+497 punti in ogni momento del turno (prima da 680 a 567), identico in 43
+catture del Realme; la domanda sta sopra la risposta, in oro, nella serif
+della lettura in grassetto.
+
+**L'ATTESA (EM.11).** La trascrizione comincia in pausa a 700 millesimi: dopo
+la chiusura della frase e' pronta in 0-451 millesimi invece di 1.311-1.930.
+Con una risposta nuova della chat il primo audio arriva a 5,0-5,1 secondi
+(sulla 2280 da 5,8 a 9,1) e il volto parla a 6,5. Il resto e' la chat, i due
+secondi che non troncano e Protoface: le strade per scendere sono del
+fondatore.
+
+**LE GUARDIE.** Sette nuove, tutte viste rosse; nove della zona viste rosse
+per la Regola B; registro a **519**. Una prova rimasta verde al primo
+innesto e riscritta; una prova del respiro rivista rossa perche' del primo
+giro non restava l'uscita; un innesto rimasto nel codice per un ripristino
+fallito a suite accesa, visto e riparato (lo strumento adesso si ferma).
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.

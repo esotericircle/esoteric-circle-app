@@ -42,7 +42,7 @@ tv4, build di banco 2: il controllo della DOMANDA VERA torna vuoto, la frase e' 
   controllo, l'istruzione dell'app torna vuota 3 volte su 3; sulla sola televisione "[SILENZIO]" 3 su 3;
   sulla frase intera 11 parole su 11, 3 su 3. L'istruzione resta com'e': la variante che nomina solo
   televisione e radio trascrive il telegiornale (9 parole della televisione).
-tv5, build di banco 3: il controllo della domanda torna vuoto di nuovo, e il registro dice "la frase 2 sta
+tv5, build di banco 3: il controllo della domanda torna vuoto di nuovo; il registro dice "la frase 2 sta
   sopra il sottofondo: non si scarta"; la domanda si chiude 2.004 ms dopo la fine del parlato e parte:
   "Aura, sento un blocco ad Anahata. Cosa posso fare questa settimana per riaprirli?" (10 su 11). LIVE
   chiuso dopo 30 secondi con la televisione accesa.
