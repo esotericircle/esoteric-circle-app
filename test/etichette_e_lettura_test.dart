@@ -218,6 +218,17 @@ void main() {
       // sulle rune simmetriche, tre frasi, adesso monta
       // `ParagrafiDiLettura`.
       'lib/features/rituals/sunset_rune_screen.dart',
+      // **LA DOMANDA DELLA PERSONA NEL LIVE, ordine EM voce 09**, 25
+      // settembre 2026. Il fondatore: *"la domanda dovrebbe comparire in
+      // grande e in giallo anche nel testo subito sopra la risposta"*. E'
+      // UNA frase, la sua, al massimo tre righe centrate: di narrato non ha
+      // niente. Sul Realme stava nel maiuscoletto dei titoli, grande ma
+      // faticoso da leggere su una frase lunga; adesso prende la serif della
+      // lettura in grassetto. Questa guardia l'ha presa rossa alla prima
+      // prova. **La sorveglianza che resta**: il file porta solo la scena del
+      // LIVE, e il narrato del Maestro, la risposta, sta sotto in ruolo
+      // corpo.
+      'lib/features/maestri/live/la_scena_del_live.dart',
     };
     final colpe = <String>[];
     for (final f in Directory('lib')

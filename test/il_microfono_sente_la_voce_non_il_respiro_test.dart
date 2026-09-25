@@ -79,8 +79,12 @@ void main() {
         reason: 'con la televisione accesa la persona '
             'che parla al telefono non viene sentita');
     // Smette di parlare: la televisione continua, e la frase si chiude.
+    // **Entro 2.600 millesimi, non a 2.100.** Ordine EM voce 04, secondo
+    // giro: contro la televisione adesso decide la media di mezzo secondo,
+    // che dopo l'ultima parola scende in qualche centinaio di millesimi. La
+    // prima stesura di questa prova chiedeva la chiusura esatta a 2.100.
     expect(televisione(s, 1900), isFalse);
-    expect(televisione(s, 200), isTrue,
+    expect(televisione(s, 700), isTrue,
         reason: 'la televisione ha tenuto aperta la domanda');
   });
 
@@ -94,14 +98,19 @@ void main() {
             'ha chiuso la frase');
     senti(s, -22, 1500, voce);
     expect(televisione(s, 1900), isFalse);
-    expect(televisione(s, 200), isTrue);
+    // Entro 2.600 millesimi, come nella prova qui sopra.
+    expect(televisione(s, 700), isTrue);
   });
 
   test('LA STANZA SI RICORDA LA TELEVISIONE DA UNA FRASE ALL\'ALTRA', () {
     final laStanza = LaStanza();
     final prima = IlSilenzioVero(stanza: laStanza);
     televisione(prima, 5000);
-    expect(laStanza.sottofondo, -38.0);
+    // **La stanza impara la media di mezzo secondo**, ordine EM voce 04,
+    // secondo giro: una televisione che alterna -38 e -46 ogni cinquanta
+    // millesimi vale -40,4. La prima stesura di questa prova chiedeva -38, il
+    // pezzo piu' forte.
+    expect(laStanza.sottofondo, closeTo(-40.4, 0.2));
     // La frase dopo parte gia' sapendo che la televisione e' accesa.
     final dopo = IlSilenzioVero(stanza: laStanza);
     televisione(dopo, 3000);

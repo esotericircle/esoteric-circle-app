@@ -1,0 +1,27 @@
+ORDINE EM VOCE 12, IL RITMO DELLE VOCI DI CALIGO, 25 settembre 2026
+Testo lungo dell'ordine EK, voce Gemini 2.5 Flash TTS in europe-west1, caratteri al secondo sul parlato
+(pause lunghe escluse). Modo A: quello della 2280, "Leggi in italiano, con la pronuncia di un madrelingua
+italiano, con voce grave e matura di uomo, con calma naturale:". Modo F: quello di adesso, "Leggi in
+italiano, con la pronuncia di un madrelingua italiano, a ritmo di conversazione:". Il parlato italiano
+naturale sta fra 13 e 15 caratteri al secondo. Le registrazioni: prima_dopo_<voce>.mp3, prima A e poi F.
+
+voce             A, prima                 F, dopo (giri)
+Achird               11.1                     14.1, 13.5
+Algenib               9.9               13.8, 12.9, 11.8
+Algieba               9.5                     12.0, 12.6
+Alnilam              10.0                     13.1, 12.7
+Charon                9.8               12.9, 13.5, 14.2
+Enceladus             9.6                     13.3, 13.0
+Fenrir               10.6                     14.0, 13.1
+Iapetus               9.8                     13.0, 14.9
+Orus                 10.1               14.1, 13.5, 12.9
+Puck                  9.1               14.9, 13.9, 13.8
+Rasalgethi           10.5               14.0, 13.7, 14.2
+Sadachbia            10.8                     12.7, 13.2
+Sadaltager            9.8                     12.5, 12.6
+Schedar              10.2                     13.5, 13.3
+Umbriel              10.3                     13.6, 15.3
+Zubenelgenubi        10.3                     14.0, 14.3
+
+modo A: 16 misure, da 9.1 a 11.1, mediana 10.1
+modo F: 37 misure, da 11.8 a 15.3, mediana 13.5

@@ -1047,6 +1047,11 @@ class MaestroChatController extends ChangeNotifier {
         conversazione: _conversazione);
     _messages.add(pending);
     await _persist(pending);
+    // **I TEMPI DEL TURNO, PEZZO PER PEZZO, NEL LIVE.** Ordine EM voce 11: il
+    // fondatore aspetta "circa 4" secondi, e sul Realme la chat ne prendeva
+    // da 3,1 a 4,7. Si scrive quanto costa ogni passo, perche' si sappia
+    // quale accorciare.
+    final salvataInAttesa = cronometro.elapsedMilliseconds;
     notifyListeners();
 
     try {
@@ -1186,7 +1191,13 @@ class MaestroChatController extends ChangeNotifier {
         at: _adesso,
         autore: chiRisponde,
       );
+      final risposta = cronometro.elapsedMilliseconds;
       await _consegna(answer, cronometro);
+      if (nelLive) {
+        debugPrint('CHAT TEMPI: in attesa salvata a $salvataInAttesa ms, '
+            'risposta del modello a $risposta ms, consegnata e salvata a '
+            '${cronometro.elapsedMilliseconds} ms, ${reply.length} caratteri');
+      }
       // NON si aggiunge: `_consegna` ha gia' completato il turno che esisteva.
       // Aggiungerlo qui lo scriverebbe due volte, e riaprendo la chat si
       // leggerebbe la stessa risposta di seguito a se stessa.

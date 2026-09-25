@@ -19,6 +19,7 @@ import '../widgets/busto_del_maestro.dart';
 import '../../../core/sensi/lo_schermo_acceso.dart';
 import '../../../core/sensi/wav_da_pcm.dart';
 import '../../shell/quale_musica_suona.dart';
+import 'il_giudizio_della_frase.dart';
 import 'il_parlato_del_maestro.dart';
 import 'le_frasi_della_persona.dart';
 import 'il_selettore_delle_voci.dart';
@@ -105,6 +106,11 @@ class _SchermataLiveState extends State<SchermataLive> {
 
   /// Le frasi dette finora, che diventano domanda quando la persona smette.
   final _frasi = LeFrasiDellaPersona();
+
+  /// **Cosa fare di una frase aperta su un suono continuo.** Ordine EM voce
+  /// 04, secondo giro: con la televisione accesa, sul Realme, una frase e'
+  /// rimasta aperta 141,6 secondi.
+  final _giudizio = IlGiudizioDellaFrase();
 
   Completer<void>? _fineDellaVoce;
 
@@ -451,6 +457,7 @@ class _SchermataLiveState extends State<SchermataLive> {
     _orecchio.suLivello = (l) => _livello.value = l;
     _orecchio.suFrase = (pcm, pausa) => unawaited(_unaFrase(pcm, pausa));
     _orecchio.suPausa = _inPausa;
+    _orecchio.suControllo = _alControllo;
     setState(() => _ascolta = true);
     final aperto = await _orecchio.ascolta();
     if (mounted && !aperto) setState(() => _ascolta = false);
@@ -464,6 +471,7 @@ class _SchermataLiveState extends State<SchermataLive> {
   /// silenzio ripartiva da zero: la sessione non si chiudeva mai e consumava
   /// crediti. La presenza la da' solo una frase con parole.
   Future<void> _unaFrase(Uint8List pcm, int pausa) async {
+    final frase = _orecchio.ultimaConsegnata;
     final fineDelParlato = _orecchio.ultimaVoce;
     final chiusaAl = DateTime.now();
     final anticipata = _anticipata;
@@ -474,22 +482,33 @@ class _SchermataLiveState extends State<SchermataLive> {
     final orologio = Stopwatch()..start();
     var detto = '';
     var comeTrascritta = 'alla chiusura';
+    var trascritta = false;
     _frasiInTrascrizione++;
     try {
       String? pronto;
+      // La trascrizione e' pronta se l'ha cominciata la pausa che ha chiuso
+      // la frase, o il controllo che l'ha chiusa (-2); non se l'ha chiusa la
+      // mano (-1).
       if (anticipata != null &&
-          pausa >= 0 &&
+          pausa != -1 &&
           anticipata.pausa == pausa &&
           anticipata.giro == giroPrima) {
         pronto = await anticipata.testo;
-        if (pronto != null) comeTrascritta = 'in pausa';
+        if (pronto != null) {
+          comeTrascritta = pausa == -2 ? 'al controllo' : 'in pausa';
+        }
       }
       detto = pronto ?? await _trascrivi(daTrascrivere.pcm);
+      trascritta = true;
     } catch (errore) {
       annotaGuastoInnocuo('la frase del LIVE non si trascrive', errore);
     } finally {
       _frasiInTrascrizione--;
     }
+    // **Una frase senza parole era sottofondo: la stanza impara il suo
+    // livello.** Ordine EM voce 04, secondo giro. Non se la trascrizione e'
+    // caduta: una domanda vera diventerebbe sottofondo.
+    if (trascritta && detto.isEmpty) _orecchio.eraSottofondo(frase);
     final domanda = _frasi.trascritta(daTrascrivere.biglietto, detto,
         parlaDiNuovo: _orecchio.staParlando);
     debugPrint('LIVE: frase di ${daTrascrivere.pcm.length ~/ 32} ms in '
@@ -514,13 +533,49 @@ class _SchermataLiveState extends State<SchermataLive> {
     final audio = _frasi.anteprima(pcm);
     final testo = _trascrivi(audio).then<String?>((t) {
       debugPrint('LIVE: trascrizione anticipata in '
-          '${orologio.elapsedMilliseconds} ms, pausa $pausa');
+          '${orologio.elapsedMilliseconds} ms, pausa $pausa: «$t»');
       return t;
     }).catchError((Object errore) {
       annotaGuastoInnocuo('la trascrizione anticipata non riesce', errore);
       return null;
     });
     _anticipata = (pausa: pausa, giro: _frasi.giro, testo: testo);
+  }
+
+  /// **IL CONTROLLO DI UNA FRASE APERTA SU UN SUONO CONTINUO.** Ordine EM
+  /// voce 04, secondo giro. Si trascrive cio' che e' stato detto finora, e
+  /// `IlGiudizioDellaFrase` decide: solo sottofondo, la frase si scarta e la
+  /// stanza impara; parole ferme, la frase parte con questa trascrizione;
+  /// parole che crescono, si aspetta. Un guasto qui non si vede: la frase
+  /// resta com'era.
+  void _alControllo(Uint8List pcm, int frase, int controllo) {
+    final orologio = Stopwatch()..start();
+    final giro = _frasi.giro;
+    unawaited(_trascrivi(_frasi.anteprima(pcm)).then((testo) {
+      if (!mounted || !_ascolta) return;
+      final cosa =
+          _giudizio.giudica(frase: frase, controllo: controllo, testo: testo);
+      debugPrint('LIVE: controllo $controllo della frase $frase in '
+          '${orologio.elapsedMilliseconds} ms: «$testo», ${cosa.name}, '
+          'sottofondo ${_orecchio.sottofondo?.round()}');
+      switch (cosa) {
+        case CosaFareDellaFrase.scarta:
+          if (_orecchio.scarta(frase)) {
+            _frasi.dimentica();
+          } else {
+            debugPrint('LIVE: la frase $frase sta sopra il sottofondo: non si '
+                'scarta');
+          }
+        case CosaFareDellaFrase.chiudi:
+          if (giro != _frasi.giro) return;
+          _anticipata = (pausa: -2, giro: giro, testo: Future.value(testo));
+          if (!_orecchio.chiudi(frase)) _anticipata = null;
+        case CosaFareDellaFrase.aspetta:
+          break;
+      }
+    }).catchError((Object errore) {
+      annotaGuastoInnocuo('il controllo della frase non riesce', errore);
+    }));
   }
 
   /// La trascrizione di [pcm], con le regole del LIVE di questo Maestro.

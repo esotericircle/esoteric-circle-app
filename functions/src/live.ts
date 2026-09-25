@@ -824,7 +824,8 @@ const I_MODI: Record<string, string> = {
   // **Qualunque parola sul timbro rallenta**: "voce profonda di uomo" pesava
   // anche insieme a "a ritmo sciolto e spedito" (10,9-12,0). Resta la
   // pronuncia di madrelingua, e il ritmo di conversazione: fra 11,8 e 15,3,
-  // mediana 13,4, due giri per voce (`docs/collaudo/EM/caligo/`). Il timbro
+  // mediana 13,5, trentasette misure in tre giri
+  // (`docs/collaudo/EM/caligo/ritmo_delle_voci.txt`). Il timbro
   // lo da' la voce che il fondatore sceglie, non il modo.
   caligo: "Leggi in italiano, con la pronuncia di un madrelingua italiano, " +
     "a ritmo di conversazione:",

@@ -16,6 +16,7 @@ import '../../core/tarot/tarot_card.dart';
 import '../../features/maestri/live/il_silenzio_vero.dart';
 import '../ai/firebase_maestro_ai_provider.dart';
 import '../ai/registro_dei_guasti.dart';
+import 'il_banco_dell_orecchio.dart';
 
 /// **L'ORECCHIO DEL LIVE.** Ordine EJ voce 01, 24 settembre 2026.
 ///
@@ -58,6 +59,28 @@ class LOrecchioDelLive {
   /// del Maestro in apertura andava perso con mezzo secondo solo.
   final _prima = <Uint8List>[];
   int _byteDiPrima = 0;
+
+  /// Per ogni pezzo di [_prima], se la regola del silenzio lo ha sentito
+  /// parlato: serve a trovare dove comincia la voce vicina. Ordine EM voce 04.
+  final _primaParla = <bool>[];
+
+  /// **Quanto audio di prima si tiene**: un secondo, e tre subito dopo una
+  /// frase scartata. Ordine EM voce 04, secondo giro: il controllo che scarta
+  /// una frase di televisione arriva un secondo e mezzo dopo l'audio che ha
+  /// giudicato, e se in quel tempo la persona ha cominciato a parlare le sue
+  /// prime parole stanno li'.
+  int _primaMassima = _unSecondo;
+
+  /// Il numero della frase in ascolto: cambia a ogni frase nuova.
+  int _frase = 0;
+
+  /// L'ultima frase consegnata, e i livelli di voce delle ultime consegnate:
+  /// se chi trascrive le trova vuote, la stanza li impara.
+  int _ultimaConsegnata = -1;
+  final _vociConsegnate = <int, List<double>>{};
+
+  /// I pezzi sentiti dall'ultima riga del registro, per il registro fine.
+  final _pezziDelRegistro = <String>[];
 
   static const int tasso = 16000;
   static const int _unSecondo = tasso * 2; // 16 bit mono
@@ -107,6 +130,22 @@ class LOrecchioDelLive {
   /// si chiude con quella stessa pausa, la trascrizione e' gia' pronta.
   void Function(Uint8List pcm, int pausa)? suPausa;
 
+  /// **LA FRASE APERTA SU UN SUONO CONTINUO CHIEDE UN CONTROLLO.** Ordine EM
+  /// voce 04, secondo giro: l'audio detto finora, il numero della frase e
+  /// quello del controllo. La schermata lo fa trascrivere e decide con
+  /// `IlGiudizioDellaFrase`: poi chiama [scarta] o [chiudi].
+  void Function(Uint8List pcm, int frase, int controllo)? suControllo;
+
+  /// Il numero della frase in ascolto.
+  int get frase => _frase;
+
+  /// Il numero dell'ultima frase consegnata da [suFrase]: la schermata lo
+  /// legge appena la riceve.
+  int get ultimaConsegnata => _ultimaConsegnata;
+
+  /// Il sottofondo che la stanza conosce, per il registro.
+  double? get sottofondo => _stanza.sottofondo;
+
   /// L'istante dell'ultimo pezzo di voce: la fine del parlato, da cui si
   /// misura l'attesa della risposta. Ordine EM voce 11.
   DateTime? ultimaVoce;
@@ -128,14 +167,21 @@ class LOrecchioDelLive {
     if (esito != EsitoDelPermesso.concesso) return false;
     _nuovaFrase();
     _inAscolto = true;
-    final flusso = await _registratore.startStream(configurazione);
+    // Il banco di collaudo sceglie la sorgente da un file, solo nelle build
+    // di collaudo: `IlBancoDellOrecchio`, ordine EM voce 04.
+    final flusso = IlBancoDellOrecchio.acceso
+        ? await _registratore.startStream(
+            await IlBancoDellOrecchio.configurazione(configurazione))
+        : await _registratore.startStream(configurazione);
     var dalRegistro = Duration.zero;
     _flusso = flusso.listen((pezzo) {
       final db = decibelDi(pezzo);
       final durata = Duration(microseconds: pezzo.length * 500000 ~/ tasso);
       final voce = _misura.aggiungi(pezzo);
       final eraInPausa = _silenzio.inPausa;
+      final controlliPrima = _silenzio.controlli;
       _silenzio.senti(db, durata, voce: voce);
+      _pezziDelRegistro.add('${db.round()}:${(voce * 100).round()}');
       if (_silenzio.parlaAdesso) ultimaVoce = DateTime.now();
       // **IL REGISTRO DEI LIVELLI**, una riga ogni quarto di secondo: la
       // regola del silenzio si tara sui numeri veri del telefono, non su
@@ -144,32 +190,66 @@ class LOrecchioDelLive {
       dalRegistro += durata;
       if (dalRegistro >= const Duration(milliseconds: 250)) {
         dalRegistro = Duration.zero;
+        // **Ogni pezzo, col suo livello e quanto e' voce**, perche' la regola
+        // si tari al banco sui numeri veri del telefono. Ordine EM voce 04,
+        // secondo giro.
         debugPrint('ORECCHIO db ${db.round()} fondo '
             '${_silenzio.fondo?.round()} sottofondo '
             '${_stanza.sottofondo?.round()} voce ${voce.toStringAsFixed(2)} '
             'parla ${_silenzio.parlaAdesso} parlato ${_silenzio.haParlato} '
-            'silenzio ${_silenzio.silenzioDiFila.inMilliseconds} mano $aMano');
+            'silenzio ${_silenzio.silenzioDiFila.inMilliseconds} mano $aMano '
+            'frase $_frase continuo ${_silenzio.sottofondoContinuo} '
+            'pezzi ${_pezziDelRegistro.join(' ')}');
+        _pezziDelRegistro.clear();
       }
       suLivello?.call(((db + 60) / 50).clamp(0.0, 1.0));
       if (_silenzio.haParlato || aMano) {
         if (!_parlavaGia) {
           _parlavaGia = true;
-          for (final p in _prima) {
-            _parlato.add(p);
+          // **Con un sottofondo, la frase comincia dalla voce vicina.**
+          // Ordine EM voce 04, secondo giro: il secondo di prima portava le
+          // parole della televisione attaccate al nome del Maestro, e sul
+          // Realme la trascrizione ha perso "Aura" cinque volte su cinque;
+          // la stessa frase cominciata duecento millesimi prima della voce le
+          // ha date tutte, cinque volte su cinque. In una stanza silenziosa
+          // resta il secondo intero, per gli attacchi deboli dell'ordine EJ;
+          // e anche subito dopo uno scarto, quando l'inizio non si sa.
+          final daDove =
+              _stanza.sottofondo != null && _primaMassima == _unSecondo
+                  ? inizioDellaVoceVicina(
+                      [for (final p in _prima) p.length], _primaParla)
+                  : 0;
+          for (var i = daDove; i < _prima.length; i++) {
+            _parlato.add(_prima[i]);
           }
           _prima.clear();
+          _primaParla.clear();
           _byteDiPrima = 0;
         }
         _parlato.add(pezzo);
       } else {
         _prima.add(pezzo);
+        _primaParla.add(_silenzio.parlaAdesso);
         _byteDiPrima += pezzo.length;
-        while (_byteDiPrima > _unSecondo && _prima.isNotEmpty) {
+        while (_byteDiPrima > _primaMassima && _prima.isNotEmpty) {
           _byteDiPrima -= _prima.removeAt(0).length;
+          _primaParla.removeAt(0);
+        }
+        // Il margine lungo dopo uno scarto torna a un secondo piano piano.
+        if (_primaMassima > _unSecondo) {
+          _primaMassima = math.max(_unSecondo, _primaMassima - pezzo.length);
         }
       }
       if (!eraInPausa && _silenzio.inPausa && !aMano) {
         suPausa?.call(_parlato.toBytes(), _silenzio.pause);
+      }
+      if (_silenzio.controlli != controlliPrima && !aMano) {
+        if (IlBancoDellOrecchio.acceso) {
+          unawaited(IlBancoDellOrecchio.registra(
+              _parlato.toBytes(), _frase, tasso,
+              nome: 'controllo_${_silenzio.controlli}'));
+        }
+        suControllo?.call(_parlato.toBytes(), _frase, _silenzio.controlli);
       }
       if (_silenzio.fraseChiusa && !aMano) _consegna(_silenzio.pause);
     });
@@ -180,15 +260,111 @@ class LOrecchioDelLive {
     _silenzio = IlSilenzioVero(stanza: _stanza);
     _parlato.clear();
     _prima.clear();
+    _primaParla.clear();
     _byteDiPrima = 0;
     _parlavaGia = false;
+    _frase++;
   }
 
-  /// La frase finita esce, e l'ascolto ricomincia da una frase nuova.
+  /// La frase finita esce, e l'ascolto ricomincia da una frase nuova. [pausa]
+  /// e' il numero della pausa che l'ha chiusa; -1 la mano che lascia; -2 il
+  /// controllo che la chiude.
   void _consegna([int pausa = -1]) {
     final pcm = _parlato.takeBytes();
+    final numero = _frase;
+    final voci = _silenzio.vociSentite;
     _nuovaFrase();
+    _ultimaConsegnata = numero;
+    _vociConsegnate[numero] = voci;
+    if (IlBancoDellOrecchio.acceso && pcm.isNotEmpty) {
+      unawaited(IlBancoDellOrecchio.registra(pcm, numero, tasso));
+    }
+    while (_vociConsegnate.length > 4) {
+      _vociConsegnate.remove(_vociConsegnate.keys.first);
+    }
     if (pcm.isNotEmpty) suFrase?.call(pcm, pausa);
+  }
+
+  /// **LA FRASE CONSEGNATA ERA SOLO SOTTOFONDO**: chi trascrive non ci ha
+  /// trovato parole. La stanza impara i suoi livelli di voce. Ordine EM voce
+  /// 04, secondo giro.
+  void eraSottofondo(int frase) {
+    final voci = _vociConsegnate.remove(frase);
+    if (voci != null && _stanza.sembraSottofondo(voci)) {
+      _stanza.imparaTutte(voci);
+    }
+  }
+
+  /// **IL CONTROLLO DICE SOLO SOTTOFONDO: LA FRASE IN CORSO SI SCARTA.**
+  /// Ordine EM voce 04, secondo giro. La stanza impara i suoi livelli di
+  /// voce, e gli ultimi tre secondi restano come audio di prima: se la
+  /// persona ha cominciato a parlare dopo l'audio giudicato, l'inizio non si
+  /// perde. Falso se la frase non e' piu' quella, o se la persona tiene
+  /// premuto.
+  bool scarta(int frase) {
+    if (!_inAscolto || aMano || frase != _frase) return false;
+    // Una frase che sta sopra il sottofondo conosciuto e' voce vicina: non si
+    // butta per una trascrizione vuota. `LaStanza.sembraSottofondo`.
+    if (!_stanza.sembraSottofondo(_silenzio.vociSentite)) return false;
+    _stanza.imparaTutte(_silenzio.vociSentite);
+    final tutto = _parlato.takeBytes();
+    const margine = 3 * _unSecondo;
+    final coda = tutto.length > margine
+        ? Uint8List.sublistView(tutto, tutto.length - margine)
+        : tutto;
+    _nuovaFrase();
+    if (coda.isNotEmpty) {
+      _prima.add(Uint8List.fromList(coda));
+      _primaParla.add(true);
+      _byteDiPrima = coda.length;
+      _primaMassima = margine;
+    }
+    return true;
+  }
+
+  /// **DOVE COMINCIA LA VOCE VICINA NELL'AUDIO DI PRIMA.** Ordine EM voce 04,
+  /// secondo giro. Dati le lunghezze in byte dei pezzi e se ciascuno era
+  /// parlato, torna l'indice del primo pezzo da tenere: [margine] byte prima
+  /// del primo pezzo parlato dell'ultima corsa, cioe' di quelli non separati
+  /// da piu' di [buco] byte di silenzio, la stessa regola con cui
+  /// `IlSilenzioVero` dimentica un colpo isolato. Se nessun pezzo era
+  /// parlato, si tiene tutto.
+  static int inizioDellaVoceVicina(
+    List<int> lunghezze,
+    List<bool> parla, {
+    int margine = _unSecondo * 2 ~/ 5,
+    int buco = _unSecondo * 3 ~/ 5,
+  }) {
+    int? primo;
+    var silenzio = 0;
+    for (var i = lunghezze.length - 1; i >= 0; i--) {
+      if (parla[i]) {
+        primo = i;
+        silenzio = 0;
+      } else {
+        silenzio += lunghezze[i];
+        if (primo != null && silenzio > buco) break;
+      }
+    }
+    if (primo == null) return 0;
+    var prima = 0;
+    var i = primo;
+    while (i > 0 && prima < margine) {
+      i--;
+      prima += lunghezze[i];
+    }
+    return i;
+  }
+
+  /// **IL CONTROLLO DICE CHE LA PERSONA HA FINITO: LA FRASE PARTE ADESSO.**
+  /// Ordine EM voce 04, secondo giro: la televisione sotto teneva aperta la
+  /// frase. Falso se la frase non e' piu' quella.
+  bool chiudi(int frase) {
+    if (!_inAscolto || aMano || frase != _frase || !_silenzio.haParlato) {
+      return false;
+    }
+    _consegna(-2);
+    return true;
   }
 
   /// La persona ha lasciato il pulsante: la frase finisce adesso.
@@ -376,10 +552,28 @@ abstract final class LaTrascrizione {
         InlineDataPart('audio/wav', wav),
       ]),
     ]);
-    // Gemini manda una frase per riga: la domanda della persona e' una sola,
-    // e a capo nella bolla sembrerebbe un elenco. Visto sul Realme.
-    final testo =
-        (risposta.text ?? '').replaceAll(RegExp(r'\s*\n+\s*'), ' ').trim();
-    return testo == silenzio ? '' : ripulita(testo);
+    return pulita(risposta.text ?? '');
+  }
+
+  /// **LA RISPOSTA DI CHI TRASCRIVE, PRIMA DI DIVENTARE PAROLE.**
+  ///
+  /// Gemini manda una frase per riga: la domanda della persona e' una sola,
+  /// e a capo nella bolla sembrerebbe un elenco. Visto sul Realme.
+  ///
+  /// **E il segno del silenzio non e' una parola.** Ordine EM voce 04,
+  /// secondo giro: sul Realme, con la televisione accesa, la trascrizione e'
+  /// tornata *"[SILENZIO] Ah, io sento un blocco ad Anahata..."*, e il segno
+  /// e' finito nella domanda a video e nella chat. Si toglieva solo quando
+  /// era la risposta intera. Padre: ordine EJ voce 01, che ha introdotto il
+  /// segno; la mescolanza l'ha resa possibile l'istruzione sul sottofondo di
+  /// questo ordine. Una risposta senza lettere e' silenzio.
+  static String pulita(String grezza) {
+    final testo = grezza
+        .replaceAll(silenzio, ' ')
+        .replaceAll(RegExp(r'\s*\n+\s*'), ' ')
+        .replaceAll(RegExp(r' {2,}'), ' ')
+        .trim();
+    if (!RegExp(r'\p{L}', unicode: true).hasMatch(testo)) return '';
+    return ripulita(testo);
   }
 }

@@ -42,10 +42,13 @@ void main() {
           corpoDi('void _inPausa(').contains('_frasi.anteprima(pcm)'), isTrue,
           reason: 'in pausa si trascrive solo l\'ultimo pezzo');
       final frase = corpoDi('Future<void> _unaFrase(');
+      // "pausa != -1": la trascrizione pronta vale per la pausa che ha
+      // chiuso la frase e per il controllo che l'ha chiusa (-2, ordine EM
+      // voce 04, secondo giro), non per la mano che lascia (-1).
       for (final condizione in [
         'anticipata.pausa == pausa',
         'anticipata.giro == giroPrima',
-        'pausa >= 0',
+        'pausa != -1',
       ]) {
         expect(frase.contains(condizione), isTrue,
             reason: 'la trascrizione anticipata vale anche quando la persona '

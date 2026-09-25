@@ -129,7 +129,11 @@ class _LaZonaDelTesto extends StatelessWidget {
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-              style: TypographyTokens.titoloSezione()
+              // **La serif della lettura, in grassetto e in oro.** Sul Realme
+              // il maiuscoletto dei titoli era grande ma una domanda lunga si
+              // leggeva male: la domanda e' prosa, e la prosa che si legge ha
+              // una misura sola.
+              style: TypographyTokens.lettura(weight: 600)
                   .copyWith(color: ColorTokens.goldLight),
             ),
             const SizedBox(height: SpacingTokens.sm),
