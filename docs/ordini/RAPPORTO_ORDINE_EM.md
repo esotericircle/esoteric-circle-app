@@ -29,6 +29,14 @@ mio"*.
   (`docs/collaudo/EM/em10_arco_del_volto.txt`). Il volto e' un po' piu' piccolo
   di prima; adesso non si muove piu'.
 
+- **EM.04, il microfono col respiro e con la televisione**, chiusa dal
+  fondatore sulla 2281 con l'ordine EN voce 10, 25 settembre 2026:
+  `docs/collaudo/EN/en10_verifiche_del_fondatore_sulla_2281.txt`. *"Microfono
+  calibrato molto bene."*
+- **EM.12, Calìgo rallentato**, chiusa dal fondatore sulla 2281 con l'ordine
+  EN voce 10: `docs/collaudo/EN/en10_verifiche_del_fondatore_sulla_2281.txt`.
+  *"Voce Caligo ok."*
+
 ## LE VOCI CHE ASPETTANO IL TUO GIUDIZIO, E DOVE GUARDARE
 
 - **EM.04 e EM.05, il microfono col respiro e con la televisione; la

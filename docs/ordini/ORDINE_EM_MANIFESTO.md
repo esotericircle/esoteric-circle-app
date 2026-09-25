@@ -22,8 +22,8 @@ accesa e gemini riconosce la mia voce Senza problemi. Ho bisogno dello stesso
 livello di accuratezza e tolleranza"*.
 
 VOCI_TOTALI: 12
-VOCI_CHIUSE: 4
-VOCI_APERTE: 8
+VOCI_CHIUSE: 6
+VOCI_APERTE: 6
 
 Le prove stanno in `docs/collaudo/EM/`.
 
@@ -244,11 +244,20 @@ lavoro; tre prove della prima stesura riscritte con la lapide (la chiusura
 con la televisione entro 2.600 ms e non a 2.100; il sottofondo della
 televisione alternata a -40,4 e non -38).
 
-**APERTA IN ATTESA DI VERIFICA.** E' la scelta del fondatore, *"Sintetico,
-poi il mio"*: il respiro vero e la televisione vera sul suo telefono. Al
-banco la persona e' la voce di Windows dalle casse del PC, che il modello puo'
-scambiare per un apparecchio come la televisione: un pezzo breve in mezzo
-alla domanda e' caduto in due scene su cinque.
+Era **APERTA IN ATTESA DI VERIFICA**: la scelta del fondatore, *"Sintetico,
+poi il mio"*, voleva il respiro vero e la televisione vera sul suo telefono.
+Al banco la persona era la voce di Windows dalle casse del PC, che il modello
+puo' scambiare per un apparecchio come la televisione: un pezzo breve in
+mezzo alla domanda e' caduto in due scene su cinque.
+
+**La chiude il fondatore sulla build 2281**, con l'ordine EN voce 10 del 25
+settembre 2026: *"Microfono calibrato molto bene."*
+(`docs/collaudo/EN/en10_verifiche_del_fondatore_sulla_2281.txt`).
+
+**CHIUSA.**
+DOMANDA: "Microfono calibrato molto bene."
+PROVA: docs/collaudo/EN/en10_verifiche_del_fondatore_sulla_2281.txt
+MISURA: frase di sola televisione tenuta aperta, da 141,6 secondi a scartata ai controlli; chiusura della domanda con la televisione accesa a 2,0 secondi dalla fine del parlato; giudizio del fondatore sul suo telefono, 1 su 1
 
 ## VOCE EM.05, DOPO 30 SECONDI IL LIVE NON SI FERMA E CONSUMA CREDITI
 
@@ -477,5 +486,11 @@ con Orus, la voce scelta dal fondatore: una risposta di 331 caratteri in 24,0
 secondi di voce, **13,8 caratteri al secondo** pause comprese
 (`docs/collaudo/EM/em06_em12_le_voci_nel_live.txt`).
 
-**APERTA IN ATTESA DI VERIFICA**: il giudizio all'orecchio e' del
-fondatore, per ordine.
+Era **APERTA IN ATTESA DI VERIFICA**: il giudizio all'orecchio era del
+fondatore, per ordine. **Lo ha dato sulla build 2281**, con l'ordine EN voce
+10 del 25 settembre 2026: *"Voce Caligo ok."*
+
+**CHIUSA.**
+DOMANDA: "Voce Caligo ok."
+PROVA: docs/collaudo/EN/en10_verifiche_del_fondatore_sulla_2281.txt
+MISURA: caratteri al secondo di Calìgo, da 9,1-11,1 a 11,8-15,3 (13,8 nel LIVE vero con Orus); giudizio all'orecchio del fondatore, 1 su 1

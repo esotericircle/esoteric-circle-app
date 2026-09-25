@@ -1,0 +1,20 @@
+ORDINE EN VOCE 10, LE VERIFICHE DEL FONDATORE SULLA BUILD 2281
+
+Build 2281, release 5vsm81pka88sg su App Distribution, consegnata il 25 settembre 2026 con l'ordine EM
+(docs/versione_distribuita.json). Il fondatore l'ha provata sul suo telefono lo stesso giorno: le sue parole arrivano con l'ordine EN, scritto dall'Architetto il 25 settembre 2026.
+
+VOCE EM.04, IL MICROFONO COL RESPIRO E CON LA TELEVISIONE
+  Le parole del fondatore: "Microfono calibrato molto bene."
+  E' la prova che l'ordine EM aspettava: la sua scelta era "Sintetico, poi il mio", cioe' il respiro e la
+  televisione veri sul suo telefono dopo il banco sintetico al PC.
+  La misura del banco, sul Realme (docs/collaudo/EM/em04_em05_televisione_e_respiro.txt): con la televisione
+  accesa la prima stesura teneva aperta la frase 141,6 secondi; la 2281 scarta la frase di sola televisione ai
+  controlli e chiude la domanda 2,0 secondi dopo la fine del parlato.
+
+VOCE EM.12, LE VOCI DI CALIGO RALLENTATE
+  Le parole del fondatore: "Voce Caligo ok."
+  La misura (docs/collaudo/EM/caligo/ritmo_delle_voci.txt): prima fra 9,1 e 11,1 caratteri al secondo, dopo
+  fra 11,8 e 15,3; nel LIVE vero con Orus 13,8 (docs/collaudo/EM/em06_em12_le_voci_nel_live.txt).
+
+LE ALTRE VOCI APERTE DELL'ORDINE EM restano aperte, come l'ordine EN vuole: EM.02, EM.05, EM.06, EM.07, EM.08 ed
+EM.11. Il fondatore non ne ha parlato; la EM.11 continua con la voce EN.01.
