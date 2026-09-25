@@ -96,7 +96,38 @@ frase del fondatore *"Prova ad aggiungere anche le voci Chirp nel
 selettore"* e la sua risposta del 25 settembre 2026, *"Sì"*, all'eccezione
 limitata alla voce sull'endpoint "eu".
 
-**APERTA.**
+**Fatto sul server** (`functions/src/live.ts`, pubblicato il 25 settembre
+2026): fra le candidate del selettore, accanto alle voci di Gemini, ci sono
+le trenta voci italiane Chirp 3 HD, con gli stessi nomi e lo stesso genere
+(quattordici femminili per Medora e Aura, sedici maschili per Calìgo), col
+nome `Chirp3-HD-<Nome>` e la famiglia scritta sotto il nome. Parlano a
+flusso, PCM a 24 kHz, **solo dall'endpoint `eu-texttospeech.googleapis.com`**,
+mai da "global". Primo audio misurato al banco fra 210 e 318 millesimi
+(`docs/collaudo/EM/chirp_primo_suono.txt`), contro 0,66-0,75 secondi di Flash
+TTS.
+
+**L'eccezione e' scritta dove vive la regola**: in
+`lib/core/config/la_regione_dei_dati.dart`, `eccezioniDellaVoce`, con la data
+e questa voce come fonte, e nella riga della voce di `CLAUDE.md`. La guardia
+nuova `test/le_voci_stanno_in_europa_test.dart` pretende che ogni host di
+sintesi nominato in `lib` e in `functions/src` stia in europe-west1 o fra le
+eccezioni, e che l'eccezione sia una sola, "eu", per le Chirp 3 HD, senza
+"global". Vista rossa due volte: con l'indirizzo delle Chirp portato a
+"global", e con l'eccezione tolta (`regola_a_europa_1` e `_2`). Le prove del
+server delle candidate e dell'endpoint "eu" sono cadute togliendo le Chirp
+dalle candidate e portando l'endpoint a "global" (`regola_a_server_em`).
+
+**Non e' verificata in un LIVE vero sul Realme**: il selettore lo aprono solo
+i fondatori, e l'account del Realme (`iToukegmg2P3LBmlyYGJjkxvFbs1`) non e' in
+`configurazione/live.fondatori`. La scrittura su Firestore di produzione e'
+stata fermata due volte dal controllo automatico dell'ambiente, anche dopo
+l'autorizzazione del fondatore; non si e' aggirato. Chiesto al fondatore di
+aggiungerlo dalla console, in chat e con una notifica.
+
+**APERTA IN ATTESA DI VERIFICA.** Il giudizio sulla voce e' del fondatore
+per ordine. La prova: scegliere una voce Chirp nel selettore e parlare nel
+LIVE; il registro del server, riga "voce del Maestro", scrive la voce, la
+famiglia e il punto, `eu-texttospeech.googleapis.com`.
 
 ## VOCE EM.03, L'ATTRIBUZIONE CIECA LA CHIUDE IL FONDATORE
 
@@ -127,14 +158,97 @@ rileva anche solo il respiro, è molto grave perché fin quando il microfono
 rileva il minimo rumore, la risposta non parte."* E la sua frase sulla
 televisione, qui sopra.
 
-**APERTA.**
+**La causa, due volte.** Prima (fatto 1): il microfono decideva sul solo
+volume, e il respiro, un ventilatore o una televisione valevano come voce.
+Padre: ordine EJ voce 01. **Prima stesura della cura** (commit `f80e2ced`):
+la voce deve essere voce, misurata con l'autocorrelazione fra 70 e 400 cicli
+al secondo (`LaMisuraDellaVoce`, soglia 0,55: voce vera al 91 per cento,
+respiro e fruscio allo zero), la sorgente delle chiamate con la soppressione
+del rumore, e una stanza che ricorda il sottofondo. **Sul Realme, con la
+televisione finta, quella stesura ha tenuto aperta una frase per 141,6
+secondi** (scena tv1): la stanza imparava solo dai pezzi sotto la soglia
+d'inizio, e una televisione piu' forte della soglia non si imparava mai.
+Padre: questa stessa voce, prima stesura.
+
+**Il secondo giro** (commit `61bdfd13` e `a7786aef`):
+
+- contro il sottofondo decide la media dell'energia di mezzo secondo, e la
+  stanza impara la stessa grandezza;
+- una frase aperta su un suono continuo (meno del 35 per cento del tempo
+  preso per silenzio) chiede un controllo ogni tre secondi: la trascrizione
+  decide, e `IlGiudizioDellaFrase` la scarta se e' solo sottofondo (la stanza
+  impara il livello), o la chiude quando le parole smettono di crescere;
+- la stanza dimentica dopo dieci secondi senza voce, e il sottofondo vale
+  solo con almeno quaranta pezzi di voce recenti: una parola detta piano non
+  diventa sottofondo;
+- **una frase che sta sopra il sottofondo conosciuto non si scarta e non si
+  impara** (scena tv4: un controllo e' tornato vuoto sulla domanda vera e la
+  stanza ha imparato la voce della persona, da -26 a -19 dB; padre: questa
+  voce, il controllo); senza sottofondo conosciuto servono due controlli
+  vuoti di fila, e una frase chiusa vuota non si impara mai;
+- con un sottofondo la frase comincia 400 ms prima della voce vicina: il
+  secondo di audio di prima portava parole della televisione attaccate ad
+  "Aura", e la trascrizione la perdeva cinque volte su cinque;
+- il segno `[SILENZIO]` non entra piu' nella domanda (scena tv1, a video e in
+  chat; padre: ordine EJ voce 01, che lo toglieva solo quando era la risposta
+  intera);
+- **una frase con piu' di un secondo di voce vera che torna vuota si
+  trascrive di nuovo**, e se torna vuota ancora il Maestro dice *"Non ho
+  sentito bene: me lo ripeti?"* e l'orologio del silenzio riparte (build
+  finale, stanza silenziosa: "Sono dello Scorpione con ascendente Sagittario
+  e la Luna in Capricorno" e' tornata vuota, la domanda si e' persa e il LIVE
+  si e' chiuso per silenzio; padre: questa voce, la trascrizione anticipata
+  della voce EM.11 presa senza una seconda prova).
+
+**Le misure sul Realme**, scena per scena, in
+`docs/collaudo/EM/em04_em05_televisione_e_respiro.txt`: con la televisione
+accesa la frase di sola televisione si scarta al primo controllo, la stanza
+impara il sottofondo a -26/-27 dB, la televisione non apre piu' frasi, e la
+domanda con due pause di un secondo e mezzo si chiude fra 1.995 e 2.004 ms
+dopo la fine del parlato e parte, con 9, 10 e 10 parole su 11 (prima: la
+frase restava aperta 141,6 secondi e la risposta non partiva). Col respiro
+sintetico la frase si chiude a 1.994-1.997 ms e parte. Il vincolo della voce
+EJ.01 regge: le due pause di pensiero di un secondo e mezzo non troncano mai.
+
+**Le guardie.** Nuove, tutte viste rosse con un innesto (Regola A, uscite in
+scratchpad): `test/la_televisione_non_tiene_aperta_la_frase_test.dart`,
+ventisei prove, con la televisione fatta dei 243 pezzi di voce veri della
+scena tv1 (una prova e' rimasta verde al primo innesto, quella che cercava la
+guardia dello scarto con `indexOf`: senza la riga valeva -1; riscritta e vista
+rossa). Regola B: `il_microfono_sente_la_voce_non_il_respiro_test.dart` e
+`il_microfono_del_live_non_tronca_test.dart` viste rosse all'inizio del
+lavoro; tre prove della prima stesura riscritte con la lapide (la chiusura
+con la televisione entro 2.600 ms e non a 2.100; il sottofondo della
+televisione alternata a -40,4 e non -38).
+
+**APERTA IN ATTESA DI VERIFICA.** E' la scelta del fondatore, *"Sintetico,
+poi il mio"*: il respiro vero e la televisione vera sul suo telefono. Al
+banco la persona e' la voce di Windows dalle casse del PC, che il modello puo'
+scambiare per un apparecchio come la televisione: un pezzo breve in mezzo
+alla domanda e' caduto in due scene su cinque.
 
 ## VOCE EM.05, DOPO 30 SECONDI IL LIVE NON SI FERMA E CONSUMA CREDITI
 
 Fonte: il fondatore, 25 settembre 2026: *"Dopo 30 secondi non si blocca da
 solo e continua a consumare crediti."*
 
-**APERTA.**
+**La causa** e' quella della voce EM.04: finche' il respiro o la televisione
+valevano come voce, la persona "parlava" e l'orologio dei trenta secondi non
+contava. Padre: ordine EJ voce 01. La cura e' quella della voce EM.04; la
+chiusura della sessione di Protoface c'era gia' dall'ordine EJ
+(`sessions/{id}/end`).
+
+**Sul Realme**, in tutte le scene del banco, il LIVE si e' chiuso da solo:
+*"LIVE: chiusa dopo 30 secondi di silenzio"* con la televisione ancora
+accesa (scene tv2, tv3, tv5) e col respiro sintetico (respiro1, respiro2).
+**Sul server**, registro di Cloud Run: la sessione della scena tv2 aperta
+alle 01:50:19 UTC, *"LIVE chiuso dal telefono"* alle 01:52:34; i secondi
+addebitati del mese, letti a ogni apertura, sono passati da 11.850 a 11.987,
+**137 secondi per una sessione di 135**: dopo la chiusura non si paga piu'
+niente. Tutto in `docs/collaudo/EM/em04_em05_televisione_e_respiro.txt`.
+
+**APERTA IN ATTESA DI VERIFICA**, con la voce EM.04: il respiro vero e la
+televisione vera sono la prova del fondatore.
 
 ## VOCE EM.06, LA VOCE SCELTA NEL SELETTORE NON SI APPLICA
 
@@ -142,21 +256,67 @@ Fonte: il fondatore, 25 settembre 2026: *"Quando seleziono la voce nel
 selettore anche se scelgo una voce diversa, questa non viene applicata
 realmente, funziona solo il preview della voce."*
 
-**APERTA.**
+**La causa** (fatto 5): la scelta si leggeva al massimo una volta al minuto,
+in memoria di ogni servizio Cloud Run, e la porta che parla nel LIVE non
+sapeva che era cambiata; e nessun registro diceva quale voce aveva parlato.
+Padre: ordine EJ voce 02, che ha messo la scelta in memoria per un minuto.
+
+**Fatto sul server** (pubblicato il 25 settembre 2026): la scelta si rilegge
+da `configurazione/live` se ha piu' di tre secondi (`LA_SCELTA_VALE_MS`), in
+ogni servizio; e ogni voce del Maestro scrive nel registro la riga *"voce del
+Maestro"* con la voce, la famiglia, il modello e il punto. Prova nuova in
+`functions/src/live.test.ts`, *"la voce scelta si rilegge entro tre secondi e
+il registro dice quale voce ha parlato"*, vista rossa riportando il tempo a
+un minuto e togliendo la voce dal registro (`regola_a_server_em`).
+
+**APERTA IN ATTESA DI VERIFICA.** Per ordine la chiude una registrazione di
+un LIVE dopo la scelta, con la voce uguale all'anteprima: il selettore sul
+Realme aspetta l'account fra i fondatori (voce EM.02), e il confronto con
+l'anteprima e' del fondatore. La voce EJ.02 resta aperta finche' lui non la
+verifica.
 
 ## VOCE EM.07, L'ELENCO DELLE VOCI NON SCORRE
 
 Fonte: il fondatore, 25 settembre 2026: *"Non posso scorrere le voci, lo
 scorrimento non funziona."*
 
-**APERTA.**
+**La causa** (fatto 3): le candidate stavano in una `Column` senza
+scorrimento. Padre: ordine EJ voce 02, che ha scritto il selettore; l'elenco
+e' cresciuto con l'ordine EK (tutte le voci del genere) e con la voce EM.02
+(le Chirp), fino a trentadue per Calìgo.
+
+**Fatto**: l'elenco e' un `ListView` dentro un `Flexible`, e il foglio arriva
+all'85 per cento dello schermo (`il_selettore_delle_voci.dart`). La prova
+nuova `test/il_selettore_scorre_e_il_microfono_riparte_test.dart` monta le
+trentadue candidate di Calìgo, scorre fino all'ultima, `Chirp3-HD-Sadaltager`,
+e la sceglie; vista rossa rendendo l'elenco fermo
+(`NeverScrollableScrollPhysics`, `regola_a_client_em`).
+
+**APERTA IN ATTESA DI VERIFICA**: la registrazione dello schermo del Realme
+aspetta l'account fra i fondatori (voce EM.02).
 
 ## VOCE EM.08, DOPO IL SELETTORE IL MICROFONO NON FUNZIONA PIÙ
 
 Fonte: il fondatore, 25 settembre 2026: *"Quando torno indietro dal
 selettore, il microfono non funziona più."*
 
-**APERTA.**
+**La causa**: il registratore del LIVE si apriva col modo di serie, che
+chiede il fuoco audio e alla prima perdita si mette in pausa per sempre (la
+ripresa esiste solo nel modo `pauseResume` di `record_android`); l'anteprima
+delle voci suona con un lettore che chiede il fuoco. Padre: ordine EJ voce
+01, che ha aperto il microfono col modo di serie.
+
+**Fatto**: il microfono non chiede e non perde il fuoco
+(`AudioInterruptionMode.none`, in `LOrecchioDelLive.configurazione`), e il
+selettore chiude il microfono prima di aprirsi e lo riapre alla chiusura,
+anche se cade (`_apriIlSelettore`, con un `finally`); mentre si sceglie la
+voce l'orologio del silenzio non conta. Prove nella stessa
+`test/il_selettore_scorre_e_il_microfono_riparte_test.dart`, viste rosse
+rimettendo il modo `pause` e togliendo la chiusura del microfono prima del
+selettore (`regola_a_client_em`).
+
+**APERTA IN ATTESA DI VERIFICA**: la registrazione sul Realme con selettore,
+ritorno e domanda aspetta l'account fra i fondatori (voce EM.02).
 
 ## VOCE EM.09, LA DOMANDA A VIDEO SOPRA LA RISPOSTA
 
@@ -164,7 +324,30 @@ Fonte: il fondatore, 25 settembre 2026: *"Quando faccio una domanda, la
 domanda dovrebbe comparire in grande e in giallo anche nel testo subito
 sopra la risposta, invece adesso compare solo la risposta."*
 
-**APERTA.**
+**La causa** (fatto 4): domanda e risposta erano lo stesso testo, e la
+risposta cancellava la domanda. Padre: ordine EG voce 05, che ha fatto il
+sottotitolo alto quanto il suo testo.
+
+**Fatto**: `LaScenaDelLive` (`lib/features/maestri/live/la_scena_del_live.dart`)
+e' la composizione che la schermata monta: una zona del testo di altezza
+fissa, con **la domanda sopra, nella serif della lettura in grassetto e in
+oro**, 20 punti, e la risposta sotto, nel corpo da 16, che scorre. Sul
+Realme la prima stesura usava il maiuscoletto dei titoli, grande ma faticoso
+su una frase lunga (cattura della scena tv1); la guardia di casa
+`etichette_e_lettura` ha preso la serif rossa, e la domanda e' entrata fra le
+sue frasi brevi ammesse, con la motivazione scritta. Prova nuova
+`test/la_scena_del_live_non_salta_test.dart`, vista rossa dimezzando la zona
+del testo quando c'e' una domanda e rimettendo la risposta al posto della
+domanda (`regola_a_client_em`).
+
+**Sul Realme** (scena tv3, build di collaudo): la domanda in oro sopra la
+risposta durante la risposta, tre righe, e la risposta sotto; tre catture
+affiancate, ascolto, attesa, risposta.
+
+**CHIUSA.**
+DOMANDA: "Quando faccio una domanda, la domanda dovrebbe comparire in grande e in giallo anche nel testo subito sopra la risposta, invece adesso compare solo la risposta."
+PROVA: docs/collaudo/EM/em09_em10_ascolto_domanda_risposta.jpg
+MISURA: righe della domanda a video mentre il Maestro risponde, da 0 a 3; corpo della domanda 20 punti contro i 16 della risposta
 
 ## VOCE EM.10, L'IMMAGINE DEL MAESTRO CHE CAMBIA MISURA DI SCATTO
 
@@ -172,7 +355,30 @@ Fonte: il fondatore, 25 settembre 2026: *"Quando faccio una domanda
 l'immagine del maestro s'ingrandisce di botto e poi si riduce di botto
 quando inizia a rispondere."*
 
-**APERTA.**
+**La causa** (fatto 4): il volto stava in un `Expanded` sopra un
+sottotitolo alto quanto il suo testo, e la barra dell'ascolto compariva e
+spariva. Padre: ordine EG voce 05.
+
+**Fatto**: nella `LaScenaDelLive` la zona del testo ha un'altezza fissa, il
+27 per cento dello spazio, e la riga dello stato e il posto della barra ci
+sono sempre, anche vuoti.
+
+**La misura.** In una prova di widget, finestra 390x844, la disposizione
+della 2280 ricostruita (commit `8a44fa3f`, righe 664-708) e la scena di
+adesso: il volto era alto 680 punti al saluto, 669 in ascolto, 656 alla
+domanda e **567 alla risposta lunga**, 89 punti in meno di colpo quando il
+Maestro comincia a rispondere; adesso **497 in tutti e quattro i momenti**
+(`docs/collaudo/EM/em10_volto_prima_e_adesso.txt`). Il volto e' piu' piccolo
+di prima, e non cambia piu'. **Sul Realme**, scena tv3: 43 catture
+dall'ascolto alla risposta, l'arco d'oro del volto 731x915 pixel nella stessa
+posizione in tutte e 43 (`docs/collaudo/EM/em10_arco_del_volto.txt`; la prima
+misura prendeva per arco anche la domanda scritta in oro sotto il volto, e
+l'area e' stata ristretta al bordo dell'arco).
+
+**CHIUSA.**
+DOMANDA: "Quando faccio una domanda l'immagine del maestro s'ingrandisce di botto e poi si riduce di botto quando inizia a rispondere."
+PROVA: docs/collaudo/EM/em10_volto_prima_e_adesso.txt
+MISURA: altezza del volto fra la domanda e la risposta, da 656 e 567 punti a 497 e 497; sul Realme 1 rettangolo dell'arco su 43 catture
 
 ## VOCE EM.11, L'ATTESA PRIMA DELLA RISPOSTA
 
@@ -186,4 +392,25 @@ quando ottengo risposta passano diversi secondi, circa 4."*
 Fonte: il fondatore, 25 settembre 2026: *"qualunque voce di Caligo è
 rallentata."*
 
-**APERTA.**
+**La causa**: il modo della voce di Calìgo portava parole sul timbro, e
+**qualunque parola sul timbro rallenta**: col modo "con voce grave e matura di
+uomo, con calma naturale" le sedici voci parlavano fra 9,1 e 11,1 caratteri
+al secondo, e il parlato italiano naturale sta fra 13 e 15. Padre: ordine EK,
+sezione "Fuori dalle voci", che ha scritto i modi per Maestro.
+
+**Fatto sul server** (pubblicato il 25 settembre 2026): il modo di Calìgo e'
+*"Leggi in italiano, con la pronuncia di un madrelingua italiano, a ritmo di
+conversazione:"*; il timbro lo da' la voce scelta. Vale per tutte le voci di
+Calìgo, anche quella di partenza, perche' il server prende sempre il modo
+per Maestro. Prova nuova in `functions/src/live.test.ts`, *"il modo di Calìgo
+non porta le parole che lo rallentano"*, vista rossa mettendo "con calma"
+nel modo (`regola_a_server_caligo`).
+
+**La misura**, sul testo lungo dell'ordine EK, Gemini 2.5 Flash TTS in
+europe-west1: prima fra 9,1 e 11,1 caratteri al secondo, mediana 10,1 su
+sedici voci; dopo fra 11,8 e 15,3, mediana 13,5 su trentasette misure in tre
+giri (`docs/collaudo/EM/caligo/ritmo_delle_voci.txt`), con le sedici
+registrazioni prima e dopo nella stessa cartella.
+
+**APERTA IN ATTESA DI VERIFICA**: il giudizio all'orecchio e' del
+fondatore, per ordine.

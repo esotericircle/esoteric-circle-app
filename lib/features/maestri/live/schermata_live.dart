@@ -526,21 +526,15 @@ class _SchermataLiveState extends State<SchermataLive> {
         '$pezzi pezzi, trascritta in ${orologio.elapsedMilliseconds} ms '
         'dalla chiusura, $comeTrascritta: «$detto» '
         '${domanda == null ? '(si ascolta ancora)' : '(parte)'}');
-    // **SE NEMMENO LA SECONDA PROVA SENTE PAROLE, IL MAESTRO CHIEDE DI
-    // RIPETERE**, invece di tacere mentre l'orologio del silenzio chiude il
-    // LIVE: e' cio' che fa "Ok Google" quando non capisce.
-    if (domanda == null &&
-        trascritta &&
-        detto.isEmpty &&
-        mounted &&
-        _orecchio.voceDellaFrase(frase) >= laVoceChiara &&
-        !_orecchio.staParlando &&
-        _quadro.momento == MomentoDelLive.vivo &&
-        !_parla &&
-        !_pensa) {
-      await _nonHoSentito();
-      return;
-    }
+    // **UNA FRASE CHE TORNA VUOTA DUE VOLTE NON FA PARLARE IL MAESTRO.**
+    // Ordine EM voce 04, secondo giro, 25 settembre 2026. Per un giro il
+    // Maestro diceva "Non ho sentito bene: me lo ripeti?": sul Realme e'
+    // scattato due volte su frasi aperte nell'istante in cui il microfono si
+    // riapriva, cioe' sulla coda della sua stessa voce dall'altoparlante, e
+    // mentre parlava il microfono era chiuso: la domanda vera che arrivava in
+    // quel momento si e' persa, e quella dopo ha perso il nome del Maestro.
+    // Resta la seconda trascrizione qui sopra, che non costa niente a chi
+    // parla e salva la domanda tornata vuota per un inciampo.
     if (domanda == null || !mounted) return;
     if (_quadro.momento != MomentoDelLive.vivo || _parla || _pensa) return;
     _cePresenza();
@@ -555,29 +549,6 @@ class _SchermataLiveState extends State<SchermataLive> {
   /// **Quanta voce vera rende incredibile una trascrizione vuota.** Ordine
   /// EM voce 04, secondo giro.
   static const Duration laVoceChiara = Duration(seconds: 1);
-
-  /// **La frase del Maestro quando non ha sentito le parole.** Ordine EM
-  /// voce 04, secondo giro.
-  static const String nonHoSentito = 'Non ho sentito bene: me lo ripeti?';
-
-  /// **NON HO SENTITO BENE.** Ordine EM voce 04, secondo giro: una frase con
-  /// voce vera e' tornata vuota due volte. Il Maestro lo dice, l'orologio
-  /// del silenzio riparte, e il microfono si riapre.
-  Future<void> _nonHoSentito() async {
-    debugPrint('LIVE: la frase ha voce ma nessuna parola, due volte: il '
-        'Maestro chiede di ripetere');
-    await _orecchio.ferma();
-    _frasi.dimentica();
-    _cePresenza();
-    if (!mounted) return;
-    setState(() {
-      _ascolta = false;
-      _quadro = _quadro.con(domanda: '', sottotitolo: '');
-    });
-    await _dillo(nonHoSentito);
-    if (!mounted) return;
-    await _ascoltaLaPersona();
-  }
 
   /// **La frase e' in pausa: si comincia a trascriverla.** Ordine EM voce 11.
   /// Un guasto qui non si vede: alla chiusura la frase si trascrive di nuovo.

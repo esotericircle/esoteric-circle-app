@@ -352,13 +352,13 @@ void main() {
     });
 
     test(
-        'UNA FRASE DI VOCE VERA TORNATA VUOTA SI TRASCRIVE DI NUOVO, POI IL '
-        'MAESTRO CHIEDE DI RIPETERE', () {
+        'UNA FRASE DI VOCE VERA TORNATA VUOTA SI TRASCRIVE DI NUOVO, E IL '
+        'MAESTRO NON PARLA DA SOLO', () {
       final schermata = File('lib/features/maestri/live/schermata_live.dart')
           .readAsStringSync();
       final frase = schermata.substring(
           schermata.indexOf('Future<void> _unaFrase('),
-          schermata.indexOf('Future<void> _nonHoSentito()'));
+          schermata.indexOf('static const Duration laVoceChiara'));
       final seconda = frase
           .indexOf('if (detto.isEmpty && _orecchio.voceDellaFrase(frase) >= '
               'laVoceChiara) {');
@@ -371,22 +371,21 @@ void main() {
               .startsWith(RegExp(r'[^}]*detto = await _trascrivi\(')),
           isTrue,
           reason: 'la seconda prova non trascrive di nuovo');
-      expect(frase.contains('await _nonHoSentito();'), isTrue,
-          reason: 'dopo due trascrizioni vuote il Maestro tace, e il LIVE si '
-              'chiude per silenzio');
-      final non = schermata
-          .substring(schermata.indexOf('Future<void> _nonHoSentito()'));
-      final corpo = non.substring(0, non.indexOf('\n  }\n'));
-      final ordine = [
-        corpo.indexOf('await _orecchio.ferma();'),
-        corpo.indexOf('_cePresenza();'),
-        corpo.indexOf('await _dillo(nonHoSentito);'),
-        corpo.indexOf('await _ascoltaLaPersona();'),
-      ];
-      expect(ordine.every((i) => i >= 0), isTrue,
-          reason: 'manca un passo di "non ho sentito": $ordine');
-      expect([...ordine]..sort(), ordine,
-          reason: 'i passi di "non ho sentito" sono fuori ordine: $ordine');
+      // **LA LAPIDE DEL "ME LO RIPETI?".** Per un giro, dopo due
+      // trascrizioni vuote, il Maestro diceva "Non ho sentito bene: me lo
+      // ripeti?". Sul Realme e' scattato due volte sulla coda della sua
+      // stessa voce, aperta nell'istante in cui il microfono si riapriva, e
+      // mentre parlava il microfono era chiuso: la domanda vera che arrivava
+      // si e' persa. Una frase vuota non fa parlare il Maestro.
+      // Si guarda il codice, non i commenti: la lapide nella schermata cita
+      // la frase che non si dice piu'.
+      String soloCodice(String testo) => testo
+          .split('\n')
+          .where((r) => !r.trimLeft().startsWith('//'))
+          .join('\n');
+      expect(soloCodice(frase).contains('_dillo('), isFalse,
+          reason: 'una frase tornata vuota fa parlare il Maestro');
+      expect(soloCodice(schermata).contains('Non ho sentito bene'), isFalse);
     });
   });
 
