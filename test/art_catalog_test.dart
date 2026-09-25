@@ -129,9 +129,16 @@ void main() {
         expect(a.phase, isNotNull, reason: a.id);
         expect(artRouteFor(a.id), isNull, reason: a.id);
       }
-      expect(luna.arts.firstWhere((a) => a.id == 'lunology').phase, 'Fase 2');
+      // **IN MVP DALL'ORDINE EN, voce 12**: la scelta del fondatore, *"Ok,
+      // Respiro della Luna e Affinità Lunare"*. Le altre due restano dove
+      // erano.
+      expect(luna.arts.firstWhere((a) => a.id == 'lunology').phase, 'MVP');
       expect(luna.arts.firstWhere((a) => a.id == 'lunar_affinity').phase,
-          'Fase 2');
+          'MVP');
+      expect(luna.arts.firstWhere((a) => a.id == 'fertility_windows').phase,
+          'Fase successiva');
+      expect(luna.arts.firstWhere((a) => a.id == 'lunar_calendar').phase,
+          'Fase successiva');
     });
 
     test('Il Destino di Medora ha tre arti, col Destino Narrativo', () {

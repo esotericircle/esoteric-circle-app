@@ -30,8 +30,8 @@ class AppStrings {
     'synastry_vip': {'it': 'Sinastria VIP', 'en': 'VIP Synastry'},
     'archetype_test': {'it': 'Test Archetipo', 'en': 'Archetype Test'},
     'face_constellation': {
-      'it': 'Costellazione del Viso',
-      'en': 'Face Constellation'
+      'it': 'Mappa del Viso',
+      'en': 'Face Map'
     },
     'day_oracle': {'it': 'Arcano dell\'Alba', 'en': 'Dawn Arcanum'},
     'sunset_rune': {'it': 'Runa del Tramonto', 'en': 'Sunset Rune'},

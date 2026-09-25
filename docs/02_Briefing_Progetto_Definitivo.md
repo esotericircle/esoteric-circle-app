@@ -56,7 +56,7 @@ Avatar: stella a otto punte, viola galattico, bagliore pulsante, movimento lenti
 
 ### 4.2 Aura — Energia, benessere e psiche
 
-Dominio: equilibrio dei chakra, meditazioni, breathwork, affermazioni quotidiane e arte delle convinzioni, frequenze sonore (Solfeggio 432 e 528 Hz, binaural beats, sound healing), purificazione energetica, cristalloterapia, Mood Tracker con correlazione transiti, Costellazione del Viso, framework di Carl Jung e Test Archetipo, grafologia esoterica.
+Dominio: equilibrio dei chakra, meditazioni, breathwork, affermazioni quotidiane e arte delle convinzioni, frequenze sonore (Solfeggio 432 e 528 Hz, binaural beats, sound healing), purificazione energetica, cristalloterapia, Mood Tracker con correlazione transiti, Costellazione del Viso (dal 25 settembre 2026 il nome a video e' «Mappa del Viso», senza articolo: decisione del fondatore, ordine EN voce 11), framework di Carl Jung e Test Archetipo, grafologia esoterica.
 
 Tono vocale: caldo, accogliente, con respiri naturali. Timbro mezzo-soprano, voce umana femminile.
 

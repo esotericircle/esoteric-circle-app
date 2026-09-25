@@ -155,7 +155,7 @@ COSTELLAZIONE = [
 LOTO = [
     # --- Primi giorni ---
     (pezzo('viso'), 'Il tuo volto letto',
-     'La Costellazione del Viso, che da qui entra nel tuo profilo'),
+     'La Mappa del Viso, che da qui entra nel tuo profilo'),
     (volte('alba', 2), 'Due albe',
      'La parola del giorno, che cambia con l’ora in cui ti alzi'),
     (volte('soffio', 2), 'Due Soffi',

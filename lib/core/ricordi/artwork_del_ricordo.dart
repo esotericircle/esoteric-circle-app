@@ -97,7 +97,7 @@ class ArtworkDelRicordo {
   /// una di queste avesse la sua arte, la riga si toglie da qui e si aggiunge
   /// sopra, e la guardia pretende che la somma resti tredici.
   static const Map<String, String> senzaArtwork = {
-    'viso': 'la Costellazione del Viso disegna i suoi punti sul volto della '
+    'viso': 'la Mappa del Viso disegna i suoi punti sul volto della '
         'persona. Quel volto il Cerchio non lo conserva: la foto resta sul '
         'dispositivo e non viene caricata da nessuna parte. Non c\'è nessuna '
         'arte da ripescare, quindi rifare il disegno vorrebbe dire chiedere '

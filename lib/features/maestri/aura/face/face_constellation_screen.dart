@@ -330,7 +330,7 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
         // un'altra: a capo FRA le parole, e la misura scende solo quanto
         // serve, entro un minimo dichiarato.
         titolo: TitoloCheNonSiRompe(
-            testo: 'Costellazione del Viso',
+            testo: 'Mappa del Viso',
             stile: TypographyTokens.titoloScheda()),
         azioni: [
           IconButton(
@@ -1577,7 +1577,7 @@ class _RisultatoState extends State<_Risultato>
         // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
         // a condivisione davvero avvenuta.
         await PremioDellaCondivisione.premia(context,
-            cosa: 'Hai condiviso la tua Costellazione del Viso');
+            cosa: 'Hai condiviso la tua Mappa del Viso');
       }
       return andata;
     } finally {
@@ -1792,7 +1792,7 @@ class _RisultatoState extends State<_Risultato>
                 maestro: Maestro.aura,
                 responso: ResponsoDaCustodire(
                   arte: 'viso',
-                  titolo: 'La tua Costellazione del Viso',
+                  titolo: 'La tua Mappa del Viso',
                   testo: FaceCorpus.sintesi(widget.reading.marcati),
                   dati: {'tratto': dom.nome, 'categoria': dom.categoria.name},
                 ),

@@ -71,7 +71,7 @@ class FunctionShelf {
     ),
     ShelfFunction(
       id: 'face_constellation',
-      title: 'Costellazione del Viso',
+      title: 'Mappa del Viso',
       teaser: 'I tratti del tuo volto diventano una costellazione.',
       icon: Icons.face_retouching_natural,
       maestro: Maestro.aura,

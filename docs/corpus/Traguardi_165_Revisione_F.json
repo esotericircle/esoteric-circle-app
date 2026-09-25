@@ -1313,8 +1313,8 @@
             "pezzo": "viso"
           },
           "costoInGiorni": 1,
-          "frase": "Hai dato al Cerchio la Costellazione del Viso: da adesso ogni responso parte da qui.",
-          "cosaApre": "La Costellazione del Viso, che da qui entra nel tuo profilo",
+          "frase": "Hai dato al Cerchio la Mappa del Viso: da adesso ogni responso parte da qui.",
+          "cosaApre": "La Mappa del Viso, che da qui entra nel tuo profilo",
           "gestiNominati": [
             "viso"
           ]
@@ -1614,7 +1614,7 @@
             "inGiorniDiversi": true
           },
           "costoInGiorni": 12,
-          "frase": "Hai compiuto la Costellazione del Viso in 12 giorni diversi.",
+          "frase": "Hai compiuto la Mappa del Viso in 12 giorni diversi.",
           "cosaApre": "Il confronto fra la prima lettura del viso e l’ultima",
           "gestiNominati": [
             "viso"
@@ -1777,7 +1777,7 @@
             "conGesto": "viso"
           },
           "costoInGiorni": 28,
-          "frase": "La Luna passa nel tuo segno: tu eri qui con la Costellazione del Viso.",
+          "frase": "La Luna passa nel tuo segno: tu eri qui con la Mappa del Viso.",
           "cosaApre": "La lettura lunare del volto, che vale solo nel tuo segno",
           "gestiNominati": [
             "viso"
@@ -1938,7 +1938,7 @@
             "inGiorniDiversi": true
           },
           "costoInGiorni": 55,
-          "frase": "Hai compiuto la Costellazione del Viso in 55 giorni diversi.",
+          "frase": "Hai compiuto la Mappa del Viso in 55 giorni diversi.",
           "cosaApre": "La mappa completa dei tratti, con quelli che si sono mossi",
           "gestiNominati": [
             "viso"
@@ -2452,7 +2452,7 @@
             "inGiorniDiversi": true
           },
           "costoInGiorni": 280,
-          "frase": "Hai compiuto la Costellazione del Viso in 280 giorni diversi.",
+          "frase": "Hai compiuto la Mappa del Viso in 280 giorni diversi.",
           "cosaApre": "Il tuo volto nel tempo, con la lettura di come è cambiato",
           "gestiNominati": [
             "viso"

@@ -169,13 +169,16 @@ class ImmersiveIntents {
       maestro: Maestro.aura,
       target: ImmersiveTarget.costellazioneViso,
       keywords: [
+        // Ordine EN voce 11: il nome nuovo, e il vecchio che la persona
+        // puo' ancora usare.
+        'mappa del viso',
         'costellazione del viso',
         'lettura del viso',
         'morfopsicologia'
       ],
       invite:
           'Il tuo volto ha una geometria che va vista. Accendiamo la luce con dolcezza.',
-      buttonLabel: 'Apri la Costellazione del viso',
+      buttonLabel: 'Apri la Mappa del Viso',
     ),
     ImmersiveIntent(
       maestro: Maestro.aura,

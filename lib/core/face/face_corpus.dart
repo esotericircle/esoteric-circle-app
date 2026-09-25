@@ -120,7 +120,7 @@ class FaceCorpus {
   /// Il testo del pannello "Fonti e metodo", che dichiara la tradizione e i suoi
   /// limiti. Non e' una diagnosi: e' lettura simbolica su base tradizionale.
   static const String fontiEMetodo =
-      'La Costellazione del Viso poggia sulla Personologia, la fisiognomica '
+      'La Mappa del Viso poggia sulla Personologia, la fisiognomica '
       'sistematica di Edward Vincent Jones, giudice e studioso, resa popolare '
       'da Naomi Tickle. La geometria del volto si misura davvero dai contorni '
       'rilevati sul dispositivo: le proporzioni, le distanze, gli angoli. I '

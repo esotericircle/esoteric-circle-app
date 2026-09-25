@@ -95,7 +95,7 @@ class PortaDellArte {
     'tramonto': 'La Runa del Tramonto',
     'sogno': 'Il Sigillo del Sogno',
     'sigillo': "Il Sigillo dell'Intenzione",
-    'viso': 'La Costellazione del Viso',
+    'viso': 'La Mappa del Viso',
     'archetipo': "Il test dell'Archetipo",
     'sinastria': 'La Sinastria',
     'carta_natale': 'Il Cosmic Passport',

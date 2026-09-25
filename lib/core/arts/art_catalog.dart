@@ -365,6 +365,12 @@ class ArtCatalog {
         phase: ArtPhase.fase4,
       ),
     ]),
+    // **DUE ARTI DELLA LUNOLOGIA ENTRANO IN MVP. Ordine EN voce 12, 25
+    // settembre 2026.** Il fondatore: *"devo per forza inserire la
+    // Lunologia in MVP e devo scegliere 2 funzionalità"*, e poi *"Ok,
+    // Respiro della Luna e Affinità Lunare"*. Erano in Fase 2; le Finestre
+    // Fertili e il Calendario Lunare Personale restano nella fase
+    // successiva.
     ArtSection(title: 'Lunologia', arts: [
       ArtEntry(
         id: 'lunology',
@@ -373,7 +379,7 @@ class ArtCatalog {
             'Il cruscotto lunare del presente: fase con la percentuale reale, Luna nel segno, i trenta giorni lunari, il calendario biodinamico, la Luna fuori corso e i consigli per categoria.',
         icon: Icons.nightlight_round,
         state: ArtState.inArrivo,
-        phase: ArtPhase.fase2,
+        phase: ArtPhase.mvp,
       ),
       ArtEntry(
         id: 'fertility_windows',
@@ -391,7 +397,7 @@ class ArtCatalog {
             'La compatibilità di fase lunare fra due persone, con la card da condividere.',
         icon: Icons.brightness_2_rounded,
         state: ArtState.inArrivo,
-        phase: ArtPhase.fase2,
+        phase: ArtPhase.mvp,
       ),
       ArtEntry(
         id: 'lunar_calendar',
@@ -612,7 +618,7 @@ class ArtCatalog {
       ),
       ArtEntry(
         id: 'face_constellation',
-        title: 'Costellazione del Viso',
+        title: 'Mappa del Viso',
         teaser:
             'La videocamera legge i tuoi tratti e li unisce in una costellazione.',
         icon: Icons.face_retouching_natural,

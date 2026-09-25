@@ -41,7 +41,7 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
     titolo: 'I sensori restano sul tuo telefono',
     corpo: 'La fotocamera, il microfono, il movimento e la posizione si '
         'usano solo nel momento del rito che li chiede, sempre con la '
-        'spiegazione prima. Le immagini della Costellazione del Viso e le '
+        'spiegazione prima. Le immagini della Mappa del Viso e le '
         'foto per le card si elaborano sul dispositivo e non vengono '
         'caricate. Il microfono ascolta il soffio senza registrare audio. '
         'La posizione serve a mostrare il cielo sopra di te; le coordinate '

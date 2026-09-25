@@ -94,7 +94,7 @@ class FaceShareCard extends StatelessWidget {
               // sta a dodici punti, e chiedere meno solleva. Un occhiello
               // piu piccolo del pavimento non e un occhiello discreto, e
               // testo che qualcuno non riesce a leggere.
-              Text('COSTELLAZIONE DEL VISO',
+              Text('MAPPA DEL VISO',
                   style: TypographyTokens.label(size: 12).copyWith(
                       color: palette.goldSoft.withValues(alpha: 0.7),
                       letterSpacing: 2.0)),
@@ -285,6 +285,6 @@ Future<bool> shareFaceCard({
 /// file e un foglio di sistema: tre cose che in prova non esistono. Cosi'
 /// una guardia puo' leggere ESATTAMENTE cio' che uscirebbe dal telefono.
 String testoDaCondividere({required FaceTrait dominante}) {
-  return 'La mia Costellazione del Viso dice "${dominante.titoloEvocativo}". '
+  return 'La mia Mappa del Viso dice "${dominante.titoloEvocativo}". '
       'Scopri la tua con Aura, su Esoteric Circle. ${Brand.url}';
 }

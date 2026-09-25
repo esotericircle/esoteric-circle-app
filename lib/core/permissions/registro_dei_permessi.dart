@@ -79,7 +79,7 @@ class RegistroDeiPermessi {
       vociAndroid: ['android.permission.CAMERA'],
       doveSiChiede: 'lib/features/synastry/user_photo.dart',
       ripiego: 'La card della Sinastria si compone col simbolo del segno al '
-          'posto del volto. La Costellazione del Viso resta toccabile.',
+          'posto del volto. La Mappa del Viso resta toccabile.',
     ),
     VoceDelRegistro(
       permesso: AppPermission.photoLibrary,

@@ -309,6 +309,8 @@ Tutti i dati lunari (fase, percentuale illuminazione, Luna nel segno, giorno lun
 
 ## 44. Costellazione del Viso: note tecniche
 
+Dal 25 settembre 2026 il nome a video e' «Mappa del Viso», senza articolo: decisione del fondatore, ordine EN voce 11. Qui il nome resta quello di allora.
+
 Acquisizione via videocamera in streaming con rilevamento dei punti caratteristici del volto (face landmark detection on-device, ML Kit o equivalente). I punti vengono renderizzati come stelle collegate da linee (overlay grafico in tempo reale, costellazione). I tratti rilevati si mappano sui 68 tratti della personologia di Edward Vincent Jones in un database curato. Approccio ibrido: lettura dei tratti stabile e coerente per la stessa persona (salvata), incrocio quotidiano con i transiti per la parte variabile. Elaborazione on-device dove possibile per privacy; nessuna immagine del volto conservata senza consenso esplicito (GDPR). Disclaimer obbligatorio.
 
 ## 45. Oroscopo a quattro versioni: note tecniche

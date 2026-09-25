@@ -50,7 +50,7 @@ Identitario e fisso: calcolato una volta in modo deterministico e immutabile per
 
 Oracolare e variabile: esito diverso a ogni estrazione, con vera casualita. Esempi: tarocchi, rune, I-Ching, pendolo, fondi di caffe. Qui ogni consultazione e un evento nuovo.
 
-Ibrido stabile piu variabile: una base stabile della persona piu una sfumatura quotidiana data dai transiti. Esempi: Costellazione del Viso, chiromanzia, grafologia esoterica, e il Messaggio da [nome animale]. La base e coerente nel tempo, il messaggio del giorno cambia col cielo.
+Ibrido stabile piu variabile: una base stabile della persona piu una sfumatura quotidiana data dai transiti. Esempi: Costellazione del Viso (dal 25 settembre 2026 il nome a video e' «Mappa del Viso», senza articolo: decisione del fondatore, ordine EN voce 11), chiromanzia, grafologia esoterica, e il Messaggio da [nome animale]. La base e coerente nel tempo, il messaggio del giorno cambia col cielo.
 
 Regola di coerenza dei responsi: a parita di domanda nello stesso giorno il responso resta valido per la giornata, per evitare l effetto slot-machine e sostenere il claim diversa per tutti e differente per ognuno.
 

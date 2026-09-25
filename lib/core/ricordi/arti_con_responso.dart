@@ -101,7 +101,7 @@ class ArtiConResponso {
     ArteConResponso(
       arte: 'viso',
       maestro: 'aura',
-      titolo: 'Costellazione del Viso',
+      titolo: 'Mappa del Viso',
       doveViveIlResponso:
           'lib/features/maestri/aura/face/face_constellation_screen.dart',
       apertura: 'viso',

@@ -190,7 +190,7 @@ class _IlVuoto extends StatelessWidget {
             ParagrafiDiLettura(
               testo: 'Qui restano le tue letture del viso, con la fotografia '
                   'di quel momento. Non ne hai ancora nessuna: la prima '
-                  'nasce dalla Costellazione del Viso.',
+                  'nasce dalla Mappa del Viso.',
               stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary),
             ),

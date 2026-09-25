@@ -85,7 +85,7 @@ class FeatureCatalog {
     // diceva il contrario delle altre due.
     FeatureDefinition(
       id: 'face_constellation',
-      title: 'Costellazione del Viso',
+      title: 'Mappa del Viso',
       teaser:
           'La videocamera trasforma i tratti del tuo volto in una costellazione.',
       icon: Icons.face_retouching_natural,
