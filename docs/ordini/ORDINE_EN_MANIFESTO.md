@@ -200,7 +200,8 @@ posto del volto, e con la zona del testo piu' alta quel posto si era
 accorciato. Padre: questa voce. Adesso a LIVE finito il congedo prende la
 scena intera (`IlCongedoDelLive`, in `la_scena_del_live.dart`); la guardia
 `il_congedo_del_live_prende_la_scena` misura il pulsante dentro lo spazio
-del congedo, a scala 1,0 e 1,3.
+del congedo, a scala 1,0 e 1,3. Sul Realme, prima e dopo:
+`docs/collaudo/EN/en02_il_congedo_prima_e_dopo.jpg`.
 
 **La misura.** Nella geometria del Realme (360 per 800 punti, scala 1,0, le
 due testate sopra la scena), con una domanda su tre righe: con la zona di

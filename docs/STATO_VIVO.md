@@ -5041,7 +5041,14 @@ chi la chiede in chat; i commenti restano col nome di allora. Il Respiro della
 Luna e Affinità Lunare passano in MVP nel catalogo; a video restano "in
 arrivo". Con la EN.10 il fondatore ha chiuso la EM.04 e la EM.12.
 
-**LA BUILD 2282.** (si completa alla consegna)
+**BUILD 2282 CONSEGNATA SU APP DISTRIBUTION** il 25 settembre 2026, release
+`3i920mj9j8ok0`, col lavoro dell'ordine EN, costruita dal commit `a35d25fe`
+(sha1 dell'archivio `066f2fa474a0`, 218.693.034 byte). Sbarramento passato
+con **5.928 prove** e i soli rossi dichiarati; un invito accettato. Il primo
+archivio 2282 (`214c8a411b24`, commit `201ac46f`) non e' partito: sul Realme
+il congedo del LIVE copriva la domanda, riparato prima della consegna. Note
+della consegna in `docs/note_della_consegna.txt`: tocca al fondatore
+l'attesa, la cornice e la cattura del messaggio delle 09:54 per la EN.08.
 
 **L'ATTRIBUZIONE CIECA, RIFATTA SULL'ISTRUZIONE NUOVA.** Tre giri, 93,3,
 96,7 e 88,3 per cento, media 92,8 (167 su 180), tutti sopra la soglia di 85;

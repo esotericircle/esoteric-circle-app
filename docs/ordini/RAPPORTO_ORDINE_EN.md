@@ -231,9 +231,25 @@ cede ancora verso Aura (3, 2 e 4 volte su 20); nel terzo giro Medora e'
 stata presa per Calìgo tre volte. Le uscite: `docs/collaudo/EN/attribuzione/`.
 Resta chiusa: la soglia e' tua; i tre giri la passano.
 
-## LA BUILD 2282
+## LA BUILD 2282, CONSEGNATA
 
-(si completa alla consegna)
+Su App Distribution il 25 settembre 2026, release `3i920mj9j8ok0`, costruita
+dal commit `a35d25fe`, spinto e verificato con `ls-remote`; archivio di
+218.693.034 byte, sha1 `066f2fa474a0`. Sbarramento passato con **5.928
+prove** e i soli rossi dichiarati (le soglie della scansione, le cinque
+guardie degli ordini aperti, i tredici del corredo a scala 1,3); prove del
+server 126 su 126; un invito accettato.
+
+**E' il secondo archivio 2282 di oggi.** Il primo, sha1 `214c8a411b24`, dal
+commit `201ac46f`, l'ho installato sul Realme prima di consegnarlo e ci ho
+trovato il congedo che copriva la domanda: riparato, sbarramento e build
+rifatti. Sull'archivio consegnato, nel LIVE di Medora, una domanda nuova
+trascritta intera, la risposta in due frasi piu' la riga d'oro, il congedo
+al suo posto (`docs/collaudo/EN/en01_en02_ultime_prove_sul_realme.txt`,
+`docs/collaudo/EN/en02_il_congedo_prima_e_dopo.jpg`). In quella prova il
+modello ha risposto in 6,4 secondi invece dei soliti 1,4: il volto ha
+parlato a 11,3. Lo scrivo perche' e' un numero che potresti vedere anche
+tu. Le note sono in `docs/note_della_consegna.txt`.
 
 ## COSA TI CHIEDO
 
