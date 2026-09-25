@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
+import '../../../core/maestro/maestro.dart';
+import '../widgets/busto_del_maestro.dart';
 
 /// **LA SCENA DEL LIVE: IL VOLTO, LA DOMANDA, LA RISPOSTA.** Ordine EM voci
 /// 09 e 10, 25 settembre 2026.
@@ -39,10 +41,15 @@ class LaScenaDelLive extends StatelessWidget {
     required this.stato,
     this.livello,
     this.tastiera,
+    this.congedo,
   });
 
   /// Il volto del Maestro, o cio' che sta al suo posto.
   final Widget volto;
+
+  /// **Il congedo, quando il LIVE e' finito**, oppure null. Prende tutta la
+  /// scena: vedi [IlCongedoDelLive].
+  final Widget? congedo;
 
   /// L'ultima domanda della persona, vuota se non ce n'e'.
   final String domanda;
@@ -118,6 +125,10 @@ class LaScenaDelLive extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // **A LIVE FINITO IL CONGEDO PRENDE TUTTA LA SCENA.** La domanda e la
+    // risposta restano scritte nella conversazione, come dice la frase della
+    // fine: qui servirebbero solo a togliere spazio al ritorno.
+    if (congedo != null) return congedo!;
     return LayoutBuilder(builder: (context, spazio) {
       final zona =
           zonaDelTesto(spazio.maxHeight, MediaQuery.textScalerOf(context));
@@ -154,6 +165,72 @@ class LaScenaDelLive extends StatelessWidget {
           ),
           if (tastiera != null) tastiera!,
         ],
+      );
+    });
+  }
+}
+
+/// **IL CONGEDO DEL LIVE: IL BUSTO, LA FRASE DELLA FINE, IL RITORNO.** Ordine
+/// EN voce 02, 25 settembre 2026, visto sul Realme con l'archivio da
+/// consegnare.
+///
+/// Il congedo stava nel posto del volto, sopra la zona del testo. Con la zona
+/// misurata in righe dalla voce EN.02 quel posto si e' accorciato: la colonna
+/// del congedo traboccava e "Torna alla conversazione" si disegnava sopra la
+/// domanda in oro. Padre: voce EN.02, la zona del testo che cresce senza che
+/// nessuna prova montasse questo stato. Adesso il congedo e' la scena intera,
+/// centrato quando ci sta e scorrevole quando il testo e' grande.
+class IlCongedoDelLive extends StatelessWidget {
+  const IlCongedoDelLive({
+    super.key,
+    required this.maestro,
+    required this.frase,
+    required this.torna,
+  });
+
+  final Maestro maestro;
+
+  /// La frase della fine, che dice perche' la voce si e' chiusa.
+  final String frase;
+
+  /// Il ritorno alla conversazione.
+  final VoidCallback torna;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, spazio) {
+      return SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(minHeight: spazio.maxHeight),
+          child: Center(
+            child: Padding(
+              padding: const EdgeInsets.all(SpacingTokens.xl),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  BustoDelMaestro(maestro: maestro, height: 180),
+                  const SizedBox(height: SpacingTokens.lg),
+                  Text(
+                    key: const Key('live_congedo'),
+                    frase,
+                    style: TypographyTokens.corpo(),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: SpacingTokens.lg),
+                  TextButton(
+                    key: const Key('live_torna_alla_chat'),
+                    // Il colore si dichiara: preso dal tema era il viola del
+                    // primario, a contrasto fra 1,40 e 2,53 su questi fondi.
+                    style: TextButton.styleFrom(
+                        foregroundColor: ColorTokens.goldLight),
+                    onPressed: torna,
+                    child: const Text('Torna alla conversazione'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       );
     });
   }

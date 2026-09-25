@@ -4991,7 +4991,11 @@ righe intere di risposta sotto una domanda di tre, prima due e mezza. Il volto
 resta fermo durante il turno (EM.10), piu' piccolo di prima. La cornice,
 `lib/features/maestri/live/la_cornice_della_finestra.dart`, aggiunge alla
 fascia d'oro un filo esterno, un filetto interno, la chiave di volta in cima
-all'arco e il davanzale con due borchie; uguale per i tre Maestri.
+all'arco e il davanzale con due borchie; uguale per i tre Maestri. **A
+LIVE finito il congedo prende la scena intera** (`IlCongedoDelLive`): con la
+zona del testo piu' alta il congedo nel posto del volto traboccava, e sul
+Realme "Torna alla conversazione" si e' disegnato sopra la domanda in oro,
+sull'archivio che stava per partire. Riparato prima della consegna.
 
 **I MAESTRI SI CONOSCONO (EN.04-EN.08).** `VoceDelMaestro.ilCerchio` entra
 nell'istruzione di ciascuno: i tre nomi con le arti e il genere, nessun altro
@@ -5049,15 +5053,16 @@ impronte dell'ordine EK sono scese nello storico
 **LA PAGINA LEGALE DEL SITO.** `hosting/index.html` e' rigenerata col nome
 nuovo; la pubblicazione su Firebase Hosting aspetta il si' del fondatore.
 
-**LE GUARDIE.** Cinque nuove, `ordine_en_guard`,
+**LE GUARDIE.** Sei nuove, `ordine_en_guard`,
 `i_maestri_si_conoscono_e_non_rifiutano`,
 `il_turno_del_live_e_la_memoria_degli_altri`,
-`il_live_si_legge_e_ha_la_sua_cornice` e `la_mappa_del_viso_si_chiama_cosi`:
-tutte viste rosse, venticinque innesti in sei giri. Per la Regola B le
+`il_live_si_legge_e_ha_la_sua_cornice`, `la_mappa_del_viso_si_chiama_cosi`
+e `il_congedo_del_live_prende_la_scena`: tutte viste rosse, ventotto innesti
+in sette giri. Per la Regola B le
 guardie delle sette zone toccate viste rosse prima di metterci mano. Alla
 suite intera prima del commit dieci guardie di casa hanno preso difetti di
 quest'ordine, tutti riparati (il registro `docs/guardie.md` li elenca).
-Registro a **524**.
+Registro a **525**.
 
 ## Regole ferree
 

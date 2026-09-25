@@ -187,22 +187,38 @@ Presi dalla suite intera prima del commit, dalle guardie di casa:
 - **La guardia nuova della memoria leggeva l'orologio vero.** Padre: voce
   EN.09. Adesso ha il suo istante dichiarato.
 
+Visto sul Realme, con l'archivio che stavo per consegnare:
+
+- **A LIVE chiuso, "Torna alla conversazione" si disegnava sopra la domanda
+  in oro.** Il congedo stava nel posto del volto, e con la zona del testo
+  piu' alta quel posto si era accorciato: la colonna traboccava. Padre: voce
+  EN.02, la mia zona del testo; nessuna prova montava lo stato di chiusura.
+  Adesso a LIVE finito il congedo prende la scena intera (la domanda e la
+  risposta restano scritte nella conversazione); guardia nuova,
+  `il_congedo_del_live_prende_la_scena`. Ho rifatto sbarramento e build:
+  l'archivio consegnato e' il secondo.
+
 ## LE GUARDIE
 
-Cinque guardie nuove, tutte viste rosse con l'innesto verificato col
+Sei guardie nuove, tutte viste rosse con l'innesto verificato col
 conteggio letterale (Regola A): `ordine_en_guard`,
 `i_maestri_si_conoscono_e_non_rifiutano`,
 `il_turno_del_live_e_la_memoria_degli_altri`,
-`il_live_si_legge_e_ha_la_sua_cornice`, `la_mappa_del_viso_si_chiama_cosi`.
-**Venticinque innesti in sei giri**, ogni file tornato identico: il
-quinto giro e' la rete della risposta da programma, nata rossa con tre
-innesti; il sesto la soglia delle parole della risposta ripetuta. Una guardia
+`il_live_si_legge_e_ha_la_sua_cornice`, `la_mappa_del_viso_si_chiama_cosi`,
+`il_congedo_del_live_prende_la_scena`. **Ventotto innesti in sette giri**,
+ogni file tornato identico: il quinto giro e' la rete della risposta da
+programma, nata rossa con tre innesti; il sesto la soglia delle parole della
+risposta ripetuta; il settimo il congedo del LIVE. **Anche li' la prima
+stesura della guardia cadeva per la ragione sbagliata**: il congedo nuovo
+scorre, quindi rimesso nel posto del volto non traboccava, e la prova
+cadeva solo perche' la domanda restava nella scena. Adesso misura il
+pulsante dentro lo spazio visibile del congedo, ed e' rossa per quello. Una guardia
 e' nata cieca: montava la scena del LIVE a 390 per 844 punti, piu' alta del
 Realme: con la zona di prima restava verde. Rimontata con la geometria
 vera del telefono (360 per 800 punti, le due testate sopra), vede le 2,76
 righe della 2281 ed e' rossa. Per la Regola B, prima di mettere mano, le
 guardie delle sette zone toccate viste rosse; due volte il primo innesto era
-sbagliato mio, non la guardia. Il registro e' `docs/guardie.md`, a **524**.
+sbagliato mio, non la guardia. Il registro e' `docs/guardie.md`, a **525**.
 
 ## L'ATTRIBUZIONE CIECA, RIFATTA
 

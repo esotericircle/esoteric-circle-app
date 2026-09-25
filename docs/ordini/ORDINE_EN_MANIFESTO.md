@@ -193,6 +193,15 @@ risposta nel suo**, alla scala del testo che la persona ha scelto; non scende so
 che c'e' scritto: il volto non cambia misura durante il turno, come vuole la
 voce EM.10. E' piu' piccolo di prima, fermo.
 
+**E il congedo.** Sul Realme, con l'archivio che stava per partire, il
+LIVE si e' chiuso dopo trenta secondi di silenzio e "Torna alla
+conversazione" si e' disegnato sopra la domanda in oro: il congedo stava nel
+posto del volto, e con la zona del testo piu' alta quel posto si era
+accorciato. Padre: questa voce. Adesso a LIVE finito il congedo prende la
+scena intera (`IlCongedoDelLive`, in `la_scena_del_live.dart`); la guardia
+`il_congedo_del_live_prende_la_scena` misura il pulsante dentro lo spazio
+del congedo, a scala 1,0 e 1,3.
+
 **La misura.** Nella geometria del Realme (360 per 800 punti, scala 1,0, le
 due testate sopra la scena), con una domanda su tre righe: con la zona di
 prima si leggevano 2,76 righe di risposta, adesso almeno 5, anche a scala 1,3

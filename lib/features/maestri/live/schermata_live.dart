@@ -880,6 +880,16 @@ class _SchermataLiveState extends State<SchermataLive> {
       body: SafeArea(
         child: LaScenaDelLive(
           volto: _ilVolto(),
+          // **Il congedo, e la strada per tornare.** La voce viva si e'
+          // chiusa da sola: si dice perche', e si offre il ritorno alla
+          // conversazione, sulla scena intera (ordine EN voce 02).
+          congedo: _quadro.momento == MomentoDelLive.finito
+              ? IlCongedoDelLive(
+                  maestro: widget.maestro,
+                  frase: _quadro.laFraseDellaFine(),
+                  torna: () => Navigator.of(context).maybePop(),
+                )
+              : null,
           domanda: _quadro.domanda,
           risposta: _quadro.sottotitolo,
           stato: _quadro.momento != MomentoDelLive.vivo
@@ -915,38 +925,6 @@ class _SchermataLiveState extends State<SchermataLive> {
             _quadro.laFraseDelRifiuto(),
             style: TypographyTokens.corpo(),
             textAlign: TextAlign.center,
-          ),
-        ),
-      );
-    }
-    if (_quadro.momento == MomentoDelLive.finito) {
-      // **Il congedo, e la strada per tornare.** La voce viva si e' chiusa
-      // da sola: si dice perche', e si offre il ritorno alla conversazione.
-      return Center(
-        child: Padding(
-          padding: const EdgeInsets.all(SpacingTokens.xl),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              BustoDelMaestro(maestro: widget.maestro, height: 180),
-              const SizedBox(height: SpacingTokens.lg),
-              Text(
-                key: const Key('live_congedo'),
-                _quadro.laFraseDellaFine(),
-                style: TypographyTokens.corpo(),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: SpacingTokens.lg),
-              TextButton(
-                key: const Key('live_torna_alla_chat'),
-                // Il colore si dichiara: preso dal tema era il viola del
-                // primario, a contrasto fra 1,40 e 2,53 su questi fondi.
-                style: TextButton.styleFrom(
-                    foregroundColor: ColorTokens.goldLight),
-                onPressed: () => Navigator.of(context).maybePop(),
-                child: const Text('Torna alla conversazione'),
-              ),
-            ],
           ),
         ),
       );
