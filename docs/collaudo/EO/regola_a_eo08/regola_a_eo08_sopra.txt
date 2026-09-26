@@ -1,0 +1,6 @@
+innesto in lib/features/santuario/santuario_screen.dart: il vecchio compare 0 volte, il nuovo 1 volte ('          _EnterDomainButton(maestro: maestro, onTap: onTap)' -> '          _ConsultaButton(maestro: maestro, onTap: onConsult')
+  Expected: a value greater than or equal to <674.6266666666667>
+    Actual: <582.6266666666667>
+  00:03 +0 -1: EO.08: "Consulta" sta sotto "Entra", porta il nome del Maestro davanti e apre la sua chat [E]
+  00:08 +3 -1: Some tests failed.
+ripristino lib/features/santuario/santuario_screen.dart: sha1 7c3e674cae68 -> 7c3e674cae68, IDENTICO

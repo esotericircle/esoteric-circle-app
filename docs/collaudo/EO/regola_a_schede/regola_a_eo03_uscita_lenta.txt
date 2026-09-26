@@ -1,0 +1,6 @@
+innesto in lib/features/schede/la_scheda_dell_arte.dart: il vecchio compare 0 volte, il nuovo 1 volte ('  static const Duration tempoDellUscita = Duration(milliseco' -> '  static const Duration tempoDellUscita = Duration(milliseco')
+  Expected: be in range from 250 (inclusive) to 350 (inclusive)
+    Actual: <590>
+  00:02 +0 -1: EO.03: la scheda si abbassa, si ingrandisce e svanisce, e l'arte si apre sotto, in circa tre decimi di secondo [E]
+  00:02 +0 -1: Some tests failed.
+ripristino lib/features/schede/la_scheda_dell_arte.dart: sha1 10885c7fe871 -> 10885c7fe871, IDENTICO

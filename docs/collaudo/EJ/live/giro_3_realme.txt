@@ -1,0 +1,20 @@
+Realme 767f596c, build locale del 24/09/2026 05:13 (release, non consegnata), LIVE di Medora, orecchio che non si chiude fra le frasi.
+Frase 1: il portatile dice 'lunga' con pause di 1,5 s, 1,3 s e 1,6 s. Frase 2: dice 'seconda' con una pausa di 1,8 s.
+Testo della prova: 'Medora, vorrei chiederti una cosa. Da qualche mese penso di cambiare lavoro, ma ho paura di lasciare le persone con cui lavoro da dieci anni. Cosa mi consigli di fare questa settimana?' e poi 'E se invece aspettassi la fine dell anno, quando avro finito il progetto che sto seguendo adesso?'
+
+09-24 05:14:48.946  6665  6665 I flutter : LIVE: primo suono al volto dopo 2243 ms, audio di 7312 ms, scritto in 3733 ms
+09-24 05:14:53.243  6665  6665 I flutter : LIVE VIDEO: ricevuto 384x384 a 24.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 936x1170 px veri, ritaglio 619x774 millesimi del video
+09-24 05:14:55.684  6665  6665 I flutter : LIVE: il volto ha finito dopo 10471 ms, lo ha detto lui
+09-24 05:15:07.913  6665  6665 I flutter : LIVE: frase di 4160 ms in 1 pezzi, trascritta in 1647 ms: «» (si ascolta ancora)
+09-24 05:15:10.228  6665  6665 I flutter : LIVE VIDEO: ricevuto 512x512 a 25.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 936x1170 px veri, ritaglio 619x774 millesimi del video
+09-24 05:15:14.005  6665  6665 I flutter : LIVE: frase di 3600 ms in 1 pezzi, trascritta in 1185 ms: «» (si ascolta ancora)
+09-24 05:15:22.876  6665  6665 I flutter : LIVE: frase di 5680 ms in 1 pezzi, trascritta in 1329 ms: «Mezz'ora vorrei chiederti una cosa» (si ascolta ancora)
+09-24 05:15:38.678  6665  6665 I flutter : LIVE: frase di 20240 ms in 2 pezzi, trascritta in 2570 ms: «Mezz'ora vorrei chiederti una cosa. Da qualche mese penso di cambiare lavoro. Ma ho paura di lasciare le persone con cui lavoro da 10 anni. Cosa mi consigli di fare questa settimana?» (parte)
+09-24 05:15:41.180  6665  6665 I flutter : LIVE: la chat ha risposto in 2320 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+09-24 05:15:51.638  6665  6665 I flutter : LIVE: primo suono al volto dopo 687 ms, audio di 24623 ms, scritto in 10456 ms
+09-24 05:16:07.410  6665  6665 I flutter : LIVE: il volto ha finito dopo 26228 ms, lo ha detto lui
+09-24 05:16:16.053  6665  6665 I flutter : LIVE: frase di 4160 ms in 1 pezzi, trascritta in 1224 ms: «» (si ascolta ancora)
+09-24 05:16:29.578  6665  6665 I flutter : LIVE: frase di 4080 ms in 1 pezzi, trascritta in 1076 ms: «» (si ascolta ancora)
+09-24 05:16:51.725  6665  6665 I flutter : LIVE: frase di 12080 ms in 1 pezzi, trascritta in 1461 ms: «E se invece aspettassi la fine dell'anno quando avrò finito il progetto che sto seguendo adesso» (parte)
+09-24 05:16:53.704  6665  6665 I flutter : LIVE: la chat ha risposto in 1799 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+09-24 05:17:04.572  6665  6665 I flutter : LIVE: primo suono al volto dopo 657 ms, audio di 26143 ms, scritto in 10866 ms

@@ -1,0 +1,6 @@
+innesto in lib/features/santuario/santuario_screen.dart: il vecchio compare 0 volte, il nuovo 1 volte ('                    onConsulta: () => _consulta(context, cen' -> '                    onConsulta: () => _enterDomain(context, ')
+  Expected: exactly one matching candidate
+    Actual: _TypeWidgetFinder:<Found 0 widgets with type "MaestroChatScreen": []>
+  00:05 +0 -1: EO.08: "Consulta" sta sotto "Entra", porta il nome del Maestro davanti e apre la sua chat [E]
+  00:09 +3 -1: Some tests failed.
+ripristino lib/features/santuario/santuario_screen.dart: sha1 7c3e674cae68 -> 7c3e674cae68, IDENTICO

@@ -1,0 +1,6 @@
+innesto in lib/features/santuario/santuario_screen.dart: il vecchio compare 0 volte, il nuovo 1 volte ("    final etichetta = 'Consulta ${maestro.displayName}';\n" -> "    final etichetta = 'Consulta Medora';\n")
+  Expected: exactly one matching candidate
+    Actual: _DescendantWidgetFinder:<Found 0 widgets with text "Consulta Aura" descending from widgets
+  00:07 +1 -1: EO.08: girato il cerchio, "Consulta" cambia col Maestro [E]
+  00:09 +3 -1: Some tests failed.
+ripristino lib/features/santuario/santuario_screen.dart: sha1 7c3e674cae68 -> 7c3e674cae68, IDENTICO

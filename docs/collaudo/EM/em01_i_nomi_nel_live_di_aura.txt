@@ -1,0 +1,30 @@
+ORDINE EM VOCE 01, I NOMI NEL LIVE DI AURA, la misura della voce EK.03 ripetuta
+Realme 767f596c, LIVE di Aura, stanza silenziosa, le sei frasi della voce EK.03 dette dalla voce italiana di
+Windows dalle casse del PC (scratchpad parla_nomi.ps1). Diciannove nomi, contati come nella voce EK.03: i tre
+Maestri, gli arcani, le rune, i segni e i chakra (la Luna della frase 4 non e' nell'elenco e non si conta).
+
+PRIMA, build 2280, ordine EK, 24 settembre 2026 sera (docs/collaudo/EK/nomi/cura_silenzio_2280.txt):
+  18 nomi giusti su 19 detti; Aura scritta "Laura", una volta su una.
+PRIMA, build 2280, 25 settembre 2026 alle 01:38-01:44 (scratchpad logcat_em_aura_prima_2280.txt):
+  19 nomi su 19, ma la frase 6 con "La Luna e" al posto di "la runa".
+
+DOPO, build 2281 finale (commit e2950a45), 25 settembre 2026 alle 05:37-05:43 (scratchpad
+logcat_em_aura_dopo_2281c.txt), le trascrizioni come sono arrivate al Maestro:
+  1 "Medora, ho pescato la Torre e poi l'Appeso. Cosa vogliono dire per me?"            Medora Torre Appeso 3/3
+  2 "Calìgo, stamattina ho tirato Fehu, Thurisaz e Algiz."                               Calìgo Fehu Thurisaz Algiz 4/4
+  3 "Aura, sento un blocco ad Anahata e anche a Vishuddha."                              Aura Anahata Vishuddha 3/3
+  4 "Sono dello Scorpione con ascendente Sagittario e la Luna in Capricorno."            Scorpione Sagittario Capricorno 3/3
+  5 "Medora, la Papessa e l'Imperatrice sono uscite insieme."                            Medora Papessa Imperatrice 3/3
+  6 "Calìgo, che cosa significa la runa Eihwaz accanto a Perthro?"                      Calìgo Eihwaz Perthro 3/3
+  19 nomi giusti su 19, nessun "Laura", nessuna parola aggiunta.
+
+Due salvagenti dell'ordine EM hanno lavorato in questo giro. La frase 3 e' tornata vuota dalla trascrizione
+anticipata e intera dalla seconda ("in pausa, poi di nuovo"): senza la seconda si sarebbe persa, come la frase 4
+nel giro precedente della stessa notte. Il controllo della frase 4 e' tornato vuoto e la frase non e' stata
+scartata ("il primo controllo vuoto senza sottofondo").
+
+LA REGOLA "LAURA" DIVENTA "AURA" SOLO NEL LIVE DI AURA: LaTrascrizione.nelLiveDi in
+lib/services/voce/l_orecchio_del_live.dart, applicata a ogni trascrizione dalla schermata; prova
+test/la_risposta_arriva_prima_e_aura_si_scrive_giusta_test.dart, vista rossa portando la regola sul LIVE di Medora
+(regola_a_client_em). In questo giro nessuna trascrizione ha scritto "Laura", quindi la regola non e' dovuta
+intervenire: la misura dice il risultato a video, la prova dice la regola.

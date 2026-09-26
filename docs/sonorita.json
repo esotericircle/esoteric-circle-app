@@ -1,0 +1,157 @@
+{
+ "misuratoIl": "2026-09-03",
+ "metodo": "massima sonorita momentanea EBU R128, finestra 400 ms, letta da lavfi.r128.M; picco vero dal riepilogo di ebur128. Si rigenera con: python tool/misura_i_suoni.py --scrivi",
+ "bersaglioEffetti": -16.0,
+ "bersaglioMusica": -23.0,
+ "tolleranzaEffetti": 3.5,
+ "tolleranzaMusica": 1.0,
+ "tolleranzaGiunta": 6.0,
+ "effetti": {
+  "carta.mp3": {
+   "sha1": "4e9b41a95975e8f4370570316df7a6177e9d2af1",
+   "peso": 10243,
+   "durata": 0.731,
+   "sonorita": -17.98,
+   "picco": -1.3,
+   "sottoLaFinestra": false
+  },
+  "custodisci.mp3": {
+   "sha1": "5cd0f0cd2a8f2f804cd7a6973aa2177b0f0e8e14",
+   "peso": 5999,
+   "durata": 0.42,
+   "sonorita": -19.35,
+   "picco": -1.5,
+   "sottoLaFinestra": false
+  },
+  "eos.mp3": {
+   "sha1": "d5ece1885929258252c568055c0542016ab151d6",
+   "peso": 24808,
+   "durata": 2.0,
+   "sonorita": -20.91,
+   "picco": -5.8,
+   "sottoLaFinestra": false
+  },
+  "festa.mp3": {
+   "sha1": "38436d28d618bd7ad2ae364c615268148e1387a9",
+   "peso": 43946,
+   "durata": 3.605,
+   "sonorita": -16.41,
+   "picco": -5.7,
+   "sottoLaFinestra": false
+  },
+  "firma.mp3": {
+   "sha1": "6fe2fa26e440e3e6ebff6182f1a60bf1cef9f961",
+   "peso": 24808,
+   "durata": 2.0,
+   "sonorita": -16.48,
+   "picco": -5.6,
+   "sottoLaFinestra": false
+  },
+  "pietra.mp3": {
+   "sha1": "0219c210d9c4e589a6044ce8db0d98c790ca1ff6",
+   "peso": 21046,
+   "durata": 1.698,
+   "sonorita": -16.46,
+   "picco": -2.3,
+   "sottoLaFinestra": false
+  },
+  "principio.mp3": {
+   "sha1": "134c275e2eec551fbb92782534f04b3801f2e762",
+   "peso": 29510,
+   "durata": 2.396,
+   "sonorita": -16.43,
+   "picco": -5.3,
+   "sottoLaFinestra": false
+  },
+  "respiro_dentro.mp3": {
+   "sha1": "55a40673dc5c1020740db8669a884fb418655724",
+   "peso": 60247,
+   "durata": 4.941,
+   "sonorita": -16.5,
+   "picco": -6.0,
+   "sottoLaFinestra": false
+  },
+  "respiro_fuori.mp3": {
+   "sha1": "62c8ea60a6ef8bedf70fa6fe0a3420f25fb08513",
+   "peso": 83130,
+   "durata": 6.847,
+   "sonorita": -16.5,
+   "picco": -6.4,
+   "sottoLaFinestra": false
+  },
+  "rifiuto.mp3": {
+   "sha1": "a52ee29ac1ded891071aa361e8f29d6ec4636298",
+   "peso": 4432,
+   "durata": 0.3,
+   "sonorita": null,
+   "picco": -12.3,
+   "sottoLaFinestra": true
+  },
+  "rito_compiuto.mp3": {
+   "sha1": "5e3a49dab5c839e069086e433c2093bc3b8397f2",
+   "peso": 18852,
+   "durata": 1.5,
+   "sonorita": -16.43,
+   "picco": -7.7,
+   "sottoLaFinestra": false
+  },
+  "rivelazione.mp3": {
+   "sha1": "d05c26a51f0a0cd4b610132d70830be98d9465a4",
+   "peso": 18852,
+   "durata": 1.5,
+   "sonorita": -16.46,
+   "picco": -7.8,
+   "sottoLaFinestra": false
+  },
+  "soglia.mp3": {
+   "sha1": "c1863b2bd2451b8cbfa3f1521d504b6865b26583",
+   "peso": 6940,
+   "durata": 0.5,
+   "sonorita": -16.44,
+   "picco": -4.7,
+   "sottoLaFinestra": false
+  }
+ },
+ "musica": {
+  "ambiente_aura.mp3": {
+   "sha1": "26545d75603a55083a8e74e668bf7922ba9a6f1f",
+   "peso": 2268935,
+   "durata": 189.0,
+   "sonorita": -23.48,
+   "picco": -16.0,
+   "bordoIniziale": -31.6,
+   "bordoFinale": -35.5,
+   "scartoDellaGiunta": 3.9
+  },
+  "ambiente_caligo.mp3": {
+   "sha1": "99617d41aac38bdfa3c55fc35e063e1cf085c3c5",
+   "peso": 1578362,
+   "durata": 131.465,
+   "sonorita": -23.45,
+   "picco": -14.6,
+   "bordoIniziale": -42.0,
+   "bordoFinale": -41.7,
+   "scartoDellaGiunta": 0.3
+  },
+  "ambiente_home.mp3": {
+   "sha1": "f5794aa1996459903b5dbcfbfbd4729328b59696",
+   "peso": 1793493,
+   "durata": 149.059,
+   "sonorita": -23.47,
+   "picco": -16.1,
+   "bordoIniziale": -42.1,
+   "bordoFinale": -44.2,
+   "scartoDellaGiunta": 2.1
+  },
+  "ambiente_medora.mp3": {
+   "sha1": "711382dfd8e4fd9010b38c357f1d3443a05d93ed",
+   "peso": 1816285,
+   "durata": 151.286,
+   "sonorita": -23.44,
+   "picco": -16.2,
+   "bordoIniziale": -38.9,
+   "bordoFinale": -41.5,
+   "scartoDellaGiunta": 2.6
+  }
+ }
+}

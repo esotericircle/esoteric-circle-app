@@ -6,6 +6,8 @@ import '../theme/maestro_scope.dart';
 import '../tokens/color_tokens.dart';
 import '../tokens/spacing_tokens.dart';
 import '../tokens/typography_tokens.dart';
+import '../typography/paragrafi_di_lettura.dart';
+import '../transizioni/velo_del_cerchio.dart';
 
 /// Mostra l'anticipo elegante (Coming soon) o l'invito all'upgrade (premium).
 ///
@@ -22,7 +24,7 @@ Future<void> showFeatureSheet(
   final palette = context.palette;
   final bool isPremium = status == FeatureStatus.premiumLocked;
 
-  return showModalBottomSheet<void>(
+  return foglioDelCerchio<void>(
     context: context,
     backgroundColor: Colors.transparent,
     isScrollControlled: true,
@@ -91,15 +93,20 @@ class _FeatureSheetContent extends StatelessWidget {
               Expanded(
                 child: Text(
                   feature.title,
-                  style: TypographyTokens.display(size: 22),
+                  style: TypographyTokens.titoloSezione(),
                 ),
               ),
             ],
           ),
           const SizedBox(height: SpacingTokens.md),
-          Text(
-            feature.teaser,
-            style: TypographyTokens.body(size: 16)
+          // **ALLA MISURA DEL RESPONSO. Ordine CE voce 10.** Parole del fondatore:
+          // "nella maggior parte delle funzionalita' NON SI LEGGE BENE IL TESTO. anche
+          // nei doni o tutte le funzionalita' anche prima di chiedere un responso". La
+          // misura non si sceglie, si prende: e' `lettura()`, la stessa del responso dei
+          // Tarocchi e dell'Oroscopo.
+          ParagrafiDiLettura(
+            testo: feature.teaser,
+            stile: TypographyTokens.lettura()
                 .copyWith(color: ColorTokens.textSecondary),
           ),
           const SizedBox(height: SpacingTokens.xl),
@@ -111,8 +118,7 @@ class _FeatureSheetContent extends StatelessWidget {
                 foregroundColor: palette.deepest,
                 padding: const EdgeInsets.symmetric(vertical: SpacingTokens.md),
                 shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.circular(SpacingTokens.radiusPill),
+                  borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
                 ),
               ),
               onPressed: () => Navigator.of(context).pop(),
@@ -120,7 +126,7 @@ class _FeatureSheetContent extends StatelessWidget {
                 isPremium
                     ? 'Scopri l\'abbonamento (${feature.requiredTier.label})'
                     : 'Avvisami quando arriva',
-                style: TypographyTokens.body(size: 15, weight: 600)
+                style: TypographyTokens.corpo(weight: 600)
                     .copyWith(color: palette.deepest),
               ),
             ),
@@ -131,7 +137,7 @@ class _FeatureSheetContent extends StatelessWidget {
               onPressed: () => Navigator.of(context).pop(),
               child: Text(
                 'Chiudi',
-                style: TypographyTokens.body(size: 14)
+                style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textMuted),
               ),
             ),

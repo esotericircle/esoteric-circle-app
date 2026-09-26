@@ -1,0 +1,21 @@
+ORDINE EM VOCI 06 E 12, LE VOCI SCELTE NEL LIVE E IL RITMO DI CALIGO, Realme 767f596c, build 2281 finale, 25 settembre 2026
+
+LE SCELTE DEL FONDATORE in configurazione/live.voci, lette il 25 settembre 2026 alle 05:49 (ora italiana):
+  medora: Despina, caligo: Orus (scelte la sera del 24 settembre, 22:38:07 e 22:47:04 UTC); aura: nessuna scelta.
+
+IL REGISTRO DEL SERVER, riga "voce del Maestro" (servizio lavocedelmaestro), ora UTC:
+  istante, maestro, voce, famiglia, modello, punto, caratteri
+  2026-09-25T03:46:37.711021Z,caligo,Orus,gemini,gemini-2.5-flash-tts,europe-west1-aiplatform.googleapis.com,47
+  2026-09-25T03:47:05.425744Z,caligo,Orus,gemini,gemini-2.5-flash-tts,europe-west1-aiplatform.googleapis.com,190
+  2026-09-25T03:47:09.184348Z,caligo,Orus,gemini,gemini-2.5-flash-tts,europe-west1-aiplatform.googleapis.com,136
+  2026-09-25T03:48:59.729325Z,medora,Despina,gemini,gemini-2.5-flash-tts,europe-west1-aiplatform.googleapis.com,68
+
+Aura, nelle scene della notte: 25 chiamate, tutte con Autonoe, la voce di partenza (nessuna scelta per lei).
+Prima dell'ordine EM la scelta restava in memoria un minuto per servizio; nessuna riga del registro diceva
+quale voce avesse parlato: che la voce scelta fosse applicata non si poteva leggere da nessuna parte (fatto 5).
+
+IL RITMO DI CALIGO NEL LIVE VERO (voce Orus, modo nuovo): alle 03:47 UTC la domanda "Calìgo, questa mattina ho
+tirato Raidho da sola. Che viaggio mi sta annunciando?"; risposta di 331 caratteri (registro CHAT TEMPI), audio di
+24.023 ms mandato al volto (registro LIVE): 13,8 caratteri al secondo, pause fra le frasi comprese. Il parlato
+italiano naturale sta fra 13 e 15. Al banco, col modo di prima, le sedici voci stavano fra 9,1 e 11,1
+(caligo/ritmo_delle_voci.txt). Il giudizio all'orecchio resta del fondatore.

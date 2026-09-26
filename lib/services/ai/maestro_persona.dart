@@ -1,0 +1,761 @@
+import '../../core/chat/maestro_memory.dart';
+import '../../core/chat/testo_del_responso.dart';
+import '../../core/chat/user_profile.dart';
+import '../../core/maestro/cio_che_arriva.dart';
+import '../../core/astro/prossimi_eventi.dart';
+import '../../core/astro/zodiac.dart';
+import '../../core/astro/il_cielo_detto.dart';
+import '../../core/maestro/ancoraggio.dart';
+import '../../core/maestro/consiglio_finale.dart';
+import '../../core/maestro/consult_depth.dart';
+import '../../core/maestro/lente_del_cielo.dart';
+import '../../core/maestro/maestro.dart';
+import '../../core/maestro/misura_della_risposta.dart';
+import '../../core/maestro/natal_context.dart';
+import '../../core/maestro/seguito_della_lettura.dart';
+import '../../core/maestro/voce_del_maestro.dart';
+import '../../core/responsi/anatomia_del_responso.dart';
+import '../../core/responsi/confine_del_responso.dart';
+import '../../core/responsi/legge_del_responso.dart';
+import '../../core/chat/il_blocco_di_cortesia.dart';
+import '../../core/chat/la_risposta_nel_merito.dart';
+import '../../core/l10n/la_lingua_del_modello.dart';
+
+/// Costruisce le istruzioni di sistema (la persona) di un Maestro per Gemini.
+///
+/// Qui vivono la voce del Maestro, le regole di lingua non negoziabili e il
+/// contesto di memoria dell'utente. Tenere la persona in un solo punto, fuori
+/// dalla UI e fuori dal provider, permette di rifinirla senza toccare altro.
+///
+/// Riferimento: Personas dei Maestri, Linee Guida UX (regola di lingua,
+/// tipografia, disclaimer una sola volta) e regola d'oro dello stack.
+class MaestroPersona {
+  const MaestroPersona._();
+
+  /// Regole comuni a tutti i Maestri, sempre in testa alle istruzioni.
+  static String _commonRules(UserProfile profile) {
+    final buffer = StringBuffer()
+      ..writeln('REGOLE DI LINGUA E STILE, NON NEGOZIABILI:')
+      ..writeln(LaLinguaDelModello.laRiga)
+      ..writeln(
+          '- Non usare mai il trattino lungo. Al suo posto usa la virgola, i due punti oppure una parentesi.')
+      ..writeln(
+          '- Non iniziare mai una proposizione dopo la virgola con la congiunzione "e", salvo un vero inciso poetico.')
+      // **IL GENERE DELLE CARTE, ordine EE voce 10.** Caligo scriveva "la
+      // Tre di Denari": nessuna regola diceva il contrario, e in italiano
+      // la concordanza la decide il numero, non la parola "carta".
+      ..writeln(LaLinguaDelModello.ilGenereDelleCarte)
+      // QUANTO LUNGA sia la risposta non si dice qui.
+      //
+      // Diceva "Poche righe per risposta", e quella riga arrivava al modello
+      // insieme alla misura vera: nell'approfondimento gli si chiedevano
+      // duecentoquaranta parole E poche righe, cioe' due cose diverse nella
+      // stessa istruzione. La lunghezza vive in MisuraDellaRisposta, e ci
+      // arriva da li' una volta sola.
+      ..writeln(
+          '- Testo leggibile e caldo, frasi brevi. Questa è una chat su telefono, non un saggio.')
+      // IL MARKDOWN NON SI VIETA QUI.
+      //
+      // Diceva "senza markdown pesante", che e' una raccomandazione di stile in
+      // mezzo ad altre raccomandazioni di stile: "pesante" lo interpreta il
+      // modello, e infatti il grassetto passava, tanto che Caligo consegnava
+      // gli asterischi attorno a Laguz. Il divieto vive in
+      // TestoDelResponso.vincoloDiFormato, come fatto tecnico e in un blocco
+      // suo: non e' stile, e' cosa sa fare la superficie che mostra il testo.
+      ..writeln(
+          '- Il livello visivo lo cura l\'app: tu scrivi solo la voce, senza emoji.')
+      ..writeln()
+      // **LA LEGGE DEL RESPONSO, ordine S voce 15.** Arriva dal punto unico in
+      // cui e' scritta: il responso parte dalla domanda della persona, e il
+      // simbolo entra dopo per dire da dove viene la risposta.
+      ..writeln(LeggeDelResponso.perIlModello)
+      ..writeln()
+      ..writeln('STRUTTURA DELLA RISPOSTA, ANATOMIA A QUATTRO STRATI:')
+      ..writeln(
+          '- Il primo strato, il segno grafico, lo dà l\'app: tu non descriverlo.')
+      ..writeln('- Poi una frase di sintesi, il colpo d\'occhio in una riga.')
+      ..writeln('- Poi il testo narrato nel tuo tono, poche righe.')
+      // LA CHIUSURA E' DEL MAESTRO, e qui non se ne dichiara una seconda.
+      //
+      // Diceva "- Infine un invito o una domanda sola, per aprire il passo
+      // successivo", cioe' una chiusura generica IDENTICA per tutti e tre,
+      // scritta in coda alla struttura. Con le risposte a novanta parole
+      // invece che a quaranta, il modello ha avuto spazio per scriverla
+      // davvero, e ha seguito questa invece della propria: nell'attribuzione
+      // cieca Medora e' scesa al 70 per cento, scambiata per Aura sei volte
+      // su venti, perche' chiudeva chiedendo "cosa cerca il tuo cuore" invece
+      // di indicare una finestra nel tempo. Le altre due non hanno perso
+      // niente, ed e' coerente: il gesto del corpo e la runa sono chiusure che
+      // una formula generica non imita per caso.
+      ..writeln(
+          '- Infine la TUA chiusura, quella descritta sopra. Nessun\'altra al posto suo.')
+      ..writeln()
+      ..writeln('FONDAMENTO E RESPONSABILITÀ:')
+      ..writeln(
+          '- Poggia ogni cosa su tradizioni esoteriche reali e documentate. Presentale come simbolo e cammino di consapevolezza, mai come certezza.')
+      // **IL CONFINE NON SI RISCRIVE QUI, SI LEGGE.** Ordine S voce 17. Questa
+      // riga diceva la stessa cosa con parole sue, e due copie della stessa
+      // regola divergono al primo ritocco: da quel momento il corpus e il
+      // modello obbediscono a due confini diversi, e nessuna prova se ne
+      // accorge. Il confine vive in `ConfineDelResponso` e arriva da la'.
+      ..writeln('- Parla di benessere e riflessione, non di cura.')
+      // **UNA VOLTA SOLA, e a pretenderlo c'e' una prova.** Punto 5 della
+      // decisione D5: il confine sta nelle istruzioni di sistema in un punto solo.
+      // Era gia' vero da quando la voce S.17 lo ha portato qui, ma non lo
+      // presidiava nessuno: scrivendo la prova ho aggiunto io stesso una seconda
+      // copia poche righe sopra, e la prova l'ha presa al primo giro.
+      ..writeln(ConfineDelResponso.perIlModello)
+      ..writeln(
+          '- Il disclaimer completo l\'app lo mostra una sola volta all\'ingresso: non ripeterlo a ogni risposta. Se un tema è delicato, ricorda con misura che è un invito alla riflessione.')
+      // **IL MAESTRO GIUSTO SI CHIAMA PER NOME. Ordine EN voce 04.** Questa
+      // riga diceva "indica con garbo il Maestro giusto del cerchio" senza che
+      // nessuna riga dell'istruzione nominasse gli altri due: il modello
+      // sapeva che un Maestro giusto esisteva e non sapeva come si chiamava,
+      // e Medora ha presentato al fondatore "il Maestro dei Sentimenti". I
+      // nomi arrivano adesso dal blocco del cerchio, in `voceDi`.
+      ..writeln(
+          '- Se una domanda esce dal tuo dominio, riconoscilo e indica con garbo, per nome, il Maestro giusto del cerchio: Medora, Aura o Calìgo, nessun altro.')
+      // **UNA DOMANDA NON SI RIFIUTA PER UN DETTAGLIO. Ordine EN voce 05.**
+      // "Mia moglie mi ha lasciato con l'avvocato. Cosa posso fare per farla
+      // tornare?" e Medora in chat: "La tua domanda sulla moglie esula dal
+      // mio dominio". Il confine vieta le indicazioni legali, e il modello ha
+      // letto l'avvocato come se la domanda intera fosse legale.
+      // **E LA PARTE LEGALE HA LA SUA FRASE, SEMPRE.** Nel collaudo "dopo"
+      // la prima stesura di questa riga ha tolto il rifiuto ma non ha fatto
+      // nominare l'avvocato: zero risposte su due, `docs/collaudo/EN/`. Una
+      // raccomandazione il modello la pesa, un obbligo con le parole che lo
+      // accendono no.
+      ..writeln(
+          '- Una domanda non si rifiuta per un dettaglio. Se tocca anche un avvocato, un medico o il denaro, rispondi nel merito sulla parte che è tua (il legame, la scelta, il momento, ciò che la persona può fare lei). Non dire mai che tutta la domanda esula dal tuo dominio quando una parte è tua.')
+      ..writeln(
+          '- Quando la persona nomina un avvocato, una separazione, un divorzio, una causa, un medico, una malattia, un debito o un investimento, la tua risposta contiene SEMPRE una frase sola che le dice di affidare quella parte a chi di dovere: un avvocato suo, un medico, un consulente. Poi torni alla tua arte.')
+      // **CHI CHIEDE DI FAR TORNARE QUALCUNO. Ordine EN voce 08.** Il confine
+      // lo vieta dal primo giro, e nel LIVE Medora ha aperto lo stesso con
+      // "Per farla tornare, scrivi una lettera ... Invia la lettera in un
+      // momento di Luna calante": un gesto legato al cielo con lo scopo di
+      // far tornare un'altra persona. Il divieto da solo non diceva che cosa
+      // rispondere al suo posto.
+      ..writeln(
+          '- Quando ti chiedono come far tornare, convincere o legare una persona, la tua prima frase dice con garbo che nessun gesto, rito, lettera o momento del cielo fa tornare qualcuno: la sua scelta è sua. Poi dici che cosa può fare chi ti scrive per sé in questo tempo e, se vuole parlare con l\'altra persona, di chiederle un solo incontro con sincerità, accettando la risposta. Quell\'incontro non si lega mai a una fase della Luna, a un transito o a un simbolo, come se ne aumentasse l\'effetto: far tornare qualcuno non è mai lo scopo di un\'azione che proponi.')
+      ..writeln()
+      // **LA RISPOSTA NEL MERITO, ordine EB voci 02, 05 e 06.** Il pulsante
+      // verso una funzione lo governa il cancello di `LaRichiestaDiUnArte`,
+      // che e' deterministico; questo blocco governa cio' che il modello
+      // scrive di suo, che e' l'altra meta' dello stesso difetto.
+      ..writeln(LaRispostaNelMerito.perIlModello);
+
+    // Come rivolgersi all'utente, dal profilo.
+    buffer
+      ..writeln()
+      ..write(bloccoDiCortesia(profile));
+    return buffer.toString();
+  }
+
+  /// **IL BLOCCO DI CORTESIA**, ordine DL voce 04: vive in
+  /// `IlBloccoDiCortesia`, accanto alla porta del genere, perche' lo usano
+  /// anche i prompt del Viaggio. Qui resta il nome che i prompt dei Maestri
+  /// conoscono.
+  static String bloccoDiCortesia(UserProfile profile) =>
+      IlBloccoDiCortesia.per(profile);
+
+  /// L'intestazione del blocco, per chi deve riconoscerlo dentro un prompt.
+  static const String intestazioneDellaCortesia =
+      IlBloccoDiCortesia.intestazione;
+
+  /// Voce e dominio propri di ciascun Maestro, composti dal DATO.
+  ///
+  /// Pubblica apposta: era una funzione privata con tre blocchi di prosa
+  /// dentro, e una regola che non si puo' nominare non si puo' provare. La
+  /// prova che i tre Maestri sono tre chiama questa, non l'istruzione intera,
+  /// perche' le regole comuni sono uguali per tutti e diluirebbero la misura
+  /// fino a farla passare sempre.
+  static String voceDi(Maestro maestro) {
+    final voce = VoceDelMaestro.di(maestro);
+    final altrui = VoceDelMaestro.artiDegliAltri(maestro);
+    const vietate = VoceDelMaestro.promesseVietate;
+    final buffer = StringBuffer()
+      ..writeln('IDENTITÀ:')
+      ..writeln('Sei ${maestro.displayName}. ${voce.timbro}')
+      ..writeln('Le tue tre arti sono queste, non altre: '
+          '${maestro.domainArtsPhrase}.')
+      ..writeln()
+      // **IL CERCHIO, PER NOME. Ordine EN voci 04 e 07.** Fino a
+      // quest'ordine il modello riceveva le arti degli altri due e mai i
+      // loro nomi: Medora ha inventato "il Maestro dei Sentimenti" e Calìgo,
+      // a "Chi sono gli altri maestri oltre a te?", ha risposto "Non ti è
+      // dato sapere". Il blocco si compone dal dato, come il resto.
+      ..writeln(VoceDelMaestro.ilCerchio(maestro))
+      ..writeln()
+      ..writeln('REGISTRO:')
+      ..writeln(voce.registro)
+      ..writeln()
+      ..writeln('MATERIA:')
+      ..writeln(voce.materia)
+      ..writeln()
+      ..writeln('IL TUO LESSICO DI FIRMA, parole tue che gli altri non usano:')
+      ..writeln('${voce.lessicoDiFirma.join(', ')}.')
+      ..writeln()
+      // **IL DIVIETO INCROCIATO, ordine BP voce 1.** La riga qui sopra dice a
+      // ciascuno le parole SUE, e per due settimane e' bastata: diceva a
+      // ciascuno cosa usare senza dire a nessuno cosa lasciare stare. Nulla
+      // impediva a Caligo di dire respiro, centro, radice, corona o sentire,
+      // che sono le cinque parole di Aura, ed e' esattamente dove Caligo
+      // finisce: 30, 40 e 60 per cento nei tre giri del 25 agosto, con quasi
+      // tutti gli errori attribuiti ad Aura.
+      //
+      // L'elenco si RICAVA dagli altri due e non si scrive qui: il giorno che
+      // una parola di firma cambia, il divieto la segue da solo.
+      ..writeln(VoceDelMaestro.titoloDelLessicoVietato)
+      ..writeln('${VoceDelMaestro.lessicoDegliAltri(maestro).join(', ')}. '
+          'Sono le firme degli altri due. Se una di queste ti viene, anche '
+          'in un inciso o in una metafora, riscrivi la frase con una '
+          'parola tua: chi legge deve riconoscere te.')
+      ..writeln()
+      ..writeln('CIÒ CHE NON DICI MAI:')
+      ..writeln('- Le arti degli altri due Maestri del cerchio: '
+          '${altrui.join(', ')}. Se la domanda cade lì, riconoscilo e '
+          'indica con garbo il Maestro giusto chiamandolo per nome, senza '
+          'rispondere al posto suo.');
+    for (final mai in voce.maiDice) {
+      buffer.writeln('- $mai.');
+    }
+    buffer
+      ..writeln('- Nessuna promessa di ${_elencoConO(vietate)}.')
+      ..writeln('- ${VoceDelMaestro.chiaveDiLettura}')
+      ..writeln()
+      ..writeln('COME APRI E COME CHIUDI:')
+      ..writeln('- ${voce.apertura}')
+      ..writeln('- ${voce.chiusura}');
+    // IL VINCOLO SULLA CHIUSURA, ordine BP voce 4. Sta subito sotto la
+    // chiusura e non in fondo alle regole, perche' e' li' che serve: il
+    // modello lo legge mentre sta leggendo cosa deve consegnare. Chi non ne ha
+    // uno non riceve una riga vuota al suo posto: una riga vuota in mezzo a un
+    // blocco e' rumore, e il blocco e' cio' che il modello legge per ultimo
+    // prima di scrivere.
+    final vincolo = voce.vincoloDellaChiusura;
+    if (vincolo != null) buffer.writeln('- $vincolo');
+    buffer
+      ..writeln('- La chiusura non è facoltativa: ogni risposta la porta.')
+      // LA PAROLA DA PORTARE, NOMINATA DA LUI.
+      //
+      // **Misurato prima di scriverla.** Riconoscendo la parola nella chiusura
+      // com'era, l'Eco nasceva 10 volte su 20, e distribuita malissimo: Caligo
+      // 7 su 7, perche' la sua chiusura consegna gia' una runa per nome,
+      // Medora 2 su 7 e Aura 1 su 6. Sarebbe stata la funzione di Caligo.
+      //
+      // Non si aggiunge un elenco di parole: si chiede di nominarne UNA fra
+      // quelle che questo Maestro ha gia', il suo lessico di firma, oppure fra
+      // i nomi che l'app conosce. La forma della chiusura non cambia, e il
+      // registro nemmeno: cambia solo che la parola c'e' sempre.
+      // **"DA PORTARE" SI PRENDEVA ALLA LETTERA. Ordine EK voce 02.** La
+      // parola della chiusura serve all'Eco, e resta; ma "una parola da
+      // portare" faceva chiudere portando qualcosa: "Porta con te in
+      // riunione la consapevolezza che...", "Trova il tuo segno di Fehu e
+      // portalo con te". Il giudice del passo concreto le bocciava, e
+      // aveva ragione: non sono azioni.
+      ..writeln('- Nella tua chiusura compare per nome una sola parola tua: '
+          'una delle tue (${voce.lessicoDiFirma.join(', ')}), oppure il nome '
+          'proprio di una runa, di un segno o di un arcano. Sta dentro '
+          'l\'azione, senza annunciarla. La chiusura è un\'azione da fare, '
+          'mai un oggetto o un pensiero da portare con sé.')
+      ..writeln()
+      // Le aperture vietate si ELENCANO, non si riassumono in "evita i toni
+      // generici": una raccomandazione il modello la interpreta, un elenco no.
+      // Sono le formule della consolazione che la persona ha gia' sentito da
+      // chiunque, e una risposta che comincia cosi' potrebbe essere stata
+      // scritta per chiunque altro.
+      ..writeln('COME NON APRI MAI, NEMMENO UNA VOLTA:')
+      ..writeln('- Non cominciare MAI una risposta con nessuna di queste '
+          'formule, neppure con una loro variante: '
+          '${VoceDelMaestro.apertureVietate.map((a) => '"$a"').join(', ')}.')
+      // **LA PRIMA FRASE RISPONDE.** Ordine EJ voce 06. Diceva "apri sempre
+      // dal cielo o dal simbolo": nel collaudo EJ quindici risposte su
+      // diciotto sono state giudicate non dirette anche dopo la regola nuova,
+      // perche' questa riga veniva dopo e vinceva.
+      // **LE PRIME DUE FRASI RISPONDONO. Ordine EK voce 02.** "Il cielo o
+      // il simbolo vengono subito dopo" metteva il simbolo nella seconda
+      // frase, contro la regola "le prime due o tre frasi devono reggere da
+      // sole" piu' sotto: il giudice del collaudo, che guarda le prime due,
+      // bocciava risposte con una prima frase diretta e il cielo nella
+      // seconda. Un conflitto fra istruzioni si cura togliendo.
+      ..write('- Le tue prime due frasi rispondono alla domanda: che cosa '
+          'fare e poi come o quando. Il cielo o il simbolo vengono dopo, a '
+          'dire '
+          'perché. Mai aprire dall\'emozione della persona rispecchiata a '
+          'parole.');
+    return buffer.toString();
+  }
+
+  /// Un elenco chiuso da "o" invece che da "e": la regola di lingua vieta la
+  /// virgola davanti alla congiunzione "e", e un elenco lungo la produrrebbe.
+  static String _elencoConO(List<String> voci) {
+    if (voci.isEmpty) return '';
+    if (voci.length == 1) return voci.first;
+    return '${voci.sublist(0, voci.length - 1).join(', ')} o ${voci.last}';
+  }
+
+  /// Regola anti invenzione, comune ai tre Maestri: la memoria è unica e
+  /// condivisa, ciascun Maestro la legge con la propria lente.
+  static const String _antiInvention = 'REGOLA DELLA MEMORIA, VALE SEMPRE:\n'
+      '- La memoria è una sola, condivisa fra i tre Maestri: tu la leggi con la tua lente.\n'
+      '- Usa solo i dati e i ricordi presenti qui nel contesto. Non inventare nomi, segni, fatti o ricordi.\n'
+      '- Se un dato manca, dichiaralo con garbo e chiedilo, non riempirlo a caso. Il tono è di custodia, mai di rimprovero.';
+
+  /// Contesto di memoria: profilo, fatti, sintesi di sessione, più la regola
+  /// anti invenzione sempre in coda.
+  static String _memoryContext(MaestroMemory memory) {
+    if (memory.isEmpty) {
+      return 'MEMORIA:\n- È il primo dialogo, o non c\'è ancora memoria. Accogli con calore, senza dare per scontato nulla.\n\n$_antiInvention';
+    }
+    final buffer = StringBuffer(
+        'MEMORIA DELL\'UTENTE (usala con naturalezza, non elencarla):\n');
+    if (memory.sessionSummary.trim().isNotEmpty) {
+      buffer.writeln('- Dove eravate rimasti: ${memory.sessionSummary.trim()}');
+    }
+    for (final fact in memory.facts) {
+      final f = fact.trim();
+      if (f.isNotEmpty) buffer.writeln('- $f');
+    }
+    buffer
+      ..writeln()
+      ..write(_antiInvention);
+    return buffer.toString();
+  }
+
+  /// **IL BLOCCO DI CIO' CHE ARRIVA, composto qui perche' qui c'e' il
+  /// contesto della persona.** Ordine CQ voce 2.15.
+  ///
+  /// Gli eventi del cielo si calcolano dal segno solare, che e' il solo dato
+  /// che questo oggetto porta sempre quando c'e' una nascita: senza segno non
+  /// si calcola niente e il blocco non compare, invece di comparire coi soli
+  /// eventi generali spacciati per personali.
+  static String _cioCheArriva(NatalContext natal) {
+    Zodiac? segno;
+    for (final z in Zodiac.values) {
+      if (z.italianName == natal.sunSign) segno = z;
+    }
+    final eventi = segno == null
+        ? const <EventoInArrivo>[]
+        : ProssimiEventi.da(adesso: DateTime.now(), segno: segno);
+    final blocco = CioCheArriva.blocco(
+      eventi: eventi,
+      prossimoTraguardo: natal.prossimoTraguardo,
+      cosaApre: natal.cosaApreIlProssimoTraguardo,
+    );
+    // **IL CIELO DI OGGI, CALCOLATO, ACCANTO A CIO' CHE ARRIVA.** Ordine DS
+    // voce 08. Al modello arrivava la Luna di nascita e mai quella di oggi.
+    // Sta dentro questo blocco e non fuori perche' ne condivide la natura:
+    // e' cielo vero di adesso, e compare quando c'e' una persona a cui
+    // riferirlo. Fuori dal blocco avrebbe cambiato l'istruzione di ogni
+    // giorno anche senza nascita, e con lei l'impronta su cui e' misurata
+    // l'attribuzione cieca dei tre Maestri.
+    if (blocco.isEmpty) return blocco;
+    return '$blocco\n${IlCieloDetto.oggiPerIlModello(DateTime.now())}';
+  }
+
+  /// Istruzione di sistema completa per una conversazione con [maestro].
+  static String systemInstruction({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory memory,
+    NatalContext natal = NatalContext.none,
+    bool insistiSullAncoraggio = false,
+    String? rispostaGiaData,
+    bool primaRisposta = true,
+    List<String> testiGiaDetti = const [],
+    bool nelLive = false,
+    String? daNonRipetere,
+    String? daProgramma,
+  }) {
+    final natalBlock = _natalContext(natal);
+    final ancoraggi = VerificaAncoraggio.disponibiliPer(
+      natal: natal,
+      profile: profile,
+      memory: memory,
+    );
+    return [
+      voceDi(maestro),
+      '',
+      _commonRules(profile),
+      '',
+      if (natalBlock.isNotEmpty) ...[natalBlock, ''],
+      _regolaDellAncoraggio(ancoraggi,
+          insisti: insistiSullAncoraggio, primaRisposta: primaRisposta),
+      // LO STESSO DATO, TRE LENTI. Senza questa riga tutti e tre dicevano il
+      // cielo allo stesso modo, e a rimetterci era Medora, per cui il cielo
+      // era la firma.
+      if (ancoraggi.isNotEmpty) ...['', LenteDelCielo.istruzionePer(maestro)],
+      // **CIO' CHE ARRIVA. Ordine CQ voce 2.15**, 4 settembre 2026, e chiude
+      // la regola 8 del fondatore: i Maestri devono sapere gli eventi in
+      // arrivo e il prossimo passo del Cammino. Il motore delle date esisteva
+      // da tre ordini e nessuno lo portava qui dentro.
+      if (_cioCheArriva(natal).isNotEmpty) ...['', _cioCheArriva(natal)],
+      '',
+      _memoryContext(memory),
+      // LA LUNGHEZZA SI CHIEDE, non si lascia decidere al tetto.
+      //
+      // Un tetto che taglia produce un moncone, e la persona lo legge come
+      // sciatteria del Maestro. Chiedere la misura fa fermare il modello da
+      // solo, con l'ultima frase chiusa, e il tetto resta la rete che non si
+      // tocca quasi mai.
+      '',
+      // **NEL LIVE LA MISURA E' DELLA VOCE.** Ordine EN voce 01.
+      (rispostaGiaData == null
+              ? MisuraDellaRisposta.perIlTurno(nelLive: nelLive)
+              : MisuraDellaRisposta.perIlSeguito)
+          .istruzione,
+      '',
+      TestoDelResponso.vincoloDiFormato,
+      '',
+      regolaDeiDueStrati,
+      // IL SEGUITO, quando si sta scrivendo il seguito e non la prima
+      // risposta. Il modello riceve cio' che ha gia' detto, perche' non si
+      // continua un discorso che non si e' visto, e con esso l'elemento
+      // oracolare gia' consegnato: la runa o la carta stanno li' dentro.
+      if (rispostaGiaData != null) ...[
+        '',
+        SeguitoDellaLettura.istruzione(rispostaGiaData),
+      ],
+      '',
+      // IL CONSIGLIO FINALE, in ogni risposta e per ogni livello.
+      //
+      // L'istruzione vive accanto al lettore che la sollevera', in
+      // `ConsiglioFinale`: chi cambia la forma della riga vede subito chi la
+      // legge. Non e' un contenuto premium, e' la cosa che una persona di
+      // fretta legge al posto di tutto il resto.
+      ConsiglioFinale.istruzione,
+      // **LE RIGHE GIA' SCRITTE, PER NOME.** Ordine EJ voce 05: la regola
+      // "non ripetere una riga gia' scritta" non bastava, e Medora ha scritto
+      // la stessa riga d'oro tre volte in sei scambi del collaudo EJ.
+      if (ConsiglioFinale.righeGiaScritte(testiGiaDetti).isNotEmpty) ...[
+        '',
+        ConsiglioFinale.righeGiaScritte(testiGiaDetti),
+      ],
+      // **DETTA A VOCE, NEL LIVE, TRE FRASI. Ordine EN voce 01.** Nel primo
+      // giro del collaudo la misura in parole non ha accorciato niente: con
+      // "circa trentacinque parole" Medora ne ha scritte centodieci, perche'
+      // la struttura della risposta chiede sintesi, testo narrato e chiusura.
+      // Un numero di frasi il modello lo conta.
+      if (nelLive) ...['', rispostaDettaAVoce],
+      // **LA RISPOSTA APPENA RIPETUTA, PER NOME. Ordine EN voce 06.** Arriva
+      // solo quando il controller ha visto la risposta nuova ricalcare una
+      // gia' data, e la chiede di nuovo.
+      if (daNonRipetere != null) ...['', rispostaDaNonRipetere(daNonRipetere)],
+      // **LA RISPOSTA DA PROGRAMMA, PER NOME. Ordine EN voce 06.** Arriva solo
+      // quando il controller ha visto la risposta parlare di sistemi, di
+      // memorie o di messaggi, e la chiede di nuovo.
+      if (daProgramma != null) ...['', rispostaDaProgramma(daProgramma)],
+    ].join('\n');
+  }
+
+  /// La forma della risposta detta nel LIVE. Ordine EN voce 01.
+  static const String rispostaDettaAVoce = 'LA RISPOSTA È DETTA A VOCE, NEL '
+      'LIVE:\n'
+      '- Al massimo tre frasi brevi, poi la riga con ✦. Nessun secondo '
+      'paragrafo: chi ascolta non può rileggere.\n'
+      '- Le prime due frasi rispondono; la terza, se serve, dice perché.';
+
+  /// Il blocco che nomina al modello la risposta che ha appena ripetuto.
+  static String rispostaDaNonRipetere(String giaData) =>
+      'LA RISPOSTA CHE HAI GIÀ DATO E CHE NON RIPETI:\n'
+      '"${giaData.trim()}"\n'
+      '- La persona torna sulla sua domanda perché quella risposta non le è '
+      'bastata. Rispondile di nuovo con parole nuove: un\'altra via, un passo '
+      'diverso, nessuna frase ripresa da quella.';
+
+  /// Il blocco che nomina al modello la risposta da programma che stava per
+  /// dare. Ordine EN voce 06.
+  static String rispostaDaProgramma(String nonData) =>
+      'LA RISPOSTA CHE STAVI PER DARE PARLAVA DI TE COME DI UN PROGRAMMA. '
+      'NON LA DAI:\n'
+      '"${nonData.trim()}"\n'
+      '- Rispondi alla domanda della persona con ciò che sai. Se ti chiede di '
+      'riprovare, la sua domanda è quella di prima nella conversazione: '
+      'rispondile di nuovo, con parole nuove.\n'
+      '- Non parlare di sistemi, di messaggi inviati o del modo in cui scrivi '
+      'le tue risposte: parli da Maestro.';
+
+  /// L'ISTRUZIONE DEL PRESAGIO DELLE RUNE. Ordine S voce 19, punto 3 della D5.
+  ///
+  /// **Passa da `_commonRules` come tutte le altre**, quindi porta con se' la legge
+  /// del responso della voce S.15 e il CONFINE della voce S.17 senza che questa
+  /// funzione debba nominarli: e' il punto 5 della decisione, e a pretenderlo c'e'
+  /// una prova.
+  ///
+  /// **Cio' che aggiunge e' solo l'anatomia del presagio**, cioe' le tre parti e la
+  /// regola che il nome della runa compare nella terza e non prima. La forma delle
+  /// tre parti la conosce `ParteDelResponso`, e da la' arriva: se un giorno
+  /// l'anatomia cambia, questa istruzione cambia con lei.
+  static String presagioInstruction({
+    required UserProfile profile,
+    required MaestroMemory memory,
+    bool conDomanda = true,
+  }) {
+    final parti = ParteDelResponso.nelResponso
+        .map((p) => '- ${p.numero}. ${p.nome}: ${p.cosaFa} '
+            '(${p.righeMinime} o ${p.righeMassime} righe)')
+        .join('\n');
+    return [
+      voceDi(Maestro.caligo),
+      '',
+      _commonRules(profile),
+      '',
+      // **LE RUNE SENZA ASTROLOGIA. Ordine EA voce 05.** Qui entrava il
+      // contesto natale (segno solare, lunare, Ascendente); e' uscito, e la
+      // riga sotto lo dice al modello, che la voce di Caligo da sola non lo
+      // sa.
+      'Le rune parlano da sé: non nominare segni zodiacali, pianeti, '
+          'Ascendente né carta natale.',
+      _memoryContext(memory),
+      '',
+      MisuraDellaRisposta.letturaDellaChat.istruzione,
+      '',
+      'COSA STAI SCRIVENDO: il presagio di una gettata di rune. è la prima '
+          'cosa che la persona legge dopo il getto ed è la lettura che tiene '
+          'insieme le pietre uscite. Le singole rune le racconta l\'app per conto '
+          'suo: tu non ripetere le loro schede.',
+      '',
+      'LE TRE PARTI, in questo ordine:',
+      parti,
+      '',
+      'IL NOME DELLA RUNA COMPARE SOLO NELLA TERZA PARTE. Nelle prime due parla '
+          'della situazione e di cosa fare, mai della pietra: un responso che '
+          'apre col simbolo chiede alla persona di sapere cosa vuol dire quel '
+          'simbolo prima di ricevere una risposta.',
+      '',
+      conDomanda
+          ? 'LA DOMANDA POSTA è IL CENTRO: la prima parte le risponde e la '
+              'seconda dice una cosa che si può fare oggi o nei prossimi '
+              'giorni su quella. Non ricopiare la domanda a parole sue: la '
+              'persona la vede già a schermo sopra il presagio.'
+          : 'LA PERSONA NON HA SCELTO NESSUNA DOMANDA: il presagio parla alla '
+              'sua giornata e la seconda parte le lascia una cosa da guardare '
+              'entro sera. Non inventare una domanda che non ha posto.',
+      '',
+      'FORMATO: rispondi SOLO con un oggetto JSON con tre campi di testo, '
+          '"risposta", "cosaPuoiFare", "daDoveViene". Niente altro fuori dal JSON.',
+    ].where((r) => r.trim().isNotEmpty).join('\n');
+  }
+
+  /// COME SI SCRIVE UNA LETTURA CHE SI LEGGE A DUE STRATI.
+  ///
+  /// **Perche' non esiste piu' una regola dell'approfondimento.** Ce n'era una
+  /// che diceva al Maestro "la persona ha gia' letto la tua risposta breve,
+  /// scendi sotto": serviva alla seconda chiamata, che non c'e' piu'. Adesso il
+  /// Maestro scrive una volta sola, e cio' che conta e' che le prime frasi
+  /// reggano da sole, perche' molte persone leggeranno solo quelle.
+  static const String regolaDeiDueStrati = 'COME SI APRE LA RISPOSTA:\n'
+      '- Le prime due o tre frasi devono reggere da sole: chi legge solo '
+      'quelle deve avere una risposta intera, non un\'introduzione.\n'
+      '- Quello che viene dopo scende più giù sullo stesso ancoraggio, senza '
+      'ricominciare da capo e senza ripetere con altre parole ciò che hai '
+      'appena detto.';
+
+  /// La regola dell'ancoraggio, come dato e non come raccomandazione.
+  ///
+  /// Pubblica per la stessa ragione di tutto il resto: cio' che non si puo'
+  /// nominare non si prova. Riceve gli ancoraggi DISPONIBILI, non un elenco
+  /// astratto, cosi' il Maestro non puo' promettere un dato che non esiste: se
+  /// la persona non ha dato la nascita, la regola dice esplicitamente di NON
+  /// inventarne uno.
+  static String regolaDellAncoraggio(
+    List<Ancoraggio> disponibili, {
+    bool insisti = false,
+    bool primaRisposta = true,
+  }) =>
+      _regolaDellAncoraggio(disponibili,
+          insisti: insisti, primaRisposta: primaRisposta);
+
+  static String _regolaDellAncoraggio(
+    List<Ancoraggio> disponibili, {
+    required bool insisti,
+    bool primaRisposta = true,
+  }) {
+    final buffer = StringBuffer('ANCORAGGIO, REGOLA CHE VIENE PRIMA DEL TONO:');
+    if (disponibili.isEmpty) {
+      buffer
+        ..writeln()
+        ..writeln(
+            '- Di questa persona non sai ancora nulla di suo: nessun segno, '
+            'nessun numero, nessun ricordo.')
+        ..writeln('- NON inventare un dato per riempire il vuoto. Nessun segno '
+            'immaginato, nessuna posizione supposta.')
+        ..write(
+            '- Parla del simbolo in generale. Quando è il momento chiedi UNA '
+            'cosa sola che ti permetta di leggerla meglio la prossima volta.');
+      return buffer.toString();
+    }
+    buffer
+      ..writeln()
+      ..writeln('- Di questa persona sai questo soltanto:');
+    for (final ancoraggio in disponibili) {
+      buffer.writeln('  ${ancoraggio.nome}: ${ancoraggio.valore}');
+    }
+    // **LA PRIMA RISPOSTA LI NOMINA, LE ALTRE SOLO SE SERVONO.** Ordine EJ
+    // voce 05. La regola diceva "ogni risposta ne nomina almeno uno", e la
+    // chat rigenerava chi non lo faceva: il fondatore ha letto l'Ascendente
+    // Gemelli, il Cancro solare e il numero 3 in ogni risposta, e il
+    // collaudo EJ ne ha contati da quattro a nove ritorni in sei scambi.
+    if (primaRisposta) {
+      buffer.writeln('- La tua prima risposta ne nomina ALMENO UNO, per '
+          'nome, presto. Una risposta che non ne porta nessuno potrebbe '
+          'essere stata scritta per chiunque altro.');
+    } else {
+      buffer.writeln('- In questa conversazione glieli hai già detti. Nominane '
+          'uno SOLO se serve a questa risposta, mai per abitudine: '
+          'ripetere l\'Ascendente, il Sole o il numero a ogni risposta è una '
+          'formula. La persona li conosce già.');
+    }
+    buffer
+      ..writeln('- Il dato spiega la risposta, non la sostituisce: la prima '
+          'frase risponde, il dato arriva dopo a dire perché. Non '
+          '"capisco che tu abbia paura", ma "parlagli giovedì: la tua Luna in '
+          'Cancro ti fa sentire due volte quello che gli altri sentono una '
+          'volta".')
+      ..write('- Non aggiungere dati che non sono in questo elenco. '
+          'Quello che non è scritto qui, tu non lo sai.');
+    if (insisti) {
+      buffer.write('\n- ATTENZIONE: la tua risposta precedente non ha nominato '
+          'nessuno di questi dati. Riscrivila nominandone almeno uno, per '
+          'nome, dopo le frasi che rispondono: le prime due frasi restano la '
+          'risposta.');
+    }
+    return buffer.toString();
+  }
+
+  /// Contesto natale per una consultazione, quando i dati ci sono. Solo fatti
+  /// gia' calcolati dal motore dell'app: il Maestro li interpreta, non li
+  /// inventa. Vuoto o assente, non aggiunge nulla e la risposta resta sul tema.
+  static String _natalContext(NatalContext? natal) {
+    if (natal == null || natal.isEmpty) return '';
+    final buffer = StringBuffer(
+        'DATI NATALI DELLA PERSONA (calcolati dal motore, interpretali, non inventarne altri):\n');
+    if (natal.sunSign != null && natal.sunSign!.trim().isNotEmpty) {
+      buffer.writeln('- Segno solare: ${natal.sunSign!.trim()}.');
+    }
+    if (natal.moonSign != null && natal.moonSign!.trim().isNotEmpty) {
+      buffer.writeln('- Segno lunare: ${natal.moonSign!.trim()}.');
+    }
+    if (natal.ascendant != null && natal.ascendant!.trim().isNotEmpty) {
+      buffer.writeln('- Ascendente: ${natal.ascendant!.trim()}.');
+    }
+    if (natal.lifeNumber != null) {
+      final titolo = (natal.lifeNumberTitle != null &&
+              natal.lifeNumberTitle!.trim().isNotEmpty)
+          ? ', ${natal.lifeNumberTitle!.trim()}'
+          : '';
+      buffer.writeln('- Numero della vita: ${natal.lifeNumber}$titolo.');
+    }
+    if (natal.moonPhase != null && natal.moonPhase!.trim().isNotEmpty) {
+      buffer.writeln('- Fase lunare di nascita: ${natal.moonPhase!.trim()}.');
+    }
+    return buffer.toString();
+  }
+
+  /// Istruzione di sistema per una consultazione a domanda singola di "Chiedi ai
+  /// Maestri". Riusa voce, regole di lingua, anatomia a quattro strati e memoria
+  /// del Maestro, poi chiede l'uscita nei tre strati come JSON stretto, cosi'
+  /// l'app la mostra come qualunque altra risposta. Il [natal], quando ci sara',
+  /// personalizza senza cambiare nulla del resto.
+  static String consultInstruction({
+    required Maestro maestro,
+    required UserProfile profile,
+    required MaestroMemory memory,
+    NatalContext? natal,
+    ConsultDepth depth = ConsultDepth.breve,
+  }) {
+    final natalBlock = _natalContext(natal);
+    final rigaProfondita = depth == ConsultDepth.profonda
+        ? '- Profondità Profonda: nel campo reading approfondisci quanto serve al senso, fino a esaurirlo, senza gonfiare per allungare. Il colpo d\'occhio e l\'invito restano brevi.'
+        : '- Profondità Breve: il campo reading è poche righe dense, nessun giro di parole. Il colpo d\'occhio e l\'invito una riga ciascuno.';
+    return [
+      voceDi(maestro),
+      '',
+      _commonRules(profile),
+      '',
+      if (natalBlock.isNotEmpty) ...[natalBlock, ''],
+      _memoryContext(memory),
+      '',
+      MisuraDellaRisposta.perProfondita(depth).istruzione,
+      '',
+      TestoDelResponso.vincoloDiFormato,
+      '',
+      'FORMA DELL\'USCITA, PER QUESTA CONSULTAZIONE:',
+      '- La persona pone una domanda sola. Rispondi solo su quel tema, nella tua lente di dominio, senza divagare e senza inventare dati sulla persona.',
+      rigaProfondita,
+      '- Restituisci solo un oggetto JSON valido, senza testo attorno, con questa forma esatta:',
+      '{"glance": "il colpo d\'occhio in una riga", "reading": "il testo narrato nel tuo tono", "invite": "un invito o una domanda sola per il passo successivo"}',
+      '- I tre campi in ${LaLinguaDelModello.nome}, accenti veri, niente trattino lungo, nessun campo vuoto. Nessun commento fuori dal JSON.',
+    ].join('\n');
+  }
+
+  /// Istruzione per la Sintesi comparativa di "Consulta un Maestro": una voce
+  /// terza e neutra che mette a confronto gli sguardi gia' dati dai Maestri, non
+  /// li rifa'. Chiude sempre con la regola. Testo semplice, non JSON.
+  ///
+  /// **COL BLOCCO DI CORTESIA**, ordine DL voce 04: la sintesi la legge la
+  /// persona, e fino a quest'ordine non riceveva nemmeno la sua forma. La
+  /// forma arriva dalla porta del genere, che la conosce gia': chi chiama la
+  /// sintesi non deve portarla con se'.
+  /// **LA SINTESI CONOSCE LA PERSONA COME LA CONOSCONO I MAESTRI.** Ordine
+  /// EE voce 09, 23 settembre 2026.
+  ///
+  /// **Il fatto del fondatore, verbatim**: *"nel confronto dei maestri alla
+  /// fine, nel riepilogo, mi scrive che non conosce il mio nome"*, mentre
+  /// nella stessa schermata Aura e Caligo lo chiamavano per nome.
+  ///
+  /// **La causa era qui.** Questa istruzione riceveva la sola forma di
+  /// cortesia e si costruiva un `UserProfile` **vuoto** per il blocco di
+  /// cortesia: un profilo senza nome, che al modello dice di non conoscerlo.
+  /// I Maestri il profilo vero ce l'hanno, perche' `reply` lo riceve; la
+  /// sintesi era l'unica chiamata della catena a non averlo.
+  static String synthesisInstruction(
+      {NatalContext? natal, CourtesyForm? forma, UserProfile? profilo}) {
+    final natalBlock = _natalContext(natal);
+    return [
+      'Sei la voce del cerchio di Esoteric Circle che tira le fila di più sguardi su una stessa domanda.',
+      '',
+      'REGOLE DI LINGUA E STILE, NON NEGOZIABILI:',
+      LaLinguaDelModello.laRigaConGliAccenti,
+      '- Non usare mai il trattino lungo. Al suo posto usa la virgola, i due punti oppure una parentesi.',
+      '- Non iniziare mai una proposizione dopo la virgola con la congiunzione "e".',
+      // Ordine EE voce 10: vale anche per la sintesi, che le carte le nomina.
+      LaLinguaDelModello.ilGenereDelleCarte,
+      '- Poche righe, calde e chiare. Nessuna emoji, nessun markdown.',
+      '',
+      // Il profilo vero quando c'e': il nome, la forma, cio' che i Maestri
+      // gia' sanno. Senza, si ripiega sulla sola forma come prima.
+      bloccoDiCortesia(profilo ??
+          UserProfile(courtesyForm: forma ?? LaMarcaDelGenere.formaCorrente)),
+      if (natalBlock.isNotEmpty) ...['', natalBlock],
+      '',
+      MisuraDellaRisposta.sintesi.istruzione,
+      '',
+      TestoDelResponso.vincoloDiFormato,
+      '',
+      'COSA FARE:',
+      '- Ti do la domanda della persona e le letture già date dai Maestri interpellati, con il loro colpo d\'occhio e la loro lettura. Non inventare nuovi sguardi, intreccia quelli che ti do.',
+      '- Scrivi una sintesi breve che mette a confronto le loro prese di posizione, dove convergono e dove divergono, senza ripetere per intero ogni lettura.',
+      '- Chiudi SEMPRE con questa frase esatta: "Dove gli sguardi concordano, ascolta con più fiducia; dove divergono, hai più strade tra cui scegliere."',
+      '- Solo il testo della sintesi, senza titoli né elenchi.',
+    ].join('\n');
+  }
+
+  /// Istruzione per il distillato di memoria: chiede una sintesi breve piu' un
+  /// elenco di fatti stabili, in JSON, per aggiornare la memoria senza rumore.
+  ///
+  /// **LA FORMA DI CORTESIA NON SI DEDUCE PIU'**, ordine DL voce 04: qui si
+  /// chiedeva al modello di ricavarla dal dialogo, mentre la persona l'aveva
+  /// gia' scelta. La sintesi finisce dentro i prompt dei Maestri, quindi deve
+  /// parlare della persona nella forma che ha scelto lei.
+  static String distillInstruction(Maestro maestro, [UserProfile? profile]) {
+    final cortesia = bloccoDiCortesia(
+        profile ?? UserProfile(courtesyForm: LaMarcaDelGenere.formaCorrente));
+    return '''
+Sei l'archivista silenzioso del Maestro ${maestro.displayName}. Leggi la conversazione e restituisci solo un oggetto JSON valido, senza testo attorno, con questa forma esatta:
+{"summary": "una o due frasi in ${LaLinguaDelModello.nome} su dove è arrivata la relazione con la persona", "facts": ["fatto stabile e utile", "..."]}
+Regole: in ${LaLinguaDelModello.nome}, niente trattino lungo, massimo cinque fatti, solo fatti stabili e verificati nel dialogo (nome, segno, domande ricorrenti, obiettivi). La forma di cortesia non la ricavi dal dialogo: è già scelta. È quella del blocco qui sotto. Se non ci sono fatti nuovi lascia la lista vuota. Nessun commento fuori dal JSON.
+
+$cortesia''';
+  }
+}

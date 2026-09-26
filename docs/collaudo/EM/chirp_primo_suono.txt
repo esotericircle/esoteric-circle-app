@@ -1,0 +1,16 @@
+ORDINE EM VOCE 02, IL PRIMO SUONO DI CHIRP 3 HD SULL'ENDPOINT "eu", 25 settembre 2026, dal PC.
+
+Voce it-IT-Chirp3-HD-Despina, 24.000 campioni al secondo, tre frasi, quota del progetto esoteric-circle.
+
+SINTESI INTERA, text:synthesize (REST), LINEAR16: il file arriva con l'intestazione WAV (RIFF).
+   78 caratteri: 1.150 ms, 5,08 s di voce
+  134 caratteri: 1.611 ms, 8,32 s di voce
+  PCM senza intestazione: HTTP 400, non ammesso da text:synthesize.
+
+SINTESI A FLUSSO, streamingSynthesize (gRPC, @google-cloud/text-to-speech 6.4.1), PCM:
+  78 caratteri: primo audio 318 ms, tutto 901 ms, 226560 byte, 4.72 s di voce
+  134 caratteri: primo audio 210 ms, tutto 1471 ms, 485760 byte, 10.12 s di voce
+  78 caratteri: primo audio 261 ms, tutto 888 ms, 245760 byte, 5.12 s di voce
+
+Per confronto, Gemini-TTS Flash a flusso in europe-west1: primo suono 0,66-0,75 s (ordine EK), 0,60-0,74 s
+nel LIVE di Aura sul Realme il 25 settembre 2026 (logcat_em_aura_prima_2280).
