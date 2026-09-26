@@ -393,6 +393,27 @@ class LOrecchioDelLive {
     return true;
   }
 
+  /// Il silenzio di fila della frase in ascolto.
+  Duration get silenzioAdesso => _silenzio.silenzioDiFila;
+
+  /// **LA DOMANDA E' FINITA: LA FRASE PARTE SENZA ASPETTARE DUE SECONDI.**
+  /// Ordine EO voce 14. Solo se la frase e' ancora [frase], ancora nella
+  /// stessa [pausa] e nessuno tiene premuto: una voce arrivata nel frattempo
+  /// apre una pausa nuova, e la domanda non si tronca. Falso se non si
+  /// chiude.
+  bool chiudiInPausa(int frase, int pausa) {
+    if (!_inAscolto ||
+        aMano ||
+        frase != _frase ||
+        !_silenzio.haParlato ||
+        !_silenzio.inPausa ||
+        _silenzio.pause != pausa) {
+      return false;
+    }
+    _consegna(pausa);
+    return true;
+  }
+
   /// La persona ha lasciato il pulsante: la frase finisce adesso.
   void lascia() {
     aMano = false;

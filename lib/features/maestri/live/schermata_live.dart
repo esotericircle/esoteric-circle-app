@@ -25,6 +25,7 @@ import 'le_frasi_della_persona.dart';
 import 'il_selettore_delle_voci.dart';
 import 'la_scena_del_live.dart';
 import 'la_cornice_della_finestra.dart';
+import 'la_domanda_finita.dart';
 import 'stato_della_schermata_live.dart';
 
 /// **LA SCHERMATA LIVE.** Ordine EG voce 05.
@@ -556,15 +557,34 @@ class _SchermataLiveState extends State<SchermataLive> {
   void _inPausa(Uint8List pcm, int pausa) {
     final orologio = Stopwatch()..start();
     final audio = _frasi.anteprima(pcm);
+    final frase = _orecchio.frase;
     final testo = _trascrivi(audio).then<String?>((t) {
       debugPrint('LIVE: trascrizione anticipata in '
           '${orologio.elapsedMilliseconds} ms, pausa $pausa: «$t»');
+      _chiudiSeEFinita(t, frase, pausa);
       return t;
     }).catchError((Object errore) {
       annotaGuastoInnocuo('la trascrizione anticipata non riesce', errore);
       return null;
     });
     _anticipata = (pausa: pausa, giro: _frasi.giro, testo: testo);
+  }
+
+  /// **UNA DOMANDA GIA' FINITA PARTE DOPO 1,3 SECONDI DI SILENZIO.** Ordine
+  /// EO voce 14: la regola sta in [LaDomandaFinita]. La trascrizione
+  /// anticipata resta quella della frase, perche' la frase si chiude con la
+  /// stessa pausa che l'ha cominciata.
+  void _chiudiSeEFinita(String testo, int frase, int pausa) {
+    if (!LaDomandaFinita.eFinita(testo)) return;
+    final attesa = LaDomandaFinita.daAspettare(_orecchio.silenzioAdesso);
+    Future<void>.delayed(attesa, () {
+      if (!mounted || !_ascolta) return;
+      final silenzio = _orecchio.silenzioAdesso.inMilliseconds;
+      if (_orecchio.chiudiInPausa(frase, pausa)) {
+        debugPrint('LIVE: domanda finita, chiusa dopo $silenzio ms di '
+            'silenzio');
+      }
+    });
   }
 
   /// **IL CONTROLLO DI UNA FRASE APERTA SU UN SUONO CONTINUO.** Ordine EM
@@ -659,6 +679,23 @@ class _SchermataLiveState extends State<SchermataLive> {
     });
     final prima = chat.messages.length;
     final orologio = Stopwatch()..start();
+    // **IL TESTO SI MOSTRA MENTRE IL MODELLO LO SCRIVE. Ordine EO voce 14.**
+    // La risposta intera, con le reti del controller, lo sostituisce quando
+    // arriva; la voce parte solo da quella.
+    var primoTesto = false;
+    void mentreArriva() {
+      final scritto = chat.testoInArrivo.value;
+      if (!mounted || !_pensa || scritto.trim().isEmpty) return;
+      if (!primoTesto) {
+        primoTesto = true;
+        _segnaTappa('primo testo');
+      }
+      setState(() => _quadro =
+          _quadro.con(sottotitolo: IlParlatoDelMaestro.daDire(scritto)));
+    }
+
+    chat.testoInArrivo.value = '';
+    chat.testoInArrivo.addListener(mentreArriva);
     try {
       await chat.send(testo);
       _segnaTappa('risposta');
@@ -668,6 +705,8 @@ class _SchermataLiveState extends State<SchermataLive> {
           '${chat.rigenerazioniPerTroncatura})');
     } catch (errore) {
       annotaGuastoInnocuo('la chat non risponde nel LIVE', errore);
+    } finally {
+      chat.testoInArrivo.removeListener(mentreArriva);
     }
     if (!mounted) return;
     final nuovi = chat.messages.skip(prima);
@@ -704,7 +743,7 @@ class _SchermataLiveState extends State<SchermataLive> {
     final s = _quadro.sessione;
     final io = stanza?.localParticipant;
     if (stanza == null || s == null || io == null) return;
-    final pezzi = IlParlatoDelMaestro.pezzi(scritto);
+    final pezzi = IlParlatoDelMaestro.pezzi(scritto, primaFraseSola: conAttesa);
     if (pezzi.isEmpty) return;
 
     setState(() {

@@ -140,10 +140,13 @@ class VoceVeraDiGemini implements MaestroAiProvider {
     // gettone in cache, che in un giro lungo scade: al 401 si rinnova e si
     // riprova una volta sola.
     final cronometro = Stopwatch()..start();
-    var risposta = await _chiedi(corpo);
+    // Ordine EO voce 14: il modello del turno e' quello dell'app.
+    final modello =
+        FirebaseMaestroAiProvider.modelloDelTurno(nelLive: turno.nelLive);
+    var risposta = await _chiedi(corpo, modello: modello);
     if (risposta.$1 == 401 || risposta.$1 == 403) {
       _gettoneInCache = null;
-      risposta = await _chiedi(corpo);
+      risposta = await _chiedi(corpo, modello: modello);
     }
     chiamate++;
     if (risposta.$1 != 200) {
@@ -268,10 +271,11 @@ class VoceVeraDiGemini implements MaestroAiProvider {
   /// che con una misura. Il limite e' momentaneo: si aspetta e si riprova,
   /// fino a cinque volte, con attese che raddoppiano. La richiesta resta
   /// identica, quindi la misura non cambia.
-  Future<(int, String)> _chiedi(String corpo) async {
+  Future<(int, String)> _chiedi(String corpo,
+      {String modello = FirebaseMaestroAiProvider.kMaestroChatModel}) async {
     var attesa = const Duration(seconds: 10);
     for (var volta = 0;; volta++) {
-      final esito = await _chiediUnaVolta(corpo);
+      final esito = await _chiediUnaVolta(corpo, modello);
       if (esito.$1 != 429 || volta >= 5) return esito;
       print('Vertex ha risposto 429: riprovo fra ${attesa.inSeconds} s');
       await Future<void>.delayed(attesa);
@@ -279,12 +283,12 @@ class VoceVeraDiGemini implements MaestroAiProvider {
     }
   }
 
-  Future<(int, String)> _chiediUnaVolta(String corpo) async {
+  Future<(int, String)> _chiediUnaVolta(String corpo, String modello) async {
     final gettone = _gettoneInCache ??= await _leggiIlGettone();
     final uri = Uri.https(
       '$_regione-aiplatform.googleapis.com',
       '/v1/projects/$_progetto/locations/$_regione/publishers/google/models/'
-          '${FirebaseMaestroAiProvider.kMaestroChatModel}:generateContent',
+          '$modello:generateContent',
     );
     final client = HttpClient();
     try {

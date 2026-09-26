@@ -228,6 +228,12 @@ class MaestroChatController extends ChangeNotifier {
   /// Ordine EN voce 06.
   int rigenerazioniPerProgramma = 0;
 
+  /// **IL TESTO DEL LIVE MENTRE IL MODELLO LO SCRIVE.** Ordine EO voce 14.
+  /// Solo nel LIVE: ogni domanda al modello lo riparte da vuoto, e la
+  /// schermata lo mostra finche' la risposta intera non arriva. Senza il
+  /// segno del chiarimento, che la persona non legge mai.
+  final ValueNotifier<String> testoInArrivo = ValueNotifier<String>('');
+
   /// **CIO' CHE LA PERSONA HA DETTO AGLI ALTRI DUE MAESTRI.** Ordine EN voce
   /// 09: le righe di [IRicordiDegliAltri], lette all'apertura. Non entrano
   /// nella memoria di questo Maestro, che si salva: si aggiungono ai fatti
@@ -642,6 +648,7 @@ class MaestroChatController extends ChangeNotifier {
         nelLive: nelLive,
         daNonRipetere: daNonRipetere,
         daProgramma: daProgramma,
+        suTesto: nelLive ? _mostraMentreArriva : null,
       ).per(() => _ai.reply(
             maestro: chi,
             profile: _profile,
@@ -651,6 +658,17 @@ class MaestroChatController extends ChangeNotifier {
             natal: natal,
             insistiSullAncoraggio: insisti,
           ));
+
+  @override
+  void dispose() {
+    testoInArrivo.dispose();
+    super.dispose();
+  }
+
+  void _mostraMentreArriva(String scrittoFinora) {
+    testoInArrivo.value =
+        scrittoFinora.replaceAll(RegExp(r'\[\[[A-Z]+\]\]'), '').trimLeft();
+  }
 
   /// NESSUN TURNO TORNA IN ATTESA.
   ///

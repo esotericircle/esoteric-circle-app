@@ -26,6 +26,7 @@ class LaRichiestaDelTurno {
     this.nelLive = false,
     this.daNonRipetere,
     this.daProgramma,
+    this.suTesto,
   });
 
   /// Vero quando il turno e' detto nel LIVE.
@@ -38,6 +39,12 @@ class LaRichiestaDelTurno {
   /// La risposta che il Maestro stava per dare parlando di se' come di un
   /// programma, da non dare; null quando non c'e'.
   final String? daProgramma;
+
+  /// **IL TESTO MENTRE ARRIVA.** Ordine EO voce 14, 26 settembre 2026: nel
+  /// LIVE la risposta si mostra mentre il modello la scrive, e il provider
+  /// che sa chiederla a flusso passa qui il testo scritto finora. Null
+  /// quando nessuno lo aspetta: allora la risposta si chiede intera.
+  final void Function(String scrittoFinora)? suTesto;
 
   /// La richiesta di un turno qualunque della chat.
   static const LaRichiestaDelTurno normale = LaRichiestaDelTurno();

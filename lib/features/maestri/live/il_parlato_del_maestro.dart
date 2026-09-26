@@ -43,7 +43,12 @@ abstract final class IlParlatoDelMaestro {
   /// due chiamate si sentirebbe con due intonazioni diverse. Le frasi brevi
   /// si uniscono fino al tetto, cosi' una risposta di dieci frasi non costa
   /// dieci chiamate.
-  static List<String> pezzi(String scritto) {
+  ///
+  /// **LA PRIMA FRASE DA SOLA, CON [primaFraseSola]. Ordine EO voce 14.** Il
+  /// primo pezzo e' quello che la persona aspetta: piu' e' corto, prima la
+  /// voce comincia a suonare. Vale per le risposte del LIVE; il saluto resta
+  /// un pezzo solo, perche' la sua voce e' composta in anticipo.
+  static List<String> pezzi(String scritto, {bool primaFraseSola = false}) {
     final pulito = pronunciato(daDire(scritto));
     if (pulito.isEmpty) return const [];
     final frasi = RegExp(r'[^.!?…]+[.!?…]+|[^.!?…]+$')
@@ -55,6 +60,9 @@ abstract final class IlParlatoDelMaestro {
     var corrente = '';
     for (final f in frasi) {
       if (corrente.isEmpty) {
+        corrente = f;
+      } else if (primaFraseSola && fuori.isEmpty) {
+        fuori.add(corrente);
         corrente = f;
       } else if (corrente.length + 1 + f.length <= pezzoMassimo) {
         corrente = '$corrente $f';

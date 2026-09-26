@@ -54,6 +54,16 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
   /// Modello per la risposta Profonda del Premium: Flash, piu' ricco.
   static const String kMaestroProfondaModel = 'gemini-2.5-flash';
 
+  /// **IL MODELLO DEL TURNO, IN UN PUNTO SOLO. Ordine EO voce 14.** Nel
+  /// LIVE Flash-Lite: la risposta detta a voce e' di tre frasi, e il
+  /// fondatore ha chiesto di ridurre l'attesa *"il più possibile"*; nella chat
+  /// scritta resta [chatModel]. Lo usano il provider vero e il collaudo.
+  static String modelloDelTurno({
+    required bool nelLive,
+    String chatModel = kMaestroChatModel,
+  }) =>
+      nelLive ? kMaestroBreveModel : chatModel;
+
   /// Il modello giusto per la profondita', in un punto solo.
   static String modelForDepth(ConsultDepth depth) =>
       depth == ConsultDepth.profonda
@@ -124,7 +134,7 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     // e 06: nel LIVE la misura della voce, e la risposta da non ripetere.
     final turno = LaRichiestaDelTurno.corrente;
     final model = _ai.generativeModel(
-      model: chatModel,
+      model: modelloDelTurno(nelLive: turno.nelLive, chatModel: chatModel),
       systemInstruction: Content.system(
         MaestroPersona.systemInstruction(
           maestro: maestro,
@@ -155,15 +165,35 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     );
 
     final chat = model.startChat(history: _toHistory(history));
-    final response = await chat.sendMessage(Content.text(userMessage));
-    final text = response.text?.trim();
+    // **A FLUSSO QUANDO QUALCUNO ASPETTA IL TESTO. Ordine EO voce 14.** Nel
+    // LIVE la risposta si mostra mentre il modello la scrive: il testo
+    // arriva a video un secondo e piu' prima. La voce aspetta la risposta
+    // intera, con le sue reti, come ha deciso il fondatore con l'ordine EM.
+    final suTesto = turno.suTesto;
+    GenerateContentResponse? ultima;
+    String? text;
+    if (suTesto == null) {
+      ultima = await chat.sendMessage(Content.text(userMessage));
+      text = ultima.text?.trim();
+    } else {
+      final scritto = StringBuffer();
+      await for (final pezzo
+          in chat.sendMessageStream(Content.text(userMessage))) {
+        ultima = pezzo;
+        final t = pezzo.text;
+        if (t == null || t.isEmpty) continue;
+        scritto.write(t);
+        suTesto(scritto.toString());
+      }
+      text = scritto.toString().trim();
+    }
     if (text == null || text.isEmpty) {
       throw const MaestroAiUnavailable('Il Maestro non ha trovato le parole.');
     }
     // La troncatura si controlla DOPO aver visto che il testo c'e': un moncone
     // e' testo a tutti gli effetti, e senza questa riga arrivava a video come
-    // una risposta compiuta.
-    if (eTroncata(response)) throw const MaestroAiTroncata();
+    // una risposta compiuta. A flusso la dice l'ultimo pezzo.
+    if (ultima != null && eTroncata(ultima)) throw const MaestroAiTroncata();
     // LA RIPULITURA AL CONFINE. Il vincolo nella persona regge quasi sempre, e
     // "quasi" non basta per una cosa che dipende da un modello: qui e' l'ultima
     // riga prima dello schermo.
