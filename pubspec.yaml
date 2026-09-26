@@ -242,6 +242,9 @@ flutter:
     - assets/data/
     - assets/fonts/
     - assets/ritual_backgrounds/
+    # Gli sfondi delle schede delle arti, tre formati per arte (ordine EO voce 01):
+    # Vert 800x1000, Square 800x800, Oriz 1280x720; piu' i tre sfondi dei Maestri.
+    - assets/schede/
     # I tre avatar viaggiano in WebP: in PNG pesavano 16,6 MB, piu' di
     # tutti i 146 Angeli messi insieme. Gli originali restano in
     # brand_assets/ e non entrano piu' nel pacchetto.

@@ -150,6 +150,10 @@ lib/firebase_options.dart
 # script di generazione. Non vanno mai su Git, si servono da CDN o si importano
 # selettivamente in brand_assets/.
 output/
+# La cartella di lavorazione degli sfondi delle schede sul PC di Mauro: PNG e
+# JPG restano fuori; nel repository entrano solo i 99 WebP, in assets/schede/
+# (ordine EO voce 01).
+assets/Sfondi Schede/
 
 # Materiale personale di Mauro, mai su GitHub
 # I loghi sorgente pesano quasi sei megabyte l'uno: negli asset ci vanno solo
