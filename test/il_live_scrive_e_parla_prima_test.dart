@@ -36,6 +36,30 @@ import 'package:flutter_test/flutter_test.dart';
 /// **La voce non parte mentre la chat scrive**: resta la regola che il
 /// fondatore ha scelto con l'ordine EM, e l'ultima prova la sorveglia.
 void main() {
+  // **UNA DOMANDA CAPITA DAL CONTROLLO NON SI PERDE.** Collaudo della voce
+  // EO.14 sul Realme, 26 settembre 2026: tre volte su tre la stessa domanda
+  // di Aura e' tornata vuota dall'anticipata e dalla seconda trascrizione,
+  // mentre il controllo della frase l'aveva capita per intero. La frase che
+  // si chiude vuota prende il testo dell'ultimo controllo della stessa frase
+  // e dello stesso giro.
+  test('EO.14: una frase tornata vuota prende le parole del suo controllo', () {
+    final s = File('lib/features/maestri/live/schermata_live.dart')
+        .readAsStringSync();
+    final unaFrase = s.substring(s.indexOf('Future<void> _unaFrase('),
+        s.indexOf('static const Duration laVoceChiara'));
+    expect(unaFrase, contains('_paroleDelControllo'),
+        reason: 'la frase vuota non guarda le parole del controllo');
+    expect(unaFrase, contains('controllo.frase == frase'),
+        reason: 'le parole del controllo devono essere della stessa frase');
+    expect(unaFrase, contains('controllo.giro == giroPrima'),
+        reason: 'e dello stesso giro');
+    final alControllo = s.substring(s.indexOf('void _alControllo('),
+        s.indexOf('Future<String> _trascrivi('));
+    expect(alControllo,
+        contains('_paroleDelControllo = (frase: frase, giro: giro'),
+        reason: 'il controllo non conserva le sue parole');
+  });
+
   group('una domanda finita non aspetta due secondi', () {
     test('si riconosce dal punto interrogativo e da almeno tre parole', () {
       for (final finita in [

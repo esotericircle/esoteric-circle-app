@@ -133,6 +133,10 @@ class _SchermataLiveState extends State<SchermataLive> {
   /// invece di aspettare.
   ({int pausa, int giro, Future<String?> testo})? _anticipata;
 
+  /// L'ultimo controllo di una frase aperta che aveva parole: la frase,
+  /// il giro e il testo. Vedi `_unaFrase`.
+  ({int frase, int giro, String testo})? _paroleDelControllo;
+
   /// **L'ATTESA, MISURATA PEZZO PER PEZZO.** Ordine EM voce 11: dalla fine
   /// del parlato alla frase chiusa, alla trascrizione, alla risposta, al
   /// primo audio mandato al volto, al volto che parla nella stanza.
@@ -512,6 +516,21 @@ class _SchermataLiveState extends State<SchermataLive> {
         detto = await _trascrivi(daTrascrivere.pcm);
         comeTrascritta = '$comeTrascritta, poi di nuovo';
       }
+      // **E SE TORNA VUOTA ANCHE LA SECONDA VOLTA, VALE IL CONTROLLO.**
+      // Ordine EO, collaudo della voce 14 sul Realme, 26 settembre 2026:
+      // "Aura, come ritrovo la calma prima di un esame?" e' tornata vuota tre
+      // volte su tre, dall'anticipata e dalla seconda trascrizione
+      // dell'audio intero, mentre il controllo della stessa frase, un
+      // momento prima, l'aveva capita per intero. Il controllo trascrive la
+      // stessa frase fino a quel punto: e' la domanda, non un'altra.
+      final controllo = _paroleDelControllo;
+      if (detto.isEmpty &&
+          controllo != null &&
+          controllo.frase == frase &&
+          controllo.giro == giroPrima) {
+        detto = controllo.testo;
+        comeTrascritta = '$comeTrascritta, dal controllo';
+      }
       trascritta = true;
     } catch (errore) {
       annotaGuastoInnocuo('la frase del LIVE non si trascrive', errore);
@@ -598,6 +617,9 @@ class _SchermataLiveState extends State<SchermataLive> {
     final giro = _frasi.giro;
     unawaited(_trascrivi(_frasi.anteprima(pcm)).then((testo) {
       if (!mounted || !_ascolta) return;
+      if (testo.trim().isNotEmpty) {
+        _paroleDelControllo = (frase: frase, giro: giro, testo: testo);
+      }
       final cosa =
           _giudizio.giudica(frase: frase, controllo: controllo, testo: testo);
       debugPrint('LIVE: controllo $controllo della frase $frase in '

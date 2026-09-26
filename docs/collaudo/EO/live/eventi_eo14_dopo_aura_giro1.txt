@@ -1,0 +1,16 @@
+saluto finito 1790407521.669
+frase 1, inizio 1790407524.805: Aura, la sera non riesco a rilassarmi. Cosa faccio?
+detta in 5.2 secondi: Aura, la sera non riesco a rilassarmi. Cosa faccio?
+frase 1, fine 1790407531.416
+frase 1 trascritta 1790407533.127
+frase 1: risposta finita 1790407571.485
+frase 2, inizio 1790407574.813: Aura, ho mal di testa quando lavoro troppo. Da dove comincio?
+detta in 5.5 secondi: Aura, ho mal di testa quando lavoro troppo. Da dove comincio?
+frase 2, fine 1790407580.904
+frase 2 trascritta 1790407582.714
+frase 2: risposta finita 1790407618.762
+frase 3, inizio 1790407622.189: Aura, come ritrovo la calma prima di un esame?
+detta in 3.8 secondi: Aura, come ritrovo la calma prima di un esame?
+frase 3, fine 1790407626.592
+frase 3 trascritta 1790407629.873
+frase 3: risposta non finita in 120 s
