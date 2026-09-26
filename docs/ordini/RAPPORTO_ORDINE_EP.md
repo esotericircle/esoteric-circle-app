@@ -67,6 +67,10 @@ risposte: il manifesto EO e' a 17 voci chiuse su 17.
   titolo invece di 24). Padre: **EP.07**. Riparato.
 - **La guardia dei contatori era cieca due volte**: misurava la frase piu'
   corta, poi la clessidra. Padre: la mia prima stesura di **EP.14**. Curata.
+- **La chiave nuova del puntino d'oro non si cancellava e non si
+  scaricava** con gli altri tuoi dati: presa dalla suite intera e dallo
+  sbarramento (`niente_resta_di_te`, `scaricare_i_tuoi_dati`). Padre:
+  **EP.06**. Riparato: si cancella e si scarica come gli altri.
 - **Sette prove aprivano la chat toccando la scritta "Consulta" del
   dominio**, che adesso e' il titolo di una scheda: ora toccano l'immagine,
   come fa la persona.

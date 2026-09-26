@@ -123,6 +123,13 @@ dalla clessidra e dal lucchetto; si spegne quando quel giorno l'arte si apre
 da qualunque porta (scheda, striscia del dominio, chat) e torna il giorno
 dopo.
 
+**Due difetti di questa voce, presi dalle guardie di casa e curati**: la
+chiave nuova sul telefono, `arti_del_giorno.aperte`, non era fra quelle che
+la cancellazione dei dati conosce (`niente_resta_di_te`, rossa alla suite
+intera), e poi non era fra quelle che la persona scarica quando chiede i
+propri dati (`scaricare_i_tuoi_dati`, BC.02, rossa allo sbarramento). Ora sta
+in `CioCheETuo.prefissi` e in `ScaricoDeiTuoiDati.gruppi`.
+
 **CHIUSA.**
 DOMANDA: "Puntino d'oro nuovo" ("Sulle arti che cambiano ogni giorno, finché non le apri.")
 PROVA: docs/collaudo/EP/realme/ep06_puntino_prima_apertura_e_dopo.png
