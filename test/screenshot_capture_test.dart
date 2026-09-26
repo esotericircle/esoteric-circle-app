@@ -973,19 +973,17 @@ void main() {
         await mount(tester, await buildServices(Maestro.aura, seeded: false));
     selectCentral(tester, Maestro.aura);
     await step(tester);
-    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    // **LAPIDE: fino all'ordine EN il Test si apriva dal dominio di Aura.**
+    // Dall'ordine EO voce 12 vive solo nel Passaporto, come l'Angelo Custode:
+    // si apre dalla sua tessera.
+    await tester.tap(find.byKey(const Key('barra_voce_passport')));
     await step(tester);
     await step(tester);
-    // Dal dominio di Aura si apre il Test Archetipo, che ora ha la sua
-    // esperienza vera e non piu' la soglia dell'arte.
-    await tester.scrollUntilVisible(
-      find.byKey(const Key('art_archetype_test')),
-      300,
-      scrollable: find.byType(Scrollable).first,
-    );
-    await tester.ensureVisible(find.byKey(const Key('art_archetype_test')));
+    final tessera = find.byKey(const Key('passport_archetipo_vuoto_tocco'));
+    await tester.scrollUntilVisible(tessera, 200,
+        scrollable: find.byType(Scrollable).first);
     await step(tester);
-    await tester.tap(find.byKey(const Key('art_archetype_test')));
+    await tester.tap(tessera, warnIfMissed: false);
     await step(tester);
     await step(tester);
     await tester.tap(find.byKey(const Key('archetype_start')));
@@ -1064,17 +1062,17 @@ void main() {
         await mount(tester, await buildServices(Maestro.aura, seeded: false));
     selectCentral(tester, Maestro.aura);
     await step(tester);
-    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    // **LAPIDE: fino all'ordine EN il Test si apriva dal dominio di Aura.**
+    // Dall'ordine EO voce 12 vive solo nel Passaporto, come l'Angelo Custode:
+    // si apre dalla sua tessera.
+    await tester.tap(find.byKey(const Key('barra_voce_passport')));
     await step(tester);
     await step(tester);
-    await tester.scrollUntilVisible(
-      find.byKey(const Key('art_archetype_test')),
-      300,
-      scrollable: find.byType(Scrollable).first,
-    );
-    await tester.ensureVisible(find.byKey(const Key('art_archetype_test')));
+    final tessera = find.byKey(const Key('passport_archetipo_vuoto_tocco'));
+    await tester.scrollUntilVisible(tessera, 200,
+        scrollable: find.byType(Scrollable).first);
     await step(tester);
-    await tester.tap(find.byKey(const Key('art_archetype_test')));
+    await tester.tap(tessera, warnIfMissed: false);
     await step(tester);
     await step(tester);
     // La soglia mostra il selettore del cielo prima di cominciare.
@@ -1093,17 +1091,17 @@ void main() {
         await mount(tester, await buildServices(Maestro.aura, seeded: false));
     selectCentral(tester, Maestro.aura);
     await step(tester);
-    await tester.tap(find.byKey(const Key('santuario_central_bust')));
+    // **LAPIDE: fino all'ordine EN il Test si apriva dal dominio di Aura.**
+    // Dall'ordine EO voce 12 vive solo nel Passaporto, come l'Angelo Custode:
+    // si apre dalla sua tessera.
+    await tester.tap(find.byKey(const Key('barra_voce_passport')));
     await step(tester);
     await step(tester);
-    await tester.scrollUntilVisible(
-      find.byKey(const Key('art_archetype_test')),
-      300,
-      scrollable: find.byType(Scrollable).first,
-    );
-    await tester.ensureVisible(find.byKey(const Key('art_archetype_test')));
+    final tessera = find.byKey(const Key('passport_archetipo_vuoto_tocco'));
+    await tester.scrollUntilVisible(tessera, 200,
+        scrollable: find.byType(Scrollable).first);
     await step(tester);
-    await tester.tap(find.byKey(const Key('art_archetype_test')));
+    await tester.tap(tessera, warnIfMissed: false);
     await step(tester);
     await step(tester);
     await tester.tap(find.byKey(const Key('archetype_start')));
@@ -1312,15 +1310,19 @@ void main() {
     await tester.tap(find.byKey(const Key('santuario_central_bust')));
     await step(tester);
     await step(tester);
-    // Nel dominio di Aura, la card della Meditazione nel riquadro Energia apre
-    // la schermata.
+    // Nel dominio di Aura la scheda della Meditazione, prima della riga
+    // Energia, apre la schermata (dall'ordine EO voce 10 le sezioni sono
+    // righe di schede).
+    const scheda = Key('riga_dominio_energia_meditation');
     await tester.scrollUntilVisible(
-      find.byKey(const Key('art_meditation')),
+      find.byKey(scheda),
       220,
       scrollable: find.byType(Scrollable).first,
     );
     await step(tester);
-    await tester.tap(find.byKey(const Key('art_meditation')));
+    await tester.tap(find.descendant(
+        of: find.byKey(scheda),
+        matching: find.byKey(const Key('scheda_tocco_meditation'))));
     await step(tester);
     await step(tester);
     // Avvio il suono e porto il respiro verso il pieno: il mandala si apre.
@@ -4141,31 +4143,10 @@ void main() {
     // tutte in arrivo, poi si cattura.
     // La lista e' pigra e le sottocategorie in fondo non sono ancora costruite:
     // si scorre fino a ciascuna prima di toccarla, nell'ordine in cui stanno.
-    for (final chiave in const [
-      'art_soon_toggle_astrologia',
-      'art_soon_toggle_cartomanzia',
-      'art_section_header_lunologia',
-      // **E IL DESTINO E' TORNATO CHIUSO.** Ordine DC voce 12,
-      // 10 settembre 2026, e rovescia la voce CS.S3 che lo aveva aperto.
-      //
-      // L'Angelo Custode e' uscito dal dominio, perche' mostrava soltanto
-      // cio' che il Passaporto gia' mostra. **Senza di lui il Destino non ha
-      // piu' nessuna arte viva**, quindi torna ad avere l'intestazione delle
-      // sottocategorie chiuse invece dell'apri e chiudi delle aperte.
-      //
-      // **Questa riga e' la prova che quella conseguenza arriva a video**, e
-      // non resta un fatto del catalogo.
-      'art_section_header_destino',
-    ]) {
-      final f = find.byKey(Key(chiave));
-      await tester.scrollUntilVisible(f, 300,
-          scrollable: find.byType(Scrollable).first);
-      await tester.ensureVisible(f);
-      await step(tester);
-      await tester.tap(f);
-      await step(tester);
-      await step(tester);
-    }
+    // **LAPIDE: fino all'ordine EN qui si aprivano i collassi delle
+    // sottocategorie.** Dall'ordine EO voce 10 le sezioni sono righe di
+    // schede senza collassi: l'anteprima del fondo mostra la riga "In
+    // arrivo" e la striscia delle altre arti.
     // Coi gruppi aperti la lista cresce oltre la finestra della cattura: si
     // guarda il fondo, dove stanno le sottocategorie tutte in cammino.
     final position =
@@ -4193,20 +4174,10 @@ void main() {
     await step(tester);
     await capture(tester, rootKey, 'dominio-aura.png');
 
-    for (final chiave in const [
-      'art_soon_toggle_energia',
-      'art_soon_toggle_archetipi',
-      'art_section_header_chakra',
-    ]) {
-      final f = find.byKey(Key(chiave));
-      await tester.scrollUntilVisible(f, 300,
-          scrollable: find.byType(Scrollable).first);
-      await tester.ensureVisible(f);
-      await step(tester);
-      await tester.tap(f);
-      await step(tester);
-      await step(tester);
-    }
+    // **LAPIDE: fino all'ordine EN qui si aprivano i collassi delle
+    // sottocategorie.** Dall'ordine EO voce 10 le sezioni sono righe di
+    // schede senza collassi: l'anteprima del fondo mostra la riga "In
+    // arrivo" e la striscia delle altre arti.
     final posAura =
         tester.state<ScrollableState>(find.byType(Scrollable).first).position;
     posAura.jumpTo(posAura.maxScrollExtent);
@@ -4233,20 +4204,10 @@ void main() {
 
     // La Numerologia non ha piu' un'arte viva, uscito l'Albero della Vita dalla
     // Demo: si apre dalla sua intestazione invece che dal toggle.
-    for (final chiave in const [
-      'art_soon_toggle_rune',
-      'art_soon_toggle_rituali',
-      'art_section_header_numerologia',
-    ]) {
-      final f = find.byKey(Key(chiave));
-      await tester.scrollUntilVisible(f, 300,
-          scrollable: find.byType(Scrollable).first);
-      await tester.ensureVisible(f);
-      await step(tester);
-      await tester.tap(f);
-      await step(tester);
-      await step(tester);
-    }
+    // **LAPIDE: fino all'ordine EN qui si aprivano i collassi delle
+    // sottocategorie.** Dall'ordine EO voce 10 le sezioni sono righe di
+    // schede senza collassi: l'anteprima del fondo mostra la riga "In
+    // arrivo" e la striscia delle altre arti.
     final posCaligo =
         tester.state<ScrollableState>(find.byType(Scrollable).first).position;
     posCaligo.jumpTo(posCaligo.maxScrollExtent);

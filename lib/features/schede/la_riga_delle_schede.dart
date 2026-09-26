@@ -118,7 +118,7 @@ class _LaRigaDelleSchedeState extends State<LaRigaDelleSchede> {
     final scala = MediaQuery.textScalerOf(context).scale(1);
     final larghezza =
         LaSchedaDellArte.larghezzaPer(widget.formato, scalaDelTesto: scala);
-    final riduci = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
+    final riduci = LaLuceDelleSchede.spenta(context);
     // L'altezza della riga: l'immagine, un poco di sollevamento, due righe
     // di titolo (o le tre del Viaggio), e il respiro.
     final titolo = TextPainter(

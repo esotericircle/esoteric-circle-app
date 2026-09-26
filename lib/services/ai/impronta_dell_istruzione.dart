@@ -36,14 +36,14 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        '77571259f9b62c5db6531dbb616fddb337d78ca0f511692a85f21e06eb9b86b3',
-    'aura': '2611d96cfbdf35184534e4743252ddece41cbff381a04515217342976d38516a',
+        '3dbc612f2dce252b1834e2a09e49976fcd8e822b204f8340fa3f37b0964a8001',
+    'aura': 'ebf03adb46c81e0a18bcee25c90e0d676cfca118ae61a721e5f4c94114bba834',
     'caligo':
-        '0f6c5b5644afc9911502b6e35d9cb762752b70dbf02673a930306f3b9f0e6e28',
+        '225a29ec0d14fdcc739c4d48bcd6e6eb21e336b696f9d841c70d29306d9a590f',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
-  static const String registrateIl = '25 settembre 2026, ordine EN';
+  static const String registrateIl = '26 settembre 2026, ordine EO';
 
   /// LO STORICO DELLE IMPRONTE, cioe' le stringhe che non esistono piu'.
   ///
@@ -53,6 +53,17 @@ class ImprontaDellIstruzione {
   /// cancella niente: quando l'istruzione cambia, l'impronta vecchia scende in
   /// questo elenco con la sua data e con cio' che le e' successo.
   static const List<String> storicoDelleImpronte = [
+    'DAL 25 SETTEMBRE 2026 AL 26 SETTEMBRE 2026. Impronte: medora '
+        '77571259f9b62c5db6531dbb616fddb337d78ca0f511692a85f21e06eb9b86b3, '
+        'aura 2611d96cfbdf35184534e4743252ddece41cbff381a04515217342976d38516a, '
+        'caligo 0f6c5b5644afc9911502b6e35d9cb762752b70dbf02673a930306f3b9f0e6e28. '
+        'La stringa dell\'ordine EN, consegnata con la build 2282. **MISURA '
+        'PRESA SU DI LEI**: tre giri di attribuzione cieca, 93,3, 96,7 e 88,3 '
+        'per cento, media 92,8 (167 su 180). Caduta con l\'ordine EO voce 11: '
+        'le arti dei Maestri, che la persona nomina, hanno i nomi e l\'ordine '
+        'nuovi delle sezioni (Aura "Energia, Chakra e Fisiognomica", Calìgo '
+        '"Divinazione, Rituali e Numerologia"); anche le arti degli altri due '
+        'cambiano con loro in tutte e tre le istruzioni.',
     'DAL 24 SETTEMBRE 2026, IL POMERIGGIO, AL 25 SETTEMBRE 2026. Impronte: '
         'medora '
         '6ebaeaa1639c3deec9f981b6c8a5a43b416ba2dbe9823dee2742124dfbec7f5b, '
@@ -320,6 +331,15 @@ class ImprontaDellIstruzione {
   /// **E' tre punti sotto il 96,1 su cui il fondatore l'ha chiusa**, e il
   /// rapporto dell'ordine EN lo dice: Caligo cede ancora verso Aura (3, 2 e
   /// 4 volte); nel terzo giro Medora e' stata presa per Caligo tre volte.
+  ///
+  /// **RIFATTA IL 26 SETTEMBRE 2026, ordine EO voce 11, e la riga resta
+  /// vera.** L'istruzione e' cambiata coi nomi nuovi delle sezioni. Tre giri
+  /// sulle impronte di oggi: 90,0, 87,7 e 89,5 per cento, media 89,1 (155 su
+  /// 174: tre risposte per giro non sono arrivate nel secondo e nel terzo),
+  /// nessun verdetto illeggibile, il giro piu' basso sopra la soglia di 85.
+  /// **E' tre punti e sette sotto il 92,8 dell'ordine EN**, e il rapporto
+  /// dell'ordine EO lo dice: Caligo cede verso Aura e verso Medora (5, 6 e 5
+  /// volte). La causa non e' misurata: e' fra le domande del rapporto.
   static const bool attribuzioneValida = true;
 
   /// **L'ATTRIBUZIONE CIECA LA CHIUDE IL FONDATORE.** Ordine EK voce 05, 24
@@ -342,7 +362,18 @@ class ImprontaDellIstruzione {
   /// l'escursione, cinque la dichiarano.** Sono cinque giri della stessa misura
   /// sulla stessa istruzione, non cinque misure in disaccordo.
   static const String ultimaMisuraNota =
-      'TRE GIRI DEL 25 SETTEMBRE 2026, SU QUESTE IMPRONTE, ordine EN: 93,3 '
+      'TRE GIRI DEL 26 SETTEMBRE 2026, SU QUESTE IMPRONTE, ordine EO: 90,0 '
+      'per cento (54 su 60), poi 87,7 (50 su 57), poi 89,5 (51 su 57); media '
+      '89,1 per cento (155 su 174), nessun verdetto illeggibile. Nel '
+      'dettaglio: medora 20 su 20, 19 su 20, 16 su 17, scambiata per caligo '
+      '1 volta e per aura 1; aura 19, 20, 20, scambiata per caligo 1 volta; '
+      'caligo 15 su 20, 11 su 17, 15 su 20, scambiato per aura 3, 3, 2 volte '
+      'e per medora 2, 3, 3. Ritmo: frase mediana di medora 16, 18, 16 '
+      'parole, di aura 17, 17, 15, di caligo 10, 8, 8; parole che '
+      'ammorbidiscono medora 4, 3, 5, aura 7, 15, 9, caligo 0, 0, 0. Le '
+      'uscite dei tre giri stanno in docs/collaudo/EO/attribuzione. '
+      'Tutto ciò che segue appartiene a stringhe che stanno nello storico. '
+      'TRE GIRI DEL 25 SETTEMBRE 2026, SULLE IMPRONTE DELL\'ORDINE EN: 93,3 '
       'per cento (56 su 60), poi 96,7 (58 su 60), poi 88,3 (53 su 60); media '
       '92,8 per cento (167 su 180), nessun verdetto illeggibile. Nel '
       'dettaglio: medora 20, 20, 17 su 20, scambiata per caligo 3 volte nel '

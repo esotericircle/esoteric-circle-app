@@ -1,8 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:sensors_plus/sensors_plus.dart';
+import 'package:provider/provider.dart';
+
+import '../../core/motion/parallax_controller.dart';
 
 /// **IL RIFLESSO DELL'ORO.** Ordine EO voce 06, 26 settembre 2026.
 ///
@@ -13,9 +13,13 @@ import 'package:sensors_plus/sensors_plus.dart';
 /// scorrimento delle righe**: la riga lo muove col dito. **Con la riduzione
 /// del movimento non c'e'.**
 ///
-/// [LaLuceDelleSchede] sta sopra le righe e ascolta l'accelerometro: la
-/// gravita' sull'asse orizzontale dice quanto il telefono e' inclinato.
-/// Finche' non arriva nessuna misura, il sensore per la luce non c'e'.
+/// [LaLuceDelleSchede] sta sopra le righe e legge l'inclinazione dalla
+/// porta del sensore che c'e' gia', la parallasse del cielo
+/// ([ParallaxController]). **Non apre una seconda iscrizione
+/// all'accelerometro**: la regola della casa (`scena_unica_test`,
+/// `lo_scuotimento_ha_una_porta_sola_test`) ne vuole una sola, e la prima
+/// stesura di questa luce ne apriva un'altra. Finche' la parallasse non dice
+/// che il sensore contribuisce, il sensore per la luce non c'e'.
 class LaLuceDelleSchede extends StatefulWidget {
   const LaLuceDelleSchede(
       {super.key, required this.child, this.sensore = true});
@@ -24,6 +28,19 @@ class LaLuceDelleSchede extends StatefulWidget {
 
   /// Falso nelle prove e dove non si vuole ascoltare il telefono.
   final bool sensore;
+
+  /// **SOLO PER LA MISURA SUL TELEFONO, mai in una consegna.** Ordine EO voce
+  /// 06: la misura chiede i fotogrammi al secondo col riflesso e senza, e sul
+  /// Realme del collaudo le animazioni sono a zero, quindi il riflesso e' spento
+  /// come l'ordine vuole. Una build compilata con
+  /// `--dart-define=EO_LUCE_FORZATA=true` lo accende lo stesso, e il
+  /// sollevamento della scheda al centro con lui. Senza quella riga vale falso.
+  static const bool forzata = bool.fromEnvironment('EO_LUCE_FORZATA');
+
+  /// Se riflesso e sollevamento sono spenti: con la riduzione del movimento,
+  /// salvo nella build di misura.
+  static bool spenta(BuildContext context) =>
+      !forzata && (MediaQuery.maybeDisableAnimationsOf(context) ?? false);
 
   /// L'inclinazione in [-1, 1], o null quando il sensore non c'e'.
   static ValueListenable<double?>? inclinazioneDi(BuildContext context) =>
@@ -35,36 +52,28 @@ class LaLuceDelleSchede extends StatefulWidget {
 
 class _LaLuceDelleSchedeState extends State<LaLuceDelleSchede> {
   final ValueNotifier<double?> _inclinazione = ValueNotifier<double?>(null);
-  StreamSubscription<AccelerometerEvent>? _ascolto;
+  ParallaxController? _parallasse;
 
   @override
-  void initState() {
-    super.initState();
-    if (!widget.sensore) return;
-    try {
-      _ascolto =
-          accelerometerEventStream(samplingPeriod: SensorInterval.uiInterval)
-              .listen((e) {
-        // Liscia, perche' la luce non tremi con la mano.
-        final grezza = (e.x / 9.81).clamp(-1.0, 1.0);
-        final prima = _inclinazione.value ?? grezza;
-        _inclinazione.value = prima + (grezza - prima) * 0.2;
-      }, onError: (Object _) {
-        // Il sensore non risponde: la luce segue le righe.
-        _inclinazione.value = null;
-      }, cancelOnError: true);
-    } catch (errore) {
-      // Nessun accelerometro: la luce segue le righe. Si ignora perche' il
-      // ripiego esiste ed e' quello che la regola dei sensori chiede.
-      debugPrint('SCHEDE: niente accelerometro ($errore), la luce segue le '
-          'righe');
-      _ascolto = null;
-    }
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Senza parallasse (le prove che montano le righe da sole) la luce segue
+    // le righe, che e' il ripiego a gesto tattile.
+    final nuova = widget.sensore ? context.read<ParallaxController?>() : null;
+    if (identical(nuova, _parallasse)) return;
+    _parallasse?.removeListener(_leggi);
+    _parallasse = nuova?..addListener(_leggi);
+    _leggi();
+  }
+
+  void _leggi() {
+    final p = _parallasse;
+    _inclinazione.value = p != null && p.sensorActive ? p.tiltX : null;
   }
 
   @override
   void dispose() {
-    unawaited(_ascolto?.cancel());
+    _parallasse?.removeListener(_leggi);
     _inclinazione.dispose();
     super.dispose();
   }
@@ -126,7 +135,7 @@ class IlRiflessoDellOro extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (MediaQuery.maybeDisableAnimationsOf(context) ?? false) {
+    if (LaLuceDelleSchede.spenta(context)) {
       return const SizedBox.shrink();
     }
     final inclinazione = LaLuceDelleSchede.inclinazioneDi(context);

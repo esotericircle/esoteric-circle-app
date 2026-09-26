@@ -5,6 +5,8 @@ import 'package:esoteric_circle/core/arts/gli_sfondi_delle_schede.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'cardinale_minimo.dart';
+
 /// **GLI SFONDI DELLE SCHEDE SONO NEL REPOSITORY E OGNI ARTE HA I SUOI TRE.**
 /// Ordine EO voce 01, 26 settembre 2026. Il fondatore: *"Allora, iniziamo a
 /// fare tutte le schede dell'ultimo elenco, 10 per ogni maestro."*
@@ -23,6 +25,9 @@ void main() {
         .where((f) => f.path.endsWith('.webp'))
         .map((f) => f.uri.pathSegments.last)
         .toSet();
+    cardinaleMinimo(webp.length, cardinale,
+        cosa: 'WebP in assets/schede',
+        perche: 'la guardia degli sfondi scorre la cartella.');
     expect(webp.length, cardinale,
         reason: 'in assets/schede/ ci sono ${webp.length} WebP');
     final altri = cartella
@@ -58,9 +63,11 @@ void main() {
     expect(FormatoDellaScheda.verticale.proporzione, 0.8);
     expect(FormatoDellaScheda.quadrata.proporzione, 1);
     expect(FormatoDellaScheda.orizzontale.proporzione, closeTo(16 / 9, 1e-9));
-    expect(GliSfondiDelleSchede.perArte('rune_draw', FormatoDellaScheda.verticale),
+    expect(
+        GliSfondiDelleSchede.perArte('rune_draw', FormatoDellaScheda.verticale),
         'assets/schede/Rune-Vert-1.webp');
-    expect(GliSfondiDelleSchede.delMaestro(
+    expect(
+        GliSfondiDelleSchede.delMaestro(
             Maestro.caligo, FormatoDellaScheda.orizzontale),
         'assets/schede/Sfondo-Caligo-Oriz-1.webp');
   });

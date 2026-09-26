@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/arts/art_catalog.dart';
+import '../../core/chat/la_marca_del_genere.dart';
 import '../../core/arts/arti_preferite.dart';
 import '../../core/arts/gli_sfondi_delle_schede.dart';
 import '../../core/maestro/maestro.dart';
@@ -95,7 +96,9 @@ abstract final class LeRigheDellaCasa {
     ),
     (
       chiave: 'conosci_te_stesso',
-      titolo: 'Conosci te stesso',
+      // Il titolo del fondatore; la marca del genere (ordine DL) lo accorda a
+      // chi legge: al femminile "te stessa", altrimenti come l'ha scritto lui.
+      titolo: '[Conosci te stesso|Conosci te stessa|Conosci te stesso]',
       formato: FormatoDellaScheda.orizzontale,
       arti: [
         'numerology',
@@ -219,7 +222,7 @@ class LeRigheDellaCasaView extends StatelessWidget {
           for (final r in LeRigheDellaCasa.righe)
             LaRigaDelleSchede(
               chiave: r.chiave,
-              titolo: r.titolo,
+              titolo: LaMarcaDelGenere.risolvi(r.titolo),
               formato: r.formato,
               arti: LeRigheDellaCasa.artiDi(r.arti),
             ),

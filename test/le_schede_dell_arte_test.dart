@@ -318,13 +318,56 @@ void main() {
         reason: 'la transizione deve durare circa tre decimi di secondo');
   });
 
-  testWidgets('EO.03: con la riduzione del movimento si entra senza effetti',
-      (tester) async {
+  // **LAPIDE: fino alla prima stesura dell'ordine EO, con la riduzione del
+  // movimento il tocco apriva l'arte senza effetti.** L'ordine spegne con la
+  // riduzione del movimento solo il riflesso (EO.06) e il sollevamento
+  // (EO.07); e sul Realme del collaudo le tre scale delle animazioni sono a
+  // zero, che Flutter legge come riduzione del movimento: il fondatore non
+  // avrebbe mai visto il tocco che ha chiesto.
+  testWidgets(
+      'EO.03: con le animazioni del telefono a zero il tocco dura ancora tre '
+      'decimi, e non si accorcia', (tester) async {
+    tester.platformDispatcher.accessibilityFeaturesTestValue =
+        const FakeAccessibilityFeatures(disableAnimations: true);
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
     final aperte = await montaUna(tester, 'rune_draw', riduci: true);
     await tester.tap(find.byKey(const Key('scheda_tocco_rune_draw')));
     await tester.pump();
+    var ms = 0;
+    var vista = false;
+    while (ms < 1000) {
+      await tester.pump(const Duration(milliseconds: 10));
+      ms += 10;
+      if (find.byKey(const Key('scheda_in_uscita')).evaluate().isNotEmpty) {
+        vista = true;
+      } else if (vista) {
+        break;
+      }
+    }
+    // ignore: avoid_print
+    print('EO.03 MISURA con le animazioni a zero: transizione $ms ms');
+    expect(vista, isTrue,
+        reason: 'con le animazioni a zero la scheda non svanisce');
     expect(aperte, ['rune_draw']);
-    expect(find.byKey(const Key('scheda_in_uscita')), findsNothing);
+    expect(ms, inInclusiveRange(250, 350),
+        reason: 'con le animazioni a zero la transizione si e\' accorciata');
+  });
+
+  testWidgets(
+      'EO.04: con le animazioni del telefono a zero la scheda gira in tre '
+      'dimensioni, non di colpo', (tester) async {
+    tester.platformDispatcher.accessibilityFeaturesTestValue =
+        const FakeAccessibilityFeatures(disableAnimations: true);
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
+    await montaUna(tester, 'rune_draw', riduci: true);
+    await tester.tap(find.byKey(const Key('scheda_i_rune_draw')));
+    await tester.pump();
+    await tester.pump(LaSchedaDellArte.tempoDelGiro ~/ 4);
+    expect(stato(tester).girata, isFalse,
+        reason: 'a un quarto del tempo la scheda e\' gia\' girata: il giro si '
+            'e\' accorciato');
+    await tester.pumpAndSettle();
+    expect(stato(tester).girata, isTrue);
   });
 
   testWidgets('EO.03: il tocco su un\'arte Premium la apre come oggi',

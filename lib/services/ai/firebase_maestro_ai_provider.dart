@@ -170,16 +170,16 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     // arriva a video un secondo e piu' prima. La voce aspetta la risposta
     // intera, con le sue reti, come ha deciso il fondatore con l'ordine EM.
     final suTesto = turno.suTesto;
-    GenerateContentResponse? ultima;
+    GenerateContentResponse? response;
     String? text;
     if (suTesto == null) {
-      ultima = await chat.sendMessage(Content.text(userMessage));
-      text = ultima.text?.trim();
+      response = await chat.sendMessage(Content.text(userMessage));
+      text = response.text?.trim();
     } else {
       final scritto = StringBuffer();
       await for (final pezzo
           in chat.sendMessageStream(Content.text(userMessage))) {
-        ultima = pezzo;
+        response = pezzo;
         final t = pezzo.text;
         if (t == null || t.isEmpty) continue;
         scritto.write(t);
@@ -193,7 +193,9 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     // La troncatura si controlla DOPO aver visto che il testo c'e': un moncone
     // e' testo a tutti gli effetti, e senza questa riga arrivava a video come
     // una risposta compiuta. A flusso la dice l'ultimo pezzo.
-    if (ultima != null && eTroncata(ultima)) throw const MaestroAiTroncata();
+    if (response != null && eTroncata(response)) {
+      throw const MaestroAiTroncata();
+    }
     // LA RIPULITURA AL CONFINE. Il vincolo nella persona regge quasi sempre, e
     // "quasi" non basta per una cosa che dipende da un modello: qui e' l'ultima
     // riga prima dello schermo.

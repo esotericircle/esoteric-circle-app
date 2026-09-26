@@ -36,7 +36,11 @@ void main() {
     final c = ArtiPreferiteController(maestroAssegnato: Maestro.caligo);
     await c.carica();
     final diCaligo = ArtCatalog.activeOf(Maestro.caligo).map((a) => a.id);
-    expect(c.ids.where(diCaligo.contains).length, greaterThanOrEqualTo(2),
+    // **LAPIDE: fino all'ordine EN le arti di Caligo nel seme erano due**
+    // (Rune e Viaggio dello Sciamano). **Dall'ordine EO voce 09** il seme e'
+    // la riga "Le arti preferite" del fondatore, che di Caligo porta la sola
+    // Estrazione Rune: il seme pesca ancora dal Maestro, con una.
+    expect(c.ids.where(diCaligo.contains).length, greaterThanOrEqualTo(1),
         reason: 'il seme non pesca dal Maestro assegnato');
     final altri = c.ids.where((id) => !diCaligo.contains(id));
     expect(altri, isNotEmpty,
@@ -68,10 +72,19 @@ void main() {
     for (final id in ArtiPreferiteController.selezionabili) {
       if (!c.contiene(id)) c.cambia(id);
     }
-    expect(c.ids.length, ArtiPreferiteController.tetto);
+    // **LAPIDE: fino all'ordine EN le arti selezionabili erano nove e lo
+    // scaffale si riempiva fino al tetto.** Dall'ordine EO voce 12 il Test
+    // Archetipo vive solo nel Passaporto e le selezionabili sono otto:
+    // riempiendo tutto, lo scaffale ne tiene otto e il tetto resta nove.
+    expect(
+        c.ids.length,
+        ArtiPreferiteController.selezionabili.length <
+                ArtiPreferiteController.tetto
+            ? ArtiPreferiteController.selezionabili.length
+            : ArtiPreferiteController.tetto);
     // Nove dal 30 luglio 2026, era sei: e' un cambio di decisione del
     // fondatore, non una svista. Il numero resta in un punto solo.
-    expect(c.ids.length, 9);
+    expect(ArtiPreferiteController.tetto, 9);
 
     // **IL CASO DEL RIFIUTO SI PROVA SOLTANTO QUANDO ESISTE, e quando non
     // esiste si dice perche'.** Tre stati diversi di questa stessa prova, e

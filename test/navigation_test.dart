@@ -55,6 +55,7 @@ void main() {
     await step(tester);
     final ctx = tester.element(find.byType(MaterialApp));
 
+    final dominio = find.byKey(const Key('domain_consulta_card'));
     // Al Santuario non c'e' nulla da riavvolgere.
     expect(navOf(tester).canPop(), isFalse);
 
@@ -64,16 +65,20 @@ void main() {
     await tester.tap(find.byKey(const Key('santuario_central_bust')));
     await step(tester);
     await step(tester);
-    expect(find.text('Consulta Medora'), findsOneWidget);
+    // **LAPIDE: fino all'ordine EN il segno del dominio era il testo
+    // "Consulta Medora".** Dall'ordine EO voce 08 quel testo sta anche in
+    // home, sotto "Entra nel Dominio": il segno del dominio e' la sua scheda.
+    expect(dominio, findsOneWidget);
+    expect(find.text('Consulta Medora'), findsWidgets);
     // Il dominio ha la sua freccia Indietro.
     expect(find.byIcon(Icons.arrow_back_rounded), findsOneWidget);
     expect(navOf(tester).canPop(), isTrue);
 
     // Dal dominio entra nella chat. DALL'ORDINE I il busto canonico e' piu'
     // alto: sulla finestra di prova la carta va prima portata in vista.
-    await tester.ensureVisible(find.text('Consulta Medora'));
+    await tester.ensureVisible(dominio);
     await tester.pump();
-    await tester.tap(find.text('Consulta Medora'));
+    await tester.tap(dominio);
     await step(tester);
     await step(tester);
     // Il disclaimer si apre come foglio una volta sola: chiudilo, cosi' il
@@ -92,14 +97,14 @@ void main() {
     await navOf(tester).maybePop();
     await step(tester);
     await step(tester);
-    expect(find.text('Consulta Medora'), findsOneWidget);
+    expect(dominio, findsOneWidget);
     expect(find.text('Scrivi a Medora'), findsNothing);
 
     // Dal dominio si torna al Santuario.
     await navOf(tester).maybePop();
     await step(tester);
     await step(tester);
-    expect(find.text('Consulta Medora'), findsNothing);
+    expect(dominio, findsNothing);
     expect(find.text('Passport'), findsWidgets);
     expect(navOf(tester).canPop(), isFalse);
   });
@@ -125,7 +130,7 @@ void main() {
     await tester.tap(find.byKey(const Key('barra_voce_aura')));
     await step(tester);
     await step(tester);
-    expect(find.text('Consulta Aura'), findsOneWidget);
+    expect(find.byKey(const Key('domain_consulta_card')), findsOneWidget);
     expect(maestro.activeMaestro, Maestro.aura);
   });
 
@@ -157,7 +162,10 @@ void main() {
     await step(tester);
     expect(maestro.activeMaestro, Maestro.caligo);
     expect(find.byType(SantuarioBottomBar), findsOneWidget);
-    expect(find.text('Consulta Caligo'), findsNothing);
+    // **LAPIDE**: qui si pretendeva che "Consulta Caligo" non ci fosse,
+    // come segno che nessun dominio era stato spinto. Dall'ordine EO voce 08
+    // "Consulta" sta in home: il segno e' la scheda del dominio.
+    expect(find.byKey(const Key('domain_consulta_card')), findsNothing);
   });
 
   testWidgets('I tre Maestri nella bottom bar rispettano l\'ordine fisso',

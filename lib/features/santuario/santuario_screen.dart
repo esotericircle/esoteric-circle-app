@@ -283,6 +283,10 @@ class _SantuarioScreenState extends State<SantuarioScreen>
   /// carosello sa esattamente dove fermarsi e non si sovrappone mai.
   double? _altezzaIngresso;
 
+  /// Se "Consulta" sta sotto "Entra" (vero) o accanto, in tondo. Lo
+  /// decide la scena dalle sue misure: vedi `_consultaCiStaSotto`.
+  bool _consultaSotto = false;
+
   /// L'altezza VERA del blocco del cielo: titolo, Luna, nome della fase e riga
   /// personale. Si misura come la zona d'ingresso e per la stessa ragione: e'
   /// un testo, quindi cresce col nome del Maestro, col corpo di sistema e con
@@ -898,7 +902,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
         // differenziale `pulsante_non_copre_carta_test`, che ha preso
         // questa regressione il giorno stesso: chi cambia i ruoli della
         // scala la vede rossa e legge qui quanto vale adesso.
-        final entryZone = _altezzaIngresso ?? 125.0;
+        final entryZone = _altezzaIngresso ?? 106.0;
         // Le carte partono sopra la zona d'ingresso, con un margine d'aria.
         //
         // Il margine era il due per cento e NON bastava, perche' la figura
@@ -991,6 +995,34 @@ class _SantuarioScreenState extends State<SantuarioScreen>
         // se le due zone occupano gli stessi punti verticali una copre
         // l'altra comunque, e col testo davanti la scena sarebbe illeggibile
         // al contrario. Le due zone non si devono toccare.
+        // **"CONSULTA" STA SOTTO SOLO SE SOTTO C'E' SPAZIO. Ordine EO voce
+        // 08.** Il fondatore: *"Meglio il tuo pulsante in alto ma sotto il
+        // pulsante "entra nel dominio" perche' c'e' spazio."* Misurato con
+        // la suite intera: sul formato del suo telefono (360 per 797) lo
+        // spazio non c'e'. Il blocco d'ingresso cresce verso l'alto, il
+        // secondo pulsante prende 44 punti e il busto centrale scendeva da
+        // oltre 260 a 245, sotto i 260 che il fondatore aveva chiesto
+        // (`i_maestri_si_sovrappongono`), e i tre Maestri dal 30 al 28 per
+        // cento della prima schermata (`i_tre_maestri_dominano_la_home`).
+        //
+        // **Le due decisioni del fondatore stanno insieme cosi'**: sotto,
+        // dove sotto il busto non perde niente; accanto a "Entra", in tondo e
+        // con la stessa etichetta per la voce, dove sotto costerebbe punti ai
+        // Maestri. Il conto e' quello del busto qui sotto: il secondo
+        // pulsante toglie allo spazio concesso esattamente la sua altezza.
+        final scalaDelTesto = MediaQuery.textScalerOf(context).scale(1);
+        final altezzaDiConsulta =
+            _ConsultaButton.altezzaSotto(scalaDelTesto) + SpacingTokens.xs;
+        final concessaConConsultaAccanto =
+            altezzaConcessa + (_consultaSotto ? altezzaDiConsulta : 0.0);
+        final consultaCiStaSotto = concessaConConsultaAccanto -
+                altezzaDiConsulta >=
+            math.min(centralH, alturaDelloSchermo * quotaDelBustoSulloSchermo);
+        if (consultaCiStaSotto != _consultaSotto) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) setState(() => _consultaSotto = consultaCiStaSotto);
+          });
+        }
         final altezzaBusto =
             // **IL BUSTO NON SCENDE SOTTO IL TRENTAQUATTRO PER CENTO DELLO
             // SCHERMO.** Ordine AV voce 03: sono i Maestri i protagonisti, e
@@ -1430,6 +1462,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                     maestro: central,
                     onTap: () => _enterDomain(context, central),
                     onConsulta: () => _consulta(context, central),
+                    consultaSotto: _consultaSotto,
                   ),
                 ),
               ),
@@ -1974,7 +2007,11 @@ class _DomainEntry extends StatelessWidget {
     required this.maestro,
     required this.onTap,
     required this.onConsulta,
+    this.consultaSotto = false,
   });
+
+  /// "Consulta" sotto "Entra" (vero) o accanto, in tondo. Lo decide l'eroe.
+  final bool consultaSotto;
 
   final Maestro maestro;
   final VoidCallback onTap;
@@ -2061,16 +2098,10 @@ class _DomainEntry extends StatelessWidget {
         // questo e' un secondo pulsante, piu' sommesso del primo, perche' la
         // porta principale resta il dominio.
         //
-        // **CON IL TESTO MOLTO GRANDE STA ACCANTO, IN TONDO.** Misurato con
-        // `pulsante_non_copre_carta` a testo 1,6 con le barre di sistema: il
-        // blocco d'ingresso sale a 125 punti, lo spazio concesso al busto
-        // scende sotto il pavimento di 150 e la figura dipinge 37.749 pixel
-        // dentro la zona del pulsante. Sotto quel pavimento un Maestro non si
-        // riconosce piu', quindi non si abbassa: il pulsante diventa un tondo
-        // con l'icona della chat, accanto a "Entra", con la stessa etichetta
-        // per chi legge con la voce.
-        if (MediaQuery.textScalerOf(context).scale(1) <=
-            _ConsultaButton.scalaMassimaSotto) ...[
+        // **DOVE LO SPAZIO NON C'E', STA ACCANTO, IN TONDO**: lo decide l'eroe
+        // dalle sue misure, vedi `consultaCiStaSotto`. Il tondo ha l'icona
+        // della chat e la stessa etichetta per chi legge con la voce.
+        if (consultaSotto) ...[
           _EnterDomainButton(maestro: maestro, onTap: onTap),
           const SizedBox(height: SpacingTokens.xs),
           _ConsultaButton(maestro: maestro, onTap: onConsulta),
@@ -2101,11 +2132,12 @@ class _ConsultaButton extends StatelessWidget {
   /// Il tondo con la sola icona, accanto a "Entra", per il testo grande.
   final bool tondo;
 
-  /// Fino a questa scala del testo il pulsante sta sotto "Entra". **Misurata,
-  /// non scelta**: con `pulsante_non_copre_carta` a 360 per 797 con le barre
-  /// di sistema, a testo 1,1 la figura dipinge zero pixel sotto i pulsanti, a
-  /// 1,2 ne dipinge 3.189.
-  static const double scalaMassimaSotto = 1.1;
+  /// **Quanto e' alto il pulsante sotto "Entra"**, a una scala del testo:
+  /// una riga di corpo (24 punti a scala uno, misurati sul riquadro reso) e
+  /// quattordici di imbottitura. Misurato con la sonda dell'ordine EO: 40
+  /// punti a scala uno.
+  static double altezzaSotto(double scalaDelTesto) =>
+      24.0 * scalaDelTesto + 16.0;
 
   @override
   Widget build(BuildContext context) {

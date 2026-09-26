@@ -128,9 +128,19 @@ class LaSchedaDellArte extends StatefulWidget {
 /// Lo stato della scheda: pubblico perche' le prove lo possano leggere.
 class LaSchedaDellArteState extends State<LaSchedaDellArte>
     with TickerProviderStateMixin {
-  late final AnimationController _giro =
-      AnimationController(vsync: this, duration: LaSchedaDellArte.tempoDelGiro)
-        ..addListener(() => setState(() {}));
+  /// **IL TOCCO E IL GIRO NON SI SPENGONO E NON SI ACCORCIANO.** L'ordine
+  /// EO spegne con la riduzione del movimento solo il riflesso (voce 06) e
+  /// il sollevamento (voce 07); il tocco (voce 03) e il giro (voci 04 e 05)
+  /// sono cio' che il fondatore ha chiesto di vedere, e sul Realme del
+  /// collaudo le tre scale delle animazioni sono a zero: Flutter lo legge
+  /// come riduzione del movimento e con `AnimationBehavior.normal`
+  /// accorcerebbe tutto di venti volte. Per questo `preserve`, come per i
+  /// gesti dei riti.
+  late final AnimationController _giro = AnimationController(
+      vsync: this,
+      duration: LaSchedaDellArte.tempoDelGiro,
+      animationBehavior: AnimationBehavior.preserve)
+    ..addListener(() => setState(() {}));
   bool _premuta = false;
   bool _inUscita = false;
 
@@ -138,8 +148,6 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
   bool get girata => _giro.value > 0.5;
 
   final GlobalKey _immagine = GlobalKey();
-
-  bool get _riduci => MediaQuery.maybeDisableAnimationsOf(context) ?? false;
 
   /// **LA PROMESSA DEL VIAGGIO**, la sola informazione che cambia col
   /// tempo. Ordini DE voce 02 e DQ voce 03: cambia al riconoscimento, e il
@@ -178,10 +186,6 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
   double get _altezza => widget.larghezza / widget.formato.proporzione;
 
   Future<void> _gira() async {
-    if (_riduci) {
-      _giro.value = girata ? 0 : 1;
-      return;
-    }
     if (girata) {
       await _giro.reverse();
     } else {
@@ -198,10 +202,7 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
   /// **ENTRARE NELL'ARTE. Ordine EO voce 03.** La scheda si abbassa, poi si
   /// ingrandisce e svanisce sopra l'arte che intanto si apre sotto.
   Future<void> _entra() async {
-    if (_riduci) {
-      await _apri();
-      return;
-    }
+    final cronometro = Stopwatch()..start();
     setState(() => _premuta = true);
     await Future<void>.delayed(LaSchedaDellArte.tempoDellaPressione);
     if (!mounted) return;
@@ -214,7 +215,9 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
     }
     final rect = box.localToGlobal(Offset.zero) & box.size;
     final uscita = AnimationController(
-        vsync: this, duration: LaSchedaDellArte.tempoDellUscita);
+        vsync: this,
+        duration: LaSchedaDellArte.tempoDellUscita,
+        animationBehavior: AnimationBehavior.preserve);
     final immagine = _faccia(fronte: true, perLUscita: true);
     final entrata = OverlayEntry(
       builder: (_) => AnimatedBuilder(
@@ -247,6 +250,10 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
     });
     final apertura = _apri();
     await uscita.forward();
+    // La misura della voce EO.03 sul telefono: dal tocco alla fine
+    // dell'uscita, pressione compresa.
+    debugPrint('SCHEDA ${widget.art.id}: tocco e uscita in '
+        '${cronometro.elapsedMilliseconds} ms');
     entrata.remove();
     uscita.dispose();
     if (mounted && girata) _giro.value = 0;
@@ -315,9 +322,7 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
                           key: Key('scheda_tocco_${widget.art.id}'),
                           behavior: HitTestBehavior.opaque,
                           onTapDown: (_) {
-                            if (!retro &&
-                                widget.art.state == ArtState.attiva &&
-                                !_riduci) {
+                            if (!retro && widget.art.state == ArtState.attiva) {
                               setState(() => _premuta = true);
                             }
                           },
