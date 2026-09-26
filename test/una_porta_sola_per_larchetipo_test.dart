@@ -144,9 +144,11 @@ void main() {
     await step(tester);
     await step(tester);
     await tester
-        .ensureVisible(find.text('Consulta ${Maestro.aura.displayName}'));
+        .ensureVisible(find.byKey(const Key('scheda_tocco_consulta_aura')));
     await tester.pump();
-    await tester.tap(find.text('Consulta ${Maestro.aura.displayName}'));
+    await tester.tap(find.byKey(const Key('scheda_tocco_consulta_aura')));
+    // La scheda si preme e svanisce, poi apre la chat (ordine EP voce 12).
+    await tester.pump(const Duration(milliseconds: 500));
     await step(tester);
 
     // SENZA TEST, IL LOTO. Se questa riga non passasse, la prova che segue non

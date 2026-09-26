@@ -17,6 +17,9 @@ consegnato.
 - **EO.03, il tocco**: `docs/collaudo/EO/realme/eo03_tocco_oroscopo_registro_e_fotogrammi.txt`. Sul Realme **317 ms dal tocco alla fine dell'uscita, 0 fotogrammi persi**.
 - **EO.04, la "i" gira la scheda**: `docs/collaudo/EO/realme/eo04_la_i_gira_rigira_e_dal_retro_entra.png`. Gira, rigira dallo stesso angolo, dal retro entra: **3 su 3** sul Realme; area della "i" 48 punti.
 - **EO.05, le arti in arrivo**: `docs/collaudo/EO/realme/eo05_in_arrivo_si_gira_e_si_rigira.png`. Si gira da sola e dice **"In arrivo, Fase 2"**; pagine aperte **0**.
+- **EO.06, il riflesso dell'oro**, chiusa con la tua risposta nell'ordine EP (*"Luce sempre accesa"*): `docs/collaudo/EP/ep09_fotogrammi_luce_accesa_animazioni_a_zero.txt`. Sul Realme con le animazioni a zero **acceso**, 59,3 fotogrammi al secondo, 0 persi.
+- **EO.07, la scheda al centro**, chiusa con la stessa risposta: `docs/collaudo/EP/realme/ep09_scheda_al_centro_sollevata_con_le_animazioni_a_zero.png`. Sul Realme **sollevata e in luce** con le animazioni a zero.
+- **EO.08, "Consulta" accanto a "Entra"**, chiusa con la tua risposta nell'ordine EP: `docs/collaudo/EP/realme/ep10_consulta_accanto_a_entra.png`. Accanto, come adesso.
 - **EO.09, le righe della home**: `docs/collaudo/EO/realme/eo17_home_scorsa_in_giu_nessun_doppione.png`. **10 righe su 10** e **56 schede su 56** contro il tuo elenco, coi formati tuoi.
 - **EO.10, l'ordine dei domini**: `docs/collaudo/EO/realme/eo10_eo13_dominio_aura.png`. Domini nell'ordine tuo **da 1 su 3 a 3 su 3**, 30 schede su 30.
 - **EO.11, i due nomi nuovi**: `docs/collaudo/EO/eo11_dopo.txt`. Righe a video coi nomi vecchi **da 9 a 0**.
@@ -27,7 +30,9 @@ consegnato.
 - **EO.16, "Dal vivo" accanto ai contatori**: `docs/collaudo/EO/realme/eo08_eo16_consulta_apre_la_chat_dal_vivo_accanto_ai_contatori.png`.
 - **EO.17, nessun doppione in vista**: `docs/collaudo/EO/eo17_doppioni_in_vista_dopo.txt`. Schede doppie in vista **da 5 a 0** su 20; sul Realme 20 schede in vista tutte diverse.
 
-## LE TRE VOCI APERTE, E LA DOMANDA A TE PER CIASCUNA
+## LE TRE VOCI CHE ERANO APERTE, E LA DOMANDA A TE PER CIASCUNA
+
+**Chiuse tutte e tre con le tue risposte nell'ordine EP, 26 settembre 2026**: luce sempre accesa, "Consulta" accanto. Le domande restano scritte qui sotto com'erano.
 
 1. **EO.08, "Consulta" sotto "Entra".** Sul formato del tuo telefono lo spazio
    sotto non c'e' senza rimpicciolire i Maestri: col pulsante sotto il busto

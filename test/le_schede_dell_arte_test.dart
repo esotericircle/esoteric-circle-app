@@ -514,7 +514,7 @@ void main() {
         titolo: 'Prova',
         formato: FormatoDellaScheda.orizzontale,
         arti: LeRigheDellaCasa.artiDi(LeRigheDellaCasa.righe
-            .firstWhere((r) => r.chiave == 'cerca_una_risposta')
+            .firstWhere((r) => r.chiave == 'trova_una_risposta')
             .arti),
       ),
       riduci: riduci,
@@ -523,8 +523,8 @@ void main() {
   }
 
   testWidgets(
-      'EO.06: il riflesso c\'e\', senza sensore segue la riga, e si spegne con '
-      'la riduzione del movimento', (tester) async {
+      'EO.06 ed EP.09: il riflesso c\'e\', senza sensore segue la riga, e '
+      'resta acceso con la riduzione del movimento', (tester) async {
     await montaRiga(tester, riduci: false);
     final riflessi = find.byWidgetPredicate((w) =>
         w.key is ValueKey<String> &&
@@ -538,16 +538,20 @@ void main() {
     expect(dopo, isNot(prima),
         reason: 'scorrendo la riga la luce non si muove');
 
+    // **LAPIDE DELLA REGOLA DI PRIMA.** Fino all'ordine EO il riflesso si
+    // spegneva con la riduzione del movimento; il fondatore, ordine EP voce
+    // 09: *"Luce sempre accesa"*.
     await montaRiga(tester, riduci: true);
-    expect(riflessi, findsNothing,
-        reason: 'con la riduzione del movimento il riflesso resta');
+    expect(riflessi, findsWidgets,
+        reason: 'con le animazioni a zero il riflesso si e\' spento, e il '
+            'fondatore lo vuole acceso (EP.09)');
   });
 
   // --- EO.07, LA SCHEDA AL CENTRO SI SOLLEVA --------------------------------
 
   testWidgets(
-      'EO.07: la scheda al centro e\' piu\' grande e piu\' luminosa delle altre, '
-      'e con la riduzione del movimento no', (tester) async {
+      'EO.07 ed EP.09: la scheda al centro e\' piu\' grande e piu\' luminosa '
+      'delle altre, anche con la riduzione del movimento', (tester) async {
     await montaRiga(tester, riduci: false);
     final posizione = tester
         .state<ScrollableState>(find.descendant(
@@ -600,12 +604,17 @@ void main() {
         find.byWidgetPredicate((w) =>
             w.key is ValueKey<String> &&
             (w.key! as ValueKey<String>).value.startsWith('scheda_ombra_')),
-        findsNothing,
-        reason: 'con la riduzione del movimento le schede si sollevano ancora');
+        findsWidgets,
+        reason: 'con le animazioni a zero le schede non si sollevano piu\', '
+            'e il fondatore le vuole sollevate (EP.09)');
   });
 
   // --- EO.09, LE RIGHE DELLA HOME -------------------------------------------
 
+  /// **LAPIDE DELL'ORDINE DI PRIMA.** Fino all'ordine EO la riga "Cerca una
+  /// risposta" stava terza, dopo "Amore e affinità". Ordine EP voce 05: si
+  /// chiama "Trova una risposta" e sta subito dopo le preferite.
+  ///
   /// L'elenco del fondatore, **copiato alla lettera dall'ordine EO voce 09**,
   /// coi nomi come li ha scritti lui: si confronta con i titoli a video, non
   /// con gli identificativi, cosi' anche un titolo cambiato nel catalogo
@@ -618,6 +627,16 @@ void main() {
       'Sinastria VIP',
       'Meditazione',
       'Mappa del Viso',
+    ],
+    'Trova una risposta': [
+      'Stesa di Tarocchi',
+      'Estrazione Rune',
+      'Oracolo dei Cristalli',
+      'Oracolo degli Angeli',
+      'Pendolo',
+      'Interpretazione dei Sogni',
+      'I-Ching',
+      'Lettura dei Fondi di Caffè',
     ],
     'Da condividere': [
       'Mappa del Viso',
@@ -636,16 +655,6 @@ void main() {
       'Sinastria Approfondita',
       'Compatibilità tra Amici',
       'Pet Astrology',
-    ],
-    'Cerca una risposta': [
-      'Stesa di Tarocchi',
-      'Estrazione Rune',
-      'Oracolo dei Cristalli',
-      'Oracolo degli Angeli',
-      'Pendolo',
-      'Interpretazione dei Sogni',
-      'I-Ching',
-      'Lettura dei Fondi di Caffè',
     ],
     'Le stelle parlano': [
       'Oroscopo Personalizzato',
@@ -692,9 +701,9 @@ void main() {
   /// I formati dell'ordine, riga per riga.
   const formatiDelFondatore = <String, FormatoDellaScheda>{
     'Le arti preferite': FormatoDellaScheda.quadrata,
+    'Trova una risposta': FormatoDellaScheda.verticale,
     'Da condividere': FormatoDellaScheda.verticale,
     'Amore e affinità': FormatoDellaScheda.orizzontale,
-    'Cerca una risposta': FormatoDellaScheda.verticale,
     'Le stelle parlano': FormatoDellaScheda.orizzontale,
     'Conosci te stesso': FormatoDellaScheda.orizzontale,
     'Il tuo corpo': FormatoDellaScheda.verticale,

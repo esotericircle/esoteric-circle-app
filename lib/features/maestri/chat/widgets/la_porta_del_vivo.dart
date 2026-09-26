@@ -45,7 +45,7 @@ class LaPortaDelVivo extends StatelessWidget {
   static const Tier pianoMinimo = Tier.tier2;
 
   /// Quanto e' larga, in punti: la testata la toglie al titolo.
-  static const double larghezza = 88;
+  static const double larghezza = 72;
 
   /// Quanto e' alta: sta sopra l'icona della conversazione nuova.
   static const double altezza = 26;
@@ -69,7 +69,10 @@ class LaPortaDelVivo extends StatelessWidget {
     final colore = si ? palette.goldSoft : ColorTokens.textSecondary;
     return Semantics(
       button: true,
-      label: si ? 'Dal vivo' : 'Dal vivo, dal piano dell\'Adepto',
+      // **"LIVE", IN MAIUSCOLO. Ordine EP voce 13.** Il fondatore: *"nella
+      // chat il pulsante sara' semplicemente "LIVE" in maiuscolo"*. Prima
+      // diceva "Dal vivo" (ordine EO voce 16).
+      label: si ? 'LIVE' : 'LIVE, dal piano dell\'Adepto',
       child: Material(
         type: MaterialType.transparency,
         child: InkWell(
@@ -98,7 +101,7 @@ class LaPortaDelVivo extends StatelessWidget {
                   child: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
-                      'Dal vivo',
+                      'LIVE',
                       key: const Key('chat_dal_vivo_scritta'),
                       style: TypographyTokens.didascalia(weight: 600)
                           .copyWith(color: colore),
@@ -170,7 +173,7 @@ abstract final class IlFoglioDelVivo {
                     const SizedBox(width: SpacingTokens.xs),
                     Flexible(
                       child: Text(
-                        'Dal vivo con ${maestro.displayName}',
+                        'LIVE con ${maestro.displayName}',
                         textAlign: TextAlign.center,
                         style: TypographyTokens.titoloDiSchermata()
                             .copyWith(color: palette.goldSoft),

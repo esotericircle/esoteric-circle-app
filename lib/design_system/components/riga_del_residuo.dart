@@ -76,12 +76,29 @@ class RigaDelResiduo extends StatelessWidget {
                   ColorTokens.textSecondary),
           const SizedBox(width: SpacingTokens.xs),
           Flexible(
-            child: Text(
-              detto,
-              style: TypographyTokens.didascalia().copyWith(
-                  color: ColorTokens.textSecondary,
-                  height: stretta ? 1.15 : null),
-            ),
+            child: stretta
+                // **UNA RIGA SOLA, MAI A CAPO. Ordine EP voce 14.** Il
+                // fondatore: *"le righe dei contatori dovranno restare 2
+                // Senza andare a capo."* Sul Realme la prima andava a capo
+                // ("Oggi hai 50 domande ai / Maestri"). Dove la riga non ci
+                // sta intera, a schermi stretti o a testo grande, si stringe
+                // quanto basta invece di spezzarsi.
+                ? FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      detto,
+                      maxLines: 1,
+                      softWrap: false,
+                      style: TypographyTokens.didascalia().copyWith(
+                          color: ColorTokens.textSecondary, height: 1.15),
+                    ),
+                  )
+                : Text(
+                    detto,
+                    style: TypographyTokens.didascalia()
+                        .copyWith(color: ColorTokens.textSecondary),
+                  ),
           ),
         ],
       ),

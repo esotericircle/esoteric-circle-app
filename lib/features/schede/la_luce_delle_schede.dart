@@ -10,8 +10,8 @@ import '../../core/motion/parallax_controller.dart';
 /// riflesso luminoso scorre sul rilievo dorato, come su metallo vero"*. E la
 /// regola di casa (CLAUDE.md): ogni esperienza basata su sensori ha un
 /// ripiego a gesto tattile. **Dove il sensore manca, il riflesso segue lo
-/// scorrimento delle righe**: la riga lo muove col dito. **Con la riduzione
-/// del movimento non c'e'.**
+/// scorrimento delle righe**: la riga lo muove col dito. **Dall'ordine EP
+/// voce 09 c'e' anche con la riduzione del movimento**, vedi [spenta].
 ///
 /// [LaLuceDelleSchede] sta sopra le righe e legge l'inclinazione dalla
 /// porta del sensore che c'e' gia', la parallasse del cielo
@@ -29,18 +29,14 @@ class LaLuceDelleSchede extends StatefulWidget {
   /// Falso nelle prove e dove non si vuole ascoltare il telefono.
   final bool sensore;
 
-  /// **SOLO PER LA MISURA SUL TELEFONO, mai in una consegna.** Ordine EO voce
-  /// 06: la misura chiede i fotogrammi al secondo col riflesso e senza, e sul
-  /// Realme del collaudo le animazioni sono a zero, quindi il riflesso e' spento
-  /// come l'ordine vuole. Una build compilata con
-  /// `--dart-define=EO_LUCE_FORZATA=true` lo accende lo stesso, e il
-  /// sollevamento della scheda al centro con lui. Senza quella riga vale falso.
-  static const bool forzata = bool.fromEnvironment('EO_LUCE_FORZATA');
-
-  /// Se riflesso e sollevamento sono spenti: con la riduzione del movimento,
-  /// salvo nella build di misura.
-  static bool spenta(BuildContext context) =>
-      !forzata && (MediaQuery.maybeDisableAnimationsOf(context) ?? false);
+  /// **LA LUCE E' SEMPRE ACCESA.** Ordine EP voce 09, 26 settembre 2026. Il
+  /// fondatore, sulla domanda aperta del rapporto EO: *"Luce sempre accesa"*,
+  /// *"Il riflesso d'oro e la scheda che si solleva restano accesi anche se
+  /// le animazioni del telefono sono a zero"*. Fino all'ordine EO riflesso e
+  /// sollevamento si spegnevano con la riduzione del movimento, e la build di
+  /// misura li riaccendeva con `EO_LUCE_FORZATA`: ora non serve piu'. Il
+  /// tocco e il giro della scheda erano gia' accesi dall'ordine EO.
+  static bool spenta(BuildContext context) => false;
 
   /// L'inclinazione in [-1, 1], o null quando il sensore non c'e'.
   static ValueListenable<double?>? inclinazioneDi(BuildContext context) =>

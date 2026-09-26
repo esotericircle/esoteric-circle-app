@@ -81,6 +81,23 @@ abstract final class GliSfondiDelleSchede {
     Maestro.caligo: 'Sfondo-Caligo',
   };
 
+  /// **LA SCHEDA "CONSULTA" DI OGNI MAESTRO.** Ordine EP voce 12, 26
+  /// settembre 2026. Il fondatore: *"Nel dominio di ogni maestro serve anche
+  /// fare la scheda "Consulta [nome Maestro]"."* **Entra solo il formato
+  /// orizzontale**, sulla correzione del fondatore a ordine aperto: *"in
+  /// ogni dominio, in alto ci devi mettere la scheda della chat orizzontale e
+  /// non quadrata."* L'ordine diceva verticale; i quadrati e i verticali
+  /// della sua cartella restano fuori.
+  static const Map<Maestro, String> consultaDei = {
+    Maestro.medora: 'Consulta-Medora',
+    Maestro.aura: 'Consulta-Aura',
+    Maestro.caligo: 'Consulta-Caligo',
+  };
+
+  /// Lo sfondo orizzontale della scheda "Consulta" di [maestro].
+  static String consultaDi(Maestro maestro) =>
+      _file(consultaDei[maestro]!, FormatoDellaScheda.orizzontale);
+
   static String _file(String nome, FormatoDellaScheda formato) =>
       '$cartella/$nome-${formato.nelNome}-1.webp';
 
@@ -94,9 +111,11 @@ abstract final class GliSfondiDelleSchede {
   static String delMaestro(Maestro maestro, FormatoDellaScheda formato) =>
       _file(deiMaestri[maestro]!, formato);
 
-  /// Tutti i file che le schede usano: 99.
+  /// Tutti i file che le schede usano: 102, i 99 dell'ordine EO e i tre
+  /// orizzontali di "Consulta" dell'ordine EP.
   static List<String> tutti() => [
         for (final nome in [...nomi.values, ...deiMaestri.values])
           for (final f in FormatoDellaScheda.values) _file(nome, f),
+        for (final m in Maestro.values) consultaDi(m),
       ];
 }

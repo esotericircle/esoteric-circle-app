@@ -11,13 +11,15 @@ import 'cardinale_minimo.dart';
 /// Ordine EO voce 01, 26 settembre 2026. Il fondatore: *"Allora, iniziamo a
 /// fare tutte le schede dell'ultimo elenco, 10 per ogni maestro."*
 ///
-/// **Il cardinale e' dichiarato**: 99 file, trenta arti per tre formati piu'
-/// i tre sfondi dei Maestri. Una guardia che scorresse la cartella vuota
+/// **Il cardinale e' dichiarato**: 102 file, trenta arti per tre formati piu'
+/// i tre sfondi dei Maestri, e dall'ordine EP voce 12 i tre orizzontali della
+/// scheda "Consulta". Era 99 fino all'ordine EO; i quadrati e gli orizzontali
+/// di "Consulta" restano fuori, come il fondatore ha chiesto. Una guardia che scorresse la cartella vuota
 /// sarebbe verde senza aver guardato niente.
 void main() {
-  const cardinale = 99;
+  const cardinale = 102;
 
-  test('i 99 WebP stanno in assets/schede/ e il pubspec li registra', () {
+  test('i 102 WebP stanno in assets/schede/ e il pubspec li registra', () {
     final cartella = Directory(GliSfondiDelleSchede.cartella);
     final webp = cartella
         .listSync()
@@ -36,6 +38,13 @@ void main() {
         .where((f) => !f.path.endsWith('.webp'));
     expect(altri, isEmpty,
         reason: 'PNG o JPG di lavorazione sono entrati nel repository');
+    expect(webp.where((f) => f.startsWith('Consulta-')).toList()..sort(), [
+      'Consulta-Aura-Oriz-1.webp',
+      'Consulta-Caligo-Oriz-1.webp',
+      'Consulta-Medora-Oriz-1.webp',
+    ],
+        reason: 'di "Consulta" entrano solo i tre orizzontali (ordine EP voce '
+            '12, corretta dal fondatore: orizzontale e non quadrata)');
     final tutti = GliSfondiDelleSchede.tutti();
     expect(tutti.length, cardinale);
     for (final f in tutti) {

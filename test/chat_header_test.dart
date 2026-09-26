@@ -71,9 +71,12 @@ void main() {
     // DALL'ORDINE I il busto canonico in cima al dominio e' piu' alto della
     // vecchia presenza: sulla finestra di prova la carta Consulta scivola
     // sotto il bordo, e prima di toccarla la si porta in vista.
-    await tester.ensureVisible(find.text('Consulta ${maestro.displayName}'));
+    await tester.ensureVisible(
+        find.byKey(Key('scheda_tocco_consulta_${maestro.name}')));
     await tester.pump();
-    await tester.tap(find.text('Consulta ${maestro.displayName}'));
+    await tester.tap(find.byKey(Key('scheda_tocco_consulta_${maestro.name}')));
+    // La scheda si preme e svanisce, poi apre la chat (ordine EP voce 12).
+    await tester.pump(const Duration(milliseconds: 500));
     await step(tester);
   }
 
@@ -109,8 +112,7 @@ void main() {
       expect(find.byIcon(Icons.tune_rounded), findsNothing);
     });
 
-    testWidgets(
-        'L\'header di ${maestro.id} e\' in riga e mostra le tre arti',
+    testWidgets('L\'header di ${maestro.id} e\' in riga e mostra le tre arti',
         (tester) async {
       silenceSensors();
       await openChat(tester, maestro);

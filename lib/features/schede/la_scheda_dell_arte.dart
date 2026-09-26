@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/arts/art_catalog.dart';
 import '../../core/arts/gli_sfondi_delle_schede.dart';
+import '../../core/arts/le_arti_del_giorno.dart';
 import '../../core/config/app_flags.dart';
 import '../../core/entitlement/plan_catalog.dart';
 import '../../core/lang/euphonic.dart';
@@ -58,9 +59,14 @@ class LaSchedaDellArte extends StatefulWidget {
     this.onTieni,
     this.sfondoDelMaestro = false,
     this.mostraFase = AppFlags.isDemo,
+    this.sfondo,
   });
 
   final ArtEntry art;
+
+  /// **Uno sfondo proprio**, per la scheda che non e' un'arte del catalogo:
+  /// la scheda "Consulta" in cima a ogni dominio (ordine EP voce 12).
+  final String? sfondo;
 
   /// Il Maestro a cui l'arte appartiene: il colore del retro.
   final Maestro maestro;
@@ -109,9 +115,18 @@ class LaSchedaDellArte extends StatefulWidget {
   /// "Astrocartografia", ne prende 181; a 180 nessun titolo supera le due
   /// righe. Le schede orizzontali sono larghe una volta e mezza. Tutto si
   /// moltiplica per la scala del testo che la persona ha scelto.
+  ///
+  /// **IN HOME LE SCHEDE SONO ALL'88 PER CENTO.** Ordine EP voce 02, 26
+  /// settembre 2026. Il fondatore: *"Le tessere schede sono troppo grandi in
+  /// home"*, e sulla domanda dei titoli lunghi *"Schede all'88%"*: 162 punti
+  /// le verticali e le quadrate, 253 le orizzontali, coi titoli identici.
+  /// **Nei domini restano 184 e 288**: *"nei singoli domini lasciamo la
+  /// grandezza attuale"*.
   static double larghezzaPer(FormatoDellaScheda formato,
-          {double scalaDelTesto = 1}) =>
-      (formato == FormatoDellaScheda.orizzontale ? 288.0 : 184.0) *
+          {double scalaDelTesto = 1, bool inCasa = false}) =>
+      (formato == FormatoDellaScheda.orizzontale
+          ? (inCasa ? 253.0 : 288.0)
+          : (inCasa ? 162.0 : 184.0)) *
       math.max(1, scalaDelTesto);
 
   /// Le righe che il titolo puo' prendere.
@@ -120,6 +135,45 @@ class LaSchedaDellArte extends StatefulWidget {
   /// Lo stile del titolo: lo stesso delle schede di oggi.
   static TextStyle stileDelTitolo() =>
       TypographyTokens.titoloDiRiga().copyWith(color: ColorTokens.textPrimary);
+
+  /// Lo stile della riga [i] di un titolo gia' deciso, come il Viaggio dello
+  /// Sciamano: le parole piccole in corpo piccolo (ordine DE voce 02).
+  static TextStyle stileDellaRigaDecisa(int i) {
+    final pieno = stileDelTitolo();
+    return i.isOdd
+        ? pieno.copyWith(
+            fontSize: (pieno.fontSize ?? 16) * 0.62,
+            color: ColorTokens.textSecondary,
+            height: 1.02,
+            letterSpacing: 0.6)
+        : pieno.copyWith(height: 1.02, letterSpacing: 1.6);
+  }
+
+  /// **L'ALTEZZA DEI TITOLI DI UNA RIGA**, cioe' del titolo piu' alto fra
+  /// quelli di [arti] alla larghezza [larghezza]. Ordine EP voce 04: la riga
+  /// della home finisce dove finiscono i suoi titoli, non tre righe dopo.
+  static double altezzaDeiTitoli(
+      List<ArtEntry> arti, double larghezza, TextScaler scala) {
+    var massima = 0.0;
+    for (final art in arti) {
+      final righe = art.righeDelTitolo;
+      var altezza = 0.0;
+      for (var i = 0; i < (righe?.length ?? 1); i++) {
+        final p = TextPainter(
+          text: TextSpan(
+              text: righe?[i] ?? art.title,
+              style: righe == null ? stileDelTitolo() : stileDellaRigaDecisa(i)),
+          textDirection: TextDirection.ltr,
+          textScaler: scala,
+          maxLines: righe == null ? righeDelTitolo : 1,
+        )..layout(maxWidth: larghezza);
+        altezza += p.height;
+        p.dispose();
+      }
+      massima = math.max(massima, altezza);
+    }
+    return massima;
+  }
 
   @override
   State<LaSchedaDellArte> createState() => LaSchedaDellArteState();
@@ -178,7 +232,9 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
     super.dispose();
   }
 
-  String get _sfondo => widget.sfondoDelMaestro
+  String get _sfondo => widget.sfondo ?? _sfondoDelCatalogo;
+
+  String get _sfondoDelCatalogo => widget.sfondoDelMaestro
       ? GliSfondiDelleSchede.delMaestro(widget.maestro, widget.formato)
       : (GliSfondiDelleSchede.perArte(widget.art.id, widget.formato) ??
           GliSfondiDelleSchede.delMaestro(widget.maestro, widget.formato));
@@ -320,6 +376,16 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
                           child: faccia,
                         ),
                       ),
+                      // **IL PUNTINO D'ORO DELLE ARTI DEL GIORNO**, ordine EP
+                      // voce 06: in basso a destra, lontano dalla "i" in alto
+                      // a destra e dalla clessidra e dal lucchetto in alto a
+                      // sinistra.
+                      if (!retro)
+                        Positioned(
+                          right: 10,
+                          bottom: 10,
+                          child: _IlPuntinoDelGiorno(id: widget.art.id),
+                        ),
                       // **LA "i" E LA SUA AREA DI UN CENTIMETRO.** Sul retro
                       // lo stesso angolo rigira la scheda. **Girata di
                       // mezzo giro la pila e' specchiata**: l'angolo che a
@@ -476,11 +542,52 @@ Future<void> apriLArte(
     userName: profilo != null && profilo.hasName ? profilo.vocative : null,
   );
   if (route != null) {
+    LeArtiDelGiorno.istanza.aperta(art.id);
     await Navigator.of(context).push(route);
     return;
   }
   if (!context.mounted) return;
   await showArtPreview(context, art: art, maestro: maestro);
+}
+
+/// Il puntino d'oro, finche' l'arte del giorno non e' aperta oggi.
+class _IlPuntinoDelGiorno extends StatelessWidget {
+  const _IlPuntinoDelGiorno({required this.id});
+
+  final String id;
+
+  /// Il diametro del puntino, in punti.
+  static const double diametro = 9;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!LeArtiDelGiorno.ids.contains(id)) return const SizedBox.shrink();
+    return ListenableBuilder(
+      listenable: LeArtiDelGiorno.istanza,
+      builder: (context, _) {
+        if (!LeArtiDelGiorno.istanza.daVedere(id)) {
+          return const SizedBox.shrink();
+        }
+        return IgnorePointer(
+          child: Container(
+            key: Key('scheda_puntino_$id'),
+            width: diametro,
+            height: diametro,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: ColorTokens.gold,
+              border: Border.all(color: ColorTokens.goldBright, width: 1),
+              boxShadow: [
+                BoxShadow(
+                    color: ColorTokens.gold.withValues(alpha: 0.7),
+                    blurRadius: 6),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
 /// La "i", piccola e dorata.
@@ -570,13 +677,7 @@ class _IlTitolo extends StatelessWidget {
             righe[i],
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: i.isOdd
-                ? pieno.copyWith(
-                    fontSize: (pieno.fontSize ?? 16) * 0.62,
-                    color: ColorTokens.textSecondary,
-                    height: 1.02,
-                    letterSpacing: 0.6)
-                : pieno.copyWith(height: 1.02, letterSpacing: 1.6),
+            style: LaSchedaDellArte.stileDellaRigaDecisa(i),
           ),
       ],
     );

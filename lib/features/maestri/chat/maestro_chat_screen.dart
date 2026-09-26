@@ -1389,6 +1389,10 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   /// "Dal vivo", ordine EJ voce 10: le due insieme stanno nella testata.
   static const double _altezzaDelMenu = 34;
 
+  /// Lo sfondo del menu' della barra: la superficie del Maestro (ordine EP
+  /// voce 15).
+  static Color coloreDelMenu(MaestroPalette palette) => palette.surface;
+
   @override
   Size get preferredSize => Size.fromHeight(_barHeight);
 
@@ -1462,6 +1466,16 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                 key: const Key('chat_menu_della_barra'),
                 tooltip: 'Altro',
                 padding: EdgeInsets.zero,
+                // **IL MENU' NEL COLORE DEL SUO MAESTRO. Ordine EP voce 15.**
+                // Il fondatore: *"lo sfondo del menù Chat deve essere del
+                // colore del maestro e non grigio/nero."* Blu per Medora,
+                // verde per Aura, rosso per Calìgo, dalla tavolozza del
+                // Maestro, con un filo d'oro.
+                color: coloreDelMenu(palette),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
+                  side: BorderSide(color: palette.gold.withValues(alpha: 0.35)),
+                ),
                 icon: const Icon(Icons.add_comment_outlined, size: 27),
                 onSelected: (voce) {
                   if (voce is ConversazionePassata) {

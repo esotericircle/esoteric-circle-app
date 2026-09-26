@@ -12,8 +12,8 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../schede/la_luce_delle_schede.dart';
 import '../maestri/rotta_arte.dart';
 import '../schede/la_riga_delle_schede.dart';
-import '../../design_system/tokens/spacing_tokens.dart';
 import '../schede/la_scheda_dell_arte.dart';
+import 'la_categoria_intera.dart';
 import 'widgets/tue_arti_view.dart' show mostraSceltaArti;
 
 /// Una riga della home: la chiave, il titolo, il formato, le arti in ordine.
@@ -39,8 +39,27 @@ abstract final class LeRigheDellaCasa {
   /// La prima riga, le arti preferite, nel formato quadrato.
   static const String preferite = 'preferite';
 
-  /// Le altre nove, nell'ordine del fondatore.
+  /// Le altre nove, nell'ordine del fondatore. **Dall'ordine EP voce 05
+  /// "Trova una risposta" sta subito dopo le preferite**: prima si chiamava
+  /// "Cerca una risposta" e stava terza, dopo "Amore e affinità".
   static const List<RigaDellaCasa> righe = [
+    (
+      chiave: 'trova_una_risposta',
+      // Ordine EP voce 05: *"dopo le arti preferite, metti la categoria
+      // "Cerca una risposta", ma cambiagli il nome in "trova una risposta""*.
+      titolo: 'Trova una risposta',
+      formato: FormatoDellaScheda.verticale,
+      arti: [
+        'tarot_spread_three',
+        'rune_draw',
+        'crystal_oracle',
+        'angels_oracle',
+        'pendulum',
+        'dream_reading',
+        'i_ching',
+        'coffee_reading',
+      ],
+    ),
     (
       chiave: 'da_condividere',
       titolo: 'Da condividere',
@@ -67,21 +86,6 @@ abstract final class LeRigheDellaCasa {
         'synastry_depth',
         'friends_compatibility',
         'pet_astrology',
-      ],
-    ),
-    (
-      chiave: 'cerca_una_risposta',
-      titolo: 'Cerca una risposta',
-      formato: FormatoDellaScheda.verticale,
-      arti: [
-        'tarot_spread_three',
-        'rune_draw',
-        'crystal_oracle',
-        'angels_oracle',
-        'pendulum',
-        'dream_reading',
-        'i_ching',
-        'coffee_reading',
       ],
     ),
     (
@@ -173,10 +177,11 @@ abstract final class LeRigheDellaCasa {
   /// perche' l'occhio la riconosce.
   static int visibiliSenzaScorrere(FormatoDellaScheda formato,
       {required double larghezzaVista, double scalaDelTesto = 1}) {
-    final scheda =
-        LaSchedaDellArte.larghezzaPer(formato, scalaDelTesto: scalaDelTesto);
+    final scheda = LaSchedaDellArte.larghezzaPer(formato,
+        scalaDelTesto: scalaDelTesto, inCasa: true);
     var quante = 0;
-    while (SpacingTokens.lg + quante * (scheda + LaRigaDelleSchede.spazio) <
+    while (LaRigaDelleSchede.margineInCasa +
+            quante * (scheda + LaRigaDelleSchede.spazioInCasa) <
         larghezzaVista) {
       quante++;
     }
@@ -258,6 +263,10 @@ class LeRigheDellaCasaView extends StatelessWidget {
       for (final r in LeRigheDellaCasa.righe)
         (arti: LeRigheDellaCasa.artiDi(r.arti), visibili: inVista(r.formato)),
     ]);
+    // "Vedi tutto" apre la riga intera nell'ordine del fondatore (EP.07).
+    VoidCallback vediTutto(String chiave, String titolo, List<ArtEntry> arti) =>
+        () => Navigator.of(context).push(LaCategoriaIntera.route(
+            context: context, chiave: chiave, titolo: titolo, arti: arti));
     return LaLuceDelleSchede(
       sensore: sensore,
       child: Column(
@@ -281,6 +290,9 @@ class LeRigheDellaCasaView extends StatelessWidget {
                     ),
             formato: FormatoDellaScheda.quadrata,
             arti: ordinate.first,
+            inCasa: true,
+            onVediTutto: vediTutto(LeRigheDellaCasa.preferite,
+                'Le arti preferite', LeRigheDellaCasa.artiDi(ids)),
             azione: preferite == null
                 ? null
                 : IconButton(
@@ -299,6 +311,11 @@ class LeRigheDellaCasaView extends StatelessWidget {
                   LaMarcaDelGenere.risolvi(LeRigheDellaCasa.righe[i].titolo),
               formato: LeRigheDellaCasa.righe[i].formato,
               arti: ordinate[i + 1],
+              inCasa: true,
+              onVediTutto: vediTutto(
+                  LeRigheDellaCasa.righe[i].chiave,
+                  LaMarcaDelGenere.risolvi(LeRigheDellaCasa.righe[i].titolo),
+                  LeRigheDellaCasa.artiDi(LeRigheDellaCasa.righe[i].arti)),
             ),
         ],
       ),

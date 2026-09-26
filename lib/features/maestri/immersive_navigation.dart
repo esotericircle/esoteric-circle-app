@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 
+import '../../core/arts/le_arti_del_giorno.dart';
 import '../../core/chat/immersive_intents.dart';
 import 'art_navigation.dart';
 
@@ -50,5 +51,9 @@ Route<void>? immersiveRouteFor(
 }) {
   final id = artDellIntento[target];
   if (id == null) return null;
-  return artRouteFor(id, userBirth: userBirth, userName: userName);
+  final rotta = artRouteFor(id, userBirth: userBirth, userName: userName);
+  // L'arte si apre anche dalla chat: il puntino d'oro delle arti del giorno
+  // si spegne anche da qui (ordine EP voce 06).
+  if (rotta != null) LeArtiDelGiorno.istanza.aperta(id);
+  return rotta;
 }

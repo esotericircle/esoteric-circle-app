@@ -1,6 +1,6 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 151 -->
+<!-- VUOTI_CENSITI: 150 -->
 <!-- FILE_CON_VUOTI: 66 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
@@ -11,7 +11,7 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **151** |
+| Vuoti verticali dichiarati | **150** |
 | File che ne contengono | **66** |
 | Oltre la soglia di 48 punti | **2** |
 
@@ -22,7 +22,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 84 |
+| 2 | 83 |
 | 3 | 7 |
 | 4 | 26 |
 | 5 | 1 |
@@ -80,7 +80,6 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/maestri/caligo/rune/rune_draw_screen.dart` | 2 | 0 |
 | `lib/features/maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart` | 2 | 0 |
 | `lib/features/maestri/chat/widgets/chat_bubble.dart` | 2 | 0 |
-| `lib/features/maestri/maestro_screen.dart` | 2 | 0 |
 | `lib/features/onboarding/risveglio_journey.dart` | 2 | 0 |
 | `lib/features/rituals/sunset_rune_card.dart` | 2 | 0 |
 | `lib/features/rituals/sunset_rune_screen.dart` | 2 | 0 |
@@ -102,6 +101,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/maestri/chat/widgets/chat_composer.dart` | 1 | 0 |
 | `lib/features/maestri/chat/widgets/diagnostics_dialog.dart` | 1 | 0 |
 | `lib/features/maestri/domain_screen.dart` | 1 | 0 |
+| `lib/features/maestri/maestro_screen.dart` | 1 | 0 |
 | `lib/features/onboarding/natal_chart_reveal.dart` | 1 | 0 |
 | `lib/features/onboarding/riquadro_della_scelta.dart` | 1 | 0 |
 | `lib/features/rituals/dream_rite_card.dart` | 1 | 0 |

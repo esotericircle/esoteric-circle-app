@@ -5212,6 +5212,64 @@ controllo della troncatura), EO.11 (impronte); un commit (`dc75e426`)
 spinto con una guardia rossa per una catena di comandi che non leggeva
 l'esito, riparato subito dopo.
 
+## L'ORDINE EP, LA HOME PIU' FITTA, GLI SFONDI UNICI DEI MAESTRI, LA SCHEDA CONSULTA E LA CHAT
+
+Ordine e lavoro del 26 settembre 2026, quindici voci, **tutte chiuse**.
+Manifesto `docs/ordini/ORDINE_EP_MANIFESTO.md`, rapporto
+`docs/ordini/RAPPORTO_ORDINE_EP.md`, prove in `docs/collaudo/EP/` e
+`docs/collaudo/EP/realme/`. Il fondatore, sulla stima di otto ore: *"Tutto,
+poi build"*, e *"Ho fretta e sono tutte modifiche estetiche, cerca di fare in
+fretta. Fai test anche su celle poi consegna nuova build pronta anche per
+codemagic"*. **Chiude anche EO.06, EO.07 ed EO.08** con le sue risposte: il
+manifesto EO e' a 17 chiuse su 17.
+
+**GLI SFONDI (EP.01).** I 99 WebP di `assets/schede/` sono quelli della
+cartella del fondatore `assets/Sfondi Schede/webp` (ne erano cambiati 79):
+ogni Maestro ha lo stesso sfondo su tutte le sue schede. Entrano anche i tre
+orizzontali di "Consulta", `Consulta-<Maestro>-Oriz-1.webp`: 102 file.
+
+**LA HOME (EP.02-EP.11).** In home le schede sono all'88 per cento, 162 punti
+le verticali e le quadrate, 253 le orizzontali, per la scala del testo; nei
+domini restano 184 e 288 (`LaSchedaDellArte.larghezzaPer`, parametro
+`inCasa`). La parola piu' lunga della home, "Interpretazione", misura 161,3
+punti col Cinzel vero: **sotto 162 una scheda della home la spezzerebbe**.
+Margini 16 e 12, 24 punti fra la fine di una riga e il titolo della
+successiva (la riga finisce col titolo piu' alto fra le sue arti), 8 fra
+titolo e schede. "Trova una risposta" (prima "Cerca una risposta") e' la
+seconda riga. "Vedi tutto" accanto al titolo di ogni riga apre la categoria
+intera in griglia (`lib/features/santuario/la_categoria_intera.dart`). Il
+puntino d'oro sulle arti del giorno, Oroscopo, Affermazioni del Giorno,
+Bioritmo e Respiro della Luna, finche' quel giorno non si aprono
+(`lib/core/arts/le_arti_del_giorno.dart`, ricordato sul telefono). I titoli
+delle righe, in home e nei domini, sono in `ColorTokens.gold`. **Riflesso e
+sollevamento restano accesi anche con le animazioni a zero**
+(`LaLuceDelleSchede.spenta` e' sempre falso), e la build di misura
+`EO_LUCE_FORZATA` non serve piu'. "Consulta" in home resta accanto a "Entra".
+La regola dei doppioni vale con le misure nuove.
+
+**I DOMINI E LA CHAT (EP.12-EP.15).** In cima a ogni dominio la scheda
+"Consulta" e' una scheda come le altre, **orizzontale** (correzione del
+fondatore a ordine aperto: *"orizzontale e non quadrata"*; l'ordine diceva
+verticale), con l'immagine del suo Maestro, `Consulta-<Maestro>-Oriz-1.webp`,
+e apre la sua chat. Nella chat la pastiglia dice "LIVE", i due contatori stanno
+su due righe (si stringono invece di andare a capo), il menu' della barra ha
+lo sfondo del colore del Maestro.
+
+**TRE DOMANDE APERTE AL FONDATORE, nel rapporto**: a 360 punti la terza
+scheda verticale non si vede tagliata (16 + 162 + 12 + 162 + 12 = 364);
+con la frase piu' lunga i contatori a 360 punti si stringono al 73 per cento;
+l'app scrive "Caligo" e l'ordine "Calìgo".
+
+**DIFETTI TROVATI SUL REALME E CURATI**, tutti col padre nella voce EP.07:
+i titoli delle righe spezzati a meta' parola, "Vedi tutto" tagliato in "Vedi
+tutt", la testata della riga allungata dall'area di tocco. Le prove che
+aprivano la chat toccando la scritta "Consulta" del dominio ora toccano
+l'immagine della scheda.
+
+**LE GUARDIE.** Tre nuove, `la_home_piu_fitta`, `la_chat_e_i_domini_dell_ordine_ep`
+e `ordine_ep_guard`, registro a **537**. Una e' nata cieca due volte, la prova
+dei contatori, e il registro lo dice.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.

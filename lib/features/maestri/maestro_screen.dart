@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../../core/arts/le_arti_del_giorno.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../shell/spazio_della_barra.dart';
@@ -15,16 +16,15 @@ import '../../core/arts/gli_sfondi_delle_schede.dart';
 import '../../core/arts/l_ordine_dei_domini.dart';
 import '../schede/la_luce_delle_schede.dart';
 import '../schede/la_riga_delle_schede.dart';
+import '../schede/la_scheda_dell_arte.dart';
 import '../../core/chat/immersive_intents.dart';
 import '../../core/config/app_flags.dart';
 import '../../core/entitlement/plan_catalog.dart';
 import '../../core/lang/euphonic.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
-import '../../design_system/components/depth_card.dart';
 import '../../design_system/components/section_title.dart';
 import '../../design_system/theme/maestro_palette.dart';
-import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -240,6 +240,9 @@ class CircleArtTile extends StatelessWidget {
       userName: profile.hasName ? profile.vocative : null,
     );
     if (route == null) return;
+    // Il puntino d'oro delle arti del giorno si spegne da qualunque porta
+    // (ordine EP voce 06).
+    LeArtiDelGiorno.istanza.aperta(art.id);
     // Nessun cambio di tema qui. Il colore dell'arte lo dichiara l'arte
     // stessa, tramite il proprietario del suo MaestroScope, quindi c'e' dal
     // primo frame da qualunque strada si arrivi.
@@ -385,53 +388,43 @@ class _ConsultaMaestroCard extends StatelessWidget {
 
   final Maestro maestro;
 
+  /// La scheda come voce: non sta nel catalogo, e non ha una rotta d'arte.
+  static ArtEntry voce(Maestro maestro) => ArtEntry(
+        id: 'consulta_${maestro.name}',
+        title: 'Consulta ${maestro.displayName}',
+        teaser: 'Dialoga, chiedi e metti a confronto gli sguardi del Cerchio.',
+        icon: Icons.forum_outlined,
+        state: ArtState.attiva,
+      );
+
+  /// **LA SCHEDA "CONSULTA" IN CIMA AL DOMINIO.** Ordine EP voce 12, 26
+  /// settembre 2026. Il fondatore: *"Nel dominio di ogni maestro serve anche
+  /// fare la scheda "Consulta [nome Maestro]"."*, e sulle immagini *"Ok,
+  /// tutto ok."* Prima era un riquadro con l'icona della chat e due righe;
+  /// ora e' una scheda come le altre del dominio (ordine EO voce 02), alla
+  /// misura del dominio, con l'immagine del suo Maestro. **Orizzontale**: il
+  /// fondatore, a ordine aperto, *"in ogni dominio, in alto ci devi mettere
+  /// la scheda della chat orizzontale e non quadrata."* Il tocco apre la
+  /// chat di quel Maestro.
   @override
   Widget build(BuildContext context) {
-    final palette = context.palette;
-    return DepthCard(
+    final scala = MediaQuery.textScalerOf(context).scale(1);
+    return KeyedSubtree(
       key: const Key('domain_consulta_card'),
-      raised: true,
-      onTap: () {
-        final services = context.read<AppServices>();
-        Navigator.of(context).push(
-          MaestroChatScreen.route(maestro: maestro, services: services),
-        );
-      },
-      padding: const EdgeInsets.all(SpacingTokens.lg),
-      child: Row(
-        children: [
-          Container(
-            width: 46,
-            height: 46,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: palette.primary.withValues(alpha: 0.5),
-              border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
-            ),
-            alignment: Alignment.center,
-            child:
-                Icon(Icons.forum_outlined, color: palette.goldSoft, size: 24),
-          ),
-          const SizedBox(width: SpacingTokens.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Consulta ${maestro.displayName}',
-                  style: TypographyTokens.titoloScheda(),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  'Dialoga, chiedi e metti a confronto gli sguardi del Cerchio.',
-                  style: TypographyTokens.corpo()
-                      .copyWith(color: ColorTokens.textSecondary),
-                ),
-              ],
-            ),
-          ),
-          Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
-        ],
+      child: LaSchedaDellArte(
+        art: voce(maestro),
+        maestro: maestro,
+        formato: FormatoDellaScheda.orizzontale,
+        larghezza: LaSchedaDellArte.larghezzaPer(
+            FormatoDellaScheda.orizzontale,
+            scalaDelTesto: scala),
+        sfondo: GliSfondiDelleSchede.consultaDi(maestro),
+        onApri: (c) async {
+          final services = c.read<AppServices>();
+          await Navigator.of(c).push(
+            MaestroChatScreen.route(maestro: maestro, services: services),
+          );
+        },
       ),
     );
   }

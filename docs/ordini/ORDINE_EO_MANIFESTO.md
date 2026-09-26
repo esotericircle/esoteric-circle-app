@@ -16,8 +16,8 @@ iPhone,.prima devo controllare io"*.
 EO.17, nessun doppione in vista nella home.
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 14
-VOCI_APERTE: 3
+VOCI_CHIUSE: 17
+VOCI_APERTE: 0
 
 Le prove stanno in `docs/collaudo/EO/`; quelle viste sul telefono di prova
 (Realme 767f596c, build 0.1.0+2283) in `docs/collaudo/EO/realme/`.
@@ -134,12 +134,17 @@ fondatore: **sul suo Realme il riflesso non si vede**, perche' le animazioni
 a zero valgono come riduzione del movimento. Si vede su un telefono con le
 animazioni accese (l'iPhone) e nella build di misura.
 
-**APERTA IN ATTESA DI VERIFICA**: fotogrammi al secondo mentre si scorre la
-home, 59,7 senza riflesso (664 in 11,1 secondi, 0 persi) e 59,7 col riflesso
-acceso a forza (656 in 11,0 secondi, 0 persi); prova
-`docs/collaudo/EO/realme/eo06_fotogrammi_con_e_senza_riflesso.txt`. Chiede
-al fondatore se le animazioni a zero del suo telefono devono spegnere il
-riflesso.
+Misura dell'ordine EO: fotogrammi al secondo mentre si scorre la home, 59,7
+senza riflesso (664 in 11,1 secondi, 0 persi) e 59,7 col riflesso acceso a
+forza (656 in 11,0 secondi, 0 persi), prova
+`docs/collaudo/EO/realme/eo06_fotogrammi_con_e_senza_riflesso.txt`. **La
+domanda l'ha chiusa il fondatore con l'ordine EP, voce EP.09**: la luce resta
+accesa anche con le animazioni a zero.
+
+**CHIUSA.**
+DOMANDA: "Luce sempre accesa" ("Il riflesso d'oro e la scheda che si solleva restano accesi anche se le animazioni del telefono sono a zero")
+PROVA: docs/collaudo/EP/ep09_fotogrammi_luce_accesa_animazioni_a_zero.txt
+MISURA: sul Realme con le animazioni a zero riflesso da spento ad acceso; fotogrammi scorrendo la home 59,3 al secondo col riflesso acceso (733 in 12,35 secondi, 0 persi), contro 59,7 senza
 
 ## VOCE EO.07, LA SCHEDA AL CENTRO SI SOLLEVA
 
@@ -149,10 +154,15 @@ movimento. **Difetto trovato sul telefono con la build di misura, riparato**:
 l'ombra copriva tutto il riquadro della scheda, titolo e aria sotto compresi,
 e si vedeva un rettangolo scuro; adesso copre la sola immagine.
 
-**APERTA IN ATTESA DI VERIFICA**: come la EO.06, sul Realme del fondatore e'
-spenta dalle animazioni a zero; vista a video nella build di misura
-(`docs/collaudo/EO/realme/eo06_eo07_luce_forzata_riparata.png`); nelle prove
-la scheda al centro a 1,03 con ombra 0,13, le laterali a 1,00 con ombra 0,32.
+Nelle prove la scheda al centro a 1,03 con ombra 0,13, le laterali a 1,00
+con ombra 0,32; vista nella build di misura dell'ordine EO
+(`docs/collaudo/EO/realme/eo06_eo07_luce_forzata_riparata.png`). **Chiusa
+dal fondatore con l'ordine EP, voce EP.09.**
+
+**CHIUSA.**
+DOMANDA: "Luce sempre accesa" ("Il riflesso d'oro e la scheda che si solleva restano accesi anche se le animazioni del telefono sono a zero")
+PROVA: docs/collaudo/EP/realme/ep09_scheda_al_centro_sollevata_con_le_animazioni_a_zero.png
+MISURA: sul Realme con le animazioni a zero la scheda al centro da ferma a sollevata e in luce, le laterali in ombra; nelle prove la scheda al centro a 1,03 con ombra 0,13, le laterali a 1,00 con ombra 0,32, anche con la riduzione del movimento
 
 ## VOCE EO.08, IL PULSANTE PER LA CHAT SOTTO "ENTRA NEL DOMINIO"
 
@@ -171,11 +181,14 @@ sotto costerebbe punti ai Maestri**, con la stessa etichetta per chi legge
 con la voce. La decisione la prende la scena dalle sue misure. Sonda: accanto
 fino a 430 per 932 punti, sotto a 480 per 1067.
 
-**APERTA IN ATTESA DI VERIFICA**: sul Realme "Consulta" sta accanto, in tondo,
-e apre la chat di Medora
+Sul Realme "Consulta" sta accanto, in tondo, e apre la chat di Medora
 (`docs/collaudo/EO/realme/eo08_eo16_consulta_apre_la_chat_dal_vivo_accanto_ai_contatori.png`).
-Chiede al fondatore: accanto come adesso, o sotto anche a costo di Maestri
-piu' piccoli di 15 punti.
+**Chiusa dal fondatore con l'ordine EP, voce EP.10**: accanto, come adesso.
+
+**CHIUSA.**
+DOMANDA: "Per ora lascia il pulsante pillola chat a fianco a "entra nel dominio" in home sotto ogni maestro."
+PROVA: docs/collaudo/EP/realme/ep10_consulta_accanto_a_entra.png
+MISURA: "Consulta" accanto a "Entra nel Dominio" in tondo sul Realme; i Maestri alle misure chieste, busto centrale oltre 260 punti e tre Maestri al 30 per cento della prima schermata
 
 ## VOCE EO.09, LE RIGHE DELLA HOME
 

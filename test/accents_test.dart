@@ -164,9 +164,11 @@ void main() {
       await step(tester);
       // La carta Consulta puo' stare sotto il bordo: prima la si porta in
       // vista, come fa chat_header_test dalla stessa strada.
-      await tester.ensureVisible(find.text('Consulta ${maestro.displayName}'));
+      await tester.ensureVisible(find.byKey(Key('scheda_tocco_consulta_${maestro.name}')));
       await tester.pump();
-      await tester.tap(find.text('Consulta ${maestro.displayName}'));
+      await tester.tap(find.byKey(Key('scheda_tocco_consulta_${maestro.name}')));
+      // La scheda si preme e svanisce, poi apre la chat (ordine EP voce 12).
+      await tester.pump(const Duration(milliseconds: 500));
       await step(tester);
 
       // Stato vuoto: header, invito, chip d'avvio, avviso di configurazione e
