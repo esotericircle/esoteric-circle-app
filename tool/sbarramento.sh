@@ -47,6 +47,74 @@ QUI="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ACCETTATI="$QUI/rossi_accettati.txt"
 REGISTRO="$(mktemp)"
 
+# **LO SBARRAMENTO DIVISO SU PIU' MACCHINE. Ordine ACCELERA, 26 settembre
+# 2026.** Il fondatore: *"Ma non c'e' modo di accelerare Suite, sbarramenti,
+# ecc?"*, e *"Ma se l'accelerazione e' sempre disponibile, usala sempre"*. Su
+# una macchina sola lo sbarramento di GitHub durava circa 33 minuti.
+#
+# **Senza variabili d'ambiente questo file fa esattamente cio' che faceva
+# prima**: il PC, la Ronda e le prove dello sbarramento non cambiano. Le due
+# modalita' nuove servono a `.github/workflows/verde.yml`:
+#
+#   - SBARRAMENTO_SOLO=suite|server|scala|chiusure, con SBARRAMENTO_USCITA=
+#     <cartella>: si fa UNA fase sola, se ne conservano il registro e l'esito
+#     nella cartella, e si esce con zero anche se la fase e' rossa. Decidere
+#     non tocca a lei: tocca al giro finale. Per la suite SBARRAMENTO_PEZZO
+#     dice quale pezzo e', e i file arrivano in "$@" da
+#     `tool/i_pezzi_della_suite.py`.
+#   - SBARRAMENTO_DA_REGISTRI=<cartella>, con SBARRAMENTO_PEZZI=<quanti>: non
+#     si lancia niente, si leggono i registri conservati dalle macchine e si
+#     decide come sempre, con gli stessi cancelli e lo stesso confronto coi
+#     rossi accettati. **Un pezzo che manca ferma l'archivio**: una suite di
+#     cui manca un sesto non e' una suite verde.
+FASE_SOLA="${SBARRAMENTO_SOLO:-}"
+DAI_REGISTRI="${SBARRAMENTO_DA_REGISTRI:-}"
+USCITA="${SBARRAMENTO_USCITA:-}"
+PEZZO="${SBARRAMENTO_PEZZO:-0}"
+QUANTI_PEZZI="${SBARRAMENTO_PEZZI:-0}"
+if [ -n "$FASE_SOLA" ] && [ -z "$USCITA" ]; then
+  echo "SBARRAMENTO_SOLO=$FASE_SOLA vuole SBARRAMENTO_USCITA: dove conservo il registro?"
+  exit 1
+fi
+if [ -n "$FASE_SOLA" ] && [ -n "$DAI_REGISTRI" ]; then
+  echo "SBARRAMENTO_SOLO e SBARRAMENTO_DA_REGISTRI insieme non hanno senso."
+  exit 1
+fi
+
+# Se la fase [nome] va fatta su questa macchina.
+fase_da_fare() { [ -z "$FASE_SOLA" ] || [ "$FASE_SOLA" = "$1" ]; }
+
+# Conserva il registro [file] della fase [nome] col suo [esito], ed esce.
+conserva_ed_esci() {
+  mkdir -p "$USCITA"
+  cp "$2" "$USCITA/$1.txt"
+  echo "$3" > "$USCITA/$1.esito"
+  echo ""
+  echo "== FASE $1 CONSERVATA IN $USCITA, esito $3: decide il giro finale =="
+  rm -f "$REGISTRO"
+  exit 0
+}
+
+# Il registro conservato [nome] deve esserci col suo esito, o l'archivio non
+# si produce. **Si chiama da sola, mai dentro `$( )`**: la' dentro `exit`
+# chiuderebbe soltanto la sottoshell, e un pezzo mancante passerebbe.
+pretendi_il_registro() {
+  if [ ! -f "$DAI_REGISTRI/$1.txt" ] || [ ! -f "$DAI_REGISTRI/$1.esito" ]; then
+    echo ""
+    echo "======================================================================"
+    echo "  MANCA IL REGISTRO $1 IN $DAI_REGISTRI."
+    echo "======================================================================"
+    echo "  Una macchina non ha consegnato la sua parte: quello che non si e'"
+    echo "  guardato non si puo' dire verde. L'ARCHIVIO NON SI PRODUCE."
+    echo "======================================================================"
+    rm -f "$QUI/../build/sbarramento_passato.txt" "$REGISTRO"
+    exit 1
+  fi
+}
+
+# L'esito conservato della fase [nome]: solo le cifre.
+esito_conservato() { tr -dc '0-9' < "$DAI_REGISTRI/$1.esito"; }
+
 # **IL RAPPORTO SI FISSA, E NON E' UN DETTAGLIO. Ordine CODEMAGIC1 voce 06,
 # 16 settembre 2026.**
 #
@@ -67,8 +135,39 @@ REGISTRO="$(mktemp)"
 # Sta prima di "$@" apposta: chi prova lo sbarramento a mano puo' ancora
 # chiedere un altro rapporto, e l'ultimo che passa vince.
 echo "== LE PROVE, PRIMA DI COSTRUIRE, con TZ=$TZ =="
-flutter test -r expanded "$@" 2>&1 | tee "$REGISTRO"
-ESITO=${PIPESTATUS[0]}
+if [ -n "$DAI_REGISTRI" ]; then
+  # I pezzi della suite, uno per macchina, tutti: da 0 a QUANTI_PEZZI - 1.
+  if [ "$QUANTI_PEZZI" -lt 1 ]; then
+    echo "SBARRAMENTO_DA_REGISTRI vuole SBARRAMENTO_PEZZI: quanti pezzi aspetto?"
+    rm -f "$REGISTRO" "$QUI/../build/sbarramento_passato.txt"
+    exit 1
+  fi
+  ESITO=0
+  CONTO_DEI_PEZZI=0
+  PEZZO_LETTO="$(mktemp)"
+  for ((k = 0; k < QUANTI_PEZZI; k++)); do
+    pretendi_il_registro "suite_$k"
+    cp "$DAI_REGISTRI/suite_$k.txt" "$PEZZO_LETTO"
+    ESITO_PEZZO="$(esito_conservato "suite_$k")"
+    cat "$PEZZO_LETTO" >> "$REGISTRO"
+    # Le prove passate di ogni pezzo, dal suo massimo: si sommano.
+    MASSIMO_PEZZO="$(sed -nE 's/^[0-9:]+ [+]([0-9]+).*$/\1/p' "$PEZZO_LETTO" \
+      | sort -n | tail -1)"
+    CONTO_DEI_PEZZI=$((CONTO_DEI_PEZZI + ${MASSIMO_PEZZO:-0}))
+    echo "== PEZZO $k: ${MASSIMO_PEZZO:-0} prove passate, esito ${ESITO_PEZZO:-?} =="
+    [ "${ESITO_PEZZO:-1}" != "0" ] && ESITO=1
+  done
+  rm -f "$PEZZO_LETTO"
+  # Una riga sola col totale, cosi' il gettone conta tutte le prove e non
+  # quelle del pezzo piu' grande.
+  echo "00:00 +$CONTO_DEI_PEZZI: i $QUANTI_PEZZI pezzi della suite, insieme" >> "$REGISTRO"
+elif fase_da_fare suite; then
+  flutter test -r expanded "$@" 2>&1 | tee "$REGISTRO"
+  ESITO=${PIPESTATUS[0]}
+else
+  ESITO=0
+fi
+[ "$FASE_SOLA" = "suite" ] && conserva_ed_esci "suite_$PEZZO" "$REGISTRO" "$ESITO"
 
 # **IL SECONDO CANCELLO: ANCHE LA SUITE DEL SERVER. Ordine CF voce 18.**
 #
@@ -96,12 +195,28 @@ ESITO=${PIPESTATUS[0]}
 # La crocetta pesante con cui `node --test` marca una prova caduta.
 CROCE='✖'
 FUNZIONI="$(cd "$QUI/.." && pwd)/functions"
-if [ -d "$FUNZIONI/node_modules" ]; then
+# Da dove viene la suite del server: dai registri conservati, da questa
+# macchina, o da nessuna parte perche' qui si fa un'altra fase sola.
+SERVER_DA=""
+if [ -n "$DAI_REGISTRI" ]; then
+  pretendi_il_registro server
+  SERVER_DA="registri"
+elif fase_da_fare server && [ -d "$FUNZIONI/node_modules" ]; then
+  SERVER_DA="qui"
+fi
+if [ -n "$SERVER_DA" ]; then
   echo ""
   echo "== LE PROVE DEL SERVER, con npm test dentro functions/ =="
   REGISTRO_SERVER="$(mktemp)"
-  ( cd "$FUNZIONI" && npm test ) 2>&1 | tee "$REGISTRO_SERVER"
-  ESITO_SERVER=${PIPESTATUS[0]}
+  if [ "$SERVER_DA" = "registri" ]; then
+    cp "$DAI_REGISTRI/server.txt" "$REGISTRO_SERVER"
+    cat "$REGISTRO_SERVER"
+    ESITO_SERVER="$(esito_conservato server)"
+  else
+    ( cd "$FUNZIONI" && npm test ) 2>&1 | tee "$REGISTRO_SERVER"
+    ESITO_SERVER=${PIPESTATUS[0]}
+    [ "$FASE_SOLA" = "server" ] && conserva_ed_esci server "$REGISTRO_SERVER" "$ESITO_SERVER"
+  fi
   # **I NOMI DELLE PROVE CADUTE DEL SERVER, e la forma non era quella che
   # avevo scritto per prima.** Avevo cercato "not ok 3 - nome", cioe' il
   # formato TAP: `node --test` qui usa il rapporto a spec, che scrive
@@ -119,16 +234,18 @@ if [ -d "$FUNZIONI/node_modules" ]; then
         echo "00:00 +0 -1: $nome [E]" >> "$REGISTRO"
       done
   rm -f "$REGISTRO_SERVER"
-  if [ "$ESITO_SERVER" -ne 0 ]; then
+  if [ "${ESITO_SERVER:-1}" != "0" ]; then
     ESITO=1
     echo ""
     echo "== LA SUITE DEL SERVER E' ROSSA =="
   fi
-else
+elif fase_da_fare server; then
   echo ""
   echo "!! LE PROVE DEL SERVER NON SONO STATE ESEGUITE: manca"
   echo "!! $FUNZIONI/node_modules. Esegui 'npm install' dentro functions/."
   echo "!! Questa build non ha guardato la seconda suite."
+  # Una macchina messa li' apposta per il server non puo' tornare senza.
+  [ "$FASE_SOLA" = "server" ] && { rm -f "$REGISTRO"; exit 1; }
 fi
 
 # **IL TERZO CANCELLO: IL CORREDO A SCALA MASSIMA. Ordine CM voce 10.**
@@ -157,12 +274,20 @@ fi
 # rompersi. Quindi ogni schermata riparata va tolta dall'elenco, e nessuna
 # schermata nuova ci puo' entrare senza che qualcuno la scriva a mano.
 CORREDO="screenshot_capture_test.dart"
-if [ -f "$QUI/../test/$CORREDO" ]; then
+if [ -f "$QUI/../test/$CORREDO" ] && { [ -n "$DAI_REGISTRI" ] || fase_da_fare scala; }; then
   echo ""
   echo "== IL CORREDO A SCALA MASSIMA, con SCALA_DEL_TESTO=1.3 =="
   REGISTRO_SCALA="$(mktemp)"
-  SCALA_DEL_TESTO=1.3 flutter test -r expanded "test/$CORREDO" 2>&1 | tee "$REGISTRO_SCALA"
-  ESITO_SCALA=${PIPESTATUS[0]}
+  if [ -n "$DAI_REGISTRI" ]; then
+    pretendi_il_registro scala
+    cp "$DAI_REGISTRI/scala.txt" "$REGISTRO_SCALA"
+    cat "$REGISTRO_SCALA"
+    ESITO_SCALA="$(esito_conservato scala)"
+  else
+    SCALA_DEL_TESTO=1.3 flutter test -r expanded "test/$CORREDO" 2>&1 | tee "$REGISTRO_SCALA"
+    ESITO_SCALA=${PIPESTATUS[0]}
+    [ "$FASE_SOLA" = "scala" ] && conserva_ed_esci scala "$REGISTRO_SCALA" "$ESITO_SCALA"
+  fi
 
   # **IL CARDINALE DEL CORREDO.** Un giro che non monta nessuna schermata non
   # trova nessun difetto, e passerebbe per verde. Il corredo ne monta
@@ -186,7 +311,7 @@ if [ -f "$QUI/../test/$CORREDO" ]; then
     echo "  dire il vero su niente."
     echo "  L'ARCHIVIO NON SI PRODUCE."
     echo "======================================================================"
-    rm -f "$REGISTRO" "$REGISTRO_SCALA"
+    rm -f "$REGISTRO" "$REGISTRO_SCALA" "$QUI/../build/sbarramento_passato.txt"
     exit 1
   fi
   echo ""
@@ -197,15 +322,16 @@ if [ -f "$QUI/../test/$CORREDO" ]; then
     echo "00:00 +0 -1: SCALA 1,3: $nome [E]" >> "$REGISTRO"
   done
 
-  if [ "$ESITO_SCALA" -ne 0 ]; then
+  if [ "${ESITO_SCALA:-1}" != "0" ]; then
     ESITO=1
     echo ""
     echo "== IL CORREDO A SCALA MASSIMA E' ROSSO =="
   fi
-else
+elif [ ! -f "$QUI/../test/$CORREDO" ]; then
   echo ""
   echo "!! IL CORREDO NON E' STATO GIRATO A SCALA MASSIMA: manca"
   echo "!! test/$CORREDO. Questa build non ha guardato il testo grande."
+  [ "$FASE_SOLA" = "scala" ] && { rm -f "$REGISTRO"; exit 1; }
 fi
 
 # **IL QUARTO CANCELLO: LE CHIUSURE DICHIARATE. Ordine EH voce 03.**
@@ -262,8 +388,18 @@ elif [ -f "$QUI/../test/$CHIUSURE" ]; then
   # innestato a mano: si e' fermato lo sbarramento, ma per un altro motivo, e
   # il cancello nuovo non ha stampato una riga. **L'ha trovato la prova del
   # rosso, che e' esattamente cio' per cui la Regola A esiste.**
-  flutter test -r expanded "test/$CHIUSURE" 2>&1 | tee -a "$REGISTRO"
-  if [ "${PIPESTATUS[0]}" -ne 0 ]; then
+  if [ -n "$DAI_REGISTRI" ]; then
+    pretendi_il_registro chiusure
+    tee -a "$REGISTRO" < "$DAI_REGISTRI/chiusure.txt"
+    ESITO_CHIUSURE="$(esito_conservato chiusure)"
+  else
+    flutter test -r expanded "test/$CHIUSURE" 2>&1 | tee -a "$REGISTRO"
+    ESITO_CHIUSURE=${PIPESTATUS[0]}
+    # Su una macchina messa li' per le sole chiusure il registro contiene
+    # solo loro: la suite non e' girata qui.
+    [ "$FASE_SOLA" = "chiusure" ] && conserva_ed_esci chiusure "$REGISTRO" "$ESITO_CHIUSURE"
+  fi
+  if [ "${ESITO_CHIUSURE:-1}" != "0" ]; then
     echo ""
     echo "======================================================================"
     echo "  UN MANIFESTO DICHIARA CHIUSA UNA VOCE CHE NON PORTA LA SUA PROVA,"
@@ -281,7 +417,7 @@ elif [ -f "$QUI/../test/$CHIUSURE" ]; then
     echo "    nel manifesto: GUARDIA RIMOSSA: <nome> - <ordine e commit>."
     echo "  L'ARCHIVIO NON SI PRODUCE."
     echo "======================================================================"
-    rm -f "$REGISTRO"
+    rm -f "$REGISTRO" "$QUI/../build/sbarramento_passato.txt"
     exit 1
   fi
 else
@@ -293,7 +429,7 @@ else
   echo "  Se e' sparita, questa build non ha nessuna garanzia da offrire."
   echo "  L'ARCHIVIO NON SI PRODUCE."
   echo "======================================================================"
-  rm -f "$REGISTRO"
+  rm -f "$REGISTRO" "$QUI/../build/sbarramento_passato.txt"
   exit 1
 fi
 
@@ -354,7 +490,7 @@ if [ -n "$DI_TROPPO" ]; then
   echo "    $ACCETTATI"
   echo "  L'ARCHIVIO NON SI PRODUCE."
   echo "======================================================================"
-  rm -f "$REGISTRO"
+  rm -f "$REGISTRO" "$QUI/../build/sbarramento_passato.txt"
   exit 1
 fi
 
@@ -437,6 +573,10 @@ grep -E "^  [A-Za-z]:.*_test[.]dart" "$REGISTRO" | sort -u || true
 # CADUTE e ACCETTATE sono gia' state lette prima del bivio, per la voce CH.04:
 # qui non si rileggono, perche' due letture della stessa cosa sono due verita'.
 
+# **L'AZZERAMENTO STA PRIMA, ordine ACCELERA.** Stava dopo il blocco qui
+# sotto e cancellava "(nessun nome letto)": quando la suite cadeva senza
+# nominare nessuna prova, l'elenco dei rossi nuovi si stampava vuoto.
+NUOVE=""
 if [ -z "$CADUTE" ]; then
   echo ""
   echo "La suite e' caduta senza nominare nessuna prova: non c'e' niente da"
@@ -449,7 +589,6 @@ else
   echo "$CADUTE" | sed 's/^/  /'
 fi
 
-NUOVE=""
 if [ -n "$CADUTE" ]; then
   while IFS= read -r nome; do
     [ -z "$nome" ] && continue
@@ -495,5 +634,5 @@ fi
 # **E SE LA SUITE E' ROSSA IL GETTONE SI CANCELLA**, cosi' un gettone vecchio
 # non copre una corsa nuova andata male.
 rm -f "$QUI/../build/sbarramento_passato.txt"
-rm -f "$REGISTRO"
+rm -f "$REGISTRO" "$QUI/../build/sbarramento_passato.txt"
 exit 1

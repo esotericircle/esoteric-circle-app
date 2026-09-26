@@ -5284,18 +5284,41 @@ la sezione dell'ordine EO). Prima della consegna, sul Realme, tre archivi di
 prova hanno portato tre riparazioni della voce EP.07 e il cambio della scheda
 Consulta in orizzontale chiesto dal fondatore.
 
-**L'ACCELERAZIONE.** Il fondatore, il 26 settembre 2026: *"Ma non c'è modo
-di accelerare Suite, sbarramenti, ecc?"* e *"Ma se l'accelerazione è sempre
-disponibile, usala sempre"*. Il PC e' un Intel Core i5-3450 del 2012, 4
-processori logici, 16 GB: la suite intera dura circa 38 minuti, lo
-sbarramento su GitHub circa 33. Scelta del fondatore: **subito dopo la 2284**
-si costruisce la suite divisa su piu' macchine di GitHub e la consegna che
-accetta il verdetto verde di GitHub al posto dello sbarramento locale. La
-mappa delle modifiche e dei rischi e' pronta: la divisione standard di
-Flutter spezza le prove dentro ogni file e fa ricompilare tutti i file a ogni
-macchina, quindi si divide per file; e nello sbarramento ci sono due difetti
-gia' presenti, il gettone che non si cancella su tutte le uscite rosse e
-l'elenco dei rossi nuovi che si stampa vuoto.
+**L'ACCELERAZIONE, ORDINE ACCELERA.** Il fondatore, il 26 settembre 2026:
+*"Ma non c'è modo di accelerare Suite, sbarramenti, ecc?"*, *"Ma se
+l'accelerazione è sempre disponibile, usala sempre"* e *"Ma ancora
+sbarramentii da 40 Min?"*. Il PC e' un Intel Core i5-3450 del 2012, 4
+processori logici, 16 GB: `flutter test` fa girare due file alla volta, la
+suite intera dura circa 38 minuti, lo sbarramento locale circa 45, quello di
+GitHub circa 33 su una macchina sola. Scelta del fondatore: costruirla
+**subito dopo la 2284**. Manifesto `docs/ordini/ORDINE_ACCELERA_MANIFESTO.md`,
+prove in `docs/collaudo/ACCELERA/`, quattro voci, due chiuse e due in attesa
+del primo giro vero:
+- **la suite divisa per FILE** (`tool/i_pezzi_della_suite.py`, pesi in
+  `tool/pesi_delle_prove.json`): sei pezzi da 658 secondi dei tempi del PC,
+  1.072 file su 1.072, nessuno doppio. Non la divisione di Flutter, che
+  spezza le prove dentro i file e fa ricompilare tutto a ogni macchina;
+- **lo sbarramento di GitHub su piu' macchine** (`.github/workflows/verde.yml`):
+  sei pezzi, il corredo a scala 1,3, il server e le chiusure, l'analisi, e
+  un'ultima macchina "analyze e sbarramento" che riunisce i registri e
+  decide. Lo sbarramento ha due modalita' nuove, `SBARRAMENTO_SOLO` e
+  `SBARRAMENTO_DA_REGISTRI`, accese solo da variabili d'ambiente: **senza
+  variabili fa cio' che faceva prima**, sul PC e nella Ronda. Un pezzo che
+  manca ferma il cancello. **In attesa del primo giro**, alla prima spinta
+  dopo la build iOS della 2284;
+- **la consegna col verdetto di GitHub** (`tool/consegna.py`): prima chiede a
+  GitHub, con la stessa porta di Codemagic, se il cancello e' verde sul
+  commit da cui si e' costruito, e lo accetta solo con l'albero pulito, il
+  commit spinto, lo stesso numero di build e l'archivio piu' recente del
+  commit; altrimenti vale il gettone del PC. Il registro della consegna
+  scrive quale cancello l'ha fatta passare. **In attesa della prima consegna
+  vera** senza lo sbarramento del PC;
+- **due difetti che lo sbarramento aveva gia'**, corretti e sorvegliati: il
+  gettone che restava valido dopo tre uscite rosse (padri CM.10, EH.03,
+  CH.04) e l'elenco dei rossi nuovi che si stampava vuoto (PROVENIENZA
+  IGNOTA).
+Le istruzioni della consegna sono in `docs/ordini/DISTRIBUZIONI_DAL_TUO_PC.md`,
+passo 6: commit, spinta, spunta verde su GitHub, build, consegna.
 
 ## Regole ferree
 

@@ -292,6 +292,17 @@ $env:COMANDO_DI_BUILD = "flutter build apk --release"
 python tool/consegna.py build/app/outputs/flutter-apk/app-release.apk "Le note della build"
 ```
 
+**LO SBARRAMENTO LO PUO' FARE GITHUB. Ordine ACCELERA, 26 settembre 2026.**
+La consegna pretende che lo sbarramento sia passato. Prima di tutto chiede a
+GitHub se il cancello e' verde **sul commit da cui hai costruito**, e lo
+accetta solo se l'albero non ha modifiche fuori dai commit, il commit e' gia'
+spinto sul ramo canonico, il numero di build e' lo stesso dell'archivio e
+l'archivio e' stato costruito dopo il commit. Quindi, in ordine: fai il
+commit, spingilo, aspetta la spunta verde su GitHub (lo sbarramento li' e'
+diviso su piu' macchine), costruisci e consegna. Se GitHub non e' verde, la
+consegna guarda il gettone del PC, come prima: per averlo si lancia
+`bash tool/sbarramento.sh`, circa 40 minuti su questo PC.
+
 **Cosa devi leggere.** Righe che dicono che l'archivio e' stato ispezionato,
 caricato e distribuito, e in fondo il numero della release. Lo strumento
 aggiorna da solo `docs/versione_distribuita.json`: **non scrivere quel file a

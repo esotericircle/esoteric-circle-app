@@ -23,6 +23,7 @@ Uso:
 import io
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -217,6 +218,81 @@ def lo_sbarramento_e_passato(numero_atteso):
     return (True, None)
 
 
+RAMO_CANONICO = 'claude/esoteric-circle-master-order-e798aj'
+
+
+def _bash_di_git():
+    """Il bash di Git per Windows: quello di sistema potrebbe essere un altro."""
+    for c in (r'C:\Program Files\Git\bin\bash.exe',
+              r'C:\Program Files\Git\usr\bin\bash.exe',
+              '/usr/bin/bash', '/bin/bash'):
+        if os.path.exists(c):
+            return c
+    return 'bash'
+
+
+def lo_sbarramento_di_github(numero_atteso, archivio):
+    """LO SBARRAMENTO FATTO DA GITHUB, al posto di quello del PC.
+
+    **Ordine ACCELERA, 26 settembre 2026.** Il fondatore: *"Ma ancora
+    sbarramenti da 40 Min?"*. Lo sbarramento del PC (un i5 del 2012, quattro
+    processori) durava circa 40 minuti, e GitHub fa gia' lo stesso cancello a
+    ogni spinta, diviso su piu' macchine. Qui la consegna accetta il suo
+    verdetto, ma **solo se il verdetto e' di questo archivio**:
+      - l'albero non ha modifiche fuori dai commit;
+      - il commit e' sul ramo canonico di GitHub;
+      - il numero di build del pubspec del commit e' quello dell'archivio;
+      - l'archivio e' piu' recente del commit;
+      - `tool/il_cancello_ha_detto_verde.sh`, la stessa porta che usa
+        Codemagic, dice verde su quel commit.
+    Lo scavalco SPEDISCO_SU_ROSSO qui non passa: vale solo per lo sbarramento
+    del PC, dove si stampa.
+    """
+    radice = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+    def git(*argomenti):
+        r = subprocess.run(['git'] + list(argomenti), cwd=radice,
+                           capture_output=True, text=True, encoding='utf-8',
+                           errors='replace')
+        return r.returncode, r.stdout.strip()
+
+    _, commit = git('rev-parse', 'HEAD')
+    _, sporco = git('status', '--porcelain')
+    if sporco:
+        return (False, 'l\'albero ha modifiche fuori dai commit, e il verde '
+                       'di GitHub copre il commit, non loro')
+    git('fetch', '-q', 'origin', RAMO_CANONICO)
+    dentro, _ = git('merge-base', '--is-ancestor', commit,
+                    'origin/' + RAMO_CANONICO)
+    if dentro != 0:
+        return (False, 'il commit ' + commit[:8] + ' non e\' sul ramo '
+                       'canonico di GitHub: spingilo e aspetta il suo verde')
+    _, pubspec = git('show', 'HEAD:pubspec.yaml')
+    trovato = re.search(r'^version: [0-9.]+[+]([0-9]+)', pubspec, re.M)
+    if not trovato or trovato.group(1) != str(numero_atteso):
+        return (False, 'il pubspec del commit dice ' +
+                (trovato.group(1) if trovato else '?') + ' e l\'archivio e\' '
+                'il ' + str(numero_atteso) + ': non viene da questo commit')
+    _, quando = git('log', '-1', '--format=%ct')
+    if os.path.getmtime(archivio) < int(quando or '0'):
+        return (False, 'l\'archivio e\' piu\' vecchio del commit: e\' stato '
+                       'costruito prima, rifallo')
+    ambiente = dict(os.environ, CM_COMMIT=commit, CM_BRANCH=RAMO_CANONICO,
+                    ATTESA_MASSIMA_DEL_LIMITE='120')
+    ambiente.pop('SPEDISCO_SU_ROSSO', None)
+    r = subprocess.run(
+        [_bash_di_git(), os.path.join(radice, 'tool',
+                                      'il_cancello_ha_detto_verde.sh')],
+        cwd=radice, env=ambiente, capture_output=True, text=True,
+        encoding='utf-8', errors='replace')
+    for riga in r.stdout.strip().splitlines()[-4:]:
+        print('  ' + riga)
+    if r.returncode != 0:
+        return (False, 'il cancello di GitHub non e\' verde sul commit ' +
+                commit[:8])
+    return (True, commit)
+
+
 def main():
     if len(sys.argv) < 3:
         raise SystemExit('uso: consegna.py <archivio> "<note>" oppure '
@@ -315,11 +391,23 @@ def main():
     # consegna intera era che questo file non lo nominava affatto.
     print('')
     print('== LO SBARRAMENTO, PRIMA DI CARICARE ==')
-    passato, perche = lo_sbarramento_e_passato(
-        ispeziona_archivio.versione_dall_archivio(archivio))
-    if not passato:
-        raise SystemExit('SBARRAMENTO NON PASSATO. ' + perche)
-    print('  lo sbarramento e passato su questo albero.')
+    numero_dell_archivio = ispeziona_archivio.versione_dall_archivio(archivio)
+    # **PRIMA GITHUB, poi il gettone del PC. Ordine ACCELERA.** Il verdetto di
+    # GitHub e' legato al commit, il gettone solo al numero di build.
+    su_github, dettaglio = lo_sbarramento_di_github(numero_dell_archivio,
+                                                    archivio)
+    if su_github:
+        cancello = 'github ' + dettaglio
+        print('  lo sbarramento e passato su GitHub, sul commit ' +
+              dettaglio[:8] + '.')
+    else:
+        print('  GitHub non basta: ' + dettaglio + '. Guardo il gettone del PC.')
+        passato, perche = lo_sbarramento_e_passato(numero_dell_archivio)
+        if not passato:
+            raise SystemExit('SBARRAMENTO NON PASSATO. ' + perche +
+                             '. E su GitHub: ' + dettaglio)
+        cancello = 'locale'
+        print('  lo sbarramento e passato su questo albero.')
 
     comando = os.environ.get('COMANDO_DI_BUILD', '').strip()
     if not comando:
@@ -414,6 +502,8 @@ def main():
     # quando qualcuno si e' ricordato di scriverlo.
     reg['peso_archivio_byte'] = peso
     reg['comando_di_build'] = comando
+    # Quale cancello ha lasciato passare questo archivio (ordine ACCELERA).
+    reg['sbarramento'] = cancello
     # **E SI SCRIVE ANCHE SE L'ARCHIVIO E' STATO ACCESO, ordine CN.**
     #
     # Il salto della prova di accensione si stampava a video e non
