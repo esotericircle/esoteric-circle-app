@@ -5270,6 +5270,33 @@ l'immagine della scheda.
 e `ordine_ep_guard`, registro a **537**. Una e' nata cieca due volte, la prova
 dei contatori, e il registro lo dice.
 
+**BUILD 2284 CONSEGNATA SU APP DISTRIBUTION** il 26 settembre 2026, solo
+Android, release `75d2m2gf1nj9g`, costruita dal commit `cfefb7c1` (228.023.141
+byte), distribuita a cloud@esotericircle.app, un invito accettato; accensione
+sul Realme riuscita prima del caricamento. Sbarramento passato con **5.994
+prove** e i soli rossi accettati; il primo giro dello sbarramento aveva due
+rossi nuovi, entrambi di questo ordine: il commit non ancora spinto, e la
+chiave del puntino d'oro fra i dati che si cancellano ma non fra quelli che
+si scaricano (BC.02, padre EP.06), riparata. Sullo stesso commit il cancello
+di GitHub (`verde.yml`) e' verde: la build iOS si puo' lanciare su Codemagic,
+**dopo il passo sul portale Apple** della capacita' Associated Domains (vedi
+la sezione dell'ordine EO). Prima della consegna, sul Realme, tre archivi di
+prova hanno portato tre riparazioni della voce EP.07 e il cambio della scheda
+Consulta in orizzontale chiesto dal fondatore.
+
+**L'ACCELERAZIONE.** Il fondatore, il 26 settembre 2026: *"Ma non c'è modo
+di accelerare Suite, sbarramenti, ecc?"* e *"Ma se l'accelerazione è sempre
+disponibile, usala sempre"*. Il PC e' un Intel Core i5-3450 del 2012, 4
+processori logici, 16 GB: la suite intera dura circa 38 minuti, lo
+sbarramento su GitHub circa 33. Scelta del fondatore: **subito dopo la 2284**
+si costruisce la suite divisa su piu' macchine di GitHub e la consegna che
+accetta il verdetto verde di GitHub al posto dello sbarramento locale. La
+mappa delle modifiche e dei rischi e' pronta: la divisione standard di
+Flutter spezza le prove dentro ogni file e fa ricompilare tutti i file a ogni
+macchina, quindi si divide per file; e nello sbarramento ci sono due difetti
+gia' presenti, il gettone che non si cancella su tutte le uscite rosse e
+l'elenco dei rossi nuovi che si stampa vuoto.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.

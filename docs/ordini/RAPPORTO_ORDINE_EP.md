@@ -83,6 +83,14 @@ Guardie nuove: **tre**, tutte viste rosse con l'innesto verificato, registro
 prove che aprivano la chat. La suite intera e lo sbarramento sono nel
 paragrafo della consegna.
 
+## LA CONSEGNA
+
+**Build 2284 consegnata su App Distribution**, solo Android, release
+`75d2m2gf1nj9g`, dal commit `cfefb7c1`, a cloud@esotericircle.app, un invito
+accettato; accesa sul Realme prima di caricarla. Sbarramento passato con
+**5.994 prove** e i soli rossi accettati; sullo stesso commit il cancello di
+GitHub e' verde.
+
 ## L'IPHONE
 
 La build iOS la lanci tu su Codemagic. **Prima di lanciarla**, il passo sul
