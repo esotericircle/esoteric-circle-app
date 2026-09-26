@@ -57,8 +57,17 @@ void main() {
     expect(ingresso, findsWidgets);
     expect(titolo, findsWidgets,
         reason: 'la sezione delle arti non e\' montata: niente da misurare');
-    final vuoto = tester.getRect(titolo.first).top -
-        tester.getRect(ingresso.first).bottom;
+    // **LAPIDE: fino all'ordine EN il blocco d'ingresso finiva col pulsante
+    // "Entra nel Dominio"**, e il vuoto si misurava dal suo fondo.
+    // **Dall'ordine EO voce 08** sotto "Entra" c'e' "Consulta": il blocco
+    // finisce li', e il vuoto comincia dal piu' basso dei due.
+    final consulta = find.byKey(const Key('santuario_consulta'));
+    expect(consulta, findsWidgets);
+    final fondoDellIngresso = [
+      tester.getRect(ingresso.first).bottom,
+      tester.getRect(consulta.first).bottom,
+    ].reduce((a, b) => a > b ? a : b);
+    final vuoto = tester.getRect(titolo.first).top - fondoDellIngresso;
     // **LA MISURA SI DICHIARA.**
     // ignore: avoid_print
     print('ORDINE AJ VOCE 03: vuoto reso fra ingresso e arti '

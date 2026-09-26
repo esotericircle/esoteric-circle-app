@@ -84,9 +84,22 @@ void main() {
     final rettangoloTitolo =
         scatolaTitolo.localToGlobal(Offset.zero) & scatolaTitolo.size;
 
-    final vuoto = rettangoloTitolo.top - rigaDelleArti.bottom;
+    // **LAPIDE: fino all'ordine EN il vuoto si misurava dal fondo della riga
+    // delle arti**, perche' fino all'ordine AS la riga stava sotto il
+    // pulsante ed era l'ultima cosa del blocco d'ingresso. Da allora sotto la
+    // riga c'era "Entra", e **dall'ordine EO voce 08** anche "Consulta": il
+    // vuoto che nessuno ha voluto comincia dal fondo del blocco, cioe' dal
+    // piu' basso dei tre.
+    final fondoDelBlocco = [
+      rigaDelleArti.bottom,
+      tester
+          .getRect(find.byKey(const Key('santuario_enter_domain')).first)
+          .bottom,
+      tester.getRect(find.byKey(const Key('santuario_consulta')).first).bottom,
+    ].reduce((a, b) => a > b ? a : b);
+    final vuoto = rettangoloTitolo.top - fondoDelBlocco;
     debugPrint('VUOTO SOTTO I MAESTRI: ${vuoto.toStringAsFixed(1)} punti '
-        '(arti fino a ${rigaDelleArti.bottom.toStringAsFixed(1)}, titolo da '
+        '(blocco fino a ${fondoDelBlocco.toStringAsFixed(1)}, titolo da '
         '${rettangoloTitolo.top.toStringAsFixed(1)})');
 
     // **LA SOGLIA E' DERIVATA, non scelta a occhio.** Sotto la riga delle arti

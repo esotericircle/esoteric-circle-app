@@ -26,6 +26,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../services/app_services.dart';
+import '../maestri/chat/maestro_chat_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/identity/account_del_cerchio.dart';
@@ -462,6 +463,19 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     );
   }
 
+  /// **LA CHAT DEL MAESTRO CHE STA DAVANTI. Ordine EO voce 08.** Il
+  /// fondatore: *"Meglio il tuo pulsante in alto ma sotto il pulsante "entra
+  /// nel dominio" perche' c'e' spazio."* Si apre la stessa chat che apre la
+  /// scheda "Consulta" del dominio, dello stesso Maestro, senza passare dal
+  /// dominio.
+  void _consulta(BuildContext context, Maestro maestro) {
+    context.read<MaestroController>().selectMaestro(maestro);
+    final services = context.read<AppServices>();
+    Navigator.of(context).push(
+      MaestroChatScreen.route(maestro: maestro, services: services),
+    );
+  }
+
   void _selectSide(BuildContext context, Maestro maestro) {
     context.read<MaestroController>().selectMaestro(maestro);
   }
@@ -884,7 +898,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
         // differenziale `pulsante_non_copre_carta_test`, che ha preso
         // questa regressione il giorno stesso: chi cambia i ruoli della
         // scala la vede rossa e legge qui quanto vale adesso.
-        final entryZone = _altezzaIngresso ?? 106.0;
+        final entryZone = _altezzaIngresso ?? 125.0;
         // Le carte partono sopra la zona d'ingresso, con un margine d'aria.
         //
         // Il margine era il due per cento e NON bastava, perche' la figura
@@ -1415,6 +1429,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                   child: _DomainEntry(
                     maestro: central,
                     onTap: () => _enterDomain(context, central),
+                    onConsulta: () => _consulta(context, central),
                   ),
                 ),
               ),
@@ -1955,10 +1970,17 @@ class _PostoInCerchio {
 /// carta centrale e congiunge le due carte laterali dei Maestri. Oro luminoso a
 /// bassa opacita', premium e non invadente, sopra il cosmo e sotto i busti.
 class _DomainEntry extends StatelessWidget {
-  const _DomainEntry({required this.maestro, required this.onTap});
+  const _DomainEntry({
+    required this.maestro,
+    required this.onTap,
+    required this.onConsulta,
+  });
 
   final Maestro maestro;
   final VoidCallback onTap;
+
+  /// Apre la chat del Maestro che sta davanti. Ordine EO voce 08.
+  final VoidCallback onConsulta;
 
   @override
   Widget build(BuildContext context) {
@@ -2034,8 +2056,127 @@ class _DomainEntry extends StatelessWidget {
         // della bolla. Qui si restituisce l'altezza guadagnata: le arti stanno
         // su una riga e l'aria fra loro e il pulsante e' quella minima.
         const SizedBox(height: SpacingTokens.xs),
-        _EnterDomainButton(maestro: maestro, onTap: onTap),
+        // **SOTTO, LA CHAT. Ordine EO voce 08.** Il tocco sul Maestro apre
+        // ancora il dominio (*"No, il click sul maestro apre il dominio."*):
+        // questo e' un secondo pulsante, piu' sommesso del primo, perche' la
+        // porta principale resta il dominio.
+        //
+        // **CON IL TESTO MOLTO GRANDE STA ACCANTO, IN TONDO.** Misurato con
+        // `pulsante_non_copre_carta` a testo 1,6 con le barre di sistema: il
+        // blocco d'ingresso sale a 125 punti, lo spazio concesso al busto
+        // scende sotto il pavimento di 150 e la figura dipinge 37.749 pixel
+        // dentro la zona del pulsante. Sotto quel pavimento un Maestro non si
+        // riconosce piu', quindi non si abbassa: il pulsante diventa un tondo
+        // con l'icona della chat, accanto a "Entra", con la stessa etichetta
+        // per chi legge con la voce.
+        if (MediaQuery.textScalerOf(context).scale(1) <=
+            _ConsultaButton.scalaMassimaSotto) ...[
+          _EnterDomainButton(maestro: maestro, onTap: onTap),
+          const SizedBox(height: SpacingTokens.xs),
+          _ConsultaButton(maestro: maestro, onTap: onConsulta),
+        ] else
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                  child: _EnterDomainButton(maestro: maestro, onTap: onTap)),
+              const SizedBox(width: SpacingTokens.xs),
+              _ConsultaButton(maestro: maestro, onTap: onConsulta, tondo: true),
+            ],
+          ),
       ],
+    );
+  }
+}
+
+/// Il pulsante "Consulta [Nome]", sotto "Entra nel Dominio". Ordine EO voce
+/// 08. Stessa forma a pillola, senza il riempimento: e' la seconda porta.
+class _ConsultaButton extends StatelessWidget {
+  const _ConsultaButton(
+      {required this.maestro, required this.onTap, this.tondo = false});
+
+  final Maestro maestro;
+  final VoidCallback onTap;
+
+  /// Il tondo con la sola icona, accanto a "Entra", per il testo grande.
+  final bool tondo;
+
+  /// Fino a questa scala del testo il pulsante sta sotto "Entra". **Misurata,
+  /// non scelta**: con `pulsante_non_copre_carta` a 360 per 797 con le barre
+  /// di sistema, a testo 1,1 la figura dipinge zero pixel sotto i pulsanti, a
+  /// 1,2 ne dipinge 3.189.
+  static const double scalaMassimaSotto = 1.1;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = MaestroPalette.forKey(ThemeKey.of(maestro));
+    final etichetta = 'Consulta ${maestro.displayName}';
+    if (tondo) {
+      return Tooltip(
+        message: etichetta,
+        child: Semantics(
+          button: true,
+          label: etichetta,
+          excludeSemantics: true,
+          child: Material(
+            color: Colors.transparent,
+            shape: const CircleBorder(),
+            child: InkWell(
+              enableFeedback: false,
+              key: const Key('santuario_consulta'),
+              onTap: onTap,
+              customBorder: const CircleBorder(),
+              child: Container(
+                width: 44,
+                height: 44,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: palette.deepest.withValues(alpha: 0.35),
+                  border:
+                      Border.all(color: palette.gold.withValues(alpha: 0.4)),
+                ),
+                alignment: Alignment.center,
+                child: Icon(Icons.forum_outlined,
+                    size: 20, color: palette.goldSoft),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        enableFeedback: false,
+        key: const Key('santuario_consulta'),
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+        child: Container(
+          padding: const EdgeInsets.symmetric(
+              horizontal: SpacingTokens.sm, vertical: 7),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+            color: palette.deepest.withValues(alpha: 0.35),
+            border: Border.all(color: palette.gold.withValues(alpha: 0.4)),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.forum_outlined, size: 16, color: palette.goldSoft),
+              const SizedBox(width: 8),
+              Flexible(
+                child: Text(
+                  etichetta,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: palette.goldSoft, letterSpacing: 0.3),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
