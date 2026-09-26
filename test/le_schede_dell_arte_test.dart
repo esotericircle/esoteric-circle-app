@@ -723,6 +723,7 @@ void main() {
     expect(find.text('Le arti preferite'), findsOneWidget);
 
     var confrontate = 0;
+    var rimandate = 0;
     for (final r in righe) {
       expect(r.formato, formatiDelFondatore[r.titolo],
           reason: 'la riga "${r.titolo}" ha il formato sbagliato');
@@ -757,14 +758,42 @@ void main() {
         if (px >= posizione.maxScrollExtent) break;
       }
       confrontate += aVideo.length;
-      expect(aVideo, elencoDelFondatore[r.titolo],
+      // **LAPIDE: fino al 26 settembre 2026, a meta' giornata, l'ordine a
+      // video era l'elenco alla lettera.** Poi il fondatore: *"se capitasse
+      // cambia ordine di apparizione orizzontale e sposta la scheda doppione
+      // fuori dalla vista, cioè verso il fondo orizzontale della categoria"*.
+      // Adesso: le stesse arti dell'elenco; tolte quelle rimandate in fondo,
+      // le altre stanno nell'ordine dell'elenco; e le rimandate stanno in
+      // fondo, nel loro ordine. Che le rimandate siano proprio i doppioni in
+      // vista lo misura `nessun_doppione_in_vista_test`.
+      final elenco = elencoDelFondatore[r.titolo]!;
+      expect(aVideo.toSet(), elenco.toSet(),
           reason: 'le schede della riga "${r.titolo}" non sono quelle del '
-              'fondatore, in quell\'ordine');
+              'fondatore');
+      expect(aVideo.length, elenco.length);
+      // Il punto dove comincia la coda delle rimandate: la piu' lunga coda
+      // di aVideo che, tolta, lascia il resto nell'ordine dell'elenco.
+      bool inOrdine(List<String> l) {
+        final posti = [for (final x in l) elenco.indexOf(x)];
+        for (var k = 1; k < posti.length; k++) {
+          if (posti[k] < posti[k - 1]) return false;
+        }
+        return true;
+      }
+
+      var taglio = aVideo.length;
+      while (taglio > 0 && !inOrdine(aVideo.sublist(0, taglio))) {
+        taglio--;
+      }
+      expect(inOrdine(aVideo.sublist(taglio)), isTrue,
+          reason: 'nella riga "${r.titolo}" le schede rimandate in fondo non '
+              'stanno nel loro ordine: $aVideo');
+      rimandate += aVideo.length - taglio;
     }
     // ignore: avoid_print
     print(
         'EO.09 MISURA: righe ${righe.length} su ${elencoDelFondatore.length}, '
-        'schede confrontate $confrontate');
+        'schede confrontate $confrontate, rimandate in fondo $rimandate');
     cardinaleMinimo(confrontate, 50,
         cosa: 'schede delle righe della home',
         perche: 'oggi sono 56, margine dichiarato di sei.');

@@ -85,17 +85,20 @@ void main() {
     expect(find.byKey(const Key('riga_titolo_la_tua_energia')), findsOneWidget);
     // Una riga scorre di lato, col dito.
     final riga = find.byKey(const Key('riga_scorre_la_tua_energia'));
-    final prima = tester
-        .getTopLeft(find.byKey(const Key('riga_la_tua_energia_chakra_scan')))
-        .dx;
+    // La prima scheda della riga, qualunque sia: dal 26 settembre 2026 i
+    // doppioni in vista vanno in fondo, e l'ordine dipende da cio' che le
+    // righe sopra mostrano.
+    final primaArte = tester
+        .widgetList<LaRigaDelleSchede>(find.byType(LaRigaDelleSchede))
+        .firstWhere((r) => r.chiave == 'la_tua_energia')
+        .arti
+        .first
+        .id;
+    final scheda = find.byKey(Key('riga_la_tua_energia_$primaArte'));
+    final prima = tester.getTopLeft(scheda).dx;
     await tester.drag(riga, const Offset(-200, 0));
     await tester.pump(const Duration(milliseconds: 500));
-    expect(
-        tester
-            .getTopLeft(
-                find.byKey(const Key('riga_la_tua_energia_chakra_scan')))
-            .dx,
-        lessThan(prima),
+    expect(tester.getTopLeft(scheda).dx, lessThan(prima),
         reason: 'su iPhone la riga non scorre di lato');
   }, variant: soloIos);
 

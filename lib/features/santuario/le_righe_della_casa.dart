@@ -12,7 +12,8 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../schede/la_luce_delle_schede.dart';
 import '../maestri/rotta_arte.dart';
 import '../schede/la_riga_delle_schede.dart';
-import '../schede/la_scheda_dell_arte.dart' show maestroDiArte;
+import '../../design_system/tokens/spacing_tokens.dart';
+import '../schede/la_scheda_dell_arte.dart';
 import 'widgets/tue_arti_view.dart' show mostraSceltaArti;
 
 /// Una riga della home: la chiave, il titolo, il formato, le arti in ordine.
@@ -166,6 +167,63 @@ abstract final class LeRigheDellaCasa {
         if (tutte[id] != null && ArtCatalog.isVisible(tutte[id]!)) tutte[id]!,
     ];
   }
+
+  /// **Quante schede di una riga si vedono senza scorrere di lato**, in una
+  /// vista larga [larghezzaVista]: conta anche quella tagliata dal bordo,
+  /// perche' l'occhio la riconosce.
+  static int visibiliSenzaScorrere(FormatoDellaScheda formato,
+      {required double larghezzaVista, double scalaDelTesto = 1}) {
+    final scheda =
+        LaSchedaDellArte.larghezzaPer(formato, scalaDelTesto: scalaDelTesto);
+    var quante = 0;
+    while (SpacingTokens.lg + quante * (scheda + LaRigaDelleSchede.spazio) <
+        larghezzaVista) {
+      quante++;
+    }
+    return quante;
+  }
+
+  /// **NESSUNA SCHEDA DOPPIA IN VISTA.** Richiesta del fondatore del 26
+  /// settembre 2026, a ordine EO aperto: *"dalla apertura della home Senza
+  /// spostare le categorie verso destra, fai in modo che scorrendo verso il
+  /// basso non si vedano la stessa scheda funzionalità ... Se capitasse z
+  /// cambia ordine di apparizione orizzontale e sposta la scheda doppione
+  /// fuori dalla vista, cioè verso il fondo orizzontale della categoria."*
+  ///
+  /// Si scorrono le righe dall'alto. In ciascuna, i posti in vista
+  /// ([visibili]) si riempiono con le arti non ancora viste piu' su,
+  /// nell'ordine del fondatore; un'arte gia' vista che cadrebbe in vista va
+  /// in fondo alla riga; le altre restano dove sono. **Dove le arti nuove non
+  /// bastano a riempire la vista** il doppione resta, il primo dei rimandati:
+  /// una riga non si accorcia per nasconderlo.
+  static List<List<ArtEntry>> senzaDoppioniInVista(
+      List<({List<ArtEntry> arti, int visibili})> righe) {
+    final viste = <String>{};
+    return [
+      for (final r in righe)
+        () {
+          final davanti = <ArtEntry>[];
+          final rimandate = <ArtEntry>[];
+          final resto = <ArtEntry>[];
+          for (final a in r.arti) {
+            if (davanti.length < r.visibili) {
+              (viste.contains(a.id) ? rimandate : davanti).add(a);
+            } else {
+              resto.add(a);
+            }
+          }
+          while (davanti.length < r.visibili && resto.isNotEmpty) {
+            final a = resto.removeAt(0);
+            (viste.contains(a.id) ? rimandate : davanti).add(a);
+          }
+          while (davanti.length < r.visibili && rimandate.isNotEmpty) {
+            davanti.add(rimandate.removeAt(0));
+          }
+          viste.addAll(davanti.map((a) => a.id));
+          return [...davanti, ...resto, ...rimandate];
+        }(),
+    ];
+  }
 }
 
 /// La vista delle righe, sotto il blocco dei Maestri.
@@ -185,6 +243,21 @@ class LeRigheDellaCasaView extends StatelessWidget {
             ? preferite.ids
             : ArtiPreferiteController.semePer(
                 context.read<MaestroController?>()?.activeMaestro);
+    // Le schede in vista si calcolano sulla larghezza vera dello schermo e
+    // sulla scala del testo, che allarga le schede.
+    final larghezzaVista = MediaQuery.sizeOf(context).width;
+    final scala = MediaQuery.textScalerOf(context).scale(1);
+    int inVista(FormatoDellaScheda f) =>
+        LeRigheDellaCasa.visibiliSenzaScorrere(f,
+            larghezzaVista: larghezzaVista, scalaDelTesto: scala);
+    final ordinate = LeRigheDellaCasa.senzaDoppioniInVista([
+      (
+        arti: LeRigheDellaCasa.artiDi(ids),
+        visibili: inVista(FormatoDellaScheda.quadrata)
+      ),
+      for (final r in LeRigheDellaCasa.righe)
+        (arti: LeRigheDellaCasa.artiDi(r.arti), visibili: inVista(r.formato)),
+    ]);
     return LaLuceDelleSchede(
       sensore: sensore,
       child: Column(
@@ -207,7 +280,7 @@ class LeRigheDellaCasaView extends StatelessWidget {
                           ThemeKey.of(maestroDiArte(context, art.id))),
                     ),
             formato: FormatoDellaScheda.quadrata,
-            arti: LeRigheDellaCasa.artiDi(ids),
+            arti: ordinate.first,
             azione: preferite == null
                 ? null
                 : IconButton(
@@ -219,12 +292,13 @@ class LeRigheDellaCasaView extends StatelessWidget {
                     onPressed: () => mostraSceltaArti(context),
                   ),
           ),
-          for (final r in LeRigheDellaCasa.righe)
+          for (var i = 0; i < LeRigheDellaCasa.righe.length; i++)
             LaRigaDelleSchede(
-              chiave: r.chiave,
-              titolo: LaMarcaDelGenere.risolvi(r.titolo),
-              formato: r.formato,
-              arti: LeRigheDellaCasa.artiDi(r.arti),
+              chiave: LeRigheDellaCasa.righe[i].chiave,
+              titolo:
+                  LaMarcaDelGenere.risolvi(LeRigheDellaCasa.righe[i].titolo),
+              formato: LeRigheDellaCasa.righe[i].formato,
+              arti: ordinate[i + 1],
             ),
         ],
       ),
