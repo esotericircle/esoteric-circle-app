@@ -3,7 +3,8 @@ import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {join} from "node:path";
 import {
-  I_MODELLI_DELLA_VOCE, LE_CANDIDATE, eUnaVoceChirp, laStanzaE,
+  I_MODELLI_DELLA_VOCE, LE_CANDIDATE, LE_VOCI_DI_PARTENZA, eUnaVoceChirp,
+  laStanzaE,
 } from "./live";
 
 /**
@@ -82,6 +83,27 @@ test("le candidate sono tutte le voci di Gemini del genere del Maestro, e le ste
   }
   assert.ok(!nomi("caligo").some((v) => nomi("medora").includes(v)),
     "una voce femminile e' finita fra quelle di Caligo");
+});
+
+test("EO.15: la voce di partenza e' quella scelta dal fondatore, fra le candidate, ed e' Gemini", () => {
+  // Il fondatore, 26 settembre 2026: "allego le voci da lasciare di default,
+  // gia' scelte". Parla la partenza quando in configurazione/live.voci la
+  // scelta manca: un profilo nuovo sente queste.
+  const attese: Record<string, string> = {
+    medora: "Erinome", aura: "Sulafat", caligo: "Algenib",
+  };
+  for (const [maestro, voce] of Object.entries(attese)) {
+    assert.equal(LE_VOCI_DI_PARTENZA[maestro]?.voce, voce,
+      `${maestro}: la voce di partenza non e' ${voce}`);
+    const candidata = (LE_CANDIDATE[maestro] ?? []).find((c) => c.voce === voce);
+    assert.ok(candidata, `${voce} non e' fra le candidate di ${maestro}`);
+    assert.equal(candidata?.famiglia, "Gemini");
+    assert.ok(!eUnaVoceChirp(voce));
+  }
+  assert.deepEqual(Object.keys(LE_VOCI_DI_PARTENZA).sort(),
+    ["aura", "caligo", "medora"]);
+  // E la partenza e' davvero cio' che parla quando la scelta manca.
+  assert.match(sorgente, /const voce = valida \? scelta : partenza\.voce;/);
 });
 
 test("il modello della voce si sceglie solo fra quelli verificati, e lo usano il LIVE e l'ascolto", () => {

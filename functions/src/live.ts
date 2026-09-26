@@ -631,7 +631,18 @@ const REGIONE_DELLA_VOCE = "europe-west1";
  * Caligo maschile grave e matura. **Il giudizio sul tono e' del fondatore**:
  * qui c'e' una prima scelta dichiarata, che cambia in una riga.
  */
-const LE_VOCI_DI_PARTENZA: Record<string, {voce: string; modo: string}> = {
+/*
+ * **LE VOCI DI PARTENZA SONO QUELLE DEL FONDATORE.** Ordine EO voce 15, 26
+ * settembre 2026. Il fondatore: *"allego le voci da lasciare di default, gia'
+ * scelte"*, con le catture del selettore: Medora Erinome, limpida; Aura
+ * Sulafat, calda; Caligo Algenib, roca; tutte e tre Gemini. Le aveva gia'
+ * scelte nel selettore la notte del 26 settembre (registro del server, "voce
+ * scelta", 01:49-01:50 UTC), e la scelta in `configurazione/live.voci` vale
+ * per tutti i profili. Qui diventano anche la partenza: la voce che parla
+ * quando quella scelta manca o non e' fra le candidate. Prima erano Sulafat
+ * per Medora e Autonoe per Aura, le prime scelte dell'ordine EG.
+ */
+export const LE_VOCI_DI_PARTENZA: Record<string, {voce: string; modo: string}> = {
   // **IL RITMO E' MISURATO, NON SCELTO A ORECCHIO.** La prima stesura diceva
   // "voce calda, lenta e brunita": il fondatore l'ha sentita nel LIVE il 23
   // settembre 2026 e l'ha trovata "rallentata parecchio". Misurata sul
@@ -639,12 +650,12 @@ const LE_VOCI_DI_PARTENZA: Record<string, {voce: string; modo: string}> = {
   // sta fra 13 e 15. Con "a ritmo sciolto e spedito" le tre voci, due giri
   // ciascuna, hanno dato fra 13,1 e 14,7.
   medora: {
-    voce: "Sulafat",
+    voce: "Erinome",
     modo: "Parla in italiano con voce calda e brunita di donna matura, a " +
       "ritmo sciolto e spedito, come in una conversazione vivace:",
   },
   aura: {
-    voce: "Autonoe",
+    voce: "Sulafat",
     modo: "Parla in italiano con voce chiara e luminosa, a ritmo sciolto " +
       "e spedito, come in una conversazione vivace:",
   },
