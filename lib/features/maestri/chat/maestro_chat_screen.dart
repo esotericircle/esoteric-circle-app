@@ -575,12 +575,10 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         // stessa non puo' chiederlo a nessuno.
         scalaDelTesto: MediaQuery.textScalerOf(context).scale(1),
         // Lo schermo meno i due angoli, dove stanno la freccia e il pulsante.
-        // Ordine EJ voce 10: la colonna di destra e' larga quanto la
-        // pastiglia "Dal vivo", non piu' quanto l'icona, e il titolo cede
-        // la differenza.
-        larghezzaDelTitolo: MediaQuery.sizeOf(context).width -
-            112 -
-            (LaPortaDelVivo.larghezza + SpacingTokens.xs - 48),
+        // Ordine EJ voce 10: la colonna di destra era larga quanto la
+        // pastiglia "Dal vivo". **Dall'ordine EO voce 16 la pastiglia sta
+        // accanto ai contatori**, e il titolo riprende i suoi quaranta punti.
+        larghezzaDelTitolo: MediaQuery.sizeOf(context).width - 112,
         // Il volto appare nell'header a conversazione avviata: il mezzo busto
         // dello stato vuoto si e' rimpicciolito qui. Pulsa quando risponde.
         showAvatar: hasMessages,
@@ -652,21 +650,46 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                   // scorre passava sotto quelle due righe e diventavano
                   // illeggibili tutti e due. Qui stanno sopra la conversazione,
                   // che comincia dove loro finiscono.
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                  // **LA PASTIGLIA "DAL VIVO" ACCANTO AI CONTATORI. Ordine EO
+                  // voce 16, 26 settembre 2026.** Il fondatore: *"il
+                  // pulsante "dal vivo" lo metti a fianco alle due righe dei
+                  // contatori"*. Stava nella testata, impilata sopra l'icona
+                  // della conversazione nuova (ordine EJ voce 10): adesso sta
+                  // a destra delle due righe, centrata sulla loro altezza, e
+                  // come loro non scorre.
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: SpacingTokens.lg),
+                    child: Row(
+                      key: const Key('chat_contatori_e_dal_vivo'),
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        // Strette, ordine EA voce 09.
-                        RigaDelResiduo(
-                            key: Key('chat_residuo_domande'),
-                            budget: BudgetDelGiorno.domande,
-                            stretta: true),
-                        RigaDelResiduo(
-                            key: Key('chat_residuo_approfondimenti'),
-                            budget: BudgetDelGiorno.approfondimenti,
-                            stretta: true),
+                        const Expanded(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Strette, ordine EA voce 09.
+                              RigaDelResiduo(
+                                  key: Key('chat_residuo_domande'),
+                                  budget: BudgetDelGiorno.domande,
+                                  stretta: true),
+                              RigaDelResiduo(
+                                  key: Key('chat_residuo_approfondimenti'),
+                                  budget: BudgetDelGiorno.approfondimenti,
+                                  stretta: true),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(width: SpacingTokens.sm),
+                        LaPortaDelVivo(
+                          maestro: widget.maestro,
+                          onEntra: () =>
+                              Navigator.of(context).push(SchermataLive.route(
+                            maestro: widget.maestro,
+                            chat: controller,
+                          )),
+                        ),
                       ],
                     ),
                   ),
@@ -1425,23 +1448,14 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
         // 5 conversazioni con il loro titolo"*. Prima la nuova, poi le
         // passate dalla piu' recente, poi i giorni prima, che portano al
         // Journal per tutto il resto.
-        // **LA PASTIGLIA "DAL VIVO" SOPRA L'ICONA DELLA CONVERSAZIONE
-        // NUOVA. Ordine EJ voce 10.** Accanto a lei e non in fila: in fila
-        // avrebbe tolto al titolo novanta punti, e il nome del Maestro non ci
-        // stava piu'. Impilate, il titolo cede solo la differenza fra la
-        // pastiglia e l'icona.
+        // **LA PASTIGLIA "DAL VIVO" STAVA QUI, sopra l'icona della
+        // conversazione nuova (ordine EJ voce 10). Dall'ordine EO voce 16 sta
+        // accanto ai due contatori**, sotto la testata.
         Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            LaPortaDelVivo(
-              maestro: maestro,
-              onEntra: () => Navigator.of(context).push(SchermataLive.route(
-                maestro: maestro,
-                chat: context.read<MaestroChatController>(),
-              )),
-            ),
             SizedBox(
               height: _altezzaDelMenu,
               child: PopupMenuButton<Object>(

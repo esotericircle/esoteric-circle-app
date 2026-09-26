@@ -155,14 +155,31 @@ void main() {
                 of: chiusa, matching: find.byIcon(Icons.lock_rounded)),
             findsOneWidget);
 
-        // Non copre il nome ne' le arti.
+        // **ACCANTO AI CONTATORI, ordine EO voce 16.** Il fondatore: *"il
+        // pulsante "dal vivo" lo metti a fianco alle due righe dei
+        // contatori"*. LAPIDE: fino all'ordine EN questa prova pretendeva la
+        // pastiglia nella testata, a destra del nome (ordine EJ voce 10).
         final pastiglia = tester.getRect(chiusa);
         final nome =
             tester.getRect(find.byKey(const Key('chat_nome_del_maestro')));
+        final domande =
+            tester.getRect(find.byKey(const Key('chat_residuo_domande')));
+        final approfondimenti = tester
+            .getRect(find.byKey(const Key('chat_residuo_approfondimenti')));
         expect(pastiglia.overlaps(nome), isFalse,
             reason: 'la pastiglia copre il nome del Maestro');
-        expect(pastiglia.left, greaterThanOrEqualTo(nome.right),
-            reason: 'la pastiglia sta sopra il nome');
+        expect(pastiglia.top, greaterThanOrEqualTo(nome.bottom),
+            reason: 'la pastiglia e\' ancora nella testata');
+        for (final riga in [domande, approfondimenti]) {
+          expect(pastiglia.overlaps(riga), isFalse,
+              reason: 'la pastiglia copre un contatore');
+          expect(pastiglia.left, greaterThanOrEqualTo(riga.right - 0.5),
+              reason: 'la pastiglia non sta a destra dei contatori');
+        }
+        final centroDeiContatori = (domande.top + approfondimenti.bottom) / 2;
+        expect((pastiglia.center.dy - centroDeiContatori).abs(), lessThan(2),
+            reason: 'la pastiglia non e\' allineata alle due righe: centro '
+                '${pastiglia.center.dy} contro $centroDeiContatori');
 
         // Non si muove quando si scorre.
         await scorriIndietro(tester);
