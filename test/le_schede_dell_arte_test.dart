@@ -583,6 +583,17 @@ void main() {
     }
     expect(scale[alCentro]!, lessThanOrEqualTo(LaRigaDelleSchede.sollevamento),
         reason: 'si ingrandisce appena, non di piu\'');
+    // **L'OMBRA COPRE LA SOLA IMMAGINE**, non il titolo ne' l'aria sotto:
+    // la prima stesura disegnava un rettangolo scuro sotto i titoli, visto
+    // sul Realme con la build di misura.
+    final altezzaImmagine =
+        LaSchedaDellArte.larghezzaPer(FormatoDellaScheda.orizzontale) /
+            FormatoDellaScheda.orizzontale.proporzione;
+    for (final i in ombre.keys) {
+      expect(tester.getSize(find.byKey(Key('scheda_ombra_$i'))).height,
+          lessThanOrEqualTo(altezzaImmagine + 0.5),
+          reason: 'l\'ombra della scheda $i copre piu\' della sua immagine');
+    }
 
     await montaRiga(tester, riduci: true);
     expect(

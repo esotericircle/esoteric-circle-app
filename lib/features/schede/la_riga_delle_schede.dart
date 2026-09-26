@@ -197,6 +197,7 @@ class _LaRigaDelleSchedeState extends State<LaRigaDelleSchede> {
                     indice: i,
                     passo: larghezza + LaRigaDelleSchede.spazio,
                     larghezza: larghezza,
+                    altezzaImmagine: larghezza / widget.formato.proporzione,
                     vista: vista,
                     child: scheda,
                   );
@@ -217,6 +218,7 @@ class _AlCentro extends StatelessWidget {
     required this.indice,
     required this.passo,
     required this.larghezza,
+    required this.altezzaImmagine,
     required this.vista,
     required this.child,
   });
@@ -225,6 +227,9 @@ class _AlCentro extends StatelessWidget {
   final int indice;
   final double passo;
   final double larghezza;
+
+  /// L'altezza dell'immagine della scheda: l'ombra copre solo lei.
+  final double altezzaImmagine;
   final double vista;
   final Widget child;
 
@@ -246,12 +251,24 @@ class _AlCentro extends StatelessWidget {
           child: Stack(
             children: [
               figlio!,
-              Positioned.fill(
+              // **L'OMBRA STA SULLA SOLA IMMAGINE.** La prima stesura copriva
+              // tutto il riquadro della scheda, titolo e aria sotto compresi,
+              // e con le animazioni accese si vedeva un rettangolo scuro
+              // sotto i titoli: visto sul Realme con la build di misura.
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                height: altezzaImmagine,
                 child: IgnorePointer(
-                  child: ColoredBox(
-                    key: Key('scheda_ombra_$indice'),
-                    color: Colors.black
-                        .withValues(alpha: LaRigaDelleSchede.ombra * (1 - t)),
+                  child: ClipRRect(
+                    borderRadius:
+                        BorderRadius.circular(SpacingTokens.radiusSm + 4),
+                    child: ColoredBox(
+                      key: Key('scheda_ombra_$indice'),
+                      color: Colors.black
+                          .withValues(alpha: LaRigaDelleSchede.ombra * (1 - t)),
+                    ),
                   ),
                 ),
               ),
