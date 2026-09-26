@@ -62,8 +62,8 @@ class ImprontaDellIstruzione {
         'per cento, media 92,8 (167 su 180). Caduta con l\'ordine EO voce 11: '
         'le arti dei Maestri, che la persona nomina, hanno i nomi e l\'ordine '
         'nuovi delle sezioni (la sezione delle rune si chiama Divinazione, '
-        'quella degli archetipi Fisiognomica; Energia viene prima di '
-        'Chakra); anche le arti degli altri due cambiano con loro in tutte e '
+        'quella degli archetipi si chiama Fisiognomica; cambia anche l\'ordine '
+        'delle sezioni di Aura); anche le arti degli altri due cambiano con loro in tutte e '
         'tre le istruzioni.',
     'DAL 24 SETTEMBRE 2026, IL POMERIGGIO, AL 25 SETTEMBRE 2026. Impronte: '
         'medora '
