@@ -17,8 +17,12 @@ class SezioneDellaPolicy {
   final String corpo;
 }
 
-/// La data dell'ultima revisione, mostrata in testa.
-const String dataDellaPolicy = '24 agosto 2026';
+/// La data dell'ultima revisione, mostrata in testa. **25 settembre 2026**:
+/// il testo e' cambiato quel giorno ("Mappa del Viso" al posto di
+/// "Costellazione del Viso", ordine EN voce 11), e il fondatore ha deciso
+/// che la data passasse con la build successiva (*"La farai con la prossima
+/// build"*), cioe' con quella dell'ordine EO.
+const String dataDellaPolicy = '25 settembre 2026';
 
 /// Il titolare del trattamento e il contatto.
 const String titolareDellaPolicy =
