@@ -5086,6 +5086,104 @@ suite intera prima del commit dieci guardie di casa hanno preso difetti di
 quest'ordine, tutti riparati (il registro `docs/guardie.md` li elenca).
 Registro a **525**.
 
+## L'ORDINE EO, LA NUOVA HOME A SCHEDE, I DOMINI RIORDINATI E IL LIVE PIU' PRONTO
+
+Ordine del 26 settembre 2026, **sedici voci piu' una nata a ordine aperto**
+(EO.17), lavorato lo stesso giorno. Manifesto
+`docs/ordini/ORDINE_EO_MANIFESTO.md`, rapporto
+`docs/ordini/RAPPORTO_ORDINE_EO.md`, prove in `docs/collaudo/EO/` (quelle del
+telefono in `docs/collaudo/EO/realme/`). Le consegne del fondatore: procedere
+senza fermarsi con le risposte consigliate, provare tutto sul telefono,
+controllare l'iPhone, consegnare la build; *"Non consegnare la versione
+iPhone,.prima devo controllare io"*. **Quattordici voci chiuse**; **tre in
+attesa del fondatore**: EO.06 ed EO.07 (riflesso e scheda al centro, spenti
+sul suo Realme dalle animazioni a zero) ed EO.08 ("Consulta" accanto a
+"Entra" invece che sotto, sul formato del suo telefono).
+
+**IL REALME HA LE ANIMAZIONI A ZERO.** Le tre scale del telefono di prova sono
+a zero e Flutter le legge come riduzione del movimento: con la regola
+dell'ordine riflesso e sollevamento li' sono spenti. Il tocco e il giro della
+scheda invece si animano e non si accorciano (`AnimationBehavior.preserve`).
+Per misurare e vedere il riflesso esiste una build di misura,
+`--dart-define=EO_LUCE_FORZATA=true` (`LaLuceDelleSchede.forzata`), mai da
+consegnare.
+
+**LA SCHEDA (EO.01-EO.07).** Una sola scheda per tutta l'app,
+`lib/features/schede/la_scheda_dell_arte.dart`, coi 99 sfondi di
+`assets/schede/` legati all'arte in `lib/core/arts/gli_sfondi_delle_schede.dart`:
+immagine senza testo, titolo del catalogo sotto, a sinistra, su due righe e
+mai rimpicciolito (la larghezza viene dalla parola piu' lunga, 184 punti,
+288 per le orizzontali, per la scala del testo); "i" dorata in alto a destra
+con 48 punti d'area, clessidra sulle arti in arrivo, lucchetto sulle Premium.
+Il tocco preme, ingrandisce e svanisce in circa 300 ms (317 sul Realme, 0
+fotogrammi persi) con l'uscita nell'overlay della radice: la prima stesura la
+animava col ticchettio della scheda e sul Realme restava ferma sopra l'arte
+aperta. La "i" gira la scheda in tre dimensioni; sul retro lo stesso angolo
+(specchiato: la pila girata e' specchiata) la rigira e il resto entra; le
+arti in arrivo si girano da sole con la fase ("In arrivo, Fase 2", la fase
+solo nella Demo); le Premium dicono "Si apre con l'Adepto". La promessa del
+Viaggio dello Sciamano sta sul retro, letta dal Diario. Il riflesso
+(`lib/features/schede/la_luce_delle_schede.dart`) legge l'inclinazione dalla
+parallasse, una sola iscrizione all'accelerometro, e senza sensore segue la
+riga; la scheda al centro di ogni riga
+(`lib/features/schede/la_riga_delle_schede.dart`) si solleva fino a 1,05 e le
+altre hanno un'ombra, sulla sola immagine. 59,7 fotogrammi al secondo col
+riflesso e senza.
+
+**LA HOME (EO.08, EO.09, EO.17).** Sotto il blocco dei Maestri le dieci righe
+del fondatore (`lib/features/santuario/le_righe_della_casa.dart`) al posto
+dello scaffale "Le arti preferite" a bolle e della striscia delle altre arti;
+la prima riga e' quella delle preferite, quadrata, col seme dell'ordine
+(Oroscopo, Stesa, Rune, Sinastria VIP, Meditazione, Mappa del Viso), la
+matita e la pressione lunga. Sono usciti dal codice `TueArtiView`,
+`ShelfCard` e le etichette brevi "Tarocchi" e "Oroscopo". **Nessuna scheda in
+vista ripete un'arte vista piu' su** (EO.17, richiesta del fondatore a ordine
+aperto): i doppioni che cadrebbero in vista vanno in fondo alla riga, col
+numero di schede in vista calcolato dalla larghezza e dalla scala del testo;
+doppioni in vista da 5 a 0. "Consulta [Nome]" apre la chat del Maestro
+davanti: sotto "Entra" dove il busto non perde punti, **accanto in tondo**
+dove li perderebbe (sul formato del fondatore: col pulsante sotto il busto
+scendeva da oltre 260 a 245 e i Maestri al 28 per cento), deciso dalla scena
+con `_ConsultaButton.altezzaSotto`. Il titolo "Conosci te stesso" segue la
+marca del genere.
+
+**I DOMINI (EO.10-EO.13).** L'ordine di sezioni e schede e' quello del
+fondatore, `lib/core/arts/l_ordine_dei_domini.dart`, anche contro la regola
+delle vive davanti; ogni sezione e' una riga di schede verticali, "Consulta"
+resta in cima, in fondo la riga "In arrivo" con le altre arti del Maestro
+(24), lo sfondo del Maestro senza emblema, l'icona in oro e la clessidra, poi
+la striscia delle altre arti che resta. "Rune" e' Divinazione, "Archetipi" e'
+Fisiognomica, ovunque (righe coi nomi vecchi da 9 a 0); il Mood Tracker e' in
+Energia; il Test Archetipo vive solo nel Passaporto. Sono usciti dal codice
+il dominio a riquadri e collassi, `ArtCard`, `visibleFor`, `visibleArts` e
+`hasActive`. L'istruzione dei Maestri e' cambiata coi nomi: attribuzione
+cieca rifatta, 90,0, 87,7 e 89,5 per cento, media 89,1 (sotto il 92,8
+dell'ordine EN, Calìgo si confonde di nuovo), impronte registrate.
+
+**IL LIVE (EO.14-EO.16).** Il LIVE risponde con Flash-Lite
+(`FirebaseMaestroAiProvider.modelloDelTurno`), la domanda finita si chiude a
+1,3 secondi di silenzio (`LaDomandaFinita`), la voce parte dalla prima frase.
+Sul Realme, stesse domande, dal fondo della domanda al Maestro che parla
+mediana da 6,3 a 4,8 secondi; la risposta scritta compare da 4,1 a 2,3. La
+chiusura a 1,3 scatta di rado: la trascrizione anticipata impiega da 1,1 a
+1,8 secondi. Una frase tornata vuota da tutte le trascrizioni prende le
+parole dell'ultimo controllo della stessa frase (una domanda di Aura si
+perdeva tre volte su tre). Le voci di partenza sono Erinome, Sulafat e
+Algenib (40 sintesi su 40 nei LIVE del giorno). "Dal vivo" sta a destra dei
+contatori.
+
+**L'IPHONE.** La build iOS non e' stata lanciata: la lancia il fondatore su
+Codemagic, che carica su TestFlight. Controllo fatto da qui con la piattaforma
+iOS alla misura di un iPhone 13 (`test/le_schede_su_iphone_test.dart`).
+
+**LE GUARDIE.** Otto nuove, tutte viste rosse con l'innesto verificato;
+registro a **533**. Difetti di voci gia' spinte trovati dalla suite intera e
+riparati: EO.01 (manifesto degli asset, cardinale), EO.06 (seconda
+iscrizione all'accelerometro), EO.14 (la risposta a flusso fuori dal
+controllo della troncatura), EO.11 (impronte); un commit (`dc75e426`)
+spinto con una guardia rossa per una catena di comandi che non leggeva
+l'esito, riparato subito dopo.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.
