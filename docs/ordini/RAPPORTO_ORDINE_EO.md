@@ -105,6 +105,16 @@ riflesso e schede non aggiungono sensori.
 
 ## LE PROVE
 
-La suite intera e lo sbarramento: vedi la sezione della consegna qui sotto.
-Guardie nuove: otto, tutte viste rosse con l'innesto verificato (registro
+Sbarramento passato con **5.959 prove** e i soli rossi dichiarati (il primo
+giro aveva un rosso nuovo, il manifesto EO fuori dal sigillo dei manifesti,
+riparato). Guardie nuove: otto, tutte viste rosse con l'innesto verificato (registro
 `docs/guardie.md`, da 525 a 533).
+
+## LA CONSEGNA
+
+**Build 2283 consegnata su App Distribution**, solo Android, release
+`1h6037u0h8fio`, dal commit `7ec3124d`, a cloud@esotericircle.app; l'ho
+accesa sul Realme prima di caricarla. **L'iPhone non e' consegnato**, come
+hai chiesto. La privacy dice "Ultimo aggiornamento: 25 settembre 2026"
+nell'app e sul sito, pubblicato dopo la consegna
+(`docs/collaudo/EO/pagina_legale_data_nuova.txt`).

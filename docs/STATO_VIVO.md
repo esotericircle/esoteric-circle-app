@@ -5063,17 +5063,15 @@ si' del fondatore (*"Sì, pubblica la pagina legale"*): `firebase deploy --only
 hosting`, un file solo, una riga cambiata. Su
 `https://esoteric-circle.web.app/` e sugli altri quattro indirizzi
 "Costellazione del Viso" da 1 volta a 0
-(`docs/collaudo/EN/en11_pagina_legale_pubblicata.txt`). **DA FARE CON LA
-PROSSIMA BUILD, decisione del fondatore del 25 settembre 2026** (*"La farai
-con la prossima build"*): la privacy dice ancora "Ultimo aggiornamento: 24
-agosto 2026"; il testo e' cambiato il 25 settembre 2026 col nome della
-Mappa del Viso. Si porta `dataDellaPolicy` in
-`lib/core/legal/privacy_policy.dart` a "25 settembre 2026", la data della
-revisione vera; la data si mostra soltanto e non decide il consenso. Si
-rigenera la pagina con `AGGIORNA_PAGINA_LEGALE=1 flutter test
-test/la_pagina_legale_sul_web_test.dart`; dopo la consegna si pubblica con
-`firebase deploy --only hosting`: app e sito dicono la stessa data lo stesso
-giorno.
+(`docs/collaudo/EN/en11_pagina_legale_pubblicata.txt`). **La data della
+privacy e' passata con la build successiva, come aveva deciso il fondatore**
+(*"La farai con la prossima build"*): `dataDellaPolicy` in
+`lib/core/legal/privacy_policy.dart` dice "25 settembre 2026" dalla build
+2283, la pagina e' rigenerata e pubblicata su Firebase Hosting il 26
+settembre 2026 dopo la consegna; su `https://esoteric-circle.web.app/` e
+`https://esoteric-circle.firebaseapp.com/` la privacy dice "Ultimo
+aggiornamento: 25 settembre 2026"
+(`docs/collaudo/EO/pagina_legale_data_nuova.txt`).
 
 **LE GUARDIE.** Sei nuove, `ordine_en_guard`,
 `i_maestri_si_conoscono_e_non_rifiutano`,
@@ -5171,6 +5169,16 @@ parole dell'ultimo controllo della stessa frase (una domanda di Aura si
 perdeva tre volte su tre). Le voci di partenza sono Erinome, Sulafat e
 Algenib (40 sintesi su 40 nei LIVE del giorno). "Dal vivo" sta a destra dei
 contatori.
+
+**BUILD 2283 CONSEGNATA SU APP DISTRIBUTION** il 26 settembre 2026, solo
+Android, release `1h6037u0h8fio`, costruita dal commit `7ec3124d` (227.417.084
+byte), distribuita a cloud@esotericircle.app, un invito accettato.
+Sbarramento passato con **5.959 prove** e i soli rossi dichiarati; il primo
+giro dello sbarramento aveva un rosso nuovo, il manifesto EO fuori dal
+sigillo dei manifesti, riparato. Prima della consegna, sul Realme, tre
+archivi di prova hanno portato tre riparazioni: la scheda ferma sopra l'arte
+aperta, la domanda di Aura persa nel LIVE, l'ombra delle schede laterali.
+Note in `docs/note_della_consegna.txt`, solo cio' che e' visto sul telefono.
 
 **L'IPHONE.** La build iOS non e' stata lanciata: la lancia il fondatore su
 Codemagic, che carica su TestFlight. Controllo fatto da qui con la piattaforma
