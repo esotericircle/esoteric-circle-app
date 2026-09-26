@@ -5292,8 +5292,8 @@ processori logici, 16 GB: `flutter test` fa girare due file alla volta, la
 suite intera dura circa 38 minuti, lo sbarramento locale circa 45, quello di
 GitHub circa 33 su una macchina sola. Scelta del fondatore: costruirla
 **subito dopo la 2284**. Manifesto `docs/ordini/ORDINE_ACCELERA_MANIFESTO.md`,
-prove in `docs/collaudo/ACCELERA/`, quattro voci, due chiuse e due in attesa
-del primo giro vero:
+prove in `docs/collaudo/ACCELERA/`, quattro voci, tre chiuse e una in
+attesa della prima consegna vera:
 - **la suite divisa per FILE** (`tool/i_pezzi_della_suite.py`, pesi in
   `tool/pesi_delle_prove.json`): sei pezzi da 658 secondi dei tempi del PC,
   1.072 file su 1.072, nessuno doppio. Non la divisione di Flutter, che
@@ -5304,8 +5304,11 @@ del primo giro vero:
   decide. Lo sbarramento ha due modalita' nuove, `SBARRAMENTO_SOLO` e
   `SBARRAMENTO_DA_REGISTRI`, accese solo da variabili d'ambiente: **senza
   variabili fa cio' che faceva prima**, sul PC e nella Ronda. Un pezzo che
-  manca ferma il cancello. **In attesa del primo giro**, alla prima spinta
-  dopo la build iOS della 2284;
+  manca ferma il cancello. **Misurato: da 33,4 a 9,6 minuti**, verde sul
+  commit `62824ada`. Il primo giro diviso era rosso in 7,5 minuti: le
+  variabili della modalita' pezzo arrivavano alle prove che lanciano una
+  copia dello sbarramento (padre ACCELERA.02), curato togliendole
+  dall'ambiente appena lette;
 - **la consegna col verdetto di GitHub** (`tool/consegna.py`): prima chiede a
   GitHub, con la stessa porta di Codemagic, se il cancello e' verde sul
   commit da cui si e' costruito, e lo accetta solo con l'albero pulito, il

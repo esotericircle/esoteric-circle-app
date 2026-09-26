@@ -17,8 +17,8 @@ prove) durava circa 38 minuti in locale, lo sbarramento locale circa 45, lo
 sbarramento su GitHub circa 33 minuti per commit su una macchina sola.
 
 VOCI_TOTALI: 4
-VOCI_CHIUSE: 2
-VOCI_APERTE: 2
+VOCI_CHIUSE: 3
+VOCI_APERTE: 1
 
 Le prove stanno in `docs/collaudo/ACCELERA/`.
 
@@ -61,7 +61,15 @@ PC dove quelle variabili non ci sono. Curato: lo sbarramento, lette le
 variabili, le toglie dall'ambiente; la prova nuova e' nata rossa sul difetto
 vero.
 
-**APERTA IN ATTESA DI VERIFICA**: il secondo giro, verde, coi suoi minuti.
+**Il secondo giro, dopo la cura, e' verde in 9,6 minuti**, sul commit
+`62824ada`: il pezzo piu' lento 8,7 minuti, gli altri fra 4,7 e 6,6, la
+decisione finale 0,8. I pesi vengono dai tempi del PC: il pezzo 0 porta il
+corredo, e si potra' bilanciare meglio coi tempi di GitHub.
+
+**CHIUSA.**
+DOMANDA: "Ma ancora sbarramentii da 40 Min?"
+PROVA: docs/collaudo/ACCELERA/secondo_giro_su_github.txt
+MISURA: sbarramento su GitHub dalla spinta al verdetto da 33,4 minuti su una macchina sola a 9,6 minuti su dieci macchine, verde; il primo giro diviso, rosso per un difetto curato, 7,5 minuti
 
 ## VOCE ACCELERA.03, LA CONSEGNA COL VERDETTO DI GITHUB
 
