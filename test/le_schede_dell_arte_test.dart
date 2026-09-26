@@ -370,6 +370,56 @@ void main() {
     expect(stato(tester).girata, isTrue);
   });
 
+  // **IL DIFETTO VISTO SUL REALME, e questa prova nasce da lui.** L'uscita
+  // si animava col ticchettio della scheda: aperta l'arte sopra la home,
+  // Flutter ammutoliva la home e la scheda restava a meta', semitrasparente,
+  // sopra l'arte. L'apertura finta delle prove qui sopra non copriva niente,
+  // quindi non poteva vederlo: qui l'apertura spinge una schermata vera.
+  testWidgets(
+      'EO.03: con un\'arte vera aperta sopra la home, la scheda finisce di '
+      'svanire e non resta sopra l\'arte', (tester) async {
+    // Come sul Realme del collaudo: animazioni a zero, quindi la transizione
+    // della pagina e' venti volte piu' corta e la home viene coperta subito.
+    // Senza questa riga la prova era verde anche sul codice difettoso.
+    tester.platformDispatcher.accessibilityFeaturesTestValue =
+        const FakeAccessibilityFeatures(disableAnimations: true);
+    addTearDown(tester.platformDispatcher.clearAccessibilityFeaturesTestValue);
+    finestra(tester);
+    await tester.pumpWidget(conIlCerchio(
+      Center(
+        child: LaSchedaDellArte(
+          art: arte('rune_draw'),
+          maestro: Maestro.caligo,
+          formato: FormatoDellaScheda.verticale,
+          larghezza: 184,
+          onApri: (c) => Navigator.of(c).push(MaterialPageRoute<void>(
+              builder: (_) => const Scaffold(body: Text('ARTE APERTA')))),
+        ),
+      ),
+    ));
+    await tester.pump();
+    await tester.tap(find.byKey(const Key('scheda_tocco_rune_draw')));
+    var ms = 0;
+    var vista = false;
+    while (ms < 1500) {
+      await tester.pump(const Duration(milliseconds: 10));
+      ms += 10;
+      if (find.byKey(const Key('scheda_in_uscita')).evaluate().isNotEmpty) {
+        vista = true;
+      } else if (vista) {
+        break;
+      }
+    }
+    // ignore: avoid_print
+    print('EO.03 MISURA con un\'arte vera: la scheda svanisce in $ms ms');
+    expect(vista, isTrue);
+    expect(find.byKey(const Key('scheda_in_uscita')), findsNothing,
+        reason: 'la scheda e\' rimasta sopra l\'arte aperta');
+    expect(ms, inInclusiveRange(250, 350));
+    await tester.pumpAndSettle();
+    expect(find.text('ARTE APERTA'), findsOneWidget);
+  });
+
   testWidgets('EO.03: il tocco su un\'arte Premium la apre come oggi',
       (tester) async {
     final aperte = await montaUna(tester, 'synastry_depth');

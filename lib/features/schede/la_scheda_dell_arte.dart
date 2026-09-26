@@ -214,32 +214,21 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
       return;
     }
     final rect = box.localToGlobal(Offset.zero) & box.size;
-    final uscita = AnimationController(
-        vsync: this,
-        duration: LaSchedaDellArte.tempoDellUscita,
-        animationBehavior: AnimationBehavior.preserve);
-    final immagine = _faccia(fronte: true, perLUscita: true);
-    final entrata = OverlayEntry(
-      builder: (_) => AnimatedBuilder(
-        animation: uscita,
-        builder: (_, __) {
-          final t = Curves.easeOut.transform(uscita.value);
-          return Positioned.fromRect(
-            rect: rect,
-            child: IgnorePointer(
-              child: Opacity(
-                key: const Key('scheda_in_uscita'),
-                opacity: 1 - t,
-                child: Transform.scale(
-                  scale: LaSchedaDellArte.pressione +
-                      (LaSchedaDellArte.ingrandimento -
-                              LaSchedaDellArte.pressione) *
-                          t,
-                  child: immagine,
-                ),
-              ),
-            ),
-          );
+    // **L'USCITA HA UN TICCHETTIO SUO, NELL'OVERLAY.** La prima stesura la
+    // animava col ticchettio della scheda, e sul Realme l'uscita si fermava a
+    // meta' per sempre, sopra l'arte appena aperta: appena la nuova schermata
+    // copre la home, Flutter ammutolisce i ticchettii della home, e la scheda
+    // e' nella home. Le prove non lo vedevano perche' l'apertura finta non
+    // copriva niente. L'overlay della radice sta sopra ogni schermata e non
+    // si ammutolisce.
+    final finita = Completer<void>();
+    late final OverlayEntry entrata;
+    entrata = OverlayEntry(
+      builder: (_) => _LUscitaDellaScheda(
+        rect: rect,
+        immagine: _faccia(fronte: true, perLUscita: true),
+        onFinita: () {
+          if (!finita.isCompleted) finita.complete();
         },
       ),
     );
@@ -249,13 +238,12 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
       _inUscita = true;
     });
     final apertura = _apri();
-    await uscita.forward();
+    await finita.future;
     // La misura della voce EO.03 sul telefono: dal tocco alla fine
     // dell'uscita, pressione compresa.
     debugPrint('SCHEDA ${widget.art.id}: tocco e uscita in '
         '${cronometro.elapsedMilliseconds} ms');
     entrata.remove();
-    uscita.dispose();
     if (mounted && girata) _giro.value = 0;
     await apertura;
     if (mounted) setState(() => _inUscita = false);
@@ -603,4 +591,64 @@ Maestro maestroDiArte(BuildContext context, String id) {
     }
   }
   return context.read<MaestroController?>()?.activeMaestro ?? Maestro.medora;
+}
+
+/// **LA SCHEDA CHE SI INGRANDISCE E SVANISCE.** Ordine EO voce 03. Vive
+/// nell'overlay della radice, col suo controllore: vedi `_entra`.
+class _LUscitaDellaScheda extends StatefulWidget {
+  const _LUscitaDellaScheda({
+    required this.rect,
+    required this.immagine,
+    required this.onFinita,
+  });
+
+  final Rect rect;
+  final Widget immagine;
+  final VoidCallback onFinita;
+
+  @override
+  State<_LUscitaDellaScheda> createState() => _LUscitaDellaSchedaState();
+}
+
+class _LUscitaDellaSchedaState extends State<_LUscitaDellaScheda>
+    with SingleTickerProviderStateMixin {
+  // `preserve`: con le animazioni del telefono a zero non si accorcia.
+  late final AnimationController _uscita = AnimationController(
+      vsync: this,
+      duration: LaSchedaDellArte.tempoDellUscita,
+      animationBehavior: AnimationBehavior.preserve)
+    ..forward().whenComplete(widget.onFinita);
+
+  @override
+  void dispose() {
+    _uscita.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _uscita,
+      builder: (_, figlio) {
+        final t = Curves.easeOut.transform(_uscita.value);
+        return Positioned.fromRect(
+          rect: widget.rect,
+          child: IgnorePointer(
+            child: Opacity(
+              key: const Key('scheda_in_uscita'),
+              opacity: 1 - t,
+              child: Transform.scale(
+                scale: LaSchedaDellArte.pressione +
+                    (LaSchedaDellArte.ingrandimento -
+                            LaSchedaDellArte.pressione) *
+                        t,
+                child: figlio,
+              ),
+            ),
+          ),
+        );
+      },
+      child: widget.immagine,
+    );
+  }
 }
