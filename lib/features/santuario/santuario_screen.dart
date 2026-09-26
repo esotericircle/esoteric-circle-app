@@ -21,7 +21,6 @@ import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
 import '../../core/motion/parallax_controller.dart';
 import '../../core/rituals/daily_elements.dart';
-import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -33,14 +32,12 @@ import '../../core/identity/account_del_cerchio.dart';
 import '../../core/identity/quando_chiedere_la_custodia.dart';
 import '../../core/onboarding/onboarding_controller.dart';
 import '../account/custodia_del_cielo.dart';
-import '../maestri/art_navigation.dart';
-import '../maestri/widgets/striscia_altre_arti.dart';
 import '../maestri/domain_screen.dart';
 import 'daily_strip.dart';
 import 'sky_overview_screen.dart';
 import 'widgets/maestro_bust.dart';
 import 'widgets/moon_widget.dart';
-import 'widgets/tue_arti_view.dart';
+import 'le_righe_della_casa.dart';
 import '../onboarding/primo_approdo.dart';
 
 /// La schermata eroe, il Santuario.
@@ -476,16 +473,6 @@ class _SantuarioScreenState extends State<SantuarioScreen>
   ///
   /// Usa la stessa mappa unica delle rotte: la stessa arte si apre alla stessa
   /// schermata da qualunque scaffale la si tocchi.
-  void _openArte(BuildContext context, String id, Zodiac userSign) {
-    final profile = context.read<ProfileController>();
-    final route = artRouteFor(
-      id,
-      userBirth:
-          profile.identity.isExample ? null : profile.identity.birthMoment,
-      userName: profile.hasName ? profile.vocative : null,
-    );
-    if (route != null) Navigator.of(context).push(route);
-  }
 
   /// La rotta di una funzione dello scaffale: la stessa mappa unica del dominio
   /// (`artRouteFor`), cosi' la stessa arte si apre sempre alla stessa schermata.
@@ -558,23 +545,23 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     // **IL TIRO SI FA DOPO IL PRIMO FOTOGRAMMA**, non dentro il build: una
     // chiamata asincrona dentro il build partirebbe a ogni ricostruzione.
     if (!_giaTirata) {
-      WidgetsBinding.instance.addPostFrameCallback(
-          (_) => unawaited(_forseUnaSagomaPassa()));
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) => unawaited(_forseUnaSagomaPassa()));
     }
     return Stack(
-        children: [
-          _ilSantuario(context),
-          if (_animaleCheAppare != null)
-            Positioned.fill(
-              child: ApparizioneDellAnimale(
-                animale: _animaleCheAppare!,
-                quandoEPassata: () {
-                  if (mounted) setState(() => _animaleCheAppare = null);
-                },
-              ),
+      children: [
+        _ilSantuario(context),
+        if (_animaleCheAppare != null)
+          Positioned.fill(
+            child: ApparizioneDellAnimale(
+              animale: _animaleCheAppare!,
+              quandoEPassata: () {
+                if (mounted) setState(() => _animaleCheAppare = null);
+              },
             ),
-        ],
-      );
+          ),
+      ],
+    );
   }
 
   /// **L'ANIMALE CHE STA ATTRAVERSANDO IL CIELO ADESSO**, oppure nulla.
@@ -786,24 +773,12 @@ class _SantuarioScreenState extends State<SantuarioScreen>
                         // scivola sotto la barra, come ogni contenuto che le
                         // passa sotto scorrendo, che e' la scelta approvata.
                         const SizedBox(height: SpacingTokens.xl),
-                        // Lo scaffale personale viene PRIMA dell'elenco
-                        // completo: quello che si e' scelto sta davanti a
-                        // quello che il Cerchio propone.
-                        TueArtiView(
-                          onOpen: (id) => _openArte(context, id, userZodiac),
-                        ),
-                        // "Le funzioni del Cerchio" non esiste piu': "Le tue
-                        // arti" la SOSTITUISCE, come l'ordine diceva. Avevo
-                        // aggiunto la nuova lasciando la vecchia, quindi nel
-                        // Santuario c'erano due titoli e due elenchi della
-                        // stessa cosa.
-                        // La striscia delle arti da scoprire, la STESSA del
-                        // dominio: un widget condiviso, non una copia. Qui
-                        // `corrente` e' nullo perche' la home non e' il
-                        // dominio di nessun Maestro: si esclude solo cio' che
-                        // sta gia' nello scaffale qui sopra. Ordine 2161,
-                        // voce 4.
-                        const StrisciaAltreArti(),
+                        // **LE RIGHE DELLA HOME. Ordine EO voce 09.** Al posto
+                        // di "Le tue arti" e della striscia delle arti da
+                        // scoprire: dieci righe che scorrono in orizzontale,
+                        // la prima e' quella delle arti preferite, quadrata e
+                        // personalizzabile. Il resto della home resta com'e'.
+                        const LeRigheDellaCasaView(),
                         // La coda che riporta l'ultimo scaffale sopra la barra.
                         const SpazioDellaBarraNelloScroll(),
                       ],
@@ -2133,98 +2108,10 @@ class _EnterDomainButton extends StatelessWidget {
 /// altre mostrano un anticipo. L'ordine vive nella configurazione dedicata
 /// (`function_shelf.dart`), qui resta solo la resa.
 
-/// Una card dello scaffale, nel colore del Maestro di dominio. Livello visivo
-/// prima del testo: l'emblema tondo, poi il nome, poi una riga di anticipo. Le
-/// funzioni non ancora vive portano il badge Coming soon, mai un vicolo cieco.
-/// Una tessera grande dello scaffale: emblema tondo, nome, riga di anticipo e
-/// freccia. Livello visivo prima del testo.
-///
-/// Pubblica e indipendente da `ShelfFunction`, perche' la usano due scaffali: le
-/// funzioni del Cerchio, ora ritirate, e "Le tue arti". Prima "Le tue arti"
-/// aveva pillole piccole tutte sue, dove i titoli si troncavano.
-class ShelfCard extends StatelessWidget {
-  const ShelfCard({
-    super.key,
-    required this.titolo,
-    required this.anticipo,
-    required this.icona,
-    required this.maestro,
-    required this.onTap,
-    this.viva = true,
-  });
-
-  final String titolo;
-  final String anticipo;
-  final IconData icona;
-
-  /// Il proprietario: decide il colore della tessera INTERA, non solo
-  /// dell'emblema. Prima la card leggeva il tema attivo, quindi le tessere
-  /// uscivano tutte blu mentre il solo emblema portava il colore giusto.
-  final Maestro maestro;
-
-  final VoidCallback onTap;
-  final bool viva;
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = MaestroPalette.forKey(ThemeKey.of(maestro));
-    return DepthCard(
-      onTap: onTap,
-      palette: palette,
-      opacity: viva ? 1.0 : 0.6,
-      padding: const EdgeInsets.all(SpacingTokens.md),
-      child: Row(
-        children: [
-          Container(
-            width: 52,
-            height: 52,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-              color: palette.primary.withValues(alpha: 0.55),
-              border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
-            ),
-            alignment: Alignment.center,
-            child: Icon(icona, color: palette.goldSoft, size: 26),
-          ),
-          const SizedBox(width: SpacingTokens.md),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Il titolo si rimpicciolisce invece di troncarsi o di spezzarsi
-                // dentro una parola: "Oroscopo Personalizzato" finiva con i
-                // puntini, "Meditazione con Voce" si rompeva a meta' parola.
-                SizedBox(
-                  width: double.infinity,
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    alignment: Alignment.centerLeft,
-                    child: Text(titolo,
-                        maxLines: 1,
-                        style: TypographyTokens.titoloScheda()
-                            .copyWith(color: palette.textPrimary)),
-                  ),
-                ),
-                const SizedBox(height: 2),
-                // L'ANTICIPO SI LEGGE INTERO, ordine M voce 1d: con due righe
-                // secche e nessun overflow dichiarato il taglio era a meta'
-                // frase ("sul tuo segno di"), da quando l'ordine H ha portato
-                // la didascalia a sedici punti. La card cresce di una riga
-                // invece di tagliare.
-                Text(anticipo,
-                    maxLines: 3,
-                    style: TypographyTokens.didascalia()
-                        .copyWith(color: ColorTokens.textSecondary)),
-              ],
-            ),
-          ),
-          const SizedBox(width: SpacingTokens.xs),
-          Icon(Icons.chevron_right_rounded, color: palette.goldSoft),
-        ],
-      ),
-    );
-  }
-}
+// **LAPIDE: qui viveva `ShelfCard`**, la tessera grande dello scaffale
+// "Le arti preferite". Dall'ordine EO voce 09 le arti preferite sono una
+// riga di schede (`lib/features/schede/`), e la tessera non la monta piu'
+// nessuno.
 
 /// Il badge dorato Coming soon delle funzioni in arrivo.
 
@@ -2295,47 +2182,47 @@ class SkyTapHint extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                    SizedBox(
-                      // La chiave sta sulla MANO e non sulla scritta: a
-                      // coprire la Luna era il disegno, e una guardia che
-                      // misurava la scritta restava verde col disegno addosso
-                      // al disco.
-                      key: const Key('santuario_mano_dell_invito'),
-                      width: 46,
-                      height: 54,
-                      child: AnimatedBuilder(
-                        animation: pulse,
-                        builder: (context, _) => CustomPaint(
-                          painter: TapHandPainter(
-                            phase: reduceMotion ? -1.0 : pulse.value,
-                            // BIANCA, non nel colore del Maestro: e' un
-                            // suggerimento di gesto, non un elemento del tema,
-                            // e sul cosmo profondo il bianco e' l'unico colore
-                            // che si legge da subito senza competere col resto.
-                            color: Colors.white,
-                          ),
+                  SizedBox(
+                    // La chiave sta sulla MANO e non sulla scritta: a
+                    // coprire la Luna era il disegno, e una guardia che
+                    // misurava la scritta restava verde col disegno addosso
+                    // al disco.
+                    key: const Key('santuario_mano_dell_invito'),
+                    width: 46,
+                    height: 54,
+                    child: AnimatedBuilder(
+                      animation: pulse,
+                      builder: (context, _) => CustomPaint(
+                        painter: TapHandPainter(
+                          phase: reduceMotion ? -1.0 : pulse.value,
+                          // BIANCA, non nel colore del Maestro: e' un
+                          // suggerimento di gesto, non un elemento del tema,
+                          // e sul cosmo profondo il bianco e' l'unico colore
+                          // che si legge da subito senza competere col resto.
+                          color: Colors.white,
                         ),
                       ),
                     ),
-                    const SizedBox(width: 6),
-                    // La scritta va a capo dentro una larghezza stretta: due
-                    // righe corte accanto alla mano costano meno spazio di
-                    // una riga lunga sotto, e lo spazio qui e' tutto quello
-                    // che c'e'.
-                    SizedBox(
-                      width: 70,
-                      child: Text(
-                        'Tocca il cielo',
-                        key: const Key('santuario_invito_al_cielo'),
-                        style: TypographyTokens.etichetta().copyWith(
-                          color: color.withValues(alpha: 0.75),
-                          letterSpacing: 1.2,
-                          height: 1.15,
-                        ),
+                  ),
+                  const SizedBox(width: 6),
+                  // La scritta va a capo dentro una larghezza stretta: due
+                  // righe corte accanto alla mano costano meno spazio di
+                  // una riga lunga sotto, e lo spazio qui e' tutto quello
+                  // che c'e'.
+                  SizedBox(
+                    width: 70,
+                    child: Text(
+                      'Tocca il cielo',
+                      key: const Key('santuario_invito_al_cielo'),
+                      style: TypographyTokens.etichetta().copyWith(
+                        color: color.withValues(alpha: 0.75),
+                        letterSpacing: 1.2,
+                        height: 1.15,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
+              ),
       ),
     );
   }

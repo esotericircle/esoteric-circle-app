@@ -148,7 +148,7 @@ import 'package:esoteric_circle/design_system/components/volo_degli_eos.dart';
 import 'package:esoteric_circle/features/sigilli/celebrazione.dart';
 import 'package:esoteric_circle/features/santuario/santuario_screen.dart';
 import 'package:esoteric_circle/core/arts/arti_preferite.dart';
-import 'package:esoteric_circle/features/santuario/widgets/tue_arti_view.dart';
+import 'package:esoteric_circle/features/santuario/le_righe_della_casa.dart';
 import 'package:esoteric_circle/features/sigilli/la_mappa_del_sentiero.dart';
 import 'package:esoteric_circle/features/sigilli/spirale_di_stelle.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -5920,9 +5920,12 @@ void main() {
             data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
             child: MaestroScope(child: child!),
           ),
-          home: Scaffold(
-            backgroundColor: const Color(0xFF0B0714),
-            body: SingleChildScrollView(child: TueArtiView(onOpen: (_) {})),
+          home: const Scaffold(
+            backgroundColor: Color(0xFF0B0714),
+            // Dall'ordine EO voce 09 le arti preferite sono la prima delle
+            // righe della home: si cattura quella.
+            body: SingleChildScrollView(
+                child: LeRigheDellaCasaView(sensore: false)),
           ),
         ),
       ),

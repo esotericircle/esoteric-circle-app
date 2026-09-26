@@ -1,0 +1,6 @@
+innesto in lib/features/santuario/le_righe_della_casa.dart: il vecchio compare 0 volte, il nuovo 1 volte ("        'pendulum',\n        'dream_reading',\n" -> "        'dream_reading',\n        'pendulum',\n")
+  Expected: [
+    Actual: [
+  00:02 +0 -1: EO.09: righe e schede a video, contro l'elenco del fondatore [E]
+  00:03 +0 -1: Some tests failed.
+ripristino lib/features/santuario/le_righe_della_casa.dart: sha1 d71247472b7c -> d71247472b7c, IDENTICO

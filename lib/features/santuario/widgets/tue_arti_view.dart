@@ -4,130 +4,20 @@ import 'package:provider/provider.dart';
 import '../../../core/arts/art_catalog.dart';
 import '../../../core/arts/arti_preferite.dart';
 import '../../../core/maestro/maestro.dart';
-import '../../../core/maestro/maestro_controller.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
 import '../../maestri/rotta_arte.dart';
-import '../santuario_screen.dart';
 import '../../../design_system/transizioni/velo_del_cerchio.dart';
 
-/// "Le arti preferite": lo scaffale personale, in cima all'elenco.
-///
-/// Non parte mai vuoto, perche' il seme vive nel dato. La matita accanto al
-/// titolo apre l'elenco completo a spunte, e ogni bolla porta il colore del
-/// Maestro a cui l'arte appartiene, come le altre bolle del Cerchio.
-class TueArtiView extends StatelessWidget {
-  const TueArtiView({super.key, required this.onOpen});
-
-  /// Apre un'arte dal suo identificativo. La rotta la conosce il Santuario, che
-  /// ha in mano segno e profilo.
-  final void Function(String id) onOpen;
-
-  @override
-  Widget build(BuildContext context) {
-    final preferite = context.watch<ArtiPreferiteController?>();
-    if (preferite == null) return const SizedBox.shrink();
-    final palette = MaestroScope.of(context);
-    // Finche' il disco non ha risposto si mostra il seme, non un vuoto: un
-    // lampo di scaffale spoglio all'avvio sarebbe indistinguibile dal difetto
-    // che questa funzione deve evitare.
-    final ids = preferite.caricato && preferite.ids.isNotEmpty
-        ? preferite.ids
-        : ArtiPreferiteController.semePer(
-            context.read<MaestroController>().activeMaestro);
-
-    return Padding(
-      // **IL DISTACCO IN CIMA SCENDE A `md`, ordine S voce 10.** Sopra questo
-      // titolo c'e' gia' l'aria della barra: sommarci un distacco da `lg`
-      // allungava la fascia morta di altri ventiquattro punti. Sotto e ai lati
-      // resta `lg`, perche' li' non c'e' niente che lo doppi.
-      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
-          SpacingTokens.lg, SpacingTokens.sm),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Text('Le arti preferite',
-                  key: const Key('tue_arti_titolo'),
-                  style: TypographyTokens.titoloDiSchermata()
-                      .copyWith(color: palette.textPrimary)),
-              const SizedBox(width: SpacingTokens.xs),
-              // La matita accanto al titolo: si personalizza da qui, non da un
-              // menu nascosto.
-              IconButton(
-                key: const Key('tue_arti_matita'),
-                tooltip: 'Scegli le tue arti',
-                iconSize: 18,
-                visualDensity: VisualDensity.compact,
-                icon: Icon(Icons.edit_outlined, color: palette.goldSoft),
-                onPressed: () => mostraSceltaArti(context),
-              ),
-            ],
-          ),
-          const SizedBox(height: SpacingTokens.xs),
-          // Le BOLLE GRANDI, non le pillole: emblema, titolo, riga di
-          // anticipo e freccia. Le pillole piccole troncavano i titoli, e lo
-          // stile grande e' quello dell'elenco che "Le tue arti" sostituisce.
-          for (final id in ids) ...[
-            _BollaArte(id: id, onOpen: () => onOpen(id)),
-            const SizedBox(height: SpacingTokens.sm),
-          ],
-        ],
-      ),
-    );
-  }
-}
-
-/// Una bolla dello scaffale personale, nel colore del suo Maestro.
-///
-/// La pressione lunga toglie l'arte, senza dover entrare per farlo.
-class _BollaArte extends StatelessWidget {
-  const _BollaArte({required this.id, required this.onOpen});
-
-  final String id;
-  final VoidCallback onOpen;
-
-  @override
-  Widget build(BuildContext context) {
-    final voce = ArtCatalog.all.where((a) => a.id == id).toList();
-    if (voce.isEmpty) return const SizedBox.shrink();
-    final arte = voce.first;
-    final proprietario = _proprietarioDi(id) ?? Maestro.medora;
-    final propria = MaestroPalette.forKey(ThemeKey.of(proprietario));
-    final preferite = context.watch<ArtiPreferiteController?>();
-
-    return GestureDetector(
-      key: Key('tua_arte_$id'),
-      // La pressione lunga toglie l'arte: sta qui e non nella tessera, perche'
-      // la tessera e' condivisa con altri scaffali che non hanno preferiti.
-      onLongPress: preferite == null
-          ? null
-          : () => CuorePreferita.mostraEsito(
-              context, preferite.cambia(id), propria),
-      child: ShelfCard(
-        // L'ETICHETTA BREVE, se il dato ne dichiara una: "Tarocchi" al posto
-        // di "Stesa di Tarocchi" nello scaffale, decisione di Mauro (ordine
-        // AK voce 01). Il catalogo non si rinomina.
-        titolo: ArtiPreferiteController.etichettaBreve(id) ?? arte.title,
-        anticipo: arte.teaser,
-        icona: arte.icon,
-        maestro: proprietario,
-        onTap: onOpen,
-      ),
-    );
-  }
-}
-
-/// Di chi e' un'arte, secondo il catalogo.
-Maestro? _proprietarioDi(String id) {
-  for (final m in Maestro.values) {
-    if (ArtCatalog.activeOf(m).any((a) => a.id == id)) return m;
-  }
-  return null;
-}
+/// **LO SCAFFALE "LE ARTI PREFERITE" E' USCITO DAL CODICE, ordine EO voce
+/// 09.** Dall'ordine AK fino all'ordine EN qui viveva `TueArtiView`, le
+/// bolle grandi con la pressione lunga che toglie l'arte. Dall'ordine EO
+/// le arti preferite sono la prima riga della home
+/// (`le_righe_della_casa.dart`), con le schede nuove, la stessa matita e la
+/// stessa pressione lunga. Qui resta il foglio della matita, che la riga
+/// apre.
 
 /// Il foglio della matita: l'elenco completo delle arti vive, a spunte,
 /// raggruppato per Maestro.

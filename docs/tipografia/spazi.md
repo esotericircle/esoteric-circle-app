@@ -1,6 +1,6 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 154 -->
+<!-- VUOTI_CENSITI: 153 -->
 <!-- FILE_CON_VUOTI: 67 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
@@ -11,7 +11,7 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **154** |
+| Vuoti verticali dichiarati | **153** |
 | File che ne contengono | **67** |
 | Oltre la soglia di 48 punti | **2** |
 
@@ -22,7 +22,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 85 |
+| 2 | 84 |
 | 3 | 8 |
 | 4 | 27 |
 | 5 | 1 |
@@ -67,7 +67,6 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/maestri/aura/meditation/pannello_della_libreria.dart` | 3 | 0 |
 | `lib/features/maestri/caligo/animal/guide_animal_screen.dart` | 3 | 0 |
 | `lib/features/onboarding/onboarding_screen.dart` | 3 | 0 |
-| `lib/features/santuario/santuario_screen.dart` | 3 | 0 |
 | `lib/features/santuario/sky_overview_screen.dart` | 3 | 0 |
 | `lib/features/sigilli/sentiero_screen.dart` | 3 | 0 |
 | `lib/features/tarot/stesa_share_card.dart` | 3 | 0 |
@@ -85,6 +84,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/rituals/sunset_rune_card.dart` | 2 | 0 |
 | `lib/features/rituals/sunset_rune_screen.dart` | 2 | 0 |
 | `lib/features/rituals/tavolo_dei_ventidue.dart` | 2 | 0 |
+| `lib/features/santuario/santuario_screen.dart` | 2 | 0 |
 | `lib/features/settings/riga_di_messa_a_punto.dart` | 2 | 0 |
 | `lib/features/sigilli/la_mappa_del_sentiero.dart` | 2 | 0 |
 | `lib/features/synastry/sinastria_vip_screen.dart` | 2 | 1 |

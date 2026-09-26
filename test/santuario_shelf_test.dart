@@ -127,10 +127,13 @@ void main() {
     // Lo scaffale personale e' abitato. Quali arti ci siano lo decide il seme,
     // che dipende dal Maestro assegnato: la prova non pretende un id preciso,
     // verifica che ci siano tessere apribili.
+    // **LAPIDE: fino all'ordine EN le tessere erano `tua_arte_<id>`.**
+    // Dall'ordine EO voce 09 sono le schede della riga delle arti
+    // preferite, `riga_preferite_<id>`.
     expect(
         find.byWidgetPredicate((w) =>
             w.key is ValueKey<String> &&
-            (w.key! as ValueKey<String>).value.startsWith('tua_arte_')),
+            (w.key! as ValueKey<String>).value.startsWith('riga_preferite_')),
         findsWidgets,
         reason: 'lo scaffale personale e comparso vuoto nel Santuario');
 

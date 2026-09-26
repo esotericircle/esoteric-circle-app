@@ -6,13 +6,19 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/rotta_arte.dart';
-import 'package:esoteric_circle/features/santuario/widgets/tue_arti_view.dart';
+import 'package:esoteric_circle/features/santuario/le_righe_della_casa.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// "Le tue arti" a schermo: mai vuota, con la matita e col cuore.
+/// "Le arti preferite" a schermo: mai vuota, con la matita e col cuore.
+///
+/// **LAPIDE: fino all'ordine EN questa prova montava `TueArtiView`**, lo
+/// scaffale a bolle grandi, e cercava le tessere `tua_arte_<id>`.
+/// **Dall'ordine EO voce 09** le arti preferite sono la prima riga della
+/// home, con le schede nuove: la prova monta le righe e cerca
+/// `riga_preferite_<id>`. Le pretese sono le stesse di prima.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -33,7 +39,6 @@ void main() {
     if (carica) await preferite.carica();
     addTearDown(preferite.dispose);
 
-    final aperte = <String>[];
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -44,11 +49,11 @@ void main() {
         // decidere ombre e comparsa: la prova deve fornirlo, come l'app.
         ChangeNotifierProvider(create: (_) => QualityTierController()),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         home: MaestroScope(
           child: Scaffold(
             body: SingleChildScrollView(
-              child: TueArtiView(onOpen: aperte.add),
+              child: LeRigheDellaCasaView(sensore: false),
             ),
           ),
         ),
@@ -65,14 +70,26 @@ void main() {
     // spoglio.
     await monta(tester, carica: false);
     expect(find.byKey(const Key('tue_arti_titolo')), findsOneWidget);
-    expect(find.byType(InkWell), findsWidgets,
+    expect(
+        find.byWidgetPredicate((w) =>
+            w.key is ValueKey<String> &&
+            (w.key! as ValueKey<String>).value.startsWith('riga_preferite_')),
+        findsWidgets,
         reason: 'lo scaffale personale e\' comparso vuoto al primo frame');
   });
 
   testWidgets('Mostra le arti scelte, ciascuna apribile', (tester) async {
     final preferite = await monta(tester);
+    // La riga scorre in orizzontale e costruisce solo cio' che si vede: si
+    // scorre fino a ciascuna arte, come farebbe un dito.
+    final riga = find.descendant(
+        of: find.byKey(const Key('riga_scorre_preferite')),
+        matching: find.byType(Scrollable));
     for (final id in preferite.ids) {
-      expect(find.byKey(Key('tua_arte_$id')), findsOneWidget,
+      await tester.scrollUntilVisible(
+          find.byKey(Key('riga_preferite_$id')), 120,
+          scrollable: riga);
+      expect(find.byKey(Key('riga_preferite_$id')), findsOneWidget,
           reason: 'l\'arte $id e\' nello scaffale ma non si vede');
     }
   });
@@ -122,7 +139,9 @@ void main() {
     final primo = preferite.ids.first;
     final quante = preferite.ids.length;
 
-    await tester.longPress(find.byKey(Key('tua_arte_$primo')));
+    await tester.longPress(find.descendant(
+        of: find.byKey(Key('riga_preferite_$primo')),
+        matching: find.byKey(Key('scheda_tocco_$primo'))));
     await tester.pumpAndSettle();
 
     expect(preferite.contiene(primo), isFalse,

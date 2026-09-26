@@ -1,11 +1,8 @@
 import 'package:esoteric_circle/app.dart';
-import 'package:esoteric_circle/core/arts/arti_preferite.dart';
-import 'package:esoteric_circle/features/maestri/widgets/striscia_altre_arti.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'sorgenti_di_lib.dart';
@@ -41,8 +38,16 @@ void main() {
     }
   }
 
-  testWidgets('scorrendo la home fino in fondo la striscia si trova, intera',
-      (tester) async {
+  // **LAPIDE: dall'ordine 2161 voce 4 all'ordine EN la striscia "Le altre
+  // arti del Cerchio" stava anche in fondo alla home**, e questa prova la
+  // cercava scorrendo fino in fondo. **Dall'ordine EO voce 09** il fondatore
+  // ha scritto che le righe della home *"prendono il posto delle strisce di
+  // arti che oggi stanno sotto il blocco dei Maestri"*: in home la striscia
+  // non c'e' piu', e in fondo c'e' l'ultima riga, "La tua energia". La
+  // striscia resta nel dominio, che l'ordine non tocca su questo.
+  testWidgets(
+      'scorrendo la home fino in fondo si trova l\'ultima riga, non la '
+      'striscia', (tester) async {
     silenzia();
     SharedPreferences.setMockInitialValues({'onboarding.done': true});
     tester.view.physicalSize = const Size(1080, 2391);
@@ -56,56 +61,20 @@ void main() {
     // SI SCORRE DAVVERO, come farebbe un dito: il precedente della 2156
     // vieta di giudicare la home guardando solo la prima schermata.
     final scroll = find.byType(SingleChildScrollView).first;
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 30; i++) {
       await tester.drag(scroll, const Offset(0, -500), warnIfMissed: false);
       await tester.pump(const Duration(milliseconds: 120));
     }
-    // Fino in fondo DAVVERO: se la striscia e' solo affacciata al bordo, il
-    // trascinamento orizzontale di piu' avanti cadrebbe fuori dallo schermo.
     await tester.pump(const Duration(milliseconds: 300));
 
-    final striscia = find.byKey(const Key('other_arts_strip'));
-    expect(striscia, findsOneWidget,
-        reason: 'Scorrendo la home fino in fondo la striscia "Scopri altre '
-            'arti del Cerchio" non compare mai: la voce 4 dell\'ordine 2161 '
-            'la vuole in fondo alla home, sotto lo scaffale delle tue arti.');
-    // SectionTitle porta il titolo in maiuscolo: si cerca cio' che si vede.
-    expect(find.text('Le altre arti del Cerchio'.toUpperCase()), findsOneWidget,
-        reason: 'La striscia c\'e\' ma senza il suo titolo.');
-
-    // L'ENUMERAZIONE DAL CATALOGO: in home le arti mostrate sono quelle che
-    // il criterio condiviso calcola con corrente nullo e lo scaffale vero.
-    // Non un conto scritto a mano: lo stesso criterio, chiamato qui.
-    final contesto = tester.element(striscia);
-    final gia = Provider.of<ArtiPreferiteController?>(contesto, listen: false)
-            ?.ids
-            .toSet() ??
-        const <String>{};
-    final attese = artiDaScoprire(null, gia: gia, giorno: DateTime.now());
-    expect(attese, isNotEmpty,
-        reason: 'Il criterio non propone niente in home: o lo scaffale '
-            'contiene gia\' tutto, o il criterio si e\' rotto.');
-    // La lista e' orizzontale e PIGRA: le tessere oltre il bordo non
-    // esistono finche' non si scorre. Si scorre quindi anche la striscia,
-    // nell'ordine in cui il criterio le propone.
-    for (final arte in attese) {
-      final tessera =
-          find.descendant(of: striscia, matching: find.text(arte.title));
-      final lista =
-          find.descendant(of: striscia, matching: find.byType(ListView));
-      for (var i = 0; i < 8 && tessera.evaluate().isEmpty; i++) {
-        await tester.drag(lista.first, const Offset(-250, 0),
-            warnIfMissed: false);
-        await tester.pump(const Duration(milliseconds: 120));
-      }
-      expect(
-        tessera,
-        findsOneWidget,
-        reason: 'Il criterio propone "${arte.title}" ma la home non la '
-            'mostra nemmeno scorrendo la striscia: la striscia non sta '
-            'leggendo il catalogo.',
-      );
-    }
+    expect(find.byKey(const Key('riga_titolo_la_tua_energia')), findsOneWidget,
+        reason: 'scorrendo la home fino in fondo l\'ultima riga, "La tua '
+            'energia", non compare: ordine EO voce 09');
+    expect(find.byKey(const Key('other_arts_strip'), skipOffstage: false),
+        findsNothing,
+        reason: 'in home c\'e\' ancora la striscia delle altre arti: le righe '
+            'dovevano prenderne il posto');
+    expect(find.text('Le altre arti del Cerchio'.toUpperCase()), findsNothing);
   });
 
   test('la striscia e\' UNA nel codice, non una copia per posto', () {
@@ -139,11 +108,11 @@ void main() {
     montaggi.sort();
     expect(
         montaggi,
-        [
-          'lib/features/maestri/maestro_screen.dart',
-          'lib/features/santuario/santuario_screen.dart',
-        ],
-        reason: 'La striscia deve essere montata ESATTAMENTE due volte, home '
-            'e dominio, dallo stesso widget: trovata invece in $montaggi.');
+        // **LAPIDE: fino all'ordine EN i montaggi erano due, home e
+        // dominio.** Dall'ordine EO voce 09 la home monta le righe, e la
+        // striscia resta solo nel dominio.
+        ['lib/features/maestri/maestro_screen.dart'],
+        reason: 'La striscia deve essere montata ESATTAMENTE una volta, nel '
+            'dominio: trovata invece in $montaggi.');
   });
 }

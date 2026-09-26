@@ -65,27 +65,29 @@ class ArtiPreferiteController extends ChangeNotifier {
     'face_constellation',
   ];
 
-  /// **LE ETICHETTE BREVI DELLO SCAFFALE.** Decisione di Mauro: nella home
-  /// la stesa si chiama "Tarocchi"; il catalogo e ogni altro posto dell'app
-  /// tengono "Stesa di Tarocchi". E' un dato di QUESTO controller, mai una
-  /// seconda voce di catalogo e mai una stringa incollata in un widget.
-  ///
-  /// **L'OROSCOPO, ordine BK voce 01.** Parole del fondatore: "la
-  /// funzionalita' Oroscopo Personalizzato si chiamera' solo oroscopo cosi'
-  /// il font sara' piu' grande in home". Il motivo e' misurabile e non
-  /// estetico: il titolo della bolla vive in un `FittedBox(scaleDown)`, che
-  /// rimpicciolisce quello che non ci sta. "Oroscopo Personalizzato" non ci
-  /// stava e veniva reso in piccolo; "Oroscopo" ci sta, e il corpo resta
-  /// quello pieno. Il catalogo continua a dire "Oroscopo Personalizzato",
-  /// perche' il nome lungo e' il nome dell'arte: cambia solo come si chiama
-  /// sullo scaffale di casa.
-  static const Map<String, String> _etichetteBrevi = {
-    'tarot_spread_three': 'Tarocchi',
-    'horoscope': 'Oroscopo',
-  };
+  /// **LE SEI DELL'ORDINE EO, E SOSTITUISCONO LE SETTE. Ordine EO voce 09,
+  /// 26 settembre 2026.** La scelta iniziale della riga "Le arti preferite"
+  /// per chi non l'ha ancora personalizzata: Oroscopo Personalizzato, Stesa
+  /// di Tarocchi, Estrazione Rune, Sinastria VIP, Meditazione, Mappa del
+  /// Viso. Il Viaggio dello Sciamano esce dal seme: sta nelle righe "Conosci
+  /// te stesso" e "La tua intenzione". Le sette di prima restano scritte
+  /// qui sopra come storia. Chi ha gia' personalizzato tiene le sue.
+  static const List<String> seiDellOrdineEO = [
+    'horoscope',
+    'tarot_spread_three',
+    'rune_draw',
+    'synastry_vip',
+    'meditation',
+    'face_constellation',
+  ];
 
-  /// L'etichetta breve di un'arte nello scaffale, se ne ha una.
-  static String? etichettaBreve(String id) => _etichetteBrevi[id];
+  // **LAPIDE: dall'ordine AK voce 01 all'ordine EN qui vivevano le
+  // etichette brevi dello scaffale**, "Tarocchi" e "Oroscopo" (ordine BK
+  // voce 01), perche' il titolo della bolla stava in un FittedBox che
+  // rimpiccioliva i nomi lunghi. **Dall'ordine EO voce 02** la scheda porta
+  // il titolo del catalogo, `ArtEntry.title`, su al massimo due righe e mai
+  // rimpicciolito: la ragione delle etichette non c'e' piu', e con lei le
+  // etichette.
 
   static const String _chiave = 'arti_preferite_v1';
 
@@ -125,7 +127,7 @@ class ArtiPreferiteController extends ChangeNotifier {
     // dettato da Mauro, uguale per tutti. Il parametro resta nella firma
     // perche' chi chiama non debba cambiare, e per il giorno in cui il seme
     // tornasse a dipendere dal Maestro.
-    return List<String>.from(setteDiMauro);
+    return List<String>.from(seiDellOrdineEO);
   }
 
   /// Tutte le arti che si possono mettere nello scaffale: le vive di tutti e

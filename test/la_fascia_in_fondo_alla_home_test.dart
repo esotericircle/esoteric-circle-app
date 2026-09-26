@@ -57,7 +57,7 @@ void main() {
 
   /// Scorre fino in fondo, come farebbe un dito.
   Future<void> finoInFondo(WidgetTester tester) async {
-    for (var i = 0; i < 8; i++) {
+    for (var i = 0; i < 20; i++) {
       await tester.drag(ilCorpo().first, const Offset(0, -400));
       await tester.pump();
     }
@@ -109,7 +109,12 @@ void main() {
     await tester.pump();
     await finoInFondo(tester);
 
-    expect(find.byKey(const Key('tue_arti_titolo')), findsOneWidget,
-        reason: 'Con la barra fuori la fascia non si raggiunge piu\'.');
+    // **LAPIDE: fino all'ordine EN in fondo c'erano lo scaffale e la
+    // striscia**, e la prova cercava il titolo dello scaffale. Dall'ordine EO
+    // voce 09 in fondo alla home c'e' l'ultima delle dieci righe, "La tua
+    // energia": e' lei che con la barra fuori deve restare raggiungibile.
+    expect(find.byKey(const Key('riga_titolo_la_tua_energia')), findsOneWidget,
+        reason: 'Con la barra fuori l\'ultima riga della home non si '
+            'raggiunge piu\'.');
   });
 }
