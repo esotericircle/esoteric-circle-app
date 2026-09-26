@@ -5183,9 +5183,29 @@ Note in `docs/note_della_consegna.txt`, solo cio' che e' visto sul telefono.
 **L'IPHONE.** La build iOS non e' stata lanciata: la lancia il fondatore su
 Codemagic, che carica su TestFlight. Controllo fatto da qui con la piattaforma
 iOS alla misura di un iPhone 13 (`test/le_schede_su_iphone_test.dart`).
+**La build iOS lanciata dal fondatore il 26 settembre 2026 dal commit
+`0c8e6f58` e' FALLITA** al passo "L'archivio" di Codemagic, dopo 2 minuti:
+*"Provisioning profile "Esoteric Circle ios_app_store 1786051735" doesn't
+include the com.apple.developer.associated-domains entitlement"*. **Padre:
+ordine EA voce 19** (commit `6953694f`, 20 settembre 2026), che ha messo il
+diritto dei domini in `ios/Runner/Runner.entitlements` per il link
+d'ingresso e **non ha scritto fra i passi del fondatore il passo sul portale
+Apple**; dal 20 settembre nessuna build iOS era partita, quindi il difetto
+e' rimasto muto sei giorni. **Il rimedio e' un passo del fondatore, non di
+codice**: su developer.apple.com, Identifiers,
+`com.esotericircle.esotericCircle`, spuntare **Associated Domains** e
+salvare; in Profiles togliere il profilo vecchio, cosi' il passo
+`fetch-signing-files --create` di Codemagic ne crea uno nuovo che comprende
+la capacita'; rilanciare. **Il dominio `esotericircle.app` oggi non porta
+ancora a Firebase Hosting** (risolve a 62.149.128.40 e non serve
+`apple-app-site-association`): la build passera', ma su iPhone il link
+d'ingresso aprira' l'app solo dopo i passi 3.2 e 3.4 del rapporto EA. Nata
+la guardia `test/i_diritti_di_ios_hanno_il_loro_passo_sul_portale_test.dart`,
+che pretende per ogni diritto la sua capacita' del portale scritta accanto.
 
 **LE GUARDIE.** Otto nuove, tutte viste rosse con l'innesto verificato;
-registro a **533**. Difetti di voci gia' spinte trovati dalla suite intera e
+registro a **533**, poi **534** con la guardia dei diritti di iOS nata dalla
+build fallita. Difetti di voci gia' spinte trovati dalla suite intera e
 riparati: EO.01 (manifesto degli asset, cardinale), EO.06 (seconda
 iscrizione all'accelerometro), EO.14 (la risposta a flusso fuori dal
 controllo della troncatura), EO.11 (impronte); un commit (`dc75e426`)
