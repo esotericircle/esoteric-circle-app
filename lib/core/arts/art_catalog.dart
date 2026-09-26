@@ -209,63 +209,22 @@ class ArtCatalog {
   /// contenuto. Nella vista della persona si mostrano le attive, le Premium e
   /// le in arrivo fino alla soglia ([ArtPhase.sogliaUtente]): quel che sta
   /// oltre non si cancella dal catalogo, semplicemente non si racconta ancora.
-  ///
-  /// Con [esente] la soglia non si applica: e' il caso di una sottocategoria
-  /// tutta in cammino, che sta gia' chiusa dietro un tocco e quindi puo'
-  /// mostrarsi intera senza allungare l'elenco di quel che si puo' fare adesso.
-  static bool isVisible(ArtEntry art,
-      {bool demo = AppFlags.isDemo, bool esente = false}) {
-    if (demo || esente) return true;
+  static bool isVisible(ArtEntry art, {bool demo = AppFlags.isDemo}) {
+    if (demo) return true;
     if (art.state != ArtState.inArrivo) return true;
     return ArtPhase.rank(art.phase) <= ArtPhase.rank(ArtPhase.sogliaUtente);
   }
 
-  /// Se una sottocategoria ha almeno un'arte viva adesso.
-  static bool hasActive(ArtSection section) =>
-      section.arts.any((a) => a.state == ArtState.attiva);
+  // **LAPIDE: qui vivevano `hasActive`, `visibleArts` e `visibleFor`**, le
+  // viste del dominio a riquadri: le sezioni con arti vive davanti, e
+  // l'esenzione dalla soglia delle fasi per le sezioni tutte in cammino.
+  // **Dall'ordine EO voce 10** il dominio legge l'ordine del fondatore
+  // (`l_ordine_dei_domini.dart`), anche contro quella regola, e le arti in
+  // cammino hanno la loro riga "In arrivo". Il filtro di chi vive solo nel
+  // Passaporto (ordine DC voce 12) sta adesso in `LOrdineDeiDomini` e in
+  // [activeOf], che sono le due porte da cui le arti arrivano a schermo.
 
-  /// Le arti di una sottocategoria come si mostrano nella vista corrente.
-  ///
-  /// La soglia delle fasi vale dove c'e' qualcosa di vivo, perche' li' ogni
-  /// riga in piu' allontana la cosa che si puo' fare adesso. Dove non c'e'
-  /// nulla di vivo il gruppo e' gia' raccolto dietro un tocco, quindi si mostra
-  /// intero: e' un assaggio di strada, non rumore.
-  static List<ArtEntry> visibleArts(ArtSection section,
-      {bool demo = AppFlags.isDemo}) {
-    final esente = !hasActive(section);
-    return [
-      for (final a in section.arts)
-        // **CHI VIVE SOLO NEL PASSAPORTO NON STA NELLO SCAFFALE.**
-        // Ordine DC voce 12: nel dominio di un Maestro stanno le esperienze,
-        // nel Passaporto i risultati. **Il filtro sta qui, in un punto solo**,
-        // cosi' vale per tutti e tre i domini e per la striscia delle altre
-        // arti senza che nessuno debba ricordarsene.
-        if (!a.soloNelPassaporto && isVisible(a, demo: demo, esente: esente)) a,
-    ];
-  }
-
-  /// Le sottocategorie di un Maestro come si mostrano davvero.
-  ///
-  /// Tre cose in un punto solo, valide per tutti e tre i domini: si filtrano le
-  /// arti che la vista corrente non mostra, si lasciano cadere le
-  /// sottocategorie rimaste vuote, e si mettono davanti quelle che hanno
-  /// qualcosa di vivo, perche' chi apre il dominio deve trovare per prima la
-  /// cosa che puo' fare adesso. L'ordine dichiarato nel catalogo si conserva
-  /// dentro i due gruppi.
-  static List<ArtSection> visibleFor(Maestro maestro,
-      {bool demo = AppFlags.isDemo}) {
-    final piene = <ArtSection>[];
-    final inCammino = <ArtSection>[];
-    for (final s in forMaestro(maestro)) {
-      final arti = visibleArts(s, demo: demo);
-      if (arti.isEmpty) continue;
-      final sezione = ArtSection(title: s.title, arts: arti);
-      (hasActive(sezione) ? piene : inCammino).add(sezione);
-    }
-    return [...piene, ...inCammino];
-  }
-
-  // --- Medora: Astrologia, Cartomanzia, Destino ---
+  // --- Medora: Astrologia, Cartomanzia, Compatibilità, Lunologia, Destino ---
   static const List<ArtSection> _medora = [
     ArtSection(title: 'Astrologia', arts: [
       ArtEntry(
@@ -311,6 +270,31 @@ class ArtCatalog {
         phase: ArtPhase.fase4,
       ),
     ]),
+    ArtSection(title: 'Cartomanzia', arts: [
+      ArtEntry(
+        id: 'tarot_spread_three',
+        title: 'Stesa di Tarocchi',
+        teaser: 'Il ventaglio di Medora: scegli le carte e leggi il filo.',
+        icon: Icons.style,
+        state: ArtState.attiva,
+      ),
+      ArtEntry(
+        id: 'angels_oracle',
+        title: 'Oracolo degli Angeli',
+        teaser: 'La stesa dei settantadue nomi, per una risposta alta.',
+        icon: Icons.auto_stories_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase2,
+      ),
+      ArtEntry(
+        id: 'angel_cards',
+        title: 'Carte Angeliche Oracolari',
+        teaser: 'Un mazzo di luce, per messaggi brevi e chiari.',
+        icon: Icons.filter_drama_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase4,
+      ),
+    ]),
     ArtSection(title: 'Compatibilità', arts: [
       ArtEntry(
         id: 'synastry_vip',
@@ -338,31 +322,6 @@ class ArtCatalog {
         icon: Icons.group_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.viralita,
-      ),
-    ]),
-    ArtSection(title: 'Cartomanzia', arts: [
-      ArtEntry(
-        id: 'tarot_spread_three',
-        title: 'Stesa di Tarocchi',
-        teaser: 'Il ventaglio di Medora: scegli le carte e leggi il filo.',
-        icon: Icons.style,
-        state: ArtState.attiva,
-      ),
-      ArtEntry(
-        id: 'angels_oracle',
-        title: 'Oracolo degli Angeli',
-        teaser: 'La stesa dei settantadue nomi, per una risposta alta.',
-        icon: Icons.auto_stories_rounded,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.fase2,
-      ),
-      ArtEntry(
-        id: 'angel_cards',
-        title: 'Carte Angeliche Oracolari',
-        teaser: 'Un mazzo di luce, per messaggi brevi e chiari.',
-        icon: Icons.filter_drama_rounded,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.fase4,
       ),
     ]),
     // **DUE ARTI DELLA LUNOLOGIA ENTRANO IN MVP. Ordine EN voce 12, 25
@@ -464,67 +423,11 @@ class ArtCatalog {
     ]),
   ];
 
-  // --- Aura: Chakra, Energia, Archetipi ---
+  // --- Aura: Energia, Chakra, Fisiognomica ---
   //
   // Tutte le arti di Aura toccano il benessere della persona, quindi portano la
   // cornice onesta: intrattenimento e crescita personale, mai cura.
   static const List<ArtSection> _aura = [
-    ArtSection(title: 'Chakra', arts: [
-      ArtEntry(
-        id: 'chakra_scan',
-        title: 'Scan dei Chakra',
-        teaser: 'I sette centri che si illuminano col loro livello.',
-        icon: Icons.blur_circular_rounded,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.mvp,
-        cornice: true,
-      ),
-      ArtEntry(
-        id: 'crystal_therapy',
-        title: 'Cristalloterapia',
-        teaser: 'Le pietre giuste per riequilibrare la tua energia.',
-        icon: Icons.diamond_rounded,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.mvp,
-        cornice: true,
-      ),
-      ArtEntry(
-        id: 'crystal_oracle',
-        title: 'Oracolo dei Cristalli',
-        teaser: 'Estrai la pietra che ti parla oggi.',
-        icon: Icons.auto_awesome_outlined,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.mvp,
-        cornice: true,
-      ),
-      ArtEntry(
-        id: 'crystal_ball',
-        title: 'Sfera di Cristallo',
-        teaser: 'Uno sguardo intuitivo dentro la sfera.',
-        icon: Icons.panorama_fish_eye,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.fase2,
-        cornice: true,
-      ),
-      ArtEntry(
-        id: 'energy_cleansing',
-        title: 'Purificazione Energetica',
-        teaser: 'Un gesto per liberare il campo da ciò che pesa.',
-        icon: Icons.water_drop_rounded,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.mvp,
-        cornice: true,
-      ),
-      ArtEntry(
-        id: 'aura_analysis',
-        title: 'Analisi dell\'Aura',
-        teaser: 'I colori della tua aura e cosa raccontano.',
-        icon: Icons.brightness_7,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.fase4,
-        cornice: true,
-      ),
-    ]),
     ArtSection(title: 'Energia', arts: [
       ArtEntry(
         id: 'meditation',
@@ -587,6 +490,18 @@ class ArtCatalog {
         phase: ArtPhase.fase2,
         cornice: true,
       ),
+      // **IL MOOD TRACKER STA IN ENERGIA, ordine EO voce 10.** Fino
+      // all'ordine EN stava negli Archetipi; il fondatore lo ha messo fra
+      // Affermazioni del Giorno, Sleep Stories e Bioritmo.
+      ArtEntry(
+        id: 'mood_tracker',
+        title: 'Mood Tracker',
+        teaser: 'Il tuo umore giorno per giorno, in dialogo coi transiti.',
+        icon: Icons.mood_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.mvp,
+        cornice: true,
+      ),
       ArtEntry(
         id: 'biorhythm',
         title: 'Bioritmo',
@@ -607,7 +522,66 @@ class ArtCatalog {
         cornice: true,
       ),
     ]),
-    ArtSection(title: 'Archetipi', arts: [
+    ArtSection(title: 'Chakra', arts: [
+      ArtEntry(
+        id: 'chakra_scan',
+        title: 'Scan dei Chakra',
+        teaser: 'I sette centri che si illuminano col loro livello.',
+        icon: Icons.blur_circular_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.mvp,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'crystal_therapy',
+        title: 'Cristalloterapia',
+        teaser: 'Le pietre giuste per riequilibrare la tua energia.',
+        icon: Icons.diamond_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.mvp,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'crystal_oracle',
+        title: 'Oracolo dei Cristalli',
+        teaser: 'Estrai la pietra che ti parla oggi.',
+        icon: Icons.auto_awesome_outlined,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.mvp,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'crystal_ball',
+        title: 'Sfera di Cristallo',
+        teaser: 'Uno sguardo intuitivo dentro la sfera.',
+        icon: Icons.panorama_fish_eye,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase2,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'energy_cleansing',
+        title: 'Purificazione Energetica',
+        teaser: 'Un gesto per liberare il campo da ciò che pesa.',
+        icon: Icons.water_drop_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.mvp,
+        cornice: true,
+      ),
+      ArtEntry(
+        id: 'aura_analysis',
+        title: 'Analisi dell\'Aura',
+        teaser: 'I colori della tua aura e cosa raccontano.',
+        icon: Icons.brightness_7,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase4,
+        cornice: true,
+      ),
+    ]),
+    // **ARCHETIPI E' DIVENTATA FISIOGNOMICA, ordine EO voce 11.** Parole
+    // girate al fondatore: senza il Test Archetipo contiene le letture del
+    // corpo. Risposta: "Ok confermo, scrivi l'ordine per Code."
+    ArtSection(title: 'Fisiognomica', arts: [
       ArtEntry(
         id: 'archetype_test',
         title: 'Test Archetipo',
@@ -615,6 +589,10 @@ class ArtCatalog {
         icon: Icons.psychology_alt,
         state: ArtState.attiva,
         cornice: true,
+        // **SOLO NEL PASSAPORTO, ordine EO voce 12.** Il fondatore: "Per
+        // questo test archtipo non e' propriamente una funzionalita'."
+        // Resta raggiungibile dal Passaporto, come l'Angelo Custode.
+        soloNelPassaporto: true,
       ),
       ArtEntry(
         id: 'face_constellation',
@@ -623,15 +601,6 @@ class ArtCatalog {
             'La videocamera legge i tuoi tratti e li unisce in una costellazione.',
         icon: Icons.face_retouching_natural,
         state: ArtState.attiva,
-        cornice: true,
-      ),
-      ArtEntry(
-        id: 'mood_tracker',
-        title: 'Mood Tracker',
-        teaser: 'Il tuo umore giorno per giorno, in dialogo coi transiti.',
-        icon: Icons.mood_rounded,
-        state: ArtState.inArrivo,
-        phase: ArtPhase.mvp,
         cornice: true,
       ),
       ArtEntry(
@@ -666,13 +635,16 @@ class ArtCatalog {
     ]),
   ];
 
-  // --- Caligo: Rune, Rituali, Numerologia ---
+  // --- Caligo: Divinazione, Rituali, Magia, Numerologia ---
   //
   // Vincolo di contenuto, mai a video: i riti attingono soltanto a pratiche
   // reali e documentate, mai inventate, e restano fuori i riti sulla volonta'
   // di terzi. Il Cerchio accompagna chi lo chiede, non agisce su altri.
   static const List<ArtSection> _caligo = [
-    ArtSection(title: 'Rune', arts: [
+    // **RUNE E' DIVENTATA DIVINAZIONE, ordine EO voce 11.** Contiene anche
+    // Pendolo, Sogni, I-Ching e Caffe'. Risposta del fondatore: "Ok
+    // confermo, scrivi l'ordine per Code."
+    ArtSection(title: 'Divinazione', arts: [
       ArtEntry(
         id: 'rune_draw',
         title: 'Estrazione Rune',

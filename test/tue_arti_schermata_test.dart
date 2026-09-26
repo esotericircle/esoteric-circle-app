@@ -240,7 +240,9 @@ void main() {
     print('ORDINE DC VOCE 17: arti con la soglia ${rotte.length}, '
         'selezionabili ${ArtiPreferiteController.selezionabili.length}, '
         'con la soglia ma fuori dallo scaffale $coperteMaNonPreferibili');
-    expect(coperteMaNonPreferibili, ['guardian_angel'],
+    // **E IL TEST ARCHETIPO, dall'ordine EO voce 12**: vive solo nel
+    // Passaporto come l'Angelo, e come lui tiene soglia e cuore.
+    expect(coperteMaNonPreferibili, ['archetype_test', 'guardian_angel'],
         reason: 'l elenco delle arti che hanno la soglia senza essere '
             'preferibili e cambiato senza che nessuno lo dichiarasse: '
             '$coperteMaNonPreferibili');

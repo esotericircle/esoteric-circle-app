@@ -7,8 +7,12 @@ void main() {
   test('domainArtsPhrase mostra le tre arti con "e" prima dell\'ultima', () {
     expect(
         Maestro.medora.domainArtsPhrase, 'Astrologia, Cartomanzia e Destino');
-    expect(Maestro.aura.domainArtsPhrase, 'Chakra, Energia e Archetipi');
-    expect(Maestro.caligo.domainArtsPhrase, 'Rune, Rituali e Numerologia');
+    // **LAPIDE: fino all'ordine EN** Aura era "Chakra, Energia e Archetipi"
+    // e Caligo "Rune, Rituali e Numerologia". **Dall'ordine EO voce 11** le
+    // sezioni seguono i nomi e l'ordine del fondatore.
+    expect(Maestro.aura.domainArtsPhrase, 'Energia, Chakra e Fisiognomica');
+    expect(
+        Maestro.caligo.domainArtsPhrase, 'Divinazione, Rituali e Numerologia');
   });
 
   test('La frase delle arti non ha virgola davanti alla "e"', () {

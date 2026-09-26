@@ -1,4 +1,5 @@
 import 'package:esoteric_circle/core/arts/art_catalog.dart';
+import 'package:esoteric_circle/core/arts/l_ordine_dei_domini.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
 import 'package:esoteric_circle/core/viaggio/i_quattro_viaggi.dart';
@@ -84,8 +85,8 @@ void main() {
   test('LA CASELLA VUOTA DICE A CHE PUNTO SI E, e non resta muta', () {
     final righe = <String>[];
     for (var d = 0; d <= IQuattroViaggi.quanteDiscese; d++) {
-      righe.add(LAnnuncioDellAnimale.sottoLaSagoma(
-          d, IQuattroViaggi.quanteDiscese));
+      righe.add(
+          LAnnuncioDellAnimale.sottoLaSagoma(d, IQuattroViaggi.quanteDiscese));
     }
     // ignore: avoid_print
     print('ORDINE DC VOCE 02: sotto la sagoma, da zero a quattro discese: '
@@ -122,8 +123,8 @@ void main() {
     final dette = <String>[];
     for (var d = 0; d <= 8; d++) {
       dette.add(IQuattroViaggi.aChePunto(d));
-      dette.add(LAnnuncioDellAnimale.sottoLaSagoma(
-          d, IQuattroViaggi.quanteDiscese));
+      dette.add(
+          LAnnuncioDellAnimale.sottoLaSagoma(d, IQuattroViaggi.quanteDiscese));
     }
     final sbagliate = dette.where((r) => r.contains('1 volte')).toList();
     // ignore: avoid_print
@@ -167,10 +168,14 @@ void main() {
     print('ORDINE DC VOCE 12: arti che vivono solo nel Passaporto '
         '${soloNelPassaporto.length}: ${soloNelPassaporto.join(", ")}');
     for (final m in Maestro.values) {
-      // **PRIMA PORTA: le viste del dominio.**
+      // **PRIMA PORTA: le viste del dominio.** LAPIDE: fino all'ordine EN
+      // era `ArtCatalog.visibleFor`; dall'ordine EO voce 10 il dominio legge
+      // `LOrdineDeiDomini`, cioe' le sezioni del fondatore e la riga "In
+      // arrivo", e la porta da sorvegliare e' quella.
       final nelleViste = [
-        for (final s in ArtCatalog.visibleFor(m, demo: true))
-          for (final a in s.arts) a.id,
+        for (final s in LOrdineDeiDomini.di(m))
+          for (final a in LOrdineDeiDomini.artiDi(s, demo: true)) a.id,
+        for (final a in LOrdineDeiDomini.inArrivo(m, demo: true)) a.id,
       ];
       // **SECONDA PORTA: la striscia delle altre arti.**
       final nellaStriscia = ArtCatalog.activeOf(m).map((a) => a.id).toList();

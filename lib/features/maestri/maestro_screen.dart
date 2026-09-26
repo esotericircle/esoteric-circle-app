@@ -11,18 +11,17 @@ export 'widgets/striscia_altre_arti.dart'
     show StrisciaAltreArti, artiDaScoprire, maestroDellArte, rottaDiProva;
 
 import '../../core/arts/art_catalog.dart';
+import '../../core/arts/gli_sfondi_delle_schede.dart';
+import '../../core/arts/l_ordine_dei_domini.dart';
+import '../schede/la_luce_delle_schede.dart';
+import '../schede/la_riga_delle_schede.dart';
 import '../../core/chat/immersive_intents.dart';
 import '../../core/config/app_flags.dart';
 import '../../core/entitlement/plan_catalog.dart';
 import '../../core/lang/euphonic.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
-import '../../core/viaggio/diario_dei_viaggi.dart';
-import '../../core/viaggio/la_promessa_del_viaggio.dart';
-import '../../design_system/components/art_card.dart';
 import '../../design_system/components/depth_card.dart';
-import '../../design_system/components/collasso.dart';
-import '../../design_system/components/scroll_reveal.dart';
 import '../../design_system/components/section_title.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -65,29 +64,11 @@ class MaestroScreen extends StatefulWidget {
 }
 
 class _MaestroScreenState extends State<MaestroScreen> {
-  /// Se il corpo della sottocategoria e' aperto. Una sottocategoria con almeno
-  /// un'arte viva nasce aperta, una tutta in cammino nasce chiusa.
-  final Map<String, bool> _open = {};
-
-  /// Se dentro una sottocategoria mista e' aperto il gruppo delle arti in
-  /// arrivo, che di suo nasce chiuso.
-  final Map<String, bool> _soon = {};
-
-  List<ArtSection> get _sections =>
-      ArtCatalog.visibleFor(widget.maestro, demo: widget.demo);
-
-  @override
-  void initState() {
-    super.initState();
-    for (final s in _sections) {
-      _open[s.title] = ArtCatalog.hasActive(s);
-      _soon[s.title] = false;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final sections = _sections;
+    final sezioni = LOrdineDeiDomini.di(widget.maestro);
+    final inArrivo =
+        LOrdineDeiDomini.inArrivo(widget.maestro, demo: widget.demo);
 
     return SafeArea(
       bottom: false,
@@ -131,28 +112,43 @@ class _MaestroScreenState extends State<MaestroScreen> {
               ),
             ),
           ),
-          // I riquadri delle sottocategorie: a colpo d'occhio si sceglie la
-          // sezione, e dentro le arti coi loro tre stati.
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
-            sliver: SliverList.separated(
-              itemCount: sections.length,
-              separatorBuilder: (_, __) =>
-                  const SizedBox(height: SpacingTokens.lg),
-              itemBuilder: (context, i) {
-                final s = sections[i];
-                return _ArtSectionBox(
-                  maestro: widget.maestro,
-                  section: s,
-                  demo: widget.demo,
-                  open: _open[s.title] ?? true,
-                  soonOpen: _soon[s.title] ?? false,
-                  onToggleSection: () => setState(
-                      () => _open[s.title] = !(_open[s.title] ?? true)),
-                  onToggleSoon: () => setState(
-                      () => _soon[s.title] = !(_soon[s.title] ?? false)),
-                );
-              },
+          // **LE SEZIONI SONO RIGHE DI SCHEDE. Ordine EO voce 10.** Il
+          // fondatore: *"Nei domini le arti usano la scheda delle voci da
+          // EO.02 a EO.07"*, e l'ordine di sezioni e schede e' il suo
+          // (`LOrdineDeiDomini`), anche contro la regola che metteva prima le
+          // sezioni con arti vive. **Il formato lo sceglie Code**: verticale,
+          // come le locandine, perche' in un dominio si sceglie fra poche arti
+          // della stessa famiglia e la scheda alta le fa leggere per prime.
+          SliverToBoxAdapter(
+            child: LaLuceDelleSchede(
+              child: Column(
+                key: const Key('dominio_righe'),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  for (final s in sezioni)
+                    LaRigaDelleSchede(
+                      chiave: 'dominio_${s.titolo.toLowerCase()}',
+                      titolo: s.titolo,
+                      formato: FormatoDellaScheda.verticale,
+                      arti: LOrdineDeiDomini.artiDi(s, demo: widget.demo),
+                      maestroDi: (_) => widget.maestro,
+                      mostraFase: widget.demo,
+                    ),
+                  // **LA RIGA "IN ARRIVO", ordine EO voce 13**: le arti del
+                  // Maestro che non stanno nelle sezioni, con lo sfondo del
+                  // Maestro senza emblema e l'icona dell'arte in oro.
+                  if (inArrivo.isNotEmpty)
+                    LaRigaDelleSchede(
+                      chiave: 'dominio_in_arrivo',
+                      titolo: 'In arrivo',
+                      formato: FormatoDellaScheda.quadrata,
+                      arti: inArrivo,
+                      maestroDi: (_) => widget.maestro,
+                      sfondoDelMaestro: true,
+                      mostraFase: widget.demo,
+                    ),
+                ],
+              ),
             ),
           ),
           // In fondo, oltre il dominio del Maestro, il ponte al cerchio
@@ -173,264 +169,10 @@ class _MaestroScreenState extends State<MaestroScreen> {
   }
 }
 
-/// Il riquadro di una sottocategoria: il suo titolo e le arti che contiene, coi
-/// tre stati. Un solo linguaggio di card, lo stato le distingue.
-///
-/// Il collasso lo guida lo STATO delle arti, non una scelta scritta a mano.
-/// Dove c'e' qualcosa di vivo, le arti attive e le Premium restano sempre in
-/// vista e solo quelle in cammino si raccolgono dietro un apri e chiudi. Dove
-/// non c'e' ancora nulla di vivo, l'intera sottocategoria nasce chiusa e si
-/// annuncia per quel che e'.
-class _ArtSectionBox extends StatelessWidget {
-  const _ArtSectionBox({
-    required this.maestro,
-    required this.section,
-    required this.demo,
-    required this.open,
-    required this.soonOpen,
-    required this.onToggleSection,
-    required this.onToggleSoon,
-  });
-
-  final Maestro maestro;
-  final ArtSection section;
-  final bool demo;
-  final bool open;
-  final bool soonOpen;
-  final VoidCallback onToggleSection;
-  final VoidCallback onToggleSoon;
-
-  String get _slug => section.title.toLowerCase();
-  bool get _hasActive => ArtCatalog.hasActive(section);
-
-  List<ArtEntry> get _subito => [
-        for (final a in section.arts)
-          if (a.state != ArtState.inArrivo) a,
-      ];
-
-  List<ArtEntry> get _inCammino => [
-        for (final a in section.arts)
-          if (a.state == ArtState.inArrivo) a,
-      ];
-
-  Future<void> _openArt(BuildContext context, ArtEntry art) async {
-    final profile = context.read<ProfileController>();
-    final route = artRouteFor(
-      art.id,
-      userBirth:
-          profile.identity.isExample ? null : profile.identity.birthMoment,
-      userName: profile.hasName ? profile.vocative : null,
-    );
-    if (route != null) {
-      await Navigator.of(context).push(route);
-      return;
-    }
-    // Mai un vicolo cieco: un anticipo elegante che dice a che punto e'.
-    if (!context.mounted) return;
-    await showArtPreview(context, art: art, maestro: maestro);
-  }
-
-  Widget _card(BuildContext context, ArtEntry art) => ScrollReveal(
-        depth: 1,
-        child: art.id == 'guide_animal'
-            ? _CardDelViaggio(
-                art: art,
-                palette: context.palette,
-                showPhase: demo,
-                onTap: () => _openArt(context, art),
-              )
-            : ArtCard(
-                art: art,
-                palette: context.palette,
-                showPhase: demo,
-                onTap: () => _openArt(context, art),
-              ),
-      );
-
-  @override
-  Widget build(BuildContext context) {
-    final palette = context.palette;
-    final subito = _subito;
-    final inCammino = _inCammino;
-    return Container(
-      key: Key('art_section_$_slug'),
-      padding: const EdgeInsets.all(SpacingTokens.md),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusXl),
-        color: palette.deepest.withValues(alpha: 0.35),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.22)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ScrollReveal(child: _header(context, palette)),
-          // Dove c'e' del vivo, quel che si puo' fare adesso resta sempre in
-          // vista: nel collasso finiscono soltanto le arti in cammino.
-          if (_hasActive) ...[
-            for (var i = 0; i < subito.length; i++) ...[
-              if (i > 0) const SizedBox(height: SpacingTokens.sm),
-              _card(context, subito[i]),
-            ],
-            if (inCammino.isNotEmpty) ...[
-              const SizedBox(height: SpacingTokens.sm),
-              _soonToggle(context, palette, inCammino.length),
-              Collassabile(
-                aperto: soonOpen,
-                child: Column(
-                  children: [
-                    for (final a in inCammino) ...[
-                      const SizedBox(height: SpacingTokens.sm),
-                      _card(context, a),
-                    ],
-                  ],
-                ),
-              ),
-            ],
-          ] else
-            // Nessuna arte viva: tutta la sottocategoria sta dietro il collasso.
-            Collassabile(
-              aperto: open,
-              child: Column(
-                children: [
-                  for (final a in section.arts) ...[
-                    const SizedBox(height: SpacingTokens.sm),
-                    _card(context, a),
-                  ],
-                ],
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-
-  /// L'intestazione: titolo, contatore delle arti visibili nella vista corrente
-  /// e, quando non c'e' nulla di vivo, la dicitura onesta piu' la freccetta.
-  /// Tutta la riga e' area di tocco, non la sola freccetta.
-  Widget _header(BuildContext context, MaestroPalette palette) {
-    // **IL TITOLO NON GAREGGIA CON LO SPAZIO VUOTO.**
-    //
-    // **Il fatto del fondatore, il 30 agosto 2026**: "il titolo della
-    // categoria Numerologia e' molto piu' piccolo degli altri titoli di
-    // categoria". Vero, e la causa non era la lunghezza della parola.
-    //
-    // Il titolo vive dentro un `FittedBox` che lo rimpicciolisce invece di
-    // spezzarlo a meta' parola, e quello serve: in Cinzel, tutto maiuscolo,
-    // "Lunologia" andava a capo come LUNOL OGIA. Ma prima il titolo era un
-    // `Flexible` con flex 1 e piu' avanti nella stessa riga c'era uno
-    // `Spacer`, che e' un `Expanded` con flex 1: **i due si dividevano lo
-    // spazio libero a meta'**, il titolo ne riceveva la sua parte e il
-    // `FittedBox` lo scalava giu' mentre accanto restava vuoto.
-    //
-    // Succedeva **solo alle sottocategorie senza nemmeno un'arte viva**,
-    // perche' sono le sole che portano la dicitura, lo `Spacer` e la
-    // freccetta. Con "Cabala", sette lettere, lo scarto era piccolo; con
-    // "Numerologia", undici, si vede.
-    //
-    // Adesso il gruppo di sinistra sta dentro un `Expanded` e la freccetta gli
-    // sta dopo: il titolo prende tutto lo spazio che avanza, e il `FittedBox`
-    // scatta solo quando non basta davvero.
-    final riga = Row(
-      children: [
-        Expanded(
-          child: Row(
-            children: [
-              Flexible(
-                child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    section.title,
-                    maxLines: 1,
-                    style: TypographyTokens.titoloScheda()
-                        .copyWith(color: palette.goldSoft),
-                  ),
-                ),
-              ),
-              const SizedBox(width: SpacingTokens.xxs),
-              // Il contatore delle arti della sottocategoria: dice a colpo
-              // d'occhio quanto e' ampio il territorio, contando quel che si
-              // vede davvero.
-              Text(
-                '· ${section.arts.length}',
-                key: Key('art_section_count_$_slug'),
-                style: TypographyTokens.label(size: 13).copyWith(
-                  color: palette.goldSoft.withValues(alpha: 0.75),
-                  letterSpacing: 0.4,
-                ),
-              ),
-              if (!_hasActive) ...[
-                const SizedBox(width: SpacingTokens.xxs),
-                Text(
-                  '· In arrivo',
-                  key: Key('art_section_soon_$_slug'),
-                  style: TypographyTokens.label(size: 12).copyWith(
-                    color: ColorTokens.textSecondary,
-                    letterSpacing: 0.4,
-                  ),
-                ),
-              ],
-            ],
-          ),
-        ),
-        if (!_hasActive)
-          FreccettaDelCollasso(aperto: open, color: palette.goldSoft),
-      ],
-    );
-    if (_hasActive) {
-      return Padding(
-        padding: const EdgeInsets.only(
-            left: SpacingTokens.xs, bottom: SpacingTokens.sm),
-        child: riga,
-      );
-    }
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        enableFeedback: false,
-        key: Key('art_section_header_$_slug'),
-        onTap: onToggleSection,
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: SpacingTokens.xs, vertical: 4),
-          child: riga,
-        ),
-      ),
-    );
-  }
-
-  /// L'apri e chiudi delle sole arti in cammino, dentro una sottocategoria che
-  /// ha gia' qualcosa di vivo.
-  Widget _soonToggle(BuildContext context, MaestroPalette palette, int quante) {
-    return Material(
-      color: Colors.transparent,
-      child: InkWell(
-        enableFeedback: false,
-        key: Key('art_soon_toggle_$_slug'),
-        onTap: onToggleSoon,
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-              horizontal: SpacingTokens.xs, vertical: 6),
-          child: Row(
-            children: [
-              Text(
-                'Altre arti in arrivo · $quante',
-                style: TypographyTokens.label(size: 12).copyWith(
-                  color: ColorTokens.textSecondary,
-                  letterSpacing: 0.5,
-                ),
-              ),
-              const Spacer(),
-              FreccettaDelCollasso(aperto: soonOpen, color: palette.goldSoft),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
+// **LAPIDE: qui viveva `_ArtSectionBox`**, il riquadro di una
+// sottocategoria con le card a riga, il contatore e i collassi delle arti in
+// cammino. Dall'ordine EO voce 10 le sezioni del dominio sono righe di
+// schede, e le arti in cammino hanno la loro riga "In arrivo" in fondo.
 
 /// Un'arte del cerchio nella striscia "Scopri altre arti del Cerchio": il
 /// Maestro a cui appartiene, la funzione immersiva che apre, l'icona e il nome.
@@ -776,60 +518,7 @@ Future<void> showArtPreview(
   );
 }
 
-
-/// **LA CARD DEL VIAGGIO, l'unica che cambia descrizione col tempo.**
-/// Ordine DE voce 02, 11 settembre 2026.
-///
-/// **PERCHE' HA BISOGNO DI UNA CLASSE SUA.** Il catalogo delle arti e'
-/// `const`: la sua riga vale per tutti e per sempre. La promessa del Viaggio
-/// invece **cambia alla quarta discesa**, e quel numero vive nel Diario, sul
-/// telefono di quella persona. Leggerlo vuol dire aspettare l'archivio, e
-/// nessuna delle altre quaranta card deve pagare quell'attesa.
-///
-/// **E NON ASPETTA NESSUNO.** Ordine DC voce 16: finche' il Diario non
-/// risponde si mostra la promessa di chi non e' ancora sceso, che e' la
-/// risposta giusta per chiunque apra l'app la prima volta ed e' comunque
-/// meglio di una card vuota.
-class _CardDelViaggio extends StatefulWidget {
-  const _CardDelViaggio({
-    required this.art,
-    required this.palette,
-    required this.showPhase,
-    required this.onTap,
-  });
-
-  final ArtEntry art;
-  final MaestroPalette palette;
-  final bool showPhase;
-  final VoidCallback onTap;
-
-  @override
-  State<_CardDelViaggio> createState() => _CardDelViaggioState();
-}
-
-class _CardDelViaggioState extends State<_CardDelViaggio> {
-  int _discese = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    final diario = DiarioDeiViaggi();
-    unawaited(diario.carica().then((_) {
-      // **LE APPARIZIONI**, ordine DQ voce 03: la promessa cambia al
-      // riconoscimento, non alla quarta discesa di sempre.
-      if (mounted) setState(() => _discese = diario.apparizioni);
-    }).catchError((_) {
-      // **UN ARCHIVIO MUTO NON SPEGNE UNA CARD.** Resta la promessa di chi
-      // non e' ancora sceso.
-    }));
-  }
-
-  @override
-  Widget build(BuildContext context) => ArtCard(
-        art: widget.art,
-        palette: widget.palette,
-        showPhase: widget.showPhase,
-        descrizione: LaPromessaDelViaggio.descrizionePer(_discese),
-        onTap: widget.onTap,
-      );
-}
+// **LAPIDE: qui viveva `_CardDelViaggio`**, la card che cambiava la
+// promessa del Viaggio col Diario (ordini DE voce 02 e DQ voce 03). Dall'ordine
+// EO voce 10 la promessa sta sul retro della scheda dell'arte
+// (`la_scheda_dell_arte.dart`), letta dallo stesso Diario.

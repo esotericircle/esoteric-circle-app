@@ -1,7 +1,7 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 154 -->
-<!-- FILE_CON_VUOTI: 67 -->
+<!-- VUOTI_CENSITI: 151 -->
+<!-- FILE_CON_VUOTI: 66 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
 
@@ -11,8 +11,8 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **154** |
-| File che ne contengono | **67** |
+| Vuoti verticali dichiarati | **151** |
+| File che ne contengono | **66** |
 | Oltre la soglia di 48 punti | **2** |
 
 ## Da dove viene la soglia
@@ -23,10 +23,10 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | ---: | ---: |
 | 0 | 1 |
 | 2 | 84 |
-| 3 | 8 |
-| 4 | 27 |
+| 3 | 7 |
+| 4 | 26 |
 | 5 | 1 |
-| 6 | 13 |
+| 6 | 12 |
 | 7 | 3 |
 | 8 | 6 |
 | 9 | 2 |
@@ -56,7 +56,6 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/identity/widgets/identity_widgets.dart` | 5 | 0 |
 | `lib/core/diagnosi/racconto_della_corsa.dart` | 4 | 0 |
 | `lib/features/horoscope/oroscopo_screen.dart` | 4 | 0 |
-| `lib/features/maestri/maestro_screen.dart` | 4 | 0 |
 | `lib/features/pricing/pricing_screen.dart` | 4 | 0 |
 | `lib/features/rituals/arcano_dell_alba_share_card.dart` | 4 | 0 |
 | `lib/features/shell/santuario_bottom_bar.dart` | 4 | 0 |
@@ -81,6 +80,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/maestri/caligo/rune/rune_draw_screen.dart` | 2 | 0 |
 | `lib/features/maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart` | 2 | 0 |
 | `lib/features/maestri/chat/widgets/chat_bubble.dart` | 2 | 0 |
+| `lib/features/maestri/maestro_screen.dart` | 2 | 0 |
 | `lib/features/onboarding/risveglio_journey.dart` | 2 | 0 |
 | `lib/features/rituals/sunset_rune_card.dart` | 2 | 0 |
 | `lib/features/rituals/sunset_rune_screen.dart` | 2 | 0 |
@@ -89,7 +89,6 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/sigilli/la_mappa_del_sentiero.dart` | 2 | 0 |
 | `lib/features/synastry/sinastria_vip_screen.dart` | 2 | 1 |
 | `lib/core/permissions/avviso_del_permesso.dart` | 1 | 0 |
-| `lib/design_system/components/art_card.dart` | 1 | 0 |
 | `lib/design_system/components/borsellino.dart` | 1 | 0 |
 | `lib/design_system/components/riga_del_consiglio.dart` | 1 | 0 |
 | `lib/design_system/components/segno_della_provenienza.dart` | 1 | 0 |

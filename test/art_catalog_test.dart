@@ -13,10 +13,6 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/core/santuario/function_shelf.dart';
-import 'package:esoteric_circle/design_system/components/art_card.dart';
-import 'package:esoteric_circle/design_system/components/scroll_reveal.dart';
-import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
-import 'package:esoteric_circle/design_system/tokens/color_tokens.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/maestri/art_navigation.dart';
 import 'package:esoteric_circle/features/maestri/domain_screen.dart';
@@ -57,35 +53,27 @@ void main() {
         ),
       );
 
-  /// Porta un comando dentro la finestra e lo tocca: la lista del dominio e'
-  /// piu' alta della viewport dei test, quindi senza questo il tocco cade fuori.
-  Future<void> tocca(WidgetTester tester, Key chiave) async {
-    await tester.scrollUntilVisible(
-      find.byKey(chiave),
-      200,
-      scrollable: find.byType(Scrollable).first,
-    );
-    await tester.ensureVisible(find.byKey(chiave));
-    await tester.pump();
-    await tester.tap(find.byKey(chiave));
-  }
-
   group('Catalogo delle arti', () {
     test('Ogni Maestro ha le sue sottocategorie, nell\'ordine', () {
+      // **LAPIDE: fino all'ordine EN** Medora era Astrologia, Compatibilita',
+      // Cartomanzia, Lunologia, Destino; Aura Chakra, Energia, Archetipi;
+      // Caligo Rune, Rituali, Magia, Numerologia. **Dall'ordine EO voci 10 e
+      // 11** l'ordine e' quello del fondatore, e due sezioni hanno un nome
+      // nuovo: Rune e' Divinazione, Archetipi e' Fisiognomica.
       expect(ArtCatalog.forMaestro(Maestro.medora).map((s) => s.title), [
         'Astrologia',
-        'Compatibilità',
         'Cartomanzia',
+        'Compatibilità',
         'Lunologia',
         'Destino'
       ]);
       expect(ArtCatalog.forMaestro(Maestro.aura).map((s) => s.title),
-          ['Chakra', 'Energia', 'Archetipi']);
+          ['Energia', 'Chakra', 'Fisiognomica']);
       // Magia e' la terza distintiva di Caligo, nata col Sigillo
       // dell'Intenzione: senza, aveva due sottocategorie vive contro le
       // tre di Medora e di Aura.
       expect(ArtCatalog.forMaestro(Maestro.caligo).map((s) => s.title),
-          ['Rune', 'Rituali', 'Magia', 'Numerologia']);
+          ['Divinazione', 'Rituali', 'Magia', 'Numerologia']);
     });
 
     test('Nessuna arte compare due volte, in nessun dominio', () {
@@ -133,8 +121,8 @@ void main() {
       // Respiro della Luna e Affinità Lunare"*. Le altre due restano dove
       // erano.
       expect(luna.arts.firstWhere((a) => a.id == 'lunology').phase, 'MVP');
-      expect(luna.arts.firstWhere((a) => a.id == 'lunar_affinity').phase,
-          'MVP');
+      expect(
+          luna.arts.firstWhere((a) => a.id == 'lunar_affinity').phase, 'MVP');
       expect(luna.arts.firstWhere((a) => a.id == 'fertility_windows').phase,
           'Fase successiva');
       expect(luna.arts.firstWhere((a) => a.id == 'lunar_calendar').phase,
@@ -164,13 +152,12 @@ void main() {
       // era **viva e raggiungibile** da due punti dell'app, e il fondatore
       // l'ha aperta lui stesso: e' da quella schermata che nasce l'ordine
       // CS. Adesso il catalogo dice cio' che l'app fa.
-      final custode =
-          destino.arts.firstWhere((a) => a.id == 'guardian_angel');
+      final custode = destino.arts.firstWhere((a) => a.id == 'guardian_angel');
       expect(custode.state, ArtState.attiva,
           reason: 'l\'Angelo Custode e\' vivo e il catalogo lo rimette in '
               'arrivo: una funzione viva marcata «in arrivo» e\' un pezzo '
               'di prodotto che nessuno trova');
-      expect(ArtCatalog.hasActive(destino), isTrue);
+      expect(destino.arts.any((a) => a.state == ArtState.attiva), isTrue);
       // E dallo scaffale ci si arriva davvero: senza rotta, un'arte
       // dichiarata attiva e' una promessa che si rompe al primo tocco.
       expect(artRouteFor('guardian_angel', userBirth: DateTime(1986, 7, 21)),
@@ -179,22 +166,10 @@ void main() {
     });
 
     test('Il dominio di Aura ha le sue tre sottocategorie piene', () {
-      Map<String, int> conta(bool demo) => {
-            for (final s in ArtCatalog.visibleFor(Maestro.aura, demo: demo))
-              s.title: s.arts.length,
-          };
-      // Le vive davanti, la sottocategoria tutta in cammino in fondo.
-      expect(
-          ArtCatalog.visibleFor(Maestro.aura, demo: true).map((s) => s.title),
-          ['Energia', 'Archetipi', 'Chakra']);
-      // In Demo tutto; alla persona si accorciano solo le due miste, mentre
-      // Chakra resta intera perche' e' tutta in cammino, quindi esente.
-      // Energia scende di uno: le Frequenze Sonore sono uscite dal catalogo
-      // perche' non sono un'arte a parte, sono dentro la Meditazione, e due
-      // voci sulla stessa schermata sono una bugia.
-      expect(conta(true), {'Energia': 7, 'Archetipi': 6, 'Chakra': 6});
-      expect(conta(false), {'Energia': 6, 'Archetipi': 4, 'Chakra': 6});
-
+      // **LAPIDE: fino all'ordine EN questa prova contava anche le viste**
+      // (`ArtCatalog.visibleFor`, le vive davanti). **Dall'ordine EO voce 10**
+      // il dominio legge l'ordine del fondatore (`LOrdineDeiDomini`), e le
+      // sue viste le misura `i_domini_a_schede_test`. Qui resta il catalogo.
       List<ArtEntry> arti(String titolo) => ArtCatalog.forMaestro(Maestro.aura)
           .firstWhere((s) => s.title == titolo)
           .arts;
@@ -216,38 +191,44 @@ void main() {
         'daily_affirmations',
         'mudra',
         'belief_art',
+        // **IL MOOD TRACKER E' QUI DALL'ORDINE EO VOCE 10**: stava negli
+        // Archetipi.
+        'mood_tracker',
         'biorhythm',
         'lucid_dreams',
       ]);
       expect(energia.firstWhere((a) => a.id == 'lucid_dreams').phase,
           ArtPhase.fase5);
 
-      // Archetipi: due vive.
-      final archetipi = arti('Archetipi');
+      // Fisiognomica, che fino all'ordine EN si chiamava Archetipi.
+      final fisiognomica = arti('Fisiognomica');
       expect(
-        archetipi.where((a) => a.state == ArtState.attiva).map((a) => a.id),
+        fisiognomica.where((a) => a.state == ArtState.attiva).map((a) => a.id),
         ['archetype_test', 'face_constellation'],
       );
-      expect(archetipi.map((a) => a.id), [
+      expect(fisiognomica.map((a) => a.id), [
         'archetype_test',
         'face_constellation',
-        'mood_tracker',
         'palmistry',
         'graphology',
         'voice_analysis',
       ]);
+      // **Il Test Archetipo e' nel catalogo e vive solo nel Passaporto**,
+      // ordine EO voce 12, come l'Angelo Custode.
+      expect(
+          fisiognomica
+              .firstWhere((a) => a.id == 'archetype_test')
+              .soloNelPassaporto,
+          isTrue);
       // La Compatibilita' Archetipica e' passata dentro la Sinastria
       // Approfondita di Medora, come livello archetipico.
-      expect(archetipi.map((a) => a.id), isNot(contains('archetype_affinity')));
+      expect(
+          fisiognomica.map((a) => a.id), isNot(contains('archetype_affinity')));
 
-      // Chakra: sei arti, nessuna viva, quindi chiusa ed esente.
+      // Chakra: sei arti, nessuna viva.
       final chakra = arti('Chakra');
       expect(chakra.length, 6);
-      expect(
-        ArtCatalog.hasActive(ArtCatalog.forMaestro(Maestro.aura)
-            .firstWhere((s) => s.title == 'Chakra')),
-        isFalse,
-      );
+      expect(chakra.where((a) => a.state == ArtState.attiva), isEmpty);
       expect(chakra.map((a) => a.id), [
         'chakra_scan',
         'crystal_therapy',
@@ -284,40 +265,12 @@ void main() {
     });
 
     test('Il dominio di Caligo ha le sue tre sottocategorie piene', () {
-      Map<String, int> conta(bool demo) => {
-            for (final s in ArtCatalog.visibleFor(Maestro.caligo, demo: demo))
-              s.title: s.arts.length,
-          };
-      // Rune, Rituali e Magia hanno la loro distintiva viva. La Numerologia no:
-      // uscito l'Albero della Vita dalla Demo, le restano solo arti in
-      // cammino. Il Sigillo NON e' una voce nuova: e' il Sigillo Magico
-      // Personale, spostato dai Rituali e acceso, quindi i Rituali ne
-      // hanno una in meno.
-      expect(
-          ArtCatalog.visibleFor(Maestro.caligo, demo: true).map((s) => s.title),
-          ['Rune', 'Rituali', 'Magia', 'Numerologia']);
-      // **E I RITUALI NE HANNO QUATTRO, non cinque.** Ordine DC voci 01 e 03,
-      // 10 settembre 2026: il Messaggio dall'Animale e' stato assorbito dal
-      // Viaggio dello Sciamano. **Il conteggio segue il contenuto**, che e'
-      // cio' che la voce 03 chiede per nome: *"se il numero mostrato non
-      // corrisponde a quello che c'e', e' un difetto"*.
-      expect(
-          conta(true), {'Rune': 5, 'Rituali': 4, 'Magia': 5, 'Numerologia': 5});
-      // Nella vista della persona cadono le fasi oltre la Fase 2: i Rituali
-      // perdono i Rituali Guidati. La Numerologia no: senza piu' nulla di vivo e'
-      // esente dalla soglia delle fasi, quindi si mostra intera dietro il suo
-      // tocco, come vuole la regola del catalogo.
-      expect(
-          conta(false),
-          // **CINQUE E NON PIU' QUATTRO.** Ordine CC voce 01, decisione del
-          // fondatore del 30 agosto 2026: la Cabala e' entrata come arte
-          // dentro la Numerologia. Il numero segue il dato.
-          //
-          // **E I RITUALI SCENDONO A TRE.** Ordine DC voci 01 e 03: qui
-          // cadono anche le fasi oltre la Fase 2, quindi ai quattro della
-          // riga sopra si toglie ancora i Rituali Guidati.
-          {'Rune': 5, 'Rituali': 3, 'Magia': 5, 'Numerologia': 5});
-
+      // **LAPIDE: fino all'ordine EN qui si contavano anche le viste**
+      // (`ArtCatalog.visibleFor`): Rune 5, Rituali 4, Magia 5, Numerologia 5
+      // in Demo, e alla persona i Rituali scendevano a tre. **Dall'ordine EO
+      // voce 10** il dominio legge l'ordine del fondatore, e le viste le
+      // misura `i_domini_a_schede_test`. **E la sezione Rune si chiama
+      // Divinazione**, ordine EO voce 11.
       List<ArtEntry> arti(String titolo) =>
           ArtCatalog.forMaestro(Maestro.caligo)
               .firstWhere((s) => s.title == titolo)
@@ -325,13 +278,13 @@ void main() {
 
       // Una sola distintiva viva per sottocategoria, dove c'e'. La Numerologia non
       // ne ha piu': l'Albero della Vita e' uscito dalla Demo.
-      for (final t in const ['Rune', 'Rituali', 'Magia']) {
+      for (final t in const ['Divinazione', 'Rituali', 'Magia']) {
         expect(arti(t).where((a) => a.state == ArtState.attiva).length, 1,
             reason: t);
       }
       expect(arti('Numerologia').where((a) => a.state == ArtState.attiva),
           isEmpty);
-      expect(arti('Rune').map((a) => a.id), [
+      expect(arti('Divinazione').map((a) => a.id), [
         'rune_draw',
         'i_ching',
         'pendulum',
@@ -522,98 +475,19 @@ void main() {
         expect(ArtCatalog.isVisible(find(id), demo: true), isTrue, reason: id);
         expect(ArtCatalog.all.map((a) => a.id), contains(id));
       }
-      // L'esenzione toglie di mezzo la soglia: e' quel che vale dentro una
-      // sottocategoria dove non c'e' ancora nulla di vivo.
-      expect(
-        ArtCatalog.isVisible(find('fertility_windows'),
-            demo: false, esente: true),
-        isTrue,
-      );
+      // **LAPIDE: qui si provava l'esenzione dalla soglia** per le
+      // sottocategorie tutte in cammino. E' uscita col dominio a riquadri,
+      // ordine EO voce 10: la riga "In arrivo" segue la soglia per tutte.
     });
 
-    test('Una sottocategoria tutta in cammino si mostra intera', () {
-      List<String> arti(String titolo, bool demo) => ArtCatalog.visibleArts(
-            ArtCatalog.forMaestro(Maestro.medora)
-                .firstWhere((s) => s.title == titolo),
-            demo: demo,
-          ).map((a) => a.id).toList();
-
-      // Lunologia non ha nulla di vivo: sta chiusa dietro un tocco, quindi si
-      // mostra intera anche alla persona, fasi lontane comprese.
-      const tutta = [
-        'lunology',
-        'fertility_windows',
-        'lunar_affinity',
-        'lunar_calendar',
-      ];
-      expect(arti('Lunologia', true), tutta);
-      expect(arti('Lunologia', false), tutta);
-      // **IL DESTINO NON E' PIU' UN ESEMPIO DI SOTTOCATEGORIA CHIUSA.**
-      // Ordine CS, voce S3: l'Angelo Custode e' vivo, quindi il Destino ha
-      // un'arte attiva e segue la regola delle sottocategorie aperte, dove
-      // le fasi lontane si nascondono alla persona e restano in Demo.
-      //
-      // La regola che questa prova sorveglia resta provata dalla Lunologia,
-      // che di vivo non ha ancora niente.
-      // **L'ANGELO NON COMPARE PIU' NELLE VISTE DEL DOMINIO.** Ordine DC
-      // voce 12, decisione del fondatore: *"nel dominio di un Maestro stanno
-      // le esperienze, nel Passaporto stanno i risultati"*. La schermata
-      // dell'Angelo mostra soltanto cio' che il Passaporto gia' mostra.
-      //
-      // **Il catalogo lo tiene, le viste no**, e la prova qui sopra sul
-      // catalogo grezzo lo conferma: non e' stato cancellato.
-      expect(arti('Destino', true),
-          ['karmic_reading', 'narrative_destiny'],
-          reason: 'in Demo si mostra tutto, fasi lontane comprese, ma non chi '
-              'vive solo nel Passaporto');
-      expect(arti('Destino', false), ['karmic_reading'],
-          reason: 'alla persona il Destino Narrativo, di fase successiva, '
-              'non si mostra: la sottocategoria adesso ha una vita');
-
-      // Astrologia e Cartomanzia hanno del vivo: li' la soglia vale ancora.
-      expect(arti('Astrologia', false), isNot(contains('astrocartography')));
-      expect(
-          arti('Astrologia', false), isNot(contains('friends_compatibility')));
-      expect(arti('Cartomanzia', false), isNot(contains('angel_cards')));
-    });
-
-    test('Le sottocategorie visibili cambiano col punto di vista', () {
-      Map<String, int> conta(bool demo) => {
-            for (final s in ArtCatalog.visibleFor(Maestro.medora, demo: demo))
-              s.title: s.arts.length,
-          };
-      // **IL DESTINO NE MOSTRA DUE E NON TRE.** Ordine DC voce 12: l'Angelo
-      // Custode vive solo nel Passaporto e non compare piu' nello scaffale.
-      expect(conta(true), {
-        'Astrologia': 5,
-        'Compatibilità': 3,
-        'Cartomanzia': 3,
-        'Lunologia': 4,
-        'Destino': 2,
-      });
-      // Solo le miste si accorciano: le tutte in cammino restano intere.
-      // **E il Destino adesso e' una mista**, ordine CS voce S3: l'Angelo
-      // Custode e' vivo, quindi il Destino Narrativo di fase successiva si
-      // nasconde alla persona come nelle altre sottocategorie aperte.
-      expect(conta(false), {
-        'Astrologia': 4,
-        'Compatibilità': 2,
-        'Cartomanzia': 2,
-        'Lunologia': 4,
-        // **E ALLA PERSONA UNO SOLO.** Ordine DC voce 12: uscito l'Angelo,
-        // qui resta la Lettura Karmica, e il Destino Narrativo di fase
-        // successiva continua a nascondersi.
-        'Destino': 1,
-      });
-      // Nessuna sottocategoria vuota arriva a video.
-      for (final m in Maestro.values) {
-        for (final demo in const [true, false]) {
-          for (final s in ArtCatalog.visibleFor(m, demo: demo)) {
-            expect(s.arts, isNotEmpty, reason: '${s.title} vuota');
-          }
-        }
-      }
-    });
+    // **LAPIDE: qui vivevano due prove delle viste del dominio**, "Una
+    // sottocategoria tutta in cammino si mostra intera" e "Le sottocategorie
+    // visibili cambiano col punto di vista": la regola dell'esenzione e le
+    // sezioni vive davanti (`ArtCatalog.visibleFor`, `visibleArts`,
+    // `hasActive`). **Dall'ordine EO voce 10** il dominio legge l'ordine del
+    // fondatore anche contro quella regola, e le arti in cammino hanno la loro
+    // riga "In arrivo", che alla persona si ferma alla soglia delle fasi: lo
+    // misura `i_domini_a_schede_test`. Le tre funzioni sono uscite dal codice.
 
     test('Il nome del livello si accorda alla preposizione', () {
       // "col L'Adepto" era sbagliato: l'articolo si fonde nella preposizione e
@@ -697,213 +571,12 @@ void main() {
   });
 
   group('Il dominio del Maestro', () {
-    /// **I TITOLI DELLE SOTTOCATEGORIE SONO TUTTI DELLA STESSA MISURA.**
-    ///
-    /// **Il fatto del fondatore, il 30 agosto 2026**: "il titolo della
-    /// categoria Numerologia e' molto piu' piccolo degli altri titoli di
-    /// categoria". Il titolo vive dentro un `FittedBox`, che lo rimpicciolisce
-    /// invece di spezzarlo a meta' parola, e nella riga di una sottocategoria
-    /// senza arti vive c'era anche uno `Spacer`: i due si dividevano lo spazio
-    /// libero, e il titolo veniva scalato giu' **mentre accanto restava
-    /// vuoto**.
-    ///
-    /// Qui si misura la grandezza VERA a cui ogni titolo viene dipinto, non
-    /// quella scritta nello stile: si prende il rettangolo del testo cosi'
-    /// come finisce a schermo, `FittedBox` compreso. Se uno si rimpicciolisce
-    /// e gli altri no, questa prova cade e dice quale.
-    testWidgets('Nessun titolo di sottocategoria si rimpicciolisce da solo',
-        (tester) async {
-      tester.view.physicalSize = const Size(360, 4000);
-      tester.view.devicePixelRatio = 1.0;
-      addTearDown(tester.view.resetPhysicalSize);
-      addTearDown(tester.view.resetDevicePixelRatio);
-      final misure = <String, double>{};
-      for (final m in Maestro.values) {
-        await tester.pumpWidget(domain(m));
-        await tester.pump();
-        for (final s in ArtCatalog.visibleFor(m, demo: true)) {
-          final f = find.text(s.title);
-          if (f.evaluate().isEmpty) continue;
-          misure['${m.id}/${s.title}'] = tester.getRect(f.first).height;
-        }
-      }
-      expect(misure, isNotEmpty, reason: 'la prova gira a vuoto');
-      final piuAlto = misure.values.reduce((a, b) => a > b ? a : b);
-      final piccoli = <String>[];
-      misure.forEach((nome, alto) {
-        // Un punto di tolleranza: sotto quello e' arrotondamento, sopra e' un
-        // titolo che qualcuno ha schiacciato.
-        if (alto < piuAlto - 1) {
-          piccoli.add('$nome a ${alto.toStringAsFixed(1)}');
-        }
-      });
-      // ignore: avoid_print
-      print('ORDINE CC VOCE 01: titoli di sottocategoria misurati '
-          '${misure.length}, il piu\' alto '
-          '${piuAlto.toStringAsFixed(1)}, rimpiccioliti ${piccoli.length}');
-      expect(piccoli, isEmpty,
-          reason: 'questi titoli sono dipinti piu\' piccoli degli '
-              'altri: $piccoli');
-    });
-
-    testWidgets('Mostra i riquadri per sottocategoria', (tester) async {
-      await tester.pumpWidget(domain(Maestro.medora));
-      await tester.pump();
-      expect(find.byKey(const Key('art_section_astrologia')), findsOneWidget);
-      // Gli altri riquadri sono piu' in basso nella lista pigra.
-      for (final t in const ['cartomanzia', 'lunologia', 'destino']) {
-        await tester.scrollUntilVisible(
-          find.byKey(Key('art_section_$t')),
-          260,
-          scrollable: find.byType(Scrollable).first,
-        );
-        expect(find.byKey(Key('art_section_$t')), findsOneWidget);
-      }
-    });
-
-    testWidgets('Nella vista utente le fasi lontane non compaiono',
-        (tester) async {
-      await tester.pumpWidget(domain(Maestro.medora, demo: false));
-      await tester.pump();
-      // Il contatore conta quel che si vede davvero in questa vista.
-      expect(
-        tester
-            .widget<Text>(find.byKey(const Key('art_section_count_astrologia')))
-            .data,
-        '· 4',
-      );
-      // Aprendo il gruppo delle in cammino non spuntano le fasi lontane.
-      await tocca(tester, const Key('art_soon_toggle_astrologia'));
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 300));
-      expect(find.byKey(const Key('art_natal_chart')), findsOneWidget);
-      expect(find.byKey(const Key('art_astrocartography')), findsNothing);
-      expect(find.byKey(const Key('art_friends_compatibility')), findsNothing);
-      // E la fase non si scrive da nessuna parte.
-      expect(find.textContaining('Fase '), findsNothing);
-      expect(find.text('In arrivo'), findsWidgets);
-    });
-
-    testWidgets('Ogni sottocategoria conta le arti che contiene',
-        (tester) async {
-      await tester.pumpWidget(domain(Maestro.medora));
-      await tester.pump();
-      // **SI CONFRONTA CON LE SEZIONI VISIBILI, non col catalogo grezzo.**
-      // Ordine DC voce 03: *"il conteggio deve restare vero: se il numero
-      // mostrato non corrisponde a quello che c'e', e' un difetto"*.
-      //
-      // Questa prova leggeva `ArtCatalog.forMaestro`, cioe' il catalogo
-      // intero, mentre il contatore a video conta le arti **mostrate**.
-      // Finche' le due liste coincidevano non si vedeva; **quando l'ordine DC
-      // ha tolto l'Angelo dalle viste, la prova ha accusato il codice al
-      // posto di se stessa.**
-      for (final s in ArtCatalog.visibleFor(Maestro.medora)) {
-        final chiave = Key('art_section_count_${s.title.toLowerCase()}');
-        await tester.scrollUntilVisible(
-          find.byKey(chiave),
-          260,
-          scrollable: find.byType(Scrollable).first,
-        );
-        final conta = tester.widget<Text>(find.byKey(chiave));
-        expect(conta.data, '· ${s.arts.length}',
-            reason: 'contatore sbagliato su ${s.title}');
-      }
-      // La Lunologia ne conta quattro.
-      expect(
-        tester
-            .widget<Text>(find.byKey(const Key('art_section_count_lunologia')))
-            .data,
-        '· 4',
-      );
-    });
-
-    testWidgets('Stati di partenza: le vive aperte, le altre chiuse',
-        (tester) async {
-      await tester.pumpWidget(domain(Maestro.medora));
-      await tester.pump();
-
-      // Astrologia, Compatibilità e Cartomanzia hanno del vivo: le attive e la
-      // Premium si vedono subito, le in cammino stanno dietro l'apri e chiudi.
-      expect(find.byKey(const Key('art_horoscope')), findsOneWidget);
-      expect(find.byKey(const Key('art_natal_chart')), findsNothing);
-      await tester.scrollUntilVisible(
-        find.byKey(const Key('art_section_compatibilità')),
-        260,
-        scrollable: find.byType(Scrollable).first,
-      );
-      expect(find.byKey(const Key('art_synastry_vip')), findsOneWidget);
-      expect(find.byKey(const Key('art_synastry_depth')), findsOneWidget);
-      expect(find.byKey(const Key('art_friends_compatibility')), findsNothing);
-      expect(
-          find.byKey(const Key('art_soon_toggle_astrologia')), findsOneWidget);
-      // Un'intestazione senza freccetta: le sezioni vive non si richiudono.
-      expect(
-          find.byKey(const Key('art_section_header_astrologia')), findsNothing);
-      expect(
-          find.byKey(const Key('art_section_soon_astrologia')), findsNothing);
-
-      // **SOLO LA LUNOLOGIA NON HA NULLA DI VIVO.** Ordine CS voce S3: il
-      // Destino adesso ha l'Angelo Custode, che era vivo da sempre e che
-      // il catalogo dava per non pronto. Una sottocategoria con un'arte
-      // attiva non porta la dicitura del presto.
-      for (final t in const ['lunologia']) {
-        await tester.scrollUntilVisible(
-          find.byKey(Key('art_section_$t')),
-          260,
-          scrollable: find.byType(Scrollable).first,
-        );
-        expect(find.byKey(Key('art_section_soon_$t')), findsOneWidget);
-        expect(find.byKey(Key('art_section_header_$t')), findsOneWidget);
-      }
-      expect(find.byKey(const Key('art_lunology')), findsNothing);
-      // **E L'ANGELO CUSTODE NON SI VEDE PIU' QUI.** Ordine DC voce 12,
-      // 10 settembre 2026, e rovescia la voce CS.S3 che lo aveva portato
-      // nello scaffale.
-      //
-      // **Non e' stato spento**: la schermata esiste, funziona, e si apre dal
-      // Passaporto. E' uscita dal dominio perche' *"nel dominio di un Maestro
-      // stanno le esperienze, nel Passaporto stanno i risultati"*, e questa
-      // schermata mostra soltanto cio' che il Passaporto gia' mostra.
-      expect(find.byKey(const Key('art_guardian_angel')), findsNothing,
-          reason: 'l Angelo e tornato nello scaffale delle arti, dove '
-              'prometteva un esperienza che non c e');
-
-      // Al tocco dell'intestazione la sottocategoria si apre.
-      await tocca(tester, const Key('art_section_header_lunologia'));
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 300));
-      expect(find.byKey(const Key('art_lunology')), findsOneWidget);
-    });
-
-    testWidgets('Le sottocategorie vive vengono prima di quelle in cammino',
-        (tester) async {
-      // L'ordine e' del catalogo, non della schermata: si verifica li'.
-      expect(
-        ArtCatalog.visibleFor(Maestro.medora, demo: true).map((s) => s.title),
-        // **E IL DESTINO E' RISCESO.** Ordine DC voce 12, ed e' una
-        // conseguenza vera che vale la pena dichiarare: **uscito l'Angelo, il
-        // Destino di Medora non ha piu' nessuna arte viva.** Restano la
-        // Lettura Karmica e il Destino Narrativo, tutte e due in cammino,
-        // quindi la sottocategoria torna dopo quelle che qualcosa da fare ce
-        // l'hanno.
-        //
-        // La regola che questa riga sorveglia non e' cambiata: le vive prima,
-        // le in cammino dopo. E' cambiato **chi e' vivo**.
-        ['Astrologia', 'Compatibilità', 'Cartomanzia', 'Lunologia', 'Destino'],
-      );
-      for (final m in Maestro.values) {
-        final sezioni = ArtCatalog.visibleFor(m, demo: true);
-        var vistaUnaSenzaVivo = false;
-        for (final s in sezioni) {
-          if (!ArtCatalog.hasActive(s)) {
-            vistaUnaSenzaVivo = true;
-          } else {
-            expect(vistaUnaSenzaVivo, isFalse,
-                reason: '${s.title} viva dopo una tutta in cammino');
-          }
-        }
-      }
-    });
+    // **LAPIDE: qui vivevano sei prove del dominio a riquadri** (titoli delle
+    // sottocategorie della stessa misura, riquadri, fasi lontane, contatori,
+    // stati di partenza coi collassi, sottocategorie vive davanti). **Dall'ordine
+    // EO voce 10** le sezioni sono righe di schede nell'ordine del fondatore:
+    // le misurano `i_domini_a_schede_test` (righe e schede contro l'elenco) e
+    // `le_schede_dell_arte_test` (titoli mai rimpiccioliti, angoli, tocco).
 
     testWidgets('I pilastri sono un sottotitolo, non un comando',
         (tester) async {
@@ -1023,143 +696,9 @@ void main() {
       }
     });
 
-    testWidgets('Il dominio di Aura si compone da solo, senza nulla di cablato',
-        (tester) async {
-      await tester.pumpWidget(domain(Maestro.aura));
-      await tester.pump();
-
-      // Il sottotitolo dei pilastri e' quello di Aura.
-      expect(DomainPillars.of(Maestro.aura).join(' · '),
-          'Chakra · Energia · Archetipi');
-
-      // Energia per prima, con la sola Meditazione in vista.
-      expect(find.byKey(const Key('art_section_energia')), findsOneWidget);
-      expect(find.byKey(const Key('art_meditation')), findsOneWidget);
-      expect(
-          find.byKey(const Key('art_state_attiva_meditation')), findsOneWidget);
-      expect(find.byKey(const Key('art_sleep_stories')), findsNothing);
-      expect(find.byKey(const Key('art_soon_toggle_energia')), findsOneWidget);
-
-      // Archetipi: due vive in mostra, le altre raccolte.
-      await tester.scrollUntilVisible(
-        find.byKey(const Key('art_section_archetipi')),
-        260,
-        scrollable: find.byType(Scrollable).first,
-      );
-      expect(find.byKey(const Key('art_archetype_test')), findsOneWidget);
-      expect(find.byKey(const Key('art_face_constellation')), findsOneWidget);
-      expect(find.byKey(const Key('art_mood_tracker')), findsNothing);
-
-      // Chakra in fondo, chiusa, con la dicitura e il contatore a sei.
-      await tester.scrollUntilVisible(
-        find.byKey(const Key('art_section_chakra')),
-        260,
-        scrollable: find.byType(Scrollable).first,
-      );
-      expect(find.byKey(const Key('art_section_soon_chakra')), findsOneWidget);
-      expect(
-        tester
-            .widget<Text>(find.byKey(const Key('art_section_count_chakra')))
-            .data,
-        '· 6',
-      );
-      expect(find.byKey(const Key('art_chakra_scan')), findsNothing);
-      await tocca(tester, const Key('art_section_header_chakra'));
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 300));
-      expect(find.byKey(const Key('art_chakra_scan')), findsOneWidget);
-      expect(find.byKey(const Key('art_aura_analysis')), findsOneWidget);
-    });
-
-    testWidgets('Il verde di Aura cade solo sulle arti vive', (tester) async {
-      await tester.pumpWidget(domain(Maestro.aura));
-      await tester.pump();
-      final verde = MaestroPalette.forKey(const ThemeKey.of(Maestro.aura));
-
-      List<Color> sfondoDi(String id) {
-        final box =
-            tester.widget<Container>(find.byKey(Key('art_surface_$id')));
-        final deco = box.decoration! as BoxDecoration;
-        return (deco.gradient! as LinearGradient).colors;
-      }
-
-      // L'attiva porta il verde smeraldo di Aura.
-      expect(sfondoDi('meditation').first.toARGB32(),
-          verde.surfaceElevated.withValues(alpha: 0.95).toARGB32());
-
-      // Un'arte in cammino no: sta sulla superficie neutra.
-      await tocca(tester, const Key('art_soon_toggle_energia'));
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 300));
-      expect(sfondoDi('sleep_stories').first.toARGB32(),
-          ColorTokens.neutralSurface.withValues(alpha: 0.42).toARGB32());
-      expect(sfondoDi('sleep_stories').first.toARGB32(),
-          isNot(verde.surfaceElevated.withValues(alpha: 0.95).toARGB32()));
-    });
-
-    testWidgets('Il dominio di Caligo mostra le sue distintive vive',
-        (tester) async {
-      await tester.pumpWidget(domain(Maestro.caligo));
-      await tester.pump();
-
-      expect(DomainPillars.of(Maestro.caligo).join(' · '),
-          'Rune · Rituali · Numerologia');
-
-      final rosso = MaestroPalette.forKey(const ThemeKey.of(Maestro.caligo));
-      List<Color> sfondoDi(String id) {
-        final box =
-            tester.widget<Container>(find.byKey(Key('art_surface_$id')));
-        final deco = box.decoration! as BoxDecoration;
-        return (deco.gradient! as LinearGradient).colors;
-      }
-
-      // Rune: la distintiva viva col rosso di Caligo, le altre raccolte.
-      expect(find.byKey(const Key('art_rune_draw')), findsOneWidget);
-      expect(
-          find.byKey(const Key('art_state_attiva_rune_draw')), findsOneWidget);
-      expect(sfondoDi('rune_draw').first.toARGB32(),
-          rosso.surfaceElevated.withValues(alpha: 0.95).toARGB32());
-      expect(find.byKey(const Key('art_i_ching')), findsNothing);
-      expect(find.byKey(const Key('art_soon_toggle_rune')), findsOneWidget);
-
-      // I Rituali con la loro viva in mostra. La Numerologia non ne ha piu'.
-      for (final voce in const [
-        ('rituali', 'guide_animal'),
-      ]) {
-        await tester.scrollUntilVisible(
-          find.byKey(Key('art_section_${voce.$1}')),
-          260,
-          scrollable: find.byType(Scrollable).first,
-        );
-        expect(find.byKey(Key('art_${voce.$2}')), findsOneWidget,
-            reason: voce.$2);
-        expect(find.byKey(Key('art_state_attiva_${voce.$2}')), findsOneWidget);
-        expect(find.byKey(Key('art_soon_toggle_${voce.$1}')), findsOneWidget);
-      }
-      // Rune e Rituali hanno la loro viva, quindi nessuna dicitura. La Numerologia,
-      // uscito l'Albero della Vita dalla Demo, e' tutta in cammino: porta la
-      // dicitura onesta e non il toggle, che vale solo dove c'e' gia' del vivo.
-      for (final t in const ['rune', 'rituali']) {
-        expect(find.byKey(Key('art_section_soon_$t')), findsNothing);
-      }
-      await tester.scrollUntilVisible(
-        find.byKey(const Key('art_section_numerologia')),
-        260,
-        scrollable: find.byType(Scrollable).first,
-      );
-      expect(find.byKey(const Key('art_section_soon_numerologia')),
-          findsOneWidget);
-      expect(
-          find.byKey(const Key('art_soon_toggle_numerologia')), findsNothing);
-
-      // Un'arte in cammino non porta l'accento del Maestro: si apre la Numerologia
-      // dalla sua intestazione, che qui e' tutta l'area di tocco.
-      await tocca(tester, const Key('art_section_header_numerologia'));
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 300));
-      expect(sfondoDi('angel_numbers').first.toARGB32(),
-          ColorTokens.neutralSurface.withValues(alpha: 0.42).toARGB32());
-    });
+    // **LAPIDE: qui vivevano tre prove del dominio a riquadri di Aura e di
+    // Caligo** (le sottocategorie e il verde o il rosso del Maestro sulle sole
+    // arti vive). Dall'ordine EO voce 10 le misura `i_domini_a_schede_test`.
 
     testWidgets('Consulta e\' una voce sola, e non c\'e\' piu\' Parla con',
         (tester) async {
@@ -1173,155 +712,11 @@ void main() {
       }
     });
 
-    testWidgets('L\'arte attiva e\' viva, la Premium ha il lucchetto',
-        (tester) async {
-      await tester.pumpWidget(domain(Maestro.medora));
-      await tester.pump();
-      // Attiva: badge Attiva, nessun lucchetto.
-      expect(
-          find.byKey(const Key('art_state_attiva_horoscope')), findsOneWidget);
-      expect(find.byKey(const Key('art_lock_horoscope')), findsNothing);
-      // Premium: lucchetto e riga che dice come si apre.
-      await tester.scrollUntilVisible(
-        find.byKey(const Key('art_synastry_depth')),
-        260,
-        scrollable: find.byType(Scrollable).first,
-      );
-      expect(find.byKey(const Key('art_lock_synastry_depth')), findsOneWidget);
-      expect(find.byKey(const Key('art_state_premium_synastry_depth')),
-          findsOneWidget);
-    });
-
-    testWidgets('L\'arte in arrivo resta leggibile', (tester) async {
-      await tester.pumpWidget(domain(Maestro.medora));
-      await tester.pump();
-      // Le arti in cammino stanno dietro il loro apri e chiudi: prima si apre.
-      await tocca(tester, const Key('art_soon_toggle_astrologia'));
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 300));
-      await tester.scrollUntilVisible(
-        find.byKey(const Key('art_natal_chart')),
-        260,
-        scrollable: find.byType(Scrollable).first,
-      );
-      expect(find.byKey(const Key('art_state_arrivo_natal_chart')),
-          findsOneWidget);
-      // Velo leggero: il testo resta ben oltre la soglia della leggibilita'.
-      final veli = tester
-          .widgetList<Opacity>(find.descendant(
-            of: find.byKey(const Key('art_natal_chart')),
-            matching: find.byType(Opacity),
-          ))
-          .map((o) => o.opacity);
-      for (final v in veli) {
-        expect(v, greaterThanOrEqualTo(0.8));
-      }
-    });
-
-    testWidgets('Alla persona si dice solo "In arrivo", la fase resta in Demo',
-        (tester) async {
-      const arte = ArtEntry(
-        id: 'prova',
-        title: 'Arte di prova',
-        teaser: 'Un teaser qualunque.',
-        icon: Icons.star,
-        state: ArtState.inArrivo,
-        phase: 'Fase 2',
-      );
-      final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
-
-      Future<void> mount(bool showPhase) => tester.pumpWidget(MaterialApp(
-            home: Scaffold(
-              body: ArtCard(art: arte, palette: palette, showPhase: showPhase),
-            ),
-          ));
-
-      // Vista utente: nessuna fase, mai.
-      await mount(false);
-      expect(find.text('In arrivo'), findsOneWidget);
-      expect(find.textContaining('Fase 2'), findsNothing);
-
-      // Vista Demo per gli investitori: la fase si vede.
-      await mount(true);
-      expect(find.text('In arrivo, Fase 2'), findsOneWidget);
-    });
-
-    testWidgets('La Premium dice "si apre con l\'Adepto", non "col"',
-        (tester) async {
-      final arte = ArtCatalog.all.firstWhere((a) => a.id == 'synastry_depth');
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: ArtCard(
-              art: arte,
-              palette:
-                  MaestroPalette.forKey(const ThemeKey.of(Maestro.medora))),
-        ),
-      ));
-      expect(find.text('Si apre con l\'Adepto'), findsOneWidget);
-    });
-
-    testWidgets('Con Riduci Movimento la comparsa non anima nulla',
-        (tester) async {
-      // Riduci Movimento va acceso DENTRO l'app: MaterialApp costruisce il suo
-      // MediaQuery dalla vista e coprirebbe uno messo piu' in alto.
-      await tester.pumpWidget(MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => MaestroController()),
-          ChangeNotifierProvider(create: (_) => QualityTierController()),
-          ChangeNotifierProvider(create: (_) => EntitlementService()),
-          ChangeNotifierProvider(create: (_) => ProfileController()),
-          ChangeNotifierProvider(create: (_) => BirthIdentityController()),
-          ChangeNotifierProvider(
-            create: (ctx) =>
-                FeatureFlagService(entitlement: ctx.read<EntitlementService>())
-                  ..initialize(),
-          ),
-        ],
-        child: MaterialApp(
-          home: Builder(
-            builder: (context) => MediaQuery(
-              data: MediaQuery.of(context).copyWith(disableAnimations: true),
-              child: const MaestroScope(
-                child: Scaffold(
-                    body: MaestroScreen(maestro: Maestro.medora, demo: true)),
-              ),
-            ),
-          ),
-        ),
-      ));
-      await tester.pump();
-      // Nessuna dissolvenza in corso: il testo e' subito pienamente leggibile.
-      final veli = tester
-          .widgetList<Opacity>(find.descendant(
-            of: find.byKey(const Key('art_horoscope')),
-            matching: find.byType(Opacity),
-          ))
-          .map((o) => o.opacity);
-      for (final v in veli) {
-        expect(v, 1.0);
-      }
-      expect(
-        find.descendant(
-          of: find.byKey(const Key('art_section_astrologia')),
-          matching: find.byType(ScrollReveal),
-        ),
-        findsWidgets,
-      );
-
-      // E l'apertura di un gruppo e' istantanea: un solo frame, senza aspettare
-      // la durata di nessuna animazione.
-      expect(find.byKey(const Key('art_natal_chart')), findsNothing);
-      await tocca(tester, const Key('art_soon_toggle_astrologia'));
-      await tester.pump();
-      expect(find.byKey(const Key('art_natal_chart')), findsOneWidget);
-      final freccia = tester.widget<AnimatedRotation>(find
-          .descendant(
-            of: find.byKey(const Key('art_soon_toggle_astrologia')),
-            matching: find.byType(AnimatedRotation),
-          )
-          .first);
-      expect(freccia.duration, Duration.zero);
-      expect(freccia.turns, 0.5);
-    });
+    // **LAPIDE: qui vivevano cinque prove della card di prima** (`ArtCard`:
+    // attiva e Premium, in arrivo leggibile, la fase solo in Demo, "si apre
+    // con l'Adepto", la comparsa con Riduci Movimento). La card e' uscita dal
+    // codice con l'ordine EO voce 10: le due regole di testo le eredita la
+    // scheda e le prova `i_domini_a_schede_test`; lucchetto, clessidra e
+    // Riduci Movimento li prova `le_schede_dell_arte_test`.
   });
 }

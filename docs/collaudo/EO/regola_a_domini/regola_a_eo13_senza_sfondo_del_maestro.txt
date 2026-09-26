@@ -1,0 +1,12 @@
+innesto in lib/features/maestri/maestro_screen.dart: il vecchio compare 0 volte, il nuovo 1 volte ('                      sfondoDelMaestro: true,\n' -> '                      sfondoDelMaestro: false,\n')
+  Expected: exactly one matching candidate
+    Actual: _DescendantWidgetFinder:<Found 0 widgets with key [<'scheda_icona_natal_chart'>]
+  00:02 +0 -1: EO.10 e EO.13: il dominio di Medora a video, contro l'elenco del fondatore [E]
+  Expected: exactly one matching candidate
+    Actual: _DescendantWidgetFinder:<Found 0 widgets with key [<'scheda_icona_mudra'>] descending from
+  00:02 +0 -2: EO.10 e EO.13: il dominio di Aura a video, contro l'elenco del fondatore [E]
+  Expected: exactly one matching candidate
+    Actual: _DescendantWidgetFinder:<Found 0 widgets with key [<'scheda_icona_daily_invocation'>]
+  00:03 +0 -3: EO.10 e EO.13: il dominio di Caligo a video, contro l'elenco del fondatore [E]
+  00:03 +4 -3: Some tests failed.
+ripristino lib/features/maestri/maestro_screen.dart: sha1 abf4d9358537 -> abf4d9358537, IDENTICO

@@ -240,18 +240,25 @@ void main() {
       );
     }
 
+    // **LAPIDE: fino all'ordine EN la card si chiamava `art_meditation`.**
+    // Dall'ordine EO voce 10 e' la prima scheda della riga "Energia".
     await tester.pumpWidget(domain(Maestro.aura));
     await tester.pump();
+    const scheda = Key('riga_dominio_energia_meditation');
     await tester.scrollUntilVisible(
-      find.byKey(const Key('art_meditation')),
+      find.byKey(scheda),
       220,
       scrollable: find.byType(Scrollable).first,
     );
-    expect(find.byKey(const Key('art_meditation')), findsOneWidget);
+    expect(find.byKey(scheda), findsOneWidget);
 
     await tester.pumpWidget(domain(Maestro.medora));
     await tester.pump();
-    expect(find.byKey(const Key('art_meditation')), findsNothing);
+    expect(
+        find.byWidgetPredicate((w) =>
+            w.key is ValueKey<String> &&
+            (w.key! as ValueKey<String>).value.endsWith('_meditation')),
+        findsNothing);
   });
 
   testWidgets('I riti del giorno non stanno nel dominio, ne restano orfani',

@@ -32,8 +32,13 @@ void main() {
       'I TRE MAESTRI',
       'Tre Voci, Tre Mondi, Tre Personalità\n'
           '- MEDORA: Astrologia, Cartomanzia, Destino\n'
-          '- CALIGO: Rune, Rituali, Numerologia\n'
-          '- AURA: Chakra, Energia, Archetipi\n'
+          // **LAPIDE: fino all'ordine EN** queste due righe dicevano "Rune,
+          // Rituali, Numerologia" e "Chakra, Energia, Archetipi". **Dall'ordine
+          // EO voce 11**, parole del fondatore: *"Ovunque a video compare
+          // l'elenco delle sezioni di un Maestro, i nomi e l'ordine seguono
+          // EO.10 e questa voce."* Il resto del testo e' il suo, invariato.
+          '- CALIGO: Divinazione, Rituali, Numerologia\n'
+          '- AURA: Energia, Chakra, Fisiognomica\n'
           'Tocca un volto ed entra nel suo dominio'
     ),
     2: (

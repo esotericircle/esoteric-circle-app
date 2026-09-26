@@ -26,7 +26,9 @@ enum Maestro {
     displayName: 'Aura',
     tagline: 'Accompagna il respiro e l\'equilibrio interiore',
     domainInvite: 'Il respiro, l\'energia, gli archetipi che ti abitano',
-    domainArts: 'Chakra, Energia, Archetipi',
+    // **Ordine EO voci 10 e 11**: le sezioni nell'ordine del fondatore, e
+    // "Archetipi" e' diventata "Fisiognomica".
+    domainArts: 'Energia, Chakra, Fisiognomica',
     icon: Icons.spa_outlined,
     avatarAsset: 'assets/avatars_webp/Aura-1.webp',
   ),
@@ -44,7 +46,9 @@ enum Maestro {
     displayName: 'Caligo',
     tagline: 'Custode delle rune e dei riti antichi',
     domainInvite: 'I segni antichi, i riti, l\'albero dei misteri',
-    domainArts: 'Rune, Rituali, Numerologia',
+    // **Ordine EO voce 11**: la sezione "Rune" e' diventata "Divinazione",
+    // perche' contiene anche Pendolo, Sogni, I-Ching e Caffe'.
+    domainArts: 'Divinazione, Rituali, Numerologia',
     icon: Icons.local_fire_department_outlined,
     avatarAsset: 'assets/avatars_webp/Caligo-1.webp',
   );
@@ -84,11 +88,15 @@ enum Maestro {
   /// "Orosco..." e "Rune, R...": tre puntini al posto della meta' di ogni
   /// parola sono peggio del silenzio. Le prove non lo hanno visto, perche'
   /// nessuna prova guarda i puntini; l'ha visto l'anteprima.
-  String get domainArtiBrevi => switch (this) {
-        Maestro.medora => 'Astrologia',
-        Maestro.aura => 'Chakra',
-        Maestro.caligo => 'Rune',
-      };
+  ///
+  /// **DALL'ORDINE EO VOCE 11 E' LA PRIMA DELLE ARTI DEL DOMINIO**, e non un
+  /// secondo elenco scritto a mano. Fino all'ordine EN qui c'erano
+  /// "Astrologia", "Chakra" e "Rune"; il fondatore ha rinominato "Rune" in
+  /// "Divinazione" e messo "Energia" davanti a "Chakra", e *"ovunque a video
+  /// compare l'elenco delle sezioni di un Maestro, i nomi e l'ordine seguono"*
+  /// il suo. Leggerla da [domainArts] vuol dire che la prossima volta non ci
+  /// sara' un secondo posto da ricordare.
+  String get domainArtiBrevi => domainArts.split(',').first.trim();
 
   /// Le tre arti come frase, con la "e" prima dell'ultima e senza virgola
   /// davanti alla congiunzione: "Astrologia, Cartomanzia e Destino".

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -5,6 +6,9 @@ import 'package:provider/provider.dart';
 
 import '../../core/arts/art_catalog.dart';
 import '../../core/arts/gli_sfondi_delle_schede.dart';
+import '../../core/config/app_flags.dart';
+import '../../core/entitlement/plan_catalog.dart';
+import '../../core/lang/euphonic.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -12,6 +16,8 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../core/identity/profile_controller.dart';
+import '../../core/viaggio/diario_dei_viaggi.dart';
+import '../../core/viaggio/la_promessa_del_viaggio.dart';
 import '../maestri/maestro_screen.dart' show showArtPreview;
 import '../maestri/art_navigation.dart';
 import 'la_luce_delle_schede.dart';
@@ -51,6 +57,7 @@ class LaSchedaDellArte extends StatefulWidget {
     this.onApri,
     this.onTieni,
     this.sfondoDelMaestro = false,
+    this.mostraFase = AppFlags.isDemo,
   });
 
   final ArtEntry art;
@@ -73,6 +80,11 @@ class LaSchedaDellArte extends StatefulWidget {
   /// **La riga "In arrivo", ordine EO voce 13**: lo sfondo del Maestro senza
   /// emblema e al centro l'icona dell'arte in oro.
   final bool sfondoDelMaestro;
+
+  /// **La fase si dice solo nella Demo.** Alla persona si dice soltanto
+  /// "In arrivo": la fase e' un dato di piano (la regola della card di
+  /// prima, che la scheda eredita).
+  final bool mostraFase;
 
   /// L'area che risponde al tocco della "i": almeno un centimetro.
   static const double areaDellaI = 48;
@@ -128,6 +140,29 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
   final GlobalKey _immagine = GlobalKey();
 
   bool get _riduci => MediaQuery.maybeDisableAnimationsOf(context) ?? false;
+
+  /// **LA PROMESSA DEL VIAGGIO**, la sola informazione che cambia col
+  /// tempo. Ordini DE voce 02 e DQ voce 03: cambia al riconoscimento, e il
+  /// numero vive nel Diario. Finche' il Diario non risponde vale la promessa
+  /// di chi non e' ancora sceso, e un archivio muto non spegne la scheda.
+  String? _promessa;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.art.id != 'guide_animal') return;
+    _promessa = LaPromessaDelViaggio.descrizionePer(0);
+    final diario = DiarioDeiViaggi();
+    unawaited(diario.carica().then((_) {
+      if (mounted) {
+        setState(() => _promessa =
+            LaPromessaDelViaggio.descrizionePer(diario.apparizioni));
+      }
+    }).catchError((Object errore) {
+      debugPrint('SCHEDE: il Diario dei viaggi non risponde ($errore), resta '
+          'la promessa di chi non è ancora sceso');
+    }));
+  }
 
   @override
   void dispose() {
@@ -380,9 +415,13 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
     final raggio = BorderRadius.circular(SpacingTokens.radiusSm + 4);
     final art = widget.art;
     final stato = switch (art.state) {
-      ArtState.inArrivo =>
-        art.phase == null ? 'In arrivo' : 'In arrivo, ${art.phase}',
-      ArtState.premium => 'Premium',
+      ArtState.inArrivo => widget.mostraFase && art.phase != null
+          ? 'In arrivo, ${art.phase}'
+          : 'In arrivo',
+      // Come diceva la card di prima: con quale livello si apre.
+      ArtState.premium => art.requiredTier == null
+          ? 'Si apre con il Cerchio'
+          : 'Si apre ${conPiano(PlanCatalog.forTier(art.requiredTier!).name)}',
       ArtState.attiva => 'Tocca per entrare',
     };
     return Container(
@@ -409,7 +448,7 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                art.teaser,
+                _promessa ?? art.teaser,
                 key: Key('scheda_informazioni_${art.id}'),
                 style: TypographyTokens.didascalia()
                     .copyWith(color: ColorTokens.textPrimary, height: 1.3),

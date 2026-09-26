@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/arts/art_catalog.dart';
 import '../../core/arts/gli_sfondi_delle_schede.dart';
+import '../../core/config/app_flags.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -29,6 +30,7 @@ class LaRigaDelleSchede extends StatefulWidget {
     this.chiaveDelTitolo,
     this.onTieni,
     this.sfondoDelMaestro = false,
+    this.mostraFase = AppFlags.isDemo,
   });
 
   /// La chiave della riga, per le prove e per le catture: `riga_<chiave>`.
@@ -54,6 +56,9 @@ class LaRigaDelleSchede extends StatefulWidget {
 
   /// La riga "In arrivo" dei domini: lo sfondo del Maestro e l'icona.
   final bool sfondoDelMaestro;
+
+  /// La fase delle arti in arrivo si dice solo nella Demo.
+  final bool mostraFase;
 
   /// **Quanto si solleva la scheda al centro**, e quanta ombra resta sulle
   /// altre.
@@ -88,7 +93,12 @@ class _LaRigaDelleSchedeState extends State<LaRigaDelleSchede> {
   void initState() {
     super.initState();
     _scorri.addListener(() {
-      final p = _scorri.position;
+      // **L'ULTIMA POSIZIONE, non `position`.** Quando la riga cambia chiave
+      // nello stesso posto (un dominio montato dopo l'altro), per un
+      // fotogramma il controller ha due viste attaccate e `position`
+      // solleva un'asserzione: si legge quella nuova.
+      if (!_scorri.hasClients) return;
+      final p = _scorri.positions.last;
       _scorrimento.value = p.maxScrollExtent <= 0
           ? 0
           : (p.pixels / p.maxScrollExtent).clamp(0, 1);
@@ -176,6 +186,7 @@ class _LaRigaDelleSchedeState extends State<LaRigaDelleSchede> {
                     formato: widget.formato,
                     larghezza: larghezza,
                     sfondoDelMaestro: widget.sfondoDelMaestro,
+                    mostraFase: widget.mostraFase,
                     onTieni: widget.onTieni == null
                         ? null
                         : () => widget.onTieni!(art),
@@ -222,7 +233,7 @@ class _AlCentro extends StatelessWidget {
     return AnimatedBuilder(
       animation: scorri,
       builder: (context, figlio) {
-        final pixel = scorri.hasClients ? scorri.position.pixels : 0.0;
+        final pixel = scorri.hasClients ? scorri.positions.last.pixels : 0.0;
         final t = LaRigaDelleSchede.quantoAlCentro(
             indice: indice,
             pixel: pixel,

@@ -17,7 +17,7 @@ void main() {
       for (final a in ArtCatalog.activeOf(m)) a.id,
   };
 
-  test("col seme dell'ordine EO la fila e' Archetipo, Viaggio e Sigillo", () {
+  test("col seme dell'ordine EO la fila e' Viaggio e Sigillo", () {
     final gia = ArtiPreferiteController.semePer(null).toSet();
     final fila = artiDaScoprire(null, gia: gia, giorno: DateTime(2026, 8, 17))
         .map((a) => a.id)
@@ -33,9 +33,11 @@ void main() {
     // portavano il Viaggio dello Sciamano**, e la fila era Test Archetipo e
     // Sigillo. Dall'ordine EO voce 09 il seme sono le sei della riga "Le
     // arti preferite", senza il Viaggio, che quindi torna nella fila.
-    expect(fila.toSet(), {'archetype_test', 'guide_animal', 'magic_sigil'},
-        reason: 'oggi il resto del catalogo e\' Test Archetipo, Viaggio '
-            'dello Sciamano e Sigillo dell\'Intenzione');
+    // **E IL TEST ARCHETIPO NON C'E' PIU'**, ordine EO voce 12: vive solo
+    // nel Passaporto, come l'Angelo Custode.
+    expect(fila.toSet(), {'guide_animal', 'magic_sigil'},
+        reason: 'oggi il resto del catalogo e\' Viaggio dello Sciamano e '
+            'Sigillo dell\'Intenzione');
   });
 
   test('cambiate le preferite, la fila mostra il resto e mai doppioni', () {

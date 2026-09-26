@@ -112,8 +112,8 @@ const List<FumettoDelPrimoApprodo> cinqueFumetti = [
     titolo: 'I TRE MAESTRI',
     testo: 'Tre Voci, Tre Mondi, Tre Personalità\n'
         '- MEDORA: Astrologia, Cartomanzia, Destino\n'
-        '- CALIGO: Rune, Rituali, Numerologia\n'
-        '- AURA: Chakra, Energia, Archetipi\n'
+        '- CALIGO: Divinazione, Rituali, Numerologia\n'
+        '- AURA: Energia, Chakra, Fisiognomica\n'
         'Tocca un volto ed entra nel suo dominio',
     lato: LatoDelFumetto.sotto,
     ancora: BersagliDelPrimoApprodo.trio,
