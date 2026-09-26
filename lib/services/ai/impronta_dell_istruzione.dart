@@ -61,9 +61,10 @@ class ImprontaDellIstruzione {
         'PRESA SU DI LEI**: tre giri di attribuzione cieca, 93,3, 96,7 e 88,3 '
         'per cento, media 92,8 (167 su 180). Caduta con l\'ordine EO voce 11: '
         'le arti dei Maestri, che la persona nomina, hanno i nomi e l\'ordine '
-        'nuovi delle sezioni (Aura "Energia, Chakra e Fisiognomica", Calìgo '
-        '"Divinazione, Rituali e Numerologia"); anche le arti degli altri due '
-        'cambiano con loro in tutte e tre le istruzioni.',
+        'nuovi delle sezioni (la sezione delle rune si chiama Divinazione, '
+        'quella degli archetipi Fisiognomica; Energia viene prima di '
+        'Chakra); anche le arti degli altri due cambiano con loro in tutte e '
+        'tre le istruzioni.',
     'DAL 24 SETTEMBRE 2026, IL POMERIGGIO, AL 25 SETTEMBRE 2026. Impronte: '
         'medora '
         '6ebaeaa1639c3deec9f981b6c8a5a43b416ba2dbe9823dee2742124dfbec7f5b, '
