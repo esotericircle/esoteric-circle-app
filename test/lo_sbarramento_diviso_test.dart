@@ -225,6 +225,35 @@ void main() {
           reason: 'l\'elenco dei rossi nuovi e\' vuoto:\n${r.stdout}');
     });
 
+    // **NATA DAL PRIMO GIRO VERO SU GITHUB, 26 settembre 2026.** Le
+    // variabili che dicono a una macchina "fai solo il tuo pezzo" arrivavano
+    // anche alle prove di quel pezzo: le prove che lanciano una copia dello
+    // sbarramento la trovavano in modalita' pezzo, e sei macchine su sei le
+    // hanno viste cadere tutte. Sul PC erano verdi, perche' li' quelle
+    // variabili non ci sono.
+    test('le variabili dello sbarramento non arrivano a cio\' che lancia', () {
+      Directory('${tana.path}/tool').createSync(recursive: true);
+      var testo = sbarramento.readAsStringSync();
+      const riga = r'flutter test -r expanded "$@" 2>&1 | tee "$REGISTRO"';
+      expect(testo.contains(riga), isTrue);
+      // Al posto della suite, cio' che vede un programma lanciato da qui.
+      testo = testo.replaceFirst(
+          riga, r'env | grep "^SBARRAMENTO_" | tee "$REGISTRO"; (exit 0)');
+      File('${tana.path}/tool/sbarramento.sh').writeAsStringSync(testo);
+      final uscita = '${tana.path}/registri';
+      final r = Process.runSync(bash(), [
+        '${tana.path}/tool/sbarramento.sh'
+      ], environment: {
+        'SBARRAMENTO_SOLO': 'suite',
+        'SBARRAMENTO_USCITA': uscita,
+        'SBARRAMENTO_PEZZO': '2',
+      });
+      expect(r.exitCode, 0, reason: '${r.stdout}\n${r.stderr}');
+      final visto = File('$uscita/suite_2.txt').readAsStringSync().trim();
+      expect(visto, isEmpty,
+          reason: 'le prove lanciate dal pezzo vedono ancora: $visto');
+    });
+
     test('la macchina di un pezzo conserva registro ed esito, e non decide',
         () {
       Directory('${tana.path}/tool').createSync(recursive: true);

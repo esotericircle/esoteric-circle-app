@@ -51,11 +51,17 @@ conservati, nessuna decisione) e `SBARRAMENTO_DA_REGISTRI` (decide sui
 registri, e un pezzo che manca ferma il cancello). Senza variabili fa cio'
 che faceva prima: il PC e la Ronda non cambiano.
 
-**APERTA IN ATTESA DI VERIFICA**: il primo giro vero su GitHub, coi minuti
-dalla spinta al verdetto, contro i 33 del giro su una macchina sola. Si
-misura alla prima spinta dopo che il fondatore ha lanciato la build iOS della
-2284 su Codemagic: una spinta prima avrebbe spostato la cima del ramo sotto
-Codemagic.
+**Il primo giro vero, sul commit `91c21317`, e' durato 7,5 minuti** contro
+i 33 di una macchina sola, ed e' stato **rosso**
+(`docs/collaudo/ACCELERA/primo_giro_su_github.txt`). Difetto di questa voce:
+le variabili della modalita' pezzo arrivavano anche alle prove che il pezzo
+faceva girare, e le prove che lanciano una copia dello sbarramento la
+trovavano in modalita' pezzo; 21 prove cadute su tutte le macchine, verdi sul
+PC dove quelle variabili non ci sono. Curato: lo sbarramento, lette le
+variabili, le toglie dall'ambiente; la prova nuova e' nata rossa sul difetto
+vero.
+
+**APERTA IN ATTESA DI VERIFICA**: il secondo giro, verde, coi suoi minuti.
 
 ## VOCE ACCELERA.03, LA CONSEGNA COL VERDETTO DI GITHUB
 

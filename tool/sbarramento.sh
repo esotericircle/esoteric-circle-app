@@ -72,6 +72,12 @@ DAI_REGISTRI="${SBARRAMENTO_DA_REGISTRI:-}"
 USCITA="${SBARRAMENTO_USCITA:-}"
 PEZZO="${SBARRAMENTO_PEZZO:-0}"
 QUANTI_PEZZI="${SBARRAMENTO_PEZZI:-0}"
+# **LETTE, SI TOLGONO DALL'AMBIENTE.** Al primo giro vero su GitHub queste
+# variabili arrivavano anche alle prove che il pezzo faceva girare: quelle che
+# lanciano una copia di questo file la trovavano in modalita' pezzo, e cadevano
+# su tutte e sei le macchine. Sul PC non si vedeva, perche' li' non ci sono.
+unset SBARRAMENTO_SOLO SBARRAMENTO_DA_REGISTRI SBARRAMENTO_USCITA \
+  SBARRAMENTO_PEZZO SBARRAMENTO_PEZZI
 if [ -n "$FASE_SOLA" ] && [ -z "$USCITA" ]; then
   echo "SBARRAMENTO_SOLO=$FASE_SOLA vuole SBARRAMENTO_USCITA: dove conservo il registro?"
   exit 1

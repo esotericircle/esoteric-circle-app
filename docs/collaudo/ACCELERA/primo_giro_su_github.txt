@@ -1,0 +1,22 @@
+ORDINE ACCELERA, IL PRIMO GIRO VERO DELLO SBARRAMENTO DIVISO SU GITHUB, 26 settembre 2026 (ora UTC)
+
+giro 36275010716 sul commit 91c21317: failure
+dall'avvio alla fine: 7.5 minuti (2026-09-26T22:03:28Z -> 2026-09-26T22:10:59Z)
+  il corredo a scala 1,3: success, 6.6 min
+  suite, pezzo 2: success, 5.4 min
+  analyze: success, 1.7 min
+  il server e le chiusure: success, 1.8 min
+  suite, pezzo 1: success, 5.3 min
+  suite, pezzo 3: success, 6.4 min
+  suite, pezzo 5: success, 6.0 min
+  suite, pezzo 0: success, 6.0 min
+  suite, pezzo 4: success, 6.3 min
+  analyze e sbarramento: failure, 0.8 min
+
+PERCHE' E' ROSSO: le variabili SBARRAMENTO_SOLO, SBARRAMENTO_USCITA e SBARRAMENTO_PEZZO arrivavano anche alle prove fatte girare dal pezzo. Le prove che lanciano una copia dello sbarramento (lo_sbarramento_distingue_i_rossi, lo_sbarramento_diviso) la trovavano in modalita' pezzo: conservava e non decideva, e cadevano 21 prove su tutte le macchine. Sul PC erano verdi perche' li' quelle variabili non ci sono. Padre: ordine ACCELERA voce 02.
+
+LA CURA: lo sbarramento, lette le variabili, le toglie dall'ambiente (unset) prima di lanciare qualunque cosa.
+LA PROVA NUOVA 'le variabili dello sbarramento non arrivano a cio' che lancia', girata sul codice di prima:
+  le prove lanciate dal pezzo vedono ancora: SBARRAMENTO_SOLO=suite
+  00:00 +0 -1: Some tests failed.
+Dopo la cura, riprodotta sul PC la macchina di un pezzo (SBARRAMENTO_SOLO=suite sui due file delle prove cadute): esito 0, 29 prove passate, 0 rosse.
