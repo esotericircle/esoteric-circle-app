@@ -358,9 +358,17 @@ class SynastryBarRow extends StatelessWidget {
     // l'indice, e al posto del numero si legge il gradino in PAROLE, che
     // distingue due coppie a colpo d'occhio. **La percentuale vera non
     // sparisce**: sta nella riga sotto, insieme al perche'.
-    final fraction = bar.value / 100;
+    //
+    // **LAPIDE, ordine ER voce 05.** La barra portava l'indice sulla scala di
+    // chi guarda e a destra la parola ("ALLA VOSTRA PORTATA"): col 2,8 per
+    // cento il fondatore vedeva una barra a tre quarti accanto a barre lunghe
+    // quanto la loro percentuale, e l'etichetta spezzata dentro la parola
+    // ("POSSIBILIT / À DI / INCONTRO") dalla parola larga di destra.
+    // Adesso la barra e' la percentuale vera e a destra c'e' il numero, come
+    // nelle altre.
+    final fraction = bar.frazione;
     final valueText =
-        isMeeting ? meetingReport.incontro.inParole : '${bar.value}%';
+        isMeeting ? meetingReport.meetingLabel : '${bar.value}%';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -399,9 +407,8 @@ class SynastryBarRow extends StatelessWidget {
         ),
         if (isMeeting) ...[
           const SizedBox(height: 2),
-          // Il perche', con dentro la percentuale vera: il numero non si
-          // nasconde, si mette dove non fa credere che sia una barra vuota.
-          Text('${meetingReport.meetingLabel}. ${bar.quip}',
+          // Il perche'. La percentuale vera sta a destra della barra.
+          Text(bar.quip,
               style: TypographyTokens.corpo().copyWith(
                   color: ColorTokens.textSecondary,
                   fontStyle: FontStyle.italic)),

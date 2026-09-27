@@ -186,47 +186,28 @@ void main() {
         reason: 'la chiusura non e\' quella sobria della memoria');
   });
 
-  test('CA.06: i valori mostrati distinguono le coppie', () {
-    // **L'INTERVALLO DEI VALORI EFFETTIVAMENTE MOSTRATI**, non quello che il
-    // calcolo potrebbe produrre: si guarda cosa finisce nella barra e nella
-    // parola, su venti coppie diverse.
+  // **LAPIDE, ordine ER voce 05, 27 settembre 2026.** Qui due prove
+  // dell'ordine CA voce 06 pretendevano che la barra dell'incontro portasse
+  // l'indice sulla scala di chi guarda (un quinto del tetto, 3,6 punti) e a
+  // destra una parola, perche' due coppie diverse non sembrassero uguali. Il
+  // fondatore ha visto il 2,8 per cento con una barra a tre quarti, accanto a
+  // barre lunghe quanto la loro percentuale: *"Rimettiamo la realtà."* La
+  // prova resta, rovesciata: la barra e' la percentuale vera.
+  test('ER.05: la barra dell\'incontro e\' la percentuale vera', () {
     final tuo = CieloDiSinastria.perVip(VipCatalog.vips[9]);
-    final mostrati = <int>[];
-    final parole = <String>{};
+    var viste = 0;
     for (final vip in VipCatalog.vips.take(20)) {
       final r = SynastryReport.perCieli(
           tuo: tuo, vip: vip, quando: DateTime(2026, 8, 28));
       if (!r.incontro.esiste) continue;
+      viste++;
       final barra = r.bars.firstWhere((b) => b.quip.isNotEmpty);
-      mostrati.add(barra.value);
-      parole.add(r.incontro.inParole);
+      expect(barra.frazione, closeTo(r.incontro.percento / 100, 1e-9),
+          reason: '${vip.name}: la barra non e\' lunga quanto la '
+              'percentuale vera');
     }
-    mostrati.sort();
-    final intervallo = mostrati.last - mostrati.first;
-    // ignore: avoid_print
-    print('ORDINE CA VOCE 6: su ${mostrati.length} coppie i valori mostrati '
-        'vanno da ${mostrati.first} a ${mostrati.last}, cioe\' un intervallo '
-        'di $intervallo, con ${parole.length} gradini diversi in parole');
-    expect(intervallo, greaterThanOrEqualTo(30),
-        reason: 'i valori mostrati stanno tutti dentro $intervallo punti: due '
-            'coppie diverse sembrano uguali, ed e\' il rilievo riaperto dal '
-            'fondatore');
-    expect(parole.length, greaterThanOrEqualTo(2),
-        reason: 'tutte le coppie leggono la stessa parola');
-  });
-
-  test(
-      'CA.06: quello che la barra mostra e\' l\'indice, non la percentuale '
-      'cruda', () {
-    final tuo = CieloDiSinastria.perVip(VipCatalog.vips[9]);
-    final r = SynastryReport.perCieli(
-        tuo: tuo, vip: VipCatalog.vips[3], quando: DateTime(2026, 8, 28));
-    final barra = r.bars.firstWhere((b) => b.quip.isNotEmpty);
-    expect(barra.value, r.incontro.indiceSullaScala,
-        reason: 'la barra non porta l\'indice sulla scala');
-    expect(barra.value.toDouble(), isNot(closeTo(r.meetingPercent, 0.5)),
-        reason: 'la barra mostra ancora la percentuale cruda, che e\' quella '
-            'che il fondatore legge come 1,8 per cento');
+    expect(viste, greaterThanOrEqualTo(10),
+        reason: 'la prova non ha visto abbastanza coppie');
   });
 
   test('CA.04: la sfida non e\' sempre la stessa riga', () {

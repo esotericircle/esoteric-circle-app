@@ -158,9 +158,28 @@ class Vip {
     this.luogoDiNascita,
     this.luogoDiOggi,
     this.annoDellaScomparsa,
+    this.femminile = false,
   });
 
   final String name;
+
+  /// **IL GENERE DEL VIP, DICHIARATO E NON INDOVINATO.** Ordine ER voce 16,
+  /// 27 settembre 2026: *"Il tuo gemello astrale è Margot Robbie, ma Snoop
+  /// Dogg gli sta addosso"*. Il catalogo non conosceva il genere dei suoi
+  /// cinquanta, e ogni frase che parla di un VIP con un pronome lo dava al
+  /// maschile. Come per i pianeti (`PuntoDelCielo.femminile`), il genere si
+  /// dichiara nel dato: ventuno donne, ventinove uomini.
+  final bool femminile;
+
+  /// Il pronome che sta per il VIP davanti a un verbo: "gli" o "le".
+  String get gliOLe => femminile ? 'le' : 'gli';
+
+  /// Il pronome del VIP come soggetto o dopo una preposizione: "lui" o
+  /// "lei".
+  String get luiOLei => femminile ? 'lei' : 'lui';
+
+  /// La desinenza di un aggettivo o participio riferito al VIP.
+  String oA(String radice) => femminile ? '${radice}a' : '${radice}o';
   final Zodiac sign;
 
   /// La data di nascita, in tre pezzi perche' il catalogo resti costante.
@@ -295,6 +314,7 @@ class VipCatalog {
   static const List<Vip> vips = [
     Vip(
       name: 'Angelina Jolie',
+      femminile: true,
       sign: Zodiac.gemini,
       category: 'Cinema',
       stem: 'vip_angelina-jolie_v1',
@@ -317,6 +337,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Ariana Grande',
+      femminile: true,
       sign: Zodiac.cancer,
       category: 'Musica',
       stem: 'vip_ariana-grande_v1',
@@ -366,7 +387,8 @@ class VipCatalog {
       },
     ),
     Vip(
-      name: 'Beyonce',
+      name: 'Beyoncé',
+      femminile: true,
       sign: Zodiac.virgo,
       category: 'Musica',
       stem: 'vip_beyonce_v1',
@@ -423,6 +445,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Billie Eilish',
+      femminile: true,
       sign: Zodiac.sagittarius,
       category: 'Musica',
       stem: 'vip_billie-eilish_v1',
@@ -467,6 +490,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Chiara Ferragni',
+      femminile: true,
       sign: Zodiac.taurus,
       category: 'Icone',
       stem: 'vip_chiara-ferragni_v1',
@@ -617,6 +641,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Emma Watson',
+      femminile: true,
       sign: Zodiac.aries,
       category: 'Cinema',
       stem: 'vip_emma-watson_v1',
@@ -790,6 +815,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Kim Kardashian',
+      femminile: true,
       sign: Zodiac.libra,
       category: 'Icone',
       stem: 'vip_kim-kardashian_v1',
@@ -818,6 +844,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Kylie Jenner',
+      femminile: true,
       sign: Zodiac.leo,
       category: 'Icone',
       stem: 'vip_kylie-jenner_v1',
@@ -846,6 +873,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Lady Gaga',
+      femminile: true,
       sign: Zodiac.aries,
       category: 'Musica',
       stem: 'vip_lady-gaga_v1',
@@ -896,6 +924,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Margot Robbie',
+      femminile: true,
       sign: Zodiac.cancer,
       category: 'Cinema',
       stem: 'vip_margot-robbie_v1',
@@ -945,7 +974,7 @@ class VipCatalog {
       },
     ),
     Vip(
-      name: 'Kylian Mbappe',
+      name: 'Kylian Mbappé',
       sign: Zodiac.sagittarius,
       category: 'Sport',
       stem: 'vip_mbappe_v1',
@@ -1002,6 +1031,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Michelle Obama',
+      femminile: true,
       sign: Zodiac.capricorn,
       category: 'Icone',
       stem: 'vip_michelle-obama_v1',
@@ -1030,6 +1060,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Monica Bellucci',
+      femminile: true,
       sign: Zodiac.libra,
       category: 'Cinema',
       stem: 'vip_monica-bellucci_v1',
@@ -1080,6 +1111,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Oprah Winfrey',
+      femminile: true,
       sign: Zodiac.aquarius,
       category: 'Icone',
       stem: 'vip_oprah-winfrey_v1',
@@ -1108,6 +1140,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Priyanka Chopra',
+      femminile: true,
       sign: Zodiac.cancer,
       category: 'Cinema',
       stem: 'vip_priyanka-chopra_v1',
@@ -1130,6 +1163,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Rihanna',
+      femminile: true,
       sign: Zodiac.pisces,
       category: 'Musica',
       stem: 'vip_rihanna_v1',
@@ -1180,6 +1214,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Scarlett Johansson',
+      femminile: true,
       sign: Zodiac.sagittarius,
       category: 'Cinema',
       stem: 'vip_scarlett-johansson_v1',
@@ -1202,6 +1237,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Selena Gomez',
+      femminile: true,
       sign: Zodiac.cancer,
       category: 'Musica',
       stem: 'vip_selena-gomez_v1',
@@ -1224,6 +1260,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Serena Williams',
+      femminile: true,
       sign: Zodiac.libra,
       category: 'Sport',
       stem: 'vip_serena-williams_v1',
@@ -1246,6 +1283,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Shakira',
+      femminile: true,
       sign: Zodiac.aquarius,
       category: 'Musica',
       stem: 'vip_shakira_v1',
@@ -1353,6 +1391,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Taylor Swift',
+      femminile: true,
       sign: Zodiac.sagittarius,
       category: 'Musica',
       stem: 'vip_taylor-swift_v1',
@@ -1402,7 +1441,7 @@ class VipCatalog {
       },
     ),
     Vip(
-      name: 'Timothee Chalamet',
+      name: 'Timothée Chalamet',
       sign: Zodiac.capricorn,
       category: 'Cinema',
       stem: 'vip_timothee-chalamet_v1',
@@ -1531,6 +1570,7 @@ class VipCatalog {
     ),
     Vip(
       name: 'Zendaya',
+      femminile: true,
       sign: Zodiac.virgo,
       category: 'Cinema',
       stem: 'vip_zendaya_v1',
@@ -1563,10 +1603,28 @@ class VipCatalog {
 
   /// Il VIP col nome dato, oppure nullo. Serve alle prove e alle rotte.
   static Vip? conNome(String nome) {
+    final cercata = chiaveDelNome(nome);
     for (final v in vips) {
-      if (v.name == nome) return v;
+      if (chiaveDelNome(v.name) == cercata) return v;
     }
     return null;
+  }
+
+  /// **LA CHIAVE DI UN NOME, SENZA I SUOI SEGNI.** Ordine ER voce 19: tre nomi
+  /// del catalogo erano scritti senza il loro segno ("Beyonce", "Kylian
+  /// Mbappe", "Timothee Chalamet") e il nome fa anche da chiave: le coppie
+  /// salvate, le correzioni del server. Il nome si mostra giusto; le ricerche
+  /// si fanno su questa chiave, cosi' una coppia salvata col nome di prima si
+  /// ritrova.
+  static String chiaveDelNome(String nome) {
+    const segnati = 'àáâäãåèéêëìíîïòóôöõùúûüýÿñç';
+    const nudi = 'aaaaaaeeeeiiiiooooouuuuyync';
+    final buf = StringBuffer();
+    for (final c in nome.trim().toLowerCase().split('')) {
+      final i = segnati.indexOf(c);
+      buf.write(i < 0 ? c : nudi[i]);
+    }
+    return buf.toString();
   }
 
   /// Le categorie distinte presenti nel catalogo, nell'ordine di prima comparsa.
@@ -1594,7 +1652,7 @@ class VipCatalog {
 
   static List<Vip> get inEvidenza => [
         for (final nome in inEvidenzaNomi)
-          vips.firstWhere((v) => v.name == nome),
+          vips.firstWhere((v) => chiaveDelNome(v.name) == chiaveDelNome(nome)),
       ];
 }
 
@@ -1631,7 +1689,7 @@ class CorrezioniDeiVip {
         'in_vita' || 'invita' || 'vivo' => StatoInVita.inVita,
         _ => null,
       };
-      if (stato != null) lette[voce.key] = stato;
+      if (stato != null) lette[VipCatalog.chiaveDelNome(voce.key)] = stato;
     }
     _correzioni = Map.unmodifiable(lette);
   }
@@ -1639,7 +1697,7 @@ class CorrezioniDeiVip {
   /// Lo stato che vale adesso per quel nome: la correzione se c'e', altrimenti
   /// quello del catalogo.
   static StatoInVita statoDi(String nome, StatoInVita dalCatalogo) =>
-      _correzioni[nome] ?? dalCatalogo;
+      _correzioni[VipCatalog.chiaveDelNome(nome)] ?? dalCatalogo;
 
   /// **L'ATTUALITA' ARRIVA DALLA STESSA STRADA. Ordine CA voce 05.**
   ///
@@ -1655,13 +1713,15 @@ class CorrezioniDeiVip {
       final testo = (voce.value['testo'] ?? '').trim();
       final quando = DateTime.tryParse(voce.value['verificata_il'] ?? '');
       if (testo.isEmpty || quando == null) continue;
-      lette[voce.key] = AttualitaDelVip(testo: testo, verificataIl: quando);
+      lette[VipCatalog.chiaveDelNome(voce.key)] =
+          AttualitaDelVip(testo: testo, verificataIl: quando);
     }
     _attualita = Map.unmodifiable(lette);
   }
 
   /// L'attualita' che il server dichiara per quel nome, o nulla.
-  static AttualitaDelVip? attualitaDi(String nome) => _attualita[nome];
+  static AttualitaDelVip? attualitaDi(String nome) =>
+      _attualita[VipCatalog.chiaveDelNome(nome)];
 
   /// Quante attualita' sono in vigore adesso.
   static int get quanteAttualita => _attualita.length;

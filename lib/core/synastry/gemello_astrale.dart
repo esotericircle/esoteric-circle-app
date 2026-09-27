@@ -83,9 +83,13 @@ class GemelloAstrale {
       ];
 
   /// La riga che lo annuncia, col fatto invece di un superlativo.
+  ///
+  /// **Il pronome e' del gemello.** Ordine ER voce 16: si leggeva *"Margot
+  /// Robbie, ma Snoop Dogg gli sta addosso"*; il genere viene dal catalogo
+  /// (`Vip.femminile`), non si indovina.
   String get annuncio => distacco <= 1
-      ? 'Il tuo gemello astrale è ${vip.name}, ma ${secondo.name} gli sta '
-          'addosso: fra i due c\'è un punto solo.'
+      ? 'Il tuo gemello astrale è ${vip.name}, ma ${secondo.name} '
+          '${vip.gliOLe} sta addosso: fra i due c\'è un punto solo.'
       : 'Il tuo gemello astrale è ${vip.name}, con $punteggio su cento. '
           'Stacca ${secondo.name} di $distacco punti.';
 }

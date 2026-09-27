@@ -52,13 +52,16 @@ class PercheProprioLui {
   /// **Parla dei due segni e non della persona reale**: e' la regola, ed e'
   /// anche l'unica cosa onesta, perche' di una persona vera il Cerchio conosce
   /// il giorno di nascita e nient'altro.
-  static String evocativa(Zodiac tuo, Zodiac suo, int percento) {
+  static String evocativa(Zodiac tuo, Zodiac suo, int percento,
+      {bool femminile = false}) {
     final tuoModo = _comeStaAlMondo[tuo.element]!;
     // **DI LUI SI PARLA IN TERZA PERSONA, guardata l'anteprima.** A video si
     // leggeva "Lui, o lei, senti l'aria di una stanza": la stessa frase
     // scritta per il TU, riusata per un altro. Le due voci sono due, e vanno
     // scritte due volte.
-    final suoModo = _comeStaAlMondoLui[suo.element]!;
+    // Il pronome del VIP secondo il suo genere, ordine ER voce 16.
+    final suoModo = _comeStaAlMondoLui[suo.element]!
+        .replaceAll('gli costa', femminile ? 'le costa' : 'gli costa');
     final quanto = percento >= 85
         ? 'Non è una somiglianza: è la stessa frase detta da due voci.'
         : percento >= 70
@@ -81,7 +84,8 @@ class PercheProprioLui {
   /// **E' costruito e non pescato**: nasce dai due elementi e dal punteggio,
   /// quindi due persone diverse leggono due titoli diversi, ed e' quello che
   /// rende una cosa condivisibile. **Testi provvisori**, come tutto qui.
-  static String titolo(Zodiac tuo, Zodiac suo, int percento, String nome) {
+  static String titolo(Zodiac tuo, Zodiac suo, int percento, String nome,
+      {bool femminile = false}) {
     // **IL NOME NON SI RIPETE, guardata l'anteprima.** Il titolo sta
     // sotto il nome grande, e a video si leggeva "Ariana Grande" e subito
     // dopo "Tu e Ariana Grande siete la stessa persona": due volte lo
@@ -96,9 +100,12 @@ class PercheProprioLui {
           : 'Il cielo vi ha fatti a coppia e non ve lo ha detto';
     }
     if (percento >= 70) {
-      return 'C\'è un motivo se ti è sempre stato simpatico';
+      return femminile
+          ? 'C\'è un motivo se ti è sempre stata simpatica'
+          : 'C\'è un motivo se ti è sempre stato simpatico';
     }
-    return 'Il cielo ha scelto lui. Adesso devi conviverci';
+    return 'Il cielo ha scelto ${femminile ? 'lei' : 'lui'}. Adesso devi '
+        'conviverci';
   }
 
   static String _elementi(Zodiac tuo, Zodiac suo) {
@@ -159,9 +166,11 @@ class PercheProprioLui {
     final tuo = tuoCielo.segnoSolare;
     final suo = gemello.vip.sign;
     return (
-      titolo: titolo(tuo, suo, gemello.punteggio, gemello.vip.name),
+      titolo: titolo(tuo, suo, gemello.punteggio, gemello.vip.name,
+          femminile: gemello.vip.femminile),
       tecnica: tecnica(rapporto, tuo, suo),
-      evocativa: evocativa(tuo, suo, gemello.punteggio),
+      evocativa: evocativa(tuo, suo, gemello.punteggio,
+          femminile: gemello.vip.femminile),
     );
   }
 }

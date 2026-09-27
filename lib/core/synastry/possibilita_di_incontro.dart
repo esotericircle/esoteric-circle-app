@@ -330,12 +330,14 @@ class EreditaDelCielo {
         : '${vip.name} ci ha lasciati nel $anno.';
     if (aspetti.isEmpty) {
       return '$apertura Il suo cielo e il tuo non si toccano in nessuno dei '
-          'punti che contano: quello che resta di lui lo trovi nel suo '
+          'punti che contano: quello che resta di ${vip.luiOLei} lo trovi '
+          'nel suo '
           'lavoro, non in un angolo fra le vostre carte.';
     }
     final primo = aspetti.first;
     return '$apertura Quello che del suo cielo continua nel tuo è '
         '${primo.fatto}: quel punto tu ce l\'hai ancora. Ogni volta che lo '
-        'usi stai facendo qualcosa che lui ha fatto prima di te.';
+        'usi stai facendo qualcosa che ${vip.luiOLei} ha fatto prima di '
+        'te.';
   }
 }

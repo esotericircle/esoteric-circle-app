@@ -183,16 +183,25 @@ class MoltiplicatoreCeleste {
     // Cio' che si difendeva resta: l'app non finge un Ascendente che
     // nessuna fonte dichiara, e lo dice dove il fondatore ha chiesto.
     const coda = '';
+    // **IL LEGAME SI DICE IN ITALIANO, E SI DICE DI CHI E'.** Ordine ER voce
+    // 18: si leggeva *"Oggi Marte passa sul grado di Venere Quadratura
+    // Marte"*, cioe' il titolo della lista, con le maiuscole, dentro una
+    // frase, e tre pianeti in fila senza dire di chi. Adesso la frase nomina
+    // il legame per intero ("la Venere di Margot Robbie è in quadratura con
+    // il tuo Marte"). E dice che il transito tocca i gradi dove i due cieli
+    // si toccano, non che ci passa sopra: il conto accetta qualunque aspetto,
+    // su uno qualunque dei due gradi.
+    final legame = a.laFrase;
     if (valore >= 1.5) {
-      return 'Oggi ${t.nome} passa sul grado di ${a.titolo}: è uno dei giorni '
-          'in cui quel legame è più acceso.$coda';
+      return 'Oggi ${t.nome} tocca i gradi dove $legame: è uno dei giorni in '
+          'cui quel legame è più acceso.$coda';
     }
     if (valore >= 1.0) {
-      return 'Oggi ${t.nome} sfiora il grado di ${a.titolo}: il legame è '
-          'appena vivo.$coda';
+      return 'Oggi ${t.nome} sfiora i gradi dove $legame: il legame è appena '
+          'vivo.$coda';
     }
-    return 'Oggi nessun passaggio importante tocca ${a.titolo}: il legame '
-        'resta silenzioso.$coda';
+    return 'Oggi nessun passaggio importante tocca i gradi dove $legame: il '
+        'legame resta silenzioso.$coda';
   }
 }
 

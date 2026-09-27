@@ -187,9 +187,11 @@ abstract final class TestiDelloSpecchio {
   /// ironia sulla morte. Qui il gesto si nomina lo stesso, perché chi guarda
   /// deve sapere che l'app ha capito la sua scelta, ma non c'è nessuna
   /// battuta e nessuna delle dodici varianti tocca questo caso.
-  static const String sopraIlCerchioPerChiNonCePiu = 'Lo stesso cielo, due volte';
+  static const String sopraIlCerchioPerChiNonCePiu =
+      'Lo stesso cielo, due volte';
 
-  static const String titoloPerChiNonCePiu = 'Un cielo confrontato con sé stesso';
+  static const String titoloPerChiNonCePiu =
+      'Un cielo confrontato con sé stesso';
 
   static const List<String> corpoPerChiNonCePiu = <String>[
     'Hai messo NOME accanto a NOME: è lo stesso tema natale da tutte e due le parti.',

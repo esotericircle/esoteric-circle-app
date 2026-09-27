@@ -12,6 +12,7 @@ class SynastryBar {
     required this.label,
     required this.value,
     this.quip = '',
+    this.percentoEsatto,
   });
 
   /// Titolo della barra, a video.
@@ -23,6 +24,14 @@ class SynastryBar {
 
   /// Micro battuta opzionale, mostrata piccola accanto alla barra.
   final String quip;
+
+  /// **La percentuale vera, coi decimali**, per la barra dell'incontro: la
+  /// sua lunghezza e' questa, sulla stessa scala da 0 a 100 delle altre.
+  /// Ordine ER voce 05.
+  final double? percentoEsatto;
+
+  /// La frazione della barra, da 0 a 1.
+  double get frazione => (percentoEsatto ?? value.toDouble()) / 100;
 }
 
 /// L'esito completo della Sinastria VIP, tutto deterministico dai due segni.
@@ -202,12 +211,15 @@ class SynastryReport {
         if (incontro.esiste)
           SynastryBar(
             label: 'Possibilità di incontro',
-            // **LA BARRA DICE QUANTO SI E' VICINI AL MASSIMO POSSIBILE,
-            // ordine BX voce 09**: la percentuale cruda su una scala da
-            // cento era una barra vuota per tutti, e due coppie diverse
-            // sembravano uguali. La riga sotto continua a dire la
-            // percentuale vera.
-            value: incontro.indiceSullaScala,
+            // **LA BARRA E' LA PERCENTUALE VERA, ordine ER voce 05.** Qui
+            // l'ordine BX voce 09 aveva messo quanto si e' vicini al
+            // massimo possibile, su una scala di 3,6 punti: il fondatore ha
+            // visto il 2,8 per cento con una barra a tre quarti accanto a
+            // barre lunghe quanto la loro percentuale, *"Rimettiamo la
+            // realtà."* Adesso la barra e' lunga quanto la percentuale, sulla
+            // stessa scala da 0 a 100 delle altre, e a destra c'e' il numero.
+            value: incontro.percento.round(),
+            percentoEsatto: incontro.percento,
             quip: incontro.perche,
           ),
       ];

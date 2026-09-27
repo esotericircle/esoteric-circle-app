@@ -169,7 +169,9 @@ class ResponsoDellaSinastria {
       // dalla scheda.
       nota: _laNotaDellaCoppia(primo: primo, secondo: secondo, adesso: adesso),
       sfida: sfidaFraDueVip(
-          primo: primo.name, secondo: secondo.name, percento: percento,
+          primo: primo.name,
+          secondo: secondo.name,
+          percento: percento,
           seme: seme),
       oraDiNascita: _oraDiNascita(false),
       luogoDiResidenza: _luogoDiResidenzaDellaCoppia(primo, secondo),
@@ -423,9 +425,12 @@ class ResponsoDellaSinastria {
     // **IL TESTO DEL "NON SI FINGE" NON C'E' PIU'. Ordine CC voce 06g.** Il
     // fondatore: "eliminalo!". Al suo posto ci sono le due righe di sopra, che
     // dicono la stessa cosa in due parole e stanno in OGNI responso.
-    if (vip.luogoDiOggi == null && !vip.eScomparso) {
-      pezzi.add(TestiDellaSinastria.notaLuogoIgnoto);
-    }
+    // **LAPIDE, ordine ER voce 17.** Qui la nota aggiungeva
+    // `TestiDellaSinastria.notaLuogoIgnoto` per ogni VIP in vita senza luogo
+    // pubblico: la barra dell'incontro lo dice gia' nel suo perche' ("Non si
+    // sa pubblicamente dove viva, quindi la distanza non entra nel conto"), e
+    // il fondatore l'ha letto due volte di seguito. Si dice una volta sola,
+    // sotto la barra; fra due VIP, dove la barra non c'e', la nota resta.
     final dalServer = CorrezioniDeiVip.attualitaDi(vip.name);
     final quando = dalServer?.verificataIl ?? vip.attualitaVerificataIl;
     if (quando != null && vip.attualitaAl(adesso) != null) {
