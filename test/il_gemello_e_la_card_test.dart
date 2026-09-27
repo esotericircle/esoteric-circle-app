@@ -10,7 +10,7 @@ import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
 import 'package:esoteric_circle/design_system/components/vip_frame.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
-import 'package:esoteric_circle/features/synastry/rivelazione_del_gemello.dart';
+import 'package:esoteric_circle/features/synastry/schermata_del_gemello.dart';
 import 'package:esoteric_circle/features/synastry/sinastria_share_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -101,19 +101,29 @@ void main() {
         reason: 'la ricerca costa ${minimo.inMilliseconds} millesimi');
   });
 
-  testWidgets('la sfilata si ferma sul gemello, e mai su un altro',
+  // **LAPIDE, ordine ER voce 06, 27 settembre 2026.** Qui la prova montava
+  // `RivelazioneDelGemello`, la sfilata che viveva nella galleria dei VIP e
+  // si fermava sul gemello. La galleria non cerca piu' il gemello e quel
+  // widget non c'e' piu': la sfilata e' il nastro della schermata del
+  // Gemello. **La regola resta**: la corsa si ferma sul gemello, e mai su un
+  // altro.
+  testWidgets('la corsa si ferma sul gemello, e mai su un altro',
       (tester) async {
     final g = GemelloAstrale.per(tuo)!;
-    await tester.pumpWidget(attorno(
-        RivelazioneDelGemello(gemello: g, palette: MaestroPalette.medora)));
+    await tester.pumpWidget(attorno(SchermataDelGemello(
+      tuoCielo: tuo,
+      tuoSegno: tuo.segnoSolare,
+      cercaSubito: true,
+    )));
     await tester.pump();
-    // Con Riduci Movimento e' gia' li', fermo.
-    expect(
-        tester
-            .widget<Text>(find.byKey(const Key('sinastria_gemello_nome')))
-            .data,
-        g.vip.name);
-    expect(find.byKey(const Key('sinastria_gemello_annuncio')), findsOneWidget);
+    await tester.pump(SchermataDelGemello.corsaDelNastro);
+    final centro = find.descendant(
+        of: find.byKey(const Key(
+            'gemello_nastro_carta_${SchermataDelGemello.cartaDellArrivo}')),
+        matching: find.byType(VipFramedPortrait));
+    expect(tester.widget<VipFramedPortrait>(centro).name, g.vip.name,
+        reason: 'la corsa si e\' fermata su un volto che non e\' il gemello');
+    await tester.pump(SchermataDelGemello.ilResponso);
   });
 
   // --- BO.11 ---

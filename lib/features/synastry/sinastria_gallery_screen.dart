@@ -14,12 +14,8 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
-import '../../core/identity/birth_identity.dart';
-import '../../core/synastry/cielo_della_sinastria.dart';
-import '../../core/synastry/gemello_astrale.dart';
 import '../../core/synastry/collezione_delle_coppie.dart';
 import 'collezione_screen.dart';
-import 'rivelazione_del_gemello.dart';
 import 'sinastria_vip_screen.dart';
 import '../maestri/rotta_arte.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
@@ -27,7 +23,6 @@ import '../sigilli/celebrazione.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/components/riga_del_residuo.dart';
 import '../../core/entitlement/budget_del_giorno.dart';
-import 'schermata_del_gemello.dart';
 
 /// La galleria di apertura della Sinastria VIP: si sceglie il VIP, poi si vede
 /// il responso. E' l'apertura vera dell'arte.
@@ -46,7 +41,6 @@ class SinastriaGalleryScreen extends StatefulWidget {
     this.random,
     this.primoVip,
     this.restituisci = false,
-    this.cercaSubitoIlGemello = false,
     this.titolo,
   });
 
@@ -74,9 +68,14 @@ class SinastriaGalleryScreen extends StatefulWidget {
   /// chi l'ha aperta riempie la casella che aveva in mente.
   final bool restituisci;
 
-  /// Cerca il gemello astrale appena si apre. Ordine CA voce 01: la porta
-  /// d'ingresso porta le tre scelte, e questa e' la terza.
-  final bool cercaSubitoIlGemello;
+  // **LAPIDE, ordine ER voce 06, 27 settembre 2026.** Qui viveva
+  // `cercaSubitoIlGemello`: la porta apriva questa galleria chiedendole di
+  // cercare il gemello, e la galleria lo mostrava sopra il titolo "Scegli il
+  // tuo VIP", la ricerca, la categoria e l'elenco. Parole del fondatore:
+  // "sotto c'è l'elenco delle carte del vip che in questa funzione non hanno
+  // senso". Il Gemello adesso ha una schermata sola,
+  // `SchermataDelGemello`, e questa galleria torna a fare una cosa sola:
+  // scegliere un volto.
 
   /// Il titolo della barra, che cambia col mestiere: "Scegli il tuo VIP"
   /// quando si sfoglia, la richiesta precisa quando si sta riempiendo una
@@ -106,7 +105,6 @@ class SinastriaGalleryScreen extends StatefulWidget {
     Zodiac? userSign,
     String? userName,
     DateTime? userBirth,
-    bool cercaSubitoIlGemello = false,
   }) {
     return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
           id: 'synastry_vip',
@@ -115,7 +113,6 @@ class SinastriaGalleryScreen extends StatefulWidget {
             userSign: userSign,
             userName: userName,
             userBirth: userBirth,
-            cercaSubitoIlGemello: cercaSubitoIlGemello,
           ),
         ));
   }
@@ -131,11 +128,6 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
 
   String _query = '';
   String _categoria = _tutti;
-
-  /// **IL GEMELLO ASTRALE, ordine BO voce 10.** Si calcola al tocco e non
-  /// all'apertura: cinquanta responsi costano poco, ma calcolarli per chi non
-  /// li ha chiesti sarebbe lavoro buttato a ogni apertura della galleria.
-  GemelloAstrale? _gemello;
 
   late final math.Random _rng = widget.random ?? math.Random();
 
@@ -226,57 +218,6 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
         unawaited(RegiaDelCammino.svuotaLaCoda(context, appenaChiusaUna: true));
       }
     }));
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    // **IL GEMELLO SI CERCA ALL'APERTURA, se la porta lo ha chiesto.**
-    // Ordine CA voce 01: la terza delle tre scelte vive nella porta
-    // d'ingresso, e apre questa galleria con la ricerca gia' chiesta.
-    if (widget.cercaSubitoIlGemello) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        if (mounted) _cercaIlGemello();
-      });
-    }
-  }
-
-  /// Calcola il gemello e lo rivela.
-  void _cercaIlGemello() {
-    final cielo = CieloDiSinastria.perNascita(
-      momentoUtc: DateTime.utc(
-        (widget.userBirth ?? BirthIdentity.example.birthMoment).year,
-        (widget.userBirth ?? BirthIdentity.example.birthMoment).month,
-        (widget.userBirth ?? BirthIdentity.example.birthMoment).day,
-        12,
-      ),
-      oraNota: false,
-      latitudine: null,
-      longitudineDelLuogo: null,
-      segnoDichiarato: widget.userSign,
-    );
-    setState(() => _gemello = GemelloAstrale.per(cielo));
-  }
-
-  /// **PORTA ALLA SCHERMATA DEL GEMELLO. Ordine CF voce 14.** Il cielo si
-  /// ricalcola qui perche' e' lo stesso da cui il gemello e' nato: passarne
-  /// un altro vorrebbe dire un responso che non appartiene a quella scelta.
-  void _apriIlGemello(MaestroPalette palette) {
-    final gemello = _gemello;
-    if (gemello == null) return;
-    final nascita = widget.userBirth ?? BirthIdentity.example.birthMoment;
-    final cielo = CieloDiSinastria.perNascita(
-      momentoUtc: DateTime.utc(nascita.year, nascita.month, nascita.day, 12),
-      oraNota: false,
-      latitudine: null,
-      longitudineDelLuogo: null,
-      segnoDichiarato: widget.userSign,
-    );
-    Navigator.of(context).push(SchermataDelGemello.route(
-      gemello: gemello,
-      tuoCielo: cielo,
-      tuoSegno: cielo.segnoSolare,
-    ));
   }
 
   /// Apre la collezione. **Riaprire una coppia da li' non consuma niente.**
@@ -424,31 +365,9 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
                       // gemello astrale VIP devono stare nella prima
                       // schermata che vede l'utente e non nella schermata di
                       // scelta del vip". Adesso stanno in
-                      // `PortaDellaSinastria` insieme alle due carte. **La
-                      // rivelazione del gemello resta qui**, perche' e' qui
-                      // che si sfoglia: la porta apre questa galleria
-                      // chiedendo di cercarlo subito.
-                      if (_gemello != null) ...[
-                        // **IL TOCCO PORTA ALLA SCHERMATA DEL GEMELLO, e
-                        // non piu' dritto nella sinastria. Ordine CF voce
-                        // 14.** Parole del fondatore: "la funzione di
-                        // trova il tuo gemello astrale non e'
-                        // assolutamente appagante: serve animazione e
-                        // responso simile a quello della sinastria".
-                        //
-                        // **Aprire dritto la sinastria consumava un
-                        // budget per un gesto che sembrava una curiosita'.**
-                        // Adesso il Gemello ha la sua schermata, che non
-                        // consuma niente, e da li' la sinastria intera si
-                        // apre con la riga del residuo davanti.
-                        GestureDetector(
-                          key: const Key('gemello_apri_la_schermata'),
-                          onTap: () => _apriIlGemello(palette),
-                          child: RivelazioneDelGemello(
-                              gemello: _gemello!, palette: palette),
-                        ),
-                        const SizedBox(height: SpacingTokens.md),
-                      ],
+                      // `PortaDellaSinastria` insieme alle due carte. E con
+                      // l'ordine ER voce 06 anche la rivelazione del gemello
+                      // se n'e' andata: vive in `SchermataDelGemello`.
                       const SizedBox(height: SpacingTokens.md),
                       Center(
                         child: TextButton.icon(

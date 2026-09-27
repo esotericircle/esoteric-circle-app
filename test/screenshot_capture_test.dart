@@ -592,8 +592,8 @@ void main() {
     await step(tester);
     // A testo grande la scheda Consulta, alta quanto una scheda del
     // dominio, puo' stare sotto la piega: si porta in vista prima del tocco.
-    await tester
-        .ensureVisible(find.byKey(Key('scheda_tocco_consulta_${maestro.name}')));
+    await tester.ensureVisible(
+        find.byKey(Key('scheda_tocco_consulta_${maestro.name}')));
     await tester.pump();
     await tester.tap(find.byKey(Key('scheda_tocco_consulta_${maestro.name}')));
     // La scheda si preme e svanisce, poi apre la chat (ordine EP voce 12).
@@ -907,7 +907,8 @@ void main() {
     await step(tester);
     // Dal dominio si entra nella Consulta, poi dall'header della chat si apre
     // il confronto a piu' voci.
-    await tester.ensureVisible(find.byKey(const Key('scheda_tocco_consulta_medora')));
+    await tester
+        .ensureVisible(find.byKey(const Key('scheda_tocco_consulta_medora')));
     await step(tester);
     await tester.tap(find.byKey(const Key('scheda_tocco_consulta_medora')));
     // La scheda si preme e svanisce, poi apre la chat (ordine EP voce 12).
@@ -1995,6 +1996,7 @@ void main() {
       tuoCielo: cielo,
       tuoSegno: Zodiac.taurus,
       adesso: DateTime(2026, 8, 31),
+      cercaSubito: true,
     )));
     await step(tester);
     await tester.runAsync(() async {

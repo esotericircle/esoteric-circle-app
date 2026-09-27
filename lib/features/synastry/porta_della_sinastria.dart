@@ -14,6 +14,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
 import 'il_foglio_del_tuo_volto.dart';
+import 'schermata_del_gemello.dart';
 import 'sinastria_gallery_screen.dart';
 import 'sinastria_vip_screen.dart';
 import 'user_photo.dart';
@@ -243,14 +244,16 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
         await _scegli(perLaPrima: true);
       case ModoDellaSinastria.gemelloAstrale:
         setState(() => _modo = modo);
-        await Navigator.of(context).push(
-          SinastriaGalleryScreen.route(
-            userSign: widget.userSign,
-            userName: widget.userName,
-            userBirth: widget.userBirth,
-            cercaSubitoIlGemello: true,
-          ),
-        );
+        // **IL GEMELLO HA UNA SCHERMATA SOLA.** Ordine ER voce 06: qui si
+        // apriva la galleria dei VIP, col titolo "Scegli il tuo VIP", la
+        // ricerca, la categoria e l'elenco, e il responso arrivava solo
+        // toccando la carta del gemello. Adesso si apre la schermata del
+        // Gemello, che fa tutto da se'.
+        await Navigator.of(context).push(SchermataDelGemello.perLaPersona(
+          userSign: widget.userSign,
+          userName: widget.userName,
+          userBirth: widget.userBirth,
+        ));
     }
   }
 

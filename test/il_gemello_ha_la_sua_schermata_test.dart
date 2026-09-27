@@ -57,42 +57,71 @@ void main() {
           tuoCielo: cielo,
           tuoSegno: Zodiac.taurus,
           adesso: DateTime(2026, 8, 31),
+          // Il racconto parte senza il pulsante: queste prove misurano il
+          // racconto, il pulsante lo misura la prova dell'ordine ER voce 06.
+          cercaSubito: true,
         ),
       ),
     ));
     await tester.pump();
   }
 
-  testWidgets('la sfilata si MUOVE: due istanti mostrano due volti',
-      (tester) async {
+  int ms(Duration d) => d.inMilliseconds;
+
+  // **LAPIDE, ordine ER voce 06, 27 settembre 2026.** Qui la prova guardava
+  // la cornice grande del volto, dove sfilavano le facce una alla volta. La
+  // cornice non c'e' piu': la sfilata e' diventata il nastro delle carte, che
+  // corre e si ferma sui tre gemelli. **La regola della prova resta**: cio'
+  // che si muove si prova sul movimento, confrontando due istanti.
+  testWidgets('il nastro si MUOVE: due istanti, due posti', (tester) async {
     final g = await gemello();
     await apri(tester, g);
-    String? voltoA;
-    String? voltoB;
     await tester.pump(const Duration(milliseconds: 300));
-    voltoA = _immagineDellaCornice(tester);
+    final primaA = find
+        .byWidgetPredicate((w) =>
+            w.key is ValueKey<String> &&
+            (w.key! as ValueKey<String>)
+                .value
+                .startsWith('gemello_nastro_carta_'))
+        .evaluate()
+        .map((e) => (e.widget.key! as ValueKey<String>).value)
+        .toSet();
     await tester.pump(const Duration(milliseconds: 900));
-    voltoB = _immagineDellaCornice(tester);
+    final primaB = find
+        .byWidgetPredicate((w) =>
+            w.key is ValueKey<String> &&
+            (w.key! as ValueKey<String>)
+                .value
+                .startsWith('gemello_nastro_carta_'))
+        .evaluate()
+        .map((e) => (e.widget.key! as ValueKey<String>).value)
+        .toSet();
     // ignore: avoid_print
-    print('ORDINE CF VOCE 14: a 300 millesimi "$voltoA", a 1200 "$voltoB"');
-    expect(voltoA, isNotNull, reason: 'la cornice non mostra nessuna immagine');
-    expect(voltoA == voltoB, isFalse,
-        reason: 'a trecento e a milleduecento millesimi la cornice mostra lo '
-            'stesso volto: la sfilata non si muove, e un\'animazione ferma '
-            'non e\' un\'animazione');
+    print('ORDINE CF VOCE 14 (ER.06): carte in scena a 300 millesimi '
+        '${primaA.length}, a 1200 ${primaB.length}, in comune '
+        '${primaA.intersection(primaB).length}');
+    expect(primaA, isNotEmpty, reason: 'il nastro non mostra nessuna carta');
+    expect(primaA.difference(primaB), isNotEmpty,
+        reason: 'a trecento e a milleduecento millesimi il nastro mostra le '
+            'stesse carte: non corre, e un\'animazione ferma non e\' '
+            'un\'animazione');
   });
 
   testWidgets('il racconto ha tre momenti, e arrivano in ordine',
       (tester) async {
     final g = await gemello();
     await apri(tester, g);
-    // Durante la sfilata non c'e' ancora ne' il nome ne' il responso.
+    // Durante la corsa non c'e' ancora ne' il nome ne' il responso.
     await tester.pump(const Duration(milliseconds: 1000));
     final nomePrima = find.byKey(const Key('gemello_nome')).evaluate().length;
     final responsoPrima =
         find.byKey(const Key('gemello_responso')).evaluate().length;
     // Dopo il nome, ma prima del responso.
-    await tester.pump(const Duration(milliseconds: 2900));
+    await tester.pump(Duration(
+        milliseconds: (ms(SchermataDelGemello.ilNome) +
+                    ms(SchermataDelGemello.ilResponso)) ~/
+                2 -
+            1000));
     final nomeDopo = find.byKey(const Key('gemello_nome')).evaluate().length;
     final responsoInMezzo =
         find.byKey(const Key('gemello_responso')).evaluate().length;
@@ -100,7 +129,7 @@ void main() {
     // cerchio la schermata e' diventata alta e la lista non costruisce cio'
     // che sta molto sotto la piega: una prova che non scorresse direbbe
     // che il responso non arriva mai.
-    await tester.pump(const Duration(milliseconds: 2200));
+    await tester.pump(SchermataDelGemello.ilResponso);
     await tester.scrollUntilVisible(
       find.byKey(const Key('gemello_responso')),
       300,
@@ -128,7 +157,10 @@ void main() {
     // il cerchio e il podio ci sono gia' quando il responso non c'e' ancora.
     final g = await gemello();
     await apri(tester, g);
-    await tester.pump(const Duration(milliseconds: 4600));
+    await tester.pump(Duration(
+        milliseconds: (ms(SchermataDelGemello.laGrafica) +
+                ms(SchermataDelGemello.ilResponso)) ~/
+            2));
     final cerchio =
         find.byKey(const Key('gemello_cerchio_percentuale')).evaluate().length;
     // Il podio sta sotto il cerchio, quindi sotto la piega: si scorre.
@@ -141,7 +173,8 @@ void main() {
     final responso =
         find.byKey(const Key('gemello_responso')).evaluate().length;
     // ignore: avoid_print
-    print('ORDINE CF VOCE 14: a 4600 millesimi cerchio $cerchio, podio '
+    print(
+        'ORDINE CF VOCE 14: fra la grafica e il responso cerchio $cerchio, podio '
         '$podio, responso $responso');
     expect(cerchio, 1, reason: 'il cerchio della percentuale non arriva');
     expect(podio, 1, reason: 'il podio dei tre non arriva');
@@ -249,7 +282,9 @@ void main() {
     const schermate = <String>[
       'lib/features/synastry/schermata_del_gemello.dart',
       'lib/features/synastry/podio_del_gemello.dart',
-      'lib/features/synastry/rivelazione_del_gemello.dart',
+      // Qui c'era rivelazione_del_gemello.dart, tolto dall'ordine ER voce
+      // 06 con la rivelazione nella galleria: le sue carte vivono adesso nel
+      // nastro di schermata_del_gemello.dart, che e' qui sopra.
     ];
     final nude = <String>[];
     for (final percorso in schermate) {
@@ -311,15 +346,4 @@ void main() {
     final sorgente = find.byType(SchermataDelGemello).evaluate().isNotEmpty;
     expect(sorgente, isTrue);
   });
-}
-
-/// Il percorso dell'immagine che la cornice sta mostrando adesso.
-String? _immagineDellaCornice(WidgetTester tester) {
-  final dentro = find.descendant(
-    of: find.byKey(const Key('gemello_cornice')),
-    matching: find.byType(Image),
-  );
-  if (dentro.evaluate().isEmpty) return null;
-  final img = tester.widget<Image>(dentro.first).image;
-  return img is AssetImage ? img.assetName : img.toString();
 }

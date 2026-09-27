@@ -162,7 +162,7 @@ class _UnPosto extends StatelessWidget {
           alignment: Alignment.center,
           child: alto < 24
               ? null
-              : Text('${voce.posto}° · ${voce.punteggio}',
+              : Text('${voce.posto}° · ${voce.punteggio}%',
                   style: TypographyTokens.etichetta().copyWith(
                       color: primo
                           ? palette.goldSoft

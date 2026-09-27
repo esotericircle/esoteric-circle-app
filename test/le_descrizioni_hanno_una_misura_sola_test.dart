@@ -55,7 +55,9 @@ void main() {
         'lib/features/maestri/aura/meditation/meditation_screen.dart',
     'Sinastria VIP': 'lib/features/synastry/sinastria_vip_screen.dart',
     'Ritratto ingrandito': 'lib/features/synastry/ritratto_ingrandito.dart',
-    'Gemello astrale': 'lib/features/synastry/rivelazione_del_gemello.dart',
+    // Ordine ER voce 06: la rivelazione nella galleria non c'e' piu', il
+    // responso del Gemello vive nella sua schermata.
+    'Gemello astrale': 'lib/features/synastry/schermata_del_gemello.dart',
     'Carta natale': 'lib/features/passport/cosmic_passport_screen.dart',
     'Chat coi Maestri': 'lib/features/maestri/chat/widgets/chat_bubble.dart',
     'Calendario del cielo':

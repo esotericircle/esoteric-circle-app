@@ -27,7 +27,9 @@ void main() {
   const punti = <String, String>{
     'lib/features/synastry/ritratto_ingrandito.dart': 'larga',
     'lib/features/synastry/chiamata_del_vip.dart': 'lato',
-    'lib/features/synastry/rivelazione_del_gemello.dart': '120',
+    // Qui c'era rivelazione_del_gemello.dart, tolto dall'ordine ER voce 06:
+    // al suo posto le carte del nastro del Gemello.
+    'lib/features/synastry/schermata_del_gemello.dart': 'larghezza',
   };
 
   /// Quanto puo' scostarsi il rapporto del riquadro da quello dell'artwork.
