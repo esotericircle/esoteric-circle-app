@@ -373,6 +373,16 @@ class MaestroPersona {
     String? daAttesa,
   }) {
     final natalBlock = _natalContext(natal);
+    // **IL SEGUITO NON E' UNA PRIMA RISPOSTA.** Ordine EQ, 27 settembre 2026:
+    // sul Realme "Vai più a fondo" non faceva niente, e al banco
+    // (`tool/sonda_del_seguito.dart`) il seguito arrivava 1 volta su 9 tocchi,
+    // 2 su 9 sul codice di prima dell'ordine. Il modello riceveva l'istruzione
+    // del seguito a meta', sotto le regole della prima risposta (il consiglio
+    // finale in ogni risposta, il controllo che la prima frase risponda), e
+    // rispondeva di nuovo alla domanda; il filtro buttava tutto. Adesso il
+    // seguito salta quelle regole e la sua istruzione e' l'ultima cosa che il
+    // modello legge.
+    final seguito = rispostaGiaData != null;
     final ancoraggi = VerificaAncoraggio.disponibiliPer(
       natal: natal,
       profile: profile,
@@ -413,26 +423,19 @@ class MaestroPersona {
       TestoDelResponso.vincoloDiFormato,
       '',
       regolaDeiDueStrati,
-      // IL SEGUITO, quando si sta scrivendo il seguito e non la prima
-      // risposta. Il modello riceve cio' che ha gia' detto, perche' non si
-      // continua un discorso che non si e' visto, e con esso l'elemento
-      // oracolare gia' consegnato: la runa o la carta stanno li' dentro.
-      if (rispostaGiaData != null) ...[
-        '',
-        SeguitoDellaLettura.istruzione(rispostaGiaData),
-      ],
-      '',
-      // IL CONSIGLIO FINALE, in ogni risposta e per ogni livello.
+      // IL CONSIGLIO FINALE, in ogni risposta e per ogni livello; non nel
+      // seguito, che entra sopra la riga gia' data.
       //
       // L'istruzione vive accanto al lettore che la sollevera', in
       // `ConsiglioFinale`: chi cambia la forma della riga vede subito chi la
       // legge. Non e' un contenuto premium, e' la cosa che una persona di
       // fretta legge al posto di tutto il resto.
-      ConsiglioFinale.istruzione,
+      if (!seguito) ...['', ConsiglioFinale.istruzione],
       // **LE RIGHE GIA' SCRITTE, PER NOME.** Ordine EJ voce 05: la regola
       // "non ripetere una riga gia' scritta" non bastava, e Medora ha scritto
       // la stessa riga d'oro tre volte in sei scambi del collaudo EJ.
-      if (ConsiglioFinale.righeGiaScritte(testiGiaDetti).isNotEmpty) ...[
+      if (!seguito &&
+          ConsiglioFinale.righeGiaScritte(testiGiaDetti).isNotEmpty) ...[
         '',
         ConsiglioFinale.righeGiaScritte(testiGiaDetti),
       ],
@@ -458,8 +461,18 @@ class MaestroPersona {
       // parole.
       if (daAttesa != null) ...['', rispostaDAttesa(daAttesa)],
       // **IL CONTROLLO PRIMA DI SCRIVERE, per ultimo. Ordine EQ voce 02.**
-      '',
-      LaRispostaNelMerito.primaDiScrivere,
+      // Non nel seguito: chiede che la prima frase risponda alla domanda, e
+      // il seguito non risponde di nuovo.
+      if (!seguito) ...['', LaRispostaNelMerito.primaDiScrivere],
+      // IL SEGUITO, quando si sta scrivendo il seguito e non la prima
+      // risposta, per ultimo. Il modello riceve cio' che ha gia' detto,
+      // perche' non si continua un discorso che non si e' visto, e con esso
+      // l'elemento oracolare gia' consegnato: la runa o la carta stanno li'
+      // dentro.
+      if (rispostaGiaData != null) ...[
+        '',
+        SeguitoDellaLettura.istruzione(rispostaGiaData),
+      ],
     ].join('\n');
   }
 

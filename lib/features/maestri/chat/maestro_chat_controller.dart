@@ -162,13 +162,17 @@ class MaestroChatController extends ChangeNotifier {
   /// Il LIVE usa **questo stesso controller**, cioe' lo stesso Maestro, la
   /// stessa memoria e le stesse regole della chat scritta, che e' cio' che la
   /// voce EG.01 pretende; e ogni turno detto a voce resta scritto nella
-  /// conversazione. Ma il conto non e' lo stesso: i minuti li conta il server
-  /// all'apertura della sessione, e far scendere anche le domande del giorno
-  /// vorrebbe dire far pagare due volte lo stesso turno.
+  /// conversazione.
+  ///
+  /// **LAPIDE, ordine EQ voce 07, 27 settembre 2026.** Qui l'ordine EG voce
+  /// 06 spegneva il costo nel LIVE: i minuti li contava il server, e le
+  /// domande del giorno non scendevano. Il fondatore, alla domanda del
+  /// rapporto EQ: *"I turni Live contano come domande."* Adesso un turno detto
+  /// a voce costa una domanda come uno scritto, e il limite del giorno vale
+  /// anche nel LIVE; i minuti restano il tetto della sessione.
   bool nelLive = false;
 
   void _applicaIlCosto(EsitoDelTurno esito) {
-    if (nelLive) return;
     final piano = _tier?.call();
     final contatore = _allowance;
     if (piano != null && contatore != null && CostoDelTurno.consuma(esito)) {
@@ -796,12 +800,9 @@ class MaestroChatController extends ChangeNotifier {
     // promesso e non imposto.
     final piano = _tier?.call();
     final contatore = _allowance;
-    // Nel LIVE il limite delle domande non vale: vale quello dei minuti, che
-    // il server ha gia' controllato aprendo la sessione.
-    if (!nelLive &&
-        piano != null &&
-        contatore != null &&
-        !contatore.canAsk(piano)) {
+    // Anche nel LIVE: i turni detti a voce contano come domande, ordine EQ
+    // voce 07.
+    if (piano != null && contatore != null && !contatore.canAsk(piano)) {
       _messages.add(ChatMessage(
         role: ChatRole.maestro,
         // La frase viene dal DATO, e il numero pure: se domani il limite
@@ -887,9 +888,9 @@ class MaestroChatController extends ChangeNotifier {
       userText: trimmed,
     );
     // **Anche questa strada passa dal punto unico.** Qui si addebitava a
-    // mano, e il LIVE, che il costo lo spegne in `_applicaIlCosto`, pagava lo
-    // stesso ogni turno detto a voce con una domanda del giorno: il fondatore
-    // si e' trovato senza domande dopo una prova a voce. Ordine EG voce 06.
+    // mano, fuori dalla regola del costo. Ordine EG voce 06; dall'ordine EQ
+    // voce 07 anche il LIVE paga il suo turno con una domanda, ma dallo
+    // stesso punto.
     _applicaIlCosto(esito);
     // Il titolo nasce dopo una risposta vera, e mai sulla strada del turno:
     // chi aspetta la risposta non aspetta anche il titolo.
@@ -1037,18 +1038,18 @@ class MaestroChatController extends ChangeNotifier {
   /// abbonamenti, ci si abbona, si torna indietro e si ritocca. Con la
   /// generazione del seguito quel percorso funziona sempre, perche' non serve
   /// che il testo lungo esistesse gia'.
-  Future<void> approfondisci() async {
-    if (!puoiChiedereDiApprofondire) return;
+  Future<bool> approfondisci() async {
+    if (!puoiChiedereDiApprofondire) return false;
     // Il piano decide QUI, e il livello si rilegge adesso: chi si e' abbonato
     // un istante fa lo trova gia' cambiato.
-    if (!puoiLeggereIlSecondoStrato) return;
+    if (!puoiLeggereIlSecondoStrato) return false;
 
     final indice = _messages.length - 1;
     final prima = _messages[indice];
     final domanda = indice > 0 && _messages[indice - 1].isUser
         ? _messages[indice - 1].text
         : null;
-    if (domanda == null) return;
+    if (domanda == null) return false;
 
     _sending = true;
     _seguitoInVolo = true;
@@ -1063,30 +1064,54 @@ class MaestroChatController extends ChangeNotifier {
 
     try {
       final natal = _natal?.call() ?? NatalContext.none;
-      final grezzo = await _ai.reply(
-        maestro: prima.autoreEffettivo(maestro),
-        profile: _profile,
-        memory: _memoriaPerIlModello,
-        history: _messages.sublist(0, indice - 1).toList(),
-        userMessage: domanda,
-        natal: natal,
-        // CIO' CHE LA PERSONA HA GIA' LETTO, per intero: senza il corpo il
-        // modello non saprebbe da dove continuare, e senza la riga finale
-        // rischierebbe di riscriverla.
-        rispostaGiaData: prima.text,
-      );
+      // **LA RICHIESTA E' QUELLA DEL TOCCO, dopo la risposta gia' data.**
+      // Ordine EQ: qui l'ultimo turno della persona era la sua domanda di
+      // prima, e il modello le rispondeva di nuovo; il filtro buttava tutto
+      // e il tocco non faceva niente. Adesso il modello vede la domanda, la
+      // sua risposta, e la persona che chiede di scendere piu' a fondo.
+      Future<String> chiedi() => _ai.reply(
+            maestro: prima.autoreEffettivo(maestro),
+            profile: _profile,
+            memory: _memoriaPerIlModello,
+            history: [..._messages.sublist(0, indice), prima],
+            userMessage: SeguitoDellaLettura.laRichiesta,
+            natal: natal,
+            // CIO' CHE LA PERSONA HA GIA' LETTO, per intero: senza il corpo
+            // il modello non saprebbe da dove continuare, e senza la riga
+            // finale rischierebbe di riscriverla.
+            rispostaGiaData: prima.text,
+          );
+      var grezzo = await chiedi();
       // L'APP CONTROLLA, invece di fidarsi dell'istruzione.
       final corpoGia = ConsiglioFinale.corpoDa(prima.text);
-      final pulito =
-          SeguitoDellaLettura.pulisci(gia: corpoGia, seguito: grezzo);
-      frasiRipetuteNelSeguito +=
-          SeguitoDellaLettura.quanteRipetute(gia: corpoGia, seguito: grezzo);
+      var pulito = '';
+      for (var tentativo = 1; tentativo <= 2; tentativo++) {
+        if (tentativo == 2) {
+          seguitiRichiestiDiNuovo++;
+          grezzo = await chiedi();
+        }
+        pulito = SeguitoDellaLettura.pulisci(gia: corpoGia, seguito: grezzo);
+        final ripetute =
+            SeguitoDellaLettura.quanteRipetute(gia: corpoGia, seguito: grezzo);
+        frasiRipetuteNelSeguito += ripetute;
+        // **IL REGISTRO DEL SEGUITO, anche in una build release.** Ordine
+        // EQ: sul Realme "Vai più a fondo" non faceva niente, e nessuna riga
+        // diceva perche'; `annotaGuastoInnocuo` scrive in un registro che il
+        // logcat di una release non vede.
+        debugPrint('SEGUITO: tentativo $tentativo, grezzo ${grezzo.length} '
+            'caratteri, frasi ripetute $ripetute, pulito '
+            '${pulito.trim().length} caratteri');
+        if (pulito.trim().isNotEmpty) break;
+        debugPrint('SEGUITO: scartato intero: «$grezzo»');
+      }
       if (pulito.trim().isEmpty) {
-        // Un seguito che era tutto ripetizione non e' un seguito: si rimette
-        // la risposta com'era, senza marcarla approfondita, cosi' la freccia
-        // resta e la persona puo' riprovare. Nessun budget consumato.
+        // Un seguito che era tutto ripetizione, due volte, non e' un
+        // seguito: si rimette la risposta com'era, senza marcarla
+        // approfondita, cosi' la freccia resta e la persona puo' riprovare.
+        // Nessun budget consumato; e lo schermo lo dice, perche' un tocco
+        // che non fa niente e' un vicolo cieco.
         _messages[indice] = prima.copyWith(seguitoInArrivo: false);
-        return;
+        return false;
       }
       final conSeguito = prima.copyWith(
           approfondita: true, seguito: pulito, seguitoInArrivo: false);
@@ -1095,13 +1120,16 @@ class MaestroChatController extends ChangeNotifier {
       final piano = _tier?.call();
       if (piano != null) _allowance?.registraApprofondimento(piano);
       await _sostituisci(conSeguito);
+      return true;
     } catch (errore, traccia) {
       // Il seguito fallito NON deve far perdere la risposta gia' letta: si
       // rimette quella com'era, e la freccia resta, perche' riprovare e'
       // esattamente cio' che una persona vuole fare qui.
+      debugPrint('SEGUITO: guasto ${errore.runtimeType}: $errore');
       annotaGuastoInnocuo(
           'chiedendo il seguito a ${maestro.displayName}', errore, traccia);
       _messages[indice] = prima;
+      return false;
     } finally {
       _sending = false;
       _seguitoInVolo = false;
@@ -1119,6 +1147,10 @@ class MaestroChatController extends ChangeNotifier {
   /// questa sessione. Un numero che cresce dice che l'istruzione non regge, e
   /// va corretta nel prompt invece che nel filtro.
   int frasiRipetuteNelSeguito = 0;
+
+  /// Quante volte un seguito fatto tutto di ripetizioni si e' chiesto di
+  /// nuovo, in questa sessione. Ordine EQ.
+  int seguitiRichiestiDiNuovo = 0;
 
   /// Riprova l'ultimo turno fallito, senza duplicare il messaggio dell'utente.
   Future<void> retryLast() async {

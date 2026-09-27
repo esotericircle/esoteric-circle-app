@@ -26,6 +26,13 @@ import 'package:flutter_test/flutter_test.dart';
 ///
 /// **La seconda prova tiene onesta la prima**: senza LIVE lo stesso turno
 /// deve costare, altrimenti un contatore rotto passerebbe per un LIVE giusto.
+///
+/// **LAPIDE, ordine EQ voce 07, 27 settembre 2026.** La prima prova qui
+/// pretendeva che un turno detto nel LIVE non si prendesse la domanda del
+/// giorno. Il fondatore, alla domanda del rapporto EQ: *"I turni Live contano
+/// come domande."* La prova resta, rovesciata: adesso un turno a voce costa
+/// una domanda, e a domande finite nel LIVE risponde il messaggio del limite.
+/// Il nome del file resta quello del registro.
 void main() {
   MaestroChatController chatCon(QuestionAllowance contatore) =>
       MaestroChatController(
@@ -37,16 +44,28 @@ void main() {
         attesaMinima: Duration.zero,
       );
 
-  test('UN TURNO DETTO NEL LIVE NON SI PRENDE LA DOMANDA DEL GIORNO', () async {
+  test('UN TURNO DETTO NEL LIVE COSTA UNA DOMANDA DEL GIORNO', () async {
     final contatore = QuestionAllowance();
     final chat = chatCon(contatore)..nelLive = true;
     await chat.init();
     await chat.send('Che cosa mi consigli per domani?');
     expect(chat.messages.last.isMaestro, isTrue,
         reason: 'il Maestro doveva rispondere, o la prova non misura niente');
-    expect(contatore.usedToday(), 0,
-        reason: 'un turno a voce ha consumato una domanda della chat: il LIVE '
-            'si paga coi suoi minuti, non due volte');
+    expect(contatore.usedToday(), 1,
+        reason: 'un turno a voce non ha consumato la sua domanda: il '
+            'fondatore ha detto "I turni Live contano come domande"');
+  });
+
+  test('E A DOMANDE FINITE, NEL LIVE, RISPONDE IL LIMITE', () async {
+    final contatore = QuestionAllowance();
+    for (var i = 0; i < contatore.dailyLimit(Tier.free)!; i++) {
+      contatore.record(Tier.free);
+    }
+    final chat = chatCon(contatore)..nelLive = true;
+    await chat.init();
+    await chat.send('Che cosa mi consigli per domani?');
+    expect(chat.messages.last.tipo, TipoDiMessaggio.limiteRaggiunto,
+        reason: 'nel LIVE, senza domande, il Maestro ha risposto lo stesso');
   });
 
   // **E NON ASPETTA UNA SCENA CHE NON C'E'.** La chat scritta consegna la

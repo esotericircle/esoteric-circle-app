@@ -457,7 +457,18 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     // i rimasti, quindi anche il credito riscattato fuori piano apre. Solo
     // a porta chiusa si offrono le due strade, Eos oppure Cerchio.
     if (controller.puoiLeggereIlSecondoStrato) {
-      controller.approfondisci();
+      // **UN TOCCO CHE NON TROVA NIENTE LO DICE.** Ordine EQ: sul Realme tre
+      // tocchi su "Vai più a fondo" non hanno fatto niente, e nessuno lo
+      // diceva. Il budget non si consuma e la freccia resta.
+      final arrivato = await controller.approfondisci();
+      if (!arrivato && context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('${controller.maestro.displayName} non è sceso più '
+                'a fondo questa volta. Tocca di nuovo per riprovare.'),
+          ),
+        );
+      }
       return;
     }
     final riscatto = corredoDelRiscatto(

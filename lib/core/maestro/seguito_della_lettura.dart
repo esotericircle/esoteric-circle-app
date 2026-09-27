@@ -30,6 +30,12 @@ abstract final class SeguitoDellaLettura {
   /// istruzione che a chi ha scelto il maschile dice di rivolgersi a lui: il
   /// modello riceveva le due cose insieme, a ogni tocco della freccia. E il
   /// Maestro non si ferma piu' al maschile: Medora e Aura sono donne.
+  /// **LA RICHIESTA DEL TOCCO**, come turno della persona dopo la risposta
+  /// gia' data. Ordine EQ: il turno era la domanda di prima, e il modello le
+  /// rispondeva di nuovo.
+  static const String laRichiesta =
+      'Vai più a fondo: continua da dove ti sei fermato, con cose nuove.';
+
   static String istruzione(String gia) => [
         'LA PERSONA HA CHIESTO DI SCENDERE PIÙ A FONDO.',
         'Questo è ciò che hai già scritto e che la persona ha già letto:',
@@ -162,9 +168,16 @@ abstract final class SeguitoDellaLettura {
   /// Il consiglio in oro e' gia' in fondo alla bolla e non si scrive due
   /// volte. Se il modello lo riscrive, la sua riga si toglie qui: il seguito
   /// deve entrare FRA la prima parte e la stella, non dopo.
+  ///
+  /// **Si taglia dalla stella, non la riga intera.** Ordine EQ: un seguito
+  /// scritto su una riga sola con la stella in coda spariva tutto.
   static String senzaLaRigaDelConsiglio(String seguito) => seguito
       .split('\n')
-      .where((riga) => !riga.contains('\u2726'))
+      .map((riga) {
+        final stella = riga.indexOf('\u2726');
+        return stella < 0 ? riga : riga.substring(0, stella);
+      })
+      .where((riga) => riga.trim().isNotEmpty)
       .join('\n')
       .trim();
 

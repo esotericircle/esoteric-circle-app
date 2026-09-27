@@ -167,6 +167,8 @@ class VoceVeraDiGemini implements MaestroAiProvider {
     }
     chiamate++;
     if (risposta.$1 != 200) {
+      final scarto = Platform.environment['CORPO_SCARTATO'];
+      if (scarto != null) File(scarto).writeAsStringSync(corpo);
       throw MaestroAiUnavailable(
           'Vertex ha risposto ${risposta.$1}: ${risposta.$2}');
     }
@@ -481,6 +483,8 @@ class VoceVeraDiGemini implements MaestroAiProvider {
     }
     chiamate++;
     if (risposta.$1 != 200) {
+      final scarto = Platform.environment['CORPO_SCARTATO'];
+      if (scarto != null) File(scarto).writeAsStringSync(corpo);
       throw MaestroAiUnavailable('Vertex ha risposto ${risposta.$1}');
     }
     final mappa = jsonDecode(risposta.$2) as Map<String, dynamic>;
