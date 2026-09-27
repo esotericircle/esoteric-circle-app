@@ -26,6 +26,8 @@ import 'il_selettore_delle_voci.dart';
 import 'la_scena_del_live.dart';
 import 'la_cornice_della_finestra.dart';
 import 'la_domanda_finita.dart';
+import 'la_macchina_da_scrivere.dart';
+import 'le_tre_frasi_del_live.dart';
 import 'la_voce_anticipata.dart';
 import 'stato_della_schermata_live.dart';
 
@@ -151,6 +153,48 @@ class _SchermataLiveState extends State<SchermataLive> {
   /// proprio con quella frase.
   LaVoceAnticipata<({Uint8List pcm, int tasso, int canali})>? _voceAnticipata;
 
+  /// **LA DOMANDA E LA RISPOSTA SCRITTE A MACCHINA.** Ordine ER voce 13: il
+  /// conto delle lettere sta in [LaMacchinaDaScrivere], qui c'e' solo il
+  /// battito che ridisegna.
+  final _macchina = LaMacchinaDaScrivere();
+  Timer? _battitoDellaMacchina;
+  bool _domandaScritta = false;
+  bool _primaLetteraDellaRisposta = false;
+
+  void _avviaLaMacchina(String domanda) {
+    _macchina.nuovaDomanda(domanda, DateTime.now());
+    _domandaScritta = false;
+    _primaLetteraDellaRisposta = false;
+    _battitoDellaMacchina?.cancel();
+    _battitoDellaMacchina =
+        Timer.periodic(const Duration(milliseconds: 33), (_) {
+      if (!mounted) return;
+      final ora = DateTime.now();
+      final aVideo = _macchina.aVideo(ora);
+      if (!_domandaScritta &&
+          aVideo.domanda.length == _quadro.domanda.length &&
+          aVideo.domanda.isNotEmpty &&
+          !_macchina.staScrivendoLaDomanda(ora)) {
+        _domandaScritta = true;
+        _segnaTappa('domanda scritta');
+      }
+      if (!_primaLetteraDellaRisposta && aVideo.risposta.isNotEmpty) {
+        _primaLetteraDellaRisposta = true;
+        _segnaTappa('prima lettera della risposta');
+      }
+      if (aVideo.domanda != _quadro.domanda ||
+          aVideo.risposta != _quadro.sottotitolo) {
+        setState(() => _quadro =
+            _quadro.con(domanda: aVideo.domanda, sottotitolo: aVideo.risposta));
+      }
+    });
+  }
+
+  void _fermaLaMacchina() {
+    _battitoDellaMacchina?.cancel();
+    _battitoDellaMacchina = null;
+  }
+
   /// **Il flusso verso il volto, aperto appena la voce anticipata ha il suo
   /// primo pezzo.** Ordine EQ voce 03: aprirlo costava fra due e otto decimi
   /// di secondo, sul Realme, e si pagava dopo la risposta. Porta la voce
@@ -268,6 +312,7 @@ class _SchermataLiveState extends State<SchermataLive> {
   @override
   void dispose() {
     _orologio?.cancel();
+    _battitoDellaMacchina?.cancel();
     unawaited(_ascoltatoreDellaStanza?.dispose());
     _campo.dispose();
     unawaited(_orecchio.dispose());
@@ -757,9 +802,11 @@ class _SchermataLiveState extends State<SchermataLive> {
       _ascolta = false;
       _pensa = true;
       // **La domanda resta a video, e la risposta arrivera' sotto.** Ordine
-      // EM voce 09.
-      _quadro = _quadro.con(domanda: testo, sottotitolo: '');
+      // EM voce 09. Dall'ordine ER voce 13 si scrive a macchina, e al modello
+      // parte nello stesso istante, senza aspettare la scrittura.
+      _quadro = _quadro.con(domanda: '', sottotitolo: '');
     });
+    _avviaLaMacchina(testo);
     final prima = chat.messages.length;
     final orologio = Stopwatch()..start();
     // **IL TESTO SI MOSTRA MENTRE IL MODELLO LO SCRIVE. Ordine EO voce 14.**
@@ -783,8 +830,10 @@ class _SchermataLiveState extends State<SchermataLive> {
           _apriIlFlussoInAnticipo(voce);
         }
       }
-      setState(() => _quadro =
-          _quadro.con(sottotitolo: IlParlatoDelMaestro.daDire(scritto)));
+      // A macchina, e solo cio' che il Maestro dira': le prime frasi, mai
+      // oltre la terza (ordine ER voci 12 e 13).
+      _macchina.risposta(
+          LeTreFrasiDelLive.di(scritto, inArrivo: true), DateTime.now());
     }
 
     chat.testoInArrivo.value = '';
@@ -814,9 +863,17 @@ class _SchermataLiveState extends State<SchermataLive> {
     }
     setState(() => _pensa = false);
     if (risposta != null) {
+      _macchina.risposta(LeTreFrasiDelLive.di(risposta.text), DateTime.now());
       await _dillo(risposta.text, conAttesa: true);
     } else {
       _fineDelParlato = null;
+    }
+    // Quello che resta a video, a turno finito, e' la risposta intera che il
+    // Maestro ha detto: se la scrittura e' ancora in corso, finisce qui.
+    _fermaLaMacchina();
+    if (mounted && risposta != null) {
+      setState(() => _quadro = _quadro.con(
+          domanda: testo, sottotitolo: LeTreFrasiDelLive.di(risposta!.text)));
     }
     _voceAnticipata?.lascia();
     _voceAnticipata = null;
@@ -846,12 +903,20 @@ class _SchermataLiveState extends State<SchermataLive> {
     final s = _quadro.sessione;
     final io = stanza?.localParticipant;
     if (stanza == null || s == null || io == null) return;
-    final pezzi = IlParlatoDelMaestro.pezzi(scritto, primaFraseSola: conAttesa);
+    // **La risposta di un turno si ferma alla terza frase.** Ordine ER voce
+    // 12: la voce dice le stesse frasi che la macchina da scrivere scrive.
+    final pezzi = IlParlatoDelMaestro.pezzi(
+        conAttesa ? LeTreFrasiDelLive.di(scritto) : scritto,
+        primaFraseSola: conAttesa);
     if (pezzi.isEmpty) return;
 
     setState(() {
       _parla = true;
-      _quadro = _quadro.con(sottotitolo: IlParlatoDelMaestro.daDire(scritto));
+      // Nel turno scrive la macchina (ordine ER voce 13); il saluto e le
+      // altre voci si mostrano interi.
+      if (!conAttesa) {
+        _quadro = _quadro.con(sottotitolo: IlParlatoDelMaestro.daDire(scritto));
+      }
     });
     final orologio = Stopwatch()..start();
     var secondiDiVoce = 0.0;
@@ -899,6 +964,7 @@ class _SchermataLiveState extends State<SchermataLive> {
             // Dopo l'apertura del flusso verso il volto: la tappa di prima
             // ("voce pronta") misura quanto costa aprirlo.
             _segnaTappa('primo audio al volto');
+            _macchina.voceIniziata(DateTime.now());
             _attesaAperta = true;
             unawaited(_ascoltaQuandoSiSente(s.lavoratore));
           }
