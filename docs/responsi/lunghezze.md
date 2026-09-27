@@ -40,7 +40,7 @@ percio' le lunghezze nuove.
 | Rune, singola runa: riga breve di significato | 24 | 61 | 67 |
 | Rune, singola runa: verso d'ombra | 24 | 44 | 52 |
 | Rune, singola runa: verso dritto | 24 | 43 | 51 |
-| Tarocchi, bolla di posizione | 576 | 196 | 325 |
+| Tarocchi, bolla di posizione | 576 | 160 | 258 |
 | Tarocchi, consiglio | 192 | 842 | 994 |
 | Tarocchi, domanda di chiusura | 192 | 52 | 73 |
 | Tarocchi, sintesi | 192 | 22 | 28 |
@@ -62,7 +62,7 @@ percio' le lunghezze nuove.
 - **Rune, singola runa: riga breve di significato** (67 caratteri): La grandine, la scossa che passa: dopo la tempesta, terreno pulito.
 - **Rune, singola runa: verso d'ombra** (52 caratteri): Rallenta: ritrovata la cadenza, la strada si spiana.
 - **Rune, singola runa: verso dritto** (51 caratteri): Tieni in equilibrio ciò che dai con ciò che ricevi.
-- **Tarocchi, bolla di posizione** (325 caratteri): C'è uno slancio senza direzione, oppure un timore che ti trattiene sull'orlo proprio mentr...
+- **Tarocchi, bolla di posizione** (258 caratteri): Hai affrontato un conflitto che ti ha lasciato un senso di vittoria amara, dove il success...
 - **Tarocchi, consiglio** (994 caratteri): Segna un nodo. Un nodo si scioglie tirando il capo giusto. E tirando tutti gli altri si st...
 - **Tarocchi, domanda di chiusura** (73 caratteri): Se il cielo inclina e non obbliga, qual è il primo passo che spetta a te?
 - **Tarocchi, sintesi** (28 caratteri): L'arcobaleno della famiglia.

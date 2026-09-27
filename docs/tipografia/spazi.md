@@ -1,6 +1,6 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 151 -->
+<!-- VUOTI_CENSITI: 150 -->
 <!-- FILE_CON_VUOTI: 66 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
@@ -11,7 +11,7 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **151** |
+| Vuoti verticali dichiarati | **150** |
 | File che ne contengono | **66** |
 | Oltre la soglia di 48 punti | **2** |
 
@@ -22,7 +22,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 84 |
+| 2 | 83 |
 | 3 | 7 |
 | 4 | 26 |
 | 5 | 1 |
@@ -54,12 +54,12 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/tarot/tarot_selectors.dart` | 6 | 0 |
 | `lib/design_system/components/guida_del_respiro.dart` | 5 | 0 |
 | `lib/features/identity/widgets/identity_widgets.dart` | 5 | 0 |
-| `lib/features/tarot/stesa_tre_carte_screen.dart` | 5 | 0 |
 | `lib/core/diagnosi/racconto_della_corsa.dart` | 4 | 0 |
 | `lib/features/horoscope/oroscopo_screen.dart` | 4 | 0 |
 | `lib/features/pricing/pricing_screen.dart` | 4 | 0 |
 | `lib/features/rituals/arcano_dell_alba_share_card.dart` | 4 | 0 |
 | `lib/features/shell/santuario_bottom_bar.dart` | 4 | 0 |
+| `lib/features/tarot/stesa_tre_carte_screen.dart` | 4 | 0 |
 | `lib/features/horoscope/oroscopo_share_card.dart` | 3 | 0 |
 | `lib/features/identity/circle_seal_screen.dart` | 3 | 0 |
 | `lib/features/maestri/aura/face/face_share_card.dart` | 3 | 0 |

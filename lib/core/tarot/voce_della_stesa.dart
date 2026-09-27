@@ -624,6 +624,12 @@ abstract final class VoceDellaStesa {
     'In questo tratto della lettura',
   ];
 
+  /// **LA RIGA DEL CIELO VERO**, in un punto solo: la dice la lettura di casa
+  /// e, dall'ordine EQ voce 04, anche quella scritta dal modello. Ordine DS
+  /// voce 09: dice a cosa si accosta il cielo, le tre carte.
+  static String rigaDelCielo(String cielo) =>
+      'Accanto a queste tre carte c\'è il cielo di oggi. $cielo';
+
   /// L'apertura della posizione [quale], contata da zero, per questa stesa.
   static String aperturaDellaPosizione(TarotSpread spread, int quale) {
     final filo = FiloDellaVoce(FiloDellaVoce.daStesa(spread).seme + quale * 97);
@@ -819,8 +825,7 @@ abstract final class VoceDellaStesa {
         // cielo di oggi lo accompagna"*, e il fondatore esterno ha chiesto:
         // lo, chi? Il pronome non aveva niente a cui tornare, perche' la
         // frase prima parlava del conto delle carte al rovescio.
-        if (cielo.isNotEmpty)
-          'Accanto a queste tre carte c\'è il cielo di oggi. $cielo',
+        if (cielo.isNotEmpty) rigaDelCielo(cielo),
         chiusura,
       ].where((p) => p.trim().isNotEmpty).join(' '),
     ].where((p) => p.trim().isNotEmpty).toList();

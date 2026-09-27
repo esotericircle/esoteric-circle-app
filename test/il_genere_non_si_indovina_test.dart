@@ -161,6 +161,9 @@ void main() {
       'Bentornata, Sofia',
       'aspettare di sentirti più pronta',
       'è non accorgersi di essere arrivata',
+      // Ordine EQ voce 04: "solo" aggettivo, alla fine o prima di "con".
+      'Non vuoi essere solo.',
+      'Rischi di restare solo con i tuoi pensieri',
     ]) {
       expect(formeDelGenere(frase), isNotEmpty,
           reason: '"$frase" dice il genere di chi legge e il criterio non lo '
@@ -174,6 +177,10 @@ void main() {
       'Un seme che sia pronto a fruttare',
       '[Sei arrivato|Sei arrivata|Sei qui] fin qui',
       'sei adesso nel tuo giorno',
+      // **Ordine EQ voce 04**: "solo" che vuol dire "soltanto", da una
+      // lettura della stesa scritta dal modello e scartata per questo.
+      'La gioia che provi potrebbe essere solo esteriore',
+      'Ti lascia solo una domanda',
     ]) {
       expect(formeDelGenere(frase), isEmpty,
           reason: '"$frase" non dice il genere di chi legge, e il criterio '

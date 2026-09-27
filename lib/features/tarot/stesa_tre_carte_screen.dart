@@ -16,6 +16,9 @@ import '../../core/astro/natal_chart.dart';
 import '../../core/horoscope/cielo_di_oggi.dart';
 import '../../core/horoscope/corrente_del_cielo.dart';
 import '../../core/identity/natal_identity.dart';
+import '../../core/chat/la_marca_del_genere.dart';
+import '../../core/tarot/domanda_della_persona.dart';
+import '../../core/tarot/la_lettura_dal_modello.dart';
 import '../../core/tarot/tarot_reading.dart';
 import '../../core/tarot/tarot_card.dart';
 import '../../core/tarot/stesa_in_corso.dart';
@@ -73,7 +76,12 @@ class StesaTreCarteScreen extends StatefulWidget {
     this.revealAll = false,
     this.topic,
     this.skipIntro = false,
+    this.chiamata,
   });
+
+  /// La chiamata al modello per la lettura, ordine EQ voce 04. Nulla, quella
+  /// vera a Flash; le prove ne passano una finta, come fa il Sigillo.
+  final ChiamataDellaStesa? chiamata;
 
   /// L'argomento di partenza. Se nullo si parte da quello predefinito, la
   /// lettura generale. Serve all'anteprima e, in futuro, al deep link che
@@ -450,6 +458,16 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// responso puo' stare in albero, e prima no.
   bool _responsoPronto = false;
 
+  /// **LA LETTURA SCRITTA DAL MODELLO, ordine EQ voce 04.** Parte al tocco su
+  /// "Leggi le Carte" e Medora la aspetta dentro la sua scena; nulla finche'
+  /// non arriva, o se non regge: allora parla la lettura di casa.
+  Future<LetturaDelModello?>? _letturaInArrivo;
+  LetturaDelModello? _dalModello;
+
+  /// Dal tocco su "Leggi le Carte" al testo, per il registro: e' l'attesa
+  /// che il rapporto dell'ordine EQ misura sul telefono.
+  final Stopwatch _dalTocco = Stopwatch();
+
   /// **IL FILO FRA LE TRE CARTE, ordine BN voce 08.** Corre una volta sola,
   /// fra la terza carta e l'inizio dell'attesa.
   late final AnimationController _filo =
@@ -488,7 +506,8 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   TarotReading get _reading => TarotReading.of(_spread, _setup.topic,
       depth: _setup.depth,
       fattoDelCielo: _fattoDelCielo,
-      domandaScritta: _setup.domandaScritta);
+      domandaScritta: _setup.domandaScritta,
+      dalModello: _dalModello);
 
   /// **IL CIELO VERO DI QUESTA PERSONA, ordine BN voce 07.**
   ///
@@ -771,6 +790,21 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   Future<void> _apriIlResponso() async {
     if (!_complete || _responsoPronto || _stoPerRiflettere) return;
     if (!_laStesaSiPuoAprire(riprova: _apriIlResponso)) return;
+    // **LA LETTURA PARTE QUI, ordine EQ voce 04**, al gesto che la chiede e
+    // prima del filo e della scena di Medora: sono circa cinque secondi, e la
+    // chiamata a Flash ci sta quasi sempre dentro. Non si aspetta qui, si
+    // aspetta in `_medoraCiPensa`.
+    _dalTocco
+      ..reset()
+      ..start();
+    final sua = DomandaDellaPersona.pulita(_setup.domandaScritta);
+    _letturaInArrivo = LaLetturaDellaStesa.leggi(
+      spread: _spread,
+      domanda: sua ?? _setup.topic.label,
+      argomento: _setup.topic.label,
+      forma: LaMarcaDelGenere.formaCorrente,
+      chiamata: widget.chiamata,
+    );
     // Lo stesso momento sensoriale che l'ordine CO voce 07 aveva messo
     // sull'avvio: cambia il posto del pulsante, non cosa si sente premendolo.
     unawaited(PaletteSensoriale.momento(context,
@@ -944,8 +978,13 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// [AttesaDiMedora], che sono i tempi gia' approvati per il consulto e non una
   /// seconda copia loro, poi si dissolve.
   ///
-  /// Non puo' restare a girare: la lettura e' deterministica e locale, quindi
-  /// non aspetta nessuna rete, e cio' che la chiude e' il suo stesso minimo.
+  /// **LAPIDE: "la lettura e' deterministica e locale, quindi non aspetta
+  /// nessuna rete".** Dall'ordine EQ voce 04 la scena aspetta anche la
+  /// lettura del modello, partita al tocco su "Leggi le Carte": resta il
+  /// minimo garantito, e oltre il minimo resta finche' la lettura arriva, al
+  /// massimo per la pazienza di `LaLetturaDellaStesa`. Non puo' restare a
+  /// girare: `leggi` non fallisce mai, torna nulla, e allora parla la lettura
+  /// di casa.
   Future<void> _medoraCiPensa() async {
     if (!mounted) return;
     // **LA DICHIARAZIONE E' GIA' STATA FATTA, ordine BV voce 02**, nel punto
@@ -961,8 +1000,24 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       _attesa = StatoDellAttesa.piena;
       _giroDellAttesa++;
     });
-    await Future<void>.delayed(
+    final minimo = Future<void>.delayed(
         AttesaDiMedora.minimaPer(riduciMovimento: _reduceMotion));
+    final inArrivo = _letturaInArrivo;
+    if (inArrivo == null) {
+      await minimo;
+    } else {
+      final esiti = await Future.wait<Object?>([minimo, inArrivo]);
+      _dalModello = esiti[1] as LetturaDelModello?;
+      // Il registro dice quanto si e' aspettato e da dove viene il testo: e'
+      // la misura che il rapporto dell'ordine EQ legge sul telefono.
+      debugPrint('STESA TEMPI: testo a ${_dalTocco.elapsedMilliseconds} ms '
+          'dal tocco, lettura '
+          '${_dalModello != null ? 'del modello' : 'di casa (${LaLetturaDellaStesa.ultimoScarto})'}'
+          '${LaLetturaDellaStesa.ultimaCurata ? ', curata' : ''}'
+          '${LaLetturaDellaStesa.ultimaRiscritta ? ', riscritta' : ''}'
+          ', chiamate ${LaLetturaDellaStesa.ultimiTentativi}, riscritture '
+          '${LaLetturaDellaStesa.ultimeRiscritture}');
+    }
     if (!mounted) return;
     // La scena non sparisce di colpo: si dissolve, e il responso e' gia' sotto
     // di lei quando comincia a sparire. Nessuna parola viene tagliata.
@@ -1126,10 +1181,21 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                     // del consiglio, che con la domanda dentro sarebbe la
                     // domanda stessa. Chi condivide una lettura non sta
                     // condividendo cosa ha chiesto.
+                    //
+                    // **LA LETTURA DEL MODELLO ENTRA SOLO SENZA DOMANDA
+                    // SCRITTA. Ordine EQ voce 04.** Risponde alla domanda, e
+                    // per la stessa ragione di qui sopra la card non la
+                    // porta; senza domanda scritta e' la stessa che si legge
+                    // in cima al responso, e la card non la contraddice.
                     child: StesaShareCard(
                       spread: _spread,
                       palette: palette,
                       topic: _reading.topic,
+                      lettura: DomandaDellaPersona.pulita(
+                                  _setup.domandaScritta) ==
+                              null
+                          ? _dalModello
+                          : null,
                     ),
                   ),
                 ),
@@ -2140,7 +2206,14 @@ class _BloccoDelleCarte extends StatelessWidget {
                       .copyWith(color: ColorTokens.textPrimary, height: 1.2)),
             ],
           ),
-          const SizedBox(height: 2),
+          // **LE DUE RIGHE SI TOCCANO, E L'ULTIMA VOCE NON PORTA ARIA SOTTO.**
+          // Ordine EQ, difetto trovato dal cancello di GitHub: con le scritte
+          // a sedici punti dalle carte (voce EQ.05) e due punti fra le righe
+          // di ogni voce (EQ.06), dopo due pescaggi il ventaglio finiva a
+          // 854,5 punti su uno schermo di 844. Qui si riprendono dodici
+          // punti: i due fra le righe e gli otto dopo l'ultima voce, che col
+          // vuoto del blocco facevano sedici fra il riepilogo e il ventaglio.
+          // Fra una voce e l'altra l'aria resta quella di prima.
           Wrap(
             spacing: SpacingTokens.xs,
             runSpacing: 2,
@@ -2168,7 +2241,7 @@ class _BloccoDelleCarte extends StatelessWidget {
                       .copyWith(color: ColorTokens.textSecondary, height: 1.2)),
             ],
           ),
-          const SizedBox(height: SpacingTokens.xs),
+          if (drawn != carte.last) const SizedBox(height: SpacingTokens.xs),
         ],
       ],
     );

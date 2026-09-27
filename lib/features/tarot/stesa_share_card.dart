@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../core/brand/brand.dart';
 import 'package:path_provider/path_provider.dart';
 
+import '../../core/tarot/la_lettura_dal_modello.dart';
 import '../../core/tarot/tarot_reading.dart';
 import '../../core/tarot/tarot_spread.dart';
 import '../../core/tarot/tarot_topic.dart';
@@ -31,6 +32,7 @@ class StesaShareCard extends StatelessWidget {
     required this.palette,
     this.topic = TarotTopic.predefinito,
     this.width = 380,
+    this.lettura,
   });
 
   final TarotSpread spread;
@@ -40,6 +42,12 @@ class StesaShareCard extends StatelessWidget {
   final TarotTopic topic;
 
   final double width;
+
+  /// La lettura scritta dal modello, ordine EQ voce 04: quando c'e', il
+  /// riquadro del consiglio porta la sua risposta, la stessa che apre il
+  /// responso. La schermata la passa solo a chi non ha scritto la sua
+  /// domanda, perche' la risposta la direbbe.
+  final LetturaDelModello? lettura;
 
   /// Lo stile delle posizioni sulla card.
   static TextStyle stileDellaPosizione(MaestroPalette palette) =>
@@ -53,9 +61,12 @@ class StesaShareCard extends StatelessWidget {
     final stile = stileDellaPosizione(palette);
     var massima = 0.0;
     for (final p in SpreadPosition.values) {
+      // La scala e' dichiarata, ed e' uno: la card vive dentro
+      // `CardAMisuraFissa`, che la scala del testo la toglie.
       final pittore = TextPainter(
         text: TextSpan(text: p.label.toUpperCase(), style: stile),
         textDirection: TextDirection.ltr,
+        textScaler: TextScaler.noScaling,
         maxLines: 1,
       )..layout();
       massima = math.max(massima, pittore.width);
@@ -198,7 +209,8 @@ class StesaShareCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
                 border: Border.all(color: palette.gold.withValues(alpha: 0.45)),
               ),
-              child: Text(reading.consiglio.split('\n\n').first,
+              child: Text(
+                  lettura?.risposta ?? reading.consiglio.split('\n\n').first,
                   key: const Key('share_consiglio'),
                   textAlign: TextAlign.center,
                   style: TypographyTokens.corpo()

@@ -7,6 +7,7 @@ import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/magic/il_sigillo_dal_modello.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
+import 'package:esoteric_circle/core/tarot/la_lettura_dal_modello.dart';
 import 'package:esoteric_circle/core/viaggio/il_segno_dell_animale.dart';
 import 'package:esoteric_circle/core/viaggio/la_scena_dal_modello.dart';
 import 'package:esoteric_circle/services/ai/maestro_persona.dart';
@@ -61,6 +62,9 @@ void main() {
         IlSigilloDalModello.istruzioneDelCompimento(f),
     'la riformulazione del Sigillo': (f) =>
         IlSigilloDalModello.istruzioneDellaRiformulazione(f),
+    // **LA LETTURA DELLA STESA**, ordine EQ voce 04.
+    'la lettura della Stesa di Tarocchi': (f) =>
+        LaLetturaDellaStesa.istruzione(f),
   };
 
   test('ogni prompt di prosa porta il blocco con la forma scelta', () {
@@ -180,6 +184,8 @@ void main() {
     'lib/core/magic/il_sigillo_dal_modello.dart':
         'il titolo, il responso, il compimento e la riformulazione del '
             'Sigillo: tutti in prosa',
+    'lib/core/tarot/la_lettura_dal_modello.dart':
+        'la lettura della Stesa di Tarocchi, ordine EQ voce 04: in prosa',
     // **FUORI, E DICHIARATO**: il classificatore della domanda restituisce
     // un identificatore di tema e l'oggetto della domanda preso dalle sue
     // parole. Non scrive una frase per la persona.

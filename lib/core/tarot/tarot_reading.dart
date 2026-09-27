@@ -1,4 +1,6 @@
 import 'domanda_della_persona.dart';
+import 'la_lettura_dal_modello.dart';
+import 'le_carte_nella_posizione.dart';
 import 'tarot_card.dart';
 import 'tarot_spread.dart';
 import '../../features/horoscope/answer_depth.dart';
@@ -45,9 +47,15 @@ class CartaChiave {
 /// bolla: e' come finisce cio' che Medora dice, perche' una domanda in una
 /// cornice sua sembra un compito assegnato.
 ///
-/// Tutto e' deterministico e cacheabile: a parita' di carte e di argomento il
-/// testo e' sempre lo stesso. A runtime Gemini cuce solo l'ultimo strato sulla
-/// persona, il resto non tocca l'LLM.
+/// **LAPIDE: "A RUNTIME GEMINI CUCE SOLO L'ULTIMO STRATO".** Qui era scritto
+/// che tutto era deterministico e cacheabile, e che l'LLM non toccava la
+/// lettura. Dall'ordine EQ voce 04, 27 settembre 2026, la lettura la scrive
+/// Flash quando risponde (`LaLetturaDellaStesa`): il fondatore l'aveva
+/// trovata *"troppo criptica"*, e il collaudo "prima" gli ha dato ragione,
+/// una risposta diretta su venti letture e nessuna carta su sessanta letta
+/// nella sua posizione (`docs/collaudo/EQ/tarocchi/prima`). **Deterministica
+/// resta la lettura di casa**, quella senza modello: il consiglio composto
+/// dalle carte e, sotto ogni carta, il testo della sua posizione.
 class TarotReading {
   const TarotReading({
     required this.spread,
@@ -104,12 +112,17 @@ class TarotReading {
   /// stesa non sapeva niente del cielo che l'Oroscopo calcola gia'. Nulla
   /// quando la carta natale manca: in quel caso il consiglio resta quello di
   /// oggi, e **non si finge nessun transito**.
+  ///
+  /// [dalModello] e' la lettura scritta da Flash, ordine EQ voce 04: quando
+  /// c'e', la risposta apre il consiglio e ogni carta si legge col suo testo.
+  /// Nulla, parla la lettura di casa.
   static TarotReading of(
     TarotSpread spread,
     TarotTopic topic, {
     AnswerDepth depth = AnswerDepth.free,
     String? fattoDelCielo,
     String? domandaScritta,
+    LetturaDelModello? dalModello,
   }) {
     // **LA DOMANDA DELLA PERSONA ENTRA QUI, ordine CQ voce 6.10.**
     //
@@ -137,7 +150,8 @@ class TarotReading {
           spread.presente.summary, TettiDellaStesa.sintesi),
       posizioni: [
         for (final drawn in spread.cards)
-          PosizioneLetta.of(drawn, topic, spread),
+          PosizioneLetta.of(drawn, topic, spread,
+              testoDelModello: dalModello?.della(drawn.position)),
       ],
       chiave: chiaveDi(spread),
       // **LA DOMANDA PULITA E NON LA FRASE GIA' CONFEZIONATA.** Ordine DF
@@ -147,9 +161,36 @@ class TarotReading {
       // domanda finiva dentro le virgolette della forma e si leggeva
       // «Su "Hai chiesto: denaro e fortuna? Le tre carte rispondono..."», che
       // e' una frase dentro una frase.
-      consiglio: consiglioDi(spread, lente, domanda, fattoDelCielo, sua),
+      consiglio: dalModello == null
+          ? consiglioDi(spread, lente, domanda, fattoDelCielo, sua)
+          : consiglioDelModello(dalModello, domanda, fattoDelCielo, sua),
       domanda: domanda,
     );
+  }
+
+  /// **IL CONSIGLIO QUANDO LA LETTURA LA SCRIVE IL MODELLO.** Ordine EQ voce
+  /// 04, 27 settembre 2026.
+  ///
+  /// La risposta per prima, perche' e' la prima cosa che si legge: le sue
+  /// due frasi rispondono alla domanda. Poi come le tre carte si legano, e il
+  /// passo da fare. **Due cose restano quelle di casa, e per le ragioni di
+  /// casa**: il cielo vero di oggi sta accanto alle carte con la stessa riga
+  /// (ordine BN voce 07, ordine DS voce 09), e la domanda di chiusura chiude
+  /// solo chi non ha scritto la sua, perche' e' quella che torna nel dono del
+  /// mattino dopo (ordine P voce 09, ordine DF voce 02).
+  static String consiglioDelModello(LetturaDelModello l, String domanda,
+      [String? fattoDelCielo, String? apertura]) {
+    final cielo = fattoDelCielo?.trim() ?? '';
+    final laRipete = apertura != null && apertura.trim().isNotEmpty;
+    return [
+      l.risposta,
+      [
+        l.legame,
+        if (cielo.isNotEmpty) VoceDellaStesa.rigaDelCielo(cielo),
+      ].join(' '),
+      l.consiglio,
+      if (!laRipete) domanda,
+    ].join('\n\n');
   }
 
   /// **IL CONSIGLIO DI MEDORA, E OGNI PAROLA DIPENDE DALLE CARTE USCITE.**
@@ -323,11 +364,14 @@ class PosizioneLetta {
   /// La riga che introduce la posizione dentro l'argomento.
   final String apertura;
 
-  /// Il testo ricco della carta, nel verso in cui e' uscita.
+  /// Il testo della carta nella sua posizione: quello del modello quando la
+  /// lettura l'ha scritta Flash, altrimenti quello del corpus, per verso e
+  /// per posizione.
   final String testo;
 
   static PosizioneLetta of(
-      DrawnCard drawn, TarotTopic topic, TarotSpread spread) {
+      DrawnCard drawn, TarotTopic topic, TarotSpread spread,
+      {String? testoDelModello}) {
     return PosizioneLetta(
       drawn: drawn,
       // **L'APERTURA VARIA, ordine DF voce 02.** Era la lente dell'argomento,
@@ -336,7 +380,13 @@ class PosizioneLetta {
       // carta si legge, ma non e' piu' lei a fare da attacco.
       apertura: VoceDellaStesa.aperturaDellaPosizione(
           spread, SpreadPosition.values.indexOf(drawn.position)),
-      testo: drawn.meaning,
+      // **LAPIDE: "testo: drawn.meaning".** Fino all'ordine EQ voce 04 qui
+      // c'era il significato del verso, uguale nel passato, nel presente e
+      // nel futuro e per qualunque domanda: l'Architetto l'ha letto nel
+      // codice, il fondatore nelle catture. Adesso, senza modello, la carta
+      // si legge col testo della sua posizione (`LeCarteNellaPosizione`,
+      // 468 testi scritti una volta sola dal significato di casa).
+      testo: testoDelModello ?? LeCarteNellaPosizione.di(drawn),
     );
   }
 }

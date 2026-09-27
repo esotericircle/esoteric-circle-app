@@ -141,21 +141,46 @@ final RegExp _vocativo = RegExp(
 /// **LA MARCA**, tre campi fra quadre: cio' che sta dentro e' concordato.
 final RegExp marcaDelGenere = RegExp(r'\[[^\[\]|]*\|[^\[\]|]*\|[^\[\]]*\]');
 
+/// **"SOLO" CHE VUOL DIRE "SOLTANTO".** Ordine EQ voce 04, 27 settembre 2026:
+/// *"La gioia che provi potrebbe essere solo esteriore"*, da una lettura della
+/// stesa scritta dal modello, e il criterio prendeva *essere solo* come se
+/// dicesse di chi legge. L'avverbio non cambia col genere e regge la parola
+/// che viene dopo; l'aggettivo chiude la frase o si lega con *con*, *e*,
+/// *davanti*, *in*. **Il dizionario non si allenta: si restringe il
+/// criterio**, come dice la testa di questo file.
+const Set<String> _dopoLAggettivoSolo = {
+  'con', 'e', 'ed', 'davanti', 'in', 'quando', 'mentre', 'per', 'di', 'a', //
+  'al', 'alla', 'nel', 'nella', 'tra', 'fra', 'come', 'anche', 'o', 'ma',
+};
+
+/// Vero se la parola presa da [m], nel suo gruppo 1, e' *solo* avverbio.
+bool _soloAvverbio(String testo, RegExpMatch m) {
+  if (m.group(1)!.toLowerCase() != 'solo') return false;
+  final dopo = RegExp('^\\s+([$_l]+)', caseSensitive: false)
+      .firstMatch(testo.substring(m.end));
+  // Dopo, la punteggiatura o la fine del testo: e' l'aggettivo.
+  if (dopo == null) return false;
+  return !_dopoLAggettivoSolo.contains(dopo.group(1)!.toLowerCase());
+}
+
 /// Le forme di [testo] che dicono il genere di chi legge, fuori dalle marche.
 List<String> formeDelGenere(String testo) {
   final t = testo.replaceAll(marcaDelGenere, '');
   final colpi = <String>[];
   for (final m in _verbo.allMatches(t)) {
     if (_nonParticipi.contains(m.group(1)!.toLowerCase())) continue;
+    if (_soloAvverbio(t, m)) continue;
     colpi.add(m.group(0)!);
   }
   for (final m in _verboDa.allMatches(t)) {
     colpi.add(m.group(0)!);
   }
   for (final m in _infinitoSempre.allMatches(t)) {
+    if (_soloAvverbio(t, m)) continue;
     colpi.add(m.group(0)!);
   }
   for (final m in _infinito.allMatches(t)) {
+    if (_soloAvverbio(t, m)) continue;
     final inizio = [
       t.lastIndexOf('.', m.start),
       t.lastIndexOf('!', m.start),
@@ -298,7 +323,7 @@ List<String> formeContrarieAllaForma(String testo, CourtesyForm forma) {
       ..._riflessivoCheRegge.allMatches(testo),
       ..._cliticoCheRegge.allMatches(testo),
     ])
-      if (_concorda(m.group(1)!)) m.group(1)!,
+      if (_concorda(m.group(1)!) && !_soloAvverbio(testo, m)) m.group(1)!,
     // **L'INFANZIA DI CHI LEGGE**, ordine DN voce 08: *"qualcosa che ti
     // apparteneva da piccola"*, alla riprova a video della 2258, a un profilo
     // neutro. Il modello ripeteva la parola che la persona aveva scritto, ma

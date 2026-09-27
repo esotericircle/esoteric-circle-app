@@ -42,6 +42,17 @@ class RispostaGrezza {
   final Duration durata;
 }
 
+/// L'esito di una generazione del banco, ordine EQ voce 04: il testo com'e'
+/// tornato, i millesimi della chiamata e i gettoni in ingresso e in uscita.
+class EsitoDellaGenerazione {
+  EsitoDellaGenerazione(this.testo, this.millesimi, this.ingresso, this.uscita);
+
+  final String? testo;
+  final int millesimi;
+  final int ingresso;
+  final int uscita;
+}
+
 class VoceVeraDiGemini implements MaestroAiProvider {
   VoceVeraDiGemini({this.ritocco, this.modello});
 
@@ -268,6 +279,87 @@ class VoceVeraDiGemini implements MaestroAiProvider {
         .map((p) => ((p as Map)['text'] ?? '') as String)
         .join()
         .trim();
+  }
+
+  /// **UNA GENERAZIONE COME LA FA L'APP, ordine EQ voce 04.** L'istruzione di
+  /// sistema, la richiesta e i campi della risposta JSON, con la stessa
+  /// configurazione della chiamata dell'app (`LaLetturaDellaStesa`):
+  /// temperatura 0,8, niente ragionamento, tetto 1400, i campi tutti
+  /// obbligatori e nel loro ordine. Torna il testo col tempo e i gettoni, per
+  /// l'attesa e il costo; un testo nullo se Vertex non ha risposto.
+  Future<EsitoDellaGenerazione> genera({
+    required String istruzione,
+    required String richiesta,
+    required List<String> campi,
+    required String modello,
+    double temperatura = 0.8,
+    int tetto = 1400,
+  }) async {
+    final corpo = jsonEncode({
+      'systemInstruction': {
+        'parts': [
+          {'text': istruzione}
+        ]
+      },
+      'contents': [
+        {
+          'role': 'user',
+          'parts': [
+            {'text': richiesta}
+          ]
+        }
+      ],
+      'generationConfig': {
+        'temperature': temperatura,
+        'maxOutputTokens': tetto,
+        'thinkingConfig': {'thinkingBudget': 0},
+        'responseMimeType': 'application/json',
+        'responseSchema': {
+          'type': 'OBJECT',
+          'properties': {
+            for (final c in campi) c: {'type': 'STRING'}
+          },
+          'required': campi,
+          'propertyOrdering': campi,
+        },
+      },
+    });
+    final cronometro = Stopwatch()..start();
+    var risposta = await _chiedi(corpo, modello: modello);
+    if (risposta.$1 == 401 || risposta.$1 == 403) {
+      _gettoneInCache = null;
+      cronometro.reset();
+      risposta = await _chiedi(corpo, modello: modello);
+    }
+    cronometro.stop();
+    chiamate++;
+    if (risposta.$1 != 200) {
+      print('Vertex ha risposto ${risposta.$1}: ${risposta.$2}');
+      return EsitoDellaGenerazione(null, cronometro.elapsedMilliseconds, 0, 0);
+    }
+    final mappa = jsonDecode(risposta.$2) as Map<String, dynamic>;
+    final uso = mappa['usageMetadata'] as Map<String, dynamic>? ?? const {};
+    final parti = (((mappa['candidates'] as List?)?.firstOrNull
+            as Map<String, dynamic>?)?['content']
+        as Map<String, dynamic>?)?['parts'] as List?;
+    final testo = (parti ?? [])
+        .map((p) => ((p as Map)['text'] ?? '') as String)
+        .join()
+        .trim();
+    return EsitoDellaGenerazione(
+      testo.isEmpty ? null : testo,
+      cronometro.elapsedMilliseconds,
+      (uso['promptTokenCount'] as int?) ?? 0,
+      ((uso['candidatesTokenCount'] as int?) ?? 0) +
+          ((uso['thoughtsTokenCount'] as int?) ?? 0),
+    );
+  }
+
+  /// **IL GETTONE PRIMA DELLA MISURA**, ordine EQ voce 04: la prima chiamata
+  /// di un banco chiede il gettone a gcloud, che costa secondi. Nell'app quel
+  /// costo non c'e', quindi un banco che misura il tempo lo paga prima.
+  Future<void> scaldaIlGettone() async {
+    _gettoneInCache ??= await _leggiIlGettone();
   }
 
   /// **IL 429 SI ASPETTA, NON SI SUBISCE.** Ordine EK voce 02: il primo giro

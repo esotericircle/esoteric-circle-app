@@ -477,6 +477,25 @@ void main() {
               'un responso letto da un archivio');
       expect(find.byKey(const Key('stesa_consiglio')), findsNothing,
           reason: 'il consiglio si vede mentre Medora sta ancora guardando');
+      // **E CI RESTA PER IL MINIMO GARANTITO. Ordine EQ voce 04, Regola B,
+      // 27 settembre 2026.** Questa prova guardava che la scena comparisse e
+      // che poi se ne andasse, non per quanto restava: con un'attesa di zero
+      // millesimi innestata in `_medoraCiPensa` era verde
+      // (`docs/collaudo/EQ/tarocchi/eq04_regola_b.txt`). La grandezza cambia:
+      // a ogni passo, fino a un soffio dal minimo, il consiglio non deve
+      // ancora essere nato. Dall'ordine EQ in quell'attesa arriva la lettura
+      // del modello, e un'attesa accorciata per sbaglio mostrerebbe la
+      // lettura di casa al posto suo.
+      var dentro = Duration.zero;
+      const passo = Duration(milliseconds: 100);
+      while (dentro + passo < TempiDellAttesa.durataMinima) {
+        await tester.pump(passo);
+        dentro += passo;
+        expect(find.byKey(const Key('stesa_consiglio')), findsNothing,
+            reason: 'il consiglio e\' nato dopo ${dentro.inMilliseconds} '
+                'millesimi di attesa, prima del minimo garantito di '
+                '${TempiDellAttesa.durataMinima.inMilliseconds}');
+      }
       // Passato il minimo garantito la scena lascia il posto al responso.
       await tester.pump(TempiDellAttesa.durataMinima);
       await tester.pump(TempiDellAttesa.dissolvenza);

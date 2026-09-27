@@ -1,3 +1,4 @@
+import 'package:esoteric_circle/core/tarot/le_carte_nella_posizione.dart';
 import 'package:esoteric_circle/core/tarot/tarot_card.dart';
 import 'package:esoteric_circle/core/tarot/tarot_reading.dart';
 import 'package:esoteric_circle/core/tarot/tarot_spread.dart';
@@ -126,7 +127,14 @@ void main() {
       expect(r.posizioni.length, 3);
       for (final p in r.posizioni) {
         expect(p.apertura, isNotEmpty);
-        expect(p.testo, p.drawn.meaning);
+        // **LAPIDE: `expect(p.testo, p.drawn.meaning)`.** Qui si pretendeva
+        // che sotto ogni carta ci fosse il significato del suo verso, lo
+        // stesso in ogni posizione e per ogni domanda. L'ordine EQ voce 04
+        // l'ha tolto apposta: il fondatore l'ha chiamato *"testi buttati li'"*
+        // e il collaudo "prima" gli ha dato ragione. Senza modello la carta
+        // si legge col testo della sua posizione.
+        expect(p.testo, LeCarteNellaPosizione.di(p.drawn));
+        expect(p.testo, isNot(p.drawn.meaning));
       }
       expect(r.chiave.perche, isNotEmpty);
       // **IL CONSIGLIO NON CONTIENE PIU' IL MODELLO DEL GRUPPO, e non e' una

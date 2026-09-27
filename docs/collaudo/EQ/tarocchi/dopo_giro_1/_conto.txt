@@ -1,0 +1,5 @@
+EQ.04 dopo giro 1: letture con la risposta diretta nelle prime due frasi 19 su 20; carte lette nella posizione e rispetto alla domanda 53 su 60; errori di concordanza e di grammatica 4
+Letture del modello mostrate 20 su 20, con un secondo tentativo 3, curate 0, riscritte 7; scartate: 
+Tempo della lettura dal PC, tentativi compresi, mediana 3719 ms (da 2432 a 8892); gettoni medi in ingresso 2133, in uscita 451; costo medio di una stesa 0.00177 dollari al listino di Flash (0,30 e 2,50 dollari per milione)
+EQ.04 dopo giro 1: letture uguali su cento con la stessa domanda 0
+Chiamate per le letture 208, domande al giudice 260; modello gemini-2.5-flash, europe-west1.
