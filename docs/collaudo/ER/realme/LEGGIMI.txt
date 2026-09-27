@@ -1,0 +1,116 @@
+ORDINE ER, LE CATTURE DAL REALME 767f596c (360 per 800 punti, scale delle animazioni di sistema a zero)
+
+Build 2285 (27-28 settembre 2026, commit 0c626209) e build 2286 (28 settembre
+2026, con le correzioni viste sulla 2285). Catture fatte dal telefono in due
+passi (screencap, poi sul PC), in JPEG a risoluzione piena.
+
+Le scale delle animazioni di sistema del telefono sono a zero (lette, mai
+cambiate): Flutter accorcia le animazioni, e la corsa del nastro del Gemello
+(3,4 secondi) non si puo' fotografare su questo telefono. Su questo telefono
+non esiste screenrecord.
+
+== BUILD 2285
+
+ER.03  er03_viaggio_in_home.jpg: la card "Il Viaggio dello Sciamano" in home,
+       fra "Stesa di Tarocchi" e "Oracolo dei Cristalli", scritta come le altre;
+       er10_dominio_caligo_03.jpg: la stessa nel dominio di Caligo, sezione
+       Rituali.
+ER.04  er04_porta_sinastria.jpg (la porta), er04_tocco_carta_tu.jpg (il tocco
+       sulla carta Tu apre fotocamera, galleria, avatar: nessun VIP),
+       er04_porta_con_la_foto.jpg (la foto scelta nella carta Tu e nell'avatar
+       in alto), er04_porta_con_la_foto_e_beyonce.jpg, er05_responso_01.jpg (la
+       foto nel responso). La card da condividere non si cattura: "Condividi"
+       apre subito il foglio di Android, senza anteprima, e non si manda
+       niente a nessuno. Difetto visto: la riga sotto "Tu" tagliata ("Aggiungi
+       la tu...", "Cambia la tua ..."), padre ER.04, corretto per la 2286.
+ER.05  er05_responso_03.jpg: "Possibilita' di incontro" 3,8 per cento, barra
+       corta come la sua percentuale, etichetta su una riga.
+ER.06  er06_gemello_01_ingresso.jpg: la schermata sola, il nastro e il pulsante;
+       er06_gemello_02_raffica_prima_del_podio.jpg e
+       er06_gemello_03_raffica_podio.jpg: dal pulsante al podio senza altri
+       tocchi. Difetti visti: il fondo nero (il fondatore: "Dovrebbe essere
+       cosmico", padre CF.14) e i nomi del podio spezzati dentro la parola
+       ("Damian / o David", padre il podio del 31 agosto), corretti per la
+       2286.
+ER.07  er03_viaggio_in_home.jpg: la scheda dell'Oroscopo in cima alla riga
+       delle preferite, l'emblema in oro.
+ER.08  er08_home_01.jpg ... er08_home_07.jpg: la home dall'alto in basso, undici
+       righe.
+ER.09  er08_home_02.jpg ... er08_home_07.jpg: verticali e quadrate a 128 punti,
+       orizzontali a 137, due schede e mezza in vista, titoli a dodici punti.
+ER.10  er10_dominio_medora_*.jpg, er10_dominio_aura_*.jpg,
+       er10_dominio_caligo_*.jpg: un dominio per Maestro, ogni arte nella
+       sezione del suo Maestro, nessuna riga "In arrivo".
+ER.12  er13_macchina_turno2_fotogramma6.jpg: la risposta del LIVE in tre frasi.
+       Durate vere della voce in docs/collaudo/ER/live_macchina.txt.
+ER.13  er13_macchina_turno1_raffica.jpg, er13_macchina_turno2_raffica.jpg,
+       er13_macchina_turno3_raffica.jpg (sedici fotogrammi di fila per turno),
+       er13_macchina_turno2_fotogramma1..6.jpg: la domanda che si scrive a
+       macchina, poi la risposta, prima della voce. Registro:
+       live_er13_registro.txt.
+ER.11  live_lite/standard.txt: la qualita' standard, dieci turni.
+ER.14  er14_oroscopo_giorno1_*.jpg (27 settembre, Gemelli: "Sguardo verso il
+       futuro", "Desideri a lungo termine", "Visione condivisa", "Desideri in
+       cammino") e er14_oroscopo_giorno2_*.jpg (28 settembre, dopo mezzanotte:
+       "Amici e progetti", "Amicizia e tenerezza", "La forza della rete",
+       "Amici portafortuna"), gli stessi titoli di docs/collaudo/ER/oroscopo.txt.
+       Difetto visto: "AMICI PORT / AFORTUNA", padre ER.14, corretto per la
+       2286.
+ER.17  er17_responso_margot_03.jpg: Margot Robbie, senza luogo pubblico: "Non si
+       sa pubblicamente dove viva, quindi la distanza non entra nel conto" una
+       volta sola; er17_responso_margot_04.jpg e _05: non torna piu' sotto.
+ER.18  er05_responso_04.jpg ("Oggi Giove tocca i gradi dove la Luna di Beyonce'
+       e' in opposizione con la tua Venere") e
+       ("Oggi Saturno tocca i gradi dove il Sole di Margot Robbie e' in
+       quadratura con il tuo Marte", in fondo a er17_responso_margot_03.jpg).
+ER.19  er19_carta_beyonce.jpg: "Beyonce'" con l'accento. Difetto visto:
+       er19_ricerca_beyonce.jpg, "beyonce" senza accento non la trovava piu',
+       padre ER.19, corretto per la 2286.
+ER.20  er20_iride_dominio_aura.jpg (Fisiognomica, dopo lo Specchio
+       dell'Anima), er20_iride_dorso.jpg ("La tua iride, letta come una mappa di
+       segni.", "In arrivo, Fase 2"), er20_iride_i_piu_condivisi.jpg (dopo
+       Affinita' Lunare, di Medora), er20_iride_il_tuo_corpo.jpg (dopo Magia
+       Verde, di Caligo).
+ER.01  er01_rune_01_ingresso.jpg ... er01_rune_07.jpg: Le tre Norne con la
+       domanda scritta a mano "Devo accettare il nuovo lavoro a Torino?".
+       DIFETTO VISTO: il presagio del modello cadeva sulla lettura di casa (la
+       guardia scartava la condizione detta col "ma", padre ER.01), e la
+       lettura di casa scriveva "Cio' che fu. qualcosa" (padre DF.05). Corretti
+       per la 2286.
+ER.02  er02_viaggio_01.jpg (la Volpe riconosciuta), er02_viaggio_02_domanda.jpg,
+       er02_viaggio_03_responso.jpg e _04 ("Mio fratello non mi parla da mesi, lo
+       chiamo io?": "I segni del viaggio dicono di si', puoi chiamare tuo
+       fratello"; azione: "domani mattina invia un messaggio a tuo fratello"),
+       er02_viaggio_05_seconda_discesa.jpg e _06 ("Mi trasferisco a Berlino per
+       lavoro?": "I segni del viaggio dicono di si', a condizione che tu veda
+       cosa ti blocca davvero"; azione: "oggi pomeriggio, invece di usare i
+       mezzi, fai a piedi il tragitto da casa al lavoro").
+
+== BUILD 2286 (le correzioni viste sulla 2285)
+
+ER.04  er04_2286_porta_riga_sotto_tu.jpg: "Cambia la tua foto" intera, su due
+       righe; la foto resta dopo l'installazione.
+ER.06  er06_2286_gemello_01_ingresso_sul_cielo.jpg: il nastro e il pulsante sul
+       cielo; er06_2286_gemello_02_podio.jpg: "Damiano / David", "Giorgio /
+       Armani", "Priyanka / Chopra", interi sopra i gradini;
+       er06_2286_gemello_03_responso.jpg e _04: il responso intero senza altri
+       tocchi.
+ER.16  er06_2286_gemello_03_responso.jpg: "Il tuo gemello astrale e' Giorgio
+       Armani, ma Damiano David gli sta addosso: fra i due c'e' un punto solo"
+       (primo un uomo: "gli"; tutte e cinquanta le frasi in
+       docs/collaudo/ER/gemello_frasi.txt).
+ER.19  er19_2286_ricerca_beyonce.jpg: "beyonce" senza accento trova Beyonce'.
+ER.01  er01_2286_rune_01.jpg ... er01_2286_rune_06.jpg: stessa domanda, il
+       presagio adesso e' del modello: "Accetta il nuovo lavoro a Torino, ma
+       prima di partire, fissa i tuoi confini."; ogni pietra letta nella sua
+       posizione e sul lavoro, il legame, il consiglio.
+ER.14  er14_2286_titolo_fortuna_col_trattino.jpg: "Amici por- / tafortuna", a
+       capo col trattino sulla sillaba, come i titoli della home.
+
+Visto sulla 2286 e corretto nel codice dopo (commit che segue la 2286, da
+vedere sulla prossima build): nel "Perche' proprio lui" del Gemello
+(er06_2286_gemello_04_responso.jpg) si leggeva "Venere Quadratura Luna,
+Mercurio Sestile Venere e Sole Sestile Venere", lo stesso difetto della voce
+ER.18 in un'altra frase. Padre: il Gemello del 31 agosto (commit d24b7308).
+Adesso: "la sua Venere in quadratura con la tua Luna", misurato su tutti i 50
+VIP in test/i_difetti_visti_sul_realme_alla_2285_test.dart.

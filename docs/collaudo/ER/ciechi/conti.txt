@@ -16,6 +16,11 @@ Ogni fascicolo mescola le letture di prima (commit 3a2c12d3) e delle due esecuzi
   giro7_esecuzione2: dirette 13 su 20 con domanda; pietre tutte lette 15 su 24; legame 20; consiglio 20; errori di italiano 3; in riserva 4
   prima: dirette 5 su 20 con domanda; pietre tutte lette 0 su 24; legame 5; consiglio 17; errori di italiano 5; in riserva 0
 
+== RUNE, fascicolo del giro8 (giudizio_rune_giro8.json)
+  giro8_esecuzione1: dirette 12 su 20 con domanda; pietre tutte lette 14 su 24; legame 22; consiglio 20; errori di italiano 9; in riserva 2
+  giro8_esecuzione2: dirette 17 su 20 con domanda; pietre tutte lette 14 su 24; legame 24; consiglio 24; errori di italiano 4; in riserva 0
+  prima: dirette 5 su 20 con domanda; pietre tutte lette 0 su 24; legame 4; consiglio 18; errori di italiano 4; in riserva 0
+
 == VIAGGIO, fascicolo del giro5 (giudizio_viaggio_giro5.json)
   giro5_esecuzione1: prima frase che prende posizione 10 su 20; consiglio concreto 0; frasi vuote 24; errori di italiano 0
   giro5_esecuzione2: prima frase che prende posizione 11 su 20; consiglio concreto 0; frasi vuote 25; errori di italiano 0
