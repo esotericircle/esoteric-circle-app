@@ -10,6 +10,7 @@ import '../../core/chat/user_profile.dart';
 import '../../core/maestro/consult_depth.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_reply.dart';
+import '../../core/rituals/la_lettura_delle_rune.dart';
 import '../../core/rituals/rune_cast.dart';
 import '../../core/responsi/anatomia_del_responso.dart';
 import '../../core/maestro/misura_della_risposta.dart';
@@ -53,6 +54,17 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
 
   /// Modello per la risposta Profonda del Premium: Flash, piu' ricco.
   static const String kMaestroProfondaModel = 'gemini-2.5-flash';
+
+  /// **LA LETTURA DELLE RUNE: FLASH.** Ordine ER voce 01, 27 settembre 2026.
+  /// Era Flash-Lite dall'ordine S voce 19, quando il presagio era una bolla
+  /// di tre righe. Adesso legge ogni pietra nella sua posizione e sulla
+  /// domanda: al banco del 27 settembre, giudicato alla cieca, Flash-Lite
+  /// rispondeva in modo diretto 9 e 11 volte su 20, leggeva tutte le pietre 3
+  /// e 2 volte su 24, e con piu' testo faceva piu' errori di italiano (12 e
+  /// 13). E' il modello che la Stesa dei Tarocchi usa gia' per la stessa
+  /// ragione (ordine EQ voce 04, *"Sì, con Flash"*), verificato nella regione
+  /// dei dati.
+  static const String kMaestroRuneModel = 'gemini-2.5-flash';
 
   /// **IL MODELLO DEL TURNO, IN UN PUNTO SOLO. Ordine EO voce 14.** Nella
   /// chat scritta resta [chatModel]. Lo usano il provider vero e il collaudo.
@@ -393,11 +405,10 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     required UserProfile profile,
   }) async {
     final d = domanda.trim();
-    // **FLASH-LITE, come le risposte brevi.** E' una bolla per gettata e nel piano
-    // gratuito una al giorno: il modello ricco non serve, e il costo di questa
-    // chiamata non deve crescere col numero delle persone.
+    // **FLASH, dall'ordine ER voce 01**: vedi [kMaestroRuneModel]. Era
+    // Flash-Lite, come le risposte brevi.
     final model = _ai.generativeModel(
-      model: kMaestroBreveModel,
+      model: kMaestroRuneModel,
       systemInstruction: Content.system(
         MaestroPersona.presagioInstruction(
           profile: profile,
@@ -405,71 +416,87 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
           conDomanda: d.isNotEmpty,
         ),
       ),
-      generationConfig: configurazionePer(
-        MisuraDellaRisposta.letturaDellaChat,
-        temperature: 0.9,
+      // **I CAMPI OBBLIGATORI**, ordine ER voce 01: la lettura ha una forma, e
+      // lo schema la chiede al modello invece di sperarla dal testo.
+      generationConfig: GenerationConfig(
+        temperature: LaLetturaDelleRune.temperatura,
         topP: 0.95,
+        maxOutputTokens: MisuraDellaRisposta.letturaDellaChat.tetto,
+        thinkingConfig: ThinkingConfig.withThinkingBudget(
+            MisuraDellaRisposta.letturaDellaChat.ragionamento),
         responseMimeType: 'application/json',
+        responseSchema: Schema.object(properties: {
+          'posizione':
+              Schema.enumString(enumValues: LaLetturaDelleRune.posizioni),
+          'risposta': Schema.string(),
+          // Ogni pietra in due campi: la runa nella sua posizione, e che
+          // cosa indica sulla domanda (ordine ER voce 01).
+          'pietre': Schema.array(
+              items: Schema.object(properties: {
+            'lettura': Schema.string(),
+            'sullaDomanda': Schema.string(),
+          }, propertyOrdering: const ['lettura', 'sullaDomanda'])),
+          'legame': Schema.string(),
+          'cosaPuoiFare': Schema.string(),
+        }, propertyOrdering: LaLetturaDelleRune.campi),
       ),
     );
 
-    // **I FATTI, non il prompt.** Le pietre arrivano col verso, la posizione e il
-    // significato del corpus: e' cio' che il modello non puo' inventare, e la
-    // decisione D3 dice che il presagio si compone da questi due dati piu' la
-    // domanda.
-    final pietre = [
-      for (final r in esito.rune)
-        '- ${r.rune.name}, ${r.inOmbra ? 'in merkstave' : 'diritta'}, '
-            'per ${r.posizione.glossa}: ${r.rune.meaning}',
-    ].join('\n');
-    final richiesta = StringBuffer()
-      ..writeln('Gettata: ${esito.gettata.nome}.')
-      ..writeln('Pietre uscite:')
-      ..writeln(pietre);
-    if (d.isEmpty) {
-      richiesta.writeln('La persona non ha scelto nessuna domanda.');
-    } else {
-      richiesta.writeln('Domanda posta dalla persona: «$d».');
+    // **I FATTI, non il prompt.** Dall'ordine ER voce 01 ogni pietra arriva
+    // con la sua posizione e la sua riga del corpus nel verso uscito, e la
+    // domanda con la sua cornice dell'allegato B: la richiesta la compone
+    // `LaLetturaDelleRune`, la stessa che usa il banco del collaudo.
+    final richiesta = LaLetturaDelleRune.richiesta(esito, d);
+    // **UNA LETTURA CHE NON REGGE NON SI MOSTRA**: si chiede una seconda
+    // volta, poi parla la lettura di casa.
+    String? motivo;
+    for (var tentativo = 0; tentativo < 2; tentativo++) {
+      // **LA SECONDA CHIAMATA SA PERCHE' LA PRIMA E' STATA SCARTATA**, come
+      // nel Viaggio (ordine DQ voce 06): al banco di Flash quaranta letture
+      // su cento cadevano perche' nominavano una runa nella risposta.
+      final response = await model.generateContent([
+        Content.text(LaLetturaDelleRune.conLaCorrezione(richiesta, motivo)),
+      ]);
+      final raw = response.text?.trim();
+      if (raw == null || raw.isEmpty) {
+        motivo = 'vuota';
+        continue;
+      }
+      if (eTroncata(response)) {
+        motivo = 'troncata';
+        continue;
+      }
+      final j = _jsonDelPresagio(raw);
+      motivo = LaLetturaDelleRune.scarto(j, esito, domanda: d);
+      if (motivo != null) continue;
+      final responso = LaLetturaDelleRune.daJson(j, esito)!;
+      return Responso(
+        risposta: TestoDelResponso.pulisci(responso.risposta),
+        cosaPuoiFare: TestoDelResponso.pulisci(responso.cosaPuoiFare),
+        daDoveViene: TestoDelResponso.pulisci(responso.daDoveViene),
+      );
     }
-
-    final response = await model.generateContent([
-      Content.text(richiesta.toString()),
-    ]);
-    final raw = response.text?.trim();
-    if (raw == null || raw.isEmpty) {
-      throw const MaestroAiUnavailable('Il presagio non ha trovato le parole.');
-    }
-    if (eTroncata(response)) throw const MaestroAiTroncata();
-    final responso = _parsePresagio(raw);
-    if (responso == null || !responso.eIntero) {
-      throw const MaestroAiUnavailable('Il presagio non ha trovato le parole.');
-    }
-    return responso;
+    throw MaestroAiUnavailable('Il presagio non ha retto: $motivo.');
   }
 
-  /// Le tre parti dall'uscita JSON, con lo stesso parsing difensivo dei tre
-  /// strati: un campo che manca vale vuoto, e un responso non intero fa cadere sul
-  /// ripiego invece di andare a video mutilo.
-  Responso? _parsePresagio(String raw) {
+  /// L'oggetto JSON dell'uscita, o null se non c'e': mai un'eccezione di
+  /// parsing che arrivi cruda a video.
+  Map<dynamic, dynamic>? _jsonDelPresagio(String raw) {
     try {
       final start = raw.indexOf('{');
       final end = raw.lastIndexOf('}');
       if (start < 0 || end <= start) return null;
       final decoded = jsonDecode(raw.substring(start, end + 1));
-      if (decoded is! Map) return null;
-      String pezzo(String chiave) => TestoDelResponso.pulisci(
-          (decoded[chiave] as Object?)?.toString().trim() ?? '');
-      return Responso(
-        risposta: pezzo('risposta'),
-        cosaPuoiFare: pezzo('cosaPuoiFare'),
-        daDoveViene: pezzo('daDoveViene'),
-      );
+      return decoded is Map ? decoded : null;
     } catch (errore, traccia) {
-      annotaGuastoInnocuo(
-          'leggendo le tre parti del presagio delle rune', errore, traccia);
+      annotaGuastoInnocuo('leggendo la lettura delle rune', errore, traccia);
       return null;
     }
   }
+
+  // **LAPIDE, ordine ER voce 01.** Qui viveva `_parsePresagio`, che leggeva
+  // tre campi di testo senza schema: la lettura adesso ha i suoi campi e le
+  // sue guardie in `LaLetturaDelleRune`.
 
   MaestroReply? _parseReply(String raw) {
     try {

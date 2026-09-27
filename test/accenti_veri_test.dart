@@ -110,6 +110,14 @@ const esenzioni = <Esenzione>[
       "'da': {",
       'e la tavola delle preposizioni articolate, dove "da" e una CHIAVE '
           'di mappa e non una parola mostrata: da, dal, dallo, dalla'),
+  // Ordine ER voce 01, 27 settembre 2026: la tavola della riparazione dei
+  // nomi delle rune, che accorda la preposizione davanti a "runa" (di Ansuz,
+  // della runa). Come quella di euphonic.dart, "da" e' una CHIAVE.
+  Esenzione(
+      'lib/core/rituals/la_lettura_delle_rune.dart',
+      "'da': 'dalla',",
+      'e la tavola delle preposizioni della riparazione dei nomi delle rune, '
+          'dove "da" e una CHIAVE di mappa e non una parola mostrata'),
   Esenzione(
       'lib/features/santuario/sky_overview_screen.dart',
       "_rigaValore(palette, 'Coordinate da', _origine.etichetta),",

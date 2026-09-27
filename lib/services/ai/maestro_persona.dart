@@ -17,6 +17,7 @@ import '../../core/maestro/voce_del_maestro.dart';
 import '../../core/responsi/anatomia_del_responso.dart';
 import '../../core/responsi/confine_del_responso.dart';
 import '../../core/responsi/legge_del_responso.dart';
+import '../../core/tarot/la_lettura_dal_modello.dart';
 import '../../core/chat/il_blocco_di_cortesia.dart';
 import '../../core/chat/la_risposta_nel_merito.dart';
 import '../../core/l10n/la_lingua_del_modello.dart';
@@ -543,9 +544,18 @@ class MaestroPersona {
     required MaestroMemory memory,
     bool conDomanda = true,
   }) {
+    // **ORDINE ER VOCE 01**: le tre parti restano, e ognuna dice in quali
+    // campi della risposta vive. Le righe dell'anatomia non si dicono piu'
+    // qui: la terza parte legge ogni pietra, e una gettata sul telo ne ha
+    // sette.
+    const campi = {
+      ParteDelResponso.risposta: '"risposta"',
+      ParteDelResponso.cosaPuoiFare: '"cosaPuoiFare"',
+      ParteDelResponso.daDoveViene: '"pietre" e "legame"',
+    };
     final parti = ParteDelResponso.nelResponso
-        .map((p) => '- ${p.numero}. ${p.nome}: ${p.cosaFa} '
-            '(${p.righeMinime} o ${p.righeMassime} righe)')
+        .map((p) => '- ${p.numero}. ${p.nome}, nel campo ${campi[p]}: '
+            '${p.cosaFa}')
         .join('\n');
     return [
       voceDi(Maestro.caligo),
@@ -562,10 +572,68 @@ class MaestroPersona {
       '',
       MisuraDellaRisposta.letturaDellaChat.istruzione,
       '',
-      'COSA STAI SCRIVENDO: il presagio di una gettata di rune. è la prima '
-          'cosa che la persona legge dopo il getto ed è la lettura che tiene '
-          'insieme le pietre uscite. Le singole rune le racconta l\'app per conto '
-          'suo: tu non ripetere le loro schede.',
+      // **LA GETTATA CHE INTERPRETA DAVVERO, ordine ER voce 01.** Il
+      // fondatore: *"anche le estrazioni rune non hanno l'interpretazione?"*.
+      // Qui c'era "Le singole rune le racconta l'app per conto suo: tu non
+      // ripetere le loro schede", e il modello scriveva un presagio che non
+      // leggeva le pietre ne' rispondeva: *"Il cammino è velato, ma la forza
+      // per procedere è dentro di te"*. Adesso ogni pietra si legge nella sua
+      // posizione, dalla sua riga del corpus e rispetto alla domanda, come
+      // la Stesa dei Tarocchi dell'ordine EQ voce 04.
+      'COSA STAI SCRIVENDO: la lettura di una gettata di rune. È la prima '
+          'cosa che la persona legge dopo il getto: risponde alla sua domanda '
+          'e legge le pietre uscite, ciascuna nella sua posizione.',
+      '',
+      'COME SI LEGGE:',
+      // **LA POSIZIONE PRIMA DELLA RISPOSTA**, dalla lettura alla cieca del
+      // secondo banco: tredici e quattordici risposte dirette su venti.
+      '- "posizione": PRIMA DELLA RISPOSTA scegli che cosa dicono le pietre '
+          'sulla domanda: "sì", "no", "sì a una condizione", "un passo da '
+          'fare" quando la domanda chiede che cosa fare o come, "com\'è la '
+          'situazione" quando la domanda è un argomento generale, "nessuna '
+          'domanda" solo se la persona non ne ha scelta una. La prima frase '
+          'della risposta dice la posizione scelta, in parole semplici.',
+      '- "risposta": due frasi. La prima risponde alla domanda in modo '
+          'diretto: se chiede se una cosa accadrà o se farla, dice che cosa '
+          'indicano le rune, sì, no o a quali condizioni («le rune indicano di '
+          'sì, se...», «le rune non mostrano un ritorno, finché...»), mai come '
+          'un fatto certo o una promessa; se chiede che cosa fare o come, dice '
+          'il gesto concreto da fare, con chi o quando, mai un atteggiamento; '
+          'se la domanda è un argomento generale, dice in concreto che cosa le '
+          'rune mostrano della situazione in quell\'ambito. La seconda dice '
+          'perché, con parole semplici. Niente premesse, niente giochi di '
+          'parole, niente immagini oscure come «il cammino è velato». Su una '
+          'domanda generale o senza domanda, la prima frase dice un fatto '
+          'concreto che le pietre mostrano (che cosa si muove, con chi, '
+          'entro quando), mai una formula come «è un invito a», «è un giorno '
+          'di», «segui il flusso».',
+      '- "pietre": una lettura per ogni pietra, nell\'ordine in cui te le do, '
+          'ognuna in due campi. "lettura": una frase che nomina la runa col '
+          'suo nome e la legge nella sua posizione, dicendo che cosa '
+          'significa quella posizione, partendo dalla sua riga nel verso '
+          'uscito, che ti do. "sullaDomanda": una frase che dice in concreto '
+          'che cosa quella pietra indica sulla cosa chiesta dalla persona '
+          '(senza domanda, sulla sua giornata di oggi): una frase che '
+          'andrebbe bene per qualunque domanda non va bene. Due pietre non '
+          'dicono la stessa cosa. Una pietra in merkstave parla dal suo verso '
+          'd\'ombra. Frasi normali, come in un racconto: niente elenchi, '
+          'niente due punti dopo il nome della runa.',
+      '- "legame": una o due frasi su come le pietre si legano fra loro: una '
+          'causa, un passaggio, un contrasto. Con una pietra sola, come la '
+          'pietra si lega alla domanda.',
+      '- "cosaPuoiFare": una frase sola, un passo concreto che la persona può '
+          'fare, con un momento o un modo definiti, che nasce dalla domanda e '
+          'dalle pietre. Non scrivere su fogli, non sigilli, non formule: un '
+          'gesto nella vita della persona. Il consiglio non '
+          'nomina le rune, le pietre né il presagio: dice solo il gesto.',
+      '- Nelle frasi rivolte alla persona non scrivere mai queste parole: '
+          '${LaLetturaDellaStesa.paroleDelConfine}. Se una pietra le porta '
+          'nel suo significato (Othala e l\'eredità), dillo con altre parole: '
+          'ciò che si riceve, le radici, la casa.',
+      '- Niente verbi al futuro dati per certi (sarà, porterà, arriverà, '
+          'troverai): per ciò che viene scrivi al presente, «tendi a», «puoi», '
+          '«la situazione tende a».',
+      LaLetturaDellaStesa.senzaGenere,
       '',
       'LE TRE PARTI, in questo ordine:',
       parti,
@@ -573,7 +641,9 @@ class MaestroPersona {
       'IL NOME DELLA RUNA COMPARE SOLO NELLA TERZA PARTE. Nelle prime due parla '
           'della situazione e di cosa fare, mai della pietra: un responso che '
           'apre col simbolo chiede alla persona di sapere cosa vuol dire quel '
-          'simbolo prima di ricevere una risposta.',
+          'simbolo prima di ricevere una risposta. Nei campi "risposta" e '
+          '"cosaPuoiFare" di\' «le rune», «la gettata», «le pietre», mai il '
+          'nome di una runa: i nomi stanno solo in "pietre" e "legame".',
       '',
       conDomanda
           ? 'LA DOMANDA POSTA è IL CENTRO: la prima parte le risponde e la '
@@ -584,8 +654,11 @@ class MaestroPersona {
               'sua giornata e la seconda parte le lascia una cosa da guardare '
               'entro sera. Non inventare una domanda che non ha posto.',
       '',
-      'FORMATO: rispondi SOLO con un oggetto JSON con tre campi di testo, '
-          '"risposta", "cosaPuoiFare", "daDoveViene". Niente altro fuori dal JSON.',
+      'FORMATO: rispondi SOLO con un oggetto JSON coi campi "posizione", '
+          '"risposta", '
+          '"pietre" (un elenco con un oggetto per pietra, coi campi '
+          '"lettura" e "sullaDomanda"), "legame" e '
+          '"cosaPuoiFare". Niente altro fuori dal JSON.',
     ].where((r) => r.trim().isNotEmpty).join('\n');
   }
 
