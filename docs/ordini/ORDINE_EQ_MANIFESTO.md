@@ -15,14 +15,20 @@ usarlo ancora. Solo gli screenshot sono corretti e appartengono a iPhone
 **Questo ordine non consegna niente**: le build le ordina il fondatore.
 
 VOCI_TOTALI: 12
-VOCI_CHIUSE: 0
-VOCI_APERTE: 10
-VOCI_DA_FARE: 2
+VOCI_CHIUSE: 3
+VOCI_APERTE: 8
+VOCI_DA_FARE: 1
 
 Le prove stanno in `docs/collaudo/EQ/`; quelle viste sul telefono di prova
 (Realme 767f596c, 360 per 800 punti) in `docs/collaudo/EQ/realme/`. Una
 voce prodotta ma non ancora guardata sul Realme e' APERTA IN ATTESA DI
 VERIFICA: le catture si fanno con una build sola, a voci finite.
+
+**La build di prova**, 27 settembre 2026, installata sul Realme e mai
+consegnata: `flutter build apk --release` dal ramo con tutte le voci, codice
+0.1.0+2284 come la build che il Realme aveva, nessun file tracciato toccato
+dalla costruzione. Le catture con quella build si chiamano
+`realme/*_build_eq_*`.
 
 ---
 
@@ -56,11 +62,16 @@ presentazione, due dopo un passo gia' fatto.
   Adesso una risposta fatta della sola riga da togliere si chiede di nuovo,
   una volta, e se torna uguale arriva la lettura di ripiego, mai la riga.
 
-**APERTA IN ATTESA DI VERIFICA**: la cattura dal Realme della conversazione
-delle catture rifatta.
+**CHIUSA.** Sul Realme, con la build di prova, la conversazione delle catture
+rifatta con Calìgo in chat: alla presentazione nessuna riga d'oro, e gli
+altri Maestri nominati solo in fondo
+(`realme/eq01_eq07_build_eq_presentazione_senza_riga_d_oro_e_residuo_dei_confronti.png`);
+le due righe d'oro dei turni dopo sono diverse fra loro e nessuna chiede di
+rifare il passo appena detto fatto (`realme/eq02_build_eq_tre_desideri_fine.png`,
+`realme/eq03_build_eq_chat_le_ho_scritte.png`).
 DOMANDA: "C'è un grosso problema con le chat e sono incazzato nero!"; "Unisci tutto all'ordine prossimo credo EQ"
-PROVA: docs/collaudo/EQ/eq01_righe_d_oro.txt
-MISURA: a schermo, due giri con dati diversi per ciascun Maestro: righe d'oro uguali o simili a una gia' data da 3 su 30 a 0 su 22 (catture: 3 su 4); presentazioni con la riga d'oro da 6 su 12 a 0 su 12 (catture: 1); righe che chiedono di rifare il passo appena fatto da 2 su 12 a 0 su 12; quattro giri di fila puliti sull'istruzione definitiva
+PROVA: docs/collaudo/EQ/realme/eq01_eq07_build_eq_presentazione_senza_riga_d_oro_e_residuo_dei_confronti.png
+MISURA: sul Realme, conversazione delle catture rifatta: presentazioni con la riga d'oro da 1 (catture) a 0, righe d'oro ripetute da 3 su 4 (catture) a 0 su 2; nel collaudo (docs/collaudo/EQ/eq01_righe_d_oro.txt) a schermo, due giri con dati diversi per ciascun Maestro: righe d'oro uguali o simili a una gia' data da 3 su 30 a 0 su 22 (catture: 3 su 4); presentazioni con la riga d'oro da 6 su 12 a 0 su 12 (catture: 1); righe che chiedono di rifare il passo appena fatto da 2 su 12 a 0 su 12; quattro giri di fila puliti sull'istruzione definitiva
 
 ## VOCE EQ.02, IL MAESTRO RISPONDE CON LA SUA ARTE
 
@@ -85,16 +96,81 @@ arti degli altri due che non si usano e chi di dovere.
 **APERTA IN ATTESA DI VERIFICA**, e non solo per la cattura dal Realme: le
 parti della domanda senza risposta scendono da 15 a 8 su 28, non a 0.
 Calìgo resta il piu' debole: alla domanda delle catture risponde a volte in
-generale, per sentenze.
+generale, per sentenze. **E sul Realme, con la build di prova, lo ha fatto
+davanti alla domanda delle catture**: *"Prendi un solo sentiero alla volta.
+Non disperdere la tua forza."* e la riga *"Scegli una sola priorità fra la
+compagna, l'Australia o il lavoro"*, cioe' proprio cio' che il controllo
+finale vieta (`realme/eq02_build_eq_tre_desideri_scegline_uno.png`).
 DOMANDA: domanda girata al fondatore: "Chat: quando la domanda tocca l'arte di un altro Maestro (es. l'amore chiesto a Calìgo), come deve rispondere?", risposta: "Prima la sua arte" ("Risponde sempre nel merito con la sua arte (Calìgo: un rito per l'amore). L'altro Maestro lo nomina solo in fondo, come consiglio in più. Cambia la regola dell'ordine EN.")
 PROVA: docs/collaudo/EQ/eq02_domande_di_confine.txt
 MISURA: su diciotto domande di confine per giro (sei per Maestro, fra cui quella delle catture), prime frasi che rimandano a un altro Maestro da 9 a 0; parti della domanda senza risposta, stesso giudice, da 15 a 8 su 28; attribuzione cieca da 89,1 a 96,7 per cento
 
 ## VOCE EQ.03, LE RISPOSTE NEL MERITO, ANCHE NEL LIVE
 
-**DA FARE.** Il collaudo e' scritto (`tool/collaudo_eq03.dart`, dodici
-domande di seguito per Maestro, nel LIVE con Flash-Lite e con Flash e in
-chat, due giri per modo).
+Nelle catture del LIVE, a *"Ok, le ho scritte e adesso cosa faccio?"*
+Calìgo risponde *"Il tuo gesto è compiuto. Ora lascia che il tempo faccia il
+suo corso."*: non dice niente.
+
+**Il collaudo** (`tool/collaudo_eq03.dart`): dodici domande di seguito per
+Maestro, fra cui le due delle catture, nel LIVE con Flash-Lite, nel LIVE con
+Flash e in chat, due giri per modo, Gemini vero in europe-west1; prima sul
+codice di prima dell'ordine (commit `168d7cce`), dopo sul codice curato.
+**Il merito non lo decide Gemini**: quattro stesure del giudice, tarate su
+risposte vere etichettate a mano, nel controllo sono arrivate a 33, 33 e 29
+su 43 (`eq03/il_giudice_gemini_non_basta.txt`). Lo decide una lettura con la
+regola scritta (`eq03/regola_della_lettura.md`), fatta da agenti di lettura
+sulle trascrizioni senza verdetti e controllata sulle 78 risposte che avevo
+etichettato a mano: 76 accordi.
+
+**La cura, in tre ritocchi misurati.**
+- **L'istruzione**: la regola comune dice di partire da cio' che la persona
+  ha appena fatto o raccontato e di darle il passo dopo, e che "aspetta" da
+  solo non e' una risposta (`LaRispostaNelMerito`); il controllo finale
+  chiede se la prima frase parte da li' e se ogni frase vale per lei sola; la
+  forma del LIVE chiede che la prima frase dica che cosa fare in concreto
+  (`MaestroPersona.rispostaDettaAVoce`).
+- **Gli esempi da ricopiare escono**: l'apertura di Medora portava *"Scrivi
+  stasera a chi ti ha ferito e proponi di vedervi sabato mattina"*, che
+  Flash-Lite ricopiava come riga d'oro a chi non aveva nominato ferite (tre
+  volte su dodici nel "prima"). Il registro di Aura le vietava ogni momento
+  ("Non nomini mai il futuro né una data") e con lui il passo: adesso
+  risponde con un passo nella vita della persona e il corpo le dice come
+  farlo, legato a un gesto e mai a un giorno.
+- **La rete a valle** (`LaRispostaDAttesa`): se le prime due frasi dicono
+  soltanto di aspettare ("il tuo gesto è compiuto", "ora attendi la sua
+  risposta", "il tuo compito è la pazienza"), il controller chiede la
+  risposta di nuovo, una volta, con una nota che dice che cosa fare di
+  un'attesa; l'attesa misurata passa. Vale in chat e nel LIVE.
+
+**Il modello del LIVE: Flash.** L'ordine dice *"per il LIVE resta il modello
+che risponde nel merito; fra due che rispondono nel merito, il più veloce"*.
+Letti con la stessa regola: Flash-Lite nel merito 18 su 72 prima, 36 e 27 su
+72 nei due giri dopo; Flash 52 e 54 su 72. Flash-Lite non risponde nel
+merito, quindi resta Flash (`FirebaseMaestroAiProvider.kMaestroLiveModel`).
+Il tempo del modello mediano sale da 781 a 1175 millesimi dal PC; **sul
+Realme, dalla fine della domanda al Maestro che parla, mediana 6,4 secondi
+su sei turni** (Medora 6986, 6468, 6111; Calìgo 8210, 6039, 6322 ms), contro
+i 4,8 dell'ordine EO con Flash-Lite. Il costo di un turno del LIVE, stimato
+dal listino e dalla lunghezza dell'istruzione (circa 5.200 gettoni),
+sale da circa 0,0006 a circa 0,002 dollari.
+
+**Sul Realme** (`realme/eq03_live_medora/`, `realme/eq03_live_caligo/`), con la
+voce detta dalle casse del PC: a *"Ok, le ho scritte e adesso cosa faccio?"*
+Medora risponde *"Ora che hai messo per iscritto i tuoi desideri... Scegli un
+giorno... e descrivi per iscritto quale desiderio"*, senza nessuna attesa; a
+*"Ok, gli ho scritto adesso."* Calìgo chiede che cosa intende; in chat, alla
+domanda delle catture, Calìgo da' un passo (*"Pronuncia a voce alta la tua
+priorità davanti a uno specchio"*). Le risposte di Flash nel LIVE sono piu'
+lunghe delle tre frasi che la forma chiede.
+
+**APERTA IN ATTESA DI VERIFICA**: il merito sale ma non arriva al pieno, e
+alla domanda delle catture il LIVE con Flash risponde nel merito 3 volte su 6
+nel collaudo; Aura resta la piu' debole (in chat 5 e 4 su 12); la chat non
+migliora (46 su 72 prima, 45 e 42 dopo) e fra un giro e l'altro lo stesso
+Maestro passa da 11 a 5 su 12.
+DOMANDA: "C'è un grosso problema con le chat e sono incazzato nero!"; "Unisci tutto all'ordine prossimo credo EQ"
+PROVA: docs/collaudo/EQ/eq03_nel_merito.txt
+MISURA: risposte nel merito su dodici domande di seguito, tre Maestri, due giri: LIVE con Flash-Lite da 18 su 72 prima a 36 e 27 su 72 dopo, LIVE con Flash 52 e 54 su 72 dopo; alla domanda delle catture nel LIVE da 0 su 6 prima a 3 su 6 con Flash; dalla fine della domanda al Maestro che parla, sul Realme, mediana da 4,8 secondi (ordine EO, Flash-Lite) a 6,4 (Flash)
 
 ## PARTE 2, LA STESA DI TAROCCHI
 
@@ -124,11 +200,21 @@ giri con dati diversi dello stesso codice, 19 e 17 su 20 e 53 e 43 su 60;
 letture uguali su cento 0 in tutti e tre. Costo medio di una stesa 0,00177 e
 0,00191 dollari; tempo dal PC mediano 3,7 secondi in tutti e due i giri.
 
+**Sul Realme, con la build di prova**, tre stese con tre domande diverse
+(`realme/eq04_build_eq_attesa_della_stesa.txt`): dal tocco su "Leggi le Carte"
+al testo **3931 e 4011 millesimi** con la lettura del modello; una volta la
+chiamata non e' tornata entro i dieci secondi e a **10001 millesimi** e'
+arrivata la lettura di casa, che apre ancora con *"Le tre carte rispondono a
+«...». Non a una domanda in generale."*
+(`realme/eq04_build_eq_stesa_2_lettura_di_casa_dopo_10_secondi.png`). Nelle
+altre due la prima frase risponde: *"Le carte indicano che non è il momento
+giusto per cambiare lavoro questo inverno"*.
+
 **APERTA IN ATTESA DI VERIFICA**: le misure non arrivano a 20 su 20 e 60 su
-60, e manca l'attesa sul Realme dal tocco su "Leggi le Carte" al testo.
+60, e sul Realme una stesa su tre e' finita nella lettura di casa.
 DOMANDA: "Il fondatore si lamenta che facendo una stesa tarocchi con domanda generica, ma anche con domanda specifica e personale LE RISPOSTE SONO TROPPO CRIPTICHE, SONO QUASI SENZA SENSO. SCRIVE QUALCOSA ,MA NON DICE NULLA."; "Ma una interpretazione la fa veramente o sono testi buttati lì tanto per accontentare?"
 PROVA: docs/collaudo/EQ/tarocchi/dopo_giro_1/letture.md
-MISURA: risposte dirette nelle prime due frasi da 1 su 20 a 19 e 17 su 20 (due giri); carte lette nella posizione e sulla domanda da 0 su 60 a 53 e 43 su 60; errori di concordanza, contati a mano, da 3 su 20 letture ("c'e' stata Quattro di Coppe") a 0 su 40; letture uguali su cento 0 prima e dopo
+MISURA: risposte dirette nelle prime due frasi da 1 su 20 a 19 e 17 su 20 (due giri); carte lette nella posizione e sulla domanda da 0 su 60 a 53 e 43 su 60; errori di concordanza, contati a mano, da 3 su 20 letture ("c'e' stata Quattro di Coppe") a 0 su 40; letture uguali su cento 0 prima e dopo; sul Realme dal tocco al testo 3931 e 4011 ms col modello, 10001 ms col ripiego una volta su tre
 
 ## VOCE EQ.05, LA SCRITTA SOTTO LA CARTA CHIAVE
 
@@ -139,7 +225,7 @@ crescono e si ritirano dal loro bordo basso, e ogni scritta sta a sedici
 punti dalla sua carta; lo spazio delle parole "Carta Chiave" si misura sulla
 larghezza della carta, che ora sale tutta verso l'alto.
 
-**APERTA IN ATTESA DI VERIFICA**: la cattura dal Realme.
+**APERTA IN ATTESA DI VERIFICA**: sul Realme con la build di prova si vede come atteso (`realme/eq04_eq05_eq12_build_eq_carta_chiave_scritta_staccata_e_consiglio_intero.png`); resta aperta finche' il fondatore non la guarda sull'iPhone, regola 5 dell'ordine.
 DOMANDA: "Inoltre, esteticamente, la parola "passato, presente o passato" sotto alla carta chiave ingrandita e attaccata alla carta grande."; "Ti segnalo che gli screenshot sono di un iPhone 17 pro."
 PROVA: test/la_stesa_si_legge_intera_test.dart
 MISURA: distanza fra la carta chiave e la sua scritta da circa -6 punti (la carta la copriva) a 16,0, uguale alle altre due (16,0 e 16,0), a 402 punti con iOS e a 360; scritte allineate, scarto 0,0 punti
@@ -155,7 +241,7 @@ MISURA: distanza fra la carta chiave e la sua scritta da circa -6 punti (la cart
   riga, il segno e la sintesi sulla seconda: il segno comincia la seconda
   riga in tutte e tre.
 
-**APERTA IN ATTESA DI VERIFICA**: la cattura dal Realme.
+**APERTA IN ATTESA DI VERIFICA**: sul Realme con la build di prova si vede come atteso (`realme/eq06_build_eq_riepilogo_sotto_le_carte.png`); resta aperta finche' il fondatore non la guarda sull'iPhone, regola 5 dell'ordine. La card da condividere sul Realme si vede solo come miniatura nel foglio di condivisione.
 DOMANDA: "Il riepilogo delle estrazioni subito sotto le 3 carte ci sono difetti come la parola "presente" con la "e" finale a capo."; "Ti segnalo che gli screenshot sono di un iPhone 17 pro."
 PROVA: test/la_stesa_si_legge_intera_test.dart
 MISURA: parole spezzate nella card da condividere da 1 a 0 ("PRESENTE" larga 79,4 nella colonna di 88,0); righe del riepilogo col segno del verso fuori posto da 1 a 0 (bordo sinistro dei segni 24,0 e 24,0, a 402 con iOS e a 360)
@@ -178,10 +264,23 @@ Maestri"*, con la forma di ogni altro residuo dell'app
 (`QuestionAllowance.residuoDiCosa`) e le parole del suo budget, le stesse in
 "Chiedi ai Maestri".
 
-**APERTA IN ATTESA DI VERIFICA**: la cattura dal Realme.
+**Sul Realme con la build di prova** i contatori usati scendono: le domande
+48, 47, 46, 45 una per domanda in chat (`realme/eq07_build_eq_domande_48.png`,
+`realme/eq07_build_eq_domande_47.png`), mentre i turni del LIVE non le
+toccano; i confronti da 20 a 19 al tocco su "Chiedi anche agli altri"
+(`realme/eq07_build_eq_confronti_19_su_20.png`); le stese da 20 a 19 a 18
+(`realme/eq07_build_eq_stese_19_su_20.png`). La bolla dice *"Oggi hai 20
+confronti fra i Maestri"*.
+
+**APERTA IN ATTESA DI VERIFICA**: gli approfondimenti non si possono usare.
+Sul Realme, tre tocchi su "Vai più a fondo" in due risposte diverse non
+hanno fatto niente, ne' il seguito ne' l'invito del piano, e il contatore e'
+rimasto a 30 (`realme/difetto_build_eq_vai_piu_a_fondo_non_risponde.png`);
+"Chiedi anche agli altri", nella stessa bolla, funziona. PROVENIENZA IGNOTA:
+l'ordine EQ non ha toccato il percorso dell'approfondimento.
 DOMANDA: "Unisci tutto all'ordine prossimo credo EQ", dopo l'elenco dell'Architetto che nominava i contatori.
 PROVA: test/il_confronto_ha_il_suo_tetto_test.dart
-MISURA: righe dei residui che non dicono di che cosa, da 1 a 0; contatori che scendono quando si usano, 2 su 2 in chat (50, 49, 48 sul Realme); i turni del LIVE non contano, per decisione dell'ordine EG
+MISURA: righe dei residui che non dicono di che cosa, da 1 a 0; contatori che scendono quando si usano, sul Realme 3 su 4 (domande 48, 47, 46, 45; confronti 20, 19; stese 20, 19, 18; gli approfondimenti non si lasciano usare); i turni del LIVE non contano, per decisione dell'ordine EG
 
 ## VOCE EQ.08, I MESSAGGI SOTTO LA CASELLA E SOTTO IL MENU'
 
@@ -197,11 +296,15 @@ sotto la casella e dietro "ESPLORA") e
 della bolla, "Vai più a fondo" e "Chiedi anche agli altri", resta dietro la
 casella e non risale).
 
-**APERTA IN ATTESA DI VERIFICA**: le catture dal Realme con la chat piena,
-a riposo e durante lo scorrimento.
+**CHIUSA.** Sul Realme con la build di prova, chat piena: la conversazione si
+ferma sopra il bordo alto della casella anche quando la casella cresce a
+cinque righe (`realme/eq08_build_eq_casella_alta_conversazione_sopra.png`), a
+riposo e scorrendo; la fine della bolla, "Vai più a fondo" e "Chiedi anche
+agli altri", risale sopra la casella
+(`realme/eq01_eq07_build_eq_presentazione_senza_riga_d_oro_e_residuo_dei_confronti.png`).
 DOMANDA: "Unisci tutto all'ordine prossimo credo EQ", dopo l'elenco dell'Architetto che nominava il testo sotto la casella.
-PROVA: test/i_messaggi_stanno_fra_i_contatori_e_la_casella_test.dart
-MISURA: punti di conversazione visibili sotto il bordo alto della casella, a 360 e 402 punti, da 74 a 0
+PROVA: docs/collaudo/EQ/realme/eq08_build_eq_casella_alta_conversazione_sopra.png
+MISURA: punti di conversazione visibili sotto il bordo alto della casella, a 360 e 402 punti, da 74 a 0 (test/i_messaggi_stanno_fra_i_contatori_e_la_casella_test.dart); sul Realme testo della conversazione sotto la casella da presente (build 2284) ad assente
 
 ## VOCE EQ.09, IL FONDO DEI CONTATORI
 
@@ -213,11 +316,13 @@ libera la cima. **Due cure**: la conversazione si ritaglia anche al suo bordo
 alto, e la fascia dei contatori ha la tinta della testata, da un punto solo
 (`_ChatAppBar.fondo`), con quattro punti sotto le righe.
 
-**APERTA IN ATTESA DI VERIFICA**: la cattura dal Realme durante lo
-scorrimento.
+**CHIUSA.** Sul Realme con la build di prova, scorrendo, la conversazione
+sparisce sotto il bordo della fascia dei contatori, che ha la tinta della
+testata: dietro le due righe non passa niente
+(`realme/eq09_build_eq_scorrendo_niente_dietro_i_contatori.png`).
 DOMANDA: "Unisci tutto all'ordine prossimo credo EQ", dopo l'elenco dell'Architetto che nominava i messaggi dietro i contatori.
-PROVA: docs/collaudo/EQ/eq09_la_fascia_e_la_cima.txt
-MISURA: punti in cui la conversazione puo' dipingere dietro i contatori, a 360 e 402 punti, da 674 a 0; fascia dei contatori con la tinta della testata, da 0 a 1
+PROVA: docs/collaudo/EQ/realme/eq09_build_eq_scorrendo_niente_dietro_i_contatori.png
+MISURA: punti in cui la conversazione puo' dipingere dietro i contatori, a 360 e 402 punti, da 674 a 0; fascia dei contatori con la tinta della testata, da 0 a 1 (docs/collaudo/EQ/eq09_la_fascia_e_la_cima.txt); sul Realme testo dietro i contatori scorrendo da presente (build 2284) ad assente
 
 ## VOCE EQ.10, LA PILLOLA BIANCA DELLA DETTATURA
 
@@ -228,15 +333,23 @@ secondi (0 pixel bianchi su 128.000 nella sua zona, in dodici fotogrammi, e
 nessuna finestra di sistema oltre alle barre); la lente del testo e la barra
 di selezione di Flutter hanno un'altra forma e sono scure. Nella cattura del
 fondatore la freccia d'invio e' spenta, quindi il campo era vuoto: la
-pillola non viene dal testo dettato. Si fa comparire solo con la voce vera,
-che da qui non si puo' produrre. Niente e' stato cambiato alla cieca.
+pillola non viene dal testo dettato. **Poi con la voce vera**, detta dalle casse del PC al Realme con la build di
+prova (`realme/eq10_dettatura_con_la_voce/`): due dettature, 54 fotogrammi,
+**0 pixel bianchi** nella zona sopra la casella in tutti; nessuna finestra
+oltre all'app, alla tastiera e alle barre di sistema. La pillola non si
+riproduce su questo telefono. **Trovato invece un altro difetto**: la frase
+detta durava 8,7 secondi e la dettatura ha scritto soltanto *"vorrei"*, poi
+ha smesso di ascoltare. PROVENIENZA IGNOTA: la dettatura non e' stata
+toccata da quest'ordine (ultimo ritocco, ordine EG). Niente e' stato
+cambiato alla cieca: serve sapere dal fondatore su quale telefono e con
+quale tastiera compare la pillola.
 
 ## VOCE EQ.11, IL TITOLO DELLA STESA SU UNA RIGA
 
 "Stesa di Tarocchi" usa il titolo che non si rompe con una riga sola: la
 misura scende quanto serve, entro il minimo del titolo.
 
-**APERTA IN ATTESA DI VERIFICA**: la cattura dal Realme.
+**APERTA IN ATTESA DI VERIFICA**: sul Realme con la build di prova si vede come atteso (`realme/eq11_build_eq_titolo_su_una_riga.png`); resta aperta finche' il fondatore non la guarda sull'iPhone, regola 5 dell'ordine.
 DOMANDA: "Unisci tutto all'ordine prossimo credo EQ"; "Ti segnalo che gli screenshot sono di un iPhone 17 pro."
 PROVA: test/la_stesa_si_legge_intera_test.dart
 MISURA: righe del titolo da 2 a 1, a 402 punti con iOS e a 360
@@ -249,7 +362,7 @@ titolo che non si rompe, a una riga e allineato a sinistra. **La guardia che
 lo sorvegliava era cieca**: misurava a 328 punti, piu' del riquadro vero, e
 restava verde; riscritta sul paragrafo dipinto.
 
-**APERTA IN ATTESA DI VERIFICA**: la cattura dal Realme.
+**APERTA IN ATTESA DI VERIFICA**: sul Realme con la build di prova si vede come atteso (`realme/eq04_eq05_eq12_build_eq_carta_chiave_scritta_staccata_e_consiglio_intero.png`); resta aperta finche' il fondatore non la guarda sull'iPhone, regola 5 dell'ordine.
 DOMANDA: "Unisci tutto all'ordine prossimo credo EQ"; "Ti segnalo che gli screenshot sono di un iPhone 17 pro."
 PROVA: test/la_stesa_si_legge_intera_test.dart
 MISURA: titoli tagliati da 1 a 0 ("IL CONSIGLIO DI MEDORA" su una riga, non tagliato, a 402 punti con iOS e a 360)
