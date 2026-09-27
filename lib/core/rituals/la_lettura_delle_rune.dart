@@ -431,9 +431,16 @@ abstract final class LaLetturaDelleRune {
   /// **LA POSIZIONE DETTA**: un sì, un no, o la condizione che la regge. Al
   /// banco la guardia cercava solo *sì* e *no*, e scartava *"Le rune indicano
   /// che l'amore cresce se..."* scelta come *"sì a una condizione"*.
+  ///
+  /// **E LA CONDIZIONE DETTA COL "MA"**, dal Realme alla build 2285: a *"Devo
+  /// accettare il nuovo lavoro a Torino?"* il modello rispondeva *"Accetta
+  /// l'offerta di lavoro, ma poni una condizione chiara sul tuo tempo"*, cioe'
+  /// la risposta diretta, e la guardia la scartava due volte su due: al
+  /// telefono parlava la lettura di casa, che non risponde affatto. Al banco,
+  /// sulla stessa gettata, tre scarti su tre.
   static final RegExp _laPosizioneDetta = RegExp(
-      '(?<![A-Za-zÀ-ÿ])(?:sì|no|non|se|a patto|purché|finché|solo quando)'
-      '(?![A-Za-zÀ-ÿ])',
+      '(?<![A-Za-zÀ-ÿ])(?:sì|no|non|se|a patto|purché|finché|solo quando|'
+      'ma|però|condizione|prima)(?![A-Za-zÀ-ÿ])',
       caseSensitive: false);
 
   /// Le rune senza astrologia, ordine EA voce 05.

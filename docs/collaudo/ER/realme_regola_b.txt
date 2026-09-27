@@ -72,3 +72,40 @@ Sono le parole viste sul Realme (docs/collaudo/ER/realme/er06_gemello_03_raffica
   mancanza); il difetto della 2285 lo ha causato la voce ER.19, che ha dato a
   Beyoncé il suo accento. La copre adesso la guardia nuova, sulla galleria
   vera.
+
+===================== LE RUNE SUL REALME: regola_ab_realme_rune =====================
+Sul Realme alla 2285 il presagio del modello cadeva sempre sulla lettura di casa. Causa, riprodotta al banco sulla stessa gettata (Algiz diritta in Urdhr, Laguz in merkstave in Verdhandi, Raidho diritta in Skuld, domanda "Devo accettare il nuovo lavoro a Torino?") con tool/sonda_schema_rune.dart: tre scarti su tre, due per "sì a una condizione" non detta. La risposta era "Accetta l'offerta di lavoro, ma poni una condizione chiara sul tuo tempo": la guardia della posizione (voce ER.01, mia) cercava le parole e non la posizione. Dopo la cura, sulla stessa gettata, cinque letture accettate su sei.
+E la lettura di casa scriveva "Ciò che fu. qualcosa di nuovo germoglia": la riga della runa entra in minuscolo nella cucitura (ordine DF voce 05), e la forma "{Glossa}. {riga}" la metteva dopo un punto.
+CONFESSIONE: rune_presage.dart l'ho toccato prima di vedere rosse le sue guardie; la Regola B e' fatta dopo, sulla versione di HEAD.
+
+== Regola B su HEAD, presagio di casa: una frase comincia minuscola (contro il presagio e la prima bolla)
+   file lib/core/rituals/rune_presage.dart, sha1 prima 35b5fc874f7d, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +2: All tests passed!
+   ripristinato: sha1 35b5fc874f7d, uguale, compagni tornati: True
+== Regola B su HEAD, lo stesso contro le rune che mantengono le promesse
+   file lib/core/rituals/rune_presage.dart, sha1 prima 35b5fc874f7d, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +4: All tests passed!
+   ripristinato: sha1 35b5fc874f7d, uguale, compagni tornati: True
+== Regola B su HEAD, lo stesso contro il presagio che risponde alla domanda
+   file lib/core/rituals/rune_presage.dart, sha1 prima 35b5fc874f7d, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +9: All tests passed!
+   ripristinato: sha1 35b5fc874f7d, uguale, compagni tornati: True
+== Regola A, 2285: la riga dopo il punto torna minuscola
+   file lib/core/rituals/rune_presage.dart, sha1 prima 35b5fc874f7d, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: [
+   ripristinato: sha1 35b5fc874f7d, uguale
+== Regola A, 2285: la condizione detta col ma torna a essere scartata
+   file lib/core/rituals/la_lettura_delle_rune.dart, sha1 prima 3c0d2c83138c, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: null
+   Actual: 'hai scelto la posizione "sì a una condizione" ma la prima frase della risposta non la dice'
+   ripristinato: sha1 3c0d2c83138c, uguale
+
+- Regola B sul presagio di casa: VERDE contro tre prove. Nessuna guardava la maiuscola in testa alle frasi (PROVENIENZA IGNOTA della mancanza). La copre adesso la guardia nuova, vista rossa.

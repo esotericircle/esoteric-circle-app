@@ -160,6 +160,7 @@ class RunePresagio {
             //
             // Con la riga intera il corpus diventa la parte grande del
             // responso, che e anche cio che la persona e venuta a leggere.
+            .replaceAll('{Riga}', _maiuscola(rune[i].riga))
             .replaceAll('{riga}', _minuscola(rune[i].riga)));
       } else {
         final frasi = [
@@ -203,7 +204,9 @@ class RunePresagio {
     '{Glossa}: {riga}',
     '{suGlossa} il segno dice che {riga}',
     'Guardando {glossa}, {riga}',
-    '{Glossa}. {riga}',
+    // Dopo il punto la riga comincia con la maiuscola: sulla build 2285
+    // (ordine ER) si leggeva "Ciò che fu. qualcosa di nuovo germoglia".
+    '{Glossa}. {Riga}',
     'La runa {diGlossa} racconta che {riga}',
     'Dalla parte {diGlossa}, {riga}',
     'Per quello che riguarda {glossa}, {riga}',

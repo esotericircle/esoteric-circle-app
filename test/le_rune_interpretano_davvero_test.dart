@@ -189,6 +189,17 @@ void main() {
     expect(sulleUguali, isNotNull);
     expect(colCammino, isNull);
     expect(conLaCondizione, isNull);
+    // **DAL REALME ALLA 2285**: la condizione detta col "ma" e' la risposta
+    // diretta, e la guardia la scartava sempre su quella gettata.
+    expect(
+        LaLetturaDelleRune.scarto(
+            lettura(
+                risposta: 'Accetta l\'offerta di lavoro, ma poni una '
+                    'condizione chiara sul tuo tempo. La scelta si scioglie '
+                    'cosi\'.'),
+            esito,
+            domanda: domanda),
+        isNull);
     // **DAL BANCO DELLA SERA, TERZO GIRO**: la cornice ricopiata come prima
     // frase, le aperture di formula, l'articolo davanti al parente, la
     // congiunzione rimasta sola dopo il taglio.

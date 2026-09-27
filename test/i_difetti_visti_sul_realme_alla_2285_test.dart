@@ -1,10 +1,14 @@
 // ignore_for_file: avoid_print
+import 'dart:math';
+
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/core/rituals/rune_cast.dart';
+import 'package:esoteric_circle/core/rituals/rune_presage.dart';
 import 'package:esoteric_circle/core/synastry/collezione_delle_coppie.dart';
 import 'package:esoteric_circle/core/synastry/gemello_astrale.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
@@ -270,6 +274,32 @@ void main() {
     print('ORDINE ER, 2285: nella galleria "beyonce" trova $trovate carte di '
         'Beyoncé');
     expect(trovate, 1, reason: 'chi scrive "beyonce" non trova Beyoncé');
+  });
+
+  test('la lettura di casa delle rune non comincia mai una frase minuscola',
+      () {
+    // Sul Realme: "Ciò che fu. qualcosa di nuovo germoglia". Padre: la riga
+    // intera in minuscolo dentro la cucitura, ordine DF voce 05.
+    final colpe = <String>[];
+    var letture = 0;
+    for (final g in gettate) {
+      for (var seme = 0; seme < 60; seme++) {
+        final esito = RuneCast.getta(g, random: Random(seme));
+        final testo = RunePresagio.componiIlResponso(esito,
+                domanda: seme.isEven ? '' : 'Devo cambiare lavoro?')
+            .inParole;
+        letture++;
+        final m = RegExp(r'[.!?]\s+([a-zàèéìòù])').firstMatch(testo);
+        if (m != null) {
+          colpe.add('${g.id} $seme: "...'
+              '${testo.substring((m.start - 30).clamp(0, testo.length), (m.end + 20).clamp(0, testo.length))}..."');
+        }
+      }
+    }
+    print('ORDINE ER, 2285: letture di casa $letture, con una frase '
+        'minuscola ${colpe.length}${colpe.isEmpty ? '' : ', la prima ${colpe.first}'}');
+    expect(letture, greaterThanOrEqualTo(200));
+    expect(colpe, isEmpty, reason: colpe.take(3).join('\n'));
   });
 
   testWidgets('la riga sotto la carta Tu si legge intera, senza puntini',
