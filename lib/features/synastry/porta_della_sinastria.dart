@@ -13,8 +13,10 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
+import 'il_foglio_del_tuo_volto.dart';
 import 'sinastria_gallery_screen.dart';
 import 'sinastria_vip_screen.dart';
+import 'user_photo.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../core/entitlement/budget_del_giorno.dart';
 import '../../design_system/components/riga_del_residuo.dart';
@@ -54,11 +56,16 @@ class PortaDellaSinastria extends StatefulWidget {
     this.userSign,
     this.userName,
     this.userBirth,
+    this.servizioDelleFoto,
   });
 
   final Zodiac? userSign;
   final String? userName;
   final DateTime? userBirth;
+
+  /// Da dove arriva la foto della persona: nelle prove una finta, in
+  /// produzione la fotocamera e la galleria del telefono.
+  final UserPhotoService? servizioDelleFoto;
 
   /// **LA RIGA CHE ROVESCIA LA FORMA DELLE TRE SCELTE.** Vera: tre porte in
   /// fila, tutte visibili. Falsa: una tendina sola, "Scegli il tipo di
@@ -123,8 +130,51 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
 
   ModoDellaSinastria _modo = ModoDellaSinastria.conUnVip;
 
+  /// Il volto della persona nella sua carta: la foto del profilo, oppure
+  /// nulla, cioe' l'avatar a costellazione. Ordine ER voce 04.
+  late final UserPhotoController _foto =
+      UserPhotoController(service: widget.servizioDelleFoto);
+  bool _fotoDalProfilo = false;
+
   MaestroPalette get _palette =>
       MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+
+  @override
+  void initState() {
+    super.initState();
+    _foto.addListener(_fotoCambiata);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_fotoDalProfilo) return;
+    _fotoDalProfilo = true;
+    _foto.seed(IlFoglioDelTuoVolto.profiloDi(context)?.avatarPhoto);
+  }
+
+  @override
+  void dispose() {
+    _foto.removeListener(_fotoCambiata);
+    _foto.dispose();
+    super.dispose();
+  }
+
+  void _fotoCambiata() {
+    if (mounted) setState(() {});
+  }
+
+  /// **LA CARTA "TU" APRE IL TUO VOLTO, NON UN VIP.** Ordine ER voce 04.
+  /// Quando nella prima casella c'e' un VIP (il confronto fra due VIP,
+  /// ordine BO voce 13) la carta e' la sua, e il tocco cambia quel VIP.
+  Future<void> _toccaLaPrimaCarta() async {
+    if (_primo != null) {
+      await _scegli(perLaPrima: true);
+      return;
+    }
+    await IlFoglioDelTuoVolto.scegliERicorda(context,
+        palette: _palette, foto: _foto);
+  }
 
   /// Apre la galleria perche' scelga un volto e lo RIPORTI indietro.
   ///
@@ -173,6 +223,11 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
       userName: widget.userName,
       userBirth: widget.userBirth,
     ));
+    // Nel responso la persona puo' aver cambiato la foto: la porta la
+    // rilegge dal profilo, che e' il posto dove la scelta si scrive.
+    if (!mounted) return;
+    final profilo = IlFoglioDelTuoVolto.profiloDi(context);
+    if (profilo != null) _foto.allinea(profilo.avatarPhoto);
   }
 
   Future<void> _scegliIlModo(ModoDellaSinastria modo) async {
@@ -312,14 +367,27 @@ class _PortaDellaSinastriaState extends State<PortaDellaSinastria> {
             // alla galleria del SECONDO, perche' la scelta la faceva la pila
             // del Navigator invece di chi toccava. Qui ogni casella sa quale
             // e', e chiede il volto per se'.
-            onTocco: () => _scegli(perLaPrima: true),
+            //
+            // **E IL VOLTO DELLA CARTA "TU" E' IL TUO.** Ordine ER voce 04: la
+            // voce CA.02 le aveva dato il tocco che sceglie un VIP, e il
+            // fondatore toccando la sua carta si e' visto offrire un volto
+            // famoso invece del suo. Adesso apre la foto o l'avatar; il
+            // confronto fra due VIP si raggiunge dalla scelta "Confronta 2
+            // VIP" qui sotto, e da li' questa carta torna a cambiare il VIP.
+            onTocco: _toccaLaPrimaCarta,
             sotto: _primo == null ? 'Tu' : _primo!.name,
+            suggerimento: _primo != null
+                ? null
+                : _foto.hasPhoto
+                    ? 'Cambia la tua foto'
+                    : 'Aggiungi la tua foto',
             ritratto: _primo == null
                 ? VipFramedPortrait(
                     palette: palette,
                     name: widget.userName ?? 'Il tuo cielo',
                     date: _dataTua,
                     sign: widget.userSign?.symbol,
+                    photo: _foto.bytes,
                   )
                 : VipFramedPortrait(
                     palette: palette,
@@ -460,6 +528,7 @@ class _Casella extends StatelessWidget {
     required this.ritratto,
     required this.sotto,
     required this.onTocco,
+    this.suggerimento,
   });
 
   final Key chiave;
@@ -467,6 +536,9 @@ class _Casella extends StatelessWidget {
   final Widget ritratto;
   final String sotto;
   final VoidCallback onTocco;
+
+  /// Una riga piccola sotto il nome, che dice cosa fa il tocco.
+  final String? suggerimento;
 
   @override
   Widget build(BuildContext context) {
@@ -486,6 +558,15 @@ class _Casella extends StatelessWidget {
             style:
                 TypographyTokens.etichetta().copyWith(color: palette.goldSoft),
           ),
+          if (suggerimento != null)
+            Text(
+              suggerimento!,
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: ColorTokens.textSecondary),
+            ),
         ],
       ),
     );

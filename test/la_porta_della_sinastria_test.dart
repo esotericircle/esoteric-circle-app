@@ -190,6 +190,21 @@ void main() {
     expect(find.text(secondo.name), findsWidgets,
         reason: 'la carta di destra non ha preso il volto scelto');
 
+    // **LAPIDE, ordine ER voce 04, 27 settembre 2026.** Qui la prova toccava
+    // la carta "Tu" e si aspettava la galleria dei VIP: era la regola della
+    // voce CA.02, e il fondatore l'ha chiamata regressione, *"se faccio click
+    // sulla mia carta, mi fa scegliere un vip anziché farmi scegliere un
+    // avatar o di inserire una mia foto"*. La carta "Tu" adesso apre il
+    // volto della persona (la misura sta in
+    // la_carta_tu_apre_il_tuo_volto_test.dart). Il difetto che CA.02 curava
+    // resta sorvegliato dove vive ancora, nel confronto fra due VIP: la
+    // prima carta la riempie la scelta "Confronta 2 VIP", e toccarla deve
+    // cambiare lei e non quella di destra.
+    await tester.tap(find.byKey(Key(ModoDellaSinastria.fraDueVip.chiave)));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+    await scegliDallaGalleria(tester, VipCatalog.vips[7]);
+
     // **E ADESSO SI TOCCA QUELLA DI SINISTRA**, che e' il gesto del difetto.
     await tester.tap(find.byKey(const Key('sinastria_carta_tua')));
     await tester.pump();

@@ -37,6 +37,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
+import 'il_foglio_del_tuo_volto.dart';
 import 'sinastria_share_card.dart';
 import 'user_photo.dart';
 import '../../core/maestro/maestro.dart';
@@ -1178,81 +1179,14 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
   }
 
   // Il foglio di consenso alla foto: scelta esplicita, con la promessa che la
-  // foto resta sul dispositivo ed entra solo nella card condivisa.
-  Future<void> _openPhotoSheet() async {
-    final palette = context.palette;
-    await foglioDelCerchio<void>(
-      context: context,
-      backgroundColor: palette.surface,
-      shape: const RoundedRectangleBorder(
-        borderRadius:
-            BorderRadius.vertical(top: Radius.circular(SpacingTokens.radiusLg)),
-      ),
-      builder: (sheetContext) {
-        return SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.all(SpacingTokens.lg),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text('La tua foto nella cornice',
-                    style: TypographyTokens.titoloScheda()
-                        .copyWith(color: palette.goldSoft)),
-                const SizedBox(height: SpacingTokens.sm),
-                Text(
-                    'La foto resta sul tuo dispositivo. Entra solo nella card che decidi di condividere, senza mai essere caricata da nessuna parte. Se preferisci, resta il tuo avatar a costellazione.',
-                    style: TypographyTokens.corpo().copyWith(
-                        color: ColorTokens.textSecondary, height: 1.4)),
-                const SizedBox(height: SpacingTokens.lg),
-                FilledButton.icon(
-                  key: const Key('photo_camera'),
-                  style: FilledButton.styleFrom(
-                      backgroundColor: palette.gold,
-                      foregroundColor: palette.deepest),
-                  onPressed: () {
-                    Navigator.of(sheetContext).pop();
-                    _photo.pickFrom(UserPhotoSource.camera);
-                  },
-                  icon: const Icon(Icons.photo_camera_rounded, size: 18),
-                  label: const Text('Usa la fotocamera'),
-                ),
-                const SizedBox(height: SpacingTokens.sm),
-                OutlinedButton.icon(
-                  key: const Key('photo_gallery'),
-                  style: OutlinedButton.styleFrom(
-                      foregroundColor: palette.goldSoft,
-                      side: BorderSide(
-                          color: palette.gold.withValues(alpha: 0.6))),
-                  onPressed: () {
-                    Navigator.of(sheetContext).pop();
-                    _photo.pickFrom(UserPhotoSource.gallery);
-                  },
-                  icon: const Icon(Icons.photo_library_rounded, size: 18),
-                  label: const Text('Scegli dalla galleria'),
-                ),
-                if (_photo.hasPhoto) ...[
-                  const SizedBox(height: SpacingTokens.sm),
-                  TextButton.icon(
-                    key: const Key('photo_clear'),
-                    style: TextButton.styleFrom(
-                        foregroundColor: ColorTokens.textSecondary),
-                    onPressed: () {
-                      Navigator.of(sheetContext).pop();
-                      _photo.clear();
-                    },
-                    icon: const Icon(Icons.close_rounded, size: 18),
-                    label:
-                        const Text('Togli la foto, torna alla costellazione'),
-                  ),
-                ],
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
+  // foto resta sul dispositivo. **Ordine ER voce 04: il foglio e' lo stesso
+  // della carta "Tu" nella porta**, e la scelta si scrive nel profilo, cosi'
+  // la porta, il responso e la card mostrano lo stesso volto.
+  Future<void> _openPhotoSheet() => IlFoglioDelTuoVolto.scegliERicorda(
+        context,
+        palette: context.palette,
+        foto: _photo,
+      );
 }
 
 class _Pole extends StatelessWidget {

@@ -109,6 +109,16 @@ class UserPhotoController extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// Rimette la foto a quella del profilo, anche se ce n'era gia' una, anche
+  /// se il profilo non ne ha piu'. Ordine ER voce 04: la porta la chiama
+  /// quando torna dal responso, dove la persona puo' averla cambiata.
+  void allinea(Uint8List? bytes) {
+    final nuova = (bytes == null || bytes.isEmpty) ? null : bytes;
+    if (identical(nuova, _bytes)) return;
+    _bytes = nuova;
+    notifyListeners();
+  }
+
   /// Toglie la foto e torna al segnaposto a costellazione.
   void clear() {
     if (_bytes == null) return;
