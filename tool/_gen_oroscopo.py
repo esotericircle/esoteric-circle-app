@@ -57,20 +57,27 @@ def leggi_corpus() -> dict:
     if len(aperture) != 6:
         sys.exit(f'aperture trovate {len(aperture)} invece di 6')
 
-    ancore: dict[str, list[tuple[str, str]]] = {}
-    blocco = sezione(testo, 'Le ancore dei dodici segni')
-    for nome, ident in SEGNI:
-        m = re.search(rf'^### {nome},.*?$(.*?)(?=^### |\Z)', blocco,
-                      re.M | re.S)
-        if not m:
-            sys.exit(f'il corpus non porta il segno {nome}')
-        quattro = []
-        for dominio in DOMINI:
-            r = re.search(rf'^- {dominio}, "(.+?)": (.+)$', m.group(1), re.M)
-            if not r:
-                sys.exit(f'{nome} non porta il dominio {dominio}')
-            quattro.append((r.group(1), r.group(2).strip()))
-        ancore[ident] = quattro
+    # LAPIDE, ordine ER voce 14: qui si leggevano le ancore dei dodici segni,
+    # il titolo e la prima parte fissi di ogni scheda. Dall'ordine ER titolo e
+    # prima parte cambiano ogni giorno e vengono dalla sezione delle dodici
+    # case; le ancore restano scritte nel corpus come storia.
+    giorno: dict[int, list[tuple[list[str], list[str]]]] = {}
+    blocco = sezione(testo, 'Il giorno nelle dodici case')
+    for indice, dominio in enumerate(DOMINI):
+        case = []
+        for casa in range(1, 13):
+            m = re.search(rf'^### {dominio}, casa {casa}$(.*?)(?=^### |\Z)',
+                          blocco, re.M | re.S)
+            if not m:
+                sys.exit(f'manca {dominio}, casa {casa}')
+            t = re.search(r'^T: (.+)$', m.group(1), re.M)
+            titoli = [x.strip() for x in t.group(1).split('|')] if t else []
+            prime = re.findall(r'^P: (.+)$', m.group(1), re.M)
+            if len(titoli) != 3 or len(prime) != 3:
+                sys.exit(f'{dominio}, casa {casa}: {len(titoli)} titoli e '
+                         f'{len(prime)} prime parti invece di 3 e 3')
+            case.append((titoli, [p.strip() for p in prime]))
+        giorno[indice] = case
 
     correnti: dict[int, list[str]] = {}
     blocco = sezione(testo, 'I pool della corrente del giorno, per dominio')
@@ -99,7 +106,7 @@ def leggi_corpus() -> dict:
         sys.exit('il disclaimer non c\'e\'')
     disclaimer = righe[0].strip()
 
-    return dict(aperture=aperture, ancore=ancore, correnti=correnti,
+    return dict(aperture=aperture, giorno=giorno, correnti=correnti,
                 palette=palette, disclaimer=disclaimer)
 
 
@@ -109,7 +116,7 @@ def componi(d: dict) -> str:
     r.append('// Fonte di verita\': il corpus. Non modificare a mano: rigenerare dal corpus.')
     r.append('//')
     r.append('// I dati su dispositivo dell\'Oroscopo a quattro schede di Medora: le aperture')
-    r.append('// personalizzate, le ancore dei dodici segni per i quattro domini, i pool della')
+    r.append('// personalizzate, il giorno nelle dodici case per i quattro domini, i pool della')
     r.append('// corrente del giorno, le palette del colore del giorno e la riga di disclaimer.')
     r.append('')
     r.append('/// Dati dell\'Oroscopo, trascritti dal corpus. Chiavi per id del segno')
@@ -127,12 +134,23 @@ def componi(d: dict) -> str:
         r.append(f'    {dart(apertura)},')
     r.append('  ];')
     r.append('')
-    r.append('  /// Per ogni segno, quattro ancore in ordine di dominio: ognuna [titolo, testo].')
-    r.append('  static const Map<String, List<List<String>>> anchors = {')
-    for _, ident in SEGNI:
-        r.append(f'    \'{ident}\': [')
-        for titolo, corpo in d['ancore'][ident]:
-            r.append(f'      [{dart(titolo)}, {dart(corpo)}],')
+    r.append('  /// **IL GIORNO NELLE DODICI CASE**, ordine ER voce 14: per ogni dominio e')
+    r.append('  /// per ogni casa solare che la Luna attraversa (da 1 a 12, all\'indice da 0')
+    r.append('  /// a 11), tre titoli e tre prime parti. Sostituiscono le ancore fisse dei')
+    r.append('  /// segni.')
+    r.append('  static const Map<int, List<List<String>>> titoliDelGiorno = {')
+    for indice in range(4):
+        r.append(f'    {indice}: [')
+        for titoli, _ in d['giorno'][indice]:
+            r.append('      [' + ', '.join(dart(x) for x in titoli) + '],')
+        r.append('    ],')
+    r.append('  };')
+    r.append('')
+    r.append('  static const Map<int, List<List<String>>> primeDelGiorno = {')
+    for indice in range(4):
+        r.append(f'    {indice}: [')
+        for _, prime in d['giorno'][indice]:
+            r.append('      [' + ', '.join(dart(x) for x in prime) + '],')
         r.append('    ],')
     r.append('  };')
     r.append('')

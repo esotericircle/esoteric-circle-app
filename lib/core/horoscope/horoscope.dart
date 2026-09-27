@@ -1,4 +1,5 @@
 import '../tempo/confine_del_giorno.dart';
+import '../astro/night_sky.dart';
 import '../astro/zodiac.dart';
 import '../chat/user_profile.dart';
 import 'cielo_di_oggi.dart';
@@ -38,7 +39,8 @@ class HoroscopeCard {
   final String title;
   final String text;
 
-  /// La sola sintesi del segno, senza la corrente del giorno.
+  /// La prima parte della scheda, senza la corrente del giorno. **Dall'ordine
+  /// ER voce 14 cambia ogni giorno** (era la sintesi fissa del segno).
   ///
   /// **Esiste per chiudere una porta.** La card da condividere mostrava questa
   /// frase rileggendosela da `HoroscopeData.anchors` per conto suo, cioe' alle
@@ -171,8 +173,38 @@ class Horoscope {
     return template.replaceAll(HoroscopeData.namePlaceholder, vocative);
   }
 
+  /// **LA CASA CHE LA LUNA ATTRAVERSA**, contata dal segno solare: 0 vuol dire
+  /// la casa 1 (la Luna nel segno), 11 la casa 12. Ordine ER voce 14.
+  ///
+  /// E' la tecnica tradizionale dei transiti lunari nelle case solari, e si
+  /// calcola sul dispositivo dalle effemeridi della Luna ([NightSky]) a
+  /// mezzogiorno del giorno dato: nessun modello e nessuna rete.
+  static int casaDellaLuna(Zodiac sign, int dayOfYear, int year) {
+    final mezzogiorno =
+        DateTime.utc(year).add(Duration(days: dayOfYear, hours: 12));
+    return (NightSky.moonSign(mezzogiorno).index - sign.index) % 12;
+  }
+
+  /// **LA VARIANTE DEL GIORNO**, fra le tre di ogni casa. Il resto della
+  /// divisione per tre del giorno dell'anno: due giorni di fila non hanno mai
+  /// lo stesso resto, nemmeno a capodanno (364 e 365 danno 1 e 2, il primo
+  /// gennaio 0). La Luna resta in una casa al piu' tre giorni: nella stessa
+  /// casa due giorni vicini leggono varianti diverse, in due case diverse
+  /// leggono testi diversi. **Cosi' titolo e prima parte non sono mai quelli
+  /// del giorno prima**, e sono gli stessi fino a mezzanotte.
+  static int varianteDelGiorno(int dayOfYear) => dayOfYear % 3;
+
   /// Compone la scheda di un dominio per il segno e il giorno dati.
-  /// Compone la scheda di un dominio per il segno e il giorno dati.
+  ///
+  /// **TITOLO E PRIMA PARTE SONO DEL GIORNO. Ordine ER voce 14, 27 settembre
+  /// 2026.** Il fondatore: *"la prima metà delle schede, oggi uguale tutti i
+  /// giorni"*. Prima venivano dalle ancore fisse del segno
+  /// (`HoroscopeData.anchors`), identiche ogni giorno per lo stesso segno e
+  /// dominio; cambiava solo la corrente che le seguiva. Adesso li sceglie la
+  /// casa che la Luna attraversa quel giorno contando dal segno
+  /// ([casaDellaLuna]), con la variante del giorno ([varianteDelGiorno]). La
+  /// via e' quella del progetto, il sistema a scheletri: testi del corpus
+  /// scelti dal cielo vero, senza modello, a costo zero.
   ///
   /// **DOVE MUORE L'HASH.** Con un [cielo] che porta fatti veri, la corrente
   /// del giorno la scrive [CorrenteDelCielo] nominando il pianeta, la casa
@@ -202,7 +234,9 @@ class Horoscope {
     final seedLucky = _fnv1a([base, 0x33]);
     final seedColor = _fnv1a([base, 0x44]);
 
-    final anchor = HoroscopeData.anchors[sign.id]![d];
+    final casa = casaDellaLuna(sign, dayOfYear, year);
+    final variante = varianteDelGiorno(dayOfYear);
+    final primaParte = HoroscopeData.primeDelGiorno[d]![casa][variante];
     // LA CORRENTE DEL GIORNO: prima il cielo vero, e la hash solo se non c'e'.
     final dalCielo = CorrenteDelCielo.componi(
         cielo: cielo,
@@ -215,8 +249,8 @@ class Horoscope {
     final current =
         dalCielo ?? LaMarcaDelGenere.risolvi(pool[seedCurrent % pool.length]);
 
-    final title = anchor[0];
-    final text = '${anchor[1]} $current';
+    final title = HoroscopeData.titoliDelGiorno[d]![casa][variante];
+    final text = '$primaParte $current';
     final indicator = 2 + (seedIndicator % 4); // pavimento a 2, mai sotto
 
     // L'apertura personalizzata vive solo sulla scheda Generale.
@@ -228,7 +262,7 @@ class Horoscope {
         domain: domain,
         title: title,
         text: text,
-        synthesis: anchor[1],
+        synthesis: primaParte,
         indicator: indicator,
         luckyNumber: 1 + (seedLucky % 90), // da 1 a 90
         dayColor: palette[seedColor % palette.length],
@@ -239,7 +273,7 @@ class Horoscope {
       domain: domain,
       title: title,
       text: text,
-      synthesis: anchor[1],
+      synthesis: primaParte,
       indicator: indicator,
       opening: cardOpening,
       dalCieloVero: dalCielo != null,

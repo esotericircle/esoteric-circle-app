@@ -16,17 +16,38 @@ import 'package:flutter_test/flutter_test.dart';
 ///    al cielo senza saperlo, e due schede non devono mai chiudere allo
 ///    stesso modo: le ultime cinque parole di due ancore qualsiasi non
 ///    possono coincidere.
+///
+/// **ORDINE ER VOCE 14, 27 settembre 2026.** Le ancore non si mostrano piu':
+/// titolo e prima parte vengono dal giorno nelle dodici case, e cambiano ogni
+/// giorno. **Le due leggi restano, e si applicano alle 144 prime parti che
+/// hanno preso il posto delle 48 ancore**: la prima parte sta sempre davanti
+/// alla corrente del giorno. Con loro una terza legge dell'anatomia: la
+/// prima frase della scheda non nomina astri, li nomina la corrente.
 void main() {
   final tutte = <String, String>{};
-  HoroscopeData.anchors.forEach((segno, quattro) {
-    for (var dominio = 0; dominio < quattro.length; dominio++) {
-      tutte['$segno/$dominio "${quattro[dominio][0]}"'] = quattro[dominio][1];
+  HoroscopeData.primeDelGiorno.forEach((dominio, case_) {
+    for (var casa = 0; casa < case_.length; casa++) {
+      for (var v = 0; v < case_[casa].length; v++) {
+        tutte['$dominio/casa ${casa + 1}/$v'] = case_[casa][v];
+      }
     }
   });
 
-  test('le ancore sono quarantotto, quattro per segno', () {
-    expect(HoroscopeData.anchors, hasLength(12));
-    expect(tutte, hasLength(48));
+  test('le prime parti sono centoquarantaquattro, tre per casa', () {
+    expect(HoroscopeData.primeDelGiorno, hasLength(4));
+    expect(tutte, hasLength(144));
+  });
+
+  test('nessuna prima parte nomina un astro', () {
+    final astri = RegExp(
+        r'\b(sole|luna|mercurio|venere|marte|giove|saturno|urano|nettuno|'
+        r'plutone|stelle|cielo|astri)\b',
+        caseSensitive: false);
+    final colpe = [
+      for (final e in tutte.entries)
+        if (astri.hasMatch(e.value)) e.key,
+    ];
+    expect(colpe, isEmpty, reason: 'nominano un astro: $colpe');
   });
 
   test('nessuna ancora contiene la parola "oggi"', () {
@@ -36,7 +57,7 @@ void main() {
         .map((e) => e.key)
         .toList();
     // ignore: avoid_print
-    print('ORDINE BD VOCE 07: ancore lette ${tutte.length}, con "oggi" '
+    print('ORDINE BD VOCE 07 (ER.14): prime parti lette ${tutte.length}, con "oggi" '
         '${colpe.length}');
     expect(colpe, isEmpty,
         reason: 'queste ancore dicono "oggi", che appartiene alla corrente '

@@ -24,7 +24,11 @@ void main() {
       }
     });
 
-    test('Giorni diversi cambiano la corrente, ma l\'ancora resta stabile', () {
+    // LAPIDE, ordine ER voce 14: qui si pretendeva che il titolo (l'ancora
+    // del segno) non cambiasse mai col giorno. Il fondatore ha chiesto il
+    // contrario: titolo e prima parte cambiano ogni giorno. La misura su una
+    // settimana e su un anno sta in l_oroscopo_cambia_ogni_giorno_test.
+    test('Giorni diversi cambiano anche il titolo', () {
       final d1 = Horoscope.cardFor(
           sign: Zodiac.leo,
           dayOfYear: 10,
@@ -35,8 +39,7 @@ void main() {
           dayOfYear: 11,
           year: 2026,
           domain: HoroscopeDomain.generale);
-      // Il titolo (ancora) non cambia mai col giorno.
-      expect(d1.title, d2.title);
+      expect(d1.title == d2.title, isFalse);
     });
   });
 
@@ -61,9 +64,15 @@ void main() {
           for (final domain in HoroscopeDomain.values) {
             final card = Horoscope.cardFor(
                 sign: sign, dayOfYear: day, year: 2026, domain: domain);
-            final anchor = HoroscopeData.anchors[sign.id]![domain.index][1];
-            // Il testo e' ancora piu' spazio piu' corrente: la coda deve essere
-            // una frase del pool.
+            // Il testo e' la prima parte del giorno piu' spazio piu'
+            // corrente (ordine ER voce 14): la coda deve essere una frase del
+            // pool.
+            final anchor = card.synthesis;
+            expect(
+                HoroscopeData.primeDelGiorno[domain.index]!
+                    .expand((c) => c)
+                    .contains(anchor),
+                isTrue);
             expect(card.text.startsWith('$anchor '), isTrue);
             final current = card.text.substring(anchor.length + 1);
             // **LA FRASE DEL POOL SI LEGGE RISOLTA**, ordine DL voce 03:
@@ -158,15 +167,22 @@ void main() {
   });
 
   group('Completezza del catalogo', () {
-    test('Tutti i dodici segni, tutti e quattro i domini, titolo e ancora', () {
-      expect(HoroscopeData.anchors.length, 12);
-      for (final sign in Zodiac.values) {
-        final anchors = HoroscopeData.anchors[sign.id];
-        expect(anchors, isNotNull, reason: 'ancore mancanti per ${sign.id}');
-        expect(anchors!.length, 4);
-        for (final a in anchors) {
-          expect(a[0].trim(), isNotEmpty); // titolo
-          expect(a[1].trim(), isNotEmpty); // ancora
+    // LAPIDE, ordine ER voce 14: qui si contavano le ancore dei dodici segni.
+    // Titolo e prima parte vengono adesso dal giorno nelle dodici case.
+    test('Quattro domini, dodici case, tre titoli e tre prime parti', () {
+      for (final tabella in [
+        HoroscopeData.titoliDelGiorno,
+        HoroscopeData.primeDelGiorno
+      ]) {
+        expect(tabella.length, 4);
+        for (final case_ in tabella.values) {
+          expect(case_.length, 12);
+          for (final tre in case_) {
+            expect(tre.length, 3);
+            for (final t in tre) {
+              expect(t.trim(), isNotEmpty);
+            }
+          }
         }
       }
     });
@@ -213,10 +229,14 @@ void main() {
     test('Nessun apostrofo-accento nei testi del corpus modellato', () {
       final strings = <String>[HoroscopeData.disclaimer];
       strings.addAll(HoroscopeData.openings);
-      for (final anchors in HoroscopeData.anchors.values) {
-        for (final a in anchors) {
-          strings.add(a[0]);
-          strings.add(a[1]);
+      for (final tabella in [
+        HoroscopeData.titoliDelGiorno,
+        HoroscopeData.primeDelGiorno
+      ]) {
+        for (final case_ in tabella.values) {
+          for (final tre in case_) {
+            strings.addAll(tre);
+          }
         }
       }
       for (final pool in HoroscopeData.dayPools.values) {
