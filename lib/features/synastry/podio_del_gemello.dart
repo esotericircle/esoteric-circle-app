@@ -72,6 +72,91 @@ class PodioDelGemello extends StatelessWidget {
   }
 }
 
+/// **IL NOME SUL PODIO, IN DUE RIGHE INTERE.** Sulla build 2285 (ordine ER) il
+/// podio scriveva "Damian / o David" e "Priyank / a Chop", e la seconda riga
+/// finiva sotto il gradino: il nome stava in una casella alta 34 punti e larga
+/// quanto la carta, e il carattere vero andava a capo dove capitava. Il difetto
+/// era nato col podio (commit d24b7308, 31 agosto 2026).
+///
+/// Adesso il nome si divide sullo spazio piu' vicino alla meta', mai dentro una
+/// parola, ogni riga sta su una riga sola e si stringe solo se non ci sta, e la
+/// casella e' alta quanto due righe vere del carattere a quella scala: i tre
+/// gradini partono dalla stessa linea anche con un nome di una parola.
+class NomeSulPodio extends StatelessWidget {
+  const NomeSulPodio({
+    super.key,
+    required this.nome,
+    required this.larghezza,
+    required this.stile,
+  });
+
+  final String nome;
+  final double larghezza;
+  final TextStyle stile;
+
+  /// Le righe del nome: una se e' una parola sola, altrimenti due, divise sullo
+  /// spazio piu' vicino alla meta' dei caratteri.
+  static List<String> righe(String nome) {
+    final parole = nome.trim().split(RegExp(r'\s+'));
+    if (parole.length < 2) return [nome.trim()];
+    var migliore = 1;
+    var scarto = 1 << 30;
+    for (var i = 1; i < parole.length; i++) {
+      final a = parole.take(i).join(' ').length;
+      final b = parole.skip(i).join(' ').length;
+      if ((a - b).abs() < scarto) {
+        scarto = (a - b).abs();
+        migliore = i;
+      }
+    }
+    return [
+      parole.take(migliore).join(' '),
+      parole.skip(migliore).join(' '),
+    ];
+  }
+
+  /// L'altezza di una riga del carattere [stile] alla scala di lettura di
+  /// [context]. La usa anche il palco del Gemello, che cresce col nome.
+  static double riga(BuildContext context, TextStyle stile) => (TextPainter(
+        text: TextSpan(text: 'Ag', style: stile),
+        textDirection: TextDirection.ltr,
+        textScaler: MediaQuery.textScalerOf(context),
+      )..layout())
+          .height;
+
+  /// Quanto e' alta la casella del nome: due righe.
+  static double altezza(BuildContext context) =>
+      2 * riga(context, TypographyTokens.etichetta());
+
+  @override
+  Widget build(BuildContext context) {
+    final riga = NomeSulPodio.riga(context, stile);
+    final r = righe(nome);
+    return SizedBox(
+      width: larghezza,
+      height: riga * 2,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          for (final t in r)
+            SizedBox(
+              width: larghezza,
+              height: riga,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(t,
+                    maxLines: 1,
+                    softWrap: false,
+                    textAlign: TextAlign.center,
+                    style: stile),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
 class _UnPosto extends StatelessWidget {
   const _UnPosto({
     required this.voce,
@@ -126,17 +211,12 @@ class _UnPosto extends StatelessWidget {
         // l'anteprima: i tre nomi andavano a capo un numero diverso di
         // volte, e i gradini finivano a tre altezze scombinate. Un podio
         // in cui i gradini non partono dalla stessa linea non e' un podio.
-        SizedBox(
-          width: larga,
-          height: 34,
-          child: Text(
-            voce.vip.name,
-            textAlign: TextAlign.center,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: TypographyTokens.etichetta().copyWith(
-                color: primo ? palette.goldSoft : ColorTokens.textSecondary),
-          ),
+        NomeSulPodio(
+          key: Key('gemello_podio_nome_${voce.posto}'),
+          nome: voce.vip.name,
+          larghezza: larga,
+          stile: TypographyTokens.etichetta().copyWith(
+              color: primo ? palette.goldSoft : ColorTokens.textSecondary),
         ),
         const SizedBox(height: SpacingTokens.xxs),
         // **IL GRADINO, che e' la parte che si legge senza leggere.** Porta il

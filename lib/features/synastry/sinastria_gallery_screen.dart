@@ -24,6 +24,26 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/components/riga_del_residuo.dart';
 import '../../core/entitlement/budget_del_giorno.dart';
 
+/// **IL NOME COME SI CERCA**: minuscolo e senza segni. Sulla build 2285
+/// (ordine ER) "beyonce" non trovava piu' nessuno: la voce ER.19 aveva dato a
+/// Beyoncé il suo accento, e la ricerca confrontava i nomi cosi' come sono.
+/// Chi scrive sulla tastiera del telefono gli accenti spesso non li mette.
+String perLaRicerca(String s) {
+  const segni = {
+    'à': 'a', 'á': 'a', 'â': 'a', 'ä': 'a', 'ã': 'a', 'å': 'a', //
+    'è': 'e', 'é': 'e', 'ê': 'e', 'ë': 'e',
+    'ì': 'i', 'í': 'i', 'î': 'i', 'ï': 'i',
+    'ò': 'o', 'ó': 'o', 'ô': 'o', 'ö': 'o', 'õ': 'o', 'ø': 'o',
+    'ù': 'u', 'ú': 'u', 'û': 'u', 'ü': 'u',
+    'ñ': 'n', 'ç': 'c', 'ý': 'y', 'ÿ': 'y',
+  };
+  final b = StringBuffer();
+  for (final c in s.toLowerCase().split('')) {
+    b.write(segni[c] ?? c);
+  }
+  return b.toString();
+}
+
 /// La galleria di apertura della Sinastria VIP: si sceglie il VIP, poi si vede
 /// il responso. E' l'apertura vera dell'arte.
 ///
@@ -151,10 +171,10 @@ class _SinastriaGalleryScreenState extends State<SinastriaGalleryScreen> {
   }
 
   List<Vip> get _filtrati {
-    final q = _query.trim().toLowerCase();
+    final q = perLaRicerca(_query.trim());
     return VipCatalog.vips.where((v) {
       final okCat = _categoria == _tutti || v.category == _categoria;
-      final okNome = q.isEmpty || v.name.toLowerCase().contains(q);
+      final okNome = q.isEmpty || perLaRicerca(v.name).contains(q);
       return okCat && okNome;
     }).toList(growable: false);
   }

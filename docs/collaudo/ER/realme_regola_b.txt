@@ -1,0 +1,74 @@
+ORDINE ER, I DIFETTI VISTI SUL REALME ALLA BUILD 2285: LE GUARDIE
+27 settembre 2026. Regola B: le guardie delle tre zone viste rosse (o no) sulla versione di HEAD prima di toccarle. Regola A: la guardia nuova test/i_difetti_visti_sul_realme_alla_2285_test.dart vista rossa con un innesto per difetto.
+
+===================== regola_b_telefono =====================
+== Regola B, porta: la riga sotto la carta Tu cambia parole
+   file lib/features/synastry/porta_della_sinastria.dart, sha1 prima d51d487de4b1, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +2 -1: Some tests failed.
+   Expected: exactly one matching candidate
+   Actual: _TextWidgetFinder:<Found 0 widgets with text "Cambia la tua foto": []>
+   ripristinato: sha1 d51d487de4b1, uguale, compagni tornati: True
+== Regola B, podio: il nome sotto la carta sparisce
+   file lib/features/synastry/podio_del_gemello.dart, sha1 prima 27710a13ced1, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:04 +8: All tests passed!
+   ripristinato: sha1 27710a13ced1, uguale, compagni tornati: True
+== Regola B, podio: lo stesso, contro la prova della schermata sola
+   file lib/features/synastry/podio_del_gemello.dart, sha1 prima 27710a13ced1, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:02 +2: All tests passed!
+   ripristinato: sha1 27710a13ced1, uguale, compagni tornati: True
+== Regola B, galleria: la ricerca per nome non trova nessuno
+   file lib/features/synastry/sinastria_gallery_screen.dart, sha1 prima 4caacaf3a4b1, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +4: All tests passed!
+   ripristinato: sha1 4caacaf3a4b1, uguale, compagni tornati: True
+
+===================== regola_a_realme =====================
+== Regola A, 2285: il Gemello torna sul nero (senza il cielo)
+   file lib/features/synastry/schermata_del_gemello.dart, sha1 prima 5237daa0871c, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:03 +0 -1: Some tests failed.
+   Expected: exactly one matching candidate
+   Actual: _DescendantWidgetFinder:<Found 0 widgets with type "CosmosBackground" descending from
+   ripristinato: sha1 5237daa0871c, uguale
+== Regola A, 2285: il nome sul podio torna in una casella di 34 punti che va a capo dove capita
+   file lib/features/synastry/podio_del_gemello.dart, sha1 prima 2c83ec6a9c0f, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:03 +0 -2: Some tests failed.
+   Expected: empty
+   Actual: [
+   Expected: empty
+   Actual: [
+   ripristinato: sha1 2c83ec6a9c0f, uguale
+== Regola A, 2285: la ricerca torna a confrontare i nomi coi segni
+   file lib/features/synastry/sinastria_gallery_screen.dart, sha1 prima a1dad15c02b3, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +0 -1: Some tests failed.
+   Expected: <1>
+   Actual: <0>
+   ripristinato: sha1 a1dad15c02b3, uguale
+== Regola A, 2285: la riga sotto la carta Tu torna a una riga coi puntini
+   file lib/features/synastry/porta_della_sinastria.dart, sha1 prima 9422fa163b8f, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:01 +0 -1: Some tests failed.
+   Expected: false
+   Actual: <true>
+   ripristinato: sha1 9422fa163b8f, uguale
+
+Le colpe che la guardia trova col nome del podio di prima (innesto rifatto a mano, file tornato con sha1 2c83ec6a9c0f):
+  a scala 1.0: Damiano David va a capo dentro una parola: "Damian|o David"; Priyanka Chopra: "Priyank|a Chopra"; i tre nomi chiedono 38.0 punti in una casella di 34.0
+  a scala 1.3: "Damia|no David", "Priyan|ka Chopra"; 50.0 punti in una casella di 34.0
+Sono le parole viste sul Realme (docs/collaudo/ER/realme/er06_gemello_03_raffica_podio.png).
+
+===================== I VERDI, LETTI =====================
+- Regola B sul podio: VERDE contro tutte e due le prove del Gemello col nome
+  tolto. Nessuna guardava il nome sotto la carta: la zona era scoperta dalla
+  nascita del podio (commit d24b7308, 31 agosto 2026). La copre adesso la
+  guardia nuova.
+- Regola B sulla galleria: VERDE con la ricerca che non trova nessuno.
+  Nessuna guardia provava la ricerca per nome (PROVENIENZA IGNOTA della
+  mancanza); il difetto della 2285 lo ha causato la voce ER.19, che ha dato a
+  Beyoncé il suo accento. La copre adesso la guardia nuova, sulla galleria
+  vera.

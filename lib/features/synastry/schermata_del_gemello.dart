@@ -9,6 +9,7 @@ import '../../core/synastry/cielo_della_sinastria.dart';
 import '../../core/synastry/gemello_astrale.dart';
 import '../../core/synastry/synastry_report.dart';
 import '../../core/synastry/vip_catalog.dart';
+import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../design_system/components/riga_del_residuo.dart';
@@ -259,8 +260,13 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
   @override
   Widget build(BuildContext context) {
     final palette = MaestroScope.forse(context) ?? MaestroPalette.medora;
+    // **IL GEMELLO SUL CIELO, NON SUL NERO.** Il fondatore, guardando la
+    // build 2285 (ordine ER): "La schermata del nastro delle carte ha sfondo
+    // nero, perche'? Dovrebbe essere cosmico". Il fondo nero era nato con la
+    // schermata, ordine CF voce 14, e la voce ER.06 lo aveva ereditato; la
+    // porta della sinastria e i responsi stanno sul cielo.
     return Scaffold(
-      backgroundColor: ColorTokens.neutralDeepest,
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -271,37 +277,41 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
         title:
             Text('Il tuo gemello', style: TypographyTokens.titoloDiSchermata()),
       ),
-      body: SafeArea(
-        child: AnimatedBuilder(
-          animation: _corsa,
-          builder: (context, _) => ListView(
-            key: const Key('gemello_schermata'),
-            padding: const EdgeInsets.all(SpacingTokens.lg),
-            children: [
-              _ilPalco(palette),
-              if (!_cercato) ...[
-                const SizedBox(height: SpacingTokens.lg),
-                Center(
-                  child: FilledButton.icon(
-                    key: const Key('gemello_cerca'),
-                    onPressed: _gemello == null ? null : _cerca,
-                    style: FilledButton.styleFrom(
-                      backgroundColor: palette.gold,
-                      foregroundColor: palette.deepest,
-                      minimumSize: const Size.fromHeight(52),
-                      shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(SpacingTokens.radiusLg),
+      body: CosmosBackground(
+        key: const Key('gemello_cielo'),
+        seed: 29,
+        child: SafeArea(
+          child: AnimatedBuilder(
+            animation: _corsa,
+            builder: (context, _) => ListView(
+              key: const Key('gemello_schermata'),
+              padding: const EdgeInsets.all(SpacingTokens.lg),
+              children: [
+                _ilPalco(palette),
+                if (!_cercato) ...[
+                  const SizedBox(height: SpacingTokens.lg),
+                  Center(
+                    child: FilledButton.icon(
+                      key: const Key('gemello_cerca'),
+                      onPressed: _gemello == null ? null : _cerca,
+                      style: FilledButton.styleFrom(
+                        backgroundColor: palette.gold,
+                        foregroundColor: palette.deepest,
+                        minimumSize: const Size.fromHeight(52),
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(SpacingTokens.radiusLg),
+                        ),
                       ),
+                      icon: const Icon(Icons.auto_awesome, size: 18),
+                      label: Text('Cerca il tuo gemello VIP',
+                          style: TypographyTokens.titoloScheda()),
                     ),
-                    icon: const Icon(Icons.auto_awesome, size: 18),
-                    label: Text('Cerca il tuo gemello VIP',
-                        style: TypographyTokens.titoloScheda()),
                   ),
-                ),
+                ],
+                ..._ilRacconto(palette),
               ],
-              ..._ilRacconto(palette),
-            ],
+            ),
           ),
         ),
       ),
@@ -319,7 +329,12 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
             SchermataDelGemello.sfumaturaDegliAltri);
     return SizedBox(
       key: const Key('gemello_palco'),
-      height: _NastroDeiVolti.altezzaDelPalco,
+      // Il palco cresce quanto cresce il nome sul podio: i 262 punti erano
+      // pensati per un nome alto 34, e col nome in due righe vere del
+      // carattere (build 2285, ordine ER) il podio non ci stava.
+      height: _NastroDeiVolti.altezzaDelPalco -
+          _NastroDeiVolti.nomeDelProgetto +
+          NomeSulPodio.altezza(context),
       child: Stack(
         clipBehavior: Clip.none,
         children: [
@@ -573,6 +588,9 @@ class _NastroDeiVolti extends StatelessWidget {
   /// le carte del podio stanno prima di salire: cosi' la sostituzione non si
   /// vede come un salto.
   static const double altezzaDelPalco = 262;
+
+  /// L'altezza del nome sul podio per cui i 262 punti erano stati fatti.
+  static const double nomeDelProgetto = 34;
   static const double cimaDelNastro = 79;
 
   static const int partenza = SchermataDelGemello.cartaDiPartenza;

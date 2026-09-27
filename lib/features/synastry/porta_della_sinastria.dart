@@ -562,11 +562,14 @@ class _Casella extends StatelessWidget {
                 TypographyTokens.etichetta().copyWith(color: palette.goldSoft),
           ),
           if (suggerimento != null)
+            // **DUE RIGHE, NON I TRE PUNTINI.** Sulla build 2285 (ordine ER)
+            // la riga si leggeva "Aggiungi la tu..." e "Cambia la tua ...":
+            // la colonna della carta e' stretta, e una riga sola non basta.
             Text(
               suggerimento!,
+              key: const Key('sinastria_suggerimento_tu'),
               textAlign: TextAlign.center,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
               style: TypographyTokens.etichetta()
                   .copyWith(color: ColorTokens.textSecondary),
             ),
