@@ -5323,6 +5323,119 @@ attesa della prima consegna vera:
 Le istruzioni della consegna sono in `docs/ordini/DISTRIBUZIONI_DAL_TUO_PC.md`,
 passo 6: commit, spinta, spunta verde su GitHub, build, consegna.
 
+## L'ORDINE EQ, LE CHAT CHE RISPONDONO E LA STESA DI TAROCCHI CHE INTERPRETA
+
+Ordine e lavoro del 27 settembre 2026, dodici voci, **in corso**: nessuna
+chiusa, sette aperte in attesa di verifica, cinque da fare. Manifesto
+`docs/ordini/ORDINE_EQ_MANIFESTO.md` con la sua guardia
+`test/ordine_eq_guard_test.dart`, prove in `docs/collaudo/EQ/` e
+`docs/collaudo/EQ/realme/`. Il fondatore, su come procedere: *"Tutto, a
+parti"*, prima le chat (EQ.01-03), poi i tarocchi (EQ.04-06), poi i difetti
+delle catture (EQ.07-12), un commit per voce. Sulle catture: *"Lascia stare i
+riferimenti a iPhone 17, non è collegato e non posso usarlo ancora. Solo gli
+screenshot sono corretti e appartengono a iPhone 17"*. Le voci grafiche si
+provano quindi a 402 per 874 punti con la piattaforma iOS e a 360; si
+guardano sul Realme. **Questo ordine non consegna niente**: le build le
+ordina il fondatore. Le catture dal Realme si fanno con una build locale
+sola, a voci finite, installata sul telefono di prova e non consegnata.
+
+**LA RIGA D'ORO NON SI RIPETE (EQ.01).** Nelle catture la stessa riga,
+*"Scrivi su un foglio di carta bianca tre cose che vorresti realizzare"*,
+tornava quattro volte, anche sotto la presentazione e dopo *"Ok, le ho
+scritte"*. L'esempio del foglio esce da `ConsiglioFinale.istruzione` (il
+modello lo ricopiava); l'eccezione si allarga a chi saluta o chiede che cosa
+fa il Maestro; un passo appena fatto non si chiede di rifare. A valle
+`IlPassoDaNonDare` (`lib/core/chat/il_passo_da_non_dare.dart`) toglie la riga
+sotto una presentazione, quando e' uguale o simile a una gia' data (la misura
+di casa 0,32 piu' due parole piene in comune, tarata su 1.202 coppie vere dei
+collaudi EJ, EK ed EN) e quando chiede di rifare il verbo del passo appena
+detto fatto. Vale anche nel LIVE, dove il testo che arriva si ferma alla
+stella: la riga tolta non passa a video nemmeno per un istante. La bolla non
+mostra la riga sotto la risposta a una presentazione, anche nelle
+conversazioni salvate. **Un difetto trovato dal collaudo, padre EQ.01 prima
+stesura**: nel LIVE Flash-Lite ha risposto con la sola riga d'oro ripetuta; la
+regola la lasciava per non dare una bolla vuota. Adesso quella risposta si
+chiede di nuovo una volta, poi arriva la lettura di ripiego, mai la riga.
+**Misura a schermo**, due giri con dati diversi per Maestro: righe uguali o
+simili a una gia' data da 3 su 30 a 0 su 22, presentazioni con la riga da 6 su
+12 a 0 su 12, passi da rifare da 2 su 12 a 0 su 12; quattro giri di fila
+puliti sull'istruzione definitiva (`docs/collaudo/EQ/eq01_righe_d_oro.txt`).
+
+**IL MAESTRO RISPONDE CON LA SUA ARTE (EQ.02).** Decisione del fondatore
+sulla domanda girata a ordine aperto, *"Prima la sua arte"*: il Maestro
+risponde sempre nel merito con la sua arte, a ogni parte della domanda;
+nomina l'altro Maestro solo in fondo, in una frase, come consiglio in piu'.
+**Cambia la regola dell'ordine EN**, *"la tua prima frase lo dice e lo chiama
+per nome"*, che non vale piu'. Nell'istruzione: il cerchio
+(`VoceDelMaestro.ilCerchio`), le due righe del dominio (`MaestroPersona`), le
+domande a piu' parti e il si' o il no in prima frase
+(`LaRispostaNelMerito`), un controllo prima di scrivere in fondo a tutto
+(`LaRispostaNelMerito.primaDiScrivere`). A valle `IlRimandoInFondo`
+(`lib/core/chat/il_rimando_in_fondo.dart`) sposta in fondo la prima frase che
+nomina un altro Maestro. **Misura**, diciotto domande di confine per giro:
+prime frasi che rimandano a un altro Maestro da 9 a 0; parti della domanda
+senza risposta da 15 a 8 su 28, **non a 0**: per questo la voce resta
+aperta anche oltre la cattura: Caligo, alla domanda delle catture, risponde a
+volte in generale, per sentenze (`docs/collaudo/EQ/eq02_domande_di_confine.txt`).
+
+**L'ISTRUZIONE E' CAMBIATA, L'ATTRIBUZIONE CIECA E' RIFATTA.** Impronte
+registrate il 27 settembre 2026 in `ImprontaDellIstruzione`, con la stringa
+dell'ordine EO (build 2283 e 2284, 89,1 per cento) nello storico. Tre giri
+sulle impronte nuove: 96,7, 98,3 e 95,0 per cento, media **96,7** (174 su
+180), sette punti e sei sopra l'89,1 dell'ordine EO; Caligo fa 19, 19 e 17 su
+20 (`docs/collaudo/EQ/attribuzione/`).
+
+**LA STESA DI TAROCCHI.** **EQ.04, la lettura che interpreta davvero**, e'
+scelta e cominciata: una chiamata sola a Flash per la lettura intera
+(`lib/core/tarot/la_lettura_dal_modello.dart`), ancorata ai significati
+tradizionali e ai 468 testi delle carte nella loro posizione, generati una
+volta sola; senza rete resta il comporre di prima. **Non c'e' cache**: le
+stese ordinate con il verso sono milioni per ogni argomento, una cache non
+verrebbe quasi mai colpita. Il collaudo "prima" si fa prima di toccare
+`TarotReading`. **Le voci grafiche sono misurate nelle prove**
+(`test/la_stesa_si_legge_intera_test.dart`), in attesa della cattura:
+- EQ.05, la carta chiave cresceva attorno al suo centro e copriva
+  "PRESENTE": ora le carte crescono dal bordo basso, ogni scritta a 16 punti
+  dalla sua carta (prima circa -6), scritte allineate;
+- EQ.06, nella card da condividere la colonna delle posizioni e' larga
+  quanto la piu' lunga col carattere vero, "PRESENTE" 79,4 in 88,0, niente a
+  capo; nel riepilogo il segno del verso comincia la seconda riga in tutte e
+  tre, bordo sinistro 24,0;
+- EQ.11, "Stesa di Tarocchi" su una riga, a 402 con iOS e a 360;
+- EQ.12, "IL CONSIGLIO DI MEDORA" intero su una riga, anche a scala del
+  testo 1,3.
+
+**I CONTATORI (EQ.07).** Sul Realme, con la stessa build 2284 delle
+catture, il contatore delle domande scende: 50, 49 dopo una domanda in chat,
+48 dopo la seconda (`docs/collaudo/EQ/realme/`). Le quattro risposte delle
+catture hanno la forma del LIVE: **i turni del LIVE non consumano domande**
+per la decisione dell'ordine EG voce 06. Se debbano contarle e' una domanda
+per il fondatore.
+Resta da fare la bolla "Chiedi anche agli altri", che dice "Oggi te ne
+restano 20 su 20" senza dire di che cosa.
+
+**LA CONVERSAZIONE SOPRA LA CASELLA (EQ.08).** La conversazione si ritaglia
+sopra il bordo alto della casella di scrittura, seguendo la barra del Cerchio
+quando scende e sale: punti di conversazione sotto la casella da 74 a 0, a
+360 e a 402 punti.
+
+**LE GUARDIE.** Cinque nuove, `la_riga_d_oro_che_non_va_data`,
+`prima_la_sua_arte`, `la_stesa_si_legge_intera`,
+`i_messaggi_stanno_fra_i_contatori_e_la_casella` e `ordine_eq_guard`,
+registro a **544**. **Una guardia di casa era cieca**:
+`la_chiave_e_il_consiglio_si_vedono` misurava il titolo del consiglio a 328
+punti, piu' del riquadro vero: restava verde mentre sul telefono Medora
+spariva (padre: ordine BU voce 01); riscritta con la lapide sul paragrafo
+dipinto. **Una guardia nuova e' nata cieca**: la prova del titolo del
+consiglio, a scala 1,0, restava verde col testo di prima; cambiata la
+grandezza, non la soglia, adesso guarda anche la scala 1,3 ed e' rossa.
+
+**RESTA DA FARE**, in quest'ordine: EQ.04 (il collaudo prima, la lettura
+nello schermo e nella card, il collaudo dopo in due giri), EQ.03 (il collaudo
+nel LIVE e in chat, la scelta del modello del LIVE), EQ.07 (la bolla), EQ.09
+ed EQ.10; poi la build locale sul Realme, le catture di tutte le voci
+grafiche e il rapporto `docs/ordini/RAPPORTO_ORDINE_EQ.md`.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.
