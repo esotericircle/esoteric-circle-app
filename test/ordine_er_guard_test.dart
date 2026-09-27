@@ -5,13 +5,14 @@ import 'package:flutter_test/flutter_test.dart';
 
 /// **LA GUARDIA DELL'ORDINE ER.** 27 settembre 2026.
 ///
-/// Il manifesto nasce col lavoro e porta tutte e diciannove le voci, ognuna con
+/// Il manifesto nasce col lavoro e porta tutte e venti le voci (diciannove
+/// dell'ordine e la ER.20 dell'aggiunta del fondatore), ognuna con
 /// uno stato solo: CHIUSA, APERTA IN ATTESA DI VERIFICA, oppure DA FARE
 /// finche' l'ordine e' in corso. I marcatori a macchina devono dire le stesse
 /// cose che dicono le voci.
 void main() {
   final manifesto = File('docs/ordini/ORDINE_ER_MANIFESTO.md');
-  const quante = 19;
+  const quante = 20;
 
   int marcatore(String testo, String nome) {
     final trovato =
@@ -21,7 +22,7 @@ void main() {
     return int.parse(trovato!.group(1)!);
   }
 
-  test('il manifesto esiste e porta tutte e diciannove le voci', () {
+  test('il manifesto esiste e porta tutte e venti le voci', () {
     expect(manifesto.existsSync(), isTrue,
         reason: 'il manifesto nasce col lavoro');
     final testo = manifesto.readAsStringSync();

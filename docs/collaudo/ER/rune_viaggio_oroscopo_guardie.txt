@@ -1,0 +1,333 @@
+ORDINE ER, VOCI 01, 02, 14 E 15: LE GUARDIE VISTE ROSSE
+27 settembre 2026. Regola B: la guardia della zona vista rossa prima di toccarla. Regola A: la guardia nuova vista rossa con un innesto verificato col grep, poi il file ripristinato e controllato con lo sha1.
+
+===================== regola_b_oroscopo =====================
+== Regola B, ER.14: il titolo della scheda diventa la prima parte
+   file lib/core/horoscope/horoscope.dart, sha1 prima 0be709b008f5, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +13: All tests passed!
+   ripristinato: sha1 0be709b008f5, uguale
+== Regola B, ER.14: la prima parte del testo sparisce
+   file lib/core/horoscope/horoscope.dart, sha1 prima 0be709b008f5, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -3: Some tests failed.
+   Expected: empty
+   Actual: [
+   Expected: true
+   Actual: <false>
+   ripristinato: sha1 0be709b008f5, uguale
+
+===================== regola_b_viaggio =====================
+== Regola B, ER.15: il titolo ripetuto non si scarta piu'
+   file lib/core/viaggio/le_guardie_del_responso.dart, sha1 prima 886c7f5106a3, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +27 -1: Some tests failed.
+   ripristinato: sha1 886c7f5106a3, uguale
+== Regola B, ER.02/ER.15: l'istruzione perde il divieto del fuoco (nessuna guardia legge le regole dell'azione)
+   file lib/core/viaggio/la_scena_dal_modello.dart, sha1 prima 444da14e343e, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:05 +11: All tests passed!
+   ripristinato: sha1 444da14e343e, uguale
+
+===================== regola_a_er14_er02_er01 =====================
+(Righe salvate dall'uscita della console: il giro si e' fermato all'ottavo innesto per un ancoraggio in LF su un file CRLF, prima di scrivere il suo rapporto. I tre innesti rimasti sono rifatti in regola_a_er02_resto.txt.)
+== Regola A, ER.14: la variante del giorno resta sempre la prima
+   file lib/core/horoscope/horoscope.dart, sha1 prima 76d5520958b0, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ripristinato: sha1 76d5520958b0, uguale
+== Regola A, ER.14: la casa della Luna resta la prima (titoli dal giorno, non dal cielo)
+   file lib/core/horoscope/horoscope.dart, sha1 prima 76d5520958b0, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ripristinato: sha1 76d5520958b0, uguale
+== Regola A, ER.14 (le leggi delle prime parti): una prima parte dice oggi
+   file lib/core/horoscope/horoscope_data.dart, sha1 prima 6d16a9a772dd, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ripristinato: sha1 6d16a9a772dd, uguale
+== Regola A, ER.01: la richiesta perde la riga del corpus
+   file lib/core/rituals/la_lettura_delle_rune.dart, sha1 prima 219d65a7866c, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ripristinato: sha1 219d65a7866c, uguale
+== Regola A, ER.01: la guardia lascia passare le rune nella risposta
+   file lib/core/rituals/la_lettura_delle_rune.dart, sha1 prima 219d65a7866c, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ripristinato: sha1 219d65a7866c, uguale
+== Regola A, ER.01: il provider chiede le pietre senza schema
+   file lib/services/ai/firebase_maestro_ai_provider.dart, sha1 prima 9dd6bdcb70f1, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ripristinato: sha1 9dd6bdcb70f1, uguale
+== Regola A, ER.01: l'istruzione perde la risposta diretta
+   file lib/services/ai/maestro_persona.dart, sha1 prima 0edbf47e1055, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ripristinato: sha1 0edbf47e1055, uguale
+
+===================== regola_a_er02_resto =====================
+== Regola A, ER.15: la schermata non passa le azioni del Diario
+   file lib/features/maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart, sha1 prima ab213d82b2ed, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: contains 'azioniGiaDate: LaScenaDalModello.azioniDalDiario('
+   Actual: 'import \'dart:async\';\r\n'
+   ripristinato: sha1 ab213d82b2ed, uguale
+== Regola A, ER.02: l'imperativo negativo torna a cadere nel primo ciclo
+   file lib/core/viaggio/le_guardie_del_responso.dart, sha1 prima 28893f974cd6, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: null
+   Actual: MotivoDelloScarto:<MotivoDelloScarto.statoDiUnTerzo>
+   ripristinato: sha1 28893f974cd6, uguale
+== Regola A, ER.15: il foglio torna subito
+   file lib/core/viaggio/le_guardie_del_responso.dart, sha1 prima 28893f974cd6, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: null
+   Actual: 'Entro sabato scrivi su un quaderno il nome della tua via.'
+   ripristinato: sha1 28893f974cd6, uguale
+
+===================== regola_a_giro7 =====================
+== Regola A, ER.15: la scrittura torna a passare senza scritture prima
+   file lib/core/viaggio/le_guardie_del_responso.dart, sha1 prima d5fbdfcf6675, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: null
+   Actual: 'Entro sabato scrivi su un quaderno il nome della tua via.'
+   ripristinato: sha1 d5fbdfcf6675, uguale
+== Regola A, ER.15: il messaggio a una persona torna a essere un foglio
+   file lib/core/viaggio/le_guardie_del_responso.dart, sha1 prima d5fbdfcf6675, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: false
+   Actual: <true>
+   ripristinato: sha1 d5fbdfcf6675, uguale
+== Regola A, ER.15: l'azione simile non si guarda piu'
+   file lib/core/viaggio/le_guardie_del_responso.dart, sha1 prima d5fbdfcf6675, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: MotivoDelloScarto:<MotivoDelloScarto.azioneRipetuta>
+   Actual: MotivoDelloScarto:<MotivoDelloScarto.chiedeDiScrivere>
+   ripristinato: sha1 d5fbdfcf6675, uguale
+== Regola A, ER.02: l'imperativo di chi legge cade nel primo giro
+   file lib/core/viaggio/le_guardie_del_responso.dart, sha1 prima d5fbdfcf6675, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: null
+   Actual: MotivoDelloScarto:<MotivoDelloScarto.statoDiUnTerzo>
+   ripristinato: sha1 d5fbdfcf6675, uguale
+== Regola A, ER.02: l'imperativo di chi legge cade nel secondo giro
+   file lib/core/viaggio/le_guardie_del_responso.dart, sha1 prima d5fbdfcf6675, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: null
+   Actual: MotivoDelloScarto:<MotivoDelloScarto.statoDiUnTerzo>
+   ripristinato: sha1 d5fbdfcf6675, uguale
+== Regola A, ER.02: cio' che chi legge non puo' sapere torna a cadere
+   file lib/core/viaggio/le_guardie_del_responso.dart, sha1 prima d5fbdfcf6675, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: null
+   Actual: MotivoDelloScarto:<MotivoDelloScarto.statoDiUnTerzo>
+   ripristinato: sha1 d5fbdfcf6675, uguale
+== Regola A, ER.02: "Non ti serve" in testa torna a cadere
+   file lib/core/viaggio/le_guardie_del_responso.dart, sha1 prima d5fbdfcf6675, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: null
+   Actual: MotivoDelloScarto:<MotivoDelloScarto.statoDiUnTerzo>
+   ripristinato: sha1 d5fbdfcf6675, uguale
+== Regola A, ER.02: l'imperativo negativo col pronome torna a cadere
+   file lib/core/viaggio/le_guardie_del_responso.dart, sha1 prima d5fbdfcf6675, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: null
+   Actual: MotivoDelloScarto:<MotivoDelloScarto.statoDiUnTerzo>
+   ripristinato: sha1 d5fbdfcf6675, uguale
+== Regola A, ER.02: il dubbio perde "che cosa"
+   file lib/core/viaggio/le_guardie_del_responso.dart, sha1 prima d5fbdfcf6675, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: null
+   Actual: MotivoDelloScarto:<MotivoDelloScarto.previsioneCerta>
+   ripristinato: sha1 d5fbdfcf6675, uguale
+== Regola A, ER.02: la prima frase che rimanda passa
+   file lib/core/viaggio/le_guardie_del_responso.dart, sha1 prima d5fbdfcf6675, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +27 -1: Some tests failed.
+   Expected: MotivoDelloScarto:<MotivoDelloScarto.nonPrendePosizione>
+   Actual: <null>
+   ripristinato: sha1 d5fbdfcf6675, uguale
+== Regola A, ER.02: la salute perde l'esenzione
+   file lib/core/viaggio/le_guardie_del_responso.dart, sha1 prima d5fbdfcf6675, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +27 -1: Some tests failed.
+   Expected: null
+   Actual: MotivoDelloScarto:<MotivoDelloScarto.nonPrendePosizione>
+   ripristinato: sha1 d5fbdfcf6675, uguale
+== Regola A, ER.02: la posizione esce dallo schema del Viaggio
+   file lib/core/viaggio/la_scena_dal_modello.dart, sha1 prima 018b6fadd4ea, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: contains '\'posizione\': Schema.enumString(enumValues: posizioni)'
+   Actual: 'import \'dart:async\';\n'
+   ripristinato: sha1 018b6fadd4ea, uguale
+== Regola A, ER.02: senza genere il Viaggio perde la regola della Stesa
+   file lib/core/viaggio/la_scena_dal_modello.dart, sha1 prima 018b6fadd4ea, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: contains '- Chi legge può essere un uomo o una donna. Nelle frasi su chi legge non scrivere mai essere, sentirsi, restare, rimanere, stare o diventare seguiti da un aggettivo o da un participio («sei passat…», 
+   Actual: 'Componi la scena di un viaggio sciamanico nel Mondo di Sotto. Il Lupo accompagna la persona. Scegli ESATTAMENTE quattro pezzi, uno per elenco, solo fra quelli scritti qui: non inventarne altri.\n'
+   ripristinato: sha1 018b6fadd4ea, uguale
+== Regola A, ER.01: la prima frase per immagini passa
+   file lib/core/rituals/la_lettura_delle_rune.dart, sha1 prima 4b8bf6b49767, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +4: All tests passed!
+   ripristinato: sha1 4b8bf6b49767, uguale
+== Regola A, ER.01: la posizione scelta e non detta passa
+   file lib/core/rituals/la_lettura_delle_rune.dart, sha1 prima 4b8bf6b49767, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: not null
+   Actual: <null>
+   ripristinato: sha1 4b8bf6b49767, uguale
+== Regola A, ER.01: due pietre con la stessa frase sulla domanda passano
+   file lib/core/rituals/la_lettura_delle_rune.dart, sha1 prima 4b8bf6b49767, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: not null
+   Actual: <null>
+   ripristinato: sha1 4b8bf6b49767, uguale
+== Regola A, ER.01: il consiglio non si taglia piu'
+   file lib/core/rituals/la_lettura_delle_rune.dart, sha1 prima 4b8bf6b49767, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: 'Domani parla con tua sorella.'
+   Actual: 'Domani parla con tua sorella, come chiede la runa. Il presagio va onorato.'
+   Expected: ... ua sorella.
+   Actual: ... ua sorella, come chi ...
+   ripristinato: sha1 4b8bf6b49767, uguale
+== Regola A, ER.01: il cammino torna fra le immagini vietate
+   file lib/core/rituals/la_lettura_delle_rune.dart, sha1 prima 4b8bf6b49767, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: null
+   Actual: 'la prima frase della risposta parla per immagini: deve dire in parole semplici sì, no, a quale condizione o il passo da fare'
+   ripristinato: sha1 4b8bf6b49767, uguale
+== Regola A, ER.01: la condizione non basta piu' a dire la posizione
+   file lib/core/rituals/la_lettura_delle_rune.dart, sha1 prima 4b8bf6b49767, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: null
+   Actual: 'hai scelto la posizione "sì a una condizione" ma la prima frase della risposta non la dice'
+   ripristinato: sha1 4b8bf6b49767, uguale
+== Regola A, ER.01: la pietra perde il campo sulla domanda nello schema
+   file lib/services/ai/firebase_maestro_ai_provider.dart, sha1 prima 07c546978e63, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: contains '\'sullaDomanda\': Schema.string()'
+   Actual: 'import \'dart:convert\';\n'
+   ripristinato: sha1 07c546978e63, uguale
+== Regola A, ER.01: la riparazione torna a ignorare cio' che sta davanti
+   file lib/core/rituals/la_lettura_delle_rune.dart, sha1 prima 4b8bf6b49767, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: contains 'il consiglio della runa'
+   Actual: 'La runa ti dice di sì. Guarda il consiglio di la runa.'
+   ripristinato: sha1 4b8bf6b49767, uguale
+== Regola A, ER.01: la posizione esce dallo schema delle rune
+   file lib/services/ai/firebase_maestro_ai_provider.dart, sha1 prima 07c546978e63, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: contains 'Schema.enumString(enumValues: LaLetturaDelleRune.posizioni)'
+   Actual: 'import \'dart:convert\';\n'
+   ripristinato: sha1 07c546978e63, uguale
+== Regola A, ER.01: l'istruzione perde la posizione
+   file lib/services/ai/maestro_persona.dart, sha1 prima 54140363e9e1, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: contains '"posizione": PRIMA DELLA RISPOSTA'
+   Actual: 'IDENTITÀ:\n'
+   ripristinato: sha1 54140363e9e1, uguale
+
+===================== regola_a_giro7b =====================
+== Regola A, ER.01, rifatta: la prima frase per immagini passa
+   file lib/core/rituals/la_lettura_delle_rune.dart, sha1 prima 32e4c745b49e, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: not null
+   Actual: <null>
+   ripristinato: sha1 32e4c745b49e, uguale
+== Regola A, ER.01: le aperture di formula tornano a passare
+   file lib/core/rituals/la_lettura_delle_rune.dart, sha1 prima 32e4c745b49e, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: not null
+   Actual: <null>
+   ripristinato: sha1 32e4c745b49e, uguale
+== Regola A, ER.01: la cornice ricopiata passa
+   file lib/core/rituals/la_lettura_delle_rune.dart, sha1 prima 32e4c745b49e, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: not null
+   Actual: <null>
+   ripristinato: sha1 32e4c745b49e, uguale
+== Regola A, ER.01: l'articolo davanti al parente resta
+   file lib/core/rituals/la_lettura_delle_rune.dart, sha1 prima 32e4c745b49e, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: 'Chiedi un incontro a tua sorella. Tua madre aspetta.'
+   Actual: 'Chiedi un incontro alla tua sorella. La tua madre aspetta.'
+   Expected: ... incontro a tua sorel ...
+   Actual: ... incontro alla tua so ...
+   ripristinato: sha1 32e4c745b49e, uguale
+== Regola A, ER.01: la congiunzione resta sola dopo il taglio
+   file lib/core/rituals/la_lettura_delle_rune.dart, sha1 prima 32e4c745b49e, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: 'Stasera chiama tua sorella prima di cena.'
+   Actual: 'Stasera chiama tua sorella e, prima di cena.'
+   Expected: ... a sorella prima di c ...
+   Actual: ... a sorella e, prima d ...
+   ripristinato: sha1 32e4c745b49e, uguale
+== Regola A, ER.01: il titolo della posizione torna con la maiuscola
+   file lib/core/rituals/la_lettura_delle_rune.dart, sha1 prima 32e4c745b49e, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +3 -1: Some tests failed.
+   Expected: not contains 'nella posizione Al centro'
+   Actual: 'Gettata: Il getto sul telo.\n'
+   ripristinato: sha1 32e4c745b49e, uguale
+
+===================== regola_a_er14_segni =====================
+== Regola A, ER.14: tutti i segni nella stessa casa (la casa non guarda il segno)
+   file lib/core/horoscope/horoscope.dart, sha1 prima 76d5520958b0, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: an object with length of <12>
+   Actual: Set:['Presenza in prima linea']
+   ripristinato: sha1 76d5520958b0, uguale
+
+===================== I VERDI, LETTI =====================
+- regola_a_er14_er02_er01, "la guardia lascia passare le rune nella risposta":
+  quella prova e' stata poi riscritta (il nome nella risposta non butta piu'
+  la lettura: diventa "la runa"), e la riparazione e' vista rossa in
+  regola_a_giro7 ("la riparazione torna a ignorare cio' che sta davanti").
+- regola_a_giro7, "la prima frase per immagini passa": VERDE. Il caso della
+  prova ("Il cammino e' velato") aveva la posizione "sì a una condizione", e
+  lo scartava la guardia della posizione, non quella delle immagini: la
+  guardia delle immagini non era misurata da sola. Cambiata la grandezza (il
+  caso con la posizione "un passo da fare"), rifatta in regola_a_giro7b:
+  ROSSA.
+- Una prova scritta in docs e' stata riscritta da un innesto: oroscopo.txt
+  diceva "casa 1" per tutti i segni in tutti i giorni, scritto dalla prova
+  mentre girava l'innesto "la casa della Luna resta la prima". Rigenerata sul
+  codice vero (28 volte ciascuna delle dodici case); e da qui la misura
+  nuova, i dodici segni leggono dodici titoli nello stesso giorno, vista
+  rossa in regola_a_er14_segni.
+- regola_b_oroscopo, "il titolo della scheda diventa la prima parte": VERDE.
+  Le guardie dell'Oroscopo guardavano il testo e le ancore, non che titolo e
+  prima parte fossero due cose distinte: la zona era scoperta
+  (PROVENIENZA IGNOTA). La copre adesso l_oroscopo_cambia_ogni_giorno, che
+  confronta titolo e prima parte di ogni scheda col giorno prima e fra i
+  dodici segni.
+- regola_b_viaggio, "l'istruzione perde il divieto del fuoco": VERDE, come
+  dice il suo nome: nessuna guardia leggeva le regole dell'azione nella
+  istruzione del Viaggio (PROVENIENZA IGNOTA). La copre adesso
+  il_viaggio_prende_posizione, che pretende "NIENTE FUOCO" e l'assenza degli
+  esempi del foglio.
