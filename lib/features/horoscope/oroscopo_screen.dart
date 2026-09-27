@@ -25,6 +25,7 @@ import '../../core/sensi/catalogo_suoni.dart';
 import '../../core/sensi/palette_sensoriale.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/testo_che_si_scrive.dart';
+import 'titolo_della_scheda_del_giorno.dart';
 import '../../design_system/components/entrance_cascade.dart';
 import '../../design_system/components/zodiac_glyph.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -1485,8 +1486,17 @@ class _HoroscopeCardView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(card.title,
-                        style: TypographyTokens.titoloScheda()
+                    // **A CAPO FRA LE PAROLE, MAI DENTRO.** Sulla build 2285
+                    // (ordine ER) la scheda della Fortuna dei Gemelli si
+                    // leggeva "AMICI PORT / AFORTUNA": i titoli del giorno
+                    // della voce ER.14 sono piu' lunghi, e la colonna accanto
+                    // alla tendina e' stretta. La card da condividere lo
+                    // risolveva dall'ordine BD voce 07; qui mancava. Vedi
+                    // [TitoloDellaSchedaDelGiorno].
+                    TitoloDellaSchedaDelGiorno(
+                        key: Key('oroscopo_titolo_${card.domain.name}'),
+                        testo: card.title,
+                        stile: TypographyTokens.titoloScheda()
                             .copyWith(color: palette.goldSoft, height: 1.1)),
                     Text(card.domain.label.toUpperCase(),
                         style: TypographyTokens.etichetta().copyWith(

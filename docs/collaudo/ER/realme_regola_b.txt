@@ -109,3 +109,27 @@ CONFESSIONE: rune_presage.dart l'ho toccato prima di vedere rosse le sue guardie
    ripristinato: sha1 3c0d2c83138c, uguale
 
 - Regola B sul presagio di casa: VERDE contro tre prove. Nessuna guardava la maiuscola in testa alle frasi (PROVENIENZA IGNOTA della mancanza). La copre adesso la guardia nuova, vista rossa.
+
+===================== I TITOLI DELL'OROSCOPO SUL REALME: regola_ab_realme_oroscopo =====================
+Sul Realme, il 28 settembre alle 00:10, la scheda della Fortuna dei Gemelli si leggeva "AMICI PORT / AFORTUNA" (docs/collaudo/ER/realme/er14_oroscopo_giorno2_05.png). Padre: la voce ER.14, che ha portato titoli del giorno piu' lunghi nella colonna stretta accanto alla tendina; la schermata usava un Text nudo, mentre la card da condividere lo risolveva dall'ordine BD voce 07. Rimpicciolire non basta: "riconoscimento" non entra nemmeno al pavimento di 12 punti. Cura: la regola della home della voce ER.09, a capo fra le parole e altrimenti col trattino a una sillaba (lib/features/horoscope/titolo_della_scheda_del_giorno.dart).
+CONFESSIONE: oroscopo_screen.dart l'ho toccato prima di vedere rosse le sue guardie; la Regola B e' fatta dopo, sulla versione di HEAD.
+
+== Regola B su HEAD, schermata dell'Oroscopo: il titolo della scheda sparisce (contro l'oroscopo e' un consulto)
+   file lib/features/horoscope/oroscopo_screen.dart, sha1 prima 5b318a0d61ee, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:03 +6: All tests passed!
+   ripristinato: sha1 5b318a0d61ee, uguale, compagni tornati: True
+== Regola B su HEAD, lo stesso contro la profondita' che si sceglie
+   file lib/features/horoscope/oroscopo_screen.dart, sha1 prima 5b318a0d61ee, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:03 +4: All tests passed!
+   ripristinato: sha1 5b318a0d61ee, uguale, compagni tornati: True
+== Regola A, 2285: il titolo della scheda torna un Text che va a capo dove capita
+   file lib/features/horoscope/titolo_della_scheda_del_giorno.dart, sha1 prima db1206f5b84d, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: ['"Amici port|afortuna"']
+   ripristinato: sha1 db1206f5b84d, uguale
+
+- Regola B sulla schermata dell'Oroscopo: VERDE contro due prove col titolo della scheda tolto. Nessuna guardava il titolo (PROVENIENZA IGNOTA della mancanza). Lo guarda adesso la guardia nuova, sui titoli dei Gemelli del 28 settembre e su tutti i 144 titoli del giorno.
