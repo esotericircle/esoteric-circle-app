@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../../core/brand/brand.dart';
@@ -38,6 +40,28 @@ class StesaShareCard extends StatelessWidget {
   final TarotTopic topic;
 
   final double width;
+
+  /// Lo stile delle posizioni sulla card.
+  static TextStyle stileDellaPosizione(MaestroPalette palette) =>
+      TypographyTokens.etichetta()
+          .copyWith(color: palette.goldSoft, letterSpacing: 0.8);
+
+  /// **LA COLONNA DELLE POSIZIONI**, larga quanto la piu' lunga delle tre
+  /// misurata col carattere vero, piu' lo spazio che la separa dal nome. La
+  /// card si disegna a misura fissa, quindi senza la scala del testo.
+  static double larghezzaDellePosizioni(MaestroPalette palette) {
+    final stile = stileDellaPosizione(palette);
+    var massima = 0.0;
+    for (final p in SpreadPosition.values) {
+      final pittore = TextPainter(
+        text: TextSpan(text: p.label.toUpperCase(), style: stile),
+        textDirection: TextDirection.ltr,
+        maxLines: 1,
+      )..layout();
+      massima = math.max(massima, pittore.width);
+    }
+    return massima.ceilToDouble() + SpacingTokens.xs;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,6 +120,12 @@ class StesaShareCard extends StatelessWidget {
             const SizedBox(height: SpacingTokens.sm),
             // I nomi a tutta larghezza: nella colonna della carta il minimo
             // tipografico li spezzerebbe a meta' parola.
+            //
+            // **LA COLONNA DELLE POSIZIONI E' LARGA QUANTO LA PIU' LUNGA.**
+            // Ordine EQ voce 06: era di 74 punti fissi, e "PRESENTE" non ci
+            // stava: sulla card si leggeva "PRESENT" e sotto una "E" da sola.
+            // Adesso si misura, col carattere vero e la scala del testo di chi
+            // guarda, e nessuna parola va a capo.
             for (final drawn in spread.cards)
               Padding(
                 padding: const EdgeInsets.only(bottom: 2),
@@ -104,10 +134,12 @@ class StesaShareCard extends StatelessWidget {
                   textBaseline: TextBaseline.alphabetic,
                   children: [
                     SizedBox(
-                      width: 74,
+                      width: larghezzaDellePosizioni(palette),
                       child: Text(drawn.position.label.toUpperCase(),
-                          style: TypographyTokens.etichetta().copyWith(
-                              color: palette.goldSoft, letterSpacing: 0.8)),
+                          key: Key('card_posizione_${drawn.position.name}'),
+                          maxLines: 1,
+                          softWrap: false,
+                          style: stileDellaPosizione(palette)),
                     ),
                     Expanded(
                       child: Text(drawn.displayName,

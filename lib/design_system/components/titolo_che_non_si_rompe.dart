@@ -36,6 +36,7 @@ class TitoloCheNonSiRompe extends StatelessWidget {
     required this.stile,
     this.righe = 2,
     this.chiaveDelTesto,
+    this.allineamento = TextAlign.center,
   });
 
   final String testo;
@@ -53,6 +54,10 @@ class TitoloCheNonSiRompe extends StatelessWidget {
   /// il testo, quindi il titolo si porta dietro la sua chiave e la mette dove
   /// stava prima, sul `Text`.
   final Key? chiaveDelTesto;
+
+  /// Dove sta il titolo nella sua riga: al centro in una barra, a sinistra
+  /// in cima a un riquadro. Ordine EQ voce 12.
+  final TextAlign allineamento;
 
   /// IL MINIMO PREFERITO DEL TITOLO DI UNA BARRA.
   ///
@@ -144,6 +149,22 @@ class TitoloCheNonSiRompe extends StatelessWidget {
     return pittore.width;
   }
 
+  /// Le righe che il titolo ha davvero: [righe], o una in piu' quando alla
+  /// misura trovata il testo intero non ci starebbe.
+  int _righeConcesse({
+    required double misura,
+    required double larghezza,
+    required TextScaler scaler,
+  }) {
+    final pittore = TextPainter(
+      text: TextSpan(text: testo, style: stile.copyWith(fontSize: misura)),
+      textDirection: TextDirection.ltr,
+      maxLines: righe,
+      textScaler: scaler,
+    )..layout(maxWidth: larghezza);
+    return pittore.didExceedMaxLines ? righe + 1 : righe;
+  }
+
   @override
   Widget build(BuildContext context) {
     final scaler =
@@ -161,10 +182,17 @@ class TitoloCheNonSiRompe extends StatelessWidget {
         righe: righe,
         textScaler: scaler.scale(1),
       );
+      // **UNA RIGA SOLA SI CHIEDE, NON SI IMPONE. Ordine EQ voce 12.** Con
+      // `righe: 1`, se nemmeno al pavimento il titolo intero sta sulla riga,
+      // tagliarlo vorrebbe dire buttare via l'ultima parola: ed e' proprio il
+      // difetto di "IL CONSIGLIO DI" senza Medora. Allora il titolo va a capo
+      // fra le parole, come vuole la prima regola di Mauro.
+      final concesse = _righeConcesse(
+          misura: misura, larghezza: math.max(1, larghezza), scaler: scaler);
       return Text(
         testo,
         key: chiaveDelTesto,
-        maxLines: righe,
+        maxLines: concesse,
         // **SOFTWRAP DICHIARATO, e questo era il difetto vero.** L'AppBar avvolge
         // il titolo in un `DefaultTextStyle` con `softWrap: false`: un `Text` che
         // non lo dichiara EREDITA quel no, resta su una riga sola e, con
@@ -177,7 +205,7 @@ class TitoloCheNonSiRompe extends StatelessWidget {
         // entra: un'ellissi nasconde il difetto invece di mostrarlo, ed e' il
         // modo in cui "Costellazione pers..." e' vissuto per settimane.
         overflow: TextOverflow.visible,
-        textAlign: TextAlign.center,
+        textAlign: allineamento,
         style: stile.copyWith(fontSize: misura),
       );
     });

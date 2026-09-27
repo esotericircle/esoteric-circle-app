@@ -1043,9 +1043,13 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         // parole, la misura scende solo quanto serve, e non si tronca mai.
         // Col borsellino nella riga delle azioni lo spazio del titolo si e'
         // ristretto, e un `Text` nudo qui torna a mettere i puntini.
+        // **SU UNA RIGA. Ordine EQ voce 11.** Sull'iPhone 17 Pro "Stesa di
+        // Tarocchi" andava su due righe nella testata: a una riga la
+        // misura scende quanto serve, entro il minimo del titolo.
         title: TitoloCheNonSiRompe(
             chiaveDelTesto: const Key('stesa_titolo'),
             testo: _setup.tipo.nome,
+            righe: 1,
             stile: TypographyTokens.titoloSezione()),
         // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in
         // ogni schermata della pratica. Un saldo che appare e scompare non
@@ -1855,6 +1859,23 @@ class _Slot extends StatelessWidget {
   final double tiltY;
   final double galleggio;
 
+  /// La scala della carta chiave e quella delle vicine. Ordini BV voce 04 e
+  /// BZ voce 08.
+  static const double scalaDellaChiave = 1.10;
+  static const double scalaDelleAltre = 0.86;
+
+  /// **LA DISTANZA FRA OGNI CARTA E LA SUA SCRITTA**, uguale per le tre.
+  /// Ordine EQ voce 05: sedici punti, quanto la carta vicina lasciava gia'
+  /// prima, quando la sua scala si ritirava attorno al centro.
+  static const double distanzaDellaScritta = SpacingTokens.md;
+
+  /// **LO SPAZIO DELLE PAROLE SOPRA LA CARTA CHIAVE**, per una colonna larga
+  /// [larghezza]. Le parole sono alte quindici punti; la chiave, che cresce dal
+  /// bordo basso, sale di un decimo della sua altezza; sei punti d'aria.
+  /// Mai meno dei trentadue di prima.
+  static double spazioDelleParole(double larghezza) =>
+      math.max(32, 15 + larghezza / kTarotAspect * (scalaDellaChiave - 1) + 6);
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -1876,58 +1897,63 @@ class _Slot extends StatelessWidget {
         // carta chiave CRESCE. Misurato: con venti punti la carta, scalata a
         // 1,10, saliva fino a 430,8 mentre le parole finivano a 440, cioe' le
         // copriva di nove punti.
-        SizedBox(
-          height: conIntestazione ? 32 : 0,
-          child: eLaChiave
-              ? Align(
-                  alignment: Alignment.topCenter,
-                  // **LE DUE PAROLE STANNO SU UNA RIGA O NON STANNO.**
-                  // Ordine DF voce 04.4, 11 settembre 2026. Il fondatore:
-                  // *"la parola Carta sta isolata sopra la carta centrale e
-                  // non dice niente"*.
-                  //
-                  // **La causa**: `maxLines: 1` con il ritorno a capo acceso.
-                  // Nella colonna stretta della carta centrale la riga si
-                  // spezzava dopo la prima parola, e la seconda riga, quella
-                  // che porta la parola che conta, **veniva buttata via**.
-                  // Restava un'etichetta che dice quello che si vede gia'.
-                  //
-                  // **La cura non e' accorciare la scritta**, che sono le
-                  // parole del fondatore stesso: e' spegnere il ritorno a capo
-                  // e lasciare che la scritta si rimpicciolisca quel tanto che
-                  // serve a starci intera.
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text('Carta Chiave',
-                        key: Key('stesa_parole_chiave_${position.name}'),
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                        softWrap: false,
-                        // **E LE PAROLE SONO D'ORO, non azzurre.** Ordine
-                        // CO voce 08, 3 settembre 2026. Il fondatore:
-                        // "Carta Chiave e' azzurro su blu, non si legge".
-                        //
-                        // **Misurato, e aveva ragione**: `palette.glow` di
-                        // Medora sui fondi veri di questa schermata sta fra
-                        // 3,35 e 4,96 a uno, e la soglia per una lettera di
-                        // tredici punti e' 4,5. Nessuna guardia lo aveva
-                        // preso perche' nessuna stava guardando li': quella
-                        // dei grigi spazza i due token di TESTO grigi, e
-                        // l'accento del Maestro non e' un token di testo,
-                        // e' il colore degli aloni e dei bordi, dove la
-                        // soglia e' tre a uno. **Non c'era una guardia
-                        // cieca: c'era un insieme senza guardia**, e adesso
-                        // ce l'ha, gli_accenti_non_sono_inchiostro_test.
-                        //
-                        // L'oro sta fra 9,29 e 13,81, ed e' gia' la lingua
-                        // con cui la bolla di questa stessa carta scrive
-                        // "LA CHIAVE" piu' in basso: due posti che dicono
-                        // la stessa cosa adesso la dicono nello stesso modo.
-                        style: TypographyTokens.etichetta().copyWith(
-                            color: palette.goldSoft, letterSpacing: 1.1)),
-                  ),
-                )
-              : null,
+        // **LO SPAZIO CRESCE CON LA CARTA. Ordine EQ voce 05.** La carta
+        // chiave adesso cresce dal suo bordo basso, quindi tutta verso l'alto:
+        // lo spazio delle parole si misura sulla larghezza della carta.
+        LayoutBuilder(
+          builder: (context, vincoli) => SizedBox(
+            height: conIntestazione ? spazioDelleParole(vincoli.maxWidth) : 0,
+            child: eLaChiave
+                ? Align(
+                    alignment: Alignment.topCenter,
+                    // **LE DUE PAROLE STANNO SU UNA RIGA O NON STANNO.**
+                    // Ordine DF voce 04.4, 11 settembre 2026. Il fondatore:
+                    // *"la parola Carta sta isolata sopra la carta centrale e
+                    // non dice niente"*.
+                    //
+                    // **La causa**: `maxLines: 1` con il ritorno a capo acceso.
+                    // Nella colonna stretta della carta centrale la riga si
+                    // spezzava dopo la prima parola, e la seconda riga, quella
+                    // che porta la parola che conta, **veniva buttata via**.
+                    // Restava un'etichetta che dice quello che si vede gia'.
+                    //
+                    // **La cura non e' accorciare la scritta**, che sono le
+                    // parole del fondatore stesso: e' spegnere il ritorno a capo
+                    // e lasciare che la scritta si rimpicciolisca quel tanto che
+                    // serve a starci intera.
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text('Carta Chiave',
+                          key: Key('stesa_parole_chiave_${position.name}'),
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          softWrap: false,
+                          // **E LE PAROLE SONO D'ORO, non azzurre.** Ordine
+                          // CO voce 08, 3 settembre 2026. Il fondatore:
+                          // "Carta Chiave e' azzurro su blu, non si legge".
+                          //
+                          // **Misurato, e aveva ragione**: `palette.glow` di
+                          // Medora sui fondi veri di questa schermata sta fra
+                          // 3,35 e 4,96 a uno, e la soglia per una lettera di
+                          // tredici punti e' 4,5. Nessuna guardia lo aveva
+                          // preso perche' nessuna stava guardando li': quella
+                          // dei grigi spazza i due token di TESTO grigi, e
+                          // l'accento del Maestro non e' un token di testo,
+                          // e' il colore degli aloni e dei bordi, dove la
+                          // soglia e' tre a uno. **Non c'era una guardia
+                          // cieca: c'era un insieme senza guardia**, e adesso
+                          // ce l'ha, gli_accenti_non_sono_inchiostro_test.
+                          //
+                          // L'oro sta fra 9,29 e 13,81, ed e' gia' la lingua
+                          // con cui la bolla di questa stessa carta scrive
+                          // "LA CHIAVE" piu' in basso: due posti che dicono
+                          // la stessa cosa adesso la dicono nello stesso modo.
+                          style: TypographyTokens.etichetta().copyWith(
+                              color: palette.goldSoft, letterSpacing: 1.1)),
+                    ),
+                  )
+                : null,
+          ),
         ),
         // La carta posata fluttua piano e si inclina col giroscopio, come
         // sospesa davanti a chi guarda. E' un effetto di superficie: non tocca
@@ -1955,7 +1981,15 @@ class _Slot extends StatelessWidget {
                 // scarto dipinto arriva a un quarto abbondante, che e' cio' che
                 // il fondatore ha chiesto quando ha detto di diminuire la
                 // grandezza delle altre due.
-                scale: eLaChiave ? 1.10 : 0.86,
+                scale: eLaChiave ? scalaDellaChiave : scalaDelleAltre,
+                // **DAL BORDO BASSO, ordine EQ voce 05.** Con la scala
+                // attorno al centro la chiave debordava sotto di cinque
+                // centesimi della sua altezza e copriva "PRESENTE", mentre le
+                // vicine si ritiravano di sette: tre distanze diverse fra la
+                // carta e la sua scritta. Dal bordo basso le tre carte
+                // finiscono sulla stessa riga, e le tre scritte stanno alla
+                // stessa distanza e allineate.
+                alignment: Alignment.bottomCenter,
                 child: Stack(
                   alignment: Alignment.center,
                   // L'aura deve poter uscire dal bordo della carta: e' attorno a
@@ -2023,8 +2057,9 @@ class _Slot extends StatelessWidget {
                 )),
           ),
         ),
-        const SizedBox(height: SpacingTokens.xxs),
+        const SizedBox(height: distanzaDellaScritta),
         Text(position.label.toUpperCase(),
+            key: Key('stesa_etichetta_${position.name}'),
             textAlign: TextAlign.center,
             style: TypographyTokens.etichetta()
                 .copyWith(color: palette.goldSoft, letterSpacing: 1.2)),
@@ -2085,6 +2120,11 @@ class _BloccoDelleCarte extends StatelessWidget {
           // un `Wrap` ogni pezzo riceve tutta la larghezza per se', quindi il
           // nome non si spezza, e i pezzi corti si affiancano invece di
           // impilarsi: due righe invece di quattro.
+          // **IL SEGNO DEL VERSO STA SEMPRE ALLO STESSO POSTO. Ordine EQ voce
+          // 06.** Nel `Wrap` unico il segno andava dove c'era posto: accanto
+          // al nome per Gli Amanti, a capo per il Tre di Bastoni. Adesso la
+          // posizione e il nome stanno sulla prima riga, il segno e la sintesi
+          // sulla seconda, e il segno comincia la seconda riga in tutte e tre.
           Wrap(
             spacing: SpacingTokens.xs,
             runSpacing: 2,
@@ -2098,6 +2138,14 @@ class _BloccoDelleCarte extends StatelessWidget {
                   key: Key('stesa_name_${drawn.position.name}'),
                   style: TypographyTokens.titoloScheda()
                       .copyWith(color: ColorTokens.textPrimary, height: 1.2)),
+            ],
+          ),
+          const SizedBox(height: 2),
+          Wrap(
+            spacing: SpacingTokens.xs,
+            runSpacing: 2,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
               if (drawn.reversed)
                 Container(
                   padding:
@@ -2286,12 +2334,22 @@ class _Strato extends StatelessWidget {
           // porta via. Adesso e' `titoloScheda`, diciotto, che e' il gradino
           // pieno successivo e non un numero scelto qui: la scala la decide
           // il design system, questa riga la usa.
-          Text(titolo.toUpperCase(),
-              key: const Key('stesa_consiglio_titolo'),
-              maxLines: 1,
-              style: TypographyTokens.titoloScheda().copyWith(
-                  color: palette.goldSoft.withValues(alpha: 0.85),
-                  letterSpacing: 1.4)),
+          // **INTERO, SU UNA RIGA. Ordine EQ voce 12.** Qui c'era un `Text`
+          // con `maxLines: 1` e il ritorno a capo acceso: "IL CONSIGLIO DI"
+          // stava sulla prima riga e "MEDORA" andava sulla seconda, che veniva
+          // buttata via. E' il difetto di "Carta Chiave" dell'ordine DF voce
+          // 04.4, in un altro posto: la misura scende quanto serve.
+          Align(
+            alignment: Alignment.centerLeft,
+            child: TitoloCheNonSiRompe(
+                chiaveDelTesto: const Key('stesa_consiglio_titolo'),
+                testo: titolo.toUpperCase(),
+                righe: 1,
+                allineamento: TextAlign.start,
+                stile: TypographyTokens.titoloScheda().copyWith(
+                    color: palette.goldSoft.withValues(alpha: 0.85),
+                    letterSpacing: 1.4)),
+          ),
           const SizedBox(height: 6),
           // **IL CONSIGLIO SI LEGGE, ordine BU voce 01.** Parole del fondatore:
           // "il testo nella bolla del consiglio di Medora e' monotono, tutto

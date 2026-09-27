@@ -211,18 +211,25 @@ void main() {
     final titolo = find.byKey(const Key('stesa_consiglio_titolo'));
     expect(titolo, findsOneWidget);
     final w = tester.widget<Text>(titolo);
-    // La misura non e' battuta qui: viene dalla scala del design system.
-    expect(w.style!.fontSize, TypographyTokens.titoloScheda().fontSize,
-        reason: 'il titolo non e\' salito al gradino pieno della scala');
+    // La misura non e' battuta qui: viene dalla scala del design system, e
+    // dall'ordine EQ voce 12 scende solo quanto serve a stare su una riga.
+    expect(w.style!.fontSize,
+        lessThanOrEqualTo(TypographyTokens.titoloScheda().fontSize!),
+        reason: 'il titolo e\' salito oltre il gradino della scala');
     expect(w.style!.fontSize, greaterThan(TypographyTokens.pavimento),
         reason: 'il titolo e\' ancora al pavimento della scala');
-    final tp = TextPainter(
-      text: TextSpan(text: w.data, style: w.style),
-      textDirection: TextDirection.ltr,
-      maxLines: 1,
-    )..layout(maxWidth: 360 - 32);
-    expect(tp.didExceedMaxLines, isFalse,
-        reason: 'il titolo cresciuto non sta piu\' su una riga a 360 punti');
+    // **LAPIDE, ordine EQ voce 12.** Qui la prova misurava un `TextPainter`
+    // largo 360 meno 32 punti e stava verde, mentre sull'iPhone 17 Pro del
+    // fondatore si leggeva "IL CONSIGLIO DI" e Medora spariva: il riquadro
+    // vero e' piu' stretto di 328 punti, perche' ha il suo margine dentro il
+    // margine della pagina. Era cieca al bersaglio. Adesso si guarda il
+    // paragrafo dipinto, nella sua scatola.
+    final dipinto = tester.renderObject<RenderParagraph>(titolo);
+    expect(dipinto.didExceedMaxLines, isFalse,
+        reason: 'il titolo del consiglio perde una parte di se\'');
+    expect(dipinto.righeNecessarie, 1,
+        reason: 'il titolo del consiglio non sta su una riga');
+    expect(dipinto.text.toPlainText(), contains('MEDORA'));
   });
 
   test('il consiglio ha due o tre paragrafi, e nessuno comincia a meta\'', () {
@@ -673,4 +680,17 @@ void main() {
               'dai bordi: $fuori');
     }
   });
+}
+
+/// **QUANTE RIGHE SERVONO AL TESTO DIPINTO**, alla larghezza della sua
+/// scatola e senza tetto di righe: se sono due, il titolo va a capo o perde
+/// una parte di se'.
+extension _Righe on RenderParagraph {
+  int get righeNecessarie => (TextPainter(
+        text: text,
+        textDirection: TextDirection.ltr,
+        textScaler: textScaler,
+      )..layout(maxWidth: size.width))
+          .computeLineMetrics()
+          .length;
 }
