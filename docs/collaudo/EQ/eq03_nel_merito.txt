@@ -1,0 +1,92 @@
+EQ.03, LE RISPOSTE NEL MERITO, ANCHE NEL LIVE: IL CONTO (27 settembre 2026)
+
+Dodici domande di seguito per Maestro, nella stessa conversazione, fra cui
+quelle delle catture del fondatore ("Ok, gli ho scritto adesso.", "Ok, le ho
+scritte e adesso cosa faccio?"); due giri per modo; banco tool/collaudo_eq03.dart,
+Gemini vero in europe-west1. Il merito lo decide la lettura con la regola
+scritta (eq03/regola_della_lettura.md), fatta da agenti di lettura Claude sulle
+trascrizioni senza verdetti e controllata sulle 78 risposte etichettate a mano
+prima: 76 accordi su 78. Il giudice Gemini non basta: eq03/il_giudice_gemini_non_basta.txt.
+Il tempo e' quello del modello, dalla richiesta alla risposta intera, rigenerazioni
+comprese: e' il pezzo dell'attesa del LIVE che il modello decide.
+
+== PRIMA, codice di prima dell'ordine (commit 168d7cce)
+  LIVE con Flash-Lite giro 1 aura: nel merito 2 su 12 lette, tempo del modello mediano 661 ms
+  LIVE con Flash-Lite giro 1 caligo: nel merito 2 su 12 lette, tempo del modello mediano 593 ms
+  LIVE con Flash-Lite giro 1 medora: nel merito 5 su 12 lette, tempo del modello mediano 694 ms
+  LIVE con Flash-Lite giro 2 aura: nel merito 2 su 12 lette, tempo del modello mediano 694 ms
+  LIVE con Flash-Lite giro 2 caligo: nel merito 4 su 12 lette, tempo del modello mediano 601 ms
+  LIVE con Flash-Lite giro 2 medora: nel merito 3 su 12 lette, tempo del modello mediano 715 ms
+  chat con Flash giro 1 aura: nel merito 2 su 12 lette, tempo del modello mediano 1853 ms
+  chat con Flash giro 1 caligo: nel merito 12 su 12 lette, tempo del modello mediano 974 ms
+  chat con Flash giro 1 medora: nel merito 8 su 12 lette, tempo del modello mediano 1205 ms
+  chat con Flash giro 2 aura: nel merito 3 su 12 lette, tempo del modello mediano 1531 ms
+  chat con Flash giro 2 caligo: nel merito 10 su 12 lette, tempo del modello mediano 1138 ms
+  chat con Flash giro 2 medora: nel merito 11 su 12 lette, tempo del modello mediano 1406 ms
+  TOTALE LIVE CON FLASH-LITE: nel merito 18 su 72 lette, tempo del modello mediano 668 ms su 72 risposte
+  TOTALE CHAT CON FLASH: nel merito 46 su 72 lette, tempo del modello mediano 1334 ms su 72 risposte
+
+== DOPO, SECONDA STESURA (regole, rete a valle e nota dedicata; prima del registro di Aura)
+  LIVE con Flash-Lite giro 1 aura: nel merito 3 su 12 lette, tempo del modello mediano 879 ms
+  LIVE con Flash-Lite giro 1 caligo: nel merito 7 su 12 lette, tempo del modello mediano 705 ms
+  LIVE con Flash-Lite giro 1 medora: nel merito 9 su 12 lette, tempo del modello mediano 812 ms
+  LIVE con Flash-Lite giro 2 aura: nel merito 5 su 12 lette, tempo del modello mediano 851 ms
+  LIVE con Flash-Lite giro 2 caligo: nel merito 5 su 12 lette, tempo del modello mediano 620 ms
+  LIVE con Flash-Lite giro 2 medora: nel merito 7 su 12 lette, tempo del modello mediano 898 ms
+  LIVE con Flash giro 1 aura: nel merito 5 su 12 lette, tempo del modello mediano 1440 ms
+  LIVE con Flash giro 1 caligo: nel merito 9 su 12 lette, tempo del modello mediano 988 ms
+  LIVE con Flash giro 1 medora: nel merito 10 su 12 lette, tempo del modello mediano 1299 ms
+  LIVE con Flash giro 2 aura: nel merito 7 su 12 lette, tempo del modello mediano 1173 ms
+  LIVE con Flash giro 2 caligo: nel merito 10 su 12 lette, tempo del modello mediano 1028 ms
+  LIVE con Flash giro 2 medora: nel merito 11 su 12 lette, tempo del modello mediano 1155 ms
+  chat con Flash giro 1 aura: nel merito 1 su 12 lette, tempo del modello mediano 1190 ms
+  chat con Flash giro 1 caligo: nel merito 10 su 12 lette, tempo del modello mediano 1888 ms
+  chat con Flash giro 1 medora: nel merito 8 su 12 lette, tempo del modello mediano 1812 ms
+  chat con Flash giro 2 aura: nel merito 4 su 12 lette, tempo del modello mediano 1472 ms
+  chat con Flash giro 2 caligo: nel merito 11 su 12 lette, tempo del modello mediano 1446 ms
+  chat con Flash giro 2 medora: nel merito 11 su 12 lette, tempo del modello mediano 1643 ms
+  TOTALE LIVE CON FLASH-LITE: nel merito 36 su 72 lette, tempo del modello mediano 834 ms su 72 risposte
+  TOTALE LIVE CON FLASH: nel merito 52 su 72 lette, tempo del modello mediano 1182 ms su 72 risposte
+  TOTALE CHAT CON FLASH: nel merito 45 su 72 lette, tempo del modello mediano 1584 ms su 72 risposte
+
+== DOPO, LA CURA INTERA (col registro di Aura e la rete allargata)
+  LIVE con Flash-Lite giro 1 aura: nel merito 5 su 12 lette, tempo del modello mediano 819 ms
+  LIVE con Flash-Lite giro 1 caligo: nel merito 1 su 12 lette, tempo del modello mediano 677 ms
+  LIVE con Flash-Lite giro 1 medora: nel merito 7 su 12 lette, tempo del modello mediano 876 ms
+  LIVE con Flash-Lite giro 2 aura: nel merito 5 su 12 lette, tempo del modello mediano 884 ms
+  LIVE con Flash-Lite giro 2 caligo: nel merito 3 su 12 lette, tempo del modello mediano 629 ms
+  LIVE con Flash-Lite giro 2 medora: nel merito 6 su 12 lette, tempo del modello mediano 856 ms
+  LIVE con Flash giro 1 aura: nel merito 5 su 12 lette, tempo del modello mediano 1212 ms
+  LIVE con Flash giro 1 caligo: nel merito 10 su 12 lette, tempo del modello mediano 1121 ms
+  LIVE con Flash giro 1 medora: nel merito 10 su 12 lette, tempo del modello mediano 1236 ms
+  LIVE con Flash giro 2 aura: nel merito 6 su 12 lette, tempo del modello mediano 1465 ms
+  LIVE con Flash giro 2 caligo: nel merito 12 su 12 lette, tempo del modello mediano 950 ms
+  LIVE con Flash giro 2 medora: nel merito 11 su 12 lette, tempo del modello mediano 1136 ms
+  chat con Flash giro 1 aura: nel merito 5 su 12 lette, tempo del modello mediano 1700 ms
+  chat con Flash giro 1 caligo: nel merito 11 su 12 lette, tempo del modello mediano 1559 ms
+  chat con Flash giro 1 medora: nel merito 10 su 12 lette, tempo del modello mediano 1528 ms
+  chat con Flash giro 2 aura: nel merito 4 su 12 lette, tempo del modello mediano 1810 ms
+  chat con Flash giro 2 caligo: nel merito 5 su 12 lette, tempo del modello mediano 1307 ms
+  chat con Flash giro 2 medora: nel merito 7 su 12 lette, tempo del modello mediano 1630 ms
+  TOTALE LIVE CON FLASH-LITE: nel merito 27 su 72 lette, tempo del modello mediano 781 ms su 72 risposte
+  TOTALE LIVE CON FLASH: nel merito 54 su 72 lette, tempo del modello mediano 1175 ms su 72 risposte
+  TOTALE CHAT CON FLASH: nel merito 42 su 72 lette, tempo del modello mediano 1609 ms su 72 risposte
+
+== DOMANDA PER DOMANDA, risposte nel merito su 6 (tre Maestri per due giri)
+  prima LIVE con Flash-Lite | prima chat con Flash | dopo_seconda_stesura LIVE con Flash-Lite | dopo_seconda_stesura LIVE con Flash | dopo_seconda_stesura chat con Flash | dopo LIVE con Flash-Lite | dopo LIVE con Flash | dopo chat con Flash
+   1. Ciao, chi sei? Come puoi aiutarmi?: 6/6, 6/6, 6/6, 6/6, 6/6, 6/6, 6/6, 6/6
+   2. Beh, vorrei avere una compagna...: 0/6, 3/6, 2/6, 5/6, 3/6, 3/6, 4/6, 2/6
+   3. Ok, gli ho scritto adesso.: 0/6, 4/6, 2/6, 2/6, 2/6, 0/6, 2/6, 0/6
+   4. Ok, le ho scritte e adesso cosa faccio?: 0/6, 3/6, 0/6, 1/6, 2/6, 0/6, 3/6, 1/6
+   5. Da dove comincio, dal lavoro o dal viaggio?: 2/6, 3/6, 4/6, 6/6, 5/6, 3/6, 6/6, 5/6
+   6. Il mio capo non mi dà mai un riconoscimento...: 1/6, 4/6, 4/6, 4/6, 4/6, 4/6, 6/6, 6/6
+   7. Ho paura che in Australia mi senta solo.: 0/6, 2/6, 2/6, 4/6, 4/6, 2/6, 3/6, 4/6
+   8. Mia madre dice che è una follia partire...: 2/6, 5/6, 5/6, 6/6, 5/6, 4/6, 6/6, 5/6
+   9. Ok, ci ho parlato stamattina e ha pianto.: 2/6, 4/6, 2/6, 5/6, 3/6, 0/6, 5/6, 3/6
+  10. Quanto tempo mi serve per decidere?: 0/6, 3/6, 1/6, 2/6, 3/6, 1/6, 3/6, 2/6
+  11. Ho scelto: parto a marzo. E adesso?: 0/6, 3/6, 2/6, 5/6, 3/6, 0/6, 4/6, 2/6
+  12. Grazie. Cosa faccio domani mattina, appena sveglio?: 5/6, 6/6, 6/6, 6/6, 5/6, 4/6, 6/6, 6/6
+
+Le trascrizioni con la riga "in una riga" e il verdetto della lettura stanno in
+eq03/prima/, eq03/dopo_seconda_stesura/, eq03/dopo/; le sonde, lette da me a mano
+per tarare la cura, in eq03/sonda_1/ e eq03/sonda_2/.

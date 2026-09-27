@@ -28,6 +28,7 @@ import '../../../core/chat/la_carta_del_giorno_in_chat.dart';
 import '../../../core/rituals/arcano_dell_alba/archivio_dell_alba.dart';
 import '../../../core/chat/la_lettura_del_giorno.dart';
 import '../../../core/chat/la_risposta_ripetuta.dart';
+import '../../../core/chat/la_risposta_d_attesa.dart';
 import '../../../core/chat/la_risposta_da_programma.dart';
 import '../../../core/chat/chi_di_dovere.dart';
 import '../../../core/chat/il_passo_da_non_dare.dart';
@@ -234,6 +235,10 @@ class MaestroChatController extends ChangeNotifier {
   /// Quante risposte si sono richieste perche' parlavano da programma.
   /// Ordine EN voce 06.
   int rigenerazioniPerProgramma = 0;
+
+  /// Quante risposte si sono richieste perche' dicevano soltanto di
+  /// aspettare. Ordine EQ voce 03.
+  int rigenerazioniPerAttesa = 0;
 
   /// Quante volte una risposta fatta della sola riga d'oro da togliere
   /// e' stata chiesta di nuovo. Ordine EQ voce 01.
@@ -658,11 +663,13 @@ class MaestroChatController extends ChangeNotifier {
     bool insisti = false,
     String? daNonRipetere,
     String? daProgramma,
+    String? daAttesa,
   }) =>
       LaRichiestaDelTurno(
         nelLive: nelLive,
         daNonRipetere: daNonRipetere,
         daProgramma: daProgramma,
+        daAttesa: daAttesa,
         suTesto: nelLive ? _mostraMentreArriva : null,
       ).per(() => _ai.reply(
             maestro: chi,
@@ -1321,6 +1328,36 @@ class MaestroChatController extends ChangeNotifier {
             'risposta da programma consegnata comunque, '
             '${chiRisponde.displayName}',
             StateError('la risposta parla da programma dopo una seconda '
+                'richiesta'),
+          );
+        }
+      }
+
+      // **LA RISPOSTA CHE DICE SOLO DI ASPETTARE. Ordine EQ voce 03.** Nel
+      // LIVE delle catture del fondatore, a "Ok, le ho scritte e adesso cosa
+      // faccio?", Calìgo ha risposto "Il tuo gesto è compiuto. Ora lascia che
+      // il tempo faccia il suo corso."; con la regola gia' scritta
+      // nell'istruzione, nella sonda del collaudo, "Ora il tuo compito è la
+      // pazienza". Una richiesta sola, nominando la risposta da non ridare;
+      // se anche la seconda dice solo di aspettare, resta la prima e il
+      // guasto resta nel registro. Sta prima della risposta ripetuta e della
+      // riga d'oro, perche' la risposta nuova passi anche da loro.
+      if (LaRispostaDAttesa.segno(reply) != null) {
+        rigenerazioniPerAttesa++;
+        final altra = await _chiediAlMaestro(
+          chi: chiRisponde,
+          storia: priorHistory,
+          domanda: userText,
+          natal: natal,
+          daAttesa: reply,
+        );
+        if (LaRispostaDAttesa.segno(altra) == null) {
+          reply = altra;
+        } else {
+          annotaGuastoInnocuo(
+            'risposta che dice solo di aspettare consegnata comunque, '
+            '${chiRisponde.displayName}',
+            StateError('la risposta dice solo di aspettare dopo una seconda '
                 'richiesta'),
           );
         }

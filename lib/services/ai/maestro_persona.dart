@@ -370,6 +370,7 @@ class MaestroPersona {
     bool nelLive = false,
     String? daNonRipetere,
     String? daProgramma,
+    String? daAttesa,
   }) {
     final natalBlock = _natalContext(natal);
     final ancoraggi = VerificaAncoraggio.disponibiliPer(
@@ -449,6 +450,13 @@ class MaestroPersona {
       // quando il controller ha visto la risposta parlare di sistemi, di
       // memorie o di messaggi, e la chiede di nuovo.
       if (daProgramma != null) ...['', rispostaDaProgramma(daProgramma)],
+      // **LA RISPOSTA CHE DICE SOLO DI ASPETTARE, PER NOME. Ordine EQ voce
+      // 03.** Arriva solo quando il controller l'ha vista
+      // (`LaRispostaDAttesa`) e la chiede di nuovo. La nota della risposta
+      // ripetuta, "parole nuove", non bastava: nel collaudo la seconda
+      // risposta diceva di nuovo "ora attendi la sua risposta" con altre
+      // parole.
+      if (daAttesa != null) ...['', rispostaDAttesa(daAttesa)],
       // **IL CONTROLLO PRIMA DI SCRIVERE, per ultimo. Ordine EQ voce 02.**
       '',
       LaRispostaNelMerito.primaDiScrivere,
@@ -456,11 +464,22 @@ class MaestroPersona {
   }
 
   /// La forma della risposta detta nel LIVE. Ordine EN voce 01.
+  ///
+  /// **L'ultima riga, ordine EQ voce 03.** Tre frasi brevi, nel collaudo
+  /// "prima" di quella voce, diventavano tre sentenze: Calìgo rispondeva a
+  /// "Quanto tempo mi serve per decidere?" con "La decisione è già tua. Ogni
+  /// momento è soglia.", Aura a quasi ogni turno con il respiro. La misura
+  /// corta resta; cambia che cosa ci sta dentro.
   static const String rispostaDettaAVoce = 'LA RISPOSTA È DETTA A VOCE, NEL '
       'LIVE:\n'
       '- Al massimo tre frasi brevi, poi la riga con ✦ quando c\'è un passo '
       'da dare. Nessun secondo paragrafo: chi ascolta non può rileggere.\n'
-      '- Le prime due frasi rispondono; la terza, se serve, dice perché.';
+      '- Le prime due frasi rispondono; la terza, se serve, dice perché.\n'
+      '- Anche in tre frasi, la prima dice che cosa fare in concreto o che '
+      'cosa indica la tua arte per questa persona, partendo da quello che ha '
+      'appena detto. Una sentenza, un invito ad aspettare o ad ascoltarsi non '
+      'è una risposta: se chi ascolta non ha capito che cosa fare, ha perso '
+      'il suo turno.';
 
   /// Il blocco che nomina al modello la risposta che ha appena ripetuto.
   static String rispostaDaNonRipetere(String giaData) =>
@@ -469,6 +488,19 @@ class MaestroPersona {
       '- La persona torna sulla sua domanda perché quella risposta non le è '
       'bastata. Rispondile di nuovo con parole nuove: un\'altra via, un passo '
       'diverso, nessuna frase ripresa da quella.';
+
+  /// Il blocco che nomina al modello la risposta che diceva soltanto di
+  /// aspettare. Ordine EQ voce 03.
+  static String rispostaDAttesa(String nonData) =>
+      'LA RISPOSTA CHE STAVI PER DARE DICE SOLO DI ASPETTARE. NON LA DAI:\n'
+      '"${nonData.trim()}"\n'
+      '- La persona ti ha appena detto che cosa ha fatto, o ti chiede che cosa '
+      'fare adesso: dille il passo che viene dopo, concreto.\n'
+      '- Se ha scritto o parlato a qualcuno, dille che cosa fare se risponde, '
+      'che cosa fare se tace e dopo quanti giorni.\n'
+      '- Se ha scritto qualcosa per sé, dille che cosa farne adesso.\n'
+      '- Se non capisci a che cosa si riferisce, chiediglielo in una frase: '
+      'chiedere è una risposta, aspettare no.';
 
   /// Il blocco che nomina al modello la risposta da programma che stava per
   /// dare. Ordine EN voce 06.

@@ -118,6 +118,7 @@ class VoceVeraDiGemini implements MaestroAiProvider {
       nelLive: turno.nelLive,
       daNonRipetere: turno.daNonRipetere,
       daProgramma: turno.daProgramma,
+      daAttesa: turno.daAttesa,
     );
     final istruzione = ritocco?.call(maestro, composta) ?? composta;
     // La cronologia come la manda l'app: solo i messaggi veri, in ordine.

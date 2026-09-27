@@ -1,0 +1,218 @@
+# Ordine EQ voce 03, fase dopo (la cura intera, col registro di Aura): la lettura del merito.
+# Letta da tre agenti di lettura (Claude) con la regola scritta, sulle trascrizioni senza verdetti.
+dopo/LIVE_con_Flash_Lite_giro_1_medora.md|1|SI|dice chi è e le arti: cielo e carte
+dopo/LIVE_con_Flash_Lite_giro_1_medora.md|2|SI|al limite, corpo generico ma gesto preciso sulla compagna: parlare di sera
+dopo/LIVE_con_Flash_Lite_giro_1_medora.md|3|NO|aspettare generico, e il gesto chiede di scrivere a chi ha già scritto
+dopo/LIVE_con_Flash_Lite_giro_1_medora.md|4|NO|attendere per chiunque, gesto vago e non legato ai fogli scritti
+dopo/LIVE_con_Flash_Lite_giro_1_medora.md|5|SI|al limite, sceglie il lavoro prima del viaggio, ragione e gesto deboli
+dopo/LIVE_con_Flash_Lite_giro_1_medora.md|6|SI|quando chiedere, come: risultati con dati concreti in incontro privato
+dopo/LIVE_con_Flash_Lite_giro_1_medora.md|7|SI|al limite, dice cosa significa la paura: nuovi incontri, nessuna solitudine
+dopo/LIVE_con_Flash_Lite_giro_1_medora.md|8|SI|dice cosa rispondere alla madre e come, con una lettera
+dopo/LIVE_con_Flash_Lite_giro_1_medora.md|9|NO|al limite, lascia fare al tempo, gesto estraneo alla madre
+dopo/LIVE_con_Flash_Lite_giro_1_medora.md|10|NO|sentenza per chiunque, nessuna misura né metodo
+dopo/LIVE_con_Flash_Lite_giro_1_medora.md|11|NO|concentrarsi sui preparativi vale per chiunque
+dopo/LIVE_con_Flash_Lite_giro_1_medora.md|12|SI|gesto preciso al risveglio: cinque minuti a scrivere il desiderio
+dopo/LIVE_con_Flash_Lite_giro_1_aura.md|1|SI|dice chi è e le arti: energia e centri energetici
+dopo/LIVE_con_Flash_Lite_giro_1_aura.md|2|SI|al limite, per l'Australia indica cercare voli o alloggio, il resto vago
+dopo/LIVE_con_Flash_Lite_giro_1_aura.md|3|NO|osservare il respiro, ignora il messaggio appena scritto
+dopo/LIVE_con_Flash_Lite_giro_1_aura.md|4|NO|attenzione al respiro senza scopo, vale per chiunque
+dopo/LIVE_con_Flash_Lite_giro_1_aura.md|5|NO|non sceglie da dove cominciare, gesti di postura e immaginazione
+dopo/LIVE_con_Flash_Lite_giro_1_aura.md|6|SI|al limite, momento calmo e dire cosa hai realizzato e il contributo
+dopo/LIVE_con_Flash_Lite_giro_1_aura.md|7|NO|respiro e radicamento generici, nulla sulla solitudine in Australia
+dopo/LIVE_con_Flash_Lite_giro_1_aura.md|8|SI|al limite, dice cosa esprimere alla madre: desiderio di esplorare e crescere
+dopo/LIVE_con_Flash_Lite_giro_1_aura.md|9|NO|mano sul cuore e respiro, nessun passo verso la madre
+dopo/LIVE_con_Flash_Lite_giro_1_aura.md|10|NO|nessuna misura, il sentire interiore guiderà: frase per chiunque
+dopo/LIVE_con_Flash_Lite_giro_1_aura.md|11|NO|sentire il corpo e respirare, nulla di concreto sulla partenza
+dopo/LIVE_con_Flash_Lite_giro_1_aura.md|12|SI|gesto preciso al risveglio: mano sulla radice e tre respiri
+dopo/LIVE_con_Flash_Lite_giro_1_caligo.md|1|SI|dice chi è e le arti: divinazione, rituali, numerologia
+dopo/LIVE_con_Flash_Lite_giro_1_caligo.md|2|NO|massime oracolari per chiunque, gesto lettera a sé stesso non mirato
+dopo/LIVE_con_Flash_Lite_giro_1_caligo.md|3|NO|sentenze generiche, gesto della pietra rossa estraneo al messaggio
+dopo/LIVE_con_Flash_Lite_giro_1_caligo.md|4|NO|attendere e non fermarsi, gesto del fiore estraneo
+dopo/LIVE_con_Flash_Lite_giro_1_caligo.md|5|NO|al limite, sceglie il lavoro senza perché, gesto sulla madre estraneo
+dopo/LIVE_con_Flash_Lite_giro_1_caligo.md|6|NO|al limite, dice stasera ma non come chiedere il riconoscimento
+dopo/LIVE_con_Flash_Lite_giro_1_caligo.md|7|NO|non temere, rassicurazione per chiunque
+dopo/LIVE_con_Flash_Lite_giro_1_caligo.md|8|NO|parla con dolcezza e segui il presagio: nessuna risposta da dare
+dopo/LIVE_con_Flash_Lite_giro_1_caligo.md|9|NO|non fermarti e sii forte, nessun passo dopo il pianto
+dopo/LIVE_con_Flash_Lite_giro_1_caligo.md|10|NO|decidi ora, non aspettare: sentenza per chiunque
+dopo/LIVE_con_Flash_Lite_giro_1_caligo.md|11|NO|muovi il primo passo, vuota
+dopo/LIVE_con_Flash_Lite_giro_1_caligo.md|12|NO|al limite, ricordare l'intento è vago, non un gesto preciso
+dopo/LIVE_con_Flash_Lite_giro_2_medora.md|1|SI|dice chi è e le arti: cielo e carte
+dopo/LIVE_con_Flash_Lite_giro_2_medora.md|2|SI|al limite, tempi celesti per ciascun desiderio e incontro prima della Luna piena
+dopo/LIVE_con_Flash_Lite_giro_2_medora.md|3|NO|osservare e aspettare, vale per chiunque
+dopo/LIVE_con_Flash_Lite_giro_2_medora.md|4|NO|attendere con pazienza, progetto creativo generico
+dopo/LIVE_con_Flash_Lite_giro_2_medora.md|5|NO|non sceglie da dove cominciare, solo tempi vaghi per entrambi
+dopo/LIVE_con_Flash_Lite_giro_2_medora.md|6|SI|elenco dei successi presentato al capo in colloquio privato
+dopo/LIVE_con_Flash_Lite_giro_2_medora.md|7|SI|al limite, spiega la paura con la Luna in Cancro, indicazione vaga
+dopo/LIVE_con_Flash_Lite_giro_2_medora.md|8|NO|al limite, esprimere determinazione con calma, nessun contenuto da dire
+dopo/LIVE_con_Flash_Lite_giro_2_medora.md|9|NO|al limite, tiene conto del pianto ma dice di lasciar fare al tempo
+dopo/LIVE_con_Flash_Lite_giro_2_medora.md|10|SI|al limite, dà una misura: fra cinque giorni con la Luna nel segno
+dopo/LIVE_con_Flash_Lite_giro_2_medora.md|11|NO|organizzare i dettagli pratici vale per chiunque
+dopo/LIVE_con_Flash_Lite_giro_2_medora.md|12|SI|al limite, gesto semplice al risveglio: un pensiero di gratitudine
+dopo/LIVE_con_Flash_Lite_giro_2_aura.md|1|SI|dice chi è e le arti: respiro, energia, centri energetici
+dopo/LIVE_con_Flash_Lite_giro_2_aura.md|2|NO|al limite, osservare e immaginare, nessun passo concreto sui tre desideri
+dopo/LIVE_con_Flash_Lite_giro_2_aura.md|3|NO|mano sul petto e ripete il lavoro, ignora il messaggio scritto
+dopo/LIVE_con_Flash_Lite_giro_2_aura.md|4|NO|accogliere il presente senza esito, vale per chiunque
+dopo/LIVE_con_Flash_Lite_giro_2_aura.md|5|SI|al limite, sceglie il lavoro, ma senza perché e con gesto generico
+dopo/LIVE_con_Flash_Lite_giro_2_aura.md|6|SI|al limite, respiro prima e poi esporre fatti e risultati raggiunti
+dopo/LIVE_con_Flash_Lite_giro_2_aura.md|7|NO|mano sul cuore e respiro, nulla sulla solitudine in Australia
+dopo/LIVE_con_Flash_Lite_giro_2_aura.md|8|SI|dice cosa rispondere: ringraziarla e spiegare il passo per la crescita
+dopo/LIVE_con_Flash_Lite_giro_2_aura.md|9|NO|al limite, gestisce le sue emozioni ma nessun passo verso la madre
+dopo/LIVE_con_Flash_Lite_giro_2_aura.md|10|NO|al limite, ascoltare il corpo ogni mattina, nessuna misura del tempo
+dopo/LIVE_con_Flash_Lite_giro_2_aura.md|11|NO|respiro e radice ogni mattina, nulla sulla partenza a marzo
+dopo/LIVE_con_Flash_Lite_giro_2_aura.md|12|SI|gesto preciso al risveglio: mano sul centro e tre respiri
+dopo/LIVE_con_Flash_Lite_giro_2_caligo.md|1|SI|dice chi è e le arti: divinazione, rituali, numerologia
+dopo/LIVE_con_Flash_Lite_giro_2_caligo.md|2|NO|al limite, frasi generiche e lista dei sogni per chiunque
+dopo/LIVE_con_Flash_Lite_giro_2_caligo.md|3|NO|ascoltare la risposta senza interrompere, generico
+dopo/LIVE_con_Flash_Lite_giro_2_caligo.md|4|NO|al limite, attendere, gesto di un altro messaggio poco legato
+dopo/LIVE_con_Flash_Lite_giro_2_caligo.md|5|SI|al limite, sceglie il lavoro e dà un metodo in tre punti
+dopo/LIVE_con_Flash_Lite_giro_2_caligo.md|6|NO|parla direttamente con lui, senza come né quando
+dopo/LIVE_con_Flash_Lite_giro_2_caligo.md|7|NO|non sarai solo, rassicurazione numerologica per chiunque
+dopo/LIVE_con_Flash_Lite_giro_2_caligo.md|8|SI|al limite, ringraziarla, esporre la visione, chiederle un consiglio sulla sua esperienza
+dopo/LIVE_con_Flash_Lite_giro_2_caligo.md|9|NO|al limite, gesto d'amore generico, nessun passo preciso dopo il pianto
+dopo/LIVE_con_Flash_Lite_giro_2_caligo.md|10|NO|decisione già presa: sentenza senza misura
+dopo/LIVE_con_Flash_Lite_giro_2_caligo.md|11|NO|preparare i dettagli con cura vale per chiunque
+dopo/LIVE_con_Flash_Lite_giro_2_caligo.md|12|NO|ricordare il numero della vita non è un gesto preciso
+dopo/LIVE_con_Flash_giro_1_medora.md|1|SI|dice chi è e con quali arti aiuta
+dopo/LIVE_con_Flash_giro_1_medora.md|2|SI|al limite, corpo generico ma gesto eseguibile sui tre desideri
+dopo/LIVE_con_Flash_giro_1_medora.md|3|NO|invita ad attendere, gesto dei sogni estraneo a ciò che ha scritto
+dopo/LIVE_con_Flash_giro_1_medora.md|4|SI|al limite, rileggere gli appunti cercando simboli ricorrenti parte da ciò che ha scritto
+dopo/LIVE_con_Flash_giro_1_medora.md|5|SI|sceglie il viaggio, dice perché e dà un passo concreto
+dopo/LIVE_con_Flash_giro_1_medora.md|6|SI|al limite, dice quando parlargli e di scrivere prima cosa dire
+dopo/LIVE_con_Flash_giro_1_medora.md|7|SI|indica di cercare comunità affini e un'osservazione precisa
+dopo/LIVE_con_Flash_giro_1_medora.md|8|SI|dice come rispondere alla madre e cosa mostrarle
+dopo/LIVE_con_Flash_giro_1_medora.md|9|SI|spiega il pianto e dice il passo, una lettera con tre luoghi
+dopo/LIVE_con_Flash_giro_1_medora.md|10|NO|non affrettare i tempi, nessuna misura, gesto generico di ascolto interiore
+dopo/LIVE_con_Flash_giro_1_medora.md|11|SI|al limite, corpo di commento ma gesto eseguibile legato alla partenza
+dopo/LIVE_con_Flash_giro_1_medora.md|12|SI|gesto semplice e preciso per il risveglio legato al viaggio
+dopo/LIVE_con_Flash_giro_1_aura.md|1|SI|dice chi è e con quali arti aiuta
+dopo/LIVE_con_Flash_giro_1_aura.md|2|NO|al limite, visualizzazioni di respiro che andrebbero bene per chiunque
+dopo/LIVE_con_Flash_giro_1_aura.md|3|NO|calma e respiro senza scopo, vale per chiunque
+dopo/LIVE_con_Flash_giro_1_aura.md|4|NO|accogliere senza forzare, massima generica senza un passo
+dopo/LIVE_con_Flash_giro_1_aura.md|5|SI|sceglie il lavoro e spiega perché
+dopo/LIVE_con_Flash_giro_1_aura.md|6|SI|al limite, dice di esporre idee e risultati ottenuti in un momento calmo
+dopo/LIVE_con_Flash_giro_1_aura.md|7|NO|al limite, lavoro sul centro della radice generico, non affronta la solitudine
+dopo/LIVE_con_Flash_giro_1_aura.md|8|SI|al limite, dice di ascoltarla e poi esprimere desiderio e motivazione
+dopo/LIVE_con_Flash_giro_1_aura.md|9|NO|accogliere le emozioni e respirare, nessun significato né passo concreto
+dopo/LIVE_con_Flash_giro_1_aura.md|10|NO|sentenza sul tempo interiore, nessuna misura né metodo
+dopo/LIVE_con_Flash_giro_1_aura.md|11|NO|organizzare i dettagli e respirare, invito per chiunque
+dopo/LIVE_con_Flash_giro_1_aura.md|12|SI|gesto semplice e preciso al risveglio legato alla partenza
+dopo/LIVE_con_Flash_giro_1_caligo.md|1|SI|dice chi è e con quali arti aiuta
+dopo/LIVE_con_Flash_giro_1_caligo.md|2|SI|al limite, corpo generico ma rito eseguibile sul desiderio più urgente
+dopo/LIVE_con_Flash_giro_1_caligo.md|3|NO|al limite, presagio vago e gesto del rosso estraneo a ciò che ha scritto
+dopo/LIVE_con_Flash_giro_1_caligo.md|4|SI|al limite, attesa generica ma altare dei tre desideri è un passo eseguibile
+dopo/LIVE_con_Flash_giro_1_caligo.md|5|SI|sceglie il lavoro e dice perché
+dopo/LIVE_con_Flash_giro_1_caligo.md|6|SI|dice cosa chiedere e di preparare e provare il discorso
+dopo/LIVE_con_Flash_giro_1_caligo.md|7|NO|al limite, crea legami e visualizza, invito vago valido per chiunque
+dopo/LIVE_con_Flash_giro_1_caligo.md|8|SI|al limite, dice di mostrare determinazione e preparare un dono alla madre
+dopo/LIVE_con_Flash_giro_1_caligo.md|9|SI|dice cosa significa il pianto e di mantenere la direzione
+dopo/LIVE_con_Flash_giro_1_caligo.md|10|SI|dà una misura, fissare la data del volo entro ventiquattro ore
+dopo/LIVE_con_Flash_giro_1_caligo.md|11|SI|al limite, elenco di tre cose da lasciare prima della partenza
+dopo/LIVE_con_Flash_giro_1_caligo.md|12|SI|gesto semplice e preciso per il risveglio
+dopo/LIVE_con_Flash_giro_2_medora.md|1|SI|dice chi è e con quali arti aiuta
+dopo/LIVE_con_Flash_giro_2_medora.md|2|SI|indicazione per ciascun desiderio e gesto delle tre priorità
+dopo/LIVE_con_Flash_giro_2_medora.md|3|SI|al limite, corpo vago ma gesto eseguibile che segue ciò che ha scritto
+dopo/LIVE_con_Flash_giro_2_medora.md|4|NO|chiede chiarimenti invece di rispondere, ignora le priorità appena scritte
+dopo/LIVE_con_Flash_giro_2_medora.md|5|SI|sceglie il lavoro e dice perché
+dopo/LIVE_con_Flash_giro_2_medora.md|6|SI|dice come, quando e cosa portare al capo
+dopo/LIVE_con_Flash_giro_2_medora.md|7|SI|gesto concreto sulla solitudine, gruppo di italiani in Australia
+dopo/LIVE_con_Flash_giro_2_medora.md|8|SI|dice cosa rispondere alla madre e cosa mostrarle
+dopo/LIVE_con_Flash_giro_2_medora.md|9|SI|tiene conto del pianto e dice il passo, una lettera senza richieste
+dopo/LIVE_con_Flash_giro_2_medora.md|10|SI|al limite, indica un tempo, quando la Luna entra in Cancro fra cinque giorni
+dopo/LIVE_con_Flash_giro_2_medora.md|11|SI|gesto concreto, piano di risparmio mensile per il viaggio
+dopo/LIVE_con_Flash_giro_2_medora.md|12|SI|gesto semplice e preciso per il risveglio
+dopo/LIVE_con_Flash_giro_2_aura.md|1|SI|dice chi è e con quali arti aiuta
+dopo/LIVE_con_Flash_giro_2_aura.md|2|NO|al limite, inviti a sentire e visualizzare validi per chiunque
+dopo/LIVE_con_Flash_giro_2_aura.md|3|NO|attendere e respirare, vale per chiunque
+dopo/LIVE_con_Flash_giro_2_aura.md|4|NO|ascoltare il respiro senza scopo, nessun passo sullo scritto
+dopo/LIVE_con_Flash_giro_2_aura.md|5|SI|sceglie il lavoro, dice perché e un passo
+dopo/LIVE_con_Flash_giro_2_aura.md|6|SI|dice cosa preparare e quando avvicinare il capo
+dopo/LIVE_con_Flash_giro_2_aura.md|7|NO|al limite, immaginare connessioni e aprire il cuore, invito generico
+dopo/LIVE_con_Flash_giro_2_aura.md|8|SI|al limite, dice di raccontare il desiderio senza voler convincere subito
+dopo/LIVE_con_Flash_giro_2_aura.md|9|SI|spiega il significato delle lacrime e cosa condividere con lei
+dopo/LIVE_con_Flash_giro_2_aura.md|10|NO|nessun tempo né metodo, ascoltare il respiro
+dopo/LIVE_con_Flash_giro_2_aura.md|11|NO|prepararsi e visualizzare, invito valido per chiunque
+dopo/LIVE_con_Flash_giro_2_aura.md|12|SI|gesto semplice e preciso al risveglio legato alla partenza
+dopo/LIVE_con_Flash_giro_2_caligo.md|1|SI|dice chi è e con quali arti aiuta
+dopo/LIVE_con_Flash_giro_2_caligo.md|2|SI|sceglie la compagna e dà una lettera da scrivere
+dopo/LIVE_con_Flash_giro_2_caligo.md|3|SI|al limite, portare con sé la lettera appena scritta
+dopo/LIVE_con_Flash_giro_2_caligo.md|4|SI|al limite, rileggere la lettera a mezzogiorno parte da ciò che ha scritto
+dopo/LIVE_con_Flash_giro_2_caligo.md|5|SI|al limite, sceglie il viaggio con una ragione sottile
+dopo/LIVE_con_Flash_giro_2_caligo.md|6|SI|dice come chiedere, incontro formale con lista dei successi
+dopo/LIVE_con_Flash_giro_2_caligo.md|7|SI|gesto concreto sulla solitudine, dieci cose da fare da solo
+dopo/LIVE_con_Flash_giro_2_caligo.md|8|SI|al limite, non rispondere subito e parlarle da sola prima degli altri
+dopo/LIVE_con_Flash_giro_2_caligo.md|9|SI|tiene conto del pianto e dice cosa chiederle
+dopo/LIVE_con_Flash_giro_2_caligo.md|10|SI|dà una misura, decidere entro il calar del sole
+dopo/LIVE_con_Flash_giro_2_caligo.md|11|SI|passo concreto, informarsi su visti e documenti per marzo
+dopo/LIVE_con_Flash_giro_2_caligo.md|12|SI|gesto semplice e preciso per il risveglio
+dopo/chat_con_Flash_giro_1_medora.md|1|SI|dice chi è e con quali arti aiuta
+dopo/chat_con_Flash_giro_1_medora.md|2|SI|per ciascun desiderio un passo: incontri reali, parlare tra un mese, contatto in Australia
+dopo/chat_con_Flash_giro_1_medora.md|3|NO|osservare le coincidenze vale per chiunque, il gesto ignora la lettera scritta
+dopo/chat_con_Flash_giro_1_medora.md|4|NO|al limite, ignora i fogli scritti e propone un mito e un oggetto generici
+dopo/chat_con_Flash_giro_1_medora.md|5|SI|sceglie il lavoro e spiega perché sostiene gli altri desideri
+dopo/chat_con_Flash_giro_1_medora.md|6|SI|risultati concreti, momento tranquillo, chiedere un minuto per illustrarli
+dopo/chat_con_Flash_giro_1_medora.md|7|SI|cercare online gruppi di italiani e associazioni in Australia
+dopo/chat_con_Flash_giro_1_medora.md|8|SI|non contraddirla, spiegare che non è fuga ma passo ponderato
+dopo/chat_con_Flash_giro_1_medora.md|9|SI|legge il pianto come paura di separazione e indica come proseguire il dialogo
+dopo/chat_con_Flash_giro_1_medora.md|10|SI|una misura, circa un mese, con un giorno fissato e una domanda
+dopo/chat_con_Flash_giro_1_medora.md|11|SI|informarsi su visto e costi, segnare le date delle pratiche
+dopo/chat_con_Flash_giro_1_medora.md|12|SI|gesto preciso al risveglio legato al primo passo del viaggio
+dopo/chat_con_Flash_giro_1_aura.md|1|SI|dice chi è e con quali arti aiuta
+dopo/chat_con_Flash_giro_1_aura.md|2|NO|al limite, solo visualizzazioni dei chakra, nessun passo concreto verso i tre desideri
+dopo/chat_con_Flash_giro_1_aura.md|3|NO|respirare e non attendere con ansia vale per chiunque
+dopo/chat_con_Flash_giro_1_aura.md|4|NO|silenzio e respiro sulla gola, massima per chiunque
+dopo/chat_con_Flash_giro_1_aura.md|5|NO|non sceglie, rimanda a ciò che il corpo indica
+dopo/chat_con_Flash_giro_1_aura.md|6|SI|momento a fine giornata, raccontare i successi e chiedere un feedback specifico
+dopo/chat_con_Flash_giro_1_aura.md|7|SI|al limite, una volta lì cercare attività con persone di interessi simili
+dopo/chat_con_Flash_giro_1_aura.md|8|SI|dice che cosa risponderle: capisco le preoccupazioni ma è la mia crescita
+dopo/chat_con_Flash_giro_1_aura.md|9|NO|al limite, accogliere e respirare, nulla su come proseguire con la madre
+dopo/chat_con_Flash_giro_1_aura.md|10|NO|lascia maturare senza misura, una sentenza per chiunque
+dopo/chat_con_Flash_giro_1_aura.md|11|NO|prepararsi con calma e visualizzare, vuota per chiunque
+dopo/chat_con_Flash_giro_1_aura.md|12|SI|gesto semplice e preciso da fare a letto appena sveglio
+dopo/chat_con_Flash_giro_1_caligo.md|1|SI|dice chi è e con quali arti aiuta
+dopo/chat_con_Flash_giro_1_caligo.md|2|SI|al limite, uscire, informarsi su viaggio e lavoro, obiettivo quotidiano
+dopo/chat_con_Flash_giro_1_caligo.md|3|NO|osservare la reazione senza forzare vale per chiunque
+dopo/chat_con_Flash_giro_1_caligo.md|4|SI|se tace tre giorni riscrivere con una sola domanda, misura precisa
+dopo/chat_con_Flash_giro_1_caligo.md|5|SI|sceglie il lavoro e dice perché: la stabilità precede il viaggio
+dopo/chat_con_Flash_giro_1_caligo.md|6|SI|chiedere un incontro, nominare i risultati, esprimere desiderio di crescere
+dopo/chat_con_Flash_giro_1_caligo.md|7|SI|cercare comunità italiane, scrivere a uno di tre contatti
+dopo/chat_con_Flash_giro_1_caligo.md|8|SI|dice che cosa dirle e chiedere comprensione non permesso
+dopo/chat_con_Flash_giro_1_caligo.md|9|SI|legge le lacrime come paura di perdita, mostrarle i progressi concreti
+dopo/chat_con_Flash_giro_1_caligo.md|10|SI|al limite, nessun tempo ancora, fissare una scadenza e scrivere la data
+dopo/chat_con_Flash_giro_1_caligo.md|11|SI|documenti, alloggi provvisori, primi giorni, una lista dettagliata
+dopo/chat_con_Flash_giro_1_caligo.md|12|SI|rileggere la lista e aggiungere un elemento, gesto preciso
+dopo/chat_con_Flash_giro_2_medora.md|1|SI|dice chi è e con quali arti aiuta
+dopo/chat_con_Flash_giro_2_medora.md|2|NO|al limite, inviti a riflettere e considerare, nessun passo per Australia e lavoro
+dopo/chat_con_Flash_giro_2_medora.md|3|NO|al limite, chiede il contesto e il gesto presuppone un destinatario ignoto
+dopo/chat_con_Flash_giro_2_medora.md|4|NO|osservare e attendere, oggetto simbolico, vale per chiunque
+dopo/chat_con_Flash_giro_2_medora.md|5|SI|sceglie il lavoro e dice perché: base per gli altri desideri
+dopo/chat_con_Flash_giro_2_medora.md|6|SI|giorno scelto, aspettative precise, tre risultati concreti da annotare
+dopo/chat_con_Flash_giro_2_medora.md|7|SI|cercare online tre gruppi di interesse in Australia contro la solitudine
+dopo/chat_con_Flash_giro_2_medora.md|8|SI|spiegarle i progetti, raccontarle in dettaglio un progetto concreto
+dopo/chat_con_Flash_giro_2_medora.md|9|SI|il pianto è preoccupazione, rassicurarla che chiamerà spesso
+dopo/chat_con_Flash_giro_2_medora.md|10|NO|nessuna misura, riflettere sulla serenità vale per chiunque
+dopo/chat_con_Flash_giro_2_medora.md|11|NO|al limite, pianificare tre passi senza dire quali
+dopo/chat_con_Flash_giro_2_medora.md|12|SI|gesto preciso al risveglio: messaggio con il motivo del viaggio
+dopo/chat_con_Flash_giro_2_aura.md|1|SI|dice chi è e con quali arti aiuta
+dopo/chat_con_Flash_giro_2_aura.md|2|NO|nutrire il cuore, pensare a un gesto, visualizzare: vago per chiunque
+dopo/chat_con_Flash_giro_2_aura.md|3|NO|ascoltare il respiro mentre aspetta, senza scopo per lui
+dopo/chat_con_Flash_giro_2_aura.md|4|NO|non affrettare e restare in ascolto, massima per chiunque
+dopo/chat_con_Flash_giro_2_aura.md|5|SI|sceglie il lavoro e dice perché è più radicato adesso
+dopo/chat_con_Flash_giro_2_aura.md|6|SI|al limite, momento tranquillo, esprimere il valore portato, respiri prima
+dopo/chat_con_Flash_giro_2_aura.md|7|NO|al limite, visualizzare luoghi non affronta la solitudine con un passo
+dopo/chat_con_Flash_giro_2_aura.md|8|NO|calma e chiarezza generiche, gesto dello specchio estraneo alla madre
+dopo/chat_con_Flash_giro_2_aura.md|9|NO|accogliere le emozioni, nulla sul pianto della madre né sul seguito
+dopo/chat_con_Flash_giro_2_aura.md|10|NO|nessun tempo, non forzare, sentenza per chiunque
+dopo/chat_con_Flash_giro_2_aura.md|11|NO|al limite, prepararsi e scrivere tre cose senza dire quali
+dopo/chat_con_Flash_giro_2_aura.md|12|SI|gesto semplice e preciso da fare a letto appena sveglio
+dopo/chat_con_Flash_giro_2_caligo.md|1|SI|dice chi è e con quali arti aiuta
+dopo/chat_con_Flash_giro_2_caligo.md|2|NO|imperativi secchi senza come, massima sui fili, runa estranea
+dopo/chat_con_Flash_giro_2_caligo.md|3|NO|osservare il silenzio che segue vale per chiunque
+dopo/chat_con_Flash_giro_2_caligo.md|4|NO|vai avanti e un contenitore di oggetti, ignora ciò che ha scritto
+dopo/chat_con_Flash_giro_2_caligo.md|5|SI|sceglie il lavoro, obiettivo settimanale scritto e visibile
+dopo/chat_con_Flash_giro_2_caligo.md|6|SI|al limite, fermezza generica ma annotare i successi una settimana prepara la richiesta
+dopo/chat_con_Flash_giro_2_caligo.md|7|NO|non lasciare che la paura ti fermi, massima, gesto estraneo alla solitudine
+dopo/chat_con_Flash_giro_2_caligo.md|8|SI|al limite, spiegarle la visione mostrandole un oggetto dell'Australia
+dopo/chat_con_Flash_giro_2_caligo.md|9|NO|lacrime come presagio, nessuna indicazione su che cosa fare ora
+dopo/chat_con_Flash_giro_2_caligo.md|10|NO|non c'è tempo da perdere, nessuna misura né metodo
+dopo/chat_con_Flash_giro_2_caligo.md|11|NO|preparare il terreno e oggetti simbolici, nessun passo pratico
+dopo/chat_con_Flash_giro_2_caligo.md|12|SI|gesto preciso al risveglio legato al contenitore e all'oggetto

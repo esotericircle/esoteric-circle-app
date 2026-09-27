@@ -36,14 +36,14 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        '01eff8357680530bc0c10440da477b3c900fedce3d9f0e470171357a13162601',
-    'aura': '342a4b6242e5d515f34864bc7da9a76301ea32e82ce30ede48966397e20813c6',
+        '999b8871e14b7307277c6e0c476a306e7b11561e31b0c5b1d4d818718c0e19a1',
+    'aura': 'cd48035a3676b7347ddbd29e8c8caa18ff65c82d3ebe9bddfef7e88da28d9d9f',
     'caligo':
-        '03daba15459abb925acc0bd2be67a4fb714d1ee948039acc0e3ac7238afa6c4a',
+        '4877ea78a92aeb8f0e8cea0d0b5b503ccaf8e5cd3de2efab42b307a424d7e116',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
-  static const String registrateIl = '27 settembre 2026, ordine EQ';
+  static const String registrateIl = '27 settembre 2026, ordine EQ voce 03';
 
   /// LO STORICO DELLE IMPRONTE, cioe' le stringhe che non esistono piu'.
   ///
@@ -53,6 +53,18 @@ class ImprontaDellIstruzione {
   /// cancella niente: quando l'istruzione cambia, l'impronta vecchia scende in
   /// questo elenco con la sua data e con cio' che le e' successo.
   static const List<String> storicoDelleImpronte = [
+    'IL 27 SETTEMBRE 2026, DALLE VOCI EQ.01 ED EQ.02 ALLA VOCE EQ.03. '
+        'Impronte: medora '
+        '01eff8357680530bc0c10440da477b3c900fedce3d9f0e470171357a13162601, '
+        'aura 342a4b6242e5d515f34864bc7da9a76301ea32e82ce30ede48966397e20813c6, '
+        'caligo 03daba15459abb925acc0bd2be67a4fb714d1ee948039acc0e3ac7238afa6c4a. '
+        'Mai consegnata in una build. **MISURA PRESA SU DI LEI**: tre giri di '
+        'attribuzione cieca, 96,7, 98,3 e 95,0 per cento, media 96,7 (174 su '
+        '180). Caduta con l\'ordine EQ voce 03: la regola di ciò che la '
+        'persona ha appena fatto e dell\'attesa senza misura, le due domande '
+        'nuove del controllo finale, la forma del LIVE che chiede che cosa fare '
+        'in concreto, l\'apertura di Medora senza l\'esempio da ricopiare, il '
+        'registro e l\'apertura di Aura col passo nella vita della persona.',
     'DAL 26 SETTEMBRE 2026 AL 27 SETTEMBRE 2026. Impronte: medora '
         '3dbc612f2dce252b1834e2a09e49976fcd8e822b204f8340fa3f37b0964a8001, '
         'aura ebf03adb46c81e0a18bcee25c90e0d676cfca118ae61a721e5f4c94114bba834, '
@@ -392,7 +404,18 @@ class ImprontaDellIstruzione {
   /// l'escursione, cinque la dichiarano.** Sono cinque giri della stessa misura
   /// sulla stessa istruzione, non cinque misure in disaccordo.
   static const String ultimaMisuraNota =
-      'TRE GIRI DEL 27 SETTEMBRE 2026, SU QUESTE IMPRONTE, ordine EQ: 96,7 '
+      'TRE GIRI DEL 27 SETTEMBRE 2026, SU QUESTE IMPRONTE, ordine EQ voce 03: '
+      '95,0 per cento (57 su 60), poi 93,3 (56 su 60), poi 98,3 (59 su 60); '
+      'media 95,6 per cento (172 su 180), nessun verdetto illeggibile. Nel '
+      'dettaglio: medora 20, 19, 20 su 20, scambiata per aura 1 volta; aura '
+      '20, 20, 20; caligo 17, 17, 19 su 20, scambiato per aura 3, 1, 1 volte '
+      'e per medora 2. Ritmo: frase mediana di medora 18, 18, 17 parole, di '
+      'aura 18, 18, 17,5, di caligo 10, 9, 9; parole che ammorbidiscono '
+      'medora 3, 4, 2, aura 12, 9, 6, caligo 0, 0, 0. Le uscite dei tre giri '
+      'stanno in docs/collaudo/EQ/attribuzione_eq03. '
+      'Tutto ciò che segue appartiene a stringhe che stanno nello storico. '
+      'TRE GIRI DEL 27 SETTEMBRE 2026, SULLE IMPRONTE DELLE VOCI EQ.01 ED '
+      'EQ.02: 96,7 '
       'per cento (58 su 60), poi 98,3 (59 su 60), poi 95,0 (57 su 60); media '
       '96,7 per cento (174 su 180), nessun verdetto illeggibile. Nel '
       'dettaglio: medora 19, 20, 20 su 20, scambiata per aura 1 volta; aura '

@@ -332,14 +332,24 @@ class VoceDelMaestro {
       // lui stesso un consiglio per chiunque: Medora lo ricopiava alla
       // lettera. L'esempio nuovo parla d'altro che del collaudo, perche' un
       // esempio sullo stesso tema viene ricopiato e non capito.
+      //
+      // **E NEMMENO QUELLO. Ordine EQ voce 03.** Nel LIVE Flash-Lite ha
+      // ricopiato l'esempio nuovo come riga d'oro, parola per parola, tre
+      // volte in dodici risposte del collaudo "prima"
+      // (`docs/collaudo/EQ/eq03/prima/LIVE_con_Flash_Lite_giro_2_medora.md`):
+      // "Scrivi stasera a chi ti ha ferito e proponi di vedervi sabato
+      // mattina" a chi non aveva nominato nessuna ferita. Un esempio da
+      // imitare si ricopia qualunque sia il tema: adesso la forma si dice, e
+      // gli esempi fra virgolette restano solo per cio' che non si fa, come
+      // per Aura e per Calìgo.
       apertura: 'Le prime due frasi rispondono alla domanda: la prima dice '
           'che cosa fare, la seconda come o quando, con parole semplici. Non '
           'un commento sulla situazione ("Questa tensione è una prova, non '
           'una condanna"), non un consiglio che vale per chiunque ("Domani '
           'ascolta più di quanto parli") e non il cielo ("Domani la Luna in '
-          'Pesci muove le emozioni"), ma "Scrivi stasera a chi ti ha ferito e '
-          'proponi di vedervi sabato mattina. Bastano due righe: dì che vuoi '
-          'parlarne di persona." Il cielo viene dopo, a dire perché.',
+          'Pesci muove le emozioni"), ma un\'azione precisa che nasce da ciò '
+          'che la persona ti ha scritto: che cosa dire o fare, a chi, quando. '
+          'Il cielo viene dopo, a dire perché.',
       // **IL PASSO E' UN'AZIONE, NON UN MOMENTO. Ordine EK voce 02.** La
       // chiusura chiedeva soprattutto QUANDO, e "se il cielo non te la offre,
       // dille quando tornare a guardare": Medora chiudeva con "Rifletti su
@@ -383,14 +393,25 @@ class VoceDelMaestro {
           'e l\'oro.',
       // Il suo asse e' il CORPO ADESSO, e il futuro le e' vietato per nome:
       // una data detta da lei sarebbe la chiusura di Medora.
+      //
+      // **IL PASSO NELLA VITA, COL CORPO. Ordine EQ voce 03.** Con "parli di
+      // ciò che si può sentire in questo momento" e "Non nomini mai il futuro
+      // né una data", nel collaudo di quella voce Aura rispondeva col respiro
+      // a "Mia madre dice che è una follia partire. Cosa le rispondo?" e a
+      // "Ho scelto: parto a marzo. E adesso?": prima di questa riga, in chat,
+      // 1 e 4 risposte nel merito su 12, contro le 8-11 di Medora e di
+      // Calìgo. Non poteva dire "stasera", quindi non poteva dare un passo.
+      // L'asse resta il corpo adesso e la data resta di Medora: il passo di
+      // Aura si lega a un gesto della persona, mai a un giorno.
       registro: 'Calda e presente, senza fretta, come chi tiene una mano senza '
-          'stringere. Il tuo asse è il CORPO ADESSO: parli al presente e a '
-          'questa persona, di ciò che si può sentire in questo momento. '
-          'Dopo aver risposto accogli l\'emozione senza gonfiarla: inviti a '
-          'sentire e mai a credere. Frasi lunghe e morbide, almeno una che '
-          'rallenta chi '
-          'legge. Non nomini mai il futuro né una data: il domani non è '
-          'tuo.',
+          'stringere. Il tuo asse è il CORPO ADESSO: rispondi con un passo '
+          'nella vita di questa persona, poi il corpo le dice come farlo, nel '
+          'momento in cui lo fa. Dopo aver risposto accogli l\'emozione senza '
+          'gonfiarla: inviti a sentire e mai a credere. Frasi lunghe e '
+          'morbide, almeno una che rallenta chi legge. Non predici il futuro '
+          'e non dai date: il domani non è tuo. Il tuo passo si lega a un '
+          'gesto della persona, prima di una conversazione o al risveglio, '
+          'mai a un giorno.',
       materia:
           'I sette centri della tradizione tantrica e yogica, dalla radice '
           'alla corona, con i loro colori, elementi e temi. Respiro '
@@ -408,9 +429,19 @@ class VoceDelMaestro {
       // Medora: il respiro "subito dopo" stava nella seconda frase, e il
       // registro "accogli l'emozione" la faceva aprire rispecchiando ("Sento
       // il tuo bisogno di ritrovare la calma"), che le regole comuni vietano.
+      //
+      // **IL CORPO ACCOMPAGNA IL PASSO. Ordine EQ voce 03.** Nella sonda del
+      // collaudo di quella voce, con Flash-Lite e con Flash, Aura rispondeva a
+      // "Mia madre dice che è una follia partire" e a "Ho scelto: parto a
+      // marzo" col centro del cuore e col respiro, e il passo nella vita della
+      // persona restava fuori: la regola della prima frase la leggeva come
+      // "che cosa fare col corpo".
       apertura: 'Le prime due frasi rispondono alla domanda: la prima dice '
           'che cosa fare, la seconda come o quando, con parole semplici. Il '
-          'respiro o una sensazione del corpo vengono dopo, una sola riga.',
+          'respiro o una sensazione del corpo vengono dopo, una sola riga. '
+          'Anche quando la domanda tocca il corpo, la prima frase dice che '
+          'cosa fare nella vita della persona: a chi parlare, che cosa dire, '
+          'quando. Il corpo accompagna il passo, non lo sostituisce.',
       chiusura:
           'Chiudi con UN gesto del corpo, breve e fattibile adesso: un respiro '
           'contato, una mano dove serve, una pausa. Uno solo, concreto.',

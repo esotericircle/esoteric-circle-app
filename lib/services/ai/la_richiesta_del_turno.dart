@@ -13,7 +13,10 @@ import 'dart:async';
 ///   stessa risposta parola per parola);
 /// - **quale risposta non va data**, quando il Maestro ha appena parlato di
 ///   se' come di un programma (voce EN.06, Calìgo che risponde *"Non ho
-///   memoria delle conversazioni precedenti"*).
+///   memoria delle conversazioni precedenti"*);
+/// - **quale risposta dice solo di aspettare**, ordine EQ voce 03: Calìgo
+///   nelle catture del fondatore, *"Il tuo gesto è compiuto. Ora lascia che
+///   il tempo faccia il suo corso."*
 ///
 /// **Perche' viaggia nella zona e non nella firma.** `reply` la implementano
 /// il provider vero, la voce sorvegliata e quaranta provider finti delle
@@ -26,6 +29,7 @@ class LaRichiestaDelTurno {
     this.nelLive = false,
     this.daNonRipetere,
     this.daProgramma,
+    this.daAttesa,
     this.suTesto,
   });
 
@@ -39,6 +43,10 @@ class LaRichiestaDelTurno {
   /// La risposta che il Maestro stava per dare parlando di se' come di un
   /// programma, da non dare; null quando non c'e'.
   final String? daProgramma;
+
+  /// La risposta che il Maestro stava per dare e che dice soltanto di
+  /// aspettare, da non dare; null quando non c'e'. Ordine EQ voce 03.
+  final String? daAttesa;
 
   /// **IL TESTO MENTRE ARRIVA.** Ordine EO voce 14, 26 settembre 2026: nel
   /// LIVE la risposta si mostra mentre il modello la scrive, e il provider

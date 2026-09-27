@@ -149,9 +149,14 @@ void main() {
     });
   });
 
-  test('nel LIVE risponde Flash-Lite, nella chat scritta Flash', () {
+  // **LAPIDE, ordine EQ voce 03.** Qui l'ordine EO voce 14 pretendeva
+  // Flash-Lite nel LIVE, per l'attesa. L'ordine EQ ha messo il merito davanti:
+  // nel collaudo Flash-Lite rispondeva nel merito 27 e 36 volte su 72, Flash
+  // 52 e 54 (docs/collaudo/EQ/eq03_nel_merito.txt). La prova resta, col
+  // modello scelto adesso.
+  test('nel LIVE risponde Flash, nella chat scritta Flash', () {
     expect(FirebaseMaestroAiProvider.modelloDelTurno(nelLive: true),
-        'gemini-2.5-flash-lite');
+        'gemini-2.5-flash');
     expect(FirebaseMaestroAiProvider.modelloDelTurno(nelLive: false),
         FirebaseMaestroAiProvider.kMaestroChatModel);
     final provider = File('lib/services/ai/firebase_maestro_ai_provider.dart')

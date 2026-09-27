@@ -54,15 +54,24 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
   /// Modello per la risposta Profonda del Premium: Flash, piu' ricco.
   static const String kMaestroProfondaModel = 'gemini-2.5-flash';
 
-  /// **IL MODELLO DEL TURNO, IN UN PUNTO SOLO. Ordine EO voce 14.** Nel
-  /// LIVE Flash-Lite: la risposta detta a voce e' di tre frasi, e il
-  /// fondatore ha chiesto di ridurre l'attesa *"il più possibile"*; nella chat
-  /// scritta resta [chatModel]. Lo usano il provider vero e il collaudo.
+  /// **IL MODELLO DEL TURNO, IN UN PUNTO SOLO. Ordine EO voce 14.** Nella
+  /// chat scritta resta [chatModel]. Lo usano il provider vero e il collaudo.
+  ///
+  /// **Nel LIVE Flash, dall'ordine EQ voce 03**, 27 settembre 2026. L'ordine
+  /// EO l'aveva messo a Flash-Lite per l'attesa; l'ordine EQ ha chiesto *"per
+  /// il LIVE resta il modello che risponde nel merito; fra due che rispondono
+  /// nel merito, il più veloce"*. Stesse dodici domande di seguito, due giri
+  /// per Maestro, lette con la regola scritta
+  /// (`docs/collaudo/EQ/eq03_nel_merito.txt`): Flash-Lite nel merito 18 su 72
+  /// prima della cura, 36 e 27 su 72 nei due giri dopo; Flash 52 e 54 su 72.
+  /// Il tempo del modello mediano sale da 781 a 1175 millesimi.
+  static const String kMaestroLiveModel = 'gemini-2.5-flash';
+
   static String modelloDelTurno({
     required bool nelLive,
     String chatModel = kMaestroChatModel,
   }) =>
-      nelLive ? kMaestroBreveModel : chatModel;
+      nelLive ? kMaestroLiveModel : chatModel;
 
   /// Il modello giusto per la profondita', in un punto solo.
   static String modelForDepth(ConsultDepth depth) =>
@@ -151,6 +160,7 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
           nelLive: turno.nelLive,
           daNonRipetere: turno.daNonRipetere,
           daProgramma: turno.daProgramma,
+          daAttesa: turno.daAttesa,
         ),
       ),
       // La PRIMA risposta arriva sempre alla stessa misura per tutti: la

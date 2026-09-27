@@ -1,0 +1,17 @@
+EQ.03 prima LIVE con Flash-Lite giro 1 aura: nel merito 2 su 12 lette, tempo del modello mediano 661 ms
+EQ.03 prima LIVE con Flash-Lite giro 1 caligo: nel merito 2 su 12 lette, tempo del modello mediano 593 ms
+EQ.03 prima LIVE con Flash-Lite giro 1 medora: nel merito 5 su 12 lette, tempo del modello mediano 694 ms
+EQ.03 prima LIVE con Flash-Lite giro 2 aura: nel merito 2 su 12 lette, tempo del modello mediano 694 ms
+EQ.03 prima LIVE con Flash-Lite giro 2 caligo: nel merito 4 su 12 lette, tempo del modello mediano 601 ms
+EQ.03 prima LIVE con Flash-Lite giro 2 medora: nel merito 3 su 12 lette, tempo del modello mediano 715 ms
+EQ.03 prima chat con Flash giro 1 aura: nel merito 2 su 12 lette, tempo del modello mediano 1853 ms
+EQ.03 prima chat con Flash giro 1 caligo: nel merito 12 su 12 lette, tempo del modello mediano 974 ms
+EQ.03 prima chat con Flash giro 1 medora: nel merito 8 su 12 lette, tempo del modello mediano 1205 ms
+EQ.03 prima chat con Flash giro 2 aura: nel merito 3 su 12 lette, tempo del modello mediano 1531 ms
+EQ.03 prima chat con Flash giro 2 caligo: nel merito 10 su 12 lette, tempo del modello mediano 1138 ms
+EQ.03 prima chat con Flash giro 2 medora: nel merito 11 su 12 lette, tempo del modello mediano 1406 ms
+
+TOTALE LIVE CON FLASH-LITE: nel merito 18 su 72 lette, tempo del modello mediano 668 ms su 72 risposte
+TOTALE CHAT CON FLASH: nel merito 46 su 72 lette, tempo del modello mediano 1334 ms su 72 risposte
+Modelli: chat gemini-2.5-flash, LIVE dell'app gemini-2.5-flash-lite; europe-west1.
+Il merito viene dalla lettura con la regola scritta, docs/collaudo/EQ/eq03/lettura_prima.txt; le risposte e i tempi sono quelli della generazione.
