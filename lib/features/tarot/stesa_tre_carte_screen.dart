@@ -1015,7 +1015,8 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
           '${_dalModello != null ? 'del modello' : 'di casa (${LaLetturaDellaStesa.ultimoScarto})'}'
           '${LaLetturaDellaStesa.ultimaCurata ? ', curata' : ''}'
           '${LaLetturaDellaStesa.ultimaRiscritta ? ', riscritta' : ''}'
-          ', chiamate ${LaLetturaDellaStesa.ultimiTentativi}, riscritture '
+          ', chiamate ${LaLetturaDellaStesa.ultimiTentativi}, riserve '
+          '${LaLetturaDellaStesa.ultimeRiserve}, riscritture '
           '${LaLetturaDellaStesa.ultimeRiscritture}');
     }
     if (!mounted) return;
@@ -1191,11 +1192,11 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
                       spread: _spread,
                       palette: palette,
                       topic: _reading.topic,
-                      lettura: DomandaDellaPersona.pulita(
-                                  _setup.domandaScritta) ==
-                              null
-                          ? _dalModello
-                          : null,
+                      lettura:
+                          DomandaDellaPersona.pulita(_setup.domandaScritta) ==
+                                  null
+                              ? _dalModello
+                              : null,
                     ),
                   ),
                 ),

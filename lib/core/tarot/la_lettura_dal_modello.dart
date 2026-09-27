@@ -159,6 +159,51 @@ abstract final class LaLetturaDellaStesa {
   /// richiesta breve, che torna in circa un secondo.
   static const Duration tempoPerRiscrivere = Duration(seconds: 2);
 
+  /// **LA RICHIESTA DI RISERVA.** Ordine EQ voce 04, 27 settembre 2026: sul
+  /// Realme una stesa su tre e' finita nella lettura di casa a 10.001
+  /// millesimi, perche' una chiamata sola non e' tornata e si e' presa tutta
+  /// la pazienza (`docs/collaudo/EQ/realme/eq04_build_eq_attesa_della_stesa.txt`).
+  /// Le altre tornavano in circa quattro secondi. Se dopo [riservaDopo] la
+  /// chiamata non e' tornata, ne parte una seconda uguale, e vince la prima
+  /// che torna: una chiamata in piu' solo quando la prima e' lenta.
+  static const Duration riservaDopo = Duration(milliseconds: 4500);
+
+  /// Quante richieste di riserva sono partite nell'ultima lettura.
+  static int ultimeRiserve = 0;
+
+  /// La prima risposta che torna fra [chiama] e, se tarda oltre [dopo], una
+  /// sua copia. Se la prima che torna e' un errore, si aspetta l'altra.
+  static Future<String?> primaCheTorna(
+    Future<String?> Function() chiama, {
+    Duration dopo = riservaDopo,
+  }) {
+    final esito = Completer<String?>();
+    var inVolo = 0;
+    Object? ultimoErrore;
+    StackTrace? ultimaTraccia;
+    void parti() {
+      inVolo++;
+      chiama().then((testo) {
+        if (!esito.isCompleted) esito.complete(testo);
+      }, onError: (Object errore, StackTrace traccia) {
+        ultimoErrore = errore;
+        ultimaTraccia = traccia;
+        inVolo--;
+        if (inVolo == 0 && !esito.isCompleted) {
+          esito.completeError(ultimoErrore!, ultimaTraccia);
+        }
+      });
+    }
+
+    parti();
+    final riserva = Timer(dopo, () {
+      if (esito.isCompleted) return;
+      ultimeRiserve++;
+      parti();
+    });
+    return esito.future.whenComplete(riserva.cancel);
+  }
+
   /// **L'ISTRUZIONE DELLA RISCRITTURA.** Ordine EQ voce 04: nel giro di prova
   /// tre letture su venti, con la forma neutra, cadevano per una frase sola
   /// col genere anche al terzo tentativo, e quella frase era spesso la stessa
@@ -309,6 +354,7 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
     String? scartataPerche;
     LetturaDelModello? daCurare;
     ultimiTentativi = 0;
+    ultimeRiserve = 0;
     ultimeRiscritture = 0;
     ultimiScarti.clear();
     ultimaCurata = false;
@@ -319,13 +365,16 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
       ultimiTentativi = tentativo + 1;
       String? testo;
       try {
-        testo = await (chiamata ?? _chiamataVera)(
-          istruzione(forma),
-          richiesta(spread,
-              domanda: domanda,
-              argomento: argomento,
-              scartataPerche: scartataPerche),
-          campi,
+        final perQuesta = scartataPerche;
+        testo = await primaCheTorna(
+          () => (chiamata ?? _chiamataVera)(
+            istruzione(forma),
+            richiesta(spread,
+                domanda: domanda,
+                argomento: argomento,
+                scartataPerche: perQuesta),
+            campi,
+          ),
         ).timeout(resta);
       } catch (errore) {
         // Rete assente, tempo scaduto, servizio spento: non si ritenta, e

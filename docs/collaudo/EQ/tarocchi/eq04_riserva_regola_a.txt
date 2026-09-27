@@ -1,0 +1,28 @@
+EQ.04, la richiesta di riserva della stesa. Guardia test/la_stesa_ha_una_richiesta_di_riserva_test.dart, 27 settembre 2026.
+
+== Regola A, riserva: la seconda chiamata non parte
+   file lib/core/tarot/la_lettura_dal_modello.dart, sha1 prima d95cdab57e3b, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   ripristinato: sha1 d95cdab57e3b, uguale
+== Regola A, riserva: la lettura chiede il modello senza riserva
+   file lib/core/tarot/la_lettura_dal_modello.dart, sha1 prima d95cdab57e3b, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'await primaCheTorna('
+   Actual: 'static Future<LetturaDelModello?> leggi({\n'
+   ripristinato: sha1 d95cdab57e3b, uguale
+== Regola A, riserva: la riserva parte sempre
+   file lib/core/tarot/la_lettura_dal_modello.dart, sha1 prima d95cdab57e3b, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +1: All tests passed!
+   ripristinato: sha1 d95cdab57e3b, uguale
+
+Il terzo innesto qui sopra era un difetto finto: togliere il controllo non cambia niente, perche' il timer si annulla comunque quando la prima chiamata torna; il verde non misurava la guardia. Rifatto col difetto vero, la riserva che non si annulla:
+== Regola A, riserva: la riserva non si annulla quando la prima torna
+   file lib/core/tarot/la_lettura_dal_modello.dart, sha1 prima d95cdab57e3b, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: <1>
+   Actual: <2>
+   ripristinato: sha1 d95cdab57e3b, uguale
