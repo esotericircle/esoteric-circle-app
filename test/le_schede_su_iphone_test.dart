@@ -6,6 +6,7 @@ import 'package:esoteric_circle/features/schede/la_riga_delle_schede.dart';
 import 'package:esoteric_circle/features/schede/la_scheda_dell_arte.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:flutter/foundation.dart';
+import 'package:esoteric_circle/features/santuario/le_righe_della_casa.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -59,44 +60,50 @@ void main() {
 
   final soloIos = TargetPlatformVariant.only(TargetPlatform.iOS);
 
-  testWidgets('su iPhone la home mostra le dieci righe, e una scheda si apre',
+  // Ordine ER voce 08: le righe della home sono undici, e l'ultima e' "Il
+  // tuo destino" (prima erano dieci, con "La tua energia" in fondo).
+  testWidgets('su iPhone la home mostra le undici righe, e una scheda si apre',
       (tester) async {
     await monta(tester);
     expect(defaultTargetPlatform, TargetPlatform.iOS);
     final righe = find.byType(LaRigaDelleSchede, skipOffstage: false);
-    expect(righe, findsNWidgets(10));
+    expect(righe, findsNWidgets(11));
     // Si scorre la home col dito, con la fisica di iOS, fino all'ultima riga.
     final corpo = find.byWidgetPredicate(
         (w) => w is Scrollable && w.axisDirection == AxisDirection.down);
+    // Si scorre finche' la prima scheda dell'ultima riga e' in vista, non il
+    // suo titolo: con le schede piu' basse dell'ordine ER il titolo a 600
+    // punti lasciava le schede sotto il bordo.
+    final primaDellUltima = LeRigheDellaCasa.righe.last.arti.first;
+    final primaScheda = find.byKey(Key('riga_il_tuo_destino_$primaDellUltima'),
+        skipOffstage: false);
     for (var i = 0; i < 30; i++) {
-      if (find
-              .byKey(const Key('riga_titolo_la_tua_energia'))
-              .evaluate()
-              .isNotEmpty &&
-          tester
-                  .getRect(find.byKey(const Key('riga_titolo_la_tua_energia')))
-                  .top <
-              600) {
-        break;
+      if (primaScheda.evaluate().isNotEmpty) {
+        final r = tester.getRect(primaScheda);
+        if (r.top > 150 && r.bottom < 700) break;
       }
       await tester.drag(corpo.first, const Offset(0, -300));
       await tester.pump(const Duration(milliseconds: 200));
     }
-    expect(find.byKey(const Key('riga_titolo_la_tua_energia')), findsOneWidget);
+    expect(find.byKey(const Key('riga_titolo_il_tuo_destino')), findsOneWidget);
     // Una riga scorre di lato, col dito.
-    final riga = find.byKey(const Key('riga_scorre_la_tua_energia'));
-    // La prima scheda della riga, qualunque sia: dal 26 settembre 2026 i
-    // doppioni in vista vanno in fondo, e l'ordine dipende da cio' che le
-    // righe sopra mostrano.
+    final riga = find.byKey(const Key('riga_scorre_il_tuo_destino'));
+    // La prima scheda della riga, dall'elenco della riga.
     final primaArte = tester
         .widgetList<LaRigaDelleSchede>(find.byType(LaRigaDelleSchede))
-        .firstWhere((r) => r.chiave == 'la_tua_energia')
+        .firstWhere((r) => r.chiave == 'il_tuo_destino')
         .arti
         .first
         .id;
-    final scheda = find.byKey(Key('riga_la_tua_energia_$primaArte'));
+    // La scheda si cerca anche fuori scena: in fondo alla pagina il viewport
+    // la conta nella sua fascia di riserva, ma il dito la colpisce.
+    final scheda =
+        find.byKey(Key('riga_il_tuo_destino_$primaArte'), skipOffstage: false);
     final prima = tester.getTopLeft(scheda).dx;
-    await tester.drag(riga, const Offset(-200, 0));
+    // Il dito parte dalla scheda: il centro della riga intera, con le
+    // schede basse dell'ordine ER, puo' cadere sotto la fascia in fondo.
+    expect(riga, findsOneWidget);
+    await tester.dragFrom(tester.getCenter(scheda), const Offset(-200, 0));
     await tester.pump(const Duration(milliseconds: 500));
     expect(tester.getTopLeft(scheda).dx, lessThan(prima),
         reason: 'su iPhone la riga non scorre di lato');
@@ -132,7 +139,8 @@ void main() {
     expect(find.byType(MaestroChatScreen), findsOneWidget);
   }, variant: soloIos);
 
-  testWidgets('su iPhone il dominio mostra le sezioni a schede e In arrivo',
+  testWidgets(
+      'su iPhone il dominio mostra le sezioni a schede, senza In arrivo',
       (tester) async {
     await monta(tester);
     await tester.tap(find.byKey(const Key('santuario_central_bust')));
@@ -146,8 +154,11 @@ void main() {
         .toList();
     // ignore: avoid_print
     print('SU IPHONE: righe del dominio $righe');
-    expect(righe.last, 'In arrivo');
-    expect(righe.length, greaterThanOrEqualTo(4));
+    // LAPIDE, ordine ER voce 10: l'ultima riga era "In arrivo". Adesso ogni
+    // arte sta nella sezione del suo Maestro, la riga "In arrivo" e' vuota e
+    // non si mostra.
+    expect(righe, isNot(contains('In arrivo')));
+    expect(righe.length, greaterThanOrEqualTo(3));
     expect(Maestro.values, isNotEmpty);
   }, variant: soloIos);
 }

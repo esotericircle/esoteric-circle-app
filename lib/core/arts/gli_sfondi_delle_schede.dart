@@ -36,8 +36,15 @@ enum FormatoDellaScheda {
 abstract final class GliSfondiDelleSchede {
   static const String cartella = 'assets/schede';
 
-  /// Il nome di ogni arte nei file, per identificativo del catalogo, nell'ordine
-  /// dell'ordine EO: dieci per Maestro.
+  /// Il nome di ogni arte nei file, per identificativo del catalogo: le trenta
+  /// dell'ordine EO, dieci per Maestro, poi le ventiquattro del catalogo e le
+  /// dodici arti nuove dell'ordine ER voce 10.
+  ///
+  /// **ORDINE ER VOCE 10, 27 settembre 2026.** Il fondatore aveva generato gli
+  /// sfondi di tutte le arti, e trenta sole erano legate: le altre ventiquattro
+  /// del catalogo si disegnavano con lo sfondo del Maestro e l'icona in oro.
+  /// Adesso ogni arte del catalogo ha il suo, tranne l'Angelo Custode e il Test
+  /// Archetipo, che vivono solo nel Passaporto e non hanno una scheda.
   static const Map<String, String> nomi = {
     // Medora
     'horoscope': 'Oroscopo',
@@ -72,6 +79,50 @@ abstract final class GliSfondiDelleSchede {
     'pendulum': 'Pendolo',
     'i_ching': 'I-Ching',
     'numerology': 'Numerologia-Destino',
+    // Ordine ER voce 10: le ventiquattro arti del catalogo che non erano legate.
+    // Medora
+    'natal_chart': 'Carta-Natale',
+    'planetary_returns': 'Ritorni-Planetari',
+    'astrocartography': 'Astrocartografia',
+    'angel_cards': 'Carte-Angeliche',
+    'fertility_windows': 'Finestre-Fertili',
+    'lunar_calendar': 'Calendario-Lunare',
+    'karmic_reading': 'Lettura-Karmica',
+    // Aura
+    'mudra': 'Mudra',
+    'belief_art': 'Arte-Convinzioni',
+    'lucid_dreams': 'Sogni-Lucidi',
+    'crystal_therapy': 'Cristalloterapia',
+    'crystal_ball': 'Sfera-Cristallo',
+    'palmistry': 'Chiromanzia',
+    'graphology': 'Grafologia',
+    'voice_analysis': 'Voice-Analysis',
+    // Caligo
+    'daily_invocation': 'Invocazione-Giorno',
+    'guided_rituals': 'Rituali-Guidati',
+    'magia_rossa': 'Magia-Rossa',
+    'magia_bianca': 'Magia-Bianca',
+    'magia_verde': 'Magia-Verde',
+    'opera_al_nero': 'Opera-Nero',
+    'kabbalah': 'Cabala',
+    'human_design': 'Human-Design',
+    'cosmic_wrapped': 'Cosmic-Wrapped',
+    // Ordine ER voce 10: le dodici arti nuove del briefing.
+    // Medora
+    'time_machine': 'Time-Machine',
+    'cosmic_scan': 'Cosmic-Scan',
+    'cosmic_dating': 'Cosmic-Dating',
+    'sinastria_nfc': 'Sinastria-NFC',
+    // Aura
+    'breathwork': 'Breathwork',
+    'feng_shui': 'Feng-Shui',
+    'percorso_risveglio': 'Percorso-Risveglio',
+    'specchio_anima': 'Specchio-Anima',
+    // Caligo
+    'alchimia': 'Alchimia',
+    'tree_of_life': 'Albero-Vita',
+    'cosmic_academy': 'Cosmic-Academy',
+    'rituali_collettivi': 'Rituali-Collettivi',
   };
 
   /// Lo sfondo di ogni Maestro senza emblema, per la riga "In arrivo".
@@ -86,8 +137,11 @@ abstract final class GliSfondiDelleSchede {
   /// fare la scheda "Consulta [nome Maestro]"."* **Entra solo il formato
   /// orizzontale**, sulla correzione del fondatore a ordine aperto: *"in
   /// ogni dominio, in alto ci devi mettere la scheda della chat orizzontale e
-  /// non quadrata."* L'ordine diceva verticale; i quadrati e i verticali
-  /// della sua cartella restano fuori.
+  /// non quadrata."* L'ordine diceva verticale. I quadrati e i verticali della
+  /// sua cartella erano rimasti fuori dal repository per una scelta di Code;
+  /// **dall'ordine ER voce 10 ci sono anche loro**, perche' il fondatore ha
+  /// chiesto che ogni file della cartella entri (*"quelli che mancano si
+  /// aggiungono"*). La scheda continua a usare solo l'orizzontale.
   static const Map<Maestro, String> consultaDei = {
     Maestro.medora: 'Consulta-Medora',
     Maestro.aura: 'Consulta-Aura',
@@ -111,8 +165,10 @@ abstract final class GliSfondiDelleSchede {
   static String delMaestro(Maestro maestro, FormatoDellaScheda formato) =>
       _file(deiMaestri[maestro]!, formato);
 
-  /// Tutti i file che le schede usano: 102, i 99 dell'ordine EO e i tre
-  /// orizzontali di "Consulta" dell'ordine EP.
+  /// Tutti i file che le schede usano: 66 arti e i tre sfondi dei Maestri in
+  /// tre formati, piu' i tre orizzontali di "Consulta" dell'ordine EP, cioe'
+  /// 210. Nella cartella ce ne sono 216: i sei "Consulta" quadrati e verticali
+  /// ci stanno senza che una scheda li chieda.
   static List<String> tutti() => [
         for (final nome in [...nomi.values, ...deiMaestri.values])
           for (final f in FormatoDellaScheda.values) _file(nome, f),

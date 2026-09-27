@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../config/app_flags.dart';
 import '../entitlement/tier.dart';
-import '../viaggio/la_promessa_del_viaggio.dart';
 import '../maestro/maestro.dart';
 
 /// Le fasi di lavorazione di un'arte, in ordine di lontananza.
@@ -86,25 +85,15 @@ class ArtEntry {
     this.phase,
     this.cornice = false,
     this.soloNelPassaporto = false,
-    this.righeDelTitolo,
   });
 
-  /// **IL TITOLO SPEZZATO IN PIU' RIGHE, quando una sola non gli basta.**
-  /// Ordine DE voce 02, 11 settembre 2026.
-  ///
-  /// **Nullo per quasi tutte le arti**, e allora vale [title] su una riga. Lo
-  /// porta chi ha un titolo lungo che, stando su una riga, deve rimpicciolirsi
-  /// per entrare: e **un titolo che si rimpicciolisce smette di essere un
-  /// titolo**.
-  ///
-  /// Le righe dispari stanno in corpo pieno, quelle pari in corpo piccolo:
-  /// cosi' *VIAGGIO / dello / SCIAMANO* mette in grande le due parole che
-  /// contano e riduce la preposizione, che e' esattamente cio' che il
-  /// fondatore ha chiesto.
-  ///
-  /// **[title] resta e non si butta**: e' cio' che leggono la barra, le prove
-  /// e chiunque abbia bisogno del nome in una riga sola.
-  final List<String>? righeDelTitolo;
+  // **LAPIDE, ordine ER voce 03, 27 settembre 2026.** Qui viveva
+  // `righeDelTitolo`, il titolo spezzato a mano in piu' righe (ordine DE voce
+  // 02): lo portava solo il Viaggio dello Sciamano, "VIAGGIO", "dello" in
+  // corpo piccolo, "SCIAMANO". Il fondatore: *"Viaggiò dello sciamano deve
+  // tornare ad essere scritto come gli altri"*. Ogni arte adesso porta il suo
+  // [title] con le stesse regole, e in home va a capo col trattino dove serve
+  // (ordine ER voce 09).
 
   final String id;
   final String title;
@@ -269,6 +258,19 @@ class ArtCatalog {
         state: ArtState.inArrivo,
         phase: ArtPhase.fase4,
       ),
+      // **ARTE NUOVA DEL BRIEFING, ordine ER voce 10, 27 settembre 2026.**
+      // Il fondatore: *"Facciamole tutte. Avendole tutte, possiamo inserirle
+      // ognuna nella giusta categoria sia in home sia nei singoli domini"*.
+      // La fase: briefing §29.3, Fase 4.
+      ArtEntry(
+        id: 'time_machine',
+        title: 'Time Machine Astrologica',
+        teaser:
+            'Cambia i dati di nascita e guarda come sarebbe stata la tua carta natale.',
+        icon: Icons.history_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase4,
+      ),
     ]),
     ArtSection(title: 'Cartomanzia', arts: [
       ArtEntry(
@@ -293,6 +295,19 @@ class ArtCatalog {
         icon: Icons.filter_drama_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase4,
+      ),
+      // **ARTE NUOVA DEL BRIEFING, ordine ER voce 10, 27 settembre 2026.**
+      // Il fondatore: *"Facciamole tutte. Avendole tutte, possiamo inserirle
+      // ognuna nella giusta categoria sia in home sia nei singoli domini"*.
+      // La fase: briefing §15, che apre con "completa l esperienza MVP".
+      ArtEntry(
+        id: 'cosmic_scan',
+        title: 'Cosmic Scan',
+        teaser:
+            'Inquadra simboli, costellazioni e carte: la fotocamera li riconosce.',
+        icon: Icons.center_focus_strong_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.mvp,
       ),
     ]),
     ArtSection(title: 'Compatibilità', arts: [
@@ -322,6 +337,35 @@ class ArtCatalog {
         icon: Icons.group_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.viralita,
+      ),
+      // **ARTE NUOVA DEL BRIEFING, ordine ER voce 10, 27 settembre 2026.**
+      // Il fondatore: *"Facciamole tutte. Avendole tutte, possiamo inserirle
+      // ognuna nella giusta categoria sia in home sia nei singoli domini"*.
+      // Il Radar Anima Gemella. **La fase si contraddice nel briefing**:
+      // Fase 3 nel §29.2 ("Viralità sociale"), Fase 5 nel §41. Tengo la
+      // Fase 3, dove il modulo e' descritto; il §29.4 mette in Fase 5 la
+      // sua evoluzione in realta' aumentata, ed e' quella che il §41 somma.
+      ArtEntry(
+        id: 'cosmic_dating',
+        title: 'Cosmic Dating',
+        teaser:
+            'Il radar dell\'anima gemella: compatibilità profonda per conoscere persone nuove.',
+        icon: Icons.radar_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase3,
+      ),
+      // **ARTE NUOVA DEL BRIEFING, ordine ER voce 10, 27 settembre 2026.**
+      // Il fondatore: *"Facciamole tutte. Avendole tutte, possiamo inserirle
+      // ognuna nella giusta categoria sia in home sia nei singoli domini"*.
+      // Il Tocca e Scopri. La fase: briefing §29.2, Fase 3 ("Viralità sociale").
+      ArtEntry(
+        id: 'sinastria_nfc',
+        title: 'Sinastria NFC e QR',
+        teaser:
+            'Avvicina due telefoni: la vostra sinastria appare su tutti e due.',
+        icon: Icons.nfc_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase3,
       ),
     ]),
     // **DUE ARTI DELLA LUNOLOGIA ENTRANO IN MVP. Ordine EN voce 12, 25
@@ -521,6 +565,35 @@ class ArtCatalog {
         phase: ArtPhase.fase5,
         cornice: true,
       ),
+      // **ARTE NUOVA DEL BRIEFING, ordine ER voce 10, 27 settembre 2026.**
+      // Il fondatore: *"Facciamole tutte. Avendole tutte, possiamo inserirle
+      // ognuna nella giusta categoria sia in home sia nei singoli domini"*.
+      // **La fase il briefing non la dice**: il breathwork compare solo come
+      // parte del dominio di Aura (§4.2, §5, §11). Scrivo "Fase successiva",
+      // che e' il modo del catalogo di dire che arriva dopo la Demo.
+      ArtEntry(
+        id: 'breathwork',
+        title: 'Breathwork',
+        teaser: 'Il respiro guidato da Aura, per ritrovare calma ed energia.',
+        icon: Icons.air_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.faseSuccessiva,
+        cornice: true,
+      ),
+      // **ARTE NUOVA DEL BRIEFING, ordine ER voce 10, 27 settembre 2026.**
+      // Il fondatore: *"Facciamole tutte. Avendole tutte, possiamo inserirle
+      // ognuna nella giusta categoria sia in home sia nei singoli domini"*.
+      // La fase: briefing §29.3, Fase 4.
+      ArtEntry(
+        id: 'percorso_risveglio',
+        title: 'Percorso di Risveglio',
+        teaser:
+            'Un cammino esoterico a tappe, con una piccola lezione ogni giorno.',
+        icon: Icons.stairs_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase4,
+        cornice: true,
+      ),
     ]),
     ArtSection(title: 'Chakra', arts: [
       ArtEntry(
@@ -577,6 +650,21 @@ class ArtCatalog {
         phase: ArtPhase.fase4,
         cornice: true,
       ),
+      // **ARTE NUOVA DEL BRIEFING, ordine ER voce 10, 27 settembre 2026.**
+      // Il fondatore: *"Facciamole tutte. Avendole tutte, possiamo inserirle
+      // ognuna nella giusta categoria sia in home sia nei singoli domini"*.
+      // La fase: briefing §41, Fase 3 ("Numerologia completa e Feng Shui
+      // - premium"). Il briefing non descrive la funzione.
+      ArtEntry(
+        id: 'feng_shui',
+        title: 'Feng Shui',
+        teaser:
+            'L\'antica arte cinese di ordinare gli spazi perché l\'energia scorra.',
+        icon: Icons.villa_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase3,
+        cornice: true,
+      ),
     ]),
     // **ARCHETIPI E' DIVENTATA FISIOGNOMICA, ordine EO voce 11.** Parole
     // girate al fondatore: senza il Test Archetipo contiene le letture del
@@ -630,6 +718,22 @@ class ArtCatalog {
         icon: Icons.mic_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase4,
+        cornice: true,
+      ),
+      // **ARTE NUOVA DEL BRIEFING, ordine ER voce 10, 27 settembre 2026.**
+      // Il fondatore: *"Facciamole tutte. Avendole tutte, possiamo inserirle
+      // ognuna nella giusta categoria sia in home sia nei singoli domini"*.
+      // **La fase il briefing non la dice**: il §8.3 descrive lo Specchio,
+      // il §8.6 porta nell'MVP altre due estensioni della memoria e non
+      // questa. Scrivo "Fase successiva".
+      ArtEntry(
+        id: 'specchio_anima',
+        title: 'Specchio dell\'Anima',
+        teaser:
+            'La tua anima vista dai tre Maestri: tre lenti, una sola storia.',
+        icon: Icons.portrait_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.faseSuccessiva,
         cornice: true,
       ),
     ]),
@@ -706,11 +810,8 @@ class ArtCatalog {
       ArtEntry(
         id: 'guide_animal',
         title: 'Il Viaggio dello Sciamano',
-        // **IL TITOLO SU DUE RIGHE**, ordine DE voce 02. Le tre righe vivono
-        // in `LaPromessaDelViaggio` insieme alla descrizione che cambia:
-        // titolo e promessa della stessa arte in due file diversi sarebbero
-        // due posti dove tenerli allineati.
-        righeDelTitolo: LaPromessaDelViaggio.righeDelTitolo,
+        // Il titolo si scrive come quello di tutte le altre arti (ordine ER
+        // voce 03): le tre righe decise a mano non ci sono piu'.
         // **LA DESCRIZIONE QUI E' QUELLA DI CHI HA GIA' RICONOSCIUTO.** Chi
         // non e' ancora arrivato alla quarta discesa ne legge un'altra, e la
         // sostituzione la fa chi costruisce la card, che e' l'unico a sapere
@@ -745,6 +846,21 @@ class ArtCatalog {
         icon: Icons.route_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase4,
+        cornice: true,
+      ),
+      // **ARTE NUOVA DEL BRIEFING, ordine ER voce 10, 27 settembre 2026.**
+      // Il fondatore: *"Facciamole tutte. Avendole tutte, possiamo inserirle
+      // ognuna nella giusta categoria sia in home sia nei singoli domini"*.
+      // Il Rituale Collettivo Live e i Rituali stagionali collettivi. La
+      // fase: briefing §29.4 e §41, Fase 5 in tutti e due.
+      ArtEntry(
+        id: 'rituali_collettivi',
+        title: 'Rituali Collettivi',
+        teaser:
+            'Riti dal vivo con tanti altri, a solstizi, equinozi e Luna piena.',
+        icon: Icons.groups_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase5,
         cornice: true,
       ),
     ]),
@@ -809,6 +925,20 @@ class ArtCatalog {
         icon: Icons.dark_mode_outlined,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase2,
+        cornice: true,
+      ),
+      // **ARTE NUOVA DEL BRIEFING, ordine ER voce 10, 27 settembre 2026.**
+      // Il fondatore: *"Facciamole tutte. Avendole tutte, possiamo inserirle
+      // ognuna nella giusta categoria sia in home sia nei singoli domini"*.
+      // **La fase il briefing non la dice**: l'alchimia compare solo come
+      // parte del dominio di Caligo (§4.3, §5). Scrivo "Fase successiva".
+      ArtEntry(
+        id: 'alchimia',
+        title: 'Alchimia',
+        teaser: 'La trasformazione interiore nel linguaggio degli alchimisti.',
+        icon: Icons.science_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.faseSuccessiva,
         cornice: true,
       ),
     ]),
@@ -882,6 +1012,39 @@ class ArtCatalog {
         icon: Icons.card_giftcard_rounded,
         state: ArtState.inArrivo,
         phase: ArtPhase.fase3,
+        cornice: true,
+      ),
+      // **ARTE NUOVA DEL BRIEFING, ordine ER voce 10, 27 settembre 2026.**
+      // Il fondatore: *"Facciamole tutte. Avendole tutte, possiamo inserirle
+      // ognuna nella giusta categoria sia in home sia nei singoli domini"*.
+      // **L'ALBERO DELLA VITA TORNA, COME ARTE IN ARRIVO E NON ATTIVA.**
+      // Era uscito dalla Demo per decisione di Mauro (vedi in cima alla
+      // sezione); con l'ordine ER il fondatore lo rimette nel catalogo in
+      // cammino. La fase: la Fase 2 che quella decisione aveva nominato per
+      // il Journal, ed e' la stessa del §29.1 per l'Albero dinamico; il §14
+      // mette in MVP la sola versione contemplativa.
+      ArtEntry(
+        id: 'tree_of_life',
+        title: 'Albero della Vita',
+        teaser:
+            'Dieci Sefirot e ventidue sentieri, da contemplare e poi salire.',
+        icon: Icons.park_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase2,
+        cornice: true,
+      ),
+      // **ARTE NUOVA DEL BRIEFING, ordine ER voce 10, 27 settembre 2026.**
+      // Il fondatore: *"Facciamole tutte. Avendole tutte, possiamo inserirle
+      // ognuna nella giusta categoria sia in home sia nei singoli domini"*.
+      // La fase: briefing §41, Fase 4.
+      ArtEntry(
+        id: 'cosmic_academy',
+        title: 'Cosmic Academy',
+        teaser:
+            'Le tradizioni vere che stanno dietro ogni responso, spiegate bene.',
+        icon: Icons.school_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase4,
         cornice: true,
       ),
     ]),

@@ -36,67 +36,98 @@ typedef RigaDellaCasa = ({
 /// apre sempre la stessa schermata, perche' la scheda chiede la rotta al
 /// catalogo (`artRouteFor`).
 abstract final class LeRigheDellaCasa {
-  /// La prima riga, le arti preferite, nel formato quadrato.
+  /// La prima riga, le arti preferite. **Verticale dall'ordine ER voce 08**:
+  /// prima era quadrata.
   static const String preferite = 'preferite';
 
-  /// Le altre nove, nell'ordine del fondatore. **Dall'ordine EP voce 05
-  /// "Trova una risposta" sta subito dopo le preferite**: prima si chiamava
-  /// "Cerca una risposta" e stava terza, dopo "Amore e affinità".
+  /// La forma della riga delle preferite.
+  static const FormatoDellaScheda formatoDellePreferite =
+      FormatoDellaScheda.verticale;
+
+  /// **LE UNDICI RIGHE DELL'ORDINE ER, voce 08, 27 settembre 2026**: dopo le
+  /// preferite, dieci righe in quest'ordine, con la loro forma e le loro arti
+  /// in quest'ordine. Il fondatore: *"rivediamo l'ordinamento delle categorie
+  /// della home in modo da avere righe con schede verticali, poi orizzontali e
+  /// poi quadrate"*, e sull'elenco dell'Architetto *"Per ora va bene così"*.
+  ///
+  /// **Le forme si alternano**: verticale (le preferite), orizzontale,
+  /// quadrata, e da capo, cosi' che due righe vicine non abbiano mai la stessa
+  /// forma. **I doppioni sono voluti**: le arti piu' virali stanno in due o tre
+  /// righe per farsi vedere di piu'. Il Viaggio dello Sciamano sta solo in
+  /// "Trova una risposta". In tutto si vedono le 66 arti del catalogo che hanno
+  /// una scheda; l'Angelo Custode e il Test Archetipo restano nel Passaporto.
+  ///
+  /// **Prima** le righe erano dieci (con "Amore e affinità", "Da condividere" e
+  /// "Le stelle parlano"), cinque coppie vicine su nove avevano la stessa
+  /// forma, e in home stavano le sole trenta arti con lo sfondo.
   static const List<RigaDellaCasa> righe = [
     (
       chiave: 'trova_una_risposta',
       // Ordine EP voce 05: *"dopo le arti preferite, metti la categoria
       // "Cerca una risposta", ma cambiagli il nome in "trova una risposta""*.
       titolo: 'Trova una risposta',
-      formato: FormatoDellaScheda.verticale,
+      formato: FormatoDellaScheda.orizzontale,
       arti: [
-        'tarot_spread_three',
         'rune_draw',
+        'tarot_spread_three',
+        'guide_animal',
         'crystal_oracle',
+        'i_ching',
         'angels_oracle',
         'pendulum',
-        'dream_reading',
-        'i_ching',
+        'crystal_ball',
         'coffee_reading',
+        'cosmic_scan',
       ],
     ),
     (
-      chiave: 'da_condividere',
-      titolo: 'Da condividere',
+      chiave: 'per_partner_e_amici',
+      // Era "Da condividere". Il fondatore: *"La categoria "da condividere"
+      // cambia in "per partner e in amici" e ci inserisci tutte le
+      // compatibilità"*; la riga "Amore e affinità" non c'e' piu'.
+      titolo: 'Per partner e amici',
+      formato: FormatoDellaScheda.quadrata,
+      arti: [
+        'synastry_vip',
+        'magia_rossa',
+        'synastry_depth',
+        'lunar_affinity',
+        'friends_compatibility',
+        'cosmic_dating',
+        'sinastria_nfc',
+      ],
+    ),
+    (
+      chiave: 'il_cielo_ti_parla',
+      // Era "Le stelle parlano". Il fondatore: *""le stelle parlano" cambia
+      // in "il cielo ti parla" perché c'è Lunologia dentro"*.
+      titolo: 'Il cielo ti parla',
       formato: FormatoDellaScheda.verticale,
       arti: [
-        'face_constellation',
-        'synastry_vip',
-        'angel_numbers',
-        'aura_analysis',
-        'friends_compatibility',
-        'magic_sigil',
-        'lunar_affinity',
-        'numerology',
-        'pet_astrology',
-      ],
-    ),
-    (
-      chiave: 'amore_e_affinita',
-      titolo: 'Amore e affinità',
-      formato: FormatoDellaScheda.orizzontale,
-      arti: [
-        'synastry_vip',
-        'lunar_affinity',
-        'synastry_depth',
-        'friends_compatibility',
-        'pet_astrology',
-      ],
-    ),
-    (
-      chiave: 'le_stelle_parlano',
-      titolo: 'Le stelle parlano',
-      formato: FormatoDellaScheda.orizzontale,
-      arti: [
         'horoscope',
+        'mood_tracker',
         'lunology',
-        'narrative_destiny',
+        'angel_numbers',
+        'natal_chart',
+        'biorhythm',
         'pet_astrology',
+      ],
+    ),
+    (
+      chiave: 'i_piu_condivisi',
+      // Riga nuova. Il fondatore: *"le categorie della home sono create per
+      // duplicare o triplicare alcune arti, le più virali, per dar loro
+      // maggiore visibilità"*.
+      titolo: 'I più condivisi',
+      formato: FormatoDellaScheda.orizzontale,
+      arti: [
+        'synastry_vip',
+        'face_constellation',
+        'horoscope',
+        'magic_sigil',
+        'tarot_spread_three',
+        'cosmic_wrapped',
+        'lunar_affinity',
       ],
     ),
     (
@@ -104,13 +135,17 @@ abstract final class LeRigheDellaCasa {
       // Il titolo del fondatore; la marca del genere (ordine DL) lo accorda a
       // chi legge: al femminile "te stessa", altrimenti come l'ha scritto lui.
       titolo: '[Conosci te stesso|Conosci te stessa|Conosci te stesso]',
-      formato: FormatoDellaScheda.orizzontale,
+      formato: FormatoDellaScheda.quadrata,
       arti: [
-        'numerology',
         'narrative_destiny',
-        'guide_animal',
-        'mood_tracker',
-        'dream_reading',
+        'specchio_anima',
+        'human_design',
+        'aura_analysis',
+        'numerology',
+        'percorso_risveglio',
+        'cosmic_academy',
+        'graphology',
+        'cosmic_wrapped',
       ],
     ),
     (
@@ -119,9 +154,10 @@ abstract final class LeRigheDellaCasa {
       formato: FormatoDellaScheda.verticale,
       arti: [
         'face_constellation',
-        'chakra_scan',
-        'aura_analysis',
-        'biorhythm',
+        'fertility_windows',
+        'palmistry',
+        'magia_verde',
+        'voice_analysis',
       ],
     ),
     (
@@ -130,34 +166,58 @@ abstract final class LeRigheDellaCasa {
       formato: FormatoDellaScheda.orizzontale,
       arti: [
         'meditation',
+        'dream_reading',
         'sleep_stories',
-        'daily_affirmations',
-        'micro_rituals',
-        'mood_tracker',
+        'angel_cards',
+        'breathwork',
+        'daily_invocation',
+        'lucid_dreams',
+      ],
+    ),
+    (
+      chiave: 'la_tua_energia',
+      // Rifatta nell'ordine ER: il fondatore, *"Non ha senso avere categorie di
+      // un solo colore, tanto vale che l'utente vada direttamente nel singolo
+      // dominio"*.
+      titolo: 'La tua energia',
+      formato: FormatoDellaScheda.quadrata,
+      arti: [
+        'chakra_scan',
+        'magia_bianca',
+        'crystal_therapy',
+        'astrocartography',
+        'energy_cleansing',
+        'alchimia',
+        'mudra',
+        'opera_al_nero',
       ],
     ),
     (
       chiave: 'la_tua_intenzione',
       titolo: 'La tua intenzione',
-      formato: FormatoDellaScheda.orizzontale,
+      formato: FormatoDellaScheda.verticale,
       arti: [
         'magic_sigil',
         'daily_affirmations',
         'micro_rituals',
-        'angel_numbers',
-        'guide_animal',
+        'lunar_calendar',
+        'guided_rituals',
+        'belief_art',
+        'rituali_collettivi',
+        'feng_shui',
       ],
     ),
     (
-      chiave: 'la_tua_energia',
-      titolo: 'La tua energia',
+      chiave: 'il_tuo_destino',
+      // Riga nuova dell'ordine ER.
+      titolo: 'Il tuo destino',
       formato: FormatoDellaScheda.orizzontale,
       arti: [
-        'chakra_scan',
-        'crystal_oracle',
-        'aura_analysis',
-        'energy_cleansing',
-        'biorhythm',
+        'karmic_reading',
+        'tree_of_life',
+        'planetary_returns',
+        'kabbalah',
+        'time_machine',
       ],
     ),
   ];
@@ -188,47 +248,12 @@ abstract final class LeRigheDellaCasa {
     return quante;
   }
 
-  /// **NESSUNA SCHEDA DOPPIA IN VISTA.** Richiesta del fondatore del 26
-  /// settembre 2026, a ordine EO aperto: *"dalla apertura della home Senza
-  /// spostare le categorie verso destra, fai in modo che scorrendo verso il
-  /// basso non si vedano la stessa scheda funzionalità ... Se capitasse z
-  /// cambia ordine di apparizione orizzontale e sposta la scheda doppione
-  /// fuori dalla vista, cioè verso il fondo orizzontale della categoria."*
-  ///
-  /// Si scorrono le righe dall'alto. In ciascuna, i posti in vista
-  /// ([visibili]) si riempiono con le arti non ancora viste piu' su,
-  /// nell'ordine del fondatore; un'arte gia' vista che cadrebbe in vista va
-  /// in fondo alla riga; le altre restano dove sono. **Dove le arti nuove non
-  /// bastano a riempire la vista** il doppione resta, il primo dei rimandati:
-  /// una riga non si accorcia per nasconderlo.
-  static List<List<ArtEntry>> senzaDoppioniInVista(
-      List<({List<ArtEntry> arti, int visibili})> righe) {
-    final viste = <String>{};
-    return [
-      for (final r in righe)
-        () {
-          final davanti = <ArtEntry>[];
-          final rimandate = <ArtEntry>[];
-          final resto = <ArtEntry>[];
-          for (final a in r.arti) {
-            if (davanti.length < r.visibili) {
-              (viste.contains(a.id) ? rimandate : davanti).add(a);
-            } else {
-              resto.add(a);
-            }
-          }
-          while (davanti.length < r.visibili && resto.isNotEmpty) {
-            final a = resto.removeAt(0);
-            (viste.contains(a.id) ? rimandate : davanti).add(a);
-          }
-          while (davanti.length < r.visibili && rimandate.isNotEmpty) {
-            davanti.add(rimandate.removeAt(0));
-          }
-          viste.addAll(davanti.map((a) => a.id));
-          return [...davanti, ...resto, ...rimandate];
-        }(),
-    ];
-  }
+  // **LAPIDE, ordine ER voce 08, 27 settembre 2026.** Qui viveva
+  // `senzaDoppioniInVista`, la richiesta del fondatore del 26 settembre: in
+  // ogni riga le arti gia' viste piu' su andavano in fondo, fuori dalla vista.
+  // Il fondatore l'ha tolta: *"Ok, togli regola del 26 settembre"*. Ogni riga
+  // mostra le sue arti nell'ordine scritto qui sopra, anche quando un'arte si
+  // vede gia' in una riga piu' su: i doppioni adesso sono voluti.
 }
 
 /// La vista delle righe, sotto il blocco dei Maestri.
@@ -248,21 +273,8 @@ class LeRigheDellaCasaView extends StatelessWidget {
             ? preferite.ids
             : ArtiPreferiteController.semePer(
                 context.read<MaestroController?>()?.activeMaestro);
-    // Le schede in vista si calcolano sulla larghezza vera dello schermo e
-    // sulla scala del testo, che allarga le schede.
-    final larghezzaVista = MediaQuery.sizeOf(context).width;
-    final scala = MediaQuery.textScalerOf(context).scale(1);
-    int inVista(FormatoDellaScheda f) =>
-        LeRigheDellaCasa.visibiliSenzaScorrere(f,
-            larghezzaVista: larghezzaVista, scalaDelTesto: scala);
-    final ordinate = LeRigheDellaCasa.senzaDoppioniInVista([
-      (
-        arti: LeRigheDellaCasa.artiDi(ids),
-        visibili: inVista(FormatoDellaScheda.quadrata)
-      ),
-      for (final r in LeRigheDellaCasa.righe)
-        (arti: LeRigheDellaCasa.artiDi(r.arti), visibili: inVista(r.formato)),
-    ]);
+    // Ogni riga nell'ordine scritto, doppioni compresi (ordine ER voce 08).
+    final preferiteInOrdine = LeRigheDellaCasa.artiDi(ids);
     // "Vedi tutto" apre la riga intera nell'ordine del fondatore (EP.07).
     VoidCallback vediTutto(String chiave, String titolo, List<ArtEntry> arti) =>
         () => Navigator.of(context).push(LaCategoriaIntera.route(
@@ -288,11 +300,11 @@ class LeRigheDellaCasaView extends StatelessWidget {
                       MaestroPalette.forKey(
                           ThemeKey.of(maestroDiArte(context, art.id))),
                     ),
-            formato: FormatoDellaScheda.quadrata,
-            arti: ordinate.first,
+            formato: LeRigheDellaCasa.formatoDellePreferite,
+            arti: preferiteInOrdine,
             inCasa: true,
             onVediTutto: vediTutto(LeRigheDellaCasa.preferite,
-                'Le arti preferite', LeRigheDellaCasa.artiDi(ids)),
+                'Le arti preferite', preferiteInOrdine),
             azione: preferite == null
                 ? null
                 : IconButton(
@@ -310,7 +322,7 @@ class LeRigheDellaCasaView extends StatelessWidget {
               titolo:
                   LaMarcaDelGenere.risolvi(LeRigheDellaCasa.righe[i].titolo),
               formato: LeRigheDellaCasa.righe[i].formato,
-              arti: ordinate[i + 1],
+              arti: LeRigheDellaCasa.artiDi(LeRigheDellaCasa.righe[i].arti),
               inCasa: true,
               onVediTutto: vediTutto(
                   LeRigheDellaCasa.righe[i].chiave,

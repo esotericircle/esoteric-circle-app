@@ -158,6 +158,29 @@ class TypographyTokens {
   static TextStyle titoloDiRiga({double weight = 600}) =>
       display(size: 16, weight: weight);
 
+  /// **IL TITOLO DELLE SCHEDE DELLA HOME, DODICI PUNTI.** Ordine ER voce 09,
+  /// 27 settembre 2026.
+  ///
+  /// E' il [titoloDiRiga] delle schede, nello stesso carattere e nello stesso
+  /// peso, portato a dodici punti **per decisione del fondatore**: ha
+  /// rimpicciolito le schede della home perche' in una riga se ne vedano due e
+  /// mezza, e sull'anteprima coi titoli a dodici ha risposto *"La home mi
+  /// convince adesso."* Vale **solo in home**: nei domini le schede e i loro
+  /// titoli restano come sono. Il minimo della famiglia dei titoli (sedici)
+  /// qui non vale, il [pavimento] si': dodici e' il pavimento, non meno. La
+  /// spaziatura scende nella stessa proporzione del corpo.
+  static const double misuraDelTitoloInCasa = 12;
+
+  static TextStyle titoloDellaSchedaInCasa({double weight = 600}) => TextStyle(
+        fontFamily: _display,
+        fontSize: _misura(misuraDelTitoloInCasa, minLabel),
+        fontVariations: _wght(weight),
+        fontWeight: _nearest(weight),
+        height: 1.18,
+        letterSpacing: 1.2 * misuraDelTitoloInCasa / 16,
+        color: ColorTokens.textPrimary,
+      );
+
   /// Il testo che si LEGGE per intero: un responso, una narrazione, una lettura
   /// lunga. Interlinea 1,55, piu' larga del corpo, perche' qui l'occhio deve
   /// tornare a capo molte volte di seguito.
@@ -175,7 +198,6 @@ class TypographyTokens {
   /// una ragione per rimpicciolire il testo a chi legge.
   static TextStyle lettura({double weight = 400}) =>
       body(size: 20, weight: weight).copyWith(height: 1.55);
-
 
   /// Il testo informativo ordinario, quello che accompagna e spiega.
   static TextStyle corpo({double weight = 400}) =>

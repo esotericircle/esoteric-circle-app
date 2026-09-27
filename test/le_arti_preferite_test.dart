@@ -30,16 +30,19 @@ void main() {
   // voce 01: Oroscopo, Tarocchi, Sinastria VIP, Rune, Viaggio dello
   // Sciamano, Meditazione, Mappa del Viso). **Dall'ordine EO voce 09 sono le
   // sei della riga "Le arti preferite"**, nell'ordine del fondatore.
+  // **Dall'ordine ER voce 08 sono le stesse sei in un ordine nuovo**:
+  // Oroscopo Personalizzato, Mappa del Viso, Stesa di Tarocchi, Estrazione
+  // Rune, Sinastria VIP, Meditazione.
   const setteDiMauro = [
     'horoscope',
+    'face_constellation',
     'tarot_spread_three',
     'rune_draw',
     'synastry_vip',
     'meditation',
-    'face_constellation',
   ];
 
-  test('il seme e\' le sei dell\'ordine EO, nell\'ordine del fondatore', () {
+  test('il seme e\' le sei dell\'ordine ER, nell\'ordine del fondatore', () {
     for (final maestro in [null, ...Maestro.values]) {
       final seme = ArtiPreferiteController.semePer(maestro);
       // ignore: avoid_print
@@ -108,7 +111,7 @@ void main() {
     }
     expect(viste, setteDiMauro,
         reason: 'la riga delle arti preferite non mostra il seme dell\'ordine '
-            'EO, nell\'ordine del fondatore');
+            'ER, nell\'ordine del fondatore');
     await tester.drag(riga, const Offset(3000, 0));
     await tester.pump();
     expect(
@@ -117,7 +120,10 @@ void main() {
                 of: find.byKey(const Key('riga_preferite_tarot_spread_three')),
                 matching:
                     find.byKey(const Key('scheda_titolo_tarot_spread_three'))))
-            .data,
+            .data!
+            // In home il titolo arriva gia' composto in righe (ordine ER
+            // voce 09): le righe si rimettono in fila.
+            .replaceAll('\n', ' '),
         'Stesa di Tarocchi',
         reason: 'ordine EO voce 02: il titolo sotto la scheda e\' '
             'ArtEntry.title');

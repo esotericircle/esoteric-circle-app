@@ -1,3 +1,6 @@
+// ignore_for_file: avoid_print
+import 'dart:io';
+
 import 'package:esoteric_circle/core/arts/arti_preferite.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
@@ -11,26 +14,30 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'cardinale_minimo.dart';
 
-/// **NESSUNA SCHEDA DOPPIA IN VISTA NELLA HOME.** Richiesta del fondatore del
-/// 26 settembre 2026, a ordine EO aperto:
+/// **I DOPPIONI DELLA HOME SONO VOLUTI.** Ordine ER voce 08, 27 settembre
+/// 2026.
 ///
-/// *"dalla apertura della home Senza spostare le categorie verso destra, fai
-/// in modo che scorrendo verso il basso non si vedano la stessa scheda
-/// funzionalità. Così l'utente non si accorge subito che ci sono doppioni e
-/// cmq vedrà a colpo d'occhio più funzionalità tutte di diverse. Se capitasse
-/// z cambia ordine di apparizione orizzontale e sposta la scheda doppione
-/// fuori dalla vista, cioè verso il fondo orizzontale della categoria."*
+/// **LAPIDE.** Questo file si chiamava `nessun_doppione_in_vista_test.dart` e
+/// sorvegliava la richiesta del fondatore del 26 settembre 2026: *"fai in
+/// modo che scorrendo verso il basso non si vedano la stessa scheda
+/// funzionalità [...] sposta la scheda doppione fuori dalla vista"*. La regola
+/// stava in `LeRigheDellaCasa.senzaDoppioniInVista`.
 ///
-/// **Si misura sulla resa**: si monta la composizione vera della home, si
-/// prendono in ogni riga le schede il cui bordo sinistro cade dentro lo
-/// schermo senza scorrere di lato, e si contano le arti gia' viste in una
-/// riga sopra. Il solo doppione ammesso e' quello **inevitabile**: una riga
-/// che non ha abbastanza arti nuove per riempire la sua vista.
+/// **Il fondatore l'ha tolta**: *"Ok, togli regola del 26 settembre"*, e
+/// *"le categorie della home sono create per duplicare o triplicare alcune
+/// arti, le più virali, per dar loro maggiore visibilità"*. Adesso ogni riga
+/// mostra le sue arti nell'ordine scritto, anche quando un'arte si vede gia'
+/// in una riga piu' su.
+///
+/// **La grandezza misurata e' l'ordine in vista**: in ogni riga, le schede il
+/// cui bordo sinistro cade dentro lo schermo devono essere le prime arti
+/// dell'elenco della riga, nel suo ordine. Un'arte spostata in fondo perche'
+/// gia' vista e' il difetto che questa prova cerca.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  Future<({int doppioni, int inevitabili, int schede})> misura(
-      WidgetTester tester, Size fisica, double scala) async {
+  Future<({int spostate, int doppioni, int schede, List<String> esempi})>
+      misura(WidgetTester tester, Size fisica, double scala) async {
     SharedPreferences.setMockInitialValues(const {});
     tester.view.devicePixelRatio = 3.0;
     tester.view.physicalSize = fisica;
@@ -62,7 +69,8 @@ void main() {
         .widgetList<LaRigaDelleSchede>(find.byType(LaRigaDelleSchede))
         .toList();
     final viste = <String>{};
-    var doppioni = 0, inevitabili = 0, schede = 0;
+    final esempi = <String>[];
+    var spostate = 0, doppioni = 0, schede = 0;
     for (final r in righe) {
       final prefisso = 'riga_${r.chiave}_';
       final inVista = <(double, String)>[];
@@ -80,19 +88,24 @@ void main() {
       inVista.sort((a, b) => a.$1.compareTo(b.$1));
       final ids = [for (final (_, id) in inVista) id];
       schede += ids.length;
-      final qui = ids.where(viste.contains).toList();
-      doppioni += qui.length;
-      // Inevitabili: i posti in vista che le arti nuove della riga non
-      // bastano a riempire.
-      final nuove = r.arti.where((a) => !viste.contains(a.id)).length;
-      final mancano = ids.length - nuove;
-      inevitabili += mancano > 0 ? mancano : 0;
-      if (qui.isNotEmpty) {
-        debugPrint('DOPPIONI IN VISTA in ${r.chiave}: $qui');
+      final attese = [for (final a in r.arti.take(ids.length)) a.id];
+      for (var k = 0; k < ids.length; k++) {
+        if (ids[k] != attese[k]) spostate++;
+      }
+      for (final id in ids) {
+        if (viste.contains(id)) {
+          doppioni++;
+          if (esempi.length < 4) esempi.add('$id in ${r.chiave}');
+        }
       }
       viste.addAll(ids);
     }
-    return (doppioni: doppioni, inevitabili: inevitabili, schede: schede);
+    return (
+      spostate: spostate,
+      doppioni: doppioni,
+      schede: schede,
+      esempi: esempi
+    );
   }
 
   for (final (nome, fisica, scala) in const [
@@ -101,37 +114,29 @@ void main() {
     ('412 punti', Size(1236, 2745), 1.0),
     ('360 punti, testo 1,3', Size(1080, 2400), 1.3),
   ]) {
-    testWidgets('nessuna scheda doppia in vista, $nome', (tester) async {
+    testWidgets('ER.08: nessuna arte spostata dalla regola dei doppioni, $nome',
+        (tester) async {
       final m = await misura(tester, fisica, scala);
-      // ignore: avoid_print
-      print('DOPPIONI IN VISTA, $nome: ${m.doppioni} su ${m.schede} schede '
-          'in vista, inevitabili ${m.inevitabili}');
-      // Almeno una per riga su dieci righe: a testo 1,3 le schede
-      // orizzontali sono larghe quasi quanto lo schermo, e in vista ne resta
-      // una sola (misurato: 14 schede in vista in tutto).
-      cardinaleMinimo(m.schede, 10,
-          cosa: 'schede in vista nelle dieci righe',
+      print('ORDINE ER VOCE 8, $nome: arti spostate dalla regola dei doppioni '
+          '${m.spostate} su ${m.schede} schede in vista; doppioni voluti in '
+          'vista ${m.doppioni} ${m.esempi}');
+      cardinaleMinimo(m.schede, 11,
+          cosa: 'schede in vista nelle undici righe',
           perche: 'almeno una per riga, a qualunque larghezza.');
-      expect(m.doppioni, m.inevitabili,
-          reason: 'in vista ci sono ${m.doppioni} arti gia\' viste in una riga '
-              'sopra, e solo ${m.inevitabili} erano inevitabili');
+      expect(m.spostate, 0,
+          reason: 'in vista ci sono arti fuori dall\'ordine della loro riga: '
+              'la regola dei doppioni e\' tornata');
     });
   }
 
-  test('una riga ordinata tiene tutte le sue arti, nessuna in piu\'', () {
-    final righe = [
-      (
-        arti: LeRigheDellaCasa.artiDi(ArtiPreferiteController.seiDellOrdineEO),
-        visibili: 2
-      ),
-      for (final r in LeRigheDellaCasa.righe)
-        (arti: LeRigheDellaCasa.artiDi(r.arti), visibili: 2),
-    ];
-    final ordinate = LeRigheDellaCasa.senzaDoppioniInVista(righe);
-    for (var i = 0; i < righe.length; i++) {
-      expect(ordinate[i].map((a) => a.id).toSet(),
-          righe[i].arti.map((a) => a.id).toSet());
-      expect(ordinate[i].length, righe[i].arti.length);
-    }
+  test('ER.08: la regola dei doppioni non vive piu\' nel codice della home',
+      () {
+    final sorgente = File('lib/features/santuario/le_righe_della_casa.dart')
+        .readAsStringSync()
+        .split('\n')
+        .where((r) => !r.trimLeft().startsWith('//'))
+        .join('\n');
+    expect(sorgente, isNot(contains('senzaDoppioniInVista(')),
+        reason: 'la regola del 26 settembre e\' ancora nel codice');
   });
 }

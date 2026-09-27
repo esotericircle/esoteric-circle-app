@@ -64,10 +64,10 @@ class LaCategoriaIntera extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = MaestroScope.of(context);
     final scala = MediaQuery.textScalerOf(context).scale(1);
-    final larghezza = LaSchedaDellArte.larghezzaPer(
-        FormatoDellaScheda.verticale,
-        scalaDelTesto: scala,
-        inCasa: true);
+    // La griglia tiene la misura che aveva (ordine ER voce 09): vedi
+    // `LaSchedaDellArte.larghezzaNellaGriglia`.
+    final larghezza =
+        LaSchedaDellArte.larghezzaNellaGriglia(scalaDelTesto: scala);
     return Scaffold(
       key: Key('categoria_intera_$chiave'),
       backgroundColor: palette.deepest,

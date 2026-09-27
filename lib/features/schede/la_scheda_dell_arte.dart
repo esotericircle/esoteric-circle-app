@@ -16,6 +16,7 @@ import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/typography/il_titolo_col_trattino.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/viaggio/diario_dei_viaggi.dart';
 import '../../core/viaggio/la_promessa_del_viaggio.dart';
@@ -37,9 +38,10 @@ import 'la_luce_delle_schede.dart';
 ///   senza niente sopra se non i due angoli e il riflesso dell'oro.
 /// - **Il titolo** sta sotto, allineato a sinistra sul bordo dell'immagine,
 ///   nel carattere dei titoli delle schede di oggi (`titoloDiRiga`), su al
-///   massimo due righe e **mai rimpicciolito**; dove l'arte ha
-///   [ArtEntry.righeDelTitolo] segue quelle righe, le parole piccole in corpo
-///   piccolo (ordine DE voce 02).
+///   massimo due righe e **mai rimpicciolito**. In home e' a dodici punti e va
+///   a capo col trattino ([IlTitoloColTrattino], ordine ER voce 09). Il
+///   Viaggio dello Sciamano si scrive come tutti gli altri (ordine ER voce
+///   03).
 /// - **In alto a destra la "i"**, piccola e dorata, con un'area di tocco di
 ///   [areaDellaI] punti: gira la scheda e mostra le informazioni (EO.04).
 /// - **In alto a sinistra** la clessidra sulle arti in arrivo, il lucchetto
@@ -60,7 +62,12 @@ class LaSchedaDellArte extends StatefulWidget {
     this.sfondoDelMaestro = false,
     this.mostraFase = AppFlags.isDemo,
     this.sfondo,
+    this.inCasa = false,
   });
+
+  /// **La scheda sta in una riga della home**: il titolo e' a dodici punti e
+  /// va a capo col trattino (ordine ER voce 09). Nei domini resta com'era.
+  final bool inCasa;
 
   final ArtEntry art;
 
@@ -122,55 +129,85 @@ class LaSchedaDellArte extends StatefulWidget {
   /// le verticali e le quadrate, 253 le orizzontali, coi titoli identici.
   /// **Nei domini restano 184 e 288**: *"nei singoli domini lasciamo la
   /// grandezza attuale"*.
+  ///
+  /// **IN HOME, 128 E 137. Ordine ER voce 09, 27 settembre 2026.** Il
+  /// fondatore: *"nelle righe con schede verticali e quadrate, ci stanno
+  /// esattamente 2 schede e non da continuità"*, poi *"Diminuisci
+  /// ulteriormente quelle orizzontali del 10% e aumenta verticali e quadrate
+  /// fino a 2 arti e mezzo"*, e sull'anteprima dell'Architetto *"La home mi
+  /// convince adesso."* Le verticali 128 per 160, le quadrate 128 per 128, le
+  /// orizzontali 137 per 77: a 360 punti, con margine 16 e spazio 12, nelle
+  /// righe verticali e quadrate si vedono due schede intere e meta' della
+  /// terza. I titoli scendono a dodici punti e vanno a capo col trattino.
+  /// Nessuna freccia a fine riga: *"No, basta il taglio"*.
   static double larghezzaPer(FormatoDellaScheda formato,
           {double scalaDelTesto = 1, bool inCasa = false}) =>
       (formato == FormatoDellaScheda.orizzontale
-          ? (inCasa ? 253.0 : 288.0)
-          : (inCasa ? 162.0 : 184.0)) *
+          ? (inCasa ? 137.0 : 288.0)
+          : (inCasa ? 128.0 : 184.0)) *
       math.max(1, scalaDelTesto);
+
+  /// **LA GRIGLIA DI "VEDI TUTTO" TIENE LA SUA MISURA.** Ordine EP voce 07:
+  /// "Vedi tutto" apre la riga intera in una griglia di schede verticali, che
+  /// prendeva la larghezza delle schede della home, 162 punti. L'ordine ER
+  /// voce 09 rimpicciolisce le schede delle righe della home, non la griglia:
+  /// a 128 punti la griglia avrebbe tenuto due colonne con un vuoto largo ai
+  /// lati. Resta a 162, col titolo di sempre.
+  static double larghezzaNellaGriglia({double scalaDelTesto = 1}) =>
+      162.0 * math.max(1, scalaDelTesto);
 
   /// Le righe che il titolo puo' prendere.
   static const int righeDelTitolo = 2;
 
-  /// Lo stile del titolo: lo stesso delle schede di oggi.
-  static TextStyle stileDelTitolo() =>
-      TypographyTokens.titoloDiRiga().copyWith(color: ColorTokens.textPrimary);
+  /// Lo stile del titolo: lo stesso delle schede di oggi; in home, a dodici
+  /// punti (ordine ER voce 09).
+  static TextStyle stileDelTitolo({bool inCasa = false}) => (inCasa
+          ? TypographyTokens.titoloDellaSchedaInCasa()
+          : TypographyTokens.titoloDiRiga())
+      .copyWith(color: ColorTokens.textPrimary);
 
-  /// Lo stile della riga [i] di un titolo gia' deciso, come il Viaggio dello
-  /// Sciamano: le parole piccole in corpo piccolo (ordine DE voce 02).
-  static TextStyle stileDellaRigaDecisa(int i) {
-    final pieno = stileDelTitolo();
-    return i.isOdd
-        ? pieno.copyWith(
-            fontSize: (pieno.fontSize ?? 16) * 0.62,
-            color: ColorTokens.textSecondary,
-            height: 1.02,
-            letterSpacing: 0.6)
-        : pieno.copyWith(height: 1.02, letterSpacing: 1.6);
-  }
+  // **LAPIDE, ordine ER voce 03, 27 settembre 2026.** Qui viveva
+  // `stileDellaRigaDecisa`: lo stile delle righe gia' decise del Viaggio
+  // dello Sciamano, "VIAGGIO", "dello" in corpo piccolo, "SCIAMANO" (ordine
+  // DE voce 02). Il fondatore: *"Viaggiò dello sciamano deve tornare ad
+  // essere scritto come gli altri"*. Il Viaggio porta il suo titolo del
+  // catalogo con le regole di tutte le arti, e questo stile non serve piu'.
+
+  /// Il testo del titolo come si dipinge: in home gia' composto in righe,
+  /// col trattino dove una parola va a capo (ordine ER voce 09); nei domini
+  /// il titolo intero, che il `Text` manda a capo fra le parole.
+  static String testoDelTitolo(ArtEntry art,
+          {required bool inCasa,
+          required double larghezza,
+          TextScaler scala = TextScaler.noScaling}) =>
+      inCasa
+          ? IlTitoloColTrattino.righe(art.title,
+                  stile: stileDelTitolo(inCasa: true),
+                  larghezza: larghezza,
+                  scala: scala,
+                  maxRighe: righeDelTitolo)
+              .join('\n')
+          : art.title;
 
   /// **L'ALTEZZA DEI TITOLI DI UNA RIGA**, cioe' del titolo piu' alto fra
   /// quelli di [arti] alla larghezza [larghezza]. Ordine EP voce 04: la riga
   /// della home finisce dove finiscono i suoi titoli, non tre righe dopo.
   static double altezzaDeiTitoli(
-      List<ArtEntry> arti, double larghezza, TextScaler scala) {
+      List<ArtEntry> arti, double larghezza, TextScaler scala,
+      {bool inCasa = false}) {
     var massima = 0.0;
     for (final art in arti) {
-      final righe = art.righeDelTitolo;
-      var altezza = 0.0;
-      for (var i = 0; i < (righe?.length ?? 1); i++) {
-        final p = TextPainter(
-          text: TextSpan(
-              text: righe?[i] ?? art.title,
-              style: righe == null ? stileDelTitolo() : stileDellaRigaDecisa(i)),
-          textDirection: TextDirection.ltr,
-          textScaler: scala,
-          maxLines: righe == null ? righeDelTitolo : 1,
-        )..layout(maxWidth: larghezza);
-        altezza += p.height;
-        p.dispose();
-      }
-      massima = math.max(massima, altezza);
+      final p = TextPainter(
+        text: TextSpan(
+            text: testoDelTitolo(art,
+                inCasa: inCasa, larghezza: larghezza, scala: scala),
+            style: stileDelTitolo(inCasa: inCasa)),
+        textDirection: TextDirection.ltr,
+        textScaler: scala,
+        maxLines: righeDelTitolo,
+      )..layout(maxWidth: larghezza);
+      massima = math.max(massima, p.height);
+      p.dispose();
     }
     return massima;
   }
@@ -417,7 +454,10 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
             ),
           ),
           const SizedBox(height: SpacingTokens.xs),
-          _IlTitolo(art: widget.art),
+          _IlTitolo(
+              art: widget.art,
+              inCasa: widget.inCasa,
+              larghezza: widget.larghezza),
         ],
       ),
     );
@@ -645,41 +685,28 @@ class _IlSegnoDellAngolo extends StatelessWidget {
   }
 }
 
-/// **IL TITOLO, A SINISTRA, MAI RIMPICCIOLITO.** Ordine EO voce 02.
+/// **IL TITOLO, A SINISTRA, MAI RIMPICCIOLITO.** Ordine EO voce 02. In home
+/// a dodici punti, composto in righe col trattino (ordine ER voce 09).
 class _IlTitolo extends StatelessWidget {
-  const _IlTitolo({required this.art});
+  const _IlTitolo(
+      {required this.art, required this.inCasa, required this.larghezza});
 
   final ArtEntry art;
+  final bool inCasa;
+  final double larghezza;
 
   @override
   Widget build(BuildContext context) {
-    final pieno = LaSchedaDellArte.stileDelTitolo();
-    final righe = art.righeDelTitolo;
-    if (righe == null) {
-      return Text(
-        art.title,
-        key: Key('scheda_titolo_${art.id}'),
-        maxLines: LaSchedaDellArte.righeDelTitolo,
-        overflow: TextOverflow.ellipsis,
-        textAlign: TextAlign.left,
-        style: pieno,
-      );
-    }
-    // Le righe gia' decise del Viaggio dello Sciamano: le parole piccole in
-    // corpo piccolo, come oggi (ordine DE voce 02).
-    return Column(
+    return Text(
+      LaSchedaDellArte.testoDelTitolo(art,
+          inCasa: inCasa,
+          larghezza: larghezza,
+          scala: MediaQuery.textScalerOf(context)),
       key: Key('scheda_titolo_${art.id}'),
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        for (var i = 0; i < righe.length; i++)
-          Text(
-            righe[i],
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: LaSchedaDellArte.stileDellaRigaDecisa(i),
-          ),
-      ],
+      maxLines: LaSchedaDellArte.righeDelTitolo,
+      overflow: TextOverflow.ellipsis,
+      textAlign: TextAlign.left,
+      style: LaSchedaDellArte.stileDelTitolo(inCasa: inCasa),
     );
   }
 }

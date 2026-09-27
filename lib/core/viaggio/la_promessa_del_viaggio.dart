@@ -12,13 +12,11 @@
 /// fa, non cosa si ottiene, e chi legge non aveva nessuna ragione per toccare
 /// quella card.
 abstract final class LaPromessaDelViaggio {
-  /// **LE TRE RIGHE DEL TITOLO**, e la seconda va in corpo piccolo.
-  ///
-  /// *"VIAGGIO in corpo pieno, dello in corpo piccolo, SCIAMANO in corpo
-  /// pieno."* L'articolo ridotto non e' un vezzo: e' cio' che permette alle
-  /// due parole che contano di stare **in corpo pieno** invece di dividersi
-  /// la riga con una preposizione.
-  static const List<String> righeDelTitolo = ['VIAGGIO', 'dello', 'SCIAMANO'];
+  // **LAPIDE, ordine ER voce 03, 27 settembre 2026.** Qui vivevano le tre
+  // righe del titolo della card, "VIAGGIO", "dello" in corpo piccolo,
+  // "SCIAMANO" (ordine DE voce 02). Il fondatore ha chiesto che il titolo
+  // torni scritto come gli altri: la card porta il titolo del catalogo. La
+  // promessa che cambia dopo la quarta discesa resta qui sotto.
 
   /// **DOPO QUANTE DISCESE LA PROMESSA CAMBIA.** Quattro, come il
   /// riconoscimento.
@@ -95,5 +93,4 @@ abstract final class LaPromessaDelViaggio {
 
   static String chiediUnSegno({required bool femminile}) =>
       femminile ? 'Chiedile un segno' : 'Chiedigli un segno';
-
 }

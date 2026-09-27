@@ -28,17 +28,59 @@ import 'cardinale_minimo.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  /// Voce EO.10, alla lettera.
+  /// **L'elenco del fondatore.** LAPIDE: era quello della voce EO.10, trenta
+  /// arti, e le altre ventiquattro finivano nella riga "In arrivo" in fondo
+  /// (voce EO.13). **Dall'ordine ER voce 10**, alla lettera: ogni arte nella
+  /// sezione del suo Maestro, dopo quelle che c'erano, comprese le dodici
+  /// arti nuove del briefing. La riga "In arrivo" resta vuota e non si vede.
   const elencoDelFondatore = <Maestro, List<(String, List<String>)>>{
     Maestro.medora: [
-      ('Astrologia', ['Oroscopo Personalizzato', 'Pet Astrology']),
-      ('Cartomanzia', ['Stesa di Tarocchi', 'Oracolo degli Angeli']),
+      (
+        'Astrologia',
+        [
+          'Oroscopo Personalizzato',
+          'Pet Astrology',
+          'Carta Natale interattiva',
+          'Ritorni Planetari',
+          'Astrocartografia',
+          'Time Machine Astrologica',
+        ]
+      ),
+      (
+        'Cartomanzia',
+        [
+          'Stesa di Tarocchi',
+          'Oracolo degli Angeli',
+          'Carte Angeliche Oracolari',
+          'Cosmic Scan',
+        ]
+      ),
       (
         'Compatibilità',
-        ['Sinastria VIP', 'Sinastria Approfondita', 'Compatibilità tra Amici']
+        [
+          'Sinastria VIP',
+          'Sinastria Approfondita',
+          'Compatibilità tra Amici',
+          'Cosmic Dating',
+          'Sinastria NFC e QR',
+        ]
       ),
-      ('Lunologia', ['Il Respiro della Luna', 'Affinità Lunare']),
-      ('Destino', ['Destino Narrativo']),
+      (
+        'Lunologia',
+        [
+          'Il Respiro della Luna',
+          'Affinità Lunare',
+          'Finestre Fertili',
+          'Calendario Lunare Personale',
+        ]
+      ),
+      (
+        'Destino',
+        [
+          'Destino Narrativo',
+          'Lettura Karmica',
+        ]
+      ),
     ],
     Maestro.aura: [
       (
@@ -48,7 +90,12 @@ void main() {
           'Affermazioni del Giorno',
           'Sleep Stories',
           'Mood Tracker',
-          'Bioritmo'
+          'Bioritmo',
+          'Mudra',
+          'Arte delle Convinzioni',
+          'Sogni Lucidi',
+          'Breathwork',
+          'Percorso di Risveglio',
         ]
       ),
       (
@@ -57,10 +104,22 @@ void main() {
           'Scan dei Chakra',
           "Analisi dell'Aura",
           'Oracolo dei Cristalli',
-          'Purificazione Energetica'
+          'Purificazione Energetica',
+          'Cristalloterapia',
+          'Sfera di Cristallo',
+          'Feng Shui',
         ]
       ),
-      ('Fisiognomica', ['Mappa del Viso']),
+      (
+        'Fisiognomica',
+        [
+          'Mappa del Viso',
+          'Chiromanzia Ibrida',
+          'Grafologia Esoterica',
+          'Cosmic Voice Analysis',
+          "Specchio dell'Anima",
+        ]
+      ),
     ],
     Maestro.caligo: [
       (
@@ -70,12 +129,42 @@ void main() {
           'Pendolo',
           'Interpretazione dei Sogni',
           'I-Ching',
-          'Lettura dei Fondi di Caffè'
+          'Lettura dei Fondi di Caffè',
         ]
       ),
-      ('Rituali', ['Il Viaggio dello Sciamano', 'Micro-rituali']),
-      ('Magia', ["Sigillo dell'Intenzione"]),
-      ('Numerologia', ['Numeri Ricorrenti', 'Numerologia del Destino']),
+      (
+        'Rituali',
+        [
+          'Il Viaggio dello Sciamano',
+          'Micro-rituali',
+          'Invocazione del Giorno',
+          'Rituali Guidati Interattivi',
+          'Rituali Collettivi',
+        ]
+      ),
+      (
+        'Magia',
+        [
+          "Sigillo dell'Intenzione",
+          'Magia Rossa',
+          'Magia Bianca',
+          'Magia Verde',
+          'Opera al Nero',
+          'Alchimia',
+        ]
+      ),
+      (
+        'Numerologia',
+        [
+          'Numeri Ricorrenti',
+          'Numerologia del Destino',
+          'Cabala',
+          'Human Design',
+          'Cosmic Wrapped',
+          'Albero della Vita',
+          'Cosmic Academy',
+        ]
+      ),
     ],
   };
 
@@ -147,8 +236,8 @@ void main() {
 
   for (final m in Maestro.values) {
     testWidgets(
-        'EO.10 e EO.13: il dominio di ${m.displayName} a video, contro '
-        'l\'elenco del fondatore', (tester) async {
+        'ER.10: il dominio di ${m.displayName} a video, contro '
+        'l\'elenco del fondatore, ogni scheda col suo sfondo', (tester) async {
       await monta(tester, m);
       final righe = tester
           .widgetList<LaRigaDelleSchede>(
@@ -166,7 +255,7 @@ void main() {
               .top),
           reason: 'la scheda "Consulta" deve restare in cima al dominio');
 
-      // Le righe dall'alto in basso: le sezioni, poi "In arrivo".
+      // Le righe dall'alto in basso: le sezioni, e nient'altro.
       final cime = [
         for (final r in righe)
           tester.getTopLeft(find.byKey(Key('riga_${r.chiave}'))).dy,
@@ -174,70 +263,40 @@ void main() {
       for (var i = 1; i < cime.length; i++) {
         expect(cime[i], greaterThan(cime[i - 1]));
       }
-      expect([for (final r in righe) r.titolo],
-          [for (final (t, _) in atteso) t, 'In arrivo'],
+      expect(
+          [for (final r in righe) r.titolo], [for (final (t, _) in atteso) t],
           reason: 'le sezioni di ${m.id} non sono quelle del fondatore, in '
-              'quell\'ordine, con "In arrivo" in fondo');
+              'quell\'ordine, senza la riga "In arrivo"');
 
       var confrontate = 0;
+      var senzaSfondo = 0;
       for (var i = 0; i < atteso.length; i++) {
         final ids = await schedeDellaRiga(tester, righe[i]);
         confrontate += ids.length;
         expect([for (final id in ids) titolo(id)], atteso[i].$2,
             reason: 'le schede della sezione ${atteso[i].$1}');
-      }
-
-      // **LA RIGA "IN ARRIVO"**: le arti del Maestro che non stanno
-      // nell'elenco, che la regola mostra, e mai chi vive nel Passaporto.
-      // L'atteso si ricava dal catalogo e dall'elenco del fondatore, non
-      // dalla funzione che la schermata usa.
-      final nellElenco = {for (final (_, t) in atteso) ...t};
-      final inArrivoAtteso = [
-        for (final s in ArtCatalog.forMaestro(m))
-          for (final a in s.arts)
-            if (!nellElenco.contains(a.title) && !a.soloNelPassaporto) a.id,
-      ];
-      final inArrivo = await schedeDellaRiga(tester, righe.last);
-      expect(inArrivo, inArrivoAtteso,
-          reason: 'la riga "In arrivo" di ${m.id}');
-      for (final id in inArrivo) {
-        final scheda = find.byKey(Key('riga_dominio_in_arrivo_$id'));
-        await tester.pump();
-        final posizione = tester
-            .state<ScrollableState>(find.descendant(
-                of: find.byKey(const Key('riga_scorre_dominio_in_arrivo')),
-                matching: find.byType(Scrollable)))
-            .position;
-        posizione.jumpTo(0);
-        await tester.pump();
-        for (var px = 0.0;
-            scheda.evaluate().isEmpty && px <= posizione.maxScrollExtent;
-            px += 120) {
-          posizione.jumpTo(px);
-          await tester.pump();
+        // **OGNI SCHEDA COL SUO SFONDO**, ordine ER voce 10: prima le
+        // ventiquattro arti senza sfondo si disegnavano con lo sfondo del
+        // Maestro e l'icona in oro.
+        for (final id in ids) {
+          if (GliSfondiDelleSchede.perArte(id, FormatoDellaScheda.verticale) ==
+              null) {
+            senzaSfondo++;
+          }
+          expect(find.byKey(Key('scheda_icona_$id'), skipOffstage: false),
+              findsNothing,
+              reason: '$id: si disegna ancora con l\'icona sullo sfondo del '
+                  'Maestro');
         }
-        final immagine = tester.widget<Image>(find.descendant(
-            of: scheda, matching: find.byKey(Key('scheda_immagine_$id'))));
-        // `Image.asset` con `cacheWidth` avvolge l'asset in un ResizeImage.
-        final fornitore = immagine.image;
-        final asset = (fornitore is ResizeImage
-            ? fornitore.imageProvider
-            : fornitore) as AssetImage;
-        expect(asset.assetName,
-            GliSfondiDelleSchede.delMaestro(m, FormatoDellaScheda.quadrata),
-            reason: '$id: lo sfondo del Maestro senza emblema');
-        expect(
-            find.descendant(
-                of: scheda, matching: find.byKey(Key('scheda_icona_$id'))),
-            findsOneWidget,
-            reason: '$id: l\'icona dell\'arte in oro');
-        expect(
-            find.descendant(
-                of: scheda, matching: find.byKey(Key('scheda_clessidra_$id'))),
-            findsOneWidget,
-            reason: '$id: la clessidra');
       }
-      confrontate += inArrivo.length;
+      // **LA RIGA "IN ARRIVO" E' VUOTA**, e vuota non si mostra.
+      final inArrivo = LOrdineDeiDomini.inArrivo(m);
+      expect(inArrivo, isEmpty,
+          reason: 'arti di ${m.id} fuori dalle sezioni: '
+              '${inArrivo.map((a) => a.id).toList()}');
+      expect(
+          find.byKey(const Key('riga_dominio_in_arrivo'), skipOffstage: false),
+          findsNothing);
 
       // **IL TEST ARCHETIPO NON C'E'**, ordine EO voce 12.
       expect(
@@ -249,11 +308,12 @@ void main() {
           findsNothing,
           reason: 'il Test Archetipo e\' ancora nel dominio');
       // ignore: avoid_print
-      print('EO.10 MISURA ${m.id}: righe ${righe.length}, schede nelle sezioni '
-          '${confrontate - inArrivo.length}, in arrivo ${inArrivo.length}');
-      cardinaleMinimo(confrontate, 8,
+      print('ORDINE ER VOCE 10, ${m.id}: righe ${righe.length}, schede nelle '
+          'sezioni $confrontate, senza sfondo $senzaSfondo, nella riga In '
+          'arrivo ${inArrivo.length}');
+      cardinaleMinimo(confrontate, 20,
           cosa: 'schede del dominio di ${m.id}',
-          perche: 'il dominio piu\' piccolo, Aura, ne ha dieci nelle sezioni.');
+          perche: 'il dominio piu\' piccolo, Medora, ne ha ventuno.');
     });
   }
 
@@ -267,14 +327,17 @@ void main() {
         reason: 'nemmeno la striscia delle altre arti deve proporlo');
   });
 
-  test(
-      'EO.13: alla persona la riga "In arrivo" si ferma alla soglia delle '
-      'fasi', () {
-    final persona = LOrdineDeiDomini.inArrivo(Maestro.medora, demo: false)
+  // LAPIDE, ordine ER voce 10: qui si misurava la soglia delle fasi sulla
+  // riga "In arrivo", che adesso e' vuota. La soglia vale dentro le sezioni.
+  test('EO.13: alla persona le sezioni si fermano alla soglia delle fasi', () {
+    final astrologia = LOrdineDeiDomini.di(Maestro.medora)
+        .firstWhere((s) => s.titolo == 'Astrologia');
+    final persona = LOrdineDeiDomini.artiDi(astrologia, demo: false)
         .map((a) => a.id)
         .toList();
-    final demo =
-        LOrdineDeiDomini.inArrivo(Maestro.medora).map((a) => a.id).toList();
+    final demo = LOrdineDeiDomini.artiDi(astrologia, demo: true)
+        .map((a) => a.id)
+        .toList();
     expect(demo, contains('astrocartography'));
     expect(persona, isNot(contains('astrocartography')),
         reason: 'la Fase 4 non si racconta alla persona');

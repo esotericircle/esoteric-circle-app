@@ -16,18 +16,62 @@ typedef SezioneDelDominio = ({String titolo, List<String> arti});
 ///
 /// **Le arti del Maestro che non stanno qui** vanno nella riga "In arrivo"
 /// in fondo al dominio (voce EO.13), se la regola di visibilita' le mostra.
+/// Dall'ordine ER voce 10 non ce n'e' nessuna.
 /// **Chi vive solo nel Passaporto non sta in nessuna delle due** (voce EO.12).
 abstract final class LOrdineDeiDomini {
+  // **ORDINE ER VOCE 10, 27 settembre 2026: OGNI ARTE NELLA SEZIONE DEL SUO
+  // MAESTRO.** Le sezioni sono quelle dell'ordine EO; in ognuna, dopo le arti
+  // che c'erano, entrano nell'ordine del fondatore le arti che finivano nella
+  // riga "In arrivo" in fondo al dominio e le dodici arti nuove del briefing.
+  // La riga "In arrivo" resta vuota, e vuota non si mostra.
   static const Map<Maestro, List<SezioneDelDominio>> _ordine = {
     Maestro.medora: [
-      (titolo: 'Astrologia', arti: ['horoscope', 'pet_astrology']),
-      (titolo: 'Cartomanzia', arti: ['tarot_spread_three', 'angels_oracle']),
+      (
+        titolo: 'Astrologia',
+        arti: [
+          'horoscope',
+          'pet_astrology',
+          'natal_chart',
+          'planetary_returns',
+          'astrocartography',
+          'time_machine',
+        ],
+      ),
+      (
+        titolo: 'Cartomanzia',
+        arti: [
+          'tarot_spread_three',
+          'angels_oracle',
+          'angel_cards',
+          'cosmic_scan',
+        ],
+      ),
       (
         titolo: 'Compatibilità',
-        arti: ['synastry_vip', 'synastry_depth', 'friends_compatibility'],
+        arti: [
+          'synastry_vip',
+          'synastry_depth',
+          'friends_compatibility',
+          'cosmic_dating',
+          'sinastria_nfc',
+        ],
       ),
-      (titolo: 'Lunologia', arti: ['lunology', 'lunar_affinity']),
-      (titolo: 'Destino', arti: ['narrative_destiny']),
+      (
+        titolo: 'Lunologia',
+        arti: [
+          'lunology',
+          'lunar_affinity',
+          'fertility_windows',
+          'lunar_calendar',
+        ],
+      ),
+      (
+        titolo: 'Destino',
+        arti: [
+          'narrative_destiny',
+          'karmic_reading',
+        ],
+      ),
     ],
     Maestro.aura: [
       (
@@ -38,6 +82,11 @@ abstract final class LOrdineDeiDomini {
           'sleep_stories',
           'mood_tracker',
           'biorhythm',
+          'mudra',
+          'belief_art',
+          'lucid_dreams',
+          'breathwork',
+          'percorso_risveglio',
         ],
       ),
       (
@@ -47,9 +96,21 @@ abstract final class LOrdineDeiDomini {
           'aura_analysis',
           'crystal_oracle',
           'energy_cleansing',
+          'crystal_therapy',
+          'crystal_ball',
+          'feng_shui',
         ],
       ),
-      (titolo: 'Fisiognomica', arti: ['face_constellation']),
+      (
+        titolo: 'Fisiognomica',
+        arti: [
+          'face_constellation',
+          'palmistry',
+          'graphology',
+          'voice_analysis',
+          'specchio_anima',
+        ],
+      ),
     ],
     Maestro.caligo: [
       (
@@ -62,9 +123,39 @@ abstract final class LOrdineDeiDomini {
           'coffee_reading',
         ],
       ),
-      (titolo: 'Rituali', arti: ['guide_animal', 'micro_rituals']),
-      (titolo: 'Magia', arti: ['magic_sigil']),
-      (titolo: 'Numerologia', arti: ['angel_numbers', 'numerology']),
+      (
+        titolo: 'Rituali',
+        arti: [
+          'guide_animal',
+          'micro_rituals',
+          'daily_invocation',
+          'guided_rituals',
+          'rituali_collettivi',
+        ],
+      ),
+      (
+        titolo: 'Magia',
+        arti: [
+          'magic_sigil',
+          'magia_rossa',
+          'magia_bianca',
+          'magia_verde',
+          'opera_al_nero',
+          'alchimia',
+        ],
+      ),
+      (
+        titolo: 'Numerologia',
+        arti: [
+          'angel_numbers',
+          'numerology',
+          'kabbalah',
+          'human_design',
+          'cosmic_wrapped',
+          'tree_of_life',
+          'cosmic_academy',
+        ],
+      ),
     ],
   };
 

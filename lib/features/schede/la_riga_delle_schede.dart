@@ -170,8 +170,8 @@ class _LaRigaDelleSchedeState extends State<LaRigaDelleSchede> {
       // vuoto fino al titolo della riga dopo e' il suo margine di 24 punti.
       altezza = (larghezza / widget.formato.proporzione +
               SpacingTokens.xs +
-              LaSchedaDellArte.altezzaDeiTitoli(
-                  widget.arti, larghezza, scaler)) *
+              LaSchedaDellArte.altezzaDeiTitoli(widget.arti, larghezza, scaler,
+                  inCasa: true)) *
           LaRigaDelleSchede.sollevamento;
     } else {
       // L'altezza della riga nei domini: l'immagine, un poco di
@@ -210,7 +210,9 @@ class _LaRigaDelleSchedeState extends State<LaRigaDelleSchede> {
             Padding(
               padding: EdgeInsets.fromLTRB(
                   margine,
-                  inCasa ? LaRigaDelleSchede.fraLeRigheInCasa : SpacingTokens.lg,
+                  inCasa
+                      ? LaRigaDelleSchede.fraLeRigheInCasa
+                      : SpacingTokens.lg,
                   margine +
                       (widget.onVediTutto == null
                           ? 0
@@ -224,8 +226,8 @@ class _LaRigaDelleSchedeState extends State<LaRigaDelleSchede> {
                       widget.titolo,
                       key: widget.chiaveDelTitolo ??
                           Key('riga_titolo_${widget.chiave}'),
-                      style: TypographyTokens.titoloDiSchermata().copyWith(
-                          color: LaRigaDelleSchede.coloreDelTitolo),
+                      style: TypographyTokens.titoloDiSchermata()
+                          .copyWith(color: LaRigaDelleSchede.coloreDelTitolo),
                     ),
                   ),
                   if (widget.azione != null) ...[
@@ -274,6 +276,7 @@ class _LaRigaDelleSchedeState extends State<LaRigaDelleSchede> {
                     larghezza: larghezza,
                     sfondoDelMaestro: widget.sfondoDelMaestro,
                     mostraFase: widget.mostraFase,
+                    inCasa: inCasa,
                     onTieni: widget.onTieni == null
                         ? null
                         : () => widget.onTieni!(art),

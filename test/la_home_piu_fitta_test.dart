@@ -18,6 +18,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'package:esoteric_circle/design_system/typography/il_titolo_col_trattino.dart';
+
 import 'cardinale_minimo.dart';
 
 /// **LA HOME PIU' FITTA.** Ordine EP, voci 02, 03, 04, 05, 06, 07 e 08, 26
@@ -29,24 +31,31 @@ import 'cardinale_minimo.dart';
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  // I numeri dell'ordine EP.
-  const verticaleInCasa = 162.0, orizzontaleInCasa = 253.0;
+  // I numeri dell'ordine EP. **LAPIDE, ordine ER voce 09**: in home erano
+  // 162 e 253; il fondatore li ha portati a 128 e 137 (*"Diminuisci
+  // ulteriormente quelle orizzontali del 10% e aumenta verticali e quadrate
+  // fino a 2 arti e mezzo"*). Nei domini restano 184 e 288. La griglia di
+  // "Vedi tutto" tiene i suoi 162.
+  const verticaleInCasa = 128.0, orizzontaleInCasa = 137.0;
+  const grigliaDiVediTutto = 162.0;
   const verticaleNeiDomini = 184.0, orizzontaleNeiDomini = 288.0;
   const margineASinistra = 16.0, spazioFraLeSchede = 12.0;
   const vuotoFraLeRighe = 24.0, fraTitoloESchede = 8.0;
 
-  /// L'ordine delle righe, copiato dall'ordine EP voce 05.
+  /// L'ordine delle righe. **LAPIDE**: era quello dell'ordine EP voce 05,
+  /// dieci righe; **dall'ordine ER voce 08 sono undici**, in quest'ordine.
   const righeDelFondatore = [
     'Le arti preferite',
     'Trova una risposta',
-    'Da condividere',
-    'Amore e affinità',
-    'Le stelle parlano',
+    'Per partner e amici',
+    'Il cielo ti parla',
+    'I più condivisi',
     'Conosci te stesso',
     'Il tuo corpo',
     'La tua serenità',
-    'La tua intenzione',
     'La tua energia',
+    'La tua intenzione',
+    'Il tuo destino',
   ];
 
   Future<void> monta(WidgetTester tester,
@@ -96,12 +105,12 @@ void main() {
 
   for (final scala in const [1.0, 1.3]) {
     testWidgets(
-        'EP.02: in home le schede sono all\'88 per cento e nessun titolo '
-        'spezza una parola (testo a $scala)', (tester) async {
+        'EP.02 ed ER.09: in home le schede hanno le misure del fondatore e '
+        'nessun titolo esce dalla scheda (testo a $scala)', (tester) async {
       await monta(tester, scala: scala);
       final lette = righe(tester);
-      cardinaleMinimo(lette.length, 10,
-          cosa: 'righe della home', perche: 'la home ha dieci righe.');
+      cardinaleMinimo(lette.length, 11,
+          cosa: 'righe della home', perche: 'la home ha undici righe.');
       var schede = 0;
       var parolaPiuLunga = '';
       var larghezzaPiuLunga = 0.0;
@@ -117,38 +126,43 @@ void main() {
               reason: '${r.chiave}/${s.art.id}: larga ${s.larghezza}');
         }
       }
-      // Nessuna parola piu' larga della scheda: si spezzerebbe. Si guardano
-      // TUTTE le arti delle righe, anche quelle fuori vista a destra.
+      // **LAPIDE, ordine ER voce 09.** Qui ogni PAROLA dei titoli doveva
+      // stare nella scheda, perche' Flutter spezza dove capita. Dall'ordine
+      // ER la parola che non sta va a capo col trattino, a una sillaba: si
+      // misura la RIGA composta, che non deve uscire dalla scheda, su TUTTE
+      // le arti delle righe, anche quelle fuori vista a destra.
       final tutte = {
         for (final r in LeRigheDellaCasa.righe)
           ...LeRigheDellaCasa.artiDi(r.arti),
         ...LeRigheDellaCasa.artiDi(ArtiPreferiteController.semePer(null)),
       };
+      final stile = LaSchedaDellArte.stileDelTitolo(inCasa: true);
+      final scaler = TextScaler.linear(scala);
       for (final art in tutte) {
-        {
-          for (final parola in art.title.split(' ')) {
-            final p = TextPainter(
-              text: TextSpan(
-                  text: parola, style: LaSchedaDellArte.stileDelTitolo()),
-              textDirection: TextDirection.ltr,
-              textScaler: TextScaler.linear(scala),
-            )..layout();
-            if (p.width > larghezzaPiuLunga) {
-              larghezzaPiuLunga = p.width;
-              parolaPiuLunga = parola;
+        for (final f in FormatoDellaScheda.values) {
+          final larga = LaSchedaDellArte.larghezzaPer(f,
+              scalaDelTesto: scala, inCasa: true);
+          final linee = LaSchedaDellArte.testoDelTitolo(art,
+                  inCasa: true, larghezza: larga, scala: scaler)
+              .split('\n');
+          expect(linee.length, lessThanOrEqualTo(2),
+              reason: '${art.id} in ${f.name}: $linee');
+          for (final riga in linee) {
+            final w = IlTitoloColTrattino.larghezzaDi(riga, stile, scaler);
+            if (w / larga > larghezzaPiuLunga) {
+              larghezzaPiuLunga = w / larga;
+              parolaPiuLunga = riga;
             }
-            expect(p.width, lessThanOrEqualTo(verticaleInCasa * scala),
-                reason: '${art.id}: "$parola" misura ${p.width} su '
-                    '${verticaleInCasa * scala}, si spezza');
-            p.dispose();
+            expect(w, lessThanOrEqualTo(larga + 0.01),
+                reason: '${art.id} in ${f.name}: "$riga" misura $w su $larga');
           }
         }
       }
       // ignore: avoid_print
       print('EP.02 MISURA (testo a $scala): schede montate $schede, arti '
-          'della home ${tutte.length}, la '
-          'parola piu\' lunga "$parolaPiuLunga" ${larghezzaPiuLunga.toStringAsFixed(1)} '
-          'punti su ${(verticaleInCasa * scala).toStringAsFixed(1)}');
+          'della home ${tutte.length}, la riga piu\' piena "$parolaPiuLunga" '
+          'al ${(larghezzaPiuLunga * 100).toStringAsFixed(0)} per cento della '
+          'sua scheda');
       cardinaleMinimo(schede, 20,
           cosa: 'schede della home montate',
           perche: 'le righe montano almeno due schede ciascuna.');
@@ -257,8 +271,9 @@ void main() {
           '${vuoti.map((v) => v.toStringAsFixed(1)).join(', ')}; a riposo, dal '
           'titolo piu\' basso in vista, '
           '${aRiposo.map((v) => v.toStringAsFixed(1)).join(', ')}');
-      cardinaleMinimo(vuoti.length, 9,
-          cosa: 'vuoti fra le righe', perche: 'dieci righe fanno nove vuoti.');
+      cardinaleMinimo(vuoti.length, 10,
+          cosa: 'vuoti fra le righe',
+          perche: 'undici righe fanno dieci vuoti.');
       for (final v in vuoti) {
         expect(v, greaterThanOrEqualTo(vuotoFraLeRighe - 0.5),
             reason: 'un titolo di scheda arriva a $v punti dalla riga dopo');
@@ -371,7 +386,7 @@ void main() {
       await tester.pageBack();
       await tester.pumpAndSettle();
     }
-    expect(aperte, 10);
+    expect(aperte, 11);
     // Nelle preferite la matita resta.
     expect(find.byKey(const Key('tue_arti_matita')), findsOneWidget);
   });
@@ -446,8 +461,9 @@ void main() {
   }
 
   test('EP.07: la griglia sta in due colonne anche a 360 punti', () {
-    expect(LaCategoriaIntera.colonne(360, verticaleInCasa), 2);
-    expect(LaCategoriaIntera.colonne(412, verticaleInCasa), 2);
+    expect(LaSchedaDellArte.larghezzaNellaGriglia(), grigliaDiVediTutto);
+    expect(LaCategoriaIntera.colonne(360, grigliaDiVediTutto), 2);
+    expect(LaCategoriaIntera.colonne(412, grigliaDiVediTutto), 2);
   });
 
   // --- EP.08 ----------------------------------------------------------------
@@ -464,7 +480,7 @@ void main() {
       expect(t.style?.color, ColorTokens.gold, reason: lette[i].chiave);
       inOro++;
     }
-    expect(inOro, 10);
+    expect(inOro, 11);
     // Nei domini la riga e' la stessa, senza le misure della home.
     await tester.pumpWidget(ChangeNotifierProvider(
         create: (_) => MaestroController(),

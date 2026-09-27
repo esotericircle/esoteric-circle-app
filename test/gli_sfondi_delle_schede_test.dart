@@ -11,15 +11,20 @@ import 'cardinale_minimo.dart';
 /// Ordine EO voce 01, 26 settembre 2026. Il fondatore: *"Allora, iniziamo a
 /// fare tutte le schede dell'ultimo elenco, 10 per ogni maestro."*
 ///
-/// **Il cardinale e' dichiarato**: 102 file, trenta arti per tre formati piu'
-/// i tre sfondi dei Maestri, e dall'ordine EP voce 12 i tre orizzontali della
-/// scheda "Consulta". Era 99 fino all'ordine EO; i quadrati e gli orizzontali
-/// di "Consulta" restano fuori, come il fondatore ha chiesto. Una guardia che scorresse la cartella vuota
-/// sarebbe verde senza aver guardato niente.
+/// **Il cardinale e' dichiarato.** Era 99 all'ordine EO, 102 dall'ordine EP
+/// voce 12 coi tre orizzontali di "Consulta". **Dall'ordine ER voce 10 e'
+/// 216**, cioe' ogni file della cartella del fondatore: 66 arti e i tre sfondi
+/// dei Maestri in tre formati (207), piu' i "Consulta" nei tre formati (9).
+/// Il fondatore: *"ogni webp della cartella del PC sostituisce quello di
+/// assets/schede con lo stesso nome; quelli che mancano si aggiungono"*. Le
+/// schede ne usano 210: i "Consulta" quadrati e verticali stanno nella
+/// cartella senza che una scheda li chieda. Una guardia che scorresse la
+/// cartella vuota sarebbe verde senza aver guardato niente.
 void main() {
-  const cardinale = 102;
+  const cardinale = 216;
+  const usati = 210;
 
-  test('i 102 WebP stanno in assets/schede/ e il pubspec li registra', () {
+  test('i 216 WebP stanno in assets/schede/ e il pubspec li registra', () {
     final cartella = Directory(GliSfondiDelleSchede.cartella);
     final webp = cartella
         .listSync()
@@ -38,15 +43,18 @@ void main() {
         .where((f) => !f.path.endsWith('.webp'));
     expect(altri, isEmpty,
         reason: 'PNG o JPG di lavorazione sono entrati nel repository');
-    expect(webp.where((f) => f.startsWith('Consulta-')).toList()..sort(), [
-      'Consulta-Aura-Oriz-1.webp',
-      'Consulta-Caligo-Oriz-1.webp',
-      'Consulta-Medora-Oriz-1.webp',
-    ],
-        reason: 'di "Consulta" entrano solo i tre orizzontali (ordine EP voce '
-            '12, corretta dal fondatore: orizzontale e non quadrata)');
+    // LAPIDE, ordine ER voce 10: qui si pretendeva che di "Consulta"
+    // entrassero solo i tre orizzontali. Era una scelta di Code, tratta dalla
+    // correzione del fondatore sulla scheda (orizzontale e non quadrata);
+    // l'ordine ER chiede che ogni file della sua cartella entri. La scheda
+    // continua a chiedere solo l'orizzontale, e lo dice la prova qui sotto.
+    expect(webp.where((f) => f.startsWith('Consulta-')), hasLength(9));
+    for (final m in Maestro.values) {
+      expect(GliSfondiDelleSchede.consultaDi(m), endsWith('-Oriz-1.webp'),
+          reason: 'la scheda "Consulta" non e\' piu\' orizzontale');
+    }
     final tutti = GliSfondiDelleSchede.tutti();
-    expect(tutti.length, cardinale);
+    expect(tutti.length, usati);
     for (final f in tutti) {
       expect(File(f).existsSync(), isTrue, reason: 'manca $f');
     }
@@ -55,17 +63,32 @@ void main() {
         reason: 'la cartella degli sfondi non e\' registrata');
   });
 
-  test('dieci arti per Maestro, tutte del catalogo e del loro Maestro', () {
+  // LAPIDE, ordine ER voce 10: qui si pretendevano dieci arti con lo sfondo
+  // per Maestro, trenta in tutto (ordine EO). Adesso ogni arte del catalogo
+  // ha il suo sfondo, tranne le due che vivono solo nel Passaporto.
+  test('ogni arte del catalogo ha lo sfondo, tranne le due del Passaporto', () {
+    final senza = <String>[];
     for (final m in Maestro.values) {
-      final ids = {
-        for (final s in ArtCatalog.forMaestro(m))
-          for (final a in s.arts) a.id
-      };
-      final suoi = GliSfondiDelleSchede.nomi.keys.where(ids.contains).toList();
-      expect(suoi, hasLength(10),
-          reason: '${m.displayName} ha ${suoi.length} arti con lo sfondo');
+      for (final s in ArtCatalog.forMaestro(m)) {
+        for (final a in s.arts) {
+          if (a.soloNelPassaporto) continue;
+          if (GliSfondiDelleSchede.perArte(
+                  a.id, FormatoDellaScheda.verticale) ==
+              null) {
+            senza.add(a.id);
+          }
+        }
+      }
     }
-    expect(GliSfondiDelleSchede.nomi, hasLength(30));
+    final ids = {for (final a in ArtCatalog.all) a.id};
+    final estranei =
+        GliSfondiDelleSchede.nomi.keys.where((k) => !ids.contains(k)).toList();
+    // ignore: avoid_print
+    print('ORDINE ER VOCE 10: arti del catalogo senza sfondo ${senza.length}, '
+        'sfondi di arti che il catalogo non ha ${estranei.length}');
+    expect(senza, isEmpty, reason: 'arti senza sfondo: $senza');
+    expect(estranei, isEmpty);
+    expect(GliSfondiDelleSchede.nomi, hasLength(66));
   });
 
   test('i formati hanno le misure dell\'ordine', () {

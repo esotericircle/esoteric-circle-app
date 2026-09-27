@@ -40,8 +40,9 @@ void main() {
     // ragione da salvare.
     for (final assegnato in [null, ...Maestro.values]) {
       final seme = ArtiPreferiteController.semePer(assegnato);
-      // Dall'ordine EO voce 09 il seme sono le sei della riga preferita.
-      expect(seme, ArtiPreferiteController.seiDellOrdineEO,
+      // Dall'ordine EO voce 09 il seme sono le sei della riga preferita;
+      // dall'ordine ER voce 08 le stesse sei, in un ordine nuovo.
+      expect(seme, ArtiPreferiteController.seiDellOrdineER,
           reason: "col Maestro ${assegnato?.name ?? 'nessuno'} il seme non "
               "e' l'elenco di Mauro");
       expect(seme.length, lessThan(ArtiPreferiteController.tetto),

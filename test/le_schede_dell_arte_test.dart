@@ -140,7 +140,8 @@ void main() {
       ));
       await tester.pump();
 
-      final pieno = LaSchedaDellArte.stileDelTitolo();
+      // Il corpo del titolo in home: dodici punti dall'ordine ER voce 09.
+      final pieno = LaSchedaDellArte.stileDelTitolo(inCasa: true);
       final riga1 = TextPainter(
         text: TextSpan(text: 'A', style: pieno),
         textDirection: TextDirection.ltr,
@@ -149,7 +150,7 @@ void main() {
       final altezzaDiRiga = riga1.height;
       riga1.dispose();
 
-      var unaRiga = 0, dueRighe = 0, righeDecise = 0, rimpiccioliti = 0;
+      var unaRiga = 0, dueRighe = 0, rimpiccioliti = 0;
       var oltreDue = 0, schede = 0;
       final chiavi = [
         LeRigheDellaCasa.preferite,
@@ -206,11 +207,13 @@ void main() {
                     matching: find.byType(RichText),
                     matchRoot: true))
                 .toList();
-            final deciso = arte(id).righeDelTitolo != null;
+            // LAPIDE, ordine ER voce 03: qui si contavano a parte le righe
+            // decise a mano del Viaggio dello Sciamano, che adesso si scrive
+            // come tutti gli altri.
             for (final p in paragrafi) {
               final s = scalaRelativa(p, colonna);
               final corpo = p.text.style?.fontSize ?? 0;
-              if (s < 0.999 || (!deciso && corpo < pieno.fontSize! - 0.01)) {
+              if (s < 0.999 || corpo < pieno.fontSize! - 0.01) {
                 rimpiccioliti++;
                 debugPrint('RIMPICCIOLITO $chiave/$id: scala $s corpo $corpo');
               }
@@ -219,18 +222,14 @@ void main() {
                 debugPrint('OLTRE LE RIGHE $chiave/$id');
               }
             }
-            if (deciso) {
-              righeDecise++;
+            final righe =
+                (paragrafi.single.size.height / altezzaDiRiga).round();
+            if (righe <= 1) {
+              unaRiga++;
+            } else if (righe == 2) {
+              dueRighe++;
             } else {
-              final righe =
-                  (paragrafi.single.size.height / altezzaDiRiga).round();
-              if (righe <= 1) {
-                unaRiga++;
-              } else if (righe == 2) {
-                dueRighe++;
-              } else {
-                oltreDue++;
-              }
+              oltreDue++;
             }
 
             // Gli angoli: la "i" su tutte, con la sua area di un centimetro;
@@ -260,11 +259,11 @@ void main() {
       }
       // ignore: avoid_print
       print('EO.02 MISURA (testo a $scala): schede $schede, titoli su una riga '
-          '$unaRiga, su due righe $dueRighe, righe decise $righeDecise, oltre '
-          'due righe $oltreDue, rimpiccioliti $rimpiccioliti');
-      // Le schede della home oggi sono 56: sei preferite e cinquanta nelle
-      // nove righe. Margine dichiarato di sei, una riga intera.
-      cardinaleMinimo(schede, 50,
+          '$unaRiga, su due righe $dueRighe, oltre due righe $oltreDue, '
+          'rimpiccioliti $rimpiccioliti');
+      // Le schede della home dall'ordine ER sono 79: sei preferite e
+      // settantatre nelle dieci righe. Margine dichiarato di nove.
+      cardinaleMinimo(schede, 70,
           cosa: 'schede della home',
           perche: 'la guardia dei titoli gira sulle schede che trova a video.');
       expect(rimpiccioliti, 0, reason: 'titoli rimpiccioliti');
@@ -611,105 +610,133 @@ void main() {
 
   // --- EO.09, LE RIGHE DELLA HOME -------------------------------------------
 
-  /// **LAPIDE DELL'ORDINE DI PRIMA.** Fino all'ordine EO la riga "Cerca una
-  /// risposta" stava terza, dopo "Amore e affinità". Ordine EP voce 05: si
-  /// chiama "Trova una risposta" e sta subito dopo le preferite.
+  /// **LAPIDE DEGLI ORDINI DI PRIMA.** Fino all'ordine EO la riga "Cerca una
+  /// risposta" stava terza; l'ordine EP voce 05 l'ha chiamata "Trova una
+  /// risposta" e messa subito dopo le preferite; l'elenco che stava qui era
+  /// quello dell'ordine EO voce 09, dieci righe.
   ///
-  /// L'elenco del fondatore, **copiato alla lettera dall'ordine EO voce 09**,
-  /// coi nomi come li ha scritti lui: si confronta con i titoli a video, non
-  /// con gli identificativi, cosi' anche un titolo cambiato nel catalogo
-  /// cade qui.
+  /// **L'ELENCO DEL FONDATORE, ordine ER voce 08, 27 settembre 2026**,
+  /// copiato alla lettera, coi titoli come li ha scritti lui: si confronta con
+  /// i titoli a video, non con gli identificativi, cosi' anche un titolo
+  /// cambiato nel catalogo cade qui.
   const elencoDelFondatore = <String, List<String>>{
     'Le arti preferite': [
       'Oroscopo Personalizzato',
+      'Mappa del Viso',
       'Stesa di Tarocchi',
       'Estrazione Rune',
       'Sinastria VIP',
       'Meditazione',
-      'Mappa del Viso',
     ],
     'Trova una risposta': [
-      'Stesa di Tarocchi',
       'Estrazione Rune',
+      'Stesa di Tarocchi',
+      'Il Viaggio dello Sciamano',
       'Oracolo dei Cristalli',
+      'I-Ching',
       'Oracolo degli Angeli',
       'Pendolo',
-      'Interpretazione dei Sogni',
-      'I-Ching',
+      'Sfera di Cristallo',
       'Lettura dei Fondi di Caffè',
+      'Cosmic Scan',
     ],
-    'Da condividere': [
-      'Mappa del Viso',
+    'Per partner e amici': [
       'Sinastria VIP',
-      'Numeri Ricorrenti',
-      "Analisi dell'Aura",
-      'Compatibilità tra Amici',
-      "Sigillo dell'Intenzione",
-      'Affinità Lunare',
-      'Numerologia del Destino',
-      'Pet Astrology',
-    ],
-    'Amore e affinità': [
-      'Sinastria VIP',
-      'Affinità Lunare',
+      'Magia Rossa',
       'Sinastria Approfondita',
+      'Affinità Lunare',
       'Compatibilità tra Amici',
+      'Cosmic Dating',
+      'Sinastria NFC e QR',
+    ],
+    'Il cielo ti parla': [
+      'Oroscopo Personalizzato',
+      'Mood Tracker',
+      'Il Respiro della Luna',
+      'Numeri Ricorrenti',
+      'Carta Natale interattiva',
+      'Bioritmo',
       'Pet Astrology',
     ],
-    'Le stelle parlano': [
+    'I più condivisi': [
+      'Sinastria VIP',
+      'Mappa del Viso',
       'Oroscopo Personalizzato',
-      'Il Respiro della Luna',
-      'Destino Narrativo',
-      'Pet Astrology',
+      "Sigillo dell'Intenzione",
+      'Stesa di Tarocchi',
+      'Cosmic Wrapped',
+      'Affinità Lunare',
     ],
     'Conosci te stesso': [
-      'Numerologia del Destino',
       'Destino Narrativo',
-      'Il Viaggio dello Sciamano',
-      'Mood Tracker',
-      'Interpretazione dei Sogni',
+      "Specchio dell'Anima",
+      'Human Design',
+      "Analisi dell'Aura",
+      'Numerologia del Destino',
+      'Percorso di Risveglio',
+      'Cosmic Academy',
+      'Grafologia Esoterica',
+      'Cosmic Wrapped',
     ],
     'Il tuo corpo': [
       'Mappa del Viso',
-      'Scan dei Chakra',
-      "Analisi dell'Aura",
-      'Bioritmo',
+      'Finestre Fertili',
+      'Chiromanzia Ibrida',
+      'Magia Verde',
+      'Cosmic Voice Analysis',
     ],
     'La tua serenità': [
       'Meditazione',
+      'Interpretazione dei Sogni',
       'Sleep Stories',
-      'Affermazioni del Giorno',
-      'Micro-rituali',
-      'Mood Tracker',
+      'Carte Angeliche Oracolari',
+      'Breathwork',
+      'Invocazione del Giorno',
+      'Sogni Lucidi',
+    ],
+    'La tua energia': [
+      'Scan dei Chakra',
+      'Magia Bianca',
+      'Cristalloterapia',
+      'Astrocartografia',
+      'Purificazione Energetica',
+      'Alchimia',
+      'Mudra',
+      'Opera al Nero',
     ],
     'La tua intenzione': [
       "Sigillo dell'Intenzione",
       'Affermazioni del Giorno',
       'Micro-rituali',
-      'Numeri Ricorrenti',
-      'Il Viaggio dello Sciamano',
+      'Calendario Lunare Personale',
+      'Rituali Guidati Interattivi',
+      'Arte delle Convinzioni',
+      'Rituali Collettivi',
+      'Feng Shui',
     ],
-    'La tua energia': [
-      'Scan dei Chakra',
-      'Oracolo dei Cristalli',
-      "Analisi dell'Aura",
-      'Purificazione Energetica',
-      'Bioritmo',
+    'Il tuo destino': [
+      'Lettura Karmica',
+      'Albero della Vita',
+      'Ritorni Planetari',
+      'Cabala',
+      'Time Machine Astrologica',
     ],
   };
 
-  /// I formati dell'ordine, riga per riga.
+  /// I formati dell'ordine ER voce 08, riga per riga: verticale, orizzontale,
+  /// quadrata, e da capo.
   const formatiDelFondatore = <String, FormatoDellaScheda>{
-    'Le arti preferite': FormatoDellaScheda.quadrata,
-    'Trova una risposta': FormatoDellaScheda.verticale,
-    'Da condividere': FormatoDellaScheda.verticale,
-    'Amore e affinità': FormatoDellaScheda.orizzontale,
-    'Le stelle parlano': FormatoDellaScheda.orizzontale,
-    'Conosci te stesso': FormatoDellaScheda.orizzontale,
+    'Le arti preferite': FormatoDellaScheda.verticale,
+    'Trova una risposta': FormatoDellaScheda.orizzontale,
+    'Per partner e amici': FormatoDellaScheda.quadrata,
+    'Il cielo ti parla': FormatoDellaScheda.verticale,
+    'I più condivisi': FormatoDellaScheda.orizzontale,
+    'Conosci te stesso': FormatoDellaScheda.quadrata,
     'Il tuo corpo': FormatoDellaScheda.verticale,
     'La tua serenità': FormatoDellaScheda.orizzontale,
-    'La tua intenzione': FormatoDellaScheda.orizzontale,
-    'La tua energia': FormatoDellaScheda.orizzontale,
+    'La tua energia': FormatoDellaScheda.quadrata,
+    'La tua intenzione': FormatoDellaScheda.verticale,
+    'Il tuo destino': FormatoDellaScheda.orizzontale,
   };
 
   testWidgets('EO.09: righe e schede a video, contro l\'elenco del fondatore',
@@ -743,8 +770,10 @@ void main() {
     expect(find.text('Le arti preferite'), findsOneWidget);
 
     var confrontate = 0;
-    var rimandate = 0;
+    var spostate = 0;
+    final diverse = <String>[];
     for (final r in righe) {
+      if (r.formato != formatiDelFondatore[r.titolo]) diverse.add(r.titolo);
       expect(r.formato, formatiDelFondatore[r.titolo],
           reason: 'la riga "${r.titolo}" ha il formato sbagliato');
       final posizione = tester
@@ -778,45 +807,28 @@ void main() {
         if (px >= posizione.maxScrollExtent) break;
       }
       confrontate += aVideo.length;
-      // **LAPIDE: fino al 26 settembre 2026, a meta' giornata, l'ordine a
-      // video era l'elenco alla lettera.** Poi il fondatore: *"se capitasse
-      // cambia ordine di apparizione orizzontale e sposta la scheda doppione
-      // fuori dalla vista, cioè verso il fondo orizzontale della categoria"*.
-      // Adesso: le stesse arti dell'elenco; tolte quelle rimandate in fondo,
-      // le altre stanno nell'ordine dell'elenco; e le rimandate stanno in
-      // fondo, nel loro ordine. Che le rimandate siano proprio i doppioni in
-      // vista lo misura `nessun_doppione_in_vista_test`.
+      // **LAPIDE: dal 26 settembre 2026 le schede gia' viste piu' su
+      // andavano in fondo alla riga** (la regola dei doppioni in vista), e
+      // qui si accettava una coda di rimandate. **Dall'ordine ER voce 08 la
+      // regola non c'e' piu'**: il fondatore, *"Ok, togli regola del 26
+      // settembre"*. L'ordine a video e' l'elenco alla lettera.
       final elenco = elencoDelFondatore[r.titolo]!;
-      expect(aVideo.toSet(), elenco.toSet(),
+      if (aVideo.join('|') != elenco.join('|')) diverse.add(r.titolo);
+      for (var k = 0; k < aVideo.length && k < elenco.length; k++) {
+        if (aVideo[k] != elenco[k]) spostate++;
+      }
+      expect(aVideo, elenco,
           reason: 'le schede della riga "${r.titolo}" non sono quelle del '
-              'fondatore');
-      expect(aVideo.length, elenco.length);
-      // Il punto dove comincia la coda delle rimandate: la piu' lunga coda
-      // di aVideo che, tolta, lascia il resto nell'ordine dell'elenco.
-      bool inOrdine(List<String> l) {
-        final posti = [for (final x in l) elenco.indexOf(x)];
-        for (var k = 1; k < posti.length; k++) {
-          if (posti[k] < posti[k - 1]) return false;
-        }
-        return true;
-      }
-
-      var taglio = aVideo.length;
-      while (taglio > 0 && !inOrdine(aVideo.sublist(0, taglio))) {
-        taglio--;
-      }
-      expect(inOrdine(aVideo.sublist(taglio)), isTrue,
-          reason: 'nella riga "${r.titolo}" le schede rimandate in fondo non '
-              'stanno nel loro ordine: $aVideo');
-      rimandate += aVideo.length - taglio;
+              'fondatore nel suo ordine');
     }
     // ignore: avoid_print
-    print(
-        'EO.09 MISURA: righe ${righe.length} su ${elencoDelFondatore.length}, '
-        'schede confrontate $confrontate, rimandate in fondo $rimandate');
-    cardinaleMinimo(confrontate, 50,
+    print('ORDINE ER VOCE 8: righe ${righe.length} su '
+        '${elencoDelFondatore.length}, schede confrontate $confrontate, righe '
+        'diverse dall\'elenco per titolo, forma o ordine ${diverse.length} '
+        '$diverse, arti fuori dal loro posto $spostate');
+    cardinaleMinimo(confrontate, 70,
         cosa: 'schede delle righe della home',
-        perche: 'oggi sono 56, margine dichiarato di sei.');
+        perche: 'dall\'ordine ER sono 79, margine dichiarato di nove.');
   });
 
   test(

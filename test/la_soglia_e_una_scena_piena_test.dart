@@ -64,7 +64,8 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
   }
 
-  testWidgets('DE.01, REGOLA I: LA SCENA COPRE IL CENTO PER CENTO DELLA '
+  testWidgets(
+      'DE.01, REGOLA I: LA SCENA COPRE IL CENTO PER CENTO DELLA '
       'FINESTRA UTILE', (tester) async {
     telefono(tester);
     await apri(tester);
@@ -108,7 +109,8 @@ void main() {
             'sopra, ci sta dopo');
   });
 
-  testWidgets('DI.07, REGOLA H: LE TRE INFORMAZIONI DEL PERCORSO CI SONO '
+  testWidgets(
+      'DI.07, REGOLA H: LE TRE INFORMAZIONI DEL PERCORSO CI SONO '
       'FINO AL RICONOSCIMENTO, AL LORO POSTO, E DOPO NO', (tester) async {
     // **I TESTI SONO QUELLI DELL'ORDINE, scritti qui per esteso** e non letti
     // dalle costanti: una costante sbagliata non deve poter far passare se
@@ -143,8 +145,10 @@ void main() {
         }
         // **AL LORO POSTO**: sotto il titolo, sopra il pulsante, subito
         // sotto.
-        final titolo = tester.getRect(find.byKey(const Key('viaggio_promessa')));
-        final dove = tester.getRect(find.byKey(const Key('viaggio_dove_ti_trovi')));
+        final titolo =
+            tester.getRect(find.byKey(const Key('viaggio_promessa')));
+        final dove =
+            tester.getRect(find.byKey(const Key('viaggio_dove_ti_trovi')));
         final scendi = tester.getRect(find.byKey(const Key('viaggio_scendi')));
         final facendo =
             tester.getRect(find.byKey(const Key('viaggio_cosa_stai_facendo')));
@@ -168,7 +172,8 @@ void main() {
     }
   });
 
-  testWidgets('DI.08: LE QUATTRO IMPRONTE STANNO IN ALTO E NON SCORRONO VIA, '
+  testWidgets(
+      'DI.08: LE QUATTRO IMPRONTE STANNO IN ALTO E NON SCORRONO VIA, '
       'E LA RIGA E IN PAROLE', (tester) async {
     telefono(tester);
     await apri(tester, discese: 2);
@@ -236,15 +241,16 @@ void main() {
             '$conCifre');
     expect(IQuattroViaggi.aChePunto(1),
         'Si è mostrato una volta, ne mancano tre.');
-    expect(IQuattroViaggi.aChePunto(3), 'Si è mostrato tre volte, ne manca una.');
+    expect(
+        IQuattroViaggi.aChePunto(3), 'Si è mostrato tre volte, ne manca una.');
   });
 
-  testWidgets('DE.02, REGOLA H: LA PROMESSA PRIMA DELLA QUARTA DISCESA NON E '
+  testWidgets(
+      'DE.02, REGOLA H: LA PROMESSA PRIMA DELLA QUARTA DISCESA NON E '
       'QUELLA DI DOPO', (tester) async {
     telefono(tester);
-    String promessaCon(int discese) => (tester
-            .widget<Text>(find.byKey(const Key('viaggio_promessa'))))
-        .data!;
+    String promessaCon(int discese) =>
+        (tester.widget<Text>(find.byKey(const Key('viaggio_promessa')))).data!;
 
     await apri(tester, discese: 2);
     final prima = promessaCon(2);
@@ -271,33 +277,19 @@ void main() {
             '"$dopo"');
   });
 
-  test('DE.02: IL TITOLO DELL ARTE E SU TRE RIGHE, E LE RIGHE SONO QUELLE '
-      'DICHIARATE', () {
+  // **LAPIDE, ordine ER voce 03, 27 settembre 2026.** Qui si pretendeva che
+  // la card del Viaggio scrivesse il titolo su tre righe decise a mano,
+  // "VIAGGIO", "dello", "SCIAMANO" (ordine DE voce 02), e che nessun'altra
+  // arte lo facesse. Il fondatore: *"Viaggiò dello sciamano deve tornare ad
+  // essere scritto come gli altri"*. Il meccanismo delle righe decise non
+  // c'e' piu'; la card porta il titolo del catalogo, e come va a capo lo
+  // misura le_schede_della_home_e_i_loro_titoli_test.
+  test('ER.03: IL TITOLO DEL VIAGGIO E QUELLO DEL CATALOGO', () {
     final viaggio = ArtCatalog.all.firstWhere((a) => a.id == 'guide_animal');
-    // ignore: avoid_print
-    print('ORDINE DE VOCE 02: la card del Viaggio scrive il titolo su '
-        '${viaggio.righeDelTitolo?.length} righe: '
-        '${viaggio.righeDelTitolo}');
-    expect(viaggio.righeDelTitolo, LaPromessaDelViaggio.righeDelTitolo,
-        reason: 'la card e il file della promessa scrivono due titoli diversi');
-    expect(viaggio.righeDelTitolo, ['VIAGGIO', 'dello', 'SCIAMANO']);
-
-    // **REGOLA H: nessun altra arte ha le righe.** Un titolo a piu righe e
-    // una eccezione motivata, non il nuovo modo di scrivere i titoli: se un
-    // giorno ne comparissero altre due senza che nessuno lo decida, questa
-    // prova cade coi loro nomi in mano.
-    final altre = [
-      for (final a in ArtCatalog.all)
-        if (a.id != 'guide_animal' && a.righeDelTitolo != null) a.id,
-    ];
-    // ignore: avoid_print
-    print('ORDINE DE VOCE 02: arti nel catalogo ${ArtCatalog.all.length}, '
-        'altre con il titolo a righe ${altre.length}');
+    expect(viaggio.title, 'Il Viaggio dello Sciamano');
     expect(ArtCatalog.all.length, greaterThanOrEqualTo(20),
         reason: 'il catalogo delle arti si e svuotato e questa prova cerca '
             'dentro il nulla');
-    expect(altre, isEmpty, reason: 'anche queste arti spezzano il titolo '
-        'senza che nessun ordine lo abbia chiesto: $altre');
   });
 
   test('DE.02: LA DESCRIZIONE CAMBIA ALLA QUARTA DISCESA E NON PRIMA', () {
@@ -335,7 +327,8 @@ void main() {
   ///
   /// **VISTA ROSSA** riportando la lista a cominciare dal bordo dello schermo:
   /// la finestra cominciava a zero punti e la barra finiva a 56.
-  testWidgets('DG: la lista della soglia comincia sotto la barra, e scorrendo '
+  testWidgets(
+      'DG: la lista della soglia comincia sotto la barra, e scorrendo '
       'non ci passa sotto', (tester) async {
     telefono(tester);
     await apri(tester);

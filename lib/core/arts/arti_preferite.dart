@@ -81,6 +81,21 @@ class ArtiPreferiteController extends ChangeNotifier {
     'face_constellation',
   ];
 
+  /// **LE SEI DELL'ORDINE ER, E SOSTITUISCONO QUELLE DELL'ORDINE EO. Ordine
+  /// ER voce 08, 27 settembre 2026.** Le stesse sei arti, in un ordine nuovo:
+  /// Oroscopo Personalizzato, Mappa del Viso, Stesa di Tarocchi, Estrazione
+  /// Rune, Sinastria VIP, Meditazione. Restano la matita, il tetto a nove e le
+  /// scelte di chi ha gia' personalizzato. Le sei dell'ordine EO restano
+  /// scritte qui sopra come storia.
+  static const List<String> seiDellOrdineER = [
+    'horoscope',
+    'face_constellation',
+    'tarot_spread_three',
+    'rune_draw',
+    'synastry_vip',
+    'meditation',
+  ];
+
   // **LAPIDE: dall'ordine AK voce 01 all'ordine EN qui vivevano le
   // etichette brevi dello scaffale**, "Tarocchi" e "Oroscopo" (ordine BK
   // voce 01), perche' il titolo della bolla stava in un FittedBox che
@@ -127,7 +142,7 @@ class ArtiPreferiteController extends ChangeNotifier {
     // dettato da Mauro, uguale per tutti. Il parametro resta nella firma
     // perche' chi chiama non debba cambiare, e per il giorno in cui il seme
     // tornasse a dipendere dal Maestro.
-    return List<String>.from(seiDellOrdineEO);
+    return List<String>.from(seiDellOrdineER);
   }
 
   /// Tutte le arti che si possono mettere nello scaffale: le vive di tutti e

@@ -196,6 +196,10 @@ void main() {
         'mood_tracker',
         'biorhythm',
         'lucid_dreams',
+        // **ORDINE ER VOCE 10**: le arti nuove del briefing entrano in fondo
+        // alla loro sezione, in arrivo.
+        'breathwork',
+        'percorso_risveglio',
       ]);
       expect(energia.firstWhere((a) => a.id == 'lucid_dreams').phase,
           ArtPhase.fase5);
@@ -212,6 +216,9 @@ void main() {
         'palmistry',
         'graphology',
         'voice_analysis',
+        // **ORDINE ER VOCE 10**: le arti nuove del briefing entrano in fondo
+        // alla loro sezione, in arrivo.
+        'specchio_anima',
       ]);
       // **Il Test Archetipo e' nel catalogo e vive solo nel Passaporto**,
       // ordine EO voce 12, come l'Angelo Custode.
@@ -225,9 +232,9 @@ void main() {
       expect(
           fisiognomica.map((a) => a.id), isNot(contains('archetype_affinity')));
 
-      // Chakra: sei arti, nessuna viva.
+      // Chakra: sette arti dall'ordine ER voce 10 (era sei), nessuna viva.
       final chakra = arti('Chakra');
-      expect(chakra.length, 6);
+      expect(chakra.length, 7);
       expect(chakra.where((a) => a.state == ArtState.attiva), isEmpty);
       expect(chakra.map((a) => a.id), [
         'chakra_scan',
@@ -236,6 +243,9 @@ void main() {
         'crystal_ball',
         'energy_cleansing',
         'aura_analysis',
+        // **ORDINE ER VOCE 10**: le arti nuove del briefing entrano in fondo
+        // alla loro sezione, in arrivo.
+        'feng_shui',
       ]);
     });
 
@@ -302,6 +312,9 @@ void main() {
         'micro_rituals',
         'daily_invocation',
         'guided_rituals',
+        // **ORDINE ER VOCE 10**: le arti nuove del briefing entrano in fondo
+        // alla loro sezione, in arrivo.
+        'rituali_collettivi',
       ]);
       expect(arti('Magia').map((a) => a.id), [
         'magic_sigil',
@@ -309,6 +322,9 @@ void main() {
         'magia_bianca',
         'magia_verde',
         'opera_al_nero',
+        // **ORDINE ER VOCE 10**: le arti nuove del briefing entrano in fondo
+        // alla loro sezione, in arrivo.
+        'alchimia',
       ]);
       // Mai 'Magia Nera': la nigredo e' dissoluzione, non maleficio.
       for (final a in arti('Magia')) {
@@ -324,12 +340,21 @@ void main() {
         'kabbalah',
         'human_design',
         'cosmic_wrapped',
+        // **ORDINE ER VOCE 10**: le arti nuove del briefing entrano in fondo
+        // alla loro sezione, in arrivo.
+        'tree_of_life',
+        'cosmic_academy',
       ]);
-      // L'Albero della Vita e' uscito dalla Demo, e con lui i settantadue nomi
-      // che ne erano contenuto. La Compatibilita' Angelica e' passata alla
-      // Sinastria Approfondita.
-      expect(arti('Numerologia').map((a) => a.id),
-          isNot(contains('tree_of_life')));
+      // **LAPIDE, ordine ER voce 10.** L'Albero della Vita era uscito dalla
+      // Demo per decisione di Mauro, e qui si pretendeva che non ci fosse.
+      // Il fondatore lo rimette nel catalogo **come arte in arrivo, non
+      // attiva**: e' questo che si pretende adesso. I settantadue nomi che ne
+      // erano contenuto restano fuori; la Compatibilita' Angelica e' passata
+      // alla Sinastria Approfondita.
+      final albero =
+          arti('Numerologia').firstWhere((a) => a.id == 'tree_of_life');
+      expect(albero.title, 'Albero della Vita');
+      expect(albero.state, ArtState.inArrivo);
       expect(
           arti('Numerologia').map((a) => a.id), isNot(contains('angels_72')));
       expect(arti('Numerologia').map((a) => a.id),
@@ -374,8 +399,15 @@ void main() {
     test('La Compatibilità di Medora raccoglie le tre sinastrie', () {
       final comp = ArtCatalog.forMaestro(Maestro.medora)
           .firstWhere((s) => s.title == 'Compatibilità');
-      expect(comp.arts.map((a) => a.id),
-          ['synastry_vip', 'synastry_depth', 'friends_compatibility']);
+      // Dall'ordine ER voce 10 anche il Cosmic Dating e la Sinastria NFC e
+      // QR, in arrivo.
+      expect(comp.arts.map((a) => a.id), [
+        'synastry_vip',
+        'synastry_depth',
+        'friends_compatibility',
+        'cosmic_dating',
+        'sinastria_nfc',
+      ]);
       expect(comp.arts[0].state, ArtState.attiva);
       expect(comp.arts[1].state, ArtState.premium);
 
@@ -409,7 +441,9 @@ void main() {
         'natal_chart',
         'planetary_returns',
         'pet_astrology',
-        'astrocartography'
+        'astrocartography',
+        // Ordine ER voce 10: la Time Machine Astrologica, in arrivo.
+        'time_machine',
       ]);
     });
 
