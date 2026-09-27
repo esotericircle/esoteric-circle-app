@@ -1,0 +1,30 @@
+EQ.03, la voce della prima frase composta mentre il modello scrive e il flusso verso il volto aperto prima. Guardia test/la_voce_della_prima_frase_si_compone_prima_test.dart. 27 settembre 2026.
+
+== Regola A, voce anticipata: la prima frase si da' per chiusa subito
+   file lib/features/maestri/live/la_voce_anticipata.dart, sha1 prima a4f7b5d03047, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: null
+   Actual: 'Scrivi stasera'
+   ripristinato: sha1 a4f7b5d03047, uguale
+== Regola A, voce anticipata: il riascolto perde i pezzi gia' arrivati
+   file lib/features/maestri/live/la_voce_anticipata.dart, sha1 prima a4f7b5d03047, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: [1, 2, 3]
+   Actual: [3]
+   ripristinato: sha1 a4f7b5d03047, uguale
+== Regola A, voce anticipata: la voce si usa senza guardare la frase
+   file lib/features/maestri/live/schermata_live.dart, sha1 prima b05eea552f3d, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'anticipata.testo == pezzo'
+   Actual: 'Future<void> _dillo(\n'
+   ripristinato: sha1 b05eea552f3d, uguale
+== Regola A, voce anticipata: la voce va al volto mentre il testo arriva
+   file lib/features/maestri/live/schermata_live.dart, sha1 prima b05eea552f3d, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not contains '_dillo('
+   Actual: 'void mentreArriva() {\n'
+   ripristinato: sha1 b05eea552f3d, uguale

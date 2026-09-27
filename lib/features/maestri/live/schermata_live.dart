@@ -26,6 +26,7 @@ import 'il_selettore_delle_voci.dart';
 import 'la_scena_del_live.dart';
 import 'la_cornice_della_finestra.dart';
 import 'la_domanda_finita.dart';
+import 'la_voce_anticipata.dart';
 import 'stato_della_schermata_live.dart';
 
 /// **LA SCHERMATA LIVE.** Ordine EG voce 05.
@@ -143,6 +144,66 @@ class _SchermataLiveState extends State<SchermataLive> {
   DateTime? _fineDelParlato;
   final Map<String, int> _tappe = {};
   bool _attesaAperta = false;
+
+  /// **La voce della prima frase, composta mentre il modello scrive.**
+  /// Ordine EQ voce 03, dopo la risposta del fondatore: *"L'attesa deve
+  /// diminuire"*. Si usa solo se la risposta passata dalle reti comincia
+  /// proprio con quella frase.
+  LaVoceAnticipata<({Uint8List pcm, int tasso, int canali})>? _voceAnticipata;
+
+  /// **Il flusso verso il volto, aperto appena la voce anticipata ha il suo
+  /// primo pezzo.** Ordine EQ voce 03: aprirlo costava fra due e otto decimi
+  /// di secondo, sul Realme, e si pagava dopo la risposta. Porta la voce
+  /// della risposta, qualunque sia la sua prima frase; se il turno non ha
+  /// voce, si chiude vuoto.
+  Future<({lk.ByteStreamWriter scrittore, int tasso, int canali})?>?
+      _flussoAnticipato;
+
+  void _apriIlFlussoInAnticipo(
+      LaVoceAnticipata<({Uint8List pcm, int tasso, int canali})> voce) {
+    final s = _quadro.sessione;
+    final io = _stanza?.localParticipant;
+    if (s == null || io == null) return;
+    _flussoAnticipato = voce.primoPezzo.then((primo) async {
+      if (primo == null) return null;
+      final scrittore = await io.streamBytes(lk.StreamBytesOptions(
+        name: 'AUDIO_${DateTime.now().microsecondsSinceEpoch}',
+        topic: 'lk.audio_stream',
+        destinationIdentities: [s.lavoratore],
+        attributes: {
+          'sample_rate': '${primo.tasso}',
+          'num_channels': '${primo.canali}',
+        },
+      ));
+      _segnaTappa('flusso aperto in anticipo');
+      return (scrittore: scrittore, tasso: primo.tasso, canali: primo.canali);
+    }).catchError((Object errore) {
+      annotaGuastoInnocuo('il flusso verso il volto non si apre prima', errore);
+      return null;
+    });
+  }
+
+  /// Il flusso aperto in anticipo, se c'e' e porta lo stesso tasso; chi lo
+  /// prende lo toglie di qui.
+  Future<lk.ByteStreamWriter?> _prendiIlFlussoAnticipato(
+      int tasso, int canali) async {
+    final aperto = _flussoAnticipato;
+    _flussoAnticipato = null;
+    final f = await aperto;
+    if (f == null) return null;
+    if (f.tasso == tasso && f.canali == canali) return f.scrittore;
+    await f.scrittore.close();
+    return null;
+  }
+
+  /// Un flusso aperto e mai usato si chiude.
+  Future<void> _chiudiIlFlussoAnticipato() async {
+    final aperto = _flussoAnticipato;
+    _flussoAnticipato = null;
+    final f = await aperto;
+    if (f != null) await f.scrittore.close();
+  }
+
   lk.EventsListener<lk.RoomEvent>? _ascoltatoreDellaStanza;
 
   @override
@@ -712,11 +773,26 @@ class _SchermataLiveState extends State<SchermataLive> {
         primoTesto = true;
         _segnaTappa('primo testo');
       }
+      if (_voceAnticipata == null) {
+        final prima = LaVoceAnticipata.primaFraseChiusa(scritto);
+        if (prima != null) {
+          _segnaTappa('prima frase chiusa');
+          final voce = LaVoceAnticipata(
+              prima, PortaDelLive.voceAFlusso(widget.maestro, prima));
+          _voceAnticipata = voce;
+          _apriIlFlussoInAnticipo(voce);
+        }
+      }
       setState(() => _quadro =
           _quadro.con(sottotitolo: IlParlatoDelMaestro.daDire(scritto)));
     }
 
     chat.testoInArrivo.value = '';
+    _voceAnticipata?.lascia();
+    _voceAnticipata = null;
+    unawaited(_chiudiIlFlussoAnticipato().catchError((Object errore) {
+      annotaGuastoInnocuo('il flusso anticipato non si chiude', errore);
+    }));
     chat.testoInArrivo.addListener(mentreArriva);
     try {
       await chat.send(testo);
@@ -742,6 +818,11 @@ class _SchermataLiveState extends State<SchermataLive> {
     } else {
       _fineDelParlato = null;
     }
+    _voceAnticipata?.lascia();
+    _voceAnticipata = null;
+    unawaited(_chiudiIlFlussoAnticipato().catchError((Object errore) {
+      annotaGuastoInnocuo('il flusso anticipato non si chiude', errore);
+    }));
     await _ascoltaLaPersona();
   }
 
@@ -780,11 +861,31 @@ class _SchermataLiveState extends State<SchermataLive> {
     _fineDellaVoce = Completer<void>();
     try {
       lk.ByteStreamWriter? scrittore;
+      final anticipata = _voceAnticipata;
       for (final pezzo in pezzi) {
+        final usaLAnticipata = conAttesa &&
+            identical(pezzo, pezzi.first) &&
+            anticipata != null &&
+            anticipata.testo == pezzo &&
+            !anticipata.fallitaSenzaVoce;
+        if (conAttesa && identical(pezzo, pezzi.first)) {
+          debugPrint('LIVE: voce della prima frase '
+              '${usaLAnticipata ? 'anticipata' : 'chiesta adesso'}'
+              '${anticipata != null && !usaLAnticipata ? ' (anticipata per «${anticipata.testo}»)' : ''}');
+        }
         final flusso = giaPronta != null && pezzi.length == 1
             ? _laVoceGiaPronta(giaPronta, pezzo)
-            : PortaDelLive.voceAFlusso(widget.maestro, pezzo);
+            : usaLAnticipata
+                ? anticipata.riascolta()
+                : PortaDelLive.voceAFlusso(widget.maestro, pezzo);
         await for (final voce in flusso) {
+          if (primoSuono == null && conAttesa && scrittore == null) {
+            _segnaTappa('voce pronta');
+          }
+          if (scrittore == null && conAttesa) {
+            scrittore =
+                await _prendiIlFlussoAnticipato(voce.tasso, voce.canali);
+          }
           scrittore ??= await io.streamBytes(lk.StreamBytesOptions(
             name: 'AUDIO_${DateTime.now().microsecondsSinceEpoch}',
             topic: 'lk.audio_stream',
@@ -795,6 +896,8 @@ class _SchermataLiveState extends State<SchermataLive> {
             },
           ));
           if (primoSuono == null && conAttesa) {
+            // Dopo l'apertura del flusso verso il volto: la tappa di prima
+            // ("voce pronta") misura quanto costa aprirlo.
             _segnaTappa('primo audio al volto');
             _attesaAperta = true;
           }
