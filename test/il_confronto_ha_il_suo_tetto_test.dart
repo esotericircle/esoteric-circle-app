@@ -113,22 +113,42 @@ void main() {
               'sarebbe pagarlo due volte');
     });
 
-    test('Il residuo CONCORDA col numero, scendendo da tre a zero', () {
+    test('Il residuo CONCORDA col numero e dice di che cosa, da tre a zero',
+        () {
       // **QUESTA PROVA DICEVA IL CONTRARIO, e proteggeva l'errore.** Pretendeva
       // "Oggi te ne resta 3 su 3" e chiamava quella mancanza di accordo una
       // scelta: era sgrammaticata, e l'anteprima della build 2148 la mostrava
       // a video con quelle parole esatte.
+      //
+      // **LAPIDE: "Oggi te ne restano 3 su 3".** Ordine EQ voce 07: il numero
+      // concordava, ma la frase non diceva di che cosa, e accanto a "Oggi hai
+      // 50 domande ai Maestri" della testata il fondatore ha letto due conti
+      // della stessa cosa che non tornavano. Adesso dice fra chi, e la forma
+      // e' quella di ogni residuo dell'app.
       final c = QuestionAllowance();
-      expect(c.residuoDeiConfronti(Tier.tier1), 'Oggi te ne restano 3 su 3');
+      expect(c.residuoDeiConfronti(Tier.tier1),
+          'Oggi hai 3 confronti fra i Maestri');
       c.registraConfronto(Tier.tier1);
-      expect(c.residuoDeiConfronti(Tier.tier1), 'Oggi te ne restano 2 su 3');
+      expect(c.residuoDeiConfronti(Tier.tier1),
+          'Ti restano 2 confronti fra i Maestri su 3, oggi');
       c.registraConfronto(Tier.tier1);
-      expect(c.residuoDeiConfronti(Tier.tier1), 'Oggi te ne resta 1 su 3',
+      expect(c.residuoDeiConfronti(Tier.tier1),
+          'Ti resta 1 confronto fra i Maestri su 3, oggi',
           reason: 'a uno solo ci vuole il singolare');
       c.registraConfronto(Tier.tier1);
-      expect(c.residuoDeiConfronti(Tier.tier1), 'Oggi non te ne resta nessuno',
+      expect(c.residuoDeiConfronti(Tier.tier1),
+          'Non ti resta nessun confronto fra i Maestri, oggi',
           reason: 'a zero non e\' un residuo, e\' la fine: dirlo con un numero '
               'davanti a "su tre" e\' un conto, non una frase');
+    });
+
+    test('Il residuo dei confronti non si confonde con le domande', () {
+      // Ordine EQ voce 07: la bolla e la testata contano due cose diverse, e
+      // la bolla deve nominare la sua.
+      final c = QuestionAllowance();
+      final riga = c.residuoDeiConfronti(Tier.tier1)!;
+      expect(riga, contains('confront'));
+      expect(riga, isNot(contains('domand')));
     });
 
     test('Al Viandante non si dice un residuo: e\' un lucchetto', () {
@@ -139,7 +159,8 @@ void main() {
       // **E ALL'ILLUMINATO ADESSO SI DICE, ordine CE voce 08.** Prima non
       // aveva nessun tetto e non c'era niente da contare; adesso ne ha venti,
       // e il residuo si vede come a tutti gli altri.
-      expect(c.residuoDeiConfronti(Tier.tier3), 'Oggi te ne restano 20 su 20',
+      expect(c.residuoDeiConfronti(Tier.tier3),
+          'Oggi hai 20 confronti fra i Maestri',
           reason: 'chi ha un tetto deve vederlo, anche quando e\' alto');
     });
   });
@@ -196,7 +217,7 @@ void main() {
     final residuo = find.byKey(const Key('chat_residuo_confronti'));
     expect(residuo, findsOneWidget,
         reason: 'chi tocca non sa cosa spende prima di spenderlo');
-    expect(find.text('Oggi te ne restano 3 su 3'), findsOneWidget);
+    expect(find.text('Oggi hai 3 confronti fra i Maestri'), findsOneWidget);
     // E sta SOTTO il pulsante, non sopra: prima si legge cosa si fa, poi
     // quanto costa.
     final pulsante = find.byKey(const Key('chat_altre_voci'));

@@ -138,12 +138,20 @@ void main() {
       // quanto prima e si ritaglia: si misura dove il ritaglio la ferma. Se
       // un ritaglio non c'e', il fondo visibile e' quello della lista.
       var fondoVisibile = rLista.bottom;
+      // **E LA CIMA VISIBILE, ordine EQ voce 09.** Il riquadro della lista
+      // cominciava sotto i contatori e la prova era verde, mentre sul Realme
+      // il ritratto in cima alla conversazione passava dietro le due righe:
+      // il ritaglio di EQ.08 lasciava la cima libera. Si misura dove la
+      // conversazione puo' davvero dipingere, come per il fondo.
+      var cimaVisibile = double.negativeInfinity;
       for (final clip in tester.renderObjectList<RenderClipRect>(
           find.ancestor(of: lista, matching: find.byType(ClipRect)))) {
         final taglio = clip.clipper?.getClip(clip.size);
         if (taglio == null) continue;
         final fondo = clip.localToGlobal(Offset(0, taglio.bottom)).dy;
         if (fondo < fondoVisibile) fondoVisibile = fondo;
+        final cima = clip.localToGlobal(Offset(0, taglio.top)).dy;
+        if (cima > cimaVisibile) cimaVisibile = cima;
       }
       // ignore: avoid_print
       print('EQ.08 MISURA a $larghezza punti: lista da '
@@ -159,6 +167,36 @@ void main() {
       expect(rLista.top, greaterThanOrEqualTo(rContatori.bottom - 0.5),
           reason: 'la conversazione passa dietro i contatori per '
               '${(rContatori.bottom - rLista.top).toStringAsFixed(1)} punti');
+      expect(cimaVisibile, greaterThanOrEqualTo(rContatori.bottom - 0.5),
+          reason: 'la conversazione puo\' dipingere dietro i contatori per '
+              '${(rContatori.bottom - cimaVisibile).toStringAsFixed(1)} '
+              'punti: il ritaglio non la ferma in cima');
+      // ignore: avoid_print
+      print('EQ.09 MISURA a $larghezza punti: la conversazione si vede da '
+          '${cimaVisibile.toStringAsFixed(1)}, i contatori finiscono a '
+          '${rContatori.bottom.toStringAsFixed(1)}');
+
+      // **EQ.09: LA FASCIA HA IL FONDO DELLA TESTATA.** La conversazione
+      // cominciava gia' sotto i contatori, e la prova qui sopra era verde:
+      // cio' che il fondatore vedeva era la fascia senza fondo, con le righe
+      // tagliate della conversazione subito sotto le sue parole. Si pretende
+      // la tinta della testata, sotto tutta la larghezza e sotto i contatori.
+      final fascia = find.byKey(const Key('chat_fondo_dei_contatori'));
+      expect(fascia, findsOneWidget,
+          reason: 'la fascia dei contatori non ha un fondo');
+      final testata = tester.widget<AppBar>(find.descendant(
+          of: find.byType(Scaffold), matching: find.byType(AppBar)).last);
+      expect(tester.widget<ColoredBox>(fascia).color, testata.backgroundColor,
+          reason: 'la fascia non ha la tinta della testata');
+      final rFascia = tester.getRect(fascia);
+      expect(rFascia.width, closeTo(larghezza, 0.5),
+          reason: 'la fascia non e\' larga quanto lo schermo');
+      expect(rFascia.top, lessThanOrEqualTo(rContatori.top + 0.5));
+      expect(rFascia.bottom, greaterThanOrEqualTo(rContatori.bottom - 0.5));
+      // ignore: avoid_print
+      print('EQ.09 MISURA a $larghezza punti: fascia da '
+          '${rFascia.left.toStringAsFixed(1)} a ${rFascia.right.toStringAsFixed(1)}, '
+          'tinta ${tester.widget<ColoredBox>(fascia).color}, come la testata');
     });
   }
 }

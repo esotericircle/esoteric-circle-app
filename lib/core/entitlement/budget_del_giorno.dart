@@ -31,8 +31,15 @@ enum BudgetDelGiorno {
   /// Gli approfondimenti, cioe' il "Vai piu' a fondo" sotto una risposta.
   approfondimenti(uno: 'approfondimento', molti: 'approfondimenti'),
 
-  /// I confronti nel Cerchio, fra due persone.
-  confronti(uno: 'confronto', molti: 'confronti'),
+  /// I confronti fra i Maestri: la stessa domanda chiesta anche agli altri
+  /// due, da "Chiedi anche agli altri" e da "Chiedi ai Maestri".
+  ///
+  /// **LE PAROLE DICONO FRA CHI, ordine EQ voce 07.** Erano *"confronto"* e
+  /// *"confronti"*, e sotto la bolla la riga diceva soltanto *"Oggi te ne
+  /// restano 20 su 20"*: accanto a *"Oggi hai 50 domande ai Maestri"* nella
+  /// testata il fondatore ha letto due conti della stessa cosa che non
+  /// tornavano. Sono due tetti diversi, e adesso lo dicono.
+  confronti(uno: 'confronto fra i Maestri', molti: 'confronti fra i Maestri'),
 
   /// Le gettate di rune.
   gettate(uno: 'gettata di rune', molti: 'gettate di rune', femminile: true),

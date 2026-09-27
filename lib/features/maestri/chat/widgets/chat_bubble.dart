@@ -503,9 +503,10 @@ class _ChatBubbleState extends State<ChatBubble> {
                         // IL RESIDUO SI VEDE PRIMA DEL TOCCO.
                         //
                         // Chi tocca deve sapere cosa spende prima di spenderlo. La
-                        // frase la compone `QuestionAllowance.comeSiDiceIlResiduo`,
-                        // che tiene l'accordo: "non te ne resta nessuno" a zero,
-                        // "te ne resta 1" a uno, "te ne restano 3" da due in su.
+                        // frase la compone `QuestionAllowance.residuoDeiConfronti`
+                        // con le parole del suo budget, *"Oggi hai 20 confronti
+                        // fra i Maestri"*: ordine EQ voce 07, perche' senza dire
+                        // di che cosa si leggeva come il conto delle domande.
                         // Qui non si sceglie niente, si mostra.
                         //
                         // Nulla quando non c'e' un numero da dire: senza il piano

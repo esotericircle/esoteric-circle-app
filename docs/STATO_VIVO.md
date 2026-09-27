@@ -5326,7 +5326,7 @@ passo 6: commit, spinta, spunta verde su GitHub, build, consegna.
 ## L'ORDINE EQ, LE CHAT CHE RISPONDONO E LA STESA DI TAROCCHI CHE INTERPRETA
 
 Ordine e lavoro del 27 settembre 2026, dodici voci, **in corso**: nessuna
-chiusa, sette aperte in attesa di verifica, cinque da fare. Manifesto
+chiusa, dieci aperte in attesa di verifica, due da fare (EQ.03 ed EQ.10). Manifesto
 `docs/ordini/ORDINE_EQ_MANIFESTO.md` con la sua guardia
 `test/ordine_eq_guard_test.dart`, prove in `docs/collaudo/EQ/` e
 `docs/collaudo/EQ/realme/`. Il fondatore, su come procedere: *"Tutto, a
@@ -5385,14 +5385,38 @@ sulle impronte nuove: 96,7, 98,3 e 95,0 per cento, media **96,7** (174 su
 180), sette punti e sei sopra l'89,1 dell'ordine EO; Caligo fa 19, 19 e 17 su
 20 (`docs/collaudo/EQ/attribuzione/`).
 
-**LA STESA DI TAROCCHI.** **EQ.04, la lettura che interpreta davvero**, e'
-scelta e cominciata: una chiamata sola a Flash per la lettura intera
-(`lib/core/tarot/la_lettura_dal_modello.dart`), ancorata ai significati
-tradizionali e ai 468 testi delle carte nella loro posizione, generati una
-volta sola; senza rete resta il comporre di prima. **Non c'e' cache**: le
-stese ordinate con il verso sono milioni per ogni argomento, una cache non
-verrebbe quasi mai colpita. Il collaudo "prima" si fa prima di toccare
-`TarotReading`. **Le voci grafiche sono misurate nelle prove**
+**LA STESA DI TAROCCHI.** **EQ.04, la lettura che interpreta davvero: la
+scrive Flash.** Una chiamata per la lettura intera
+(`lib/core/tarot/la_lettura_dal_modello.dart`, `LaLetturaDellaStesa`), col
+ragionamento spento e sei campi: la risposta, le tre carte, il legame, il
+consiglio. Riceve la domanda, l'argomento, la carta chiave della schermata e
+i significati tradizionali delle carte; **il testo della posizione non gli
+arriva piu'**, perche' lo parafrasava (sonde 13 e 14). Guardie a valle:
+tetti, il nome di ogni carta, niente cifre, il confine del responso (le sue
+parole sono anche dette al modello, `paroleDelConfine`), nessun genere dato a
+chi legge contro la sua forma; trattino lungo e virgola con la "e" si
+correggono. Fino a **tre richieste in dieci secondi**, col motivo dello
+scarto; **se il solo difetto e' il genere, una richiesta breve riscrive le
+frasi colpevoli** nominando la parola trovata dalla guardia; finiti i
+tentativi, quelle frasi si tolgono, mai dalla risposta. La schermata parte al
+tocco su "Leggi le Carte", aspetta dentro la scena di Medora e scrive nel
+registro `STESA TEMPI`. **Senza modello** la lettura di casa porta sotto ogni
+carta il testo della sua posizione, uno dei **468 scritti una volta sola**
+con Flash e riletti (`docs/corpus/tarocchi_nella_posizione.md`, generatore
+`tool/genera_carte_nella_posizione.py`, 45 corretti a mano). **Nessuna
+cache**: 3.651.648 stese ordinate coi versi per 16 argomenti fanno 58 milioni
+di chiavi, la quota servita dalla cache e' 0. **Misure**
+(`tool/collaudo_eq04.dart`, giudici a temperatura zero tarati su undici casi
+noti, `docs/collaudo/EQ/tarocchi/`): prima, la lettura di casa, risposte
+dirette nelle prime due frasi **1 su 20** e carte lette nella posizione e
+sulla domanda **0 su 60**; dopo, due giri, **19 e 17 su 20** e **53 e 43 su
+60**; concordanze sbagliate, contate a mano, da 3 a 0; letture uguali su
+cento 0. Costo medio di una stesa **0,00177 e 0,00191 dollari**, tempo dal PC
+mediano **3,7 secondi**. **Voce aperta**: la misura non arriva al pieno e
+manca l'attesa sul Realme. **Resta nella lettura di casa** il comporre
+dell'ordine DF, con le sue frasi che non concordano ("c'e' stata Quattro di
+Coppe", "Prima di Il Mago"): parla solo senza rete o dopo tre letture
+scartate, nei due giri 1 volta su 40. **Le voci grafiche sono misurate nelle prove**
 (`test/la_stesa_si_legge_intera_test.dart`), in attesa della cattura:
 - EQ.05, la carta chiave cresceva attorno al suo centro e copriva
   "PRESENTE": ora le carte crescono dal bordo basso, ogni scritta a 16 punti
@@ -5411,18 +5435,45 @@ catture, il contatore delle domande scende: 50, 49 dopo una domanda in chat,
 catture hanno la forma del LIVE: **i turni del LIVE non consumano domande**
 per la decisione dell'ordine EG voce 06. Se debbano contarle e' una domanda
 per il fondatore.
-Resta da fare la bolla "Chiedi anche agli altri", che dice "Oggi te ne
-restano 20 su 20" senza dire di che cosa.
+**La bolla "Chiedi anche agli altri"** diceva "Oggi te ne restano 20 su 20"
+senza dire di che cosa: accanto alle domande della testata si leggeva come
+un conto sbagliato. Conta i confronti fra i Maestri; adesso lo dice, "Oggi
+hai 20 confronti fra i Maestri", con le parole del suo budget
+(`BudgetDelGiorno.confronti`), le stesse in "Chiedi ai Maestri".
 
 **LA CONVERSAZIONE SOPRA LA CASELLA (EQ.08).** La conversazione si ritaglia
 sopra il bordo alto della casella di scrittura, seguendo la barra del Cerchio
 quando scende e sale: punti di conversazione sotto la casella da 74 a 0, a
-360 e a 402 punti.
+360 e a 402 punti. Le catture "prima" sul Realme con la 2284 stanno in
+`docs/collaudo/EQ/realme/eq08_build_2284_*`.
 
-**LE GUARDIE.** Cinque nuove, `la_riga_d_oro_che_non_va_data`,
+**IL FONDO DEI CONTATORI (EQ.09).** Sul Realme con la 2284 il ritratto di
+Caligo in cima alla conversazione passava dietro le due righe dei contatori
+mentre si scorreva: il ritaglio di EQ.08 fermava il fondo e lasciava libera
+la cima. Adesso la conversazione si ritaglia anche in alto (punti possibili
+dietro i contatori da 674 a 0) e la fascia prende la tinta della testata, da
+un punto solo (`_ChatAppBar.fondo`).
+
+**LA PILLOLA BIANCA (EQ.10), DA FARE.** Indagata sul Realme con la 2284
+(`docs/collaudo/EQ/eq10_indagine.txt`): in ascolto nessuna pillola, anche in
+sette secondi fotografati ogni 0,4; la lente e la barra di selezione di
+Flutter hanno un'altra forma. Compare solo con la voce vera, che dal PC non
+si produce; nella cattura del fondatore il campo era vuoto. Niente e' stato
+cambiato alla cieca.
+
+**LE GUARDIE.** Sei nuove, `la_riga_d_oro_che_non_va_data`,
 `prima_la_sua_arte`, `la_stesa_si_legge_intera`,
-`i_messaggi_stanno_fra_i_contatori_e_la_casella` e `ordine_eq_guard`,
-registro a **544**. **Una guardia di casa era cieca**:
+`i_messaggi_stanno_fra_i_contatori_e_la_casella`, `ordine_eq_guard` e
+`la_stesa_interpreta_davvero` (diciassette innesti, tutti rossi), registro a
+**545**. **Tre cieche trovate nella seconda parte**: `la_stesa_si_capisce`
+non guardava quanto durava l'attesa di Medora (PROVENIENZA IGNOTA), ora la
+misura; la prova di EQ.08 misurava il riquadro della lista e non dove la
+conversazione dipinge, ora la cima visibile; il criterio del genere
+(`le_forme_del_genere`, ordine DL voce 06) prendeva "solo" nel senso di
+"soltanto", ristretto sull'avverbio. **Il cancello di GitHub sul commit
+`6d4bfb04` era rosso per due difetti miei**: il ventaglio a 854,5 punti su
+844 dopo due pescaggi (padre EQ.05, piu' EQ.06) e la colonna delle posizioni
+della card misurata senza scala (padre EQ.06); curati tutti e due. **Una guardia di casa era cieca**:
 `la_chiave_e_il_consiglio_si_vedono` misurava il titolo del consiglio a 328
 punti, piu' del riquadro vero: restava verde mentre sul telefono Medora
 spariva (padre: ordine BU voce 01); riscritta con la lapide sul paragrafo
@@ -5430,11 +5481,11 @@ dipinto. **Una guardia nuova e' nata cieca**: la prova del titolo del
 consiglio, a scala 1,0, restava verde col testo di prima; cambiata la
 grandezza, non la soglia, adesso guarda anche la scala 1,3 ed e' rossa.
 
-**RESTA DA FARE**, in quest'ordine: EQ.04 (il collaudo prima, la lettura
-nello schermo e nella card, il collaudo dopo in due giri), EQ.03 (il collaudo
-nel LIVE e in chat, la scelta del modello del LIVE), EQ.07 (la bolla), EQ.09
-ed EQ.10; poi la build locale sul Realme, le catture di tutte le voci
-grafiche e il rapporto `docs/ordini/RAPPORTO_ORDINE_EQ.md`.
+**RESTA DA FARE**, in quest'ordine: EQ.03 (il collaudo nel LIVE e in chat,
+prima sul codice di prima dell'ordine e dopo; poi la scelta del modello del
+LIVE); la build locale sul Realme, non una consegna, con le catture di tutte
+le voci che si vedono e l'attesa della stesa; il rapporto
+`docs/ordini/RAPPORTO_ORDINE_EQ.md`; EQ.10 con la voce vera.
 
 ## Regole ferree
 

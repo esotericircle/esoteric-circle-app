@@ -658,40 +658,53 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                   // della conversazione nuova (ordine EJ voce 10): adesso sta
                   // a destra delle due righe, centrata sulla loro altezza, e
                   // come loro non scorre.
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: SpacingTokens.lg),
-                    child: Row(
-                      key: const Key('chat_contatori_e_dal_vivo'),
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Expanded(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              // Strette, ordine EA voce 09.
-                              RigaDelResiduo(
-                                  key: Key('chat_residuo_domande'),
-                                  budget: BudgetDelGiorno.domande,
-                                  stretta: true),
-                              RigaDelResiduo(
-                                  key: Key('chat_residuo_approfondimenti'),
-                                  budget: BudgetDelGiorno.approfondimenti,
-                                  stretta: true),
-                            ],
+                  //
+                  // **LA FASCIA HA IL FONDO DELLA TESTATA. Ordine EQ voce 09,
+                  // 27 settembre 2026.** Il fondatore, nelle catture: i
+                  // messaggi tagliati al bordo della conversazione si
+                  // leggevano fra le due righe, perche' la fascia non aveva
+                  // fondo e la testata si'. Adesso la tinta e' la stessa, e
+                  // viene da un punto solo (`_ChatAppBar.fondo`): la fascia
+                  // si legge come la parte bassa della testata, e sotto di
+                  // lei quattro punti chiudono le code delle lettere.
+                  ColoredBox(
+                    key: const Key('chat_fondo_dei_contatori'),
+                    color: _ChatAppBar.fondo(context.palette),
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
+                          SpacingTokens.lg, SpacingTokens.xxs),
+                      child: Row(
+                        key: const Key('chat_contatori_e_dal_vivo'),
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const Expanded(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                // Strette, ordine EA voce 09.
+                                RigaDelResiduo(
+                                    key: Key('chat_residuo_domande'),
+                                    budget: BudgetDelGiorno.domande,
+                                    stretta: true),
+                                RigaDelResiduo(
+                                    key: Key('chat_residuo_approfondimenti'),
+                                    budget: BudgetDelGiorno.approfondimenti,
+                                    stretta: true),
+                              ],
+                            ),
                           ),
-                        ),
-                        const SizedBox(width: SpacingTokens.sm),
-                        LaPortaDelVivo(
-                          maestro: widget.maestro,
-                          onEntra: () =>
-                              Navigator.of(context).push(SchermataLive.route(
+                          const SizedBox(width: SpacingTokens.sm),
+                          LaPortaDelVivo(
                             maestro: widget.maestro,
-                            chat: controller,
-                          )),
-                        ),
-                      ],
+                            onEntra: () =>
+                                Navigator.of(context).push(SchermataLive.route(
+                              maestro: widget.maestro,
+                              chat: controller,
+                            )),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   // L'ATTESA E' IL MAESTRO CHE CONSULTA IL TUO CIELO, e sta sopra
@@ -1430,11 +1443,16 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => Size.fromHeight(_barHeight);
 
+  /// **IL FONDO DELLA TESTATA**, in un punto solo: lo porta anche la fascia
+  /// dei contatori sotto di lei, ordine EQ voce 09.
+  static Color fondo(MaestroPalette palette) =>
+      palette.deepest.withValues(alpha: 0.35);
+
   @override
   Widget build(BuildContext context) {
     final palette = context.palette;
     return AppBar(
-      backgroundColor: palette.deepest.withValues(alpha: 0.35),
+      backgroundColor: fondo(palette),
       elevation: 0,
       scrolledUnderElevation: 0,
       titleSpacing: 0,
@@ -2084,9 +2102,16 @@ class _SopraLaCasella extends CustomClipper<Rect> {
 
   final double sotto;
 
+  /// **ANCHE IN CIMA, ordine EQ voce 09.** La prima stesura di questo
+  /// ritaglio (EQ.08) lasciava la cima libera, a meno un'altezza: sul Realme
+  /// il ritratto di Caligo in cima alla conversazione passava dietro le due
+  /// righe dei contatori mentre si scorreva
+  /// (`docs/collaudo/EQ/realme/eq09_build_2284_prima_il_ritratto_dietro_i_contatori.png`).
+  /// La conversazione adesso si vede solo dentro il suo riquadro, in alto
+  /// come in basso; ai lati resta libera per gli anelli dei volti.
   @override
-  Rect getClip(Size size) => Rect.fromLTRB(-size.width, -size.height,
-      size.width * 2, (size.height - sotto).clamp(0.0, size.height));
+  Rect getClip(Size size) => Rect.fromLTRB(-size.width, 0, size.width * 2,
+      (size.height - sotto).clamp(0.0, size.height));
 
   @override
   bool shouldReclip(_SopraLaCasella oldClipper) => oldClipper.sotto != sotto;

@@ -7,6 +7,7 @@ import 'plan_catalog.dart';
 import '../cammino/cammino_da_custodire.dart';
 import '../../services/server/porta_del_cerchio.dart';
 import '../tempo/confine_del_giorno.dart';
+import 'budget_del_giorno.dart';
 import 'tier.dart';
 import '../synastry/vip_catalog.dart';
 import '../sigilli/bonus_della_condivisione.dart';
@@ -422,24 +423,25 @@ class QuestionAllowance extends ChangeNotifier {
   /// Nullo quando non c'e' un numero da dire: senza il piano non e' un
   /// residuo, e' un lucchetto, e lo dice la porta. Senza limite non e' un
   /// residuo, e' un cammino senza conto da tenere.
+  ///
+  /// **E DICE DI CHE COSA E' IL RESIDUO, ordine EQ voce 07.** Accanto alla
+  /// testata, che conta le domande, *"Oggi te ne restano 20 su 20"* si
+  /// leggeva come una contraddizione: adesso la frase e' quella di ogni
+  /// altro residuo dell'app (`residuoDiCosa`), con le parole del suo budget.
   String? residuoDeiConfronti(Tier tier) {
     if (!canCompare(tier)) return null;
     final limite = limiteConfronti(tier);
     if (limite == null) return null;
-    return comeSiDiceIlResiduo(confrontiRimasti(tier), limite);
+    return residuoDiCosa(confrontiRimasti(tier), limite,
+        uno: BudgetDelGiorno.confronti.uno,
+        molti: BudgetDelGiorno.confronti.molti,
+        femminile: BudgetDelGiorno.confronti.femminile);
   }
 
-  /// L'ACCORDO, in un posto solo.
-  ///
-  /// Sta fuori da [residuoDeiConfronti] perche' la prova che lo sorveglia deve
-  /// poter chiedere lo zero, l'uno e il molti senza dover prima costruire tre
-  /// contatori in tre stati diversi: la regola della lingua e' questa
-  /// funzione, e si guarda da sola.
-  static String comeSiDiceIlResiduo(int quanti, int limite) {
-    if (quanti <= 0) return 'Oggi non te ne resta nessuno';
-    if (quanti == 1) return 'Oggi te ne resta 1 su $limite';
-    return 'Oggi te ne restano $quanti su $limite';
-  }
+  // **LAPIDE: `comeSiDiceIlResiduo`.** Qui c'era l'accordo della sola riga
+  // dei confronti, "Oggi te ne restano 3 su 3": teneva il numero ma non
+  // diceva di che cosa, ordine EQ voce 07. L'accordo vive in
+  // [residuoDiCosa], che lo tiene per tutti i residui dell'app.
 
   /// **LA STESSA COSA, DETTA COME LA DIREBBE UNA PERSONA.** Ordine BB voce 02.
   ///
