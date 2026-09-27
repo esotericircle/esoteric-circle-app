@@ -736,6 +736,22 @@ class ArtCatalog {
         phase: ArtPhase.faseSuccessiva,
         cornice: true,
       ),
+      // **IL SEGRETO DELL'IRIDE. Ordine ER voce 20, "ER Aggiunta", 27
+      // settembre 2026.** La lettura simbolica dell'iride da una foto
+      // dell'occhio, decisa dal fondatore: di Aura, in Fase 2, fuori dalla
+      // Demo. Non e' nel briefing: il fondatore, *"Ci siamo dimenticati di
+      // creare asset per scansione occhio e inserirlo in home"*, e sul nome
+      // *"Nome evocativo scegli tu"*. E' una lettura di segni, come la
+      // Mappa del Viso, non un esame dell'occhio.
+      ArtEntry(
+        id: 'segreto_iride',
+        title: 'Il Segreto dell\'Iride',
+        teaser: 'La tua iride, letta come una mappa di segni.',
+        icon: Icons.remove_red_eye_outlined,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase2,
+        cornice: true,
+      ),
     ]),
   ];
 

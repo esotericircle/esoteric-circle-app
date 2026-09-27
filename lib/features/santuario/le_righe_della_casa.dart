@@ -54,8 +54,9 @@ abstract final class LeRigheDellaCasa {
   /// quadrata, e da capo, cosi' che due righe vicine non abbiano mai la stessa
   /// forma. **I doppioni sono voluti**: le arti piu' virali stanno in due o tre
   /// righe per farsi vedere di piu'. Il Viaggio dello Sciamano sta solo in
-  /// "Trova una risposta". In tutto si vedono le 66 arti del catalogo che hanno
-  /// una scheda; l'Angelo Custode e il Test Archetipo restano nel Passaporto.
+  /// "Trova una risposta". In tutto si vedono le 67 arti del catalogo che hanno
+  /// una scheda (66 dell'ordine ER voce 08, piu' il Segreto dell'Iride della
+  /// voce 20); l'Angelo Custode e il Test Archetipo restano nel Passaporto.
   ///
   /// **Prima** le righe erano dieci (con "Amore e affinità", "Da condividere" e
   /// "Le stelle parlano"), cinque coppie vicine su nove avevano la stessa
@@ -128,6 +129,8 @@ abstract final class LeRigheDellaCasa {
         'tarot_spread_three',
         'cosmic_wrapped',
         'lunar_affinity',
+        // Ordine ER voce 20.
+        'segreto_iride',
       ],
     ),
     (
@@ -157,7 +160,9 @@ abstract final class LeRigheDellaCasa {
         'fertility_windows',
         'palmistry',
         'magia_verde',
-        'voice_analysis',
+        // Ordine ER voce 20: il Segreto dell'Iride prende il posto della
+        // Cosmic Voice Analysis, che passa in "La tua energia".
+        'segreto_iride',
       ],
     ),
     (
@@ -190,6 +195,8 @@ abstract final class LeRigheDellaCasa {
         'alchimia',
         'mudra',
         'opera_al_nero',
+        // Ordine ER voce 20.
+        'voice_analysis',
       ],
     ),
     (

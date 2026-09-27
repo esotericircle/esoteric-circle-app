@@ -172,6 +172,9 @@ Rituali Collettivi             orizzontale 137 punti  1 righe  "Rituali Colletti
 Estrazione Rune                verticale   128 punti  1 righe  "Estrazione Rune"
 Estrazione Rune                quadrata    128 punti  1 righe  "Estrazione Rune"
 Estrazione Rune                orizzontale 137 punti  1 righe  "Estrazione Rune"
+Il Segreto dell'Iride          verticale   128 punti  2 righe  "Il Segreto / dell'Iride"
+Il Segreto dell'Iride          quadrata    128 punti  2 righe  "Il Segreto / dell'Iride"
+Il Segreto dell'Iride          orizzontale 137 punti  2 righe  "Il Segreto / dell'Iride"
 Sinastria NFC e QR             verticale   128 punti  2 righe  "Sinastria NFC e / QR"
 Sinastria NFC e QR             quadrata    128 punti  2 righe  "Sinastria NFC e / QR"
 Sinastria NFC e QR             orizzontale 137 punti  2 righe  "Sinastria NFC e / QR"
@@ -200,7 +203,7 @@ Cosmic Voice Analysis          verticale   128 punti  2 righe  "Cosmic Voice / A
 Cosmic Voice Analysis          quadrata    128 punti  2 righe  "Cosmic Voice / Analysis"
 Cosmic Voice Analysis          orizzontale 137 punti  2 righe  "Cosmic Voice / Analysis"
 
-Arti della home: 66. Titoli composti: 198.
-Titoli su piu' di due righe: 0 su 198.
-Titoli con una riga fuori dalla scheda (tagliati): 0 su 198.
+Arti della home: 67. Titoli composti: 201.
+Titoli su piu' di due righe: 0 su 201.
+Titoli con una riga fuori dalla scheda (tagliati): 0 su 201.
 Titoli andati a capo col trattino: 4 [Astrocartografia (verticale), Astrocartografia (quadrata), Calendario Lunare Personale (verticale), Calendario Lunare Personale (quadrata)]

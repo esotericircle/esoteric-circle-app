@@ -219,6 +219,8 @@ void main() {
         // **ORDINE ER VOCE 10**: le arti nuove del briefing entrano in fondo
         // alla loro sezione, in arrivo.
         'specchio_anima',
+        // Ordine ER voce 20.
+        'segreto_iride',
       ]);
       // **Il Test Archetipo e' nel catalogo e vive solo nel Passaporto**,
       // ordine EO voce 12, come l'Angelo Custode.

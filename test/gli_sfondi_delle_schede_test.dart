@@ -15,16 +15,17 @@ import 'cardinale_minimo.dart';
 /// voce 12 coi tre orizzontali di "Consulta". **Dall'ordine ER voce 10 e'
 /// 216**, cioe' ogni file della cartella del fondatore: 66 arti e i tre sfondi
 /// dei Maestri in tre formati (207), piu' i "Consulta" nei tre formati (9).
+/// **Dall'ordine ER voce 20 e' 219**: i tre del Segreto dell'Iride.
 /// Il fondatore: *"ogni webp della cartella del PC sostituisce quello di
 /// assets/schede con lo stesso nome; quelli che mancano si aggiungono"*. Le
 /// schede ne usano 210: i "Consulta" quadrati e verticali stanno nella
 /// cartella senza che una scheda li chieda. Una guardia che scorresse la
 /// cartella vuota sarebbe verde senza aver guardato niente.
 void main() {
-  const cardinale = 216;
-  const usati = 210;
+  const cardinale = 219;
+  const usati = 213;
 
-  test('i 216 WebP stanno in assets/schede/ e il pubspec li registra', () {
+  test('i 219 WebP stanno in assets/schede/ e il pubspec li registra', () {
     final cartella = Directory(GliSfondiDelleSchede.cartella);
     final webp = cartella
         .listSync()
@@ -88,7 +89,7 @@ void main() {
         'sfondi di arti che il catalogo non ha ${estranei.length}');
     expect(senza, isEmpty, reason: 'arti senza sfondo: $senza');
     expect(estranei, isEmpty);
-    expect(GliSfondiDelleSchede.nomi, hasLength(66));
+    expect(GliSfondiDelleSchede.nomi, hasLength(67));
   });
 
   test('i formati hanno le misure dell\'ordine', () {

@@ -123,6 +123,8 @@ abstract final class GliSfondiDelleSchede {
     'tree_of_life': 'Albero-Vita',
     'cosmic_academy': 'Cosmic-Academy',
     'rituali_collettivi': 'Rituali-Collettivi',
+    // Ordine ER voce 20: il Segreto dell'Iride, di Aura.
+    'segreto_iride': 'Segreto-Iride',
   };
 
   /// Lo sfondo di ogni Maestro senza emblema, per la riga "In arrivo".
@@ -165,10 +167,11 @@ abstract final class GliSfondiDelleSchede {
   static String delMaestro(Maestro maestro, FormatoDellaScheda formato) =>
       _file(deiMaestri[maestro]!, formato);
 
-  /// Tutti i file che le schede usano: 66 arti e i tre sfondi dei Maestri in
-  /// tre formati, piu' i tre orizzontali di "Consulta" dell'ordine EP, cioe'
-  /// 210. Nella cartella ce ne sono 216: i sei "Consulta" quadrati e verticali
-  /// ci stanno senza che una scheda li chieda.
+  /// Tutti i file che le schede usano: 67 arti (dall'ordine ER voce 20) e i
+  /// tre sfondi dei Maestri in tre formati, piu' i tre orizzontali di
+  /// "Consulta" dell'ordine EP, cioe' 213. Nella cartella ce ne sono 219: i
+  /// sei "Consulta" quadrati e verticali ci stanno senza che una scheda li
+  /// chieda.
   static List<String> tutti() => [
         for (final nome in [...nomi.values, ...deiMaestri.values])
           for (final f in FormatoDellaScheda.values) _file(nome, f),

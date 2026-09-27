@@ -109,6 +109,8 @@ abstract final class LOrdineDeiDomini {
           'graphology',
           'voice_analysis',
           'specchio_anima',
+          // Ordine ER voce 20: dopo lo Specchio dell'Anima.
+          'segreto_iride',
         ],
       ),
     ],

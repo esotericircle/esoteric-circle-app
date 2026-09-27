@@ -261,8 +261,9 @@ void main() {
       print('EO.02 MISURA (testo a $scala): schede $schede, titoli su una riga '
           '$unaRiga, su due righe $dueRighe, oltre due righe $oltreDue, '
           'rimpiccioliti $rimpiccioliti');
-      // Le schede della home dall'ordine ER sono 79: sei preferite e
-      // settantatre nelle dieci righe. Margine dichiarato di nove.
+      // Le schede della home dall'ordine ER sono 81 (79 della voce 08, piu'
+      // due della voce 20): sei preferite e settantacinque nelle dieci
+      // righe. Margine dichiarato di undici.
       cardinaleMinimo(schede, 70,
           cosa: 'schede della home',
           perche: 'la guardia dei titoli gira sulle schede che trova a video.');
@@ -618,7 +619,9 @@ void main() {
   /// **L'ELENCO DEL FONDATORE, ordine ER voce 08, 27 settembre 2026**,
   /// copiato alla lettera, coi titoli come li ha scritti lui: si confronta con
   /// i titoli a video, non con gli identificativi, cosi' anche un titolo
-  /// cambiato nel catalogo cade qui.
+  /// cambiato nel catalogo cade qui. **Con l'ordine ER voce 20** ("ER
+  /// Aggiunta") tre righe sono cambiate: "Il tuo corpo", "I più condivisi" e
+  /// "La tua energia", per il Segreto dell'Iride.
   const elencoDelFondatore = <String, List<String>>{
     'Le arti preferite': [
       'Oroscopo Personalizzato',
@@ -666,6 +669,7 @@ void main() {
       'Stesa di Tarocchi',
       'Cosmic Wrapped',
       'Affinità Lunare',
+      "Il Segreto dell'Iride",
     ],
     'Conosci te stesso': [
       'Destino Narrativo',
@@ -683,7 +687,7 @@ void main() {
       'Finestre Fertili',
       'Chiromanzia Ibrida',
       'Magia Verde',
-      'Cosmic Voice Analysis',
+      "Il Segreto dell'Iride",
     ],
     'La tua serenità': [
       'Meditazione',
@@ -703,6 +707,7 @@ void main() {
       'Alchimia',
       'Mudra',
       'Opera al Nero',
+      'Cosmic Voice Analysis',
     ],
     'La tua intenzione': [
       "Sigillo dell'Intenzione",
@@ -828,7 +833,7 @@ void main() {
         '$diverse, arti fuori dal loro posto $spostate');
     cardinaleMinimo(confrontate, 70,
         cosa: 'schede delle righe della home',
-        perche: 'dall\'ordine ER sono 79, margine dichiarato di nove.');
+        perche: 'dall\'ordine ER sono 81, margine dichiarato di undici.');
   });
 
   test(

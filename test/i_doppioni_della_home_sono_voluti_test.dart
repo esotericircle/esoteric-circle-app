@@ -88,7 +88,13 @@ void main() {
       inVista.sort((a, b) => a.$1.compareTo(b.$1));
       final ids = [for (final (_, id) in inVista) id];
       schede += ids.length;
-      final attese = [for (final a in r.arti.take(ids.length)) a.id];
+      // L'atteso viene dall'elenco scritto, non dalle arti che la riga
+      // riceve: una riga riordinata prima di arrivare alla vista porterebbe
+      // con se' anche l'atteso sbagliato (vista rossa, Regola A).
+      final elenco = r.chiave == LeRigheDellaCasa.preferite
+          ? ArtiPreferiteController.semePer(null)
+          : LeRigheDellaCasa.righe.firstWhere((x) => x.chiave == r.chiave).arti;
+      final attese = elenco.take(ids.length).toList();
       for (var k = 0; k < ids.length; k++) {
         if (ids[k] != attese[k]) spostate++;
       }
