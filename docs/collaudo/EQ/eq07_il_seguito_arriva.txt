@@ -88,3 +88,8 @@ La causa, vista nei grezzi: il modello riceveva come ultimo turno la domanda di 
    Expected: 'Laguz scorre anche sotto il ghiaccio.'
    Actual: ''
    ripristinato: sha1 f9e04c5d000a, uguale
+
+== DOPO LA RICHIESTA SENZA GENERE ("riprendi da dove hai lasciato" al posto di "continua da dove ti sei fermato", presa dalla guardia il_genere_non_si_indovina nella suite intera; padre: la cura di EQ.07), sonda_dopo_la_richiesta_senza_genere/
+SEGUITO medora: arrivati 3 su 3 tocchi, frasi ripetute tolte 0
+SEGUITO aura: arrivati 3 su 3 tocchi, frasi ripetute tolte 0
+SEGUITO caligo: arrivati 3 su 3 tocchi, frasi ripetute tolte 0

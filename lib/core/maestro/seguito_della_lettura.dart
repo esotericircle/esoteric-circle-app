@@ -33,8 +33,11 @@ abstract final class SeguitoDellaLettura {
   /// **LA RICHIESTA DEL TOCCO**, come turno della persona dopo la risposta
   /// gia' data. Ordine EQ: il turno era la domanda di prima, e il modello le
   /// rispondeva di nuovo.
+  ///
+  /// Senza genere: la persona parla a Medora e Aura come a Calìgo. La prima
+  /// stesura diceva "ti sei fermato" e la guardia del genere l'ha presa.
   static const String laRichiesta =
-      'Vai più a fondo: continua da dove ti sei fermato, con cose nuove.';
+      'Vai più a fondo: riprendi da dove hai lasciato, con cose nuove.';
 
   static String istruzione(String gia) => [
         'LA PERSONA HA CHIESTO DI SCENDERE PIÙ A FONDO.',

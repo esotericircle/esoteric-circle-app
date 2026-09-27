@@ -464,8 +464,9 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       if (!arrivato && context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${controller.maestro.displayName} non è sceso più '
-                'a fondo questa volta. Tocca di nuovo per riprovare.'),
+            content: Text('${controller.maestro.displayName} non ha trovato '
+                'altro da aggiungere, questa volta. Tocca di nuovo per '
+                'riprovare.'),
           ),
         );
       }

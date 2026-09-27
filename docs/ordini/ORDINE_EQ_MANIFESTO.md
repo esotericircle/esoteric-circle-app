@@ -15,9 +15,9 @@ usarlo ancora. Solo gli screenshot sono corretti e appartengono a iPhone
 **Questo ordine non consegna niente**: le build le ordina il fondatore.
 
 VOCI_TOTALI: 12
-VOCI_CHIUSE: 3
-VOCI_APERTE: 8
-VOCI_DA_FARE: 1
+VOCI_CHIUSE: 5
+VOCI_APERTE: 7
+VOCI_DA_FARE: 0
 
 Le prove stanno in `docs/collaudo/EQ/`; quelle viste sul telefono di prova
 (Realme 767f596c, 360 per 800 punti) in `docs/collaudo/EQ/realme/`. Una
@@ -29,6 +29,15 @@ consegnata: `flutter build apk --release` dal ramo con tutte le voci, codice
 0.1.0+2284 come la build che il Realme aveva, nessun file tracciato toccato
 dalla costruzione. Le catture con quella build si chiamano
 `realme/*_build_eq_*`.
+
+**Le risposte del fondatore al rapporto**, 27 settembre 2026: *"1 I turni
+Live contano come domande. 2 no. L'attesa deve diminuire, non aumentare. 3
+la pillola bianca è un'invenzione dell'architetto, lascia perdere. Prosegui
+con tutto Senza fermarti"*. Il lavoro che ne e' seguito sta nelle voci EQ.03,
+EQ.04, EQ.07 ed EQ.10. **Una seconda build di prova**, dal commit `34e56fcb`,
+stesso codice 0.1.0+2284, installata sul Realme e non consegnata: le catture
+con lei si chiamano `realme/*_build_eq2_*`. **Una terza**, dal commit
+`781d7beb`, per l'attesa del LIVE: `realme/*_build_eq3_*`.
 
 ---
 
@@ -163,14 +172,55 @@ domanda delle catture, Calìgo da' un passo (*"Pronuncia a voce alta la tua
 priorità davanti a uno specchio"*). Le risposte di Flash nel LIVE sono piu'
 lunghe delle tre frasi che la forma chiede.
 
+**La risposta del fondatore sull'attesa**: *"2 no. L'attesa deve
+diminuire, non aumentare."* **Prima un fatto**: i 4,8 secondi dell'ordine EO
+erano misurati su risposte gia' date quel giorno, che la chat restituiva in
+2-7 millesimi senza chiedere niente al modello
+(`docs/collaudo/EO/live/logcat_eo14_dopo_*.txt`): quel numero non ha mai
+contenuto il modello. Padre: ordine EO voce 14, una misura che rispondeva a
+un'altra domanda. **Poi la cura, dove l'attesa si lascia accorciare senza
+togliere il merito** (`docs/collaudo/EQ/live_attesa/attesa_del_live.txt`):
+- **la voce della prima frase si compone mentre il modello scrive**
+  (`LaVoceAnticipata`) e **il flusso verso il volto si apre col suo primo
+  pezzo**: dalla risposta al primo audio al volto, mediana da 709 millesimi a
+  2 nella seconda build di prova, 373 nella terza. La voce parte ancora solo
+  dalla risposta passata dalle reti, come ha deciso il fondatore con l'ordine
+  EM;
+- **la trascrizione in pausa parte a 400 millesimi di silenzio invece di
+  700**, perche' torni in tempo per la regola della domanda finita a 1,3
+  secondi: sul Realme due frasi su cinque si sono chiuse a 1,83 secondi
+  invece di 2. La chiusura resta a due secondi per le frasi che non finiscono
+  con una domanda, come ha voluto il fondatore con l'ordine EJ;
+- **la tappa "si sente"** nel registro, dall'energia dell'audio ricevuto dal
+  volto: la persona sente il Maestro fra 0,1 e 0,6 secondi prima di quando
+  LiveKit se ne accorge ("il volto parla").
+
+**I numeri, sul Realme**, mediane dalla fine della domanda: "il volto parla"
+da 6.468 millesimi (prima build di prova, sette turni) a 6.072 (seconda,
+sette turni) e 6.226 (terza, cinque turni, due con la trascrizione rifatta);
+**"si sente" 5.710**. **Cio' che resta e non si accorcia senza una scelta del
+fondatore**: due secondi di silenzio prima di chiudere una frase che non
+finisce con una domanda (ordine EJ), circa un secondo e mezzo del volto di
+Protoface dal primo audio alla voce, circa un secondo e mezzo fra
+trascrizione e modello. **Un difetto trovato**, PROVENIENZA probabile ordine
+EM voce 04: due frasi su cinque sono tornate vuote dalla trascrizione in pausa; una e' arrivata come *"E adesso"* invece di *"ho provato a
+camminare scalza sull'erba come mi hai detto. E adesso?"*. L'istruzione
+della trascrizione chiede di ignorare le voci di sottofondo come la radio: la voce sintetica delle casse del PC lo sembra: si e' visto anche con la
+pausa a 700 millesimi, una volta su sette. Non cambiato alla cieca.
+
+**La chat**: la regola della prima frase concreta del LIVE, portata nella
+chat, al banco e letta alla cieca insieme alla chat di prima dagli stessi
+lettori, fa 42 su 72 contro 47: non migliora, e' tolta
+(`docs/collaudo/EQ/eq03_chat_prima_frase_alla_cieca.txt`).
+
 **APERTA IN ATTESA DI VERIFICA**: il merito sale ma non arriva al pieno, e
 alla domanda delle catture il LIVE con Flash risponde nel merito 3 volte su 6
-nel collaudo; Aura resta la piu' debole (in chat 5 e 4 su 12); la chat non
+nel collaudo; l'attesa scende di poco; Aura resta la piu' debole (in chat 5 e 4 su 12); la chat non
 migliora (46 su 72 prima, 45 e 42 dopo) e fra un giro e l'altro lo stesso
 Maestro passa da 11 a 5 su 12.
 DOMANDA: "C'è un grosso problema con le chat e sono incazzato nero!"; "Unisci tutto all'ordine prossimo credo EQ"
 PROVA: docs/collaudo/EQ/eq03_nel_merito.txt
-MISURA: risposte nel merito su dodici domande di seguito, tre Maestri, due giri: LIVE con Flash-Lite da 18 su 72 prima a 36 e 27 su 72 dopo, LIVE con Flash 52 e 54 su 72 dopo; alla domanda delle catture nel LIVE da 0 su 6 prima a 3 su 6 con Flash; dalla fine della domanda al Maestro che parla, sul Realme, mediana da 4,8 secondi (ordine EO, Flash-Lite) a 6,4 (Flash)
+MISURA: risposte nel merito su dodici domande di seguito, tre Maestri, due giri: LIVE con Flash-Lite da 18 su 72 prima a 36 e 27 su 72 dopo, LIVE con Flash 52 e 54 su 72 dopo; alla domanda delle catture nel LIVE da 0 su 6 prima a 3 su 6 con Flash; dalla fine della domanda al volto che parla, sul Realme, mediana da 6.468 ms (prima build di prova) a 6.072 e 6.226 ms; il Maestro si sente a 5.710 ms; i 4,8 secondi dell'ordine EO erano misurati senza modello
 
 ## PARTE 2, LA STESA DI TAROCCHI
 
@@ -210,8 +260,19 @@ arrivata la lettura di casa, che apre ancora con *"Le tre carte rispondono a
 altre due la prima frase risponde: *"Le carte indicano che non è il momento
 giusto per cambiare lavoro questo inverno"*.
 
-**APERTA IN ATTESA DI VERIFICA**: le misure non arrivano a 20 su 20 e 60 su
-60, e sul Realme una stesa su tre e' finita nella lettura di casa.
+**La richiesta di riserva** (`LaLetturaDellaStesa.primaCheTorna`): se dopo
+4,5 secondi la chiamata non e' tornata ne parte una seconda uguale: vince la prima che torna. Padre del difetto: questa voce, che ritentava solo dopo
+una lettura tornata. Guardia `la_stesa_ha_una_richiesta_di_riserva` (tre innesti rossi, piu' uno finto riconosciuto e rifatto sul difetto vero). Sul
+Realme con la seconda build di prova, una stesa letta dal modello in 7.458
+millesimi, con due chiamate e una riscrittura del genere, nessuna riserva
+servita (`realme/eq04_build_eq2_attesa_della_stesa.txt`,
+`realme/eq04_build_eq2_stesa_letta_dal_modello.png`). **La lettura di casa
+apre ancora in modo criptico** (padre dell'apertura: ordine DF, commit
+`185ac548`); con la riserva parla solo senza rete o se anche la seconda
+chiamata non torna.
+
+**APERTA IN ATTESA DI VERIFICA**: le misure non arrivano a 20 su 20 e 60 su 60; sul Realme una stesa su tre era finita nella lettura di casa; la
+riserva e' provata nelle prove e non ancora vista scattare sul telefono.
 DOMANDA: "Il fondatore si lamenta che facendo una stesa tarocchi con domanda generica, ma anche con domanda specifica e personale LE RISPOSTE SONO TROPPO CRIPTICHE, SONO QUASI SENZA SENSO. SCRIVE QUALCOSA ,MA NON DICE NULLA."; "Ma una interpretazione la fa veramente o sono testi buttati lì tanto per accontentare?"
 PROVA: docs/collaudo/EQ/tarocchi/dopo_giro_1/letture.md
 MISURA: risposte dirette nelle prime due frasi da 1 su 20 a 19 e 17 su 20 (due giri); carte lette nella posizione e sulla domanda da 0 su 60 a 53 e 43 su 60; errori di concordanza, contati a mano, da 3 su 20 letture ("c'e' stata Quattro di Coppe") a 0 su 40; letture uguali su cento 0 prima e dopo; sul Realme dal tocco al testo 3931 e 4011 ms col modello, 10001 ms col ripiego una volta su tre
@@ -272,15 +333,41 @@ toccano; i confronti da 20 a 19 al tocco su "Chiedi anche agli altri"
 (`realme/eq07_build_eq_stese_19_su_20.png`). La bolla dice *"Oggi hai 20
 confronti fra i Maestri"*.
 
-**APERTA IN ATTESA DI VERIFICA**: gli approfondimenti non si possono usare.
-Sul Realme, tre tocchi su "Vai più a fondo" in due risposte diverse non
+**Gli approfondimenti non si potevano usare.** Sul Realme, con la prima
+build di prova, tre tocchi su "Vai più a fondo" in due risposte diverse non
 hanno fatto niente, ne' il seguito ne' l'invito del piano, e il contatore e'
-rimasto a 30 (`realme/difetto_build_eq_vai_piu_a_fondo_non_risponde.png`);
-"Chiedi anche agli altri", nella stessa bolla, funziona. PROVENIENZA IGNOTA:
-l'ordine EQ non ha toccato il percorso dell'approfondimento.
-DOMANDA: "Unisci tutto all'ordine prossimo credo EQ", dopo l'elenco dell'Architetto che nominava i contatori.
-PROVA: test/il_confronto_ha_il_suo_tetto_test.dart
-MISURA: righe dei residui che non dicono di che cosa, da 1 a 0; contatori che scendono quando si usano, sul Realme 3 su 4 (domande 48, 47, 46, 45; confronti 20, 19; stese 20, 19, 18; gli approfondimenti non si lasciano usare); i turni del LIVE non contano, per decisione dell'ordine EG
+rimasto a 30 (`realme/difetto_build_eq_vai_piu_a_fondo_non_risponde.png`).
+**La causa, misurata col modello vero** (`tool/sonda_del_seguito.dart`,
+`docs/collaudo/EQ/eq07_il_seguito_arriva.txt`): il seguito si chiedeva con
+la domanda di prima come ultimo turno della persona e con la sua istruzione
+sepolta sotto le regole della prima risposta; il modello rispondeva di nuovo
+alla domanda, il filtro delle ripetizioni buttava tutto e il controller
+tornava senza dire niente. Il seguito arrivava **1 volta su 9 tocchi**; 2 su 9 sul codice di prima dell'ordine: PROVENIENZA IGNOTA, il difetto c'era
+gia'. **La cura**: il seguito si chiede dopo la risposta gia' data, con la
+sua istruzione per ultima e senza le regole della prima risposta; un seguito
+tutto ripetuto si chiede di nuovo una volta; la stella taglia solo dalla
+stella; un tocco che non trova niente lo dice. Dopo, **9 su 9 e 9 su 9**.
+Guardia `il_seguito_arriva_davvero` (sette innesti, tutti rossi); e una
+guardia di casa cieca: `il_seguito_scende_sotto` restava verde togliendo
+l'istruzione del seguito dall'istruzione del Maestro.
+
+**I turni del LIVE contano come domande**, per la risposta del fondatore:
+un turno a voce costa una domanda e il limite del giorno vale anche nel
+LIVE (lapide sulla prova dell'ordine EG voce 06,
+`il_live_consuma_solo_i_suoi_minuti`).
+
+**CHIUSA.** Sul Realme con la seconda build di prova: una domanda in chat,
+domande da 45 a 44 (`realme/eq07_build_eq2_domande_44.png`); "Vai più a
+fondo", il seguito nella bolla e approfondimenti da 30 a 29
+(`realme/eq07_build_eq2_approfondimenti_29_su_30.png`,
+`realme/eq07_build_eq2_il_seguito_nella_bolla.png`); cinque turni del LIVE,
+domande da 44 a 39, poi altri due, 37
+(`realme/eq07_build_eq2_domande_39_dopo_cinque_turni_del_live.png`,
+`realme/eq07_build_eq2_domande_37_dopo_altri_due_turni_del_live.png`); le
+stese a 17.
+DOMANDA: "Unisci tutto all'ordine prossimo credo EQ", dopo l'elenco dell'Architetto che nominava i contatori; "1 I turni Live contano come domande."
+PROVA: docs/collaudo/EQ/realme/eq07_build_eq2_domande_39_dopo_cinque_turni_del_live.png
+MISURA: contatori che scendono quando si usano, sul Realme da 3 su 5 (prima build di prova: domande in chat, confronti e stese si; approfondimenti e turni del LIVE no) a 5 su 5 (domande in chat 45, 44; turni del LIVE 44, 39, 37; approfondimenti 30, 29; confronti 20, 19; stese 18, 17); seguiti arrivati al tocco, al banco col modello vero, da 1 su 9 a 9 su 9 e 9 su 9; righe dei residui che non dicono di che cosa, da 1 a 0
 
 ## VOCE EQ.08, I MESSAGGI SOTTO LA CASELLA E SOTTO IL MENU'
 
@@ -326,7 +413,11 @@ MISURA: punti in cui la conversazione puo' dipingere dietro i contatori, a 360 e
 
 ## VOCE EQ.10, LA PILLOLA BIANCA DELLA DETTATURA
 
-**DA FARE.** L'indagine e' fatta e non ha ancora trovato chi la disegna
+**Ritirata dal fondatore**, alla domanda del rapporto: *"la pillola bianca
+è un'invenzione dell'architetto, lascia perdere"*. Quello che segue e'
+l'indagine com'era.
+
+L'indagine e' fatta e non ha ancora trovato chi la disegna
 (`docs/collaudo/EQ/eq10_indagine.txt`). Sul Realme con la 2284: in ascolto
 nessuna pillola, anche in sette secondi di silenzio fotografati ogni 0,4
 secondi (0 pixel bianchi su 128.000 nella sua zona, in dodici fotogrammi, e
@@ -343,6 +434,26 @@ ha smesso di ascoltare. PROVENIENZA IGNOTA: la dettatura non e' stata
 toccata da quest'ordine (ultimo ritocco, ordine EG). Niente e' stato
 cambiato alla cieca: serve sapere dal fondatore su quale telefono e con
 quale tastiera compare la pillola.
+
+**La dettatura che si ferma alla prima parola, curata.** Padre, trovato
+dopo: ordine CI voce 05, commit `6c21083c`. Il `pauseFor` di tre secondi del
+plugin non misura il silenzio ma il tempo dall'ultimo risultato cambiato; la dettatura prendeva la prima chiusura del riconoscitore di Android, che
+ascolta un enunciato alla volta, come la fine. Adesso `IlDettatoCheContinua`
+(`lib/core/voce/il_dettato_che_continua.dart`) apre un enunciato nuovo
+finche' la persona parla, tiene le parole gia' dette, chiude su un
+enunciato senza parole, sullo stop o dopo un minuto. Guardia
+`il_dettato_non_si_ferma_alla_prima_parola` (quattro innesti, tutti rossi).
+
+**CHIUSA.** Sul Realme con la seconda build di prova, la stessa prova di
+prima, voce detta dalle casse del PC con una pausa di due secondi in mezzo:
+tre enunciati di seguito, poi la chiusura sul silenzio; nel campo la frase
+intera, *"vorrei ritrovare la calma alla sera perché quando torno dal lavoro
+sento il petto chiuso io non riesco ad addormentarmi prima dell'una di
+notte"* (`realme/eq10_build_eq2_dettatura_frase_intera.png`,
+`realme/eq10_build_eq2_dettatura_testo_del_campo.txt`).
+DOMANDA: "3 la pillola bianca è un'invenzione dell'architetto, lascia perdere"; il difetto della dettatura l'ha trovato l'indagine di questa voce, sul Realme
+PROVA: docs/collaudo/EQ/realme/eq10_build_eq2_dettatura_frase_intera.png
+MISURA: parole dette arrivate nel campo della dettatura, sul Realme, da 1 parola ("vorrei") su una frase di 8,7 secondi, prima build di prova, a 24 parole su 24 (due capite male: "alla" per "la", "io" per "e"); pillole bianche da cercare da 1 a 0, per decisione del fondatore
 
 ## VOCE EQ.11, IL TITOLO DELLA STESA SU UNA RIGA
 
