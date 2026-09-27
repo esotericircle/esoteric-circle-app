@@ -1,0 +1,181 @@
+ORDINE ER VOCI 02 E 15: IL BANCO DEL VIAGGIO, "dopo_2", 2026-09-27 19:28:35.057777
+Modello gemini-2.5-flash, regione europe-west1. Discese dopo il riconoscimento dell'animale, profilo neutro.
+
+== VENTI DISCESE: DIECI DOMANDE, DUE VOLTE CIASCUNA ==
+[1] DOMANDA: Mi trasferisco a Berlino per lavoro?
+    TITOLO: La scelta è già qui
+    RISPOSTA: La tua decisione sul trasferimento a Berlino è già chiara, anche se non la vedi ancora del tutto. Non attendere un segnale esterno. Puoi scegliere ora quale percorso intraprendere.
+    AZIONE: Domani mattina apri una mappa di Berlino e indica tre luoghi dove andresti a vivere. Non pensare al prezzo.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: nessuno
+[2] DOMANDA: Mi trasferisco a Berlino per lavoro?
+    TITOLO: La scelta è già qui
+    RISPOSTA: La scelta di trasferirsi a Berlino non è lontana. Osserva ciò che è spezzato. Lì si nasconde la strada da seguire.
+    AZIONE: Oggi pomeriggio, scrivi in due colonne i pro e i contro del trasferimento. Non rileggerli fino a domani.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: nessuno
+[3] DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+    TITOLO: Il nuovo ha bisogno di spazio
+    RISPOSTA: Per la tua bottega è il momento di scegliere una direzione. Quello che vuoi costruire ha bisogno di radici profonde. Puoi iniziare a preparare il terreno.
+    AZIONE: Entro domani, scrivi su un foglio tutti i passi che servono per aprire la tua bottega di ceramica. Non badare all'ordine.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: nessuno
+[4] DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+    TITOLO: La bottega ti aspetta
+    RISPOSTA: La bottega di ceramica è la tua strada. Questa scelta ti chiede di togliere ciò che ti nasconde. Puoi farlo adesso.
+    AZIONE: Entro domani sera, cerca tre oggetti che ti ricordano il lavoro in banca. Mettili via in una scatola, in un posto dove non li vedi più.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: nessuno
+[5] DOMANDA: Il mio cane è malato, cosa devo fare?
+    TITOLO: La tua scelta è vicina
+    RISPOSTA: Una delle due la stai già facendo, in piccolo, da settimane.
+    AZIONE: Domani mattina, prendi una decisione e parlane con un veterinario di cui ti fidi.
+    FONTI: {scena: modello, titolo: modello, risposta: riserva: previsioneCerta, gesto: modello}
+    SCARTI: risposta previsioneCerta: Non puoi curare la malattia del tuo cane. Puoi solo scegliere come accompagnarlo in questo momento. La decisione è già stata presa nel tuo cuore, ascoltala. ; risposta promessa: Non puoi curare la malattia del tuo cane. Puoi solo scegliere come accompagnarlo in questo momento. La decisione è già nel tuo cuore, ascoltala. ; risposta gergo: Non puoi cambiare lo stato di salute del tuo cane. Puoi solo scegliere il modo in cui accompagnarlo. La decisione è già dentro di te.
+[6] DOMANDA: Il mio cane è malato, cosa devo fare?
+    TITOLO: Ascolta cosa ti chiede
+    RISPOSTA: Per il tuo cane, la decisione è già presente in ciò che senti. Nessuno può dirti cosa fare, ma puoi trovare la risposta riconoscendo la tua verità. Conosci il tuo cane meglio di chiunque altro.
+    AZIONE: Stasera, prima di dormire, siediti accanto al tuo cane e semplicemente osservalo per dieci minuti senza fare altro.
+    FONTI: {scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}
+    SCARTI: risposta gergo: Per il tuo cane, la decisione che cerchi è già dentro di te. Nessuno può dirti cosa fare, ma puoi trovare la risposta guardando cosa senti davvero. Sei tu a conoscerlo meglio di chiunque altro. ; risposta previsioneCerta: Per il tuo cane, la decisione che cerchi è già formata in te. Nessuno può dirti cosa fare, ma puoi trovare la risposta ascoltando quello che senti davvero. Sei tu a conoscerlo meglio di chiunque altro.
+[7] DOMANDA: Cosa pensa di me la mia collega?
+    TITOLO: Quanto ci pensi è la risposta
+    RISPOSTA: Se ci pensi ogni giorno, il posto ce l'ha già.
+    AZIONE: Domani mattina, osserva per cinque minuti il suo comportamento senza giudicarlo.
+    FONTI: {scena: modello, titolo: riserva: statoDiUnTerzo, risposta: riserva: statoDiUnTerzo, gesto: modello}
+    SCARTI: titolo statoDiUnTerzo: Non serve sapere ogni cosa ; risposta statoDiUnTerzo: Non puoi sapere cosa pensa la tua collega. Puoi agire in base a ciò che osservi. È importante concentrarti sulle tue azioni e su come ti relazioni con gli altri. ; titolo statoDiUnTerzo: La tua collega non ti definisce ; risposta statoDiUnTerzo: Non puoi avere il controllo su ciò che la tua collega pensa di te. Puoi scegliere come presentarti e agire in modo coerente con i tuoi valori. Guarda i fatti e le parole che ti arrivano, non le ipotesi. ; azione genereContrario: Domani mattina, prima di iniziare il lavoro, scrivi su un foglio tre cose che apprezzi di te stessa e tienilo sulla scrivania per la giornata. ; titolo statoDiUnTerzo: Non è il tuo lavoro ; risposta statoDiUnTerzo: Non puoi sapere cosa pensa la tua collega. Puoi scegliere come agire. Puoi dare valore a ciò che sei.
+[8] DOMANDA: Cosa pensa di me la mia collega?
+    TITOLO: Non è il tuo compito scoprirlo
+    RISPOSTA: Non puoi conoscere il pensiero della tua collega con certezza. Puoi decidere di agire solo in base a ciò che osservi. Scegli tu su cosa concentrare la tua attenzione.
+    AZIONE: Entro domani sera scrivi tre cose che hai osservato della tua collega, senza giudicarle.
+    FONTI: {scena: modello, titolo: modello: seconda chiamata, risposta: modello: seconda chiamata, gesto: modello}
+    SCARTI: titolo statoDiUnTerzo: Non serve sapere ogni cosa ; risposta statoDiUnTerzo: Non puoi sapere cosa pensa la tua collega. Non tutto ti riguarda direttamente. Puoi scegliere di agire in base a ciò che sai con certezza.
+[9] DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+    TITOLO: La tua scelta è vicina
+    RISPOSTA: Non sei tu a dover scegliere per tua madre. Puoi riconoscere che sua non accettazione è sua. Tuo compito è proteggere la relazione con la tua compagna.
+    AZIONE: Stasera, scrivi una lettera a tua madre spiegando i tuoi sentimenti senza chiedere nulla in cambio. Non la spedire.
+    FONTI: {scena: modello, titolo: modello: seconda chiamata, risposta: modello, gesto: modello}
+    SCARTI: titolo statoDiUnTerzo: La scelta è tua e basta ; titolo previsioneCerta: Decidi tu quel che farai ; azione genereContrario: Stasera, scrivi un elenco di tre cose che non sei disposto a negoziare nella tua relazione.
+[10] DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+    TITOLO: Il rischio è più piccolo di così
+    RISPOSTA: Non sei tu a dover convincere tua madre. Puoi decidere tu quale relazione priorizzare. Puoi proteggere le tue scelte.
+    AZIONE: Oggi pomeriggio, scrivi in un quaderno tre cose che desideri per la tua relazione con tua madre e tre per quella con la tua compagna.
+    FONTI: {scena: modello, titolo: riserva: statoDiUnTerzo, risposta: modello, gesto: modello}
+    SCARTI: titolo statoDiUnTerzo: La scelta è già tua ; titolo tempoNelTitolo: Puoi scegliere ora ; titolo statoDiUnTerzo: La scelta è tua
+[11] DOMANDA: Mio fratello non mi parla da mesi, lo chiamo io?
+    TITOLO: Puoi chiamare, poi aspetta
+    RISPOSTA: Una delle due la stai già facendo, in piccolo, da settimane.
+    AZIONE: Domani mattina, prima di fare qualsiasi altra cosa, prendi il telefono e scrivi un messaggio a tuo fratello senza aspettare una risposta immediata.
+    FONTI: {scena: modello, titolo: modello, risposta: riserva: statoDiUnTerzo, gesto: modello}
+    SCARTI: risposta statoDiUnTerzo: Puoi decidere tu quando chiamare tuo fratello. Non attendere che sia lui a fare il primo passo. Quello che puoi fare è scegliere il momento e la forma più giusta per te. ; risposta statoDiUnTerzo: Puoi decidere tu quando chiamare tuo fratello. Non attendere. Puoi scegliere il momento e la forma più giusta per te. ; azione consiglioDiVita: Domani mattina pensa a tre frasi che vorresti dirgli, scrivile e rileggile la sera. ; titolo statoDiUnTerzo: La scelta è tua ; risposta statoDiUnTerzo: Puoi chiamare tuo fratello. Non aspettare una mossa da parte sua. Puoi scegliere il momento e il modo migliori per te.
+[12] DOMANDA: Mio fratello non mi parla da mesi, lo chiamo io?
+    TITOLO: Decidi tu quando chiamare
+    RISPOSTA: Chiediti quale delle due potresti ancora correggere.
+    AZIONE: Domani mattina scrivi un breve messaggio a tuo fratello. Non inviarlo subito. Rileggilo tra due giorni.
+    FONTI: {scena: modello, titolo: modello, risposta: riserva: statoDiUnTerzo, gesto: modello}
+    SCARTI: risposta statoDiUnTerzo: Puoi decidere tu se e quando chiamare tuo fratello. Non c'è un momento giusto o sbagliato per fare un passo. Quello che conta è la tua intenzione nel farlo. ; azione virgolaEe: Domani mattina scrivi un breve messaggio a tuo fratello, senza inviarlo, e rileggilo tra due giorni. ; risposta statoDiUnTerzo: Puoi chiamare tuo fratello se lo desideri. Non c'è una risposta universale che indichi il momento giusto per fare questo passo. Tocca a te valutare il tuo intento e la tua disponibilità. ; titolo statoDiUnTerzo: Non è tuo il suo silenzio ; risposta statoDiUnTerzo: Puoi chiamare tuo fratello se senti che è il momento giusto per te. La decisione di fare il primo passo è tua. Non c'è un modo sbagliato di agire se sei in pace con la tua scelta.
+[13] DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+    TITOLO: La tua direzione è precisa
+    RISPOSTA: La tua scelta è chiara. Puoi accettare l'offerta di lavoro a Milano. Non è il guadagno la cosa più importante in questo momento.
+    AZIONE: Oggi pomeriggio scrivi tre motivi per cui l'offerta a Milano ti sembra la strada giusta.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: nessuno
+[14] DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+    TITOLO: La tua strada è un'altra
+    RISPOSTA: L'offerta di lavoro che hai ricevuto a Milano non è quella giusta per te in questo momento. Nonostante possa sembrare un'opportunità, i segni indicano che c'è qualcosa di più autentico che ti aspetta. Sii paziente e non affrettare questa scelta importante.
+    AZIONE: Entro giovedì, scrivi tre cose che desideri davvero dal prossimo lavoro, al di là dello stipendio.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: nessuno
+[15] DOMANDA: Riuscirò a superare il concorso di ottobre?
+    TITOLO: Il concorso è uno specchio
+    RISPOSTA: Per il tuo concorso, il successo non dipende solo dalla preparazione. Molto è nella percezione che hai di te. La tua vera abilità può essere nascosta dietro un'idea di te che non ti appartiene.
+    AZIONE: Entro domani sera, scrivi tre qualità che credi di non avere ma che altri ti riconoscono.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: nessuno
+[16] DOMANDA: Riuscirò a superare il concorso di ottobre?
+    TITOLO: Cerca ciò che ti nasconde
+    RISPOSTA: Per superare il concorso non basta studiare. Devi capire cosa ti sta trattenendo. Non lasciare che le tue insicurezze ti blocchino.
+    AZIONE: Domani mattina rileggi il bando e segnati le parole che ti mettono più ansia.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: nessuno
+[17] DOMANDA: Come faccio a sentirmi meno sola la sera?
+    TITOLO: C'è chi veglia con te
+    RISPOSTA: La solitudine che senti la sera non è un vuoto da riempire con altro. È uno spazio che chiede di essere abitato in un modo diverso. Puoi accogliere questa sensazione invece di combatterla.
+    AZIONE: Stasera, quando senti la solitudine, scrivi tre cose che ti piacerebbe fare in compagnia.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}
+    SCARTI: azione genereContrario: Stasera, prima di dormire, siediti in silenzio per cinque minuti nel punto della casa dove ti senti più sola. ; risposta nonNominaLaDomanda: Il tuo desiderio di compagnia è reale. Quello che puoi fare è riconoscere questa sensazione. Permetti che ci sia, senza giudicarla. ; azione genereContrario: Stasera, prima di dormire, siedi in silenzio per cinque minuti nel punto della casa dove ti senti più sola. ; risposta nonNominaLaDomanda: La tua solitudine serale non è un problema da risolvere. È un segnale che ti invita a guardare ciò che ti manca. Puoi ascoltarla con curiosità invece di combatterla.
+[18] DOMANDA: Come faccio a sentirmi meno sola la sera?
+    TITOLO: Cerca la tua immagine
+    RISPOSTA: La solitudine che senti la sera è un richiamo. Non è un vuoto da riempire con altro. Riconosci la sua voce e quello che ti chiede.
+    AZIONE: Stasera, prima di dormire, scrivi tre cose che ti hanno dato un momento di serenità durante il giorno.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}
+    SCARTI: azione genereContrario: Stasera, prima di dormire, scrivi tre cose che ti fanno sentire grata della giornata.
+[19] DOMANDA: Devo dire a Marco che mi piace?
+    TITOLO: La scelta è tua e basta
+    RISPOSTA: La decisione di dire a Marco che ti piace è solo tua. Non ci sono indicazioni esterne che ti spingono in una direzione o nell'altra. Prendi la tua decisione con consapevolezza.
+    AZIONE: Stasera scrivi su un foglio tutti i motivi per cui vorresti dirlo a Marco e tutti quelli per cui non vorresti. Non rileggerlo per due giorni.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: nessuno
+[20] DOMANDA: Devo dire a Marco che mi piace?
+    TITOLO: C'è più di una via
+    RISPOSTA: La domanda se dire a Marco che ti piace è già la risposta che ti piace. Non hai bisogno di un segnale per quello che senti. La tua sensazione è vera e valida.
+    AZIONE: Oggi pomeriggio, dedica un'ora a fare qualcosa che ti piace. Non pensare a Marco.
+    FONTI: {scena: modello, titolo: modello: seconda chiamata, risposta: modello, gesto: modello: seconda chiamata}
+    SCARTI: titolo troppoLunga: La scelta è già nel tuo cuore ; azione toccaUnTerzo: Domani mattina, scrivi un messaggio a Marco e digli che vorresti parlargli. ; risposta troppoLunga: Non devi dire a Marco che ti piace. Puoi mostrare quello che provi con un gesto. La scelta è tua. Non cercare una risposta immediata.
+
+Azioni che chiedono di scrivere su un foglio (o su un biglietto, un quaderno, una carta): 3 su 20.
+
+== DIECI DISCESE DI SEGUITO DELLA STESSA PERSONA ==
+[giorno 1] DOMANDA: Mi trasferisco a Berlino per lavoro?
+    RISPOSTA: Chiediti quale racconterai meglio fra dieci anni.
+    AZIONE: Oggi pomeriggio, scrivi in un quaderno tre motivazioni reali per cui vuoi andare a Berlino e tre per cui non vuoi andarci.
+    FONTI: {scena: modello, titolo: modello, risposta: riserva: decisioneGrave, gesto: modello}
+    SCARTI: risposta decisioneGrave: La scelta di trasferirti a Berlino è già chiara. Non aspettare che altri la facciano per te. Guarda bene cosa si è già aperto davanti ai tuoi occhi. ; risposta decisioneGrave: La scelta di trasferirti a Berlino è tua da prendere. Non aspettare che altri decidano per te. Guarda bene ciò che si è già aperto davanti ai tuoi occhi. ; azione genereContrario: Stasera, scrivi tre cose che ti hanno sorpreso a Berlino, quando ci sei stato. ; risposta previsioneCerta: La scelta di trasferirti a Berlino è tua da prendere. I segni ti mostrano ciò che è già disponibile per te lì. Puoi guardare attentamente dove si sono già create delle opportunità concrete.
+[giorno 2] DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+    RISPOSTA: La tua bottega di ceramica è già una realtà nel tuo desiderio. È un impegno che richiede la tua presenza ogni giorno. Tocca a te decidere quanto le vuoi dare.
+    AZIONE: Entro domani sera scrivi su un foglio tre nomi che daresti alla tua bottega.
+    FONTI: {scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}
+    SCARTI: titolo troppoLunga: La tua bottega è una tua creazione ; risposta anticipaLaScena: La tua bottega di ceramica è un tuo seme. Sei tu che la fai crescere. Non c'è nulla di esterno che la possa fermare. ; risposta nonNominaLaDomanda: La tua creazione ha bisogno di essere nutrita. È un impegno che richiede la tua presenza ogni giorno. Tocca a te decidere quanto le vuoi dare. ; titolo troppoLunga: La tua bottega è già una realtà
+[giorno 3] DOMANDA: Il mio cane è malato, cosa devo fare?
+    RISPOSTA: La situazione del tuo cane richiede una decisione che solo tu puoi prendere. Non c'è una risposta giusta o sbagliata in senso assoluto. Osserva con attenzione i piccoli segnali che ti dà.
+    AZIONE: Domani mattina, prima di fare qualsiasi altra cosa, siediti accanto al tuo cane per dieci minuti senza toccarlo e senza parlare. Osserva soltanto.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: nessuno
+[giorno 4] DOMANDA: Cosa pensa di me la mia collega?
+    RISPOSTA: Se dovessi allontanarti, sapresti già cosa perdi.
+    AZIONE: Domani mattina, prepara una lista dei tuoi compiti per la giornata lavorativa. Non includere nessuna attività che dipenda direttamente dalla tua collega.
+    FONTI: {scena: modello, titolo: modello, risposta: riserva: statoDiUnTerzo, gesto: modello}
+    SCARTI: titolo statoDiUnTerzo: Non è il tuo lavoro ; risposta statoDiUnTerzo: Non puoi sapere cosa pensa la tua collega. Il suo pensiero non ti riguarda. Concentrati su ciò che tu puoi fare. ; risposta statoDiUnTerzo: Non puoi sapere cosa pensa la tua collega. Il suo pensiero non ti riguarda. Concentrati su ciò che tu puoi fare. ; risposta statoDiUnTerzo: Non puoi sapere cosa pensa la tua collega. Il suo pensiero non ti riguarda. Concentrati su ciò che puoi fare.
+[giorno 5] DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+    RISPOSTA: Puoi decidere tu come e quando parlare della tua compagna. Non devi convincere nessuno della tua verità. Scegli le parole che ti rappresentano di più.
+    AZIONE: Oggi pomeriggio, parla con la tua compagna di cosa desiderate entrambe per il vostro futuro.
+    FONTI: {scena: modello, titolo: modello: seconda chiamata, risposta: modello, gesto: modello}
+    SCARTI: titolo statoDiUnTerzo: La scelta è tua soltanto ; azione previsioneCerta: Entro domani sera scrivi tre frasi che vorresti dire a tua madre sulla tua compagna. Non le userai subito, le rileggerai solo fra qualche giorno. ; titolo tempoNelTitolo: La scelta è tua adesso ; risposta statoDiUnTerzo: Non puoi forzare l'accettazione di tua madre. Puoi però decidere quanto spazio dare a questa situazione nella tua vita. Ti spetta proteggere la tua compagna da ciò che la ferisce. ; risposta statoDiUnTerzo: Non puoi forzare tua madre. Puoi decidere quanto spazio dare a questa situazione nella tua vita. Ti spetta proteggere la tua compagna da ciò che la ferisce.
+[giorno 6] DOMANDA: Mio fratello non mi parla da mesi, lo chiamo io?
+    RISPOSTA: Puoi chiamare tuo fratello se questo ti porta pace. Non puoi sapere la sua risposta e non devi aspettarti niente. Scegli se vuoi ristabilire un contatto senza condizioni.
+    AZIONE: Entro domani sera scrivi a tuo fratello le prime tre parole che ti vengono in mente.
+    FONTI: {scena: modello, titolo: riserva: statoDiUnTerzo, risposta: modello, gesto: modello}
+    SCARTI: titolo statoDiUnTerzo: La connessione è già lì ; titolo statoDiUnTerzo: Guarda oltre le sue parole ; risposta previsioneCerta: Puoi decidere tu se chiamare tuo fratello. Non puoi sapere che cosa succederà. Tocca a te fare il primo passo se lo vuoi. ; titolo statoDiUnTerzo: La scelta è solo tua
+[giorno 7] DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+    RISPOSTA: La tua scelta riguardo al lavoro a Milano non è solo una questione di guadagno. È importante riconoscere che cosa ti spinge a considerare un cambiamento. Valuta il valore che dai al tuo benessere, oltre a quello economico.
+    AZIONE: Stasera scrivi su un foglio tutti i motivi per cui vorresti accettare l'offerta a Milano e tutti quelli per cui non vorresti, senza giudicarli.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: risposta promessa: L'offerta di lavoro non è l'unica possibilità che hai davanti. Il valore di un'esperienza non si misura solo con il denaro. Osserva le conseguenze di una scelta fatta solo per il guadagno. ; azione toccaUnTerzo: Domani mattina scrivi un elenco dei "pro" e dei "contro" per la tua vita a Milano e per quella dove sei ora. Confrontali con attenzione. ; risposta promessa: Il guadagno non è l'unico metro per misurare il valore di un'opportunità. Questa offerta ti chiama a guardare oltre il solo aspetto economico. Puoi valutare ciò che l'esperienza a Milano ti offre al di là del denaro.
+[giorno 8] DOMANDA: Riuscirò a superare il concorso di ottobre?
+    RISPOSTA: La tua riuscita nel concorso dipende da quello che fai tu adesso. Non si tratta di attendere ma di agire. Non aspettare che ti arrivi da fuori.
+    AZIONE: Oggi pomeriggio rileggi il programma del concorso e scegli un argomento che ti piace. Dedicagli venti minuti senza distrazioni.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: nessuno
+[giorno 9] DOMANDA: Come faccio a sentirmi meno sola la sera?
+    RISPOSTA: Il senso di solitudine che provi la sera non è un vuoto da riempire con altro. È una richiesta di attenzione da parte tua. Non cercare all'esterno ciò che può darti solo un sollievo temporaneo.
+    AZIONE: Domani sera, prima di addormentarti, scrivi tre cose che hai fatto oggi solo per te, senza pensare agli altri.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: nessuno
+[giorno 10] DOMANDA: Devo dire a Marco che mi piace?
+    RISPOSTA: Non puoi sapere che cosa Marco sente. Puoi però scegliere di dire ciò che provi tu. Questa è l'unica parte che ti appartiene.
+    AZIONE: Domani mattina, scrivi su un foglio bianco le tre cose che più ti piacciono di Marco.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: nessuno
+
+Coppie di azioni uguali o simili fra le dieci discese della stessa persona (IlPassoDaNonDare.simili, la misura della voce EQ.01): 0 [].
+Azioni col foglio fra le dieci: 4 su 10.

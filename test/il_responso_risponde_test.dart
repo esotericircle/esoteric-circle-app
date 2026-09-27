@@ -120,9 +120,37 @@ void main() {
             ? MotivoDelloScarto.ripeteUnoStrato
             : null,
         MotivoDelloScarto.animaleAnticipato:
-            LeGuardieDelResponso.nominaLAnimale('Il lupo ha il tuo passo.', 'Lupo')
+            LeGuardieDelResponso.nominaLAnimale(
+                    'Il lupo ha il tuo passo.', 'Lupo')
                 ? MotivoDelloScarto.animaleAnticipato
                 : null,
+        // Ordine ER voce 02: la prima frase che rimanda la domanda, dal banco
+        // del 27 settembre.
+        MotivoDelloScarto.nonPrendePosizione:
+            LeGuardieDelResponso.dellaRisposta(
+                'La decisione sul lavoro in banca è tua. Guarda la bottega.',
+                domanda: 'Lascio il lavoro in banca per la mia bottega?',
+                forma: neutra),
+        // Ordine ER voce 15: l'azione che somiglia a una gia' data la scarta
+        // la lettura, che conosce le azioni di questa persona. Le due righe
+        // vengono dal banco del 27 settembre.
+        MotivoDelloScarto.azioneRipetuta: LeGuardieDelResponso.leggi(
+            {
+              'azione': 'Stasera scrivi su un foglio che cosa ti manca. '
+                  'Poi strappalo e gettalo via.'
+            },
+            domanda: domanda,
+            forma: neutra,
+            azioniGiaDate: const [
+              'Stasera scrivi su un foglio che cosa ti aspetti da tua '
+                  'madre e poi strappalo in piccoli pezzi.'
+            ]).scarti.single.motivo,
+        // Ordine ER voce 15, dal banco del 27 settembre sera: la scrittura
+        // si scarta anche senza scritture prima.
+        MotivoDelloScarto.chiedeDiScrivere: LeGuardieDelResponso.leggi(
+            {'azione': 'Domani mattina scrivi su un foglio tre desideri.'},
+            domanda: domanda,
+            forma: neutra).scarti.single.motivo,
         MotivoDelloScarto.titoloAnticipaLaScena:
             LeGuardieDelResponso.titoloToccaLaScena(
                     'La porta non è tua', const ['la porta chiusa'])
@@ -242,7 +270,8 @@ void main() {
   });
 
   group('ORDINE DN, IL FUOCO, I TERZI, LE DECISIONI, IL GERGO', () {
-    test('col fratello la ripresa nomina il fratello, e nessuna risposta dice lei',
+    test(
+        'col fratello la ripresa nomina il fratello, e nessuna risposta dice lei',
         () {
       // **DALLA PROVA A VIDEO DELLA BUILD 2252**: *"La domanda riguardava tuo
       // fratello. Quanto tempo le dedichi"*. Le risposte di casa del tema
@@ -872,8 +901,11 @@ void main() {
             nomiDellaScena: const ['il ponte', 'il seme', "all'alba"]),
         MotivoDelloScarto.anticipaLaScena);
     expect(
-        LeGuardieDelResponso.dellaRisposta(
-            'Puoi decidere tu cosa tenere della casa.',
+        // LAPIDE, ordine ER voce 02: qui la frase era "Puoi decidere tu cosa
+        // tenere della casa", che adesso si scarta come prima frase che
+        // rimanda la domanda. La misura resta la stessa: la parola "casa"
+        // viene dalla domanda e non anticipa la scena.
+        LeGuardieDelResponso.dellaRisposta('Scegli tu cosa tenere della casa.',
             domanda: 'Devo vendere la casa di famiglia',
             forma: CourtesyForm.masculine,
             nomiDellaScena: const [

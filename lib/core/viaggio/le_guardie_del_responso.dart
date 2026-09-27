@@ -1,3 +1,4 @@
+import '../chat/il_passo_da_non_dare.dart';
 import '../chat/le_forme_del_genere.dart';
 import '../chat/user_profile.dart';
 
@@ -55,6 +56,14 @@ enum MotivoDelloScarto {
   // Ordine DQ voce 02, il cammino a strati.
   ripeteUnoStrato,
   animaleAnticipato,
+  // Ordine ER voce 15: l'azione ripete o somiglia a un'azione gia' data.
+  azioneRipetuta,
+  // Ordine ER voce 02: la prima frase rimanda la domanda invece di prendere
+  // posizione.
+  nonPrendePosizione,
+  // Ordine ER voce 15: l'azione chiede di scrivere, su un foglio o in una
+  // lista.
+  chiedeDiScrivere,
 }
 
 /// Una riga scartata: quale pezzo, perche', e il testo.
@@ -154,10 +163,36 @@ abstract final class LeGuardieDelResponso {
   /// 08: *"Non puoi sapere se tua sorella diventera' mamma"* e' la frase
   /// che l'ordine ammette, e con ogni futuro nella guardia cadeva. Si toglie
   /// la domanda che chi legge non puo' sciogliere, poi si guarda il resto.
+  /// **LA POSIZIONE DETTA COME LETTURA DEI SEGNI.** Ordine ER voce 02, 27
+  /// settembre 2026. Il fondatore vuole risposte dirette, e il banco del
+  /// Viaggio ha visto la guardia della certezza scartare *"I segni del
+  /// viaggio dicono di no, non è il momento di trasferirsi a Berlino"*: e'
+  /// la posizione che l'ordine chiede, detta come lettura e non come fatto.
+  /// Nella frase che comincia dai segni del viaggio, *non e' il momento* si
+  /// legge come lettura; **ogni verbo al futuro resta una previsione**, anche
+  /// li'.
+  static final RegExp laLetturaDeiSegni = RegExp(
+      '^(?:(?:i )?segni(?: del viaggio)?|il viaggio) (?:ti )?'
+      '(?:dicono|indicano|mostrano|suggeriscono|chiedono|invitano)(?![$_l])',
+      caseSensitive: false);
+
+  static final RegExp _ilMomento =
+      _parole('non è (ancora )?(il )?(suo |tuo |questo )?(momento|tempo)');
+
+  /// Il testo senza le posizioni lette nei segni, per la guardia della
+  /// certezza.
+  static String _senzaLePosizioniDeiSegni(String t) => [
+        for (final grezza in t.split(RegExp(r'(?<=[.!?;])')))
+          laLetturaDeiSegni.hasMatch(grezza.trim())
+              ? grezza.replaceAll(_ilMomento, ' ')
+              : grezza,
+      ].join();
+
   static final RegExp _ilDubbio = RegExp(
       '(?<![$_l])(?:sapere|sai|saprai|prevedere|prevedi|dire|capire|'
-      'immaginare|chiederti|chiedi|decidere) (?:se|quando|come|cosa|chi|'
-      'dove|quanto)[^.!?;]*',
+      'immaginare|chiederti|chiedi|decidere) (?:se|quando|come|che cosa|'
+      // *"Non puoi sapere che cosa farà lui"*, dal banco del 27 settembre.
+      'cosa|chi|dove|quanto)[^.!?;]*',
       caseSensitive: false);
 
   /// **UNA PROMESSA** su salute, denaro, morte, gravidanza, cause legali o
@@ -289,6 +324,38 @@ abstract final class LeGuardieDelResponso {
           // cio' che chi legge non puo' fare. Dalla misura dell'ordine DN.
           '(?:tua|tuo) (?:decisione|scelta|compito|responsabilità|colpa)|'
           '(?:decisione|scelta|compito|responsabilità|colpa) (?:tua|tuo)');
+
+  /// **L'IMPERATIVO DI CHI LEGGE IN TESTA ALLA FRASE**, ordine ER voce 02.
+  /// Al banco del 27 settembre la guardia sui terzi scartava *"Chiama tuo
+  /// fratello questa settimana"*, cioe' il gesto che l'istruzione stessa da'
+  /// per esempio, e *"Chiedile di pranzare insieme"*: il soggetto e' chi
+  /// legge, ma la guardia cercava *puoi*, *devi*, *tocca a te*. **Solo i
+  /// verbi dei gesti, e solo in testa**: *"Tua madre aspetta"* comincia dal
+  /// terzo e resta sotto la guardia.
+  static final RegExp _imperativoDiChiLegge = RegExp(
+      '^(?:(?:oggi|stasera|domani|domattina|adesso|ora|poi|prima) )?'
+      '(?:chiama|chiamal[oaie]|scrivi|scrivigli|scrivile|parla|parlagli|'
+      'parlale|parlane|chiedi|chiedigli|chiedile|invita|invital[oaie]|'
+      'cerca|cercal[oaie]|manda|mandagli|mandale|proponi|proponigli|'
+      'proponile|fissa|vai|va\'|fai|fa\'|di\'|digli|dille|racconta|'
+      'raccontagli|raccontale|telefona|telefonagli|telefonale|incontra|'
+      'incontral[oaie]|ascolta|ascoltal[oaie]|aspetta|prendi|porta|'
+      'portagli|portale|offri|offrigli|offrile|lascia|lasciagli|lasciale|'
+      'ringrazia|ringrazial[oaie]|rispondi|rispondigli|rispondile|torna|'
+      'passa|organizza|prepara|preparati|scegli|decidi|mostra|mostragli|'
+      'mostrale|guarda|abbraccia|abbraccial[oaie]|saluta|salutal[oaie]|'
+      'regala|regalagli|regalale|sii|resta|rimani|comincia|inizia|'
+      'accetta|domanda|domandagli|domandale|ricorda|ricordagli|ricordale|'
+      'avvicinati|avvicinal[oaie]|fermati|siediti|esci|entra)(?![$_l])',
+      caseSensitive: false);
+
+  /// Cio' che chi legge non puo' sapere, detto da chi legge.
+  static final RegExp _nonLoSai = RegExp(
+      '(?<![$_l])(?:non (?:puoi|sai|si può|è possibile|ti serve|serve) '
+      '(?:sapere|conoscere|leggere|indovinare|capire)|non lo sai|'
+      'chiedil[ae]|chiedigli|chiederle|chiedergli|puoi chiederle|'
+      'puoi chiedergli)(?![$_l])',
+      caseSensitive: false);
 
   /// **UN ORDINE SU UNA DECISIONE GRAVE E IRREVERSIBILE**, ordine DN voce
   /// 04: lasciare il lavoro o una persona, separarsi, tagliare i rapporti,
@@ -491,7 +558,8 @@ abstract final class LeGuardieDelResponso {
       }
     }
     if (_primaPersona.hasMatch(t)) return MotivoDelloScarto.primaPersona;
-    if (_certezza.hasMatch(t.replaceAll(_ilDubbio, ' '))) {
+    if (_certezza
+        .hasMatch(_senzaLePosizioniDeiSegni(t).replaceAll(_ilDubbio, ' '))) {
       return MotivoDelloScarto.previsioneCerta;
     }
     if (_diagnosi.hasMatch(t)) return MotivoDelloScarto.diagnosi;
@@ -531,7 +599,8 @@ abstract final class LeGuardieDelResponso {
     if (RegExp(r',\s+e[d]?\s', caseSensitive: false).hasMatch(t)) {
       return MotivoDelloScarto.virgolaEe;
     }
-    if (_certezza.hasMatch(t.replaceAll(_ilDubbio, ' '))) {
+    if (_certezza
+        .hasMatch(_senzaLePosizioniDeiSegni(t).replaceAll(_ilDubbio, ' '))) {
       return MotivoDelloScarto.previsioneCerta;
     }
     if (_diagnosi.hasMatch(t)) return MotivoDelloScarto.diagnosi;
@@ -605,6 +674,27 @@ abstract final class LeGuardieDelResponso {
     final diChiLegge = RegExp(
         '^(?:(?:non|ma|e|anche|ora|oggi) )?(?:tu|il tuo|la tua|i tuoi|le tue) ',
         caseSensitive: false);
+    // **E LA POSIZIONE CHE SI PRENDE**, ordine ER voce 02: il banco del
+    // Viaggio ha visto scartare *"I segni del viaggio dicono di fare il primo
+    // passo"* e *"Non aspettare che sia lui a cercarti"*, cioe' la risposta
+    // diretta che l'ordine chiede, perche' nessuna delle due ha il predicato
+    // di chi legge scritto come la guardia lo cercava. **Si ammettono due
+    // forme, e dicono tutte e due cio' che fa chi legge**: i segni che gli
+    // dicono di fare qualcosa (un infinito, un si' o un no, o un "che" con
+    // chi legge dentro), e l'imperativo negativo, "non" piu' un infinito.
+    // Quello che l'altro pensa, vuole o prova resta fuori anche li'.
+    final segniCheDiconoDiFare = RegExp(
+        '^(?:di |a |che (?:tu|puoi|non puoi|sei tu|tocca a te)(?![$_l]))|'
+        '^(?:di |a )?(?:no|sì)(?![$_l])|'
+        '^(?:di |a )?[$_l]+(?:are|ere|ire)(?![$_l])',
+        caseSensitive: false);
+    // E l'azione di chi legge detta all'infinito, come soggetto: *"Chiamare
+    // tuo fratello è un sì"*, dal banco del 27 settembre.
+    // E col pronome davanti: *"Non la forzare se non accetta"*.
+    final imperativoNegativo = RegExp(
+        '^(?:non (?:(?:l[oaie]|gli|ne|ci|ti|mi|glie[lne][oaie]?) )?)?'
+        '[$_l]+(?:are|ere|ire)(?:l[oaie]|gli|ne|ci|ti)?(?![$_l])',
+        caseSensitive: false);
     final dimostrativo = RegExp(
         '^(?:quella|quel|quello|quell.|questa|questo|quest.|quelle|quei|'
         'quegli|queste|questi) ',
@@ -659,6 +749,9 @@ abstract final class LeGuardieDelResponso {
           !loNomina) {
         continue;
       }
+      // L'imperativo negativo dice cio' che fa chi legge (ordine ER voce 02).
+      if (imperativoNegativo.hasMatch(frase)) continue;
+      if (_imperativoDiChiLegge.hasMatch(frase)) continue;
       final predicato = frase.replaceAll(terzoOvunque, ' ');
       if (!_predicatoDiChiLegge.hasMatch(predicato)) return true;
     }
@@ -680,7 +773,30 @@ abstract final class LeGuardieDelResponso {
       for (final grezza in t.split(RegExp(r'[.!?;]'))) {
         final frase = grezza.trim();
         if (frase.isEmpty) continue;
-        if (mentale.hasMatch(frase)) return true;
+        // **CIO' CHE CHI LEGGE NON PUO' SAPERE** lo dice chi legge: *"Non
+        // puoi sapere cosa pensa la tua collega"* non dice che cosa pensa.
+        // Dal banco del 27 settembre, ordine ER voce 02.
+        if (mentale.hasMatch(frase) && !_nonLoSai.hasMatch(frase)) {
+          return true;
+        }
+        // Le due forme della posizione, ordine ER voce 02: vedi in cima.
+        final letta = laLetturaDeiSegni.firstMatch(frase);
+        if (letta != null &&
+            segniCheDiconoDiFare
+                .hasMatch(frase.substring(letta.end).trimLeft())) {
+          continue;
+        }
+        if (imperativoNegativo.hasMatch(frase)) continue;
+        if (_imperativoDiChiLegge.hasMatch(frase)) continue;
+        // *"Non ti serve saperlo adesso"*: chi legge e' in testa, come
+        // complemento. Solo in testa, perche' nel primo giro *"La tua
+        // collega pensa che ti serva tempo"* comincia dal terzo.
+        if (RegExp('^(?:non |ora |adesso )?ti (?:serve|servono|serva|basta|'
+                'bastano|conviene)(?![$_l])',
+                caseSensitive: false)
+            .hasMatch(frase)) {
+          continue;
+        }
         if (!_predicatoDiChiLegge.hasMatch(frase) &&
             !diChiLegge.hasMatch(frase)) {
           return true;
@@ -827,6 +943,16 @@ abstract final class LeGuardieDelResponso {
     if (della.isNotEmpty && _radici(r).intersection(della).isEmpty) {
       return MotivoDelloScarto.nonNominaLaDomanda;
     }
+    // **LA PRIMA FRASE PRENDE POSIZIONE**, ordine ER voce 02. **Tranne
+    // sulla salute, il denaro e la legge**: li' il confine vieta il
+    // consiglio, e "la decisione di operarti è tua" e' la risposta onesta
+    // (riprova a video della 2259).
+    if (domanda.trim().isNotEmpty &&
+        !_saluteDenaroLegge.hasMatch(domanda) &&
+        !_domandaDiSalute.hasMatch(domanda) &&
+        rimandaLaDomanda(r)) {
+      return MotivoDelloScarto.nonPrendePosizione;
+    }
     for (final n in nomiDellaScena) {
       if (nominaIlPezzo(r, n, dellaDomanda: '$domanda ${oggetto ?? ''}')) {
         return MotivoDelloScarto.anticipaLaScena;
@@ -929,10 +1055,10 @@ abstract final class LeGuardieDelResponso {
       'quaderno|taccuino|cartoncino)|(?:una|la|quella) (?:pagina|busta|'
       'cartolina|lettera)');
 
-  static final RegExp _supportoPlurale = _parole(
-      '(?:i|dei|due|tre|quattro|alcuni|questi|quei) (?:fogli|foglietti|'
-      'biglietti|pezzi di carta|quaderni|cartoncini)|(?:le|delle|due|tre|'
-      'alcune) (?:pagine|buste|cartoline|lettere)');
+  static final RegExp _supportoPlurale =
+      _parole('(?:i|dei|due|tre|quattro|alcuni|questi|quei) (?:fogli|foglietti|'
+          'biglietti|pezzi di carta|quaderni|cartoncini)|(?:le|delle|due|tre|'
+          'alcune) (?:pagine|buste|cartoline|lettere)');
 
   /// I verbi della mano, col clitico plurale attaccato: *piegali*,
   /// *mettili*, *strappale*. *Leggile* no: le parole scritte si leggono.
@@ -1002,6 +1128,14 @@ abstract final class LeGuardieDelResponso {
             'già dato: lo strato di oggi aggiunge, non ripete',
         MotivoDelloScarto.animaleAnticipato => "nominava l'animale, che si "
             'rivela solo alla quarta discesa',
+        MotivoDelloScarto.nonPrendePosizione =>
+          'la prima frase rimandava la domanda invece di prendere posizione: '
+              'deve dire sì, no, a quale condizione o quale gesto fare',
+        MotivoDelloScarto.azioneRipetuta => "ripeteva o somigliava a un'azione "
+            'già data a questa persona: l\'azione nasce dalla domanda di oggi',
+        MotivoDelloScarto.chiedeDiScrivere => 'chiedeva di scrivere: '
+            "l'azione del viaggio si fa dentro la situazione chiesta, con le "
+            'persone, i luoghi e le cose della domanda, non su un foglio',
       };
 
   /// **UNA RIGA CHE RIPETE UNO STRATO GIA' DATO**, ordine DQ voce 02: una
@@ -1024,6 +1158,69 @@ abstract final class LeGuardieDelResponso {
     return false;
   }
 
+  /// **LA PRIMA FRASE CHE RIMANDA LA DOMANDA**, ordine ER voce 02. Le
+  /// forme vengono dal giudizio alla cieca delle risposte del banco del 27
+  /// settembre: la decisione rimandata a chi legge, il "dentro di te", la
+  /// possibilita' senza verso, il non sapere. Si guarda solo la prima frase:
+  /// dopo la posizione, dire che l'altro non si conosce e' onesto.
+  static final RegExp _rinvio = RegExp(
+      '(?<![$_l])(?:(?:la )?(?:decisione|scelta)(?: [$_l\']+){0,4} '
+      '(?:è|resta|spetta) '
+      '(?:tua|nelle tue mani|a te)|dentro di te|tocca a te decidere|'
+      'dipende (?:solo )?da te|solo tu puoi|puoi decidere tu|'
+      'non puoi (?:sapere|conoscere|prevedere|forzare)|'
+      // "un", "una" o "un'": il punto prende l'apostrofo senza scriverlo.
+      'non c.è (?:una? ?|un. ?)?(?:risposta|strada|via|direzione)|'
+      'è una possibilità|possibilità concreta|senza una via|'
+      // L'etichetta della posizione ricopiata al posto del gesto.
+      'un gesto da fare|'
+      'non (?:indicano|mostrano|dicono) un .?(?:sì|no))(?![$_l])',
+      caseSensitive: false);
+
+  /// Una domanda che tocca la salute: la guardia della posizione non vale.
+  static final RegExp _domandaDiSalute =
+      _parole('operar[a-zàèéìòù]*|operazione|intervent[oi]|malat[a-zàèéìòù]*|'
+          'ospedal[a-zàèéìòù]*|salute|visita|esami|sintom[a-zàèéìòù]*|'
+          'diagnos[a-zàèéìòù]*|veterinari[a-zàèéìòù]*');
+
+  /// Vero se la prima frase di [r] rimanda la domanda.
+  static bool rimandaLaDomanda(String r) {
+    final prima = r.split(RegExp(r'(?<=[.!?])\s')).first;
+    return _rinvio.hasMatch(prima);
+  }
+
+  /// **UN'AZIONE CHE CHIEDE DI SCRIVERE**, su un foglio, un quaderno, una
+  /// lista. Ordine ER voce 15.
+  static bool chiedeDiScrivere(String a) => RegExp(
+          '(?<![$_l])(?:scriv[$_l]*|foglio|fogli|foglietto|quaderno|'
+          'pezzo di carta|carta e penna|lista|elenco)(?![$_l])',
+          caseSensitive: false)
+      .hasMatch(a);
+
+  /// **SCRIVERE SU CARTA, NON A QUALCUNO.** Ordine ER voce 15: il difetto
+  /// e' il foglio, la lista, i pro e i contro. *"Stasera scrivi a tua
+  /// sorella una riga"* e' un messaggio a una persona, un gesto dentro la
+  /// situazione chiesta, e la prima stesura della guardia lo scartava (la
+  /// prova dell'ordine DN che la usa e' caduta). Il foglio si riconosce
+  /// dalla carta nominata; senza carta, lo scrivere a qualcuno passa, lo
+  /// scrivere e basta no.
+  static bool chiedeDiScrivereSuCarta(String a) {
+    final t = a.toLowerCase();
+    if (RegExp('(?<![$_l])(?:foglio|fogli|foglietto|quaderno|taccuino|'
+            'diario|pezzo di carta|carta e penna|lista|elenco|pro e (?:i )?'
+            'contro|per iscritto)(?![$_l])')
+        .hasMatch(t)) {
+      return true;
+    }
+    if (RegExp('(?<![$_l])(?:scrivigli|scrivile|scriverle|scrivergli|'
+            'scriv[$_l]* (?:a|al|alla|allo|ai|alle|agli|ad) (?!te |te\\b)|'
+            'scriv[$_l]* (?:un|una) (?:messaggio|mail|e-mail|lettera a))')
+        .hasMatch(t)) {
+      return false;
+    }
+    return chiedeDiScrivere(a);
+  }
+
   /// **L'ANIMALE NOMINATO PRIMA DELLA QUARTA**, ordine DQ voce 02: il suo
   /// nome, con o senza maiuscola.
   static bool nominaLAnimale(String t, String animale) =>
@@ -1042,6 +1239,7 @@ abstract final class LeGuardieDelResponso {
     List<String> nomiDellaScena = const [],
     Set<String> nomiAmmessi = const {},
     List<String> titoliGiaDati = const [],
+    List<String> azioniGiaDate = const [],
     bool soloIncontro = false,
     String? animaleNonAncoraDetto,
     List<String> giaDetti = const [],
@@ -1102,8 +1300,22 @@ abstract final class LeGuardieDelResponso {
               nomiAmmessi: nomiAmmessi)),
       azione: prendi(
           'azione',
-          (a) => dellAzione(a,
-              domanda: domanda, forma: forma, nomiAmmessi: nomiAmmessi)),
+          (a) =>
+              dellAzione(a,
+                  domanda: domanda, forma: forma, nomiAmmessi: nomiAmmessi) ??
+              // **L'AZIONE NON TORNA**, ordine ER voce 15, con la misura
+              // della voce EQ.01.
+              (azioniGiaDate.any((g) => IlPassoDaNonDare.simili(a, g))
+                  ? MotivoDelloScarto.azioneRipetuta
+                  // **E IL FOGLIO NON PASSA**: al banco il modello chiedeva
+                  // ancora di scrivere tre e otto volte su venti, con la
+                  // regola nell'istruzione che dice che scrivere non e'
+                  // un'azione del viaggio. Prima si scartava solo se una
+                  // delle ultime tre azioni scriveva: fra venti persone
+                  // diverse non ne scattava nessuna.
+                  : chiedeDiScrivereSuCarta(a)
+                      ? MotivoDelloScarto.chiedeDiScrivere
+                      : null)),
       scarti: scarti,
     );
   }

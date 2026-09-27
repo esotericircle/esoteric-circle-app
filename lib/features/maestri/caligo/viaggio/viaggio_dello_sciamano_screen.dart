@@ -625,6 +625,9 @@ class _ViaggioDelloSciamanoScreenState
         // **I TITOLI GIA' DATI**, ordine DL voce 07: lo stesso titolo non
         // torna prima di ventiquattro discese.
         titoliGiaDati: LaScenaDalModello.titoliDalDiario(_diario.viaggi),
+        // **LE AZIONI GIA' DATE**, ordine ER voce 15: la stessa azione, o una
+        // simile, non torna.
+        azioniGiaDate: LaScenaDalModello.azioniDalDiario(_diario.viaggi),
       ),
       chiamata: widget.chiamataDellaScena,
       prendiUnaChiamata: () => permesso,
@@ -1121,9 +1124,8 @@ class _ViaggioDelloSciamanoScreenState
     // barra di questa schermata e' piu' alta di cinquantasei punti, perche'
     // il titolo ha tre righe: chiedendo `kToolbarHeight` le impronte
     // finivano dodici punti sotto di lei, e la guardia DI.08 l'ha preso.
-    final quantoInCima =
-        MediaQuery.of(context).padding.top +
-            ViaggioDelloSciamanoScreen.altezzaDellaBarra;
+    final quantoInCima = MediaQuery.of(context).padding.top +
+        ViaggioDelloSciamanoScreen.altezzaDellaBarra;
     return Stack(
       fit: StackFit.expand,
       children: [

@@ -15,6 +15,7 @@ import '../chat/user_profile.dart';
 import 'la_voce_del_mondo_di_sotto.dart';
 import 'le_guardie_del_responso.dart';
 import '../l10n/la_lingua_del_modello.dart';
+import '../tarot/la_lettura_dal_modello.dart';
 
 /// **I QUATTRO PEZZI CHE IL MODELLO HA SCELTO**, per id.
 typedef PezziScelti = ({
@@ -65,6 +66,7 @@ class CioCheSiSa {
     this.oggetto,
     this.forma,
     this.titoliGiaDati = const [],
+    this.azioniGiaDate = const [],
     this.strato,
     this.stratiPrecedenti = const [],
   });
@@ -110,6 +112,13 @@ class CioCheSiSa {
   /// domanda. Il modello ne riceve alcuni, e la lettura scarta il titolo
   /// che ne ripete uno qualsiasi: vale la riserva, che non si ripete.
   final List<String> titoliGiaDati;
+
+  /// **LE AZIONI GIA' DATE A QUESTA PERSONA**, dalla discesa piu' recente.
+  /// Ordine ER voce 15: il fondatore ha visto quattro azioni su sei chiedere
+  /// di scrivere su un foglio. Il modello ne riceve alcune, e la lettura
+  /// scarta l'azione che ne ripete o ne somiglia una qualsiasi, con la misura
+  /// della voce EQ.01 (`IlPassoDaNonDare.simili`).
+  final List<String> azioniGiaDate;
 }
 
 /// **LA SCENA NASCE DALLA PERSONA, NON DA UN HASH.** Ordine DI voce 03,
@@ -244,8 +253,12 @@ abstract final class LaScenaDalModello {
     final titoli = [
       for (final t in LaVoceDelMondoDiSotto.titoliPerTema.values) t[3],
     ];
+    // **NESSUN ESEMPIO DI SCRITTURA**, ordine ER voce 15: il modello ricalca
+    // gli esempi, ed e' lo stesso meccanismo della riga d'oro della chat
+    // (voce EQ.01). Gli esempi che scrivono restano fuori.
     final gesti = [
-      for (final g in LaVoceDelMondoDiSotto.gestiColTempo) g,
+      for (final g in LaVoceDelMondoDiSotto.gestiColTempo)
+        if (!g.toLowerCase().contains('scriv')) g,
       LaVoceDelMondoDiSotto.cosaPuoiFare[10],
       LaVoceDelMondoDiSotto.cosaPuoiFare[16],
     ];
@@ -297,20 +310,66 @@ abstract final class LaScenaDalModello {
           'come immagine: nella risposta non compaiono il luogo, la cosa e '
           'il momento che hai scelto, perché la scena la racconta Caligo '
           'dopo, come fonte.',
-      '- azione: una cosa sola, concreta, che si fa oggi o nei prossimi '
-          'giorni e di cui si capisce se è stata fatta. COMINCIA DAL SUO '
+      // **L'AZIONE NASCE DALLA DOMANDA**, ordine ER voce 15: qui c'era
+      // l'elenco di cio' che si fa al posto del fuoco, "strappare il foglio,
+      // seppellirlo, gettarlo nell'acqua corrente, chiuderlo in un cassetto,
+      // metterlo sotto una pietra", e il modello lo ricalcava: quattro azioni
+      // su sei chiedevano un foglio (catture dell'ordine DN), dodici su venti
+      // nel banco del 27 settembre. L'esempio e' uscito; il divieto del fuoco
+      // resta.
+      '- azione: una cosa sola, concreta, che nasce dalla domanda: si fa '
+          'dentro la situazione chiesta, con le persone, i luoghi e le cose '
+          'di cui la persona ha scritto, oggi o nei prossimi giorni. Si '
+          'capisce se è stata fatta: parlare con qualcuno, andare in un '
+          'luogo, fare una prova piccola, cercare un\'informazione, toccare o '
+          'spostare una cosa. Scrivere, fare una lista o i pro e i contro '
+          'non è un\'azione del viaggio: la persona l\'ha già ricevuta troppe '
+          'volte. Non ripete e non somiglia alle azioni già date a questa '
+          'persona, scritte nella richiesta. COMINCIA DAL SUO '
           'TEMPO: "Stasera ...", "Domani mattina ...", "Entro sabato '
           '...". Un tempo solo. Non è un consiglio di vita, non è una '
           'massima, non è un invito a riflettere. NIENTE FUOCO: non si '
-          'brucia, non si accende e non si incendia niente. Al posto del '
-          'fuoco: strappare il foglio, seppellirlo, gettarlo nell\'acqua '
-          'corrente, chiuderlo in un cassetto e non riaprirlo, metterlo '
-          'sotto una pietra.',
+          'brucia, non si accende e non si incendia niente.',
       'REGOLE DEI TRE TESTI:',
-      '- Non dire se la cosa accadrà, se non accadrà o se è già accaduta: '
-          'non lo sai. "Tua sorella avrà un bambino" no; "la casa è già '
-          'venduta" no; "non è ancora il momento" no. Parla di ciò che la '
-          'persona può guardare o fare adesso.',
+      // **PRENDERE POSIZIONE**, ordine ER voce 02, 27 settembre 2026. Il
+      // fondatore: *"Le persone vogliono risposte dirette, Senza tanti
+      // giochi di parole e cercano consigli e guide anche su domande
+      // generiche."* Qui c'era la regola *"Non dire se la cosa accadrà, se
+      // non accadrà o se è già accaduta: non lo sai. [...] Parla di ciò che
+      // la persona può guardare o fare adesso."*, e la risposta non
+      // rispondeva: *"Non c'è una risposta giusta o sbagliata"*, *"Non sai
+      // ancora dove ti porterà"*. La posizione si prende su cio' che la
+      // persona fa e su cio' che i segni del viaggio mostrano; il futuro
+      // certo resta vietato, e lo guarda la guardia della certezza.
+      // **IL SECONDO GIRO**, dal banco del 27 settembre: con la sola regola
+      // detta in generale il modello scriveva ancora "Non c'è un modo giusto
+      // o sbagliato" e "Tocca a te decidere". La regola adesso dice come si
+      // prende posizione per ogni forma di domanda, con la formula che ha
+      // funzionato nella Stesa dei Tarocchi (ordine EQ voce 04).
+      '- posizione: PRIMA DELLA RISPOSTA scegli la posizione dei segni del '
+          'viaggio sulla domanda: "sì", "no", "sì a una condizione", oppure "un '
+          'gesto da fare" quando la domanda chiede che cosa fare, come fare o '
+          'parla di un\'altra persona. "nessuna domanda" solo se la domanda è '
+          '"nessuna". Scegli sempre: una posizione non scelta è una risposta '
+          'mancata. Se scegli "un gesto da fare", la prima frase della risposta '
+          'È il gesto, detto col suo verbo («Chiama tuo fratello questa '
+          'settimana»): non scrivere mai le parole «un gesto da fare».',
+      '- LA PRIMA FRASE DELLA RISPOSTA PRENDE POSIZIONE sulla domanda, in '
+          'modo diretto e senza giochi di parole. Se la domanda chiede se '
+          'fare una cosa o se accadrà, dice che cosa indicano i segni del '
+          'viaggio: sì, no, o a quale condizione ("I segni del viaggio dicono '
+          'di sì, se...", "Il viaggio non mostra...", "Vai, ma prima..."). '
+          'Se chiede che cosa fare o come, dice il gesto concreto, con chi o '
+          'quando, mai un atteggiamento. Se la domanda è un argomento '
+          'generale, dice in concreto che cosa il viaggio mostra della '
+          'situazione. Mai "non c\'è una risposta giusta", mai "tocca a te '
+          'decidere", mai "dipende da te": la persona ha chiesto proprio '
+          'questo. La prima frase dice la posizione che hai scelto. La seconda '
+          'frase dà il consiglio concreto che la persona può seguire. Nessuna '
+          'frase che non dice niente.',
+      '- La posizione si prende su ciò che la persona fa e su ciò che i '
+          'segni mostrano adesso, non su un evento futuro dato per certo: '
+          'niente "avrà", "succederà", "è già fatta".',
       '- Nessuna promessa su salute, denaro, morte, gravidanza, cause '
           'legali o eventi garantiti. Niente che somigli a una diagnosi o a '
           'un consiglio medico.',
@@ -331,10 +390,11 @@ abstract final class LaScenaDalModello {
           'quando parlare" e "La decisione di tuo cugino non è tua da '
           'prendere" vanno bene. Vale anche per "quella persona", "lui", '
           '"lei" e "il suo".',
-      '- Puoi prendere una parte, ma non ordinare una decisione grave: '
-          'lasciare il lavoro o una persona, separarsi, tagliare i '
-          'rapporti, trasferirsi, vendere casa. Su queste dici cosa '
-          'guardare, mai cosa fare.',
+      '- Prendi una parte, ma non ordinare una decisione grave: lasciare '
+          'il lavoro o una persona, separarsi, tagliare i rapporti, '
+          'trasferirsi, vendere casa. Su queste la posizione dice verso dove '
+          'pendono i segni del viaggio e qual è il primo passo concreto, '
+          'senza ordinare la decisione.',
       '- Parole comuni, non da consulente e non da corso motivazionale: '
           'niente "processo", "il tuo percorso", "è tempo di", "lascia '
           'andare", "ascolta il tuo cuore", "il tuo vero io", "la tua '
@@ -354,6 +414,13 @@ abstract final class LaScenaDalModello {
       'Azioni: ${gesti.map((g) => '"$g"').join(', ')}.',
       '',
       IlBloccoDiCortesia.perForma(forma),
+      // **E COME SI SCRIVE SENZA GENERE**, ordine ER voce 02: al banco del 27
+      // settembre nove risposte cadevano per *"non sei sola"*, *"sei
+      // disposta"* a chi non ha detto il suo genere, e in tre discese su
+      // quaranta al loro posto parlava la riserva, che non prende posizione. La regola e' quella
+      // della Stesa dei Tarocchi, che ha retto al collaudo dell'ordine EQ.
+      (forma ?? LaMarcaDelGenere.formaCorrente).agree(
+          masculine: '', feminine: '', neutral: LaLetturaDellaStesa.senzaGenere),
     ].join('\n');
   }
 
@@ -373,6 +440,27 @@ abstract final class LaScenaDalModello {
           if (v.titolo != null && v.titolo!.isNotEmpty) v.titolo!,
       ];
 
+  /// **Quante azioni gia' date arrivano al modello**, ordine ER voce 15: come
+  /// i titoli, dieci; la lettura le guarda tutte, fino a [titoliDaNonRipetere].
+  static const int azioniNellaRichiesta = 10;
+
+  /// **LE POSIZIONI CHE LA RISPOSTA PUO' PRENDERE**, ordine ER voce 02: il
+  /// modello ne sceglie una prima di scrivere la risposta, e la prima frase
+  /// la dice.
+  static const List<String> posizioni = [
+    'sì',
+    'no',
+    'sì a una condizione',
+    'un gesto da fare',
+    'nessuna domanda',
+  ];
+
+  /// Le azioni gia' date, dal Diario, dalla discesa piu' recente.
+  static List<String> azioniDalDiario(List<UnViaggio> viaggi) => [
+        for (final v in viaggi.take(titoliDaNonRipetere))
+          if (v.gesto != null && v.gesto!.isNotEmpty) v.gesto!,
+      ];
+
   static String richiesta(CioCheSiSa s,
       {List<RigaScartata> daCorreggere = const []}) {
     final n = s.natale;
@@ -386,10 +474,13 @@ abstract final class LaScenaDalModello {
       // modello non sapeva che per quella domanda valeva. Adesso lo legge
       // nella richiesta, con la forma che la guardia pretende.
       ..write(LeGuardieDelResponso.parlaDiUnTerzo(s.domanda)
+          // Ordine ER voce 02: "Tocca a te" apriva le risposte che non
+          // rispondevano. Gli attacchi sono quelli di chi fa qualcosa.
           ? 'La domanda parla di un\'altra persona: il titolo e OGNI frase '
-              'della risposta cominciano da chi legge, "Puoi", "Non puoi", '
-              '"Tocca a te", "Scegli", "Guarda". Dell\'altra persona non '
-              'dire niente di ciò che prova, pensa, vede, vuole o fa.\n'
+              'della risposta cominciano da chi legge, con ciò che fa: "Fai '
+              'tu il primo passo", "Parlane questa settimana", "Scegli", '
+              '"Puoi", "Non puoi". Dell\'altra persona non dire niente di ciò '
+              'che prova, pensa, vede, vuole o fa.\n'
           : '')
       // **SENZA OGGETTO LA RIGA NON C'E'**, ordine DL voce 08: con *"non
       // noto"* il modello prendeva le due parole per la cosa chiesta, e
@@ -398,6 +489,9 @@ abstract final class LaScenaDalModello {
       ..write(s.oggetto == null ? '' : 'Oggetto della domanda: ${s.oggetto}\n')
       ..writeln(
           'Titoli già dati, da non ripetere: ${s.titoliGiaDati.isEmpty ? 'nessuno' : s.titoliGiaDati.take(titoliNellaRichiesta).map((t) => '"$t"').join(', ')}')
+      // **LE AZIONI GIA' DATE**, ordine ER voce 15.
+      ..writeln(
+          'Azioni già date a questa persona, da non ripetere e da non somigliare: ${s.azioniGiaDate.isEmpty ? 'nessuna' : s.azioniGiaDate.take(azioniNellaRichiesta).map((t) => '"$t"').join(', ')}')
       ..writeln('Animale: ${s.animale.name}');
     // **GLI STRATI GIA' DATI**, ordine DQ voce 02, col loro testo intero.
     if (s.strato != null) {
@@ -733,6 +827,7 @@ abstract final class LaScenaDalModello {
           ? const {}
           : {s.animale.name.toLowerCase()},
       titoliGiaDati: s.titoliGiaDati,
+      azioniGiaDate: s.azioniGiaDate,
       soloIncontro: s.soloIncontro,
       animaleNonAncoraDetto:
           s.strato != null && s.strato! < 4 ? s.animale.name : null,
@@ -854,6 +949,12 @@ abstract final class LaScenaDalModello {
           'gesto': Schema.enumString(enumValues: ammessi.gesti),
           'momento': Schema.enumString(enumValues: ammessi.momenti),
           'titolo': Schema.string(),
+          // **LA POSIZIONE SI SCEGLIE PRIMA DI SCRIVERE**, ordine ER voce
+          // 02: al banco il modello scriveva ancora "la decisione è tua" e
+          // "è una possibilità concreta". Un elenco chiuso lo obbliga a
+          // scegliere, e nell'ordine alfabetico dello schema la posizione
+          // viene prima della risposta.
+          'posizione': Schema.enumString(enumValues: posizioni),
           'risposta': Schema.string(),
           'azione': Schema.string(),
         }),
