@@ -30,6 +30,8 @@ import '../../../core/chat/la_lettura_del_giorno.dart';
 import '../../../core/chat/la_risposta_ripetuta.dart';
 import '../../../core/chat/la_risposta_da_programma.dart';
 import '../../../core/chat/chi_di_dovere.dart';
+import '../../../core/chat/il_passo_da_non_dare.dart';
+import '../../../core/chat/il_rimando_in_fondo.dart';
 import '../../../core/chat/i_ricordi_degli_altri.dart';
 import '../../../services/ai/la_richiesta_del_turno.dart';
 import '../../../core/astro/il_cielo_detto.dart';
@@ -106,6 +108,11 @@ class MaestroChatController extends ChangeNotifier {
 
   /// Quante frasi sul cielo sono state tolte perche' il calcolo le smentiva.
   int frasiDelCieloSmentite = 0;
+
+  /// Quante righe d'oro sono state tolte prima dello schermo, e perche'
+  /// l'ultima. Ordine EQ voce 01.
+  int righeDOroTolte = 0;
+  RigaTolta? ultimaRigaTolta;
 
   final Maestro maestro;
 
@@ -227,6 +234,14 @@ class MaestroChatController extends ChangeNotifier {
   /// Quante risposte si sono richieste perche' parlavano da programma.
   /// Ordine EN voce 06.
   int rigenerazioniPerProgramma = 0;
+
+  /// Quante volte una risposta fatta della sola riga d'oro da togliere
+  /// e' stata chiesta di nuovo. Ordine EQ voce 01.
+  int rigenerazioniPerRigaDOro = 0;
+
+  /// Quante risposte aprivano nominando un altro Maestro, e hanno avuto
+  /// quella frase spostata in fondo. Ordine EQ voce 02.
+  int rimandiSpostatiInFondo = 0;
 
   /// **IL TESTO DEL LIVE MENTRE IL MODELLO LO SCRIVE.** Ordine EO voce 14.
   /// Solo nel LIVE: ogni domanda al modello lo riparte da vuoto, e la
@@ -666,8 +681,14 @@ class MaestroChatController extends ChangeNotifier {
   }
 
   void _mostraMentreArriva(String scrittoFinora) {
-    testoInArrivo.value =
-        scrittoFinora.replaceAll(RegExp(r'\[\[[A-Z]+\]\]'), '').trimLeft();
+    var testo = scrittoFinora.replaceAll(RegExp(r'\[\[[A-Z]+\]\]'), '');
+    // **LA RIGA D'ORO ASPETTA LE RETI. Ordine EQ voce 01.** Mentre arriva, il
+    // testo si ferma alla stella: la riga d'oro passa prima da
+    // `IlPassoDaNonDare`, e una riga che le reti tolgono non deve comparire
+    // a video nemmeno per un istante. Se resta, la porta la risposta intera.
+    final stella = testo.indexOf(ConsiglioFinale.stella);
+    if (stella >= 0) testo = testo.substring(0, stella);
+    testoInArrivo.value = testo.trimLeft();
   }
 
   /// NESSUN TURNO TORNA IN ATTESA.
@@ -1336,6 +1357,79 @@ class MaestroChatController extends ChangeNotifier {
             StateError('la risposta ricalca una già data dopo una '
                 'seconda richiesta'),
           );
+        }
+      }
+
+      // **LA RIGA D'ORO CHE NON VA DATA. Ordine EQ voce 01.** Sotto una
+      // presentazione, uguale o simile a una gia' data nella conversazione,
+      // o che chiede di rifare il passo che la persona ha appena detto di aver
+      // fatto: la riga si toglie e il resto arriva intero. Vale anche nel
+      // LIVE, che consegna da qui la voce e il sottotitolo. **Sta prima di chi
+      // di dovere e del cielo detto**, perche' una risposta chiesta di nuovo
+      // passi anche da loro.
+      final righeGiaDate = [
+        for (final m in priorHistory)
+          if (m.isMaestro)
+            if (ConsiglioFinale.sintesiDa(m.text) case final riga?) riga,
+      ];
+      var tolta = IlPassoDaNonDare.perche(
+          domanda: userText, risposta: reply, righeGiaDate: righeGiaDate);
+      // **UNA RISPOSTA FATTA DELLA SOLA RIGA DA TOGLIERE SI CHIEDE DI NUOVO**,
+      // una volta. Nel collaudo con Gemini vero, a "Ok, gli ho scritto
+      // adesso." nel LIVE, Aura ha risposto con la sola riga d'oro della
+      // risposta prima, parola per parola: togliendola non restava niente, e
+      // una bolla vuota e' un guasto. Se anche la seconda e' solo una riga da
+      // togliere, arriva la lettura di ripiego, dichiarata: mai la riga.
+      if (tolta != null && IlPassoDaNonDare.eSoloLaRiga(reply)) {
+        rigenerazioniPerRigaDOro++;
+        reply = await _chiediAlMaestro(
+          chi: chiRisponde,
+          storia: priorHistory,
+          domanda: userText,
+          natal: natal,
+          daNonRipetere: reply,
+        );
+        tolta = IlPassoDaNonDare.perche(
+            domanda: userText, risposta: reply, righeGiaDate: righeGiaDate);
+        if (tolta != null && IlPassoDaNonDare.eSoloLaRiga(reply)) {
+          annotaGuastoInnocuo(
+            'risposta fatta della sola riga d\'oro da togliere, due volte, '
+            '${chiRisponde.displayName}',
+            StateError('la risposta è solo una riga d\'oro da togliere '
+                'dopo una seconda richiesta'),
+          );
+          await _consegna(
+              pending.copyWith(
+                text: LetturaDiRipiego.componi(
+                  maestro: chiRisponde,
+                  domanda: userText,
+                  natal: natal,
+                  profile: _profile,
+                  memory: _memoriaPerIlModello,
+                ),
+                pending: false,
+                failed: true,
+                ripiego: true,
+              ),
+              cronometro);
+          return EsitoDelTurno.ripiego;
+        }
+      }
+      if (tolta != null) {
+        righeDOroTolte++;
+        ultimaRigaTolta = tolta;
+        reply = IlPassoDaNonDare.senzaLaRiga(reply);
+      }
+
+      // **L'ALTRO MAESTRO SI NOMINA IN FONDO. Ordine EQ voce 02.** La
+      // prima frase che nomina un altro Maestro si sposta in fondo al corpo:
+      // la regola sta nell'istruzione, e qui si fa vera sempre.
+      if (IlRimandoInFondo.chiNominaInApertura(reply, chiRisponde) != null) {
+        final spostata =
+            IlRimandoInFondo.conIlRimandoInFondo(reply, chiRisponde);
+        if (spostata != reply) {
+          rimandiSpostatiInFondo++;
+          reply = spostata;
         }
       }
 

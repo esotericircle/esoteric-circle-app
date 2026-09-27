@@ -113,8 +113,12 @@ class MaestroPersona {
       // sapeva che un Maestro giusto esisteva e non sapeva come si chiamava,
       // e Medora ha presentato al fondatore "il Maestro dei Sentimenti". I
       // nomi arrivano adesso dal blocco del cerchio, in `voceDi`.
+      // **PRIMA LA SUA ARTE. Ordine EQ voce 02.** Questa riga diceva di
+      // riconoscere la domanda fuori dominio e indicare il Maestro giusto:
+      // Calìgo apriva con Medora e non rispondeva. La regola intera sta nel
+      // blocco del cerchio, `VoceDelMaestro.ilCerchio`.
       ..writeln(
-          '- Se una domanda esce dal tuo dominio, riconoscilo e indica con garbo, per nome, il Maestro giusto del cerchio: Medora, Aura o Calìgo, nessun altro.')
+          '- Se una domanda tocca anche il dominio di un altro Maestro, rispondi lo stesso nel merito con la tua arte; solo in fondo, in una frase, puoi indicare per nome il Maestro giusto del cerchio: Medora, Aura o Calìgo, nessun altro.')
       // **UNA DOMANDA NON SI RIFIUTA PER UN DETTAGLIO. Ordine EN voce 05.**
       // "Mia moglie mi ha lasciato con l'avvocato. Cosa posso fare per farla
       // tornare?" e Medora in chat: "La tua domanda sulla moglie esula dal
@@ -213,9 +217,9 @@ class MaestroPersona {
       ..writeln()
       ..writeln('CIÒ CHE NON DICI MAI:')
       ..writeln('- Le arti degli altri due Maestri del cerchio: '
-          '${altrui.join(', ')}. Se la domanda cade lì, riconoscilo e '
-          'indica con garbo il Maestro giusto chiamandolo per nome, senza '
-          'rispondere al posto suo.');
+          '${altrui.join(', ')}. Non le usi mai. Se la domanda cade lì, '
+          'rispondi con la tua arte e solo in fondo, in una frase, indica il '
+          'Maestro giusto chiamandolo per nome.');
     for (final mai in voce.maiDice) {
       buffer.writeln('- $mai.');
     }
@@ -445,14 +449,17 @@ class MaestroPersona {
       // quando il controller ha visto la risposta parlare di sistemi, di
       // memorie o di messaggi, e la chiede di nuovo.
       if (daProgramma != null) ...['', rispostaDaProgramma(daProgramma)],
+      // **IL CONTROLLO PRIMA DI SCRIVERE, per ultimo. Ordine EQ voce 02.**
+      '',
+      LaRispostaNelMerito.primaDiScrivere,
     ].join('\n');
   }
 
   /// La forma della risposta detta nel LIVE. Ordine EN voce 01.
   static const String rispostaDettaAVoce = 'LA RISPOSTA È DETTA A VOCE, NEL '
       'LIVE:\n'
-      '- Al massimo tre frasi brevi, poi la riga con ✦. Nessun secondo '
-      'paragrafo: chi ascolta non può rileggere.\n'
+      '- Al massimo tre frasi brevi, poi la riga con ✦ quando c\'è un passo '
+      'da dare. Nessun secondo paragrafo: chi ascolta non può rileggere.\n'
       '- Le prime due frasi rispondono; la terza, se serve, dice perché.';
 
   /// Il blocco che nomina al modello la risposta che ha appena ripetuto.

@@ -1,0 +1,18 @@
+== EQ.08 innesto 1: la conversazione non si ritaglia sopra la casella
+   file lib/features/maestri/chat/maestro_chat_screen.dart, sha1 prima cf2997cb8a4c, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:13 +0 -2: Some tests failed.
+   Expected: a value less than or equal to <726.5>
+   Actual: <800.0>
+   Expected: a value less than or equal to <726.5>
+   Actual: <800.0>
+   ripristinato: sha1 cf2997cb8a4c, uguale
+== EQ.08 innesto 2: il ritaglio dimentica lo spazio della barra
+   file lib/features/maestri/chat/maestro_chat_screen.dart, sha1 prima cf2997cb8a4c, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:11 +0 -2: Some tests failed.
+   Expected: a value less than or equal to <726.5>
+   Actual: <800.0>
+   Expected: a value less than or equal to <726.5>
+   Actual: <800.0>
+   ripristinato: sha1 cf2997cb8a4c, uguale

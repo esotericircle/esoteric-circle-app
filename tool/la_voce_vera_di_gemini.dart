@@ -43,7 +43,12 @@ class RispostaGrezza {
 }
 
 class VoceVeraDiGemini implements MaestroAiProvider {
-  VoceVeraDiGemini({this.ritocco});
+  VoceVeraDiGemini({this.ritocco, this.modello});
+
+  /// **IL MODELLO SCELTO DAL BANCO, ordine EQ voce 03.** Nullo, il modello
+  /// del turno e' quello dell'app; il collaudo delle risposte nel merito lo
+  /// sceglie per mettere Flash e Flash-Lite davanti alle stesse domande.
+  final String? modello;
 
   /// **LA PROVA PER ESCLUSIONE, ordine EK voce 02.** Un ritocco applicato
   /// all'istruzione che l'app compone, prima di mandarla: toglie o cambia una
@@ -141,7 +146,7 @@ class VoceVeraDiGemini implements MaestroAiProvider {
     // riprova una volta sola.
     final cronometro = Stopwatch()..start();
     // Ordine EO voce 14: il modello del turno e' quello dell'app.
-    final modello =
+    final modello = this.modello ??
         FirebaseMaestroAiProvider.modelloDelTurno(nelLive: turno.nelLive);
     var risposta = await _chiedi(corpo, modello: modello);
     if (risposta.$1 == 401 || risposta.$1 == 403) {

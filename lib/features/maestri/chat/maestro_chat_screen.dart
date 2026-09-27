@@ -18,6 +18,7 @@ import '../../../core/archetypes/archetype_history.dart';
 import '../rotta_arte.dart';
 import '../../../core/chat/altre_voci.dart';
 import '../../../core/chat/chat_message.dart';
+import '../../../core/chat/il_passo_da_non_dare.dart';
 import '../../../core/chat/immersive_intents.dart';
 import '../../../core/chat/raccolta_delle_risposte.dart';
 import '../../../core/entitlement/entitlement_service.dart';
@@ -953,6 +954,33 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     // pochi stanno vicino al pollice invece che lontano dagli occhi.
     final messaggi = controller.messages;
     final ultimo = messaggi.length - 1;
+    // **LA CONVERSAZIONE FINISCE SOPRA LA CASELLA. Ordine EQ voce 08, 27
+    // settembre 2026.** Nelle catture del fondatore il testo dei messaggi si
+    // vedeva sotto la casella di scrittura e sotto il menu', con "ESPLORA"
+    // sopra le parole. **LAPIDE DELLA DECISIONE DI PRIMA**: dall'ordine 2161 i
+    // messaggi scorrevano apposta sotto il compositore e sotto la barra, e il
+    // vetro della barra si leggeva perche' sotto c'era contenuto. Il fondatore
+    // ha deciso il contrario: sotto la casella e sotto il menu' non si vede
+    // niente della conversazione. La lista resta lunga quanto prima, col suo
+    // fondo interno, e si ritaglia al bordo alto della casella, che segue la
+    // barra quando la barra si ritira.
+    return _TaglioSopraLaCasella(
+      sotto: SpazioDellaBarraNelloScroll.quanto(context) + _altezzaComposer,
+      child: _laConversazione(messaggi, ultimo, controller),
+    );
+  }
+
+  /// La domanda della persona a cui risponde la bolla in [posizione]:
+  /// l'ultima sua prima di lei, vuota se non ce n'e'. Ordine EQ voce 01.
+  static String _laDomandaPrimaDi(List<ChatMessage> messaggi, int posizione) {
+    for (var i = posizione - 1; i >= 0; i--) {
+      if (messaggi[i].isUser) return messaggi[i].text;
+    }
+    return '';
+  }
+
+  Widget _laConversazione(List<ChatMessage> messaggi, int ultimo,
+      MaestroChatController controller) {
     return ListView.builder(
       key: _chiaveDellaLista,
       controller: _scroll,
@@ -1028,6 +1056,12 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
               posizione: posizione,
               ultimaDelMaestro: ultimaDelMaestro,
             ),
+            // **SOTTO UNA PRESENTAZIONE NESSUNA RIGA D'ORO. Ordine EQ voce
+            // 01.** Si guarda la domanda a cui la bolla risponde, cioe'
+            // l'ultima della persona prima di lei: vale anche per le
+            // conversazioni gia' salvate, dove la riga era stata scritta.
+            conConsiglio: !IlPassoDaNonDare.eUnaPresentazione(
+                _laDomandaPrimaDi(messaggi, posizione)),
             // Si scrive SOLO l'ultima, solo se e' appena arrivata, e solo se e'
             // UNA LETTURA VERA.
             //
@@ -2004,4 +2038,56 @@ abstract final class _ConversazioneDaCancellare {
     );
     if (si == true) await controller.cancellaLaConversazione(c.id);
   }
+}
+
+/// **IL RITAGLIO SOPRA LA CASELLA. Ordine EQ voce 08.**
+///
+/// La conversazione si vede fino al bordo alto della casella di scrittura, e
+/// sotto no. La casella scende con la barra quando la barra si ritira
+/// (ordine CI voce 03): il ritaglio segue la stessa corsa, con la stessa
+/// durata e la stessa curva, cosi' i due si muovono insieme e niente viene
+/// rifatto.
+class _TaglioSopraLaCasella extends StatelessWidget {
+  const _TaglioSopraLaCasella({required this.sotto, required this.child});
+
+  /// Quanti punti dal fondo della conversazione al bordo alto della casella,
+  /// con la barra in vista: lo spazio della barra piu' l'altezza della
+  /// casella.
+  final double sotto;
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder<CorsaBersaglio>(
+      valueListenable: CorsaDellaBarra.di(context),
+      builder: (context, corsa, figlio) => TweenAnimationBuilder<double>(
+        tween: Tween<double>(begin: corsa.discesa, end: corsa.discesa),
+        duration: corsa.perUnTocco && !MediaQuery.of(context).disableAnimations
+            ? const Duration(milliseconds: 220)
+            : Duration.zero,
+        curve: Curves.easeOut,
+        builder: (context, quanto, dentro) => ClipRect(
+          key: const Key('chat_taglio_sopra_la_casella'),
+          clipper: _SopraLaCasella(sotto: sotto - quanto),
+          child: dentro,
+        ),
+        child: figlio,
+      ),
+      child: child,
+    );
+  }
+}
+
+class _SopraLaCasella extends CustomClipper<Rect> {
+  const _SopraLaCasella({required this.sotto});
+
+  final double sotto;
+
+  @override
+  Rect getClip(Size size) => Rect.fromLTRB(-size.width, -size.height,
+      size.width * 2, (size.height - sotto).clamp(0.0, size.height));
+
+  @override
+  bool shouldReclip(_SopraLaCasella oldClipper) => oldClipper.sotto != sotto;
 }

@@ -1,0 +1,23 @@
+Taratura del giudice: catture Australia false, catture compagna false, matrimonio schivato false; nel merito Australia true, compagna true, con un'altra arte true
+EQ.02 rigiudicato prima giro A medora: domande 3, prime frasi che rimandano a un altro Maestro 2, parti della domanda senza risposta 2 su 4
+   senza risposta: "Quale runa mi guida in questo periodo di cambiamenti?" -> la guida in questo periodo di cambiamenti
+   senza risposta: "Vorrei fare un rito per attirare denaro e capire se cambiare casa." -> attirare denaro
+EQ.02 rigiudicato prima giro A aura: domande 3, prime frasi che rimandano a un altro Maestro 1, parti della domanda senza risposta 1 su 4
+   senza risposta: "Il mio compagno è distante: torneremo vicini?" -> se torneranno vicini
+EQ.02 rigiudicato prima giro A caligo: domande 3, prime frasi che rimandano a un altro Maestro 1, parti della domanda senza risposta 4 su 5
+   senza risposta: "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo." -> trovare una compagna
+   senza risposta: "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo." -> andare in Australia
+   senza risposta: "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo." -> il successo nel lavoro
+   senza risposta: "Cosa dice il mio oroscopo di questa settimana per l'amore?" -> l'amore in questa settimana
+EQ.02 rigiudicato prima giro B medora: domande 3, prime frasi che rimandano a un altro Maestro 3, parti della domanda senza risposta 3 su 6
+   senza risposta: "Voglio aprire una bottega: mi fai un rito di buon auspicio?" -> aprire la bottega
+   senza risposta: "Respiro male quando litigo con mio padre, come mi calmo?" -> calmarsi
+   senza risposta: "Che numero porta fortuna al mio matrimonio di giugno?" -> il matrimonio di giugno
+EQ.02 rigiudicato prima giro B aura: domande 3, prime frasi che rimandano a un altro Maestro 2, parti della domanda senza risposta 2 su 3
+   senza risposta: "Cosa dice la mia carta natale sul lavoro nuovo?" -> il lavoro nuovo
+   senza risposta: "Mi estrai una runa per sapere se partire per il Portogallo?" -> se partire per il Portogallo
+EQ.02 rigiudicato prima giro B caligo: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 3 su 6
+   senza risposta: "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo." -> trovare una compagna
+   senza risposta: "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo." -> andare in Australia
+   senza risposta: "Mia sorella si sposa a maggio: sarà un buon matrimonio?" -> il matrimonio della sorella
+Domande al giudice 102, gemini-2.5-flash, europe-west1.

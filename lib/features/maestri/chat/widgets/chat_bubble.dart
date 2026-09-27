@@ -34,6 +34,7 @@ class ChatBubble extends StatefulWidget {
     required this.message,
     required this.maestro,
     this.conInvito = true,
+    this.conConsiglio = true,
     this.onOpenIntent,
     this.onRetry,
     this.onApprofondisci,
@@ -53,6 +54,12 @@ class ChatBubble extends StatefulWidget {
   /// Se la riga d'oro porta l'invito a tornare: lo decide
   /// `ConsiglioFinale.invitoSotto`. Ordine EJ voce 05.
   final bool conInvito;
+
+  /// **Se la riga d'oro c'e' del tutto.** Ordine EQ voce 01: sotto la
+  /// risposta a una presentazione non c'e' ne' il passo ne' l'invito a
+  /// tornare, perche' chi ha chiesto soltanto chi e' il Maestro non ha
+  /// chiesto un passo. Lo decide `IlPassoDaNonDare.eUnaPresentazione`.
+  final bool conConsiglio;
 
   /// Apre la funzione immersiva instradata, dato l'id dell'intento.
   final void Function(String intentId)? onOpenIntent;
@@ -422,7 +429,9 @@ class _ChatBubbleState extends State<ChatBubble> {
                       // sotto ci finiva il consiglio, cioe' la freccia sembrava
                       // indicare lui. I comandi non sono testo del Maestro, sono
                       // cose che si toccano, e vanno dopo tutto cio' che ha detto.
-                      if (!isUser && message.portaUnResponso)
+                      if (!isUser &&
+                          message.portaUnResponso &&
+                          widget.conConsiglio)
                         RigaDelConsiglio(
                           maestro: maestro,
                           testo: message.text,

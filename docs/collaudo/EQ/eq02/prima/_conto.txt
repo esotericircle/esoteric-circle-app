@@ -1,0 +1,8 @@
+Taratura del giudice: risposta delle catture, Australia false, compagna false; risposta nel merito, Australia true, compagna true
+EQ.02 prima giro A medora: domande 3, prime frasi che rimandano a un altro Maestro 2, parti della domanda senza risposta 2 su 4, parole di firma degli altri due 0
+EQ.02 prima giro A aura: domande 3, prime frasi che rimandano a un altro Maestro 1, parti della domanda senza risposta 2 su 4, parole di firma degli altri due 1
+EQ.02 prima giro A caligo: domande 3, prime frasi che rimandano a un altro Maestro 1, parti della domanda senza risposta 4 su 5, parole di firma degli altri due 1
+EQ.02 prima giro B medora: domande 3, prime frasi che rimandano a un altro Maestro 3, parti della domanda senza risposta 2 su 6, parole di firma degli altri due 1
+EQ.02 prima giro B aura: domande 3, prime frasi che rimandano a un altro Maestro 2, parti della domanda senza risposta 3 su 3, parole di firma degli altri due 3
+EQ.02 prima giro B caligo: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 2 su 6, parole di firma degli altri due 0
+Chiamate a Gemini per i Maestri 29, domande al giudice 96. Modello gemini-2.5-flash, europe-west1.
