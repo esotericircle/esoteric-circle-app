@@ -118,13 +118,15 @@ void main() {
   });
 
   test('LA FRASE VA IN PAUSA PRIMA DI CHIUDERSI', () {
-    // Ordine EM voce 11: a 700 millesimi di silenzio la frase e' in pausa, e
-    // la schermata comincia a trascriverla; se la persona riprende, la pausa
-    // finisce e ne comincia un'altra.
+    // Ordine EM voce 11: in silenzio la frase va in pausa, e la schermata
+    // comincia a trascriverla; se la persona riprende, la pausa finisce e ne
+    // comincia un'altra. **LAPIDE, ordine EQ voce 03**: qui la pausa era a
+    // 700 millesimi; adesso a 400, perche' la trascrizione torni prima dei
+    // due secondi che chiudono la frase. La chiusura non cambia.
     final s = IlSilenzioVero();
     senti(s, stanza, 500, fruscio);
     senti(s, voceVicina, 1000, voce);
-    senti(s, stanza, 650, fruscio);
+    senti(s, stanza, 350, fruscio);
     expect(s.inPausa, isFalse);
     senti(s, stanza, 50, fruscio);
     expect(s.inPausa, isTrue);
@@ -132,9 +134,11 @@ void main() {
     expect(s.fraseChiusa, isFalse);
     senti(s, voceVicina, 300, voce);
     expect(s.inPausa, isFalse, reason: 'la persona ha ripreso a parlare');
-    senti(s, stanza, 700, fruscio);
+    senti(s, stanza, 400, fruscio);
     expect(s.pause, 2);
-    expect(senti(s, stanza, 1300, fruscio), isTrue);
+    expect(senti(s, stanza, 1500, fruscio), isFalse,
+        reason: 'la frase si chiude prima dei due secondi di silenzio');
+    expect(senti(s, stanza, 100, fruscio), isTrue);
   });
 
   group('LA MISURA DELLA VOCE', () {

@@ -871,7 +871,7 @@ class _SchermataLiveState extends State<SchermataLive> {
         if (conAttesa && identical(pezzo, pezzi.first)) {
           debugPrint('LIVE: voce della prima frase '
               '${usaLAnticipata ? 'anticipata' : 'chiesta adesso'}'
-              '${anticipata != null && !usaLAnticipata ? ' (anticipata per «${anticipata.testo}»)' : ''}');
+              '${anticipata != null && !usaLAnticipata ? ' (anticipata per «${anticipata.testo}», detta «$pezzo»)' : ''}');
         }
         final flusso = giaPronta != null && pezzi.length == 1
             ? _laVoceGiaPronta(giaPronta, pezzo)
@@ -900,6 +900,7 @@ class _SchermataLiveState extends State<SchermataLive> {
             // ("voce pronta") misura quanto costa aprirlo.
             _segnaTappa('primo audio al volto');
             _attesaAperta = true;
+            unawaited(_ascoltaQuandoSiSente(s.lavoratore));
           }
           primoSuono ??= orologio.elapsed;
           secondiDiVoce += voce.pcm.length / (2 * voce.canali * voce.tasso);
@@ -933,6 +934,48 @@ class _SchermataLiveState extends State<SchermataLive> {
       // Il silenzio si conta da quando il Maestro ha finito di parlare.
       _cePresenza();
       if (mounted) setState(() => _parla = false);
+    }
+  }
+
+  /// **QUANDO LA PERSONA SENTE IL MAESTRO**, dall'energia dell'audio che il
+  /// telefono riceve dal volto e suona. Ordine EQ voce 03: la tappa "il volto
+  /// parla" viene dal riconoscimento di chi parla di LiveKit, che arriva dopo
+  /// la voce; questa la misura dove la persona la sente. Solo registro.
+  Future<void> _ascoltaQuandoSiSente(String lavoratore) async {
+    lk.RemoteAudioTrack? traccia;
+    final partecipanti =
+        _stanza?.remoteParticipants.values ?? const <lk.RemoteParticipant>[];
+    for (final p in partecipanti) {
+      if (p.identity != lavoratore) continue;
+      for (final pub in p.audioTrackPublications) {
+        final t = pub.track;
+        if (t is lk.RemoteAudioTrack) traccia = t;
+      }
+    }
+    if (traccia == null) return;
+    num? energia;
+    num? durata;
+    final orologio = Stopwatch()..start();
+    try {
+      while (orologio.elapsed < const Duration(seconds: 6) && mounted) {
+        final st = await traccia.getReceiverStats();
+        final e = st?.totalAudioEnergy;
+        final d = st?.totalSamplesDuration;
+        if (e != null && d != null && energia != null && durata != null) {
+          final passata = d - durata;
+          // Potenza media dell'intervallo: la voce sta sopra un decimillesimo,
+          // il silenzio del flusso quasi a zero.
+          if (passata > 0 && (e - energia) / passata > 1e-4) {
+            _segnaTappa('si sente');
+            return;
+          }
+        }
+        energia = e;
+        durata = d;
+        await Future<void>.delayed(const Duration(milliseconds: 80));
+      }
+    } catch (errore) {
+      annotaGuastoInnocuo('la voce sentita non si misura', errore);
     }
   }
 

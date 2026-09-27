@@ -94,7 +94,7 @@ class IlSilenzioVero {
     this.sopraIlSottofondoPerContinuare = 2,
     this.sogliaDellaVoce = 0.55,
     this.codaDellaVoce = const Duration(milliseconds: 400),
-    this.silenzioDiPausa = const Duration(milliseconds: 700),
+    this.silenzioDiPausa = const Duration(milliseconds: 400),
     this.finestraDelLivello = const Duration(milliseconds: 500),
     this.controlloOgni = const Duration(seconds: 3),
     this.quotaDiSilenzio = 0.35,
@@ -148,6 +148,14 @@ class IlSilenzioVero {
   /// **Dopo quanto silenzio la frase e' in pausa**, cioe' forse finita: la
   /// schermata comincia a trascriverla prima che [silenzioCheChiude] la
   /// chiuda, e la risposta arriva prima. Ordine EM voce 11.
+  ///
+  /// **Quattrocento millesimi, dall'ordine EQ voce 03**, dopo la risposta del
+  /// fondatore: *"L'attesa deve diminuire, non aumentare."* A settecento la
+  /// trascrizione cominciata in pausa tornava sul Realme dopo 1,1-1,9
+  /// secondi, cioe' oltre i due secondi che chiudono la frase: la regola della
+  /// domanda finita a 1,3 secondi (`LaDomandaFinita`) non scattava quasi mai.
+  /// La chiusura resta a due secondi, come ha voluto il fondatore con l'ordine
+  /// EJ: cambia solo quando si comincia a trascrivere.
   final Duration silenzioDiPausa;
 
   /// **Su quanto tempo si media l'energia** del livello che si confronta con
