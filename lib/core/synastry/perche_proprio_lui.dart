@@ -39,7 +39,9 @@ class PercheProprioLui {
           'A tenervi insieme resta l\'elemento: $elementi È il legame '
           'più largo che ci sia. Anche il più antico.';
     }
-    final nomi = fili.take(3).map((a) => a.titolo).toList();
+    // Dentro la frase gli aspetti si dicono in italiano, non coi titoli delle
+    // etichette: vedi [AspettoDiSinastria.nellElenco].
+    final nomi = fili.take(3).map((a) => a.nellElenco).toList();
     final elenco = nomi.length == 1
         ? nomi.first
         : '${nomi.take(nomi.length - 1).join(', ')} e ${nomi.last}';

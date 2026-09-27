@@ -298,6 +298,16 @@ class AspettoDiSinastria {
   /// Come si nomina in una lista, col grado di scarto.
   String get titolo => '${suo.nome} ${tipo.italianName} ${tuo.nome}';
 
+  /// **COME SI DICE DENTRO UN ELENCO IN UNA FRASE**: *"la sua Venere in
+  /// quadratura con la tua Luna"*. Sulla build 2286 (ordine ER) il "Perche'
+  /// proprio lui" del Gemello scriveva *"Venere Quadratura Luna, Mercurio
+  /// Sestile Venere e Sole Sestile Venere"*: il [titolo], con le maiuscole,
+  /// dentro una frase, lo stesso difetto della voce ER.18 in un'altra frase.
+  /// Il [titolo] resta per le etichette, dove sta da solo.
+  String get nellElenco =>
+      '${suo.ilSuo} ${suo.nome} in ${tipo.italianName.toLowerCase()} con '
+      '${tuo.ilTuo} ${tuo.nome}';
+
   /// Lo scarto dall'angolo esatto, come si scrive nella lingua che si
   /// sta leggendo. Ordine DM voce 03.
   String get gradi => NumeroDelCerchio.gradi(orbo);

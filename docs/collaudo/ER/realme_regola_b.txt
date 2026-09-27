@@ -60,7 +60,7 @@ ORDINE ER, I DIFETTI VISTI SUL REALME ALLA BUILD 2285: LE GUARDIE
 Le colpe che la guardia trova col nome del podio di prima (innesto rifatto a mano, file tornato con sha1 2c83ec6a9c0f):
   a scala 1.0: Damiano David va a capo dentro una parola: "Damian|o David"; Priyanka Chopra: "Priyank|a Chopra"; i tre nomi chiedono 38.0 punti in una casella di 34.0
   a scala 1.3: "Damia|no David", "Priyan|ka Chopra"; 50.0 punti in una casella di 34.0
-Sono le parole viste sul Realme (docs/collaudo/ER/realme/er06_gemello_03_raffica_podio.png).
+Sono le parole viste sul Realme (docs/collaudo/ER/realme/er06_gemello_03_raffica_podio.jpg).
 
 ===================== I VERDI, LETTI =====================
 - Regola B sul podio: VERDE contro tutte e due le prove del Gemello col nome
@@ -111,7 +111,7 @@ CONFESSIONE: rune_presage.dart l'ho toccato prima di vedere rosse le sue guardie
 - Regola B sul presagio di casa: VERDE contro tre prove. Nessuna guardava la maiuscola in testa alle frasi (PROVENIENZA IGNOTA della mancanza). La copre adesso la guardia nuova, vista rossa.
 
 ===================== I TITOLI DELL'OROSCOPO SUL REALME: regola_ab_realme_oroscopo =====================
-Sul Realme, il 28 settembre alle 00:10, la scheda della Fortuna dei Gemelli si leggeva "AMICI PORT / AFORTUNA" (docs/collaudo/ER/realme/er14_oroscopo_giorno2_05.png). Padre: la voce ER.14, che ha portato titoli del giorno piu' lunghi nella colonna stretta accanto alla tendina; la schermata usava un Text nudo, mentre la card da condividere lo risolveva dall'ordine BD voce 07. Rimpicciolire non basta: "riconoscimento" non entra nemmeno al pavimento di 12 punti. Cura: la regola della home della voce ER.09, a capo fra le parole e altrimenti col trattino a una sillaba (lib/features/horoscope/titolo_della_scheda_del_giorno.dart).
+Sul Realme, il 28 settembre alle 00:10, la scheda della Fortuna dei Gemelli si leggeva "AMICI PORT / AFORTUNA" (docs/collaudo/ER/realme/er14_oroscopo_giorno2_05.jpg). Padre: la voce ER.14, che ha portato titoli del giorno piu' lunghi nella colonna stretta accanto alla tendina; la schermata usava un Text nudo, mentre la card da condividere lo risolveva dall'ordine BD voce 07. Rimpicciolire non basta: "riconoscimento" non entra nemmeno al pavimento di 12 punti. Cura: la regola della home della voce ER.09, a capo fra le parole e altrimenti col trattino a una sillaba (lib/features/horoscope/titolo_della_scheda_del_giorno.dart).
 CONFESSIONE: oroscopo_screen.dart l'ho toccato prima di vedere rosse le sue guardie; la Regola B e' fatta dopo, sulla versione di HEAD.
 
 == Regola B su HEAD, schermata dell'Oroscopo: il titolo della scheda sparisce (contro l'oroscopo e' un consulto)
@@ -133,3 +133,13 @@ CONFESSIONE: oroscopo_screen.dart l'ho toccato prima di vedere rosse le sue guar
    ripristinato: sha1 db1206f5b84d, uguale
 
 - Regola B sulla schermata dell'Oroscopo: VERDE contro due prove col titolo della scheda tolto. Nessuna guardava il titolo (PROVENIENZA IGNOTA della mancanza). Lo guarda adesso la guardia nuova, sui titoli dei Gemelli del 28 settembre e su tutti i 144 titoli del giorno.
+
+===================== IL PERCHE' PROPRIO LUI: regola_a_perche =====================
+Visto sulla 2286: "Venere Quadratura Luna, Mercurio Sestile Venere e Sole Sestile Venere" dentro una frase. Padre: il Gemello del 31 agosto (commit d24b7308). Regola B: il difetto era in HEAD con tutte le prove verdi, nessuna leggeva questa frase (PROVENIENZA IGNOTA della mancanza).
+== Regola A, 2286: il perche' torna a dire gli aspetti coi titoli delle etichette
+   file lib/core/synastry/perche_proprio_lui.dart, sha1 prima 7bdcd668cf74, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: [
+   ripristinato: sha1 7bdcd668cf74, uguale

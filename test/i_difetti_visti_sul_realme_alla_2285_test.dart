@@ -16,6 +16,8 @@ import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/core/rituals/rune_presage.dart';
 import 'package:esoteric_circle/core/synastry/collezione_delle_coppie.dart';
 import 'package:esoteric_circle/core/synastry/gemello_astrale.dart';
+import 'package:esoteric_circle/core/synastry/perche_proprio_lui.dart';
+import 'package:esoteric_circle/core/synastry/synastry_report.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
 import 'package:esoteric_circle/design_system/components/cosmos_background.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
@@ -422,6 +424,31 @@ void main() {
         'una parola ${rotti.length} ${rotti.take(5).toList()}');
     expect(tutti.length, greaterThanOrEqualTo(140));
     expect(rotti, isEmpty, reason: rotti.join('; '));
+  });
+
+  test(
+      'il "Perche\' proprio lui" dice gli aspetti in italiano, non coi titoli '
+      'delle etichette, per tutti i VIP', () {
+    // Sul Realme alla 2286: "Venere Quadratura Luna, Mercurio Sestile Venere
+    // e Sole Sestile Venere". Padre: il Gemello del 31 agosto (d24b7308).
+    final cielo = SchermataDelGemello.cieloPer(segno: segno, nascita: nascita);
+    final titolo = RegExp(r'\b[A-Z][a-zà-ù]+ (?:Congiunzione|Sestile|'
+        r'Quadratura|Trigono|Opposizione) [A-Z][a-zà-ù]+');
+    final colpe = <String>[];
+    var conAspetti = 0;
+    for (final v in VipCatalog.vips) {
+      final r = SynastryReport.perCieli(
+          tuo: cielo, vip: v, quando: DateTime(2026, 9, 28));
+      if (r.aspettiPiuForti.isNotEmpty) conAspetti++;
+      final t = PercheProprioLui.tecnica(r, segno, v.sign);
+      final m = titolo.firstMatch(t);
+      if (m != null) colpe.add('${v.name}: "${m.group(0)}"');
+    }
+    print('ORDINE ER, 2285: VIP con aspetti nel perche\' $conAspetti, titoli '
+        'dentro la frase ${colpe.length}${colpe.isEmpty ? '' : ' ${colpe.first}'}');
+    expect(conAspetti, greaterThanOrEqualTo(40),
+        reason: 'pochi VIP con aspetti: la prova non misura');
+    expect(colpe, isEmpty, reason: colpe.take(3).join('; '));
   });
 
   testWidgets('la riga sotto la carta Tu si legge intera, senza puntini',
