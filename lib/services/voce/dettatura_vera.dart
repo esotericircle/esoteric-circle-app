@@ -15,11 +15,14 @@
 /// niente, non manda niente e non conserva niente.
 library;
 
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart' show Locale;
 import 'package:speech_to_text/speech_to_text.dart';
 
 import '../../core/voce/dettatura.dart';
+import '../../core/voce/il_dettato_che_continua.dart';
 
 class DettaturaVera extends Dettatura {
   DettaturaVera({SpeechToText? motore, Locale? Function()? lingua})
@@ -101,7 +104,14 @@ class DettaturaVera extends Dettatura {
     if (_pronta != null) return _pronta!;
     try {
       _pronta = await _motore.initialize(
-        onError: (e) => debugPrint('Dettatura: ${e.errorMsg}'),
+        // **Un errore chiude l'enunciato, non il dettato.** Il riconoscitore
+        // Android dice `error_no_match` o `error_speech_timeout` quando un
+        // enunciato finisce senza parole: e' il segno che la persona ha
+        // smesso di parlare. Ordine EQ.
+        onError: (e) {
+          debugPrint('Dettatura: ${e.errorMsg}');
+          _enunciatoChiuso();
+        },
         // **NON SI CHIEDE IL PERMESSO QUI.** Il plugin lo chiederebbe da se'
         // durante l'avvio, cioe' PRIMA che la persona abbia toccato il
         // microfono, e sarebbe esattamente il difetto che la sezione 25
@@ -135,6 +145,17 @@ class DettaturaVera extends Dettatura {
       defaultTargetPlatform == TargetPlatform.android ||
       defaultTargetPlatform == TargetPlatform.iOS;
 
+  /// Il dettato in corso, e l'enunciato che il riconoscitore sta ascoltando.
+  IlDettatoCheContinua? _dettato;
+  int _enunciato = 0;
+  bool _enunciatoGiaChiuso = false;
+
+  void _enunciatoChiuso() {
+    if (_enunciatoGiaChiuso) return;
+    _enunciatoGiaChiuso = true;
+    _dettato?.enunciatoChiuso();
+  }
+
   @override
   Future<bool> ascolta({
     required void Function(String parole) parole,
@@ -143,15 +164,46 @@ class DettaturaVera extends Dettatura {
   }) async {
     if (!await _accendi()) return false;
     final voce = await _voceDaUsare();
+    _dettato?.fermatoDallaPersona();
+    late final IlDettatoCheContinua dettato;
+    dettato = IlDettatoCheContinua(
+      parole: parole,
+      finito: finito,
+      riapri: () => unawaited(_unEnunciato(dettato, voce, frase, primo: false)),
+    );
+    _dettato = dettato;
+    // **La fine dell'enunciato la dice il riconoscitore**: il dettato decide
+    // se aprirne un altro. Ordine EQ. Conta solo "done", che il plugin manda
+    // una volta per enunciato dopo il risultato finale; "notListening" arriva
+    // prima, insieme, e contarlo chiuderebbe anche l'enunciato appena
+    // riaperto. Un enunciato e' vivo dal suo "listening".
+    _enunciatoGiaChiuso = false;
+    _motore.statusListener = (stato) {
+      debugPrint('Dettatura: stato $stato, enunciato $_enunciato');
+      if (stato == SpeechToText.listeningStatus) {
+        _enunciatoGiaChiuso = false;
+      } else if (stato == SpeechToText.doneStatus) {
+        _enunciatoChiuso();
+      }
+    };
+    return _unEnunciato(dettato, voce, frase, primo: true);
+  }
+
+  Future<bool> _unEnunciato(
+    IlDettatoCheContinua dettato,
+    String? voce,
+    void Function(String frase)? frase, {
+    required bool primo,
+  }) async {
+    if (dettato.chiuso || !identical(dettato, _dettato)) return false;
+    _enunciato++;
     try {
       await _motore.listen(
         onResult: (esito) {
-          parole(esito.recognizedWords);
+          dettato.risultato(esito.recognizedWords);
           // **LA FRASE FINITA LA DICHIARA IL RICONOSCITORE**, appena la
-          // persona smette di parlare. Il LIVE la usa per rispondere subito,
-          // invece di aspettare i tre secondi di silenzio che servono alla
-          // chat scritta per chi si ferma a pensare. Ordine EG voce 05.
-          if (esito.finalResult) frase?.call(esito.recognizedWords);
+          // persona smette di parlare. Ordine EG voce 05.
+          if (esito.finalResult) frase?.call(dettato.testo);
         },
         listenOptions: SpeechListenOptions(
           // Nulla solo quando nessuno ha detto la lingua dell'app: allora
@@ -162,29 +214,30 @@ class DettaturaVera extends Dettatura {
           // invece di fissare un campo vuoto e chiedersi se il microfono
           // ascolta.
           partialResults: true,
-          cancelOnError: true,
-          // La dettatura scrive una domanda, non un dettato lungo: dopo tre
-          // secondi di silenzio si ferma da sola, e in nessun caso resta in
-          // ascolto piu' di un minuto.
-          pauseFor: const Duration(seconds: 3),
-          listenFor: const Duration(minutes: 1),
+          listenMode: ListenMode.dictation,
+          // **Un errore non cancella il dettato**: chiude l'enunciato, e la
+          // regola dell'enunciato decide. Ordine EQ.
+          cancelOnError: false,
+          // **NIENTE `pauseFor`. LAPIDE, ordine EQ.** Qui l'ordine CI voce
+          // 05 metteva tre secondi: il plugin li conta dall'ultimo risultato
+          // cambiato, non dal silenzio, e sul Realme una frase di 8,7
+          // secondi si e' fermata a "vorrei". La fine la decide
+          // `IlDettatoCheContinua`: un enunciato finito senza parole.
+          listenFor: IlDettatoCheContinua.tettoDelDettato,
         ),
       );
     } catch (errore) {
       debugPrint('Dettatura: l\'ascolto non parte. $errore');
+      if (primo) return false;
+      _enunciatoChiuso();
       return false;
     }
-    _motore.statusListener = (stato) {
-      if (stato == SpeechToText.doneStatus ||
-          stato == SpeechToText.notListeningStatus) {
-        finito();
-      }
-    };
     return true;
   }
 
   @override
   Future<void> ferma() async {
+    _dettato?.fermatoDallaPersona();
     try {
       await _motore.stop();
     } catch (errore) {
