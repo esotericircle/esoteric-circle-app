@@ -22,8 +22,6 @@ import '../../core/rituals/dream_rite_corpus.dart';
 import '../../core/rituals/filo_del_giorno.dart';
 import '../../core/maestro/il_respiro_di_oggi.dart';
 import '../../core/maestro/memoria_del_respiro.dart';
-import '../../core/rituals/sunset_rune.dart';
-import '../../core/rituals/sunset_rune_memory.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/zodiac_figures.dart';
 import '../../design_system/components/stelle_da_unire.dart';
@@ -45,8 +43,10 @@ import 'package:provider/provider.dart';
 import '../../core/identity/natal_identity.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
 
-/// Sigillo del Sogno, ex Rito della Buonanotte: a rotazione fra i tre Maestri di
-/// giorno in giorno, come il Rito dell'Alba.
+/// Sigillo del Sogno, ex Rito della Buonanotte: **di Medora**, dall'ordine DT
+/// voce 15, e non ruota piu' fra i tre Maestri (prima ruotava di giorno in
+/// giorno, come il Rito dell'Alba). Ordine ES voce 16: i commenti dicono il
+/// Maestro vero.
 ///
 /// Guarda al passato e al presente della giornata appena conclusa, mai al
 /// futuro. Si apre nella foschia, che si dirada col fiato; emerge il cosmo
@@ -231,11 +231,6 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
 
   bool _riduciMovimento = false;
 
-  /// La runa portata dentro la notte dalla Runa del Tramonto, se stasera l'hai
-  /// fatta. Chiude l'arco fra i due Doni. Null se manca, e allora il Sogno si
-  /// comporta esattamente come prima.
-  String? _runaTramonto;
-
   @override
   void initState() {
     super.initState();
@@ -247,20 +242,17 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
   }
 
   Future<void> _leggiCerniera() async {
-    final ultima = await SunsetRuneMemory.ultimaPerCerniera();
-    if (ultima != null &&
-        mounted &&
-        // Solo se la runa e' della stessa sera, il giorno rituale coincide.
-        ultima.giorno == SunsetRune.iso(SunsetRune.giornoRituale(_date))) {
-      setState(() => _runaTramonto = ultima.rune);
-    }
+    // **LA RUNA DEL TRAMONTO NON SI LEGGE PIU' QUI, ordine ES voce 16.** Il
+    // Sigillo e' di Medora e la Runa del Tramonto e' l'arte di Caligo: il
+    // fondatore l'ha trovata nel saluto e ha chiesto di toglierla.
+    //
     // LA PAROLA DEL MATTINO TORNA QUI, ordine P voce 18.
     //
     // **E' cio' che rende il Sogno la chiusura del giorno invece di un rito
     // autoconcluso.** La forma c'era gia': Buonanotte, la costellazione, il
-    // saluto di Caligo, la card da condividere. Mancava che RACCOGLIESSE la
-    // giornata. Con la parola dell'alba e la runa del tramonto dentro, il rito
-    // della buonanotte diventa quello che il nome promette.
+    // saluto, la card da condividere. Mancava che RACCOGLIESSE la giornata.
+    // Con la parola dell'alba dentro, il rito della buonanotte diventa quello
+    // che il nome promette.
     //
     // **Dall'ordine DT e' il DONO della carta dell'alba**: la parola quando la
     // carta e' zodiacale, l'azione o il respiro negli altri giorni.
@@ -271,8 +263,8 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
     // **E IL RESPIRO DI OGGI, se c'e' stato.** Ordine DA voce 06,
     // 10 settembre 2026.
     //
-    // Il Sigillo raccoglie la giornata: la parola dell'alba, la runa del
-    // tramonto, e da oggi anche il respiro. **Una riga sola e solo se e'
+    // Il Sigillo raccoglie la giornata: la parola dell'alba e il respiro
+    // (la runa del tramonto e' uscita con l'ordine ES voce 16). **Una riga sola e solo se e'
     // vera**: chi non ha respirato non trova niente, e non si inventa una
     // giornata a chi non l'ha avuta.
     //
@@ -677,11 +669,9 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
         //
         // La riga non c'e' quando la Luna cambia segno stanotte: li' non c'e'
         // niente da spiegare, e una spiegazione che non serve e' rumore.
-        if (DreamRiteCorpus.perchePosaLaStessaFigura(_date) !=
-            null) ...[
+        if (DreamRiteCorpus.perchePosaLaStessaFigura(_date) != null) ...[
           const SizedBox(height: SpacingTokens.xs),
-          Text(
-              DreamRiteCorpus.perchePosaLaStessaFigura(_date)!,
+          Text(DreamRiteCorpus.perchePosaLaStessaFigura(_date)!,
               key: const Key('dream_durata_figura'),
               textAlign: TextAlign.center,
               style: TypographyTokens.lettura()
@@ -744,22 +734,14 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
         // la runa del tramonto e il respiro di oggi sono la stessa raccolta,
         // e lasciarne due nel buio e portarne una alla luce avrebbe spezzato
         // un blocco che e' uno.
-        if (_runaTramonto != null) ...[
-          const SizedBox(height: SpacingTokens.sm),
-          // **QUESTA E' PROSA, NON UN'ETICHETTA. Ordine CQ voce 6.23.**
-          //
-          // Ricondurre le misure scritte a mano ai ruoli ha portato anche
-          // questa riga a `etichetta`, e la guardia lo ha preso subito: e'
-          // una frase intera che va a capo, e **il maiuscoletto e' un segnale,
-          // non un testo**. A capo diventa un muro di lettere larghe.
-          ParagrafiDiLettura(
-              testo: 'Porti dentro la notte la runa $_runaTramonto: '
-                  'lasciala parlare mentre chiudi il giorno.',
-              key: const Key('dream_runa_tramonto'),
-              textAlign: TextAlign.center,
-              stile: TypographyTokens.lettura().copyWith(
-                  color: _palette.goldSoft, letterSpacing: 0.3, height: 1.45)),
-        ],
+        // **LA RUNA DEL TRAMONTO NON C'E' PIU', ordine ES voce 16, 28
+        // settembre 2026.** Qui stava *"Porti dentro la notte la runa ...:
+        // lasciala parlare mentre chiudi il giorno."* Il fondatore: *"il
+        // sigillo del sogno, adesso solo di Medora, parla di Rune!"*. Il
+        // Sigillo e' di Medora dall'ordine DT voce 15, e la Runa del Tramonto
+        // e' l'arte di Caligo: la riga era dell'ordine P voce 18, portata nel
+        // saluto dall'ordine DD voce 04, quando il Sigillo ruotava fra i tre
+        // Maestri. Resta la parola dell'Alba.
         // LA PAROLA DEL MATTINO, richiamata la sera. Ordine P voce 18.
         if (_donoDiStamattina?.parola != null) ...[
           const SizedBox(height: SpacingTokens.sm),
@@ -1089,6 +1071,8 @@ class _AzioniState extends State<_Azioni> {
         // su tre il saluto portava la voce di un Maestro e il pulsante ne
         // nominava un altro**, che e' quello che il fondatore ha visto negli
         // screenshot, una frase di Medora sopra un "parlane con Caligo".
+        // Dall'ordine DT voce 15 il Maestro del Sigillo e' Medora e non ruota
+        // piu': la porta sola resta, e dice Medora (ordine ES voce 16).
         AzioniDelResponso(
           palette: widget.palette,
           maestro: widget.maestro,

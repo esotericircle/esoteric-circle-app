@@ -241,8 +241,15 @@ void main() {
               'quella cerniera esiste gia\' in SunsetRuneMemory');
       final sogno = File('lib/features/rituals/dream_rite_screen.dart')
           .readAsStringSync();
-      expect(sogno, contains('ultimaPerCerniera'),
-          reason: 'il Sogno non nomina piu\' la runa del tramonto');
+      // LAPIDE, ordine ES voce 16, 28 settembre 2026: qui si pretendeva che
+      // il Sogno leggesse la runa del tramonto dalla cerniera. Il Sigillo e'
+      // di Medora dall'ordine DT voce 15, la Runa del Tramonto e' l'arte di
+      // Caligo, e il fondatore ha chiesto di toglierla ("il sigillo del
+      // sogno, adesso solo di Medora, parla di Rune!"). Adesso si pretende il
+      // contrario: la cerniera della runa non entra nel Sogno.
+      expect(sogno.contains('ultimaPerCerniera'), isFalse,
+          reason: 'il Sigillo di Medora ha ripreso a leggere la runa del '
+              'tramonto, l\'arte di Caligo');
       expect(sogno, contains('parolaDiStamattina'),
           reason: 'il Sogno non richiama piu\' la parola del mattino');
     });
