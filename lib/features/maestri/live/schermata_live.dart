@@ -320,7 +320,7 @@ class _SchermataLiveState extends State<SchermataLive> {
     widget.chat?.nelLive = false;
     // **La stanza si chiude sempre**, anche col tasto indietro: una stanza
     // lasciata aperta continua a consumare minuti che nessuno usa.
-    unawaited(_stanza?.disconnect());
+    unawaited(_lasciaLaStanza());
     _chiudiLaSessione();
     unawaited(LoSchermoAcceso.tieni(false));
     liveCheZittisce.value = false;
@@ -537,6 +537,10 @@ class _SchermataLiveState extends State<SchermataLive> {
   /// Secondi passati senza che nessuno abbia detto o scritto niente.
   int _secondiDiSilenzio = 0;
 
+  /// La domanda del turno: decide se il Maestro dice tre frasi o quattro
+  /// (ordine ET voce 06).
+  String _domandaDelTurno = '';
+
   /// Le frasi della persona che si stanno trascrivendo adesso: quel tempo non
   /// e' silenzio (`QuadroDelLive.eUnSecondoDiSilenzio`).
   int _frasiInTrascrizione = 0;
@@ -544,10 +548,34 @@ class _SchermataLiveState extends State<SchermataLive> {
   /// Qualcuno ha detto o scritto qualcosa: il silenzio riparte da zero.
   void _cePresenza() => _secondiDiSilenzio = 0;
 
+  /// **LA STANZA SI STACCA E SI LIBERA. Ordine ET voce 04.** Nella prova
+  /// della voce sul Realme, dieci secondi dopo la chiusura del LIVE per
+  /// silenzio, l'app e' morta: aborto nativo di WebRTC nel thread della
+  /// segnalazione, con la stanza gia' staccata che cercava ancora i suoi
+  /// percorsi (TURN), quando la strada dell'audio del telefono e' cambiata.
+  /// Lo stesso nella sessione dell'ordine ER delle 02:19. Si staccava soltanto
+  /// (`disconnect`), dall'ordine EG voce 04: il motore restava vivo sotto la
+  /// pagina della fine. Adesso, staccata, si libera (`dispose`).
+  Future<void> _lasciaLaStanza() async {
+    final stanza = _stanza;
+    _stanza = null;
+    if (stanza == null) return;
+    try {
+      await stanza.disconnect();
+    } catch (errore) {
+      annotaGuastoInnocuo('la stanza del LIVE non si stacca', errore);
+    }
+    try {
+      await stanza.dispose();
+    } catch (errore) {
+      annotaGuastoInnocuo('la stanza del LIVE non si libera', errore);
+    }
+  }
+
   Future<void> _chiudi([ComeFinisce? come]) async {
     _orologio?.cancel();
     await _orecchio.ferma();
-    await _stanza?.disconnect();
+    await _lasciaLaStanza();
     _chiudiLaSessione();
     if (!mounted) return;
     setState(() =>
@@ -618,9 +646,13 @@ class _SchermataLiveState extends State<SchermataLive> {
       // di un secondo e mezzo prima ne aveva quasi tutte le parole: la
       // domanda si e' persa e il LIVE si e' chiuso per silenzio. Con piu' di
       // un secondo di voce vera, si trascrive di nuovo l'audio intero.
+      // **E LA SECONDA VOLTA SENZA LA REGOLA DEL SOTTOFONDO. Ordine ET voce
+      // 04.** Nel LIVE in lite dell'ordine ER la stessa domanda chiara e'
+      // tornata vuota anche alla seconda: la regola che fa ignorare le voci
+      // lontane o registrate scartava la persona.
       if (detto.isEmpty && _orecchio.voceDellaFrase(frase) >= laVoceChiara) {
-        detto = await _trascrivi(daTrascrivere.pcm);
-        comeTrascritta = '$comeTrascritta, poi di nuovo';
+        detto = await _trascrivi(daTrascrivere.pcm, senzaSottofondo: true);
+        comeTrascritta = '$comeTrascritta, poi di nuovo senza il sottofondo';
       }
       // **E SE TORNA VUOTA ANCHE LA SECONDA VOLTA, VALE IL CONTROLLO.**
       // Ordine EO, collaudo della voce 14 sul Realme, 26 settembre 2026:
@@ -662,6 +694,15 @@ class _SchermataLiveState extends State<SchermataLive> {
     // quel momento si e' persa, e quella dopo ha perso il nome del Maestro.
     // Resta la seconda trascrizione qui sopra, che non costa niente a chi
     // parla e salva la domanda tornata vuota per un inciampo.
+    // **UNA VOCE CHIARA E' PRESENZA ANCHE SE NON SI CAPISCE. Ordine ET voce
+    // 04.** Il LIVE si chiudeva per silenzio quattordici secondi dopo che la
+    // persona aveva cominciato a parlare, perche' la sua frase era tornata
+    // senza parole. Il rumore resta com'era, regola dell'ordine EJ voce 01:
+    // senza un secondo di voce chiara non e' presenza.
+    if (detto.isEmpty && _orecchio.voceDellaFrase(frase) >= laVoceChiara) {
+      debugPrint('LIVE: voce chiara senza parole, il silenzio riparte da zero');
+      _cePresenza();
+    }
     if (domanda == null || !mounted) return;
     if (_quadro.momento != MomentoDelLive.vivo || _parla || _pensa) return;
     _cePresenza();
@@ -752,9 +793,12 @@ class _SchermataLiveState extends State<SchermataLive> {
   }
 
   /// La trascrizione di [pcm], con le regole del LIVE di questo Maestro.
-  Future<String> _trascrivi(Uint8List pcm) async {
-    final detto = await LaTrascrizione.trascrivi(
-        wavDaPcm(pcm, tasso: LOrecchioDelLive.tasso));
+  Future<String> _trascrivi(Uint8List pcm,
+      {bool senzaSottofondo = false}) async {
+    final wav = wavDaPcm(pcm, tasso: LOrecchioDelLive.tasso);
+    final detto = senzaSottofondo
+        ? await LaTrascrizione.trascriviSenzaSottofondo(wav)
+        : await LaTrascrizione.trascrivi(wav);
     // **Nel LIVE di Aura "Laura" e' Aura.** Ordine EM voce 01.
     return LaTrascrizione.nelLiveDi(widget.maestro, detto);
   }
@@ -807,6 +851,7 @@ class _SchermataLiveState extends State<SchermataLive> {
       _quadro = _quadro.con(domanda: '', sottotitolo: '');
     });
     _avviaLaMacchina(testo);
+    _domandaDelTurno = testo;
     final prima = chat.messages.length;
     final orologio = Stopwatch()..start();
     // **IL TESTO SI MOSTRA MENTRE IL MODELLO LO SCRIVE. Ordine EO voce 14.**
@@ -833,7 +878,8 @@ class _SchermataLiveState extends State<SchermataLive> {
       // A macchina, e solo cio' che il Maestro dira': le prime frasi, mai
       // oltre la terza (ordine ER voci 12 e 13).
       _macchina.risposta(
-          LeTreFrasiDelLive.di(scritto, inArrivo: true), DateTime.now());
+          LeTreFrasiDelLive.di(scritto, inArrivo: true, domanda: testo),
+          DateTime.now());
     }
 
     chat.testoInArrivo.value = '';
@@ -863,7 +909,8 @@ class _SchermataLiveState extends State<SchermataLive> {
     }
     setState(() => _pensa = false);
     if (risposta != null) {
-      _macchina.risposta(LeTreFrasiDelLive.di(risposta.text), DateTime.now());
+      _macchina.risposta(
+          LeTreFrasiDelLive.di(risposta.text, domanda: testo), DateTime.now());
       await _dillo(risposta.text, conAttesa: true);
     } else {
       _fineDelParlato = null;
@@ -873,7 +920,8 @@ class _SchermataLiveState extends State<SchermataLive> {
     _fermaLaMacchina();
     if (mounted && risposta != null) {
       setState(() => _quadro = _quadro.con(
-          domanda: testo, sottotitolo: LeTreFrasiDelLive.di(risposta!.text)));
+          domanda: testo,
+          sottotitolo: LeTreFrasiDelLive.di(risposta!.text, domanda: testo)));
     }
     _voceAnticipata?.lascia();
     _voceAnticipata = null;
@@ -906,7 +954,9 @@ class _SchermataLiveState extends State<SchermataLive> {
     // **La risposta di un turno si ferma alla terza frase.** Ordine ER voce
     // 12: la voce dice le stesse frasi che la macchina da scrivere scrive.
     final pezzi = IlParlatoDelMaestro.pezzi(
-        conAttesa ? LeTreFrasiDelLive.di(scritto) : scritto,
+        conAttesa
+            ? LeTreFrasiDelLive.di(scritto, domanda: _domandaDelTurno)
+            : scritto,
         primaFraseSola: conAttesa);
     if (pezzi.isEmpty) return;
 

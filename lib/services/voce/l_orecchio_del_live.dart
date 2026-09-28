@@ -460,6 +460,16 @@ class LOrecchioDelLive {
 abstract final class LaTrascrizione {
   static Future<String> Function(Uint8List wav) trascrivi = _daGemini;
 
+  /// **LA SECONDA TRASCRIZIONE DI UNA VOCE CHIARA, SENZA IL SOTTOFONDO.**
+  /// Ordine ET voce 04. Nel LIVE in lite dell'ordine ER una domanda detta
+  /// con voce chiara (da -13 a -24 dB) e' tornata vuota due volte, e il
+  /// LIVE si e' chiuso per silenzio: la regola che chiede di ignorare le voci
+  /// lontane o registrate, come la televisione, faceva scartare una voce
+  /// vera. Quando l'orecchio ha sentito almeno un secondo di voce chiara e la
+  /// prima trascrizione torna vuota, la seconda si chiede senza quella regola.
+  static Future<String> Function(Uint8List wav) trascriviSenzaSottofondo =
+      _daGeminiSenzaSottofondo;
+
   /// Il segno con cui Gemini dice che nella registrazione non c'e' parola.
   static const String silenzio = '[SILENZIO]';
 
@@ -575,7 +585,18 @@ abstract final class LaTrascrizione {
     return eUnPezzoDellElenco(giusto) ? '' : giusto;
   }
 
-  static Future<String> _daGemini(Uint8List wav) async {
+  /// L'istruzione senza la regola del sottofondo (ordine ET voce 04).
+  static String get istruzioneSenzaSottofondo =>
+      istruzione.replaceFirst('$sottofondo\n', '');
+
+  static Future<String> _daGemini(Uint8List wav) =>
+      _conLIstruzione(wav, istruzione);
+
+  static Future<String> _daGeminiSenzaSottofondo(Uint8List wav) =>
+      _conLIstruzione(wav, istruzioneSenzaSottofondo);
+
+  static Future<String> _conLIstruzione(
+      Uint8List wav, String istruzione) async {
     final modello =
         FirebaseAI.vertexAI(location: FirebaseMaestroAiProvider.kVertexLocation)
             .generativeModel(

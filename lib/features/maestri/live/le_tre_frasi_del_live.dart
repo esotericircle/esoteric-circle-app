@@ -13,12 +13,50 @@ import 'il_parlato_del_maestro.dart';
 /// (✦): il gesto e' il passo concreto, e senza di lui la risposta perde la cosa
 /// da fare. Quindi, quando c'e' un gesto, si dicono le prime due frasi del
 /// corpo e il gesto; quando non c'e', le prime tre frasi. **Sempre a frase
-/// intera**: mai un taglio in mezzo a una frase. La regola vale per la voce e
-/// per il testo a video, che mostrano le stesse parole; la conversazione
-/// scritta tiene la risposta intera.
+/// intera**: mai un taglio in mezzo a una frase.
+///
+/// **QUATTRO FRASI QUANDO LA DOMANDA HA PIU' PARTI. Ordine ET voce 06, 28
+/// settembre 2026**, decisione del fondatore sul consiglio dell'Architetto
+/// (*"ER.12: quattro frasi quando la domanda ha più parti."*, *"Confermo,
+/// dobbiamo risolvere tutto."*). Nel merito alla cieca il taglio a tre perdeva
+/// un turno per giro, e tutti e due erano domande con piu' parti: *"Mia madre
+/// dice che è una follia partire. Cosa le rispondo?"* perdeva *"Parla del tuo
+/// sentiero, non del suo"*, la domanda coi tre desideri la parte sul lavoro.
+///
+/// **E LA CHAT DICE LE STESSE PAROLE. Ordine ET voce 02.** Il fondatore: *"la
+/// trascrizione nella chat era diversa e più corta"*. Prima la voce e il video
+/// dicevano il taglio e la conversazione scritta teneva la risposta intera:
+/// due testi diversi dello stesso turno. Adesso il controller salva nel LIVE
+/// la forma scritta del taglio ([scritta]), e la voce e il video la prendono
+/// da li': un testo solo per le tre cose.
 abstract final class LeTreFrasiDelLive {
-  /// Quante frasi dice il Maestro, al massimo.
+  /// Quante frasi dice il Maestro a una domanda con una parte sola.
   static const int quante = 3;
+
+  /// Quante frasi dice il Maestro a una domanda con piu' parti (ET.06).
+  static const int quanteConPiuParti = 4;
+
+  /// **UNA DOMANDA CON PIU' PARTI.** Piu' di una frase di almeno due parole
+  /// (un fatto e poi la domanda, o due domande), piu' di un punto
+  /// interrogativo, o piu' desideri elencati ("vorrei..., vorrei... e
+  /// vorrei..."). Una frase sola con un'alternativa ("scrivergli io o
+  /// aspettare?") e' una parte sola; un saluto di una parola non conta.
+  static bool haPiuParti(String? domanda) {
+    if (domanda == null || domanda.trim().isEmpty) return false;
+    final frasi = frasiDi(domanda)
+        .where((f) => RegExp(r'[A-Za-zÀ-ÿ]+').allMatches(f).length >= 2)
+        .length;
+    if (frasi >= 2) return true;
+    if ('?'.allMatches(domanda).length >= 2) return true;
+    return RegExp(r'\b(vorrei|voglio|desidero)\b', caseSensitive: false)
+            .allMatches(domanda)
+            .length >=
+        2;
+  }
+
+  /// Quante frasi dice il Maestro a [domanda].
+  static int quanteFrasiPer(String? domanda) =>
+      haPiuParti(domanda) ? quanteConPiuParti : quante;
 
   /// Le frasi di [testo], come la voce le separa.
   static List<String> frasiDi(String testo) => RegExp(
@@ -30,29 +68,46 @@ abstract final class LeTreFrasiDelLive {
           .toList();
 
   /// **Le parole che il Maestro dice nel LIVE**, pronte per la voce e per lo
-  /// schermo: senza stella, senza markdown, al massimo tre frasi intere.
+  /// schermo: senza stella, senza markdown, al massimo tre frasi intere,
+  /// quattro se [domanda] ha piu' parti.
   ///
   /// **[inArrivo]**: il testo sta ancora arrivando e la stella puo' non
   /// esserci ancora. Allora ci si ferma alle prime due frasi del corpo, cosi'
   /// quello che si e' gia' scritto a video non sparisce quando arriva il
   /// gesto.
-  static String di(String scritto, {bool inArrivo = false}) {
+  static String di(String scritto, {bool inArrivo = false, String? domanda}) {
+    final t = _taglio(scritto, inArrivo: inArrivo, domanda: domanda);
+    return [...t.corpo, if (t.gesto != null) t.gesto!].join(' ');
+  }
+
+  /// **LA FORMA SCRITTA DEL TAGLIO**, quella che la chat salva nel LIVE
+  /// (ordine ET voce 02): le stesse frasi che la voce dice, col gesto sulla
+  /// sua riga con ✦. `di(scritta(x, domanda: d), domanda: d)` e'
+  /// `di(x, domanda: d)`: voce, video e chat dicono le stesse parole.
+  static String scritta(String scritto, {String? domanda}) {
+    final t = _taglio(scritto, domanda: domanda);
+    final corpo = t.corpo.join(' ');
+    if (t.gesto == null) return corpo;
+    return corpo.isEmpty ? '✦ ${t.gesto}' : '$corpo\n✦ ${t.gesto}';
+  }
+
+  static ({List<String> corpo, String? gesto}) _taglio(String scritto,
+      {bool inArrivo = false, String? domanda}) {
+    final massimo = quanteFrasiPer(domanda);
     final stella = scritto.indexOf('✦');
     final corpo = stella < 0 ? scritto : scritto.substring(0, stella);
     final gesto = stella < 0 ? '' : scritto.substring(stella + 1);
     final frasiDelCorpo = frasiDi(IlParlatoDelMaestro.daDire(corpo));
     final frasiDelGesto = frasiDi(IlParlatoDelMaestro.daDire(gesto));
-    final List<String> dette;
     if (frasiDelGesto.isNotEmpty) {
-      dette = [
-        ...frasiDelCorpo.take(quante - 1),
-        if (!inArrivo || stella >= 0) frasiDelGesto.first,
-      ];
-    } else if (inArrivo) {
-      dette = frasiDelCorpo.take(quante - 1).toList();
-    } else {
-      dette = frasiDelCorpo.take(quante).toList();
+      return (
+        corpo: frasiDelCorpo.take(massimo - 1).toList(),
+        gesto: !inArrivo || stella >= 0 ? frasiDelGesto.first : null,
+      );
     }
-    return dette.join(' ');
+    return (
+      corpo: frasiDelCorpo.take(inArrivo ? massimo - 1 : massimo).toList(),
+      gesto: null,
+    );
   }
 }

@@ -121,7 +121,11 @@ void main() {
         .readAsStringSync();
     final dillo = s.substring(s.indexOf('Future<void> _dillo('),
         s.indexOf('/// La voce composta in anticipo'));
-    expect(dillo, contains('conAttesa ? LeTreFrasiDelLive.di(scritto)'),
+    // **LAPIDE, ordine ET voce 06.** Qui si cercava
+    // `conAttesa ? LeTreFrasiDelLive.di(scritto)`: dall'ordine ET il taglio
+    // riceve la domanda del turno, che decide tre frasi o quattro.
+    expect(dillo,
+        contains('LeTreFrasiDelLive.di(scritto, domanda: _domandaDelTurno)'),
         reason: 'la voce del turno non si ferma alla terza frase');
     final turno = s.substring(s.indexOf('Future<void> _turno(String testo)'),
         s.indexOf('/// **LA VOCE DEL MAESTRO, VERSO IL VOLTO.**'));
