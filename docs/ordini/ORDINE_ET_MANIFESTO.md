@@ -89,6 +89,24 @@ DOMANDA: dal rapporto ER: "La proposta: una riserva che dica la posizione che il
 
 ## VOCE ET.09, IL TESTO DEL RETRO DELLE SCHEDE SI LEGGE
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: misurata in prova; mancano le catture dal
+Realme e la registrazione dello schermo della scheda che si gira.
+
+**Il padre** (Regola C): il retro mette il testo in un `FittedBox` che lo
+rimpicciolisce finche' entra nella scheda, dall'ordine EO voce 02 (commit
+`220d12d0`, 26 settembre), quando in home le schede erano larghe 184 punti e
+il testo restava alla sua misura. L'ordine EP voce 02 le ha portate a 162 e
+la voce ER.09 (mia) a 128 e 137, alte 77 le orizzontali: da li' il testo
+scende fino a cinque punti. Nessuna prova misurava il testo del retro.
+
+**La via**: in una scheda di casa il testo intero alla misura dei domini non
+entra, per geometria (una scheda orizzontale lascia 89 per 45 punti al
+testo). Girata in home, dalla meta' del giro il retro esce dalla scheda e
+cresce fino alla misura della scheda nei domini, sopra la riga, centrato
+sulla scheda e dentro lo schermo; la "i" lo rigira, il resto fa cio' che fa
+il retro nei domini, un tocco fuori lo richiude
+(`lib/features/schede/la_scheda_dell_arte.dart`, `_IlRetroGrande`). Nei
+domini niente cambia. Guardia nuova
+`test/il_retro_delle_schede_si_legge_test.dart`, rossa sul codice di prima.
 
 DOMANDA: "Inserisci anche che i testi nel rovescio delle schede sono minuscoli, quasi illeggibili."

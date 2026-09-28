@@ -231,8 +231,69 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
       vsync: this,
       duration: LaSchedaDellArte.tempoDelGiro,
       animationBehavior: AnimationBehavior.preserve)
-    ..addListener(() => setState(() {}));
+    ..addListener(() => setState(() {}))
+    ..addStatusListener((s) {
+      if (s == AnimationStatus.dismissed) _togliIlRetroGrande();
+    });
   bool _premuta = false;
+
+  /// **IL RETRO GRANDE DELLA HOME.** Ordine ET voce 09: in home la scheda e'
+  /// larga 128 o 137 punti, e il retro dentro la scheda rimpiccioliva il
+  /// testo fino a cinque punti. Girata in home, dalla meta' del giro il retro
+  /// si apre sopra la riga alla misura dei domini, dove il testo si legge
+  /// intero alla sua grandezza; un tocco fuori lo richiude.
+  OverlayEntry? _retroGrande;
+
+  void _mettiIlRetroGrande() {
+    if (_retroGrande != null) return;
+    final overlay = Overlay.maybeOf(context, rootOverlay: true);
+    if (overlay == null) return;
+    _retroGrande = OverlayEntry(
+      builder: (_) => _IlRetroGrande(
+        giro: _giro,
+        rettangoloDellaScheda: _rettangoloDellaScheda,
+        dimensione: _dimensioneDelRetroGrande,
+        retro: (larghezza) => _retro(larghezza: larghezza),
+        onI: _gira,
+        onRetro: _toccoSulRetroGrande,
+      ),
+    );
+    overlay.insert(_retroGrande!);
+  }
+
+  void _togliIlRetroGrande() {
+    _retroGrande?.remove();
+    _retroGrande?.dispose();
+    _retroGrande = null;
+  }
+
+  Rect? _rettangoloDellaScheda() {
+    final box = _immagine.currentContext?.findRenderObject() as RenderBox?;
+    if (box == null || !box.hasSize || !box.attached) return null;
+    return box.localToGlobal(Offset.zero) & box.size;
+  }
+
+  /// La misura del retro grande: quella della scheda nei domini, alla stessa
+  /// scala del testo della scheda di casa.
+  Size get _dimensioneDelRetroGrande {
+    final scala = widget.larghezza /
+        LaSchedaDellArte.larghezzaPer(widget.formato, inCasa: true);
+    final larghezza = LaSchedaDellArte.larghezzaPer(widget.formato) * scala;
+    return Size(larghezza, larghezza / widget.formato.proporzione);
+  }
+
+  /// Sul retro grande il tocco fa cio' che fa sul retro della scheda; per
+  /// entrare nell'arte il retro grande si chiude prima, e l'uscita parte
+  /// dalla scheda nella riga.
+  Future<void> _toccoSulRetroGrande() async {
+    if (widget.art.state == ArtState.attiva) {
+      _giro.value = 0;
+      await _entra();
+      return;
+    }
+    await _toccoSulRetro();
+  }
+
   bool _inUscita = false;
 
   /// Vero quando si vede il retro.
@@ -265,6 +326,7 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
 
   @override
   void dispose() {
+    _togliIlRetroGrande();
     _giro.dispose();
     super.dispose();
   }
@@ -282,6 +344,7 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
     if (girata) {
       await _giro.reverse();
     } else {
+      if (widget.inCasa) _mettiIlRetroGrande();
       await _giro.forward();
     }
   }
@@ -372,7 +435,7 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
         ? Transform(
             alignment: Alignment.center,
             transform: Matrix4.rotationY(math.pi),
-            child: _retro(),
+            child: widget.inCasa ? _retro(soloIlFondo: true) : _retro(),
           )
         : _faccia(fronte: true);
     return SizedBox(
@@ -509,7 +572,8 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
   }
 
   /// Il retro: le informazioni dell'arte e, per le arti in arrivo, la fase.
-  Widget _retro() {
+  Widget _retro({double? larghezza, bool soloIlFondo = false}) {
+    final misura = larghezza ?? widget.larghezza;
     final propria = MaestroPalette.forKey(ThemeKey.of(widget.maestro));
     final raggio = BorderRadius.circular(SpacingTokens.radiusSm + 4);
     final art = widget.art;
@@ -523,25 +587,28 @@ class LaSchedaDellArteState extends State<LaSchedaDellArte>
           : 'Si apre ${conPiano(PlanCatalog.forTier(art.requiredTier!).name)}',
       ArtState.attiva => 'Tocca per entrare',
     };
+    final fondo = BoxDecoration(
+      borderRadius: raggio,
+      gradient: LinearGradient(
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
+        colors: [propria.surfaceElevated, propria.deepest],
+      ),
+      border: Border.all(color: propria.gold.withValues(alpha: 0.7)),
+    );
+    // In home, nella riga, il retro e' solo il fondo mentre il retro grande
+    // porta il testo alla sua misura (ordine ET voce 09).
+    if (soloIlFondo) return DecoratedBox(decoration: fondo);
     return Container(
       key: Key('scheda_retro_${art.id}'),
-      decoration: BoxDecoration(
-        borderRadius: raggio,
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [propria.surfaceElevated, propria.deepest],
-        ),
-        border: Border.all(color: propria.gold.withValues(alpha: 0.7)),
-      ),
+      decoration: fondo,
       padding: const EdgeInsets.fromLTRB(SpacingTokens.md, SpacingTokens.md,
           SpacingTokens.xl, SpacingTokens.md),
       child: FittedBox(
         fit: BoxFit.scaleDown,
         alignment: Alignment.topLeft,
         child: SizedBox(
-          width: math.max(
-              120, widget.larghezza - SpacingTokens.md - SpacingTokens.xl),
+          width: math.max(120, misura - SpacingTokens.md - SpacingTokens.xl),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
@@ -723,6 +790,126 @@ Maestro maestroDiArte(BuildContext context, String id) {
 
 /// **LA SCHEDA CHE SI INGRANDISCE E SVANISCE.** Ordine EO voce 03. Vive
 /// nell'overlay della radice, col suo controllore: vedi `_entra`.
+/// **IL RETRO GRANDE DELLA HOME.** Ordine ET voce 09, 28 settembre 2026.
+///
+/// Segue il giro della scheda: nella prima meta' si vede la scheda che gira
+/// nella riga; dalla meta' il retro esce dalla scheda e cresce fino alla
+/// misura dei domini, girando come fa il retro sul posto. Sta nell'overlay
+/// della radice, centrato sulla scheda e dentro lo schermo, sopra un velo
+/// che al tocco richiude. La "i" in alto a destra rigira la scheda; il resto
+/// del retro fa cio' che fa il retro nei domini.
+class _IlRetroGrande extends StatelessWidget {
+  const _IlRetroGrande({
+    required this.giro,
+    required this.rettangoloDellaScheda,
+    required this.dimensione,
+    required this.retro,
+    required this.onI,
+    required this.onRetro,
+  });
+
+  final Animation<double> giro;
+  final Rect? Function() rettangoloDellaScheda;
+  final Size dimensione;
+  final Widget Function(double larghezza) retro;
+  final VoidCallback onI;
+  final VoidCallback onRetro;
+
+  /// Il margine dai bordi dello schermo, come quello della home.
+  static const double margine = 16;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(builder: (context, spazio) {
+      return AnimatedBuilder(
+        animation: giro,
+        builder: (context, _) {
+          final scheda = rettangoloDellaScheda();
+          if (scheda == null || giro.value <= 0.5) {
+            return const SizedBox.shrink();
+          }
+          // Dentro lo schermo: se la misura dei domini non entra (testo molto
+          // grande), si stringe tenendo la proporzione.
+          final larghezzaMassima = spazio.maxWidth - 2 * margine;
+          final altezzaMassima = spazio.maxHeight - 2 * margine;
+          final riduzione = math.min(
+              1.0,
+              math.min(larghezzaMassima / dimensione.width,
+                  altezzaMassima / dimensione.height));
+          final finale =
+              Size(dimensione.width * riduzione, dimensione.height * riduzione);
+          final sinistra = (scheda.center.dx - finale.width / 2)
+              .clamp(margine, spazio.maxWidth - margine - finale.width);
+          final sopra = (scheda.center.dy - finale.height / 2)
+              .clamp(margine, spazio.maxHeight - margine - finale.height);
+          final arrivo =
+              Rect.fromLTWH(sinistra, sopra, finale.width, finale.height);
+          // Dalla meta' del giro alla fine: 0 alla meta', 1 alla fine.
+          final t = Curves.easeOut.transform((giro.value - 0.5) * 2);
+          final rett = Rect.lerp(scheda, arrivo, t)!;
+          return Stack(
+            children: [
+              Positioned.fill(
+                child: GestureDetector(
+                  key: const Key('scheda_retro_grande_velo'),
+                  behavior: HitTestBehavior.opaque,
+                  onTap: onI,
+                  child: ColoredBox(
+                      color: Colors.black.withValues(alpha: 0.45 * t)),
+                ),
+              ),
+              Positioned.fromRect(
+                rect: rett,
+                child: Transform(
+                  alignment: Alignment.center,
+                  transform: Matrix4.identity()
+                    ..setEntry(3, 2, 0.0012)
+                    ..rotateY((1 - giro.value) * math.pi),
+                  child: FittedBox(
+                    fit: BoxFit.fill,
+                    child: SizedBox.fromSize(
+                      size: finale,
+                      child: Stack(
+                        key: const Key('scheda_retro_grande'),
+                        children: [
+                          Positioned.fill(
+                            child: GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: onRetro,
+                              child: retro(finale.width),
+                            ),
+                          ),
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: GestureDetector(
+                              key: const Key('scheda_retro_grande_i'),
+                              behavior: HitTestBehavior.opaque,
+                              onTap: onI,
+                              child: const SizedBox(
+                                width: LaSchedaDellArte.areaDellaI,
+                                height: LaSchedaDellArte.areaDellaI,
+                                child: Align(
+                                  alignment: Alignment(0.55, -0.55),
+                                  child: _LaI(girata: true),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
+      );
+    });
+  }
+}
+
 class _LUscitaDellaScheda extends StatefulWidget {
   const _LUscitaDellaScheda({
     required this.rect,
