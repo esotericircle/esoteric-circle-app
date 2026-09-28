@@ -97,9 +97,18 @@ void main() {
     expect(schermata.contains('child: LaScenaDelLive('), isTrue,
         reason: 'la schermata non usa la scena misurata qui');
     expect(schermata.contains('domanda: _quadro.domanda'), isTrue);
+    // **LAPIDE, ordine ER voce 13.** Qui si cercava
+    // `_quadro.con(domanda: testo, sottotitolo: '')`: la domanda messa a video
+    // tutta insieme all'inizio del turno. Dall'ordine ER la domanda si scrive
+    // a macchina, e a video va cio' che la macchina ha scritto; che la
+    // domanda resti intera mentre arriva la risposta lo prova
+    // `il_live_dice_tre_frasi_e_le_scrive_a_macchina_test.dart` ("la domanda
+    // si scrive a lettere, la risposta dopo di lei"). Qui resta la strada.
+    expect(schermata.contains('_avviaLaMacchina(testo);'), isTrue,
+        reason: 'la domanda del turno non arriva a video');
     expect(
-        schermata.contains(
-            '_quadro = _quadro.con(domanda: testo, sottotitolo: \'\');'),
+        schermata.contains('_quadro.con(domanda: aVideo.domanda, '
+            'sottotitolo: aVideo.risposta)'),
         isTrue,
         reason: 'la domanda non resta a video durante la risposta');
   });

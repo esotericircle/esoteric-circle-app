@@ -108,7 +108,13 @@ void main() {
     // gia' e si vedevano soltanto dopo aver conosciuto il proprio animale.
     // Passa da `thumbPath` come tutti gli altri e non adatta al riempimento,
     // che e' cio' che l'altra riga di questa guardia sorveglia.
-    expect(punti.length, 14,
+    // **TREDICI DALL'ORDINE ER VOCE 06**, e il numero segue il dato: il
+    // punto uscito e' `rivelazione_del_gemello.dart`, la seconda schermata
+    // del Gemello, tolta perche' il fondatore ha voluto il Gemello in una
+    // schermata sola (nastro, corsa, podio e responso). I volti che sfilano
+    // stanno adesso in `schermata_del_gemello.dart`, che era gia' fra i punti
+    // e passa dallo stesso componente.
+    expect(punti.length, 13,
         reason: 'i punti che mostrano angeli, animali o carte sono '
             '${punti.length} ($punti): verifica che il nuovo passi dal '
             'componente condiviso');

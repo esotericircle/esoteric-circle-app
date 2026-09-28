@@ -111,6 +111,7 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     required double temperature,
     double? topP,
     String? responseMimeType,
+    Schema? responseSchema,
   }) =>
       GenerationConfig(
         temperature: temperature,
@@ -118,6 +119,7 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
         maxOutputTokens: misura.tetto,
         thinkingConfig: ThinkingConfig.withThinkingBudget(misura.ragionamento),
         responseMimeType: responseMimeType,
+        responseSchema: responseSchema,
       );
 
   /// Vero se il modello si e' fermato perche' ha finito lo spazio.
@@ -418,12 +420,14 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
       ),
       // **I CAMPI OBBLIGATORI**, ordine ER voce 01: la lettura ha una forma, e
       // lo schema la chiede al modello invece di sperarla dal testo.
-      generationConfig: GenerationConfig(
+      // Dalla stessa porta delle altre chiamate: il tetto e il ragionamento
+      // arrivano insieme dalla misura (ordine ER voce 01, vista rossa da
+      // `consulta_maestro_test` quando qui si scriveva la configurazione a
+      // mano).
+      generationConfig: configurazionePer(
+        MisuraDellaRisposta.letturaDellaChat,
         temperature: LaLetturaDelleRune.temperatura,
         topP: 0.95,
-        maxOutputTokens: MisuraDellaRisposta.letturaDellaChat.tetto,
-        thinkingConfig: ThinkingConfig.withThinkingBudget(
-            MisuraDellaRisposta.letturaDellaChat.ragionamento),
         responseMimeType: 'application/json',
         responseSchema: Schema.object(properties: {
           'posizione':
@@ -435,7 +439,10 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
               items: Schema.object(properties: {
             'lettura': Schema.string(),
             'sullaDomanda': Schema.string(),
-          }, propertyOrdering: const ['lettura', 'sullaDomanda'])),
+          }, propertyOrdering: const [
+            'lettura',
+            'sullaDomanda'
+          ])),
           'legame': Schema.string(),
           'cosaPuoiFare': Schema.string(),
         }, propertyOrdering: LaLetturaDelleRune.campi),
@@ -470,10 +477,13 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
       motivo = LaLetturaDelleRune.scarto(j, esito, domanda: d);
       if (motivo != null) continue;
       final responso = LaLetturaDelleRune.daJson(j, esito)!;
+      // Le tre parti passano da una funzione sola, come prima dell'ordine ER:
+      // un punto di ripulitura per il presagio, non tre.
+      String pezzo(String t) => TestoDelResponso.pulisci(t);
       return Responso(
-        risposta: TestoDelResponso.pulisci(responso.risposta),
-        cosaPuoiFare: TestoDelResponso.pulisci(responso.cosaPuoiFare),
-        daDoveViene: TestoDelResponso.pulisci(responso.daDoveViene),
+        risposta: pezzo(responso.risposta),
+        cosaPuoiFare: pezzo(responso.cosaPuoiFare),
+        daDoveViene: pezzo(responso.daDoveViene),
       );
     }
     throw MaestroAiUnavailable('Il presagio non ha retto: $motivo.');

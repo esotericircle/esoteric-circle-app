@@ -615,8 +615,8 @@ class MaestroPersona {
           'che cosa quella pietra indica sulla cosa chiesta dalla persona '
           '(senza domanda, sulla sua giornata di oggi): una frase che '
           'andrebbe bene per qualunque domanda non va bene. Due pietre non '
-          'dicono la stessa cosa. Una pietra in merkstave parla dal suo verso '
-          'd\'ombra. Frasi normali, come in un racconto: niente elenchi, '
+          'dicono la stessa cosa. Una pietra in merkstave (rovesciata) parla '
+          'dal suo verso d\'ombra. Frasi normali, come in un racconto: niente elenchi, '
           'niente due punti dopo il nome della runa.',
       '- "legame": una o due frasi su come le pietre si legano fra loro: una '
           'causa, un passaggio, un contrasto. Con una pietra sola, come la '

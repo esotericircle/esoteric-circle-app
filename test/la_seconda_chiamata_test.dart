@@ -32,7 +32,13 @@ void main() {
     String luogo = 'grotta',
     String titolo = 'La bottega ti somiglia',
     String testo = 'Sulla bottega puoi scegliere tu il primo passo.',
-    String azione = 'Stasera scrivi su un foglio cosa ti serve per la bottega.',
+    // **LAPIDE, ordine ER voce 15.** L'azione di prova era "Stasera scrivi su
+    // un foglio cosa ti serve per la bottega.": dall'ordine ER il foglio non
+    // passa mai, e questa azione faceva richiamare il modello anche dove la
+    // prova vuole zero scarti. L'azione adesso e' un gesto nella situazione
+    // chiesta, come l'ordine vuole.
+    String azione =
+        'Domani mattina cammina fino alla via dove vorresti la bottega.',
   }) =>
       jsonEncode({
         'luogo': luogo,
@@ -56,9 +62,11 @@ void main() {
           ammessiVisti.add(a);
           return richieste.length == 1
               ? risposta(testo: conGergo)
-              : risposta(titolo: 'Un titolo diverso', testo: s.domanda
-                  .replaceAll('Devo lasciare', 'Puoi guardare')
-                  .replaceAll('?', '.'));
+              : risposta(
+                  titolo: 'Un titolo diverso',
+                  testo: s.domanda
+                      .replaceAll('Devo lasciare', 'Puoi guardare')
+                      .replaceAll('?', '.'));
         },
         prendiUnaChiamata: () async => true);
     expect(richieste, hasLength(2),

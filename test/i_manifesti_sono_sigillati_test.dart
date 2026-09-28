@@ -301,6 +301,10 @@ void main() {
     'EO': 17,
     'EP': 15,
     'EQ': 12,
+    // ER: venti voci, contate coi titoli "## VOCE ER." del manifesto il 28
+    // settembre 2026: diciannove dei tre pezzi dell'ordine, piu' la ER.20
+    // dell'aggiunta del fondatore.
+    'ER': 20,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

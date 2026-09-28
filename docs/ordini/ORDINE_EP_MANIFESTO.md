@@ -269,3 +269,11 @@ Aura, rosso per Calìgo.
 DOMANDA: "lo sfondo del menù Chat deve essere del colore del maestro e non grigio/nero."
 PROVA: docs/collaudo/EP/realme/ep15_menu_di_medora_blu.png
 MISURA: menu' con lo sfondo grigio o nero da 3 a 0; menu' nel colore del suo Maestro da 0 a 3, sul Realme (Aura e Calìgo in docs/collaudo/EP/realme/ep12_ep13_ep14_ep15_aura_e_caligo_dominio_chat_menu.png)
+
+## LE GUARDIE DI QUEST'ORDINE CHE NON ESISTONO PIU'
+
+**Aggiunto dall'ordine ER, 28 settembre 2026**, con la regola dell'ordine EH
+voce 03: questo manifesto nomina una guardia che un ordine successivo ha
+tolto, e la riga sotto dice dove e' finita la misura.
+
+GUARDIA RIMOSSA: nessun_doppione_in_vista_test - ordine ER voce 08, commit 5a70fc73: il fondatore ha tolto la regola dei doppioni in vista ("Ok, togli regola del 26 settembre"); le righe della home con i doppioni voluti le sorveglia adesso `i_doppioni_della_home_sono_voluti_test.dart`, contro l'elenco scritto dal fondatore.

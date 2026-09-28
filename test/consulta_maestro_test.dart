@@ -115,7 +115,9 @@ void main() {
       // controllo di un metodo passerebbe per merito di un altro.
       // Il confine dopo l'ultimo metodo pubblico. Col presagio in mezzo, gli
       // aiuti privati sono due: si prende il primo che viene dopo.
-      const finePrivata = 'Responso? _parsePresagio';
+      // **LAPIDE, ordine ER voce 01**: il primo aiuto privato era
+      // `_parsePresagio`, che l'ordine ER ha tolto; adesso e' `_jsonDelPresagio`.
+      const finePrivata = 'Map<dynamic, dynamic>? _jsonDelPresagio';
       final confini = <int>[
         for (final m in metodi) sorgente.indexOf(' $m({'),
         sorgente.indexOf(finePrivata),
