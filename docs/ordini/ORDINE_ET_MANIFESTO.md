@@ -38,6 +38,8 @@ loro registrazione dello schermo.
 
 ## VOCE ET.01, IL BANCO DELLE TRENTA DOMANDE
 
+prosegue nell'ordine ES, voce ES.19.
+
 **APERTA IN ATTESA DI VERIFICA**: nessuno dei cinque risultati arriva al 30
 su 30 per Maestro e canale; la sessione sul Realme ha dieci domande di
 Medora e sette di Caligo, le altre si fanno col contingente del giorno dopo.
@@ -84,6 +86,8 @@ MISURA: su 360 risposte alla cieca, prima frase che risponde da 79 a 256, nel me
 
 ## VOCE ET.02, LA VOCE, IL TESTO A VIDEO E LA CHAT DICONO LE STESSE PAROLE
 
+prosegue nell'ordine ES, voce ES.20.
+
 **APERTA IN ATTESA DI VERIFICA**: testo a video e chat sono misurati sul
 Realme e dicono le stesse parole; la voce non e' ancora ritrascritta
 dall'audio del telefono, perche' la registrazione dello schermo non la
@@ -114,6 +118,8 @@ MISURA: sul Realme, testo a video e chat con le stesse parole del Maestro in 7 t
 
 ## VOCE ET.03, DOMANDE SIMILI DI FILA, OGNUNA LA SUA RISPOSTA
 
+prosegue nell'ordine ES, voce ES.21.
+
 **APERTA IN ATTESA DI VERIFICA**: nessuna seconda risponde alla domanda di
 prima, ma sei seconde ripetono ancora la prima e due cambiano posizione
 senza dire perche'; sul Realme le coppie nel LIVE si fanno col contingente
@@ -139,6 +145,8 @@ MISURA: su 60 seconde di coppia alla cieca, seconde che rispondono alla prima da
 ## PARTE 2, IL LIVE, DECISIONI DEL FONDATORE SUL RAPPORTO ER
 
 ## VOCE ET.04, IL LIVE NON SI CHIUDE MENTRE LA PERSONA PARLA
+
+prosegue nell'ordine ES, voce ES.22.
 
 **APERTA IN ATTESA DI VERIFICA**: le domande del DOPO sono 17 e l'ordine ne
 chiede almeno 20; le tre che mancano si fanno col contingente del giorno
@@ -193,6 +201,8 @@ MISURA: aperture del LIVE di quest'ordine in lite nel registro delle funzioni, 6
 
 ## VOCE ET.06, QUATTRO FRASI QUANDO LA DOMANDA HA PIÙ PARTI
 
+prosegue nell'ordine ES, voce ES.23.
+
 **APERTA IN ATTESA DI VERIFICA**: le forme sono rispettate in tutte e 72 le
 risposte del banco; il merito della seconda esecuzione (18 su 36) sta sotto
 il 23 che l'ordine chiede, e la durata vera della voce si misura sul Realme.
@@ -217,6 +227,8 @@ DOMANDA: dal rapporto ER: "ER.12, tre frasi o quattro. [...] Puoi tenere tre fra
 ## PARTE 3, LE RUNE E IL VIAGGIO, VOCI APERTE DELL'ORDINE ER
 
 ## VOCE ET.07, LE RUNE ARRIVANO AI NUMERI DELL'ORDINE ER
+
+prosegue nell'ordine ES, voce ES.24.
 
 **APERTA IN ATTESA DI VERIFICA**: nessuna delle tre misure arriva al
 risultato (20 su 20, 24 su 24, zero errori); l'attesa sul Realme su dieci
@@ -250,6 +262,8 @@ DOMANDA: dalla ER.01: "Le persone vogliono risposte dirette, Senza tanti giochi 
 
 ## VOCE ET.08, LA RISERVA DEL VIAGGIO PRENDE POSIZIONE
 
+prosegue nell'ordine ES, voce ES.25.
+
 **APERTA IN ATTESA DI VERIFICA**: la riserva prende posizione e non esce mai
 dalla domanda; il 20 su 20 della prima frase non arriva (14 e 15), per le
 risposte del modello che reggono alle guardie ma restano vaghe; la cattura di
@@ -277,6 +291,8 @@ DOMANDA: dal rapporto ER: "La proposta: una riserva che dica la posizione che il
 ## PARTE 4, IL RETRO DELLE SCHEDE, RILIEVO DEL FONDATORE
 
 ## VOCE ET.09, IL TESTO DEL RETRO DELLE SCHEDE SI LEGGE
+
+prosegue nell'ordine ES, voce ES.26.
 
 **APERTA IN ATTESA DI VERIFICA**: misurata in prova e vista sul Realme a
 360 punti (build di prova del 28 settembre, `prova_et_2`), con le catture dei
@@ -332,6 +348,8 @@ DOMANDA: "Inserisci anche che i testi nel rovescio delle schede sono minuscoli, 
 ## PARTE 5, LA NUOVA INTRO, AGGIUNTA DEL FONDATORE
 
 ## VOCE ET.10, LA NUOVA INTRO, OTTIMIZZATA
+
+prosegue nell'ordine ES, voce ES.27.
 
 **APERTA IN ATTESA DI VERIFICA**: il file nel pacchetto e' fatto e misurato;
 manca la registrazione dello schermo dal Realme dell'intro intera, per il

@@ -308,6 +308,9 @@ void main() {
     // ET: nove voci, contate coi titoli "## VOCE ET." del manifesto il 28
     // settembre 2026, dai due pezzi dell'ordine.
     'ET': 10,
+    // ES: trentasette voci, contate coi titoli "## VOCE ES." del manifesto il
+    // 28 settembre 2026, dai quattro pezzi dell'ordine.
+    'ES': 37,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,
