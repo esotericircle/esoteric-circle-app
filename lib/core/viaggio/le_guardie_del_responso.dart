@@ -89,6 +89,7 @@ class TestiDelModello {
     this.scarti = const [],
     this.recuperate = const [],
     this.dallaSeconda = const {},
+    this.posizione,
   });
 
   final String? titolo;
@@ -105,6 +106,24 @@ class TestiDelModello {
   final Set<String> dallaSeconda;
 
   bool get vuoti => titolo == null && risposta == null && azione == null;
+
+  /// **LA POSIZIONE CHE IL MODELLO HA SCELTO**, fra
+  /// `LaScenaDalModello.posizioni`, anche quando la sua risposta e' stata
+  /// scartata. Ordine ET voce 08: la riserva la dice.
+  final String? posizione;
+
+  /// Una copia con [risposta] al posto della risposta, e il pezzo segnato
+  /// in [dallaSeconda] con [fonte].
+  TestiDelModello conLaRisposta(String risposta, String fonte) =>
+      TestiDelModello(
+        titolo: titolo,
+        risposta: risposta,
+        azione: azione,
+        scarti: scarti,
+        recuperate: recuperate,
+        dallaSeconda: {...dallaSeconda, fonte},
+        posizione: posizione,
+      );
 
   static const TestiDelModello nessuno = TestiDelModello();
 }
@@ -1208,8 +1227,17 @@ abstract final class LeGuardieDelResponso {
   /// Vero se la prima frase di [r] rimanda la domanda.
   static bool rimandaLaDomanda(String r) {
     final prima = r.split(RegExp(r'(?<=[.!?])\s')).first;
-    return _rinvio.hasMatch(prima);
+    return _rinvio.hasMatch(prima) || _condizioneNonDetta.hasMatch(prima);
   }
+
+  /// **LA CONDIZIONE ANNUNCIATA E MAI DETTA.** Ordine ET voce 08, dalla
+  /// lettura alla cieca: *"I segni del viaggio indicano che puoi chiamare tuo
+  /// fratello, a una condizione precisa."*, e la condizione non arrivava
+  /// piu'. Il modello ricopiava il nome della posizione dello schema, "si' a
+  /// una condizione". La prima frase che finisce li' non prende posizione.
+  static final RegExp _condizioneNonDetta = RegExp(
+      r'a una condizione(?: precisa| sola| chiara)?\s*[.!]?\s*$',
+      caseSensitive: false);
 
   /// **UN'AZIONE CHE CHIEDE DI SCRIVERE**, su un foglio, un quaderno, una
   /// lista. Ordine ER voce 15.
@@ -1339,6 +1367,10 @@ abstract final class LeGuardieDelResponso {
                       ? MotivoDelloScarto.chiedeDiScrivere
                       : null)),
       scarti: scarti,
+      posizione: dati['posizione'] is String &&
+              (dati['posizione'] as String).trim().isNotEmpty
+          ? (dati['posizione'] as String).trim()
+          : null,
     );
   }
 }

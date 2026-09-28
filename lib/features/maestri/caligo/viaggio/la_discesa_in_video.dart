@@ -440,8 +440,11 @@ class PittoreDellAlone extends CustomPainter {
           colore.withValues(alpha: 0.30 + 0.35 * battito),
           colore.withValues(alpha: 0.10 + 0.12 * battito),
           colore.withValues(alpha: 0),
-        ], stops: const [0.0, 0.55, 1.0])
-            .createShader(Rect.fromCircle(center: centro, radius: cuore)),
+        ], stops: const [
+          0.0,
+          0.55,
+          1.0
+        ]).createShader(Rect.fromCircle(center: centro, radius: cuore)),
     );
     // **L'ONDA DEL COLPO**, che parte dal dito e si allarga fino al bordo,
     // come la pelle del tamburo che vibra: dice il battito anche a chi
@@ -627,7 +630,10 @@ class _LaDiscesaState extends State<LaDiscesa> with WidgetsBindingObserver {
   }
 
   void _muovi(PointerMoveEvent e) {
-    if (_dito == null) return;
+    // **IL DITO CHE SCIVOLA DOPO LA FINE.** Ordine ET, 28 settembre 2026: come
+    // l'alzata, anche il movimento arriva a una discesa gia' smontata, e
+    // `setState` lanciava un'eccezione a ogni spostamento del dito.
+    if (!mounted || _dito == null) return;
     setState(() => _dito = e.localPosition);
   }
 
@@ -718,8 +724,8 @@ class _LaDiscesaState extends State<LaDiscesa> with WidgetsBindingObserver {
     final ombra = [
       Shadow(color: Colors.black.withValues(alpha: 0.7), blurRadius: 10),
     ];
-    final etichetta = TypographyTokens.etichetta().copyWith(
-        color: palette.goldSoft, letterSpacing: 1.4, shadows: ombra);
+    final etichetta = TypographyTokens.etichetta()
+        .copyWith(color: palette.goldSoft, letterSpacing: 1.4, shadows: ombra);
     return Stack(
       fit: StackFit.expand,
       children: [

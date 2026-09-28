@@ -280,9 +280,12 @@ void main() {
           'stessa persona (IlPassoDaNonDare.simili, la misura della voce '
           'EQ.01): ${simili.length} $simili.')
       ..add('Azioni col foglio fra le dieci: $foglioSeguito su 10.');
-    Directory('docs/collaudo/ER/viaggio').createSync(recursive: true);
-    File('docs/collaudo/ER/viaggio/$etichetta.txt')
-        .writeAsStringSync('${righe.join('\n')}\n');
+    // La cartella dell'ordine che il banco serve (ordine ET voce 08:
+    // `CARTELLA=docs/collaudo/ET/viaggio`).
+    final cartella =
+        Platform.environment['CARTELLA'] ?? 'docs/collaudo/ER/viaggio';
+    Directory(cartella).createSync(recursive: true);
+    File('$cartella/$etichetta.txt').writeAsStringSync('${righe.join('\n')}\n');
     print('BANCO DEL VIAGGIO $etichetta: foglio $foglio su 20; simili '
         '${simili.length}; foglio nel seguito $foglioSeguito su 10');
   }, timeout: const Timeout(Duration(minutes: 30)));

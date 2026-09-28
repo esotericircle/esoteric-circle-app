@@ -70,7 +70,8 @@ void main() {
   /// deve **dirlo**, non girare per sempre.
   const oltreNonSiAspetta = 30.0;
 
-  Future<double> quantoDuraLaDiscesa(WidgetTester tester, int discese) async {
+  Future<double> quantoDuraLaDiscesa(WidgetTester tester, int discese,
+      {bool ilDitoSiMuoveDopo = false}) async {
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
@@ -126,9 +127,32 @@ void main() {
       await tester.pump(passo);
       passati += passo.inMilliseconds / 1000;
     }
+    if (ilDitoSiMuoveDopo) {
+      // Il dito resta sullo schermo e scivola: il sistema consegna il
+      // movimento a chi ha ricevuto il tocco, anche se e' gia' smontato.
+      await gesto.moveBy(const Offset(12, 8));
+      await tester.pump();
+      await gesto.moveBy(const Offset(-20, 4));
+      await tester.pump();
+    }
     await gesto.up();
     return passati;
   }
+
+  /// **IL DITO CHE SCIVOLA DOPO LA FINE NON ROMPE NIENTE.** Ordine ET, 28
+  /// settembre 2026, visto sul Realme durante la cattura della voce ET.08:
+  /// col dito tenuto premuto oltre la fine della discesa, ogni movimento
+  /// arrivava a `_muovi` di una discesa gia' smontata, che chiamava
+  /// `setState` e lanciava un'eccezione, 570 righe di registro in tre
+  /// secondi. L'alzata era gia' protetta (`_su`), il movimento no. Padre:
+  /// ordine DI voce 09, commit `941d55f4`. Vista rossa sul codice di prima.
+  testWidgets('il dito che scivola dopo la fine della discesa non rompe niente',
+      (tester) async {
+    await quantoDuraLaDiscesa(tester, 0, ilDitoSiMuoveDopo: true);
+    expect(tester.takeException(), isNull,
+        reason: 'IL DITO CHE SCIVOLA DOPO LA FINE DELLA DISCESA HA LANCIATO '
+            'UN ECCEZIONE: il movimento arriva a una discesa smontata');
+  });
 
   testWidgets('la prima discesa dura quanto il filmato col dito premuto',
       (tester) async {

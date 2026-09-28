@@ -1,0 +1,44 @@
+ORDINE ET VOCE 08: LA RISERVA DEL VIAGGIO PRENDE POSIZIONE, I CONTI. 28 settembre 2026.
+
+Il banco: tool/collaudo_viaggio_er.dart (le dieci domande della ER.02, due
+discese ciascuna, Berlino compresa). PARTENZA = il codice dell'ordine ER
+(commit ec88e0d9) da una copia staccata senza ramo; DOPO = prima stesura;
+DOPO3 = terza stesura, quella che resta nel codice.
+
+COME E' FATTA LA RISERVA ADESSO
+1. Quando nessuna risposta del modello ha retto alle guardie, la prima frase
+   dell'ultima risposta scartata passa da sola dalle stesse guardie; se
+   regge, e' la risposta (LaScenaDalModello.conLaPrimaFrase, fonte "modello:
+   prima frase di una risposta scartata"). Al giro 8 dell'ordine ER le
+   scartate avevano quasi sempre la prima frase buona e il difetto dopo.
+2. Se neanche quella regge e il modello aveva scelto una posizione, la
+   riserva la dice come lettura dei segni del viaggio e rimanda al gesto che
+   sta subito sotto, con tre frasi per posizione che si alternano
+   (IlResponsoDelViaggio.rispostaCheSiSchiera); alla domanda aperta dice il
+   passo. Non nomina niente che la domanda non abbia.
+3. Senza modello (la rete manca) resta la voce di casa, come prima.
+E la prima frase che annuncia "a una condizione" e non la dice si chiede di
+nuovo (LeGuardieDelResponso, _condizioneNonDetta).
+
+LA LETTURA ALLA CIECA (fascicoli, chiavi e giudizi in docs/collaudo/ET/ciechi/)
+
+giro1 (partenza e dopo, solo la risposta):
+  partenza_esecuzione1: posizione 17 su 20; sulla riserva 1, fuori tema 1
+  partenza_esecuzione2: posizione 10 su 20; sulla riserva 3, fuori tema 2
+  dopo_esecuzione1:     posizione 14 su 20; sulla riserva 3 (con la posizione), fuori tema 0
+  dopo_esecuzione2:     posizione 14 su 20; sulla riserva 1 (con la posizione), fuori tema 0
+  Il giudice non vedeva il gesto, e "il passo e' quello qui sotto" per lui
+  rimandava a niente: al giro3 il fascicolo porta anche il gesto, per la
+  partenza e per il dopo allo stesso modo.
+giro3 (partenza e dopo3, risposta e gesto):
+  partenza_esecuzione1: posizione 15 su 20; sulla riserva 1: prende posizione 0, fuori tema 1
+  partenza_esecuzione2: posizione 12 su 20; sulla riserva 3: prende posizione 0, fuori tema 2
+  dopo3_esecuzione1:    posizione 14 su 20; sulla riserva 1: prende posizione 1, fuori tema 0
+  dopo3_esecuzione2:    posizione 15 su 20; sulla riserva 2: prende posizione 2, fuori tema 0
+
+LETTURA: la riserva fa quello che il fondatore ha chiesto, su tutte e tre le
+discese in cui e' servita al giro3 (posizione presa 3 su 3, fuori tema 0,
+contro 0 su 4 e 3 fuori tema alla partenza). Il 20 su 20 della prima frase non
+arriva: le sei e cinque discese mancanti sono risposte del modello che hanno
+retto alle guardie ma che il giudice legge vaghe ("Per sentirti meno sola la
+sera, crea il tuo spazio di quiete").

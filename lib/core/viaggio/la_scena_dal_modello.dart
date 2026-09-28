@@ -420,7 +420,9 @@ abstract final class LaScenaDalModello {
       // quaranta al loro posto parlava la riserva, che non prende posizione. La regola e' quella
       // della Stesa dei Tarocchi, che ha retto al collaudo dell'ordine EQ.
       (forma ?? LaMarcaDelGenere.formaCorrente).agree(
-          masculine: '', feminine: '', neutral: LaLetturaDellaStesa.senzaGenere),
+          masculine: '',
+          feminine: '',
+          neutral: LaLetturaDellaStesa.senzaGenere),
     ].join('\n');
   }
 
@@ -679,6 +681,54 @@ abstract final class LaScenaDalModello {
     void Function(RigaScartata riga)? seScartata,
     Duration attesa = pazienza,
   }) async {
+    final r = await _chiediTutto(s,
+        chiamata: chiamata,
+        prendiUnaChiamata: prendiUnaChiamata,
+        seGuasto: seGuasto,
+        seScartata: seScartata,
+        attesa: attesa);
+    return (pezzi: r.pezzi, testi: conLaPrimaFrase(r.testi, s, r.pezzi));
+  }
+
+  /// **LA PRIMA FRASE DI UNA RISPOSTA SCARTATA, SE REGGE DA SOLA.** Ordine
+  /// ET voce 08. Al giro 8 dell'ordine ER due e tre discese su venti
+  /// finivano sulla riserva, e la riserva non prendeva posizione: a
+  /// Berlino, *"Una delle due la stai già facendo, in piccolo, da
+  /// settimane"*, due strade che la domanda non ha. Le risposte scartate
+  /// avevano quasi sempre la prima frase buona, *"I segni del viaggio
+  /// dicono di sì, se sai cosa lasci"*, e lo scarto stava nelle frasi dopo
+  /// (*"non sarà la stessa"*). Quando nessuna risposta ha retto, la prima
+  /// frase dell'ultima scartata passa dalle stesse guardie, da sola; se
+  /// regge, e' la risposta.
+  static TestiDelModello conLaPrimaFrase(
+      TestiDelModello t, CioCheSiSa s, PezziScelti? pezzi) {
+    if (t.risposta != null || s.domanda.trim().isEmpty) return t;
+    final scartate = [
+      for (final r in t.scarti.reversed)
+        if (r.pezzo == 'risposta') r.testo
+    ];
+    for (final testo in scartate) {
+      final prima = RegExp(r'^.*?[.!?](?=\s|$)').firstMatch(testo.trim());
+      if (prima == null || prima.group(0)!.trim() == testo.trim()) continue;
+      final regge = leggiTesti(
+              jsonEncode({'risposta': prima.group(0)!.trim()}), s,
+              pezzi: pezzi)
+          .risposta;
+      if (regge != null) {
+        return t.conLaRisposta(regge, 'risposta: prima frase');
+      }
+    }
+    return t;
+  }
+
+  static Future<LaScenaScritta> _chiediTutto(
+    CioCheSiSa s, {
+    ChiamataDellaScena? chiamata,
+    Future<bool> Function() prendiUnaChiamata = IlTettoDelleChiamate.sempre,
+    void Function(Object errore)? seGuasto,
+    void Function(RigaScartata riga)? seScartata,
+    Duration attesa = pazienza,
+  }) async {
     final chiedi = chiamata ?? _chiamataVera;
     var consentiti = ammessi(s.animale, s.ultimeScene);
     var testi = TestiDelModello.nessuno;
@@ -786,6 +836,9 @@ abstract final class LaScenaDalModello {
       scarti: [...prima.scarti, ...dopo.scarti],
       recuperate: recuperate,
       dallaSeconda: dallaSeconda,
+      // La posizione dell'ultima risposta che ne ha scelta una (ordine ET
+      // voce 08).
+      posizione: dopo.posizione ?? prima.posizione,
     );
   }
 

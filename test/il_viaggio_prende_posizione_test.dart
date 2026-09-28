@@ -47,6 +47,12 @@ void main() {
     expect(vecchia, isFalse,
         reason: 'la regola "Non dire se la cosa accadrà" e\' ancora lì');
     expect(posizione, isTrue, reason: 'nessuna regola chiede la posizione');
+    // **E LA POSIZIONE SI SCEGLIE PRIMA DI SCRIVERE**, ordine ET voce 08: la
+    // riserva dice la posizione che il modello ha scelto nello schema. Alla
+    // Regola B dell'ordine ET, tolta questa riga, la prova restava verde.
+    expect(istruzione, contains('posizione: PRIMA DELLA RISPOSTA'),
+        reason: 'l\'istruzione non chiede di scegliere la posizione prima '
+            'della risposta');
     expect(righeDelFoglio, 0, reason: 'l\'esempio del foglio e\' tornato');
     expect(istruzione, contains('NIENTE FUOCO'),
         reason: 'il divieto del fuoco deve restare');
@@ -60,11 +66,9 @@ void main() {
     // **E SENZA GENERE SI SCRIVE COME NELLA STESA**, dal banco della sera:
     // "non sei sola" a chi non ha detto il suo genere mandava la risposta
     // in riserva.
-    expect(
-        LaScenaDalModello.istruzione(animale, forma: CourtesyForm.unknown),
+    expect(LaScenaDalModello.istruzione(animale, forma: CourtesyForm.unknown),
         contains(LaLetturaDellaStesa.senzaGenere));
-    expect(
-        LaScenaDalModello.istruzione(animale, forma: CourtesyForm.feminine),
+    expect(LaScenaDalModello.istruzione(animale, forma: CourtesyForm.feminine),
         isNot(contains(LaLetturaDellaStesa.senzaGenere)));
   });
 

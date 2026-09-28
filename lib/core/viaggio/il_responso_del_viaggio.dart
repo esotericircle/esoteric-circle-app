@@ -1,3 +1,4 @@
+import '../chat/la_posizione_della_lettura.dart';
 import '../responsi/filo_della_voce.dart';
 import '../rituals/animal_catalog.dart';
 import 'diario_dei_viaggi.dart';
@@ -28,6 +29,64 @@ import 'vocabolario_del_viaggio.dart';
 /// chi scendeva per la prima volta. Veniva dall'ordine DE voce 11. Qui
 /// [precedenti] sono per contratto le discese di **prima**.
 class IlResponsoDelViaggio {
+  /// **LA RISERVA CHE PRENDE POSIZIONE.** Ordine ET voce 08. Il fondatore
+  /// ha confermato la proposta del rapporto ER: *"una riserva che dica la
+  /// posizione che il modello aveva scelto sull'oggetto della domanda,
+  /// anche quando la sua risposta è stata scartata"*. La frase dice la
+  /// posizione come lettura dei segni del viaggio e rimanda al gesto, che
+  /// sta subito sotto: non nomina niente che la domanda non abbia.
+  ///
+  /// **Solo quando il modello ha scelto una posizione.** Senza modello (la
+  /// rete manca, il tetto e' raggiunto) resta la voce di casa, che ricorda
+  /// le ultime risposte e nomina l'oggetto della domanda: la prima stesura
+  /// metteva questa frase anche li', uguale a ogni discesa, e le guardie
+  /// della voce che si ricorda e del tema che arriva alla risposta l'hanno
+  /// presa. Le varianti, scelte col numero della discesa, fanno si' che due
+  /// riserve di fila non dicano la stessa frase.
+  static const Map<String, List<String>> _riserve = {
+    'sì': [
+      'I segni del viaggio dicono di sì: il primo passo è quello qui sotto.',
+      'Il viaggio pende verso il sì. Il passo per cominciare è qui sotto.',
+      'I segni del viaggio dicono di sì: comincia dal gesto qui sotto.',
+    ],
+    'no': [
+      'I segni del viaggio dicono di no, per ora: il passo di oggi è quello '
+          'qui sotto.',
+      'Il viaggio pende verso il no, per adesso. Il passo da fare oggi è qui '
+          'sotto.',
+      'I segni del viaggio dicono di no, per ora: parti dal gesto qui sotto.',
+    ],
+    'sì a una condizione': [
+      'I segni del viaggio dicono di sì, se il primo passo lo fai tu: è '
+          'quello qui sotto.',
+      'Il viaggio dice di sì a una condizione: che tu cominci dal passo qui '
+          'sotto.',
+      'I segni del viaggio dicono di sì, a patto di cominciare dal gesto qui '
+          'sotto.',
+    ],
+    'un gesto da fare': [
+      'I segni del viaggio indicano un passo da fare: è quello qui sotto.',
+      'Il viaggio risponde con un gesto: è quello qui sotto.',
+      'I segni del viaggio chiedono un passo concreto: lo trovi qui sotto.',
+    ],
+  };
+
+  /// La frase della riserva per la [posizione] scelta dal modello, o null
+  /// se il modello non ne ha scelta una fra quelle con una frase.
+  static String? rispostaCheSiSchiera(String? posizione,
+      {int seme = 0, String domanda = ''}) {
+    // **ALLA DOMANDA APERTA SI RISPONDE COL PASSO.** Dalla lettura alla
+    // cieca: a *"Cosa pensa di me la mia collega?"* il modello aveva scelto
+    // "no", e la riserva diceva *"I segni del viaggio dicono di no, per
+    // ora"*, che a quella domanda non risponde.
+    final aperta = domanda.trim().isNotEmpty &&
+        LaPosizioneDellaLettura.tipo(domanda) == TipoDellaDomanda.aperta;
+    final frasi =
+        _riserve[aperta && posizione != null ? 'un gesto da fare' : posizione];
+    if (frasi == null) return null;
+    return frasi[seme.abs() % frasi.length];
+  }
+
   const IlResponsoDelViaggio._({
     required this.scena,
     required this.titolo,
@@ -195,8 +254,7 @@ class IlResponsoDelViaggio {
     // riscritta a mano, e la funzione che la dice non la chiamava nessuno.
     // **ALLA QUARTA APPARIZIONE**, ordine DQ voce 03: cambiare domanda fa
     // ripartire il conto, e le discese di prima non contano piu'.
-    final siPuoDire =
-        IQuattroViaggi.siPuoNominare(apparizioniPrima ?? discesa);
+    final siPuoDire = IQuattroViaggi.siPuoNominare(apparizioniPrima ?? discesa);
     // Senza domanda, nessuna chiusura parla della domanda.
     final conDomanda = tema != null;
     final id = LaVoceDelMondoDiSotto.temaDi(tema);
@@ -294,8 +352,23 @@ class IlResponsoDelViaggio {
     // 13: ognuno prende il posto di quello di casa soltanto se ha retto alle
     // guardie. La scena resta dove sta, in fondo, come fonte.
     final paragrafi = [...voce.paragrafi];
-    if (scritti.risposta != null && paragrafi.isNotEmpty) {
-      paragrafi[0] = scritti.risposta!;
+    // **LA RISERVA PRENDE POSIZIONE. Ordine ET voce 08.** Con una domanda,
+    // quando nessuna risposta del modello ha retto (neanche la prima frase
+    // di una scartata, `LaScenaDalModello.conLaPrimaFrase`), la riserva non
+    // e' piu' la voce di casa, che parla del tema e di cose che la domanda
+    // non ha: dice la posizione che il modello aveva scelto.
+    final laPosizione = conDomanda
+        ? rispostaCheSiSchiera(scritti.posizione,
+            seme: discesa, domanda: domanda)
+        : null;
+    final rispostaDiRiserva = laPosizione ?? voce.risposta;
+    // Senza la risposta del modello e senza una posizione il primo
+    // paragrafo resta quello della voce di casa, con la sua ripresa
+    // dell'oggetto: la prima stesura lo sostituiva con la sola risposta, e
+    // le prove della ripresa l'hanno presa.
+    final primo = scritti.risposta ?? laPosizione;
+    if (primo != null && paragrafi.isNotEmpty) {
+      paragrafi[0] = primo;
     }
     if (scritti.azione != null && paragrafi.length > 1) {
       paragrafi[1] = LaVoceDelMondoDiSotto.gestoDelModello(scritti.azione!,
@@ -305,6 +378,9 @@ class IlResponsoDelViaggio {
       // **LA SECONDA CHIAMATA SI DICE**, ordine DQ voce 06: la riga di
       // collaudo e la misura sanno quale testo il modello ha riscritto.
       if (dalModello) {
+        if (scritti.dallaSeconda.contains('$pezzo: prima frase')) {
+          return 'modello: prima frase di una risposta scartata';
+        }
         return scritti.dallaSeconda.contains(pezzo)
             ? 'modello: seconda chiamata'
             : 'modello';
@@ -313,7 +389,12 @@ class IlResponsoDelViaggio {
           .where((r) => r.pezzo == pezzo)
           .map((r) => r.motivo.name)
           .firstOrNull;
-      return scarto == null ? 'riserva' : 'riserva: $scarto';
+      final quale = pezzo == 'risposta'
+          ? (laPosizione == null
+              ? 'riserva'
+              : 'riserva con la posizione ${scritti.posizione}')
+          : 'riserva';
+      return scarto == null ? quale : '$quale: $scarto';
     }
 
     final titoloDelModello = scritti.titolo != null && titolo == scritti.titolo;
@@ -337,7 +418,7 @@ class IlResponsoDelViaggio {
       // **NEL DIARIO VA CIO' CHE SI E' LETTO**, parola per parola: chi
       // riapre una discesa di sei mesi fa rilegge il testo del modello, e
       // non se ne scrive uno nuovo. Ordine DL voce 07.
-      risposta: scritti.risposta ?? voce.risposta,
+      risposta: scritti.risposta ?? rispostaDiRiserva,
       gesto: scritti.azione ?? voce.gesto,
       fonti: fonti,
       oggetto: oggetto,
