@@ -22,9 +22,9 @@ amici, online, Sigillo, infine le voci ET, con commit e spinta a ogni voce
 chiusa.
 
 VOCI_TOTALI: 37
-VOCI_CHIUSE: 0
-VOCI_APERTE: 0
-VOCI_DA_FARE: 37
+VOCI_CHIUSE: 2
+VOCI_APERTE: 3
+VOCI_DA_FARE: 32
 
 Le prove stanno in `docs/collaudo/ES/`, quelle del telefono di prova
 (Realme 767f596c) in `docs/collaudo/ES/realme/`. **Una voce che si vede a
@@ -115,9 +115,15 @@ DOMANDA: "Io nella card da condividere inserirei i dati di nascita e il nome o l
 
 ## VOCE ES.14, IL NUMERO FORTUNATO CENTRATO NEL SUO RIQUADRO
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (commit `4f7d265a`), misurata in prova
+sulla schermata vera, manca la cattura dal Realme, che arriva con la build di prova del blocco.
+Padre: ordine DD voce 09, commit `b6188d20`. Il riquadro e' `RiquadroDelNumero`
+(`lib/features/horoscope/riquadro_del_numero.dart`), che servira' anche alla Cinese e alla Vedica.
 
 DOMANDA: "Utlima cosa, nel riquadro del numero fortunato, il numero deve essere centrato nel riquadro"
+
+PROVA: docs/collaudo/ES/numero_centrato.txt
+MISURA: distanza fra il centro della cifra e il centro del riquadro sull'OroscopoScreen, prima 23,7 punti alla scala 1,0 e 30,5 alla scala 1,3, dopo 0,0 e 0,0
 
 ## VOCE ES.15, "ONLINE" NELLA BARRA IN ALTO E I PROSSIMI EVENTI COSMICI NEL PASSPORT
 
@@ -129,15 +135,28 @@ DOMANDA: "in alto nella barra superiore al centro bisogerà inserire "online" co
 
 ## VOCE ES.16, IL SIGILLO DEL SOGNO DI MEDORA NON PARLA DI RUNE
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (commit `770cccb2`), manca la cattura
+dal Realme, con la build di prova del blocco. Padre: ordine P voce 18, la Runa del Tramonto,
+portata nel Sigillo dalla DD.04 quando il Sigillo ruotava fra i Maestri.
 
 DOMANDA: "C'è una cosa grave da aggiungere all'ordine: in screenshot è chiaro, il sigillo del sogno, adesso solo di Medora, parla di Rune!"
 
+PROVA: docs/collaudo/ES/sigillo_senza_rune.txt
+MISURA: frasi della schermata del Sigillo con parole di un Maestro che non e' Medora, prima 1 (la riga della Runa del Tramonto), dopo 0 su 85
+
 ## VOCE ES.17, UNA SOLA NOTIFICA PER DONO, COL NOME GIUSTO
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prima parte prodotta e agganciata (commit `c9bdfc06`), sul
+telefono e sul server, non ancora schierata: le funzioni si schierano insieme alla build di prova
+che porta il gestore della push, poi tre sere di osservazione sul Realme in
+`docs/collaudo/ES/notifiche.txt`. Padre del doppione: ordine CG voce 16, il tag `dono_1104` che non
+sostituiva la locale 1104; e il giro del server ogni quindici minuti non allineato all'orologio
+(partiva a :13, :28, :43, :58). L'accento di Calìgo nella testata e nella push si fa con la ES.19,
+perche' cambia l'impronta dell'istruzione dei Maestri e vuole la misura dell'attribuzione rifatta.
 
 DOMANDA: "Inoltre mi è arrivata doppia notifica "Caligo ha qualcosa da dirti" alle 22:40 e la notifica del sigillo del giorno alle 22.30."; dal rapporto dell'ordine ET, LE COSE CHE ASPETTANO TE, punto 6: "Il nome di Caligo senza accento nella testata del dominio e del LIVE"; domanda girata al fondatore: "Il nome Calìgo con l'accento nella testata e nella push lo metto in ogni caso. Confermi?", risposta: "Confermo tutto".
+
+MISURA: in prova, notifiche per la sera del 28 settembre (locale alle 22:30, due push dello stesso Dono), prima 3, dopo 1; titolo del Sigillo del Sogno, prima a nome del Maestro della push, dopo "Medora"
 
 ## VOCE ES.18, IL SIGILLO DEL SOGNO CONTROLLATO DA CIMA A FONDO, RISPOSTE COMPRESE
 
@@ -191,15 +210,27 @@ DOMANDA: dalla ET.08: il consiglio dell'Architetto "ER.02: sì alla riserva che 
 
 ## VOCE ES.26, IL RETRO DELLE SCHEDE A 402 PUNTI (DALLA ET.09)
 
-**DA FARE.**
+**CHIUSA.** Le quattro catture a 402 punti in `docs/collaudo/ES/realme/` (`es26_retro_verticale_402.jpg`,
+`es26_retro_orizzontale_402.jpg`, `es26_retro_quadrata_402.jpg`, `es26_retro_dominio_402.jpg`); la
+guardia della ET.09 misura adesso a 360 e a 402 punti, vista rossa alle due larghezze. Lo schermo del
+Realme: prima densita' 480 e 360 punti, durante "Larghezza minima" 402 (densita' 429), dopo di nuovo
+480 e 360 punti, riletto da adb.
 
 DOMANDA: dalla ET.09: "Inserisci anche che i testi nel rovescio delle schede sono minuscoli, quasi illeggibili."; domanda girata al fondatore: "Retro a 402 punti: Code cambia la misura dello schermo del Realme per la prova e poi la rimette com'era. Confermi?", risposta: "Confermo tutto".
 
+PROVA: docs/collaudo/ES/retro_402.txt
+MISURA: schede col testo del retro rimpicciolito in home a 402 punti, prima non misurate (la ET.09 misurava a 360), dopo 0 su 67; il testo del retro in home a 402 punti e' quello dei domini, 15,9 punti nell'orizzontale, 15,2 nel quadrato, 13,0 nel verticale, come nei domini
+
 ## VOCE ES.27, L'INTRO REGISTRATA SUL REALME (DALLA ET.10)
 
-**DA FARE.**
+**CHIUSA.** La registrazione dello schermo e dell'audio dal Realme,
+`docs/collaudo/ES/realme/es27_intro_intera.mp4`, allineata al sorgente con correlazione 0,994; le
+impostazioni prima, durante e dopo in `docs/collaudo/ES/intro_realme.txt`.
 
 DOMANDA: "Ho creato una nuova cersione della intro da sostituire e la 5"; domanda girata al fondatore: "Intro sul Realme: Code riaccende le animazioni solo per registrare e poi le rispegne. Confermi?", risposta: "Confermo tutto".
+
+PROVA: docs/collaudo/ES/intro_realme.txt
+MISURA: durata dell'intro registrata 14,0 secondi contro i 14 del sorgente; scale delle animazioni del Realme prima 0,0, durante 1,0, dopo 0,0 su tutte e tre
 
 ## PARTE 4, DIFETTI E MIGLIORIE TROVATI DALL'ARCHITETTO, APPROVATI DAL FONDATORE
 

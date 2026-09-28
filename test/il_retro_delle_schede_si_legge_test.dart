@@ -102,52 +102,59 @@ void main() {
     return stile.fontSize! * scalaX(paragrafo);
   }
 
-  testWidgets(
-      'ET.09: in home il testo del retro e\' alla misura dei domini, in ogni '
-      'formato e per ogni arte', (tester) async {
-    tester.view.devicePixelRatio = 3.0;
-    tester.view.physicalSize = const Size(1080, 2400);
-    addTearDown(tester.view.reset);
+  // **A 360 E A 402 PUNTI, ordine ES voce 26**: la voce ET.09 era misurata
+  // solo alla larghezza del Realme, 360 punti; i telefoni grandi stanno a
+  // 402. Stessa prova, due larghezze.
+  for (final larghezza in const [360.0, 402.0]) {
+    testWidgets(
+        'ET.09: in home il testo del retro e\' alla misura dei domini, in ogni '
+        'formato e per ogni arte, a ${larghezza.toStringAsFixed(0)} punti',
+        (tester) async {
+      tester.view.devicePixelRatio = 1080 / larghezza;
+      tester.view.physicalSize = const Size(1080, 2400);
+      addTearDown(tester.view.reset);
 
-    final rimpicciolite = <String>{};
-    final righe = <String>[];
-    final perFormato = <FormatoDellaScheda, List<double>>{};
-    double? neiDomini;
-    for (final (id, formato) in coppie) {
-      final casa = await puntiDelRetro(tester, id, formato, true);
-      final dominio = await puntiDelRetro(tester, id, formato, false);
-      neiDomini ??= dominio;
-      perFormato.putIfAbsent(formato, () => []).add(casa);
-      if (casa < dominio - 0.05) rimpicciolite.add(id);
-      righe.add('${id.padRight(26)} ${formato.name.padRight(11)} in home '
-          '${casa.toStringAsFixed(1)} punti, nei domini '
-          '${dominio.toStringAsFixed(1)}');
-    }
-    final arti = coppie.map((c) => c.$1).toSet();
-    String piccolo(List<double> v) =>
-        (v.reduce((a, b) => a < b ? a : b)).toStringAsFixed(1);
-    final sintesi = 'ORDINE ET VOCE 9: arti della home ${arti.length}, coppie '
-        'arte e formato ${coppie.length}; testo del retro nei domini '
-        '${neiDomini!.toStringAsFixed(1)} punti; il piu\' piccolo in home: '
-        '${perFormato.entries.map((e) => '${e.key.name} ${piccolo(e.value)}').join(', ')}; '
-        'arti col testo del retro rimpicciolito in home '
-        '${rimpicciolite.length} su ${arti.length}';
-    print(sintesi);
-    if (Platform.environment['SCRIVI_LA_PROVA'] == '1') {
-      File('docs/collaudo/ET/retro_delle_schede.txt')
-        ..createSync(recursive: true)
-        ..writeAsStringSync('$sintesi\n\n${righe.join('\n')}\n');
-    }
-    // Il cardinale: le arti della home sono 67 (ordine ER voci 08 e 20).
-    expect(arti.length, greaterThanOrEqualTo(67),
-        reason: 'la prova non ha trovato le arti della home');
-    expect(rimpicciolite, isEmpty,
-        reason: 'in home il testo del retro e\' piu\' piccolo che nei '
-            'domini: ${rimpicciolite.take(6).join(', ')}');
-    print('ORDINE ET VOCE 9: retri col testo sottolineato '
-        '${sottolineate.length}');
-    expect(sottolineate, isEmpty,
-        reason: 'il testo del retro porta la sottolineatura di ripiego: '
-            '${sottolineate.take(6).join(', ')}');
-  });
+      final rimpicciolite = <String>{};
+      final righe = <String>[];
+      final perFormato = <FormatoDellaScheda, List<double>>{};
+      double? neiDomini;
+      for (final (id, formato) in coppie) {
+        final casa = await puntiDelRetro(tester, id, formato, true);
+        final dominio = await puntiDelRetro(tester, id, formato, false);
+        neiDomini ??= dominio;
+        perFormato.putIfAbsent(formato, () => []).add(casa);
+        if (casa < dominio - 0.05) rimpicciolite.add(id);
+        righe.add('${id.padRight(26)} ${formato.name.padRight(11)} in home '
+            '${casa.toStringAsFixed(1)} punti, nei domini '
+            '${dominio.toStringAsFixed(1)}');
+      }
+      final arti = coppie.map((c) => c.$1).toSet();
+      String piccolo(List<double> v) =>
+          (v.reduce((a, b) => a < b ? a : b)).toStringAsFixed(1);
+      final sintesi = 'ORDINE ET VOCE 9, a ${larghezza.toStringAsFixed(0)} '
+          'punti: arti della home ${arti.length}, coppie '
+          'arte e formato ${coppie.length}; testo del retro nei domini '
+          '${neiDomini!.toStringAsFixed(1)} punti; il piu\' piccolo in home: '
+          '${perFormato.entries.map((e) => '${e.key.name} ${piccolo(e.value)}').join(', ')}; '
+          'arti col testo del retro rimpicciolito in home '
+          '${rimpicciolite.length} su ${arti.length}';
+      print(sintesi);
+      if (Platform.environment['SCRIVI_LA_PROVA'] == '1' && larghezza == 360) {
+        File('docs/collaudo/ET/retro_delle_schede.txt')
+          ..createSync(recursive: true)
+          ..writeAsStringSync('$sintesi\n\n${righe.join('\n')}\n');
+      }
+      // Il cardinale: le arti della home sono 67 (ordine ER voci 08 e 20).
+      expect(arti.length, greaterThanOrEqualTo(67),
+          reason: 'la prova non ha trovato le arti della home');
+      expect(rimpicciolite, isEmpty,
+          reason: 'in home il testo del retro e\' piu\' piccolo che nei '
+              'domini: ${rimpicciolite.take(6).join(', ')}');
+      print('ORDINE ET VOCE 9: retri col testo sottolineato '
+          '${sottolineate.length}');
+      expect(sottolineate, isEmpty,
+          reason: 'il testo del retro porta la sottolineatura di ripiego: '
+              '${sottolineate.take(6).join(', ')}');
+    });
+  }
 }
