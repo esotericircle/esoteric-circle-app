@@ -1,3 +1,5 @@
+import 'celestial.dart';
+import 'effemeridi.dart';
 import 'moon_phase.dart';
 import 'night_sky.dart';
 import 'zodiac.dart';
@@ -74,15 +76,56 @@ abstract final class IlCieloDetto {
     return 'IL CIELO DI OGGI, calcolato: la Luna è in $segno ed è $fase. '
         'Se parli della Luna di oggi, sono la sola posizione e la sola fase '
         'vere. Non dirne altre. Non dare a un evento un giorno diverso da '
-        'quello scritto qui o in CIÒ CHE ARRIVA.';
+        'quello scritto qui o in CIÒ CHE ARRIVA.\n${pianetiDiOggi(adesso)}';
+  }
+
+  /// I corpi di cui il cielo di oggi dice il segno, dalle effemeridi dell'app.
+  static const List<CorpoCeleste> _pianeti = [
+    CorpoCeleste.sole,
+    CorpoCeleste.mercurio,
+    CorpoCeleste.venere,
+    CorpoCeleste.marte,
+    CorpoCeleste.giove,
+    CorpoCeleste.saturno,
+  ];
+
+  static Zodiac _segnoDi(CorpoCeleste corpo, DateTime adesso) {
+    if (corpo == CorpoCeleste.luna) return NightSky.moonSign(adesso);
+    final jd = Celestial.julianDay(adesso.toUtc());
+    return Zodiac
+        .values[(Effemeridi.longitudineEclittica(corpo, jd) / 30).floor() % 12];
+  }
+
+  static bool _retrogrado(CorpoCeleste corpo, DateTime adesso) =>
+      corpo != CorpoCeleste.sole &&
+      corpo != CorpoCeleste.luna &&
+      Effemeridi.retrogrado(corpo, Celestial.julianDay(adesso.toUtc()));
+
+  /// **I PIANETI DI OGGI, per il modello.** Ordine ET voce 01, 28 settembre
+  /// 2026: il modello riceveva la sola Luna di oggi, e nella sonda del banco
+  /// delle trenta domande inventava *"Giove in Toro"*, *"Venere in
+  /// Capricorno"*, *"Mercurio retrogrado"*. Adesso riceve i pianeti calcolati
+  /// e la regola di nominarli solo dove stanno.
+  static String pianetiDiOggi(DateTime adesso) {
+    final pianeti = [
+      for (final c in _pianeti)
+        '${c.nome} in ${_segnoDi(c, adesso).italianName}'
+            '${_retrogrado(c, adesso) ? (c == CorpoCeleste.venere ? ' retrograda' : ' retrogrado') : ''}',
+    ];
+    return 'I PIANETI DI OGGI, calcolati: ${pianeti.join(', ')}. Sono le sole '
+        'posizioni vere di oggi: se nomini un pianeta di oggi o un suo '
+        'transito, lo nomini dove sta qui. Non dire retrogrado un pianeta che '
+        'qui non lo è. Non nominare Urano, Nettuno e Plutone. Il cielo di '
+        'nascita della persona resta quello scritto sopra.';
   }
 
   /// Le frasi del testo che il calcolo smentisce, guardando da [adesso].
   static List<FraseSmentita> smentite(String testo,
-      {required DateTime adesso}) {
+      {required DateTime adesso, Map<String, String> diNascita = const {}}) {
     final esito = <FraseSmentita>[];
     for (final frase in frasiDi(testo)) {
-      final perche = _perche(frase, adesso);
+      final perche =
+          _pianeta(frase, adesso, diNascita) ?? _perche(frase, adesso);
       if (perche != null) {
         esito.add(FraseSmentita(frase: frase.trim(), perche: perche));
       }
@@ -92,16 +135,22 @@ abstract final class IlCieloDetto {
 
   /// Il testo senza le frasi che il calcolo smentisce. Le altre restano
   /// com'erano, a capo compresi.
-  static String senzaLeSmentite(String testo, {required DateTime adesso}) {
-    final via = smentite(testo, adesso: adesso).map((s) => s.frase).toSet();
+  static String senzaLeSmentite(String testo,
+      {required DateTime adesso, Map<String, String> diNascita = const {}}) {
+    final via = smentite(testo, adesso: adesso, diNascita: diNascita)
+        .map((s) => s.frase)
+        .toSet();
     if (via.isEmpty) return testo;
     var fuori = testo;
     for (final f in via) {
       fuori = fuori.replaceFirst(f, '');
     }
+    // Nessuna riga comincia con uno spazio dove una frase e' stata tolta
+    // (ordine ET voce 01: nella sonda " Il tuo compito...").
     return fuori
         .replaceAll(RegExp(r'[ \t]{2,}'), ' ')
         .replaceAll(RegExp(r' +\n'), '\n')
+        .replaceAll(RegExp(r'\n[ \t]+'), '\n')
         .trim();
   }
 
@@ -148,6 +197,56 @@ abstract final class IlCieloDetto {
     final fra = RegExp(r'\bfra (\d+|[a-z]+) giorn[oi]\b').firstMatch(frase);
     if (fra == null) return null;
     return int.tryParse(fra.group(1)!) ?? _numeri[fra.group(1)!];
+  }
+
+  /// **5. Un pianeta detto in un segno o retrogrado, oggi.** Ordine ET voce
+  /// 01. Si guardano le forme "Giove in Toro", "il transito di Venere in
+  /// Capricorno", "Mercurio retrogrado". Non si giudicano il cielo di nascita
+  /// ("il tuo Sole", o il segno che la persona ha davvero) e le frasi al
+  /// futuro ("domani", "fra tre giorni", "entrera'", "quando sara'"), che
+  /// dicono un altro momento.
+  static String? _pianeta(
+      String originale, DateTime adesso, Map<String, String> diNascita) {
+    final frase = _piano(originale);
+    if (RegExp(r'\b(domani|fra \d+|fra [a-z]+ giorn[oi]|entrer[aà]|sar[aà]|'
+            r'quando|prossim[oaie]|arrivera)\b')
+        .hasMatch(frase)) {
+      return null;
+    }
+    final nascita = {
+      for (final e in diNascita.entries) _piano(e.key): _piano(e.value),
+    };
+    for (final corpo in [..._pianeti, CorpoCeleste.luna]) {
+      final nome = _piano(corpo.nome);
+      const possessivo = r'(\b(?:tuo|tua|suo|sua) )?\b';
+      const dove = r"\b (?:e |transita |si trova |sta )?(?:nel segno dell'|"
+          r"nel segno dello |nel segno del |nell'|nello |nel |in )([a-z]+)";
+      final nelSegno = RegExp('$possessivo$nome$dove').allMatches(frase);
+      for (final m in nelSegno) {
+        if (m.group(1) != null) continue;
+        final detto = m.group(2)!;
+        Zodiac? segno;
+        for (final z in Zodiac.values) {
+          if (_piano(z.italianName) == detto) segno = z;
+        }
+        if (segno == null) continue;
+        if (nascita[nome] == detto) continue;
+        final vero = _segnoDi(corpo, adesso);
+        if (vero != segno) {
+          return 'dice ${corpo.nome} in ${segno.italianName}, ma oggi il '
+              'calcolo lo dà in ${vero.italianName}';
+        }
+      }
+      const retrogrado = r'\b (?:[eè] |che [eè] )?retrograd[oa]';
+      final retro = RegExp('$possessivo$nome$retrogrado').firstMatch(frase);
+      if (retro != null &&
+          retro.group(1) == null &&
+          !_retrogrado(corpo, adesso)) {
+        return 'dice ${corpo.nome} retrogrado, ma oggi il calcolo lo dà '
+            'diretto';
+      }
+    }
+    return null;
   }
 
   static String? _perche(String originale, DateTime adesso) {

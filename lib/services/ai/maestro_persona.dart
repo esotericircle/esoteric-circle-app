@@ -1,3 +1,4 @@
+import '../../core/chat/la_posizione_della_lettura.dart';
 import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/testo_del_responso.dart';
 import '../../core/chat/user_profile.dart';
@@ -372,6 +373,8 @@ class MaestroPersona {
     String? daNonRipetere,
     String? daProgramma,
     String? daAttesa,
+    String? domandaDiAdesso,
+    String? correzione,
   }) {
     final natalBlock = _natalContext(natal);
     // **IL SEGUITO NON E' UNA PRIMA RISPOSTA.** Ordine EQ, 27 settembre 2026:
@@ -464,6 +467,15 @@ class MaestroPersona {
       // **IL CONTROLLO PRIMA DI SCRIVERE, per ultimo. Ordine EQ voce 02.**
       // Non nel seguito: chiede che la prima frase risponda alla domanda, e
       // il seguito non risponde di nuovo.
+      // **LA FORMA DELLA PRIMA FRASE PER QUESTA DOMANDA. Ordine ET voce 01.**
+      // Il blocco del turno e la correzione nominata, subito prima del
+      // controllo finale.
+      if (!seguito && domandaDiAdesso != null) ...[
+        '',
+        LaPosizioneDellaLettura.perIlTurno(maestro, domandaDiAdesso,
+            giro: testiGiaDetti.length)
+      ],
+      if (correzione != null) ...['', correzione],
       if (!seguito) ...['', LaRispostaNelMerito.primaDiScrivere],
       // IL SEGUITO, quando si sta scrivendo il seguito e non la prima
       // risposta, per ultimo. Il modello riceve cio' che ha gia' detto,
@@ -488,6 +500,13 @@ class MaestroPersona {
       'LIVE:\n'
       '- Al massimo tre frasi brevi, poi la riga con ✦ quando c\'è un passo '
       'da dare. Nessun secondo paragrafo: chi ascolta non può rileggere.\n'
+      // **QUATTRO QUANDO LA DOMANDA HA PIU' PARTI. Ordine ET voce 06.** La
+      // voce si ferma alla terza frase, alla quarta se la persona ha
+      // raccontato un fatto e poi chiesto, o ha chiesto piu' cose
+      // (`LeTreFrasiDelLive.haPiuParti`).
+      '- Se la persona ti racconta un fatto e poi ti chiede, o ti chiede più '
+      'cose insieme, puoi dire quattro frasi: una risposta per ogni parte, '
+      'nelle prime frasi.\n'
       '- Le prime due frasi rispondono; la terza, se serve, dice perché.\n'
       '- Anche in tre frasi, la prima dice che cosa fare in concreto o che '
       'cosa indica la tua arte per questa persona, partendo da quello che ha '
@@ -593,6 +612,18 @@ class MaestroPersona {
           'situazione" quando la domanda è un argomento generale, "nessuna '
           'domanda" solo se la persona non ne ha scelta una. La prima frase '
           'della risposta dice la posizione scelta, in parole semplici.',
+      // **LA RISPOSTA IN POCHE PAROLE PRIMA DI SCRIVERLA. Ordine ET voce
+      // 07**, come la posizione: alla lettura alla cieca del giro 8
+      // dell'ordine ER le prime frasi non dirette rispondevano con un
+      // atteggiamento, "riconosci il tuo vero valore".
+      '- "inBreve": subito dopo la posizione, la tua risposta in poche '
+          'parole concrete, al massimo otto: il sì, il no o la condizione '
+          '(«sì, se gli scrivi tu»), oppure il gesto con il suo oggetto '
+          '(«fai il bilancio delle spese del mese»), oppure il fatto che le '
+          'pietre mostrano (chi o che cosa si muove). Mai un atteggiamento '
+          '(«riconosci il tuo valore», «accogli il cambiamento», «trova '
+          'l\'equilibrio», «non forzare»). La prima frase della risposta '
+          'dice questa cosa.',
       '- "risposta": due frasi. La prima risponde alla domanda in modo '
           'diretto: se chiede se una cosa accadrà o se farla, dice che cosa '
           'indicano le rune, sì, no o a quali condizioni («le rune indicano di '
@@ -613,11 +644,16 @@ class MaestroPersona {
           'significa quella posizione, partendo dalla sua riga nel verso '
           'uscito, che ti do. "sullaDomanda": una frase che dice in concreto '
           'che cosa quella pietra indica sulla cosa chiesta dalla persona '
-          '(senza domanda, sulla sua giornata di oggi): una frase che '
-          'andrebbe bene per qualunque domanda non va bene. Due pietre non '
+          'e la nomina (Luca, il lavoro, le spese, tua sorella, la scelta); '
+          'senza domanda, sulla sua giornata di oggi, che nomina («oggi», '
+          '«stasera»): una frase che andrebbe bene per qualunque domanda non '
+          'va bene. Due pietre non '
           'dicono la stessa cosa. Una pietra in merkstave (rovesciata) parla '
           'dal suo verso d\'ombra. Frasi normali, come in un racconto: niente elenchi, '
-          'niente due punti dopo il nome della runa.',
+          'niente due punti dopo il nome della runa. La riga del corpus è un '
+          'appunto: non ricopiarla, dilla con una frase tua intera. Se metti '
+          'un inciso dopo il nome, aprilo e chiudilo con due virgole: '
+          '«Uruz, nella posizione dell\'Ostacolo, rivela...».',
       '- "legame": una o due frasi su come le pietre si legano fra loro: una '
           'causa, un passaggio, un contrasto. Con una pietra sola, come la '
           'pietra si lega alla domanda.',

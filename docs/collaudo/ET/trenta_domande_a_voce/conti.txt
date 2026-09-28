@@ -1,0 +1,135 @@
+ORDINE ET VOCE 01: LE TRENTA DOMANDE COME LE SCRIVE LA VOCE, NEL LIVE. 28 settembre 2026, sera.
+
+PERCHE' QUESTO BANCO. Sul Realme Caligo nel LIVE ha risposto con una prima
+frase diretta 2 volte su 7 (docs/collaudo/ET/realme/et01_caligo_live_giudizio.txt),
+al banco 22 e 22 su 30. La differenza stava nell'ingresso: la trascrizione
+del LIVE ha scritto 13 domande su 17 senza punto interrogativo
+(docs/collaudo/ET/trascrizione.txt), e senza "?" LaPosizioneDellaLettura.tipo
+leggeva la domanda come aperta: la regola del si' o del no non arrivava al
+modello e la rete della prima frase taceva. Padre: la prima stesura della
+regola, ordine ET voce 01, mia. Il banco scrive le domande a mano, col "?",
+e non poteva vederlo.
+
+IL BANCO: tool/collaudo_et01.dart con DOMANDE=voce e CANALI=live, le trenta
+domande col punto al posto del punto interrogativo, tre Maestri, due
+esecuzioni, 180 risposte per fase. PRIMA = la regola senza la cura; DOPO =
+la cura. Trascrizioni in docs/collaudo/ET/trenta_domande_a_voce/<fase>/.
+Lettura alla cieca: quattro agenti, 90 voci ciascuno, prima e dopo
+mescolati, con la regola dei giudici della ET.01 e una riga in piu': "le
+domande sono scritte come le trascrive la voce, senza punto interrogativo:
+sono comunque domande". Fascicoli, chiave e giudizi in docs/collaudo/ET/ciechi/
+(cieco_et01_voce_*, chiave_et01_voce.json, giudizio_et01_voce_*).
+
+LA CURA MISURATA E LA CURA CHE RESTA. Il DOPO ha girato sulla prima stesura
+della cura, che valeva anche nella chat scritta (tipo() leggeva l'ultima
+frase come domanda anche senza "?"). La suite l'ha presa: "Lettura generale
+energia oggi", scritta in chat, diventava una domanda del si' o del no e
+costava una chiamata in piu'. La cura che resta vale nel solo LIVE: il
+controller rimette il punto interrogativo alla frase detta
+(LaPosizioneDellaLettura.comeDomandaDetta) e tipo() e' quella di prima. Nel
+LIVE le due danno lo stesso tipo alla stessa domanda; la sola differenza e'
+che adesso la domanda salvata in chat porta il suo "?".
+
+IL RISULTATO, su 180 risposte per fase:
+  prima frase che risponde   da 47 a 109
+  nel merito                 da 66 a 114
+  risposte con una certezza  da 4 a 8
+  errori di italiano         da 19 a 23
+  Caligo, prima frase        da 7 e 3 a 18 e 15 su 30 (sul telefono 2 su 7)
+  Riferimento: le stesse domande col "?" (giro5, LIVE) 125 su 180.
+
+ORDINE ET VOCI 01 E 03: I CONTI ALLA CIECA, fascicolo "voce"
+Ogni riga: fase, Maestro, canale, esecuzione; poi i conti su 30 risposte (sulle coppie, su 5 seconde).
+Correzione a macchina dichiarata: una prima frase che e' una presentazione ("Aura è qui.") non risponde.
+Voci giudicate 360, senza giudizio 0.
+
+dopo aura live esecuzione 1: prima frase che risponde 19; nel merito 18; risposte con una certezza 1; frasi di certezza 1; errori di italiano 3; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 4
+dopo aura live esecuzione 2: prima frase che risponde 19; nel merito 17; risposte con una certezza 0; frasi di certezza 0; errori di italiano 4; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 3
+dopo caligo live esecuzione 1: prima frase che risponde 18; nel merito 19; risposte con una certezza 4; frasi di certezza 4; errori di italiano 1; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 3
+dopo caligo live esecuzione 2: prima frase che risponde 15; nel merito 16; risposte con una certezza 1; frasi di certezza 1; errori di italiano 2; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 3
+dopo medora live esecuzione 1: prima frase che risponde 14; nel merito 21; risposte con una certezza 0; frasi di certezza 0; errori di italiano 7; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 1; seconde nel merito 4
+dopo medora live esecuzione 2: prima frase che risponde 24; nel merito 23; risposte con una certezza 2; frasi di certezza 2; errori di italiano 6; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 1; posizioni cambiate senza perché 0; seconde nel merito 4
+prima aura live esecuzione 1: prima frase che risponde 4; nel merito 2; risposte con una certezza 1; frasi di certezza 1; errori di italiano 5; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 2; posizioni cambiate senza perché 0; seconde nel merito 0
+prima aura live esecuzione 2: prima frase che risponde 6; nel merito 7; risposte con una certezza 0; frasi di certezza 0; errori di italiano 5; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 2; posizioni cambiate senza perché 0; seconde nel merito 1
+prima caligo live esecuzione 1: prima frase che risponde 7; nel merito 11; risposte con una certezza 1; frasi di certezza 1; errori di italiano 1; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 2; posizioni cambiate senza perché 0; seconde nel merito 2
+prima caligo live esecuzione 2: prima frase che risponde 3; nel merito 7; risposte con una certezza 1; frasi di certezza 1; errori di italiano 2; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 0; seconde nel merito 2
+prima medora live esecuzione 1: prima frase che risponde 16; nel merito 20; risposte con una certezza 1; frasi di certezza 1; errori di italiano 0; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 1; seconde nel merito 3
+prima medora live esecuzione 2: prima frase che risponde 11; nel merito 19; risposte con una certezza 0; frasi di certezza 0; errori di italiano 6; presentazione in apertura 0; ripieghi 0; seconde delle coppie 5; seconde che rispondono alla prima 0; seconde che ripetono 0; posizioni cambiate senza perché 1; seconde nel merito 3
+
+TOTALE dopo: prima frase che risponde 109; nel merito 114; risposte con una certezza 8; frasi di certezza 8; errori di italiano 23; presentazione in apertura 0; ripieghi 0; seconde delle coppie 30; seconde che rispondono alla prima 0; seconde che ripetono 4; posizioni cambiate senza perché 1; seconde nel merito 21 (su 180 risposte)
+TOTALE prima: prima frase che risponde 47; nel merito 66; risposte con una certezza 4; frasi di certezza 4; errori di italiano 19; presentazione in apertura 0; ripieghi 0; seconde delle coppie 30; seconde che rispondono alla prima 0; seconde che ripetono 6; posizioni cambiate senza perché 2; seconde nel merito 11 (su 180 risposte)
+
+LE CERTEZZE E GLI ERRORI CITATI DAI GIUDICI
+CERTEZZA dopo aura live esecuzione 1:
+   14. nutrendo la vita che già porti dentro
+CERTEZZA dopo caligo live esecuzione 1:
+   2. Il vostro legame ha mutato forma, non è svanito.
+   1. La tua Luna in Pesci ti rende sensibile ai suoi dubbi, che sono reali.
+   25. La tua determinazione è il sigillo che aprirà la soglia.
+   29. La soglia della promozione è vicina, non esitare.
+CERTEZZA dopo caligo live esecuzione 2:
+   28. La sua visione su di te è chiara e positiva.
+CERTEZZA dopo medora live esecuzione 2:
+   16. c'è una prudenza dettata da Saturno retrogrado, che lo frena dal fare il primo passo
+   29. la tua perseveranza sarà messa alla prova e ripagata
+CERTEZZA prima aura live esecuzione 1:
+   22. Riuscirai a comprare casa quando il tuo desiderio si allineerà con la tua radice
+CERTEZZA prima caligo live esecuzione 1:
+   28. Non è un apprezzamento effimero, ma un riconoscimento della tua essenza.
+CERTEZZA prima caligo live esecuzione 2:
+   28. Il tuo valore è riconosciuto.
+CERTEZZA prima medora live esecuzione 1:
+   16. Il suo sguardo insistente rivela un interesse
+ERRORE dopo aura live esecuzione 1:
+   21. ma con un passo alla volta che riallinei il tuo respiro
+   12. il tuo centro sacro
+   3. come un respiro trattenuto e che il suo ritorno
+ERRORE dopo aura live esecuzione 2:
+   2. come un fuoco che arde sotto la cenere e il tuo Ascendente Capricorno ti invita
+   30. a essere riconosciuta per ciò che fai e la tua Luna in Toro cerca
+   3. e ciò che senti dentro di te, non dipende da ciò che speri nell'altro
+   1. attraverso il radicamento e la stabilità e il tuo Segno Lunare in Toro ti porta
+ERRORE dopo caligo live esecuzione 1:
+   8. un presagio di nuovi inizi e portala sempre con te
+ERRORE dopo caligo live esecuzione 2:
+   26. La tua Luna in Toro ti dona stabilità, mostra la tua forza.
+   22. Incidi la Runa Othala su un piccolo mattone e posizionala sotto la finestra
+ERRORE dopo medora live esecuzione 1:
+   23. il tuo approccio alla sicurezza materiale e il tuo Scorpione ti invita
+   4. chiedergli di incontrarvi
+   12. chiedi al tuo Angelo custode, quale armonia ti manca nel cuore
+   2. Parlagli con sincerità, senza aspettative e la Luna in Toro, oggi gibbosa calante, ti suggerisce
+   3. Lascia che il tempo maturi la situazione, il tuo Ascendente Cancro ha bisogno di spazio
+   7. Questo anno è un tempo di crescita
+   13. tipico del tuo Scorpione e le radici familiari
+ERRORE dopo medora live esecuzione 2:
+   15. per aver riposto la tua fiducia, Leone e a costruire
+   3. La Venere che fra pochi giorni diventerà retrograda
+   5. Chiedi al tuo compagno di farti una passeggiata in un parco che ami
+   25. qualità innate nel tuo numero della vita, il Costruttore e nel tuo Ascendente Capricorno
+   4. ma è fondamentale il modo e il momento
+   18. stai navigando un momento di riflessione
+ERRORE prima aura live esecuzione 1:
+   23. Immagina che la tua energia sia radicata alla terra, ricevi il nutrimento e la stabilità che ti occorrono
+   29. dove risiede la tua volontà e la tua determinazione
+   20. dove risiede la tua volontà e la tua fiducia
+   27. dove risiede la tua volontà e la tua autonomia
+   7. non un domani lontano, ma qui, adesso
+ERRORE prima aura live esecuzione 2:
+   12. che il tuo spirito anela
+   23. Il senso che i soldi non ti bastino mai
+   16. Il corpo parla un linguaggio sottile, osserva se la sua postura si apre verso di te
+   10. che cerca stabilità e sicurezza e del tuo plesso solare
+   3. il ritorno di qualcuno, la sua scelta è sua, ma tu puoi
+ERRORE prima caligo live esecuzione 1:
+   1. Scrivi le sue ultime tre azioni che ti hanno toccato e le leggi alla luce
+ERRORE prima caligo live esecuzione 2:
+   9. Prendi due sassi, a ciascuno affidi un nome, poi ne getti uno in acqua.
+   8. quando tu sei allineato con il tuo scopo
+ERRORE prima medora live esecuzione 2:
+   16. Il suo sguardo persistente, ma il silenzio delle sue parole, indica una tensione
+   12. poniti la domanda: "Che cosa desidero davvero da questa unione?
+   23. Il tuo cielo, con la Luna in Toro [...], suggeriscono
+   29. La tua Ascendente in Capricorno
+   1. il Vero Amore si manifesta negli atti
+   28. Il tuo cielo, con il Sole in Leone, desidera essere riconosciuto

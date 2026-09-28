@@ -35,11 +35,17 @@ import 'package:esoteric_circle/services/ai/la_richiesta_del_turno.dart';
 /// Una risposta grezza, com'e' tornata da Gemini prima che la rete guardasse,
 /// col tempo che e' costata. Serve alle voci ED.02 e ED.03.
 class RispostaGrezza {
-  RispostaGrezza(this.maestro, this.testo, this.durata);
+  RispostaGrezza(this.maestro, this.testo, this.durata,
+      {this.ingresso = 0, this.uscita = 0});
 
   final Maestro maestro;
   final String testo;
   final Duration durata;
+
+  /// I gettoni della chiamata, dall'`usageMetadata`: in ingresso, e in uscita
+  /// col ragionamento. Ordine ET voce 01: il costo di un giro del banco.
+  final int ingresso;
+  final int uscita;
 }
 
 /// L'esito di una generazione del banco, ordine EQ voce 04: il testo com'e'
@@ -119,6 +125,8 @@ class VoceVeraDiGemini implements MaestroAiProvider {
       daNonRipetere: turno.daNonRipetere,
       daProgramma: turno.daProgramma,
       daAttesa: turno.daAttesa,
+      domandaDiAdesso: turno.domanda,
+      correzione: turno.daCorreggere,
     );
     final istruzione = ritocco?.call(maestro, composta) ?? composta;
     // La cronologia come la manda l'app: solo i messaggi veri, in ordine.
@@ -191,7 +199,11 @@ class VoceVeraDiGemini implements MaestroAiProvider {
     // L'ultima riga prima dello schermo, la stessa dell'app.
     final pulito = TestoDelResponso.pulisci(testo);
     cronometro.stop();
-    grezze.add(RispostaGrezza(maestro, pulito, cronometro.elapsed));
+    final uso = mappa['usageMetadata'] as Map<String, dynamic>? ?? const {};
+    grezze.add(RispostaGrezza(maestro, pulito, cronometro.elapsed,
+        ingresso: (uso['promptTokenCount'] as int?) ?? 0,
+        uscita: ((uso['candidatesTokenCount'] as int?) ?? 0) +
+            ((uso['thoughtsTokenCount'] as int?) ?? 0)));
     return pulito;
   }
 

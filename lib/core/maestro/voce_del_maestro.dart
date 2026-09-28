@@ -359,7 +359,9 @@ class VoceDelMaestro {
       chiusura: 'Chiudi con UN passo concreto: un\'azione precisa da fare nel '
           'mondo, con una persona, un oggetto o un luogo nominati, col '
           'momento in cui farla ricavato dal cielo di questa persona e mai '
-          'inventato. '
+          'inventato. Il momento sta dentro la frase, al suo posto ("Domani '
+          'mattina scrivigli due righe"), mai attaccato in fondo dopo una '
+          'virgola. '
           'Riflettere, esaminare, visualizzare o immaginare non sono azioni.',
       tipoDiChiusura: TipoDiChiusura.direzioneNelTempo,
       lente: LenteDelMaestro.motoNelTempo,

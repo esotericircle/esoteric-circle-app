@@ -31,6 +31,8 @@ class LaRichiestaDelTurno {
     this.daProgramma,
     this.daAttesa,
     this.suTesto,
+    this.domanda,
+    this.daCorreggere,
   });
 
   /// Vero quando il turno e' detto nel LIVE.
@@ -53,6 +55,14 @@ class LaRichiestaDelTurno {
   /// che sa chiederla a flusso passa qui il testo scritto finora. Null
   /// quando nessuno lo aspetta: allora la risposta si chiede intera.
   final void Function(String scrittoFinora)? suTesto;
+
+  /// **La domanda del turno**, per la forma della prima frase. Ordine ET
+  /// voce 01 (`LaPosizioneDellaLettura`).
+  final String? domanda;
+
+  /// **La correzione nominata**, quando la prima frase che e' tornata non ha
+  /// preso posizione e il turno si chiede di nuovo. Ordine ET voce 01.
+  final String? daCorreggere;
 
   /// La richiesta di un turno qualunque della chat.
   static const LaRichiestaDelTurno normale = LaRichiestaDelTurno();

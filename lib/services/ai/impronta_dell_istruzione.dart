@@ -36,14 +36,14 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        '999b8871e14b7307277c6e0c476a306e7b11561e31b0c5b1d4d818718c0e19a1',
-    'aura': 'cd48035a3676b7347ddbd29e8c8caa18ff65c82d3ebe9bddfef7e88da28d9d9f',
+        '2fc1c5ba4c91b91f7a4035ad20609fc367ccb18f00535e2f74721290070b5f0b',
+    'aura': '201c91c7cc34e8275e9aad439ece812770c93c56f100123c98d50250163bf6af',
     'caligo':
-        '4877ea78a92aeb8f0e8cea0d0b5b503ccaf8e5cd3de2efab42b307a424d7e116',
+        '53117f62802afefd52dd0bc18ade2b4097a82efaa045b54ca1dc0e6bf30fd876',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
-  static const String registrateIl = '27 settembre 2026, ordine EQ voce 03';
+  static const String registrateIl = '28 settembre 2026, ordine ET voce 01';
 
   /// LO STORICO DELLE IMPRONTE, cioe' le stringhe che non esistono piu'.
   ///
@@ -53,6 +53,19 @@ class ImprontaDellIstruzione {
   /// cancella niente: quando l'istruzione cambia, l'impronta vecchia scende in
   /// questo elenco con la sua data e con cio' che le e' successo.
   static const List<String> storicoDelleImpronte = [
+    'DAL 27 SETTEMBRE 2026 AL 28 SETTEMBRE 2026, LA STRINGA DELL\'ORDINE EQ '
+        'VOCE 03. Impronte: medora '
+        '999b8871e14b7307277c6e0c476a306e7b11561e31b0c5b1d4d818718c0e19a1, '
+        'aura cd48035a3676b7347ddbd29e8c8caa18ff65c82d3ebe9bddfef7e88da28d9d9f, '
+        'caligo 4877ea78a92aeb8f0e8cea0d0b5b503ccaf8e5cd3de2efab42b307a424d7e116. '
+        'Consegnata con le build 2285, 2286 e 2287 dell\'ordine ER. **MISURA '
+        'PRESA SU DI LEI**: tre giri di attribuzione cieca, 95,0, 93,3 e 98,3 '
+        'per cento, media 95,6 (172 su 180). Caduta con l\'ordine ET voce 01: '
+        'la posizione detta come lettura della propria arte, la regola del '
+        'futuro e dei sentimenti degli altri mai detti come fatti, la virgola '
+        'dopo la "e" dell\'inciso, il blocco del turno con l\'apertura che '
+        'gira. Sulla stringa nuova, tre giri: 93,3, 95,0 e 91,7 per cento, '
+        'media 93,3 (168 su 180), docs/collaudo/ET/attribuzione/.',
     'IL 27 SETTEMBRE 2026, DALLE VOCI EQ.01 ED EQ.02 ALLA VOCE EQ.03. '
         'Impronte: medora '
         '01eff8357680530bc0c10440da477b3c900fedce3d9f0e470171357a13162601, '
@@ -382,6 +395,17 @@ class ImprontaDellIstruzione {
   /// illeggibile, il giro piu' basso sopra la soglia di 85. **Sale di sette
   /// punti e sei sull'89,1 dell'ordine EO**: Caligo, che cedeva verso Aura e
   /// verso Medora, fa 19, 19 e 17 su 20.
+  ///
+  /// **RIFATTA IL 28 SETTEMBRE 2026, ordine ET voce 01, e la riga resta
+  /// vera.** L'istruzione e' cambiata con la posizione detta come lettura
+  /// della propria arte, la regola del futuro e dei sentimenti degli altri,
+  /// la virgola dell'inciso e il blocco del turno. Tre giri sulle impronte di
+  /// oggi: 93,3, 95,0 e 91,7 per cento, media 93,3 (168 su 180), nessun
+  /// verdetto illeggibile, il giro piu' basso sopra la soglia di 85. **Scende
+  /// di due punti e tre dal 95,6 dell'ordine EQ voce 03**: Caligo cede verso
+  /// Aura tre o quattro volte per giro (16, 17 e 16 su 20). Il blocco del
+  /// turno da' ai tre Maestri la stessa forma della prima frase, con parole
+  /// loro: e' la causa piu' vicina, non misurata.
   static const bool attribuzioneValida = true;
 
   /// **L'ATTRIBUZIONE CIECA LA CHIUDE IL FONDATORE.** Ordine EK voce 05, 24
@@ -404,7 +428,18 @@ class ImprontaDellIstruzione {
   /// l'escursione, cinque la dichiarano.** Sono cinque giri della stessa misura
   /// sulla stessa istruzione, non cinque misure in disaccordo.
   static const String ultimaMisuraNota =
-      'TRE GIRI DEL 27 SETTEMBRE 2026, SU QUESTE IMPRONTE, ordine EQ voce 03: '
+      'TRE GIRI DEL 28 SETTEMBRE 2026, SU QUESTE IMPRONTE, ordine ET voce 01: '
+      '93,3 per cento (56 su 60), poi 95,0 (57 su 60), poi 91,7 (55 su 60); '
+      'media 93,3 per cento (168 su 180), nessun verdetto illeggibile. Nel '
+      'dettaglio: medora 20, 20, 19 su 20, scambiata per aura 1 volta; aura '
+      '20, 20, 20; caligo 16, 17, 16 su 20, scambiato per aura 3, 3, 4 volte '
+      'e per medora 1. Ritmo: frase mediana di medora 19, 18, 18 parole, di '
+      'aura 19, 19, 18, di caligo 10, 10, 9; parole che ammorbidiscono '
+      'medora 2, 2, 3, aura 14, 5, 10, caligo 0, 0, 0. Le uscite dei tre giri '
+      'stanno in docs/collaudo/ET/attribuzione. '
+      'Tutto ciò che segue appartiene a stringhe che stanno nello storico. '
+      'TRE GIRI DEL 27 SETTEMBRE 2026, SULLE IMPRONTE DELL\'ORDINE EQ VOCE '
+      '03: '
       '95,0 per cento (57 su 60), poi 93,3 (56 su 60), poi 98,3 (59 su 60); '
       'media 95,6 per cento (172 su 180), nessun verdetto illeggibile. Nel '
       'dettaglio: medora 20, 19, 20 su 20, scambiata per aura 1 volta; aura '

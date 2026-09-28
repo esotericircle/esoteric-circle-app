@@ -462,10 +462,15 @@ void main() {
           'il tuo cielo ti fa guardare le cose. Chi teme di sbagliare ha di '
           'solito capito quanto pesa una scelta, e questo peso lo senti '
           'perché il tuo Sole in Cancro non prende niente alla leggera.\n\n'
+          // **L'ultima frase era un futuro dato per certo**, "il ciclo si
+          // chiuderà ... la stessa domanda avrà una risposta diversa":
+          // dall'ordine ET voce 01 la rete delle certezze la toglie dalla
+          // bolla, e la bolla non si trovava piu' col testo intero. Riscritta
+          // come la regola la vuole, lunga uguale.
           'Guarda dove il timore torna sempre: quella è la porta. Il ciclo '
-          'lunare si chiuderà fra sette giorni, portando con sé una '
-          'prospettiva nuova su ciò che oggi ti sembra fermo, e allora la '
-          'stessa domanda avrà una risposta diversa.';
+          'lunare di questi giorni ti invita a guardare con occhi nuovi ciò '
+          'che oggi ti sembra fermo, e a rifarti la stessa domanda quando '
+          'senti che il tuo passo è cambiato.';
       const domanda = 'ho paura di sbagliare';
 
       final memoria = InMemoryMaestroMemoryRepository();

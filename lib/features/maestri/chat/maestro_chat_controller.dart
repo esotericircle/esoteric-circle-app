@@ -33,6 +33,8 @@ import '../../../core/chat/la_risposta_da_programma.dart';
 import '../../../core/chat/chi_di_dovere.dart';
 import '../../../core/chat/il_passo_da_non_dare.dart';
 import '../../../core/chat/il_rimando_in_fondo.dart';
+import '../../../core/chat/le_certezze_del_maestro.dart';
+import '../../../core/chat/l_italiano_del_maestro.dart';
 import '../../../core/chat/i_ricordi_degli_altri.dart';
 import '../../../services/ai/la_richiesta_del_turno.dart';
 import '../../../core/astro/il_cielo_detto.dart';
@@ -43,6 +45,8 @@ import '../../../services/ai/registro_dei_guasti.dart';
 import '../../../services/memory/maestro_memory_repository.dart';
 import '../../../core/config/app_flags.dart';
 import '../../../core/chat/le_conversazioni_passate.dart';
+import '../live/le_tre_frasi_del_live.dart';
+import '../../../core/chat/la_posizione_della_lettura.dart';
 
 /// Stato della conversazione con un Maestro.
 ///
@@ -247,6 +251,18 @@ class MaestroChatController extends ChangeNotifier {
   /// Quante volte una risposta fatta della sola riga d'oro da togliere
   /// e' stata chiesta di nuovo. Ordine EQ voce 01.
   int rigenerazioniPerRigaDOro = 0;
+
+  /// Quante volte una risposta rimasta vuota dopo le reti e' stata chiesta di
+  /// nuovo. Ordine ET voce 01.
+  int rigenerazioniPerVuota = 0;
+
+  /// Quante volte una risposta la cui prima frase non prendeva posizione come
+  /// lettura e' stata chiesta di nuovo. Ordine ET voce 01.
+  int rigenerazioniPerPosizione = 0;
+
+  /// Quante volte una risposta che dava per certo cio' che nessuno sa e'
+  /// stata chiesta di nuovo. Ordine ET voce 01.
+  int rigenerazioniPerCertezza = 0;
 
   /// Quante risposte aprivano nominando un altro Maestro, e hanno avuto
   /// quella frase spostata in fondo. Ordine EQ voce 02.
@@ -668,12 +684,15 @@ class MaestroChatController extends ChangeNotifier {
     String? daNonRipetere,
     String? daProgramma,
     String? daAttesa,
+    String? correzione,
   }) =>
       LaRichiestaDelTurno(
         nelLive: nelLive,
         daNonRipetere: daNonRipetere,
         daProgramma: daProgramma,
         daAttesa: daAttesa,
+        domanda: domanda,
+        daCorreggere: correzione,
         suTesto: nelLive ? _mostraMentreArriva : null,
       ).per(() => _ai.reply(
             maestro: chi,
@@ -749,7 +768,11 @@ class MaestroChatController extends ChangeNotifier {
     // abbassa all'uscita qualunque strada si prenda.
     _ricevendo = true;
     try {
-      await _ricevi(trimmed);
+      // Nel LIVE la domanda trascritta perde il punto interrogativo: si
+      // rimette qui (`LaPosizioneDellaLettura.comeDomandaDetta`, ordine ET).
+      await _ricevi(nelLive
+          ? LaPosizioneDellaLettura.comeDomandaDetta(trimmed)
+          : trimmed);
     } finally {
       _ricevendo = false;
     }
@@ -1297,6 +1320,77 @@ class MaestroChatController extends ChangeNotifier {
         }
       }
 
+      // **LA PRIMA FRASE PRENDE POSIZIONE, COME LETTURA. Ordine ET voce 01.**
+      // Nel banco delle trenta domande la regola nell'istruzione non bastava:
+      // Calìgo apriva con le massime, Aura girava intorno, Medora diceva i
+      // sentimenti degli altri come fatti. Se la prima frase non rispetta la
+      // forma per questa domanda (`LaPosizioneDellaLettura`), il turno si
+      // chiede di nuovo una volta, nominando la frase; passa la seconda se la
+      // rispetta, altrimenti la prima.
+      if (reply.trim().isNotEmpty &&
+          !LaRispostaCheChiede.eUnaDomanda(reply) &&
+          !LaPosizioneDellaLettura.rispetta(chiRisponde, userText, reply)) {
+        rigenerazioniPerPosizione++;
+        final altra = await _chiediAlMaestro(
+          chi: chiRisponde,
+          storia: priorHistory,
+          domanda: userText,
+          natal: natal,
+          correzione: LaPosizioneDellaLettura.correzione(
+              chiRisponde, LaPosizioneDellaLettura.primaFraseDi(reply)),
+        );
+        if (LaPosizioneDellaLettura.rispetta(chiRisponde, userText, altra)) {
+          reply = altra;
+        } else {
+          annotaGuastoInnocuo(
+            'prima frase senza posizione consegnata comunque, '
+            '${chiRisponde.displayName}',
+            StateError('la prima frase non prende posizione dopo una seconda '
+                'richiesta'),
+          );
+        }
+      }
+
+      // **CIO' CHE NESSUNO PUO' SAPERE NON SI DICE COME UN FATTO. Ordine ET
+      // voce 01.** Al secondo giro del banco, con la posizione presa, le
+      // risposte con una certezza erano trentasette su trecentosessanta:
+      // *"I tuoi centri dicono di sì, avrai la promozione quest'anno"*. La
+      // posizione ridetta come fatto si toglie; se restano certezze (nel LIVE
+      // solo in cio' che si dice), il turno si chiede di nuovo una volta
+      // nominandole, e passa la risposta che ne porta meno e prende ancora
+      // posizione.
+      reply = LeCertezzeDelMaestro.senzaIlFattoDopoLaPosizione(reply);
+      List<String> certeIn(String r) => LeCertezzeDelMaestro.inQuesteFrasi(
+          nelLive ? LeTreFrasiDelLive.di(r, domanda: userText) : r);
+      final certe = certeIn(reply);
+      if (certe.isNotEmpty && !LaRispostaCheChiede.eUnaDomanda(reply)) {
+        rigenerazioniPerCertezza++;
+        final altra = LeCertezzeDelMaestro.senzaIlFattoDopoLaPosizione(
+            await _chiediAlMaestro(
+          chi: chiRisponde,
+          storia: priorHistory,
+          domanda: userText,
+          natal: natal,
+          correzione: LeCertezzeDelMaestro.correzione(certe),
+        ));
+        if (altra.trim().isNotEmpty &&
+            certeIn(altra).length < certe.length &&
+            LaPosizioneDellaLettura.rispetta(chiRisponde, userText, altra)) {
+          reply = altra;
+        } else {
+          annotaGuastoInnocuo(
+            'certezze consegnate comunque, ${chiRisponde.displayName}: '
+            '${certe.join('; ')}',
+            StateError('la risposta dà per certo ciò che nessuno sa dopo '
+                'una seconda richiesta'),
+          );
+        }
+      }
+
+      // Le frasi certe che restano, fuori dalla prima e dal consiglio, si
+      // tolgono (ordine ET voce 01, quarto giro del banco).
+      reply = LeCertezzeDelMaestro.senzaLeFrasiCerte(reply);
+
       // IL CONTROLLO DELL'ANCORAGGIO, a valle e puro.
       //
       // Non scatta quando non c'e' niente da ancorare: senza dati di nascita
@@ -1511,7 +1605,14 @@ class MaestroChatController extends ChangeNotifier {
       // **IL CIELO DETTO E' IL CIELO CALCOLATO. Ordine DS voce 08.** Una frase
       // sulla Luna che il calcolo smentisce non arriva a schermo: il modello
       // interpreta il cielo, non lo decide.
-      final smentite = IlCieloDetto.smentite(reply, adesso: _adesso);
+      // Il cielo di nascita della persona e' vero anche quando oggi il Sole
+      // o la Luna stanno altrove (ordine ET voce 01).
+      final diNascita = {
+        if (natal.sunSign case final sole?) 'Sole': sole,
+        if (natal.moonSign case final luna?) 'Luna': luna,
+      };
+      final smentite =
+          IlCieloDetto.smentite(reply, adesso: _adesso, diNascita: diNascita);
       if (smentite.isNotEmpty) {
         frasiDelCieloSmentite += smentite.length;
         annotaGuastoInnocuo(
@@ -1519,15 +1620,66 @@ class MaestroChatController extends ChangeNotifier {
           '${chiRisponde.displayName}: ${smentite.join('; ')}',
           StateError('cielo detto diverso dal cielo calcolato'),
         );
-        reply = IlCieloDetto.senzaLeSmentite(reply, adesso: _adesso);
+        reply = IlCieloDetto.senzaLeSmentite(reply,
+            adesso: _adesso, diNascita: diNascita);
       }
       // **IL MARCATORE DEL CHIARIMENTO SI LEGGE QUI E NON ARRIVA A VIDEO.**
       // Ordine EI voce 02, 23 settembre 2026. Il Maestro dichiara lui quando
       // sta chiedendo invece di rispondere, mettendo `[[CHIEDO]]` in cima; si
       // decide il costo sul testo **con** il marcatore e si mostra quello
       // **senza**, cosi' la persona non vede mai un segno tecnico.
-      final haChiesto = LaRispostaCheChiede.eUnaDomanda(reply);
+      var haChiesto = LaRispostaCheChiede.eUnaDomanda(reply);
       reply = LaRispostaCheChiede.senzaIlMarcatore(reply);
+      // **NESSUNA BOLLA VUOTA. Ordine ET voce 01.** Nel banco delle trenta
+      // domande Aura, nel LIVE, ha consegnato una risposta che dopo le reti
+      // era vuota: la bolla vuota e nel LIVE niente da dire. Una risposta
+      // vuota si chiede di nuovo una volta; se anche la seconda e' vuota
+      // arriva la lettura di ripiego, dichiarata.
+      if (reply.trim().isEmpty) {
+        rigenerazioniPerVuota++;
+        final altra = await _chiediAlMaestro(
+          chi: chiRisponde,
+          storia: priorHistory,
+          domanda: userText,
+          natal: natal,
+        );
+        haChiesto = LaRispostaCheChiede.eUnaDomanda(altra);
+        reply = LaRispostaCheChiede.senzaIlMarcatore(altra);
+        if (reply.trim().isEmpty) {
+          annotaGuastoInnocuo(
+            'risposta vuota due volte, ${chiRisponde.displayName}',
+            StateError('la risposta resta vuota dopo una seconda richiesta'),
+          );
+          await _consegna(
+              pending.copyWith(
+                text: LetturaDiRipiego.componi(
+                  maestro: chiRisponde,
+                  domanda: userText,
+                  natal: natal,
+                  profile: _profile,
+                  memory: _memoriaPerIlModello,
+                ),
+                pending: false,
+                failed: true,
+                ripiego: true,
+              ),
+              cronometro);
+          return EsitoDelTurno.ripiego;
+        }
+      }
+      // **NEL LIVE LA CHAT SALVA CIO' CHE IL MAESTRO DICE. Ordine ET voci 02 e
+      // 06.** Il fondatore: *"la trascrizione nella chat era diversa e più
+      // corta"*. La voce e il video dicevano il taglio del turno e la chat la
+      // risposta intera. Adesso il taglio (tre frasi, quattro se la domanda
+      // ha piu' parti) si fa qui, e la voce, il video e la chat leggono lo
+      // stesso testo.
+      // **GLI ERRORI CHE SI RIPETONO SI RIPARANO. Ordine ET voce 01**
+      // (`LItalianoDelMaestro`): l'inciso dopo la "e", "non prima di quando",
+      // "dicono non ancora", l'articolo davanti al parente.
+      reply = LItalianoDelMaestro.ripara(reply);
+      if (nelLive) {
+        reply = LeTreFrasiDelLive.scritta(reply, domanda: userText);
+      }
       final answer = ChatMessage(
         role: ChatRole.maestro,
         text: reply,
