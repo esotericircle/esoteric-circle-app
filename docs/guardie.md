@@ -687,7 +687,7 @@ le altre.
 | `i_conteggi_della_chat_stanno_stretti_test.dart` | i conteggi della chat stanno stretti | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa due volte: 32 punti di aria su 16, e 0 di respiro con lo zero innestato) | 1 |
 | `il_cambio_dell_email_test.dart` | il cambio dell email | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_campo_di_scrittura_e_opaco_test.dart` | il campo di scrittura e opaco | 4 | non scopre insiemi di file | mai | 3 |
-| `il_cancello_aspetta_il_limite_test.dart` | il cancello di Codemagic aspetta il limite di GitHub, senza token | 1 | non scopre insiemi di file | 19/09/2026, EA | 2 |
+| `il_cancello_aspetta_il_limite_test.dart` | il cancello di Codemagic aspetta il limite di GitHub, senza token; col segno del verde scritto da GitHub (refs/verde/<commit>) passa senza chiedere all'API | 1 | non scopre insiemi di file | 19/09/2026, EA; 28/09/2026 sera, ET dopo la consegna (Regola B: il limite non riconosciuto, rossa; poi allargata col segno del verde, tre prove rosse sul codice di prima) | 2 |
 | `il_capo_alzato_e_abbassato_non_si_scambiano_test.dart` | il capo alzato e abbassato non si scambiano | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
 | `il_catalogo_copre_il_mondo_test.dart` | il catalogo copre il mondo | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_catalogo_delle_mosse_e_eseguito_test.dart` | le sedici mosse del catalogo ci sono tutte, e ognuna punta a un posto che esiste | 1, 2 | proprio, dichiarato | 21/09/2026, EB | 3 |

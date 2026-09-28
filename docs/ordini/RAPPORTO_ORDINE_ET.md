@@ -393,6 +393,21 @@ della 2288 Android. Il numero di build lo prende dal pubspec: **2288**. Il
 primo passo del workflow controlla da solo che il cancello di GitHub sia
 verde sul commit.
 
+**La prima build iOS, su `82230fe9`, si e' fermata al primo passo col
+cancello verde.** Il registro che hai mandato lo dice: *"IL LIMITE DI GITHUB
+NON SI RIAPRE IN TEMPO PER QUESTA BUILD"*. Il passo chiedeva il verdetto
+all'API di GitHub senza credenziali, sessanta domande all'ora per
+indirizzo, e i Mac di Codemagic escono da indirizzi condivisi con altri:
+spesso trovano il conto gia' finito. Io ti avevo detto un'altra causa, che
+il cancello non avesse ancora finito: era sbagliata, l'avevo dedotta dagli
+orari senza leggere il registro. **Corretto**: il cancello di GitHub, a
+sbarramento passato, scrive nel repository il riferimento
+`refs/verde/<commit>`, e Codemagic lo legge con git, come legge il codice,
+fuori da quel limite; senza il segno chiede all'API come prima. Nessun
+token nuovo, come voleva l'ordine EA voce 15. Il segno c'e' solo per i
+commit spinti da qui in avanti: la build iOS si lancia sul commit di questa
+correzione.
+
 ## I COMMIT
 
 - `5fac9a89` il manifesto e la sua guardia;
