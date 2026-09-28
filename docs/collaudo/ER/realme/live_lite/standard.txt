@@ -11,4 +11,4 @@ Dieci turni (docs/collaudo/ER/realme/live_er13_registro.txt, righe LIVE ATTESA):
   "il volto parla": mediana 5529 ms, valori [5055, 5327, 5350, 5389, 5512, 5546, 5703, 7414, 8357, 9662]
 Riferimento dell'ordine (build di prova EQ 3): si sente 5710 ms, il volto parla 6226 ms.
 
-QUALITA' LITE: da misurare dopo il cambio di configurazione/live.qualita, che fa il fondatore (Code non legge e non scrive Firestore di produzione).
+QUALITA' LITE: misurata il 28 settembre 2026 dopo il cambio fatto dal fondatore, in lite.txt accanto a questo file.

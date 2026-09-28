@@ -49,6 +49,9 @@ ER.13  er13_macchina_turno1_raffica.jpg, er13_macchina_turno2_raffica.jpg,
        macchina, poi la risposta, prima della voce. Registro:
        live_er13_registro.txt.
 ER.11  live_lite/standard.txt: la qualita' standard, dieci turni.
+ER.11  live_lite/lite.txt e lite_registro.txt: la qualita' lite, dieci turni, 28 settembre, build 2286.
+       er11_lite_volto_confronto.jpg: il volto all'apertura del flusso, a 384x384 e a 512x512.
+       er11_lite_volto_caligo_apertura.jpg, er11_lite_volto_caligo_512.jpg: le due schermate intere.
 ER.14  er14_oroscopo_giorno1_*.jpg (27 settembre, Gemelli: "Sguardo verso il
        futuro", "Desideri a lungo termine", "Visione condivisa", "Desideri in
        cammino") e er14_oroscopo_giorno2_*.jpg (28 settembre, dopo mezzanotte:
