@@ -61,6 +61,14 @@ void main() {
     return (c - a).distance / 100;
   }
 
+  /// **LE ARTI COL RETRO SOTTOLINEATO IN GIALLO.** Sul Realme, alla prima
+  /// prova della ET.09, il retro grande della home aveva il testo sottolineato
+  /// due volte in giallo: e' lo stile di ripiego di Flutter per il testo che
+  /// non ha sopra di se' uno stile, perche' il retro grande sta nell'Overlay
+  /// della radice, fuori dalla Material della schermata. Questa prova
+  /// misurava la grandezza del testo e non il suo stile.
+  final sottolineate = <String>{};
+
   /// La grandezza in punti della didascalia del retro, girata con la "i".
   Future<double> puntiDelRetro(WidgetTester tester, String id,
       FormatoDellaScheda formato, bool inCasa) async {
@@ -86,6 +94,11 @@ void main() {
     final stile = tester.widget<Text>(testo).style!;
     final paragrafo = tester.renderObject<RenderParagraph>(
         find.descendant(of: testo, matching: find.byType(RichText)));
+    final decorazione = paragrafo.text.style?.decoration;
+    if (decorazione != null && decorazione != TextDecoration.none) {
+      sottolineate
+          .add('$id ${formato.name} ${inCasa ? 'in home' : 'nei domini'}');
+    }
     return stile.fontSize! * scalaX(paragrafo);
   }
 
@@ -131,5 +144,10 @@ void main() {
     expect(rimpicciolite, isEmpty,
         reason: 'in home il testo del retro e\' piu\' piccolo che nei '
             'domini: ${rimpicciolite.take(6).join(', ')}');
+    print('ORDINE ET VOCE 9: retri col testo sottolineato '
+        '${sottolineate.length}');
+    expect(sottolineate, isEmpty,
+        reason: 'il testo del retro porta la sottolineatura di ripiego: '
+            '${sottolineate.take(6).join(', ')}');
   });
 }

@@ -820,6 +820,17 @@ class _IlRetroGrande extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // **UNA MATERIAL TRASPARENTE SOPRA IL RETRO GRANDE.** Sta nell'Overlay
+    // della radice, fuori dalla Material della schermata: senza, il testo
+    // prendeva lo stile di ripiego di Flutter, sottolineato due volte in
+    // giallo, come si e' visto sul Realme alla prima prova della ET.09.
+    return Material(
+      type: MaterialType.transparency,
+      child: _ilGiro(),
+    );
+  }
+
+  Widget _ilGiro() {
     return LayoutBuilder(builder: (context, spazio) {
       return AnimatedBuilder(
         animation: giro,
@@ -900,6 +911,23 @@ class _IlRetroGrande extends StatelessWidget {
                       ),
                     ),
                   ),
+                ),
+              ),
+              // **LO STESSO ANGOLO RIGIRA LA SCHEDA.** Il retro grande si
+              // apre sopra la scheda e ne copre l'angolo della "i": il
+              // secondo tocco li' cadeva sul retro, che apre l'arte, e su
+              // iPhone la prova `le_schede_su_iphone` ha perso la scheda.
+              // Padre ET.09, commit 76ceca48. L'angolo della scheda nella
+              // riga resta suo e la rigira.
+              Positioned(
+                left: scheda.right - LaSchedaDellArte.areaDellaI,
+                top: scheda.top,
+                width: LaSchedaDellArte.areaDellaI,
+                height: LaSchedaDellArte.areaDellaI,
+                child: GestureDetector(
+                  key: const Key('scheda_retro_grande_angolo'),
+                  behavior: HitTestBehavior.opaque,
+                  onTap: onI,
                 ),
               ),
             ],
