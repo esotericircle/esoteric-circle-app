@@ -64,7 +64,9 @@ void main() {
   group('Il video che si apre e quello nuovo', () {
     test('La costante indica il convertito, e il convertito esiste davvero',
         () {
-      expect(SequenzaIntro.video, 'brand_assets/intro/Intro-Test-3.mp4');
+      // LAPIDE, ordine ET voce 10: era Intro-Test-3; poi la quarta, e con
+      // l'aggiunta 2 dell'ordine la quinta, convertita dal suo sorgente.
+      expect(SequenzaIntro.video, 'brand_assets/intro/Intro-Test-5.mp4');
 
       // NON BASTA CHE LA COSTANTE SIA GIUSTA: un percorso puo' puntare a un
       // file che non c'e', e l'app si aprirebbe sul nero. Si guarda il disco.

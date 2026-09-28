@@ -76,7 +76,18 @@ class SequenzaIntro extends StatefulWidget {
   /// una seconda compressione sopra la prima degrada senza dichiararlo. Del
   /// video di prima non resta niente nel pacchetto: due video introduttivi
   /// sono peso morto e sono la porta sbagliata da cui qualcuno ripartirebbe.
-  static const String video = 'brand_assets/intro/Intro-Test-3.mp4';
+  ///
+  /// **Il quinto, dall'ordine ET voce 10 e dalla sua aggiunta 2, 28
+  /// settembre 2026** (il quarto, Intro-Test-4, e' entrato e uscito lo
+  /// stesso giorno). Il sorgente
+  /// del fondatore (Intro-Test-5, 1080 per 1920, 24 fotogrammi, 14 secondi,
+  /// H.264 Main a 13 Mbit/s, 23,1 MB) resta fuori dal repository. Qui c'e'
+  /// il convertito, rifatto dal sorgente: H.264 High in due passate a 3,3
+  /// Mbit/s con la quantizzazione adattiva per i cieli scuri (aq-mode 3),
+  /// l'audio copiato; 6.116.324 byte, SSIM 0,995 sul sorgente, l'audio allo
+  /// stesso livello (-14,2 dB di media, -1,7 di picco). Il comando e le
+  /// misure stanno in `docs/collaudo/ET/intro.txt`.
+  static const String video = 'brand_assets/intro/Intro-Test-5.mp4';
 
   /// La dissolvenza in uscita, che consegna la schermata sotto senza stacco.
   static const Duration dissolvenza = Duration(milliseconds: 500);
