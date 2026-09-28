@@ -56,6 +56,8 @@ suite finale, tutte venute da voci di quest'ordine, stanno col loro padre in
 
 ## VOCE ER.01, L'ESTRAZIONE RUNE INTERPRETA DAVVERO
 
+prosegue nell'ordine ET, voce ET.07.
+
 **APERTA IN ATTESA DI VERIFICA**: le misure salgono molto ma non arrivano al
 risultato dell'ordine (20 su 20, tutte le pietre, zero errori). La via, le
 misure e cio' che manca sono qui sotto; la decisione su cosa fare del resto e'
@@ -104,6 +106,8 @@ MISURA: alla cieca sul codice che va in build (giro 8, due esecuzioni), letture 
 ## PARTE 2, IL VIAGGIO DELLO SCIAMANO
 
 ## VOCE ER.02, IL VIAGGIO RISPONDE ALLA DOMANDA
+
+prosegue nell'ordine ET, voce ET.08.
 
 **APERTA IN ATTESA DI VERIFICA**: la prima frase prende posizione in 15 e 16
 discese su 20 al giro 8, e l'ordine chiede 20 su 20. Come ha scritto il
@@ -314,6 +318,8 @@ MISURA: arti del catalogo senza sfondo, da 24 a 0; arti del briefing scelte dal 
 
 ## VOCE ER.11, IL VOLTO DEL LIVE IN QUALITÀ LITE
 
+prosegue nell'ordine ET, voce ET.05.
+
 **APERTA IN ATTESA DI VERIFICA**: le misure in standard e in lite sono
 fatte; la voce, come scrive l'ordine, *"si chiude col giudizio del fondatore
 sul volto"*, e il fondatore il volto lo prova lui sul telefono (*"Preferisco
@@ -351,6 +357,8 @@ PROVA: docs/collaudo/ER/realme/live_lite/lite.txt
 MISURA: dieci turni per qualita', "il Maestro si sente" mediana 5146 ms in standard e 5300 ms in lite (build di prova EQ 5710); "il volto parla" 5529 in standard e 5620 in lite (EQ 6226); dalla risposta al primo audio al volto 354 in standard e 40 in lite; risoluzione ricevuta 256 a 8 secondi e 512 a 25 in tutte e due
 
 ## VOCE ER.12, LE RISPOSTE DEL LIVE SI FERMANO ALLA TERZA FRASE
+
+prosegue nell'ordine ET, voce ET.06.
 
 **APERTA IN ATTESA DI VERIFICA**: le frasi dette sono tre e la voce si
 accorcia, ma nel merito alla cieca il taglio perde un turno per giro, e

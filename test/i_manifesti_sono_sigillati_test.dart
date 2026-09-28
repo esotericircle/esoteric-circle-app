@@ -305,6 +305,9 @@ void main() {
     // settembre 2026: diciannove dei tre pezzi dell'ordine, piu' la ER.20
     // dell'aggiunta del fondatore.
     'ER': 20,
+    // ET: nove voci, contate coi titoli "## VOCE ET." del manifesto il 28
+    // settembre 2026, dai due pezzi dell'ordine.
+    'ET': 9,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,
