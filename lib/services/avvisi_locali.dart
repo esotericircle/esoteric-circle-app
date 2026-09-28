@@ -259,6 +259,39 @@ class AvvisiLocali extends ServizioAvvisi {
     );
   }
 
+  /// **L'AVVISO DI UN DONO, MOSTRATO ADESSO DALLA PUSH. Ordine ES voce 17.**
+  /// Lo stesso identificativo e lo stesso canale della chiamata locale del
+  /// Dono, cosi' la sostituisce invece di affiancarla; e suona una volta
+  /// sola anche quando sostituisce un avviso ancora nella tendina.
+  @override
+  Future<void> mostraDelDono({
+    required int id,
+    required String titolo,
+    required String testo,
+    required String canale,
+    String carico = '',
+  }) async {
+    await _prepara();
+    final (nome, descrizione) = canali[canale] ?? canali['rito_alba']!;
+    await _plugin.show(
+      id: id,
+      title: titolo,
+      body: testo,
+      payload: carico,
+      notificationDetails: NotificationDetails(
+        android: AndroidNotificationDetails(
+          canale,
+          nome,
+          channelDescription: descrizione,
+          importance: Importance.defaultImportance,
+          priority: Priority.defaultPriority,
+          onlyAlertOnce: true,
+        ),
+        iOS: const DarwinNotificationDetails(),
+      ),
+    );
+  }
+
   /// L'identificativo della prova, lontano da quelli dei cinque Doni cosi'
   /// non ne cancella nessuno.
   static const int _idDellaProva = 90001;

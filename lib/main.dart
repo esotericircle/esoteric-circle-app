@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'app.dart';
 import 'core/diagnosi/briciole.dart';
 import 'core/l10n/la_lingua_del_cerchio.dart';
+import 'services/push/la_push_in_arrivo.dart';
 import 'services/app_services.dart';
 import 'services/ai/registro_dei_guasti.dart';
 import 'core/sigilli/distanza_fra_le_feste.dart';
@@ -99,6 +101,17 @@ Future<void> main() async {
   // il conto vive in memoria e non su disco, perche' "questa apertura"
   // finisce quando il processo finisce; azzerarlo qui lo rende esplicito
   // invece che affidato al fatto che una variabile statica nasca a zero.
+  // **LE PUSH DEI DONI LE MOSTRA L'APP, ordine ES voce 17**: arrivano come
+  // dato e passano dalla porta sola degli avvisi, con l'identificativo della
+  // chiamata locale del Dono. Senza Firebase non arriva niente da ascoltare.
+  if (Firebase.apps.isNotEmpty) {
+    try {
+      FirebaseMessaging.onBackgroundMessage(laPushInSottofondo);
+      ascoltaLePushInPrimoPiano();
+    } catch (errore) {
+      Briciole.lascia('push_non_ascoltate');
+    }
+  }
   DistanzaFraLeFeste.nuovaApertura();
   // **E IL TUTORIAL SI PRESENTA A OGNI APERTURA. Ordine DY voce 01.** Anche
   // lui vive in memoria: "questa apertura" e' questo processo, e le prove,

@@ -10,6 +10,7 @@ import {
   PASSO_IN_MINUTI,
   TESTI,
   fasciaDi,
+  finestraDi,
   minutiUtc,
 } from "./push";
 
@@ -28,14 +29,17 @@ const sorgente = readFileSync(join(__dirname, "..", "src", "push.ts"), "utf8");
 test("CG.16 d: il giro chiede solo i destinatari della fascia", () => {
   // **E' il conto che tiene il costo sotto i cinquanta dollari al mese a un
   // milione di persone.** Scorrendo tutti gli utenti sarebbero 864.
+  // LAPIDE, ordine ES voce 17: la finestra era [fascia, fascia + 15), e col
+  // giro fuori dal quarto d'ora un'ora scelta partiva prima dell'ora. Adesso
+  // la finestra e' [fascia - 14, fascia], dalla funzione finestraDi.
   assert.ok(
-    sorgente.includes('.where("minutiUtc", ">=", fascia)'),
-    "il giro non filtra sulla fascia: leggerebbe tutti gli utenti a ogni " +
+    sorgente.includes('.where("minutiUtc", ">=", da)'),
+    "il giro non filtra sulla finestra: leggerebbe tutti gli utenti a ogni " +
       "giro, cioe' diciannove volte il costo"
   );
   assert.ok(
-    sorgente.includes('.where("minutiUtc", "<", fascia + PASSO_IN_MINUTI)'),
-    "il giro non chiude la fascia: prenderebbe tutti quelli dopo"
+    sorgente.includes('.where("minutiUtc", "<=", a)'),
+    "il giro non chiude la finestra: prenderebbe tutti quelli dopo"
   );
   assert.ok(
     !sorgente.includes('db.collection("users").get()'),
@@ -97,13 +101,29 @@ test("CG.16: l'ora si converte in UTC e resta dentro il giorno", () => {
   );
 });
 
-test("CG.16 punto 4: la push porta lo STESSO identificativo della locale", () => {
-  // **E' cosi' che si chiude il doppione.** Su Android un avviso con un tag
-  // gia' presente sostituisce quello di prima invece di affiancarlo.
+test("ES.17: la push arriva come dato, e la notifica la fa l'app", () => {
+  // LAPIDE, ordine ES voce 17: qui si pretendeva il tag `dono_<id>` sulla
+  // notifica della push, creduto la cura del doppione. Su Android un avviso
+  // si riconosce dalla coppia tag e identificativo: la locale e' (nessun tag,
+  // 1104), la push mostrata dal sistema era (dono_1104, 0), e il fondatore ne
+  // ha ricevute tre per un Dono. Adesso la push porta solo il Dono, e l'app la
+  // mostra con l'identificativo della locale (AvvisiDelRito.allaPushDelDono).
+  const invio = sorgente.slice(sorgente.indexOf("getMessaging().send({"));
+  const corpoDellInvio = invio.slice(0, invio.indexOf("});"));
   assert.ok(
-    sorgente.includes("tag: `dono_${ID_DEL_DONO[dono]}`"),
-    "la push non porta il tag della chiamata locale: alla stessa ora la " +
-      "persona riceverebbe due volte lo stesso Dono"
+    !corpoDellInvio.includes("notification:"),
+    "la push porta di nuovo una notifica fatta: il sistema la mostrerebbe " +
+      "accanto alla chiamata locale, e la persona riceverebbe due volte lo " +
+      "stesso Dono"
+  );
+  assert.ok(corpoDellInvio.includes("data: {dono}"), "la push non dice il Dono");
+  assert.ok(
+    sorgente.includes("const spinti = new Set<string>();"),
+    "due righe con lo stesso telefono spingerebbero due volte lo stesso Dono"
+  );
+  assert.ok(
+    sorgente.includes('.where("token", "==", token)'),
+    "le righe di altri account con lo stesso telefono restano"
   );
   // E i numeri sono quelli veri di AvvisiDelRito, che parte da 1100.
   assert.equal(ID_DEL_DONO.dawn, 1100);
@@ -119,8 +139,9 @@ test("CG.16: tutti e cinque i Doni sono coperti, con la voce del Maestro", () =>
   for (const dono of DONI) {
     const testo = TESTI[dono];
     assert.ok(testo, `il Dono ${dono} non ha un testo`);
+    // LAPIDE, ordine ES voce 17: "Caligo" si scrive con l'accento.
     assert.ok(
-      ["Medora", "Aura", "Caligo"].includes(testo.titolo),
+      ["Medora", "Aura", "Calìgo"].includes(testo.titolo),
       `il Dono ${dono} non parla con la voce di un Maestro: dice ` +
         `"${testo.titolo}", e l'ordine vuole il Maestro proprietario e non ` +
         "un avviso di sistema"
@@ -172,4 +193,38 @@ test("CG.16: le tre vie sono esportate", () => {
   ]) {
     assert.ok(indice.includes(nome), `${nome} non e' esportata`);
   }
+});
+
+test("ES.17: nessuna push prima dell'ora del menu', e la mezzanotte", () => {
+  // Il giro serve gli ultimi quindici minuti fino al suo: un'ora scelta
+  // alle 22:40 (1240 in UTC d'estate si sposta, qui conta il minuto) parte
+  // al giro delle 22:45, mai a quello delle 22:30.
+  const servito = (minuto: number, fascia: number) =>
+    finestraDi(fascia).some(([da, a]) => minuto >= da && minuto <= a);
+  for (let minuto = 0; minuto < 1440; minuto++) {
+    const giri = [];
+    for (let fascia = 0; fascia < 1440; fascia += 15) {
+      if (servito(minuto, fascia)) giri.push(fascia);
+    }
+    assert.equal(giri.length, 1, `il minuto ${minuto} e' servito ${giri.length} volte`);
+    const giro = giri[0];
+    const ritardo = (giro - minuto + 1440) % 1440;
+    assert.ok(ritardo >= 0 && ritardo <= 14,
+      `il minuto ${minuto} parte al giro ${giro}, ${ritardo} minuti dopo`);
+  }
+  assert.deepEqual(finestraDi(0), [[1426, 1439], [0, 0]]);
+  assert.deepEqual(finestraDi(1230), [[1216, 1230]]);
+});
+
+test("ES.17: il giro gira sul quarto d'ora dell'orologio", () => {
+  // "every 15 minutes" partiva da quando il lavoro era nato: 22:43.
+  assert.ok(sorgente.includes("schedule: `*/${PASSO_IN_MINUTI} * * * *`"),
+    "il giro non gira sul quarto d'ora");
+  assert.ok(!sorgente.includes("schedule: `every"),
+    "il giro gira ancora da quando e' nato");
+});
+
+test("ES.17: il Sigillo del Sogno e' di Medora", () => {
+  assert.equal(TESTI.night.titolo, "Medora");
+  assert.equal(TESTI.rune.titolo, "Calìgo");
 });

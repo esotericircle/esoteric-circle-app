@@ -82,12 +82,17 @@ export const TESTI: Record<Dono, {titolo: string; corpo: string}> = {
     corpo: "L'Arcano di oggi è girato. Vieni a vedere quale.",
   },
   rune: {
-    titolo: "Caligo",
-    corpo: "Il sole scende e una runa è emersa. Guardala prima di sera.",
+    titolo: "Calìgo",
+    corpo: "Il sole scende: la tua runa della sera ti aspetta.",
   },
+  // **IL SIGILLO DEL SOGNO E' DI MEDORA, ordine ES voce 17.** Qui c'era
+  // "Caligo", senza accento, dal tempo in cui il Sigillo ruotava: dall'ordine
+  // DT voce 15 il Maestro del Sigillo e' Medora.
   night: {
-    titolo: "Caligo",
-    corpo: "Prima del sonno, il Cerchio ha una cosa da dirti.",
+    titolo: "Medora",
+    corpo:
+      "La notte è cominciata e le stelle sono al loro posto: c'è un Sigillo " +
+      "da chiudere prima di dormire.",
   },
 };
 
@@ -172,6 +177,28 @@ export function fasciaDi(adesso: Date): number {
 }
 
 /**
+ * **I MINUTI CHE UN GIRO SERVE: gli ultimi quindici, fino a quello del giro.**
+ * Ordine ES voce 17.
+ *
+ * Il giro serviva la fascia che cominciava al suo minuto, [fascia, fascia +
+ * 15), e girava a :13, :28, :43 e :58 ("every 15 minutes" parte da quando il
+ * lavoro e' nato, non dal quarto d'ora): il Sigillo delle 22:30 e' arrivato
+ * alle 22:43, e un'ora scelta alle 22:40 sarebbe partita alle 22:28, prima
+ * dell'ora. Adesso il giro gira sul quarto d'ora e serve i minuti da
+ * fascia - 14 a fascia: nessuna push prima dell'ora del menu', e al piu'
+ * quattordici minuti dopo per un'ora fuori dal quarto d'ora. A mezzanotte la
+ * finestra attraversa il giorno, e diventa due.
+ */
+export function finestraDi(fascia: number): Array<[number, number]> {
+  const primo = fascia - (PASSO_IN_MINUTI - 1);
+  if (primo >= 0) return [[primo, fascia]];
+  return [
+    [1440 + primo, 1439],
+    [0, fascia],
+  ];
+}
+
+/**
  * SCRIVE LE SCELTE DELLE PUSH.
  *
  * Il telefono manda il token, il fuso e i Doni accesi con la loro ora locale.
@@ -204,6 +231,18 @@ export const scriviLeScelteDellePush = onCall(OPZIONI, async (request) => {
     .where("uid", "==", uid)
     .get();
   vecchie.docs.forEach((d) => lotto.delete(d.ref));
+  // **E LE RIGHE DI ALTRI ACCOUNT CON LO STESSO TELEFONO, ordine ES voce 17.**
+  // Il 28 settembre alle 22:43 il giro ha trovato due destinatari per il
+  // Sigillo del fondatore e ne ha spinte due: lo stesso telefono stava sotto
+  // due account, e ognuno aveva la sua riga. Il token e' del telefono: un
+  // telefono riceve un Dono una volta sola.
+  const stessoTelefono = await db()
+    .collection("push_dei_doni")
+    .where("token", "==", token)
+    .get();
+  stessoTelefono.docs.forEach((d) => {
+    if ((d.data() as Record<string, unknown>).uid !== uid) lotto.delete(d.ref);
+  });
 
   let quanti = 0;
   for (const [dono, minuti] of Object.entries(
@@ -254,42 +293,53 @@ export interface EsitoDelGiro {
  */
 export async function spingiLaFascia(adesso: Date): Promise<EsitoDelGiro> {
   const fascia = fasciaDi(adesso);
-  const righe = await db()
-    .collection("push_dei_doni")
-    .where("minutiUtc", ">=", fascia)
-    .where("minutiUtc", "<", fascia + PASSO_IN_MINUTI)
-    .limit(MASSIMI_DESTINATARI_PER_GIRO)
-    .get();
+  const righe = [];
+  for (const [da, a] of finestraDi(fascia)) {
+    const parte = await db()
+      .collection("push_dei_doni")
+      .where("minutiUtc", ">=", da)
+      .where("minutiUtc", "<=", a)
+      .limit(MASSIMI_DESTINATARI_PER_GIRO)
+      .get();
+    righe.push(...parte.docs);
+  }
 
   const fatto: EsitoDelGiro = {
     fascia,
-    destinatari: righe.size,
+    destinatari: righe.length,
     // **Le letture sono i documenti letti, e sono la grandezza che si paga.**
-    letture: righe.size,
+    letture: righe.length,
     spinte: 0,
   };
-  if (righe.empty) return fatto;
+  if (righe.length === 0) return fatto;
 
-  for (const riga of righe.docs) {
+  // **UN TELEFONO, UN DONO, UNA PUSH**, anche se due righe portano lo
+  // stesso token (ordine ES voce 17).
+  const spinti = new Set<string>();
+  for (const riga of righe) {
     const dati = riga.data() as Record<string, unknown>;
     const dono = dati.dono as Dono;
     const testo = TESTI[dono];
     if (!testo) continue;
+    const chiave = `${String(dati.token)}|${dono}`;
+    if (spinti.has(chiave)) continue;
+    spinti.add(chiave);
     try {
+      // **LA PUSH ARRIVA COME DATO, e la notifica la mostra l'app. Ordine ES
+      // voce 17.** Qui la push portava la notifica fatta, col tag
+      // `dono_1104`, credendo che sostituisse la chiamata locale 1104: su
+      // Android un avviso si riconosce dalla coppia tag e identificativo, e
+      // (dono_1104, 0) non e' (nessun tag, 1104). Il fondatore ne ha
+      // ricevute tre per un Dono. Adesso l'app riceve il Dono e lo mostra
+      // con l'identificativo della locale (`AvvisiDelRito.allaPushDelDono`).
       await getMessaging().send({
         token: String(dati.token),
-        notification: {title: testo.titolo, body: testo.corpo},
-        android: {
-          notification: {
-            channelId: "rito_alba",
-            // **LO STESSO IDENTIFICATIVO DELLA CHIAMATA LOCALE**: su Android
-            // un avviso con un tag gia' presente SOSTITUISCE quello di prima,
-            // quindi la persona ne vede uno solo anche quando arrivano tutte
-            // e due. La ragione intera sta su ID_DEL_DONO.
-            tag: `dono_${ID_DEL_DONO[dono]}`,
-          },
-        },
         data: {dono},
+        android: {priority: "high"},
+        apns: {
+          headers: {"apns-push-type": "background", "apns-priority": "5"},
+          payload: {aps: {contentAvailable: true}},
+        },
       });
       fatto.spinte++;
     } catch (errore) {
@@ -311,7 +361,9 @@ export async function spingiLaFascia(adesso: Date): Promise<EsitoDelGiro> {
  */
 export const spingiIDoni = onSchedule(
   {
-    schedule: `every ${PASSO_IN_MINUTI} minutes`,
+    // Sul quarto d'ora dell'orologio, ordine ES voce 17: "every 15 minutes"
+    // partiva da quando il lavoro era nato, e girava a :13, :28, :43, :58.
+    schedule: `*/${PASSO_IN_MINUTI} * * * *`,
     timeZone: "Europe/Rome",
     region: "europe-west1",
     timeoutSeconds: 300,

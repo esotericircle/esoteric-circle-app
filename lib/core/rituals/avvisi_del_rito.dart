@@ -78,6 +78,36 @@ abstract class ServizioAvvisi {
     required String titolo,
     required String testo,
   });
+
+  /// **MOSTRA ADESSO L'AVVISO DI UN DONO, con l'identificativo del Dono.**
+  /// Ordine ES voce 17.
+  ///
+  /// La push del Dono arriva come dato all'app, e l'app la mostra con lo
+  /// stesso [id] della chiamata locale di quel Dono: su Android un avviso con
+  /// un identificativo gia' presente sostituisce quello di prima invece di
+  /// affiancarlo. Di difetto non fa niente: i servizi spenti e quelli finti
+  /// delle prove non hanno niente da mostrare.
+  Future<void> mostraDelDono({
+    required int id,
+    required String titolo,
+    required String testo,
+    required String canale,
+    String carico = '',
+  }) async {}
+}
+
+/// COSA HA FATTO LA PUSH DI UN DONO QUANDO E' ARRIVATA. Ordine ES voce 17.
+enum EsitoDellaPush {
+  /// La notifica del Dono e' stata mostrata adesso, al posto della locale.
+  mostrata,
+
+  /// La chiamata locale di oggi era gia' arrivata: la push non aggiunge
+  /// niente.
+  localeGiaArrivata,
+
+  /// Oggi questo Dono ha gia' avuto la sua notifica: una seconda push dello
+  /// stesso Dono non ne porta un'altra.
+  giaMostrata,
 }
 
 /// Avvisi spenti: non chiede niente, non programma niente, non fallisce mai.
@@ -377,9 +407,102 @@ class AvvisiDelRito {
           'È l\'ora del respiro. Il Soffio del Destino ti aspetta.',
         DailyElement.rune =>
           'Il sole scende: la tua runa della sera ti aspetta.',
+        // **CON LA VOCE DI MEDORA, ordine ES voce 17**: il Sigillo del Sogno
+        // e' di Medora dall'ordine DT voce 15, e la push lo firmava "Caligo".
+        // Il cielo e le stelle sono la materia di Medora.
         DailyElement.night =>
-          'La notte è cominciata. C\'è un Sigillo da chiudere prima di dormire.',
+          'La notte è cominciata e le stelle sono al loro posto: c\'è un '
+              'Sigillo da chiudere prima di dormire.',
       };
+
+  /// **IL TITOLO DI UN AVVISO DI DONO: il Maestro del Dono e il nome del
+  /// Dono.** Ordine ES voce 17: la notifica del Sigillo del Sogno arrivava
+  /// col nome di Caligo. Il Maestro e' quello del Dono, dalla porta sola dei
+  /// Maestri dei doni, per la locale e per la push allo stesso modo.
+  static String titoloDelDono(DailyElement dono, [DateTime? giorno]) =>
+      '${DailyElements.maestroFor(dono, giorno ?? DateTime.now()).displayName}'
+      ' · ${dono.title}';
+
+  /// Le chiavi dei due segni di un Dono: quando e' programmata la sua
+  /// chiamata locale, e in che giorno ha gia' avuto la sua notifica.
+  static String _chiaveProgrammata(DailyElement d) =>
+      'avviso_dono_programmato_${d.name}';
+  static String _chiaveMostrata(DailyElement d) =>
+      'avviso_dono_mostrato_${d.name}';
+
+  static String _giorno(DateTime d) =>
+      '${d.year}-${d.month.toString().padLeft(2, '0')}-'
+      '${d.day.toString().padLeft(2, '0')}';
+
+  /// **QUANDO ARRIVA LA PUSH DI UN DONO. Ordine ES voce 17.**
+  ///
+  /// **Il fatto del fondatore**, 28 settembre: alle 22:30 la notifica del
+  /// Sigillo del Sogno, alle 22:40 due volte "Caligo". Tre notifiche per un
+  /// Dono. **Il padre**: l'ordine CG voce 16, che dava alla push il tag
+  /// `dono_1104` credendo che sostituisse la chiamata locale 1104. Su
+  /// Android un avviso si riconosce dalla coppia tag e identificativo: la
+  /// locale e' (nessun tag, 1104), la push mostrata dal sistema (dono_1104,
+  /// 0). Due coppie diverse, due avvisi.
+  ///
+  /// **Adesso la push arriva come dato**, e la mostra l'app, da qui:
+  /// - se oggi questo Dono ha gia' avuto la sua notifica, niente;
+  /// - se la chiamata locale di oggi e' gia' arrivata, niente;
+  /// - altrimenti si toglie la locale ancora in coda, si mostra la notifica
+  ///   con lo stesso identificativo e si rimette la locale di domani, che
+  ///   resta la rete di sicurezza quando una push non arriva.
+  static Future<EsitoDellaPush> allaPushDelDono({
+    required ServizioAvvisi servizio,
+    required DailyElement dono,
+    required DateTime adesso,
+  }) async {
+    final prefs = await SharedPreferences.getInstance();
+    final oggi = _giorno(adesso);
+    if (prefs.getString(_chiaveMostrata(dono)) == oggi) {
+      return EsitoDellaPush.giaMostrata;
+    }
+    final programmata =
+        DateTime.tryParse(prefs.getString(_chiaveProgrammata(dono)) ?? '');
+    final id = idDelDono(dono);
+    // **LA LOCALE E' ANCORA IN CODA? Lo dice il telefono, non l'orologio.**
+    // La chiamata locale e' approssimata e puo' suonare qualche minuto dopo
+    // la sua ora: alle 22:30 in punto l'orologio non sa se e' gia' arrivata.
+    // Se e' in coda non e' arrivata, e la push la sostituisce; se non e' in
+    // coda ed era per oggi, e' gia' arrivata.
+    final inCoda = (await servizio.inAttesa()).contains(id);
+    if (!inCoda &&
+        programmata != null &&
+        _giorno(programmata) == oggi &&
+        !programmata.isAfter(adesso)) {
+      await prefs.setString(_chiaveMostrata(dono), oggi);
+      return EsitoDellaPush.localeGiaArrivata;
+    }
+    await servizio.annulla(id);
+    await servizio.mostraDelDono(
+      id: id,
+      titolo: titoloDelDono(dono),
+      testo: testoDelDono(dono),
+      canale: canaleDelDono(dono),
+      carico: caricoDelDono(dono),
+    );
+    await prefs.setString(_chiaveMostrata(dono), oggi);
+    // La locale di domani, alla stessa ora di quella che stava in coda o,
+    // se non c'era, all'ora del Dono.
+    final ora = programmata ??
+        DateTime(adesso.year, adesso.month, adesso.day, dono.anchorHour,
+            dono.anchorMinute);
+    final domani = DateTime(
+        adesso.year, adesso.month, adesso.day + 1, ora.hour, ora.minute);
+    await servizio.programma(
+      id: id,
+      quando: domani,
+      titolo: titoloDelDono(dono),
+      testo: testoDelDono(dono),
+      canale: canaleDelDono(dono),
+      carico: caricoDelDono(dono),
+    );
+    await prefs.setString(_chiaveProgrammata(dono), domani.toIso8601String());
+    return EsitoDellaPush.mostrata;
+  }
 
   /// A che ora chiama, detto alla persona: e' cio' che si legge accanto
   /// all'interruttore nel menu' delle notifiche.
@@ -461,12 +584,25 @@ class AvvisiDelRito {
       await servizio.programma(
         id: idDelDono(dono),
         quando: quando,
-        titolo: dono.title,
+        titolo: titoloDelDono(dono),
         testo: testoDelDono(dono),
         canale: canaleDelDono(dono),
         carico: caricoDelDono(dono),
       );
       programmate.add(idDelDono(dono));
+      // Il segno di quando arriva la locale, perche' la push dello stesso
+      // Dono sappia se e' gia' arrivata (ordine ES voce 17). Se la memoria
+      // non si scrive, la push mostra la notifica e al massimo ne arriva una
+      // in piu': non si ferma niente.
+      try {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString(
+            _chiaveProgrammata(dono), quando.toIso8601String());
+      } catch (errore) {
+        // L'errore si IGNORA, e si dichiara perche': senza il segno la push
+        // mostra la sua notifica anche se la locale e' gia' arrivata, cioe'
+        // al massimo una in piu'. La chiamata locale e' gia' in coda.
+      }
     }
     return programmate;
   }
