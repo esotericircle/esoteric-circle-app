@@ -5774,7 +5774,78 @@ dell'ordine EO).
 **RESTA DA FARE**: il giudizio del fondatore sul volto in lite (ER.11); tre o
 quattro frasi nel LIVE (ER.12); la riserva del Viaggio che prende posizione
 (ER.02); le rune verso il 20 su 20 (ER.01); la trascrizione vuota del LIVE
-su una voce chiara.
+su una voce chiara. **Tutte e cinque proseguono nell'ordine ET** (sezione
+qui sotto): la ER.11 vi e' chiusa con la ET.05, le altre vi sono aperte.
+
+## L'ORDINE ET, I MAESTRI DICONO QUELLO CHE SCRIVONO, TRENTA DOMANDE, IL LIVE, LE RUNE, IL VIAGGIO, IL RETRO DELLE SCHEDE E LA NUOVA INTRO
+
+Ordine del 28 settembre 2026 in due pezzi, piu' l'aggiunta del fondatore
+ET.10 (la nuova intro). Dieci voci: **una chiusa** (ET.05, il volto del LIVE
+resta in lite, che chiude anche la ER.11), **nove aperte in attesa di
+verifica**, nessuna da fare. Manifesto `docs/ordini/ORDINE_ET_MANIFESTO.md`
+con la sua guardia `test/ordine_et_guard_test.dart`, rapporto
+`docs/ordini/RAPPORTO_ORDINE_ET.md` con in cima la voce chiusa e la sua
+prova, prove in `docs/collaudo/ET/` e quelle del telefono in
+`docs/collaudo/ET/realme/`. La build di prova `prova_et_4` e' stata
+installata sul Realme per le prove; a lavoro finito il fondatore ha
+ordinato la build, **la 2288**, su App Distribution e pronta per Codemagic
+(rapporto, sezione LA CONSEGNA).
+
+**IL BANCO DELLE TRENTA DOMANDE (ET.01 ed ET.03), APERTE.**
+`tool/collaudo_et01.dart`: le trenta domande dell'ordine ai tre Maestri, in
+chat e nel LIVE, due esecuzioni, il controller vero e il modello vero, 360
+risposte per giro lette alla cieca da quattro agenti
+(`docs/collaudo/ET/ciechi/`). Dalla partenza al codice che resta: prima frase
+che risponde da 79 a 256, nel merito da 162 a 262, certezze da 18 a 22,
+errori di italiano da 49 a 47; sulle 60 seconde delle coppie simili, quelle
+che ripetono la prima da 10 a 6, nessuna risponde alla domanda di prima.
+Nessun Maestro arriva al 30 su 30. Le vie: la posizione detta come lettura
+(`lib/core/chat/la_posizione_della_lettura.dart`), la rete delle certezze
+(`lib/core/chat/le_certezze_del_maestro.dart`), le riparazioni degli errori
+ricorrenti (`lib/core/chat/l_italiano_del_maestro.dart`). Il banco scrive
+adesso anche i testi scartati dalle reti: su 101 scartate 3 fermavano una
+risposta diretta, 43 erano scarti giusti, 55 inutili
+(`docs/collaudo/ET/trenta_domande/giro6_scartate.txt`). **La domanda detta a
+voce senza punto interrogativo** era aperta per la regola della posizione, e
+nel LIVE la rete della prima frase taceva in tredici domande su diciassette:
+corretta nel solo LIVE (`LaPosizioneDellaLettura.comeDomandaDetta`): al banco con le
+trenta domande scritte come le scrive la voce, prima frase che risponde da
+47 a 109 su 180 (`docs/collaudo/ET/trenta_domande_a_voce/conti.txt`); sul
+telefono si vede con la prossima build di prova.
+
+**LA VOCE, IL TESTO A VIDEO E LA CHAT (ET.02), APERTA.** Nel LIVE la chat
+salva le frasi dette. Sul Realme testo a video e chat uguali in 7 turni su 7
+(Caligo); la voce non si e' potuta ritrascrivere, perche' LiveKit suona come
+una chiamata e la registrazione dello schermo non la prende: si registra
+col microfono USB del PC.
+
+**IL LIVE NON SI CHIUDE MENTRE LA PERSONA PARLA (ET.04), APERTA.** La
+seconda trascrizione senza la regola del sottofondo e la stanza che si
+libera alla chiusura. Sul Realme 17 domande nel DOPO, 17 con parole, 0
+vuote, 0 chiusure; ne mancano tre alle venti dell'ordine.
+
+**LE QUATTRO FRASI (ET.06), APERTA**: forme giuste in 72 risposte su 72, nel
+merito 20 e 18 su 36 contro i 20 e 23 chiesti. **LE RUNE (ET.07), APERTA**:
+pietre tutte lette da 18 e 15 a 20 e 21 su 24, dirette ferme a 12 e 14 su 20;
+sul Realme attesa mediana 6,2 secondi su dieci gettate. **IL VIAGGIO
+(ET.08), APERTA**: la riserva prende posizione 3 su 3, la prima frase 14 e
+15 su 20. **IL RETRO DELLE SCHEDE (ET.09), APERTA**: il testo del retro si
+legge alla misura dei domini, catture a 360 punti; mancano i 402. **LA NUOVA
+INTRO (ET.10), APERTA**: Intro-Test-5 nel pacchetto (aggiunta 2 del
+fondatore, al posto della 4), 6.116.324 byte; manca
+la registrazione, perche' il Realme ha le animazioni a zero e l'app salta
+l'intro.
+
+**Un difetto antico corretto strada facendo**: il dito che scivola dopo la
+fine della discesa del Viaggio lanciava un'eccezione a ogni movimento (padre
+ordine DI voce 09, commit `941d55f4`).
+
+**RESTA DA FARE**, col contingente del giorno dopo e con le decisioni del
+fondatore: Aura e tre domande di Caligo nel LIVE sul Realme, la voce
+ritrascritta dal microfono del PC (ET.01, ET.02, ET.04); le reti da
+ritoccare secondo la lista del rapporto (ET.01); le rune, costo contro
+dirette (ET.07); l'intro e il retro a 402 punti, che vogliono il fondatore
+(ET.09, ET.10).
 
 ## Regole ferree
 

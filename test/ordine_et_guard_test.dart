@@ -11,7 +11,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// macchina devono dire le stesse cose che dicono le voci.
 void main() {
   final manifesto = File('docs/ordini/ORDINE_ET_MANIFESTO.md');
-  const quante = 9;
+  const quante = 10;
 
   int marcatore(String testo, String nome) {
     final trovato =

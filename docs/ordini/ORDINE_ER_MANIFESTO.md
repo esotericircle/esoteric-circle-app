@@ -320,6 +320,10 @@ MISURA: arti del catalogo senza sfondo, da 24 a 0; arti del briefing scelte dal 
 
 prosegue nell'ordine ET, voce ET.05.
 
+**Chiusa nell'ordine ET, voce ET.05, il 28 settembre 2026**: il LIVE di
+quell'ordine parte in lite (registro delle funzioni, "LIVE aperto ...
+qualita lite", `docs/collaudo/ET/live_lite.txt`); la lite resta.
+
 **APERTA IN ATTESA DI VERIFICA**: le misure in standard e in lite sono
 fatte; la voce, come scrive l'ordine, *"si chiude col giudizio del fondatore
 sul volto"*, e il fondatore il volto lo prova lui sul telefono (*"Preferisco
