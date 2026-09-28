@@ -5662,6 +5662,107 @@ ancora in modo criptico senza rete; la riserva della stesa da vedere
 scattare sul telefono; le voci grafiche dei tarocchi da guardare
 sull'iPhone.
 
+## L'ORDINE ER, LE ARTI CHE RISPONDONO, LA SINASTRIA VIP, IL GEMELLO, LA HOME CON TUTTE LE ARTI E IL LIVE
+
+Ordine del 27 settembre 2026, in tre pezzi, piu' le due aggiunte del
+fondatore: "ER Aggiunta" (il Segreto dell'Iride, ER.20) e, il 28 settembre,
+"ER Aggiunta 2" con le risposte al resoconto di fine lavoro. Venti voci:
+**sedici chiuse** (ER.03 fino a ER.10, ER.13 fino a ER.20), **quattro aperte
+in attesa di verifica** (ER.01, ER.02, ER.11, ER.12), nessuna da fare.
+Manifesto `docs/ordini/ORDINE_ER_MANIFESTO.md` con la sua guardia
+`test/ordine_er_guard_test.dart`, rapporto `docs/ordini/RAPPORTO_ORDINE_ER.md`
+con in cima le voci chiuse e la prova di ciascuna, prove in
+`docs/collaudo/ER/` e quelle del telefono in `docs/collaudo/ER/realme/` con
+l'indice `LEGGIMI.txt`. Due build di prova installate sul Realme per le
+catture, 2285 e 2286, non consegnate; poi il fondatore: *"Finisci tutto Senza
+fermarti e poi consegna nuova build pronta anche per codemagic"*.
+
+**LE RUNE INTERPRETANO DAVVERO (ER.01), APERTA.** La gettata passa da
+`gemini-2.5-flash` in europe-west1 con lo schema dei campi obbligatori
+(`lib/core/rituals/la_lettura_delle_rune.dart`,
+`FirebaseMaestroAiProvider.presagioDelleRune`, `kMaestroRuneModel`): la
+posizione scelta prima di scrivere, la risposta, per ogni pietra la sua
+lettura nella posizione e una frase sulla domanda, il legame, il consiglio;
+le righe del corpus nel verso uscito; le guardie a valle e la riparazione dei
+nomi. Alla cieca sul codice che va in build (giro 8): dirette con domanda da
+5 a 12 e 17 su 20, tutte le pietre lette da 0 a 14 e 14 su 24, errori di
+italiano da 4 a 9 e 4 (`docs/collaudo/ER/ciechi/conti.txt`). Non arriva al
+20 su 20. Sul Realme alla 2286 il presagio e' del modello. **La
+configurazione della gettata passa da `configurazionePer`**, con un
+parametro nuovo `responseSchema`: la prima stesura la costruiva a mano, e
+`consulta_maestro_test` l'ha vista rossa (padre ER.01).
+
+**IL VIAGGIO RISPONDE ALLA DOMANDA (ER.02), APERTA; L'AZIONE NON E' SEMPRE IL
+FOGLIO (ER.15), CHIUSA.** La regola che vietava di rispondere e' riscritta in
+`lib/core/viaggio/la_scena_dal_modello.dart`: la posizione nello schema, la
+prima frase la dice. Le guardie che scartavano risposte dirette sono
+corrette (stato di un terzo, previsione certa, genere), e con l'aggiunta 2
+**la guardia della decisione grave non legge piu' "puoi" come un ordine**
+(`_puoiConLaDecisione` in `le_guardie_del_responso.dart`, prova
+`test/la_decisione_grave_legge_il_puoi_test.dart`, la regola della DN.04
+resta com'e'). Alla cieca, con la riserva contata fra le risposte che non
+prendono posizione, prima frase che prende posizione da 0 a 12 e 12 (giro 7)
+e a 15 e 16 su 20 (giro 8); discese finite sulla riserva giro per giro in
+`docs/collaudo/ER/viaggio/riserva.txt`. La voce si chiude solo a 20 su 20,
+come ha scritto il fondatore; la proposta della riserva che prende posizione
+e' nel rapporto. Il foglio non passa mai, scrivere a una persona si':
+azioni col foglio da 12 su 20 a 1 e 1 (giro 7) e 0 e 1 (giro 8).
+
+**LA SINASTRIA VIP E IL GEMELLO (ER.04, ER.05, ER.06, ER.16 fino a ER.19),
+CHIUSE.** La carta Tu apre la foto o l'avatar; la barra dell'incontro e' la
+percentuale vera; il Gemello e' una schermata sola sul cielo (il nastro, il
+pulsante, la corsa, il podio, il responso), coi nomi del podio in parole
+intere; il pronome del distacco col genere del VIP; la distanza detta una
+volta (da 21 su 21 a 0 su 21); il legame in italiano nella frase del cielo
+(da 15 su 15 a 0) e nel "perche' proprio lui" del Gemello (da 50 su 50 a 0
+su 50); Beyoncé col suo accento e la ricerca che toglie i segni. I conti di
+prima di ER.17 e del "perche' proprio lui" sono misurati sul commit di
+partenza `3a2c12d3` in un worktree staccato
+(`docs/collaudo/ER/conti_di_prima_3a2c12d3.txt`).
+
+**LA HOME CON TUTTE LE ARTI (ER.03, ER.07 fino a ER.10, ER.20), CHIUSE.**
+Undici righe scelte dal fondatore coi doppioni voluti (la guardia
+`nessun_doppione_in_vista` e' diventata `i_doppioni_della_home_sono_voluti`),
+schede in home a 128 e 137 punti coi titoli a dodici punti col trattino,
+ogni arte col suo sfondo del PC e nella sezione del suo Maestro, 67 arti
+visibili in home (erano 30), il Viaggio scritto come le altre, l'oro
+dell'Oroscopo, il Segreto dell'Iride nel dominio di Aura e in home.
+
+**IL LIVE (ER.11, ER.12, ER.13).** ER.13 **chiusa**: la domanda e la
+risposta si scrivono a macchina (`LaMacchinaDaScrivere`), secondi a testo
+fermo da 3,09 a 2,00. ER.12 **aperta**: la voce e il testo si fermano alla
+terza frase intera (`LeTreFrasiDelLive`), la voce vera da 29,0 a 13,2
+secondi di mediana, ma nel merito alla cieca il taglio perde un turno per
+giro; la scelta fra tre e quattro frasi e' del fondatore. ER.11 **aperta**:
+il fondatore ha messo `configurazione/live.qualita` a `lite` il 28 settembre;
+dieci turni per qualita' sul Realme (`docs/collaudo/ER/realme/live_lite/`):
+il Maestro si sente a 5.146 ms in standard e 5.300 in lite, dalla risposta
+al primo audio al volto 354 e 40 ms; il video arriva a 256x256 nei primi
+secondi e a 512x512 dopo, in tutte e due le qualita'. La voce si chiude col
+giudizio del fondatore sul volto, che lo prova lui. **Trovato misurando**:
+una trascrizione vuota su una voce chiara ha fatto chiudere il LIVE per
+silenzio mentre la persona parlava (regola EJ.01; PROVENIENZA IGNOTA della
+trascrizione vuota).
+
+**L'OROSCOPO CAMBIA OGNI GIORNO (ER.14), CHIUSA.** Titolo e prima parte li
+sceglie la casa che la Luna attraversa contando dal segno
+(`Horoscope.casaDellaLuna`), con la variante del giorno; il corpus in
+`docs/corpus/oroscopo.md`, sezione "Il giorno nelle dodici case". Da 48 su
+48 a 0 su 48 schede uguali al giorno prima, dodici titoli diversi per i
+dodici segni; i titoli vanno a capo col trattino come in home
+(`TitoloDellaSchedaDelGiorno`).
+
+**I DIFETTI VISTI SUL TELEFONO**: otto, quattro miei (ER.01, ER.04, ER.14,
+ER.19), in `docs/collaudo/ER/realme_regola_b.txt`. **La suite finale** ha
+preso tredici rosse che non erano quelle accettate, tutte venute da voci
+dell'ordine, ognuna col suo padre in `docs/collaudo/ER/suite_finale_rosse.txt`.
+**Le guardie**: sedici nuove e una rinominata, il registro da 550 a 565.
+
+**RESTA DA FARE**: il giudizio del fondatore sul volto in lite (ER.11); tre o
+quattro frasi nel LIVE (ER.12); la riserva del Viaggio che prende posizione
+(ER.02); le rune verso il 20 su 20 (ER.01); la trascrizione vuota del LIVE
+su una voce chiara.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.
