@@ -75,7 +75,11 @@ void main() {
     // finche nessuno scorre fin li non viene costruita affatto. Una prova che
     // non scorresse direbbe che le due bolle non ci sono, che e vero e non e
     // il difetto.
-    final numero = find.text('NUMERO');
+    // LAPIDE, ordine ES voce 14: la bolla del numero si cercava col testo
+    // "NUMERO"; adesso il riquadro porta anche una copia invisibile
+    // dell'etichetta, il contrappeso che tiene la cifra al centro, e il testo
+    // si trova due volte. Si cerca il riquadro con la sua chiave.
+    final numero = find.byKey(const Key('riquadro_del_numero'));
     // Le scorrevoli a schermo sono piu di una, e le file di pasticche in
     // cima sono orizzontali: si scorre quella della pagina, cioe la prima.
     await tester.dragUntilVisible(
@@ -99,7 +103,8 @@ void main() {
       return tester.getRect(bolla.first).height;
     }
 
-    final alta1 = altezzaDellaBolla(numero);
+    // Il riquadro del numero, trovato per chiave, e' gia' la bolla.
+    final alta1 = tester.getRect(numero).height;
     final alta2 = altezzaDellaBolla(colore);
     final scarto = (alta1 - alta2).abs();
     // ignore: avoid_print

@@ -38,6 +38,7 @@ import '../pricing/upgrade_invite.dart';
 import 'horoscope_visuals.dart';
 import 'oroscopo_colors.dart';
 import 'oroscopo_share_card.dart';
+import 'riquadro_del_numero.dart';
 import 'riflessione_del_cielo_view.dart';
 import 'tradition_glyph.dart';
 import '../maestri/rotta_arte.dart';
@@ -1722,13 +1723,8 @@ class _FortunaFooter extends StatelessWidget {
         child: Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        _Pill(
-          label: 'Numero',
-          palette: palette,
-          child: Text('${card.luckyNumber}',
-              style: TypographyTokens.titoloScheda()
-                  .copyWith(color: palette.goldSoft)),
-        ),
+        // Il numero al centro del suo riquadro, ordine ES voce 14.
+        RiquadroDelNumero(numero: card.luckyNumber ?? 0, palette: palette),
         const SizedBox(width: SpacingTokens.sm),
         Expanded(
           child: _Pill(
