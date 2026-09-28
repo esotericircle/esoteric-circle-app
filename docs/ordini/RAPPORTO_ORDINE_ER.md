@@ -6,12 +6,21 @@ tua aggiunta "ER Aggiunta" (il Segreto dell'Iride); lavoro del 27 e 28
 settembre. Ramo `claude/esoteric-circle-master-order-e798aj`. Manifesto
 `docs/ordini/ORDINE_ER_MANIFESTO.md`, prove in `docs/collaudo/ER/`, quelle del
 telefono in `docs/collaudo/ER/realme/` con l'indice in
-`docs/collaudo/ER/realme/LEGGIMI.txt`. **Questo ordine non consegna niente**:
-le due build fatte qui, 2285 e 2286, sono build di prova installate sul
-Realme per le catture e mai consegnate.
+`docs/collaudo/ER/realme/LEGGIMI.txt`. Le due build di prova, 2285 e 2286, sono state installate sul Realme per
+le catture e non consegnate; poi il fondatore: *"Finisci tutto Senza
+fermarti e poi consegna nuova build pronta anche per codemagic"*. **La build
+2287 e' consegnata**: release `5g05h8j7grlk0`, sezione LA CONSEGNA.
 
 **Il conto**: 20 voci, **16 chiuse**, **4 aperte in attesa di verifica**
 (ER.01, ER.02, ER.11, ER.12), nessuna da fare.
+
+**La tua aggiunta 2**, del 28 settembre, e' dentro: la qualita' lite
+misurata (ER.11), la guardia della decisione grave che leggeva "puoi" come un
+ordine e le discese finite sulla riserva contate giro per giro (ER.02), il
+conto di prima del "perche' proprio lui" misurato sul commit di partenza
+(ER.18). Poi *"Finisci tutto Senza fermarti e poi consegna nuova build
+pronta anche per codemagic"*: la 2287 e' consegnata, e la build iOS e' pronta
+da lanciare (sezioni LA CONSEGNA e L'IPHONE, SU CODEMAGIC).
 
 ## LE VOCI CHIUSE, CON LA LORO PROVA
 
@@ -275,6 +284,67 @@ stati spinti fino a stasera, e io l'analisi prima di spingere non l'avevo
 fatta girare. Corretti, analisi pulita, le due prove verdi; il cancello sul
 commit della correzione e' nella sezione della consegna.
 
+## LA CONSEGNA
+
+**Build 2287 consegnata su App Distribution**, solo Android, release
+`5g05h8j7grlk0`, dal commit `32197ad4`, a cloud@esotericircle.app, un invito
+accettato. Numero letto con aapt2 dall'archivio (238.327.221 byte) e dal
+telefono; comando di build `flutter build apk --release --target-platform
+android-arm64`; accesa sul Realme prima del caricamento, primo fotogramma
+disegnato e nessun FATAL EXCEPTION. Sulla 2287, sul Realme, il "perche'
+proprio lui" del Gemello si legge in italiano: *"la sua Venere in
+quadratura con la tua Luna, il suo Mercurio in sestile con la tua Venere e il
+suo Sole in sestile con la tua Venere"*
+(`docs/collaudo/ER/realme/er18_2287_perche_proprio_lui_in_italiano.jpg`).
+Il cancello di GitHub su `32197ad4` e' **verde, dodici controlli su dodici**,
+compresa la Ronda. `docs/versione_distribuita.json` da 2284 a 2287.
+
+**Tre intoppi della consegna, tutti miei e nessuno del codice**: l'archivio
+costruito da `9cf55eda` era piu' vecchio del commit della correzione, e la
+consegna lo ha rifiutato (rifatto dallo stesso `lib`); la variabile
+`MSYS_NO_PATHCONV`, che avevo esportato per adb, faceva leggere
+"illeggibile" la risposta di GitHub allo script del cancello; il comando di
+build va dichiarato alla consegna.
+
+## L'IPHONE, SU CODEMAGIC
+
+La build iOS la lanci tu: su Codemagic, "Start new build", ramo
+`claude/esoteric-circle-master-order-e798aj`, commit `32197ad4` o il commit di
+questo rapporto. Il primo passo del workflow controlla da solo che il
+cancello di GitHub sia verde sul commit, e il numero di build lo prende dal
+pubspec: 2287, lo stesso di Android. **Se il passo sul portale Apple
+dell'ordine EP non l'hai ancora fatto**, va fatto prima, o la build cade di
+nuovo all'"archivio": su developer.apple.com, Identifiers,
+`com.esotericircle.esotericCircle`, spunta **Associated Domains** e salva, poi
+in Profiles elimina il profilo "Esoteric Circle ios_app_store 1786051735".
+Da qui non posso sapere se l'hai gia' fatto.
+
 ## I COMMIT
 
-COMMIT_ELENCO
+Dal commit di partenza `3a2c12d3`, tutti su
+`claude/esoteric-circle-master-order-e798aj`:
+
+- `32197ad4` ER: il cancello di GitHub su 9cf55eda cadeva all'analisi statica per due difetti in due prove dell'ordine, un ! inutile (padre ER.06) e un import superfluo (padre ER.04), corretti; il [...]
+- `9cf55eda` ER: il manifesto a venti voci (sedici chiuse, quattro aperte), il rapporto con in cima le voci chiuse e la loro prova, il registro delle guardie a 565, lo stato vivo; versione [...]
+- `475a9d53` ER.11 in qualita' lite, dieci turni sul Realme alla 2286: il Maestro si sente a 5300 ms (standard 5146), dalla risposta al primo audio al volto 40 ms (standard 354), video a 256 [...]
+- `ac771b0c` ER.02, aggiunta 2 del fondatore, punti 1 e 2: la guardia della decisione grave non legge piu' "puoi" come un ordine (la regola della DN.04 resta; frasi del giro 7 col puoi scartate da [...]
+- `17aae351` ER, le tredici rosse della suite finale, tutte venute da voci dell'ordine, ognuna col suo padre (docs/collaudo/ER/suite_finale_rosse.txt): il presagio delle rune passa da [...]
+- `e80e33ea` ER: le catture dal Realme sulle build 2285 e 2286, il LIVE misurato sul telefono (ER.11 standard, ER.12, ER.13), il banco delle rune sul codice che va in build (giro 8) e il suo [...]
+- `8e5cb445` ER, dal Realme alla 2286: il perche' proprio lui del Gemello dice gli aspetti in italiano (la sua Venere in quadratura con la tua Luna) e non coi titoli delle etichette, lo stesso [...]
+- `4e2f2fba` ER: build di prova 2286 con le correzioni viste sul Realme
+- `ef755c26` ER.14, dal Realme alla 2285: il titolo della scheda del giorno va a capo fra le parole o col trattino a una sillaba, come in home (padre ER.14: "AMICI PORT / AFORTUNA"); 144 titoli su [...]
+- `8f76c8b5` ER.01, dal Realme alla 2285: il presagio del modello cadeva sulla lettura di casa perche' la guardia scartava la condizione detta col ma (padre ER.01), tre scarti su tre sulla gettata [...]
+- `54e81c6b` ER, dal Realme alla 2285: il Gemello sul cielo e non sul nero (padre CF.14, ereditato da ER.06); i nomi del podio in righe di parole intere e il palco che cresce col nome (padre il [...]
+- `0c626209` ER: build di prova 2285 per il collaudo sul telefono
+- `7ef6b8a2` ER: il banco delle tre frasi del LIVE (ER.12), i giudizi alla cieca, le guardie di rune, Viaggio e Oroscopo viste rosse, il manifesto a venti voci
+- `9724921e` ER.02 ed ER.15: il Viaggio prende posizione e l'azione non e' il foglio: la posizione nello schema, la regola che vietava di rispondere riscritta, le guardie che scartavano le [...]
+- `760adc94` ER.01: la gettata interpreta davvero: Flash con lo schema (posizione, risposta, una lettura e una frase sulla domanda per ogni pietra, legame, consiglio), le righe del corpus nella [...]
+- `84c97a81` ER.14: l'Oroscopo cambia ogni giorno in tutte le sue parti: titolo e prima parte scelti dalla casa che la Luna attraversa contando dal segno, con la variante del giorno; titoli uguali [...]
+- `171f9e4c` ER.20: il Segreto dell'Iride nel catalogo, nel dominio di Aura e in home; le prove d'insieme della home e le guardie viste rosse
+- `5a70fc73` ER.03, ER.08, ER.09, ER.10: la home a undici righe con le 66 arti, schede a 128 e 137 coi titoli a dodici punti col trattino, il Viaggio scritto come gli altri, ogni arte col suo [...]
+- `5bae25bc` ER.06: il Gemello in una schermata sola: il nastro delle carte, il pulsante, la corsa che si ferma sui tre gemelli, il podio con le percentuali e il responso intero senza altri tocchi
+- `156e86bd` ER.04: la carta Tu della porta apre la foto o l'avatar, e la scelta arriva nella porta, nel profilo, nel responso e nella card
+- `e393f4e7` ER.05, ER.16, ER.17, ER.18, ER.19: la barra dell'incontro e' la percentuale vera; i VIP hanno genere e nome coi segni; la distanza si dice una volta; il legame si dice in italiano
+- `798055fd` ER: il manifesto e la sua guardia; ER.07 l'oro dell'Oroscopo; ER.12 ed ER.13 il LIVE dice tre frasi e le scrive a macchina
+
+piu' il commit di questo rapporto con la consegna.

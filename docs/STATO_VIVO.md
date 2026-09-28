@@ -5758,6 +5758,19 @@ preso tredici rosse che non erano quelle accettate, tutte venute da voci
 dell'ordine, ognuna col suo padre in `docs/collaudo/ER/suite_finale_rosse.txt`.
 **Le guardie**: sedici nuove e una rinominata, il registro da 550 a 565.
 
+**BUILD 2287 CONSEGNATA SU APP DISTRIBUTION** il 28 settembre 2026, solo
+Android, release `5g05h8j7grlk0`, dal commit `32197ad4`, a
+cloud@esotericircle.app, un invito accettato; accesa sul Realme prima del
+caricamento; `docs/versione_distribuita.json` da 2284 a 2287. Sbarramento del
+PC passato sul commit `9cf55eda` con +6.147 ~11 -8 nella suite e i soli rossi
+accettati (piu' il lavoro non ancora spinto, verde dopo la spinta); il
+cancello di GitHub su `9cf55eda` e' caduto all'analisi statica per due
+difetti in due prove dell'ordine (padri ER.06 ed ER.04), corretti, e su
+`32197ad4` e' verde, dodici controlli su dodici. **La build iOS la lancia il
+fondatore su Codemagic** dallo stesso ramo, dopo il passo sul portale Apple
+della capacita' Associated Domains se non l'ha ancora fatto (sezione
+dell'ordine EO).
+
 **RESTA DA FARE**: il giudizio del fondatore sul volto in lite (ER.11); tre o
 quattro frasi nel LIVE (ER.12); la riserva del Viaggio che prende posizione
 (ER.02); le rune verso il 20 su 20 (ER.01); la trascrizione vuota del LIVE
