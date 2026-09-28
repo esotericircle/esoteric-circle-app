@@ -1,23 +1,19 @@
-Build 2284, ordine EP: la home più fitta, gli sfondi unici dei Maestri, la scheda Consulta e la chat.
+Build 2288, ordine ET: i Maestri dicono quello che scrivono, le trenta domande, il LIVE, le rune, il Viaggio, il retro delle schede e la nuova intro.
 
 COSA HO PROVATO IO SUL TELEFONO PRIMA DI CONSEGNARE.
 
-Ogni Maestro ha lo stesso sfondo su tutte le sue schede, con gli sfondi nuovi che hai approvato.
+La 2288 si accende sul Realme, senza errori nel registro.
 
-In home le schede sono più piccole, all'88 per cento, e i titoli sono quelli di prima. Fra una riga e l'altra resta poco spazio, e i titoli delle righe sono in oro.
+In home, toccando la "i" di una scheda, il retro si apre grande, alla misura delle schede nei domini, e il testo si legge. La "i" lo richiude.
 
-"Trova una risposta" è la seconda riga, subito dopo le tue arti preferite.
+Con la build di prova dell'ordine: nell'Estrazione Rune la lettura con una domanda scritta a mano risponde nella prima frase, ogni pietra dice la sua posizione e parla della domanda; dieci gettate, tutte con la lettura del modello, in circa sei secondi.
 
-Accanto al titolo di ogni riga c'è "Vedi tutto": apre tutte le arti di quella riga in una griglia a due colonne.
+Sempre con la build di prova, nel Viaggio dello Sciamano la discesa con la domanda "Devo trasferirmi a Berlino per lavoro?" ha risposto prendendo posizione: "I segni del viaggio dicono di sì, se scegli attivamente il trasferimento."
 
-Sull'Oroscopo e sul Respiro della Luna c'è un puntino d'oro in basso a destra; dopo aver aperto l'Oroscopo il puntino sparisce.
+Sempre con la build di prova, nel LIVE: nessuna domanda è tornata vuota e il LIVE non si è chiuso mentre si parlava, in diciassette domande con Medora e Caligo. Quello che il Maestro scrive a video e quello che resta nella chat sono le stesse parole.
 
-Scorrendo la home verso il basso, le schede che vedi sono tutte diverse.
+DA PROVARE TU, PERCHÉ OGGI IO NON HO POTUTO.
 
-Il riflesso dell'oro e la scheda al centro che si solleva adesso si vedono anche sul tuo telefono, con le animazioni a zero.
+Nel LIVE le domande dette a voce adesso tornano col punto interrogativo, e il Maestro prende posizione anche su quelle: al banco la prima frase che risponde è passata da 47 a 109 su 180. Sul telefono lo vedo domani, con le domande del giorno.
 
-Il tondo della chat resta accanto a "Entra nel Dominio".
-
-In cima a ogni dominio c'è la scheda "Consulta" orizzontale, con l'immagine del suo Maestro: toccandola si apre la sua chat.
-
-Nella chat il pulsante dice "LIVE", i due contatori stanno su due righe, e il menù in alto a destra è blu per Medora, verde per Aura, rosso per Caligo.
+L'intro è Intro-Test-5. Sul Realme non la vedo, perché ha le animazioni di sistema spente e in quel caso l'app la salta: sul tuo telefono dovresti vederla all'apertura.

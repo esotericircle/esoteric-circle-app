@@ -365,6 +365,34 @@ codice dei commit dell'ordine (log nello scratchpad, `suite_et_3.log`):
 Le rosse della suite precedente che erano mie sono corrette, ognuna col suo
 padre nel paragrafo "Ricontate a ordine ET" di `docs/guardie.md`.
 
+## LA CONSEGNA
+
+**Build 2288 consegnata su App Distribution**, solo Android, release
+`6h5520nccmlgo`, dal commit `30d4329b`, a cloud@esotericircle.app, un invito
+accettato (riletto dal server). Il numero l'ha letto la consegna con aapt2
+dall'archivio (238.356.241 byte) e dal telefono; comando di build `flutter
+build apk --release --target-platform android-arm64`. Prima del
+caricamento: accesa sul Realme, primo fotogramma disegnato e nessun FATAL
+EXCEPTION; in home il retro di una scheda si apre grande e si legge
+(`docs/collaudo/ET/realme/et_2288_accesa.jpg`, `et_2288_home.jpg`,
+`et_2288_retro.jpg`). Il cancello di GitHub su `30d4329b` e' **verde, dodici
+controlli su dodici**, compresa la Ronda. Le note della consegna, rilette
+dal server con gli accenti giusti, stanno in `docs/note_della_consegna.txt`;
+`docs/versione_distribuita.json` da 2287 a 2288.
+
+**Un intoppo, mio**: la prima consegna l'ha fermata lo sbarramento, perche'
+le tre catture della 2288 stavano nell'albero fuori dai commit; spostate
+fuori, la seconda e' passata. Tornano in questo commit.
+
+## L'IPHONE, SU CODEMAGIC
+
+La build iOS la lanci tu: su Codemagic, "Start new build", ramo
+`claude/esoteric-circle-master-order-e798aj`, l'ultimo commit (quello di
+questo rapporto, col suo cancello verde) oppure `30d4329b`, lo stesso codice
+della 2288 Android. Il numero di build lo prende dal pubspec: **2288**. Il
+primo passo del workflow controlla da solo che il cancello di GitHub sia
+verde sul commit.
+
 ## I COMMIT
 
 - `5fac9a89` il manifesto e la sua guardia;
@@ -376,5 +404,6 @@ padre nel paragrafo "Ricontate a ordine ET" di `docs/guardie.md`.
 - `6fce40eb` ET.08, il Viaggio e il dito dopo la discesa;
 - `12971fce` ET.09, le due correzioni viste sul telefono;
 - `e332335f` ET.10 con l'aggiunta 2, Intro-Test-5;
-- il commit del manifesto, del rapporto, del registro, dello stato vivo e
-  della versione 2288; poi quello della consegna.
+- `30d4329b` il manifesto, il rapporto, il registro, lo stato vivo e la
+  versione 2288, da cui e' costruita la 2288;
+- il commit della consegna, con questo rapporto.

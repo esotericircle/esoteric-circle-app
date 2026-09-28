@@ -5788,8 +5788,11 @@ con la sua guardia `test/ordine_et_guard_test.dart`, rapporto
 prova, prove in `docs/collaudo/ET/` e quelle del telefono in
 `docs/collaudo/ET/realme/`. La build di prova `prova_et_4` e' stata
 installata sul Realme per le prove; a lavoro finito il fondatore ha
-ordinato la build, **la 2288**, su App Distribution e pronta per Codemagic
-(rapporto, sezione LA CONSEGNA).
+ordinato la build: **la 2288 e' consegnata** su App Distribution, release
+`6h5520nccmlgo`, dal commit `30d4329b` col cancello di GitHub verde dodici
+su dodici, accesa sul Realme prima del caricamento; la build iOS 2288 e'
+pronta da lanciare su Codemagic dallo stesso ramo (rapporto, sezioni LA
+CONSEGNA e L'IPHONE, SU CODEMAGIC).
 
 **IL BANCO DELLE TRENTA DOMANDE (ET.01 ed ET.03), APERTE.**
 `tool/collaudo_et01.dart`: le trenta domande dell'ordine ai tre Maestri, in
