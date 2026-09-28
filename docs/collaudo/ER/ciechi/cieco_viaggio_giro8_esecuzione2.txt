@@ -1,0 +1,239 @@
+V001
+DOMANDA: Mio fratello non mi parla da mesi, lo chiamo io?
+RISPOSTA: Puoi decidere se chiamare tuo fratello. Non puoi sapere cosa succederà dopo. Tocca a te fare il primo passo.
+
+V002
+DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+RISPOSTA: I segni del viaggio dicono di sì, se prepari il terreno con cura. La tua bottega può nascere, ma la terra va smossa con pazienza e dedizione. Non lasciare nulla al caso, ogni passo conta.
+
+V003
+DOMANDA: Come faccio a sentirmi meno sola la sera?
+RISPOSTA: Per sentirti meno sola la sera, devi riprendere il tuo spazio e riempirlo con ciò che ti nutre. È il momento di creare un nuovo rito che ti appartenga. Non aspettare che la compagnia venga da fuori.
+
+V004
+DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+RISPOSTA: I segni del viaggio dicono di sì, se hai una visione chiara di quello che vuoi creare. Non si tratta solo di lasciare, ma di andare verso. La tua bottega è già presente in quello che fai ogni giorno.
+
+V005
+DOMANDA: Il mio cane è malato, cosa devo fare?
+RISPOSTA: Porta il tuo cane dal veterinario di fiducia per una visita approfondita. Hai bisogno di capire bene che cosa ha per prendere la decisione migliore per lui. Il viaggio indica che hai già le risorse per affrontare questo momento difficile.
+
+V006
+DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+RISPOSTA: I segni del viaggio dicono di sì, a condizione che tu trovi il modo di compensare la differenza di guadagno. Milano ti offre un nuovo inizio. La scelta è tua, ma con attenzione alla tua serenità.
+
+V007
+DOMANDA: Mi trasferisco a Berlino per lavoro?
+RISPOSTA: Una delle due la stai già facendo, in piccolo, da settimane.
+
+V008
+DOMANDA: Mi trasferisco a Berlino per lavoro?
+RISPOSTA: I segni del viaggio indicano che il trasferimento a Berlino è favorevole se ti prendi il tempo di preparare il terreno. La crescita che cerchi dipende da ciò che decidi di coltivare. Scegli con cura ciò che vuoi far fiorire nel nuovo contesto.
+
+V009
+DOMANDA: Riuscirò a superare il concorso di ottobre?
+RISPOSTA: Il concorso è un passaggio. La tua preparazione è frutto del tuo impegno. Puoi valutare le tue risorse con attenzione.
+
+V010
+DOMANDA: Cosa pensa di me la mia collega?
+RISPOSTA: Chiedi alla tua collega ciò che ti serve sapere. Non puoi sapere cosa pensa e i segni del viaggio non indicano come scoprirlo. Puoi solo esprimere con chiarezza le tue intenzioni.
+
+V011
+DOMANDA: Come faccio a sentirmi meno sola la sera?
+RISPOSTA: Il tuo sentire la solitudine è una parte di ciò che ti muove. Non è una condizione permanente. Puoi scegliere di non dargli potere.
+
+V012
+DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+RISPOSTA: Chiediti quale delle due potresti ancora correggere.
+
+V013
+DOMANDA: Mi trasferisco a Berlino per lavoro?
+RISPOSTA: I segni del viaggio dicono di sì, ma non è una strada senza spese. Il lavoro a Berlino ti chiede di lasciare una parte di quello che hai costruito. Prepara bene il terreno per quello che vuoi far nascere.
+
+V014
+DOMANDA: Mi trasferisco a Berlino per lavoro?
+RISPOSTA: Una delle due la stai già facendo, in piccolo, da settimane.
+
+V015
+DOMANDA: Riuscirò a superare il concorso di ottobre?
+RISPOSTA: I segni del viaggio dicono di sì, se ti concentri su un solo percorso. Il concorso richiede la tua piena attenzione e un metodo definito. Non disperdere le tue energie in direzioni diverse.
+
+V016
+DOMANDA: Mio fratello non mi parla da mesi, lo chiamo io?
+RISPOSTA: I segni del viaggio dicono di chiamare tuo fratello, ma non devi aspettare che le cose siano come le vuoi. Devi fare chiarezza con te su ciò che non hai detto. Puoi chiamarlo solo quando sai cosa vuoi dirgli.
+
+V017
+DOMANDA: Devo dire a Marco che mi piace?
+RISPOSTA: I segni del viaggio dicono di sì, a condizione che tu sia pronta a sentire anche un "no". Puoi dire a Marco che ti piace, ma prima devi essere in pace con ogni esito.
+
+V018
+DOMANDA: Mi trasferisco a Berlino per lavoro?
+RISPOSTA: Una delle due la stai già facendo, in piccolo, da settimane.
+
+V019
+DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+RISPOSTA: Puoi mostrare a tua madre i confini che non può oltrepassare. Non puoi cambiare il suo sentire, ma puoi decidere la distanza. Puoi scegliere di non nascondere il tuo amore.
+
+V020
+DOMANDA: Devo dire a Marco che mi piace?
+RISPOSTA: I segni del viaggio dicono di sì, se sai già che cosa chiedere. Non dire a Marco che ti piace per sentire la sua risposta. Dillo perché è la tua verità.
+
+V021
+DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+RISPOSTA: Tocca a te scegliere la tua strada. Puoi decidere come ti relazioni con tua madre. Non puoi cambiare il suo modo di pensare.
+
+V022
+DOMANDA: Come faccio a sentirmi meno sola la sera?
+RISPOSTA: Per sentirti meno sola la sera, devi riprendere il contatto con le tue risorse interiori. La solitudine è uno spazio che puoi riempire con la tua presenza. I segni del viaggio ti invitano a cercare dentro di te le risposte.
+
+V023
+DOMANDA: Devo dire a Marco che mi piace?
+RISPOSTA: Non è tuo compito dire a Marco che ti piace. Non è tuo compito decidere per lui. La decisione è solo tua.
+
+V024
+DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+RISPOSTA: L'offerta di lavoro a Milano è un'opportunità che ti chiede di valutare più del guadagno. Guarda cosa ti offre questa scelta per il tuo futuro. Non è solo una questione economica.
+
+V025
+DOMANDA: Mio fratello non mi parla da mesi, lo chiamo io?
+RISPOSTA: I segni del viaggio dicono di sì, a condizione che tu sia pronta a un dialogo vero. Puoi chiamare tuo fratello, ma prima pensa a cosa vuoi ottenere dalla conversazione. Devi anche dare spazio all'ascolto.
+
+V026
+DOMANDA: Riuscirò a superare il concorso di ottobre?
+RISPOSTA: Per il concorso, quello che puoi fare è prepararti. La tua risorsa è nell'attendere. La tua pazienza è una forza.
+
+V027
+DOMANDA: Cosa pensa di me la mia collega?
+RISPOSTA: Chiedi alla tua collega di parlare di voi. Puoi creare le condizioni per capire meglio il vostro rapporto. Non puoi sapere cosa pensa, ma puoi agire per costruire fiducia.
+
+V028
+DOMANDA: Come faccio a sentirmi meno sola la sera?
+RISPOSTA: Quel senso di solitudine che provi la sera non è un ostacolo da superare. È un richiamo. È un invito a cercare la connessione in un modo diverso.
+
+V029
+DOMANDA: Il mio cane è malato, cosa devo fare?
+RISPOSTA: Non puoi prevedere cosa accadrà al tuo cane. Puoi solo guardare quello che c'è adesso. La decisione sul tuo cane è tua.
+
+V030
+DOMANDA: Riuscirò a superare il concorso di ottobre?
+RISPOSTA: I segni del viaggio dicono di sì, se ti prepari con costanza. Il concorso di ottobre richiede di mantenere la calma. Dedica un tempo preciso allo studio ogni giorno.
+
+V031
+DOMANDA: Il mio cane è malato, cosa devo fare?
+RISPOSTA: Una delle due la stai già facendo, in piccolo, da settimane.
+
+V032
+DOMANDA: Il mio cane è malato, cosa devo fare?
+RISPOSTA: Ascolta con attenzione la tua veterinaria riguardo al tuo cane. I segni del viaggio indicano che la forza che hai è già sufficiente. Non c'è un'unica soluzione, ma la tua è la migliore.
+
+V033
+DOMANDA: Cosa pensa di me la mia collega?
+RISPOSTA: Il posto che ha per te lo sai già: quello che manca è dirlo.
+
+V034
+DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+RISPOSTA: Puoi stabilire tu i confini con tua madre. Non devi cercare la sua accettazione per la tua relazione. Hai il diritto di vivere la tua storia con la tua compagna.
+
+V035
+DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+RISPOSTA: Non devi prendere una decisione adesso. Devi guardare se la tua bottega è qualcosa di tuo, che non hai ancora riconosciuto. Non è una scelta senza ritorno.
+
+V036
+DOMANDA: Mio fratello non mi parla da mesi, lo chiamo io?
+RISPOSTA: Spetta a te decidere se chiamare tuo fratello. Puoi farlo oppure aspettare. Non c'è una risposta giusta in assoluto, ma solo quella che senti tua.
+
+V037
+DOMANDA: Il mio cane è malato, cosa devo fare?
+RISPOSTA: Parla con il veterinario oggi stesso per capire le opzioni. I segni del viaggio indicano che devi agire per il benessere del tuo cane. Non rimandare le decisioni importanti.
+
+V038
+DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+RISPOSTA: I segni del viaggio dicono di sì, se sai cosa puoi lasciare. L'offerta a Milano ti porta a un bivio importante. Puoi trovare una nuova direzione.
+
+V039
+DOMANDA: Riuscirò a superare il concorso di ottobre?
+RISPOSTA: I segni del viaggio dicono di sì, a condizione che tu affronti una parte di te che non hai mai guardato. Il concorso ti chiede di mettere in discussione il tuo modo di presentarti. Fai attenzione a quello che eviti di mostrare.
+
+V040
+DOMANDA: Devo dire a Marco che mi piace?
+RISPOSTA: I segni del viaggio dicono di sì, ma non dire a Marco che ti piace se non sei disposta a mostrarti per quella che sei. Non c'è nulla da perdere nel farlo. La sua risposta non riguarda te.
+
+V041
+DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+RISPOSTA: Accetta l'offerta di lavoro a Milano se puoi negoziare la retribuzione. I segni indicano che il guadagno minore è un ostacolo importante. Valuta se questo ti permette un nuovo inizio senza sacrifici insostenibili.
+
+V042
+DOMANDA: Come faccio a sentirmi meno sola la sera?
+RISPOSTA: Ascolta il silenzio della sera. Il senso di solitudine che provi non è vuoto. È uno spazio che puoi riempire con ciò che già hai dentro.
+
+V043
+DOMANDA: Cosa pensa di me la mia collega?
+RISPOSTA: Chiedi alla tua collega come percepisce il vostro lavoro insieme. Non puoi sapere cosa pensa un'altra persona se non la interroghi. Puoi scegliere di fare chiarezza con lei.
+
+V044
+DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+RISPOSTA: Una delle due la stai già facendo, in piccolo, da settimane.
+
+V045
+DOMANDA: Mi trasferisco a Berlino per lavoro?
+RISPOSTA: La tua decisione sul trasferimento a Berlino è una questione che riguarda solo te. Osserva con attenzione ciò che provi. Non c'è una risposta giusta o sbagliata, ma solo quella che senti tua.
+
+V046
+DOMANDA: Cosa pensa di me la mia collega?
+RISPOSTA: Il posto che ha per te lo sai già: quello che manca è dirlo.
+
+V047
+DOMANDA: Mio fratello non mi parla da mesi, lo chiamo io?
+RISPOSTA: I segni del viaggio dicono di sì, puoi chiamare tuo fratello. Non puoi sapere la sua reazione, ma puoi esprimere ciò che senti. La chiarezza che cerchi la trovi nel tuo modo di agire.
+
+V048
+DOMANDA: Devo dire a Marco che mi piace?
+RISPOSTA: I segni del viaggio dicono di sì, a condizione che tu sia pienamente consapevole di ciò che vuoi. La tua chiarezza interiore è la guida più importante. Sii onesta con te stessa prima di esserlo con Marco.
+
+V049
+DOMANDA: Riuscirò a superare il concorso di ottobre?
+RISPOSTA: I segni del viaggio dicono di sì, se ti prepari a fondo. Il concorso non è solo una prova di conoscenza, ma anche di resistenza e organizzazione. Ti serve un piano d'azione dettagliato.
+
+V050
+DOMANDA: Cosa pensa di me la mia collega?
+RISPOSTA: Se ci pensi ogni giorno, il posto ce l'ha già.
+
+V051
+DOMANDA: Mio fratello non mi parla da mesi, lo chiamo io?
+RISPOSTA: I segni del viaggio dicono di sì, puoi chiamare tuo fratello. Puoi fare tu il primo passo, anche se aspetti che ti cerchi. Non hai bisogno di una risposta immediata.
+
+V052
+DOMANDA: Come faccio a sentirmi meno sola la sera?
+RISPOSTA: Per sentirti meno sola la sera, devi riprendere il tuo spazio tra le persone. Non aspettare che gli altri ti cerchino. Cerca tu chi ti fa stare bene.
+
+V053
+DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+RISPOSTA: I segni del viaggio dicono di sì, a condizione che tu abbia un piano preciso per i primi sei mesi. Aprire la tua bottega di ceramica è possibile. Valuta bene le tue risorse e il tempo necessario per avviare l'attività.
+
+V054
+DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+RISPOSTA: I segni del viaggio dicono sì, se prepari il terreno in modo strategico. Questa scelta richiede una preparazione attenta e una pianificazione precisa. Puoi realizzare il tuo desiderio con metodo.
+
+V055
+DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+RISPOSTA: Sii presente con tua madre e la tua compagna, senza cercare di cambiare le loro idee. Puoi ascoltare ciò che si dicono e ciò che non dicono. Non devi risolvere il conflitto che non è tuo.
+
+V056
+DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+RISPOSTA: Puoi scegliere di accettare la situazione così com'è. Non puoi controllare le reazioni di tua madre. Tocca a te decidere come vivere questa relazione.
+
+V057
+DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+RISPOSTA: Una delle due la stai già facendo, in piccolo, da settimane.
+
+V058
+DOMANDA: Il mio cane è malato, cosa devo fare?
+RISPOSTA: Chiama il veterinario che ha in cura il tuo cane e fai le domande che ti stai tenendo per te. Il viaggio mostra che hai bisogno di informazioni complete per decidere. Non lasciare che i dubbi ti fermino.
+
+V059
+DOMANDA: Devo dire a Marco che mi piace?
+RISPOSTA: Una delle due la stai già facendo, in piccolo, da settimane.
+
+V060
+DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+RISPOSTA: La tua bottega è un desiderio che ha radici profonde. Non è un capriccio passeggero. Il tuo istinto ti guida verso la realizzazione.

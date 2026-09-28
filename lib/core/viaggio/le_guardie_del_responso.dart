@@ -380,6 +380,27 @@ abstract final class LeGuardieDelResponso {
       'operati|fatti operare|non operarti|devi operarti|'
       'fai l.intervento|non fare l.intervento');
 
+  /// **"PUOI" CON UNA DECISIONE GRAVE E' UNA POSIZIONE, NON UN ORDINE.**
+  /// Ordine ER, aggiunta 2, punto 1: al banco del giro 7 la guardia qui
+  /// sopra scartava *"I segni del viaggio dicono di sì. Puoi trasferirti a
+  /// Berlino per lavoro"*, perche' scattava su *trasferirti* anche dentro
+  /// *"Puoi trasferirti"*. La regola della DN.04 resta com'e': si scarta
+  /// l'ordine, non la posizione. Qui si tolgono dal testo, prima di cercare
+  /// l'ordine, soltanto i "puoi" seguiti da una decisione grave; *"Non puoi
+  /// restare: trasferisciti"* resta un ordine, e *"non puoi"* non si toglie.
+  static final RegExp _puoiConLaDecisione = RegExp(
+      '(?<![$_l])(?<!non )puoi (?:anche |davvero |ormai |già )?'
+      '(?:licenziarti|dimetterti|separarti|divorziare|trasferirti|'
+      'andartene|operarti|vendere (?:la )?casa|'
+      'tagliare i (?:ponti|rapporti)|'
+      'lasciare (?:il |la |lo |l.|i |gli |le )?(?:tuo |tua |tuoi |tue )?'
+      '[$_l]+)(?![$_l])',
+      caseSensitive: false);
+
+  /// L'ordine su una decisione grave, letto dopo aver tolto i "puoi".
+  static bool _ordinaUnaDecisioneGrave(String t) =>
+      _decisioneGrave.hasMatch(t.replaceAll(_puoiConLaDecisione, ' '));
+
   /// **UNA DOMANDA SU UNA DECISIONE GRAVE**, alla riprova a video della
   /// build 2259: a *"Devo decidere se operarmi al ginocchio"* il modello
   /// ha scritto *"Scegli quella che ti fa sentire piu' leggero"*. Non
@@ -574,7 +595,7 @@ abstract final class LeGuardieDelResponso {
       return MotivoDelloScarto.sgrammaticato;
     }
     if (_gergo.hasMatch(t)) return MotivoDelloScarto.gergo;
-    if (_decisioneGrave.hasMatch(t) ||
+    if (_ordinaUnaDecisioneGrave(t) ||
         (_domandaGrave.hasMatch(domanda) && _sceltaImposta.hasMatch(t))) {
       return MotivoDelloScarto.decisioneGrave;
     }
@@ -613,7 +634,7 @@ abstract final class LeGuardieDelResponso {
   /// la prova che la voce di casa ne sia pulita: ordine DN voce 08.
   static MotivoDelloScarto? fuocoGergoDecisione(String t) {
     if (_gergo.hasMatch(t)) return MotivoDelloScarto.gergo;
-    if (_decisioneGrave.hasMatch(t)) return MotivoDelloScarto.decisioneGrave;
+    if (_ordinaUnaDecisioneGrave(t)) return MotivoDelloScarto.decisioneGrave;
     if (_fuocoNelGesto.hasMatch(t)) return MotivoDelloScarto.fuoco;
     return null;
   }
@@ -791,7 +812,8 @@ abstract final class LeGuardieDelResponso {
         // *"Non ti serve saperlo adesso"*: chi legge e' in testa, come
         // complemento. Solo in testa, perche' nel primo giro *"La tua
         // collega pensa che ti serva tempo"* comincia dal terzo.
-        if (RegExp('^(?:non |ora |adesso )?ti (?:serve|servono|serva|basta|'
+        if (RegExp(
+                '^(?:non |ora |adesso )?ti (?:serve|servono|serva|basta|'
                 'bastano|conviene)(?![$_l])',
                 caseSensitive: false)
             .hasMatch(frase)) {
