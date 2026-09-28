@@ -354,6 +354,10 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
       _presagioInArrivo = true;
     });
     final domanda = _domanda.text.trim();
+    // **L'ATTESA DAL LANCIO AL TESTO. Ordine ET voce 07**: l'ordine la
+    // chiede misurata sul Realme, e nessuna riga del registro la diceva. Il
+    // presagio si chiede nello stesso momento del lancio.
+    final cronometro = Stopwatch()..start();
     unawaited(() async {
       try {
         // Il profilo arriva dalla memoria, che e' la sua casa: serve al modello
@@ -366,6 +370,8 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
           profile: profilo,
         );
         if (!mounted || !identical(_esito, esito)) return;
+        debugPrint('RUNE ATTESA dal lancio al testo del modello: '
+            '${cronometro.elapsedMilliseconds} ms');
         setState(() {
           _presagioDelModello = responso;
           _presagioInArrivo = false;
@@ -377,6 +383,8 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
         // gia' nel registro, perche' la chiamata passa dalla `VoceSorvegliata`, e
         // qui lo si annota una seconda volta come guasto innocuo per avere il
         // punto esatto in cui la schermata ha deciso di cadere sul ripiego.
+        debugPrint('RUNE ATTESA dal lancio alla lettura di casa: '
+            '${cronometro.elapsedMilliseconds} ms');
         annotaGuastoInnocuo(
             'chiedendo il presagio delle rune al modello', errore, traccia);
         if (!mounted || !identical(_esito, esito)) return;

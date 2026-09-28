@@ -175,6 +175,8 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
           daNonRipetere: turno.daNonRipetere,
           daProgramma: turno.daProgramma,
           daAttesa: turno.daAttesa,
+          domandaDiAdesso: turno.domanda,
+          correzione: turno.daCorreggere,
         ),
       ),
       // La PRIMA risposta arriva sempre alla stessa misura per tutti: la
@@ -432,6 +434,9 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
         responseSchema: Schema.object(properties: {
           'posizione':
               Schema.enumString(enumValues: LaLetturaDelleRune.posizioni),
+          // La risposta in poche parole, prima di scriverla (ordine ET voce
+          // 07).
+          'inBreve': Schema.string(),
           'risposta': Schema.string(),
           // Ogni pietra in due campi: la runa nella sua posizione, e che
           // cosa indica sulla domanda (ordine ER voce 01).
@@ -457,7 +462,9 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     // **UNA LETTURA CHE NON REGGE NON SI MOSTRA**: si chiede una seconda
     // volta, poi parla la lettura di casa.
     String? motivo;
-    for (var tentativo = 0; tentativo < 2; tentativo++) {
+    for (var tentativo = 0;
+        tentativo < LaLetturaDelleRune.tentativi;
+        tentativo++) {
       // **LA SECONDA CHIAMATA SA PERCHE' LA PRIMA E' STATA SCARTATA**, come
       // nel Viaggio (ordine DQ voce 06): al banco di Flash quaranta letture
       // su cento cadevano perche' nominavano una runa nella risposta.
@@ -475,7 +482,14 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
       }
       final j = _jsonDelPresagio(raw);
       motivo = LaLetturaDelleRune.scarto(j, esito, domanda: d);
-      if (motivo != null) continue;
+      // All'ultima chiamata una lettura scartata per la forma si mostra:
+      // la lettura di casa resta per cio' che non si puo' mostrare (ordine
+      // ET voce 07).
+      final ultima = tentativo == LaLetturaDelleRune.tentativi - 1;
+      if (motivo != null &&
+          !(ultima && LaLetturaDelleRune.siMostraComunque(motivo))) {
+        continue;
+      }
       final responso = LaLetturaDelleRune.daJson(j, esito)!;
       // Le tre parti passano da una funzione sola, come prima dell'ordine ER:
       // un punto di ripulitura per il presagio, non tre.

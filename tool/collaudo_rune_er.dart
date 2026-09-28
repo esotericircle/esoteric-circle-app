@@ -51,6 +51,19 @@ const _domande = [
 
 String _token = Platform.environment['VERTEX_TOKEN'] ?? '';
 
+/// La cartella delle prove: `docs/collaudo/ER/rune`, o quella dell'ordine
+/// che il banco serve (ordine ET voce 07: `CARTELLA=docs/collaudo/ET/rune`).
+final String _cartella =
+    Platform.environment['CARTELLA'] ?? 'docs/collaudo/ER/rune';
+
+/// I gettoni e le chiamate della strada di adesso, per il costo di una
+/// gettata (ordine ET voce 07).
+var _chiamate = 0, _ingresso = 0, _uscita = 0;
+
+/// Le letture scartate per la forma e mostrate dopo l'ultima chiamata, col
+/// motivo (ordine ET voce 07).
+final _mostrateComunque = <String>[];
+
 Future<(String?, int)> _vertex(
     String modello, String istruzione, String richiesta,
     {required double temperatura,
@@ -109,6 +122,12 @@ Future<(String?, int)> _vertex(
         throw HttpException('Vertex ${res.statusCode}: $t');
       }
       final j = jsonDecode(t) as Map<String, dynamic>;
+      final uso = j['usageMetadata'] as Map<String, dynamic>? ?? const {};
+      _chiamate++;
+      _ingresso += (uso['promptTokenCount'] as num? ?? 0).toInt();
+      _uscita += ((uso['candidatesTokenCount'] as num? ?? 0) +
+              (uso['thoughtsTokenCount'] as num? ?? 0))
+          .toInt();
       final testo =
           ((j['candidates'] as List).first['content']['parts'] as List)
               .map((p) => (p as Map)['text'] ?? '')
@@ -172,6 +191,7 @@ const _schema = {
       'type': 'STRING',
       'enum': LaLetturaDelleRune.posizioni,
     },
+    'inBreve': {'type': 'STRING'},
     'risposta': {'type': 'STRING'},
     'pietre': {
       'type': 'ARRAY',
@@ -202,7 +222,7 @@ Future<(String?, String?, int)> _dopo(
       conDomanda: domanda.isNotEmpty);
   String? motivo;
   var ms = 0;
-  for (var t = 0; t < 2; t++) {
+  for (var t = 0; t < LaLetturaDelleRune.tentativi; t++) {
     final (testo, tempo) = await _vertex(
         FirebaseMaestroAiProvider.kMaestroRuneModel,
         istruzione,
@@ -223,6 +243,11 @@ Future<(String?, String?, int)> _dopo(
     }
     motivo = LaLetturaDelleRune.scarto(j, esito, domanda: domanda);
     if (motivo == null) {
+      return (LaLetturaDelleRune.daJson(j, esito)!.inParole, null, ms);
+    }
+    if (t == LaLetturaDelleRune.tentativi - 1 &&
+        LaLetturaDelleRune.siMostraComunque(motivo)) {
+      _mostrateComunque.add(motivo);
       return (LaLetturaDelleRune.daJson(j, esito)!.inParole, null, ms);
     }
   }
@@ -279,7 +304,12 @@ void main() {
       print('[$n] ${gettata.id} ${domanda.isEmpty ? '-' : domanda} $ms ms');
     }
     tempi.sort();
-    righe.add('Tempo della chiamata, mediana ${tempi[tempi.length ~/ 2]} ms.');
+    righe
+      ..add('Tempo della chiamata, mediana ${tempi[tempi.length ~/ 2]} ms.')
+      ..add('Chiamate al modello per le ${_casi().length} letture: $_chiamate; '
+          'gettoni in ingresso $_ingresso, in uscita $_uscita.')
+      ..add('Letture scartate per la forma e mostrate dopo l\'ultima '
+          'chiamata: ${_mostrateComunque.length} $_mostrateComunque.');
     if (Platform.environment['CENTO'] == '1' && etichetta != 'prima') {
       // **LA MISURA DELL'ORDINE DF**: cento gettate con la stessa domanda.
       final norne = gettate.firstWhere((g) => g.id == 'norne');
@@ -301,8 +331,8 @@ void main() {
               'letture uguali $uguali, cadute sul ripiego $cadute $perche.');
       print('CENTO: uguali $uguali, cadute $cadute');
     }
-    Directory('docs/collaudo/ER/rune').createSync(recursive: true);
-    File('docs/collaudo/ER/rune/$etichetta.txt')
+    Directory(_cartella).createSync(recursive: true);
+    File('$_cartella/$etichetta.txt')
         .writeAsStringSync('${righe.join('\n')}\n');
   }, timeout: const Timeout(Duration(minutes: 30)));
 }

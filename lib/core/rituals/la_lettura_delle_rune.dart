@@ -37,6 +37,7 @@ abstract final class LaLetturaDelleRune {
   /// I campi della risposta, nell'ordine in cui il modello li scrive.
   static const List<String> campi = [
     'posizione',
+    'inBreve',
     'risposta',
     'pietre',
     'legame',
@@ -62,10 +63,30 @@ abstract final class LaLetturaDelleRune {
   /// letture diverse anche a 0,7, perche' la richiesta cambia con le pietre.
   static const double temperatura = 0.7;
 
+  /// **TRE CHIAMATE, E LA LETTURA DI CASA SOLO SE IL MODELLO NON RISPONDE.**
+  /// Ordine ET voce 07: le cadute sulla lettura di casa si ammettono *"solo
+  /// dove il modello non risponde"*. All'ordine ER la lettura di casa
+  /// parlava dopo due scarti, anche quando la lettura del modello aveva solo
+  /// una prima frase debole. Adesso le chiamate sono tre; dopo la terza, una
+  /// lettura scartata per un motivo di forma ([siMostraComunque]) si
+  /// mostra, e la lettura di casa resta per cio' che non si puo' mostrare:
+  /// un pezzo che manca, una pietra senza nome, gli astri, il confine.
+  static const int tentativi = 3;
+
+  /// Vero se una lettura scartata per [motivo] si mostra comunque dopo
+  /// l'ultima chiamata.
+  static bool siMostraComunque(String motivo) =>
+      motivo.startsWith('la prima frase') ||
+      motivo.startsWith('hai scelto la posizione') ||
+      motivo.startsWith('la pietra ') && motivo.contains(' non dice ') ||
+      motivo.startsWith('"inBreve"');
+
   /// **LA RICHIESTA**: la gettata, ogni pietra con la sua posizione e la sua
   /// riga del corpus nel verso uscito, e la domanda con la sua cornice.
-  static String richiesta(EsitoGettata esito, String domanda) {
+  static String richiesta(EsitoGettata esito, String domanda,
+      {DateTime? oggi}) {
     final d = domanda.trim();
+    final giorno = oggi ?? DateTime.now();
     final b = StringBuffer()
       ..writeln('Gettata: ${esito.gettata.nome}.')
       ..writeln('Pietre uscite, in ordine; scrivi una lettura per ciascuna, '
@@ -79,25 +100,64 @@ abstract final class LaLetturaDelleRune {
           'Significato: ${r.rune.meaning}. Nel suo verso: ${r.riga}');
     }
     if (d.isEmpty) {
-      b.writeln('La persona non ha scelto nessuna domanda: la lettura parla '
-          'alla sua giornata.');
+      // **LA GIORNATA VERA. Ordine ET voce 07**: alla lettura alla cieca le
+      // quattro gettate senza domanda aprivano con *"Oggi si apre un nuovo
+      // ciclo"*, *"La tua giornata mostra un flusso che non è ancora
+      // limpido"*: il modello non sapeva di che giorno parlava.
+      b
+        ..writeln('La persona non ha scelto nessuna domanda: la lettura parla '
+            'alla sua giornata di oggi, ${_giorni[giorno.weekday - 1]} '
+            '${giorno.day} ${_mesi[giorno.month - 1]}.')
+        ..writeln('La prima frase dice una cosa concreta della giornata che le '
+            'pietre mostrano: una persona da sentire, un impegno da chiudere, '
+            'una spesa, la casa o il corpo, con il suo momento (la mattina, il '
+            'pomeriggio, la sera). Ogni pietra dice che cosa indica per oggi.');
     } else {
       b.writeln('Domanda posta dalla persona: «$d».');
       final cornice = CorniciDelPresagio.perDomanda(d);
       if (cornice != null) {
-        // Solo l'area, non il gesto: al banco il modello ricopiava la
-        // chiusura della cornice parola per parola al posto del consiglio.
-        // E non l'apertura come prima frase: al banco della sera "Una
-        // direzione c'è già, anche se non la vedi ancora" apriva due letture
-        // alla domanda sull'amore, e il giudice alla cieca la dava vaga. La
-        // cornice resta, come area da capire.
-        b.writeln('È una delle domande che l\'app propone; l\'area che tocca, '
-            'nelle parole di Caligo, da capire e non da ricopiare: '
-            '«${cornice.apertura}»');
+        // **LA CORNICE NON ARRIVA PIU' AL MODELLO. Ordine ET voce 07.** Era
+        // l'area della domanda nelle parole di Caligo, "da capire e non da
+        // ricopiare": alla lettura alla cieca le prime frasi non dirette
+        // erano quasi tutte sulle domande della cornice, e ne ripetevano
+        // l'immagine (*"una direzione c'è già, ma non è ancora chiara"*),
+        // come al banco della sera dell'ordine ER. Adesso la richiesta dice
+        // che la domanda e' generale e che cosa vuole la prima frase.
+        b.writeln('È una delle domande che l\'app propone ed è generale: '
+            'la prima frase dice in concreto che cosa le pietre mostrano in '
+            'quest\'area della vita della persona (che cosa si muove, con '
+            'chi, entro quando) oppure il passo da fare, detto col suo verbo. '
+            'Mai un\'immagine come «una direzione c\'è già», «la forza è in '
+            'te», «il sentiero si apre».');
       }
     }
     return b.toString().trimRight();
   }
+
+  static const List<String> _giorni = [
+    'lunedì',
+    'martedì',
+    'mercoledì',
+    'giovedì',
+    'venerdì',
+    'sabato',
+    'domenica',
+  ];
+
+  static const List<String> _mesi = [
+    'gennaio',
+    'febbraio',
+    'marzo',
+    'aprile',
+    'maggio',
+    'giugno',
+    'luglio',
+    'agosto',
+    'settembre',
+    'ottobre',
+    'novembre',
+    'dicembre',
+  ];
 
   /// Il titolo della posizione dentro la frase: *"nella posizione al
   /// centro"*, non *"Al centro"*, che il modello ricopiava con la maiuscola.
@@ -132,7 +192,7 @@ abstract final class LaLetturaDelleRune {
       if (p is String && p.trim().isNotEmpty) {
         lette.add(p.trim());
       } else if (p is Map) {
-        final l = '${p['lettura'] ?? ''}'.trim();
+        final l = _conLaVirgolaDelSoggetto('${p['lettura'] ?? ''}'.trim());
         final s = '${p['sullaDomanda'] ?? ''}'.trim();
         if (l.isEmpty || s.isEmpty) return null;
         lette.add('$l $s');
@@ -140,6 +200,18 @@ abstract final class LaLetturaDelleRune {
     }
     return lette;
   }
+
+  /// **LA VIRGOLA FRA IL NOME E IL VERBO SI CHIUDE.** Ordine ET voce 07,
+  /// dalla lettura alla cieca del giro 8 dell'ordine ER: *"Uruz in merkstave
+  /// nella posizione Ostacolo, rivela"*, una virgola sola fra il soggetto e
+  /// il verbo. Diventa *"Uruz, in merkstave nella posizione Ostacolo,
+  /// rivela"*: l'inciso si apre dove si chiude.
+  static String _conLaVirgolaDelSoggetto(String l) => l.replaceFirstMapped(
+      RegExp(
+          r'^(\p{Lu}\p{L}+) ((?:diritta|dritta|in \p{L}+|rovesciata|'
+          r'nella posizione|nel suo verso)[^,.;:]{0,80}), ',
+          unicode: true),
+      (m) => '${m.group(1)}, ${m.group(2)}, ');
 
   /// Le frasi "sullaDomanda" delle pietre, se la lettura le porta.
   static List<String> sulleDomande(Map<dynamic, dynamic> j) => [
@@ -312,6 +384,15 @@ abstract final class LaLetturaDelleRune {
         return 'la pietra ${i + 1} non nomina ${esito.rune[i].rune.name}';
       }
     }
+    // **OGNI PIETRA NOMINA LA SUA POSIZIONE. Ordine ET voce 07.** Alla
+    // lettura alla cieca le pietre lette "alcune" erano quasi sempre pietre
+    // senza la posizione: *"Fehu, Kenaz, Algiz senza posizione"*.
+    for (var i = 0; i < esito.rune.length; i++) {
+      if (!_nominaLaPosizione(pietre[i], esito.rune[i].posizione)) {
+        return 'la pietra ${i + 1} non dice la sua posizione '
+            '(${esito.rune[i].posizione.titolo})';
+      }
+    }
     // **LA PRIMA FRASE RISPONDE**, ordine ER voce 01, dalla lettura alla
     // cieca del secondo banco: la risposta che apre per immagini non
     // risponde, e con la posizione sì, no o a una condizione la prima frase
@@ -341,6 +422,26 @@ abstract final class LaLetturaDelleRune {
       return 'hai scelto la posizione "$posizione" ma la prima frase della '
           'risposta non la dice';
     }
+    // **LA FORMULA AL POSTO DEL GESTO O DEL FATTO. Ordine ET voce 07.**
+    // Alla lettura alla cieca del giro 8 dell'ordine ER le letture non
+    // dirette erano quasi tutte domande aperte a cui la prima frase
+    // rispondeva con un atteggiamento: *"La scelta che ti blocca si scioglie
+    // riconoscendo il tuo vero valore"*, *"Rimetti in ordine le tue spese con
+    // un gesto di equilibrio"*, *"La giornata ti chiede di lasciar andare"*.
+    final inBreve = '${j['inBreve'] ?? ''}'.trim();
+    if (!const ['sì', 'no', 'sì a una condizione'].contains(posizione)) {
+      final formula = _formula.firstMatch('$prima $inBreve');
+      if (formula != null) {
+        return 'la prima frase della risposta dice un atteggiamento '
+            '("${formula.group(0)}") e non il gesto o il fatto concreto';
+      }
+    }
+    // **LA PRIMA FRASE DICE CIO' CHE "inBreve" HA SCELTO.** Lo schema chiede
+    // la risposta in poche parole prima di scriverla, come la posizione.
+    if (inBreve.isNotEmpty && !_condividonoUnaRadice(inBreve, prima)) {
+      return '"inBreve" dice "$inBreve", ma la prima frase della risposta non '
+          'lo dice';
+    }
     // **OGNI PIETRA DICE CHE COSA INDICA SULLA DOMANDA**, nel suo campo:
     // presente, e non la stessa frase per due pietre.
     final sulle = sulleDomande(j);
@@ -350,6 +451,18 @@ abstract final class LaLetturaDelleRune {
     }
     if (sulle.toSet().length != sulle.length) {
       return 'due pietre dicono la stessa frase sulla domanda';
+    }
+    // **E LA DICE SULLA COSA CHIESTA. Ordine ET voce 07.** Alla lettura alla
+    // cieca del giro 8 le pietre lette tutte erano quattordici su
+    // ventiquattro: *"Berkano suggerisce che un nuovo inizio è pronto"*, alla
+    // domanda su Luca, senza Luca. La frase sulla domanda nomina la cosa
+    // chiesta (o la giornata, senza domanda).
+    for (var i = 0; i < sulle.length; i++) {
+      if (!_nominaLaCosa(sulle[i], domanda)) {
+        return 'la pietra ${i + 1} non dice che cosa indica '
+            '${domanda.trim().isEmpty ? 'sulla giornata di oggi' : 'su ciò che la persona ha chiesto'}: '
+            'nomina la cosa chiesta';
+      }
     }
     for (final parte in [r.risposta, r.cosaPuoiFare]) {
       for (final x in esito.rune) {
@@ -364,6 +477,14 @@ abstract final class LaLetturaDelleRune {
       return 'supera il confine del responso';
     }
     return null;
+  }
+
+  /// Vero se la lettura di una pietra nomina la sua [posizione]: l'ultima
+  /// parola del titolo (Urdhr, Cuore, centro, margini) o la sua glossa.
+  static bool _nominaLaPosizione(String testo, PosizioneGettata posizione) {
+    final t = testo.toLowerCase();
+    final ultima = posizione.titolo.toLowerCase().split(' ').last;
+    return t.contains(ultima) || t.contains(posizione.glossa.toLowerCase());
   }
 
   /// Vero se [testo] nomina la runa [nome] come parola intera: *Isa* e *Ing*
@@ -388,6 +509,118 @@ abstract final class LaLetturaDelleRune {
       'le forze|è un invito|un invito a|è un tempo di|è un giorno di|'
       'il flusso|occhi nuovi)(?![A-Za-zÀ-ÿ])',
       caseSensitive: false);
+
+  /// **LE FORMULE DELLA PRIMA FRASE**, dalla lettura alla cieca del giro 8
+  /// dell'ordine ER (ordine ET voce 07): un atteggiamento al posto del
+  /// gesto o del fatto.
+  static final RegExp _formula = RegExp(
+      r'(?<!\p{L})(?:interior[ei]|forza interiore|vero valore|'
+      r'consapevolezz\p{L}*|equilibrio|lasciar andare|lascia andare|'
+      r'non forzare|accogli\p{L}*|trasformazion\p{L}*|soglia|un ponte|'
+      r'passaggio|la corrente|rinnovamento|nuovo inizio|crescita|'
+      r'chiara visione|il tuo ritmo|tempo di attesa|con fiducia|'
+      r'ciò che non si vede)(?!\p{L})',
+      caseSensitive: false,
+      unicode: true);
+
+  static const Set<String> _vuote = {
+    'della',
+    'delle',
+    'dello',
+    'nella',
+    'nelle',
+    'sulla',
+    'sulle',
+    'dalla',
+    'alla',
+    'questa',
+    'questo',
+    'quella',
+    'quello',
+    'cosa',
+    'devo',
+    'sono',
+    'come',
+    'dove',
+    'quale',
+    'mentre',
+    'prima',
+    'dopo',
+    'perché',
+    'anche',
+    'ancora',
+    'sempre',
+    'molto',
+    'tutto',
+    'tutti',
+    'tuoi',
+    'tuo',
+    'tua',
+    'mio',
+    'mia',
+    'miei',
+    'rune',
+    'runa',
+    'pietre',
+    'pietra',
+    'dicono',
+  };
+
+  static Set<String> _radici(String t) => {
+        for (final m
+            in RegExp(r'\p{L}{4,}', unicode: true).allMatches(t.toLowerCase()))
+          if (!_vuote.contains(m.group(0)))
+            m.group(0)!.substring(0, m.group(0)!.length < 5 ? 4 : 5),
+      };
+
+  static bool _condividonoUnaRadice(String a, String b) {
+    final dove = b.toLowerCase();
+    return _radici(a).any(dove.contains);
+  }
+
+  /// Le famiglie di parole con cui si risponde a una cosa senza ripeterne
+  /// il nome: all'amore col legame e col cuore, al denaro con le spese.
+  static const List<Set<String>> _famiglie = [
+    {'amor', 'cuore', 'legam', 'relaz', 'coppi', 'partn', 'senti', 'innam'},
+    {'lavor', 'ruolo', 'capo', 'colle', 'carri', 'uffic', 'profe', 'propo'},
+    {
+      'spes',
+      'spend',
+      'soldi',
+      'denar',
+      'conti',
+      'bilan',
+      'rispa',
+      'econo',
+      'debit'
+    },
+    {'sorel', 'fratel', 'madre', 'padre', 'famig'},
+    {'amic'},
+    {'scelt', 'scegl', 'decis', 'strad', 'bivio', 'blocc'},
+    {'citt', 'trasf', 'parti', 'rest', 'cambi'},
+    {'momen', 'perio', 'fase', 'tempo', 'adess', 'oggi'},
+  ];
+
+  static final RegExp _laGiornata = RegExp(
+      r'(?<!\p{L})(?:oggi|giornata|stasera|sera|mattina|pomeriggio|domani|'
+      r'ore|giorno)(?!\p{L})',
+      caseSensitive: false,
+      unicode: true);
+
+  /// Vero se la frase di una pietra [sulla] nomina la cosa chiesta in
+  /// [domanda], o la giornata quando la domanda non c'e'.
+  static bool _nominaLaCosa(String sulla, String domanda) {
+    if (domanda.trim().isEmpty) return _laGiornata.hasMatch(sulla);
+    final radici = _radici(domanda);
+    final tutte = {
+      ...radici,
+      for (final f in _famiglie)
+        if (f.any((x) => radici.any((r) => r.startsWith(x) || x.startsWith(r))))
+          ...f,
+    };
+    final s = sulla.toLowerCase();
+    return tutte.any(s.contains);
+  }
 
   /// **IL CONSIGLIO E' SOLO IL GESTO**, dal banco della sera: *"decidi il
   /// passo successivo con Isa"*, *"per onorare il presagio di Gebo"*, *"un

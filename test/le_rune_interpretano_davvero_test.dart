@@ -67,6 +67,11 @@ void main() {
   test('ER.01: le guardie della lettura', () {
     const domanda = 'Una scelta mi blocca: cosa la scioglie?';
     final nomi = [for (final p in esito.rune) p.rune.name];
+    // **LAPIDE, ordine ET voce 07**: la pietra buona diceva "nella sua
+    // posizione"; adesso ogni pietra nomina la posizione vera, come chiede la
+    // guardia nuova (alla lettura alla cieca le pietre senza posizione erano
+    // quelle lette "alcune").
+    final posti = [for (final p in esito.rune) p.posizione.titolo];
     Map<String, Object> lettura({
       String posizione = 'sì a una condizione',
       String risposta = 'Le pietre indicano di sì, se prima chiarisci cosa '
@@ -83,8 +88,8 @@ void main() {
               [
                 for (var i = 0; i < nomi.length; i++)
                   {
-                    'lettura': '${nomi[i]}, nella sua posizione, parla di un '
-                        'passo preciso.',
+                    'lettura': '${nomi[i]}, nella posizione ${posti[i]}, '
+                        'parla di un passo preciso.',
                     'sullaDomanda': 'Sulla scelta che ti blocca indica il '
                         'passo numero ${i + 1}.',
                   }
@@ -111,6 +116,22 @@ void main() {
     expect(buona, isNull);
     expect(corta, isNotNull);
     expect(senzaNome, isNotNull);
+    // **LA PIETRA SENZA NOME, CON LA SUA FRASE SULLA DOMANDA.** Alla Regola B
+    // dell'ordine ET, tolto il controllo del nome, la prova restava verde:
+    // il caso di sopra ha pietre scritte come testo solo, e lo ferma la
+    // regola della frase sulla domanda.
+    final senzaNomeConLaFrase = LaLetturaDelleRune.scarto(
+        lettura(pietre: [
+          for (var i = 0; i < nomi.length; i++)
+            {
+              'lettura': 'Una pietra, nella sua posizione, parla di forza.',
+              'sullaDomanda': 'Sulla scelta che ti blocca indica il passo '
+                  'numero ${i + 1}.',
+            }
+        ]),
+        esito,
+        domanda: domanda);
+    expect(senzaNomeConLaFrase, contains('non nomina'));
     // Il nome nella risposta non butta la lettura: diventa "la runa", e il
     // simbolo resta nella terza parte (ordine ER voce 01, dal banco di
     // Flash).
