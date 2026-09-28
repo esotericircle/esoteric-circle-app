@@ -214,11 +214,6 @@ jobs:
     if: ${{ !cancelled() }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
-    # Scrivere il segno del verde vuole il permesso di scrivere i contenuti;
-    # leggere i registri delle macchine vuole quello di leggere le azioni.
-    permissions:
-      contents: write
-      actions: read
     steps:
       - name: Checkout del codice
         uses: actions/checkout@v4
@@ -238,17 +233,6 @@ jobs:
         run: |
           set -o pipefail
           SBARRAMENTO_DA_REGISTRI=registri SBARRAMENTO_PEZZI=6 bash tool/sbarramento.sh 2>&1 | tee /tmp/sbarramento.txt
-
-      # **IL SEGNO DEL VERDE, PER CHI LO LEGGE CON GIT. Ordine ET, 28
-      # settembre 2026.** Codemagic chiedeva il verdetto all'API di GitHub
-      # senza credenziali, sessanta domande all'ora per indirizzo su Mac con
-      # indirizzi condivisi, e la build si fermava col cancello verde. A
-      # sbarramento passato qui si scrive il riferimento refs/verde/<commit>,
-      # che Codemagic legge con git (tool/il_cancello_ha_detto_verde.sh).
-      # Solo sulle spinte al ramo: una richiesta di unione non scrive niente.
-      - name: Il segno del verde, per chi lo legge con git
-        if: success() && github.event_name == 'push'
-        run: git push origin "${GITHUB_SHA}:refs/verde/${GITHUB_SHA}"
 
       # **IL VERDETTO, DOVE SI LEGGE SENZA CREDENZIALI. Ordine CODEMAGIC1
       # voce 05.** I registri delle azioni non si leggono senza essere

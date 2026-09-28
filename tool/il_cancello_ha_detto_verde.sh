@@ -76,40 +76,6 @@ if [ -n "${SPEDISCO_SU_ROSSO:-}" ]; then
   exit 0
 fi
 
-# **IL SEGNO DEL VERDE, LETTO CON GIT. Ordine ET, 28 settembre 2026.**
-# La build iOS del 28 settembre su 82230fe9 si e' fermata qui col cancello
-# verde: l'API di GitHub, chiesta senza credenziali, risponde a sessanta
-# domande all'ora per indirizzo, i Mac di Codemagic escono da indirizzi
-# condivisi, e il limite si riapriva oltre il tetto d'attesa. Il fondatore:
-# *"Possibile che codemagic non funziona mai alla prima volta?"*. Adesso il
-# cancello di GitHub, a sbarramento passato, scrive nel repository il
-# riferimento `refs/verde/<commit>` (`.github/workflows/verde.yml`, passo "Il
-# segno del verde"), e qui si legge con git, come si legge il codice, fuori
-# da quel limite. **Nessun token nuovo**, come vuole l'ordine EA voce 15: il
-# segno lo scrive GitHub dentro GitHub, e git lo legge senza credenziali. Se
-# il segno non c'e' (un commit spinto prima dell'ordine ET, o un cancello
-# non ancora finito o rosso), si chiede all'API come prima, e l'API dice
-# quale dei tre.
-segno_del_verde() {
-  # La risposta finta del segno esiste solo per le guardie, come quella
-  # dell'API; con la sola risposta finta dell'API il segno non si chiede
-  # alla rete.
-  if [ -n "${SEGNO_FINTO_DEL_CANCELLO:-}" ]; then
-    [ "$SEGNO_FINTO_DEL_CANCELLO" = "presente" ]
-    return
-  fi
-  if [ -n "${RISPOSTA_FINTA_DEL_CANCELLO:-}" ]; then return 1; fi
-  git ls-remote "https://github.com/$REPOSITORY.git" "refs/verde/$COMMIT" \
-    2>/dev/null | grep -q "^$COMMIT"
-}
-
-if segno_del_verde; then
-  echo ""
-  echo "== IL CANCELLO E' VERDE SU $COMMIT: lo dice il segno refs/verde/$COMMIT, scritto da GitHub a sbarramento passato =="
-  exit 0
-fi
-echo "   Il segno del verde non c'e' per questo commit: chiedo all'API di GitHub."
-
 # Un Python che GIRA, non uno che c'e' soltanto: su Windows `python3` puo'
 # essere il rimando al negozio, che esiste nel PATH ed esce con errore.
 # **E non si prova nemmeno**, ordine EK, 24 settembre 2026: lanciato senza

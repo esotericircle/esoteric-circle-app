@@ -5792,11 +5792,12 @@ ordinato la build: **la 2288 e' consegnata** su App Distribution, release
 `6h5520nccmlgo`, dal commit `30d4329b` col cancello di GitHub verde dodici
 su dodici, accesa sul Realme prima del caricamento; la build iOS 2288 e'
 pronta da lanciare su Codemagic dallo stesso ramo (rapporto, sezioni LA
-CONSEGNA e L'IPHONE, SU CODEMAGIC). **Il cancello di Codemagic legge adesso
-il segno del verde** (`refs/verde/<commit>`, scritto dal passo "Il segno del
-verde" di `.github/workflows/verde.yml`) con git, fuori dal limite dell'API
-di GitHub senza credenziali, che aveva fermato la prima build iOS su
-`82230fe9`.
+CONSEGNA e L'IPHONE, SU CODEMAGIC). La prima build iOS su `82230fe9` si e'
+fermata al cancello per il limite dell'API di GitHub senza credenziali, col
+commit verde; la correzione col segno `refs/verde/<commit>` (commit
+`d8198576`) e' stata fermata dalla guardia `nessuna_azione_committa_da_sola`
+e tolta: **la scelta fra il segno, un token di sola lettura o niente e' del
+fondatore** (rapporto, L'IPHONE, SU CODEMAGIC).
 
 **IL BANCO DELLE TRENTA DOMANDE (ET.01 ed ET.03), APERTE.**
 `tool/collaudo_et01.dart`: le trenta domande dell'ordine ai tre Maestri, in

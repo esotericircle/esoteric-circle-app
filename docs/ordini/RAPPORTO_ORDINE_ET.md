@@ -395,18 +395,33 @@ verde sul commit.
 
 **La prima build iOS, su `82230fe9`, si e' fermata al primo passo col
 cancello verde.** Il registro che hai mandato lo dice: *"IL LIMITE DI GITHUB
-NON SI RIAPRE IN TEMPO PER QUESTA BUILD"*. Il passo chiedeva il verdetto
+NON SI RIAPRE IN TEMPO PER QUESTA BUILD"*. Il passo chiede il verdetto
 all'API di GitHub senza credenziali, sessanta domande all'ora per
 indirizzo, e i Mac di Codemagic escono da indirizzi condivisi con altri:
-spesso trovano il conto gia' finito. Io ti avevo detto un'altra causa, che
-il cancello non avesse ancora finito: era sbagliata, l'avevo dedotta dagli
-orari senza leggere il registro. **Corretto**: il cancello di GitHub, a
-sbarramento passato, scrive nel repository il riferimento
-`refs/verde/<commit>`, e Codemagic lo legge con git, come legge il codice,
-fuori da quel limite; senza il segno chiede all'API come prima. Nessun
-token nuovo, come voleva l'ordine EA voce 15. Il segno c'e' solo per i
-commit spinti da qui in avanti: la build iOS si lancia sul commit di questa
-correzione.
+spesso trovano il conto gia' finito, e il passo aspetta al massimo 1.500
+secondi. Io ti avevo detto un'altra causa, che il cancello non avesse
+ancora finito: era sbagliata, l'avevo dedotta dagli orari senza il
+registro.
+
+**Una correzione tentata e tolta.** Nel commit `d8198576` il cancello di
+GitHub scriveva nel repository un segno, `refs/verde/<commit>`, che
+Codemagic leggeva con git, fuori da quel limite. Lo sbarramento su GitHub
+l'ha fermata: la guardia `nessuna_azione_committa_da_sola` vieta a ogni
+workflow `git push` e `contents: write`, da quando un'azione che scriveva da
+sola ha fatto due conflitti sul ramo. Il segno non tocca la cronologia del
+ramo, ma la regola e' tua e non la cambio da solo: la correzione e' tolta
+nel commit che segue, e io la guardia non l'avevo fatta girare prima di
+spingere.
+
+**La scelta e' tua, fra tre strade:**
+1. **il segno del verde**, un'eccezione scritta alla regola: il cancello
+   scrive solo `refs/verde/<commit>`, mai sul ramo, e la guardia si stringe
+   a vietare le scritture sui rami invece di ogni scrittura;
+2. **un token di sola lettura** su Codemagic (variabile cifrata, creata da
+   te su GitHub, mai in chat): 5.000 domande all'ora invece di 60, ma e'
+   l'eccezione alla regola dell'ordine EA voce 15, "nessun token nuovo";
+3. **niente**: quando succede si rilancia la build dopo l'ora che il
+   registro dice.
 
 ## I COMMIT
 
