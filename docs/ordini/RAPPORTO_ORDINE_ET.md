@@ -423,6 +423,16 @@ spingere.
 3. **niente**: quando succede si rilancia la build dopo l'ora che il
    registro dice.
 
+**Hai scelto la prima**, *"1"*. Il segno e' tornato, e la guardia
+`nessuna_azione_committa_da_sola` porta l'eccezione scritta con la tua
+risposta: il solo `git push` permesso in un workflow e' quello del segno
+verso `refs/verde/<commit>`, e `contents: write` solo in `verde.yml` che lo
+porta; `git commit` e ogni altra spinta restano vietati, e una prova nuova
+lo verifica (rossa con l'eccezione allargata a ogni spinta). Prima di
+spingere ho fatto girare tutte le nove prove che leggono i flussi di lavoro
+o il cancello, 81 su 81. La build iOS si lancia sul commit di questa
+correzione, quando il suo cancello e' verde e il segno c'e'.
+
 ## I COMMIT
 
 - `5fac9a89` il manifesto e la sua guardia;

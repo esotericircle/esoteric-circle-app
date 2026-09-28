@@ -5796,8 +5796,10 @@ CONSEGNA e L'IPHONE, SU CODEMAGIC). La prima build iOS su `82230fe9` si e'
 fermata al cancello per il limite dell'API di GitHub senza credenziali, col
 commit verde; la correzione col segno `refs/verde/<commit>` (commit
 `d8198576`) e' stata fermata dalla guardia `nessuna_azione_committa_da_sola`
-e tolta: **la scelta fra il segno, un token di sola lettura o niente e' del
-fondatore** (rapporto, L'IPHONE, SU CODEMAGIC).
+e tolta; **il fondatore ha scelto il segno** (*"1"*), e il segno e' tornato
+con l'eccezione scritta nella guardia: il solo `git push` permesso in un
+workflow e' quello verso `refs/verde/<commit>` in `verde.yml`, e il primo
+passo della build iOS lo legge con git (rapporto, L'IPHONE, SU CODEMAGIC).
 
 **IL BANCO DELLE TRENTA DOMANDE (ET.01 ed ET.03), APERTE.**
 `tool/collaudo_et01.dart`: le trenta domande dell'ordine ai tre Maestri, in

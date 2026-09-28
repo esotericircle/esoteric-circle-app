@@ -687,7 +687,7 @@ le altre.
 | `i_conteggi_della_chat_stanno_stretti_test.dart` | i conteggi della chat stanno stretti | 1 | non scopre insiemi di file | 10/09/2026, DD (rossa due volte: 32 punti di aria su 16, e 0 di respiro con lo zero innestato) | 1 |
 | `il_cambio_dell_email_test.dart` | il cambio dell email | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_campo_di_scrittura_e_opaco_test.dart` | il campo di scrittura e opaco | 4 | non scopre insiemi di file | mai | 3 |
-| `il_cancello_aspetta_il_limite_test.dart` | il cancello di Codemagic aspetta il limite di GitHub, senza token | 1 | non scopre insiemi di file | 19/09/2026, EA | 2 |
+| `il_cancello_aspetta_il_limite_test.dart` | il cancello di Codemagic aspetta il limite di GitHub, senza token; col segno del verde scritto da GitHub (refs/verde/<commit>) passa senza chiedere all'API | 1 | non scopre insiemi di file | 19/09/2026, EA; 28/09/2026 sera, ET dopo la consegna (Regola B: il limite non riconosciuto, rossa; allargata col segno del verde, tre prove rosse sul codice di prima) | 2 |
 | `il_capo_alzato_e_abbassato_non_si_scambiano_test.dart` | il capo alzato e abbassato non si scambiano | 4 | non scopre insiemi di file | 06/09/2026, CR | 3 |
 | `il_catalogo_copre_il_mondo_test.dart` | il catalogo copre il mondo | 1, 2 | non scopre insiemi di file | mai | 3 |
 | `il_catalogo_delle_mosse_e_eseguito_test.dart` | le sedici mosse del catalogo ci sono tutte, e ognuna punta a un posto che esiste | 1, 2 | proprio, dichiarato | 21/09/2026, EB | 3 |
@@ -1030,7 +1030,7 @@ le altre.
 | `nessun_suono_sintetizzato_esce_dai_responsi_test.dart` | nessun suono sintetizzato esce dai responsi | 1, 2 | dalla porta comune | 04/09/2026, CQ | 2 |
 | `nessun_testo_finisce_sotto_test.dart` | nessun testo finisce sotto | 4, 1 | non scopre insiemi di file | mai | 3 |
 | `nessun_traguardo_resta_indietro_test.dart` | nessun traguardo resta indietro | 1, 2 | proprio, dichiarato | 04/09/2026, CQ | 2 |
-| `nessuna_azione_committa_da_sola_test.dart` | nessuna azione committa da sola | 1 | dalla porta comune | 26/09/2026, ACCELERA (Regola B: rossa col difetto innestato sulla versione di HEAD) | 3 |
+| `nessuna_azione_committa_da_sola_test.dart` | nessuna azione committa da sola; l'unica eccezione, decisa dal fondatore il 28 settembre 2026, e' il segno del verde verso refs/verde/<commit> in verde.yml | 1 | dalla porta comune | 26/09/2026, ACCELERA (Regola B: rossa col difetto innestato sulla versione di HEAD); 28/09/2026 sera, ET dopo la consegna (Regola B: rossa sul segno del verde; la prova dell'eccezione rossa con l'eccezione allargata a ogni spinta) | 3 |
 | `nessuna_frase_esce_due_volte_test.dart` | nessuna frase esce due volte | 1, 2 | proprio, dichiarato | 08/09/2026, CY | 2 |
 | `nessuna_promessa_di_memoria_integrale_test.dart` | nessuna promessa di memoria integrale | 1, 2 | proprio, dichiarato | mai | 3 |
 | `nessuna_schermata_del_risveglio_e_orfana_test.dart` | nessuna schermata dell onboarding resta orfana, e ogni tappa e raggiunta | 1, 2 | dalla porta comune | 12/09/2026, DG (rossa due volte: l orfano e la tappa mai assegnata) | 1 |
