@@ -189,7 +189,7 @@ void main() {
         .widget<VipFramedPortrait>(find.descendant(
             of: find.byKey(Key('gemello_nastro_carta_$i')),
             matching: find.byType(VipFramedPortrait)))
-        .name!;
+        .name;
     const arrivo = SchermataDelGemello.cartaDellArrivo;
     final tre = [nomeAl(arrivo - 1), nomeAl(arrivo), nomeAl(arrivo + 1)];
     final centroDelNastro =

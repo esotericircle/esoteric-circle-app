@@ -251,7 +251,29 @@ lo confesso qui come negli ordini EQ e ACCELERA.
 
 ## LA SUITE E IL CANCELLO
 
-SUITE_FINALE
+**La suite finale, prima delle correzioni**: +6.130 ~11 -21 sul commit
+`e80e33ea`, con tredici rosse nuove, tutte di quest'ordine, ognuna col suo
+padre in `docs/collaudo/ER/suite_finale_rosse.txt`; riparate.
+
+**Lo sbarramento della consegna**, sul commit `9cf55eda`, che e' la suite
+intera: **+6.147 ~11 -8** nella suite e le tredici prove del corredo a scala
+1,3, tutte fra i rossi accettati di `tool/rossi_accettati.txt` (le soglie
+della scansione, le sei guardie degli ordini ancora aperti ACCELERA, EI, EJ,
+EK, EM, EN, le catture a scala 1,3). **Un solo rosso nuovo**, quello atteso:
+`niente_lavoro_non_spinto`, perche' i quattro commit non erano ancora spinti.
+Spinti su `claude/esoteric-circle-master-order-e798aj` (ls-remote
+`9cf55eda`), la prova e' verde da sola. 
+
+**Il cancello di GitHub su `9cf55eda` e' caduto**, e lo sbarramento del PC
+non poteva vederlo: `flutter analyze lib test` trovava due difetti in due
+prove scritte in quest'ordine, un `!` inutile in
+`il_gemello_in_una_schermata_sola_test.dart` (padre **ER.06**, commit
+`5bae25bc`: il nome del ritratto non e' mai stato nullo) e un import
+superfluo in `la_carta_tu_apre_il_tuo_volto_test.dart` (padre **ER.04**,
+commit `156e86bd`). Tutti e due miei: i commit dell'ordine non erano mai
+stati spinti fino a stasera, e io l'analisi prima di spingere non l'avevo
+fatta girare. Corretti, analisi pulita, le due prove verdi; il cancello sul
+commit della correzione e' nella sezione della consegna.
 
 ## I COMMIT
 
