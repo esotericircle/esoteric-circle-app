@@ -162,7 +162,7 @@ abstract final class LaLetturaVedica {
   static List<(int, int)> _finoA(DateTime giorno, LuogoDelGiorno? luogo) {
     final chiave = luogo == null
         ? '-'
-        : '${luogo.lat.toStringAsFixed(2)},${luogo.lon.toStringAsFixed(2)}';
+        : '${(luogo.lat * 100).round()},${(luogo.lon * 100).round()}';
     final elenco = _giorni.putIfAbsent(chiave, () => []);
     final quanti = DateTime.utc(giorno.year, giorno.month, giorno.day)
             .difference(DateTime.utc(_inizio.year, _inizio.month, _inizio.day))
