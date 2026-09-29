@@ -48,4 +48,9 @@ const Map<String, Color> _colorByName = {
   'verde mare': Color(0xFF2E8B57),
   'lavanda': Color(0xFFB497BD),
   'blu oltremare': Color(0xFF1B3A8B),
+  // I colori dei pianeti di Lilly, ordine ES voce 29.
+  'grigio azzurro': Color(0xFF8A9BB0),
+  'verde': Color(0xFF4F9A6E),
+  'blu zaffiro': Color(0xFF2B4F9E),
+  'nero piombo': Color(0xFF4A4D54),
 };

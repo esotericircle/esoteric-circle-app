@@ -250,15 +250,16 @@ void main() {
       }
     });
 
-    test('Le due voci mostrate sono Breve e Profonda, con Media latente', () {
+    // LAPIDE, ordine ES voce 01: qui si pretendevano Breve e Profonda con la
+    // Media latente nel codice. Il fondatore: "io terrei breve e approfondita
+    // Senza media". Le voci sono due, e la seconda si chiama Approfondita.
+    test('Le due voci sono Breve e Approfondita, e non ce ne sono altre', () {
       expect(AnswerDepth.shown.map((d) => d.label).toList(),
-          ['Breve', 'Profonda']);
+          ['Breve', 'Approfondita']);
+      expect(AnswerDepth.values, hasLength(2));
       expect(AnswerDepth.free, AnswerDepth.breve);
       expect(AnswerDepth.breve.premium, isFalse);
       expect(AnswerDepth.profonda.premium, isTrue);
-      // La Media resta nel codice ma spenta, fuori dalla vista.
-      expect(AnswerDepth.media.premium, isTrue);
-      expect(AnswerDepth.media.visible, isFalse);
       expect(AnswerDepth.breve.visible, isTrue);
       expect(AnswerDepth.profonda.visible, isTrue);
     });
@@ -293,7 +294,8 @@ void main() {
       }
     });
 
-    testWidgets('La tendina si apre con la sola Profonda bloccata, senza Media',
+    testWidgets(
+        'La tendina si apre con la sola Approfondita bloccata, senza Media',
         (tester) async {
       await pumpScreen(tester);
       await tester.tap(find.byKey(const Key('oroscopo_depth_generale')));
@@ -324,7 +326,7 @@ void main() {
       // Si tocca Profonda, che e' bloccata.
       await tester.tap(find.descendant(
           of: find.byType(PopupMenuItem<AnswerDepth>),
-          matching: find.text('Profonda')));
+          matching: find.text('Approfondita')));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
 

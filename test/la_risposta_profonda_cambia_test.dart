@@ -121,9 +121,17 @@ void main() {
             'il selettore sarebbe un comando che non comanda niente.');
   });
 
+  // LAPIDE, ordine ES voce 01. Questa prova fissava la causa della voce 62:
+  // senza carta natale la Profonda era identica alla Breve. Lo diceva lei
+  // stessa: "Il giorno che qualcuno decidesse di dare una risposta profonda
+  // anche senza cielo, questa prova cadra' e andra' riscritta con la nuova
+  // regola". Il fondatore l'ha deciso (ES.01): senza carta l'Approfondita
+  // aggiunge dove sono oggi la Luna e il corpo del dominio, nelle case
+  // solari del segno. La misura su 48 schede sta in
+  // l_approfondita_dice_di_piu_test.dart.
   test(
-      'SENZA cielo vero la profondita\' non cambia niente, ed e\' la causa '
-      'della voce 62', () {
+      'SENZA cielo vero l\'Approfondita dice di piu\' della Breve, coi fatti '
+      'veri del giorno', () {
     // **QUESTA PROVA NON CHIEDE UNA CORREZIONE: FISSA LA CAUSA.** Senza carta
     // natale il testo viene dal pool a hash, e li' la profondita' non ha
     // nessun effetto perche' non c'e' nessun cielo da approfondire. E' il
@@ -149,10 +157,8 @@ void main() {
       cielo: senzaCielo,
       profonda: true,
     );
-    expect(profonda.text, breve.text,
-        reason: 'Senza cielo vero i due testi dovrebbero coincidere, perche\' '
-            'vengono entrambi dal pool a hash. Se non coincidono piu\', '
-            'qualcuno ha dato una risposta profonda anche senza carta: e\' un '
-            'cambiamento buono, ma va scritto qui.');
+    expect(profonda.text, isNot(breve.text));
+    expect(profonda.text, startsWith(breve.text));
+    expect(profonda.text, contains('la Luna è in'));
   });
 }

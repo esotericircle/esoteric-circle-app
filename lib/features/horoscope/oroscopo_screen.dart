@@ -37,6 +37,11 @@ import 'answer_depth.dart';
 import '../pricing/upgrade_invite.dart';
 import 'horoscope_visuals.dart';
 import 'la_testa_della_tradizione.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
+import '../../core/horoscope/il_domani.dart';
+import '../../core/horoscope/l_ora_d_oro.dart';
+import 'la_ruota_del_passaggio.dart';
+import '../../core/astro/natal_chart.dart';
 import '../../core/horoscope/il_metodo_del_responso.dart';
 import '../../core/astro/aspetti_di_oggi.dart';
 import '../../core/horoscope/i_segni_delle_tradizioni.dart';
@@ -325,6 +330,21 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     for (final d in HoroscopeDomain.values) d: AnswerDepth.free,
   };
 
+  /// **L'ORA D'ORO SI CALCOLA UNA VOLTA**, ordine ES voce 32: sono qualche
+  /// centinaio di posizioni della Luna, e la schermata si ricostruisce a ogni
+  /// fotogramma della macchina da scrivere. Si tiene per carta e per giorno.
+  Object? _chiaveDellOraDOro;
+  String? _fraseDellOraDOro;
+
+  String? _oraDOro(NatalChart? carta) {
+    final chiave = (carta, _date.year, _date.month, _date.day);
+    if (chiave != _chiaveDellOraDOro) {
+      _chiaveDellOraDOro = chiave;
+      _fraseDellOraDOro = LOraDOro.di(carta, _date)?.frase;
+    }
+    return _fraseDellOraDOro;
+  }
+
   void _scegliProfondita(HoroscopeDomain dominio, AnswerDepth scelta) {
     if (_depth[dominio] == scelta) return;
     setState(() => _depth[dominio] = scelta);
@@ -403,7 +423,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         profonde: {
           for (final voce in _depth.entries)
             voce.key: voce.value == AnswerDepth.profonda,
-        });
+        },
+        // Il giorno personale del numero fortunato, ordine ES voce 29.
+        nascita:
+            profile.identity.isExample ? null : profile.identity.birthDate);
 
     return Stack(
       children: [
@@ -566,6 +589,18 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                         for (var i = 0; i < cards.length; i++)
                           if (i <= _turnoDiScrittura) ...[
                             _HoroscopeCardView(
+                              passaggio: cielo.ceCieloVero
+                                  ? CorrenteDelCielo.vociPer(
+                                          cielo, cards[i].domain)
+                                      .firstOrNull
+                                  : null,
+                              carta: context
+                                  .watch<BirthIdentityController>()
+                                  .cartaCompleta,
+                              adesso: _date,
+                              oraDOro: _oraDOro(context
+                                  .watch<BirthIdentityController>()
+                                  .cartaCompleta),
                               scrivendo: true,
                               durataScrittura:
                                   RiflessioneDelCielo.scritturaDiUnaScheda,
@@ -627,6 +662,34 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                           testoDelResponso: cards
                               .map((c) => '${c.title}\n${c.text}')
                               .join('\n\n'),
+                        ),
+                      // LA RAGIONE PER TORNARE DOMANI, ordine ES voce 34: in
+                      // fondo, calcolata, dove sara' la Luna domani.
+                      if (_inCima.unlocked &&
+                          _fase == _FaseDelConsulto.responso)
+                        Padding(
+                          padding: const EdgeInsets.only(top: SpacingTokens.md),
+                          child: Row(
+                            key: const Key('oroscopo_domani'),
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(Icons.nightlight_round,
+                                  size: 16, color: palette.goldSoft),
+                              const SizedBox(width: SpacingTokens.sm),
+                              Expanded(
+                                child: Text(
+                                  IlDomani.riga(
+                                      widget.userSign,
+                                      context
+                                          .watch<BirthIdentityController>()
+                                          .cartaCompleta,
+                                      _date),
+                                  style: TypographyTokens.didascalia().copyWith(
+                                      color: palette.goldSoft, height: 1.4),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
                       //
@@ -1031,9 +1094,13 @@ class _LaLetturaEInArrivo extends StatelessWidget {
               side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
             ),
             onPressed: onTorna,
-            child: Text('Torna al tuo oroscopo di oggi',
-                style: TypographyTokens.etichetta()
-                    .copyWith(color: palette.goldSoft)),
+            // Nel carattere del corpo, non in quello delle etichette: il
+            // maiuscoletto che va a capo diventa un muro di lettere
+            // (etichette_e_lettura, padre ES.11).
+            child: Text('Torna al tuo oroscopo',
+                textAlign: TextAlign.center,
+                style:
+                    TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
           ),
         ],
       ),
@@ -1059,6 +1126,8 @@ class _InvitoAllaNascita extends StatelessWidget {
         color: Colors.transparent,
         child: InkWell(
           key: const Key('oroscopo_invito_nascita'),
+          // L'interruttore del silenzio del Cerchio: niente click di sistema.
+          enableFeedback: false,
           borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
           onTap: () => Navigator.of(context).push(DatiDiNascitaScreen.route()),
           child: Container(
@@ -1585,7 +1654,22 @@ class _HoroscopeCardView extends StatelessWidget {
     required this.giaScritto,
     required this.onScritto,
     required this.livello,
+    this.oraDOro,
+    this.passaggio,
+    this.carta,
+    this.adesso,
   });
+
+  /// **IL PASSAGGIO CHE SI ACCENDE, ordine ES voce 33**: la voce del cielo
+  /// che il testo nomina per primo, la carta e il giorno. Tutti e tre, o la
+  /// riga non c'e'.
+  final VoceDelCielo? passaggio;
+  final NatalChart? carta;
+  final DateTime? adesso;
+
+  /// **L'ORA D'ORO, ordine ES voce 32**, solo sulla Generale e solo con la
+  /// carta natale; null nei giorni senza un aspetto favorevole esatto.
+  final String? oraDOro;
 
   /// A quale livello di dati di nascita e' fatto il responso: decide la nota
   /// del metodo (ordine ES voce 30).
@@ -1721,7 +1805,7 @@ class _HoroscopeCardView extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   icon: Icon(Icons.help_outline_rounded,
                       size: 18, color: palette.goldSoft.withValues(alpha: 0.7)),
-                  onPressed: () => showDialog<void>(
+                  onPressed: () => dialogoDelCerchio<void>(
                     context: context,
                     builder: (ctx) => AlertDialog(
                       key: Key('oroscopo_nota_metodo_${card.domain.name}'),
@@ -1747,6 +1831,15 @@ class _HoroscopeCardView extends StatelessWidget {
               ),
             ],
           ),
+          // DA DOVE VIENE IL LIVELLO, ordine ES voce 28.
+          if (card.rigaDelLivello != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 2),
+              child: Text(card.rigaDelLivello!,
+                  key: Key('oroscopo_riga_del_livello_${card.domain.name}'),
+                  style: TypographyTokens.didascalia().copyWith(
+                      color: ColorTokens.textSecondary, height: 1.35)),
+            ),
           const SizedBox(height: SpacingTokens.md),
           // L'apertura personalizzata col nome, prima del testo della Generale.
           if (card.opening != null) ...[
@@ -1769,9 +1862,42 @@ class _HoroscopeCardView extends StatelessWidget {
             giaScritto: giaScritto,
             onScritto: onScritto,
           ),
+          if (passaggio != null && carta != null && adesso != null) ...[
+            const SizedBox(height: SpacingTokens.xs),
+            LaRigaDelPassaggio(
+                voce: passaggio!,
+                carta: carta!,
+                adesso: adesso!,
+                palette: palette),
+          ],
+          if (oraDOro != null && card.domain == HoroscopeDomain.generale) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Row(
+              key: const Key('oroscopo_ora_d_oro'),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(Icons.wb_twilight_rounded,
+                    size: 18, color: palette.goldSoft),
+                const SizedBox(width: SpacingTokens.sm),
+                Expanded(
+                  child: Text(oraDOro!,
+                      style: TypographyTokens.didascalia()
+                          .copyWith(color: palette.goldSoft, height: 1.4)),
+                ),
+              ],
+            ),
+          ],
           if (card.domain == HoroscopeDomain.fortuna) ...[
             const SizedBox(height: SpacingTokens.md),
             _FortunaFooter(card: card, palette: palette),
+            // LA REGOLA DEL NUMERO E DEL COLORE, ordine ES voce 29.
+            if (card.rigaDellaFortuna != null) ...[
+              const SizedBox(height: SpacingTokens.xs),
+              Text(card.rigaDellaFortuna!,
+                  key: const Key('oroscopo_regola_della_fortuna'),
+                  style: TypographyTokens.didascalia().copyWith(
+                      color: ColorTokens.textSecondary, height: 1.35)),
+            ],
           ],
         ],
       ),

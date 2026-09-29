@@ -338,6 +338,11 @@ void main() {
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
     }
+    // ES.34: in fondo, dopo il consulto, la ragione per tornare domani.
+    final domani = find.byKey(const Key('oroscopo_domani'));
+    await tester.dragUntilVisible(
+        domani, find.byKey(const Key('oroscopo_list')), const Offset(0, -300));
+    expect(domani, findsOneWidget);
     print('ORDINE ES VOCE 30: schede del giorno senza nota del metodo '
         '${senzaNota.length} su ${HoroscopeDomain.values.length}');
     expect(senzaNota, isEmpty);
@@ -347,6 +352,16 @@ void main() {
         IlMetodoDelResponso.delGiorno(HoroscopeDomain.amore, l),
     };
     expect(note, hasLength(3));
+    // Con la carta il livello viene dai passaggi, senza dalla Luna: la nota
+    // lo dice (ordine ES voce 28).
+    expect(
+        IlMetodoDelResponso.delGiorno(
+            HoroscopeDomain.amore, LivelloPersonalizzazione.cartaCompleta),
+        contains('passaggi di oggi che parlano a questo campo'));
+    expect(
+        IlMetodoDelResponso.delGiorno(
+            HoroscopeDomain.amore, LivelloPersonalizzazione.soloSegno),
+        contains('viene dalla Luna di oggi'));
   });
 
   test('ES.13: sulla card il nome senza cognome e la nascita scritta', () {

@@ -201,7 +201,7 @@ class PlanCatalog {
         'Sintesi comparativa dei tre Maestri',
         'Correlazione mood-transiti attiva',
         'Cosmic Journal completo, obiettivi e traguardi per Maestro',
-        'Scelta della profondità di risposta: Breve, Media, Approfondita',
+        'Scelta della profondità dell\'oroscopo: Breve o Approfondita',
         'Rune, I-Ching e Pendolo a Eos scontati',
       ],
     ),

@@ -390,7 +390,7 @@ class CorrenteDelCielo {
   }) {
     final pianeta = colSuoArticolo(v.transito);
     final aspetto = aspettoConArticolo[v.aspetto]!;
-    final bersaglio = _alBersaglio(v);
+    final bersaglio = alBersaglio(v);
     final coda = _coda(v);
     final chiusa = _chiusaDelPassaggio(v);
 
@@ -497,7 +497,7 @@ class CorrenteDelCielo {
   static String _chiaveRetro(VoceDelCielo v) => 'retro/${v.transito.id}';
 
   /// Il complemento del punto natale toccato, con l'articolo del suo genere.
-  static String _alBersaglio(VoceDelCielo v) {
+  static String alBersaglio(VoceDelCielo v) {
     if (v.idBersaglio == AspettiDiOggi.idAscendente) {
       return 'al tuo Ascendente';
     }
@@ -546,7 +546,7 @@ class CorrenteDelCielo {
     // si scioglie. Un fondatore esterno l'ha sottolineata a mano. Adesso il
     // punto natale viene prima e l'aspetto porta la sua coda.
     return 'Oggi ${colSuoArticolo(v.transito, maiuscola: false)} forma '
-        '${_alBersaglio(v)} ${articoloDellAspetto[v.aspetto]}$coda.';
+        '${alBersaglio(v)} ${articoloDellAspetto[v.aspetto]}$coda.';
   }
 
   /// IL TESTO DEL GIORNO PER UN DOMINIO, oppure nullo se il cielo non c'e'.

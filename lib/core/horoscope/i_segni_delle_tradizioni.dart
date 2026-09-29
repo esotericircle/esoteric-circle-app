@@ -1,6 +1,5 @@
 import '../astro/birth_details.dart';
-import '../astro/celestial.dart';
-import '../astro/effemeridi.dart';
+import '../astro/il_sole_di_nascita.dart';
 import '../astro/il_fuso_della_nascita.dart';
 import '../astro/la_luna_intera.dart';
 import '../astro/zodiac.dart';
@@ -482,8 +481,10 @@ abstract final class ISegniDelleTradizioni {
   static DateTime _utc(NascitaDeiSegni n) =>
       IlFusoDellaNascita.inUtc(n.locale, n.fuso);
 
-  static double _sole(DateTime utc) => Effemeridi.longitudineEclittica(
-      CorpoCeleste.sole, Celestial.julianDay(utc));
+  // Il Sole di nascita dal suo calcolo misurato, non dal motore dei
+  // transiti, che e' verificato solo dal 2020 al 2030.
+  static double _sole(DateTime utc) =>
+      IlSoleDiNascita.longitudine(LaLunaIntera.giornoGiuliano(utc));
 
   static (DateTime, DateTime) _estremiDelGiorno(DateTime g) => (
         DateTime(g.year, g.month, g.day, 0, 0),

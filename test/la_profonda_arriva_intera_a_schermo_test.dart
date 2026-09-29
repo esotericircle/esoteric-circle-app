@@ -194,7 +194,7 @@ void main() {
     await tester.tap(find.byKey(const Key('oroscopo_depth_carriera')));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
-    await tester.tap(find.text('Profonda').last);
+    await tester.tap(find.text('Approfondita').last);
     await tester.pump();
     // Tutto il tempo che la scrittura potrebbe chiedere, e piu' del doppio.
     for (var i = 0; i < 14; i++) {

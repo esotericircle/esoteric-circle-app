@@ -3208,7 +3208,7 @@ void main() {
     // faceva niente.
     await tester.tap(find.byKey(const Key('oroscopo_depth_generale')));
     await step(tester);
-    await tester.tap(find.text('Profonda').last);
+    await tester.tap(find.text('Approfondita').last);
     await step(tester);
     // Cambiando profondita' il testo e' un altro e si riscrive: due secondi
     // non bastavano piu', la scrittura ne dichiara due e sei decimi.

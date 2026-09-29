@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 import 'dart:io';
 
+import 'package:esoteric_circle/core/astro/il_sole_di_nascita.dart';
 import 'package:esoteric_circle/core/astro/la_luna_intera.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -50,5 +51,28 @@ void main() {
     print('ORDINE ES: Luna intera contro JPL su ${righe.length} istanti, '
         'scarto massimo ${peggiore.toStringAsFixed(4)} gradi');
     expect(lontani, isEmpty, reason: lontani.join('\n'));
+  });
+
+  test('il Sole di nascita contro il JPL DE440s, quaranta istanti', () {
+    final righe = File('docs/collaudo/ES/riferimenti_sole.csv')
+        .readAsLinesSync()
+        .skip(1)
+        .where((r) => r.trim().isNotEmpty)
+        .toList();
+    cardinaleMinimo(righe.length, 40, cosa: 'istanti di riferimento del Sole');
+    var peggiore = 0.0;
+    for (final r in righe) {
+      final c = r.split(',');
+      final app = IlSoleDiNascita.longitudine(
+          LaLunaIntera.giornoGiuliano(DateTime.parse(c[0])));
+      var d = (app - double.parse(c[1])).abs() % 360;
+      if (d > 180) d = 360 - d;
+      if (d > peggiore) peggiore = d;
+    }
+    print('ORDINE ES: Sole di nascita contro JPL su ${righe.length} istanti, '
+        'scarto massimo ${peggiore.toStringAsFixed(4)} gradi');
+    // Un decano e' largo dieci gradi: un centesimo di grado e' un quarto
+    // d'ora di Sole.
+    expect(peggiore, lessThan(0.01));
   });
 }

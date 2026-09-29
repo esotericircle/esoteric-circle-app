@@ -6,6 +6,7 @@ import '../../core/horoscope/i_segni_delle_tradizioni.dart';
 import '../../core/horoscope/le_note_delle_tradizioni.dart';
 import '../../design_system/components/zodiac_glyph.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -229,7 +230,8 @@ Future<void> apriLaNota(
           ],
         ),
       );
-  return showModalBottomSheet<void>(
+  // Dalla porta comune dei fogli, col velo del Cerchio e sotto le barre.
+  return foglioDelCerchio<void>(
     context: context,
     isScrollControlled: true,
     backgroundColor: palette.deepest,

@@ -11,20 +11,19 @@ import '../../design_system/tokens/typography_tokens.dart';
 /// solo le categorie che interessano, e a runtime i testi lunghi si generano
 /// soltanto dove servono, senza bruciare token dove non serve.
 ///
-/// Nel gratuito e nella Demo la profondita' e' fissa su [breve]: la [profonda]
-/// e' del Cerchio Premium. La [media] resta latente e spenta, fuori dalla vista,
-/// pronta a riaccendersi un giorno: l'app dice due voci ovunque.
+/// Nel gratuito e nella Demo la profondita' e' fissa su [breve]: la [profonda],
+/// che a video si chiama Approfondita, e' dei piani a pagamento. Dall'ordine
+/// ES voce 01 le voci sono due e basta: la Media latente non c'e' piu'.
 ///
 /// La [profonda] e' adattiva, lunga quanto serve fino al tetto di token, non
 /// gonfiata a forza: il tetto vive nel provider AI, non qui.
 enum AnswerDepth {
   breve('Breve', premium: false, visible: true),
 
-  /// Gradino intermedio tenuto latente e spento: non compare nel selettore, ma
-  /// resta nel codice per riaccenderlo senza rifare l'impianto.
-  media('Media', premium: true, visible: false),
-
-  profonda('Profonda', premium: true, visible: true);
+  // **APPROFONDITA, NON PROFONDA, ordine ES voce 01.** Il fondatore: *"io
+  // terrei breve e approfondita Senza media, ok?"*. La Media, che era latente,
+  // non c'e' piu'; il nome si legge "Approfondita" dovunque.
+  profonda('Approfondita', premium: true, visible: true);
 
   const AnswerDepth(this.label, {required this.premium, required this.visible});
 

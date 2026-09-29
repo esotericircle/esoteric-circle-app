@@ -1,4 +1,7 @@
 import '../tempo/confine_del_giorno.dart';
+import 'il_cielo_del_segno.dart';
+import 'il_livello_del_cielo.dart';
+import 'il_numero_e_il_colore.dart';
 import '../astro/night_sky.dart';
 import '../astro/zodiac.dart';
 import '../chat/user_profile.dart';
@@ -33,7 +36,20 @@ class HoroscopeCard {
     this.luckyNumber,
     this.dayColor,
     this.dalCieloVero = false,
+    this.rigaDelLivello,
+    this.rigaDellaFortuna,
   });
+
+  /// **LA REGOLA DEL NUMERO E DEL COLORE, ordine ES voce 29**, solo sulla
+  /// scheda della Fortuna: "Il numero è il tuo giorno personale... Il colore
+  /// è quello di Venere, il pianeta del passaggio più stretto di oggi."
+  final String? rigaDellaFortuna;
+
+  /// **DA DOVE VIENE IL LIVELLO, ordine ES voce 28.** La riga sotto
+  /// l'indicatore: "Dal cielo di oggi: Venere in trigono al tuo Sole di
+  /// nascita." oppure "Dalla Luna di oggi in Bilancia, nella tua settima casa
+  /// solare, in opposizione al tuo segno."
+  final String? rigaDelLivello;
 
   final HoroscopeDomain domain;
   final String title;
@@ -224,15 +240,13 @@ class Horoscope {
     String? opening,
     CieloDiOggi cielo = CieloDiOggi.nessuno,
     bool profonda = false,
+    DateTime? nascita,
   }) {
     final d = domain.index;
     final base = baseSeed(sign.index, dayOfYear, year, d);
 
     // Semi derivati distinti, per non correlare i quattro valori.
     final seedCurrent = _fnv1a([base, 0x11]);
-    final seedIndicator = _fnv1a([base, 0x22]);
-    final seedLucky = _fnv1a([base, 0x33]);
-    final seedColor = _fnv1a([base, 0x44]);
 
     final casa = casaDellaLuna(sign, dayOfYear, year);
     final variante = varianteDelGiorno(dayOfYear);
@@ -250,23 +264,47 @@ class Horoscope {
         dalCielo ?? LaMarcaDelGenere.risolvi(pool[seedCurrent % pool.length]);
 
     final title = HoroscopeData.titoliDelGiorno[d]![casa][variante];
-    final text = '$primaParte $current';
-    final indicator = 2 + (seedIndicator % 4); // pavimento a 2, mai sotto
+    // **SENZA CARTA L'APPROFONDITA DICE DI PIU' CON FATTI VERI**, ordine ES
+    // voce 01: dove sono oggi la Luna e il corpo del dominio, e in quale casa
+    // solare del segno. Con la carta, la Profonda gia' dice tre passaggi del
+    // cielo invece di uno.
+    final approfondimento = dalCielo == null && profonda
+        ? ' ${IlCieloDelSegno.approfondita(domain, sign, DateTime.utc(year).add(Duration(days: dayOfYear, hours: 12)))}'
+        : '';
+    final text = '$primaParte $current$approfondimento';
+    // **IL LIVELLO DAL CIELO VERO, ordine ES voce 28.** Era
+    // `2 + (seed % 4)`, una hash uguale per tutto il segno anche con la carta
+    // natale. Adesso lo fanno gli aspetti del giorno che parlano al dominio,
+    // o senza carta la Luna di oggi nelle case solari: vedi
+    // [IlLivelloDelCielo]. La scala resta da due a cinque.
+    final (indicator, rigaDelLivello) = IlLivelloDelCielo.per(
+        dominio: domain,
+        segno: sign,
+        cielo: cielo,
+        quando: DateTime.utc(year).add(Duration(days: dayOfYear, hours: 12)));
 
     // L'apertura personalizzata vive solo sulla scheda Generale.
     final cardOpening = domain == HoroscopeDomain.generale ? opening : null;
 
     if (domain == HoroscopeDomain.fortuna) {
-      final palette = HoroscopeData.palettes[sign.id]!;
+      // **IL NUMERO E IL COLORE CON UNA REGOLA, ordine ES voce 29.** Erano due
+      // hash: `1 + (seed % 90)` e `palette[seed]`. Vedi [IlNumeroEIlColore].
+      final (numero, colore, regola) = IlNumeroEIlColore.per(
+          segno: sign,
+          cielo: cielo,
+          quando: DateTime.utc(year).add(Duration(days: dayOfYear, hours: 12)),
+          nascita: nascita);
       return HoroscopeCard(
         domain: domain,
         title: title,
         text: text,
         synthesis: primaParte,
         indicator: indicator,
-        luckyNumber: 1 + (seedLucky % 90), // da 1 a 90
-        dayColor: palette[seedColor % palette.length],
+        luckyNumber: numero,
+        dayColor: colore,
         dalCieloVero: dalCielo != null,
+        rigaDelLivello: rigaDelLivello,
+        rigaDellaFortuna: regola,
       );
     }
     return HoroscopeCard(
@@ -277,6 +315,7 @@ class Horoscope {
       indicator: indicator,
       opening: cardOpening,
       dalCieloVero: dalCielo != null,
+      rigaDelLivello: rigaDelLivello,
     );
   }
 
@@ -289,6 +328,7 @@ class Horoscope {
     String? opening,
     CieloDiOggi cielo = CieloDiOggi.nessuno,
     Map<HoroscopeDomain, bool> profonde = const {},
+    DateTime? nascita,
   }) =>
       [
         for (final domain in HoroscopeDomain.values)
@@ -299,7 +339,8 @@ class Horoscope {
               domain: domain,
               opening: opening,
               cielo: cielo,
-              profonda: profonde[domain] ?? false),
+              profonda: profonde[domain] ?? false,
+              nascita: nascita),
       ];
 
   /// La riga di disclaimer, una sola volta nella schermata.

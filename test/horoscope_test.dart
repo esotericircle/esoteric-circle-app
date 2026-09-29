@@ -88,7 +88,12 @@ void main() {
       }
     });
 
-    test('Il numero fortunato resta fra 1 e 90, solo nella scheda Fortuna', () {
+    // LAPIDE, ordine ES voce 29: qui si pretendeva un numero fra 1 e 90 e un
+    // colore della tavolozza del segno, cioe' le due hash. Adesso il numero e'
+    // il giorno della numerologia, da 1 a 9, e il colore e' quello di Lilly
+    // del pianeta del giorno: la regola la sorveglia
+    // numero_e_colore_hanno_una_regola_test.dart.
+    test('Il numero fortunato sta fra 1 e 9, solo nella scheda Fortuna', () {
       for (final sign in Zodiac.values) {
         for (var day = 0; day <= 365; day++) {
           final fortuna = Horoscope.cardFor(
@@ -96,10 +101,8 @@ void main() {
               dayOfYear: day,
               year: 2026,
               domain: HoroscopeDomain.fortuna);
-          expect(fortuna.luckyNumber, inInclusiveRange(1, 90));
+          expect(fortuna.luckyNumber, inInclusiveRange(1, 9));
           expect(fortuna.dayColor, isNotNull);
-          expect(HoroscopeData.palettes[sign.id]!.contains(fortuna.dayColor),
-              isTrue);
 
           // Gli altri domini non portano numero ne colore.
           for (final domain in const [

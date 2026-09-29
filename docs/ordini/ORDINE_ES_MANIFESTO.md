@@ -23,8 +23,8 @@ chiusa.
 
 VOCI_TOTALI: 37
 VOCI_CHIUSE: 2
-VOCI_APERTE: 3
-VOCI_DA_FARE: 32
+VOCI_APERTE: 16
+VOCI_DA_FARE: 19
 
 Le prove stanno in `docs/collaudo/ES/`, quelle del telefono di prova
 (Realme 767f596c) in `docs/collaudo/ES/realme/`. **Una voce che si vede a
@@ -37,9 +37,18 @@ loro registrazione dello schermo.
 
 ## VOCE ES.01, BREVE E APPROFONDITA, SENZA MEDIA
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (blocco 2 dell'ordine ES). Le profondita' sono due, Breve e Approfondita: la Media non c'e' piu' nel codice, il
+selettore dice "Approfondita" e la pagina dei piani "Scelta della profondità dell'oroscopo:
+Breve o Approfondita". Con la carta natale l'Approfondita resta com'e' (tre passaggi del
+cielo). Senza, aggiunge dove sono oggi la Luna e il corpo del dominio (il Sole per il
+Generale, Venere per l'Amore, Marte per la Carriera, Giove per la Fortuna) e in quale casa
+solare del segno (`lib/core/horoscope/il_cielo_del_segno.dart`). La Cinese e la Vedica
+avranno le due profondita' con le voci ES.08 ed ES.09. Mancano le catture dal Realme.
 
 DOMANDA: "io terrei breve e approfondita Senza media, ok?"; domanda girata al fondatore: la scheda dell'Oroscopo dell'Architetto ("per chi non ha dato ora e luogo di nascita è identica alla Breve"; "Una Profonda che dica di più anche senza carta natale"), risposta: "In verità seguo e approvo ogni tuo consiglio."
+
+PROVA: docs/collaudo/ES/profondita.txt
+MISURA: schede Approfondite identiche alla Breve senza carta natale, prima 48 su 48, dopo 0 su 48; voci "Media" e "Profonda" a video e nella pagina dei piani, dopo 0
 
 ## VOCE ES.02, IL SETTIMANALE: LA PREVISIONE DEI PROSSIMI SETTE GIORNI
 
@@ -61,9 +70,16 @@ DOMANDA: "Inoltre, cosa ne dici dell'oroscopo annuale da integrare?"; domanda gi
 
 ## VOCE ES.05, GLI EMBLEMI DEI PERIODI
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (commit `a9e52f66`). I nove webp dei periodi
+sono in `assets/schede`, uguali byte per byte a quelli del PC; la card da condividere porta
+l'emblema del periodo (il Giorno quello dell'Oroscopo). Mancano: la cattura dal Realme di una card
+per periodo, che si potra' fare quando Settimana, Mese e Anno saranno aperti (voci ES.02, ES.03,
+ES.04), e la copertina del PDF dell'anno (voce ES.04). In testa alla schermata resta il segno in
+ogni periodo: oggi i periodi diversi dal Giorno sono chiusi e non cambiano la testa.
 
 DOMANDA: "Ma non dovrei creare degli asset per ogni tipo di oroscopo? Ci pensi tu?"; "Cioè un Emblema per ogni tipo di oroscopo, intendevo..."; "attualmente l'utente entra in oroscopo personalizzato e vede il suo segno zodiacale occidentale con il pulsante oroscopo occidentale attivo".
+
+MISURA: webp dei periodi in assets/schede uguali a quelli del PC, prima 0 su 9, dopo 9 su 9 (cmp, e la prova la_tradizione_scelta_sta_in_cima conta 27 emblemi su 27)
 
 ## VOCE ES.06, CHI VEDE COSA: PIANI, LIMITI ED EOS
 
@@ -73,9 +89,22 @@ DOMANDA: "Ma prima di scrivere l'ordine dovresti indicarmi cosa sblocchiamo e a 
 
 ## VOCE ES.07, IN CIMA IL SEGNO DELLA TRADIZIONE SCELTA
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (commit `a9e52f66`). I quattordici webp in
+`assets/img/zodiac`, uguali byte per byte. Scegliendo una tradizione, in cima compare il segno
+della persona in quella tradizione (`lib/core/horoscope/i_segni_delle_tradizioni.dart`, schermata in
+`la_testa_della_tradizione.dart`). Il segno cinese dal Capodanno lunare, tabella 1900-2100
+verificata con l'Osservatorio di Hong Kong; il vedico dalla Luna siderale di Lahiri, con la Luna di
+Meeus intera (`lib/core/astro/la_luna_intera.dart`): quella di `Effemeridi` sbaglia fino a 0,27
+gradi e avrebbe sbagliato il rashi a circa una nascita su trecento. Cinese e Vedica sono ancora
+"In arrivo" finche' le voci ES.08 ed ES.09 non le aprono. Mancano le catture dal Realme della
+testa in Occidentale, Cinese e Vedica per due persone. **Una decisione del fondatore**: chi nasce
+in Italia la sera della vigilia del Capodanno cinese, quando a Pechino e' gia' il giorno dopo;
+l'app oggi usa la data civile del luogo di nascita.
 
 DOMANDA: "Nel momento in cui seleziona l'oroscopo cinese, ad esempio, non dovrebbe comparire il suo segno zodiacale Cinese al posto di quello occidentale?"; "I segni occidentali che ho creato io sono realistici 3d in metallo bronzato."; "In allegato i nuovi emblemi".
+
+PROVA: docs/collaudo/ES/cinese_vedica_dieci_date.csv
+MISURA: tradizioni scelte che lasciano in cima il segno occidentale, prima 2 (anzi 6), dopo 0 su 6; webp in assets/img/zodiac uguali a quelli del PC, prima 0 su 14, dopo 14 su 14; segni cinesi e vedici delle dieci nascite diversi dalla fonte, 0 su 20
 
 ## VOCE ES.08, LA TRADIZIONE CINESE, APERTA
 
@@ -91,15 +120,35 @@ DOMANDA: "Mi hai consigliato tu di sbloccare in MVP anche vedico e cinese!"; "Se
 
 ## VOCE ES.10, IL TOOLTIP DI OGNI TRADIZIONE
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (commit `a9e52f66`). Accanto al segno di
+ognuna delle sette tradizioni il punto interrogativo apre la nota in quattro parti (che cos'e',
+un po' di storia, come si calcola il tuo segno, le fonti), `lib/core/horoscope/le_note_delle_tradizioni.dart`.
+Le 62 affermazioni con la loro fonte, la parafrasi e il grado di solidita' sono in
+`docs/collaudo/ES/tooltip.txt`; sei sono di solidita' media o debole, e il rapporto le elenca.
+Mancano le catture dal Realme di tre note aperte.
 
 DOMANDA: "a fianco dell'emblema dell'oroscopo cinese serve un tooltip che spieghi all'utente dincosa si tratta , tradizione, cenni storici, fonti, ecc."
 
+PROVA: docs/collaudo/ES/tooltip.txt
+MISURA: tradizioni senza nota, prima 7, dopo 0 su 7; affermazioni delle note senza fonte, dopo 0 su 62
+
 ## VOCE ES.11, LE QUATTRO TRADIZIONI IN ARRIVO: EMBLEMA, SEGNO E CLESSIDRA
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (commit `a9e52f66`). I diciotto webp degli
+emblemi in `assets/schede`; la clessidra al posto del lucchetto sulle sei tradizioni non pronte;
+toccandone una, in cima l'emblema, il segno calcolato davvero ("Il tuo segno maya è 7 Akʼbʼal"),
+il punto interrogativo della nota e "In arrivo". **Sotto non si apre il consulto occidentale**,
+che si leggerebbe come suo: c'e' la riga che lo dice e "Torna al tuo oroscopo di oggi". Senza
+l'ora la dimora araba non si dice, e il decano o il rashi a cavallo di un confine si dicono
+tutti e due. **Otto nomi dei decani** sono letti in una scansione guasta del greco di Efestione
+(Gemelli II, Cancro II, Leone II, Scorpione III, i tre del Capricorno, Sagittario III): vanno
+riscontrati sull'edizione Pingree (1973) o sulla traduzione di Schmidt (1994) prima di chiudere.
+Mancano le catture dal Realme delle quattro.
 
 DOMANDA: domanda girata al fondatore: "A. La figura del segno [...] B. L'emblema e il nome del segno", risposta: "La B."; riga della scheda dell'Architetto: "Le sei tradizioni in arrivo (Vedica, Cinese, Maya, Celtica, Egizia, Araba) portano il lucchetto. Per tua regola il lucchetto è solo del Premium e le arti non ancora pronte hanno la clessidra.", risposta: "In verità seguo e approvo ogni tuo consiglio."; domanda girata al fondatore: "i sei emblemi delle tradizioni [...] Li aggiungo all'ordine ES?", risposta: "Si inseriscili nell'ordine."
+
+PROVA: docs/collaudo/ES/in_arrivo.txt
+MISURA: tradizioni col lucchetto, prima 6, dopo 0; webp uguali a quelli del PC, prima 0 su 18, dopo 18 su 18; segni diversi dalla fonte sulle dieci nascite, 0 su 40 (dieci_date.csv)
 
 ## VOCE ES.12, GLI AMICI OFFLINE E L'OROSCOPO PER GLI AMICI
 
@@ -109,9 +158,15 @@ DOMANDA: "Ho intenzione di inserire la possibilità ai premium di poter calcolar
 
 ## VOCE ES.13, LA CARD CON NOME E DATI DI NASCITA
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (commit `a9e52f66`). La card propria porta
+l'emblema del periodo, il nome senza cognome (la prima parola del nome: "Mario Rossi" esce
+"Mario"), la data, l'ora e il luogo che l'app conosce, il numero al centro del suo riquadro e
+"Scarica l'app: esotericircle.app". Mancano: la card dell'amico (voce ES.12), il segno della
+Cinese e della Vedica sulla card quando saranno aperte (ES.08, ES.09), le catture dal Realme.
 
 DOMANDA: "Io nella card da condividere inserirei i dati di nascita e il nome o lo pseudonimo. Non serve il cognome e quindi potrebbero essere anche inventati"
+
+MISURA: card col cognome, dopo 0 (prova su "Mario Rossi"); card senza dati di nascita quando l'app li conosce, dopo 0
 
 ## VOCE ES.14, IL NUMERO FORTUNATO CENTRATO NEL SUO RIQUADRO
 
@@ -236,45 +291,100 @@ MISURA: durata dell'intro registrata 14,0 secondi contro i 14 del sorgente; scal
 
 ## VOCE ES.28, L'INDICATORE DAL CIELO VERO
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (blocco 2 dell'ordine ES). Il livello di ogni scheda nasce dagli aspetti del giorno che parlano
+al dominio, armonici +1 e tesi -1, pesati dall'orbita, o senza carta dalla Luna di oggi
+nelle case solari (`lib/core/horoscope/il_livello_del_cielo.dart`); la scala resta da due a
+cinque; sotto il livello la riga dice da dove viene. La card e la chiamata del mattino
+leggono lo stesso valore della scheda. Mancano la Cinese e la Vedica (ES.08, ES.09) e le
+catture dal Realme.
 
 DOMANDA: riga della scheda: "L'indicatore del livello della giornata sembra una misura ma non viene dal cielo, nemmeno per chi ha la carta natale."; domanda girata al fondatore: il metodo della Cinese e della Vedica, risposta: "COnfermo tutto."
 
+PROVA: docs/collaudo/ES/indicatore.txt
+MISURA: schede il cui livello non dipende dal cielo, prima 48 su 48, dopo 0 su 48 nell'Occidentale
+
 ## VOCE ES.29, NUMERO FORTUNATO E COLORE CON UNA REGOLA DICHIARATA
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (blocco 2 dell'ordine ES). Il numero e' il giorno personale della numerologia (Hans Decoz),
+senza data di nascita il giorno universale; il colore e' quello di William Lilly (Christian
+Astrology, 1647, confrontato con Agrippa) del pianeta del passaggio piu' stretto, o senza carta
+del signore del segno della Luna (domicili di Tolomeo); una riga sotto dice la regola
+(`lib/core/horoscope/il_numero_e_il_colore.dart`). La tavolozza di colori per segno del corpus
+(`horoscope_data.dart`, generato da docs/corpus/oroscopo.md) non la chiama piu' nessuno: il
+corpus e' del fondatore e non si tocca senza di lui. Mancano Cinese e Vedica e le catture.
 
 DOMANDA: riga della scheda: "Numero e colore con una regola dichiarata, oppure via. Per esempio il colore del pianeta che oggi pesa di più e un numero dalla numerologia del giorno incrociata con la data di nascita."
 
+PROVA: docs/collaudo/ES/numero_colore.txt
+MISURA: numeri e colori senza una regola dietro, prima 30 su 30, dopo 0 su 30 (dieci persone in tre giorni, Occidentale)
+
 ## VOCE ES.30, IL PUNTO INTERROGATIVO DEL METODO
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (commit `a9e52f66`) per le quattro schede del
+giorno nell'Occidentale: il punto interrogativo accanto al livello apre la nota del metodo
+(`lib/core/horoscope/il_metodo_del_responso.dart`), che cambia coi dati di nascita e **dice anche
+cio' che oggi non viene dal cielo**: il livello da uno a cinque, il numero e il colore del giorno
+nascono dal segno e dalla data (la voce ES.28 portera' il livello dal cielo vero, e la nota
+cambiera' con lei). Mancano le note della settimana, del mese, dell'anno, della Cinese e della
+Vedica, che nascono con le loro voci, e le catture dal Realme.
 
 DOMANDA: riga dell'Architetto: "manca il punto interrogativo del metodo"; briefing, sezione 48, "Tooltip di trasparenza metodologica".
 
+MISURA: schede del giorno senza nota del metodo, prima 4, dopo 0 su 4
+
 ## VOCE ES.31, L'INVITO A COMPLETARE ORA E LUOGO DI NASCITA
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (commit `a9e52f66`). **Il fatto dell'ordine
+era in parte superato**: dall'Oroscopo ai dati di nascita si arrivava gia' dall'ordine CS voce S1,
+col pulsante nella nota sotto le quattro schede, cioe' dopo il consulto e fuori vista. Adesso
+sotto "Interroga il cielo" c'e' la riga "Con la tua ora e il tuo luogo di nascita questa
+lettura parlerà al tuo cielo" (o "...anche alle tue case" a chi manca solo l'ora), che porta
+alla schermata dei dati; a chi ha la carta completa non c'e'. **Sotto il gesto e non sopra**:
+sopra spingeva "Interroga il cielo" sotto la piega del Realme. Manca la registrazione dal
+Realme dall'invito alla scheda personalizzata.
 
 DOMANDA: riga della scheda: "Un invito dentro l'Oroscopo a completare ora e luogo di nascita".
 
+MISURA: tocchi dall'invito alla schermata dei dati di nascita, 1; inviti mostrati a chi ha gia' la carta completa, dopo 0; gesto "Interroga il cielo" sotto la piega del Realme con l'invito, 0 (finisce a 673 punti su 797)
+
 ## VOCE ES.32, L'ORA D'ORO E LA NOTIFICA DEL RAHU KALAM
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (blocco 2 dell'ordine ES). Per chi ha la carta natale la scheda Generale dice l'istante del giorno
+in cui la Luna forma un trigono, un sestile o una congiunzione esatta al Sole, a Venere o a
+Giove di nascita (`lib/core/horoscope/l_ora_d_oro.dart`, con la Luna di Meeus intera); un
+giorno senza non mostra niente, e succede circa un giorno su due. **Mancano le due
+notifiche** (un quarto d'ora prima dell'ora d'oro e il Rahu Kalam del mattino, che nasce con
+la voce ES.09) e le catture dal Realme.
 
 DOMANDA: riga della scheda: "L'ora d'oro di oggi. Dall'orario esatto degli aspetti della Luna ai punti natali si ricava un momento preciso della giornata"; domanda girata al fondatore: "Il Rahu Kalam [...] È il contrario della nostra ora d'oro", risposta: "COnfermo tutto."
 
+PROVA: docs/collaudo/ES/ore_d_oro.csv
+MISURA: scarto medio dal JPL DE440s su cinque ore d'oro 0,18 minuti; ore d'oro mostrate senza un aspetto vero, 0 su 6 giorni che non ne hanno
+
 ## VOCE ES.33, IL CIELO CHE SI ACCENDE SULLA FRASE
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (blocco 2 dell'ordine ES). Per chi ha la carta natale, sotto il responso c'e' la riga del passaggio
+che il testo nomina per primo; un tocco apre la ruota della carta col pianeta di oggi e la
+linea dell'aspetto al punto natale, un altro la chiude
+(`lib/features/horoscope/la_ruota_del_passaggio.dart`). Il testo del responso resta un
+paragrafo solo, e il tocco sul testo continua a completarne la scrittura: per questo la riga
+sta sotto. Manca la registrazione dal Realme.
 
 DOMANDA: riga della scheda: "Il cielo che si accende sulla frase. Toccando la riga del transito, una piccola ruota mostra il pianeta di oggi che attraversa la casa nominata."
 
+MISURA: ruote che mostrano un pianeta, una casa o un aspetto diversi dalla frase, 0 su 80 (venti giorni per quattro domini)
+
 ## VOCE ES.34, LA RAGIONE PER TORNARE DOMANI
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (blocco 2 dell'ordine ES). In fondo all'Oroscopo, dopo il consulto, una riga calcolata dice dove
+sara' la Luna domani: nella casa natale con la carta, nella casa solare senza
+(`lib/core/horoscope/il_domani.dart`), e di che cosa parlera' il cielo. Cinese e Vedica con le
+voci ES.08 ed ES.09. Manca la cattura dal Realme.
 
 DOMANDA: riga della scheda: "Ti propongo un'anticipazione calcolata in fondo"; Linee Guida, sezione 12.1.
+
+PROVA: docs/collaudo/ES/domani.txt
+MISURA: chiusure dell'Oroscopo senza ragione per tornare, prima 1, dopo 0; anticipazioni che non corrispondono al giorno dopo, 0 su 30 (Occidentale)
 
 ## VOCE ES.35, LA RIVELAZIONE DEL SEGNO
 

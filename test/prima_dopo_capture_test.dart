@@ -2749,7 +2749,7 @@ void main() {
             await tester.tap(find.byKey(const Key('oroscopo_depth_carriera')));
             await tester.pump();
             await tester.pump(const Duration(milliseconds: 300));
-            await tester.tap(find.text('Profonda').last);
+            await tester.tap(find.text('Approfondita').last);
             await tester.pump();
             for (var i = 0; i < 14; i++) {
               await tester.pump(const Duration(milliseconds: 500));
@@ -3103,7 +3103,7 @@ void main() {
           await tester.tap(find.byKey(const Key('oroscopo_depth_generale')));
           await tester.pump();
           await tester.pump(const Duration(milliseconds: 300));
-          await tester.tap(find.text('Profonda').last);
+          await tester.tap(find.text('Approfondita').last);
           await tester.pump();
           await tester.pump(const Duration(milliseconds: 400));
         case 'rune_testa_l':

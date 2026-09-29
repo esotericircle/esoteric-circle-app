@@ -34,11 +34,20 @@ abstract final class IlMetodoDelResponso {
             'Medora: senza ora e luogo di nascita non c\'è una carta su cui '
             'calcolare i transiti.',
     };
-    const livelloDelDominio = 'Il livello da uno a cinque è scelto dal tuo '
-        'segno e dalla data.';
+    // Dall'ordine ES voce 28 il livello viene dal cielo (IlLivelloDelCielo).
+    final livelloDelDominio = livello == LivelloPersonalizzazione.soloSegno
+        ? 'Il livello da due a cinque viene dalla Luna di oggi: dal segno in cui '
+            'si trova rispetto al tuo, e dalle case solari di questo campo.'
+        : 'Il livello da due a cinque viene dai passaggi di oggi che parlano a '
+            'questo campo: quelli armonici lo alzano, quelli tesi lo abbassano, '
+            'e contano di più quanto sono stretti.';
+    // Dall'ordine ES voce 29 numero e colore hanno una regola
+    // (IlNumeroEIlColore), scritta anche sotto la scheda.
     final fortuna = dominio == HoroscopeDomain.fortuna
-        ? ' Anche il numero e il colore del giorno vengono dal tuo segno e '
-            'dalla data; il colore è uno di quelli del tuo segno.'
+        ? ' Il numero è il giorno personale della numerologia, dalla tua data '
+            'di nascita e da quella di oggi. Il colore è quello tradizionale '
+            'del pianeta che oggi pesa di più per te, dai colori di William '
+            'Lilly.'
         : '';
     return '$prima $seconda $livelloDelDominio$fortuna';
   }
