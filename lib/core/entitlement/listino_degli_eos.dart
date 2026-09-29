@@ -133,12 +133,50 @@ class ListinoDegliEos {
     },
   );
 
+  /// **L'OROSCOPO ANNUALE, ordine ES voce 04.** Dall'Adepto in su e'
+  /// compreso; chi non ce l'ha lo apre per l'anno che corre con 300 Eos,
+  /// come l'annuale dell'Architetto approvato dal fondatore ("Per il resto
+  /// approvo tutto"). Un'esperienza singola e conclusa: l'anno di un
+  /// compleanno.
+  static const oroscopoAnnuale = VoceDelListino(
+    id: 'oroscopo_annuale',
+    nome: 'L\'oroscopo dell\'anno',
+    costo: 300,
+    budget: null,
+    gratisAlGiorno: {
+      Tier.free: 0,
+      Tier.tier1: 0,
+      Tier.tier2: null,
+      Tier.tier3: null,
+    },
+  );
+
+  /// **UN POSTO IN PIU' FRA GLI AMICI OFFLINE, ordine ES voci 06 e 12.** Il
+  /// fondatore: "3 per l'Iniziato, 10 per l'Adepto, nessun limite per
+  /// l'Illuminato [...] 100 Eos per un posto in più", "ok , approvato". E'
+  /// l'unica voce che compra qualcosa che resta, contro la regola scritta
+  /// sopra: la decisione e' sua e porta la sua data.
+  static const amicoInPiu = VoceDelListino(
+    id: 'amico_in_piu',
+    nome: 'Un posto in più fra gli amici',
+    costo: 100,
+    budget: null,
+    gratisAlGiorno: {
+      Tier.free: 0,
+      Tier.tier1: 0,
+      Tier.tier2: 0,
+      Tier.tier3: null,
+    },
+  );
+
   static const List<VoceDelListino> tutte = [
     stesaTreCarte,
     cartaExtra,
     domandaExtra,
     sinastriaExtra,
     stesaCompleta,
+    oroscopoAnnuale,
+    amicoInPiu,
   ];
 
   /// La voce di un'arte, oppure nulla se quell'arte non si compra a Eos.

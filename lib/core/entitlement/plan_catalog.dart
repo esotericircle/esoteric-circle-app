@@ -117,6 +117,12 @@ enum RigaDelPiano {
   gettate,
   memoria,
   oroscopoSettimanale,
+
+  /// **LA PROFONDITA' DELL'OROSCOPO**, ordine ES voce 06: Breve per il
+  /// Viandante, Breve o Approfondita dall'Iniziato. Prima si leggeva dalla
+  /// riga del settimanale ("Base"), che adesso dice solo se il settimanale
+  /// c'e'.
+  profondita,
   eosMensili,
 
   /// **LE TRE RIGHE DEL VIAGGIO DELLO SCIAMANO**, ordine DI voce 15.
@@ -129,6 +135,9 @@ enum RigaDelPiano {
 
   /// **LA CARICA DEL SIGILLO**, sempre: non chiama nessun modello.
   caricaDelSigillo,
+
+  /// **GLI AMICI OFFLINE**, ordine ES voce 12: quanti amici tiene il piano.
+  amici,
 }
 
 /// I quattro livelli canonici del briefing, con i prezzi e la mappa funzioni.
@@ -172,7 +181,7 @@ class PlanCatalog {
         'Tre domande al giorno a un Maestro, senza memoria',
         'Una carta di tarocchi al giorno',
         'Sinastria VIP fino a 3 al giorno',
-        'Oroscopo settimanale base',
+        'Oroscopo del giorno occidentale; il tuo segno cinese e vedico',
         'Angel Numbers e Angelo Custode una tantum',
         'Mood Tracker base, senza correlazione transiti',
         'Con piccolo banner inferiore e video reward opzionali',
@@ -194,7 +203,7 @@ class PlanCatalog {
         'Tutto di Viandante, senza pubblicità',
         'Memoria AI dei Maestri, esclusiva e persistente',
         'Carta natale completa con transiti dinamici',
-        'Oroscopo settimanale dettagliato',
+        'Oroscopo settimanale',
         '5 domande al giorno ai Maestri',
         '3 carte di tarocchi al giorno, stese complete a Eos scontati',
         'Sinastria VIP fino a 5 al giorno',
@@ -204,6 +213,7 @@ class PlanCatalog {
         'Scelta della profondità dell\'oroscopo: Breve o Approfondita',
         'Oroscopo cinese del giorno, dall\'almanacco e dai Dieci Dei',
         'Oroscopo vedico del giorno, dalla Luna siderale e dal Rahu Kalam',
+        'L’oroscopo per gli amici, fino a tre',
         'Rune, I-Ching e Pendolo a Eos scontati',
       ],
     ),
@@ -227,6 +237,8 @@ class PlanCatalog {
         'Sinastria VIP fino a 5 al giorno',
         'Rune, I-Ching e Pendolo inclusi',
         'Oroscopo mensile',
+        'Oroscopo dell’anno dal compleanno, con la Rivoluzione Solare',
+        'L’oroscopo per gli amici, fino a dieci',
         'Oracoli secondari, meditazioni e frequenze, 30 al giorno',
         'Transit tracker con alert',
         'Cosmic Journal con AI',
@@ -355,15 +367,16 @@ class PlanCatalog {
 
   /// Se quel piano ha diritto alla profondita' Profonda dell'oroscopo.
   ///
-  /// Letto dalla matrice: la riga dell'oroscopo settimanale dice Base per il
-  /// Viandante e Dettagliato dall'Iniziato in su. Prima nessuno lo leggeva, e
-  /// la Profonda restava col lucchetto anche per chi l'aveva comprata.
+  /// Letto dalla matrice: la riga della profondita' dice Breve per il
+  /// Viandante e Breve o Approfondita dall'Iniziato in su. Prima nessuno lo
+  /// leggeva, e la Profonda restava col lucchetto anche per chi l'aveva
+  /// comprata; poi si leggeva dalla riga del settimanale, che dall'ordine ES
+  /// voce 06 dice solo se il settimanale c'e'.
   static bool haProfondita(Tier tier) {
-    final riga =
-        matrix.where((r) => r.chiave == RigaDelPiano.oroscopoSettimanale);
+    final riga = matrix.where((r) => r.chiave == RigaDelPiano.profondita);
     if (riga.isEmpty) return false;
     const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
-    return riga.first.values[ordine.indexOf(tier)].toLowerCase() != 'base';
+    return riga.first.values[ordine.indexOf(tier)].toLowerCase() != 'breve';
   }
 
   /// SE QUEL PIANO PORTA EOS OGNI MESE, e con quale parola lo promette.
@@ -486,10 +499,24 @@ class PlanCatalog {
     FeatureRow('Soffio del Destino', ['Sì', 'Sì', 'Sì', 'Sì']),
     FeatureRow('Arcano dell\'Alba', ['Sì', 'Sì', 'Sì', 'Sì']),
     FeatureRow('La Runa del Tramonto', ['Sì', 'Sì', 'Sì', 'Sì']),
-    FeatureRow('Oroscopo settimanale',
-        ['Base', 'Dettagliato', 'Dettagliato', 'Dettagliato'],
+    // IL SETTIMANALE NON E' DEL VIANDANTE, ordine ES voce 06. Il fondatore:
+    // "vorrei che l'utente free non avesse accesso al settimanale".
+    FeatureRow('Oroscopo settimanale', ['No', 'Sì', 'Sì', 'Sì'],
         chiave: RigaDelPiano.oroscopoSettimanale),
+    FeatureRow(
+        'Profondità dell\'oroscopo',
+        [
+          'Breve',
+          'Breve o Approfondita',
+          'Breve o Approfondita',
+          'Breve o Approfondita'
+        ],
+        chiave: RigaDelPiano.profondita),
     FeatureRow('Oroscopo mensile', ['No', 'No', 'Sì', 'Sì']),
+    // L'ANNO DAL COMPLEANNO, ordine ES voce 04: "dall'Adepto in su, 300 Eos,
+    // PDF all'Illuminato".
+    FeatureRow('Oroscopo dell’anno',
+        ['Con gli Eos', 'Con gli Eos', 'Sì', 'Sì, col PDF']),
     // LA TRADIZIONE CINESE, ordine ES voce 08: il Viandante ne vede il
     // segno, la lettura del giorno e' dall'Iniziato in su.
     FeatureRow(
@@ -502,6 +529,12 @@ class PlanCatalog {
     // I CONFRONTI DEL GIORNO, decisi dal fondatore il 4 agosto 2026: il
     // Viandante non ce l'ha, l'Iniziato tre, l'Adepto cinque, l'Illuminato
     // senza limite col tetto di correttezza.
+    // GLI AMICI OFFLINE, ordine ES voce 12. Il fondatore: "3 per
+    // l'Iniziato, 10 per l'Adepto, nessun limite per l'Illuminato [...] 100
+    // Eos per un posto in più", "ok , approvato". Un elenco sul telefono,
+    // non un consumo del modello.
+    FeatureRow('Oroscopo per gli amici', ['No', '3', '10', 'Senza limite'],
+        chiave: RigaDelPiano.amici),
     FeatureRow('Confronti nel Cerchio', ['No', '3', '5', '20 al giorno'],
         chiave: RigaDelPiano.confronti),
     // TRE per il Viandante, che e' il numero deciso e approvato dal fondatore.

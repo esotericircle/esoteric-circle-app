@@ -170,6 +170,7 @@ dependencies:
   gal: ^2.3.3
   app_links: ^7.2.1
   livekit_client: ^2.13.0
+  pdf: ^3.13.1
 
 # Un solo blocco, per un guasto a monte che ferma la build Android.
 #
@@ -245,6 +246,9 @@ flutter:
     # Gli sfondi delle schede delle arti, tre formati per arte (ordine EO voce 01):
     # Vert 800x1000, Square 800x800, Oriz 1280x720; piu' i tre sfondi dei Maestri.
     - assets/schede/
+    # L'EMBLEMA DELL'ANNO PER IL PDF, ordine ES voce 04: la copia in JPEG
+    # dell'emblema della card, che il PDF incorpora senza decodificarla.
+    - assets/pdf/
     # I tre avatar viaggiano in WebP: in PNG pesavano 16,6 MB, piu' di
     # tutti i 146 Angeli messi insieme. Gli originali restano in
     # brand_assets/ e non entrano piu' nel pacchetto.

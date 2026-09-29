@@ -46,6 +46,15 @@ import '../../core/horoscope/la_settimana_del_cielo.dart';
 import '../../core/entitlement/tier.dart';
 import '../../core/horoscope/la_lettura_cinese.dart';
 import '../../core/horoscope/la_lettura_vedica.dart';
+import '../../core/horoscope/l_annuale.dart';
+import '../../core/horoscope/la_rivoluzione_solare.dart';
+import '../../core/horoscope/gli_anni_aperti.dart';
+import '../../core/astro/il_fuso_della_nascita.dart';
+import '../../core/astro/birth_details.dart';
+import '../../core/entitlement/listino_degli_eos.dart';
+import '../../design_system/components/porta_della_spesa.dart';
+import 'il_pdf_dell_anno.dart';
+import '../amici/amici_screen.dart';
 import '../../core/astro/luogo_attuale.dart';
 import '../../core/lang/euphonic.dart';
 import '../../core/astro/natal_chart.dart';
@@ -78,7 +87,11 @@ String italianLongDate(DateTime d) =>
 enum HoroscopePeriod {
   giorno('Giorno', unlocked: true, livelloMinimo: 0),
   settimana('Settimana', unlocked: false, livelloMinimo: 1),
-  mese('Mese', unlocked: false, livelloMinimo: 2);
+  mese('Mese', unlocked: false, livelloMinimo: 2),
+
+  /// **L'ANNO DAL COMPLEANNO, ordine ES voce 04.** Si sceglie da tutti: dentro,
+  /// dall'Adepto in su si legge, sotto si apre con 300 Eos o col piano.
+  anno('Anno', unlocked: true, livelloMinimo: 2);
 
   const HoroscopePeriod(this.label,
       {required this.unlocked, required this.livelloMinimo});
@@ -103,6 +116,7 @@ enum HoroscopePeriod {
         HoroscopePeriod.giorno => 'Oroscopo Personalizzato del giorno',
         HoroscopePeriod.settimana => 'Oroscopo Personalizzato della settimana',
         HoroscopePeriod.mese => 'Oroscopo Personalizzato del mese',
+        HoroscopePeriod.anno => 'Oroscopo Personalizzato dell\'anno',
       };
 }
 
@@ -417,6 +431,161 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   /// legge all'apertura e al ritorno dai dati di nascita, dove si sceglie.
   LuogoDelGiorno? _luogo;
 
+  /// Gli anni dell'oroscopo annuale aperti con gli Eos (ordine ES voce 04).
+  final Set<int> _anniAperti = {};
+
+  /// Se l'avviso del prossimo compleanno solare e' gia' stato programmato in
+  /// questa apertura: una volta basta.
+  bool _avvisoDellAnno = false;
+
+  /// **L'ANNO DAL COMPLEANNO, ordine ES voce 04.** Le righe della vista
+  /// dell'anno: cio' che manca per calcolarlo, oppure la porta per aprirlo,
+  /// oppure le quattro schede della Rivoluzione Solare.
+  List<Widget> _lAnno(
+    BuildContext context, {
+    required MaestroPalette palette,
+    required Tier tier,
+    required NascitaDeiSegni? nascita,
+    required BirthDetails? dettagli,
+    required LivelloPersonalizzazione livello,
+  }) {
+    // Senza l'ora il ritorno del Sole non ha un'ora, e l'Ascendente dell'anno
+    // non esiste: si dice, e si porta a darla.
+    if (nascita == null || !nascita.oraNota) {
+      return [
+        _InvitoAllaNascita(
+            testo: 'L\'anno dal tuo compleanno si legge dall\'istante in cui '
+                'il Sole torna dov\'era alla tua nascita: serve l\'ora di '
+                'nascita, aggiungila qui.',
+            palette: palette,
+            alRitorno: _leggiIlLuogo),
+      ];
+    }
+    // Il luogo: dove vivi adesso, altrimenti quello di nascita, e si dice.
+    final lat = _luogo?.lat ?? dettagli?.place?.latitude;
+    final lon = _luogo?.lon ?? dettagli?.place?.longitude;
+    final dove = _luogo?.citta ?? dettagli?.place?.label ?? 'il tuo luogo';
+    if (lat == null || lon == null) {
+      return [
+        _InvitoAllaNascita(
+            testo: 'Il tema dell\'anno si calcola per il luogo in cui sei: '
+                'scegli dove vivi adesso.',
+            palette: palette,
+            alRitorno: _leggiIlLuogo),
+      ];
+    }
+    final nascitaUtc = IlFusoDellaNascita.inUtc(nascita.locale, nascita.fuso);
+    final istante = LaRivoluzioneSolare.ritornoInCorso(nascitaUtc, _date);
+    final prossimo = LaRivoluzioneSolare.prossimoRitorno(nascitaUtc, _date);
+    final aperto = tier.level >= HoroscopePeriod.anno.livelloMinimo ||
+        _anniAperti.contains(istante.year);
+    final locale = istante.toLocal();
+    final ora = '${locale.hour.toString().padLeft(2, '0')}:'
+        '${locale.minute.toString().padLeft(2, '0')}';
+    final riga = Text(
+        'Il tuo anno va dal ${italianLongDate(locale)} al '
+        '${italianLongDate(prossimo.toLocal())}. La Rivoluzione Solare è '
+        'l\'istante in cui il Sole è tornato dov\'era alla tua nascita: il '
+        '${italianLongDate(locale)} alle $ora, calcolata per '
+        '$dove${_luogo == null ? ', il luogo di nascita' : ''}.',
+        key: const Key('oroscopo_anno_riga'),
+        textAlign: TextAlign.center,
+        style: TypographyTokens.didascalia()
+            .copyWith(color: ColorTokens.textSecondary, height: 1.4));
+    if (!aperto) {
+      final piano =
+          PlanCatalog.forTier(Tier.values[HoroscopePeriod.anno.livelloMinimo])
+              .name;
+      return [
+        riga,
+        const SizedBox(height: SpacingTokens.md),
+        Text(
+            'L\'oroscopo dell\'anno è compreso ${conPiano(piano)}. Per l\'anno '
+            'che corre puoi aprirlo anche con gli Eos.',
+            key: const Key('oroscopo_anno_chiuso'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
+        const SizedBox(height: SpacingTokens.sm),
+        PortaDellaSpesa(
+          voce: ListinoDegliEos.oroscopoAnnuale,
+          etichetta: 'Apri il tuo anno',
+          suSpesaFatta: () {
+            setState(() => _anniAperti.add(istante.year));
+            unawaited(GliAnniAperti.apri(istante.year));
+          },
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        OutlinedButton(
+          key: const Key('oroscopo_anno_piano'),
+          style: OutlinedButton.styleFrom(
+            minimumSize: const Size(0, 44),
+            side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+          ),
+          onPressed: () => showUpgradeInvite(
+            context,
+            title: 'L\'oroscopo dell\'anno si apre ${conPiano(piano)}',
+            message: 'Ogni compleanno il tema della Rivoluzione Solare: il '
+                'tono dell\'anno, dove va l\'energia, l\'amore, il lavoro e '
+                'la fortuna dei dodici mesi.',
+          ),
+          child: Text('Scopri il piano',
+              style:
+                  TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
+        ),
+      ];
+    }
+    final tema = LaRivoluzioneSolare.tema(istante, lat, lon);
+    final schede = LAnnuale.schede(tema,
+        forma: context.read<ProfileController>().courtesy);
+    // L'AVVISO DEL COMPLEANNO: l'anno nuovo e' pronto all'istante del
+    // prossimo ritorno. Una volta per apertura, e solo col permesso.
+    if (!_avvisoDellAnno) {
+      _avvisoDellAnno = true;
+      unawaited(LAvvisoDellAnno.programma(prossimo));
+    }
+    return [
+      riga,
+      const SizedBox(height: SpacingTokens.md),
+      for (final s in schede) ...[
+        _HoroscopeCardView(
+          scrivendo: false,
+          durataScrittura: Duration.zero,
+          card: s,
+          palette: palette,
+          pulse: _pulse,
+          depth: AnswerDepth.free,
+          onDepthSelected: (_) {},
+          onDepthLocked: (_) {},
+          premiumUnlocked: false,
+          giaScritto: () => true,
+          onScritto: () {},
+          livello: livello,
+          conLaProfondita: false,
+        ),
+        const SizedBox(height: SpacingTokens.md),
+      ],
+      // IL PDF DELL'ANNO, all'Illuminato (l'annuale approvato dal fondatore).
+      if (tier.level >= Tier.tier3.level)
+        OutlinedButton(
+          key: const Key('oroscopo_anno_pdf'),
+          style: OutlinedButton.styleFrom(
+            minimumSize: const Size(0, 44),
+            side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+          ),
+          onPressed: () => IlPdfDellAnno.condividi(
+            schede,
+            titolo: 'Il tuo anno dal ${italianLongDate(locale)}',
+            sottotitolo: 'Rivoluzione Solare del ${italianLongDate(locale)} '
+                'alle $ora, per $dove',
+          ),
+          child: Text('Scarica il PDF del tuo anno',
+              style:
+                  TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
+        ),
+    ];
+  }
+
   Future<void> _leggiIlLuogo() async {
     final l = await DoveSonoAdesso.letto();
     if (!mounted || l == null) return;
@@ -428,6 +597,9 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   void initState() {
     super.initState();
     unawaited(_leggiIlLuogo());
+    unawaited(GliAnniAperti.letti().then((a) {
+      if (mounted) setState(() => _anniAperti.addAll(a));
+    }));
     // **L'ATTESA PIENA SI CHIEDE AL DISCO ALL'APERTURA, ordine BK voce 05.**
     // Si legge qui e non al tocco, perche' un `await` fra il dito e il primo
     // momento sarebbe un vuoto proprio nell'istante che questo ordine esiste
@@ -666,7 +838,8 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       // dice, e si offre il gesto per tornare.
                       // LA SETTIMANA E IL MESE, ordine ES voci 02 e 03.
                       if (_inCima == AstroTradition.occidentale &&
-                          _period != HoroscopePeriod.giorno)
+                          (_period == HoroscopePeriod.settimana ||
+                              _period == HoroscopePeriod.mese))
                         IlPeriodoView(
                           periodo: _periodoDelCielo(context
                               .watch<BirthIdentityController>()
@@ -675,6 +848,15 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                           palette: palette,
                           livello: cielo.livello,
                         ),
+                      // L'ANNO DAL COMPLEANNO, ordine ES voce 04.
+                      if (_inCima == AstroTradition.occidentale &&
+                          _period == HoroscopePeriod.anno)
+                        ..._lAnno(context,
+                            palette: palette,
+                            tier: tier,
+                            nascita: nascitaDeiSegni,
+                            dettagli: nascita,
+                            livello: cielo.livello),
                       if (!_inCima.unlocked)
                         _LaLetturaEInArrivo(
                           tradizione: _inCima,
@@ -920,6 +1102,23 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                             ],
                           ),
                         ),
+                      // L'OROSCOPO PER UN AMICO, ordine ES voce 12. In fondo,
+                      // perche' sopra spingerebbe il gesto sotto la piega.
+                      Padding(
+                        padding: const EdgeInsets.only(top: SpacingTokens.lg),
+                        child: Center(
+                          child: TextButton.icon(
+                            key: const Key('oroscopo_per_un_amico'),
+                            onPressed: () =>
+                                Navigator.of(context).push(AmiciScreen.route()),
+                            icon: Icon(Icons.people_alt_outlined,
+                                color: palette.goldSoft),
+                            label: Text('L\'oroscopo per un amico',
+                                style: TypographyTokens.corpo()
+                                    .copyWith(color: palette.goldSoft)),
+                          ),
+                        ),
+                      ),
                       // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
                       //
                       // Le linee guida dicevano da sempre "una volta sola", e per
@@ -1650,6 +1849,9 @@ class _Heading extends StatelessWidget {
               HoroscopePeriod.mese => 'dal ${date.day} '
                   '${_mesiItaliani[date.month - 1]} al '
                   '${italianLongDate(DateTime(date.year, date.month, date.day + 29))}',
+              // L'anno va da un compleanno solare all'altro: le date vere le
+              // dice la vista dell'anno, che conosce l'istante del ritorno.
+              HoroscopePeriod.anno => 'dal tuo compleanno al prossimo',
             },
             key: const Key('oroscopo_date'),
             textAlign: TextAlign.center,
@@ -2000,7 +2202,13 @@ class _HoroscopeCardView extends StatelessWidget {
     this.passaggio,
     this.carta,
     this.adesso,
+    this.conLaProfondita = true,
   });
+
+  /// **LA PROFONDITA' SOLO DOVE C'E'**, ordine ES voce 04: le schede
+  /// dell'anno si leggono una volta l'anno, intere, senza Breve e
+  /// Approfondita.
+  final bool conLaProfondita;
 
   /// **IL PASSAGGIO CHE SI ACCENDE, ordine ES voce 33**: la voce del cielo
   /// che il testo nomina per primo, la carta e il giorno. Tutti e tre, o la
@@ -2107,21 +2315,23 @@ class _HoroscopeCardView extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(width: SpacingTokens.sm),
-              // Menu a tendina compatto: ora le etichette sono corte, quindi
-              // resta leggibile senza rubare spazio al titolo.
-              AnswerDepthSelector(
-                key: Key('oroscopo_depth_${card.domain.name}'),
-                current: depth,
-                palette: palette,
-                // Chi ha pagato deve poter aprire la Profonda. Questo
-                // parametro non veniva passato da nessuno in tutta l'app,
-                // quindi restava falso e il lucchetto valeva anche per chi
-                // l'aveva comprata: una funzione venduta e mai consegnata.
-                premiumUnlocked: premiumUnlocked,
-                onSelect: onDepthSelected,
-                onLockedTap: onDepthLocked,
-              ),
+              if (conLaProfondita) ...[
+                const SizedBox(width: SpacingTokens.sm),
+                // Menu a tendina compatto: ora le etichette sono corte, quindi
+                // resta leggibile senza rubare spazio al titolo.
+                AnswerDepthSelector(
+                  key: Key('oroscopo_depth_${card.domain.name}'),
+                  current: depth,
+                  palette: palette,
+                  // Chi ha pagato deve poter aprire la Profonda. Questo
+                  // parametro non veniva passato da nessuno in tutta l'app,
+                  // quindi restava falso e il lucchetto valeva anche per chi
+                  // l'aveva comprata: una funzione venduta e mai consegnata.
+                  premiumUnlocked: premiumUnlocked,
+                  onSelect: onDepthSelected,
+                  onLockedTap: onDepthLocked,
+                ),
+              ],
             ],
           ),
           const SizedBox(height: SpacingTokens.sm),

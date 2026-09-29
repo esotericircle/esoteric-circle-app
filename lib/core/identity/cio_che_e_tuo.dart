@@ -32,6 +32,9 @@ class CioCheETuo {
     'account.',
     // Cosa hai usato oggi, il saldo degli Eos, la coda dei consumi.
     'allowance.',
+    // **GLI AMICI OFFLINE, ordine ES voce 12**: nomi e nascite di altre
+    // persone che hai inserito tu, e i posti in piu' che hai comprato.
+    'amici_offline',
     // **IL DIARIO DELL'ARCANO DELL'ALBA, ordine DT voce 05**: il sacchetto
     // delle carte, le letture gia' ricevute, i registri del ciclo e il seme
     // con cui la persona le consuma.

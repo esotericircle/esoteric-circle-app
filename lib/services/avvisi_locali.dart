@@ -53,6 +53,13 @@ class AvvisiLocali extends ServizioAvvisi {
       'Un avviso la sera, quando il sole scende, che la runa della sera ti '
           'aspetta.'
     ),
+    // **L'ANNO DAL COMPLEANNO, ordine ES voce 04**: un avviso l'anno,
+    // all'istante del ritorno del Sole.
+    'oroscopo_annuale': (
+      'Oroscopo dell\'anno',
+      'Un avviso l\'anno, al tuo compleanno solare, che il tuo anno nuovo è '
+          'pronto.'
+    ),
     // **I TRE CANALI STANTII SONO STATI TOLTI, ordine BG voce 03.** Il
     // cielo di oggi, i Sigilli del Cammino e le gettate di rune comparivano
     // nelle impostazioni di Android promettendo avvisi che nessuno

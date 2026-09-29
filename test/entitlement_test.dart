@@ -132,8 +132,11 @@ void main() {
       // TREDICI dall'ordine ES voce 08: l'oroscopo cinese del giorno si apre
       // dall'Iniziato, e il piano lo dice.
       // QUATTORDICI dalla voce ES.09: anche l'oroscopo vedico.
-      expect(PlanCatalog.forTier(Tier.tier1).highlights.length, 14);
-      expect(PlanCatalog.forTier(Tier.tier2).highlights.length, 12);
+      // QUINDICI dalla voce ES.12: gli amici, fino a tre.
+      expect(PlanCatalog.forTier(Tier.tier1).highlights.length, 15);
+      // TREDICI dalla voce ES.04: l'oroscopo dell'anno dal compleanno.
+      // QUATTORDICI dalla voce ES.12: gli amici, fino a dieci.
+      expect(PlanCatalog.forTier(Tier.tier2).highlights.length, 14);
       // DIECI dall'ordine DJ voce 09, per ordine del fondatore e non per
       // condensare: la Domanda al Maestro reale non si conta piu' fra cio'
       // che il piano da', perche' nessuna parte dell'app la esegue.
@@ -196,7 +199,11 @@ void main() {
       // TRENTADUE dall'ordine ES voce 08: la riga dell'oroscopo cinese del
       // giorno, "Solo il segno" per il Viandante.
       // TRENTATRE dalla voce ES.09: la riga dell'oroscopo vedico.
-      expect(PlanCatalog.matrix.length, 33);
+      // TRENTAQUATTRO dalla voce ES.06: la riga della profondita'
+      // dell'oroscopo, Breve per il Viandante.
+      // TRENTACINQUE dalla voce ES.04: la riga dell'oroscopo dell'anno.
+      // TRENTASEI dalla voce ES.12: la riga degli amici.
+      expect(PlanCatalog.matrix.length, 36);
       final gettate =
           PlanCatalog.matrix.firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di

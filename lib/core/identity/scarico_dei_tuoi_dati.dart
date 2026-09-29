@@ -72,6 +72,8 @@ class ScaricoDeiTuoiDati {
     // Ordine ES voce 17: il giorno in cui l'avviso di ogni Dono e' stato
     // programmato e mostrato.
     'avviso_dono_': 'Quando ti sono arrivati gli avvisi dei Doni',
+    // Ordine ES voce 12: gli amici che hai inserito.
+    'amici_offline': 'I tuoi amici offline, coi loro dati di nascita',
     'carta.natale': 'La tua carta natale conservata',
     'carta_natale_': 'La tua carta natale, nella forma vecchia',
     'cielo_posizione': 'Il permesso di posizione per il cielo',
