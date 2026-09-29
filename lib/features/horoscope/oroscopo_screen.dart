@@ -1373,7 +1373,19 @@ class _Heading extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TypographyTokens.etichetta().copyWith(
                 color: ColorTokens.textSecondary, letterSpacing: 1.2)),
-        Text(italianLongDate(date),
+        // **LA SETTIMANA E IL MESE DICONO IL LORO INTERVALLO**, visto sul
+        // Realme: "29 settembre 2026" sopra una settimana si legge come il
+        // giorno solo.
+        Text(
+            switch (periodo) {
+              HoroscopePeriod.giorno => italianLongDate(date),
+              HoroscopePeriod.settimana => 'dal ${date.day} '
+                  '${_mesiItaliani[date.month - 1]} al '
+                  '${italianLongDate(DateTime(date.year, date.month, date.day + 6))}',
+              HoroscopePeriod.mese => 'dal ${date.day} '
+                  '${_mesiItaliani[date.month - 1]} al '
+                  '${italianLongDate(DateTime(date.year, date.month, date.day + 29))}',
+            },
             key: const Key('oroscopo_date'),
             textAlign: TextAlign.center,
             style: TypographyTokens.didascalia()

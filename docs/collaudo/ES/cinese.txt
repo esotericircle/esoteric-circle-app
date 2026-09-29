@@ -1,0 +1,354 @@
+# Oroscopo cinese del giorno, specifiche di calcolo (ordine ES, voce 08)
+
+Tutto si calcola sul telefono, senza modello. Gli ingressi sono quattro: la data civile di oggi nel luogo della persona, la data di nascita, l'animale di nascita che l'app già mostra (`ISegniDelleTradizioni.cinese`, anno che comincia col Capodanno lunare) e, per la sola scheda Amore, il genere dichiarato.
+
+File di questa cartella:
+
+- `calcolo.py`: il calcolo indipendente (giorno giuliano, Sole di Meeus, guardiano) e il confronto con due librerie.
+- `ampio.py`: lo stesso confronto su 40.543 giorni (1950-2060) e la verifica della regola dei Dieci Dei sulle 100 coppie.
+- `jie.py` e `jie_1900_2100_pechino.csv`: la tabella dei dodici jie dal 1900 al 2100, ora di Pechino, 2.412 righe (201 anni per 12).
+- `rapporti.py`: la matrice 12 per 12 dei rapporti fra i rami.
+- `verifica.csv`: i trenta giorni e le dieci nascite.
+
+Librerie di confronto: `lunar_python` 1.4.x (porta Python di lunar-java di 6tail, che usa gli algoritmi del 寿星天文历 di 许剑伟) e `cnlunar` (almanacco completo 宜忌 con i 建除). Sono due implementazioni indipendenti: coincidono fra loro e col calcolo di questa cartella.
+
+---
+
+## 1. Il pilastro del giorno (日柱) nel ciclo dei sessanta
+
+### La formula
+
+Il ciclo dei sessanta giorni gira senza interruzioni almeno dal 722 a.C. (Chunqiu), indipendente dai mesi e dagli anni: basta quindi un numero di giorni continuo, il giorno giuliano.
+
+Sia `JDN` il numero del giorno giuliano della data civile (il giorno giuliano che comincia a mezzogiorno di quella data; per il 1 gennaio 2000 vale 2451545). Allora:
+
+```
+tronco = (JDN + 9)  mod 10     0 = 甲 Jia, 1 = 乙 Yi, ... 9 = 癸 Gui
+ramo   = (JDN + 1)  mod 12     0 = 子 Zi, 1 = 丑 Chou, ... 11 = 亥 Hai
+ciclo  = (JDN + 49) mod 60     0 = 甲子 (primo del ciclo), 59 = 癸亥
+```
+
+In Dart, dalla data civile senza ore:
+
+```
+final jdn = DateTime.utc(y, m, d).millisecondsSinceEpoch ~/ 86400000 + 2440588;
+```
+
+(2440588 è il giorno giuliano del 1 gennaio 1970.)
+
+### Giorni di riferimento verificati
+
+| data | JDN | pilastro | fonte |
+|---|---|---|---|
+| 2000-01-01 | 2451545 | 戊午 Wu Wu, 55° del ciclo | lunar_python, cnlunar |
+| 2026-10-17 | 2461331 | 甲子 Jia Zi, 1° del ciclo | lunar_python, cnlunar, huangli999.com (pagina del giorno: "甲子日") |
+| 2026-10-01 | 2461315 | 戊申 Wu Shen, 45° del ciclo | lunar_python, cnlunar, huangli999.com, huangli888.com |
+
+Su 40.543 giorni consecutivi dal 1 gennaio 1950 al 31 dicembre 2060 la formula dà lo stesso pilastro di lunar_python in 40.543 casi su 40.543 (`ampio.py`).
+
+### Quando cambia il giorno
+
+- **Gli almanacchi comuni (通书 Tong Shu, 黄历 Huang Li)** stampano una riga per giorno civile: il pilastro vale da mezzanotte a mezzanotte. Tutti i siti consultati e le due librerie (con `getDayInGanZhi`) seguono questa regola.
+- **Nel BaZi** esiste una disputa sull'ora Zi (子时, 23:00-01:00): una scuola fa cominciare il giorno nuovo alle 23 (lunar_python `getDayInGanZhiExact`), l'altra divide l'ora Zi in "Zi precoce" e "Zi tardo" (早子时 / 夜子时) e cambia il giorno a mezzanotte (lunar_python `getDayInGanZhiExact2`).
+- **Proposta per l'app**: la data civile del luogo. Per il giorno di oggi coincide con qualunque almanacco stampato. Per il giorno di nascita coincide con la scuola che cambia a mezzanotte; differisce dall'altra solo per chi è nato fra le 23:00 e le 23:59; l'app oggi chiede la data. Se in futuro si userà l'ora, conviene dichiarare la scuola nella nota del metodo.
+- Nessuna conversione all'ora di Pechino per il pilastro: il pilastro dipende solo dalla data: la data civile italiana di oggi è quella che la persona vive.
+
+### L'animale del giorno
+
+È il ramo del giorno: 子 Topo, 丑 Bue, 寅 Tigre, 卯 Coniglio, 辰 Drago, 巳 Serpente, 午 Cavallo, 未 Capra, 申 Scimmia, 酉 Gallo, 戌 Cane, 亥 Maiale (stessi nomi di `ISegniDelleTradizioni.animali`, con lo stesso ordine: indice 0 = Topo).
+
+---
+
+## 2. I dodici guardiani del giorno (建除十二神, Jian Chu)
+
+### Nomi
+
+| indice | carattere | pinyin | nome italiano proposto |
+|---|---|---|---|
+| 0 | 建 | Jian | Stabilire |
+| 1 | 除 | Chu | Togliere |
+| 2 | 满 | Man | Pieno |
+| 3 | 平 | Ping | Livellare |
+| 4 | 定 | Ding | Fissare |
+| 5 | 执 | Zhi | Tenere |
+| 6 | 破 | Po | Rompere |
+| 7 | 危 | Wei | Pericolo |
+| 8 | 成 | Cheng | Compiere |
+| 9 | 收 | Shou | Raccogliere |
+| 10 | 开 | Kai | Aprire |
+| 11 | 闭 | Bi | Chiudere |
+
+### La regola
+
+Il mese qui non è il mese lunare: è il **mese solare** (节月), che comincia al **jie** (节), cioè a ogni secondo dei ventiquattro termini solari, quando il Sole raggiunge una longitudine multipla di 30 gradi più 15.
+
+| jie | longitudine del Sole | ramo del mese (月建) |
+|---|---|---|
+| 立春 Li Chun | 315° | 寅 Yin |
+| 惊蛰 Jing Zhe | 345° | 卯 Mao |
+| 清明 Qing Ming | 15° | 辰 Chen |
+| 立夏 Li Xia | 45° | 巳 Si |
+| 芒种 Mang Zhong | 75° | 午 Wu |
+| 小暑 Xiao Shu | 105° | 未 Wei |
+| 立秋 Li Qiu | 135° | 申 Shen |
+| 白露 Bai Lu | 165° | 酉 You |
+| 寒露 Han Lu | 195° | 戌 Xu |
+| 立冬 Li Dong | 225° | 亥 Hai |
+| 大雪 Da Xue | 255° | 子 Zi |
+| 小寒 Xiao Han | 285° | 丑 Chou |
+
+Il giorno il cui ramo è uguale al ramo del mese è **建**: da lì i guardiani seguono in ordine.
+
+```
+guardiano = (ramo del giorno - ramo del mese) mod 12      0 = 建 ... 11 = 闭
+```
+
+**Il giorno del jie ripete il guardiano del giorno prima.** Non è una regola in più: esce da sola dalla formula, perché in quel giorno il ramo del giorno avanza di uno e anche il ramo del mese avanza di uno. Nella verifica: 7 ottobre 2026 甲寅 = 执, 8 ottobre 2026 乙卯 (giorno di 寒露) = 执 di nuovo; lo conferma huangli888.com ("执执位") e huangli999.com ("执日"). Correzione alla richiesta: non è il giorno **che segue** il jie a ripetere, è **il giorno del jie stesso**.
+
+**Il giorno del jie è tutto nel mese nuovo**, a qualunque ora cada il jie (l'almanacco lavora per giorni interi). Quindi il ramo del mese di un giorno è quello dell'ultimo jie la cui data è minore o uguale alla data del giorno.
+
+### A quale fuso si legge la data del jie
+
+Il jie è un istante. Il 寒露 del 2026 cade l'8 ottobre alle 14:29 di Pechino, che a Roma sono le 08:29 dello stesso giorno: nessuna differenza. Ma quando un jie cade fra mezzanotte e le 6 o le 7 di Pechino, a Roma è ancora il giorno prima: le due letture danno un guardiano diverso per un giorno.
+
+Misura (`ampio.py`, 1950-2060): leggendo la data del jie a Roma invece che a Pechino, **369 giorni su 40.543** (0,91 per cento, circa 3,3 giorni l'anno) hanno un guardiano diverso da quello stampato negli almanacchi.
+
+**Proposta**: la data del jie **all'ora di Pechino (UTC+8)**, confrontata con la data civile della persona. Così il guardiano che l'app mostra è sempre quello dell'almanacco del giorno; chiunque può controllarlo su un 黄历. È la convenzione di tutti gli almanacchi pubblicati (il calendario ufficiale cinese usa l'ora di Pechino; lo Hong Kong Observatory pubblica i termini solari in ora di Hong Kong, che è la stessa UTC+8).
+
+### Come ottenere i jie sul telefono
+
+Due strade, misurate:
+
+1. **Tabella** (proposta): `jie_1900_2100_pechino.csv`, 2.412 righe, anno, mese, giorno, ora di Pechino, nome, ramo del mese che apre. Generata da lunar_python (algoritmo del 寿星天文历, VSOP87 ridotto). Controllo a campione: 立春 2026 = 4 febbraio 04:02, 寒露 2026 = 8 ottobre 14:29 (lo stesso orario è stampato da huangli999.com: "寒露（2026年10月8日14时29分）"), 立冬 2026 = 7 novembre 17:52. È la stessa forma già usata per il Capodanno lunare (`IlCapodannoLunare`, 1900-2100). Con la tabella il guardiano coincide con lunar_python in tutti i giorni.
+2. **Sole di Meeus a bassa precisione** (capitolo 25, quello di `calcolo.py`): scarto dall'istante di lunar_python su 1.332 jie fra il 1950 e il 2060 medio -3,4 minuti, da -14,1 a +8,2 minuti. Basta per sbagliare il giorno quando il jie cade vicino alla mezzanotte di Pechino: **4 giorni sbagliati su 40.543** (5 marzo 2014, 6 luglio 2016, 6 luglio 2045, 5 marzo 2047, sempre jie fra le 00:02 e le 00:08). Se si calcola, serve il Sole preciso che l'app già usa per il decano egizio (misurato contro il JPL), non la formula ridotta.
+
+### Che cosa è adatto e che cosa è sconsigliato
+
+Fonti. La successione e il legame coi rami sono già nel 淮南子·天文训 (Huainanzi, capitolo "Tianwen", II secolo a.C.), dove il mese 寅 comincia con 建 e i dodici seguono in ordine; i calendari 日书 (Rishu) sulle tavolette di Shuihudi (睡虎地秦简, III secolo a.C.) hanno già i dodici con i loro 宜 忌. La forma degli almanacchi moderni viene dal 钦定协纪辨方书 (Qinding Xieji Bianfang Shu, 1739, compilato per l'imperatore Qianlong), che fissa la regola del giorno del jie. L'elenco qui sotto è la sintesi corrente degli almanacchi, riportata da sohu.com, "择日必读：建除十二神" (https://www.sohu.com/a/727671351_121819358), con le filastrocche classiche; riscontrata sui 宜 忌 di huangli999.com per 闭 (1 ottobre 2026), 执 (8 ottobre), 满 (17 ottobre) e su huangli888.com per 破 (9 ottobre, "诸事不宜", 宜 "破屋 坏垣").
+
+| guardiano | natura | adatto (宜) | sconsigliato (忌) |
+|---|---|---|---|
+| 建 Jian | forza che nasce | entrare a scuola, mettersi in viaggio, assumere un incarico, cerimonie | smuovere la terra, aprire i granai (costruire e seppellire) |
+| 除 Chu | togliere il vecchio | cerimonie, preghiere, cure mediche, affari, matrimoni | partire, traslocare, assumere incarichi pubblici |
+| 满 Man | pienezza, raccolto | cerimonie, preghiere, legami di famiglia, aprire un'attività, cercare guadagno | smuovere la terra, traslocare; huangli999 aggiunge assumere un incarico e sposarsi |
+| 平 Ping | giorno piano, né buono né cattivo | cerimonie, lavori di terra, riparazioni, abbellire | scavare canali |
+| 定 Ding | stabilità, immobilità | cerimonie, preghiere, lavori che vogliono un piano | liti, cause, partire |
+| 执 Zhi | tenere fermo | cerimonie, preghiere, catturare (e, dice huangli999, costruire e piantare) | aprire un'attività, commerciare, traslocare, partire |
+| 破 Po | rottura | demolire, cercare cure | ogni cosa di buon augurio ("诸事不宜") |
+| 危 Wei | pericolo | cerimonie, preghiere | traslocare, salire in alto, andare per mare |
+| 成 Cheng | compimento | aprire un'attività, sposarsi, cure mediche, traslocare, partire, firmare accordi | liti, cause |
+| 收 Shou | raccolta | cerimonie, preghiere, entrare a scuola, incassare | partire, funerali |
+| 开 Kai | apertura | aprire un'attività, sposarsi, cerimonie, preghiere | smuovere la terra (funerali) |
+| 闭 Bi | chiusura | cerimonie, incassare, chiudere buchi, argini; riposo (huangli999: "休息调养") | aprire un'attività, sposarsi, partire, smuovere la terra, cercare guadagno |
+
+Filastrocca degli almanacchi sul peso dei dodici: "建满平收黑，除危定执黄，成开皆可用，闭破不相当" (建 满 平 收 sono "neri", 除 危 定 执 "gialli", 成 e 开 si possono usare, 闭 e 破 non convengono). Le fonti non sono unanimi su 危: l'app non deve dare un voto al guardiano, solo dire che cosa conviene e che cosa no.
+
+**Attenzione**: nell'almanacco completo il 宜 忌 del giorno nasce dal guardiano **insieme** a decine di altri spiriti (神煞: 天德, 月德, 四废, ...). Il 1 ottobre 2026 (闭) huangli999 dà 宜 "安葬"; https://www.jiri123.com/2026-10-01.html, con un altro insieme di spiriti, dà 宜 "出行、修造、动土、移徙" proprio nel giorno 闭 che per il guardiano sconsiglia di partire e di smuovere la terra. L'app legge **il solo guardiano**: la nota del metodo deve dirlo ("il consiglio viene dal guardiano del giorno, non dall'almanacco intero").
+
+---
+
+## 3. Rapporti fra il ramo del giorno e il ramo dell'anno di nascita
+
+Il ramo di nascita è l'animale che l'app già mostra (anno che comincia col Capodanno lunare, come negli almanacchi popolari che scrivono "冲马", "si scontra col Cavallo"). Nel BaZi l'anno comincia a 立春; per chi è nato fra il Capodanno e 立春, o viceversa, le due letture danno animali diversi. Tenere quello già mostrato evita due animali nella stessa app.
+
+Fonti: 三命通会 (Sanming Tonghui, 万民英, 1578), libro II, "论支元六合", "论地支三合", "论三刑", "论六害", "论冲击" (testo in linea: https://www.quanxue.cn/qt_mingxiang/sanmingth/sanmingth19.html per i tre castighi); 五行大义 (Wuxing Dayi, 萧吉, VI secolo), "论合", "论冲破", "论刑", "论害". Riscontro sull'almanacco: huangli999.com per il 17 ottobre 2026 (甲子, Topo) scrive "与肖马相冲，与肖兔相刑，与肖羊相害", cioè scontro col Cavallo, punizione col Coniglio, danno con la Capra, come nelle tabelle qui sotto.
+
+**六合 Liu He, sei armonie** (coppie):
+子丑 Topo e Bue, 寅亥 Tigre e Maiale, 卯戌 Coniglio e Cane, 辰酉 Drago e Gallo, 巳申 Serpente e Scimmia, 午未 Cavallo e Capra.
+
+**三合 San He, tre armonie** (terne; vale per due qualunque dei tre):
+申子辰 Scimmia, Topo, Drago (acqua); 亥卯未 Maiale, Coniglio, Capra (legno); 寅午戌 Tigre, Cavallo, Cane (fuoco); 巳酉丑 Serpente, Gallo, Bue (metallo).
+
+**六冲 Chong, scontro**: i rami opposti, distanza 6. 子午, 丑未, 寅申, 卯酉, 辰戌, 巳亥.
+
+**三刑 Xing, punizione**:
+- 寅刑巳, 巳刑申, 申刑寅 (无恩之刑, punizione dell'ingratitudine): Tigre, Serpente, Scimmia.
+- 丑刑戌, 戌刑未, 未刑丑 (恃势之刑, punizione dell'arroganza): Bue, Cane, Capra.
+- 子刑卯, 卯刑子 (无礼之刑, punizione della scortesia): Topo e Coniglio.
+- 辰辰, 午午, 酉酉, 亥亥 (自刑, punizione di sé): Drago, Cavallo, Gallo, Maiale con se stessi.
+
+**六害 Hai, danno**: 子未, 丑午, 寅巳, 卯辰, 申亥, 酉戌.
+
+### Coppie con due rapporti e precedenza
+
+Otto celle della matrice hanno due rapporti: 丑未 e 寅申 (scontro e punizione), 寅巳 (punizione e danno), 巳申 (punizione e armonia, detto 刑合, "armonia che punisce"). Proposta di precedenza, dal più forte: **scontro, punizione, danno, armonia, tripla armonia, stesso animale, nessuno**. Per 巳申 il corpus ha una frase apposta ("armonia che punisce").
+
+### La matrice (riga: animale di nascita; colonna: ramo del giorno; primo rapporto per precedenza)
+
+`sco` scontro, `pun` punizione, `dan` danno, `arm` armonia, `tri` tripla armonia, `ste` stesso animale, `nes` nessuno.
+
+| nascita / giorno | 子 | 丑 | 寅 | 卯 | 辰 | 巳 | 午 | 未 | 申 | 酉 | 戌 | 亥 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 子 Topo | ste | arm | nes | pun | tri | nes | sco | dan | tri | nes | nes | nes |
+| 丑 Bue | arm | ste | nes | nes | nes | tri | dan | sco+pun | nes | tri | pun | nes |
+| 寅 Tigre | nes | nes | ste | nes | nes | pun+dan | tri | nes | sco+pun | nes | tri | arm |
+| 卯 Coniglio | pun | nes | nes | ste | dan | nes | nes | tri | nes | sco | arm | tri |
+| 辰 Drago | tri | nes | nes | dan | pun | nes | nes | nes | tri | arm | sco | nes |
+| 巳 Serpente | nes | tri | pun+dan | nes | nes | ste | nes | nes | pun+arm | tri | nes | sco |
+| 午 Cavallo | sco | dan | tri | nes | nes | nes | pun | arm | nes | nes | tri | nes |
+| 未 Capra | dan | sco+pun | nes | tri | nes | nes | arm | ste | nes | nes | pun | tri |
+| 申 Scimmia | tri | nes | sco+pun | nes | tri | pun+arm | nes | nes | ste | nes | nes | dan |
+| 酉 Gallo | nes | tri | nes | sco | arm | tri | nes | nes | nes | pun | dan | nes |
+| 戌 Cane | nes | pun | tri | arm | sco | nes | tri | pun | nes | dan | ste | nes |
+| 亥 Maiale | nes | nes | arm | tri | nes | sco | nes | tri | dan | nes | nes | pun |
+
+Conteggio del primo rapporto sulle 144 celle: nessuno 66, tripla armonia 24, punizione 14, scontro 12, armonia 10, danno 10, stesso animale 8. Un giorno qualunque dà "nessun rapporto" a 66 persone su 144 combinazioni: il corpus di quel caso deve essere il più ricco.
+
+---
+
+## 4. I Dieci Dei (十神 Shi Shen)
+
+### La regola
+
+Si confronta il **tronco del giorno di nascita** (日主, "signore del giorno", in inglese day master) col **tronco del giorno di oggi**. Ogni tronco ha un elemento e una polarità:
+
+| tronco | 甲 Jia | 乙 Yi | 丙 Bing | 丁 Ding | 戊 Wu | 己 Ji | 庚 Geng | 辛 Xin | 壬 Ren | 癸 Gui |
+|---|---|---|---|---|---|---|---|---|---|---|
+| elemento | legno | legno | fuoco | fuoco | terra | terra | metallo | metallo | acqua | acqua |
+| polarità | yang | yin | yang | yin | yang | yin | yang | yin | yang | yin |
+
+Ciclo che genera: legno, fuoco, terra, metallo, acqua, legno. Ciclo che controlla: legno controlla terra, terra acqua, acqua fuoco, fuoco metallo, metallo legno.
+
+| rapporto del tronco di oggi col signore del giorno | stessa polarità | polarità diversa |
+|---|---|---|
+| stesso elemento | 比肩 Bi Jian, **il Compagno** ("spalla a spalla") | 劫财 Jie Cai, **il Rivale** ("rapina la ricchezza") |
+| il signore del giorno lo genera | 食神 Shi Shen, **il Nutrimento** ("dio del cibo") | 伤官 Shang Guan, **l'Ufficiale Ferito** |
+| il signore del giorno lo controlla | 偏财 Pian Cai, **Ricchezza indiretta** | 正财 Zheng Cai, **Ricchezza diretta** |
+| controlla il signore del giorno | 七杀 Qi Sha, **le Sette Uccisioni** (detto anche 偏官, Ufficiale indiretto) | 正官 Zheng Guan, **Ufficiale diretto** |
+| genera il signore del giorno | 偏印 Pian Yin, **Sigillo indiretto** | 正印 Zheng Yin, **Sigillo diretto** |
+
+Attenzione al nome: 十神 (i Dieci Dei) e 食神 (il Nutrimento) si scrivono entrambi "Shi Shen" in pinyin senza toni. Nell'app conviene non usare il pinyin per il Nutrimento.
+
+**Ricchezza** (财): 正财 e 偏财, ciò che il signore del giorno controlla. **Ufficiale** (官杀): 正官 e 七杀, ciò che controlla il signore del giorno. Nel 子平 la Ricchezza è anche la moglie per l'uomo e l'Ufficiale il marito per la donna (渊海子平, "论妻子"; 子平真诠, "论六亲").
+
+Fonti: 渊海子平 (Yuanhai Ziping, 徐大升, dinastia Song, ed. Ming), "论十神" e "论六亲"; 子平真诠 (Ziping Zhenquan, 沈孝瞻, XVIII secolo), capitoli "论十干配合性情", "论用神" e "论六亲". La regola è verificata sulle **100 coppie su 100** contro la tabella `SHI_SHEN` di lunar_python (`ampio.py`).
+
+### La matrice (riga: tronco del giorno di nascita; colonna: tronco di oggi)
+
+| nascita / oggi | 甲 | 乙 | 丙 | 丁 | 戊 | 己 | 庚 | 辛 | 壬 | 癸 |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 甲 | 比肩 | 劫财 | 食神 | 伤官 | 偏财 | 正财 | 七杀 | 正官 | 偏印 | 正印 |
+| 乙 | 劫财 | 比肩 | 伤官 | 食神 | 正财 | 偏财 | 正官 | 七杀 | 正印 | 偏印 |
+| 丙 | 偏印 | 正印 | 比肩 | 劫财 | 食神 | 伤官 | 偏财 | 正财 | 七杀 | 正官 |
+| 丁 | 正印 | 偏印 | 劫财 | 比肩 | 伤官 | 食神 | 正财 | 偏财 | 正官 | 七杀 |
+| 戊 | 七杀 | 正官 | 偏印 | 正印 | 比肩 | 劫财 | 食神 | 伤官 | 偏财 | 正财 |
+| 己 | 正官 | 七杀 | 正印 | 偏印 | 劫财 | 比肩 | 伤官 | 食神 | 正财 | 偏财 |
+| 庚 | 偏财 | 正财 | 七杀 | 正官 | 偏印 | 正印 | 比肩 | 劫财 | 食神 | 伤官 |
+| 辛 | 正财 | 偏财 | 正官 | 七杀 | 正印 | 偏印 | 劫财 | 比肩 | 伤官 | 食神 |
+| 壬 | 食神 | 伤官 | 偏财 | 正财 | 七杀 | 正官 | 偏印 | 正印 | 比肩 | 劫财 |
+| 癸 | 伤官 | 食神 | 正财 | 偏财 | 正官 | 七杀 | 正印 | 偏印 | 劫财 | 比肩 |
+
+### Dalle quattro schede ai Dieci Dei
+
+Regola dell'ordine, con la ragione della tradizione che il corpus usa per ogni dio non "centrale":
+
+- **Fortuna** guarda alla Ricchezza. Con 正财 e 偏财 la Ricchezza è di turno. Con 食神 e 伤官 la genera (食伤生财: il talento produce denaro). Con 比肩 e 劫财 la contende (比劫夺财). Con 正官 e 七杀 la consuma (财生官: il denaro va verso doveri e posizione). Con 正印 e 偏印 non è il tema (il sostegno arriva in altra forma).
+- **Lavoro** guarda all'Ufficiale. Con 正官 e 七杀 l'Ufficiale è di turno. Con 正财 e 偏财 lo nutre (财生官). Con 正印 e 偏印 lo trasforma in sostegno (官印相生). Con 伤官 lo ferisce (伤官见官: attrito con l'autorità). Con 食神 lo doma (食神制杀). Con 比肩 e 劫财 il tema è la concorrenza fra pari.
+- **Amore**: per una donna guarda all'Ufficiale (il partner); per un uomo alla Ricchezza (la partner). Stesse relazioni del Lavoro e della Fortuna, lette sul legame. Per chi non dichiara il genere il corpus ha una terza serie neutra, che parla del legame senza assegnare il ruolo (vedi le incertezze).
+- **Generale** guarda all'animale del giorno (il rapporto del paragrafo 3) e al guardiano (paragrafo 2).
+
+---
+
+## 5. Colore e numeri dell'elemento del giorno
+
+L'elemento del giorno è **l'elemento del tronco del giorno** (tabella del paragrafo 4). In alternativa gli almanacchi stampano il 纳音 (Na Yin, per esempio 戊申 = 大驿土, "terra della grande strada"), che è un'altra classificazione per coppie del ciclo: proposta di non usarlo, per non avere due elementi diversi nella stessa scheda.
+
+| elemento | colore della tradizione | colore per l'app | numeri dello He Tu | direzione |
+|---|---|---|---|---|
+| legno 木 | 青 qing (verde-azzurro) | verde | 3 e 8 | est |
+| fuoco 火 | 赤 chi (rosso) | rosso | 2 e 7 | sud |
+| terra 土 | 黄 huang (giallo) | giallo | 5 e 10 | centro |
+| metallo 金 | 白 bai (bianco) | bianco | 4 e 9 | ovest |
+| acqua 水 | 黑 hei (nero) | nero, o blu scuro | 1 e 6 | nord |
+
+Fonti: i colori dal 礼记·月令 (Liji, "Yueling"): in primavera il sovrano "衣青衣", in estate "衣朱衣", al centro "衣黄衣", in autunno "衣白衣", in inverno "衣黑衣"; stessa tabella nel 五行大义 (萧吉), "论配五色". I numeri dal 周易·系辞上 ("天一地二，天三地四，天五地六，天七地八，天九地十") come li distribuisce la figura dello He Tu (河图) nel 周易本义 di 朱熹 (1188) e nel commento di 郑玄 al 系辞: "一六共宗（水），二七同道（火），三八为朋（木），四九为友（金），五十同途（土）" (https://zh.wikipedia.org/zh-hans/河圖洛書).
+
+Nota: 青 comprende il verde e l'azzurro; per l'acqua 黑 è il nero; alcuni testi moderni lo rendono con il blu scuro. L'app dovrebbe dire "il colore dell'elemento", non "il colore portafortuna": la tradizione non dice che indossarlo porti fortuna.
+
+---
+
+## 6. La direzione propizia del giorno
+
+Gli almanacchi stampano per ogni giorno la direzione del **Dio della Gioia** (喜神 Xi Shen) e del **Dio della Ricchezza** (财神 Cai Shen), entrambe dal tronco del giorno.
+
+Filastrocca del Dio della Gioia: "甲己在艮乙庚乾，丙辛坤位喜神安，丁壬只在离宫坐，戊癸原在巽上眠".
+
+| tronco del giorno | 喜神 Dio della Gioia | 财神 Dio della Ricchezza |
+|---|---|---|
+| 甲 Jia | nord-est (艮) | nord-est (艮) |
+| 乙 Yi | nord-ovest (乾) | nord-est (艮) |
+| 丙 Bing | sud-ovest (坤) | sud-ovest (坤) |
+| 丁 Ding | sud (离) | sud-ovest (坤) |
+| 戊 Wu | sud-est (巽) | nord (坎) |
+| 己 Ji | nord-est (艮) | nord (坎) |
+| 庚 Geng | nord-ovest (乾) | est (震) |
+| 辛 Xin | sud-ovest (坤) | est (震) |
+| 壬 Ren | sud (离) | sud (离) |
+| 癸 Gui | sud-est (巽) | sud (离) |
+
+Fonti: 协纪辨方书 (1739), libro sugli spiriti del giorno; tavole `POSITION_XI` e `POSITION_CAI` di lunar_python; filastrocca riportata da https://m.sohu.com/n/477952949/ e da https://www.guoyitangapp.com/found/12081.html. Riscontro sui siti nei cinque giorni della verifica: il Dio della Gioia e il Dio della Ricchezza stampati da huangli888.com e huangli999.com coincidono con la tabella in **5 giorni su 5** (vedi sotto).
+
+Proposta: la scheda Fortuna mostra il Dio della Ricchezza, la Generale il Dio della Gioia. Il Dio della Fortuna (福神) è escluso: lunar_python ha due tavole diverse (`POSITION_FU` e `POSITION_FU_2`) e le fonti non concordano.
+
+---
+
+## B. Verifica
+
+### Trenta giorni dal 1 ottobre 2026 (`verifica.csv`)
+
+Per ogni giorno: pilastro, animale, ramo del mese, guardiano calcolati da `calcolo.py` (formula del giorno giuliano più Sole di Meeus), confrontati con lunar_python (`getDayInGanZhi`, `getZhiXing`) e cnlunar (`day8Char`, `today12DayOfficer`).
+
+| grandezza | coincide con lunar_python | coincide con cnlunar |
+|---|---|---|
+| pilastro del giorno | 30 su 30 | 30 su 30 |
+| guardiano (jie all'ora di Pechino) | 30 su 30 | 30 su 30 |
+| guardiano (jie all'ora di Roma) | 30 su 30 | non misurato |
+
+Nel periodo cadono due jie: 寒露 l'8 ottobre alle 14:29 di Pechino (08:29 a Roma) e 立冬 il 7 novembre, fuori dai trenta giorni. L'8 ottobre ripete 执 del 7 ottobre, come da regola. Le due convenzioni del fuso coincidono in questi trenta giorni perché 寒露 cade di pomeriggio a Pechino.
+
+### Cinque giorni sui siti di almanacco
+
+| data | calcolato | sito | pilastro sul sito | guardiano sul sito | 喜神 | 财神 | esito |
+|---|---|---|---|---|---|---|---|
+| 2026-10-01 | 戊申, 闭 | https://big.huangli999.com/huangli/2026_10_1.html | 戊申日 | 闭 ("岁建（闭）") | 东南 | 正北 | coincide |
+| 2026-10-08 | 乙卯, 执 | https://big.huangli999.com/huangli/2026_10_8.html e https://www.huangli888.com/2026-10-08.html | 乙卯日 | 执 ("执日"; "执执位") | 西北 | 东北 | coincide |
+| 2026-10-09 | 丙辰, 破 | https://www.huangli888.com/2026-10-09.html | 丙辰日 | 破 ("破执位") | 西南 | 西南 | coincide |
+| 2026-10-17 | 甲子, 满 | https://big.huangli999.com/huangli/2026_10_17.html | 甲子日 | 满 ("满日") | 东北 | 东北 | coincide |
+| 2026-10-30 | 丁丑, 平 | https://www.huangli888.com/2026-10-30.html | 丁丑日 | 平 ("平执位") | 正南 | 西南 | coincide |
+
+**5 giorni su 5** coincidono per pilastro, guardiano e le due direzioni. Pagine consultate il 29 settembre 2026 con una lettura automatica (WebFetch): i caratteri citati fra virgolette sono quelli riportati dalla lettura.
+
+### Dieci date di nascita
+
+| nascita | JDN | pilastro | tronco (signore del giorno) | lunar_python | cnlunar |
+|---|---|---|---|---|---|
+| 1990-03-15 | 2447966 | 己卯 | 己 Ji, terra yin | 己卯 | 己卯 |
+| 1985-07-04 | 2446251 | 甲辰 | 甲 Jia, legno yang | 甲辰 | 甲辰 |
+| 2000-01-01 | 2451545 | 戊午 | 戊 Wu, terra yang | 戊午 | 戊午 |
+| 1972-11-23 | 2441645 | 戊午 | 戊 Wu, terra yang | 戊午 | 戊午 |
+| 1995-12-24 | 2450076 | 己丑 | 己 Ji, terra yin | 己丑 | 己丑 |
+| 1968-06-21 | 2440029 | 壬戌 | 壬 Ren, acqua yang | 壬戌 | 壬戌 |
+| 2004-02-29 | 2453065 | 戊寅 | 戊 Wu, terra yang | 戊寅 | 戊寅 |
+| 1979-09-09 | 2444126 | 己卯 | 己 Ji, terra yin | 己卯 | 己卯 |
+| 1999-08-11 | 2451402 | 乙未 | 乙 Yi, legno yin | 乙未 | 乙未 |
+| 1958-04-30 | 2436324 | 丁丑 | 丁 Ding, fuoco yin | 丁丑 | 丁丑 |
+
+**10 date su 10** coincidono con entrambe le librerie. (I JDN sono in `verifica.csv`, scritti dallo script.)
+
+### Verifica estesa
+
+- Pilastro: 40.543 giorni su 40.543 (1950-2060) uguali a lunar_python.
+- Guardiano col Sole di Meeus ridotto e jie a Pechino: 40.539 su 40.543; i 4 diversi sono jie a pochi minuti dalla mezzanotte di Pechino (vedi paragrafo 2). Con la tabella dei jie: nessuna differenza per costruzione.
+- Dieci Dei: 100 coppie su 100 uguali alla tabella di lunar_python.
+
+---
+
+## Incertezze
+
+1. **Il 宜 忌 del guardiano da solo non è l'almanacco.** Gli almanacchi pubblicati sommano il guardiano a molti altri spiriti; in giorni come il 1 ottobre 2026 due siti danno consigli diversi fra loro e diversi dal solo guardiano. L'app deve dire che legge il guardiano.
+2. **L'elenco 宜 忌 dei dodici** varia un poco fra le fonti secondarie (per esempio 执: "catturare" per sohu, "costruire, piantare, catturare" per huangli999). Non ho potuto leggere in linea il testo del 协纪辨方书 (ctext.org ha risposto con la pagina di verifica, baidu baike con 403): la tabella è la sintesi delle fonti secondarie concordi, riscontrata su quattro giorni di almanacco.
+3. **Il fuso del jie**: la proposta (Pechino) fa coincidere l'app con gli almanacchi; la scelta astronomicamente "locale" dà un guardiano diverso circa 3,3 giorni l'anno.
+4. **L'anno di nascita** comincia al Capodanno lunare nell'app e a 立春 nel BaZi: per chi è nato fra le due date l'animale della scheda Generale è quello popolare.
+5. **Il genere per la scheda Amore**: la regola classica è binaria (Ufficiale per la donna, Ricchezza per l'uomo). Per chi non lo dichiara serve la serie neutra; è una scelta dell'app, non della tradizione.
+6. **Nascita fra le 23 e mezzanotte**: con la data sola l'app segue la scuola che cambia giorno a mezzanotte.
+7. **Colore dell'acqua**: 黑 è il nero; il blu scuro è una resa moderna.

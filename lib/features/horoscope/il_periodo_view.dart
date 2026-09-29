@@ -91,26 +91,28 @@ class IlPeriodoView extends StatelessWidget {
                   style: TypographyTokens.corpo()
                       .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
               const SizedBox(height: SpacingTokens.sm),
+              // Il giorno e i pallini su una riga, la ragione sotto a tutta
+              // larghezza: accanto, in una colonna stretta, andava a capo su
+              // cinque righe (visto sul Realme).
               for (final g in mese ? _treMigliori(d) : d.giorni)
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 6),
-                  child: Row(
+                  padding: const EdgeInsets.only(bottom: SpacingTokens.sm),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        width: 92,
-                        child: Text(LaSettimanaDelCielo.data(g.giorno),
-                            style: TypographyTokens.didascalia()
-                                .copyWith(color: palette.goldSoft)),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(LaSettimanaDelCielo.data(g.giorno),
+                                style: TypographyTokens.didascalia()
+                                    .copyWith(color: palette.goldSoft)),
+                          ),
+                          _Pallini(livello: g.livello, palette: palette),
+                        ],
                       ),
-                      _Pallini(livello: g.livello, palette: palette),
-                      const SizedBox(width: SpacingTokens.sm),
-                      Expanded(
-                        child: Text(g.motivo,
-                            style: TypographyTokens.didascalia().copyWith(
-                                color: ColorTokens.textSecondary,
-                                height: 1.35)),
-                      ),
+                      Text(g.motivo,
+                          style: TypographyTokens.didascalia().copyWith(
+                              color: ColorTokens.textSecondary, height: 1.35)),
                     ],
                   ),
                 ),

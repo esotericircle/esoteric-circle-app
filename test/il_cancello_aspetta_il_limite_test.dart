@@ -74,11 +74,9 @@ void main() {
 
   test('sul limite aspetta, dice quanto e fino a che ora, e poi passa', () {
     if (senzaBash()) return;
+    final reset = ora() + 90;
     final esito = prova('poi_verde', [
-      (
-        limite,
-        'x-ratelimit-remaining: 0\r\nx-ratelimit-reset: ${ora() + 90}\r\n'
-      ),
+      (limite, 'x-ratelimit-remaining: 0\r\nx-ratelimit-reset: $reset\r\n'),
       (verde, null),
     ]);
     final uscita = '${esito.stdout}';
@@ -88,11 +86,30 @@ void main() {
             'lascia passare:\n$uscita\n${esito.stderr}');
     expect(uscita, contains('LIMITE DELLE DOMANDE'),
         reason: 'aspetta senza dire che sta aspettando il limite');
-    expect(RegExp(r'Aspetto (9[0-2]) secondi').hasMatch(uscita), isTrue,
-        reason: 'non dice quanto aspetta, o non lo legge dalle intestazioni:\n'
-            '$uscita');
-    expect(RegExp(r'riprovo alle \d\d:\d\d:\d\d UTC').hasMatch(uscita), isTrue,
-        reason: 'non dice a che ora riprova');
+    // **SI MISURA L'ORA DI RIPRESA, NON I SECONDI DI ATTESA**, ordine ES, 29
+    // settembre 2026. La prova pretendeva "Aspetto 90-92 secondi", e i
+    // secondi dipendono da quanto ci mette bash a partire dopo che la prova
+    // ha scritto l'intestazione: con la macchina carica (una build, una suite
+    // accanto) ne passavano piu' di uno e usciva 89, rosso quattro volte in
+    // un giorno senza nessun difetto. L'ora a cui il cancello riprova e'
+    // `reset + 2` qualunque sia il ritardo: e' quella che dice se il cancello
+    // legge le intestazioni. Stessa precisione di prima, un secondo, sul
+    // confine fra le due letture dell'orologio.
+    expect(RegExp(r'Aspetto \d+ secondi').hasMatch(uscita), isTrue,
+        reason: 'non dice quanto aspetta:\n$uscita');
+    String hms(int s) {
+      final t = DateTime.fromMillisecondsSinceEpoch(s * 1000, isUtc: true);
+      return '${t.hour.toString().padLeft(2, '0')}:'
+          '${t.minute.toString().padLeft(2, '0')}:'
+          '${t.second.toString().padLeft(2, '0')}';
+    }
+
+    final attese = {
+      for (final d in [1, 2, 3]) 'riprovo alle ${hms(reset + d)} UTC'
+    };
+    expect(attese.any(uscita.contains), isTrue,
+        reason: 'non riprova all\'ora delle intestazioni (${hms(reset + 2)}), '
+            'cioe\' non le legge:\n$uscita');
     expect(uscita, isNot(contains('Tentativo 1')),
         reason: 'il limite ha consumato un tentativo dei tre');
   });

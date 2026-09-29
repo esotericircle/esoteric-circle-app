@@ -274,7 +274,7 @@ abstract final class LaSettimanaDelCielo {
         testo: '${data(t)}: '
             '${CorrenteDelCielo.colSuoArticolo(c, maiuscola: false)} '
             '${indietro ? 'torna' : 'entra'} in ${z.italianName}'
-            '${indietro ? ', retrogrado' : ''}.',
+            '${indietro ? (c == CorpoCeleste.venere ? ', retrograda' : ', retrogrado') : ''}.',
       ));
     }
     // Le eclissi del periodo, dal motore verificato col canone (ordine CE
@@ -391,7 +391,16 @@ abstract final class LaSettimanaDelCielo {
       return 'Nessuna fase della Luna e nessun passaggio esatto in questo '
           'periodo: il cielo scorre senza un momento solo.';
     }
+    // Col segno e la casa: "Ultimo quarto" da solo non dice che cosa c'entri
+    // con chi legge (visto sul Realme).
     final (t, k) = scelta;
-    return '${data(t)} alle ${ora(t)}: ${_nomiDelleFasi[k]}.';
+    final l = LaLunaIntera.longitudine(LaLunaIntera.giornoGiuliano(t));
+    final (casa, natale) = _casa(l, segno, carta);
+    final dove = Zodiac.values[(l ~/ 30) % 12];
+    return '${data(t)} alle ${ora(t)}: ${_nomiDelleFasi[k]} in '
+        '${dove.italianName}, nella tua '
+        '${CorrenteDelCielo.ordinaliDelleCase[casa - 1]} casa'
+        '${natale ? '' : ' solare'}, quella '
+        '${CorrenteDelCielo.materiaDelleCase[casa - 1]}.';
   }
 }
