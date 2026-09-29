@@ -5857,6 +5857,88 @@ ritoccare secondo la lista del rapporto (ET.01); le rune, costo contro
 dirette (ET.07); l'intro e il retro a 402 punti, che vogliono il fondatore
 (ET.09, ET.10).
 
+## L'ORDINE ES, L'OROSCOPO COMPLETO, IL SIGILLO DEL SOGNO E LE VOCI APERTE DELL'ORDINE ET
+
+Ordine del 28 settembre 2026 in quattro pezzi, trentasette voci, lavoro dal
+28 settembre (la stima dichiarata al fondatore prima di cominciare: 9-12
+giorni in otto blocchi; la sua scelta *"Tutto, a blocchi"*). Al commit
+`80730cc3` del 30 settembre: **2 voci chiuse** (ES.26, il retro delle schede
+a 402 punti; ES.27, l'intro registrata sul Realme), **35 aperte in attesa di
+verifica**, **nessuna da fare**. Manifesto `docs/ordini/ORDINE_ES_MANIFESTO.md`,
+rapporto in stesura `docs/ordini/RAPPORTO_ORDINE_ES.md` (con le dodici scelte
+prese con la risposta consigliata, come ha chiesto il fondatore: *"Se hai
+domande, usa la risposta consigliata Senza disturbarmi"*), prove in
+`docs/collaudo/ES/`. **Nessuna build consegnata**: le build le ordina il
+fondatore; la build di prova per le catture sul Realme e la distribuzione
+delle funzioni del server nuove (`chiEOnline`, la notifica della ES.17) si
+fanno insieme, alla fine.
+
+**Che cosa c'e' adesso nell'app, per area.**
+
+- **L'Oroscopo**: Breve e Approfondita senza Media (ES.01); il settimanale e
+  il mensile col fatto del cielo di ogni giorno (ES.02, ES.03); **l'anno dal
+  compleanno con la Rivoluzione Solare** (ES.04): il Sole e i pianeti dalle
+  tavole di Chebyshev generate dal JPL DE421 (`lib/core/astro/le_effemeridi_del_jpl.dart`,
+  `tool/genera_effemeridi_del_jpl.py`; col Sole di Meeus l'istante del
+  ritorno sbagliava di 638 secondi, adesso di 10), quattro schede dal corpus
+  `docs/corpus/oroscopo_annuale.md` (252 frasi), 300 Eos per chi non ha
+  l'Adepto, l'avviso al ritorno del Sole, il PDF dell'Illuminato con
+  l'emblema dell'Anno in JPEG (`assets/pdf/`, 103 KB); gli emblemi dei
+  periodi (ES.05); in cima il segno della tradizione scelta (ES.07); **la
+  Cinese e la Vedica aperte** (ES.08, ES.09) con l'almanacco, la Chandra
+  Bala, la Tara Bala e il Rahu Kalam del luogo; le note delle sette
+  tradizioni (ES.10) e le quattro in arrivo con la clessidra (ES.11); la card
+  col nome (ES.13) e il numero centrato (ES.14); il livello dal cielo vero,
+  numero e colore con una regola, il metodo, l'invito ai dati di nascita,
+  **l'ora d'oro con la sua notifica e il Rahu Kalam all'alba** (ES.28-ES.32,
+  `lib/core/horoscope/le_chiamate_del_cielo.dart`), la ruota del passaggio e
+  la ragione per tornare domani (ES.33, ES.34); **la rivelazione del segno
+  cinese e vedico** la prima volta (ES.35); **i tre cieli di oggi** sotto le
+  schede (ES.36, `lib/core/horoscope/i_tre_cieli.dart`) e **il Sigillo dei
+  Tre Cieli** (ES.37, a parte dai 165 Traguardi del corpus, senza Eos).
+- **I piani** (ES.06): la mappa da 33 a 36 righe (profondita', anno, amici);
+  il settimanale non e' del Viandante; Cinese e Vedica con la lettura
+  dall'Iniziato.
+- **Gli amici offline** (ES.12, `lib/core/amici/amici_offline.dart`): nome e
+  nascita sul telefono, 0, 3, 10 e senza limite per piano, 100 Eos per un
+  posto in piu'; l'oroscopo dell'amico nelle tre tradizioni, al neutro, da
+  mandare con la card.
+- **La barra in alto** (ES.15): al centro "Online" con la lucina verde e il
+  numero di chi ha l'app davanti, dal server (`functions/src/presenza.ts`,
+  callable `chiEOnline`, la presenza in `users/{uid}/presenza/adesso` col suo
+  indice); i **Prossimi Eventi Cosmici** in cima al Passport. La privacy
+  policy lo dice, in app e sul sito, con la data del 29 settembre 2026.
+- **Il Sigillo del Sogno** (ES.16, ES.18): senza rune, controllato da cima a
+  fondo, la chiusura di Medora senza arcani mai estratti; impronte
+  dell'istruzione nuove, media dell'attribuzione alla cieca 94,4.
+- **Le notifiche** (ES.17): una sola per Dono, col nome giusto; e le due
+  del cielo (ES.32) coi loro interruttori nel menu Notifiche.
+- **Le chat e il LIVE dei Maestri** (ES.19-ES.23): le reti della prima frase
+  e delle certezze corrette sui 101 giudizi a mano del giro 6 del banco
+  (dirette scartate da 28 a 5 su 30); **"è possibile" passa solo con la sua
+  condizione**; la risposta detta nel LIVE senza l'invito a tornare in chat
+  (`ChatMessage.dettoNelLive`); la rete che non ridice la risposta di prima,
+  dentro la rete delle ripetizioni, tarata sulle 240 seconde di coppia
+  giudicate alla cieca; l'istruzione della trascrizione con la frase di senso
+  compiuto e il suo banco (`tool/banco_trascrizione_es22.dart`).
+- **Le rune** (ES.24): via le quattro guardie sulla prima frase, restano
+  quelle sulle pietre. **Il Viaggio** (ES.25): la prima frase vaga si chiede
+  di nuovo.
+
+**Che cosa manca, voce per voce**: le catture dal Realme di tutte le voci
+aperte, con la build di prova; tre sere di osservazione della ES.17; i banchi
+col modello vero e la lettura alla cieca delle voci ES.19, ES.21, ES.22,
+ES.23, ES.24, ES.25 (il 30 su 30 delle trenta domande, il 20 su 20 del
+Viaggio); le parole della trascrizione e la voce del LIVE sul Realme col
+microfono del PC. Il rapporto lo dice voce per voce.
+
+**Le guardie**: il registro `docs/guardie.md` e' a **606** (categorie 144,
+181 e 281). Regola A in `docs/collaudo/ES/regola_a_*.txt`, Regola B in
+`docs/collaudo/ES/regola_b_*.txt`: **la guardia della posizione della prima
+frase non copriva il "quando"**, e' stata riparata. **La suite intera ha preso
+sedici difetti miei** sulle voci ES.04, ES.12 ed ES.15 prima della spinta, e
+il rapporto li elenca col loro padre.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.

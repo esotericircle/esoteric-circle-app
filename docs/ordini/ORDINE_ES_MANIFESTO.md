@@ -452,7 +452,10 @@ MISURA: sulle 240 seconde di coppia giudicate alla cieca, ripetizioni prese dall
 
 ## VOCE ES.22, LA TRASCRIZIONE DEL LIVE: NESSUNA DOMANDA VUOTA E LE PAROLE GIUSTE (DALLA ET.04)
 
-**APERTA IN ATTESA DI VERIFICA**: preparata, non ancora misurata. Il banco della trascrizione
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata, non ancora misurata. L'istruzione di chi
+trascrive dice adesso di che cosa parla di solito la persona e quale lettura scegliere quando un suono
+se ne presta a due, con l'esempio del difetto visto (`LaTrascrizione.frasiDiSensoCompiuto`, un
+esempio solo: un elenco il modello lo ricopierebbe, come ha fatto con l'elenco dei nomi). Il banco della trascrizione
 (`tool/banco_trascrizione_es22.dart`) manda le venti domande del collaudo del LIVE, dette dalla voce
 italiana di Windows pulite e "da stanza" (`tool/le_domande_dette.py`), con l'istruzione di prima e con
 quella nuova, allo stesso modello del telefono. Mancano: la scelta dell'istruzione misurata al banco e
@@ -603,7 +606,7 @@ del fondatore sulle notifiche. Mancano le catture dal Realme e una notifica vist
 DOMANDA: riga della scheda: "L'ora d'oro di oggi. Dall'orario esatto degli aspetti della Luna ai punti natali si ricava un momento preciso della giornata"; domanda girata al fondatore: "Il Rahu Kalam [...] È il contrario della nostra ora d'oro", risposta: "COnfermo tutto."
 
 PROVA: docs/collaudo/ES/ore_d_oro.csv
-MISURA: scarto medio dal JPL DE440s su cinque ore d'oro 0,18 minuti; ore d'oro mostrate senza un aspetto vero, 0 su 6 giorni che non ne hanno
+MISURA: scarto medio dal JPL DE440s su cinque ore d'oro 0,18 minuti; ore d'oro mostrate senza un aspetto vero, 0 su 6 giorni che non ne hanno; notifiche dell'ora d'oro e del Rahu Kalam, prima 0 canali, dopo 2 (docs/collaudo/ES/regola_a_blocco_es19_es37.txt); su 77 giorni di controllo, avvisi dell'ora d'oro sbagliati o mancanti 0 (35 giorni con l'ora d'oro, 42 senza e nessun avviso); avvisi del Rahu Kalam a chi non ha mai letto la Vedica 0, dopo la prima lettura 7 su 7 giorni
 
 ## VOCE ES.33, IL CIELO CHE SI ACCENDE SULLA FRASE
 

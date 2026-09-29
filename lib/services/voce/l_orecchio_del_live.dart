@@ -532,7 +532,25 @@ abstract final class LaTrascrizione {
       'rune e chakra: può nominarli o nominare le loro arti. Questi nomi '
       'scrivili esattamente così quando li senti, anche se somigliano a una '
       'parola comune: ${nomiDelleArti.join(', ')}. Non aggiungerli se la '
-      'persona non li dice.';
+      'persona non li dice.\n'
+      '$frasiDiSensoCompiuto';
+
+  /// **LA FRASE DI SENSO COMPIUTO. Ordine ES voce 22.** Sul Realme, nel
+  /// collaudo dell'ordine ET, *"Ma mi ama ancora"* e' stato trascritto *"Ma
+  /// mia, ma ancora"* in tutte e due le sessioni, *"Devo"* e' diventato
+  /// *"vero"* e *"Troverò"* *"Trovo"*: chi trascrive sentiva i suoni giusti e
+  /// sceglieva le parole sbagliate. Il fondatore ha confermato che si
+  /// corregge. Qui gli si dice di che cosa parla la persona e quale lettura
+  /// scegliere quando un suono se ne presta a due; l'esempio e' il difetto
+  /// visto, e basta uno: un elenco di frasi il modello lo ricopierebbe, come
+  /// ha fatto con l'elenco dei nomi (ordine EK voce 03).
+  static const String frasiDiSensoCompiuto =
+      'Di solito la persona fa una domanda sulla sua vita: l\'amore, il '
+      'lavoro, i soldi, la famiglia, la salute. Scrivi la frase che ha detto '
+      'davvero, in italiano corretto: quando un suono si può leggere in due '
+      'modi, scegli la lettura che fa una frase di senso compiuto (per '
+      'esempio "mi ama ancora" e non "mia, ma ancora"; "troverò" e non '
+      '"trovo", se la frase parla del futuro).';
 
   /// Le parole di un testo, minuscole, senza segni: "L'Appeso" fa "l",
   /// "appeso".
