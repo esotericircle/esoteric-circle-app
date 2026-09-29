@@ -45,8 +45,16 @@ void main() {
     final famiglie = bundle['famiglie_conteggi'] as Map<String, dynamic>;
     cardinaleMinimo(famiglie.length, 4,
         cosa: 'famiglie di arte dichiarate nel manifesto');
-    famiglie.forEach((famiglia, atteso) {
+    // **LE PIENE OLTRE LE MINIATURE, ordine ES voce 07**: i segni cinesi e le
+    // due figure vediche stanno solo nella cartella piena dello zodiaco, e il
+    // manifesto li dichiara con la ragione. Nessun'altra famiglia ne ha.
+    final oltre =
+        (bundle['piene_oltre_le_miniature'] as Map<String, dynamic>?) ??
+            const <String, dynamic>{};
+    famiglie.forEach((famiglia, attesoComune) {
       for (final base in const ['assets/img', 'assets/img_thumb']) {
+        final atteso = (attesoComune as int) +
+            (base == 'assets/img' ? (oltre[famiglia] as int? ?? 0) : 0);
         final dir = Directory('$base/$famiglia');
         final reale = dir.existsSync()
             ? dir
@@ -55,7 +63,7 @@ void main() {
                 .where((f) => f.path.endsWith('.webp'))
                 .length
             : -1;
-        expect(reale, atteso as int,
+        expect(reale, atteso,
             reason:
                 '$base/$famiglia ha $reale file webp, il manifest ne dichiara $atteso. Se hai spostato o tolto un asset, aggiorna docs/stato_asset.json e le cartelle insieme.');
       }

@@ -16,6 +16,8 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../synastry/sinastria_share_card.dart' show captureBoundaryPng;
 import 'horoscope_visuals.dart';
 import 'oroscopo_colors.dart';
+import 'riquadro_del_numero.dart';
+import '../../core/arts/gli_sfondi_delle_schede.dart';
 import '../../core/condivisione/porta_della_condivisione.dart';
 import '../../design_system/components/card_a_misura_fissa.dart';
 
@@ -45,6 +47,14 @@ import '../../design_system/components/card_a_misura_fissa.dart';
 /// **La giuntura NON e' stata toccata.** "Il cielo di oggi lo dice cosi'" e' del
 /// corpus di Mauro e resta fuori dall'ordine, come le quarantotto ancore: qui si
 /// dispone il testo, non si riscrive.
+///
+/// **L'EMBLEMA DEL PERIODO E CHI E' NATO, ordine ES voci 05 e 13.** In testa
+/// l'emblema del periodo (il Giorno tiene quello dell'Oroscopo). Sotto, il
+/// nome o lo pseudonimo, **mai il cognome**, e i dati di nascita che l'app
+/// conosce; il segno e' quello della tradizione scelta, con la sua figura.
+/// In fondo il link per scaricare l'app. Il fondatore: *"Io nella card da
+/// condividere inserirei i dati di nascita e il nome o lo pseudonimo. Non
+/// serve il cognome"*.
 class OroscopoShareCard extends StatelessWidget {
   const OroscopoShareCard({
     super.key,
@@ -52,12 +62,63 @@ class OroscopoShareCard extends StatelessWidget {
     required this.cards,
     required this.palette,
     this.width = 360,
+    this.periodo = 'giorno',
+    this.etichettaDelPeriodo = 'del giorno',
+    this.nome,
+    this.nascita,
+    this.nomeDelSegno,
+    this.figuraDelSegno,
   });
 
   final Zodiac sign;
   final List<HoroscopeCard> cards;
   final MaestroPalette palette;
   final double width;
+
+  /// Il nome del periodo (`HoroscopePeriod.name`), per l'emblema.
+  final String periodo;
+
+  /// "del giorno", "della settimana": va dopo OROSCOPO.
+  final String etichettaDelPeriodo;
+
+  /// Il nome gia' senza cognome ([soloIlNome]); null se non c'e'.
+  final String? nome;
+
+  /// I dati di nascita gia' scritti ([laNascitaScritta]); null se mancano.
+  final String? nascita;
+
+  /// Il segno nella tradizione scelta; null vale l'occidentale.
+  final String? nomeDelSegno;
+
+  /// La figura del segno nella tradizione scelta; null vale l'occidentale.
+  final String? figuraDelSegno;
+
+  /// **IL COGNOME NON COMPARE MAI.** Del nome si tiene la prima parola: chi
+  /// ha dato "Mario Rossi" esce "Mario". Un nome doppio ("Anna Maria") esce
+  /// "Anna": si perde meta' del nome, ma non esce mai un cognome.
+  static String? soloIlNome(String? completo) {
+    final pulito = completo?.trim() ?? '';
+    if (pulito.isEmpty) return null;
+    return pulito.split(RegExp(r'\s+')).first;
+  }
+
+  static const List<String> _mesi = [
+    'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
+    'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre',
+  ];
+
+  /// I dati di nascita come si leggono sulla card: "15 marzo 1990, ore
+  /// 08:30, Roma". L'ora e il luogo solo se ci sono.
+  static String laNascitaScritta(DateTime data,
+      {int? ora, int? minuto, String? luogo}) {
+    final pezzi = <String>['${data.day} ${_mesi[data.month - 1]} ${data.year}'];
+    if (ora != null) {
+      pezzi.add('ore ${ora.toString().padLeft(2, '0')}:'
+          '${(minuto ?? 0).toString().padLeft(2, '0')}');
+    }
+    if (luogo != null && luogo.trim().isNotEmpty) pezzi.add(luogo.trim());
+    return pezzi.join(', ');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,10 +171,40 @@ class OroscopoShareCard extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text('OROSCOPO',
+            // L'EMBLEMA DEL PERIODO, ordine ES voce 05.
+            ClipRRect(
+              borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+              child: AspectRatio(
+                aspectRatio: 16 / 9,
+                child: Image.asset(
+                  GliSfondiDelleSchede.emblemaDelPeriodo(
+                      periodo, FormatoDellaScheda.orizzontale),
+                  key: Key('share_emblema_$periodo'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            const SizedBox(height: SpacingTokens.sm),
+            Text('OROSCOPO ${etichettaDelPeriodo.toUpperCase()}',
                 textAlign: TextAlign.center,
                 style: TypographyTokens.etichetta()
-                    .copyWith(color: palette.goldSoft, letterSpacing: 4.0)),
+                    .copyWith(color: palette.goldSoft, letterSpacing: 3.0)),
+            // CHI E' NATO, ordine ES voce 13: il nome senza cognome e i
+            // dati di nascita.
+            if (nome != null) ...[
+              const SizedBox(height: SpacingTokens.xs),
+              Text(nome!,
+                  key: const Key('share_nome'),
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.cerimoniale()
+                      .copyWith(color: ColorTokens.textPrimary)),
+            ],
+            if (nascita != null)
+              Text(nascita!,
+                  key: const Key('share_nascita'),
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: ColorTokens.textSecondary)),
             const SizedBox(height: SpacingTokens.sm),
             Center(
               child: Column(
@@ -129,10 +220,16 @@ class OroscopoShareCard extends StatelessWidget {
                         Colors.transparent,
                       ]),
                     ),
-                    child: ZodiacEmblem(
-                        sign: sign, size: 92, art: ZodiacEmblemArt.emblem),
+                    child: figuraDelSegno == null
+                        ? ZodiacEmblem(
+                            sign: sign, size: 92, art: ZodiacEmblemArt.emblem)
+                        : Image.asset(figuraDelSegno!,
+                            key: const Key('share_figura_del_segno'),
+                            width: 92,
+                            height: 92,
+                            fit: BoxFit.contain),
                   ),
-                  Text(sign.italianName,
+                  Text(nomeDelSegno ?? sign.italianName,
                       style: TypographyTokens.cerimoniale()
                           .copyWith(color: palette.goldSoft)),
                 ],
@@ -211,15 +308,12 @@ class OroscopoShareCard extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
+                  // IL NUMERO AL CENTRO DEL SUO RIQUADRO, ordine ES voce
+                  // 13, come nella schermata dalla voce ES.14: la bolla di
+                  // prima teneva la cifra in alto quando la riga la stirava.
                   Expanded(
-                    child: _InfoBubble(
-                      label: 'Numero',
-                      palette: palette,
-                      child: Text('${fortuna.luckyNumber}',
-                          textAlign: TextAlign.center,
-                          style: TypographyTokens.titoloSezione()
-                              .copyWith(color: palette.goldSoft)),
-                    ),
+                    child: RiquadroDelNumero(
+                        numero: fortuna.luckyNumber ?? 0, palette: palette),
                   ),
                   const SizedBox(width: SpacingTokens.sm),
                   Expanded(
@@ -262,7 +356,9 @@ class OroscopoShareCard extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TypographyTokens.etichetta()
                     .copyWith(color: palette.goldSoft, letterSpacing: 2.4)),
-            Text(Brand.domain,
+            // IL LINK PER SCARICARE L'APP, ordine ES voce 13.
+            Text('Scarica l\'app: ${Brand.domain}',
+                key: const Key('share_scarica'),
                 textAlign: TextAlign.center,
                 style: TypographyTokens.etichetta().copyWith(
                     color: ColorTokens.textSecondary, letterSpacing: 0.6)),

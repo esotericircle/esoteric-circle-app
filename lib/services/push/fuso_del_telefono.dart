@@ -33,7 +33,7 @@
 library;
 
 import 'package:flutter/foundation.dart';
-import 'package:timezone/data/latest_10y.dart' as tzdata;
+import 'package:timezone/data/latest.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
 /// Il ripiego quando nessuna zona corrisponde: e' un nome IANA valido, passa

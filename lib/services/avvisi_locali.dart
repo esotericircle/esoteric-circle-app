@@ -2,7 +2,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import '../core/permissions/app_permission.dart';
 import '../core/permissions/esito_del_permesso.dart';
-import 'package:timezone/data/latest_10y.dart' as tzdata;
+import 'package:timezone/data/latest.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
 import '../core/rituals/avvisi_del_rito.dart';
@@ -24,10 +24,13 @@ import '../core/misura/registro_del_ritorno.dart';
 /// senza esserlo ci farebbe rifiutare la pubblicazione.
 ///
 /// **Il fuso orario, e perché la versione corta.** `zonedSchedule` vuole un
-/// istante con fuso, quindi serve il database dei fusi. Si usa `latest_10y`,
-/// che copre dieci anni, invece di `latest`, che li copre tutti: il primo pesa
-/// 290 KB di sorgente contro 1,1 MB, e per un avviso quotidiano dieci anni
-/// bastano. Chi lo cambia deve sapere che sta aggiungendo ottocento KB.
+/// istante con fuso, quindi serve il database dei fusi. Si usava `latest_10y`,
+/// che copre dieci anni, invece di `latest`, che li copre tutti: 290 KB di
+/// sorgente contro 1,1 MB (circa 250 KB di dati nell'app). **Dall'ordine ES
+/// voce 07 si usa `latest`**: i segni della Vedica, dell'Egizia e dell'Araba
+/// vogliono l'ora di nascita col fuso di allora (`IlFusoDellaNascita`), e il
+/// database e' uno per tutta l'app, quindi due versioni si sarebbero
+/// sovrascritte a vicenda.
 class AvvisiLocali extends ServizioAvvisi {
   AvvisiLocali({FlutterLocalNotificationsPlugin? plugin})
       : _plugin = plugin ?? FlutterLocalNotificationsPlugin();

@@ -1,0 +1,274 @@
+import 'package:flutter/material.dart';
+
+import '../../core/arts/gli_sfondi_delle_schede.dart';
+import '../../core/horoscope/astro_tradition.dart';
+import '../../core/horoscope/i_segni_delle_tradizioni.dart';
+import '../../core/horoscope/le_note_delle_tradizioni.dart';
+import '../../design_system/components/zodiac_glyph.dart';
+import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/tokens/color_tokens.dart';
+import '../../design_system/tokens/spacing_tokens.dart';
+import '../../design_system/tokens/typography_tokens.dart';
+
+/// **IN CIMA IL SEGNO DELLA TRADIZIONE SCELTA, ordine ES voci 07, 10 e 11.**
+///
+/// Scegliendo una tradizione, in testa alla schermata dell'Oroscopo compare
+/// il segno della persona in quella tradizione al posto dell'occidentale:
+/// - Cinese: la figura dell'animale, in bronzo come i dodici occidentali;
+/// - Vedica: la figura occidentale del rashi, o quella propria per Mithuna e
+///   Makara, col nome sanscrito e l'italiano accanto;
+/// - Maya, Celtica, Egizia e Araba: l'emblema della tradizione e il segno
+///   calcolato davvero, con la scritta "In arrivo" e nessuna lettura.
+///
+/// Accanto al nome c'e' il punto interrogativo che apre la nota della
+/// tradizione ([LeNoteDelleTradizioni]).
+class LaTestaDellaTradizione extends StatelessWidget {
+  const LaTestaDellaTradizione({
+    super.key,
+    required this.tradizione,
+    required this.segno,
+    required this.palette,
+  });
+
+  final AstroTradition tradizione;
+
+  /// Null quando l'app non conosce la data di nascita.
+  final SegnoDellaTradizione? segno;
+  final MaestroPalette palette;
+
+  /// La figura in testa: l'animale, il rashi o l'emblema della tradizione.
+  static String? figura(AstroTradition t, SegnoDellaTradizione? s) {
+    // Un segno incerto non ha una figura sola: si mostra l'emblema.
+    if (s == null || (!s.certo && t != AstroTradition.occidentale)) {
+      return GliSfondiDelleSchede.emblemaDellaTradizione(
+          t.name, FormatoDellaScheda.quadrata);
+    }
+    switch (t) {
+      case AstroTradition.occidentale:
+        return s.zodiaco == null ? null : ZodiacArt.emblemPath(s.zodiaco!);
+      case AstroTradition.cinese:
+        final i = s.animale;
+        if (i == null) {
+          return GliSfondiDelleSchede.emblemaDellaTradizione(
+              t.name, FormatoDellaScheda.quadrata);
+        }
+        final nome = ISegniDelleTradizioni.animali[i].$1.toLowerCase();
+        return 'assets/img/zodiac/zod_cinese_$nome.webp';
+      case AstroTradition.vedica:
+        if (s.zodiaco != null) return ZodiacArt.emblemPath(s.zodiaco!);
+        final propria = s.nome.startsWith('Mithuna') ? 'mithuna' : 'makara';
+        return 'assets/img/zodiac/zod_vedica_$propria.webp';
+      case AstroTradition.maya:
+      case AstroTradition.celtica:
+      case AstroTradition.egizia:
+      case AstroTradition.araba:
+        return GliSfondiDelleSchede.emblemaDellaTradizione(
+            t.name, FormatoDellaScheda.quadrata);
+    }
+  }
+
+  /// Se la figura e' un emblema quadrato su fondo, e non una figura
+  /// scontornata: si disegna con gli angoli arrotondati e piu' piccola.
+  static bool eUnEmblema(AstroTradition t, SegnoDellaTradizione? s) =>
+      s == null ||
+      !s.certo ||
+      (t == AstroTradition.cinese && s.animale == null) ||
+      t == AstroTradition.maya ||
+      t == AstroTradition.celtica ||
+      t == AstroTradition.egizia ||
+      t == AstroTradition.araba;
+
+  @override
+  Widget build(BuildContext context) {
+    final s = segno;
+    final percorso = figura(tradizione, s);
+    final emblema = eUnEmblema(tradizione, s);
+    final nome = s?.nome ?? 'Serve la data di nascita';
+    return Column(
+      key: Key('oroscopo_testa_${tradizione.name}'),
+      children: [
+        NomeConLaNota(
+          nome: nome,
+          tradizione: tradizione,
+          palette: palette,
+          chiave: const Key('oroscopo_sign_name'),
+        ),
+        const SizedBox(height: SpacingTokens.xs),
+        SizedBox(
+          height: 268,
+          child: Center(
+            child: percorso == null
+                ? const SizedBox.shrink()
+                : emblema
+                    ? ClipRRect(
+                        borderRadius:
+                            BorderRadius.circular(SpacingTokens.radiusLg),
+                        child: Image.asset(percorso,
+                            key: Key('oroscopo_figura_${tradizione.name}'),
+                            width: 220,
+                            height: 220,
+                            fit: BoxFit.cover),
+                      )
+                    : Image.asset(percorso,
+                        key: Key('oroscopo_figura_${tradizione.name}'),
+                        height: 264,
+                        fit: BoxFit.contain),
+          ),
+        ),
+        if (s != null)
+          Text(s.frase,
+              key: Key('oroscopo_frase_${tradizione.name}'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: palette.goldSoft, height: 1.35)),
+        if (s?.nota != null) ...[
+          const SizedBox(height: SpacingTokens.xs),
+          Text(s!.nota!,
+              key: Key('oroscopo_nota_segno_${tradizione.name}'),
+              textAlign: TextAlign.center,
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: ColorTokens.textSecondary, height: 1.35)),
+        ],
+        if (!tradizione.unlocked) ...[
+          const SizedBox(height: SpacingTokens.sm),
+          Container(
+            key: Key('oroscopo_in_arrivo_${tradizione.name}'),
+            padding: const EdgeInsets.symmetric(
+                horizontal: SpacingTokens.md, vertical: 6),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+              color: palette.surfaceElevated.withValues(alpha: 0.6),
+              border: Border.all(color: palette.gold.withValues(alpha: 0.4)),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(Icons.hourglass_bottom_rounded,
+                    size: 14, color: palette.goldSoft),
+                const SizedBox(width: 6),
+                Text('In arrivo',
+                    style: TypographyTokens.etichetta()
+                        .copyWith(color: palette.goldSoft, letterSpacing: 0.6)),
+              ],
+            ),
+          ),
+        ],
+      ],
+    );
+  }
+}
+
+/// Il nome del segno, grande, col punto interrogativo della nota accanto.
+class NomeConLaNota extends StatelessWidget {
+  const NomeConLaNota({
+    super.key,
+    required this.nome,
+    required this.tradizione,
+    required this.palette,
+    this.chiave,
+  });
+
+  final String nome;
+  final AstroTradition tradizione;
+  final MaestroPalette palette;
+  final Key? chiave;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        // Lo spazio del punto interrogativo anche a sinistra: il nome resta
+        // al centro della schermata.
+        const SizedBox(width: 44),
+        // Un nome lungo ("Ptibiou, terzo decano dei Pesci") nel carattere
+        // piu' grande andrebbe su tre righe: sopra i diciotto caratteri si
+        // scrive nel cerimoniale normale.
+        Flexible(
+          child: Text(nome,
+              key: chiave,
+              textAlign: TextAlign.center,
+              style: (nome.length > 18
+                      ? TypographyTokens.cerimoniale()
+                      : TypographyTokens.cerimonialeGrande())
+                  .copyWith(color: palette.goldSoft)),
+        ),
+        SizedBox(
+          width: 44,
+          height: 44,
+          child: IconButton(
+            key: Key('oroscopo_nota_${tradizione.name}'),
+            tooltip: 'Che cos\'è la tradizione ${tradizione.label}',
+            padding: EdgeInsets.zero,
+            icon: Icon(Icons.help_outline_rounded,
+                size: 20, color: palette.goldSoft.withValues(alpha: 0.85)),
+            onPressed: () => apriLaNota(context, tradizione, palette),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// Apre la nota della [tradizione] in un foglio dal basso.
+Future<void> apriLaNota(
+    BuildContext context, AstroTradition tradizione, MaestroPalette palette) {
+  final nota = LeNoteDelleTradizioni.di(tradizione);
+  Widget parte(String titolo, String testo) => Padding(
+        padding: const EdgeInsets.only(bottom: SpacingTokens.md),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(titolo.toUpperCase(),
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: palette.goldSoft, letterSpacing: 1.2)),
+            const SizedBox(height: 4),
+            Text(testo,
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textPrimary, height: 1.45)),
+          ],
+        ),
+      );
+  return showModalBottomSheet<void>(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: palette.deepest,
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(SpacingTokens.radiusLg))),
+    builder: (context) => SafeArea(
+      child: ConstrainedBox(
+        constraints:
+            BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.8),
+        child: SingleChildScrollView(
+          key: Key('oroscopo_foglio_nota_${tradizione.name}'),
+          padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.lg,
+              SpacingTokens.lg, SpacingTokens.md),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('La tradizione ${tradizione.label}',
+                  style: TypographyTokens.cerimoniale()
+                      .copyWith(color: palette.goldSoft)),
+              const SizedBox(height: SpacingTokens.md),
+              parte('Che cos\'è', nota.cheCose),
+              parte('Un po\' di storia', nota.storia),
+              parte('Come si calcola il tuo segno', nota.calcolo),
+              Text('FONTI',
+                  style: TypographyTokens.etichetta()
+                      .copyWith(color: palette.goldSoft, letterSpacing: 1.2)),
+              const SizedBox(height: 4),
+              for (final f in nota.fonti)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 4),
+                  child: Text(f,
+                      style: TypographyTokens.didascalia().copyWith(
+                          color: ColorTokens.textSecondary, height: 1.4)),
+                ),
+            ],
+          ),
+        ),
+      ),
+    ),
+  );
+}

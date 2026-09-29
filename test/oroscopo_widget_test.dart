@@ -527,12 +527,17 @@ void main() {
       await tester.pumpAndSettle();
 
       // I due titoli ci sono.
-      expect(find.text('NUMERO'), findsOneWidget);
+      //
+      // LAPIDE, ordine ES voce 13: qui si pretendeva un solo testo "NUMERO".
+      // Dalla voce ES.13 il numero sta nel RiquadroDelNumero della voce
+      // ES.14, che porta in fondo una copia invisibile dell'etichetta come
+      // contrappeso, cosi' la cifra sta al centro: i testi "NUMERO" sono due,
+      // e quello visibile e' il primo.
+      expect(find.text('NUMERO'), findsNWidgets(2));
       expect(find.text('COLORE'), findsOneWidget);
       // Le due bolle hanno la stessa misura.
-      final numero = tester.getSize(find
-          .ancestor(of: find.text('NUMERO'), matching: find.byType(Container))
-          .first);
+      final numero =
+          tester.getSize(find.byKey(const Key('riquadro_del_numero')));
       final colore = tester.getSize(find
           .ancestor(of: find.text('COLORE'), matching: find.byType(Container))
           .first);

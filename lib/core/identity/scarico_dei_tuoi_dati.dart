@@ -69,6 +69,9 @@ class ScaricoDeiTuoiDati {
     'arcano_alba.':
         'Il tuo Arcano dell\'Alba, con le carte uscite e le letture ricevute',
     'avvisi.': 'Gli avvisi che ti sono stati proposti',
+    // Ordine ES voce 17: il giorno in cui l'avviso di ogni Dono e' stato
+    // programmato e mostrato.
+    'avviso_dono_': 'Quando ti sono arrivati gli avvisi dei Doni',
     'carta.natale': 'La tua carta natale conservata',
     'carta_natale_': 'La tua carta natale, nella forma vecchia',
     'cielo_posizione': 'Il permesso di posizione per il cielo',

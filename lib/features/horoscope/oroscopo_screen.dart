@@ -36,6 +36,10 @@ import '../../design_system/typography/paragrafi_di_lettura.dart';
 import 'answer_depth.dart';
 import '../pricing/upgrade_invite.dart';
 import 'horoscope_visuals.dart';
+import 'la_testa_della_tradizione.dart';
+import '../../core/horoscope/il_metodo_del_responso.dart';
+import '../../core/astro/aspetti_di_oggi.dart';
+import '../../core/horoscope/i_segni_delle_tradizioni.dart';
 import 'oroscopo_colors.dart';
 import 'oroscopo_share_card.dart';
 import 'riquadro_del_numero.dart';
@@ -289,6 +293,12 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   AstroTradition _tradition = AstroTradition.predefinita;
   AstroTradition? _traditionMessage;
 
+  /// **LA TRADIZIONE IN CIMA, ordine ES voci 07 e 11.** Quella che la
+  /// persona ha toccato per ultima: in testa alla schermata compare il suo
+  /// segno in quella tradizione. Le tradizioni in arrivo si mostrano in cima
+  /// col loro segno e la scritta "In arrivo", senza lettura.
+  AstroTradition _inCima = AstroTradition.predefinita;
+
   // Rivelazione una volta sola: la prima volta il messaggio entra in
   // dissolvenza, dalla seconda in poi compare gia' posato.
   final Set<AstroTradition> _traditionRevealed = <AstroTradition>{};
@@ -382,6 +392,8 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         adesso: _date,
         carta: context.watch<BirthIdentityController>().cartaCompleta);
     final notaDelCielo = CorrenteDelCielo.notaDelLivello(cielo);
+    // I dati di nascita per il segno delle altre tradizioni (ordine ES).
+    final nascita = context.watch<BirthIdentityController>().details;
     final cards = Horoscope.forSign(
         sign: widget.userSign,
         dayOfYear: _dayOfYear,
@@ -431,41 +443,53 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                     // Nessun vuoto sopra l'eroe: il segno parte in alto.
                     padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, 0,
                         SpacingTokens.lg, SpacingTokens.lg),
-                    hero: Column(
-                      children: [
-                        // IL NOME DEL SEGNO, GRANDE, SOPRA L'EMBLEMA: e' la prima
-                        // cosa che la persona cerca, e stava sotto la figura.
-                        Text(widget.userSign.italianName,
-                            key: const Key('oroscopo_sign_name'),
-                            style: TypographyTokens.cerimonialeGrande()
-                                .copyWith(color: palette.goldSoft)),
-                        const SizedBox(height: SpacingTokens.xs),
-                        _Hero(
-                          sign: widget.userSign,
-                          palette: palette,
-                          pulse: _pulse,
-                          // L'EMBLEMA PULSA MENTRE IL CIELO SI INTERROGA: e' il
-                          // segno che qualcosa sta accadendo, e dura quanto la
-                          // pausa dichiarata.
-                          interrogazione: _riflettendo,
-                          // I CORPI VERI ATTORNO ALL'EMBLEMA, e restano per
-                          // TUTTA la riflessione (ordine BZ voce 06).
-                          //
-                          // **Prima stavano nel solo primo momento**, e al
-                          // secondo la corona spariva: restavano una riga di testo
-                          // e due pallini, cioe' la scena si svuotava a meta'
-                          // proprio mentre nominava il fatto del giorno. E' la
-                          // stessa forma di difetto della voce BZ.07, dove fra
-                          // l'ultima carta e la riflessione restava Medora da
-                          // sola. I corpi si compongono nel primo momento e
-                          // restano composti nel secondo.
-                          corona: _riflettendo,
-                          adesso: _date,
-                          durataDelMomento: RiflessioneDelCielo.momento(
-                              piena: _pienaQuestoConsulto),
-                        ),
-                      ],
-                    ),
+                    hero: _inCima != AstroTradition.occidentale
+                        ? LaTestaDellaTradizione(
+                            tradizione: _inCima,
+                            segno: nascita == null
+                                ? null
+                                : ISegniDelleTradizioni.per(_inCima,
+                                    NascitaDeiSegni.daiDettagli(nascita)),
+                            palette: palette,
+                          )
+                        : Column(
+                            children: [
+                              // IL NOME DEL SEGNO, GRANDE, SOPRA L'EMBLEMA: e' la prima
+                              // cosa che la persona cerca, e stava sotto la figura.
+                              // Accanto, dall'ordine ES voce 10, il punto
+                              // interrogativo che apre la nota della tradizione.
+                              NomeConLaNota(
+                                  nome: widget.userSign.italianName,
+                                  tradizione: AstroTradition.occidentale,
+                                  palette: palette,
+                                  chiave: const Key('oroscopo_sign_name')),
+                              const SizedBox(height: SpacingTokens.xs),
+                              _Hero(
+                                sign: widget.userSign,
+                                palette: palette,
+                                pulse: _pulse,
+                                // L'EMBLEMA PULSA MENTRE IL CIELO SI INTERROGA: e' il
+                                // segno che qualcosa sta accadendo, e dura quanto la
+                                // pausa dichiarata.
+                                interrogazione: _riflettendo,
+                                // I CORPI VERI ATTORNO ALL'EMBLEMA, e restano per
+                                // TUTTA la riflessione (ordine BZ voce 06).
+                                //
+                                // **Prima stavano nel solo primo momento**, e al
+                                // secondo la corona spariva: restavano una riga di testo
+                                // e due pallini, cioe' la scena si svuotava a meta'
+                                // proprio mentre nominava il fatto del giorno. E' la
+                                // stessa forma di difetto della voce BZ.07, dove fra
+                                // l'ultima carta e la riflessione restava Medora da
+                                // sola. I corpi si compongono nel primo momento e
+                                // restano composti nel secondo.
+                                corona: _riflettendo,
+                                adesso: _date,
+                                durataDelMomento: RiflessioneDelCielo.momento(
+                                    piena: _pienaQuestoConsulto),
+                              ),
+                            ],
+                          ),
                     items: [
                       _Heading(periodo: _period, date: _date, palette: palette),
                       const SizedBox(height: SpacingTokens.md),
@@ -493,15 +517,35 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       const SizedBox(height: SpacingTokens.md),
                       // IL GESTO CHE APRE IL CONSULTO. Prima del tocco l'oroscopo
                       // non si vede: il cielo si interroga.
-                      if (_fase == _FaseDelConsulto.attesa)
+                      // **UNA TRADIZIONE IN ARRIVO IN CIMA NON HA LETTURA**,
+                      // ordine ES voce 11: sotto il suo segno non si apre il
+                      // consulto occidentale, che si leggerebbe come suo. Si
+                      // dice, e si offre il gesto per tornare.
+                      if (!_inCima.unlocked)
+                        _LaLetturaEInArrivo(
+                          tradizione: _inCima,
+                          palette: palette,
+                          onTorna: () => _selectTradition(_tradition),
+                        ),
+                      if (_inCima.unlocked && _fase == _FaseDelConsulto.attesa)
                         _InterrogaIlCielo(
                           palette: palette,
                           onTap: _interrogaIlCielo,
                         ),
+                      // L'INVITO A COMPLETARE I DATI DI NASCITA, ordine ES
+                      // voce 31. **Sotto il gesto, non sopra**: sopra spingeva
+                      // "Interroga il cielo" sotto la piega dello schermo, e il
+                      // gesto principale della schermata va visto senza
+                      // scorrere. Dopo il consulto resta qui, sopra le schede.
+                      if (_inCima.unlocked &&
+                          CorrenteDelCielo.rigaDellInvito(cielo) != null)
+                        _InvitoAllaNascita(
+                            testo: CorrenteDelCielo.rigaDellInvito(cielo)!,
+                            palette: palette),
                       // I DUE MOMENTI DELLA RIFLESSIONE, ordine BK voce 03. Stanno
                       // dove staranno le schede, cosi' lo sguardo non si sposta
                       // quando il responso arriva.
-                      if (_riflettendo)
+                      if (_inCima.unlocked && _riflettendo)
                         RigaDellaRiflessione(
                           momento: _fase == _FaseDelConsulto.raccolta
                               ? MomentoDellaRiflessione.raccolta
@@ -517,7 +561,8 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       // turno, la scheda non e' in albero affatto: i caratteri del
                       // responso presenti durante la riflessione sono ZERO, e non
                       // per un'opacita' che li nasconde.
-                      if (_fase == _FaseDelConsulto.responso)
+                      if (_inCima.unlocked &&
+                          _fase == _FaseDelConsulto.responso)
                         for (var i = 0; i < cards.length; i++)
                           if (i <= _turnoDiScrittura) ...[
                             _HoroscopeCardView(
@@ -543,6 +588,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                                   _scegliProfondita(cards[i].domain, depth),
                               onDepthLocked: (depth) =>
                                   _showDepthLocked(cards[i].domain, depth),
+                              livello: cielo.livello,
                               premiumUnlocked: PlanCatalog.haProfondita(
                                   context.watch<EntitlementService>().tier),
                             ),
@@ -554,7 +600,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       // vera si legge come vera: qui si dice a parole che senza
                       // ora e luogo di nascita quella lettura parla al segno, non
                       // al cielo di questa persona, e si dice come rimediare.
-                      if (notaDelCielo != null) ...[
+                      if (_inCima.unlocked && notaDelCielo != null) ...[
                         _NotaDelCielo(
                             testo: notaDelCielo,
                             palette: palette,
@@ -567,7 +613,8 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       // che nessuno aveva ancora chiesto, e la card che ne usciva
                       // portava testi mai comparsi a video: e' lo stesso difetto
                       // che il gesto Interroga il cielo esiste per togliere.
-                      if (_fase == _FaseDelConsulto.responso)
+                      if (_inCima.unlocked &&
+                          _fase == _FaseDelConsulto.responso)
                         _ShareBlock(
                           palette: palette,
                           sharing: _sharing,
@@ -597,9 +644,27 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       child: RepaintBoundary(
                         key: _cardKey,
                         child: OroscopoShareCard(
-                            sign: widget.userSign,
-                            cards: cards,
-                            palette: palette),
+                          sign: widget.userSign,
+                          cards: cards,
+                          palette: palette,
+                          // Ordine ES voci 05 e 13: l'emblema del periodo,
+                          // il nome senza cognome e i dati di nascita.
+                          periodo: _period.name,
+                          etichettaDelPeriodo: _period.label == 'Giorno'
+                              ? 'del giorno'
+                              : 'della ${_period.label.toLowerCase()}',
+                          nome: OroscopoShareCard.soloIlNome(
+                              profile.profile.displayName),
+                          nascita: profile.identity.isExample
+                              ? null
+                              : OroscopoShareCard.laNascitaScritta(
+                                  profile.identity.birthDate,
+                                  ora: profile.identity.hasBirthTime
+                                      ? profile.identity.birthMoment.hour
+                                      : null,
+                                  minuto: profile.identity.birthMoment.minute,
+                                  luogo: profile.identity.birthPlace?.city),
+                        ),
                       ),
                     ),
                 ],
@@ -678,10 +743,14 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       setState(() {
         _tradition = tradition;
         _traditionMessage = null;
+        _inCima = tradition;
       });
       return;
     }
-    setState(() => _traditionMessage = tradition);
+    setState(() {
+      _traditionMessage = tradition;
+      _inCima = tradition;
+    });
     // Segna la rivelazione dopo il frame in cui l'animazione e' partita.
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) _traditionRevealed.add(tradition);
@@ -919,6 +988,102 @@ class _ResponsoCheSiScriveState extends State<_ResponsoCheSiScrive> {
               ),
             ],
         ],
+      ),
+    );
+  }
+}
+
+/// **LA LETTURA DI QUESTA TRADIZIONE E' IN ARRIVO, ordine ES voce 11.**
+///
+/// Sotto il segno di una tradizione non ancora aperta: una riga che dice
+/// che la lettura non c'e' ancora, e il gesto per tornare all'oroscopo che
+/// c'e'.
+class _LaLetturaEInArrivo extends StatelessWidget {
+  const _LaLetturaEInArrivo({
+    required this.tradizione,
+    required this.palette,
+    required this.onTorna,
+  });
+
+  final AstroTradition tradizione;
+  final MaestroPalette palette;
+  final VoidCallback onTorna;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      key: Key('oroscopo_lettura_in_arrivo_${tradizione.name}'),
+      padding: const EdgeInsets.only(top: SpacingTokens.md),
+      child: Column(
+        children: [
+          Text(
+            'La lettura della tradizione ${tradizione.label} è in arrivo: '
+            'qui vedi già il tuo segno.',
+            textAlign: TextAlign.center,
+            style: TypographyTokens.didascalia()
+                .copyWith(color: ColorTokens.textSecondary, height: 1.4),
+          ),
+          const SizedBox(height: SpacingTokens.sm),
+          OutlinedButton(
+            key: const Key('oroscopo_torna_al_tuo_oroscopo'),
+            style: OutlinedButton.styleFrom(
+              minimumSize: const Size(0, 44),
+              side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+            ),
+            onPressed: onTorna,
+            child: Text('Torna al tuo oroscopo di oggi',
+                style: TypographyTokens.etichetta()
+                    .copyWith(color: palette.goldSoft)),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// **L'INVITO A COMPLETARE ORA E LUOGO DI NASCITA, ordine ES voce 31.**
+///
+/// Una riga sola, discreta, che porta alla schermata dei dati di nascita.
+/// Quando i dati ci sono non c'e'.
+class _InvitoAllaNascita extends StatelessWidget {
+  const _InvitoAllaNascita({required this.testo, required this.palette});
+
+  final String testo;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: SpacingTokens.sm),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          key: const Key('oroscopo_invito_nascita'),
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+          onTap: () => Navigator.of(context).push(DatiDiNascitaScreen.route()),
+          child: Container(
+            constraints: const BoxConstraints(minHeight: 44),
+            padding: const EdgeInsets.symmetric(
+                horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
+              border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
+            ),
+            child: Row(
+              children: [
+                Icon(Icons.schedule_rounded, size: 18, color: palette.goldSoft),
+                const SizedBox(width: SpacingTokens.sm),
+                Expanded(
+                  child: Text(testo,
+                      style: TypographyTokens.didascalia().copyWith(
+                          color: ColorTokens.textPrimary, height: 1.35)),
+                ),
+                Icon(Icons.chevron_right_rounded,
+                    size: 20, color: palette.goldSoft),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -1244,10 +1409,15 @@ class _TraditionChip extends StatelessWidget {
                     letterSpacing: 0.5,
                   ),
                 ),
+                // **LA CLESSIDRA, NON IL LUCCHETTO, ordine ES voce 11.** Il
+                // lucchetto nell'app e' il segno del Premium: una tradizione
+                // che non e' ancora pronta porta la clessidra, come le arti
+                // in arrivo.
                 if (locked) ...[
                   const SizedBox(width: 3),
-                  Icon(Icons.lock_rounded,
-                      key: Key('oroscopo_tradition_lock_${tradition.name}'),
+                  Icon(Icons.hourglass_bottom_rounded,
+                      key:
+                          Key('oroscopo_tradition_clessidra_${tradition.name}'),
                       size: 10,
                       color: palette.goldSoft.withValues(alpha: 0.65)),
                 ],
@@ -1414,7 +1584,12 @@ class _HoroscopeCardView extends StatelessWidget {
     required this.premiumUnlocked,
     required this.giaScritto,
     required this.onScritto,
+    required this.livello,
   });
+
+  /// A quale livello di dati di nascita e' fatto il responso: decide la nota
+  /// del metodo (ordine ES voce 30).
+  final LivelloPersonalizzazione livello;
 
   /// Se questo testo e' gia' stato scritto una volta: la macchina da
   /// scrivere non riparte, il testo nasce intero e fermo. E' un gancio e non
@@ -1525,11 +1700,52 @@ class _HoroscopeCardView extends StatelessWidget {
           ),
           const SizedBox(height: SpacingTokens.sm),
           // Poi l'infografica a cinque icone col numero, sotto il titolo.
-          DomainLevel(
-            domain: card.domain,
-            value: card.indicator,
-            palette: palette,
-            pulse: pulse,
+          // Accanto, dall'ordine ES voce 30, il punto interrogativo del
+          // metodo: discreto, per chi lo cerca.
+          Row(
+            children: [
+              Expanded(
+                child: DomainLevel(
+                  domain: card.domain,
+                  value: card.indicator,
+                  palette: palette,
+                  pulse: pulse,
+                ),
+              ),
+              SizedBox(
+                width: 40,
+                height: 40,
+                child: IconButton(
+                  key: Key('oroscopo_metodo_${card.domain.name}'),
+                  tooltip: 'Come nasce questa lettura',
+                  padding: EdgeInsets.zero,
+                  icon: Icon(Icons.help_outline_rounded,
+                      size: 18, color: palette.goldSoft.withValues(alpha: 0.7)),
+                  onPressed: () => showDialog<void>(
+                    context: context,
+                    builder: (ctx) => AlertDialog(
+                      key: Key('oroscopo_nota_metodo_${card.domain.name}'),
+                      backgroundColor: palette.deepest,
+                      title: Text('Come nasce questa lettura',
+                          style: TypographyTokens.cerimoniale()
+                              .copyWith(color: palette.goldSoft)),
+                      content: Text(
+                          IlMetodoDelResponso.delGiorno(card.domain, livello),
+                          style: TypographyTokens.corpo().copyWith(
+                              color: ColorTokens.textPrimary, height: 1.45)),
+                      actions: [
+                        TextButton(
+                          onPressed: () => Navigator.of(ctx).pop(),
+                          child: Text('Chiudi',
+                              style: TypographyTokens.etichetta()
+                                  .copyWith(color: palette.goldSoft)),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: SpacingTokens.md),
           // L'apertura personalizzata col nome, prima del testo della Generale.

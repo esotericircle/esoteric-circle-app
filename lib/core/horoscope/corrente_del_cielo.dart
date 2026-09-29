@@ -661,6 +661,24 @@ class CorrenteDelCielo {
     }
   }
 
+  /// **LA RIGA DELL'INVITO IN VISTA, ordine ES voce 31.** La porta verso i
+  /// dati di nascita c'era dall'ordine CS voce S1, ma stava sotto le quattro
+  /// schede, dopo il consulto: chi apriva l'Oroscopo non la vedeva. Questa
+  /// riga sta sopra il gesto che apre il consulto, e sparisce quando i dati
+  /// ci sono.
+  static String? rigaDellInvito(CieloDiOggi cielo) {
+    switch (cielo.livello) {
+      case LivelloPersonalizzazione.soloSegno:
+        return 'Con la tua ora e il tuo luogo di nascita questa lettura '
+            'parlerà al tuo cielo';
+      case LivelloPersonalizzazione.cartaSenzaOra:
+        return 'Con la tua ora di nascita questa lettura parlerà anche alle '
+            'tue case';
+      case LivelloPersonalizzazione.cartaCompleta:
+        return null;
+    }
+  }
+
   /// La nota da mostrare sotto le schede, per il livello raggiunto. Nulla
   /// quando il cielo e' completo: li' non c'e' niente da dichiarare.
   static String? notaDelLivello(CieloDiOggi cielo) {

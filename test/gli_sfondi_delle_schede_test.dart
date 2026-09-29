@@ -16,16 +16,19 @@ import 'cardinale_minimo.dart';
 /// 216**, cioe' ogni file della cartella del fondatore: 66 arti e i tre sfondi
 /// dei Maestri in tre formati (207), piu' i "Consulta" nei tre formati (9).
 /// **Dall'ordine ER voce 20 e' 219**: i tre del Segreto dell'Iride.
+/// **Dall'ordine ES voci 05 e 11 e' 246**: i tre emblemi dei periodi
+/// dell'Oroscopo (Settimana, Mese, Anno) e i sei delle tradizioni, in tre
+/// formati, 27 file, tutti usati: l'app ne usa 240.
 /// Il fondatore: *"ogni webp della cartella del PC sostituisce quello di
 /// assets/schede con lo stesso nome; quelli che mancano si aggiungono"*. Le
 /// schede ne usano 210: i "Consulta" quadrati e verticali stanno nella
 /// cartella senza che una scheda li chieda. Una guardia che scorresse la
 /// cartella vuota sarebbe verde senza aver guardato niente.
 void main() {
-  const cardinale = 219;
-  const usati = 213;
+  const cardinale = 246;
+  const usati = 240;
 
-  test('i 219 WebP stanno in assets/schede/ e il pubspec li registra', () {
+  test('i 246 WebP stanno in assets/schede/ e il pubspec li registra', () {
     final cartella = Directory(GliSfondiDelleSchede.cartella);
     final webp = cartella
         .listSync()

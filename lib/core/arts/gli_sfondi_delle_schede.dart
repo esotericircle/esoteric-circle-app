@@ -167,14 +167,55 @@ abstract final class GliSfondiDelleSchede {
   static String delMaestro(Maestro maestro, FormatoDellaScheda formato) =>
       _file(deiMaestri[maestro]!, formato);
 
-  /// Tutti i file che le schede usano: 67 arti (dall'ordine ER voce 20) e i
-  /// tre sfondi dei Maestri in tre formati, piu' i tre orizzontali di
-  /// "Consulta" dell'ordine EP, cioe' 213. Nella cartella ce ne sono 219: i
-  /// sei "Consulta" quadrati e verticali ci stanno senza che una scheda li
-  /// chieda.
+  /// **GLI EMBLEMI DEI PERIODI DELL'OROSCOPO, ordine ES voce 05.** Il
+  /// fondatore: *"Cioè un Emblema per ogni tipo di oroscopo"*. Per nome del
+  /// periodo (`HoroscopePeriod.name`): il Giorno tiene l'emblema
+  /// dell'Oroscopo, gli altri tre hanno il loro. Vanno sulla card da
+  /// condividere di quel periodo; in testa alla schermata resta il segno.
+  static const Map<String, String> emblemiDeiPeriodi = {
+    'giorno': 'Oroscopo',
+    'settimana': 'Oroscopo-Settimana',
+    'mese': 'Oroscopo-Mese',
+    'anno': 'Oroscopo-Anno',
+  };
+
+  /// L'emblema del [periodo] nel [formato].
+  static String emblemaDelPeriodo(String periodo, FormatoDellaScheda formato) =>
+      _file(emblemiDeiPeriodi[periodo] ?? 'Oroscopo', formato);
+
+  /// **GLI EMBLEMI DELLE TRADIZIONI, ordine ES voce 11**, per nome della
+  /// tradizione (`AstroTradition.name`). L'Occidentale non ne ha uno suo:
+  /// e' l'Oroscopo stesso.
+  static const Map<String, String> emblemiDelleTradizioni = {
+    'vedica': 'Tradizione-Vedica',
+    'cinese': 'Tradizione-Cinese',
+    'maya': 'Tradizione-Maya',
+    'celtica': 'Tradizione-Celtica',
+    'egizia': 'Tradizione-Egizia',
+    'araba': 'Tradizione-Araba',
+  };
+
+  /// L'emblema della [tradizione] nel [formato], o null per l'Occidentale.
+  static String? emblemaDellaTradizione(
+      String tradizione, FormatoDellaScheda formato) {
+    final nome = emblemiDelleTradizioni[tradizione];
+    return nome == null ? null : _file(nome, formato);
+  }
+
+  /// Tutti i file che l'app usa: 67 arti (dall'ordine ER voce 20) e i tre
+  /// sfondi dei Maestri in tre formati, piu' i tre orizzontali di "Consulta"
+  /// dell'ordine EP, cioe' 213; dall'ordine ES voci 05 e 11 i tre emblemi dei
+  /// periodi e i sei delle tradizioni in tre formati, 27, cioe' 240. Nella
+  /// cartella ce ne sono 246: i sei "Consulta" quadrati e verticali ci stanno
+  /// senza che una scheda li chieda.
   static List<String> tutti() => [
         for (final nome in [...nomi.values, ...deiMaestri.values])
           for (final f in FormatoDellaScheda.values) _file(nome, f),
         for (final m in Maestro.values) consultaDi(m),
+        for (final nome in [
+          ...emblemiDeiPeriodi.values.where((n) => n != 'Oroscopo'),
+          ...emblemiDelleTradizioni.values,
+        ])
+          for (final f in FormatoDellaScheda.values) _file(nome, f),
       ];
 }
