@@ -4001,12 +4001,10 @@ void main() {
         tester, await buildServices(Maestro.medora, seeded: false),
         clock: clockFor(Maestro.medora));
     await step(tester);
-    // Si apre come si apre nell'app: dal centro della barra, con un tocco
-    // solo. **Ordine AO voce 01**: prima ne servivano due, perche' il primo
-    // apriva la fascia e il secondo colpiva i tre eventi; adesso al centro
-    // c'e' la porta "Eventi Cosmici" e un tocco basta.
-    await tester.tap(find.byKey(const Key('barra_eventi_cosmici')),
-        warnIfMissed: false);
+    // **Ordine ES voce 15**: la porta non sta piu' al centro della barra,
+    // che adesso dice chi e' online, ma in cima al Passport. Si apre con la
+    // stessa via che usa la tessera del Passport.
+    NavigazioneDellaBarra.alCalendario();
     await step(tester);
     await step(tester);
     await capture(tester, rootKey, 'calendario-degli-eventi.png');

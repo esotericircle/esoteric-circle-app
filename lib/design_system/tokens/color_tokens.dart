@@ -82,4 +82,11 @@ class ColorTokens {
   // Stato disabilitato / Coming soon: grigio desaturato.
   static const Color comingSoonVeil = Color(0xB3121016);
   static const Color lockedVeil = Color(0xCC0B0A0F);
+
+  // **LA LUCINA DI CHI E' ONLINE, ordine ES voce 15.** Il fondatore l'ha
+  // chiesta verde, ed e' l'unico verde dell'app che non appartiene ad Aura:
+  // quello di Aura e' smeraldo e porta il suo nome, questo e' il verde di un
+  // segnale acceso, piu' giallo e piu' chiaro, perche' non si confonda con
+  // la tinta di un Maestro.
+  static const Color lucinaOnline = Color(0xFF4BE37A);
 }

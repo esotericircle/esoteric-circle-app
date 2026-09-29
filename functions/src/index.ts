@@ -23,6 +23,9 @@ export {
   // ORDINE CQ VOCE 1.01: la porta che scrive il piano in Demo, chiusa da
   // una configurazione e non da una riga di codice.
   attivaIlPianoInDemo,
+  // ORDINE ES VOCE 15: quanti sono nel Cerchio adesso, per la barra in
+  // alto. Scrive la presenza di chi chiama e torna un numero, mai un elenco.
+  chiEOnline,
 } from "./cerchio";
 
 // IL SECONDO FATTORE, ordine BI voce 04: il codice numerico via email.

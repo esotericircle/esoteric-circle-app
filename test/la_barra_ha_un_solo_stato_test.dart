@@ -80,13 +80,13 @@ void main() {
             'sovrappone al resto, ed e la ragione per cui Mauro lo ha tolto');
   });
 
-  testWidgets('i tre bersagli hanno un area di tocco piena', (tester) async {
+  testWidgets('i bersagli hanno un area di tocco piena', (tester) async {
     await apri(tester);
-    for (final chiave in const [
-      'barra_volto',
-      'barra_eventi_cosmici',
-      'barra_borsellino'
-    ]) {
+    // **LAPIDE, ordine ES voce 15.** I bersagli erano tre: il centro era la
+    // porta degli Eventi Cosmici. Il fondatore ha messo al centro "Online",
+    // che e' un segnale e non una porta, e la porta al Calendario e' salita
+    // in cima al Passport. I bersagli della barra restano due.
+    for (final chiave in const ['barra_volto', 'barra_borsellino']) {
       final bersaglio = find.byKey(Key(chiave));
       expect(bersaglio, findsOneWidget, reason: '$chiave non c e piu');
       final riquadro = tester.getRect(bersaglio);
@@ -130,15 +130,9 @@ void main() {
             'aprire la barra, che e cio che questa voce ha tolto');
   });
 
-  testWidgets('Eventi Cosmici porta al Calendario al PRIMO tocco',
-      (tester) async {
-    await apri(tester);
-    await tester.tap(find.byKey(const Key('barra_eventi_cosmici')),
-        warnIfMissed: false);
-    for (var i = 0; i < 10; i++) {
-      await tester.pump(const Duration(milliseconds: 120));
-    }
-    expect(find.text('Eventi Cosmici'), findsWidgets,
-        reason: 'il primo tocco al centro non porta al Calendario');
-  });
+  // **LAPIDE, ordine ES voce 15.** Qui stava la prova "Eventi Cosmici
+  // porta al Calendario al PRIMO tocco", dell'ordine AR voce 10. Il centro
+  // della barra adesso dice chi e' online, e la porta al Calendario sta in
+  // cima al Passport: il suo primo tocco lo prova
+  // `test/online_nella_barra_e_gli_eventi_nel_passport_test.dart`.
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../sigilli/celebrazione.dart';
 
@@ -7,7 +8,10 @@ import 'anello_del_livello.dart';
 import '../../design_system/components/porta_dell_account.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
+import '../../core/l10n/numero_del_cerchio.dart';
+import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
+import '../../services/server/chi_e_online.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'barra_del_cerchio.dart';
 import 'dove_si_vede_la_barra.dart';
@@ -222,9 +226,9 @@ class _LaBarra extends StatelessWidget {
               // voce 01: e' lo stesso numero che riempie l\'anello, letto
               // dalla stessa porta, non un secondo conto.
               NumeroDelLivello(),
-              // 2. LA PORTA DEGLI EVENTI COSMICI, che porta al Calendario al
-              // PRIMO tocco.
-              Expanded(child: _PortaDegliEventiCosmici()),
+              // 2. ONLINE, con la lucina verde e il numero. Ordine ES voce 15:
+              // la porta degli Eventi Cosmici e' salita in cima al Passport.
+              Expanded(child: _ChiEOnline()),
               // 3. IL BORSELLINO, moneta d'oro e saldo, che apre il borsellino
               // al primo tocco.
               _AreaDiTocco(
@@ -307,56 +311,115 @@ class _AreaDiTocco extends StatelessWidget {
 /// La classe non c'e' piu': tenerla morta avrebbe fatto credere che il nome
 /// possa tornare con un flag, mentre e' una decisione.
 
-/// LA PORTA DEGLI EVENTI COSMICI: una scritta sola, sempre quella.
+/// **ONLINE, CON LA LUCINA VERDE E IL NUMERO. Ordine ES voce 15.**
 ///
-/// **Cosa c'era prima, e perche' se n'e' andato. Ordine AO voce 01.** Qui
-/// stava il PROSSIMO EVENTO col conto alla rovescia, una riga da chiusa e
-/// tre da aperta, prese dal motore della voce AN.01. Dal collaudo della 2182
-/// Mauro ha deciso che il centro della barra e' una PORTA e non un
-/// bollettino: una notizia che cambia da sola, dentro una fascia alta trenta
-/// punti, si legge male e cambia sotto gli occhi mentre la si guarda.
+/// Il fondatore: *"in alto nella barra superiore al centro bisogerà inserire
+/// "online" con lucina verde e n. di utenti online al posto di Eventi cosmici
+/// che andrà in Passport in alto come "Prossimi Eventi Cosmici""*.
 ///
-/// **Il conto alla rovescia non e' stato cancellato, e' tornato a casa sua**:
-/// il Calendario degli Eventi lo mostra per ogni evento, con la data e il
-/// "fra quanto", nello spazio giusto per leggerlo. E il motore
-/// `ProssimiEventi` resta intero: serve al Calendario, ai promemoria e ai
-/// Maestri, e buttarlo perche' la barra non lo usa piu' vorrebbe dire buttare
-/// il calcolo insieme alla sua vetrina.
+/// **Cosa c'era prima.** Qui stava `_PortaDegliEventiCosmici`, la scritta
+/// "Eventi Cosmici" che apriva il Calendario (ordini AN voce 02 e AO voce
+/// 01). La porta non e' sparita: e' salita in cima al Cosmic Passport col
+/// nome che il fondatore le ha dato, "Prossimi Eventi Cosmici", e apre lo
+/// stesso Calendario. Il motore `ProssimiEventi` resta intero e al suo posto.
 ///
-/// **La scritta e' la stessa da chiusa e da aperta.** Da aperta cresce, come
-/// tutto il resto della barra, ma non diventa un'altra cosa: chi ha imparato
-/// dove si tocca lo ritrova dov'era.
-class _PortaDegliEventiCosmici extends StatelessWidget {
-  const _PortaDegliEventiCosmici();
+/// **Il numero lo dice il server**, `ChiEOnline`: e' quante persone hanno
+/// l'app davanti adesso, chi guarda compreso. Finche' non l'ha detto, o senza
+/// rete, si legge la lucina con "Online" e nessun numero: un numero
+/// inventato sarebbe peggio di un numero che manca.
+///
+/// **Non e' una porta**: e' un segnale, e un tocco qui non porta da nessuna
+/// parte perche' non c'e' niente da aprire. Chi cerca gli eventi li trova nel
+/// Passport, in cima.
+class _ChiEOnline extends StatelessWidget {
+  const _ChiEOnline();
 
   @override
   Widget build(BuildContext context) {
     final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
-    return GestureDetector(
-      key: const Key('barra_eventi_cosmici'),
-      behavior: HitTestBehavior.opaque,
-      // **AL PRIMO TOCCO SI VA AL CALENDARIO, ordine AR voce 10.** Non c'e'
-      // piu' nessuna apertura da consumare prima.
-      onTap: NavigazioneDellaBarra.alCalendario,
+    // **LA BARRA SI MONTA ANCHE DA SOLA**, nelle prove e nelle anteprime che
+    // non portano tutti i servizi: senza il contatore la barra resta intera
+    // e mostra la lucina senza numero, invece di cadere.
+    ChiEOnline? chi;
+    try {
+      chi = Provider.of<ChiEOnline>(context);
+    } on ProviderNotFoundException {
+      chi = null;
+    }
+    final quanti = chi?.quanti;
+    final stile = TypographyTokens.etichetta();
+    return Semantics(
+      key: const Key('barra_online'),
+      container: true,
+      excludeSemantics: true,
+      label: quanti == null
+          ? 'Online'
+          : quanti == 1
+              ? 'Online adesso: una persona'
+              : 'Online adesso: ${NumeroDelCerchio.interi(quanti)} persone',
       child: Container(
-        // **IL BERSAGLIO PRENDE TUTTA L'ALTEZZA DELLA BARRA**, ordine AR
-        // voce 10: la scritta e' alta diciotto punti, e un bersaglio alto
-        // quanto la scritta chiede al dito una mira che nessuno ha.
         alignment: Alignment.center,
         height: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xs),
-        // La scritta si adatta invece di troncarsi: su uno schermo stretto
-        // "Eventi Cosmici" tagliato a meta' sarebbe una porta senza nome.
+        // Si adatta invece di troncarsi, come la scritta che c'era prima:
+        // su uno schermo stretto un numero tagliato a meta' direbbe il falso.
         child: FittedBox(
           fit: BoxFit.scaleDown,
-          child: Text(
-            'Eventi Cosmici',
-            maxLines: 1,
-            textAlign: TextAlign.center,
-            style:
-                TypographyTokens.etichetta().copyWith(color: palette.goldSoft),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const _Lucina(),
+              const SizedBox(width: SpacingTokens.xs),
+              Text(
+                'Online',
+                key: const Key('barra_online_scritta'),
+                maxLines: 1,
+                style: stile.copyWith(color: palette.goldSoft),
+              ),
+              if (quanti != null) ...[
+                const SizedBox(width: SpacingTokens.xs),
+                Text(
+                  NumeroDelCerchio.interi(quanti),
+                  key: const Key('barra_online_numero'),
+                  maxLines: 1,
+                  style: stile.copyWith(
+                    color: ColorTokens.textPrimary,
+                    fontFeatures: const [FontFeature.tabularFigures()],
+                  ),
+                ),
+              ],
+            ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+/// La lucina verde: un punto acceso con il suo alone. **Ferma, non pulsa**:
+/// un'animazione senza fine nella barra, che sta sopra ogni schermata,
+/// terrebbe il motore a disegnare anche quando niente cambia.
+class _Lucina extends StatelessWidget {
+  const _Lucina();
+
+  static const double lato = 7;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      key: const Key('barra_online_lucina'),
+      width: lato,
+      height: lato,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: ColorTokens.lucinaOnline,
+        boxShadow: [
+          BoxShadow(
+            color: ColorTokens.lucinaOnline.withValues(alpha: 0.6),
+            blurRadius: 6,
+            spreadRadius: 0.5,
+          ),
+        ],
       ),
     );
   }

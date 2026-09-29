@@ -127,7 +127,14 @@ void main() {
         reason: 'il saldo a quattro cifre fa traboccare la barra');
   });
 
-  testWidgets('il centro e\' la porta degli Eventi Cosmici', (tester) async {
+  testWidgets('il centro dice chi e\' online', (tester) async {
+    // **LAPIDE, ordine ES voce 15.** Il centro era la porta degli Eventi
+    // Cosmici; il fondatore ci ha messo "Online" con la lucina verde, e la
+    // porta e' salita in cima al Passport. La prova resta sul minimo della
+    // casa unica: al centro c'e' quella cosa e non un'altra, e il conto alla
+    // rovescia non e' tornato. La scritta, il numero e la porta nel Passport
+    // li prova `test/online_nella_barra_e_gli_eventi_nel_passport_test.dart`.
+    //
     // **QUESTA PROVA E\' CAMBIATA DI GRANDEZZA, ordine AO voce 01, e il
     // perche' sta qui.** Pretendeva il PROSSIMO EVENTO col conto alla
     // rovescia, una riga da chiusa e tre da aperta: era la forma decisa
@@ -138,8 +145,10 @@ void main() {
     // scritta, il tocco e il fatto che il motore sia rimasto vivo e'
     // `test/il_centro_della_barra_dice_eventi_cosmici_test.dart`.
     await apri(tester);
-    expect(find.byKey(const Key('barra_eventi_cosmici')), findsOneWidget,
-        reason: 'al centro della barra non c\'e\' la porta degli Eventi '
+    expect(find.byKey(const Key('barra_online')), findsOneWidget,
+        reason: 'al centro della barra non c\'e\' Online');
+    expect(find.byKey(const Key('barra_eventi_cosmici')), findsNothing,
+        reason: 'al centro della barra c\'e\' ancora la porta degli Eventi '
             'Cosmici');
     expect(find.byKey(const Key('barra_prossimo_evento')), findsNothing,
         reason: 'il conto alla rovescia e\' ancora al centro della barra: '

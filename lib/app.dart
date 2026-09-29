@@ -57,6 +57,7 @@ import 'services/app_services.dart';
 import 'services/apertura_delle_chiamate.dart';
 import 'services/avvisi_locali.dart';
 import 'services/regia_delle_chiamate.dart';
+import 'services/server/chi_e_online.dart';
 import 'features/intro/sequenza_intro.dart';
 import 'core/misura/misura_del_ritorno.dart';
 import 'core/misura/registro_del_ritorno.dart';
@@ -393,6 +394,12 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>
         // accesi. Vive accanto ai contatori, non dentro: i budget del giorno
         // sono del server, la storia del cammino e' del dispositivo.
         ChangeNotifierProvider(create: (_) => DiarioDelCammino()..carica()),
+        // **QUANTI SONO NEL CERCHIO ADESSO, ordine ES voce 15.** La porta
+        // arriva dai servizi: spenta nelle prove e nelle anteprime, dove
+        // quindi non parte nessun passo e la barra mostra la lucina senza
+        // numero.
+        ChangeNotifierProvider(
+            create: (_) => ChiEOnline(porta: runtime.porta)..avvia()),
         // IL QUADERNO DEI SOGNI, ordine BX voce 11: vive sul telefono e
         // non parla col server.
         // LA CODA DELLE FESTE, ordine P voce 34: un traguardo che si accende

@@ -23,8 +23,8 @@ chiusa.
 
 VOCI_TOTALI: 37
 VOCI_CHIUSE: 2
-VOCI_APERTE: 21
-VOCI_DA_FARE: 14
+VOCI_APERTE: 25
+VOCI_DA_FARE: 10
 
 Le prove stanno in `docs/collaudo/ES/`, quelle del telefono di prova
 (Realme 767f596c) in `docs/collaudo/ES/realme/`. **Una voce che si vede a
@@ -81,9 +81,30 @@ MISURA: righe del mese senza un fatto del cielo dietro, 0 su 120; fasi della Lun
 
 ## VOCE ES.04, L'ANNUALE, DAL COMPLEANNO
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata, da vedere sul Realme. "Anno" e' fra i
+periodi, e l'anno va dal compleanno al prossimo. Compreso dall'Adepto in su; il Viandante e
+l'Iniziato lo aprono con 300 Eos per quell'anno (`ListinoDegliEos.oroscopoAnnuale`), e l'anno
+comprato si ricorda sul telefono (chiave `oroscopo_annuale_aperti`, dentro il prefisso
+`oroscopo_` che se ne va coi dati). **La Rivoluzione Solare** e' l'istante in cui il Sole torna
+alla sua longitudine di nascita: il Sole viene dalle tavole di Chebyshev generate dal JPL DE421
+(`lib/core/astro/le_effemeridi_del_jpl.dart`, `tool/genera_effemeridi_del_jpl.py`, errore 0,04
+secondi d'arco; Venere, Giove e Saturno dal 2019 al 2050), l'Ascendente e il Medio Cielo col tempo
+siderale apparente, le case uguali dall'Ascendente (`lib/core/horoscope/la_rivoluzione_solare.dart`).
+Col Sole di Meeus l'istante sbagliava di 638 secondi: per questo le tavole. Il tema si calcola per
+la citta' di oggi, e senza quella per il luogo di nascita. **Quattro schede**: Generale
+(l'Ascendente dell'anno, le case del Sole e della Luna), Amore (Venere), Carriera (il Medio Cielo e
+Saturno), Fortuna (Giove); il livello dalla forza della casa (angolare, succedente, cadente), per
+Saturno rovesciato (`lib/core/horoscope/l_annuale.dart`). Le frasi vengono dal corpus
+`docs/corpus/oroscopo_annuale.md` (252 frasi) attraverso `tool/_gen_oroscopo_annuale.py`, e la
+variante cambia ogni anno. Al prossimo ritorno del Sole parte l'avviso "il tuo anno nuovo e'
+pronto" (canale `oroscopo_annuale`), solo col permesso gia' concesso; l'Illuminato ha il PDF
+dell'anno, con l'emblema dell'Anno in copertina (voce ES.05). Mancano le catture dal Realme
+dell'anno aperto, dell'invito con gli Eos, del PDF e dell'avviso.
 
 DOMANDA: "Inoltre, cosa ne dici dell'oroscopo annuale da integrare?"; domanda girata al fondatore: l'annuale proposto dall'Architetto (Rivoluzione Solare dal compleanno, notifica e card, dall'Adepto in su, 300 Eos, PDF all'Illuminato), risposta: "Per il resto approvo tutto."
+
+PROVA: docs/collaudo/ES/regola_a_rivoluzione_solare.txt
+MISURA: istante del ritorno col Sole di Meeus, prima 638 secondi di scarto dal JPL, dopo 10 secondi; ritorni del 2026 con un segno o una casa diversi dal JPL 0 su 10 (rivoluzione_solare_jpl.csv), Ascendente e Medio Cielo entro 0,044 gradi; schede fuori dal loro caso o dal loro livello 0 su 400; lo stesso caso in due anni di fila con la stessa frase 0 su 40; frasi del codice diverse dal corpus 0 su 252
 
 ## VOCE ES.05, GLI EMBLEMI DEI PERIODI
 
@@ -91,7 +112,9 @@ DOMANDA: "Inoltre, cosa ne dici dell'oroscopo annuale da integrare?"; domanda gi
 sono in `assets/schede`, uguali byte per byte a quelli del PC; la card da condividere porta
 l'emblema del periodo (il Giorno quello dell'Oroscopo). Mancano: la cattura dal Realme di una card
 per periodo, che si potra' fare quando Settimana, Mese e Anno saranno aperti (voci ES.02, ES.03,
-ES.04), e la copertina del PDF dell'anno (voce ES.04). In testa alla schermata resta il segno in
+ES.04). La copertina del PDF dell'anno c'e' dal 29 settembre 2026: l'emblema dell'Anno, in una
+copia JPEG di 960 per 540 (`assets/pdf/`), perche' il WebP nel PDF diventava pixel e il foglio
+pesava 1,3 MB; col JPEG pesa 103 KB. In testa alla schermata resta il segno in
 ogni periodo: oggi i periodi diversi dal Giorno sono chiusi e non cambiano la testa.
 
 DOMANDA: "Ma non dovrei creare degli asset per ogni tipo di oroscopo? Ci pensi tu?"; "Cioè un Emblema per ogni tipo di oroscopo, intendevo..."; "attualmente l'utente entra in oroscopo personalizzato e vede il suo segno zodiacale occidentale con il pulsante oroscopo occidentale attivo".
@@ -100,9 +123,26 @@ MISURA: webp dei periodi in assets/schede uguali a quelli del PC, prima 0 su 9, 
 
 ## VOCE ES.06, CHI VEDE COSA: PIANI, LIMITI ED EOS
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata, da vedere sul Realme. Il catalogo dei
+piani (`lib/core/entitlement/plan_catalog.dart`) dice le regole del fondatore, e l'app le legge da
+li'. **Il Viandante**: l'oroscopo del giorno occidentale, solo Breve, e il proprio segno cinese e
+vedico senza lettura; niente settimanale (la riga passa da "Base" a "No"), niente amici (il tocco
+invita al piano). **L'Iniziato**: il settimanale, Breve o Approfondita, Cinese e Vedica con la
+lettura, gli amici fino a tre. **L'Adepto**: il mese e l'anno dal compleanno, gli amici fino a
+dieci. **L'Illuminato**: l'anno col PDF, gli amici senza limite. Nella mappa entrano tre righe:
+"Profondità dell'oroscopo", "Oroscopo dell'anno" (con gli Eos per i primi due piani) e
+"Oroscopo per gli amici" (No, 3, 10, Senza limite); la profondita' e i posti degli amici si
+leggono da quelle righe (`PlanCatalog.haProfondita`, `AmiciOffline.posti`), non da un secondo
+numero scritto altrove. Nessun limite di numero per l'oroscopo del giorno, che resta uguale tutto
+il giorno. **Prezzi in Eos**: l'anno 300, un posto in piu' fra gli amici 100. **Il posto comprato
+resta**: e' l'unica cosa che gli Eos comprano per sempre, contro la regola che gli Eos non
+comprano accessi durevoli, ed e' la decisione del fondatore (*"100 Eos per un posto in più"*,
+*"ok , approvato"*). Mancano le catture dal Realme della schermata dei piani.
 
 DOMANDA: "Ma prima di scrivere l'ordine dovresti indicarmi cosa sblocchiamo e a quale tier renderlo disponibile e con quali limiti. E andranno aggiornati anche i piani di abbonamento e bisogna decidere il prezzo in Eos per chi vuole un giro in più a meno che già c'è."; domanda girata al fondatore: la tabella dell'Architetto, risposta: "Approvo tutto. Ma vorrei che l'utente free non avesse accesso al settimanale."; "Anche cinese e vedica saranno disponibili solo per i premium."; "Si per Premium intendo tutti i piani a pagamento. I free potranno solo chiedere oroscopo del giorno e solo occidnetale o solo vedere il proprio segno di vedica o cinese senza lettura come hai suggerito. Non ci sono limiti di numero perchè l'oroscopo è ugale ogni giorno e non cambia se lo chiedo nuovamente lo stesso giorno."; "No, l'utente free non può fare orsocopo per amici, lo vede e se fa click, viene invitato a sottoscrivere abbonamento"; domanda girata al fondatore: "3 per l'Iniziato, 10 per l'Adepto, nessun limite per l'Illuminato [...] 100 Eos per un posto in più", risposta: "ok , approvato"; "Ma il viandante corrisponde al free!".
+
+PROVA: docs/collaudo/ES/piani_es06.md
+MISURA: righe della mappa dei piani, prima 33, dopo 36; settimanale per il Viandante, prima "Base", dopo "No"; profondita' per il Viandante, prima non detta, dopo "Breve"; punti del piano, Iniziato prima 14 dopo 15, Adepto prima 12 dopo 14
 
 ## VOCE ES.07, IN CIMA IL SEGNO DELLA TRADIZIONE SCELTA
 
@@ -215,9 +255,27 @@ MISURA: tradizioni col lucchetto, prima 6, dopo 0; webp uguali a quelli del PC, 
 
 ## VOCE ES.12, GLI AMICI OFFLINE E L'OROSCOPO PER GLI AMICI
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata, da vedere sul Realme. In fondo
+all'oroscopo c'e' "L'oroscopo per un amico". **Gli amici offline** (`lib/core/amici/amici_offline.dart`)
+tengono nome, data, ora e luogo di nascita, stanno sul telefono, se ne vanno con l'account
+(prefisso `amici_offline` in `CioCheETuo`) e sono nello scarico dei dati: sono il contenitore che
+le altre funzioni di compatibilita' potranno richiamare. Il Viandante vede la voce e il tocco lo
+invita al piano; dall'Iniziato si aggiungono fino al tetto del piano, e al tetto compare la spesa
+di 100 Eos per un posto in piu'. **L'oroscopo dell'amico**
+(`lib/features/amici/l_oroscopo_dell_amico_screen.dart`): si sceglie la tradizione, in cima il suo
+segno, sotto le quattro schede del giorno, e "Manda a" apre la card da condividere. L'Occidentale
+legge il suo segno solare, e la riga dice che con la carta natale sarebbe piu' sua; la Cinese dal
+suo animale; la Vedica dalla sua Luna di nascita, e senza l'ora, nei giorni in cui la Luna cambia
+segno, chiede l'ora invece di scegliere a caso. Si parla al neutro, perche' il genere dell'amico
+non si sa. **Scelta presa con la risposta consigliata**: gli amici restano sul telefono e non
+salgono sul server, come i luoghi e le preferenze; il giorno che l'app diventera' social si
+decidera' se e come. Mancano le catture dal Realme della lista, dell'invito, del tetto e delle
+tre letture.
 
 DOMANDA: "Ho intenzione di inserire la possibilità ai premium di poter calcolare l'oroscopo per gli amici così da poterlo condividere con gli amici e creare vitalità: l'utente premium potrà inserire data e ora di nascita dell'amico, scegliere la tipologia di oroscopo, scoprire il segno corrispondete e creare l'oroscopo e con la condivisione inviarlo all'amico."; "servirà che l'utente inserisca i dati e il nome dell'amico che verranno memorizzati in un contenitore "amici offline" che potranno essere richiamati nelle altre funzionalità di compatibilità. Ti ricordo che l'app dovrà diventare "Social""; "No, l'utente free non può fare orsocopo per amici, lo vede e se fa click, viene invitato a sottoscrivere abbonamento"; domanda girata al fondatore: "3 per l'Iniziato, 10 per l'Adepto, nessun limite per l'Illuminato [...] 100 Eos per un posto in più", risposta: "ok , approvato".
+
+PROVA: docs/collaudo/ES/regola_a_es04_es12_es15.txt
+MISURA: posti per piano diversi da quelli del fondatore, 0 su 4 (0, 3, 10, senza limite), con 100 Eos per un posto in piu'; letture dell'amico mancanti 0 su 9 (tre amici per tre tradizioni, due senza ora con la Luna che cambia segno, dove la Vedica chiede l'ora); giorni del 1990 in cui la data sola basta alla Vedica 205 su 365
 
 ## VOCE ES.13, LA CARD CON NOME E DATI DI NASCITA
 
@@ -245,9 +303,26 @@ MISURA: distanza fra il centro della cifra e il centro del riquadro sull'Oroscop
 
 ## VOCE ES.15, "ONLINE" NELLA BARRA IN ALTO E I PROSSIMI EVENTI COSMICI NEL PASSPORT
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata, da vedere sul Realme; la funzione nuova
+del server, `chiEOnline`, si distribuisce con la build di prova. Al centro della barra in alto c'e'
+la lucina verde, "Online" e il numero di chi ha l'app davanti adesso (`lib/features/shell/barra_dell_identita.dart`,
+`lib/services/server/chi_e_online.dart`). **Il numero lo dice il server**: il telefono chiede ogni
+due minuti finche' l'app e' davanti, e smette in pausa; la domanda scrive la presenza di chi
+chiede in `users/{uid}/presenza/adesso` (un campo solo, l'istante), e il server conta con un conto
+aggregato le presenze degli ultimi due minuti e mezzo (`functions/src/presenza.ts`). Torna un
+numero, mai l'elenco di chi c'e'. La presenza sta nel ramo della persona, quindi se ne va con
+l'azzeramento dei dati e con l'account senza una riga in piu'; il conto ha il suo indice in
+`firestore.indexes.json`, e la privacy policy lo dice (in app e sul sito, data 29 settembre 2026).
+Senza rete o senza server si legge la lucina con "Online" e nessun numero, mai un numero
+inventato. **"Prossimi Eventi Cosmici"** e' salito in cima al Cosmic Passport: la tessera dice i
+due eventi che arrivano prima col loro "fra quanto", dal motore del Calendario, e il tocco apre il
+Calendario come faceva la barra. Le prove della regola vecchia sono riscritte con la lapide. Mancano
+la distribuzione della funzione e le catture dal Realme della barra col numero e del Passport.
 
 DOMANDA: "in alto nella barra superiore al centro bisogerà inserire "online" con lucina verde e n. di utenti online al posto di Eventi cosmici che andrà in Passport in alto come "Prossimi Eventi Cosmici""
+
+PROVA: docs/collaudo/ES/regola_a_es04_es12_es15.txt
+MISURA: al centro della barra "Eventi Cosmici", prima 1, dopo 0; "Online" con la lucina, prima 0, dopo 1; numero a video senza server, dopo 0 (nessuno inventato), col server 1.284 letto "1.284"; eventi in cima al Passport, prima 0, dopo 2, sopra i traguardi (303 contro 463 punti); passo del telefono e del server, 120 secondi tutti e due
 
 ## PARTE 2, IL SIGILLO DEL SOGNO, RILIEVI DEL FONDATORE
 

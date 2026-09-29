@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:esoteric_circle/app.dart';
-import 'package:esoteric_circle/features/calendario/calendario_degli_eventi_screen.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -65,53 +64,19 @@ void main() {
     }
   }
 
-  final barra = find.byKey(const Key('barra_dell_identita'));
-  final centro = find.byKey(const Key('barra_eventi_cosmici'));
+  final centro = find.byKey(const Key('barra_online'));
 
-  testWidgets('a barra chiusa il centro dice Eventi Cosmici', (tester) async {
-    await apri(tester);
-    expect(centro, findsOneWidget,
-        reason: 'il centro della barra non porta la porta degli Eventi '
-            'Cosmici');
-    final scritta = tester
-        .widget<Text>(find.descendant(of: centro, matching: find.byType(Text)));
-    // ignore: avoid_print
-    print('ORDINE AO VOCE 01: a barra chiusa si legge "${scritta.data}"');
-    expect(scritta.data, 'Eventi Cosmici',
-        reason: 'al centro si legge "${scritta.data}" invece di "Eventi '
-            'Cosmici"');
-  });
-
-  testWidgets('anche da aperta dice la stessa cosa', (tester) async {
-    await apri(tester);
-    await tester.tap(barra, warnIfMissed: false);
-    for (var i = 0; i < 8; i++) {
-      await tester.pump(const Duration(milliseconds: 120));
-    }
-    final scritte = tester
-        .widgetList<Text>(
-            find.descendant(of: centro, matching: find.byType(Text)))
-        .map((t) => t.data)
-        .toList();
-    // ignore: avoid_print
-    print('ORDINE AO VOCE 01: a barra aperta si legge $scritte');
-    expect(scritte, ['Eventi Cosmici'],
-        reason: 'da aperta il centro dice altro: $scritte. La scritta e\' '
-            'SEMPRE quella, chiusa e aperta');
-  });
-
-  testWidgets('il tocco al centro apre il Calendario degli Eventi',
-      (tester) async {
-    await apri(tester);
-    await tester.tap(centro, warnIfMissed: false);
-    for (var i = 0; i < 10; i++) {
-      await tester.pump(const Duration(milliseconds: 120));
-    }
-    expect(find.byType(CalendarioDegliEventiScreen), findsOneWidget,
-        reason: 'toccando "Eventi Cosmici" il Calendario non si apre: una '
-            'porta che non porta da nessuna parte e\' la violazione piu\' '
-            'cara che esista in questo progetto');
-  });
+  // **LAPIDE, ordine ES voce 15, 29 settembre 2026.** Qui stavano tre prove
+  // dell'ordine AO voce 01: "a barra chiusa il centro dice Eventi Cosmici",
+  // "anche da aperta dice la stessa cosa" e "il tocco al centro apre il
+  // Calendario degli Eventi". Il fondatore ha deciso: *"in alto nella barra
+  // superiore al centro bisogerà inserire "online" con lucina verde e n. di
+  // utenti online al posto di Eventi cosmici che andrà in Passport in alto
+  // come "Prossimi Eventi Cosmici""*. Difendevano la regola di prima; la
+  // regola nuova, e la porta al Calendario salita nel Passport, le prova
+  // `test/online_nella_barra_e_gli_eventi_nel_passport_test.dart`. Restano
+  // qui le due prove che valgono ancora: il conto alla rovescia fuori dalla
+  // barra col motore vivo, e la barra che sparisce durante una festa.
 
   test(
       'il conto alla rovescia e\' uscito dalla barra, e il motore e\' '

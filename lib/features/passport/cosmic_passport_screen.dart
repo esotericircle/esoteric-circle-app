@@ -12,6 +12,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'specchio_dei_dati.dart';
+import '../shell/barra_del_cerchio.dart';
+import '../../core/astro/lingua_degli_eventi.dart';
+import '../../core/astro/natal_chart.dart';
+import '../../core/astro/prossimi_eventi.dart';
+import '../../core/astro/zodiac.dart';
+import '../../core/astro/zodiac_controller.dart';
 import '../shell/spazio_della_barra.dart';
 
 import '../../core/astro/night_sky.dart';
@@ -186,6 +192,10 @@ class _CosmicPassportState extends State<CosmicPassport> {
                   // vive qui, dove la persona viene a vedere chi e' per il
                   // Cerchio. Il cammino e' parte della sua identita', non una
                   // classifica.
+                  // **IN CIMA, I PROSSIMI EVENTI COSMICI**, ordine ES voce
+                  // 15: la porta che stava al centro della barra.
+                  const _ProssimiEventiCosmici(),
+                  const SizedBox(height: SpacingTokens.sm),
                   const _SentieriDelCammino(),
                   const SizedBox(height: SpacingTokens.sm),
                   _BirthSkyPortalCard(birthMoment: id.birthMoment),
@@ -1224,6 +1234,111 @@ class _VeilBadge extends StatelessWidget {
 }
 
 /// LE TRE PORTE DEI SENTIERI: Costellazione, Albero, Loto.
+/// **PROSSIMI EVENTI COSMICI, in cima al Passport. Ordine ES voce 15.**
+///
+/// Il fondatore: *"al posto di Eventi cosmici che andrà in Passport in alto
+/// come "Prossimi Eventi Cosmici""*. La porta stava al centro della barra
+/// (ordini AN voce 02 e AO voce 01), e il centro adesso dice chi e' online.
+/// Qui non e' piu' una scritta sola: c'e' lo spazio per dire i due eventi
+/// che arrivano prima, col loro "fra quanto", e il tocco apre lo stesso
+/// Calendario di prima, con la stessa via.
+///
+/// **Il calcolo e' quello del Calendario**, `ProssimiEventi.da`, col segno e
+/// la carta presi dagli stessi controllori: due tessere che dicessero due
+/// date diverse per la stessa Luna sarebbero due verita'. Si fa una volta
+/// sola all'apertura e non a ogni ridisegno, e su un orizzonte corto,
+/// perche' qui si mostrano i primi due e non l'anno intero.
+class _ProssimiEventiCosmici extends StatefulWidget {
+  const _ProssimiEventiCosmici();
+
+  /// Quanti eventi si mostrano, e fin dove si guarda per trovarli.
+  static const int quanti = 2;
+  static const int orizzonte = 45;
+
+  @override
+  State<_ProssimiEventiCosmici> createState() => _ProssimiEventiCosmiciState();
+}
+
+class _ProssimiEventiCosmiciState extends State<_ProssimiEventiCosmici> {
+  List<EventoInArrivo>? _eventi;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_eventi != null) return;
+    Zodiac? segno;
+    NatalChart? carta;
+    try {
+      segno = context.read<ZodiacController>().sunSign;
+    } catch (errore) {
+      segno = null;
+    }
+    try {
+      carta = context.read<NatalChartController>().chart;
+    } catch (errore) {
+      carta = null;
+    }
+    _eventi = ProssimiEventi.da(
+      adesso: DateTime.now(),
+      carta: carta,
+      segno: segno,
+      orizzonte: _ProssimiEventiCosmici.orizzonte,
+    ).take(_ProssimiEventiCosmici.quanti).toList();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.palette;
+    final eventi = _eventi ?? const <EventoInArrivo>[];
+    return DepthCard(
+      key: const Key('passport_prossimi_eventi'),
+      onTap: NavigazioneDellaBarra.alCalendario,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Expanded(
+                child: Text('Prossimi Eventi Cosmici',
+                    key: const Key('passport_prossimi_eventi_titolo'),
+                    style: TypographyTokens.titoloSezione()
+                        .copyWith(color: palette.goldSoft)),
+              ),
+              Icon(Icons.chevron_right_rounded,
+                  color: palette.goldSoft.withValues(alpha: 0.8)),
+            ],
+          ),
+          for (final e in eventi) ...[
+            const SizedBox(height: SpacingTokens.xs),
+            Row(
+              key: Key('passport_evento_${e.evento}'),
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              textBaseline: TextBaseline.alphabetic,
+              children: [
+                Expanded(
+                  child: Text(LinguaDegliEventi.nomeDi(e.evento),
+                      style: TypographyTokens.corpo()
+                          .copyWith(color: ColorTokens.textPrimary)),
+                ),
+                const SizedBox(width: SpacingTokens.sm),
+                Text(LinguaDegliEventi.fraQuanto(e.fraQuantiGiorni),
+                    style: TypographyTokens.didascalia()
+                        .copyWith(color: ColorTokens.textSecondary)),
+              ],
+            ),
+          ],
+          if (eventi.isEmpty) ...[
+            const SizedBox(height: SpacingTokens.xs),
+            Text('Il calendario del cielo, con le date che ti riguardano.',
+                style: TypographyTokens.corpo()
+                    .copyWith(color: ColorTokens.textSecondary)),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
 class _SentieriDelCammino extends StatelessWidget {
   const _SentieriDelCammino();
 

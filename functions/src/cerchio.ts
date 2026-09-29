@@ -6,7 +6,8 @@ import * as logger from "firebase-functions/logger";
 // 2026) e spegne l'avviso EBADENGINE sul PC del fondatore, che gira Node 24.
 import {createHash} from "node:crypto";
 import {initializeApp} from "firebase-admin/app";
-import {getFirestore, FieldValue} from "firebase-admin/firestore";
+import {getFirestore, FieldValue, Timestamp} from "firebase-admin/firestore";
+import {confineDellaPresenza, quantiDaMostrare} from "./presenza";
 import {getAuth} from "firebase-admin/auth";
 import {chiaveDelGiorno} from "./giorno";
 import {scriviIlMessaggio} from "./doppioni";
@@ -1097,6 +1098,40 @@ export const attivaIlPianoInDemo = onCall(
     return {piano};
   }
 );
+
+/**
+ * CHI E' NEL CERCHIO ADESSO. Ordine ES voce 15.
+ *
+ * Il fondatore: "in alto nella barra superiore al centro bisogerà inserire
+ * "online" con lucina verde e n. di utenti online".
+ *
+ * Il telefono non scrive su Firestore (le regole lo vietano), quindi la
+ * presenza la scrive questa porta: un campo solo, l'istante dell'ultima
+ * chiamata, in `users/{uid}/presenza/adesso`. **Sta nel ramo di chi chiama
+ * apposta**: se ne va con l'account e con l'azzeramento dei dati, che
+ * cancellano il ramo intero, senza una riga in piu' in quelle due porte. E
+ * una sottoraccolta non crea il documento dell'utente, quindi non fa credere
+ * a `esisteIlCerchio` che esista un Cerchio che non c'e'.
+ *
+ * Poi si contano le presenze piu' giovani della finestra (`presenza.ts`) con
+ * un conto aggregato: al telefono torna un numero e basta, mai l'elenco di
+ * chi c'e'. Il conto sul gruppo `presenza` vuole il suo indice, dichiarato in
+ * `firestore.indexes.json`.
+ */
+export const chiEOnline = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
+  const uid = uidDi(request);
+  const adesso = Date.now();
+  await utente(uid)
+    .collection("presenza")
+    .doc("adesso")
+    .set({ultimo: Timestamp.fromMillis(adesso)});
+  const conto = await db
+    .collectionGroup("presenza")
+    .where("ultimo", ">=", Timestamp.fromMillis(confineDellaPresenza(adesso)))
+    .count()
+    .get();
+  return {quanti: quantiDaMostrare(conto.data().count)};
+});
 
 export const azzeraIDatiDelCerchio = onCall(
   OPZIONI_DEL_CERCHIO,

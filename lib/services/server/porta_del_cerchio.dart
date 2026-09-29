@@ -330,6 +330,14 @@ abstract class PortaDelCerchio {
   Future<bool> segnaLEvento({required String nome, String? contesto}) async =>
       false;
 
+  /// **QUANTI SONO NEL CERCHIO ADESSO. Ordine ES voce 15.**
+  ///
+  /// Il server segna la presenza di chi chiama e torna quante persone hanno
+  /// l'app davanti in questo momento. Nullo vuol dire "non lo so": la porta
+  /// finta non lo sa mai, e la barra allora mostra la lucina senza numero,
+  /// invece di inventarne uno.
+  Future<int?> chiEOnline() async => null;
+
   /// **AZZERA I DATI TENENDO L'ACCOUNT, sul server.** Ordine BE voce 07,
   /// punto 3: la voce "cancella i tuoi dati" puliva solo il telefono, il
   /// ramo sul server restava e al ritorno dell'identita' rendeva tutto.
@@ -513,6 +521,21 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
   Future<bool> cancellaIlCerchio() async {
     final risposta = await _chiama('cancellaIlCerchio', const {});
     return risposta is Map && risposta['datiCancellati'] == true;
+  }
+
+  @override
+  Future<int?> chiEOnline() async {
+    // **UN RIFIUTO NON ARRIVA ALLA BARRA.** `_chiama` rilancia i rifiuti del
+    // server (senza account, per esempio), perche' per le altre porte sono
+    // risposte da rispettare; qui un rifiuto vuol dire soltanto che il
+    // numero non si sa, e la barra lo tratta come la rete assente.
+    try {
+      final risposta = await _chiama('chiEOnline', const {});
+      final quanti = risposta is Map ? risposta['quanti'] : null;
+      return quanti is int && quanti > 0 ? quanti : null;
+    } catch (errore) {
+      return null;
+    }
   }
 
   @override

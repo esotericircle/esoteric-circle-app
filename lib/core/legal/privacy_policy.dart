@@ -17,12 +17,13 @@ class SezioneDellaPolicy {
   final String corpo;
 }
 
-/// La data dell'ultima revisione, mostrata in testa. **25 settembre 2026**:
-/// il testo e' cambiato quel giorno ("Mappa del Viso" al posto di
-/// "Costellazione del Viso", ordine EN voce 11), e il fondatore ha deciso
-/// che la data passasse con la build successiva (*"La farai con la prossima
-/// build"*), cioe' con quella dell'ordine EO.
-const String dataDellaPolicy = '25 settembre 2026';
+/// La data dell'ultima revisione, mostrata in testa. **29 settembre 2026**:
+/// il testo e' cambiato quel giorno, con la presenza per il numero di chi e'
+/// online (ordine ES voce 15). Prima era il 25 settembre 2026, quando
+/// "Mappa del Viso" aveva preso il posto di "Costellazione del Viso" (ordine
+/// EN voce 11) e il fondatore aveva deciso che la data passasse con la
+/// build successiva (*"La farai con la prossima build"*).
+const String dataDellaPolicy = '29 settembre 2026';
 
 /// Il titolare del trattamento e il contatto.
 const String titolareDellaPolicy =
@@ -112,7 +113,12 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
         'gettone del tuo apparecchio, insieme ai Doni che hai acceso, alle '
         'ore che hai scelto, al tuo fuso orario: senza quelle tre cose non '
         'sapremmo a che ora raggiungerti. Il gettone sparisce quando spegni '
-        'le notifiche e quando cancelli il tuo account.',
+        'le notifiche e quando cancelli il tuo account. '
+        'Per mostrare in alto quante persone sono nel Cerchio in quel '
+        'momento teniamo l\'istante dell\'ultima volta che la tua app, '
+        'aperta, l\'ha chiesto, e nient\'altro: nessuno vede chi è online, '
+        'si legge soltanto il numero. Sparisce quando cancelli i tuoi dati '
+        'o il tuo account.',
   ),
   SezioneDellaPolicy(
     titolo: 'Prevenzione degli abusi',
