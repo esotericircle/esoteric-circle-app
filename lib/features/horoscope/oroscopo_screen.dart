@@ -41,6 +41,10 @@ import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../core/horoscope/il_domani.dart';
 import '../../core/horoscope/l_ora_d_oro.dart';
 import 'la_ruota_del_passaggio.dart';
+import 'il_periodo_view.dart';
+import '../../core/horoscope/la_settimana_del_cielo.dart';
+import '../../core/entitlement/tier.dart';
+import '../../core/lang/euphonic.dart';
 import '../../core/astro/natal_chart.dart';
 import '../../core/horoscope/il_metodo_del_responso.dart';
 import '../../core/astro/aspetti_di_oggi.dart';
@@ -69,11 +73,20 @@ String italianLongDate(DateTime d) =>
 /// e Mese restano visibili ma bloccati dietro l'abbonamento, mai un vicolo
 /// cieco.
 enum HoroscopePeriod {
-  giorno('Giorno', unlocked: true),
-  settimana('Settimana', unlocked: false),
-  mese('Mese', unlocked: false);
+  giorno('Giorno', unlocked: true, livelloMinimo: 0),
+  settimana('Settimana', unlocked: false, livelloMinimo: 1),
+  mese('Mese', unlocked: false, livelloMinimo: 2);
 
-  const HoroscopePeriod(this.label, {required this.unlocked});
+  const HoroscopePeriod(this.label,
+      {required this.unlocked, required this.livelloMinimo});
+
+  /// **DA QUALE PIANO SI APRE, ordine ES voci 02, 03 e 06.** Il Giorno per
+  /// tutti; la Settimana dall'Iniziato (livello 1); il Mese dall'Adepto
+  /// (livello 2). [unlocked] dice se e' aperto a tutti, anche al Viandante.
+  final int livelloMinimo;
+
+  /// Se chi ha il piano [tier] apre questo periodo.
+  bool apertoPer(Tier tier) => unlocked || tier.level >= livelloMinimo;
 
   final String label;
   final bool unlocked;
@@ -304,6 +317,29 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   /// col loro segno e la scritta "In arrivo", senza lettura.
   AstroTradition _inCima = AstroTradition.predefinita;
 
+  /// Se sotto la testa si apre il consulto del giorno: nella tradizione aperta
+  /// e nel periodo del Giorno. La Settimana e il Mese hanno la loro vista.
+  bool get _consultoDelGiorno =>
+      _inCima.unlocked && _period == HoroscopePeriod.giorno;
+
+  /// **LA SETTIMANA E IL MESE SI CALCOLANO UNA VOLTA**, per periodo, carta e
+  /// giorno: sono qualche migliaio di posizioni.
+  Object? _chiaveDelPeriodo;
+  IlPeriodoDelCielo? _ilPeriodo;
+
+  IlPeriodoDelCielo _periodoDelCielo(NatalChart? carta) {
+    final chiave = (_period, carta, _date.year, _date.month, _date.day);
+    if (chiave != _chiaveDelPeriodo || _ilPeriodo == null) {
+      _chiaveDelPeriodo = chiave;
+      _ilPeriodo = LaSettimanaDelCielo.per(
+          segno: widget.userSign,
+          carta: carta,
+          oggi: _date,
+          giorni: _period == HoroscopePeriod.mese ? 30 : 7);
+    }
+    return _ilPeriodo!;
+  }
+
   // Rivelazione una volta sola: la prima volta il messaggio entra in
   // dissolvenza, dalla seconda in poi compare gia' posato.
   final Set<AstroTradition> _traditionRevealed = <AstroTradition>{};
@@ -520,6 +556,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                         current: _period,
                         palette: palette,
                         onSelect: _selectPeriod,
+                        tier: context.watch<EntitlementService>().tier,
                       ),
                       const SizedBox(height: SpacingTokens.sm),
                       // Accanto al periodo, la tradizione: lo stesso cielo letto con
@@ -544,13 +581,23 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       // ordine ES voce 11: sotto il suo segno non si apre il
                       // consulto occidentale, che si leggerebbe come suo. Si
                       // dice, e si offre il gesto per tornare.
+                      // LA SETTIMANA E IL MESE, ordine ES voci 02 e 03.
+                      if (_inCima.unlocked && _period != HoroscopePeriod.giorno)
+                        IlPeriodoView(
+                          periodo: _periodoDelCielo(context
+                              .watch<BirthIdentityController>()
+                              .cartaCompleta),
+                          mese: _period == HoroscopePeriod.mese,
+                          palette: palette,
+                        ),
                       if (!_inCima.unlocked)
                         _LaLetturaEInArrivo(
                           tradizione: _inCima,
                           palette: palette,
                           onTorna: () => _selectTradition(_tradition),
                         ),
-                      if (_inCima.unlocked && _fase == _FaseDelConsulto.attesa)
+                      if (_consultoDelGiorno &&
+                          _fase == _FaseDelConsulto.attesa)
                         _InterrogaIlCielo(
                           palette: palette,
                           onTap: _interrogaIlCielo,
@@ -568,7 +615,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       // I DUE MOMENTI DELLA RIFLESSIONE, ordine BK voce 03. Stanno
                       // dove staranno le schede, cosi' lo sguardo non si sposta
                       // quando il responso arriva.
-                      if (_inCima.unlocked && _riflettendo)
+                      if (_consultoDelGiorno && _riflettendo)
                         RigaDellaRiflessione(
                           momento: _fase == _FaseDelConsulto.raccolta
                               ? MomentoDellaRiflessione.raccolta
@@ -584,7 +631,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       // turno, la scheda non e' in albero affatto: i caratteri del
                       // responso presenti durante la riflessione sono ZERO, e non
                       // per un'opacita' che li nasconde.
-                      if (_inCima.unlocked &&
+                      if (_consultoDelGiorno &&
                           _fase == _FaseDelConsulto.responso)
                         for (var i = 0; i < cards.length; i++)
                           if (i <= _turnoDiScrittura) ...[
@@ -635,7 +682,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       // vera si legge come vera: qui si dice a parole che senza
                       // ora e luogo di nascita quella lettura parla al segno, non
                       // al cielo di questa persona, e si dice come rimediare.
-                      if (_inCima.unlocked && notaDelCielo != null) ...[
+                      if (_consultoDelGiorno && notaDelCielo != null) ...[
                         _NotaDelCielo(
                             testo: notaDelCielo,
                             palette: palette,
@@ -648,7 +695,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       // che nessuno aveva ancora chiesto, e la card che ne usciva
                       // portava testi mai comparsi a video: e' lo stesso difetto
                       // che il gesto Interroga il cielo esiste per togliere.
-                      if (_inCima.unlocked &&
+                      if (_consultoDelGiorno &&
                           _fase == _FaseDelConsulto.responso)
                         _ShareBlock(
                           palette: palette,
@@ -665,7 +712,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                         ),
                       // LA RAGIONE PER TORNARE DOMANI, ordine ES voce 34: in
                       // fondo, calcolata, dove sara' la Luna domani.
-                      if (_inCima.unlocked &&
+                      if (_consultoDelGiorno &&
                           _fase == _FaseDelConsulto.responso)
                         Padding(
                           padding: const EdgeInsets.only(top: SpacingTokens.md),
@@ -780,19 +827,21 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   }
 
   void _selectPeriod(HoroscopePeriod period) {
-    if (period.unlocked) {
+    final tier = context.read<EntitlementService>().tier;
+    if (period.apertoPer(tier)) {
       setState(() => _period = period);
       return;
     }
-    // Mai un vicolo cieco: il periodo bloccato invita all'abbonamento, con
-    // la bolla del Maestro e non con una SnackBar di sistema.
+    // **IL PIANO SI CHIAMA COL SUO NOME, ordine ES voce 06**, non "Cerchio
+    // Premium": chi non ha il piano sa quale gli serve.
+    final piano = PlanCatalog.forTier(Tier.values[period.livelloMinimo]).name;
     showUpgradeInvite(
       context,
-      title: 'L\'oroscopo della ${period.label.toLowerCase()} è del Cerchio '
-          'Premium',
-      message:
-          'Col piano superiore leggi anche la ${period.label.toLowerCase()}, '
-          'oltre il giorno.',
+      title: 'L\'oroscopo della ${period.label.toLowerCase()} si apre '
+          '${conPiano(piano)}',
+      message: 'Leggi anche la ${period.label.toLowerCase()}, oltre il '
+          'giorno: i fatti del cielo, il giorno migliore e il momento chiave '
+          'di ogni campo.',
     );
   }
 
@@ -1334,11 +1383,17 @@ class _Heading extends StatelessWidget {
 /// bloccati col lucchetto e l'invito all'abbonamento.
 class _PeriodTabs extends StatelessWidget {
   const _PeriodTabs(
-      {required this.current, required this.palette, required this.onSelect});
+      {required this.current,
+      required this.palette,
+      required this.onSelect,
+      required this.tier});
 
   final HoroscopePeriod current;
   final MaestroPalette palette;
   final ValueChanged<HoroscopePeriod> onSelect;
+
+  /// Il piano di chi guarda: decide quali periodi portano il lucchetto.
+  final Tier tier;
 
   @override
   Widget build(BuildContext context) {
@@ -1355,6 +1410,7 @@ class _PeriodTabs extends StatelessWidget {
             Expanded(
               child: _PeriodTab(
                 period: period,
+                locked: !period.apertoPer(tier),
                 selected: period == current,
                 palette: palette,
                 onTap: () => onSelect(period),
@@ -1576,19 +1632,22 @@ class _TraditionInvite extends StatelessWidget {
 class _PeriodTab extends StatelessWidget {
   const _PeriodTab({
     required this.period,
+    required this.locked,
     required this.selected,
     required this.palette,
     required this.onTap,
   });
 
   final HoroscopePeriod period;
+
+  /// Se chi guarda non ha il piano di questo periodo.
+  final bool locked;
   final bool selected;
   final MaestroPalette palette;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    final locked = !period.unlocked;
     final tab = GestureDetector(
       key: Key('oroscopo_period_${period.name}'),
       onTap: onTap,

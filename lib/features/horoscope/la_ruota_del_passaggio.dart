@@ -198,6 +198,10 @@ class _IlPassaggio extends CustomPainter {
           text: glifo,
           style: TypographyTokens.etichetta().copyWith(color: colore)),
       textDirection: TextDirection.ltr,
+      // Un glifo in un cerchio di raggio fisso, dentro una ruota di misura
+      // fissa, come i glifi di NatalWheel: ingrandito col testo uscirebbe dal
+      // suo cerchio. La scala del testo vale per le parole, non per i segni.
+      textScaler: TextScaler.noScaling,
     )..layout();
     testo.paint(canvas, doveOggi - Offset(testo.width / 2, testo.height / 2));
   }

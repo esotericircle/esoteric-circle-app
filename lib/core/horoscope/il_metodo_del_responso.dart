@@ -37,10 +37,10 @@ abstract final class IlMetodoDelResponso {
     // Dall'ordine ES voce 28 il livello viene dal cielo (IlLivelloDelCielo).
     final livelloDelDominio = livello == LivelloPersonalizzazione.soloSegno
         ? 'Il livello da due a cinque viene dalla Luna di oggi: dal segno in cui '
-            'si trova rispetto al tuo, e dalle case solari di questo campo.'
+            'si trova rispetto al tuo e dalle case solari di questo campo.'
         : 'Il livello da due a cinque viene dai passaggi di oggi che parlano a '
-            'questo campo: quelli armonici lo alzano, quelli tesi lo abbassano, '
-            'e contano di più quanto sono stretti.';
+            'questo campo: quelli armonici lo alzano, quelli tesi lo '
+            'abbassano. Contano di più quanto sono stretti.';
     // Dall'ordine ES voce 29 numero e colore hanno una regola
     // (IlNumeroEIlColore), scritta anche sotto la scheda.
     final fortuna = dominio == HoroscopeDomain.fortuna

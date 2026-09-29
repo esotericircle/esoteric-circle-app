@@ -23,8 +23,8 @@ chiusa.
 
 VOCI_TOTALI: 37
 VOCI_CHIUSE: 2
-VOCI_APERTE: 16
-VOCI_DA_FARE: 19
+VOCI_APERTE: 18
+VOCI_DA_FARE: 17
 
 Le prove stanno in `docs/collaudo/ES/`, quelle del telefono di prova
 (Realme 767f596c) in `docs/collaudo/ES/realme/`. **Una voce che si vede a
@@ -52,15 +52,32 @@ MISURA: schede Approfondite identiche alla Breve senza carta natale, prima 48 su
 
 ## VOCE ES.02, IL SETTIMANALE: LA PREVISIONE DEI PROSSIMI SETTE GIORNI
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (blocco 2 dell'ordine ES). La Settimana si apre dall'Iniziato (al Viandante l'invito nomina
+l'Iniziato) e mostra i fatti del cielo dei sette giorni (fasi della Luna con l'ora, ingressi
+col giorno, "torna" quando il pianeta e' retrogrado), e per ogni dominio il giorno migliore, il
+momento chiave con giorno e ora e una riga per giorno col livello e la sua ragione
+(`lib/core/horoscope/la_settimana_del_cielo.dart`, `lib/features/horoscope/il_periodo_view.dart`).
+Senza ora e luogo la schermata dice che si legge sul segno e sulle case solari. Mancano: la
+lettura una tantum con gli Eos (voce ES.06), la card della settimana con il suo emblema
+(ES.05), la registrazione dal Realme.
 
 DOMANDA: "l'oroscopo settimanale in cosa consiste secondo te? Non è un abbonamento settimanale, ma l'oroscopo di previsione dei prossimi 7 giorni, giusto? Per il resto approvo tutto."; "Per settimanale e mensile serve veramente il motore ad effemeridi?"; domanda girata al fondatore: il contenuto del settimanale proposto dall'Architetto, risposta: "Si tutto ok."
 
+PROVA: docs/collaudo/ES/settimana.txt
+MISURA: righe della settimana senza un fatto del cielo dietro, 0 su 112; settimane identiche per due carte diverse dello stesso segno, 0 su 3; fasi della Luna oltre due minuti dal JPL, 0 su 25 (scarto massimo 0,47 minuti)
+
 ## VOCE ES.03, IL MENSILE
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (blocco 2 dell'ordine ES). Il Mese si apre dall'Adepto e mostra i trenta giorni: le lune nuove e
+piene e le eclissi nelle case (natali con la carta, solari senza), gli ingressi, e per ogni
+dominio il giorno migliore, il momento chiave e i tre giorni chiave. Le eclissi vengono dal
+motore gia' verificato col canone (ordine CE voce 16). Mancano la lettura con gli Eos (ES.06), la
+card del mese (ES.05) e la cattura dal Realme.
 
 DOMANDA: "Per settimanale e mensile serve veramente il motore ad effemeridi?"; domanda girata al fondatore: "Mensile, dall'Adepto in su: il mese sulla carta natale, con lune nuove e piene nelle tue case, eclissi, ingressi e i giorni chiave", risposta: "Si tutto ok."
+
+PROVA: docs/collaudo/ES/mese.txt
+MISURA: righe del mese senza un fatto del cielo dietro, 0 su 120; fasi della Luna contro il JPL, scarto massimo 0,47 minuti su 25; eclissi di febbraio 2027 trovate 2 su 2
 
 ## VOCE ES.04, L'ANNUALE, DAL COMPLEANNO
 

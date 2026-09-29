@@ -27,3 +27,11 @@ ES.01 la Media rimessa (secondo giro) | innesto nel file (grep): 2 | esito: 00:0
 ES.32 prima la congiunzione (secondo giro) | innesto nel file (grep): 4 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
 ES.30 la nota del livello di prima (secondo giro) | innesto nel file (grep): 1 | esito: 00:03 +0 -1: Some tests failed. | file rimesso identico: si
 FINITO
+
+SETTIMANALE, MENSILE E APERTURA PER PIANO (voci 02, 03 e 06):
+ES.02 fasi della Luna col Sole dei transiti di un grado | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+ES.02 le righe senza il cielo del giorno | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+ES.03 il mese senza eclissi | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+ES.06 la Settimana aperta a tutti | innesto nel file (grep): 1 | esito: 00:02 +0 -1: Some tests failed. | file rimesso identico: si
+ES.06 l'Adepto senza il Mese | innesto nel file (grep): 1 | esito: 00:02 +0 -1: Some tests failed. | file rimesso identico: si
+FINITO

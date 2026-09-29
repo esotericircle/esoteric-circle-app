@@ -45,6 +45,11 @@ void main() {
             'approfondimento per tutte le arti: gira di mezzo giro e apre in '
             'posto le fonti, il transito e la tradizione. Rivela testo gia\''
             ' scritto, non chiede niente a nessuno.',
+    'lib/features/horoscope/la_ruota_del_passaggio.dart':
+        'la riga del passaggio dell\'Oroscopo, ordine ES voce 33: InkWell con '
+            'chiave oroscopo_riga_del_passaggio, apre in posto la ruota della '
+            'carta col pianeta di oggi e la linea dell\'aspetto, e un altro '
+            'tocco la chiude. Rivela un calcolo gia\' fatto, non chiede niente.',
     'lib/design_system/components/collasso.dart':
         'la freccetta del Collassabile: gira di mezzo giro e apre il '
             'contenuto che sta sotto, in posto. E\' la freccia in giu\' fatta '

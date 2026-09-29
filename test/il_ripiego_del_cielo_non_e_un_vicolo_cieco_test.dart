@@ -166,6 +166,12 @@ void main() {
 
   testWidgets('A chi manca solo l\'ora si chiede solo l\'ora', (tester) async {
     await monta(tester, conCarta: senzaOra);
+    // LAPIDE, ordine ES voci 28, 32, 33 e 34: le schede adesso portano la riga
+    // del livello, la riga del passaggio e l'ora d'oro, e in fondo c'e' la
+    // riga di domani: la nota sta piu' in basso, fuori dalla parte che la
+    // lista costruisce. Ci si arriva scorrendo, come fa la persona.
+    await tester.dragUntilVisible(porta,
+        find.byKey(const Key('oroscopo_list')), const Offset(0, -300));
     expect(porta, findsOneWidget,
         reason: 'chi ha dato luogo e data ma non l\'ora resta senza porta');
 

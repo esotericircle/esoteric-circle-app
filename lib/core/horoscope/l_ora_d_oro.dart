@@ -78,8 +78,9 @@ abstract final class LOraDOro {
     return d;
   }
 
-  /// Gli istanti in [da, a) in cui la Luna passa esatta su [bersaglio].
-  static List<DateTime> _passaggi(DateTime da, DateTime a, double bersaglio) {
+  /// Gli istanti in [da, a) in cui la Luna passa esatta su [bersaglio]. La
+  /// usa anche la settimana del cielo (ordine ES voce 02).
+  static List<DateTime> passaggi(DateTime da, DateTime a, double bersaglio) {
     final trovati = <DateTime>[];
     var t0 = da;
     var s0 = _scarto(t0, bersaglio);
@@ -128,7 +129,7 @@ abstract final class LOraDOro {
         if (natale == null) continue;
         final istanti = <DateTime>[
           for (final ang in _angoli[aspetto]!)
-            ..._passaggi(da, a, (natale + ang) % 360.0),
+            ...passaggi(da, a, (natale + ang) % 360.0),
         ]..sort();
         if (istanti.isNotEmpty) {
           return OraDOro(istante: istanti.first, aspetto: aspetto, punto: id);
