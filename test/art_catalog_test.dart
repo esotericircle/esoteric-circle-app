@@ -455,9 +455,15 @@ void main() {
       for (final id in const ['vedic_astrology', 'bazi', 'other_traditions']) {
         expect(ids, isNot(contains(id)));
       }
+      // **LAPIDE, ordine ES voce 08, 29 settembre 2026.** Qui si pretendeva
+      // che nessuna tradizione oltre l'Occidentale fosse aperta. Il fondatore:
+      // "Se sceglie oroscopo cinese significa che è selezionabile e
+      // sbloccato". La Cinese e' aperta, e la sua lettura e' dei piani a
+      // pagamento; resta vero che non ha una card propria nel dominio.
+      const aperte = {AstroTradition.cinese};
       for (final t in AstroTradition.values) {
         if (t == AstroTradition.occidentale) continue;
-        expect(t.unlocked, isFalse, reason: t.name);
+        expect(t.unlocked, aperte.contains(t), reason: t.name);
         expect(t.phase, isNotNull, reason: t.name);
         expect(t.invito.trim(), isNotEmpty, reason: t.name);
       }

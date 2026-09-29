@@ -471,6 +471,8 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     // **LA LETTURA CINESE, ordine ES voce 08**: dal primo piano a pagamento,
     // con la data di nascita (l'animale dell'anno e il tronco del giorno).
     final cinese = _inCima == AstroTradition.cinese;
+    // Il nome con cui Medora chiama la persona, nell'apertura della lettura.
+    final comeTiChiamo = vocative;
     final leggeLaTradizione = _inCima.leggibilePer(tier);
     final animale = cinese ? segnoInCima?.animale : null;
     final schedeCinesi = cinese &&
@@ -486,7 +488,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
               for (final voce in _depth.entries)
                 voce.key: voce.value == AnswerDepth.profonda,
             },
-            apertura: '$vocative, apro per te l\'almanacco cinese di oggi.')
+            apertura: '$comeTiChiamo, apro per te l\'almanacco cinese di oggi.')
         : null;
     // Il consulto del giorno: l'Occidentale sempre, la Cinese quando ha le
     // sue schede. La Settimana e il Mese hanno la loro vista.
@@ -2314,7 +2316,7 @@ class _FortunaFooter extends StatelessWidget {
             palette: palette,
             // I due numeri dell'elemento nella lettura cinese (ES.08).
             etichetta: card.numeriDelGiorno == null ? 'Numero' : 'Numeri',
-            cifre: card.numeriDelGiorno?.join(' · ')),
+            cifre: card.numeriDelGiorno?.join(' e ')),
         const SizedBox(width: SpacingTokens.sm),
         Expanded(
           child: _Pill(

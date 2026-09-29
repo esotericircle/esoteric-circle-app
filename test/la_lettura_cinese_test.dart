@@ -557,7 +557,7 @@ void main() {
     // La Fortuna: i due numeri dell'elemento.
     final elemento =
         LAlmanaccoCinese.elementoDelTronco(LAlmanaccoCinese.tronco(oggi));
-    final numeri = find.text(elemento.numeri.join(' · '));
+    final numeri = find.text(elemento.numeri.join(' e '));
     await tester.dragUntilVisible(
         numeri, find.byKey(const Key('oroscopo_list')), const Offset(0, -300));
     expect(numeri, findsOneWidget);

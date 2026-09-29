@@ -32,7 +32,7 @@ class RiquadroDelNumero extends StatelessWidget {
   });
 
   /// **PIU' NUMERI IN UN RIQUADRO**, ordine ES voce 08: la tradizione cinese
-  /// da' all'elemento del giorno due numeri, quelli dello He Tu ("3 · 8").
+  /// da' all'elemento del giorno due numeri, quelli dello He Tu ("3 e 8").
   /// Null vale il solo [numero].
   final String? cifre;
 

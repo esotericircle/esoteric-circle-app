@@ -318,7 +318,7 @@ class OroscopoShareCard extends StatelessWidget {
                         etichetta: fortuna.numeriDelGiorno == null
                             ? 'Numero'
                             : 'Numeri',
-                        cifre: fortuna.numeriDelGiorno?.join(' · ')),
+                        cifre: fortuna.numeriDelGiorno?.join(' e ')),
                   ),
                   const SizedBox(width: SpacingTokens.sm),
                   Expanded(

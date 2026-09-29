@@ -92,17 +92,19 @@ abstract final class LaLetturaCinese {
       ].join(' '),
       indicator: livelloDelRapporto(rapporto),
       rigaDelLivello: 'Dal rapporto fra ${conArticolo(ramo)} di oggi e '
-          '${_iltuo(animale)}: ${nomeDelRapporto(rapporto, animale == ramo)}.',
+          '${_iltuo(animale)}: ${rapportoDetto(rapporto, animale == ramo)}.',
       opening: apertura,
       metodo: OroscopoCineseData.notaGenerale,
     );
 
     // FORTUNA, LAVORO E AMORE: il dio del giorno.
-    final serieDellAmore = switch (f) {
-      CourtesyForm.feminine => 'amoreDonna',
-      CourtesyForm.masculine => 'amoreUomo',
-      _ => 'amoreNeutro',
-    };
+    // La serie dell'Amore passa dalla porta del genere, come ogni testo che
+    // dipende dal genere (il_genere_si_decide_in_un_posto_solo).
+    final serieDellAmore = LaMarcaDelGenere.scegli(
+        maschile: 'amoreUomo',
+        femminile: 'amoreDonna',
+        neutro: 'amoreNeutro',
+        forma: f);
     HoroscopeCard delDio(HoroscopeDomain d, String serie) {
       final base =
           frase(OroscopoCineseData.dei[serie]![dio.name]!, ritorno.tronco);
@@ -195,7 +197,7 @@ abstract final class LaLetturaCinese {
     final r = LAlmanaccoCinese.rapporto(animale, ramo);
     return 'Domani è il giorno ${_preposizione('di', conArticolo(ramo))}, '
         'col guardiano ${LAlmanaccoCinese.guardiani[g]}. '
-        'Con ${_iltuo(animale)}: ${nomeDelRapporto(r, animale == ramo)}.';
+        'Con ${_iltuo(animale)}: ${rapportoDetto(r, animale == ramo)}.';
   }
 
   /// La riga del secondo momento della riflessione: il fatto dell'almanacco
@@ -304,8 +306,7 @@ abstract final class LaLetturaCinese {
 
   /// Il nome del rapporto. La punizione dello stesso animale (Drago, Cavallo,
   /// Gallo, Maiale) ha frasi sue: e' la punizione di se'.
-  static String nomeDelRapporto(RapportoFraAnimali r, bool stesso) =>
-      switch (r) {
+  static String rapportoDetto(RapportoFraAnimali r, bool stesso) => switch (r) {
         RapportoFraAnimali.armonia => 'armonia, una delle sei coppie',
         RapportoFraAnimali.triplaArmonia => 'tripla armonia',
         RapportoFraAnimali.scontro => 'scontro, i due animali sono opposti',
@@ -341,12 +342,15 @@ abstract final class LaLetturaCinese {
   static int livelloDelDio(HoroscopeDomain d, DioDelGiorno dio,
       {CourtesyForm forma = CourtesyForm.unknown}) {
     if (d == HoroscopeDomain.amore) {
-      return switch (forma) {
-        CourtesyForm.feminine => _versoLUfficiale[dio.index],
-        CourtesyForm.masculine => _versoLaRicchezza[dio.index],
-        _ => ((_versoLUfficiale[dio.index] + _versoLaRicchezza[dio.index]) / 2)
-            .round(),
-      };
+      // Per una donna l'Ufficiale, per un uomo la Ricchezza, per chi non
+      // l'ha dichiarato la media: la scelta passa dalla porta del genere.
+      final uff = _versoLUfficiale[dio.index];
+      final ric = _versoLaRicchezza[dio.index];
+      return int.parse(LaMarcaDelGenere.scegli(
+          maschile: '$ric',
+          femminile: '$uff',
+          neutro: '${((uff + ric) / 2).round()}',
+          forma: forma));
     }
     return d == HoroscopeDomain.carriera
         ? _versoLUfficiale[dio.index]
@@ -387,14 +391,14 @@ abstract final class LaLetturaCinese {
   static String relazioneDelDio(HoroscopeDomain d, DioDelGiorno dio,
       {CourtesyForm forma = CourtesyForm.unknown}) {
     if (d == HoroscopeDomain.amore) {
-      return switch (forma) {
-        CourtesyForm.feminine =>
-          '${_allUfficiale[dio.index]}; per una donna l\'Ufficiale è il legame',
-        CourtesyForm.masculine =>
-          '${_allaRicchezza[dio.index]}; per un uomo la Ricchezza è il legame',
-        // Chi non ha dichiarato il genere: le due letture insieme.
-        _ => '${_allUfficiale[dio.index]} e ${_allaRicchezza[dio.index]}',
-      };
+      // Chi non ha dichiarato il genere: le due letture insieme.
+      return LaMarcaDelGenere.scegli(
+          maschile: '${_allaRicchezza[dio.index]}; per un uomo la Ricchezza '
+              'è il legame',
+          femminile: '${_allUfficiale[dio.index]}; per una donna '
+              'l\'Ufficiale è il legame',
+          neutro: '${_allUfficiale[dio.index]} e ${_allaRicchezza[dio.index]}',
+          forma: forma);
     }
     return d == HoroscopeDomain.carriera
         ? _allUfficiale[dio.index]
