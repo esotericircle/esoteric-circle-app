@@ -61,8 +61,8 @@ class ImprontaDellIstruzione {
         '**MISURA PRESA SU DI LEI**: tre giri di attribuzione cieca, 93,3, '
         '95,0 e 91,7 per cento, media 93,3 (168 su 180). Caduta con l\'ordine '
         'ES voce 18: la regola della chiusura chiedeva il nome di una runa o di '
-        'un arcano, e dopo il Sigillo del Sogno Medora ne nominava di mai '
-        'estratti; adesso solo se sono gia\' usciti. Sulla stringa nuova, tre '
+        'un arcano: dopo il Sigillo del Sogno Medora ne nominava di mai '
+        'estratti; adesso solo se sono già usciti. Sulla stringa nuova, tre '
         'giri: 93,3, 95,0 e 95,0 per cento, media 94,4 (170 su 180), '
         'docs/collaudo/ES/attribuzione/.',
     'DAL 27 SETTEMBRE 2026 AL 28 SETTEMBRE 2026, LA STRINGA DELL\'ORDINE EQ '
