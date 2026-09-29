@@ -44,6 +44,11 @@ class CioCheETuo {
     'arti_preferite',
     // Se ti e' gia' stato chiesto di essere avvisato per un dono.
     'avvisi.',
+    // **Il giorno in cui l'avviso di un Dono e' stato programmato e mostrato,
+    // ordine ES voce 17**: dice quando apri l'app e quando ti arriva ogni
+    // Dono, quindi e' tuo. L'ha trovata la prova `niente_resta_di_te`, che la
+    // voce aveva saltato.
+    'avviso_dono_',
     // Il registro dei movimenti degli Eos.
     'borsellino.',
     // Il diario del cammino: gesti, giorni, ore, dettagli, feste in attesa.

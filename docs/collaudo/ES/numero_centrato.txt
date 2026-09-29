@@ -44,4 +44,8 @@ DUE COSE VISTE STRADA FACENDO:
 - alla scala 1,3 nella schermata dell'Oroscopo una colonna trabocca di 5
   punti in basso durante una fase del consulto, col codice di prima e con
   quello di adesso: l'elemento e' gia' smontato quando Flutter lo segnala e
-  non dice quale sia. PROVENIENZA IGNOTA, da indagare.
+  non dice quale sia. Scritto qui il 28 settembre come PROVENIENZA IGNOTA:
+  era sbagliato. Il 29 settembre la suite intera l'ha mostrato fra i rossi
+  accettati (tool/rossi_accettati.txt, "SCALA 1,3: Cattura l'Oroscopo"): e'
+  la pastiglia della tradizione, oroscopo_screen.dart, 5 punti in basso,
+  gia' nota e dichiarata. Non e' un difetto nuovo e non e' di questa voce.
