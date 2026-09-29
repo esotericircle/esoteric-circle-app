@@ -1,4 +1,10 @@
+import '../core/astro/luogo_attuale.dart';
+import '../core/astro/natal_chart.dart';
+import '../core/astro/natal_chart_controller.dart';
+import '../core/horoscope/la_lettura_vedica.dart';
+import '../core/horoscope/le_chiamate_del_cielo.dart';
 import '../core/rituals/daily_elements.dart';
+import '../core/sigilli/diario_del_cammino.dart';
 import '../core/maestro/memoria_del_respiro.dart';
 import '../core/maestro/ora_del_respiro.dart';
 import 'package:flutter/widgets.dart';
@@ -49,6 +55,24 @@ class RegiaDelleChiamate {
     } catch (senzaProvider) {
       scelta = null;
     }
+    // **LA CARTA E LA VEDICA, per le due chiamate del cielo** (ordine ES
+    // voce 32), lette anche loro prima dell'attesa e con la stessa prudenza:
+    // senza il provider la chiamata non si programma, e il resto si'.
+    NatalChart? carta;
+    try {
+      carta = context.read<NatalChartController>().chart;
+    } catch (senzaProvider) {
+      carta = null;
+    }
+    var vedicaLetta = false;
+    try {
+      vedicaLetta = context
+              .read<DiarioDelCammino>()
+              .quanteVolteIlValore('oroscopo', 'tradizione', 'vedica') >
+          0;
+    } catch (senzaProvider) {
+      vedicaLetta = false;
+    }
     if (!porta.disponibile || !await porta.permessoConcesso()) {
       return const [];
     }
@@ -79,7 +103,7 @@ class RegiaDelleChiamate {
     // alle ore che i Doni portano scritte dentro; poi, alla prima apertura
     // del rito, `programmaProssimo` rimette quella dell'Alba **sullo stesso
     // id** e sul sorgere vero del luogo. Due porte, un id, nessun doppione.
-    return AvvisiDelRito.programmaLeChiamateDelGiorno(
+    final doni = await AvvisiDelRito.programmaLeChiamateDelGiorno(
       servizio: porta,
       adesso: DateTime.now(),
       doniAccesi: scelta.quelliCheChiamano,
@@ -103,5 +127,25 @@ class RegiaDelleChiamate {
               : scelta.minutiDi(d),
       },
     );
+
+    // **LE DUE CHIAMATE DEL CIELO, ordine ES voce 32.** Il luogo e' quello
+    // che la persona ha detto per il Rahu Kalam (o che il telefono ha letto
+    // col suo permesso): senza, il Rahu Kalam non chiama.
+    LuogoDelGiorno? luogo;
+    if (vedicaLetta && scelta.chiamaIlRahuKalam) {
+      final l = await DoveSonoAdesso.letto();
+      if (l != null) {
+        luogo = LuogoDelGiorno(lat: l.lat, lon: l.lon, citta: l.citta);
+      }
+    }
+    final cielo = await LeChiamateDelCielo.programma(
+      servizio: porta,
+      adesso: DateTime.now(),
+      carta: carta,
+      luogo: luogo,
+      oraDOro: scelta.chiamaLOraDOro,
+      rahuKalam: vedicaLetta && scelta.chiamaIlRahuKalam,
+    );
+    return [...doni, ...cielo];
   }
 }

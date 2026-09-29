@@ -56,7 +56,12 @@ abstract final class LaRispostaRipetuta {
 
   /// La risposta gia' data che [nuova] ripete, o null se non ne ripete
   /// nessuna.
-  static String? quale(String nuova, Iterable<String> giaDate) {
+  ///
+  /// Con [domanda] e [domandaPrima] guarda anche la seconda cosa
+  /// ([ridiceLaPrecedente]): la risposta di prima, data alla domanda di
+  /// prima, ridetta con altre parole.
+  static String? quale(String nuova, Iterable<String> giaDate,
+      {String domanda = '', String domandaPrima = ''}) {
     if (_parole(nuova).length < paroleMinime) return null;
     String? peggiore;
     var massimo = soglia;
@@ -67,6 +72,162 @@ abstract final class LaRispostaRipetuta {
         peggiore = vecchia;
       }
     }
-    return peggiore;
+    if (peggiore != null || giaDate.isEmpty || domanda.isEmpty) {
+      return peggiore;
+    }
+    final precedente = giaDate.last;
+    return ridiceLaPrecedente(
+            domandaPrima: domandaPrima,
+            precedente: precedente,
+            domanda: domanda,
+            nuova: nuova)
+        ? precedente
+        : null;
   }
+
+  // ---------------------------------------------------------------------------
+  // LA RISPOSTA DI PRIMA RIDETTA CON ALTRE PAROLE
+  // ---------------------------------------------------------------------------
+
+  /// **LA RISPOSTA NON RIDICE QUELLA DI PRIMA. Ordine ES voce 21.**
+  ///
+  /// Il fondatore: *"Ho provato a fare Domande simili consecutive e le
+  /// risposte, non solo non erano adeguate [...]"*. Al banco delle trenta
+  /// domande ci sono cinque coppie di domande simili di fila, e alla lettura
+  /// alla cieca le seconde che ripetevano la prima erano 10 su 60 alla
+  /// partenza e 6 al giro 5. La misura di sopra non le vede: non ricalcano
+  /// parola per parola, ridicono la stessa cosa con altre parole.
+  ///
+  /// **La misura e' tarata sui giudizi, non inventata.** Sulle 240 seconde di
+  /// coppia giudicate alla cieca in quattro fasi del banco
+  /// (`docs/collaudo/ES/coppie_ripetute.json`), confrontando le prime tre
+  /// frasi delle due risposte senza le parole delle due domande (che due
+  /// domande simili condividono per forza) e senza le parole di tutti i
+  /// giorni dei Maestri, la soglia di 0,4 prende 13 ripetizioni su 26 e
+  /// sbaglia 2 volte su 214. Una soglia piu' bassa ne prendeva di piu' e
+  /// sbagliava cinque volte tanto: chiedere di nuovo una risposta buona costa
+  /// un'attesa a chi ascolta.
+  static const double sogliaDellaPrecedente = 0.4;
+
+  /// Quante frasi di ogni risposta si confrontano.
+  static const int frasiDellaPrecedente = 3;
+
+  static const Set<String> _diTuttiIGiorni = {
+    'della',
+    'delle',
+    'dello',
+    'degli',
+    'nella',
+    'nelle',
+    'nello',
+    'negli',
+    'sulla',
+    'sulle',
+    'dalla',
+    'dalle',
+    'alla',
+    'alle',
+    'allo',
+    'agli',
+    'questa',
+    'questo',
+    'quella',
+    'quello',
+    'quelle',
+    'quelli',
+    'sono',
+    'come',
+    'dove',
+    'quale',
+    'quando',
+    'mentre',
+    'prima',
+    'dopo',
+    'perché',
+    'anche',
+    'ancora',
+    'sempre',
+    'molto',
+    'tutto',
+    'tutti',
+    'tutte',
+    'tuoi',
+    'essere',
+    'avere',
+    'fare',
+    'cosa',
+    'carte',
+    'carta',
+    'cielo',
+    'dicono',
+    'leggo',
+    'pietre',
+    'pietra',
+    'centri',
+    'centro',
+    'energia',
+    'corpo',
+    'segno',
+    'segni',
+    'lettura',
+    'tempo',
+    'momento',
+    'parte',
+    'senza',
+    'dentro',
+    'verso',
+    'oltre',
+    'invece',
+    'però',
+    'quindi',
+    'allora',
+  };
+
+  static Set<String> _radici(String testo, [Set<String> via = const {}]) {
+    final t = testo.toLowerCase().replaceAll('’', "'");
+    return {
+      for (final m in RegExp(r'\p{L}+', unicode: true).allMatches(t))
+        if (m.group(0)!.length >= 5 && !_diTuttiIGiorni.contains(m.group(0)))
+          m.group(0)!.length > 6 ? m.group(0)!.substring(0, 6) : m.group(0)!,
+    }.difference(via);
+  }
+
+  /// Le prime frasi del corpo, senza la riga col segno.
+  static String _inizio(String testo) => testo
+      .split('\n')
+      .where((r) => r.trim().isNotEmpty && !r.trimLeft().startsWith('✦'))
+      .join(' ')
+      .split(RegExp(r'(?<=[.!?])\s+'))
+      .take(frasiDellaPrecedente)
+      .join(' ');
+
+  /// Quanto [nuova] ha in comune con [precedente], da 0 a 1, tolte le parole
+  /// delle due domande.
+  static double quantoDellaPrecedente({
+    required String domandaPrima,
+    required String precedente,
+    required String domanda,
+    required String nuova,
+  }) {
+    final delleDomande = {..._radici(domanda), ..._radici(domandaPrima)};
+    final a = _radici(_inizio(precedente), delleDomande);
+    final b = _radici(_inizio(nuova), delleDomande);
+    if (a.length < 3 || b.length < 3) return 0;
+    return a.intersection(b).length /
+        (a.length < b.length ? a.length : b.length);
+  }
+
+  /// Vero se [nuova] ridice [precedente] con altre parole.
+  static bool ridiceLaPrecedente({
+    required String domandaPrima,
+    required String precedente,
+    required String domanda,
+    required String nuova,
+  }) =>
+      quantoDellaPrecedente(
+          domandaPrima: domandaPrima,
+          precedente: precedente,
+          domanda: domanda,
+          nuova: nuova) >=
+      sogliaDellaPrecedente;
 }

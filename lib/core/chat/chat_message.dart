@@ -56,6 +56,7 @@ class ChatMessage {
     this.intentId,
     this.autore,
     this.conversazione,
+    this.dettoNelLive = false,
   });
 
   final ChatRole role;
@@ -129,6 +130,14 @@ class ChatMessage {
   /// per tutta la cronologia salvata prima di oggi: nessuna migrazione.
   final Maestro? autore;
 
+  /// **LA RISPOSTA DETTA A VOCE, NEL LIVE. Ordine ES voce 20.** Il
+  /// fondatore ha confermato: *"Invito a tornare nella chat del LIVE: esce,
+  /// perché la chat deve dire solo quello che dice la voce"*. Sotto una
+  /// risposta detta a voce la chat non aggiunge niente che la voce non abbia
+  /// detto; il segno si salva col messaggio, cosi' vale anche riaprendo la
+  /// conversazione.
+  final bool dettoNelLive;
+
   /// Chi ha parlato, sempre. [predefinito] e' il Maestro della conversazione.
   Maestro autoreEffettivo(Maestro predefinito) => autore ?? predefinito;
 
@@ -181,6 +190,7 @@ class ChatMessage {
       tipo: tipo,
       intentId: intentId,
       autore: autore,
+      dettoNelLive: dettoNelLive,
     );
   }
 }

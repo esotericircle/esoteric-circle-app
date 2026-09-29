@@ -153,9 +153,15 @@ void main() {
       'Mi prenderanno al colloquio di giovedì?':
           'I tuoi centri dicono che la risposta non è in un sì o in un no '
               'definitivo, ma nella tua capacità di esprimerti.',
+      // **LAPIDE, ordine ES voce 19.** Qui stava "Il tuo cielo dice che è
+      // possibile un ritorno, ma a patto che tu lasci spazio al dialogo",
+      // fermata dalla regola stretta del secondo giro. Il fondatore ha
+      // approvato che "il sì, se" passi: e' un si' a una condizione detto con
+      // "è possibile", e adesso passa. "È possibile" da solo resta fermo, ed
+      // e' la riga che segue.
       'Il mio ex tornerà da me?':
-          'Il tuo cielo dice che è possibile un ritorno, ma a patto che tu '
-              'lasci spazio al dialogo.',
+          'Il tuo cielo dice che un ritorno è possibile, ma non sarà come '
+              'prima.',
       'Devo scrivergli io o aspettare che si faccia vivo lui?':
           'I tuoi centri dicono che la direzione la scegli tu.',
       'Posso fidarmi di nuovo dopo un tradimento?':

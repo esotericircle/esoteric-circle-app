@@ -45,6 +45,9 @@ import 'il_periodo_view.dart';
 import '../../core/horoscope/la_settimana_del_cielo.dart';
 import '../../core/entitlement/tier.dart';
 import '../../core/horoscope/la_lettura_cinese.dart';
+import '../../core/horoscope/i_tre_cieli.dart';
+import '../../core/horoscope/il_sigillo_dei_tre_cieli.dart';
+import '../../design_system/components/depth_card.dart';
 import '../../core/horoscope/la_lettura_vedica.dart';
 import '../../core/horoscope/l_annuale.dart';
 import '../../core/horoscope/la_rivoluzione_solare.dart';
@@ -71,6 +74,7 @@ import '../../core/condivisione/premio_della_condivisione.dart';
 import '../sigilli/celebrazione.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import 'corsa_dello_zodiaco.dart';
+import 'la_rivelazione_del_segno.dart';
 
 const List<String> _mesiItaliani = [
   'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
@@ -256,6 +260,21 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       'oroscopo',
       dettagli: {'periodo': _period.name, 'tradizione': quale.name},
     ));
+    // **IL SIGILLO DEI TRE CIELI, ordine ES voce 37**: la lettura del giorno
+    // di questa tradizione entra nel conto di oggi.
+    if (_period == HoroscopePeriod.giorno) {
+      unawaited(IlSigilloDeiTreCieli.segna(quale, _date).then((stato) {
+        if (!mounted) return;
+        setState(() => _sigilloDeiTreCieli = stato);
+        if (stato.appenaAcceso) {
+          unawaited(PaletteSensoriale.momento(
+            context,
+            aptica: SchemaAptico.rivelazione,
+            suono: SuonoDelCerchio.rivelazione,
+          ));
+        }
+      }));
+    }
     // **QUI C'ERA IL RITORNO ANTICIPATO, e l'ordine BK lo vieta.** Con Riduci
     // Movimento la funzione tornava subito e la riflessione non avveniva
     // affatto: chi ha tolto le animazioni non aveva chiesto di saltare il
@@ -434,6 +453,17 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   /// Gli anni dell'oroscopo annuale aperti con gli Eos (ordine ES voce 04).
   final Set<int> _anniAperti = {};
 
+  /// **I TRE CIELI DI OGGI, ordine ES voce 36**, calcolati una volta per
+  /// giorno, piano, luogo e cielo, e non a ogni fotogramma della cascata:
+  /// sono tre letture intere, e il loro esito non cambia mentre le schede si
+  /// scrivono.
+  String? _chiaveDeiTreCieli;
+  List<AccordoDelDominio> _treCieli = const [];
+
+  /// **IL SIGILLO DEI TRE CIELI, ordine ES voce 37**: quali tradizioni sono
+  /// state lette oggi, e se il Sigillo e' acceso.
+  StatoDeiTreCieli _sigilloDeiTreCieli = StatoDeiTreCieli.vuoto;
+
   /// Se l'avviso del prossimo compleanno solare e' gia' stato programmato in
   /// questa apertura: una volta basta.
   bool _avvisoDellAnno = false;
@@ -609,6 +639,9 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     unawaited(MemoriaDellaRiflessione.giaSpesaOggi(_date).then((spesa) {
       if (mounted) _attesaPienaGiaSpesa = spesa;
     }));
+    unawaited(IlSigilloDeiTreCieli.di(_date).then((stato) {
+      if (mounted) setState(() => _sigilloDeiTreCieli = stato);
+    }));
   }
 
   @override
@@ -719,6 +752,47 @@ class _OroscopoScreenState extends State<OroscopoScreen>
             // Il giorno personale del numero fortunato, ordine ES voce 29.
             nascita:
                 profile.identity.isExample ? null : profile.identity.birthDate);
+
+    // **I TRE CIELI, ordine ES voce 36.** Solo a chi legge tutte e tre le
+    // tradizioni, cioe' dal primo piano a pagamento e con la data di
+    // nascita: al Viandante direbbero cio' che la Cinese e la Vedica
+    // vedono, e quelle letture non sono sue.
+    final chiaveDeiTreCieli = '${_date.year}-${_date.month}-${_date.day}|'
+        '${tier.name}|${_luogo?.citta}|${cielo.livello}|'
+        '${nascitaDeiSegni?.locale}';
+    if (_chiaveDeiTreCieli != chiaveDeiTreCieli) {
+      _chiaveDeiTreCieli = chiaveDeiTreCieli;
+      _treCieli = const [];
+      if (nascitaDeiSegni != null &&
+          AstroTradition.cinese.leggibilePer(tier) &&
+          AstroTradition.vedica.leggibilePer(tier)) {
+        final animaleDiNascita =
+            ISegniDelleTradizioni.per(AstroTradition.cinese, nascitaDeiSegni)
+                .animale;
+        _treCieli = ITreCieli.di(
+          occidentale: Horoscope.forSign(
+              sign: widget.userSign,
+              dayOfYear: _dayOfYear,
+              year: _year,
+              cielo: cielo,
+              nascita: profile.identity.isExample
+                  ? null
+                  : profile.identity.birthDate),
+          cinese: animaleDiNascita == null
+              ? null
+              : LaLetturaCinese.schede(
+                  oggi: _date,
+                  nascita: nascitaDeiSegni.locale,
+                  animale: animaleDiNascita,
+                  forma: profile.courtesy),
+          vedica: LaLetturaVedica.schede(
+              adesso: _date,
+              nascita: nascitaDeiSegni,
+              luogo: _luogo,
+              forma: profile.courtesy),
+        );
+      }
+    }
 
     return Stack(
       children: [
@@ -1033,6 +1107,18 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                             ),
                             const SizedBox(height: SpacingTokens.md),
                           ],
+                      // **I TRE CIELI DI OGGI, ordine ES voce 36**: sotto le
+                      // schede, dominio per dominio, se le tre tradizioni
+                      // sono d'accordo e, se non lo sono, chi vede cosa.
+                      if (consulto &&
+                          _fase == _FaseDelConsulto.responso &&
+                          _treCieli.isNotEmpty) ...[
+                        _ITreCieliView(
+                            accordi: _treCieli,
+                            sigillo: _sigilloDeiTreCieli,
+                            palette: palette),
+                        const SizedBox(height: SpacingTokens.md),
+                      ],
                       // LA NOTA CHE DICHIARA IL RIPIEGO, quando il cielo non c'e'.
                       //
                       // Una riga generica scritta con lo stesso carattere di una
@@ -1263,6 +1349,26 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         _traditionMessage = null;
         _inCima = tradition;
       });
+      // **LA RIVELAZIONE DEL SEGNO, ordine ES voce 35**: la prima volta che
+      // si sceglie la Cinese o la Vedica, dopo il frame della scelta.
+      if (LaRivelazioneDelSegno.tradizioni.contains(tradition)) {
+        final nascita = NascitaDeiSegni.daiDati(
+            context.read<BirthIdentityController>().details,
+            context.read<ProfileController>().identity);
+        final palette =
+            MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          if (!mounted) return;
+          unawaited(LaRivelazioneDelSegno.forseMostra(
+            context,
+            tradizione: tradition,
+            segno: nascita == null
+                ? null
+                : ISegniDelleTradizioni.per(tradition, nascita),
+            palette: palette,
+          ));
+        });
+      }
       return;
     }
     setState(() {
@@ -2460,6 +2566,85 @@ class _HoroscopeCardView extends StatelessWidget {
 }
 
 /// La riga che dichiara da dove viene il testo, quando non viene dal cielo.
+/// **I TRE CIELI DI OGGI, ordine ES voce 36.** Una riga per dominio: in oro
+/// quando le tre tradizioni sono d'accordo, piu' piana quando non lo sono.
+class _ITreCieliView extends StatelessWidget {
+  const _ITreCieliView(
+      {required this.accordi, required this.sigillo, required this.palette});
+
+  final List<AccordoDelDominio> accordi;
+  final StatoDeiTreCieli sigillo;
+  final MaestroPalette palette;
+
+  /// La riga del Sigillo dei Tre Cieli (ordine ES voce 37): acceso, o cosa
+  /// manca per accenderlo oggi.
+  String get _rigaDelSigillo {
+    if (sigillo.accesoOggi) {
+      final quante = sigillo.giorni > 1
+          ? ' In tutto si è acceso in ${sigillo.giorni} giorni.'
+          : '';
+      return 'Il Sigillo dei Tre Cieli è acceso: oggi hai letto il cielo in '
+          'tutte e tre le tradizioni.$quante';
+    }
+    final mancano =
+        sigillo.mancano.map((t) => ITreCieli.conArticolo[t]!).join(' e ');
+    return 'Il Sigillo dei Tre Cieli si accende leggendo oggi anche $mancano.';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return DepthCard(
+      key: const Key('oroscopo_tre_cieli'),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('I tre cieli di oggi',
+              style: TypographyTokens.titoloSezione()
+                  .copyWith(color: palette.goldSoft)),
+          for (final a in accordi) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Text(
+              a.frase,
+              key: Key('oroscopo_tre_cieli_${a.dominio.name}'),
+              style: TypographyTokens.corpo().copyWith(
+                  color:
+                      a.concordi ? palette.goldSoft : ColorTokens.textSecondary,
+                  height: 1.4),
+            ),
+          ],
+          const SizedBox(height: SpacingTokens.md),
+          Row(
+            key: const Key('oroscopo_sigillo_tre_cieli'),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(
+                  sigillo.accesoOggi
+                      ? Icons.verified_rounded
+                      : Icons.radio_button_unchecked_rounded,
+                  size: 18,
+                  color: sigillo.accesoOggi
+                      ? palette.gold
+                      : ColorTokens.textMuted),
+              const SizedBox(width: SpacingTokens.sm),
+              Expanded(
+                child: Text(
+                  _rigaDelSigillo,
+                  key: const Key('oroscopo_sigillo_tre_cieli_riga'),
+                  style: TypographyTokens.didascalia().copyWith(
+                      color: sigillo.accesoOggi
+                          ? palette.goldSoft
+                          : ColorTokens.textMuted,
+                      height: 1.4),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
 class _NotaDelCielo extends StatelessWidget {
   const _NotaDelCielo(
       {required this.testo,

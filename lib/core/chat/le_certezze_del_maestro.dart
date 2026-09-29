@@ -36,7 +36,36 @@ abstract final class LeCertezzeDelMaestro {
     'perciò',
     'sarà',
     'avrà',
+    // **"POTRAI" E' UNA POSSIBILITA', NON UNA CERTEZZA.** Ordine ES voce 19:
+    // al giro 6 del banco la rete scartava "potrai comunicare", e il
+    // giudizio dato a mano la chiama uno scarto inutile.
+    'potrò',
+    'potrai',
+    'potrà',
+    'potremo',
+    'potrete',
+    'potranno',
   };
+
+  /// **IL FUTURO DETTO DENTRO LA LETTURA NON E' UN FATTO.** Ordine ES voce
+  /// 19: al giro 6 nove scarti su ventisei inutili avevano il futuro sotto
+  /// *"le rune dicono che"*, *"leggo che"*, *"indica che"*: e' la forma che
+  /// la regola della posizione chiede. Il verbo della lettura seguito da
+  /// "che" davanti al futuro, nella stessa proposizione, lo fa lettura.
+  static final RegExp _letturaChe =
+      _re('$_prima(?:dicono|dice|leggo|leggono|mostrano|mostra|indicano|indica|'
+          'rispondono|risponde|vedo)$_dopo[^,;:]*?${_prima}che$_dopo');
+
+  /// **IL FUTURO CHE SEGUE UN CONSIGLIO E' LA SUA CONSEGUENZA**, non una
+  /// previsione: *"Concentra il tuo intento e le risorse seguiranno il tuo
+  /// passo"*. Ordine ES voce 19, dal giro 6. Si riconosce l'imperativo in
+  /// testa alla proposizione e la "e" che lega il futuro.
+  static final RegExp _consiglioEFuturo = _re(
+      r'^\s*(?:concentra|ascolta|apri|cerca|lascia|segui|scegli|scrivi|parla|'
+      r'esci|fai|prendi|dai|guarda|affida|coltiva|nutri|proteggi|accogli|'
+      r'respira|chiudi|appoggia|accendi|tieni|porta|ricorda|osserva|sii|abbi|'
+      r'resta|torna|chiedi|dedica|offri|trova|costruisci|lavora|credi)'
+      '$_dopo.*${_prima}e$_dopo');
 
   static final RegExp _esito =
       _re('$_prima(?:sarà|saranno|avrà|avranno)$_dopo');
@@ -109,11 +138,17 @@ abstract final class LeCertezzeDelMaestro {
     if (_condizione.hasMatch(p)) return false;
     for (final m in _futuro.allMatches(p)) {
       if (_nonFuturi.contains(m.group(1)!.toLowerCase())) continue;
-      if (_davantiAlFuturo.hasMatch(p.substring(0, m.start))) continue;
+      final davanti = p.substring(0, m.start);
+      if (_davantiAlFuturo.hasMatch(davanti)) continue;
+      if (_letturaChe.hasMatch(davanti)) continue;
+      if (_consiglioEFuturo.hasMatch(davanti)) continue;
       return true;
     }
     for (final m in _esito.allMatches(p)) {
-      if (!_davantiAlFuturo.hasMatch(p.substring(0, m.start))) return true;
+      final davanti = p.substring(0, m.start);
+      if (_davantiAlFuturo.hasMatch(davanti)) continue;
+      if (_letturaChe.hasMatch(davanti)) continue;
+      return true;
     }
     if (letta || _cioChePuoEssere.hasMatch(p)) return false;
     return _sentimentiDegliAltri.hasMatch(p) ||
@@ -129,8 +164,16 @@ abstract final class LeCertezzeDelMaestro {
       // La lettura vale nella proposizione dove sta: *"I tuoi centri
       // rispondono di sì, il tuo capo apprezza il tuo lavoro"* dice il fatto
       // dopo la virgola.
+      // **E LA CONDIZIONE VALE ANCHE PER LA PROPOSIZIONE CHE LA SEGUE**,
+      // ordine ES voce 19: *"Solo quando sentirai di valere, attirerai
+      // persone che..."* e' un futuro condizionato, e al giro 6 la rete lo
+      // prendeva per certo.
+      var dopoUnaCondizione = false;
       for (final p in _proposizioni(frase)) {
-        if (_certa(p, letta: _lettura.hasMatch(p))) fuori.add(p.trim());
+        if (!dopoUnaCondizione && _certa(p, letta: _lettura.hasMatch(p))) {
+          fuori.add(p.trim());
+        }
+        dopoUnaCondizione = _condizione.hasMatch(p);
       }
     }
     return fuori;

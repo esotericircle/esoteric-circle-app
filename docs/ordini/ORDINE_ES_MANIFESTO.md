@@ -23,8 +23,8 @@ chiusa.
 
 VOCI_TOTALI: 37
 VOCI_CHIUSE: 2
-VOCI_APERTE: 25
-VOCI_DA_FARE: 10
+VOCI_APERTE: 35
+VOCI_DA_FARE: 0
 
 Le prove stanno in `docs/collaudo/ES/`, quelle del telefono di prova
 (Realme 767f596c) in `docs/collaudo/ES/realme/`. **Una voce che si vede a
@@ -399,45 +399,109 @@ MISURA: testi del Sigillo che dicono "cielo notturno reale" da 4 a 0; fogli con 
 
 ## VOCE ES.19, IL BANCO DELLE TRENTA DOMANDE ARRIVA A 30 SU 30 (DALLA ET.01)
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: le reti corrette sui 101 giudizi dati a mano del giro 6 del
+banco, da misurare col banco delle trenta domande e la lettura alla cieca. **La rete della prima
+frase** (`lib/core/chat/la_posizione_della_lettura.dart`) riconosce adesso il si' detto con la cosa
+(*"l'amore è presente"*, *"c'è ancora un legame"*, *"la soglia del ritorno è aperta"*, *"leggo
+successo"*, *"avrà esito positivo"*), il no detto con un verbo (*"le rune non rivelano un
+tradimento"*, *"non è il momento"*), *"Il presagio dice"* e le lame come lettura, e la massima "non X,
+ma Y" quando Y e' un'azione (*"Non cercare di dimenticare, ma di trasformare"*) o quando il si' e'
+gia' detto. **"È possibile" passa solo con la sua condizione** (*"è possibile, a patto che..."*), cioe'
+nella forma del "sì, se" che il fondatore ha approvato; da solo resta una prudenza e resta scartato:
+qui il giudice alla cieca del giro 2 e i giudizi a mano del giro 6 si contraddicevano, e la scelta e'
+presa con la risposta consigliata. **La rete delle certezze** (`le_certezze_del_maestro.dart`): il
+futuro detto sotto *"le rune dicono che"* e' lettura, *"potrai"* e' una possibilita', il futuro dopo
+una condizione o dopo un consiglio (*"Concentra il tuo intento e le risorse seguiranno"*) e' una
+conseguenza. Mancano: il banco delle trenta domande (circa 1,4 dollari) e la lettura alla cieca, per
+il 30 su 30 per Maestro e canale.
 
 DOMANDA: dalla ET.01: "Bisogna fare delle prove, 30 domande per ogni maestro, con domande classiche q più frequenti. Gli utenti faranno domande personali e anche intime nella maggior parte dei casi. Ma anche per la fortuna e lavoro."; domanda girata al fondatore: "Ritocchi alle reti che scartano le risposte dirette (il sì detto senza "sì", il no detto con "non", il "sì, se" sulla coppia): entrano, perché senza non si arriva a 30 su 30. Confermi?", risposta: "Confermo tutto".
 
+PROVA: docs/collaudo/ES/regola_a_blocco_es19_es37.txt
+MISURA: sui 101 casi scartati al giro 6 e giudicati a mano (docs/collaudo/ES/giro6_reti.json), misurati col codice di prima (commit 78d1388c) e con quello di oggi: risposte dirette che la rete della prima frase scarta, prima 28 su 30, dopo 5 su 30; prime frasi vaghe che lascia passare, prima 0 su 14, dopo 0 su 14; certezze apparenti che la rete delle certezze prende, prima 12 su 26, dopo 7 su 26; certezze vere che manca, prima 1 su 30, dopo 1 su 30; le tre certezze rimaste nelle finali del giro 6 la rete le prende sul loro testo, prima e dopo 3 su 3 (al banco erano sfuggite perche' non stavano nella parte guardata)
+
 ## VOCE ES.20, VOCE, TESTO A VIDEO E CHAT CON LE STESSE PAROLE (DALLA ET.02)
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata, da vedere sul Realme. La risposta detta a
+voce nel LIVE porta un segno, `ChatMessage.dettoNelLive`, che si salva col messaggio sul server e si
+rilegge riaprendo la conversazione; sotto una risposta col segno la chat non aggiunge l'invito a
+tornare (`ConsiglioFinale.invitoSotto`), come ha confermato il fondatore. La chat scritta resta com'era.
+Manca la cattura dal Realme della chat dopo un LIVE, e la voce ritrascritta col microfono del PC.
 
 DOMANDA: dalla ET.02: "Deve anche verificare che quello che il maestro dice corrisponda a quello che ha detto."; domanda girata al fondatore: "Invito a tornare nella chat del LIVE: esce, perché la chat deve dire solo quello che dice la voce. Confermi?", risposta: "Confermo tutto".
 
+PROVA: docs/collaudo/ES/regola_a_blocco_es19_es37.txt
+MISURA: sotto l'ultima risposta detta nel LIVE, invito a tornare in chat prima 1 su 1 (Realme, Calìgo), dopo 0 su 1 in prova, anche riaprendo la conversazione; nella chat scritta l'invito resta, 1 su 1
+
 ## VOCE ES.21, DOMANDE SIMILI DI FILA, ZERO RIPETIZIONI (DALLA ET.03)
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: la rete e' tarata sui giudizi alla cieca, da misurare col banco.
+Le seconde di coppia che ripetevano la prima non ricalcavano parola per parola, ridicevano la stessa
+cosa con altre parole, e la rete dell'ordine EN voce 06 non le vedeva. **Dentro la stessa rete**
+(`LaRispostaRipetuta.ridiceLaPrecedente`, una porta sola): si confrontano le prime tre frasi della
+risposta di prima e di quella nuova, senza le parole delle due domande e senza le parole di tutti i
+giorni dei Maestri; da 0,4 in su la risposta si chiede di nuovo una volta, nominando quella di prima.
+La soglia e' tarata sulle 240 seconde di coppia giudicate alla cieca in quattro fasi del banco
+(`docs/collaudo/ES/coppie_ripetute.json`, `tool/le_coppie_ripetute.py`). Manca il banco delle trenta
+domande con la lettura alla cieca delle coppie, e le coppie nel LIVE sul Realme.
 
 DOMANDA: dalla ET.03: "Ho provato a fare Domande simili consecutive e le risposte, non solo non erano adeguate [...]"
 
+PROVA: docs/collaudo/ES/regola_a_blocco_es19_es37.txt
+MISURA: sulle 240 seconde di coppia giudicate alla cieca, ripetizioni prese dalla rete prima 0 su 26 (la rete parola per parola), dopo 13 su 26; seconde buone chiamate ripetute, dopo 2 su 214
+
 ## VOCE ES.22, LA TRASCRIZIONE DEL LIVE: NESSUNA DOMANDA VUOTA E LE PAROLE GIUSTE (DALLA ET.04)
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: preparata, non ancora misurata. Il banco della trascrizione
+(`tool/banco_trascrizione_es22.dart`) manda le venti domande del collaudo del LIVE, dette dalla voce
+italiana di Windows pulite e "da stanza" (`tool/le_domande_dette.py`), con l'istruzione di prima e con
+quella nuova, allo stesso modello del telefono. Mancano: la scelta dell'istruzione misurata al banco e
+la prova sul Realme col microfono, venti domande.
 
 DOMANDA: dalla ET.04: "Confermi le mie tre scelte e l'ordine per la trascrizione, insieme alla ER.01?", risposta: "Confermo, dobbiamo risolvere tutto."; domanda girata al fondatore: "Trascrizione sbagliata ("Ma mi ama ancora" diventa "Ma mia, ma ancora"): si corregge in questo ordine. Confermi?", risposta: "Confermo tutto".
 
+PROVA: tool/banco_trascrizione_es22.dart
+MISURA: domande trascritte parola per parola giuste sul Realme, prima 12 su 17 (ordine ET), dopo da misurare
+
 ## VOCE ES.23, QUATTRO FRASI QUANDO LA DOMANDA HA PIÙ PARTI, SENZA PERDERE IL MERITO (DALLA ET.06)
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: nessun codice nuovo in questa voce; il merito delle risposte a
+piu' parti si misura col banco `DOMANDE=er12` dopo le reti della ES.19, che toccano le stesse
+risposte, e con la lettura alla cieca (l'ordine chiede 23 su 36).
 
 DOMANDA: dalla ET.06: il consiglio dell'Architetto "ER.12: quattro frasi quando la domanda ha più parti.", risposta: "Confermo, dobbiamo risolvere tutto."
 
+PROVA: docs/collaudo/ET/live_quattro_frasi.txt
+MISURA: nel merito alla cieca, prima 20 e 18 su 36 (ordine ET), dopo da misurare col banco
+
 ## VOCE ES.24, LE RUNE: VIA LE GUARDIE SULLA PRIMA FRASE (DALLA ET.07)
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata, da misurare col banco delle rune. Le
+quattro guardie sulla prima frase della lettura delle rune sono uscite (le immagini, la posizione
+scelta e non detta, la formula al posto del gesto, la frase che non dice "inBreve"), con le loro regole;
+restano quelle sulle pietre (il nome, la posizione, la frase sulla domanda, la cosa chiesta), la
+cornice ricopiata, gli astri e il confine. La richiesta al modello chiede ancora la prima frase
+diretta. Le prove che pretendevano le guardie tolte sono riscritte con la lapide. Mancano il banco delle
+rune (le chiamate e il tempo per lettura) e l'attesa sul Realme su dieci gettate.
 
 DOMANDA: dalla ER.01: "Le persone vogliono risposte dirette, Senza tanti giochi di parole e cercano consigli e guide anche su domande generiche."; domanda girata al fondatore: "Rune: togliere le guardie sulla prima frase, perché raddoppiano le chiamate e il tempo del modello senza portare risposte più dirette; restano quelle sulle pietre. Confermi?", risposta: "Confermo tutto".
 
+PROVA: docs/collaudo/ES/regola_a_blocco_es19_es37.txt
+MISURA: guardie sulla prima frase delle rune, prima 4, dopo 0; letture di prova scartate per la prima frase, prima 4 su 4 (immagini, posizione non detta, formula, inBreve), dopo 0 su 4; chiamate per lettura al banco, prima 56 per 24 letture, dopo da misurare
+
 ## VOCE ES.25, IL VIAGGIO PRENDE POSIZIONE NELLA PRIMA FRASE, 20 SU 20 (DALLA ET.08)
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: la guardia corretta sui giudizi alla cieca, da misurare col
+banco del Viaggio. La prima frase che rimanda la domanda riconosce adesso anche le formule vaghe che
+reggevano alle guardie (il consiglio astratto, la decisione annunciata e non detta, la massima, la
+condizione che non si puo' fare, le due strade che la domanda non ha): `LeGuardieDelResponso._vaga`.
+Tarata sul giro 3 della lettura alla cieca e provata sul giro 1, che non ha guardato. Manca il banco
+del Viaggio con la lettura alla cieca, per il 20 su 20, e la cattura di una discesa dal Realme.
 
 DOMANDA: dalla ET.08: il consiglio dell'Architetto "ER.02: sì alla riserva che prende posizione, come la propone Code.", risposta: "Confermo, dobbiamo risolvere tutto."
+
+PROVA: docs/collaudo/ES/regola_a_blocco_es19_es37.txt
+MISURA: prime frasi senza posizione (giudizio alla cieca) che la guardia chiede di nuovo, giro 3 prima 0 su 21, dopo 20 su 21, buone chiamate vaghe prima 0 e dopo 0 su 51; giro 1, non guardato, prima 4 su 22, dopo 12 su 22, buone chiamate vaghe prima 0 e dopo 3 su 50
 
 ## VOCE ES.26, IL RETRO DELLE SCHEDE A 402 PUNTI (DALLA ET.09)
 
@@ -528,9 +592,13 @@ MISURA: tocchi dall'invito alla schermata dei dati di nascita, 1; inviti mostrat
 **APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (blocco 2 dell'ordine ES). Per chi ha la carta natale la scheda Generale dice l'istante del giorno
 in cui la Luna forma un trigono, un sestile o una congiunzione esatta al Sole, a Venere o a
 Giove di nascita (`lib/core/horoscope/l_ora_d_oro.dart`, con la Luna di Meeus intera); un
-giorno senza non mostra niente, e succede circa un giorno su due. **Mancano le due
-notifiche** (un quarto d'ora prima dell'ora d'oro e il Rahu Kalam del mattino, che nasce con
-la voce ES.09) e le catture dal Realme.
+giorno senza non mostra niente, e succede circa un giorno su due. **Le due notifiche ci sono**
+(`lib/core/horoscope/le_chiamate_del_cielo.dart`): un quarto d'ora prima dell'ora d'oro, nei
+giorni in cui c'e', per chi ha la carta natale; e all'alba il Rahu Kalam del giorno con le sue ore
+nella citta' della persona, per chi ha aperto la lettura vedica almeno una volta. Si programmano sette
+giorni alla volta a ogni avvio, annullando prima le quattordici di prima; ognuna ha il suo canale
+(`ora_d_oro`, `rahu_kalam`) e il suo interruttore nel menu Notifiche, accese di partenza per la regola
+del fondatore sulle notifiche. Mancano le catture dal Realme e una notifica vista arrivare.
 
 DOMANDA: riga della scheda: "L'ora d'oro di oggi. Dall'orario esatto degli aspetti della Luna ai punti natali si ricava un momento preciso della giornata"; domanda girata al fondatore: "Il Rahu Kalam [...] È il contrario della nostra ora d'oro", risposta: "COnfermo tutto."
 
@@ -564,18 +632,47 @@ MISURA: chiusure dell'Oroscopo senza ragione per tornare, prima 1, dopo 0; antic
 
 ## VOCE ES.35, LA RIVELAZIONE DEL SEGNO
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata, da vedere sul Realme. La prima volta che
+si sceglie la Cinese o la Vedica compare la figura in bronzo del segno che si accende, e la frase
+"Il tuo segno cinese è il Cavallo" (`lib/features/horoscope/la_rivelazione_del_segno.dart`), con
+"Condividi" (la tessera come immagine, dalla porta della condivisione) e "Continua". Una volta sola
+per tradizione, segnata sul telefono; con Riduci Movimento la figura e' gia' li'; col segno incerto
+(la Vedica senza ora nei giorni in cui la Luna cambia segno) la rivelazione aspetta. Mancano la
+registrazione dello schermo dal Realme e una condivisione vera.
 
 DOMANDA: riga dell'Architetto: "La prima volta che la persona sceglie Cinese o Vedica, la figura in bronzo appare con la sua animazione e la frase "Il tuo segno cinese è il Cavallo". È il momento da condividere."
 
+PROVA: docs/collaudo/ES/regola_a_blocco_es19_es37.txt
+MISURA: rivelazioni alla prima scelta, prima 0, dopo 2 su 2 (Cinese, Vedica), con la frase uguale a quella del segno; rivelazioni alla seconda scelta, dopo 0
+
 ## VOCE ES.36, TRE TRADIZIONI SU TRE
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata, da vedere sul Realme. Sotto le quattro
+schede del giorno, dal primo piano a pagamento e con la data di nascita, la tessera "I tre cieli di
+oggi" dice per ogni dominio se le tre tradizioni sono d'accordo (*"Oggi tre tradizioni su tre vedono
+il lavoro favorevole"*) e, se non lo sono, chi vede cosa (*"Sul lavoro le tre tradizioni non sono
+d'accordo: favorevole per l'occidentale e la cinese, in salita per la vedica."*). L'esito viene dal
+livello che ogni scheda porta gia': 4 e 5 favorevole, 3 in equilibrio, 2 in salita
+(`lib/core/horoscope/i_tre_cieli.dart`). Al Viandante non si mostra: direbbe cio' che vedono letture
+che non sono sue. Manca la cattura dal Realme.
 
 DOMANDA: riga dell'Architetto: "Quando occidentale, cinese e vedica danno lo stesso esito su un dominio, lo si dice: "Oggi tre tradizioni su tre vedono il lavoro favorevole". Se non sono d'accordo, si dice anche questo."
 
+PROVA: docs/collaudo/ES/regola_a_blocco_es19_es37.txt
+MISURA: in sessanta giorni veri, domini con le tre tradizioni d'accordo 55, in disaccordo 185, esiti o frasi diversi dalla regola scritta nella prova 0 su 240
+
 ## VOCE ES.37, IL SIGILLO "TRE CIELI"
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata, da vedere sul Realme. **Il Sigillo dei Tre
+Cieli e' un Sigillo a parte, non un gradino dei Sentieri**: i gradini sono i 165 del corpus del
+fondatore, con le loro posizioni e i loro Eos, e il corpus non si cambia senza il suo si'. Si accende
+il giorno rituale in cui si leggono la Occidentale, la Cinese e la Vedica, si conta, e si mostra in
+fondo alla tessera dei tre cieli: acceso, o quali tradizioni mancano oggi
+(`lib/core/horoscope/il_sigillo_dei_tre_cieli.dart`). Non conia Eos. Scelta presa con la risposta
+consigliata: se il fondatore lo vuole fra i gradini, basta aggiungerlo al corpus. Manca la cattura dal
+Realme.
 
 DOMANDA: riga dell'Architetto: "un Sigillo "Tre Cieli" per chi legge tutte e tre le tradizioni nello stesso giorno."
+
+PROVA: docs/collaudo/ES/regola_a_blocco_es19_es37.txt
+MISURA: il Sigillo acceso dopo la terza tradizione letta nello stesso giorno, prima non esisteva, dopo acceso 1 su 1 e contato 1 giorno; acceso con due tradizioni, 0

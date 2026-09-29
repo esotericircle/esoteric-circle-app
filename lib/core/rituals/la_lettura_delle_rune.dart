@@ -75,11 +75,11 @@ abstract final class LaLetturaDelleRune {
 
   /// Vero se una lettura scartata per [motivo] si mostra comunque dopo
   /// l'ultima chiamata.
+  ///
+  /// **I MOTIVI DELLA PRIMA FRASE NON CI SONO PIU'**, ordine ES voce 24: le
+  /// guardie che li davano sono state tolte, e restano quelli delle pietre.
   static bool siMostraComunque(String motivo) =>
-      motivo.startsWith('la prima frase') ||
-      motivo.startsWith('hai scelto la posizione') ||
-      motivo.startsWith('la pietra ') && motivo.contains(' non dice ') ||
-      motivo.startsWith('"inBreve"');
+      motivo.startsWith('la pietra ') && motivo.contains(' non dice ');
 
   /// **LA RICHIESTA**: la gettata, ogni pietra con la sua posizione e la sua
   /// riga del corpus nel verso uscito, e la domanda con la sua cornice.
@@ -393,15 +393,17 @@ abstract final class LaLetturaDelleRune {
             '(${esito.rune[i].posizione.titolo})';
       }
     }
-    // **LA PRIMA FRASE RISPONDE**, ordine ER voce 01, dalla lettura alla
-    // cieca del secondo banco: la risposta che apre per immagini non
-    // risponde, e con la posizione sì, no o a una condizione la prima frase
-    // dice sì o no.
-    final prima = r.risposta.split(RegExp(r'(?<=[.!?])\s+')).first;
-    if (_perImmagini.hasMatch(prima)) {
-      return 'la prima frase della risposta parla per immagini: deve dire '
-          'in parole semplici sì, no, a quale condizione o il passo da fare';
-    }
+    // **LE GUARDIE SULLA PRIMA FRASE SONO USCITE. Ordine ES voce 24.** Il
+    // fondatore: *"Le persone vogliono risposte dirette, Senza tanti giochi
+    // di parole"*; e sulla domanda *"Rune: togliere le guardie sulla prima
+    // frase, perché raddoppiano le chiamate e il tempo del modello senza
+    // portare risposte più dirette; restano quelle sulle pietre. Confermi?"*,
+    // *"Confermo tutto"*. Qui stavano quattro controlli della prima frase
+    // (le immagini, la posizione scelta e non detta, la formula al posto del
+    // gesto, la frase che non dice "inBreve"): al banco dell'ordine ET voce
+    // 07 chiedevano di nuovo la lettura senza che la seconda fosse piu'
+    // diretta della prima. La richiesta al modello chiede ancora la prima
+    // frase diretta; qui non si scarta piu' per lei.
     // **LA CORNICE NON SI RICOPIA**: la risposta che ne ripete una frase
     // non e' una risposta, e' l'area della domanda detta a chi l'ha posta.
     final cornice = CorniciDelPresagio.perDomanda(domanda);
@@ -414,33 +416,6 @@ abstract final class LaLetturaDelleRune {
               'frase deve rispondere con parole tue';
         }
       }
-    }
-    final posizione = '${j['posizione'] ?? ''}'.trim();
-    if (domanda.trim().isNotEmpty &&
-        const ['sì', 'no', 'sì a una condizione'].contains(posizione) &&
-        !_laPosizioneDetta.hasMatch(prima)) {
-      return 'hai scelto la posizione "$posizione" ma la prima frase della '
-          'risposta non la dice';
-    }
-    // **LA FORMULA AL POSTO DEL GESTO O DEL FATTO. Ordine ET voce 07.**
-    // Alla lettura alla cieca del giro 8 dell'ordine ER le letture non
-    // dirette erano quasi tutte domande aperte a cui la prima frase
-    // rispondeva con un atteggiamento: *"La scelta che ti blocca si scioglie
-    // riconoscendo il tuo vero valore"*, *"Rimetti in ordine le tue spese con
-    // un gesto di equilibrio"*, *"La giornata ti chiede di lasciar andare"*.
-    final inBreve = '${j['inBreve'] ?? ''}'.trim();
-    if (!const ['sì', 'no', 'sì a una condizione'].contains(posizione)) {
-      final formula = _formula.firstMatch('$prima $inBreve');
-      if (formula != null) {
-        return 'la prima frase della risposta dice un atteggiamento '
-            '("${formula.group(0)}") e non il gesto o il fatto concreto';
-      }
-    }
-    // **LA PRIMA FRASE DICE CIO' CHE "inBreve" HA SCELTO.** Lo schema chiede
-    // la risposta in poche parole prima di scriverla, come la posizione.
-    if (inBreve.isNotEmpty && !_condividonoUnaRadice(inBreve, prima)) {
-      return '"inBreve" dice "$inBreve", ma la prima frase della risposta non '
-          'lo dice';
     }
     // **OGNI PIETRA DICE CHE COSA INDICA SULLA DOMANDA**, nel suo campo:
     // presente, e non la stessa frase per due pietre.
@@ -494,35 +469,6 @@ abstract final class LaLetturaDelleRune {
               caseSensitive: false)
           .hasMatch(testo);
 
-  /// **LE IMMAGINI CHE NON RISPONDONO**, in testa alla risposta. Non ci
-  /// sono *cammino* e *percorso*: alla domanda *"In amore, dove sto
-  /// andando?"* dire dove va il cammino e' la risposta diretta, e al banco
-  /// del 27 settembre sera la guardia che li conteneva scartava sedici
-  /// letture su cento.
-  /// **E LE APERTURE DI FORMULA**, dalla lettura alla cieca del banco della
-  /// sera: *"La tua giornata è un invito al cambiamento"*, *"Oggi è un giorno
-  /// di svolta"*, *"segui il flusso degli eventi"*: sette delle ventidue
-  /// letture che il giudice dava non dirette.
-  static final RegExp _perImmagini = RegExp(
-      '(?<![A-Za-zÀ-ÿ])(?:velat[oaie]|nebbi[ae]|sotterrane[oaie]|'
-      'dentro di te|già in te|in te stess[oa]|l.universo|il destino|'
-      'le forze|è un invito|un invito a|è un tempo di|è un giorno di|'
-      'il flusso|occhi nuovi)(?![A-Za-zÀ-ÿ])',
-      caseSensitive: false);
-
-  /// **LE FORMULE DELLA PRIMA FRASE**, dalla lettura alla cieca del giro 8
-  /// dell'ordine ER (ordine ET voce 07): un atteggiamento al posto del
-  /// gesto o del fatto.
-  static final RegExp _formula = RegExp(
-      r'(?<!\p{L})(?:interior[ei]|forza interiore|vero valore|'
-      r'consapevolezz\p{L}*|equilibrio|lasciar andare|lascia andare|'
-      r'non forzare|accogli\p{L}*|trasformazion\p{L}*|soglia|un ponte|'
-      r'passaggio|la corrente|rinnovamento|nuovo inizio|crescita|'
-      r'chiara visione|il tuo ritmo|tempo di attesa|con fiducia|'
-      r'ciò che non si vede)(?!\p{L})',
-      caseSensitive: false,
-      unicode: true);
-
   static const Set<String> _vuote = {
     'della',
     'delle',
@@ -572,11 +518,6 @@ abstract final class LaLetturaDelleRune {
           if (!_vuote.contains(m.group(0)))
             m.group(0)!.substring(0, m.group(0)!.length < 5 ? 4 : 5),
       };
-
-  static bool _condividonoUnaRadice(String a, String b) {
-    final dove = b.toLowerCase();
-    return _radici(a).any(dove.contains);
-  }
 
   /// Le famiglie di parole con cui si risponde a una cosa senza ripeterne
   /// il nome: all'amore col legame e col cuore, al denaro con le spese.
@@ -660,21 +601,6 @@ abstract final class LaLetturaDelleRune {
         .trim();
     return r.length < 20 ? null : r;
   }
-
-  /// **LA POSIZIONE DETTA**: un sì, un no, o la condizione che la regge. Al
-  /// banco la guardia cercava solo *sì* e *no*, e scartava *"Le rune indicano
-  /// che l'amore cresce se..."* scelta come *"sì a una condizione"*.
-  ///
-  /// **E LA CONDIZIONE DETTA COL "MA"**, dal Realme alla build 2285: a *"Devo
-  /// accettare il nuovo lavoro a Torino?"* il modello rispondeva *"Accetta
-  /// l'offerta di lavoro, ma poni una condizione chiara sul tuo tempo"*, cioe'
-  /// la risposta diretta, e la guardia la scartava due volte su due: al
-  /// telefono parlava la lettura di casa, che non risponde affatto. Al banco,
-  /// sulla stessa gettata, tre scarti su tre.
-  static final RegExp _laPosizioneDetta = RegExp(
-      '(?<![A-Za-zÀ-ÿ])(?:sì|no|non|se|a patto|purché|finché|solo quando|'
-      'ma|però|condizione|prima)(?![A-Za-zÀ-ÿ])',
-      caseSensitive: false);
 
   /// Le rune senza astrologia, ordine EA voce 05.
   static final RegExp _astri = RegExp(

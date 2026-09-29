@@ -196,18 +196,41 @@ abstract final class LaPosizioneDellaLettura {
 
   static final RegExp _lettura = _parole(
       'carte|carta|cielo|stelle|astri|arcano|arcani|centri|centro|chakra|'
-      'energia|corpo|rune|runa|pietre|pietra|segni|segno|lettura|leggo');
+      'energia|corpo|rune|runa|pietre|pietra|segni|segno|lettura|leggo|'
+      // Ordine ES voce 19: "Il presagio dice", di Calìgo, e "le lame" di
+      // Medora non erano riconosciuti come lettura.
+      'presagio|presagi|lame|lama');
+
+  /// **LA MASSIMA "NON X, MA Y"**, separata dal resto dall'ordine ES voce 19:
+  /// al giro 6 del banco ha scartato quattro risposte dirette su cinque,
+  /// perche' la stessa forma dice anche un passo (*"Non cercare di
+  /// dimenticare, ma di trasformare"*, *"Non puoi controllare l'accettazione
+  /// altrui, ma puoi custodire il tuo legame"*). E' una massima quando il Y
+  /// e' una cosa (*"non è una condanna, ma un invito"*), e' un passo quando e'
+  /// un'azione ([_maUnGesto]).
+  static final RegExp _nonXmaY = RegExp(
+      r"^non [^,.;:]+, ma(?!\p{L})|"
+      // La massima anche dietro la formula, dal secondo giro del banco:
+      // "Le rune dicono che la sorgente della sofferenza non è negli altri,
+      // ma nella soglia che non hai ancora varcato."
+      r"(?<!\p{L})non (è|e|sono) [^,.;:]+, ma(?!\p{L})",
+      caseSensitive: false,
+      unicode: true);
+
+  /// Il Y della massima che e' un'azione: un infinito, anche dopo "di", "a",
+  /// "puoi" o "devi".
+  static final RegExp _maUnGesto = RegExp(
+      r", ma (?:di |a )?(?:puoi |devi )?\p{L}+(?:are|ere|ire)(?:l[aoei]|"
+      r"gli|ne)?(?!\p{L})",
+      caseSensitive: false,
+      unicode: true);
 
   /// **LE PRIME FRASI CHE GIRANO INTORNO**, dal banco delle trenta domande.
   static final RegExp _giraIntorno = RegExp(
       r"^(non posso|non ti posso|nessun[oa]? (gesto|rito|rituale|lettura|"
       r"può|puo)|la mia arte non|il futuro (è|e|non)|non (è|e) (mio|a me)|"
       r"non chiedere a me|solo (lui|lei) può|nessuno può|non spetta)|"
-      r"(?<!\p{L})(un mistero|un velo)(?!\p{L})|^non [^,.;:]+, ma(?!\p{L})|"
-      // La massima anche dietro la formula, dal secondo giro del banco:
-      // "Le rune dicono che la sorgente della sofferenza non è negli altri,
-      // ma nella soglia che non hai ancora varcato."
-      r"(?<!\p{L})non (è|e|sono) [^,.;:]+, ma(?!\p{L})|"
+      r"(?<!\p{L})(un mistero|un velo)(?!\p{L})|"
       r"(?<!\p{L})è qui\.$|"
       // **LA MASSIMA COME DEFINIZIONE**, dal secondo giro: "Le rune dicono
       // che la fiducia è un ponte", "la percezione di mancanza è un
@@ -241,6 +264,47 @@ abstract final class LaPosizioneDellaLettura {
       caseSensitive: false,
       unicode: true);
 
+  /// **IL SI' O IL NO DETTI CON LA COSA, ordine ES voce 19.** Al giro 6 del
+  /// banco la rete ha scartato ventotto risposte dirette su quarantaquattro,
+  /// e i giudizi dati a mano dicono perche': il si' detto come situazione
+  /// (*"l'amore è presente"*, *"c'è ancora un legame"*, *"il fuoco
+  /// dell'amore è ancora acceso"*, *"la soglia del ritorno è aperta"*),
+  /// il si' con un'altra parola (*"leggo successo"*, *"avrà esito
+  /// positivo"*, *"è favorevole"*), il no detto con un verbo (*"le rune non
+  /// rivelano un tradimento"*, *"non è il momento di forzare"*). Qui si
+  /// riconoscono, dopo il verbo della lettura. **Non "è forte"**: *"il tuo
+  /// desiderio è forte"* a chi chiede se avra' un figlio non risponde, ed
+  /// era giudicata vaga.
+  ///
+  /// **"E' POSSIBILE" SOLO CON LA SUA CONDIZIONE.** Qui due giudizi si
+  /// contraddicevano: al secondo giro il giudice alla cieca dava *"è
+  /// possibile un ritorno"* senza posizione, al sesto i giudizi a mano la
+  /// davano diretta. Il fondatore ha approvato *"il sì detto senza sì"* e *"il
+  /// sì, se"*: "è possibile, a patto che..." e' un si' a una condizione e
+  /// passa; "è possibile" da solo e' una prudenza e resta scartato. Scelta
+  /// presa con la risposta consigliata, ordine ES voce 19.
+  static final RegExp _posizioneConLaCosa = RegExp(
+      r"(?<!\p{L})(?:dicono|dice|leggo|leggono|rispondono|risponde|indicano|"
+      r"indica|mostrano|mostra)(?!\p{L})[^.!?]*?(?<!\p{L})(?:"
+      r"(?:è|sono|resta|restano)\s+(?:ancora\s+)?(?:presente|"
+      r"apert[ao]|acces[ao]|favorevole|favorevoli|positiv[ao]|viv[ao])|"
+      r"c'è ancora|ci sono ancora|arde ancora|"
+      r"esito (?:positivo|favorevole)|"
+      r"(?:è|sono)\s+(?:ancora\s+)?possibil[ei][^.!?]*?(?<!\p{L})"
+      r"(?:se|a patto|purché|a condizione|non senza)"
+      r")(?!\p{L})|"
+      // "Leggo" e' insieme il verbo della lettura e la posizione: "Nelle
+      // rune leggo ancora un legame forte", "leggo successo, ma solo se".
+      // Sta da solo, perche' la prima stesura lo cercava dopo il verbo, cioe'
+      // dopo se stesso, e non lo trovava mai.
+      r"(?<!\p{L})leggo\s+(?:ancora\s+)?(?:un legame|successo|un ritorno|"
+      r"possibilità[^.!?]*?(?<!\p{L})(?:se|a patto|purché|a condizione))"
+      r"(?!\p{L})|"
+      r"(?<!\p{L})(?:non (?:rivelano|mostrano|vedono|indicano|leggono)\s+"
+      r"(?:un|una|il|la|alcun[ao]?)|non è (?:ancora )?il momento)(?!\p{L})",
+      caseSensitive: false,
+      unicode: true);
+
   /// **LA SCELTA NOMINA UNA DELLE STRADE.** *"Devo scrivergli io o
   /// aspettare?"*: la prima frase contiene la radice di una parola della
   /// domanda (*scriv-*, *aspet-*), come *"Le rune dicono: scrivigli tu"*.
@@ -263,9 +327,18 @@ abstract final class LaPosizioneDellaLettura {
   static bool rispetta(Maestro maestro, String domanda, String risposta) {
     final prima = primaFraseDi(risposta);
     if (prima.isEmpty || _giraIntorno.hasMatch(prima)) return false;
+    // La massima si guarda solo se la posizione non e' gia' detta: in "La
+    // tua energia dice di sì, se il suo ritorno non è un peso, ma un nuovo
+    // inizio" il "non X, ma Y" sta dentro la condizione del si'.
+    if (_nonXmaY.hasMatch(prima) &&
+        !_maUnGesto.hasMatch(prima) &&
+        !_posizioneDetta.hasMatch(prima)) {
+      return false;
+    }
     return switch (tipo(domanda)) {
-      TipoDellaDomanda.siONo =>
-        _lettura.hasMatch(prima) && _posizioneDetta.hasMatch(prima),
+      TipoDellaDomanda.siONo => _lettura.hasMatch(prima) &&
+          (_posizioneDetta.hasMatch(prima) ||
+              _posizioneConLaCosa.hasMatch(prima)),
       TipoDellaDomanda.scelta =>
         _lettura.hasMatch(prima) && _nominaUnaStrada(domanda, prima),
       TipoDellaDomanda.quando => _lettura.hasMatch(prima),

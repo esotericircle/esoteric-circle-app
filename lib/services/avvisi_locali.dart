@@ -60,6 +60,18 @@ class AvvisiLocali extends ServizioAvvisi {
       'Un avviso l\'anno, al tuo compleanno solare, che il tuo anno nuovo è '
           'pronto.'
     ),
+    // **LE DUE CHIAMATE DEL CIELO, ordine ES voce 32**: le programma
+    // `LeChiamateDelCielo`, sette giorni alla volta.
+    'ora_d_oro': (
+      'L\'ora d\'oro',
+      'Un avviso prima della tua ora d\'oro, nei giorni in cui la Luna tocca '
+          'il tuo cielo di nascita.'
+    ),
+    'rahu_kalam': (
+      'Rahu Kalam',
+      'Un avviso all\'alba con le ore del Rahu Kalam di oggi nella tua '
+          'città.'
+    ),
     // **I TRE CANALI STANTII SONO STATI TOLTI, ordine BG voce 03.** Il
     // cielo di oggi, i Sigilli del Cammino e le gettate di rune comparivano
     // nelle impostazioni di Android promettendo avvisi che nessuno

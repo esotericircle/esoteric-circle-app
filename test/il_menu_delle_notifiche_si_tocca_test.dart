@@ -100,7 +100,18 @@ void main() {
     }
     // ignore: avoid_print
     print('ORDINE BC VOCE 05: nel menu si leggono $ore');
-    expect(find.byType(Switch), findsNWidgets(DailyElement.values.length),
+    // **LAPIDE, ordine ES voce 32.** Qui si contavano tutti gli
+    // interruttori della pagina; sotto i Doni adesso ci sono anche le due
+    // chiamate del cielo, l'ora d'oro e il Rahu Kalam, con le loro chiavi.
+    // Si contano quelli dei Doni, per chiave.
+    final deiDoni = find.byWidgetPredicate((w) =>
+        w is Switch &&
+        w.key is ValueKey<String> &&
+        (w.key! as ValueKey<String>)
+            .value
+            .startsWith('notifiche_interruttore_') &&
+        !(w.key! as ValueKey<String>).value.contains('_cielo_'));
+    expect(deiDoni, findsNWidgets(DailyElement.values.length),
         reason: 'gli interruttori non sono uno per Dono');
   });
 
@@ -139,8 +150,7 @@ void main() {
     // notifiche, l utente deve poter cambiare anche l orario di ogni
     // notifica."
     final scelta = await apri(tester);
-    expect(scelta.minutiDi(DailyElement.rune),
-        DailyElement.rune.anchorMinutes);
+    expect(scelta.minutiDi(DailyElement.rune), DailyElement.rune.anchorMinutes);
 
     await tester
         .ensureVisible(find.byKey(const Key('notifiche_tocco_ora_rune')));
@@ -171,8 +181,7 @@ void main() {
     for (var i = 0; i < 10; i++) {
       await tester.pump(const Duration(milliseconds: 120));
     }
-    expect(
-        scelta.minutiDi(DailyElement.rune), DailyElement.rune.anchorMinutes,
+    expect(scelta.minutiDi(DailyElement.rune), DailyElement.rune.anchorMinutes,
         reason: 'chiudendo l orologio senza confermare l ora e cambiata lo '
             'stesso');
   });

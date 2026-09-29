@@ -284,6 +284,44 @@ class _NotificheScreenState extends State<NotificheScreen> {
                       .copyWith(color: ColorTokens.textMuted),
                 ),
                 const SizedBox(height: SpacingTokens.lg),
+                // **DAL CIELO DELL'OROSCOPO, ordine ES voce 32.** Le due
+                // chiamate che non sono Doni: non hanno un'ora da scegliere,
+                // l'ora la decide il cielo.
+                Text(
+                  'Dal cielo dell\'Oroscopo',
+                  key: const Key('notifiche_cielo_titolo'),
+                  style: TypographyTokens.titoloSezione()
+                      .copyWith(color: palette.goldSoft),
+                ),
+                const SizedBox(height: SpacingTokens.sm),
+                _UnaChiamataDelCielo(
+                  chiave: 'ora_d_oro',
+                  titolo: 'L\'ora d\'oro',
+                  riga: 'Prima della tua ora d\'oro, nei giorni in cui c\'è. '
+                      'Serve la tua carta natale.',
+                  acceso: scelta.chiamaLOraDOro,
+                  attivabile: _permesso != false,
+                  palette: palette,
+                  suScelta: (v) async {
+                    await scelta.scegliLOraDOro(v);
+                    if (mounted) await _riprogramma();
+                  },
+                ),
+                const SizedBox(height: SpacingTokens.sm),
+                _UnaChiamataDelCielo(
+                  chiave: 'rahu_kalam',
+                  titolo: 'Il Rahu Kalam',
+                  riga: 'All\'alba, con le sue ore nella tua città. Arriva se '
+                      'leggi la tradizione vedica.',
+                  acceso: scelta.chiamaIlRahuKalam,
+                  attivabile: _permesso != false,
+                  palette: palette,
+                  suScelta: (v) async {
+                    await scelta.scegliIlRahuKalam(v);
+                    if (mounted) await _riprogramma();
+                  },
+                ),
+                const SizedBox(height: SpacingTokens.lg),
                 // **LA VIA PER MISURARE, ordine CF voce 04.**
                 //
                 // **Fatto del fondatore, verbatim**: "da quando ho iniziato
@@ -488,6 +526,69 @@ class _UnAppuntamento extends StatelessWidget {
               onChanged: attivabile ? (v) => suScelta(v) : null,
               activeThumbColor: palette.gold,
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// **UNA CHIAMATA DEL CIELO, ordine ES voce 32**: il nome, la riga che dice
+/// quando arriva e a chi, l'interruttore. Niente ora da toccare: e' il cielo
+/// a deciderla.
+class _UnaChiamataDelCielo extends StatelessWidget {
+  const _UnaChiamataDelCielo({
+    required this.chiave,
+    required this.titolo,
+    required this.riga,
+    required this.acceso,
+    required this.attivabile,
+    required this.palette,
+    required this.suScelta,
+  });
+
+  final String chiave;
+  final String titolo;
+  final String riga;
+  final bool acceso;
+  final bool attivabile;
+  final MaestroPalette palette;
+  final Future<void> Function(bool) suScelta;
+
+  @override
+  Widget build(BuildContext context) {
+    return DepthCard(
+      key: Key('notifiche_cielo_$chiave'),
+      padding: const EdgeInsets.symmetric(
+          horizontal: SpacingTokens.md, vertical: SpacingTokens.sm),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  titolo,
+                  style: TypographyTokens.corpo().copyWith(
+                    color: acceso
+                        ? ColorTokens.textPrimary
+                        : ColorTokens.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: SpacingTokens.xxs),
+                Text(
+                  riga,
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: ColorTokens.textMuted),
+                ),
+              ],
+            ),
+          ),
+          Switch(
+            key: Key('notifiche_interruttore_cielo_$chiave'),
+            value: acceso,
+            onChanged: attivabile ? (v) => suScelta(v) : null,
+            activeThumbColor: palette.gold,
           ),
         ],
       ),

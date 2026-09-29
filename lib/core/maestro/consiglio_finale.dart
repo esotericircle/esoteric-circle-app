@@ -328,9 +328,16 @@ abstract final class ConsiglioFinale {
   /// a cinque risposte di fila; il collaudo EJ ha contato cinque chiusure
   /// ripetute su sei scambi, per tutti e tre i Maestri. Un invito a tornare
   /// e' un congedo, e un congedo si dice una volta, alla fine.
+  ///
+  /// **E MAI SOTTO UNA RISPOSTA DETTA A VOCE. Ordine ES voce 20.** Il
+  /// fondatore: *"Invito a tornare nella chat del LIVE: esce, perché la chat
+  /// deve dire solo quello che dice la voce"*, "Confermo tutto". Sul Realme,
+  /// sotto l'ultima risposta di Calìgo nel LIVE, la chat mostrava l'invito
+  /// che la voce non aveva detto.
   static bool invitoSotto({
     required int posizione,
     required int ultimaDelMaestro,
+    bool dettoNelLive = false,
   }) =>
-      posizione == ultimaDelMaestro;
+      posizione == ultimaDelMaestro && !dettoNelLive;
 }

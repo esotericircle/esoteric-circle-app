@@ -16,13 +16,16 @@ class OraDOro {
   /// 'sun', 'venus' o 'jupiter'.
   final String punto;
 
-  static const Map<String, String> _alPunto = {
+  /// Il punto natale detto con la preposizione: "alla tua Venere". Lo
+  /// legge anche l'avviso dell'ora d'oro (ordine ES voce 32).
+  static const Map<String, String> alPunto = {
     'sun': 'al tuo Sole',
     'venus': 'alla tua Venere',
     'jupiter': 'al tuo Giove',
   };
 
-  static const Map<AspectType, String> _conArticolo = {
+  /// L'aspetto con l'articolo: "un trigono".
+  static const Map<AspectType, String> conArticolo = {
     AspectType.conjunction: 'una congiunzione',
     AspectType.sextile: 'un sestile',
     AspectType.trine: 'un trigono',
@@ -34,8 +37,8 @@ class OraDOro {
     final l = istante.toLocal();
     final hh = l.hour.toString().padLeft(2, '0');
     final mm = l.minute.toString().padLeft(2, '0');
-    return 'Oggi alle $hh:$mm la Luna forma ${_conArticolo[aspetto]} '
-        '${_alPunto[punto]} di nascita: è la tua ora d\'oro.';
+    return 'Oggi alle $hh:$mm la Luna forma ${conArticolo[aspetto]} '
+        '${alPunto[punto]} di nascita: è la tua ora d\'oro.';
   }
 }
 

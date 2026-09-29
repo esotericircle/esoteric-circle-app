@@ -204,8 +204,16 @@ void main() {
         'detta "$nonDetta"; senza la frase sulla domanda "$senzaSulla"; '
         'frasi uguali "$sulleUguali"; col cammino $colCammino; con la '
         'condizione $conLaCondizione');
-    expect(perImmagini, isNotNull);
-    expect(nonDetta, isNotNull);
+    // **LAPIDE, ordine ES voce 24.** Qui la prova pretendeva scartate la
+    // prima frase per immagini e la posizione scelta e non detta. Il
+    // fondatore ha confermato di togliere le guardie sulla prima frase delle
+    // rune, "perché raddoppiano le chiamate e il tempo del modello senza
+    // portare risposte più dirette; restano quelle sulle pietre": adesso
+    // quelle letture passano, e le guardie sulle pietre restano qui sotto.
+    expect(perImmagini, isNull,
+        reason: 'la guardia della prima frase per immagini e\' ancora li\'');
+    expect(nonDetta, isNull,
+        reason: 'la guardia della posizione non detta e\' ancora li\'');
     expect(senzaSulla, isNotNull);
     expect(sulleUguali, isNotNull);
     expect(colCammino, isNull);
@@ -251,7 +259,9 @@ void main() {
         '"$diFormula"; parenti "${parenti.risposta}"; consiglio '
         '"${parenti.cosaPuoiFare}"');
     expect(ricopiata, isNotNull);
-    expect(diFormula, isNotNull);
+    // **LAPIDE, ordine ES voce 24**: la prima frase di formula non si scarta
+    // piu', per la scelta del fondatore sulle guardie della prima frase.
+    expect(diFormula, isNull);
     expect(parenti.risposta,
         'Chiedi un incontro a tua sorella. Tua madre aspetta.');
     expect(parenti.cosaPuoiFare, 'Stasera chiama tua sorella prima di cena.');

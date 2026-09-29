@@ -77,6 +77,45 @@ class SceltaDegliAvvisi extends ChangeNotifier {
 
   final Map<DailyElement, bool> _scelti = {};
 
+  /// **LE DUE CHIAMATE DEL CIELO, ordine ES voce 32**: l'ora d'oro e il Rahu
+  /// Kalam. Col prefisso `rituale.` dei Doni, quindi se ne vanno con loro.
+  static const String chiaveDellOraDOro = 'rituale.avviso.cielo.ora_d_oro';
+  static const String chiaveDelRahuKalam = 'rituale.avviso.cielo.rahu_kalam';
+
+  bool? _oraDOro;
+  bool? _rahuKalam;
+
+  /// **ACCESE DI PARTENZA, come i Doni**, per la stessa decisione del
+  /// fondatore: "tutte le notifiche devono essere attive di default". Non
+  /// chiamano chi non le puo' usare: l'ora d'oro chiede la carta natale, il
+  /// Rahu Kalam la citta' e una lettura vedica gia' aperta almeno una volta
+  /// (`RegiaDelleChiamate`), cosi' chi non ha mai letto la Vedica non riceve
+  /// ogni alba un nome che non conosce.
+  bool get chiamaLOraDOro => _oraDOro ?? true;
+  bool get chiamaIlRahuKalam => _rahuKalam ?? true;
+
+  /// Accende o spegne l'avviso dell'ora d'oro, scrivendo prima di avvisare.
+  Future<void> scegliLOraDOro(bool acceso) async {
+    _oraDOro = acceso;
+    await _scriviIlCielo(chiaveDellOraDOro, acceso);
+  }
+
+  /// Accende o spegne l'avviso del Rahu Kalam, scrivendo prima di avvisare.
+  Future<void> scegliIlRahuKalam(bool acceso) async {
+    _rahuKalam = acceso;
+    await _scriviIlCielo(chiaveDelRahuKalam, acceso);
+  }
+
+  Future<void> _scriviIlCielo(String chiave, bool acceso) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(chiave, acceso);
+    } catch (discoMuto) {
+      // Come per i Doni: la scelta vale per questa sessione.
+    }
+    notifyListeners();
+  }
+
   /// L'ora scelta, in minuti dalla mezzanotte. Quello che non c'e' vale l'ora
   /// che il Dono porta scritta dentro di se'.
   final Map<DailyElement, int> _ore = {};
@@ -127,6 +166,8 @@ class SceltaDegliAvvisi extends ChangeNotifier {
         // volesse dire e' peggio che tornare all'ora di casa.
         if (ora != null && ora >= 0 && ora < 1440) _ore[d] = ora;
       }
+      _oraDOro = prefs.getBool(chiaveDellOraDOro);
+      _rahuKalam = prefs.getBool(chiaveDelRahuKalam);
     } catch (discoMuto) {
       // Un disco che non risponde vale come nessuna scelta fatta: restano
       // quelli di partenza, e l'app non si ferma per una preferenza.
@@ -194,6 +235,8 @@ class SceltaDegliAvvisi extends ChangeNotifier {
   void dimenticaLeScelte() {
     _scelti.clear();
     _ore.clear();
+    _oraDOro = null;
+    _rahuKalam = null;
     notifyListeners();
   }
 }

@@ -234,6 +234,23 @@ void main() {
         LaPosizioneDellaLettura.rispetta(Maestro.medora, 'Lui mi ama davvero?',
             'Le carte e il tuo cielo dicono di sì, ma è un sentimento timido.'),
         isTrue);
+    // **IL QUANDO, ordine ES voce 19, Regola B.** Rendere il "quando"
+    // sempre buono lasciava verde questa prova: la domanda del tempo non la
+    // guardava nessuno. Al quando si risponde con la lettura, non con una
+    // frase qualunque.
+    expect(
+        LaPosizioneDellaLettura.rispetta(
+            Maestro.medora,
+            'Quando incontrerò la persona giusta?',
+            'L\'amore arriva quando meno te lo aspetti.'),
+        isFalse,
+        reason: 'al quando passa una frase senza la lettura');
+    expect(
+        LaPosizioneDellaLettura.rispetta(
+            Maestro.medora,
+            'Quando incontrerò la persona giusta?',
+            'Il tuo cielo dice: non prima che Venere torni nel tuo segno.'),
+        isTrue);
   });
 
   test(

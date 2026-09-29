@@ -55,27 +55,32 @@ void main() {
         LaLetturaDelleRune.scarto(lettura(), esito, domanda: domanda), isNull);
   });
 
-  test('ET.07: la formula al posto del gesto non passa', () {
-    final motivo = LaLetturaDelleRune.scarto(
+  // **LAPIDE, ordine ES voce 24.** Qui stavano due prove dell'ordine ET
+  // voce 07: "la formula al posto del gesto non passa" e "la prima frase
+  // dice cio' che inBreve ha scelto". Il fondatore ha confermato di togliere
+  // le guardie sulla prima frase delle rune ("raddoppiano le chiamate e il
+  // tempo del modello senza portare risposte più dirette; restano quelle
+  // sulle pietre"): adesso le due letture passano, e lo pretende questa
+  // prova, perche' una guardia tolta a meta' tornerebbe a chiedere di nuovo.
+  test('ES.24: la prima frase non si scarta piu\', le pietre si', () {
+    final formula = LaLetturaDelleRune.scarto(
         lettura(
             inBreve: 'riconosci il tuo vero valore nel lavoro',
             risposta: 'Nel lavoro riconosci il tuo vero valore. Le pietre '
                 'lo chiedono.'),
         esito,
         domanda: domanda);
-    print('ORDINE ET VOCE 7: la formula "$motivo"');
-    expect(motivo, contains('atteggiamento'));
-  });
-
-  test('ET.07: la prima frase dice cio\' che "inBreve" ha scelto', () {
-    final motivo = LaLetturaDelleRune.scarto(
+    final inBreveNonDetto = LaLetturaDelleRune.scarto(
         lettura(
             inBreve: 'chiedi un colloquio al capo',
             risposta: 'Nel lavoro scegli il progetto nuovo. Le pietre '
                 'aprono.'),
         esito,
         domanda: domanda);
-    expect(motivo, startsWith('"inBreve"'));
+    print('ORDINE ES VOCE 24: la formula $formula, inBreve non detto '
+        '$inBreveNonDetto');
+    expect(formula, isNull);
+    expect(inBreveNonDetto, isNull);
   });
 
   test('ET.07: ogni pietra nomina la cosa chiesta e la sua posizione', () {
@@ -124,14 +129,11 @@ void main() {
   test(
       'ET.07: le letture scartate per la forma si mostrano all\'ultima '
       'chiamata, quelle che non si possono mostrare no', () {
+    // Lapide, ordine ES voce 24: i quattro motivi della prima frase non
+    // esistono piu'; restano quelli delle pietre.
     for (final m in [
-      'la prima frase della risposta dice un atteggiamento',
-      'la prima frase della risposta parla per immagini',
       'la pietra 2 non dice la sua posizione (Verdhandi)',
       'la pietra 1 non dice che cosa indica su ciò che la persona ha chiesto',
-      '"inBreve" dice "x", ma la prima frase della risposta non lo dice',
-      'hai scelto la posizione "sì" ma la prima frase della risposta non la '
-          'dice',
     ]) {
       expect(LaLetturaDelleRune.siMostraComunque(m), isTrue, reason: m);
     }

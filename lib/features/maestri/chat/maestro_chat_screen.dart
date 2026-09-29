@@ -1080,6 +1080,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
             conInvito: ConsiglioFinale.invitoSotto(
               posizione: posizione,
               ultimaDelMaestro: ultimaDelMaestro,
+              dettoNelLive: messaggio.dettoNelLive,
             ),
             // **SOTTO UNA PRESENTAZIONE NESSUNA RIGA D'ORO. Ordine EQ voce
             // 01.** Si guarda la domanda a cui la bolla risponde, cioe'

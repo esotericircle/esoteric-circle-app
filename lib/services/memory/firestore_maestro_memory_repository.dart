@@ -357,6 +357,8 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
         // migrazione, che a un milione di persone sarebbero quaranta milioni
         // di scritture per niente.
         if (m.conversazione != null) 'conversazione': m.conversazione,
+        // Ordine ES voce 20: la risposta detta a voce nel LIVE.
+        if (m.dettoNelLive) 'dettoNelLive': true,
       };
 
   /// GLI STESSI CAMPI, ma trasportabili in una chiamata.
@@ -464,6 +466,7 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
       autore: _primoDove(Maestro.values, (m) => m.id == data['autore']),
       tipo: _primoDove(TipoDiMessaggio.values, (t) => t.name == data['tipo']),
       conversazione: data['conversazione'] as String?,
+      dettoNelLive: (data['dettoNelLive'] as bool?) ?? false,
     );
   }
 }

@@ -1499,7 +1499,16 @@ class MaestroChatController extends ChangeNotifier {
           if (m.isMaestro && m.portaUnResponso && m.text.trim().isNotEmpty)
             m.text
       ];
-      final ripetuta = LaRispostaRipetuta.quale(reply, giaDate);
+      // **E LA RISPOSTA DI PRIMA RIDETTA CON ALTRE PAROLE, ordine ES voce
+      // 21**: alle domande simili di fila la seconda ripeteva la prima
+      // (alla cieca 6 su 60 al giro 5 del banco), senza ricalcarla.
+      final domandaPrima = [
+            for (final m in priorHistory)
+              if (m.isUser) m.text
+          ].lastOrNull ??
+          '';
+      final ripetuta = LaRispostaRipetuta.quale(reply, giaDate,
+          domanda: userText, domandaPrima: domandaPrima);
       if (ripetuta != null) {
         rigenerazioniPerRipetizione++;
         final altra = await _chiediAlMaestro(
@@ -1513,7 +1522,9 @@ class MaestroChatController extends ChangeNotifier {
             LaRispostaRipetuta.inComune(reply, ripetuta)) {
           reply = altra;
         }
-        if (LaRispostaRipetuta.quale(reply, giaDate) != null) {
+        if (LaRispostaRipetuta.quale(reply, giaDate,
+                domanda: userText, domandaPrima: domandaPrima) !=
+            null) {
           annotaGuastoInnocuo(
             'risposta ripetuta consegnata comunque, '
             '${chiRisponde.displayName}',
@@ -1685,6 +1696,9 @@ class MaestroChatController extends ChangeNotifier {
         text: reply,
         at: _adesso,
         autore: chiRisponde,
+        // Ordine ES voce 20: sotto la risposta detta a voce la chat non
+        // aggiunge l'invito a tornare.
+        dettoNelLive: nelLive,
       );
       final risposta = cronometro.elapsedMilliseconds;
       await _consegna(answer, cronometro);

@@ -1224,10 +1224,38 @@ abstract final class LeGuardieDelResponso {
           'ospedal[a-zàèéìòù]*|salute|visita|esami|sintom[a-zàèéìòù]*|'
           'diagnos[a-zàèéìòù]*|veterinari[a-zàèéìòù]*');
 
+  /// **LA PRIMA FRASE CHE PARE UNA RISPOSTA E NON DICE NIENTE. Ordine ES
+  /// voce 25.** Alla lettura alla cieca del giro 3 del banco del Viaggio
+  /// (`docs/collaudo/ET/ciechi/`), le risposte che reggevano a tutte le
+  /// guardie e non prendevano posizione avevano queste forme: il consiglio
+  /// astratto (*"devi cercare le connessioni autentiche"*, *"devi creare un
+  /// nuovo spazio per te"*, *"trovare un'attività che ti impegni"*), la
+  /// decisione annunciata e non detta (*"Prendi una decisione chiara"*), la
+  /// massima (*"Puoi stabilire i tuoi confini"*, *"Ascolta il silenzio"*), la
+  /// condizione che non si puo' fare (*"se ti prepari in modo nuovo"*, *"a
+  /// condizione che tu scelga con chiarezza la tua direzione"*, *"quello che
+  /// ancora non vedi"*), le due strade che la domanda non ha (*"Una delle due
+  /// la stai già facendo"*). **Tarata sul giro 3** (prende 20 prime frasi
+  /// senza posizione su 24, nessuna delle 56 buone), **provata sul giro 1**,
+  /// che non ha guardato: ne prende 8 su 25, e ne segna 3 che i giudici del
+  /// giro 1 davano buone, le stesse frasi che i giudici del giro 3 davano
+  /// senza posizione.
+  static final RegExp _vaga = RegExp(
+      "(?<![$_l])(?:connession[ei] autentic[$_l]+|un nuovo spazio|"
+      "(?:trovare|cercare) un modo|un.attività che|una decisione chiara|"
+      "più che mai|il silenzio|i tuoi confini|la tua direzione|"
+      "chi vuoi essere|per chi sei|quello che (?:ancora )?non vedi|"
+      "puoi scegliere (?:tu )?(?:come|chi|cosa|quale)|in modo nuovo|"
+      "una delle due|quale delle due|lo sai già|ha bisogno di un gesto)"
+      "(?![$_l])",
+      caseSensitive: false);
+
   /// Vero se la prima frase di [r] rimanda la domanda.
   static bool rimandaLaDomanda(String r) {
     final prima = r.split(RegExp(r'(?<=[.!?])\s')).first;
-    return _rinvio.hasMatch(prima) || _condizioneNonDetta.hasMatch(prima);
+    return _rinvio.hasMatch(prima) ||
+        _condizioneNonDetta.hasMatch(prima) ||
+        _vaga.hasMatch(prima);
   }
 
   /// **LA CONDIZIONE ANNUNCIATA E MAI DETTA.** Ordine ET voce 08, dalla
