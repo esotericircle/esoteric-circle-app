@@ -23,8 +23,8 @@ chiusa.
 
 VOCI_TOTALI: 37
 VOCI_CHIUSE: 2
-VOCI_APERTE: 19
-VOCI_DA_FARE: 16
+VOCI_APERTE: 20
+VOCI_DA_FARE: 15
 
 Le prove stanno in `docs/collaudo/ES/`, quelle del telefono di prova
 (Realme 767f596c) in `docs/collaudo/ES/realme/`. **Una voce che si vede a
@@ -155,9 +155,31 @@ MISURA: Generali col guardiano diverso dall'almanacco pubblicato 0 su 30; schede
 
 ## VOCE ES.09, LA TRADIZIONE VEDICA, APERTA
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata, da vedere sul Realme. La Vedica si
+sceglie e non ha piu' la clessidra. Il Viandante ne vede il segno lunare e l'invito al piano;
+dall'Iniziato in su "Interroga la Luna", la stessa riflessione con la corsa dei segni che si ferma
+sul segno lunare di nascita, e le quattro schede. **Generale**: la Chandra Bala (la casa in cui
+passa la Luna di oggi contata dalla Luna di nascita), la Tara Bala (il nakshatra di oggi contato da
+quello di nascita) e il Rahu Kalam della citta'; l'Approfondita aggiunge il pianeta del giorno.
+**Amore, Lavoro, Fortuna**: la settima e la quinta, la decima, la seconda e l'undicesima casa
+dalla Luna di nascita, con la precedenza delle specifiche (l'ottava su tutto, poi la Luna nella
+casa, poi la Luna che la guarda). Livello dalla regola con la sua riga; colore del giorno dal
+Brihat Jataka e numero dalla numerologia indiana moderna, e la riga lo dice. La Luna del giorno si
+legge all'alba del luogo; l'alba e il tramonto si calcolano col Sole di Meeus al minuto
+(`lib/core/astro/l_alba_e_il_tramonto.dart`). Senza l'ora di nascita la Generale dice che la
+stella manca e la riga porta ai dati; senza la citta' di oggi il Rahu Kalam la chiede; col segno
+lunare incerto si chiede l'ora. La settimana e il mese vedici dicono che sono in arrivo. Le frasi
+vengono dal corpus `docs/corpus/oroscopo_vedico.md` (142 frasi) attraverso
+`tool/_gen_oroscopo_vedico.py`, con la variante che segue il ritorno del caso come nella Cinese; il
+motore sta in `lib/core/horoscope/la_lettura_vedica.dart`. Il catalogo dei piani lo dice. **Da
+decidere col fondatore**: i colori del venerdi' e del sabato (il testo dice "variegato" e "nero",
+la pratica popolare bianco e blu); il corpus e' una bozza da rileggere. Mancano le catture dal
+Realme.
 
 DOMANDA: "Mi hai consigliato tu di sbloccare in MVP anche vedico e cinese!"; "Se sceglie oroscopo cinese significa che è selezionabile e sbloccato"; domanda girata al fondatore: il metodo dell'Architetto (segno lunare siderale Lahiri, Chandra Bala, Tara Bala, Rahu Kalam) e "Confermi il Capodanno lunare per il segno cinese e il segno lunare per il vedico?", risposta: "COnfermo tutto."
+
+PROVA: docs/collaudo/ES/regola_a_lettura_vedica.txt
+MISURA: nascite con rashi o nakshatra diverso da Drik Panchang 0 su 20; estremi del Rahu Kalam diversi da Drik 0 su 42, alba e tramonto entro 1,9 secondi dal JPL; schede fuori dal loro gruppo 0 su 480; stessa frase al ritorno dello stesso caso 0 su 219; schede a video diverse dalla lettura 0 su 4; frasi del codice diverse dal corpus 0 su 142
 
 ## VOCE ES.10, IL TOOLTIP DI OGNI TRADIZIONE
 

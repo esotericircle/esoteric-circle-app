@@ -168,7 +168,7 @@ void main() {
       // clessidra. Le altre cinque restano in arrivo.
       if (t.unlocked) {
         expect(find.byKey(Key('oroscopo_in_arrivo_${t.name}')), findsNothing);
-        expect(find.byKey(const Key('oroscopo_cinese_invito_al_piano')),
+        expect(find.byKey(Key('oroscopo_${t.name}_invito_al_piano')),
             findsOneWidget,
             reason: '${t.name}: il piano gratuito non vede l\'invito');
       } else {

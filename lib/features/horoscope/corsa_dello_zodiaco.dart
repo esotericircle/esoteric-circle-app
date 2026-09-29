@@ -49,7 +49,15 @@ class CorsaDelloZodiaco extends StatefulWidget {
     this.frase,
     this.riduciMovimento = false,
     this.animaleCinese,
+    this.nomeFinale,
+    this.figuraFinale,
   });
+
+  /// **IL NOME E LA FIGURA SU CUI SI FERMA, nella lettura vedica** (ordine ES
+  /// voce 09): il segno lunare siderale col suo nome ("Tula"), e per Mithuna e
+  /// Makara la loro figura propria. Null vale il segno occidentale.
+  final String? nomeFinale;
+  final String? figuraFinale;
 
   /// **LA CORSA DEGLI ANIMALI, ordine ES voce 08.** Nella lettura cinese
   /// passano i dodici animali in bronzo e la corsa si ferma su quello
@@ -314,38 +322,46 @@ class _CorsaDelloZodiacoState extends State<CorsaDelloZodiaco>
                                 ),
                               ],
                             ),
-                            child: _cinese
-                                ? Image.asset(
-                                    'assets/img/zodiac/zod_cinese_'
-                                    '${ISegniDelleTradizioni.animali[_indice].$1.toLowerCase()}.webp',
+                            child: _fermo && widget.figuraFinale != null
+                                ? Image.asset(widget.figuraFinale!,
                                     width: misura,
                                     height: misura,
-                                    fit: BoxFit.contain,
-                                    errorBuilder: (_, __, ___) => Center(
-                                      child: Text(
-                                        ISegniDelleTradizioni
-                                            .animali[_indice].$1,
-                                        style: TypographyTokens.titoloSezione()
-                                            .copyWith(color: palette.goldSoft),
-                                      ),
-                                    ),
-                                  )
-                                : ZodiacEmblem(
-                                    sign: Zodiac.values[_indice],
-                                    size: misura,
-                                    // Un posto vuoto qui sarebbe un buco nero in mezzo
-                                    // alla scena: se l'arte non si decodifica resta il
-                                    // nome del segno, che e' l'informazione vera.
-                                    ripiego: Center(
-                                      child: Text(
-                                        Zodiac.values[_indice].symbol,
-                                        style: TextStyle(
-                                          fontSize: misura * 0.6,
-                                          color: palette.goldSoft,
+                                    fit: BoxFit.contain)
+                                : _cinese
+                                    ? Image.asset(
+                                        'assets/img/zodiac/zod_cinese_'
+                                        '${ISegniDelleTradizioni.animali[_indice].$1.toLowerCase()}.webp',
+                                        width: misura,
+                                        height: misura,
+                                        fit: BoxFit.contain,
+                                        errorBuilder: (_, __, ___) => Center(
+                                          child: Text(
+                                            ISegniDelleTradizioni
+                                                .animali[_indice].$1,
+                                            style:
+                                                TypographyTokens.titoloSezione()
+                                                    .copyWith(
+                                                        color:
+                                                            palette.goldSoft),
+                                          ),
+                                        ),
+                                      )
+                                    : ZodiacEmblem(
+                                        sign: Zodiac.values[_indice],
+                                        size: misura,
+                                        // Un posto vuoto qui sarebbe un buco nero in mezzo
+                                        // alla scena: se l'arte non si decodifica resta il
+                                        // nome del segno, che e' l'informazione vera.
+                                        ripiego: Center(
+                                          child: Text(
+                                            Zodiac.values[_indice].symbol,
+                                            style: TextStyle(
+                                              fontSize: misura * 0.6,
+                                              color: palette.goldSoft,
+                                            ),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ),
                           ),
                         ),
                         const SizedBox(height: SpacingTokens.lg),
@@ -357,7 +373,8 @@ class _CorsaDelloZodiacoState extends State<CorsaDelloZodiaco>
                                 ? (_cinese
                                     ? ISegniDelleTradizioni
                                         .animali[_bersaglio].$1
-                                    : widget.segno.italianName)
+                                    : widget.nomeFinale ??
+                                        widget.segno.italianName)
                                 : frase,
                             key: const Key('corsa_frase'),
                             textAlign: TextAlign.center,

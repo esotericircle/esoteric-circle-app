@@ -45,6 +45,8 @@ import 'il_periodo_view.dart';
 import '../../core/horoscope/la_settimana_del_cielo.dart';
 import '../../core/entitlement/tier.dart';
 import '../../core/horoscope/la_lettura_cinese.dart';
+import '../../core/horoscope/la_lettura_vedica.dart';
+import '../../core/astro/luogo_attuale.dart';
 import '../../core/lang/euphonic.dart';
 import '../../core/astro/natal_chart.dart';
 import '../../core/horoscope/il_metodo_del_responso.dart';
@@ -410,9 +412,22 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       '${_inCima.name}|${dominio.name}|${_depth[dominio]!.name}|'
       '$_year-$_dayOfYear';
 
+  /// **DOVE SEI OGGI, per il Rahu Kalam della lettura vedica** (ordine ES
+  /// voce 09): la citta' dichiarata o il GPS, come per l'alba dei riti. Si
+  /// legge all'apertura e al ritorno dai dati di nascita, dove si sceglie.
+  LuogoDelGiorno? _luogo;
+
+  Future<void> _leggiIlLuogo() async {
+    final l = await DoveSonoAdesso.letto();
+    if (!mounted || l == null) return;
+    setState(
+        () => _luogo = LuogoDelGiorno(lat: l.lat, lon: l.lon, citta: l.citta));
+  }
+
   @override
   void initState() {
     super.initState();
+    unawaited(_leggiIlLuogo());
     // **L'ATTESA PIENA SI CHIEDE AL DISCO ALL'APERTURA, ordine BK voce 05.**
     // Si legge qui e non al tocco, perche' un `await` fra il dito e il primo
     // momento sarebbe un vuoto proprio nell'istante che questo ordine esiste
@@ -470,7 +485,11 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         : ISegniDelleTradizioni.per(_inCima, nascitaDeiSegni);
     // **LA LETTURA CINESE, ordine ES voce 08**: dal primo piano a pagamento,
     // con la data di nascita (l'animale dell'anno e il tronco del giorno).
+    // **LA VEDICA, voce 09**: con la Luna di nascita, e l'ora per la stella.
     final cinese = _inCima == AstroTradition.cinese;
+    final vedica = _inCima == AstroTradition.vedica;
+    final altra = cinese || vedica;
+    final aggettivo = cinese ? 'cinese' : 'vedica';
     // Il nome con cui Medora chiama la persona, nell'apertura della lettura.
     final comeTiChiamo = vocative;
     final leggeLaTradizione = _inCima.leggibilePer(tier);
@@ -490,14 +509,31 @@ class _OroscopoScreenState extends State<OroscopoScreen>
             },
             apertura: '$comeTiChiamo, apro per te l\'almanacco cinese di oggi.')
         : null;
-    // Il consulto del giorno: l'Occidentale sempre, la Cinese quando ha le
-    // sue schede. La Settimana e il Mese hanno la loro vista.
+    final schedeVediche = vedica && leggeLaTradizione && nascitaDeiSegni != null
+        ? LaLetturaVedica.schede(
+            adesso: _date,
+            nascita: nascitaDeiSegni,
+            luogo: _luogo,
+            forma: profile.courtesy,
+            approfondite: {
+              for (final voce in _depth.entries)
+                voce.key: voce.value == AnswerDepth.profonda,
+            },
+            apertura: '$comeTiChiamo, guardo per te la Luna di oggi.')
+        : null;
+    final schedeAltre = schedeCinesi ?? schedeVediche;
+    // Il segno lunare di nascita, su cui si ferma la corsa della Vedica.
+    final rashi = vedica && nascitaDeiSegni != null
+        ? LaLetturaVedica.lunaDiNascita(nascitaDeiSegni)?.$1
+        : null;
+    // Il consulto del giorno: l'Occidentale sempre, la Cinese e la Vedica
+    // quando hanno le loro schede. La Settimana e il Mese hanno la loro vista.
     final consulto = _period == HoroscopePeriod.giorno &&
-        (_inCima == AstroTradition.occidentale || schedeCinesi != null);
-    _segnoCondiviso = schedeCinesi != null
-        ? '${segnoInCima!.nome} nella tradizione cinese'
+        (_inCima == AstroTradition.occidentale || schedeAltre != null);
+    _segnoCondiviso = schedeAltre != null
+        ? '${segnoInCima!.nome} nella tradizione $aggettivo'
         : widget.userSign.italianName;
-    final cards = schedeCinesi ??
+    final cards = schedeAltre ??
         Horoscope.forSign(
             sign: widget.userSign,
             dayOfYear: _dayOfYear,
@@ -656,45 +692,79 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       // la settimana e il mese cinesi non ci sono ancora, e
                       // si dice; il piano gratuito vede il segno e l'invito;
                       // senza la data di nascita si chiede la data.
-                      if (cinese && _period != HoroscopePeriod.giorno)
+                      if (altra && _period != HoroscopePeriod.giorno)
                         _LaLetturaEInArrivo(
                           tradizione: _inCima,
                           palette: palette,
-                          chiave: const Key('oroscopo_cinese_periodo'),
+                          chiave: Key('oroscopo_${_inCima.name}_periodo'),
                           chiaveDelGesto:
-                              const Key('oroscopo_cinese_torna_al_giorno'),
+                              Key('oroscopo_${_inCima.name}_torna_al_giorno'),
                           testo: 'La settimana e il mese nella tradizione '
-                              'cinese sono in arrivo: qui leggi il giorno.',
+                              '$aggettivo sono in arrivo: qui leggi il giorno.',
                           etichetta: 'Torna al giorno',
                           onTorna: () => _selectPeriod(HoroscopePeriod.giorno),
                         ),
-                      if (cinese &&
+                      if (altra &&
                           _period == HoroscopePeriod.giorno &&
                           !leggeLaTradizione)
                         _LaLetturaEInArrivo(
                           tradizione: _inCima,
                           palette: palette,
-                          chiave: const Key('oroscopo_cinese_invito_al_piano'),
+                          chiave:
+                              Key('oroscopo_${_inCima.name}_invito_al_piano'),
                           chiaveDelGesto:
-                              const Key('oroscopo_cinese_scopri_il_piano'),
-                          testo: 'Qui vedi il tuo segno cinese. La lettura '
-                              'del giorno, dall\'almanacco e dai Dieci Dei, '
+                              Key('oroscopo_${_inCima.name}_scopri_il_piano'),
+                          testo:
+                              'Qui vedi il tuo segno ${cinese ? 'cinese' : 'vedico'}. '
+                              'La lettura del giorno, '
+                              '${cinese ? 'dall\'almanacco e dai Dieci Dei' : 'dalla Luna e dal calendario indiano'}, '
                               'si apre ${conPiano(PlanCatalog.forTier(Tier.values[_inCima.livelloDellaLettura]).name)}.',
                           etichetta: 'Scopri il piano',
                           onTorna: () => _invitaAllaLettura(_inCima),
                         ),
-                      if (cinese && leggeLaTradizione && segnoInCima == null)
+                      if (altra && leggeLaTradizione && segnoInCima == null)
                         _InvitoAllaNascita(
-                            testo: 'Per la lettura cinese serve la tua data '
-                                'di nascita: aggiungila qui.',
-                            palette: palette),
+                            testo: 'Per la lettura $aggettivo serve la tua '
+                                'data di nascita: aggiungila qui.',
+                            palette: palette,
+                            alRitorno: _leggiIlLuogo),
+                      // **LA VEDICA DICE CHE COSA LE MANCA**, ordine ES voce
+                      // 09: il segno lunare incerto senza l'ora; la stella
+                      // senza l'ora; il Rahu Kalam senza la citta'.
+                      if (vedica &&
+                          leggeLaTradizione &&
+                          _period == HoroscopePeriod.giorno &&
+                          segnoInCima != null &&
+                          schedeVediche == null)
+                        _InvitoAllaNascita(
+                            testo: 'Il giorno della tua nascita la Luna ha '
+                                'cambiato segno: con l\'ora di nascita so '
+                                'qual è il tuo: così leggo il tuo giorno.',
+                            palette: palette,
+                            alRitorno: _leggiIlLuogo),
+                      if (schedeVediche != null &&
+                          nascitaDeiSegni != null &&
+                          !nascitaDeiSegni.oraNota)
+                        _InvitoAllaNascita(
+                            testo: 'Con l\'ora di nascita leggo anche la tua '
+                                'stella, la Tara Bala: aggiungila qui.',
+                            palette: palette,
+                            alRitorno: _leggiIlLuogo),
+                      if (schedeVediche != null && _luogo == null)
+                        _InvitoAllaNascita(
+                            testo: 'Per il Rahu Kalam di oggi dimmi dove '
+                                'vivi adesso: scegli la tua città.',
+                            palette: palette,
+                            alRitorno: _leggiIlLuogo),
                       if (consulto && _fase == _FaseDelConsulto.attesa)
                         _InterrogaIlCielo(
                           palette: palette,
                           onTap: _interrogaIlCielo,
                           etichetta: cinese
                               ? 'Apri l\'almanacco'
-                              : 'Interroga il cielo',
+                              : vedica
+                                  ? 'Interroga la Luna'
+                                  : 'Interroga il cielo',
                         ),
                       // L'INVITO A COMPLETARE I DATI DI NASCITA, ordine ES
                       // voce 31. **Sotto il gesto, non sopra**: sopra spingeva
@@ -718,7 +788,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                           palette: palette,
                           almanacco: cinese
                               ? LaLetturaCinese.fattoDelGiorno(_date)
-                              : null,
+                              : vedica
+                                  ? LaLetturaVedica.fattoDelGiorno(
+                                      _date, _luogo)
+                                  : null,
                         ),
                       // **LE SCHEDE NASCONO DOPO LA RIFLESSIONE, E UNA ALLA
                       // VOLTA.** Ordine BK voci 02 e 03. Prima montavano al tocco,
@@ -734,18 +807,18 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                             _HoroscopeCardView(
                               // Il cielo occidentale non entra nella
                               // lettura cinese: niente ruota, niente ora d'oro.
-                              passaggio: !cinese && cielo.ceCieloVero
+                              passaggio: !altra && cielo.ceCieloVero
                                   ? CorrenteDelCielo.vociPer(
                                           cielo, cards[i].domain)
                                       .firstOrNull
                                   : null,
-                              carta: cinese
+                              carta: altra
                                   ? null
                                   : context
                                       .watch<BirthIdentityController>()
                                       .cartaCompleta,
                               adesso: _date,
-                              oraDOro: cinese
+                              oraDOro: altra
                                   ? null
                                   : _oraDOro(context
                                       .watch<BirthIdentityController>()
@@ -784,7 +857,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       // vera si legge come vera: qui si dice a parole che senza
                       // ora e luogo di nascita quella lettura parla al segno, non
                       // al cielo di questa persona, e si dice come rimediare.
-                      if (consulto && !cinese && notaDelCielo != null) ...[
+                      if (consulto && !altra && notaDelCielo != null) ...[
                         _NotaDelCielo(
                             testo: notaDelCielo,
                             palette: palette,
@@ -830,7 +903,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                                   (cinese
                                           ? LaLetturaCinese.domani(
                                               _date, animale!)
-                                          : null) ??
+                                          : vedica
+                                              ? LaLetturaVedica.domani(_date,
+                                                  nascitaDeiSegni!, _luogo)
+                                              : null) ??
                                       IlDomani.riga(
                                           widget.userSign,
                                           context
@@ -865,8 +941,8 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                           palette: palette,
                           // Il segno della lettura cinese, ordine ES voce 08.
                           nomeDelSegno:
-                              schedeCinesi != null ? segnoInCima!.nome : null,
-                          figuraDelSegno: schedeCinesi != null
+                              schedeAltre != null ? segnoInCima!.nome : null,
+                          figuraDelSegno: schedeAltre != null
                               ? LaTestaDellaTradizione.figura(
                                   _inCima, segnoInCima)
                               : null,
@@ -916,13 +992,25 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         if (_corsaInScena)
           CorsaDelloZodiaco(
             key: const Key('corsa_dello_zodiaco'),
-            segno: _segnoDiChiGuarda,
+            // Nella Vedica si ferma sul segno lunare di nascita (ES.09).
+            segno: schedeVediche != null && rashi != null
+                ? Zodiac.values[rashi]
+                : _segnoDiChiGuarda,
             palette: palette,
             // Nella lettura cinese corrono i dodici animali (ES.08).
             animaleCinese: schedeCinesi != null ? animale : null,
+            // Nella Vedica il segno lunare di nascita, col suo nome (ES.09).
+            nomeFinale: schedeVediche != null && rashi != null
+                ? ISegniDelleTradizioni.rashi[rashi]
+                : null,
+            figuraFinale: schedeVediche != null
+                ? LaTestaDellaTradizione.figura(_inCima, segnoInCima)
+                : null,
             frase: schedeCinesi != null
                 ? 'Medora sta aprendo l\'almanacco di oggi'
-                : null,
+                : schedeVediche != null
+                    ? 'Medora sta cercando la Luna fra le stelle'
+                    : null,
             durata:
                 RiflessioneDelCielo.momento(piena: _pienaQuestoConsulto) * 2 +
                     _dissolvenzaDellaCorsa,
@@ -1016,9 +1104,13 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       context,
       title: 'La lettura ${tradizione.label.toLowerCase()} del giorno si apre '
           '${conPiano(piano)}',
-      message: 'Ogni giorno le quattro schede dall\'almanacco cinese: il '
-          'rapporto fra l\'animale del giorno e il tuo, il guardiano del '
-          'giorno, i Dieci Dei del BaZi per amore, lavoro e fortuna.',
+      message: tradizione == AstroTradition.cinese
+          ? 'Ogni giorno le quattro schede dall\'almanacco cinese: il '
+              'rapporto fra l\'animale del giorno e il tuo, il guardiano del '
+              'giorno, i Dieci Dei del BaZi per amore, lavoro e fortuna.'
+          : 'Ogni giorno le quattro schede dalla Luna siderale: la Chandra '
+              'Bala e la Tara Bala, il Rahu Kalam della tua città, le case '
+              'dell\'amore, del lavoro e della fortuna.',
     );
   }
 
@@ -1326,10 +1418,15 @@ class _LaLetturaEInArrivo extends StatelessWidget {
 /// Una riga sola, discreta, che porta alla schermata dei dati di nascita.
 /// Quando i dati ci sono non c'e'.
 class _InvitoAllaNascita extends StatelessWidget {
-  const _InvitoAllaNascita({required this.testo, required this.palette});
+  const _InvitoAllaNascita(
+      {required this.testo, required this.palette, this.alRitorno});
 
   final String testo;
   final MaestroPalette palette;
+
+  /// Chiamato al ritorno dai dati di nascita: la citta' di oggi si sceglie
+  /// li', e la lettura vedica la rilegge (ordine ES voce 09).
+  final Future<void> Function()? alRitorno;
 
   @override
   Widget build(BuildContext context) {
@@ -1342,7 +1439,9 @@ class _InvitoAllaNascita extends StatelessWidget {
           // L'interruttore del silenzio del Cerchio: niente click di sistema.
           enableFeedback: false,
           borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-          onTap: () => Navigator.of(context).push(DatiDiNascitaScreen.route()),
+          onTap: () => Navigator.of(context)
+              .push(DatiDiNascitaScreen.route())
+              .then((_) => alRitorno?.call()),
           child: Container(
             constraints: const BoxConstraints(minHeight: 44),
             padding: const EdgeInsets.symmetric(

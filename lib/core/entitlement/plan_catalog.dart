@@ -203,6 +203,7 @@ class PlanCatalog {
         'Cosmic Journal completo, obiettivi e traguardi per Maestro',
         'Scelta della profondità dell\'oroscopo: Breve o Approfondita',
         'Oroscopo cinese del giorno, dall\'almanacco e dai Dieci Dei',
+        'Oroscopo vedico del giorno, dalla Luna siderale e dal Rahu Kalam',
         'Rune, I-Ching e Pendolo a Eos scontati',
       ],
     ),
@@ -493,6 +494,9 @@ class PlanCatalog {
     // segno, la lettura del giorno e' dall'Iniziato in su.
     FeatureRow(
         'Oroscopo cinese del giorno', ['Solo il segno', 'Sì', 'Sì', 'Sì']),
+    // LA TRADIZIONE VEDICA, ordine ES voce 09: come la Cinese.
+    FeatureRow(
+        'Oroscopo vedico del giorno', ['Solo il segno', 'Sì', 'Sì', 'Sì']),
     FeatureRow('Memoria AI dei Maestri', ['No', 'Esclusiva', 'Sì', 'Sì'],
         chiave: RigaDelPiano.memoria),
     // I CONFRONTI DEL GIORNO, decisi dal fondatore il 4 agosto 2026: il

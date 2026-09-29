@@ -8,8 +8,8 @@ import '../entitlement/tier.dart';
 /// voci in Home.
 ///
 /// L'Occidentale e' quella di partenza. **Dall'ordine ES voce 08 e' aperta
-/// anche la Cinese**: la sceglie chiunque e ne vede il segno, la lettura del
-/// giorno e' dei piani a pagamento (il fondatore: "I free potranno solo
+/// anche la Cinese**, dalla voce 09 la Vedica: le sceglie chiunque e ne
+/// vede il segno, la lettura del giorno e' dei piani a pagamento (il fondatore: "I free potranno solo
 /// chiedere oroscopo del giorno e solo occidentale o solo vedere il proprio
 /// segno di vedica o cinese senza lettura"). Le altre restano visibili, col
 /// loro segno e la clessidra: mai un vicolo cieco.
@@ -21,6 +21,8 @@ enum AstroTradition {
   ),
   vedica(
     'Vedica',
+    unlocked: true,
+    livelloDellaLettura: 1,
     phase: 'Fase 3',
     invito:
         'L\'astrologia vedica ti attende, Adepto. Presto ti guiderò fra i suoi nakshatra.',

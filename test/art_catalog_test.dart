@@ -460,7 +460,7 @@ void main() {
       // "Se sceglie oroscopo cinese significa che è selezionabile e
       // sbloccato". La Cinese e' aperta, e la sua lettura e' dei piani a
       // pagamento; resta vero che non ha una card propria nel dominio.
-      const aperte = {AstroTradition.cinese};
+      const aperte = {AstroTradition.cinese, AstroTradition.vedica};
       for (final t in AstroTradition.values) {
         if (t == AstroTradition.occidentale) continue;
         expect(t.unlocked, aperte.contains(t), reason: t.name);
