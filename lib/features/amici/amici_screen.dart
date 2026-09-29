@@ -19,6 +19,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../pricing/upgrade_invite.dart';
 import 'l_oroscopo_dell_amico_screen.dart';
@@ -39,9 +40,11 @@ class AmiciScreen extends StatefulWidget {
   /// **VESTITA DA MEDORA**, come il Calendario: l'oroscopo e' suo, e lo
   /// scope neutro sopra il Navigator e' solo il pavimento. Senza, l'invito
   /// al piano e la porta della spesa prenderebbero il viola del Cerchio.
-  static Route<void> route() => MaterialPageRoute<void>(
-      builder: (_) =>
-          const MaestroScope(maestro: Maestro.medora, child: AmiciScreen()));
+  ///
+  /// **DAL PASSAGGIO DEL CERCHIO**, come ogni schermata (ordine CC voce 04):
+  /// la prima stesura costruiva la rotta da se', e la suite l'ha presa.
+  static Route<void> route() => PassaggioDelCerchio.rotta<void>(
+      (_) => const MaestroScope(maestro: Maestro.medora, child: AmiciScreen()));
 
   @override
   State<AmiciScreen> createState() => _AmiciScreenState();
@@ -82,6 +85,9 @@ class _AmiciScreenState extends State<AmiciScreen> {
     final nuovo = await foglioDelCerchio<Amico>(
       context: context,
       isScrollControlled: true,
+      // Il fondo dichiarato, ordine AL voce 04: il foglio si veste di Medora.
+      backgroundColor:
+          MaestroPalette.forKey(const ThemeKey.of(Maestro.medora)).deepest,
       builder: (_) => const _FoglioDellAmico(),
     );
     if (nuovo == null || !mounted) return;

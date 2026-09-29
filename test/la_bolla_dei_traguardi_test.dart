@@ -94,6 +94,13 @@ void main() {
             '${porte.evaluate().length}');
 
     // LA PRIMA PORTA NAVIGA DAVVERO.
+    // **SI PORTA IN VISTA PRIMA DI TOCCARE, ordine ES voce 15.** In cima al
+    // Passaporto e' salita la tessera dei Prossimi Eventi Cosmici, per
+    // decisione del fondatore, e a 360 per 797 la bolla e' scesa sotto la
+    // piega: il tocco cieco colpiva la barra in basso. La prova guarda che la
+    // porta navighi, non dove sta.
+    await tester.ensureVisible(porte.first);
+    await tester.pump();
     await tester.tap(porte.first, warnIfMissed: false);
     for (var i = 0; i < 6; i++) {
       await tester.pump(const Duration(milliseconds: 120));

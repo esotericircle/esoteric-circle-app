@@ -1,14 +1,38 @@
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:share_plus/share_plus.dart';
 
+import '../../core/condivisione/porta_della_condivisione.dart';
 import '../../core/horoscope/horoscope.dart';
 import '../../services/avvisi_locali.dart';
+
+/// **LA TIPOGRAFIA DEL FOGLIO DELL'ANNO, in punti di stampa.** Ordine ES
+/// voce 04.
+///
+/// Il PDF non e' lo schermo: si stampa o si legge su un foglio A4, e le sue
+/// misure sono punti tipografici, non i ruoli di `TypographyTokens` che
+/// servono a un telefono tenuto in mano. **La prima stesura le scriveva a
+/// mano dentro il documento**, e la guardia della tipografia nel dato le ha
+/// contate come debito dello schermo (cinque rossi alla suite intera): qui
+/// stanno tutte, con il loro nome, in un punto solo. Un foglio A4 si legge a
+/// 11 o 12 punti, e i titoli stanno fra 15 e 22.
+abstract final class IlFoglioDellAnno {
+  static const double titolo = 22;
+  static const double sottotitolo = 11;
+  static const double etichetta = 9;
+  static const double titoloDellaScheda = 15;
+  static const double testo = 11.5;
+  static const double firma = 8;
+
+  static const double dopoLaTestata = 18;
+  static const double dopoIlTitolo = 6;
+  static const double dopoLEtichetta = 2;
+  static const double primaDelLivello = 4;
+  static const double fraLeSchede = 16;
+}
 
 /// **IL PDF DELL'ANNO, ordine ES voce 04.** L'annuale approvato dal fondatore
 /// porta il PDF all'Illuminato: le quattro schede dell'anno in un foglio da
@@ -55,31 +79,41 @@ abstract final class IlPdfDellAnno {
       pageFormat: PdfPageFormat.a4,
       margin: const pw.EdgeInsets.all(40),
       build: (_) => [
-        if (testata != null) ...[testata, pw.SizedBox(height: 18)],
+        if (testata != null) ...[
+          testata,
+          pw.SizedBox(height: IlFoglioDellAnno.dopoLaTestata)
+        ],
         pw.Text(titolo,
             style: const pw.TextStyle(
-                fontSize: 22, fontWeight: pw.FontWeight.bold)),
-        pw.SizedBox(height: 6),
-        pw.Text(sottotitolo, style: const pw.TextStyle(fontSize: 11)),
-        pw.SizedBox(height: 18),
+                fontSize: IlFoglioDellAnno.titolo,
+                fontWeight: pw.FontWeight.bold)),
+        pw.SizedBox(height: IlFoglioDellAnno.dopoIlTitolo),
+        pw.Text(sottotitolo,
+            style: const pw.TextStyle(fontSize: IlFoglioDellAnno.sottotitolo)),
+        pw.SizedBox(height: IlFoglioDellAnno.dopoLaTestata),
         for (final s in schede) ...[
           pw.Text(s.domain.label.toUpperCase(),
-              style: const pw.TextStyle(fontSize: 9, letterSpacing: 1.2)),
-          pw.SizedBox(height: 2),
+              style: const pw.TextStyle(
+                  fontSize: IlFoglioDellAnno.etichetta, letterSpacing: 1.2)),
+          pw.SizedBox(height: IlFoglioDellAnno.dopoLEtichetta),
           pw.Text(s.title,
               style: const pw.TextStyle(
-                  fontSize: 15, fontWeight: pw.FontWeight.bold)),
-          pw.SizedBox(height: 6),
-          pw.Text(s.text, style: const pw.TextStyle(fontSize: 11.5)),
+                  fontSize: IlFoglioDellAnno.titoloDellaScheda,
+                  fontWeight: pw.FontWeight.bold)),
+          pw.SizedBox(height: IlFoglioDellAnno.dopoIlTitolo),
+          pw.Text(s.text,
+              style: const pw.TextStyle(fontSize: IlFoglioDellAnno.testo)),
           if (s.rigaDelLivello != null) ...[
-            pw.SizedBox(height: 4),
-            pw.Text(s.rigaDelLivello!, style: const pw.TextStyle(fontSize: 9)),
+            pw.SizedBox(height: IlFoglioDellAnno.primaDelLivello),
+            pw.Text(s.rigaDelLivello!,
+                style:
+                    const pw.TextStyle(fontSize: IlFoglioDellAnno.etichetta)),
           ],
-          pw.SizedBox(height: 16),
+          pw.SizedBox(height: IlFoglioDellAnno.fraLeSchede),
         ],
         pw.Text(
             'Esoteric Circle, oroscopo dell\'anno dalla Rivoluzione Solare.',
-            style: const pw.TextStyle(fontSize: 8)),
+            style: const pw.TextStyle(fontSize: IlFoglioDellAnno.firma)),
       ],
     ));
     return doc.save();
@@ -96,10 +130,11 @@ abstract final class IlPdfDellAnno {
     final dir = await getTemporaryDirectory();
     final file = File('${dir.path}/il_tuo_anno.pdf');
     await file.writeAsBytes(byte, flush: true);
-    await SharePlus.instance.share(ShareParams(
-      files: [XFile(file.path, mimeType: 'application/pdf')],
-      text: titolo,
-    ));
+    // **DALLA PORTA UNICA DELLA CONDIVISIONE**, come ogni cosa che si manda
+    // dal Cerchio (ordine P voce 28): la prima stesura apriva il foglio di
+    // sistema da se', e la suite l'ha presa.
+    await PortaDellaCondivisione.daFile(file.path,
+        testo: titolo, tipo: 'application/pdf');
   }
 }
 

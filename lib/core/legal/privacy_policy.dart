@@ -115,10 +115,10 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
         'sapremmo a che ora raggiungerti. Il gettone sparisce quando spegni '
         'le notifiche e quando cancelli il tuo account. '
         'Per mostrare in alto quante persone sono nel Cerchio in quel '
-        'momento teniamo l\'istante dell\'ultima volta che la tua app, '
-        'aperta, l\'ha chiesto, e nient\'altro: nessuno vede chi è online, '
-        'si legge soltanto il numero. Sparisce quando cancelli i tuoi dati '
-        'o il tuo account.',
+        'momento teniamo soltanto l\'istante dell\'ultima volta che la tua '
+        'app, aperta, l\'ha chiesto: nessuno vede chi è online, si legge '
+        'soltanto il numero. Sparisce quando cancelli i tuoi dati o il tuo '
+        'account.',
   ),
   SezioneDellaPolicy(
     titolo: 'Prevenzione degli abusi',

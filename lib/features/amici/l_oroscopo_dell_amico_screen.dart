@@ -17,6 +17,8 @@ import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../horoscope/horoscope_visuals.dart';
 import '../horoscope/la_testa_della_tradizione.dart';
 import '../horoscope/oroscopo_share_card.dart';
@@ -38,8 +40,8 @@ class LOroscopoDellAmicoScreen extends StatefulWidget {
   final DateTime? adesso;
 
   /// Vestita da Medora, come la lista degli amici e il Calendario.
-  static Route<void> route(Amico amico) => MaterialPageRoute<void>(
-      builder: (_) => MaestroScope(
+  static Route<void> route(Amico amico) =>
+      PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
           maestro: Maestro.medora,
           child: LOroscopoDellAmicoScreen(amico: amico)));
 
@@ -264,8 +266,11 @@ class _Scheda extends StatelessWidget {
               palette: palette,
               pulse: pulse),
           const SizedBox(height: SpacingTokens.sm),
-          Text(scheda.text,
-              style: TypographyTokens.lettura()
+          // Il testo narrato passa dalla porta dei paragrafi, come ogni
+          // responso: senza, torna un blocco unico.
+          ParagrafiDiLettura(
+              testo: scheda.text,
+              stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
         ],
       ),

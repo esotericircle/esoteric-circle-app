@@ -214,8 +214,16 @@ void main() {
     // passare da una porta del server, che toglie solo i messaggi di chi
     // chiama e di quella conversazione. Non poteva viaggiare dentro
     // `azzeraIDatiDelCerchio`, che toglie tutto.
-    expect(callable.length, 12,
-        reason: 'le callable non sono piu\' dodici: $callable. Se ne serviva '
+    // **TREDICI, ordine ES voce 15**, 29 settembre 2026: e' entrata
+    // `chiEOnline`, il numero di chi e' online nella barra in alto. Non
+    // poteva viaggiare dentro `statoDelCerchio`: quella parte una volta
+    // all'apertura e porta lo stato intero (cammino, listino, inviti),
+    // mentre la presenza si rinnova ogni due minuti finche' l'app e'
+    // davanti. Mandare lo stato intero ogni due minuti per sapere un numero
+    // sarebbe stato il contrario della porta leggera che serve: questa
+    // scrive un campo e torna un numero.
+    expect(callable.length, 13,
+        reason: 'le callable non sono piu\' tredici: $callable. Se ne serviva '
             'una nuova andava dichiarata e motivata nel rapporto');
   });
 

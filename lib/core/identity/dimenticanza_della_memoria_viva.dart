@@ -81,6 +81,10 @@ class DimenticanzaDellaMemoriaViva {
     'QualityTierController',
     'SettingsController',
     'AccountDelCerchio',
+    // ORDINE ES VOCE 15: il numero di chi e' online adesso e' di tutti e
+    // di nessuno; la presenza della persona sta sul server, nel suo ramo, e
+    // se ne va con la cancellazione del ramo.
+    'ChiEOnline',
   ];
 
   /// Svuota tutto cio' che l'app tiene in mano di una persona.

@@ -99,6 +99,10 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   // la regola e' chiusa, quindi qui la barra non c'e'.
   'MaestroScreen': PresenzaDellaBarra.assente,
   'OroscopoScreen': PresenzaDellaBarra.assente,
+  // GLI AMICI OFFLINE, ordine ES voce 12: si aprono dall'Oroscopo e sono una
+  // scena sua, come lei senza barra.
+  'AmiciScreen': PresenzaDellaBarra.assente,
+  'LOroscopoDellAmicoScreen': PresenzaDellaBarra.assente,
   'SkyOverviewScreen': PresenzaDellaBarra.assente,
   'AngelsScreen': PresenzaDellaBarra.assente,
   'SinastriaGalleryScreen': PresenzaDellaBarra.assente,

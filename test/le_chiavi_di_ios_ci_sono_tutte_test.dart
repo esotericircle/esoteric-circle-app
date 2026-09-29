@@ -62,6 +62,11 @@ void main() {
     'audioplayers': null,
     'geocoding': null,
     'share_plus': null,
+    // **IL PDF DELL'ANNO, ordine ES voce 04**, 29 settembre 2026: `pdf` e'
+    // Dart puro, e nella sua cartella (pdf-3.13.1) non ci sono ne' `ios/` ne'
+    // `darwin/`; compone il documento in memoria, e il file lo manda la porta
+    // della condivisione. Nessuna API sensibile.
+    'pdf': null,
     // **IL LINK D'INGRESSO**, ordine EA voce 19, 20 settembre 2026. Letta la
     // sua cartella `ios/` quel giorno, versione 7.2.1: il plugin e' un file
     // solo, `AppLinksIosPlugin.swift`, che importa **Flutter e UIKit e basta**
