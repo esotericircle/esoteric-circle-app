@@ -10,6 +10,11 @@ import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
+import 'package:esoteric_circle/core/astro/aspetti_di_oggi.dart';
+import 'package:esoteric_circle/core/horoscope/la_settimana_del_cielo.dart';
+import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
+import 'package:esoteric_circle/features/horoscope/il_periodo_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -103,5 +108,32 @@ void main() {
     print('ORDINE ES VOCE 06: ${righe.join('; ')}; inviti a chi ha gia\' il '
         'piano $inviteAgliAbbonati');
     expect(inviteAgliAbbonati, 0);
+  });
+
+  testWidgets('l\'avviso dei dati mancanti segue il livello della porta',
+      (tester) async {
+    final periodo = LaSettimanaDelCielo.per(
+        segno: Zodiac.leo, carta: null, oggi: DateTime(2026, 10, 5));
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+    final righe = <String>[];
+    for (final livello in LivelloPersonalizzazione.values) {
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          body: SingleChildScrollView(
+            child: IlPeriodoView(
+                periodo: periodo,
+                mese: false,
+                palette: palette,
+                livello: livello),
+          ),
+        ),
+      ));
+      final avviso = find.byKey(const Key('oroscopo_periodo_sul_segno'));
+      final presente = avviso.evaluate().isNotEmpty;
+      righe.add('${livello.name}: ${presente ? 'avviso' : 'niente'}');
+      expect(presente, livello != LivelloPersonalizzazione.cartaCompleta,
+          reason: livello.name);
+    }
+    print('ORDINE ES VOCE 02: ${righe.join('; ')}');
   });
 }

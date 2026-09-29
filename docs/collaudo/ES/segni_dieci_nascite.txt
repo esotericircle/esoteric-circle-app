@@ -1,13 +1,13 @@
 ORDINE ES VOCI 07 E 11: nascite 10, segni confrontati 60, diversi dalla fonte 0
 
 nascita | cinese | vedica | maya | celtica | egizia | araba
-1990-03-15 08:30:00.000 | Cavallo | Tula (Bilancia) | 7 Akʼbʼal | Frassino | Ptibiou, terzo decano dei Pesci | al-Iklil, la corona
-1985-07-04 22:10:00.000 | Bue | Makara (Capricorno) | 8 Lamat | Quercia | Sit, secondo decano del Cancro | Saʼd al-Akhbiya, la fortuna delle tende
-2000-01-01 00:05:00.000 | Coniglio | Tula (Bilancia) | 11 Ikʼ | Betulla | Smat, primo decano del Capricorno | al-Iklil, la corona
-1972-11-23 14:00:00.000 | Topo | Mithuna (Gemelli) | 4 Ikʼ | Canna | Reouo, primo decano del Sagittario | al-Nathra, la punta del naso
-1995-12-24 06:45:00.000 | Maiale | Makara (Capricorno) | 11 Bʼen | Betulla | Smat, primo decano del Capricorno | Saʼd al-Suʼud, la fortuna delle fortune
-1968-06-21 12:00:00.000 | Scimmia | Mesha (Ariete) | 13 Kimi | Quercia | Sothis, primo decano del Cancro | al-Dabaran, l'inseguitore
-2004-02-29 18:20:00.000 | Scimmia | Mithuna (Gemelli) | 10 Ikʼ | Frassino | Chontare, secondo decano dei Pesci | al-Dhiraʼ, l'avambraccio
-1979-09-09 03:15:00.000 | Capra | Mina (Pesci) | 2 Akʼbʼal | Vite | Ouestebkoti, secondo decano della Vergine | al-Butain, il piccolo ventre
-1999-08-11 11:00:00.000 | Coniglio | Karka (Cancro) | 11 Kawak | Nocciolo | Epe, secondo decano del Leone | al-Zubra, la criniera
-1958-04-30 20:30:00.000 | Cane | Kanya (Vergine) | 13 Imix | Salice | Choou, primo decano del Toro | al-Ghafr, la copertura
+1990-03-15 08:30:00.000 | Cavallo | Tula (Bilancia) | 7 Akʼbʼal | Frassino | Ptibiou | al-Iklil, la corona
+1985-07-04 22:10:00.000 | Bue | Makara (Capricorno) | 8 Lamat | Quercia | Sit | Saʼd al-Akhbiya, la fortuna delle tende
+2000-01-01 00:05:00.000 | Coniglio | Tula (Bilancia) | 11 Ikʼ | Betulla | Smat | al-Iklil, la corona
+1972-11-23 14:00:00.000 | Topo | Mithuna (Gemelli) | 4 Ikʼ | Canna | Reouo | al-Nathra, la punta del naso
+1995-12-24 06:45:00.000 | Maiale | Makara (Capricorno) | 11 Bʼen | Betulla | Smat | Saʼd al-Suʼud, la fortuna delle fortune
+1968-06-21 12:00:00.000 | Scimmia | Mesha (Ariete) | 13 Kimi | Quercia | Sothis | al-Dabaran, l'inseguitore
+2004-02-29 18:20:00.000 | Scimmia | Mithuna (Gemelli) | 10 Ikʼ | Frassino | Chontare | al-Dhiraʼ, l'avambraccio
+1979-09-09 03:15:00.000 | Capra | Mina (Pesci) | 2 Akʼbʼal | Vite | Ouestebkoti | al-Butain, il piccolo ventre
+1999-08-11 11:00:00.000 | Coniglio | Karka (Cancro) | 11 Kawak | Nocciolo | Epe | al-Zubra, la criniera
+1958-04-30 20:30:00.000 | Cane | Kanya (Vergine) | 13 Imix | Salice | Choou | al-Ghafr, la copertura

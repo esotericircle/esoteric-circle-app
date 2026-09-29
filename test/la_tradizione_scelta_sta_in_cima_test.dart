@@ -137,7 +137,7 @@ void main() {
       AstroTradition.vedica: 'Tula (Bilancia)',
       AstroTradition.maya: '7 Akʼbʼal',
       AstroTradition.celtica: 'Frassino',
-      AstroTradition.egizia: 'Ptibiou, terzo decano dei Pesci',
+      AstroTradition.egizia: 'Ptibiou',
       AstroTradition.araba: 'al-Iklil, la corona',
     };
     final occidentaleInCima = <String>[];
@@ -152,6 +152,14 @@ void main() {
       if (nome == 'Pesci') occidentaleInCima.add(t.label);
       expect(nome, attesi[t], reason: t.name);
       expect(find.byKey(Key('oroscopo_testa_${t.name}')), findsOneWidget);
+      // Il chip toccato e' quello acceso (visto sul Realme: restava acceso
+      // l'Occidentale).
+      expect(
+          find.descendant(
+              of: find.byKey(Key('oroscopo_tradition_${t.name}')),
+              matching: find.byKey(const Key('oroscopo_tradition_accesa'))),
+          findsOneWidget,
+          reason: '${t.name}: il chip toccato non si accende');
       expect(find.byKey(Key('oroscopo_figura_${t.name}')), findsOneWidget);
       // Nessuna delle sei e' ancora aperta: tutte dicono "In arrivo".
       expect(find.byKey(Key('oroscopo_in_arrivo_${t.name}')), findsOneWidget);

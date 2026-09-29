@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/astro/aspetti_di_oggi.dart';
 import '../../core/horoscope/la_settimana_del_cielo.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -20,7 +21,13 @@ class IlPeriodoView extends StatelessWidget {
     required this.periodo,
     required this.mese,
     required this.palette,
+    required this.livello,
   });
+
+  /// **IL LIVELLO DEI DATI DALLA PORTA COMUNE**, [CieloDiOggi.livello]: e'
+  /// lui a dire se l'avviso c'e' e quale (la guardia
+  /// `la_carta_natale_sopravvive`, una porta sola per chi avvisa).
+  final LivelloPersonalizzazione livello;
 
   final IlPeriodoDelCielo periodo;
 
@@ -35,12 +42,15 @@ class IlPeriodoView extends StatelessWidget {
       key: Key(mese ? 'oroscopo_il_mese' : 'oroscopo_la_settimana'),
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (!periodo.dallaCarta)
+        if (livello != LivelloPersonalizzazione.cartaCompleta)
           Padding(
             padding: const EdgeInsets.only(bottom: SpacingTokens.sm),
             child: Text(
-              'Senza ora e luogo di nascita $nome si legge sul tuo segno e '
-              'sulle case solari.',
+              livello == LivelloPersonalizzazione.soloSegno
+                  ? 'Senza ora e luogo di nascita $nome si legge sul tuo '
+                      'segno e sulle case solari.'
+                  : 'Senza l\'ora di nascita $nome si legge sui tuoi pianeti, '
+                      'con le case solari al posto di quelle della carta.',
               key: const Key('oroscopo_periodo_sul_segno'),
               style: TypographyTokens.didascalia()
                   .copyWith(color: ColorTokens.textSecondary, height: 1.4),
@@ -58,8 +68,8 @@ class IlPeriodoView extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(bottom: 6),
                 child: Text(e.testo,
-                    style: TypographyTokens.didascalia().copyWith(
-                        color: ColorTokens.textPrimary, height: 1.4)),
+                    style: TypographyTokens.didascalia()
+                        .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
               ),
           ],
         ),
@@ -78,8 +88,8 @@ class IlPeriodoView extends StatelessWidget {
                       .copyWith(color: palette.goldSoft, height: 1.4)),
               const SizedBox(height: 4),
               Text('Il momento chiave: ${d.momentoChiave}',
-                  style: TypographyTokens.corpo().copyWith(
-                      color: ColorTokens.textPrimary, height: 1.4)),
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
               const SizedBox(height: SpacingTokens.sm),
               for (final g in mese ? _treMigliori(d) : d.giorni)
                 Padding(
@@ -112,10 +122,9 @@ class IlPeriodoView extends StatelessWidget {
   }
 
   static List<GiornoDelPeriodo> _treMigliori(DominioDelPeriodo d) {
-    final ordinati = [...d.giorni]
-      ..sort((a, b) => b.livello != a.livello
-          ? b.livello.compareTo(a.livello)
-          : a.giorno.compareTo(b.giorno));
+    final ordinati = [...d.giorni]..sort((a, b) => b.livello != a.livello
+        ? b.livello.compareTo(a.livello)
+        : a.giorno.compareTo(b.giorno));
     return (ordinati.take(3).toList())
       ..sort((a, b) => a.giorno.compareTo(b.giorno));
   }

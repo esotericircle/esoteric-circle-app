@@ -1,4 +1,5 @@
 import '../astro/birth_details.dart';
+import '../identity/birth_identity.dart';
 import '../astro/il_sole_di_nascita.dart';
 import '../astro/il_fuso_della_nascita.dart';
 import '../astro/la_luna_intera.dart';
@@ -78,6 +79,31 @@ class NascitaDeiSegni {
         oraNota: d.time != null,
         fuso: d.place?.timezone,
       );
+
+  /// **LA NASCITA DAL PROFILO QUANDO HA L'ORA**, poi dai dettagli della
+  /// carta. Visto sul Realme il 29 settembre: la carta era completa, ma i
+  /// dettagli salvati non portavano l'ora, e la dimora araba chiedeva
+  /// un'ora che la persona aveva gia' dato. L'identita' del profilo
+  /// ([BirthIdentity]) porta ora, luogo e fuso: e' la fonte che usa anche
+  /// la card da condividere.
+  static NascitaDeiSegni? daiDati(BirthDetails? dettagli, BirthIdentity? io) {
+    if (io != null && !io.isExample && io.hasBirthTime) {
+      return NascitaDeiSegni(
+        locale: io.birthMoment,
+        oraNota: true,
+        fuso: io.birthPlace?.timeZoneId ?? dettagli?.place?.timezone,
+      );
+    }
+    if (dettagli != null) return NascitaDeiSegni.daiDettagli(dettagli);
+    if (io != null && !io.isExample) {
+      return NascitaDeiSegni(
+        locale: io.birthDate,
+        oraNota: false,
+        fuso: io.birthPlace?.timeZoneId,
+      );
+    }
+    return null;
+  }
 
   /// Data e ora civili del luogo di nascita. Senza ora, mezzogiorno.
   final DateTime locale;
@@ -390,10 +416,12 @@ abstract final class ISegniDelleTradizioni {
   static SegnoDellaTradizione egizia(NascitaDeiSegni n) {
     int alle(DateTime locale) =>
         (_sole(IlFusoDellaNascita.inUtc(locale, n.fuso)) ~/ 10) % 36;
+    // In grande il solo nome del decano: "Phouori, terzo decano dei
+    // Gemelli" occupava quattro righe sul Realme. Il resto sta nella frase.
     SegnoDellaTradizione a(int s, {bool certo = true, String? nota}) =>
         SegnoDellaTradizione(
           tradizione: AstroTradition.egizia,
-          nome: _decano(s),
+          nome: decani[s],
           frase: 'Il tuo decano egizio è ${_decano(s)}',
           certo: certo,
           nota: nota,

@@ -4,11 +4,11 @@ Luna 217.5, generale: 4, Dal cielo di oggi: Venere in congiunzione alla tua Luna
 Luna 217.5, amore: 4, Dal cielo di oggi: Venere in congiunzione alla tua Luna di nascita; Venere in sestile al tuo Marte di nascita.
 Luna 217.5, carriera: 4, Dal cielo di oggi: Venere in congiunzione alla tua Luna di nascita; Mercurio in trigono alla tua Venere di nascita.
 Luna 217.5, fortuna: 4, Dal cielo di oggi: Venere in congiunzione alla tua Luna di nascita; Saturno in quadratura al tuo Marte di nascita.
-Luna 40.0, generale: 4, Dal cielo di oggi: Giove in trigono alla tua Venere di nascita; Saturno in quadratura al tuo Marte di nascita.
-Luna 40.0, amore: 4, Dal cielo di oggi: Venere in trigono al tuo Marte di nascita; Venere in opposizione alla tua Luna di nascita.
+Luna 40.0, generale: 3, Dal cielo di oggi: Giove in trigono alla tua Venere di nascita; Saturno in quadratura al tuo Marte di nascita.
+Luna 40.0, amore: 3, Dal cielo di oggi: Venere in trigono al tuo Marte di nascita; Venere in opposizione alla tua Luna di nascita.
 Luna 40.0, carriera: 3, Dal cielo di oggi: Saturno in quadratura al tuo Marte di nascita; Venere in trigono al tuo Marte di nascita.
-Luna 40.0, fortuna: 4, Dal cielo di oggi: Giove in trigono alla tua Venere di nascita; Saturno in quadratura al tuo Marte di nascita.
+Luna 40.0, fortuna: 3, Dal cielo di oggi: Giove in trigono alla tua Venere di nascita; Saturno in quadratura al tuo Marte di nascita.
 Luna 120.0, generale: 3, Dal cielo di oggi: Giove in sestile alla tua Venere di nascita; Marte in congiunzione alla tua Luna di nascita.
-Luna 120.0, amore: 3, Dal cielo di oggi: Marte in congiunzione alla tua Luna di nascita; il Sole in opposizione al tuo Marte di nascita.
+Luna 120.0, amore: 2, Dal cielo di oggi: Marte in congiunzione alla tua Luna di nascita; il Sole in opposizione al tuo Marte di nascita.
 Luna 120.0, carriera: 2, Dal cielo di oggi: Marte in congiunzione alla tua Luna di nascita; Mercurio in quadratura alla tua Luna di nascita.
-Luna 120.0, fortuna: 4, Dal cielo di oggi: Giove in sestile alla tua Venere di nascita; Saturno in congiunzione al tuo Marte di nascita.
+Luna 120.0, fortuna: 3, Dal cielo di oggi: Giove in sestile alla tua Venere di nascita; Saturno in congiunzione al tuo Marte di nascita.

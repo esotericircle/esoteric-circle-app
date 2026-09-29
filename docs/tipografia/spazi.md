@@ -1,7 +1,7 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 155 -->
-<!-- FILE_CON_VUOTI: 67 -->
+<!-- VUOTI_CENSITI: 159 -->
+<!-- FILE_CON_VUOTI: 68 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
 
@@ -11,8 +11,8 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **155** |
-| File che ne contengono | **67** |
+| Vuoti verticali dichiarati | **159** |
+| File che ne contengono | **68** |
 | Oltre la soglia di 48 punti | **2** |
 
 ## Da dove viene la soglia
@@ -24,9 +24,9 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | 0 | 1 |
 | 2 | 84 |
 | 3 | 7 |
-| 4 | 29 |
-| 5 | 1 |
-| 6 | 13 |
+| 4 | 30 |
+| 5 | 2 |
+| 6 | 15 |
 | 7 | 3 |
 | 8 | 6 |
 | 9 | 2 |
@@ -56,6 +56,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/horoscope/oroscopo_screen.dart` | 5 | 0 |
 | `lib/features/identity/widgets/identity_widgets.dart` | 5 | 0 |
 | `lib/core/diagnosi/racconto_della_corsa.dart` | 4 | 0 |
+| `lib/features/horoscope/il_periodo_view.dart` | 4 | 0 |
 | `lib/features/horoscope/la_testa_della_tradizione.dart` | 4 | 0 |
 | `lib/features/pricing/pricing_screen.dart` | 4 | 0 |
 | `lib/features/rituals/arcano_dell_alba_share_card.dart` | 4 | 0 |

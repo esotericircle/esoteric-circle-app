@@ -139,7 +139,9 @@ void main() {
       final attesi = {
         AstroTradition.maya: maya,
         AstroTradition.celtica: albero,
-        AstroTradition.egizia: decano,
+        // Dall'ordine ES, vista sul Realme, il nome in grande e' il solo
+        // decano; il resto sta nella frase.
+        AstroTradition.egizia: decano.split(',').first,
         AstroTradition.araba: '${ISegniDelleTradizioni.dimore[dimora - 1].$1}, '
             '${ISegniDelleTradizioni.dimore[dimora - 1].$2}',
         AstroTradition.cinese: animale,

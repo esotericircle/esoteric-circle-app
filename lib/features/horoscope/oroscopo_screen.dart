@@ -505,10 +505,11 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                     hero: _inCima != AstroTradition.occidentale
                         ? LaTestaDellaTradizione(
                             tradizione: _inCima,
-                            segno: nascita == null
-                                ? null
-                                : ISegniDelleTradizioni.per(_inCima,
-                                    NascitaDeiSegni.daiDettagli(nascita)),
+                            segno: switch (NascitaDeiSegni.daiDati(
+                                nascita, profile.identity)) {
+                              null => null,
+                              final n => ISegniDelleTradizioni.per(_inCima, n),
+                            },
                             palette: palette,
                           )
                         : Column(
@@ -561,8 +562,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       const SizedBox(height: SpacingTokens.sm),
                       // Accanto al periodo, la tradizione: lo stesso cielo letto con
                       // occhi diversi. Aperta l'Occidentale, le altre col lucchetto.
+                      // Il chip scelto e' quello della tradizione in cima: chi
+                      // tocca l'Araba vede l'Araba accesa (vista sul Realme).
                       _TraditionTabs(
-                        current: _tradition,
+                        current: _inCima,
                         palette: palette,
                         onSelect: _selectTradition,
                       ),
@@ -589,6 +592,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                               .cartaCompleta),
                           mese: _period == HoroscopePeriod.mese,
                           palette: palette,
+                          livello: cielo.livello,
                         ),
                       if (!_inCima.unlocked)
                         _LaLetturaEInArrivo(
@@ -1493,6 +1497,8 @@ class _TraditionChip extends StatelessWidget {
       onTap: onTap,
       behavior: HitTestBehavior.opaque,
       child: Container(
+        // Il chip acceso porta il suo segno: la prova lo cerca (ordine ES).
+        key: selected ? const Key('oroscopo_tradition_accesa') : null,
         padding: const EdgeInsets.symmetric(
             horizontal: SpacingTokens.sm, vertical: 6),
         decoration: BoxDecoration(

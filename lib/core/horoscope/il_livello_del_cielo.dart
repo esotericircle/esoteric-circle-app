@@ -29,8 +29,13 @@ import 'il_cielo_del_segno.dart';
 /// per la Carriera; seconda, quinta e undicesima per la Fortuna) si aggiunge
 /// +0,5.
 ///
+/// Senza carta pesa anche il corpo del dominio (il Sole per il Generale,
+/// Venere per l'Amore, Marte per la Carriera, Giove per la Fortuna): la
+/// meta' del peso della sua casa solare, piu' 0,5 se e' una casa del
+/// dominio.
+///
 /// **La scala resta quella di prima**, da due a cinque: il livello e'
-/// `3,5 + somma` arrotondato e tenuto fra 2 e 5.
+/// `3 + somma` arrotondato e tenuto fra 2 e 5; il giorno neutro e' 3.
 abstract final class IlLivelloDelCielo {
   static const double orbitaMassima = 2.0;
 
@@ -78,7 +83,11 @@ abstract final class IlLivelloDelCielo {
     7: 'in opposizione al tuo segno',
   };
 
-  static int _scala(double somma) => (3.5 + somma).round().clamp(2, 5);
+  /// **IL GIORNO NEUTRO VALE TRE**, vista sul Realme il 29 settembre: col
+  /// centro a 3,5 un giorno senza niente usciva 4 su 5, cioe' sembrava buono.
+  /// Adesso il neutro e' 3, gli armonici salgono fino a 5, i tesi scendono
+  /// fino a 2, il pavimento di sempre.
+  static int _scala(double somma) => (3 + somma).round().clamp(2, 5);
 
   /// Il livello (2-5) e la riga che dice da dove viene.
   static (int, String) per({
@@ -112,14 +121,26 @@ abstract final class IlLivelloDelCielo {
     }
     final luna = IlCieloDelSegno.segnoDi(CorpoCeleste.luna, quando);
     final casa = IlCieloDelSegno.casaSolare(segno, luna);
+    final caseDelDominio = CorrenteDelCielo.caseDi[dominio] ?? const <int>{};
     var somma = pesoDellaCasaSolare(casa);
-    final delDominio =
-        CorrenteDelCielo.caseDi[dominio]?.contains(casa) ?? false;
-    if (delDominio) somma += 0.5;
+    if (caseDelDominio.contains(casa)) somma += 0.5;
+    // **E IL CORPO DEL DOMINIO**, vista sul Realme il 29 settembre: con la
+    // sola Luna le quattro schede avevano lo stesso livello e la stessa riga,
+    // e chi legge si chiede perche'. Il corpo del dominio (il Sole, Venere,
+    // Marte, Giove) pesa la meta' della Luna, dalla sua casa solare, e la riga
+    // lo nomina.
+    final corpo = IlCieloDelSegno.corpoDi[dominio]!;
+    final suo = IlCieloDelSegno.segnoDi(corpo, quando);
+    final casaSua = IlCieloDelSegno.casaSolare(segno, suo);
+    somma += 0.5 * pesoDellaCasaSolare(casaSua);
+    if (caseDelDominio.contains(casaSua)) somma += 0.5;
     final aspetto = _aspettoDellaCasa[casa];
     final riga = 'Dalla Luna di oggi in ${luna.italianName}, nella tua '
         '${CorrenteDelCielo.ordinaliDelleCase[casa - 1]} casa solare'
-        '${aspetto == null ? '' : ', $aspetto'}.';
+        '${aspetto == null ? '' : ', $aspetto'}; '
+        '${CorrenteDelCielo.colSuoArticolo(corpo, maiuscola: false)} è in '
+        '${suo.italianName}, nella tua '
+        '${CorrenteDelCielo.ordinaliDelleCase[casaSua - 1]}.';
     return (_scala(somma), riga);
   }
 }

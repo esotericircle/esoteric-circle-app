@@ -36,8 +36,9 @@ abstract final class IlMetodoDelResponso {
     };
     // Dall'ordine ES voce 28 il livello viene dal cielo (IlLivelloDelCielo).
     final livelloDelDominio = livello == LivelloPersonalizzazione.soloSegno
-        ? 'Il livello da due a cinque viene dalla Luna di oggi: dal segno in cui '
-            'si trova rispetto al tuo e dalle case solari di questo campo.'
+        ? 'Il livello da due a cinque viene dalla Luna di oggi e dal pianeta di '
+            'questo campo: dal segno in cui si trovano rispetto al tuo e dalle '
+            'case solari che attraversano. Tre vuol dire un giorno neutro.'
         : 'Il livello da due a cinque viene dai passaggi di oggi che parlano a '
             'questo campo: quelli armonici lo alzano, quelli tesi lo '
             'abbassano. Contano di più quanto sono stretti.';

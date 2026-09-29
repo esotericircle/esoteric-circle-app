@@ -35,3 +35,17 @@ ES.03 il mese senza eclissi | innesto nel file (grep): 1 | esito: 00:00 +0 -1: S
 ES.06 la Settimana aperta a tutti | innesto nel file (grep): 1 | esito: 00:02 +0 -1: Some tests failed. | file rimesso identico: si
 ES.06 l'Adepto senza il Mese | innesto nel file (grep): 1 | esito: 00:02 +0 -1: Some tests failed. | file rimesso identico: si
 FINITO
+
+DIFETTI VISTI SUL REALME (build prova_es_1 dal commit 7e1db15d), CURE E INNESTI:
+- senza carta tutte le schede allo stesso livello, e il neutro a 4: il corpo del dominio pesa, il neutro e' 3;
+- il chip acceso restava l'Occidentale toccando un'altra tradizione;
+- il nome del decano egizio su quattro righe: in grande il solo nome;
+- la vista del periodo decideva da sola sui dati mancanti (la guardia comune guarda solo che il file nomini la porta): ora legge il livello della porta, e una prova monta la vista coi tre livelli.
+Due innesti verdi al primo giro (la vista del periodo, il chip), resi rossi con le pretese nuove:
+il livello senza il corpo del dominio | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+il periodo decide da solo sui dati mancanti | innesto nel file (grep): 1 | esito: 00:00 +2: All tests passed! | file rimesso identico: si
+il chip acceso resta l'Occidentale | innesto nel file (grep): 1 | esito: 00:02 +1: All tests passed! | file rimesso identico: si
+FINITO
+il periodo decide da solo sui dati mancanti (secondo giro) | innesto nel file (grep): 1 | esito: 00:01 +0 -1: Some tests failed. | file rimesso identico: si
+il chip acceso resta l'Occidentale (secondo giro) | innesto nel file (grep): 1 | esito: 00:02 +0 -1: Some tests failed. | file rimesso identico: si
+FINITO

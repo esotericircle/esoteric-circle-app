@@ -22,7 +22,7 @@ import 'cardinale_minimo.dart';
 /// - con la carta, tre carte dello stesso segno nello stesso giorno danno
 ///   livelli diversi, e la riga nomina i passaggi che li fanno.
 void main() {
-  test('senza carta: a Luna uguale livello uguale, 48 schede su 48', () {
+  test('senza carta: a cielo uguale livello uguale, 48 schede su 48', () {
     final dallaData = <String>[];
     var schede = 0;
     for (final segno in Zodiac.values) {
@@ -32,12 +32,25 @@ void main() {
         for (var g = 250; g < 280; g++) {
           final carta = Horoscope.cardFor(
               sign: segno, dayOfYear: g, year: 2026, domain: dominio);
-          final quando =
-              DateTime.utc(2026).add(Duration(days: g, hours: 12));
-          final casa = IlCieloDelSegno.casaSolare(
-              segno, IlCieloDelSegno.segnoDi(CorpoCeleste.luna, quando));
+          final quando = DateTime.utc(2026).add(Duration(days: g, hours: 12));
+          // Il cielo del giorno senza carta: la casa solare della Luna e
+          // quella del corpo del dominio (vista sul Realme, ordine ES).
+          final casa = IlCieloDelSegno.casaSolare(segno,
+                      IlCieloDelSegno.segnoDi(CorpoCeleste.luna, quando)) *
+                  100 +
+              IlCieloDelSegno.casaSolare(
+                  segno,
+                  IlCieloDelSegno.segnoDi(
+                      IlCieloDelSegno.corpoDi[dominio]!, quando));
           perCasa.putIfAbsent(casa, () => {}).add(carta.indicator);
           expect(carta.rigaDelLivello, contains('Luna di oggi'));
+          // E il corpo del dominio, visto sul Realme: con la sola Luna le
+          // quattro schede avevano lo stesso livello e la stessa riga.
+          final corpo = IlCieloDelSegno.corpoDi[dominio]!;
+          expect(
+              carta.rigaDelLivello,
+              contains(
+                  '${corpo == CorpoCeleste.sole ? 'il Sole' : corpo.nome} è in'));
         }
         if (perCasa.values.any((s) => s.length > 1)) {
           dallaData.add('${segno.id} ${dominio.name}: $perCasa');
