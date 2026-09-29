@@ -23,8 +23,8 @@ chiusa.
 
 VOCI_TOTALI: 37
 VOCI_CHIUSE: 2
-VOCI_APERTE: 18
-VOCI_DA_FARE: 17
+VOCI_APERTE: 19
+VOCI_DA_FARE: 16
 
 Le prove stanno in `docs/collaudo/ES/`, quelle del telefono di prova
 (Realme 767f596c) in `docs/collaudo/ES/realme/`. **Una voce che si vede a
@@ -125,9 +125,33 @@ MISURA: tradizioni scelte che lasciano in cima il segno occidentale, prima 2 (an
 
 ## VOCE ES.08, LA TRADIZIONE CINESE, APERTA
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata, da vedere sul Realme. La Cinese si sceglie
+e non ha piu' la clessidra. Il Viandante ne vede il segno e l'invito al piano che apre la lettura
+("si apre con l'Iniziato", col suo nome); dall'Iniziato in su "Apri l'almanacco", la stessa
+riflessione con i dodici animali in bronzo che corrono e si fermano sul suo, e le stesse quattro
+schede: **Generale** dal rapporto fra l'animale del giorno e quello dell'anno di nascita (Sanming
+Tonghui, con la precedenza) e dal guardiano del giorno (Jian Chu), **Amore, Lavoro e Fortuna** dal
+dio che il tronco di oggi e' per il tronco del giorno di nascita (i Dieci Dei, Yuanhai Ziping), con
+la serie dell'Amore per donna, per uomo e neutra. L'Approfondita aggiunge che cosa conviene col
+guardiano, la direzione del Dio della Gioia, che cosa e' il dio e che cosa fa al tema della scheda,
+e sulla Fortuna la direzione del Dio della Ricchezza. Il livello viene dal rapporto (Generale) e dal
+dio (le altre), con la riga che lo dice; il colore e i due numeri dello He Tu sono quelli
+dell'elemento del giorno, e la nota lo dice. Il metodo col punto interrogativo e' quello
+dell'almanacco; la riga di domani dice l'animale e il guardiano di domani. Le frasi vengono dal
+corpus `docs/corpus/oroscopo_cinese.md` (224 frasi, marcate per il genere) attraverso
+`tool/_gen_oroscopo_cinese.py`; il motore sta in `lib/core/horoscope/la_lettura_cinese.dart`. La
+settimana e il mese cinesi dicono che sono in arrivo e riportano al giorno; senza data di nascita
+si chiede la data. Il catalogo dei piani lo dice: una voce dell'Iniziato e la riga "Oroscopo cinese
+del giorno" (Viandante: solo il segno). **Un difetto della regola delle varianti preso dalla Regola
+A e riparato prima della consegna**: il corpus proponeva il giorno giuliano modulo le varianti, e
+chi era nato Topo leggeva la stessa frase ogni volta che tornava il Cavallo (il ramo torna ogni
+dodici giorni); adesso la variante conta i ritorni del caso. Mancano le catture dal Realme: la
+Cinese sul gratuito e da Iniziato, la corsa degli animali, le quattro schede.
 
 DOMANDA: "Mi hai consigliato tu di sbloccare in MVP anche vedico e cinese!"; "Se sceglie oroscopo cinese significa che è selezionabile e sbloccato"; "Le risposte devono seguire le regole delle risposte. Ma possiamo usare lo stesso tipo di linguaggio e ci sono delle tradizioni o metodi o pratiche da seguire in particolare? Quindi, il repsonso avverrà con la stessa animazione e con la stessa divisione in generica, amore, lavoro e fortuna?"; domanda girata al fondatore: il metodo dell'Architetto (almanacco Tong Shu e Dieci Dei del BaZi) e "Confermi il Capodanno lunare per il segno cinese e il segno lunare per il vedico?", risposta: "COnfermo tutto."
+
+PROVA: docs/collaudo/ES/regola_a_lettura_cinese.txt
+MISURA: Generali col guardiano diverso dall'almanacco pubblicato 0 su 30; schede fuori dal loro gruppo o dal loro livello 0 su 4320; stessa frase al ritorno dello stesso caso, prima (giorno giuliano) 700 ritorni del rapporto su 1200, 720 del guardiano, 600 del colore, dopo 0 su 1200 per ognuna; testi con un difetto di scrittura 0 su 11520 schede; schede a video diverse dalla lettura 0 su 4; frasi del codice diverse dal corpus 0 su 224
 
 ## VOCE ES.09, LA TRADIZIONE VEDICA, APERTA
 

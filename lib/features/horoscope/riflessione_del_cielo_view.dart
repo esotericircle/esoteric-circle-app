@@ -172,17 +172,25 @@ class RigaDellaRiflessione extends StatelessWidget {
     required this.momento,
     required this.cielo,
     required this.palette,
+    this.almanacco,
   });
 
   final MomentoDellaRiflessione momento;
   final CieloDiOggi cielo;
   final MaestroPalette palette;
 
+  /// **IL FATTO DELL'ALMANACCO, nella lettura cinese** (ordine ES voce 08):
+  /// "Oggi è il giorno del Cavallo, col guardiano Raccogliere." Quando c'e',
+  /// i due momenti parlano dell'almanacco e non del cielo occidentale, che
+  /// la lettura cinese non usa.
+  final String? almanacco;
+
   /// Cosa si legge in questo momento.
   String get testo => switch (momento) {
-        MomentoDellaRiflessione.raccolta => 'Il cielo si raccoglie.',
+        MomentoDellaRiflessione.raccolta =>
+          almanacco == null ? 'Il cielo si raccoglie.' : 'L\'almanacco si apre.',
         MomentoDellaRiflessione.nomina =>
-          RiflessioneDelCielo.rigaDelSecondoMomento(cielo),
+          almanacco ?? RiflessioneDelCielo.rigaDelSecondoMomento(cielo),
       };
 
   @override

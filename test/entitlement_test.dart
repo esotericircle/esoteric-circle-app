@@ -129,7 +129,9 @@ void main() {
 
     test('Gli elenchi sono completi, uno lungo per Tier, senza condensare', () {
       expect(PlanCatalog.forTier(Tier.free).highlights.length, 10);
-      expect(PlanCatalog.forTier(Tier.tier1).highlights.length, 12);
+      // TREDICI dall'ordine ES voce 08: l'oroscopo cinese del giorno si apre
+      // dall'Iniziato, e il piano lo dice.
+      expect(PlanCatalog.forTier(Tier.tier1).highlights.length, 13);
       expect(PlanCatalog.forTier(Tier.tier2).highlights.length, 12);
       // DIECI dall'ordine DJ voce 09, per ordine del fondatore e non per
       // condensare: la Domanda al Maestro reale non si conta piu' fra cio'
@@ -190,7 +192,9 @@ void main() {
       // insieme, uno due tre cinque, e la loro carica, sempre aperta.
       // TRENTUNO dall'ordine DT voce 01: le righe del Rito dell'Alba e
       // dell'Arcano del Giorno sono diventate quella dell'Arcano dell'Alba.
-      expect(PlanCatalog.matrix.length, 31);
+      // TRENTADUE dall'ordine ES voce 08: la riga dell'oroscopo cinese del
+      // giorno, "Solo il segno" per il Viandante.
+      expect(PlanCatalog.matrix.length, 32);
       final gettate =
           PlanCatalog.matrix.firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di

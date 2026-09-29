@@ -313,7 +313,12 @@ class OroscopoShareCard extends StatelessWidget {
                   // prima teneva la cifra in alto quando la riga la stirava.
                   Expanded(
                     child: RiquadroDelNumero(
-                        numero: fortuna.luckyNumber ?? 0, palette: palette),
+                        numero: fortuna.luckyNumber ?? 0,
+                        palette: palette,
+                        etichetta: fortuna.numeriDelGiorno == null
+                            ? 'Numero'
+                            : 'Numeri',
+                        cifre: fortuna.numeriDelGiorno?.join(' · ')),
                   ),
                   const SizedBox(width: SpacingTokens.sm),
                   Expanded(

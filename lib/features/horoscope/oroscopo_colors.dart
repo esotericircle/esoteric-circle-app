@@ -53,4 +53,9 @@ const Map<String, Color> _colorByName = {
   'verde': Color(0xFF4F9A6E),
   'blu zaffiro': Color(0xFF2B4F9E),
   'nero piombo': Color(0xFF4A4D54),
+  // I colori degli elementi cinesi (Liji, Yueling), ordine ES voce 08: il
+  // qing del legno comprende il verde e l'azzurro. Rosso, giallo e nero ci
+  // sono gia'.
+  'verde-azzurro': Color(0xFF3F8F86),
+  'bianco': Color(0xFFF4F1EA),
 };

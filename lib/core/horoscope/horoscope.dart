@@ -38,7 +38,20 @@ class HoroscopeCard {
     this.dalCieloVero = false,
     this.rigaDelLivello,
     this.rigaDellaFortuna,
+    this.metodo,
+    this.numeriDelGiorno,
   });
+
+  /// **IL METODO DI QUESTA SCHEDA, quando non e' quello occidentale.** Ordine
+  /// ES voce 08: la lettura cinese porta la sua nota (l'almanacco, i Dieci
+  /// Dei), e il punto interrogativo della scheda la mostra al posto di quella
+  /// del cielo occidentale. Null vuol dire la nota occidentale.
+  final String? metodo;
+
+  /// **I NUMERI DELL'ELEMENTO**, ordine ES voce 08: nella tradizione cinese
+  /// sono due, quelli dello He Tu (il legno ha il 3 e l'8). Null nella
+  /// lettura occidentale, che ha il solo [luckyNumber].
+  final List<int>? numeriDelGiorno;
 
   /// **LA REGOLA DEL NUMERO E DEL COLORE, ordine ES voce 29**, solo sulla
   /// scheda della Fortuna: "Il numero è il tuo giorno personale... Il colore

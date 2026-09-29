@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../../core/astro/zodiac.dart';
+import '../../core/horoscope/i_segni_delle_tradizioni.dart';
 import '../../design_system/components/zodiac_glyph.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -47,7 +48,14 @@ class CorsaDelloZodiaco extends StatefulWidget {
     required this.durata,
     this.frase,
     this.riduciMovimento = false,
+    this.animaleCinese,
   });
+
+  /// **LA CORSA DEGLI ANIMALI, ordine ES voce 08.** Nella lettura cinese
+  /// passano i dodici animali in bronzo e la corsa si ferma su quello
+  /// dell'anno di nascita (0 Topo ... 11 Maiale). Null vale lo zodiaco
+  /// occidentale.
+  final int? animaleCinese;
 
   /// Il segno di chi guarda: e' qui che la corsa si ferma.
   final Zodiac segno;
@@ -107,8 +115,13 @@ class _CorsaDelloZodiacoState extends State<CorsaDelloZodiaco>
   Timer? _passo;
   late final AnimationController _finale;
 
-  /// Quale segno si vede adesso.
-  late Zodiac _mostrato = Zodiac.values.first;
+  /// Quale figura si vede adesso, fra le dodici: un segno o un animale.
+  int _indice = 0;
+
+  bool get _cinese => widget.animaleCinese != null;
+
+  /// Dove la corsa si ferma.
+  int get _bersaglio => widget.animaleCinese ?? widget.segno.index;
 
   /// Vero quando la corsa si e' fermata sul segno di chi guarda.
   bool _fermo = false;
@@ -129,7 +142,7 @@ class _CorsaDelloZodiacoState extends State<CorsaDelloZodiaco>
       ),
     );
     if (widget.riduciMovimento) {
-      _mostrato = widget.segno;
+      _indice = _bersaglio;
       _fermo = true;
       _finale.value = 1;
       return;
@@ -164,7 +177,7 @@ class _CorsaDelloZodiacoState extends State<CorsaDelloZodiaco>
     if (!mounted) return;
     if (_quanti >= quantiPassi) {
       setState(() {
-        _mostrato = widget.segno;
+        _indice = _bersaglio;
         _fermo = true;
       });
       _finale.forward();
@@ -178,8 +191,7 @@ class _CorsaDelloZodiacoState extends State<CorsaDelloZodiaco>
       if (!mounted) return;
       setState(() {
         _quanti++;
-        final i = Zodiac.values.indexOf(_mostrato);
-        _mostrato = Zodiac.values[(i + 1) % Zodiac.values.length];
+        _indice = (_indice + 1) % Zodiac.values.length;
       });
       _passoSuccessivo(quantiPassi);
     });
@@ -280,7 +292,9 @@ class _CorsaDelloZodiacoState extends State<CorsaDelloZodiaco>
                         Transform.scale(
                           scale: scala,
                           child: Container(
-                            key: Key('corsa_segno_${_mostrato.name}'),
+                            key: Key(_cinese
+                                ? 'corsa_segno_cinese_$_indice'
+                                : 'corsa_segno_${Zodiac.values[_indice].name}'),
                             width: misura,
                             height: misura,
                             decoration: BoxDecoration(
@@ -300,22 +314,38 @@ class _CorsaDelloZodiacoState extends State<CorsaDelloZodiaco>
                                 ),
                               ],
                             ),
-                            child: ZodiacEmblem(
-                              sign: _mostrato,
-                              size: misura,
-                              // Un posto vuoto qui sarebbe un buco nero in mezzo
-                              // alla scena: se l'arte non si decodifica resta il
-                              // nome del segno, che e' l'informazione vera.
-                              ripiego: Center(
-                                child: Text(
-                                  _mostrato.symbol,
-                                  style: TextStyle(
-                                    fontSize: misura * 0.6,
-                                    color: palette.goldSoft,
+                            child: _cinese
+                                ? Image.asset(
+                                    'assets/img/zodiac/zod_cinese_'
+                                    '${ISegniDelleTradizioni.animali[_indice].$1.toLowerCase()}.webp',
+                                    width: misura,
+                                    height: misura,
+                                    fit: BoxFit.contain,
+                                    errorBuilder: (_, __, ___) => Center(
+                                      child: Text(
+                                        ISegniDelleTradizioni
+                                            .animali[_indice].$1,
+                                        style: TypographyTokens.titoloSezione()
+                                            .copyWith(color: palette.goldSoft),
+                                      ),
+                                    ),
+                                  )
+                                : ZodiacEmblem(
+                                    sign: Zodiac.values[_indice],
+                                    size: misura,
+                                    // Un posto vuoto qui sarebbe un buco nero in mezzo
+                                    // alla scena: se l'arte non si decodifica resta il
+                                    // nome del segno, che e' l'informazione vera.
+                                    ripiego: Center(
+                                      child: Text(
+                                        Zodiac.values[_indice].symbol,
+                                        style: TextStyle(
+                                          fontSize: misura * 0.6,
+                                          color: palette.goldSoft,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ),
                           ),
                         ),
                         const SizedBox(height: SpacingTokens.lg),
@@ -323,7 +353,12 @@ class _CorsaDelloZodiacoState extends State<CorsaDelloZodiaco>
                           padding: const EdgeInsets.symmetric(
                               horizontal: SpacingTokens.lg),
                           child: Text(
-                            _fermo ? widget.segno.italianName : frase,
+                            _fermo
+                                ? (_cinese
+                                    ? ISegniDelleTradizioni
+                                        .animali[_bersaglio].$1
+                                    : widget.segno.italianName)
+                                : frase,
                             key: const Key('corsa_frase'),
                             textAlign: TextAlign.center,
                             style: TypographyTokens.titoloSezione()

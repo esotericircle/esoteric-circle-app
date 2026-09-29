@@ -28,7 +28,13 @@ class RiquadroDelNumero extends StatelessWidget {
     required this.numero,
     required this.palette,
     this.etichetta = 'Numero',
+    this.cifre,
   });
+
+  /// **PIU' NUMERI IN UN RIQUADRO**, ordine ES voce 08: la tradizione cinese
+  /// da' all'elemento del giorno due numeri, quelli dello He Tu ("3 · 8").
+  /// Null vale il solo [numero].
+  final String? cifre;
 
   final int numero;
   final MaestroPalette palette;
@@ -56,7 +62,7 @@ class RiquadroDelNumero extends StatelessWidget {
           Text(testoEtichetta, style: stileEtichetta),
           Expanded(
             child: Center(
-              child: Text('$numero',
+              child: Text(cifre ?? '$numero',
                   key: const Key('riquadro_del_numero_cifra'),
                   textAlign: TextAlign.center,
                   style: TypographyTokens.titoloScheda()

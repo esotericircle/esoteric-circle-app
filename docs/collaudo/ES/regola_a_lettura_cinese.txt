@@ -1,0 +1,35 @@
+ORDINE ES VOCE 08, Regola A della guardia la_lettura_cinese_test.dart, 29 settembre 2026.
+
+la variante non segue il giorno: innesto entrato True (grep del pezzo nuovo), prova "due giorni di fila" VERDE, file tornato True
+    ORDINE ES VOCE 08: schede uguali fra un giorno e il seguente 0 su 1440; Breve uguale all'Approfondita 0 su 1440
+la punizione di se' letta come punizione: innesto entrato True (grep del pezzo nuovo), prova "ogni scheda dice la frase" ROSSA, file tornato True
+    ORDINE ES VOCE 08: schede fuori dal loro gruppo o dal loro livello 0 su 4320
+il guardiano spostato di uno: innesto entrato True (grep del pezzo nuovo), prova "il guardiano dei trenta giorni" ROSSA, file tornato True
+    ORDINE ES VOCE 08: Generali col guardiano diverso dall'almanacco pubblicato 30 su 30
+la preposizione non si fonde: innesto entrato True (grep del pezzo nuovo), prova "nessun segnaposto" ROSSA, file tornato True
+    ORDINE ES VOCE 08: testi con un difetto di scrittura 4872 su 11520 schede; testi diversi 1626
+l'armonia vale quattro: innesto entrato True (grep del pezzo nuovo), prova "ogni scheda dice la frase" ROSSA, file tornato True
+    ORDINE ES VOCE 08: schede fuori dal loro gruppo o dal loro livello 1 su 4320
+il piano gratuito legge la Cinese: innesto entrato True (grep del pezzo nuovo), prova "il piano gratuito vede" ROSSA, file tornato True
+cambiare tradizione non rimette il consulto: innesto entrato True (grep del pezzo nuovo), prova "dal primo piano" ROSSA, file tornato True
+la schermata legge le schede occidentali anche in Cinese: innesto entrato True (grep del pezzo nuovo), prova "dal primo piano" ROSSA, file tornato True
+
+L'INNESTO RIMASTO VERDE, confessato. "La variante non segue il giorno" (varianti[0]) ha lasciato verde
+la prova "due giorni di fila": fra un giorno e il seguente cambiano l'animale e il dio, e il testo
+cambia per conto suo. Si e' cambiata la grandezza misurata, non la soglia: la prova nuova "quando lo
+stesso caso torna, la frase e' un'altra" confronta il giorno con il ritorno dello stesso caso (il ramo
+dopo 12 giorni, il dio dopo 10, la direzione della Gioia dopo 5, il guardiano e l'elemento alla loro
+prossima volta). Con la regola di prima (giorno giuliano modulo le varianti, proposta dal corpus) era
+rossa: 700 ritorni del rapporto su 1200 con la stessa frase, 720 del guardiano, 600 del colore. E'
+un difetto vero della lettura, padre ES.08 (questa voce), riparato prima della consegna: la variante
+adesso conta i ritorni del caso (LaLetturaCinese.ritorni).
+
+La misura del ritorno, Regola A:
+la variante torna al giorno giuliano, la regola di prima: innesto entrato True (grep del pezzo nuovo), prova "quando lo stesso caso torna" ROSSA, file tornato True
+    ORDINE ES VOCE 08: stessa frase al ritorno dello stesso caso: rapporto 700 su 1200; dio 0 su 1200; direzione 0 su 1200; guardiano 720 su 1200; colore 600 su 1200
+il guardiano contato senza i jie: innesto entrato True (grep del pezzo nuovo), prova "quando lo stesso caso torna" ROSSA, file tornato True
+    ORDINE ES VOCE 08: stessa frase al ritorno dello stesso caso: rapporto 0 su 1200; dio 0 su 1200; direzione 0 su 1200; guardiano 42 su 1200; colore 0 su 1200
+
+Il corpus e il codice, Regola A:
+una parola cambiata nel corpus ("Custodisci, non rischiare mai.") senza rigenerare: innesto entrato True (grep, 1 riga), prova "le frasi del codice sono quelle del corpus" ROSSA (alla posizione 94), corpus tornato True (cmp). Verde prima e dopo: frasi del corpus 224, del codice 224.
+Il cardinale dichiarato al primo giro era 250, una stima mia sbagliata: le frasi sono 224, e il cardinale e' il numero vero.

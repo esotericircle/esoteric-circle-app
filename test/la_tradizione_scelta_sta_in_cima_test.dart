@@ -161,15 +161,26 @@ void main() {
           findsOneWidget,
           reason: '${t.name}: il chip toccato non si accende');
       expect(find.byKey(Key('oroscopo_figura_${t.name}')), findsOneWidget);
-      // Nessuna delle sei e' ancora aperta: tutte dicono "In arrivo".
-      expect(find.byKey(Key('oroscopo_in_arrivo_${t.name}')), findsOneWidget);
-      // Sotto un segno in arrivo non si apre il consulto occidentale, che si
-      // leggerebbe come suo: c'e' la riga che lo dice e il gesto per tornare.
+      // **LAPIDE, ordine ES voce 08, 29 settembre 2026.** Qui stava "Nessuna
+      // delle sei e' ancora aperta: tutte dicono In arrivo". Dalla voce ES.08
+      // la Cinese e' aperta: sul piano gratuito, che e' quello di questa
+      // prova, mostra il segno e l'invito al piano che apre la lettura, senza
+      // clessidra. Le altre cinque restano in arrivo.
+      if (t.unlocked) {
+        expect(find.byKey(Key('oroscopo_in_arrivo_${t.name}')), findsNothing);
+        expect(find.byKey(const Key('oroscopo_cinese_invito_al_piano')),
+            findsOneWidget,
+            reason: '${t.name}: il piano gratuito non vede l\'invito');
+      } else {
+        expect(find.byKey(Key('oroscopo_in_arrivo_${t.name}')), findsOneWidget);
+        expect(find.byKey(Key('oroscopo_lettura_in_arrivo_${t.name}')),
+            findsOneWidget);
+      }
+      // Sotto un segno che non ha lettura non si apre il consulto
+      // occidentale, che si leggerebbe come suo.
       expect(find.byKey(const Key('oroscopo_interroga')), findsNothing,
           reason: '${t.name}: sotto il suo segno si apre il consulto '
               'occidentale');
-      expect(find.byKey(Key('oroscopo_lettura_in_arrivo_${t.name}')),
-          findsOneWidget);
     }
     final figura =
         tester.widget<Image>(find.byKey(const Key('oroscopo_figura_araba')));

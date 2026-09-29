@@ -202,6 +202,7 @@ class PlanCatalog {
         'Correlazione mood-transiti attiva',
         'Cosmic Journal completo, obiettivi e traguardi per Maestro',
         'Scelta della profondità dell\'oroscopo: Breve o Approfondita',
+        'Oroscopo cinese del giorno, dall\'almanacco e dai Dieci Dei',
         'Rune, I-Ching e Pendolo a Eos scontati',
       ],
     ),
@@ -488,6 +489,10 @@ class PlanCatalog {
         ['Base', 'Dettagliato', 'Dettagliato', 'Dettagliato'],
         chiave: RigaDelPiano.oroscopoSettimanale),
     FeatureRow('Oroscopo mensile', ['No', 'No', 'Sì', 'Sì']),
+    // LA TRADIZIONE CINESE, ordine ES voce 08: il Viandante ne vede il
+    // segno, la lettura del giorno e' dall'Iniziato in su.
+    FeatureRow(
+        'Oroscopo cinese del giorno', ['Solo il segno', 'Sì', 'Sì', 'Sì']),
     FeatureRow('Memoria AI dei Maestri', ['No', 'Esclusiva', 'Sì', 'Sì'],
         chiave: RigaDelPiano.memoria),
     // I CONFRONTI DEL GIORNO, decisi dal fondatore il 4 agosto 2026: il

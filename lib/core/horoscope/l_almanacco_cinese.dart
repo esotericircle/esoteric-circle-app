@@ -34,7 +34,7 @@ enum DioDelGiorno {
 
 /// I cinque elementi, dal Legno.
 enum Elemento {
-  legno('il legno', 'verde', [3, 8], 'est'),
+  legno('il legno', 'verde-azzurro', [3, 8], 'est'),
   fuoco('il fuoco', 'rosso', [2, 7], 'sud'),
   terra('la terra', 'giallo', [5, 10], 'centro'),
   metallo('il metallo', 'bianco', [4, 9], 'ovest'),
@@ -43,7 +43,8 @@ enum Elemento {
   const Elemento(this.nome, this.colore, this.numeri, this.direzione);
   final String nome;
 
-  /// Il colore della tradizione (Liji, Yueling).
+  /// Il colore della tradizione (Liji, Yueling). Il legno ha il qing, che
+  /// comprende il verde e l'azzurro.
   final String colore;
 
   /// I numeri dello He Tu.
@@ -104,6 +105,13 @@ abstract final class LAlmanaccoCinese {
   /// dall'ultimo jie la cui data (a Pechino) non supera [g]. Null fuori
   /// dalla tabella (1900-2100).
   static int? ramoDelMese(DateTime g) {
+    final lo = indiceDelJie(g);
+    return lo == null ? null : (ITerminiSolari.ramoDelPrimo + lo) % 12;
+  }
+
+  /// Quale jie della tabella apre il mese solare del giorno civile [g]:
+  /// l'ultimo la cui data non supera [g]. Null prima del primo.
+  static int? indiceDelJie(DateTime g) {
     final chiave = g.year * 10000 + g.month * 100 + g.day;
     const date = ITerminiSolari.date;
     if (chiave < date.first) return null;
@@ -117,7 +125,7 @@ abstract final class LAlmanaccoCinese {
         hi = mid - 1;
       }
     }
-    return (ITerminiSolari.ramoDelPrimo + lo) % 12;
+    return lo;
   }
 
   /// Il guardiano (0 Stabilire ... 11 Chiudere) del giorno civile [g].
