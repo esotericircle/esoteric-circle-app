@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../core/condivisione/premio_della_condivisione.dart';
 import '../../core/horoscope/astro_tradition.dart';
 import '../../core/horoscope/i_segni_delle_tradizioni.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -136,8 +137,13 @@ class _LaRivelazioneState extends State<_LaRivelazione>
   Future<void> _condividi() async {
     setState(() => _condividendo = true);
     try {
-      await shareOroscopoCard(
+      final andata = await shareOroscopoCard(
           boundaryKey: _card, text: '${widget.segno.frase}. Esoteric Circle.');
+      // Il premio della condivisione avvenuta, dichiarato sul pulsante.
+      if (andata && mounted) {
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai condiviso il tuo segno');
+      }
     } finally {
       if (mounted) setState(() => _condividendo = false);
     }
@@ -235,7 +241,7 @@ class _LaRivelazioneState extends State<_LaRivelazione>
                     key: const Key('rivelazione_condividi'),
                     onPressed: _condividendo ? null : _condividi,
                     icon: const Icon(Icons.ios_share_rounded),
-                    label: const Text('Condividi'),
+                    label: Text(PremioDellaCondivisione.etichetta(context)),
                   ),
                   TextButton(
                     key: const Key('rivelazione_continua'),

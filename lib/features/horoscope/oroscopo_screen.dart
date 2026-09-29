@@ -603,13 +603,23 @@ class _OroscopoScreenState extends State<OroscopoScreen>
             minimumSize: const Size(0, 44),
             side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
           ),
-          onPressed: () => IlPdfDellAnno.condividi(
-            schede,
-            titolo: 'Il tuo anno dal ${italianLongDate(locale)}',
-            sottotitolo: 'Rivoluzione Solare del ${italianLongDate(locale)} '
-                'alle $ora, per $dove',
-          ),
-          child: Text('Scarica il PDF del tuo anno',
+          onPressed: () async {
+            final andata = await IlPdfDellAnno.condividi(
+              schede,
+              titolo: 'Il tuo anno dal ${italianLongDate(locale)}',
+              sottotitolo: 'Rivoluzione Solare del ${italianLongDate(locale)} '
+                  'alle $ora, per $dove',
+            );
+            // Il premio della condivisione avvenuta, come per ogni responso
+            // mandato (ordine BG voce 04).
+            if (andata && context.mounted) {
+              await PremioDellaCondivisione.premia(context,
+                  cosa: 'Hai condiviso il tuo anno');
+            }
+          },
+          child: Text(
+              PremioDellaCondivisione.etichetta(context,
+                  base: 'Scarica il PDF del tuo anno'),
               style:
                   TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
         ),

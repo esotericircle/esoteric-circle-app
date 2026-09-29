@@ -25,6 +25,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'cardinale_minimo.dart';
+import 'istante_dichiarato.dart';
 
 /// **L'ORA D'ORO E IL RAHU KALAM CHIAMANO. Ordine ES voce 32, 29 settembre
 /// 2026.**
@@ -266,7 +267,7 @@ void main() {
       }),
     });
     final scelta = SceltaDegliAvvisi();
-    final diario = DiarioDelCammino();
+    final diario = DiarioDelCammino(orologio: orologioDelleProve);
     await tester.runAsync(() async {
       await scelta.carica();
       await diario.carica();

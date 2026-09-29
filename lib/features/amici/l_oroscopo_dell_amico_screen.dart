@@ -6,6 +6,7 @@ import '../../core/amici/amici_offline.dart';
 import '../../core/astro/luogo_attuale.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/chat/user_profile.dart';
+import '../../core/condivisione/premio_della_condivisione.dart';
 import '../../core/horoscope/astro_tradition.dart';
 import '../../core/horoscope/horoscope.dart';
 import '../../core/horoscope/i_segni_delle_tradizioni.dart';
@@ -123,11 +124,16 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
-      await shareOroscopoCard(
+      final andata = await shareOroscopoCard(
         boundaryKey: _cardKey,
         text: 'Il tuo oroscopo di oggi, ${widget.amico.nome}: ${segno.nome}. '
             'Esoteric Circle.',
       );
+      // Il premio della condivisione avvenuta, dichiarato sul pulsante.
+      if (andata && mounted) {
+        await PremioDellaCondivisione.premia(context,
+            cosa: 'Hai mandato un oroscopo a ${widget.amico.nome}');
+      }
     } finally {
       if (mounted) setState(() => _renderCard = false);
     }
@@ -202,7 +208,8 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
                   key: const Key('amico_condividi'),
                   onPressed: () => _condividi(segno),
                   icon: const Icon(Icons.ios_share_rounded),
-                  label: Text('Manda a ${widget.amico.nome}'),
+                  label: Text(PremioDellaCondivisione.etichetta(context,
+                      base: 'Manda a ${widget.amico.nome}')),
                 ),
             ],
           ),

@@ -119,8 +119,9 @@ abstract final class IlPdfDellAnno {
     return doc.save();
   }
 
-  /// Scrive il PDF e apre il foglio di condivisione.
-  static Future<void> condividi(
+  /// Scrive il PDF e apre il foglio di condivisione. Torna vero se la
+  /// condivisione e' avvenuta: chi chiama paga il premio (ordine BG voce 04).
+  static Future<bool> condividi(
     List<HoroscopeCard> schede, {
     required String titolo,
     required String sottotitolo,
@@ -133,7 +134,7 @@ abstract final class IlPdfDellAnno {
     // **DALLA PORTA UNICA DELLA CONDIVISIONE**, come ogni cosa che si manda
     // dal Cerchio (ordine P voce 28): la prima stesura apriva il foglio di
     // sistema da se', e la suite l'ha presa.
-    await PortaDellaCondivisione.daFile(file.path,
+    return PortaDellaCondivisione.daFile(file.path,
         testo: titolo, tipo: 'application/pdf');
   }
 }

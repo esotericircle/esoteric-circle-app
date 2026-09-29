@@ -98,8 +98,7 @@ void main() {
       nascita.setBirth(
         BirthDetails(
           date: DateTime(1990, 8, 10),
-          time:
-              conCarta.hasTime ? const TimeOfDay(hour: 12, minute: 0) : null,
+          time: conCarta.hasTime ? const TimeOfDay(hour: 12, minute: 0) : null,
           place: const astro.BirthPlace(
               label: 'Roma',
               latitude: 41.9,
@@ -170,13 +169,13 @@ void main() {
     // del livello, la riga del passaggio e l'ora d'oro, e in fondo c'e' la
     // riga di domani: la nota sta piu' in basso, fuori dalla parte che la
     // lista costruisce. Ci si arriva scorrendo, come fa la persona.
-    await tester.dragUntilVisible(porta,
-        find.byKey(const Key('oroscopo_list')), const Offset(0, -300));
+    await tester.dragUntilVisible(
+        porta, find.byKey(const Key('oroscopo_list')), const Offset(0, -300));
     expect(porta, findsOneWidget,
         reason: 'chi ha dato luogo e data ma non l\'ora resta senza porta');
 
-    final etichetta = tester.widget<Text>(
-        find.descendant(of: porta, matching: find.byType(Text)));
+    final etichetta = tester
+        .widget<Text>(find.descendant(of: porta, matching: find.byType(Text)));
     final testoDellaPorta = etichetta.data ?? '';
     final invitoPieno = CorrenteDelCielo.invitoDelLivello(cieloDi(null));
     expect(testoDellaPorta, isNot(invitoPieno),
@@ -186,7 +185,16 @@ void main() {
         reason: 'l\'invito di chi ha la carta senza ora non nomina l\'ora, '
             'cioe\' non dice cosa manca davvero');
 
+    // **DUE VOLTE, e la ragione e' misurata.** Ordine ES voce 36: sotto le
+    // schede adesso c'e' la tessera dei tre cieli, la lista e' piu' lunga, e
+    // dopo il primo scorrimento la lista pigra ricalcola la sua estensione
+    // (posizione 1.250 contro un massimo di 1.048): il pulsante tornava a
+    // 3.051 punti, fuori dalla finestra di 3.000. Si porta in vista, si lascia
+    // assestare la lista e si porta in vista di nuovo, come farebbe il dito.
     await tester.ensureVisible(porta);
+    await tester.pump(const Duration(milliseconds: 100));
+    await tester.ensureVisible(porta);
+    await tester.pump();
     await tester.tap(porta);
     await tester.pumpAndSettle();
     expect(find.byType(DatiDiNascitaScreen), findsOneWidget,
