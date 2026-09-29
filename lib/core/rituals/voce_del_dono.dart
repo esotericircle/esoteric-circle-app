@@ -1,6 +1,7 @@
 import '../tempo/confine_del_giorno.dart';
 import '../maestro/voce_del_maestro.dart';
 import 'daily_elements.dart';
+import 'filo_del_giorno.dart';
 
 /// OGNI DONO DICE CHI PARLA, e lo dice da un punto solo.
 ///
@@ -36,10 +37,15 @@ class VoceDelDono {
   }) {
     final maestro = DailyElements.maestroFor(dono, giorno);
     final formule = _formulePer(VoceDelMaestro.di(maestro).tipoDiChiusura);
+    // Il Sigillo si compie anche dopo mezzanotte, e fino alle cinque la
+    // notte e' ancora quella di ieri: la formula non cambia a mezzanotte.
+    final diQualeGiorno = dono == DailyElement.night
+        ? DateTime.parse(FiloDelGiorno.giornoRituale(giorno))
+        : giorno;
     final quale = _seme([
           maestro.index,
           dono.index,
-          _giornoOrdinale(giorno),
+          _giornoOrdinale(diQualeGiorno),
           giorno.year,
         ]) %
         formule.length;
@@ -59,7 +65,11 @@ class VoceDelDono {
         TipoDiChiusura.direzioneNelTempo => const [
             'ti indica dove guarda il cielo',
             'ha letto il tuo momento',
-            'ti mostra la finestra di oggi',
+            // **VALE ANCHE PER IL SIGILLO**, ordine ES voce 18: qui c'era "ti
+            // mostra la finestra di oggi", che sul Sigillo del Sogno, un rito
+            // che chiude il giorno e guarda indietro, prometteva una
+            // previsione.
+            'guarda con te il cielo di oggi',
           ],
         // Aura chiede al corpo: invita, accompagna, non prescrive.
         TipoDiChiusura.gestoDelCorpo => const [

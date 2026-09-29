@@ -63,8 +63,10 @@ enum DailyElement {
     perche:
         'Il tramonto è il momento in cui si sceglie cosa lasciare fuori dalla notte.',
     cosaTiResta:
-        'Una runa che il Sigillo del Sogno nominerà fra poche ore, con '
-        'il suo presagio.',
+        // **IL SIGILLO NON LA NOMINA PIU'**, ordine ES voce 18: dalla voce
+        // ES.16 il Sigillo di Medora non parla di rune, e questa riga
+        // prometteva il contrario.
+        'Una runa per la sera, col suo presagio da portare nella notte.',
     title: 'La Runa del Tramonto',
     conArticolo: 'la Runa del Tramonto',
     shortLabel: 'Tramonto',
@@ -95,7 +97,7 @@ enum DailyElement {
     numeroDellAvviso: 4,
     description:
         'Uno sguardo al giorno appena concluso: la nebbia si dirada col fiato, '
-        'emergono le stelle del cielo notturno reale, unisci la costellazione '
+        'emerge la Luna nella sua fase reale, unisci la costellazione '
         'del segno in cui si trova la Luna adesso, poi il saluto della notte '
         'con la sua carta. Ripiego tattile sempre presente.',
   );

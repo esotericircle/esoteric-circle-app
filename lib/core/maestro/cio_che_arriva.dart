@@ -49,11 +49,20 @@ class CioCheArriva {
     for (final e in eventi.take(quantiEventi)) {
       righe.add('- ${LinguaDegliEventi.nomeDi(e.evento)}: ${_quando(e)}.');
     }
+    // **COSA APRE NON ARRIVA PIU' AL MAESTRO**, ordine ES voce 18. Il corpus
+    // dei Traguardi dice per ogni passo "che cosa apre", ma nell'app nessun
+    // traguardo sblocca niente, e su 165 testi 99 descrivono funzioni che
+    // non esistono ("il quaderno dei sogni", "la lettura dei sogni
+    // ricorrenti", "la croce celtica a dieci carte"), 31 sono dubbi e 35
+    // nominano funzioni gia' aperte a tutti. Il Maestro li prometteva alla
+    // persona. Il nome del passo basta a dire dove sta andando il suo
+    // Cammino; [cosaApre] resta nella firma per chi lo passa e non entra
+    // nell'istruzione. L'ordine CQ voce 2.15 lo voleva dentro, sulla
+    // premessa che il passo aprisse qualcosa: la premessa era falsa
+    // (docs/collaudo/ES/cosa_apre.txt).
     if (prossimoTraguardo != null && prossimoTraguardo.trim().isNotEmpty) {
       righe.add('- Il prossimo passo del suo Cammino si chiama '
-          '"$prossimoTraguardo"'
-          '${cosaApre == null || cosaApre.trim().isEmpty ? "" : ": apre "
-              "${_minuscola(cosaApre)}"}.');
+          '"$prossimoTraguardo".');
     }
     if (righe.isEmpty) return '';
     return [
@@ -76,7 +85,4 @@ class CioCheArriva {
     }
     return 'fra ${(e.fraQuantiGiorni / 30).round()} mesi';
   }
-
-  static String _minuscola(String s) =>
-      s.isEmpty ? s : s[0].toLowerCase() + s.substring(1);
 }

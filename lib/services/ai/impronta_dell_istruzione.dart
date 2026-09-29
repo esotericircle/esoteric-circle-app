@@ -36,14 +36,14 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        '2fc1c5ba4c91b91f7a4035ad20609fc367ccb18f00535e2f74721290070b5f0b',
-    'aura': '201c91c7cc34e8275e9aad439ece812770c93c56f100123c98d50250163bf6af',
+        '439c601d7b61e8063bf891be0ce6e67ca82b6c940b88fb1af8549abeb379f3c4',
+    'aura': 'dea6c1407044a52d42cf4807b50683613275f2b5ba322dc6147bce17899c7d04',
     'caligo':
-        '53117f62802afefd52dd0bc18ade2b4097a82efaa045b54ca1dc0e6bf30fd876',
+        'cb5982e7a7f5ab0e2f2bd42afc51593dc39f92605e287843b01e82fa78b68b43',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
-  static const String registrateIl = '28 settembre 2026, ordine ET voce 01';
+  static const String registrateIl = '29 settembre 2026, ordine ES voce 18';
 
   /// LO STORICO DELLE IMPRONTE, cioe' le stringhe che non esistono piu'.
   ///
@@ -53,6 +53,18 @@ class ImprontaDellIstruzione {
   /// cancella niente: quando l'istruzione cambia, l'impronta vecchia scende in
   /// questo elenco con la sua data e con cio' che le e' successo.
   static const List<String> storicoDelleImpronte = [
+    'DAL 28 SETTEMBRE 2026 AL 29 SETTEMBRE 2026, LA STRINGA DELL\'ORDINE ET '
+        'VOCE 01. Impronte: medora '
+        '2fc1c5ba4c91b91f7a4035ad20609fc367ccb18f00535e2f74721290070b5f0b, '
+        'aura 201c91c7cc34e8275e9aad439ece812770c93c56f100123c98d50250163bf6af, '
+        'caligo 53117f62802afefd52dd0bc18ade2b4097a82efaa045b54ca1dc0e6bf30fd876. '
+        '**MISURA PRESA SU DI LEI**: tre giri di attribuzione cieca, 93,3, '
+        '95,0 e 91,7 per cento, media 93,3 (168 su 180). Caduta con l\'ordine '
+        'ES voce 18: la regola della chiusura chiedeva il nome di una runa o di '
+        'un arcano, e dopo il Sigillo del Sogno Medora ne nominava di mai '
+        'estratti; adesso solo se sono gia\' usciti. Sulla stringa nuova, tre '
+        'giri: 93,3, 95,0 e 95,0 per cento, media 94,4 (170 su 180), '
+        'docs/collaudo/ES/attribuzione/.',
     'DAL 27 SETTEMBRE 2026 AL 28 SETTEMBRE 2026, LA STRINGA DELL\'ORDINE EQ '
         'VOCE 03. Impronte: medora '
         '999b8871e14b7307277c6e0c476a306e7b11561e31b0c5b1d4d818718c0e19a1, '
@@ -428,7 +440,16 @@ class ImprontaDellIstruzione {
   /// l'escursione, cinque la dichiarano.** Sono cinque giri della stessa misura
   /// sulla stessa istruzione, non cinque misure in disaccordo.
   static const String ultimaMisuraNota =
-      'TRE GIRI DEL 28 SETTEMBRE 2026, SU QUESTE IMPRONTE, ordine ET voce 01: '
+      'TRE GIRI DEL 29 SETTEMBRE 2026, SU QUESTE IMPRONTE, ordine ES voce 18: '
+      '93,3 per cento (56 su 60), poi 95,0 (57 su 60), poi 95,0 (57 su 60); '
+      'media 94,4 per cento (170 su 180), nessun verdetto illeggibile. Nel '
+      'dettaglio: medora 19, 19, 18 su 20; aura 20, 20, 20; caligo 17, 18, 19 '
+      'su 20. Ritmo: frase mediana di medora 18, 18, 18 parole, di aura 18, '
+      '19, 19, di caligo 9, 9, 9; parole che ammorbidiscono medora 3, 0, 4, '
+      'aura 5, 12, 10, caligo 1, 0, 1. Le uscite dei tre giri stanno in '
+      'docs/collaudo/ES/attribuzione. '
+      'Tutto ciò che segue appartiene a stringhe che stanno nello storico. '
+      'TRE GIRI DEL 28 SETTEMBRE 2026, ordine ET voce 01: '
       '93,3 per cento (56 su 60), poi 95,0 (57 su 60), poi 91,7 (55 su 60); '
       'media 93,3 per cento (168 su 180), nessun verdetto illeggibile. Nel '
       'dettaglio: medora 20, 20, 19 su 20, scambiata per aura 1 volta; aura '

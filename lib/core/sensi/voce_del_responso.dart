@@ -77,15 +77,24 @@ class VoceDelResponso {
   ///
   /// **E l'appartenenza non e' una mia opinione**: `sentieroDelGesto`, che
   /// il generatore del corpus scrive, dice gia' di chi e' ogni gesto, e una
-  /// prova confronta le due mappe voce per voce.
+  /// prova confronta le due mappe voce per voce
+  /// (`ogni_responso_ha_la_sua_voce_test.dart`). **Tranne i Doni del giorno**
+  /// (ordine ES voce 18): la loro voce e' quella del Maestro che li guida,
+  /// `DailyElement.guide` (`la_voce_del_dono_e_di_chi_lo_guida_test.dart`).
   static const Map<String, Maestro> deiResponsi = {
     'oroscopo': Maestro.medora,
     'sinastria': Maestro.medora,
     'angelo_custode': Maestro.medora,
     'archetipo': Maestro.aura,
-    'alba': Maestro.aura,
+    // **L'ALBA E IL SOGNO SONO DI MEDORA**, ordine ES voce 18: dall'ordine DT
+    // voce 15 l'Arcano dell'Alba e il Sigillo del Sogno li guida Medora, e al
+    // compimento suonavano la palette di Aura e quella di Caligo. La voce e'
+    // di chi guida il rito (`DailyElement.guide`); il Sentiero del Cammino a
+    // cui il gesto appartiene resta com'e', perche' spostarlo cambierebbe i
+    // traguardi gia' raccolti.
+    'alba': Maestro.medora,
     'gettata': Maestro.caligo,
     'animale_guida': Maestro.caligo,
-    'sogno': Maestro.caligo,
+    'sogno': Maestro.medora,
   };
 }

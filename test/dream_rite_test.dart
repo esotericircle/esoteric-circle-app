@@ -113,8 +113,8 @@ void main() {
       expect(a, b);
       expect(a.trim().endsWith('Buonanotte.'), isTrue, reason: a);
       // **Non ruota piu': e' di Medora**, ordine DT voce 15.
-      expect(DailyElements.maestroFor(DailyElement.night, date),
-          Maestro.medora);
+      expect(
+          DailyElements.maestroFor(DailyElement.night, date), Maestro.medora);
     });
 
     test('Nessun testo del rito e\' troncato o viola la regola di lingua', () {
@@ -144,7 +144,12 @@ void main() {
     test('Dichiara cielo reale, segno, fase e il confine onesto', () {
       final luna = DreamRiteCorpus.lunaDi(date);
       final t = DreamRiteCorpus.daDoveNasce(luna);
-      expect(t, contains('cielo notturno reale di questo momento'));
+      // **LAPIDE, ordine ES voce 18.** Qui si pretendeva "cielo notturno
+      // reale di questo momento": era falso, le stelle della scena sono
+      // disegnate con un seme fisso e sono le stesse ogni notte. Reali sono
+      // la Luna nella sua fase e il segno in cui si trova.
+      expect(t, contains('fase reale di stanotte'));
+      expect(t, isNot(contains('cielo notturno reale')));
       expect(t, contains(luna.sign.italianName));
       expect(t, contains(luna.phase.italianName.toLowerCase()));
       // **IL TOOLTIP NON CONFESSA PIU'. Ordine CW voce 04**, 7 settembre

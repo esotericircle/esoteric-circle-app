@@ -23,7 +23,7 @@ oggi si leggono a schermo.
 - **titolo del rito**: IL RITO DI STASERA
 - **cosa fai**: Estrai la runa della sera dal mazzo delle ventiquattro.
 - **perche**: Il tramonto è il momento in cui si sceglie cosa lasciare fuori dalla notte.
-- **cosa ti resta**: Una runa che il Sigillo del Sogno nominerà fra poche ore, con il suo presagio.
+- **cosa ti resta**: Una runa per la sera, col suo presagio da portare nella notte.
 
 ## Sigillo del Sogno
 

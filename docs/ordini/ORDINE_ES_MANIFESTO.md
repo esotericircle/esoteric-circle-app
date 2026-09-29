@@ -23,8 +23,8 @@ chiusa.
 
 VOCI_TOTALI: 37
 VOCI_CHIUSE: 2
-VOCI_APERTE: 20
-VOCI_DA_FARE: 15
+VOCI_APERTE: 21
+VOCI_DA_FARE: 14
 
 Le prove stanno in `docs/collaudo/ES/`, quelle del telefono di prova
 (Realme 767f596c) in `docs/collaudo/ES/realme/`. **Una voce che si vede a
@@ -278,9 +278,47 @@ MISURA: in prova, notifiche per la sera del 28 settembre (locale alle 22:30, due
 
 ## VOCE ES.18, IL SIGILLO DEL SOGNO CONTROLLATO DA CIMA A FONDO, RISPOSTE COMPRESE
 
-**DA FARE.**
+**APERTA IN ATTESA DI VERIFICA**: controllato e curato nel codice, da vedere sul Realme.
+L'ispezione, con le quattro domande del fondatore su ogni passo, ha trovato quattordici punti;
+curati nel codice:
+- la card chiusa della Runa del Tramonto prometteva che il Sigillo l'avrebbe nominata, falso dalla
+  ES.16 (padre P voce 18, reso falso da ES.16);
+- "il cielo notturno reale" in quattro punti: le stelle della scena sono disegnate con un seme
+  fisso, reali sono la Luna nella sua fase e il segno (PROVENIENZA IGNOTA);
+- il foglio "Da dove nasce" scriveva "stanotte è un congiunzione", "un quadratura", "un nessun
+  aspetto" (padre CE voce 13) e non diceva che le righe di "Oggi" e "Se guardi indietro" vengono
+  dalla Luna di nascita (padre EE.04 ed EH.01);
+- la riga della figura diceva "ancora 3 notti" quando ne restavano 2 (padre EH voce 01);
+- "esattamente di fronte" su un aspetto calcolato per segno intero (padre CE voce 13);
+- tre nomi per lo stesso Dono, "Rito della Notte", "RITO DEL SOGNO", "Sigillo del Sogno": adesso
+  uno solo (PROVENIENZA IGNOTA);
+- al compimento il Sigillo e l'Arcano dell'Alba, di Medora dall'ordine DT voce 15, suonavano con la
+  voce di Caligo e di Aura (padre DT voce 15);
+- la formula "ti mostra la finestra di oggi" di Medora prometteva una previsione anche sul Sigillo,
+  che guarda indietro (PROVENIENZA IGNOTA);
+- fra mezzanotte e le cinque la riga del respiro spariva e il saluto cambiava: ora vale il giorno
+  del rito, come per la parola dell'Alba (padre DA voce 06, EH voce 01);
+- la riga del respiro, che viene dalla meditazione di Aura, ora lo dice;
+- con Riduci Movimento l'invito diceva "Alza il telefono verso il cielo";
+- il ricordo diceva che il Sigillo raccoglie un sogno raccontato, falso dalla CB.01.
+**Le risposte, lette a mano** (docs/collaudo/ES/sigillo_risposte_*.md, otto saluti diversi per due
+nascite, il controller vero della chat e Gemini): Medora chiudeva con arcani mai estratti,
+"l'Arcano della Giustizia", "l'arcano del Carro", uno per giro in tre giri. La causa era nella regola
+della chiusura dei Maestri, che chiedeva "il nome proprio di una runa, di un segno o di un arcano"
+(padre EK voce 02): ora un arcano o una runa solo se sono già usciti. Dopo, zero arcani inventati su
+sedici risposte in due giri. Tolte anche le due frasi d'attacco di Medora con "carta", che il modello
+leggeva come un arcano. **Il Cammino**: su 165 "cosa apre" dei Traguardi, 99 nominano funzioni che
+non esistono, 31 sono dubbi; nessun traguardo sblocca niente (docs/collaudo/ES/cosa_apre.txt);
+arrivavano al Maestro, che li prometteva. Ora il Maestro riceve il nome del passo e non la promessa;
+il corpus del fondatore non è stato toccato. **Da decidere col fondatore, scelta consigliata già
+applicata**: il Sentiero del Cammino del gesto "sogno" resta quello di Caligo (spostarlo cambierebbe
+i traguardi già raccolti); le 99 promesse del corpus vanno riscritte da lui o tenute come nomi dei
+passi. Mancano le catture dal Realme del foglio e della card.
 
 DOMANDA: "code deve controllare ancora tutto il funzionamento del sigillo del sogno e le risposte!"; le domande del fondatore da farsi su ogni funzionalità, del 27 settembre: "trasparenza, coerenza, verità e funzionalità", "c'è qualcosa di inventato?".
+
+PROVA: docs/collaudo/ES/regola_a_sigillo.txt
+MISURA: testi del Sigillo che dicono "cielo notturno reale" da 4 a 0; fogli con l'aspetto sgrammaticato da 4 su 6 a 0 su 6; righe della figura con le notti sbagliate 0 su 115 (prima sbagliata ogni volta che restavano 2 notti o piu'); nomi del Dono da 3 a 1; Doni che suonano con la voce di un altro Maestro da 2 su 2 a 0; arcani inventati nelle risposte di Medora da 3 in 3 giri a 0 su 16 risposte in 2 giri; "cosa apre" che arrivano al Maestro da 165 su 165 a 0 su 165
 
 ## PARTE 3, LE NOVE VOCI APERTE DELL'ORDINE ET
 

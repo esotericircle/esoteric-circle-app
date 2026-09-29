@@ -1,0 +1,21 @@
+ORDINE ES VOCE 18, Regola A delle guardie il_sigillo_del_sogno_dice_il_vero_test.dart e la_voce_del_dono_e_di_chi_lo_guida_test.dart, 29 settembre 2026.
+
+la Runa promette di nuovo il Sigillo: innesto entrato True, prova "la Runa del Tramonto non promette" ROSSA, file tornato True
+torna il cielo notturno reale: innesto entrato True, prova "niente "cielo notturno reale"" ROSSA, file tornato True
+    ORDINE ES VOCE 18: testi che dicono "cielo notturno reale" 1 su 3
+un quadratura: innesto entrato True, prova "il foglio nomina l" ROSSA, file tornato True
+    ORDINE ES VOCE 18: fogli con l'aspetto sgrammaticato o senza la sorgente 1 su 6
+le notti contate come prima: innesto entrato True, prova "la riga della figura conta" ROSSA, file tornato True
+    ORDINE ES VOCE 18: righe della figura con le notti sbagliate 20 su 115
+il ricordo torna Rito della Notte: innesto entrato True, prova "il nome del Dono" ROSSA, file tornato True
+    ORDINE ES VOCE 18: nomi vecchi del Dono 1
+il respiro col giorno di calendario: innesto entrato True, prova "fra mezzanotte e le cinque" ROSSA, file tornato True
+il filtro delle promesse spento: innesto entrato True, prova "il Maestro non riceve promesse" ROSSA, file tornato True
+    ORDINE ES VOCE 18: promesse senza funzione che arrivano al Maestro 8 su 8
+il sogno suona con la voce di Caligo: innesto entrato True, prova "ogni Dono col suo responso" ROSSA, file tornato True
+    ORDINE ES VOCE 18: Doni che suonano con la voce di un altro Maestro 1 su 2
+
+La guardia della promessa rifatta su tutti i 165 "cosa apre", e la regola degli arcani:
+cosa apre torna nell'istruzione: innesto entrato True, prova "il Maestro non riceve promesse" ROSSA, file tornato True
+    ORDINE ES VOCE 18: "cosa apre" che arrivano al Maestro 165 su 165
+la regola della chiusura torna a chiedere un arcano: innesto entrato True, prova "la chiusura dei Maestri" ROSSA, file tornato True

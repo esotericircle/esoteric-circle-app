@@ -3,6 +3,7 @@ import '../astro/zodiac.dart';
 import '../identity/birth_moon.dart';
 import '../maestro/maestro.dart';
 import 'daily_elements.dart';
+import 'filo_del_giorno.dart';
 import 'relazione_lunare.dart';
 import '../../core/chat/user_profile.dart';
 
@@ -385,7 +386,9 @@ class DreamRiteCorpus {
     return notti == 2
         ? 'La Luna resta in $segno ancora una notte: fino a domani la figura '
             'del cielo è questa.'
-        : 'La Luna resta in $segno ancora $notti notti: per tutte queste sere '
+        // Le notti che restano sono una meno di quella del cambio: con il
+        // cambio fra tre notti ne restano due (ordine ES voce 18).
+        : 'La Luna resta in $segno ancora ${notti - 1} notti: per tutte queste sere '
             'la figura del cielo è questa.';
   }
 
@@ -404,9 +407,12 @@ class DreamRiteCorpus {
   /// costa nessuna verita'.
   static const Map<Maestro, List<String>> _attacchi = {
     Maestro.medora: [
-      'Il cielo ha girato una carta sola, oggi.',
+      // **NIENTE "CARTA"**, ordine ES voce 18: nella chat di Medora il
+      // modello leggeva "una carta" come un arcano dei tarocchi e ne
+      // inventava uno (docs/collaudo/ES/sigillo_risposte_prima.md).
+      'Il cielo ha girato una pagina sola, oggi.',
       'Il giorno si chiude e il cielo lo sa prima di te.',
-      'Una carta si posa e la notte la lascia riposare.',
+      'Una pagina si chiude e la notte la lascia riposare.',
       'Il cielo ha finito di parlare, per oggi.',
     ],
     Maestro.aura: [
@@ -503,7 +509,13 @@ class DreamRiteCorpus {
     // dei due basta. Cambia ogni notte il **giorno rituale**, ed e' quello che
     // decide, mescolato con la nascita perche' due persone diverse nella stessa
     // notte non sentano la stessa frase.
-    final giornoDelRito = DateTime.utc(quando.year, quando.month, quando.day)
+    // Il giorno del RITO, che finisce alle cinque (ordine ES voce 18): fra
+    // mezzanotte e le cinque la notte e' ancora quella di ieri, e il saluto
+    // non cambia a mezzanotte sotto gli occhi di chi lo sta leggendo.
+    final rito = DateTime.parse(FiloDelGiorno.giornoRituale(quando));
+    // In UTC, come prima: una differenza fra due date locali con l'ora legale
+    // di mezzo non e' un multiplo di ventiquattro ore (ordine BK voce 06).
+    final giornoDelRito = DateTime.utc(rito.year, rito.month, rito.day)
         .difference(DateTime.utc(2000))
         .inDays;
     final semeDellaNotte =
@@ -540,9 +552,11 @@ class DreamRiteCorpus {
   static String daDoveNasceCon(BirthMoon luna, RelazioneLunare? relazione) {
     final base = daDoveNasce(luna);
     if (relazione == null) return base;
-    return '$base La riga finale nasce dall\'angolo fra questa Luna e '
-        'la Luna del tuo giorno di nascita, calcolata anche lei sul '
-        'dispositivo: stanotte è un ${relazione.nome}. L\'aspetto fra '
+    return '$base Con la tua data di nascita le righe di "Oggi" e di "Se '
+        'guardi indietro" nascono dalla Luna del tuo giorno di nascita, in '
+        'tre varianti che cambiano di notte in notte; la riga prima della '
+        'buonanotte nasce dall\'angolo fra questa Luna e la tua, calcolata '
+        'anche lei sul dispositivo: ${relazione.stanotteE} L\'aspetto fra '
         'un pianeta in transito e lo stesso pianeta natale è la '
         'lettura più antica che l\'astrologia occidentale fa dei '
         'transiti.';
@@ -570,8 +584,8 @@ class DreamRiteCorpus {
   /// Quindi il tooltip smette di nominarli e dice cosa la scena E': il gesto
   /// di puntare il cielo, non uno strumento di puntamento.
   static String daDoveNasce(BirthMoon luna) =>
-      'Il cielo che vedi è il cielo notturno reale di questo momento. Stanotte '
-      'la Luna è in ${luna.sign.italianName}, in fase '
+      'La Luna che vedi è nella sua fase reale di stanotte: è in '
+      '${luna.sign.italianName}, in fase '
       '${luna.phase.italianName.toLowerCase()}, calcolata sul dispositivo dalla '
       'data. La costellazione che unisci è il disegno reale del segno della '
       'Luna; il messaggio nasce da segno e fase, sul sentire del segno lunare '

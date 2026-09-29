@@ -109,7 +109,10 @@ void main() {
     await tester.tap(find.byKey(const Key('dream_fog_skip')));
     await passo(tester);
     expect(find.byKey(const Key('dream_star_0')), findsOneWidget);
-    expect(find.text('Alza il telefono verso il cielo.'), findsOneWidget);
+    // LAPIDE, ordine ES voce 18: con Riduci Movimento, che questa prova
+    // accende, la scena non segue il telefono, e l'invito dice il gesto che
+    // vale invece di "Alza il telefono verso il cielo.".
+    expect(find.text("Tocca le stelle, una dopo l'altra."), findsOneWidget);
     // La costellazione e' quella del segno della Luna di quel momento.
     final segno = NightSky.moonSign(quando);
     expect(find.textContaining(segno.italianName), findsWidgets);
@@ -194,8 +197,9 @@ void main() {
     await tester.tap(find.byKey(const Key('dream_sources')));
     await passo(tester);
     expect(find.byKey(const Key('dream_sources_sheet')), findsOneWidget);
-    expect(find.textContaining('cielo notturno reale di questo momento'),
-        findsOneWidget);
+    // LAPIDE, ordine ES voce 18: le stelle non sono il cielo reale, la Luna
+    // si'. Vedi dream_rite_test.
+    expect(find.textContaining('fase reale di stanotte'), findsOneWidget);
     expect(find.textContaining('non ha bisogno di sapere dove sei'),
         findsOneWidget,
         reason: 'il tooltip non dice piu\' che il rito si fonda sulla sola '

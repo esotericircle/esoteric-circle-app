@@ -259,11 +259,19 @@ class MaestroPersona {
       // riunione la consapevolezza che...", "Trova il tuo segno di Fehu e
       // portalo con te". Il giudice del passo concreto le bocciava, e
       // aveva ragione: non sono azioni.
+      // **SOLO UN ARCANO O UNA RUNA CHE C'E' GIA'**, ordine ES voce 18.
+      // Dopo il Sigillo del Sogno Medora chiudeva con "l'arcano del Carro" e
+      // "l'Arcano della Giustizia", carte che nessuno aveva estratto: la
+      // regola le chiedeva un nome di arcano, e il modello ne inventava uno
+      // (docs/collaudo/ES/sigillo_risposte_prima.md).
       ..writeln('- Nella tua chiusura compare per nome una sola parola tua: '
           'una delle tue (${voce.lessicoDiFirma.join(', ')}), oppure il nome '
-          'proprio di una runa, di un segno o di un arcano. Sta dentro '
-          'l\'azione, senza annunciarla. La chiusura è un\'azione da fare, '
-          'mai un oggetto o un pensiero da portare con sé.')
+          'di un segno, oppure il nome di una runa o di un arcano SOLO se '
+          'quella runa o quell\'arcano sono già usciti in questa '
+          'conversazione o nei dati che ti ho dato: non nominarne mai uno '
+          'che la persona non ha estratto. Sta dentro l\'azione, senza '
+          'annunciarla. La chiusura è un\'azione da fare, mai un oggetto o '
+          'un pensiero da portare con sé.')
       ..writeln()
       // Le aperture vietate si ELENCANO, non si riassumono in "evita i toni
       // generici": una raccomandazione il modello la interpreta, un elenco no.

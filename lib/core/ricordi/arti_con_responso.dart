@@ -169,7 +169,7 @@ class ArtiConResponso {
       // **A MEDORA, ordine DT voce 15**: il Sigillo del Sogno non ruota piu'
       // fra i tre Maestri, e il Parlane porta da lei.
       maestro: 'medora',
-      titolo: 'Rito della Notte',
+      titolo: 'Sigillo del Sogno',
       doveViveIlResponso: 'lib/features/rituals/dream_rite_screen.dart',
       apertura: 'sogno',
     ),

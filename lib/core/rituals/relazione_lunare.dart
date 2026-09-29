@@ -50,7 +50,7 @@ enum RelazioneLunare {
   opposizione(
     passi: 6,
     nome: 'opposizione',
-    riga: 'Stanotte la Luna sta esattamente di fronte alla tua. Certe figure '
+    riga: 'Stanotte la Luna sta nel segno di fronte alla tua. Certe figure '
         'si vedono bene solo da lontano.',
   ),
   nessuna(
@@ -71,6 +71,20 @@ enum RelazioneLunare {
 
   /// Il nome dell'aspetto, come lo chiama la tradizione.
   final String nome;
+
+  /// **LA FRASE DEL FOGLIO, con l'articolo giusto.** Ordine ES voce 18: il
+  /// foglio scriveva "stanotte è un ${nome}", e a video usciva "un
+  /// congiunzione", "un quadratura", "un nessun aspetto".
+  String get stanotteE => switch (this) {
+        RelazioneLunare.congiunzione =>
+          'stanotte le due Lune sono nello stesso segno, in congiunzione.',
+        RelazioneLunare.sestile => 'stanotte è un sestile.',
+        RelazioneLunare.quadratura => 'stanotte è una quadratura.',
+        RelazioneLunare.trigono => 'stanotte è un trigono.',
+        RelazioneLunare.opposizione => 'stanotte è un\'opposizione.',
+        RelazioneLunare.nessuna =>
+          'stanotte non formano nessun aspetto maggiore.',
+      };
 
   /// **TESTO PROVVISORIO, da approvare.** La riga che entra nel responso: i
   /// testi definitivi li approva il fondatore.

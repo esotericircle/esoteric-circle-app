@@ -39,8 +39,8 @@ void main() {
     // **L'ISTANTE E' FERMO, ordine U voce 00.** Con l'orologio vero questa prova
     // misurava un cielo diverso ogni giorno, e il giorno che ne capitasse uno
     // con meno di tre eventi il tetto non sarebbe stato messo alla prova.
-    final eventi = ProssimiEventi.da(
-        adesso: DateTime.utc(2026, 9, 4), segno: Zodiac.leo);
+    final eventi =
+        ProssimiEventi.da(adesso: DateTime.utc(2026, 9, 4), segno: Zodiac.leo);
     // ignore: avoid_print
     print('ORDINE CQ VOCE 2.15: eventi calcolati per il Leone '
         '${eventi.length}, il blocco compare nell istruzione '
@@ -74,11 +74,15 @@ void main() {
     expect(testo.contains('La tua carta e nata'), isTrue,
         reason: 'il prossimo passo del Cammino non arriva al Maestro: la '
             'meta personale della regola 8 resta scoperta');
-    // La prima lettera scende a minuscola perche' la riga la incastona in una
-    // frase: "e apre la lettura...". Si guarda il resto, che e il contenuto.
-    expect(testo.contains('lettura della tua carta natale'), isTrue,
-        reason: 'il Maestro sa il nome del gradino e non cosa apre, quindi '
-            'non puo dire perche vale la pena');
+    // **LAPIDE, ordine ES voce 18, 29 settembre 2026.** Qui si pretendeva
+    // che il Maestro ricevesse anche "cosa apre" il passo, perche' sapesse
+    // dire perche' vale la pena. La premessa era falsa: nell'app nessun
+    // traguardo sblocca niente, e 99 dei 165 "cosa apre" del corpus nominano
+    // funzioni che non esistono, che il Maestro prometteva alla persona
+    // (docs/collaudo/ES/cosa_apre.txt). Adesso il Maestro riceve il nome del
+    // passo e non la promessa.
+    expect(testo.contains('lettura della tua carta natale'), isFalse,
+        reason: 'la promessa del corpus arriva ancora al Maestro');
   });
 
   test('e senza niente da dire il blocco NON compare', () {

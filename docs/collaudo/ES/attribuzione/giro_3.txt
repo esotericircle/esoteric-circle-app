@@ -1,0 +1,50 @@
+00:00 +0: loading C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/tool/attribuzione_cieca.dart
+00:00 +0: Attribuzione cieca dei tre Maestri
+Shell: Chiedo 60 risposte, 20 domande per tre Maestri...
+Shell:   6/60
+Shell:   12/60
+Shell:   18/60
+Shell:   24/60
+Shell:   30/60
+Shell:   36/60
+Shell:   42/60
+Shell:   48/60
+Shell:   54/60
+Shell:   60/60
+Shell: Faccio giudicare 60 risposte...
+Shell:   6/60
+Shell:   12/60
+Shell:   18/60
+Shell:   24/60
+Shell:   30/60
+Shell:   36/60
+Shell:   42/60
+Shell:   48/60
+Shell:   54/60
+Shell:   60/60
+Shell: 
+Shell: MATRICE DI CONFUSIONE, righe: chi ha scritto, colonne: chi ha indovinato il giudice
+Shell:            medora     aura   caligo     totale   giusti
+Shell: medora         18        1        1       20    90.0%
+Shell: aura            0       20        0       20   100.0%
+Shell: caligo          1        0       19       20    95.0%
+Shell: 
+Shell: Attribuzione corretta: 57 su 60, cioe' 95.0 per cento.
+Shell: Caso cieco: 33.3 per cento. Soglia: 85 per cento.
+Shell: Verdetti illeggibili: 0.
+Shell: 
+Shell: LE FRASI SU CUI IL GIUDICE SI E' PERSO
+Shell: --- medora: 2 risposte attribuite ad altri
+Shell:   [creduto aura] domanda: non riesco a lasciare andare
+Shell:      prima frase: Per lasciare andare, accetta la sensazione che ti lega al passato, senza giudicarla.
+Shell:   [creduto caligo] domanda: vorrei ricominciare ma non so da dove
+Shell:      prima frase: ✦ Osserva la prima luce dell'alba, poi scrivi su un foglio il tuo desiderio più grande.
+Shell: --- caligo: 1 risposte attribuite ad altri
+Shell:   [creduto medora] domanda: ho perso la direzione
+Shell:      prima frase: Ritorna al tuo punto di partenza.
+Shell: 
+Shell: RITMO DELLE VOCI, sulle risposte di questo giro
+Shell: medora   frasi contate 97, frase mediana 18.0 parole, domande 0, parole che ammorbidiscono 4
+Shell: aura     frasi contate 100, frase mediana 19.0 parole, domande 0, parole che ammorbidiscono 10
+Shell: caligo   frasi contate 112, frase mediana 9.0 parole, domande 0, parole che ammorbidiscono 1
+00:27 +1: All tests passed!

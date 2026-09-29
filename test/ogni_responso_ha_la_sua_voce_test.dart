@@ -303,7 +303,15 @@ void main() {
         'albero': Maestro.caligo,
       };
       final divergenti = <String>[];
+      // **LAPIDE, ordine ES voce 18, 29 settembre 2026.** I due Doni del
+      // giorno qui confrontati, l'Arcano dell'Alba e il Sigillo del Sogno, li
+      // guida Medora dall'ordine DT voce 15, e al compimento suonavano con la
+      // voce del Sentiero (Aura e Caligo): il rito diceva un Maestro e il
+      // suono un altro. La loro voce e' quella di chi li guida, e la pretende
+      // `la_voce_del_dono_e_di_chi_lo_guida_test.dart`; il Sentiero resta.
+      const doniDelGiorno = {'alba', 'sogno'};
       for (final voce in VoceDelResponso.deiResponsi.entries) {
+        if (doniDelGiorno.contains(voce.key)) continue;
         final dalCorpus = sentieroDelMaestro[sentieroDelGesto[voce.key]];
         if (dalCorpus == null) continue;
         if (dalCorpus != voce.value) {

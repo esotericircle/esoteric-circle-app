@@ -51,7 +51,7 @@ class DreamRiteCard extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text('RITO DEL SOGNO',
+            Text('SIGILLO DEL SOGNO',
                 style: TypographyTokens.label(size: 12)
                     .copyWith(color: palette.goldSoft, letterSpacing: 2.0)),
             const SizedBox(height: SpacingTokens.md),
@@ -84,7 +84,7 @@ class DreamRiteCard extends StatelessWidget {
                     color: palette.goldSoft.withValues(alpha: 0.7),
                     letterSpacing: 1.0)),
             const SizedBox(height: 2),
-            Text('Il cielo notturno reale di questa notte',
+            Text('La Luna reale di questa notte',
                 textAlign: TextAlign.center,
                 style: TypographyTokens.corpo().copyWith(
                     color: palette.textPrimary.withValues(alpha: 0.6),

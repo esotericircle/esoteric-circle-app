@@ -107,9 +107,9 @@ class ArtworkDelRicordo {
         'persona. I dati custoditi ne conservano la via, non il tratto.',
     'soffio': 'il Soffio del Destino è un\'esperienza di respiro: quello che '
         'resta quando finisce è il testo, non una figura.',
-    'sogno': 'il Rito della Notte raccoglie un sogno raccontato dalla '
-        'persona. Un\'immagine ci sarebbe solo inventandola: un\'immagine '
-        'inventata non è un ricordo di niente.',
+    'sogno': 'il Sigillo del Sogno chiude il giorno con la Luna di '
+        'stanotte e la sua costellazione: la carta del ricordo la porta già, '
+        'un\'immagine in più andrebbe inventata.',
   };
 
   /// Le immagini di questo custodito, in ordine. Vuota quando non ce ne sono.

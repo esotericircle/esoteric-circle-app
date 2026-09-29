@@ -50,7 +50,7 @@ import '../../design_system/transizioni/velo_del_cerchio.dart';
 ///
 /// Guarda al passato e al presente della giornata appena conclusa, mai al
 /// futuro. Si apre nella foschia, che si dirada col fiato; emerge il cosmo
-/// notturno reale di questo momento; si uniscono le stelle della costellazione
+/// della Luna nella sua fase reale di stanotte; si uniscono le stelle della costellazione
 /// del segno in cui si trova la Luna adesso, letta da NightSky; dalla figura
 /// unita scende il saluto della notte, ancorato a segno e fase reali.
 /// Deterministico, nessuna AI a runtime.
@@ -643,7 +643,11 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
             _completa
                 ? 'La figura è unita.'
                 : (_unite == 0
-                    ? 'Alza il telefono verso il cielo.'
+                    // Con Riduci Movimento la scena non segue il telefono
+                    // (ordine ES voce 18): l'invito dice il gesto che vale.
+                    ? (MediaQuery.maybeDisableAnimationsOf(context) ?? false
+                        ? 'Tocca le stelle, una dopo l\'altra.'
+                        : 'Alza il telefono verso il cielo.')
                     : 'Unisci le stelle.'),
             key: const Key('dream_invito_cielo'),
             textAlign: TextAlign.center,
@@ -1078,7 +1082,7 @@ class _AzioniState extends State<_Azioni> {
           maestro: widget.maestro,
           responso: ResponsoDaCustodire(
             arte: 'sogno',
-            titolo: 'Il tuo Rito della Notte',
+            titolo: 'Il tuo Sigillo del Sogno',
             testo: widget.saluto,
             dati: {'maestro': widget.maestro.displayName},
           ),

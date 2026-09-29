@@ -1,3 +1,4 @@
+import '../rituals/filo_del_giorno.dart';
 import 'chakra_del_giorno.dart';
 import 'memoria_del_respiro.dart';
 import '../../core/chat/user_profile.dart';
@@ -24,10 +25,14 @@ abstract final class IlRespiroDiOggi {
   /// [adesso] e' l'istante da cui si guarda: le prove lo dichiarano invece di
   /// leggere l'orologio, cosi' non c'e' un giorno che cambia sotto la misura.
   static String? laRiga(MemoriaDelRespiro memoria, DateTime adesso) {
-    final oggi = _giornoDi(adesso);
+    // **IL GIORNO E' QUELLO DEL RITO**, ordine ES voce 18: fra mezzanotte e
+    // le cinque il Sigillo sta ancora chiudendo la sera di ieri, e la riga
+    // del respiro spariva proprio li'. Lo stesso confine della parola
+    // dell'Alba, `FiloDelGiorno.giornoRituale`.
+    final oggi = FiloDelGiorno.giornoRituale(adesso);
     final diOggi = [
       for (final s in memoria.sessioni)
-        if (_giornoDi(s.quando) == oggi) s,
+        if (FiloDelGiorno.giornoRituale(s.quando) == oggi) s,
     ];
     if (diOggi.isEmpty) return null;
     final compiute = diOggi.where((s) => s.compiuta).length;
@@ -42,18 +47,16 @@ abstract final class IlRespiroDiOggi {
     // **Chi ha respirato senza arrivare in fondo non viene corretto.** La
     // riga dice che il respiro c'e' stato, che e' vero, e si ferma li'.
     if (compiute == 0) {
+      // **CON AURA**, ordine ES voce 18: il respiro viene dalla meditazione
+      // di Aura, e dentro il Sigillo di Medora la riga lo dice.
       return LaMarcaDelGenere.risolvi('[Oggi ti sei fermato a respirare|'
-          'Oggi ti sei fermata a respirare|Oggi hai respirato] $nome. Anche '
-          'quello è passato per la tua giornata.');
+          'Oggi ti sei fermata a respirare|Oggi hai respirato] con Aura '
+          '$nome. Anche quello è passato per la tua giornata.');
     }
     if (diOggi.length == 1) {
-      return 'Oggi hai respirato $nome. Vedi se è rimasto qualcosa.';
+      return 'Oggi hai respirato con Aura $nome. Vedi se è rimasto qualcosa.';
     }
-    return 'Oggi hai respirato ${diOggi.length} volte, $nome. Vedi se è '
-        'rimasto qualcosa.';
+    return 'Oggi hai respirato con Aura ${diOggi.length} volte, $nome. Vedi '
+        'se è rimasto qualcosa.';
   }
-
-  static String _giornoDi(DateTime d) =>
-      '${d.year}-${d.month.toString().padLeft(2, '0')}-'
-      '${d.day.toString().padLeft(2, '0')}';
 }
