@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:esoteric_circle/core/chat/chat_message.dart';
+import 'package:esoteric_circle/core/chat/la_lettura_del_giorno.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/maestro/consiglio_finale.dart';
@@ -12,6 +13,7 @@ import 'package:esoteric_circle/core/maestro/natal_context.dart';
 import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'package:esoteric_circle/core/rituals/rune_cast.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_controller.dart';
+import 'package:esoteric_circle/features/maestri/live/le_tre_frasi_del_live.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
@@ -81,6 +83,75 @@ void main() {
       expect(invito, !live);
     }
     print('ORDINE ES VOCE 20: $esiti');
+  });
+
+  // **LA LETTURA RIDETTA NEL LIVE.** Visto sul Realme il 30 settembre 2026,
+  // venti domande rifatte a Medora nel pomeriggio dopo quelle della mattina
+  // (`docs/collaudo/ES/live_realme.txt`): sedici letture ridette. In nove la
+  // voce ha detto la premessa e poi soltanto il gesto, senza la risposta; in
+  // tutte la chat teneva la lettura intera, e sotto l'ultima l'invito a
+  // tornare che la voce non dice.
+  test(
+      'ES.20: la lettura ridetta nel LIVE dice la risposta, e in chat sta '
+      'come la dice la voce', () async {
+    const intera = 'Le carte e il tuo cielo dicono di sì, se saprai guardare '
+        'con onestà a ciò che è accaduto. Il Sette di Coppe indica che è '
+        'necessario che tu sciolga prima una confusione interiore.\n'
+        '✦ Osserva nel tuo cielo che cosa si muove quando Venere diventerà '
+        'retrograda fra due giorni.';
+    var senzaLaRisposta = 0;
+    for (final m in Maestro.values) {
+      final ridetta = LaLetturaDelGiorno.ridetta(intera, m);
+      final voce = LeTreFrasiDelLive.di(ridetta, domanda: 'Il mio ex tornerà?');
+      if (!voce.contains('dicono di sì, se saprai guardare')) {
+        senzaLaRisposta++;
+      }
+      expect(voce, startsWith(LaLetturaDelGiorno.premessaDi(m)));
+      expect(voce, contains('Osserva nel tuo cielo'));
+      // La forma scritta e' quella che la voce dice.
+      final scritta =
+          LeTreFrasiDelLive.scritta(ridetta, domanda: 'Il mio ex tornerà?');
+      expect(
+          LeTreFrasiDelLive.di(scritta, domanda: 'Il mio ex tornerà?'), voce);
+      // E ridirla ancora non accumula premesse.
+      expect(LaLetturaDelGiorno.senzaPremessa(scritta),
+          isNot(contains('già chiesto oggi')));
+    }
+    print('ORDINE ES VOCE 20, LA LETTURA RIDETTA NEL LIVE: voci senza la '
+        'risposta, prima 9 su 16 sul Realme, dopo $senzaLaRisposta su '
+        '${Maestro.values.length} in prova');
+    expect(senzaLaRisposta, 0);
+
+    // Il controller, nel LIVE, la stessa domanda due volte.
+    final c = MaestroChatController(
+      maestro: Maestro.medora,
+      ai: _UnaRisposta(intera),
+      memory: InMemoryMaestroMemoryRepository(),
+      natal: () => NatalContext.none,
+      demo: true,
+      attesaMinima: Duration.zero,
+    )..nelLive = true;
+    await c.init();
+    await c.send('Il mio ex tornerà?');
+    await Future<void>.delayed(const Duration(milliseconds: 20));
+    await c.send('Il mio ex tornerà?');
+    await Future<void>.delayed(const Duration(milliseconds: 20));
+    final ultima = c.messages.last;
+    expect(c.lettureRidette, 1);
+    expect(
+        ultima.text, startsWith(LaLetturaDelGiorno.premessaDi(Maestro.medora)));
+    expect(ultima.dettoNelLive, isTrue,
+        reason: 'la lettura ridetta nel LIVE non porta il segno della voce');
+    expect(ultima.text,
+        LeTreFrasiDelLive.scritta(ultima.text, domanda: 'Il mio ex tornerà?'),
+        reason: 'la chat tiene piu\' di quello che la voce dice');
+    final posizione = c.messages.length - 1;
+    expect(
+        ConsiglioFinale.invitoSotto(
+            posizione: posizione,
+            ultimaDelMaestro: posizione,
+            dettoNelLive: ultima.dettoNelLive),
+        isFalse);
   });
 
   test('il segno viaggia fino a Firestore e torna', () {

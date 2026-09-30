@@ -123,6 +123,8 @@ import 'package:esoteric_circle/features/maestri/widgets/busto_del_maestro.dart'
 import 'package:esoteric_circle/features/tarot/attesa_di_medora.dart';
 import 'package:esoteric_circle/features/tarot/stesa_choreography.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
+import 'package:esoteric_circle/core/amici/amici_offline.dart';
+import 'package:esoteric_circle/features/amici/l_oroscopo_dell_amico_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_share_card.dart';
 import 'package:esoteric_circle/features/synastry/sinastria_gallery_screen.dart';
@@ -3240,6 +3242,165 @@ void main() {
     await step(tester);
     await tester.pump(const Duration(seconds: 1));
     await capture(tester, rootKey, 'oroscopo-due-schede-affiancate.png');
+  });
+
+  // --- I PERIODI, LE TRADIZIONI E L'AMICO. Ordine ES, 30 settembre 2026 ---
+  //
+  // **Le schermate nuove dell'ordine ES non avevano un'anteprima**, e il
+  // fondatore valida guardando le anteprime: e' dall'anteprima dell'Oroscopo
+  // che ha visto "Settimana" andare a capo nel selettore dei periodi. Qui la
+  // Settimana, il Mese, l'Anno, la Cinese, la Vedica, una tradizione in
+  // arrivo e l'oroscopo di un'amica, alla larghezza del Realme.
+  testWidgets('Cattura i periodi, le tradizioni e l\'amico dell\'Oroscopo',
+      (tester) async {
+    SharedPreferences.setMockInitialValues({
+      'onboarding.done': true,
+      'santuario.greeted': true,
+      'cammino.generazione': 2,
+      'cammino.accesi': [for (final t in Sentieri.tuttiITraguardi) t.id],
+      // La rivelazione del segno ha la sua immagine, qui sotto: le altre
+      // catture la trovano gia' vista.
+      'oroscopo_segno_rivelato': ['vedica'],
+    });
+    silenceSensors();
+    await loadFonts();
+    final rootKey =
+        await mount(tester, await buildServices(Maestro.medora, seeded: false));
+    final nav = tester.state<NavigatorState>(find.byType(Navigator).first);
+    final ctx = tester.element(find.byType(MaterialApp));
+    // L'Illuminato: la Settimana, il Mese, l'Anno col PDF e le tre letture.
+    ctx.read<EntitlementService>().setTier(Tier.tier3);
+    ctx.read<BirthIdentityController>().setBirth(
+          BirthDetails(
+            date: DateTime(1990, 6, 15),
+            time: const TimeOfDay(hour: 8, minute: 10),
+            place: const astro.BirthPlace(
+                label: 'Roma',
+                latitude: 41.9,
+                longitude: 12.5,
+                timezone: 'Europe/Rome'),
+          ),
+          // La carta intera, con l'ora: la Settimana e il Mese si leggono
+          // dal cielo vero sui pianeti e sulle case di nascita, non dal
+          // ripiego sul segno.
+          NatalChart(
+            sunSign: Zodiac.gemini,
+            planets: [
+              for (final (id, nome, l) in const [
+                ('sun', 'Sole', 84.0),
+                ('moon', 'Luna', 340.0),
+                ('mercury', 'Mercurio', 70.0),
+                ('venus', 'Venere', 47.0),
+                ('mars', 'Marte', 5.0),
+                ('jupiter', 'Giove', 102.0),
+                ('saturn', 'Saturno', 294.0),
+              ])
+                PlanetPosition(
+                    id: id,
+                    name: nome,
+                    glyph: '',
+                    longitude: l,
+                    sign: Zodiac.values[(l ~/ 30) % 12]),
+            ],
+            ascendantLongitude: 110.0,
+            midheavenLongitude: 20.0,
+            houses: [
+              for (var n = 1; n <= 12; n++)
+                HouseCusp(
+                    number: n, longitude: (110.0 + (n - 1) * 30.0) % 360.0),
+            ],
+            hasTime: true,
+          ),
+        );
+    await montaLoSchermo(tester, const Size(360, 2600));
+    unawaited(nav.push(OroscopoScreen.route(
+        userSign: Zodiac.gemini, now: DateTime(2026, 9, 30, 12))));
+    await step(tester);
+    await step(tester);
+    await tester.runAsync(() async {
+      final element = tester.element(find.byType(OroscopoScreen));
+      await precacheImage(
+          AssetImage(ZodiacArt.emblemPath(Zodiac.gemini)), element);
+    });
+    await step(tester);
+
+    Future<void> periodo(String nome, String chiave, String file) async {
+      await tester.tap(find.byKey(Key('oroscopo_period_$nome')));
+      await step(tester);
+      await step(tester);
+      expect(find.byKey(Key(chiave)), findsOneWidget,
+          reason: 'il periodo $nome non si e\' aperto');
+      await capture(tester, rootKey, file);
+    }
+
+    await periodo(
+        'settimana', 'oroscopo_la_settimana', 'oroscopo-settimana.png');
+    await periodo('mese', 'oroscopo_il_mese', 'oroscopo-mese.png');
+    await periodo('anno', 'oroscopo_anno_riga', 'oroscopo-anno.png');
+    await tester.tap(find.byKey(const Key('oroscopo_period_giorno')));
+    await step(tester);
+
+    Future<void> tradizione(String nome) async {
+      final chip = find.byKey(Key('oroscopo_tradition_$nome'));
+      await tester.ensureVisible(chip);
+      await step(tester);
+      await tester.tap(chip);
+      await step(tester);
+      await step(tester);
+    }
+
+    // La Cinese per la prima volta: la rivelazione del segno, col velo.
+    await montaLoSchermo(tester, const Size(360, 797));
+    await step(tester);
+    await tradizione('cinese');
+    for (var i = 0; i < 6; i++) {
+      await tester.pump(const Duration(milliseconds: 400));
+    }
+    expect(find.byKey(const Key('rivelazione_del_segno')), findsOneWidget,
+        reason: 'la rivelazione del segno cinese non e\' a video');
+    await capture(tester, rootKey, 'oroscopo-rivelazione-del-segno.png');
+    await tester.tap(find.byKey(const Key('rivelazione_continua')));
+    await step(tester);
+    await step(tester);
+
+    Future<void> lettura(String gesto, String file) async {
+      await montaLoSchermo(tester, const Size(360, 2600));
+      await step(tester);
+      final interroga = find.byKey(const Key('oroscopo_interroga'));
+      expect(interroga, findsOneWidget, reason: 'manca il gesto "$gesto"');
+      await tester.tap(interroga);
+      await step(tester);
+      await tester.pump(const Duration(seconds: 3));
+      await tester.pump(const Duration(seconds: 3));
+      await tester.pump(const Duration(seconds: 3));
+      await tester.pump(const Duration(seconds: 3));
+      await step(tester);
+      await capture(tester, rootKey, file);
+    }
+
+    await lettura('Apri l\'almanacco', 'oroscopo-cinese.png');
+    await tradizione('vedica');
+    await lettura('Interroga la Luna', 'oroscopo-vedica.png');
+
+    // Una tradizione in arrivo: l'emblema, il segno, la clessidra, e niente
+    // titolo del giorno ne' periodi.
+    await montaLoSchermo(tester, const Size(360, 797));
+    await step(tester);
+    await tradizione('egizia');
+    expect(find.byKey(const Key('oroscopo_lettura_in_arrivo_egizia')),
+        findsOneWidget);
+    await capture(tester, rootKey, 'oroscopo-tradizione-in-arrivo.png');
+
+    // L'oroscopo di un'amica, col segno detto di lei.
+    nav.pop();
+    await step(tester);
+    await montaLoSchermo(tester, const Size(360, 2300));
+    unawaited(nav.push(LOroscopoDellAmicoScreen.route(
+        Amico(id: 'lucia', nome: 'Lucia', nascita: DateTime(1990, 1, 12)))));
+    await step(tester);
+    await step(tester);
+    expect(find.text('Il segno di Lucia è Capricorno'), findsOneWidget);
+    await capture(tester, rootKey, 'oroscopo-di-un-amica.png');
   });
 
   // --- I TRE SENTIERI ALL'APERTURA. Ordine S voci 01 e 02 ---

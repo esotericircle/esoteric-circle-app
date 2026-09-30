@@ -192,8 +192,14 @@ void main() {
           'volontà tua.',
       'Devo scrivergli io o aspettare che si faccia vivo lui?':
           'Le rune dicono: scrivigli tu.',
+      // **LAPIDE, ordine ES voce 19, sesto giro, 30 settembre 2026.** Qui
+      // passava "Il tuo cielo dice: non prima che tu abbia chiuso il debito
+      // vecchio.": al quando la rete adesso pretende un tempo, perche' le
+      // diciassette prime frasi bocciate dai giudici alla cieca non ne
+      // nominavano uno. Il fatto resta, dopo il tempo.
       'Quando cambierà la mia fortuna?':
-          'Il tuo cielo dice: non prima che tu abbia chiuso il debito vecchio.',
+          'Il tuo cielo dice: fra due mesi, dopo che avrai chiuso il debito '
+              'vecchio.',
       'Perché i soldi non mi bastano mai?':
           'Perché la tua mano si apre prima che il raccolto sia maturo.',
     };

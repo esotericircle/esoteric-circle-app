@@ -10,8 +10,10 @@ import 'package:flutter_test/flutter_test.dart';
 /// Sul Realme, venti domande dette dalle casse del PC con la stanza
 /// registrata dal microfono del PC (`docs/collaudo/ES/live_realme.txt`): il
 /// telefono tornava ad ascoltare 700 millesimi dopo il segnale del volto, e
-/// la voce di Medora continuava da 2,3 a 3,1 secondi dopo quel segnale; in un
-/// turno il segnale e' arrivato a 16,2 secondi su 22,8 di voce. Chi parlava
+/// nei turni ordinari la voce di Medora continuava da 1,3 a 2,1 secondi dopo
+/// quel segnale (dopo dieci risposte su venti si sentiva ancora per piu' di
+/// mezzo secondo a microfono riaperto); in un turno il segnale e' arrivato a
+/// 16,2 secondi su 22,8 di voce. Chi parlava
 /// appena il Maestro sembrava aver finito gli parlava sopra, e su due domande
 /// sentite a pezzi chi trascrive ha scritto una domanda mai detta.
 ///
@@ -52,8 +54,9 @@ void main() {
   test(
       'con la coda misurata sul Realme il microfono non si riapre mentre il '
       'Maestro parla', () {
-    // Le code viste nella sessione: da 2,3 a 3,1 secondi dopo il segnale.
-    const code = [2300, 2400, 2500, 2600, 2700, 2800, 2900, 3000, 3100];
+    // Le code viste nella sessione, con la registrazione messa sull'orologio
+    // del telefono: da 1,3 a 2,1 secondi dopo il segnale.
+    const code = [1300, 1400, 1500, 1600, 1700, 1800, 1900, 2000, 2100];
     var prima = 0;
     var ritardoMassimo = Duration.zero;
     for (final ms in code) {

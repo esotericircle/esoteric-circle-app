@@ -1769,7 +1769,9 @@ class _InvitoAllaNascita extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: SpacingTokens.sm),
+      // Anche sotto: dopo il consulto l'invito sta sopra la prima scheda, e
+      // senza spazio la toccava (visto nell'anteprima del 30 settembre 2026).
+      padding: const EdgeInsets.symmetric(vertical: SpacingTokens.sm),
       child: Material(
         color: Colors.transparent,
         child: InkWell(
@@ -2371,8 +2373,11 @@ class _PeriodTab extends StatelessWidget {
   static TextStyle get _stile =>
       TypographyTokens.etichetta().copyWith(letterSpacing: 0.6);
 
-  /// Il margine ai due lati del nome dentro la pastiglia.
-  static const double _respiro = 10;
+  /// Il margine ai due lati del nome dentro la pastiglia. Sei punti: con
+  /// dieci, al Viandante (due lucchetti) i quattro nomi non stavano nella
+  /// riga del Realme e si rimpicciolivano di un sesto, sotto la misura delle
+  /// etichette; con sei restano alla loro misura, a meno di tre centesimi.
+  static const double _respiro = 6;
 
   /// Quanto e' largo il lucchetto col suo spazio.
   static const double _lucchetto = 16;
@@ -2391,7 +2396,7 @@ class _PeriodTab extends StatelessWidget {
     )..layout();
     final larghezza = pittore.width;
     pittore.dispose();
-    return larghezza + (locked ? _lucchetto : 0) + _respiro * 2 + 4;
+    return larghezza + (locked ? _lucchetto : 0) + _respiro * 2 + 2;
   }
 
   @override

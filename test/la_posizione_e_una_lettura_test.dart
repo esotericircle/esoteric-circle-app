@@ -1,4 +1,5 @@
 // ignore_for_file: avoid_print
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:esoteric_circle/core/chat/chat_message.dart';
@@ -370,6 +371,54 @@ void main() {
       expect(richiesta, contains('detta come la legge la tua arte'));
       expect(richiesta, isNot(contains('parole di tutti i giorni')));
     }
+  });
+
+  // **AL QUANDO LA PRIMA FRASE NOMINA UN TEMPO.** Ordine ES voce 19, sesto
+  // giro, 30 settembre 2026. Le 48 risposte al quando del quinto e del sesto
+  // giro, giudicate alla cieca dagli stessi lettori
+  // (`tool/il_quando_giudicato.py`): la rete della prima frase lasciava
+  // passare tutte le bocciate, perche' guardava solo l'apertura.
+  test('ES.19: al quando passano le prime frasi che i giudici danno buone', () {
+    final dati = jsonDecode(
+            File('docs/collaudo/ES/quando_giudicati.json').readAsStringSync())
+        as Map<String, dynamic>;
+    final voci = (dati['voci'] as List).cast<Map<String, dynamic>>();
+    cardinaleMinimo(voci.length, 48, cosa: 'risposte al quando giudicate');
+    final buoneScartate = <String>[];
+    final bocciatePassate = <String>[];
+    var buone = 0;
+    var bocciate = 0;
+    var bocciateSenzaIlTempo = 0;
+    for (final v in voci) {
+      final maestro = Maestro.values.byName(v['maestro'] as String);
+      final frase = v['prima_frase'] as String;
+      final passa = LaPosizioneDellaLettura.rispetta(
+          maestro, v['domanda'] as String, frase);
+      if (v['risponde'] as bool) {
+        buone++;
+        if (!passa) buoneScartate.add(frase);
+      } else {
+        bocciate++;
+        if (passa) bocciatePassate.add(frase);
+        if (!LaPosizioneDellaLettura.nominaUnTempo(frase)) {
+          bocciateSenzaIlTempo++;
+        }
+      }
+    }
+    print('ORDINE ES VOCE 19, IL QUANDO GIUDICATO: prime frasi bocciate dai '
+        'giudici che la rete lascia passare, prima 16 su 17 (misurato '
+        'rimettendo la regola di prima), '
+        'dopo ${bocciatePassate.length} su $bocciate; buone che la rete '
+        'scarta ${buoneScartate.length} su $buone; bocciate senza un tempo '
+        '$bocciateSenzaIlTempo su $bocciate');
+    expect(bocciatePassate, isEmpty, reason: bocciatePassate.join('\n'));
+    expect(buoneScartate, isEmpty, reason: buoneScartate.join('\n'));
+    // La correzione chiede il tempo, e dice che l'animo non lo e'.
+    final correzione = LaPosizioneDellaLettura.correzione(Maestro.aura,
+        'I tuoi centri rispondono: non prima che tu abbia onorato il cuore.',
+        domanda: 'Quando incontrerò la persona giusta?');
+    expect(correzione, contains('un tempo che viene dopo oggi'));
+    expect(correzione, contains('Una condizione dell\'animo non è un tempo'));
   });
 
   // **IL "QUANDO" NON PORTA UN TEMPO DA RICOPIARE.** Ordine ES voce 19, 30

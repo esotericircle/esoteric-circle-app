@@ -203,8 +203,8 @@ abstract final class LaPosizioneDellaLettura {
         'e nomina un tempo che viene dopo oggi${_oggiDetto(oggi)}, preso da '
             'ciò che la tua arte legge per questa persona: un passaggio o una '
             'data fra gli eventi in arrivo che conosci, oppure fra quante '
-            'settimane o quanti mesi; oppure un fatto che la persona può '
-            'vedere accadere o fare, con chi o che cosa. Il tempo lo scegli '
+            'settimane o quanti mesi. Se prima deve accadere un fatto, lo '
+            'dici dopo il tempo, con chi o che cosa. Il tempo lo scegli '
             'tu per questa domanda, e lo dici come lettura, non come data '
             'certa. Per esempio: "$comincia: entro ..." oppure "$comincia: '
             'non prima di ... e dopo che avrai ...".',
@@ -257,9 +257,10 @@ abstract final class LaPosizioneDellaLettura {
             'nomina una delle strade della domanda, con le sue parole.',
       TipoDellaDomanda.quando =>
         '$testa La prima frase comincia con "$comincia:" e subito dopo '
-            'nomina un tempo che viene dopo oggi (fra quante settimane o '
-            'quanti mesi, o un passaggio in arrivo che conosci) o un fatto '
-            'che la persona può vedere accadere, come lettura.',
+            'nomina un tempo che viene dopo oggi: fra quante settimane o '
+            'quanti mesi, o un passaggio in arrivo che conosci. Una '
+            'condizione dell\'animo non è un tempo: se c\'è, viene dopo il '
+            'tempo. È la tua lettura, non una data certa.',
       TipoDellaDomanda.aperta =>
         '$testa La prima frase comincia con "$comincia" e dice la tua '
             'posizione sulla domanda, come lettura della tua arte, con '
@@ -433,8 +434,49 @@ abstract final class LaPosizioneDellaLettura {
               _posizioneConLaCosa.hasMatch(prima)),
       TipoDellaDomanda.scelta =>
         _lettura.hasMatch(prima) && _nominaUnaStrada(domanda, prima),
-      TipoDellaDomanda.quando => _lettura.hasMatch(prima),
+      // **AL QUANDO SI RISPONDE CON UN TEMPO.** Ordine ES voce 19, sesto
+      // giro: tolto l'esempio della stagione, alla lettura alla cieca le
+      // prime frasi buone al quando erano 14 su 24, e le dieci bocciate
+      // avevano tutte la lettura in apertura e nessun tempo (*"non prima che
+      // tu abbia onorato il tuo bisogno di radicamento"*). Sulle 48 risposte
+      // dei due giri giudicate dagli stessi lettori
+      // (`docs/collaudo/ES/quando_giudicati.json`) le 31 buone nominano un
+      // tempo, le 17 bocciate no: la rete adesso lo pretende, e la risposta
+      // senza si chiede di nuovo.
+      TipoDellaDomanda.quando =>
+        _lettura.hasMatch(prima) && nominaUnTempo(prima),
       TipoDellaDomanda.aperta => true,
     };
   }
+
+  /// Se [frase] nomina un tempo: un numero di giorni, settimane, mesi, anni
+  /// o lune; una stagione, un mese, una festa; una fase della Luna, un
+  /// solstizio; un passaggio del cielo (una retrogradazione, il ciclo di un
+  /// pianeta).
+  static bool nominaUnTempo(String frase) => _tempo.hasMatch(frase);
+
+  static final RegExp _tempo = RegExp(
+      r'(?<!\p{L})(?:'
+      r'(?:\d+|un|uno|una|due|tre|quattro|cinque|sei|sette|otto|nove|dieci|'
+      r'undici|dodici|qualche|pochi|poche|alcuni|alcune)\s+'
+      r'(?:giorn[oi]|settiman[ae]|mes[ei]|ann[oi]|lun[ae]|stagion[ei])'
+      r"|(?:prossim[oaie]|quest[oa']|fine)\s*(?:del(?:l[a'])?\s*)?"
+      r'(?:settiman[ae]|mes[ei]|ann[oi]|stagion[ei]|luna|primavera|estate|'
+      r'autunno|inverno)'
+      r'|plenilunio|novilunio|luna (?:nuova|piena)|solstizio|equinozio'
+      r'|primavera|estate|autunno|inverno'
+      r'|gennaio|febbraio|marzo|aprile|maggio|giugno|luglio|agosto|settembre'
+      r'|ottobre|novembre|dicembre|natale|pasqua|capodanno'
+      r'|domani|stasera|stanotte'
+      r'|retrograd\p{L}*|moto diretto'
+      r'|(?:ciclo|transito|ritorno) di (?:saturno|giove|venere|marte|'
+      r'mercurio|urano|nettuno|plutone)'
+      // Un passaggio del cielo detto col suo verbo: "non prima che Venere
+      // torni nel tuo segno".
+      r'|(?:saturno|giove|venere|marte|mercurio|urano|nettuno|plutone|'
+      r'la luna|il sole) (?:torn|entr|pass|riprend|lasc|raggiung|cambi)'
+      r'\p{L}*'
+      r')(?!\p{L})',
+      unicode: true,
+      caseSensitive: false);
 }

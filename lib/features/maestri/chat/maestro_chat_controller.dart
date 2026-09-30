@@ -802,12 +802,24 @@ class MaestroChatController extends ChangeNotifier {
       _messages.add(domanda);
       unawaited(_persist(domanda));
       segnaNeiRicordi?.call(domanda);
+      // **NEL LIVE ANCHE LA LETTURA RIDETTA E' DETTA A VOCE.** Visto sul
+      // Realme il 30 settembre 2026: la lettura ridetta nel LIVE stava in
+      // chat intera, con sotto l'invito a tornare che la voce non dice
+      // (*"Ripassa fra 3 giorni, per l'Ultimo quarto."*), perche' questa
+      // strada non passava dal taglio del LIVE e non portava il segno della
+      // voce. Padre: ordine ES voce 20, che ha messo il segno solo sulla
+      // risposta del modello. Adesso la chat salva le frasi che la voce dice,
+      // col segno.
+      final testoRidetto = LaLetturaDelGiorno.ridetta(giaData, maestro);
       final ridetta = ChatMessage(
         role: ChatRole.maestro,
-        text: LaLetturaDelGiorno.ridetta(giaData, maestro),
+        text: nelLive
+            ? LeTreFrasiDelLive.scritta(testoRidetto, domanda: trimmed)
+            : testoRidetto,
         at: _adesso,
         autore: maestro,
         conversazione: _conversazione,
+        dettoNelLive: nelLive,
       );
       _messages.add(ridetta);
       unawaited(_persist(ridetta));

@@ -1,3 +1,5 @@
+import '../../../core/chat/la_lettura_del_giorno.dart';
+import '../../../core/maestro/maestro.dart';
 import 'il_parlato_del_maestro.dart';
 
 /// **NEL LIVE IL MAESTRO SI FERMA ALLA TERZA FRASE.** Ordine ER voce 12, 27
@@ -93,6 +95,24 @@ abstract final class LeTreFrasiDelLive {
 
   static ({List<String> corpo, String? gesto}) _taglio(String scritto,
       {bool inArrivo = false, String? domanda}) {
+    // **LA LETTURA RIDETTA DICE LA PREMESSA E POI LA LETTURA.** Visto sul
+    // Realme il 30 settembre 2026, nel LIVE di Medora: alla domanda gia'
+    // fatta la mattina la voce diceva *"Me l'hai già chiesto oggi. Il cielo
+    // non si è mosso da allora: la lettura resta questa."* e poi soltanto il
+    // gesto, *"Osserva nel tuo cielo..."*: la premessa sono due frasi, e il
+    // taglio alle prime due frasi del corpo si fermava li'. La risposta, *"Le
+    // carte e il tuo cielo dicono di sì, se..."*, non si sentiva, in 9
+    // letture ridette su 16. Padre: ordine ER voce 12 (la voce che si ferma
+    // alla terza frase) sopra l'ordine DS voce 08 (la lettura ridetta). La
+    // premessa resta intera e non si conta; il taglio si fa sulla lettura.
+    final testa = scritto.trimLeft();
+    for (final maestro in Maestro.values) {
+      final premessa = LaLetturaDelGiorno.premessaDi(maestro);
+      if (!testa.startsWith(premessa)) continue;
+      final t = _taglio(testa.substring(premessa.length),
+          inArrivo: inArrivo, domanda: domanda);
+      return (corpo: [premessa, ...t.corpo], gesto: t.gesto);
+    }
     final massimo = quanteFrasiPer(domanda);
     final stella = scritto.indexOf('✦');
     final corpo = stella < 0 ? scritto : scritto.substring(0, stella);

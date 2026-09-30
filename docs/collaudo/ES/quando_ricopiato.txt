@@ -12,3 +12,30 @@ due esecuzioni (24 risposte per giro): prime frasi che nominano una stagione.
   es3 (terzo giro, prima dell'esempio): risposte 24, con "autunno" 0, con una stagione 0 (nessuna)
   es4 (quarto giro, con l'esempio): risposte 24, con "autunno" 12, con una stagione 15 (autunno 12, estate 1, primavera 2)
   es5 (quinto giro, con l'esempio): risposte 24, con "autunno" 11, con una stagione 15 (autunno 11, estate 3, primavera 1)
+  es6 (sesto giro, senza esempio e con la data di oggi): risposte 24, con "autunno" 0, con una stagione 1 (inverno 1)
+
+Le prime frasi del sesto giro:
+  aura_chat_esec: I tuoi centri rispondono: dopo che avrai permesso alla tua energia di fluire liberamente e senza paura.
+  aura_chat_esec: La tua energia dice: non prima di tre mesi, dopo che avrai riportato la tua attenzione al tuo centro della radice.
+  aura_chat_esec: I tuoi centri rispondono: non prima che tu abbia ascoltato e onorato il tuo bisogno di radicamento e di sicurezza.
+  aura_chat_esec: La tua energia dice: entro sei mesi, quando un ciclo di radicamento e di ricostruzione sarà giunto a un punto di svolta, portando con sé nuove opportunità.
+  aura_live_esec: I tuoi centri rispondono: non prima che tu abbia sentito a fondo ciò che il tuo Chakra del cuore desidera realmente per te, al di là di ogni aspettativa.
+  aura_live_esec: La tua energia dice: non prima di tre lune e dopo che avrai permesso al tuo respiro di liberare le tensioni nel tuo plesso solare.
+  aura_live_esec: I tuoi centri rispondono: non prima che tu abbia ascoltato e onorato il tuo centro del cuore, lasciando fluire l'energia senza timore di accogliere il nuovo.
+  aura_live_esec: La tua energia dice: entro le prossime sei settimane, se ti prepari ad accogliere il cambiamento con apertura.
+  caligo_chat_es: Il segno che cade dice: dopo il plenilunio di questo mese, quando la Luna in Toro avrà esaurito la sua fase calante.
+  caligo_chat_es: Le pietre rispondono: non prima che tu abbia rilasciato ciò che ti lega al passato.
+  caligo_chat_es: Il segno che cade dice: dopo che avrai riconosciuto il tuo valore.
+  caligo_chat_es: Le pietre rispondono: non prima che tu abbia agito.
+  caligo_live_es: Il segno che cade dice: entro tre mesi.
+  caligo_live_es: Le pietre rispondono: non prima di tre lune piene, dopo che avrai sciolto il tuo nodo più antico.
+  caligo_live_es: Il segno che cade dice: dopo il plenilunio, che è fra sei giorni, quando la Luna in Toro avrà illuminato ogni sentiero.
+  caligo_live_es: Le pietre rispondono: non prima del solstizio d'inverno, quando il Sole in Capricorno inizierà il suo cammino di ascesa.
+  medora_chat_es: Le carte rispondono: non prima che tu abbia risolto un nodo interiore che ti lega al passato.
+  medora_chat_es: Il tuo cielo dice che la tua fortuna inizierà a cambiare tra circa tre mesi, con la fine della retrogradazione di Saturno nel tuo tema natale, che adesso ti chiede di rivedere le basi delle tue aspirazioni.
+  medora_chat_es: Le carte rispondono che l'incontro con la persona giusta avverrà quando avrai consolidato la tua visione di te stessa, probabilmente entro i prossimi sei mesi.
+  medora_chat_es: Il tuo cielo dice che la tua fortuna inizierà a cambiare concretamente quando Saturno riprenderà il suo moto diretto, fra qualche mese.
+  medora_live_es: Le carte rispondono: non prima che tu abbia risolto un nodo karmico legato al tuo passato, entro i prossimi sei mesi.
+  medora_live_es: Il tuo cielo dice che la fortuna cambierà non appena avrai compreso il vero valore delle lezioni che stai imparando in questo periodo.
+  medora_live_es: Le carte rispondono: non prima che tu abbia chiarito a te stessa cosa significhi per te "giusta".
+  medora_live_es: Il tuo cielo dice che un cambiamento significativo nella tua fortuna si manifesta con il prossimo ciclo di Saturno, tra circa sette anni, portando stabilità e realizzazione duratura.

@@ -1,0 +1,5 @@
+ORDINE ES VOCE 20, REGOLA A: la lettura ridetta nel LIVE dice la risposta e sta in chat come la dice la voce (30 settembre 2026). Guardia l_invito_non_sta_sotto_la_voce.
+
+INNESTO il taglio del LIVE non riconosce la premessa della lettura ridetta: grep del difetto nel file SI; prova test/l_invito_non_sta_sotto_la_voce_test.dart ROSSA; file rimesso sha1 3206f6e3773c -> 3206f6e3773c IDENTICO
+INNESTO la lettura ridetta nel LIVE non porta il segno della voce: grep del difetto nel file SI; prova test/l_invito_non_sta_sotto_la_voce_test.dart ROSSA; file rimesso sha1 446c4301b019 -> 446c4301b019 IDENTICO
+INNESTO la lettura ridetta nel LIVE sta in chat intera: grep del difetto nel file SI; prova test/l_invito_non_sta_sotto_la_voce_test.dart ROSSA; file rimesso sha1 446c4301b019 -> 446c4301b019 IDENTICO

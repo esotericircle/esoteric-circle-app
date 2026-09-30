@@ -5,14 +5,20 @@
 /// dalle casse del PC con la stanza registrata dal microfono del PC
 /// (`docs/collaudo/ES/live_realme.txt`). Il telefono tornava ad ascoltare
 /// 700 millesimi dopo che il volto diceva di aver finito, o dopo la durata
-/// dell'audio piu' tre secondi quando non lo diceva. Nella registrazione la
-/// voce di Medora continuava invece **da 2,3 a 3,1 secondi dopo il segnale**
-/// in tredici turni su tredici misurabili, e in un turno il segnale e'
-/// arrivato 6,6 secondi prima della fine dell'audio (16,2 secondi dall'inizio
-/// su 22,8 di voce: il volto lo manda anche quando resta senza audio da dire
-/// mentre il resto sta ancora arrivando). Chi parlava appena il Maestro
-/// sembrava aver finito parlava sopra la sua coda: l'orecchio sentiva la
-/// domanda a pezzi, e chi trascrive ne ha inventate due su venti.
+/// dell'audio piu' tre secondi quando non lo diceva. Nella registrazione,
+/// messa sull'orologio del telefono con le domande che stanno in tutti e due
+/// (scarto fra le coppie entro due decimi), **dopo dieci risposte su venti si
+/// sentiva ancora la voce di Medora per piu' di mezzo secondo a microfono
+/// riaperto**: nei turni ordinari l'ultima voce cadeva da 0,6 a 1,4 secondi
+/// dopo la riapertura, cioe' da 1,3 a 2,1 secondi dopo il segnale; e in un
+/// turno il segnale e' arrivato 6,6 secondi prima della fine dell'audio (16,2
+/// secondi dall'inizio su 22,8 di voce: il volto lo manda anche quando resta
+/// senza audio da dire mentre il resto sta ancora arrivando). Chi parlava
+/// appena il Maestro sembrava aver finito parlava sopra la sua coda:
+/// l'orecchio sentiva la domanda a pezzi, e chi trascrive ne ha inventate due
+/// su venti. **Dopo la cura**, stessa prova nel pomeriggio: voce a microfono
+/// riaperto dopo una risposta su venti (sei decimi, dopo un tempo scaduto), e
+/// la riapertura da 0,9 a 1,7 secondi dopo il segnale.
 ///
 /// Padre: ordine EJ voce 01 (i 700 millesimi di coda, misurati allora) e
 /// ordine EQ voce 03 (la voce della prima frase mandata in anticipo, che fa
@@ -43,7 +49,8 @@ class LaVoceCheTace {
   static const Duration passo = Duration(milliseconds: 80);
 
   /// Senza statistiche (la traccia non c'e', il telefono non le da') si
-  /// aspetta la coda misurata sul Realme: tre secondi.
+  /// aspetta piu' della coda piu' lunga misurata sul Realme (2,1 secondi dal
+  /// segnale): tre secondi.
   static const Duration codaSenzaMisura = Duration(seconds: 3);
 
   /// Quanto manca alla fine piu' vicina possibile della voce, quando il

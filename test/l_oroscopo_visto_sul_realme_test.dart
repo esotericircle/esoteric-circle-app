@@ -168,6 +168,17 @@ void main() {
           altezze.add((dove.height * 10).round() / 10);
           pittore.dispose();
         }
+        // E alla scala 1 restano alla loro misura, o quasi: al Viandante,
+        // con due lucchetti, la riga si rimpiccioliva di un sesto.
+        if (scala == 1.0) {
+          final nome = find.byKey(const Key('oroscopo_period_nome_giorno'));
+          final paragrafo = tester.renderObject<RenderParagraph>(nome);
+          final rapporto = tester.getRect(nome).height / paragrafo.size.height;
+          if (rapporto < 0.95) {
+            guasti.add('${tier.name}: nomi rimpiccioliti a '
+                '${(rapporto * 100).round()} centesimi');
+          }
+        }
         // I quattro nomi alla stessa misura: se la riga si rimpicciolisce,
         // si rimpicciolisce intera.
         if (altezze.length != 1) {

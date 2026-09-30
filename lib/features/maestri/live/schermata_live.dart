@@ -1044,10 +1044,11 @@ class _SchermataLiveState extends State<SchermataLive> {
       // sul Realme il microfono, riaperto subito, sentiva quella coda e apriva
       // una frase vuota dopo ogni risposta. Ordine EJ voce 01.
       // **E LA CODA SI MISURA, NON SI STIMA. Ordine ES voce 22**, dal
-      // collaudo sul Realme del 30 settembre 2026: i 700 millesimi fissi
-      // riaprivano il microfono da 2,3 a 3,1 secondi prima che la voce
-      // finisse, e una volta il segnale e' arrivato 6,6 secondi prima della
-      // fine dell'audio. Adesso il segnale non vale prima della fine piu'
+      // collaudo sul Realme del 30 settembre 2026: coi 700 millesimi fissi,
+      // dopo dieci risposte su venti la voce si sentiva ancora a microfono
+      // riaperto (fino a 1,4 secondi nei turni ordinari), e una volta il
+      // segnale e' arrivato 6,6 secondi prima della fine dell'audio. Adesso
+      // il segnale non vale prima della fine piu'
       // vicina possibile, e poi si aspetta che la traccia ricevuta dal volto
       // taccia ([LaVoceCheTace]).
       final manca = LaVoceCheTace.mancaAllaFineMinima(
