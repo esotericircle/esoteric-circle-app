@@ -25,6 +25,22 @@ import 'package:flutter_test/flutter_test.dart';
 /// ```
 const String cartella = String.fromEnvironment('CARTELLA');
 
+/// I tipi di audio da provare, separati da virgola: `pulita`, `stanza`, e
+/// dal 30 settembre 2026 `mic`, le stesse venti domande come le ha sentite
+/// il microfono del PC nella stanza durante il collaudo sul Realme (tagliate
+/// dalla registrazione della sessione).
+const String tipi =
+    String.fromEnvironment('TIPI', defaultValue: 'pulita,stanza');
+
+/// Il nome del file dell'esito, per non sovrascrivere quello di un altro giro.
+const String esito = String.fromEnvironment('ESITO', defaultValue: 'esito');
+
+/// Una frase da provare in coda all'istruzione di prima (`variante`), e le
+/// istruzioni da far girare, separate da virgola (vuoto: tutte).
+const String variante = String.fromEnvironment('VARIANTE');
+const String soloQueste = String.fromEnvironment('ISTRUZIONI');
+const int giri = int.fromEnvironment('GIRI', defaultValue: 2);
+
 /// L'istruzione di prima dell'ordine ES voce 22, copiata dal commit
 /// 89b4b775: il confronto si fa sugli stessi audio.
 String istruzioneDiPrima() =>
@@ -38,6 +54,30 @@ String istruzioneDiPrima() =>
     'scrivili esattamente così quando li senti, anche se somigliano a una '
     'parola comune: ${LaTrascrizione.nomiDelleArti.join(', ')}. Non '
     'aggiungerli se la persona non li dice.';
+
+/// **L'ISTRUZIONE DELLA PRIMA STESURA DELLA ES.22**, copiata dal commit
+/// 9deede23: quella di prima piu' la frase di senso compiuto con i due
+/// esempi. Sul Realme, il 30 settembre 2026, ha trascritto "Vorrei sapere se
+/// lui mi ama ancora" una domanda che diceva tutt'altro: l'esempio e'
+/// diventato la frase.
+String istruzioneDellaPrimaStesura() => '${istruzioneDiPrima()}\n'
+    'Di solito la persona fa una domanda sulla sua vita: l\'amore, il '
+    'lavoro, i soldi, la famiglia, la salute. Scrivi la frase che ha detto '
+    'davvero, in italiano corretto: quando un suono si può leggere in due '
+    'modi, scegli la lettura che fa una frase di senso compiuto (per '
+    'esempio "mi ama ancora" e non "mia, ma ancora"; "troverò" e non '
+    '"trovo", se la frase parla del futuro).';
+
+/// Le parole scritte che la persona non ha detto: quelle della trascrizione
+/// che nella domanda non ci sono.
+int _inventate(List<String> attese, List<String> lette) {
+  final resto = [...attese];
+  var n = 0;
+  for (final p in lette) {
+    if (!resto.remove(p)) n++;
+  }
+  return n;
+}
 
 List<String> _parole(String t) => t
     .toLowerCase()
@@ -75,16 +115,22 @@ void main() {
         .toList();
     final istruzioni = {
       'prima': istruzioneDiPrima(),
+      'stesura': istruzioneDellaPrimaStesura(),
       'oggi': LaTrascrizione.istruzione,
-    };
+      // Una frase da provare in coda all'istruzione di prima, senza toccare
+      // il codice: serve a scegliere la stesura, non entra nei conti.
+      if (variante.isNotEmpty) 'variante': '${istruzioneDiPrima()}\n$variante',
+    }..removeWhere((k, _) => soloQueste.isNotEmpty && !soloQueste.contains(k));
     final righe = <String>[];
-    for (final tipo in ['pulita', 'stanza']) {
+    for (final tipo in tipi.split(',')) {
       for (final e in istruzioni.entries) {
         var uguali = 0;
         var sbagliate = 0;
         var parole = 0;
+        var inventate = 0;
+        var conInvenzioni = 0;
         var n = 0;
-        for (var giro = 1; giro <= 2; giro++) {
+        for (var giro = 1; giro <= giri; giro++) {
           for (var i = 0; i < domande.length; i++) {
             final wav = File(
                     '$cartella/${tipo}_${(i + 1).toString().padLeft(2, '0')}.wav')
@@ -97,20 +143,26 @@ void main() {
             parole += attese.length;
             sbagliate += d;
             if (d == 0) uguali++;
+            final nuove = _inventate(attese, lette);
+            inventate += nuove;
+            if (nuove >= 2) conInvenzioni++;
             final riga = '$tipo ${e.key} giro $giro ${i + 1}: '
-                '${d == 0 ? 'uguale' : 'SBAGLIATE $d'}  «$testo»';
+                '${d == 0 ? 'uguale' : 'SBAGLIATE $d'}'
+                '${nuove == 0 ? '' : ', NON DETTE $nuove'}  «$testo»';
             righe.add(riga);
             print(riga);
           }
         }
         final totale = 'TOTALE $tipo ${e.key}: uguali parola per parola '
-            '$uguali su $n, parole sbagliate $sbagliate su $parole';
+            '$uguali su $n, parole sbagliate $sbagliate su $parole, parole '
+            'scritte e non dette $inventate, domande con almeno due parole '
+            'non dette $conInvenzioni su $n';
         righe.add(totale);
         print(totale);
       }
     }
-    File('$cartella/esito.txt').writeAsStringSync('${righe.join('\n')}\n');
-  }, timeout: const Timeout(Duration(minutes: 20)));
+    File('$cartella/$esito.txt').writeAsStringSync('${righe.join('\n')}\n');
+  }, timeout: const Timeout(Duration(minutes: 40)));
 
   // **LA TELEVISIONE RESTA SILENZIO.** L'istruzione nuova dice che la
   // persona fa di solito una domanda: non deve far trascrivere la
@@ -131,6 +183,7 @@ void main() {
     final righe = <String>[];
     for (final e in {
       'prima': istruzioneDiPrima(),
+      'stesura': istruzioneDellaPrimaStesura(),
       'oggi': LaTrascrizione.istruzione,
     }.entries) {
       var trascritti = 0;

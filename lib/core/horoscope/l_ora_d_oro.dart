@@ -40,6 +40,20 @@ class OraDOro {
     return 'Oggi alle $hh:$mm la Luna forma ${conArticolo[aspetto]} '
         '${alPunto[punto]} di nascita: è la tua ora d\'oro.';
   }
+
+  /// **L'ORA D'ORO GIA' PASSATA SI DICE AL PASSATO.** Visto sul Realme il 30
+  /// settembre 2026: a mezzogiorno la scheda diceva *"Oggi alle 00:03 la Luna
+  /// forma una congiunzione [...]: è la tua ora d'oro"*, cioe' un momento di
+  /// dodici ore prima detto come se dovesse venire. Padre: ordine ES voce 32.
+  /// Letta [adesso], prima dell'istante vale [frase]; dopo, il passato.
+  String fraseAlle(DateTime adesso) {
+    if (!adesso.isAfter(istante)) return frase;
+    final l = istante.toLocal();
+    final hh = l.hour.toString().padLeft(2, '0');
+    final mm = l.minute.toString().padLeft(2, '0');
+    return 'Oggi alle $hh:$mm la Luna ha formato ${conArticolo[aspetto]} '
+        '${alPunto[punto]} di nascita: è stata la tua ora d\'oro.';
+  }
 }
 
 /// **L'ORA D'ORO DI OGGI, ordine ES voce 32.**

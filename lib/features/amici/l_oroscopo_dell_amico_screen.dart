@@ -142,7 +142,10 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
-    final segno = ISegniDelleTradizioni.per(_tradizione, _nascita);
+    // Il segno detto dell'amico, non di chi guarda: "Il segno di Lucia è
+    // Capricorno" (visto sul Realme il 30 settembre 2026, diceva "Il tuo").
+    final segno = ISegniDelleTradizioni.per(_tradizione, _nascita).dettoDi(
+        OroscopoShareCard.soloIlNome(widget.amico.nome) ?? widget.amico.nome);
     final schede = _schede(segno);
     return Scaffold(
       backgroundColor: palette.deepest,

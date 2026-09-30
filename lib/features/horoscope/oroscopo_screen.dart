@@ -423,7 +423,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     final chiave = (carta, _date.year, _date.month, _date.day);
     if (chiave != _chiaveDellOraDOro) {
       _chiaveDellOraDOro = chiave;
-      _fraseDellOraDOro = LOraDOro.di(carta, _date)?.frase;
+      _fraseDellOraDOro = LOraDOro.di(carta, _date)?.fraseAlle(_date);
     }
     return _fraseDellOraDOro;
   }
@@ -452,6 +452,9 @@ class _OroscopoScreenState extends State<OroscopoScreen>
 
   /// Gli anni dell'oroscopo annuale aperti con gli Eos (ordine ES voce 04).
   final Set<int> _anniAperti = {};
+
+  /// La chiave della riga delle tradizioni: vedi dove si monta.
+  final GlobalKey _chiaveDelleTradizioni = GlobalKey();
 
   /// **I TRE CIELI DI OGGI, ordine ES voce 36**, calcolati una volta per
   /// giorno, piano, luogo e cielo, e non a ogni fotogramma della cascata:
@@ -617,9 +620,15 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                   cosa: 'Hai condiviso il tuo anno');
             }
           },
+          // Su una riga: "Scarica il PDF del tuo anno" col premio accanto
+          // andava a capo sul Realme (visto il 30 settembre 2026).
           child: Text(
               PremioDellaCondivisione.etichetta(context,
-                  base: 'Scarica il PDF del tuo anno'),
+                  base: 'Il PDF del tuo anno'),
+              key: const Key('oroscopo_anno_pdf_etichetta'),
+              maxLines: 1,
+              softWrap: false,
+              overflow: TextOverflow.fade,
               style:
                   TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
         ),
@@ -887,20 +896,34 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                             ],
                           ),
                     items: [
-                      _Heading(periodo: _period, date: _date, palette: palette),
-                      const SizedBox(height: SpacingTokens.md),
-                      _PeriodTabs(
-                        current: _period,
-                        palette: palette,
-                        onSelect: _selectPeriod,
-                        tier: tier,
-                      ),
-                      const SizedBox(height: SpacingTokens.sm),
+                      // **UNA TRADIZIONE IN ARRIVO NON HA PERIODI.** Visto sul
+                      // Realme il 30 settembre 2026: sotto l'emblema della
+                      // tradizione egizia restavano "Oroscopo personalizzato
+                      // del giorno" e il selettore dei periodi, e toccando
+                      // "Settimana" cambiava solo quel titolo, perche' una
+                      // lettura non c'e'. Padre: ordine ES voce 11. Il titolo
+                      // e i periodi stanno solo dove c'e' una lettura.
+                      if (_inCima.unlocked) ...[
+                        _Heading(
+                            periodo: _period, date: _date, palette: palette),
+                        const SizedBox(height: SpacingTokens.md),
+                        _PeriodTabs(
+                          current: _period,
+                          palette: palette,
+                          onSelect: _selectPeriod,
+                          tier: tier,
+                        ),
+                        const SizedBox(height: SpacingTokens.sm),
+                      ],
                       // Accanto al periodo, la tradizione: lo stesso cielo letto con
                       // occhi diversi. Aperta l'Occidentale, le altre col lucchetto.
                       // Il chip scelto e' quello della tradizione in cima: chi
                       // tocca l'Araba vede l'Araba accesa (vista sul Realme).
                       _TraditionTabs(
+                        // La riga tiene il suo stato (dove e' scorsa) anche
+                        // quando sopra di lei il titolo e i periodi compaiono
+                        // o spariscono e il suo posto nella lista cambia.
+                        key: _chiaveDelleTradizioni,
                         current: _inCima,
                         palette: palette,
                         onSelect: _selectTradition,
@@ -2003,20 +2026,46 @@ class _PeriodTabs extends StatelessWidget {
         color: palette.surfaceElevated.withValues(alpha: 0.45),
         border: Border.all(color: palette.gold.withValues(alpha: 0.25)),
       ),
-      child: Row(
-        children: [
-          for (final period in HoroscopePeriod.values)
-            Expanded(
-              child: _PeriodTab(
-                period: period,
-                locked: !period.apertoPer(tier),
-                selected: period == current,
-                palette: palette,
-                onTap: () => onSelect(period),
+      // **OGNI PERIODO LARGO QUANTO IL SUO NOME.** Visto sul Realme il 30
+      // settembre 2026: con l'Anno i periodi sono quattro, e in quattro parti
+      // uguali "Settimana" andava a capo sull'ultima lettera ("SETTIMAN / A").
+      // Padre: ordine ES voce 04. Ogni voce prende la larghezza del suo nome
+      // (col lucchetto, quando c'e') e lo spazio che avanza si divide in parti
+      // uguali; se i nomi non ci stanno, per esempio col carattere ingrandito,
+      // la riga intera si rimpicciolisce insieme, cosi' i quattro nomi restano
+      // alla stessa misura.
+      child: LayoutBuilder(builder: (context, vincoli) {
+        final scala = MediaQuery.textScalerOf(context);
+        final larghezze = <HoroscopePeriod, double>{
+          for (final p in HoroscopePeriod.values)
+            p: _PeriodTab.larghezzaNaturale(p,
+                locked: !p.apertoPer(tier), scala: scala),
+        };
+        final naturale = larghezze.values.fold<double>(0, (a, b) => a + b);
+        final avanza = vincoli.maxWidth - naturale;
+        // Mezzo punto di gioco: le quattro larghezze sommate non devono
+        // superare la riga per un arrotondamento.
+        final inPiu =
+            avanza > 0.5 ? (avanza - 0.5) / HoroscopePeriod.values.length : 0.0;
+        final riga = Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            for (final period in HoroscopePeriod.values)
+              SizedBox(
+                width: larghezze[period]! + inPiu,
+                child: _PeriodTab(
+                  period: period,
+                  locked: !period.apertoPer(tier),
+                  selected: period == current,
+                  palette: palette,
+                  onTap: () => onSelect(period),
+                ),
               ),
-            ),
-        ],
-      ),
+          ],
+        );
+        if (avanza >= 0) return riga;
+        return FittedBox(fit: BoxFit.scaleDown, child: riga);
+      }),
     );
   }
 }
@@ -2026,16 +2075,71 @@ class _PeriodTabs extends StatelessWidget {
 /// Le astrologie non occidentali non hanno una card nel dominio ne' una
 /// schermata propria: vivono qui, come modo diverso di leggere lo stesso cielo.
 /// Ogni voce porta il suo glifo disegnato, cosi' si riconosce prima di leggerla.
-class _TraditionTabs extends StatelessWidget {
+class _TraditionTabs extends StatefulWidget {
   const _TraditionTabs(
-      {required this.current, required this.palette, required this.onSelect});
+      {super.key,
+      required this.current,
+      required this.palette,
+      required this.onSelect});
 
   final AstroTradition current;
   final MaestroPalette palette;
   final ValueChanged<AstroTradition> onSelect;
 
   @override
+  State<_TraditionTabs> createState() => _TraditionTabsState();
+}
+
+class _TraditionTabsState extends State<_TraditionTabs> {
+  final Map<AstroTradition, GlobalKey> _chiavi = {
+    for (final t in AstroTradition.values) t: GlobalKey(),
+  };
+
+  /// **LA TRADIZIONE SCELTA SI VEDE NELLA RIGA.** Visto sul Realme il 30
+  /// settembre 2026: tornando dall'Araba con "Torna al tuo oroscopo" la
+  /// scelta passava all'Occidentale, ma la riga restava scorsa in fondo, su
+  /// Maya, Celtica ed Egizia, e la voce accesa non si vedeva. Padre: ordine
+  /// ES voce 11. Quando la scelta cambia, la riga scorre fino a mostrarla.
+  @override
+  void initState() {
+    super.initState();
+    // Una riga appena nata parte dall'inizio: se la scelta sta piu' in la',
+    // la si va a prendere.
+    if (widget.current != AstroTradition.values.first) _mostraLaScelta();
+  }
+
+  @override
+  void didUpdateWidget(covariant _TraditionTabs oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.current == widget.current) return;
+    _mostraLaScelta();
+  }
+
+  void _mostraLaScelta() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final contesto = _chiavi[widget.current]?.currentContext;
+      if (contesto == null || !mounted) return;
+      // Solo la riga delle tradizioni: `Scrollable.ensureVisible` muoverebbe
+      // anche la pagina, che deve restare dov'e'.
+      final posizione = Scrollable.maybeOf(contesto)?.position;
+      final oggetto = contesto.findRenderObject();
+      if (posizione == null || oggetto == null) return;
+      unawaited(posizione.ensureVisible(
+        oggetto,
+        alignment: 0.5,
+        duration: MediaQuery.of(context).disableAnimations
+            ? Duration.zero
+            : const Duration(milliseconds: 250),
+        curve: Curves.easeOut,
+      ));
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final current = widget.current;
+    final palette = widget.palette;
+    final onSelect = widget.onSelect;
     return SizedBox(
       key: const Key('oroscopo_tradition_tabs'),
       // Alta quanto serve al glifo, al nome e al badge "In arrivo", che sulla
@@ -2047,20 +2151,36 @@ class _TraditionTabs extends StatelessWidget {
       // stessa pastiglia era gia' fra i rossi accettati a scala 1,3, dove
       // sforava di cinque: alzarla del minimo avrebbe curato la scala 1 e
       // lasciato rossa la 1,3, cioe' meta' del difetto.
-      height: 86,
-      child: ListView.separated(
+      //
+      // **E CRESCE COL CARATTERE, ordine ES voce 11.** Le voci in arrivo
+      // hanno tre righe (il glifo, il nome con la clessidra, "In arrivo, Fase
+      // 4"), e a scala 1,3 sforavano di cinque punti: non si vedeva nelle
+      // prove perche' la riga costruiva solo le voci in vista, e le tre in
+      // vista ne hanno due. Adesso le costruisce tutte, e l'altezza segue la
+      // scala del testo.
+      height: 86 + 56 * (MediaQuery.textScalerOf(context).scale(14) / 14 - 1),
+      // Sette voci: si costruiscono tutte, cosi' la riga puo' scorrere fino a
+      // quella scelta anche quando sta fuori dallo schermo.
+      child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        itemCount: AstroTradition.values.length,
-        separatorBuilder: (_, __) => const SizedBox(width: SpacingTokens.xs),
-        itemBuilder: (context, i) {
-          final t = AstroTradition.values[i];
-          return _TraditionChip(
-            tradition: t,
-            selected: t == current,
-            palette: palette,
-            onTap: () => onSelect(t),
-          );
-        },
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            for (final t in AstroTradition.values) ...[
+              if (t != AstroTradition.values.first)
+                const SizedBox(width: SpacingTokens.xs),
+              KeyedSubtree(
+                key: _chiavi[t],
+                child: _TraditionChip(
+                  tradition: t,
+                  selected: t == current,
+                  palette: palette,
+                  onTap: () => onSelect(t),
+                ),
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }
@@ -2247,6 +2367,33 @@ class _PeriodTab extends StatelessWidget {
   final MaestroPalette palette;
   final VoidCallback onTap;
 
+  /// Lo stile del nome, senza il colore: serve anche a misurarlo.
+  static TextStyle get _stile =>
+      TypographyTokens.etichetta().copyWith(letterSpacing: 0.6);
+
+  /// Il margine ai due lati del nome dentro la pastiglia.
+  static const double _respiro = 10;
+
+  /// Quanto e' largo il lucchetto col suo spazio.
+  static const double _lucchetto = 16;
+
+  /// La larghezza che serve a questa voce per stare su una riga: il nome
+  /// misurato col suo stile e la scala del testo, il lucchetto se c'e', il
+  /// respiro ai lati e un margine, perche' una parola che entra per un decimo
+  /// di punto sul telefono va a capo lo stesso.
+  static double larghezzaNaturale(HoroscopePeriod period,
+      {required bool locked, required TextScaler scala}) {
+    final pittore = TextPainter(
+      text: TextSpan(text: period.label, style: _stile),
+      textDirection: TextDirection.ltr,
+      textScaler: scala,
+      maxLines: 1,
+    )..layout();
+    final larghezza = pittore.width;
+    pittore.dispose();
+    return larghezza + (locked ? _lucchetto : 0) + _respiro * 2 + 4;
+  }
+
   @override
   Widget build(BuildContext context) {
     final tab = GestureDetector(
@@ -2271,14 +2418,19 @@ class _PeriodTab extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // **IL TESTO DEVE POTER CEDERE.** Ordine CM voce 09, famiglia A.
+            // Su una riga sola: la larghezza gliela da' chi lo monta
+            // ([larghezzaNaturale]), e a capo non ci va.
             Flexible(
                 child: Text(period.label,
-                    style: TypographyTokens.etichetta().copyWith(
+                    key: Key('oroscopo_period_nome_${period.name}'),
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.visible,
+                    style: _stile.copyWith(
                       color: selected
                           ? palette.goldSoft
                           : ColorTokens.textSecondary
                               .withValues(alpha: locked ? 0.6 : 1.0),
-                      letterSpacing: 0.6,
                     ))),
             if (locked) ...[
               const SizedBox(width: 4),
@@ -2557,7 +2709,15 @@ class _HoroscopeCardView extends StatelessWidget {
               ],
             ),
           ],
-          if (card.domain == HoroscopeDomain.fortuna) ...[
+          // **IL NUMERO E IL COLORE SOLO DOVE CI SONO.** Visto sul Realme il
+          // 30 settembre 2026: la scheda della Fortuna dell'anno mostrava
+          // "NUMERO 0" e "COLORE DEL GIORNO" vuoto, perche' il riquadro si
+          // disegnava per ogni scheda della Fortuna e l'anno non ha ne'
+          // l'uno ne' l'altro. Padre: ordine ES voce 04.
+          if (card.domain == HoroscopeDomain.fortuna &&
+              (card.luckyNumber != null ||
+                  card.numeriDelGiorno != null ||
+                  card.dayColor != null)) ...[
             const SizedBox(height: SpacingTokens.md),
             _FortunaFooter(card: card, palette: palette),
             // LA REGOLA DEL NUMERO E DEL COLORE, ordine ES voce 29.

@@ -29,6 +29,7 @@ import 'la_domanda_finita.dart';
 import 'la_macchina_da_scrivere.dart';
 import 'le_tre_frasi_del_live.dart';
 import 'la_voce_anticipata.dart';
+import 'la_voce_che_tace.dart';
 import 'stato_della_schermata_live.dart';
 
 /// **LA SCHERMATA LIVE.** Ordine EG voce 05.
@@ -1042,7 +1043,19 @@ class _SchermataLiveState extends State<SchermataLive> {
       // ha mandato l'ultimo pezzo, ma l'altoparlante lo sta ancora suonando:
       // sul Realme il microfono, riaperto subito, sentiva quella coda e apriva
       // una frase vuota dopo ogni risposta. Ordine EJ voce 01.
-      await Future<void>.delayed(const Duration(milliseconds: 700));
+      // **E LA CODA SI MISURA, NON SI STIMA. Ordine ES voce 22**, dal
+      // collaudo sul Realme del 30 settembre 2026: i 700 millesimi fissi
+      // riaprivano il microfono da 2,3 a 3,1 secondi prima che la voce
+      // finisse, e una volta il segnale e' arrivato 6,6 secondi prima della
+      // fine dell'audio. Adesso il segnale non vale prima della fine piu'
+      // vicina possibile, e poi si aspetta che la traccia ricevuta dal volto
+      // taccia ([LaVoceCheTace]).
+      final manca = LaVoceCheTace.mancaAllaFineMinima(
+          primoSuono: primoSuono,
+          secondiDiVoce: secondiDiVoce,
+          trascorso: orologio.elapsed);
+      if (manca > Duration.zero) await Future<void>.delayed(manca);
+      await _aspettaCheTaccia(s.lavoratore);
     } catch (errore) {
       annotaGuastoInnocuo('l\'audio del Maestro non arriva al volto', errore);
     } finally {
@@ -1058,16 +1071,7 @@ class _SchermataLiveState extends State<SchermataLive> {
   /// parla" viene dal riconoscimento di chi parla di LiveKit, che arriva dopo
   /// la voce; questa la misura dove la persona la sente. Solo registro.
   Future<void> _ascoltaQuandoSiSente(String lavoratore) async {
-    lk.RemoteAudioTrack? traccia;
-    final partecipanti =
-        _stanza?.remoteParticipants.values ?? const <lk.RemoteParticipant>[];
-    for (final p in partecipanti) {
-      if (p.identity != lavoratore) continue;
-      for (final pub in p.audioTrackPublications) {
-        final t = pub.track;
-        if (t is lk.RemoteAudioTrack) traccia = t;
-      }
-    }
+    final traccia = _laTracciaDelVolto(lavoratore);
     if (traccia == null) return;
     num? energia;
     num? durata;
@@ -1093,6 +1097,50 @@ class _SchermataLiveState extends State<SchermataLive> {
     } catch (errore) {
       annotaGuastoInnocuo('la voce sentita non si misura', errore);
     }
+  }
+
+  /// La traccia audio che il telefono riceve dal volto, se c'e'.
+  lk.RemoteAudioTrack? _laTracciaDelVolto(String lavoratore) {
+    lk.RemoteAudioTrack? traccia;
+    final partecipanti =
+        _stanza?.remoteParticipants.values ?? const <lk.RemoteParticipant>[];
+    for (final p in partecipanti) {
+      if (p.identity != lavoratore) continue;
+      for (final pub in p.audioTrackPublications) {
+        final t = pub.track;
+        if (t is lk.RemoteAudioTrack) traccia = t;
+      }
+    }
+    return traccia;
+  }
+
+  /// **SI TORNA AD ASCOLTARE QUANDO LA VOCE RICEVUTA TACE.** Ordine ES voce
+  /// 22: le statistiche della traccia che il telefono riceve dal volto e
+  /// suona, lette ogni [LaVoceCheTace.passo]; la regola sta in
+  /// [LaVoceCheTace], dove si prova senza una stanza.
+  Future<void> _aspettaCheTaccia(String lavoratore) async {
+    final traccia = _laTracciaDelVolto(lavoratore);
+    final voce = LaVoceCheTace();
+    final orologio = Stopwatch()..start();
+    try {
+      while (mounted) {
+        final st = await traccia?.getReceiverStats();
+        if (voce.lettura(
+            energia: st?.totalAudioEnergy,
+            durata: st?.totalSamplesDuration,
+            adesso: orologio.elapsed)) {
+          break;
+        }
+        await Future<void>.delayed(LaVoceCheTace.passo);
+      }
+    } catch (errore) {
+      annotaGuastoInnocuo('la fine della voce non si misura', errore);
+      final resto = LaVoceCheTace.codaSenzaMisura - orologio.elapsed;
+      if (!resto.isNegative) await Future<void>.delayed(resto);
+    }
+    debugPrint('LIVE: la voce del volto tace dopo altri '
+        '${orologio.elapsedMilliseconds} ms'
+        '${voce.misurata ? '' : ', senza misura'}');
   }
 
   /// La voce composta in anticipo; se non e' nata, si chiede adesso.

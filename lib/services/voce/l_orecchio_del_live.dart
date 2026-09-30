@@ -541,16 +541,34 @@ abstract final class LaTrascrizione {
   /// *"vero"* e *"Troverò"* *"Trovo"*: chi trascrive sentiva i suoni giusti e
   /// sceglieva le parole sbagliate. Il fondatore ha confermato che si
   /// corregge. Qui gli si dice di che cosa parla la persona e quale lettura
-  /// scegliere quando un suono se ne presta a due; l'esempio e' il difetto
-  /// visto, e basta uno: un elenco di frasi il modello lo ricopierebbe, come
-  /// ha fatto con l'elenco dei nomi (ordine EK voce 03).
+  /// scegliere quando un suono se ne presta a due.
+  ///
+  /// **SENZA ESEMPI, E SENZA INDOVINARE. Visto sul Realme il 30 settembre
+  /// 2026**, venti domande dette dalle casse del PC: la prima stesura portava
+  /// fra parentesi l'esempio del difetto (il "mi ama ancora" letto male) e un
+  /// secondo sul futuro, e su due domande sentite male chi trascrive ha
+  /// scritto una domanda che nessuno aveva detto: *"Vorrei sapere se lui mi
+  /// ama ancora"* al posto di *"Perché non ho più desiderio con la persona
+  /// che ho accanto?"*, e *"Vorrei sapere che si faccia vivo lui"* al posto
+  /// di *"Devo scrivergli io o aspettare che si faccia vivo lui?"*. Con
+  /// l'istruzione di prima dell'ordine ES le stesse due erano giuste. Una
+  /// domanda inventata e' peggio di una parola sbagliata: il Maestro risponde
+  /// a una cosa che la persona non ha chiesto. Padre: questa stessa voce,
+  /// commit e73f61df. **Sono usciti gli esempi e la frase che diceva di che
+  /// cosa parla di solito la persona**: al banco, sulle venti domande con un
+  /// secondo di voce tolto (`tool/le_domande_sentite_male.py`), con quella
+  /// frase le parole scritte e non dette erano 16 e 18 su quaranta
+  /// trascrizioni (*"Trovo lavoro"*, *"Quando troverò la persona giusta"*,
+  /// cioe' l'esempio ricopiato), senza sono quante con l'istruzione di prima.
+  /// Ed e' entrata la regola che un pezzo non capito si lascia fuori. La
+  /// guardia `la_trascrizione_non_porta_esempi` conta le frasi fra
+  /// virgolette e gli argomenti suggeriti.
   static const String frasiDiSensoCompiuto =
-      'Di solito la persona fa una domanda sulla sua vita: l\'amore, il '
-      'lavoro, i soldi, la famiglia, la salute. Scrivi la frase che ha detto '
-      'davvero, in italiano corretto: quando un suono si può leggere in due '
-      'modi, scegli la lettura che fa una frase di senso compiuto (per '
-      'esempio "mi ama ancora" e non "mia, ma ancora"; "troverò" e non '
-      '"trovo", se la frase parla del futuro).';
+      'Scrivi la frase che la persona ha detto davvero, in italiano '
+      'corretto: quando un suono si può leggere in due modi, scegli la '
+      'lettura che fa una frase di senso compiuto. Scrivi solo le parole che '
+      'si sentono: un pezzo che non capisci lascialo fuori, senza '
+      'completarlo.';
 
   /// Le parole di un testo, minuscole, senza segni: "L'Appeso" fa "l",
   /// "appeso".

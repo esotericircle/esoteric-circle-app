@@ -318,7 +318,9 @@ abstract final class LaSettimanaDelCielo {
                 dominio: dominio,
                 segno: segno,
                 cielo: cieli[d],
-                quando: mezzogiorni[d]);
+                quando: mezzogiorni[d],
+                // Sotto la data del suo giorno, senza "di oggi".
+                oggi: false);
             return GiornoDelPeriodo(
                 giorno: DateTime(inizio.year, inizio.month, inizio.day + d),
                 livello: livello,

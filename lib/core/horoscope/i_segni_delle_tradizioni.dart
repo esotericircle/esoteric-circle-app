@@ -62,6 +62,27 @@ class SegnoDellaTradizione {
 
   /// Cio' che la schermata deve dire accanto al segno, quando serve.
   final String? nota;
+
+  /// **IL SEGNO DI UN'ALTRA PERSONA, ordine ES voce 12.** Visto sul Realme il
+  /// 30 settembre 2026: nell'oroscopo di un'amica, sotto la figura, stava
+  /// scritto "Il tuo segno è Capricorno", e il segno era di Lucia. La frase
+  /// e la nota nascono per chi usa l'app; qui si dicono di [nome], e la
+  /// guardia `l_oroscopo_dell_amico_parla_dell_amico` conta che nessun "tuo"
+  /// resti per un anno di nascite nelle tre tradizioni.
+  SegnoDellaTradizione dettoDi(String nome) => SegnoDellaTradizione(
+        tradizione: tradizione,
+        nome: this.nome,
+        frase: frase
+            .replaceFirst('Il tuo segno cinese', 'Il segno cinese di $nome')
+            .replaceFirst('Il tuo segno vedico', 'Il segno vedico di $nome')
+            .replaceFirst('Il tuo segno', 'Il segno di $nome'),
+        zodiaco: zodiaco,
+        animale: animale,
+        certo: certo,
+        nota: nota
+            ?.replaceFirst('della tua nascita', 'della sua nascita')
+            .replaceFirst('è il tuo segno', 'è il suo segno'),
+      );
 }
 
 /// La nascita come la servono i segni: la data e l'ora del luogo, e il fuso.

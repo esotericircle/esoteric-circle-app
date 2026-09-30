@@ -17,7 +17,7 @@ import 'package:flutter_test/flutter_test.dart';
 /// composizione che usa la schermata, `LaScenaDelLive`, nei quattro momenti
 /// di un turno, e si misura il volto.
 void main() {
-  const saluto = 'Eccomi. Il cielo di stasera ascolta con me: dimmi cosa ti '
+  const saluto = 'Eccomi. Il cielo ascolta con me: dimmi cosa ti '
       'porta qui.';
   const domanda = 'Medora, ho pescato la Torre e poi l\'Appeso. Cosa vogliono '
       'dire per me?';

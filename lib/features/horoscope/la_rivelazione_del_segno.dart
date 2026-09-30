@@ -10,6 +10,7 @@ import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
+import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
 import 'la_testa_della_tradizione.dart';
 import 'oroscopo_share_card.dart';
@@ -28,6 +29,10 @@ import 'oroscopo_share_card.dart';
 /// indovinare; la rivelazione aspetta il giorno che l'ora c'e'.
 abstract final class LaRivelazioneDelSegno {
   static const String chiave = 'oroscopo_segno_rivelato';
+
+  /// Quanto e' fitto il velo dietro la rivelazione: piu' di quello dei
+  /// dialoghi, perche' i due gesti stanno sul velo e non su un fondo loro.
+  static const double opacitaDelVelo = 0.94;
 
   static const Set<AstroTradition> tradizioni = {
     AstroTradition.cinese,
@@ -77,6 +82,12 @@ abstract final class LaRivelazioneDelSegno {
       context: context,
       barrierDismissible: true,
       barrierLabel: 'Chiudi',
+      // **UN VELO PIU' FITTO SOTTO I DUE GESTI.** Visto sul Realme il 30
+      // settembre 2026: "Condividi" e "Continua" stanno sotto la tessera,
+      // fuori dal suo fondo, e col velo di tutti i dialoghi (72 centesimi) le
+      // righe della pagina sotto si leggevano attraverso, proprio dietro le
+      // due scritte. Padre: questa voce. Qui il velo e' a [opacitaDelVelo].
+      barrierColor: PassaggioDelCerchio.nero.withValues(alpha: opacitaDelVelo),
       pageBuilder: (_, __, ___) => _LaRivelazione(
         segno: segno,
         figura: figura,

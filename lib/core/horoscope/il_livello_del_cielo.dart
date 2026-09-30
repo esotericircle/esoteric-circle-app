@@ -95,7 +95,14 @@ abstract final class IlLivelloDelCielo {
     required Zodiac segno,
     required CieloDiOggi cielo,
     required DateTime quando,
+    bool oggi = true,
   }) {
+    // **LA RIGA DI UN GIORNO CHE NON E' OGGI NON DICE "OGGI".** Visto sul
+    // Realme il 30 settembre 2026: nella Settimana e nel Mese ogni giorno,
+    // anche sabato prossimo, portava "Dal cielo di oggi" o "Dalla Luna di
+    // oggi". Padre: ordine ES voci 02 e 03, che riusano questa riga per i
+    // giorni del periodo. Con [oggi] falso la riga sta sotto la data del suo
+    // giorno e dice "del giorno".
     if (cielo.ceCieloVero) {
       final voci = CorrenteDelCielo.vociPer(cielo, dominio);
       var somma = 0.0;
@@ -114,9 +121,12 @@ abstract final class IlLivelloDelCielo {
               '${v.aspetto.italianName.toLowerCase()} '
               '${CorrenteDelCielo.alBersaglio(v)}',
       ];
+      final elenco = nomi.join('; ');
       final riga = nomi.isEmpty
-          ? 'Oggi nessun passaggio stretto parla a questo campo.'
-          : 'Dal cielo di oggi: ${nomi.join('; ')}.';
+          ? (oggi
+              ? 'Oggi nessun passaggio stretto parla a questo campo.'
+              : 'Quel giorno nessun passaggio stretto parla a questo campo.')
+          : 'Dal cielo ${oggi ? 'di oggi' : 'del giorno'}: $elenco.';
       return (_scala(somma), riga);
     }
     final luna = IlCieloDelSegno.segnoDi(CorpoCeleste.luna, quando);
@@ -135,7 +145,8 @@ abstract final class IlLivelloDelCielo {
     somma += 0.5 * pesoDellaCasaSolare(casaSua);
     if (caseDelDominio.contains(casaSua)) somma += 0.5;
     final aspetto = _aspettoDellaCasa[casa];
-    final riga = 'Dalla Luna di oggi in ${luna.italianName}, nella tua '
+    final riga = 'Dalla Luna ${oggi ? 'di oggi' : 'del giorno'} in '
+        '${luna.italianName}, nella tua '
         '${CorrenteDelCielo.ordinaliDelleCase[casa - 1]} casa solare'
         '${aspetto == null ? '' : ', $aspetto'}; '
         '${CorrenteDelCielo.colSuoArticolo(corpo, maiuscola: false)} è in '

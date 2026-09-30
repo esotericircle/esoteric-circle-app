@@ -34,9 +34,13 @@ enum MomentoDelLive {
 /// non riceve audio, e un saluto appena il volto entra nella stanza la tiene
 /// viva mentre la persona decide cosa dire. Frasi fisse e non composte dal
 /// modello: il saluto non deve costare una chiamata, ne' poter sbagliare.
+///
+/// **IL SALUTO NON DICE L'ORA.** Visto sul Realme il 30 settembre 2026, alle
+/// 12:42: Medora diceva *"Il cielo di stasera ascolta con me"* a mezzogiorno.
+/// Una frase fissa non sa che ora e', e non lo dice. Padre: ordine EG voce 01.
 String ilSalutoDellaVoceViva(Maestro maestro) => switch (maestro) {
-      Maestro.medora => 'Eccomi. Il cielo di stasera ascolta con me: dimmi '
-          'cosa ti porta qui.',
+      Maestro.medora => 'Eccomi. Il cielo ascolta con me: dimmi cosa ti '
+          'porta qui.',
       Maestro.aura => 'Eccomi. Prendi un respiro con me, poi dimmi cosa '
           'senti.',
       Maestro.caligo => 'Sono qui. Le rune tacciono finché non parli tu.',

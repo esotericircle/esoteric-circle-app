@@ -185,14 +185,48 @@ class NomeConLaNota extends StatelessWidget {
         // Un nome lungo ("Ptibiou, terzo decano dei Pesci") nel carattere
         // piu' grande andrebbe su tre righe: sopra i diciotto caratteri si
         // scrive nel cerimoniale normale.
+        //
+        // **E UNA PAROLA NON SI SPEZZA.** Visto sul Realme il 30 settembre
+        // 2026, nell'oroscopo di un'amica del Capricorno: "CAPRICORN / O".
+        // Fra i due spazi del punto interrogativo restano 224 punti, e nel
+        // carattere grande "Capricorno" e "Sagittario" ne vogliono di piu'.
+        // Padre: ordine ES voce 10, che ha messo il punto interrogativo
+        // accanto al nome. La misura si sceglie misurando la parola piu'
+        // lunga: se nel grande non entra si scrive nel normale, e se non
+        // entra nemmeno li' la riga si rimpicciolisce intera.
         Flexible(
-          child: Text(nome,
-              key: chiave,
-              textAlign: TextAlign.center,
-              style: (nome.length > 18
-                      ? TypographyTokens.cerimoniale()
-                      : TypographyTokens.cerimonialeGrande())
-                  .copyWith(color: palette.goldSoft)),
+          child: LayoutBuilder(builder: (context, vincoli) {
+            final scala = MediaQuery.textScalerOf(context);
+            double parolaPiuLunga(TextStyle stile) {
+              var massima = 0.0;
+              for (final parola in nome.split(' ')) {
+                final pittore = TextPainter(
+                  text: TextSpan(text: parola, style: stile),
+                  textDirection: TextDirection.ltr,
+                  textScaler: scala,
+                  maxLines: 1,
+                )..layout();
+                if (pittore.width > massima) massima = pittore.width;
+                pittore.dispose();
+              }
+              return massima;
+            }
+
+            final grande = TypographyTokens.cerimonialeGrande();
+            final normale = TypographyTokens.cerimoniale();
+            // Due punti di margine: una parola che entra per un decimo di
+            // punto sul telefono va a capo lo stesso.
+            final spazio = vincoli.maxWidth - 2;
+            final stile = nome.length > 18 || parolaPiuLunga(grande) > spazio
+                ? normale
+                : grande;
+            final testo = Text(nome,
+                key: chiave,
+                textAlign: TextAlign.center,
+                style: stile.copyWith(color: palette.goldSoft));
+            if (parolaPiuLunga(stile) <= spazio) return testo;
+            return FittedBox(fit: BoxFit.scaleDown, child: testo);
+          }),
         ),
         SizedBox(
           width: 44,
