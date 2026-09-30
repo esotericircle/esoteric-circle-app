@@ -309,8 +309,9 @@ void main() {
     // settembre 2026, dai due pezzi dell'ordine.
     'ET': 10,
     // ES: trentasette voci, contate coi titoli "## VOCE ES." del manifesto il
-    // 28 settembre 2026, dai quattro pezzi dell'ordine.
-    'ES': 37,
+    // 28 settembre 2026, dai quattro pezzi dell'ordine; trentotto dal 30
+    // settembre sera, con la ES.38 (il suono del responso dell'Oroscopo).
+    'ES': 38,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

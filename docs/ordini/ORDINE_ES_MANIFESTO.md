@@ -8,7 +8,12 @@ pezzi sostituisce ogni versione precedente dell'ordine ES e la ES Aggiunta.
 **Ramo:** `claude/esoteric-circle-master-order-e798aj`.
 **Partenza:** commit `acc38528`, col cancello di GitHub verde su quel commit
 (dodici controlli su dodici e il segno `refs/verde/acc38528...`). **Questo
-ordine non consegna niente**: le build le ordina il fondatore.
+ordine non consegna niente**: le build le ordina il fondatore. **E il 30 settembre
+il fondatore l'ha ordinata**: la build Android con App Distribution e il commit pronto
+per Codemagic, senza consegne parziali (*"Devi finire tutto, non fare consegne
+parziali, non m'interessa a che ora finisci"*). Nella stessa sera ha aggiunto le
+sue richieste sull'Oroscopo, integrate nelle voci ES.01, ES.02, ES.03, ES.04, ES.08,
+ES.09 ed ES.12, e il suono del responso, la voce ES.38.
 
 Le nove voci aperte dell'ordine ET proseguono qui (PARTE 3): ET.01 nella
 ES.19, ET.02 nella ES.20, ET.03 nella ES.21, ET.04 nella ES.22, ET.06 nella
@@ -21,9 +26,9 @@ voci rapide e sicure, poi l'Oroscopo occidentale, piani, Cinese e Vedica,
 amici, online, Sigillo, infine le voci ET, con commit e spinta a ogni voce
 chiusa.
 
-VOCI_TOTALI: 37
-VOCI_CHIUSE: 2
-VOCI_APERTE: 35
+VOCI_TOTALI: 38
+VOCI_CHIUSE: 7
+VOCI_APERTE: 31
 VOCI_DA_FARE: 0
 
 Le prove stanno in `docs/collaudo/ES/`, quelle del telefono di prova
@@ -37,47 +42,77 @@ loro registrazione dello schermo.
 
 ## VOCE ES.01, BREVE E APPROFONDITA, SENZA MEDIA
 
-**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (blocco 2 dell'ordine ES). Le profondita' sono due, Breve e Approfondita: la Media non c'e' piu' nel codice, il
-selettore dice "Approfondita" e la pagina dei piani "Scelta della profondità dell'oroscopo:
-Breve o Approfondita". Con la carta natale l'Approfondita resta com'e' (tre passaggi del
-cielo). Senza, aggiunge dove sono oggi la Luna e il corpo del dominio (il Sole per il
-Generale, Venere per l'Amore, Marte per la Carriera, Giove per la Fortuna) e in quale casa
-solare del segno (`lib/core/horoscope/il_cielo_del_segno.dart`). La Cinese e la Vedica
-avranno le due profondita' con le voci ES.08 ed ES.09. Mancano le catture dal Realme.
+**CHIUSA.** Vista sul Realme il 30 settembre 2026 sera, build di prova dal commit `6e8fddb0`:
+il selettore dice "Breve" e "Lunga" (`docs/collaudo/ES/realme/es_final_selettore_breve_lunga.jpg`),
+e la Lunga aggiunge davvero sulla Settimana (`es_final_settimana_lunga_giorni.jpg`) e sull'Anno
+(`es_final_anno_lavoro_breve.jpg` contro `es_final_anno_lavoro_lunga.jpg`). Le profondita' sono
+due, Breve e Lunga: la Media non c'e' piu' nel codice, e **dal 30 settembre "Approfondita" si
+chiama "Lunga"** (`AnswerDepth.profonda`, e la pagina dei piani "Breve o Lunga"), come ha deciso il
+fondatore. Con la carta natale la Lunga del Giorno resta com'e' (tre passaggi del cielo). Senza,
+aggiunge dove sono oggi la Luna e il corpo del dominio (il Sole per il Generale, Venere per l'Amore,
+Marte per la Carriera, Giove per la Fortuna) e in quale casa solare del segno
+(`lib/core/horoscope/il_cielo_del_segno.dart`). **Il pulsante della profondita' sta su ogni
+scheda**, come ha chiesto il fondatore il 30 settembre: il Giorno, l'Anno (quattro schede), la
+Settimana e il Mese (quattro campi), la Cinese e la Vedica, l'oroscopo di un amico. La Lunga e' dei
+piani a pagamento (`PlanCatalog.haProfondita`); al Viandante la voce ha il lucchetto e l'invito al
+piano, anche sull'Anno comprato con gli Eos. La scelta vale per il campo, in ogni periodo: chi
+sceglie la Lunga per il Generale la ritrova nel Generale dell'Anno. Cosa aggiunge la Lunga: nella
+Settimana e nel Mese le righe dei giorni (sette, e tre giorni chiave nel Mese), ognuna con la sua
+lettura e sotto il suo "da dove viene"; nell'Anno i testi del Sole e della Luna nel Generale, di
+Saturno nel Lavoro, la seconda lettura del caso nell'Amore e nella Fortuna; nella Cinese e nella
+Vedica la seconda lettura dello stesso caso e le righe del giorno. Guardia
+`la_profondita_sta_su_ogni_scheda` (otto prove), rossa su otto innesti.
 
-DOMANDA: "io terrei breve e approfondita Senza media, ok?"; domanda girata al fondatore: la scheda dell'Oroscopo dell'Architetto ("per chi non ha dato ora e luogo di nascita è identica alla Breve"; "Una Profonda che dica di più anche senza carta natale"), risposta: "In verità seguo e approvo ogni tuo consiglio."
+DOMANDA: "io terrei breve e approfondita Senza media, ok?"; domanda girata al fondatore: la scheda dell'Oroscopo dell'Architetto ("per chi non ha dato ora e luogo di nascita è identica alla Breve"; "Una Profonda che dica di più anche senza carta natale"), risposta: "In verità seguo e approvo ogni tuo consiglio."; 30 settembre 2026: "Ogni scheda deve avere sempre il pulsante profondità e la scelta "approfondita" è esclusiva dei premium."; "Nel selettore profondità cambiamo "Approfondita" in Lunga"
 
-PROVA: docs/collaudo/ES/profondita.txt
-MISURA: schede Approfondite identiche alla Breve senza carta natale, prima 48 su 48, dopo 0 su 48; voci "Media" e "Profonda" a video e nella pagina dei piani, dopo 0
+PROVA: docs/collaudo/ES/regola_a_simbolo_e_profondita.txt
+MISURA: schede Approfondite identiche alla Breve senza carta natale, prima 48 su 48, dopo 0 su 48 (docs/collaudo/ES/profondita.txt); voci "Media" e "Profonda" a video e nella pagina dei piani, dopo 0; voce "Approfondita" a video, prima 1, dopo 0 ("Lunga"); schede col pulsante della profondita', prima l'Anno 0 su 4, la Settimana e il Mese 0 su 4, l'amico 0 su 4, dopo 4 su 4 in tutti e tre (sul Realme viste la Generale, l'Amore e la Fortuna della Settimana, il Lavoro dell'Anno, la Generale e l'Amore dell'amica); schede dell'Anno in cui la Lunga dice di piu' della Breve, dopo 48 su 48
 
 ## VOCE ES.02, IL SETTIMANALE: LA PREVISIONE DEI PROSSIMI SETTE GIORNI
 
-**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (blocco 2 dell'ordine ES). La Settimana si apre dall'Iniziato (al Viandante l'invito nomina
-l'Iniziato) e mostra i fatti del cielo dei sette giorni (fasi della Luna con l'ora, ingressi
-col giorno, "torna" quando il pianeta e' retrogrado), e per ogni dominio il giorno migliore, il
-momento chiave con giorno e ora e una riga per giorno col livello e la sua ragione
+**CHIUSA.** Vista sul Realme il 30 settembre 2026 sera, build di prova dal commit `6e8fddb0`
+(`docs/collaudo/ES/realme/es_final_settimana_generale.jpg`, `es_final_settimana_amore.jpg`,
+`es_final_settimana_lunga_giorni.jpg`, `es_final_settimana_fondo_condividi.jpg`). La Settimana si
+apre dall'Iniziato (al Viandante l'invito nomina l'Iniziato). **Dal 30 settembre e' nelle tre parti
+delle Linee Guida (sezione 2)**, dopo il fondatore davanti all'anteprima in cui ogni giorno portava
+solo i suoi transiti: *"all'utente non gliene frega un cazzo dei transiti [...] Vuole sapere come
+andrà in generale, in amore, in lavoro, ecc."*. Per ogni campo: le barre dei sette giorni (il
+colpo d'occhio, alte da 20 a 56 punti secondo il livello, il giorno migliore in oro), **la risposta**
+in parole (*"In amore la settimana è favorevole. Va meglio verso la fine."*), il giorno migliore,
+**che cosa fare** (la lettura di quel giorno), e solo in fondo **"Da dove viene"**: il momento
+chiave col giorno e l'ora. Nella Lunga le righe dei sette giorni, ognuna con la lettura in parole
+e sotto il suo "da dove viene". I fatti del cielo della settimana (fasi della Luna con l'ora,
+ingressi col giorno, "torna" quando il pianeta e' retrogrado) stanno in fondo alla pagina, sotto
+il titolo "Da dove viene: il cielo della settimana"
 (`lib/core/horoscope/la_settimana_del_cielo.dart`, `lib/features/horoscope/il_periodo_view.dart`).
-Senza ora e luogo la schermata dice che si legge sul segno e sulle case solari. Mancano: la
-lettura una tantum con gli Eos (voce ES.06), la card della settimana con il suo emblema
-(ES.05), la registrazione dal Realme.
+**Ogni giorno e' coerente col Giorno**, come ha chiesto il fondatore: la riga di un giorno dice la
+stessa lettura e lo stesso livello della scheda del Giorno che la persona trovera' quel giorno
+(guardia `la_settimana_e_il_giorno_dicono_lo_stesso`, 7.008 righe). Senza ora e luogo la schermata
+dice che si legge sul segno e sulle case solari. La card della settimana col suo emblema e
+l'etichetta di condivisione intera col premio (*"Condividi la settimana · +15 Eos"*) sono viste
+sul Realme. Resta fuori da questa voce la lettura una tantum con gli Eos (ES.06).
 
-DOMANDA: "l'oroscopo settimanale in cosa consiste secondo te? Non è un abbonamento settimanale, ma l'oroscopo di previsione dei prossimi 7 giorni, giusto? Per il resto approvo tutto."; "Per settimanale e mensile serve veramente il motore ad effemeridi?"; domanda girata al fondatore: il contenuto del settimanale proposto dall'Architetto, risposta: "Si tutto ok."
+DOMANDA: "l'oroscopo settimanale in cosa consiste secondo te? Non è un abbonamento settimanale, ma l'oroscopo di previsione dei prossimi 7 giorni, giusto? Per il resto approvo tutto."; "Per settimanale e mensile serve veramente il motore ad effemeridi?"; domanda girata al fondatore: il contenuto del settimanale proposto dall'Architetto, risposta: "Si tutto ok."; 30 settembre 2026: "Ho letto anteprima della risposta oroscopo settimanale dove per ogni giorno della settimana c'è il transito: all'utente non gliene frega un cazzo dei transiti, quante volte devo scriverlo e chiederlo? Vuole sapere come andrà in generale, in amore, in lavoro, ecc. Se vuoi inserire i transiti, li inserisci dopo giusto per motivare da dove arriva la risposta."; "l'utente che chiede l'oroscopo settimanale riceve un responso per ogni giorno della settimana che, controlla, dovrà essere coerente con quello giornaliero, nel caso lo chiederà."
 
-PROVA: docs/collaudo/ES/settimana.txt
-MISURA: righe della settimana senza un fatto del cielo dietro, 0 su 112; settimane identiche per due carte diverse dello stesso segno, 0 su 3; fasi della Luna oltre due minuti dal JPL, 0 su 25 (scarto massimo 0,47 minuti)
+PROVA: docs/collaudo/ES/regola_a_settimana_e_giorno.txt
+MISURA: righe della settimana che aprono col transito, prima 28 su 28 (sette giorni per quattro campi), dopo 0: la risposta, il giorno migliore e il che cosa fare senza simboli in 192 campi su 192 (docs/collaudo/ES/regola_a_simbolo_e_profondita.txt); righe della Settimana e del Mese con un livello diverso dalla scheda del Giorno di quel giorno, prima 40 su 7.008, dopo 0; con una lettura diversa, dopo 0 su 7.008; righe senza un fatto del cielo dietro, 0 su 112; fasi della Luna oltre due minuti dal JPL, 0 su 25 (docs/collaudo/ES/settimana.txt)
 
 ## VOCE ES.03, IL MENSILE
 
-**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (blocco 2 dell'ordine ES). Il Mese si apre dall'Adepto e mostra i trenta giorni: le lune nuove e
-piene e le eclissi nelle case (natali con la carta, solari senza), gli ingressi, e per ogni
-dominio il giorno migliore, il momento chiave e i tre giorni chiave. Le eclissi vengono dal
-motore gia' verificato col canone (ordine CE voce 16). Mancano la lettura con gli Eos (ES.06), la
-card del mese (ES.05) e la cattura dal Realme.
+**CHIUSA.** Visto sul Realme il 30 settembre 2026 sera (`docs/collaudo/ES/realme/es_final_mese_generale.jpg`,
+e il fondo con la card del mese dalla build di prova 2289, `es_2289_mese_fondo.jpg`). Il Mese si
+apre dall'Adepto e, come la Settimana, **risponde nelle tre parti** (ES.02): per ogni campo le trenta
+barre, la risposta in parole, il giorno migliore, che cosa fare, e in fondo "Da dove viene"; nella
+Lunga i tre giorni chiave, ognuno con la sua lettura e il suo "da dove viene". Le lune nuove e piene
+e le eclissi nelle case (natali con la carta, solari senza) e gli ingressi stanno in fondo alla
+pagina, sotto "Da dove viene: il cielo del mese". Le eclissi vengono dal motore gia' verificato col
+canone (ordine CE voce 16). Ogni giorno del Mese e' coerente col Giorno (la stessa guardia della
+ES.02). Resta fuori da questa voce la lettura con gli Eos (ES.06).
 
-DOMANDA: "Per settimanale e mensile serve veramente il motore ad effemeridi?"; domanda girata al fondatore: "Mensile, dall'Adepto in su: il mese sulla carta natale, con lune nuove e piene nelle tue case, eclissi, ingressi e i giorni chiave", risposta: "Si tutto ok."
+DOMANDA: "Per settimanale e mensile serve veramente il motore ad effemeridi?"; domanda girata al fondatore: "Mensile, dall'Adepto in su: il mese sulla carta natale, con lune nuove e piene nelle tue case, eclissi, ingressi e i giorni chiave", risposta: "Si tutto ok."; 30 settembre 2026: "Vuole sapere come andrà in generale, in amore, in lavoro, ecc. Se vuoi inserire i transiti, li inserisci dopo giusto per motivare da dove arriva la risposta."
 
-PROVA: docs/collaudo/ES/mese.txt
-MISURA: righe del mese senza un fatto del cielo dietro, 0 su 120; fasi della Luna contro il JPL, scarto massimo 0,47 minuti su 25; eclissi di febbraio 2027 trovate 2 su 2
+PROVA: docs/collaudo/ES/realme/es_final_mese_generale.jpg
+MISURA: campi del mese che aprono col transito, prima 4 su 4, dopo 0 su 4 (e 0 su 192 campi misurati in prova, docs/collaudo/ES/regola_a_simbolo_e_profondita.txt); righe del mese senza un fatto del cielo dietro, 0 su 120 (docs/collaudo/ES/mese.txt); fasi della Luna contro il JPL, scarto massimo 0,47 minuti su 25; eclissi di febbraio 2027 trovate 2 su 2
 
 ## VOCE ES.04, L'ANNUALE, DAL COMPLEANNO
 
@@ -98,8 +133,18 @@ Saturno rovesciato (`lib/core/horoscope/l_annuale.dart`). Le frasi vengono dal c
 `docs/corpus/oroscopo_annuale.md` (252 frasi) attraverso `tool/_gen_oroscopo_annuale.py`, e la
 variante cambia ogni anno. Al prossimo ritorno del Sole parte l'avviso "il tuo anno nuovo e'
 pronto" (canale `oroscopo_annuale`), solo col permesso gia' concesso; l'Illuminato ha il PDF
-dell'anno, con l'emblema dell'Anno in copertina (voce ES.05). Mancano le catture dal Realme
-dell'anno aperto, dell'invito con gli Eos, del PDF e dell'avviso.
+dell'anno, con l'emblema dell'Anno in copertina (voce ES.05). **Dal 30 settembre le schede
+dell'Anno rispondono nelle tre parti**: i titoli sono in parole (*"Il tono del tuo anno"*,
+*"L'amore nel tuo anno"*, *"Il lavoro nel tuo anno"*, *"La fortuna nel tuo anno"*; prima erano
+*"Venere in casa 5"*), la lettura dice come va e che cosa fare, e l'Ascendente, i pianeti e le
+case stanno nella riga "Da dove viene", sotto; le 252 frasi del corpus sono riscritte con le due
+parti (`TESTO || DA DOVE VIENE`). Ogni scheda ha la sua profondita' (ES.01), e nel PDF la riga
+del simbolo porta il suo nome, "DA DOVE VIENE". **Visto sul Realme l'anno aperto**, con la
+Generale in Lunga e il Lavoro in Breve e in Lunga (`docs/collaudo/ES/realme/es_final_anno_generale_lunga.jpg`,
+`es_final_anno_lavoro_breve.jpg`, `es_final_anno_lavoro_lunga.jpg`, e dalla 2289
+`es_2289_anno_testa.jpg`, `es_2289_anno_fondo.jpg`). Mancano le catture dal Realme dell'invito
+con gli Eos (il Viandante non si sceglie dal telefono nella demo), del PDF e dell'avviso del
+compleanno.
 
 DOMANDA: "Inoltre, cosa ne dici dell'oroscopo annuale da integrare?"; domanda girata al fondatore: l'annuale proposto dall'Architetto (Rivoluzione Solare dal compleanno, notifica e card, dall'Adepto in su, 300 Eos, PDF all'Illuminato), risposta: "Per il resto approvo tutto."
 
@@ -185,8 +230,16 @@ si chiede la data. Il catalogo dei piani lo dice: una voce dell'Iniziato e la ri
 del giorno" (Viandante: solo il segno). **Un difetto della regola delle varianti preso dalla Regola
 A e riparato prima della consegna**: il corpus proponeva il giorno giuliano modulo le varianti, e
 chi era nato Topo leggeva la stessa frase ogni volta che tornava il Cavallo (il ramo torna ogni
-dodici giorni); adesso la variante conta i ritorni del caso. Mancano le catture dal Realme: la
-Cinese sul gratuito e da Iniziato, la corsa degli animali, le quattro schede.
+dodici giorni); adesso la variante conta i ritorni del caso. **Dal 30 settembre la lettura
+cinese risponde nelle tre parti**: le 224 frasi del corpus riscritte con le due parti (il testo in
+parole di tutti i giorni, poi il "da dove viene" con l'animale, il guardiano e il dio), 59 titoli
+in parole (*"Campo libero"*, *"Una giornata controvento"*; prima portavano il nome dell'animale),
+l'amato al neutro nelle serie dell'Amore; la Breve legge il rapporto e il guardiano, la Lunga
+aggiunge "Adatto a" e "Meglio evitare", la direzione del Dio della Gioia e la seconda lettura del
+dio. **Visti sul Realme** il segno in cima e le quattro schede da piano pagato, col suono del
+responso (`docs/collaudo/ES/realme/es_final_cinese_generale.jpg`, `es_2289_cinese_testa.jpg`).
+Mancano la Cinese sul gratuito (il Viandante non si sceglie dal telefono nella demo) e la
+registrazione della corsa degli animali.
 
 DOMANDA: "Mi hai consigliato tu di sbloccare in MVP anche vedico e cinese!"; "Se sceglie oroscopo cinese significa che è selezionabile e sbloccato"; "Le risposte devono seguire le regole delle risposte. Ma possiamo usare lo stesso tipo di linguaggio e ci sono delle tradizioni o metodi o pratiche da seguire in particolare? Quindi, il repsonso avverrà con la stessa animazione e con la stessa divisione in generica, amore, lavoro e fortuna?"; domanda girata al fondatore: il metodo dell'Architetto (almanacco Tong Shu e Dieci Dei del BaZi) e "Confermi il Capodanno lunare per il segno cinese e il segno lunare per il vedico?", risposta: "COnfermo tutto."
 
@@ -213,8 +266,16 @@ vengono dal corpus `docs/corpus/oroscopo_vedico.md` (142 frasi) attraverso
 `tool/_gen_oroscopo_vedico.py`, con la variante che segue il ritorno del caso come nella Cinese; il
 motore sta in `lib/core/horoscope/la_lettura_vedica.dart`. Il catalogo dei piani lo dice. **Da
 decidere col fondatore**: i colori del venerdi' e del sabato (il testo dice "variegato" e "nero",
-la pratica popolare bianco e blu); il corpus e' una bozza da rileggere. Mancano le catture dal
-Realme.
+la pratica popolare bianco e blu); il corpus e' una bozza da rileggere. **Dal 30 settembre la
+lettura vedica risponde nelle tre parti**: le 142 frasi del corpus riscritte con le due parti,
+i titoli delle schede in parole (48, uno per casa e per scheda); la Luna, le case, la tara e il Rahu stanno nel "da dove viene". **Quando la
+Luna e la stella dicono cose opposte** (32 giorni su 120 per la nascita della prova) la lettura
+apre con la risposta del livello (*"Oggi la giornata è in salita, anche se non tutto frena"*) e le
+due voci si leggono come due lati (*"Da una parte... Dall'altra..."*): nelle tre parti, senza il
+simbolo davanti, erano due consigli opposti uno dopo l'altro. **Vista sul Realme** proprio in un
+giorno cosi', il 30 settembre (`docs/collaudo/ES/realme/es_final_vedica_generale.jpg`,
+`es_2289_vedica_testa.jpg`). Mancano la Vedica sul gratuito (il Viandante non si sceglie dal
+telefono nella demo) e la registrazione della corsa dei segni.
 
 DOMANDA: "Mi hai consigliato tu di sbloccare in MVP anche vedico e cinese!"; "Se sceglie oroscopo cinese significa che è selezionabile e sbloccato"; domanda girata al fondatore: il metodo dell'Architetto (segno lunare siderale Lahiri, Chandra Bala, Tara Bala, Rahu Kalam) e "Confermi il Capodanno lunare per il segno cinese e il segno lunare per il vedico?", risposta: "COnfermo tutto."
 
@@ -255,8 +316,10 @@ MISURA: tradizioni col lucchetto, prima 6, dopo 0; webp uguali a quelli del PC, 
 
 ## VOCE ES.12, GLI AMICI OFFLINE E L'OROSCOPO PER GLI AMICI
 
-**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata, da vedere sul Realme. In fondo
-all'oroscopo c'e' "L'oroscopo per un amico". **Gli amici offline** (`lib/core/amici/amici_offline.dart`)
+**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata, vista in parte sul Realme. **"L'oroscopo
+per un amico" sta in alto**, nella barra dell'Oroscopo accanto alla freccia, in ogni periodo: dal
+30 settembre, quando il fondatore ha chiesto che *"deve stare in alto e non per ultimo"*; prima
+era l'ultima cosa della pagina. **Gli amici offline** (`lib/core/amici/amici_offline.dart`)
 tengono nome, data, ora e luogo di nascita, stanno sul telefono, se ne vanno con l'account
 (prefisso `amici_offline` in `CioCheETuo`) e sono nello scarico dei dati: sono il contenitore che
 le altre funzioni di compatibilita' potranno richiamare. Il Viandante vede la voce e il tocco lo
@@ -269,8 +332,13 @@ suo animale; la Vedica dalla sua Luna di nascita, e senza l'ora, nei giorni in c
 segno, chiede l'ora invece di scegliere a caso. Si parla al neutro, perche' il genere dell'amico
 non si sa. **Scelta presa con la risposta consigliata**: gli amici restano sul telefono e non
 salgono sul server, come i luoghi e le preferenze; il giorno che l'app diventera' social si
-decidera' se e come. Mancano le catture dal Realme della lista, dell'invito, del tetto e delle
-tre letture.
+decidera' se e come. **Ogni scheda dell'amico ha la sua profondita'** (ES.01) e sotto la lettura
+la riga "Da dove viene", come quelle di chi usa l'app. **Visti sul Realme** il pulsante in alto
+(`docs/collaudo/ES/realme/es_final_testa_amico_in_alto.jpg`), la lista degli amici che apre
+(`es_final_amici_dalla_barra.jpg`) e la lettura dell'amica col selettore e il "da dove viene"
+(`es_final_amica_scheda.jpg`). Mancano le catture dall'invito del Viandante e del tetto (il
+Viandante non si sceglie dal telefono nella demo, e il piano della demo non ha tetto), e della
+Cinese e della Vedica dell'amico.
 
 DOMANDA: "Ho intenzione di inserire la possibilità ai premium di poter calcolare l'oroscopo per gli amici così da poterlo condividere con gli amici e creare vitalità: l'utente premium potrà inserire data e ora di nascita dell'amico, scegliere la tipologia di oroscopo, scoprire il segno corrispondete e creare l'oroscopo e con la condivisione inviarlo all'amico."; "servirà che l'utente inserisca i dati e il nome dell'amico che verranno memorizzati in un contenitore "amici offline" che potranno essere richiamati nelle altre funzionalità di compatibilità. Ti ricordo che l'app dovrà diventare "Social""; "No, l'utente free non può fare orsocopo per amici, lo vede e se fa click, viene invitato a sottoscrivere abbonamento"; domanda girata al fondatore: "3 per l'Iniziato, 10 per l'Adepto, nessun limite per l'Illuminato [...] 100 Eos per un posto in più", risposta: "ok , approvato".
 
@@ -328,14 +396,17 @@ MISURA: al centro della barra "Eventi Cosmici", prima 1, dopo 0; "Online" con la
 
 ## VOCE ES.16, IL SIGILLO DEL SOGNO DI MEDORA NON PARLA DI RUNE
 
-**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (commit `770cccb2`), manca la cattura
-dal Realme, con la build di prova del blocco. Padre: ordine P voce 18, la Runa del Tramonto,
-portata nel Sigillo dalla DD.04 quando il Sigillo ruotava fra i Maestri.
+**CHIUSA.** Prodotta e agganciata (commit `770cccb2`) e vista sul Realme il 30 settembre 2026
+alle 22:31, build di prova dal commit `6e8fddb0`: la nebbia diradata col gesto di ripiego, le sei
+stelle dei Gemelli unite, il saluto di Medora e la buonanotte, e nessuna parola su rune in tutta
+la schermata (`docs/collaudo/ES/realme/es_final_sigillo_sogno.jpg`, `es_final_sigillo_sogno_compiuto.jpg`,
+`es_final_sigillo_sogno_saluto.jpg`). Padre: ordine P voce 18, la Runa del Tramonto, portata nel
+Sigillo dalla DD.04 quando il Sigillo ruotava fra i Maestri.
 
 DOMANDA: "C'è una cosa grave da aggiungere all'ordine: in screenshot è chiaro, il sigillo del sogno, adesso solo di Medora, parla di Rune!"
 
 PROVA: docs/collaudo/ES/sigillo_senza_rune.txt
-MISURA: frasi della schermata del Sigillo con parole di un Maestro che non e' Medora, prima 1 (la riga della Runa del Tramonto), dopo 0 su 85
+MISURA: frasi della schermata del Sigillo con parole di un Maestro che non e' Medora, prima 1 (la riga della Runa del Tramonto), dopo 0 su 85; sul Realme, testi a schermo con "runa" o "rune" dal saluto alla buonanotte, 0
 
 ## VOCE ES.17, UNA SOLA NOTIFICA PER DONO, COL NOME GIUSTO
 
@@ -399,7 +470,11 @@ arrivavano al Maestro, che li prometteva. Ora il Maestro riceve il nome del pass
 il corpus del fondatore non è stato toccato. **Da decidere col fondatore, scelta consigliata già
 applicata**: il Sentiero del Cammino del gesto "sogno" resta quello di Caligo (spostarlo cambierebbe
 i traguardi già raccolti); le 99 promesse del corpus vanno riscritte da lui o tenute come nomi dei
-passi. Mancano le catture dal Realme del foglio e della card.
+passi. **Sul Realme il 30 settembre alle 22:34** il foglio "Da dove nasce questo dono" scriveva
+*"(Senti con curiosità e parole: le emozioni si fanno racconto.)."*, il punto dentro e fuori la
+parentesi (padre il commit `c49de157` del 24 luglio, il Rito del Sogno rifatto): curato, e la
+prova lo misura su trenta notti e dodici segni (0 fogli su 210, rossa 210 su 210 sul codice di
+prima). Mancano la cattura del foglio dopo la cura e quella della card.
 
 DOMANDA: "code deve controllare ancora tutto il funzionamento del sigillo del sogno e le risposte!"; le domande del fondatore da farsi su ogni funzionalità, del 27 settembre: "trasparenza, coerenza, verità e funzionalità", "c'è qualcosa di inventato?".
 
@@ -484,6 +559,21 @@ avvicina"*, *"Questo matrimonio rafforza il tuo cammino"*) o il suo stato d'anim
 (*"il suo cuore ha bisogno di tempo"*), che una rete di parole non riconosce. **Il 30 su 30 non c'e'**:
 al quinto giro il migliore e' Medora, 27, 28, 28 e 28 su 30 nei suoi quattro fascicoli; Calìgo 22, 27,
 26 e 26; Aura 24, 21, 25 e 25. **Lo zero delle certezze non c'e'**: 19 su 360.
+
+**Il "quando", dal sesto al nono giro** (29 e 30 settembre, dopo che nel LIVE sul Realme due
+domande sul quando hanno avuto la stessa risposta, *"non prima dell'autunno"*: era l'esempio
+dell'istruzione, e al banco stava in 12 e 11 prime frasi su 24 nel quarto e nel quinto giro).
+L'istruzione del quando non da' piu' una stagione da ricopiare, porta la data di oggi e chiede un
+tempo (`lib/core/chat/la_posizione_della_lettura.dart`, guardia allargata, rossa su quattro
+innesti). Nei tre giri col codice nuovo (`es7`, `es8`, `es9`) la prima frase nomina un tempo 72
+volte su 72 e l'esempio ricopiato non torna (0 su 72 *"autunno"*); ma **i passaggi del cielo
+inventati o sbagliati non sono a zero**: 2, 1 e 3 su 24 (*"non prima che Venere abbia ripreso il
+suo moto diretto fra due giorni"*, quando fra due giorni Venere diventa retrograda), e *"tre mesi"*
+torna in 8 risposte su 24 (`docs/collaudo/ES/quando_ricopiato.txt`). **Alla lettura alla cieca
+del codice che parte** (fascicolo `es8mix`, il sesto e l'ottavo giro mescolati, stessi giudici):
+prime frasi che rispondono 310 e 311 su 360, nel merito 315 e 326, risposte con una certezza 16 e
+11, errori di italiano citati 64 e 51, seconde domande delle coppie nel merito 48 e 56 su 60.
+Cioe' il codice che parte non e' peggiore di quello di prima, e il 30 su 30 non c'e'.
 
 DOMANDA: dalla ET.01: "Bisogna fare delle prove, 30 domande per ogni maestro, con domande classiche q più frequenti. Gli utenti faranno domande personali e anche intime nella maggior parte dei casi. Ma anche per la fortuna e lavoro."; domanda girata al fondatore: "Ritocchi alle reti che scartano le risposte dirette (il sì detto senza "sì", il no detto con "non", il "sì, se" sulla coppia): entrano, perché senza non si arriva a 30 su 30. Confermi?", risposta: "Confermo tutto".
 
@@ -810,3 +900,24 @@ DOMANDA: riga dell'Architetto: "un Sigillo "Tre Cieli" per chi legge tutte e tre
 
 PROVA: docs/collaudo/ES/regola_a_blocco_es19_es37.txt
 MISURA: il Sigillo acceso dopo la terza tradizione letta nello stesso giorno, prima non esisteva, dopo acceso 1 su 1 e contato 1 giorno; acceso con due tradizioni, 0
+
+## PARTE 5, LA RICHIESTA DEL FONDATORE DEL 30 SETTEMBRE SERA
+
+## VOCE ES.38, IL SUONO DEL RESPONSO DELL'OROSCOPO
+
+**CHIUSA.** Alla comparsa del responso dell'Oroscopo suonava la rivelazione
+(`rivelazione.mp3`, 1,5 secondi), che resta dove era nata (la stesa dei tarocchi, il Sigillo
+dei Tre Cieli). Adesso suona il file del fondatore, `sound effect/orchestral-game-notification-2026-05-18-17-43-39-utc/Orchestral Game Notification.wav`,
+ottimizzato e convertito come gli altri effetti: MP3 mono 44,1 kHz 96 kbps, il silenzio in coda
+tolto con una sfumatura di 0,12 secondi, 2,72 secondi, 33.585 byte contro i 532.748 del WAV,
+sonorita' -15,95 LUFS contro il bersaglio -16 della famiglia (`assets/audio/responso_oroscopo.mp3`,
+`SuonoDelCerchio.responso`, il quattordicesimo del catalogo, e il registro `docs/sonorita.json`).
+La soglia al tocco resta. Sul Realme il suono si e' misurato dal sistema audio del telefono, in
+Occidentale e in Cinese: una traccia in piu' alla comparsa del responso, fra 2,4 e 2,8 secondi.
+Regola B sulla guardia della zona, rossa su due innesti; le pretese nuove rosse su due innesti
+(`docs/collaudo/ES/regola_b_suono_del_responso.txt`).
+
+DOMANDA: "Quando compare il responso del l'oroscopo si sente un suono che va eliminato. Sostituiscilo con: Orchestral Game Notification.wav nel percorso: esoteric-circle-app\sound effect\orchestral-game-notification-2026-05-18-17-43-39-utc  Dammi conferma che lo vedi. Va ottimizzato e convertito in mp3"
+
+PROVA: docs/collaudo/ES/suono_del_responso_realme.txt
+MISURA: suono alla comparsa del responso, prima rivelazione.mp3 di 1,5 secondi, dopo responso_oroscopo.mp3 di 2,72 secondi (sul Realme una traccia in piu' da 3,7 a 6,1-6,5 secondi dal tocco, due consulti su due); peso del file, prima 532.748 byte in WAV, dopo 33.585 in MP3; sonorita' -15,95 LUFS contro il bersaglio -16 (tolleranza 3,5); suoni del catalogo, prima 13, dopo 14

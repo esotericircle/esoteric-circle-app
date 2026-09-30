@@ -5861,21 +5861,44 @@ dirette (ET.07); l'intro e il retro a 402 punti, che vogliono il fondatore
 
 Ordine del 28 settembre 2026 in quattro pezzi, trentasette voci, lavoro dal
 28 settembre (la stima dichiarata al fondatore prima di cominciare: 9-12
-giorni in otto blocchi; la sua scelta *"Tutto, a blocchi"*). Al commit
-`80730cc3` del 30 settembre: **2 voci chiuse** (ES.26, il retro delle schede
-a 402 punti; ES.27, l'intro registrata sul Realme), **35 aperte in attesa di
-verifica**, **nessuna da fare**. Manifesto `docs/ordini/ORDINE_ES_MANIFESTO.md`,
+giorni in otto blocchi; la sua scelta *"Tutto, a blocchi"*), piu' la ES.38
+chiesta il 30 settembre sera. Al 30 settembre sera: **7 voci chiuse** (ES.01,
+Breve e Lunga su ogni scheda; ES.02 ed ES.03, la Settimana e il Mese nelle
+tre parti e coerenti col Giorno; ES.16, il Sigillo del Sogno di Medora senza
+rune, visto sul Realme; ES.26, il retro delle schede a 402 punti; ES.27,
+l'intro registrata sul Realme; ES.38, il suono del responso dell'Oroscopo),
+**31 aperte in attesa di verifica**, **nessuna da fare**. Manifesto `docs/ordini/ORDINE_ES_MANIFESTO.md`,
 rapporto in stesura `docs/ordini/RAPPORTO_ORDINE_ES.md` (con le dodici scelte
 prese con la risposta consigliata, come ha chiesto il fondatore: *"Se hai
 domande, usa la risposta consigliata Senza disturbarmi"*), prove in
-`docs/collaudo/ES/`. **Nessuna build consegnata**: le build le ordina il
-fondatore; la build di prova per le catture sul Realme e la distribuzione
-delle funzioni del server nuove (`chiEOnline`, la notifica della ES.17) si
-fanno insieme, alla fine.
+`docs/collaudo/ES/`. **La build di consegna l'ha ordinata il fondatore il 30
+settembre** (*"Devi finire tutto, non fare consegne parziali"*): numero
+0.1.0+2289, Android con App Distribution e il commit pronto per Codemagic; il
+numero di chi e' online arriva gia' dal server (sul Realme *"Online adesso:
+una persona"*).
 
 **Che cosa c'e' adesso nell'app, per area.**
 
-- **L'Oroscopo**: Breve e Approfondita senza Media (ES.01); il settimanale e
+- **L'Oroscopo, dal 30 settembre sera nelle tre parti delle Linee Guida**
+  (la risposta, che cosa fare, e solo dopo "Da dove viene" col simbolo),
+  dopo il fondatore davanti alla Settimana che portava solo transiti: *"Vuole
+  sapere come andrà in generale, in amore, in lavoro, ecc. Se vuoi inserire
+  i transiti, li inserisci dopo giusto per motivare da dove arriva la
+  risposta."* Le 622 frasi dei corpora cinese, vedico e annuale sono
+  riscritte col formato `N. TESTO || DA DOVE VIENE` (`LePartiDelResponso`),
+  i titoli delle schede sono in parole, la guardia e'
+  `il_simbolo_non_apre_mai`. **Breve e Lunga su ogni scheda** (ES.01: la
+  voce "Approfondita" si chiama "Lunga", la Lunga e' dei piani a pagamento,
+  la scelta vale per il campo in ogni periodo); **la Settimana e il Mese per
+  campo** (ES.02, ES.03): le barre dei giorni, la risposta in parole, il
+  giorno migliore, che cosa fare, il "da dove viene" in fondo, e nella Lunga
+  le righe dei giorni, **ognuna coerente con la scheda del Giorno di quel
+  giorno** (stessa lettura, stesso livello: `la_settimana_e_il_giorno_dicono_lo_stesso`);
+  **"L'oroscopo per un amico" in alto**, nella barra; **la Vedica che apre
+  con la risposta** quando la Luna e la stella si contraddicono; **il suono
+  del responso** e' il file orchestrale del fondatore
+  (`assets/audio/responso_oroscopo.mp3`, ES.38). Prima di quella sera:
+  Breve e Approfondita senza Media (ES.01); il settimanale e
   il mensile col fatto del cielo di ogni giorno (ES.02, ES.03); **l'anno dal
   compleanno con la Rivoluzione Solare** (ES.04): il Sole e i pianeti dalle
   tavole di Chebyshev generate dal JPL DE421 (`lib/core/astro/le_effemeridi_del_jpl.dart`,
@@ -5942,15 +5965,22 @@ fanno insieme, alla fine.
   `es3mix`) e `docs/collaudo/ES/trascrizione/`. **Il 30 su 30, lo zero delle
   ripetizioni e il 20 su 20 non ci sono.**
 
-**Che cosa manca, voce per voce**: le catture dal Realme di tutte le voci
-aperte, con la build di prova; tre sere di osservazione della ES.17; il 30 su
+**Che cosa manca, voce per voce**: le catture dal Realme delle voci
+aperte (la build di prova 2289 e quella del 30 settembre sera ne hanno
+portate molte: l'Oroscopo in ogni periodo, la Cinese, la Vedica, l'amica, il
+suono misurato dal sistema audio; il Viandante non si sceglie dal telefono
+nella demo, e i suoi lucchetti li vedono solo le prove); tre sere di
+osservazione della ES.17; il prezzo in Eos della Lunga per chi non ha il
+Premium (regola 16 delle Linee Guida, lo decide il fondatore); il 30 su
 30 delle trenta domande (con la cura della prima frase di Aura), lo zero delle
 ripetizioni e il 20 su 20 del Viaggio, che tre giri di banco non hanno
 raggiunto; le parole della trascrizione e la voce del LIVE sul Realme col
 microfono del PC. Il rapporto lo dice voce per voce.
 
-**Le guardie**: il registro `docs/guardie.md` e' a **607** (categorie 144,
-182 e 281), con `le_certezze_dei_giudici`. Regola A in `docs/collaudo/ES/regola_a_*.txt`, Regola B in
+**Le guardie**: il registro `docs/guardie.md` e' a **616** (categorie 144,
+189 e 283), con `le_certezze_dei_giudici`, `l_oroscopo_visto_nelle_anteprime`,
+`la_profondita_sta_su_ogni_scheda`, `il_simbolo_non_apre_mai` e
+`la_settimana_e_il_giorno_dicono_lo_stesso`. Regola A in `docs/collaudo/ES/regola_a_*.txt`, Regola B in
 `docs/collaudo/ES/regola_b_*.txt`: **la guardia della posizione della prima
 frase non copriva il "quando"**, e' stata riparata. **La suite intera ha preso
 sedici difetti miei** sulle voci ES.04, ES.12 ed ES.15 prima della spinta, e
@@ -5960,7 +5990,7 @@ il rapporto li elenca col loro padre.
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.
 
-**L'UTENTE CERCA RISPOSTE E VUOLE SAPERE COSA FARE. NON USA L'APP PER IMPARARE.** Regola trasversale dettata da Mauro il 21 agosto 2026 con l'ordine AS, e vale su TUTTA l'app da qui in avanti. Ogni responso, ogni scheda, ogni dono: meno testo, piu' diretto. Un minimo di spiegazione va bene, ma transiti, pianeti e meccaniche non sono il contenuto: sono la ragione nascosta dietro la risposta. **Dove un testo si puo' togliere, si toglie invece di rimpicciolirlo.** I testi piccoli si ingrandiscono.
+**L'UTENTE CERCA RISPOSTE E VUOLE SAPERE COSA FARE. NON USA L'APP PER IMPARARE.** Regola trasversale dettata da Mauro il 21 agosto 2026 con l'ordine AS, e vale su TUTTA l'app da qui in avanti. Ogni responso, ogni scheda, ogni dono: meno testo, piu' diretto. Un minimo di spiegazione va bene, ma transiti, pianeti e meccaniche non sono il contenuto: sono la ragione nascosta dietro la risposta. **Dove un testo si puo' togliere, si toglie invece di rimpicciolirlo.** I testi piccoli si ingrandiscono. **Il 30 settembre 2026 il fondatore l'ha dovuta ripetere**, davanti alla Settimana dell'ordine ES che portava per ogni giorno solo i suoi transiti: *"all'utente non gliene frega un cazzo dei transiti, quante volte devo scriverlo e chiederlo?"*. Da allora vale scritta cosi', per ogni responso: **la risposta in parole di tutti i giorni, che cosa si puo' fare, e solo dopo "Da dove viene" col simbolo** (Linee Guida, sezione 2: *"il simbolo non apre mai"*). Chi scrive o esegue un ordine che descrive un responso lo mette accanto alle Linee Guida prima di cominciare; se l'ordine le contraddice, vincono le Linee Guida e lo si scrive nel rapporto. Per l'Oroscopo la guardia e' `test/il_simbolo_non_apre_mai_test.dart`.
 
 **UN DIFETTO SI MISURA PRIMA DI CURARLO, E LA MISURA PUO' ABBATTERE CHI L'HA CHIESTA.** Regola trasversale che l'ordine AU ha reso legge il 22 agosto 2026, dopo che quattro premesse del fondatore su quattordici voci sono cadute alla misura. Non si corregge in silenzio una premessa falsa e non si chiude una voce per fiducia: si misura, si dichiara il numero, e se il numero smentisce chi ha dettato l'ordine lo si scrive. **Una prova verde non e' una prova che ha guardato**: in quest'ordine due guardie sono state verdi senza guardare niente, e sono state buttate. **E un'anteprima si GUARDA, non si rigenera soltanto**: due difetti veri di quest'ordine, il testo oro sopra l'oro della carta e la pillola larga da bordo a bordo, non li ha trovati nessuna misura di rettangoli, li ha trovati l'immagine.
 

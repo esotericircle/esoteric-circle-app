@@ -1,19 +1,25 @@
-Build 2288, ordine ET: i Maestri dicono quello che scrivono, le trenta domande, il LIVE, le rune, il Viaggio, il retro delle schede e la nuova intro.
+Build 2289, ordine ES: l'Oroscopo completo, il Sigillo del Sogno e le voci aperte dell'ordine ET, con le tue richieste del 30 settembre sera.
 
 COSA HO PROVATO IO SUL TELEFONO PRIMA DI CONSEGNARE.
 
-La 2288 si accende sul Realme, senza errori nel registro.
+La build si accende sul Realme, senza errori nel registro.
 
-In home, toccando la "i" di una scheda, il retro si apre grande, alla misura delle schede nei domini, e il testo si legge. La "i" lo richiude.
+Nell'Oroscopo "L'oroscopo per un amico" sta in alto, nella barra accanto alla freccia, e il tocco apre i tuoi amici. La lettura dell'amica ha il pulsante della profondità su ogni scheda e sotto la lettura la riga "Da dove viene".
 
-Con la build di prova dell'ordine: nell'Estrazione Rune la lettura con una domanda scritta a mano risponde nella prima frase, ogni pietra dice la sua posizione e parla della domanda; dieci gettate, tutte con la lettura del modello, in circa sei secondi.
+Il selettore della profondità dice "Breve" e "Lunga".
 
-Sempre con la build di prova, nel Viaggio dello Sciamano la discesa con la domanda "Devo trasferirmi a Berlino per lavoro?" ha risposto prendendo posizione: "I segni del viaggio dicono di sì, se scegli attivamente il trasferimento."
+La Settimana, per ogni campo: le barre dei sette giorni, la risposta in parole ("In amore la settimana è favorevole"), il giorno migliore, che cosa fare, e solo in fondo "Da dove viene". Con la Lunga compaiono i sette giorni, ognuno con la sua lettura e sotto il suo "da dove viene". In fondo alla pagina il pulsante dice per intero "Condividi la settimana · +15 Eos". Il Mese è fatto allo stesso modo.
 
-Sempre con la build di prova, nel LIVE: nessuna domanda è tornata vuota e il LIVE non si è chiuso mentre si parlava, in diciassette domande con Medora e Caligo. Quello che il Maestro scrive a video e quello che resta nella chat sono le stesse parole.
+L'Anno: i titoli sono in parole ("Il lavoro nel tuo anno"), la Lunga aggiunge una lettura in più, e i pianeti e le case stanno nella riga "Da dove viene".
+
+La Cinese e la Vedica, aperte, rispondono allo stesso modo. Oggi la Vedica aveva la Luna e la stella in disaccordo, e la lettura comincia con "Oggi la giornata è in salita, anche se non tutto frena", poi dice i due lati.
+
+Il Sigillo del Sogno di Medora, stasera alle 22:31: la nebbia diradata, le sei stelle dei Gemelli unite, il saluto e la buonanotte di Medora, e nessuna parola su rune.
+
+Alla comparsa del responso suona il tuo file orchestrale: dal sistema audio del telefono lo vedo partire alla comparsa delle schede e durare quanto il file, in Occidentale e in Cinese.
 
 DA PROVARE TU, PERCHÉ OGGI IO NON HO POTUTO.
 
-Nel LIVE le domande dette a voce adesso tornano col punto interrogativo, e il Maestro prende posizione anche su quelle: al banco la prima frase che risponde è passata da 47 a 109 su 180. Sul telefono lo vedo domani, con le domande del giorno.
+Il suono l'ho misurato dal sistema del telefono, non l'ho ascoltato: dimmi se il volume ti va bene.
 
-L'intro è Intro-Test-5. Sul Realme non la vedo, perché ha le animazioni di sistema spente e in quel caso l'app la salta: sul tuo telefono dovresti vederla all'apertura.
+Da Viandante la Lunga, la Cinese, la Vedica e gli amici hanno il lucchetto e l'invito al piano: nella demo il Viandante non si sceglie dal telefono, e questi li hanno visti solo le prove.

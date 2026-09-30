@@ -1,29 +1,53 @@
 # RAPPORTO DELL'ORDINE ES
 
 L'Oroscopo completo, il Sigillo del Sogno e le voci aperte dell'ordine ET.
-Ordine del 28 settembre 2026 in quattro pezzi, trentasette voci; lavoro dal
-28 settembre. Ramo `claude/esoteric-circle-master-order-e798aj`. Manifesto
+Ordine del 28 settembre 2026 in quattro pezzi, trentasette voci, piu' la
+ES.38 chiesta dal fondatore il 30 settembre sera; lavoro dal 28 settembre.
+Ramo `claude/esoteric-circle-master-order-e798aj`. Manifesto
 `docs/ordini/ORDINE_ES_MANIFESTO.md`, prove in `docs/collaudo/ES/`, quelle
-del telefono in `docs/collaudo/ES/realme/`. **Questo ordine non consegna
-niente**: le build di prova si installano sul Realme per le catture e non si
-consegnano.
+del telefono in `docs/collaudo/ES/realme/`. L'ordine non consegnava niente
+finche' il fondatore non l'ha chiesto: **il 30 settembre ha ordinato la build
+di consegna** (Android con App Distribution, il commit pronto per Codemagic),
+*"Devi finire tutto, non fare consegne parziali"*.
 
-**STESURA IN CORSO.** Il rapporto si aggiorna blocco per blocco; il conto qui
-sotto e' quello del manifesto al commit indicato, riletto dal file.
-
-**Il conto** (manifesto riletto dal file il 30 settembre 2026, dopo i banchi):
-37 voci, **2 chiuse**, **35 aperte in attesa di verifica**, **0 da fare**.
-Nessuna voce aperta e' chiusa per scorciatoia: tutte aspettano la loro prova a
-video sul Realme. **I banchi col modello vero e la lettura alla cieca delle
-voci ES.19, ES.21, ES.22, ES.23, ES.24 ed ES.25 sono fatti** (tre giri delle
-trenta domande, due del LIVE, due del Viaggio, uno delle rune, uno della
-trascrizione), e i numeri stanno sotto voce per voce. **Nessuna di loro
-arriva al traguardo dell'ordine**: il 30 su 30 delle trenta domande, lo zero
-delle ripetizioni e il 20 su 20 del Viaggio non ci sono, e lo dico qui in
-cima perche' e' la cosa che conta.
+**Il conto** (manifesto riletto dal file il 30 settembre 2026 sera): 38 voci,
+**7 chiuse**, **31 aperte in attesa di verifica**, **0 da fare**. Nessuna
+voce aperta e' chiusa per scorciatoia. **Il 30 su 30 delle trenta domande,
+lo zero delle ripetizioni e il 20 su 20 del Viaggio non ci sono**, e lo dico
+qui in cima perche' e' la cosa che conta di piu' fra quelle che mancano.
 
 ## LE VOCI CHIUSE, CON LA LORO PROVA
 
+- **ES.01, Breve e Lunga su ogni scheda.**
+  DOMANDA: *"Ogni scheda deve avere sempre il pulsante profondità e la scelta
+  "approfondita" è esclusiva dei premium."*; *"Nel selettore profondità
+  cambiamo "Approfondita" in Lunga"*.
+  PROVA: `docs/collaudo/ES/regola_a_simbolo_e_profondita.txt`, e sul Realme
+  `es_final_selettore_breve_lunga.jpg`, `es_final_anno_lavoro_breve.jpg`
+  contro `es_final_anno_lavoro_lunga.jpg`.
+  MISURA: voce "Approfondita" a video da 1 a 0; schede col pulsante, prima
+  0 su 4 sull'Anno, sulla Settimana e sul Mese, sull'amico, dopo 4 su 4;
+  schede dell'Anno in cui la Lunga dice di piu', 48 su 48.
+- **ES.02, la Settimana nelle tre parti, coerente col Giorno.**
+  DOMANDA: *"all'utente non gliene frega un cazzo dei transiti [...] Vuole
+  sapere come andrà in generale, in amore, in lavoro, ecc."*; *"dovrà essere
+  coerente con quello giornaliero, nel caso lo chiederà"*.
+  PROVA: `docs/collaudo/ES/regola_a_settimana_e_giorno.txt`, e sul Realme
+  `es_final_settimana_generale.jpg`, `es_final_settimana_lunga_giorni.jpg`.
+  MISURA: righe che aprono col transito da 28 su 28 a 0 (192 campi su 192
+  in parole); righe della Settimana e del Mese col livello diverso dal
+  Giorno di quel giorno da 40 a 0 su 7.008, con la lettura diversa 0.
+- **ES.03, il Mese nelle tre parti.**
+  DOMANDA: la stessa della ES.02. PROVA: `docs/collaudo/ES/realme/es_final_mese_generale.jpg`.
+  MISURA: campi del mese che aprono col transito da 4 su 4 a 0; righe senza
+  un fatto del cielo 0 su 120; eclissi di febbraio 2027 trovate 2 su 2.
+- **ES.16, il Sigillo del Sogno di Medora non parla di rune.**
+  DOMANDA: *"il sigillo del sogno, adesso solo di Medora, parla di Rune!"*.
+  PROVA: `docs/collaudo/ES/sigillo_senza_rune.txt`, e sul Realme il 30
+  settembre alle 22:31 `es_final_sigillo_sogno_compiuto.jpg`,
+  `es_final_sigillo_sogno_saluto.jpg`.
+  MISURA: frasi con le parole di un altro Maestro da 1 a 0 su 85; sul
+  Realme testi con "runa" o "rune" dal saluto alla buonanotte, 0.
 - **ES.26, il retro delle schede a 402 punti.** `docs/collaudo/ES/retro_402.txt`.
   Schede col testo del retro rimpicciolito in home a 402 punti, 0 su 67; il
   testo in home e' quello dei domini (15,9, 15,2 e 13,0 punti nei tre
@@ -34,19 +58,64 @@ cima perche' e' la cosa che conta.
   Durata dell'intro registrata 14,0 secondi contro i 14 del sorgente,
   correlazione 0,994; le scale delle animazioni del Realme prima 0,0,
   durante 1,0, dopo 0,0.
+- **ES.38, il suono del responso dell'Oroscopo.**
+  DOMANDA: *"Quando compare il responso del l'oroscopo si sente un suono che
+  va eliminato. Sostituiscilo con: Orchestral Game Notification.wav [...] Va
+  ottimizzato e convertito in mp3"*.
+  PROVA: `docs/collaudo/ES/suono_del_responso_realme.txt`.
+  MISURA: il suono alla comparsa del responso da 1,5 secondi (rivelazione) a
+  2,72 (il tuo file); il file da 532.748 byte in WAV a 33.585 in MP3 mono;
+  sonorita' -15,95 LUFS contro il bersaglio -16 degli altri effetti; sul
+  Realme una traccia in piu' fra 2,4 e 2,8 secondi, in due consulti su due.
+
+## LE TUE RICHIESTE DEL 30 SETTEMBRE SERA, UNA PER UNA
+
+1. **"L'oroscopo per un amico" in alto**: sta nella barra dell'Oroscopo,
+   accanto alla freccia, in ogni periodo; visto sul Realme
+   (`es_final_testa_amico_in_alto.jpg`), il tocco apre gli amici
+   (`es_final_amici_dalla_barra.jpg`).
+2. **Il pulsante della profondita' su ogni scheda, la Lunga dei piani a
+   pagamento**: Giorno, Anno, Settimana, Mese, Cinese, Vedica, amico. Al
+   Viandante la voce ha il lucchetto e l'invito. Sul Realme non ho potuto
+   vedere il Viandante: nella demo non si sceglie dal telefono (la sua scheda
+   non ha pulsante e i controlli dimostrativi non sono collegati). Lo misura
+   la prova, rossa quando la Lunga si apre al Viandante.
+3. **"Approfondita" diventa "Lunga"**, nel selettore e nella pagina dei piani.
+4. **Le letture nelle tre parti** delle Linee Guida, sezione 2: la risposta,
+   che cosa fare, e solo dopo "Da dove viene" col simbolo. La Settimana e il
+   Mese per campo (barre dei giorni, risposta, giorno migliore, che cosa fare,
+   transiti in fondo); l'Anno, la Cinese e la Vedica coi titoli in parole e il
+   simbolo nella riga "Da dove viene" sotto la lettura; **622 frasi dei tre
+   corpora riscritte** con le due parti e rilette una per una, 92 titoli in
+   parole. Guardia `il_simbolo_non_apre_mai`: 658 frasi, 111 titoli, 9.120
+   schede Breve e Lunga, 192 risposte dei periodi, zero simboli in apertura.
+5. **Vedica, Cinese e amici solo ai piani a pagamento**: era gia' cosi'
+   dall'ordine ES, verificato nel codice (`PlanCatalog`).
+6. **Maya, Egizia, Celtica e Araba restano con la clessidra "in arrivo"**:
+   non le ho toccate.
+7. **Il suono del responso**: il tuo file, vedi ES.38.
+8. **La Settimana coerente col Giorno**: ogni riga dice la stessa lettura e lo
+   stesso livello della scheda del Giorno di quel giorno. La prova ha trovato
+   un difetto vero: il livello della riga si misurava a mezzogiorno di Roma e
+   la scheda alle 12 UTC; senza carta natale, nei giorni in cui la Luna cambia
+   segno fra quelle due ore, i pallini non coincidevano (40 righe su 7.008 in
+   un anno). Adesso 0.
 
 ## LE VOCI APERTE, E CHE COSA MANCA A CIASCUNA
 
 Tutte le voci aperte sono prodotte e agganciate, misurate in prova, e
 aspettano la verifica a video sul Realme (e la ES.17 tre sere di
-osservazione). Per ciascuna il manifesto porta la prova e la misura.
+osservazione). Per ciascuna il manifesto porta la prova e la misura. Le tre
+voci chiuse il 30 settembre (ES.01, ES.02, ES.03) restano qui sotto con le
+misure di prima, perche' il loro cammino si legga intero.
 
-- **ES.01** Breve e Approfondita: senza carta, Approfondite identiche alla
-  Breve da 48 su 48 a 0 (`docs/collaudo/ES/profondita.txt`).
-- **ES.02** il settimanale: 0 righe su 112 senza un fatto del cielo; fasi
+- **ES.01** (chiusa, sopra) Breve e Approfondita: senza carta, Approfondite
+  identiche alla Breve da 48 su 48 a 0 (`docs/collaudo/ES/profondita.txt`);
+  dal 30 settembre "Lunga", su ogni scheda.
+- **ES.02** (chiusa, sopra) il settimanale: 0 righe su 112 senza un fatto del cielo; fasi
   della Luna entro 0,47 minuti dal JPL (`docs/collaudo/ES/settimana.txt`).
   Manca la lettura una tantum con gli Eos (ES.06).
-- **ES.03** il mensile: 0 righe su 120 senza un fatto del cielo, le due
+- **ES.03** (chiusa, sopra) il mensile: 0 righe su 120 senza un fatto del cielo, le due
   eclissi di febbraio 2027 trovate (`docs/collaudo/ES/mese.txt`).
 - **ES.04** l'anno dal compleanno con la Rivoluzione Solare: il Sole dalle
   tavole di Chebyshev del JPL DE421 (col Sole di Meeus il ritorno sbagliava
@@ -54,6 +123,9 @@ osservazione). Per ciascuna il manifesto porta la prova e la misura.
   diversi dal JPL, 0 su 400 schede fuori dal loro caso, 252 frasi del corpus
   uguali al codice; 300 Eos per chi non ha l'Adepto; il PDF dell'Illuminato
   con l'emblema dell'Anno, 103 KB (`docs/collaudo/ES/regola_a_rivoluzione_solare.txt`).
+  Dal 30 settembre nelle tre parti, coi titoli in parole e la profondita' su
+  ogni scheda; visto sul Realme. Mancano l'invito con gli Eos (il Viandante
+  non si sceglie dal telefono nella demo), il PDF e l'avviso.
 - **ES.05** gli emblemi dei periodi: 9 su 9 uguali byte per byte; la
   copertina del PDF dell'anno c'e'.
 - **ES.06** i piani del fondatore: la mappa da 33 a 36 righe, il settimanale
@@ -62,9 +134,14 @@ osservazione). Per ciascuna il manifesto porta la prova e la misura.
 - **ES.07** il segno della tradizione in cima: 0 su 6 tradizioni lasciano
   l'occidentale; 14 figure su 14 uguali byte per byte.
 - **ES.08** la Cinese aperta: 0 su 30 guardiani diversi dall'almanacco
-  pubblicato (`docs/collaudo/ES/regola_a_lettura_cinese.txt`).
+  pubblicato (`docs/collaudo/ES/regola_a_lettura_cinese.txt`). Dal 30
+  settembre le 224 frasi nelle due parti e 59 titoli in parole; vista sul
+  Realme da piano pagato, col suono nuovo. Manca il Viandante.
 - **ES.09** la Vedica aperta: 0 su 20 nascite diverse da Drik Panchang, 0
   su 42 estremi del Rahu Kalam (`docs/collaudo/ES/regola_a_lettura_vedica.txt`).
+  Dal 30 settembre nelle due parti; quando la Luna e la stella si
+  contraddicono (32 giorni su 120) apre con la risposta del livello e dice i
+  due lati. Vista sul Realme proprio in un giorno cosi'. Manca il Viandante.
 - **ES.10** le note delle sette tradizioni, 62 affermazioni con la fonte
   (`docs/collaudo/ES/tooltip.txt`).
 - **ES.11** le quattro tradizioni in arrivo: clessidra, emblema, segno
@@ -72,13 +149,15 @@ osservazione). Per ciascuna il manifesto porta la prova e la misura.
   egizi vanno riscontrati sull'edizione Pingree di Efestione.
 - **ES.12** gli amici offline e l'oroscopo per gli amici: 0, 3, 10, senza
   limite, 100 Eos per un posto in piu'; letture dell'amico mancanti 0 su 9
-  (`docs/collaudo/ES/regola_a_es04_es12_es15.txt`).
+  (`docs/collaudo/ES/regola_a_es04_es12_es15.txt`). Dal 30 settembre il
+  pulsante sta in alto e ogni scheda dell'amico ha la profondita' e il "da
+  dove viene"; visti sul Realme. Mancano l'invito del Viandante e il tetto.
 - **ES.13** la card con nome senza cognome e nascita.
 - **ES.14** il numero al centro del suo riquadro.
 - **ES.15** "Online" con la lucina verde e il numero, dal server
   (`chiEOnline`, da distribuire con la build di prova); i Prossimi Eventi
   Cosmici in cima al Passport, due: il tocco apre il Calendario.
-- **ES.16** il Sigillo del Sogno di Medora senza rune.
+- **ES.16** (chiusa, sopra) il Sigillo del Sogno di Medora senza rune.
 - **ES.17** una sola notifica per Dono (da schierare con le funzioni).
 - **ES.18** il Sigillo del Sogno da cima a fondo: le frasi false tolte, la
   chiusura senza arcani mai estratti (0 su 16 dopo), media dell'attribuzione
@@ -93,6 +172,13 @@ osservazione). Per ciascuna il manifesto porta la prova e la misura.
   sue risposte richieste per una certezza sono 18 e 18, quelle nate gia'
   senza posizione salgono da 19 a 34. Il 30 su 30 non c'e': il migliore e'
   Medora in chat, 26 e 27 (`docs/collaudo/ET/ciechi/conti_et01_es3mix.txt`).
+  **Dal quarto al nono giro**: la correzione che ripete la domanda porta le
+  prime frasi da 253 a 311 su 360; il "quando" senza la stagione da
+  ricopiare (nel LIVE sul Realme due domande avevano avuto *"non prima
+  dell'autunno"*) nomina un tempo 72 volte su 72 in tre giri, ma i passaggi
+  del cielo inventati o sbagliati restano 2, 1 e 3 su 24. Alla lettura alla
+  cieca del codice che parte (`es8mix`): prime frasi 310 e 311, merito 315 e
+  326, certezze 16 e 11.
 - **ES.20** sotto la risposta detta nel LIVE niente invito a tornare, anche
   riaprendo la conversazione.
 - **ES.21** la rete che non ridice la risposta di prima: sulle 240 seconde
@@ -131,7 +217,7 @@ osservazione). Per ciascuna il manifesto porta la prova e la misura.
 
 ## LE VOCI DA FARE
 
-Nessuna: le trentasette voci sono chiuse o aperte in attesa di verifica.
+Nessuna: le trentotto voci sono chiuse o aperte in attesa di verifica.
 
 ## I DIFETTI TROVATI, OGNUNO COL SUO PADRE
 
@@ -210,6 +296,64 @@ Nessuna: le trentasette voci sono chiuse o aperte in attesa di verifica.
 - **Un `dart format` su una cartella** ha riformattato due file non miei
   (`il_rimando_in_fondo.dart`, `la_marca_del_genere.dart`): padre io, rimessi
   com'erano prima del commit.
+- **Dal 29 e 30 settembre, prima della build di prova 2289**: il
+  sottotitolo dell'Oroscopo che a 360 punti lasciava "giorno" o "settimana"
+  da soli sulla seconda riga (padre ordine 2171 voce 5, il sottotitolo del
+  periodo); la frase del segno attaccata al sottotitolo e "In arrivo" che
+  toccava la riga delle tradizioni (padre ES.07 ed ES.11, miei); le tre
+  tradizioni dell'amico su due righe (padre ES.12, mio); **la scritta dei
+  pulsanti pieni in viola scuro sul viola, contrasto 1,63**, perche' il tema
+  non dichiarava il colore di cio' che sta sul primario e dodici pulsanti lo
+  prendevano da li' (PROVENIENZA IGNOTA: il tema e' cosi' da prima di questi
+  ordini, e nessuna prova guardava il contrasto di un pulsante senza stile);
+  una virgola prima della "e" nell'istruzione del quando (padre ES.19, commit
+  `0e44b652`, mio). Tutti curati, adesso 7,18 di contrasto.
+- **Visto sul Realme dalla build di prova 2289**: *"Condividi la settimana ·
+  +15 Eo"*, l'etichetta tagliata. Padre ES.05, mio: in prova il premio non
+  c'e' e l'etichetta ci stava. Adesso si rimpicciolisce intera, e la prova
+  monta una porta del premio finta.
+- **La Settimana che portava per ogni giorno solo i suoi transiti**, che hai
+  trovato nell'anteprima. Padre ES.02 ed ES.03, miei: l'ordine descriveva
+  *"una riga per giorno col livello e la sua ragione"*, l'ho eseguito alla
+  lettera e non l'ho messo accanto alle Linee Guida, sezione 2 (la risposta,
+  che cosa fare, da dove viene) ne' alla regola ferma dell'ordine AS in
+  STATO_VIVO (*"transiti, pianeti e meccaniche non sono il contenuto"*). E'
+  la mancanza piu' grave di quest'ordine, e l'ho scritta in memoria perche'
+  non torni.
+- **Una guardia che non copriva piu' la sua zona**: `la_settimana_viene_dal_cielo`
+  restava verde con le sette righe lette tutte dal cielo del primo giorno.
+  Padre ES.02, la guardia mia; presa dalla Regola B prima di toccare la zona,
+  riparata, poi rossa (80 righe su 112).
+- **Il livello delle righe della Settimana misurato a un'altra ora del
+  Giorno** (mezzogiorno di Roma contro le 12 UTC): 40 righe su 7.008 in un
+  anno col livello diverso dal Giorno. Padre ES.02, mio; preso dalla prova
+  nata dalla tua domanda sulla coerenza.
+- **Nella Vedica, la Luna e la stella che si contraddicono** (*"comincia
+  qualcosa"* e subito dopo *"meglio non aprire cose nuove"*, a 2 su 5):
+  32 giorni su 120. Il difetto c'era gia' (padre ES.09, la composizione della
+  Generale), ma col simbolo davanti a ogni frase si capiva che erano due
+  voci; l'hanno scoperto le tre parti. Mio, preso guardando l'anteprima.
+- **Le barre dei giorni che sembravano tutte uguali** (sei punti fra un
+  livello e l'altro) e la frase *"i giorni più aperti sono gli ultimi"*
+  sopra un giorno migliore a meta' settimana: padre la Settimana nelle tre
+  parti, mia, di stasera; prese guardando le anteprime.
+- **La media dei periodi detta alla voce col punto** (*"3.5 su 5"*) e **"a
+  quattr'occhi"** nel corpus annuale riscritto, che la guardia legge come un
+  accento mancato: miei, di stasera, presi dalla suite intera.
+- **La prova del pulsante "Consulta" in home cercava "Caligo" senza
+  accento**: di sera davanti c'e' Calìgo e il pulsante dice il nome a video,
+  quindi la prova cadeva a quell'ora anche sul commit gia' spinto. Padre
+  ES.17 (`c9bdfc06`, il nome a video di Calìgo), mio: non avevo aggiornato
+  la prova. Curata.
+- **Il foglio "Da dove nasce questo dono" del Sigillo del Sogno** scriveva
+  *"(Senti con curiosità e parole: le emozioni si fanno racconto.)."*, il
+  punto dentro e fuori la parentesi. Visto sul Realme il 30 settembre alle
+  22:34. Padre il commit `c49de157` del 24 luglio (il Rito del Sogno
+  rifatto). Curato, con la prova su trenta notti e dodici segni; la cattura
+  dopo la cura manca.
+- **Due giri delle anteprime caduti su 39 e 26 catture con l'errno 1224**
+  di Windows (un altro processo tiene il PNG appena scritto): non e' un
+  difetto del codice; adesso la scrittura delle anteprime aspetta il lock.
 
 ## LE SCELTE FATTE CON LA RISPOSTA CONSIGLIATA
 
@@ -254,6 +398,37 @@ cambia in un punto.
     contro quelle lavora l'istruzione, non la guardia.
 15. **La ES.23 non si chiude** anche se i primi giudici davano 26 e 24 su 36:
     altri giudici sulle stesse risposte danno 20 e 23.
+16. **La scelta della profondita' vale per il campo, in ogni periodo**: chi
+    sceglie la Lunga per l'Amore la ritrova nell'Amore dell'Anno e della
+    Settimana. Una scelta per ogni scheda di ogni periodo sarebbero
+    ventiquattro interruttori da ricordare.
+17. **La regola 16 delle Linee Guida** dice che chi non ha il Premium sblocca
+    la Lunga una risposta alla volta pagando in Eos. Nel listino degli Eos non
+    c'e' un prezzo per la Lunga dell'Oroscopo, e stasera mi hai detto che la
+    Lunga e' dei Premium: oggi al Viandante la voce ha il lucchetto e
+    l'invito al piano. Il prezzo lo decidi tu (sotto, fra le cose che
+    aspettano te).
+18. **Il Viandante che compra l'Anno con 300 Eos legge la Breve**: la Lunga
+    resta dei piani.
+19. **Il Giorno lascia il passaggio del cielo nel testo**, dopo la risposta
+    in parole (com'e' dall'ordine ER voce 14), e sotto la riga "Da dove
+    viene". Spostarlo tutto nella riga cambierebbe che cosa aggiunge la Lunga
+    del Giorno, che oggi sono passaggi del cielo: te lo chiedo sotto.
+20. **La Cinese non apre con una frase di sintesi**: il rapporto fra gli
+    animali e il guardiano parlano di due cose diverse (come va con gli
+    altri, a che cosa e' adatto il giorno), e nei giorni a 2 su 5 che ho
+    letto non si contraddicono come nella Vedica.
+21. **Il suono nuovo vale solo per il responso dell'Oroscopo**: la
+    rivelazione resta alla stesa dei tarocchi e al Sigillo dei Tre Cieli,
+    perche' hai chiesto di cambiare il suono di quel momento. Il file e' in
+    mono come gli altri effetti (e' un segnale, non musica) e al volume
+    della famiglia.
+22. **I testi riscritti dei tre corpora** (622 frasi) sono miei, fatti con
+    nove scrittori in parallelo e riletti tutti prima di entrare: nelle
+    serie dell'Amore cinese la persona amata e' al neutro (*"chi ami"*); le
+    frasi sulla salute e sul denaro sono piu' prudenti di prima; nella
+    direzione della Fortuna cinese i gesti (*"siediti con lo sguardo a
+    est"*) sono simbolici e lo dicono.
 
 ## LE COSE CHE ASPETTANO TE
 
@@ -265,11 +440,29 @@ cambia in un punto.
    non la tolgo.
 3. **La Settimana e il Mese si aprono gia' col piano**; le letture una tantum
    con gli Eos arrivano con la ES.06.
-4. **La build di prova** per le catture di tutte le voci aperte, con la
-   distribuzione delle funzioni del server (`chiEOnline` e la notifica della
-   ES.17) insieme a lei.
+4. **La build** e' questa, di consegna. Il numero di chi e' online arriva gia'
+   dal server (sul Realme *"Online adesso: una persona"*).
 5. **Il 30 su 30 delle trenta domande e il 20 su 20 del Viaggio** non ci sono
    dopo tre giri: le reti di parole inseguono le forme e i giudici alla cieca
    si contraddicono fra loro di sei risposte su trentasei. Il prossimo passo
    serio e' sulla persona di Aura e sulla prima frase del Viaggio, e va
    misurato con piu' letture degli stessi testi.
+6. **Il prezzo in Eos della Lunga per chi non ha il Premium**, se la vuoi
+   come dice la regola 16 delle Linee Guida (una risposta alla volta). Oggi
+   non c'e', e la voce invita al piano.
+7. **Il passaggio del cielo nel Giorno**: oggi sta nel testo dopo la
+   risposta in parole. Se lo vuoi solo nella riga "Da dove viene", la Lunga
+   del Giorno va ripensata (oggi aggiunge proprio passaggi del cielo).
+8. **I 622 testi riscritti** della Cinese, della Vedica e dell'Anno: sono una
+   bozza mia, come i corpora di prima; stanno in `docs/corpus/` e si
+   cambiano li'.
+9. **Il Viandante sul Realme**: nella demo non si sceglie dal telefono,
+   quindi i lucchetti della Lunga, della Cinese, della Vedica e degli amici
+   per il Viandante li hanno visti solo le prove. Se vuoi vederli tu, serve
+   un account di prova senza piano.
+10. **Il contenuto che scorre sotto la barra in alto trasparente** (si vede
+    nelle catture dell'Oroscopo): e' cosi' in venticinque schermate, per
+    scelta di disegno di un ordine vecchio; non l'ho toccato.
+11. **I passaggi del cielo inventati nella risposta al "quando"** (2, 1 e 3
+    su 24 negli ultimi tre giri): serve una rete che confronti la frase coi
+    dati del cielo dati al Maestro, e in quest'ordine non c'e'.

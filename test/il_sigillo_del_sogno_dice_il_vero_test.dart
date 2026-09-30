@@ -49,6 +49,34 @@ void main() {
     expect(falsi, isEmpty);
   });
 
+  /// **IL PUNTO NON SI RADDOPPIA.** Visto sul Realme il 30 settembre 2026 nel
+  /// foglio "Da dove nasce questo dono": *"(Senti con curiosità e parole: le
+  /// emozioni si fanno racconto.)."*. Padre il commit `c49de157` del 24
+  /// luglio, il Rito del Sogno rifatto: la frase del segno lunare entrava fra
+  /// parentesi col suo punto. Trenta notti, cioe' la Luna in tutti e dodici
+  /// i segni, per ogni rapporto con la Luna di nascita.
+  test('il foglio non scrive un punto dentro e fuori la parentesi', () {
+    final rotti = <String>[];
+    final segni = <Object>{};
+    var fogli = 0;
+    for (var k = 0; k < 30; k++) {
+      final luna = DreamRiteCorpus.lunaDi(DateTime(2026, 10, 1 + k, 23));
+      segni.add(luna.sign);
+      for (final t in [
+        DreamRiteCorpus.daDoveNasce(luna),
+        for (final r in RelazioneLunare.values)
+          DreamRiteCorpus.daDoveNasceCon(luna, r),
+      ]) {
+        fogli++;
+        if (RegExp(r'[.!?]\)').hasMatch(t)) rotti.add(t);
+      }
+    }
+    print('IL SIGILLO DEL SOGNO: fogli col punto dentro la parentesi '
+        '${rotti.length} su $fogli, segni della Luna ${segni.length}');
+    expect(segni.length, 12);
+    expect(rotti, isEmpty, reason: rotti.take(2).join('\n'));
+  });
+
   test('il foglio nomina l\'aspetto con l\'articolo giusto e dice la sorgente',
       () {
     final luna = DreamRiteCorpus.lunaDi(DateTime(2026, 9, 29, 23));

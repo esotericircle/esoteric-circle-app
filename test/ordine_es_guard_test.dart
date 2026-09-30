@@ -13,7 +13,11 @@ import 'package:flutter_test/flutter_test.dart';
 /// porta qui.
 void main() {
   final manifesto = File('docs/ordini/ORDINE_ES_MANIFESTO.md');
-  const quante = 37;
+  // **LAPIDE, 30 settembre 2026**: qui c'era 37. Il fondatore ha chiesto quella
+  // sera di sostituire il suono del responso dell'Oroscopo, ed e' la voce
+  // ES.38; le altre sue richieste di quella sera stanno nelle voci che
+  // riguardano (ES.01, ES.02, ES.03, ES.04, ES.08, ES.09, ES.12).
+  const quante = 38;
 
   int marcatore(String testo, String nome) {
     final trovato =
@@ -23,7 +27,7 @@ void main() {
     return int.parse(trovato!.group(1)!);
   }
 
-  test('il manifesto esiste e porta tutte e trentasette le voci', () {
+  test('il manifesto esiste e porta tutte e trentotto le voci', () {
     expect(manifesto.existsSync(), isTrue,
         reason: 'il manifesto nasce col lavoro');
     final testo = manifesto.readAsStringSync();

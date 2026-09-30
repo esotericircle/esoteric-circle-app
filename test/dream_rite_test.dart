@@ -174,7 +174,12 @@ void main() {
                 'Sigillo del Sogno non serve');
       }
       // Fondato sul corpus del segno lunare gia' nel repo.
-      expect(t, contains(BirthMoon.meaningFor(luna.sign)));
+      // Fra parentesi senza il suo punto finale, dal 30 settembre 2026: il
+      // foglio scriveva "racconto.)." (visto sul Realme).
+      expect(
+          t,
+          contains(BirthMoon.meaningFor(luna.sign)
+              .replaceFirst(RegExp(r'[.]+$'), '')));
     });
   });
 }

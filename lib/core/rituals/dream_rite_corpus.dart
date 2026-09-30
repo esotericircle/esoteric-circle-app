@@ -589,7 +589,10 @@ class DreamRiteCorpus {
       '${luna.phase.italianName.toLowerCase()}, calcolata sul dispositivo dalla '
       'data. La costellazione che unisci è il disegno reale del segno della '
       'Luna; il messaggio nasce da segno e fase, sul sentire del segno lunare '
-      '(${BirthMoon.meaningFor(luna.sign)}). Segno e fase si leggono dalla sola '
+      // La frase del segno ha il suo punto: fra parentesi si toglie, se no
+      // il foglio scrive "racconto.)." (visto sul Realme, 30 settembre 2026).
+      '(${BirthMoon.meaningFor(luna.sign).replaceFirst(RegExp(r'[.]+$'), '')}). '
+      'Segno e fase si leggono dalla sola '
       'data e sono gli stessi in ogni punto della Terra. Il rito non ha '
       'bisogno di sapere dove sei. La scena si muove col giroscopio per darti '
       'il gesto di puntare il cielo: è un\'evocazione, non un cannocchiale.';
