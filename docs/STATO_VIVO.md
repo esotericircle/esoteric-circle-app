@@ -5873,7 +5873,10 @@ prese con la risposta consigliata, come ha chiesto il fondatore: *"Se hai
 domande, usa la risposta consigliata Senza disturbarmi"*), prove in
 `docs/collaudo/ES/`. **La build di consegna l'ha ordinata il fondatore il 30
 settembre** (*"Devi finire tutto, non fare consegne parziali"*): numero
-0.1.0+2289, Android con App Distribution e il commit pronto per Codemagic; il
+0.1.0+2289, Android con App Distribution e il commit pronto per Codemagic;
+**consegnata il 1 ottobre 2026** dal commit `466ac93b` (cancello di GitHub
+verde), release `3qmv5b5j5pu10`, archivio da 245.944.446 byte, accensione
+sul Realme riuscita, un invito accettato; il
 numero di chi e' online arriva gia' dal server (sul Realme *"Online adesso:
 una persona"*).
 

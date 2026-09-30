@@ -10,6 +10,17 @@ finche' il fondatore non l'ha chiesto: **il 30 settembre ha ordinato la build
 di consegna** (Android con App Distribution, il commit pronto per Codemagic),
 *"Devi finire tutto, non fare consegne parziali"*.
 
+**LA CONSEGNA.** Build 0.1.0+2289 dal commit `466ac93b`, col cancello di
+GitHub verde su quel commit (il segno `refs/verde/466ac93b...`) e la suite
+intera locale sul commit `368fb5ef` a 6.351 verdi e le sole 7 rosse
+accettate; archivio arm64 da 245.944.446 byte, numero 2289 letto
+dall'archivio e dal telefono, prova di accensione sul Realme (primo
+fotogramma, nessun FATAL EXCEPTION), release `3qmv5b5j5pu10` di App
+Distribution, distribuita a cloud@esotericircle.app, un invito accettato, le
+note rilette dal server; il registro `docs/versione_distribuita.json` da 2288
+a 2289, il 1 ottobre 2026 poco prima dell'una. **Codemagic** costruisce l'iOS dalla
+cima del ramo canonico, quando il cancello su quel commit e' verde.
+
 **Il conto** (manifesto riletto dal file il 30 settembre 2026 sera): 38 voci,
 **7 chiuse**, **31 aperte in attesa di verifica**, **0 da fare**. Nessuna
 voce aperta e' chiusa per scorciatoia. **Il 30 su 30 delle trenta domande,
