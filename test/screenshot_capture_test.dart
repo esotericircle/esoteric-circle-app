@@ -3315,7 +3315,11 @@ void main() {
             hasTime: true,
           ),
         );
-    await montaLoSchermo(tester, const Size(360, 4600));
+    // Tremilanovecento punti: la Settimana, con la carta natale, e' piu'
+    // lunga, ma una tela piu' alta non si fotografa su questo PC (a 4600 la
+    // prova muore senza dire perche'). Il gesto della condivisione si vede
+    // in fondo al Mese e all'Anno.
+    await montaLoSchermo(tester, const Size(360, 3900));
     unawaited(nav.push(OroscopoScreen.route(
         userSign: Zodiac.gemini, now: DateTime(2026, 9, 30, 12))));
     await step(tester);
