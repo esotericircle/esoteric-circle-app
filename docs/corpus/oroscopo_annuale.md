@@ -349,7 +349,7 @@ L'app mette il TESTO nella lettura della scheda e il DA DOVE VIENE nella riga "D
 
 ### Saturno in casa 7
 1. L'impegno di questi mesi sta nei rapporti a due, in amore come nella professione. Con la persona con cui dividi di più metti in chiaro che cosa vi dovete: ditelo a voce o scrivetelo, purché resti detto. || Saturno nella tua Rivoluzione Solare cade nella casa 7, quella del partner e dei soci, dove chiede impegni di relazione e patti definiti.
-2. Dove serve pazienza è in un legame: sono mesi adatti a prendere un impegno serio o a rivedere un rapporto che non regge. Chiedi un incontro a quattr'occhi e di' con lealtà che cosa puoi dare e che cosa no. || Con Saturno nella casa 7 della Rivoluzione Solare i legami si fanno seri o si rivedono: la tradizione chiede lealtà e chiarezza.
+2. Dove serve pazienza è in un legame: sono mesi adatti a prendere un impegno serio o a rivedere un rapporto che non regge. Chiedi un incontro a tu per tu e di' con lealtà che cosa puoi dare e che cosa no. || Con Saturno nella casa 7 della Rivoluzione Solare i legami si fanno seri o si rivedono: la tradizione chiede lealtà e chiarezza.
 3. La fatica di questi mesi si divide in due: da chi ti affianca dipende molto di ciò che riesci a portare a termine. Prima di legarti a un socio o a un collaboratore guarda come ha lavorato finora, poi scrivete insieme compiti e tempi. || Saturno nella tua Rivoluzione Solare è nella casa 7, la casa degli altri: il lavoro dell'anno si fa in due, con soci e contratti.
 
 ### Saturno in casa 8

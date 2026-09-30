@@ -4,6 +4,7 @@ import '../astro/effemeridi.dart';
 import '../astro/il_sole_di_nascita.dart';
 import '../astro/la_luna_intera.dart';
 import '../astro/natal_chart.dart';
+import '../astro/transiti_del_giorno.dart';
 import '../astro/transiti_nelle_case.dart';
 import '../astro/zodiac.dart';
 import 'cielo_di_oggi.dart';
@@ -412,7 +413,17 @@ abstract final class LaSettimanaDelCielo {
     final cieli = <CieloDiOggi>[];
     final mezzogiorni = <DateTime>[];
     for (var d = 0; d < giorni; d++) {
-      final m = DateTime(inizio.year, inizio.month, inizio.day + d, 12).toUtc();
+      // **LO STESSO ISTANTE DELLA SCHEDA DEL GIORNO**, 30 settembre 2026. Il
+      // fondatore: *"l'utente che chiede l'oroscopo settimanale riceve un
+      // responso per ogni giorno della settimana che [...] dovrà essere
+      // coerente con quello giornaliero, nel caso lo chiederà"*. Qui c'era
+      // il mezzogiorno locale (le 10 UTC in Italia d'estate) e la scheda del
+      // Giorno misura alle 12 UTC ([TransitiDelGiorno.istanteDi], e
+      // `Horoscope.cardFor`): senza carta il livello guarda la Luna, che in
+      // due ore fa un grado, e vicino a un confine di casa i due livelli si
+      // separavano.
+      final m = TransitiDelGiorno.istanteDi(
+          DateTime(inizio.year, inizio.month, inizio.day + d, 12));
       mezzogiorni.add(m);
       cieli.add(CieloDiOggi.perIlGiorno(adesso: m, carta: carta));
     }

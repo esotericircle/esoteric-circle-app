@@ -62,10 +62,14 @@ void main() {
   }
 
   /// Il Maestro che sta davanti, letto dal pulsante del dominio.
+  ///
+  /// Col nome a video (`nomeAVideo`, "Calìgo" con l'accento dall'ordine ES
+  /// voce 17): col nome senza accento la prova cadeva di sera, quando davanti
+  /// c'e' Calìgo (visto il 30 settembre 2026 alle 21:30).
   Maestro davanti(WidgetTester tester) {
     for (final m in Maestro.values) {
       if (find
-          .text('Entra nel Dominio di ${m.displayName}')
+          .text('Entra nel Dominio di ${m.nomeAVideo}')
           .evaluate()
           .isNotEmpty) {
         return m;
@@ -111,7 +115,7 @@ void main() {
     expect((tondo.center.dy - entra.center.dy).abs(), lessThan(3));
     expect(tondo.height, greaterThanOrEqualTo(44),
         reason: 'il tondo deve restare toccabile');
-    expect(find.bySemanticsLabel('Consulta ${m.displayName}'), findsOneWidget,
+    expect(find.bySemanticsLabel('Consulta ${m.nomeAVideo}'), findsOneWidget,
         reason: 'il tondo senza parole deve dire il suo nome alla voce');
     await apreLaChat(tester, m);
   });
@@ -124,7 +128,7 @@ void main() {
     final consulta = find.byKey(const Key('santuario_consulta'));
     expect(
         find.descendant(
-            of: consulta, matching: find.text('Consulta ${m.displayName}')),
+            of: consulta, matching: find.text('Consulta ${m.nomeAVideo}')),
         findsOneWidget,
         reason: 'sotto, il pulsante porta il nome del Maestro davanti');
     final entra =
@@ -150,7 +154,7 @@ void main() {
     final dopo = davanti(tester);
     expect(dopo, isNot(prima), reason: 'il cerchio non ha girato');
     expect(
-        find.bySemanticsLabel('Consulta ${dopo.displayName}'), findsOneWidget,
+        find.bySemanticsLabel('Consulta ${dopo.nomeAVideo}'), findsOneWidget,
         reason: 'girato il cerchio, "Consulta" dice ancora ${prima.name}');
   });
 

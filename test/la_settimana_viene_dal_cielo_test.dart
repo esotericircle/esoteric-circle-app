@@ -2,6 +2,7 @@
 import 'dart:io';
 
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
+import 'package:esoteric_circle/core/astro/transiti_del_giorno.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/horoscope/cielo_di_oggi.dart';
 import 'package:esoteric_circle/core/horoscope/il_livello_del_cielo.dart';
@@ -123,8 +124,10 @@ void main() {
           if (!g.motivo.startsWith('Dal')) {
             senzaFatto.add('${d.dominio.name} ${g.giorno}: "${g.motivo}"');
           }
-          final mezzogiorno =
-              DateTime(g.giorno.year, g.giorno.month, g.giorno.day, 12).toUtc();
+          // L'istante della scheda del Giorno (le 12 UTC del giorno civile),
+          // dal 30 settembre 2026: prima era il mezzogiorno locale.
+          final mezzogiorno = TransitiDelGiorno.istanteDi(
+              DateTime(g.giorno.year, g.giorno.month, g.giorno.day, 12));
           final (livello, motivo) = IlLivelloDelCielo.per(
               dominio: d.dominio,
               segno: Zodiac.leo,

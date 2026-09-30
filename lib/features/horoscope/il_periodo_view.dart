@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../core/astro/aspetti_di_oggi.dart';
 import '../../core/horoscope/horoscope.dart';
 import '../../core/horoscope/la_settimana_del_cielo.dart';
+import '../../core/l10n/numero_del_cerchio.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -248,7 +249,7 @@ class _Andamento extends StatelessWidget {
     final migliore = dominio.migliore.giorno;
     return Semantics(
       label: 'Andamento del periodo: livello medio '
-          '${dominio.media.toStringAsFixed(1)} su 5',
+          '${NumeroDelCerchio.conCifre(dominio.media, 1)} su 5',
       child: ExcludeSemantics(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
