@@ -1164,7 +1164,7 @@ class _SchermataLiveState extends State<SchermataLive> {
       backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        title: Text(widget.maestro.displayName),
+        title: Text(widget.maestro.nomeAVideo),
         actions: [
           // **Il selettore delle voci, ordine EJ voce 02.** Lo vede solo chi
           // il server riconosce come fondatore.

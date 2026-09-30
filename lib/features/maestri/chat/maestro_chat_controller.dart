@@ -1337,7 +1337,8 @@ class MaestroChatController extends ChangeNotifier {
           domanda: userText,
           natal: natal,
           correzione: LaPosizioneDellaLettura.correzione(
-              chiRisponde, LaPosizioneDellaLettura.primaFraseDi(reply)),
+              chiRisponde, LaPosizioneDellaLettura.primaFraseDi(reply),
+              domanda: userText),
         );
         if (LaPosizioneDellaLettura.rispetta(chiRisponde, userText, altra)) {
           reply = altra;

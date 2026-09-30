@@ -464,7 +464,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       if (!arrivato && context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text('${controller.maestro.displayName} non ha trovato '
+            content: Text('${controller.maestro.nomeAVideo} non ha trovato '
                 'altro da aggiungere, questa volta. Tocca di nuovo per '
                 'riprovare.'),
           ),
@@ -899,8 +899,8 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                   // microfono non compare dove non puo' funzionare.
                   dettatura: _dettatura,
                   enabled: controller.aiReady && !controller.sending,
-                  hintText: 'Scrivi ${aEuphonic(widget.maestro.displayName)} '
-                      '${widget.maestro.displayName}',
+                  hintText: 'Scrivi ${aEuphonic(widget.maestro.nomeAVideo)} '
+                      '${widget.maestro.nomeAVideo}',
                   // A chat vuota, se si arriva dalla chiusura del cerchio, il
                   // campo si apre gia' col tema del Consulta.
                   //
@@ -1439,7 +1439,7 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
     // di due righe qualunque sia il Maestro e qualunque la scala di chi legge,
     // che e' esattamente cio' che il fondatore ha chiesto. Qui la si misura
     // senza vincolo di larghezza, che e' l'altezza di una riga sola.
-    return alta(maestro.displayName, TypographyTokens.titoloSezione(),
+    return alta(maestro.nomeAVideo, TypographyTokens.titoloSezione(),
             maxWidth: _larghezzaPerMisurare) +
         alta(maestro.domainArtsPhrase, TypographyTokens.didascalia(),
             maxWidth: double.infinity);
@@ -1676,7 +1676,7 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(maestro.displayName,
+                  Text(maestro.nomeAVideo,
                       key: const Key('chat_nome_del_maestro'),
                       style: TypographyTokens.titoloSezione()),
                   // **LE ARTI IN GIALLO, SU UNA RIGA SOLA.** Il `FittedBox`
@@ -1741,7 +1741,7 @@ class _ConfigNotice extends StatelessWidget {
               // e' un'altra cosa e si compra col piano. Qui si parla del
               // Maestro, e allora si dice il Maestro.
               'Il cerchio non è ancora acceso. '
-              '${maestro.displayName} risponde '
+              '${maestro.nomeAVideo} risponde '
               'quando la configurazione AI è completa.',
               style: TypographyTokens.didascalia()
                   .copyWith(color: ColorTokens.textSecondary),

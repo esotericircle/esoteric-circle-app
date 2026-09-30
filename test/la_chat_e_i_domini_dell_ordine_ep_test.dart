@@ -127,7 +127,7 @@ void main() {
           tester
               .widget<Text>(find.byKey(Key('scheda_titolo_consulta_${m.name}')))
               .data,
-          'Consulta ${m.displayName}');
+          'Consulta ${m.nomeAVideo}');
       // In cima: sopra le righe del dominio.
       expect(tester.getRect(scheda).top,
           lessThan(tester.getRect(find.byKey(const Key('dominio_righe'))).top));
@@ -144,7 +144,7 @@ void main() {
           tester
               .widget<Text>(find.byKey(const Key('chat_nome_del_maestro')))
               .data,
-          contains(m.displayName));
+          contains(m.nomeAVideo));
     });
   }
 

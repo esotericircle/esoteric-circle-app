@@ -224,9 +224,9 @@ Color _accentFor(Maestro maestro) =>
 /// fisso.
 String _guideLine(DailyElement element, Maestro maestro) {
   if (element.guide == null) {
-    return 'Guidato dal Maestro di turno del giorno, oggi ${maestro.displayName}';
+    return 'Guidato dal Maestro di turno del giorno, oggi ${maestro.nomeAVideo}';
   }
-  return 'Guidato da ${maestro.displayName}';
+  return 'Guidato da ${maestro.nomeAVideo}';
 }
 
 /// Apre il popup informativo dell'elemento: cosa e', quale Maestro lo guida e a

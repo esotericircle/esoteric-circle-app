@@ -62,7 +62,7 @@ abstract final class LaVoceDelSigillo {
   /// **LA NOTIFICA NON CONTIENE L'INTENZIONE**, voce DO.08: si legge sulla
   /// schermata di blocco, davanti a chiunque passi.
   static const String titoloDellAvviso = 'Un sigillo è arrivato alla sua data';
-  static const String testoDellAvviso = 'Caligo ti chiede com\'è andata.';
+  static const String testoDellAvviso = 'Calìgo ti chiede com\'è andata.';
 
   /// **IL TESTO DEL COMPIMENTO DI RISERVA**, che nomina l'intenzione scritta.
   /// Voce DO.05: *"non una congratulazione generica, ma una riga che nomina

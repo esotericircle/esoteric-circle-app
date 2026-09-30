@@ -2142,7 +2142,7 @@ class _ConsultaButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(ThemeKey.of(maestro));
-    final etichetta = 'Consulta ${maestro.displayName}';
+    final etichetta = 'Consulta ${maestro.nomeAVideo}';
     if (tondo) {
       return Tooltip(
         message: etichetta,
@@ -2258,7 +2258,7 @@ class _EnterDomainButton extends StatelessWidget {
               const SizedBox(width: 8),
               Flexible(
                 child: Text(
-                  'Entra nel Dominio di ${maestro.displayName}',
+                  'Entra nel Dominio di ${maestro.nomeAVideo}',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: TypographyTokens.corpo()

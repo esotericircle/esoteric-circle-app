@@ -686,7 +686,7 @@ class _ContinueInChat extends StatelessWidget {
             Icon(Icons.forum_rounded, size: 18, color: palette.goldSoft),
             const SizedBox(width: SpacingTokens.sm),
             Expanded(
-              child: Text('Continua con ${maestro.displayName}',
+              child: Text('Continua con ${maestro.nomeAVideo}',
                   style: TypographyTokens.titoloDiRiga()
                       .copyWith(color: palette.goldSoft)),
             ),
@@ -822,7 +822,7 @@ class _LensLoadingCard extends StatelessWidget {
           _TestaDellaCarta(maestro: maestro, palette: palette),
           const SizedBox(height: SpacingTokens.sm),
           Text(
-            '${maestro.displayName} raccoglie il suo sguardo.',
+            '${maestro.nomeAVideo} raccoglie il suo sguardo.',
             key: Key('ask_attesa_${maestro.id}'),
             style: TypographyTokens.body(size: 17).copyWith(
               color: palette.goldSoft.withValues(alpha: 0.75),
@@ -869,7 +869,7 @@ class _TestaDellaCarta extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(maestro.displayName, style: TypographyTokens.titoloScheda()),
+              Text(maestro.nomeAVideo, style: TypographyTokens.titoloScheda()),
               const SizedBox(height: 2),
               Text(maestro.domainArtsPhrase,
                   key: Key('ask_dominio_${maestro.id}'),

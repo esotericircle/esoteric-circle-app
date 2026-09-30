@@ -1,0 +1,6 @@
+REGOLA A, 30 settembre 2026, ordine ES voce 19 quarto giro: la correzione della prima frase con la domanda e le parole da scrivere, il quando e la domanda aperta.
+INNESTO la correzione non ripete la domanda: grep del difetto nel file SI; prova test/la_posizione_e_una_lettura_test.dart ROSSA; file rimesso sha1 5c701432a5af -> 5c701432a5af IDENTICO
+INNESTO la correzione del si o no non dice le parole da scrivere: grep del difetto nel file SI; prova test/la_posizione_e_una_lettura_test.dart ROSSA; file rimesso sha1 5c701432a5af -> 5c701432a5af IDENTICO
+INNESTO il quando torna all esempio della condizione dell animo: grep del difetto nel file SI; prova test/la_posizione_e_una_lettura_test.dart ROSSA; file rimesso sha1 5c701432a5af -> 5c701432a5af IDENTICO
+INNESTO la domanda aperta torna a "detta come la legge la tua arte": grep del difetto nel file SI; prova test/la_posizione_e_una_lettura_test.dart ROSSA; file rimesso sha1 5c701432a5af -> 5c701432a5af IDENTICO
+INNESTO il controller non passa la domanda alla correzione: grep del difetto nel file SI; prova test/la_posizione_e_una_lettura_test.dart ROSSA; file rimesso sha1 c4f3bfa1b425 -> c4f3bfa1b425 IDENTICO

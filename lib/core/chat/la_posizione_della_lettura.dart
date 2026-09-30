@@ -149,12 +149,32 @@ abstract final class LaPosizioneDellaLettura {
     // del banco "Le rune dicono che la solitudine non è assenza, ma un vuoto"
     // aveva la formula davanti e la massima dietro: al perché e al come si
     // risponde con la cosa.
-    if (tipo(domanda) == TipoDellaDomanda.aperta) {
+    // **CON PAROLE DI TUTTI I GIORNI, E L'ARTE DALLA SECONDA FRASE.** Ordine
+    // ES voce 19, quarto giro: alla lettura alla cieca le prime frasi alle
+    // domande aperte erano bocciate 20 volte su 36 per Aura e per Calìgo
+    // (*"porta consapevolezza al tuo centro del plesso solare"*, *"il tuo
+    // richiamo è un sigillo antico"*) e 9 su 36 per Medora. *"Detta come la
+    // legge la tua arte"* invitava a rispondere coi centri e coi sigilli.
+    // **Solo a chi ha fatto una domanda**: *"Lettura generale energia oggi"*
+    // e *"Ok, gli ho scritto adesso"* non hanno un punto interrogativo, e
+    // li' la lettura comincia dall'arte come prima.
+    if (tipo(domanda) == TipoDellaDomanda.aperta && !domanda.contains('?')) {
       return 'LA TUA PRIMA FRASE, PER QUESTA DOMANDA ("$domanda"): risponde '
           'a quello che la persona chiede, in concreto: il perché, il come, '
           'la cosa, detta come la legge la tua arte. Non è una massima: mai '
           '"non è X, ma Y", mai una definizione di che cosa sia l\'amore, la '
           'solitudine o la felicità.';
+    }
+    if (tipo(domanda) == TipoDellaDomanda.aperta) {
+      return 'LA TUA PRIMA FRASE, PER QUESTA DOMANDA ("$domanda"): risponde '
+          'a quello che la persona chiede con parole di tutti i giorni: la '
+          'causa, se chiede perché; il passo da fare, con chi o quando, se '
+          'chiede come o che cosa fare; la cosa, se chiede quale o che cosa. '
+          'È una frase che la persona può verificare o fare nella sua vita. '
+          'La tua arte entra dalla seconda frase, a dire da dove lo leggi, a '
+          'meno che la domanda chieda proprio della tua arte. '
+          'Non è una massima: mai "non è X, ma Y", mai una definizione di '
+          'che cosa sia l\'amore, la solitudine o la felicità.';
     }
     final che = switch (tipo(domanda)) {
       TipoDellaDomanda.siONo =>
@@ -164,10 +184,18 @@ abstract final class LaPosizioneDellaLettura {
       TipoDellaDomanda.scelta =>
         'e sceglie una delle strade della domanda, nominandola. Per esempio: '
             '"$comincia: scrivigli tu, ..." .',
+      // **UN TEMPO, O UN FATTO CHE SI VEDE ACCADERE.** Ordine ES voce 19,
+      // quarto giro: al "quando" i tre Maestri erano bocciati da 4 a 6 volte
+      // su 8, perche' l'esempio di prima (*"non prima che tu abbia..."*)
+      // portava a una condizione dell'animo, *"non prima che tu abbia
+      // riconosciuto il tuo valore"*, che i giudici chiamano una massima.
       TipoDellaDomanda.quando =>
-        'e nomina un momento o un segno da aspettare, come lettura, non come '
-            'data certa. Per esempio: "$comincia: non prima che tu abbia ..." '
-            'oppure "$comincia: quando ...".',
+        'e nomina un tempo che la tua arte legge (una stagione, un mese, '
+            '"entro l\'estate", "non prima dell\'autunno") oppure un fatto '
+            'che la persona può vedere accadere o fare, con chi o che cosa; '
+            'come lettura, non come data certa. Per esempio: "$comincia: non '
+            'prima dell\'autunno, e dopo che avrai ..." oppure "$comincia: '
+            'entro ...".',
       TipoDellaDomanda.aperta =>
         'e risponde a quello che la persona chiede, in concreto: il perché, '
             'il come, la cosa.',
@@ -181,10 +209,40 @@ abstract final class LaPosizioneDellaLettura {
 
   /// **La correzione nominata**, quando la prima frase che torna non rispetta
   /// la forma: il turno si chiede di nuovo una volta.
-  static String correzione(Maestro maestro, String primaFrase) =>
-      'LA TUA PRIMA FRASE NON HA PRESO POSIZIONE: "$primaFrase". Riscrivi la '
-      'risposta: la prima frase comincia con "${inizio(maestro)}" e dice la '
-      'tua posizione sulla domanda, come lettura della tua arte.';
+  ///
+  /// **CON LA DOMANDA E CON LE PAROLE DA SCRIVERE.** Ordine ES voce 19,
+  /// quarto giro: la correzione di prima non ripeteva la domanda e non
+  /// diceva che forma prendere, e la seconda risposta restava senza
+  /// posizione in 25 casi su 34 per Aura, e circa una volta su due per Medora
+  /// e Calìgo. Adesso nomina la domanda e, per il sì o il no, le parole che
+  /// vengono subito dopo l'apertura.
+  static String correzione(Maestro maestro, String primaFrase,
+      {String domanda = '', int giro = 0}) {
+    final comincia = inizio(maestro, giro: giro);
+    final testa = 'LA TUA PRIMA FRASE NON HA PRESO POSIZIONE: "$primaFrase". '
+        '${domanda.trim().isEmpty ? '' : 'La persona ha chiesto: "${domanda.trim()}". '}'
+        'Riscrivi la risposta.';
+    return switch (tipo(domanda)) {
+      TipoDellaDomanda.siONo =>
+        '$testa La prima frase comincia con una di queste tre forme, e la '
+            'completi: "$comincia di sì, se ...", "$comincia di no, per ora: '
+            '...", "$comincia: non ancora, ...". Subito dopo "$comincia" '
+            'vengono le parole "di sì", "di no" o "non ancora": niente "che" '
+            'e nessuna descrizione al loro posto. È la tua lettura, non un '
+            'fatto.',
+      TipoDellaDomanda.scelta =>
+        '$testa La prima frase comincia con "$comincia:" e subito dopo '
+            'nomina una delle strade della domanda, con le sue parole.',
+      TipoDellaDomanda.quando =>
+        '$testa La prima frase comincia con "$comincia:" e subito dopo '
+            'nomina un tempo (una stagione, un mese) o un fatto che la '
+            'persona può vedere accadere, come lettura.',
+      TipoDellaDomanda.aperta =>
+        '$testa La prima frase comincia con "$comincia" e dice la tua '
+            'posizione sulla domanda, come lettura della tua arte, con '
+            'parole di tutti i giorni.',
+    };
+  }
 
   /// La prima frase di un testo: fino al primo punto, esclamativo o
   /// interrogativo, o fino alla fine della prima riga.

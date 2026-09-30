@@ -149,7 +149,7 @@ class _LaDataDelSigilloState extends State<LaDataDelSigillo> {
       firstDate: domani,
       lastDate:
           DateTime(widget.oggi.year + 2, widget.oggi.month, widget.oggi.day),
-      helpText: 'Il giorno in cui Caligo ti chiede com\'è andata',
+      helpText: 'Il giorno in cui Calìgo ti chiede com\'è andata',
     );
     if (scelta == null || !mounted) return;
     setState(() => _scelto = t);

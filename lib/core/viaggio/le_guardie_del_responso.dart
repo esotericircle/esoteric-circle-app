@@ -991,7 +991,7 @@ abstract final class LeGuardieDelResponso {
     if (domanda.trim().isNotEmpty &&
         !_saluteDenaroLegge.hasMatch(domanda) &&
         !_domandaDiSalute.hasMatch(domanda) &&
-        rimandaLaDomanda(r)) {
+        rimandaLaDomanda(r, domanda: domanda)) {
       return MotivoDelloScarto.nonPrendePosizione;
     }
     for (final n in nomiDellaScena) {
@@ -1170,8 +1170,13 @@ abstract final class LeGuardieDelResponso {
         MotivoDelloScarto.animaleAnticipato => "nominava l'animale, che si "
             'rivela solo alla quarta discesa',
         MotivoDelloScarto.nonPrendePosizione =>
-          'la prima frase rimandava la domanda invece di prendere posizione: '
-              'deve dire sì, no, a quale condizione o quale gesto fare',
+          'la prima frase rimandava la domanda o metteva come condizione un '
+              'modo di sentirsi: deve dire sì, no, oppure sì a un passo che '
+              'la persona può fare o verificare, con chi o entro quando '
+              '("di sì, se prima di sabato chiedi a ..."); se la domanda '
+              'chiede che cosa fare o come, la prima frase è il gesto col suo '
+              'verbo, con chi o quando ("Chiama ...", "Stasera invita ..."), '
+              'non un sì e non un modo di sentirsi',
         MotivoDelloScarto.azioneRipetuta => "ripeteva o somigliava a un'azione "
             'già data a questa persona: l\'azione nasce dalla domanda di oggi',
         MotivoDelloScarto.chiedeDiScrivere => 'chiedeva di scrivere: '
@@ -1273,12 +1278,88 @@ abstract final class LeGuardieDelResponso {
       caseSensitive: false);
 
   /// Vero se la prima frase di [r] rimanda la domanda.
-  static bool rimandaLaDomanda(String r) {
+  static bool rimandaLaDomanda(String r, {String domanda = ''}) {
     final prima = r.split(RegExp(r'(?<=[.!?])\s')).first;
     return _rinvio.hasMatch(prima) ||
         _condizioneNonDetta.hasMatch(prima) ||
-        _vaga.hasMatch(prima);
+        _vaga.hasMatch(prima) ||
+        condizioneSenzaPasso(prima) ||
+        (_chiedeIlGesto.hasMatch(domanda) &&
+            (_siONoDeiSegni.hasMatch(prima) || !_tempoOPasso.hasMatch(prima)));
   }
+
+  /// **LA CONDIZIONE E' UN PASSO, O NON E' UNA POSIZIONE. Ordine ES voce 25,
+  /// terzo giro.** Inseguire le forme non porta al 20 su 20: a ogni banco il
+  /// modello ne trova di nuove (*"se conosci la vera motivazione"*, *"se ti
+  /// senti di mettere radici in un nuovo terreno"*). Sulle quattro letture
+  /// alla cieca del banco del Viaggio (`docs/collaudo/ET/ciechi/`, giri 1 e 3,
+  /// fascicoli del 30 settembre) le prime frasi con una condizione sono 82:
+  /// **le 9 che nominano un tempo o un'azione che si fa nel mondo** (*"se
+  /// prima chiedi a tua madre un consiglio"*, *"se hai già verificato tutte
+  /// le spese"*) **sono tutte giudicate con la posizione**; le altre 73, che
+  /// dicono un modo di sentirsi, lo sono 42 volte, 14 no e 17 a meta' fra
+  /// giudici diversi. Qui si guarda la struttura: dopo il "se" ci vuole un
+  /// tempo o un verbo del fare. Costa una seconda chiamata anche a frasi che
+  /// certi giudici accettano: e' il prezzo di non tirare la moneta.
+  static bool condizioneSenzaPasso(String prima) {
+    if (!_siDeiSegni.hasMatch(prima)) return false;
+    final m = _condizione.firstMatch(prima);
+    if (m == null) return false;
+    return !_tempoOPasso.hasMatch(prima.substring(m.end));
+  }
+
+  /// La lettura dei segni del viaggio che dice di sì o che "puoi".
+  static final RegExp _siDeiSegni = RegExp(
+      '(?<![$_l])(?:segni del viaggio|viaggio)(?![$_l])[^.]*?(?<![$_l])'
+      '(?:dicono|dice|indicano|indica|mostrano|mostra)(?![$_l])',
+      caseSensitive: false);
+
+  static final RegExp _condizione = RegExp(
+      '(?<![$_l])(?:se|a condizione (?:che|di)|a patto (?:che|di)|purché|'
+      'ma prima|ma non senza|finché)(?![$_l])',
+      caseSensitive: false);
+
+  /// Un tempo (*entro venerdì*, *domani*, *questa settimana*) o un verbo del
+  /// fare con qualcuno o con qualcosa (*chiedi*, *parli*, *verifichi*,
+  /// *telefoni*, *ti iscrivi*).
+  static final RegExp _tempoOPasso = RegExp(
+      '(?<![$_l])(?:entro|domani|dopodomani|stasera|stanotte|oggi|'
+      'questa settimana|questo mese|fine settimana|sabato|domenica|'
+      'luned[iì]|marted[iì]|mercoled[iì]|gioved[iì]|venerd[iì]|'
+      'chied[$_l]*|chiest[$_l]*|parl[$_l]+|chiam[$_l]+|scriv[$_l]+|'
+      'incontr[$_l]+|telefon[$_l]+|visit[$_l]+|risparm[$_l]+|'
+      'verific[$_l]+|controll[$_l]+|iscriv[$_l]+|prenot[$_l]+|firm[$_l]+|'
+      'fai i conti|metti da parte|invit[$_l]+|esci|vai|port[$_l]+|'
+      'cucin[$_l]+|cammin[$_l]+|amic[$_l]+|'
+      // La riserva di casa rimanda al gesto mostrato sotto: il passo e' lui.
+      'qui sotto)(?![$_l])',
+      caseSensitive: false);
+
+  /// **ALLA DOMANDA SUL COME NON SI RISPONDE DI SI'.** *"Come faccio a
+  /// sentirmi meno sola la sera?"*, *"I segni del viaggio dicono di sì, se ti
+  /// permetti di sentire..."*: due volte su venti al banco del 30 settembre.
+  /// La domanda che chiede che cosa fare o come vuole il gesto.
+  ///
+  /// **E IL GESTO E' UN PASSO**, dal terzo banco del 30 settembre: tolte le
+  /// condizioni vaghe, restavano senza posizione le risposte al "come" e al
+  /// "che cosa faccio" (*"devi riorganizzare il tuo spazio personale"*,
+  /// *"puoi occupare lo spazio che si crea"*). Sulle cinque letture alla
+  /// cieca, a queste domande, le prime frasi che nominano un tempo o
+  /// un'azione che si fa nel mondo prendono posizione 39 volte su 48; le
+  /// altre 18 su 72. La stessa struttura della condizione.
+  static final RegExp _chiedeIlGesto = RegExp(
+      '(?:^|[,.:;!?]\\s*)(?:come|cosa|che cosa)(?![$_l])[^?]*\\?',
+      caseSensitive: false);
+
+  /// Vero se [domanda] chiede che cosa fare o come: vuole il gesto.
+  static bool chiedeIlGesto(String domanda) => _chiedeIlGesto.hasMatch(domanda);
+
+  /// Vero se [frase] nomina un tempo o un'azione che si fa nel mondo.
+  static bool nominaUnPasso(String frase) => _tempoOPasso.hasMatch(frase);
+
+  static final RegExp _siONoDeiSegni = RegExp(
+      '(?<![$_l])(?:dicono|dice|indicano|indica) di (?:sì|no)(?![$_l])',
+      caseSensitive: false);
 
   /// **LA CONDIZIONE ANNUNCIATA E MAI DETTA.** Ordine ET voce 08, dalla
   /// lettura alla cieca: *"I segni del viaggio indicano che puoi chiamare tuo

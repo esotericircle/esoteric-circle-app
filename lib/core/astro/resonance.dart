@@ -273,7 +273,7 @@ Resonance computeResonance(NatalChart chart, {String? archetype}) {
 String _voice(Maestro winner) => switch (winner) {
       Maestro.medora => 'Medora, che legge le stelle',
       Maestro.aura => 'Aura, che custodisce l\'energia',
-      Maestro.caligo => 'Caligo, che conosce i riti',
+      Maestro.caligo => 'Calìgo, che conosce i riti',
     };
 
 String _cap(String s) => s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);

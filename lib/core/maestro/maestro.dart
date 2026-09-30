@@ -65,6 +65,15 @@ enum Maestro {
 
   final String id;
   final String displayName;
+
+  /// **IL NOME COME SI LEGGE A VIDEO.** Ordine ES voce 17, dalla riga del
+  /// fondatore: *"Il nome di Caligo senza accento nella testata del dominio
+  /// e del LIVE"*, *"Il nome Calìgo con l'accento nella testata e nella push
+  /// lo metto in ogni caso. Confermi?"*, *"Confermo tutto"*. Le testate lo
+  /// prendono da qui. [displayName] resta quello che va al modello e alle
+  /// chiavi: cambiarlo cambierebbe l'impronta dell'istruzione dei tre
+  /// Maestri, e con lei la misura dell'attribuzione.
+  String get nomeAVideo => this == Maestro.caligo ? 'Calìgo' : displayName;
   final String tagline;
 
   /// Invito breve di due righe su cosa si trova nel dominio del Maestro,

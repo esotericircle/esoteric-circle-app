@@ -99,7 +99,7 @@ class ArtIntroScreen extends StatelessWidget {
                 // dei paragrafi non lo raggiunge.
                 ParagrafiDiLettura(
                   testo: 'L\'esperienza piena di quest\'arte sta prendendo '
-                      'forma nelle mani di ${maestro.displayName}. Intanto '
+                      'forma nelle mani di ${maestro.nomeAVideo}. Intanto '
                       'puoi portargliela come domanda: il Cerchio risponde '
                       'già adesso.',
                   stile: TypographyTokens.lettura()
@@ -116,7 +116,7 @@ class ArtIntroScreen extends StatelessWidget {
                     );
                   },
                   icon: const Icon(Icons.forum_outlined),
-                  label: Text('Consulta ${maestro.displayName}'),
+                  label: Text('Consulta ${maestro.nomeAVideo}'),
                 ),
                 // LA CORNICE ONESTA E' USCITA DA QUI, ed era uno dei SETTE
                 // disclaimer a schermo. Le linee guida dicevano da sempre

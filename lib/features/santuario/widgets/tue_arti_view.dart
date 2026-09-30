@@ -95,7 +95,7 @@ class _FoglioScelta extends StatelessWidget {
             for (final m in Maestro.values) ...[
               Padding(
                 padding: const EdgeInsets.only(top: SpacingTokens.sm),
-                child: Text(m.displayName,
+                child: Text(m.nomeAVideo,
                     style: TypographyTokens.label(size: 12).copyWith(
                       color: MaestroPalette.forKey(ThemeKey.of(m)).goldSoft,
                       letterSpacing: 0.8,

@@ -173,7 +173,7 @@ abstract final class IlFoglioDelVivo {
                     const SizedBox(width: SpacingTokens.xs),
                     Flexible(
                       child: Text(
-                        'LIVE con ${maestro.displayName}',
+                        'LIVE con ${maestro.nomeAVideo}',
                         textAlign: TextAlign.center,
                         style: TypographyTokens.titoloDiSchermata()
                             .copyWith(color: palette.goldSoft),

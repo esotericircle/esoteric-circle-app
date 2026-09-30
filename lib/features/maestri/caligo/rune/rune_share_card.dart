@@ -128,5 +128,5 @@ Future<bool> shareRuneCard({
   // che a condivisione avvenuta paga il premio dichiarato sul pulsante.
   return PortaDellaCondivisione.daFile(file.path,
       testo: 'Ho gettato le rune con ${esito.gettata.nome}: $nomi. '
-          'Scopri il tuo presagio con Caligo, su Esoteric Circle.');
+          'Scopri il tuo presagio con Calìgo, su Esoteric Circle.');
 }

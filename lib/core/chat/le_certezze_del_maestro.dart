@@ -86,7 +86,7 @@ abstract final class LeCertezzeDelMaestro {
   /// *"quando sarai pronta"*).
   static final RegExp _condizione =
       _re(r'^\s*(?:(?:e|ma|o)\s+)?(?:se|quando|finché|purché|appena|non appena|'
-          r'che|perché|dove|come|mentre|prima che|dopo che|solo se|a patto che|'
+          r'perché|dove|come|mentre|prima che|dopo che|solo se|a patto che|'
           'qualora|ogni volta che)$_dopo');
 
   /// Le parole che, davanti al futuro nella stessa proposizione, lo fanno
@@ -161,7 +161,22 @@ abstract final class LeCertezzeDelMaestro {
           '${_prima}pront[ao] ad? accogliere (?:una )?nuova vita|'
           '${_prima}capacità di generare$_dopo|'
           '${_prima}non (?:passa|passano|passerà|passeranno) inosservat|'
-          '$_prima(?:è|sono|viene|vengono) (?:riconosciut|percepit)|'
+          '$_prima(?:è|sono|viene|vengono) (?:riconosciut|percepit|'
+          'lett[oa] e compres|notat)|'
+          // Dal quarto giro del banco, 30 settembre: la fertilita' donata
+          // (*"ti dona una grande fertilità interiore"*), il tradimento
+          // escluso con altre parole (*"non da un tradimento"*), cio' che
+          // sta per accadere, il legame dato per forte.
+          '${_prima}fertilità interiore$_dopo|'
+          '${_prima}ti rend(?:e|ono) fertile$_dopo|'
+          '${_prima}non (?:da|è) un tradimento$_dopo|'
+          '${_prima}dove non ci sono ombre$_dopo|'
+          '$_prima(?:sta|stanno) per (?:manifestarsi|compiersi|nascere|'
+          'aprirsi|accadere)$_dopo|'
+          '${_prima}si muove verso di te$_dopo|'
+          '${_prima}ha radici profonde$_dopo|'
+          '$_prima(?:questo|vostro) legame[^,.;:]{0,20}(?:è|resta) '
+          '(?:forte|profond[oa]|solid[oa]|sald[oa])$_dopo|'
           '$_prima(?:sarà|saranno|è|sono) (?:molto )?apprezzat|'
           '${_prima}risuonan?o positivamente$_dopo|'
           '(?<!$_prima(?:ti|mi|gli|le|ci|vi) )$_primaè (?:già )?(?:vicin[oa]|'
@@ -183,14 +198,21 @@ abstract final class LeCertezzeDelMaestro {
           'silenzio|sguardo|apprezzamento|stima|volontà|esitazione|reticenza|'
           'cautela|lealtà|desiderio|sentimento|sentimenti|occhi|anima|natura|'
           'fiamma|interesse|fedeltà|attenzione|mente|animo|'
-          'percezione)$_dopo|'
+          'percezione|respiro|scelta|onestà|giudizio)$_dopo|'
+          '${_prima}da parte sua$_dopo|'
           '$_prima(?:lo|la|gli|le) (?:frena|tiene|spinge|blocca|trattiene|'
           'impedisce|rende|trattengono|frenano|spingono|bloccano)$_dopo|'
+          '${_prima}lo (?:muove|ancora)$_dopo|'
+          // Il soggetto taciuto: *"Sente il radicamento che porti"*.
+          r'^\s*(?:sente|percepisce|nota|apprezza|teme)\s+(?:la tua|il tuo|'
+          r'le tue|i tuoi|il|la|che)(?!\p{L})|'
           // Dall'ordine ES, dentro l'animo dell'altro: *"brucia nella sua
           // anima"*, *"nel suo animo si agita"*, *"in lui si riflette un
           // desiderio"*.
           '$_prima(?:nel suo|nella sua) (?:animo|anima|cuore|sentire)$_dopo|'
           '${_prima}in (?:lui|lei) (?:si|c\'è|vive|arde|cresce|nasce)$_dopo');
+
+  static final RegExp _che = _re('$_prima(?:che|in cui|dove)$_dopo');
 
   static final RegExp _cioChePuoEssere =
       _re('$_prima(?:potrebbe|può|potrebbero|possono|forse|tende|è su[ao]|'
@@ -240,8 +262,13 @@ abstract final class LeCertezzeDelMaestro {
     // per soggetto una cosa dell'altra persona, e per i giudici alla cieca
     // dell'ordine ES e' un fatto sul suo animo come *"il suo silenzio è
     // riguardo"*.
+    // **"PUO'" ESENTA SOLO LA FRASE CHE REGGE**, non la relativa che la
+    // segue: *"il suo silenzio è indice di una prudenza che può essere letta
+    // come rispetto"* da' per certa la prudenza. Ordine ES voce 19, dal
+    // quarto giro.
+    final reggente = p.split(_che).first;
     if ((letta && !_soggettoAltro.hasMatch(p)) ||
-        _cioChePuoEssere.hasMatch(p)) {
+        _cioChePuoEssere.hasMatch(reggente)) {
       return false;
     }
     return _fattoCerto.hasMatch(p) ||
@@ -350,11 +377,19 @@ abstract final class LeCertezzeDelMaestro {
     }
     if (tolte == 0) return testo;
     final corpo = fuori.where((r) => !r.trimLeft().startsWith('✦')).join(' ');
-    if (corpo
-            .split(RegExp(r'(?<=[.!?])\s+'))
-            .where((f) => f.trim().isNotEmpty)
-            .length <
-        2) {
+    // **LA PRIMA FRASE COL SUO GESTO E' UNA RISPOSTA INTERA.** Ordine ES voce
+    // 19, quarto giro: *"Il segno che cade dice di sì. I suoi occhi ti
+    // cercano, non fuggono. ✦ Indossa un indumento rosso..."*, chiesta di
+    // nuovo, tornava uguale, e la frase certa restava perche' togliendola
+    // rimaneva la sola prima frase. Con la riga del gesto restano la
+    // posizione e il passo: si toglie.
+    final colGesto = fuori.any((r) => r.trimLeft().startsWith('✦'));
+    if (!colGesto &&
+        corpo
+                .split(RegExp(r'(?<=[.!?])\s+'))
+                .where((f) => f.trim().isNotEmpty)
+                .length <
+            2) {
       return testo;
     }
     return fuori.join('\n');

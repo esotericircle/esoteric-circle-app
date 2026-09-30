@@ -107,7 +107,7 @@ class PortaDellArte {
   /// Il nome dell'arte da mostrare, oppure la casa del Maestro.
   static String comeSiChiama(Traguardo traguardo, Sentiero sentiero) {
     final gesto = gestoDi(traguardo);
-    return nomeDellArte[gesto] ?? 'La casa di ${sentiero.maestro.displayName}';
+    return nomeDellArte[gesto] ?? 'La casa di ${sentiero.maestro.nomeAVideo}';
   }
 }
 
@@ -149,7 +149,7 @@ class _FoglioDellaMappa extends StatelessWidget {
             // fondatore: "la stessa bolla deve iniziare con il titolo 'I
             // traguardi di Aura' o altro nome del Maestro corrispondente".
             Text(
-              'I traguardi di ${sentiero.maestro.displayName}',
+              'I traguardi di ${sentiero.maestro.nomeAVideo}',
               key: const Key('mappa_titolo_maestro'),
               textAlign: TextAlign.center,
               style: TypographyTokens.titoloSezione()

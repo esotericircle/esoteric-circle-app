@@ -113,7 +113,7 @@ class ViaDelCerchio {
   /// scritta qui: e' testo che la persona legge, quindi e' materia di i18n.
   String get etichetta => switch (specie) {
         SpecieDiVia.cerchio => AppStrings.navSantuario,
-        SpecieDiVia.maestro => maestro!.displayName,
+        SpecieDiVia.maestro => maestro!.nomeAVideo,
         SpecieDiVia.passport => AppStrings.navPassport,
       };
 

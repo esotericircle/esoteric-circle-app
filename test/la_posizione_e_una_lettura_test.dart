@@ -321,6 +321,48 @@ void main() {
     expect(ai.correzioni.last, contains('Non scegliere, attendi.'));
     expect(c.messages.last.text, startsWith('Le rune dicono'));
     expect(c.rigenerazioniPerPosizione, 1);
+    // Ordine ES voce 19, quarto giro: la correzione ripete la domanda e dice
+    // la forma, qui quella della scelta.
+    expect(ai.correzioni.last,
+        contains('Devo scrivergli io o aspettare che si faccia vivo lui?'));
+    expect(ai.correzioni.last, contains('nomina una delle strade'));
+  });
+
+  // **LA SECONDA RICHIESTA DICE LE PAROLE DA SCRIVERE, E LA PRIMA FRASE ALLE
+  // DOMANDE APERTE E AL "QUANDO" SI DICE IN PAROLE DI TUTTI I GIORNI.** Ordine
+  // ES voce 19, quarto giro, 30 settembre 2026. Alla lettura alla cieca del
+  // terzo giro del banco Aura era bocciata alla prima frase in 27 domande di
+  // si' o no su 68 (Medora 1, Calìgo 5), la seconda richiesta restava senza
+  // posizione in 25 casi su 34, al "quando" i tre Maestri erano bocciati da 5
+  // a 6 volte su 8 e alle domande aperte Aura e Calìgo circa 20 volte su 36.
+  test(
+      'ES.19: la correzione della prima frase nomina la domanda e le parole '
+      'da scrivere; il quando chiede un tempo; la domanda aperta le parole di '
+      'tutti i giorni', () {
+    for (final m in Maestro.values) {
+      final apertura = LaPosizioneDellaLettura.inizio(m);
+      final c = LaPosizioneDellaLettura.correzione(
+          m, 'Nel tuo corpo leggo che un desiderio profondo abita la radice.',
+          domanda: 'Riuscirò a comprare casa?');
+      expect(c, contains('La persona ha chiesto: "Riuscirò a comprare casa?"'));
+      expect(c, contains('"$apertura di sì, se ..."'));
+      expect(c, contains('"$apertura di no, per ora: ..."'));
+      expect(c, contains('niente "che"'));
+      final quando = LaPosizioneDellaLettura.perIlTurno(
+          m, 'Quando cambierà la mia fortuna?');
+      expect(quando, contains('una stagione, un mese'));
+      expect(quando, isNot(contains('non prima che tu abbia')),
+          reason: 'l\'esempio che portava alla condizione dell\'animo');
+      final aperta = LaPosizioneDellaLettura.perIlTurno(
+          m, 'Come posso guadagnare di più?');
+      expect(aperta, contains('con parole di tutti i giorni'));
+      expect(aperta, contains('La tua arte entra dalla seconda frase'));
+      // Chi non ha fatto una domanda riceve la lettura dall'arte, come prima.
+      final richiesta = LaPosizioneDellaLettura.perIlTurno(
+          m, 'Lettura generale energia oggi');
+      expect(richiesta, contains('detta come la legge la tua arte'));
+      expect(richiesta, isNot(contains('parole di tutti i giorni')));
+    }
   });
 }
 

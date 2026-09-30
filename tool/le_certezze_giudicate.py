@@ -8,8 +8,10 @@ delle risposte che gli stessi giudici hanno dato senza nessuna certezza.
 Scrive `docs/collaudo/ES/certezze_giudicate.json`: la prova della rete delle
 certezze pretende che la rete prenda le prime e lasci stare le seconde.
 
+Piu' fascicoli si uniscono: la stessa frase citata due volte conta una.
+
 Uso:
-  python tool/le_certezze_giudicate.py <cartella dei giudizi> <etichetta>
+  python tool/le_certezze_giudicate.py <cartella dei giudizi> <etichetta>[,<etichetta>...]
 """
 import glob
 import json
@@ -30,25 +32,33 @@ def frasi(testo):
 
 
 def main():
-    cartella, etichetta = sys.argv[1], sys.argv[2]
-    chiave = json.loads(pathlib.Path(cartella, f'chiave_et01_{etichetta}.json')
-                        .read_text(encoding='utf-8'))
-    giudizi = {}
-    for f in glob.glob(os.path.join(cartella, f'giudizio_et01_{etichetta}_parte*.json')):
-        giudizi.update(json.loads(pathlib.Path(f).read_text(encoding='utf-8')))
+    cartella, etichette = sys.argv[1], sys.argv[2].split(',')
     certe, buone = [], []
-    for codice, voce in sorted(chiave.items()):
-        g = giudizi.get(codice)
-        if g is None:
-            continue
-        if g['certezze']:
-            for c in g['certezze']:
-                certe.append({'voce': codice, 'fase': voce['fase'],
-                              'maestro': voce['maestro'], 'frase': c})
-        else:
-            for f in frasi(voce['testo']):
-                buone.append({'voce': codice, 'fase': voce['fase'],
-                              'maestro': voce['maestro'], 'frase': f})
+    viste = set()
+    for etichetta in etichette:
+        chiave = json.loads(pathlib.Path(cartella, f'chiave_et01_{etichetta}.json')
+                            .read_text(encoding='utf-8'))
+        giudizi = {}
+        for f in glob.glob(os.path.join(cartella, f'giudizio_et01_{etichetta}_parte*.json')):
+            giudizi.update(json.loads(pathlib.Path(f).read_text(encoding='utf-8')))
+        for codice, voce in sorted(chiave.items()):
+            g = giudizi.get(codice)
+            if g is None:
+                continue
+            if g['certezze']:
+                for c in g['certezze']:
+                    if ('c', c) in viste:
+                        continue
+                    viste.add(('c', c))
+                    certe.append({'voce': f'{etichetta}:{codice}', 'fase': voce['fase'],
+                                  'maestro': voce['maestro'], 'frase': c})
+            else:
+                for f in frasi(voce['testo']):
+                    if ('b', f) in viste:
+                        continue
+                    viste.add(('b', f))
+                    buone.append({'voce': f'{etichetta}:{codice}', 'fase': voce['fase'],
+                                  'maestro': voce['maestro'], 'frase': f})
     USCITA.write_text(json.dumps({'certe': certe, 'buone': buone},
                                  ensure_ascii=False, indent=1) + '\n',
                       encoding='utf-8', newline='')

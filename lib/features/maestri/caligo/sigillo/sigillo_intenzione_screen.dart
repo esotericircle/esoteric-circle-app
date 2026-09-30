@@ -559,7 +559,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
             padding: const EdgeInsets.only(bottom: SpacingTokens.sm),
             child: Text(
               'Avevi scritto di qualcun altro. Un sigillo agisce su chi '
-              'lo traccia, mai sulla volontà di un terzo: Caligo la riporta '
+              'lo traccia, mai sulla volontà di un terzo: Calìgo la riporta '
               'su di te, che è dove ha forza.',
               key: const Key('sigillo_riformulata'),
               style: TypographyTokens.corpo()
@@ -567,7 +567,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
             ),
           ),
         if (_riformulando)
-          Text('Caligo la riscrive nella forma del metodo...',
+          Text('Calìgo la riscrive nella forma del metodo...',
               key: const Key('sigillo_riformulando'),
               textAlign: TextAlign.center,
               style: TypographyTokens.corpo()
@@ -600,7 +600,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
           // del metodo, detta come gia' vera, su salute, figli, cause e
           // denaro diventa una promessa. Si dice, invece di tacerlo.
           Text(
-            'Su salute, figli, denaro e cause legali Caligo non riscrive la '
+            'Su salute, figli, denaro e cause legali Calìgo non riscrive la '
             'frase: resta la tua.',
             key: const Key('sigillo_tema_delicato'),
             textAlign: TextAlign.center,
@@ -611,7 +611,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
           PulsanteLeggeroDelSigillo(
             key: const Key('sigillo_riformula'),
             testo: _riformulazioni == 0
-                ? 'Chiedi a Caligo di riscriverla'
+                ? 'Chiedi a Calìgo di riscriverla'
                 : 'Chiedi un\'altra forma',
             palette: palette,
             onPressed: _riformula,
@@ -622,7 +622,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
             // Vale sia per la rete che manca sia per la riga scartata dalle
             // guardie: *"non ha risposto"* sarebbe falso nel secondo caso.
             child: Text(
-                'Caligo non ha trovato una forma migliore: la frase resta la '
+                'Calìgo non ha trovato una forma migliore: la frase resta la '
                 'tua.',
                 textAlign: TextAlign.center,
                 style: TypographyTokens.corpo()
@@ -717,7 +717,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (testi == null)
-                  Text('Caligo scrive il tuo responso...',
+                  Text('Calìgo scrive il tuo responso...',
                       key: const Key('sigillo_scrive'),
                       style: TypographyTokens.corpo()
                           .copyWith(color: ColorTokens.textSecondary))

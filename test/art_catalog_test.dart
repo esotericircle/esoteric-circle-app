@@ -728,7 +728,7 @@ void main() {
         final meta =
             tester.view.physicalSize.width / tester.view.devicePixelRatio / 2;
         expect(
-            tester.getCenter(find.text(m.displayName)).dx, closeTo(meta, 1.0),
+            tester.getCenter(find.text(m.nomeAVideo)).dx, closeTo(meta, 1.0),
             reason: 'il nome di ${m.displayName} non e\' centrato');
         expect(
           tester.getCenter(find.byKey(const Key('domain_pillars'))).dx,
@@ -748,8 +748,9 @@ void main() {
         await tester.pumpWidget(domain(m));
         await tester.pump();
         expect(find.byKey(const Key('domain_consulta_card')), findsOneWidget);
-        expect(find.text('Consulta ${m.displayName}'), findsOneWidget);
-        expect(find.text('Parla con ${m.displayName}'), findsNothing);
+        // Ordine ES voce 17: a video il nome e' quello con l'accento.
+        expect(find.text('Consulta ${m.nomeAVideo}'), findsOneWidget);
+        expect(find.text('Parla con ${m.nomeAVideo}'), findsNothing);
         expect(find.byKey(const Key('domain_ask_card')), findsNothing);
       }
     });

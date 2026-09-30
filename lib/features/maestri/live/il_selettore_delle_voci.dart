@@ -113,7 +113,7 @@ class _IlSelettoreDelleVociState extends State<IlSelettoreDelleVoci> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Il timbro di ${widget.maestro.displayName}',
+                'Il timbro di ${widget.maestro.nomeAVideo}',
                 style: TypographyTokens.titoloScheda()
                     .copyWith(color: ColorTokens.goldLight),
               ),

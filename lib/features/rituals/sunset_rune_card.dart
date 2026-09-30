@@ -93,7 +93,7 @@ class SunsetRuneCard extends StatelessWidget {
                     color: palette.goldSoft.withValues(alpha: 0.85),
                     letterSpacing: 0.4)),
             const SizedBox(height: SpacingTokens.md),
-            Text('Esoteric Circle · Caligo',
+            Text('Esoteric Circle · Calìgo',
                 style: TypographyTokens.etichetta().copyWith(
                     color: palette.goldSoft.withValues(alpha: 0.7),
                     letterSpacing: 1.0)),
@@ -162,5 +162,5 @@ Future<bool> shareSunsetRuneCard({
   // che a condivisione avvenuta paga il premio dichiarato sul pulsante.
   return PortaDellaCondivisione.daFile(file.path,
       testo: 'La mia runa del tramonto: ${estrazione.rune.name} $verso. '
-          'Scopri la tua con Caligo, su Esoteric Circle.');
+          'Scopri la tua con Calìgo, su Esoteric Circle.');
 }

@@ -99,7 +99,7 @@ class _MaestroScreenState extends State<MaestroScreen> {
                   const SizedBox(height: SpacingTokens.md),
                   // Poi il titolo del dominio, poi l'azione principale.
                   SectionTitle(
-                    title: 'Le Arti di ${widget.maestro.displayName}',
+                    title: 'Le Arti di ${widget.maestro.nomeAVideo}',
                     subtitle:
                         'Il suo dominio, dalle arti vive a quelle in cammino.',
                   ),
@@ -361,7 +361,7 @@ class CircleArtTile extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 2),
-                    Text(maestro.displayName,
+                    Text(maestro.nomeAVideo,
                         style: TypographyTokens.etichetta().copyWith(
                           color: propria.goldSoft.withValues(alpha: 0.95),
                           letterSpacing: 0.6,
@@ -391,7 +391,7 @@ class _ConsultaMaestroCard extends StatelessWidget {
   /// La scheda come voce: non sta nel catalogo, e non ha una rotta d'arte.
   static ArtEntry voce(Maestro maestro) => ArtEntry(
         id: 'consulta_${maestro.name}',
-        title: 'Consulta ${maestro.displayName}',
+        title: 'Consulta ${maestro.nomeAVideo}',
         teaser: 'Dialoga, chiedi e metti a confronto gli sguardi del Cerchio.',
         icon: Icons.forum_outlined,
         state: ArtState.attiva,
@@ -415,8 +415,7 @@ class _ConsultaMaestroCard extends StatelessWidget {
         art: voce(maestro),
         maestro: maestro,
         formato: FormatoDellaScheda.orizzontale,
-        larghezza: LaSchedaDellArte.larghezzaPer(
-            FormatoDellaScheda.orizzontale,
+        larghezza: LaSchedaDellArte.larghezzaPer(FormatoDellaScheda.orizzontale,
             scalaDelTesto: scala),
         sfondo: GliSfondiDelleSchede.consultaDi(maestro),
         onApri: (c) async {

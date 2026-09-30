@@ -234,7 +234,7 @@ class _MaestroAuraState extends State<_MaestroAura>
                   child: FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
-                      widget.maestro.displayName,
+                      widget.maestro.nomeAVideo,
                       maxLines: 1,
                       softWrap: false,
                       textAlign: TextAlign.center,

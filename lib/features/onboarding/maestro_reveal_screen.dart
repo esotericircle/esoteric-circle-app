@@ -141,7 +141,7 @@ class _MaestroRevealScreenState extends State<MaestroRevealScreen>
       maestro: widget.maestro,
       copy: PermissionCopy(
         icon: Icons.mic_none_rounded,
-        title: '${widget.maestro.displayName} ha bisogno del microfono',
+        title: '${widget.maestro.nomeAVideo} ha bisogno del microfono',
         body:
             'Per soffiare $_ritualObjectName, il microfono ascolta solo il tuo soffio, non registra nulla né conserva audio.',
         cta: 'Attiva il microfono',
@@ -675,7 +675,7 @@ class _RevealedFooter extends StatelessWidget {
         ),
         const SizedBox(height: SpacingTokens.xs),
         Text(
-          maestro.displayName,
+          maestro.nomeAVideo,
           style: TypographyTokens.cerimoniale(),
           textAlign: TextAlign.center,
         ),

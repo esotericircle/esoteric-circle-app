@@ -809,7 +809,7 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
         // notte restano, in una riga sola sopra, dove stanno gli occhielli.
         Text(
             '${DreamRiteCorpus.parola(_luna.sign).toUpperCase()}  ·  '
-            'IL SALUTO DI ${_maestro.displayName.toUpperCase()}',
+            'IL SALUTO DI ${_maestro.nomeAVideo.toUpperCase()}',
             key: const Key('dream_message_title'),
             style: TypographyTokens.didascalia(weight: 600).copyWith(
                 color: _palette.goldSoft.withValues(alpha: 0.85),

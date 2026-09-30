@@ -96,9 +96,12 @@ void main() {
     );
     final letti = LeGuardieDelResponso.leggi({
       'posizione': 'sì a una condizione',
+      // LAPIDE, ordine ES voce 25: la frase era "se prima sai che cosa
+      // lasci", che adesso non passa perche' la condizione e' un modo di
+      // sentirsi; la frase salvata ha una condizione che e' un passo.
       'risposta': 'I segni del viaggio dicono di sì al trasferimento a '
-          'Berlino, se prima sai che cosa lasci. Berlino sarà la tua nuova '
-          'casa.',
+          'Berlino, se prima chiedi quando si comincia. Berlino sarà la tua '
+          'nuova casa.',
     }, domanda: s.domanda, forma: neutra);
     expect(letti.risposta, isNull);
     final salvata = LaScenaDalModello.conLaPrimaFrase(letti, s, null);
@@ -106,7 +109,7 @@ void main() {
     expect(
         salvata.risposta,
         'I segni del viaggio dicono di sì al trasferimento a Berlino, se '
-        'prima sai che cosa lasci.');
+        'prima chiedi quando si comincia.');
     expect(salvata.dallaSeconda, contains('risposta: prima frase'));
   });
 

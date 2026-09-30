@@ -609,7 +609,7 @@ class _Preparazione extends StatelessWidget {
         children: [
           const SizedBox(height: SpacingTokens.sm),
           Text(
-            'Sono Caligo, custode delle soglie. Le rune non comandano il tuo '
+            'Sono Calìgo, custode delle soglie. Le rune non comandano il tuo '
             'domani, lo rischiarano: gettale con una domanda nel cuore e ascolta '
             'il segno.',
             key: const Key('rune_intro'),
@@ -1047,7 +1047,7 @@ class _Responso extends StatelessWidget {
                       // Il titolo passa da `etichetta` a `titoloDiRiga`,
                       // cioe' da quattordici punti a sedici: **un gradino
                       // della scala, non una misura scritta a mano qui.**
-                      Text('Il presagio di Caligo',
+                      Text('Il presagio di Calìgo',
                           style: TypographyTokens.titoloDiRiga().copyWith(
                               color: palette.goldSoft, letterSpacing: 0.6)),
                     ],
@@ -1072,7 +1072,7 @@ class _Responso extends StatelessWidget {
                                 strokeWidth: 1.6, color: palette.goldSoft),
                           ),
                           const SizedBox(width: SpacingTokens.sm),
-                          Text('Caligo sta leggendo le pietre',
+                          Text('Calìgo sta leggendo le pietre',
                               style: TypographyTokens.didascalia()
                                   .copyWith(color: ColorTokens.textSecondary)),
                         ],

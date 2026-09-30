@@ -96,6 +96,16 @@ void main() {
         'forte attrazione.';
     expect(LeCertezzeDelMaestro.senzaLeFrasiCerte(soloDue), soloDue,
         reason: 'togliendo restava la sola prima frase');
+    // **MA COL GESTO SI TOGLIE.** Ordine ES voce 19, quarto giro, dal banco:
+    // la prima frase con la riga del gesto e' una risposta intera, e la
+    // frase certa in mezzo, chiesta di nuovo e tornata uguale, restava.
+    const colGesto = 'Il segno che cade dice di sì. I suoi occhi ti cercano, '
+        'non fuggono.\n✦ Indossa un indumento rosso domani e incrocia il suo '
+        'sguardo.';
+    expect(
+        LeCertezzeDelMaestro.senzaLeFrasiCerte(colGesto),
+        'Il segno che cade dice di sì.\n✦ Indossa un indumento rosso domani e '
+        'incrocia il suo sguardo.');
     // La frase spezzata del quarto giro: "di sì, qualità che risuonano".
     expect(
         LeCertezzeDelMaestro.senzaIlFattoDopoLaPosizione(

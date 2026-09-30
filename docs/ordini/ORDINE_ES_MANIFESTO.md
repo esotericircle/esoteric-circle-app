@@ -344,8 +344,18 @@ telefono e sul server, non ancora schierata: le funzioni si schierano insieme al
 che porta il gestore della push, poi tre sere di osservazione sul Realme in
 `docs/collaudo/ES/notifiche.txt`. Padre del doppione: ordine CG voce 16, il tag `dono_1104` che non
 sostituiva la locale 1104; e il giro del server ogni quindici minuti non allineato all'orologio
-(partiva a :13, :28, :43, :58). L'accento di Calìgo nella testata e nella push si fa con la ES.19,
-perche' cambia l'impronta dell'istruzione dei Maestri e vuole la misura dell'attribuzione rifatta.
+(partiva a :13, :28, :43, :58). **L'accento di Calìgo**: nella push lo porta il server
+(`functions/src/push.ts`); nelle testate del telefono (il dominio, il LIVE, la schermata del Maestro e
+la chat) il nome viene da `Maestro.nomeAVideo`, "Calìgo". Il nome che va al modello resta quello di
+prima, cosi' l'impronta dell'istruzione dei tre Maestri non cambia e la misura dell'attribuzione resta
+valida: la strada scritta qui prima (cambiare il nome ovunque e rifare l'attribuzione) non serve. **E
+le scritte fatte a mano** delle sue schermate (le rune, il Sigillo dell'Intenzione, il Libro dei
+Sigilli), delle card da condividere, dell'avviso del sigillo e dei filtri dei Ricordi: ventidue, tutte
+con l'accento. Restano senza accento le frasi dei corpora del fondatore che nominano Caligo (i teaser
+delle arti, le promesse dei Traguardi): il corpus e' suo, e si cambia col suo si'; e il nome che il
+modello scrive nelle risposte, che viene dall'istruzione.
+Guardia `il_nome_di_caligo_ha_l_accento`, rossa su tre innesti
+(`docs/collaudo/ES/regola_a_accento_di_caligo.txt`).
 
 DOMANDA: "Inoltre mi è arrivata doppia notifica "Caligo ha qualcosa da dirti" alle 22:40 e la notifica del sigillo del giorno alle 22.30."; dal rapporto dell'ordine ET, LE COSE CHE ASPETTANO TE, punto 6: "Il nome di Caligo senza accento nella testata del dominio e del LIVE"; domanda girata al fondatore: "Il nome Calìgo con l'accento nella testata e nella push lo metto in ogni caso. Confermi?", risposta: "Confermo tutto".
 
@@ -442,10 +452,42 @@ certezze si dimezzano senza che Medora e Calìgo perdano niente; il calo di Aura
 PROVENIENZA IGNOTA, da cercare nella persona di Aura e nella prima frase, non nella rete. Il 30 su 30
 per Maestro e canale non c'e': il migliore e' Medora nella chat, 26 e 27 su 30.
 
+**Quarto giro** (`es4`), dopo il secondo *"prosegui con tutto"* del fondatore. **La provenienza del
+calo di Aura adesso e' nota**: scomposte per tipo di domanda, le prime frasi bocciate di Aura erano
+27 su 68 alle domande di si' o no (Medora 1, Calìgo 5), e a tutti e tre i Maestri mancavano il
+"quando" (bocciato da 4 a 6 volte su 8) e le domande aperte (Aura e Calìgo circa 20 su 36). Le
+conversazioni del banco hanno memoria, e una risposta vaga consegnata fa scuola alle successive; la
+seconda richiesta non riparava, perche' non ripeteva la domanda e non diceva che forma prendere (per
+Aura restava senza posizione 25 volte su 34). Tre cure, in `la_posizione_della_lettura.dart`: **la
+correzione ripete la domanda e dice le parole da scrivere** (*"I tuoi centri dicono di sì, se ..."*,
+*"... di no, per ora: ..."*, niente "che" dopo l'apertura); **al "quando" si chiede un tempo** (una
+stagione, un mese) o un fatto che si vede accadere, al posto dell'esempio *"non prima che tu abbia
+..."* che portava a *"non prima che tu abbia riconosciuto il tuo valore"*; **alla domanda aperta la
+prima frase si dice con parole di tutti i giorni**, e l'arte entra dalla seconda (chi non ha fatto una
+domanda riceve la lettura dall'arte, come prima). Alla cieca, terzo e quarto giro mescolati, stessi
+giudici: **prime frasi che rispondono da 253 a 311 su 360** (Aura da 62 a 98, Calìgo da 93 a 104,
+Medora da 98 a 109), **nel merito da 265 a 316**; le domande di si' o no bocciate, Aura da 26 a 1,
+Calìgo da 4 a 0, Medora da 1 a 0; il "quando" da 15 a 3 su 24; le aperte da 52 a 34 su 108. Per
+Maestro e canale il migliore e' Calìgo nella chat, 29 su 30; il peggiore Aura nella chat, 21. **Le
+certezze pero' risalgono da 8 a 20**: piu' risposte prendono posizione, e la dicono con un fatto
+(*"I suoi occhi ti cercano, non fuggono"*). La rete prendeva 54 delle 87 frasi citate dai giudici nei
+due fascicoli; adesso 74 (il soggetto taciuto *"Sente il radicamento"*, la fertilita' donata, il
+tradimento escluso con altre parole, il "puo'" che stava solo nella relativa), e **la frase certa fra
+la prima frase e il gesto si toglie**: chiesta di nuovo tornava uguale, e restava perche' toglierla
+lasciava "la sola prima frase", che col gesto e' invece una risposta intera. **Quinto giro** (`es5`),
+letto accanto al quarto dagli stessi giudici: prime frasi 311 e 307, nel merito 320 e 310, risposte
+con una certezza 22 e 19 su 360 (Medora da 6 a 2, Aura da 9 a 7, Calìgo da 7 a 10). Cioe' **il salto
+del quarto giro regge**, e la rete allargata non porta le certezze sotto le venti: quelle che restano
+sono quasi tutte immagini di Calìgo dette come un fatto (*"Il tuo cammino è segnato"*, *"La soglia si
+avvicina"*, *"Questo matrimonio rafforza il tuo cammino"*) o il suo stato d'animo letto dal Maestro
+(*"il suo cuore ha bisogno di tempo"*), che una rete di parole non riconosce. **Il 30 su 30 non c'e'**:
+al quinto giro il migliore e' Medora, 27, 28, 28 e 28 su 30 nei suoi quattro fascicoli; Calìgo 22, 27,
+26 e 26; Aura 24, 21, 25 e 25. **Lo zero delle certezze non c'e'**: 19 su 360.
+
 DOMANDA: dalla ET.01: "Bisogna fare delle prove, 30 domande per ogni maestro, con domande classiche q più frequenti. Gli utenti faranno domande personali e anche intime nella maggior parte dei casi. Ma anche per la fortuna e lavoro."; domanda girata al fondatore: "Ritocchi alle reti che scartano le risposte dirette (il sì detto senza "sì", il no detto con "non", il "sì, se" sulla coppia): entrano, perché senza non si arriva a 30 su 30. Confermi?", risposta: "Confermo tutto".
 
-PROVA: docs/collaudo/ET/ciechi/conti_et01_es3mix.txt
-MISURA: alla lettura alla cieca, stessi giudici sul primo e sul terzo giro del 30 settembre, risposte con una certezza prima 31 su 360, dopo 14 su 360; prime frasi che rispondono prima 266, dopo 251 (Medora da 98 a 101, Calìgo da 91 a 89, Aura da 77 a 61); nel merito prima 263, dopo 246; rete delle certezze sulle frasi citate dai giudici prima 12 su 61, dopo 51 su 61, frasi buone prese prima 26 su 1864, dopo 43 (docs/collaudo/ES/regola_a_certezze_dei_giudici.txt); sui 101 casi scartati al giro 6 e giudicati a mano (docs/collaudo/ES/giro6_reti.json), misurati col codice di prima (commit 78d1388c) e con quello di oggi: risposte dirette che la rete della prima frase scarta, prima 28 su 30, dopo 5 su 30; prime frasi vaghe che lascia passare, prima 0 su 14, dopo 0 su 14; certezze apparenti che la rete delle certezze prende, prima 12 su 26, dopo 7 su 26; certezze vere che manca, prima 1 su 30, dopo 1 su 30; le tre certezze rimaste nelle finali del giro 6 la rete le prende sul loro testo, prima e dopo 3 su 3 (al banco erano sfuggite perche' non stavano nella parte guardata)
+PROVA: docs/collaudo/ET/ciechi/conti_et01_es4mix.txt
+MISURA: alla lettura alla cieca, stessi giudici sul terzo e sul quarto giro del 30 settembre, prime frasi che rispondono prima 253 su 360, dopo 311 (Aura da 62 a 98, Calìgo da 93 a 104, Medora da 98 a 109); nel merito prima 265, dopo 316; risposte con una certezza prima 8, dopo 20, e al quinto giro 19 contro le 22 del quarto per gli stessi giudici (docs/collaudo/ET/ciechi/conti_et01_es5mix.txt); dal primo al terzo giro le certezze erano scese da 31 a 14 e le prime frasi da 266 a 251; rete delle certezze sulle frasi citate dai giudici prima 12 su 61, dopo 51 su 61, frasi buone prese prima 26 su 1864, dopo 43 (docs/collaudo/ES/regola_a_certezze_dei_giudici.txt); sui 101 casi scartati al giro 6 e giudicati a mano (docs/collaudo/ES/giro6_reti.json), misurati col codice di prima (commit 78d1388c) e con quello di oggi: risposte dirette che la rete della prima frase scarta, prima 28 su 30, dopo 5 su 30; prime frasi vaghe che lascia passare, prima 0 su 14, dopo 0 su 14; certezze apparenti che la rete delle certezze prende, prima 12 su 26, dopo 7 su 26; certezze vere che manca, prima 1 su 30, dopo 1 su 30; le tre certezze rimaste nelle finali del giro 6 la rete le prende sul loro testo, prima e dopo 3 su 3 (al banco erano sfuggite perche' non stavano nella parte guardata)
 
 ## VOCE ES.20, VOCE, TESTO A VIDEO E CHAT CON LE STESSE PAROLE (DALLA ET.02)
 
@@ -472,7 +514,8 @@ La soglia e' tarata sulle 240 seconde di coppia giudicate alla cieca in quattro 
 (`docs/collaudo/ES/coppie_ripetute.json`, `tool/le_coppie_ripetute.py`). **Al banco del 30
 settembre**, seconde di coppia che ripetono la prima, per gli stessi giudici: dal giro 5 al primo
 giro da 7 a 6 su 60, dal primo al secondo da 5 a 3, dal primo al terzo da 4 a 8 (7 di Aura); le
-posizioni cambiate senza dire perche' da 4 a 3, da 2 a 2, da 6 a 5. Cioe' la rete non ha portato le
+posizioni cambiate senza dire perche' da 4 a 3, da 2 a 2, da 6 a 5; al quarto e al quinto giro le
+seconde che ripetono sono 3 e 6 su 60 e le posizioni cambiate 2 e 6. Cioe' la rete non ha portato le
 ripetizioni a zero, e il loro numero sta dentro il rumore dei giudici. Mancano lo zero e le coppie nel
 LIVE sul Realme.
 

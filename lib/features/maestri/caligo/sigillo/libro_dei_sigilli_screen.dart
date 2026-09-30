@@ -218,7 +218,7 @@ String statoInParole(SigilloVivo s, DateTime adesso) =>
 String _laRigaDelTempo(SigilloVivo s, DateTime adesso) =>
     switch (s.statoA(adesso)) {
       StatoDelSigillo.vivo =>
-        'Caligo chiede com\'è andata il ${dataItalianaEstesa(s.scadenza)}',
+        'Calìgo chiede com\'è andata il ${dataItalianaEstesa(s.scadenza)}',
       StatoDelSigillo.scaduto =>
         'Arrivato il ${dataItalianaEstesa(s.scadenza)}',
       StatoDelSigillo.compiuto =>
@@ -477,7 +477,7 @@ class _LeTreRisposteState extends State<LeTreRisposte> {
   @override
   Widget build(BuildContext context) {
     if (_scrive) {
-      return Text('Caligo scrive per te...',
+      return Text('Calìgo scrive per te...',
           key: const Key('libro_scrive'),
           textAlign: TextAlign.center,
           style: TypographyTokens.corpo()

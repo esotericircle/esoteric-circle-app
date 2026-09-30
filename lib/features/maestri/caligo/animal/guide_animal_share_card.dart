@@ -91,7 +91,7 @@ class GuideAnimalShareCard extends StatelessWidget {
                       color: palette.textPrimary.withValues(alpha: 0.75),
                       letterSpacing: 0.5)),
               const SizedBox(height: SpacingTokens.md),
-              Text('Esoteric Circle · Caligo',
+              Text('Esoteric Circle · Calìgo',
                   style: TypographyTokens.etichetta().copyWith(
                       color: palette.goldSoft.withValues(alpha: 0.7),
                       letterSpacing: 1.0)),
@@ -162,5 +162,5 @@ Future<bool> shareGuideAnimalCard({
   // che a condivisione avvenuta paga il premio dichiarato sul pulsante.
   return PortaDellaCondivisione.daFile(file.path,
       testo: 'Il mio animale guida è ${animal.name}. '
-          'Scopri il tuo con Caligo, su Esoteric Circle.');
+          'Scopri il tuo con Calìgo, su Esoteric Circle.');
 }

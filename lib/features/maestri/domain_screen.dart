@@ -83,7 +83,7 @@ class DomainScreen extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(maestro.displayName,
+            Text(maestro.nomeAVideo,
                 textAlign: TextAlign.center,
                 style: TypographyTokens.titoloDiSchermata()),
             const SizedBox(height: 2),

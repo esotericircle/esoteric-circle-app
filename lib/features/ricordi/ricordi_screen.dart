@@ -328,7 +328,7 @@ class _LePastiglie extends StatelessWidget {
   static const Map<FiltroDeiRicordi, String> _nomi = {
     FiltroDeiRicordi.medora: 'Medora',
     FiltroDeiRicordi.aura: 'Aura',
-    FiltroDeiRicordi.caligo: 'Caligo',
+    FiltroDeiRicordi.caligo: 'Calìgo',
     FiltroDeiRicordi.arti: 'Le arti',
     FiltroDeiRicordi.conversazioni: 'Conversazioni',
     FiltroDeiRicordi.custoditi: 'Le tue card',
@@ -665,7 +665,7 @@ class _IlGiorno extends StatelessWidget {
   static String _nome(String maestro) => switch (maestro) {
         'medora' => 'Medora',
         'aura' => 'Aura',
-        'caligo' => 'Caligo',
+        'caligo' => 'Calìgo',
         _ => maestro,
       };
 }

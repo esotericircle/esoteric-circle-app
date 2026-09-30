@@ -358,7 +358,7 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
                 foregroundColor: palette.onPrimary),
             onPressed: _parlane,
             icon: const Icon(Icons.forum_outlined),
-            label: Text('Parlane con ${widget.maestro.displayName}'),
+            label: Text('Parlane con ${widget.maestro.nomeAVideo}'),
           ),
         ],
       ),
