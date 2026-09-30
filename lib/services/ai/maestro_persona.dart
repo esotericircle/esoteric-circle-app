@@ -481,7 +481,7 @@ class MaestroPersona {
       if (!seguito && domandaDiAdesso != null) ...[
         '',
         LaPosizioneDellaLettura.perIlTurno(maestro, domandaDiAdesso,
-            giro: testiGiaDetti.length)
+            giro: testiGiaDetti.length, oggi: DateTime.now())
       ],
       if (correzione != null) ...['', correzione],
       if (!seguito) ...['', LaRispostaNelMerito.primaDiScrivere],

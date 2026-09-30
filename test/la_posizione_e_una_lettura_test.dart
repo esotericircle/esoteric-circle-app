@@ -1,4 +1,6 @@
 // ignore_for_file: avoid_print
+import 'dart:io';
+
 import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/chat/la_posizione_della_lettura.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
@@ -350,7 +352,12 @@ void main() {
       expect(c, contains('niente "che"'));
       final quando = LaPosizioneDellaLettura.perIlTurno(
           m, 'Quando cambierà la mia fortuna?');
-      expect(quando, contains('una stagione, un mese'));
+      // **LAPIDE, ordine ES voce 19, 30 settembre 2026, dopo il LIVE sul
+      // Realme.** Qui stava `contains('una stagione, un mese')`: la riga
+      // portava fra virgolette "entro l'estate" e "non prima dell'autunno", e
+      // il modello li ricopiava (vedi la prova qui sotto). Adesso chiede un
+      // tempo che viene dopo oggi, senza nominarne uno.
+      expect(quando, contains('un tempo che viene dopo oggi'));
       expect(quando, isNot(contains('non prima che tu abbia')),
           reason: 'l\'esempio che portava alla condizione dell\'animo');
       final aperta = LaPosizioneDellaLettura.perIlTurno(
@@ -363,6 +370,56 @@ void main() {
       expect(richiesta, contains('detta come la legge la tua arte'));
       expect(richiesta, isNot(contains('parole di tutti i giorni')));
     }
+  });
+
+  // **IL "QUANDO" NON PORTA UN TEMPO DA RICOPIARE.** Ordine ES voce 19, 30
+  // settembre 2026. Nel LIVE di Medora sul Realme, a due domande sul quando
+  // la stessa risposta: *"non prima dell'autunno"*, detta il 30 settembre.
+  // Era l'esempio dell'istruzione: al banco sta nella prima frase di 12
+  // risposte al quando su 24 nel quarto giro e di 11 su 24 nel quinto
+  // (`docs/collaudo/ES/quando_ricopiato.txt`). Un tempo scritto
+  // nell'istruzione diventa il tempo di tutti.
+  test('ES.19: il blocco del quando non nomina stagioni ne\' mesi, e dice oggi',
+      () {
+    final tempi = RegExp(
+        r'(?<!\p{L})(primavera|estate|autunno|inverno|gennaio|febbraio|marzo|'
+        r'aprile|maggio|giugno|luglio|agosto|settembre|ottobre|novembre|'
+        r'dicembre|natale|pasqua)(?!\p{L})',
+        unicode: true,
+        caseSensitive: false);
+    final trovati = <String>[];
+    for (final m in Maestro.values) {
+      for (var giro = 0; giro < 4; giro++) {
+        final turno = LaPosizioneDellaLettura.perIlTurno(
+            m, 'Quando incontrerò la persona giusta?',
+            giro: giro);
+        final correzione = LaPosizioneDellaLettura.correzione(
+            m, 'L\'amore arriva quando meno te lo aspetti.',
+            domanda: 'Quando incontrerò la persona giusta?', giro: giro);
+        for (final testo in [turno, correzione]) {
+          trovati.addAll(tempi.allMatches(testo).map((x) => x.group(0)!));
+        }
+      }
+    }
+    print('ORDINE ES VOCE 19, IL QUANDO: stagioni e mesi scritti nel blocco '
+        'del turno e nella correzione, prima 2 per Maestro ("entro '
+        'l\'estate", "non prima dell\'autunno"), dopo ${trovati.length}');
+    expect(trovati, isEmpty, reason: 'tempi da ricopiare: $trovati');
+    // Col giorno di oggi, il modello sa che cosa viene dopo: la data sta nel
+    // blocco, ed e' l'unico tempo nominato.
+    final conOggi = LaPosizioneDellaLettura.perIlTurno(
+        Maestro.medora, 'Quando cambierà la mia fortuna?',
+        oggi: DateTime(2026, 9, 30));
+    expect(conOggi, contains('dopo oggi, che è il 30 settembre 2026'));
+    // E l'istruzione intera lo passa: senza, il modello non sa che giorno e'.
+    final persona =
+        File('lib/services/ai/maestro_persona.dart').readAsStringSync();
+    expect(
+        RegExp(r'LaPosizioneDellaLettura\.perIlTurno\(maestro, '
+                r'domandaDiAdesso,\s*giro: testiGiaDetti\.length, '
+                r'oggi: DateTime\.now\(\)\)')
+            .hasMatch(persona),
+        isTrue);
   });
 }
 

@@ -1,0 +1,14 @@
+ORDINE ES VOCE 19: L'ESEMPIO DEL "QUANDO" RICOPIATO. 30 settembre 2026.
+
+Nel LIVE di Medora sul Realme (build di prova del commit 9deede23), alle due domande sul quando:
+  «Quando incontrerò la persona giusta?» -> «Le carte rispondono: non prima dell'autunno, ma dopo un incontro che saprà metterti alla prova.»
+  «Quando cambierà la mia fortuna?» -> «Il tuo cielo dice che la fortuna cambierà non prima dell'autunno, dopo che avrai affrontato alcune scelte importanti nei legami.»
+Era il 30 settembre: l'autunno era cominciato il 23. L'istruzione del quarto giro portava fra virgolette
+"entro l'estate" e "non prima dell'autunno" come esempi del tempo da nominare.
+
+Al banco delle trenta domande, le risposte alle domande che contengono "quando", tre Maestri, chat e LIVE,
+due esecuzioni (24 risposte per giro): prime frasi che nominano una stagione.
+
+  es3 (terzo giro, prima dell'esempio): risposte 24, con "autunno" 0, con una stagione 0 (nessuna)
+  es4 (quarto giro, con l'esempio): risposte 24, con "autunno" 12, con una stagione 15 (autunno 12, estate 1, primavera 2)
+  es5 (quinto giro, con l'esempio): risposte 24, con "autunno" 11, con una stagione 15 (autunno 11, estate 3, primavera 1)

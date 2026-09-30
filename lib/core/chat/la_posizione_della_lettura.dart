@@ -143,7 +143,8 @@ abstract final class LaPosizioneDellaLettura {
 
   /// **Il blocco del turno**, in fondo all'istruzione: la forma della prima
   /// frase per questa domanda.
-  static String perIlTurno(Maestro maestro, String domanda, {int giro = 0}) {
+  static String perIlTurno(Maestro maestro, String domanda,
+      {int giro = 0, DateTime? oggi}) {
     final comincia = inizio(maestro, giro: giro);
     // **LA DOMANDA APERTA NON HA UN'APERTURA OBBLIGATA.** Al secondo giro
     // del banco "Le rune dicono che la solitudine non è assenza, ma un vuoto"
@@ -189,13 +190,24 @@ abstract final class LaPosizioneDellaLettura {
       // su 8, perche' l'esempio di prima (*"non prima che tu abbia..."*)
       // portava a una condizione dell'animo, *"non prima che tu abbia
       // riconosciuto il tuo valore"*, che i giudici chiamano una massima.
+      // **SENZA UNA STAGIONE DA RICOPIARE, E CON LA DATA DI OGGI.** Visto sul
+      // Realme il 30 settembre 2026, nel LIVE di Medora: a *"Quando incontrerò
+      // la persona giusta?"* e a *"Quando cambierà la mia fortuna?"* la stessa
+      // risposta, *"non prima dell'autunno"*, detta quando l'autunno era
+      // cominciato da una settimana. Era l'esempio di questa riga, ricopiato:
+      // al banco sta nella prima frase di 12 risposte al quando su 24 nel
+      // quarto giro e di 11 nel quinto, per tutti e tre i Maestri. Padre:
+      // questa voce, quarto giro, commit 9e48605d. Gli esempi adesso hanno i
+      // puntini al posto del tempo, e al modello si dice che giorno e' oggi.
       TipoDellaDomanda.quando =>
-        'e nomina un tempo che la tua arte legge (una stagione, un mese, '
-            '"entro l\'estate", "non prima dell\'autunno") oppure un fatto '
-            'che la persona può vedere accadere o fare, con chi o che cosa; '
-            'come lettura, non come data certa. Per esempio: "$comincia: non '
-            'prima dell\'autunno e dopo che avrai ..." oppure "$comincia: '
-            'entro ...".',
+        'e nomina un tempo che viene dopo oggi${_oggiDetto(oggi)}, preso da '
+            'ciò che la tua arte legge per questa persona: un passaggio o una '
+            'data fra gli eventi in arrivo che conosci, oppure fra quante '
+            'settimane o quanti mesi; oppure un fatto che la persona può '
+            'vedere accadere o fare, con chi o che cosa. Il tempo lo scegli '
+            'tu per questa domanda, e lo dici come lettura, non come data '
+            'certa. Per esempio: "$comincia: entro ..." oppure "$comincia: '
+            'non prima di ... e dopo che avrai ...".',
       TipoDellaDomanda.aperta =>
         'e risponde a quello che la persona chiede, in concreto: il perché, '
             'il come, la cosa.',
@@ -206,6 +218,16 @@ abstract final class LaPosizioneDellaLettura {
         'cominciare dicendo che nessuno può saperlo, che la tua arte non se ne '
         'occupa o che la volontà dell\'altro è sua: se serve, lo dici dopo.';
   }
+
+  static const List<String> _mesi = [
+    'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
+    'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'
+  ];
+
+  /// ", che è il 30 settembre 2026", o niente se il giorno non si sa.
+  static String _oggiDetto(DateTime? oggi) => oggi == null
+      ? ''
+      : ', che è il ${oggi.day} ${_mesi[oggi.month - 1]} ${oggi.year}';
 
   /// **La correzione nominata**, quando la prima frase che torna non rispetta
   /// la forma: il turno si chiede di nuovo una volta.
@@ -235,8 +257,9 @@ abstract final class LaPosizioneDellaLettura {
             'nomina una delle strade della domanda, con le sue parole.',
       TipoDellaDomanda.quando =>
         '$testa La prima frase comincia con "$comincia:" e subito dopo '
-            'nomina un tempo (una stagione, un mese) o un fatto che la '
-            'persona può vedere accadere, come lettura.',
+            'nomina un tempo che viene dopo oggi (fra quante settimane o '
+            'quanti mesi, o un passaggio in arrivo che conosci) o un fatto '
+            'che la persona può vedere accadere, come lettura.',
       TipoDellaDomanda.aperta =>
         '$testa La prima frase comincia con "$comincia" e dice la tua '
             'posizione sulla domanda, come lettura della tua arte, con '

@@ -1,0 +1,6 @@
+ORDINE ES VOCE 19, REGOLA A: il blocco del "quando" senza un tempo da ricopiare e con la data di oggi (30 settembre 2026, dopo il LIVE sul Realme). Guardia la_posizione_e_una_lettura.
+
+INNESTO l'esempio con la stagione rimesso nel blocco del quando: grep del difetto nel file SI; prova test/la_posizione_e_una_lettura_test.dart ROSSA; ORDINE ES VOCE 19, IL QUANDO: stagioni e mesi scritti nel blocco del turno e nella correzione, prima 2 per Maestro ("entro l'estate", "non prima dell'autunno"), dopo 24; file rimesso sha1 c1ea7a65441d -> c1ea7a65441d IDENTICO
+INNESTO la stagione rimessa nella correzione del quando: grep del difetto nel file SI; prova test/la_posizione_e_una_lettura_test.dart ROSSA; ORDINE ES VOCE 19, IL QUANDO: stagioni e mesi scritti nel blocco del turno e nella correzione, prima 2 per Maestro ("entro l'estate", "non prima dell'autunno"), dopo 12; file rimesso sha1 c1ea7a65441d -> c1ea7a65441d IDENTICO
+INNESTO il blocco del quando non dice che giorno e' oggi: grep del difetto nel file SI; prova test/la_posizione_e_una_lettura_test.dart ROSSA; file rimesso sha1 c1ea7a65441d -> c1ea7a65441d IDENTICO
+INNESTO l'istruzione intera non passa il giorno di oggi: grep del difetto nel file SI; prova test/la_posizione_e_una_lettura_test.dart ROSSA; file rimesso sha1 d6e0601b1831 -> d6e0601b1831 IDENTICO
