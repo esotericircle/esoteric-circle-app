@@ -170,6 +170,8 @@ void main() {
     // Adesso il numero SEGUE la parola: la prova non sa quante siano,
     // sa che il manifesto e il registro devono dire la stessa cosa.
     const numeri = <String, int>{
+      'DIECI': 10,
+      'UNDICI': 11,
       'DODICI': 12,
       'TREDICI': 13,
       'QUATTORDICI': 14,

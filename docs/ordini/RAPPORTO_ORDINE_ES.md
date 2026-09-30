@@ -351,6 +351,14 @@ Nessuna: le trentotto voci sono chiuse o aperte in attesa di verifica.
   22:34. Padre il commit `c49de157` del 24 luglio (il Rito del Sogno
   rifatto). Curato, con la prova su trenta notti e dodici segni; la cattura
   dopo la cura manca.
+- **Il cancello di GitHub rosso sul commit `368fb5ef`**: nel registro dei
+  rossi accettati restavano tre righe del corredo a scala 1,3 (le due
+  catture dell'Oroscopo e la corsa dello zodiaco) che dopo il lavoro
+  dell'ordine ES passano, e il cancello non produce l'archivio finche' una
+  riga sopravvive alla sua ragione. Padre io: la suite locale gira alla
+  scala uno, e il corredo a scala 1,3 lo guarda solo GitHub. Tolte le tre
+  righe, e il manifesto dell'ordine CM dice adesso dieci schermate invece di
+  tredici.
 - **Due giri delle anteprime caduti su 39 e 26 catture con l'errno 1224**
   di Windows (un altro processo tiene il PNG appena scritto): non e' un
   difetto del codice; adesso la scrittura delle anteprime aspetta il lock.

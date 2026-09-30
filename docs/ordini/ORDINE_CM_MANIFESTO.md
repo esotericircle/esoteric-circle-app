@@ -317,7 +317,7 @@ tutte e tre viste rosse con l'innesto verificato prima:
 
 ## VOCE 11, QUANTE NE RESTANO E IN QUANTI ORDINI SI CHIUDONO
 
-**RESTANO TREDICI SCHERMATE ROTTE AL TESTO MASSIMO, su centosettantanove.**
+**RESTANO DIECI SCHERMATE ROTTE AL TESTO MASSIMO, su centosettantanove.** Erano tredici fino al 30 settembre 2026: quella sera il cancello di GitHub, sul commit `368fb5ef` dell'ordine ES, ha visto passare a scala 1,3 le due catture dell'Oroscopo (la pastiglia della tradizione che sforava di cinque punti, curata con la riga delle tradizioni che cresce col carattere) e quella dei tre momenti della corsa dello zodiaco, e le loro righe sono uscite dal registro dei rossi.
 
 **Erano diciotto quando quest'ordine si e' chiuso.** Sono scese a diciassette la
 sera stessa, quando l'ordine CN voce 12 ha portato la decisione sulla card da
