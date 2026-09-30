@@ -3315,10 +3315,10 @@ void main() {
             hasTime: true,
           ),
         );
-    // Tremilanovecento punti: la Settimana, con la carta natale, e' piu'
-    // lunga, ma una tela piu' alta non si fotografa su questo PC (a 4600 la
-    // prova muore senza dire perche'). Il gesto della condivisione si vede
-    // in fondo al Mese e all'Anno.
+    // Tremilanovecento punti: la Settimana e il Mese, con la carta natale,
+    // sono piu' lunghi, ma una tela piu' alta non si fotografa su questo PC
+    // (a 4600 la prova muore senza dire perche'). Il fondo della pagina, col
+    // gesto della condivisione, ha la sua immagine alla misura del telefono.
     await montaLoSchermo(tester, const Size(360, 3900));
     unawaited(nav.push(OroscopoScreen.route(
         userSign: Zodiac.gemini, now: DateTime(2026, 9, 30, 12))));
@@ -3340,10 +3340,47 @@ void main() {
       await capture(tester, rootKey, file);
     }
 
+    // Il fondo della pagina alla misura del telefono: il pulsante che
+    // condivide la card del periodo (ordine ES voce 05), che nella tela
+    // lunga resta sotto il taglio.
+    Future<void> inFondo(String nome, String file) async {
+      await montaLoSchermo(tester, const Size(360, 797));
+      await step(tester);
+      final gesto = find.byKey(Key('oroscopo_condividi_$nome'));
+      await tester.scrollUntilVisible(gesto, 600,
+          scrollable: find
+              .descendant(
+                  of: find.byKey(const Key('oroscopo_list')),
+                  matching: find.byType(Scrollable))
+              .first,
+          maxScrolls: 40);
+      await step(tester);
+      // Fino in fondo: il pulsante col suo respiro sotto, non sul bordo.
+      await tester.drag(
+          find.byKey(const Key('oroscopo_list')), const Offset(0, -400));
+      await step(tester);
+      await tester.pump(const Duration(seconds: 1));
+      expect(gesto.hitTestable(), findsOneWidget,
+          reason: 'il pulsante che condivide $nome non e\' a video');
+      await capture(tester, rootKey, file);
+      await tester.drag(
+          find.byKey(const Key('oroscopo_list')), const Offset(0, 20000));
+      await step(tester);
+      await montaLoSchermo(tester, const Size(360, 3900));
+      await step(tester);
+    }
+
     await periodo(
         'settimana', 'oroscopo_la_settimana', 'oroscopo-settimana.png');
+    await inFondo('settimana', 'oroscopo-settimana-in-fondo.png');
     await periodo('mese', 'oroscopo_il_mese', 'oroscopo-mese.png');
+    await inFondo('mese', 'oroscopo-mese-in-fondo.png');
+    // L'Anno e' piu' corto: la tela alla sua misura, senza cielo vuoto sotto.
+    await montaLoSchermo(tester, const Size(360, 3040));
+    await step(tester);
     await periodo('anno', 'oroscopo_anno_riga', 'oroscopo-anno.png');
+    await montaLoSchermo(tester, const Size(360, 3900));
+    await step(tester);
     await tester.tap(find.byKey(const Key('oroscopo_period_giorno')));
     await step(tester);
 
@@ -3396,12 +3433,18 @@ void main() {
     await tradizione('egizia');
     expect(find.byKey(const Key('oroscopo_lettura_in_arrivo_egizia')),
         findsOneWidget);
+    // Dall'inizio della pagina, come la vede chi tocca la voce: per toccarla
+    // la prova l'ha portata in vista, e la pagina era scesa sotto la barra.
+    await tester.drag(
+        find.byKey(const Key('oroscopo_list')), const Offset(0, 20000));
+    await step(tester);
+    await tester.pump(const Duration(seconds: 1));
     await capture(tester, rootKey, 'oroscopo-tradizione-in-arrivo.png');
 
     // L'oroscopo di un'amica, col segno detto di lei.
     nav.pop();
     await step(tester);
-    await montaLoSchermo(tester, const Size(360, 2300));
+    await montaLoSchermo(tester, const Size(360, 2080));
     unawaited(nav.push(LOroscopoDellAmicoScreen.route(
         Amico(id: 'lucia', nome: 'Lucia', nascita: DateTime(1990, 1, 12)))));
     await step(tester);

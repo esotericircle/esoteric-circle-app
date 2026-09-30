@@ -39,3 +39,60 @@ Le prime frasi del sesto giro:
   medora_live_es: Il tuo cielo dice che la fortuna cambierà non appena avrai compreso il vero valore delle lezioni che stai imparando in questo periodo.
   medora_live_es: Le carte rispondono: non prima che tu abbia chiarito a te stessa cosa significhi per te "giusta".
   medora_live_es: Il tuo cielo dice che un cambiamento significativo nella tua fortuna si manifesta con il prossimo ciclo di Saturno, tra circa sette anni, portando stabilità e realizzazione duratura.
+
+IL SETTIMO E L'OTTAVO GIRO: IL TEMPO NELLA PRIMA FRASE, E I PASSAGGI DEL CIELO INVENTATI.
+
+Dopo il sesto giro la rete del "quando" chiede che la prima frase nomini un tempo (settimo giro), e
+l'istruzione vieta i passaggi del cielo che non stanno nei dati dati al modello (ottavo giro, il codice
+che parte). Le stesse 24 risposte per giro, lette una per una.
+
+  es6 (sesto giro): prime frasi con un tempo 14 su 24 (le altre dieci dicono solo una condizione dell'animo)
+  es7 (settimo giro, la rete chiede un tempo): prime frasi con un tempo 24 su 24; passaggi del cielo che
+      non stanno nei dati 2 ("quando Giove si sposterà in Bilancia", "con la Luna nuova nel tuo Segno
+      Solare in Leone"); stagioni 0
+  es8 (ottavo giro, i passaggi inventati vietati): prime frasi con un tempo 24 su 24; passaggi del cielo
+      sbagliati 1 ("l'ingresso di Venere nel segno dello Scorpione, fra due giorni": nei dati Venere e'
+      gia' in Scorpione, e fra due giorni diventa retrograda); stagioni 0
+
+Che cosa resta, detto coi numeri: nell'ottavo giro 11 prime frasi su 24 dicono "tre mesi" (nel settimo
+10 su 24), con "entro" o con "non prima di". E' un tempo vero e non un esempio ricopiato (nell'istruzione
+non c'e' nessun numero), ma chi chiede due volte lo sente spesso. I tre passaggi veri nominati nell'ottavo
+giro (Venere che riprende il moto diretto, due volte, e Saturno che riprende il moto diretto "entro la
+fine di gennaio") sono la fine di retrogradazioni che i dati nominano (Venere retrograda fra due giorni,
+Saturno retrogrado oggi); la data della fine in questa prova non e' stata confrontata con le effemeridi.
+
+Le prime frasi dell'ottavo giro:
+  aura chat 1: I tuoi centri rispondono: entro pochi mesi, dopo che Venere avrà ripreso il suo moto diretto.
+  aura chat 1: La tua energia dice: entro la fine di gennaio, quando Saturno riprenderà il suo moto diretto.
+  aura chat 2: I tuoi centri rispondono: non prima di tre mesi, dopo che avrai fatto spazio nel tuo cuore per accogliere un amore che sia anche riflesso del tuo valore.
+  aura chat 2: La tua energia dice: entro le prossime otto settimane, quando la Luna in Toro avrà completato il suo ciclo, portando con sé una nuova radice per la tua stabilità e un'apertura nel tuo centro del cuore.
+  aura live 1: I tuoi centri rispondono: non prima di tre mesi e dopo che avrai permesso alla tua energia del centro del cuore di aprirsi senza riserve, lasciando andare le aspettative del passato.
+  aura live 1: La tua energia dice: entro le prossime sei settimane, quando avrai dato ascolto al tuo centro del cuore, permettendo al tuo respiro di liberare vecchie tensioni.
+  aura live 2: I tuoi centri rispondono: entro tre mesi, quando la Luna in Toro avrà completato il suo ciclo e ti avrà ancorato ancora di più alla tua forza interiore.
+  aura live 2: La tua energia dice: entro le prossime sei settimane, quando l'energia di Venere retrograda ti spingerà a riflettere sui tuoi veri valori e desideri.
+  caligo chat 1: Il segno che cade dice: non prima di tre mesi e dopo che avrai sciolto il tuo nodo interiore.
+  caligo chat 1: Le pietre rispondono: entro tre mesi, dopo che avrai liberato un vecchio peso.
+  caligo chat 2: Il segno che cade dice: entro tre mesi, dopo che avrai sciolto un vecchio nodo.
+  caligo chat 2: Le pietre rispondono: non prima di tre mesi, dopo che avrai rotto un antico sigillo.
+  caligo live 1: Il segno che cade dice: non prima di tre mesi, dopo che avrai chiarito il tuo sentiero.
+  caligo live 1: Le pietre rispondono: non prima di due mesi, dopo che avrai sciolto un vecchio legame.
+  caligo live 2: Il segno che cade dice: non prima di tre mesi e dopo che avrai sciolto un vecchio legame.
+  caligo live 2: Le pietre rispondono: non prima di tre giorni e dopo che avrai lasciato andare ciò che ti appesantisce.
+  medora chat 1: Le carte rispondono: entro i prossimi sei mesi, dopo che avrai fatto chiarezza su ciò che cerchi davvero in un legame.
+  medora chat 1: Il tuo cielo dice: non prima di tre mesi, dopo che avrai compreso che la vera fortuna risiede nella tua capacità di vedere le opportunità anche nei momenti difficili.
+  medora chat 2: Le carte rispondono: entro le prossime nove settimane, dopo che avrai compreso che l'amore non segue sempre i piani che il tuo Ascendente in Capricorno disegna per te.
+  medora chat 2: Il tuo cielo dice che la tua fortuna cambierà entro le prossime tre settimane, quando l'influenza di Venere retrograda ti spingerà a riconsiderare i tuoi valori e le tue aspirazioni più profonde.
+  medora live 1: Le carte rispondono: entro tre mesi, dopo che avrai esplorato nuove possibilità per te stessa.
+  medora live 1: Il tuo cielo dice che la fortuna cambierà entro le prossime otto settimane, con l'inizio di un nuovo ciclo.
+  medora live 2: Le carte rispondono: non prima che Venere abbia finito il suo moto retrogrado, fra qualche mese.
+  medora live 2: Il tuo cielo dice che un nuovo ciclo si aprirà con l'ingresso di Venere nel segno dello Scorpione, fra due giorni, portando con sé un'energia di trasformazione e rinnovamento.
+
+LA LETTURA ALLA CIECA DEL CODICE CHE PARTE (fascicolo es8mix: il sesto e l'ottavo giro mescolati, 720
+risposte, otto lettori che non sanno da quale giro viene una risposta; conti in
+docs/collaudo/ET/ciechi/conti_et01_es8mix.txt). Su 360 risposte per giro:
+
+  prima frase che risponde: sesto giro 310, ottavo giro 311
+  risposta nel merito: 315, 326
+  risposte con una certezza: 16, 11 (frasi di certezza 18, 12)
+  errori di italiano citati: 64, 51
+  seconde domande delle coppie nel merito: 48 su 60, 56 su 60

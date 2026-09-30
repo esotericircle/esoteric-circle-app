@@ -142,6 +142,16 @@ enum HoroscopePeriod {
         HoroscopePeriod.mese => 'Oroscopo Personalizzato del mese',
         HoroscopePeriod.anno => 'Oroscopo Personalizzato dell\'anno',
       };
+
+  /// **IL SOTTOTITOLO COME VA A VIDEO: LA PREPOSIZIONE STA COL SUO NOME.**
+  /// Visto nelle anteprime il 30 settembre 2026: a 360 punti il sottotitolo
+  /// non sta su una riga, e andava a capo dove capitava, lasciando "giorno"
+  /// o "settimana" da soli sulla seconda ("Oroscopo Personalizzato della /
+  /// settimana"). Padre: ordine 2171 voce 5, che ha allungato il sottotitolo
+  /// col nome del periodo. Lo spazio fra la preposizione e il nome qui non si
+  /// spezza: quando serve, a capo ci va "della settimana" intero.
+  String get sottotitoloAVideo =>
+      'Oroscopo Personalizzato ${etichetta.replaceAll(' ', '\u00A0')}';
 }
 
 /// Oroscopo Personalizzato, la headline di Medora.
@@ -945,6 +955,19 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       // "Settimana" cambiava solo quel titolo, perche' una
                       // lettura non c'e'. Padre: ordine ES voce 11. Il titolo
                       // e i periodi stanno solo dove c'e' una lettura.
+                      //
+                      // **LA TESTA DI UNA TRADIZIONE HA IL SUO RESPIRO SOTTO.**
+                      // Visto nelle anteprime il 30 settembre 2026: la frase
+                      // del segno ("Il tuo segno cinese è il Cavallo") stava
+                      // attaccata al sottotitolo, e il segnale "In arrivo"
+                      // toccava la riga delle tradizioni. Padre: ordine ES
+                      // voce 07, che ha messo il segno in cima senza uno
+                      // stacco da cio' che segue (l'emblema occidentale lo
+                      // porta nella sua figura).
+                      if (_inCima != AstroTradition.occidentale)
+                        const SizedBox(
+                            key: Key('oroscopo_respiro_sotto_la_testa'),
+                            height: SpacingTokens.md),
                       if (_inCima.unlocked) ...[
                         _Heading(
                             periodo: _period, date: _date, palette: palette),
@@ -2035,7 +2058,7 @@ class _Heading extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(periodo.sottotitolo,
+        Text(periodo.sottotitoloAVideo,
             key: const Key('oroscopo_heading'),
             textAlign: TextAlign.center,
             style: TypographyTokens.etichetta().copyWith(

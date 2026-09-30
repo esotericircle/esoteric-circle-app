@@ -163,22 +163,51 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
             key: const Key('amico_oroscopo_lista'),
             padding: const EdgeInsets.all(SpacingTokens.lg),
             children: [
-              Wrap(
-                spacing: SpacingTokens.sm,
-                alignment: WrapAlignment.center,
-                children: [
-                  for (final t in const [
-                    AstroTradition.occidentale,
-                    AstroTradition.cinese,
-                    AstroTradition.vedica,
-                  ])
-                    ChoiceChip(
-                      key: Key('amico_tradizione_${t.name}'),
-                      label: Text(t.label),
-                      selected: _tradizione == t,
-                      onSelected: (_) => setState(() => _tradizione = t),
-                    ),
-                ],
+              // **LE TRE TRADIZIONI SU UNA RIGA, COI COLORI DEL CERCHIO.** Visto
+              // nelle anteprime il 30 settembre 2026: a 360 punti le tre
+              // voci non stavano su una riga e "Vedica" scendeva da sola
+              // sulla seconda; la scelta si vedeva in grigio, col segno di
+              // spunta di fabbrica. Padre: ordine ES voce 12. Senza la
+              // spunta e in riga, e se il carattere ingrandito non le fa
+              // stare la riga intera si rimpicciolisce insieme, come il
+              // selettore dei periodi.
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Row(
+                  key: const Key('amico_tradizioni'),
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    for (final t in const [
+                      AstroTradition.occidentale,
+                      AstroTradition.cinese,
+                      AstroTradition.vedica,
+                    ])
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: SpacingTokens.xs / 2),
+                        child: ChoiceChip(
+                          key: Key('amico_tradizione_${t.name}'),
+                          showCheckmark: false,
+                          shape: const StadiumBorder(),
+                          side: BorderSide(
+                              color: palette.gold.withValues(
+                                  alpha: _tradizione == t ? 0.7 : 0.25)),
+                          backgroundColor:
+                              palette.surfaceElevated.withValues(alpha: 0.45),
+                          selectedColor: palette.primary,
+                          label: Text(t.label,
+                              maxLines: 1,
+                              softWrap: false,
+                              style: TypographyTokens.etichetta().copyWith(
+                                  color: _tradizione == t
+                                      ? palette.goldSoft
+                                      : ColorTokens.textSecondary)),
+                          selected: _tradizione == t,
+                          onSelected: (_) => setState(() => _tradizione = t),
+                        ),
+                      ),
+                  ],
+                ),
               ),
               const SizedBox(height: SpacingTokens.md),
               LaTestaDellaTradizione(

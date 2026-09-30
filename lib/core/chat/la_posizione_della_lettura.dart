@@ -214,7 +214,7 @@ abstract final class LaPosizioneDellaLettura {
             'retrogradazioni di tua invenzione. Se prima deve accadere un '
             'fatto, lo '
             'dici dopo il tempo, con chi o che cosa. Il tempo lo scegli '
-            'tu per questa domanda, e lo dici come lettura, non come data '
+            'tu per questa domanda e lo dici come lettura, non come data '
             'certa. Per esempio: "$comincia: entro ..." oppure "$comincia: '
             'non prima di ... e dopo che avrai ...".',
       TipoDellaDomanda.aperta =>

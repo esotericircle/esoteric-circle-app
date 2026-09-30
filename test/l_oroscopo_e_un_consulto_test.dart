@@ -96,8 +96,8 @@ void main() {
     // La pretesa vera e' che il pulsante CI SIA, non dove stia.
     final condividi = find.byKey(const Key('responso_condividi'));
     if (condividi.evaluate().isEmpty) {
-      await tester.dragUntilVisible(condividi,
-          find.byType(Scrollable).first, const Offset(0, -320),
+      await tester.dragUntilVisible(
+          condividi, find.byType(Scrollable).first, const Offset(0, -320),
           maxIteration: 40);
       await tester.pump(const Duration(milliseconds: 200));
     }
@@ -127,10 +127,21 @@ void main() {
 
   testWidgets('il sottotitolo SEGUE il periodo scelto', (tester) async {
     await apri(tester);
-    String sottotitolo() =>
-        tester.widget<Text>(find.byKey(const Key('oroscopo_heading'))).data!;
+    // Le parole, con lo spazio comune: dall'ordine ES a video lo spazio fra
+    // la preposizione e il nome del periodo non si spezza, perche' a capo non
+    // resti "giorno" da solo (guardia l_oroscopo_visto_nelle_anteprime). Le
+    // parole sono le stesse.
+    String sottotitolo() => tester
+        .widget<Text>(find.byKey(const Key('oroscopo_heading')))
+        .data!
+        .replaceAll('\u00A0', ' ');
 
     expect(sottotitolo(), 'Oroscopo Personalizzato del giorno');
+    for (final p in HoroscopePeriod.values) {
+      expect(p.sottotitoloAVideo.replaceAll('\u00A0', ' '), p.sottotitolo,
+          reason: 'il sottotitolo a video di ${p.label} non dice le parole '
+              'del sottotitolo');
+    }
     // Le altre due strade sono bloccate dal piano, quindi il sottotitolo si
     // misura sul dato, che e' la stessa cosa che la schermata legge.
     expect(HoroscopePeriod.settimana.sottotitolo,

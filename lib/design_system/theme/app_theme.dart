@@ -20,6 +20,17 @@ class AppTheme {
       brightness: Brightness.dark,
     ).copyWith(
       primary: base.primary,
+      // **LA SCRITTA SUL COLORE PRIMARIO SI LEGGE.** Visto sul Realme il 30
+      // settembre 2026, nella rivelazione del segno e nell'oroscopo di
+      // un'amica: "Condividi" e "Manda a Lucia" stavano in viola scuro sul
+      // pulsante viola, 1,6 di contrasto. Il primario lo si dichiarava qui, il
+      // colore di cio' che ci sta sopra no: restava quello che lo schema
+      // calcola dal seme per il SUO primario, che e' chiaro, e quindi era
+      // scuro. Dodici pulsanti pieni dell'app non dichiarano uno stile e lo
+      // prendevano da qui. **PROVENIENZA IGNOTA**: il tema non l'ha mai
+      // dichiarato, e nessuna voce lo ha tolto. La tavolozza lo dice da
+      // sempre (`onPrimary`), adesso lo dice anche lo schema.
+      onPrimary: base.onPrimary,
       secondary: ColorTokens.gold,
       surface: base.surface,
     );
