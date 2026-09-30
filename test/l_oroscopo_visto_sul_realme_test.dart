@@ -377,7 +377,15 @@ void main() {
       expect(tessere[i].luckyNumber, isNull);
       expect(tessere[i].dayColor, isNull);
     }
-    expect(tessere.first.synthesis, startsWith('Il momento chiave: '));
+    // **LA CARD APRE CON LA RISPOSTA, NON COL TRANSITO.** Fino al 30
+    // settembre 2026 questa riga pretendeva "Il momento chiave: ", cioe' un
+    // aspetto della Luna in evidenza sulla card. Il fondatore: *"Se vuoi
+    // inserire i transiti, li inserisci dopo giusto per motivare da dove
+    // arriva la risposta."*
+    expect(tessere.first.synthesis, startsWith('In generale la settimana è '));
+    expect(tessere.first.synthesis, isNot(contains('Luna')));
+    expect(LaSettimanaDelCielo.tessere(periodo, mese: true).first.synthesis,
+        startsWith('In generale il mese è '));
     expect(HoroscopePeriod.mese.etichetta, 'del mese');
     expect(HoroscopePeriod.anno.etichetta, 'dell\'anno');
   });

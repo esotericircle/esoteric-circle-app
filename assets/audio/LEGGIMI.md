@@ -13,6 +13,7 @@ toccare una riga.
 | `rito_compiuto.mp3` | Chiusura di un rito o di una lettura | 1,5 s | 100 KB |
 | `soglia.mp3` | Ingresso nel dominio di un Maestro | 0,5 s | 60 KB |
 | `rifiuto.mp3` | Un limite raggiunto | 0,3 s | 40 KB |
+| `responso_oroscopo.mp3` | La comparsa del responso dell'Oroscopo (dal 30 settembre 2026, file scelto dal fondatore: Orchestral Game Notification) | 2,72 s | 40 KB |
 
 Formato: MP3, 128 kbps, 44,1 kHz, mono. Sono segnali, non musica: il mono
 dimezza il peso senza togliere niente. Totale sotto i 420 KB.

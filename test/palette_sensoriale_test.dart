@@ -167,14 +167,20 @@ void main() {
   });
 
   group('I suoni del catalogo, e nessuno fuori', () {
-    test('Sono esattamente tredici', () {
+    test('Sono esattamente quattordici', () {
       // SEI dal primo agosto 2026: si e' aggiunta la voce del principio,
       // sulla schermata nera dell'intro. SETTE dal 7 agosto 2026: il
       // contatto delle pietre runiche, entrato con la gettata fisica. Il
       // numero non e' sacro, il catalogo si': un suono in piu' entra qui e
       // viene contato, invece di nascere fuori dove nessuno lo vede. La
       // regola ha fatto il suo mestiere due volte.
-      expect(SuonoDelCerchio.values.length, 13,
+      //
+      // **LAPIDE, 30 settembre 2026, ordine ES**: la prova diceva tredici.
+      // Il quattordicesimo e' il responso dell'Oroscopo, chiesto dal
+      // fondatore (*"Quando compare il responso del l'oroscopo si sente un
+      // suono che va eliminato. Sostituiscilo con: Orchestral Game
+      // Notification.wav"*): entra dal catalogo, come vuole la regola.
+      expect(SuonoDelCerchio.values.length, 14,
           reason: 'il silenzio e cio che rende un suono importante: le app che '
               'stancano suonano a ogni tocco');
     });
@@ -202,11 +208,17 @@ void main() {
         // **Le eccezioni si dichiarano per nome**, non si allarga il
         // numero: cosi' il decimo suono lungo deve passare da qui
         // invece di entrare dietro a questi tre.
+        // - **responso**, 2,72 secondi, dal 30 settembre 2026: e' il file
+        //   che il fondatore ha scelto per la comparsa del responso
+        //   dell'Oroscopo, col solo silenzio in coda tolto. Accorciarlo
+        //   taglierebbe la sua coda orchestrale, cioe' cambierebbe il suono
+        //   che lui ha scelto.
         const lunghiPerDecisione = {
           SuonoDelCerchio.festa,
           SuonoDelCerchio.eos,
           SuonoDelCerchio.respiroDentro,
           SuonoDelCerchio.respiroFuori,
+          SuonoDelCerchio.responso,
         };
         if (!lunghiPerDecisione.contains(s)) {
           expect(s.durataAttesa.inSeconds, lessThanOrEqualTo(2),

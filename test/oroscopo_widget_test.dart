@@ -110,7 +110,10 @@ void main() {
           MockStreamHandler.inline(onListen: (args, events) {}),
         );
       }
-      tester.view.physicalSize = const Size(440, 2000);
+      // Alta abbastanza per le quattro schede: dal 30 settembre 2026 ogni
+      // scheda porta sotto il testo la riga "Da dove viene", e a 2000
+      // punti la quarta restava fuori dalla lista.
+      tester.view.physicalSize = const Size(440, 2600);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
@@ -252,10 +255,12 @@ void main() {
 
     // LAPIDE, ordine ES voce 01: qui si pretendevano Breve e Profonda con la
     // Media latente nel codice. Il fondatore: "io terrei breve e approfondita
-    // Senza media". Le voci sono due, e la seconda si chiama Approfondita.
-    test('Le due voci sono Breve e Approfondita, e non ce ne sono altre', () {
-      expect(AnswerDepth.shown.map((d) => d.label).toList(),
-          ['Breve', 'Approfondita']);
+    // Senza media". Le voci sono due. La seconda a video si chiama "Lunga"
+    // dal 30 settembre 2026: *"Nel selettore profondità cambiamo
+    // "Approfondita" in Lunga"*.
+    test('Le due voci sono Breve e Lunga, e non ce ne sono altre', () {
+      expect(
+          AnswerDepth.shown.map((d) => d.label).toList(), ['Breve', 'Lunga']);
       expect(AnswerDepth.values, hasLength(2));
       expect(AnswerDepth.free, AnswerDepth.breve);
       expect(AnswerDepth.breve.premium, isFalse);
@@ -294,8 +299,7 @@ void main() {
       }
     });
 
-    testWidgets(
-        'La tendina si apre con la sola Approfondita bloccata, senza Media',
+    testWidgets('La tendina si apre con la sola Lunga bloccata, senza Media',
         (tester) async {
       await pumpScreen(tester);
       await tester.tap(find.byKey(const Key('oroscopo_depth_generale')));
@@ -326,7 +330,7 @@ void main() {
       // Si tocca Profonda, che e' bloccata.
       await tester.tap(find.descendant(
           of: find.byType(PopupMenuItem<AnswerDepth>),
-          matching: find.text('Approfondita')));
+          matching: find.text('Lunga')));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
 

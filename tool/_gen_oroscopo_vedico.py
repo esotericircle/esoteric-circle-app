@@ -59,6 +59,27 @@ def sottosezioni(testo: str) -> list[tuple[str, str]]:
     return [(parti[i].strip(), parti[i + 1]) for i in range(1, len(parti), 2)]
 
 
+def titolo(blocco: str, dove: str) -> str:
+    """La riga 'Titolo: ...' di un caso: il nome in parole della scheda."""
+    m = re.search(r'^Titolo:\s*(.+?)\s*$', blocco, re.M)
+    assert m, 'manca il Titolo in ' + dove
+    t = m.group(1)
+    assert not t.endswith('.'), (dove, t)
+    return t
+
+
+def titoli_per_casa(testo: str) -> list[str]:
+    """Il titolo in parole per ogni casa da 1 a 12, dai titoli '(h = ...)'."""
+    case: list[str | None] = [None] * 12
+    for nome, blocco in sottosezioni(testo):
+        m = re.search(r'\(h = ([\d, ]+)\)', nome)
+        assert m, nome
+        for h in m.group(1).split(','):
+            case[int(h) - 1] = titolo(blocco, nome)
+    assert all(c is not None for c in case), case
+    return case  # type: ignore[return-value]
+
+
 def per_casa(testo: str) -> list[list[str]]:
     """Il gruppo di frasi per ogni casa da 1 a 12, dai titoli '(h = ...)'."""
     case: list[list[str] | None] = [None] * 12
@@ -128,6 +149,9 @@ def componi() -> str:
     out += gruppi('chandraBala', [frasi(b) for _, b in uno],
                   'Chandra Bala: la Luna di oggi nella casa da 1 a 12 contata dalla Luna di nascita.')
     out.append('')
+    out += lista('titoliDellaLuna', [titolo(b, n) for n, b in uno],
+                 'Il titolo in parole della scheda Generale, per la casa da 1 a 12.')
+    out.append('')
     out += gruppi('taraBala', [frasi(b) for _, b in due],
                   'Tara Bala: le nove tare, da Janma a Parama Mitra.')
     out.append('')
@@ -143,10 +167,14 @@ def componi() -> str:
     out.append('')
     out += gruppi('fortuna', fortuna, 'Fortuna: il gruppo di frasi per la casa da 1 a 12.')
     out.append('')
-    for titolo, nome in chiavi_rahu:
-        f = frasi(rahu[titolo])
-        assert len(f) >= 3, titolo
-        out += lista(nome, f, f'Rahu Kalam: {titolo[0].lower()}{titolo[1:]}.')
+    for nome, numero in [('titoliAmore', '4'), ('titoliLavoro', '5'), ('titoliFortuna', '6')]:
+        out += lista(nome, titoli_per_casa(paragrafo(t, numero)),
+                     'Il titolo in parole della scheda, per la casa da 1 a 12.')
+        out.append('')
+    for testa, nome in chiavi_rahu:
+        f = frasi(rahu[testa])
+        assert len(f) >= 3, testa
+        out += lista(nome, f, f'Rahu Kalam: {testa[0].lower()}{testa[1:]}.')
         out.append('')
     out.append('  /// Il glossario della nota del metodo: termine e spiegazione.')
     out.append('  static const List<(String, String)> glossario = [')

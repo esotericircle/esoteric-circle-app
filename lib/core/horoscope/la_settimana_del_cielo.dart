@@ -9,6 +9,7 @@ import '../astro/zodiac.dart';
 import 'cielo_di_oggi.dart';
 import 'corrente_del_cielo.dart';
 import 'horoscope.dart';
+import 'i_tre_cieli.dart';
 import 'il_cielo_del_segno.dart';
 import 'il_livello_del_cielo.dart';
 import 'l_ora_d_oro.dart';
@@ -27,17 +28,43 @@ class EventoDelCielo {
   final bool conOra;
 }
 
-/// Un giorno di un dominio: il livello e da dove viene.
+/// Un giorno di un dominio: il livello, la lettura in parole e da dove viene.
 class GiornoDelPeriodo {
-  const GiornoDelPeriodo(
-      {required this.giorno, required this.livello, required this.motivo});
+  const GiornoDelPeriodo({
+    required this.giorno,
+    required this.livello,
+    required this.motivo,
+    this.lettura = '',
+  });
 
   final DateTime giorno;
   final int livello;
+
+  /// **DA DOVE VIENE**: i passaggi del cielo di quel giorno. Si legge dopo
+  /// la lettura, mai al suo posto.
   final String motivo;
+
+  /// **LA LETTURA DI QUEL GIORNO, IN PAROLE**: la prima parte che la scheda
+  /// del Giorno portera' quel giorno per questo dominio
+  /// ([Horoscope.letturaDelGiorno]).
+  final String lettura;
 }
 
+/// Come si muove il livello di un dominio lungo il periodo.
+enum AndamentoDelPeriodo { cresce, cala, costante }
+
 /// Un dominio nel periodo: i giorni, il migliore e il momento chiave.
+///
+/// **LE TRE PARTI DEL RESPONSO**, dal 30 settembre 2026. Il fondatore, davanti
+/// all'anteprima della Settimana in cui ogni giorno portava solo i suoi
+/// transiti: *"all'utente non gliene frega un cazzo dei transiti [...] Vuole
+/// sapere come andrà in generale, in amore, in lavoro, ecc. Se vuoi inserire
+/// i transiti, li inserisci dopo giusto per motivare da dove arriva la
+/// risposta."* E le Linee Guida, sezione 2: la risposta, che cosa puoi fare,
+/// da dove viene, e *"il simbolo non apre mai"*. Qui: [risposta] dice come va
+/// il periodo in questo campo, [cosaFare] e' la lettura del giorno migliore
+/// dal corpus delle schede del Giorno, e [momentoChiave] e i motivi dei
+/// giorni sono il "da dove viene", che la schermata mette in fondo.
 class DominioDelPeriodo {
   const DominioDelPeriodo({
     required this.dominio,
@@ -50,6 +77,58 @@ class DominioDelPeriodo {
   final List<GiornoDelPeriodo> giorni;
   final GiornoDelPeriodo migliore;
   final String momentoChiave;
+
+  /// Il livello medio dei giorni del periodo.
+  double get media =>
+      giorni.fold<int>(0, (a, g) => a + g.livello) / giorni.length;
+
+  /// L'esito del periodo, con le parole dei tre cieli: dalla media dei
+  /// livelli, arrotondata (3,5 e piu' favorevole, sotto 2,5 in salita).
+  EsitoDelCielo get esito => EsitoDelCielo.di(media.round());
+
+  /// Il primo terzo dei giorni contro l'ultimo: mezzo livello di differenza
+  /// fa un andamento, meno no.
+  AndamentoDelPeriodo get andamento {
+    final n = (giorni.length / 3).floor().clamp(1, giorni.length);
+    double m(Iterable<GiornoDelPeriodo> g) =>
+        g.fold<int>(0, (a, x) => a + x.livello) / n;
+    final scarto = m(giorni.skip(giorni.length - n)) - m(giorni.take(n));
+    if (scarto >= 0.5) return AndamentoDelPeriodo.cresce;
+    if (scarto <= -0.5) return AndamentoDelPeriodo.cala;
+    return AndamentoDelPeriodo.costante;
+  }
+
+  /// Come si nomina il campo in testa alla risposta.
+  static const Map<HoroscopeDomain, String> _nelCampo = {
+    HoroscopeDomain.generale: 'In generale',
+    HoroscopeDomain.amore: 'In amore',
+    HoroscopeDomain.carriera: 'Nel lavoro',
+    HoroscopeDomain.fortuna: 'Per la fortuna',
+  };
+
+  /// **LA RISPOSTA**: come va il periodo in questo campo, in parole di tutti
+  /// i giorni. Nessun pianeta, nessun aspetto.
+  String risposta({required bool mese}) {
+    final periodo = mese ? 'il mese' : 'la settimana';
+    final come = switch (andamento) {
+      // Il confronto e' fra il primo terzo e l'ultimo: il giorno migliore
+      // puo' stare nel mezzo, e la frase non deve dire il contrario (visto
+      // nell'anteprima del 30 settembre: "i giorni più aperti sono gli
+      // ultimi" sopra "il giorno migliore è venerdì").
+      AndamentoDelPeriodo.cresce => ' Va meglio verso la fine.',
+      AndamentoDelPeriodo.cala => ' Va meglio all\'inizio.',
+      AndamentoDelPeriodo.costante => '',
+    };
+    return '${_nelCampo[dominio]} $periodo è ${esito.parola}.$come';
+  }
+
+  /// La riga del giorno migliore.
+  String get rigaDelMigliore => 'Il giorno migliore è '
+      '${LaSettimanaDelCielo.data(migliore.giorno)}.';
+
+  /// **CHE COSA PUOI FARE**: la lettura del giorno migliore, quella che la
+  /// scheda del Giorno portera' quel giorno.
+  String get cosaFare => migliore.lettura;
 }
 
 /// Un periodo intero: gli eventi e i quattro domini.
@@ -108,10 +187,16 @@ abstract final class LaSettimanaDelCielo {
   /// giorno migliore col livello, e in evidenza il momento chiave del
   /// Generale. Sono fatti gia' calcolati per la schermata, non un testo in
   /// piu'.
-  static List<HoroscopeCard> tessere(IlPeriodoDelCielo periodo) {
+  ///
+  /// **In evidenza la risposta, non il transito** (30 settembre 2026): la
+  /// frase grande della card e' come va il periodo in generale, con la lettura
+  /// del giorno migliore; il momento chiave, che e' un passaggio del cielo,
+  /// sulla card non apre.
+  static List<HoroscopeCard> tessere(IlPeriodoDelCielo periodo,
+      {bool mese = false}) {
     final generale =
         periodo.domini.firstWhere((d) => d.dominio == HoroscopeDomain.generale);
-    final chiave = 'Il momento chiave: ${generale.momentoChiave}';
+    final chiave = '${generale.risposta(mese: mese)} ${generale.cosaFare}';
     return [
       for (final d in periodo.domini)
         HoroscopeCard(
@@ -342,10 +427,16 @@ abstract final class LaSettimanaDelCielo {
                 quando: mezzogiorni[d],
                 // Sotto la data del suo giorno, senza "di oggi".
                 oggi: false);
+            final giorno = DateTime(inizio.year, inizio.month, inizio.day + d);
             return GiornoDelPeriodo(
-                giorno: DateTime(inizio.year, inizio.month, inizio.day + d),
+                giorno: giorno,
                 livello: livello,
-                motivo: motivo);
+                motivo: motivo,
+                // La lettura in parole di quel giorno, dalla stessa porta
+                // della scheda del Giorno.
+                lettura: Horoscope.letturaDelGiorno(segno, dominio,
+                        Horoscope.dayOfYear(giorno), giorno.year)
+                    .$2);
           }(),
       ];
       var migliore = righe.first;

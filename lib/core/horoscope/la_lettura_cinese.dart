@@ -2,6 +2,7 @@ import '../chat/user_profile.dart';
 import 'horoscope.dart';
 import 'i_segni_delle_tradizioni.dart';
 import 'l_almanacco_cinese.dart';
+import 'le_parti_del_responso.dart';
 import 'oroscopo_cinese_data.dart';
 
 /// **L'OROSCOPO CINESE DEL GIORNO, ordine ES voce 08.**
@@ -28,6 +29,18 @@ import 'oroscopo_cinese_data.dart';
 /// Le frasi vengono da `docs/corpus/oroscopo_cinese.md` attraverso
 /// [OroscopoCineseData]. **La variante segue il ritorno del caso**, non il
 /// giorno: vedi [ritorni].
+///
+/// **LE TRE PARTI DEL RESPONSO**, dal 30 settembre 2026. Il fondatore:
+/// *"all'utente non gliene frega un cazzo dei transiti [...] Se vuoi inserire
+/// i transiti, li inserisci dopo giusto per motivare da dove arriva la
+/// risposta."* Ogni frase del corpus porta il suo testo, in parole di tutti
+/// i giorni, e il suo "da dove viene", dove stanno l'animale, il guardiano e
+/// il dio ([LePartiDelResponso]). La scheda mette i testi nella lettura e i
+/// "da dove viene" nella riga sotto; i titoli, che erano "Il giorno della
+/// Capra" e "Le Sette Uccisioni", vengono dal corpus e sono in parole.
+/// **La Lunga** aggiunge alla Generale che cosa conviene col guardiano e la
+/// direzione del giorno, alle altre schede la seconda lettura dello stesso
+/// dio; la spiegazione del dio sta nel "da dove viene".
 abstract final class LaLetturaCinese {
   /// Le quattro schede del giorno civile [oggi] per chi e' nato il giorno
   /// civile [nascita] (data del luogo di nascita) nell'anno dell'animale
@@ -69,30 +82,39 @@ abstract final class LaLetturaCinese {
         valori);
     bool approfondita(HoroscopeDomain d) => approfondite[d] ?? false;
 
-    // GENERALE: il rapporto fra i due animali e il guardiano.
-    final delRapporto = frase(
-        OroscopoCineseData
-            .rapporti[chiaveDelRapporto(rapporto, animale == ramo)]!,
-        ritorno.ramo);
-    final delGuardiano =
-        frase(OroscopoCineseData.guardiani[guardiano], ritorno.guardiano);
+    // GENERALE: il rapporto fra i due animali e il guardiano. Di ogni frase
+    // il testo va nella lettura, il "da dove viene" nella riga sotto.
+    final chiave = chiaveDelRapporto(rapporto, animale == ramo);
+    final (rapportoTesto, rapportoDaDove) = LePartiDelResponso.di(
+        frase(OroscopoCineseData.rapporti[chiave]!, ritorno.ramo));
+    final (guardianoTesto, guardianoDaDove) = LePartiDelResponso.di(
+        frase(OroscopoCineseData.guardiani[guardiano], ritorno.guardiano));
+    final (gioiaTesto, gioiaDaDove) = LePartiDelResponso.di(
+        frase(OroscopoCineseData.direzioneGioia, ritorno.gioia));
     final (adatto, evitare) =
         OroscopoCineseData.consigliDelGuardiano[guardiano];
+    final lungaGenerale = approfondita(HoroscopeDomain.generale);
     final generale = HoroscopeCard(
       domain: HoroscopeDomain.generale,
-      title: 'Il giorno ${_preposizione('di', conArticolo(ramo))}',
-      synthesis: primaFrase(delRapporto),
-      text: [
-        delRapporto,
-        delGuardiano,
-        if (approfondita(HoroscopeDomain.generale)) ...[
+      title: OroscopoCineseData.titoliDeiRapporti[chiave]!,
+      synthesis: primaFrase(rapportoTesto),
+      text: LePartiDelResponso.insieme([
+        rapportoTesto,
+        guardianoTesto,
+        if (lungaGenerale) ...[
           'Adatto a: $adatto. Meglio evitare: $evitare.',
-          frase(OroscopoCineseData.direzioneGioia, ritorno.gioia),
+          gioiaTesto,
         ],
-      ].join(' '),
+      ]),
       indicator: livelloDelRapporto(rapporto),
-      rigaDelLivello: 'Dal rapporto fra ${conArticolo(ramo)} di oggi e '
-          '${_iltuo(animale)}: ${rapportoDetto(rapporto, animale == ramo)}.',
+      rigaDelLivello: LePartiDelResponso.insieme([
+        rapportoDaDove,
+        guardianoDaDove,
+        if (lungaGenerale) gioiaDaDove,
+        'Il livello viene dal rapporto fra ${conArticolo(ramo)} di oggi e '
+            '${_iltuo(animale)}: '
+            '${rapportoDetto(rapporto, animale == ramo)}.',
+      ]),
       opening: apertura,
       metodo: OroscopoCineseData.notaGenerale,
     );
@@ -106,37 +128,44 @@ abstract final class LaLetturaCinese {
         neutro: 'amoreNeutro',
         forma: f);
     HoroscopeCard delDio(HoroscopeDomain d, String serie) {
-      final base =
-          frase(OroscopoCineseData.dei[serie]![dio.name]!, ritorno.tronco);
+      final gruppo = OroscopoCineseData.dei[serie]![dio.name]!;
+      final (base, baseDaDove) =
+          LePartiDelResponso.di(frase(gruppo, ritorno.tronco));
+      // La Lunga aggiunge la seconda lettura dello stesso dio: un altro
+      // gesto, in parole, non un'altra spiegazione del simbolo.
+      final (ancora, _) =
+          LePartiDelResponso.di(frase(gruppo, ritorno.tronco + 1));
       // Le Sette Uccisioni sono un plurale.
       final e = dio == DioDelGiorno.setteUccisioni ? 'sono' : 'è';
       // **UNA RIGA DIVERSA PER SCHEDA.** La spiegazione del dio e' la
       // stessa sulle tre schede; la riga dice anche che cosa fa quel dio al
-      // tema della scheda, cosi' tre Approfondite non ripetono la stessa
-      // frase una sotto l'altra.
+      // tema della scheda, cosi' tre Lunghe non ripetono la stessa frase
+      // una sotto l'altra. Sta nel "da dove viene": e' il simbolo.
       final presentazione = 'Il dio di oggi nel BaZi $e ${dio.nome} '
           '(${_caratteri[dio.index]}): '
-          '${OroscopoCineseData.spiegazioni[dio.name]!.replaceFirst(': ', ', cioè ')}. '
-          '${_perIlTema[d]} ${relazioneDelDio(d, dio, forma: f)}.';
+          '${OroscopoCineseData.spiegazioni[dio.name]!.replaceFirst(': ', ', cioè ')}.';
       final fortuna = d == HoroscopeDomain.fortuna;
+      final lunga = approfondita(d);
       final colore =
           frase(OroscopoCineseData.coloreENumeri, ritorno.coppiaDiTronchi);
+      final (ricchezzaTesto, ricchezzaDaDove) = LePartiDelResponso.di(frase(
+          OroscopoCineseData.direzioneRicchezza, ritorno.coppiaDiTronchi));
       return HoroscopeCard(
         domain: d,
-        title: maiuscola(dio.nome),
+        title: OroscopoCineseData.titoliDeiDei[serie]![dio.name]!,
         synthesis: primaFrase(base),
-        text: [
+        text: LePartiDelResponso.insieme([
           base,
-          if (approfondita(d)) ...[
-            presentazione,
-            if (fortuna)
-              frase(OroscopoCineseData.direzioneRicchezza,
-                  ritorno.coppiaDiTronchi),
-          ],
-        ].join(' '),
+          if (lunga) ancora,
+          if (lunga && fortuna) ricchezzaTesto,
+        ]),
         indicator: livelloDelDio(d, dio, forma: f),
-        rigaDelLivello: 'Dal dio di oggi nel BaZi, ${dio.nome}: '
-            '${relazioneDelDio(d, dio, forma: f)}.',
+        rigaDelLivello: LePartiDelResponso.insieme([
+          baseDaDove,
+          if (lunga) presentazione,
+          if (lunga && fortuna) ricchezzaDaDove,
+          '${_perIlTema[d]}: ${relazioneDelDio(d, dio, forma: f)}.',
+        ]),
         metodo: fortuna
             ? '${OroscopoCineseData.notaDei} ${OroscopoCineseData.notaColore}'
             : OroscopoCineseData.notaDei,

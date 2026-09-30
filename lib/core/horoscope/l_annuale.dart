@@ -3,6 +3,7 @@ import '../astro/zodiac.dart';
 import '../chat/user_profile.dart';
 import 'horoscope.dart';
 import 'la_rivoluzione_solare.dart';
+import 'le_parti_del_responso.dart';
 import 'oroscopo_annuale_data.dart';
 
 /// **L'ANNUALE DAL COMPLEANNO, ordine ES voce 04.**
@@ -12,11 +13,28 @@ import 'oroscopo_annuale_data.dart';
 /// - **Generale**: l'Ascendente dell'anno, la casa del Sole, la casa della
 ///   Luna;
 /// - **Amore**: la casa di Venere;
-/// - **Lavoro**: la casa di Saturno e il segno del Medio Cielo;
+/// - **Lavoro**: il segno del Medio Cielo e la casa di Saturno;
 /// - **Fortuna**: la casa di Giove.
 ///
 /// **La variante e' quella dell'anno**: la stessa persona legge l'annuale una
 /// volta l'anno, e in due anni di fila lo stesso caso ha l'altra frase.
+///
+/// **LE TRE PARTI DEL RESPONSO**, dal 30 settembre 2026. Il fondatore:
+/// *"all'utente non gliene frega un cazzo dei transiti [...] Se vuoi inserire
+/// i transiti, li inserisci dopo giusto per motivare da dove arriva la
+/// risposta."* Ogni frase del corpus ha il suo testo, in parole di tutti i
+/// giorni, e il suo "da dove viene", dove stanno il pianeta, il segno e la
+/// casa ([LePartiDelResponso]). La scheda mette i testi nella lettura e i "da
+/// dove viene" nella riga sotto; i titoli sono in parole ([titoli]).
+///
+/// **Breve e Lunga**, dal 30 settembre 2026. Il fondatore: *"Ogni scheda deve
+/// avere sempre il pulsante profondità e la scelta "approfondita" è esclusiva
+/// dei premium."* La Breve e' il testo che da' il tono di ogni scheda
+/// (dall'Ascendente, da Venere, dal Medio Cielo, da Giove). La Lunga aggiunge
+/// cio' che il tema dice in piu': nella Generale i testi del Sole e della
+/// Luna, nel Lavoro quello di Saturno, nell'Amore e nella Fortuna la seconda
+/// lettura dello stesso caso; e nel "da dove viene" il segno in cui Venere e
+/// Giove stanno al ritorno del Sole e quanto conta la loro casa.
 ///
 /// **Il livello viene dall'angolarita'**, la regola che Volguine mette per
 /// prima nella Rivoluzione: il pianeta in una casa angolare (1, 4, 7, 10) e'
@@ -28,6 +46,18 @@ abstract final class LAnnuale {
     'Ariete', 'Toro', 'Gemelli', 'Cancro', 'Leone', 'Vergine', //
     'Bilancia', 'Scorpione', 'Sagittario', 'Capricorno', 'Acquario', 'Pesci',
   ];
+
+  /// **I TITOLI DELLE QUATTRO SCHEDE, IN PAROLE.** Fino al 30 settembre 2026
+  /// erano "Un anno con l'Ascendente in Pesci", "Venere in casa 5", "Il Medio
+  /// Cielo in Sagittario", "Giove in casa 5": la scheda apriva col simbolo, e
+  /// le Linee Guida (sezione 2) dicono che *"il simbolo non apre mai"*. Il
+  /// segno e la casa stanno nella riga del "da dove viene", sotto la lettura.
+  static const Map<HoroscopeDomain, String> titoli = {
+    HoroscopeDomain.generale: 'Il tono del tuo anno',
+    HoroscopeDomain.amore: 'L\'amore nel tuo anno',
+    HoroscopeDomain.carriera: 'Il lavoro nel tuo anno',
+    HoroscopeDomain.fortuna: 'La fortuna nel tuo anno',
+  };
 
   /// Quanto conta una casa: angolare, succedente, cadente.
   static int forza(int casa) => switch (casa % 3) {
@@ -42,16 +72,45 @@ abstract final class LAnnuale {
         _ => 'cadente',
       };
 
+  /// **DOVE STA IL PIANETA, E QUANTO CONTA**: la riga che la Lunga aggiunge
+  /// al "da dove viene" dell'Amore e della Fortuna. Il segno e la casa sono
+  /// calcolati dal tema; il peso e' la regola dell'angolarita' scritta qui
+  /// sopra, con le sue parole.
+  static String doveSta(
+      String pianeta, CorpoCeleste corpo, TemaDellaRivoluzione tema) {
+    final casa = tema.casaDi(corpo);
+    final segno = _segni[TemaDellaRivoluzione.segno(tema.longitudini[corpo]!)];
+    final peso = switch (forza(casa)) {
+      3 => 'una casa angolare, dove per la tradizione il pianeta è fra i '
+          'protagonisti dell\'anno',
+      2 => 'una casa succedente, dove per la tradizione il pianeta lavora '
+          'in secondo piano',
+      _ => 'una casa cadente, dove per la tradizione il pianeta resta sullo '
+          'sfondo',
+    };
+    return 'Al tuo compleanno $pianeta era in $segno, nella casa $casa del '
+        'tuo anno: $peso.';
+  }
+
   /// Le quattro schede dell'anno che comincia col ritorno [tema].
+  ///
+  /// [approfondite] dice, scheda per scheda, se si legge la Lunga; senza, si
+  /// leggono tutte intere, come nel PDF dell'anno.
   static List<HoroscopeCard> schede(
     TemaDellaRivoluzione tema, {
     CourtesyForm? forma,
     String? apertura,
+    Map<HoroscopeDomain, bool>? approfondite,
   }) {
     final anno = tema.istante.year;
-    String frase(List<String> varianti) =>
-        LaMarcaDelGenere.risolvi(varianti[anno % varianti.length],
-            forma: forma);
+    // Il testo e il "da dove viene" della variante dell'anno; con [passo] la
+    // variante accanto, che la Lunga aggiunge dove il caso e' uno solo.
+    (String, String) frase(List<String> varianti, [int passo = 0]) =>
+        LePartiDelResponso.di(LaMarcaDelGenere.risolvi(
+            varianti[(anno + passo) % varianti.length],
+            forma: forma));
+    bool lunga(HoroscopeDomain d) =>
+        approfondite == null || (approfondite[d] ?? false);
     final asc = tema.segnoDellAscendente;
     final mc = tema.segnoDelMedioCielo;
     final casaSole = tema.casaDi(CorpoCeleste.sole);
@@ -60,61 +119,99 @@ abstract final class LAnnuale {
     final casaGiove = tema.casaDi(CorpoCeleste.giove);
     final casaSaturno = tema.casaDi(CorpoCeleste.saturno);
 
-    final generale = [
-      frase(OroscopoAnnualeData.ascendente[asc]),
-      frase(OroscopoAnnualeData.sole[casaSole - 1]),
-      frase(OroscopoAnnualeData.luna[casaLuna - 1]),
-    ];
-    HoroscopeCard scheda(HoroscopeDomain d, String titolo, List<String> testi,
-            int livello, String riga, String metodo) =>
+    final (ascTesto, ascDaDove) = frase(OroscopoAnnualeData.ascendente[asc]);
+    final (soleTesto, soleDaDove) =
+        frase(OroscopoAnnualeData.sole[casaSole - 1]);
+    final (lunaTesto, lunaDaDove) =
+        frase(OroscopoAnnualeData.luna[casaLuna - 1]);
+    final (venereTesto, venereDaDove) =
+        frase(OroscopoAnnualeData.venere[casaVenere - 1]);
+    final (venereAncora, _) =
+        frase(OroscopoAnnualeData.venere[casaVenere - 1], 1);
+    final (mcTesto, mcDaDove) = frase(OroscopoAnnualeData.medioCielo[mc]);
+    final (saturnoTesto, saturnoDaDove) =
+        frase(OroscopoAnnualeData.saturno[casaSaturno - 1]);
+    final (gioveTesto, gioveDaDove) =
+        frase(OroscopoAnnualeData.giove[casaGiove - 1]);
+    final (gioveAncora, _) = frase(OroscopoAnnualeData.giove[casaGiove - 1], 1);
+
+    /// [breve] e' la lettura che si legge sempre, [inPiu] cio' che la Lunga
+    /// aggiunge; lo stesso per il "da dove viene". [delLivello] dice da
+    /// dove viene il livello, in fondo alla riga.
+    HoroscopeCard scheda(
+      HoroscopeDomain d, {
+      required String breve,
+      required List<String> inPiu,
+      required String daDove,
+      required List<String> daDoveInPiu,
+      required String delLivello,
+      required int livello,
+      required String metodo,
+    }) =>
         HoroscopeCard(
           domain: d,
-          title: titolo,
-          synthesis: testi.first.split(RegExp(r'(?<=[.!?]) ')).first,
-          text: testi.join(' '),
+          title: titoli[d]!,
+          synthesis: breve.split(RegExp(r'(?<=[.!?]) ')).first,
+          text: LePartiDelResponso.insieme([breve, if (lunga(d)) ...inPiu]),
           indicator: livello.clamp(2, 5),
-          rigaDelLivello: riga,
+          rigaDelLivello: LePartiDelResponso.insieme(
+              [daDove, if (lunga(d)) ...daDoveInPiu, delLivello]),
           opening: d == HoroscopeDomain.generale ? apertura : null,
           metodo: metodo,
         );
 
     return [
-      scheda(
-          HoroscopeDomain.generale,
-          'Un anno con l\'Ascendente in ${_segni[asc]}',
-          generale,
-          2 + forza(casaSole),
-          'Dal Sole della tua Rivoluzione in casa $casaSole, '
-              '${_tipo(casaSole)}.',
-          '${OroscopoAnnualeData.notaGenerale} ${OroscopoAnnualeData.notaTutte}'),
-      scheda(
-          HoroscopeDomain.amore,
-          'Venere in casa $casaVenere',
-          [frase(OroscopoAnnualeData.venere[casaVenere - 1])],
-          2 + forza(casaVenere),
-          'Da Venere nella casa $casaVenere del tuo anno, '
+      scheda(HoroscopeDomain.generale,
+          breve: ascTesto,
+          inPiu: [soleTesto, lunaTesto],
+          daDove: ascDaDove.isEmpty
+              ? 'L\'Ascendente del tuo anno è in ${_segni[asc]}.'
+              : ascDaDove,
+          daDoveInPiu: [soleDaDove, lunaDaDove],
+          delLivello: 'Il livello viene dal Sole della tua Rivoluzione Solare '
+              'in casa $casaSole, ${_tipo(casaSole)}.',
+          livello: 2 + forza(casaSole),
+          metodo: '${OroscopoAnnualeData.notaGenerale} '
+              '${OroscopoAnnualeData.notaTutte}'),
+      scheda(HoroscopeDomain.amore,
+          breve: venereTesto,
+          inPiu: [venereAncora],
+          daDove: venereDaDove.isEmpty
+              ? 'Venere nella tua Rivoluzione Solare cade nella casa '
+                  '$casaVenere.'
+              : venereDaDove,
+          daDoveInPiu: [doveSta('Venere', CorpoCeleste.venere, tema)],
+          delLivello: 'Il livello viene da Venere nella casa $casaVenere, '
               '${_tipo(casaVenere)}.',
-          '${OroscopoAnnualeData.notaDomini} ${OroscopoAnnualeData.notaTutte}'),
-      scheda(
-          HoroscopeDomain.carriera,
-          'Il Medio Cielo in ${_segni[mc]}',
-          [
-            frase(OroscopoAnnualeData.medioCielo[mc]),
-            frase(OroscopoAnnualeData.saturno[casaSaturno - 1]),
-          ],
-          // Saturno angolare: l'anno chiede fatica.
-          6 - forza(casaSaturno),
-          'Da Saturno nella casa $casaSaturno del tuo anno, '
+          livello: 2 + forza(casaVenere),
+          metodo: '${OroscopoAnnualeData.notaDomini} '
+              '${OroscopoAnnualeData.notaTutte}'),
+      scheda(HoroscopeDomain.carriera,
+          breve: mcTesto,
+          inPiu: [saturnoTesto],
+          daDove: mcDaDove.isEmpty
+              ? 'Il Medio Cielo del tuo anno è in ${_segni[mc]}.'
+              : mcDaDove,
+          daDoveInPiu: [saturnoDaDove],
+          delLivello: 'Il livello viene da Saturno nella casa $casaSaturno, '
               '${_tipo(casaSaturno)}: più è in vista, più il lavoro chiede.',
-          '${OroscopoAnnualeData.notaDomini} ${OroscopoAnnualeData.notaTutte}'),
-      scheda(
-          HoroscopeDomain.fortuna,
-          'Giove in casa $casaGiove',
-          [frase(OroscopoAnnualeData.giove[casaGiove - 1])],
-          2 + forza(casaGiove),
-          'Da Giove nella casa $casaGiove del tuo anno, '
+          // Saturno angolare: l'anno chiede fatica.
+          livello: 6 - forza(casaSaturno),
+          metodo: '${OroscopoAnnualeData.notaDomini} '
+              '${OroscopoAnnualeData.notaTutte}'),
+      scheda(HoroscopeDomain.fortuna,
+          breve: gioveTesto,
+          inPiu: [gioveAncora],
+          daDove: gioveDaDove.isEmpty
+              ? 'Giove nella tua Rivoluzione Solare cade nella casa '
+                  '$casaGiove.'
+              : gioveDaDove,
+          daDoveInPiu: [doveSta('Giove', CorpoCeleste.giove, tema)],
+          delLivello: 'Il livello viene da Giove nella casa $casaGiove, '
               '${_tipo(casaGiove)}.',
-          '${OroscopoAnnualeData.notaDomini} ${OroscopoAnnualeData.notaTutte}'),
+          livello: 2 + forza(casaGiove),
+          metodo: '${OroscopoAnnualeData.notaDomini} '
+              '${OroscopoAnnualeData.notaTutte}'),
     ];
   }
 

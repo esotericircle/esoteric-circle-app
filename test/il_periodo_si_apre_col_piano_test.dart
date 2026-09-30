@@ -124,7 +124,11 @@ void main() {
                 periodo: periodo,
                 mese: false,
                 palette: palette,
-                livello: livello),
+                livello: livello,
+                profondita: const {},
+                premiumUnlocked: true,
+                onDepthSelected: (_, __) {},
+                onDepthLocked: (_, __) {}),
           ),
         ),
       ));

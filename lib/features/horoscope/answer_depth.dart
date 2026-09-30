@@ -20,10 +20,13 @@ import '../../design_system/tokens/typography_tokens.dart';
 enum AnswerDepth {
   breve('Breve', premium: false, visible: true),
 
-  // **APPROFONDITA, NON PROFONDA, ordine ES voce 01.** Il fondatore: *"io
-  // terrei breve e approfondita Senza media, ok?"*. La Media, che era latente,
-  // non c'e' piu'; il nome si legge "Approfondita" dovunque.
-  profonda('Approfondita', premium: true, visible: true);
+  // **LUNGA.** Ordine ES voce 01, il fondatore: *"io terrei breve e
+  // approfondita Senza media, ok?"*: la Media, che era latente, non c'e'
+  // piu'. E il 30 settembre 2026, sempre lui: *"Nel selettore profondità
+  // cambiamo "Approfondita" in Lunga"*. A video si legge "Lunga" dovunque: nel
+  // selettore, nell'invito al piano, nella pagina dei piani. Nel codice e
+  // nei commenti resta "Approfondita" dove racconta la storia.
+  profonda('Lunga', premium: true, visible: true);
 
   const AnswerDepth(this.label, {required this.premium, required this.visible});
 

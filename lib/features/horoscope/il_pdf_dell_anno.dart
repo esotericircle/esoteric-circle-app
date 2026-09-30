@@ -105,6 +105,11 @@ abstract final class IlPdfDellAnno {
               style: const pw.TextStyle(fontSize: IlFoglioDellAnno.testo)),
           if (s.rigaDelLivello != null) ...[
             pw.SizedBox(height: IlFoglioDellAnno.primaDelLivello),
+            // Come a schermo: il simbolo sta dopo la lettura, col suo nome
+            // (Linee Guida, sezione 2, "il simbolo non apre mai").
+            pw.Text('DA DOVE VIENE',
+                style: const pw.TextStyle(
+                    fontSize: IlFoglioDellAnno.etichetta, letterSpacing: 1.2)),
             pw.Text(s.rigaDelLivello!,
                 style:
                     const pw.TextStyle(fontSize: IlFoglioDellAnno.etichetta)),

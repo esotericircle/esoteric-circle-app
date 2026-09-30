@@ -119,7 +119,7 @@ enum RigaDelPiano {
   oroscopoSettimanale,
 
   /// **LA PROFONDITA' DELL'OROSCOPO**, ordine ES voce 06: Breve per il
-  /// Viandante, Breve o Approfondita dall'Iniziato. Prima si leggeva dalla
+  /// Viandante, Breve o Lunga dall'Iniziato. Prima si leggeva dalla
   /// riga del settimanale ("Base"), che adesso dice solo se il settimanale
   /// c'e'.
   profondita,
@@ -210,7 +210,7 @@ class PlanCatalog {
         'Sintesi comparativa dei tre Maestri',
         'Correlazione mood-transiti attiva',
         'Cosmic Journal completo, obiettivi e traguardi per Maestro',
-        'Scelta della profondità dell\'oroscopo: Breve o Approfondita',
+        'Scelta della profondità dell\'oroscopo: Breve o Lunga',
         'Oroscopo cinese del giorno, dall\'almanacco e dai Dieci Dei',
         'Oroscopo vedico del giorno, dalla Luna siderale e dal Rahu Kalam',
         'L’oroscopo per gli amici, fino a tre',
@@ -368,7 +368,7 @@ class PlanCatalog {
   /// Se quel piano ha diritto alla profondita' Profonda dell'oroscopo.
   ///
   /// Letto dalla matrice: la riga della profondita' dice Breve per il
-  /// Viandante e Breve o Approfondita dall'Iniziato in su. Prima nessuno lo
+  /// Viandante e Breve o Lunga dall'Iniziato in su. Prima nessuno lo
   /// leggeva, e la Profonda restava col lucchetto anche per chi l'aveva
   /// comprata; poi si leggeva dalla riga del settimanale, che dall'ordine ES
   /// voce 06 dice solo se il settimanale c'e'.
@@ -503,14 +503,8 @@ class PlanCatalog {
     // "vorrei che l'utente free non avesse accesso al settimanale".
     FeatureRow('Oroscopo settimanale', ['No', 'Sì', 'Sì', 'Sì'],
         chiave: RigaDelPiano.oroscopoSettimanale),
-    FeatureRow(
-        'Profondità dell\'oroscopo',
-        [
-          'Breve',
-          'Breve o Approfondita',
-          'Breve o Approfondita',
-          'Breve o Approfondita'
-        ],
+    FeatureRow('Profondità dell\'oroscopo',
+        ['Breve', 'Breve o Lunga', 'Breve o Lunga', 'Breve o Lunga'],
         chiave: RigaDelPiano.profondita),
     FeatureRow('Oroscopo mensile', ['No', 'No', 'Sì', 'Sì']),
     // L'ANNO DAL COMPLEANNO, ordine ES voce 04: "dall'Adepto in su, 300 Eos,

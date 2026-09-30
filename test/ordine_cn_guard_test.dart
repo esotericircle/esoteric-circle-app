@@ -47,10 +47,14 @@ void main() {
     }
   });
 
-  test('CN.01: il catalogo ha tredici voci e nessuna e\' nata fuori', () {
-    expect(SuonoDelCerchio.values.length, 13,
-        reason: 'il catalogo non ha piu\' tredici voci: l\'ordine CN le porta '
-            'da sette a tredici, e un suono che nasce fuori dal catalogo e\' '
+  test('CN.01: il catalogo ha quattordici voci e nessuna e\' nata fuori', () {
+    // **LAPIDE, 30 settembre 2026, ordine ES**: qui c'era tredici. Il
+    // quattordicesimo e' il suono del responso dell'Oroscopo, scelto dal
+    // fondatore, ed e' entrato dal catalogo.
+    expect(SuonoDelCerchio.values.length, 14,
+        reason: 'il catalogo non ha piu\' quattordici voci: l\'ordine CN le '
+            'porta da sette a tredici, l\'ordine ES aggiunge il responso '
+            'dell\'Oroscopo, e un suono che nasce fuori dal catalogo e\' '
             'un suono che nessuno sa piu\' dove suona');
     final nomi = SuonoDelCerchio.values.map((s) => s.file).toSet();
     expect(nomi.length, SuonoDelCerchio.values.length,

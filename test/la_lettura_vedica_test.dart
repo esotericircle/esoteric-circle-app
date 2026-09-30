@@ -6,6 +6,7 @@ import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/horoscope/i_segni_delle_tradizioni.dart';
 import 'package:esoteric_circle/core/horoscope/la_lettura_vedica.dart';
+import 'package:esoteric_circle/core/horoscope/le_parti_del_responso.dart';
 import 'package:esoteric_circle/core/horoscope/oroscopo_vedico_data.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -165,11 +166,17 @@ void main() {
 
   test('ogni scheda dice la frase del suo gruppo, e il ritorno cambia frase',
       () {
-    RegExp gruppo(List<String> varianti) => RegExp(varianti
-        .map((v) => RegExp.escape(v)
-            .replaceAll(RegExp(r'\\\{\w+\\\}'), '.+?')
-            .replaceAll(RegExp(r'\\\[[^\]]*\\\]'), '.+?'))
-        .join('|'));
+    // Dal 30 settembre 2026 ogni frase e' "TESTO || DA DOVE VIENE"
+    // ([LePartiDelResponso]): nella lettura sta il TESTO.
+    RegExp gruppo(List<String> varianti) => RegExp(
+        varianti
+            .map((v) => RegExp.escape(LePartiDelResponso.di(v).$1)
+                .replaceAll(RegExp(r'\\\{\w+\\\}'), '.+?')
+                .replaceAll(RegExp(r'\\\[[^\]]*\\\]'), '.+?'))
+            .join('|'),
+        // Quando la Luna e la stella si contraddicono il testo entra dopo
+        // "Da una parte, " con la prima lettera minuscola.
+        caseSensitive: false);
     int? quale(String testo, List<String> varianti) {
       for (var i = 0; i < varianti.length; i++) {
         if (gruppo([varianti[i]]).hasMatch(testo)) return i;
@@ -243,14 +250,67 @@ void main() {
     expect(difetti, isEmpty, reason: difetti.take(4).join('\n'));
   });
 
+  /// **LA LUNA E LA STELLA IN DISACCORDO**, 30 settembre 2026. Nell'anteprima
+  /// la Luna diceva di cominciare qualcosa e la stella di non aprire cose
+  /// nuove, a 2 su 5: nelle tre parti, senza i simboli davanti, chi legge non
+  /// sapeva quale contasse. Quando le due voci si contraddicono la lettura
+  /// apre con la risposta del livello; quando no, apre con la Luna.
+  test('quando la Luna e la stella si contraddicono, apre la risposta', () {
+    bool buono(EsitoVedico e) => e == EsitoVedico.favorevole;
+    bool pesa(EsitoVedico e) =>
+        e == EsitoVedico.sfavorevole || e == EsitoVedico.ottava;
+    final roma = citta['Roma']!;
+    final (rashiN, nakN) = LaLetturaVedica.lunaDiNascita(conOra)!;
+    var contrari = 0;
+    var concordi = 0;
+    final fuori = <String>[];
+    for (var k = 0; k < 120; k++) {
+      final giorno = DateTime(2026, 9, 1 + k);
+      final s = LaLetturaVedica.schede(
+          adesso: DateTime(2026, 9, 1 + k, 9), nascita: conOra, luogo: roma)!;
+      final (r, n) = LaLetturaVedica.lunaAlle(
+          LaLetturaVedica.istanteDelGiorno(giorno, roma));
+      final luna = LaLetturaVedica.esitoDellaCasa((r - rashiN + 12) % 12 + 1);
+      final stella =
+          LaLetturaVedica.esitoDellaTara(((n - nakN! + 27) % 27) % 9 + 1);
+      final contro =
+          (buono(luna) && pesa(stella)) || (pesa(luna) && buono(stella));
+      final apre = s[0].text.startsWith('Oggi la giornata ') &&
+          s[0].synthesis.startsWith('Oggi la giornata ');
+      if (contro) {
+        contrari++;
+        if (!apre) fuori.add('giorno $k, in disaccordo: ${s[0].text}');
+        if (!s[0].text.contains(' Da una parte, ') ||
+            !s[0].text.contains(' Dall\'altra, ')) {
+          fuori.add('giorno $k, le due voci senza i due lati');
+        }
+        if (s[0].indicator == 2 && !s[0].text.contains('in salita')) {
+          fuori.add('giorno $k, a 2 su 5 senza "in salita"');
+        }
+      } else {
+        concordi++;
+        if (s[0].text.startsWith('Oggi la giornata ha due facce') ||
+            s[0].text.startsWith('Oggi la giornata è in salita, anche se')) {
+          fuori.add('giorno $k, d\'accordo, apre coi due volti');
+        }
+      }
+    }
+    cardinaleMinimo(contrari, 10, cosa: 'giorni con Luna e stella contrarie');
+    cardinaleMinimo(concordi, 10, cosa: 'giorni con Luna e stella concordi');
+    print('LA VEDICA IN DISACCORDO: giorni contrari $contrari, concordi '
+        '$concordi, letture fuori regola ${fuori.length}');
+    expect(fuori, isEmpty, reason: fuori.take(4).join('\n'));
+  });
+
   test('senza l\'ora la Generale lo dice; senza la citta\' il Rahu la chiede',
       () {
     final senzaOra = NascitaDeiSegni(
         locale: DateTime(1990, 3, 15, 12), oraNota: false, fuso: 'Europe/Rome');
     final s = LaLetturaVedica.schede(
         adesso: DateTime(2026, 10, 5, 9), nascita: senzaOra)!;
-    expect(
-        s[0].text, contains('Con l\'ora di nascita leggo anche la tua stella'));
+    // Lo dice il "da dove viene", non la lettura (ordine ES, 30 settembre).
+    expect(s[0].rigaDelLivello,
+        contains('Con l\'ora di nascita leggo anche la tua stella'));
     expect(
         OroscopoVedicoData.rahuSenzaCitta
             .any((f) => s[0].text.contains(f.substring(0, 30))),

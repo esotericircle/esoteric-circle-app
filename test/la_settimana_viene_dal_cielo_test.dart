@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/core/horoscope/cielo_di_oggi.dart';
+import 'package:esoteric_circle/core/horoscope/il_livello_del_cielo.dart';
 import 'package:esoteric_circle/core/horoscope/la_settimana_del_cielo.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -87,6 +89,14 @@ void main() {
     final testo = StringBuffer();
     var righe = 0;
     final senzaFatto = <String>[];
+    // **OGNI RIGA E' QUELLA DEL SUO GIORNO.** Regola B del 30 settembre 2026:
+    // con le sette righe lette tutte dal cielo del primo giorno questa prova
+    // restava verde, perche' ogni riga aveva comunque un fatto del cielo
+    // dietro. Due misure: la riga e' quella che il cielo di quel giorno da',
+    // e senza carta natale, dove la riga viene dalla Luna, in sette giorni
+    // la Luna cambia segno almeno due volte.
+    final nonDelSuoGiorno = <String>[];
+    var lunePiuStrette = 99;
     for (final c in [...carte, null]) {
       final p =
           LaSettimanaDelCielo.per(segno: Zodiac.leo, carta: c, oggi: oggi);
@@ -104,10 +114,25 @@ void main() {
         testo.writeln('${d.dominio.label}: giorno migliore '
             '${LaSettimanaDelCielo.data(d.migliore.giorno)} (livello '
             '${d.migliore.livello}); momento chiave ${d.momentoChiave}');
+        if (c == null) {
+          final diverse = d.giorni.map((g) => g.motivo).toSet().length;
+          if (diverse < lunePiuStrette) lunePiuStrette = diverse;
+        }
         for (final g in d.giorni) {
           righe++;
           if (!g.motivo.startsWith('Dal')) {
             senzaFatto.add('${d.dominio.name} ${g.giorno}: "${g.motivo}"');
+          }
+          final mezzogiorno =
+              DateTime(g.giorno.year, g.giorno.month, g.giorno.day, 12).toUtc();
+          final (livello, motivo) = IlLivelloDelCielo.per(
+              dominio: d.dominio,
+              segno: Zodiac.leo,
+              cielo: CieloDiOggi.perIlGiorno(adesso: mezzogiorno, carta: c),
+              quando: mezzogiorno,
+              oggi: false);
+          if (livello != g.livello || motivo != g.motivo) {
+            nonDelSuoGiorno.add('${d.dominio.name} ${g.giorno}: "${g.motivo}"');
           }
           firma.write('${g.livello}${g.motivo}|');
           testo.writeln('  ${LaSettimanaDelCielo.data(g.giorno)}: livello '
@@ -127,8 +152,16 @@ void main() {
         ..createSync(recursive: true)
         ..writeAsStringSync('$sintesi\nSettimana dal 5 ottobre 2026.\n$testo');
     }
+    print('ORDINE ES VOCE 02: righe che non sono quelle del cielo del loro '
+        'giorno ${nonDelSuoGiorno.length} su $righe; senza carta, righe '
+        'diverse nei sette giorni di un dominio, almeno $lunePiuStrette');
     expect(senzaFatto, isEmpty, reason: senzaFatto.take(5).join('\n'));
     expect(identiche, 0);
+    expect(nonDelSuoGiorno, isEmpty,
+        reason: nonDelSuoGiorno.take(5).join('\n'));
+    expect(lunePiuStrette, greaterThanOrEqualTo(3),
+        reason: 'senza carta la riga viene dalla Luna del giorno: in sette '
+            'giorni deve cambiare almeno due volte');
   });
 
   test('il mese: trenta giorni, ogni riga dal cielo, con le eclissi', () {

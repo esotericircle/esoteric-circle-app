@@ -41,6 +41,15 @@ def frasi(blocco: str) -> list[str]:
     return [m.group(1).strip() for m in re.finditer(r'^\d+\.\s+(.+)$', blocco, re.M)]
 
 
+def titolo(blocco: str, dove: str) -> str:
+    """La riga 'Titolo: ...' di un caso: il nome in parole della scheda."""
+    m = re.search(r'^Titolo:\s*(.+?)\s*$', blocco, re.M)
+    assert m, 'manca il Titolo in ' + dove
+    t = m.group(1)
+    assert not t.endswith('.'), (dove, t)
+    return t
+
+
 def sottosezioni(testo: str, numero: str) -> list[str]:
     """I blocchi delle sottosezioni '### numero.x' del paragrafo."""
     parti = re.split(r'^### ' + re.escape(numero) + r'\.\d+ .*$', testo, flags=re.M)
@@ -85,6 +94,12 @@ def componi() -> str:
         out.append('    ],')
     out.append('  };')
     out.append('')
+    out.append('  /// Il titolo in parole della scheda Generale, per rapporto.')
+    out.append('  static const Map<String, String> titoliDeiRapporti = {')
+    for chiave, blocco in zip(RAPPORTI, uno):
+        out.append(f'    {dart(chiave)}: {dart(titolo(blocco, chiave))},')
+    out.append('  };')
+    out.append('')
     out.append('  /// Scheda Generale: il guardiano del giorno, da Stabilire a Chiudere.')
     out.append('  static const List<List<String>> guardiani = [')
     consigli = []
@@ -119,6 +134,18 @@ def componi() -> str:
             out += [f'        {dart(x)},' for x in f]
             out.append('      ],')
         assert len(visti) == 10, (chiave, visti)
+        out.append('    },')
+    out.append('  };')
+    out.append('')
+    out.append('  /// Il titolo in parole di Fortuna, Lavoro e Amore, per scheda e per dio.')
+    out.append('  static const Map<String, Map<String, String>> titoliDeiDei = {')
+    for chiave, blocco in zip(SCHEDE_DEI, tre):
+        out.append(f'    {dart(chiave)}: {{')
+        pezzi = re.split(r'^\*\*(\S+?),.*?\*\*\s*$', blocco, flags=re.M)
+        for i in range(1, len(pezzi), 2):
+            nome = DEI[pezzi[i]]
+            out.append(f'      {dart(nome)}: '
+                       f'{dart(titolo(pezzi[i + 1], chiave + " " + nome))},')
         out.append('    },')
     out.append('  };')
     out.append('')

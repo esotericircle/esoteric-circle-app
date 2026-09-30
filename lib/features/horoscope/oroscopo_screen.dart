@@ -349,7 +349,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     // **LA RIVELAZIONE, ordine BK voce 04.** Parte alla comparsa del responso,
     // cioe' almeno un'intera riflessione dopo la soglia: i due suoni non si
     // sovrappongono mai, e ciascuno parte una volta sola per consulto.
-    unawaited(PaletteSensoriale.suona(context, SuonoDelCerchio.rivelazione));
+    // **IL SUONO E' QUELLO DEL RESPONSO**, dal 30 settembre 2026: il
+    // fondatore ha chiesto di togliere quello di prima e di mettere il suo
+    // file orchestrale ([SuonoDelCerchio.responso]).
+    unawaited(PaletteSensoriale.suona(context, SuonoDelCerchio.responso));
     _avviaLaCascata();
   }
 
@@ -605,9 +608,17 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       ];
     }
     final tema = LaRivoluzioneSolare.tema(istante, lat, lon);
-    final schede = LAnnuale.schede(tema,
-        forma: context.read<ProfileController>().courtesy);
-    _schedeDelPeriodo = schede;
+    // **LA PROFONDITA' ANCHE SULL'ANNO.** Il fondatore, 30 settembre 2026:
+    // *"Ogni scheda deve avere sempre il pulsante profondità e la scelta
+    // "approfondita" è esclusiva dei premium."* A video ogni scheda si legge
+    // alla profondita' scelta; il PDF e la card portano la lettura intera.
+    final forma = context.read<ProfileController>().courtesy;
+    final schede = LAnnuale.schede(tema, forma: forma, approfondite: {
+      for (final voce in _depth.entries)
+        voce.key: voce.value == AnswerDepth.profonda,
+    });
+    final intere = LAnnuale.schede(tema, forma: forma);
+    _schedeDelPeriodo = intere;
     // L'AVVISO DEL COMPLEANNO: l'anno nuovo e' pronto all'istante del
     // prossimo ritorno. Una volta per apertura, e solo col permesso.
     if (!_avvisoDellAnno) {
@@ -624,14 +635,13 @@ class _OroscopoScreenState extends State<OroscopoScreen>
           card: s,
           palette: palette,
           pulse: _pulse,
-          depth: AnswerDepth.free,
-          onDepthSelected: (_) {},
-          onDepthLocked: (_) {},
-          premiumUnlocked: false,
+          depth: _depth[s.domain]!,
+          onDepthSelected: (scelta) => _scegliProfondita(s.domain, scelta),
+          onDepthLocked: (scelta) => _showDepthLocked(s.domain, scelta),
+          premiumUnlocked: PlanCatalog.haProfondita(tier),
           giaScritto: () => true,
           onScritto: () {},
           livello: livello,
-          conLaProfondita: false,
         ),
         const SizedBox(height: SpacingTokens.md),
       ],
@@ -652,7 +662,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
           ),
           onPressed: () async {
             final andata = await IlPdfDellAnno.condividi(
-              schede,
+              intere,
               titolo: 'Il tuo anno dal ${italianLongDate(locale)}',
               sottotitolo: 'Rivoluzione Solare del ${italianLongDate(locale)} '
                   'alle $ora, per $dove',
@@ -666,15 +676,17 @@ class _OroscopoScreenState extends State<OroscopoScreen>
           },
           // Su una riga: "Scarica il PDF del tuo anno" col premio accanto
           // andava a capo sul Realme (visto il 30 settembre 2026).
-          child: Text(
-              PremioDellaCondivisione.etichetta(context,
-                  base: 'Il PDF del tuo anno'),
-              key: const Key('oroscopo_anno_pdf_etichetta'),
-              maxLines: 1,
-              softWrap: false,
-              overflow: TextOverflow.fade,
-              style:
-                  TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+                PremioDellaCondivisione.etichetta(context,
+                    base: 'Il PDF del tuo anno'),
+                key: const Key('oroscopo_anno_pdf_etichetta'),
+                maxLines: 1,
+                softWrap: false,
+                style:
+                    TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
+          ),
         ),
     ];
   }
@@ -806,8 +818,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         (_period == HoroscopePeriod.settimana ||
             _period == HoroscopePeriod.mese);
     _schedeDelPeriodo = periodoAVideo
-        ? LaSettimanaDelCielo.tessere(_periodoDelCielo(
-            context.watch<BirthIdentityController>().cartaCompleta))
+        ? LaSettimanaDelCielo.tessere(
+            _periodoDelCielo(
+                context.watch<BirthIdentityController>().cartaCompleta),
+            mese: _period == HoroscopePeriod.mese)
         : null;
     final cards = schedeAltre ??
         Horoscope.forSign(
@@ -879,6 +893,16 @@ class _OroscopoScreenState extends State<OroscopoScreen>
               tooltip: 'Indietro',
               onPressed: () => Navigator.of(context).maybePop(),
             ),
+            // **L'OROSCOPO PER UN AMICO STA IN ALTO.** Il fondatore, 30
+            // settembre 2026: *"Il pulsante "Oroscopo per un Amico" deve stare
+            // in alto e non per ultimo."* Stava in fondo alla pagina, sotto
+            // tutta la lettura (ordine ES voce 12: sopra, come riga, avrebbe
+            // spinto "Interroga il cielo" sotto la piega). Nella barra si
+            // vede sempre, in ogni periodo e in ogni tradizione, e non sposta
+            // niente.
+            titleSpacing: 0,
+            centerTitle: true,
+            title: _PerUnAmico(palette: palette),
             // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in ogni
             // schermata della pratica. Un saldo che appare e scompare non si impara.
             // **LA FONTE ARRIVA A CHI LEGGE.** Ordine CS, voce S2 della
@@ -1019,6 +1043,11 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                           mese: _period == HoroscopePeriod.mese,
                           palette: palette,
                           livello: cielo.livello,
+                          // La profondita' su ogni scheda, come nel Giorno.
+                          profondita: _depth,
+                          premiumUnlocked: PlanCatalog.haProfondita(tier),
+                          onDepthSelected: _scegliProfondita,
+                          onDepthLocked: _showDepthLocked,
                         ),
                       // LA CARD DELLA SETTIMANA E DEL MESE, col loro emblema
                       // (ordine ES voce 05).
@@ -1296,23 +1325,6 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                             ],
                           ),
                         ),
-                      // L'OROSCOPO PER UN AMICO, ordine ES voce 12. In fondo,
-                      // perche' sopra spingerebbe il gesto sotto la piega.
-                      Padding(
-                        padding: const EdgeInsets.only(top: SpacingTokens.lg),
-                        child: Center(
-                          child: TextButton.icon(
-                            key: const Key('oroscopo_per_un_amico'),
-                            onPressed: () =>
-                                Navigator.of(context).push(AmiciScreen.route()),
-                            icon: Icon(Icons.people_alt_outlined,
-                                color: palette.goldSoft),
-                            label: Text('L\'oroscopo per un amico',
-                                style: TypographyTokens.corpo()
-                                    .copyWith(color: palette.goldSoft)),
-                          ),
-                        ),
-                      ),
                       // IL DISCLAIMER E' USCITO DA QUI, ed era uno di SETTE.
                       //
                       // Le linee guida dicevano da sempre "una volta sola", e per
@@ -2560,13 +2572,7 @@ class _HoroscopeCardView extends StatelessWidget {
     this.passaggio,
     this.carta,
     this.adesso,
-    this.conLaProfondita = true,
   });
-
-  /// **LA PROFONDITA' SOLO DOVE C'E'**, ordine ES voce 04: le schede
-  /// dell'anno si leggono una volta l'anno, intere, senza Breve e
-  /// Approfondita.
-  final bool conLaProfondita;
 
   /// **IL PASSAGGIO CHE SI ACCENDE, ordine ES voce 33**: la voce del cielo
   /// che il testo nomina per primo, la carta e il giorno. Tutti e tre, o la
@@ -2673,7 +2679,10 @@ class _HoroscopeCardView extends StatelessWidget {
                   ],
                 ),
               ),
-              if (conLaProfondita) ...[
+              // **LA PROFONDITA' C'E' SEMPRE, su ogni scheda** (il fondatore,
+              // 30 settembre 2026): anche su quelle dell'anno, che la voce
+              // ES.04 aveva lasciato senza.
+              ...[
                 const SizedBox(width: SpacingTokens.sm),
                 // Menu a tendina compatto: ora le etichette sono corte, quindi
                 // resta leggibile senza rubare spazio al titolo.
@@ -2743,15 +2752,6 @@ class _HoroscopeCardView extends StatelessWidget {
               ),
             ],
           ),
-          // DA DOVE VIENE IL LIVELLO, ordine ES voce 28.
-          if (card.rigaDelLivello != null)
-            Padding(
-              padding: const EdgeInsets.only(top: 2),
-              child: Text(card.rigaDelLivello!,
-                  key: Key('oroscopo_riga_del_livello_${card.domain.name}'),
-                  style: TypographyTokens.didascalia().copyWith(
-                      color: ColorTokens.textSecondary, height: 1.35)),
-            ),
           const SizedBox(height: SpacingTokens.md),
           // L'apertura personalizzata col nome, prima del testo della Generale.
           if (card.opening != null) ...[
@@ -2774,6 +2774,21 @@ class _HoroscopeCardView extends StatelessWidget {
             giaScritto: giaScritto,
             onScritto: onScritto,
           ),
+          // **DA DOVE VIENE, DOPO LA LETTURA** (ordine ES voce 28, spostata
+          // il 30 settembre 2026). La riga che nomina i pianeti e le case
+          // stava sotto il livello, prima del testo: chi leggeva incontrava
+          // il simbolo prima della risposta. Le Linee Guida, sezione 2: *"il
+          // simbolo non apre mai"*, il "da dove viene" e' la terza parte.
+          if (card.rigaDelLivello != null) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Text('Da dove viene',
+                style: TypographyTokens.etichetta().copyWith(
+                    color: ColorTokens.textSecondary, letterSpacing: 1.2)),
+            Text(card.rigaDelLivello!,
+                key: Key('oroscopo_riga_del_livello_${card.domain.name}'),
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary, height: 1.35)),
+          ],
           if (passaggio != null && carta != null && adesso != null) ...[
             const SizedBox(height: SpacingTokens.xs),
             LaRigaDelPassaggio(
@@ -3038,6 +3053,41 @@ class _ShareBlock extends StatelessWidget {
   }
 }
 
+/// **L'OROSCOPO PER UN AMICO, NELLA BARRA IN ALTO** (ordine ES voce 12, e
+/// la richiesta del fondatore del 30 settembre 2026). Il Viandante lo vede e
+/// lo tocca come tutti: l'invito al piano glielo fa la schermata degli amici.
+class _PerUnAmico extends StatelessWidget {
+  const _PerUnAmico({required this.palette});
+
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    // Se la barra e' stretta, o il carattere ingrandito, il pulsante si
+    // rimpicciolisce intero: il nome resta su una riga.
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: OutlinedButton.icon(
+        key: const Key('oroscopo_per_un_amico'),
+        style: OutlinedButton.styleFrom(
+          minimumSize: const Size(0, 40),
+          padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.sm),
+          side: BorderSide(color: palette.gold.withValues(alpha: 0.45)),
+          shape: const StadiumBorder(),
+        ),
+        onPressed: () => Navigator.of(context).push(AmiciScreen.route()),
+        icon:
+            Icon(Icons.people_alt_outlined, size: 18, color: palette.goldSoft),
+        label: Text('L\'oroscopo per un amico',
+            maxLines: 1,
+            softWrap: false,
+            style: TypographyTokens.didascalia()
+                .copyWith(color: palette.goldSoft)),
+      ),
+    );
+  }
+}
+
 /// **IL PULSANTE CHE CONDIVIDE LA CARD DEL PERIODO, ordine ES voce 05.** Il
 /// fondatore ha fatto un emblema per la Settimana, uno per il Mese e uno per
 /// l'Anno, e la card da condividere li porta in testa; ma il gesto per
@@ -3067,13 +3117,21 @@ class _CondividiIlPeriodo extends StatelessWidget {
       ),
       onPressed: sharing ? null : () => unawaited(onShare()),
       icon: Icon(Icons.ios_share_rounded, size: 18, color: palette.goldSoft),
-      label: Text(
-          PremioDellaCondivisione.etichetta(context,
-              base: periodo.daCondividere),
-          maxLines: 1,
-          softWrap: false,
-          overflow: TextOverflow.fade,
-          style: TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
+      // **L'ETICHETTA INTERA, ANCHE COL PREMIO.** Visto sul Realme il 30
+      // settembre 2026, build di prova 2289: "Condividi la settimana · +15
+      // Eo", con l'ultima lettera tagliata. Padre: ordine ES voce 05, mio; in
+      // prova il premio non c'e' e l'etichetta ci stava. Se non ci sta, si
+      // rimpicciolisce intera.
+      label: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Text(
+            PremioDellaCondivisione.etichetta(context,
+                base: periodo.daCondividere),
+            key: Key('oroscopo_condividi_etichetta_${periodo.name}'),
+            maxLines: 1,
+            softWrap: false,
+            style: TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
+      ),
     );
   }
 }

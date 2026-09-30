@@ -242,6 +242,25 @@ const double rapportoDelCorredo = 3.0;
 double get scalaDelTesto =>
     double.tryParse(Platform.environment['SCALA_DEL_TESTO'] ?? '') ?? 1.0;
 
+/// **LA SCRITTURA CHE ASPETTA IL LOCK DI WINDOWS.** 30 settembre 2026: due
+/// giri di fila delle anteprime sono caduti su 26 e 39 catture con l'errno
+/// 1224 ("sezione mappata dall'utente aperta"), un altro processo che tiene
+/// il PNG appena scritto. Non e' un difetto del codice (i file che cadono
+/// cambiano a ogni giro), ma un giro buttato per un lock e' un'anteprima che
+/// il fondatore non vede. Qui la scrittura riprova per otto secondi, e solo
+/// l'errno 1224: ogni altro errore cade subito com'era.
+void scriviResistendoAlLock(File out, List<int> byte) {
+  for (var volta = 0;; volta++) {
+    try {
+      out.writeAsBytesSync(byte);
+      return;
+    } on FileSystemException catch (e) {
+      if (e.osError?.errorCode != 1224 || volta >= 32) rethrow;
+      sleep(const Duration(milliseconds: 250));
+    }
+  }
+}
+
 Future<void> montaLoSchermo(WidgetTester tester, Size logico,
     {double rapporto = rapportoDelCorredo}) async {
   if (scalaDelTesto != 1.0) {
@@ -706,7 +725,7 @@ void main() {
       final data = await image.toByteData(format: ui.ImageByteFormat.png);
       final out = File('$previewDir/$name');
       out.createSync(recursive: true);
-      out.writeAsBytesSync(data!.buffer.asUint8List());
+      scriviResistendoAlLock(out, data!.buffer.asUint8List());
     });
     expect(File('$previewDir/$name').existsSync(), isTrue);
   }
@@ -863,7 +882,7 @@ void main() {
         );
         final out = File('$previewDir/$name');
         out.createSync(recursive: true);
-        out.writeAsBytesSync(bytes);
+        scriviResistendoAlLock(out, bytes);
       }
     });
     expect(File('$previewDir/cartolina-cielo.png').existsSync(), isTrue);
@@ -3213,7 +3232,7 @@ void main() {
     // faceva niente.
     await tester.tap(find.byKey(const Key('oroscopo_depth_generale')));
     await step(tester);
-    await tester.tap(find.text('Approfondita').last);
+    await tester.tap(find.text('Lunga').last);
     await step(tester);
     // Cambiando profondita' il testo e' un altro e si riscrive: due secondi
     // non bastavano piu', la scrittura ne dichiara due e sei decimi.
@@ -3366,13 +3385,43 @@ void main() {
       await tester.drag(
           find.byKey(const Key('oroscopo_list')), const Offset(0, 20000));
       await step(tester);
-      await montaLoSchermo(tester, const Size(360, 3900));
+      await montaLoSchermo(tester, const Size(360, 2700));
       await step(tester);
     }
 
+    // **LA TELA ALLA MISURA DEL PERIODO IN BREVE**, 30 settembre 2026: con
+    // le letture nelle tre parti la Settimana e il Mese in Breve finiscono
+    // attorno ai 2600 punti, e sulla tela di 3900 un terzo dell'anteprima
+    // era cielo vuoto.
+    await montaLoSchermo(tester, const Size(360, 2700));
+    await step(tester);
     await periodo(
         'settimana', 'oroscopo_la_settimana', 'oroscopo-settimana.png');
     await inFondo('settimana', 'oroscopo-settimana-in-fondo.png');
+    // La Settimana col Generale in Lunga: le righe dei sette giorni, ognuna
+    // con la lettura in parole e sotto il suo "da dove viene".
+    await montaLoSchermo(tester, const Size(360, 3600));
+    await step(tester);
+    final profondita = find.byKey(const Key('oroscopo_periodo_depth_generale'));
+    await tester.ensureVisible(profondita);
+    await step(tester);
+    await tester.tap(profondita);
+    await step(tester);
+    await tester.tap(find.text('Lunga').last);
+    await step(tester);
+    await step(tester);
+    await tester.drag(
+        find.byKey(const Key('oroscopo_list')), const Offset(0, 20000));
+    await step(tester);
+    expect(find.byKey(const Key('oroscopo_periodo_andamento_generale')),
+        findsOneWidget);
+    await capture(tester, rootKey, 'oroscopo-settimana-lunga.png');
+    await tester.tap(profondita);
+    await step(tester);
+    await tester.tap(find.text('Breve').last);
+    await step(tester);
+    await montaLoSchermo(tester, const Size(360, 2700));
+    await step(tester);
     await periodo('mese', 'oroscopo_il_mese', 'oroscopo-mese.png');
     await inFondo('mese', 'oroscopo-mese-in-fondo.png');
     // L'Anno e' piu' corto: la tela alla sua misura, senza cielo vuoto sotto.

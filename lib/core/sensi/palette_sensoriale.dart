@@ -69,7 +69,7 @@ class PaletteSensoriale {
   @visibleForTesting
   static void Function(SuonoDelCerchio suono)? spia;
 
-  /// Riproduce uno dei tredici suoni del catalogo, se il livello e'
+  /// Riproduce uno dei quattordici suoni del catalogo, se il livello e'
   /// acceso.
   ///
   /// Se il file non c'e' ancora, non succede niente: e' il ripiego
@@ -92,7 +92,7 @@ class PaletteSensoriale {
     spia?.call(suono);
     // La musica scende PRIMA che l'effetto attacchi, e non dopo: la
     // discesa dura 220 millisecondi, cioe' meno del piu' breve dei
-    // tredici suoni, quindi non ritarda niente di percepibile.
+    // quattordici suoni, quindi non ritarda niente di percepibile.
     unawaited(RegiaDellaMusica.sola.scendiSottoUnEffetto(suono.durataAttesa));
     // **COL CURSORE DEGLI EFFETTI**, ordine DJ voce 10: il volume del suono,
     // dichiarato nel catalogo, per quello che la persona ha scelto.

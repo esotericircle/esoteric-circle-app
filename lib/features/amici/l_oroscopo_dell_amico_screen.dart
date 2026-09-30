@@ -1,12 +1,15 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/amici/amici_offline.dart';
 import '../../core/astro/luogo_attuale.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
+import '../../core/entitlement/entitlement_service.dart';
+import '../../core/entitlement/plan_catalog.dart';
 import '../../core/horoscope/astro_tradition.dart';
 import '../../core/horoscope/horoscope.dart';
 import '../../core/horoscope/i_segni_delle_tradizioni.dart';
@@ -20,9 +23,12 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
+import '../horoscope/answer_depth.dart';
 import '../horoscope/horoscope_visuals.dart';
 import '../horoscope/la_testa_della_tradizione.dart';
 import '../horoscope/oroscopo_share_card.dart';
+import '../horoscope/titolo_della_scheda_del_giorno.dart';
+import '../pricing/upgrade_invite.dart';
 
 /// **L'OROSCOPO DI UN AMICO, ordine ES voce 12.** Si sceglie la tradizione,
 /// si scopre il suo segno, si leggono le quattro schede del giorno e si
@@ -58,6 +64,19 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
   LuogoDelGiorno? _luogo;
   final GlobalKey _cardKey = GlobalKey();
   bool _renderCard = false;
+
+  /// **LA PROFONDITA' DI OGNI SCHEDA**, come nell'oroscopo di chi usa l'app.
+  /// Il fondatore, 30 settembre 2026: *"Ogni scheda deve avere sempre il
+  /// pulsante profondità e la scelta "approfondita" è esclusiva dei
+  /// premium."* Si parte dalla Breve.
+  final Map<HoroscopeDomain, AnswerDepth> _profondita = {
+    for (final d in HoroscopeDomain.values) d: AnswerDepth.free,
+  };
+
+  Map<HoroscopeDomain, bool> get _approfondite => {
+        for (final voce in _profondita.entries)
+          voce.key: voce.value == AnswerDepth.profonda,
+      };
   late final AnimationController _pulse = AnimationController(
     vsync: this,
     duration: const Duration(milliseconds: 2800),
@@ -94,13 +113,15 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
             oggi: _adesso,
             nascita: a.nascita,
             animale: segno.animale!,
-            forma: CourtesyForm.unknown);
+            forma: CourtesyForm.unknown,
+            approfondite: _approfondite);
       case AstroTradition.vedica:
         return LaLetturaVedica.schede(
             adesso: _adesso,
             nascita: _nascita,
             luogo: _luogo,
-            forma: CourtesyForm.unknown);
+            forma: CourtesyForm.unknown,
+            approfondite: _approfondite);
       default:
         final sole = Zodiac.fromDate(a.nascita);
         // **AL NEUTRO, per l'amico**: le marche del genere del pool si
@@ -112,7 +133,11 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
           return Horoscope.forSign(
               sign: sole,
               dayOfYear: Horoscope.dayOfYear(_adesso),
-              year: _adesso.year);
+              year: _adesso.year,
+              // Senza la carta dell'amico l'Approfondita aggiunge dove sono
+              // oggi la Luna e il pianeta del campo, nelle case del suo
+              // segno (ordine ES voce 01).
+              profonde: _approfondite);
         } finally {
           LaMarcaDelGenere.formaCorrente = prima;
         }
@@ -232,7 +257,24 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
               if (schede != null)
                 for (final s in schede) ...[
                   const SizedBox(height: SpacingTokens.md),
-                  _Scheda(scheda: s, palette: palette, pulse: _pulse),
+                  _Scheda(
+                    scheda: s,
+                    palette: palette,
+                    pulse: _pulse,
+                    profondita: _profondita[s.domain]!,
+                    premiumUnlocked: PlanCatalog.haProfondita(
+                        context.watch<EntitlementService>().tier),
+                    onSelect: (scelta) =>
+                        setState(() => _profondita[s.domain] = scelta),
+                    onLocked: (scelta) => showUpgradeInvite(
+                      context,
+                      title: 'La profondità ${scelta.label} è del Cerchio '
+                          'Premium',
+                      message: 'Col piano superiore scegli quanto '
+                          'approfondire ogni scheda, ${s.domain.label} '
+                          'compresa.',
+                    ),
+                  ),
                 ],
               const SizedBox(height: SpacingTokens.lg),
               if (schede != null)
@@ -272,12 +314,23 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
 }
 
 class _Scheda extends StatelessWidget {
-  const _Scheda(
-      {required this.scheda, required this.palette, required this.pulse});
+  const _Scheda({
+    required this.scheda,
+    required this.palette,
+    required this.pulse,
+    required this.profondita,
+    required this.premiumUnlocked,
+    required this.onSelect,
+    required this.onLocked,
+  });
 
   final HoroscopeCard scheda;
   final MaestroPalette palette;
   final Animation<double> pulse;
+  final AnswerDepth profondita;
+  final bool premiumUnlocked;
+  final ValueChanged<AnswerDepth> onSelect;
+  final ValueChanged<AnswerDepth> onLocked;
 
   @override
   Widget build(BuildContext context) {
@@ -292,12 +345,37 @@ class _Scheda extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(scheda.title,
-              style: TypographyTokens.titoloScheda()
-                  .copyWith(color: palette.goldSoft)),
-          Text(scheda.domain.label.toUpperCase(),
-              style: TypographyTokens.etichetta().copyWith(
-                  color: ColorTokens.textSecondary, letterSpacing: 1.4)),
+          // In alto a sinistra il titolo e il campo, in alto a destra la
+          // profondita', come sulle schede di chi usa l'app.
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TitoloDellaSchedaDelGiorno(
+                        testo: scheda.title,
+                        stile: TypographyTokens.titoloScheda()
+                            .copyWith(color: palette.goldSoft, height: 1.1)),
+                    Text(scheda.domain.label.toUpperCase(),
+                        style: TypographyTokens.etichetta().copyWith(
+                            color: ColorTokens.textSecondary,
+                            letterSpacing: 1.4)),
+                  ],
+                ),
+              ),
+              const SizedBox(width: SpacingTokens.sm),
+              AnswerDepthSelector(
+                key: Key('amico_depth_${scheda.domain.name}'),
+                current: profondita,
+                palette: palette,
+                premiumUnlocked: premiumUnlocked,
+                onSelect: onSelect,
+                onLockedTap: onLocked,
+              ),
+            ],
+          ),
           const SizedBox(height: SpacingTokens.sm),
           DomainLevel(
               domain: scheda.domain,
@@ -311,6 +389,18 @@ class _Scheda extends StatelessWidget {
               testo: scheda.text,
               stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary, height: 1.5)),
+          // Da dove viene, dopo la lettura come sulle schede di chi usa
+          // l'app: il simbolo non apre mai (Linee Guida, sezione 2).
+          if (scheda.rigaDelLivello != null) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            Text('Da dove viene',
+                style: TypographyTokens.etichetta().copyWith(
+                    color: ColorTokens.textSecondary, letterSpacing: 1.2)),
+            Text(scheda.rigaDelLivello!,
+                key: Key('amico_da_dove_${scheda.domain.name}'),
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary, height: 1.35)),
+          ],
         ],
       ),
     );

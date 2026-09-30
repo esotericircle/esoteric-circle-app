@@ -1,8 +1,10 @@
-/// I TREDICI SUONI del Cerchio, e nessuno di piu'.
+/// I QUATTORDICI SUONI del Cerchio, e nessuno di piu'. Erano tredici fino al
+/// 30 settembre 2026, quando il fondatore ha dato al responso dell'Oroscopo
+/// il suo suono ([responso]).
 ///
 /// **Il silenzio e' cio' che rende un suono importante.** Le app che stancano
 /// suonano a ogni tocco: qui non c'e' suono sui tocchi ordinari e nessuno nello
-/// scorrimento. Tredici momenti soltanto, e ognuno si sente perche' attorno
+/// scorrimento. Quattordici momenti soltanto, e ognuno si sente perche' attorno
 /// c'e' silenzio.
 ///
 /// **DA OGGI C'E' ANCHE LA MUSICA, e non contraddice la riga qui sopra.**
@@ -110,7 +112,20 @@ enum SuonoDelCerchio {
 
   /// IL RESPIRO CHE ESCE. Come sopra: 6,85 secondi di respiro vero, non
   /// gli 8,2 del file di origine.
-  respiroFuori('respiro_fuori.mp3', Duration(milliseconds: 6847));
+  respiroFuori('respiro_fuori.mp3', Duration(milliseconds: 6847)),
+
+  /// **LA COMPARSA DEL RESPONSO DELL'OROSCOPO**, il quattordicesimo. Ordine
+  /// ES, 30 settembre 2026, parole del fondatore: *"Quando compare il
+  /// responso del l'oroscopo si sente un suono che va eliminato.
+  /// Sostituiscilo con: Orchestral Game Notification.wav"*.
+  ///
+  /// Prima l'Oroscopo suonava [rivelazione], che resta dov'era nata (la
+  /// stesa dei tarocchi, il Sigillo dei Tre Cieli): il fondatore ha chiesto
+  /// di cambiare il suono del responso, non quello degli altri momenti.
+  /// Il file e' il suo WAV stereo di 3,02 secondi, portato come gli altri
+  /// effetti a MP3 mono da 96 kbps, col silenzio in coda tolto (dura 2,72
+  /// secondi) e alla stessa sonorita' della famiglia (docs/sonorita.json).
+  responso('responso_oroscopo.mp3', Duration(milliseconds: 2720));
 
   const SuonoDelCerchio(this.file, this.durataAttesa,
       {this.volume = volumeDegliEffetti});
@@ -149,7 +164,6 @@ enum SuonoDelCerchio {
   /// Il percorso completo dell'asset.
   String get percorso => 'audio/$file';
 }
-
 
 /// **I DODICI VERSI DEGLI ANIMALI GUIDA.** Ordine DE voce 07, 11 settembre
 /// 2026.

@@ -243,9 +243,15 @@ void main() {
     await tester.pump(const Duration(milliseconds: 300));
   }
 
-  String riga(WidgetTester tester) => tester
-      .widget<Text>(find.byKey(const Key('oroscopo_sigillo_tre_cieli_riga')))
-      .data!;
+  // La riga sta sotto le quattro schede: con le letture nelle tre parti
+  // (ordine ES, 30 settembre 2026) le schede cinesi sono piu' alte e la lista
+  // pigra non la costruisce senza scorrere fin li'.
+  Future<String> riga(WidgetTester tester) async {
+    final chiave = find.byKey(const Key('oroscopo_sigillo_tre_cieli_riga'));
+    await tester.scrollUntilVisible(chiave, 400,
+        scrollable: find.byType(Scrollable).first);
+    return tester.widget<Text>(chiave).data!;
+  }
 
   testWidgets(
       'dal primo piano: la rivelazione del segno, i tre cieli e il Sigillo',
@@ -261,7 +267,7 @@ void main() {
             .widget<Text>(find.byKey(Key('oroscopo_tre_cieli_${d.name}')))
             .data!,
     ];
-    final primaRiga = riga(tester);
+    final primaRiga = await riga(tester);
 
     // La prima volta della Cinese: la rivelazione.
     await toccaLaTradizione(tester, AstroTradition.cinese);
@@ -281,7 +287,7 @@ void main() {
     await tester.tap(find.byKey(const Key('rivelazione_continua')));
     await tester.pump(const Duration(milliseconds: 600));
     await consulta(tester);
-    final secondaRiga = riga(tester);
+    final secondaRiga = await riga(tester);
 
     // La seconda volta della Cinese non rivela piu' niente.
     await toccaLaTradizione(tester, AstroTradition.occidentale);
@@ -296,7 +302,7 @@ void main() {
     await tester.tap(find.byKey(const Key('rivelazione_continua')));
     await tester.pump(const Duration(milliseconds: 600));
     await consulta(tester);
-    final terzaRiga = riga(tester);
+    final terzaRiga = await riga(tester);
     late StatoDeiTreCieli stato;
     await tester.runAsync(() async {
       stato = await IlSigilloDeiTreCieli.di(oggi);

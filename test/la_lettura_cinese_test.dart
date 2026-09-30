@@ -12,6 +12,7 @@ import 'package:esoteric_circle/core/horoscope/astro_tradition.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/horoscope/l_almanacco_cinese.dart';
 import 'package:esoteric_circle/core/horoscope/la_lettura_cinese.dart';
+import 'package:esoteric_circle/core/horoscope/le_parti_del_responso.dart';
 import 'package:esoteric_circle/core/horoscope/oroscopo_cinese_data.dart';
 import 'package:esoteric_circle/core/horoscope/riflessione_del_cielo.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
@@ -61,11 +62,13 @@ void main() {
   };
 
   /// Le varianti di un gruppo come espressioni: le marche risolte con la
-  /// forma, i segnaposti al posto di qualunque testo.
+  /// forma, i segnaposti al posto di qualunque testo. Dal 30 settembre 2026
+  /// ogni frase e' "TESTO || DA DOVE VIENE" ([LePartiDelResponso]): nella
+  /// lettura sta il TESTO, e la prova cerca quello.
   List<RegExp> gruppo(List<String> varianti, CourtesyForm forma) => [
         for (final v in varianti)
           RegExp(
-              '^${RegExp.escape(LaMarcaDelGenere.risolvi(v, forma: forma)).replaceAll(RegExp(r'(?:[Dd]i |[Aa] )?\\\{\w+\\\}'), '.+?')}'),
+              '^${RegExp.escape(LePartiDelResponso.di(LaMarcaDelGenere.risolvi(v, forma: forma)).$1).replaceAll(RegExp(r'(?:[Dd]i |[Aa] )?\\\{\w+\\\}'), '.+?')}'),
       ];
 
   bool nelGruppo(String testo, List<RegExp> g) =>
@@ -88,8 +91,11 @@ void main() {
       final generale = LaLetturaCinese.schede(
               oggi: g, nascita: DateTime(1990, 3, 15), animale: 6)!
           .first;
-      if (!generale.text.contains(atteso)) {
-        diversi.add('${c[0]}: atteso $atteso, "${generale.text}"');
+      // Il nome del guardiano sta nel "da dove viene", dopo la lettura: il
+      // simbolo non apre mai (Linee Guida, sezione 2).
+      if (!generale.rigaDelLivello!.contains(atteso) ||
+          generale.text.contains(atteso)) {
+        diversi.add('${c[0]}: atteso $atteso, "${generale.rigaDelLivello}"');
       }
     }
     print('ORDINE ES VOCE 08: Generali col guardiano diverso dall\'almanacco '
@@ -142,7 +148,13 @@ void main() {
                 LaLetturaCinese.livelloDelDio(c.domain, dio, forma: f)) {
               fuori.add('livello ${c.domain.name} $a $g');
             }
-            if (!c.rigaDelLivello!.contains(dio.nome)) {
+            // Il dio puo' aprire la frase del "da dove viene" ("Il Compagno
+            // è di turno") o stare dopo una preposizione ("la giornata del
+            // Compagno"): il nome si cerca senza l'articolo.
+            final nome = dio.nome.replaceFirst(
+                RegExp(r"^(il |lo |la |i |gli |le |l')", caseSensitive: false),
+                '');
+            if (!c.rigaDelLivello!.contains(nome)) {
               fuori.add('riga del livello senza il dio: ${c.rigaDelLivello}');
             }
           }
@@ -259,9 +271,10 @@ void main() {
   test('quando lo stesso caso torna, la frase e\' un\'altra', () {
     int? quale(String testo, List<String> varianti, CourtesyForm f) {
       for (var i = 0; i < varianti.length; i++) {
-        final r = RegExp(
-            RegExp.escape(LaMarcaDelGenere.risolvi(varianti[i], forma: f))
-                .replaceAll(RegExp(r'(?:[Dd]i |[Aa] )?\\\{\w+\\\}'), '.+?'));
+        final r = RegExp(RegExp.escape(LePartiDelResponso.di(
+                    LaMarcaDelGenere.risolvi(varianti[i], forma: f))
+                .$1)
+            .replaceAll(RegExp(r'(?:[Dd]i |[Aa] )?\\\{\w+\\\}'), '.+?'));
         if (r.hasMatch(testo)) return i;
       }
       return null;
@@ -299,10 +312,14 @@ void main() {
         // Il dio, dieci giorni dopo.
         final dio = LAlmanaccoCinese.dio(
             LAlmanaccoCinese.tronco(nascita), LAlmanaccoCinese.tronco(d));
-        final fra10 = del(DateTime(2026, 1, 11 + k));
+        // Sulla Breve, che porta una lettura sola: dal 30 settembre 2026 la
+        // Lunga aggiunge la variante seguente dello stesso dio, e con due
+        // varianti nel testo la prima trovata non dice quale e' di oggi.
+        List<HoroscopeCard> breve(DateTime g) => LaLetturaCinese.schede(
+            oggi: g, nascita: nascita, animale: a, forma: f)!;
         final gruppoD = OroscopoCineseData.dei['lavoro']![dio.name]!;
-        conta('dio', quale(oggi[2].text, gruppoD, f),
-            quale(fra10[2].text, gruppoD, f));
+        conta('dio', quale(breve(d)[2].text, gruppoD, f),
+            quale(breve(DateTime(2026, 1, 11 + k))[2].text, gruppoD, f));
         // La direzione del Dio della Gioia, cinque giorni dopo.
         conta(
             'direzione',
@@ -521,9 +538,11 @@ void main() {
     expect(gesto, findsOneWidget);
     expect(find.text('Apri l\'almanacco'), findsOneWidget);
     await consulta(tester);
+    // Il titolo e' in parole, senza il nome dell'animale: il simbolo non apre
+    // mai (Linee Guida, sezione 2); l'animale sta nel "da dove viene".
     final animale =
         LaLetturaCinese.conArticolo(LAlmanaccoCinese.ramo(oggi)).split(' ')[1];
-    expect(titolo(tester, HoroscopeDomain.generale), contains(animale));
+    expect(titolo(tester, HoroscopeDomain.generale), isNot(contains(animale)));
     final attese = LaLetturaCinese.schede(
         oggi: oggi,
         nascita: DateTime(1990, 3, 15, 8, 30),

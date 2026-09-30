@@ -223,6 +223,22 @@ class Horoscope {
   /// del giorno prima**, e sono gli stessi fino a mezzanotte.
   static int varianteDelGiorno(int dayOfYear) => dayOfYear % 3;
 
+  /// **LA LETTURA DEL GIORNO IN PAROLE**, per un dominio: il titolo e la
+  /// prima parte che la scheda di quel giorno portera' (ordine ER voce 14),
+  /// scelti dalla casa che la Luna attraversa contando dal segno e dalla
+  /// variante del giorno. La chiamano la scheda del Giorno e le righe dei
+  /// giorni della Settimana e del Mese: chi apre la settimana legge per
+  /// sabato la stessa frase che sabato trovera' nella scheda.
+  static (String, String) letturaDelGiorno(
+      Zodiac sign, HoroscopeDomain domain, int dayOfYear, int year) {
+    final casa = casaDellaLuna(sign, dayOfYear, year);
+    final variante = varianteDelGiorno(dayOfYear);
+    return (
+      HoroscopeData.titoliDelGiorno[domain.index]![casa][variante],
+      HoroscopeData.primeDelGiorno[domain.index]![casa][variante],
+    );
+  }
+
   /// Compone la scheda di un dominio per il segno e il giorno dati.
   ///
   /// **TITOLO E PRIMA PARTE SONO DEL GIORNO. Ordine ER voce 14, 27 settembre
@@ -261,9 +277,7 @@ class Horoscope {
     // Semi derivati distinti, per non correlare i quattro valori.
     final seedCurrent = _fnv1a([base, 0x11]);
 
-    final casa = casaDellaLuna(sign, dayOfYear, year);
-    final variante = varianteDelGiorno(dayOfYear);
-    final primaParte = HoroscopeData.primeDelGiorno[d]![casa][variante];
+    final (title, primaParte) = letturaDelGiorno(sign, domain, dayOfYear, year);
     // LA CORRENTE DEL GIORNO: prima il cielo vero, e la hash solo se non c'e'.
     final dalCielo = CorrenteDelCielo.componi(
         cielo: cielo,
@@ -276,7 +290,6 @@ class Horoscope {
     final current =
         dalCielo ?? LaMarcaDelGenere.risolvi(pool[seedCurrent % pool.length]);
 
-    final title = HoroscopeData.titoliDelGiorno[d]![casa][variante];
     // **SENZA CARTA L'APPROFONDITA DICE DI PIU' CON FATTI VERI**, ordine ES
     // voce 01: dove sono oggi la Luna e il corpo del dominio, e in quale casa
     // solare del segno. Con la carta, la Profonda gia' dice tre passaggi del

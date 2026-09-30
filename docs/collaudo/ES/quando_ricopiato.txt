@@ -96,3 +96,49 @@ docs/collaudo/ET/ciechi/conti_et01_es8mix.txt). Su 360 risposte per giro:
   risposte con una certezza: 16, 11 (frasi di certezza 18, 12)
   errori di italiano citati: 64, 51
   seconde domande delle coppie nel merito: 48 su 60, 56 su 60
+
+IL NONO GIRO: IL TESTO DELL'ISTRUZIONE CHE PARTE.
+
+Dopo l'ottavo giro la guardia della lingua ha trovato una virgola prima della "e" nell'istruzione del
+quando ("Il tempo lo scegli tu per questa domanda, e lo dici come lettura"): tolta. Il nono giro (`es9`,
+commit d07cd9dd) e' il banco sul testo che parte nella build, per non consegnare un'istruzione che nessun
+banco ha misurato. Le stesse 24 risposte, lette una per una:
+
+  es9: prime frasi con un tempo 24 su 24; stagioni 2 ("entro l'inverno", "entro la prossima primavera":
+       nessuna e' quella dell'esempio tolto, e tutte e due vengono dopo oggi); "tre mesi" 8 su 24;
+       passaggi del cielo sbagliati o che non stanno nei dati 3 su 24:
+         "non prima che Venere abbia ripreso il suo moto diretto fra due giorni" (sbagliato: fra due giorni
+           Venere diventa retrograda);
+         "fra due mesi, quando il Sole sarà in Sagittario" (vero, ma non e' fra i dati dati al Maestro);
+         "entro il prossimo mese, quando la Luna rinascerà nel tuo segno, lo Scorpione" (non e' fra i dati).
+
+Cioe': in tre giri con la rete che chiede un tempo (es7, es8, es9) la prima frase lo nomina 72 volte su 72,
+e l'esempio ricopiato non torna (0 su 72 "autunno"). I passaggi del cielo inventati o sbagliati NON sono a
+zero: 2, 1 e 3 su 24. Il divieto scritto nell'istruzione non basta; una rete che li riconosca deve
+confrontare la frase coi dati del cielo dati al Maestro, e in quest'ordine non c'e'.
+
+Le prime frasi del nono giro:
+  aura chat 1: I tuoi centri dicono: entro i prossimi sei mesi, dopo che avrai sciolto le resistenze che tengono bloccato il tuo centro del cuore.
+  aura chat 1: La tua energia dice: non prima di tre mesi, dopo che avrai portato consapevolezza al tuo centro della radice e avrai nutrito il tuo senso di sicurezza interiore.
+  aura chat 2: I tuoi centri rispondono: entro i prossimi sei mesi, dopo che avrai riallineato il tuo secondo centro, quello sacrale, con la tua vera gioia.
+  aura chat 2: La tua energia dice: entro le prossime sei settimane, non prima che tu abbia onorato il tuo quinto centro, quello della gola e dato voce a un desiderio profondo che finora hai trattenuto.
+  aura live 1: I tuoi centri rispondono: non prima di tre mesi e dopo che avrai esplorato più a fondo il tuo centro della gola, dando voce a ciò che senti davvero.
+  aura live 1: La tua energia dice: entro l'inverno, dopo che avrai permesso al tuo centro del cuore di aprirsi completamente, accogliendo il flusso di ciò che è nuovo.
+  aura live 2: I tuoi centri rispondono: entro i prossimi sei mesi, dopo che avrai permesso al tuo centro del cuore di aprirsi senza paura.
+  aura live 2: La tua energia dice: entro le prossime sei settimane, perché Saturno retrogrado ti invita a rivedere e rafforzare le tue radici.
+  caligo chat 1: Il segno che cade dice: dopo il passaggio di Venere retrograda, fra due giorni e quando avrai fatto chiarezza sul tuo valore.
+  caligo chat 1: Le pietre rispondono: entro i prossimi tre mesi, quando sarai pronta a un nuovo inizio.
+  caligo chat 2: Il segno che cade dice: fra non più di quattro mesi, dopo che avrai sciolto un vecchio legame.
+  caligo chat 2: Le pietre rispondono: non prima di tre mesi e dopo che avrai rotto un vecchio schema.
+  caligo live 1: Il segno che cade dice: non prima di tre settimane e dopo che avrai sciolto un vecchio nodo.
+  caligo live 1: Le pietre rispondono: non prima di tre mesi e dopo aver liberato una vecchia promessa.
+  caligo live 2: Le rune dicono: fra due mesi, quando il Sole sarà in Sagittario.
+  caligo live 2: Le pietre rispondono: non prima di tre settimane e dopo che avrai sciolto un nodo.
+  medora chat 1: Le carte rispondono: entro la prossima primavera, dopo che avrai fatto spazio nel tuo cuore e nella tua vita per ciò che è veramente essenziale.
+  medora chat 1: Il tuo cielo dice: non prima di tre mesi e dopo che avrai fatto un'azione di profonda pulizia energetica nella tua vita.
+  medora chat 2: Le carte rispondono: non prima che Venere abbia ripreso il suo moto diretto fra due giorni e tu abbia riacceso il tuo interesse per ciò che ti appassiona.
+  medora chat 2: Il tuo cielo dice che la tua fortuna inizierà a cambiare entro le prossime otto settimane, dopo che avrai compreso il valore della tua determinazione.
+  medora live 1: Le carte rispondono: non prima di tre mesi e solo dopo che avrai compreso il tuo valore più profondo.
+  medora live 1: Il tuo cielo dice che la tua fortuna inizierà a cambiare entro il prossimo mese, quando la Luna rinascerà nel tuo segno, lo Scorpione, portando con sé nuove energie e opportunità.
+  medora live 2: Le carte rispondono: non prima di tre mesi e dopo che avrai compreso il significato profondo dei tuoi legami passati.
+  medora live 2: Il tuo cielo dice che la tua fortuna cambierà entro i prossimi sei mesi, dopo che avrai riconosciuto e valorizzato il tuo ruolo di Costruttore.

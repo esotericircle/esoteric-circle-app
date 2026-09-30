@@ -22,8 +22,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// LA SOGLIA E LA RIVELAZIONE. Ordine BK voce 04.
 ///
 /// Al tocco su "Interroga il cielo" suona la soglia con una vibrazione
-/// leggera; alla comparsa del responso suona la rivelazione. Nessun asset
-/// nuovo: sono gia' nel catalogo dei suoni del Cerchio, e passano dalla porta
+/// leggera; alla comparsa del responso suonava la rivelazione, e dal 30
+/// settembre 2026 il suono del responso ([SuonoDelCerchio.responso]), il file
+/// che il fondatore ha scelto al posto di quello di prima. Stanno tutti e due
+/// nel catalogo dei suoni del Cerchio, e passano dalla porta
 /// unica, cioe' dallo stesso interruttore che governa suono e vibrazione
 /// insieme. Non nasce un secondo interruttore.
 ///
@@ -145,11 +147,11 @@ void main() {
 
     // Finita la riflessione, il responso compare e la rivelazione suona.
     await avanza(tester, const Duration(milliseconds: 200));
-    expect(emessi, [SuonoDelCerchio.soglia, SuonoDelCerchio.rivelazione]);
+    expect(emessi, [SuonoDelCerchio.soglia, SuonoDelCerchio.responso]);
 
     // E nessuno dei due si ripete mentre le schede finiscono di comporsi.
     await avanza(tester, const Duration(seconds: 8));
-    expect(emessi, [SuonoDelCerchio.soglia, SuonoDelCerchio.rivelazione],
+    expect(emessi, [SuonoDelCerchio.soglia, SuonoDelCerchio.responso],
         reason: 'ogni suono parte UNA volta sola per consulto');
   });
 
@@ -166,7 +168,7 @@ void main() {
     }
 
     final soglia = quando[SuonoDelCerchio.soglia]!;
-    final rivelazione = quando[SuonoDelCerchio.rivelazione]!;
+    final rivelazione = quando[SuonoDelCerchio.responso]!;
     final distanza = rivelazione - soglia;
     // ignore: avoid_print
     print('BK.04 MISURA: soglia a ${soglia.inMilliseconds} millesimi, '
@@ -200,8 +202,13 @@ void main() {
     }
     expect(emessi.where((s) => s == SuonoDelCerchio.soglia).length, 1,
         reason: 'la soglia parte una volta sola per consulto');
-    expect(emessi.where((s) => s == SuonoDelCerchio.rivelazione).length, 1,
-        reason: 'la rivelazione parte una volta sola per consulto');
+    // Dal 30 settembre 2026 il responso ha il suo suono, scelto dal
+    // fondatore; quello di prima non parte piu'.
+    expect(emessi.where((s) => s == SuonoDelCerchio.responso).length, 1,
+        reason: 'il suono del responso parte una volta sola per consulto');
+    expect(emessi.where((s) => s == SuonoDelCerchio.rivelazione), isEmpty,
+        reason: 'alla comparsa del responso suona ancora il suono di prima, '
+            'che il fondatore ha chiesto di eliminare');
   });
 
   testWidgets('con l\'interruttore spento non suona niente', (tester) async {
@@ -216,8 +223,9 @@ void main() {
             'c\'e\' gia\': non ne nasce un secondo per l\'Oroscopo');
   });
 
-  test('i due suoni sono quelli del catalogo, senza asset nuovi', () {
+  test('i due suoni sono quelli del catalogo', () {
     expect(SuonoDelCerchio.soglia.file, 'soglia.mp3');
-    expect(SuonoDelCerchio.rivelazione.file, 'rivelazione.mp3');
+    // Il responso dal 30 settembre 2026: il file del fondatore, convertito.
+    expect(SuonoDelCerchio.responso.file, 'responso_oroscopo.mp3');
   });
 }

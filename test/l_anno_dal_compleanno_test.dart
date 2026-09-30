@@ -6,6 +6,7 @@ import 'package:esoteric_circle/core/entitlement/listino_degli_eos.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/horoscope/l_annuale.dart';
 import 'package:esoteric_circle/core/horoscope/la_rivoluzione_solare.dart';
+import 'package:esoteric_circle/core/horoscope/le_parti_del_responso.dart';
 import 'package:esoteric_circle/core/horoscope/oroscopo_annuale_data.dart';
 import 'package:esoteric_circle/features/horoscope/il_pdf_dell_anno.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -32,7 +33,13 @@ void main() {
   const lat = 41.9;
   const lon = 12.5;
 
-  RegExp gruppo(List<String> v) => RegExp(v.map(RegExp.escape).join('|'));
+  // Dal 30 settembre 2026 ogni frase del corpus ha due parti, "TESTO || DA
+  // DOVE VIENE": il testo va nella lettura, il da dove viene nella riga sotto
+  // ([LePartiDelResponso]).
+  RegExp gruppo(List<String> v) => RegExp(
+      v.map((f) => RegExp.escape(LePartiDelResponso.di(f).$1)).join('|'));
+  RegExp daDove(List<String> v) => RegExp(
+      v.map((f) => RegExp.escape(LePartiDelResponso.di(f).$2)).join('|'));
 
   test('ogni scheda dice la frase del suo caso, col livello della regola', () {
     var temi = 0;
@@ -88,6 +95,13 @@ void main() {
           final (nome, gruppi, livello) = attesi[i];
           for (final g in gruppi) {
             if (!gruppo(g).hasMatch(s[i].text)) fuori.add('$nome $n $anno');
+            if (!daDove(g).hasMatch(s[i].rigaDelLivello!)) {
+              fuori.add('da dove $nome $n $anno');
+            }
+            // Il simbolo non apre mai: sta nella riga, non nella lettura.
+            if (daDove(g).hasMatch(s[i].text)) {
+              fuori.add('simbolo nella lettura $nome $n $anno');
+            }
           }
           if (s[i].indicator != livello.clamp(2, 5)) {
             fuori.add('livello $nome $n $anno: ${s[i].indicator}, $livello');

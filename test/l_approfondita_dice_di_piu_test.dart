@@ -77,7 +77,11 @@ void main() {
 
   test('le profondita\' sono due, e nessuna si chiama Media o Profonda', () {
     final nomi = AnswerDepth.values.map((d) => d.label).toList();
-    expect(nomi, ['Breve', 'Approfondita']);
+    // **"LUNGA", dal 30 settembre 2026.** Il fondatore: *"Nel selettore
+    // profondità cambiamo "Approfondita" in Lunga"*. Prima questa prova
+    // pretendeva "Approfondita" (ordine ES voce 01): il nome a video e'
+    // cambiato, le voci restano due.
+    expect(nomi, ['Breve', 'Lunga']);
     final righeDeiPiani = [
       for (final p in PlanCatalog.plans) ...p.highlights,
       for (final r in PlanCatalog.matrix) ...[r.label, ...r.values],
