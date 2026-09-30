@@ -191,7 +191,8 @@ void main() {
         .toList();
 
     final medora = labels.indexOf('Medora');
-    final caligo = labels.indexOf('Caligo');
+    // Ordine ES voce 17: a video il nome di Calìgo ha l'accento.
+    final caligo = labels.indexOf('Calìgo');
     final aura = labels.indexOf('Aura');
     expect(medora, greaterThanOrEqualTo(0));
     expect(medora < caligo && caligo < aura, isTrue,

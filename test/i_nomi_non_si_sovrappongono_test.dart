@@ -81,7 +81,8 @@ void main() {
   Rect fasciaDeiNomi(WidgetTester tester) {
     var alto = double.infinity, basso = -1.0;
     for (final m in Maestro.values) {
-      final f = find.text(m.displayName);
+      // Ordine ES voce 17: a video il nome di Calìgo ha l'accento.
+      final f = find.text(m.nomeAVideo);
       if (f.evaluate().isEmpty) continue;
       final r = tester.getRect(f);
       if (r.top < alto) alto = r.top;
@@ -187,7 +188,7 @@ void main() {
     // questa cade.
     await dipingi(tester, 300);
     for (final m in Maestro.values) {
-      expect(find.text(m.displayName), findsOneWidget,
+      expect(find.text(m.nomeAVideo), findsOneWidget,
           reason: 'il nome di ${m.name} non si trova per intero: e stato '
               'troncato invece che rimpicciolito');
     }

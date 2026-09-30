@@ -51,7 +51,8 @@ void main() {
     for (final label in const [
       'Il Cerchio',
       'Medora',
-      'Caligo',
+      // Ordine ES voce 17: a video il nome di Calìgo ha l'accento.
+      'Calìgo',
       'Aura',
       'Passport',
     ]) {
@@ -74,7 +75,7 @@ void main() {
     await tester.tap(find.byKey(const Key('barra_voce_caligo')));
     await step(tester);
     await step(tester);
-    expect(find.text('Consulta Caligo'), findsOneWidget);
+    expect(find.text('Consulta Calìgo'), findsOneWidget);
     expect(ctx.read<MaestroController>().activeMaestro, Maestro.caligo);
   });
 

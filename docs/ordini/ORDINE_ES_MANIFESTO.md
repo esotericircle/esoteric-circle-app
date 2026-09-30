@@ -350,8 +350,9 @@ la chat) il nome viene da `Maestro.nomeAVideo`, "Calìgo". Il nome che va al mod
 prima, cosi' l'impronta dell'istruzione dei tre Maestri non cambia e la misura dell'attribuzione resta
 valida: la strada scritta qui prima (cambiare il nome ovunque e rifare l'attribuzione) non serve. **E
 le scritte fatte a mano** delle sue schermate (le rune, il Sigillo dell'Intenzione, il Libro dei
-Sigilli), delle card da condividere, dell'avviso del sigillo e dei filtri dei Ricordi: ventidue, tutte
-con l'accento. Restano senza accento le frasi dei corpora del fondatore che nominano Caligo (i teaser
+Sigilli), delle card da condividere, dell'avviso del sigillo e dei filtri dei Ricordi: ventuno, tutte
+con l'accento; e ogni scritta che prende il nome dal Maestro (la home, la barra in basso, "Consulta",
+il LIVE, i Doni) lo prende da `nomeAVideo`. Restano senza accento le frasi dei corpora del fondatore che nominano Caligo (i teaser
 delle arti, le promesse dei Traguardi): il corpus e' suo, e si cambia col suo si'; e il nome che il
 modello scrive nelle risposte, che viene dall'istruzione.
 Guardia `il_nome_di_caligo_ha_l_accento`, rossa su tre innesti
@@ -610,13 +611,31 @@ d'animo. **Restano fuori le forme su cui i giudici di giri diversi si contraddic
 mostra"*, *"se sei pronta"*, *"consapevole"*): buone per un giro, senza posizione per l'altro. Al
 secondo banco (`es2`), mescolato col primo e letto dagli stessi giudici: prime frasi con la posizione
 da 11 e 9 a 15 e 11 su 20, cioe' da 20 a 26 su 40; frasi vuote da 49 a 41. **I giudici variano**: le
-risposte del primo banco erano 25 su 40 per i giudici di prima e 20 su 40 per questi. Il 20 su 20 e'
-lontano: manca una strada che non sia inseguire le forme, e la cattura di una discesa dal Realme.
+risposte del primo banco erano 25 su 40 per i giudici di prima e 20 su 40 per questi.
+
+**Terzo e quarto giro, la strada che non insegue le forme.** Sulle letture alla cieca raccolte, le
+prime frasi si dividono per struttura e non per parole. **Con una condizione** (*"di sì, se..."*): le
+24 che nominano un tempo o un'azione che si fa nel mondo (*"se prima chiedi a tua madre un
+consiglio"*) prendono posizione per i giudici 23 volte; le 112 che mettono come condizione un modo di
+sentirsi, 75. **Alla domanda sul come o sul che cosa fare**: le 50 prime frasi che nominano un tempo o
+un passo prendono posizione 41 volte; le 70 che non lo nominano, 16. La guardia adesso guarda questo
+(`LeGuardieDelResponso.condizioneSenzaPasso`, `chiedeIlGesto`, `nominaUnPasso`): la condizione e' un
+passo, la risposta al come e' un passo, e alla domanda sul come non si risponde "di sì". Costa una
+seconda chiamata anche a frasi che certi giudici accettano, e quando anche la seconda non porta il
+passo la risposta e' la riserva che prende posizione (quella approvata alla ET.08), col gesto sotto.
+**Al banco**: col solo passo nella condizione (`es3`) le prime frasi con la posizione restano 29 su 40
+contro 30, perche' le condizioni vaghe spariscono (da 7 a 0) e restano le risposte astratte al come;
+col passo anche li' (`es4`), per gli stessi giudici, **da 30 a 33 su 40** (18 e 15 su 20), le frasi
+vuote da 34 a 21, e le risposte finite sulla riserva passano da 8 a 22 su 40: i giudici ne danno
+buone 19 su 22. Delle sette bocciate, tre sono discese in cui il modello non ha risposto affatto e ha
+parlato la voce di casa senza posizione; due sono la domanda sul cane malato, dove il confine della
+salute vieta il consiglio. **Il 20 su 20 non c'e'**: 18 e 15. Manca la cattura di una discesa dal
+Realme.
 
 DOMANDA: dalla ET.08: il consiglio dell'Architetto "ER.02: sì alla riserva che prende posizione, come la propone Code.", risposta: "Confermo, dobbiamo risolvere tutto."
 
-PROVA: docs/collaudo/ET/ciechi/conti_viaggio_es2mix.txt
-MISURA: prime frasi senza posizione (giudizio alla cieca) che la guardia chiede di nuovo, giro 3 prima 0 su 21, dopo 20 su 21, buone chiamate vaghe prima 0 e dopo 0 su 51; giro 1, non guardato, prima 4 su 22, dopo 13 su 22, buone chiamate vaghe prima 0 e dopo 3 su 50; giro del 30 settembre prima 8 su 27, dopo 17 su 27, buone 2 su 45; al banco, prime frasi che prendono posizione per gli stessi giudici, prima 11 e 9 su 20, dopo 15 e 11 su 20 (docs/collaudo/ET/ciechi/conti_viaggio_es2mix.txt)
+PROVA: docs/collaudo/ET/ciechi/conti_viaggio_es4mix.txt
+MISURA: prime frasi senza posizione (giudizio alla cieca) che la guardia chiede di nuovo, giro 3 prima 0 su 21, dopo 20 su 21, buone chiamate vaghe prima 0 e dopo 0 su 51; giro 1, non guardato, prima 4 su 22, dopo 13 su 22, buone chiamate vaghe prima 0 e dopo 3 su 50; giro del 30 settembre prima 8 su 27, dopo 17 su 27, buone 2 su 45; al banco, prime frasi che prendono posizione per gli stessi giudici, primo contro secondo giro 11 e 9 poi 15 e 11 su 20, terzo contro quarto 15 e 15 poi 18 e 15 su 20 (docs/collaudo/ET/ciechi/conti_viaggio_es4mix.txt); condizioni col passo che prendono posizione 23 su 24, senza passo 75 su 112; risposte al come col passo 41 su 50, senza 16 su 70
 
 ## VOCE ES.26, IL RETRO DELLE SCHEDE A 402 PUNTI (DALLA ET.09)
 

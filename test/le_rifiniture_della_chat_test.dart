@@ -145,7 +145,8 @@ void main() {
     expect(freccia.overlaps(ritratto.inflate(2)), isFalse,
         reason: 'Il ritratto tocca la freccia indietro: '
             'freccia $freccia, ritratto $ritratto.');
-    final titolo = tester.getRect(find.text('Caligo').first);
+    // Ordine ES voce 17: a video il nome di Calìgo ha l'accento.
+    final titolo = tester.getRect(find.text('Calìgo').first);
     expect(freccia.overlaps(titolo.inflate(2)), isFalse,
         reason: 'Il titolo tocca la freccia indietro: '
             'freccia $freccia, titolo $titolo.');

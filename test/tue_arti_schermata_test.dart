@@ -107,7 +107,8 @@ void main() {
     }
     // I tre Maestri fanno da intestazione.
     for (final m in Maestro.values) {
-      expect(find.text(m.displayName), findsWidgets);
+      // Ordine ES voce 17: a video il nome di Calìgo ha l'accento.
+      expect(find.text(m.nomeAVideo), findsWidgets);
     }
   });
 

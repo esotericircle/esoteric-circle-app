@@ -207,7 +207,7 @@ class MaestroOracle {
       case Maestro.aura:
         return 'Aura ascolta il respiro e il sentire del corpo';
       case Maestro.caligo:
-        return 'Calìgo legge il simbolo che indica la via';
+        return 'Caligo legge il simbolo che indica la via';
     }
   }
 

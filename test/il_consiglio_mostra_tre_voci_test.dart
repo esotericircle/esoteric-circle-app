@@ -143,7 +143,8 @@ void main() {
     await tester.pumpWidget(host());
     await tester.pumpAndSettle();
     for (final m in const [Maestro.medora, Maestro.caligo]) {
-      expect(find.text('Continua con ${m.displayName}'), findsOneWidget,
+      // Ordine ES voce 17: a video il nome di Calìgo ha l'accento.
+      expect(find.text('Continua con ${m.nomeAVideo}'), findsOneWidget,
           reason: 'da ${m.displayName} non si puo\' proseguire: con tre carte '
               'da due delle tre si resterebbe fermi');
     }

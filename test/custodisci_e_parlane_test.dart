@@ -200,7 +200,8 @@ void main() {
         condividi: () async => false, scrigno: scrigno, registro: registro));
 
     expect(find.byKey(const Key('responso_parlane')), findsOneWidget);
-    expect(find.text('Parlane con Caligo'), findsOneWidget,
+    // Ordine ES voce 17: a video il nome di Calìgo ha l'accento.
+    expect(find.text('Parlane con Calìgo'), findsOneWidget,
         reason: 'il pulsante deve nominare il Maestro proprietario dell\'arte');
   });
 

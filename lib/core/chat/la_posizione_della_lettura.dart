@@ -194,7 +194,7 @@ abstract final class LaPosizioneDellaLettura {
             '"entro l\'estate", "non prima dell\'autunno") oppure un fatto '
             'che la persona può vedere accadere o fare, con chi o che cosa; '
             'come lettura, non come data certa. Per esempio: "$comincia: non '
-            'prima dell\'autunno, e dopo che avrai ..." oppure "$comincia: '
+            'prima dell\'autunno e dopo che avrai ..." oppure "$comincia: '
             'entro ...".',
       TipoDellaDomanda.aperta =>
         'e risponde a quello che la persona chiede, in concreto: il perché, '
@@ -224,7 +224,7 @@ abstract final class LaPosizioneDellaLettura {
         'Riscrivi la risposta.';
     return switch (tipo(domanda)) {
       TipoDellaDomanda.siONo =>
-        '$testa La prima frase comincia con una di queste tre forme, e la '
+        '$testa La prima frase comincia con una di queste tre forme, che '
             'completi: "$comincia di sì, se ...", "$comincia di no, per ora: '
             '...", "$comincia: non ancora, ...". Subito dopo "$comincia" '
             'vengono le parole "di sì", "di no" o "non ancora": niente "che" '

@@ -141,7 +141,8 @@ void main() {
 
     // Runa del Tramonto (18:00-24:00) segue Caligo.
     await pumpAt(19, 0);
-    expect(find.text('Entra nel Dominio di Caligo'), findsOneWidget);
+    // Ordine ES voce 17: a video il nome di Calìgo ha l'accento.
+    expect(find.text('Entra nel Dominio di Calìgo'), findsOneWidget);
   });
 
   testWidgets('Il cielo in alto e\' toccabile e apre la sua schermata',
@@ -282,7 +283,7 @@ void main() {
     expect(find.byKey(const Key('santuario_domain_invite')), findsNothing);
     expect(find.text(turno.domainArts), findsOneWidget);
     expect(
-        find.text('Entra nel Dominio di ${turno.displayName}'), findsOneWidget);
+        find.text('Entra nel Dominio di ${turno.nomeAVideo}'), findsOneWidget);
   });
 
   testWidgets('L\'icona Utente apre l\'area account, distinta dal Passport',
