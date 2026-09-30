@@ -341,6 +341,13 @@ abstract final class LaScenaDalModello {
       // ancora dove ti porterà"*. La posizione si prende su cio' che la
       // persona fa e su cio' che i segni del viaggio mostrano; il futuro
       // certo resta vietato, e lo guarda la guardia della certezza.
+      // **IL TERZO GIRO**, ordine ES voce 25, dalla lettura alla cieca del
+      // 30 settembre: l'esempio "Il viaggio non mostra..." il modello lo
+      // ricopiava (*"Il viaggio non mostra il trasferimento a Berlino"*) e i
+      // giudici la chiamano una frase che non dice ne' si' ne' no; e il "sì,
+      // se" aveva condizioni che nessuno puo' fare (*"se hai coltivato
+      // l'idea"*, *"a condizione che tu abbia ben chiaro cosa ti aspetti"*).
+      // L'esempio del no adesso e' un no, e la condizione e' un passo.
       // **IL SECONDO GIRO**, dal banco del 27 settembre: con la sola regola
       // detta in generale il modello scriveva ancora "Non c'è un modo giusto
       // o sbagliato" e "Tocca a te decidere". La regola adesso dice come si
@@ -358,7 +365,11 @@ abstract final class LaScenaDalModello {
           'modo diretto e senza giochi di parole. Se la domanda chiede se '
           'fare una cosa o se accadrà, dice che cosa indicano i segni del '
           'viaggio: sì, no, o a quale condizione ("I segni del viaggio dicono '
-          'di sì, se...", "Il viaggio non mostra...", "Vai, ma prima..."). '
+          'di sì, se...", "I segni del viaggio dicono di no, finché...", '
+          '"Vai, ma prima..."). La condizione è un passo concreto che la '
+          'persona può fare o verificare, con chi o entro quando («I segni '
+          'del viaggio dicono di sì, se prima di sabato chiedi a tuo cugino '
+          'quando è libero»), mai un modo di sentirsi. '
           'Se chiede che cosa fare o come, dice il gesto concreto, con chi o '
           'quando, mai un atteggiamento. Se la domanda è un argomento '
           'generale, dice in concreto che cosa il viaggio mostra della '

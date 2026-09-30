@@ -323,6 +323,17 @@ abstract final class LaPosizioneDellaLettura {
     return radici.any(p.contains);
   }
 
+  /// **LA PRIMA FRASE DICE UNA POSIZIONE**: un si', un no, un "non
+  /// ancora" o la cosa che li dice (*"l'amore è presente"*), dopo il verbo
+  /// della lettura. Ordine ES voce 19, terzo giro: la risposta chiesta di
+  /// nuovo per togliere una certezza passa solo se non ha perso la
+  /// posizione che la prima aveva.
+  static bool diceUnaPosizione(String risposta) {
+    final prima = primaFraseDi(risposta);
+    return _posizioneDetta.hasMatch(prima) ||
+        _posizioneConLaCosa.hasMatch(prima);
+  }
+
   /// Vero se la prima frase di [risposta] rispetta la forma per [domanda].
   static bool rispetta(Maestro maestro, String domanda, String risposta) {
     final prima = primaFraseDi(risposta);

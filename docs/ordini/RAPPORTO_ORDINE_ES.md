@@ -11,11 +11,16 @@ consegnano.
 **STESURA IN CORSO.** Il rapporto si aggiorna blocco per blocco; il conto qui
 sotto e' quello del manifesto al commit indicato, riletto dal file.
 
-**Il conto** (manifesto al commit `80730cc3`, 30 settembre 2026): 37 voci,
-**2 chiuse**, **35 aperte in attesa di verifica**, **0 da fare**. Nessuna
-voce aperta e' chiusa per scorciatoia: tutte aspettano la loro prova a video
-sul Realme; sette di loro (ES.19, ES.21, ES.22, ES.23, ES.24, ES.25 e la voce del
-LIVE ES.20) anche il loro banco col modello vero e la lettura alla cieca.
+**Il conto** (manifesto riletto dal file il 30 settembre 2026, dopo i banchi):
+37 voci, **2 chiuse**, **35 aperte in attesa di verifica**, **0 da fare**.
+Nessuna voce aperta e' chiusa per scorciatoia: tutte aspettano la loro prova a
+video sul Realme. **I banchi col modello vero e la lettura alla cieca delle
+voci ES.19, ES.21, ES.22, ES.23, ES.24 ed ES.25 sono fatti** (tre giri delle
+trenta domande, due del LIVE, due del Viaggio, uno delle rune, uno della
+trascrizione), e i numeri stanno sotto voce per voce. **Nessuna di loro
+arriva al traguardo dell'ordine**: il 30 su 30 delle trenta domande, lo zero
+delle ripetizioni e il 20 su 20 del Viaggio non ci sono, e lo dico qui in
+cima perche' e' la cosa che conta.
 
 ## LE VOCI CHIUSE, CON LA LORO PROVA
 
@@ -78,24 +83,37 @@ osservazione). Per ciascuna il manifesto porta la prova e la misura.
 - **ES.18** il Sigillo del Sogno da cima a fondo: le frasi false tolte, la
   chiusura senza arcani mai estratti (0 su 16 dopo), media dell'attribuzione
   alla cieca 94,4 (`docs/collaudo/ES/regola_a_sigillo.txt`).
-- **ES.19** le reti della prima frase e delle certezze corrette sui 101
-  giudizi a mano del giro 6: dirette scartate da 28 a 5 su 30, certezze
-  apparenti prese da 12 a 7 su 26. Manca il banco delle trenta domande con
-  la lettura alla cieca.
+- **ES.19** le reti della prima frase e delle certezze. Tre giri del banco,
+  ognuno letto alla cieca accanto al giro di prima dagli stessi giudici.
+  **Le risposte con una certezza si dimezzano**: da 31 a 14 su 360 (la rete
+  allineata alle frasi che i giudici citano: prendeva 12 certezze su 61,
+  adesso 51). **Le prime frasi dirette scendono da 266 a 251 e il merito da
+  263 a 246, ed e' tutto Aura** (prime frasi da 77 a 61); Medora e Calìgo
+  tengono (98 e 101, 91 e 89). Il calo di Aura non viene dalle certezze: le
+  sue risposte richieste per una certezza sono 18 e 18, quelle nate gia'
+  senza posizione salgono da 19 a 34. Il 30 su 30 non c'e': il migliore e'
+  Medora in chat, 26 e 27 (`docs/collaudo/ET/ciechi/conti_et01_es3mix.txt`).
 - **ES.20** sotto la risposta detta nel LIVE niente invito a tornare, anche
   riaprendo la conversazione.
-- **ES.21** la rete che non ridice la risposta di prima, tarata sulle 240
-  seconde di coppia giudicate alla cieca: 13 ripetizioni prese su 26, 2
-  sbagli su 214. Manca il banco.
-- **ES.22** l'istruzione della trascrizione con la frase di senso compiuto e
-  il banco che la confronta con quella di prima; manca la misura, al banco
-  e sul Realme.
-- **ES.23** il merito delle risposte a piu' parti: si misura col banco dopo
-  le reti della ES.19.
-- **ES.24** le quattro guardie sulla prima frase delle rune sono uscite;
-  manca il banco delle rune (chiamate e tempo per lettura).
-- **ES.25** la prima frase vaga del Viaggio si chiede di nuovo: giro 3 da 0 a
-  20 su 21, giro 1 non guardato da 4 a 12 su 22. Manca il banco del Viaggio.
+- **ES.21** la rete che non ridice la risposta di prima: sulle 240 seconde
+  giudicate prende 13 ripetizioni su 26 con 2 sbagli su 214; al banco le
+  seconde che ripetono restano fra 3 e 8 su 60 secondo il giro, dentro il
+  rumore dei giudici. Lo zero non c'e'.
+- **ES.22** la trascrizione del LIVE, al banco: domande trascritte giuste
+  parola per parola da 30 a 38 su 40 (voce pulita) e da 28 a 38 su 40 (voce
+  da stanza); la televisione trascritta come parole della persona 0 su 18
+  prima e dopo (`docs/collaudo/ES/trascrizione/`). Manca il Realme col
+  microfono.
+- **ES.23** il merito del LIVE alle domande a piu' parti: 26 e 24 su 36 per
+  i primi giudici (l'ordine chiede 23), ma le stesse risposte rilette da
+  altri giudici fanno 20 e 23. Sotto questo rumore il 23 non e' dimostrato,
+  e la voce resta aperta.
+- **ES.24** le rune senza le guardie sulla prima frase: chiamate al modello
+  da 56 a 41 e 47 per 24 letture, tempo mediano della chiamata da 9,3 e 8,7
+  a 4,9 e 7,3 secondi, prime frasi dirette da 13 e 15 a 15 e 15 su 20.
+- **ES.25** il Viaggio: per gli stessi giudici, prime frasi che prendono
+  posizione da 20 a 26 su 40 dopo il secondo giro (istruzione corretta e
+  guardia allargata). Il 20 su 20 e' lontano.
 - **ES.28** il livello dal cielo: 0 su 48 livelli che non ne dipendono.
 - **ES.29** numero e colore con una regola: da 30 su 30 senza regola a 0.
 - **ES.30** il metodo sulle quattro schede del giorno.
@@ -113,8 +131,7 @@ osservazione). Per ciascuna il manifesto porta la prova e la misura.
 
 ## LE VOCI DA FARE
 
-Nessuna. Al commit `80730cc3` le trentasette voci sono chiuse o aperte in
-attesa di verifica.
+Nessuna: le trentasette voci sono chiuse o aperte in attesa di verifica.
 
 ## I DIFETTI TROVATI, OGNUNO COL SUO PADRE
 
@@ -163,6 +180,29 @@ attesa di verifica.
 - **Una guardia che non copriva la sua zona**: `la_posizione_e_una_lettura`
   restava verde col "quando" sempre accettato. Padre: la guardia dell'ordine
   ET voce 01, che non aveva un caso del quando. Riparata, adesso e' rossa.
+- **Le certezze salite da 23 a 33 al primo giro del banco**: padre ES.19,
+  mio (l'esenzione del futuro sotto "le carte dicono che", presa per buona
+  dai giudizi dati a mano del giro 6). Curato allineando la rete ai giudici
+  alla cieca.
+- **Le prime frasi dirette scese da 278 a 245 al secondo giro**: padre ES.19,
+  mio (la correzione delle certezze chiedeva "può" e la risposta nuova
+  passava anche senza il si'). Curato al terzo giro; resta il calo di Aura.
+- **Il calo delle prime frasi di Aura** (da 77 a 61 su 120, due giri su due
+  con giudici diversi): **PROVENIENZA IGNOTA**. Le richieste per una
+  certezza sono le stesse del primo giro; salgono le risposte che il modello
+  da' gia' senza posizione. Aperto.
+- **L'esempio "Il viaggio non mostra..." nell'istruzione del Viaggio**, che il
+  modello ricopiava e i giudici bocciano: padre ET.08 (l'esempio era nella
+  regola della prima frase). Curato alla ES.25.
+- **Una prova nata verde due volte**: `le_certezze_dei_giudici` con la quota
+  dei due terzi, e la prova della posizione che resta con una domanda di si'
+  o no che la rete scartava gia'. Padre: io, nello scrivere la prova. Cambiata
+  la grandezza, non la soglia; tutte e due rosse adesso
+  (`docs/collaudo/ES/regola_a_certezze_dei_giudici.txt`,
+  `regola_a_posizione_resta.txt`).
+- **Un `dart format` su una cartella** ha riformattato due file non miei
+  (`il_rimando_in_fondo.dart`, `la_marca_del_genere.dart`): padre io, rimessi
+  com'erano prima del commit.
 
 ## LE SCELTE FATTE CON LA RISPOSTA CONSIGLIATA
 
@@ -197,6 +237,16 @@ cambia in un punto.
 12. **La presenza per il numero di chi e' online** sta sul server nel ramo
     della persona (l'istante dell'ultima domanda, nient'altro); la privacy
     policy lo dice in app e sul sito, con la data del 29 settembre 2026.
+13. **La rete delle certezze allineata ai giudici resta**, anche se le prime
+    frasi di Aura sono scese: le certezze si dimezzano in due giri, Medora e
+    Calìgo non perdono niente, e il calo di Aura non passa dalla rete. Se
+    preferisci la rete di prima finche' Aura non e' curata, si torna indietro
+    in un punto (`lib/core/chat/le_certezze_del_maestro.dart`).
+14. **Nella guardia del Viaggio restano fuori le forme su cui i giudici si
+    contraddicono** (*"non mostra"*, *"se sei pronta"*, *"consapevole"*):
+    contro quelle lavora l'istruzione, non la guardia.
+15. **La ES.23 non si chiude** anche se i primi giudici davano 26 e 24 su 36:
+    altri giudici sulle stesse risposte danno 20 e 23.
 
 ## LE COSE CHE ASPETTANO TE
 
@@ -211,3 +261,8 @@ cambia in un punto.
 4. **La build di prova** per le catture di tutte le voci aperte, con la
    distribuzione delle funzioni del server (`chiEOnline` e la notifica della
    ES.17) insieme a lei.
+5. **Il 30 su 30 delle trenta domande e il 20 su 20 del Viaggio** non ci sono
+   dopo tre giri: le reti di parole inseguono le forme e i giudici alla cieca
+   si contraddicono fra loro di sei risposte su trentasei. Il prossimo passo
+   serio e' sulla persona di Aura e sulla prima frase del Viaggio, e va
+   misurato con piu' letture degli stessi testi.

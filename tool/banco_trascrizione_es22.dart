@@ -111,6 +111,50 @@ void main() {
     }
     File('$cartella/esito.txt').writeAsStringSync('${righe.join('\n')}\n');
   }, timeout: const Timeout(Duration(minutes: 20)));
+
+  // **LA TELEVISIONE RESTA SILENZIO.** L'istruzione nuova dice che la
+  // persona fa di solito una domanda: non deve far trascrivere la
+  // televisione, che l'ordine EM voce 04 ha insegnato a lasciare fuori. Sei
+  // pezzi della televisione finta dell'ordine EM
+  // (`tool/la_televisione_da_banco.py`), con le due istruzioni, tre giri.
+  test('la televisione resta silenzio', () async {
+    expect(cartella, isNotEmpty, reason: 'manca --dart-define=CARTELLA');
+    final gettone = await _gettone();
+    expect(gettone, isNotNull, reason: 'serve una sessione gcloud attiva');
+    final pezzi = Directory(cartella)
+        .listSync()
+        .whereType<File>()
+        .where((f) => f.uri.pathSegments.last.startsWith('tv_'))
+        .toList()
+      ..sort((a, b) => a.path.compareTo(b.path));
+    expect(pezzi, isNotEmpty, reason: 'mancano i pezzi di televisione');
+    final righe = <String>[];
+    for (final e in {
+      'prima': istruzioneDiPrima(),
+      'oggi': LaTrascrizione.istruzione,
+    }.entries) {
+      var trascritti = 0;
+      var n = 0;
+      for (var giro = 1; giro <= 3; giro++) {
+        for (final f in pezzi) {
+          final testo =
+              await _trascrivi(gettone!, e.value, f.readAsBytesSync());
+          n++;
+          if (testo.trim().isNotEmpty) trascritti++;
+          final riga = 'televisione ${e.key} giro $giro '
+              '${f.uri.pathSegments.last}: «$testo»';
+          righe.add(riga);
+          print(riga);
+        }
+      }
+      final totale = 'TOTALE televisione ${e.key}: pezzi trascritti come '
+          'parole della persona $trascritti su $n';
+      righe.add(totale);
+      print(totale);
+    }
+    File('$cartella/esito_televisione.txt')
+        .writeAsStringSync('${righe.join('\n')}\n');
+  }, timeout: const Timeout(Duration(minutes: 20)));
 }
 
 Future<String> _trascrivi(

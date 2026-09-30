@@ -5923,17 +5923,34 @@ fanno insieme, alla fine.
   compiuto e il suo banco (`tool/banco_trascrizione_es22.dart`).
 - **Le rune** (ES.24): via le quattro guardie sulla prima frase, restano
   quelle sulle pietre. **Il Viaggio** (ES.25): la prima frase vaga si chiede
-  di nuovo.
+  di nuovo; l'istruzione non da' piu' l'esempio "Il viaggio non mostra..." e
+  chiede la condizione come un passo.
+- **I banchi del 30 settembre**, col modello vero e la lettura alla cieca
+  (ogni giro letto accanto al giro di prima dagli stessi giudici, perche' con
+  giudici diversi le stesse risposte ballano di sei su trentasei): **la rete
+  delle certezze allineata ai giudici** (`test/le_certezze_dei_giudici_test.dart`,
+  `docs/collaudo/ES/certezze_giudicate.json`) dimezza le risposte con una
+  certezza, da 31 a 14 su 360; le prime frasi dirette scendono da 266 a 251,
+  **tutto il calo e' di Aura** (da 77 a 61), PROVENIENZA IGNOTA, non dalla
+  rete; la risposta chiesta di nuovo per una certezza passa solo se non ha
+  perso il si' (`LaPosizioneDellaLettura.diceUnaPosizione`). La trascrizione
+  (ES.22) da 30 e 28 a 38 e 38 domande giuste su 40, la televisione mai presa
+  per la persona; il LIVE (ES.23) 26 e 24 su 36 nel merito per i primi
+  giudici, 20 e 23 per altri; le rune (ES.24) da 56 a 41 e 47 chiamate per 24
+  letture; il Viaggio (ES.25) da 20 a 26 prime frasi con la posizione su 40.
+  Le prove in `docs/collaudo/ET/ciechi/` (fascicoli `es1mix`, `es2mix`,
+  `es3mix`) e `docs/collaudo/ES/trascrizione/`. **Il 30 su 30, lo zero delle
+  ripetizioni e il 20 su 20 non ci sono.**
 
 **Che cosa manca, voce per voce**: le catture dal Realme di tutte le voci
-aperte, con la build di prova; tre sere di osservazione della ES.17; i banchi
-col modello vero e la lettura alla cieca delle voci ES.19, ES.21, ES.22,
-ES.23, ES.24, ES.25 (il 30 su 30 delle trenta domande, il 20 su 20 del
-Viaggio); le parole della trascrizione e la voce del LIVE sul Realme col
+aperte, con la build di prova; tre sere di osservazione della ES.17; il 30 su
+30 delle trenta domande (con la cura della prima frase di Aura), lo zero delle
+ripetizioni e il 20 su 20 del Viaggio, che tre giri di banco non hanno
+raggiunto; le parole della trascrizione e la voce del LIVE sul Realme col
 microfono del PC. Il rapporto lo dice voce per voce.
 
-**Le guardie**: il registro `docs/guardie.md` e' a **606** (categorie 144,
-181 e 281). Regola A in `docs/collaudo/ES/regola_a_*.txt`, Regola B in
+**Le guardie**: il registro `docs/guardie.md` e' a **607** (categorie 144,
+182 e 281), con `le_certezze_dei_giudici`. Regola A in `docs/collaudo/ES/regola_a_*.txt`, Regola B in
 `docs/collaudo/ES/regola_b_*.txt`: **la guardia della posizione della prima
 frase non copriva il "quando"**, e' stata riparata. **La suite intera ha preso
 sedici difetti miei** sulle voci ES.04, ES.12 ed ES.15 prima della spinta, e

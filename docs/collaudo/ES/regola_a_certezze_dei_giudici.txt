@@ -1,0 +1,6 @@
+PRIMA STESURA della prova (quota: almeno due terzi delle certezze prese): l'innesto "il futuro dopo ogni che torna esente" portava le prese da 51 a 47 su 61 e la prova restava VERDE. Per la Regola A si e' cambiata la grandezza, non la soglia: ogni certezza sfuggita deve stare fra le dieci forme dichiarate non riconoscibili.
+Sul codice di prima (HEAD e73f61df) la rete prendeva 12 certezze dei giudici su 61 e 26 frasi buone su 1864.
+INNESTO la rete senza i fatti certi: grep del difetto nel file SI; prova ROSSA; ORDINE ES VOCE 19: certezze dei giudici prese 26 su 61; frasi buone prese per certe 37 su 1864
+INNESTO il futuro dopo ogni "che" torna esente: grep del difetto nel file SI; prova ROSSA; ORDINE ES VOCE 19: certezze dei giudici prese 47 su 61; frasi buone prese per certe 37 su 1864
+INNESTO la rete scambia per certa ogni frase con "è": grep del difetto nel file SI; prova ROSSA; ORDINE ES VOCE 19: certezze dei giudici prese 59 su 61; frasi buone prese per certe 452 su 1864
+file rimesso: sha1 prima add4b71978a7b6d62fccc1904259e44a44445ce8, dopo add4b71978a7b6d62fccc1904259e44a44445ce8, IDENTICO

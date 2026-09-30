@@ -1373,9 +1373,20 @@ class MaestroChatController extends ChangeNotifier {
           natal: natal,
           correzione: LeCertezzeDelMaestro.correzione(certe),
         ));
+        // **LA POSIZIONE NON SI PERDE TOGLIENDO LA CERTEZZA**, ordine ES
+        // voce 19, terzo giro. Con la rete delle certezze allineata ai
+        // giudici alla cieca le risposte con una certezza sono scese da 33 a
+        // 15 su 360, ma le prime frasi dirette da 278 a 245: la risposta
+        // chiesta di nuovo diceva *"l'amore può trovare nuovi ancoraggi"* al
+        // posto di un si' o di un no, e la rete della prima frase la lasciava
+        // passare. Se la prima diceva una posizione, la nuova deve dirla.
+        final posizioneDiPrima =
+            LaPosizioneDellaLettura.diceUnaPosizione(reply);
         if (altra.trim().isNotEmpty &&
             certeIn(altra).length < certe.length &&
-            LaPosizioneDellaLettura.rispetta(chiRisponde, userText, altra)) {
+            LaPosizioneDellaLettura.rispetta(chiRisponde, userText, altra) &&
+            (!posizioneDiPrima ||
+                LaPosizioneDellaLettura.diceUnaPosizione(altra))) {
           reply = altra;
         } else {
           annotaGuastoInnocuo(

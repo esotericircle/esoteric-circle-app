@@ -223,6 +223,48 @@ void main() {
     expect(c.messages.last.text, isNot(contains('sarà premiato')));
     expect(c.rigenerazioniPerCertezza, 1);
   });
+
+  // **LA POSIZIONE NON SI PERDE TOGLIENDO LA CERTEZZA.** Ordine ES voce 19,
+  // terzo giro: col secondo giro del banco le certezze sono scese da 33 a 15
+  // su 360 e le prime frasi dirette da 278 a 245, perche' la risposta chiesta
+  // di nuovo diceva *"l'amore può trovare nuovi ancoraggi"* al posto del si'.
+  test(
+      'ES.19: la risposta chiesta di nuovo che perde il sì non passa, e la '
+      'correzione chiede di tenere la prima frase', () async {
+    SharedPreferences.setMockInitialValues({});
+    final ai = _ColCopione([
+      'Le carte dicono di sì. Il suo cuore è ancora legato al tuo. Il Sei '
+          'di Coppe parla di un ricordo che chiede un gesto semplice.\n✦ '
+          'Stasera scrivigli due righe semplici.',
+      'Nelle carte leggo che l\'amore, anche dopo le tempeste, può trovare '
+          'nuovi ancoraggi. Ascolta ciò che senti.\n✦ Stasera scrivigli due '
+          'righe semplici.',
+    ]);
+    final c = MaestroChatController(
+      maestro: Maestro.medora,
+      ai: ai,
+      memory: InMemoryMaestroMemoryRepository(),
+      natal: () => NatalContext.none,
+      demo: true,
+      attesaMinima: Duration.zero,
+    );
+    await c.init();
+    // Una domanda che la rete della prima frase legge come aperta: li' ogni
+    // prima frase la rispetta, e senza la regola nuova passava la risposta
+    // che aveva perso il si'.
+    const domanda = 'Che cosa dicono le carte di lui?';
+    expect(LaPosizioneDellaLettura.tipo(domanda), TipoDellaDomanda.aperta);
+    await c.send(domanda);
+    print('ORDINE ES VOCE 19: consegnata «${c.messages.last.text}»');
+    expect(ai.volte, 2);
+    expect(c.messages.last.text, startsWith('Le carte dicono di sì.'),
+        reason: 'passa la risposta che ha perso il sì');
+    expect(c.messages.last.text, isNot(contains('Il suo cuore è')),
+        reason: 'la frase certa resta nella risposta consegnata');
+    expect(ai.correzioni.last, contains('il sì o il no non si tolgono'));
+    expect(LaPosizioneDellaLettura.diceUnaPosizione(ai.copione.first), isTrue);
+    expect(LaPosizioneDellaLettura.diceUnaPosizione(ai.copione.last), isFalse);
+  });
 }
 
 /// Un modello finto che risponde col suo copione e ricorda le correzioni.

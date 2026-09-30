@@ -66,5 +66,14 @@ void main() {
     expect(g3.siPrese, 0);
     expect(g1.noPrese, greaterThanOrEqualTo(8));
     expect(g1.siPrese, lessThanOrEqualTo(3));
+    // **IL SECONDO GIRO**, 30 settembre: il banco nuovo (es1) mescolato col
+    // giro 3, giudicato alla cieca da giudici nuovi. Con la guardia del
+    // primo giro accesa restavano le forme che adesso prende.
+    final g4 = conta('es1mix');
+    print('ORDINE ES VOCE 25: giro del 30 settembre senza posizione prese '
+        '${g4.noPrese} su ${g4.no}, buone prese ${g4.siPrese} su ${g4.si}');
+    cardinaleMinimo(g4.no + g4.si, 70, cosa: 'risposte del 30 settembre');
+    expect(g4.noPrese, greaterThanOrEqualTo(16));
+    expect(g4.siPrese, lessThanOrEqualTo(2));
   });
 }

@@ -412,13 +412,40 @@ qui il giudice alla cieca del giro 2 e i giudizi a mano del giro 6 si contraddic
 presa con la risposta consigliata. **La rete delle certezze** (`le_certezze_del_maestro.dart`): il
 futuro detto sotto *"le rune dicono che"* e' lettura, *"potrai"* e' una possibilita', il futuro dopo
 una condizione o dopo un consiglio (*"Concentra il tuo intento e le risorse seguiranno"*) e' una
-conseguenza. Mancano: il banco delle trenta domande (circa 1,4 dollari) e la lettura alla cieca, per
-il 30 su 30 per Maestro e canale.
+conseguenza.
+
+**Misurata il 30 settembre, tre giri del banco, ognuno letto alla cieca mescolato col giro di prima
+dagli stessi giudici** (con giudici diversi le stesse risposte ballano di decine di voti, e solo il
+confronto nello stesso fascicolo conta). **Primo giro** (`es1`, le reti di sopra): prime frasi che
+rispondono da 258 a 272 su 360 rispetto al giro 5, ma le risposte con una certezza da 23 a 33,
+perche' la prima stesura aveva esentato il futuro detto sotto *"le carte dicono che"*: i giudici lo
+contano. **La rete delle certezze allora si e' allineata ai giudici**: dalle loro citazioni e dalle
+frasi delle risposte che hanno dato senza certezze (`docs/collaudo/ES/certezze_giudicate.json`) la
+rete prendeva 12 certezze su 61, adesso 51 (le 10 che restano sono immagini dette come fatti, che una
+rete di parole non riconosce), e scambia per certe 43 frasi buone su 1864. Tolte le esenzioni del
+futuro nella lettura e dopo una relativa che non sia un gesto della persona; entrati la garanzia
+(*"ti assicura"*), il corpo dato per fertile, cio' che gli altri pensano di te (*"non passa
+inosservato"*), l'esito dato per vicino, il tradimento escluso come un fatto, il destino, e cio' che
+l'altro "indica" (*"il suo sguardo indica un'attrazione"*). **Secondo giro** (`es2`): risposte con
+una certezza da 33 a 15, ma prime frasi da 278 a 245 e merito da 278 a 257. La correzione chiedeva di
+scrivere *"può"* e il modello trasformava il si' in un *"può"*: **terzo giro** (`es3`), la correzione
+chiede di tenere la prima frase e la risposta chiesta di nuovo passa solo se non ha perso la posizione
+(`LaPosizioneDellaLettura.diceUnaPosizione`). Risultato, contro il primo giro: certezze da 31 a 14,
+prime frasi da 266 a 251, merito da 263 a 246. **Medora e Calìgo tengono o migliorano** (prime frasi
+98 e 101, 91 e 89; certezze da 11 a 3 e da 11 a 8), **tutto il calo e' di Aura** (prime frasi da 77 a
+61, merito da 73 a 53). **Non viene dalle certezze**: le risposte di Aura richieste per una certezza
+sono 18 nel primo giro e 18 nel terzo, mentre quelle richieste per la prima frase, cioe' le risposte
+del modello gia' senza posizione al primo colpo, salgono da 19 a 34, e in 25 su 34 anche la seconda
+risposta resta senza posizione. Nel secondo giro, con altri giudici, lo stesso: Aura 61 contro 81.
+**Scelta con la risposta consigliata**: la rete delle certezze resta, perche' in due giri le
+certezze si dimezzano senza che Medora e Calìgo perdano niente; il calo di Aura e' un difetto aperto,
+PROVENIENZA IGNOTA, da cercare nella persona di Aura e nella prima frase, non nella rete. Il 30 su 30
+per Maestro e canale non c'e': il migliore e' Medora nella chat, 26 e 27 su 30.
 
 DOMANDA: dalla ET.01: "Bisogna fare delle prove, 30 domande per ogni maestro, con domande classiche q più frequenti. Gli utenti faranno domande personali e anche intime nella maggior parte dei casi. Ma anche per la fortuna e lavoro."; domanda girata al fondatore: "Ritocchi alle reti che scartano le risposte dirette (il sì detto senza "sì", il no detto con "non", il "sì, se" sulla coppia): entrano, perché senza non si arriva a 30 su 30. Confermi?", risposta: "Confermo tutto".
 
-PROVA: docs/collaudo/ES/regola_a_blocco_es19_es37.txt
-MISURA: sui 101 casi scartati al giro 6 e giudicati a mano (docs/collaudo/ES/giro6_reti.json), misurati col codice di prima (commit 78d1388c) e con quello di oggi: risposte dirette che la rete della prima frase scarta, prima 28 su 30, dopo 5 su 30; prime frasi vaghe che lascia passare, prima 0 su 14, dopo 0 su 14; certezze apparenti che la rete delle certezze prende, prima 12 su 26, dopo 7 su 26; certezze vere che manca, prima 1 su 30, dopo 1 su 30; le tre certezze rimaste nelle finali del giro 6 la rete le prende sul loro testo, prima e dopo 3 su 3 (al banco erano sfuggite perche' non stavano nella parte guardata)
+PROVA: docs/collaudo/ET/ciechi/conti_et01_es3mix.txt
+MISURA: alla lettura alla cieca, stessi giudici sul primo e sul terzo giro del 30 settembre, risposte con una certezza prima 31 su 360, dopo 14 su 360; prime frasi che rispondono prima 266, dopo 251 (Medora da 98 a 101, Calìgo da 91 a 89, Aura da 77 a 61); nel merito prima 263, dopo 246; rete delle certezze sulle frasi citate dai giudici prima 12 su 61, dopo 51 su 61, frasi buone prese prima 26 su 1864, dopo 43 (docs/collaudo/ES/regola_a_certezze_dei_giudici.txt); sui 101 casi scartati al giro 6 e giudicati a mano (docs/collaudo/ES/giro6_reti.json), misurati col codice di prima (commit 78d1388c) e con quello di oggi: risposte dirette che la rete della prima frase scarta, prima 28 su 30, dopo 5 su 30; prime frasi vaghe che lascia passare, prima 0 su 14, dopo 0 su 14; certezze apparenti che la rete delle certezze prende, prima 12 su 26, dopo 7 su 26; certezze vere che manca, prima 1 su 30, dopo 1 su 30; le tre certezze rimaste nelle finali del giro 6 la rete le prende sul loro testo, prima e dopo 3 su 3 (al banco erano sfuggite perche' non stavano nella parte guardata)
 
 ## VOCE ES.20, VOCE, TESTO A VIDEO E CHAT CON LE STESSE PAROLE (DALLA ET.02)
 
@@ -442,40 +469,64 @@ cosa con altre parole, e la rete dell'ordine EN voce 06 non le vedeva. **Dentro 
 risposta di prima e di quella nuova, senza le parole delle due domande e senza le parole di tutti i
 giorni dei Maestri; da 0,4 in su la risposta si chiede di nuovo una volta, nominando quella di prima.
 La soglia e' tarata sulle 240 seconde di coppia giudicate alla cieca in quattro fasi del banco
-(`docs/collaudo/ES/coppie_ripetute.json`, `tool/le_coppie_ripetute.py`). Manca il banco delle trenta
-domande con la lettura alla cieca delle coppie, e le coppie nel LIVE sul Realme.
+(`docs/collaudo/ES/coppie_ripetute.json`, `tool/le_coppie_ripetute.py`). **Al banco del 30
+settembre**, seconde di coppia che ripetono la prima, per gli stessi giudici: dal giro 5 al primo
+giro da 7 a 6 su 60, dal primo al secondo da 5 a 3, dal primo al terzo da 4 a 8 (7 di Aura); le
+posizioni cambiate senza dire perche' da 4 a 3, da 2 a 2, da 6 a 5. Cioe' la rete non ha portato le
+ripetizioni a zero, e il loro numero sta dentro il rumore dei giudici. Mancano lo zero e le coppie nel
+LIVE sul Realme.
 
 DOMANDA: dalla ET.03: "Ho provato a fare Domande simili consecutive e le risposte, non solo non erano adeguate [...]"
 
 PROVA: docs/collaudo/ES/regola_a_blocco_es19_es37.txt
-MISURA: sulle 240 seconde di coppia giudicate alla cieca, ripetizioni prese dalla rete prima 0 su 26 (la rete parola per parola), dopo 13 su 26; seconde buone chiamate ripetute, dopo 2 su 214
+MISURA: sulle 240 seconde di coppia giudicate alla cieca, ripetizioni prese dalla rete prima 0 su 26 (la rete parola per parola), dopo 13 su 26; seconde buone chiamate ripetute, dopo 2 su 214; al banco, seconde che ripetono per gli stessi giudici, giro 5 contro primo giro 7 e 6 su 60, primo contro secondo 5 e 3, primo contro terzo 4 e 8 (docs/collaudo/ET/ciechi/conti_et01_es3mix.txt)
 
 ## VOCE ES.22, LA TRASCRIZIONE DEL LIVE: NESSUNA DOMANDA VUOTA E LE PAROLE GIUSTE (DALLA ET.04)
 
-**APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata, non ancora misurata. L'istruzione di chi
+**APERTA IN ATTESA DI VERIFICA**: prodotta, agganciata e misurata al banco; manca la prova sul
+Realme col microfono. L'istruzione di chi
 trascrive dice adesso di che cosa parla di solito la persona e quale lettura scegliere quando un suono
 se ne presta a due, con l'esempio del difetto visto (`LaTrascrizione.frasiDiSensoCompiuto`, un
 esempio solo: un elenco il modello lo ricopierebbe, come ha fatto con l'elenco dei nomi). Il banco della trascrizione
 (`tool/banco_trascrizione_es22.dart`) manda le venti domande del collaudo del LIVE, dette dalla voce
 italiana di Windows pulite e "da stanza" (`tool/le_domande_dette.py`), con l'istruzione di prima e con
-quella nuova, allo stesso modello del telefono. Mancano: la scelta dell'istruzione misurata al banco e
-la prova sul Realme col microfono, venti domande.
+quella nuova, allo stesso modello del telefono, due giri. **Misurata il 30 settembre**: con la voce
+pulita le domande trascritte parola per parola giuste passano da 30 a 38 su 40 e le parole sbagliate
+da 74 a 10 su 292; con la voce "da stanza" da 28 a 38 su 40 e da 68 a 2 su 292. L'istruzione di prima
+rispondeva [SILENZIO] a domande dette per intero; la nuova no. **E la televisione resta fuori**: sei
+pezzi della televisione finta dell'ordine EM (`tool/la_televisione_da_banco.py`), tre giri, trascritti
+come parole della persona 0 su 18 con l'istruzione di prima e 0 su 18 con la nuova, perche' la frase
+nuova dice che di solito la persona fa una domanda e l'ordine EM aveva insegnato a lasciare fuori il
+sottofondo. **Il difetto visto non si riproduce al banco**: *"Ma mi ama ancora"* la voce sintetica lo
+dice troppo pulito, e le due istruzioni lo trascrivono giusto; *"Troverò"* resta *"Trovo"* nella voce
+da stanza. Manca la prova sul Realme col microfono del PC, venti domande.
 
 DOMANDA: dalla ET.04: "Confermi le mie tre scelte e l'ordine per la trascrizione, insieme alla ER.01?", risposta: "Confermo, dobbiamo risolvere tutto."; domanda girata al fondatore: "Trascrizione sbagliata ("Ma mi ama ancora" diventa "Ma mia, ma ancora"): si corregge in questo ordine. Confermi?", risposta: "Confermo tutto".
 
-PROVA: tool/banco_trascrizione_es22.dart
-MISURA: domande trascritte parola per parola giuste sul Realme, prima 12 su 17 (ordine ET), dopo da misurare
+PROVA: docs/collaudo/ES/trascrizione/esito_voce_pulita_e_stanza.txt
+MISURA: al banco, venti domande per due giri, trascritte parola per parola giuste: voce pulita prima 30 su 40, dopo 38 su 40; voce da stanza prima 28 su 40, dopo 38 su 40; parole sbagliate prima 74 e 68 su 292, dopo 10 e 2 su 292; televisione trascritta come parole della persona prima 0 su 18, dopo 0 su 18 (docs/collaudo/ES/trascrizione/esito_televisione.txt); sul Realme prima 12 su 17 (ordine ET), dopo da misurare
 
 ## VOCE ES.23, QUATTRO FRASI QUANDO LA DOMANDA HA PIÙ PARTI, SENZA PERDERE IL MERITO (DALLA ET.06)
 
-**APERTA IN ATTESA DI VERIFICA**: nessun codice nuovo in questa voce; il merito delle risposte a
-piu' parti si misura col banco `DOMANDE=er12` dopo le reti della ES.19, che toccano le stesse
-risposte, e con la lettura alla cieca (l'ordine chiede 23 su 36).
+**APERTA IN ATTESA DI VERIFICA**: nessun codice nuovo in questa voce; misurata al banco
+`DOMANDE=er12` dopo le reti della ES.19 e con la lettura alla cieca, manca l'ascolto sul Realme. Le
+dodici domande del LIVE, tre Maestri, due esecuzioni: le risposte del giro dell'ordine ET (`dopo`) e
+quelle nuove (`es1`) mescolate nello stesso fascicolo e giudicate dagli stessi giudici con la regola
+della lettura dell'ordine EQ. **Nel merito da 42 a 50 su 72**: 26 e 24 su 36 nelle due esecuzioni,
+sopra i 23 su 36 chiesti (prima 23 e 19); le domande a piu' parti toccate tutte da 28 su 40 a 33 su 39.
+**Aura resta indietro**: 12 su 24 nel merito, contro i 19 di Medora e di Caligo (erano 7, 17 e 18).
+**Ma i giudici variano quanto il miglioramento**: le stesse risposte nuove (`es1`), rilette da giudici
+nuovi accanto a quelle del secondo giro del banco (`es2`), sono nel merito 20 e 23 su 36 invece di 26 e
+24; le risposte del secondo giro 22 e 23. Cioe' fra due letture alla cieca delle stesse risposte ballano
+sei risposte su trentasei, e sotto quel rumore il 23 su 36 non e' dimostrato: la voce resta aperta, e la
+misura che la chiude e' piu' letture degli stessi testi, non una.
+Le risposte con una certezza, contate dagli stessi giudici, sono 13 e 15: la rete delle certezze
+allineata ai giudici (ES.19) le misura il secondo giro del banco.
 
 DOMANDA: dalla ET.06: il consiglio dell'Architetto "ER.12: quattro frasi quando la domanda ha più parti.", risposta: "Confermo, dobbiamo risolvere tutto."
 
-PROVA: docs/collaudo/ET/live_quattro_frasi.txt
-MISURA: nel merito alla cieca, prima 20 e 18 su 36 (ordine ET), dopo da misurare col banco
+PROVA: docs/collaudo/ET/ciechi/conti_et06_es1mix.txt
+MISURA: nel merito alla cieca, stessi giudici sulle risposte vecchie e nuove mescolate, per esecuzione prima 23 e 19 su 36, dopo 26 e 24 su 36 (l'ordine chiede 23); le stesse risposte nuove rilette da altri giudici 20 e 23 su 36, quelle del secondo giro 22 e 23 (docs/collaudo/ET/ciechi/conti_et06_es2mix.txt); in tutto prima 42 su 72 (Aura 7, Caligo 18, Medora 17 su 24), dopo 50 su 72 (Aura 12, Caligo 19, Medora 19 su 24); domande a piu' parti toccate tutte, prima 28 su 40, dopo 33 su 39
 
 ## VOCE ES.24, LE RUNE: VIA LE GUARDIE SULLA PRIMA FRASE (DALLA ET.07)
 
@@ -484,27 +535,45 @@ quattro guardie sulla prima frase della lettura delle rune sono uscite (le immag
 scelta e non detta, la formula al posto del gesto, la frase che non dice "inBreve"), con le loro regole;
 restano quelle sulle pietre (il nome, la posizione, la frase sulla domanda, la cosa chiesta), la
 cornice ricopiata, gli astri e il confine. La richiesta al modello chiede ancora la prima frase
-diretta. Le prove che pretendevano le guardie tolte sono riscritte con la lapide. Mancano il banco delle
-rune (le chiamate e il tempo per lettura) e l'attesa sul Realme su dieci gettate.
+diretta. Le prove che pretendevano le guardie tolte sono riscritte con la lapide. **Misurata il 30
+settembre**: al banco delle rune, 24 letture per due esecuzioni, le chiamate al modello scendono da 56
+e 56 a 41 e 47 e il tempo mediano della chiamata da 9,3 e 8,7 secondi a 4,9 e 7,3; alla lettura alla
+cieca, giro vecchio e nuovo mescolati e giudicati dagli stessi giudici, le prime frasi dirette sulle
+domande restano o salgono (da 13 e 15 a 15 e 15 su 20), le pietre lette tutte nella loro posizione
+passano da 20 e 18 a 15 e 19 su 24, il consiglio concreto da 21 e 20 a 23 e 23. Cioe' la risposta del
+fondatore regge: meno chiamate e meno attesa, senza risposte meno dirette. Manca l'attesa sul Realme
+su dieci gettate.
 
 DOMANDA: dalla ER.01: "Le persone vogliono risposte dirette, Senza tanti giochi di parole e cercano consigli e guide anche su domande generiche."; domanda girata al fondatore: "Rune: togliere le guardie sulla prima frase, perché raddoppiano le chiamate e il tempo del modello senza portare risposte più dirette; restano quelle sulle pietre. Confermi?", risposta: "Confermo tutto".
 
-PROVA: docs/collaudo/ES/regola_a_blocco_es19_es37.txt
-MISURA: guardie sulla prima frase delle rune, prima 4, dopo 0; letture di prova scartate per la prima frase, prima 4 su 4 (immagini, posizione non detta, formula, inBreve), dopo 0 su 4; chiamate per lettura al banco, prima 56 per 24 letture, dopo da misurare
+PROVA: docs/collaudo/ET/ciechi/conti_rune_es1mix.txt
+MISURA: guardie sulla prima frase delle rune, prima 4, dopo 0; chiamate al modello per 24 letture, prima 56 e 56, dopo 41 e 47; tempo mediano della chiamata, prima 9,3 e 8,7 s, dopo 4,9 e 7,3 s; prime frasi dirette alla cieca, prima 13 e 15 su 20, dopo 15 e 15 su 20 (docs/collaudo/ET/ciechi/conti_rune_es1mix.txt)
 
 ## VOCE ES.25, IL VIAGGIO PRENDE POSIZIONE NELLA PRIMA FRASE, 20 SU 20 (DALLA ET.08)
 
-**APERTA IN ATTESA DI VERIFICA**: la guardia corretta sui giudizi alla cieca, da misurare col
-banco del Viaggio. La prima frase che rimanda la domanda riconosce adesso anche le formule vaghe che
+**APERTA IN ATTESA DI VERIFICA**: la guardia e l'istruzione corrette sui giudizi alla cieca,
+misurate col banco del Viaggio; il 20 su 20 non c'e'. La prima frase che rimanda la domanda riconosce adesso anche le formule vaghe che
 reggevano alle guardie (il consiglio astratto, la decisione annunciata e non detta, la massima, la
 condizione che non si puo' fare, le due strade che la domanda non ha): `LeGuardieDelResponso._vaga`.
-Tarata sul giro 3 della lettura alla cieca e provata sul giro 1, che non ha guardato. Manca il banco
-del Viaggio con la lettura alla cieca, per il 20 su 20, e la cattura di una discesa dal Realme.
+Tarata sul giro 3 della lettura alla cieca e provata sul giro 1, che non ha guardato. **Primo banco
+del 30 settembre** (`es1`), mescolato col giro vecchio e letto alla cieca: le prime frasi che prendono
+posizione restano 25 su 40 (erano 26): con la guardia accesa passavano altre forme vaghe, e una causa
+stava nell'istruzione, che dava come esempio *"Il viaggio non mostra..."* e il modello lo ricopiava
+(*"Il viaggio non mostra il trasferimento a Berlino"*, che i giudici chiamano ne' si' ne' no); il "sì,
+se" aveva condizioni che nessuno puo' fare (*"se hai coltivato l'idea"*). **Secondo giro**: l'esempio
+del no adesso e' un no, la condizione e' chiesta come un passo con chi o entro quando, e la guardia
+prende la scelta rimandata (*"Scegli tu"*), *"la tua intuizione"*, e le condizioni che sono stati
+d'animo. **Restano fuori le forme su cui i giudici di giri diversi si contraddicono** (*"non
+mostra"*, *"se sei pronta"*, *"consapevole"*): buone per un giro, senza posizione per l'altro. Al
+secondo banco (`es2`), mescolato col primo e letto dagli stessi giudici: prime frasi con la posizione
+da 11 e 9 a 15 e 11 su 20, cioe' da 20 a 26 su 40; frasi vuote da 49 a 41. **I giudici variano**: le
+risposte del primo banco erano 25 su 40 per i giudici di prima e 20 su 40 per questi. Il 20 su 20 e'
+lontano: manca una strada che non sia inseguire le forme, e la cattura di una discesa dal Realme.
 
 DOMANDA: dalla ET.08: il consiglio dell'Architetto "ER.02: sì alla riserva che prende posizione, come la propone Code.", risposta: "Confermo, dobbiamo risolvere tutto."
 
-PROVA: docs/collaudo/ES/regola_a_blocco_es19_es37.txt
-MISURA: prime frasi senza posizione (giudizio alla cieca) che la guardia chiede di nuovo, giro 3 prima 0 su 21, dopo 20 su 21, buone chiamate vaghe prima 0 e dopo 0 su 51; giro 1, non guardato, prima 4 su 22, dopo 12 su 22, buone chiamate vaghe prima 0 e dopo 3 su 50
+PROVA: docs/collaudo/ET/ciechi/conti_viaggio_es2mix.txt
+MISURA: prime frasi senza posizione (giudizio alla cieca) che la guardia chiede di nuovo, giro 3 prima 0 su 21, dopo 20 su 21, buone chiamate vaghe prima 0 e dopo 0 su 51; giro 1, non guardato, prima 4 su 22, dopo 13 su 22, buone chiamate vaghe prima 0 e dopo 3 su 50; giro del 30 settembre prima 8 su 27, dopo 17 su 27, buone 2 su 45; al banco, prime frasi che prendono posizione per gli stessi giudici, prima 11 e 9 su 20, dopo 15 e 11 su 20 (docs/collaudo/ET/ciechi/conti_viaggio_es2mix.txt)
 
 ## VOCE ES.26, IL RETRO DELLE SCHEDE A 402 PUNTI (DALLA ET.09)
 

@@ -1246,7 +1246,27 @@ abstract final class LeGuardieDelResponso {
       "più che mai|il silenzio|i tuoi confini|la tua direzione|"
       "chi vuoi essere|per chi sei|quello che (?:ancora )?non vedi|"
       "puoi scegliere (?:tu )?(?:come|chi|cosa|quale)|in modo nuovo|"
-      "una delle due|quale delle due|lo sai già|ha bisogno di un gesto)"
+      "una delle due|quale delle due|lo sai già|ha bisogno di un gesto|"
+      // **IL SECONDO GIRO, dalla lettura alla cieca del 30 settembre**:
+      // con la guardia accesa restavano la scelta rimandata (*"Scegli tu
+      // come vuoi mostrarti"*, *"Definisci tu cosa vuoi"*), il consiglio che
+      // non si puo' fare (*"Ascolta la tua intuizione"*, *"un luogo che ti
+      // dia sicurezza"*) e il "sì, se" con una condizione che nessuno puo'
+      // fare (*"se hai coltivato l'idea"*, *"a condizione che tu abbia ben
+      // chiaro cosa ti aspetti"*, *"se sai perché"*, *"se ti prepari anche a
+      // ciò che non sai"*, *"con un metodo diverso"*, *"ma prima è utile
+      // guardare le condizioni"*). **Restano fuori le forme su cui i giudici
+      // di giri diversi si contraddicono**: *"Il viaggio non mostra il tuo
+      // successo"*, *"se sei pronta a"*, *"a condizione che tu sia
+      // consapevole"*, *"ma non senza"* sono buone per i giudici del giro 1 o
+      // del giro 3 e senza posizione per quelli del 30 settembre. Contro
+      // quelle lavora l'istruzione (`la_scena_dal_modello.dart`), che non da'
+      // piu' l'esempio "Il viaggio non mostra" e chiede la condizione come un
+      // passo.
+      "(?:scegli|definisci|decidi|stabilisci) tu|la tua intuizione|"
+      "un luogo che ti|(?:se|condizione che|ma prima)[^.]*?(?:ben chiar[oa]|"
+      "sai perché|non sai|coltivat[oa]|metodo diverso|le condizioni|"
+      "ti aspetti))"
       "(?![$_l])",
       caseSensitive: false);
 
