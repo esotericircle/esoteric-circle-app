@@ -181,11 +181,18 @@ def ispeziona(archivio, con_numero=True):
     #    due conti della stessa cosa un giorno divergono.
     manifest = json.load(io.open(MANIFEST_ASSET, encoding='utf-8'))
     attesi_fam = manifest['bundle_versionato']['famiglie_conteggi']
+    # **LE PIENE OLTRE LE MINIATURE**, ordine ES voce 07: la cartella piena
+    # dello zodiaco porta anche i dodici animali cinesi e le due figure
+    # vediche, che non hanno miniatura. Il manifesto lo dichiara e la guardia
+    # delle prove lo leggeva gia'; questo conto no, e alla consegna del 1
+    # ottobre 2026 ha fermato l'archivio con "zodiac 26 invece di 12".
+    oltre = manifest['bundle_versionato'].get('piene_oltre_le_miniature', {})
     piene, miniature = verifica_apk.conta_famiglie(archivio)
     incomplete = []
     for famiglia, atteso in sorted(attesi_fam.items()):
         n = int(atteso) if not isinstance(atteso, dict) else int(
             atteso.get('piene', 0))
+        n += int(oltre.get(famiglia, 0))
         trovate = piene.get(famiglia, 0)
         if trovate != n:
             incomplete.append('%s %d invece di %d' % (famiglia, trovate, n))

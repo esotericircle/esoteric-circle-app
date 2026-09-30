@@ -359,6 +359,12 @@ Nessuna: le trentotto voci sono chiuse o aperte in attesa di verifica.
   scala uno, e il corredo a scala 1,3 lo guarda solo GitHub. Tolte le tre
   righe, e il manifesto dell'ordine CM dice adesso dieci schermate invece di
   tredici.
+- **La consegna fermata da "zodiac 26 invece di 12"**: l'ispettore
+  dell'archivio (`tool/ispeziona_archivio.py`) contava la cartella piena
+  dello zodiaco senza le quattordici figure delle tradizioni, che il
+  manifesto degli asset dichiara dalla ES.07 (`piene_oltre_le_miniature`) e
+  la guardia delle prove leggeva gia'. Padre ES.07 (`a9e52f66`), mio:
+  aggiornata la guardia, non l'ispettore. Allineato al manifesto.
 - **Due giri delle anteprime caduti su 39 e 26 catture con l'errno 1224**
   di Windows (un altro processo tiene il PNG appena scritto): non e' un
   difetto del codice; adesso la scrittura delle anteprime aspetta il lock.
