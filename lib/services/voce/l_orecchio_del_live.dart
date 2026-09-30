@@ -557,9 +557,14 @@ abstract final class LaTrascrizione {
   /// commit e73f61df. **Sono usciti gli esempi e la frase che diceva di che
   /// cosa parla di solito la persona**: al banco, sulle venti domande con un
   /// secondo di voce tolto (`tool/le_domande_sentite_male.py`), con quella
-  /// frase le parole scritte e non dette erano 16 e 18 su quaranta
-  /// trascrizioni (*"Trovo lavoro"*, *"Quando troverò la persona giusta"*,
-  /// cioe' l'esempio ricopiato), senza sono quante con l'istruzione di prima.
+  /// frase le parole scritte e non dette erano 14 su quaranta trascrizioni e
+  /// cinque domande ne avevano almeno due (*"Trovo lavoro"*, *"Quando troverò
+  /// la persona giusta"*, cioe' l'esempio ricopiato); senza sono 10 e due,
+  /// quante con l'istruzione di prima
+  /// (`docs/collaudo/ES/trascrizione/esito_cinque_voci.txt`). Il prezzo: le
+  /// domande intere trascritte parola per parola scendono da 38 a 36 su 40
+  /// con la voce pulita e da 38 a 34 con quella da stanza, contro le 29 e 28
+  /// dell'istruzione di prima.
   /// Ed e' entrata la regola che un pezzo non capito si lascia fuori. La
   /// guardia `la_trascrizione_non_porta_esempi` conta le frasi fra
   /// virgolette e gli argomenti suggeriti.

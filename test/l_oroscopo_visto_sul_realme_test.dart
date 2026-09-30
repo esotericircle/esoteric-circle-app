@@ -20,6 +20,7 @@ import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/horoscope/la_rivelazione_del_segno.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
+import 'package:esoteric_circle/features/horoscope/oroscopo_share_card.dart';
 import 'package:esoteric_circle/features/horoscope/riquadro_del_numero.dart';
 import 'package:esoteric_circle/features/maestri/live/stato_della_schermata_live.dart';
 import 'package:flutter/material.dart';
@@ -294,6 +295,91 @@ void main() {
     expect(pittore.width, lessThanOrEqualTo(264));
     expect(paragrafo.size.height, lessThan(pittore.height * 1.5));
     pittore.dispose();
+  });
+
+  // **OGNI PERIODO SI CONDIVIDE CON LA SUA CARD E IL SUO EMBLEMA.** Ordine ES
+  // voce 05. Il fondatore ha fatto un emblema per la Settimana, uno per il
+  // Mese e uno per l'Anno; la card da condividere li porta in testa, ma il
+  // gesto per condividere c'era solo sotto il consulto del Giorno: cercando
+  // sul Realme la card di un periodo, il 30 settembre 2026, non c'era modo di
+  // arrivarci. Padre: questa voce, che aveva dato la card per agganciata.
+  testWidgets(
+      'ES.05: la Settimana, il Mese e l\'Anno si condividono con la '
+      'loro card e il loro emblema', (tester) async {
+    await monta(tester, tier: Tier.tier3);
+    var colGesto = 0;
+    final viste = <String>[];
+    for (final (p, titolo, tessere) in const [
+      (HoroscopePeriod.settimana, 'OROSCOPO DELLA SETTIMANA', true),
+      (HoroscopePeriod.mese, 'OROSCOPO DEL MESE', true),
+      (HoroscopePeriod.anno, 'OROSCOPO DELL\'ANNO', false),
+    ]) {
+      final scheda = find.byKey(Key('oroscopo_period_${p.name}'));
+      await tester.ensureVisible(scheda);
+      await tester.tap(scheda);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 600));
+      // La lista e' pigra e la vista del periodo e' lunga: il gesto sta in
+      // fondo, e si scorre finche' non nasce.
+      final gesto = find.byKey(Key('oroscopo_condividi_${p.name}'));
+      final lista = find.byKey(const Key('oroscopo_list'));
+      for (var i = 0; i < 40 && gesto.evaluate().isEmpty; i++) {
+        await tester.drag(lista, const Offset(0, -600));
+        await tester.pump(const Duration(milliseconds: 100));
+      }
+      if (gesto.evaluate().isEmpty) continue;
+      colGesto++;
+      await tester.ensureVisible(gesto);
+      await tester.pump(const Duration(milliseconds: 100));
+      await tester.tap(gesto);
+      await tester.pump();
+      // La card si disegna fuori schermo, e da li' si fotografa.
+      final emblema =
+          find.byKey(Key('share_emblema_${p.name}'), skipOffstage: false);
+      expect(emblema, findsOneWidget, reason: '${p.name}: manca l\'emblema');
+      final immagine = tester.widget<Image>(emblema);
+      viste.add((immagine.image as AssetImage).assetName.split('/').last);
+      expect(find.text(titolo, skipOffstage: false), findsOneWidget,
+          reason: '${p.name}: il titolo della card');
+      expect(
+          find
+              .byKey(const Key('share_titolo_delle_tessere'),
+                  skipOffstage: false)
+              .evaluate()
+              .length,
+          tessere ? 1 : 0);
+      // Niente riquadro del numero: il periodo non ha un numero del giorno.
+      expect(
+          find.descendant(
+              of: find.byType(OroscopoShareCard, skipOffstage: false),
+              matching: find.byType(RiquadroDelNumero, skipOffstage: false)),
+          findsNothing);
+      await tester.pump(const Duration(milliseconds: 200));
+      await tester.pumpWidget(const SizedBox());
+      await monta(tester, tier: Tier.tier3);
+    }
+    print('ORDINE ES VOCE 05, LA CARD DEI PERIODI: periodi col gesto della '
+        'condivisione oltre il Giorno, prima 0 su 3, dopo $colGesto su 3; '
+        'emblemi in testa alla card: ${viste.join(', ')}');
+    expect(colGesto, 3);
+    expect(viste.toSet().length, 3, reason: 'tre emblemi diversi');
+  });
+
+  test('ES.05: le tessere della card del periodo sono i giorni migliori', () {
+    final periodo = LaSettimanaDelCielo.per(
+        oggi: DateTime(2026, 9, 30), segno: Zodiac.gemini, carta: null);
+    final tessere = LaSettimanaDelCielo.tessere(periodo);
+    expect(tessere, hasLength(4));
+    for (final (i, d) in periodo.domini.indexed) {
+      expect(tessere[i].domain, d.dominio);
+      expect(tessere[i].title, LaSettimanaDelCielo.data(d.migliore.giorno));
+      expect(tessere[i].indicator, d.migliore.livello);
+      expect(tessere[i].luckyNumber, isNull);
+      expect(tessere[i].dayColor, isNull);
+    }
+    expect(tessere.first.synthesis, startsWith('Il momento chiave: '));
+    expect(HoroscopePeriod.mese.etichetta, 'del mese');
+    expect(HoroscopePeriod.anno.etichetta, 'dell\'anno');
   });
 
   test('ES.02 ed ES.03: i giorni della settimana non dicono "oggi"', () {

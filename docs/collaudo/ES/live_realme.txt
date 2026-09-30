@@ -1,0 +1,600 @@
+ORDINE ES, IL LIVE SUL REALME: VENTI DOMANDE DETTE DAL PC, DUE VOLTE. 30 settembre 2026.
+
+Voci ES.20 (voce, video e chat con le stesse parole), ES.21 (domande simili di fila), ES.22 (la
+trascrizione) ed ES.23 (le domande a piu' parti), sul Realme 767f596c col conto di collaudo.
+
+Come si misura. Le venti domande del collaudo dell'ordine ET le dice Elsa, la voce italiana di
+Windows, dalle casse del PC, una dopo che il Maestro ha finito (scratchpad es/live_venti.py). Il
+registro del telefono (logcat) dice che cosa ha sentito l'orecchio, la trascrizione di ogni frase,
+quando il volto dice di aver finito e quando il telefono torna ad ascoltare. La stanza e' registrata
+dal microfono USB del PC, che sente le casse e il telefono. La registrazione e il registro hanno due
+orologi: si allineano sulle domande di Elsa, che stanno in tutti e due (scratchpad es/sincronia.py), e
+lo scarto fra le coppie dice quanto fidarsi. La voce del Maestro si ritrascrive dalla registrazione un
+turno alla volta (Gemini 2.5 Flash, europe-west1; scratchpad es/voce_per_turno2.py) e si mette
+accanto al testo della chat, letto dall'albero dello schermo (es/raccogli_chat.py).
+
+Una prima misura della coda della voce, fatta prendendo come inizio della registrazione l'ora di
+creazione del file, dava "da 2,3 a 3,1 secondi dopo il segnale": era sbagliata di un secondo, perche'
+il microfono comincia a registrare dopo che il file e' nato. I numeri qui sotto vengono dalla
+sincronia sulle domande.
+
+=== PRIMA: build di prova del commit 9deede23, Medora, 12:42-12:58 ===
+
+LA TRASCRIZIONE (ES.22)
+
+1. volume 100, voce sentita -25.0 dB, frasi 1: «Lui mi ama davvero?»
+    detta: Lui mi ama davvero?
+ 2. volume  90, voce sentita -25 dB, frasi 1: «Mi ama ancora dopo tutto quello che è successo?»
+    detta: Ma mi ama ancora, dopo tutto quello che è successo?
+ 3. volume 100, voce sentita -24 dB, frasi 1: «Il mio ex tornerà?»
+    detta: Il mio ex tornerà da me?
+ 4. volume  90, voce sentita -23 dB, frasi 1: «Vorrei sapere che si faccia vivo lui.»
+    detta: Devo scrivergli io o aspettare che si faccia vivo lui?
+ 5. volume 100, voce sentita -16 dB, frasi 1: «Il mio compagno mi tradisce»
+    detta: Il mio compagno mi tradisce?
+ 6. volume  90, voce sentita -31.5 dB, frasi 1: «Vorrei sapere se lui mi ama ancora.»
+    detta: Perché non ho più desiderio con la persona che ho accanto?
+ 7. volume 100, voce sentita -23 dB, frasi 1: «Troverò l'amore quest'anno?»
+    detta: Troverò l'amore quest'anno?
+ 8. volume  90, voce sentita -23 dB, frasi 1: «Quando incontrerò la persona giusta?»
+    detta: Quando incontrerò la persona giusta?
+ 9. volume 100, voce sentita -23.0 dB, frasi 1: «Sono innamorata di due persone, chi devo scegliere?»
+    detta: Sono innamorata di due persone: chi devo scegliere?
+10. volume  90, voce sentita -26 dB, frasi 1: «Perché attiro sempre persone che mi fanno soffrire?»
+    detta: Perché attiro sempre persone che mi fanno soffrire?
+11. volume 100, voce sentita -27 dB, frasi 1: «È giusto che lo sposi»
+    detta: È giusto che lo sposi?
+12. volume  90, voce sentita -25.5 dB, frasi 1: «Mi sento sola anche in coppia. Che cosa mi manca?»
+    detta: Mi sento sola anche in coppia: che cosa mi manca?
+13. volume 100, voce sentita -23.0 dB, frasi 1: «Mia madre non accetta la persona che amo. Come faccio?»
+    detta: Mia madre non accetta la persona che amo: come faccio?
+14. volume  90, voce sentita -35.0 dB, frasi 1: «Riuscirò ad avere un figlio?»
+    detta: Riuscirò ad avere un figlio?
+15. volume 100, voce sentita -24.5 dB, frasi 1: «Posso fidarmi di nuovo dopo un tradimento?»
+    detta: Posso fidarmi di nuovo dopo un tradimento?
+16. volume  90, voce sentita -28 dB, frasi 1: «Mi piacciono. Mi guarda sempre, ma non mi dice niente.»
+    detta: Gli piaccio? Mi guarda sempre ma non mi dice niente.
+17. volume 100, voce sentita -23 dB, frasi 1: «Come faccio a dimenticare chi mi ha lasciata?»
+    detta: Come faccio a dimenticare chi mi ha lasciata?
+18. volume  90, voce sentita -26.0 dB, frasi 1: «Sono felice nella mia relazione o mi sto accontentando?»
+    detta: Sono felice nella mia relazione o mi sto accontentando?
+19. volume 100, voce sentita -23 dB, frasi 1: «Quando cambierà la mia fortuna?»
+    detta: Quando cambierà la mia fortuna?
+20. volume  90, voce sentita -21.0 dB, frasi 1: «Questa settimana mi conviene giocare?»
+    detta: Questa settimana mi conviene giocare?
+
+Domande dette 20; trascritte con parole 20; tornate vuote su voce chiara (almeno -30 dB) 0; chiusure per silenzio subito dopo una domanda detta 0; chiusure per silenzio in tutta la sessione 0; turni partiti 20.
+
+Trascritte con le stesse parole (senza contare i segni): 15 su 20; diverse le domande 2, 3, 4, 6, 16.
+
+IL MICROFONO E LA VOCE DEL MAESTRO
+
+fondo della registrazione -71.9 dB, soglia del tratto forte -45.0 dB
+inizi sentiti dal telefono 20, tratti forti nella registrazione 139
+sincronia: orologio del telefono = secondi della registrazione + 45733.63 s (in ore: 12:42:13.63); coppie allineate 18, scarto fra loro da -0.18 a +0.11 s
+soglia della voce del Maestro -58.0 dB
+  saluto: finito (per tempo scaduto); riapre dopo 0.7 s; nei 6.0 s prima della domanda dopo, voce per 1.20 s, l'ultima a +3.65 s
+  risposta 1: finito (per tempo scaduto); riapre dopo 0.7 s; nei 6.0 s prima della domanda dopo, voce per 0.95 s, l'ultima a +5.65 s
+  risposta 2: finito (lo ha detto lui); riapre dopo 0.7 s; nei 5.4 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 3: finito (per tempo scaduto); riapre dopo 0.7 s; nei 5.4 s prima della domanda dopo, voce per 0.40 s, l'ultima a +4.00 s
+  risposta 4: finito (lo ha detto lui); riapre dopo 0.7 s; nei 6.0 s prima della domanda dopo, voce per 0.75 s, l'ultima a +5.30 s
+  risposta 5: finito (lo ha detto lui); riapre dopo 0.7 s; nei 6.0 s prima della domanda dopo, voce per 2.85 s, l'ultima a +5.95 s
+  risposta 6: finito (lo ha detto lui); riapre dopo 0.7 s; nei 6.0 s prima della domanda dopo, voce per 0.55 s, l'ultima a +0.80 s
+  risposta 7: finito (per tempo scaduto); riapre dopo 0.7 s; nei 6.0 s prima della domanda dopo, voce per 0.15 s, l'ultima a +2.45 s
+  risposta 8: finito (lo ha detto lui); riapre dopo 0.7 s; nei 6.0 s prima della domanda dopo, voce per 0.50 s, l'ultima a +1.00 s
+  risposta 9: finito (lo ha detto lui); riapre dopo 0.7 s; nei 6.0 s prima della domanda dopo, voce per 0.50 s, l'ultima a +0.60 s
+  risposta 10: finito (lo ha detto lui); riapre dopo 0.7 s; nei 6.0 s prima della domanda dopo, voce per 0.65 s, l'ultima a +1.10 s
+  risposta 11: finito (lo ha detto lui); riapre dopo 0.7 s; nei 6.0 s prima della domanda dopo, voce per 0.35 s, l'ultima a +0.70 s
+  risposta 12: finito (lo ha detto lui); riapre dopo 0.7 s; nei 6.0 s prima della domanda dopo, voce per 0.60 s, l'ultima a +1.35 s
+  risposta 13: finito (lo ha detto lui); riapre dopo 0.7 s; nei 6.0 s prima della domanda dopo, voce per 0.55 s, l'ultima a +1.25 s
+  risposta 14: finito (per tempo scaduto); riapre dopo 0.7 s; nei 5.8 s prima della domanda dopo, voce per 1.20 s, l'ultima a +3.05 s
+  risposta 15: finito (lo ha detto lui); riapre dopo 0.7 s; nei 5.4 s prima della domanda dopo, voce per 0.65 s, l'ultima a +1.40 s
+  risposta 16: finito (lo ha detto lui); riapre dopo 0.7 s; nei 6.0 s prima della domanda dopo, voce per 1.00 s, l'ultima a +1.35 s
+  risposta 17: finito (lo ha detto lui); riapre dopo 0.7 s; nei 4.8 s prima della domanda dopo, voce per 0.25 s, l'ultima a +0.70 s
+  risposta 18: finito (lo ha detto lui); riapre dopo 0.7 s; nei 6.0 s prima della domanda dopo, voce per 0.45 s, l'ultima a +1.00 s
+  risposta 19: finito (lo ha detto lui); riapre dopo 0.7 s; nei 6.0 s prima della domanda dopo, voce per 0.45 s, l'ultima a +1.15 s
+  risposta 20: finito (lo ha detto lui); riapre dopo 0.7 s; nei 5.7 s prima della domanda dopo, voce per 0.45 s, l'ultima a +1.10 s
+risposte con piu' di mezzo secondo di voce a microfono riaperto: 10 su 20
+
+LA VOCE CONTRO LA CHAT (ES.20)
+
+Turni 20; parole della chat 1002, ritrovate nell'ordine nella voce ritrascritta 883; turni con tutte le parole della chat nella voce 15.
+
+1. Lui mi ama davvero?
+   CHAT: Le carte e il tuo cielo leggono un amore che si sta costruendo, ma non è ancora stabile come vorresti. Il tuo ascendente in Cancro ti porta a cercare un nido, mentre il tuo Sole in Gemelli ha bisogno di stimoli continui e questo crea una tensione.   Fagli una domanda chiara domani sera, quando la Luna in Toro ti darà la fermezza per chiedere ciò che senti.
+   VOCE: L'amore che si sta costruendo, ma non è ancora stabile come vorresti. Il tuo ascendente in cancro ti porta a cercare un nido, mentre il tuo sole in gemelli ha bisogno di stimoli continui e questo crea una tensione. Fagli una domanda chiara, ma misteriosa. Ma mi ama ancora dopo tutto quello che è successo?
+   parole della chat 67, ritrovate nell'ordine nella voce 44
+   - chat «le carte e il tuo cielo leggono un» voce «l»
+   - chat «domani sera quando la luna in toro ti darà la fermezza per chiedere ciò» voce «ma misteriosa ma mi ama ancora dopo tutto quello»
+   - chat «senti» voce «è successo»
+
+2. Mi ama ancora dopo tutto quello che è successo?
+   CHAT: Nelle carte leggo che l'amore di quest'uomo per te è ancora presente, ma le vicende recenti hanno lasciato un segno che richiede chiarezza. Il Sette di Spade suggerisce che c'è qualcosa che non è stato completamente rivelato o compreso tra voi.   Prendi il tuo diario e scrivi, sotto la luce della Luna gibbosa calante, tutte le tue domande.
+   VOCE: che metterei ciò che senti. La morte di quest'uomo per te è ancora presente. Ma le vicende che richiedono pazienza. Il sette di spade suggerisce che c'è qualcosa che non è stato completamente rivelato o compreso da voi. Prendi il tuo diario e scrivi sotto la luna della luna gibbosa calante tutte le tue domande. Il mio ex tornerà da me.
+   parole della chat 61, ritrovate nell'ordine nella voce 47
+   - chat «nelle carte leggo» voce «»
+   - chat «l amore» voce «metterei ciò che senti la morte»
+   - chat «recenti hanno lasciato un segno» voce «»
+   - chat «richiede chiarezza» voce «richiedono pazienza»
+   - chat «tra» voce «da»
+   - chat «luce» voce «luna»
+
+3. Il mio ex tornerà?
+   CHAT: Le carte e il tuo cielo dicono di sì, se saprai guardare con onestà a ciò che è accaduto. Il Sette di Coppe indica che è necessario che tu sciolga prima una confusione interiore.   Osserva nel tuo cielo che cosa si muove quando Venere diventerà retrograda fra due giorni e riconosci i sentimenti che tornano a galla.
+   VOCE: Il secondo che cosa si muove quando Venere diventa retrograda fra due giorni e riconosci i movimenti
+   parole della chat 57, ritrovate nell'ordine nella voce 14
+   - chat «le carte e» voce «»
+   - chat «tuo cielo dicono di sì se saprai guardare con onestà a ciò che è accaduto il sette di coppe indica che è necessario che tu sciolga prima una confusione interiore osserva nel tuo cielo» voce «secondo»
+   - chat «diventerà» voce «diventa»
+   - chat «sentimenti che tornano a galla» voce «movimenti»
+
+4. Vorrei sapere che si faccia vivo lui?
+   CHAT: Le carte indicano che non si farà vivo lui, per ora: la sua volontà al momento è rivolta altrove e una chiamata o un gesto da parte sua non arriveranno.   Scrivi una lettera a te stessa questa sera, spiegando ciò che desideri davvero da un legame e rileggila con la Luna in Toro.
+   VOCE: il tuo cello. Che cosa si muove quando Venere diventerà retrograda fra due giorni? E riconosci i divieti che tornano a galla. Le carte che non si farà vivo lui, per ora, la sua volontà al momento è rivolta al tr ucco. Il mio compagno mi tradisce. Non ha più.
+   parole della chat 53, ritrovate nell'ordine nella voce 18
+   - chat «indicano» voce «»
+   - chat «altrove e una chiamata o un gesto da parte sua» voce «al tr ucco il mio compagno mi tradisce»
+   - chat «arriveranno scrivi una lettera a te stessa questa sera spiegando ciò che desideri davvero da un legame e rileggila con la luna in toro» voce «ha più»
+
+5. Il mio compagno mi tradisce?
+   CHAT: Le carte e il tuo cielo dicono di no, per ora: non vi è tradimento nel suo cielo, ma il tuo stato d'animo è agitato e rende difficile la chiarezza.   Prepara una tisana calda questa sera e siediti a osservare il cielo della notte, come se tu fossi una stella tra le altre.
+   VOCE: spiegando ciò che desideri davvero da un legame e rileggila con la luna in Toro. Le carte e il tuo cielo dicono di no per ora. Non vi è tradimento nel suo cielo, ma il tuo stato d'animo è agitato. Perché non più desiderio con la persona che ho accanto? Prepara una tisana calda questa sera e siediti a osservare il cielo della notte, come se tu fossi una stella tra le altre. Nelle carte leggo che
+   parole della chat 54, ritrovate nell'ordine nella voce 50
+   - chat «e rende difficile» voce «perché non più desiderio con»
+   - chat «chiarezza» voce «persona che ho accanto»
+
+6. Vorrei sapere se lui mi ama ancora?
+   CHAT: Nelle carte leggo che il suo amore per te è ancora presente, sebbene offuscato da dubbi o incertezze. Il Re di Coppe rovesciato indica una possibile difficoltà a esprimere i sentimenti, non una loro assenza.   Scrivi sul tuo diario quali sono i tuoi desideri più profondi per questo legame, in un momento di Luna in Toro.
+   VOCE: Mediti a osservare il cielo della notte, come se tu fossi una stella tra le altre. Nelle carte leggo che il suo amore per te è ancora presente, sebbene offuscato da dubbi o incertezze. Il re di coppe rovesciato indica una possibile difficoltà a esprimere i sentimenti, non una loro assenza. Scrivi sul tuo diario quali sono i tuoi desideri più profondi per questo legame in un momento di luna in Toro. Troverò l'amore quest'anno. Le carte e il tuo cielo
+   parole della chat 56, ritrovate nell'ordine nella voce 56
+
+7. Troverò l'amore quest'anno?
+   CHAT: Le carte e il tuo cielo dicono di sì, se saprai accogliere ciò che arriva senza timore del cambiamento. Il tuo numero della vita, il 4, il Costruttore, indica che stai edificando nuove basi per i tuoi legami.   Domani mattina, alla luce del Sole, pensa a un piccolo gesto di apertura verso una persona che ancora non conosci.
+   VOCE: Le carte e il tuo cielo dicono di sì, se saprai accogliere ciò che arriva senza timore del cambiamento. Il tuo numero della vita, il quattro, il costruttore, indica che stai edificando nuove basi per i tuoi legami. Domani mattina, alla luce del sole, pensa a un piccolo gesto di apertura verso una persona che ancora non conosci. Quando incontrerò la persona giusta? Le carte rispondono: non
+   parole della chat 58, ritrovate nell'ordine nella voce 58
+
+8. Quando incontrerò la persona giusta?
+   CHAT: Le carte rispondono: non prima dell'autunno, ma dopo un incontro che saprà metterti alla prova.   Prepara per la Luna in Toro di domani una lista di tre qualità irrinunciabili che cerchi in una persona.
+   VOCE: Le carte rispondono: non prima dell'autunno, ma dopo un incontro che saprà metterti alla prova. Prepara per la luna in Toro di domani una lista di tre qualità irrinunciabili che cerchi in una persona. Sono innamorata di due persone, chi devo scegliere? Le carte indicano che questa scelta non è
+   parole della chat 35, ritrovate nell'ordine nella voce 35
+
+9. Sono innamorata di due persone, chi devo scegliere?
+   CHAT: Le carte indicano che questa scelta non è una questione di chi, ma di che cosa rappresenta per te ciascuna persona. Il due di Spade suggerisce che hai bisogno di chiarezza interiore prima di agire.   Scrivi questa sera una lista di ciò che ti lega a ciascuno, poi brucia il foglio alla luce della Luna gibbosa calante.
+   VOCE: Le carte indicano che questa scelta non è una questione di chi, ma di che cosa rappresenta per te ciascuna persona. Il due di spade suggerisce che hai bisogno di chiarezza interiore prima di agire. Scrivi questa sera una lista di ciò che ti lega a ciascuno, poi brucia il foglio alla luce della luna gibbosa calante. Perché attiro sempre persone che mi fanno soffrire? Le carte e il tuo
+   parole della chat 57, ritrovate nell'ordine nella voce 57
+
+10. Perché attiro sempre persone che mi fanno soffrire?
+   CHAT: Le carte e il tuo cielo leggono che questo si lega al tuo bisogno di nutrimento emotivo, che a volte ti porta a cercare negli altri ciò che il tuo Ascendente Cancro desidera profondamente. Il Fante di Spade rovesciato indica una difficoltà a riconoscere i segnali di allarme.   Questa sera, osserva la Luna gibbosa calante.
+   VOCE: Le carte e il tuo cielo leggono che questo si lega al tuo bisogno di nutrimento emotivo che a volte ti porta a cercare negli altri ciò che il tuo ascendente Cancro desidera profondamente. Il fante di spade rovesciato indica una difficoltà a riconoscere i segnali di allarme. Questa sera osserva la luna gibbosa calante. È giusto che lo sposi. Il tuo cielo dice di sì. Se ti senti puro
+   parole della chat 55, ritrovate nell'ordine nella voce 55
+
+11. È giusto che lo sposi?
+   CHAT: Il tuo cielo dice di sì, se ti senti pronta a un legame profondo e non cerchi solo un'evasione. La Luna nel tuo segno oggi, Pesci, amplifica la tua sensibilità, chiedendoti di ascoltare la tua voce interiore.   Scrivi sul tuo diario quali sono le vere ragioni del tuo dubbio, prima che il Sole tramonti.
+   VOCE: Il tuo cielo dice di sì, se ti senti pronta a un legame profondo e non cerchi solo un'evasione. La luna nel tuo segno oggi, Pesci, amplifica la tua sensibilità, chiedendoti di ascoltare la tua voce interiore. Scrivi sul tuo diario quali sono le vere ragioni del tuo dubbio, prima che il sole tramonti. Mi sento sola anche in coppia. Che cosa mi manca? Ti manca la connessione con la tua parte più profonda.
+   parole della chat 55, ritrovate nell'ordine nella voce 55
+
+12. Mi sento sola anche in coppia. Che cosa mi manca?
+   CHAT: Ti manca la connessione con la tua parte più profonda, quella che il tuo segno lunare in Pesci cerca nella fusione emotiva. La tua solitudine è un riflesso di questo.   Questa sera, dopo il tramonto, rileggi le parole che hai scritto sul tuo diario la scorsa settimana e trova il filo che le unisce.
+   VOCE: Ti manca la connessione con la tua parte più profonda, quella che il tuo segno lunare in pesci cerca nella fusione emotiva. La tua solitudine è un riflesso di questo. Questa sera, dopo il tramonto, rileggi le parole che hai scritto sul tuo diario la scorsa settimana e trova il filo che le unisce. Mia madre non accetta la persona che amo, come faccio? Parla con tua madre da sola, prima di dirlo
+   parole della chat 54, ritrovate nell'ordine nella voce 54
+
+13. Mia madre non accetta la persona che amo. Come faccio?
+   CHAT: Parla con tua madre da sola, prima di dirlo agli altri. Il tuo ascendente in Cancro ti rende molto legata alla famiglia d'origine e il suo parere, anche se difficile da accettare, ti sta a cuore.
+   VOCE: Parla con tua madre da sola prima di dirlo agli altri. Il tuo ascendente in cancro ti rende molto legata alla famiglia d'origine e il suo parere, anche se difficile da accettare, ti sta a cuore. Riuscirò ad avere un figlio? Nelle carte leggo di sì.
+   parole della chat 37, ritrovate nell'ordine nella voce 37
+
+14. Riuscirò ad avere un figlio?
+   CHAT: Nelle carte leggo di sì, se ti darai il tempo necessario per preparare il terreno. L'Arcano dell'Imperatrice indica fertilità e creatività, ma anche la necessità di una pianificazione attenta.
+   VOCE: Nelle carte leggo di sì, se ti darai il tempo necessario per preparare il terreno. L'arcano dell'imperatrice indica fertilità e creatività, ma anche la necessità di una pianificazione attenta. Posso fidarmi di nuovo dopo un tradimento? Il tuo cielo dice di sì, ma non senza prima
+   parole della chat 31, ritrovate nell'ordine nella voce 31
+
+15. Posso fidarmi di nuovo dopo un tradimento?
+   CHAT: Il tuo cielo dice di sì, ma non senza prima aver elaborato ciò che è accaduto. Il transito di Saturno retrogrado suggerisce un tempo di riflessione e rielaborazione prima di aprire di nuovo il tuo cuore.
+   VOCE: Il tuo cielo dice di sì, ma non senza prima aver elaborato ciò che è accaduto. Il transito di Saturno retrogrado suggerisce un tempo di riflessione e rielaborazione prima di aprire di nuovo il tuo cuore. Mi piace. Mi guarda sempre, ma non mi dice niente. Le carte.
+   parole della chat 36, ritrovate nell'ordine nella voce 36
+
+16. Mi piacciono. Mi guarda sempre, ma non mi dice niente?
+   CHAT: Le carte e il tuo cielo dicono di sì, se saprai fare il primo passo con chiarezza. L'Arcano del Folle suggerisce che lui potrebbe essere incerto su come agire.   Scrivigli un messaggio semplice questa sera, chiedendogli un caffè per parlare.
+   VOCE: Le carte e il tuo cielo dicono di sì, se saprai fare il primo passo con chiarezza. L'arcano del folle suggerisce che lui potrebbe essere incerto su come agire. Scrivigli un messaggio semplice questa sera, chiedendogli un caffè per parlare. Come faccio a dimenticare chi mi ha lasciata? Per dimenticare chi ti ha lasciata, non devi forzarti.
+   parole della chat 41, ritrovate nell'ordine nella voce 41
+
+17. Come faccio a dimenticare chi mi ha lasciata?
+   CHAT: Per dimenticare chi ti ha lasciata, non devi forzare il tuo cuore, ma permettergli di elaborare il distacco. Il tuo segno solare Gemelli ti rende incline a una continua ricerca di nuovi stimoli, ma il tuo Ascendente Cancro ha bisogno di tempo per guarire.
+   VOCE: Per dimenticare chi ti ha lasciata, non devi forzare il tuo cuore, ma permettergli di elaborare il distacco. Il tuo segno solare Gemelli ti rende incline a una continua ricerca di nuovi stimoli, ma il tuo ascendente Cancro ha bisogno di tempo per guarire. Sono felice nella mia relazione o mi sto accontentando? Nelle carte leggo che questa
+   parole della chat 44, ritrovate nell'ordine nella voce 44
+
+18. Sono felice nella mia relazione o mi sto accontentando?
+   CHAT: Nelle carte leggo che questa è una domanda che ha bisogno di tempo per trovare una risposta sincera. Il Dieci di Coppe rovesciato ti invita a riflettere sulla reale profondità della tua felicità.   Osserva in te la risonanza delle parole che ti ho detto, senza cercare una risposta immediata.
+   VOCE: Nelle carte leggo che questa è una domanda che ha bisogno di tempo per trovare una risposta sincera. Il 10 di coppe rovesciato ti invita a riflettere sulla reale profondità della tua felicità. Osserva in te la risonanza delle parole che ti ho detto, senza cercare una risposta immediata. Quando cambierà la mia fortuna? Il tuo cielo dice che la fortuna cambierà.
+   parole della chat 49, ritrovate nell'ordine nella voce 49
+
+19. Quando cambierà la mia fortuna?
+   CHAT: Il tuo cielo dice che la fortuna cambierà non prima dell'autunno, dopo che avrai affrontato alcune scelte importanti nei legami. Il tuo segno dei Gemelli è adattabile, ma con l'Ascendente Cancro hai bisogno di stabilità emotiva.
+   VOCE: Il tuo cielo dice che la fortuna cambierà non prima dell'autunno, dopo che avrai affrontato alcune scelte importanti nei legami. Il tuo segno dei Gemelli è adattabile, ma con l'ascendente Cancro hai bisogno di stabilità emotiva. Questa settimana mi conviene giocare? Le carte rispondono di no, per ora.
+   parole della chat 38, ritrovate nell'ordine nella voce 38
+
+20. Questa settimana mi conviene giocare?
+   CHAT: Le carte rispondono di no, per ora: il Tre di Denari rovesciato indica che l'energia che vorresti investire nel gioco sarebbe meglio indirizzarla verso la costruzione di basi più solide. Il tuo Numero della Vita 4, il Costruttore, ti suggerisce di concentrarti sulla stabilità. Dedica del tempo questa sera a riorganizzare un piccolo spazio della tua casa, come se stessi preparando un nido.
+   VOCE: Le carte rispondono di no, per ora. Il tre di denari rovesciato indica che l'energia che vorresti investire nel gioco sarebbe meglio indirizzarla verso la costruzione di basi più solide. Il tuo numero della vita quattro, il costruttore, ti suggerisce di concentrarti sulla stabilità. Dedica del tempo questa sera a riorganizzare un piccolo spazio della tua casa, come se stessi preparando un nido.
+   parole della chat 64, ritrovate nell'ordine nella voce 64
+
+LA CHAT DOPO IL LIVE
+
+12 / ESPLORA
+
+Lui mi ama davvero?
+
+Le carte e il tuo cielo leggono un amore che si sta costruendo, ma non è ancora stabile come vorresti. Il tuo ascendente in Cancro ti porta a cercare un nido, mentre il tuo Sole in Gemelli ha bisogno di stimoli continui e questo crea una tensione. / ✦ Fagli una domanda chiara domani sera, quando la Luna in Toro ti darà la fermezza per chiedere ciò che senti.
+
+Mi ama ancora dopo tutto quello che è successo?
+
+Nelle carte leggo che l'amore di quest'uomo per te è ancora presente, ma le vicende recenti hanno lasciato un segno che richiede chiarezza. Il Sette di Spade suggerisce che c'è qualcosa che non è stato completamente rivelato o compreso tra voi. / ✦ Prendi il tuo diario e scrivi, sotto la luce della Luna gibbosa calante, tutte le tue domande.
+
+Il mio ex tornerà?
+
+Le carte e il tuo cielo dicono di sì, se saprai guardare con onestà a ciò che è accaduto. Il Sette di Coppe indica che è necessario che tu sciolga prima una confusione interiore. / ✦ Osserva nel tuo cielo che cosa si muove quando Venere diventerà retrograda fra due giorni e riconosci i sentimenti che tornano a galla.
+
+Vorrei sapere che si faccia vivo lui?
+
+Le carte indicano che non si farà vivo lui, per ora: la sua volontà al momento è rivolta altrove e una chiamata o un gesto da parte sua non arriveranno. / ✦ Scrivi una lettera a te stessa questa sera, spiegando ciò che desideri davvero da un legame e rileggila con la Luna in Toro.
+
+Il mio compagno mi tradisce?
+
+Le carte e il tuo cielo dicono di no, per ora: non vi è tradimento nel suo cielo, ma il tuo stato d'animo è agitato e rende difficile la chiarezza. / ✦ Prepara una tisana calda questa sera e siediti a osservare il cielo della notte, come se tu fossi una stella tra le altre.
+
+Vorrei sapere se lui mi ama ancora?
+
+Nelle carte leggo che il suo amore per te è ancora presente, sebbene offuscato da dubbi o incertezze. Il Re di Coppe rovesciato indica una possibile difficoltà a esprimere i sentimenti, non una loro assenza. / ✦ Scrivi sul tuo diario quali sono i tuoi desideri più profondi per questo legame, in un momento di Luna in Toro.
+
+Troverò l'amore quest'anno?
+
+Le carte e il tuo cielo dicono di sì, se saprai accogliere ciò che arriva senza timore del cambiamento. Il tuo numero della vita, il 4, il Costruttore, indica che stai edificando nuove basi per i tuoi legami. / ✦ Domani mattina, alla luce del Sole, pensa a un piccolo gesto di apertura verso una persona che ancora non conosci.
+
+Quando incontrerò la persona giusta?
+
+Le carte rispondono: non prima dell'autunno, ma dopo un incontro che saprà metterti alla prova. / ✦ Prepara per la Luna in Toro di domani una lista di tre qualità irrinunciabili che cerchi in una persona.
+
+Sono innamorata di due persone, chi devo scegliere?
+
+Le carte indicano che questa scelta non è una questione di chi, ma di che cosa rappresenta per te ciascuna persona. Il due di Spade suggerisce che hai bisogno di chiarezza interiore prima di agire. / ✦ Scrivi questa sera una lista di ciò che ti lega a ciascuno, poi brucia il foglio alla luce della Luna gibbosa calante.
+
+Perché attiro sempre persone che mi fanno soffrire?
+
+Le carte e il tuo cielo leggono che questo si lega al tuo bisogno di nutrimento emotivo, che a volte ti porta a cercare negli altri ciò che il tuo Ascendente Cancro desidera profondamente. Il Fante di Spade rovesciato indica una difficoltà a riconoscere i segnali di allarme. / ✦ Questa sera, osserva la Luna gibbosa calante.
+
+È giusto che lo sposi?
+
+Il tuo cielo dice di sì, se ti senti pronta a un legame profondo e non cerchi solo un'evasione. La Luna nel tuo segno oggi, Pesci, amplifica la tua sensibilità, chiedendoti di ascoltare la tua voce interiore. / ✦ Scrivi sul tuo diario quali sono le vere ragioni del tuo dubbio, prima che il Sole tramonti.
+
+Mi sento sola anche in coppia. Che cosa mi manca?
+
+Ti manca la connessione con la tua parte più profonda, quella che il tuo segno lunare in Pesci cerca nella fusione emotiva. La tua solitudine è un riflesso di questo. / ✦ Questa sera, dopo il tramonto, rileggi le parole che hai scritto sul tuo diario la scorsa settimana e trova il filo che le unisce.
+
+Mia madre non accetta la persona che amo. Come faccio?
+
+Parla con tua madre da sola, prima di dirlo agli altri. Il tuo ascendente in Cancro ti rende molto legata alla famiglia d'origine e il suo parere, anche se difficile da accettare, ti sta a cuore.
+
+Riuscirò ad avere un figlio?
+
+Nelle carte leggo di sì, se ti darai il tempo necessario per preparare il terreno. L'Arcano dell'Imperatrice indica fertilità e creatività, ma anche la necessità di una pianificazione attenta.
+
+Posso fidarmi di nuovo dopo un tradimento?
+
+Il tuo cielo dice di sì, ma non senza prima aver elaborato ciò che è accaduto. Il transito di Saturno retrogrado suggerisce un tempo di riflessione e rielaborazione prima di aprire di nuovo il tuo cuore.
+
+Mi piacciono. Mi guarda sempre, ma non mi dice niente?
+
+Le carte e il tuo cielo dicono di sì, se saprai fare il primo passo con chiarezza. L'Arcano del Folle suggerisce che lui potrebbe essere incerto su come agire. / ✦ Scrivigli un messaggio semplice questa sera, chiedendogli un caffè per parlare.
+
+Come faccio a dimenticare chi mi ha lasciata?
+
+Per dimenticare chi ti ha lasciata, non devi forzare il tuo cuore, ma permettergli di elaborare il distacco. Il tuo segno solare Gemelli ti rende incline a una continua ricerca di nuovi stimoli, ma il tuo Ascendente Cancro ha bisogno di tempo per guarire.
+
+Sono felice nella mia relazione o mi sto accontentando?
+
+Nelle carte leggo che questa è una domanda che ha bisogno di tempo per trovare una risposta sincera. Il Dieci di Coppe rovesciato ti invita a riflettere sulla reale profondità della tua felicità. / ✦ Osserva in te la risonanza delle parole che ti ho detto, senza cercare una risposta immediata.
+
+Quando cambierà la mia fortuna?
+
+Il tuo cielo dice che la fortuna cambierà non prima dell'autunno, dopo che avrai affrontato alcune scelte importanti nei legami. Il tuo segno dei Gemelli è adattabile, ma con l'Ascendente Cancro hai bisogno di stabilità emotiva.
+
+Questa settimana mi conviene giocare?
+
+Le carte rispondono di no, per ora: il Tre di Denari rovesciato indica che l'energia che vorresti investire nel gioco sarebbe meglio indirizzarla verso la costruzione di basi più solide. Il tuo Numero della Vita 4, il Costruttore, ti suggerisce di concentrarti sulla stabilità. / Dedica del tempo questa sera a riorganizzare un piccolo spazio della tua casa, come se stessi preparando un nido. / Oggi hai 20 confronti fra i Maestri
+
+Vai più a fondo
+
+Chiedi anche agli altri
+
+
+=== DOPO: build di prova del commit 9dbad79b, Medora, 14:40-14:54 ===
+
+LA TRASCRIZIONE (ES.22)
+
+1. volume 100, voce sentita -19.5 dB, frasi 1: «Noi mi ama davvero»
+    detta: Lui mi ama davvero?
+ 2. volume  90, voce sentita -27 dB, frasi 1: «Ma mi ama ancora, dopo tutto quello che è successo.»
+    detta: Ma mi ama ancora, dopo tutto quello che è successo?
+ 3. volume 100, voce sentita -24 dB, frasi 1: «Il mio ex tornerà»
+    detta: Il mio ex tornerà da me?
+ 4. volume  90, voce sentita -23.5 dB, frasi 1: «devo scrivergli o devo aspettare che si faccia vivo lui.»
+    detta: Devo scrivergli io o aspettare che si faccia vivo lui?
+ 5. volume 100, voce sentita -23.5 dB, frasi 1: «Il mio compagno mi tradisce»
+    detta: Il mio compagno mi tradisce?
+ 6. volume  90, voce sentita -21.0 dB, frasi 1: «perché non ho più desiderio con la persona che ho accanto.»
+    detta: Perché non ho più desiderio con la persona che ho accanto?
+ 7. volume 100, voce sentita -23 dB, frasi 1: «Troverò l'amore quest'anno?»
+    detta: Troverò l'amore quest'anno?
+ 8. volume  90, voce sentita -26 dB, frasi 1: «Quando incontrerò la persona giusta?»
+    detta: Quando incontrerò la persona giusta?
+ 9. volume 100, voce sentita -23.0 dB, frasi 1: «Sono innamorata di due persone, chi devo scegliere?»
+    detta: Sono innamorata di due persone: chi devo scegliere?
+10. volume  90, voce sentita -26 dB, frasi 1: «Perché attiro sempre persone che mi fanno soffrire?»
+    detta: Perché attiro sempre persone che mi fanno soffrire?
+11. volume 100, voce sentita -27.5 dB, frasi 1: «è giusto che lo sposi.»
+    detta: È giusto che lo sposi?
+12. volume  90, voce sentita -27.0 dB, frasi 1: «Mi sento sola anche in coppia. Che cosa mi manca?»
+    detta: Mi sento sola anche in coppia: che cosa mi manca?
+13. volume 100, voce sentita -20.5 dB, frasi 1: «Mia madre non accetta la persona che amo. Come faccio?»
+    detta: Mia madre non accetta la persona che amo: come faccio?
+14. volume  90, voce sentita -23.0 dB, frasi 1: «Riuscirò ad avere un figlio?»
+    detta: Riuscirò ad avere un figlio?
+15. volume 100, voce sentita -24 dB, frasi 1: «Posso fidarmi di nuovo dopo un tradimento?»
+    detta: Posso fidarmi di nuovo dopo un tradimento?
+16. volume  90, voce sentita -23.0 dB, frasi 1: «Mi piacciono. Mi guarda sempre, ma non mi dice niente.»
+    detta: Gli piaccio? Mi guarda sempre ma non mi dice niente.
+17. volume 100, voce sentita -21 dB, frasi 1: «Come faccio a dimenticare chi mi ha lasciata?»
+    detta: Come faccio a dimenticare chi mi ha lasciata?
+18. volume  90, voce sentita -25.0 dB, frasi 1: «Sono felice nella mia relazione o mi sto accontentando?»
+    detta: Sono felice nella mia relazione o mi sto accontentando?
+19. volume 100, voce sentita -24.0 dB, frasi 1: «Quando cambierà la mia fortuna?»
+    detta: Quando cambierà la mia fortuna?
+20. volume  90, voce sentita -21 dB, frasi 1: «Questa settimana mi conviene giocare.»
+    detta: Questa settimana mi conviene giocare?
+
+Domande dette 20; trascritte con parole 20; tornate vuote su voce chiara (almeno -30 dB) 0; chiusure per silenzio subito dopo una domanda detta 0; chiusure per silenzio in tutta la sessione 2; turni partiti 20.
+
+Trascritte con le stesse parole (senza contare i segni): 16 su 20; diverse le domande 1, 3, 4, 16.
+
+IL MICROFONO E LA VOCE DEL MAESTRO
+
+fondo della registrazione -71.3 dB, soglia del tratto forte -45.0 dB
+inizi sentiti dal telefono 21, tratti forti nella registrazione 138
+sincronia: orologio del telefono = secondi della registrazione + 52818.57 s (in ore: 14:40:18.57); coppie allineate 17, scarto fra loro da -0.19 a +0.26 s
+soglia della voce del Maestro -58.0 dB
+  saluto: finito (lo ha detto lui); riapre dopo 0.9 s; nei 6.0 s prima della domanda dopo, voce per 0.05 s, l'ultima a +4.50 s
+  risposta 1: finito (per tempo scaduto); riapre dopo 0.9 s; nei 4.2 s prima della domanda dopo, voce per 0.60 s, l'ultima a +1.40 s
+  risposta 2: finito (lo ha detto lui); riapre dopo 1.2 s; nei 4.4 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 3: finito (lo ha detto lui); riapre dopo 1.3 s; nei 5.4 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 4: finito (lo ha detto lui); riapre dopo 1.4 s; nei 3.5 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 5: finito (lo ha detto lui); riapre dopo 1.5 s; nei 3.8 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 6: finito (lo ha detto lui); riapre dopo 1.2 s; nei 5.7 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 7: finito (lo ha detto lui); riapre dopo 1.1 s; nei 4.5 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 8: finito (lo ha detto lui); riapre dopo 1.6 s; nei 4.8 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 9: finito (lo ha detto lui); riapre dopo 1.3 s; nei 6.0 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 10: finito (lo ha detto lui); riapre dopo 1.5 s; nei 6.0 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 11: finito (lo ha detto lui); riapre dopo 1.2 s; nei 4.8 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 12: finito (lo ha detto lui); riapre dopo 1.1 s; nei 6.0 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 13: finito (lo ha detto lui); riapre dopo 1.1 s; nei 4.1 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 14: finito (lo ha detto lui); riapre dopo 1.1 s; nei 4.5 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 15: finito (lo ha detto lui); riapre dopo 1.7 s; nei 4.1 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 16: finito (lo ha detto lui); riapre dopo 1.6 s; nei 4.8 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 17: finito (per tempo scaduto); riapre dopo 0.9 s; nei 4.4 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 18: finito (lo ha detto lui); riapre dopo 1.0 s; nei 6.0 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 19: finito (lo ha detto lui); riapre dopo 1.5 s; nei 0.3 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 20: finito (lo ha detto lui); riapre dopo 1.1 s; nei 4.1 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+  risposta 21: finito (per tempo scaduto); riapre dopo 2.8 s; nei 6.0 s prima della domanda dopo, voce per 0.00 s, l'ultima a +0.00 s
+risposte con piu' di mezzo secondo di voce a microfono riaperto: 1 su 21
+
+LA VOCE CONTRO LA CHAT (ES.20)
+
+Turni 20; parole della chat 1286, ritrovate nell'ordine nella voce ritrascritta 865; turni con tutte le parole della chat nella voce 4.
+
+1. Noi mi ama davvero?
+   CHAT: Le carte e il tuo cielo dicono che l'amore è presente, ma è un amore che chiede chiarezza, soprattutto nel cuore del suo Gemelli. La luna in Pesci, la tua luna di nascita, ti porta a percepire molto, ma a volte a confondere i desideri con la realtà.   Scrivi su un foglio i tuoi dubbi, oggi che la Luna è gibbosa calante.
+   VOCE: Le carte e il tuo cielo dicono che l'amore è presente, ma è un amore che chiede chiarezza, soprattutto nel cuore del suo Gemelli. La luna in Pesci, la tua luna di nascita ti porta a percepire molto, ma a volte a confondere i desideri con la realtà. Scrivi su un foglio i tuoi dubbi, oggi che la luna è in fase calante. Ma mi ama ancora dopo tutto quello che è successo? Le carte e il tuo cielo dicono
+   parole della chat 63, ritrovate nell'ordine nella voce 62
+   - chat «gibbosa» voce «in fase»
+
+2. Ma mi ama ancora, dopo tutto quello che è successo?
+   CHAT: Le carte e il tuo cielo dicono di sì, a patto che ci sia spazio per una nuova comprensione tra voi. Il tuo segno lunare in Pesci ti rende sensibile alle ferite passate, ma è tempo di guardare avanti.   Trova il momento giusto per un confronto sincero, magari quando la Luna si farà nuova.
+   VOCE: Le carte e il tuo cielo dicono di sì, a patto che ci sia spazio per una nuova comprensione tra voi. Il tuo segno lunare in Pesci ti rende sensibile alle ferite passate, ma è tempo di guardare avanti. Trova il momento giusto per un confronto sincero, magari quando la luna si farà nuova. Il mio ex tornerà da me? Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura
+   parole della chat 54, ritrovate nell'ordine nella voce 54
+
+3. Il mio ex tornerà?
+   CHAT: Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.  Le carte e il tuo cielo dicono di sì, se saprai guardare con onestà a ciò che è accaduto. Il Sette di Coppe indica che è necessario che tu sciolga prima una confusione interiore.   Osserva nel tuo cielo che cosa si muove quando Venere diventerà retrograda fra due giorni e riconosci i sentimenti che tornano a galla.
+   VOCE: Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. Osserva nel tuo cielo che cosa si muove quando Venere diventerà retrograda fra due giorni e riconosci i sentimenti che tornano a galla. Devo scrivergli io o aspettare che si faccia vivo lui? Le carte rispondono che è il momento di scrivergli tu, ma con un
+   parole della chat 75, ritrovate nell'ordine nella voce 41
+   - chat «le carte e il tuo cielo dicono di sì se saprai guardare con onestà a ciò che è accaduto il sette di coppe indica che è necessario che tu sciolga prima una confusione interiore» voce «»
+
+4. devo scrivergli o devo aspettare che si faccia vivo lui?
+   CHAT: Le carte rispondono che è il momento di scrivergli tu, ma con un messaggio che esprima la tua chiara intenzione. Questo transito di Saturno retrogrado in Ariete ti chiede di agire con ponderazione, ma di non rimanere inattiva.   Prima che Venere diventi retrograda fra due giorni, scrivi un breve messaggio, sincero e non accusatorio.
+   VOCE: Le carte rispondono che è il momento di scrivergli tu, ma con un messaggio che esprima la tua chiara intenzione. Questo transito di Saturno retrogrado in Ariete ti chiede di agire con ponderazione, ma di non rimanere inattiva. Prima che Venere diventi retrograda fra due giorni, scrivi un breve messaggio, sincero e non accusatorio. Il mio compagno mi tradisce. Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura
+   parole della chat 54, ritrovate nell'ordine nella voce 54
+
+5. Il mio compagno mi tradisce?
+   CHAT: Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.  Le carte e il tuo cielo dicono di no, per ora: non vi è tradimento nel suo cielo, ma il tuo stato d'animo è agitato e rende difficile la chiarezza.   Prepara una tisana calda questa sera e siediti a osservare il cielo della notte, come se tu fossi una stella tra le altre.
+   VOCE: Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. Prepara una tisana calda questa sera e siediti a osservare il cielo della notte, come se tu fossi una stella tra le altre. Perché non ho più desiderio con la persona che ho accanto. Il tuo cielo e le carte indicano che la relazione sta vivendo una fase
+   parole della chat 72, ritrovate nell'ordine nella voce 41
+   - chat «le carte e il tuo cielo dicono di no per ora non vi è tradimento nel suo cielo ma il tuo stato d animo è agitato e rende difficile la chiarezza» voce «»
+
+6. perché non ho più desiderio con la persona che ho accanto?
+   CHAT: Il tuo cielo e le carte indicano che la relazione sta vivendo una fase di trasformazione interna, che si riflette nel desiderio. Non è una mancanza definitiva, ma un richiamo a esplorare nuove profondità nel legame.   Proponi una serata da trascorrere insieme, con il tuo compagno, sotto il cielo stellato di una notte vicina.
+   VOCE: Il tuo cielo e le carte indicano che la relazione sta vivendo una fase di trasformazione interna che si riflette nel desiderio. Non è una mancanza definitiva, ma un richiamo a esplorare nuove profondità nel legame. Proponi una serata da trascorrere insieme con il tuo compagno sotto il cielo stellato di una notte vicina. Troverò l'amore quest'anno? Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura
+   parole della chat 54, ritrovate nell'ordine nella voce 54
+
+7. Troverò l'amore quest'anno?
+   CHAT: Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.  Le carte e il tuo cielo dicono di sì, se saprai accogliere ciò che arriva senza timore del cambiamento. Il tuo numero della vita, il 4, il Costruttore, indica che stai edificando nuove basi per i tuoi legami.   Domani mattina, alla luce del Sole, pensa a un piccolo gesto di apertura verso una persona che ancora non conosci.
+   VOCE: Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. Domani mattina, alla luce del sole, pensa a un piccolo gesto di apertura verso una persona che ancora non conosci. Quando incontrerò la persona giusta? Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura
+   parole della chat 76, ritrovate nell'ordine nella voce 38
+   - chat «le carte e il tuo cielo dicono di sì se saprai accogliere ciò che arriva senza timore del cambiamento il tuo numero della vita il 4 il costruttore indica che stai edificando nuove basi per i tuoi legami» voce «»
+
+8. Quando incontrerò la persona giusta?
+   CHAT: Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.  Le carte rispondono: non prima dell'autunno, ma dopo un incontro che saprà metterti alla prova.   Prepara per la Luna in Toro di domani una lista di tre qualità irrinunciabili che cerchi in una persona.
+   VOCE: Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. Prepara per la luna in Toro di domani una lista di tre qualità irrinunciabili che cerchi in una persona. Sono innamorata di due persone, chi devo scegliere? Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La
+   parole della chat 53, ritrovate nell'ordine nella voce 37
+   - chat «le carte rispondono non prima dell autunno ma dopo un incontro che saprà metterti alla prova» voce «»
+
+9. Sono innamorata di due persone, chi devo scegliere?
+   CHAT: Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.  Le carte indicano che questa scelta non è una questione di chi, ma di che cosa rappresenta per te ciascuna persona. Il due di Spade suggerisce che hai bisogno di chiarezza interiore prima di agire.   Scrivi questa sera una lista di ciò che ti lega a ciascuno, poi brucia il foglio alla luce della Luna gibbosa calante.
+   VOCE: Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. Scrivi questa sera una lista di ciò che ti lega a ciascuno. Poi brucia il foglio alla luce della luna gibbosa calante. Perché attiro sempre persone che mi fanno soffrire? Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura
+   parole della chat 75, ritrovate nell'ordine nella voce 40
+   - chat «le carte indicano che questa scelta non è una questione di chi ma di che cosa rappresenta per te ciascuna persona il due di spade suggerisce che hai bisogno di chiarezza interiore prima di agire» voce «»
+
+10. Perché attiro sempre persone che mi fanno soffrire?
+   CHAT: Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.  Le carte e il tuo cielo leggono che questo si lega al tuo bisogno di nutrimento emotivo, che a volte ti porta a cercare negli altri ciò che il tuo Ascendente Cancro desidera profondamente. Il Fante di Spade rovesciato indica una difficoltà a riconoscere i segnali di allarme.   Questa sera, osserva la Luna gibbosa calante.
+   VOCE: Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. Questa sera osserva la luna gibbosa calante. È giusto che lo sposi. Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura
+   parole della chat 73, ritrovate nell'ordine nella voce 25
+   - chat «le carte e il tuo cielo leggono che questo si lega al tuo bisogno di nutrimento emotivo che a volte ti porta a cercare negli altri ciò che il tuo ascendente cancro desidera profondamente il fante di spade rovesciato indica una difficoltà a riconoscere i segnali di allarme» voce «»
+
+11. è giusto che lo sposi?
+   CHAT: Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.  Il tuo cielo dice di sì, se ti senti pronta a un legame profondo e non cerchi solo un'evasione. La Luna nel tuo segno oggi, Pesci, amplifica la tua sensibilità, chiedendoti di ascoltare la tua voce interiore.   Scrivi sul tuo diario quali sono le vere ragioni del tuo dubbio, prima che il Sole tramonti.
+   VOCE: Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. Scrivi sul tuo diario quali sono le vere ragioni del tuo dubbio prima che il sole tramonti. Mi sento sola anche in coppia. Che cosa mi manca? Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura
+   parole della chat 73, ritrovate nell'ordine nella voce 35
+   - chat «il tuo cielo dice di sì se ti senti pronta a un legame profondo e non cerchi solo un evasione la luna nel tuo segno oggi pesci amplifica la tua sensibilità chiedendoti di ascoltare la tua voce interiore» voce «»
+
+12. Mi sento sola anche in coppia. Che cosa mi manca?
+   CHAT: Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.  Ti manca la connessione con la tua parte più profonda, quella che il tuo segno lunare in Pesci cerca nella fusione emotiva. La tua solitudine è un riflesso di questo.   Questa sera, dopo il tramonto, rileggi le parole che hai scritto sul tuo diario la scorsa settimana e trova il filo che le unisce.
+   VOCE: Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. Ti manca la connessione con la tua parte più profonda, quella che il tuo segno lunare in Pesci cerca nella fusione emotiva. Questa sera, dopo il tramonto, rileggi le parole che hai scritto sul tuo diario la scorsa settimana e trova il filo che le unisce. Mia madre non accetta la persona che amo, come faccio? Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura
+   parole della chat 72, ritrovate nell'ordine nella voce 64
+   - chat «la tua solitudine è un riflesso di questo» voce «»
+
+13. Mia madre non accetta la persona che amo. Come faccio?
+   CHAT: Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.  Parla con tua madre da sola, prima di dirlo agli altri. Il tuo ascendente in Cancro ti rende molto legata alla famiglia d'origine e il suo parere, anche se difficile da accettare, ti sta a cuore.
+   VOCE: Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. Parla con tua madre da sola prima di dirlo agli altri. Il tuo ascendente in cancro ti rende molto legata alla famiglia d'origine e il suo parere, anche se è difficile da accettare, ti sta a cuore. Riuscirò ad avere un figlio? Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura
+   parole della chat 55, ritrovate nell'ordine nella voce 55
+
+14. Riuscirò ad avere un figlio?
+   CHAT: Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.  Nelle carte leggo di sì, se ti darai il tempo necessario per preparare il terreno. L'Arcano dell'Imperatrice indica fertilità e creatività, ma anche la necessità di una pianificazione attenta.
+   VOCE: Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. Nelle carte leggo di sì, se ti darai il tempo necessario per preparare il terreno. Posso fidarmi di nuovo dopo un tradimento? Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura
+   parole della chat 49, ritrovate nell'ordine nella voce 35
+   - chat «arcano dell imperatrice indica fertilità e creatività ma anche» voce «hai già chiesto oggi il cielo non si è mosso da allora»
+   - chat «necessità di una pianificazione attenta» voce «lettura»
+
+15. Posso fidarmi di nuovo dopo un tradimento?
+   CHAT: Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.  Il tuo cielo dice di sì, ma non senza prima aver elaborato ciò che è accaduto. Il transito di Saturno retrogrado suggerisce un tempo di riflessione e rielaborazione prima di aprire di nuovo il tuo cuore.
+   VOCE: Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. Il tuo cielo dice di sì, ma non senza prima aver elaborato ciò che è accaduto. Mi piace. Mi guarda sempre, ma non mi dice niente. Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura
+   parole della chat 54, ritrovate nell'ordine nella voce 35
+   - chat «transito di saturno retrogrado suggerisce un tempo di riflessione e rielaborazione prima di aprire di nuovo il tuo cuore» voce «cielo non si è mosso da allora la lettura»
+
+16. Mi piacciono. Mi guarda sempre, ma non mi dice niente?
+   CHAT: Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.  Le carte e il tuo cielo dicono di sì, se saprai fare il primo passo con chiarezza. L'Arcano del Folle suggerisce che lui potrebbe essere incerto su come agire.   Scrivigli un messaggio semplice questa sera, chiedendogli un caffè per parlare.
+   VOCE: Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. Le carte e il tuo cielo dicono di sì, se saprai fare il primo passo con chiarezza. Scrivigli un messaggio semplice questa sera, chiedendogli un caffè per parlare. Come faccio a dimenticare chi mi ha lasciata? Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura
+   parole della chat 59, ritrovate nell'ordine nella voce 46
+   - chat «l arcano del folle suggerisce che lui potrebbe essere incerto su come agire» voce «»
+
+17. Come faccio a dimenticare chi mi ha lasciata?
+   CHAT: Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.  Per dimenticare chi ti ha lasciata, non devi forzare il tuo cuore, ma permettergli di elaborare il distacco. Il tuo segno solare Gemelli ti rende incline a una continua ricerca di nuovi stimoli, ma il tuo Ascendente Cancro ha bisogno di tempo per guarire.
+   VOCE: Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. Per dimenticare chi ti ha lasciata, non devi forzare il tuo cuore, ma permettergli di elaborare il distacco. Sono felice nella mia relazione o mi sto accontentando? Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La let
+   parole della chat 62, ritrovate nell'ordine nella voce 37
+   - chat «tuo segno solare gemelli ti rende incline a una continua ricerca di nuovi stimoli ma il tuo ascendente cancro ha bisogno di tempo per guarire» voce «cielo non si è mosso da allora la let»
+
+18. Sono felice nella mia relazione o mi sto accontentando?
+   CHAT: Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.  Nelle carte leggo che questa è una domanda che ha bisogno di tempo per trovare una risposta sincera. Il Dieci di Coppe rovesciato ti invita a riflettere sulla reale profondità della tua felicità.   Osserva in te la risonanza delle parole che ti ho detto, senza cercare una risposta immediata.
+   VOCE: Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. Osserva in te la risonanza delle parole che ti ho detto, senza cercare una risposta immediata. Eccomi. Il cielo ascolta con me. Dimmi cosa ti porta qui. Quando cambierà la mia fortuna? Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. Il tuo cielo dice che la fortuna cambierà non prima dell'autunno, dopo che avrai affrontato alcune scelte importanti nei legami. Questa settimana mi conviene giocare? Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. Dedica del tempo questa sera a riorganizzare un piccolo spazio della tua casa.
+   parole della chat 67, ritrovate nell'ordine nella voce 34
+   - chat «nelle carte leggo che questa è una domanda che ha bisogno di tempo per trovare una risposta sincera il 10 di coppe rovesciato ti invita a riflettere sulla reale profondità della tua felicità» voce «»
+
+19. Quando cambierà la mia fortuna?
+   CHAT: Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.  Il tuo cielo dice che la fortuna cambierà non prima dell'autunno, dopo che avrai affrontato alcune scelte importanti nei legami. Il tuo segno dei Gemelli è adattabile, ma con l'Ascendente Cancro hai bisogno di stabilità emotiva.
+   VOCE: Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. Il tuo cielo dice che la fortuna cambierà non prima dell'autunno, dopo che avrai affrontato alcune scelte importanti nei legami. Questa settimana mi conviene giocare. Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura
+   parole della chat 56, ritrovate nell'ordine nella voce 41
+   - chat «tuo segno dei gemelli» voce «cielo non si»
+   - chat «adattabile ma con l ascendente cancro hai bisogno di stabilità emotiva» voce «mosso da allora la lettura»
+
+20. Questa settimana mi conviene giocare?
+   CHAT: Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa.  Le carte rispondono di no, per ora: il Tre di Denari rovesciato indica che l'energia che vorresti investire nel gioco sarebbe meglio indirizzarla verso la costruzione di basi più solide. Il tuo Numero della Vita 4, il Costruttore, ti suggerisce di concentrarti sulla stabilità. Dedica del tempo questa sera a riorganizzare un piccolo spazio della tua casa, come se stessi preparando un nido. Ripassa fra 3 giorni, per l'Ultimo quarto.
+   VOCE: Me l'hai già chiesto oggi. Il cielo non si è mosso da allora. La lettura resta questa. È di cal del tempo questa sera? A riorganizzare un piccolo spazio della tua casa. Come se stessi preparando un nido.
+   parole della chat 90, ritrovate nell'ordine nella voce 37
+   - chat «le carte rispondono» voce «è»
+   - chat «no per ora il tre di denari rovesciato indica che l energia che vorresti investire nel gioco sarebbe meglio indirizzarla verso la costruzione di basi più solide il tuo numero della vita 4 il costruttore ti suggerisce di concentrarti sulla stabilità dedica» voce «cal»
+   - chat «ripassa fra 3 giorni per l ultimo quarto» voce «»
+
+LA CHAT DOPO IL LIVE
+
+12 / ESPLORA
+
+Noi mi ama davvero?
+
+Le carte e il tuo cielo dicono che l'amore è presente, ma è un amore che chiede chiarezza, soprattutto nel cuore del suo Gemelli. La luna in Pesci, la tua luna di nascita, ti porta a percepire molto, ma a volte a confondere i desideri con la realtà. / ✦ Scrivi su un foglio i tuoi dubbi, oggi che la Luna è gibbosa calante.
+
+Ma mi ama ancora, dopo tutto quello che è successo?
+
+Le carte e il tuo cielo dicono di sì, a patto che ci sia spazio per una nuova comprensione tra voi. Il tuo segno lunare in Pesci ti rende sensibile alle ferite passate, ma è tempo di guardare avanti. / ✦ Trova il momento giusto per un confronto sincero, magari quando la Luna si farà nuova.
+
+Il mio ex tornerà?
+
+Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa. /  / Le carte e il tuo cielo dicono di sì, se saprai guardare con onestà a ciò che è accaduto. Il Sette di Coppe indica che è necessario che tu sciolga prima una confusione interiore. / ✦ Osserva nel tuo cielo che cosa si muove quando Venere diventerà retrograda fra due giorni e riconosci i sentimenti che tornano a galla.
+
+devo scrivergli o devo aspettare che si faccia vivo lui?
+
+Le carte rispondono che è il momento di scrivergli tu, ma con un messaggio che esprima la tua chiara intenzione. Questo transito di Saturno retrogrado in Ariete ti chiede di agire con ponderazione, ma di non rimanere inattiva. / ✦ Prima che Venere diventi retrograda fra due giorni, scrivi un breve messaggio, sincero e non accusatorio.
+
+Il mio compagno mi tradisce?
+
+Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa. /  / Le carte e il tuo cielo dicono di no, per ora: non vi è tradimento nel suo cielo, ma il tuo stato d'animo è agitato e rende difficile la chiarezza. / ✦ Prepara una tisana calda questa sera e siediti a osservare il cielo della notte, come se tu fossi una stella tra le altre.
+
+perché non ho più desiderio con la persona che ho accanto?
+
+Il tuo cielo e le carte indicano che la relazione sta vivendo una fase di trasformazione interna, che si riflette nel desiderio. Non è una mancanza definitiva, ma un richiamo a esplorare nuove profondità nel legame. / ✦ Proponi una serata da trascorrere insieme, con il tuo compagno, sotto il cielo stellato di una notte vicina.
+
+Troverò l'amore quest'anno?
+
+Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa. /  / Le carte e il tuo cielo dicono di sì, se saprai accogliere ciò che arriva senza timore del cambiamento. Il tuo numero della vita, il 4, il Costruttore, indica che stai edificando nuove basi per i tuoi legami. / ✦ Domani mattina, alla luce del Sole, pensa a un piccolo gesto di apertura verso una persona che ancora non conosci.
+
+Quando incontrerò la persona giusta?
+
+Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa. /  / Le carte rispondono: non prima dell'autunno, ma dopo un incontro che saprà metterti alla prova. / ✦ Prepara per la Luna in Toro di domani una lista di tre qualità irrinunciabili che cerchi in una persona.
+
+Sono innamorata di due persone, chi devo scegliere?
+
+Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa. /  / Le carte indicano che questa scelta non è una questione di chi, ma di che cosa rappresenta per te ciascuna persona. Il due di Spade suggerisce che hai bisogno di chiarezza interiore prima di agire. / ✦ Scrivi questa sera una lista di ciò che ti lega a ciascuno, poi brucia il foglio alla luce della Luna gibbosa calante.
+
+Perché attiro sempre persone che mi fanno soffrire?
+
+Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa. /  / Le carte e il tuo cielo leggono che questo si lega al tuo bisogno di nutrimento emotivo, che a volte ti porta a cercare negli altri ciò che il tuo Ascendente Cancro desidera profondamente. Il Fante di Spade rovesciato indica una difficoltà a riconoscere i segnali di allarme. / ✦ Questa sera, osserva la Luna gibbosa calante.
+
+è giusto che lo sposi?
+
+Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa. /  / Il tuo cielo dice di sì, se ti senti pronta a un legame profondo e non cerchi solo un'evasione. La Luna nel tuo segno oggi, Pesci, amplifica la tua sensibilità, chiedendoti di ascoltare la tua voce interiore. / ✦ Scrivi sul tuo diario quali sono le vere ragioni del tuo dubbio, prima che il Sole tramonti.
+
+Mi sento sola anche in coppia. Che cosa mi manca?
+
+Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa. /  / Ti manca la connessione con la tua parte più profonda, quella che il tuo segno lunare in Pesci cerca nella fusione emotiva. La tua solitudine è un riflesso di questo. / ✦ Questa sera, dopo il tramonto, rileggi le parole che hai scritto sul tuo diario la scorsa settimana e trova il filo che le unisce.
+
+Mia madre non accetta la persona che amo. Come faccio?
+
+Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa. /  / Parla con tua madre da sola, prima di dirlo agli altri. Il tuo ascendente in Cancro ti rende molto legata alla famiglia d'origine e il suo parere, anche se difficile da accettare, ti sta a cuore.
+
+Riuscirò ad avere un figlio?
+
+Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa. /  / Nelle carte leggo di sì, se ti darai il tempo necessario per preparare il terreno. L'Arcano dell'Imperatrice indica fertilità e creatività, ma anche la necessità di una pianificazione attenta.
+
+Posso fidarmi di nuovo dopo un tradimento?
+
+Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa. /  / Il tuo cielo dice di sì, ma non senza prima aver elaborato ciò che è accaduto. Il transito di Saturno retrogrado suggerisce un tempo di riflessione e rielaborazione prima di aprire di nuovo il tuo cuore.
+
+Mi piacciono. Mi guarda sempre, ma non mi dice niente?
+
+Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa. /  / Le carte e il tuo cielo dicono di sì, se saprai fare il primo passo con chiarezza. L'Arcano del Folle suggerisce che lui potrebbe essere incerto su come agire. / ✦ Scrivigli un messaggio semplice questa sera, chiedendogli un caffè per parlare.
+
+Come faccio a dimenticare chi mi ha lasciata?
+
+Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa. /  / Per dimenticare chi ti ha lasciata, non devi forzare il tuo cuore, ma permettergli di elaborare il distacco. Il tuo segno solare Gemelli ti rende incline a una continua ricerca di nuovi stimoli, ma il tuo Ascendente Cancro ha bisogno di tempo per guarire.
+
+Sono felice nella mia relazione o mi sto accontentando?
+
+Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa. /  / Nelle carte leggo che questa è una domanda che ha bisogno di tempo per trovare una risposta sincera. Il Dieci di Coppe rovesciato ti invita a riflettere sulla reale profondità della tua felicità. / ✦ Osserva in te la risonanza delle parole che ti ho detto, senza cercare una risposta immediata.
+
+Quando cambierà la mia fortuna?
+
+Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa. /  / Il tuo cielo dice che la fortuna cambierà non prima dell'autunno, dopo che avrai affrontato alcune scelte importanti nei legami. Il tuo segno dei Gemelli è adattabile, ma con l'Ascendente Cancro hai bisogno di stabilità emotiva.
+
+Questa settimana mi conviene giocare?
+
+Me l’hai già chiesto oggi. Il cielo non si è mosso da allora: la lettura resta questa. /  / Le carte rispondono di no, per ora: il Tre di Denari rovesciato indica che l'energia che vorresti investire nel gioco sarebbe meglio indirizzarla verso la costruzione di basi più solide. Il tuo Numero della Vita 4, il Costruttore, ti suggerisce di concentrarti sulla stabilità. / Dedica del tempo questa sera a riorganizzare un piccolo spazio della tua casa, come se stessi preparando un nido. Ripassa fra 3 giorni, per l'Ultimo quarto. / Oggi hai 20 confronti fra i Maestri
+
+Vai più a fondo
+
+Chiedi anche agli altri
+

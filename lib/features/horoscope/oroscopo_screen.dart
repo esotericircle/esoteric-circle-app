@@ -111,6 +111,26 @@ enum HoroscopePeriod {
   final String label;
   final bool unlocked;
 
+  /// **COME SI DICE DOPO "OROSCOPO"**, sulla card e nel testo che la
+  /// accompagna. Ordine ES voce 05: chi montava la card scriveva "della" piu'
+  /// il nome del periodo, e per il Mese e per l'Anno sarebbe uscito "della
+  /// mese", "della anno"; non si e' mai visto perche' la card si condivideva
+  /// solo dal Giorno.
+  String get etichetta => switch (this) {
+        HoroscopePeriod.giorno => 'del giorno',
+        HoroscopePeriod.settimana => 'della settimana',
+        HoroscopePeriod.mese => 'del mese',
+        HoroscopePeriod.anno => 'dell\'anno',
+      };
+
+  /// Come si dice nel pulsante della condivisione: "Condividi la settimana".
+  String get daCondividere => switch (this) {
+        HoroscopePeriod.giorno => 'Condividi',
+        HoroscopePeriod.settimana => 'Condividi la settimana',
+        HoroscopePeriod.mese => 'Condividi il mese',
+        HoroscopePeriod.anno => 'Condividi il tuo anno',
+      };
+
   /// IL SOTTOTITOLO CHE SEGUE LA SCELTA, ordine 2171 voce 5.
   ///
   /// Diceva "del giorno" sempre, anche a chi aveva scelto la settimana o il
@@ -401,6 +421,12 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   bool _sharing = false;
   bool _renderCard = false;
 
+  /// **LE TESSERE DELLA CARD DEL PERIODO, ordine ES voce 05.** Nella
+  /// Settimana e nel Mese il giorno migliore di ogni campo, nell'Anno le
+  /// quattro schede della Rivoluzione Solare; null nel Giorno, dove la card
+  /// porta le schede del consulto. Le scrive il build.
+  List<HoroscopeCard>? _schedeDelPeriodo;
+
   /// Profondita' scelta per ogni scheda. Nel gratuito resta la profondita'
   /// libera, Breve: la Profonda e' del Cerchio Premium.
   ///
@@ -571,6 +597,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     final tema = LaRivoluzioneSolare.tema(istante, lat, lon);
     final schede = LAnnuale.schede(tema,
         forma: context.read<ProfileController>().courtesy);
+    _schedeDelPeriodo = schede;
     // L'AVVISO DEL COMPLEANNO: l'anno nuovo e' pronto all'istante del
     // prossimo ritorno. Una volta per apertura, e solo col permesso.
     if (!_avvisoDellAnno) {
@@ -598,6 +625,13 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         ),
         const SizedBox(height: SpacingTokens.md),
       ],
+      // LA CARD DELL'ANNO, col suo emblema (ordine ES voce 05).
+      _CondividiIlPeriodo(
+          periodo: HoroscopePeriod.anno,
+          palette: palette,
+          sharing: _sharing,
+          onShare: _onShare),
+      const SizedBox(height: SpacingTokens.sm),
       // IL PDF DELL'ANNO, all'Illuminato (l'annuale approvato dal fondatore).
       if (tier.level >= Tier.tier3.level)
         OutlinedButton(
@@ -757,6 +791,14 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     _segnoCondiviso = schedeAltre != null
         ? '${segnoInCima!.nome} nella tradizione $aggettivo'
         : widget.userSign.italianName;
+    // La card del periodo: l'anno la scrive `_lAnno`, quando e' aperto.
+    final periodoAVideo = _inCima == AstroTradition.occidentale &&
+        (_period == HoroscopePeriod.settimana ||
+            _period == HoroscopePeriod.mese);
+    _schedeDelPeriodo = periodoAVideo
+        ? LaSettimanaDelCielo.tessere(_periodoDelCielo(
+            context.watch<BirthIdentityController>().cartaCompleta))
+        : null;
     final cards = schedeAltre ??
         Horoscope.forSign(
             sign: widget.userSign,
@@ -955,6 +997,16 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                           palette: palette,
                           livello: cielo.livello,
                         ),
+                      // LA CARD DELLA SETTIMANA E DEL MESE, col loro emblema
+                      // (ordine ES voce 05).
+                      if (periodoAVideo) ...[
+                        const SizedBox(height: SpacingTokens.md),
+                        _CondividiIlPeriodo(
+                            periodo: _period,
+                            palette: palette,
+                            sharing: _sharing,
+                            onShare: _onShare),
+                      ],
                       // L'ANNO DAL COMPLEANNO, ordine ES voce 04.
                       if (_inCima == AstroTradition.occidentale &&
                           _period == HoroscopePeriod.anno)
@@ -1255,7 +1307,16 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                         key: _cardKey,
                         child: OroscopoShareCard(
                           sign: widget.userSign,
-                          cards: cards,
+                          // Nel Giorno le schede del consulto; negli altri
+                          // periodi le loro tessere (ordine ES voce 05).
+                          cards: _period == HoroscopePeriod.giorno
+                              ? cards
+                              : (_schedeDelPeriodo ?? cards),
+                          titoloDelleTessere:
+                              _period == HoroscopePeriod.settimana ||
+                                      _period == HoroscopePeriod.mese
+                                  ? 'Il giorno migliore di ogni campo'
+                                  : null,
                           palette: palette,
                           // Il segno della lettura cinese, ordine ES voce 08.
                           nomeDelSegno:
@@ -1267,9 +1328,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                           // Ordine ES voci 05 e 13: l'emblema del periodo,
                           // il nome senza cognome e i dati di nascita.
                           periodo: _period.name,
-                          etichettaDelPeriodo: _period.label == 'Giorno'
-                              ? 'del giorno'
-                              : 'della ${_period.label.toLowerCase()}',
+                          etichettaDelPeriodo: _period.etichetta,
                           nome: OroscopoShareCard.soloIlNome(
                               profile.profile.displayName),
                           nascita: profile.identity.isExample
@@ -1464,7 +1523,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       await Future<void>.delayed(const Duration(milliseconds: 80));
       final andata = await shareOroscopoCard(
         boundaryKey: _cardKey,
-        text: 'Il mio oroscopo di oggi, $_segnoCondiviso. Esoteric Circle.',
+        text: _period == HoroscopePeriod.giorno
+            ? 'Il mio oroscopo di oggi, $_segnoCondiviso. Esoteric Circle.'
+            : 'Il mio oroscopo ${_period.etichetta}, $_segnoCondiviso. '
+                'Esoteric Circle.',
       );
       if (andata && mounted) {
         // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
@@ -2949,6 +3011,46 @@ class _ShareBlock extends StatelessWidget {
           aperturaDellaChat: ChatOpeners.oroscopo(segno),
         ),
       ],
+    );
+  }
+}
+
+/// **IL PULSANTE CHE CONDIVIDE LA CARD DEL PERIODO, ordine ES voce 05.** Il
+/// fondatore ha fatto un emblema per la Settimana, uno per il Mese e uno per
+/// l'Anno, e la card da condividere li porta in testa; ma il gesto per
+/// condividere c'era solo sotto il consulto del Giorno, e quegli emblemi non
+/// li vedeva nessuno (visto il 30 settembre 2026, cercando sul Realme la card
+/// di un periodo).
+class _CondividiIlPeriodo extends StatelessWidget {
+  const _CondividiIlPeriodo({
+    required this.periodo,
+    required this.palette,
+    required this.sharing,
+    required this.onShare,
+  });
+
+  final HoroscopePeriod periodo;
+  final MaestroPalette palette;
+  final bool sharing;
+  final Future<bool> Function() onShare;
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton.icon(
+      key: Key('oroscopo_condividi_${periodo.name}'),
+      style: OutlinedButton.styleFrom(
+        minimumSize: const Size(0, 44),
+        side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+      ),
+      onPressed: sharing ? null : () => unawaited(onShare()),
+      icon: Icon(Icons.ios_share_rounded, size: 18, color: palette.goldSoft),
+      label: Text(
+          PremioDellaCondivisione.etichetta(context,
+              base: periodo.daCondividere),
+          maxLines: 1,
+          softWrap: false,
+          overflow: TextOverflow.fade,
+          style: TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
     );
   }
 }

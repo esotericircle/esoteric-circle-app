@@ -103,6 +103,27 @@ abstract final class LaSettimanaDelCielo {
   ];
 
   /// "giovedì 2 ottobre"
+  /// **LE QUATTRO TESSERE DELLA CARD DEL PERIODO, ordine ES voce 05.** La
+  /// card da condividere della Settimana e del Mese: per ogni campo il suo
+  /// giorno migliore col livello, e in evidenza il momento chiave del
+  /// Generale. Sono fatti gia' calcolati per la schermata, non un testo in
+  /// piu'.
+  static List<HoroscopeCard> tessere(IlPeriodoDelCielo periodo) {
+    final generale =
+        periodo.domini.firstWhere((d) => d.dominio == HoroscopeDomain.generale);
+    final chiave = 'Il momento chiave: ${generale.momentoChiave}';
+    return [
+      for (final d in periodo.domini)
+        HoroscopeCard(
+          domain: d.dominio,
+          title: data(d.migliore.giorno),
+          text: chiave,
+          synthesis: chiave,
+          indicator: d.migliore.livello.clamp(2, 5),
+        ),
+    ];
+  }
+
   static String data(DateTime g) {
     final l = g.isUtc ? g.toLocal() : g;
     return '${giorniDellaSettimana[l.weekday - 1]} ${l.day} ${mesi[l.month - 1]}';

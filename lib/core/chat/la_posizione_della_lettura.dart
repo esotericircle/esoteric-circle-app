@@ -199,11 +199,20 @@ abstract final class LaPosizioneDellaLettura {
       // quarto giro e di 11 nel quinto, per tutti e tre i Maestri. Padre:
       // questa voce, quarto giro, commit 9e48605d. Gli esempi adesso hanno i
       // puntini al posto del tempo, e al modello si dice che giorno e' oggi.
+      // **E IL CIELO NON SI INVENTA.** Al settimo giro del banco, chiesto il
+      // tempo, due prime frasi su 24 lo prendevano da un passaggio che non
+      // esiste (*"quando Giove si sposterà in Bilancia"*, *"con la Luna nuova
+      // nel tuo Segno Solare in Leone"*, a fine settembre 2026): il tempo e'
+      // un numero di settimane o di mesi, o un evento che l'app ha calcolato
+      // e dato al Maestro.
       TipoDellaDomanda.quando =>
         'e nomina un tempo che viene dopo oggi${_oggiDetto(oggi)}, preso da '
-            'ciò che la tua arte legge per questa persona: un passaggio o una '
-            'data fra gli eventi in arrivo che conosci, oppure fra quante '
-            'settimane o quanti mesi. Se prima deve accadere un fatto, lo '
+            'ciò che la tua arte legge per questa persona: fra quante '
+            'settimane o quanti mesi, oppure uno degli eventi in arrivo che ti '
+            'ho dato, con la sua data. Un passaggio del cielo che non sta nei '
+            'dati che ti ho dato non lo nomini: niente ingressi, lune o '
+            'retrogradazioni di tua invenzione. Se prima deve accadere un '
+            'fatto, lo '
             'dici dopo il tempo, con chi o che cosa. Il tempo lo scegli '
             'tu per questa domanda, e lo dici come lettura, non come data '
             'certa. Per esempio: "$comincia: entro ..." oppure "$comincia: '
@@ -258,7 +267,7 @@ abstract final class LaPosizioneDellaLettura {
       TipoDellaDomanda.quando =>
         '$testa La prima frase comincia con "$comincia:" e subito dopo '
             'nomina un tempo che viene dopo oggi: fra quante settimane o '
-            'quanti mesi, o un passaggio in arrivo che conosci. Una '
+            'quanti mesi, o uno degli eventi in arrivo che ti ho dato. Una '
             'condizione dell\'animo non è un tempo: se c\'è, viene dopo il '
             'tempo. È la tua lettura, non una data certa.',
       TipoDellaDomanda.aperta =>

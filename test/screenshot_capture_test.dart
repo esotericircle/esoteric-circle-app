@@ -124,6 +124,9 @@ import 'package:esoteric_circle/features/tarot/attesa_di_medora.dart';
 import 'package:esoteric_circle/features/tarot/stesa_choreography.dart';
 import 'package:esoteric_circle/features/tarot/stesa_tre_carte_screen.dart';
 import 'package:esoteric_circle/core/amici/amici_offline.dart';
+import 'package:esoteric_circle/core/horoscope/l_annuale.dart';
+import 'package:esoteric_circle/core/horoscope/la_rivoluzione_solare.dart';
+import 'package:esoteric_circle/core/horoscope/la_settimana_del_cielo.dart';
 import 'package:esoteric_circle/features/amici/l_oroscopo_dell_amico_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_share_card.dart';
@@ -3312,7 +3315,7 @@ void main() {
             hasTime: true,
           ),
         );
-    await montaLoSchermo(tester, const Size(360, 2600));
+    await montaLoSchermo(tester, const Size(360, 4600));
     unawaited(nav.push(OroscopoScreen.route(
         userSign: Zodiac.gemini, now: DateTime(2026, 9, 30, 12))));
     await step(tester);
@@ -3683,6 +3686,85 @@ void main() {
           reason: 'la riga del cielo non e\' nella card: la composizione '
               'scelta per la voce 25 non e\' quella che l\'anteprima mostra');
       await capture(tester, rootKey, scelto.$2);
+    }
+  });
+
+  // --- LE CARD DEI PERIODI, COL LORO EMBLEMA. Ordine ES voce 05 ---
+  //
+  // La card da condividere della Settimana, del Mese e dell'Anno: in testa
+  // l'emblema del periodo, sotto il nome e la nascita, il segno, il momento
+  // chiave e il giorno migliore di ogni campo (nell'Anno le quattro schede
+  // della Rivoluzione Solare). Senza il riquadro del numero e del colore, che
+  // sono del Giorno.
+  testWidgets('Cattura le card dei periodi dell\'Oroscopo', (tester) async {
+    silenceSensors();
+    await loadFonts();
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+    await montaLoSchermo(tester, const Size(400, 1010));
+    final oggi = DateTime(2026, 9, 30, 12);
+    final nascita = DateTime.utc(1990, 6, 15, 6, 10);
+    final tema = LaRivoluzioneSolare.tema(
+        LaRivoluzioneSolare.ritornoInCorso(nascita, oggi), 41.9, 12.5);
+    for (final (periodo, etichetta, titolo, schede, file) in [
+      (
+        'settimana',
+        'della settimana',
+        'Il giorno migliore di ogni campo',
+        LaSettimanaDelCielo.tessere(LaSettimanaDelCielo.per(
+            segno: Zodiac.gemini, carta: null, oggi: oggi)),
+        'oroscopo-card-settimana.png'
+      ),
+      (
+        'mese',
+        'del mese',
+        'Il giorno migliore di ogni campo',
+        LaSettimanaDelCielo.tessere(LaSettimanaDelCielo.per(
+            segno: Zodiac.gemini, carta: null, oggi: oggi, giorni: 30)),
+        'oroscopo-card-mese.png'
+      ),
+      (
+        'anno',
+        'dell\'anno',
+        null,
+        LAnnuale.schede(tema, forma: CourtesyForm.unknown),
+        'oroscopo-card-anno.png'
+      ),
+    ]) {
+      final rootKey = GlobalKey();
+      await tester.pumpWidget(RepaintBoundary(
+        key: rootKey,
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Scaffold(
+            backgroundColor: const Color(0xFF0A0E24),
+            body: Center(
+              child: SingleChildScrollView(
+                child: OroscopoShareCard(
+                  sign: Zodiac.gemini,
+                  cards: schede,
+                  palette: palette,
+                  periodo: periodo,
+                  etichettaDelPeriodo: etichetta,
+                  titoloDelleTessere: titolo,
+                  nome: 'Sofia',
+                  nascita: OroscopoShareCard.laNascitaScritta(
+                      DateTime(1990, 6, 15),
+                      ora: 8,
+                      minuto: 10,
+                      luogo: 'Roma'),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ));
+      await tester.pumpAndSettle();
+      await tester.runAsync(() async => precacheImage(
+          AssetImage(ZodiacArt.emblemPath(Zodiac.gemini)),
+          tester.element(find.byType(OroscopoShareCard))));
+      await tester.pumpAndSettle();
+      expect(find.byKey(Key('share_emblema_$periodo')), findsOneWidget);
+      await capture(tester, rootKey, file);
     }
   });
 

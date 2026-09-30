@@ -68,7 +68,13 @@ class OroscopoShareCard extends StatelessWidget {
     this.nascita,
     this.nomeDelSegno,
     this.figuraDelSegno,
+    this.titoloDelleTessere,
   });
+
+  /// La riga sopra le quattro tessere, quando non dicono il giorno: nella
+  /// Settimana e nel Mese "Il giorno migliore di ogni campo" (ordine ES voce
+  /// 05). Null sul Giorno e sull'Anno, dove le tessere portano il loro titolo.
+  final String? titoloDelleTessere;
 
   final Zodiac sign;
   final List<HoroscopeCard> cards;
@@ -272,6 +278,14 @@ class OroscopoShareCard extends StatelessWidget {
               ),
             ],
             const SizedBox(height: SpacingTokens.md),
+            if (titoloDelleTessere != null) ...[
+              Text(titoloDelleTessere!.toUpperCase(),
+                  key: const Key('share_titolo_delle_tessere'),
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.etichetta().copyWith(
+                      color: ColorTokens.textSecondary, letterSpacing: 1.2)),
+              const SizedBox(height: SpacingTokens.xs),
+            ],
             // Le quattro bolle, ognuna con la sua forma a tema e il livello.
             IntrinsicHeight(
               child: Row(
@@ -302,57 +316,64 @@ class OroscopoShareCard extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: SpacingTokens.md),
             // Numero e Colore: due bolle della stessa misura, col titolo sopra.
-            IntrinsicHeight(
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  // IL NUMERO AL CENTRO DEL SUO RIQUADRO, ordine ES voce
-                  // 13, come nella schermata dalla voce ES.14: la bolla di
-                  // prima teneva la cifra in alto quando la riga la stirava.
-                  Expanded(
-                    child: RiquadroDelNumero(
-                        numero: fortuna.luckyNumber ?? 0,
+            // **SOLO DOVE CI SONO**, ordine ES voce 05: la Settimana, il Mese
+            // e l'Anno non li hanno, e due riquadri con lo zero e senza
+            // colore direbbero una cosa che non c'e'.
+            if (fortuna.luckyNumber != null ||
+                fortuna.numeriDelGiorno != null ||
+                fortuna.dayColor != null) ...[
+              const SizedBox(height: SpacingTokens.md),
+              IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    // IL NUMERO AL CENTRO DEL SUO RIQUADRO, ordine ES voce
+                    // 13, come nella schermata dalla voce ES.14: la bolla di
+                    // prima teneva la cifra in alto quando la riga la stirava.
+                    Expanded(
+                      child: RiquadroDelNumero(
+                          numero: fortuna.luckyNumber ?? 0,
+                          palette: palette,
+                          etichetta: fortuna.numeriDelGiorno == null
+                              ? 'Numero'
+                              : 'Numeri',
+                          cifre: fortuna.numeriDelGiorno?.join(' e ')),
+                    ),
+                    const SizedBox(width: SpacingTokens.sm),
+                    Expanded(
+                      child: _InfoBubble(
+                        label: 'Colore',
                         palette: palette,
-                        etichetta: fortuna.numeriDelGiorno == null
-                            ? 'Numero'
-                            : 'Numeri',
-                        cifre: fortuna.numeriDelGiorno?.join(' e ')),
-                  ),
-                  const SizedBox(width: SpacingTokens.sm),
-                  Expanded(
-                    child: _InfoBubble(
-                      label: 'Colore',
-                      palette: palette,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 14,
-                            height: 14,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: oroscopoColor(fortuna.dayColor) ??
-                                  palette.goldSoft,
-                              border: Border.all(
-                                  color: palette.gold.withValues(alpha: 0.6)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 14,
+                              height: 14,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: oroscopoColor(fortuna.dayColor) ??
+                                    palette.goldSoft,
+                                border: Border.all(
+                                    color: palette.gold.withValues(alpha: 0.6)),
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 5),
-                          Flexible(
-                            child: Text(fortuna.dayColor ?? '',
-                                maxLines: 1,
-                                style: TypographyTokens.didascalia()
-                                    .copyWith(color: ColorTokens.textPrimary)),
-                          ),
-                        ],
+                            const SizedBox(width: 5),
+                            Flexible(
+                              child: Text(fortuna.dayColor ?? '',
+                                  maxLines: 1,
+                                  style: TypographyTokens.didascalia().copyWith(
+                                      color: ColorTokens.textPrimary)),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
+            ],
             const SizedBox(height: SpacingTokens.md),
             // Marchio: il logo vero se c'e', altrimenti il sigillo provvisorio.
             const Center(child: BrandLogo(size: 42)),

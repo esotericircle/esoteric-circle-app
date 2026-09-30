@@ -460,6 +460,13 @@ void main() {
         Maestro.medora, 'Quando cambierà la mia fortuna?',
         oggi: DateTime(2026, 9, 30));
     expect(conOggi, contains('dopo oggi, che è il 30 settembre 2026'));
+    // E il cielo non si inventa: al settimo giro del banco due prime frasi
+    // su 24 prendevano il tempo da un passaggio che non esiste.
+    expect(conOggi, contains('uno degli eventi in arrivo che ti ho dato'));
+    expect(
+        conOggi,
+        contains('niente ingressi, lune o retrogradazioni di tua '
+            'invenzione'));
     // E l'istruzione intera lo passa: senza, il modello non sa che giorno e'.
     final persona =
         File('lib/services/ai/maestro_persona.dart').readAsStringSync();
