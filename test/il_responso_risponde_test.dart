@@ -148,9 +148,11 @@ void main() {
         // Ordine ER voce 15, dal banco del 27 settembre sera: la scrittura
         // si scarta anche senza scritture prima.
         MotivoDelloScarto.chiedeDiScrivere: LeGuardieDelResponso.leggi(
-            {'azione': 'Domani mattina scrivi su un foglio tre desideri.'},
-            domanda: domanda,
-            forma: neutra).scarti.single.motivo,
+                {'azione': 'Domani mattina scrivi su un foglio tre desideri.'},
+                domanda: domanda, forma: neutra)
+            .scarti
+            .single
+            .motivo,
         MotivoDelloScarto.titoloAnticipaLaScena:
             LeGuardieDelResponso.titoloToccaLaScena(
                     'La porta non è tua', const ['la porta chiusa'])
@@ -905,7 +907,12 @@ void main() {
         // tenere della casa", che adesso si scarta come prima frase che
         // rimanda la domanda. La misura resta la stessa: la parola "casa"
         // viene dalla domanda e non anticipa la scena.
-        LeGuardieDelResponso.dellaRisposta('Scegli tu cosa tenere della casa.',
+        // LAPIDE, ordine ES voce 25: la frase poi era "Scegli tu cosa tenere
+        // della casa", e i giudici alla cieca del 30 settembre chiamano
+        // "Scegli tu..." in testa alla frase una scelta rimandata; la guardia
+        // adesso la scarta. La misura resta la stessa.
+        LeGuardieDelResponso.dellaRisposta(
+            'Della casa tieni solo ciò che usi ogni giorno.',
             domanda: 'Devo vendere la casa di famiglia',
             forma: CourtesyForm.masculine,
             nomiDellaScena: const [

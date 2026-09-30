@@ -1263,7 +1263,9 @@ abstract final class LeGuardieDelResponso {
       // quelle lavora l'istruzione (`la_scena_dal_modello.dart`), che non da'
       // piu' l'esempio "Il viaggio non mostra" e chiede la condizione come un
       // passo.
-      "(?:scegli|definisci|decidi|stabilisci) tu|la tua intuizione|"
+      // La scelta rimandata e' l'imperativo in testa alla frase: *"il primo
+      // passo lo scegli tu"* prende posizione, e la suite l'ha detto.
+      "^\\s*(?:scegli|definisci|decidi|stabilisci) tu|la tua intuizione|"
       "un luogo che ti|(?:se|condizione che|ma prima)[^.]*?(?:ben chiar[oa]|"
       "sai perché|non sai|coltivat[oa]|metodo diverso|le condizioni|"
       "ti aspetti))"

@@ -200,6 +200,13 @@ Nessuna: le trentasette voci sono chiuse o aperte in attesa di verifica.
   la grandezza, non la soglia; tutte e due rosse adesso
   (`docs/collaudo/ES/regola_a_certezze_dei_giudici.txt`,
   `regola_a_posizione_resta.txt`).
+- **Tre difetti miei presi dalla suite intera** sul commit `d3c85ca6`, prima
+  della spinta: un `\$` in una regola delle certezze che la guardia del testo
+  a video legge come codice mostrato; la forma "scegli tu" della guardia del
+  Viaggio che scartava anche *"il primo passo lo scegli tu"*, e con lei due
+  discese della prova al femminile e una frase della prova della 2260 (adesso
+  vale solo come imperativo in testa alla frase, e la frase della prova e'
+  riscritta con la lapide). Padre ES.19 ed ES.25, miei.
 - **Un `dart format` su una cartella** ha riformattato due file non miei
   (`il_rimando_in_fondo.dart`, `la_marca_del_genere.dart`): padre io, rimessi
   com'erano prima del commit.

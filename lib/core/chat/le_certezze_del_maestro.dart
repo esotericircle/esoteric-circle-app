@@ -119,7 +119,7 @@ abstract final class LeCertezzeDelMaestro {
   /// non l'hanno mai contata.
   static final RegExp _guida =
       _re('${_prima}ti (?:guider|aiuter|accompagner|sosterr|dir|condurr|'
-          'permetter|indicher|mostrer)(?:à|anno)\$');
+          'permetter|indicher|mostrer)(?:à|anno)(?!\\S)');
 
   /// Il futuro della persona a cui si parla: *invierai*, *sarete*.
   static bool _suo(String futuro) =>
@@ -222,7 +222,11 @@ abstract final class LeCertezzeDelMaestro {
       }
       if (_consiglioEFuturo.hasMatch(davanti)) continue;
       if (letta && _condizioneDopo.hasMatch(p.substring(m.end))) continue;
-      if (_guida.hasMatch(p.substring(0, m.end))) continue;
+      // Il futuro guardato e' l'ultimo del pezzo: finisce dove finisce lui.
+      if (_guida.hasMatch(p.substring(0, m.end)) &&
+          _guida.allMatches(p.substring(0, m.end)).last.end == m.end) {
+        continue;
+      }
       return true;
     }
     for (final m in _esito.allMatches(p)) {
