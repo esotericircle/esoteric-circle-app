@@ -64,6 +64,10 @@ class CioCheETuo {
     // scritta la cancellino al primo oblio.
     'carta.natale',
     'carta_natale_',
+    // **I RESPONSI CHE HAI LETTO OGGI, ordine EV voce 04**: il Maestro li
+    // riceve se gli scrivi. Sono i tuoi oroscopi e le tue carte del giorno,
+    // quindi se ne vanno con te. L'ha trovata la prova `niente_resta_di_te`.
+    'chat.responsi_di_oggi',
     // Se hai concesso la posizione al cielo di sopra.
     'cielo_posizione',
     // Il filo del giorno: la domanda di Medora e la parola del giorno.

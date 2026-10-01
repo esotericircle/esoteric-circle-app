@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -117,6 +119,13 @@ class ChiamataDelPrimoGiorno {
       'Puoi attivarle e disattivarle dal menù Notifiche.';
   static const String pulsante = 'Attiva';
 
+  /// **SPENTO NELLE PROVE, E SOVRASCRIVIBILE.** Nelle prove dei Doni il
+  /// foglio comparirebbe sopra la scena a ogni prima apertura e coprirebbe i
+  /// gesti che le prove fanno (69 prove rosse alla prima suite dell'ordine
+  /// EV). Una prova che vuole il foglio lo riaccende.
+  static bool alPrimoDonoAcceso =
+      !Platform.environment.containsKey('FLUTTER_TEST');
+
   /// **ALLA PRIMA APERTURA DI UN DONO**, e non all'avvio (il fondatore, 1
   /// ottobre 2026: all'avvio la scheda copriva la home, e il pulsante finiva
   /// sotto la barra). Ogni Dono la chiama quando si apre; chiede una volta
@@ -124,6 +133,7 @@ class ChiamataDelPrimoGiorno {
   /// subito le chiamate del giorno, che all'avvio senza permesso non erano
   /// partite.
   static Future<void> alPrimoDono(BuildContext context) async {
+    if (!alPrimoDonoAcceso) return;
     if (await giaChiesto()) return;
     if (!context.mounted) return;
     final concesso = await forseChiedi(context, dentroIlCerchio: true);

@@ -367,8 +367,8 @@ void main() {
       memory: MaestroMemory.empty,
       natal: const NatalContext(sunSign: 'Cancro', moonSign: 'Bilancia'),
     );
-    expect(istruzione, contains('del cielo di oggi, e quelli dei responsi di '
-        'oggi, non sono i suoi'));
+    expect(istruzione, contains('i pianeti del cielo di oggi non sono i '
+        'suoi, come quelli dei responsi di oggi'));
   });
 
   test('senza responsi oggi l\'istruzione non cambia', () {

@@ -181,7 +181,7 @@ abstract final class LeFunzioniDelCielo {
               'che non viene da qui e non negare mai un fatto che viene da '
               'qui. I corpi che restituisce sono quelli del cielo del '
               'giorno, non quelli di nascita della persona: la Luna del '
-              'giorno non è la sua Luna, e non le dai il segno o gli aspetti '
+              'giorno non è la sua Luna. Non darle il segno o gli aspetti '
               'della Luna del giorno. Il cielo di oggi, già calcolato da '
               'questa funzione: '
               '$cieloDiOggi',

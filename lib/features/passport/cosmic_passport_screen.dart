@@ -467,7 +467,9 @@ class _AngelsCard extends StatelessWidget {
       // degli angeli mi fa vedere la Carta solo del primo, ma in verità sono
       // 3"*. La bolla nominava il solo Custode e diceva "i tre": chi la
       // leggeva non sapeva chi fossero gli altri due.
-      value: angeli.map((a) => a.name).join(' · '),
+      value: angeli.length > 2
+          ? '${angeli.first.name}, ${angeli[1].name} e ${angeli[2].name}'
+          : angeli.map((a) => a.name).join(' e '),
       meaning: quanti == 3
           ? 'Custode, Cuore e Intelletto: i tre che ti accompagnano.'
           : 'Custode e Cuore. Il terzo arriva con l\'ora di nascita.',

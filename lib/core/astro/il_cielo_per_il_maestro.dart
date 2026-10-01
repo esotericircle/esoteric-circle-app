@@ -107,7 +107,7 @@ abstract final class IlCieloPerIlMaestro {
       // giorno, che era nei Gemelli.
       'nota': 'Sono i corpi del cielo di questo giorno, non quelli di '
           'nascita della persona: la Luna di questo giorno non è la sua Luna '
-          'di nascita, e i suoi aspetti non sono aspetti della sua Luna.',
+          'di nascita. I suoi aspetti non sono aspetti della sua Luna.',
       'pianeti': pianeti,
       'luna': {
         'segno': NightSky.moonSign(istante).italianName,

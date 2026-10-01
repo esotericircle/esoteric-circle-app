@@ -831,8 +831,8 @@ class MaestroPersona {
     // Sole Cancro in trigono" per la Luna di nascita in Bilancia, "il tuo
     // Marte in Leone" per il Marte di oggi. Solo con i dati di nascita: a
     // profilo vuoto l'istruzione, e la sua impronta, non cambiano.
-    buffer.writeln('- Il Sole, la Luna e i pianeti del cielo di oggi, e '
-        'quelli dei responsi di oggi, non sono i suoi: i suoi sono solo '
+    buffer.writeln('- Il Sole, la Luna e i pianeti del cielo di oggi non '
+        'sono i suoi, come quelli dei responsi di oggi: i suoi sono solo '
         'quelli scritti qui. Non dare al suo segno, alla sua Luna o ai suoi '
         'pianeti il segno o gli aspetti del cielo di oggi.');
     return buffer.toString();

@@ -409,24 +409,36 @@ class _CycleBox extends StatelessWidget {
                         size: 12, color: palette.goldSoft),
                     const SizedBox(width: 4),
                   ],
+                  // **IL NOME DEL PERIODO E IL PREZZO NON SI TAGLIANO.** Ordine
+                  // EV, visto sul Realme coi prezzi a 99: "SETTIM..." coi
+                  // puntini e "189,99" con l'euro a capo. Si rimpiccioliscono
+                  // quanto basta per stare interi su una riga.
                   Flexible(
-                    child: Text(cycle.label,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TypographyTokens.etichetta().copyWith(
-                          color: palette.goldSoft,
-                          letterSpacing: 0.6,
-                        )),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(cycle.label,
+                          key: Key('ciclo_nome_${cycle.name}'),
+                          maxLines: 1,
+                          style: TypographyTokens.etichetta().copyWith(
+                            color: palette.goldSoft,
+                            letterSpacing: 0.6,
+                          )),
+                    ),
                   ),
                 ],
               ),
               const SizedBox(height: 4),
-              Text(price.amount(cycle),
-                  textAlign: TextAlign.center,
-                  style: TypographyTokens.titoloDiRiga().copyWith(
-                      color: selected
-                          ? ColorTokens.textPrimary
-                          : ColorTokens.textSecondary)),
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(price.amount(cycle),
+                    key: Key('ciclo_prezzo_${cycle.name}'),
+                    maxLines: 1,
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.titoloDiRiga().copyWith(
+                        color: selected
+                            ? ColorTokens.textPrimary
+                            : ColorTokens.textSecondary)),
+              ),
               if (cycle == PriceCycle.yearly) ...[
                 const SizedBox(height: 4),
                 Text(price.yearlyPerMonth,
