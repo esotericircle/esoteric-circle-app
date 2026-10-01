@@ -208,6 +208,11 @@ void main() {
   testWidgets('Senza carta natale la schermata DICHIARA il ripiego',
       (tester) async {
     await monta(tester, piano: Tier.tier2);
+    // EU Aggiunta, 1 ottobre 2026: le schede sono piu' alte coi paragrafi
+    // del corpus dell'Architetto; la nota si raggiunge scorrendo.
+    await tester.scrollUntilVisible(
+        find.byKey(const Key('oroscopo_nota_del_cielo')), 400,
+        scrollable: find.byType(Scrollable).first);
     expect(find.byKey(const Key('oroscopo_nota_del_cielo')), findsOneWidget,
         reason: 'la lettura viene dalla hash e la schermata non lo dice: una '
             'riga generica scritta come una vera si legge come vera');

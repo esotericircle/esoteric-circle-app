@@ -147,6 +147,11 @@ void main() {
   testWidgets('Senza carta natale il ripiego porta ai dati di nascita',
       (tester) async {
     await monta(tester);
+    // EU Aggiunta, 1 ottobre 2026: le schede portano i paragrafi del corpus
+    // dell'Architetto e la nota sta piu' in basso, fuori dalla parte che la
+    // lista costruisce. Ci si arriva scorrendo, come fa la persona.
+    await tester.dragUntilVisible(find.byKey(const Key('oroscopo_nota_del_cielo')),
+        find.byKey(const Key('oroscopo_list')), const Offset(0, -300));
     expect(find.byKey(const Key('oroscopo_nota_del_cielo')), findsOneWidget,
         reason: 'senza carta la nota del ripiego non compare affatto, quindi '
             'la lettura al segno si legge come lettura al cielo');
@@ -154,7 +159,11 @@ void main() {
         reason: 'la nota dice cosa manca e non da\' il gesto per colmarlo: '
             'e\' un vicolo cieco con le buone maniere');
 
+    await tester.dragUntilVisible(
+        porta, find.byKey(const Key('oroscopo_list')), const Offset(0, -200));
+    await tester.pump(const Duration(milliseconds: 300));
     await tester.ensureVisible(porta);
+    await tester.pump(const Duration(milliseconds: 300));
     await tester.tap(porta);
     await tester.pumpAndSettle();
     expect(find.byType(DatiDiNascitaScreen), findsOneWidget,

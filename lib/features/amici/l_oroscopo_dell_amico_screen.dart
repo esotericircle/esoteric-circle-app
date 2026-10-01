@@ -147,7 +147,10 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
               // Senza la carta dell'amico l'Approfondita aggiunge dove sono
               // oggi la Luna e il pianeta del campo, nelle case del suo
               // segno (ordine ES voce 01).
-              profonde: _approfondite);
+              profonde: _approfondite,
+              // La sua data di nascita: lo scarto della scelta delle voci
+              // (EU Aggiunta, "coi dati e i contatori dell'amico").
+              nascita: a.nascita);
         } finally {
           LaMarcaDelGenere.formaCorrente = prima;
         }

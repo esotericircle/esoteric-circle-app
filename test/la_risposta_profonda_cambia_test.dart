@@ -159,6 +159,13 @@ void main() {
     );
     expect(profonda.text, isNot(breve.text));
     expect(profonda.text, startsWith(breve.text));
-    expect(profonda.text, contains('la Luna è in'));
+    // LAPIDE, ordine EU voce 01, 1 ottobre 2026: qui si pretendeva che la
+    // Lunga senza carta aggiungesse "la Luna è in", cioe' il cielo nel
+    // testo. Il fondatore: *"per lunga aggiungere altri 2 paragrafi mai di
+    // transiti o tecnicismi"*. Adesso la Lunga aggiunge due paragrafi, e il
+    // cielo resta in "Da dove viene".
+    expect(profonda.text.split('\n\n'), hasLength(4));
+    expect(breve.text.split('\n\n'), hasLength(2));
+    expect(profonda.text, isNot(contains('la Luna è in')));
   });
 }

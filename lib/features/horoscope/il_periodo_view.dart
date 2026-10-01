@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../core/astro/aspetti_di_oggi.dart';
 import '../../core/horoscope/horoscope.dart';
+import '../../core/horoscope/i_testi_eu.dart';
 import '../../core/horoscope/la_settimana_del_cielo.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import 'answer_depth.dart';
+import 'titolo_della_scheda_del_giorno.dart';
 
 /// **LA SETTIMANA E IL MESE A VIDEO, ordine ES voci 02 e 03.**
 ///
@@ -88,6 +90,10 @@ class IlPeriodoView extends StatelessWidget {
             key: Key('oroscopo_periodo_${d.dominio.name}'),
             palette: palette,
             titolo: d.dominio.label,
+            // **IL TITOLO SOPRA IL DOMINIO**, ordine EU voci 08 e 18, come
+            // nel Giorno: il titolo della voce del periodo.
+            sopra: d.voce.titolo,
+            chiaveDelTitolo: Key('oroscopo_periodo_titolo_${d.dominio.name}'),
             accanto: AnswerDepthSelector(
               key: Key('oroscopo_periodo_depth_${d.dominio.name}'),
               current: profondita[d.dominio] ?? AnswerDepth.free,
@@ -121,20 +127,28 @@ class IlPeriodoView extends StatelessWidget {
                   key: Key('oroscopo_periodo_migliore_${d.dominio.name}'),
                   style: TypographyTokens.corpo()
                       .copyWith(color: palette.goldSoft, height: 1.4)),
-              const SizedBox(height: 4),
-              // 3. Che cosa puoi fare: la lettura di quel giorno.
-              Text(d.cosaFare,
-                  key: Key('oroscopo_periodo_cosa_fare_${d.dominio.name}'),
-                  style: TypographyTokens.corpo()
-                      .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
-              // La Lunga: il giorno per giorno, la lettura prima e il cielo
-              // dopo.
+              // 3. **I PARAGRAFI DELLA VOCE**, EU Aggiunta (voci EU.01 ed
+              // EU.16): la Risposta e Che cosa fare in Breve, e in Lunga gli
+              // altri due, dal corpus della Settimana o del Mese. Prima qui
+              // stava la lettura del giorno migliore presa dal Giorno, cioe'
+              // la stessa frase in due periodi.
+              for (final (i, p)
+                  in d.voce.paragrafi(lunga: _lunga(d.dominio)).indexed) ...[
+                const SizedBox(height: SpacingTokens.sm),
+                Text(p,
+                    key: Key('oroscopo_periodo_paragrafo_${d.dominio.name}_$i'),
+                    style: TypographyTokens.corpo()
+                        .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
+              ],
+              // La Lunga: i tre giorni migliori, ognuno col titolo della sua
+              // scheda del Giorno e il suo "Da dove viene" (EU Aggiunta): il
+              // testo del Giorno si legge quel giorno.
               if (_lunga(d.dominio)) ...[
                 const SizedBox(height: SpacingTokens.md),
-                Text(mese ? 'I tre giorni migliori' : 'Giorno per giorno',
+                Text('I tre giorni migliori',
                     style: TypographyTokens.etichetta().copyWith(
                         color: ColorTokens.textSecondary, letterSpacing: 1.2)),
-                for (final g in mese ? _treMigliori(d) : d.giorni)
+                for (final g in _treMigliori(d))
                   Padding(
                     key: Key('oroscopo_periodo_riga_${d.dominio.name}_'
                         '${g.giorno.month}_${g.giorno.day}'),
@@ -152,8 +166,11 @@ class IlPeriodoView extends StatelessWidget {
                             _Pallini(livello: g.livello, palette: palette),
                           ],
                         ),
-                        Text(g.lettura,
-                            style: TypographyTokens.didascalia().copyWith(
+                        Text(g.titolo,
+                            key: Key('oroscopo_periodo_titolo_del_giorno_'
+                                '${d.dominio.name}_${g.giorno.month}_'
+                                '${g.giorno.day}'),
+                            style: TypographyTokens.corpo().copyWith(
                                 color: ColorTokens.textPrimary, height: 1.35)),
                         Text(_daDove(g.motivo),
                             style: piccolo.copyWith(height: 1.35)),
@@ -164,45 +181,49 @@ class IlPeriodoView extends StatelessWidget {
               // 4. Da dove viene, in fondo.
               const SizedBox(height: SpacingTokens.sm),
               Text(
-                  d.momentoChiave.startsWith('Nessun')
-                      ? 'Da dove viene: ${_minuscola(d.momentoChiave)}'
-                      : 'Da dove viene: il momento chiave è '
-                          '${d.momentoChiave}',
+                  periodo.tradizione != TradizioneEu.occidentale
+                      ? 'Da dove viene: ${d.momentoChiave}'
+                      : d.momentoChiave.startsWith('Nessun')
+                          ? 'Da dove viene: ${_minuscola(d.momentoChiave)}'
+                          : 'Da dove viene: il momento chiave è '
+                              '${d.momentoChiave}',
                   key: Key('oroscopo_periodo_da_dove_${d.dominio.name}'),
                   style: piccolo),
             ],
           ),
           const SizedBox(height: SpacingTokens.md),
         ],
-        // I fatti del cielo del periodo: motivano, quindi stanno dopo.
-        _Riquadro(
-          key: const Key('oroscopo_periodo_cielo'),
-          palette: palette,
-          titolo: mese
-              ? 'Da dove viene: il cielo del mese'
-              : 'Da dove viene: il cielo della settimana',
-          figli: [
-            if (periodo.eventi.isEmpty)
-              Text('Nessun ingresso e nessuna fase della Luna in $nome.',
-                  style: piccolo),
-            for (final e in periodo.eventi)
-              Padding(
-                padding: const EdgeInsets.only(bottom: 6),
-                child: Text(e.testo, style: piccolo),
-              ),
-            if (livello != LivelloPersonalizzazione.cartaCompleta)
-              Text(
-                livello == LivelloPersonalizzazione.soloSegno
-                    ? 'Senza ora e luogo di nascita $nome si legge sul tuo '
-                        'segno e sulle case solari.'
-                    : 'Senza l\'ora di nascita $nome si legge sui tuoi '
-                        'pianeti, con le case solari al posto di quelle della '
-                        'carta.',
-                key: const Key('oroscopo_periodo_sul_segno'),
-                style: piccolo,
-              ),
-          ],
-        ),
+        // I fatti del cielo del periodo: motivano, quindi stanno dopo. Solo
+        // nell'Occidentale: la Vedica e la Cinese leggono il loro Giorno.
+        if (periodo.tradizione == TradizioneEu.occidentale)
+          _Riquadro(
+            key: const Key('oroscopo_periodo_cielo'),
+            palette: palette,
+            titolo: mese
+                ? 'Da dove viene: il cielo del mese'
+                : 'Da dove viene: il cielo della settimana',
+            figli: [
+              if (periodo.eventi.isEmpty)
+                Text('Nessun ingresso e nessuna fase della Luna in $nome.',
+                    style: piccolo),
+              for (final e in periodo.eventi)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 6),
+                  child: Text(e.testo, style: piccolo),
+                ),
+              if (livello != LivelloPersonalizzazione.cartaCompleta)
+                Text(
+                  livello == LivelloPersonalizzazione.soloSegno
+                      ? 'Senza ora e luogo di nascita $nome si legge sul tuo '
+                          'segno e sulle case solari.'
+                      : 'Senza l\'ora di nascita $nome si legge sui tuoi '
+                          'pianeti, con le case solari al posto di quelle della '
+                          'carta.',
+                  key: const Key('oroscopo_periodo_sul_segno'),
+                  style: piccolo,
+                ),
+            ],
+          ),
       ],
     );
   }
@@ -499,11 +520,17 @@ class _Riquadro extends StatelessWidget {
       required this.palette,
       required this.titolo,
       required this.figli,
-      this.accanto});
+      this.accanto,
+      this.sopra,
+      this.chiaveDelTitolo});
 
   final MaestroPalette palette;
   final String titolo;
   final List<Widget> figli;
+
+  /// Il titolo della voce, sopra il dominio; il dominio scende a etichetta.
+  final String? sopra;
+  final Key? chiaveDelTitolo;
 
   /// Cio' che sta in alto a destra, accanto al titolo: la profondita'.
   final Widget? accanto;
@@ -524,9 +551,24 @@ class _Riquadro extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: Text(titolo,
-                    style: TypographyTokens.titoloScheda()
-                        .copyWith(color: palette.goldSoft)),
+                child: sopra == null || sopra!.isEmpty
+                    ? Text(titolo,
+                        style: TypographyTokens.titoloScheda()
+                            .copyWith(color: palette.goldSoft))
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TitoloDellaSchedaDelGiorno(
+                              key: chiaveDelTitolo,
+                              testo: sopra!,
+                              stile: TypographyTokens.titoloScheda().copyWith(
+                                  color: palette.goldSoft, height: 1.1)),
+                          Text(titolo.toUpperCase(),
+                              style: TypographyTokens.etichetta().copyWith(
+                                  color: ColorTokens.textSecondary,
+                                  letterSpacing: 1.4)),
+                        ],
+                      ),
               ),
               if (accanto != null) ...[
                 const SizedBox(width: SpacingTokens.sm),

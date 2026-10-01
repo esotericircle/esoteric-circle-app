@@ -1,0 +1,364 @@
+ORDINE EU VOCE 17: schede con un paragrafo di una fascia diversa dal livello 0 su 1476
+ORDINE EU VOCE 17, IL LIVELLO E IL TESTO, 1 ottobre 2026.
+Per ogni scheda: il livello, la fascia che il livello chiede, la fascia della voce del corpus da cui viene il testo.
+
+4/1/1958 (Capricorno, con la carta) 1/10 occidentale Giorno Generale: livello 5, fascia favorevole, voce favorevole 24
+4/1/1958 (Capricorno, con la carta) 1/10 occidentale Giorno Amore: livello 5, fascia favorevole, voce favorevole 30
+4/1/1958 (Capricorno, con la carta) 1/10 occidentale Giorno Carriera: livello 5, fascia favorevole, voce favorevole 28
+4/1/1958 (Capricorno, con la carta) 1/10 occidentale Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 11
+4/1/1958 (Capricorno, con la carta) 1/10 occidentale Settimana Generale: livello 4, fascia favorevole, voce favorevole 3
+4/1/1958 (Capricorno, con la carta) 1/10 occidentale Settimana Amore: livello 4, fascia favorevole, voce favorevole 3
+4/1/1958 (Capricorno, con la carta) 1/10 occidentale Settimana Carriera: livello 4, fascia favorevole, voce favorevole 3
+4/1/1958 (Capricorno, con la carta) 1/10 occidentale Settimana Fortuna: livello 4, fascia favorevole, voce favorevole 3
+4/1/1958 (Capricorno, con la carta) 1/10 occidentale Mese Generale: livello 5, fascia favorevole, voce favorevole 1
+4/1/1958 (Capricorno, con la carta) 1/10 occidentale Mese Amore: livello 4, fascia favorevole, voce favorevole 1
+4/1/1958 (Capricorno, con la carta) 1/10 occidentale Mese Carriera: livello 4, fascia favorevole, voce favorevole 1
+4/1/1958 (Capricorno, con la carta) 1/10 occidentale Mese Fortuna: livello 4, fascia favorevole, voce favorevole 1
+4/1/1958 (Capricorno, con la carta) 1/10 occidentale Anno Generale: livello 3, fascia equilibrio, voce equilibrio 2
+4/1/1958 (Capricorno, con la carta) 1/10 occidentale Anno Amore: livello 3, fascia equilibrio, voce equilibrio 2
+4/1/1958 (Capricorno, con la carta) 1/10 occidentale Anno Carriera: livello 5, fascia favorevole, voce favorevole 2
+4/1/1958 (Capricorno, con la carta) 1/10 occidentale Anno Fortuna: livello 3, fascia equilibrio, voce equilibrio 2
+4/1/1958 (Capricorno, con la carta) 1/10 vedica Giorno Generale: livello 5, fascia favorevole, voce favorevole 19
+4/1/1958 (Capricorno, con la carta) 1/10 vedica Giorno Amore: livello 4, fascia favorevole, voce favorevole 20
+4/1/1958 (Capricorno, con la carta) 1/10 vedica Giorno Carriera: livello 4, fascia favorevole, voce favorevole 27
+4/1/1958 (Capricorno, con la carta) 1/10 vedica Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 17
+4/1/1958 (Capricorno, con la carta) 1/10 vedica Settimana Generale: livello 4, fascia favorevole, voce favorevole 3
+4/1/1958 (Capricorno, con la carta) 1/10 vedica Settimana Amore: livello 3, fascia equilibrio, voce equilibrio 3
+4/1/1958 (Capricorno, con la carta) 1/10 vedica Settimana Carriera: livello 4, fascia favorevole, voce favorevole 3
+4/1/1958 (Capricorno, con la carta) 1/10 vedica Settimana Fortuna: livello 4, fascia favorevole, voce favorevole 3
+4/1/1958 (Capricorno, con la carta) 1/10 vedica Mese Generale: livello 4, fascia favorevole, voce favorevole 1
+4/1/1958 (Capricorno, con la carta) 1/10 vedica Mese Amore: livello 3, fascia equilibrio, voce equilibrio 1
+4/1/1958 (Capricorno, con la carta) 1/10 vedica Mese Carriera: livello 3, fascia equilibrio, voce equilibrio 1
+4/1/1958 (Capricorno, con la carta) 1/10 vedica Mese Fortuna: livello 3, fascia equilibrio, voce equilibrio 1
+4/1/1958 (Capricorno, con la carta) 1/10 vedica Anno Generale: livello 5, fascia favorevole, voce favorevole 2
+4/1/1958 (Capricorno, con la carta) 1/10 vedica Anno Amore: livello 4, fascia favorevole, voce favorevole 2
+4/1/1958 (Capricorno, con la carta) 1/10 vedica Anno Carriera: livello 4, fascia favorevole, voce favorevole 2
+4/1/1958 (Capricorno, con la carta) 1/10 vedica Anno Fortuna: livello 4, fascia favorevole, voce favorevole 2
+4/1/1958 (Capricorno, con la carta) 1/10 cinese Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 13
+4/1/1958 (Capricorno, con la carta) 1/10 cinese Giorno Amore: livello 4, fascia favorevole, voce favorevole 22
+4/1/1958 (Capricorno, con la carta) 1/10 cinese Giorno Carriera: livello 4, fascia favorevole, voce favorevole 25
+4/1/1958 (Capricorno, con la carta) 1/10 cinese Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 9
+4/1/1958 (Capricorno, con la carta) 1/10 cinese Settimana Generale: livello 3, fascia equilibrio, voce equilibrio 3
+4/1/1958 (Capricorno, con la carta) 1/10 cinese Settimana Amore: livello 4, fascia favorevole, voce favorevole 3
+4/1/1958 (Capricorno, con la carta) 1/10 cinese Settimana Carriera: livello 3, fascia equilibrio, voce equilibrio 3
+4/1/1958 (Capricorno, con la carta) 1/10 cinese Settimana Fortuna: livello 3, fascia equilibrio, voce equilibrio 3
+4/1/1958 (Capricorno, con la carta) 1/10 cinese Mese Generale: livello 3, fascia equilibrio, voce equilibrio 1
+4/1/1958 (Capricorno, con la carta) 1/10 cinese Mese Amore: livello 4, fascia favorevole, voce favorevole 1
+4/1/1958 (Capricorno, con la carta) 1/10 cinese Mese Carriera: livello 3, fascia equilibrio, voce equilibrio 1
+4/1/1958 (Capricorno, con la carta) 1/10 cinese Mese Fortuna: livello 3, fascia equilibrio, voce equilibrio 1
+4/1/1958 (Capricorno, con la carta) 1/10 cinese Anno Generale: livello 3, fascia equilibrio, voce equilibrio 2
+4/1/1958 (Capricorno, con la carta) 1/10 cinese Anno Amore: livello 3, fascia equilibrio, voce equilibrio 2
+4/1/1958 (Capricorno, con la carta) 1/10 cinese Anno Carriera: livello 3, fascia equilibrio, voce equilibrio 2
+4/1/1958 (Capricorno, con la carta) 1/10 cinese Anno Fortuna: livello 3, fascia equilibrio, voce equilibrio 2
+4/1/1958 (Capricorno, con la carta) 2/10 occidentale Giorno Generale: livello 5, fascia favorevole, voce favorevole 25
+4/1/1958 (Capricorno, con la carta) 2/10 occidentale Giorno Amore: livello 4, fascia favorevole, voce favorevole 1
+4/1/1958 (Capricorno, con la carta) 2/10 occidentale Giorno Carriera: livello 5, fascia favorevole, voce favorevole 29
+4/1/1958 (Capricorno, con la carta) 2/10 occidentale Giorno Fortuna: livello 5, fascia favorevole, voce favorevole 12
+4/1/1958 (Capricorno, con la carta) 2/10 vedica Giorno Generale: livello 4, fascia favorevole, voce favorevole 20
+4/1/1958 (Capricorno, con la carta) 2/10 vedica Giorno Amore: livello 4, fascia favorevole, voce favorevole 21
+4/1/1958 (Capricorno, con la carta) 2/10 vedica Giorno Carriera: livello 4, fascia favorevole, voce favorevole 28
+4/1/1958 (Capricorno, con la carta) 2/10 vedica Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 18
+4/1/1958 (Capricorno, con la carta) 2/10 cinese Giorno Generale: livello 2, fascia salita, voce salita 15
+4/1/1958 (Capricorno, con la carta) 2/10 cinese Giorno Amore: livello 4, fascia favorevole, voce favorevole 23
+4/1/1958 (Capricorno, con la carta) 2/10 cinese Giorno Carriera: livello 4, fascia favorevole, voce favorevole 26
+4/1/1958 (Capricorno, con la carta) 2/10 cinese Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 10
+4/1/1958 (Capricorno, con la carta) 3/10 occidentale Giorno Generale: livello 5, fascia favorevole, voce favorevole 26
+4/1/1958 (Capricorno, con la carta) 3/10 occidentale Giorno Amore: livello 5, fascia favorevole, voce favorevole 2
+4/1/1958 (Capricorno, con la carta) 3/10 occidentale Giorno Carriera: livello 5, fascia favorevole, voce favorevole 30
+4/1/1958 (Capricorno, con la carta) 3/10 occidentale Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 13
+4/1/1958 (Capricorno, con la carta) 3/10 vedica Giorno Generale: livello 4, fascia favorevole, voce favorevole 21
+4/1/1958 (Capricorno, con la carta) 3/10 vedica Giorno Amore: livello 3, fascia equilibrio, voce equilibrio 16
+4/1/1958 (Capricorno, con la carta) 3/10 vedica Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 13
+4/1/1958 (Capricorno, con la carta) 3/10 vedica Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 19
+4/1/1958 (Capricorno, con la carta) 3/10 cinese Giorno Generale: livello 2, fascia salita, voce salita 1
+4/1/1958 (Capricorno, con la carta) 3/10 cinese Giorno Amore: livello 2, fascia salita, voce salita 5
+4/1/1958 (Capricorno, con la carta) 3/10 cinese Giorno Carriera: livello 2, fascia salita, voce salita 2
+4/1/1958 (Capricorno, con la carta) 3/10 cinese Giorno Fortuna: livello 2, fascia salita, voce salita 3
+4/1/1958 (Capricorno, con la carta) 4/10 occidentale Giorno Generale: livello 4, fascia favorevole, voce favorevole 27
+4/1/1958 (Capricorno, con la carta) 4/10 occidentale Giorno Amore: livello 4, fascia favorevole, voce favorevole 3
+4/1/1958 (Capricorno, con la carta) 4/10 occidentale Giorno Carriera: livello 4, fascia favorevole, voce favorevole 1
+4/1/1958 (Capricorno, con la carta) 4/10 occidentale Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 14
+4/1/1958 (Capricorno, con la carta) 4/10 vedica Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 15
+4/1/1958 (Capricorno, con la carta) 4/10 vedica Giorno Amore: livello 3, fascia equilibrio, voce equilibrio 17
+4/1/1958 (Capricorno, con la carta) 4/10 vedica Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 14
+4/1/1958 (Capricorno, con la carta) 4/10 vedica Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 20
+4/1/1958 (Capricorno, con la carta) 4/10 cinese Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 14
+4/1/1958 (Capricorno, con la carta) 4/10 cinese Giorno Amore: livello 3, fascia equilibrio, voce equilibrio 6
+4/1/1958 (Capricorno, con la carta) 4/10 cinese Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 6
+4/1/1958 (Capricorno, con la carta) 4/10 cinese Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 11
+4/1/1958 (Capricorno, con la carta) 5/10 occidentale Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 3
+4/1/1958 (Capricorno, con la carta) 5/10 occidentale Giorno Amore: livello 3, fascia equilibrio, voce equilibrio 3
+4/1/1958 (Capricorno, con la carta) 5/10 occidentale Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 9
+4/1/1958 (Capricorno, con la carta) 5/10 occidentale Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 24
+4/1/1958 (Capricorno, con la carta) 5/10 vedica Giorno Generale: livello 5, fascia favorevole, voce favorevole 22
+4/1/1958 (Capricorno, con la carta) 5/10 vedica Giorno Amore: livello 4, fascia favorevole, voce favorevole 22
+4/1/1958 (Capricorno, con la carta) 5/10 vedica Giorno Carriera: livello 4, fascia favorevole, voce favorevole 29
+4/1/1958 (Capricorno, con la carta) 5/10 vedica Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 21
+4/1/1958 (Capricorno, con la carta) 5/10 cinese Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 15
+4/1/1958 (Capricorno, con la carta) 5/10 cinese Giorno Amore: livello 3, fascia equilibrio, voce equilibrio 7
+4/1/1958 (Capricorno, con la carta) 5/10 cinese Giorno Carriera: livello 2, fascia salita, voce salita 3
+4/1/1958 (Capricorno, con la carta) 5/10 cinese Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 27
+4/1/1958 (Capricorno, con la carta) 6/10 occidentale Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 4
+4/1/1958 (Capricorno, con la carta) 6/10 occidentale Giorno Amore: livello 3, fascia equilibrio, voce equilibrio 4
+4/1/1958 (Capricorno, con la carta) 6/10 occidentale Giorno Carriera: livello 2, fascia salita, voce salita 11
+4/1/1958 (Capricorno, con la carta) 6/10 occidentale Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 1
+4/1/1958 (Capricorno, con la carta) 6/10 vedica Giorno Generale: livello 4, fascia favorevole, voce favorevole 23
+4/1/1958 (Capricorno, con la carta) 6/10 vedica Giorno Amore: livello 4, fascia favorevole, voce favorevole 23
+4/1/1958 (Capricorno, con la carta) 6/10 vedica Giorno Carriera: livello 4, fascia favorevole, voce favorevole 30
+4/1/1958 (Capricorno, con la carta) 6/10 vedica Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 22
+4/1/1958 (Capricorno, con la carta) 6/10 cinese Giorno Generale: livello 4, fascia favorevole, voce favorevole 17
+4/1/1958 (Capricorno, con la carta) 6/10 cinese Giorno Amore: livello 4, fascia favorevole, voce favorevole 24
+4/1/1958 (Capricorno, con la carta) 6/10 cinese Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 7
+4/1/1958 (Capricorno, con la carta) 6/10 cinese Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 28
+4/1/1958 (Capricorno, con la carta) 7/10 occidentale Giorno Generale: livello 4, fascia favorevole, voce favorevole 28
+4/1/1958 (Capricorno, con la carta) 7/10 occidentale Giorno Amore: livello 4, fascia favorevole, voce favorevole 4
+4/1/1958 (Capricorno, con la carta) 7/10 occidentale Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 10
+4/1/1958 (Capricorno, con la carta) 7/10 occidentale Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 2
+4/1/1958 (Capricorno, con la carta) 7/10 vedica Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 16
+4/1/1958 (Capricorno, con la carta) 7/10 vedica Giorno Amore: livello 2, fascia salita, voce salita 15
+4/1/1958 (Capricorno, con la carta) 7/10 vedica Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 15
+4/1/1958 (Capricorno, con la carta) 7/10 vedica Giorno Fortuna: livello 2, fascia salita, voce salita 15
+4/1/1958 (Capricorno, con la carta) 7/10 cinese Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 16
+4/1/1958 (Capricorno, con la carta) 7/10 cinese Giorno Amore: livello 5, fascia favorevole, voce favorevole 25
+4/1/1958 (Capricorno, con la carta) 7/10 cinese Giorno Carriera: livello 4, fascia favorevole, voce favorevole 27
+4/1/1958 (Capricorno, con la carta) 7/10 cinese Giorno Fortuna: livello 5, fascia favorevole, voce favorevole 29
+6/2/1962 (Acquario, senza carta) 1/10 occidentale Giorno Generale: livello 5, fascia favorevole, voce favorevole 23
+6/2/1962 (Acquario, senza carta) 1/10 occidentale Giorno Amore: livello 4, fascia favorevole, voce favorevole 24
+6/2/1962 (Acquario, senza carta) 1/10 occidentale Giorno Carriera: livello 4, fascia favorevole, voce favorevole 22
+6/2/1962 (Acquario, senza carta) 1/10 occidentale Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 24
+6/2/1962 (Acquario, senza carta) 1/10 occidentale Settimana Generale: livello 4, fascia favorevole, voce favorevole 13
+6/2/1962 (Acquario, senza carta) 1/10 occidentale Settimana Amore: livello 3, fascia equilibrio, voce equilibrio 13
+6/2/1962 (Acquario, senza carta) 1/10 occidentale Settimana Carriera: livello 3, fascia equilibrio, voce equilibrio 13
+6/2/1962 (Acquario, senza carta) 1/10 occidentale Settimana Fortuna: livello 3, fascia equilibrio, voce equilibrio 13
+6/2/1962 (Acquario, senza carta) 1/10 occidentale Mese Generale: livello 4, fascia favorevole, voce favorevole 3
+6/2/1962 (Acquario, senza carta) 1/10 occidentale Mese Amore: livello 3, fascia equilibrio, voce equilibrio 3
+6/2/1962 (Acquario, senza carta) 1/10 occidentale Mese Carriera: livello 3, fascia equilibrio, voce equilibrio 3
+6/2/1962 (Acquario, senza carta) 1/10 occidentale Mese Fortuna: livello 3, fascia equilibrio, voce equilibrio 3
+6/2/1962 (Acquario, senza carta) 1/10 occidentale Anno Generale: livello 3, fascia equilibrio, voce equilibrio 2
+6/2/1962 (Acquario, senza carta) 1/10 occidentale Anno Amore: livello 3, fascia equilibrio, voce equilibrio 2
+6/2/1962 (Acquario, senza carta) 1/10 occidentale Anno Carriera: livello 3, fascia equilibrio, voce equilibrio 2
+6/2/1962 (Acquario, senza carta) 1/10 occidentale Anno Fortuna: livello 4, fascia favorevole, voce favorevole 2
+6/2/1962 (Acquario, senza carta) 1/10 vedica Giorno Generale: livello 2, fascia salita, voce salita 9
+6/2/1962 (Acquario, senza carta) 1/10 vedica Giorno Amore: livello 2, fascia salita, voce salita 9
+6/2/1962 (Acquario, senza carta) 1/10 vedica Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 17
+6/2/1962 (Acquario, senza carta) 1/10 vedica Giorno Fortuna: livello 2, fascia salita, voce salita 9
+6/2/1962 (Acquario, senza carta) 1/10 vedica Settimana Generale: livello 3, fascia equilibrio, voce equilibrio 13
+6/2/1962 (Acquario, senza carta) 1/10 vedica Settimana Amore: livello 4, fascia favorevole, voce favorevole 13
+6/2/1962 (Acquario, senza carta) 1/10 vedica Settimana Carriera: livello 3, fascia equilibrio, voce equilibrio 13
+6/2/1962 (Acquario, senza carta) 1/10 vedica Settimana Fortuna: livello 3, fascia equilibrio, voce equilibrio 13
+6/2/1962 (Acquario, senza carta) 1/10 vedica Mese Generale: livello 3, fascia equilibrio, voce equilibrio 3
+6/2/1962 (Acquario, senza carta) 1/10 vedica Mese Amore: livello 3, fascia equilibrio, voce equilibrio 3
+6/2/1962 (Acquario, senza carta) 1/10 vedica Mese Carriera: livello 3, fascia equilibrio, voce equilibrio 3
+6/2/1962 (Acquario, senza carta) 1/10 vedica Mese Fortuna: livello 3, fascia equilibrio, voce equilibrio 3
+6/2/1962 (Acquario, senza carta) 1/10 vedica Anno Generale: livello 3, fascia equilibrio, voce equilibrio 2
+6/2/1962 (Acquario, senza carta) 1/10 vedica Anno Amore: livello 3, fascia equilibrio, voce equilibrio 2
+6/2/1962 (Acquario, senza carta) 1/10 vedica Anno Carriera: livello 2, fascia salita, voce salita 2
+6/2/1962 (Acquario, senza carta) 1/10 vedica Anno Fortuna: livello 4, fascia favorevole, voce favorevole 2
+6/2/1962 (Acquario, senza carta) 1/10 cinese Giorno Generale: livello 2, fascia salita, voce salita 2
+6/2/1962 (Acquario, senza carta) 1/10 cinese Giorno Amore: livello 5, fascia favorevole, voce favorevole 15
+6/2/1962 (Acquario, senza carta) 1/10 cinese Giorno Carriera: livello 4, fascia favorevole, voce favorevole 17
+6/2/1962 (Acquario, senza carta) 1/10 cinese Giorno Fortuna: livello 5, fascia favorevole, voce favorevole 22
+6/2/1962 (Acquario, senza carta) 1/10 cinese Settimana Generale: livello 3, fascia equilibrio, voce equilibrio 13
+6/2/1962 (Acquario, senza carta) 1/10 cinese Settimana Amore: livello 4, fascia favorevole, voce favorevole 13
+6/2/1962 (Acquario, senza carta) 1/10 cinese Settimana Carriera: livello 4, fascia favorevole, voce favorevole 13
+6/2/1962 (Acquario, senza carta) 1/10 cinese Settimana Fortuna: livello 3, fascia equilibrio, voce equilibrio 13
+6/2/1962 (Acquario, senza carta) 1/10 cinese Mese Generale: livello 3, fascia equilibrio, voce equilibrio 3
+6/2/1962 (Acquario, senza carta) 1/10 cinese Mese Amore: livello 4, fascia favorevole, voce favorevole 3
+6/2/1962 (Acquario, senza carta) 1/10 cinese Mese Carriera: livello 3, fascia equilibrio, voce equilibrio 3
+6/2/1962 (Acquario, senza carta) 1/10 cinese Mese Fortuna: livello 3, fascia equilibrio, voce equilibrio 3
+6/2/1962 (Acquario, senza carta) 1/10 cinese Anno Generale: livello 4, fascia favorevole, voce favorevole 2
+6/2/1962 (Acquario, senza carta) 1/10 cinese Anno Amore: livello 4, fascia favorevole, voce favorevole 2
+6/2/1962 (Acquario, senza carta) 1/10 cinese Anno Carriera: livello 4, fascia favorevole, voce favorevole 2
+6/2/1962 (Acquario, senza carta) 1/10 cinese Anno Fortuna: livello 4, fascia favorevole, voce favorevole 2
+6/2/1962 (Acquario, senza carta) 2/10 occidentale Giorno Generale: livello 5, fascia favorevole, voce favorevole 24
+6/2/1962 (Acquario, senza carta) 2/10 occidentale Giorno Amore: livello 4, fascia favorevole, voce favorevole 25
+6/2/1962 (Acquario, senza carta) 2/10 occidentale Giorno Carriera: livello 4, fascia favorevole, voce favorevole 23
+6/2/1962 (Acquario, senza carta) 2/10 occidentale Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 25
+6/2/1962 (Acquario, senza carta) 2/10 vedica Giorno Generale: livello 2, fascia salita, voce salita 10
+6/2/1962 (Acquario, senza carta) 2/10 vedica Giorno Amore: livello 2, fascia salita, voce salita 10
+6/2/1962 (Acquario, senza carta) 2/10 vedica Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 18
+6/2/1962 (Acquario, senza carta) 2/10 vedica Giorno Fortuna: livello 2, fascia salita, voce salita 10
+6/2/1962 (Acquario, senza carta) 2/10 cinese Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 18
+6/2/1962 (Acquario, senza carta) 2/10 cinese Giorno Amore: livello 4, fascia favorevole, voce favorevole 16
+6/2/1962 (Acquario, senza carta) 2/10 cinese Giorno Carriera: livello 4, fascia favorevole, voce favorevole 18
+6/2/1962 (Acquario, senza carta) 2/10 cinese Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 23
+6/2/1962 (Acquario, senza carta) 3/10 occidentale Giorno Generale: livello 4, fascia favorevole, voce favorevole 25
+6/2/1962 (Acquario, senza carta) 3/10 occidentale Giorno Amore: livello 3, fascia equilibrio, voce equilibrio 5
+6/2/1962 (Acquario, senza carta) 3/10 occidentale Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 2
+6/2/1962 (Acquario, senza carta) 3/10 occidentale Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 1
+6/2/1962 (Acquario, senza carta) 3/10 vedica Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 21
+6/2/1962 (Acquario, senza carta) 3/10 vedica Giorno Amore: livello 4, fascia favorevole, voce favorevole 11
+6/2/1962 (Acquario, senza carta) 3/10 vedica Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 19
+6/2/1962 (Acquario, senza carta) 3/10 vedica Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 23
+6/2/1962 (Acquario, senza carta) 3/10 cinese Giorno Generale: livello 4, fascia favorevole, voce favorevole 10
+6/2/1962 (Acquario, senza carta) 3/10 cinese Giorno Amore: livello 4, fascia favorevole, voce favorevole 17
+6/2/1962 (Acquario, senza carta) 3/10 cinese Giorno Carriera: livello 5, fascia favorevole, voce favorevole 19
+6/2/1962 (Acquario, senza carta) 3/10 cinese Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 15
+6/2/1962 (Acquario, senza carta) 4/10 occidentale Giorno Generale: livello 4, fascia favorevole, voce favorevole 26
+6/2/1962 (Acquario, senza carta) 4/10 occidentale Giorno Amore: livello 3, fascia equilibrio, voce equilibrio 6
+6/2/1962 (Acquario, senza carta) 4/10 occidentale Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 3
+6/2/1962 (Acquario, senza carta) 4/10 occidentale Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 2
+6/2/1962 (Acquario, senza carta) 4/10 vedica Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 22
+6/2/1962 (Acquario, senza carta) 4/10 vedica Giorno Amore: livello 4, fascia favorevole, voce favorevole 12
+6/2/1962 (Acquario, senza carta) 4/10 vedica Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 20
+6/2/1962 (Acquario, senza carta) 4/10 vedica Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 24
+6/2/1962 (Acquario, senza carta) 4/10 cinese Giorno Generale: livello 5, fascia favorevole, voce favorevole 11
+6/2/1962 (Acquario, senza carta) 4/10 cinese Giorno Amore: livello 3, fascia equilibrio, voce equilibrio 13
+6/2/1962 (Acquario, senza carta) 4/10 cinese Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 13
+6/2/1962 (Acquario, senza carta) 4/10 cinese Giorno Fortuna: livello 2, fascia salita, voce salita 11
+6/2/1962 (Acquario, senza carta) 5/10 occidentale Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 13
+6/2/1962 (Acquario, senza carta) 5/10 occidentale Giorno Amore: livello 2, fascia salita, voce salita 4
+6/2/1962 (Acquario, senza carta) 5/10 occidentale Giorno Carriera: livello 2, fascia salita, voce salita 3
+6/2/1962 (Acquario, senza carta) 5/10 occidentale Giorno Fortuna: livello 2, fascia salita, voce salita 8
+6/2/1962 (Acquario, senza carta) 5/10 vedica Giorno Generale: livello 4, fascia favorevole, voce favorevole 21
+6/2/1962 (Acquario, senza carta) 5/10 vedica Giorno Amore: livello 4, fascia favorevole, voce favorevole 13
+6/2/1962 (Acquario, senza carta) 5/10 vedica Giorno Carriera: livello 4, fascia favorevole, voce favorevole 21
+6/2/1962 (Acquario, senza carta) 5/10 vedica Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 13
+6/2/1962 (Acquario, senza carta) 5/10 cinese Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 19
+6/2/1962 (Acquario, senza carta) 5/10 cinese Giorno Amore: livello 4, fascia favorevole, voce favorevole 18
+6/2/1962 (Acquario, senza carta) 5/10 cinese Giorno Carriera: livello 4, fascia favorevole, voce favorevole 20
+6/2/1962 (Acquario, senza carta) 5/10 cinese Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 16
+6/2/1962 (Acquario, senza carta) 6/10 occidentale Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 14
+6/2/1962 (Acquario, senza carta) 6/10 occidentale Giorno Amore: livello 2, fascia salita, voce salita 5
+6/2/1962 (Acquario, senza carta) 6/10 occidentale Giorno Carriera: livello 2, fascia salita, voce salita 4
+6/2/1962 (Acquario, senza carta) 6/10 occidentale Giorno Fortuna: livello 2, fascia salita, voce salita 9
+6/2/1962 (Acquario, senza carta) 6/10 vedica Giorno Generale: livello 4, fascia favorevole, voce favorevole 22
+6/2/1962 (Acquario, senza carta) 6/10 vedica Giorno Amore: livello 4, fascia favorevole, voce favorevole 14
+6/2/1962 (Acquario, senza carta) 6/10 vedica Giorno Carriera: livello 4, fascia favorevole, voce favorevole 22
+6/2/1962 (Acquario, senza carta) 6/10 vedica Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 14
+6/2/1962 (Acquario, senza carta) 6/10 cinese Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 20
+6/2/1962 (Acquario, senza carta) 6/10 cinese Giorno Amore: livello 4, fascia favorevole, voce favorevole 19
+6/2/1962 (Acquario, senza carta) 6/10 cinese Giorno Carriera: livello 4, fascia favorevole, voce favorevole 21
+6/2/1962 (Acquario, senza carta) 6/10 cinese Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 17
+6/2/1962 (Acquario, senza carta) 7/10 occidentale Giorno Generale: livello 4, fascia favorevole, voce favorevole 27
+6/2/1962 (Acquario, senza carta) 7/10 occidentale Giorno Amore: livello 3, fascia equilibrio, voce equilibrio 7
+6/2/1962 (Acquario, senza carta) 7/10 occidentale Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 4
+6/2/1962 (Acquario, senza carta) 7/10 occidentale Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 3
+6/2/1962 (Acquario, senza carta) 7/10 vedica Giorno Generale: livello 4, fascia favorevole, voce favorevole 23
+6/2/1962 (Acquario, senza carta) 7/10 vedica Giorno Amore: livello 5, fascia favorevole, voce favorevole 15
+6/2/1962 (Acquario, senza carta) 7/10 vedica Giorno Carriera: livello 4, fascia favorevole, voce favorevole 23
+6/2/1962 (Acquario, senza carta) 7/10 vedica Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 15
+6/2/1962 (Acquario, senza carta) 7/10 cinese Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 21
+6/2/1962 (Acquario, senza carta) 7/10 cinese Giorno Amore: livello 2, fascia salita, voce salita 14
+6/2/1962 (Acquario, senza carta) 7/10 cinese Giorno Carriera: livello 2, fascia salita, voce salita 12
+6/2/1962 (Acquario, senza carta) 7/10 cinese Giorno Fortuna: livello 2, fascia salita, voce salita 12
+8/3/1966 (Pesci, con la carta) 1/10 occidentale Giorno Generale: livello 4, fascia favorevole, voce favorevole 1
+8/3/1966 (Pesci, con la carta) 1/10 occidentale Giorno Amore: livello 4, fascia favorevole, voce favorevole 20
+8/3/1966 (Pesci, con la carta) 1/10 occidentale Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 21
+8/3/1966 (Pesci, con la carta) 1/10 occidentale Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 21
+8/3/1966 (Pesci, con la carta) 1/10 occidentale Settimana Generale: livello 5, fascia favorevole, voce favorevole 6
+8/3/1966 (Pesci, con la carta) 1/10 occidentale Settimana Amore: livello 4, fascia favorevole, voce favorevole 6
+8/3/1966 (Pesci, con la carta) 1/10 occidentale Settimana Carriera: livello 3, fascia equilibrio, voce equilibrio 6
+8/3/1966 (Pesci, con la carta) 1/10 occidentale Settimana Fortuna: livello 4, fascia favorevole, voce favorevole 6
+8/3/1966 (Pesci, con la carta) 1/10 occidentale Mese Generale: livello 5, fascia favorevole, voce favorevole 2
+8/3/1966 (Pesci, con la carta) 1/10 occidentale Mese Amore: livello 4, fascia favorevole, voce favorevole 2
+8/3/1966 (Pesci, con la carta) 1/10 occidentale Mese Carriera: livello 4, fascia favorevole, voce favorevole 2
+8/3/1966 (Pesci, con la carta) 1/10 occidentale Mese Fortuna: livello 3, fascia equilibrio, voce equilibrio 2
+8/3/1966 (Pesci, con la carta) 1/10 occidentale Anno Generale: livello 3, fascia equilibrio, voce equilibrio 1
+8/3/1966 (Pesci, con la carta) 1/10 occidentale Anno Amore: livello 3, fascia equilibrio, voce equilibrio 1
+8/3/1966 (Pesci, con la carta) 1/10 occidentale Anno Carriera: livello 5, fascia favorevole, voce favorevole 1
+8/3/1966 (Pesci, con la carta) 1/10 occidentale Anno Fortuna: livello 3, fascia equilibrio, voce equilibrio 1
+8/3/1966 (Pesci, con la carta) 1/10 vedica Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 11
+8/3/1966 (Pesci, con la carta) 1/10 vedica Giorno Amore: livello 3, fascia equilibrio, voce equilibrio 2
+8/3/1966 (Pesci, con la carta) 1/10 vedica Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 3
+8/3/1966 (Pesci, con la carta) 1/10 vedica Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 1
+8/3/1966 (Pesci, con la carta) 1/10 vedica Settimana Generale: livello 4, fascia favorevole, voce favorevole 6
+8/3/1966 (Pesci, con la carta) 1/10 vedica Settimana Amore: livello 3, fascia equilibrio, voce equilibrio 6
+8/3/1966 (Pesci, con la carta) 1/10 vedica Settimana Carriera: livello 4, fascia favorevole, voce favorevole 6
+8/3/1966 (Pesci, con la carta) 1/10 vedica Settimana Fortuna: livello 4, fascia favorevole, voce favorevole 6
+8/3/1966 (Pesci, con la carta) 1/10 vedica Mese Generale: livello 4, fascia favorevole, voce favorevole 2
+8/3/1966 (Pesci, con la carta) 1/10 vedica Mese Amore: livello 3, fascia equilibrio, voce equilibrio 2
+8/3/1966 (Pesci, con la carta) 1/10 vedica Mese Carriera: livello 3, fascia equilibrio, voce equilibrio 2
+8/3/1966 (Pesci, con la carta) 1/10 vedica Mese Fortuna: livello 3, fascia equilibrio, voce equilibrio 2
+8/3/1966 (Pesci, con la carta) 1/10 vedica Anno Generale: livello 3, fascia equilibrio, voce equilibrio 1
+8/3/1966 (Pesci, con la carta) 1/10 vedica Anno Amore: livello 3, fascia equilibrio, voce equilibrio 1
+8/3/1966 (Pesci, con la carta) 1/10 vedica Anno Carriera: livello 3, fascia equilibrio, voce equilibrio 1
+8/3/1966 (Pesci, con la carta) 1/10 vedica Anno Fortuna: livello 3, fascia equilibrio, voce equilibrio 1
+8/3/1966 (Pesci, con la carta) 1/10 cinese Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 21
+8/3/1966 (Pesci, con la carta) 1/10 cinese Giorno Amore: livello 4, fascia favorevole, voce favorevole 6
+8/3/1966 (Pesci, con la carta) 1/10 cinese Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 15
+8/3/1966 (Pesci, con la carta) 1/10 cinese Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 11
+8/3/1966 (Pesci, con la carta) 1/10 cinese Settimana Generale: livello 3, fascia equilibrio, voce equilibrio 6
+8/3/1966 (Pesci, con la carta) 1/10 cinese Settimana Amore: livello 4, fascia favorevole, voce favorevole 6
+8/3/1966 (Pesci, con la carta) 1/10 cinese Settimana Carriera: livello 4, fascia favorevole, voce favorevole 6
+8/3/1966 (Pesci, con la carta) 1/10 cinese Settimana Fortuna: livello 4, fascia favorevole, voce favorevole 6
+8/3/1966 (Pesci, con la carta) 1/10 cinese Mese Generale: livello 3, fascia equilibrio, voce equilibrio 2
+8/3/1966 (Pesci, con la carta) 1/10 cinese Mese Amore: livello 4, fascia favorevole, voce favorevole 2
+8/3/1966 (Pesci, con la carta) 1/10 cinese Mese Carriera: livello 3, fascia equilibrio, voce equilibrio 2
+8/3/1966 (Pesci, con la carta) 1/10 cinese Mese Fortuna: livello 3, fascia equilibrio, voce equilibrio 2
+8/3/1966 (Pesci, con la carta) 1/10 cinese Anno Generale: livello 2, fascia salita, voce salita 1
+8/3/1966 (Pesci, con la carta) 1/10 cinese Anno Amore: livello 2, fascia salita, voce salita 1
+8/3/1966 (Pesci, con la carta) 1/10 cinese Anno Carriera: livello 2, fascia salita, voce salita 1
+8/3/1966 (Pesci, con la carta) 1/10 cinese Anno Fortuna: livello 2, fascia salita, voce salita 1
+8/3/1966 (Pesci, con la carta) 2/10 occidentale Giorno Generale: livello 4, fascia favorevole, voce favorevole 2
+8/3/1966 (Pesci, con la carta) 2/10 occidentale Giorno Amore: livello 4, fascia favorevole, voce favorevole 21
+8/3/1966 (Pesci, con la carta) 2/10 occidentale Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 22
+8/3/1966 (Pesci, con la carta) 2/10 occidentale Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 4
+8/3/1966 (Pesci, con la carta) 2/10 vedica Giorno Generale: livello 4, fascia favorevole, voce favorevole 28
+8/3/1966 (Pesci, con la carta) 2/10 vedica Giorno Amore: livello 3, fascia equilibrio, voce equilibrio 3
+8/3/1966 (Pesci, con la carta) 2/10 vedica Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 4
+8/3/1966 (Pesci, con la carta) 2/10 vedica Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 2
+8/3/1966 (Pesci, con la carta) 2/10 cinese Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 22
+8/3/1966 (Pesci, con la carta) 2/10 cinese Giorno Amore: livello 3, fascia equilibrio, voce equilibrio 15
+8/3/1966 (Pesci, con la carta) 2/10 cinese Giorno Carriera: livello 2, fascia salita, voce salita 3
+8/3/1966 (Pesci, con la carta) 2/10 cinese Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 12
+8/3/1966 (Pesci, con la carta) 3/10 occidentale Giorno Generale: livello 5, fascia favorevole, voce favorevole 3
+8/3/1966 (Pesci, con la carta) 3/10 occidentale Giorno Amore: livello 4, fascia favorevole, voce favorevole 22
+8/3/1966 (Pesci, con la carta) 3/10 occidentale Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 23
+8/3/1966 (Pesci, con la carta) 3/10 occidentale Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 5
+8/3/1966 (Pesci, con la carta) 3/10 vedica Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 12
+8/3/1966 (Pesci, con la carta) 3/10 vedica Giorno Amore: livello 4, fascia favorevole, voce favorevole 4
+8/3/1966 (Pesci, con la carta) 3/10 vedica Giorno Carriera: livello 5, fascia favorevole, voce favorevole 10
+8/3/1966 (Pesci, con la carta) 3/10 vedica Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 5
+8/3/1966 (Pesci, con la carta) 3/10 cinese Giorno Generale: livello 4, fascia favorevole, voce favorevole 1
+8/3/1966 (Pesci, con la carta) 3/10 cinese Giorno Amore: livello 4, fascia favorevole, voce favorevole 7
+8/3/1966 (Pesci, con la carta) 3/10 cinese Giorno Carriera: livello 4, fascia favorevole, voce favorevole 9
+8/3/1966 (Pesci, con la carta) 3/10 cinese Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 13
+8/3/1966 (Pesci, con la carta) 4/10 occidentale Giorno Generale: livello 5, fascia favorevole, voce favorevole 4
+8/3/1966 (Pesci, con la carta) 4/10 occidentale Giorno Amore: livello 4, fascia favorevole, voce favorevole 23
+8/3/1966 (Pesci, con la carta) 4/10 occidentale Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 24
+8/3/1966 (Pesci, con la carta) 4/10 occidentale Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 6
+8/3/1966 (Pesci, con la carta) 4/10 vedica Giorno Generale: livello 5, fascia favorevole, voce favorevole 29
+8/3/1966 (Pesci, con la carta) 4/10 vedica Giorno Amore: livello 4, fascia favorevole, voce favorevole 5
+8/3/1966 (Pesci, con la carta) 4/10 vedica Giorno Carriera: livello 5, fascia favorevole, voce favorevole 11
+8/3/1966 (Pesci, con la carta) 4/10 vedica Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 6
+8/3/1966 (Pesci, con la carta) 4/10 cinese Giorno Generale: livello 3, fascia equilibrio, voce equilibrio 23
+8/3/1966 (Pesci, con la carta) 4/10 cinese Giorno Amore: livello 5, fascia favorevole, voce favorevole 8
+8/3/1966 (Pesci, con la carta) 4/10 cinese Giorno Carriera: livello 4, fascia favorevole, voce favorevole 10
+8/3/1966 (Pesci, con la carta) 4/10 cinese Giorno Fortuna: livello 5, fascia favorevole, voce favorevole 14
+8/3/1966 (Pesci, con la carta) 5/10 occidentale Giorno Generale: livello 5, fascia favorevole, voce favorevole 5
+8/3/1966 (Pesci, con la carta) 5/10 occidentale Giorno Amore: livello 4, fascia favorevole, voce favorevole 24
+8/3/1966 (Pesci, con la carta) 5/10 occidentale Giorno Carriera: livello 4, fascia favorevole, voce favorevole 28
+8/3/1966 (Pesci, con la carta) 5/10 occidentale Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 7
+8/3/1966 (Pesci, con la carta) 5/10 vedica Giorno Generale: livello 4, fascia favorevole, voce favorevole 30
+8/3/1966 (Pesci, con la carta) 5/10 vedica Giorno Amore: livello 4, fascia favorevole, voce favorevole 6
+8/3/1966 (Pesci, con la carta) 5/10 vedica Giorno Carriera: livello 4, fascia favorevole, voce favorevole 12
+8/3/1966 (Pesci, con la carta) 5/10 vedica Giorno Fortuna: livello 5, fascia favorevole, voce favorevole 7
+8/3/1966 (Pesci, con la carta) 5/10 cinese Giorno Generale: livello 2, fascia salita, voce salita 2
+8/3/1966 (Pesci, con la carta) 5/10 cinese Giorno Amore: livello 3, fascia equilibrio, voce equilibrio 16
+8/3/1966 (Pesci, con la carta) 5/10 cinese Giorno Carriera: livello 3, fascia equilibrio, voce equilibrio 16
+8/3/1966 (Pesci, con la carta) 5/10 cinese Giorno Fortuna: livello 2, fascia salita, voce salita 3
+8/3/1966 (Pesci, con la carta) 6/10 occidentale Giorno Generale: livello 5, fascia favorevole, voce favorevole 6
+8/3/1966 (Pesci, con la carta) 6/10 occidentale Giorno Amore: livello 5, fascia favorevole, voce favorevole 25
+8/3/1966 (Pesci, con la carta) 6/10 occidentale Giorno Carriera: livello 4, fascia favorevole, voce favorevole 29
+8/3/1966 (Pesci, con la carta) 6/10 occidentale Giorno Fortuna: livello 5, fascia favorevole, voce favorevole 8
+8/3/1966 (Pesci, con la carta) 6/10 vedica Giorno Generale: livello 5, fascia favorevole, voce favorevole 1
+8/3/1966 (Pesci, con la carta) 6/10 vedica Giorno Amore: livello 4, fascia favorevole, voce favorevole 7
+8/3/1966 (Pesci, con la carta) 6/10 vedica Giorno Carriera: livello 4, fascia favorevole, voce favorevole 13
+8/3/1966 (Pesci, con la carta) 6/10 vedica Giorno Fortuna: livello 5, fascia favorevole, voce favorevole 8
+8/3/1966 (Pesci, con la carta) 6/10 cinese Giorno Generale: livello 2, fascia salita, voce salita 3
+8/3/1966 (Pesci, con la carta) 6/10 cinese Giorno Amore: livello 4, fascia favorevole, voce favorevole 9
+8/3/1966 (Pesci, con la carta) 6/10 cinese Giorno Carriera: livello 5, fascia favorevole, voce favorevole 11
+8/3/1966 (Pesci, con la carta) 6/10 cinese Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 19
+8/3/1966 (Pesci, con la carta) 7/10 occidentale Giorno Generale: livello 5, fascia favorevole, voce favorevole 7
+8/3/1966 (Pesci, con la carta) 7/10 occidentale Giorno Amore: livello 5, fascia favorevole, voce favorevole 26
+8/3/1966 (Pesci, con la carta) 7/10 occidentale Giorno Carriera: livello 4, fascia favorevole, voce favorevole 30
+8/3/1966 (Pesci, con la carta) 7/10 occidentale Giorno Fortuna: livello 4, fascia favorevole, voce favorevole 9
+8/3/1966 (Pesci, con la carta) 7/10 vedica Giorno Generale: livello 2, fascia salita, voce salita 3
+8/3/1966 (Pesci, con la carta) 7/10 vedica Giorno Amore: livello 2, fascia salita, voce salita 15
+8/3/1966 (Pesci, con la carta) 7/10 vedica Giorno Carriera: livello 2, fascia salita, voce salita 5
+8/3/1966 (Pesci, con la carta) 7/10 vedica Giorno Fortuna: livello 2, fascia salita, voce salita 15
+8/3/1966 (Pesci, con la carta) 7/10 cinese Giorno Generale: livello 4, fascia favorevole, voce favorevole 2
+8/3/1966 (Pesci, con la carta) 7/10 cinese Giorno Amore: livello 4, fascia favorevole, voce favorevole 10
+8/3/1966 (Pesci, con la carta) 7/10 cinese Giorno Carriera: livello 4, fascia favorevole, voce favorevole 12
+8/3/1966 (Pesci, con la carta) 7/10 cinese Giorno Fortuna: livello 3, fascia equilibrio, voce equilibrio 20

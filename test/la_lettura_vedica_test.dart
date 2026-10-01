@@ -8,6 +8,7 @@ import 'package:esoteric_circle/core/horoscope/i_segni_delle_tradizioni.dart';
 import 'package:esoteric_circle/core/horoscope/la_lettura_vedica.dart';
 import 'package:esoteric_circle/core/horoscope/le_parti_del_responso.dart';
 import 'package:esoteric_circle/core/horoscope/oroscopo_vedico_data.dart';
+import 'package:esoteric_circle/core/horoscope/i_testi_eu.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
@@ -167,10 +168,13 @@ void main() {
   test('ogni scheda dice la frase del suo gruppo, e il ritorno cambia frase',
       () {
     // Dal 30 settembre 2026 ogni frase e' "TESTO || DA DOVE VIENE"
-    // ([LePartiDelResponso]): nella lettura sta il TESTO.
+    // ([LePartiDelResponso]). LAPIDE, EU Aggiunta, 1 ottobre 2026: qui si
+    // cercava il TESTO nella lettura; adesso la lettura e' una voce del
+    // Giorno vedico dell'Architetto nella fascia del livello, e del corpus di
+    // prima resta il DA DOVE VIENE, che si cerca nella sua riga.
     RegExp gruppo(List<String> varianti) => RegExp(
         varianti
-            .map((v) => RegExp.escape(LePartiDelResponso.di(v).$1)
+            .map((v) => RegExp.escape(LePartiDelResponso.di(v).$2)
                 .replaceAll(RegExp(r'\\\{\w+\\\}'), '.+?')
                 .replaceAll(RegExp(r'\\\[[^\]]*\\\]'), '.+?'))
             .join('|'),
@@ -207,24 +211,35 @@ void main() {
       final h = (r - rashiN + 12) % 12 + 1;
       final t = ((n - nakN! + 27) % 27) % 9 + 1;
       final g = OroscopoVedicoData.chandraBala[h - 1];
-      if (!gruppo(g).hasMatch(s[0].text)) fuori.add('generale $k');
+      if (!gruppo(g).hasMatch(s[0].rigaDelLivello!)) fuori.add('generale $k');
       final ga = OroscopoVedicoData.amore[h - 1];
-      if (!gruppo(ga).hasMatch(s[1].text)) fuori.add('amore $k');
-      if (!gruppo(OroscopoVedicoData.lavoro[h - 1]).hasMatch(s[2].text)) {
+      if (!gruppo(ga).hasMatch(s[1].rigaDelLivello!)) fuori.add('amore $k');
+      if (!gruppo(OroscopoVedicoData.lavoro[h - 1])
+          .hasMatch(s[2].rigaDelLivello!)) {
         fuori.add('lavoro $k');
       }
-      if (!gruppo(OroscopoVedicoData.fortuna[h - 1]).hasMatch(s[3].text)) {
+      if (!gruppo(OroscopoVedicoData.fortuna[h - 1])
+          .hasMatch(s[3].rigaDelLivello!)) {
         fuori.add('fortuna $k');
       }
-      if (!gruppo(OroscopoVedicoData.taraBala[t - 1]).hasMatch(s[0].text)) {
+      if (!gruppo(OroscopoVedicoData.taraBala[t - 1])
+          .hasMatch(s[0].rigaDelLivello!)) {
         fuori.add('tara $k');
+      }
+      for (final c in s) {
+        final voci = ITestiEu.fascia(TradizioneEu.vedica, PeriodoEu.giorno,
+            c.domain, FasciaEu.di(c.indicator));
+        if (!voci.any((v) =>
+            v.titolo == c.title && v.testo(lunga: false) == c.text)) {
+          fuori.add('${c.domain.name} $k fuori dalla sua fascia');
+        }
       }
       // Il ritorno dello stesso caso: la casa della Luna e la tara.
       for (final (cosa, varianti) in [
         ('casa $h', g),
         ('tara $t', OroscopoVedicoData.taraBala[t - 1]),
       ]) {
-        final v = quale(s[0].text, varianti);
+        final v = quale(s[0].rigaDelLivello!, varianti);
         if (ultima.containsKey(cosa)) {
           ritorni++;
           if (ultima[cosa] == v) uguali++;
@@ -275,24 +290,24 @@ void main() {
           LaLetturaVedica.esitoDellaTara(((n - nakN! + 27) % 27) % 9 + 1);
       final contro =
           (buono(luna) && pesa(stella)) || (pesa(luna) && buono(stella));
-      final apre = s[0].text.startsWith('Oggi la giornata ') &&
-          s[0].synthesis.startsWith('Oggi la giornata ');
+      // LAPIDE, EU Aggiunta, 1 ottobre 2026: qui si pretendeva che nei
+      // giorni di disaccordo la lettura aprisse con "le due facce", una frase
+      // scritta nel codice, e mettesse la Luna e la stella "da una parte" e
+      // "dall'altra". Adesso le due forze le mette insieme il livello
+      // ([LaLetturaVedica.livelloDelGiorno]) e la lettura e' una voce della
+      // sua fascia: si pretende che lo sia, d'accordo o no.
+      final voci = ITestiEu.fascia(TradizioneEu.vedica, PeriodoEu.giorno,
+          HoroscopeDomain.generale, FasciaEu.di(s[0].indicator));
+      final nellaFascia = voci.any((v) => v.testo(lunga: false) == s[0].text);
       if (contro) {
         contrari++;
-        if (!apre) fuori.add('giorno $k, in disaccordo: ${s[0].text}');
-        if (!s[0].text.contains(' Da una parte, ') ||
-            !s[0].text.contains(' Dall\'altra, ')) {
-          fuori.add('giorno $k, le due voci senza i due lati');
-        }
-        if (s[0].indicator == 2 && !s[0].text.contains('in salita')) {
-          fuori.add('giorno $k, a 2 su 5 senza "in salita"');
-        }
       } else {
         concordi++;
-        if (s[0].text.startsWith('Oggi la giornata ha due facce') ||
-            s[0].text.startsWith('Oggi la giornata è in salita, anche se')) {
-          fuori.add('giorno $k, d\'accordo, apre coi due volti');
-        }
+      }
+      if (!nellaFascia) fuori.add('giorno $k fuori dalla fascia del livello');
+      if (s[0].text.contains('due facce') ||
+          s[0].text.contains('Da una parte, ')) {
+        fuori.add('giorno $k, il testo di prima scritto nel codice');
       }
     }
     cardinaleMinimo(contrari, 10, cosa: 'giorni con Luna e stella contrarie');
@@ -311,11 +326,14 @@ void main() {
     // Lo dice il "da dove viene", non la lettura (ordine ES, 30 settembre).
     expect(s[0].rigaDelLivello,
         contains('Con l\'ora di nascita leggo anche la tua stella'));
+    // LAPIDE, EU Aggiunta: il Rahu Kalam non sta piu' nella lettura, sta
+    // nel suo "da dove viene".
     expect(
-        OroscopoVedicoData.rahuSenzaCitta
-            .any((f) => s[0].text.contains(f.substring(0, 30))),
+        OroscopoVedicoData.rahuSenzaCitta.any((f) => s[0]
+            .rigaDelLivello!
+            .contains(LePartiDelResponso.di(f).$2.substring(0, 20))),
         isTrue,
-        reason: s[0].text);
+        reason: s[0].rigaDelLivello);
     // Breve e Approfondita diverse su tutte e quattro le schede.
     final prof = LaLetturaVedica.schede(
         adesso: DateTime(2026, 10, 5, 9),
@@ -331,7 +349,10 @@ void main() {
     }
     // Il Rahu Kalam di Roma del 5 ottobre, lunedi': 08:38-10:05 (Drik); alle
     // nove e' in corso.
-    expect(breve[0].text, contains('10:05'));
+    // EU Aggiunta: l'orario stava nel testo della lettura di prima; adesso
+    // resta nel "da dove viene" quando la sua variante lo nomina (due su tre
+    // del Rahu in corso), e il rapporto lo segnala all'Architetto.
+    expect(breve[0].rigaDelLivello, contains('Rahu Kalam'));
   });
 
   test('le frasi del codice sono quelle del corpus', () {

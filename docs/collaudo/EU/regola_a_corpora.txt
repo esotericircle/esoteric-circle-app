@@ -1,0 +1,4 @@
+REGOLA A, EU Aggiunta, 1 ottobre 2026: la guardia i_testi_eu_sono_quelli_dell_architetto vista rossa.
+INNESTO A1 una virgola cambiata nel codice: "Partenza leggera" diventa "Partenza, leggera": grep del difetto nel file SI; prova test/i_testi_eu_sono_quelli_dell_architetto_test.dart ROSSA; EU AGGIUNTA: 12 corpora, 1548 voci e 207 aperture confrontate, differenze 1; file rimesso sha1 316572a580a8 -> 316572a580a8 IDENTICO
+INNESTO A2 una voce tolta dalla fascia In salita del Giorno cinese: grep del difetto nel file SI; prova test/i_testi_eu_sono_quelli_dell_architetto_test.dart ROSSA; file rimesso sha1 041fc2180408 -> 041fc2180408 IDENTICO
+INNESTO A3 un'apertura cambiata nel corpus, non nel codice: grep del difetto nel file SI; prova test/i_testi_eu_sono_quelli_dell_architetto_test.dart ROSSA; EU AGGIUNTA: 12 corpora, 1548 voci e 207 aperture confrontate, differenze 1; file rimesso sha1 890b75cb1d2e -> 890b75cb1d2e IDENTICO

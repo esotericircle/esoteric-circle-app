@@ -54,8 +54,17 @@ void main() {
         expect(p.startsWith(b), isTrue,
             reason: '${segno.id} ${dominio.name}: l\'Approfondita non '
                 'contiene la Breve');
-        expect(aggiunta, contains('la Luna è in ${luna.italianName}'));
-        expect(aggiunta, contains('è in ${suo.italianName}'));
+        // LAPIDE, ordine EU voce 01, 1 ottobre 2026: qui si pretendeva che
+        // la Lunga aggiungesse la Luna e il corpo del dominio coi loro segni,
+        // cioe' il cielo dentro il testo. Il fondatore: *"per lunga
+        // aggiungere altri 2 paragrafi mai di transiti o tecnicismi"*. Adesso
+        // la Lunga aggiunge i due paragrafi lunghi della voce, e il cielo
+        // resta in "Da dove viene".
+        expect(aggiunta.split('\n\n').length, 2,
+            reason: '${segno.id} ${dominio.name}: la Lunga non aggiunge due '
+                'paragrafi: $aggiunta');
+        expect(aggiunta, isNot(contains('la Luna è in ${luna.italianName}')));
+        expect(aggiunta, isNot(contains('è in ${suo.italianName}')));
         if (segno == Zodiac.aries) righe.add('${dominio.name}: $aggiunta');
       }
     }

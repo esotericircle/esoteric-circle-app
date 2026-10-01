@@ -101,9 +101,13 @@ void main() {
               final chi =
                   '${segno.name} ${c == null ? 'senza carta' : 'carta'} '
                   '${d.dominio.name} ${g.giorno.toIso8601String().substring(0, 10)}';
-              if (g.lettura != scheda.synthesis ||
-                  !scheda.text.startsWith(g.lettura)) {
-                letturaDiversa.add('$chi: "${g.lettura}"');
+              // LAPIDE, EU Aggiunta, 1 ottobre 2026: qui si confrontava la
+              // lettura della riga con la prima parte della scheda. Adesso la
+              // riga porta il titolo della scheda del Giorno di quella data
+              // (il testo si legge quel giorno): si confronta il titolo.
+              if (g.titolo != scheda.title) {
+                letturaDiversa.add('$chi: "${g.titolo}", Giorno '
+                    '"${scheda.title}"');
               }
               if (g.livello != scheda.indicator) {
                 livelloDiverso

@@ -9,6 +9,7 @@ import 'package:esoteric_circle/core/horoscope/la_rivoluzione_solare.dart';
 import 'package:esoteric_circle/core/horoscope/le_parti_del_responso.dart';
 import 'package:esoteric_circle/core/horoscope/oroscopo_annuale_data.dart';
 import 'package:esoteric_circle/features/horoscope/il_pdf_dell_anno.dart';
+import 'package:esoteric_circle/core/horoscope/i_testi_eu.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
@@ -36,8 +37,6 @@ void main() {
   // Dal 30 settembre 2026 ogni frase del corpus ha due parti, "TESTO || DA
   // DOVE VIENE": il testo va nella lettura, il da dove viene nella riga sotto
   // ([LePartiDelResponso]).
-  RegExp gruppo(List<String> v) => RegExp(
-      v.map((f) => RegExp.escape(LePartiDelResponso.di(f).$1)).join('|'));
   RegExp daDove(List<String> v) => RegExp(
       v.map((f) => RegExp.escape(LePartiDelResponso.di(f).$2)).join('|'));
 
@@ -93,8 +92,22 @@ void main() {
         ];
         for (var i = 0; i < 4; i++) {
           final (nome, gruppi, livello) = attesi[i];
+          // LAPIDE, EU Aggiunta, 1 ottobre 2026: qui si pretendeva che la
+          // lettura fosse la frase del caso dal corpus annuale di prima.
+          // Adesso la lettura e' la voce del corpus dell'Anno occidentale
+          // dell'Architetto, nella fascia del livello, e la voce e' (numero
+          // dell'anno + scarto) modulo due; il "da dove viene" del caso resta.
+          final voce = ITestiEu.voce(
+              TradizioneEu.occidentale,
+              PeriodoEu.anno,
+              HoroscopeDomain.values[i],
+              FasciaEu.di(livello.clamp(2, 5)),
+              ITestiEu.indiceDellAnno(t.istante.year, 0));
+          if (s[i].text != voce.testo(lunga: true) ||
+              s[i].title != voce.titolo) {
+            fuori.add('$nome $n $anno');
+          }
           for (final g in gruppi) {
-            if (!gruppo(g).hasMatch(s[i].text)) fuori.add('$nome $n $anno');
             if (!daDove(g).hasMatch(s[i].rigaDelLivello!)) {
               fuori.add('da dove $nome $n $anno');
             }

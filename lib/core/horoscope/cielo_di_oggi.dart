@@ -31,7 +31,13 @@ class CieloDiOggi {
     required this.livello,
     this.lunaDelGiorno,
     this.natali = const {},
+    this.carta,
   });
+
+  /// **LA CARTA DA CUI VIENE QUESTO CIELO**, EU Aggiunta: la scelta della
+  /// voce del Giorno conta le fasce dei giorni passati, e i loro livelli si
+  /// calcolano con la stessa carta. Nulla senza carta.
+  final NatalChart? carta;
 
   /// **LA LUNA ALL'ISTANTE DEL GIORNO**, in gradi di longitudine, e i punti
   /// natali coi loro nomi (id, nome, longitudine). Ordine EU voce 09: servono
@@ -104,6 +110,7 @@ class CieloDiOggi {
       natali: {
         for (final p in carta.planets) p.id: (p.name, p.longitude),
       },
+      carta: carta,
     );
   }
 

@@ -1,5 +1,6 @@
 import '../chat/user_profile.dart';
 import 'horoscope.dart';
+import 'i_testi_eu.dart';
 import 'i_segni_delle_tradizioni.dart';
 import 'l_almanacco_cinese.dart';
 import 'le_parti_del_responso.dart';
@@ -52,8 +53,12 @@ abstract final class LaLetturaCinese {
     required int animale,
     CourtesyForm? forma,
     Map<HoroscopeDomain, bool> approfondite = const {},
-    String? apertura,
+    String? vocativo,
+    bool diOggi = true,
   }) {
+    // Sotto la data di un altro giorno (la Settimana e il Mese) la riga del
+    // livello non dice "di oggi" (ordine EU voce 02).
+    final quando = diOggi ? 'di oggi' : 'del giorno';
     final guardiano = LAlmanaccoCinese.guardiano(oggi);
     if (guardiano == null) return null;
     final ramo = LAlmanaccoCinese.ramo(oggi);
@@ -82,40 +87,70 @@ abstract final class LaLetturaCinese {
         valori);
     bool approfondita(HoroscopeDomain d) => approfondite[d] ?? false;
 
+    // **I TESTI DELL'ARCHITETTO, EU Aggiunta, 1 ottobre 2026**: il titolo e
+    // i paragrafi di ogni scheda vengono dal corpus del Giorno cinese, nella
+    // fascia del livello, con la voce scelta contando le fasce gia' tornate
+    // per questa persona ([ITestiEu]); le frasi di lettura del corpus di
+    // prima non vanno piu' a video. Le righe di "Da dove viene" restano
+    // quelle di oggi: si scrivono qui sotto come prima.
+    final scarto = ITestiEu.scarto(nascita);
+    VoceEu voceDi(HoroscopeDomain d, int livello) {
+      final fascia = FasciaEu.di(livello);
+      final indice = ITestiEu.indiceDelGiorno(
+        chiave: 'cinese|$animale|$signore|${f.name}',
+        oggi: oggi,
+        d: d,
+        fasciaDiOggi: fascia,
+        scarto: scarto,
+        livelli: (g) => livelliDelGiorno(g, animale, signore, f),
+      );
+      return ITestiEu.voce(
+          TradizioneEu.cinese, PeriodoEu.giorno, d, fascia, indice);
+    }
+
     // GENERALE: il rapporto fra i due animali e il guardiano. Di ogni frase
-    // il testo va nella lettura, il "da dove viene" nella riga sotto.
+    // il "da dove viene" va nella riga sotto.
     final chiave = chiaveDelRapporto(rapporto, animale == ramo);
-    final (rapportoTesto, rapportoDaDove) = LePartiDelResponso.di(
+    final (_, rapportoDaDove) = LePartiDelResponso.di(
         frase(OroscopoCineseData.rapporti[chiave]!, ritorno.ramo));
-    final (guardianoTesto, guardianoDaDove) = LePartiDelResponso.di(
+    final (_, guardianoDaDove) = LePartiDelResponso.di(
         frase(OroscopoCineseData.guardiani[guardiano], ritorno.guardiano));
-    final (gioiaTesto, gioiaDaDove) = LePartiDelResponso.di(
+    final (_, gioiaDaDove) = LePartiDelResponso.di(
         frase(OroscopoCineseData.direzioneGioia, ritorno.gioia));
-    final (adatto, evitare) =
-        OroscopoCineseData.consigliDelGuardiano[guardiano];
     final lungaGenerale = approfondita(HoroscopeDomain.generale);
+    final livelloGenerale = livelloDelRapporto(rapporto);
+    final rigaDelLivelloGenerale = 'Il livello viene dal rapporto fra '
+        '${conArticolo(ramo)} $quando e ${_iltuo(animale)}: '
+        '${rapportoDetto(rapporto, animale == ramo)}.';
+    final voceGenerale = voceDi(HoroscopeDomain.generale, livelloGenerale);
     final generale = HoroscopeCard(
       domain: HoroscopeDomain.generale,
-      title: OroscopoCineseData.titoliDeiRapporti[chiave]!,
-      synthesis: primaFrase(rapportoTesto),
-      text: LePartiDelResponso.insieme([
-        rapportoTesto,
-        guardianoTesto,
-        if (lungaGenerale) ...[
-          'Adatto a: $adatto. Meglio evitare: $evitare.',
-          gioiaTesto,
-        ],
-      ]),
-      indicator: livelloDelRapporto(rapporto),
+      title: voceGenerale.titolo,
+      synthesis: voceGenerale.risposta,
+      text: voceGenerale.testo(lunga: lungaGenerale),
+      indicator: livelloGenerale,
       rigaDelLivello: LePartiDelResponso.insieme([
         rapportoDaDove,
         guardianoDaDove,
         if (lungaGenerale) gioiaDaDove,
-        'Il livello viene dal rapporto fra ${conArticolo(ramo)} di oggi e '
-            '${_iltuo(animale)}: '
-            '${rapportoDetto(rapporto, animale == ramo)}.',
+        rigaDelLivelloGenerale,
       ]),
-      opening: apertura,
+      rigaSoloDelLivello: rigaDelLivelloGenerale,
+      // L'apertura dal corpus, con lo stesso indice della Generale.
+      opening: vocativo == null
+          ? null
+          : ITestiEu.apertura(
+              TradizioneEu.cinese,
+              FasciaEu.di(livelloGenerale),
+              ITestiEu.indiceDelGiorno(
+                chiave: 'cinese|$animale|$signore|${f.name}',
+                oggi: oggi,
+                d: HoroscopeDomain.generale,
+                fasciaDiOggi: FasciaEu.di(livelloGenerale),
+                scarto: scarto,
+                livelli: (g) => livelliDelGiorno(g, animale, signore, f),
+              ),
+              vocativo),
       metodo: OroscopoCineseData.notaGenerale,
     );
 
@@ -129,12 +164,8 @@ abstract final class LaLetturaCinese {
         forma: f);
     HoroscopeCard delDio(HoroscopeDomain d, String serie) {
       final gruppo = OroscopoCineseData.dei[serie]![dio.name]!;
-      final (base, baseDaDove) =
+      final (_, baseDaDove) =
           LePartiDelResponso.di(frase(gruppo, ritorno.tronco));
-      // La Lunga aggiunge la seconda lettura dello stesso dio: un altro
-      // gesto, in parole, non un'altra spiegazione del simbolo.
-      final (ancora, _) =
-          LePartiDelResponso.di(frase(gruppo, ritorno.tronco + 1));
       // Le Sette Uccisioni sono un plurale.
       final e = dio == DioDelGiorno.setteUccisioni ? 'sono' : 'è';
       // **UNA RIGA DIVERSA PER SCHEDA.** La spiegazione del dio e' la
@@ -148,24 +179,24 @@ abstract final class LaLetturaCinese {
       final lunga = approfondita(d);
       final colore =
           frase(OroscopoCineseData.coloreENumeri, ritorno.coppiaDiTronchi);
-      final (ricchezzaTesto, ricchezzaDaDove) = LePartiDelResponso.di(frase(
+      final (_, ricchezzaDaDove) = LePartiDelResponso.di(frase(
           OroscopoCineseData.direzioneRicchezza, ritorno.coppiaDiTronchi));
+      final livello = livelloDelDio(d, dio, forma: f);
+      final voce = voceDi(d, livello);
       return HoroscopeCard(
         domain: d,
-        title: OroscopoCineseData.titoliDeiDei[serie]![dio.name]!,
-        synthesis: primaFrase(base),
-        text: LePartiDelResponso.insieme([
-          base,
-          if (lunga) ancora,
-          if (lunga && fortuna) ricchezzaTesto,
-        ]),
-        indicator: livelloDelDio(d, dio, forma: f),
+        title: voce.titolo,
+        synthesis: voce.risposta,
+        text: voce.testo(lunga: lunga),
+        indicator: livello,
         rigaDelLivello: LePartiDelResponso.insieme([
           baseDaDove,
           if (lunga) presentazione,
           if (lunga && fortuna) ricchezzaDaDove,
           '${_perIlTema[d]}: ${relazioneDelDio(d, dio, forma: f)}.',
         ]),
+        rigaSoloDelLivello: 'Il dio $quando nel BaZi $e ${dio.nome}. '
+            '${_perIlTema[d]}: ${relazioneDelDio(d, dio, forma: f)}.',
         metodo: fortuna
             ? '${OroscopoCineseData.notaDei} ${OroscopoCineseData.notaColore}'
             : OroscopoCineseData.notaDei,
@@ -214,6 +245,22 @@ abstract final class LaLetturaCinese {
       coppiaDiTronchi: 2 * ((g + 9) ~/ 10) + tronco % 2,
       guardiano: (g - jie) ~/ 12 + jie,
     );
+  }
+
+  /// **I LIVELLI DI UN GIORNO CIVILE** nei quattro domini, con le stesse
+  /// regole delle schede: il rapporto fra gli animali per la Generale, il
+  /// dio del giorno per le altre. Servono a contare le fasce dei giorni
+  /// passati (EU Aggiunta).
+  static List<int> livelliDelGiorno(
+      DateTime giorno, int animale, int signore, CourtesyForm forma) {
+    final rapporto =
+        LAlmanaccoCinese.rapporto(animale, LAlmanaccoCinese.ramo(giorno));
+    final dio = LAlmanaccoCinese.dio(signore, LAlmanaccoCinese.tronco(giorno));
+    return [
+      livelloDelRapporto(rapporto),
+      for (final d in HoroscopeDomain.values.skip(1))
+        livelloDelDio(d, dio, forma: forma),
+    ];
   }
 
   /// La riga di domani, ordine ES voce 34 letta nella tradizione cinese:

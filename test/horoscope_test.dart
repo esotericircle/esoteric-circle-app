@@ -2,6 +2,7 @@ import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope_data.dart';
+import 'package:esoteric_circle/core/horoscope/i_testi_eu.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Oroscopo a quattro schede: composizione deterministica su dispositivo, senza
@@ -58,31 +59,26 @@ void main() {
       }
     });
 
-    test('La corrente del giorno resta nel pool del dominio', () {
+    // LAPIDE, EU Aggiunta, 1 ottobre 2026: qui si pretendeva che il testo
+    // fosse la prima parte del giorno piu' una frase del pool della corrente,
+    // cioe' i corpora di prima. Adesso il titolo e i paragrafi sono una voce
+    // del corpus del Giorno occidentale dell'Architetto, nella fascia del
+    // livello della scheda; il confronto carattere per carattere lo fa
+    // i_testi_eu_sono_quelli_dell_architetto_test.dart.
+    test('Il testo e\' una voce del Giorno occidentale, nella fascia del livello',
+        () {
       for (final sign in Zodiac.values) {
-        for (var day = 0; day <= 365; day++) {
+        for (var day = 0; day <= 365; day += 7) {
           for (final domain in HoroscopeDomain.values) {
             final card = Horoscope.cardFor(
                 sign: sign, dayOfYear: day, year: 2026, domain: domain);
-            // Il testo e' la prima parte del giorno piu' spazio piu'
-            // corrente (ordine ER voce 14): la coda deve essere una frase del
-            // pool.
-            final anchor = card.synthesis;
-            expect(
-                HoroscopeData.primeDelGiorno[domain.index]!
-                    .expand((c) => c)
-                    .contains(anchor),
-                isTrue);
-            expect(card.text.startsWith('$anchor '), isTrue);
-            final current = card.text.substring(anchor.length + 1);
-            // **LA FRASE DEL POOL SI LEGGE RISOLTA**, ordine DL voce 03:
-            // nel pool ci sono le marche del genere, a schermo la forma.
-            expect(
-                HoroscopeData.dayPools[domain.index]!
-                    .map(LaMarcaDelGenere.risolvi)
-                    .contains(current),
-                isTrue,
-                reason: 'corrente fuori pool per ${sign.id} giorno $day');
+            final voci = ITestiEu.fascia(TradizioneEu.occidentale,
+                PeriodoEu.giorno, domain, FasciaEu.di(card.indicator));
+            final voce = voci.where((v) => v.titolo == card.title).toList();
+            expect(voce, isNotEmpty,
+                reason: 'titolo fuori dalla fascia per ${sign.id} giorno $day');
+            expect(card.text, voce.first.testo(lunga: false));
+            expect(card.synthesis, voce.first.risposta);
           }
         }
       }

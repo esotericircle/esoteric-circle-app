@@ -213,6 +213,9 @@ void main() {
 
   Future<void> toccaLaTradizione(WidgetTester tester, AstroTradition t) async {
     final riga = find.byKey(const Key('oroscopo_tradition_tabs'));
+    // Dalla EU Aggiunta si arriva qui anche da sotto le schede: si risale.
+    await tester.scrollUntilVisible(riga, -400,
+        scrollable: find.byType(Scrollable).first);
     await tester.ensureVisible(riga);
     await tester.pump();
     await tester.drag(riga, const Offset(2000, 0));
@@ -259,6 +262,10 @@ void main() {
     await monta(tester);
     await consulta(tester);
     final cieli = find.byKey(const Key('oroscopo_tre_cieli'));
+    // EU Aggiunta, 1 ottobre 2026: le schede portano i paragrafi del corpus
+    // dell'Architetto e sono piu' alte; i tre cieli si raggiungono scorrendo.
+    await tester.scrollUntilVisible(cieli, 400,
+        scrollable: find.byType(Scrollable).first);
     expect(cieli, findsOneWidget,
         reason: 'sotto le schede non ci sono i tre cieli di oggi');
     final frasi = [

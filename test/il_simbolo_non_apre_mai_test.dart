@@ -244,7 +244,10 @@ void main() {
             for (final t in [
               d.risposta(mese: mese),
               d.rigaDelMigliore,
-              d.cosaFare,
+              // EU Aggiunta: i paragrafi e il titolo della voce del periodo
+              // al posto della lettura del giorno migliore.
+              d.voce.titolo,
+              ...d.voce.paragrafi(lunga: true),
             ]) {
               final q = quale(t);
               if (q != null) {

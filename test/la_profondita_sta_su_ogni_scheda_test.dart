@@ -274,7 +274,10 @@ void main() {
       'la Settimana e il Mese: il pulsante su ogni scheda, la Breve '
       'senza le righe dei giorni, la Lunga con', (tester) async {
     final esiti = <String>[];
-    for (final (nome, righeAttese) in const [('settimana', 7), ('mese', 3)]) {
+    // LAPIDE, EU Aggiunta, 1 ottobre 2026: la Settimana Lunga aveva le sette
+    // righe del giorno per giorno; adesso, come il Mese, i tre giorni
+    // migliori, ognuno col titolo della sua scheda del Giorno.
+    for (final (nome, righeAttese) in const [('settimana', 3), ('mese', 3)]) {
       await monta(tester);
       await scegliIlPeriodo(tester, nome);
       var conIlPulsante = 0;
@@ -343,6 +346,11 @@ void main() {
     final ferme = <String>[];
     var senzaPulsante = 0;
     for (final t in const ['occidentale', 'cinese', 'vedica']) {
+      // Dalla EU Aggiunta le schede sono piu' alte: dopo l'ultima si risale
+      // alla riga delle tradizioni.
+      await tester.scrollUntilVisible(
+          find.byKey(Key('amico_tradizione_$t')), -300,
+          scrollable: find.byType(Scrollable).first);
       await tester.tap(find.byKey(Key('amico_tradizione_$t')));
       await tester.pump(const Duration(milliseconds: 300));
       for (final d in HoroscopeDomain.values) {
@@ -492,6 +500,10 @@ void main() {
         final pulsante = find.byKey(Key('oroscopo_condividi_${p.name}'));
         final etichetta =
             find.byKey(Key('oroscopo_condividi_etichetta_${p.name}'));
+        // Dalla EU Aggiunta i riquadri del periodo portano i paragrafi del
+        // corpus: il pulsante in fondo si raggiunge scorrendo.
+        await tester.scrollUntilVisible(pulsante, 400,
+            scrollable: find.byType(Scrollable).first);
         expect(pulsante, findsOneWidget, reason: p.label);
         expect(etichetta, findsOneWidget, reason: p.label);
         final testo = tester.widget<Text>(etichetta).data!;

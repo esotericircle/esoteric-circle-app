@@ -5,7 +5,6 @@ import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
 import 'package:esoteric_circle/core/horoscope/cielo_di_oggi.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
-import 'package:esoteric_circle/core/horoscope/horoscope_data.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
@@ -23,6 +22,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/horoscope/riflessione_del_cielo.dart';
+import 'package:esoteric_circle/core/horoscope/i_testi_eu.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
@@ -113,7 +113,10 @@ void main() {
       // Alta abbastanza per le quattro schede: dal 30 settembre 2026 ogni
       // scheda porta sotto il testo la riga "Da dove viene", e a 2000
       // punti la quarta restava fuori dalla lista.
-      tester.view.physicalSize = const Size(440, 2600);
+      // EU Aggiunta, 1 ottobre 2026: le schede portano i due paragrafi del
+      // corpus dell'Architetto separati, e a 2600 punti la quarta restava
+      // fuori dalla lista.
+      tester.view.physicalSize = const Size(440, 3600);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(tester.view.resetPhysicalSize);
       addTearDown(tester.view.resetDevicePixelRatio);
@@ -197,11 +200,15 @@ void main() {
       // quello neutro. **La pretesa vera di questa prova non cambia**: che
       // l\'apertura porti il NOME della persona e venga dal pool.
       expect(opening, startsWith('Ciao Sofia,'));
-      // E resta una delle aperture del pool.
-      final pool = HoroscopeData.openings
-          .map((o) => o.replaceAll(HoroscopeData.namePlaceholder, 'Ciao Sofia'))
-          .toList();
-      expect(pool, contains(opening));
+      // LAPIDE, EU Aggiunta, 1 ottobre 2026: qui si pretendeva un'apertura
+      // del pool di prima. Adesso viene dalle aperture del Giorno occidentale
+      // dell'Architetto, in una delle tre fasce.
+      final aperture = [
+        for (final f in FasciaEu.values)
+          for (var i = 0; i < 30; i++)
+            ITestiEu.apertura(TradizioneEu.occidentale, f, i, 'Ciao Sofia'),
+      ];
+      expect(aperture, contains(opening));
     });
 
     testWidgets('Ogni scheda mostra il livello col numero', (tester) async {

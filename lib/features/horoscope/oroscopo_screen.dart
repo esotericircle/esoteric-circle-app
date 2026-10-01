@@ -50,6 +50,10 @@ import '../../core/horoscope/il_sigillo_dei_tre_cieli.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../core/horoscope/la_lettura_vedica.dart';
 import '../../core/horoscope/l_annuale.dart';
+import '../../core/horoscope/l_anno_delle_tradizioni.dart';
+import '../../core/horoscope/il_capodanno_lunare.dart';
+import '../../core/chat/user_profile.dart';
+import '../../core/horoscope/i_testi_eu.dart';
 import '../../core/horoscope/la_rivoluzione_solare.dart';
 import '../../core/horoscope/gli_anni_aperti.dart';
 import '../../core/astro/il_fuso_della_nascita.dart';
@@ -419,16 +423,171 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   IlPeriodoDelCielo? _ilPeriodo;
 
   IlPeriodoDelCielo _periodoDelCielo(NatalChart? carta) {
-    final chiave = (_period, carta, _date.year, _date.month, _date.day);
+    // La data di nascita, per lo scarto della scelta delle voci (EU
+    // Aggiunta): la stessa che usa il Giorno.
+    final identita = context.read<ProfileController>().identity;
+    final nascita = identita.isExample ? null : identita.birthDate;
+    final chiave =
+        (_period, carta, _date.year, _date.month, _date.day, nascita);
     if (chiave != _chiaveDelPeriodo || _ilPeriodo == null) {
       _chiaveDelPeriodo = chiave;
       _ilPeriodo = LaSettimanaDelCielo.per(
           segno: widget.userSign,
           carta: carta,
           oggi: _date,
-          giorni: _period == HoroscopePeriod.mese ? 30 : 7);
+          giorni: _period == HoroscopePeriod.mese ? 30 : 7,
+          nascita: nascita);
     }
     return _ilPeriodo!;
+  }
+
+  /// **LA SETTIMANA E IL MESE DELLA VEDICA E DELLA CINESE, ordine EU voce
+  /// 02**: ogni giorno e' la scheda del Giorno di quella data. Si calcolano
+  /// una volta per tradizione, periodo, giorno, nascita e luogo.
+  Object? _chiaveDelPeriodoAltro;
+  IlPeriodoDelCielo? _ilPeriodoAltro;
+
+  IlPeriodoDelCielo? _periodoDellaTradizione(
+      NascitaDeiSegni n, CourtesyForm forma, int? animale) {
+    final cinese = _inCima == AstroTradition.cinese;
+    final chiave = (
+      _inCima,
+      _period,
+      _date.year,
+      _date.month,
+      _date.day,
+      n.locale,
+      _luogo?.citta,
+      forma,
+      animale
+    );
+    if (chiave != _chiaveDelPeriodoAltro) {
+      _chiaveDelPeriodoAltro = chiave;
+      _ilPeriodoAltro = cinese && animale == null
+          ? null
+          : LaSettimanaDelCielo.dalleSchede(
+              oggi: _date,
+              giorni: _period == HoroscopePeriod.mese ? 30 : 7,
+              tradizione: cinese ? TradizioneEu.cinese : TradizioneEu.vedica,
+              scarto: ITestiEu.scarto(n.locale),
+              schedeDi: (g) => cinese
+                  ? LaLetturaCinese.schede(
+                      oggi: g,
+                      nascita: n.locale,
+                      animale: animale!,
+                      forma: forma,
+                      diOggi: false)
+                  : LaLetturaVedica.schede(
+                      adesso: DateTime(g.year, g.month, g.day, 12),
+                      nascita: n,
+                      luogo: _luogo,
+                      forma: forma,
+                      oggi: false),
+            );
+    }
+    return _ilPeriodoAltro;
+  }
+
+  /// **L'ANNO DELLA VEDICA E DELLA CINESE, ordine EU voce 02**: la Cinese da
+  /// Capodanno lunare a Capodanno lunare, la Vedica da compleanno a
+  /// compleanno ([LAnnoDelleTradizioni]). Si apre col piano dell'anno: gli
+  /// Eos non comprano le letture Vedica e Cinese (tabella della voce ES.06).
+  List<Widget> _lAnnoDellaTradizione(
+    BuildContext context, {
+    required MaestroPalette palette,
+    required Tier tier,
+    required NascitaDeiSegni nascita,
+    required int? animale,
+    required LivelloPersonalizzazione livello,
+  }) {
+    final cinese = _inCima == AstroTradition.cinese;
+    final rashi = cinese ? null : LaLetturaVedica.lunaDiNascita(nascita)?.$1;
+    final anno = cinese
+        ? (animale == null
+            ? null
+            : LAnnoDelleTradizioni.cinese(_date, animale,
+                annoDiNascita: IlCapodannoLunare.annoCinese(nascita.locale)))
+        : (rashi == null
+            ? null
+            : LAnnoDelleTradizioni.vedico(_date, nascita.locale, rashi));
+    if (anno == null) {
+      return [
+        _InvitoAllaNascita(
+            testo: cinese
+                ? 'Per l\'anno cinese serve la tua data di nascita: '
+                    'aggiungila qui.'
+                : 'Per l\'anno vedico serve la tua Luna di nascita: '
+                    'aggiungi l\'ora di nascita qui.',
+            palette: palette,
+            alRitorno: _leggiIlLuogo),
+      ];
+    }
+    final riga = Text(
+        'Il tuo anno ${cinese ? 'cinese' : 'vedico'} va dal '
+        '${italianLongDate(anno.da)} al ${italianLongDate(anno.a)}.',
+        key: Key('oroscopo_${_inCima.name}_anno_riga'),
+        textAlign: TextAlign.center,
+        style: TypographyTokens.didascalia()
+            .copyWith(color: ColorTokens.textSecondary, height: 1.4));
+    if (tier.level < HoroscopePeriod.anno.livelloMinimo) {
+      final piano =
+          PlanCatalog.forTier(Tier.values[HoroscopePeriod.anno.livelloMinimo])
+              .name;
+      return [
+        riga,
+        const SizedBox(height: SpacingTokens.md),
+        Text('L\'oroscopo dell\'anno è compreso ${conPiano(piano)}.',
+            key: Key('oroscopo_${_inCima.name}_anno_chiuso'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
+        const SizedBox(height: SpacingTokens.sm),
+        OutlinedButton(
+          key: Key('oroscopo_${_inCima.name}_anno_piano'),
+          style: OutlinedButton.styleFrom(
+            minimumSize: const Size(0, 44),
+            side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+          ),
+          onPressed: () => showUpgradeInvite(
+            context,
+            title: 'L\'oroscopo dell\'anno si apre ${conPiano(piano)}',
+            message: 'L\'anno della tua tradizione: il tono, l\'amore, il '
+                'lavoro e la fortuna dei dodici mesi.',
+          ),
+          child: Text('Scopri il piano',
+              style:
+                  TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
+        ),
+      ];
+    }
+    final schede = LAnnoDelleTradizioni.schede(
+        cinese ? TradizioneEu.cinese : TradizioneEu.vedica, anno,
+        scarto: ITestiEu.scarto(nascita.locale),
+        approfondite: {
+          for (final voce in _depth.entries)
+            voce.key: voce.value == AnswerDepth.profonda,
+        });
+    return [
+      riga,
+      const SizedBox(height: SpacingTokens.md),
+      for (final s in schede) ...[
+        _HoroscopeCardView(
+          scrivendo: false,
+          durataScrittura: Duration.zero,
+          card: s,
+          palette: palette,
+          pulse: _pulse,
+          depth: _depth[s.domain]!,
+          onDepthSelected: (scelta) => _scegliProfondita(s.domain, scelta),
+          onDepthLocked: (scelta) => _showDepthLocked(s.domain, scelta),
+          premiumUnlocked: PlanCatalog.haProfondita(tier),
+          giaScritto: () => true,
+          onScritto: () {},
+          livello: livello,
+        ),
+        const SizedBox(height: SpacingTokens.md),
+      ],
+    ];
   }
 
   // Rivelazione una volta sola: la prima volta il messaggio entra in
@@ -651,11 +810,14 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     // "approfondita" è esclusiva dei premium."* A video ogni scheda si legge
     // alla profondita' scelta; il PDF e la card portano la lettura intera.
     final forma = context.read<ProfileController>().courtesy;
-    final schede = LAnnuale.schede(tema, forma: forma, approfondite: {
-      for (final voce in _depth.entries)
-        voce.key: voce.value == AnswerDepth.profonda,
-    });
-    final intere = LAnnuale.schede(tema, forma: forma);
+    final schede = LAnnuale.schede(tema,
+        forma: forma,
+        nascita: nascita.locale,
+        approfondite: {
+          for (final voce in _depth.entries)
+            voce.key: voce.value == AnswerDepth.profonda,
+        });
+    final intere = LAnnuale.schede(tema, forma: forma, nascita: nascita.locale);
     _schedeDelPeriodo = intere;
     // L'AVVISO DEL COMPLEANNO: l'anno nuovo e' pronto all'istante del
     // prossimo ritorno. Una volta per apertura, e solo col permesso.
@@ -772,11 +934,6 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
     final profile = context.watch<ProfileController>();
     final vocative = Horoscope.vocativeFor(profile.vocative, profile.courtesy);
-    final opening = Horoscope.openingFor(
-        sign: widget.userSign,
-        dayOfYear: _dayOfYear,
-        year: _year,
-        vocative: vocative);
     // IL CIELO VERO DI QUESTA PERSONA, quando c'e' una carta da interrogare.
     //
     // **Qui muore l'hash.** La corrente del giorno usciva da un pool di frasi
@@ -829,7 +986,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
               for (final voce in _depth.entries)
                 voce.key: voce.value == AnswerDepth.profonda,
             },
-            apertura: '$comeTiChiamo, apro per te l\'almanacco cinese di oggi.')
+            vocativo: comeTiChiamo)
         : null;
     final schedeVediche = vedica && leggeLaTradizione && nascitaDeiSegni != null
         ? LaLetturaVedica.schede(
@@ -841,7 +998,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
               for (final voce in _depth.entries)
                 voce.key: voce.value == AnswerDepth.profonda,
             },
-            apertura: '$comeTiChiamo, guardo per te la Luna di oggi.')
+            vocativo: comeTiChiamo)
         : null;
     final schedeAltre = schedeCinesi ?? schedeVediche;
     // Il segno lunare di nascita, su cui si ferma la corsa della Vedica.
@@ -870,7 +1027,9 @@ class _OroscopoScreenState extends State<OroscopoScreen>
             sign: widget.userSign,
             dayOfYear: _dayOfYear,
             year: _year,
-            opening: opening,
+            // L'apertura viene dal corpus del Giorno (EU Aggiunta), col
+            // vocativo di oggi.
+            vocativo: vocative,
             cielo: cielo,
             profonde: {
               for (final voce in _depth.entries)
@@ -1132,25 +1291,42 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                                   ? _tradition
                                   : AstroTradition.occidentale),
                         ),
-                      // **LA CINESE DICE CIO' CHE LEGGE**, ordine ES voce 08:
-                      // la settimana e il mese cinesi non ci sono ancora, e
-                      // si dice; il piano gratuito vede il segno e l'invito;
-                      // senza la data di nascita si chiede la data.
-                      if (altra && _period != HoroscopePeriod.giorno)
-                        _LaLetturaEInArrivo(
-                          tradizione: _inCima,
-                          palette: palette,
-                          chiave: Key('oroscopo_${_inCima.name}_periodo'),
-                          chiaveDelGesto:
-                              Key('oroscopo_${_inCima.name}_torna_al_giorno'),
-                          testo: 'La settimana e il mese nella tradizione '
-                              '$aggettivo sono in arrivo: qui leggi il giorno.',
-                          etichetta: 'Torna al giorno',
-                          onTorna: () => _selectPeriod(HoroscopePeriod.giorno),
-                        ),
+                      // **LA SETTIMANA, IL MESE E L'ANNO DELLA VEDICA E DELLA
+                      // CINESE**, ordine EU voce 02: prima dicevano "sono in
+                      // arrivo: qui leggi il giorno". Il piano gratuito vede
+                      // il segno e l'invito; senza la data si chiede la data.
                       if (altra &&
-                          _period == HoroscopePeriod.giorno &&
-                          !leggeLaTradizione)
+                          leggeLaTradizione &&
+                          nascitaDeiSegni != null &&
+                          segnoInCima != null &&
+                          (_period == HoroscopePeriod.settimana ||
+                              _period == HoroscopePeriod.mese))
+                        if (_periodoDellaTradizione(
+                                nascitaDeiSegni, profile.courtesy, animale)
+                            case final p?)
+                          IlPeriodoView(
+                            key: Key('oroscopo_${_inCima.name}_periodo'),
+                            periodo: p,
+                            mese: _period == HoroscopePeriod.mese,
+                            palette: palette,
+                            livello: cielo.livello,
+                            profondita: _depth,
+                            premiumUnlocked: PlanCatalog.haProfondita(tier),
+                            onDepthSelected: _scegliProfondita,
+                            onDepthLocked: _showDepthLocked,
+                          ),
+                      if (altra &&
+                          leggeLaTradizione &&
+                          nascitaDeiSegni != null &&
+                          segnoInCima != null &&
+                          _period == HoroscopePeriod.anno)
+                        ..._lAnnoDellaTradizione(context,
+                            palette: palette,
+                            tier: tier,
+                            nascita: nascitaDeiSegni,
+                            animale: cinese ? segnoInCima.animale : null,
+                            livello: cielo.livello),
+                      if (altra && !leggeLaTradizione)
                         _LaLetturaEInArrivo(
                           tradizione: _inCima,
                           palette: palette,

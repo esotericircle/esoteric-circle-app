@@ -1,3 +1,4 @@
+// ignore_for_file: avoid_print
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
@@ -175,7 +176,6 @@ void main() {
       await avanza(tester, const Duration(milliseconds: 100));
     }
     final responso = quando[SuonoDelCerchio.responso]!;
-    // ignore: avoid_print
     final alTocco = quando.keys
         .where((s) => quando[s]! < const Duration(milliseconds: 500))
         .length;

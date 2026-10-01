@@ -6,7 +6,6 @@ import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/horoscope/cielo_di_oggi.dart';
 import 'package:esoteric_circle/core/horoscope/corrente_del_cielo.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
-import 'package:esoteric_circle/core/horoscope/horoscope_data.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// QUI MUORE L'HASH: l'Oroscopo si compone dal cielo vero di questa persona.
@@ -158,19 +157,22 @@ void main() {
               'cosa: il testo non sta guardando il cielo');
     });
 
-    test('Il testo NOMINA il pianeta, la casa e il punto natale toccato', () {
+    // LAPIDE, ordine EU voce 01, 1 ottobre 2026: qui si pretendeva che il
+    // TESTO nominasse il pianeta, la casa e il punto natale. Il fondatore:
+    // *"ALL'UTENTE NON GLIENE FREGA UN CAZZO DEI TRANSITI"*, e il cielo sta
+    // solo in "Da dove viene". Adesso lo nomina la riga del livello, e il
+    // testo no; i paragrafi li misura i_paragrafi_dicono_risposte_test.dart.
+    test('Il cielo lo nomina "Da dove viene", il testo no', () {
       final generale = schede(cartaUna, giorno)
           .firstWhere((c) => c.domain == HoroscopeDomain.generale);
-      final nominaUnPianeta =
-          CorpoCeleste.values.any((c) => generale.text.contains(c.nome));
-      expect(nominaUnPianeta, isTrue,
-          reason: 'il testo non nomina nessun pianeta: e\' ancora una frase '
-              'generica');
-      expect(generale.text, contains('casa'),
-          reason: 'il testo non dice in che settore della vita cade il '
-              'passaggio, cioe\' parla di geometria invece che di te');
-      expect(generale.text, contains('di nascita'),
-          reason: 'il testo non nomina nessun punto della carta natale');
+      final riga = generale.rigaDelLivello ?? '';
+      expect(CorpoCeleste.values.any((c) => riga.contains(c.nome)), isTrue,
+          reason: '"Da dove viene" non nomina nessun pianeta: $riga');
+      expect(riga, contains('di nascita'),
+          reason: '"Da dove viene" non nomina nessun punto della carta');
+      expect(CorpoCeleste.values.any((c) => generale.text.contains(c.nome)),
+          isFalse,
+          reason: 'il testo nomina un pianeta: ${generale.text}');
     });
   });
 
@@ -330,11 +332,10 @@ void main() {
             reason: 'la scheda ${c.domain.label} dice di venire dal cielo, ma '
                 'un cielo non c\'era');
       }
-      // E il testo e' proprio quello della hash: il ripiego non e' un vuoto.
-      final pool = HoroscopeData.dayPools[0]!;
-      expect(pool.any((f) => senza.first.text.endsWith(f)), isTrue,
-          reason: 'il ripiego non e\' piu\' la corrente della hash: allora il '
-              'testo di chi non ha la carta viene da chissa\' dove');
+      // LAPIDE, EU Aggiunta, 1 ottobre 2026: qui si pretendeva che il testo
+      // senza carta finisse con una frase del pool della hash. Adesso con la
+      // carta e senza il testo e' una voce del corpus dell'Architetto
+      // (i_testi_eu_sono_quelli_dell_architetto_test.dart).
       expect(CorrenteDelCielo.notaDelLivello(CieloDiOggi.nessuno),
           CorrenteDelCielo.ripiegoDichiarato);
       expect(CorrenteDelCielo.ripiegoDichiarato,
@@ -607,17 +608,17 @@ void main() {
   });
 
   group('VOCE 2h. Il transito non e\' un blocco incollato', () {
-    test('La prima frase del cielo si aggancia a quella del segno', () {
+    // LAPIDE, ordine EU voce 01, 1 ottobre 2026: qui si pretendeva che la
+    // prima frase del transito si agganciasse a quella del segno dentro il
+    // testo. Il transito nel testo non c'e' piu': sta solo in "Da dove
+    // viene". Si pretende che nessuna scheda lo porti nel testo.
+    test('Nessuna scheda porta il transito nel testo', () {
       final carte = schede(cartaUna, giorno);
       for (final c in carte) {
-        final agganci = [
-          ...CorrenteDelCielo.giunturaCoiDuePunti,
-          ...CorrenteDelCielo.giunturaColPunto,
-        ];
-        expect(agganci.any(c.text.contains), isTrue,
-            reason: 'la scheda ${c.domain.label} attacca il transito senza '
-                'nessun aggancio alla frase del segno: sono due testi '
-                'incollati. «${c.text}»');
+        expect(CorpoCeleste.values.any((x) => c.text.contains(x.nome)),
+            isFalse,
+            reason: 'la scheda ${c.domain.label} porta il cielo nel testo: '
+                '«${c.text}»');
       }
     });
 

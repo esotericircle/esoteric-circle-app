@@ -10,6 +10,7 @@ import '../astro/zodiac.dart';
 import 'cielo_di_oggi.dart';
 import 'corrente_del_cielo.dart';
 import 'horoscope.dart';
+import 'i_testi_eu.dart';
 import 'i_tre_cieli.dart';
 import 'il_cielo_del_segno.dart';
 import 'il_livello_del_cielo.dart';
@@ -29,13 +30,14 @@ class EventoDelCielo {
   final bool conOra;
 }
 
-/// Un giorno di un dominio: il livello, la lettura in parole e da dove viene.
+/// Un giorno di un dominio: il livello, il titolo della sua scheda e da
+/// dove viene.
 class GiornoDelPeriodo {
   const GiornoDelPeriodo({
     required this.giorno,
     required this.livello,
     required this.motivo,
-    this.lettura = '',
+    this.titolo = '',
   });
 
   final DateTime giorno;
@@ -45,10 +47,12 @@ class GiornoDelPeriodo {
   /// la lettura, mai al suo posto.
   final String motivo;
 
-  /// **LA LETTURA DI QUEL GIORNO, IN PAROLE**: la prima parte che la scheda
-  /// del Giorno portera' quel giorno per questo dominio
-  /// ([Horoscope.letturaDelGiorno]).
-  final String lettura;
+  /// **IL TITOLO DELLA SCHEDA DEL GIORNO DI QUELLA DATA**, per questo
+  /// dominio: la voce che il Giorno portera' quel giorno, con l'indice del
+  /// Giorno di quella data (EU Aggiunta, "I tre giorni migliori della
+  /// Settimana Lunga"). Il testo del Giorno non si mostra nel periodo: lo si
+  /// legge quel giorno, e mostrarlo prima sarebbe una ripetizione.
+  final String titolo;
 }
 
 /// Come si muove il livello di un dominio lungo il periodo.
@@ -72,12 +76,18 @@ class DominioDelPeriodo {
     required this.giorni,
     required this.migliore,
     required this.momentoChiave,
+    required this.voce,
   });
 
   final HoroscopeDomain dominio;
   final List<GiornoDelPeriodo> giorni;
   final GiornoDelPeriodo migliore;
   final String momentoChiave;
+
+  /// **LA VOCE DEL PERIODO**, dal corpus della Settimana o del Mese (EU
+  /// Aggiunta, voci EU.08, EU.16 ed EU.18): il titolo della scheda e i suoi
+  /// paragrafi, nella fascia del livello del periodo.
+  final VoceEu voce;
 
   /// Il livello medio dei giorni del periodo.
   double get media =>
@@ -127,9 +137,9 @@ class DominioDelPeriodo {
   String get rigaDelMigliore => 'Il giorno migliore è '
       '${LaSettimanaDelCielo.data(migliore.giorno)}.';
 
-  /// **CHE COSA PUOI FARE**: la lettura del giorno migliore, quella che la
-  /// scheda del Giorno portera' quel giorno.
-  String get cosaFare => migliore.lettura;
+  /// Il livello del dominio nel periodo, che decide la fascia: la media dei
+  /// giorni, arrotondata.
+  int get livello => media.round();
 }
 
 /// Un periodo intero: gli eventi e i quattro domini.
@@ -138,7 +148,14 @@ class IlPeriodoDelCielo {
     required this.eventi,
     required this.domini,
     required this.dallaCarta,
+    this.tradizione = TradizioneEu.occidentale,
   });
+
+  /// **LA TRADIZIONE DEL PERIODO**, ordine EU voce 02: l'Occidentale ha i
+  /// fatti del cielo e il momento chiave; la Vedica e la Cinese leggono ogni
+  /// giorno col metodo del loro Giorno, e il loro "Da dove viene" e' quello
+  /// del giorno migliore.
+  final TradizioneEu tradizione;
 
   final List<EventoDelCielo> eventi;
   final List<DominioDelPeriodo> domini;
@@ -197,7 +214,7 @@ abstract final class LaSettimanaDelCielo {
       {bool mese = false}) {
     final generale =
         periodo.domini.firstWhere((d) => d.dominio == HoroscopeDomain.generale);
-    final chiave = '${generale.risposta(mese: mese)} ${generale.cosaFare}';
+    final chiave = '${generale.risposta(mese: mese)} ${generale.voce.risposta}';
     return [
       for (final d in periodo.domini)
         HoroscopeCard(
@@ -351,6 +368,7 @@ abstract final class LaSettimanaDelCielo {
     required NatalChart? carta,
     required DateTime oggi,
     int giorni = 7,
+    DateTime? nascita,
   }) {
     final inizio = DateTime(oggi.year, oggi.month, oggi.day);
     final da = inizio.toUtc();
@@ -409,6 +427,7 @@ abstract final class LaSettimanaDelCielo {
     eventi.sort((x, y) => x.istante.compareTo(y.istante));
 
     // I domini.
+    final scarto = ITestiEu.scarto(nascita);
     final domini = <DominioDelPeriodo>[];
     final cieli = <CieloDiOggi>[];
     final mezzogiorni = <DateTime>[];
@@ -439,33 +458,137 @@ abstract final class LaSettimanaDelCielo {
                 // Sotto la data del suo giorno, senza "di oggi".
                 oggi: false);
             final giorno = DateTime(inizio.year, inizio.month, inizio.day + d);
+            // Il titolo della scheda del Giorno di quella data, con la
+            // stessa scelta del Giorno ([Horoscope.cardFor]).
+            final fascia = FasciaEu.di(livello);
+            final indice = ITestiEu.indiceDelGiorno(
+              chiave: Horoscope.chiaveDellaStoria(segno, carta),
+              oggi: giorno,
+              d: dominio,
+              fasciaDiOggi: fascia,
+              scarto: scarto,
+              livelli: (g) => Horoscope.livelliDelGiorno(segno, carta, g),
+            );
             return GiornoDelPeriodo(
                 giorno: giorno,
                 livello: livello,
                 motivo: motivo,
-                // La lettura in parole di quel giorno, dalla stessa porta
-                // della scheda del Giorno.
-                lettura: Horoscope.letturaDelGiorno(segno, dominio,
-                        Horoscope.dayOfYear(giorno), giorno.year)
-                    .$2);
+                titolo: ITestiEu.voce(TradizioneEu.occidentale,
+                        PeriodoEu.giorno, dominio, fascia, indice)
+                    .titolo);
           }(),
       ];
-      var migliore = righe.first;
-      for (final r in righe) {
-        if (r.livello > migliore.livello) migliore = r;
-      }
-      domini.add(DominioDelPeriodo(
+      domini.add(dominioDelPeriodo(
         dominio: dominio,
-        giorni: righe,
-        migliore: migliore,
+        righe: righe,
         momentoChiave:
             _momentoChiave(dominio, segno, carta, da, a, fasiDelPeriodo),
+        tradizione: TradizioneEu.occidentale,
+        mese: giorni > 7,
+        oggi: inizio,
+        scarto: scarto,
       ));
     }
     return IlPeriodoDelCielo(
       eventi: eventi,
       domini: domini,
       dallaCarta: carta != null,
+    );
+  }
+
+  /// **UN DOMINIO DEL PERIODO DAI SUOI GIORNI**, in ogni tradizione: il
+  /// giorno migliore (il livello piu' alto, a parita' il primo) e la voce del
+  /// corpus della Settimana o del Mese nella fascia del livello del periodo,
+  /// con l'indice della EU Aggiunta.
+  static DominioDelPeriodo dominioDelPeriodo({
+    required HoroscopeDomain dominio,
+    required List<GiornoDelPeriodo> righe,
+    required String momentoChiave,
+    required TradizioneEu tradizione,
+    required bool mese,
+    required DateTime oggi,
+    required int scarto,
+  }) {
+    var migliore = righe.first;
+    for (final r in righe) {
+      if (r.livello > migliore.livello) migliore = r;
+    }
+    final media = righe.fold<int>(0, (a, g) => a + g.livello) / righe.length;
+    final voce = ITestiEu.voce(
+        tradizione,
+        mese ? PeriodoEu.mese : PeriodoEu.settimana,
+        dominio,
+        FasciaEu.di(media.round()),
+        mese
+            ? ITestiEu.indiceDelMese(oggi, scarto)
+            : ITestiEu.indiceDellaSettimana(oggi, scarto));
+    return DominioDelPeriodo(
+      dominio: dominio,
+      giorni: righe,
+      migliore: migliore,
+      momentoChiave: momentoChiave,
+      voce: voce,
+    );
+  }
+
+  /// **LA SETTIMANA E IL MESE DELLA VEDICA E DELLA CINESE, ordine EU voce
+  /// 02.** Il fondatore: *"manca l'oroscopo settimanale, mensile e annuale
+  /// per vedica e cinese"*; il metodo dell'Architetto, approvato: *"Settimana
+  /// e Mese col metodo del Giorno giorno per giorno"*. Ogni giorno del
+  /// periodo e' la scheda del Giorno di quella data, composta da [schedeDi]
+  /// con la porta del Giorno ([LaLetturaVedica.schede],
+  /// [LaLetturaCinese.schede]): il livello, il titolo e il "Da dove viene"
+  /// sono i suoi, e coincidono per costruzione (Linee Guida, sezione 5,
+  /// regola di coerenza). Null se un giorno non si legge.
+  static IlPeriodoDelCielo? dalleSchede({
+    required DateTime oggi,
+    required int giorni,
+    required TradizioneEu tradizione,
+    required int scarto,
+    required List<HoroscopeCard>? Function(DateTime giorno) schedeDi,
+  }) {
+    final inizio = DateTime(oggi.year, oggi.month, oggi.day);
+    final perGiorno = <(DateTime, List<HoroscopeCard>)>[];
+    for (var i = 0; i < giorni; i++) {
+      final g = DateTime(inizio.year, inizio.month, inizio.day + i);
+      final schede = schedeDi(g);
+      if (schede == null) return null;
+      perGiorno.add((g, schede));
+    }
+    return IlPeriodoDelCielo(
+      eventi: const [],
+      dallaCarta: false,
+      tradizione: tradizione,
+      domini: [
+        for (final dominio in HoroscopeDomain.values)
+          () {
+            final righe = [
+              for (final (g, schede) in perGiorno)
+                () {
+                  final c = schede.firstWhere((x) => x.domain == dominio);
+                  return GiornoDelPeriodo(
+                      giorno: g,
+                      livello: c.indicator,
+                      motivo: c.rigaSoloDelLivello ?? c.rigaDelLivello ?? '',
+                      titolo: c.title);
+                }(),
+            ];
+            var migliore = righe.first;
+            for (final r in righe) {
+              if (r.livello > migliore.livello) migliore = r;
+            }
+            return dominioDelPeriodo(
+              dominio: dominio,
+              righe: righe,
+              momentoChiave: 'il giorno migliore, ${data(migliore.giorno)}: '
+                  '${migliore.motivo}',
+              tradizione: tradizione,
+              mese: giorni > 7,
+              oggi: inizio,
+              scarto: scarto,
+            );
+          }(),
+      ],
     );
   }
 

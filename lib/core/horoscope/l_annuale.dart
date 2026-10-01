@@ -2,6 +2,7 @@ import '../astro/effemeridi.dart';
 import '../astro/zodiac.dart';
 import '../chat/user_profile.dart';
 import 'horoscope.dart';
+import 'i_testi_eu.dart';
 import 'la_rivoluzione_solare.dart';
 import 'le_parti_del_responso.dart';
 import 'oroscopo_annuale_data.dart';
@@ -101,8 +102,23 @@ abstract final class LAnnuale {
     CourtesyForm? forma,
     String? apertura,
     Map<HoroscopeDomain, bool>? approfondite,
+    DateTime? nascita,
   }) {
     final anno = tema.istante.year;
+    // **I TESTI DELL'ARCHITETTO, EU Aggiunta, 1 ottobre 2026**: il titolo e
+    // i paragrafi di ogni scheda vengono dal corpus dell'Anno occidentale,
+    // nella fascia del livello; la voce e' (numero dell'anno della persona +
+    // scarto) modulo le voci della fascia, cosi' due anni di fila leggono
+    // l'altra ([ITestiEu]). Le frasi di lettura del corpus annuale di prima
+    // non vanno piu' a video; le righe di "Da dove viene" restano.
+    final scarto = ITestiEu.scarto(nascita);
+    final numeroDellAnno = nascita == null ? anno : anno - nascita.year;
+    VoceEu voceDi(HoroscopeDomain d, int livello) => ITestiEu.voce(
+        TradizioneEu.occidentale,
+        PeriodoEu.anno,
+        d,
+        FasciaEu.di(livello.clamp(2, 5)),
+        ITestiEu.indiceDellAnno(numeroDellAnno, scarto));
     // Il testo e il "da dove viene" della variante dell'anno; con [passo] la
     // variante accanto, che la Lunga aggiunge dove il caso e' uno solo.
     (String, String) frase(List<String> varianti, [int passo = 0]) =>
@@ -119,51 +135,41 @@ abstract final class LAnnuale {
     final casaGiove = tema.casaDi(CorpoCeleste.giove);
     final casaSaturno = tema.casaDi(CorpoCeleste.saturno);
 
-    final (ascTesto, ascDaDove) = frase(OroscopoAnnualeData.ascendente[asc]);
-    final (soleTesto, soleDaDove) =
-        frase(OroscopoAnnualeData.sole[casaSole - 1]);
-    final (lunaTesto, lunaDaDove) =
-        frase(OroscopoAnnualeData.luna[casaLuna - 1]);
-    final (venereTesto, venereDaDove) =
-        frase(OroscopoAnnualeData.venere[casaVenere - 1]);
-    final (venereAncora, _) =
-        frase(OroscopoAnnualeData.venere[casaVenere - 1], 1);
-    final (mcTesto, mcDaDove) = frase(OroscopoAnnualeData.medioCielo[mc]);
-    final (saturnoTesto, saturnoDaDove) =
+    final (_, ascDaDove) = frase(OroscopoAnnualeData.ascendente[asc]);
+    final (_, soleDaDove) = frase(OroscopoAnnualeData.sole[casaSole - 1]);
+    final (_, lunaDaDove) = frase(OroscopoAnnualeData.luna[casaLuna - 1]);
+    final (_, venereDaDove) = frase(OroscopoAnnualeData.venere[casaVenere - 1]);
+    final (_, mcDaDove) = frase(OroscopoAnnualeData.medioCielo[mc]);
+    final (_, saturnoDaDove) =
         frase(OroscopoAnnualeData.saturno[casaSaturno - 1]);
-    final (gioveTesto, gioveDaDove) =
-        frase(OroscopoAnnualeData.giove[casaGiove - 1]);
-    final (gioveAncora, _) = frase(OroscopoAnnualeData.giove[casaGiove - 1], 1);
+    final (_, gioveDaDove) = frase(OroscopoAnnualeData.giove[casaGiove - 1]);
 
-    /// [breve] e' la lettura che si legge sempre, [inPiu] cio' che la Lunga
-    /// aggiunge; lo stesso per il "da dove viene". [delLivello] dice da
-    /// dove viene il livello, in fondo alla riga.
+    /// Il "da dove viene" che si legge sempre e cio' che la Lunga aggiunge;
+    /// [delLivello] dice da dove viene il livello, in fondo alla riga.
     HoroscopeCard scheda(
       HoroscopeDomain d, {
-      required String breve,
-      required List<String> inPiu,
       required String daDove,
       required List<String> daDoveInPiu,
       required String delLivello,
       required int livello,
       required String metodo,
-    }) =>
-        HoroscopeCard(
-          domain: d,
-          title: titoli[d]!,
-          synthesis: breve.split(RegExp(r'(?<=[.!?]) ')).first,
-          text: LePartiDelResponso.insieme([breve, if (lunga(d)) ...inPiu]),
-          indicator: livello.clamp(2, 5),
-          rigaDelLivello: LePartiDelResponso.insieme(
-              [daDove, if (lunga(d)) ...daDoveInPiu, delLivello]),
-          opening: d == HoroscopeDomain.generale ? apertura : null,
-          metodo: metodo,
-        );
+    }) {
+      final voce = voceDi(d, livello);
+      return HoroscopeCard(
+        domain: d,
+        title: voce.titolo,
+        synthesis: voce.risposta,
+        text: voce.testo(lunga: lunga(d)),
+        indicator: livello.clamp(2, 5),
+        rigaDelLivello: LePartiDelResponso.insieme(
+            [daDove, if (lunga(d)) ...daDoveInPiu, delLivello]),
+        opening: d == HoroscopeDomain.generale ? apertura : null,
+        metodo: metodo,
+      );
+    }
 
     return [
       scheda(HoroscopeDomain.generale,
-          breve: ascTesto,
-          inPiu: [soleTesto, lunaTesto],
           daDove: ascDaDove.isEmpty
               ? 'L\'Ascendente del tuo anno è in ${_segni[asc]}.'
               : ascDaDove,
@@ -174,8 +180,6 @@ abstract final class LAnnuale {
           metodo: '${OroscopoAnnualeData.notaGenerale} '
               '${OroscopoAnnualeData.notaTutte}'),
       scheda(HoroscopeDomain.amore,
-          breve: venereTesto,
-          inPiu: [venereAncora],
           daDove: venereDaDove.isEmpty
               ? 'Venere nella tua Rivoluzione Solare cade nella casa '
                   '$casaVenere.'
@@ -187,8 +191,6 @@ abstract final class LAnnuale {
           metodo: '${OroscopoAnnualeData.notaDomini} '
               '${OroscopoAnnualeData.notaTutte}'),
       scheda(HoroscopeDomain.carriera,
-          breve: mcTesto,
-          inPiu: [saturnoTesto],
           daDove: mcDaDove.isEmpty
               ? 'Il Medio Cielo del tuo anno è in ${_segni[mc]}.'
               : mcDaDove,
@@ -200,8 +202,6 @@ abstract final class LAnnuale {
           metodo: '${OroscopoAnnualeData.notaDomini} '
               '${OroscopoAnnualeData.notaTutte}'),
       scheda(HoroscopeDomain.fortuna,
-          breve: gioveTesto,
-          inPiu: [gioveAncora],
           daDove: gioveDaDove.isEmpty
               ? 'Giove nella tua Rivoluzione Solare cade nella casa '
                   '$casaGiove.'

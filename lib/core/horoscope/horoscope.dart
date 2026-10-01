@@ -1,5 +1,4 @@
 import '../tempo/confine_del_giorno.dart';
-import 'il_cielo_del_segno.dart';
 import 'il_livello_del_cielo.dart';
 import 'il_numero_e_il_colore.dart';
 import '../astro/night_sky.dart';
@@ -8,6 +7,9 @@ import '../chat/user_profile.dart';
 import 'cielo_di_oggi.dart';
 import 'corrente_del_cielo.dart';
 import 'horoscope_data.dart';
+import 'i_testi_eu.dart';
+import '../astro/natal_chart.dart';
+import '../astro/transiti_del_giorno.dart';
 
 /// I quattro domini dell'Oroscopo, nell'ordine di layout. L'indice enum e' anche
 /// l'intero fisso del dominio: Generale 0, Amore 1, Carriera 2, Fortuna 3.
@@ -40,7 +42,17 @@ class HoroscopeCard {
     this.rigaDellaFortuna,
     this.metodo,
     this.numeriDelGiorno,
+    this.rigaSoloDelLivello,
   });
+
+  /// **LA SOLA RIGA DEL LIVELLO**, ordine EU voce 02: nella Settimana e nel
+  /// Mese della Vedica e della Cinese ogni giorno porta, sotto la sua data,
+  /// la riga che dice da dove viene il suo livello. La riga intera di "Da
+  /// dove viene" dice "oggi" e "di oggi", ed era giusta solo sotto il Giorno
+  /// (la stessa svista dell'Occidentale, corretta con l'ordine ES): questa e'
+  /// la riga del livello detta per il giorno della sua data. Null dove la
+  /// scheda non la distingue.
+  final String? rigaSoloDelLivello;
 
   /// **IL METODO DI QUESTA SCHEDA, quando non e' quello occidentale.** Ordine
   /// ES voce 08: la lettura cinese porta la sua nota (l'almanacco, i Dieci
@@ -113,12 +125,11 @@ class HoroscopeCard {
   /// Nulla quando la scheda non viene dal cielo vero: in quel caso non c'e'
   /// nessun transito da mostrare, e mostrarne uno finto sarebbe peggio di non
   /// mostrarlo.
-  String? get rigaDelCielo {
-    if (!dalCieloVero) return null;
-    if (!text.startsWith(synthesis)) return null;
-    final resto = text.substring(synthesis.length).trim();
-    return resto.isEmpty ? null : resto;
-  }
+  ///
+  /// **DALLA EU AGGIUNTA il cielo non sta piu' nel testo**: sta solo in "Da
+  /// dove viene" (voce EU.01). La riga del cielo e' quindi [rigaDelLivello],
+  /// quando viene dal cielo vero.
+  String? get rigaDelCielo => dalCieloVero ? rigaDelLivello : null;
 }
 
 /// La composizione deterministica dell'Oroscopo a quattro schede.
@@ -270,47 +281,54 @@ class Horoscope {
     CieloDiOggi cielo = CieloDiOggi.nessuno,
     bool profonda = false,
     DateTime? nascita,
+    String? vocativo,
   }) {
-    final d = domain.index;
-    final base = baseSeed(sign.index, dayOfYear, year, d);
-
-    // Semi derivati distinti, per non correlare i quattro valori.
-    final seedCurrent = _fnv1a([base, 0x11]);
-
-    final (title, primaParte) = letturaDelGiorno(sign, domain, dayOfYear, year);
-    // LA CORRENTE DEL GIORNO: prima il cielo vero, e la hash solo se non c'e'.
-    final dalCielo = CorrenteDelCielo.componi(
-        cielo: cielo,
-        dominio: domain,
-        profonda: profonda,
-        giornoOrdinale: dayOfYear,
-        indiceDelSegno: sign.index);
-    final pool = HoroscopeData.dayPools[d]!;
-    // **LA FRASE DEL POOL SI RISOLVE QUI**, ordine DL voce 02.
-    final current =
-        dalCielo ?? LaMarcaDelGenere.risolvi(pool[seedCurrent % pool.length]);
-
-    // **SENZA CARTA L'APPROFONDITA DICE DI PIU' CON FATTI VERI**, ordine ES
-    // voce 01: dove sono oggi la Luna e il corpo del dominio, e in quale casa
-    // solare del segno. Con la carta, la Profonda gia' dice tre passaggi del
-    // cielo invece di uno.
-    final approfondimento = dalCielo == null && profonda
-        ? ' ${IlCieloDelSegno.approfondita(domain, sign, DateTime.utc(year).add(Duration(days: dayOfYear, hours: 12)))}'
-        : '';
-    final text = '$primaParte $current$approfondimento';
     // **IL LIVELLO DAL CIELO VERO, ordine ES voce 28.** Era
     // `2 + (seed % 4)`, una hash uguale per tutto il segno anche con la carta
     // natale. Adesso lo fanno gli aspetti del giorno che parlano al dominio,
     // o senza carta la Luna di oggi nelle case solari: vedi
     // [IlLivelloDelCielo]. La scala resta da due a cinque.
+    final quando = DateTime.utc(year).add(Duration(days: dayOfYear, hours: 12));
     final (indicator, rigaDelLivello) = IlLivelloDelCielo.per(
-        dominio: domain,
-        segno: sign,
-        cielo: cielo,
-        quando: DateTime.utc(year).add(Duration(days: dayOfYear, hours: 12)));
+        dominio: domain, segno: sign, cielo: cielo, quando: quando);
 
-    // L'apertura personalizzata vive solo sulla scheda Generale.
-    final cardOpening = domain == HoroscopeDomain.generale ? opening : null;
+    // **I TESTI DELL'ARCHITETTO, EU Aggiunta, 1 ottobre 2026.** Il fondatore:
+    // *"ALL'UTENTE NON GLIENE FREGA UN CAZZO DEI TRANSITI: VUOLE RISPOSTE O
+    // UNA GUIDA"*, e *"per breve sono sufficienti 2 paragrafi e per lunga
+    // aggiungere altri 2 paragrafi mai di transiti o tecnicismi perché sotto
+    // c'è già sempre "da dove arriva""* (voce EU.01). Prima il testo era la
+    // prima parte del giorno piu' la corrente del cielo, cioe' i transiti
+    // dentro la lettura e di nuovo sotto, in "Da dove viene". Adesso il
+    // titolo e i paragrafi vengono dal corpus del Giorno occidentale, nella
+    // fascia del livello (voce EU.17), con la voce scelta contando quante
+    // volte la stessa fascia e' gia' tornata per questa persona ([ITestiEu]).
+    // Il cielo sta solo in [HoroscopeCard.rigaDelLivello].
+    final giorno = DateTime(year, 1, 1 + dayOfYear);
+    final fascia = FasciaEu.di(indicator);
+    final carta = cielo.carta;
+    final indice = ITestiEu.indiceDelGiorno(
+      chiave: chiaveDellaStoria(sign, carta),
+      oggi: giorno,
+      d: domain,
+      fasciaDiOggi: fascia,
+      scarto: ITestiEu.scarto(nascita),
+      livelli: (g) => livelliDelGiorno(sign, carta, g),
+    );
+    final voce = ITestiEu.voce(
+        TradizioneEu.occidentale, PeriodoEu.giorno, domain, fascia, indice);
+    final title = voce.titolo;
+    final text = voce.testo(lunga: profonda);
+    final primaParte = voce.risposta;
+
+    // L'apertura personalizzata vive solo sulla scheda Generale: dal corpus,
+    // con lo stesso indice della scheda e il vocativo di oggi.
+    final cardOpening = domain != HoroscopeDomain.generale
+        ? null
+        : vocativo != null
+            ? ITestiEu.apertura(
+                TradizioneEu.occidentale, fascia, indice, vocativo)
+            : opening;
+    final dalCielo = cielo.ceCieloVero;
 
     if (domain == HoroscopeDomain.fortuna) {
       // **IL NUMERO E IL COLORE CON UNA REGOLA, ordine ES voce 29.** Erano due
@@ -328,7 +346,7 @@ class Horoscope {
         indicator: indicator,
         luckyNumber: numero,
         dayColor: colore,
-        dalCieloVero: dalCielo != null,
+        dalCieloVero: dalCielo,
         rigaDelLivello: rigaDelLivello,
         rigaDellaFortuna: regola,
       );
@@ -340,9 +358,36 @@ class Horoscope {
       synthesis: primaParte,
       indicator: indicator,
       opening: cardOpening,
-      dalCieloVero: dalCielo != null,
+      dalCieloVero: dalCielo,
       rigaDelLivello: rigaDelLivello,
     );
+  }
+
+  /// La chiave della storia delle fasce di una persona nell'Occidentale: il
+  /// segno e la carta, se c'e'.
+  static String chiaveDellaStoria(Zodiac sign, NatalChart? carta) => carta ==
+          null
+      ? 'occidentale|${sign.index}|-'
+      : 'occidentale|${sign.index}|${carta.ascendantLongitude?.toStringAsFixed(3)}|'
+          '${[
+          for (final p in carta.planets) p.longitude.toStringAsFixed(3)
+        ].join(',')}';
+
+  /// **I LIVELLI DI UN GIORNO CIVILE** nei quattro domini, con la stessa
+  /// funzione del livello della scheda ([IlLivelloDelCielo]) e lo stesso
+  /// istante del giorno: servono a contare le fasce dei giorni passati.
+  static List<int> livelliDelGiorno(
+      Zodiac sign, NatalChart? carta, DateTime giorno) {
+    final m = TransitiDelGiorno.istanteDi(
+        DateTime(giorno.year, giorno.month, giorno.day, 12));
+    final cielo = carta == null
+        ? CieloDiOggi.nessuno
+        : CieloDiOggi.perIlGiorno(adesso: m, carta: carta);
+    return [
+      for (final d in HoroscopeDomain.values)
+        IlLivelloDelCielo.per(dominio: d, segno: sign, cielo: cielo, quando: m)
+            .$1,
+    ];
   }
 
   /// Le quattro schede del segno per il giorno dato, nell'ordine di layout. Con
@@ -355,6 +400,7 @@ class Horoscope {
     CieloDiOggi cielo = CieloDiOggi.nessuno,
     Map<HoroscopeDomain, bool> profonde = const {},
     DateTime? nascita,
+    String? vocativo,
   }) =>
       [
         for (final domain in HoroscopeDomain.values)
@@ -366,7 +412,8 @@ class Horoscope {
               opening: opening,
               cielo: cielo,
               profonda: profonde[domain] ?? false,
-              nascita: nascita),
+              nascita: nascita,
+              vocativo: vocativo),
       ];
 
   /// La riga di disclaimer, una sola volta nella schermata.

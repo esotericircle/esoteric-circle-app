@@ -25,6 +25,7 @@ import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/features/horoscope/titolo_della_scheda_del_giorno.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:esoteric_circle/core/horoscope/i_testi_eu.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
@@ -60,19 +61,6 @@ void main() {
   final tutteApprofondite = {
     for (final d in HoroscopeDomain.values) d: true,
   };
-
-  /// Le varianti di un gruppo come espressioni: le marche risolte con la
-  /// forma, i segnaposti al posto di qualunque testo. Dal 30 settembre 2026
-  /// ogni frase e' "TESTO || DA DOVE VIENE" ([LePartiDelResponso]): nella
-  /// lettura sta il TESTO, e la prova cerca quello.
-  List<RegExp> gruppo(List<String> varianti, CourtesyForm forma) => [
-        for (final v in varianti)
-          RegExp(
-              '^${RegExp.escape(LePartiDelResponso.di(LaMarcaDelGenere.risolvi(v, forma: forma)).$1).replaceAll(RegExp(r'(?:[Dd]i |[Aa] )?\\\{\w+\\\}'), '.+?')}'),
-      ];
-
-  bool nelGruppo(String testo, List<RegExp> g) =>
-      g.any((r) => r.hasMatch(testo));
 
   test('il guardiano dei trenta giorni e\' quello dell\'almanacco pubblicato',
       () {
@@ -118,11 +106,18 @@ void main() {
           final r = LAlmanaccoCinese.rapporto(a, ramo);
           final dio = LAlmanaccoCinese.dio(
               LAlmanaccoCinese.tronco(nascita), LAlmanaccoCinese.tronco(g));
-          final attesiGenerale = gruppo(
-              OroscopoCineseData
-                  .rapporti[LaLetturaCinese.chiaveDelRapporto(r, a == ramo)]!,
-              f);
-          if (!nelGruppo(s[0].text, attesiGenerale)) {
+          // LAPIDE, EU Aggiunta, 1 ottobre 2026: qui si pretendeva che la
+          // lettura fosse una frase del gruppo del corpus cinese di prima.
+          // Adesso e' una voce del Giorno cinese dell'Architetto nella fascia
+          // del livello; il "da dove viene" del gruppo resta.
+          bool nellaFascia(HoroscopeCard c) => ITestiEu.fascia(
+                  TradizioneEu.cinese,
+                  PeriodoEu.giorno,
+                  c.domain,
+                  FasciaEu.di(c.indicator))
+              .any((v) =>
+                  v.titolo == c.title && v.testo(lunga: false) == c.text);
+          if (!nellaFascia(s[0])) {
             fuori.add('generale $a $g: ${s[0].text}');
           }
           if (s[0].indicator != LaLetturaCinese.livelloDelRapporto(r)) {
@@ -139,9 +134,15 @@ void main() {
           };
           for (final c in s.skip(1)) {
             schede++;
-            final atteso =
-                gruppo(OroscopoCineseData.dei[serie[c.domain]]![dio.name]!, f);
-            if (!nelGruppo(c.text, atteso)) {
+            final atteso = OroscopoCineseData.dei[serie[c.domain]]![dio.name]!
+                .map((x) =>
+                    LePartiDelResponso.di(LaMarcaDelGenere.risolvi(x, forma: f))
+                        .$2
+                        .split('{')
+                        .first)
+                .toList();
+            if (!nellaFascia(c) ||
+                !atteso.any((x) => c.rigaDelLivello!.contains(x))) {
               fuori.add('${c.domain.name} $a $f $g: ${c.text}');
             }
             if (c.indicator !=
@@ -218,13 +219,6 @@ void main() {
     expect(LAlmanaccoCinese.ramo(g), 6);
     final s = LaLetturaCinese.schede(
         oggi: g, nascita: DateTime(1990, 3, 15), animale: 6)!;
-    expect(
-        nelGruppo(
-            s[0].text,
-            gruppo(OroscopoCineseData.rapporti['punizioneDiSe']!,
-                CourtesyForm.unknown)),
-        isTrue,
-        reason: s[0].text);
     expect(s[0].rigaDelLivello, contains('punizione di sé'));
   });
 
@@ -259,108 +253,14 @@ void main() {
     expect(breviUguali, 0);
   });
 
-  /// **QUANDO LO STESSO CASO TORNA, LA FRASE E' UN'ALTRA.**
-  ///
-  /// La misura di prima, due giorni di fila, restava verde anche con la
-  /// variante fissa: fra un giorno e il seguente cambiano l'animale e il dio,
-  /// e il testo cambia per conto suo. Il fondatore non ha chiesto che due
-  /// giorni siano diversi: ha trovato le stesse parole nella stessa persona
-  /// (EE.04). Qui si misura proprio quello: il giorno del Cavallo torna ogni
-  /// dodici giorni, il dio del giorno ogni dieci, il guardiano quando torna, e
-  /// ogni volta la persona legge l'altra variante del suo gruppo.
-  test('quando lo stesso caso torna, la frase e\' un\'altra', () {
-    int? quale(String testo, List<String> varianti, CourtesyForm f) {
-      for (var i = 0; i < varianti.length; i++) {
-        final r = RegExp(RegExp.escape(LePartiDelResponso.di(
-                    LaMarcaDelGenere.risolvi(varianti[i], forma: f))
-                .$1)
-            .replaceAll(RegExp(r'(?:[Dd]i |[Aa] )?\\\{\w+\\\}'), '.+?'));
-        if (r.hasMatch(testo)) return i;
-      }
-      return null;
-    }
-
-    final coppie = <String, int>{};
-    final uguali = <String, int>{};
-    void conta(String cosa, int? a, int? b) {
-      expect(a, isNotNull, reason: cosa);
-      expect(b, isNotNull, reason: cosa);
-      coppie[cosa] = (coppie[cosa] ?? 0) + 1;
-      if (a == b) uguali[cosa] = (uguali[cosa] ?? 0) + 1;
-    }
-
-    const f = CourtesyForm.unknown;
-    for (var a = 0; a < 12; a += 5) {
-      final nascita = DateTime(1971 + a, 4, 9 + a);
-      List<HoroscopeCard> del(DateTime g) => LaLetturaCinese.schede(
-          oggi: g,
-          nascita: nascita,
-          animale: a,
-          forma: f,
-          approfondite: tutteApprofondite)!;
-      for (var k = 0; k < 400; k++) {
-        final d = DateTime(2026, 1, 1 + k);
-        final oggi = del(d);
-        final r = LaLetturaCinese.chiaveDelRapporto(
-            LAlmanaccoCinese.rapporto(a, LAlmanaccoCinese.ramo(d)),
-            a == LAlmanaccoCinese.ramo(d));
-        final gruppoR = OroscopoCineseData.rapporti[r]!;
-        // Il giorno dello stesso animale, dodici giorni dopo.
-        final fra12 = del(DateTime(2026, 1, 13 + k));
-        conta('rapporto', quale(oggi[0].text, gruppoR, f),
-            quale(fra12[0].text, gruppoR, f));
-        // Il dio, dieci giorni dopo.
-        final dio = LAlmanaccoCinese.dio(
-            LAlmanaccoCinese.tronco(nascita), LAlmanaccoCinese.tronco(d));
-        // Sulla Breve, che porta una lettura sola: dal 30 settembre 2026 la
-        // Lunga aggiunge la variante seguente dello stesso dio, e con due
-        // varianti nel testo la prima trovata non dice quale e' di oggi.
-        List<HoroscopeCard> breve(DateTime g) => LaLetturaCinese.schede(
-            oggi: g, nascita: nascita, animale: a, forma: f)!;
-        final gruppoD = OroscopoCineseData.dei['lavoro']![dio.name]!;
-        conta('dio', quale(breve(d)[2].text, gruppoD, f),
-            quale(breve(DateTime(2026, 1, 11 + k))[2].text, gruppoD, f));
-        // La direzione del Dio della Gioia, cinque giorni dopo.
-        conta(
-            'direzione',
-            quale(oggi[0].text, OroscopoCineseData.direzioneGioia, f),
-            quale(del(DateTime(2026, 1, 6 + k))[0].text,
-                OroscopoCineseData.direzioneGioia, f));
-        // Il guardiano, alla sua prossima volta.
-        final g = LAlmanaccoCinese.guardiano(d)!;
-        var e = 1;
-        while (LAlmanaccoCinese.guardiano(DateTime(2026, 1, 1 + k + e)) != g) {
-          e++;
-        }
-        final gruppoG = OroscopoCineseData.guardiani[g];
-        conta('guardiano', quale(oggi[0].text, gruppoG, f),
-            quale(del(DateTime(2026, 1, 1 + k + e))[0].text, gruppoG, f));
-        // L'elemento del giorno, alla sua prossima volta.
-        final el =
-            LAlmanaccoCinese.elementoDelTronco(LAlmanaccoCinese.tronco(d));
-        var h = 1;
-        while (LAlmanaccoCinese.elementoDelTronco(
-                LAlmanaccoCinese.tronco(DateTime(2026, 1, 1 + k + h))) !=
-            el) {
-          h++;
-        }
-        conta(
-            'colore',
-            quale(
-                oggi[3].rigaDellaFortuna!, OroscopoCineseData.coloreENumeri, f),
-            quale(del(DateTime(2026, 1, 1 + k + h))[3].rigaDellaFortuna!,
-                OroscopoCineseData.coloreENumeri, f));
-      }
-    }
-    final righe = [
-      for (final c in coppie.keys) '$c ${uguali[c] ?? 0} su ${coppie[c]}',
-    ];
-    print('ORDINE ES VOCE 08: stessa frase al ritorno dello stesso caso: '
-        '${righe.join('; ')}');
-    cardinaleMinimo(coppie['rapporto']!, 1200, cosa: 'ritorni del rapporto');
-    expect(uguali.values.fold<int>(0, (s, v) => s + v), 0,
-        reason: righe.join('\n'));
-  });
+  // LAPIDE, EU Aggiunta, 1 ottobre 2026: qui si pretendeva che al ritorno
+  // dello stesso caso (lo stesso animale del giorno, lo stesso dio, lo stesso
+  // guardiano) la persona leggesse l'altra variante della frase del corpus
+  // cinese di prima. Quelle frasi non vanno piu' a video: la lettura e' una
+  // voce del Giorno cinese dell'Architetto, scelta contando le fasce gia'
+  // tornate per la persona, e che una voce non torni prima del suo giro lo
+  // misura i_testi_non_tornano_test.dart. Le righe di "da dove viene" che
+  // restano hanno la stessa spiegazione in ogni variante del caso.
 
   test('le frasi del codice sono quelle del corpus, nello stesso ordine', () {
     final dalCorpus = RegExp(r'^\d+\.\s+(.+)$', multiLine: true)
@@ -410,7 +310,10 @@ void main() {
               ]) {
                 diverse.add(t);
                 if (RegExp(
-                        r"[{}\[\]]|, e |  | \.|\.\.|—|\b[Dd]i (il|la|lo|l')\b|\b[Aa] (il|la|lo|l')\b")
+                        // I puntini di sospensione del corpus
+                        // dell'Architetto ("io sono...") non sono il punto
+                        // doppio di una svista: si cerca il doppio esatto.
+                        r"[{}\[\]]|, e |  | \.|(?<!\.)\.\.(?!\.)|—|\b[Dd]i (il|la|lo|l')\b|\b[Aa] (il|la|lo|l')\b")
                     .hasMatch(t)) {
                   difetti.add(t);
                 }
@@ -565,7 +468,11 @@ void main() {
     final metodo = find.byKey(const Key('oroscopo_metodo_generale'));
     await tester.dragUntilVisible(
         metodo, find.byKey(const Key('oroscopo_list')), const Offset(0, 300));
-    await tester.ensureVisible(metodo);
+    // A meta' della lista, lontano dalla barra in alto che la copre: le
+    // schede sono piu' alte coi paragrafi della EU Aggiunta.
+    await tester.runAsync(
+        () => Scrollable.ensureVisible(tester.element(metodo), alignment: 0.5));
+    await tester.pump(const Duration(milliseconds: 300));
     await tester.tap(metodo);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
@@ -627,20 +534,24 @@ void main() {
         findsOneWidget);
   });
 
-  testWidgets('la settimana cinese dice che e\' in arrivo e riporta al giorno',
+  // LAPIDE, ordine EU voce 02, 1 ottobre 2026: qui si pretendeva che la
+  // settimana cinese dicesse "in arrivo" e riportasse al giorno. Il
+  // fondatore: *"manca l'oroscopo settimanale, mensile e annuale per vedica
+  // e cinese"*. Adesso la Settimana cinese c'e', col metodo del Giorno giorno
+  // per giorno: si pretende che si apra coi suoi quattro riquadri.
+  testWidgets('la settimana cinese si legge, coi suoi quattro riquadri',
       (tester) async {
     await monta(tester, tier: Tier.tier2);
     await tester.tap(find.byKey(const Key('oroscopo_period_settimana')));
     await tester.pump();
     await toccaLaTradizione(tester, AstroTradition.cinese);
-    final avviso = find.byKey(const Key('oroscopo_cinese_periodo'));
+    final periodo = find.byKey(const Key('oroscopo_cinese_periodo'));
     await tester.dragUntilVisible(
-        avviso, find.byKey(const Key('oroscopo_list')), const Offset(0, -300));
-    expect(avviso, findsOneWidget);
-    final torna = find.byKey(const Key('oroscopo_cinese_torna_al_giorno'));
-    await tester.ensureVisible(torna);
-    await tester.tap(torna);
-    await tester.pump();
-    expect(find.text('Apri l\'almanacco'), findsOneWidget);
+        periodo, find.byKey(const Key('oroscopo_list')), const Offset(0, -300));
+    expect(periodo, findsOneWidget);
+    expect(
+        find.byKey(const Key('oroscopo_cinese_torna_al_giorno')), findsNothing);
+    expect(find.textContaining('sono in arrivo'), findsNothing);
+    expect(find.byKey(const Key('oroscopo_periodo_generale')), findsOneWidget);
   });
 }

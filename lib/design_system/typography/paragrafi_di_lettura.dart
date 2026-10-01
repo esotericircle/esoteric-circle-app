@@ -103,6 +103,18 @@ List<String> spezzaInParagrafi(
   final pulito = testo.trim();
   if (pulito.isEmpty) return const [];
 
+  // **I PARAGRAFI DELL'AUTORE SI TENGONO COME SONO**, ordine EU voce 01: i
+  // testi dell'Architetto arrivano gia' in paragrafi (la Risposta, Che cosa
+  // fare e, in Lunga, gli altri due), separati da una riga vuota. Il
+  // fondatore ne vuole due in Breve e quattro in Lunga: rispezzarli per
+  // righe ne farebbe un altro numero.
+  if (pulito.contains('\n\n')) {
+    return [
+      for (final p in pulito.split('\n\n'))
+        if (p.trim().isNotEmpty) p.trim(),
+    ];
+  }
+
   int righe(String s) => righeRese(s, stile, larghezza: larghezza);
   final totali = righe(pulito);
 

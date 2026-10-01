@@ -2,6 +2,7 @@
 import 'dart:math' as math;
 
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
+import 'package:esoteric_circle/core/horoscope/i_testi_eu.dart';
 import 'package:esoteric_circle/core/horoscope/la_settimana_del_cielo.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/tokens/color_tokens.dart';
@@ -58,8 +59,9 @@ void main() {
         if (c < 3) sotto.add('gradino $l sul fondo: ${c.toStringAsFixed(2)}');
         final n = contrasto(
             ColorTokens.inchiostroSulLivello, ColorTokens.delLivello(l));
-        if (n < 4.5)
+        if (n < 4.5) {
           sotto.add('numero sul gradino $l: ${n.toStringAsFixed(2)}');
+        }
       }
     }
     cardinaleMinimo(coppie, 20, cosa: 'gradini misurati sulle palette');
@@ -67,7 +69,7 @@ void main() {
         '${peggiore.toStringAsFixed(2)} su $coppie');
     expect(sotto, isEmpty, reason: sotto.join('\n'));
     // Cinque gradini diversi, dal giallo al rosso: la tinta scende.
-    final scala = ColorTokens.scalaDelLivello;
+    const scala = ColorTokens.scalaDelLivello;
     expect(scala.toSet().length, 5);
     for (var i = 1; i < scala.length; i++) {
       expect(HSVColor.fromColor(scala[i]).hue,
@@ -92,7 +94,9 @@ void main() {
         dominio: HoroscopeDomain.amore,
         giorni: giorni,
         migliore: migliore,
-        momentoChiave: '');
+        momentoChiave: '',
+        voce: ITestiEu.voce(TradizioneEu.occidentale, PeriodoEu.settimana,
+            HoroscopeDomain.amore, FasciaEu.equilibrio, 0));
   }
 
   Future<void> monta(WidgetTester t, Widget w, double scala) async {
@@ -126,7 +130,7 @@ void main() {
           LeBarreDellaSettimana(dominio: d, palette: MaestroPalette.medora),
           scala);
       expect(t.takeException(), isNull);
-      final piena = LeBarreDellaSettimana.altezzaPiena;
+      const piena = LeBarreDellaSettimana.altezzaPiena;
       for (var i = 0; i < livelli.length; i++) {
         final barra = find.byKey(Key('oroscopo_periodo_barra_amore_${1 + i}'));
         final h = t.getSize(barra).height;

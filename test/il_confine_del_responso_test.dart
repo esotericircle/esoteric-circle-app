@@ -154,6 +154,17 @@ void main() {
         reason: 'il confine accusa una frase che l\'ordine dichiara AMMESSA: '
             '$ammessa');
 
+    // EU Aggiunta, 1 ottobre 2026: il futuro di un gesto scelto dalla
+    // persona, in una relativa, e' un consiglio; un futuro annunciato resta
+    // una previsione anche nella stessa frase.
+    expect(
+        ConfineDelResponso.violazioni(
+            'Scrivi la data in cui partirai davvero e cerchiala sul calendario.'),
+        isEmpty);
+    expect(
+        ConfineDelResponso.violazioni(
+            'Scrivi la data in cui partirai: troverai la persona giusta.'),
+        isNotEmpty);
     final vietata =
         ConfineDelResponso.violazioni('nei prossimi giorni perderai il lavoro');
     expect(vietata, isNotEmpty,

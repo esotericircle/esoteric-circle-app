@@ -1,6 +1,4 @@
 // ignore_for_file: avoid_print
-import 'dart:io';
-
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/tempo/confine_del_giorno.dart';
@@ -63,14 +61,15 @@ void main() {
       // misura sul cambio di giorno resta verde anche se tutti i segni
       // leggono la stessa scheda: e' successo in questo ordine, alla prova
       // riscritta durante un innesto ("casa 1" per tutti i segni).
-      for (final dominio in schede(Zodiac.aries, giorno).map((c) => c.domain)) {
-        final titoli = {
-          for (final s in Zodiac.values) oggi['${s.id}/${dominio.name}']!.title,
-        };
-        expect(titoli, hasLength(12),
-            reason: 'il ${giorno.day}/${giorno.month} i dodici segni '
-                'leggono ${titoli.length} titoli diversi in ${dominio.name}');
-      }
+      // LAPIDE, EU Aggiunta, 1 ottobre 2026: qui si pretendeva che i dodici
+      // segni leggessero dodici titoli diversi lo stesso giorno, perche' il
+      // titolo veniva dalla casa della Luna contata dal segno. Adesso la voce
+      // la sceglie la regola dell'Architetto: le fasce gia' tornate per la
+      // persona piu' il suo scarto, i giorni dalla nascita. Due persone senza
+      // data di nascita (scarto zero) con la stessa storia di fasce leggono
+      // la stessa voce, ed e' la regola: la misura qui sotto la stampa
+      // soltanto. Che una persona non rilegga una voce lo misura
+      // i_testi_non_tornano_test.dart.
       if (ieri != null) {
         var t = 0, p = 0;
         for (final k in oggi.keys) {
@@ -88,8 +87,9 @@ void main() {
           'giorno: ${titoliUguali.map((n) => '$n su 48').join(', ')}.')
       ..add('Schede con la prima parte identica al giorno prima, per '
           'passaggio di giorno: ${primeUguali.map((n) => '$n su 48').join(', ')}.');
-    File('docs/collaudo/ER/oroscopo.txt')
-        .writeAsStringSync('${righe.join('\n')}\n');
+    // LAPIDE, EU Aggiunta: la prova dell'ordine ER non si riscrive piu', e'
+    // la fotografia dei testi di allora.
+    expect(righe, isNotEmpty);
     print('ORDINE ER VOCE 14: titoli uguali al giorno prima $titoliUguali, '
         'prime parti uguali $primeUguali');
     expect(titoliUguali, hasLength(6));
