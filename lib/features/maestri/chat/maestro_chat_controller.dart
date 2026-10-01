@@ -36,6 +36,7 @@ import '../../../core/chat/il_rimando_in_fondo.dart';
 import '../../../core/chat/le_certezze_del_maestro.dart';
 import '../../../core/chat/l_italiano_del_maestro.dart';
 import '../../../core/chat/i_ricordi_degli_altri.dart';
+import '../../../services/ai/le_funzioni_del_cielo.dart';
 import '../../../services/ai/la_richiesta_del_turno.dart';
 import '../../../core/astro/il_cielo_detto.dart';
 import '../../../core/chat/immersive_intents.dart';
@@ -1225,6 +1226,9 @@ class MaestroChatController extends ChangeNotifier {
     final chiRisponde = per ?? maestro;
     maestroInAscolto = chiRisponde;
     _sending = true;
+    // Da qui in poi i giorni di cui il Maestro chiede il cielo sono di
+    // questo turno (ordine EV voce 03): la rete del cielo detto li riceve.
+    final giorniDaQui = LeFunzioniDelCielo.giorniChiesti.length;
     // LA PAUSA COMINCIA QUI, con la domanda, e non quando la rete risponde:
     // il tempo che conta e' quello che aspetta la persona.
     final cronometro = Stopwatch()..start();
@@ -1646,8 +1650,9 @@ class MaestroChatController extends ChangeNotifier {
         if (natal.sunSign case final sole?) 'Sole': sole,
         if (natal.moonSign case final luna?) 'Luna': luna,
       };
-      final smentite =
-          IlCieloDetto.smentite(reply, adesso: _adesso, diNascita: diNascita);
+      final altriGiorni = LeFunzioniDelCielo.giorniDa(giorniDaQui);
+      final smentite = IlCieloDetto.smentite(reply,
+          adesso: _adesso, diNascita: diNascita, altriGiorni: altriGiorni);
       if (smentite.isNotEmpty) {
         frasiDelCieloSmentite += smentite.length;
         annotaGuastoInnocuo(
@@ -1656,7 +1661,7 @@ class MaestroChatController extends ChangeNotifier {
           StateError('cielo detto diverso dal cielo calcolato'),
         );
         reply = IlCieloDetto.senzaLeSmentite(reply,
-            adesso: _adesso, diNascita: diNascita);
+            adesso: _adesso, diNascita: diNascita, altriGiorni: altriGiorni);
       }
       // **IL MARCATORE DEL CHIARIMENTO SI LEGGE QUI E NON ARRIVA A VIDEO.**
       // Ordine EI voce 02, 23 settembre 2026. Il Maestro dichiara lui quando

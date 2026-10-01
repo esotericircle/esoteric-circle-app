@@ -25,7 +25,6 @@ import 'core/identity/profile_controller.dart';
 import 'core/maestro/maestro_controller.dart';
 import 'core/motion/parallax_controller.dart';
 import 'core/onboarding/onboarding_controller.dart';
-import 'core/rituals/chiamata_del_primo_giorno.dart';
 import 'core/quality/quality_tier.dart';
 import 'core/settings/settings_controller.dart';
 import 'core/arts/arti_preferite.dart';
@@ -221,20 +220,13 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>
   Future<void> _programmaLeChiamate() async {
     final ctx = _navigatore.currentContext;
     if (ctx == null || !ctx.mounted) return;
-    // **PRIMA SI CHIEDE IL PERMESSO, SE NESSUNO L'HA MAI CHIESTO.**
-    // Ordine BZ voce 04. La riga qui sotto programmava cinque chiamate che il
-    // sistema rifiutava in silenzio: da Android 13 le notifiche nascono
-    // negate, e l'app chiedeva il permesso in due sole schermate. Chi non ci
-    // era mai entrato non riceveva niente, e nessuna prova poteva vederlo
-    // perche' tutte partivano da un permesso gia' concesso.
-    final onboarding = ctx.read<OnboardingController>();
-    await ChiamataDelPrimoGiorno.forseChiedi(
-      ctx,
-      // A chi sta entrando nel Cerchio non si chiede niente: la scena e'
-      // occupata dal Risveglio.
-      dentroIlCerchio: onboarding.resolved && !onboarding.needsOnboarding,
-    );
-    if (!ctx.mounted) return;
+    // **IL PERMESSO NON SI CHIEDE PIU' QUI.** Ordine BZ voce 04 lo chiedeva
+    // all'avvio, perche' da Android 13 le notifiche nascono negate; il
+    // fondatore il 1 ottobre 2026 (ordine EV): *"elimina tutta la scheda
+    // all'avvio. Serve solo una scheda "Attiva le notifiche" quando l'utente
+    // apre la prima volta un dono"*. Lo chiede ogni Dono alla sua prima
+    // apertura (`ChiamataDelPrimoGiorno.alPrimoDono`), e li' programma le
+    // chiamate; qui si riprogrammano a ogni avvio per chi l'ha gia' concesso.
     await RegiaDelleChiamate.riprogramma(ctx);
   }
 

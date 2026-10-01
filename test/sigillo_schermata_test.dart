@@ -161,13 +161,21 @@ void main() {
   });
 
   testWidgets('Senza abbastanza lettere non si traccia', (tester) async {
-    await apri(tester);
+    final libro = await apri(tester);
     await scegliEScrivi(tester, ViaMagica.bianca, 'aaa', traccia: false);
-    final bottone = tester.widget<FilledButton>(find.descendant(
-        of: find.byKey(const Key('sigillo_traccia')),
-        matching: find.byType(FilledButton)));
-    expect(bottone.onPressed, isNull,
-        reason: 'con una lettera sola il sigillo si potrebbe tracciare');
+    // LAPIDE, ordine EV voce 02, 2 ottobre 2026: qui si pretendeva il
+    // pulsante spento. Il fondatore non riusciva a toccarlo e non sapeva
+    // perche': adesso dice che cosa manca, e il tocco porta nel campo.
+    expect(
+        find.descendant(
+            of: find.byKey(const Key('sigillo_traccia')),
+            matching: find.text('Scrivi la tua intenzione')),
+        findsOneWidget);
+    await tester.ensureVisible(find.byKey(const Key('sigillo_traccia')));
+    await tester.tap(find.byKey(const Key('sigillo_traccia')));
+    await tester.pump();
+    expect(libro.tutti, isEmpty,
+        reason: 'con una lettera sola il sigillo si e\' tracciato');
     expect(find.textContaining('almeno due lettere'), findsOneWidget);
   });
 

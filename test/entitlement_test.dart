@@ -99,9 +99,11 @@ void main() {
       // 9,99 - 19,99 - 29,99"). Qui si pretendevano 2,90 e 9,90.
       expect(iniziato.price!.weekly, '2,99 €');
       expect(iniziato.price!.monthly, '9,99 €');
-      expect(iniziato.price!.yearly, '99,90 €');
+      // LAPIDE, ordine EV voce 01, 2 ottobre 2026: "Si, tutto a 99". Qui si
+      // pretendeva l'annuale a 99,90.
+      expect(iniziato.price!.yearly, '99,99 €');
       // **LO SCONTO SEGUE IL PREZZO, ordine CE voce 07.** Era 24, poi 16 con
-      // 9,90 al mese, adesso 17: 99,90 contro 119,88 di dodici mensili.
+      // 9,90 al mese, adesso 17: 99,99 contro 119,88 di dodici mensili.
       expect(iniziato.price!.yearlyDiscountPercent, 17);
       // L'Iniziato apre col riepilogo del gratuito, poi la Memoria AI.
       expect(iniziato.highlights.first, contains('Tutto di Viandante'));
@@ -111,7 +113,49 @@ void main() {
       expect(adepto.price!.monthly, '19,99 €');
       expect(PlanCatalog.forTier(Tier.tier3).price!.monthly, '29,99 €');
       final illuminato = PlanCatalog.forTier(Tier.tier3);
-      expect(illuminato.price!.yearly, '279,90 €');
+      expect(illuminato.price!.yearly, '279,99 €');
+    });
+
+    // **TUTTI I PREZZI A 99, ordine EV voce 01.** Il fondatore: "Gli
+    // abbonamenti e quindi foni riferimento sono cambiati in 2,99 - 9,99 -
+    // 19,99 - 29,99", e alla domanda se portare a ,99 anche gli altri: "Si,
+    // tutto a 99". Si misura: i nove prezzi dei tre piani a pagamento finiscono
+    // in ,99; lo sconto annuale detto a video e' quello del conto
+    // `1 - annuale / (mensile * 12)` arrotondato; il prezzo al mese
+    // dell'annuale e' l'annuale diviso dodici, arrotondato al centesimo.
+    test('EV.01: i nove prezzi finiscono in ,99 e gli sconti tornano', () {
+      double numero(String p) =>
+          double.parse(p.replaceAll(' €', '').replaceAll(',', '.'));
+      final senza99 = <String>[];
+      final sconti = <String>[];
+      var prezzi = 0;
+      for (final t in const [Tier.tier1, Tier.tier2, Tier.tier3]) {
+        final p = PlanCatalog.forTier(t).price!;
+        for (final v in [p.weekly, p.monthly, p.yearly]) {
+          prezzi++;
+          if (!v.endsWith(',99 €')) senza99.add('${t.name} $v');
+        }
+        final conto =
+            ((1 - numero(p.yearly) / (numero(p.monthly) * 12)) * 100).round();
+        if (conto != p.yearlyDiscountPercent) {
+          sconti.add('${t.name}: a video ${p.yearlyDiscountPercent}, conto '
+              '$conto');
+        }
+        final alMese = (numero(p.yearly) / 12 * 100).round() / 100;
+        final scritto = '${alMese.toStringAsFixed(2).replaceAll('.', ',')} € '
+            'al mese';
+        if (p.yearlyPerMonth != scritto) {
+          sconti.add('${t.name}: al mese "${p.yearlyPerMonth}", conto '
+              '"$scritto"');
+        }
+      }
+      // ignore: avoid_print
+      print('ORDINE EV VOCE 01: prezzi che non finiscono in ,99 '
+          '${senza99.length} su $prezzi $senza99; sconti o prezzi al mese '
+          'diversi dal conto ${sconti.length} $sconti');
+      expect(prezzi, 9);
+      expect(senza99, isEmpty);
+      expect(sconti, isEmpty);
     });
 
     test('Gli highlights usano solo "Maestri", mai "Guide" o "Guida"', () {

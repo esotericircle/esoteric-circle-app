@@ -1,4 +1,5 @@
 import '../maestri/rotta_arte.dart';
+import '../../core/rituals/chiamata_del_primo_giorno.dart';
 import '../maestri/widgets/foglio_delle_fonti.dart';
 import 'dart:async';
 import '../maestri/chat/chat_openers.dart';
@@ -404,6 +405,11 @@ class _BreathDestinyScreenState extends State<BreathDestinyScreen>
   @override
   void initState() {
     super.initState();
+    // **ALLA PRIMA APERTURA DI UN DONO, "ATTIVA LE NOTIFICHE".** Ordine EV,
+    // il fondatore: la scheda non si mostra piu' all'avvio, ma qui, una volta.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) unawaited(ChiamataDelPrimoGiorno.alPrimoDono(context));
+    });
     _disperse = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 900),

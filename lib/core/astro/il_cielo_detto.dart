@@ -87,6 +87,15 @@ abstract final class IlCieloDetto {
     CorpoCeleste.marte,
     CorpoCeleste.giove,
     CorpoCeleste.saturno,
+    // **E I TRE LENTI, ordine EV voce 03.** Erano fuori perche' le
+    // effemeridi non li avevano, e la regola diceva al modello di non
+    // nominarli: il 1 ottobre 2026 Medora ha risposto "Non ho tra le mie note
+    // che Urano sia retrogrado oggi" a chi l'aveva appena letto
+    // nell'Oroscopo. Le effemeridi li hanno, misurati contro il JPL entro
+    // due centesimi di grado.
+    CorpoCeleste.urano,
+    CorpoCeleste.nettuno,
+    CorpoCeleste.plutone,
   ];
 
   static Zodiac _segnoDi(CorpoCeleste corpo, DateTime adesso) {
@@ -115,17 +124,35 @@ abstract final class IlCieloDetto {
     return 'I PIANETI DI OGGI, calcolati: ${pianeti.join(', ')}. Sono le sole '
         'posizioni vere di oggi: se nomini un pianeta di oggi o un suo '
         'transito, lo nomini dove sta qui. Non dire retrogrado un pianeta che '
-        'qui non lo è. Non nominare Urano, Nettuno e Plutone. Il cielo di '
+        'qui non lo è. Per il cielo di un altro giorno, o per i gradi e '
+        'gli aspetti, chiedi la funzione cielo_del_giorno. Il cielo di '
         'nascita della persona resta quello scritto sopra.';
   }
 
   /// Le frasi del testo che il calcolo smentisce, guardando da [adesso].
+  ///
+  /// [altriGiorni] sono i giorni di cui il Maestro ha chiesto il cielo in
+  /// questo turno (ordine EV voce 03, `LeFunzioniDelCielo`): un pianeta detto
+  /// nel segno o nel moto che ha in uno di quei giorni e' vero, anche se oggi
+  /// sta altrove. Sul banco del 1 ottobre la rete toglieva "Il transito di
+  /// Giove in Vergine" dalla risposta sul 1 gennaio 2028, che era giusta.
   static List<FraseSmentita> smentite(String testo,
-      {required DateTime adesso, Map<String, String> diNascita = const {}}) {
+      {required DateTime adesso,
+      Map<String, String> diNascita = const {},
+      List<DateTime> altriGiorni = const []}) {
     final esito = <FraseSmentita>[];
     for (final frase in frasiDi(testo)) {
-      final perche =
-          _pianeta(frase, adesso, diNascita) ?? _perche(frase, adesso);
+      // **LA LUNA DI UN GIORNO CHIESTO**, settimo giro dei banchi: "il 9
+      // novembre, quando la Luna è nuova in Scorpione" era vera, e la rete
+      // della fase la toglieva guardando da oggi. Con una data scritta e il
+      // cielo di altri giorni chiesto nel turno, la fase non si giudica.
+      final conData = altriGiorni.isNotEmpty &&
+          RegExp(r'\b\d{1,2} (gennaio|febbraio|marzo|aprile|maggio|giugno|'
+                  r'luglio|agosto|settembre|ottobre|novembre|dicembre)\b|'
+                  r'\b\d{4}-\d{2}-\d{2}\b')
+              .hasMatch(_piano(frase));
+      final perche = _pianeta(frase, adesso, diNascita, altriGiorni) ??
+          (conData ? null : _perche(frase, adesso));
       if (perche != null) {
         esito.add(FraseSmentita(frase: frase.trim(), perche: perche));
       }
@@ -136,8 +163,11 @@ abstract final class IlCieloDetto {
   /// Il testo senza le frasi che il calcolo smentisce. Le altre restano
   /// com'erano, a capo compresi.
   static String senzaLeSmentite(String testo,
-      {required DateTime adesso, Map<String, String> diNascita = const {}}) {
-    final via = smentite(testo, adesso: adesso, diNascita: diNascita)
+      {required DateTime adesso,
+      Map<String, String> diNascita = const {},
+      List<DateTime> altriGiorni = const []}) {
+    final via = smentite(testo,
+            adesso: adesso, diNascita: diNascita, altriGiorni: altriGiorni)
         .map((s) => s.frase)
         .toSet();
     if (via.isEmpty) return testo;
@@ -205,34 +235,82 @@ abstract final class IlCieloDetto {
   /// ("il tuo Sole", o il segno che la persona ha davvero) e le frasi al
   /// futuro ("domani", "fra tre giorni", "entrera'", "quando sara'"), che
   /// dicono un altro momento.
-  static String? _pianeta(
-      String originale, DateTime adesso, Map<String, String> diNascita) {
+  static String? _pianeta(String originale, DateTime adesso,
+      Map<String, String> diNascita, List<DateTime> altriGiorni) {
     final frase = _piano(originale);
     if (RegExp(r'\b(domani|fra \d+|fra [a-z]+ giorn[oi]|entrer[aà]|sar[aà]|'
             r'quando|prossim[oaie]|arrivera)\b')
         .hasMatch(frase)) {
       return null;
     }
+    // **UN ALTRO GIORNO NON SI CONFRONTA CON OGGI.** Ordine EV voce 03: il
+    // Maestro adesso sa il cielo di qualunque data, e "il 15 marzo 2027
+    // Marte e' in Leone" o "nel 2020 Saturno era in Acquario" sono vere per
+    // quella data. La rete guarda oggi: le frasi con un'altra data, un anno,
+    // un passato o un futuro le lascia stare, salvo che dicano "oggi".
+    if (!RegExp(r'\boggi\b', caseSensitive: false).hasMatch(frase) &&
+        // "sarà" fuori dai confini di parola: la a accentata non e' una
+        // lettera per `\b`, e dopo di lei il confine non c'e'.
+        RegExp(r'\bsar(?:à|anno)|\b(ieri|domani|dopodomani|prossim[oaie]|era|'
+                r'erano|fu|stato|stata|gennaio|febbraio|marzo|aprile|maggio|'
+                r'giugno|luglio|agosto|settembre|ottobre|novembre|dicembre|'
+                r'1[5-9]\d\d|2\d\d\d)\b',
+                caseSensitive: false)
+            .hasMatch(frase)) {
+      return null;
+    }
     final nascita = {
       for (final e in diNascita.entries) _piano(e.key): _piano(e.value),
     };
+    // **"IL TUO SEGNO" E' QUELLO DEL SOLE DI NASCITA**, ordine EV voce 03:
+    // sul banco "Il Sole, nel tuo segno di Bilancia" a una persona del Cancro.
+    final solare = nascita['sole'];
+    if (solare != null) {
+      final m = RegExp(r"\btuo segno (?:di |del |della |dello |dell'|dei |degli )?([a-z]+)")
+          .firstMatch(frase);
+      final detto = m?.group(1);
+      if (detto != null &&
+          detto != solare &&
+          Zodiac.values.any((z) => _piano(z.italianName) == detto)) {
+        return 'dice il segno della persona $detto, ma il suo Sole di nascita '
+            'è in $solare';
+      }
+    }
     for (final corpo in [..._pianeti, CorpoCeleste.luna]) {
       final nome = _piano(corpo.nome);
       const possessivo = r'(\b(?:tuo|tua|suo|sua) )?\b';
-      const dove = r"\b (?:e |transita |si trova |sta )?(?:nel segno dell'|"
+      // "oggi" fra il pianeta e il verbo, o dopo il verbo: sul banco
+      // dell'ordine EV "La Luna oggi si trova nel segno del Capricorno", con
+      // la Luna nei Gemelli, passava.
+      const dove = r"\b (?:oggi )?(?:e |transita |si trova |sta )?(?:oggi )?"
+          r"(?:nel segno dell'|"
           r"nel segno dello |nel segno del |nell'|nello |nel |in )([a-z]+)";
       final nelSegno = RegExp('$possessivo$nome$dove').allMatches(frase);
       for (final m in nelSegno) {
-        if (m.group(1) != null) continue;
         final detto = m.group(2)!;
         Zodiac? segno;
         for (final z in Zodiac.values) {
           if (_piano(z.italianName) == detto) segno = z;
         }
         if (segno == null) continue;
+        // **"LA TUA LUNA" E' QUELLA DI NASCITA**, ordine EV voce 03: sul
+        // banco del 1 ottobre Medora diceva "la tua Luna in Gemelli" a una
+        // persona con la Luna di nascita in Bilancia (i Gemelli erano la Luna
+        // di quel giorno). Col possessivo si confronta con la nascita, quando
+        // la si sa; senza la nascita non si giudica.
+        if (m.group(1) != null) {
+          final diNascita = nascita[nome];
+          if (diNascita != null && diNascita != detto) {
+            return 'dice ${corpo.nome} della persona in '
+                '${segno.italianName}, ma quella di nascita è in '
+                '${diNascita[0].toUpperCase()}${diNascita.substring(1)}';
+          }
+          continue;
+        }
         if (nascita[nome] == detto) continue;
         final vero = _segnoDi(corpo, adesso);
-        if (vero != segno) {
+        if (vero != segno &&
+            !altriGiorni.any((g) => _segnoDi(corpo, g) == segno)) {
           return 'dice ${corpo.nome} in ${segno.italianName}, ma oggi il '
               'calcolo lo dà in ${vero.italianName}';
         }
@@ -241,7 +319,8 @@ abstract final class IlCieloDetto {
       final retro = RegExp('$possessivo$nome$retrogrado').firstMatch(frase);
       if (retro != null &&
           retro.group(1) == null &&
-          !_retrogrado(corpo, adesso)) {
+          !_retrogrado(corpo, adesso) &&
+          !altriGiorni.any((g) => _retrogrado(corpo, g))) {
         return 'dice ${corpo.nome} retrogrado, ma oggi il calcolo lo dà '
             'diretto';
       }

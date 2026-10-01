@@ -91,6 +91,10 @@ enum _Fase { soglia, scrittura, tracciamento, rivelazione }
 class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
     with SingleTickerProviderStateMixin {
   final TextEditingController _campo = TextEditingController();
+
+  /// Il fuoco del campo: il pulsante ci porta il cursore quando manca la
+  /// frase (ordine EV voce 02).
+  final FocusNode _fuoco = FocusNode();
   late final AnimationController _traccia;
   _Fase _fase = _Fase.soglia;
 
@@ -158,6 +162,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
   void dispose() {
     _libro.removeListener(_cambiato);
     _campo.dispose();
+    _fuoco.dispose();
     _traccia.dispose();
     super.dispose();
   }
@@ -219,9 +224,51 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
     });
   }
 
-  void _traccia_() {
+  /// **CHE COSA DICE E CHE COSA FA IL PULSANTE**, ordine EV voce 02.
+  ///
+  /// - senza abbastanza lettere dice di scrivere l'intenzione e porta il
+  ///   cursore nel campo;
+  /// - mentre Calìgo riscrive dice che sta riscrivendo (pochi secondi);
+  /// - con la frase su un terzo e la forma di Calìgo pronta traccia quella
+  ///   forma, e lo dice;
+  /// - con una forma proposta su richiesta traccia la frase della persona,
+  ///   che la proposta non l'ha usata;
+  /// - altrimenti traccia.
+  (String, VoidCallback?) _ilPulsante(bool abbastanza) {
+    if (!abbastanza) {
+      return ('Scrivi la tua intenzione', () => _fuoco.requestFocus());
+    }
+    if (_riformulando) return ('Calìgo sta riscrivendo la frase', null);
+    if (_proposta != null && _suUnTerzo) {
+      return (
+        'Traccia con la forma di Calìgo',
+        () {
+          _usaLaProposta();
+          unawaited(_traccia_());
+        }
+      );
+    }
+    if (_proposta != null) {
+      return (
+        'Traccia il sigillo',
+        () {
+          setState(() => _proposta = null);
+          unawaited(_traccia_());
+        }
+      );
+    }
+    return ('Traccia il sigillo', () => unawaited(_traccia_()));
+  }
+
+  Future<void> _traccia_() async {
     final testo = _campo.text.trim();
     if (IntentionSigil.cammino(testo).length < 2 || _via == null) return;
+    // Il Libro si apre all'avvio senza aspettarlo: chi tocca prima che sia
+    // aperto avrebbe contato sigilli che non ci sono ancora.
+    if (!_libro.aperto) await _libro.apri();
+    if (!mounted) return;
+    // La tastiera si chiude: comincia il gesto, e il segno si guarda.
+    FocusManager.instance.primaryFocus?.unfocus();
     if (ILimitiDelSigillo.puoTracciare(_tier(), _libro) !=
         EsitoDelTracciamento.si) {
       setState(() => _fase = _Fase.soglia);
@@ -497,6 +544,7 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
           child: TextField(
             key: const Key('sigillo_campo'),
             controller: _campo,
+            focusNode: _fuoco,
             maxLines: 3,
             minLines: 2,
             textCapitalization: TextCapitalization.sentences,
@@ -649,14 +697,21 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
           onScelta: (d) => setState(() => _scadenza = d),
         ),
         const SizedBox(height: SpacingTokens.xl),
-        PulsanteDelSigillo(
-          key: const Key('sigillo_traccia'),
-          testo: 'Traccia il sigillo',
-          palette: palette,
-          onPressed: abbastanza && !_riformulando && _proposta == null
-              ? _traccia_
-              : null,
-        ),
+        // **IL PULSANTE NON E' MAI SPENTO SENZA DIRE PERCHE'.** Ordine EV
+        // voce 02, il fondatore: *"nel sigillo non posso fare click su
+        // "traccia il sigillo""*. Con la tastiera aperta la proposta di
+        // Calìgo stava sopra, fuori vista, e il pulsante restava spento
+        // finche' non la si usava: chi guardava il pulsante non sapeva
+        // perche'. Adesso il pulsante dice che cosa fa, e lo fa.
+        Builder(builder: (context) {
+          final (etichetta, azione) = _ilPulsante(abbastanza);
+          return PulsanteDelSigillo(
+            key: const Key('sigillo_traccia'),
+            testo: etichetta,
+            palette: palette,
+            onPressed: azione,
+          );
+        }),
         if (!abbastanza) ...[
           const SizedBox(height: SpacingTokens.sm),
           Text(

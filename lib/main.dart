@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'app.dart';
+import 'core/chat/i_responsi_di_oggi.dart';
 import 'core/diagnosi/briciole.dart';
 import 'core/l10n/la_lingua_del_cerchio.dart';
 import 'services/push/la_push_in_arrivo.dart';
@@ -117,5 +118,9 @@ Future<void> main() async {
   // lui vive in memoria: "questa apertura" e' questo processo, e le prove,
   // che non chiamano main(), non nascono con un velo sopra.
   MemoriaDelPrimoApprodo.nuovaApertura();
+  // **I RESPONSI DI OGGI TORNANO DAL DISCO**, ordine EV voce 04: chi ha
+  // letto l'Oroscopo, ha chiuso l'app e scrive a Medora dopo pranzo trova
+  // un Maestro che sa che cosa ha letto.
+  unawaited(IResponsiDiOggi.carica());
   runApp(EsotericCircleApp(services: services));
 }

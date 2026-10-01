@@ -15,6 +15,7 @@ import '../../design_system/theme/maestro_scope.dart';
 import 'santuario_bottom_bar.dart';
 import 'vie_del_cerchio.dart';
 import '../onboarding/primo_approdo.dart';
+import '../../design_system/la_tastiera_si_chiude.dart';
 
 /// LA BARRA DEL CERCHIO, UNA SOLA IN TUTTA L'APP.
 ///
@@ -353,16 +354,21 @@ class OsservatoreDellaPila extends NavigatorObserver {
     _segnala();
   }
 
+  // **E LA TASTIERA SI CHIUDE**, ordine EV voce 05: quando una rotta esce,
+  // se nella schermata che resta nessun campo ha il fuoco, l'app dice da se'
+  // di chiudere la tastiera ([LaTastieraSiChiude]).
   @override
   void didPop(Route<dynamic> route, Route<dynamic>? previousRoute) {
     pila.remove(route);
     _segnala();
+    LaTastieraSiChiude.seNessunCampo();
   }
 
   @override
   void didRemove(Route<dynamic> route, Route<dynamic>? previousRoute) {
     pila.remove(route);
     _segnala();
+    LaTastieraSiChiude.seNessunCampo();
   }
 
   @override
@@ -532,6 +538,8 @@ class NavigazioneDellaBarra {
   /// Torna al Cerchio senza aggiungere nulla alla pila: il Cerchio e' la rotta
   /// piu' in fondo, quindi si sfilano quelle sopra.
   static void alCerchio(BuildContext context) {
+    // Si va via da tutto: la tastiera si chiude (ordine EV voce 05).
+    LaTastieraSiChiude.adesso();
     context.read<NavigationController>().goToSantuario();
     _navigatore().popUntil((r) => r.isFirst);
   }
@@ -540,6 +548,7 @@ class NavigazioneDellaBarra {
   /// guscio quale vista mostrare e si sfilano le rotte sopra, esattamente come
   /// per il Cerchio.
   static void alPassport(BuildContext context) {
+    LaTastieraSiChiude.adesso();
     context.read<NavigationController>().goToPassport();
     _navigatore().popUntil((r) => r.isFirst);
   }

@@ -3,6 +3,7 @@ import '../sigilli/diario_del_cammino.dart';
 import '../sigilli/sentieri.dart';
 import '../sigilli/traguardo.dart';
 import 'natal_context.dart';
+import '../chat/i_responsi_di_oggi.dart';
 
 /// L'UNICA sorgente del contesto natale corrente.
 ///
@@ -32,6 +33,18 @@ class SorgenteNatale {
   /// i servizi del guscio. Senza diario il contesto esce come prima, e nel
   /// prompt non compare nessuna riga sul Cammino.
   static NatalContext daIdentita(BirthIdentityController identita,
+      {DiarioDelCammino? diario}) {
+    // **E I RESPONSI DI OGGI, CON LA CARTA**, ordine EV voci 03 e 04: il
+    // Maestro riceve i responsi che la persona ha letto oggi e, quando c'e',
+    // la carta per i transiti del cielo che chiede.
+    final base = _daIdentita(identita, diario: diario);
+    final responsi = IResponsiDiOggi.bloccoPerIlModello(DateTime.now());
+    if (responsi == null && identita.chart == null) return base;
+    return base.conIlCieloEIResponsi(
+        carta: identita.chart, responsiDiOggi: responsi);
+  }
+
+  static NatalContext _daIdentita(BirthIdentityController identita,
       {DiarioDelCammino? diario}) {
     final (nome, apre) = _prossimoPasso(diario);
     if (!identita.hasBirth) {

@@ -16,7 +16,8 @@ test("la finestra e' piu' larga del passo del telefono", () => {
   assert.ok(FINESTRA_DELLA_PRESENZA_MS > OGNI_QUANTO_CHIEDE_MS);
   // E non tanto piu' larga da contare per minuti chi ha chiuso l'app.
   assert.ok(FINESTRA_DELLA_PRESENZA_MS <= 3 * 60 * 1000);
-  assert.equal(confineDellaPresenza(1_000_000), 1_000_000 - 150_000);
+  // Un minuto e mezzo dall'ordine EV voce 06 (era due minuti e mezzo).
+  assert.equal(confineDellaPresenza(1_000_000), 1_000_000 - 90_000);
 });
 
 test("il numero non scende mai sotto uno", () => {

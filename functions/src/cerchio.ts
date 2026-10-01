@@ -1121,10 +1121,15 @@ export const attivaIlPianoInDemo = onCall(
 export const chiEOnline = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
   const uid = uidDi(request);
   const adesso = Date.now();
-  await utente(uid)
-    .collection("presenza")
-    .doc("adesso")
-    .set({ultimo: Timestamp.fromMillis(adesso)});
+  const presenza = utente(uid).collection("presenza").doc("adesso");
+  // **CHI ESCE, ESCE DAL CONTO SUBITO.** Ordine EV voce 06: il telefono che
+  // va in pausa lo dice, e la sua presenza si toglie invece di restare nel
+  // conto degli altri fino alla fine della finestra.
+  if ((request.data as {esce?: unknown} | undefined)?.esce === true) {
+    await presenza.delete();
+    return {quanti: 0};
+  }
+  await presenza.set({ultimo: Timestamp.fromMillis(adesso)});
   const conto = await db
     .collectionGroup("presenza")
     .where("ultimo", ">=", Timestamp.fromMillis(confineDellaPresenza(adesso)))

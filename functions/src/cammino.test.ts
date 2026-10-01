@@ -349,6 +349,71 @@ test("e fra due Viaggi vince quello piu' avanti, non il piu' recente", () => {
   );
 });
 
+/**
+ * **CON LE CHIAVI VERE DEL TELEFONO.** Ordine EV, il fondatore: *"sono al
+ * primo cammino del viaggio dello sciamano, faccio il secondo e va tutto ok.
+ * Poi chiudo l'app e la riapro e il cammino torna al primo"*.
+ *
+ * Il telefono manda il Viaggio con le chiavi di SharedPreferences, col
+ * prefisso (`viaggio.quante`, `viaggio.riconosciuto`, `viaggio.cammino`);
+ * le prove qui sopra le scrivevano senza, e la fusione leggeva quelle senza:
+ * per lei ogni Viaggio valeva zero discese, a parita' vinceva il server, e
+ * il server restava fermo per sempre sulla prima copia ricevuta. Difetto
+ * dell'ordine EE voce 13: le due meta' non erano mai state provate insieme.
+ */
+test("EV: il Viaggio col secondo strato vince su quello col primo", () => {
+  const primo = {
+    "viaggio.quante": 1,
+    "viaggio.cammino": JSON.stringify({domanda: "d", strato: 1}),
+  };
+  const secondo = {
+    "viaggio.quante": 2,
+    "viaggio.cammino": JSON.stringify({domanda: "d", strato: 2}),
+  };
+  assert.equal(
+    fondiCammini({viaggioDelloSciamano: primo}, {
+      viaggioDelloSciamano: secondo,
+    }).viaggioDelloSciamano,
+    secondo
+  );
+  // E il telefono reinstallato, col primo strato soltanto, non cancella il
+  // secondo che il Cerchio custodisce.
+  assert.equal(
+    fondiCammini({viaggioDelloSciamano: secondo}, {
+      viaggioDelloSciamano: primo,
+    }).viaggioDelloSciamano,
+    secondo
+  );
+  // Chi ha riconosciuto batte chi ha piu' discese.
+  const riconosciuto = {"viaggio.riconosciuto": true, "viaggio.quante": 4};
+  const dopo = {"viaggio.quante": 5};
+  assert.equal(
+    fondiCammini({viaggioDelloSciamano: riconosciuto}, {
+      viaggioDelloSciamano: dopo,
+    }).viaggioDelloSciamano,
+    riconosciuto
+  );
+});
+
+test("EV: a parita' di discese vince il telefono, che ha l'ultima mossa", () => {
+  // "Cambia domanda" azzera il cammino senza togliere discese: la copia del
+  // telefono e' la piu' recente, e il Cerchio non deve riportarla indietro.
+  const server = {
+    "viaggio.quante": 2,
+    "viaggio.cammino": JSON.stringify({domanda: "vecchia", strato: 2}),
+  };
+  const telefono = {
+    "viaggio.quante": 2,
+    "viaggio.cammino": JSON.stringify({domanda: "nuova", strato: 0}),
+  };
+  assert.equal(
+    fondiCammini({viaggioDelloSciamano: server}, {
+      viaggioDelloSciamano: telefono,
+    }).viaggioDelloSciamano,
+    telefono
+  );
+});
+
 test("a parita' di riconoscimento vince chi ha piu' discese", () => {
   const tre = {riconosciuto: false, quante: 3};
   const una = {riconosciuto: false, quante: 1};

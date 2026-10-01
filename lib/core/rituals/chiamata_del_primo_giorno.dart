@@ -6,6 +6,7 @@ import '../../services/avvisi_locali.dart';
 import '../maestro/maestro.dart';
 import '../permissions/app_permission.dart';
 import '../permissions/esito_del_permesso.dart';
+import '../../services/regia_delle_chiamate.dart';
 import 'avvisi_del_rito.dart';
 
 /// LA VOLTA IN CUI IL PERMESSO SI CHIEDE DAVVERO. Ordine BZ voce 04.
@@ -40,6 +41,11 @@ import 'avvisi_del_rito.dart';
 /// chiede al sistema. Una volta sola, perche' su Android il dialogo di sistema
 /// compare una volta e poi il no diventa definitivo: insistere non
 /// aggiungerebbe una possibilita', la toglierebbe.
+///
+/// **DALL'ORDINE EV NON SI CHIEDE PIU' ALL'AVVIO** ma alla prima apertura di
+/// un Dono ([alPrimoDono]), con un foglio di due righe: il fondatore ha
+/// chiesto di togliere la scheda dall'avvio, dove copriva la home col testo
+/// lungo e il pulsante finiva sotto la barra.
 ///
 /// **Non si chiede a chi sta entrando nel Cerchio**: durante l'ingresso la
 /// scena e' occupata dal Risveglio, e un foglio di sistema sopra la prima
@@ -98,6 +104,34 @@ class ChiamataDelPrimoGiorno {
   /// lo usano. Qui si sostituisce la risposta della persona.
   static Future<bool> Function(BuildContext)? spiegazionePerLeProve;
 
+  /// **IL FOGLIO DICE SOLO L'INDISPENSABILE.** Il fondatore, 1 ottobre
+  /// 2026, sulla scheda che compariva all'avvio: *"Il testo è eccessivo. Cmq
+  /// elimina tutta la scheda all'avvio. Serve solo una scheda "Attiva le
+  /// notifiche" quando l'utente apre la prima volta un dono e con il testo
+  /// minimo indispensabile Senza dire 4 notifiche al giorno e altri
+  /// dettagli"*, e poi: *"Aggiungi magari, che potrà attivare e disattivare le
+  /// notifiche dal menù notifiche"*. La spiegazione lunga resta nel menu'
+  /// Notifiche, dove chi la legge l'ha cercata.
+  static const String titolo = 'Attiva le notifiche';
+  static const String testo = 'Ti avviso quando i tuoi Doni sono pronti. '
+      'Puoi attivarle e disattivarle dal menù Notifiche.';
+  static const String pulsante = 'Attiva';
+
+  /// **ALLA PRIMA APERTURA DI UN DONO**, e non all'avvio (il fondatore, 1
+  /// ottobre 2026: all'avvio la scheda copriva la home, e il pulsante finiva
+  /// sotto la barra). Ogni Dono la chiama quando si apre; chiede una volta
+  /// sola nella vita dell'installazione e, se la persona dice si', programma
+  /// subito le chiamate del giorno, che all'avvio senza permesso non erano
+  /// partite.
+  static Future<void> alPrimoDono(BuildContext context) async {
+    if (await giaChiesto()) return;
+    if (!context.mounted) return;
+    final concesso = await forseChiedi(context, dentroIlCerchio: true);
+    if (concesso && context.mounted) {
+      await RegiaDelleChiamate.riprogramma(context);
+    }
+  }
+
   static Future<bool> forseChiedi(
     BuildContext context, {
     ServizioAvvisi? servizio,
@@ -124,12 +158,11 @@ class ChiamataDelPrimoGiorno {
       context,
       permission: AppPermission.notifications,
       palette: MaestroPalette.forKey(const ThemeKey.of(Maestro.medora)),
-      copy: PermissionCopy(
+      copy: const PermissionCopy(
         icon: Icons.notifications_active_rounded,
-        // La stessa domanda del menu' Notifiche: due porte, una frase.
-        title: 'Posso chiamarti quando è l\'ora?',
-        body: AvvisiDelRito.spiegazione,
-        cta: 'Sì, avvisami',
+        title: titolo,
+        body: testo,
+        cta: pulsante,
       ),
       systemRequest: () async {
         final esito = await PortaDelPermesso.chiedi(

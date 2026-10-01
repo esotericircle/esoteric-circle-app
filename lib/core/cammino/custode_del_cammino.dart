@@ -465,6 +465,19 @@ class CustodeDelCammino {
     // 13. Come per l'Alba, non serve il contesto: la porta sono le chiavi.
     await IlViaggioCustodito.adottaDalCerchio(cammino.viaggioDelloSciamano);
     if (!context.mounted) return;
+    // **E L'ARCHETIPO TORNA COL SUO EMBLEMA**, ordine EV: il Cerchio lo
+    // custodiva dall'ordine CF e lo rimandava, e qui nessuno lo riprendeva.
+    // Il fondatore, reinstallata l'app e registrato col suo account, ha
+    // ritrovato gli Eos e i Sigilli e il Test Archetipo da rifare.
+    try {
+      await context.read<ArchetypeHistory>().adottaDalCerchio(
+          cammino.archetipoDominante, cammino.archetipoQuando);
+    } catch (errore) {
+      // Senza lo storico (una prova che monta una scena sola) non c'e'
+      // archetipo da riprendere.
+      debugPrint('Cammino: l\'archetipo non torna. $errore');
+    }
+    if (!context.mounted) return;
     if (cammino.artiPreferite.isNotEmpty) {
       try {
         await context

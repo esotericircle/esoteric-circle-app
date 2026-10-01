@@ -11,17 +11,22 @@
  */
 
 /**
- * **OGNI QUANTO CHIEDE IL TELEFONO**: due minuti, finche' l'app e' davanti.
+ * **OGNI QUANTO CHIEDE IL TELEFONO**: un minuto, finche' l'app e' davanti.
+ * Erano due fino all'ordine EV voce 06: chi arrivava si vedeva dagli altri
+ * fino a due minuti dopo, e il fondatore leggeva "ONLINE 1" su un telefono e
+ * 2 sull'altro.
  * Il numero vive anche nel telefono (`ChiEOnline.ogni`), e la prova lato
  * Dart pretende che i due dicano lo stesso.
  */
-export const OGNI_QUANTO_CHIEDE_MS = 120 * 1000;
+export const OGNI_QUANTO_CHIEDE_MS = 60 * 1000;
 
 /**
- * **LA FINESTRA DELLA PRESENZA**: due minuti e mezzo. E' piu' larga del
+ * **LA FINESTRA DELLA PRESENZA**: un minuto e mezzo (due e mezzo fino
+ * all'ordine EV voce 06). E' piu' larga del
  * passo del telefono di mezzo minuto, cioe' del margine di una rete lenta:
  * chi c'e' rinnova la sua presenza prima di uscire dal conto, e chi chiude
- * l'app ne esce entro due minuti e mezzo. Una finestra uguale al passo
+ * l'app senza dirlo ne esce entro un minuto e mezzo (chi lo dice, in pausa,
+ * esce subito). Una finestra uguale al passo
  * farebbe lampeggiare il numero a ogni ritardo di un secondo.
  */
 export const FINESTRA_DELLA_PRESENZA_MS = OGNI_QUANTO_CHIEDE_MS + 30 * 1000;

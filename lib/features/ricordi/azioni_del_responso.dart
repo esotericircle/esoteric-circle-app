@@ -29,6 +29,7 @@ library;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/chat/i_responsi_di_oggi.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/ricordi/registro_dei_ricordi.dart';
@@ -58,6 +59,7 @@ class ResponsoDaCustodire {
     required this.titolo,
     required this.testo,
     this.dati = const {},
+    this.perIlMaestro,
   });
 
   /// L'identificativo dell'arte o del Dono, quello di `ContiDelleArti`.
@@ -65,6 +67,13 @@ class ResponsoDaCustodire {
 
   final String titolo;
   final String testo;
+
+  /// **IL RESPONSO COME LO HA LETTO LA PERSONA, PER IL MAESTRO.** Ordine EV
+  /// voce 04. Quando l'arte mostra a video piu' di [testo] (l'Oroscopo mostra
+  /// anche "Da dove viene", il transito da cui il responso nasce), qui c'e'
+  /// tutto: e' cio' che il Maestro riceve se la persona gli scrive. Nullo, il
+  /// Maestro riceve [testo].
+  final String? perIlMaestro;
 
   /// I dati che servono a ridisegnare la scena: le carte di una stesa, i nomi
   /// delle rune di una gettata, la percentuale di una sinastria.
@@ -159,6 +168,32 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
   /// griglia. Qui l'istante e' quello in cui il responso e' comparso.
   late final DateTime _quando = _adesso;
 
+  /// Il responso come lo riceve il Maestro, ordine EV voce 04.
+  ResponsoDiOggi get _perIlMaestro => ResponsoDiOggi(
+        arte: widget.responso.arte,
+        titolo: widget.responso.titolo,
+        testo: widget.responso.perIlMaestro ?? widget.responso.testo,
+      );
+
+  /// **OGNI RESPONSO COMPARSO SI RICORDA PER IL MAESTRO**, ordine EV voce 04:
+  /// se la persona gli scrive dopo, anche senza "Parlane con...", il Maestro
+  /// sa che cosa ha letto e non lo nega.
+  @override
+  void initState() {
+    super.initState();
+    IResponsiDiOggi.ricorda(_perIlMaestro, adesso: _adesso);
+  }
+
+  @override
+  void didUpdateWidget(AzioniDelResponso vecchio) {
+    super.didUpdateWidget(vecchio);
+    if (vecchio.responso.titolo != widget.responso.titolo ||
+        vecchio.responso.testo != widget.responso.testo ||
+        vecchio.responso.perIlMaestro != widget.responso.perIlMaestro) {
+      IResponsiDiOggi.ricorda(_perIlMaestro, adesso: _adesso);
+    }
+  }
+
   RicordoCustodito _daCustodire(ComeENato come) => RicordoCustodito(
         quando: _quando,
         arte: widget.responso.arte,
@@ -242,6 +277,9 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
   }
 
   void _parlane() {
+    // Prima di aprire la chat: il Maestro deve sapere da quale responso la
+    // persona parte, ordine EV voce 04.
+    IResponsiDiOggi.apri(_perIlMaestro, adesso: _adesso);
     final AppServices services;
     try {
       services = context.read<AppServices>();

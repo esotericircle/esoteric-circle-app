@@ -20,7 +20,36 @@ class NatalContext {
     this.moonIllumination,
     this.prossimoTraguardo,
     this.cosaApreIlProssimoTraguardo,
+    this.carta,
+    this.responsiDiOggi,
   });
+
+  /// **LA CARTA NATALE INTERA**, quando c'e'. Ordine EV voce 03: serve alle
+  /// funzioni del cielo per dire i transiti di un giorno sulla carta della
+  /// persona. Non entra nell'istruzione: i fatti li calcola chi la chiede.
+  final NatalChart? carta;
+
+  /// **I RESPONSI CHE LA PERSONA HA LETTO OGGI**, in un blocco gia' scritto
+  /// per il modello (`IResponsiDiOggi`). Ordine EV voce 04: il Maestro non
+  /// nega mai un fatto che l'app ha mostrato alla persona. Nullo quando oggi
+  /// non ha letto niente, e allora nell'istruzione non compare nessuna riga.
+  final String? responsiDiOggi;
+
+  /// Lo stesso contesto con la carta e i responsi di oggi.
+  NatalContext conIlCieloEIResponsi(
+          {NatalChart? carta, String? responsiDiOggi}) =>
+      NatalContext(
+        sunSign: sunSign,
+        moonSign: moonSign,
+        ascendant: ascendant,
+        lifeNumber: lifeNumber,
+        lifeNumberTitle: lifeNumberTitle,
+        moonIllumination: moonIllumination,
+        prossimoTraguardo: prossimoTraguardo,
+        cosaApreIlProssimoTraguardo: cosaApreIlProssimoTraguardo,
+        carta: carta ?? this.carta,
+        responsiDiOggi: responsiDiOggi ?? this.responsiDiOggi,
+      );
 
   /// **IL PROSSIMO GRADINO DEL SUO CAMMINO.** Ordine CQ voce 2.15,
   /// 4 settembre 2026.
@@ -60,6 +89,7 @@ class NatalContext {
       lifeNumber: facts?.lifeNumber,
       lifeNumberTitle: facts?.lifeTitle,
       moonIllumination: facts?.moonPhase,
+      carta: chart,
     );
   }
 

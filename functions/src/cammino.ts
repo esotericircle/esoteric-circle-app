@@ -285,8 +285,16 @@ export function ilDiarioPiuAvanti(
  * discese in quattro giorni. Quindi: chi ha riconosciuto batte chi no, e a
  * parita' vince chi ha fatto piu' discese.
  *
- * **A parita' piena vince il server**, come per il resto di questa fusione:
- * e' la copia che sopravvive ai telefoni.
+ * **Le chiavi sono quelle del telefono, col prefisso** (`viaggio.quante`,
+ * `viaggio.riconosciuto`): ordine EV. Qui si leggevano senza, ogni Viaggio
+ * valeva zero discese e vinceva sempre il server, fermo sulla prima copia:
+ * il fondatore faceva il secondo cammino, riapriva l'app e tornava al primo.
+ * I nomi senza prefisso si leggono ancora, per le copie scritte a mano.
+ *
+ * **A parita' piena vince il telefono** (ordine EV), non piu' il server: a
+ * pari discese la copia del telefono e' la piu' recente ("cambia domanda"
+ * azzera il cammino senza togliere discese), e un telefono reinstallato da
+ * zero non manda niente, quindi non puo' cancellare il Cerchio.
  */
 export function ilViaggioPiuAvanti(
   server: Record<string, unknown> | undefined,
@@ -294,17 +302,22 @@ export function ilViaggioPiuAvanti(
 ): Record<string, unknown> | undefined {
   if (!server) return telefono;
   if (!telefono) return server;
-  const passo = (v: Record<string, unknown>): [number, number] => [
-    v.riconosciuto === true ? 1 : 0,
-    typeof v.quante === "number" ? v.quante : 0,
-  ];
+  const campo = (v: Record<string, unknown>, nome: string): unknown =>
+    v[`viaggio.${nome}`] ?? v[nome];
+  const passo = (v: Record<string, unknown>): [number, number] => {
+    const quante = campo(v, "quante");
+    return [
+      campo(v, "riconosciuto") === true ? 1 : 0,
+      typeof quante === "number" ? quante : 0,
+    ];
+  };
   const a = passo(server);
   const b = passo(telefono);
   for (let i = 0; i < a.length; i++) {
     if (a[i] > b[i]) return server;
     if (a[i] < b[i]) return telefono;
   }
-  return server;
+  return telefono;
 }
 
 /** Il piu' alto fra due conteggi, chiave per chiave. */

@@ -193,6 +193,54 @@ class ArchetypeHistory extends ChangeNotifier {
     return esito;
   }
 
+  /// **L'ARCHETIPO CHE TORNA DAL CERCHIO.** Ordine EV, il fondatore: *"Dopo
+  /// la reinstallazione e dopo la registrazione con mia email, però, ho perso
+  /// l'emblema dell'archetipo e mi chiede di rifarlo."*
+  ///
+  /// Il telefono mandava l'archetipo al Cerchio (`CamminoDaCustodire`), il
+  /// Cerchio lo custodiva e lo rimandava, e al ritorno nessuno lo rimetteva
+  /// qui: tornavano gli Eos, i Sigilli, l'Alba e il Viaggio, l'archetipo no.
+  ///
+  /// **Si adotta solo su uno storico vuoto, guardato sul disco**: chi ha gia'
+  /// un esito sul telefono tiene il suo, che e' il suo ultimo test. E il disco
+  /// si legge qui e non si presume dalla memoria, perche' all'avvio la
+  /// memoria puo' essere vuota solo perche' [carica] non ha ancora finito, e
+  /// scrivere sopra il disco in quel momento cancellerebbe lo storico vero.
+  ///
+  /// Il Cerchio custodisce il dominante e il giorno, non le dodici
+  /// percentuali: l'esito adottato porta il dominante pieno. L'emblema, la
+  /// soglia dei tre mesi e il Maestro leggono il dominante e il giorno.
+  /// Torna vero quando l'archetipo e' entrato.
+  Future<bool> adottaDalCerchio(String? dominante, DateTime? quando) async {
+    if (dominante == null || quando == null) return false;
+    Archetype? archetipo;
+    for (final a in Archetype.values) {
+      if (a.name == dominante) archetipo = a;
+    }
+    if (archetipo == null) return false;
+    if (_esiti.isNotEmpty) return false;
+    try {
+      final p = await SharedPreferences.getInstance();
+      if ((p.getStringList(_chiave) ?? const []).isNotEmpty) return false;
+      if (_esiti.isNotEmpty) return false;
+      final esito = ArchetypeEsito(
+        quando: quando,
+        percentuali: {
+          for (final a in Archetype.values) a: a == archetipo ? 100.0 : 0.0,
+        },
+        dominante: archetipo,
+      );
+      _scritture++;
+      _esiti = [esito];
+      notifyListeners();
+      await p.setStringList(_chiave, [jsonEncode(esito.toJson())]);
+      return true;
+    } catch (errore) {
+      debugPrint('Archetipo: il ritorno dal Cerchio non si scrive. $errore');
+      return false;
+    }
+  }
+
   /// La riga di confronto con la volta prima, oppure null se e' la prima volta.
   ///
   /// Il testo e' deterministico e non passa da nessuna AI.

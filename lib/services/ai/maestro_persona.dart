@@ -406,6 +406,13 @@ class MaestroPersona {
       _commonRules(profile),
       '',
       if (natalBlock.isNotEmpty) ...[natalBlock, ''],
+      // **I RESPONSI CHE LA PERSONA HA LETTO OGGI. Ordine EV voce 04.** Il
+      // Maestro non nega mai un fatto che l'app ha mostrato: sulle catture
+      // dei fondatori Medora diceva di non sapere che Urano fosse retrogrado,
+      // e chiedeva chi l'avesse scritto, a chi l'aveva appena letto
+      // nell'Oroscopo. Assente quando oggi non c'e' niente: l'istruzione a
+      // profilo vuoto, e la sua impronta, non cambiano.
+      if (natal.responsiDiOggi != null) ...[natal.responsiDiOggi!, ''],
       _regolaDellAncoraggio(ancoraggi,
           insisti: insistiSullAncoraggio, primaRisposta: primaRisposta),
       // LO STESSO DATO, TRE LENTI. Senza questa riga tutti e tre dicevano il
@@ -818,6 +825,16 @@ class MaestroPersona {
     if (natal.moonPhase != null && natal.moonPhase!.trim().isNotEmpty) {
       buffer.writeln('- Fase lunare di nascita: ${natal.moonPhase!.trim()}.');
     }
+    // **I SUOI SONO SOLO QUESTI.** Ordine EV voce 03, banchi del 1 ottobre
+    // 2026: con il cielo di oggi nel contesto il modello ha detto "il Sole,
+    // nel tuo segno di Bilancia" a una persona del Cancro, "la Luna e il tuo
+    // Sole Cancro in trigono" per la Luna di nascita in Bilancia, "il tuo
+    // Marte in Leone" per il Marte di oggi. Solo con i dati di nascita: a
+    // profilo vuoto l'istruzione, e la sua impronta, non cambiano.
+    buffer.writeln('- Il Sole, la Luna e i pianeti del cielo di oggi, e '
+        'quelli dei responsi di oggi, non sono i suoi: i suoi sono solo '
+        'quelli scritti qui. Non dare al suo segno, alla sua Luna o ai suoi '
+        'pianeti il segno o gli aspetti del cielo di oggi.');
     return buffer.toString();
   }
 
@@ -843,6 +860,13 @@ class MaestroPersona {
       _commonRules(profile),
       '',
       if (natalBlock.isNotEmpty) ...[natalBlock, ''],
+      // **I RESPONSI CHE LA PERSONA HA LETTO OGGI. Ordine EV voce 04.** Il
+      // Maestro non nega mai un fatto che l'app ha mostrato: sulle catture
+      // dei fondatori Medora diceva di non sapere che Urano fosse retrogrado,
+      // e chiedeva chi l'avesse scritto, a chi l'aveva appena letto
+      // nell'Oroscopo. Assente quando oggi non c'e' niente: l'istruzione a
+      // profilo vuoto, e la sua impronta, non cambiano.
+      if (natal?.responsiDiOggi != null) ...[natal!.responsiDiOggi!, ''],
       _memoryContext(memory),
       '',
       MisuraDellaRisposta.perProfondita(depth).istruzione,

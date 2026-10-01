@@ -151,70 +151,77 @@ class _PreludeSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // **IL FOGLIO SCORRE SE NON CI STA.** Ordine EV: sulla cattura del
+    // fondatore il testo lungo spingeva il pulsante "Sì, avvisami" oltre
+    // l'area sicura, sotto la barra in basso, dove non si poteva toccare.
     return SafeArea(
-      child: Container(
-        margin: const EdgeInsets.all(SpacingTokens.md),
-        padding: const EdgeInsets.all(SpacingTokens.lg),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [palette.surfaceElevated, palette.deepest],
+      child: SingleChildScrollView(
+        child: Container(
+          margin: const EdgeInsets.all(SpacingTokens.md),
+          padding: const EdgeInsets.all(SpacingTokens.lg),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [palette.surfaceElevated, palette.deepest],
+            ),
+            borderRadius: BorderRadius.circular(SpacingTokens.radiusXl),
+            border: Border.all(color: palette.gold.withValues(alpha: 0.4)),
           ),
-          borderRadius: BorderRadius.circular(SpacingTokens.radiusXl),
-          border: Border.all(color: palette.gold.withValues(alpha: 0.4)),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: 64,
-              height: 64,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: palette.primary.withValues(alpha: 0.4),
-                border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
-              ),
-              child: Icon(copy.icon, color: palette.goldSoft, size: 30),
-            ),
-            const SizedBox(height: SpacingTokens.md),
-            Text(copy.title,
-                textAlign: TextAlign.center,
-                style: TypographyTokens.titoloSezione()),
-            const SizedBox(height: SpacingTokens.sm),
-            Text(copy.body,
-                textAlign: TextAlign.center,
-                style: TypographyTokens.body(size: TypographyTokens.guide)
-                    .copyWith(color: ColorTokens.textSecondary, height: 1.45)),
-            const SizedBox(height: SpacingTokens.lg),
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton(
-                style: FilledButton.styleFrom(
-                  backgroundColor: palette.gold,
-                  foregroundColor: palette.deepest,
-                  padding:
-                      const EdgeInsets.symmetric(vertical: SpacingTokens.md),
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(SpacingTokens.radiusPill),
-                  ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: palette.primary.withValues(alpha: 0.4),
+                  border:
+                      Border.all(color: palette.gold.withValues(alpha: 0.6)),
                 ),
-                onPressed: () => Navigator.of(context).pop(true),
-                child: Text(copy.cta,
-                    style: TypographyTokens.body(size: 17, weight: 600)
-                        .copyWith(color: palette.deepest)),
+                child: Icon(copy.icon, color: palette.goldSoft, size: 30),
               ),
-            ),
-            const SizedBox(height: SpacingTokens.xs),
-            TextButton(
-              key: const Key('permesso_non_ora'),
-              onPressed: () => Navigator.of(context).pop(false),
-              child: Text(copy.decline,
-                  style: TypographyTokens.body(size: 16)
-                      .copyWith(color: ColorTokens.textSecondary)),
-            ),
-          ],
+              const SizedBox(height: SpacingTokens.md),
+              Text(copy.title,
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.titoloSezione()),
+              const SizedBox(height: SpacingTokens.sm),
+              Text(copy.body,
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.body(size: TypographyTokens.guide)
+                      .copyWith(
+                          color: ColorTokens.textSecondary, height: 1.45)),
+              const SizedBox(height: SpacingTokens.lg),
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  style: FilledButton.styleFrom(
+                    backgroundColor: palette.gold,
+                    foregroundColor: palette.deepest,
+                    padding:
+                        const EdgeInsets.symmetric(vertical: SpacingTokens.md),
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(SpacingTokens.radiusPill),
+                    ),
+                  ),
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: Text(copy.cta,
+                      style: TypographyTokens.body(size: 17, weight: 600)
+                          .copyWith(color: palette.deepest)),
+                ),
+              ),
+              const SizedBox(height: SpacingTokens.xs),
+              TextButton(
+                key: const Key('permesso_non_ora'),
+                onPressed: () => Navigator.of(context).pop(false),
+                child: Text(copy.decline,
+                    style: TypographyTokens.body(size: 16)
+                        .copyWith(color: ColorTokens.textSecondary)),
+              ),
+            ],
+          ),
         ),
       ),
     );

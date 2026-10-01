@@ -94,7 +94,8 @@ void main() {
     expect(
       find.descendant(
         of: find.byKey(const Key('choose_tier1')),
-        matching: find.textContaining('99,90 € all\'anno'),
+        // Dal 2 ottobre 2026 99,99, "tutto a 99" (ordine EV voce 01).
+        matching: find.textContaining('99,99 € all\'anno'),
       ),
       findsOneWidget,
     );

@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../../core/rituals/chiamata_del_primo_giorno.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -224,6 +225,11 @@ class _ArcanoDellAlbaScreenState extends State<ArcanoDellAlbaScreen>
   @override
   void initState() {
     super.initState();
+    // **ALLA PRIMA APERTURA DI UN DONO, "ATTIVA LE NOTIFICHE".** Ordine EV,
+    // il fondatore: la scheda non si mostra piu' all'avvio, ma qui, una volta.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) unawaited(ChiamataDelPrimoGiorno.alPrimoDono(context));
+    });
     _rivelazione = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 1400));
     _dissolvenza = AnimationController(

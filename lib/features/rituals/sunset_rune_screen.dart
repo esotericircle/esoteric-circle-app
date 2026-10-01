@@ -1,4 +1,5 @@
 import 'retro_della_runa.dart';
+import '../../core/rituals/chiamata_del_primo_giorno.dart';
 import '../../core/rituals/rune_lore.g.dart';
 import '../ricordi/azioni_del_responso.dart';
 export 'retro_della_runa.dart' show pathVergineDi;
@@ -241,6 +242,11 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   @override
   void initState() {
     super.initState();
+    // **ALLA PRIMA APERTURA DI UN DONO, "ATTIVA LE NOTIFICHE".** Ordine EV,
+    // il fondatore: la scheda non si mostra piu' all'avvio, ma qui, una volta.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) unawaited(ChiamataDelPrimoGiorno.alPrimoDono(context));
+    });
     _ingresso = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 1200))
       ..forward();

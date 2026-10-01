@@ -2,6 +2,7 @@ import '../../core/cammino/cammino_da_custodire.dart';
 import 'dart:math' as math;
 
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:flutter/foundation.dart';
 
 /// LO STATO DEL CERCHIO COME LO DICE IL SERVER.
 ///
@@ -338,6 +339,12 @@ abstract class PortaDelCerchio {
   /// invece di inventarne uno.
   Future<int?> chiEOnline() async => null;
 
+  /// **CHI ESCE DAL CERCHIO ESCE DAL CONTO.** Ordine EV voce 06: quando l'app
+  /// va in pausa il telefono lo dice al server, che toglie la sua presenza
+  /// subito invece di aspettare la fine della finestra. La porta finta non
+  /// dice niente.
+  Future<void> esciDalCerchio() async {}
+
   /// **AZZERA I DATI TENENDO L'ACCOUNT, sul server.** Ordine BE voce 07,
   /// punto 3: la voce "cancella i tuoi dati" puliva solo il telefono, il
   /// ramo sul server restava e al ritorno dell'identita' rendeva tutto.
@@ -535,6 +542,16 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
       return quanti is int && quanti > 0 ? quanti : null;
     } catch (errore) {
       return null;
+    }
+  }
+
+  @override
+  Future<void> esciDalCerchio() async {
+    try {
+      await _chiama('chiEOnline', const {'esce': true});
+    } catch (errore) {
+      // Chi non riesce a dirlo esce lo stesso, alla fine della finestra.
+      debugPrint('Presenza: l\'uscita non arriva al server. $errore');
     }
   }
 

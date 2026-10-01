@@ -28,7 +28,11 @@ class ChiEOnline extends ChangeNotifier with WidgetsBindingObserver {
   /// (`OGNI_QUANTO_CHIEDE_MS`), e la prova pretende che coincidano: un
   /// telefono che chiedesse piu' di rado della finestra uscirebbe dal conto
   /// fra una domanda e l'altra.
-  static const Duration ogni = Duration(minutes: 2);
+  ///
+  /// **UN MINUTO, NON DUE**, ordine EV voce 06: con due minuti chi arrivava
+  /// si vedeva dagli altri fino a due minuti dopo, e il fondatore leggeva
+  /// "ONLINE 1" sul Realme e 2 sul suo telefono nello stesso momento.
+  static const Duration ogni = Duration(minutes: 1);
 
   Timer? _passo;
   bool _avviato = false;
@@ -71,6 +75,9 @@ class ChiEOnline extends ChangeNotifier with WidgetsBindingObserver {
     } else if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.hidden ||
         state == AppLifecycleState.detached) {
+      // **E SI ESCE DAL CONTO**, ordine EV voce 06: una volta sola per uscita
+      // (paused e hidden arrivano tutti e due), e solo se il passo correva.
+      if (_passo != null) unawaited(_porta.esciDalCerchio());
       _passo?.cancel();
       _passo = null;
     }

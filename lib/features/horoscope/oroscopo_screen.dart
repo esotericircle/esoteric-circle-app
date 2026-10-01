@@ -1638,6 +1638,16 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                           testoDelResponso: cards
                               .map((c) => '${c.title}\n${c.text}')
                               .join('\n\n'),
+                          // **PER MEDORA ANCHE "DA DOVE VIENE"**, ordine EV
+                          // voce 04: e' li' che l'Oroscopo nomina il transito,
+                          // ed e' di quello che la persona le chiede.
+                          perIlMaestro: cards
+                              .map((c) => [
+                                    '${c.title}\n${c.text}',
+                                    if (c.rigaDelLivello != null)
+                                      'Da dove viene: ${c.rigaDelLivello}',
+                                  ].join('\n'))
+                              .join('\n\n'),
                         ),
                       // LA RAGIONE PER TORNARE DOMANI, ordine ES voce 34: in
                       // fondo, calcolata, dove sara' la Luna domani.
@@ -3922,7 +3932,8 @@ class _ShareBlock extends StatelessWidget {
       required this.sharing,
       required this.onShare,
       required this.segno,
-      required this.testoDelResponso});
+      required this.testoDelResponso,
+      this.perIlMaestro});
 
   final MaestroPalette palette;
   final bool sharing;
@@ -3931,6 +3942,9 @@ class _ShareBlock extends StatelessWidget {
 
   /// Il testo che si custodisce: le schede del cielo di oggi, in fila.
   final String testoDelResponso;
+
+  /// Lo stesso, con "Da dove viene" di ogni scheda: cio' che riceve Medora.
+  final String? perIlMaestro;
 
   @override
   Widget build(BuildContext context) {
@@ -3950,6 +3964,7 @@ class _ShareBlock extends StatelessWidget {
             titolo: 'Il tuo oroscopo, $segno',
             testo: testoDelResponso,
             dati: {'segno': segno},
+            perIlMaestro: perIlMaestro,
           ),
           condividi: onShare,
           aperturaDellaChat: ChatOpeners.oroscopo(segno),

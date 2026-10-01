@@ -178,6 +178,15 @@ class PlanCatalog {
   /// nominati e restano. Lo sconto annuale ricalcolato con la regola qui
   /// sopra: 99,90 contro 119,88 fa il 16,7, quindi **17**; 189,90 contro
   /// 239,88 fa il 20,8, quindi 21; 279,90 contro 359,88 fa il 22,2, quindi 22.
+  ///
+  /// **TUTTO A 99, ordine EV voce 01, 2 ottobre 2026.** Alla domanda se
+  /// portare a ,99 anche gli altri il fondatore ha risposto *"Si, tutto a
+  /// 99"*: l'Adepto 4,99 alla settimana e 189,99 all'anno, l'Illuminato 6,99
+  /// alla settimana e 279,99 all'anno, l'Iniziato 99,99 all'anno. Gli sconti
+  /// col conto di sopra restano 17, 21 e 22 (99,99 contro 119,88 fa il 16,6;
+  /// 189,99 contro 239,88 il 20,8; 279,99 contro 359,88 il 22,2), e il prezzo
+  /// al mese dell'annuale e' l'annuale diviso dodici arrotondato al
+  /// centesimo: 8,33, 15,83 e 23,33. La prova `entitlement_test` rifà i conti.
   static const List<Plan> plans = [
     Plan(
       tier: Tier.free,
@@ -204,7 +213,7 @@ class PlanCatalog {
       price: PlanPrice(
         weekly: '2,99 €',
         monthly: '9,99 €',
-        yearly: '99,90 €',
+        yearly: '99,99 €',
         yearlyPerMonth: '8,33 € al mese',
         yearlyDiscountPercent: 17,
       ),
@@ -231,9 +240,9 @@ class PlanCatalog {
       name: 'L\'Adepto',
       identity: 'I Maestri ti parlano, anche con la voce.',
       price: PlanPrice(
-        weekly: '4,90 €',
+        weekly: '4,99 €',
         monthly: '19,99 €',
-        yearly: '189,90 €',
+        yearly: '189,99 €',
         yearlyPerMonth: '15,83 € al mese',
         yearlyDiscountPercent: 21,
       ),
@@ -259,10 +268,10 @@ class PlanCatalog {
       name: 'L\'Illuminato',
       identity: 'Sei oltre il velo.',
       price: PlanPrice(
-        weekly: '6,90 €',
+        weekly: '6,99 €',
         monthly: '29,99 €',
-        yearly: '279,90 €',
-        yearlyPerMonth: '23,32 € al mese',
+        yearly: '279,99 €',
+        yearlyPerMonth: '23,33 € al mese',
         yearlyDiscountPercent: 22,
       ),
       highlights: [

@@ -1,4 +1,5 @@
 import 'dart:async';
+import '../../core/rituals/chiamata_del_primo_giorno.dart';
 import '../maestri/chat/chat_openers.dart';
 import '../ricordi/azioni_del_responso.dart';
 import 'dart:math' as math;
@@ -234,6 +235,11 @@ class _DreamRiteScreenState extends State<DreamRiteScreen>
   @override
   void initState() {
     super.initState();
+    // **ALLA PRIMA APERTURA DI UN DONO, "ATTIVA LE NOTIFICHE".** Ordine EV,
+    // il fondatore: la scheda non si mostra piu' all'avvio, ma qui, una volta.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) unawaited(ChiamataDelPrimoGiorno.alPrimoDono(context));
+    });
     _tilt.start();
     _tilt.addListener(_ridisegna);
     _avviaFiato();

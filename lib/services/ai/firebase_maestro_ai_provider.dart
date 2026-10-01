@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:firebase_ai/firebase_ai.dart';
+import 'package:flutter/foundation.dart' show debugPrint;
 
 import '../../core/chat/chat_message.dart';
 import '../../core/config/la_regione_dei_dati.dart';
@@ -17,6 +18,8 @@ import '../../core/maestro/misura_della_risposta.dart';
 import '../../core/maestro/natal_context.dart';
 import 'maestro_ai_provider.dart';
 import 'maestro_oracle.dart';
+import 'le_funzioni_del_cielo.dart';
+import '../../core/chat/i_responsi_di_oggi.dart';
 import 'maestro_persona.dart';
 import 'la_richiesta_del_turno.dart';
 import 'registro_dei_guasti.dart';
@@ -188,9 +191,16 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
         temperature: 0.9,
         topP: 0.95,
       ),
+      // **IL CIELO SI CHIEDE ALL'APP. Ordine EV voce 03.** Il modello riceve
+      // le funzioni del cielo e, quando la domanda tocca il cielo di un
+      // giorno o di un periodo, le chiama: la libreria le esegue sul
+      // telefono e gli rimanda i fatti, prima che scriva. Chat e LIVE
+      // passano da qui.
+      tools: LeFunzioniDelCielo.perIlMaestro(carta: natal.carta),
     );
 
     final chat = model.startChat(history: _toHistory(history));
+    final chiamateDelCielo = LeFunzioniDelCielo.registro.length;
     // **A FLUSSO QUANDO QUALCUNO ASPETTA IL TESTO. Ordine EO voce 14.** Nel
     // LIVE la risposta si mostra mentre il modello la scrive: il testo
     // arriva a video un secondo e piu' prima. La voce aspetta la risposta
@@ -212,6 +222,38 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
         suTesto(scritto.toString());
       }
       text = scritto.toString().trim();
+    }
+    // **SE RIMANDA, SI CHIEDE UNA VOLTA ANCORA.** Ordine EV voce 03: la
+    // domanda sul cielo a cui il modello risponde "devo consultare il cielo"
+    // senza chiamare la funzione riceve il sollecito, nella stessa
+    // conversazione, e la risposta vera prende il posto del rinvio.
+    if (text != null &&
+        LeFunzioniDelCielo.registro.length == chiamateDelCielo &&
+        LeFunzioniDelCielo.rimanda(domanda: userMessage, risposta: text)) {
+      debugPrint('Cielo per il Maestro: la risposta rimanda, sollecito.');
+      final seconda =
+          await chat.sendMessage(Content.text(LeFunzioniDelCielo.sollecito));
+      final t = seconda.text?.trim();
+      if (t != null && t.isNotEmpty) {
+        response = seconda;
+        text = t;
+        suTesto?.call(t);
+      }
+    }
+    // **E SE CHIEDE QUALE RESPONSO, CON I RESPONSI DAVANTI**, ordine EV voce
+    // 04: una volta ancora, col sollecito di `IResponsiDiOggi`.
+    if (text != null &&
+        natal.responsiDiOggi != null &&
+        IResponsiDiOggi.chiedeQuale(text)) {
+      debugPrint('Responsi di oggi: il Maestro chiede quale, sollecito.');
+      final seconda =
+          await chat.sendMessage(Content.text(IResponsiDiOggi.sollecito));
+      final t = seconda.text?.trim();
+      if (t != null && t.isNotEmpty) {
+        response = seconda;
+        text = t;
+        suTesto?.call(t);
+      }
     }
     if (text == null || text.isEmpty) {
       throw const MaestroAiUnavailable('Il Maestro non ha trovato le parole.');

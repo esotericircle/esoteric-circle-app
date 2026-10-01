@@ -458,11 +458,16 @@ class _AngelsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = context.palette;
     final triade = GuardianAngels.forBirth(identity.toBirthDetails());
-    final quanti = triade.known.length;
+    final angeli = triade.known;
+    final quanti = angeli.length;
     return _ActiveFactCard(
       cardKey: const Key('passport_angels'),
       overline: 'I tuoi Angeli',
-      value: triade.guardian.name,
+      // **I NOMI DI TUTTI E TRE**, ordine EV, il fondatore: *"nella bolla
+      // degli angeli mi fa vedere la Carta solo del primo, ma in verità sono
+      // 3"*. La bolla nominava il solo Custode e diceva "i tre": chi la
+      // leggeva non sapeva chi fossero gli altri due.
+      value: angeli.map((a) => a.name).join(' · '),
       meaning: quanti == 3
           ? 'Custode, Cuore e Intelletto: i tre che ti accompagnano.'
           : 'Custode e Cuore. Il terzo arriva con l\'ora di nascita.',
@@ -471,11 +476,67 @@ class _AngelsCard extends StatelessWidget {
           Navigator.of(context).push(AngelsScreen.route(identity: identity)),
       // L'angelo e' una CARTA: rettangolare verticale. In un quadrato da 52
       // con `cover` la figura veniva mozzata sui lati, e la cornice sparita.
-      emblem: MiniaturaIntera.carta(
-        path: FamilyImage.thumb(AssetFamily.angeli, triade.guardian.artStem),
-        ripiego: Icons.auto_awesome,
+      // E le carte sono tutte quelle della persona, a ventaglio: il Custode
+      // davanti, gli altri dietro, ognuna intera.
+      emblem: _VentaglioDegliAngeli(
+        key: const Key('passport_angels_ventaglio'),
+        carte: [
+          for (final a in angeli)
+            FamilyImage.thumb(AssetFamily.angeli, a.artStem),
+        ],
         palette: palette,
-        larghezza: 46,
+      ),
+    );
+  }
+}
+
+/// **LE CARTE DEGLI ANGELI A VENTAGLIO**, ordine EV. Il Custode davanti e
+/// dritto, il Cuore e l'Intelletto dietro, inclinati di qua e di la': si
+/// vedono tutte e tre, ognuna intera ([MiniaturaIntera]). Con due carte (senza
+/// l'ora di nascita) il ventaglio ne tiene due.
+class _VentaglioDegliAngeli extends StatelessWidget {
+  const _VentaglioDegliAngeli({
+    super.key,
+    required this.carte,
+    required this.palette,
+  });
+
+  /// Le carte, il Custode per primo.
+  final List<String> carte;
+  final MaestroPalette palette;
+
+  /// Larghezza di ogni carta e quanto si apre il ventaglio.
+  static const double larghezza = 38;
+  static const double spostamento = 13;
+  static const double angolo = 0.16;
+
+  @override
+  Widget build(BuildContext context) {
+    final dietro = carte.skip(1).toList();
+    const altezza = larghezza / MiniaturaIntera.proporzioneCarta;
+    Widget carta(String path) => MiniaturaIntera.carta(
+          path: path,
+          ripiego: Icons.auto_awesome,
+          palette: palette,
+          larghezza: larghezza,
+        );
+    return SizedBox(
+      width: larghezza + 2 * spostamento,
+      height: altezza + 8,
+      child: Stack(
+        alignment: Alignment.center,
+        clipBehavior: Clip.none,
+        children: [
+          for (var i = 0; i < dietro.length; i++)
+            Transform.translate(
+              offset: Offset(i.isEven ? -spostamento : spostamento, 2),
+              child: Transform.rotate(
+                angle: i.isEven ? -angolo : angolo,
+                child: Opacity(opacity: 0.92, child: carta(dietro[i])),
+              ),
+            ),
+          if (carte.isNotEmpty) carta(carte.first),
+        ],
       ),
     );
   }
