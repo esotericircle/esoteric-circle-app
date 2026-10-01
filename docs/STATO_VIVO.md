@@ -6208,6 +6208,108 @@ difetto mio prima del commit** (la storia vedica leggeva la Luna dell'ultimo
 giorno calcolato invece di quella del giorno), e il rapporto elenca ogni
 difetto col suo padre.
 
+## L'ORDINE EV, I RILIEVI DEI FONDATORI, I PREZZI, MEDORA E IL CIELO
+
+Ordine del 2 ottobre 2026 (lavorato il 1 ottobre sul calendario del PC),
+arrivato solo il pezzo 1 su 2: sei voci (EV.01-EV.06); le voci
+dell'Architetto EV.07 ed EV.08 non sono arrivate, e la voce EU.14 del
+manifesto EU porta la riga "prosegue nell'ordine EV, voce EV.08". Durante il
+lavoro il fondatore ha mandato sette segnalazioni, che il manifesto porta come
+EV.51-EV.57. Partenza dal commit `0f7a0625`. **La regola 6 ("non consegna
+niente") l'ha superata il fondatore**: "Alla fine di tutto, crea nuova Build,
+test su Cell e consegna su AppTester e dimmi quando posso lanciare codemagic".
+Manifesto `docs/ordini/ORDINE_EV_MANIFESTO.md`, rapporto
+`docs/ordini/RAPPORTO_ORDINE_EV.md`, prove in `docs/collaudo/EV/`.
+
+**Che cosa e' cambiato, voce per voce.**
+
+- **I prezzi a 99 (EV.01, chiusa).** Iniziato 2,99, 9,99 e 99,99; Adepto
+  4,99, 19,99 e 189,99; Illuminato 6,99, 29,99 e 279,99; sconti annuali 17,
+  21 e 22 per cento (`lib/core/entitlement/plan_catalog.dart`). Le caselle dei
+  periodi nella pagina dei piani non tagliano piu' il nome e il prezzo
+  (`FittedBox`, prova `i_prezzi_dei_piani_stanno_interi`). **Nel codice non
+  esiste nessun prodotto degli store**: il rapporto propone gli identificativi
+  per Google Play (abbonamenti `iniziato`, `adepto`, `illuminato` coi piani
+  base `settimanale`, `mensile`, `annuale`) e per App Store Connect
+  (`com.esotericircle.<piano>.<periodo>` in un gruppo "Il Cerchio"); li crea
+  il fondatore.
+- **Il Sigillo che si traccia sempre (EV.02, aperta per l'iPhone).** Il
+  pulsante non e' mai spento senza dire perche' (`_ilPulsante` in
+  `sigillo_intenzione_screen.dart`); la proposta di Calìgo in sospeso non lo
+  spegne piu'; il tracciamento apre il Libro se non e' aperto e chiude la
+  tastiera. Visto sul Realme con la tastiera aperta.
+- **Medora conosce il cielo di ogni giorno (EV.03, aperta per il LIVE).** Due
+  funzioni date al modello (`lib/services/ai/le_funzioni_del_cielo.dart`:
+  `cielo_del_giorno`, `cielo_del_periodo`), eseguite sul telefono dalla
+  libreria `firebase_ai` con `lib/core/astro/il_cielo_per_il_maestro.dart` (le
+  effemeridi dell'app: dieci corpi, gradi, retrogradi, Luna, aspetti, eclissi,
+  transiti sulla carta, eventi di un periodo fino a 400 giorni). La
+  descrizione porta il cielo di oggi gia' calcolato e la regola di non dire
+  fatti del cielo che non vengono da li'. Il provider sollecita una volta il
+  modello quando rimanda o risponde a memoria sul cielo di un altro tempo
+  (`LeFunzioniDelCielo.rimanda`). Il cielo di oggi per l'istruzione nomina
+  anche Urano, Nettuno e Plutone (tolta la regola dell'ordine ET voce 01 che
+  li vietava). La rete del cielo detto (`IlCieloDetto.smentite`) riceve i
+  giorni chiesti nel turno, lascia stare le frasi con un'altra data,
+  controlla "la tua Luna" e "il tuo segno" contro i dati di nascita, e prende
+  "la Luna oggi si trova nel segno del..." Nei dati natali dell'istruzione
+  una riga dice che i corpi del cielo di oggi non sono quelli della persona
+  (solo con i dati di nascita: l'istruzione a profilo vuoto, e la sua
+  impronta, non cambiano). Banchi `tool/medora_e_il_cielo.dart`
+  (`PRIMA=1` per il codice di prima, `PERSONA=2` per la seconda persona):
+  fatti negati o sbagliati da 13 su 20 a 0 su 20 in due esecuzioni; sette
+  giri, verdetti in `docs/collaudo/EV/medora_verdetti.md`. Sul Realme il
+  registro "Cielo per il Maestro: ..." mostra le chiamate. Le eclissi
+  dell'app non trovano la lunare di penombra del 18 luglio 2027.
+- **Medora non nega il responso (EV.04, chiusa).**
+  `lib/core/chat/i_responsi_di_oggi.dart`: ogni responso che compare sotto le
+  azioni (`AzioniDelResponso`) si ricorda per il giorno rituale (fino a
+  dodici, 2400 caratteri ciascuno, chiave `chat.responsi_di_oggi`, fra le
+  cose della persona e nello scarico dei tuoi dati); "Parlane con..." lo segna
+  come partenza; `SorgenteNatale.daIdentita` lo mette nel contesto e
+  `MaestroPersona` nell'istruzione e nella consultazione. L'Oroscopo passa
+  anche il "Da dove viene" di ogni scheda (`ResponsoDaCustodire.perIlMaestro`).
+  Il provider sollecita una volta il Maestro che chiede "quale" con i
+  responsi davanti (`IResponsiDiOggi.chiedeQuale`). Banco
+  `tool/medora_e_il_responso.dart`: risposte che negano o ignorano il
+  responso da 9 su 10 a 0 su 10 in due esecuzioni. I responsi si caricano dal
+  disco all'avvio in `main.dart`.
+- **La tastiera che si chiude (EV.05, aperta per l'iPhone).**
+  `lib/design_system/la_tastiera_si_chiude.dart`, chiamata dall'osservatore
+  della pila e dal cambio di scheda nella barra. La causa del blocco
+  dell'iPhone dei fondatori non e' stata trovata.
+- **ONLINE (EV.06 ed EV.57, aperte per i due telefoni).** Chiamata ogni 60
+  secondi, finestra di 90 secondi, uscita dal conto quando l'app va in pausa
+  (`chiEOnline` con `{esce: true}` cancella la presenza). Da pubblicare la
+  funzione `chiEOnline` con la consegna della 2290. Il numero conta le
+  persone con l'app aperta nel mondo, non nella rete locale.
+- **Le segnalazioni del fondatore.** "Note di Keep" non viene dall'app
+  (EV.51, chiusa: nessun permesso sugli account nell'archivio). L'archetipo
+  torna dal Cerchio dopo una reinstallazione (EV.52:
+  `ArchetypeHistory.adottaDalCerchio`, chiamato da `CustodeDelCammino.adotta`,
+  solo su uno storico vuoto guardato sul disco). Il Viaggio dello Sciamano
+  non torna piu' al primo cammino (EV.53: `ilViaggioPiuAvanti` in
+  `functions/src/cammino.ts` legge le chiavi vere `viaggio.quante` e
+  `viaggio.riconosciuto`, a parita' vince il telefono; pubblicata la funzione
+  `statoDelCerchio` il 1 ottobre). I tre Angeli a ventaglio e coi loro nomi
+  nella bolla del Passaporto (EV.54, chiusa). La scheda delle notifiche non
+  compare piu' all'avvio: si chiede alla prima apertura di un Dono, in due
+  righe (EV.55: `ChiamataDelPrimoGiorno.alPrimoDono`, spenta nelle prove con
+  `alPrimoDonoAcceso`); il foglio dei permessi scorre. Niente catture dello
+  schermo su Android (EV.56: `lib/core/sensi/lo_schermo_protetto.dart`,
+  `FLAG_SECURE` dal canale `esoteric_circle/schermo` metodo `proteggi`; le
+  build di collaudo lo spengono con `--dart-define=CATTURE_PERMESSE=true`; su
+  iOS non si puo').
+
+**Prove e guardie.** Prove nuove: `il_sigillo_si_traccia_sempre`,
+`chi_esce_dal_cerchio_esce_dal_conto`, `la_tastiera_si_chiude_tornando`,
+`medora_sa_il_cielo_e_il_responso`, `l_archetipo_torna_dal_cerchio`,
+`la_bolla_degli_angeli_ne_mostra_tre`, `le_notifiche_si_chiedono_al_primo_dono`,
+`lo_schermo_non_si_cattura`, `i_prezzi_dei_piani_stanno_interi`,
+`ordine_ev_guard` (646 nel registro) e due prove del server in
+`functions/src/cammino.test.ts`; tutte viste rosse, innesti in
+`docs/collaudo/EV/regola_a_ev.txt`. La versione e' 0.1.0+2290.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.
