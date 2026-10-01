@@ -94,7 +94,10 @@ abstract final class LaLetturaVedica {
     ('Marte', 'rosso', 9),
     ('Mercurio', 'verde', 5),
     ('Giove', 'giallo', 3),
-    ('Venere', 'bianco screziato', 6),
+    // **Screziato**, come nel "Da dove viene" del corpus: decisione
+    // dell'Architetto, ordine EV voce EV.09 (Brihat Jataka, cap. 2: il
+    // colore di Venere e' variegato). Qui c'era "bianco screziato".
+    ('Venere', 'screziato', 6),
     ('Saturno', 'nero', 8),
   ];
 
@@ -508,6 +511,10 @@ abstract final class LaLetturaVedica {
   }
 
   static const Map<HoroscopeDomain, String> _temaDelDominio = {
+    // Fonte, ordine EV voce EV.08, verifica dell'Architetto (V-G-003): la
+    // settima casa dell'unione, Brihat Parashara Hora Shastra, cap. 11; la
+    // quinta come cuore e' la lettura moderna dichiarata dalla nota del
+    // metodo (V-M-008).
     HoroscopeDomain.amore:
         'per l\'amore contano la settima casa, dell\'unione, con la quinta, '
             'del cuore che si apre',
@@ -555,11 +562,14 @@ abstract final class LaLetturaVedica {
     String voce(String termine) => OroscopoVedicoData.glossario
         .firstWhere((g) => g.$1 == termine, orElse: () => (termine, ''))
         .$2;
+    // V-M-001 e V-M-004, testi dell'Architetto (ordine EV voce EV.08).
     final base = 'La Luna di oggi è siderale, con l\'ayanamsa di Lahiri, '
-        'letta all\'alba del luogo. Chandra Bala: ${voce('Chandra Bala')}';
+        'quella adottata dal governo indiano nel 1955, e il giorno si legge '
+        'all\'alba del luogo, come nei Panchang. Chandra Bala: '
+        '${voce('Chandra Bala')}';
     return switch (d) {
       HoroscopeDomain.generale => '$base Tara Bala: ${voce('Tara Bala')}'
-          '${conStella ? '' : ' Senza l\'ora di nascita la tua stella non si sa: la Tara Bala manca.'}'
+          '${conStella ? '' : ' Senza l\'ora di nascita la tua stella di nascita può non essere certa, perché la Luna cambia stella circa una volta al giorno: per questo la Tara Bala non si calcola.'}'
           ' Rahu Kalam: ${voce('Rahu Kalam')} Si calcola dall\'alba e dal '
           'tramonto del luogo, come Drik Panchang.',
       _ => '$base Le case si contano dalla Luna di nascita (Phaladeepika '

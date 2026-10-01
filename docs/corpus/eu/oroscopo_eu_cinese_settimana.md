@@ -615,7 +615,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Carriera, favorevole, voce 1: Tre pagine chiare
 
-- Risposta: Un cliente che ti ha cercato per un lavoro nuovo aspetta da te una proposta. Questa settimana l'almanacco la direbbe adatta a mettere le cose nero su bianco: il terreno è buono e chi ti ha chiamato ha voglia di cominciare.
+- Risposta: Un cliente che ti ha cercato per un lavoro nuovo aspetta da te una proposta. Questa settimana è adatta a mettere le cose nero su bianco: il terreno è buono e chi ti ha chiamato ha voglia di cominciare.
 - Che cosa fare: Entro mercoledì scrivi la proposta in tre pagine al massimo: che cosa farai, in quali tappe, con quali consegne. Mandala in mattinata con una riga che offre una telefonata di dieci minuti per chiarire i dubbi.
 - Risposta, Lunga: Il momento sostiene chi si presenta con ordine più di chi promette molto. Una proposta breve, con le tappe chiare, fa sentire all'altra parte che il lavoro è già in buone mani e rende più facile dire di sì senza rinvii.
 - Che cosa fare, Lunga: Se la risposta arriva entro venerdì, fissa subito la data di partenza e chiedi i materiali che ti servono per la prima tappa. Se tarda, lascia passare il fine settimana e scrivi lunedì mattina con una domanda sola, gentile e precisa.
@@ -631,7 +631,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: L'esame che rimandi da un semestre ha finalmente una data possibile e la materia ti è meno ostile di quanto pensavi. È un periodo adatto a decidere e a iscriversi, più che a rimuginare sul programma ancora da finire.
 - Che cosa fare: Prenota l'appello entro giovedì, poi dividi il programma in blocchi e scrivili sul calendario a ritroso dalla data dell'esame. Lascia libero l'ultimo fine settimana per il ripasso e le domande dei vecchi compiti.
-- Risposta, Lunga: Iscriversi cambia il modo di studiare: la data fissata mette ordine nelle ore e toglie spazio ai rinvii. Chi legge l'almanacco direbbe che questi giorni favoriscono i cominciamenti decisi, quelli che trovano subito un passo regolare.
+- Risposta, Lunga: Iscriversi cambia il modo di studiare: la data fissata mette ordine nelle ore e toglie spazio ai rinvii. Questi giorni favoriscono i cominciamenti decisi, quelli che trovano subito un passo regolare.
 - Che cosa fare, Lunga: Cerca nella chat del corso chi ha già sostenuto l'esame e chiedi quali argomenti tornano più spesso. Con quelle risposte riordina i blocchi del calendario: prima i temi che padroneggi, poi quelli che richiedono più ripasso.
 
 #### Carriera, favorevole, voce 4: Tre porte scelte
@@ -652,7 +652,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Nel tuo ufficio è arrivata una persona nuova che lavora su un tema vicino al tuo. Fra voi c'è un'intesa facile e questa settimana è adatta a trasformarla in collaborazione, prima che ciascuno si chiuda nelle proprie abitudini.
 - Che cosa fare: Invita la persona appena arrivata a un caffè martedì o mercoledì e chiedile su che cosa sta lavorando. Proponi un compito piccolo da fare in due entro fine settimana, qualcosa che serva a entrambi i vostri gruppi.
-- Risposta, Lunga: L'almanacco guarda all'armonia fra le persone e qui l'armonia c'è. Un rapporto di lavoro che nasce nelle prime settimane con uno scambio concreto tende a durare e rende più leggere le scadenze dei mesi a venire.
+- Risposta, Lunga: Conta l'armonia fra le persone e qui l'armonia c'è. Un rapporto di lavoro che nasce nelle prime settimane con uno scambio concreto tende a durare e rende più leggere le scadenze dei mesi a venire.
 - Che cosa fare, Lunga: Finito il primo compito, presentatelo insieme a chi coordina i due gruppi con una mail firmata da entrambi. Poi proponete un appuntamento fisso, venti minuti ogni due settimane, per tenere vivo lo scambio.
 
 #### Carriera, favorevole, voce 7: La proposta del giovedì
@@ -919,7 +919,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Nei prossimi giorni le porte si aprono più volentieri del solito: chi incontri ha tempo per una parola in più e un invito accettato può portarti un contatto che cercavi da mesi.
 - Che cosa fare: Giovedì o venerdì vai all'inaugurazione che hai visto annunciata in zona, una bottega o una piccola mostra. Presentati a chi l'ha aperta e lascia il tuo recapito scritto a mano.
-- Risposta, Lunga: L'almanacco considera questa settimana adatta agli inizi altrui quanto ai tuoi: festeggiare l'apertura di qualcun altro crea un legame semplice, di quelli che fra qualche mese portano un nome al momento giusto.
+- Risposta, Lunga: Questa settimana è adatta agli inizi altrui quanto ai tuoi: festeggiare l'apertura di qualcun altro crea un legame semplice, di quelli che fra qualche mese portano un nome al momento giusto.
 - Che cosa fare, Lunga: Nel fine settimana manda due righe a chi hai conosciuto lì: un grazie per l'accoglienza e una domanda precisa sul suo lavoro. Conserva il suo biglietto in un posto dove lo ritrovi senza cercarlo.
 
 #### Fortuna, favorevole, voce 2: L'orto da assegnare
@@ -961,7 +961,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Muoversi presto conviene in questo periodo: chi organizza in anticipo trova posti, orari e condizioni migliori, mentre chi rimanda deve accontentarsi di ciò che resta.
 - Che cosa fare: Se c'è un viaggio in vista nei prossimi mesi, lunedì o martedì confronta orari e tariffe e prenota la tratta principale. Salva la conferma in una cartella con il nome del viaggio.
-- Risposta, Lunga: L'almanacco direbbe che è un tempo adatto a fissare, non a esitare. Mettere un punto fermo sul calendario toglie anche un pensiero ricorrente, quello di dover ancora decidere.
+- Risposta, Lunga: È un tempo adatto a fissare, non a esitare. Mettere un punto fermo sul calendario toglie anche un pensiero ricorrente, quello di dover ancora decidere.
 - Che cosa fare, Lunga: Nei giorni successivi scrivi a chi ti ospita o a chi viaggia con te per definire il resto: arrivi, cene, chiavi. Un messaggio chiaro adesso evita dieci telefonate concitate alla vigilia della partenza.
 
 #### Fortuna, favorevole, voce 8: Chiacchiere in coda
@@ -989,7 +989,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Una richiesta di aiuto per pochi giorni, un lavoretto, una sostituzione: la settimana porta piccole proposte che sembrano marginali e invece aprono la strada a persone nuove.
 - Che cosa fare: Se qualcuno ti chiede una mano retribuita per un evento, un inventario o un allestimento, rispondi entro ventiquattro ore e chiedi subito orari, compiti e compenso, messi per iscritto.
-- Risposta, Lunga: L'almanacco consiglia di accogliere ciò che arriva con misura. Un incarico breve ha un inizio e una fine chiari: proprio per questo è il terreno adatto per farsi conoscere senza legarsi troppo.
+- Risposta, Lunga: Conviene accogliere con misura ciò che arriva. Un incarico breve ha un inizio e una fine chiari: proprio per questo è il terreno adatto per farsi conoscere senza legarsi troppo.
 - Che cosa fare, Lunga: Durante l'incarico arriva un quarto d'ora prima e fai una cosa in più di quanto richiesto, una sola. Alla fine domanda a chi ti ha coinvolto se puoi indicarlo come referenza per lavori simili.
 
 #### Fortuna, favorevole, voce 12: Servizi a due passi
@@ -1026,7 +1026,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Due occasioni arrivano insieme e vorresti prenderle entrambe: un corso e un invito, due serate, due piccoli progetti. Il periodo chiede di scegliere, perché insieme si annullano.
 - Che cosa fare: Prendi un foglio e per ciascuna proposta scrivi che cosa ti dà, quanto tempo chiede e chi ti fa incontrare. Entro giovedì comunica il sì a una e il no all'altra, con gentilezza.
-- Risposta, Lunga: L'almanacco non conosce periodi adatti a tutto. Ogni tempo è buono per alcune cose e meno per altre: rispettare questo ordine nelle piccole scelte lascia l'energia per fare bene quella giusta.
+- Risposta, Lunga: Nessun periodo è adatto a tutto. Ogni tempo è buono per alcune cose e meno per altre: rispettare questo ordine nelle piccole scelte lascia l'energia per fare bene quella giusta.
 - Che cosa fare, Lunga: A chi riceve il tuo no offri anche una data: tra un mese, al prossimo turno, alla prossima edizione. Annota quella data sul calendario: l'occasione rimandata resta tua, se la richiami.
 
 #### Fortuna, equilibrio, voce 3: Il calzolaio sotto casa

@@ -579,6 +579,21 @@ abstract final class LeGuardieDelResponso {
       };
 
   /// **LE GUARDIE COMUNI AI TRE TESTI.**
+  /// **LA PAROLA DEL GENERE TRONCATA.** Ordine EV, dalla sonda del primo
+  /// strato: col profilo neutro il modello ha scritto *"se sei dispost a
+  /// riconoscere"*, togliendo la vocale per non scegliere il genere, e
+  /// nessuna guardia lo prendeva. Una parola del dizionario del genere senza
+  /// la sua vocale finale non e' italiano. Solo le radici di almeno cinque
+  /// lettere, perche' le piu' corte (*nat*, *sol*) possono essere altro.
+  static bool parolaDelGenereTroncata(String t) => _troncate.hasMatch(t);
+
+  static final RegExp _troncate = RegExp(
+      '(?<![$_l])(?:${[
+        for (final p in dizionarioDelGenere)
+          if (p.length - 1 >= 5) p.substring(0, p.length - 1)
+      ].join('|')})(?![$_l])',
+      caseSensitive: false);
+
   static MotivoDelloScarto? _comuni(
     String t, {
     required String domanda,
@@ -610,6 +625,7 @@ abstract final class LeGuardieDelResponso {
     if (formeContrarieAllaForma(t, forma).isNotEmpty) {
       return MotivoDelloScarto.genereContrario;
     }
+    if (parolaDelGenereTroncata(t)) return MotivoDelloScarto.sgrammaticato;
     if (_sgrammaticato.hasMatch(t) || _minuscolaDopoIlPunto.hasMatch(t)) {
       return MotivoDelloScarto.sgrammaticato;
     }
@@ -958,6 +974,12 @@ abstract final class LeGuardieDelResponso {
 
   /// **LA RISPOSTA**: tre frasi al massimo, nomina la cosa di cui si e'
   /// chiesto, e non anticipa la scena.
+  ///
+  /// [soloLeGuardieDure], ordine EV: salta le due guardie dello stile, "nomina
+  /// la domanda" e "prende posizione", e tiene tutte le altre (le
+  /// previsioni, le promesse, le decisioni gravi, i terzi, il genere, la
+  /// scena). Serve solo all'ultima strada prima del silenzio: vedi
+  /// `LaScenaDalModello.senzaLeGuardieDelloStile`.
   static MotivoDelloScarto? dellaRisposta(
     String r, {
     required String domanda,
@@ -966,6 +988,7 @@ abstract final class LeGuardieDelResponso {
     String? tema,
     List<String> nomiDellaScena = const [],
     Set<String> nomiAmmessi = const {},
+    bool soloLeGuardieDure = false,
   }) {
     if (r.trim().isEmpty) return MotivoDelloScarto.vuota;
     final frasi = RegExp(r'[.!?]+(\s|$)').allMatches(r.trim()).length;
@@ -981,14 +1004,17 @@ abstract final class LeGuardieDelResponso {
     // al tema del blocco nomina la domanda, e cadeva perche' la domanda
     // scritta dice *"non riesco a superare"*.
     final della = _radici('$domanda ${oggetto ?? ''} ${tema ?? ''}');
-    if (della.isNotEmpty && _radici(r).intersection(della).isEmpty) {
+    if (!soloLeGuardieDure &&
+        della.isNotEmpty &&
+        _radici(r).intersection(della).isEmpty) {
       return MotivoDelloScarto.nonNominaLaDomanda;
     }
     // **LA PRIMA FRASE PRENDE POSIZIONE**, ordine ER voce 02. **Tranne
     // sulla salute, il denaro e la legge**: li' il confine vieta il
     // consiglio, e "la decisione di operarti è tua" e' la risposta onesta
     // (riprova a video della 2259).
-    if (domanda.trim().isNotEmpty &&
+    if (!soloLeGuardieDure &&
+        domanda.trim().isNotEmpty &&
         !_saluteDenaroLegge.hasMatch(domanda) &&
         !_domandaDiSalute.hasMatch(domanda) &&
         rimandaLaDomanda(r, domanda: domanda)) {
@@ -1354,6 +1380,14 @@ abstract final class LeGuardieDelResponso {
   /// Vero se [domanda] chiede che cosa fare o come: vuole il gesto.
   static bool chiedeIlGesto(String domanda) => _chiedeIlGesto.hasMatch(domanda);
 
+  /// **UN SI' O UN NO A UNA DOMANDA SUL COME.** Ordine EV: *"Come va la mia
+  /// relazione con Laura?"*, *"I segni del viaggio dicono di sì, se..."*.
+  /// Anche fuori dalle guardie dello stile non ha senso: la strada prima del
+  /// silenzio non la prende mai.
+  static bool siONoAUnaDomandaSulCome(String r, String domanda) =>
+      _chiedeIlGesto.hasMatch(domanda) &&
+      _siONoDeiSegni.hasMatch(r.split(RegExp(r'(?<=[.!?])\s')).first);
+
   /// Vero se [frase] nomina un tempo o un'azione che si fa nel mondo.
   static bool nominaUnPasso(String frase) => _tempoOPasso.hasMatch(frase);
 
@@ -1424,6 +1458,7 @@ abstract final class LeGuardieDelResponso {
     bool soloIncontro = false,
     String? animaleNonAncoraDetto,
     List<String> giaDetti = const [],
+    bool soloLeGuardieDure = false,
   }) {
     // **SENZA DOMANDA SI LEGGE SOLO DENTRO UN CAMMINO**, ordine DQ voce 04:
     // chi scende soltanto per incontrarlo riceve anche lui i suoi quattro
@@ -1478,7 +1513,8 @@ abstract final class LeGuardieDelResponso {
               oggetto: oggetto,
               tema: tema,
               nomiDellaScena: nomiDellaScena,
-              nomiAmmessi: nomiAmmessi)),
+              nomiAmmessi: nomiAmmessi,
+              soloLeGuardieDure: soloLeGuardieDure)),
       azione: prendi(
           'azione',
           (a) =>

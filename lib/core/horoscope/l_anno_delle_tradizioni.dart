@@ -126,11 +126,16 @@ abstract final class LAnnoDelleTradizioni {
       numero: annoDiNascita == null ? anno : anno - annoDiNascita,
       livelli: [livello, livello, livello, livello],
       daDove: [riga, riga, riga, riga],
-      metodo: 'L\'anno cinese va da Capodanno lunare a Capodanno lunare. Il '
-          'rapporto fra il tuo animale e quello dell\'anno viene dalle '
-          'tabelle del Sanming Tonghui; il Tai Sui e le cinque relazioni che '
-          'lo offendono (stesso animale, opposizione, punizione, danno, '
-          'rottura) vengono dagli almanacchi cinesi.',
+      // C-M-006 e C-M-008, testi dell'Architetto (ordine EV voce EV.08). Il
+      // Tai Sui e le relazioni che lo offendono: gli almanacchi annuali
+      // cinesi, il Tong Shu (C-A-003, C-A-004).
+      metodo: 'L\'anno cinese va da Capodanno lunare a Capodanno lunare, '
+          'come nello zodiaco popolare; il BaZi lo fa cominciare invece a '
+          'Lichun, l\'inizio della primavera. Il rapporto fra il tuo animale '
+          'e quello dell\'anno viene dalle tabelle del Sanming Tonghui; il '
+          'Tai Sui e le cinque relazioni che lo offendono (stesso animale, '
+          'scontro, punizione, danno, rottura) vengono dagli almanacchi '
+          'annuali cinesi, il Tong Shu.',
     );
   }
 
@@ -201,12 +206,21 @@ abstract final class LAnnoDelleTradizioni {
         diSaturno,
         diGiove,
       ],
-      metodo: 'L\'anno vedico va da compleanno a compleanno. Giove e Saturno '
+      // V-M-009 e V-M-011, testi dell'Architetto (ordine EV voce EV.08).
+      // La Sade Sati (V-A-005): una lettura della tradizione indiana
+      // costruita sul gochara; Phaladeepika, cap. 26, Saturno buono solo in
+      // 3, 6 e 11.
+      metodo: 'L\'anno va da compleanno a compleanno: è una scelta '
+          'dell\'app, che guarda Giove e Saturno nel giorno del tuo '
+          'compleanno. Giove e Saturno '
           'sono siderali (ayanamsa di Lahiri) e presi al tuo compleanno; si '
           'contano dalla Luna di nascita (gochara): le case favorevoli sono '
           'quelle della Phaladeepika, cap. 26, Giove in 2, 5, 7, 9 e 11, '
-          'Saturno in 3, 6 e 11. La Sade Sati è Saturno nella dodicesima, '
-          'nella prima o nella seconda casa dalla Luna di nascita.',
+          'Saturno in 3, 6 e 11. La Sade Sati, i sette anni e mezzo di '
+          'Saturno nella dodicesima, nella prima e nella seconda casa dalla '
+          'Luna di nascita, è una lettura della tradizione indiana costruita '
+          'sul gochara: per la Phaladeepika, cap. 26, Saturno dà frutti buoni '
+          'solo in 3, 6 e 11.',
     );
   }
 

@@ -2,8 +2,17 @@
 
 Ramo `claude/esoteric-circle-master-order-e798aj`, partenza `0f7a0625`.
 Il manifesto con le DOMANDA, PROVA e MISURA di ogni voce:
-`docs/ordini/ORDINE_EV_MANIFESTO.md`. **Le voci 14: chiuse 5, aperte in attesa
-di verifica 9.**
+`docs/ordini/ORDINE_EV_MANIFESTO.md`. **Le voci 20: chiuse 7, aperte in attesa
+di verifica 13.** Il pezzo 2 (le voci dell'Architetto EV.07-EV.10) e' arrivato
+la sera del 1 ottobre, dopo la consegna della 2291; durante il suo lavoro il
+fondatore ha segnalato il Viaggio che tace (EV.59) e ha chiesto le catture
+indietro (EV.60).
+
+**La stima, dichiarata prima di cominciare il pezzo 2**: cinque o sei ore
+(EV.07 tre quarti d'ora, EV.08 due ore e mezza, EV.09 un'ora e mezza con le
+catture, EV.10 un'ora, piu' suite, cancello, build e consegna). Oltre la soglia
+dei novanta minuti: per la regola del fondatore ("usa la risposta consigliata
+senza disturbarmi") non mi sono fermato.
 
 ## Le voci chiuse, con la prova
 
@@ -13,7 +22,9 @@ di verifica 9.**
 | EV.04 Medora non nega il responso | `docs/collaudo/EV/medora_e_il_responso.txt` | risposte che negano o ignorano il responso, da 9 su 10 a 0 su 10, in due esecuzioni con persone diverse |
 | EV.51 le richieste di "Note di Keep" | `docs/collaudo/EV/note_di_keep.txt` | permessi sugli account nell'archivio 0 su 18 |
 | EV.54 i tre Angeli nel Passaporto | `docs/collaudo/EV/realme/ev_angeli_tre_nel_passaporto.png` | carte nella bolla da 1 a 3, nomi da 1 a 3 |
-| EV.56 niente catture dello schermo | `docs/collaudo/EV/ev56_catture_bloccate.txt` | catture leggibili dalla build senza catture permesse, da tutte a 0 su 3 (0 byte, finestra SECURE) |
+| EV.56 niente catture dello schermo (superata da EV.60) | `docs/collaudo/EV/ev56_catture_bloccate.txt` | catture leggibili dalla build senza catture permesse, da tutte a 0 su 3 (0 byte, finestra SECURE) |
+| EV.08 la verifica delle affermazioni | `docs/collaudo/EV/affermazioni.md` | affermazioni SENZA FONTE da 88 a 0 su 759; testi nuovi diversi dalla fonte 0 su 20 |
+| EV.10 il "Rivediamoci domani" | `docs/collaudo/EV/inviti_del_cielo.txt` | inviti col cielo sbagliato in sessanta giorni, da 101 a 0 su 480 |
 
 ## Le voci aperte, e che cosa manca a ognuna
 
@@ -27,11 +38,14 @@ di verifica 9.**
 | EV.53 il Viaggio che torna al primo cammino | corretto e pubblicato sul server | un cammino nuovo e l'app riaperta |
 | EV.55 la scheda delle notifiche | tolta dall'avvio, due righe al primo Dono | un telefono che non ha mai concesso le notifiche |
 | EV.57 ONLINE che cambia numero | con EV.06 | con EV.06 |
+| EV.07 i corpora e il confine | corpora uguali alla fonte 12 su 12, confine com'era (0 righe dal commit `103c0df4`) | i testi dell'Architetto per 15 frasi col futuro di un gesto, elencate qui sotto |
+| EV.09 le rifiniture dei "Da dove viene" | i cinque testi nel codice, guardia rossa su cinque innesti | le catture della Settimana Lunga vedica e cinese dal Realme con la build nuova |
+| EV.59 il Viaggio che tace | silenzi al primo strato da 8 su 12 a 3 su 18; la cenere torna com'era dopo un silenzio | una discesa con la domanda scritta sul telefono del fondatore |
+| EV.60 le catture tornano | l'avvio toglie FLAG_SECURE, la protezione solo con CATTURE_VIETATE | una cattura leggibile dalla build consegnata |
 | EV.58 le memorie che tornano col tuo account | censimento di 40 prefissi, 12 famiglie nuove che viaggiano col Custode, i Ricordi mandati e ripresi, le arti preferite scelte che vincono; prove rosse e verdi, server provato | la funzione statoDelCerchio pubblicata con le memorie; poi la reinstallazione con l'account del fondatore, dopo che la build nuova ha mandato le memorie almeno una volta |
 
-**Il pezzo 2 dell'ordine non e' arrivato**: le voci dell'Architetto EV.07 ed
-EV.08 non ci sono. La voce EU.14 del manifesto EU porta la riga "prosegue
-nell'ordine EV, voce EV.08", come l'ordine chiede.
+La voce EU.14 del manifesto EU porta la riga "prosegue nell'ordine EV, voce
+EV.08", come l'ordine chiede; la EV.08 e' chiusa.
 
 ## Voce per voce
 
@@ -187,6 +201,82 @@ presenze lette nel database). Padre: ordine ES voce 15. Adesso una chiamata al
 minuto, una finestra di 90 secondi, e chi chiude esce subito. Sul Realme con
 la build nuova, "ONLINE 2" mentre era aperto un secondo telefono.
 
+### EV.07, i corpora corretti e il confine com'era
+
+I cinque corpora dell'Architetto sono nel ramo uguali byte per byte (sha1 in
+`docs/collaudo/EV/ev07_corpora_e_confine.txt`), i dati del codice
+rigenerati, il confine identico a quello di prima dell'ordine EU.
+
+**La misura ha trovato una cosa che il rapporto EU non diceva.** Col confine
+di prima, sulle 6192 voci dei dodici corpora, le frasi col futuro di un gesto
+sono **quindici**, non tre: il rapporto EU guardava solo le schede che le
+prove componevano. Code non riscrive i corpora: sono dichiarate in
+`test/le_frasi_dei_corpora_in_attesa.dart` e la voce resta aperta. **Per
+l'Architetto**, le quindici, con la parola che il confine prende:
+
+1. `oroscopo_eu_cinese_giorno.md` riga 330, "che cosa porterai";
+2. riga 816, "il giorno in cui tornerai a farlo";
+3. riga 1000, "l'ora in cui saluterai";
+4. riga 1554, "riprenderai da un punto già caldo e non sprecherai";
+5. `oroscopo_eu_cinese_mese.md` riga 107, "chi porterai";
+6. `oroscopo_eu_cinese_settimana.md` riga 66, "la data in cui restituirai il favore";
+7. riga 870, "la data in cui lo verificherai";
+8. `oroscopo_eu_occidentale_giorno.md` riga 535, "la data in cui partirai davvero";
+9. `oroscopo_eu_occidentale_settimana.md` riga 587, "passerai solo per il brindisi";
+10. `oroscopo_eu_vedica_giorno.md` riga 311, "la guarderai domani mattina";
+11. riga 1438, "l'orario in cui chiuderai il computer";
+12. riga 1577, "un libro letto che non rileggerai";
+13. riga 1635, "comprerai meno e cucinerai con più calma";
+14. riga 1698, "deciderai ogni volta con lucidità";
+15. `oroscopo_eu_vedica_settimana.md` riga 594, "non porterai messaggi".
+
+La maggior parte e' il futuro di un gesto scelto, come le tre gia' corrette;
+la 4, la 13 e la 14 dicono invece un effetto ("comprerai meno"), che e' piu'
+vicino a una previsione. Padre del difetto di misura: ordine EU voce EU.14.
+
+### EV.08, la verifica delle affermazioni
+
+Fatta tutta, coi testi e le fonti dell'Architetto: diciassette testi nuovi
+nel codice e nei corpora, carattere per carattere, e ogni fonte accanto alla
+sua frase. `docs/collaudo/EV/affermazioni.md` e' rigenerato da uno strumento
+(`tool/rigenera_affermazioni_ev.py`) che parte dal file EU, da' a ogni riga
+l'esito dell'Architetto e riporta ogni "file:riga" allo stato di oggi: 759
+affermazioni, 722 con una fonte, 32 fatti di calcolo, 5 scelte dell'app,
+nessuna senza fonte. **Una cosa rimasta**: la regola del caso 1.8 del corpus
+cinese dice ancora "Nella tradizione i rami uguali si rafforzano", la frase che
+l'Architetto ha giudicato senza fonte in C-G-068. E' una nota del corpus, non
+va a video, e Code non l'ha toccata: la riscrive l'Architetto, se vuole.
+
+### EV.09, le rifiniture dei "Da dove viene"
+
+I cinque testi dell'Architetto sono nel codice: "screziato" nella riga della
+Fortuna, il Rahu Kalam in corso con l'ora, la riga della ruota "Guardalo sulla
+tua carta, nella tua terza casa.", "lo stesso passaggio di giovedì 1 ottobre"
+per il secondo di due giorni migliori uguali, e niente "oggi" sotto la data di
+un altro giorno nella Vedica e nella Cinese ("Il livello viene dalla Luna di
+quel giorno..."). Mancano le catture dal Realme: si fanno con la build nuova,
+che lascia catturare.
+
+### EV.10, il "Rivediamoci domani" col cielo sbagliato
+
+**Da dove viene**: e' l'invito a tornare di Medora, scritto dall'app e non dal
+modello (`ConsiglioFinale.invitoDelRitorno`), dal calcolo dell'app sulle sue
+effemeridi; c'e' anche nel codice di oggi. **Sulle catture non si legge il
+giorno**: "Rivediamoci domani: la Luna entra in Gemelli" alle 7:30 era vero il
+29 settembre (ingresso alle 19:22 del 30, sulle effemeridi dell'app, d'accordo
+con l'Architetto), e sbagliato il 30 settembre e il 1 ottobre, dove l'app di
+allora avrebbe scritto un'altra cosa. Una strada per vederlo sbagliato c'era
+davvero: la chat componeva l'invito con l'ora della risposta, e una
+conversazione riaperta il giorno dopo diceva ancora "domani".
+
+Misurando sessanta giorni sono usciti tre difetti, tutti corretti e provati:
+l'ingresso cercato dall'ora piena (9 inviti sbagliati su 240), la fase
+riconosciuta dal suo nome, che comincia dodici ore prima dell'istante esatto
+(92 su 240: "Ripassa fra 8 giorni, per la Luna piena" alle 12 del 18
+settembre, col Primo quarto alle 23), e l'ora della risposta al posto di
+quella di chi legge. Dopo: 0 su 480. La rete del cielo detto, che controlla le
+frasi di Medora, contava i giorni allo stesso modo ed e' corretta con loro.
+
 ### EV.51, "Note di Keep"
 
 **Non sono dell'app.** L'archivio non chiede nessun permesso sugli account e
@@ -234,6 +324,47 @@ collaudo, ditemelo e consegno le build di collaudo con le catture accese
 Provato sul Realme con la build 2290 senza catture permesse: la finestra
 dell'app ha il segno `SECURE` e tre catture su tre escono vuote
 (`docs/collaudo/EV/ev56_catture_bloccate.txt`).
+
+### EV.59, il Viaggio dello Sciamano che tace
+
+**Il difetto c'era, ed era grave.** Con la stessa strada dell'app e il modello
+vero, la prima discesa con una domanda scritta finiva nel silenzio **8 volte
+su 12** (`docs/collaudo/EV/viaggio_primo_strato_prima.txt`). Il modello
+rispondeva, ma due guardie dello stile scartavano tutto: "non prende posizione"
+(*"I segni del viaggio dicono di sì, se sai che cosa lasci"*, scartata perche'
+la condizione non e' un passo) e "non nomina la domanda" (*"il matrimonio che
+cerchi"* a *"quando mi sposerò?"*). Padre: ordine ES voce 25, del 30
+settembre. Il silenzio dell'ordine DR voce 07 era nato per non dare la voce di
+casa a chi ha scritto una domanda, non per tacere davanti a risposte del
+modello scritte proprio per quella domanda.
+
+Adesso, quando nessuna risposta regge, l'ultima scartata per lo stile si
+rilegge con le sole guardie dure (previsioni, promesse, decisioni gravi,
+terzi, genere, scena): se regge, e' la risposta. Un "sì" a una domanda sul
+"come" non passa mai. Dopo: 3 su 18
+(`docs/collaudo/EV/viaggio_primo_strato_dopo.txt`); i silenzi rimasti sono
+risposte che prevedevano il futuro, ed e' giusto che non passino.
+
+**Visto leggendo le risposte accettate, e non curato**: il modello scrive ancora
+a volte frasi che una guardia non prende, *"Il matrimonio arriva quando..."*
+dopo una condizione, o *"entro la fine di agosto"* per un concorso di ottobre.
+Inseguire ogni forma con una regola non converge (l'ordine DN l'ha gia'
+mostrato): lo dico qui perche' tu lo sappia, la cura vera e' nell'istruzione
+del modello, ed e' una voce d'ordine. Il banco
+dell'ordine ER, dopo il riconoscimento, resta sano
+(`docs/collaudo/ER/viaggio/ev_dopo_lo_stile.txt`, 0 azioni col foglio).
+
+**Il cammino fermo e l'animale gia' consumato** erano lo stesso silenzio visto
+da due lati: il silenzio non consuma la discesa (per regola), ma la cenere
+grattata era gia' salvata. Adesso il silenzio rimette la cenere com'era.
+**E una guardia nuova** dalla stessa sonda: col profilo neutro il modello ha
+scritto "se sei dispost a riconoscere"; ora quella risposta si scarta.
+
+### EV.60, le catture tornano
+
+Le catture si fanno di nuovo, anche dalla build consegnata. La protezione
+resta pronta, spenta: si accende solo costruendo con
+`--dart-define=CATTURE_VIETATE=true`, il giorno in cui la vorrai negli store.
 
 ### EV.58, le memorie che tornano col tuo account
 
@@ -302,10 +433,16 @@ toccano cio' che hai segnalato, li scrivo perche' non si perdano):
 
 Ogni prova nuova e' nata rossa, con l'innesto del difetto verificato col grep e
 il file rimesso identico (sha1): `docs/collaudo/EV/regola_a_ev.txt`, innesti
-A3-A28, piu' due innesti a mano sul server (le memorie lette dal cammino, le
+A3-A43, piu' due innesti a mano sul server (le memorie lette dal cammino, le
 arti preferite del telefono che vincono), rossi e poi rimessi. Due innesti sono stati verdi o rossi per la ragione sbagliata al primo
 giro e sono stati rifatti, scritto nello stesso file (A6: la prova non misurava
-la data; A17 e A19: la compilazione rotta). Guardia nuova nel registro:
+la data; A17 e A19: la compilazione rotta; nel pezzo 2 A30, che cambiava una
+parola che la guardia non legge, rifatto come A30b, e A41, che la misura non
+poteva vedere, rifatto come A41b). **La Regola B** per il pezzo 2: prima di
+toccare il confine ho visto rossa la sua prova (`il_confine_del_responso_test`
+e `l_oroscopo_e_la_sua_anatomia_test`, rosse col confine di prima sulla frase
+"partirai davvero"); il Viaggio e la nota del metodo li ho toccati senza
+vederne rossa prima la guardia: lo dichiaro. Guardia nuova nel registro:
 `ordine_ev_guard` (646). La Regola B non e' stata fatta prima di toccare le
 zone del cielo detto, del Passaporto e dell'Oroscopo: lo dichiaro.
 

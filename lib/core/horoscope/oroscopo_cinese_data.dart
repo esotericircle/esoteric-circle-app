@@ -42,8 +42,8 @@ abstract final class OroscopoCineseData {
       'Oggi la vicinanza fa bene, la confidenza cieca meno. Stai volentieri con chi ti cerca. Tieni però per te la cosa delicata che non hai ancora deciso di raccontare. || Il ramo di oggi e il tuo si cercano e si urtano: nei testi cinesi questa coppia è un accordo che porta con sé un attrito.',
     ],
     'stessoAnimale': [
-      'Oggi non è un giorno di favore né di sfida: ciò che fai porta più del solito la tua impronta. Fai a modo tuo una cosa che di solito fai come viene: un lavoro, un messaggio, un piatto. || Oggi è il giorno di {animale_giorno}, il tuo stesso animale: ritorna ogni dodici giorni. Nella tradizione cinese i rami uguali si rafforzano.',
-      'Oggi rendi di più quando fai le cose nel tuo modo che quando ti adatti a quello degli altri. Prenditi il compito che solo tu sai fare così e lascia a qualcun altro quello che chiunque può sbrigare. || Il ramo di oggi è il tuo: nella tradizione cinese due rami uguali stanno fianco a fianco e si rafforzano.',
+      'Oggi non è un giorno di favore né di sfida: ciò che fai porta più del solito la tua impronta. Fai a modo tuo una cosa che di solito fai come viene: un lavoro, un messaggio, un piatto. || Oggi è il giorno di {animale_giorno}, il tuo stesso animale: ritorna ogni dodici giorni.',
+      'Oggi rendi di più quando fai le cose nel tuo modo che quando ti adatti a quello degli altri. Prenditi il compito che solo tu sai fare così e lascia a qualcun altro quello che chiunque può sbrigare. || Il ramo di oggi è il tuo: torna ogni dodici giorni, e per il tuo animale non è uno dei rapporti che la tradizione classifica.',
       'Oggi la giornata pesa quanto decidi tu, né di più né di meno. Scegli una cosa a cui tieni e mettila per prima, davanti ai messaggi e alle commissioni. || È il giorno del tuo animale: la tradizione cinese non gli dà un peso particolare, perché non è uno dei rapporti classificati.',
     ],
     'nessuno': [
@@ -547,9 +547,9 @@ abstract final class OroscopoCineseData {
     'Sul denaro la giornata indica una direzione, non una cifra. Tieni il portafoglio e le carte da sistemare sul lato della stanza che sta a {direzione_ricchezza}: è da lì che oggi conviene fare i conti. || Il Dio della Ricchezza, dicono gli almanacchi cinesi, oggi sta a {direzione_ricchezza}.',
   ];
   static const String notaGenerale =
-      'L\'animale del giorno è il ramo del giorno nel ciclo dei sessanta; il rapporto col tuo animale viene dalle tabelle del Sanming Tonghui (1578). Il guardiano è uno dei dodici del calendario, contato dal mese solare; il consiglio viene dal solo guardiano, non dall\'almanacco intero.';
+      'L\'animale del giorno è il ramo del giorno nel ciclo dei sessanta; il rapporto col tuo animale viene dalle tabelle del Sanming Tonghui (1578). Il guardiano del giorno è uno dei dodici del calendario, contato dal mese solare.';
   static const String notaDei =
-      'Il tuo giorno di nascita ha un tronco celeste, il giorno di oggi un altro: il loro rapporto fra i cinque elementi dà uno dei Dieci Dei del BaZi. La scheda legge quel dio come lo leggono lo Yuanhai Ziping e il Ziping Zhenquan.';
+      'Il tuo giorno di nascita ha un tronco celeste, il giorno di oggi un altro: il loro rapporto fra i cinque elementi dà uno dei Dieci Dei del BaZi. La scheda prende il livello da quel dio come lo leggono lo Yuanhai Ziping e il Ziping Zhenquan; il testo è scelto per quel livello.';
   static const String notaColore =
       'Colore e numeri sono quelli dell\'elemento del giorno nella tradizione, non colori o numeri portafortuna.';
 }

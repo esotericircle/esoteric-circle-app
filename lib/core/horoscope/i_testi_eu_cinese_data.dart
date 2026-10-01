@@ -124,7 +124,7 @@ abstract final class ITestiEuCineseData {
             'Il giorno degli inizi',
             'Oggi le cose nuove partono col passo giusto: un corso, un\'abitudine, un progetto che hai in testa da tempo trovano meno ostacoli del solito al primo tentativo.',
             'Scegli una sola cosa da cominciare e fai il primo gesto concreto prima di cena: l\'iscrizione, il quaderno nuovo, la prima mezz\'ora di prova. Il resto può aspettare.',
-            'Nella tradizione dell\'almanacco ci sono giorni buoni per aprire e giorni buoni per chiudere. Questo è dei primi: l\'inizio pesa meno e la strada si vede abbastanza da muovere il passo.',
+            'Nella tradizione cinese ci sono giorni buoni per aprire e giorni buoni per chiudere. Questo è dei primi: l\'inizio pesa meno e la strada si vede abbastanza da muovere il passo.',
             'Domani rifai lo stesso gesto, anche più breve, alla stessa ora. Due giorni di fila valgono più di un inizio brillante lasciato a metà: metti in calendario un promemoria per ripeterlo.',
           ),
           VoceEu(
@@ -264,7 +264,7 @@ abstract final class ITestiEuCineseData {
             'La risposta che matura',
             'Una risposta che aspetti da qualche giorno può arrivare con calma. Oggi l\'equilibrio sta nell\'attesa operosa: conviene non sollecitare e dedicare il tempo ad altro.',
             'Resisti alla tentazione di scrivere di nuovo per chiedere notizie e usa la mattina per una cosa che dipende solo da te: un lavoro di casa, un capitolo da leggere, una corsa al parco.',
-            'L\'almanacco distingue i giorni per fare da quelli per aspettare; questo sta nel mezzo: si lavora intorno alla questione senza toccarla. Chi forza ora rischia di guastare un frutto quasi maturo.',
+            'Ci sono giorni per fare e giorni per aspettare; questo sta nel mezzo: si lavora intorno alla questione senza toccarla. Chi forza ora rischia di guastare un frutto quasi maturo.',
             'Se la risposta arriva entro sera, prenditi un\'ora prima di replicare e scrivi la tua su un foglio. Se non arriva, fissa un giorno preciso, non prima di dopodomani, per un sollecito gentile.',
           ),
           VoceEu(
@@ -677,7 +677,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Il saluto per nome',
             'Una persona che vedi quasi ogni giorno, al bar sotto l\'ufficio o alla fermata, ti è diventata familiare senza che vi siate mai presentati. In giornata il passo più naturale è dirsi i nomi.',
-            'Oggi, appena la incroci, saluta tu senza aspettare e presentati con una frase semplice: ci vediamo sempre, io sono... Aggiungi un commento leggero sulla giornata e lascia la porta aperta.',
+            'Oggi, appena la incroci, saluta tu senza aspettare e presentati con una frase semplice, col tuo nome e un sorriso. Aggiungi un commento leggero sulla giornata e lascia la porta aperta.',
             'Molte storie cominciano così, da una presenza ricorrente che un giorno prende un nome. L\'occasione non chiede coraggio straordinario: chiede di trasformare un\'abitudine silenziosa in un piccolo scambio umano.',
             'Domani, se il saluto è stato ricambiato con calore, chiama la persona per nome e fai una domanda in più: da quanto lavora in zona, che cosa legge. Un passo alla volta, senza bruciare le tappe.',
           ),
@@ -1085,7 +1085,7 @@ abstract final class ITestiEuCineseData {
             'Il tavolo in ordine',
             'Sulla tua scrivania si è accumulato il lavoro di più giorni e la testa ne risente. In giornata c\'è l\'occasione per rimettere ogni cosa al suo posto prima che parta l\'incarico nuovo che ti è stato affidato.',
             'Dedica la prima mezz\'ora a sgombrare il piano: archivia i fogli finiti, butta le bozze superate, lascia in vista solo ciò che serve al nuovo incarico. Poi scrivi su un foglietto il primo compito da affrontare.',
-            'L\'almanacco direbbe che oggi è un giorno per pulire e preparare, più che per correre. Chi parte da un tavolo in ordine sbaglia meno nelle prime ore e ritrova più facilmente il filo quando viene interrotto.',
+            'Oggi è un giorno per pulire e preparare, più che per correre. Chi parte da un tavolo in ordine sbaglia meno nelle prime ore e ritrova più facilmente il filo quando viene interrotto.',
             'Prima di andare via fai lo stesso con il desktop del computer: una cartella per il nuovo progetto, le altre chiuse in archivio. Domattina accendi lo schermo e trovi solo quello che ti serve, senza dover cercare.',
           ),
           VoceEu(
@@ -1567,7 +1567,7 @@ abstract final class ITestiEuCineseData {
         [
           VoceEu(
             'Il barattolo degli spiccioli',
-            'L\'almanacco di oggi è favorevole al riordino delle piccole cose che si accumulano senza rumore: le monete sparse fra tasche, borse e cassetti chiedono finalmente un posto.',
+            'La giornata è favorevole al riordino delle piccole cose che si accumulano senza rumore: le monete sparse fra tasche, borse e cassetti chiedono finalmente un posto.',
             'Raccogli stasera tutti gli spiccioli di casa in un barattolo di vetro, contali sul tavolo sgombro e annota la cifra su un foglietto da infilare sotto il coperchio.',
             'Quello che si disperde in piccoli pezzi non si vede mai per intero. Mettere tutto insieme ti restituisce la misura delle tue risorse minute e il piacere di un ordine che si tocca con mano.',
             'Domani porta il barattolo con te quando scendi al negozio sotto casa: usa le monete per il pane e il giornale finché non è vuoto, poi rimettilo sul ripiano a raccogliere di nuovo.',
@@ -1979,7 +1979,7 @@ abstract final class ITestiEuCineseData {
             'Il posto auto conteso',
             'Fra vicini oggi basta poco per creare attrito: un\'auto parcheggiata nel punto sbagliato, un bidone spostato, il cortile ingombro. Il piccolo vantaggio di tutti passa da un accordo, non da un dispetto.',
             'Invece di lasciare un biglietto sul parabrezza, suona il campanello verso sera e proponi un orario o una regola semplice per alternarvi. Parla del problema, non della persona.',
-            'L\'almanacco guarda sempre l\'armonia con chi ti sta intorno: un buon vicinato è una ricchezza quotidiana. Un favore fatto oggi, come lasciare il posto per un carico, torna indietro quando ne hai bisogno tu.',
+            'Conta sempre l\'armonia con chi ti sta intorno: un buon vicinato è una ricchezza quotidiana. Un favore fatto oggi, come lasciare il posto per un carico, torna indietro quando ne hai bisogno tu.',
             'Se l\'accordo regge, scrivetelo su un foglio da appendere vicino ai citofoni, con i piani e non i nomi. Da domani rispetta tu per primo la regola, anche quando nessuno ti vede.',
           ),
           VoceEu(
@@ -2665,7 +2665,7 @@ abstract final class ITestiEuCineseData {
         [
           VoceEu(
             'Tre pagine chiare',
-            'Un cliente che ti ha cercato per un lavoro nuovo aspetta da te una proposta. Questa settimana l\'almanacco la direbbe adatta a mettere le cose nero su bianco: il terreno è buono e chi ti ha chiamato ha voglia di cominciare.',
+            'Un cliente che ti ha cercato per un lavoro nuovo aspetta da te una proposta. Questa settimana è adatta a mettere le cose nero su bianco: il terreno è buono e chi ti ha chiamato ha voglia di cominciare.',
             'Entro mercoledì scrivi la proposta in tre pagine al massimo: che cosa farai, in quali tappe, con quali consegne. Mandala in mattinata con una riga che offre una telefonata di dieci minuti per chiarire i dubbi.',
             'Il momento sostiene chi si presenta con ordine più di chi promette molto. Una proposta breve, con le tappe chiare, fa sentire all\'altra parte che il lavoro è già in buone mani e rende più facile dire di sì senza rinvii.',
             'Se la risposta arriva entro venerdì, fissa subito la data di partenza e chiedi i materiali che ti servono per la prima tappa. Se tarda, lascia passare il fine settimana e scrivi lunedì mattina con una domanda sola, gentile e precisa.',
@@ -2681,7 +2681,7 @@ abstract final class ITestiEuCineseData {
             'L\'appello di fine mese',
             'L\'esame che rimandi da un semestre ha finalmente una data possibile e la materia ti è meno ostile di quanto pensavi. È un periodo adatto a decidere e a iscriversi, più che a rimuginare sul programma ancora da finire.',
             'Prenota l\'appello entro giovedì, poi dividi il programma in blocchi e scrivili sul calendario a ritroso dalla data dell\'esame. Lascia libero l\'ultimo fine settimana per il ripasso e le domande dei vecchi compiti.',
-            'Iscriversi cambia il modo di studiare: la data fissata mette ordine nelle ore e toglie spazio ai rinvii. Chi legge l\'almanacco direbbe che questi giorni favoriscono i cominciamenti decisi, quelli che trovano subito un passo regolare.',
+            'Iscriversi cambia il modo di studiare: la data fissata mette ordine nelle ore e toglie spazio ai rinvii. Questi giorni favoriscono i cominciamenti decisi, quelli che trovano subito un passo regolare.',
             'Cerca nella chat del corso chi ha già sostenuto l\'esame e chiedi quali argomenti tornano più spesso. Con quelle risposte riordina i blocchi del calendario: prima i temi che padroneggi, poi quelli che richiedono più ripasso.',
           ),
           VoceEu(
@@ -2702,7 +2702,7 @@ abstract final class ITestiEuCineseData {
             'Alleanza fra scrivanie',
             'Nel tuo ufficio è arrivata una persona nuova che lavora su un tema vicino al tuo. Fra voi c\'è un\'intesa facile e questa settimana è adatta a trasformarla in collaborazione, prima che ciascuno si chiuda nelle proprie abitudini.',
             'Invita la persona appena arrivata a un caffè martedì o mercoledì e chiedile su che cosa sta lavorando. Proponi un compito piccolo da fare in due entro fine settimana, qualcosa che serva a entrambi i vostri gruppi.',
-            'L\'almanacco guarda all\'armonia fra le persone e qui l\'armonia c\'è. Un rapporto di lavoro che nasce nelle prime settimane con uno scambio concreto tende a durare e rende più leggere le scadenze dei mesi a venire.',
+            'Conta l\'armonia fra le persone e qui l\'armonia c\'è. Un rapporto di lavoro che nasce nelle prime settimane con uno scambio concreto tende a durare e rende più leggere le scadenze dei mesi a venire.',
             'Finito il primo compito, presentatelo insieme a chi coordina i due gruppi con una mail firmata da entrambi. Poi proponete un appuntamento fisso, venti minuti ogni due settimane, per tenere vivo lo scambio.',
           ),
           VoceEu(
@@ -2969,7 +2969,7 @@ abstract final class ITestiEuCineseData {
             'Il nastro tagliato',
             'Nei prossimi giorni le porte si aprono più volentieri del solito: chi incontri ha tempo per una parola in più e un invito accettato può portarti un contatto che cercavi da mesi.',
             'Giovedì o venerdì vai all\'inaugurazione che hai visto annunciata in zona, una bottega o una piccola mostra. Presentati a chi l\'ha aperta e lascia il tuo recapito scritto a mano.',
-            'L\'almanacco considera questa settimana adatta agli inizi altrui quanto ai tuoi: festeggiare l\'apertura di qualcun altro crea un legame semplice, di quelli che fra qualche mese portano un nome al momento giusto.',
+            'Questa settimana è adatta agli inizi altrui quanto ai tuoi: festeggiare l\'apertura di qualcun altro crea un legame semplice, di quelli che fra qualche mese portano un nome al momento giusto.',
             'Nel fine settimana manda due righe a chi hai conosciuto lì: un grazie per l\'accoglienza e una domanda precisa sul suo lavoro. Conserva il suo biglietto in un posto dove lo ritrovi senza cercarlo.',
           ),
           VoceEu(
@@ -3011,7 +3011,7 @@ abstract final class ITestiEuCineseData {
             'Il posto prenotato prima',
             'Muoversi presto conviene in questo periodo: chi organizza in anticipo trova posti, orari e condizioni migliori, mentre chi rimanda deve accontentarsi di ciò che resta.',
             'Se c\'è un viaggio in vista nei prossimi mesi, lunedì o martedì confronta orari e tariffe e prenota la tratta principale. Salva la conferma in una cartella con il nome del viaggio.',
-            'L\'almanacco direbbe che è un tempo adatto a fissare, non a esitare. Mettere un punto fermo sul calendario toglie anche un pensiero ricorrente, quello di dover ancora decidere.',
+            'È un tempo adatto a fissare, non a esitare. Mettere un punto fermo sul calendario toglie anche un pensiero ricorrente, quello di dover ancora decidere.',
             'Nei giorni successivi scrivi a chi ti ospita o a chi viaggia con te per definire il resto: arrivi, cene, chiavi. Un messaggio chiaro adesso evita dieci telefonate concitate alla vigilia della partenza.',
           ),
           VoceEu(
@@ -3039,7 +3039,7 @@ abstract final class ITestiEuCineseData {
             'Un incarico breve',
             'Una richiesta di aiuto per pochi giorni, un lavoretto, una sostituzione: la settimana porta piccole proposte che sembrano marginali e invece aprono la strada a persone nuove.',
             'Se qualcuno ti chiede una mano retribuita per un evento, un inventario o un allestimento, rispondi entro ventiquattro ore e chiedi subito orari, compiti e compenso, messi per iscritto.',
-            'L\'almanacco consiglia di accogliere ciò che arriva con misura. Un incarico breve ha un inizio e una fine chiari: proprio per questo è il terreno adatto per farsi conoscere senza legarsi troppo.',
+            'Conviene accogliere con misura ciò che arriva. Un incarico breve ha un inizio e una fine chiari: proprio per questo è il terreno adatto per farsi conoscere senza legarsi troppo.',
             'Durante l\'incarico arriva un quarto d\'ora prima e fai una cosa in più di quanto richiesto, una sola. Alla fine domanda a chi ti ha coinvolto se puoi indicarlo come referenza per lavori simili.',
           ),
           VoceEu(
@@ -3076,7 +3076,7 @@ abstract final class ITestiEuCineseData {
             'Fra due proposte',
             'Due occasioni arrivano insieme e vorresti prenderle entrambe: un corso e un invito, due serate, due piccoli progetti. Il periodo chiede di scegliere, perché insieme si annullano.',
             'Prendi un foglio e per ciascuna proposta scrivi che cosa ti dà, quanto tempo chiede e chi ti fa incontrare. Entro giovedì comunica il sì a una e il no all\'altra, con gentilezza.',
-            'L\'almanacco non conosce periodi adatti a tutto. Ogni tempo è buono per alcune cose e meno per altre: rispettare questo ordine nelle piccole scelte lascia l\'energia per fare bene quella giusta.',
+            'Nessun periodo è adatto a tutto. Ogni tempo è buono per alcune cose e meno per altre: rispettare questo ordine nelle piccole scelte lascia l\'energia per fare bene quella giusta.',
             'A chi riceve il tuo no offri anche una data: tra un mese, al prossimo turno, alla prossima edizione. Annota quella data sul calendario: l\'occasione rimandata resta tua, se la richiami.',
           ),
           VoceEu(
@@ -3550,7 +3550,7 @@ abstract final class ITestiEuCineseData {
             'Vecchi contatti riaccesi',
             'Nelle prossime settimane qualcuno del tuo passato si fa vivo con una notizia utile: un ex collega, un compagno di corso, una vicina trasferita altrove. Il momento è adatto a riannodare.',
             'Scrivi a tre persone che non senti da almeno un anno e chiedi come va il loro lavoro, senza domandare nulla per te. Con la più disponibile fissa un caffè entro la metà del mese.',
-            'L\'almanacco considera questo mese favorevole ai ritorni più che agli inizi: le porte che conosci già si riaprono con poca spinta e chi ti ricorda con simpatia ha voglia di darti una mano.',
+            'Questo mese è favorevole ai ritorni più che agli inizi: le porte che conosci già si riaprono con poca spinta e chi ti ricorda con simpatia ha voglia di darti una mano.',
             'Durante il caffè racconta in due frasi precise che cosa cerchi adesso. Il giorno dopo manda un grazie; se ti ha fatto un nome, contatta quella persona citando chi vi ha messo in relazione.',
           ),
           VoceEu(
@@ -3610,7 +3610,7 @@ abstract final class ITestiEuCineseData {
             'Prima del sì',
             'Questo mese qualcuno può proporti un affare in apparenza comodo: un acquisto di gruppo, una quota per un\'iniziativa, un oggetto usato a un prezzo che sembra un regalo.',
             'Prima di rispondere chiedi tutto per iscritto e lascia passare tre giorni. Mostra la proposta a una persona di fiducia che conosce quell\'ambiente e lascia che ti faccia domande prima di darti un parere.',
-            'L\'almanacco considera queste settimane adatte a verificare più che a concludere. La fretta di chi propone è il primo indizio da pesare: le occasioni buone reggono anche una pausa di qualche giorno.',
+            'Queste settimane sono adatte a verificare più che a concludere. La fretta di chi propone è il primo indizio da pesare: le occasioni buone reggono anche una pausa di qualche giorno.',
             'Se dopo la verifica il conto non torna, declina con una frase semplice e senza lunghe giustificazioni. Conserva i messaggi scambiati in una cartella: servono se la proposta si ripresenta con altre parole.',
           ),
           VoceEu(
@@ -3811,7 +3811,7 @@ abstract final class ITestiEuCineseData {
             'Il calendario delle stagioni',
             'Quest\'anno la fortuna sta nella cura costante di ciò che hai: casa, oggetti, documenti, abbonamenti. Nessuna svolta improvvisa, ma un vantaggio che cresce mese dopo mese con l\'ordine.',
             'Nei prossimi mesi prepara un calendario delle scadenze ricorrenti: rinnovi, revisioni, manutenzioni, cambi di stagione degli armadi. Appendilo dove lo vedi ogni mattina e aggiornalo a ogni novità.',
-            'L\'almanacco considera questo un anno di misura, adatto a consolidare più che a cercare. Il tavolo in ordine e il conto che torna non fanno rumore; eppure evitano tante piccole perdite che in dodici mesi pesano.',
+            'È un anno di misura, adatto a consolidare più che a cercare. Il tavolo in ordine e il conto che torna non fanno rumore; eppure evitano tante piccole perdite che in dodici mesi pesano.',
             'All\'inizio di ogni stagione dedica una mattina a rileggere il calendario e a sistemare ciò che arriva a scadenza. Ogni tre mesi regala una cosa che non usi più, per tenere leggero ciò che possiedi.',
           ),
           VoceEu(
@@ -3834,7 +3834,7 @@ abstract final class ITestiEuCineseData {
             'Gli accordi scritti',
             'Nei prossimi mesi possono nascere piccoli attriti intorno alle cose condivise: un garage in comune, un oggetto passato di mano, le spese di una vacanza di gruppo, un orto diviso fra vicini.',
             'Per ogni cosa che condividi con altri metti per iscritto, in un messaggio semplice, chi usa che cosa, quando e come si dividono i costi. Fallo presto, prima che nasca il primo malinteso.',
-            'L\'almanacco segnala un anno di attrito più che di apertura nei rapporti pratici. Le intenzioni sono buone da entrambe le parti; manca solo una regola chiara. La parola scritta evita di doverla inventare ogni volta.',
+            'È un anno di attrito più che di apertura nei rapporti pratici. Le intenzioni sono buone da entrambe le parti; manca solo una regola chiara. La parola scritta evita di doverla inventare ogni volta.',
             'Quando un malinteso arriva comunque, proponi di parlarne seduti a un tavolo con il messaggio davanti. Correggete l\'accordo insieme e mandatevi la versione nuova: chiudere bene rende più facile ripartire.',
           ),
         ],

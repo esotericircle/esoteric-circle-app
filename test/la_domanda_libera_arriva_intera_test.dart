@@ -168,6 +168,18 @@ void main() {
     await tester.tap(find.byKey(const Key('viaggio_ombra_Lupo')));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
+    // **SI SCOSTA LA CENERE**, ordine EV: il fondatore gratta il primo
+    // pezzo dell'animale e poi risale nel silenzio.
+    final lente = find.byKey(const Key('viaggio_lente_Lupo'));
+    if (lente.evaluate().isNotEmpty) {
+      final centro = tester.getCenter(lente);
+      for (var k = 0; k < 12; k++) {
+        await tester.dragFrom(centro + Offset(-60.0 + k * 10, -40),
+            const Offset(0, 120));
+        await tester.pump(const Duration(milliseconds: 60));
+      }
+    }
+    final grattate = diario.celleScoperteDi('Lupo').length;
     // **E SI RISALE**: il responso si compone qui, ed e' qui che il silenzio
     // prende il posto della risalita.
     final risali = find.byKey(const Key('viaggio_risali'));
@@ -187,6 +199,15 @@ void main() {
         reason: 'la discesa muta ha consumato una discesa nel Diario');
     expect(diario.apparizioni, 0,
         reason: 'la discesa muta ha fatto avanzare il cammino di uno strato');
+    // **E NEMMENO LA CENERE SI CONSUMA**, ordine EV: il fondatore, *"se
+    // scendo nuovamente l'animale risulta gia' consumato"*.
+    print('ORDINE EV, VIAGGIO: celle grattate prima di risalire $grattate, '
+        'dopo il silenzio ${diario.celleScoperteDi('Lupo').length}');
+    expect(grattate, greaterThan(0),
+        reason: 'la prova non ha grattato niente: non misura la cenere');
+    expect(diario.celleScoperteDi('Lupo'), isEmpty,
+        reason: 'il silenzio non consuma la discesa ma lascia la cenere '
+            'scostata: alla discesa dopo l\'animale e\' gia\' consumato');
   });
 
   test('DR.07: DUE STRATI DELLO STESSO CAMMINO NON APRONO CON LE STESSE '

@@ -7,29 +7,30 @@ ottobre 2026 (il lavoro e' del 1 ottobre sul calendario del PC).
 **Ramo:** `claude/esoteric-circle-master-order-e798aj`, nessun altro.
 **Partenza:** commit `0f7a0625`, col segno `refs/verde/0f7a0625...` presente.
 
-**Il pezzo 2 non e' arrivato.** L'ordine diceva "PEZZO 1 DI 2 [...] Il pezzo
-2 porta le voci dell'Architetto"; il fondatore ha scritto "Hai già tutto
-l'ordine". Le voci EV.07 e EV.08 (fra cui la prosecuzione di EU.14, che nel
-manifesto EU ha la riga "Prosegue nell'ordine EV, voce EV.08") non sono in
-questo manifesto perche' nessuno le ha scritte: si aggiungono quando arrivano.
+**Il pezzo 2 e' arrivato il 1 ottobre sera**, dopo la consegna della 2291:
+le voci dell'Architetto EV.07, EV.08 (la prosecuzione di EU.14), EV.09 ed
+EV.10, con lo stesso manifesto e lo stesso rapporto. Il primo pomeriggio il
+fondatore aveva scritto "Hai già tutto l'ordine" e il pezzo 1 e' stato
+lavorato e consegnato da solo.
 
 **La regola 6 ("questo ordine non consegna niente") e' superata dal
 fondatore** in coda al pezzo 1: "Alla fine di tutto, crea nuova Build, test su
 Cell e consegna su AppTester e dimmi quando posso lanciare codemagic".
 
-Le voci EV.51-EV.58 sono le segnalazioni del fondatore arrivate durante il
+Le voci EV.51-EV.60 sono le segnalazioni del fondatore arrivate durante il
 lavoro, numerate da Code dopo il posto delle voci dell'Architetto.
 
-VOCI_TOTALI: 14
-VOCI_CHIUSE: 5
-VOCI_APERTE: 9
+VOCI_TOTALI: 20
+VOCI_CHIUSE: 7
+VOCI_APERTE: 13
 VOCI_DA_FARE: 0
 
 Le prove stanno in `docs/collaudo/EV/`, quelle del telefono di prova (Realme
 767f596c) in `docs/collaudo/EV/realme/`. **Le catture del Realme vengono da
 una build di collaudo** costruita dallo stesso commit con
-`--dart-define=CATTURE_PERMESSE=true`: dalla voce EV.56 la build consegnata
-protegge lo schermo e le catture escono nere.
+`--dart-define=CATTURE_PERMESSE=true`: con la voce EV.56 la build consegnata
+proteggeva lo schermo e le catture uscivano nere. Dalla voce EV.60 le catture
+si fanno anche dalla build consegnata.
 
 ## VOCE EV.01, TUTTI I PREZZI A 99
 
@@ -151,6 +152,113 @@ era aperto (`realme/ev06_online_2_build_2290.png`).
 
 DOMANDA: "Dopo cinque minuti o cmq da ieri l'indicatore"ONLINE" RESTA FERMO A 1 sia sul mio Cell e sia sul realme collegato."
 
+## VOCE EV.07, I CORPORA CORRETTI E IL CONFINE COM'ERA
+
+**APERTA IN ATTESA DI VERIFICA**: aspetta i testi dell'Architetto per quindici
+frasi.
+
+I cinque corpora corretti dall'Architetto sono entrati nel ramo uguali byte per
+byte (venti righe: le tre frasi al presente, le sedici senza "almanacco",
+l'ellissi tolta), e i dati del codice si sono rigenerati
+(`tool/_gen_oroscopo_eu.py`). Il confine del responso e' tornato com'era
+prima dell'ordine EU: zero righe di differenza dal commit `103c0df4`,
+l'eccezione `futuroDellaTuaScelta` (padre: EU Aggiunta, commit `67ca80b7`)
+non c'e' piu'.
+
+**La misura sui dodici corpora interi ha trovato quindici frasi, non tre.**
+Il rapporto EU ne aveva nominate tre, guardando le sole schede che le prove
+componevano; col confine di prima, sulle 6192 voci dei dodici corpora, le
+frasi col futuro di un gesto sono quindici (otto cinesi, tre vediche del
+Giorno, una della Settimana vedica, una dell'Occidentale della Settimana, e
+"Scrivi la data in cui partirai davvero" dell'Occidentale del Giorno, che stava
+nel commento dell'eccezione e non nel rapporto: padre del difetto di
+misura, ordine EU voce EU.14, il rapporto che guardava un campione). Code non
+riscrive i corpora: le quindici frasi sono dichiarate una per una, col file e
+la riga, in `test/le_frasi_dei_corpora_in_attesa.dart`, e la guardia pretende
+che nessun'altra frase superi il confine e che l'elenco resti vero.
+Proposte di riscrittura nel rapporto, per l'Architetto.
+
+DOMANDA: rapporto EU, "Per l'Architetto", punti 1, 2 e 3; Linee Guida, sezione 8, "IL CONFINE DEL RESPONSO, E VIVE IN UN PUNTO SOLO".
+PROVA: docs/collaudo/EV/ev07_corpora_e_confine.txt
+MISURA: corpora diversi dalla fonte, prima 5 su 12, dopo 0 su 12 (sha1); eccezioni del confine aggiunte nell'ordine EU, da 1 a 0; frasi dei corpora fuori dal confine, 15 su 6192 (col confine dell'ordine EU 10), tutte dichiarate in attesa dei testi dell'Architetto, non dichiarate 0
+
+## VOCE EV.08, LA VERIFICA DELLE AFFERMAZIONI
+
+**CHIUSA.** Il file dell'Architetto e' entrato in `docs/corpus/eu/` uguale
+byte per byte; i diciassette "NUOVO TESTO" delle affermazioni sono nel codice e
+nei corpora carattere per carattere (O-M-001..007 in
+`il_metodo_del_responso.dart`; V-M-001 e V-M-004 in `la_lettura_vedica.dart`;
+V-M-009, V-M-011, C-M-006 e C-M-008 in `l_anno_delle_tradizioni.dart`; C-G-068,
+C-G-069, C-M-002 e C-M-004 nel corpus cinese, rigenerato); ogni "FONTE" e'
+scritta accanto alla frase, nella nota del suo caso del corpus o nel commento
+del codice; le righe scritte da Code nell'ordine EU restano, approvate.
+`docs/collaudo/EV/affermazioni.md` e' rigenerato da
+`tool/rigenera_affermazioni_ev.py`: 759 affermazioni, 722 con una fonte, 32
+fatti di calcolo, 5 scelte dell'app, nessuna senza fonte; i "file:riga"
+riportati allo stato di oggi. La guardia
+`test/i_testi_nuovi_dell_architetto_sono_nel_codice_test.dart` cerca ogni
+testo nuovo del file dell'Architetto, anche quelli della voce EV.09, nel file
+dove vive (innesto A40 rosso).
+
+Resta nel corpus cinese, nella regola del caso 1.8, la frase "Nella tradizione
+i rami uguali si rafforzano", che l'Architetto ha giudicato senza fonte in
+C-G-068: e' una nota, non va a video, e Code non l'ha toccata; e' nel
+rapporto.
+
+DOMANDA: "VERIFICA CHE L'INTERPRETAZIONE SIA REALE E NON INVENTATA E CHE NON SIA RIPETITIVA"; voce EU.14.
+PROVA: docs/collaudo/EV/affermazioni.md
+MISURA: affermazioni SENZA FONTE, prima 88 su 759, dopo 0 su 759; testi nuovi diversi dalla fonte, 0 su 20
+
+## VOCE EV.09, LE RIFINITURE DEI "DA DOVE VIENE"
+
+**APERTA IN ATTESA DI VERIFICA**: mancano le catture della Settimana Lunga
+vedica e cinese dal Realme, con la build nuova.
+
+Coi testi dell'Architetto: il venerdi' vedico e' "screziato" nella riga della
+Fortuna come nel "Da dove viene" (prima "bianco screziato"); la variante del
+Rahu Kalam in corso dice "Siamo dentro il Rahu Kalam di oggi, dalle {inizio}
+alle {fine}."; la riga della ruota dice "Guardalo sulla tua carta, nella tua
+{ordinale} casa." (`LaRigaDelPassaggio.riga`); quando due dei tre giorni
+migliori di fila hanno lo stesso "Da dove viene", il secondo dice "Da dove
+viene: lo stesso passaggio di giovedì 1 ottobre." (`IlPeriodoView.daDoveDelGiorno`);
+sotto la data di un giorno che non e' oggi le righe della Vedica e della Cinese
+non dicono "oggi" (`LaSettimanaDelCielo.senzaOggi`: "Oggi" in apertura si
+toglie, "di oggi" diventa "di quel giorno"; padre: ordine EU voce 02). Guardia
+`test/le_rifiniture_dei_da_dove_viene_test.dart`, innesti A35-A39 rossi.
+
+DOMANDA: rapporto EU, "Per l'Architetto", punti 4, 7, 9 e 10; il fondatore, "evitare ripetizioni".
+PROVA: test/le_rifiniture_dei_da_dove_viene_test.dart
+MISURA: righe di altri giorni con "oggi", dopo 0 su 528; righe della ruota uguali al primo passaggio, dopo 0; giorni migliori di fila con la stessa riga intera, dopo 0
+
+## VOCE EV.10, IL "RIVEDIAMOCI DOMANI" COL CIELO SBAGLIATO
+
+**CHIUSA.** La riga e' l'invito a tornare di Medora, scritto dall'app e non
+dal modello: `ConsiglioFinale.invitoDelRitorno`, calcolato da
+`ProssimoCambioDellaLuna` sulle effemeridi dell'app (`Effemeridi`, attraverso
+`NightSky`), con l'ora della risposta. Esiste anche nel codice di oggi. **Sulle
+catture la data non si legge**: alle 7:30 del 29 settembre "Rivediamoci domani:
+la Luna entra in Gemelli" era vero (ingresso alle 19:22 del 30); alle 7:30 del
+30 l'app avrebbe detto "oggi, piu' tardi", alle 7:30 del 1 ottobre "domani:
+Cancro". Misurando sessanta giorni sono usciti tre difetti veri, tutti
+corretti: (1) l'ingresso si cercava dall'ora piena e un ingresso alle 23:25
+contava come il giorno dopo, 9 inviti sbagliati su 240; (2) la fase si
+riconosceva dal nome, che comincia dodici ore prima dell'istante esatto, e
+dentro quelle ore l'invito saltava alla fase successiva ("Ripassa fra 8
+giorni, per la Luna piena" con il Primo quarto la sera stessa), 92 inviti
+sbagliati su 240; (3) la chat componeva l'invito con l'ora della risposta,
+quindi una conversazione riaperta il giorno dopo diceva ancora "domani". Padri:
+(1) e (2) ordine DS voce 08 (la ricerca ora per ora), (3) ordine EJ voce 05
+(l'invito sotto l'ultima risposta, con l'ora del messaggio). Adesso l'istante
+del cambio si cerca al minuto (l'ingresso col segno, la fase col cambio di
+quarto dell'elongazione, `NightSky.quartoDelCiclo`), e la chat compone l'invito
+con l'ora di chi legge. La stessa correzione nella rete del cielo detto
+(`IlCieloDetto`), che contava i giorni allo stesso modo. Guardia
+`test/gli_inviti_del_cielo_sono_veri_test.dart`, innesti A41b, A42 e A43 rossi.
+
+DOMANDA: dall'Architetto, sulle catture dei fondatori; il fondatore, "VERIFICA CHE L'INTERPRETAZIONE SIA REALE E NON INVENTATA".
+PROVA: docs/collaudo/EV/inviti_del_cielo.txt
+MISURA: inviti con un evento del cielo sbagliato in sessanta giorni, quattro ore al giorno, prima 101 su 480 (ingressi 9 su 240, fasi 92 su 240), dopo 0 su 480
+
 ## VOCE EV.51, LE RICHIESTE DI "NOTE DI KEEP"
 
 **CHIUSA.** Non vengono dall'app: l'archivio non chiede nessun permesso sugli
@@ -226,6 +334,9 @@ su tre escono vuote (0 byte): il sistema le rifiuta. Su Android lo schermo si pr
 cattura, niente registrazione, l'anteprima fra le app recenti nera. Su iOS il
 sistema non lascia a un'app il modo di impedire una cattura.
 
+Superata il giorno stesso dalla voce EV.60, per decisione del fondatore: le
+catture tornano.
+
 DOMANDA: "Inoltre, vorrei disattivassi la possibilità di fare screenshot"
 PROVA: docs/collaudo/EV/ev56_catture_bloccate.txt
 MISURA: catture leggibili dalla build senza CATTURE_PERMESSE sul Realme, prima (build di collaudo) tutte quelle della cartella realme, dopo 0 su 3 (0 byte, finestra SECURE)
@@ -299,3 +410,50 @@ rosso), `functions/src/memorie.test.ts` e `functions/src/cammino.test.ts`
 (innesti a mano rossi), in `docs/collaudo/EV/regola_a_ev.txt`.
 
 DOMANDA: "Un'altra cosa che non mi ha riaccreditatto dopo la disinstallazione e reinstallazione con inserimento della stessa email sono gli storici del dono "runa del tramonto". Avevo già accumulato 5 "runa del tramonto" e adesso devo ricominciare da 1. [...] Se c'è una tipologia di problema, probabilmente c'è lo stesso problema con altre funzionalità, per logica. È tuo compito controllare dipendenze simili!"
+
+## VOCE EV.59, IL VIAGGIO DELLO SCIAMANO CHE TACE
+
+**APERTA IN ATTESA DI VERIFICA**: si vede sul telefono del fondatore, con una
+domanda scritta e il primo pezzo dell'animale grattato.
+
+Il fondatore: dopo la prima discesa con la domanda scritta, "Risali" portava a
+"Oggi il Mondo di Sotto non ha parlato"; il numero dei cammini non avanzava, e
+alla discesa dopo l'animale risultava gia' consumato. **Tre difetti, misurati.**
+(1) Il silenzio: alla sonda del primo strato
+(`tool/sonda_viaggio_primo_strato.dart`, la strada dell'app col modello vero)
+8 discese su 12 finivano nel silenzio, quasi sempre per due guardie dello
+stile, "non prende posizione" e "non nomina la domanda" (padre: ordine ES voce
+25, la condizione che vuole un passo, 30 settembre; il silenzio dell'ordine DR
+voce 07 era nato contro la voce di casa, non contro risposte del modello).
+Adesso, quando nessuna risposta regge, l'ultima scartata per lo stile si
+rilegge con le sole guardie dure (previsioni, promesse, decisioni gravi, terzi,
+genere, scena) e, se regge, e' la risposta; un si' o un no a una domanda sul
+"come" non passa mai (`LaScenaDalModello.senzaLeGuardieDelloStile`). (2) Il
+cammino fermo: il silenzio non consuma la discesa, per regola, e il conto non
+avanzava perche' quasi ogni discesa finiva li'. (3) L'animale gia' consumato:
+la cenere scostata si salvava mentre si grattava, e il silenzio non la
+rimetteva (padre: ordine DR voce 07 insieme alla cenere conservata dell'ordine
+DQ voce 05); adesso il silenzio rimette la cenere com'era all'ingresso della
+lente. Dalla stessa sonda, una guardia nuova: col profilo neutro il modello ha
+scritto "se sei dispost a riconoscere", e nessuna guardia lo prendeva
+(`LeGuardieDelResponso.parolaDelGenereTroncata`, PROVENIENZA IGNOTA).
+Guardie: `test/il_viaggio_non_tace_per_lo_stile_test.dart` (innesti A31 e A34
+rossi), `test/la_domanda_libera_arriva_intera_test.dart` (A32 rosso).
+
+DOMANDA: "il viaggio dello sciamano NON FUNZIONA CAZZO! Dopo la prima parte con domanda personalizzata e dopo aver grattato la prima parte dell'animale, premo su "risali" e mi risponde xhe "oggi il mondo di sotto non ha parlato"" e "non aggiorna il numero di cammini effettuati, non dà risposte e, però, se scendo nuovamente l'animale risulta già consumato"
+PROVA: docs/collaudo/EV/viaggio_primo_strato_dopo.txt
+MISURA: discese al primo strato finite nel silenzio, prima 8 su 12 (docs/collaudo/EV/viaggio_primo_strato_prima.txt), dopo 3 su 18; celle dell'animale grattate e rimaste dopo un silenzio, prima 26 su 26, dopo 0
+
+## VOCE EV.60, LE CATTURE DELLO SCHERMO TORNANO
+
+**APERTA IN ATTESA DI VERIFICA**: si chiude con una cattura leggibile dalla
+build consegnata.
+
+Il fondatore, lo stesso giorno della voce EV.56: "Devi riattivare la
+possibilità di fare screenshot, così non posso farli nemmeno per te". Adesso
+le catture si fanno: l'avvio toglie il segno `FLAG_SECURE`, e la protezione
+resta pronta per la build che la dichiara con `--dart-define=CATTURE_VIETATE=true`
+(`lib/core/sensi/lo_schermo_protetto.dart`). Guardia
+`test/lo_schermo_e_le_catture_test.dart`, innesto A33 rosso.
+
+DOMANDA: "Devi riattivare la possibilità di fare screenshot, così non posso farli nemmeno per te."

@@ -698,7 +698,49 @@ abstract final class LaScenaDalModello {
         seGuasto: seGuasto,
         seScartata: seScartata,
         attesa: attesa);
-    return (pezzi: r.pezzi, testi: conLaPrimaFrase(r.testi, s, r.pezzi));
+    return (
+      pezzi: r.pezzi,
+      testi: senzaLeGuardieDelloStile(
+          conLaPrimaFrase(r.testi, s, r.pezzi), s, r.pezzi),
+    );
+  }
+
+  /// **LO STILE NON FA TACERE IL MONDO DI SOTTO.** Ordine EV, 1 ottobre
+  /// 2026. Il fondatore: *"premo su Risali e mi risponde che oggi il mondo
+  /// di sotto non ha parlato"*. Misurato con la sonda del primo strato
+  /// (`tool/sonda_viaggio_primo_strato.dart`): **8 discese su 12** finivano
+  /// nel silenzio, e quasi sempre per le due guardie dello stile, "non prende
+  /// posizione" (le condizioni dell'ordine ES voce 25, *"dicono di sì, se
+  /// prima di trasferirti fai una prova"*) e "non nomina la domanda"
+  /// (*"il matrimonio che cerchi"* a *"quando mi sposerò?"*). Il silenzio
+  /// dell'ordine DR voce 07 era nato contro la voce di casa, che non sa che
+  /// cosa e' stato chiesto; queste risposte invece le ha scritte il modello
+  /// per quella domanda.
+  ///
+  /// Quando nessuna risposta ha retto, l'ultima scartata per lo stile si
+  /// rilegge con le sole guardie dure: se regge, e' la risposta. Una
+  /// risposta scartata per una previsione, una promessa, una decisione grave
+  /// o un terzo non passa mai di qui.
+  static TestiDelModello senzaLeGuardieDelloStile(
+      TestiDelModello t, CioCheSiSa s, PezziScelti? pezzi) {
+    if (t.risposta != null || s.domanda.trim().isEmpty) return t;
+    const dello = {
+      MotivoDelloScarto.nonPrendePosizione,
+      MotivoDelloScarto.nonNominaLaDomanda,
+    };
+    for (final r in t.scarti.reversed) {
+      if (r.pezzo != 'risposta' || !dello.contains(r.motivo)) continue;
+      if (LeGuardieDelResponso.siONoAUnaDomandaSulCome(r.testo, s.domanda)) {
+        continue;
+      }
+      final regge = leggiTesti(jsonEncode({'risposta': r.testo}), s,
+              pezzi: pezzi, soloLeGuardieDure: true)
+          .risposta;
+      if (regge != null) {
+        return t.conLaRisposta(regge, 'risposta: senza le guardie dello stile');
+      }
+    }
+    return t;
   }
 
   /// **LA PRIMA FRASE DI UNA RISPOSTA SCARTATA, SE REGGE DA SOLA.** Ordine
@@ -866,7 +908,7 @@ abstract final class LaScenaDalModello {
   /// Una risposta senza i campi dei testi, come quelle delle prove scritte
   /// prima dell'ordine DL, da' nessun testo: parla la voce di casa.
   static TestiDelModello leggiTesti(String? risposta, CioCheSiSa s,
-      {PezziScelti? pezzi}) {
+      {PezziScelti? pezzi, bool soloLeGuardieDure = false}) {
     if (risposta == null) return TestiDelModello.nessuno;
     final Object? j;
     try {
@@ -898,6 +940,7 @@ abstract final class LaScenaDalModello {
       giaDetti: [
         for (final p in s.stratiPrecedenti) ...[p.titolo, p.risposta, p.azione],
       ],
+      soloLeGuardieDure: soloLeGuardieDure,
     );
   }
 

@@ -468,7 +468,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'La borsa pronta',
             'Le ore di oggi si chiudono in modo ordinato se l\'ultima mezz\'ora la spendi per il giorno che viene. Il mattino dopo è quasi sempre il riflesso della sera prima.',
-            'Prima di cena prepara la borsa per domani: chiavi, documenti, quello che devi restituire a qualcuno. Mettila vicino alla porta insieme a ciò che indosserai, scelto adesso.',
+            'Prima di cena prepara la borsa per domani: chiavi, documenti, quello che devi restituire a qualcuno. Mettila vicino alla porta e prepara accanto i vestiti per domattina.',
             'Ogni cosa decisa la sera è una scelta in meno nel momento di fretta. La mattina, così alleggerita, ti lascia la mente libera per ciò che conta, invece che per cercare le chiavi.',
             'Riponi gli oggetti di lavoro fuori dalla vista e spegni la luce della stanza dove li usi. È un gesto minimo che separa le ore del dovere da quelle del riposo, anche quando abitano la stessa casa.',
           ),
@@ -868,7 +868,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Il sì misurato',
             'Ti arriva un invito per una serata dove conosci poche persone e una parte di te vorrebbe restare sul divano. È un dubbio onesto: non serve forzarti, serve un criterio chiaro.',
-            'Accetta l\'invito, ma decidi già adesso a che ora tornerai a casa e come. Sapere di poter andare via quando vuoi rende più facile restare e parlare con chi incontri.',
+            'Accetta l\'invito, ma decidi già adesso l\'ora del rientro e il modo per tornare a casa. Sapere di poter andare via quando vuoi rende più facile restare e parlare con chi incontri.',
             'Le occasioni per conoscere qualcuno nascono più spesso da serate senza aspettative. Andarci con un limite chiaro ti toglie la pressione e lascia spazio alla curiosità.',
             'Durante la serata proponiti un obiettivo minimo: una conversazione vera con una persona nuova, oltre i convenevoli. Se domani ti va, scrivile due righe per ringraziarla della chiacchierata.',
           ),
@@ -1298,7 +1298,7 @@ abstract final class ITestiEuOccidentaleData {
             'Un cliente attende il tuo preventivo e tu oscilli fra una cifra che ti rispetta e una più bassa, dettata dalla paura di perderlo. La misura giusta sta nel descrivere con precisione ciò che offri.',
             'Oggi riscrivi il preventivo voce per voce: ore, consegne, numero di revisioni incluse. Mandalo entro le sei con due righe di accompagnamento, senza scuse e senza sconti offerti in anticipo.',
             'Chi lavora in proprio tende a pagare con il proprio tempo l\'insicurezza di un momento. Un documento chiaro protegge te e chi ti commissiona il lavoro, perché toglie spazio agli equivoci.',
-            'Salva questo preventivo come modello in una cartella apposita. Alla prossima richiesta partirai da lì: cambierai le voci in pochi minuti senza rimettere in discussione il valore di ciò che fai.',
+            'Salva questo preventivo come modello in una cartella apposita. Alla prossima richiesta basta partire da lì e cambiare le voci in pochi minuti, senza rimettere in discussione il valore di ciò che fai.',
           ),
           VoceEu(
             'Capitoli in fila',

@@ -22,6 +22,8 @@ import 'package:esoteric_circle/services/ai/maestro_persona.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'le_frasi_dei_corpora_in_attesa.dart';
+
 /// IL CONFINE, LA LEGGE E L'ANATOMIA. Ordine S voci 15, 16 e 17.
 ///
 /// **Il confine va presidiato proprio adesso**, perche' il registro dei responsi
@@ -120,6 +122,9 @@ void main() {
         quanti++;
         final violazioni = ConfineDelResponso.violazioni(testo);
         for (final v in violazioni) {
+          // Le frasi dei corpora dichiarate in attesa dell'Architetto
+          // (ordine EV voce EV.07) le sorveglia la loro guardia.
+          if (eInAttesaDellArchitetto(v.intorno)) continue;
           fuori.add('${voce.key} -> $v');
         }
       }
@@ -154,13 +159,15 @@ void main() {
         reason: 'il confine accusa una frase che l\'ordine dichiara AMMESSA: '
             '$ammessa');
 
-    // EU Aggiunta, 1 ottobre 2026: il futuro di un gesto scelto dalla
-    // persona, in una relativa, e' un consiglio; un futuro annunciato resta
-    // una previsione anche nella stessa frase.
+    // **LAPIDE: dall'EU Aggiunta all'ordine EV qui si pretendeva che il
+    // futuro di un gesto scelto, in una relativa ("la data in cui
+    // partirai"), passasse il confine.** L'Architetto, ordine EV voce EV.07,
+    // ha corretto i corpora e ha deciso che il confine torna com'era: quel
+    // futuro e' una previsione come le altre.
     expect(
         ConfineDelResponso.violazioni(
             'Scrivi la data in cui partirai davvero e cerchiala sul calendario.'),
-        isEmpty);
+        isNotEmpty);
     expect(
         ConfineDelResponso.violazioni(
             'Scrivi la data in cui partirai: troverai la persona giusta.'),

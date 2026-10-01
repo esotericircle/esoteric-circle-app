@@ -55,16 +55,17 @@ class LaRigaDelPassaggio extends StatefulWidget {
     return null;
   }
 
-  /// La riga: "Venere di oggi in trigono al tuo Sole di nascita, nella tua
-  /// settima casa."
+  /// La riga: "Guardalo sulla tua carta, nella tua settima casa."
+  ///
+  /// **Testo dell'Architetto, ordine EV voce EV.09.** Qui la riga ripeteva il
+  /// primo passaggio del "Da dove viene" che sta subito sopra (*"Il Sole di
+  /// oggi in quadratura al tuo Urano di nascita, nella tua terza casa"*), e
+  /// il fondatore ha chiesto di evitare le ripetizioni. Senza la casa (la
+  /// carta senza l'ora) resta l'invito a guardare.
   static String riga(VoceDelCielo v) {
-    final casa = v.casa == null
-        ? ''
-        : ', nella tua ${CorrenteDelCielo.ordinaliDelleCase[v.casa! - 1]} '
-            'casa';
-    return '${CorrenteDelCielo.colSuoArticolo(v.transito)} di oggi in '
-        '${v.aspetto.italianName.toLowerCase()} '
-        '${CorrenteDelCielo.alBersaglio(v)}$casa.';
+    if (v.casa == null) return 'Guardalo sulla tua carta.';
+    return 'Guardalo sulla tua carta, nella tua '
+        '${CorrenteDelCielo.ordinaliDelleCase[v.casa! - 1]} casa.';
   }
 
   @override

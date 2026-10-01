@@ -123,7 +123,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Oggi le cose nuove partono col passo giusto: un corso, un'abitudine, un progetto che hai in testa da tempo trovano meno ostacoli del solito al primo tentativo.
 - Che cosa fare: Scegli una sola cosa da cominciare e fai il primo gesto concreto prima di cena: l'iscrizione, il quaderno nuovo, la prima mezz'ora di prova. Il resto può aspettare.
-- Risposta, Lunga: Nella tradizione dell'almanacco ci sono giorni buoni per aprire e giorni buoni per chiudere. Questo è dei primi: l'inizio pesa meno e la strada si vede abbastanza da muovere il passo.
+- Risposta, Lunga: Nella tradizione cinese ci sono giorni buoni per aprire e giorni buoni per chiudere. Questo è dei primi: l'inizio pesa meno e la strada si vede abbastanza da muovere il passo.
 - Che cosa fare, Lunga: Domani rifai lo stesso gesto, anche più breve, alla stessa ora. Due giorni di fila valgono più di un inizio brillante lasciato a metà: metti in calendario un promemoria per ripeterlo.
 
 #### Generale, favorevole, voce 6: Il cortile in comune
@@ -263,7 +263,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Una risposta che aspetti da qualche giorno può arrivare con calma. Oggi l'equilibrio sta nell'attesa operosa: conviene non sollecitare e dedicare il tempo ad altro.
 - Che cosa fare: Resisti alla tentazione di scrivere di nuovo per chiedere notizie e usa la mattina per una cosa che dipende solo da te: un lavoro di casa, un capitolo da leggere, una corsa al parco.
-- Risposta, Lunga: L'almanacco distingue i giorni per fare da quelli per aspettare; questo sta nel mezzo: si lavora intorno alla questione senza toccarla. Chi forza ora rischia di guastare un frutto quasi maturo.
+- Risposta, Lunga: Ci sono giorni per fare e giorni per aspettare; questo sta nel mezzo: si lavora intorno alla questione senza toccarla. Chi forza ora rischia di guastare un frutto quasi maturo.
 - Che cosa fare, Lunga: Se la risposta arriva entro sera, prenditi un'ora prima di replicare e scrivi la tua su un foglio. Se non arriva, fissa un giorno preciso, non prima di dopodomani, per un sollecito gentile.
 
 #### Generale, favorevole, voce 26: Gomme da gonfiare
@@ -676,7 +676,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Amore, favorevole, voce 14: Il saluto per nome
 
 - Risposta: Una persona che vedi quasi ogni giorno, al bar sotto l'ufficio o alla fermata, ti è diventata familiare senza che vi siate mai presentati. In giornata il passo più naturale è dirsi i nomi.
-- Che cosa fare: Oggi, appena la incroci, saluta tu senza aspettare e presentati con una frase semplice: ci vediamo sempre, io sono... Aggiungi un commento leggero sulla giornata e lascia la porta aperta.
+- Che cosa fare: Oggi, appena la incroci, saluta tu senza aspettare e presentati con una frase semplice, col tuo nome e un sorriso. Aggiungi un commento leggero sulla giornata e lascia la porta aperta.
 - Risposta, Lunga: Molte storie cominciano così, da una presenza ricorrente che un giorno prende un nome. L'occasione non chiede coraggio straordinario: chiede di trasformare un'abitudine silenziosa in un piccolo scambio umano.
 - Che cosa fare, Lunga: Domani, se il saluto è stato ricambiato con calore, chiama la persona per nome e fai una domanda in più: da quanto lavora in zona, che cosa legge. Un passo alla volta, senza bruciare le tappe.
 
@@ -1084,7 +1084,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Sulla tua scrivania si è accumulato il lavoro di più giorni e la testa ne risente. In giornata c'è l'occasione per rimettere ogni cosa al suo posto prima che parta l'incarico nuovo che ti è stato affidato.
 - Che cosa fare: Dedica la prima mezz'ora a sgombrare il piano: archivia i fogli finiti, butta le bozze superate, lascia in vista solo ciò che serve al nuovo incarico. Poi scrivi su un foglietto il primo compito da affrontare.
-- Risposta, Lunga: L'almanacco direbbe che oggi è un giorno per pulire e preparare, più che per correre. Chi parte da un tavolo in ordine sbaglia meno nelle prime ore e ritrova più facilmente il filo quando viene interrotto.
+- Risposta, Lunga: Oggi è un giorno per pulire e preparare, più che per correre. Chi parte da un tavolo in ordine sbaglia meno nelle prime ore e ritrova più facilmente il filo quando viene interrotto.
 - Che cosa fare, Lunga: Prima di andare via fai lo stesso con il desktop del computer: una cartella per il nuovo progetto, le altre chiuse in archivio. Domattina accendi lo schermo e trovi solo quello che ti serve, senza dover cercare.
 
 #### Carriera, favorevole, voce 3: Il gruppo di studio
@@ -1566,7 +1566,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 #### Fortuna, favorevole, voce 1: Il barattolo degli spiccioli
 
-- Risposta: L'almanacco di oggi è favorevole al riordino delle piccole cose che si accumulano senza rumore: le monete sparse fra tasche, borse e cassetti chiedono finalmente un posto.
+- Risposta: La giornata è favorevole al riordino delle piccole cose che si accumulano senza rumore: le monete sparse fra tasche, borse e cassetti chiedono finalmente un posto.
 - Che cosa fare: Raccogli stasera tutti gli spiccioli di casa in un barattolo di vetro, contali sul tavolo sgombro e annota la cifra su un foglietto da infilare sotto il coperchio.
 - Risposta, Lunga: Quello che si disperde in piccoli pezzi non si vede mai per intero. Mettere tutto insieme ti restituisce la misura delle tue risorse minute e il piacere di un ordine che si tocca con mano.
 - Che cosa fare, Lunga: Domani porta il barattolo con te quando scendi al negozio sotto casa: usa le monete per il pane e il giornale finché non è vuoto, poi rimettilo sul ripiano a raccogliere di nuovo.
@@ -1978,7 +1978,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Fra vicini oggi basta poco per creare attrito: un'auto parcheggiata nel punto sbagliato, un bidone spostato, il cortile ingombro. Il piccolo vantaggio di tutti passa da un accordo, non da un dispetto.
 - Che cosa fare: Invece di lasciare un biglietto sul parabrezza, suona il campanello verso sera e proponi un orario o una regola semplice per alternarvi. Parla del problema, non della persona.
-- Risposta, Lunga: L'almanacco guarda sempre l'armonia con chi ti sta intorno: un buon vicinato è una ricchezza quotidiana. Un favore fatto oggi, come lasciare il posto per un carico, torna indietro quando ne hai bisogno tu.
+- Risposta, Lunga: Conta sempre l'armonia con chi ti sta intorno: un buon vicinato è una ricchezza quotidiana. Un favore fatto oggi, come lasciare il posto per un carico, torna indietro quando ne hai bisogno tu.
 - Che cosa fare, Lunga: Se l'accordo regge, scrivetelo su un foglio da appendere vicino ai citofoni, con i piani e non i nomi. Da domani rispetta tu per primo la regola, anche quando nessuno ti vede.
 
 #### Fortuna, salita, voce 6: Il mercatino dell'usato

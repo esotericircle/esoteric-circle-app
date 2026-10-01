@@ -1,5 +1,4 @@
 import '../tempo/confine_del_giorno.dart';
-import '../astro/moon_phase.dart';
 import '../astro/night_sky.dart';
 import 'maestro.dart';
 
@@ -43,13 +42,6 @@ class ProssimoCambioDellaLuna {
   final String cosa;
   final int fraGiorni;
 
-  static const _principali = {
-    'Primo quarto',
-    'Luna piena',
-    'Ultimo quarto',
-    'Luna nuova',
-  };
-
   /// Quanto si guarda avanti: piu' di un ciclo lunare intero.
   static const int _oreMassime = 24 * 32;
 
@@ -66,31 +58,71 @@ class ProssimoCambioDellaLuna {
         _ => fase,
       };
 
+  /// **IL MINUTO DEL CAMBIO**, ordine EV voce EV.10. Qui si cercava ora per
+  /// ora a partire dall'ora piena, e il primo istante col cielo cambiato
+  /// decideva il giorno: un ingresso alle 23:25 si trovava a mezzanotte, e
+  /// l'invito diceva "domani" per una cosa che accadeva quella sera
+  /// (`docs/collaudo/EV/inviti_del_cielo.txt`, 9 inviti sbagliati su 240 in
+  /// sessanta giorni). Adesso si cerca ora per ora dall'istante vero, e fra
+  /// l'ultima ora uguale e la prima diversa si scende al minuto.
+  static DateTime _alMinuto(
+      DateTime prima, DateTime dopo, bool Function(DateTime) cambiato) {
+    var a = prima;
+    var b = dopo;
+    while (b.difference(a).inMinutes > 1) {
+      final m = a.add(Duration(minutes: b.difference(a).inMinutes ~/ 2));
+      if (cambiato(m)) {
+        b = m;
+      } else {
+        a = m;
+      }
+    }
+    return b;
+  }
+
   /// Il prossimo segno in cui la Luna entra.
   static ProssimoCambioDellaLuna ingresso(DateTime da) {
     final adesso = NightSky.moonSign(da);
+    bool cambiato(DateTime t) => NightSky.moonSign(t) != adesso;
     for (var h = 1; h <= _oreMassime; h++) {
-      final t = DateTime(da.year, da.month, da.day, da.hour + h);
-      final segno = NightSky.moonSign(t);
-      if (segno != adesso) {
-        return ProssimoCambioDellaLuna._(segno.italianName, _giorni(da, t));
+      final t = da.add(Duration(hours: h));
+      if (cambiato(t)) {
+        final quando =
+            _alMinuto(t.subtract(const Duration(hours: 1)), t, cambiato);
+        return ProssimoCambioDellaLuna._(
+            NightSky.moonSign(quando).italianName, _giorni(da, quando));
       }
     }
     // La Luna cambia segno ogni due giorni e mezzo: qui non si arriva.
     return ProssimoCambioDellaLuna._(adesso.italianName, 0);
   }
 
-  /// La prossima fase principale che comincia.
+  static int _quarto(DateTime t) => NightSky.quartoDelCiclo(t);
+
+  static const List<String> _fasiEsatte = NightSky.fasiPrincipali;
+
+  /// **LA PROSSIMA FASE PRINCIPALE, ALL'ISTANTE ESATTO.** Ordine EV voce
+  /// EV.10. Qui si guardava il nome della fase, che per regola dell'app
+  /// comincia dodici ore prima dell'istante esatto: dentro quelle dodici ore
+  /// la fase vera, che arrivava la sera stessa, era gia' "la fase di
+  /// adesso", e l'invito saltava alla successiva (*"Ripassa fra 8 giorni,
+  /// per la Luna piena"* alle 12 del 18 settembre, col Primo quarto alle 23).
+  /// Adesso la fase e' l'istante in cui l'elongazione della Luna dal Sole
+  /// passa per 0, 90, 180 o 270 gradi, cercato al minuto sulle effemeridi.
   static ProssimoCambioDellaLuna fase(DateTime da) {
-    final adesso = MoonPhase.forDate(da).italianName;
+    final adesso = _quarto(da);
+    bool cambiato(DateTime t) => _quarto(t) != adesso;
     for (var h = 1; h <= _oreMassime; h++) {
-      final t = DateTime(da.year, da.month, da.day, da.hour + h);
-      final nome = MoonPhase.forDate(t).italianName;
-      if (nome != adesso && _principali.contains(nome)) {
-        return ProssimoCambioDellaLuna._(_colSuoArticolo(nome), _giorni(da, t));
+      final t = da.add(Duration(hours: h));
+      if (cambiato(t)) {
+        final quando =
+            _alMinuto(t.subtract(const Duration(hours: 1)), t, cambiato);
+        return ProssimoCambioDellaLuna._(
+            _colSuoArticolo(_fasiEsatte[_quarto(quando)]), _giorni(da, quando));
       }
     }
-    return ProssimoCambioDellaLuna._(_colSuoArticolo(adesso), 0);
+    return ProssimoCambioDellaLuna._(
+        _colSuoArticolo(_fasiEsatte[(adesso + 1) % 4]), 0);
   }
 }
 

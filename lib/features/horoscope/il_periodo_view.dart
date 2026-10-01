@@ -164,7 +164,7 @@ class IlPeriodoView extends StatelessWidget {
                 Text('I tre giorni migliori',
                     style: TypographyTokens.etichetta().copyWith(
                         color: ColorTokens.textSecondary, letterSpacing: 1.2)),
-                for (final g in _treMigliori(d))
+                for (final (i, g) in _treMigliori(d).indexed)
                   Padding(
                     key: Key('oroscopo_periodo_riga_${d.dominio.name}_'
                         '${g.giorno.month}_${g.giorno.day}'),
@@ -188,7 +188,7 @@ class IlPeriodoView extends StatelessWidget {
                                 '${g.giorno.day}'),
                             style: TypographyTokens.corpo().copyWith(
                                 color: ColorTokens.textPrimary, height: 1.35)),
-                        Text(_daDove(g.motivo),
+                        Text(_daDoveDelGiorno(_treMigliori(d), i),
                             style: piccolo.copyWith(height: 1.35)),
                       ],
                     ),
@@ -267,6 +267,23 @@ class IlPeriodoView extends StatelessWidget {
     }
     return 'Da dove viene: ${_minuscola(motivo)}';
   }
+
+  /// **IL "DA DOVE VIENE" DEL GIORNO [i] FRA I TRE MIGLIORI.** Testo
+  /// dell'Architetto, ordine EV voce EV.09: quando due giorni di fila hanno
+  /// lo stesso "Da dove viene" (senza carta natale la Luna resta due giorni
+  /// e mezzo nello stesso segno), il secondo non lo ripete e dice *"Da dove
+  /// viene: lo stesso passaggio di giovedì 1 ottobre."*
+  static String daDoveDelGiorno(List<GiornoDelPeriodo> migliori, int i) {
+    final riga = _daDove(migliori[i].motivo);
+    if (i == 0) return riga;
+    final prima = migliori[i - 1];
+    if (_daDove(prima.motivo) != riga) return riga;
+    return 'Da dove viene: lo stesso passaggio di '
+        '${_minuscola(LaSettimanaDelCielo.data(prima.giorno))}.';
+  }
+
+  static String _daDoveDelGiorno(List<GiornoDelPeriodo> migliori, int i) =>
+      daDoveDelGiorno(migliori, i);
 
   static List<GiornoDelPeriodo> _treMigliori(DominioDelPeriodo d) {
     final ordinati = [...d.giorni]..sort((a, b) => b.livello != a.livello

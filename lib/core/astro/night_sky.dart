@@ -43,6 +43,23 @@ class NightSky {
   static Zodiac moonSign(DateTime date) =>
       _signOfLongitude(moonEclipticLongitude(date));
 
+  /// **IL QUARTO DEL CICLO**, ordine EV voce EV.10: 0 dalla Luna nuova al
+  /// Primo quarto, 1 fino alla piena, 2 fino all'Ultimo quarto, 3 fino alla
+  /// nuova. Il passaggio da un quarto all'altro e' l'istante esatto della
+  /// fase principale, l'elongazione della Luna dal Sole a 0, 90, 180 o 270
+  /// gradi. Lo usano l'invito di Medora e la rete del cielo detto.
+  static int quartoDelCiclo(DateTime date) =>
+      ((moonEclipticLongitude(date) - sunEclipticLongitude(date)) % 360 ~/ 90) %
+      4;
+
+  /// Le quattro fasi principali, nell'ordine dei quarti.
+  static const List<String> fasiPrincipali = [
+    'Luna nuova',
+    'Primo quarto',
+    'Luna piena',
+    'Ultimo quarto',
+  ];
+
   /// Le costellazioni dello zodiaco alte in quel momento, la piu' alta prima.
   ///
   /// Il punto opposto al Sole (longitudine + 180) culmina a MEZZANOTTE: la sua

@@ -1,0 +1,33 @@
+ORDINE EV VOCE 07, I CORPORA CORRETTI E IL CONFINE COM'ERA: LA PROVA
+
+1. I dodici corpora e il file della verifica, fonte dell'Architetto (/c/Users/user/Desktop/esoteric-circle-app/docs/corpus/eu) contro il ramo (docs/corpus/eu), sha1 dei byte:
+   UGUALE  a82db75d9b8cc1b286ec4ebbeb38c314d8649030  a82db75d9b8cc1b286ec4ebbeb38c314d8649030  oroscopo_eu_cinese_anno.md
+   UGUALE  64df4164966698b69fa6c940de965565be465142  64df4164966698b69fa6c940de965565be465142  oroscopo_eu_cinese_giorno.md
+   UGUALE  30bd3c634fa45ea663521ab1450506822fc398fc  30bd3c634fa45ea663521ab1450506822fc398fc  oroscopo_eu_cinese_mese.md
+   UGUALE  c5e8c77df4a139106d8ea9cb22f24b9a28fe7229  c5e8c77df4a139106d8ea9cb22f24b9a28fe7229  oroscopo_eu_cinese_settimana.md
+   UGUALE  16bb844c48acfd77cc407f87fcc8041876b6512b  16bb844c48acfd77cc407f87fcc8041876b6512b  oroscopo_eu_occidentale_anno.md
+   UGUALE  8612cc8e2f326119a80f2c84d4ff824b5c607931  8612cc8e2f326119a80f2c84d4ff824b5c607931  oroscopo_eu_occidentale_giorno.md
+   UGUALE  01583f69e3885a23d89aef903f9883de25a02c6c  01583f69e3885a23d89aef903f9883de25a02c6c  oroscopo_eu_occidentale_mese.md
+   UGUALE  a8cb764c0f799ec7b7abe7c942e537bb79f5911a  a8cb764c0f799ec7b7abe7c942e537bb79f5911a  oroscopo_eu_occidentale_settimana.md
+   UGUALE  689901bcc1cc4d26d5c154426cddbe345c20efaf  689901bcc1cc4d26d5c154426cddbe345c20efaf  oroscopo_eu_vedica_anno.md
+   UGUALE  890b75cb1d2e9ce8ac9ea823951756b2e2f9d93b  890b75cb1d2e9ce8ac9ea823951756b2e2f9d93b  oroscopo_eu_vedica_giorno.md
+   UGUALE  c45b13fde0817f1ed9fd5625dc3e8fe8a5d6a12e  c45b13fde0817f1ed9fd5625dc3e8fe8a5d6a12e  oroscopo_eu_vedica_mese.md
+   UGUALE  2be2a9d7c011533ffd16985a0149e024a9bbd8f6  2be2a9d7c011533ffd16985a0149e024a9bbd8f6  oroscopo_eu_vedica_settimana.md
+   UGUALE  660ab9e62017bd948a64d08027fda99244bb1a73  660ab9e62017bd948a64d08027fda99244bb1a73  verifica_affermazioni_architetto.md
+
+   Righe cambiate rispetto al commit 021d295e (prima di questa voce):
+   oroscopo_eu_occidentale_giorno.md: 3 righe
+   oroscopo_eu_cinese_giorno.md: 6 righe
+   oroscopo_eu_cinese_settimana.md: 7 righe
+   oroscopo_eu_cinese_mese.md: 2 righe
+   oroscopo_eu_cinese_anno.md: 2 righe
+
+2. Il confine contro il commit 103c0df4 (l'ultimo che lo toccava prima dell'ordine EU; l'EU l'ha cambiato in 67ca80b7):
+   righe di differenza: 0 (diff dei due file a fine riga uguale)
+   eccezioni aggiunte nell'ordine EU (futuroDellaTuaScelta): 0
+
+3. Il confine sui dodici corpora (test/il_confine_passa_sui_dodici_corpora_test.dart):
+   ORDINE EV VOCE 07: voci dei dodici corpora 6192, fuori dal confine 0, in attesa dell'Architetto 15 su 15 dichiarate
+   Le quindici frasi col futuro di un gesto che il confine di prima segna, e che il rapporto EU non aveva elencato
+   (ne nominava tre, gia' corrette dall'Architetto), sono in test/le_frasi_dei_corpora_in_attesa.dart col file e la riga.
+   Col confine dell'ordine EU (eccezione per le relative) le stesse voci ne davano 10: l'eccezione ne copriva 5.

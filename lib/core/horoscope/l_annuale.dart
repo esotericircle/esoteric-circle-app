@@ -195,6 +195,11 @@ abstract final class LAnnuale {
               ? 'Il Medio Cielo del tuo anno è in ${_segni[mc]}.'
               : mcDaDove,
           daDoveInPiu: [saturnoDaDove],
+          // Fonte, ordine EV voce EV.08, verifica dell'Architetto (O-A-003):
+          // le case angolari, succedenti e cadenti e la forza delle angolari
+          // sono di William Lilly, Christian Astrology (1647), libro I, le
+          // dignita' accidentali. Dalla casa al livello e' una regola
+          // dell'app, e la nota dell'anno lo dice.
           delLivello: 'Il livello viene da Saturno nella casa $casaSaturno, '
               '${_tipo(casaSaturno)}: più è in vista, più il lavoro chiede.',
           // Saturno angolare: l'anno chiede fatica.

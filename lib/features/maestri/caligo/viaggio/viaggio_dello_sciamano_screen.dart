@@ -751,10 +751,29 @@ class _ViaggioDelloSciamanoScreenState
       unawaited(_risaliDallaLente());
       return;
     }
+    // **LA CENERE COM'ERA PRIMA DI QUESTA DISCESA**, ordine EV: se la
+    // discesa finisce nel silenzio non si consuma, e allora non si consuma
+    // nemmeno il pezzo d'animale scostato. Prima il cammino restava dov'era
+    // e la cenere no: alla discesa dopo il fondatore trovava l'animale "gia'
+    // consumato" e il conto dei cammini fermo.
+    _celleAllaLente = _diario.celleScoperteDi(nome);
+    _solchiAllaLente = _diario.solchiDi(nome);
     setState(() {
       _seguito = nome;
       _fase = FaseDelViaggio.lente;
     });
+  }
+
+  /// La cenere e i solchi di [_seguito] all'ingresso nella lente.
+  Set<int> _celleAllaLente = const {};
+  List<List<Offset>> _solchiAllaLente = const [];
+
+  /// **IL SILENZIO RIMETTE LA CENERE**, ordine EV: vedi [_segui].
+  Future<void> _rimettiLaCenere() async {
+    final nome = _seguito;
+    if (nome == null) return;
+    await _diario.segnaCelleScoperte(nome, _celleAllaLente);
+    await _diario.segnaISolchi(nome, _solchiAllaLente);
   }
 
   /// **L'ARTICOLO DEL NOME**, ordine DE voce 08. Nel dubbio maschile, che e'
@@ -878,6 +897,8 @@ class _ViaggioDelloSciamanoScreenState
     if (_laDomandaEScritta(c) &&
         scritta.testi.risposta == null &&
         _scartateDalModello > 0) {
+      await _rimettiLaCenere();
+      if (!mounted) return;
       setState(() => _fase = FaseDelViaggio.silenzio);
       return;
     }

@@ -102,11 +102,11 @@ Titolo: Intesa con qualche spina
 
 ### 1.8 Stesso animale
 
-Regola: il giorno ha il ramo del tuo anno (e il tuo non è fra i quattro che puniscono se stessi). Nella tradizione i rami uguali si rafforzano (比 "stare fianco a fianco"); non è uno dei rapporti classificati.
+Regola: il giorno ha il ramo del tuo anno (e il tuo non è fra i quattro che puniscono se stessi). Nella tradizione i rami uguali si rafforzano (比 "stare fianco a fianco"); non è uno dei rapporti classificati. Fonte (ordine EV, verifica dell'Architetto, C-G-070): i rapporti classificati fra i rami (armonia, tripla armonia, scontro, punizione, danno) sono quelli del Sanming Tonghui di Wan Minying (1578).
 Titolo: A modo tuo
 
-1. Oggi non è un giorno di favore né di sfida: ciò che fai porta più del solito la tua impronta. Fai a modo tuo una cosa che di solito fai come viene: un lavoro, un messaggio, un piatto. || Oggi è il giorno di {animale_giorno}, il tuo stesso animale: ritorna ogni dodici giorni. Nella tradizione cinese i rami uguali si rafforzano.
-2. Oggi rendi di più quando fai le cose nel tuo modo che quando ti adatti a quello degli altri. Prenditi il compito che solo tu sai fare così e lascia a qualcun altro quello che chiunque può sbrigare. || Il ramo di oggi è il tuo: nella tradizione cinese due rami uguali stanno fianco a fianco e si rafforzano.
+1. Oggi non è un giorno di favore né di sfida: ciò che fai porta più del solito la tua impronta. Fai a modo tuo una cosa che di solito fai come viene: un lavoro, un messaggio, un piatto. || Oggi è il giorno di {animale_giorno}, il tuo stesso animale: ritorna ogni dodici giorni.
+2. Oggi rendi di più quando fai le cose nel tuo modo che quando ti adatti a quello degli altri. Prenditi il compito che solo tu sai fare così e lascia a qualcun altro quello che chiunque può sbrigare. || Il ramo di oggi è il tuo: torna ogni dodici giorni, e per il tuo animale non è uno dei rapporti che la tradizione classifica.
 3. Oggi la giornata pesa quanto decidi tu, né di più né di meno. Scegli una cosa a cui tieni e mettila per prima, davanti ai messaggi e alle commissioni. || È il giorno del tuo animale: la tradizione cinese non gli dà un peso particolare, perché non è uno dei rapporti classificati.
 
 ### 1.9 Nessun rapporto
@@ -532,7 +532,7 @@ Titolo: Cura e radici
 
 ### 3.5 Amore, serie neutra (genere non dichiarato)
 
-Regola: scelta dell'app, non della tradizione. La serie legge il dio del giorno sul legame in generale: Ricchezza e Ufficiale sono entrambi "la figura dell'altro", i Sigilli la cura, il Compagno e il Rivale le persone intorno, il Nutrimento e l'Ufficiale Ferito l'espressione. La nota del metodo lo dichiara.
+Regola: scelta dell'app, non della tradizione. La serie legge il dio del giorno sul legame in generale: Ricchezza e Ufficiale sono entrambi "la figura dell'altro", i Sigilli la cura, il Compagno e il Rivale le persone intorno, il Nutrimento e l'Ufficiale Ferito l'espressione. La nota del metodo lo dichiara. Fonte delle definizioni (ordine EV, verifica dell'Architetto, da C-G-232 a C-G-261): per il Compagno e il Rivale come fratelli, amici e pari, la Ricchezza diretta come la moglie per un uomo e l'Ufficiale diretto come il marito per una donna, Shen Xiaozhan, Ziping Zhenquan (XVIII secolo), i capitoli sui dieci dei e sui sei parenti; Xu Dasheng, Yuanhai Ziping (dinastia Song).
 
 **比肩, il Compagno**
 Titolo: Un legame alla pari
@@ -624,6 +624,6 @@ Fortuna:
 
 ### 4.3 Nota del metodo (una per scheda, col punto interrogativo)
 
-- Generale: "L'animale del giorno è il ramo del giorno nel ciclo dei sessanta; il rapporto col tuo animale viene dalle tabelle del Sanming Tonghui (1578). Il guardiano è uno dei dodici del calendario, contato dal mese solare; il consiglio viene dal solo guardiano, non dall'almanacco intero."
-- Fortuna, Lavoro, Amore: "Il tuo giorno di nascita ha un tronco celeste, il giorno di oggi un altro: il loro rapporto fra i cinque elementi dà uno dei Dieci Dei del BaZi. La scheda legge quel dio come lo leggono lo Yuanhai Ziping e il Ziping Zhenquan."
+- Generale: "L'animale del giorno è il ramo del giorno nel ciclo dei sessanta; il rapporto col tuo animale viene dalle tabelle del Sanming Tonghui (1578). Il guardiano del giorno è uno dei dodici del calendario, contato dal mese solare."
+- Fortuna, Lavoro, Amore: "Il tuo giorno di nascita ha un tronco celeste, il giorno di oggi un altro: il loro rapporto fra i cinque elementi dà uno dei Dieci Dei del BaZi. La scheda prende il livello da quel dio come lo leggono lo Yuanhai Ziping e il Ziping Zhenquan; il testo è scelto per quel livello."
 - Tutte: "Colore e numeri sono quelli dell'elemento del giorno nella tradizione, non colori o numeri portafortuna."

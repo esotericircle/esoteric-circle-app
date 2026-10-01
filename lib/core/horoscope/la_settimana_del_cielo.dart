@@ -566,10 +566,13 @@ abstract final class LaSettimanaDelCielo {
               for (final (g, schede) in perGiorno)
                 () {
                   final c = schede.firstWhere((x) => x.domain == dominio);
+                  final motivo = c.rigaSoloDelLivello ?? c.rigaDelLivello ?? '';
                   return GiornoDelPeriodo(
                       giorno: g,
                       livello: c.indicator,
-                      motivo: c.rigaSoloDelLivello ?? c.rigaDelLivello ?? '',
+                      // Sotto la data di un altro giorno niente "oggi":
+                      // ordine EV voce EV.09.
+                      motivo: g == inizio ? motivo : senzaOggi(motivo),
                       titolo: c.title);
                 }(),
             ];
@@ -593,6 +596,23 @@ abstract final class LaSettimanaDelCielo {
           }(),
       ],
     );
+  }
+
+  /// **SOTTO LA DATA DI UN ALTRO GIORNO NON SI DICE "OGGI".** Ordine EV
+  /// voce EV.09, padre ordine EU voce 02: la Settimana e il Mese della
+  /// Vedica e della Cinese riportano il "Da dove viene" della scheda del
+  /// Giorno di quella data, e quella riga diceva *"Oggi la Luna torna..."*
+  /// sotto *"sabato 4 ottobre"*. L'Occidentale lo fa dalla voce ES.02 con
+  /// `oggi: false`. Qui la riga si riscrive: "Oggi" in apertura di frase si
+  /// toglie, "di oggi" diventa "di quel giorno", ogni altro "oggi" "quel
+  /// giorno".
+  static String senzaOggi(String t) {
+    var s = t.replaceAllMapped(RegExp(r'(^|[.!?:;]\s+)Oggi,?\s+(\S)'),
+        (m) => '${m[1]}${m[2]!.toUpperCase()}');
+    s = s.replaceAll(RegExp(r'\bdi oggi\b'), 'di quel giorno');
+    s = s.replaceAll(RegExp(r'\boggi\b'), 'quel giorno');
+    s = s.replaceAll(RegExp(r'\bOggi\b'), 'Quel giorno');
+    return s;
   }
 
   static String _momentoChiave(

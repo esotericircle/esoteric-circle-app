@@ -206,12 +206,26 @@ abstract final class IlCieloDetto {
       _piano(MoonPhase.comeSiDice(fase.italianName));
 
   /// Fra quanti giorni di calendario cade [evento], cercato ora per ora.
-  static int? _giorniFinoA(DateTime adesso, bool Function(DateTime) comincia) {
+  static int? _giorniFinoA(DateTime adesso, bool Function(DateTime) comincia,
+      {DateTime? da}) {
     final oggi = DateTime(adesso.year, adesso.month, adesso.day);
+    final partenza = da ?? adesso;
     for (var h = 1; h <= 24 * 32; h++) {
-      final istante =
-          DateTime(adesso.year, adesso.month, adesso.day, adesso.hour + h);
+      var istante = partenza.add(Duration(hours: h));
       if (comincia(istante)) {
+        // **AL MINUTO**, ordine EV voce EV.10: si cercava dall'ora piena e il
+        // primo istante cambiato decideva il giorno, quindi un ingresso alle
+        // 23:25 contava come il giorno dopo.
+        var prima = istante.subtract(const Duration(hours: 1));
+        while (istante.difference(prima).inMinutes > 1) {
+          final m = prima
+              .add(Duration(minutes: istante.difference(prima).inMinutes ~/ 2));
+          if (comincia(m)) {
+            istante = m;
+          } else {
+            prima = m;
+          }
+        }
         final giorno = DateTime(istante.year, istante.month, istante.day);
         return DateTime.utc(giorno.year, giorno.month, giorno.day)
             .difference(DateTime.utc(oggi.year, oggi.month, oggi.day))
@@ -251,7 +265,8 @@ abstract final class IlCieloDetto {
     if (!RegExp(r'\boggi\b', caseSensitive: false).hasMatch(frase) &&
         // "sarà" fuori dai confini di parola: la a accentata non e' una
         // lettera per `\b`, e dopo di lei il confine non c'e'.
-        RegExp(r'\bsar(?:à|anno)|\b(ieri|domani|dopodomani|prossim[oaie]|era|'
+        RegExp(
+                r'\bsar(?:à|anno)|\b(ieri|domani|dopodomani|prossim[oaie]|era|'
                 r'erano|fu|stato|stata|gennaio|febbraio|marzo|aprile|maggio|'
                 r'giugno|luglio|agosto|settembre|ottobre|novembre|dicembre|'
                 r'1[5-9]\d\d|2\d\d\d)\b',
@@ -266,7 +281,8 @@ abstract final class IlCieloDetto {
     // sul banco "Il Sole, nel tuo segno di Bilancia" a una persona del Cancro.
     final solare = nascita['sole'];
     if (solare != null) {
-      final m = RegExp(r"\btuo segno (?:di |del |della |dello |dell'|dei |degli )?([a-z]+)")
+      final m = RegExp(
+              r"\btuo segno (?:di |del |della |dello |dell'|dei |degli )?([a-z]+)")
           .firstMatch(frase);
       final detto = m?.group(1);
       if (detto != null &&
@@ -414,10 +430,24 @@ abstract final class IlCieloDetto {
       if (!frase.contains(e.key)) continue;
       final quando = _quando(frase);
       if (quando == null) continue;
-      final giorni = ora.italianName == e.value
-          ? 0
-          : _giorniFinoA(
-              adesso, (t) => MoonPhase.forDate(t).italianName == e.value);
+      // La fase che viene e' l'istante esatto (il cambio di quarto), ordine
+      // EV voce EV.10: il nome della fase comincia dodici ore prima, e qui
+      // si contava da li'.
+      // Se la Luna e' gia' in quel quarto, la fase che viene e' quella del
+      // ciclo dopo: si parte da quando il quarto finisce.
+      final quarto = NightSky.fasiPrincipali.indexOf(e.value);
+      var da = adesso;
+      for (var h = 0;
+          h < 24 * 9 && NightSky.quartoDelCiclo(da) == quarto;
+          h++) {
+        da = da.add(const Duration(hours: 1));
+      }
+      final esatta = _giorniFinoA(
+          adesso, (t) => NightSky.quartoDelCiclo(t) == quarto,
+          da: da);
+      // Nelle dodici ore prima dell'istante esatto la fase ha gia' il suo
+      // nome: "oggi" e il giorno dell'istante esatto sono veri tutti e due.
+      final giorni = ora.italianName == e.value && quando == 0 ? 0 : esatta;
       if (giorni != quando) {
         return 'dice ${e.value} fra $quando giorni, ma il calcolo la dà fra '
             '$giorni';

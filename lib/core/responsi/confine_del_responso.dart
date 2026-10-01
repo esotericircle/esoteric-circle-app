@@ -129,19 +129,6 @@ class ConfineDelResponso {
         caseSensitive: false),
   ];
 
-  /// **IL FUTURO DI CIO' CHE SCEGLI TU NON E' UNA PREVISIONE.** EU Aggiunta,
-  /// 1 ottobre 2026: i testi dell'Architetto dicono *"Scrivi la data in cui
-  /// partirai davvero"*, *"insieme a ciò che indosserai, scelto adesso"*,
-  /// *"decidi già adesso a che ora tornerai a casa"*. Il futuro sta in una
-  /// relativa che nomina un gesto deciso dalla persona, non un fatto
-  /// annunciato: la frase e' un consiglio. Si cambia la grandezza misurata,
-  /// non la soglia: il futuro dopo "ciò che", "quello che", "in cui" e "a
-  /// che ora" si toglie prima di cercare; "perderai il lavoro", "troverai la
-  /// persona giusta" e ogni altro futuro restano previsioni.
-  static final RegExp futuroDellaTuaScelta = RegExp(
-      r'\b(ciò che|quello che|in cui|a che ora)\s+\w{3,}(erai|irai|drai|rrai)\b',
-      caseSensitive: false);
-
   /// IL DISCLAIMER GIA' IN USO, e non uno nuovo.
   ///
   /// Ordine S voce 17: ogni responso porta il disclaimer che l'app ha gia'. Vive
@@ -161,9 +148,8 @@ class ConfineDelResponso {
     for (final frase in _frasi(testo)) {
       // 1. LA PREVISIONE DATA PER CERTA, e questa vale da sola: non conta di
       //    cosa parla, conta che sia annunciata come certa.
-      final daGuardare = frase.replaceAll(futuroDellaTuaScelta, '');
       for (final forma in formeDellaPrevisione) {
-        final trovato = forma.firstMatch(daGuardare);
+        final trovato = forma.firstMatch(frase);
         if (trovato == null) continue;
         trovate.add(ViolazioneDelConfine(
           regola: 'previsione data per certa',

@@ -319,8 +319,11 @@ void main() {
     // del manifesto: le sei del pezzo 1 e le sette segnalazioni del
     // fondatore arrivate durante il lavoro (EV.51-EV.57). Il pezzo 2 non e'
     // arrivato. Quattordici dalla sera del 1 ottobre, con la EV.58 (le
-    // memorie che tornano col tuo account, dopo la Runa del Tramonto).
-    'EV': 14,
+    // memorie che tornano col tuo account, dopo la Runa del Tramonto). Venti
+    // dalla notte fra il 1 e il 2 ottobre: il pezzo 2 con le quattro voci
+    // dell'Architetto (EV.07-EV.10), il Viaggio che tace (EV.59) e le catture
+    // che tornano (EV.60).
+    'EV': 20,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

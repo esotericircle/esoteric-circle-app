@@ -123,8 +123,8 @@ Future<void> main() async {
   // letto l'Oroscopo, ha chiuso l'app e scrive a Medora dopo pranzo trova
   // un Maestro che sa che cosa ha letto.
   unawaited(IResponsiDiOggi.carica());
-  // **E LO SCHERMO SI PROTEGGE DALLE CATTURE**, ordine EV: su Android, salvo
-  // nelle build di collaudo che dichiarano CATTURE_PERMESSE.
+  // **LO SCHERMO E LE CATTURE**, ordine EV: le catture si fanno; lo schermo
+  // si protegge solo nella build che dichiara CATTURE_VIETATE.
   unawaited(LoSchermoProtetto.applica());
   runApp(EsotericCircleApp(services: services));
 }

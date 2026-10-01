@@ -151,6 +151,11 @@ abstract final class IlLivelloDelCielo {
         _ => 0,
       };
 
+  /// **Fonte**, ordine EV voce EV.08, verifica dell'Architetto (O-G-005):
+  /// gli aspetti fra segni (stesso segno, sestile, quadratura, trigono,
+  /// opposizione) sono quelli di Tolomeo, *Tetrabiblos*, libro I, cap. 13.
+  /// Le case solari (O-G-004) sono la pratica moderna per chi non ha l'ora
+  /// di nascita: lo dichiara la nota del metodo O-M-004.
   static const Map<int, String> _aspettoDellaCasa = {
     1: 'nel tuo segno',
     3: 'in sestile al tuo segno',

@@ -304,6 +304,10 @@ Titolo: Vicino a chi ami
 ### La Luna nella quinta (h = 5)
 Casa del cuore, ma la Chandra Bala è di attenzione: emozioni forti e un po'
 di stanchezza.
+Fonte (ordine EV, verifica dell'Architetto, da V-G-089 a V-G-091): la Luna
+in quinta dalla Luna di nascita non è fra le posizioni buone del gochara
+(Phaladeepika, cap. 26; Brihat Samhita, cap. 104); la quinta come cuore è la
+lettura moderna dichiarata dalla nota del metodo.
 Titolo: Un gesto tenero
 
 1. Oggi in amore le emozioni sono vive ma fragili, le tue comprese. Trattale con dolcezza: abbassa la voce e prenditi dieci minuti di quiete prima di parlare di cose serie. || Oggi la Luna passa sulla quinta casa dalla tua Luna di nascita, letta qui come quella del cuore; la Chandra Bala però è di attenzione.
@@ -320,6 +324,10 @@ Titolo: Dai tu il tono
 
 ### La Luna nell'undicesima guarda la quinta (h = 11)
 La Luna in una casa favorevole guarda la casa del cuore.
+Fonte (ordine EV, verifica dell'Architetto, da V-G-095 a V-G-097): la Luna
+in undicesima è fra le posizioni buone del gochara (Phaladeepika, cap. 26);
+ogni pianeta guarda per intero la settima casa da sé, quindi dall'undicesima
+guarda la quinta (Brihat Parashara Hora Shastra, cap. 26).
 Titolo: Un invito fra amici
 
 1. Oggi un affetto può nascere o rinascere in mezzo alle amicizie. Passa la serata con gli amici e fai caso a chi ti fa stare bene: una chiacchierata a due vale la pena. || Oggi la Luna sta nell'undicesima casa dalla tua Luna di nascita, quella delle amicizie: da lì guarda la quinta, la casa del cuore.
@@ -486,7 +494,7 @@ lunare nord, che la tradizione indiana considera un pianeta d'ombra.
 ### Il Rahu Kalam è in corso
 
 1. Fino alle {fine} non è il momento di cominciare cose nuove. Continua pure quello che stai facendo; il resto fallo partire dopo quell'ora. || Adesso è Rahu Kalam, l'ora e mezza che la tradizione indiana lascia a Rahu: finisce alle {fine}.
-2. Fino alle {fine} questo è un tempo per le cose già avviate. Riprendi un lavoro lasciato a metà o porta a termine quello che hai sul tavolo. || Siamo dentro il Rahu Kalam di oggi: nella tradizione indiana in queste ore si evita di cominciare, non di continuare.
+2. Fino alle {fine} questo è un tempo per le cose già avviate. Riprendi un lavoro lasciato a metà o porta a termine quello che hai sul tavolo. || Siamo dentro il Rahu Kalam di oggi, dalle {inizio} alle {fine}.
 3. Fino alle {fine} conviene aspettare con le cose importanti. Se puoi, rimanda di poco quella telefonata e intanto prepara ciò che vuoi dire. || Fino alle {fine} è Rahu Kalam, l'ora e mezza in cui la tradizione indiana evita di dare inizio alle cose.
 
 ### Il Rahu Kalam è già passato

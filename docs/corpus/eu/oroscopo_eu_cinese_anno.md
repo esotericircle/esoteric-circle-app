@@ -179,7 +179,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Quest'anno la fortuna sta nella cura costante di ciò che hai: casa, oggetti, documenti, abbonamenti. Nessuna svolta improvvisa, ma un vantaggio che cresce mese dopo mese con l'ordine.
 - Che cosa fare: Nei prossimi mesi prepara un calendario delle scadenze ricorrenti: rinnovi, revisioni, manutenzioni, cambi di stagione degli armadi. Appendilo dove lo vedi ogni mattina e aggiornalo a ogni novità.
-- Risposta, Lunga: L'almanacco considera questo un anno di misura, adatto a consolidare più che a cercare. Il tavolo in ordine e il conto che torna non fanno rumore; eppure evitano tante piccole perdite che in dodici mesi pesano.
+- Risposta, Lunga: È un anno di misura, adatto a consolidare più che a cercare. Il tavolo in ordine e il conto che torna non fanno rumore; eppure evitano tante piccole perdite che in dodici mesi pesano.
 - Che cosa fare, Lunga: All'inizio di ogni stagione dedica una mattina a rileggere il calendario e a sistemare ciò che arriva a scadenza. Ogni tre mesi regala una cosa che non usi più, per tenere leggero ciò che possiedi.
 
 #### Fortuna, equilibrio, voce 2: Il filo dei favori
@@ -202,5 +202,5 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Nei prossimi mesi possono nascere piccoli attriti intorno alle cose condivise: un garage in comune, un oggetto passato di mano, le spese di una vacanza di gruppo, un orto diviso fra vicini.
 - Che cosa fare: Per ogni cosa che condividi con altri metti per iscritto, in un messaggio semplice, chi usa che cosa, quando e come si dividono i costi. Fallo presto, prima che nasca il primo malinteso.
-- Risposta, Lunga: L'almanacco segnala un anno di attrito più che di apertura nei rapporti pratici. Le intenzioni sono buone da entrambe le parti; manca solo una regola chiara. La parola scritta evita di doverla inventare ogni volta.
+- Risposta, Lunga: È un anno di attrito più che di apertura nei rapporti pratici. Le intenzioni sono buone da entrambe le parti; manca solo una regola chiara. La parola scritta evita di doverla inventare ogni volta.
 - Che cosa fare, Lunga: Quando un malinteso arriva comunque, proponi di parlarne seduti a un tavolo con il messaggio davanti. Correggete l'accordo insieme e mandatevi la versione nuova: chiudere bene rende più facile ripartire.

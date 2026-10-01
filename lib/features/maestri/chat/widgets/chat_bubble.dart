@@ -435,7 +435,11 @@ class _ChatBubbleState extends State<ChatBubble> {
                         RigaDelConsiglio(
                           maestro: maestro,
                           testo: message.text,
-                          quando: message.at ?? DateTime.now(),
+                          // **L'INVITO PARLA A CHI LEGGE ADESSO**, ordine EV
+                          // voce EV.10: con l'ora della risposta, una chat
+                          // riaperta il giorno dopo diceva ancora "domani"
+                          // per un ingresso della Luna gia' avvenuto.
+                          quando: DateTime.now(),
                           conInvito: widget.conInvito,
                         ),
                       // "Vai piu' a fondo" sta SOTTO la risposta, dentro la sua

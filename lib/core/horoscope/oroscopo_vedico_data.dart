@@ -402,7 +402,7 @@ abstract final class OroscopoVedicoData {
   /// Rahu Kalam: il Rahu Kalam è in corso.
   static const List<String> rahuInCorso = [
     'Fino alle {fine} non è il momento di cominciare cose nuove. Continua pure quello che stai facendo; il resto fallo partire dopo quell\'ora. || Adesso è Rahu Kalam, l\'ora e mezza che la tradizione indiana lascia a Rahu: finisce alle {fine}.',
-    'Fino alle {fine} questo è un tempo per le cose già avviate. Riprendi un lavoro lasciato a metà o porta a termine quello che hai sul tavolo. || Siamo dentro il Rahu Kalam di oggi: nella tradizione indiana in queste ore si evita di cominciare, non di continuare.',
+    'Fino alle {fine} questo è un tempo per le cose già avviate. Riprendi un lavoro lasciato a metà o porta a termine quello che hai sul tavolo. || Siamo dentro il Rahu Kalam di oggi, dalle {inizio} alle {fine}.',
     'Fino alle {fine} conviene aspettare con le cose importanti. Se puoi, rimanda di poco quella telefonata e intanto prepara ciò che vuoi dire. || Fino alle {fine} è Rahu Kalam, l\'ora e mezza in cui la tradizione indiana evita di dare inizio alle cose.',
   ];
 

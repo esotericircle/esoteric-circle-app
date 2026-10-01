@@ -467,7 +467,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Generale, equilibrio, voce 24: La borsa pronta
 
 - Risposta: Le ore di oggi si chiudono in modo ordinato se l'ultima mezz'ora la spendi per il giorno che viene. Il mattino dopo è quasi sempre il riflesso della sera prima.
-- Che cosa fare: Prima di cena prepara la borsa per domani: chiavi, documenti, quello che devi restituire a qualcuno. Mettila vicino alla porta insieme a ciò che indosserai, scelto adesso.
+- Che cosa fare: Prima di cena prepara la borsa per domani: chiavi, documenti, quello che devi restituire a qualcuno. Mettila vicino alla porta e prepara accanto i vestiti per domattina.
 - Risposta, Lunga: Ogni cosa decisa la sera è una scelta in meno nel momento di fretta. La mattina, così alleggerita, ti lascia la mente libera per ciò che conta, invece che per cercare le chiavi.
 - Che cosa fare, Lunga: Riponi gli oggetti di lavoro fuori dalla vista e spegni la luce della stanza dove li usi. È un gesto minimo che separa le ore del dovere da quelle del riposo, anche quando abitano la stessa casa.
 
@@ -867,7 +867,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Amore, equilibrio, voce 11: Il sì misurato
 
 - Risposta: Ti arriva un invito per una serata dove conosci poche persone e una parte di te vorrebbe restare sul divano. È un dubbio onesto: non serve forzarti, serve un criterio chiaro.
-- Che cosa fare: Accetta l'invito, ma decidi già adesso a che ora tornerai a casa e come. Sapere di poter andare via quando vuoi rende più facile restare e parlare con chi incontri.
+- Che cosa fare: Accetta l'invito, ma decidi già adesso l'ora del rientro e il modo per tornare a casa. Sapere di poter andare via quando vuoi rende più facile restare e parlare con chi incontri.
 - Risposta, Lunga: Le occasioni per conoscere qualcuno nascono più spesso da serate senza aspettative. Andarci con un limite chiaro ti toglie la pressione e lascia spazio alla curiosità.
 - Che cosa fare, Lunga: Durante la serata proponiti un obiettivo minimo: una conversazione vera con una persona nuova, oltre i convenevoli. Se domani ti va, scrivile due righe per ringraziarla della chiacchierata.
 
@@ -1297,7 +1297,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 - Risposta: Un cliente attende il tuo preventivo e tu oscilli fra una cifra che ti rispetta e una più bassa, dettata dalla paura di perderlo. La misura giusta sta nel descrivere con precisione ciò che offri.
 - Che cosa fare: Oggi riscrivi il preventivo voce per voce: ore, consegne, numero di revisioni incluse. Mandalo entro le sei con due righe di accompagnamento, senza scuse e senza sconti offerti in anticipo.
 - Risposta, Lunga: Chi lavora in proprio tende a pagare con il proprio tempo l'insicurezza di un momento. Un documento chiaro protegge te e chi ti commissiona il lavoro, perché toglie spazio agli equivoci.
-- Che cosa fare, Lunga: Salva questo preventivo come modello in una cartella apposita. Alla prossima richiesta partirai da lì: cambierai le voci in pochi minuti senza rimettere in discussione il valore di ciò che fai.
+- Che cosa fare, Lunga: Salva questo preventivo come modello in una cartella apposita. Alla prossima richiesta basta partire da lì e cambiare le voci in pochi minuti, senza rimettere in discussione il valore di ciò che fai.
 
 #### Carriera, equilibrio, voce 3: Capitoli in fila
 

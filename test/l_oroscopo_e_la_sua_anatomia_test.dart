@@ -8,6 +8,8 @@ import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/responsi/confine_del_responso.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'le_frasi_dei_corpora_in_attesa.dart';
+
 /// L'OROSCOPO E L'ANATOMIA DEL RESPONSO. Ordine S voce 27.
 ///
 /// **Cosa chiede la voce.** Che l'Oroscopo personalizzato applichi la legge (S.15),
@@ -159,7 +161,12 @@ void main() {
     for (final segno in Zodiac.values) {
       for (final giorno in giorni) {
         for (final scheda in schede(segno, giorno)) {
-          final v = ConfineDelResponso.violazioni(scheda.text);
+          // Le frasi dei corpora dichiarate in attesa dell'Architetto
+          // (ordine EV voce EV.07) le sorveglia la loro guardia.
+          final v = [
+            for (final x in ConfineDelResponso.violazioni(scheda.text))
+              if (!eInAttesaDellArchitetto(x.intorno)) x,
+          ];
           if (v.isNotEmpty) {
             violazioni.add('${segno.name} giorno $giorno '
                 '${scheda.domain.name}: ${v.join("; ")}');

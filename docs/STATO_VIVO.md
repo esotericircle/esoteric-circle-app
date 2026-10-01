@@ -6210,12 +6210,12 @@ difetto col suo padre.
 
 ## L'ORDINE EV, I RILIEVI DEI FONDATORI, I PREZZI, MEDORA E IL CIELO
 
-Ordine del 2 ottobre 2026 (lavorato il 1 ottobre sul calendario del PC),
-arrivato solo il pezzo 1 su 2: sei voci (EV.01-EV.06); le voci
-dell'Architetto EV.07 ed EV.08 non sono arrivate, e la voce EU.14 del
-manifesto EU porta la riga "prosegue nell'ordine EV, voce EV.08". Durante il
-lavoro il fondatore ha mandato otto segnalazioni, che il manifesto porta come
-EV.51-EV.58. Partenza dal commit `0f7a0625`. **La regola 6 ("non consegna
+Ordine del 2 ottobre 2026 (lavorato il 1 e il 2 ottobre sul calendario del
+PC), in due pezzi: il pezzo 1 con sei voci (EV.01-EV.06), consegnato con la
+2291; il pezzo 2, arrivato la sera del 1 ottobre, con le quattro voci
+dell'Architetto (EV.07-EV.10; la voce EU.14 del manifesto EU porta la riga
+"prosegue nell'ordine EV, voce EV.08"). Durante il lavoro il fondatore ha
+mandato dieci segnalazioni, che il manifesto porta come EV.51-EV.60. Partenza dal commit `0f7a0625`. **La regola 6 ("non consegna
 niente") l'ha superata il fondatore**: "Alla fine di tutto, crea nuova Build,
 test su Cell e consegna su AppTester e dimmi quando posso lanciare codemagic".
 Manifesto `docs/ordini/ORDINE_EV_MANIFESTO.md`, rapporto
@@ -6329,11 +6329,64 @@ Manifesto `docs/ordini/ORDINE_EV_MANIFESTO.md`, rapporto
   server, i movimenti degli Eos e la foto del profilo non tornano, la serie
   del cammino fusa al piu' alto.
 
+- **I corpora corretti e il confine com'era (EV.07, aperta per quindici
+  frasi).** I cinque corpora dell'Architetto in `docs/corpus/eu/` uguali byte
+  per byte, i dati rigenerati; `confine_del_responso.dart` identico a quello
+  del commit `103c0df4` (tolta l'eccezione `futuroDellaTuaScelta` dell'EU
+  Aggiunta). Sui dodici corpora il confine di prima segna quindici frasi col
+  futuro di un gesto: dichiarate in `test/le_frasi_dei_corpora_in_attesa.dart`
+  (le lasciano passare `il_confine_del_responso_test` e
+  `l_oroscopo_e_la_sua_anatomia_test`), in attesa dei testi dell'Architetto;
+  la guardia `il_confine_passa_sui_dodici_corpora` pretende che nessun'altra
+  passi e che l'elenco resti vero.
+- **La verifica delle affermazioni (EV.08, chiusa).**
+  `docs/corpus/eu/verifica_affermazioni_architetto.md` nel ramo; i testi
+  nuovi in `il_metodo_del_responso.dart` (O-M-001..007),
+  `la_lettura_vedica.dart` (V-M-001, V-M-004), `l_anno_delle_tradizioni.dart`
+  (V-M-009, V-M-011, C-M-006, C-M-008) e nel corpus cinese (C-G-068, C-G-069,
+  C-M-002, C-M-004); le fonti nei commenti e nelle note dei casi.
+  `docs/collaudo/EV/affermazioni.md` rigenerato da
+  `tool/rigenera_affermazioni_ev.py`: 759 affermazioni, nessuna senza fonte.
+  Guardia `i_testi_nuovi_dell_architetto_sono_nel_codice`.
+- **Le rifiniture dei "Da dove viene" (EV.09, aperta per le catture).**
+  Venerdi' vedico "screziato" (`LaLetturaVedica.pianetiDelGiorno`); Rahu Kalam
+  in corso con l'ora (corpus vedico); la riga della ruota "Guardalo sulla tua
+  carta, nella tua {ordinale} casa." (`LaRigaDelPassaggio.riga`); "lo stesso
+  passaggio di {giorno} {data}" per il secondo di due giorni migliori uguali
+  (`IlPeriodoView.daDoveDelGiorno`); niente "oggi" sotto la data di un altro
+  giorno nella Vedica e nella Cinese (`LaSettimanaDelCielo.senzaOggi`).
+  Guardia `le_rifiniture_dei_da_dove_viene`.
+- **Gli inviti del cielo (EV.10, chiusa).** `ProssimoCambioDellaLuna` cerca
+  l'istante del cambio al minuto dall'istante vero (prima dall'ora piena: un
+  ingresso alle 23:25 contava il giorno dopo) e la fase all'istante esatto
+  col cambio di quarto (`NightSky.quartoDelCiclo`, `NightSky.fasiPrincipali`;
+  prima il nome della fase, che comincia dodici ore prima); la chat compone
+  l'invito con l'ora di chi legge (`chat_bubble.dart`, `quando:
+  DateTime.now()`); la rete `IlCieloDetto` conta i giorni allo stesso modo.
+  Banco `tool/inviti_del_cielo.dart`: da 101 a 0 inviti sbagliati su 480.
+  Guardia `gli_inviti_del_cielo_sono_veri`.
+- **Il Viaggio che tace (EV.59, aperta per il telefono del fondatore).**
+  `LaScenaDalModello.senzaLeGuardieDelloStile`: quando nessuna risposta
+  regge, l'ultima scartata per "non prende posizione" o "non nomina la
+  domanda" si rilegge con le sole guardie dure
+  (`LeGuardieDelResponso.dellaRisposta(soloLeGuardieDure: true)`); mai un si'
+  o un no a una domanda sul come (`siONoAUnaDomandaSulCome`). Il silenzio
+  rimette la cenere dell'animale com'era all'ingresso della lente
+  (`_rimettiLaCenere`). Guardia nuova `parolaDelGenereTroncata` ("dispost").
+  Sonda `tool/sonda_viaggio_primo_strato.dart`: silenzi al primo strato da 8
+  su 12 a 3 su 18.
+- **Le catture tornano (EV.60).** `LoSchermoProtetto.applica` chiede
+  `cattureVietate`, vero solo con `--dart-define=CATTURE_VIETATE=true`: di
+  base l'avvio toglie `FLAG_SECURE`. La EV.56 e' superata.
+
 **Prove e guardie.** Prove nuove: `il_sigillo_si_traccia_sempre`,
 `chi_esce_dal_cerchio_esce_dal_conto`, `la_tastiera_si_chiude_tornando`,
 `medora_sa_il_cielo_e_il_responso`, `l_archetipo_torna_dal_cerchio`,
 `la_bolla_degli_angeli_ne_mostra_tre`, `le_notifiche_si_chiedono_al_primo_dono`,
-`lo_schermo_non_si_cattura`, `i_prezzi_dei_piani_stanno_interi`,
+`lo_schermo_e_le_catture` (era `lo_schermo_non_si_cattura`),
+`il_confine_passa_sui_dodici_corpora`, `i_testi_nuovi_dell_architetto_sono_nel_codice`,
+`le_rifiniture_dei_da_dove_viene`, `gli_inviti_del_cielo_sono_veri`,
+`il_viaggio_non_tace_per_lo_stile`, `i_prezzi_dei_piani_stanno_interi`,
 `le_memorie_tornano_col_tuo_account`, `la_runa_del_tramonto_torna_col_tuo_account`,
 `i_ricordi_tornano_col_tuo_account`, `ordine_ev_guard` (646 nel registro),
 tre prove del server in `functions/src/cammino.test.ts` e quattro in

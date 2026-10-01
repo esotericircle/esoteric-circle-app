@@ -3,16 +3,19 @@ import 'dart:io';
 import 'package:esoteric_circle/core/sensi/lo_schermo_protetto.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// **LO SCHERMO NON SI CATTURA.** Ordine EV, il fondatore il 1 ottobre 2026:
-/// *"vorrei disattivassi la possibilità di fare screenshot"*. Su Android il
-/// segno `FLAG_SECURE`, chiesto all'avvio; su iOS il sistema non lo permette.
+/// **LO SCHERMO E LE CATTURE.** Ordine EV, il fondatore il 1 ottobre 2026:
+/// prima *"vorrei disattivassi la possibilità di fare screenshot"*, poi lo
+/// stesso giorno *"Devi riattivare la possibilità di fare screenshot, così
+/// non posso farli nemmeno per te"*. Di base le catture si fanno e l'avvio
+/// toglie il segno `FLAG_SECURE`; la protezione resta pronta per la build che
+/// dichiara `CATTURE_VIETATE`.
 void main() {
   String codice(String percorso) => File(percorso)
       .readAsLinesSync()
       .where((r) => !r.trimLeft().startsWith('//'))
       .join('\n');
 
-  test('all\'avvio lo schermo si protegge', () async {
+  test('all\'avvio le catture sono permesse', () async {
     final chieste = <bool>[];
     LoSchermoProtetto.chiedi = (p) async => chieste.add(p);
     await LoSchermoProtetto.applica();
@@ -23,8 +26,9 @@ void main() {
     print('ORDINE EV, CATTURE: protetto ${chieste.join(',')}; main chiede '
         '${main.contains('LoSchermoProtetto.applica()')}; FLAG_SECURE '
         '${attivita.contains('FLAG_SECURE')}');
-    expect(chieste, [true],
-        reason: 'senza CATTURE_PERMESSE lo schermo deve essere protetto');
+    expect(chieste, [false],
+        reason: 'senza CATTURE_VIETATE le catture devono essere permesse: il '
+            'fondatore le ha chieste indietro');
     expect(main, contains('LoSchermoProtetto.applica()'),
         reason: 'l\'avvio non chiede piu\' la protezione: le catture tornano');
     expect(attivita, contains('"proteggi"'));

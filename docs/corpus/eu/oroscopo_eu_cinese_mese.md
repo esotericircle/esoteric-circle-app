@@ -289,7 +289,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Nelle prossime settimane qualcuno del tuo passato si fa vivo con una notizia utile: un ex collega, un compagno di corso, una vicina trasferita altrove. Il momento è adatto a riannodare.
 - Che cosa fare: Scrivi a tre persone che non senti da almeno un anno e chiedi come va il loro lavoro, senza domandare nulla per te. Con la più disponibile fissa un caffè entro la metà del mese.
-- Risposta, Lunga: L'almanacco considera questo mese favorevole ai ritorni più che agli inizi: le porte che conosci già si riaprono con poca spinta e chi ti ricorda con simpatia ha voglia di darti una mano.
+- Risposta, Lunga: Questo mese è favorevole ai ritorni più che agli inizi: le porte che conosci già si riaprono con poca spinta e chi ti ricorda con simpatia ha voglia di darti una mano.
 - Che cosa fare, Lunga: Durante il caffè racconta in due frasi precise che cosa cerchi adesso. Il giorno dopo manda un grazie; se ti ha fatto un nome, contatta quella persona citando chi vi ha messo in relazione.
 
 #### Fortuna, favorevole, voce 2: L'indizio che ricorre
@@ -349,7 +349,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Questo mese qualcuno può proporti un affare in apparenza comodo: un acquisto di gruppo, una quota per un'iniziativa, un oggetto usato a un prezzo che sembra un regalo.
 - Che cosa fare: Prima di rispondere chiedi tutto per iscritto e lascia passare tre giorni. Mostra la proposta a una persona di fiducia che conosce quell'ambiente e lascia che ti faccia domande prima di darti un parere.
-- Risposta, Lunga: L'almanacco considera queste settimane adatte a verificare più che a concludere. La fretta di chi propone è il primo indizio da pesare: le occasioni buone reggono anche una pausa di qualche giorno.
+- Risposta, Lunga: Queste settimane sono adatte a verificare più che a concludere. La fretta di chi propone è il primo indizio da pesare: le occasioni buone reggono anche una pausa di qualche giorno.
 - Che cosa fare, Lunga: Se dopo la verifica il conto non torna, declina con una frase semplice e senza lunghe giustificazioni. Conserva i messaggi scambiati in una cartella: servono se la proposta si ripresenta con altre parole.
 
 #### Fortuna, salita, voce 2: La manutenzione d'autunno

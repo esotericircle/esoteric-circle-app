@@ -22,7 +22,10 @@ import 'il_cielo_del_segno.dart';
 ///   mese corrente), giorno personale (piu' il giorno corrente), ridotti ogni
 ///   volta a una cifra, numeri maestri compresi, come Hans Decoz. Senza la
 ///   data di nascita si usa il giorno universale (la sola data di oggi
-///   ridotta), e la riga lo dice.
+///   ridotta), e la riga lo dice. **Fonte**, ordine EV voce EV.08, verifica
+///   dell'Architetto (O-G-006, O-G-007): giorno personale e giorno
+///   universale della numerologia moderna, Florence Campbell, *Your Days
+///   Are Numbered* (1931).
 abstract final class IlNumeroEIlColore {
   /// I domicili della tradizione, senza i pianeti moderni.
   static const Map<Zodiac, CorpoCeleste> signoreDi = {
