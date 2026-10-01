@@ -9,7 +9,7 @@ quelle del telefono in `docs/collaudo/EU/realme/`. **Questo ordine non
 consegna niente**: le due build fatte per il Realme portano il numero 2289 e
 non sono consegne.
 
-**Il conto** (manifesto riletto dal file): CONTO_DA_SCRIVERE
+**Il conto** (manifesto riletto dal file): **16 voci chiuse, 3 aperte in attesa di verifica (EU.03, EU.13, EU.14), 0 da fare.** Le chiuse qui sotto, ognuna con la domanda del fondatore alla lettera, la prova (un file che si apre) e la misura; poi le aperte con cio' che manca e chi lo fa; poi le richieste della sera, con la stessa forma.
 
 ## LE VOCI CHIUSE, CON LA LORO PROVA
 
@@ -100,6 +100,76 @@ non sono consegne.
 - **EU.13, la rivelazione del segno**: **APERTA IN ATTESA DI VERIFICA**: prodotta e agganciata (commit `8b9a581a`), la prova `il_segno_si_rivela_la_prima_volta_test.dart` (629) misura la prima apertura delle sei tradizioni (figura quasi trasparente al primo fotogramma, piena dopo 1,7 secondi) e la seconda gia' al suo posto. **Sul Realme l'animazione non si vede**: le tre scale delle animazioni del sistema sono a 0 (impostazione del telefono che non si cambia), Flutter lo legge come Riduci Movimento e la testa compare intera, come la voce vuole per chi ha tolto il movimento (`eu13_vedica_testa_riduci_movimento.jpg`, `eu13_rivelazione_vedica_prima_volta.mp4`, fotogrammi tutti uguali). La vede chi ha le animazioni accese: il fondatore sul suo telefono.
 
 - **EU.14, l'interpretazione vera e non ripetitiva: le prove**: **APERTA IN ATTESA DI VERIFICA**: misurata e scritta, aspetta l'Architetto. Le ripetizioni in novanta giorni sono zero (`docs/collaudo/EU/ripetizioni_90_giorni.txt`: voci del Giorno tornate entro trenta giorni 0, con e senza carta; voci della Settimana, del Mese e dell'Anno 0; frasi uguali fra periodi 0; fasce diverse dal livello 0, su 12.240 schede), il linguaggio di ogni tipologia e' quello dei dodici corpora. **La verita' delle interpretazioni no**: delle 759 affermazioni dei "Da dove viene" e delle note del metodo, 671 hanno una fonte dichiarata e **88 no** (`docs/collaudo/EU/affermazioni.md`, una per una). Si chiude quando l'Architetto le ha verificate o tolte.
+
+## LE RICHIESTE DEL FONDATORE DELLA SERA, CON LA LORO PROVA
+
+Arrivate durante il collaudo, fuori dalle diciannove voci. Ognuna con la
+sua domanda alla lettera, la prova che si puo' aprire e la misura. Le
+catture sono del Realme con le build di prova dei commit `cd31e52f`,
+`ece93edc` e `d4ecae35` (nessuna e' una consegna).
+
+- **Il foglio dell'oroscopo completo: abbonarsi, e gli Eos solo per oggi**
+  DOMANDA: "Non chiamarla "la lunga di oggi con l'iniziato", ma "abbonati per avere sempre l'oroscopo completo". L'utente non sa cos'è l'iniziato e "la lunga" ha poco senso, poco comprensibile. Anche il titolo, sistema tutto quel riquadro, bisogna invitare l'utente ad abbonarsi principalmente oppure a spendere eos solo per l'occasione."
+  PROVA: `test/la_lunga_si_apre_con_gli_eos_test.dart`; sul Realme l'invito delle altre schede `docs/collaudo/EU/realme/eu_sera_viandante_invito_abbonati.jpg`
+  MISURA: parole che chi legge non conosce nel foglio ("Lunga", i nomi dei piani), prima 2, dopo 0; pulsante pieno dell'abbonamento sopra, Eos col bordo sotto; nella pagina dei piani la riga "Profondità dell'oroscopo: Breve o Lunga" diventa "Oroscopo completo: Sempre". Il foglio dell'Occidentale del giorno sul Realme non si apre il 1 ottobre, perche' l'oroscopo completo di oggi e' gia' comprato: e' disegnato dalla prova (stesso foglio, 4 schede).
+- **Non vendere "due paragrafi"**
+  DOMANDA: "Ma dai, elimina che aggiungiamo 2 paragrafi, ma pensi prima di scrivere? Io penserei: "ma devo spendere soldi per solo 2 paragrafi di merda?". E dai cazzo, impegnati un po'! Rispondi sempre alle domande "quadro è il massimo" e "come posso ottenere di più?" e "cosa penserebbe l'utente" e *come posso aumentare l'esperienza utente?"
+  PROVA: `test/la_lunga_si_apre_con_gli_eos_test.dart` e `test/la_profondita_sta_su_ogni_scheda_test.dart`; le parole in `lib/features/horoscope/letture_complete.dart`
+  MISURA: scritte del foglio e dell'invito che parlano di paragrafi, prima 1 e 1, dopo 0 e 0; anteprima vera della parte chiusa di oggi, prima 0 caratteri, dopo 195 (l'inizio del terzo paragrafo, che sfuma); prezzo dell'abbonamento detto, prima no, dopo "da 2,90 € a settimana" letto dal listino dei piani.
+  Le quattro domande, per questo foglio. *Qual è il massimo?* Far leggere a chi non ha l'abbonamento l'inizio vero di cio' che gli manca, oggi, sulla sua scheda: non una promessa generica. *Come posso ottenere di più?* Dire in una riga che cosa porta l'abbonamento, solo cose vere del piano (l'oroscopo completo ogni giorno, la settimana coi suoi giorni migliori, il cinese e il vedico, i Maestri che ricordano), col prezzo piu' basso. *Cosa penserebbe l'utente?* "Che cosa ci guadagno?": la prima frase risponde ("ti dice perché succede proprio a te e come muoverti, passo per passo"). *Come aumento l'esperienza?* Una sola scelta principale (abbonarsi), la scorciatoia di un giorno sotto, e nessuna parola tecnica.
+- **I dodici mesi sull'Anno**
+  DOMANDA: "Hai messo infografica anche per oroscopo annuale? Magari per i 12 mesi indicando i migliori o quello che ritieni migliore."
+  PROVA: `docs/collaudo/EU/realme/eu_sera_dodici_mesi_cinese.jpg`
+  MISURA: barre dei mesi sulle schede dell'Anno, prima 0, dopo 12 per scheda nelle tre tradizioni, col mese migliore detto; 360 schede del Giorno confrontate coi giorni favorevoli dei mesi occidentali, 0 differenze; domini con dodici mesi uguali nella Vedica e nella Cinese, 0 su 6 anni.
+- **Il numero e il colore che riempiono il riquadro**
+  DOMANDA: "Il colore del giorno e il numero del giorno più grandi in modo da riempire il riquadro e centrati verticalmente e orizzontalmente."
+  PROVA: `docs/collaudo/EU/realme/eu_sera_numero_e_colore_riempiono.jpg`
+  MISURA: coppie di riquadri in cui la cifra o il colore non riempiono lo spazio, col contenuto centrato e non esteso 6 su 6, dopo 0 su 9; disegno della cifra fuori centro, prima 3,6 per cento, dopo 1,8 ("6"), 1,2 ("7"), 1,6 ("22").
+- **"In arrivo" senza la fase**
+  DOMANDA: "Per le altre tipologie di oroscopo non sbloccati, ad esempio maya, egizio, ecc, scrivi solo "in arrivo" Senza indicare la fase"
+  PROVA: `docs/collaudo/EU/realme/eu_sera_foglio_chiuso_col_dito.jpg`
+  MISURA: chip delle tradizioni in arrivo con la fase, prima 4 su 4, dopo 0 su 4.
+- **Ogni foglio si chiude**
+  DOMANDA: "Quando clicco sul punto di domanda fianco all'emblema del segno, si apre dal basso un pannello bolla informativa, ma poi non posso più chiuderla: inserisci in basso una scritta "fatto" per chiudere oppure utilizzando il gesto del dito dall'alto al basso per chiudere la scheda infirmativa. Controlla che sia così dappertutto"
+  PROVA: `docs/collaudo/EU/realme/eu_sera_nota_con_fatto.jpg`
+  MISURA: fogli che si leggono soltanto senza "Fatto", dopo 0 su 9 (contati sui 41 punti che aprono un foglio; "Fatto" e' nato in questo ordine, e con la nota tolta la prova misura 1 su 9); il foglio che scorre col dito che scende dalla cima, prima resta aperto, dopo si chiude (anche sul Realme, `eu_sera_foglio_chiuso_col_dito.jpg`).
+- **Il nome lungo in testa**
+  DOMANDA: "La scritta che ho cerchiato in alto è illeggibile"
+  PROVA: `docs/collaudo/EU/realme/eu_sera_foglio_chiuso_col_dito.jpg`
+  MISURA: il nome in testa dell'Araba a video alla scala 0,29 prima, 0,92 dopo (il nome prima della virgola, "al-Fargh al-Mu'akhkhar", su due righe).
+- **Le ore del giorno sul Giorno**
+  DOMANDA: "vorrei infografica a colori anche per oroscopo giornaliero come per settimanale, mensile e annuale, se possibile. Magari inserendo le 24h e indicando le ore migliori oppure una tua idea se migliore e più esplicativa e adatta."
+  PROVA: `docs/collaudo/EU/realme/eu_sera_ore_migliori_ancora_da_venire.jpg` (e `eu_sera_ore_cinese.jpg`, `eu_sera_ore_vedica_prima.jpg`)
+  MISURA: barre delle ore sulle schede del Giorno, prima 0, dopo 24 nell'Occidentale e nella Vedica (le ore planetarie, con Lilly) e 12 nella Cinese (le ore doppie); ore migliori gia' passate dette, sul Realme alle 10:00 una, dopo 0 in 868 momenti di una settimana; sopra ogni ora migliore un punto d'oro e sotto l'ora di adesso un segno (punti 2 su 2 ore migliori nella prova); nella Vedica la riga dice da che ora a che ora c'e' il Rahu Kalam.
+- **Il terzo paragrafo in un riquadro**
+  DOMANDA: "Per ogni risposta, quando c'è la profondità lunga il terzo paragrafo inseriscilo in un riquadro, così da sembrare in evidenza e staccare dalla monotonia del testo."
+  PROVA: `docs/collaudo/EU/realme/eu_sera_terzo_paragrafo_lunga.jpg`
+  MISURA: schede Lunghe col terzo paragrafo nel riquadro, prima 0, dopo 36 su 36 nella prova, anche nell'oroscopo dell'amico.
+- **I luoghi del mondo nel foglio dell'amico**
+  DOMANDA: "Quando inserisco i dati di un amico nella scheda "aggiungi un amico", il campo di ricerca del luogo di nascita funziona male e non ci sono tutte le città, paesi, villaggi, borgo del mondo. [...] Fai la prova con la città di residenza dei fondatori "Borgo di Rivalta" in provinc5di Piacenza."
+  PROVA: `docs/collaudo/EU/realme/eu_sera_amico_borgo_di_rivalta.jpg`
+  MISURA: campi del luogo senza la domanda al mondo, prima 1 su 3 (il foglio dell'amico), dopo 0 su 3; "Borgo di Rivalta" trovato nel foglio dell'amico sul Realme, prima no, dopo si' ("Loc. Borgo di Rivalta, Piacenza"). Nessun amico salvato sul telefono.
+- **Gli emblemi senza sfondo (EU Aggiunta 2)**: nella voce EU.06 qui sopra.
+
+E tre difetti visti sul Realme dopo, curati con la loro prova nata rossa
+(`docs/collaudo/EU/regola_a_richieste_della_sera.txt`, A20-A26bis):
+
+- **I titoli col trattino accanto al selettore** ("RICOMIN- / CIARE DAL- /
+  LE STANZE", "IL / CANTIERE / SOSPESO"): il titolo va sopra il selettore
+  quando accanto andrebbe a capo col trattino o su tre righe. Titoli che
+  si leggono male a video sui 1.548 dei dodici corpora, a 360 punti, da 830
+  a 0 al carattere normale e da 1.535 a 5 al massimo. PROVA:
+  `docs/collaudo/EU/realme/eu_sera_titolo_sopra.jpg`. PROVENIENZA: la voce
+  ER.14 (la regola del trattino) incontrata coi titoli dei corpora della EU
+  Aggiunta, piu' lunghi.
+- **La barra dell'Oroscopo trasparente** col testo che le scorreva sotto: si
+  vela quando qualcosa le passa sotto, opacita' da 0 a 92 per cento. PROVA:
+  `docs/collaudo/EU/realme/eu_sera_barra_velata.jpg`. PROVENIENZA IGNOTA: la
+  barra e' trasparente da prima dell'ordine ES.
+- **Le tradizioni dell'amico in un altro ordine** (Occidentale, Cinese,
+  Vedica): adesso Occidentale, Vedica, Cinese come nell'oroscopo della
+  persona. PROVENIENZA IGNOTA: l'ordine e' quello del foglio dell'amico dalla
+  sua nascita.
 
 ## I DIFETTI, COL LORO PADRE (Regola C)
 
@@ -341,29 +411,27 @@ niente in coda"*.
 17. **La scritta del piano al centro del suo pulsante** nelle due strade della
     Lunga, anche su due righe (visto sul Realme, la EU.15 l'aveva a sinistra).
 
-## VISTE SUL REALME E NON CURATE IN QUESTO ORDINE
+## VISTE SUL REALME FUORI DALLE VOCI
 
-Cose viste guardando il telefono, fuori dalle diciannove voci, che lascio al
-fondatore perche' cambiano il disegno e non un difetto di una voce:
+Cose viste guardando il telefono, fuori dalle diciannove voci. La prima
+stesura di questo rapporto le lasciava al fondatore; la sua regola e'
+decidere con la risposta consigliata e non lasciare niente in coda, quindi:
 
-1. **La barra dell'Oroscopo e' trasparente** e il contenuto le scorre sotto:
-   la "i" delle fonti e il cuore stanno sopra il testo che passa, e a un
-   certo punto dello scorrimento la "i" copre il punto interrogativo accanto
-   al nome del segno (`eu01_occidentale_giorno_breve_2.jpg`, e la cattura del
-   segno dopo "Interroga il cielo"). Proposta: lo stesso velo della barra in
-   alto (EU.19) anche sotto questa barra. PROVENIENZA IGNOTA: la barra e'
-   trasparente da prima dell'ordine ES.
-2. **I titoli delle schede vanno a capo col trattino**: "UN COM- / PLIMENTO
-   PRECISO", "RICOMIN- / CIARE DAL- / LE STANZE". E' la regola dell'ordine
-   ER voce 14 (andare a capo fra le parole o col trattino a una sillaba), ma
-   accanto al riquadro "Profondità" la colonna del titolo e' stretta e i
-   trattini sono due nello stesso titolo. Proposta: il riquadro sotto il
-   titolo quando il titolo non entra in due righe.
-3. **L'ordine delle tradizioni dell'amico** e' Occidentale, Cinese, Vedica;
-   quello della persona Occidentale, Vedica, Cinese.
+1. **La barra dell'Oroscopo trasparente** col testo che le scorre sotto:
+   **curata**, si vela quando qualcosa le passa sotto (vedi le richieste
+   della sera, guardia 642).
+2. **I titoli delle schede col trattino accanto al selettore**: **curati**, il
+   titolo va sopra quando accanto si spezzerebbe o andrebbe su tre righe
+   (guardia 641).
+3. **L'ordine delle tradizioni dell'amico**: **curato**, Occidentale, Vedica,
+   Cinese come quello della persona (guardia 643).
 4. **Il Mese e' di trenta giorni da oggi** ("dal 1 ottobre al 30 ottobre
-   2026"), non il mese del calendario: e' la regola dell'ordine ES, e il
-   1 ottobre il trentuno resta fuori.
+   2026"), non il mese del calendario. **Scelta consigliata: resta cosi'.**
+   E' la regola approvata dal fondatore con l'ordine ES (voce ES.03), e i
+   corpora dell'Architetto contano il Mese su quella base
+   (`ITestiEu.indiceDelMese`): cambiarla cambierebbe quale voce legge ogni
+   persona. Se il fondatore preferisce il mese del calendario, e' una voce
+   d'ordine sua.
 
 ## I COMMIT
 

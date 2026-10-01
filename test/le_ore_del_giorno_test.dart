@@ -210,6 +210,7 @@ void main() {
           livelliDelGiorno: const [3, 4, 2, 3],
           lat: roma.$1,
           lon: roma.$2);
+      final adesso = DateTime(2026, 10, 1, 10, 30);
       tester.view.physicalSize = const Size(360, 800);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(tester.view.reset);
@@ -227,7 +228,8 @@ void main() {
                     ore: ore,
                     dominio: HoroscopeDomain.amore,
                     palette: MaestroPalette.medora,
-                    didascalia: 'Le ore planetarie.'),
+                    didascalia: 'Le ore planetarie.',
+                    adesso: adesso),
               ),
             ),
           ),
@@ -250,6 +252,26 @@ void main() {
           .data!;
       print('LE ORE DEL GIORNO A VIDEO, scala $scala: barre $barre, "$riga"');
       expect(riga, startsWith('L'));
+      // **LE ORE MIGLIORI SULLE BARRE E L'ORA DI ADESSO** (il fondatore, la
+      // stessa sera: "come posso aumentare l'esperienza utente?"): un punto
+      // d'oro sopra ogni ora delle fasce dette nella riga, nessuno sulle
+      // altre; un segno solo sotto l'ora che contiene adesso.
+      final fasce =
+          LeOreDelGiorno.migliori(ore, HoroscopeDomain.amore, adesso: adesso);
+      var punti = 0, attesi = 0;
+      for (var i = 0; i < ore.length; i++) {
+        final dentro = fasce
+            .any((f) => !ore[i].da.isBefore(f.$1) && !ore[i].a.isAfter(f.$2));
+        if (dentro) attesi++;
+        final c = find.byKey(Key('oroscopo_ora_migliore_amore_$i'));
+        if (c.evaluate().isNotEmpty) punti++;
+        expect(c.evaluate().isNotEmpty, dentro, reason: 'ora $i');
+      }
+      expect(find.byKey(const Key('oroscopo_ora_adesso_amore')), findsOneWidget,
+          reason: 'l\'ora di adesso non e\' segnata');
+      print('LE ORE DEL GIORNO A VIDEO, scala $scala: punti d\'oro $punti su '
+          '$attesi ore migliori, segno di adesso 1');
+      expect(attesi, greaterThan(0));
     });
   }
 }

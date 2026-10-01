@@ -76,6 +76,16 @@ class LeOreDelGiornoView extends StatelessWidget {
     // Sotto le barre l'ora d'inizio, una ogni tre nelle ventiquattro e una
     // ogni due nelle dodici: tutte non ci stanno.
     final ogni = ore.length > 12 ? 3 : 2;
+    // **LE ORE MIGLIORI SI VEDONO SULLE BARRE, e si vede dove sei adesso.**
+    // Il fondatore, 1 ottobre 2026 sera: *"come posso aumentare l'esperienza
+    // utente?"*. Chi legge non deve contare le barre per trovare le ore che
+    // la riga sotto nomina: sopra ogni ora migliore c'e' un punto d'oro, e
+    // sotto l'ora in cui si trova un segno al posto del numero.
+    final fasce = LeOreDelGiorno.migliori(ore, dominio, adesso: adesso);
+    bool migliore(OraDelGiorno o) =>
+        fasce.any((f) => !o.da.isBefore(f.$1) && !o.a.isAfter(f.$2));
+    bool oraDiAdesso(OraDelGiorno o) =>
+        adesso != null && !adesso!.isBefore(o.da) && adesso!.isBefore(o.a);
     return Column(
       key: Key('oroscopo_ore_${dominio.name}'),
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -96,6 +106,23 @@ class LeOreDelGiornoView extends StatelessWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          SizedBox(
+                            height: 9,
+                            child: migliore(o)
+                                ? Center(
+                                    child: Container(
+                                      key: Key('oroscopo_ora_migliore_'
+                                          '${dominio.name}_$i'),
+                                      width: 5,
+                                      height: 5,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: palette.goldSoft,
+                                      ),
+                                    ),
+                                  )
+                                : null,
+                          ),
                           Container(
                             key: Key('oroscopo_ora_barra_${dominio.name}_$i'),
                             height: altezzaPiena *
@@ -110,19 +137,28 @@ class LeOreDelGiornoView extends StatelessWidget {
                           const SizedBox(height: 2),
                           SizedBox(
                             height: etichetta.fontSize! * 1.3,
-                            child: i % ogni == 0
+                            child: oraDiAdesso(o)
                                 ? OverflowBox(
+                                    key: Key('oroscopo_ora_adesso_'
+                                        '${dominio.name}'),
                                     maxWidth: 40,
-                                    child: FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: Text('${o.da.hour}',
-                                          maxLines: 1,
-                                          style: etichetta.copyWith(
-                                              color:
-                                                  ColorTokens.textSecondary)),
-                                    ),
+                                    child: Icon(Icons.arrow_drop_up_rounded,
+                                        size: etichetta.fontSize! * 1.6,
+                                        color: ColorTokens.textPrimary),
                                   )
-                                : null,
+                                : i % ogni == 0
+                                    ? OverflowBox(
+                                        maxWidth: 40,
+                                        child: FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text('${o.da.hour}',
+                                              maxLines: 1,
+                                              style: etichetta.copyWith(
+                                                  color: ColorTokens
+                                                      .textSecondary)),
+                                        ),
+                                      )
+                                    : null,
                           ),
                         ],
                       ),
@@ -139,7 +175,12 @@ class LeOreDelGiornoView extends StatelessWidget {
             // l'apertura (oroscopo_tipografia, "Un solo blocco in oro").
             style: TypographyTokens.corpo()
                 .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
-        Text(didascalia,
+        Text(
+            adesso != null && ore.any(oraDiAdesso)
+                ? '$didascalia Il punto d\'oro segna le ore migliori, la '
+                    'freccia l\'ora di adesso.'
+                : '$didascalia Il punto d\'oro segna le ore migliori.',
+            key: Key('oroscopo_ore_didascalia_${dominio.name}'),
             style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textSecondary, height: 1.35)),
       ],

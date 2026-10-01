@@ -39,6 +39,14 @@ import 'cardinale_minimo.dart';
 ///   accanto al selettore) e dopo (sopra quando accanto si spezzerebbe);
 /// - sull'Oroscopo montato: ogni scheda il cui titolo si spezzerebbe ha il
 ///   titolo sopra, e nessun titolo a video finisce una riga col trattino.
+/// **COME SI LEGGE MALE UN TITOLO, scritto qui e non preso dal codice.** La
+/// prima stesura chiamava la stessa funzione del codice, e un difetto messo
+/// li' cambiava insieme la regola e la misura: la prova restava verde (Regola
+/// A, innesto A26 in `docs/collaudo/EU/regola_a_richieste_della_sera.txt`).
+/// Male vuol dire una riga che finisce col trattino, o piu' di due righe.
+bool leggeMale(List<String> righe) =>
+    righe.length > 2 || righe.any((r) => r.endsWith('-'));
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -163,7 +171,7 @@ void main() {
           colpe.add('a $scala ${d.name}: "$testo" dovrebbe stare '
               '${sopra ? 'sopra' : 'accanto'}');
         }
-        if (aVideo.split('\n').any((r) => r.endsWith('-')) && !sopra) {
+        if (leggeMale(aVideo.split('\n')) && !sopra) {
           colpe.add('a $scala ${d.name}: "$aVideo" col trattino accanto al '
               'selettore');
         }
@@ -189,12 +197,14 @@ void main() {
       var prima = 0, dopo = 0, sopra = 0;
       final esempi = <String>[];
       for (final t in titoli) {
-        bool colTrattino(double larghezza) => IlTitoloColTrattino.righe(t,
+        // Si legge male: col trattino o su piu' di due righe ("IL /
+        // CANTIERE / SOSPESO", visto sul Realme la stessa sera).
+        bool colTrattino(double larghezza) =>
+            leggeMale(IlTitoloColTrattino.righe(t,
                 stile: stile,
                 larghezza: larghezza - TitoloDellaSchedaDelGiorno.margine,
                 scala: s,
-                maxRighe: 3)
-            .any((r) => r.endsWith('-'));
+                maxRighe: 3));
         final stretta = larghezzaDellaTestata! - SpacingTokens.sm - accanto;
         if (colTrattino(stretta)) {
           prima++;
@@ -209,10 +219,11 @@ void main() {
         if (vaSopra) sopra++;
         if (colTrattino(vaSopra ? larghezzaDellaTestata! : stretta)) dopo++;
       }
-      conti.add('a $scala titoli col trattino a video, prima $prima, dopo '
+      conti.add('a $scala titoli col trattino o su tre righe a video, prima '
+          '$prima, dopo '
           '$dopo; titoli sopra il selettore $sopra (es. ${esempi.join(', ')})');
       if (scala == 1.0 && dopo > 0) {
-        colpe.add('a 1.0 restano $dopo titoli col trattino');
+        colpe.add('a 1.0 restano $dopo titoli col trattino o su tre righe');
       }
       if (dopo > prima) colpe.add('a $scala piu\' trattini di prima');
     }

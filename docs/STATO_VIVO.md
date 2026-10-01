@@ -5989,6 +5989,210 @@ frase non copriva il "quando"**, e' stata riparata. **La suite intera ha preso
 sedici difetti miei** sulle voci ES.04, ES.12 ed ES.15 prima della spinta, e
 il rapporto li elenca col loro padre.
 
+## L'ORDINE EU, L'OROSCOPO DOPO IL COLLAUDO DEL FONDATORE SULLA 2289, E I TESTI DELL'ARCHITETTO
+
+Ordine del 1 ottobre 2026 in due pezzi, diciannove voci (quindici rilievi del
+fondatore sulla build 2289 e quattro dell'Architetto sulle sue trenta
+catture), piu' la **EU Aggiunta, i testi dell'Architetto**: dodici corpora
+nuovi per il Giorno, la Settimana, il Mese e l'Anno delle tre tradizioni.
+Partenza dal commit `902ef8e5`, col cancello di GitHub verde. **L'ordine non
+consegna niente**: le build le ordina il fondatore; la build fatta per il
+telefono di prova porta lo stesso numero 2289 e non e' una consegna.
+Manifesto `docs/ordini/ORDINE_EU_MANIFESTO.md`, rapporto
+`docs/ordini/RAPPORTO_ORDINE_EU.md` (con le scelte prese con la risposta
+consigliata e i difetti dei testi scritti per l'Architetto, perche' Code non
+cambia una virgola dei suoi corpora), prove in `docs/collaudo/EU/`, quelle
+del telefono in `docs/collaudo/EU/realme/`, le trenta catture del fondatore
+in `docs/collaudo/EU/catture_fondatore/`. Il conto, riletto dal manifesto: 16 voci chiuse, 3 aperte in attesa di verifica (EU.03, EU.13, EU.14), 0 da fare.
+
+**Che cosa c'e' adesso nell'app, per area.**
+
+- **I testi dell'Oroscopo sono quelli dell'Architetto** (EU Aggiunta, EU.01,
+  EU.14, EU.16, EU.17). I dodici corpora stanno in `docs/corpus/eu/`
+  (`oroscopo_eu_{occidentale,vedica,cinese}_{giorno,settimana,mese,anno}.md`)
+  uguali byte per byte alla fonte, e `tool/_gen_oroscopo_eu.py` li porta
+  carattere per carattere in `lib/core/horoscope/i_testi_eu_*_data.dart`
+  (1.548 voci, 207 aperture; `--prova` li confronta di nuovo). Le regole sono
+  in `lib/core/horoscope/i_testi_eu.dart`: tre fasce dal livello (Favorevole
+  4 e 5, In equilibrio 3, In salita 2 e meno); la voce del Giorno si sceglie
+  contando i giorni della stessa fascia gia' tornati dal 1 gennaio 2026, piu'
+  lo scarto della persona (i giorni dal 1 gennaio 1900 alla nascita), la
+  Settimana, il Mese e l'Anno col loro numero. **Breve due paragrafi, Lunga
+  quattro, il cielo solo in "Da dove viene"**; il titolo della voce in cima
+  alla scheda anche nella Settimana e nel Mese; l'apertura solo sulla
+  Generale del Giorno, col vocativo. In novanta giorni, su dodici persone, tre
+  tradizioni, quattro periodi, quattro domini, Breve e Lunga: voci del Giorno
+  tornate entro trenta giorni 0 (con e senza carta), voci degli altri periodi
+  tornate 0, frasi uguali fra il Giorno e un altro periodo 0, paragrafi di una
+  fascia diversa dal livello 0 su 12.240 schede
+  (`docs/collaudo/EU/ripetizioni_90_giorni.txt`). L'elenco delle 759
+  affermazioni dei testi con la loro fonte sta in
+  `docs/collaudo/EU/affermazioni.md`: 88 sono senza fonte, e il rapporto le
+  passa all'Architetto.
+- **La Settimana, il Mese e l'Anno della Vedica e della Cinese** (EU.02):
+  ogni giorno del periodo e' la scheda del Giorno di quella data (0 giorni
+  diversi su 888); l'anno cinese va da Capodanno lunare a Capodanno lunare,
+  col rapporto col tuo animale e il Tai Sui con le cinque relazioni che lo
+  offendono (0 diversi su 10 dalla lista pubblicata per il 2026); l'anno
+  vedico va da compleanno a compleanno, col gochara di Giove e Saturno dalla
+  Luna di nascita (Phaladeepika, cap. 26) e la Sade Sati (0 diversi su 10 dal
+  JPL, `tool/gochara_jpl.py`). Codice in
+  `lib/core/horoscope/l_anno_delle_tradizioni.dart`.
+- **La testata** (EU.04): "Oroscopo del giorno", "della settimana", "del
+  mese", "dell'anno" su una riga, e sotto le date; niente "Personalizzato".
+- **"Oroscopo per"** (EU.05): la riga sopra i periodi col nome della persona
+  e "amico/a"; il tocco su amico/a apre "I tuoi amici". Il pulsante nella
+  barra in alto non c'e' piu'.
+- **Le tradizioni in arrivo** (EU.06): le immagini di prima di Maya,
+  Egizia, Celtica e Araba erano gli sfondi `Tradizione-*` della cartella del
+  fondatore, portati dalla ES.11, non grafiche di altre funzioni; con l'EU
+  Aggiunta 2 sono gli emblemi senza sfondo (vedi sotto,
+  `docs/collaudo/EU/immagini_tradizioni.txt`). **La rivelazione del segno**
+  (EU.13): la prima apertura di Vedica, Cinese, Maya, Egizia, Celtica e
+  Araba, e di una tradizione dell'amico, fa salire la figura con la sua luce
+  e poi la frase; dalla seconda volta e' gia' al suo posto, e con Riduci
+  Movimento subito intera (`LaRivelazioneInTesta`, preferenza
+  `oroscopo_testa_rivelata`).
+- **Il Viandante nella demo** (EU.07): si sceglie dal telefono col suo
+  pulsante, solo dietro `AppFlags.isDemo`.
+- **Le barre della Settimana e il Mese a calendario** (EU.09, EU.11): il
+  livello dei giorni tiene il clima dei pianeti lenti a un gradino (Hand,
+  Planets in Transit) e aggiunge la Luna del giorno al corpo natale del
+  dominio entro sei gradi (Lilly, Christian Astrology): settimane coi sette
+  giorni allo stesso livello da 4 a 2 su 64. Le barre sono alte in
+  proporzione al livello, nei cinque gradini dal giallo opaco al rosso fuoco
+  (`ColorTokens.scalaDelLivello`), con la percentuale sulla migliore; il Mese
+  e' un calendario con una casella per giorno.
+- **Il numero fortunato** (EU.10) grande e al centro del suo riquadro.
+- **Il PDF dell'anno** (EU.12) su un foglio solo, largo quanto un A4 e alto
+  quanto serve: la ripetizione della cattura del fondatore era la Modalita'
+  Liquida di Acrobat, che con due pagine rimette in fondo i titoli della
+  prima.
+- **La Lunga per chi non ha il piano** (EU.15): al Viandante il lucchetto
+  apre due strade, la Lunga dell'Oroscopo occidentale del giorno per 50 Eos
+  (per la giornata e le quattro schede, `lib/core/horoscope/la_lunga_di_oggi.dart`,
+  voce del listino `oroscopo_lunga_del_giorno`) o l'abbonamento: dalla sera
+  del 1 ottobre il foglio invita prima ad abbonarsi e non nomina ne' "la
+  Lunga" ne' il piano (vedi sotto). Vedica e Cinese restano dei piani.
+- **Il suono all'invio** (EU.03): alla pressione di "Interroga il cielo" e
+  dell'avvio della stesa non suona piu' niente; resta la vibrazione, e il
+  suono orchestrale del fondatore alla comparsa del responso. Anche il
+  Sigillo dei Tre Cieli, che si accende alla terza tradizione letta nel
+  giorno, si accende con la sola vibrazione (suonava la rivelazione mezzo
+  secondo dopo il tocco, trovato dal registro audio del Realme). **Voce
+  aperta in attesa di verifica**: il Sigillo si accende una volta al giorno
+  e sul Realme si era gia' acceso il 1 ottobre con la build di prima; la
+  misura dal telefono si fa alla prima terza tradizione del 2 ottobre.
+- **I contatori della barra in alto** (EU.19): il velo della barra dal 72 al
+  92 per cento, il contrasto peggiore dei contatori da 4,6 a 9,3.
+- **Il confine del responso** non legge piu' come previsione il futuro di un
+  gesto scelto in una relativa ("la data in cui partirai"): tre frasi dei
+  corpora lo usavano, e il rapporto lo dice all'Architetto.
+
+- **Dal Realme, sette difetti curati** con la loro prova nata rossa: il
+  Sigillo dei Tre Cieli si accende senza suono alla pressione dell'invio
+  (suonava la rivelazione alla terza tradizione del giorno); nella Lunga della
+  Settimana e del Mese vedici e cinesi il "Da dove viene" non si ripete; la
+  testata dell'Anno dice le date della tradizione scelta; "quello del Sole"
+  sotto il numero fortunato; il nome del piano attivo non va a capo dentro la
+  parola; il selettore dice "Breve" a chi scende al Viandante con la Lunga
+  scelta; la scritta del piano al centro del suo pulsante.
+- **Le richieste del fondatore della sera del 1 ottobre**: il foglio della
+  Lunga invita prima ad abbonarsi (*"Abbonati per avere sempre l'oroscopo
+  completo"*, pulsante pieno) e sotto, col bordo, gli Eos solo per oggi;
+  nessuna parola che chi legge non conosce ("Lunga", i nomi dei piani); il
+  numero e il colore del giorno riempiono il riquadro, al centro
+  (`LaFortunaDelGiorno` in `riquadro_del_numero.dart`); **i dodici mesi**
+  sulle schede dell'Anno (`lib/core/horoscope/i_dodici_mesi.dart`):
+  nell'Occidentale i giorni favorevoli del mese contati con la scheda del
+  Giorno, nella Vedica il transito del mese (Sole, Venere, Marte, Mercurio
+  dalla Luna di nascita, Phaladeepika 26), nella Cinese il pilastro del mese
+  (ramo dal jie, tronco con le cinque tigri); **le ore del giorno** sulle
+  schede del Giorno (`lib/core/horoscope/le_ore_del_giorno.dart`): le
+  ventiquattro ore planetarie dall'alba nell'Occidentale (Lilly), le hora col
+  Rahu Kalam nella Vedica, le dodici ore doppie nella Cinese, con le ore
+  migliori in parole fra quelle che devono ancora finire, e nella Vedica la
+  riga che dice da che ora a che ora c'e' il Rahu Kalam; **il terzo paragrafo della Lunga in un riquadro**
+  (`RiquadroInEvidenza`), anche nell'oroscopo dell'amico; "In arrivo" senza
+  la fase sui chip delle tradizioni; il nome lungo in testa leggibile (il
+  nome prima della virgola, e se non entra si rimpicciolisce andando a capo);
+  **ogni foglio si chiude col dito** che scende dalla cima
+  (`ChiusuraColDito` in `velo_del_cerchio.dart`) e i nove fogli che si
+  leggono soltanto hanno "Fatto" (`FattoDelFoglio`); **il campo del luogo
+  chiede anche al mondo** ogni volta che il catalogo non ha il nome scritto,
+  e il foglio dell'amico lo fa come il rito e i dati di nascita (Borgo di
+  Rivalta).
+- **L'oroscopo completo detto con le parole di chi legge** (il fondatore la
+  stessa sera: *"ma devo spendere soldi per solo 2 paragrafi?"*, e le quattro
+  domande da farsi sempre: qual e' il massimo, come ottenere di piu', cosa
+  penserebbe l'utente, come aumentare l'esperienza). Il foglio e l'invito non
+  parlano di paragrafi: dicono che la lettura completa spiega perche' succede
+  proprio a te e come muoverti, passo per passo; il foglio fa leggere
+  l'inizio vero della parte chiusa di oggi, che sfuma, e dice che cosa porta
+  l'abbonamento col prezzo dal listino ("da 2,90 € a settimana"). Le parole
+  stanno in `lib/features/horoscope/letture_complete.dart`. Nella pagina dei
+  piani la riga e' "Oroscopo completo": "Con gli Eos, per un giorno" al
+  Viandante, "Sempre" dall'Iniziato (`PlanCatalog.haProfondita` legge
+  "Sempre").
+- **Dal Realme dopo le richieste della sera**: il titolo della scheda va sopra
+  il selettore della profondita' quando accanto andrebbe a capo col trattino
+  o su tre righe (`TitoloDellaSchedaDelGiorno.vaSopra`,
+  `AnswerDepthSelector.larghezza`), nel Giorno e nei periodi; la barra
+  dell'Oroscopo si vela al 92 per cento quando il testo le scorre sotto; le
+  tradizioni dell'amico nell'ordine della persona; sulle barre delle ore un
+  punto d'oro sopra le ore migliori e un segno sotto l'ora di adesso.
+- **EU Aggiunta 2**: Maya, Egizia, Celtica e Araba mostrano l'emblema senza
+  sfondo ritagliato dall'Architetto (`assets/img/zodiac/emblema_tradizione_*.webp`,
+  uguali byte per byte ai file del PC), alla misura delle figure dei segni,
+  anche nell'oroscopo dell'amico.
+
+**Che cosa manca, e chi lo fa.** Tre voci sono aperte in attesa di verifica,
+e nessuna aspetta Code per un lavoro da fare:
+- **EU.03**, la misura dal telefono del Sigillo dei Tre Cieli curato: il
+  Sigillo si accende una volta al giorno e sul Realme si era gia' acceso il 1
+  ottobre con la build di prima; si misura alla prima terza tradizione del 2
+  ottobre (`tool/ascolta_il_realme.py`, nessuna traccia nel primo secondo).
+- **EU.13**, la rivelazione del segno vista con le animazioni accese: sul
+  Realme le scale delle animazioni sono a 0 e Flutter la mostra subito
+  intera, come per chi ha tolto il movimento; la vede il fondatore sul suo
+  telefono.
+- **EU.14**, le 88 affermazioni dei testi senza una fonte dichiarata
+  (`docs/collaudo/EU/affermazioni.md`): le verifica o le toglie l'Architetto,
+  perche' Code non cambia i suoi corpora.
+E una cosa vista solo in prova: il foglio dell'oroscopo completo
+dell'Occidentale del giorno sul Realme non si apre il 1 ottobre (l'oroscopo
+completo di oggi e' gia' comprato); l'invito delle altre schede, con le
+stesse parole, e' visto sul telefono (`eu_sera_viandante_invito_abbonati.jpg`).
+
+**Le guardie**: il registro `docs/guardie.md` e' a **643** (categorie 145,
+212 e 286), con le nuove 617-643: la guardia dell'ordine,
+`il_tasto_di_invio_non_suona`, `i_contatori_si_leggono_sempre`,
+`il_pdf_dell_anno_si_legge`, `i_livelli_dei_giorni`,
+`le_barre_e_la_griglia_si_leggono`, `i_testi_eu_sono_quelli_dell_architetto`,
+`i_paragrafi_dicono_risposte`, `le_frasi_non_si_ripetono_fra_i_periodi`,
+`il_livello_e_il_testo_dicono_lo_stesso`, `i_testi_non_tornano`,
+`la_vedica_e_la_cinese_hanno_i_periodi`, `il_segno_si_rivela_la_prima_volta`,
+`la_lunga_si_apre_con_gli_eos` (617-630); e dal Realme e dalle richieste
+della sera `il_da_dove_non_si_ripete_nel_periodo`,
+`le_date_dell_anno_sono_della_tradizione`, `il_nome_del_piano_non_si_spezza`,
+`il_numero_e_il_colore_riempiono_il_riquadro` (anche sui pixel del disegno
+della cifra), `ogni_foglio_si_chiude`, `le_tradizioni_in_arrivo_si_leggono`,
+`le_tradizioni_in_arrivo_hanno_l_emblema_senza_sfondo`,
+`i_dodici_mesi_dell_anno`, `le_ore_del_giorno` (con le ore migliori che non
+sono gia' passate e il Rahu Kalam detto con le sue ore),
+`il_terzo_paragrafo_della_lunga` (631-640);
+`il_titolo_sta_sopra_quando_si_spezzerebbe`,
+`la_barra_dell_oroscopo_si_vela`,
+`le_tradizioni_dell_amico_nell_ordine_della_persona` (641-643). La 641 e'
+stata **verde** sul primo innesto del titolo su tre righe, perche' prendeva
+la regola dal codice: adesso la misura e' scritta nella prova, e rossa.
+Regola A in
+`docs/collaudo/EU/regola_a_*.txt`, Regola B in
+`docs/collaudo/EU/regola_b_*.txt`. **La guardia delle ripetizioni ha preso un
+difetto mio prima del commit** (la storia vedica leggeva la Luna dell'ultimo
+giorno calcolato invece di quella del giorno), e il rapporto elenca ogni
+difetto col suo padre.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.

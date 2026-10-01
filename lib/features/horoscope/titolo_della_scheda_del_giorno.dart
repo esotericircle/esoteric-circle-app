@@ -33,7 +33,9 @@ class TitoloDellaSchedaDelGiorno extends StatelessWidget {
   /// DALLE STANZE" diventava "RICOMIN- / CIARE DAL- / LE STANZE". Vero quando
   /// nella colonna accanto al selettore (largo [accanto], con lo spazio di
   /// [distanza] in mezzo) il titolo andrebbe a capo col trattino: allora la
-  /// scheda lo mette sopra, largo quanto lei ([larghezza]).
+  /// scheda lo mette sopra, largo quanto lei ([larghezza]). **E quando
+  /// accanto andrebbe su tre righe**, visto sul Realme la stessa sera: "IL /
+  /// CANTIERE / SOSPESO", con l'articolo da solo sulla prima riga.
   static bool vaSopra(
     String testo, {
     required TextStyle stile,
@@ -42,12 +44,16 @@ class TitoloDellaSchedaDelGiorno extends StatelessWidget {
     required double distanza,
     TextScaler scala = TextScaler.noScaling,
   }) =>
-      IlTitoloColTrattino.righe(testo,
-              stile: stile,
-              larghezza: larghezza - distanza - accanto - margine,
-              scala: scala,
-              maxRighe: 3)
-          .any((r) => r.endsWith('-'));
+      siLeggeMale(IlTitoloColTrattino.righe(testo,
+          stile: stile,
+          larghezza: larghezza - distanza - accanto - margine,
+          scala: scala,
+          maxRighe: 3));
+
+  /// Le righe di un titolo si leggono male se una va a capo col trattino o
+  /// se sono piu' di due.
+  static bool siLeggeMale(List<String> righe) =>
+      righe.length > 2 || righe.any((r) => r.endsWith('-'));
 
   @override
   Widget build(BuildContext context) {
