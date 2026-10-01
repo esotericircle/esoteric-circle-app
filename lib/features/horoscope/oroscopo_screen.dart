@@ -136,11 +136,17 @@ enum HoroscopePeriod {
   /// Diceva "del giorno" sempre, anche a chi aveva scelto la settimana o il
   /// mese: una riga che non guarda la scelta della persona e' una riga che
   /// prima o poi dice il falso.
+  ///
+  /// **"OROSCOPO DEL GIORNO", SENZA "PERSONALIZZATO".** Ordine EU voce 04, 1
+  /// ottobre 2026, il fondatore: *"Sotto l'emblema del segno non c'è bisogno
+  /// di scrivere "personalizzato", è sufficiente "Oroscopo del giorno o
+  /// settimana o mese o anno" e sotto la data o date corrispondenti, in
+  /// questo modo guadagniamo una interlinea"*.
   String get sottotitolo => switch (this) {
-        HoroscopePeriod.giorno => 'Oroscopo Personalizzato del giorno',
-        HoroscopePeriod.settimana => 'Oroscopo Personalizzato della settimana',
-        HoroscopePeriod.mese => 'Oroscopo Personalizzato del mese',
-        HoroscopePeriod.anno => 'Oroscopo Personalizzato dell\'anno',
+        HoroscopePeriod.giorno => 'Oroscopo del giorno',
+        HoroscopePeriod.settimana => 'Oroscopo della settimana',
+        HoroscopePeriod.mese => 'Oroscopo del mese',
+        HoroscopePeriod.anno => 'Oroscopo dell\'anno',
       };
 
   /// **IL SOTTOTITOLO COME VA A VIDEO: LA PREPOSIZIONE STA COL SUO NOME.**
@@ -150,8 +156,12 @@ enum HoroscopePeriod {
   /// settimana"). Padre: ordine 2171 voce 5, che ha allungato il sottotitolo
   /// col nome del periodo. Lo spazio fra la preposizione e il nome qui non si
   /// spezza: quando serve, a capo ci va "della settimana" intero.
+  ///
+  /// Dal 1 ottobre 2026 (EU.04) il sottotitolo sta su una riga anche a 360
+  /// punti e al carattere massimo; lo spazio che non si spezza resta, perche'
+  /// se un giorno tornasse lungo la preposizione stia ancora col suo nome.
   String get sottotitoloAVideo =>
-      'Oroscopo Personalizzato ${etichetta.replaceAll(' ', '\u00A0')}';
+      'Oroscopo ${etichetta.replaceAll(' ', '\u00A0')}';
 }
 
 /// Oroscopo Personalizzato, la headline di Medora.
@@ -512,6 +522,18 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   /// Se l'avviso del prossimo compleanno solare e' gia' stato programmato in
   /// questa apertura: una volta basta.
   bool _avvisoDellAnno = false;
+
+  /// **LE DATE DELL'ANNO PER LA TESTATA**, ordine EU voce 04: il ritorno del
+  /// Sole in corso e il prossimo, se la nascita ha l'ora; senza, la testata
+  /// dice "dal tuo compleanno al prossimo" e la vista chiede l'ora.
+  (DateTime, DateTime)? _ilTuoAnno(NascitaDeiSegni? nascita) {
+    if (nascita == null || !nascita.oraNota) return null;
+    final nascitaUtc = IlFusoDellaNascita.inUtc(nascita.locale, nascita.fuso);
+    return (
+      LaRivoluzioneSolare.ritornoInCorso(nascitaUtc, _date).toLocal(),
+      LaRivoluzioneSolare.prossimoRitorno(nascitaUtc, _date).toLocal(),
+    );
+  }
 
   /// **L'ANNO DAL COMPLEANNO, ordine ES voce 04.** Le righe della vista
   /// dell'anno: cio' che manca per calcolarlo, oppure la porta per aprirlo,
@@ -997,7 +1019,12 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                             height: SpacingTokens.md),
                       if (_inCima.unlocked) ...[
                         _Heading(
-                            periodo: _period, date: _date, palette: palette),
+                            periodo: _period,
+                            date: _date,
+                            palette: palette,
+                            anno: _period == HoroscopePeriod.anno
+                                ? _ilTuoAnno(nascitaDeiSegni)
+                                : null),
                         const SizedBox(height: SpacingTokens.md),
                         _PeriodTabs(
                           current: _period,
@@ -2063,11 +2090,17 @@ class _Hero extends StatelessWidget {
 /// Intestazione: nome del segno, titolo e data locale.
 class _Heading extends StatelessWidget {
   const _Heading(
-      {required this.periodo, required this.date, required this.palette});
+      {required this.periodo,
+      required this.date,
+      required this.palette,
+      this.anno});
 
   final HoroscopePeriod periodo;
   final DateTime date;
   final MaestroPalette palette;
+
+  /// Il ritorno del Sole in corso e il prossimo: le date dell'Anno.
+  final (DateTime, DateTime)? anno;
 
   @override
   Widget build(BuildContext context) {
@@ -2090,9 +2123,13 @@ class _Heading extends StatelessWidget {
               HoroscopePeriod.mese => 'dal ${date.day} '
                   '${_mesiItaliani[date.month - 1]} al '
                   '${italianLongDate(DateTime(date.year, date.month, date.day + 29))}',
-              // L'anno va da un compleanno solare all'altro: le date vere le
-              // dice la vista dell'anno, che conosce l'istante del ritorno.
-              HoroscopePeriod.anno => 'dal tuo compleanno al prossimo',
+              // L'anno va da un compleanno solare all'altro: con l'ora di
+              // nascita le date vere (ordine EU voce 04: "sotto la data o
+              // date corrispondenti"), senza la frase che lo dice.
+              HoroscopePeriod.anno => anno == null
+                  ? 'dal tuo compleanno al prossimo'
+                  : 'dal ${anno!.$1.day} ${_mesiItaliani[anno!.$1.month - 1]} '
+                      '${anno!.$1.year} al ${italianLongDate(anno!.$2)}',
             },
             key: const Key('oroscopo_date'),
             textAlign: TextAlign.center,

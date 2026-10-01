@@ -123,9 +123,15 @@ void main() {
     }
   }
 
+  // **LAPIDE, 1 ottobre 2026, ordine EU voce 04.** La prova pretendeva che
+  // "Oroscopo Personalizzato della settimana", che a 360 punti andava a capo,
+  // non lasciasse il nome del periodo da solo sulla seconda riga. Il
+  // fondatore ha tolto "Personalizzato" per guadagnare una riga: adesso si
+  // pretende che la testata stia su UNA riga, a 360 punti e al carattere
+  // massimo, e che "Personalizzato" non ci sia.
   testWidgets(
-      'il sottotitolo non lascia il nome del periodo da solo sulla '
-      'seconda riga', (tester) async {
+      'la testata dice "Oroscopo del" periodo su una riga sola, senza '
+      '"Personalizzato"', (tester) async {
     final soli = <String>[];
     var misurati = 0;
     var suDueRighe = 0;
@@ -145,7 +151,7 @@ void main() {
         // parola: lo spazio che non si spezza non cambia le parole.
         expect(testo.replaceAll('\u00A0', ' '), p.sottotitolo);
         final paragrafo = tester.renderObject<RenderParagraph>(titolo);
-        const prima = 'Oroscopo Personalizzato ';
+        const prima = 'Oroscopo ';
         final preposizione = paragrafo
             .getOffsetForCaret(
                 const TextPosition(offset: prima.length), Rect.zero)
@@ -158,7 +164,13 @@ void main() {
             .getOffsetForCaret(const TextPosition(offset: 0), Rect.zero)
             .dy;
         misurati++;
-        if (nome != inizio) suDueRighe++;
+        if (nome != inizio) {
+          suDueRighe++;
+          soli.add('scala $scala, ${p.label} su due righe: "$testo"');
+        }
+        if (testo.contains('Personalizzato')) {
+          soli.add('scala $scala, ${p.label} dice ancora "Personalizzato"');
+        }
         if (preposizione != nome) {
           soli.add('scala $scala, ${p.label}: "$testo"');
         }
@@ -166,12 +178,9 @@ void main() {
       await tester.pumpWidget(const SizedBox());
     }
     cardinaleMinimo(misurati, 8, cosa: 'sottotitoli misurati');
-    // A 360 punti il sottotitolo va a capo: se stesse sempre su una riga la
-    // prova non misurerebbe dove si spezza.
-    cardinaleMinimo(suDueRighe, 4, cosa: 'sottotitoli su due righe');
-    print('ORDINE ES, IL SOTTOTITOLO A 360 PUNTI: col nome del periodo da '
-        'solo sulla seconda riga ${soli.length} su $misurati (su due righe '
-        '$suDueRighe)${soli.isEmpty ? '' : ': ${soli.join('; ')}'}');
+    print('ORDINE EU, LA TESTATA A 360 PUNTI: testate su due righe '
+        '$suDueRighe su $misurati, fuori regola ${soli.length}'
+        '${soli.isEmpty ? '' : ': ${soli.join('; ')}'}');
     expect(soli, isEmpty);
   });
 

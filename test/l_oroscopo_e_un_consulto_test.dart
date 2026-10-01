@@ -136,7 +136,8 @@ void main() {
         .data!
         .replaceAll('\u00A0', ' ');
 
-    expect(sottotitolo(), 'Oroscopo Personalizzato del giorno');
+    // Dal 1 ottobre 2026 senza "Personalizzato" (ordine EU voce 04).
+    expect(sottotitolo(), 'Oroscopo del giorno');
     for (final p in HoroscopePeriod.values) {
       expect(p.sottotitoloAVideo.replaceAll('\u00A0', ' '), p.sottotitolo,
           reason: 'il sottotitolo a video di ${p.label} non dice le parole '
@@ -144,10 +145,8 @@ void main() {
     }
     // Le altre due strade sono bloccate dal piano, quindi il sottotitolo si
     // misura sul dato, che e' la stessa cosa che la schermata legge.
-    expect(HoroscopePeriod.settimana.sottotitolo,
-        'Oroscopo Personalizzato della settimana');
-    expect(
-        HoroscopePeriod.mese.sottotitolo, 'Oroscopo Personalizzato del mese');
+    expect(HoroscopePeriod.settimana.sottotitolo, 'Oroscopo della settimana');
+    expect(HoroscopePeriod.mese.sottotitolo, 'Oroscopo del mese');
     for (final p in HoroscopePeriod.values) {
       expect(p.sottotitolo.contains(p.label.toLowerCase()), isTrue,
           reason: 'il sottotitolo di ${p.label} non nomina il suo periodo: '
