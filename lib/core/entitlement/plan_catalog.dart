@@ -376,7 +376,11 @@ class PlanCatalog {
     final riga = matrix.where((r) => r.chiave == RigaDelPiano.profondita);
     if (riga.isEmpty) return false;
     const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
-    return riga.first.values[ordine.indexOf(tier)].toLowerCase() != 'breve';
+    // Dall'ordine EU voce 15 la cella del Viandante dice anche la Lunga con
+    // gli Eos: la profondita' del piano e' solo "Breve o Lunga".
+    return riga.first.values[ordine.indexOf(tier)]
+        .toLowerCase()
+        .startsWith('breve o lunga');
   }
 
   /// SE QUEL PIANO PORTA EOS OGNI MESE, e con quale parola lo promette.
@@ -503,8 +507,16 @@ class PlanCatalog {
     // "vorrei che l'utente free non avesse accesso al settimanale".
     FeatureRow('Oroscopo settimanale', ['No', 'Sì', 'Sì', 'Sì'],
         chiave: RigaDelPiano.oroscopoSettimanale),
-    FeatureRow('Profondità dell\'oroscopo',
-        ['Breve', 'Breve o Lunga', 'Breve o Lunga', 'Breve o Lunga'],
+    // LA LUNGA DEL GIORNO CON GLI EOS, ordine EU voce 15: il Viandante la
+    // apre per la giornata con 50 Eos (tabella ES.06).
+    FeatureRow(
+        'Profondità dell\'oroscopo',
+        [
+          'Breve; la Lunga del giorno con gli Eos',
+          'Breve o Lunga',
+          'Breve o Lunga',
+          'Breve o Lunga'
+        ],
         chiave: RigaDelPiano.profondita),
     FeatureRow('Oroscopo mensile', ['No', 'No', 'Sì', 'Sì']),
     // L'ANNO DAL COMPLEANNO, ordine ES voce 04: "dall'Adepto in su, 300 Eos,

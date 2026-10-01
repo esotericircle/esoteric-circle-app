@@ -27,6 +27,7 @@ import 'amici_screen.dart';
 import '../horoscope/oroscopo_per.dart';
 import '../horoscope/answer_depth.dart';
 import '../horoscope/horoscope_visuals.dart';
+import '../horoscope/la_rivelazione_del_segno.dart';
 import '../horoscope/la_testa_della_tradizione.dart';
 import '../horoscope/oroscopo_share_card.dart';
 import '../horoscope/titolo_della_scheda_del_giorno.dart';
@@ -71,6 +72,27 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
     with SingleTickerProviderStateMixin {
   late final DateTime _adesso = widget.adesso ?? DateTime.now();
   AstroTradition _tradizione = AstroTradition.occidentale;
+
+  /// **LA TESTA CHE SI RIVELA, ordine EU voce 13**, anche per l'amico: la
+  /// prima volta che si apre una sua tradizione il suo segno si rivela.
+  Set<String>? _testeRivelate;
+  AstroTradition? _testaDaRivelare;
+
+  void _scegli(AstroTradition t) {
+    setState(() {
+      _tradizione = t;
+      // Una rivelazione vale per la sua apertura.
+      _testaDaRivelare = null;
+      final chi = 'amico|${widget.amico.id}|${t.name}';
+      final viste = _testeRivelate;
+      if (t == AstroTradition.occidentale || viste == null) return;
+      if (viste.contains(chi)) return;
+      viste.add(chi);
+      _testaDaRivelare = t;
+      unawaited(LaRivelazioneDelSegno.segnaLaTesta(chi));
+    });
+  }
+
   LuogoDelGiorno? _luogo;
   final GlobalKey _cardKey = GlobalKey();
   bool _renderCard = false;
@@ -95,6 +117,9 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
   @override
   void initState() {
     super.initState();
+    unawaited(LaRivelazioneDelSegno.testeViste().then((v) {
+      if (mounted) _testeRivelate = v;
+    }));
     unawaited(DoveSonoAdesso.letto().then((l) {
       if (!mounted || l == null) return;
       setState(() =>
@@ -262,7 +287,7 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
                                       ? palette.goldSoft
                                       : ColorTokens.textSecondary)),
                           selected: _tradizione == t,
-                          onSelected: (_) => setState(() => _tradizione = t),
+                          onSelected: (_) => _scegli(t),
                         ),
                       ),
                   ],
@@ -270,7 +295,10 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
               ),
               const SizedBox(height: SpacingTokens.md),
               LaTestaDellaTradizione(
-                  tradizione: _tradizione, segno: segno, palette: palette),
+                  tradizione: _tradizione,
+                  segno: segno,
+                  palette: palette,
+                  rivela: _testaDaRivelare == _tradizione),
               const SizedBox(height: SpacingTokens.md),
               if (_tradizione == AstroTradition.occidentale)
                 Text(

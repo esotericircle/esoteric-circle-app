@@ -151,6 +151,28 @@ class ListinoDegliEos {
     },
   );
 
+  /// **LA LUNGA DELL'OROSCOPO OCCIDENTALE DEL GIORNO, ordine EU voce 15.**
+  /// La tabella della voce ES.06, approvata dal fondatore: *"Occidentale del
+  /// giorno, Approfondita: 50 Eos, per la giornata e le quattro schede"*; e
+  /// il 30 settembre, alla domanda *"Chi può scegliere la profondità
+  /// Lunga?"*, *"Premium più Eos"*. Contro la regola scritta sopra (la
+  /// profondita' resta dell'abbonamento) la decisione e' sua e porta la sua
+  /// data: si compra una giornata, non un accesso che dura. La Vedica e la
+  /// Cinese non si comprano con gli Eos (la stessa tabella).
+  static const oroscopoLungaDelGiorno = VoceDelListino(
+    id: 'oroscopo_lunga_del_giorno',
+    nome: 'La Lunga dell\'Oroscopo occidentale del giorno, per la giornata e '
+        'le quattro schede',
+    costo: 50,
+    budget: null,
+    gratisAlGiorno: {
+      Tier.free: 0,
+      Tier.tier1: null,
+      Tier.tier2: null,
+      Tier.tier3: null,
+    },
+  );
+
   /// **UN POSTO IN PIU' FRA GLI AMICI OFFLINE, ordine ES voci 06 e 12.** Il
   /// fondatore: "3 per l'Iniziato, 10 per l'Adepto, nessun limite per
   /// l'Illuminato [...] 100 Eos per un posto in più", "ok , approvato". E'
@@ -176,6 +198,7 @@ class ListinoDegliEos {
     sinastriaExtra,
     stesaCompleta,
     oroscopoAnnuale,
+    oroscopoLungaDelGiorno,
     amicoInPiu,
   ];
 

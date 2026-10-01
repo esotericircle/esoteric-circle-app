@@ -29,7 +29,13 @@ class LaTestaDellaTradizione extends StatelessWidget {
     required this.tradizione,
     required this.segno,
     required this.palette,
+    this.rivela = false,
   });
+
+  /// **LA PRIMA VOLTA IL SEGNO SI RIVELA**, ordine EU voce 13: la figura
+  /// arriva con la sua luce, il nome e la frase dopo. Vero solo alla prima
+  /// apertura di questa tradizione ([LaRivelazioneInTesta]).
+  final bool rivela;
 
   final AstroTradition tradizione;
 
@@ -95,33 +101,39 @@ class LaTestaDellaTradizione extends StatelessWidget {
           chiave: const Key('oroscopo_sign_name'),
         ),
         const SizedBox(height: SpacingTokens.xs),
-        SizedBox(
-          height: 268,
-          child: Center(
-            child: percorso == null
-                ? const SizedBox.shrink()
-                : emblema
-                    ? ClipRRect(
-                        borderRadius:
-                            BorderRadius.circular(SpacingTokens.radiusLg),
-                        child: Image.asset(percorso,
-                            key: Key('oroscopo_figura_${tradizione.name}'),
-                            width: 220,
-                            height: 220,
-                            fit: BoxFit.cover),
-                      )
-                    : Image.asset(percorso,
-                        key: Key('oroscopo_figura_${tradizione.name}'),
-                        height: 264,
-                        fit: BoxFit.contain),
+        LaRivelazioneInTesta(
+          key: Key('oroscopo_rivelazione_${tradizione.name}_$rivela'),
+          attiva: rivela,
+          palette: palette,
+          figura: SizedBox(
+            height: 268,
+            child: Center(
+              child: percorso == null
+                  ? const SizedBox.shrink()
+                  : emblema
+                      ? ClipRRect(
+                          borderRadius:
+                              BorderRadius.circular(SpacingTokens.radiusLg),
+                          child: Image.asset(percorso,
+                              key: Key('oroscopo_figura_${tradizione.name}'),
+                              width: 220,
+                              height: 220,
+                              fit: BoxFit.cover),
+                        )
+                      : Image.asset(percorso,
+                          key: Key('oroscopo_figura_${tradizione.name}'),
+                          height: 264,
+                          fit: BoxFit.contain),
+            ),
           ),
+          frase: s == null
+              ? null
+              : Text(s.frase,
+                  key: Key('oroscopo_frase_${tradizione.name}'),
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.didascalia()
+                      .copyWith(color: palette.goldSoft, height: 1.35)),
         ),
-        if (s != null)
-          Text(s.frase,
-              key: Key('oroscopo_frase_${tradizione.name}'),
-              textAlign: TextAlign.center,
-              style: TypographyTokens.didascalia()
-                  .copyWith(color: palette.goldSoft, height: 1.35)),
         if (s?.nota != null) ...[
           const SizedBox(height: SpacingTokens.xs),
           Text(s!.nota!,
@@ -155,6 +167,115 @@ class LaTestaDellaTradizione extends StatelessWidget {
           ),
         ],
       ],
+    );
+  }
+}
+
+/// **LA RIVELAZIONE DEL SEGNO IN TESTA, ordine EU voce 13.** Il fondatore:
+/// *"quando l'utente fa click per la prima volta su vedica o cinese o altro,
+/// serve un'animazione di rivelazione del segno, non possono comparire di
+/// botto."* La rivelazione della voce ES.35 era un foglio che si apriva dopo
+/// la scelta, solo per la Cinese e la Vedica e solo col segno certo: sotto,
+/// la figura in testa era gia' comparsa di colpo.
+///
+/// Adesso, la prima volta che una tradizione si apre (Vedica, Cinese, Maya,
+/// Egizia, Celtica, Araba, e quelle di un amico), la figura in testa arriva
+/// con la sua luce: un alone d'oro che si accende, la figura che sale da
+/// piccola e trasparente, poi la frase del segno. Dalla seconda volta e'
+/// gia' al suo posto. **Con Riduci Movimento** la figura e la frase sono
+/// subito intere, senza animazione.
+class LaRivelazioneInTesta extends StatefulWidget {
+  const LaRivelazioneInTesta({
+    super.key,
+    required this.attiva,
+    required this.palette,
+    required this.figura,
+    this.frase,
+  });
+
+  final bool attiva;
+  final MaestroPalette palette;
+  final Widget figura;
+  final Widget? frase;
+
+  /// Quanto dura la rivelazione.
+  static const Duration durata = Duration(milliseconds: 1600);
+
+  @override
+  State<LaRivelazioneInTesta> createState() => _LaRivelazioneInTestaState();
+}
+
+class _LaRivelazioneInTestaState extends State<LaRivelazioneInTesta>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _c =
+      AnimationController(vsync: this, duration: LaRivelazioneInTesta.durata);
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!widget.attiva || MediaQuery.of(context).disableAnimations) {
+      _c.value = 1;
+    } else if (!_c.isAnimating && _c.value == 0) {
+      _c.forward();
+    }
+  }
+
+  @override
+  void dispose() {
+    _c.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final p = widget.palette;
+    final figura = CurvedAnimation(
+        parent: _c, curve: const Interval(0, 0.7, curve: Curves.easeOutBack));
+    final luce = CurvedAnimation(parent: _c, curve: const Interval(0, 0.6));
+    final frase = CurvedAnimation(
+        parent: _c, curve: const Interval(0.45, 1, curve: Curves.easeOut));
+    return AnimatedBuilder(
+      animation: _c,
+      builder: (context, _) => Column(
+        children: [
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              // L'alone si spegne a rivelazione finita: resta solo la figura.
+              if (widget.attiva && _c.value < 1)
+                Opacity(
+                  key: const Key('oroscopo_rivelazione_luce'),
+                  opacity: (luce.value * (1 - _c.value) * 2).clamp(0.0, 1.0),
+                  child: Container(
+                    width: 260,
+                    height: 260,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: RadialGradient(colors: [
+                        p.gold.withValues(alpha: 0.35),
+                        p.gold.withValues(alpha: 0),
+                      ]),
+                    ),
+                  ),
+                ),
+              Opacity(
+                key: const Key('oroscopo_rivelazione_figura'),
+                opacity: figura.value.clamp(0.0, 1.0),
+                child: Transform.scale(
+                  scale: 0.6 + 0.4 * figura.value,
+                  child: widget.figura,
+                ),
+              ),
+            ],
+          ),
+          if (widget.frase != null)
+            Opacity(
+              key: const Key('oroscopo_rivelazione_frase'),
+              opacity: frase.value.clamp(0.0, 1.0),
+              child: widget.frase,
+            ),
+        ],
+      ),
     );
   }
 }

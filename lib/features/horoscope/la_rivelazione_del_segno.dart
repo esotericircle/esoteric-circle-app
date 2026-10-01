@@ -30,6 +30,34 @@ import 'oroscopo_share_card.dart';
 abstract final class LaRivelazioneDelSegno {
   static const String chiave = 'oroscopo_segno_rivelato';
 
+  /// **LE TESTE GIA' RIVELATE, ordine EU voce 13**: le tradizioni (e quelle
+  /// degli amici, "amico|id|tradizione") la cui figura in testa si e' gia'
+  /// rivelata su questo telefono.
+  static const String chiaveDelleTeste = 'oroscopo_testa_rivelata';
+
+  /// Le teste gia' rivelate. Senza disco: tutte, cioe' nessuna rivelazione
+  /// a ogni apertura.
+  static Future<Set<String>?> testeViste() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      return {...?prefs.getStringList(chiaveDelleTeste)};
+    } catch (errore) {
+      return null;
+    }
+  }
+
+  /// Segna la testa [chi] come rivelata.
+  static Future<void> segnaLaTesta(String chi) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final viste = {...?prefs.getStringList(chiaveDelleTeste), chi}.toList()
+        ..sort();
+      await prefs.setStringList(chiaveDelleTeste, viste);
+    } catch (errore) {
+      // Se il disco non scrive la rivelazione tornera': il male minore.
+    }
+  }
+
   /// Quanto e' fitto il velo dietro la rivelazione: piu' di quello dei
   /// dialoghi, perche' i due gesti stanno sul velo e non su un fondo loro.
   static const double opacitaDelVelo = 0.94;

@@ -1,0 +1,7 @@
+REGOLA B, ordine EU voce 13, 1 ottobre 2026: la guardia della rivelazione della ES.35 (i_tre_cieli) vista rossa. Fatta DOPO aver scritto la voce, sul codice nuovo, e lo dice questa riga.
+INNESTO B1 la rivelazione della Cinese e della Vedica (ES.35) tolta: grep del difetto nel file SI; prova test/i_tre_cieli_test.dart ROSSA; file rimesso sha1 dcdf31d79bcb -> dcdf31d79bcb IDENTICO
+REGOLA A: la guardia il_segno_si_rivela_la_prima_volta vista rossa.
+INNESTO A1 la testa non si rivela mai, come prima: grep del difetto nel file SI; prova test/il_segno_si_rivela_la_prima_volta_test.dart ROSSA; ORDINE EU VOCE 13: tradizioni la cui prima apertura mostra il segno senza rivelazione 6 su 6; seconde aperture che lo rivelano di nuovo 0; file rimesso sha1 e24a63be1fc0 -> e24a63be1fc0 IDENTICO
+INNESTO A2 Riduci Movimento ignorato: grep del difetto nel file SI; prova test/il_segno_si_rivela_la_prima_volta_test.dart ROSSA; file rimesso sha1 76a6f70a83e2 -> 76a6f70a83e2 IDENTICO
+INNESTO A3 la rivelazione che resta accesa cambiando tradizione: grep del difetto nel file SI; prova test/il_segno_si_rivela_la_prima_volta_test.dart ROSSA; ORDINE EU VOCE 13: tradizioni la cui prima apertura mostra il segno senza rivelazione 0 su 6; seconde aperture che lo rivelano di nuovo 1; file rimesso sha1 e24a63be1fc0 -> e24a63be1fc0 IDENTICO
+INNESTO A4 l'amico senza rivelazione: grep del difetto nel file SI; prova test/il_segno_si_rivela_la_prima_volta_test.dart ROSSA; file rimesso sha1 1eb7d366c9db -> 1eb7d366c9db IDENTICO

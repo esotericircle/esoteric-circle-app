@@ -35,6 +35,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import 'answer_depth.dart';
 import '../pricing/upgrade_invite.dart';
+import '../pricing/pricing_screen.dart';
 import 'horoscope_visuals.dart';
 import 'la_testa_della_tradizione.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
@@ -51,6 +52,7 @@ import '../../design_system/components/depth_card.dart';
 import '../../core/horoscope/la_lettura_vedica.dart';
 import '../../core/horoscope/l_annuale.dart';
 import '../../core/horoscope/l_anno_delle_tradizioni.dart';
+import '../../core/horoscope/la_lunga_di_oggi.dart';
 import '../../core/horoscope/il_capodanno_lunare.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/horoscope/i_testi_eu.dart';
@@ -594,6 +596,26 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   // dissolvenza, dalla seconda in poi compare gia' posato.
   final Set<AstroTradition> _traditionRevealed = <AstroTradition>{};
 
+  /// **LA TESTA CHE SI RIVELA, ordine EU voce 13**: le tradizioni gia'
+  /// rivelate su questo telefono, lette all'apertura (null finche' il disco
+  /// non risponde: allora non si rivela, meglio che rivelare due volte), e
+  /// quella che si sta rivelando adesso.
+  Set<String>? _testeRivelate;
+  AstroTradition? _testaDaRivelare;
+
+  /// Se [t] si apre per la prima volta, la segna e la rivela. Si chiama
+  /// dentro il setState di chi la sceglie.
+  void _forseRivela(AstroTradition t) {
+    // Una rivelazione vale per la sua apertura: cambiando tradizione finisce.
+    _testaDaRivelare = null;
+    final viste = _testeRivelate;
+    if (t == AstroTradition.occidentale || viste == null) return;
+    if (viste.contains(t.name)) return;
+    viste.add(t.name);
+    _testaDaRivelare = t;
+    unawaited(LaRivelazioneDelSegno.segnaLaTesta(t.name));
+  }
+
   // Pulsazione lenta condivisa: respiro dell'emblema e delle forme a tema.
   late final AnimationController _pulse = AnimationController(
     vsync: this,
@@ -901,6 +923,12 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   @override
   void initState() {
     super.initState();
+    unawaited(LaRivelazioneDelSegno.testeViste().then((v) {
+      if (mounted) _testeRivelate = v;
+    }));
+    unawaited(LaLungaDiOggi.comprata(_date).then((si) {
+      if (mounted && si) setState(() => _lungaDiOggi = true);
+    }));
     unawaited(_leggiIlLuogo());
     unawaited(GliAnniAperti.letti().then((a) {
       if (mounted) setState(() => _anniAperti.addAll(a));
@@ -1127,6 +1155,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                             tradizione: _inCima,
                             segno: segnoInCima,
                             palette: palette,
+                            rivela: _testaDaRivelare == _inCima,
                           )
                         : Column(
                             children: [
@@ -1466,8 +1495,13 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                               onDepthLocked: (depth) =>
                                   _showDepthLocked(cards[i].domain, depth),
                               livello: cielo.livello,
-                              premiumUnlocked: PlanCatalog.haProfondita(
-                                  context.watch<EntitlementService>().tier),
+                              // La Lunga del piano, o quella di oggi
+                              // comprata con gli Eos sull'Occidentale (EU.15).
+                              premiumUnlocked: PlanCatalog.haProfondita(context
+                                      .watch<EntitlementService>()
+                                      .tier) ||
+                                  (_lungaDiOggi &&
+                                      _inCima == AstroTradition.occidentale),
                             ),
                             const SizedBox(height: SpacingTokens.md),
                           ],
@@ -1659,17 +1693,114 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     );
   }
 
+  /// **IL PIANO CHE APRE LA LUNGA**, col suo nome: il primo che ha la
+  /// profondita' nella tabella dei piani.
+  String get _pianoDellaLunga => PlanCatalog.forTier(Tier.values
+      .firstWhere(PlanCatalog.haProfondita, orElse: () => Tier.tier1)).name;
+
   void _showDepthLocked(HoroscopeDomain domain, AnswerDepth depth) {
+    // **LE DUE STRADE, ordine EU voce 15**: nell'Oroscopo occidentale del
+    // giorno chi non ha il piano apre la Lunga di oggi con 50 Eos, oppure
+    // col piano chiamato per nome. La Vedica, la Cinese e i periodi non si
+    // comprano con gli Eos (tabella ES.06): resta il piano.
+    if (_inCima == AstroTradition.occidentale &&
+        _period == HoroscopePeriod.giorno) {
+      unawaited(_offriLaLunga(domain));
+      return;
+    }
     // LA BOLLA DEL MAESTRO, non una SnackBar di sistema, ordine L voce 1c:
     // l'avviso col fondo bianco e' sparito, e al tocco sul lucchetto sale
     // dal basso l'invito gia' esistente, nel blu di Medora.
     showUpgradeInvite(
       context,
-      title: 'La profondità ${depth.label} è del Cerchio Premium',
-      message: 'Col piano superiore scegli quanto approfondire ogni scheda, '
+      title:
+          'La profondità ${depth.label} si apre ${conPiano(_pianoDellaLunga)}',
+      message: 'Col piano scegli quanto approfondire ogni scheda, '
           '${domain.label} compresa: la lettura ti segue in profondità.',
     );
   }
+
+  /// **LA LUNGA DI OGGI, CON GLI EOS O COL PIANO, ordine EU voce 15.**
+  Future<void> _offriLaLunga(HoroscopeDomain domain) async {
+    final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
+    final piano = _pianoDellaLunga;
+    await foglioDelCerchio<void>(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isScrollControlled: true,
+      builder: (foglio) => Container(
+        key: const Key('oroscopo_lunga_due_strade'),
+        padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.md,
+            SpacingTokens.lg, SpacingTokens.xl),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [palette.surfaceElevated, palette.deepest],
+          ),
+          borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(SpacingTokens.radiusXl)),
+          border: Border.all(color: palette.gold.withValues(alpha: 0.3)),
+        ),
+        child: SafeArea(
+          top: false,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text('La Lunga di oggi',
+                    style: TypographyTokens.titoloDiSchermata()
+                        .copyWith(color: palette.goldSoft)),
+                const SizedBox(height: SpacingTokens.sm),
+                Text(
+                    'Due paragrafi in più su ogni scheda, ${domain.label} '
+                    'compresa, per tutta la giornata. Puoi aprirla per oggi '
+                    'con gli Eos, oppure averla ogni giorno ${conPiano(piano)}.',
+                    style: TypographyTokens.corpo().copyWith(
+                        color: ColorTokens.textSecondary, height: 1.4)),
+                const SizedBox(height: SpacingTokens.md),
+                PortaDellaSpesa(
+                  voce: ListinoDegliEos.oroscopoLungaDelGiorno,
+                  etichetta: 'Apri la Lunga di oggi',
+                  suSpesaFatta: () {
+                    unawaited(LaLungaDiOggi.segna(_date));
+                    if (mounted) {
+                      setState(() {
+                        _lungaDiOggi = true;
+                        _depth[domain] = AnswerDepth.profonda;
+                      });
+                    }
+                    Navigator.of(foglio).pop();
+                  },
+                ),
+                const SizedBox(height: SpacingTokens.sm),
+                OutlinedButton(
+                  key: const Key('oroscopo_lunga_col_piano'),
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(0, 44),
+                    side:
+                        BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+                  ),
+                  onPressed: () {
+                    Navigator.of(foglio).pop();
+                    unawaited(
+                        Navigator.of(context).push(PricingScreen.route()));
+                  },
+                  child: Text('La Lunga ogni giorno ${conPiano(piano)}',
+                      style: TypographyTokens.corpo()
+                          .copyWith(color: palette.goldSoft)),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// La Lunga di oggi gia' comprata con gli Eos (ordine EU voce 15).
+  bool _lungaDiOggi = false;
 
   void _selectPeriod(HoroscopePeriod period) {
     final tier = context.read<EntitlementService>().tier;
@@ -1702,6 +1833,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         _tradition = tradition;
         _traditionMessage = null;
         _inCima = tradition;
+        _forseRivela(tradition);
       });
       // **LA RIVELAZIONE DEL SEGNO, ordine ES voce 35**: la prima volta che
       // si sceglie la Cinese o la Vedica, dopo il frame della scelta.
@@ -1729,6 +1861,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       if (tradition != _inCima) _consultoDi(tradition);
       _traditionMessage = tradition;
       _inCima = tradition;
+      _forseRivela(tradition);
     });
     // Segna la rivelazione dopo il frame in cui l'animazione e' partita.
     WidgetsBinding.instance.addPostFrameCallback((_) {
