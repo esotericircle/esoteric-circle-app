@@ -32,10 +32,15 @@ import 'l_oroscopo_dell_amico_screen.dart';
 /// all'amico"*; *"l'utente free non può fare orsocopo per amici, lo vede e se
 /// fa click, viene invitato a sottoscrivere abbonamento"*.
 class AmiciScreen extends StatefulWidget {
-  const AmiciScreen({super.key, this.amici});
+  const AmiciScreen({super.key, this.amici, this.perScegliere = false});
 
   /// Il contenitore, per le prove; nell'app se ne crea uno e si carica.
   final AmiciOffline? amici;
+
+  /// **PER SCEGLIERE**, ordine EU voce 05: aperta dal selettore "Oroscopo
+  /// per", il tocco su un amico torna all'Oroscopo con l'amico scelto,
+  /// invece di aprire da qui la sua lettura.
+  final bool perScegliere;
 
   /// **VESTITA DA MEDORA**, come il Calendario: l'oroscopo e' suo, e lo
   /// scope neutro sopra il Navigator e' solo il pavimento. Senza, l'invito
@@ -43,8 +48,10 @@ class AmiciScreen extends StatefulWidget {
   ///
   /// **DAL PASSAGGIO DEL CERCHIO**, come ogni schermata (ordine CC voce 04):
   /// la prima stesura costruiva la rotta da se', e la suite l'ha presa.
-  static Route<void> route() => PassaggioDelCerchio.rotta<void>(
-      (_) => const MaestroScope(maestro: Maestro.medora, child: AmiciScreen()));
+  static Route<Amico?> route({bool perScegliere = false}) =>
+      PassaggioDelCerchio.rotta<Amico?>((_) => MaestroScope(
+          maestro: Maestro.medora,
+          child: AmiciScreen(perScegliere: perScegliere)));
 
   @override
   State<AmiciScreen> createState() => _AmiciScreenState();
@@ -177,8 +184,10 @@ class _AmiciScreenState extends State<AmiciScreen> {
                         color: palette.goldSoft),
                     onPressed: () => _togli(a),
                   ),
-                  onTap: () => Navigator.of(context)
-                      .push(LOroscopoDellAmicoScreen.route(a)),
+                  onTap: () => widget.perScegliere
+                      ? Navigator.of(context).pop(a)
+                      : Navigator.of(context)
+                          .push(LOroscopoDellAmicoScreen.route(a)),
                 ),
               ),
             const SizedBox(height: SpacingTokens.md),

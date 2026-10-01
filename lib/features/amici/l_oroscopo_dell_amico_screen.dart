@@ -23,6 +23,8 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
+import 'amici_screen.dart';
+import '../horoscope/oroscopo_per.dart';
 import '../horoscope/answer_depth.dart';
 import '../horoscope/horoscope_visuals.dart';
 import '../horoscope/la_testa_della_tradizione.dart';
@@ -39,18 +41,26 @@ import '../pricing/upgrade_invite.dart';
 /// la Cinese dal suo animale e dal tronco del suo giorno, la Vedica dalla sua
 /// Luna di nascita. Chi legge e' l'amico, quindi si parla al neutro.
 class LOroscopoDellAmicoScreen extends StatefulWidget {
-  const LOroscopoDellAmicoScreen({super.key, required this.amico, this.adesso});
+  const LOroscopoDellAmicoScreen(
+      {super.key, required this.amico, this.adesso, this.nomeTuo});
 
   final Amico amico;
+
+  /// **IL NOME DI CHI GUARDA**, ordine EU voce 05: aperta dal selettore
+  /// "Oroscopo per" dell'Oroscopo, la lettura dell'amico porta in cima la
+  /// stessa riga, col nome dell'amico scelto; il nome di chi guarda riporta
+  /// alla sua lettura. Senza (aperta dalla lista degli amici) la riga non
+  /// c'e'.
+  final String? nomeTuo;
 
   /// L'istante di oggi, per le prove.
   final DateTime? adesso;
 
   /// Vestita da Medora, come la lista degli amici e il Calendario.
-  static Route<void> route(Amico amico) =>
+  static Route<void> route(Amico amico, {String? nomeTuo}) =>
       PassaggioDelCerchio.rotta<void>((_) => MaestroScope(
           maestro: Maestro.medora,
-          child: LOroscopoDellAmicoScreen(amico: amico)));
+          child: LOroscopoDellAmicoScreen(amico: amico, nomeTuo: nomeTuo)));
 
   @override
   State<LOroscopoDellAmicoScreen> createState() =>
@@ -164,6 +174,16 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
     }
   }
 
+  /// Il tocco sul nome dell'amico nella riga "Oroscopo per": si riapre la
+  /// scelta, e la lettura del nuovo amico prende il posto di questa.
+  Future<void> _cambiaAmico() async {
+    final navigatore = Navigator.of(context);
+    final scelto = await navigatore.push(AmiciScreen.route(perScegliere: true));
+    if (scelto == null || !mounted) return;
+    unawaited(navigatore.pushReplacement(
+        LOroscopoDellAmicoScreen.route(scelto, nomeTuo: widget.nomeTuo)));
+  }
+
   @override
   Widget build(BuildContext context) {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
@@ -188,6 +208,17 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
             key: const Key('amico_oroscopo_lista'),
             padding: const EdgeInsets.all(SpacingTokens.lg),
             children: [
+              if (widget.nomeTuo != null) ...[
+                OroscopoPer(
+                  nomeTuo: widget.nomeTuo!,
+                  nomeAmico: OroscopoShareCard.soloIlNome(widget.amico.nome) ??
+                      widget.amico.nome,
+                  palette: palette,
+                  onTe: () => Navigator.of(context).pop(),
+                  onAmico: _cambiaAmico,
+                ),
+                const SizedBox(height: SpacingTokens.md),
+              ],
               // **LE TRE TRADIZIONI SU UNA RIGA, COI COLORI DEL CERCHIO.** Visto
               // nelle anteprime il 30 settembre 2026: a 360 punti le tre
               // voci non stavano su una riga e "Vedica" scendeva da sola

@@ -57,6 +57,8 @@ import '../../core/astro/birth_details.dart';
 import '../../core/entitlement/listino_degli_eos.dart';
 import '../../design_system/components/porta_della_spesa.dart';
 import 'il_pdf_dell_anno.dart';
+import 'oroscopo_per.dart';
+import '../amici/l_oroscopo_dell_amico_screen.dart';
 import '../amici/amici_screen.dart';
 import '../../core/astro/luogo_attuale.dart';
 import '../../core/lang/euphonic.dart';
@@ -523,6 +525,17 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   /// questa apertura: una volta basta.
   bool _avvisoDellAnno = false;
 
+  /// **IL TOCCO SU "AMICO/A"**, ordine EU voce 05: "I tuoi amici" per
+  /// scegliere, poi la lettura dell'amico scelto, che porta in cima la stessa
+  /// riga col suo nome.
+  Future<void> _scegliUnAmico(String nomeTuo) async {
+    final navigatore = Navigator.of(context);
+    final scelto = await navigatore.push(AmiciScreen.route(perScegliere: true));
+    if (scelto == null || !mounted) return;
+    unawaited(navigatore
+        .push(LOroscopoDellAmicoScreen.route(scelto, nomeTuo: nomeTuo)));
+  }
+
   /// **LE DATE DELL'ANNO PER LA TESTATA**, ordine EU voce 04: il ritorno del
   /// Sole in corso e il prossimo, se la nascita ha l'ora; senza, la testata
   /// dice "dal tuo compleanno al prossimo" e la vista chiede l'ora.
@@ -797,6 +810,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     final aggettivo = cinese ? 'cinese' : 'vedica';
     // Il nome con cui Medora chiama la persona, nell'apertura della lettura.
     final comeTiChiamo = vocative;
+    // Il nome nella riga "Oroscopo per": il primo nome, senza cognome, come
+    // sulla card; senza un nome, "te".
+    final nomeTuo =
+        OroscopoShareCard.soloIlNome(profile.profile.displayName) ?? 'te';
     final leggeLaTradizione = _inCima.leggibilePer(tier);
     final animale = cinese ? segnoInCima?.animale : null;
     final schedeCinesi = cinese &&
@@ -918,16 +935,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
               tooltip: 'Indietro',
               onPressed: () => Navigator.of(context).maybePop(),
             ),
-            // **L'OROSCOPO PER UN AMICO STA IN ALTO.** Il fondatore, 30
-            // settembre 2026: *"Il pulsante "Oroscopo per un Amico" deve stare
-            // in alto e non per ultimo."* Stava in fondo alla pagina, sotto
-            // tutta la lettura (ordine ES voce 12: sopra, come riga, avrebbe
-            // spinto "Interroga il cielo" sotto la piega). Nella barra si
-            // vede sempre, in ogni periodo e in ogni tradizione, e non sposta
-            // niente.
-            titleSpacing: 0,
-            centerTitle: true,
-            title: _PerUnAmico(palette: palette),
+            // **L'OROSCOPO PER UN AMICO NON STA PIU' NELLA BARRA.** Il 30
+            // settembre 2026 il fondatore l'aveva voluto in alto e stava qui;
+            // il 1 ottobre (ordine EU voce 05) lo ha trovato poco visibile, e
+            // adesso e' la riga "Oroscopo per" sopra i periodi.
             // IL BORSELLINO, ordine S voce 06: stesso segno, stesso angolo, in ogni
             // schermata della pratica. Un saldo che appare e scompare non si impara.
             // **LA FONTE ARRIVA A CHI LEGGE.** Ordine CS, voce S2 della
@@ -1026,6 +1037,16 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                                 ? _ilTuoAnno(nascitaDeiSegni)
                                 : null),
                         const SizedBox(height: SpacingTokens.md),
+                        // **"OROSCOPO PER", ordine EU voce 05**: proprio
+                        // sopra il selettore dei periodi, il nome della
+                        // persona scelto e "amico/a".
+                        OroscopoPer(
+                          nomeTuo: nomeTuo,
+                          palette: palette,
+                          onTe: () {},
+                          onAmico: () => _scegliUnAmico(nomeTuo),
+                        ),
+                        const SizedBox(height: SpacingTokens.sm),
                         _PeriodTabs(
                           current: _period,
                           palette: palette,
@@ -3089,41 +3110,6 @@ class _ShareBlock extends StatelessWidget {
           aperturaDellaChat: ChatOpeners.oroscopo(segno),
         ),
       ],
-    );
-  }
-}
-
-/// **L'OROSCOPO PER UN AMICO, NELLA BARRA IN ALTO** (ordine ES voce 12, e
-/// la richiesta del fondatore del 30 settembre 2026). Il Viandante lo vede e
-/// lo tocca come tutti: l'invito al piano glielo fa la schermata degli amici.
-class _PerUnAmico extends StatelessWidget {
-  const _PerUnAmico({required this.palette});
-
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    // Se la barra e' stretta, o il carattere ingrandito, il pulsante si
-    // rimpicciolisce intero: il nome resta su una riga.
-    return FittedBox(
-      fit: BoxFit.scaleDown,
-      child: OutlinedButton.icon(
-        key: const Key('oroscopo_per_un_amico'),
-        style: OutlinedButton.styleFrom(
-          minimumSize: const Size(0, 40),
-          padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.sm),
-          side: BorderSide(color: palette.gold.withValues(alpha: 0.45)),
-          shape: const StadiumBorder(),
-        ),
-        onPressed: () => Navigator.of(context).push(AmiciScreen.route()),
-        icon:
-            Icon(Icons.people_alt_outlined, size: 18, color: palette.goldSoft),
-        label: Text('L\'oroscopo per un amico',
-            maxLines: 1,
-            softWrap: false,
-            style: TypographyTokens.didascalia()
-                .copyWith(color: palette.goldSoft)),
-      ),
     );
   }
 }

@@ -372,70 +372,103 @@ void main() {
     expect(ferme, isEmpty);
   });
 
+  // **LAPIDE, 1 ottobre 2026, ordine EU voce 05.** Qui si pretendeva "L'oroscopo
+  // per un amico" nella barra in alto (richiesta del 30 settembre). Il
+  // fondatore il 1 ottobre: *"voglio un selettore proprio sopra il selettore
+  // di giorno, settimana, mese, anno) [...] Così scompare il pulsante in alto
+  // che è poco visibile."* Adesso si pretende la riga "Oroscopo per" sopra i
+  // periodi, in ogni periodo e a due scale, nessun pulsante nella barra, e il
+  // giro intero: amico/a, la scelta, la lettura dell'amico col suo nome, il
+  // ritorno alla propria.
   testWidgets(
-      '"L\'oroscopo per un amico" sta nella barra in alto, in ogni '
-      'periodo, e apre gli amici', (tester) async {
+      '"Oroscopo per" sta sopra i periodi, in ogni periodo, e porta '
+      'all\'amico e ritorno', (tester) async {
+    SharedPreferences.setMockInitialValues({});
     final guasti = <String>[];
     var misurati = 0;
     for (final scala in [1.0, 1.3]) {
       await monta(tester, scala: scala, finestra: const Size(360, 800));
       for (final p in HoroscopePeriod.values) {
         await scegliIlPeriodo(tester, p.name);
-        final pulsante = find.byKey(const Key('oroscopo_per_un_amico'));
         misurati++;
         final chi = 'scala $scala, ${p.label}';
-        if (pulsante.evaluate().length != 1) {
-          guasti.add('$chi: pulsanti ${pulsante.evaluate().length}');
+        final riga = find.byKey(const Key('oroscopo_per'));
+        if (riga.evaluate().length != 1) {
+          guasti.add('$chi: righe "Oroscopo per" ${riga.evaluate().length}');
           continue;
         }
-        final r = tester.getRect(pulsante);
-        final barra = tester.getRect(find.byType(AppBar));
-        if (r.top < barra.top - 0.5 || r.bottom > barra.bottom + 0.5) {
-          guasti.add('$chi: fuori dalla barra (${r.top.round()}-'
-              '${r.bottom.round()} contro ${barra.top.round()}-'
-              '${barra.bottom.round()})');
+        if (find
+            .byKey(const Key('oroscopo_per_un_amico'))
+            .evaluate()
+            .isNotEmpty) {
+          guasti.add('$chi: il pulsante e\' ancora nella barra');
+        }
+        final r = tester.getRect(riga);
+        final periodi =
+            tester.getRect(find.byKey(Key('oroscopo_period_${p.name}')));
+        if (r.bottom > periodi.top + 0.5) {
+          guasti.add('$chi: non sta sopra i periodi');
         }
         if (r.left < 0 || r.right > 360) guasti.add('$chi: esce di lato');
-        // Non copre la freccia ne' i due pulsanti a destra.
-        final indietro = tester.getRect(find.byTooltip('Indietro'));
-        final fonti = tester.getRect(find.byTooltip('Fonti e metodo'));
-        if (r.left < indietro.right - 8 || r.right > fonti.left + 8) {
-          guasti.add('$chi: sopra un altro pulsante della barra');
-        }
-        // Il nome su una riga, e non piu' piccolo di dodici punti a video.
-        final nome = find.descendant(
-            of: pulsante, matching: find.text('L\'oroscopo per un amico'));
-        if (nome.evaluate().isEmpty) {
-          guasti.add('$chi: senza il suo nome');
-          continue;
-        }
-        final paragrafo = tester.renderObject<RenderParagraph>(nome);
-        final aVideo = tester.getRect(nome).height /
-            paragrafo.size.height *
-            paragrafo.text.style!.fontSize! *
-            scala;
-        if (paragrafo.size.height >
-            paragrafo.text.style!.fontSize! * scala * 2) {
-          guasti.add('$chi: il nome a capo');
-        }
-        if (aVideo < 12 - 0.05) {
-          guasti.add('$chi: nome a ${aVideo.toStringAsFixed(1)} punti');
+        for (final testo in ['Oroscopo per', 'amico/a']) {
+          if (find
+              .descendant(of: riga, matching: find.text(testo))
+              .evaluate()
+              .isEmpty) {
+            guasti.add('$chi: senza "$testo"');
+          }
         }
       }
       await tester.pumpWidget(const SizedBox());
     }
-    cardinaleMinimo(misurati, 8, cosa: 'barre misurate');
-    print('"L\'OROSCOPO PER UN AMICO" IN ALTO: guasti ${guasti.length} su '
+    cardinaleMinimo(misurati, 8, cosa: 'righe misurate');
+    print('"OROSCOPO PER" SOPRA I PERIODI: guasti ${guasti.length} su '
         '$misurati${guasti.isEmpty ? '' : ': ${guasti.join('; ')}'}');
     expect(guasti, isEmpty);
 
-    // E il tocco apre la schermata degli amici.
+    // Il giro: un'amica nel contenitore, il tocco su amico/a, la scelta, la
+    // lettura col suo nome, il ritorno alla propria.
+    SharedPreferences.setMockInitialValues({});
+    await tester.runAsync(() async {
+      final amici = AmiciOffline();
+      await amici.carica();
+      await amici.aggiungi(
+          Amico(id: 'lucia', nome: 'Lucia', nascita: DateTime(1990, 1, 12)),
+          Tier.tier3);
+    });
     await monta(tester, finestra: const Size(360, 800));
-    await tester.tap(find.byKey(const Key('oroscopo_per_un_amico')));
+    await tester.tap(find.byKey(const Key('oroscopo_per_amico')));
+    await tester.pump();
+    await tester
+        .runAsync(() => Future<void>.delayed(const Duration(milliseconds: 50)));
+    await tester.pump(const Duration(milliseconds: 600));
+    await tester.pump(const Duration(milliseconds: 600));
+    expect(find.byType(AmiciScreen), findsOneWidget,
+        reason: 'amico/a non apre "I tuoi amici"');
+    await tester.tap(find.text('Lucia'));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));
     await tester.pump(const Duration(milliseconds: 600));
-    expect(find.byType(AmiciScreen), findsOneWidget);
+    expect(find.byType(LOroscopoDellAmicoScreen), findsOneWidget,
+        reason: 'scelta l\'amica, la sua lettura non si apre');
+    final rigaAmica = find.byKey(const Key('oroscopo_per'));
+    expect(rigaAmica, findsOneWidget,
+        reason: 'la lettura dell\'amica non porta la riga "Oroscopo per"');
+    expect(
+        find.descendant(
+            of: find.byKey(const Key('oroscopo_per_amico')),
+            matching: find.text('Lucia')),
+        findsOneWidget,
+        reason: 'il secondo pulsante non porta il nome dell\'amica');
+    await tester.tap(find.byKey(const Key('oroscopo_per_te')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 600));
+    await tester.pump(const Duration(milliseconds: 600));
+    expect(find.byType(LOroscopoDellAmicoScreen), findsNothing,
+        reason: 'il nome della persona non riporta alla sua lettura');
+    expect(find.byType(OroscopoScreen), findsOneWidget);
+    print('"OROSCOPO PER": letture dell\'amica raggiunte dal selettore 1 su 1, '
+        'ritorno alla propria 1 su 1');
   });
 
   testWidgets(
