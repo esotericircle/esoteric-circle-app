@@ -60,13 +60,21 @@ class RiquadroDelNumero extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(testoEtichetta, style: stileEtichetta),
+          // **GRANDE E AL CENTRO**, ordine EU voce 10: la cifra col ruolo
+          // del numero del giorno, quaranta punti; se il riquadro e' stretto
+          // (i due numeri della lettura cinese, il carattere ingrandito) si
+          // rimpicciolisce intera invece di andare a capo.
           Expanded(
             child: Center(
-              child: Text(cifre ?? '$numero',
-                  key: const Key('riquadro_del_numero_cifra'),
-                  textAlign: TextAlign.center,
-                  style: TypographyTokens.titoloScheda()
-                      .copyWith(color: palette.goldSoft)),
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(cifre ?? '$numero',
+                    key: const Key('riquadro_del_numero_cifra'),
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    style: TypographyTokens.numeroDelGiorno()
+                        .copyWith(color: palette.goldSoft)),
+              ),
             ),
           ),
           // Il contrappeso: alto quanto l'etichetta, invisibile, cosi' la

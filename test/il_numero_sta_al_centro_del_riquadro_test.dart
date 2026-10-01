@@ -62,6 +62,14 @@ void main() {
         '${riquadro.height.toStringAsFixed(1)}, scarto del centro '
         '${o.toStringAsFixed(1)} in orizzontale e ${v.toStringAsFixed(1)} in '
         'verticale');
+    // **GRANDE**, ordine EU voce 10: la cifra e' piu' alta dell'etichetta
+    // del riquadro ("NUMERO"), e se ne vede la differenza.
+    final etichetta = tester.getRect(find.text('NUMERO').first);
+    print('ORDINE EU VOCE 10: cifra alta ${cifra.height.toStringAsFixed(1)}, '
+        'etichetta ${etichetta.height.toStringAsFixed(1)}');
+    expect(cifra.height, greaterThan(etichetta.height * 1.8),
+        reason: 'il numero non e\' grande: alto ${cifra.height} contro '
+            '${etichetta.height} dell\'etichetta');
     return (orizzontale: o, verticale: v);
   }
 

@@ -126,6 +126,13 @@ class TypographyTokens {
   static TextStyle cerimoniale({double weight = 600}) =>
       display(size: 28, weight: weight);
 
+  /// **IL NUMERO DEL GIORNO**, nel suo riquadro della scheda Fortuna. Ordine
+  /// EU voce 10, il fondatore: *"Il numero fortunato deve essere grande e al
+  /// centro del suo riquadro."* Era lo stile del titolo di una scheda, 18
+  /// punti, e accanto all'etichetta sembrava appeso in alto.
+  static TextStyle numeroDelGiorno({double weight = 600}) =>
+      display(size: 40, weight: weight).copyWith(height: 1.0, letterSpacing: 0);
+
   /// Il titolo di una sezione dentro una schermata.
   static TextStyle titoloSezione({double weight = 600}) =>
       display(size: 22, weight: weight);
