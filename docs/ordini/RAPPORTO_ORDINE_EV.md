@@ -345,4 +345,23 @@ ne porta solo le righe che la prova legge, piu' le ultime 25. PROVENIENZA
 IGNOTA del guasto del collegamento (il cavo o la porta: nel pomeriggio le
 catture da 300 KB passavano).
 
-(la build si completa con la consegna)
+**La build 2291**, dal commit `a8d35a53` col cancello verde di GitHub
+(segno `refs/verde/a8d35a53...`), costruita con `flutter build apk --release
+--target-platform android-arm64`, 248.231.356 byte, numero 2291 letto
+dall'archivio. Prova di accensione sul Realme passata (processo vivo, primo
+fotogramma disegnato, nessun FATAL), installata: `versionCode=2291`,
+aggiornata alle 22:21. **Release `3k9n4mjs9m5dg` su App Distribution**,
+distribuita a cloud@esotericircle.app, riletta dal server: **inviti accettati
+1**. La 2290 non e' mai stata distribuita (solo installata sul Realme).
+
+Un secondo guasto dello stesso cavo, a release gia' distribuita: la consegna
+leggeva il numero dal telefono con la scheda intera del pacchetto, troppo
+grande per il collegamento, ed e' morta prima di scrivere il registro.
+Il registro `docs/versione_distribuita.json` l'ho scritto a mano coi valori
+della procedura (numero dall'archivio con aapt2, peso, release, cancello) e
+lo dice nel campo del telefono; `tool/consegna.py` ora filtra anche quella
+lettura sul telefono e, se il telefono tace, legge il numero dall'archivio.
+
+**Codemagic (iPhone)**: si puo' lanciare adesso, sul ramo
+`claude/esoteric-circle-master-order-e798aj`, dall'ultimo commit di questo
+rapporto, col cancello verde.

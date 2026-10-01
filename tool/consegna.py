@@ -165,13 +165,23 @@ def prova_di_accensione(archivio, attesa_secondi=12):
     # del registro in fondo non muore piu' chiedendo una variabile: nelle
     # consegne 2161 e 2162 la procedura e' morta due volte sullo stesso
     # gradino, a caricamento gia' avvenuto.
-    _, dump = _corri([adb, 'shell', 'dumpsys', 'package', PACCHETTO])
+    # Filtrato sul telefono anche questo, ordine EV: la scheda del pacchetto
+    # intera e' grande, sul Realme di collaudo faceva cadere il collegamento
+    # e la consegna del 1 ottobre e' morta sul registro a release gia'
+    # distribuita. Se il dispositivo non risponde, il numero si legge
+    # dall'archivio con aapt2: e' lo stesso numero, mai quello del pubspec.
+    _, dump = _corri([adb, 'shell', 'dumpsys package ' + PACCHETTO
+                      + ' | grep versionCode='])
     for r in dump.splitlines():
         if 'versionCode=' in r:
             numero = r.split('versionCode=')[1].split()[0]
             os.environ.setdefault('NUMERO_CONSEGNATO', numero)
             print('numero letto dal dispositivo: ' + numero)
             break
+    else:
+        print('il dispositivo non ha detto il numero: lo si legge '
+              'dall\'archivio')
+        numero_da_aapt2(archivio)
 
 
 def numero_da_aapt2(archivio):

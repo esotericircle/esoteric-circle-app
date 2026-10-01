@@ -6340,6 +6340,16 @@ tre prove del server in `functions/src/cammino.test.ts` e quattro in
 `functions/src/memorie.test.ts`; tutte viste rosse, innesti in
 `docs/collaudo/EV/regola_a_ev.txt`. La versione e' 0.1.0+2291 (la 2290 non e' mai stata distribuita, solo installata sul Realme di collaudo).
 
+**La consegna.** Build 2291 dal commit `a8d35a53` col cancello verde,
+release `3k9n4mjs9m5dg` su App Distribution, inviti accettati 1, accesa e
+installata sul Realme (`versionCode=2291`). Pubblicate sul server dal commit
+`b2263a0f` le funzioni `statoDelCerchio` (Viaggio e memorie) e `chiEOnline`.
+Sul Realme ogni uscita dal telefono oltre una decina di KB fa cadere il
+collegamento USB (l'installazione passa): `tool/consegna.py` filtra sul
+telefono il log dell'avvio e la lettura del numero, e se il telefono tace
+legge il numero dall'archivio. Il registro `docs/versione_distribuita.json`
+della 2291 e' scritto a mano coi valori della procedura, e lo dichiara.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.
