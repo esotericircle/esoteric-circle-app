@@ -27,7 +27,7 @@ percio' le lunghezze nuove.
 | --- | --- | --- | --- |
 | Arcano dell'Alba, Medora | 528 | 62 | 84 |
 | Arcano dell'Alba, il dono | 528 | 91 | 116 |
-| Oroscopo, scheda «amore» | 4392 | 342 | 387 |
+| Oroscopo, scheda «amore» | 4392 | 343 | 387 |
 | Oroscopo, scheda «carriera» | 4392 | 375 | 400 |
 | Oroscopo, scheda «fortuna» | 4392 | 342 | 374 |
 | Oroscopo, scheda «generale» | 4392 | 344 | 401 |

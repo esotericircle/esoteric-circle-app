@@ -207,7 +207,7 @@ rapporto.
 
 DOMANDA: "VERIFICA CHE L'INTERPRETAZIONE SIA REALE E NON INVENTATA E CHE NON SIA RIPETITIVA"; voce EU.14.
 PROVA: docs/collaudo/EV/affermazioni.md
-MISURA: affermazioni SENZA FONTE, prima 88 su 759, dopo 0 su 759; testi nuovi diversi dalla fonte, 0 su 20
+MISURA: affermazioni SENZA FONTE, prima 88 su 759, dopo 0 su 759; testi nuovi diversi dalla fonte, 0 su 20, di cui 3 con una virgola prima della "e" diventata un punto per la regola del fondatore (O-M-006, V-M-001, C-G-069), dichiarati nella guardia
 
 ## VOCE EV.09, LE RIFINITURE DEI "DA DOVE VIENE"
 

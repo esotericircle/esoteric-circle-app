@@ -51,6 +51,11 @@ void main() {
             'compongono il responso, e cade se ce la trova: il responso deve '
             'dipendere dal solo giorno civile, e i suoi istanti sono tutti '
             'scritti dentro la prova',
+    'gli_inviti_del_cielo_sono_veri_test.dart':
+        'ordine EV voce EV.10: NON legge l\'orologio. Porta la stringa '
+            '"DateTime.now" perche\' pretende che la chat la passi all\'invito '
+            'del Maestro, e gli istanti delle sue misure sono tutti scritti '
+            'dentro la prova',
   };
 
   test('nessuna prova costruisce il Diario senza dichiarare il suo istante',

@@ -562,9 +562,11 @@ abstract final class LaLetturaVedica {
     String voce(String termine) => OroscopoVedicoData.glossario
         .firstWhere((g) => g.$1 == termine, orElse: () => (termine, ''))
         .$2;
-    // V-M-001 e V-M-004, testi dell'Architetto (ordine EV voce EV.08).
+    // V-M-001 e V-M-004, testi dell'Architetto (ordine EV voce EV.08). In
+    // V-M-001 ", e il giorno" diventa ". Il giorno", per la regola del
+    // fondatore sulla virgola prima della "e" (`language_rule_test`).
     final base = 'La Luna di oggi è siderale, con l\'ayanamsa di Lahiri, '
-        'quella adottata dal governo indiano nel 1955, e il giorno si legge '
+        'quella adottata dal governo indiano nel 1955. Il giorno si legge '
         'all\'alba del luogo, come nei Panchang. Chandra Bala: '
         '${voce('Chandra Bala')}';
     return switch (d) {

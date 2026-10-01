@@ -242,7 +242,13 @@ sua frase. `docs/collaudo/EV/affermazioni.md` e' rigenerato da uno strumento
 (`tool/rigenera_affermazioni_ev.py`) che parte dal file EU, da' a ogni riga
 l'esito dell'Architetto e riporta ogni "file:riga" allo stato di oggi: 759
 affermazioni, 722 con una fonte, 32 fatti di calcolo, 5 scelte dell'app,
-nessuna senza fonte. **Una cosa rimasta**: la regola del caso 1.8 del corpus
+nessuna senza fonte. **Tre testi nuovi portavano una virgola prima della
+"e"** (O-M-006 "lo abbassano, e contano", V-M-001 "nel 1955, e il giorno",
+C-G-069 "dodici giorni, e per il tuo"): la regola del fondatore non ha
+deroghe, e la virgola e' diventata un punto ("lo abbassano. Contano"); ogni
+altro carattere e' dell'Architetto, e la guardia dichiara i tre adattamenti.
+Se l'Architetto preferisce un'altra forma, la sostituisce lui. **Una cosa
+rimasta**: la regola del caso 1.8 del corpus
 cinese dice ancora "Nella tradizione i rami uguali si rafforzano", la frase che
 l'Architetto ha giudicato senza fonte in C-G-068. E' una nota del corpus, non
 va a video, e Code non l'ha toccata: la riscrive l'Architetto, se vuole.
@@ -461,6 +467,18 @@ La seconda suite intera, sul commit `b2263a0f` con la EV.58: **6502 verdi,
 EV voce 58): cinque ragioni scritte in `le_memorie_custodite.dart` con
 l'apostrofo al posto dell'accento ("gia'", "identita'", "e'"), prese da
 `accenti_veri` e `testo_a_video`. Corrette e rifatte verdi.
+
+La terza suite intera, sul commit `37b00be6` col pezzo 2: **6512 verdi, 11
+saltate, 11 rosse**. Le 7 accettate di prima, e 4 nuove (padre: ordine EV voci
+EV.08 e EV.10): tre testi dell'Architetto con la virgola prima della "e"
+(`language_rule` e `la_lettura_cinese`, adattati e dichiarati, vedi EV.08), la
+tabella generata delle lunghezze dei responsi da rigenerare perche' la nota del
+metodo e' cambiata (`le_lunghezze_dei_responsi`, rigenerata con
+`AGGIORNA_LUNGHEZZE=1`), e la guardia nuova degli inviti che porta la stringa
+"DateTime.now" (`una_prova_dichiara_il_suo_istante`, dichiarata con la sua
+ragione). Rifatte verdi tutte e quattro. Il processo della suite e' rimasto
+appeso dopo l'ultima prova e l'ho chiuso a mano: i conti sono quelli dell'ultima
+riga scritta.
 
 ## La consegna
 

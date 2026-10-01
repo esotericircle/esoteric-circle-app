@@ -42,6 +42,17 @@ void main() {
         'lib/features/horoscope/il_periodo_view.dart',
   };
 
+  /// **GLI ADATTAMENTI DICHIARATI**, uno per riga e col perche': la regola
+  /// del fondatore sulla virgola prima della "e" non ha deroghe
+  /// (`language_rule_test`), e i testi dell'Architetto per O-M-006, V-M-001
+  /// e C-G-069 la portavano: la virgola diventa un punto. Ogni altro
+  /// carattere resta il suo.
+  const adattati = {
+    'O-M-006': (', e contano', '. Contano'),
+    'V-M-001': (', e il giorno', '. Il giorno'),
+    'C-G-069': (', e per il tuo', '. Per il tuo'),
+  };
+
   /// Il testo di un file come lo legge chi guarda le stringhe: in Dart le
   /// stringhe adiacenti si riuniscono e gli apostrofi si tolgono la barra.
   String testoDi(String percorso) {
@@ -52,7 +63,8 @@ void main() {
         .replaceAll(r"\'", "'");
   }
 
-  test('ORDINE EV VOCI 08 E 09: ogni testo nuovo e\' nel codice uguale alla '
+  test(
+      'ORDINE EV VOCI 08 E 09: ogni testo nuovo e\' nel codice uguale alla '
       'fonte', () {
     final righe = File(fonte).readAsLinesSync();
     final testi = <(String, String)>[];
@@ -72,8 +84,16 @@ void main() {
         continue;
       }
       final codice = testoDi(percorso);
+      final adattato = adattati[sigla];
+      if (adattato != null) {
+        expect(testo, contains(adattato.$1),
+            reason: '$sigla: l\'adattamento dichiarato non e\' piu\' nel testo '
+                'dell\'Architetto, va tolto');
+      }
+      final cercato =
+          adattato == null ? testo : testo.replaceAll(adattato.$1, adattato.$2);
       var da = 0;
-      for (final pezzo in testo.split(RegExp(r'\{[^}]*\}'))) {
+      for (final pezzo in cercato.split(RegExp(r'\{[^}]*\}'))) {
         if (pezzo.isEmpty) continue;
         final i = codice.indexOf(pezzo, da);
         if (i < 0) {
@@ -83,7 +103,8 @@ void main() {
         da = i + pezzo.length;
       }
     }
-    print('ORDINE EV VOCI 08 E 09: testi nuovi ${testi.length}, diversi '
+    print(
+        'ORDINE EV VOCI 08 E 09: testi nuovi ${testi.length}, adattati ${adattati.length}, diversi '
         'dalla fonte ${diversi.length}, senza casa ${senzaCasa.length}');
     expect(senzaCasa, isEmpty, reason: senzaCasa.join('\n'));
     expect(diversi, isEmpty, reason: diversi.join('\n'));

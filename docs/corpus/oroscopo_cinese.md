@@ -106,7 +106,7 @@ Regola: il giorno ha il ramo del tuo anno (e il tuo non è fra i quattro che pun
 Titolo: A modo tuo
 
 1. Oggi non è un giorno di favore né di sfida: ciò che fai porta più del solito la tua impronta. Fai a modo tuo una cosa che di solito fai come viene: un lavoro, un messaggio, un piatto. || Oggi è il giorno di {animale_giorno}, il tuo stesso animale: ritorna ogni dodici giorni.
-2. Oggi rendi di più quando fai le cose nel tuo modo che quando ti adatti a quello degli altri. Prenditi il compito che solo tu sai fare così e lascia a qualcun altro quello che chiunque può sbrigare. || Il ramo di oggi è il tuo: torna ogni dodici giorni, e per il tuo animale non è uno dei rapporti che la tradizione classifica.
+2. Oggi rendi di più quando fai le cose nel tuo modo che quando ti adatti a quello degli altri. Prenditi il compito che solo tu sai fare così e lascia a qualcun altro quello che chiunque può sbrigare. || Il ramo di oggi è il tuo: torna ogni dodici giorni. Per il tuo animale non è uno dei rapporti che la tradizione classifica.
 3. Oggi la giornata pesa quanto decidi tu, né di più né di meno. Scegli una cosa a cui tieni e mettila per prima, davanti ai messaggi e alle commissioni. || È il giorno del tuo animale: la tradizione cinese non gli dà un peso particolare, perché non è uno dei rapporti classificati.
 
 ### 1.9 Nessun rapporto
