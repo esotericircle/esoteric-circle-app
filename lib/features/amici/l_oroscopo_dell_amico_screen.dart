@@ -193,7 +193,8 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
       return profilo.hasName
           ? OroscopoShareCard.soloIlNome(profilo.displayName)
           : null;
-    } catch (_) {
+    } catch (errore) {
+      debugPrint('Card per l\'amico: il profilo non si legge. $errore');
       return null;
     }
   }

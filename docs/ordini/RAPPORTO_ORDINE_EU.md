@@ -7,7 +7,7 @@ la **EU Aggiunta, i testi dell'Architetto** (dodici corpora nuovi). Ramo
 Manifesto `docs/ordini/ORDINE_EU_MANIFESTO.md`, prove in `docs/collaudo/EU/`,
 quelle del telefono in `docs/collaudo/EU/realme/`. **Questo ordine non
 consegna niente**: le build fatte per il Realme (dai commit `8b9a581a`,
-`cd31e52f`, `ece93edc`, `d4ecae35`, `ab7e2cb9` e `d17db7af`) portano il
+`cd31e52f`, `ece93edc`, `d4ecae35`, `ab7e2cb9`, `d17db7af` e `91cb1217`) portano il
 numero 2289 e non sono consegne.
 
 **Il conto** (manifesto riletto dal file): **16 voci chiuse, 3 aperte in attesa di verifica (EU.03, EU.13, EU.14), 0 da fare.** Le chiuse qui sotto, ognuna con la domanda del fondatore alla lettera, la prova (un file che si apre) e la misura; poi le aperte con cio' che manca e chi lo fa; poi le richieste della sera, con la stessa forma.
@@ -166,7 +166,7 @@ catture sono del Realme con le build di prova dei commit `cd31e52f`,
   MISURA: il Realme, riacceso alle 13:04 ora italiana, ha scritto la sua presenza al server dopo meno di 20 secondi (11:04:48 UTC), e la barra dice "ONLINE 1": la domanda va e torna. Nel database ci sono due presenze in tutto, il telefono del fondatore (ultima alle 08:48 ora italiana) e il Realme: il conto conta i telefoni che hanno chiesto negli ultimi due minuti e mezzo, quindi con due telefoni aperti insieme dice 2 entro due minuti. **Non visto con due telefoni**: l'iPhone di collaudo ha la build 2288, che al centro della barra dice ancora "Eventi Cosmici" e non chiede la presenza, e il telefono del fondatore non era aperto; la prova a due si fa aprendo l'app sul telefono del fondatore col Realme acceso.
 - **La riga delle tradizioni invita a scorrere**
   DOMANDA: "Nella riga di selezione della tipologia di oroscopo, non si capisce che dopo "cinese" ci sono altre tipologie e l'utente non viene automaticamente invitato a scorrere per vedere gli altri. Trova soluzione, magari allungando leggermente le bolle o altra soluzione migliore"
-  PROVA: `test/le_tradizioni_invitano_a_scorrere_test.dart`; sul Realme `docs/collaudo/EU/realme/eu_sera_tradizioni_da_scorrere.jpg`
+  PROVA: `test/le_tradizioni_invitano_a_scorrere_test.dart`; sul Realme `docs/collaudo/EU/realme/eu_sera_tradizioni_da_scorrere.jpg` e, dopo un tocco sulla freccia, `eu_sera_tradizioni_dopo_la_freccia.jpg`
   MISURA: tre cose insieme. Le bolle si allungano finche' l'ultima in vista resta tagliata dal bordo (a 390 punti la Cinese si vede per il 70 per cento, prima per intero con la Maya che cominciava proprio sul bordo, 0 per cento); il bordo da cui la riga continua sfuma (pixel chiari sull'ultima colonna, senza la sfumatura fino a 6, dopo 0); a destra una freccia che a un tocco fa scorrere la riga di 188-208 punti, e in fondo la freccia passa a sinistra.
 
 E tre difetti visti sul Realme dopo, curati con la loro prova nata rossa
@@ -246,6 +246,19 @@ dal Realme.
     di release, verde da sola. PROVENIENZA IGNOTA nel senso stretto: nessuna
     voce EU tocca il cancello, e la prova misura un tempo sotto il carico di
     due lavori.
+- **Dalle suite intere dei commit `ece93edc`, `d17db7af` e `91cb1217`**
+  (6.440, 6.446 e 6.451 verdi, 11 saltate): le prime due con le sole 7 rosse
+  accettate; la terza con 3 rosse nuove, tutte delle ultime richieste del 1
+  ottobre (`91cb1217`) e curate, poi rifatte una per una verdi:
+  - `nessun_catch_muto`: due `catch (_)` miei, nell'attesa delle immagini
+    della card e nel nome di chi la manda. Cura: l'errore nominato e scritto
+    nel registro.
+  - `oroscopo_widget`, "Numero e Colore sono due bolle uguali": cercava la
+    bolla del colore di prima. Cura: la lapide, i riquadri cercati per
+    chiave, larghi e alti uguale.
+  - `tipografia_nel_dato`, "I vuoti verticali non crescono": il censimento
+    dei vuoti e' sceso da 165 a 164 (la bolla del colore di prima tolta), e
+    la regola vuole il documento rigenerato. Rigenerato.
 - **Dal Realme** (build di prova dal commit `8b9a581a`), sette difetti, ognuno
   con la sua prova nata rossa sul codice di allora
   (`docs/collaudo/EU/regola_a_dopo_il_realme.txt`):
@@ -472,4 +485,5 @@ In ordine, dal primo all'ultimo, sul ramo `claude/esoteric-circle-master-order-e
 - `d4ecae35` EU, l'oroscopo completo detto con le parole di chi legge e i tre difetti del Realme che restavano: il foglio dell'oroscopo completo non vende piu' "due paragrafi" (il fondatore: [...]
 - `ab7e2cb9` EU, le ore migliori segnate sulle barre (un punto d'oro sopra ogni ora migliore, un segno sotto l'ora di adesso: "come posso aumentare l'esperienza utente?") e il titolo sopra il [...]
 - `d17db7af` EU, l'ora di adesso col bordo chiaro sulla sua barra: sul Realme la freccia da sola era piccola. Guardia 639 rossa togliendo il bordo (A29).
-- e il commit dei documenti finali (questo rapporto con l'elenco dei commit, la cattura delle ore sulle barre), il cui numero sta nel messaggio al fondatore, letto da `git ls-remote`.
+- `91cb1217` EU, le ultime richieste del 1 ottobre: i prezzi in novantanove (Iniziato 2,99 e 9,99, Adepto 19,99, Illuminato 29,99 al mese; gli altri restano; sconto annuale dell'Iniziato 17); [...]
+- e il commit dei documenti finali (questo elenco, le ultime catture del Realme), il cui numero sta nel messaggio al fondatore, letto da `git ls-remote`.

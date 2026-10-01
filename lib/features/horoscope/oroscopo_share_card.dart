@@ -540,7 +540,9 @@ Future<void> aspettaLeImmaginiDellaCard(GlobalKey chiave) async {
     if (!contesto.mounted) return;
     try {
       await precacheImage(i, contesto);
-    } catch (_) {}
+    } catch (errore) {
+      debugPrint('Card da condividere: un\'immagine non si prepara. $errore');
+    }
   }
 }
 

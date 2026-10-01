@@ -552,13 +552,15 @@ void main() {
       // contrappeso, cosi' la cifra sta al centro: i testi "NUMERO" sono due,
       // e quello visibile e' il primo.
       expect(find.text('NUMERO'), findsNWidgets(2));
-      expect(find.text('COLORE'), findsOneWidget);
+      // SECONDA LAPIDE, 1 ottobre 2026: la card usa adesso i riquadri grandi
+      // della scheda ([LaFortunaDelGiorno]), e anche il colore ha il suo
+      // contrappeso invisibile: i testi "COLORE" sono due.
+      expect(find.text('COLORE'), findsNWidgets(2));
       // Le due bolle hanno la stessa misura.
       final numero =
           tester.getSize(find.byKey(const Key('riquadro_del_numero')));
-      final colore = tester.getSize(find
-          .ancestor(of: find.text('COLORE'), matching: find.byType(Container))
-          .first);
+      final colore =
+          tester.getSize(find.byKey(const Key('riquadro_del_colore')));
       expect((numero.width - colore.width).abs(), lessThan(1.0),
           reason: 'le bolle Numero e Colore hanno larghezza diversa');
       expect((numero.height - colore.height).abs(), lessThan(1.0),

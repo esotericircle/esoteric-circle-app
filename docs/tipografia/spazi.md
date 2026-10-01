@@ -1,6 +1,6 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 165 -->
+<!-- VUOTI_CENSITI: 164 -->
 <!-- FILE_CON_VUOTI: 71 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
@@ -11,7 +11,7 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **165** |
+| Vuoti verticali dichiarati | **164** |
 | File che ne contengono | **71** |
 | Oltre la soglia di 48 punti | **2** |
 
@@ -24,7 +24,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | 0 | 1 |
 | 2 | 87 |
 | 3 | 7 |
-| 4 | 33 |
+| 4 | 32 |
 | 5 | 2 |
 | 6 | 15 |
 | 7 | 3 |
@@ -62,7 +62,6 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/shell/santuario_bottom_bar.dart` | 4 | 0 |
 | `lib/features/tarot/stesa_tre_carte_screen.dart` | 4 | 0 |
 | `lib/features/horoscope/oroscopo_screen.dart` | 3 | 0 |
-| `lib/features/horoscope/oroscopo_share_card.dart` | 3 | 0 |
 | `lib/features/identity/circle_seal_screen.dart` | 3 | 0 |
 | `lib/features/maestri/aura/face/face_share_card.dart` | 3 | 0 |
 | `lib/features/maestri/aura/meditation/pannello_della_libreria.dart` | 3 | 0 |
@@ -76,6 +75,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/angels/angels_screen.dart` | 2 | 0 |
 | `lib/features/horoscope/answer_depth.dart` | 2 | 0 |
 | `lib/features/horoscope/i_dodici_mesi_view.dart` | 2 | 0 |
+| `lib/features/horoscope/oroscopo_share_card.dart` | 2 | 0 |
 | `lib/features/horoscope/riquadro_del_numero.dart` | 2 | 0 |
 | `lib/features/maestri/aura/archetype/archetype_share_card.dart` | 2 | 0 |
 | `lib/features/maestri/aura/archetype/archetype_test_screen.dart` | 2 | 0 |
