@@ -126,12 +126,23 @@ def prova_di_accensione(archivio, attesa_secondi=12):
     time.sleep(attesa_secondi)
     # Il processo e' vivo?
     _, pid = _corri([adb, 'shell', 'pidof', PACCHETTO])
-    # Il log dell'avvio, una volta sola: ci si leggono fotogramma e crash.
-    _, log = _corri([adb, 'logcat', '-d', '-v', 'threadtime'])
+    # Il log dell'avvio: ci si leggono fotogramma e crash. **Si filtra sul
+    # telefono**, ordine EV del 1 ottobre 2026: sul Realme di collaudo ogni
+    # uscita dal telefono oltre una decina di KB faceva cadere il
+    # collegamento (16000 byte chiesti, 0 arrivati, e il telefono "offline"),
+    # mentre l'installazione, che va nell'altro verso, passava. Il log intero
+    # sono 750 KB: arrivava vuoto, e la prova diceva "nessun Displayed" con
+    # zero righe da mostrare. Dal telefono partono solo le righe che la prova
+    # legge, e le ultime 25 per il caso in cui una pretesa cade.
+    filtro = ("logcat -d -v threadtime | grep -E "
+              "'FATAL EXCEPTION|AndroidRuntime|Displayed' | tail -n 80")
+    _, log = _corri([adb, 'shell', filtro])
+    _, coda = _corri([adb, 'shell', 'logcat -d -v threadtime | tail -n 25'])
     fatali = [r for r in log.splitlines() if 'FATAL EXCEPTION' in r
               or (PACCHETTO in r and 'AndroidRuntime' in r)]
     disegnato = any('Displayed' in r and PACCHETTO in r
                     for r in log.splitlines())
+    log = log + '\n' + coda
     if not pid.strip():
         raise SystemExit(
             'prova di accensione: il processo NON e\' vivo dopo '

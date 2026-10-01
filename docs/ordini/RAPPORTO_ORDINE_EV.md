@@ -333,4 +333,16 @@ e `chiEOnline` (EV.06 ed EV.57), regione europe-west1, "Successful update
 operation" per tutte e due. Il server nuovo accetta anche i telefoni vecchi,
 che non mandano memorie ne' l'uscita dal conto.
 
+**La prova di accensione cadeva per il cavo, non per l'app.** Due volte la
+consegna si e' fermata su "nessun Displayed" con zero righe di log. Misurato:
+sul Realme ogni uscita dal telefono oltre una decina di KB fa cadere il
+collegamento (8000 byte chiesti, 8054 arrivati; 16000 chiesti, 0 arrivati e
+il telefono "offline"), mentre l'installazione, che va nell'altro verso,
+passa; il log intero sono 750 KB. Letto filtrato sul telefono, lo stesso
+avvio porta "Displayed com.esotericircle.esoteric_circle/.MainActivity:
++1s317ms" e nessun FATAL. `tool/consegna.py` ora filtra il log sul telefono e
+ne porta solo le righe che la prova legge, piu' le ultime 25. PROVENIENZA
+IGNOTA del guasto del collegamento (il cavo o la porta: nel pomeriggio le
+catture da 300 KB passavano).
+
 (la build si completa con la consegna)
