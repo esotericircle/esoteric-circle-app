@@ -28,8 +28,10 @@ import 'cardinale_minimo.dart';
 /// prima, le righe della scheda figlie dirette della pagina: in due PDF su
 /// tre l'etichetta "FORTUNA" restava sola in fondo alla prima pagina.
 ///
-/// Tre PDF si scrivono in `docs/collaudo/EU/pdf/`, e `tool/il_testo_dei_pdf.py`
-/// ne estrae il testo.
+/// Con `SCRIVI_I_PDF=1` i primi tre PDF si scrivono in `docs/collaudo/EU/pdf/`,
+/// e `tool/il_testo_dei_pdf.py` ne estrae il testo. Senza, la prova non
+/// tocca `docs`: ogni PDF porta la sua data e il suo identificativo, e
+/// riscriverlo a ogni giro sporcherebbe l'albero.
 void main() {
   test(
       'ogni scheda del PDF dell\'anno compare una volta, intera, su una '
@@ -52,7 +54,7 @@ void main() {
           sottotitolo: 'Rivoluzione Solare del ${ritorno.day} ottobre 2026 '
               'alle 06:30, per Roma',
           copertina: copertina);
-      if (i < 3) {
+      if (i < 3 && Platform.environment['SCRIVI_I_PDF'] == '1') {
         File('${cartella.path}/anno_esempio_${i + 1}.pdf')
             .writeAsBytesSync(byte);
       }
