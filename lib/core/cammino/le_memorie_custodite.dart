@@ -81,7 +81,7 @@ abstract final class LeMemorieCustodite {
     'arti_preferite': 'le arti preferite, nel cammino',
     'cammino.': 'il diario del cammino, adottaIlCammino; le chiavi che '
         'mancavano viaggiano nella famiglia "cammino" di queste memorie',
-    'profile.': 'il nome, la forma e la nascita, nell\'identita\' del '
+    'profile.': 'il nome, la forma e la nascita, nell\'identità del '
         'cammino',
     'viaggio.': 'il Viaggio dello Sciamano, IlViaggioCustodito',
     'ricordi.': 'i Ricordi e le Carte custodite hanno la loro porta sul '
@@ -98,7 +98,7 @@ abstract final class LeMemorieCustodite {
   static const Map<String, String> delTelefono = {
     'account.': 'i rimandi e l\'ultimo invito a registrarsi, di questo '
         'telefono',
-    'avvisi.': 'quali avvisi e permessi sono gia\' stati chiesti su questo '
+    'avvisi.': 'quali avvisi e permessi sono già stati chiesti su questo '
         'telefono: un telefono nuovo deve chiederli di nuovo',
     'avviso_dono_': 'gli avvisi programmati sul sistema di questo telefono',
     'carta.natale': 'la carta natale in cache, che si ricalcola dalla '
@@ -112,7 +112,7 @@ abstract final class LeMemorieCustodite {
     'onboarding.': 'l\'ingresso fatto, che il ritrovamento ricostruisce',
     'permesso.': 'i permessi chiesti su questo telefono',
     'santuario.': 'il saluto della home, una cosa della schermata',
-    'sentiero.': 'quali mappe sono gia\' state viste su questo telefono',
+    'sentiero.': 'quali mappe sono già state viste su questo telefono',
     'maestro.': 'la rotazione dei saluti dei Maestri, una cosa della '
         'schermata',
     'chat.cancellate.': 'le conversazioni in attesa che il server le tolga',
@@ -120,8 +120,8 @@ abstract final class LeMemorieCustodite {
     'arti_del_giorno.': 'le arti aperte oggi, per il puntino d\'oro',
     'push.': 'il gettone delle notifiche di questo telefono',
     'sogni.': 'prefisso senza chiavi: oggi nessuna memoria lo scrive',
-    'device.id': 'l\'identita\' di questo telefono',
-    'settings.': 'come e\' regolato questo telefono',
+    'device.id': 'l\'identità di questo telefono',
+    'settings.': 'com\'è regolato questo telefono',
     'app_check_debug_token': 'il gettone di prova di App Check',
     // **TRE MEMORIE CHE RESTANO PER UNA PROMESSA SCRITTA**, ordine EV: la
     // schermata degli amici dice "I dati restano sul tuo telefono" e la

@@ -319,6 +319,18 @@ vecchie). Il cancello di GitHub ha poi trovato BC.02 (la chiave nuova dei
 responsi mancava nello scarico dei tuoi dati) e due avvisi dell'analisi in
 `tool/`: corretti.
 
+La seconda suite intera, sul commit `b2263a0f` con la EV.58: **6502 verdi,
+11 saltate, 9 rosse**. Le 7 accettate di prima, e 2 nuove mie (padre: ordine
+EV voce 58): cinque ragioni scritte in `le_memorie_custodite.dart` con
+l'apostrofo al posto dell'accento ("gia'", "identita'", "e'"), prese da
+`accenti_veri` e `testo_a_video`. Corrette e rifatte verdi.
+
 ## La consegna
 
-(si completa con la consegna)
+**Il server**, 1 ottobre 2026 sera: pubblicate dal commit `b2263a0f` le
+funzioni `statoDelCerchio` (il Viaggio della EV.53 e le memorie della EV.58)
+e `chiEOnline` (EV.06 ed EV.57), regione europe-west1, "Successful update
+operation" per tutte e due. Il server nuovo accetta anche i telefoni vecchi,
+che non mandano memorie ne' l'uscita dal conto.
+
+(la build si completa con la consegna)
