@@ -271,13 +271,16 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       _fase = _FaseDelConsulto.raccolta;
       _corsaInScena = true;
     });
-    // **LA SOGLIA, ordine BK voce 04.** Vibrazione leggera e suono di soglia,
-    // dalla porta unica: l'interruttore che governa suono e vibrazione e'
-    // quello che c'e' gia', e non ne nasce un secondo.
+    // **LA SOGLIA, ordine BK voce 04.** Vibrazione leggera, dalla porta unica:
+    // l'interruttore che governa suono e vibrazione e' quello che c'e' gia',
+    // e non ne nasce un secondo. **Senza suono dal 1 ottobre 2026**, ordine
+    // EU voce 03, il fondatore: *"Quando premo sul tasto di invio per avere
+    // la risposta (interroga la luna, ecc) parte immediatamente un suono
+    // fastidioso che deve essere eliminato"*. Suona solo la comparsa del
+    // responso, col file orchestrale (ES.38).
     unawaited(PaletteSensoriale.momento(
       context,
       aptica: SchemaAptico.tocco,
-      suono: SuonoDelCerchio.soglia,
     ));
     // L'OROSCOPO ENTRA NEL CAMMINO, ordine P voce 35. Il gesto e'
     // l'interrogazione del cielo, non l'apertura della scena: una scena si

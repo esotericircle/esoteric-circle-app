@@ -124,7 +124,13 @@ void main() {
     await assesta(tester);
   }
 
-  testWidgets('la soglia al tocco, la rivelazione alla comparsa del responso',
+  // **LAPIDE, 1 ottobre 2026, ordine EU voce 03.** Qui si pretendeva la
+  // soglia al tocco (ordine BK voce 04). Il fondatore: *"Quando premo sul
+  // tasto di invio per avere la risposta (interroga la luna, ecc) parte
+  // immediatamente un suono fastidioso che deve essere eliminato, invece il
+  // suono orchestrale che gli ho caricato va bene."* Adesso il tocco non
+  // suona, e suona solo la comparsa del responso.
+  testWidgets('il tocco non suona, il responso suona alla sua comparsa',
       (tester) async {
     SharedPreferences.setMockInitialValues(const {});
     await monta(tester);
@@ -134,28 +140,30 @@ void main() {
     await tester.tap(find.byKey(const Key('oroscopo_interroga')));
     await tester.pump();
     await assesta(tester);
-    expect(emessi, [SuonoDelCerchio.soglia],
-        reason: 'il tocco apre la soglia, e nient\'altro');
+    expect(emessi, isEmpty,
+        reason: 'alla pressione dell\'invio suona ancora qualcosa: il '
+            'fondatore ha chiesto che non suoni niente');
 
-    // Fino alla fine della riflessione la rivelazione non parte.
+    // Fino alla fine della riflessione il responso non suona.
     await avanza(
         tester,
         RiflessioneDelCielo.intera(piena: true) -
             const Duration(milliseconds: 100));
-    expect(emessi, [SuonoDelCerchio.soglia],
-        reason: 'la rivelazione appartiene al responso, non all\'attesa');
+    expect(emessi, isEmpty,
+        reason: 'il suono appartiene al responso, non all\'attesa');
 
-    // Finita la riflessione, il responso compare e la rivelazione suona.
+    // Finita la riflessione, il responso compare e suona.
     await avanza(tester, const Duration(milliseconds: 200));
-    expect(emessi, [SuonoDelCerchio.soglia, SuonoDelCerchio.responso]);
+    expect(emessi, [SuonoDelCerchio.responso]);
 
-    // E nessuno dei due si ripete mentre le schede finiscono di comporsi.
+    // E non si ripete mentre le schede finiscono di comporsi.
     await avanza(tester, const Duration(seconds: 8));
-    expect(emessi, [SuonoDelCerchio.soglia, SuonoDelCerchio.responso],
-        reason: 'ogni suono parte UNA volta sola per consulto');
+    expect(emessi, [SuonoDelCerchio.responso],
+        reason: 'il suono parte UNA volta sola per consulto');
   });
 
-  testWidgets('i due suoni non si sovrappongono mai', (tester) async {
+  testWidgets('il responso suona dopo la riflessione, non prima',
+      (tester) async {
     SharedPreferences.setMockInitialValues(const {});
     await monta(tester);
     await tester.tap(find.byKey(const Key('oroscopo_interroga')));
@@ -166,19 +174,17 @@ void main() {
     for (var i = 0; i < 80; i++) {
       await avanza(tester, const Duration(milliseconds: 100));
     }
-
-    final soglia = quando[SuonoDelCerchio.soglia]!;
-    final rivelazione = quando[SuonoDelCerchio.responso]!;
-    final distanza = rivelazione - soglia;
+    final responso = quando[SuonoDelCerchio.responso]!;
     // ignore: avoid_print
-    print('BK.04 MISURA: soglia a ${soglia.inMilliseconds} millesimi, '
-        'rivelazione a ${rivelazione.inMilliseconds}, distanza '
-        '${distanza.inMilliseconds}, coda della soglia '
-        '${SuonoDelCerchio.soglia.durataAttesa.inMilliseconds}');
-    expect(distanza, greaterThan(SuonoDelCerchio.soglia.durataAttesa),
-        reason: 'la rivelazione deve partire dopo che la soglia e\' finita: '
-            'due suoni sovrapposti non fanno un momento piu\' ricco, fanno '
-            'rumore');
+    final alTocco = quando.keys
+        .where((s) => quando[s]! < const Duration(milliseconds: 500))
+        .length;
+    print('EU.03 MISURA: suoni al tocco $alTocco, il responso a '
+        '${responso.inMilliseconds} millesimi');
+    expect(alTocco, 0, reason: 'alla pressione dell\'invio suona qualcosa');
+    expect(
+        responso, greaterThanOrEqualTo(RiflessioneDelCielo.intera(piena: true)),
+        reason: 'il suono del responso parte prima che il responso compaia');
   });
 
   testWidgets('il gesto chiamato due volte non suona due volte',
@@ -200,8 +206,8 @@ void main() {
     for (var i = 0; i < 80; i++) {
       await avanza(tester, const Duration(milliseconds: 100));
     }
-    expect(emessi.where((s) => s == SuonoDelCerchio.soglia).length, 1,
-        reason: 'la soglia parte una volta sola per consulto');
+    expect(emessi.where((s) => s == SuonoDelCerchio.soglia), isEmpty,
+        reason: 'alla pressione dell\'invio non suona niente (EU.03)');
     // Dal 30 settembre 2026 il responso ha il suo suono, scelto dal
     // fondatore; quello di prima non parte piu'.
     expect(emessi.where((s) => s == SuonoDelCerchio.responso).length, 1,

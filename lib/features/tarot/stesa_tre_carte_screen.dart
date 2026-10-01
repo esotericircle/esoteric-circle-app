@@ -56,7 +56,6 @@ import '../pricing/upgrade_invite.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/components/riga_del_residuo.dart';
 import '../../core/entitlement/budget_del_giorno.dart';
-import '../../core/sensi/catalogo_suoni.dart';
 import '../../core/sensi/palette_sensoriale.dart';
 
 /// Il rapporto delle carte del mazzo, due a tre.
@@ -807,8 +806,10 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     );
     // Lo stesso momento sensoriale che l'ordine CO voce 07 aveva messo
     // sull'avvio: cambia il posto del pulsante, non cosa si sente premendolo.
-    unawaited(PaletteSensoriale.momento(context,
-        aptica: SchemaAptico.conferma, suono: SuonoDelCerchio.soglia));
+    // **Senza suono dal 1 ottobre 2026**, ordine EU voce 03: alla pressione
+    // dell'invio non suona niente, resta la vibrazione.
+    unawaited(
+        PaletteSensoriale.momento(context, aptica: SchemaAptico.conferma));
     // LA STESA ENTRA NEL CAMMINO, ordine P voce 35. Qui, e non all'apertura
     // della scena: una scena si apre anche per sbaglio, una stesa COMPIUTA
     // no. Prima di questa voce la stesa non compariva in nessuno dei quattro
