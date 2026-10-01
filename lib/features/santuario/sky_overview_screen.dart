@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import '../../design_system/components/cosmos_background.dart';
+import '../../design_system/components/fatto_del_foglio.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -437,76 +438,90 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
               top: Radius.circular(SpacingTokens.lg)),
           border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('Fonti e metodo',
-                  style: TypographyTokens.titoloSezione()
-                      .copyWith(color: palette.textPrimary)),
-              const SizedBox(height: SpacingTokens.xs),
-              Text(
-                'Le posizioni vengono da un motore a effemeridi che gira sul '
-                'telefono, senza rete. Qui sotto ci sono i valori che ha usato '
-                'davvero: confrontali con qualunque effemeride.',
-                style: TypographyTokens.corpo()
-                    .copyWith(color: palette.textSecondary),
-              ),
-              const SizedBox(height: SpacingTokens.md),
-              if (cielo == null)
-                Text(
-                  'Il cielo non risulta calcolato: manca un luogo da cui '
-                  'guardarlo. Concedi la posizione, oppure registra il tuo '
-                  'luogo di nascita.',
-                  key: const Key('sky_fonti_nessun_calcolo'),
-                  style: TypographyTokens.corpo()
-                      .copyWith(color: palette.goldSoft),
-                )
-              else
-                Column(
-                  key: const Key('sky_fonti_valori'),
+        // "Fatto" in fondo, fuori dal testo che scorre: il fondatore, 1
+        // ottobre 2026, vuole che ogni foglio che si legge si chiuda.
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Flexible(
+              child: SingleChildScrollView(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _rigaValore(palette, 'Latitudine',
-                        cielo.latitude.toStringAsFixed(4)),
-                    _rigaValore(palette, 'Longitudine',
-                        cielo.longitude.toStringAsFixed(4)),
-                    _rigaValore(palette, 'Coordinate da', _origine.etichetta),
-                    _rigaValore(palette, 'Istante locale',
-                        _formattaIstante(cielo.istanteLocale)),
-                    _rigaValore(palette, 'Istante in UT',
-                        '${_formattaIstante(cielo.istanteUtc)} UTC'),
-                    _rigaValore(
-                        palette,
-                        'Luna illuminata',
-                        '${NumeroDelCerchio.conCifre(cielo.moonPhase.fraction * 100, 1)} '
-                            'per cento'),
-                    _rigaValore(palette, 'Fase', cielo.nomeFaseLunare),
-                    _rigaValore(palette, 'Luna nel segno',
-                        NightSky.moonSign(cielo.istanteLocale).italianName),
-                    _rigaValore(
-                        palette,
-                        'Luna sopra il suolo',
-                        cielo.moon == null
-                            ? 'sotto il suolo'
-                            : NumeroDelCerchio.gradi(cielo.moon!.altDeg)),
-                    const SizedBox(height: SpacingTokens.sm),
-                    Text('Costellazioni sopra il suolo a mezzanotte',
-                        style: TypographyTokens.label(size: 12)
-                            .copyWith(color: palette.goldSoft)),
-                    const SizedBox(height: 2),
+                    Text('Fonti e metodo',
+                        style: TypographyTokens.titoloSezione()
+                            .copyWith(color: palette.textPrimary)),
+                    const SizedBox(height: SpacingTokens.xs),
                     Text(
-                      cielo.nomiVisibili.isEmpty
-                          ? 'nessuna'
-                          : cielo.nomiVisibili.join(', '),
-                      key: const Key('sky_fonti_costellazioni'),
+                      'Le posizioni vengono da un motore a effemeridi che gira sul '
+                      'telefono, senza rete. Qui sotto ci sono i valori che ha usato '
+                      'davvero: confrontali con qualunque effemeride.',
                       style: TypographyTokens.corpo()
-                          .copyWith(color: palette.textPrimary),
+                          .copyWith(color: palette.textSecondary),
                     ),
+                    const SizedBox(height: SpacingTokens.md),
+                    if (cielo == null)
+                      Text(
+                        'Il cielo non risulta calcolato: manca un luogo da cui '
+                        'guardarlo. Concedi la posizione, oppure registra il tuo '
+                        'luogo di nascita.',
+                        key: const Key('sky_fonti_nessun_calcolo'),
+                        style: TypographyTokens.corpo()
+                            .copyWith(color: palette.goldSoft),
+                      )
+                    else
+                      Column(
+                        key: const Key('sky_fonti_valori'),
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _rigaValore(palette, 'Latitudine',
+                              cielo.latitude.toStringAsFixed(4)),
+                          _rigaValore(palette, 'Longitudine',
+                              cielo.longitude.toStringAsFixed(4)),
+                          _rigaValore(
+                              palette, 'Coordinate da', _origine.etichetta),
+                          _rigaValore(palette, 'Istante locale',
+                              _formattaIstante(cielo.istanteLocale)),
+                          _rigaValore(palette, 'Istante in UT',
+                              '${_formattaIstante(cielo.istanteUtc)} UTC'),
+                          _rigaValore(
+                              palette,
+                              'Luna illuminata',
+                              '${NumeroDelCerchio.conCifre(cielo.moonPhase.fraction * 100, 1)} '
+                                  'per cento'),
+                          _rigaValore(palette, 'Fase', cielo.nomeFaseLunare),
+                          _rigaValore(
+                              palette,
+                              'Luna nel segno',
+                              NightSky.moonSign(cielo.istanteLocale)
+                                  .italianName),
+                          _rigaValore(
+                              palette,
+                              'Luna sopra il suolo',
+                              cielo.moon == null
+                                  ? 'sotto il suolo'
+                                  : NumeroDelCerchio.gradi(cielo.moon!.altDeg)),
+                          const SizedBox(height: SpacingTokens.sm),
+                          Text('Costellazioni sopra il suolo a mezzanotte',
+                              style: TypographyTokens.label(size: 12)
+                                  .copyWith(color: palette.goldSoft)),
+                          const SizedBox(height: 2),
+                          Text(
+                            cielo.nomiVisibili.isEmpty
+                                ? 'nessuna'
+                                : cielo.nomiVisibili.join(', '),
+                            key: const Key('sky_fonti_costellazioni'),
+                            style: TypographyTokens.corpo()
+                                .copyWith(color: palette.textPrimary),
+                          ),
+                        ],
+                      ),
                   ],
                 ),
-            ],
-          ),
+              ),
+            ),
+            FattoDelFoglio(palette: palette),
+          ],
         ),
       ),
     );

@@ -85,6 +85,11 @@ class AnswerDepthSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // **LA VOCE MOSTRATA E' QUELLA CHE SI LEGGE**, ordine EU voce 15, visto
+    // sul Realme il 1 ottobre 2026: scelta la Lunga col piano e tornati al
+    // Viandante, il selettore diceva "Lunga" col lucchetto sopra la Breve.
+    // Una voce chiusa non si legge, quindi non si mostra come scelta.
+    final current = _locked(this.current) ? AnswerDepth.breve : this.current;
     return PopupMenuButton<AnswerDepth>(
       tooltip: premiumUnlocked
           ? 'Scegli quanto approfondire questa scheda'

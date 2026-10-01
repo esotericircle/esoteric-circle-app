@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/sigilli/diario_del_cammino.dart';
 import '../../core/sigilli/sentieri.dart';
+import '../../design_system/components/fatto_del_foglio.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -222,14 +223,19 @@ class _FoglioDellaMappa extends StatelessWidget {
                   foregroundColor: palette.goldSoft,
                 ),
               ),
-            ] else
+            ] else ...[
               Text(
-                'Questo sentiero e compiuto.',
+                'Questo sentiero è compiuto.',
                 key: const Key('mappa_cosa_manca'),
                 textAlign: TextAlign.center,
                 style: TypographyTokens.corpo()
                     .copyWith(color: ColorTokens.textPrimary),
               ),
+              // "Fatto" in fondo, solo qui dove non c'e' altro pulsante: il
+              // fondatore, 1 ottobre 2026, vuole che ogni foglio che si legge
+              // si chiuda.
+              FattoDelFoglio(palette: palette),
+            ],
           ],
         ),
       ),

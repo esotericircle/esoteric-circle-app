@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:esoteric_circle/core/astro/city_catalog.dart';
 import 'package:esoteric_circle/core/astro/il_mondo_intero.dart';
 import 'package:esoteric_circle/core/astro/ricerca_del_luogo.dart';
@@ -144,8 +146,7 @@ void main() {
     ricerca.chiudi();
   });
 
-  test('e quando il catalogo tace, la domanda parte una volta sola',
-      () async {
+  test('e quando il catalogo tace, la domanda parte una volta sola', () async {
     var chiamate = 0;
     final chieste = <String>[];
     IlMondoIntero.chiamata = (dati) async {
@@ -175,8 +176,7 @@ void main() {
     // piu' vecchia riempirebbe l'elenco di chi sta leggendo la piu' nuova.
     IlMondoIntero.chiamata = (dati) async {
       final q = dati['query']! as String;
-      await Future<void>.delayed(
-          Duration(milliseconds: q == 'prima' ? 60 : 5));
+      await Future<void>.delayed(Duration(milliseconds: q == 'prima' ? 60 : 5));
       return <String, Object?>{
         'luoghi': <Object?>[
           <String, Object?>{
@@ -217,5 +217,82 @@ void main() {
     await Future<void>.delayed(const Duration(milliseconds: 80));
     expect(chiamate, 0);
     expect(chiamato, isFalse);
+  });
+
+  // **IL CATALOGO CHE DICE ALTRO NON FERMA IL MONDO**, il fondatore il 1
+  // ottobre 2026: *"non ci sono tutte le città, paesi, villaggi, borgo del
+  // mondo [...] Fai la prova con la città di residenza dei fondatori "Borgo
+  // di Rivalta""*. Chi scrive "Rivalta" trova nel catalogo Rivalta di Torino
+  // e altri luoghi, nessuno col nome scritto: prima il mondo non veniva
+  // chiesto, e la frazione dei fondatori non arrivava mai.
+  test('il catalogo con altri nomi non ferma la domanda al mondo', () async {
+    await CityCatalog.ensureLoaded();
+    var chiamate = 0;
+    IlMondoIntero.chiamata = (_) async {
+      chiamate++;
+      return rispostaDiRivalta();
+    };
+    final ricerca = RicercaNelMondo(attesa: const Duration(milliseconds: 1));
+    final locali = CityCatalog.search('Rivalta');
+    expect(locali, isNotEmpty,
+        reason: 'il catalogo non ha nessuna Rivalta: la prova non misura il '
+            'caso');
+    List<City>? arrivati;
+    ricerca.chiedi('Rivalta', gia: locali, quando: (t) => arrivati = t);
+    await Future<void>.delayed(const Duration(milliseconds: 60));
+    expect(chiamate, 1,
+        reason: 'col catalogo che conosce altre Rivalta il mondo non e\' '
+            'stato chiesto');
+    final insieme = RicercaNelMondo.unisci(locali, arrivati ?? const []);
+    // ignore: avoid_print
+    print('IL MONDO: "Rivalta" nel catalogo ${locali.length} luoghi, col '
+        'mondo ${insieme.length}, Borgo di Rivalta '
+        '${insieme.any((c) => c.name.contains('Borgo di Rivalta'))}');
+    expect(insieme.any((c) => c.name.contains('Borgo di Rivalta')), isTrue);
+    expect(insieme.take(locali.length).toList(), locali,
+        reason: 'il catalogo viene prima');
+    ricerca.chiudi();
+  });
+
+  test('un luogo del mondo gia\' in catalogo non si ripete', () {
+    const roma = City(
+        name: 'Roma',
+        country: 'Italia',
+        latitude: 41.89,
+        longitude: 12.48,
+        timeZoneId: 'Europe/Rome',
+        utcOffsetMinutes: 60);
+    const romaDelMondo = City(
+        name: 'Roma',
+        country: 'Lazio',
+        latitude: 41.893,
+        longitude: 12.483,
+        timeZoneId: 'Europe/Rome',
+        utcOffsetMinutes: 60);
+    expect(RicercaNelMondo.unisci([roma], [romaDelMondo]), [roma]);
+  });
+
+  // **OGNI CAMPO CHE CERCA UN LUOGO CHIEDE ANCHE AL MONDO**: il foglio
+  // dell'amico cercava solo nel catalogo (il fondatore, 1 ottobre 2026).
+  test('ogni campo del luogo chiede anche al mondo', () {
+    final campi = <String>[];
+    final senza = <String>[];
+    for (final f in Directory('lib').listSync(recursive: true)) {
+      if (f is! File || !f.path.endsWith('.dart')) continue;
+      final testo = f.readAsStringSync();
+      if (!testo.contains('RicercaDelLuogo.per(')) continue;
+      if (f.path.replaceAll('\\', '/').endsWith('ricerca_del_luogo.dart')) {
+        continue;
+      }
+      campi.add(f.path);
+      if (!testo.contains('RicercaNelMondo()')) senza.add(f.path);
+    }
+    // ignore: avoid_print
+    print('IL MONDO: file con un campo del luogo ${campi.length}, senza la '
+        'domanda al mondo ${senza.length}');
+    expect(campi.length, greaterThanOrEqualTo(3),
+        reason: 'i campi del luogo sono il rito, i dati di nascita e '
+            'l\'amico: ne trovo ${campi.length}');
+    expect(senza, isEmpty, reason: senza.join('\n'));
   });
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../design_system/components/riquadro_in_evidenza.dart';
+
 import '../../core/astro/aspetti_di_oggi.dart';
 import '../../core/horoscope/horoscope.dart';
 import '../../core/horoscope/i_testi_eu.dart';
@@ -115,7 +117,7 @@ class IlPeriodoView extends StatelessWidget {
                     dominio: d,
                     palette: palette),
               const SizedBox(height: 6),
-              const _LaScala(),
+              const LaScalaDelLivello(),
               const SizedBox(height: SpacingTokens.sm),
               // 2. La risposta, in parole di tutti i giorni.
               Text(d.risposta(mese: mese),
@@ -135,10 +137,24 @@ class IlPeriodoView extends StatelessWidget {
               for (final (i, p)
                   in d.voce.paragrafi(lunga: _lunga(d.dominio)).indexed) ...[
                 const SizedBox(height: SpacingTokens.sm),
-                Text(p,
-                    key: Key('oroscopo_periodo_paragrafo_${d.dominio.name}_$i'),
-                    style: TypographyTokens.corpo()
-                        .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
+                // Il terzo paragrafo della Lunga in un riquadro (il
+                // fondatore, 1 ottobre 2026).
+                if (RiquadroInEvidenza.eIlTerzoDellaLunga(
+                    i, d.voce.paragrafi(lunga: _lunga(d.dominio)).length))
+                  RiquadroInEvidenza(
+                    palette: palette,
+                    child: Text(p,
+                        key: Key(
+                            'oroscopo_periodo_paragrafo_${d.dominio.name}_$i'),
+                        style: TypographyTokens.corpo().copyWith(
+                            color: ColorTokens.textPrimary, height: 1.4)),
+                  )
+                else
+                  Text(p,
+                      key: Key(
+                          'oroscopo_periodo_paragrafo_${d.dominio.name}_$i'),
+                      style: TypographyTokens.corpo().copyWith(
+                          color: ColorTokens.textPrimary, height: 1.4)),
               ],
               // La Lunga: i tre giorni migliori, ognuno col titolo della sua
               // scheda del Giorno e il suo "Da dove viene" (EU Aggiunta): il
@@ -178,17 +194,23 @@ class IlPeriodoView extends StatelessWidget {
                     ),
                   ),
               ],
-              // 4. Da dove viene, in fondo.
-              const SizedBox(height: SpacingTokens.sm),
-              Text(
-                  periodo.tradizione != TradizioneEu.occidentale
-                      ? 'Da dove viene: ${d.momentoChiave}'
-                      : d.momentoChiave.startsWith('Nessun')
-                          ? 'Da dove viene: ${_minuscola(d.momentoChiave)}'
-                          : 'Da dove viene: il momento chiave è '
-                              '${d.momentoChiave}',
-                  key: Key('oroscopo_periodo_da_dove_${d.dominio.name}'),
-                  style: piccolo),
+              // 4. Da dove viene, in fondo. **Nella Lunga della Vedica e della
+              // Cinese non c'e'**: e' il "Da dove viene" del giorno migliore,
+              // che sta gia' fra i tre giorni migliori qui sopra. Visto sul
+              // Realme il 1 ottobre 2026, la stessa frase due volte di fila.
+              if (periodo.tradizione == TradizioneEu.occidentale ||
+                  !_lunga(d.dominio)) ...[
+                const SizedBox(height: SpacingTokens.sm),
+                Text(
+                    periodo.tradizione != TradizioneEu.occidentale
+                        ? 'Da dove viene: ${d.momentoChiave}'
+                        : d.momentoChiave.startsWith('Nessun')
+                            ? 'Da dove viene: ${_minuscola(d.momentoChiave)}'
+                            : 'Da dove viene: il momento chiave è '
+                                '${d.momentoChiave}',
+                    key: Key('oroscopo_periodo_da_dove_${d.dominio.name}'),
+                    style: piccolo),
+              ],
             ],
           ),
           const SizedBox(height: SpacingTokens.md),
@@ -482,8 +504,8 @@ class _Casella extends StatelessWidget {
 
 /// **LA SCALA SOTTO IL COLPO D'OCCHIO**: i cinque gradini, perche' chi
 /// guarda sappia che il rosso e' il giorno pieno e il giallo quello quieto.
-class _LaScala extends StatelessWidget {
-  const _LaScala();
+class LaScalaDelLivello extends StatelessWidget {
+  const LaScalaDelLivello({super.key});
 
   @override
   Widget build(BuildContext context) {

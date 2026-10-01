@@ -12,7 +12,6 @@ import '../../core/entitlement/entitlement_service.dart';
 import '../../core/entitlement/plan_catalog.dart';
 
 import '../../core/astro/zodiac.dart';
-import '../../core/config/app_flags.dart';
 import '../../core/horoscope/astro_tradition.dart';
 import '../../core/horoscope/cielo_di_oggi.dart';
 import '../../core/horoscope/corrente_del_cielo.dart';
@@ -43,6 +42,12 @@ import '../../core/horoscope/il_domani.dart';
 import '../../core/horoscope/l_ora_d_oro.dart';
 import 'la_ruota_del_passaggio.dart';
 import 'il_periodo_view.dart';
+import '../../design_system/components/riquadro_in_evidenza.dart';
+import 'i_dodici_mesi_view.dart';
+import 'le_ore_del_giorno_view.dart';
+import '../../core/horoscope/le_ore_del_giorno.dart';
+import '../../core/horoscope/i_dodici_mesi.dart';
+import '../../core/horoscope/l_almanacco_cinese.dart';
 import '../../core/horoscope/la_settimana_del_cielo.dart';
 import '../../core/entitlement/tier.dart';
 import '../../core/horoscope/la_lettura_cinese.dart';
@@ -317,11 +322,16 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       unawaited(IlSigilloDeiTreCieli.segna(quale, _date).then((stato) {
         if (!mounted) return;
         setState(() => _sigilloDeiTreCieli = stato);
+        // **SENZA SUONO, ordine EU voce 03.** Il Sigillo si accende alla
+        // pressione dell'invio della terza tradizione del giorno, e suonava
+        // la rivelazione mezzo secondo dopo il tocco: il sistema audio del
+        // Realme l'ha registrata il 1 ottobre 2026. Il fondatore ha chiesto
+        // che alla pressione non suoni niente; resta la vibrazione, e il
+        // Sigillo acceso si vede sotto le schede.
         if (stato.appenaAcceso) {
           unawaited(PaletteSensoriale.momento(
             context,
             aptica: SchemaAptico.rivelazione,
-            suono: SuonoDelCerchio.rivelazione,
           ));
         }
       }));
@@ -562,6 +572,19 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         ),
       ];
     }
+    // **I DODICI MESI**, il fondatore il 1 ottobre 2026: i giorni favorevoli
+    // di ogni mese dell'anno della tradizione, dalle schede del Giorno.
+    final forma = context.read<ProfileController>().courtesy;
+    final signore = LAlmanaccoCinese.tronco(nascita.locale);
+    final mesi = IDodiciMesi.perLivelli(
+      chiave:
+          cinese ? 'cinese|$animale|$signore|${forma.name}' : 'vedica|$rashi',
+      inizio: anno.da,
+      livelliDelMese: (da, a) => cinese
+          ? LAnnoDelleTradizioni.livelliDelMeseCinese(
+              da, a, animale!, signore, forma)
+          : LAnnoDelleTradizioni.livelliDelMeseVedico(da, a, rashi!),
+    );
     final schede = LAnnoDelleTradizioni.schede(
         cinese ? TradizioneEu.cinese : TradizioneEu.vedica, anno,
         scarto: ITestiEu.scarto(nascita.locale),
@@ -586,6 +609,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
           giaScritto: () => true,
           onScritto: () {},
           livello: livello,
+          mesi: mesi,
         ),
         const SizedBox(height: SpacingTokens.md),
       ],
@@ -720,8 +744,27 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   /// **LE DATE DELL'ANNO PER LA TESTATA**, ordine EU voce 04: il ritorno del
   /// Sole in corso e il prossimo, se la nascita ha l'ora; senza, la testata
   /// dice "dal tuo compleanno al prossimo" e la vista chiede l'ora.
+  ///
+  /// **E QUELLE DELLA TRADIZIONE SCELTA**, visto sul Realme il 1 ottobre
+  /// 2026: con la Cinese la testata diceva l'anno del ritorno del Sole e la
+  /// riga subito sotto quello da Capodanno lunare a Capodanno lunare. La
+  /// Cinese e la Vedica hanno il loro anno ([LAnnoDelleTradizioni]).
   (DateTime, DateTime)? _ilTuoAnno(NascitaDeiSegni? nascita) {
-    if (nascita == null || !nascita.oraNota) return null;
+    if (nascita == null) return null;
+    if (_inCima == AstroTradition.cinese) {
+      final animale =
+          ISegniDelleTradizioni.per(AstroTradition.cinese, nascita).animale;
+      final anno =
+          animale == null ? null : LAnnoDelleTradizioni.cinese(_date, animale);
+      return anno == null ? null : (anno.da, anno.a);
+    }
+    if (_inCima == AstroTradition.vedica) {
+      final rashi = LaLetturaVedica.lunaDiNascita(nascita)?.$1;
+      if (rashi == null) return null;
+      final anno = LAnnoDelleTradizioni.vedico(_date, nascita.locale, rashi);
+      return (anno.da, anno.a);
+    }
+    if (!nascita.oraNota) return null;
     final nascitaUtc = IlFusoDellaNascita.inUtc(nascita.locale, nascita.fuso);
     return (
       LaRivoluzioneSolare.ritornoInCorso(nascitaUtc, _date).toLocal(),
@@ -827,6 +870,14 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       ];
     }
     final tema = LaRivoluzioneSolare.tema(istante, lat, lon);
+    // **I DODICI MESI**, il fondatore il 1 ottobre 2026: i giorni favorevoli
+    // di ogni mese dell'anno dal ritorno del Sole, dalle schede del Giorno.
+    final carta = context.read<BirthIdentityController>().cartaCompleta;
+    final mesi = IDodiciMesi.di(
+      chiave: Horoscope.chiaveDellaStoria(widget.userSign, carta),
+      inizio: DateTime(locale.year, locale.month, locale.day),
+      livelli: (g) => Horoscope.livelliDelGiorno(widget.userSign, carta, g),
+    );
     // **LA PROFONDITA' ANCHE SULL'ANNO.** Il fondatore, 30 settembre 2026:
     // *"Ogni scheda deve avere sempre il pulsante profondità e la scelta
     // "approfondita" è esclusiva dei premium."* A video ogni scheda si legge
@@ -864,6 +915,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
           giaScritto: () => true,
           onScritto: () {},
           livello: livello,
+          mesi: mesi,
         ),
         const SizedBox(height: SpacingTokens.md),
       ],
@@ -1454,6 +1506,15 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                         for (var i = 0; i < cards.length; i++)
                           if (i <= _turnoDiScrittura) ...[
                             _HoroscopeCardView(
+                              ore: _oreDelGiorno(cards,
+                                      nascita: nascitaDeiSegni,
+                                      animale: animale)
+                                  ?.$1,
+                              didascaliaDelleOre: _oreDelGiorno(cards,
+                                          nascita: nascitaDeiSegni,
+                                          animale: animale)
+                                      ?.$2 ??
+                                  '',
                               // Il cielo occidentale non entra nella
                               // lettura cinese: niente ruota, niente ora d'oro.
                               passaggio: !altra && cielo.ceCieloVero
@@ -1693,11 +1754,6 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     );
   }
 
-  /// **IL PIANO CHE APRE LA LUNGA**, col suo nome: il primo che ha la
-  /// profondita' nella tabella dei piani.
-  String get _pianoDellaLunga => PlanCatalog.forTier(Tier.values
-      .firstWhere(PlanCatalog.haProfondita, orElse: () => Tier.tier1)).name;
-
   void _showDepthLocked(HoroscopeDomain domain, AnswerDepth depth) {
     // **LE DUE STRADE, ordine EU voce 15**: nell'Oroscopo occidentale del
     // giorno chi non ha il piano apre la Lunga di oggi con 50 Eos, oppure
@@ -1711,19 +1767,20 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     // LA BOLLA DEL MAESTRO, non una SnackBar di sistema, ordine L voce 1c:
     // l'avviso col fondo bianco e' sparito, e al tocco sul lucchetto sale
     // dal basso l'invito gia' esistente, nel blu di Medora.
+    // **LE PAROLE DEL FONDATORE**, 1 ottobre 2026: non il nome del piano ne'
+    // "la Lunga", che chi legge non conosce, ma l'invito ad abbonarsi per
+    // avere sempre l'oroscopo completo.
     showUpgradeInvite(
       context,
-      title:
-          'La profondità ${depth.label} si apre ${conPiano(_pianoDellaLunga)}',
-      message: 'Col piano scegli quanto approfondire ogni scheda, '
-          '${domain.label} compresa: la lettura ti segue in profondità.',
+      title: 'Abbonati per avere sempre l\'oroscopo completo',
+      message: 'La risposta completa aggiunge due paragrafi su ogni scheda, '
+          '${domain.label} compresa: con l\'abbonamento la leggi sempre.',
     );
   }
 
   /// **LA LUNGA DI OGGI, CON GLI EOS O COL PIANO, ordine EU voce 15.**
   Future<void> _offriLaLunga(HoroscopeDomain domain) async {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
-    final piano = _pianoDellaLunga;
     await foglioDelCerchio<void>(
       context: context,
       backgroundColor: Colors.transparent,
@@ -1749,20 +1806,58 @@ class _OroscopoScreenState extends State<OroscopoScreen>
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text('La Lunga di oggi',
+                // **L'INVITO PRIMA, GLI EOS PER L'OCCASIONE**, il fondatore il
+                // 1 ottobre 2026: *"Non chiamarla "la lunga di oggi con
+                // l'iniziato", ma "abbonati per avere sempre l'oroscopo
+                // completo". L'utente non sa cos'è l'iniziato e "la lunga" ha
+                // poco senso [...] bisogna invitare l'utente ad abbonarsi
+                // principalmente oppure a spendere eos solo per l'occasione."*
+                // Il pulsante pieno porta all'abbonamento; gli Eos stanno
+                // sotto, col bordo, per oggi soltanto.
+                Text('L\'oroscopo completo',
+                    key: const Key('oroscopo_lunga_titolo'),
                     style: TypographyTokens.titoloDiSchermata()
                         .copyWith(color: palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.sm),
                 Text(
-                    'Due paragrafi in più su ogni scheda, ${domain.label} '
-                    'compresa, per tutta la giornata. Puoi aprirla per oggi '
-                    'con gli Eos, oppure averla ogni giorno ${conPiano(piano)}.',
+                    'Ogni scheda con la risposta completa: due paragrafi in '
+                    'più per capire che cosa succede e che cosa fare. Con '
+                    'l\'abbonamento la leggi ogni giorno, in tutte le schede.',
                     style: TypographyTokens.corpo().copyWith(
                         color: ColorTokens.textSecondary, height: 1.4)),
                 const SizedBox(height: SpacingTokens.md),
+                FilledButton(
+                  key: const Key('oroscopo_lunga_col_piano'),
+                  style: FilledButton.styleFrom(
+                    backgroundColor: palette.gold,
+                    foregroundColor: palette.onPrimary,
+                    minimumSize: const Size.fromHeight(52),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: SpacingTokens.md,
+                        vertical: SpacingTokens.sm),
+                  ),
+                  onPressed: () {
+                    Navigator.of(foglio).pop();
+                    unawaited(
+                        Navigator.of(context).push(PricingScreen.route()));
+                  },
+                  // Al centro anche quando va a capo: visto sul Realme il 1
+                  // ottobre 2026, le due righe stavano a sinistra.
+                  child: Text('Abbonati per avere sempre l\'oroscopo completo',
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.etichetta()
+                          .copyWith(color: palette.onPrimary)),
+                ),
+                const SizedBox(height: SpacingTokens.lg),
+                Text('Oppure, solo per oggi:',
+                    key: const Key('oroscopo_lunga_solo_oggi'),
+                    style: TypographyTokens.didascalia()
+                        .copyWith(color: ColorTokens.textSecondary)),
+                const SizedBox(height: SpacingTokens.xs),
                 PortaDellaSpesa(
                   voce: ListinoDegliEos.oroscopoLungaDelGiorno,
-                  etichetta: 'Apri la Lunga di oggi',
+                  etichetta: 'Aprilo solo per oggi',
+                  secondaria: true,
                   suSpesaFatta: () {
                     unawaited(LaLungaDiOggi.segna(_date));
                     if (mounted) {
@@ -1774,29 +1869,81 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                     Navigator.of(foglio).pop();
                   },
                 ),
-                const SizedBox(height: SpacingTokens.sm),
-                OutlinedButton(
-                  key: const Key('oroscopo_lunga_col_piano'),
-                  style: OutlinedButton.styleFrom(
-                    minimumSize: const Size(0, 44),
-                    side:
-                        BorderSide(color: palette.gold.withValues(alpha: 0.6)),
-                  ),
-                  onPressed: () {
-                    Navigator.of(foglio).pop();
-                    unawaited(
-                        Navigator.of(context).push(PricingScreen.route()));
-                  },
-                  child: Text('La Lunga ogni giorno ${conPiano(piano)}',
-                      style: TypographyTokens.corpo()
-                          .copyWith(color: palette.goldSoft)),
-                ),
               ],
             ),
           ),
         ),
       ),
     );
+  }
+
+  /// **LE ORE DEL GIORNO**, una volta per tradizione, giorno, luogo e
+  /// livelli (il fondatore, 1 ottobre 2026): le ore planetarie
+  /// nell'Occidentale, le hora col Rahu Kalam nella Vedica, le ore doppie
+  /// nella Cinese ([LeOreDelGiorno]).
+  Object? _chiaveDelleOre;
+  (List<OraDelGiorno>, String)? _leOre;
+
+  (List<OraDelGiorno>, String)? _oreDelGiorno(List<HoroscopeCard> cards,
+      {required NascitaDeiSegni? nascita, required int? animale}) {
+    if (_period != HoroscopePeriod.giorno || cards.length < 4) return null;
+    final livelli = [
+      for (final d in HoroscopeDomain.values)
+        cards.firstWhere((c) => c.domain == d).indicator,
+    ];
+    final dettagli = context.read<BirthIdentityController>().details;
+    final lat = _luogo?.lat ?? dettagli?.place?.latitude;
+    final lon = _luogo?.lon ?? dettagli?.place?.longitude;
+    final chiave = (
+      _inCima,
+      _date.year,
+      _date.month,
+      _date.day,
+      livelli.join(),
+      lat,
+      lon,
+      animale
+    );
+    if (chiave == _chiaveDelleOre) return _leOre;
+    _chiaveDelleOre = chiave;
+    switch (_inCima) {
+      case AstroTradition.cinese:
+        _leOre = animale == null || nascita == null
+            ? null
+            : (
+                LeOreDelGiorno.cinesi(
+                    giorno: _date,
+                    animale: animale,
+                    signore: LAlmanaccoCinese.tronco(nascita.locale),
+                    forma: context.read<ProfileController>().courtesy),
+                'Le dodici ore doppie della tradizione cinese, dalle 23 di '
+                    'ieri.'
+              );
+      case AstroTradition.vedica:
+        _leOre = (
+          LeOreDelGiorno.planetarie(
+              giorno: _date,
+              livelliDelGiorno: livelli,
+              lat: lat,
+              lon: lon,
+              rahu: _luogo == null
+                  ? null
+                  : LaLetturaVedica.rahuKalam(_date, _luogo!)),
+          _luogo == null
+              ? 'Le hora, le ore dei pianeti dall\'alba di oggi all\'alba di '
+                  'domani.'
+              : 'Le hora, le ore dei pianeti dall\'alba, col Rahu Kalam.'
+        );
+      default:
+        _leOre = (
+          LeOreDelGiorno.planetarie(
+              giorno: _date, livelliDelGiorno: livelli, lat: lat, lon: lon),
+          lat == null
+              ? 'Le ore planetarie, dalle 6 di oggi alle 6 di domani.'
+              : 'Le ore planetarie, dall\'alba di oggi all\'alba di domani.'
+        );
+    }
+    return _leOre;
   }
 
   /// La Lunga di oggi gia' comprata con gli Eos (ordine EU voce 15).
@@ -2130,13 +2277,26 @@ class _ResponsoCheSiScriveState extends State<_ResponsoCheSiScrive> {
           for (var i = 0; i < _paragrafi.length; i++)
             if (!attiva || i <= _inScrittura) ...[
               if (i > 0) SizedBox(height: distanza),
-              TestoCheSiScrive(
-                key: _chiavi[i],
-                testo: _paragrafi[i],
-                stile: stile,
-                durataMassima: _durataDi(i),
-                attiva: attiva && i == _inScrittura,
-              ),
+              // Il terzo paragrafo della Lunga in un riquadro (il fondatore,
+              // 1 ottobre 2026).
+              if (RiquadroInEvidenza.eIlTerzoDellaLunga(i, _paragrafi.length))
+                RiquadroInEvidenza(
+                  child: TestoCheSiScrive(
+                    key: _chiavi[i],
+                    testo: _paragrafi[i],
+                    stile: stile,
+                    durataMassima: _durataDi(i),
+                    attiva: attiva && i == _inScrittura,
+                  ),
+                )
+              else
+                TestoCheSiScrive(
+                  key: _chiavi[i],
+                  testo: _paragrafi[i],
+                  stile: stile,
+                  durataMassima: _durataDi(i),
+                  attiva: attiva && i == _inScrittura,
+                ),
             ],
         ],
       ),
@@ -2671,11 +2831,10 @@ class _TraditionChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locked = !tradition.unlocked;
-    // Alla persona si dice soltanto "In arrivo": la fase e' un dato di piano e
-    // resta nella sola vista Demo per gli investitori.
-    final fase = AppFlags.isDemo && tradition.phase != null
-        ? ', ${tradition.phase}'
-        : '';
+    // **SOLO "IN ARRIVO", anche nella Demo.** Il 1 ottobre 2026 il
+    // fondatore: *"Per le altre tipologie di oroscopo non sbloccati, ad
+    // esempio maya, egizio, ecc, scrivi solo "in arrivo" Senza indicare la
+    // fase"*. Prima la Demo diceva "In arrivo, Fase 4".
     return GestureDetector(
       key: Key('oroscopo_tradition_${tradition.name}'),
       onTap: onTap,
@@ -2740,7 +2899,7 @@ class _TraditionChip extends StatelessWidget {
             ),
             if (locked)
               Text(
-                'In arrivo$fase',
+                'In arrivo',
                 key: Key('oroscopo_tradition_soon_${tradition.name}'),
                 style: TypographyTokens.etichetta().copyWith(
                   color: palette.goldSoft.withValues(alpha: 0.6),
@@ -2942,6 +3101,9 @@ class _HoroscopeCardView extends StatelessWidget {
     this.passaggio,
     this.carta,
     this.adesso,
+    this.mesi,
+    this.ore,
+    this.didascaliaDelleOre = '',
   });
 
   /// **IL PASSAGGIO CHE SI ACCENDE, ordine ES voce 33**: la voce del cielo
@@ -2950,6 +3112,15 @@ class _HoroscopeCardView extends StatelessWidget {
   final VoceDelCielo? passaggio;
   final NatalChart? carta;
   final DateTime? adesso;
+
+  /// **I DODICI MESI DELL'ANNO** sulla scheda dell'Anno (il fondatore, 1
+  /// ottobre 2026); null sulle altre.
+  final List<MeseDellAnno>? mesi;
+
+  /// **LE ORE DEL GIORNO** sulla scheda del Giorno (il fondatore, 1 ottobre
+  /// 2026), con la riga che dice che ore sono; null sulle altre.
+  final List<OraDelGiorno>? ore;
+  final String didascaliaDelleOre;
 
   /// **L'ORA D'ORO, ordine ES voce 32**, solo sulla Generale e solo con la
   /// carta natale; null nei giorni senza un aspetto favorevole esatto.
@@ -3122,6 +3293,19 @@ class _HoroscopeCardView extends StatelessWidget {
               ),
             ],
           ),
+          if (ore != null) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            LeOreDelGiornoView(
+                ore: ore!,
+                dominio: card.domain,
+                palette: palette,
+                didascalia: didascaliaDelleOre),
+          ],
+          if (mesi != null) ...[
+            const SizedBox(height: SpacingTokens.sm),
+            IDodiciMesiView(
+                mesi: mesi!, dominio: card.domain, palette: palette),
+          ],
           const SizedBox(height: SpacingTokens.md),
           // L'apertura personalizzata col nome, prima del testo della Generale.
           if (card.opening != null) ...[
@@ -3493,81 +3677,17 @@ class _FortunaFooter extends StatelessWidget {
     // `IntrinsicHeight` misura la piu' alta delle due e `stretch` porta
     // l'altra alla stessa quota: **le due bolle si pareggiano da sole**
     // anche il giorno che un colore ha un nome piu' lungo.
-    return IntrinsicHeight(
-        child: Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        // Il numero al centro del suo riquadro, ordine ES voce 14.
-        RiquadroDelNumero(
-            numero: card.luckyNumber ?? 0,
-            palette: palette,
-            // I due numeri dell'elemento nella lettura cinese (ES.08).
-            etichetta: card.numeriDelGiorno == null ? 'Numero' : 'Numeri',
-            cifre: card.numeriDelGiorno?.join(' e ')),
-        const SizedBox(width: SpacingTokens.sm),
-        Expanded(
-          child: _Pill(
-            label: 'Colore del giorno',
-            palette: palette,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 16,
-                  height: 16,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: oroscopoColor(card.dayColor) ?? palette.goldSoft,
-                    border:
-                        Border.all(color: palette.gold.withValues(alpha: 0.6)),
-                  ),
-                ),
-                const SizedBox(width: 6),
-                Flexible(
-                  child: Text(card.dayColor ?? '',
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TypographyTokens.didascalia()
-                          .copyWith(color: ColorTokens.textPrimary)),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    ));
-  }
-}
-
-class _Pill extends StatelessWidget {
-  const _Pill(
-      {required this.label, required this.child, required this.palette});
-
-  final String label;
-  final Widget child;
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-          horizontal: SpacingTokens.sm, vertical: SpacingTokens.xs),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
-        color: palette.primary.withValues(alpha: 0.4),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(label.toUpperCase(),
-              style: TypographyTokens.etichetta().copyWith(
-                  color: ColorTokens.textSecondary, letterSpacing: 0.8)),
-          const SizedBox(height: 2),
-          child,
-        ],
-      ),
+    //
+    // **E DAL 1 OTTOBRE 2026 RIEMPIONO IL RIQUADRO**, larghi uguale, col
+    // numero e il colore grandi e al centro ([LaFortunaDelGiorno]).
+    return LaFortunaDelGiorno(
+      numero: card.luckyNumber ?? 0,
+      palette: palette,
+      // I due numeri dell'elemento nella lettura cinese (ES.08).
+      etichettaDelNumero: card.numeriDelGiorno == null ? 'Numero' : 'Numeri',
+      cifre: card.numeriDelGiorno?.join(' e '),
+      nomeDelColore: card.dayColor,
+      colore: oroscopoColor(card.dayColor),
     );
   }
 }

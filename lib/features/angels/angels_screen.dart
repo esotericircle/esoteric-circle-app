@@ -9,6 +9,7 @@ import '../../core/assets/family_image.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/depth_card.dart';
+import '../../design_system/components/fatto_del_foglio.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -154,6 +155,9 @@ class _AngelsScreenState extends State<AngelsScreen>
                   .copyWith(color: ColorTokens.textSecondary, height: 1.45),
             ),
             const SizedBox(height: SpacingTokens.md),
+            // "Fatto" in fondo: il fondatore, 1 ottobre 2026, vuole che ogni
+            // foglio che si legge si chiuda.
+            FattoDelFoglio(palette: palette),
           ],
         ),
       ),

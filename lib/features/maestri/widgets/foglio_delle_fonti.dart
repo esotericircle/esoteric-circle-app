@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/magic/la_voce_del_sigillo.dart';
 
+import '../../../design_system/components/fatto_del_foglio.dart';
 import '../../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/tokens/color_tokens.dart';
@@ -63,21 +64,31 @@ class FoglioDelleFonti {
         ),
         child: SafeArea(
           top: false,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Fonti e metodo',
-                    style: TypographyTokens.titoloScheda()
-                        .copyWith(color: palette.goldSoft)),
-                const SizedBox(height: SpacingTokens.sm),
-                Text(testo,
-                    style: TypographyTokens.didascalia().copyWith(
-                        color: ColorTokens.textPrimary, height: 1.45)),
-                const SizedBox(height: SpacingTokens.lg),
-              ],
-            ),
+          // "Fatto" in fondo, fuori dal testo che scorre: il fondatore, 1
+          // ottobre 2026, vuole che ogni foglio che si legge si chiuda.
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Fonti e metodo',
+                          style: TypographyTokens.titoloScheda()
+                              .copyWith(color: palette.goldSoft)),
+                      const SizedBox(height: SpacingTokens.sm),
+                      Text(testo,
+                          style: TypographyTokens.didascalia().copyWith(
+                              color: ColorTokens.textPrimary, height: 1.45)),
+                      const SizedBox(height: SpacingTokens.lg),
+                    ],
+                  ),
+                ),
+              ),
+              FattoDelFoglio(palette: palette),
+            ],
           ),
         ),
       ),
@@ -167,10 +178,10 @@ class TestiDelleFonti {
       'segni e delle dodici case. Le parole con cui Medora la racconta '
       'sono curatela del Cerchio: il cielo dice dove sono i pianeti, non '
       'cosa farne.\n\n';
-      // **IL RIPIEGO NON SI DICE QUI.** La schermata lo dichiara gia' sotto
-      // le schede leggendo il livello dalla porta unica, `CieloDiOggi`:
-      // ripeterlo in un testo fisso vorrebbe dire tenere due verita' sullo
-      // stesso fatto, e la seconda invecchia da sola.
+  // **IL RIPIEGO NON SI DICE QUI.** La schermata lo dichiara gia' sotto
+  // le schede leggendo il livello dalla porta unica, `CieloDiOggi`:
+  // ripeterlo in un testo fisso vorrebbe dire tenere due verita' sullo
+  // stesso fatto, e la seconda invecchia da sola.
 
   /// La Meditazione.
   ///

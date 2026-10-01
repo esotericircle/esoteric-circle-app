@@ -1,4 +1,5 @@
 import '../astro/celestial.dart';
+import '../chat/user_profile.dart';
 import '../astro/effemeridi.dart';
 import 'horoscope.dart';
 import 'i_segni_delle_tradizioni.dart';
@@ -157,8 +158,8 @@ abstract final class LAnnoDelleTradizioni {
     // non lo hanno, lo festeggia il 28.
     DateTime compleanno(int anno) {
       final ultimo = DateTime(anno, nascita.month + 1, 0).day;
-      return DateTime(anno, nascita.month,
-          nascita.day > ultimo ? ultimo : nascita.day);
+      return DateTime(
+          anno, nascita.month, nascita.day > ultimo ? ultimo : nascita.day);
     }
 
     var da = compleanno(oggi.year);
@@ -201,7 +202,7 @@ abstract final class LAnnoDelleTradizioni {
         diGiove,
       ],
       metodo: 'L\'anno vedico va da compleanno a compleanno. Giove e Saturno '
-          'sono siderali, con l\'ayanamsa di Lahiri, al tuo compleanno, e si '
+          'sono siderali (ayanamsa di Lahiri) e presi al tuo compleanno; si '
           'contano dalla Luna di nascita (gochara): le case favorevoli sono '
           'quelle della Phaladeepika, cap. 26, Giove in 2, 5, 7, 9 e 11, '
           'Saturno in 3, 6 e 11. La Sade Sati è Saturno nella dodicesima, '
@@ -239,6 +240,68 @@ abstract final class LAnnoDelleTradizioni {
             );
           }(),
       ];
+
+  /// **IL MESE DELLA CINESE, col suo pilastro** (i dodici mesi dell'anno, il
+  /// fondatore il 1 ottobre 2026). Il mese solare cinese ha un ramo (aperto
+  /// dal suo jie) e un tronco, che si conta dal tronco dell'anno con la
+  /// regola delle cinque tigri (il primo mese, la Tigre, ha il tronco
+  /// `(anno % 5) * 2 + 2`). Si leggono come il giorno: la Generale dal
+  /// rapporto fra il tuo animale e quello del mese, gli altri domini dal dio
+  /// che il tronco del mese e' per il tuo tronco di nascita. Il mese si
+  /// prende a meta' della finestra fra [da] e [a].
+  /// Il ramo e il tronco del mese solare cinese del giorno [g]: il ramo dal
+  /// suo jie, il tronco con la regola delle cinque tigri dal tronco
+  /// dell'anno solare (che comincia col mese della Tigre).
+  static (int, int) pilastroDelMese(DateTime g) {
+    final ramo = LAlmanaccoCinese.ramoDelMese(g) ?? LAlmanaccoCinese.ramo(g);
+    // Il Topo e il Bue di gennaio sono ancora dell'anno solare di prima.
+    final anno = g.year - (ramo <= 1 && g.month <= 2 ? 1 : 0);
+    final troncoDellAnno = (anno - 4) % 10;
+    final k = (ramo - 2) % 12;
+    return (ramo, ((troncoDellAnno % 5) * 2 + 2 + k) % 10);
+  }
+
+  static List<int> livelliDelMeseCinese(
+      DateTime da, DateTime a, int animale, int signore, CourtesyForm forma) {
+    final meta = da.add(Duration(days: a.difference(da).inDays ~/ 2));
+    final (ramo, tronco) = pilastroDelMese(meta);
+    final rapporto = LAlmanaccoCinese.rapporto(animale, ramo);
+    final dio = LAlmanaccoCinese.dio(signore, tronco);
+    return [
+      LaLetturaCinese.livelloDelRapporto(rapporto),
+      for (final d in HoroscopeDomain.values.skip(1))
+        LaLetturaCinese.livelloDelDio(d, dio, forma: forma),
+    ];
+  }
+
+  /// I pianeti del mese vedico per dominio e le loro case favorevoli dalla
+  /// Luna di nascita, Phaladeepika cap. 26: il Sole per la Generale (il mese
+  /// solare e' il suo passaggio in un segno), Venere per l'Amore, Marte per
+  /// la Carriera, Mercurio per la Fortuna.
+  static const Map<HoroscopeDomain, (CorpoCeleste, Set<int>)> pianetiDelMese = {
+    HoroscopeDomain.generale: (CorpoCeleste.sole, {3, 6, 10, 11}),
+    HoroscopeDomain.amore: (CorpoCeleste.venere, {1, 2, 3, 4, 5, 8, 9, 11, 12}),
+    HoroscopeDomain.carriera: (CorpoCeleste.marte, {3, 6, 11}),
+    HoroscopeDomain.fortuna: (CorpoCeleste.mercurio, {2, 4, 6, 8, 10, 11}),
+  };
+
+  /// **IL MESE DELLA VEDICA, col gochara del mese**: la casa del pianeta del
+  /// dominio contata dalla Luna di nascita, a meta' della finestra; 4 se e'
+  /// una delle sue case favorevoli, 2 se non lo e'.
+  static List<int> livelliDelMeseVedico(
+      DateTime da, DateTime a, int rashiNascita) {
+    final meta = da.add(Duration(days: a.difference(da).inDays ~/ 2));
+    final istante = DateTime.utc(meta.year, meta.month, meta.day, 12);
+    return [
+      for (final d in HoroscopeDomain.values)
+        () {
+          final (corpo, buone) = pianetiDelMese[d]!;
+          final h = LaLetturaVedica.casa(
+              rashiNascita, siderale(corpo, istante) ~/ 30);
+          return buone.contains(h) ? 4 : 2;
+        }(),
+    ];
+  }
 
   static const List<String> _mesi = [
     'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //

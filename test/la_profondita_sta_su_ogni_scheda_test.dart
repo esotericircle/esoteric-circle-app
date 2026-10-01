@@ -266,8 +266,13 @@ void main() {
         AnswerDepth.profonda);
     expect(testiDi(tester, generale), prima,
         reason: 'il Viandante ha letto la Lunga senza il piano');
-    expect(find.textContaining('Cerchio Premium'), findsWidgets,
+    // **LAPIDE, 1 ottobre 2026, ordine EU voce 15.** Qui si cercava "Cerchio
+    // Premium": l'invito adesso chiama il piano per nome ("si apre con
+    // l'Iniziato"), e gli Eos aprono solo la Lunga del Giorno occidentale.
+    expect(find.byKey(const Key('upgrade_invite')), findsOneWidget,
         reason: 'la voce col lucchetto non porta all\'invito');
+    expect(find.textContaining('si apre con l\'Iniziato'), findsWidgets,
+        reason: 'l\'invito non chiama il piano per nome');
   });
 
   testWidgets(

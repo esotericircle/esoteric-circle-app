@@ -161,8 +161,9 @@ class ListinoDegliEos {
   /// Cinese non si comprano con gli Eos (la stessa tabella).
   static const oroscopoLungaDelGiorno = VoceDelListino(
     id: 'oroscopo_lunga_del_giorno',
-    nome: 'La Lunga dell\'Oroscopo occidentale del giorno, per la giornata e '
-        'le quattro schede',
+    // Il nome che si legge sopra il pulsante della spesa: dal 1 ottobre 2026
+    // con le parole del fondatore, "l'oroscopo completo", non "la Lunga".
+    nome: 'L\'oroscopo completo di oggi, per tutte e quattro le schede',
     costo: 50,
     budget: null,
     gratisAlGiorno: {

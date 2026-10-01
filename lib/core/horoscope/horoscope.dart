@@ -368,9 +368,12 @@ class Horoscope {
   static String chiaveDellaStoria(Zodiac sign, NatalChart? carta) => carta ==
           null
       ? 'occidentale|${sign.index}|-'
-      : 'occidentale|${sign.index}|${carta.ascendantLongitude?.toStringAsFixed(3)}|'
+      // In millesimi di grado interi: e' una chiave, non un numero da
+      // leggere, e non passa per un decimale col punto.
+      : 'occidentale|${sign.index}|'
+          '${carta.ascendantLongitude == null ? '-' : (carta.ascendantLongitude! * 1000).round()}|'
           '${[
-          for (final p in carta.planets) p.longitude.toStringAsFixed(3)
+          for (final p in carta.planets) (p.longitude * 1000).round()
         ].join(',')}';
 
   /// **I LIVELLI DI UN GIORNO CIVILE** nei quattro domini, con la stessa

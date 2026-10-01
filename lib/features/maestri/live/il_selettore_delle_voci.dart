@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../core/sensi/motore_audio.dart';
 import '../../../core/sensi/wav_da_pcm.dart';
+import '../../../design_system/components/fatto_del_foglio.dart';
 import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
@@ -176,6 +177,10 @@ class _IlSelettoreDelleVociState extends State<IlSelettoreDelleVoci> {
                     ],
                   ),
                 ),
+              // "Fatto" in fondo, fuori dall'elenco che scorre: il fondatore,
+              // 1 ottobre 2026, vuole che ogni foglio si chiuda, e ascoltare
+              // o scegliere una voce non lo chiude.
+              const FattoDelFoglio(),
             ],
           ),
         ),

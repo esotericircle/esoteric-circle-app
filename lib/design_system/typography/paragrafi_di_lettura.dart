@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../components/riquadro_in_evidenza.dart';
 import '../tokens/spacing_tokens.dart';
 import '../tokens/typography_tokens.dart';
 
@@ -227,6 +228,7 @@ class ParagrafiDiLettura extends StatelessWidget {
     this.stileSottotitolo,
     this.oro,
     this.textAlign,
+    this.terzoInEvidenza = false,
   });
 
   final String testo;
@@ -256,6 +258,11 @@ class ParagrafiDiLettura extends StatelessWidget {
 
   final TextAlign? textAlign;
 
+  /// **IL TERZO PARAGRAFO DELLA LUNGA IN UN RIQUADRO** (il fondatore, 1
+  /// ottobre 2026), per i responsi dell'Oroscopo: vale solo quando i
+  /// paragrafi sono quattro ([RiquadroInEvidenza.eIlTerzoDellaLunga]).
+  final bool terzoInEvidenza;
+
   @override
   Widget build(BuildContext context) {
     final blocchi = spezzaInParagrafi(testo, stile: stile);
@@ -282,11 +289,16 @@ class ParagrafiDiLettura extends StatelessWidget {
         ],
         for (var i = 0; i < blocchi.length; i++) ...[
           if (i > 0) SizedBox(height: distanza),
-          Text(blocchi[i],
-              style: oro != null && blocchi.length >= 2 && i == 0
-                  ? stile.copyWith(color: oro)
-                  : stile,
-              textAlign: textAlign),
+          if (terzoInEvidenza &&
+              RiquadroInEvidenza.eIlTerzoDellaLunga(i, blocchi.length))
+            RiquadroInEvidenza(
+                child: Text(blocchi[i], style: stile, textAlign: textAlign))
+          else
+            Text(blocchi[i],
+                style: oro != null && blocchi.length >= 2 && i == 0
+                    ? stile.copyWith(color: oro)
+                    : stile,
+                textAlign: textAlign),
         ],
       ],
     );

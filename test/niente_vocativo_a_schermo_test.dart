@@ -78,6 +78,11 @@ void main() {
           // stringhe che sono percorsi, e la regola sui participi resta intera.
           final trovata = m.group(0)!;
           if (trovata.contains('.dart') || trovata.contains('lib/')) continue;
+          // **"AMICO/A" E' LA PAROLA DEL FONDATORE**, ordine EU voce 05: *"un
+          // testo "oroscopo per" + pulsante [nome utente] predefinito +
+          // pulsante [amico/a]"*. Non e' un participio rivolto a chi legge:
+          // e' il nome del pulsante che porta agli amici, scritto come lui.
+          if (trovata == "'amico/a'") continue;
           sospette.add('${f.path}:${i + 1} $trovata');
         }
       }

@@ -265,8 +265,16 @@ class _FoglioDellAmicoState extends State<_FoglioDellAmico> {
   City? _citta;
   List<City> _risultati = const [];
 
+  /// **TUTTO IL MONDO ANCHE PER L'AMICO**, il fondatore il 1 ottobre 2026:
+  /// *"il campo di ricerca del luogo di nascita funziona male e non ci sono
+  /// tutte le città, paesi, villaggi, borgo del mondo"*. Qui la ricerca si
+  /// fermava al catalogo offline: adesso chiede al mondo (OpenStreetMap, dal
+  /// server) come il rito dell'accoglienza e i dati di nascita.
+  final RicercaNelMondo _nelMondo = RicercaNelMondo();
+
   @override
   void dispose() {
+    _nelMondo.chiudi();
     _nome.dispose();
     _dove.dispose();
     super.dispose();
@@ -348,6 +356,17 @@ class _FoglioDellAmicoState extends State<_FoglioDellAmico> {
                   _risultati = r.risultati.take(5).toList();
                   _citta = r.scelta;
                 });
+                _nelMondo.chiedi(
+                  q,
+                  gia: r.risultati,
+                  quando: (trovati) {
+                    if (!mounted || trovati.isEmpty) return;
+                    setState(() => _risultati = RicercaNelMondo.unisci(
+                            r.risultati.take(5).toList(), trovati)
+                        .take(8)
+                        .toList());
+                  },
+                );
               },
             ),
             for (final c in _risultati)

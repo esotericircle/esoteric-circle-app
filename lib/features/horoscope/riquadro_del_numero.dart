@@ -22,6 +22,11 @@ import '../../design_system/tokens/typography_tokens.dart';
 /// riquadro, in verticale e in orizzontale, con una cifra o con due, alla
 /// scala del testo normale e a quella ingrandita dalle impostazioni del
 /// telefono. Lo stesso riquadro serve alla Cinese e alla Vedica.
+///
+/// **E RIEMPIE IL RIQUADRO**, il fondatore il 1 ottobre 2026: *"Il colore
+/// del giorno e il numero del giorno più grandi in modo da riempire il
+/// riquadro e centrati verticalmente e orizzontalmente."* La cifra cresce
+/// fino allo spazio che c'e' fra l'etichetta e il suo contrappeso.
 class RiquadroDelNumero extends StatelessWidget {
   const RiquadroDelNumero({
     super.key,
@@ -42,11 +47,160 @@ class RiquadroDelNumero extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _RiquadroDellaFortuna(
+      chiave: const Key('riquadro_del_numero'),
+      etichetta: etichetta,
+      palette: palette,
+      // **GRANDE E AL CENTRO**, ordine EU voce 10, e dal 1 ottobre 2026 sera
+      // alta quanto il riquadro: la cifra cresce fino a riempire lo spazio
+      // che resta, e si rimpicciolisce intera se il riquadro e' stretto (i
+      // due numeri della lettura cinese) invece di andare a capo.
+      contenuto: FittedBox(
+        fit: BoxFit.contain,
+        child: Text(cifre ?? '$numero',
+            key: const Key('riquadro_del_numero_cifra'),
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            style: TypographyTokens.numeroDelGiorno()
+                .copyWith(color: palette.goldSoft)),
+      ),
+    );
+  }
+}
+
+/// **IL RIQUADRO DEL COLORE DEL GIORNO**, gemello di quello del numero: il
+/// fondatore, 1 ottobre 2026, *"Il colore del giorno e il numero del giorno
+/// più grandi in modo da riempire il riquadro e centrati verticalmente e
+/// orizzontalmente"*. Prima il colore era un pallino di sedici punti e il
+/// suo nome in didascalia, allineati a sinistra sotto un'etichetta su due
+/// righe. Adesso il cerchio del colore e il suo nome crescono insieme fino
+/// allo spazio del riquadro, e stanno al centro.
+class RiquadroDelColore extends StatelessWidget {
+  const RiquadroDelColore({
+    super.key,
+    required this.nome,
+    required this.colore,
+    required this.palette,
+  });
+
+  /// Il nome del colore, come lo dice la scheda ("oro").
+  final String nome;
+  final Color colore;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return _RiquadroDellaFortuna(
+      chiave: const Key('riquadro_del_colore'),
+      etichetta: 'Colore',
+      palette: palette,
+      contenuto: FittedBox(
+        fit: BoxFit.contain,
+        child: Column(
+          key: const Key('riquadro_del_colore_contenuto'),
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              key: const Key('riquadro_del_colore_cerchio'),
+              width: 36,
+              height: 36,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: colore,
+                border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(nome,
+                key: const Key('riquadro_del_colore_nome'),
+                textAlign: TextAlign.center,
+                maxLines: 1,
+                style: TypographyTokens.titoloScheda()
+                    .copyWith(color: ColorTokens.textPrimary, height: 1.1)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// **I DUE RIQUADRI DELLA FORTUNA DEL GIORNO**, il numero e il colore, larghi
+/// uguale e alti uguale, alti almeno [altezzaMinima] (cresce col carattere):
+/// cosi' il loro contenuto ha lo spazio per essere grande.
+class LaFortunaDelGiorno extends StatelessWidget {
+  const LaFortunaDelGiorno({
+    super.key,
+    required this.numero,
+    required this.palette,
+    this.cifre,
+    this.etichettaDelNumero = 'Numero',
+    this.nomeDelColore,
+    this.colore,
+  });
+
+  final int numero;
+  final String? cifre;
+  final String etichettaDelNumero;
+  final String? nomeDelColore;
+  final Color? colore;
+  final MaestroPalette palette;
+
+  /// L'altezza dei due riquadri al carattere normale, in punti.
+  static const double altezzaMinima = 112;
+
+  @override
+  Widget build(BuildContext context) {
+    final scala = MediaQuery.textScalerOf(context).scale(14) / 14;
+    return ConstrainedBox(
+      constraints: BoxConstraints(minHeight: altezzaMinima * scala),
+      child: IntrinsicHeight(
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Expanded(
+              child: RiquadroDelNumero(
+                  numero: numero,
+                  palette: palette,
+                  etichetta: etichettaDelNumero,
+                  cifre: cifre),
+            ),
+            const SizedBox(width: SpacingTokens.sm),
+            Expanded(
+              child: RiquadroDelColore(
+                  nome: nomeDelColore ?? '',
+                  colore: colore ?? palette.goldSoft,
+                  palette: palette),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// La forma comune dei due riquadri: l'etichetta in cima, il contenuto nello
+/// spazio che resta, e in fondo il contrappeso invisibile alto quanto
+/// l'etichetta, perche' il contenuto stia al centro.
+class _RiquadroDellaFortuna extends StatelessWidget {
+  const _RiquadroDellaFortuna({
+    required this.chiave,
+    required this.etichetta,
+    required this.palette,
+    required this.contenuto,
+  });
+
+  final Key chiave;
+  final String etichetta;
+  final MaestroPalette palette;
+  final Widget contenuto;
+
+  @override
+  Widget build(BuildContext context) {
     final stileEtichetta = TypographyTokens.etichetta()
         .copyWith(color: ColorTokens.textSecondary, letterSpacing: 0.8);
     final testoEtichetta = etichetta.toUpperCase();
     return Container(
-      key: const Key('riquadro_del_numero'),
+      key: chiave,
       padding: const EdgeInsets.symmetric(
           horizontal: SpacingTokens.sm, vertical: SpacingTokens.xs),
       decoration: BoxDecoration(
@@ -55,34 +209,22 @@ class RiquadroDelNumero extends StatelessWidget {
         border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
       ),
       child: Column(
-        // Tutto centrato sull'asse di traverso: nella riga il riquadro non ha
-        // un limite di larghezza, e stirare i figli lo romperebbe.
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(testoEtichetta, style: stileEtichetta),
-          // **GRANDE E AL CENTRO**, ordine EU voce 10: la cifra col ruolo
-          // del numero del giorno, quaranta punti; se il riquadro e' stretto
-          // (i due numeri della lettura cinese, il carattere ingrandito) si
-          // rimpicciolisce intera invece di andare a capo.
+          Text(testoEtichetta, maxLines: 1, style: stileEtichetta),
+          // Lo spazio intero al contenuto: il FittedBox lo riempie, al
+          // centro, senza deformarlo. Per questo il riquadro va messo dove ha
+          // una larghezza (in un Expanded, come nella scheda e nella card).
           Expanded(
-            child: Center(
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(cifre ?? '$numero',
-                    key: const Key('riquadro_del_numero_cifra'),
-                    textAlign: TextAlign.center,
-                    maxLines: 1,
-                    style: TypographyTokens.numeroDelGiorno()
-                        .copyWith(color: palette.goldSoft)),
-              ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: SizedBox.expand(child: contenuto),
             ),
           ),
-          // Il contrappeso: alto quanto l'etichetta, invisibile, cosi' la
-          // cifra ha sopra e sotto lo stesso spazio.
           ExcludeSemantics(
             child: Opacity(
               opacity: 0,
-              child: Text(testoEtichetta, style: stileEtichetta),
+              child: Text(testoEtichetta, maxLines: 1, style: stileEtichetta),
             ),
           ),
         ],

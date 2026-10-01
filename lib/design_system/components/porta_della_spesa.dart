@@ -53,6 +53,7 @@ class PortaDellaSpesa extends StatefulWidget {
     required this.voce,
     required this.etichetta,
     required this.suSpesaFatta,
+    this.secondaria = false,
   });
 
   /// Cosa si compra, dal listino: il costo non si scrive mai qui.
@@ -64,6 +65,12 @@ class PortaDellaSpesa extends StatefulWidget {
   /// Cosa succede quando la spesa e' andata a buon fine. **Non viene chiamata
   /// se la spesa non riesce**, ed e' il punto della voce.
   final VoidCallback suSpesaFatta;
+
+  /// **LA STRADA SECONDA**, ordine EU voce 15: dove la porta sta sotto un
+  /// invito piu' importante (l'abbonamento), il pulsante e' col bordo e non
+  /// pieno, perche' l'occhio vada prima all'invito. Il costo resta detto
+  /// prima del tocco, uguale.
+  final bool secondaria;
 
   @override
   State<PortaDellaSpesa> createState() => _PortaDellaSpesaState();
@@ -125,19 +132,36 @@ class _PortaDellaSpesaState extends State<PortaDellaSpesa> {
               .copyWith(color: ColorTokens.textSecondary),
         ),
         const SizedBox(height: SpacingTokens.xs),
-        FilledButton(
-          key: const Key('porta_della_spesa_conferma'),
-          onPressed: _inCorso ? null : _tocca,
-          style: FilledButton.styleFrom(
-            backgroundColor: palette.gold,
-            foregroundColor: palette.onPrimary,
-            minimumSize: const Size.fromHeight(48),
+        if (widget.secondaria)
+          OutlinedButton(
+            key: const Key('porta_della_spesa_conferma'),
+            onPressed: _inCorso ? null : _tocca,
+            style: OutlinedButton.styleFrom(
+              foregroundColor: palette.goldSoft,
+              minimumSize: const Size.fromHeight(48),
+              side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+            ),
+            child: Text(
+              _inCorso ? 'Un momento...' : widget.etichetta,
+              textAlign: TextAlign.center,
+              style: TypographyTokens.etichetta()
+                  .copyWith(color: palette.goldSoft),
+            ),
+          )
+        else
+          FilledButton(
+            key: const Key('porta_della_spesa_conferma'),
+            onPressed: _inCorso ? null : _tocca,
+            style: FilledButton.styleFrom(
+              backgroundColor: palette.gold,
+              foregroundColor: palette.onPrimary,
+              minimumSize: const Size.fromHeight(48),
+            ),
+            child: Text(
+              _inCorso ? 'Un momento...' : widget.etichetta,
+              style: TypographyTokens.etichetta(),
+            ),
           ),
-          child: Text(
-            _inCorso ? 'Un momento...' : widget.etichetta,
-            style: TypographyTokens.etichetta(),
-          ),
-        ),
       ],
     );
   }

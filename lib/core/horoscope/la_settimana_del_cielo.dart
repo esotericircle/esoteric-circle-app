@@ -580,8 +580,11 @@ abstract final class LaSettimanaDelCielo {
             return dominioDelPeriodo(
               dominio: dominio,
               righe: righe,
+              // La ragione del giorno continua la frase: comincia minuscola
+              // ("...6 ottobre: il livello viene...").
               momentoChiave: 'il giorno migliore, ${data(migliore.giorno)}: '
-                  '${migliore.motivo}',
+                  '${migliore.motivo.isEmpty ? '' : migliore.motivo[0].toLowerCase()}'
+                  '${migliore.motivo.isEmpty ? '' : migliore.motivo.substring(1)}',
               tradizione: tradizione,
               mese: giorni > 7,
               oggi: inizio,

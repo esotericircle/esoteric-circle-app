@@ -119,6 +119,16 @@ void main() {
   /// **La regola**: nessuna stringa di `lib` rivolta alla persona contiene
   /// una forma del dizionario fuori da una marca `[m|f|n]`. Le sole eccezioni
   /// sono le porte qui sopra.
+  /// **LE FRASI DEL CORPUS IN CUI LA FORMA NON E' DI CHI LEGGE**, dichiarate
+  /// una per una (ordine EU, 1 ottobre 2026, i corpora dell'Architetto). Il
+  /// dizionario prende la forma, ma qui concorda con un'altra parola della
+  /// frase: escludere il file intero vorrebbe dire smettere di guardare le
+  /// sue 1.548 voci per salvarne una.
+  const frasiDelCorpus = <String, String>{
+    'una stanchezza che ha bisogno di essere riconosciuta':
+        '"riconosciuta" concorda con "stanchezza", non con chi legge',
+  };
+
   test('nessuna stringa dice il genere di chi legge fuori da una marca', () {
     final colpe = <String>[];
     var letterali = 0;
@@ -130,6 +140,7 @@ void main() {
         if (marcaDelGenere.hasMatch(l.testo)) marcate++;
         final forme = formeDelGenere(l.testo);
         if (forme.isEmpty || porte.contains(percorso)) continue;
+        if (frasiDelCorpus.keys.any(l.testo.contains)) continue;
         colpe.add('$percorso:${l.riga} $forme');
       }
     }

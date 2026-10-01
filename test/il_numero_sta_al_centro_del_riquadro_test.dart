@@ -36,8 +36,15 @@ void main() {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    RiquadroDelNumero(
-                        numero: numero, palette: MaestroPalette.medora),
+                    // **LAPIDE, 1 ottobre 2026 sera**: il riquadro sta in un
+                    // Expanded, come nella scheda e nella card, perche' dal
+                    // fondatore ("più grandi in modo da riempire il
+                    // riquadro") la cifra riempie lo spazio che il riquadro
+                    // ha in largo e in alto.
+                    Expanded(
+                      child: RiquadroDelNumero(
+                          numero: numero, palette: MaestroPalette.medora),
+                    ),
                     const SizedBox(width: 8),
                     // Il vicino alto: il riquadro del colore del giorno, che
                     // col suo testo su due righe arriva a 84 punti.

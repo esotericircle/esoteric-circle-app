@@ -62,7 +62,18 @@ Future<T?> foglioDelCerchio<T>({
 }) {
   return showModalBottomSheet<T>(
     context: context,
-    builder: builder,
+    // **SI CHIUDE COL DITO ANCHE QUANDO SCORRE**, il fondatore il 1 ottobre
+    // 2026, sulla nota della tradizione cinese: *"si apre dal basso un
+    // pannello bolla informativa, ma poi non posso più chiuderla [...]
+    // utilizzando il gesto del dito dall'alto al basso per chiudere la scheda
+    // informativa. Controlla che sia così dappertutto"*. Un foglio alto quanto
+    // lo schermo col testo che scorre non lasciava velo da toccare, e il dito
+    // che scende scorreva il testo invece di tirare giu' il foglio. Adesso,
+    // col testo gia' in cima, il dito che continua a scendere chiude il
+    // foglio: in ogni foglio dell'app, perche' passano tutti da qui.
+    builder: isDismissible && enableDrag
+        ? (ctx) => ChiusuraColDito(child: builder(ctx))
+        : builder,
     backgroundColor: backgroundColor,
     isScrollControlled: isScrollControlled,
     isDismissible: isDismissible,
@@ -83,6 +94,58 @@ Future<T?> foglioDelCerchio<T>({
     // qui; un foglio basso non si accorge di niente.
     useSafeArea: true,
   );
+}
+
+/// **IL DITO CHE SCENDE CHIUDE IL FOGLIO**, anche quando il foglio scorre.
+/// Quando il contenuto e' gia' in cima e il dito continua a tirare giu' per
+/// piu' di [soglia] punti, il foglio si chiude. Vale per lo scorrimento di
+/// Android, che a fine corsa avvisa con un `OverscrollNotification`, e per
+/// quello di iOS, che va sotto lo zero.
+class ChiusuraColDito extends StatefulWidget {
+  const ChiusuraColDito({super.key, required this.child});
+
+  final Widget child;
+
+  /// Quanto deve tirare il dito, oltre la cima del testo, perche' il foglio si
+  /// chiuda: abbastanza da non chiuderlo per sbaglio leggendo.
+  static const double soglia = 48;
+
+  @override
+  State<ChiusuraColDito> createState() => _ChiusuraColDitoState();
+}
+
+class _ChiusuraColDitoState extends State<ChiusuraColDito> {
+  double _tirato = 0;
+  bool _chiuso = false;
+
+  void _chiudi() {
+    if (_chiuso) return;
+    _chiuso = true;
+    Navigator.of(context).maybePop();
+  }
+
+  bool _ascolta(ScrollNotification n) {
+    if (n.metrics.axis != Axis.vertical || _chiuso) return false;
+    if (n is OverscrollNotification &&
+        n.dragDetails != null &&
+        n.overscroll < 0 &&
+        n.metrics.pixels <= n.metrics.minScrollExtent) {
+      _tirato += -n.overscroll;
+      if (_tirato > ChiusuraColDito.soglia) _chiudi();
+    } else if (n is ScrollUpdateNotification &&
+        n.dragDetails != null &&
+        n.metrics.pixels < n.metrics.minScrollExtent - ChiusuraColDito.soglia) {
+      _chiudi();
+    } else if (n is ScrollEndNotification) {
+      _tirato = 0;
+    }
+    return false;
+  }
+
+  @override
+  Widget build(BuildContext context) =>
+      NotificationListener<ScrollNotification>(
+          onNotification: _ascolta, child: widget.child);
 }
 
 /// IL DIALOGO, sotto la stessa legge. Ordine CF voce 09.

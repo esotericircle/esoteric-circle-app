@@ -1,14 +1,18 @@
 // ignore_for_file: avoid_print
+import 'dart:convert';
+
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
+import 'package:esoteric_circle/core/horoscope/il_sigillo_dei_tre_cieli.dart';
 import 'package:esoteric_circle/core/horoscope/riflessione_del_cielo.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/core/rituals/filo_del_giorno.dart';
 import 'package:esoteric_circle/core/sensi/catalogo_suoni.dart';
 import 'package:esoteric_circle/core/sensi/palette_sensoriale.dart';
 import 'package:esoteric_circle/core/settings/settings_controller.dart';
@@ -215,6 +219,44 @@ void main() {
     expect(emessi.where((s) => s == SuonoDelCerchio.rivelazione), isEmpty,
         reason: 'alla comparsa del responso suona ancora il suono di prima, '
             'che il fondatore ha chiesto di eliminare');
+  });
+
+  // **IL TERZO CIELO DEL GIORNO, ordine EU voce 03, visto sul Realme il 1
+  // ottobre 2026.** Il sistema audio del telefono ha registrato una traccia
+  // nuova mezzo secondo dopo il tocco su "Apri l'almanacco": era la terza
+  // tradizione letta quel giorno, che accende il Sigillo dei Tre Cieli (ordine
+  // ES voce 37) e lo faceva suonare con la rivelazione, alla pressione
+  // dell'invio. La prova di prima toccava una tradizione sola e non poteva
+  // vederlo.
+  testWidgets('il terzo cielo del giorno non suona alla pressione',
+      (tester) async {
+    final adesso = DateTime.utc(2026, 8, 5, 12);
+    SharedPreferences.setMockInitialValues({
+      IlSigilloDeiTreCieli.chiave: jsonEncode({
+        'giorno': FiloDelGiorno.giornoRituale(adesso),
+        'lette': ['cinese', 'vedica'],
+        'giorni': 0,
+        'ultimo': null,
+      }),
+    });
+    await monta(tester, adesso: adesso);
+    await tester.tap(find.byKey(const Key('oroscopo_interroga')));
+    await tester.pump();
+    await assesta(tester);
+    for (var i = 0; i < 10; i++) {
+      await avanza(tester, const Duration(milliseconds: 100));
+    }
+    final stato = await IlSigilloDeiTreCieli.di(adesso);
+    print('EU.03 MISURA: Sigillo dei Tre Cieli acceso ${stato.accesoOggi}, '
+        'suoni nel primo secondo dopo il tocco ${emessi.length} $emessi');
+    expect(stato.accesoOggi, isTrue,
+        reason: 'la prova deve accendere il Sigillo, o non misura il caso');
+    expect(emessi, isEmpty,
+        reason: 'la terza tradizione del giorno suona alla pressione '
+            'dell\'invio: il fondatore ha chiesto che non suoni niente');
+    // Si lascia finire il consulto: al responso suona il suo suono, e basta.
+    await avanza(tester, const Duration(seconds: 8));
+    expect(emessi, [SuonoDelCerchio.responso]);
   });
 
   testWidgets('con l\'interruttore spento non suona niente', (tester) async {

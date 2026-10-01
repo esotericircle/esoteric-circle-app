@@ -448,6 +448,7 @@ class _Scheda extends StatelessWidget {
           // Il testo narrato passa dalla porta dei paragrafi, come ogni
           // responso: senza, torna un blocco unico.
           ParagrafiDiLettura(
+              terzoInEvidenza: true,
               testo: scheda.text,
               stile: TypographyTokens.lettura()
                   .copyWith(color: ColorTokens.textPrimary, height: 1.5)),

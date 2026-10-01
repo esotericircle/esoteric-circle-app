@@ -487,7 +487,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       gia: risposta.risultati,
       quando: (trovati) {
         if (!mounted || trovati.isEmpty) return;
-        setState(() => _placeResults = trovati);
+        setState(() => _placeResults =
+            RicercaNelMondo.unisci(risposta.risultati, trovati));
       },
     );
   }
@@ -1712,8 +1713,8 @@ class _VocativoChoice extends StatelessWidget {
           for (final form in options)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.sm),
-              child: _chip(form, form.vocativeLabel,
-                  form.vocativeLabel.toLowerCase()),
+              child: _chip(
+                  form, form.vocativeLabel, form.vocativeLabel.toLowerCase()),
             ),
         ],
       ),

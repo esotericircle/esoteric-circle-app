@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/core/horoscope/cielo_di_oggi.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/horoscope/il_cielo_del_segno.dart';
 import 'package:esoteric_circle/core/horoscope/il_numero_e_il_colore.dart';
@@ -10,6 +11,7 @@ import 'package:esoteric_circle/features/horoscope/oroscopo_colors.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
+import 'oroscopo_eu_comune.dart';
 
 /// **NUMERO FORTUNATO E COLORE DEL GIORNO CON UNA REGOLA.** Ordine ES voce
 /// 29, 29 settembre 2026.
@@ -86,5 +88,43 @@ void main() {
         ..writeAsStringSync('$sintesi\n\n${righe.join('\n')}\n');
     }
     expect(senzaRegola, isEmpty, reason: senzaRegola.join('\n'));
+  });
+
+  // **"QUELLO DI IL SOLE"**, visto sul Realme il 1 ottobre 2026 sotto il
+  // numero fortunato: "Il colore è quello di Il Sole, il pianeta del
+  // passaggio più stretto di oggi". La riga metteva l'articolo maiuscolo del
+  // Sole e della Luna dopo "di". Padre: ordine ES voce 29 (b6106fb7). Si
+  // guardano le righe della Fortuna col cielo vero, sei persone con la carta
+  // per trenta giorni, e quelle senza carta.
+  test('la riga del colore dice "del Sole" e "della Luna"', () {
+    final sbagliate = <String>{};
+    var righe = 0;
+    var colSole = 0;
+    for (final p in dodiciPersone) {
+      for (var i = 0; i < 30; i++) {
+        final oggi = DateTime(2026, 10, 1 + i);
+        final m = DateTime.utc(oggi.year, oggi.month, oggi.day, 12);
+        final carta = Horoscope.cardFor(
+            sign: p.segno,
+            dayOfYear: Horoscope.dayOfYear(oggi),
+            year: oggi.year,
+            domain: HoroscopeDomain.fortuna,
+            cielo: CieloDiOggi.perIlGiorno(adesso: m, carta: p.carta),
+            nascita: p.nascita);
+        final riga = carta.rigaDellaFortuna ?? '';
+        righe++;
+        if (riga.contains('Sole') || riga.contains('Luna')) colSole++;
+        if (RegExp(r'\bdi (Il|La|Lo|il|la) ').hasMatch(riga)) {
+          sbagliate.add(riga);
+        }
+      }
+    }
+    cardinaleMinimo(righe, 300, cosa: 'righe della Fortuna');
+    cardinaleMinimo(colSole, 10,
+        cosa: 'righe col Sole o la Luna',
+        perche: 'senza, la prova non vede il caso che e\' caduto');
+    print('ORDINE EU, LA RIGA DEL COLORE: righe con "di" e un articolo '
+        '${sbagliate.length} su $righe (col Sole o la Luna $colSole)');
+    expect(sbagliate, isEmpty, reason: sbagliate.take(4).join('\n'));
   });
 }

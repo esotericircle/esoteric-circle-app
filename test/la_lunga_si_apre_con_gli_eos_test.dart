@@ -8,7 +8,6 @@ import 'package:esoteric_circle/core/entitlement/listino_degli_eos.dart';
 import 'package:esoteric_circle/core/entitlement/plan_catalog.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
-import 'package:esoteric_circle/core/lang/euphonic.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
@@ -18,6 +17,7 @@ import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/horoscope/answer_depth.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
@@ -35,9 +35,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// Si pretende: le voci dell'Oroscopo che la tabella ES.06 prezza in Eos
 /// stanno tutte nel listino (la Lunga del giorno 50, l'anno 300, un amico in
 /// piu' 100), e nessuna per la Vedica o la Cinese; al Viandante il lucchetto
-/// della Lunga nell'Occidentale del giorno apre le due strade, i 50 Eos con
-/// la porta della spesa e il piano chiamato col suo nome; con la Lunga di
-/// oggi gia' comprata il Viandante la sceglie.
+/// della Lunga nell'Occidentale del giorno apre le due strade: prima, pieno,
+/// l'invito "Abbonati per avere sempre l'oroscopo completo"; sotto, col
+/// bordo, i 50 Eos con la porta della spesa, solo per oggi (il fondatore, 1
+/// ottobre 2026 sera); con la Lunga di oggi gia' comprata il Viandante la
+/// sceglie.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
   final nascita = BirthDetails(
@@ -155,14 +157,81 @@ void main() {
         .widget<Text>(find.byKey(const Key('porta_della_spesa_costo')))
         .data!;
     expect(costo, contains('50 Eos'));
-    final piano = PlanCatalog.forTier(Tier.tier1).name;
+    // **LAPIDE, 1 ottobre 2026 sera.** Qui si pretendeva "La Lunga ogni
+    // giorno con l'Iniziato". Il fondatore: *"Non chiamarla "la lunga di oggi
+    // con l'iniziato", ma "abbonati per avere sempre l'oroscopo completo".
+    // L'utente non sa cos'è l'iniziato e "la lunga" ha poco senso [...]
+    // bisogna invitare l'utente ad abbonarsi principalmente oppure a spendere
+    // eos solo per l'occasione."* Si misura: l'invito all'abbonamento con le
+    // sue parole, pieno e in alto; gli Eos col bordo e sotto; nel foglio
+    // nessuna parola che chi legge non conosce ("Lunga", i nomi dei piani).
+    final invito = find.byKey(const Key('oroscopo_lunga_col_piano'));
     expect(
         find.descendant(
-            of: find.byKey(const Key('oroscopo_lunga_col_piano')),
-            matching: find.text('La Lunga ogni giorno ${conPiano(piano)}')),
-        findsOneWidget);
-    print('ORDINE EU VOCE 15: due strade al Viandante: "$costo" e "La Lunga '
-        'ogni giorno ${conPiano(piano)}"');
+            of: invito,
+            matching:
+                find.text('Abbonati per avere sempre l\'oroscopo completo')),
+        findsOneWidget,
+        reason: 'l\'invito non dice le parole del fondatore');
+    expect(tester.widget(invito), isA<FilledButton>(),
+        reason: 'l\'invito all\'abbonamento non e\' il pulsante principale');
+    final eos = find.byKey(const Key('porta_della_spesa_conferma'));
+    expect(tester.widget(eos), isA<OutlinedButton>(),
+        reason: 'gli Eos sono il pulsante principale, e non l\'abbonamento');
+    expect(tester.getRect(invito).top, lessThan(tester.getRect(eos).top),
+        reason: 'gli Eos stanno sopra l\'invito all\'abbonamento');
+    final foglio = find.byKey(const Key('oroscopo_lunga_due_strade'));
+    final parole = [
+      for (final e in find
+          .descendant(of: foglio, matching: find.byType(Text))
+          .evaluate())
+        (e.widget as Text).data ?? '',
+    ];
+    final ignote = [
+      for (final p in parole)
+        if (p.contains('Lunga') ||
+            Tier.values.any((t) => p.contains(PlanCatalog.forTier(t).name)))
+          p,
+    ];
+    print('ORDINE EU VOCE 15: il foglio della Lunga, ${parole.length} scritte, '
+        'con "Lunga" o il nome di un piano ${ignote.length}; invito pieno '
+        'sopra gli Eos col bordo; "$costo"');
+    expect(ignote, isEmpty,
+        reason: 'parole che chi legge non conosce nel foglio: $ignote');
+    // **LA SCRITTA DEL PIANO STA AL CENTRO DEL SUO PULSANTE**, visto sul
+    // Realme il 1 ottobre 2026: andava a capo su due righe allineate a
+    // sinistra. Si misura il centro di ogni riga contro quello del pulsante.
+    final pulsante =
+        tester.getRect(find.byKey(const Key('oroscopo_lunga_col_piano')));
+    final scritta = find.descendant(
+        of: find.byKey(const Key('oroscopo_lunga_col_piano')),
+        matching: find.byType(RichText));
+    final r = tester.renderObject<RenderParagraph>(scritta);
+    final testo = r.text.toPlainText();
+    final origine = r.localToGlobal(Offset.zero);
+    final righe = <double, Rect>{};
+    // Lettera per lettera, senza gli spazi: lo spazio alla fine della prima
+    // riga allarga la riga a destra senza che nessuno lo veda.
+    for (var k = 0; k < testo.length; k++) {
+      if (testo[k] == ' ') continue;
+      for (final b in r.getBoxesForSelection(
+          TextSelection(baseOffset: k, extentOffset: k + 1))) {
+        final rect = b.toRect().shift(origine);
+        final chiave = (rect.top / 4).roundToDouble();
+        righe[chiave] = righe[chiave]?.expandToInclude(rect) ?? rect;
+      }
+    }
+    final scarti = [
+      for (final rr in righe.values) (rr.center.dx - pulsante.center.dx).abs(),
+    ];
+    print('ORDINE EU VOCE 15: la scritta del piano su ${righe.length} righe, '
+        'scarto massimo dal centro del pulsante '
+        '${scarti.reduce((a, b) => a > b ? a : b).toStringAsFixed(1)}');
+    for (final s in scarti) {
+      expect(s, lessThan(2.0),
+          reason: 'una riga della scritta del piano non sta al centro del '
+              'pulsante: scarto $s');
+    }
   });
 
   testWidgets('con la Lunga di oggi gia\' comprata il Viandante la sceglie',

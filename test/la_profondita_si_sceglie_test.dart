@@ -187,6 +187,41 @@ void main() {
             '${prima.length} della Breve');
   });
 
+  // **IL PIANO CHE SCENDE CON LA LUNGA SCELTA**, visto sul Realme il 1
+  // ottobre 2026 con la voce EU.07: scelta la Lunga da Illuminato, passato al
+  // Viandante dal telefono e tornato all'Oroscopo, il selettore diceva
+  // "Lunga" col lucchetto e la scheda era la Breve. Chi legge la voce
+  // scelta crede di leggere la Lunga.
+  testWidgets('chi scende al Viandante con la Lunga scelta legge "Breve"',
+      (tester) async {
+    await monta(tester, piano: Tier.tier2, conCarta: carta);
+    await tester.tap(find.byKey(const Key('oroscopo_depth_generale')));
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+    await tester.tap(find.text(AnswerDepth.profonda.label).last);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+    tester
+        .element(find.byType(OroscopoScreen))
+        .read<EntitlementService>()
+        .setTier(Tier.free);
+    await tester.pump();
+    await tester.pump(const Duration(milliseconds: 400));
+    final selettore = find.byKey(const Key('oroscopo_depth_generale'));
+    final mostrata = [
+      for (final d in AnswerDepth.shown)
+        if (find
+            .descendant(of: selettore, matching: find.text(d.label))
+            .evaluate()
+            .isNotEmpty)
+          d.label,
+    ];
+    // ignore: avoid_print
+    print('ORDINE EU, IL PIANO CHE SCENDE: il selettore dice $mostrata');
+    expect(mostrata, [AnswerDepth.breve.label],
+        reason: 'il Viandante legge la Breve e il selettore dice $mostrata');
+  });
+
   testWidgets('Da Viandante la Profonda resta chiusa, e lo dice',
       (tester) async {
     await monta(tester, piano: Tier.free, conCarta: carta);
@@ -200,9 +235,16 @@ void main() {
     expect(testoDellaGenerale(tester), prima,
         reason: 'il Viandante ha letto la Profonda senza pagarla');
     // E non e' un vicolo cieco muto: c'e' l'invito.
-    expect(find.textContaining('Cerchio Premium'), findsWidgets,
+    // **LAPIDE, 1 ottobre 2026, ordine EU voce 15.** Qui si pretendeva
+    // l'invito al Cerchio Premium. Il fondatore ha scelto "Premium più Eos"
+    // per la Lunga: al Viandante il lucchetto della Lunga del Giorno apre le
+    // due strade, i 50 Eos per la giornata o la Lunga ogni giorno col piano
+    // chiamato per nome.
+    expect(find.byKey(const Key('oroscopo_lunga_due_strade')), findsOneWidget,
         reason: 'la voce bloccata non dice niente, quindi sembra rotta invece '
             'che a pagamento');
+    expect(find.byKey(const Key('oroscopo_lunga_col_piano')), findsOneWidget,
+        reason: 'fra le due strade manca il piano');
   });
 
   testWidgets('Senza carta natale la schermata DICHIARA il ripiego',

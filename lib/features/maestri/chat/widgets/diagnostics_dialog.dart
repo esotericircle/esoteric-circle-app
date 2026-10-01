@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../../../../design_system/components/fatto_del_foglio.dart';
 import '../../../../design_system/theme/maestro_scope.dart';
 import '../../../../design_system/tokens/color_tokens.dart';
 import '../../../../design_system/tokens/spacing_tokens.dart';
@@ -218,6 +219,10 @@ class PannelloDiMessaAPunto extends StatelessWidget {
             const SizedBox(height: SpacingTokens.sm),
             _DebugTokenBox(token: appCheckDebugToken),
           ],
+          const SizedBox(height: SpacingTokens.sm),
+          // "Fatto" in fondo: il fondatore, 1 ottobre 2026, vuole che ogni
+          // foglio che si legge si chiuda.
+          FattoDelFoglio(palette: palette),
         ],
       ),
     );

@@ -349,7 +349,12 @@ void main() {
               of: find.byKey(const Key('oroscopo_depth_generale')),
               matching: find.text('Breve')),
           findsOneWidget);
-      expect(find.byKey(const Key('upgrade_invite')), findsOneWidget);
+      // **LAPIDE, 1 ottobre 2026, ordine EU voce 15.** Qui si pretendeva la
+      // bolla dell'invito al piano. Il fondatore ha scelto "Premium più Eos":
+      // nel Giorno dell'Occidentale il lucchetto apre le due strade, i 50 Eos
+      // per la giornata o la Lunga ogni giorno col piano.
+      expect(
+          find.byKey(const Key('oroscopo_lunga_due_strade')), findsOneWidget);
       expect(find.byType(SnackBar), findsNothing);
     });
 

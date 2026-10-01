@@ -1,7 +1,7 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 159 -->
-<!-- FILE_CON_VUOTI: 68 -->
+<!-- VUOTI_CENSITI: 165 -->
+<!-- FILE_CON_VUOTI: 71 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
 
@@ -11,8 +11,8 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **159** |
-| File che ne contengono | **68** |
+| Vuoti verticali dichiarati | **165** |
+| File che ne contengono | **71** |
 | Oltre la soglia di 48 punti | **2** |
 
 ## Da dove viene la soglia
@@ -22,11 +22,11 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 84 |
+| 2 | 87 |
 | 3 | 7 |
-| 4 | 31 |
+| 4 | 33 |
 | 5 | 2 |
-| 6 | 14 |
+| 6 | 15 |
 | 7 | 3 |
 | 8 | 6 |
 | 9 | 2 |
@@ -48,20 +48,20 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 
 | File | Vuoti | Oltre soglia |
 | --- | ---: | ---: |
+| `lib/features/horoscope/il_periodo_view.dart` | 7 | 0 |
 | `lib/features/passport/cosmic_passport_screen.dart` | 7 | 0 |
 | `lib/features/santuario/daily_strip.dart` | 6 | 0 |
 | `lib/features/synastry/sinastria_share_card.dart` | 6 | 1 |
 | `lib/features/tarot/tarot_selectors.dart` | 6 | 0 |
 | `lib/design_system/components/guida_del_respiro.dart` | 5 | 0 |
-| `lib/features/horoscope/il_periodo_view.dart` | 5 | 0 |
 | `lib/features/identity/widgets/identity_widgets.dart` | 5 | 0 |
 | `lib/core/diagnosi/racconto_della_corsa.dart` | 4 | 0 |
 | `lib/features/horoscope/la_testa_della_tradizione.dart` | 4 | 0 |
-| `lib/features/horoscope/oroscopo_screen.dart` | 4 | 0 |
 | `lib/features/pricing/pricing_screen.dart` | 4 | 0 |
 | `lib/features/rituals/arcano_dell_alba_share_card.dart` | 4 | 0 |
 | `lib/features/shell/santuario_bottom_bar.dart` | 4 | 0 |
 | `lib/features/tarot/stesa_tre_carte_screen.dart` | 4 | 0 |
+| `lib/features/horoscope/oroscopo_screen.dart` | 3 | 0 |
 | `lib/features/horoscope/oroscopo_share_card.dart` | 3 | 0 |
 | `lib/features/identity/circle_seal_screen.dart` | 3 | 0 |
 | `lib/features/maestri/aura/face/face_share_card.dart` | 3 | 0 |
@@ -75,6 +75,8 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/account/account_screen.dart` | 2 | 0 |
 | `lib/features/angels/angels_screen.dart` | 2 | 0 |
 | `lib/features/horoscope/answer_depth.dart` | 2 | 0 |
+| `lib/features/horoscope/i_dodici_mesi_view.dart` | 2 | 0 |
+| `lib/features/horoscope/riquadro_del_numero.dart` | 2 | 0 |
 | `lib/features/maestri/aura/archetype/archetype_share_card.dart` | 2 | 0 |
 | `lib/features/maestri/aura/archetype/archetype_test_screen.dart` | 2 | 0 |
 | `lib/features/maestri/aura/face/face_constellation_screen.dart` | 2 | 0 |
@@ -96,6 +98,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/account/notifiche_screen.dart` | 1 | 0 |
 | `lib/features/calendario/calendario_degli_eventi_screen.dart` | 1 | 0 |
 | `lib/features/debug/app_check_debug_view.dart` | 1 | 0 |
+| `lib/features/horoscope/le_ore_del_giorno_view.dart` | 1 | 0 |
 | `lib/features/intro/sequenza_intro.dart` | 1 | 0 |
 | `lib/features/maestri/ask/ask_maestri_screen.dart` | 1 | 0 |
 | `lib/features/maestri/aura/meditation/card_del_respiro.dart` | 1 | 0 |

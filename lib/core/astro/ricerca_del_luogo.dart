@@ -80,15 +80,26 @@ class RicercaNelMondo {
 
   /// Chiede [query] al mondo e chiama [quando] con cio' che ha trovato.
   ///
-  /// [gia] e' l'elenco che il catalogo ha gia' dato: se non e' vuoto la
-  /// domanda non parte affatto, e [quando] non viene chiamato.
+  /// [gia] e' l'elenco che il catalogo ha gia' dato: se c'e' gia' un luogo
+  /// col nome scritto per intero la domanda non parte, e [quando] non viene
+  /// chiamato.
+  ///
+  /// **NON BASTA PIU' CHE IL CATALOGO DICA QUALCOSA**, il fondatore il 1
+  /// ottobre 2026: *"non ci sono tutte le città, paesi, villaggi, borgo del
+  /// mondo [...] Fai la prova con la città di residenza dei fondatori "Borgo
+  /// di Rivalta""*. Prima la domanda partiva solo col catalogo muto: chi
+  /// scriveva "Rivalta" vedeva Rivalta di Torino e Rivalta sul Mincio, e il
+  /// mondo non veniva mai chiesto. Adesso si chiede ogni volta che il nome
+  /// scritto non e' gia' un luogo del catalogo, e chi chiama unisce le due
+  /// risposte ([unisci]).
   void chiedi(
     String query, {
     required List<City> gia,
     required void Function(List<City> trovati) quando,
   }) {
     _rinvio?.cancel();
-    if (gia.isNotEmpty) {
+    final scritto = query.trim().toLowerCase();
+    if (gia.any((c) => c.name.toLowerCase() == scritto)) {
       _inCammino = false;
       return;
     }
@@ -105,6 +116,19 @@ class RicercaNelMondo {
       quando(trovati);
     });
   }
+
+  /// L'elenco del catalogo e quello del mondo insieme: prima il catalogo,
+  /// poi i luoghi del mondo che il catalogo non ha gia' (stesso nome a meno
+  /// di due centesimi di grado).
+  static List<City> unisci(List<City> catalogo, List<City> mondo) => [
+        ...catalogo,
+        for (final m in mondo)
+          if (!catalogo.any((c) =>
+              c.name.toLowerCase() == m.name.toLowerCase() &&
+              (c.latitude - m.latitude).abs() < 0.02 &&
+              (c.longitude - m.longitude).abs() < 0.02))
+            m,
+      ];
 
   /// Si chiude quando la schermata si chiude: un rinvio che scatta dopo non
   /// trova piu' nessuno ad ascoltare.

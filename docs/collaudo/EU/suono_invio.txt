@@ -17,4 +17,4 @@ Gli altri suoni dell'app, che non partono alla pressione di un invio e restano:
 - festa.mp3 alla festa di un traguardo; eos.mp3 al volo degli Eos; custodisci.mp3 al sigillo di un ricordo; firma.mp3 all'apertura dell'app.
 
 La misura in prova (la_soglia_e_la_rivelazione_dell_oroscopo_test): suoni al tocco di "Interroga il cielo", dopo 0; il responso suona a 4.000 millesimi, alla sua comparsa.
-La misura dal sistema audio del Realme: nel giro sul telefono (sotto).
+La misura dal sistema audio del Realme (docs/collaudo/EU/realme/eu03_suono_invio_realme.txt): sulla prima e sulla seconda tradizione del giorno nessuna traccia al tocco, il responso dopo 4,5 e 3,3 secondi. Sulla TERZA tradizione del giorno una traccia 0,5 secondi dopo il tocco, la rivelazione del Sigillo dei Tre Cieli (ordine ES voce 37), che questo elenco non aveva: partiva da un'altra porta, dopo l'invio, solo la terza volta. Tasti di invio che suonano alla pressione, contati dal telefono: 1 su 3. Curato col Sigillo che si accende con la sola vibrazione; la prova "il terzo cielo del giorno non suona alla pressione" misura 1 prima e 0 dopo.

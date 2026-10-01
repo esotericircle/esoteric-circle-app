@@ -226,11 +226,19 @@ void main() {
             'non hai',
             'incomplet',
           ].any(riga.contains);
+      // **LE FRASI DEL CORPUS CHE NON PARLANO DELLA NASCITA**, ordine EU, 1
+      // ottobre 2026: un consiglio dell'Architetto dice "gli altri scelgono
+      // ora e luogo [...] senza ritornarci", cioe' l'ora e il luogo di un
+      // pranzo. Si dichiara la frase, non il file.
+      const frasiDelCorpus = <String>[
+        'gli altri scelgono ora e luogo',
+      ];
       final avvisa = soloCodice.contains('senza ora') ||
           soloCodice.contains('Senza l\'ora') ||
-          soloCodice
-              .split('\n')
-              .any((r) => r.contains('ora e luogo') && diceCheManca(r));
+          soloCodice.split('\n').any((r) =>
+              r.contains('ora e luogo') &&
+              diceCheManca(r) &&
+              !frasiDelCorpus.any(r.contains));
       if (!avvisa) continue;
       // **LE PORTE SONO DUE, e non e' un'eccezione di comodo.** La carta
       // natale e' il CALCOLO, e la sua porta e' `BirthIdentityController`.

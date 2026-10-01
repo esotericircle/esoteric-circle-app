@@ -127,6 +127,14 @@ void main() {
       'Il grado di Voce del Cerchio': 'stesso grado, sull\'altro sentiero',
       'La lettura a tre voci': 'e\' la figura del parlare comune: tre letture '
           'che si sovrappongono, come si dice di un canto',
+      // **I CORPORA DELL'ARCHITETTO**, ordine EU, 1 ottobre 2026: "voce" vi
+      // e' la voce di una persona o una voce di un elenco, mai un Maestro.
+      'che la sua voce conta': 'la voce di chi ha dato la ricetta',
+      'tre voci brevi': 'le voci di una lista di cose da fare',
+      'cerchia tre voci': 'le voci di un elenco scritto',
+      'Affronta le tre voci': 'le stesse voci dell\'elenco',
+      'che la sua voce conti': 'la voce di chi si fa avanti in un gruppo',
+      'parla con la sua voce': 'la figura del parlare: il lavoro "parla"',
     };
 
     final colpe = <String>[];

@@ -183,7 +183,8 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
       gia: risposta.risultati,
       quando: (trovati) {
         if (!mounted || trovati.isEmpty) return;
-        setState(() => _risultati = trovati);
+        setState(() =>
+            _risultati = RicercaNelMondo.unisci(risposta.risultati, trovati));
       },
     );
   }
@@ -205,7 +206,8 @@ class _DatiDiNascitaScreenState extends State<DatiDiNascitaScreen> {
       gia: risposta.risultati,
       quando: (trovati) {
         if (!mounted || trovati.isEmpty) return;
-        setState(() => _risultatiDove = trovati);
+        setState(() => _risultatiDove =
+            RicercaNelMondo.unisci(risposta.risultati, trovati));
       },
     );
   }

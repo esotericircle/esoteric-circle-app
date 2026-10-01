@@ -1,7 +1,6 @@
 import '../astro/effemeridi.dart';
 import '../astro/zodiac.dart';
 import 'cielo_di_oggi.dart';
-import 'corrente_del_cielo.dart';
 import 'il_cielo_del_segno.dart';
 
 /// **NUMERO FORTUNATO E COLORE DEL GIORNO CON UNA REGOLA DICHIARATA, ordine
@@ -82,6 +81,15 @@ abstract final class IlNumeroEIlColore {
   static int giornoUniversale(DateTime oggi) =>
       riduci(riduci(oggi.year) + riduci(oggi.month) + riduci(oggi.day));
 
+  /// "del Sole", "della Luna", "di Venere": dopo "quello". Visto sul Realme
+  /// il 1 ottobre 2026, la riga diceva "quello di Il Sole" (padre: ordine ES
+  /// voce 29).
+  static String delPianeta(CorpoCeleste c) => switch (c) {
+        CorpoCeleste.sole => 'del Sole',
+        CorpoCeleste.luna => 'della Luna',
+        _ => 'di ${c.nome}',
+      };
+
   /// Il pianeta che oggi pesa di piu', con la sua ragione.
   static (CorpoCeleste, String) pianetaDelGiorno(
       Zodiac segno, CieloDiOggi cielo, DateTime quando) {
@@ -94,8 +102,8 @@ abstract final class IlNumeroEIlColore {
         final v = classici.first;
         return (
           v.transito,
-          '${CorrenteDelCielo.colSuoArticolo(v.transito)}, il pianeta del '
-              'passaggio più stretto di oggi'
+          '${delPianeta(v.transito)}, il pianeta del passaggio più stretto '
+              'di oggi'
         );
       }
     }
@@ -103,8 +111,8 @@ abstract final class IlNumeroEIlColore {
     final signore = signoreDi[luna]!;
     return (
       signore,
-      '${CorrenteDelCielo.colSuoArticolo(signore)}, signore del segno in cui '
-          'oggi sta la Luna (${luna.italianName})'
+      '${delPianeta(signore)}, signore del segno in cui oggi sta la Luna '
+          '(${luna.italianName})'
     );
   }
 
@@ -127,7 +135,7 @@ abstract final class IlNumeroEIlColore {
     return (
       numero,
       colore,
-      'Il numero è $delNumero. Il colore è quello di $ragione.'
+      'Il numero è $delNumero. Il colore è quello $ragione.'
     );
   }
 }

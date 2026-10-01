@@ -128,7 +128,19 @@ void main() {
       // letture dell'Arcano dell'Alba dicono "dedica mezz'ora" e "senza fare
       // nient'altro": "mezza ora" e "niente altro" elidono come "dove era".
       'mezz', 'nient',
+      // **"A QUATTR'OCCHI" E "VENTIQUATTR'ORE"**, ordine EU, 1 ottobre 2026:
+      // i corpora dell'Architetto le usano, e sono elisioni come "vent'anni".
+      'quattr', 'ventiquattr',
     };
+    // **UNA CITAZIONE FRA APICI NON E' UN ACCENTO MANCANTE**, ordine EU, 1
+    // ottobre 2026: un corpus dell'Architetto scrive "di un vago 'se serve'",
+    // e l'apice che chiude la citazione veniva letto come un apostrofo dopo
+    // "serve". Si cambia la grandezza misurata: le citazioni fra apici, che
+    // cominciano dopo uno spazio e finiscono prima di uno spazio o di un
+    // segno, si tolgono prima di cercare. Le elisioni restano guardate,
+    // perche' il loro apice non sta mai dopo uno spazio.
+    final citazione =
+        RegExp(r"(^|\s)'[A-Za-zÀ-ÿ][^']*?[A-Za-zÀ-ÿ]'(?=[\s.,;:!?]|$)");
     final parola = RegExp(r"([A-Za-zÀ-ÿ]+)'");
     final colpevoli = <String>[];
     for (final (file, riga, testo) in stringheDiLib()) {
@@ -136,7 +148,9 @@ void main() {
       // Nel sorgente l'apostrofo dentro una stringa a apici singoli porta
       // davanti la barra dell'escape, quindi si normalizza prima di cercare:
       // e' il passo che mancava alla misura di allora, quella che trovo' zero.
-      for (final m in parola.allMatches(testo.replaceAll(r"\'", "'"))) {
+      final senzaCitazioni =
+          testo.replaceAll(r"\'", "'").replaceAll(citazione, ' ');
+      for (final m in parola.allMatches(senzaCitazioni)) {
         final p = m.group(1)!.toLowerCase();
         if (elisioni.contains(p)) continue;
         colpevoli.add('$file riga $riga: "${m.group(0)}"');

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/synastry/cielo_della_sinastria.dart';
 import '../../core/synastry/vip_catalog.dart';
+import '../../design_system/components/fatto_del_foglio.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -265,6 +266,9 @@ Future<void> mostraIlSignificatoDellAspetto(
             stile: TypographyTokens.lettura()
                 .copyWith(color: ColorTokens.textPrimary),
           ),
+          // "Fatto" in fondo: il fondatore, 1 ottobre 2026, vuole che ogni
+          // foglio che si legge si chiuda.
+          FattoDelFoglio(palette: palette),
         ],
       ),
     ),

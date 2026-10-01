@@ -5,6 +5,7 @@ import '../../core/horoscope/astro_tradition.dart';
 import '../../core/horoscope/i_segni_delle_tradizioni.dart';
 import '../../core/horoscope/le_note_delle_tradizioni.dart';
 import '../../design_system/components/zodiac_glyph.dart';
+import '../../design_system/components/fatto_del_foglio.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -45,6 +46,14 @@ class LaTestaDellaTradizione extends StatelessWidget {
 
   /// La figura in testa: l'animale, il rashi o l'emblema della tradizione.
   static String? figura(AstroTradition t, SegnoDellaTradizione? s) {
+    // **LE TRADIZIONI IN ARRIVO, SOLO L'EMBLEMA SENZA SFONDO**, EU Aggiunta
+    // 2 del 1 ottobre 2026, il fondatore: *"Diciamo a Code di usare solo gli
+    // emblemi Senza sfondo per i segni temporanei delle tipologie di
+    // oroscopo non sbloccate"*. Prima qui c'era la scheda quadrata della
+    // tradizione col suo sfondo blu (Tradizione-<Nome>-Square-1, portata
+    // dalla voce ES.11). Gli emblemi li ha ritagliati l'Architetto da quelle
+    // schede, alti 820 come le figure dei segni.
+    if (!t.unlocked) return emblemaSenzaSfondo(t);
     // Un segno incerto non ha una figura sola: si mostra l'emblema.
     if (s == null || (!s.certo && t != AstroTradition.occidentale)) {
       return GliSfondiDelleSchede.emblemaDellaTradizione(
@@ -74,23 +83,36 @@ class LaTestaDellaTradizione extends StatelessWidget {
     }
   }
 
+  /// L'emblema senza sfondo di una tradizione in arrivo.
+  static String emblemaSenzaSfondo(AstroTradition t) =>
+      'assets/img/zodiac/emblema_tradizione_${t.name}.webp';
+
   /// Se la figura e' un emblema quadrato su fondo, e non una figura
-  /// scontornata: si disegna con gli angoli arrotondati e piu' piccola.
+  /// scontornata: si disegna con gli angoli arrotondati e piu' piccola. Le
+  /// tradizioni in arrivo no: il loro emblema e' senza sfondo e sta come le
+  /// figure dei segni (EU Aggiunta 2).
   static bool eUnEmblema(AstroTradition t, SegnoDellaTradizione? s) =>
-      s == null ||
-      !s.certo ||
-      (t == AstroTradition.cinese && s.animale == null) ||
-      t == AstroTradition.maya ||
-      t == AstroTradition.celtica ||
-      t == AstroTradition.egizia ||
-      t == AstroTradition.araba;
+      t.unlocked &&
+      (s == null ||
+          !s.certo ||
+          (t == AstroTradition.cinese && s.animale == null) ||
+          t == AstroTradition.maya ||
+          t == AstroTradition.celtica ||
+          t == AstroTradition.egizia ||
+          t == AstroTradition.araba);
 
   @override
   Widget build(BuildContext context) {
     final s = segno;
     final percorso = figura(tradizione, s);
     final emblema = eUnEmblema(tradizione, s);
-    final nome = s?.nome ?? 'Serve la data di nascita';
+    // **IN TESTA IL NOME, LA SPIEGAZIONE NELLA FRASE.** Visto dal fondatore
+    // il 1 ottobre 2026 sull'Araba: "AL-FARGH AL-MU'AKHKHAR, IL SECONDO
+    // BECCUCCIO" rimpicciolito su una riga sola fino a non leggersi. Il nome
+    // e' la parte prima della virgola; il resto ("il secondo beccuccio") lo
+    // dice gia' la frase sotto la figura ("La tua dimora lunare e' ...").
+    final nome =
+        s == null ? 'Serve la data di nascita' : s.nome.split(',').first.trim();
     return Column(
       key: Key('oroscopo_testa_${tradizione.name}'),
       children: [
@@ -345,8 +367,16 @@ class NomeConLaNota extends StatelessWidget {
                 key: chiave,
                 textAlign: TextAlign.center,
                 style: stile.copyWith(color: palette.goldSoft));
-            if (parolaPiuLunga(stile) <= spazio) return testo;
-            return FittedBox(fit: BoxFit.scaleDown, child: testo);
+            final lunga = parolaPiuLunga(stile);
+            if (lunga <= spazio) return testo;
+            // **SI RIMPICCIOLISCE QUANTO BASTA, E VA A CAPO.** Il testo largo
+            // quanto la sua parola piu' lunga va a capo fra le parole, e
+            // tutto insieme si riduce di quel tanto che serve: prima il
+            // FittedBox riceveva il nome intero su una riga sola e lo
+            // riduceva a un filo (visto sull'Araba, 1 ottobre 2026).
+            return FittedBox(
+                fit: BoxFit.scaleDown,
+                child: SizedBox(width: lunga + 2, child: testo));
           }),
         ),
         SizedBox(
@@ -397,33 +427,44 @@ Future<void> apriLaNota(
       child: ConstrainedBox(
         constraints:
             BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.8),
-        child: SingleChildScrollView(
-          key: Key('oroscopo_foglio_nota_${tradizione.name}'),
-          padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.lg,
-              SpacingTokens.lg, SpacingTokens.md),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text('La tradizione ${tradizione.label}',
-                  style: TypographyTokens.cerimoniale()
-                      .copyWith(color: palette.goldSoft)),
-              const SizedBox(height: SpacingTokens.md),
-              parte('Che cos\'è', nota.cheCose),
-              parte('Un po\' di storia', nota.storia),
-              parte('Come si calcola il tuo segno', nota.calcolo),
-              Text('FONTI',
-                  style: TypographyTokens.etichetta()
-                      .copyWith(color: palette.goldSoft, letterSpacing: 1.2)),
-              const SizedBox(height: 4),
-              for (final f in nota.fonti)
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 4),
-                  child: Text(f,
-                      style: TypographyTokens.didascalia().copyWith(
-                          color: ColorTokens.textSecondary, height: 1.4)),
+        // "Fatto" in fondo, fuori dal testo che scorre (il fondatore, 1
+        // ottobre 2026: la nota non si chiudeva).
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Flexible(
+              child: SingleChildScrollView(
+                key: Key('oroscopo_foglio_nota_${tradizione.name}'),
+                padding: const EdgeInsets.fromLTRB(SpacingTokens.lg,
+                    SpacingTokens.lg, SpacingTokens.lg, SpacingTokens.md),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('La tradizione ${tradizione.label}',
+                        style: TypographyTokens.cerimoniale()
+                            .copyWith(color: palette.goldSoft)),
+                    const SizedBox(height: SpacingTokens.md),
+                    parte('Che cos\'è', nota.cheCose),
+                    parte('Un po\' di storia', nota.storia),
+                    parte('Come si calcola il tuo segno', nota.calcolo),
+                    Text('FONTI',
+                        style: TypographyTokens.etichetta().copyWith(
+                            color: palette.goldSoft, letterSpacing: 1.2)),
+                    const SizedBox(height: 4),
+                    for (final f in nota.fonti)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 4),
+                        child: Text(f,
+                            style: TypographyTokens.didascalia().copyWith(
+                                color: ColorTokens.textSecondary, height: 1.4)),
+                      ),
+                  ],
                 ),
-            ],
-          ),
+              ),
+            ),
+            FattoDelFoglio(palette: palette),
+            const SizedBox(height: SpacingTokens.sm),
+          ],
         ),
       ),
     ),

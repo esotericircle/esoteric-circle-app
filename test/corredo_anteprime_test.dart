@@ -78,6 +78,9 @@ void main() {
     'icona_cerchio_capture_test.dart':
         'e\' l\'icona dell\'app, non una schermata, e si cattura a sei per '
             'vedere il tratto da vicino',
+    // Ordine EU voce 12: scrive tre PDF dell'anno in docs, non immagini.
+    'il_pdf_dell_anno_si_legge_test.dart':
+        'scrive PDF dell\'anno, non catture di schermo: non ha pixel',
   };
 
   test('Nessuna cattura ha un rapporto di pixel implicito', () {

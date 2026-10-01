@@ -235,11 +235,17 @@ class _PlanCardState extends State<_PlanCard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          // **IL NOME NON SI SPEZZA**, ordine EU voce 07, visto sul Realme il
+          // 1 ottobre 2026: col Viandante attivo il badge "Piano Attuale"
+          // accanto al nome lo mandava a capo dentro la parola ("VIANDA /
+          // NTE"). Il nome resta intero; se non c'e' posto, il badge scende
+          // sotto.
+          Wrap(
+            spacing: SpacingTokens.sm,
+            runSpacing: SpacingTokens.xs,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Expanded(
-                child: Text(plan.name, style: TypographyTokens.titoloSezione()),
-              ),
+              Text(plan.name, style: TypographyTokens.titoloSezione()),
               if (isCurrent)
                 _Badge(text: 'Piano Attuale', palette: palette)
               else if (plan.highlighted)
