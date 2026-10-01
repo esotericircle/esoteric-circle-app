@@ -58,8 +58,7 @@ void main() {
           data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
           child: MaestroScope(child: child!),
         ),
-        home:
-            OroscopoScreen(userSign: Zodiac.leo, now: DateTime(2026, 7, 10)),
+        home: OroscopoScreen(userSign: Zodiac.leo, now: DateTime(2026, 7, 10)),
       ),
     ));
     await tester.pump();
@@ -85,7 +84,11 @@ void main() {
     await tester.dragUntilVisible(
         numero, find.byType(Scrollable).first, const Offset(0, -300));
     await tester.pump(const Duration(milliseconds: 600));
-    final colore = find.text('COLORE DEL GIORNO');
+    // SECONDA LAPIDE, ordine EU, sera del 1 ottobre 2026: il fondatore ha
+    // voluto il colore grande e al centro come il numero, e il riquadro del
+    // colore e' diventato il gemello di quello del numero, con l'etichetta
+    // "COLORE" e la sua chiave. Si cerca per chiave, come il numero.
+    final colore = find.byKey(const Key('riquadro_del_colore'));
     expect(numero, findsOneWidget,
         reason: 'la bolla del numero non e a schermo: senza di lei questa '
             'prova non confronta niente');
@@ -93,19 +96,11 @@ void main() {
         reason: 'la bolla del colore non e a schermo: senza di lei questa '
             'prova non confronta niente');
 
-    // Si misura la BOLLA, non l etichetta: il riquadro che si vede e il
-    // Container attorno, e l altezza di quello e cio che il fondatore guarda.
-    double altezzaDellaBolla(Finder etichetta) {
-      final bolla = find.ancestor(
-        of: etichetta,
-        matching: find.byType(Container),
-      );
-      return tester.getRect(bolla.first).height;
-    }
-
-    // Il riquadro del numero, trovato per chiave, e' gia' la bolla.
+    // Si misura la BOLLA, non l etichetta: il riquadro che si vede, e
+    // l altezza di quello e cio che il fondatore guarda. Tutti e due i
+    // riquadri, trovati per chiave, sono gia' la bolla.
     final alta1 = tester.getRect(numero).height;
-    final alta2 = altezzaDellaBolla(colore);
+    final alta2 = tester.getRect(colore).height;
     final scarto = (alta1 - alta2).abs();
     // ignore: avoid_print
     print('ORDINE DD VOCE 09: la bolla NUMERO e alta '

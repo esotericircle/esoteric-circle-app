@@ -128,6 +128,56 @@ void main() {
         '${nelRahu.length}');
   });
 
+  // **LE ORE MIGLIORI FRA QUELLE CHE DEVONO ANCORA FINIRE.** Visto sul
+  // Realme il 1 ottobre 2026 alle 10:00: la Vedica diceva "Le ore migliori:
+  // dalle 07:06 alle 08:05 e dalle 09:04 alle 11:01", e la prima era gia'
+  // passata. Si guarda ogni mezz'ora dalle 7 alle 22 di una settimana a
+  // Roma, nelle quattro schede: nessuna fascia detta e' gia' finita.
+  test('le ore migliori non sono gia\' passate', () {
+    final colpe = <String>[];
+    var guardate = 0;
+    for (var k = 0; k < 7; k++) {
+      final g = DateTime(2026, 10, 1 + k);
+      final ore = LeOreDelGiorno.planetarie(
+          giorno: g,
+          livelliDelGiorno: const [3, 4, 2, 3],
+          lat: roma.$1,
+          lon: roma.$2);
+      for (var m = 7 * 60; m <= 22 * 60; m += 30) {
+        final adesso = DateTime(g.year, g.month, g.day, m ~/ 60, m % 60);
+        for (final d in HoroscopeDomain.values) {
+          guardate++;
+          for (final (da, a)
+              in LeOreDelGiorno.migliori(ore, d, adesso: adesso)) {
+            if (!a.isAfter(adesso)) {
+              colpe.add('${g.day}/${g.month} alle '
+                  '${LeOreDelGiornoView.hm(adesso)}, ${d.name}: dalle '
+                  '${LeOreDelGiornoView.hm(da)} alle '
+                  '${LeOreDelGiornoView.hm(a)}, gia\' finita');
+            }
+          }
+        }
+      }
+    }
+    cardinaleMinimo(guardate, 7 * 31 * 4, cosa: 'momenti guardati');
+    print('LE ORE DEL GIORNO: fasce migliori gia\' finite ${colpe.length}, '
+        'in $guardate momenti guardati');
+    expect(colpe, isEmpty, reason: colpe.take(8).join('\n'));
+  });
+
+  test('la didascalia della Vedica dice le ore del Rahu Kalam', () {
+    const luogo = LuogoDelGiorno(lat: 41.9028, lon: 12.4964, citta: 'Roma');
+    final rahu = LaLetturaVedica.rahuKalam(DateTime(2026, 10, 1), luogo)!;
+    final riga = LeOreDelGiornoView.didascaliaVedica(rahu);
+    print('LE ORE DEL GIORNO: "$riga"');
+    expect(
+        riga,
+        contains('Dalle ${LeOreDelGiornoView.hm(rahu.$1.toLocal())} '
+            'alle ${LeOreDelGiornoView.hm(rahu.$2.toLocal())}'));
+    expect(riga, contains('Rahu Kalam'));
+    expect(LeOreDelGiornoView.didascaliaVedica(null), isNot(contains('Rahu')));
+  });
+
   test('le dodici ore doppie cinesi, col ramo e coi cinque topi', () {
     var giornoJia = DateTime(2026, 10, 1);
     while (LAlmanaccoCinese.tronco(giornoJia) != 0) {

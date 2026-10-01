@@ -1842,11 +1842,15 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                         Navigator.of(context).push(PricingScreen.route()));
                   },
                   // Al centro anche quando va a capo: visto sul Realme il 1
-                  // ottobre 2026, le due righe stavano a sinistra.
+                  // ottobre 2026, le due righe stavano a sinistra. In corpo e
+                  // non in maiuscoletto: e' una frase, e il maiuscoletto su
+                  // due righe e' un muro di lettere (etichette_e_lettura).
                   child: Text('Abbonati per avere sempre l\'oroscopo completo',
                       textAlign: TextAlign.center,
-                      style: TypographyTokens.etichetta()
-                          .copyWith(color: palette.onPrimary)),
+                      style: TypographyTokens.corpo().copyWith(
+                          color: palette.onPrimary,
+                          fontWeight: FontWeight.w600,
+                          height: 1.3)),
                 ),
                 const SizedBox(height: SpacingTokens.lg),
                 Text('Oppure, solo per oggi:',
@@ -1920,19 +1924,19 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                     'ieri.'
               );
       case AstroTradition.vedica:
+        // **IL RAHU KALAM DETTO CON LE SUE ORE**, visto sul Realme il 1
+        // ottobre 2026: la didascalia diceva "col Rahu Kalam" e nessuna
+        // barra diceva quale fosse. Adesso la riga dice da che ora a che ora.
+        final rahu =
+            _luogo == null ? null : LaLetturaVedica.rahuKalam(_date, _luogo!);
         _leOre = (
           LeOreDelGiorno.planetarie(
               giorno: _date,
               livelliDelGiorno: livelli,
               lat: lat,
               lon: lon,
-              rahu: _luogo == null
-                  ? null
-                  : LaLetturaVedica.rahuKalam(_date, _luogo!)),
-          _luogo == null
-              ? 'Le hora, le ore dei pianeti dall\'alba di oggi all\'alba di '
-                  'domani.'
-              : 'Le hora, le ore dei pianeti dall\'alba, col Rahu Kalam.'
+              rahu: rahu),
+          LeOreDelGiornoView.didascaliaVedica(rahu)
         );
       default:
         _leOre = (
@@ -3299,7 +3303,8 @@ class _HoroscopeCardView extends StatelessWidget {
                 ore: ore!,
                 dominio: card.domain,
                 palette: palette,
-                didascalia: didascaliaDelleOre),
+                didascalia: didascaliaDelleOre,
+                adesso: adesso),
           ],
           if (mesi != null) ...[
             const SizedBox(height: SpacingTokens.sm),

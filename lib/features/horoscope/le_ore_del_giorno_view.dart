@@ -24,6 +24,7 @@ class LeOreDelGiornoView extends StatelessWidget {
     required this.dominio,
     required this.palette,
     required this.didascalia,
+    this.adesso,
   });
 
   final List<OraDelGiorno> ore;
@@ -34,15 +35,30 @@ class LeOreDelGiornoView extends StatelessWidget {
   /// all'alba di domani").
   final String didascalia;
 
+  /// L'ora di chi legge: le ore migliori si dicono fra quelle che devono
+  /// ancora finire. Null nelle prove e per un giorno che non e' oggi.
+  final DateTime? adesso;
+
   /// L'altezza della barra del livello 5.
   static const double altezzaPiena = 48;
 
   static String hm(DateTime t) =>
       '${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}';
 
+  /// **LA DIDASCALIA DELLE HORA, COL RAHU KALAM DETTO CON LE SUE ORE.**
+  /// Visto sul Realme il 1 ottobre 2026: la riga diceva "col Rahu Kalam" e
+  /// nessuna barra diceva quale fosse. [rahu] null quando non si sa dove sei.
+  static String didascaliaVedica((DateTime, DateTime)? rahu) => rahu == null
+      ? 'Le hora, le ore dei pianeti dall\'alba di oggi all\'alba di domani.'
+      : 'Le hora, le ore dei pianeti dall\'alba. Dalle '
+          '${hm(rahu.$1.toLocal())} alle ${hm(rahu.$2.toLocal())} c\'è il '
+          'Rahu Kalam, il tempo di Rahu in cui non si comincia niente di '
+          'nuovo: le sue ore scendono.';
+
   /// La riga in parole delle ore migliori.
-  static String rigaDelleMigliori(List<OraDelGiorno> ore, HoroscopeDomain d) {
-    final fasce = LeOreDelGiorno.migliori(ore, d);
+  static String rigaDelleMigliori(List<OraDelGiorno> ore, HoroscopeDomain d,
+      {DateTime? adesso}) {
+    final fasce = LeOreDelGiorno.migliori(ore, d, adesso: adesso);
     final dette = [
       for (final (da, a) in fasce) 'dalle ${hm(da)} alle ${hm(a)}',
     ];
@@ -117,10 +133,12 @@ class LeOreDelGiornoView extends StatelessWidget {
           ),
         ),
         const SizedBox(height: SpacingTokens.xs),
-        Text(rigaDelleMigliori(ore, dominio),
+        Text(rigaDelleMigliori(ore, dominio, adesso: adesso),
             key: Key('oroscopo_ore_migliori_${dominio.name}'),
+            // In bianco, non in oro: nella scheda la prosa in oro e' una sola,
+            // l'apertura (oroscopo_tipografia, "Un solo blocco in oro").
             style: TypographyTokens.corpo()
-                .copyWith(color: palette.goldSoft, height: 1.4)),
+                .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
         Text(didascalia,
             style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textSecondary, height: 1.35)),

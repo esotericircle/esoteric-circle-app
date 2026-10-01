@@ -68,8 +68,15 @@ void main() {
     print('ORDINE EU VOCE 15: voci dell\'Oroscopo con un prezzo nella tabella '
         'ES.06 ma assenti dal listino ${mancanti.length} su ${prezzate.length}');
     expect(mancanti, isEmpty, reason: mancanti.join(', '));
-    expect(ListinoDegliEos.oroscopoLungaDelGiorno.nome,
-        contains('per la giornata e le quattro schede'));
+    // **LAPIDE, richieste del fondatore della sera del 1 ottobre 2026**: il
+    // nome diceva "La Lunga dell'Oroscopo occidentale del giorno, per la
+    // giornata e le quattro schede", e il fondatore ha detto che "la Lunga"
+    // chi legge non lo capisce. Resta da pretendere che dica quanto vale
+    // (oggi, le quattro schede) e che non usi la parola che non si capisce.
+    final nome = ListinoDegliEos.oroscopoLungaDelGiorno.nome;
+    expect(nome, contains('di oggi'));
+    expect(nome, contains('quattro le schede'));
+    expect(nome.toLowerCase(), isNot(contains('lunga')));
     // La Vedica e la Cinese non si comprano con gli Eos.
     expect(
         ListinoDegliEos.tutte.where((v) =>

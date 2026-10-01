@@ -1,7 +1,11 @@
 // ignore_for_file: avoid_print
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/horoscope/riquadro_del_numero.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
@@ -114,6 +118,81 @@ void main() {
         }
       });
     }
+  }
+
+  // **IL DISEGNO DELLA CIFRA AL CENTRO, misurato sui pixel**: la riga di un
+  // testo puo' stare al centro col disegno spostato, e il fondatore guarda il
+  // disegno. Si rasterizza il riquadro e si cerca il disegno dorato della
+  // cifra: il suo centro in verticale entro il 3 per cento dell'altezza del
+  // riquadro dal centro del riquadro.
+  for (final cifre in const ['6', '7', '22']) {
+    testWidgets('il disegno di "$cifre" sta al centro del riquadro',
+        (tester) async {
+      tester.view.physicalSize = const Size(360, 800);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(MaterialApp(
+        home: Scaffold(
+          backgroundColor: Colors.black,
+          body: Center(
+            child: RepaintBoundary(
+              key: const Key('fotografia'),
+              child: SizedBox(
+                width: 296,
+                child: LaFortunaDelGiorno(
+                  numero: int.parse(cifre),
+                  palette: MaestroPalette.medora,
+                  nomeDelColore: 'oro',
+                  colore: const Color(0xFFD4AF37),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ));
+      await tester.pump();
+      final foto = tester.getRect(find.byKey(const Key('fotografia')));
+      final rn = tester.getRect(find.byKey(const Key('riquadro_del_numero')));
+      final etichetta = tester.getRect(find.text('NUMERO').first);
+      late ByteData dati;
+      late int larghezza;
+      await tester.runAsync(() async {
+        final img = await tester
+            .renderObject<RenderRepaintBoundary>(
+                find.byKey(const Key('fotografia')))
+            .toImage(pixelRatio: 2.0);
+        larghezza = img.width;
+        dati = (await img.toByteData(format: ui.ImageByteFormat.rawRgba))!;
+      });
+      // Il disegno dorato fra l'etichetta e il suo contrappeso.
+      double? alto, basso;
+      final x0 = ((rn.left - foto.left) * 2).round();
+      final x1 = ((rn.right - foto.left) * 2).round();
+      final y0 = ((etichetta.bottom - foto.top) * 2).round();
+      final y1 = ((rn.bottom - etichetta.height - foto.top) * 2).round();
+      for (var y = y0; y < y1; y++) {
+        for (var x = x0 + 8; x < x1 - 8; x++) {
+          final i = (y * larghezza + x) * 4;
+          final r = dati.getUint8(i), g = dati.getUint8(i + 1);
+          final b = dati.getUint8(i + 2);
+          if (r > 170 && g > 140 && b < 160 && r - b > 60) {
+            alto ??= y / 2;
+            basso = y / 2;
+          }
+        }
+      }
+      expect(alto, isNotNull, reason: 'il disegno della cifra non si trova');
+      final centro = (alto! + basso!) / 2 + foto.top;
+      final scarto = (centro - rn.center.dy).abs() / rn.height;
+      print('IL NUMERO E IL COLORE: il disegno di "$cifre" alto '
+          '${(basso - alto).toStringAsFixed(1)} su ${rn.height.toStringAsFixed(1)}, '
+          'fuori centro ${(scarto * 100).toStringAsFixed(1)} per cento');
+      if (scarto > 0.03) {
+        colpe.add('il disegno di "$cifre" e\' fuori centro del '
+            '${(scarto * 100).toStringAsFixed(1)} per cento');
+      }
+      guardati++;
+    });
   }
 
   tearDownAll(() => print('IL NUMERO E IL COLORE RIEMPIONO IL RIQUADRO: '

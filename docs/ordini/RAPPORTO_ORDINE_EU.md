@@ -99,6 +99,55 @@ dal Realme.
     dal telefono prima non esisteva.
   - **"La Lunga ogni giorno con l'Iniziato" su due righe allineate a
     sinistra** nel pulsante delle due strade. Padre: EU.15 (`8b9a581a`).
+- **Dal Realme, dopo le richieste della sera** (build di prova dal commit
+  `cd31e52f`), tre difetti, ognuno con la sua prova vista rossa sul difetto
+  rimesso (`docs/collaudo/EU/regola_a_richieste_della_sera.txt`, A15, A16,
+  A19):
+  - **le ore migliori gia' passate**: alle 10:00 la Vedica diceva "dalle
+    07:06 alle 08:05". Padre: richiesta della sera delle ore del giorno
+    (`cd31e52f`). Adesso le ore migliori si dicono fra quelle che devono
+    ancora finire (fasce gia' finite dette, con il difetto rimesso 1.248,
+    dopo 0 in 868 momenti di una settimana a Roma).
+  - **"col Rahu Kalam" senza dire quando**: nessuna barra diceva quale fosse.
+    Padre: la stessa richiesta. Adesso la riga dice "Dalle 14:27 alle 15:56
+    c'è il Rahu Kalam" (Roma, 1 ottobre).
+  - **la cifra del numero fortunato alta nel riquadro**: il disegno delle
+    cifre sta piu' in alto della sua riga. Padre: richiesta della sera del
+    numero e del colore (`cd31e52f`). Misurato sui pixel: il disegno del "6"
+    fuori centro del 3,6 per cento dell'altezza del riquadro prima, dell'1,8
+    dopo (il "7" 1,2, il "22" 1,6; la soglia della prova e' 3).
+- **Dalla suite intera del commit `cd31e52f`** (6.425 verdi, 11 saltate, 17
+  rosse, di cui 7 accettate in `tool/rossi_accettati.txt`): dieci rosse nuove,
+  tutte delle richieste della sera.
+  - `accenti_veri` (tre prove): l'esenzione di "Coordinate da" in
+    `sky_overview_screen.dart` non trovava piu' la sua riga, andata a capo
+    quando il foglio ha preso "Fatto" in fondo. Padre: richiesta della sera
+    "ogni foglio si chiude" (`cd31e52f`). Cura: l'esenzione segue la riga.
+  - `etichette_e_lettura`: "Abbonati per avere sempre l'oroscopo completo" in
+    maiuscoletto su due righe. Padre: richiesta della sera del foglio della
+    Lunga (`cd31e52f`). Cura: il pulsante in corpo, una frase.
+  - `oroscopo_tipografia`, "Un solo blocco in oro per scheda": la riga delle
+    ore migliori in oro accanto all'apertura. Padre: richiesta della sera
+    delle ore del giorno (`cd31e52f`); la riga dei mesi migliori dell'Anno
+    aveva lo stesso oro (stessa sera). Cura: tutte e due in bianco.
+  - `i_difetti_visti_sul_realme_alla_2285`: la Fortuna, quarta scheda, non
+    nasceva piu' nella finestra di 3.200 punti, piu' lunga di 140 punti per
+    scheda con le ore. Padre: la stessa richiesta. Cura: la finestra a 4.400,
+    dichiarata.
+  - `la_lunga_si_apre_con_gli_eos` e `la_profondita_sta_su_ogni_scheda`:
+    pretendevano "per la giornata e le quattro schede" e "si apre con
+    l'Iniziato". Padre: richiesta della sera del foglio della Lunga
+    (`cd31e52f`), che ha tolto quelle parole. Riscritte con la lapide: il nome
+    dice "di oggi" e "quattro le schede" e non dice "Lunga"; l'invito dice
+    "Abbonati" e non il nome del piano.
+  - `la_tradizione_scelta_sta_in_cima`: pretendeva "al-Iklil, la corona" in
+    testa e lo sfondo `Tradizione-Araba-Square-1`. Padri: la richiesta della
+    sera del nome leggibile e l'EU Aggiunta 2 (`cd31e52f`). Riscritta con la
+    lapide.
+  - `numero_e_colore_hanno_la_stessa_altezza`: cercava l'etichetta "COLORE
+    DEL GIORNO", diventata "COLORE". Padre: richiesta della sera del numero e
+    del colore (`cd31e52f`). Cura: il riquadro cercato per chiave; scarto fra
+    le due bolle 0,0 punti.
 
 ## PER L'ARCHITETTO
 

@@ -32,26 +32,17 @@ void main() {
           body: Center(
             child: SizedBox(
               width: 340,
-              child: IntrinsicHeight(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // **LAPIDE, 1 ottobre 2026 sera**: il riquadro sta in un
-                    // Expanded, come nella scheda e nella card, perche' dal
-                    // fondatore ("più grandi in modo da riempire il
-                    // riquadro") la cifra riempie lo spazio che il riquadro
-                    // ha in largo e in alto.
-                    Expanded(
-                      child: RiquadroDelNumero(
-                          numero: numero, palette: MaestroPalette.medora),
-                    ),
-                    const SizedBox(width: 8),
-                    // Il vicino alto: il riquadro del colore del giorno, che
-                    // col suo testo su due righe arriva a 84 punti.
-                    const Expanded(child: SizedBox(height: 84)),
-                  ],
-                ),
-              ),
+              // **LAPIDE, 1 ottobre 2026 sera**: qui si montava a mano una
+              // riga col riquadro del numero accanto a un vicino alto 84
+              // punti. Dal fondatore ("più grandi in modo da riempire il
+              // riquadro") i due riquadri della Fortuna sono una cosa sola,
+              // [LaFortunaDelGiorno], larghi uguale e alti almeno 112 punti:
+              // si misura quella, come la monta la scheda.
+              child: LaFortunaDelGiorno(
+                  numero: numero,
+                  palette: MaestroPalette.medora,
+                  nomeDelColore: 'oro',
+                  colore: const Color(0xFFD4AF37)),
             ),
           ),
         ),

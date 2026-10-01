@@ -99,18 +99,27 @@ class IDodiciMesiView extends StatelessWidget {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          // La percentuale esce dalla colonna stretta della
+                          // sua barra (dodici barre in 300 punti): stretta
+                          // nella colonna si leggeva a malapena (visto sul
+                          // Realme il 1 ottobre 2026).
                           if (m == migliore)
-                            FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                  '${(m.quota(dominio) * 100).round()}%',
-                                  key: Key(
-                                      'oroscopo_anno_percentuale_${dominio.name}'),
-                                  maxLines: 1,
-                                  style: etichetta.copyWith(
-                                      color: ColorTokens.delLivello(
-                                          m.gradino(dominio)),
-                                      fontWeight: FontWeight.w700)),
+                            SizedBox(
+                              height: etichetta.fontSize! *
+                                  MediaQuery.textScalerOf(context).scale(1) *
+                                  1.3,
+                              child: OverflowBox(
+                                maxWidth: 64,
+                                child: Text(
+                                    '${(m.quota(dominio) * 100).round()}%',
+                                    key: Key(
+                                        'oroscopo_anno_percentuale_${dominio.name}'),
+                                    maxLines: 1,
+                                    style: etichetta.copyWith(
+                                        color: ColorTokens.delLivello(
+                                            m.gradino(dominio)),
+                                        fontWeight: FontWeight.w700)),
+                              ),
                             ),
                           const SizedBox(height: 2),
                           Container(
@@ -146,8 +155,10 @@ class IDodiciMesiView extends StatelessWidget {
         const SizedBox(height: SpacingTokens.xs),
         Text(rigaDeiMigliori(mesi, dominio),
             key: Key('oroscopo_anno_migliori_${dominio.name}'),
+            // In bianco, non in oro: nella scheda la prosa in oro e' una sola,
+            // l'apertura (oroscopo_tipografia, "Un solo blocco in oro").
             style: TypographyTokens.corpo()
-                .copyWith(color: palette.goldSoft, height: 1.4)),
+                .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
       ],
     );
   }

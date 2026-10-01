@@ -351,7 +351,10 @@ void main() {
       'i titoli delle schede dell\'Oroscopo vanno a capo fra le parole: '
       'i Gemelli del 28 settembre e tutti i 144 titoli del giorno',
       (tester) async {
-    tester.view.physicalSize = const Size(360, 3200);
+    // Alta 4.400 e non 3.200: dal 1 ottobre 2026 sera ogni scheda del Giorno
+    // porta le ore del giorno (richiesta del fondatore), e la Fortuna, la
+    // quarta, a 3.200 punti non nasceva piu' nella lista pigra.
+    tester.view.physicalSize = const Size(360, 4400);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
     await tester.pumpWidget(MultiProvider(

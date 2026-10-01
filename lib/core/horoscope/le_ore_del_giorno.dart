@@ -220,10 +220,20 @@ class LeOreDelGiorno {
 
   /// Le ore migliori nel dominio [d]: le ore col livello piu' alto, unite
   /// quando si toccano, al massimo [quante] fasce, prima quelle della
-  /// veglia, poi nell'ordine del giorno.
+  /// veglia, poi nell'ordine del giorno. **Con [adesso] si guardano solo le
+  /// ore che devono ancora finire** (visto sul Realme il 1 ottobre 2026 alle
+  /// 9:33: "dalle 07:06 alle 08:05" era gia' passata); se sono finite tutte,
+  /// si dicono quelle del giorno intero.
   static List<(DateTime, DateTime)> migliori(
       List<OraDelGiorno> ore, HoroscopeDomain d,
-      {int quante = 2}) {
+      {int quante = 2, DateTime? adesso}) {
+    if (adesso != null) {
+      final ancora = [
+        for (final o in ore)
+          if (o.a.isAfter(adesso)) o,
+      ];
+      if (ancora.isNotEmpty) return migliori(ancora, d, quante: quante);
+    }
     final massimo =
         ore.map((o) => o.livelli[d.index]).reduce((a, b) => a > b ? a : b);
     final fasce = <(DateTime, DateTime)>[];

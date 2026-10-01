@@ -57,12 +57,28 @@ class RiquadroDelNumero extends StatelessWidget {
       // due numeri della lettura cinese) invece di andare a capo.
       contenuto: FittedBox(
         fit: BoxFit.contain,
-        child: Text(cifre ?? '$numero',
-            key: const Key('riquadro_del_numero_cifra'),
-            textAlign: TextAlign.center,
-            maxLines: 1,
-            style: TypographyTokens.numeroDelGiorno()
-                .copyWith(color: palette.goldSoft)),
+        // **LA RIGA STRETTA SULLA CIFRA**, visto sul Realme il 1 ottobre
+        // 2026: con la riga intera (ascendenti e discendenti) la cifra
+        // occupava un terzo dell'altezza del riquadro. Le cifre non hanno
+        // discendenti: la riga si stringe a tre quarti del carattere, e il
+        // FittedBox la porta a riempire lo spazio.
+        //
+        // **E IL DISEGNO AL CENTRO, non la riga**: nel carattere delle cifre
+        // il disegno sta piu' in alto della sua riga, di circa il 3,5 per
+        // cento del carattere (misurato sui pixel della cifra a video). Un
+        // margine sopra di due volte tanto lo riporta al centro del riquadro.
+        child: Padding(
+          key: const Key('riquadro_del_numero_cifra'),
+          padding: EdgeInsets.only(
+              top: (TypographyTokens.numeroDelGiorno().fontSize ?? 40) * 0.07),
+          child: Text(cifre ?? '$numero',
+              textAlign: TextAlign.center,
+              maxLines: 1,
+              style: TypographyTokens.numeroDelGiorno().copyWith(
+                  color: palette.goldSoft,
+                  height: 0.75,
+                  leadingDistribution: TextLeadingDistribution.even)),
+        ),
       ),
     );
   }

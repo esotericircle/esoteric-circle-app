@@ -138,7 +138,11 @@ void main() {
       AstroTradition.maya: '7 Akʼbʼal',
       AstroTradition.celtica: 'Frassino',
       AstroTradition.egizia: 'Ptibiou',
-      AstroTradition.araba: 'al-Iklil, la corona',
+      // LAPIDE, ordine EU, sera del 1 ottobre 2026: il fondatore ha trovato
+      // illeggibile il nome lungo della dimora in testa. In testa sta il nome
+      // prima della virgola, e la frase sotto lo dice intero ("La tua dimora
+      // lunare e' al-Iklil, la corona").
+      AstroTradition.araba: 'al-Iklil',
     };
     final occidentaleInCima = <String>[];
     final righe = <String>[];
@@ -184,8 +188,11 @@ void main() {
     }
     final figura =
         tester.widget<Image>(find.byKey(const Key('oroscopo_figura_araba')));
+    // LAPIDE, EU Aggiunta 2, 1 ottobre 2026 sera: l'Araba in arrivo mostra
+    // l'emblema senza sfondo ritagliato dall'Architetto, non piu' lo sfondo
+    // quadrato Tradizione-Araba-Square-1 della voce ES.11.
     expect((figura.image as AssetImage).assetName,
-        'assets/schede/Tradizione-Araba-Square-1.webp');
+        'assets/img/zodiac/emblema_tradizione_araba.webp');
     print('ORDINE ES VOCE 07: tradizioni che lasciano in cima il segno '
         'occidentale ${occidentaleInCima.length} su 6; ${righe.join('; ')}');
     expect(occidentaleInCima, isEmpty);

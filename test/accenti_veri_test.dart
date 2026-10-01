@@ -118,9 +118,13 @@ const esenzioni = <Esenzione>[
       "'da': 'dalla',",
       'e la tavola delle preposizioni della riparazione dei nomi delle rune, '
           'dove "da" e una CHIAVE di mappa e non una parola mostrata'),
+  // Ordine EU, richieste della sera del 1 ottobre 2026: il foglio ha preso
+  // "Fatto" in fondo, un livello di rientro in piu', e la riga e' andata a
+  // capo dopo `_rigaValore(`. L'esenzione segue la riga, la parola e' la
+  // stessa.
   Esenzione(
       'lib/features/santuario/sky_overview_screen.dart',
-      "_rigaValore(palette, 'Coordinate da', _origine.etichetta),",
+      "palette, 'Coordinate da', _origine.etichetta),",
       'e l etichetta "Coordinate da", che finisce con la preposizione '
           'perche il valore le viene scritto accanto'),
   // **LE PAROLE VUOTE DELLA DOMANDA SONO CHIAVI, NON TESTO. Ordine CQ voce

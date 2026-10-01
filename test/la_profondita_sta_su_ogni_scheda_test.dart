@@ -271,8 +271,18 @@ void main() {
     // l'Iniziato"), e gli Eos aprono solo la Lunga del Giorno occidentale.
     expect(find.byKey(const Key('upgrade_invite')), findsOneWidget,
         reason: 'la voce col lucchetto non porta all\'invito');
-    expect(find.textContaining('si apre con l\'Iniziato'), findsWidgets,
-        reason: 'l\'invito non chiama il piano per nome');
+    // **SECONDA LAPIDE, richieste del fondatore della sera del 1 ottobre
+    // 2026**: niente nome del piano ne' "la Lunga", che chi legge non
+    // conosce, ma l'invito ad abbonarsi per avere sempre l'oroscopo completo.
+    expect(find.text('Abbonati per avere sempre l\'oroscopo completo'),
+        findsWidgets,
+        reason: 'l\'invito non invita ad abbonarsi');
+    expect(
+        find.descendant(
+            of: find.byKey(const Key('upgrade_invite')),
+            matching: find.textContaining('Iniziato')),
+        findsNothing,
+        reason: 'l\'invito usa ancora il nome del piano');
   });
 
   testWidgets(
