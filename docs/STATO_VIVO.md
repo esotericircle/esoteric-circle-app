@@ -6140,7 +6140,7 @@ in `docs/collaudo/EU/catture_fondatore/`. Il conto, riletto dal manifesto: 16 vo
   `AnswerDepthSelector.larghezza`), nel Giorno e nei periodi; la barra
   dell'Oroscopo si vela al 92 per cento quando il testo le scorre sotto; le
   tradizioni dell'amico nell'ordine della persona; sulle barre delle ore un
-  punto d'oro sopra le ore migliori e un segno sotto l'ora di adesso.
+  punto d'oro sopra le ore migliori, e l'ora di adesso col bordo chiaro e una freccia sotto.
 - **EU Aggiunta 2**: Maya, Egizia, Celtica e Araba mostrano l'emblema senza
   sfondo ritagliato dall'Architetto (`assets/img/zodiac/emblema_tradizione_*.webp`,
   uguali byte per byte ai file del PC), alla misura delle figure dei segni,

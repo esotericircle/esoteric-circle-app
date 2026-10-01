@@ -269,6 +269,20 @@ void main() {
       }
       expect(find.byKey(const Key('oroscopo_ora_adesso_amore')), findsOneWidget,
           reason: 'l\'ora di adesso non e\' segnata');
+      // E la sua barra ha il bordo chiaro, una sola.
+      var conIlBordo = 0;
+      for (var i = 0; i < ore.length; i++) {
+        final d = tester
+            .widget<Container>(find.byKey(Key('oroscopo_ora_barra_amore_$i')))
+            .decoration as BoxDecoration;
+        if (d.border != null) {
+          conIlBordo++;
+          expect(
+              !adesso.isBefore(ore[i].da) && adesso.isBefore(ore[i].a), isTrue,
+              reason: 'il bordo sta su un\'ora che non e\' quella di adesso');
+        }
+      }
+      expect(conIlBordo, 1, reason: 'barre col bordo di adesso: $conIlBordo');
       print('LE ORE DEL GIORNO A VIDEO, scala $scala: punti d\'oro $punti su '
           '$attesi ore migliori, segno di adesso 1');
       expect(attesi, greaterThan(0));

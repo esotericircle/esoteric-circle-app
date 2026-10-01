@@ -140,7 +140,7 @@ catture sono del Realme con le build di prova dei commit `cd31e52f`,
 - **Le ore del giorno sul Giorno**
   DOMANDA: "vorrei infografica a colori anche per oroscopo giornaliero come per settimanale, mensile e annuale, se possibile. Magari inserendo le 24h e indicando le ore migliori oppure una tua idea se migliore e più esplicativa e adatta."
   PROVA: `docs/collaudo/EU/realme/eu_sera_ore_migliori_ancora_da_venire.jpg` (e `eu_sera_ore_cinese.jpg`, `eu_sera_ore_vedica_prima.jpg`)
-  MISURA: barre delle ore sulle schede del Giorno, prima 0, dopo 24 nell'Occidentale e nella Vedica (le ore planetarie, con Lilly) e 12 nella Cinese (le ore doppie); ore migliori gia' passate dette, sul Realme alle 10:00 una, dopo 0 in 868 momenti di una settimana; sopra ogni ora migliore un punto d'oro e sotto l'ora di adesso un segno (punti 2 su 2 ore migliori nella prova); nella Vedica la riga dice da che ora a che ora c'e' il Rahu Kalam.
+  MISURA: barre delle ore sulle schede del Giorno, prima 0, dopo 24 nell'Occidentale e nella Vedica (le ore planetarie, con Lilly) e 12 nella Cinese (le ore doppie); ore migliori gia' passate dette, sul Realme alle 10:00 una, dopo 0 in 868 momenti di una settimana; sopra ogni ora migliore un punto d'oro e l'ora di adesso col bordo chiaro e una freccia sotto (punti 2 su 2 ore migliori nella prova, una barra col bordo; sul Realme `eu_sera_ore_sulle_barre.jpg`); nella Vedica la riga dice da che ora a che ora c'e' il Rahu Kalam.
 - **Il terzo paragrafo in un riquadro**
   DOMANDA: "Per ogni risposta, quando c'è la profondità lunga il terzo paragrafo inseriscilo in un riquadro, così da sembrare in evidenza e staccare dalla monotonia del testo."
   PROVA: `docs/collaudo/EU/realme/eu_sera_terzo_paragrafo_lunga.jpg`

@@ -132,6 +132,13 @@ class LeOreDelGiornoView extends StatelessWidget {
                               borderRadius: BorderRadius.circular(2),
                               color: ColorTokens.delLivello(
                                   o.livelli[dominio.index]),
+                              // L'ora di adesso ha anche il bordo chiaro: il
+                              // segno sotto, da solo, sul Realme era piccolo.
+                              border: oraDiAdesso(o)
+                                  ? Border.all(
+                                      color: ColorTokens.textPrimary,
+                                      width: 1.5)
+                                  : null,
                             ),
                           ),
                           const SizedBox(height: 2),
