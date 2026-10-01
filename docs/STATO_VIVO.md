@@ -6281,7 +6281,7 @@ Manifesto `docs/ordini/ORDINE_EV_MANIFESTO.md`, rapporto
 - **ONLINE (EV.06 ed EV.57, aperte per i due telefoni).** Chiamata ogni 60
   secondi, finestra di 90 secondi, uscita dal conto quando l'app va in pausa
   (`chiEOnline` con `{esce: true}` cancella la presenza). Da pubblicare la
-  funzione `chiEOnline` con la consegna della 2290. Il numero conta le
+  funzione `chiEOnline` pubblicata il 1 ottobre sera, consegnata con la 2291. Il numero conta le
   persone con l'app aperta nel mondo, non nella rete locale.
 - **Le segnalazioni del fondatore.** "Note di Keep" non viene dall'app
   (EV.51, chiusa: nessun permesso sugli account nell'archivio). L'archetipo
@@ -6338,7 +6338,7 @@ Manifesto `docs/ordini/ORDINE_EV_MANIFESTO.md`, rapporto
 `i_ricordi_tornano_col_tuo_account`, `ordine_ev_guard` (646 nel registro),
 tre prove del server in `functions/src/cammino.test.ts` e quattro in
 `functions/src/memorie.test.ts`; tutte viste rosse, innesti in
-`docs/collaudo/EV/regola_a_ev.txt`. La versione e' 0.1.0+2290.
+`docs/collaudo/EV/regola_a_ev.txt`. La versione e' 0.1.0+2291 (la 2290 non e' mai stata distribuita, solo installata sul Realme di collaudo).
 
 ## Regole ferree
 
