@@ -1,0 +1,153 @@
+ORDINE EU VOCE 09, I LIVELLI DEI GIORNI, 1 ottobre 2026.
+Tre persone con la carta natale (pianeti di nascita dal motore delle effemeridi dell'app, case uguali dall'Ascendente) e una senza ora di nascita, quattro settimane dal 1 ottobre 2026, i quattro domini: 64 domini-settimana, 448 livelli per volta. Prova: test/i_livelli_dei_giorni_test.dart.
+
+SINTESI
+domini-settimana coi sette livelli uguali: prima 4 su 64, dopo 2 su 64
+domini-settimana con due livelli soli: prima 26, dopo 20; con tre: prima 26, dopo 35; con quattro: prima 8, dopo 7
+livelli dei 448 giorni (2, 3, 4, 5): prima [71, 119, 135, 123], dopo [69, 119, 143, 117]
+
+IL PERCHE' NEL CALCOLO (padre: ordine ES voce 28, commit b6106fb7). I pianeti lenti restano nello stesso aspetto per settimane e si sommavano senza limite: due o tre loro aspetti armonici tenevano il livello a 5 tutti i giorni (persona 3, Generale: 5 5 5 5 5 5 5 in due settimane su quattro). La Luna, l'unico corpo che cambia aspetto ogni giorno, contava solo entro i due gradi delle voci, quasi mai all'istante del giorno.
+LA CORREZIONE, con la tradizione dietro ogni regola: i lenti fanno il clima e pesano al massimo un gradino (Robert Hand, Planets in Transit, 1976: i transiti lenti segnano i periodi, i veloci i giorni); la Luna del giorno conta col suo aspetto al corpo natale del dominio (il Sole per il Generale, Venere per l'Amore, Marte per la Carriera, Giove per la Fortuna, gli stessi del momento chiave) entro sei gradi, la meta' dei dodici che William Lilly, Christian Astrology (1647), libro I, da' alla Luna. Le stesse regole fanno il livello della scheda del Giorno: la Settimana e il Giorno restano coerenti (la_settimana_e_il_giorno_dicono_lo_stesso verde).
+I DUE CHE RESTANO PIATTI, e il cielo lo vuole: persona 2, Fortuna, settimana dal 1 ottobre, 5 tutti i giorni: Venere si ferma e torna indietro il 3 ottobre 2026 a 8 gradi e 29 dello Scorpione (motore delle effemeridi: 218,48 il 2, 218,49 il 3, 218,47 il 4) e i suoi aspetti armonici ai punti natali restano esatti tutta la settimana; persona 4, senza carta, Amore, settimana dal 1 ottobre, 3 tutti i giorni: la Luna non passa per le case dell'amore e Venere resta nella stessa casa solare.
+
+===== PRIMA =====
+domini-settimana con i sette livelli uguali: 4 su 64 (Fortuna 1, Generale 2, Amore 1)
+persona 1, nata il 14 febbraio 1975, segno Acquario, con la carta
+  settimana dal giovedì 1 ottobre, Generale: 3 4 3 4 4 3 2, livelli diversi 3
+  settimana dal giovedì 1 ottobre, Amore: 2 3 2 3 3 3 3, livelli diversi 2
+  settimana dal giovedì 1 ottobre, Carriera: 3 3 3 4 4 3 2, livelli diversi 3
+  settimana dal giovedì 1 ottobre, Fortuna: 3 3 4 4 4 3 2, livelli diversi 3
+  settimana dal giovedì 8 ottobre, Generale: 2 2 2 3 4 5 4, livelli diversi 4
+  settimana dal giovedì 8 ottobre, Amore: 2 2 2 3 4 5 5, livelli diversi 4
+  settimana dal giovedì 8 ottobre, Carriera: 2 2 2 3 4 4 4, livelli diversi 3
+  settimana dal giovedì 8 ottobre, Fortuna: 2 2 2 2 3 3 3, livelli diversi 2
+  settimana dal giovedì 15 ottobre, Generale: 4 4 5 5 3 3 3, livelli diversi 3
+  settimana dal giovedì 15 ottobre, Amore: 4 5 5 5 4 4 4, livelli diversi 2
+  settimana dal giovedì 15 ottobre, Carriera: 4 4 5 5 3 2 2, livelli diversi 4
+  settimana dal giovedì 15 ottobre, Fortuna: 3 3 4 4 4 4 4, livelli diversi 2
+  settimana dal giovedì 22 ottobre, Generale: 3 3 2 3 2 3 2, livelli diversi 2
+  settimana dal giovedì 22 ottobre, Amore: 4 4 3 4 4 4 3, livelli diversi 2
+  settimana dal giovedì 22 ottobre, Carriera: 2 3 3 3 3 3 2, livelli diversi 2
+  settimana dal giovedì 22 ottobre, Fortuna: 4 3 3 4 4 4 3, livelli diversi 2
+persona 2, nata il 3 luglio 1988, segno Cancro, con la carta
+  settimana dal giovedì 1 ottobre, Generale: 4 4 5 5 5 5 5, livelli diversi 2
+  settimana dal giovedì 1 ottobre, Amore: 5 4 5 5 5 5 5, livelli diversi 2
+  settimana dal giovedì 1 ottobre, Carriera: 3 3 2 2 2 4 5, livelli diversi 4
+  settimana dal giovedì 1 ottobre, Fortuna: 5 5 5 5 5 5 5, livelli diversi 1
+  settimana dal giovedì 8 ottobre, Generale: 5 5 5 5 5 4 4, livelli diversi 2
+  settimana dal giovedì 8 ottobre, Amore: 5 4 5 5 4 3 2, livelli diversi 4
+  settimana dal giovedì 8 ottobre, Carriera: 4 3 4 3 2 2 3, livelli diversi 3
+  settimana dal giovedì 8 ottobre, Fortuna: 5 5 5 5 4 4 5, livelli diversi 2
+  settimana dal giovedì 15 ottobre, Generale: 3 3 3 3 4 5 5, livelli diversi 3
+  settimana dal giovedì 15 ottobre, Amore: 2 3 2 3 3 3 4, livelli diversi 3
+  settimana dal giovedì 15 ottobre, Carriera: 2 2 2 3 4 5 5, livelli diversi 4
+  settimana dal giovedì 15 ottobre, Fortuna: 4 4 3 3 3 5 5, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Generale: 5 5 3 4 5 5 4, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Amore: 4 5 3 4 5 5 4, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Carriera: 5 5 3 3 3 3 3, livelli diversi 2
+  settimana dal giovedì 22 ottobre, Fortuna: 5 4 4 4 5 5 5, livelli diversi 2
+persona 3, nata il 27 novembre 1996, segno Sagittario, con la carta
+  settimana dal giovedì 1 ottobre, Generale: 5 5 5 5 5 5 5, livelli diversi 1
+  settimana dal giovedì 1 ottobre, Amore: 4 4 5 5 5 5 5, livelli diversi 2
+  settimana dal giovedì 1 ottobre, Carriera: 3 4 5 5 5 5 4, livelli diversi 3
+  settimana dal giovedì 1 ottobre, Fortuna: 4 4 4 5 4 4 4, livelli diversi 2
+  settimana dal giovedì 8 ottobre, Generale: 5 5 4 5 5 5 5, livelli diversi 2
+  settimana dal giovedì 8 ottobre, Amore: 4 5 4 5 5 5 5, livelli diversi 2
+  settimana dal giovedì 8 ottobre, Carriera: 4 3 2 3 4 5 5, livelli diversi 4
+  settimana dal giovedì 8 ottobre, Fortuna: 4 3 2 3 5 5 5, livelli diversi 4
+  settimana dal giovedì 15 ottobre, Generale: 5 5 5 5 5 5 5, livelli diversi 1
+  settimana dal giovedì 15 ottobre, Amore: 5 5 5 5 5 4 4, livelli diversi 2
+  settimana dal giovedì 15 ottobre, Carriera: 4 3 3 3 2 3 3, livelli diversi 3
+  settimana dal giovedì 15 ottobre, Fortuna: 5 5 5 4 3 3 3, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Generale: 5 5 4 5 5 5 5, livelli diversi 2
+  settimana dal giovedì 22 ottobre, Amore: 3 4 4 4 4 4 5, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Carriera: 3 3 2 2 3 5 5, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Fortuna: 2 2 2 2 4 5 5, livelli diversi 3
+persona 4, senza ora di nascita, segno Leone, senza carta
+  settimana dal giovedì 1 ottobre, Generale: 4 4 3 3 4 4 3, livelli diversi 2
+  settimana dal giovedì 1 ottobre, Amore: 3 3 3 3 3 3 3, livelli diversi 1
+  settimana dal giovedì 1 ottobre, Carriera: 4 4 3 3 4 4 4, livelli diversi 2
+  settimana dal giovedì 1 ottobre, Fortuna: 4 4 3 3 4 4 4, livelli diversi 2
+  settimana dal giovedì 8 ottobre, Generale: 3 4 4 4 2 2 4, livelli diversi 3
+  settimana dal giovedì 8 ottobre, Amore: 3 3 3 3 2 2 4, livelli diversi 3
+  settimana dal giovedì 8 ottobre, Carriera: 4 4 4 4 2 2 4, livelli diversi 2
+  settimana dal giovedì 8 ottobre, Fortuna: 4 4 4 4 2 2 5, livelli diversi 3
+  settimana dal giovedì 15 ottobre, Generale: 4 4 3 3 2 2 2, livelli diversi 3
+  settimana dal giovedì 15 ottobre, Amore: 4 4 3 3 2 2 2, livelli diversi 3
+  settimana dal giovedì 15 ottobre, Carriera: 4 4 4 4 2 2 2, livelli diversi 2
+  settimana dal giovedì 15 ottobre, Fortuna: 5 5 3 3 2 2 2, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Generale: 3 3 4 4 2 2 3, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Amore: 3 3 4 4 2 2 4, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Carriera: 3 3 4 4 3 3 4, livelli diversi 2
+  settimana dal giovedì 22 ottobre, Fortuna: 3 3 4 4 2 2 4, livelli diversi 3
+
+===== DOPO =====
+domini-settimana con i sette livelli uguali: 2 su 64 (Fortuna 1, Amore 1)
+persona 1, nata il 14 febbraio 1975, segno Acquario, con la carta
+  settimana dal giovedì 1 ottobre, Generale: 3 4 3 4 4 3 2, livelli diversi 3
+  settimana dal giovedì 1 ottobre, Amore: 2 3 2 3 3 3 3, livelli diversi 2
+  settimana dal giovedì 1 ottobre, Carriera: 3 3 3 4 4 3 2, livelli diversi 3
+  settimana dal giovedì 1 ottobre, Fortuna: 3 3 4 5 4 3 2, livelli diversi 4
+  settimana dal giovedì 8 ottobre, Generale: 2 2 2 3 4 4 4, livelli diversi 3
+  settimana dal giovedì 8 ottobre, Amore: 2 2 2 3 4 5 5, livelli diversi 4
+  settimana dal giovedì 8 ottobre, Carriera: 2 2 2 3 4 4 4, livelli diversi 3
+  settimana dal giovedì 8 ottobre, Fortuna: 2 2 2 2 3 4 3, livelli diversi 3
+  settimana dal giovedì 15 ottobre, Generale: 4 4 5 5 3 3 3, livelli diversi 3
+  settimana dal giovedì 15 ottobre, Amore: 4 5 5 5 4 4 4, livelli diversi 2
+  settimana dal giovedì 15 ottobre, Carriera: 4 4 5 5 3 2 2, livelli diversi 4
+  settimana dal giovedì 15 ottobre, Fortuna: 3 3 4 5 4 4 4, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Generale: 3 3 3 4 3 3 3, livelli diversi 2
+  settimana dal giovedì 22 ottobre, Amore: 4 4 3 4 4 5 3, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Carriera: 2 3 3 4 3 4 3, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Fortuna: 4 3 3 4 4 4 3, livelli diversi 2
+persona 2, nata il 3 luglio 1988, segno Cancro, con la carta
+  settimana dal giovedì 1 ottobre, Generale: 4 4 5 5 5 5 5, livelli diversi 2
+  settimana dal giovedì 1 ottobre, Amore: 5 4 5 5 5 5 5, livelli diversi 2
+  settimana dal giovedì 1 ottobre, Carriera: 3 2 2 3 2 4 5, livelli diversi 4
+  settimana dal giovedì 1 ottobre, Fortuna: 5 5 5 5 5 5 5, livelli diversi 1
+  settimana dal giovedì 8 ottobre, Generale: 5 5 5 5 5 4 4, livelli diversi 2
+  settimana dal giovedì 8 ottobre, Amore: 5 4 5 5 4 3 2, livelli diversi 4
+  settimana dal giovedì 8 ottobre, Carriera: 4 3 4 3 2 3 3, livelli diversi 3
+  settimana dal giovedì 8 ottobre, Fortuna: 5 5 5 5 4 4 5, livelli diversi 2
+  settimana dal giovedì 15 ottobre, Generale: 3 3 2 3 4 5 5, livelli diversi 4
+  settimana dal giovedì 15 ottobre, Amore: 2 3 2 3 3 4 4, livelli diversi 3
+  settimana dal giovedì 15 ottobre, Carriera: 2 2 2 4 4 5 5, livelli diversi 3
+  settimana dal giovedì 15 ottobre, Fortuna: 4 4 3 4 3 5 5, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Generale: 5 5 2 4 5 5 4, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Amore: 4 5 3 4 5 5 4, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Carriera: 5 5 3 3 3 4 3, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Fortuna: 5 5 4 4 5 5 5, livelli diversi 2
+persona 3, nata il 27 novembre 1996, segno Sagittario, con la carta
+  settimana dal giovedì 1 ottobre, Generale: 3 4 5 5 5 5 5, livelli diversi 3
+  settimana dal giovedì 1 ottobre, Amore: 4 4 5 5 5 5 5, livelli diversi 2
+  settimana dal giovedì 1 ottobre, Carriera: 3 4 5 5 5 5 4, livelli diversi 3
+  settimana dal giovedì 1 ottobre, Fortuna: 4 4 4 5 4 4 4, livelli diversi 2
+  settimana dal giovedì 8 ottobre, Generale: 4 5 3 4 5 5 5, livelli diversi 3
+  settimana dal giovedì 8 ottobre, Amore: 4 5 4 4 5 5 5, livelli diversi 2
+  settimana dal giovedì 8 ottobre, Carriera: 4 3 2 3 5 5 5, livelli diversi 4
+  settimana dal giovedì 8 ottobre, Fortuna: 5 3 2 3 5 5 5, livelli diversi 3
+  settimana dal giovedì 15 ottobre, Generale: 5 5 5 5 5 4 4, livelli diversi 2
+  settimana dal giovedì 15 ottobre, Amore: 5 5 5 5 5 4 4, livelli diversi 2
+  settimana dal giovedì 15 ottobre, Carriera: 3 3 4 3 2 3 3, livelli diversi 3
+  settimana dal giovedì 15 ottobre, Fortuna: 5 5 5 4 3 3 3, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Generale: 3 4 3 3 4 5 5, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Amore: 3 4 4 4 3 4 5, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Carriera: 2 3 2 2 3 5 5, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Fortuna: 2 2 2 2 4 5 5, livelli diversi 3
+persona 4, senza ora di nascita, segno Leone, senza carta
+  settimana dal giovedì 1 ottobre, Generale: 4 4 3 3 4 4 3, livelli diversi 2
+  settimana dal giovedì 1 ottobre, Amore: 3 3 3 3 3 3 3, livelli diversi 1
+  settimana dal giovedì 1 ottobre, Carriera: 4 4 3 3 4 4 4, livelli diversi 2
+  settimana dal giovedì 1 ottobre, Fortuna: 4 4 3 3 4 4 4, livelli diversi 2
+  settimana dal giovedì 8 ottobre, Generale: 3 4 4 4 2 2 4, livelli diversi 3
+  settimana dal giovedì 8 ottobre, Amore: 3 3 3 3 2 2 4, livelli diversi 3
+  settimana dal giovedì 8 ottobre, Carriera: 4 4 4 4 2 2 4, livelli diversi 2
+  settimana dal giovedì 8 ottobre, Fortuna: 4 4 4 4 2 2 5, livelli diversi 3
+  settimana dal giovedì 15 ottobre, Generale: 4 4 3 3 2 2 2, livelli diversi 3
+  settimana dal giovedì 15 ottobre, Amore: 4 4 3 3 2 2 2, livelli diversi 3
+  settimana dal giovedì 15 ottobre, Carriera: 4 4 4 4 2 2 2, livelli diversi 2
+  settimana dal giovedì 15 ottobre, Fortuna: 5 5 3 3 2 2 2, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Generale: 3 3 4 4 2 2 3, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Amore: 3 3 4 4 2 2 4, livelli diversi 3
+  settimana dal giovedì 22 ottobre, Carriera: 3 3 4 4 3 3 4, livelli diversi 2
+  settimana dal giovedì 22 ottobre, Fortuna: 3 3 4 4 2 2 4, livelli diversi 3

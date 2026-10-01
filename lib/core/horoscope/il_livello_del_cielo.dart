@@ -36,6 +36,25 @@ import 'il_cielo_del_segno.dart';
 ///
 /// **La scala resta quella di prima**, da due a cinque: il livello e'
 /// `3 + somma` arrotondato e tenuto fra 2 e 5; il giorno neutro e' 3.
+///
+/// **IL CLIMA E IL GIORNO**, ordine EU voce 09, 1 ottobre 2026. Il fondatore,
+/// sulla Settimana: *"le barre [...] sembrano tutte uguali"*. Misurato per
+/// tre persone con la carta e una senza, in quattro settimane
+/// (`docs/collaudo/EU/livelli_dei_giorni.txt`): 4 domini-settimana su 64
+/// avevano i sette livelli uguali e 26 ne avevano due soli. Il perche' nel
+/// calcolo: i pianeti lenti (Giove, Saturno, Urano, Nettuno, Plutone)
+/// restano nello stesso aspetto per settimane e si sommavano senza limite,
+/// e bastavano due o tre loro aspetti armonici per tenere il livello a 5
+/// tutti i giorni; la Luna, il solo corpo che cambia aspetto ogni giorno,
+/// contava solo nei due gradi delle voci, cioe' quasi mai all'istante del
+/// giorno. Due regole, con la tradizione dietro:
+/// - **i lenti fanno il clima e pesano al massimo un gradino** ([lenti],
+///   [tettoDelClima]): la distinzione fra i transiti lenti, che segnano
+///   periodi di mesi, e quelli veloci, che segnano i giorni, e' quella di
+///   Robert Hand, *Planets in Transit* (1976), introduzione;
+/// - **la Luna del giorno** ([lunaDelGiorno]): il suo aspetto al corpo
+///   natale del dominio conta con la meta' del suo orbe, sei gradi, dai
+///   dodici che le da' William Lilly, *Christian Astrology* (1647), libro I.
 abstract final class IlLivelloDelCielo {
   static const double orbitaMassima = 2.0;
 
@@ -47,6 +66,66 @@ abstract final class IlLivelloDelCielo {
     CorpoCeleste.marte,
     CorpoCeleste.saturno,
   };
+
+  /// **I LENTI FANNO IL CLIMA, LA LUNA E I VELOCI FANNO IL GIORNO.** Ordine
+  /// EU voce 09, 1 ottobre 2026.
+  static const Set<CorpoCeleste> lenti = {
+    CorpoCeleste.giove,
+    CorpoCeleste.saturno,
+    CorpoCeleste.urano,
+    CorpoCeleste.nettuno,
+    CorpoCeleste.plutone,
+  };
+
+  /// Quanto pesa al massimo il clima dei lenti, in gradini.
+  static const double tettoDelClima = 1.0;
+
+  /// **L'ORBE DELLA LUNA DEL GIORNO**: la meta' (la "moiety") dei dodici
+  /// gradi che William Lilly, *Christian Astrology* (1647), libro I, da' alla
+  /// Luna. La Luna fa tredici gradi al giorno: sei gradi prima e sei dopo
+  /// l'istante del giorno coprono la giornata.
+  static const double orbeDellaLuna = 6.0;
+
+  /// Il corpo natale di ogni dominio, lo stesso del momento chiave della
+  /// Settimana: il Sole per il Generale, Venere per l'Amore, Marte per la
+  /// Carriera, Giove per la Fortuna.
+  static const Map<HoroscopeDomain, String> corpoNataleDi = {
+    HoroscopeDomain.generale: 'sun',
+    HoroscopeDomain.amore: 'venus',
+    HoroscopeDomain.carriera: 'mars',
+    HoroscopeDomain.fortuna: 'jupiter',
+  };
+
+  /// **LA LUNA DEL GIORNO**: l'aspetto della Luna al corpo natale del
+  /// dominio entro [orbeDellaLuna], col suo peso (armonico +1, teso -1,
+  /// congiunzione +0,5, per quanto e' stretto) e la voce che la riga nomina.
+  /// Nullo senza carta o senza aspetto.
+  static (double, VoceDelCielo)? lunaDelGiorno(
+      CieloDiOggi cielo, HoroscopeDomain dominio) {
+    final luna = cielo.lunaDelGiorno;
+    final id = corpoNataleDi[dominio]!;
+    final natale = cielo.natali[id];
+    if (luna == null || natale == null) return null;
+    var distanza = (luna - natale.$2).abs() % 360.0;
+    if (distanza > 180) distanza = 360 - distanza;
+    for (final a in AspectType.values) {
+      final orbe = (distanza - a.angoloEsatto).abs();
+      if (orbe > orbeDellaLuna) continue;
+      final v = VoceDelCielo(
+        transito: CorpoCeleste.luna,
+        bersaglio: natale.$1,
+        idBersaglio: id,
+        aspetto: a,
+        orbe: orbe,
+        applicativo: null,
+        casa: null,
+        retrogrado: false,
+        giorniDiIncertezza: 0,
+      );
+      return (pesoDi(v) * (1 - orbe / orbeDellaLuna), v);
+    }
+    return null;
+  }
 
   /// Il peso di un passaggio, prima dell'orbita.
   static double pesoDi(VoceDelCielo v) {
@@ -105,15 +184,35 @@ abstract final class IlLivelloDelCielo {
     // giorno e dice "del giorno".
     if (cielo.ceCieloVero) {
       final voci = CorrenteDelCielo.vociPer(cielo, dominio);
-      var somma = 0.0;
+      var delClima = 0.0;
+      var delGiorno = 0.0;
       final pesate = <(double, VoceDelCielo)>[];
+      // La Luna del giorno al corpo natale del dominio, con la meta' del suo
+      // orbe: prende il posto della stessa voce stretta, se c'e'.
+      final dellaLuna = lunaDelGiorno(cielo, dominio);
+      if (dellaLuna != null) {
+        final (p, v) = dellaLuna;
+        delGiorno += p;
+        pesate.add((p.abs(), v));
+      }
       for (final v in voci) {
+        if (dellaLuna != null &&
+            v.transito == CorpoCeleste.luna &&
+            v.idBersaglio == corpoNataleDi[dominio]) {
+          continue;
+        }
         final stretto =
             (1 - v.orbe.abs() / orbitaMassima).clamp(0.0, 1.0).toDouble();
         final p = pesoDi(v) * stretto;
-        somma += p;
+        if (lenti.contains(v.transito)) {
+          delClima += p;
+        } else {
+          delGiorno += p;
+        }
         pesate.add((p.abs(), v));
       }
+      final somma =
+          delClima.clamp(-tettoDelClima, tettoDelClima).toDouble() + delGiorno;
       pesate.sort((a, b) => b.$1.compareTo(a.$1));
       final nomi = [
         for (final (_, v) in pesate.take(2))

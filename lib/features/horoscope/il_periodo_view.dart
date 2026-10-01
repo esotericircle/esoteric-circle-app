@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../core/astro/aspetti_di_oggi.dart';
 import '../../core/horoscope/horoscope.dart';
 import '../../core/horoscope/la_settimana_del_cielo.dart';
-import '../../core/l10n/numero_del_cerchio.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -98,12 +97,19 @@ class IlPeriodoView extends StatelessWidget {
               onLockedTap: (scelta) => onDepthLocked(d.dominio, scelta),
             ),
             figli: [
-              // 1. Il colpo d'occhio: i giorni col loro livello.
-              _Andamento(
-                  key: Key('oroscopo_periodo_andamento_${d.dominio.name}'),
-                  dominio: d,
-                  mese: mese,
-                  palette: palette),
+              // 1. Il colpo d'occhio: i giorni col loro livello, a barre nella
+              // Settimana e a calendario nel Mese (ordine EU voci 09 e 11).
+              if (mese)
+                IlCalendarioDelMese(
+                    key: Key('oroscopo_periodo_andamento_${d.dominio.name}'),
+                    dominio: d)
+              else
+                LeBarreDellaSettimana(
+                    key: Key('oroscopo_periodo_andamento_${d.dominio.name}'),
+                    dominio: d,
+                    palette: palette),
+              const SizedBox(height: 6),
+              const _LaScala(),
               const SizedBox(height: SpacingTokens.sm),
               // 2. La risposta, in parole di tutti i giorni.
               Text(d.risposta(mese: mese),
@@ -228,28 +234,47 @@ class IlPeriodoView extends StatelessWidget {
   }
 }
 
-/// **IL COLPO D'OCCHIO DEL PERIODO**: una colonna per giorno, alta quanto il
-/// suo livello, il giorno migliore in oro pieno. Nella Settimana sotto ogni
-/// colonna c'e' l'iniziale del giorno.
-class _Andamento extends StatelessWidget {
-  const _Andamento(
-      {super.key,
-      required this.dominio,
-      required this.mese,
-      required this.palette});
+/// **LE BARRE DELLA SETTIMANA, ordine EU voce 09.** Il fondatore: *"le
+/// barre di cui una gialla in evidenza sembrano tutte uguali, dovrebbe
+/// cambiare anche l'altezza e magari inserire una percentuale [...] da giallo
+/// opaco a rosso fuoco per il giorno migliore"*, e sulla proposta
+/// dell'Architetto *"Altezza e colore"*. Prima ogni colonna andava da 20 a
+/// 56 punti e tutte, tranne la migliore, avevano lo stesso oro velato.
+///
+/// Adesso una colonna per giorno, **alta in proporzione al livello** (un
+/// quinto dell'altezza piena per ogni gradino), **del colore del suo
+/// gradino** ([ColorTokens.delLivello]), e **sopra la migliore la sua
+/// percentuale** (il livello in centesimi: 4 su 5 e' l'80%). Sotto ogni
+/// colonna l'iniziale del giorno. Niente animazione: con Riduci Movimento si
+/// legge uguale; al carattere massimo la percentuale e l'iniziale si
+/// stringono nella loro colonna invece di andare a capo.
+class LeBarreDellaSettimana extends StatelessWidget {
+  const LeBarreDellaSettimana(
+      {super.key, required this.dominio, required this.palette});
 
   final DominioDelPeriodo dominio;
-  final bool mese;
   final MaestroPalette palette;
 
+  /// L'altezza della colonna del livello 5.
+  static const double altezzaPiena = 64;
+
   static const List<String> _iniziali = ['L', 'M', 'M', 'G', 'V', 'S', 'D'];
+
+  /// L'altezza della colonna di un livello.
+  static double altezzaDi(int livello) =>
+      altezzaPiena * livello.clamp(1, 5) / 5;
 
   @override
   Widget build(BuildContext context) {
     final migliore = dominio.migliore.giorno;
+    final etichetta = TypographyTokens.etichetta();
     return Semantics(
-      label: 'Andamento del periodo: livello medio '
-          '${NumeroDelCerchio.conCifre(dominio.media, 1)} su 5',
+      label: 'Andamento della settimana: '
+          '${[
+        for (final g in dominio.giorni)
+          '${LaSettimanaDelCielo.data(g.giorno)} ${g.livello} su 5'
+      ].join(', ')}; il giorno migliore è '
+          '${LaSettimanaDelCielo.data(migliore)}',
       child: ExcludeSemantics(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -257,31 +282,41 @@ class _Andamento extends StatelessWidget {
             for (final g in dominio.giorni)
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: mese ? 1 : 3),
+                  padding: const EdgeInsets.symmetric(horizontal: 3),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
+                      if (g.giorno == migliore)
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text('${g.livello * 20}%',
+                              key: Key('oroscopo_periodo_percentuale_'
+                                  '${dominio.dominio.name}'),
+                              maxLines: 1,
+                              style: etichetta.copyWith(
+                                  color: ColorTokens.delLivello(g.livello),
+                                  fontWeight: FontWeight.w700)),
+                        ),
+                      const SizedBox(height: 2),
                       Container(
-                        // Dodici punti fra un livello e l'altro, da 20 a
-                        // 56: con sei (da 18 a 36) nell'anteprima del 30
-                        // settembre le barre sembravano tutte uguali, e il
-                        // colpo d'occhio non diceva niente.
-                        height: 20.0 + (g.livello.clamp(2, 5) - 2) * 12.0,
+                        key: Key('oroscopo_periodo_barra_'
+                            '${dominio.dominio.name}_${g.giorno.day}'),
+                        height: altezzaDi(g.livello),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(3),
-                          color: g.giorno == migliore
-                              ? palette.goldSoft
-                              : palette.gold.withValues(alpha: 0.35),
+                          color: ColorTokens.delLivello(g.livello),
                         ),
                       ),
-                      if (!mese) ...[
-                        const SizedBox(height: 2),
-                        Text(_iniziali[g.giorno.weekday - 1],
-                            style: TypographyTokens.etichetta().copyWith(
+                      const SizedBox(height: 2),
+                      FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(_iniziali[g.giorno.weekday - 1],
+                            maxLines: 1,
+                            style: etichetta.copyWith(
                                 color: g.giorno == migliore
                                     ? palette.goldSoft
                                     : ColorTokens.textSecondary)),
-                      ],
+                      ),
                     ],
                   ),
                 ),
@@ -289,6 +324,171 @@ class _Andamento extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// **IL MESE A GRIGLIA, ordine EU voce 11.** Il fondatore: *"L'oroscopo
+/// mensile ha lo stesso problema dell'infografica poco chiara e molto simile
+/// tra loro"*, e sulla proposta dell'Architetto (*"Il Mese diventa un
+/// calendario a griglia di 5 settimane con le caselle colorate"*) *"Altezza e
+/// colore"*. Prima il Mese erano trenta colonne sottili.
+///
+/// Adesso un calendario: le colonne sono i giorni della settimana, da lunedi'
+/// a domenica, e ogni giorno del periodo ha la sua casella col numero del
+/// giorno, del colore del suo gradino ([ColorTokens.delLivello]); il giorno
+/// migliore ha il bordo d'oro e la sua percentuale. I trenta giorni partono
+/// da oggi: le caselle prima di oggi nella prima riga e dopo l'ultimo giorno
+/// nell'ultima restano vuote. Cinque righe, sei quando il periodo comincia di
+/// domenica.
+class IlCalendarioDelMese extends StatelessWidget {
+  const IlCalendarioDelMese({super.key, required this.dominio});
+
+  final DominioDelPeriodo dominio;
+
+  static const List<String> _iniziali = ['L', 'M', 'M', 'G', 'V', 'S', 'D'];
+
+  @override
+  Widget build(BuildContext context) {
+    final giorni = dominio.giorni;
+    final migliore = dominio.migliore.giorno;
+    final vuoteInTesta = giorni.first.giorno.weekday - 1;
+    final caselle = <GiornoDelPeriodo?>[
+      for (var i = 0; i < vuoteInTesta; i++) null,
+      ...giorni,
+    ];
+    while (caselle.length % 7 != 0) {
+      caselle.add(null);
+    }
+    final etichetta = TypographyTokens.etichetta();
+    return Semantics(
+      label: 'Calendario del mese: il giorno migliore è '
+          '${LaSettimanaDelCielo.data(migliore)}, '
+          '${dominio.migliore.livello} su 5',
+      child: ExcludeSemantics(
+        child: Column(
+          children: [
+            Row(
+              children: [
+                for (final i in _iniziali)
+                  Expanded(
+                    child: Center(
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(i,
+                            maxLines: 1,
+                            style: etichetta.copyWith(
+                                color: ColorTokens.textSecondary)),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+            const SizedBox(height: 4),
+            for (var r = 0; r < caselle.length ~/ 7; r++)
+              Row(
+                children: [
+                  for (final g in caselle.sublist(r * 7, r * 7 + 7))
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.all(2),
+                        child: AspectRatio(
+                          aspectRatio: 1,
+                          child: g == null
+                              ? const SizedBox.shrink()
+                              : _Casella(
+                                  key: Key('oroscopo_periodo_casella_'
+                                      '${dominio.dominio.name}_'
+                                      '${g.giorno.month}_${g.giorno.day}'),
+                                  giorno: g,
+                                  migliore: g.giorno == migliore,
+                                  dominio: dominio.dominio),
+                        ),
+                      ),
+                    ),
+                ],
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _Casella extends StatelessWidget {
+  const _Casella(
+      {super.key,
+      required this.giorno,
+      required this.migliore,
+      required this.dominio});
+
+  final GiornoDelPeriodo giorno;
+  final bool migliore;
+  final HoroscopeDomain dominio;
+
+  @override
+  Widget build(BuildContext context) {
+    final stile = TypographyTokens.etichetta()
+        .copyWith(color: ColorTokens.inchiostroSulLivello);
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(4),
+        color: ColorTokens.delLivello(giorno.livello),
+        border: migliore
+            ? Border.all(color: ColorTokens.goldBright, width: 2)
+            : null,
+      ),
+      padding: const EdgeInsets.all(2),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('${giorno.giorno.day}',
+                maxLines: 1,
+                style: stile.copyWith(fontWeight: FontWeight.w700)),
+            if (migliore)
+              Text('${giorno.livello * 20}%',
+                  key: Key('oroscopo_periodo_percentuale_${dominio.name}'),
+                  maxLines: 1,
+                  style: stile),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// **LA SCALA SOTTO IL COLPO D'OCCHIO**: i cinque gradini, perche' chi
+/// guarda sappia che il rosso e' il giorno pieno e il giallo quello quieto.
+class _LaScala extends StatelessWidget {
+  const _LaScala();
+
+  @override
+  Widget build(BuildContext context) {
+    final stile = TypographyTokens.didascalia()
+        .copyWith(color: ColorTokens.textSecondary);
+    return Row(
+      children: [
+        Flexible(
+          child: Text('più quieto',
+              maxLines: 1, overflow: TextOverflow.ellipsis, style: stile),
+        ),
+        const SizedBox(width: 6),
+        for (final c in ColorTokens.scalaDelLivello)
+          Container(
+            width: 12,
+            height: 8,
+            margin: const EdgeInsets.only(right: 2),
+            decoration:
+                BoxDecoration(color: c, borderRadius: BorderRadius.circular(2)),
+          ),
+        const SizedBox(width: 4),
+        Flexible(
+          child: Text('più favorevole',
+              maxLines: 1, overflow: TextOverflow.ellipsis, style: stile),
+        ),
+      ],
     );
   }
 }

@@ -29,7 +29,17 @@ class CieloDiOggi {
   const CieloDiOggi({
     required this.voci,
     required this.livello,
+    this.lunaDelGiorno,
+    this.natali = const {},
   });
+
+  /// **LA LUNA ALL'ISTANTE DEL GIORNO**, in gradi di longitudine, e i punti
+  /// natali coi loro nomi (id, nome, longitudine). Ordine EU voce 09: servono
+  /// al livello per la Luna del giorno ([IlLivelloDelCielo]), che guarda il
+  /// suo aspetto al corpo natale del dominio con l'orbe della tradizione e
+  /// non con quello stretto delle [voci].
+  final double? lunaDelGiorno;
+  final Map<String, (String, double)> natali;
 
   /// Il cielo di chi non ha una carta: nessuna voce, nessun fatto.
   static const CieloDiOggi nessuno = CieloDiOggi(
@@ -87,7 +97,14 @@ class CieloDiOggi {
         giorniDiIncertezza: Effemeridi.giorniDiIncertezza(corpo, jd),
       ));
     }
-    return CieloDiOggi(voci: voci, livello: livello);
+    return CieloDiOggi(
+      voci: voci,
+      livello: livello,
+      lunaDelGiorno: Effemeridi.longitudineEclittica(CorpoCeleste.luna, jd),
+      natali: {
+        for (final p in carta.planets) p.id: (p.name, p.longitude),
+      },
+    );
   }
 
   static CorpoCeleste? _corpoDa(String? id) {

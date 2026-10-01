@@ -115,6 +115,12 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
 
+    // In vista prima del tocco: dall'ordine EU voce 05 la riga "Oroscopo
+    // per" sta sopra i periodi, e nella finestra bassa della prova il tasto
+    // scendeva sotto il bordo, il tocco andava a vuoto e la prova non vedeva
+    // nessun responso (padre: EU.05, commit ae2d9370).
+    await tester.ensureVisible(find.byKey(const Key('oroscopo_interroga')));
+    await tester.pump();
     await tester.tap(find.byKey(const Key('oroscopo_interroga')));
     await tester.pump();
     await tester.pump(const Duration(seconds: 2));

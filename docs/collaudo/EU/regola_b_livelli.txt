@@ -1,0 +1,4 @@
+REGOLA B, ordine EU voce 09, 1 ottobre 2026: le guardie della zona del livello dei giorni viste rosse prima di toccarla.
+INNESTO B1 il livello di ogni giorno fisso a tre: grep del difetto nel file SI; prova test/il_livello_viene_dal_cielo_test.dart ROSSA; file rimesso sha1 581809098eee -> 581809098eee IDENTICO
+INNESTO B2 la riga della Settimana misurata a mezzogiorno locale, come prima della ES: grep del difetto nel file SI; prova test/la_settimana_e_il_giorno_dicono_lo_stesso_test.dart ROSSA; file rimesso sha1 c23ce072e579 -> c23ce072e579 IDENTICO
+INNESTO B3 ogni giorno della Settimana letto dal cielo del primo giorno: grep del difetto nel file SI; prova test/la_settimana_viene_dal_cielo_test.dart ROSSA; file rimesso sha1 c23ce072e579 -> c23ce072e579 IDENTICO

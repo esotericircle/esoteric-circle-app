@@ -89,4 +89,25 @@ class ColorTokens {
   // segnale acceso, piu' giallo e piu' chiaro, perche' non si confonda con
   // la tinta di un Maestro.
   static const Color lucinaOnline = Color(0xFF4BE37A);
+
+  // **LA SCALA DEL LIVELLO DEI GIORNI, ordine EU voci 09 e 11.** Il
+  // fondatore, sulle barre della Settimana: *"da giallo opaco a rosso fuoco
+  // per il giorno migliore"*. Cinque gradini, dal livello 1 al 5. Ogni
+  // gradino ha almeno 3 di contrasto sul fondo delle schede del periodo con
+  // le quattro palette (il peggiore, il rosso sul verde di Aura, 3,2): lo
+  // misura `le_barre_e_la_griglia_si_leggono_test`.
+  static const List<Color> scalaDelLivello = [
+    Color(0xFFA8994E), // 1, giallo opaco
+    Color(0xFFE6C443), // 2, giallo
+    Color(0xFFF5A132), // 3, arancio
+    Color(0xFFF7702F), // 4, arancio rosso
+    Color(0xFFFF5233), // 5, rosso fuoco
+  ];
+
+  /// Il gradino del livello [livello], da 1 a 5.
+  static Color delLivello(int livello) =>
+      scalaDelLivello[livello.clamp(1, 5) - 1];
+
+  // Il numero scritto sopra un gradino: scuro, almeno 5,9 su ognuno.
+  static const Color inchiostroSulLivello = Color(0xFF010208);
 }
