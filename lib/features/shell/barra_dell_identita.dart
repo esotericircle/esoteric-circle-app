@@ -65,6 +65,16 @@ class BarraDellIdentita extends StatefulWidget {
   /// pixel".
   static const double altezzaChiusa = 38;
 
+  /// **QUANTO COPRE IL VELO DELLA BARRA.** Ordine EU voce 19, 1 ottobre
+  /// 2026: scorrendo l'Oroscopo il nome grande del segno ("KUMBHA (ACQUARIO)",
+  /// "CONIGLIO") passava sotto la barra e si mescolava al livello, a "ONLINE
+  /// 1" e agli Eos, che non si leggevano (catture del fondatore sulla 2289).
+  /// Il velo era al 72 per cento: il contrasto peggiore dei contatori, col
+  /// colore piu' chiaro dell'app sotto, era 4,6, e il testo che passava sotto
+  /// restava visibile. Al 92 il contrasto peggiore e' 9,3 e cio' che scorre
+  /// sotto quasi sparisce. Lo misura `i_contatori_si_leggono_sempre_test`.
+  static const double velo = 0.92;
+
   /// **DOVE SI VEDE, e l'elenco non sta piu' qui. Ordine AP voce 07.**
   ///
   /// Le soglie vivevano dentro questo file, e la barra storica aveva il suo
@@ -191,7 +201,7 @@ class _LaBarra extends StatelessWidget {
           height: BarraDellIdentita.altezzaChiusa + mq.padding.top,
           decoration: BoxDecoration(
             // Un velo di colore, mai una sfocatura per fotogramma.
-            color: palette.deepest.withValues(alpha: 0.72),
+            color: palette.deepest.withValues(alpha: BarraDellIdentita.velo),
             border: Border(
               bottom:
                   BorderSide(color: palette.goldSoft.withValues(alpha: 0.22)),
