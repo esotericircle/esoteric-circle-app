@@ -146,6 +146,8 @@ Generale in Lunga e il Lavoro in Breve e in Lunga (`docs/collaudo/ES/realme/es_f
 con gli Eos (il Viandante non si sceglie dal telefono nella demo), del PDF e dell'avviso del
 compleanno.
 
+Questa voce prosegue nell'ordine EU, voce EU.12 (il PDF dell'anno), dal 1 ottobre 2026.
+
 DOMANDA: "Inoltre, cosa ne dici dell'oroscopo annuale da integrare?"; domanda girata al fondatore: l'annuale proposto dall'Architetto (Rivoluzione Solare dal compleanno, notifica e card, dall'Adepto in su, 300 Eos, PDF all'Illuminato), risposta: "Per il resto approvo tutto."
 
 PROVA: docs/collaudo/ES/regola_a_rivoluzione_solare.txt
@@ -183,6 +185,8 @@ il giorno. **Prezzi in Eos**: l'anno 300, un posto in piu' fra gli amici 100. **
 resta**: e' l'unica cosa che gli Eos comprano per sempre, contro la regola che gli Eos non
 comprano accessi durevoli, ed e' la decisione del fondatore (*"100 Eos per un posto in più"*,
 *"ok , approvato"*). Mancano le catture dal Realme della schermata dei piani.
+
+Questa voce prosegue nell'ordine EU, voce EU.07 (il Viandante scelto dal telefono nella demo; e EU.15, la Lunga a 50 Eos), dal 1 ottobre 2026.
 
 DOMANDA: "Ma prima di scrivere l'ordine dovresti indicarmi cosa sblocchiamo e a quale tier renderlo disponibile e con quali limiti. E andranno aggiornati anche i piani di abbonamento e bisogna decidere il prezzo in Eos per chi vuole un giro in più a meno che già c'è."; domanda girata al fondatore: la tabella dell'Architetto, risposta: "Approvo tutto. Ma vorrei che l'utente free non avesse accesso al settimanale."; "Anche cinese e vedica saranno disponibili solo per i premium."; "Si per Premium intendo tutti i piani a pagamento. I free potranno solo chiedere oroscopo del giorno e solo occidnetale o solo vedere il proprio segno di vedica o cinese senza lettura come hai suggerito. Non ci sono limiti di numero perchè l'oroscopo è ugale ogni giorno e non cambia se lo chiedo nuovamente lo stesso giorno."; "No, l'utente free non può fare orsocopo per amici, lo vede e se fa click, viene invitato a sottoscrivere abbonamento"; domanda girata al fondatore: "3 per l'Iniziato, 10 per l'Adepto, nessun limite per l'Illuminato [...] 100 Eos per un posto in più", risposta: "ok , approvato"; "Ma il viandante corrisponde al free!".
 
@@ -241,6 +245,8 @@ responso (`docs/collaudo/ES/realme/es_final_cinese_generale.jpg`, `es_2289_cines
 Mancano la Cinese sul gratuito (il Viandante non si sceglie dal telefono nella demo) e la
 registrazione della corsa degli animali.
 
+Questa voce prosegue nell'ordine EU, voce EU.02 (la Settimana, il Mese e l'Anno della Cinese; e EU.01, i paragrafi), dal 1 ottobre 2026.
+
 DOMANDA: "Mi hai consigliato tu di sbloccare in MVP anche vedico e cinese!"; "Se sceglie oroscopo cinese significa che è selezionabile e sbloccato"; "Le risposte devono seguire le regole delle risposte. Ma possiamo usare lo stesso tipo di linguaggio e ci sono delle tradizioni o metodi o pratiche da seguire in particolare? Quindi, il repsonso avverrà con la stessa animazione e con la stessa divisione in generica, amore, lavoro e fortuna?"; domanda girata al fondatore: il metodo dell'Architetto (almanacco Tong Shu e Dieci Dei del BaZi) e "Confermi il Capodanno lunare per il segno cinese e il segno lunare per il vedico?", risposta: "COnfermo tutto."
 
 PROVA: docs/collaudo/ES/regola_a_lettura_cinese.txt
@@ -277,6 +283,8 @@ giorno cosi', il 30 settembre (`docs/collaudo/ES/realme/es_final_vedica_generale
 `es_2289_vedica_testa.jpg`). Mancano la Vedica sul gratuito (il Viandante non si sceglie dal
 telefono nella demo) e la registrazione della corsa dei segni.
 
+Questa voce prosegue nell'ordine EU, voce EU.02 (la Settimana, il Mese e l'Anno della Vedica; e EU.01, i paragrafi), dal 1 ottobre 2026.
+
 DOMANDA: "Mi hai consigliato tu di sbloccare in MVP anche vedico e cinese!"; "Se sceglie oroscopo cinese significa che è selezionabile e sbloccato"; domanda girata al fondatore: il metodo dell'Architetto (segno lunare siderale Lahiri, Chandra Bala, Tara Bala, Rahu Kalam) e "Confermi il Capodanno lunare per il segno cinese e il segno lunare per il vedico?", risposta: "COnfermo tutto."
 
 PROVA: docs/collaudo/ES/regola_a_lettura_vedica.txt
@@ -309,6 +317,8 @@ tutti e due. **Otto nomi dei decani** sono letti in una scansione guasta del gre
 riscontrati sull'edizione Pingree (1973) o sulla traduzione di Schmidt (1994) prima di chiudere.
 Mancano le catture dal Realme delle quattro.
 
+Questa voce prosegue nell'ordine EU, voce EU.06 (le immagini delle tradizioni in arrivo), dal 1 ottobre 2026.
+
 DOMANDA: domanda girata al fondatore: "A. La figura del segno [...] B. L'emblema e il nome del segno", risposta: "La B."; riga della scheda dell'Architetto: "Le sei tradizioni in arrivo (Vedica, Cinese, Maya, Celtica, Egizia, Araba) portano il lucchetto. Per tua regola il lucchetto è solo del Premium e le arti non ancora pronte hanno la clessidra.", risposta: "In verità seguo e approvo ogni tuo consiglio."; domanda girata al fondatore: "i sei emblemi delle tradizioni [...] Li aggiungo all'ordine ES?", risposta: "Si inseriscili nell'ordine."
 
 PROVA: docs/collaudo/ES/in_arrivo.txt
@@ -340,6 +350,8 @@ la riga "Da dove viene", come quelle di chi usa l'app. **Visti sul Realme** il p
 Viandante non si sceglie dal telefono nella demo, e il piano della demo non ha tetto), e della
 Cinese e della Vedica dell'amico.
 
+Questa voce prosegue nell'ordine EU, voce EU.05 (il selettore "Oroscopo per"), dal 1 ottobre 2026.
+
 DOMANDA: "Ho intenzione di inserire la possibilità ai premium di poter calcolare l'oroscopo per gli amici così da poterlo condividere con gli amici e creare vitalità: l'utente premium potrà inserire data e ora di nascita dell'amico, scegliere la tipologia di oroscopo, scoprire il segno corrispondete e creare l'oroscopo e con la condivisione inviarlo all'amico."; "servirà che l'utente inserisca i dati e il nome dell'amico che verranno memorizzati in un contenitore "amici offline" che potranno essere richiamati nelle altre funzionalità di compatibilità. Ti ricordo che l'app dovrà diventare "Social""; "No, l'utente free non può fare orsocopo per amici, lo vede e se fa click, viene invitato a sottoscrivere abbonamento"; domanda girata al fondatore: "3 per l'Iniziato, 10 per l'Adepto, nessun limite per l'Illuminato [...] 100 Eos per un posto in più", risposta: "ok , approvato".
 
 PROVA: docs/collaudo/ES/regola_a_es04_es12_es15.txt
@@ -363,6 +375,8 @@ MISURA: card col cognome, dopo 0 (prova su "Mario Rossi"); card senza dati di na
 sulla schermata vera, manca la cattura dal Realme, che arriva con la build di prova del blocco.
 Padre: ordine DD voce 09, commit `b6188d20`. Il riquadro e' `RiquadroDelNumero`
 (`lib/features/horoscope/riquadro_del_numero.dart`), che servira' anche alla Cinese e alla Vedica.
+
+Questa voce prosegue nell'ordine EU, voce EU.10 (il numero grande e al centro), dal 1 ottobre 2026.
 
 DOMANDA: "Utlima cosa, nel riquadro del numero fortunato, il numero deve essere centrato nel riquadro"
 
@@ -863,6 +877,8 @@ si sceglie la Cinese o la Vedica compare la figura in bronzo del segno che si ac
 per tradizione, segnata sul telefono; con Riduci Movimento la figura e' gia' li'; col segno incerto
 (la Vedica senza ora nei giorni in cui la Luna cambia segno) la rivelazione aspetta. Mancano la
 registrazione dello schermo dal Realme e una condivisione vera.
+
+Questa voce prosegue nell'ordine EU, voce EU.13 (la rivelazione per tutte le tradizioni), dal 1 ottobre 2026.
 
 DOMANDA: riga dell'Architetto: "La prima volta che la persona sceglie Cinese o Vedica, la figura in bronzo appare con la sua animazione e la frase "Il tuo segno cinese è il Cavallo". È il momento da condividere."
 

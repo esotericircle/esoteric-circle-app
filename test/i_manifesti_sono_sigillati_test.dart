@@ -312,6 +312,9 @@ void main() {
     // 28 settembre 2026, dai quattro pezzi dell'ordine; trentotto dal 30
     // settembre sera, con la ES.38 (il suono del responso dell'Oroscopo).
     'ES': 38,
+    // EU: diciannove voci, contate coi titoli "## VOCE EU." del manifesto il
+    // 1 ottobre 2026, dai due pezzi dell'ordine.
+    'EU': 19,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,
