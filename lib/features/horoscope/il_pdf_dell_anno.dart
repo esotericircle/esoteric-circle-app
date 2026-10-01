@@ -32,6 +32,22 @@ abstract final class IlFoglioDellAnno {
   static const double dopoLEtichetta = 2;
   static const double primaDelLivello = 4;
   static const double fraLeSchede = 16;
+
+  /// **UN FOGLIO SOLO, LARGO QUANTO UN A4 E ALTO QUANTO L'ANNO.** Ordine EU
+  /// voce 12, 1 ottobre 2026. Il fondatore: *"il PDF alla fine mostra una
+  /// ripetizione "del tuo lavoro""*. La sua cattura e' la Modalita' Liquida
+  /// di Acrobat, che ricompone il PDF per lo schermo del telefono, e sul
+  /// Realme lo stesso Acrobat l'ha rifatto: **con l'anno su due pagine A4**,
+  /// dopo la scheda della Fortuna ricompaiono "Il tono del tuo anno",
+  /// "L'amore nel tuo anno" e "Il lavoro nel tuo anno" con la freccia
+  /// dell'indice, senza testo, e la riga di "Da dove viene" della Fortuna
+  /// sparisce. E' successo con le schede intere su ogni pagina, coi
+  /// segnalibri e senza la firma in fondo; **con l'anno su una pagina sola
+  /// non succede** (catture in `docs/collaudo/EU/realme/`). Il foglio e'
+  /// quindi uno, alto quanto serve: si legge scorrendo come sullo schermo, e
+  /// chi lo stampa lo adatta al foglio.
+  static final PdfPageFormat foglio =
+      PdfPageFormat(PdfPageFormat.a4.width, double.infinity, marginAll: 40);
 }
 
 /// **IL PDF DELL'ANNO, ordine ES voce 04.** L'annuale approvato dal fondatore
@@ -75,10 +91,10 @@ abstract final class IlPdfDellAnno {
     if (immagine != null) {
       testata = pw.Center(child: pw.Image(immagine, height: 150));
     }
-    doc.addPage(pw.MultiPage(
-      pageFormat: PdfPageFormat.a4,
-      margin: const pw.EdgeInsets.all(40),
-      build: (_) => [
+    doc.addPage(pw.Page(
+      pageFormat: IlFoglioDellAnno.foglio,
+      build: (_) =>
+          pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
         if (testata != null) ...[
           testata,
           pw.SizedBox(height: IlFoglioDellAnno.dopoLaTestata)
@@ -91,35 +107,51 @@ abstract final class IlPdfDellAnno {
         pw.Text(sottotitolo,
             style: const pw.TextStyle(fontSize: IlFoglioDellAnno.sottotitolo)),
         pw.SizedBox(height: IlFoglioDellAnno.dopoLaTestata),
-        for (final s in schede) ...[
-          pw.Text(s.domain.label.toUpperCase(),
-              style: const pw.TextStyle(
-                  fontSize: IlFoglioDellAnno.etichetta, letterSpacing: 1.2)),
-          pw.SizedBox(height: IlFoglioDellAnno.dopoLEtichetta),
-          pw.Text(s.title,
-              style: const pw.TextStyle(
-                  fontSize: IlFoglioDellAnno.titoloDellaScheda,
-                  fontWeight: pw.FontWeight.bold)),
-          pw.SizedBox(height: IlFoglioDellAnno.dopoIlTitolo),
-          pw.Text(s.text,
-              style: const pw.TextStyle(fontSize: IlFoglioDellAnno.testo)),
-          if (s.rigaDelLivello != null) ...[
-            pw.SizedBox(height: IlFoglioDellAnno.primaDelLivello),
-            // Come a schermo: il simbolo sta dopo la lettura, col suo nome
-            // (Linee Guida, sezione 2, "il simbolo non apre mai").
-            pw.Text('DA DOVE VIENE',
-                style: const pw.TextStyle(
-                    fontSize: IlFoglioDellAnno.etichetta, letterSpacing: 1.2)),
-            pw.Text(s.rigaDelLivello!,
-                style:
-                    const pw.TextStyle(fontSize: IlFoglioDellAnno.etichetta)),
-          ],
-          pw.SizedBox(height: IlFoglioDellAnno.fraLeSchede),
-        ],
+        // **OGNI SCHEDA IN UN BLOCCO SOLO**, ordine EU voce 12: prima le
+        // righe della scheda erano figlie dirette di un foglio A4 che
+        // tagliava dove capitava, e in nove PDF di prova su dodici
+        // l'etichetta "FORTUNA" restava sola in fondo alla prima pagina, un
+        // titolo senza testo sotto. Adesso il foglio e' uno e la scheda e'
+        // un blocco: etichetta, titolo, testo e "Da dove viene" insieme.
+        for (final s in schede)
+          pw.Padding(
+            padding:
+                const pw.EdgeInsets.only(bottom: IlFoglioDellAnno.fraLeSchede),
+            child: pw.Column(
+              crossAxisAlignment: pw.CrossAxisAlignment.start,
+              children: [
+                pw.Text(s.domain.label.toUpperCase(),
+                    style: const pw.TextStyle(
+                        fontSize: IlFoglioDellAnno.etichetta,
+                        letterSpacing: 1.2)),
+                pw.SizedBox(height: IlFoglioDellAnno.dopoLEtichetta),
+                pw.Text(s.title,
+                    style: const pw.TextStyle(
+                        fontSize: IlFoglioDellAnno.titoloDellaScheda,
+                        fontWeight: pw.FontWeight.bold)),
+                pw.SizedBox(height: IlFoglioDellAnno.dopoIlTitolo),
+                pw.Text(s.text,
+                    style:
+                        const pw.TextStyle(fontSize: IlFoglioDellAnno.testo)),
+                if (s.rigaDelLivello != null) ...[
+                  pw.SizedBox(height: IlFoglioDellAnno.primaDelLivello),
+                  // Come a schermo: il simbolo sta dopo la lettura, col suo
+                  // nome (Linee Guida, sezione 2, "il simbolo non apre mai").
+                  pw.Text('DA DOVE VIENE',
+                      style: const pw.TextStyle(
+                          fontSize: IlFoglioDellAnno.etichetta,
+                          letterSpacing: 1.2)),
+                  pw.Text(s.rigaDelLivello!,
+                      style: const pw.TextStyle(
+                          fontSize: IlFoglioDellAnno.etichetta)),
+                ],
+              ],
+            ),
+          ),
         pw.Text(
             'Esoteric Circle, oroscopo dell\'anno dalla Rivoluzione Solare.',
             style: const pw.TextStyle(fontSize: IlFoglioDellAnno.firma)),
-      ],
+      ]),
     ));
     return doc.save();
   }
