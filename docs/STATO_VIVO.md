@@ -6129,7 +6129,7 @@ in `docs/collaudo/EU/catture_fondatore/`. Il conto, riletto dal manifesto: 16 vo
   parlano di paragrafi: dicono che la lettura completa spiega perche' succede
   proprio a te e come muoverti, passo per passo; il foglio fa leggere
   l'inizio vero della parte chiusa di oggi, che sfuma, e dice che cosa porta
-  l'abbonamento col prezzo dal listino ("da 2,90 € a settimana"). Le parole
+  l'abbonamento col prezzo dal listino ("da 2,99 € a settimana"). Le parole
   stanno in `lib/features/horoscope/letture_complete.dart`. Nella pagina dei
   piani la riga e' "Oroscopo completo": "Con gli Eos, per un giorno" al
   Viandante, "Sempre" dall'Iniziato (`PlanCatalog.haProfondita` legge
@@ -6141,6 +6141,19 @@ in `docs/collaudo/EU/catture_fondatore/`. Il conto, riletto dal manifesto: 16 vo
   dell'Oroscopo si vela al 92 per cento quando il testo le scorre sotto; le
   tradizioni dell'amico nell'ordine della persona; sulle barre delle ore un
   punto d'oro sopra le ore migliori, e l'ora di adesso col bordo chiaro e una freccia sotto.
+- **Le ultime richieste del 1 ottobre**: i prezzi in novantanove
+  (l'Iniziato 2,99 alla settimana e 9,99 al mese, l'Adepto 19,99 e
+  l'Illuminato 29,99 al mese; gli altri prezzi, non nominati, restano; lo
+  sconto annuale dell'Iniziato ricalcolato a 17); la card da condividere che
+  dice di chi e' ("Il mio oroscopo", per l'amico "Il tuo oroscopo" e "Te lo
+  manda"), con le immagini aspettate prima della fotografia (senza attesa
+  uscivano vuote, 2 su 2 in prova), il numero e il colore grandi, le ore
+  migliori, l'indirizzo in fondo e il link nel testo che l'accompagna; la
+  riga delle tradizioni che invita a scorrere (bolle allungate finche'
+  l'ultima in vista resta tagliata, il bordo che sfuma, una freccia che fa
+  scorrere); il contatore degli online verificato col server (la presenza
+  del Realme scritta in meno di 20 secondi dal risveglio, due presenze in
+  tutto nel database), non ancora visto con due telefoni aperti insieme.
 - **EU Aggiunta 2**: Maya, Egizia, Celtica e Araba mostrano l'emblema senza
   sfondo ritagliato dall'Architetto (`assets/img/zodiac/emblema_tradizione_*.webp`,
   uguali byte per byte ai file del PC), alla misura delle figure dei segni,
@@ -6164,8 +6177,8 @@ dell'Occidentale del giorno sul Realme non si apre il 1 ottobre (l'oroscopo
 completo di oggi e' gia' comprato); l'invito delle altre schede, con le
 stesse parole, e' visto sul telefono (`eu_sera_viandante_invito_abbonati.jpg`).
 
-**Le guardie**: il registro `docs/guardie.md` e' a **643** (categorie 145,
-212 e 286), con le nuove 617-643: la guardia dell'ordine,
+**Le guardie**: il registro `docs/guardie.md` e' a **645** (categorie 145,
+214 e 286), con le nuove 617-645: la guardia dell'ordine,
 `il_tasto_di_invio_non_suona`, `i_contatori_si_leggono_sempre`,
 `il_pdf_dell_anno_si_legge`, `i_livelli_dei_giorni`,
 `le_barre_e_la_griglia_si_leggono`, `i_testi_eu_sono_quelli_dell_architetto`,
@@ -6183,7 +6196,9 @@ sono gia' passate e il Rahu Kalam detto con le sue ore),
 `il_terzo_paragrafo_della_lunga` (631-640);
 `il_titolo_sta_sopra_quando_si_spezzerebbe`,
 `la_barra_dell_oroscopo_si_vela`,
-`le_tradizioni_dell_amico_nell_ordine_della_persona` (641-643). La 641 e'
+`le_tradizioni_dell_amico_nell_ordine_della_persona` (641-643);
+`le_tradizioni_invitano_a_scorrere`,
+`la_card_da_condividere_e_per_chi_la_riceve` (644-645). La 641 e'
 stata **verde** sul primo innesto del titolo su tre righe, perche' prendeva
 la regola dal codice: adesso la misura e' scritta nella prova, e rossa.
 Regola A in

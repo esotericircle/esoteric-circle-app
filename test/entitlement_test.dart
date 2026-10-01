@@ -94,19 +94,22 @@ void main() {
 
     test('I livelli a pagamento hanno i tre cicli col prezzo giusto', () {
       final iniziato = PlanCatalog.forTier(Tier.tier1);
-      expect(iniziato.price!.weekly, '2,90 €');
-      expect(iniziato.price!.monthly, '9,90 €');
+      // LAPIDE, 1 ottobre 2026: il fondatore ha portato i prezzi a 2,99,
+      // 9,99, 19,99 e 29,99 ("Gli abbonamenti [...] sono cambiati in 2,99 -
+      // 9,99 - 19,99 - 29,99"). Qui si pretendevano 2,90 e 9,90.
+      expect(iniziato.price!.weekly, '2,99 €');
+      expect(iniziato.price!.monthly, '9,99 €');
       expect(iniziato.price!.yearly, '99,90 €');
-      // **LO SCONTO SEGUE IL PREZZO, ordine CE voce 07.** Era 24 e adesso
-      // e 16, che e lo sconto minore che il fondatore ha chiesto: 99,90
-      // contro 118,80 di dodici mensili.
-      expect(iniziato.price!.yearlyDiscountPercent, 16);
+      // **LO SCONTO SEGUE IL PREZZO, ordine CE voce 07.** Era 24, poi 16 con
+      // 9,90 al mese, adesso 17: 99,90 contro 119,88 di dodici mensili.
+      expect(iniziato.price!.yearlyDiscountPercent, 17);
       // L'Iniziato apre col riepilogo del gratuito, poi la Memoria AI.
       expect(iniziato.highlights.first, contains('Tutto di Viandante'));
       expect(iniziato.highlights.any((h) => h.contains('Memoria AI')), isTrue);
 
       final adepto = PlanCatalog.forTier(Tier.tier2);
-      expect(adepto.price!.monthly, '19,90 €');
+      expect(adepto.price!.monthly, '19,99 €');
+      expect(PlanCatalog.forTier(Tier.tier3).price!.monthly, '29,99 €');
       final illuminato = PlanCatalog.forTier(Tier.tier3);
       expect(illuminato.price!.yearly, '279,90 €');
     });

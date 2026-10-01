@@ -69,7 +69,26 @@ class OroscopoShareCard extends StatelessWidget {
     this.nomeDelSegno,
     this.figuraDelSegno,
     this.titoloDelleTessere,
+    this.perUnAmico = false,
+    this.daParteDi,
+    this.oreMigliori,
   });
+
+  /// **LA CARD DICE DI CHI E', E CHI LA MANDA.** Il fondatore, 1 ottobre
+  /// 2026: *"Mi raccomando di curare e ottimizzare la scheda di condivisione
+  /// sia per l'utente sia per l'amico/a"*. Chi la riceve deve capire in un
+  /// colpo d'occhio se e' l'oroscopo di chi la manda ("Il mio oroscopo") o
+  /// il suo, regalato da un amico ("Il tuo oroscopo", "Te lo manda Mauro").
+  final bool perUnAmico;
+
+  /// Il nome di chi manda la card a un amico, senza cognome; null se non si
+  /// sa.
+  final String? daParteDi;
+
+  /// La riga delle ore migliori del giorno ("Le ore migliori: dalle 13:58
+  /// alle 14:56."), la cosa piu' concreta che chi la riceve puo' usare
+  /// oggi; null se il periodo non e' il Giorno o il luogo manca.
+  final String? oreMigliori;
 
   /// La riga sopra le quattro tessere, quando non dicono il giorno: nella
   /// Settimana e nel Mese "Il giorno migliore di ogni campo" (ordine ES voce
@@ -191,10 +210,19 @@ class OroscopoShareCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: SpacingTokens.sm),
-            Text('OROSCOPO ${etichettaDelPeriodo.toUpperCase()}',
-                textAlign: TextAlign.center,
-                style: TypographyTokens.etichetta()
-                    .copyWith(color: palette.goldSoft, letterSpacing: 3.0)),
+            // Su una riga sola: "IL TUO OROSCOPO DEL / GIORNO" andava a capo
+            // con l'ultima parola da sola.
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                  '${perUnAmico ? 'IL TUO' : 'IL MIO'} OROSCOPO '
+                  '${etichettaDelPeriodo.toUpperCase()}',
+                  key: const Key('share_titolo'),
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.etichetta()
+                      .copyWith(color: palette.goldSoft, letterSpacing: 2.4)),
+            ),
             // CHI E' NATO, ordine ES voce 13: il nome senza cognome e i
             // dati di nascita.
             if (nome != null) ...[
@@ -205,6 +233,12 @@ class OroscopoShareCard extends StatelessWidget {
                   style: TypographyTokens.cerimoniale()
                       .copyWith(color: ColorTokens.textPrimary)),
             ],
+            if (perUnAmico && daParteDi != null)
+              Text('Te lo manda $daParteDi',
+                  key: const Key('share_da_parte_di'),
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.didascalia().copyWith(
+                      color: palette.goldSoft, fontStyle: FontStyle.italic)),
             if (nascita != null)
               Text(nascita!,
                   key: const Key('share_nascita'),
@@ -216,8 +250,10 @@ class OroscopoShareCard extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    width: 104,
-                    height: 104,
+                    // La figura del segno e' il colpo d'occhio della card:
+                    // piu' grande, come nella testa dell'Oroscopo.
+                    width: 132,
+                    height: 132,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
@@ -228,11 +264,11 @@ class OroscopoShareCard extends StatelessWidget {
                     ),
                     child: figuraDelSegno == null
                         ? ZodiacEmblem(
-                            sign: sign, size: 92, art: ZodiacEmblemArt.emblem)
+                            sign: sign, size: 120, art: ZodiacEmblemArt.emblem)
                         : Image.asset(figuraDelSegno!,
                             key: const Key('share_figura_del_segno'),
-                            width: 92,
-                            height: 92,
+                            width: 120,
+                            height: 120,
                             fit: BoxFit.contain),
                   ),
                   Text(nomeDelSegno ?? sign.italianName,
@@ -273,6 +309,26 @@ class OroscopoShareCard extends StatelessWidget {
                     child: Text(rigaDelCielo,
                         style: TypographyTokens.didascalia()
                             .copyWith(color: palette.goldSoft, height: 1.35)),
+                  ),
+                ],
+              ),
+            ],
+            // LE ORE MIGLIORI DI OGGI, la cosa che chi riceve la card puo'
+            // usare subito (il fondatore: "come posso aumentare l'esperienza
+            // utente?").
+            if (oreMigliori != null) ...[
+              const SizedBox(height: SpacingTokens.sm),
+              Row(
+                key: const Key('share_ore_migliori'),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.schedule_rounded,
+                      size: 14, color: palette.goldSoft),
+                  const SizedBox(width: SpacingTokens.xxs),
+                  Expanded(
+                    child: Text(oreMigliori!,
+                        style: TypographyTokens.didascalia().copyWith(
+                            color: ColorTokens.textPrimary, height: 1.35)),
                   ),
                 ],
               ),
@@ -324,54 +380,17 @@ class OroscopoShareCard extends StatelessWidget {
                 fortuna.numeriDelGiorno != null ||
                 fortuna.dayColor != null) ...[
               const SizedBox(height: SpacingTokens.md),
-              IntrinsicHeight(
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // IL NUMERO AL CENTRO DEL SUO RIQUADRO, ordine ES voce
-                    // 13, come nella schermata dalla voce ES.14: la bolla di
-                    // prima teneva la cifra in alto quando la riga la stirava.
-                    Expanded(
-                      child: RiquadroDelNumero(
-                          numero: fortuna.luckyNumber ?? 0,
-                          palette: palette,
-                          etichetta: fortuna.numeriDelGiorno == null
-                              ? 'Numero'
-                              : 'Numeri',
-                          cifre: fortuna.numeriDelGiorno?.join(' e ')),
-                    ),
-                    const SizedBox(width: SpacingTokens.sm),
-                    Expanded(
-                      child: _InfoBubble(
-                        label: 'Colore',
-                        palette: palette,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 14,
-                              height: 14,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: oroscopoColor(fortuna.dayColor) ??
-                                    palette.goldSoft,
-                                border: Border.all(
-                                    color: palette.gold.withValues(alpha: 0.6)),
-                              ),
-                            ),
-                            const SizedBox(width: 5),
-                            Flexible(
-                              child: Text(fortuna.dayColor ?? '',
-                                  maxLines: 1,
-                                  style: TypographyTokens.didascalia().copyWith(
-                                      color: ColorTokens.textPrimary)),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+              // IL NUMERO E IL COLORE COME NELLA SCHEDA, grandi e al centro
+              // (il fondatore, 1 ottobre 2026): la card usava ancora il
+              // pallino di quattordici punti e il nome in didascalia.
+              LaFortunaDelGiorno(
+                numero: fortuna.luckyNumber ?? 0,
+                cifre: fortuna.numeriDelGiorno?.join(' e '),
+                etichettaDelNumero:
+                    fortuna.numeriDelGiorno == null ? 'Numero' : 'Numeri',
+                nomeDelColore: fortuna.dayColor,
+                colore: oroscopoColor(fortuna.dayColor),
+                palette: palette,
               ),
             ],
             const SizedBox(height: SpacingTokens.md),
@@ -382,12 +401,23 @@ class OroscopoShareCard extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: TypographyTokens.etichetta()
                     .copyWith(color: palette.goldSoft, letterSpacing: 2.4)),
-            // IL LINK PER SCARICARE L'APP, ordine ES voce 13.
-            Text('Scarica l\'app: ${Brand.domain}',
+            // IL LINK PER SCARICARE L'APP, ordine ES voce 13. Detto come un
+            // invito a chi la riceve, non come un'istruzione: il suo
+            // oroscopo, ogni giorno.
+            Text(
+                perUnAmico
+                    ? 'Il tuo cielo ogni giorno'
+                    : 'Scopri il tuo oroscopo',
                 key: const Key('share_scarica'),
                 textAlign: TextAlign.center,
                 style: TypographyTokens.etichetta().copyWith(
                     color: ColorTokens.textSecondary, letterSpacing: 0.6)),
+            // L'indirizzo su una riga sua, in oro: e' la cosa da ricordare.
+            Text(Brand.domain,
+                key: const Key('share_indirizzo'),
+                textAlign: TextAlign.center,
+                style: TypographyTokens.titoloDiRiga()
+                    .copyWith(color: palette.goldSoft, letterSpacing: 0.8)),
           ],
         ),
       ),
@@ -488,39 +518,29 @@ class _LevelTile extends StatelessWidget {
   }
 }
 
-/// Una bolla informativa col titolo sopra e il contenuto sotto, di misura
-/// uguale alle sue sorelle.
-class _InfoBubble extends StatelessWidget {
-  const _InfoBubble(
-      {required this.label, required this.child, required this.palette});
+/// **LE IMMAGINI PRIMA DELLA FOTOGRAFIA.** La card si disegna fuori schermo e
+/// si fotografa un attimo dopo (ottanta millesimi): un'immagine non ancora
+/// decodificata (l'emblema del periodo, la figura del segno) poteva uscire
+/// vuota nella fotografia, ed e' la prima cosa che vede chi la riceve. Qui si
+/// cercano tutte le immagini disegnate dentro la card e si aspetta che siano
+/// pronte. Chi chiama aspetta poi un fotogramma, perche' si disegnino. Un'immagine
+/// che non si carica non ferma la condivisione.
+Future<void> aspettaLeImmaginiDellaCard(GlobalKey chiave) async {
+  final contesto = chiave.currentContext;
+  if (contesto == null) return;
+  final immagini = <ImageProvider>[];
+  void visita(Element e) {
+    final w = e.widget;
+    if (w is Image) immagini.add(w.image);
+    e.visitChildElements(visita);
+  }
 
-  final String label;
-  final Widget child;
-  final MaestroPalette palette;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-          horizontal: SpacingTokens.sm, vertical: SpacingTokens.sm),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(SpacingTokens.radiusSm),
-        color: palette.primary.withValues(alpha: 0.4),
-        border: Border.all(color: palette.gold.withValues(alpha: 0.35)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(label.toUpperCase(),
-              textAlign: TextAlign.center,
-              style: TypographyTokens.etichetta().copyWith(
-                  color: ColorTokens.textSecondary, letterSpacing: 0.8)),
-          const SizedBox(height: 4),
-          Center(child: child),
-        ],
-      ),
-    );
+  (contesto as Element).visitChildElements(visita);
+  for (final i in immagini) {
+    if (!contesto.mounted) return;
+    try {
+      await precacheImage(i, contesto);
+    } catch (_) {}
   }
 }
 

@@ -72,7 +72,8 @@ class LetturaDelMese extends ChangeNotifier {
 
   /// **IL PIANO DA CUI LA LETTURA COMPARE.**
   ///
-  /// Tier 1, cioe' l'Iniziato, che e' l'abbonamento a 9,90 al mese. La riga
+  /// Tier 1, cioe' l'Iniziato, che e' l'abbonamento a 9,90 al mese (9,99
+  /// dal 1 ottobre 2026). La riga
   /// della matrice che metteva l'AI dal Tier 2 e' superata da questa voce, per
   /// decisione del fondatore del 31 agosto 2026.
   static const Tier pianoMinimo = Tier.tier1;

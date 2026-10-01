@@ -310,9 +310,11 @@ void main() {
     var colGesto = 0;
     final viste = <String>[];
     for (final (p, titolo, tessere) in const [
-      (HoroscopePeriod.settimana, 'OROSCOPO DELLA SETTIMANA', true),
-      (HoroscopePeriod.mese, 'OROSCOPO DEL MESE', true),
-      (HoroscopePeriod.anno, 'OROSCOPO DELL\'ANNO', false),
+      // LAPIDE, 1 ottobre 2026: la card dice di chi e' ("IL MIO OROSCOPO",
+      // il fondatore: curare la condivisione per l'utente e per l'amico).
+      (HoroscopePeriod.settimana, 'IL MIO OROSCOPO DELLA SETTIMANA', true),
+      (HoroscopePeriod.mese, 'IL MIO OROSCOPO DEL MESE', true),
+      (HoroscopePeriod.anno, 'IL MIO OROSCOPO DELL\'ANNO', false),
     ]) {
       final scheda = find.byKey(Key('oroscopo_period_${p.name}'));
       await tester.ensureVisible(scheda);

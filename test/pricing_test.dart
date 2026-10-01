@@ -120,7 +120,8 @@ void main() {
     expect(
       find.descendant(
         of: find.byKey(const Key('choose_tier1')),
-        matching: find.textContaining('2,90 € a settimana'),
+        // Dal 1 ottobre 2026 2,99, non piu' 2,90 (il fondatore).
+        matching: find.textContaining('2,99 € a settimana'),
       ),
       findsOneWidget,
     );

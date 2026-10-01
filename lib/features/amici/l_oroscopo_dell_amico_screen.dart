@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../core/brand/brand.dart';
+import '../../core/identity/profile_controller.dart';
+
 import '../../core/amici/amici_offline.dart';
 import '../../core/astro/luogo_attuale.dart';
 import '../../core/astro/zodiac.dart';
@@ -182,15 +185,34 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
     }
   }
 
+  /// Il nome di chi manda la card, senza cognome; null se non si sa (le
+  /// prove montano questa schermata senza il profilo).
+  String? _chiLaManda() {
+    try {
+      final profilo = context.read<ProfileController>().profile;
+      return profilo.hasName
+          ? OroscopoShareCard.soloIlNome(profilo.displayName)
+          : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
   Future<void> _condividi(SegnoDellaTradizione segno) async {
     setState(() => _renderCard = true);
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
+      await aspettaLeImmaginiDellaCard(_cardKey);
+      await WidgetsBinding.instance.endOfFrame;
       final andata = await shareOroscopoCard(
         boundaryKey: _cardKey,
-        text: 'Il tuo oroscopo di oggi, ${widget.amico.nome}: ${segno.nome}. '
-            'Esoteric Circle.',
+        // Il testo che accompagna la card: di chi e', chi la manda, e dove
+        // trovare il proprio (il fondatore, 1 ottobre 2026: curare la
+        // condivisione per l'utente e per l'amico).
+        text: 'Il tuo oroscopo di oggi, ${widget.amico.nome}: ${segno.nome}.'
+            '${_chiLaManda() == null ? '' : ' Te lo manda ${_chiLaManda()}.'}'
+            ' Il tuo cielo ogni giorno: ${Brand.url}',
       );
       // Il premio della condivisione avvenuta, dichiarato sul pulsante.
       if (andata && mounted) {
@@ -364,6 +386,9 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
                   cards: schede,
                   palette: palette,
                   nome: OroscopoShareCard.soloIlNome(widget.amico.nome),
+                  // La card e' un regalo: "Il tuo oroscopo", "Te lo manda".
+                  perUnAmico: true,
+                  daParteDi: _chiLaManda(),
                   nomeDelSegno: _tradizione == AstroTradition.occidentale
                       ? null
                       : segno.nome,

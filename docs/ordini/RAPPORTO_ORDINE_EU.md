@@ -6,8 +6,9 @@ la **EU Aggiunta, i testi dell'Architetto** (dodici corpora nuovi). Ramo
 `claude/esoteric-circle-master-order-e798aj`, partenza dal commit `902ef8e5`.
 Manifesto `docs/ordini/ORDINE_EU_MANIFESTO.md`, prove in `docs/collaudo/EU/`,
 quelle del telefono in `docs/collaudo/EU/realme/`. **Questo ordine non
-consegna niente**: le due build fatte per il Realme portano il numero 2289 e
-non sono consegne.
+consegna niente**: le build fatte per il Realme (dai commit `8b9a581a`,
+`cd31e52f`, `ece93edc`, `d4ecae35`, `ab7e2cb9` e `d17db7af`) portano il
+numero 2289 e non sono consegne.
 
 **Il conto** (manifesto riletto dal file): **16 voci chiuse, 3 aperte in attesa di verifica (EU.03, EU.13, EU.14), 0 da fare.** Le chiuse qui sotto, ognuna con la domanda del fondatore alla lettera, la prova (un file che si apre) e la misura; poi le aperte con cio' che manca e chi lo fa; poi le richieste della sera, con la stessa forma.
 
@@ -115,7 +116,7 @@ catture sono del Realme con le build di prova dei commit `cd31e52f`,
 - **Non vendere "due paragrafi"**
   DOMANDA: "Ma dai, elimina che aggiungiamo 2 paragrafi, ma pensi prima di scrivere? Io penserei: "ma devo spendere soldi per solo 2 paragrafi di merda?". E dai cazzo, impegnati un po'! Rispondi sempre alle domande "quadro è il massimo" e "come posso ottenere di più?" e "cosa penserebbe l'utente" e *come posso aumentare l'esperienza utente?"
   PROVA: `test/la_lunga_si_apre_con_gli_eos_test.dart` e `test/la_profondita_sta_su_ogni_scheda_test.dart`; le parole in `lib/features/horoscope/letture_complete.dart`
-  MISURA: scritte del foglio e dell'invito che parlano di paragrafi, prima 1 e 1, dopo 0 e 0; anteprima vera della parte chiusa di oggi, prima 0 caratteri, dopo 195 (l'inizio del terzo paragrafo, che sfuma); prezzo dell'abbonamento detto, prima no, dopo "da 2,90 € a settimana" letto dal listino dei piani.
+  MISURA: scritte del foglio e dell'invito che parlano di paragrafi, prima 1 e 1, dopo 0 e 0; anteprima vera della parte chiusa di oggi, prima 0 caratteri, dopo 195 (l'inizio del terzo paragrafo, che sfuma); prezzo dell'abbonamento detto, prima no, dopo "da 2,99 € a settimana" letto dal listino dei piani.
   Le quattro domande, per questo foglio. *Qual è il massimo?* Far leggere a chi non ha l'abbonamento l'inizio vero di cio' che gli manca, oggi, sulla sua scheda: non una promessa generica. *Come posso ottenere di più?* Dire in una riga che cosa porta l'abbonamento, solo cose vere del piano (l'oroscopo completo ogni giorno, la settimana coi suoi giorni migliori, il cinese e il vedico, i Maestri che ricordano), col prezzo piu' basso. *Cosa penserebbe l'utente?* "Che cosa ci guadagno?": la prima frase risponde ("ti dice perché succede proprio a te e come muoverti, passo per passo"). *Come aumento l'esperienza?* Una sola scelta principale (abbonarsi), la scorciatoia di un giorno sotto, e nessuna parola tecnica.
 - **I dodici mesi sull'Anno**
   DOMANDA: "Hai messo infografica anche per oroscopo annuale? Magari per i 12 mesi indicando i migliori o quello che ritieni migliore."
@@ -150,6 +151,23 @@ catture sono del Realme con le build di prova dei commit `cd31e52f`,
   PROVA: `docs/collaudo/EU/realme/eu_sera_amico_borgo_di_rivalta.jpg`
   MISURA: campi del luogo senza la domanda al mondo, prima 1 su 3 (il foglio dell'amico), dopo 0 su 3; "Borgo di Rivalta" trovato nel foglio dell'amico sul Realme, prima no, dopo si' ("Loc. Borgo di Rivalta, Piacenza"). Nessun amico salvato sul telefono.
 - **Gli emblemi senza sfondo (EU Aggiunta 2)**: nella voce EU.06 qui sopra.
+
+- **I prezzi in novantanove**
+  DOMANDA: "Gli abbonamenti e quindi foni riferimento sono cambiati in 2,99 - 9,99 - 19,99 - 29,99"
+  PROVA: `test/entitlement_test.dart` e `test/pricing_test.dart`; i prezzi in `lib/core/entitlement/plan_catalog.dart`
+  MISURA: l'Iniziato da 2,90 a 2,99 alla settimana e da 9,90 a 9,99 al mese, l'Adepto da 19,90 a 19,99 al mese, l'Illuminato da 29,90 a 29,99 al mese; lo sconto annuale ricalcolato dell'Iniziato da 16 a 17 per cento (99,90 contro 119,88), Adepto e Illuminato restano 21 e 22. **Scelta presa con la risposta consigliata**: il settimanale dell'Adepto (4,90) e dell'Illuminato (6,90) e i tre annuali (99,90, 189,90, 279,90) non sono nominati nel messaggio e restano come sono; se vanno anche loro in novantanove, e' una riga per prezzo. Il foglio dell'oroscopo completo dice "da 2,99 € a settimana", letto dal listino.
+- **La card da condividere, per l'utente e per l'amico**
+  DOMANDA: "Mi raccomando di curare e ottimizzare la scheda di condivisione sia per l'utente sia per l'amico/a"
+  PROVA: `test/la_card_da_condividere_e_per_chi_la_riceve_test.dart`
+  MISURA: immagini vuote nella fotografia della card (l'emblema del periodo e la figura del segno), con la fotografia di prima a ottanta millesimi 2 su 2 nella prova, dopo 0 su 2: adesso si aspetta che siano pronte (`aspettaLeImmaginiDellaCard`), padre la fotografia a ottanta millesimi dalla nascita della card (`96aacd16`, 19 luglio 2026) e le immagini grandi dell'ordine ES voce 05 (`a9e52f66`); il titolo dice di chi e', "IL MIO OROSCOPO DEL GIORNO" o, per l'amico, "IL TUO OROSCOPO DEL GIORNO" con "Te lo manda" e il nome di chi la manda, su una riga sola (prima "OROSCOPO DEL GIORNO", e per l'amico la stessa card dell'utente); la figura del segno da 92 a 120 punti; il numero e il colore grandi come nella scheda; le ore migliori di oggi sulla card dell'utente; in fondo l'invito ("Scopri il tuo oroscopo", per l'amico "Il tuo cielo ogni giorno") e l'indirizzo in oro su una riga sua; il testo che accompagna l'immagine porta il link (`https://esotericircle.app`), per l'amico anche chi la manda. Le quattro domande: *qual e' il massimo?* che chi la riceve capisca in un secondo di chi e' e da chi viene; *come ottenere di piu'?* le ore migliori, la cosa che puo' usare oggi, e il link per avere il suo; *cosa penserebbe chi la riceve?* "e' per me?": "Il tuo oroscopo, te lo manda Mauro"; *come aumentare l'esperienza?* niente immagini vuote, niente parole a capo. Sul Realme la card non si vede senza mandarla a qualcuno: e' misurata in prova.
+- **Il contatore di chi e' online**
+  DOMANDA: "Controlla anche che l'indicatore online con numero di utenti on-line funzioni veramente."
+  PROVA: `functions/src/presenza.ts` (la finestra) e la lettura delle presenze in Firestore del 1 ottobre 2026, descritta qui
+  MISURA: il Realme, riacceso alle 13:04 ora italiana, ha scritto la sua presenza al server dopo meno di 20 secondi (11:04:48 UTC), e la barra dice "ONLINE 1": la domanda va e torna. Nel database ci sono due presenze in tutto, il telefono del fondatore (ultima alle 08:48 ora italiana) e il Realme: il conto conta i telefoni che hanno chiesto negli ultimi due minuti e mezzo, quindi con due telefoni aperti insieme dice 2 entro due minuti. **Non visto con due telefoni**: l'iPhone di collaudo ha la build 2288, che al centro della barra dice ancora "Eventi Cosmici" e non chiede la presenza, e il telefono del fondatore non era aperto; la prova a due si fa aprendo l'app sul telefono del fondatore col Realme acceso.
+- **La riga delle tradizioni invita a scorrere**
+  DOMANDA: "Nella riga di selezione della tipologia di oroscopo, non si capisce che dopo "cinese" ci sono altre tipologie e l'utente non viene automaticamente invitato a scorrere per vedere gli altri. Trova soluzione, magari allungando leggermente le bolle o altra soluzione migliore"
+  PROVA: `test/le_tradizioni_invitano_a_scorrere_test.dart`; sul Realme `docs/collaudo/EU/realme/eu_sera_tradizioni_da_scorrere.jpg`
+  MISURA: tre cose insieme. Le bolle si allungano finche' l'ultima in vista resta tagliata dal bordo (a 390 punti la Cinese si vede per il 70 per cento, prima per intero con la Maya che cominciava proprio sul bordo, 0 per cento); il bordo da cui la riga continua sfuma (pixel chiari sull'ultima colonna, senza la sfumatura fino a 6, dopo 0); a destra una freccia che a un tocco fa scorrere la riga di 188-208 punti, e in fondo la freccia passa a sinistra.
 
 E tre difetti visti sul Realme dopo, curati con la loro prova nata rossa
 (`docs/collaudo/EU/regola_a_richieste_della_sera.txt`, A20-A26bis):
@@ -435,4 +453,23 @@ decidere con la risposta consigliata e non lasciare niente in coda, quindi:
 
 ## I COMMIT
 
-COMMIT_DA_SCRIVERE
+In ordine, dal primo all'ultimo, sul ramo `claude/esoteric-circle-master-order-e798aj` (il messaggio intero di ognuno si legge con `git log`):
+
+- `b4e9d0dc` EU, avvio: il manifesto con le diciannove voci dei due pezzi e la domanda del fondatore di ciascuna, la guardia dell'ordine (617) rossa su due innesti, le otto voci aperte [...]
+- `0260d6c3` EU.03: alla pressione dei tasti di invio non suona piu' niente (la soglia di BK.04 su Interroga il cielo e di CO.07 sull'avvio della stesa), resta la vibrazione e il suono [...]
+- `26b98680` EU.04: la testata dell'Oroscopo dice "Oroscopo del giorno", "della settimana", "del mese", "dell'anno" su una riga, senza "Personalizzato", e sotto le date; per l'Anno le date [...]
+- `ae2d9370` EU.05: la riga "Oroscopo per" sopra i periodi, col nome della persona scelto e "amico/a"; il tocco su amico/a apre "I tuoi amici" per scegliere, la lettura dell'amico porta la [...]
+- `eadaf701` EU.06 ed EU.07: le immagini di Maya, Egizia, Celtica e Araba sono gli sfondi Tradizione-* della cartella del fondatore, portati dalla ES.11 (a9e52f66), usati da nessun'altra [...]
+- `d9831989` EU.10: il numero fortunato grande e al centro del suo riquadro, col ruolo tipografico nuovo del numero del giorno (40 punti, 52 al carattere massimo, il doppio dell'etichetta) e [...]
+- `7bcf84fe` EU.19: i contatori della barra in alto si leggono sempre: il velo della barra passa dal 72 al 92 per cento, il contrasto peggiore dei contatori sul colore piu' chiaro che puo' [...]
+- `ea18ad72` EU.12: il PDF dell'anno su un foglio solo, largo quanto un A4 e alto quanto serve, con ogni scheda intera; la ripetizione della cattura del fondatore era la Modalita' Liquida di [...]
+- `39b6d820` EU.12: la guardia del PDF scrive i tre esempi in docs solo con SCRIVI_I_PDF=1, perche' ogni PDF porta data e identificativo e riscriverlo a ogni giro sporcava l'albero.
+- `9b3e7aff` EU.09 ed EU.11: il livello dei giorni col clima dei lenti tenuto a un gradino (Hand, Planets in Transit) e la Luna del giorno al corpo natale del dominio entro sei gradi (Lilly, [...]
+- `67ca80b7` EU Aggiunta, EU.01, EU.02, EU.08, EU.14, EU.16, EU.17, EU.18: i testi dell'Architetto a video. I dodici corpora di docs/corpus/eu entrano uguali byte per byte e il codice li porta [...]
+- `8b9a581a` EU.13 ed EU.15: la prima apertura di Vedica, Cinese, Maya, Egizia, Celtica e Araba, e di una tradizione dell'amico, rivela il segno in testa (la figura sale con la sua luce, poi [...]
+- `cd31e52f` EU dal Realme e le richieste del fondatore della sera del 1 ottobre: sul Realme sette difetti curati con la loro prova nata rossa (il Sigillo dei Tre Cieli suonava alla pressione [...]
+- `ece93edc` EU, il secondo giro sul Realme delle richieste della sera e la suite intera del commit cd31e52f: le ore migliori del giorno si dicono fra quelle che devono ancora finire (alle [...]
+- `d4ecae35` EU, l'oroscopo completo detto con le parole di chi legge e i tre difetti del Realme che restavano: il foglio dell'oroscopo completo non vende piu' "due paragrafi" (il fondatore: [...]
+- `ab7e2cb9` EU, le ore migliori segnate sulle barre (un punto d'oro sopra ogni ora migliore, un segno sotto l'ora di adesso: "come posso aumentare l'esperienza utente?") e il titolo sopra il [...]
+- `d17db7af` EU, l'ora di adesso col bordo chiaro sulla sua barra: sul Realme la freccia da sola era piccola. Guardia 639 rossa togliendo il bordo (A29).
+- e il commit dei documenti finali (questo rapporto con l'elenco dei commit, la cattura delle ore sulle barre), il cui numero sta nel messaggio al fondatore, letto da `git ls-remote`.

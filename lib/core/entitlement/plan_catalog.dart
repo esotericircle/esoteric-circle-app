@@ -169,6 +169,15 @@ class PlanCatalog {
   /// `1 - annuale / (mensile * 12)`, arrotondato all'intero: 99,90 contro
   /// 118,80 fa il 15,9; 189,90 contro 238,80 fa il 20,5; 279,90 contro 358,80
   /// fa il 22,0. Anche il per-mese e' rifatto: annuale diviso dodici.
+  ///
+  /// **I PREZZI IN NOVANTANOVE, 1 ottobre 2026.** Il fondatore: *"Gli
+  /// abbonamenti e quindi foni riferimento sono cambiati in 2,99 - 9,99 -
+  /// 19,99 - 29,99"*: l'Iniziato 2,99 alla settimana e 9,99 al mese,
+  /// l'Adepto 19,99 al mese, l'Illuminato 29,99 al mese. Gli altri prezzi
+  /// (il settimanale dell'Adepto e dell'Illuminato, i tre annuali) non li ha
+  /// nominati e restano. Lo sconto annuale ricalcolato con la regola qui
+  /// sopra: 99,90 contro 119,88 fa il 16,7, quindi **17**; 189,90 contro
+  /// 239,88 fa il 20,8, quindi 21; 279,90 contro 359,88 fa il 22,2, quindi 22.
   static const List<Plan> plans = [
     Plan(
       tier: Tier.free,
@@ -193,11 +202,11 @@ class PlanCatalog {
       identity: 'I Maestri ti conoscono e ti ricordano.',
       highlighted: true,
       price: PlanPrice(
-        weekly: '2,90 €',
-        monthly: '9,90 €',
+        weekly: '2,99 €',
+        monthly: '9,99 €',
         yearly: '99,90 €',
         yearlyPerMonth: '8,33 € al mese',
-        yearlyDiscountPercent: 16,
+        yearlyDiscountPercent: 17,
       ),
       highlights: [
         'Tutto di Viandante, senza pubblicità',
@@ -223,7 +232,7 @@ class PlanCatalog {
       identity: 'I Maestri ti parlano, anche con la voce.',
       price: PlanPrice(
         weekly: '4,90 €',
-        monthly: '19,90 €',
+        monthly: '19,99 €',
         yearly: '189,90 €',
         yearlyPerMonth: '15,83 € al mese',
         yearlyDiscountPercent: 21,
@@ -251,7 +260,7 @@ class PlanCatalog {
       identity: 'Sei oltre il velo.',
       price: PlanPrice(
         weekly: '6,90 €',
-        monthly: '29,90 €',
+        monthly: '29,99 €',
         yearly: '279,90 €',
         yearlyPerMonth: '23,32 € al mese',
         yearlyDiscountPercent: 22,

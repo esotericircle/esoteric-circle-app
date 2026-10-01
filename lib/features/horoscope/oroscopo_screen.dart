@@ -9,6 +9,7 @@ import '../sigilli/regia_del_cammino.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/entitlement/entitlement_service.dart';
+import '../../core/brand/brand.dart';
 import '../../core/entitlement/plan_catalog.dart';
 
 import '../../core/astro/zodiac.dart';
@@ -1713,6 +1714,14 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                           // il nome senza cognome e i dati di nascita.
                           periodo: _period.name,
                           etichettaDelPeriodo: _period.etichetta,
+                          // Le ore migliori di oggi, quelle che devono ancora
+                          // finire: chi riceve la card le puo' usare.
+                          oreMigliori: _period == HoroscopePeriod.giorno &&
+                                  _leOre != null
+                              ? LeOreDelGiornoView.rigaDelleMigliori(
+                                  _leOre!.$1, HoroscopeDomain.generale,
+                                  adesso: DateTime.now())
+                              : null,
                           nome: OroscopoShareCard.soloIlNome(
                               profile.profile.displayName),
                           nascita: profile.identity.isExample
@@ -2147,12 +2156,15 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
+      await aspettaLeImmaginiDellaCard(_cardKey);
+      await WidgetsBinding.instance.endOfFrame;
       final andata = await shareOroscopoCard(
         boundaryKey: _cardKey,
         text: _period == HoroscopePeriod.giorno
-            ? 'Il mio oroscopo di oggi, $_segnoCondiviso. Esoteric Circle.'
+            ? 'Il mio oroscopo di oggi, $_segnoCondiviso. Scopri il tuo: '
+                '${Brand.url}'
             : 'Il mio oroscopo ${_period.etichetta}, $_segnoCondiviso. '
-                'Esoteric Circle.',
+                'Scopri il tuo: ${Brand.url}',
       );
       if (andata && mounted) {
         // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
@@ -2816,6 +2828,10 @@ class _TraditionTabsState extends State<_TraditionTabs> {
   @override
   void initState() {
     super.initState();
+    _scorrimento.addListener(_leggiIBordi);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) _leggiIBordi();
+    });
     // Una riga appena nata parte dall'inizio: se la scelta sta piu' in la',
     // la si va a prendere.
     if (widget.current != AstroTradition.values.first) _mostraLaScelta();
@@ -2872,30 +2888,250 @@ class _TraditionTabsState extends State<_TraditionTabs> {
       // vista ne hanno due. Adesso le costruisce tutte, e l'altezza segue la
       // scala del testo.
       height: 86 + 56 * (MediaQuery.textScalerOf(context).scale(14) / 14 - 1),
-      // Sette voci: si costruiscono tutte, cosi' la riga puo' scorrere fino a
-      // quella scelta anche quando sta fuori dallo schermo.
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            for (final t in AstroTradition.values) ...[
-              if (t != AstroTradition.values.first)
-                const SizedBox(width: SpacingTokens.xs),
-              KeyedSubtree(
-                key: _chiavi[t],
-                child: _TraditionChip(
-                  tradition: t,
-                  selected: t == current,
-                  palette: palette,
-                  onTap: () => onSelect(t),
+      // **SI CAPISCE CHE LA RIGA CONTINUA.** Il fondatore, 1 ottobre 2026:
+      // *"non si capisce che dopo "cinese" ci sono altre tipologie e l'utente
+      // non viene automaticamente invitato a scorrere"*. Sul Realme le prime
+      // tre bolle riempivano la riga e della quarta restava un filo. Adesso
+      // ogni bolla e' larga almeno quanto serve perche' ne stiano tre e mezza
+      // ([bolleInVista]): la quarta si vede a meta', tagliata dal bordo, e
+      // si capisce che ce n'e' ancora. E sul bordo da cui la riga continua il
+      // cielo sfuma, finche' c'e' qualcosa da scorrere.
+      child: LayoutBuilder(builder: (context, vincoli) {
+        // La freccia ha il suo posto a destra, fuori dalla riga che scorre:
+        // sopra la riga coprirebbe la fine del nome dell'ultima bolla.
+        final larghezzaMinima = larghezzaPerLaSbirciata(
+            vincoli.maxWidth - postoDellaFreccia,
+            MediaQuery.textScalerOf(context));
+        // Sette voci: si costruiscono tutte, cosi' la riga puo' scorrere fino
+        // a quella scelta anche quando sta fuori dallo schermo.
+        final riga = SingleChildScrollView(
+          controller: _scorrimento,
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              for (final t in AstroTradition.values) ...[
+                if (t != AstroTradition.values.first)
+                  const SizedBox(width: SpacingTokens.xs),
+                KeyedSubtree(
+                  key: _chiavi[t],
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(minWidth: larghezzaMinima),
+                    child: _TraditionChip(
+                      tradition: t,
+                      selected: t == current,
+                      palette: palette,
+                      onTap: () => onSelect(t),
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ],
-          ],
-        ),
-      ),
+          ),
+        );
+        return ValueListenableBuilder<(bool, bool)>(
+          valueListenable: _bordi,
+          builder: (context, bordi, figlio) {
+            final (prima, dopo) = bordi;
+            // **E LA FRECCIA**, sul bordo da cui la riga continua: sul
+            // telefono di 360 punti le tre bolle aperte riempiono gia' la
+            // riga, e la sbirciata da sola non basta. Un tocco la fa
+            // scorrere.
+            Widget freccia(bool avanti) => Positioned(
+                  right: avanti ? 0 : null,
+                  left: avanti ? null : 0,
+                  width: postoDellaFreccia,
+                  top: 0,
+                  bottom: 0,
+                  child: Center(
+                    child: Semantics(
+                      button: true,
+                      label:
+                          avanti ? 'Altre tradizioni' : 'Le prime tradizioni',
+                      child: GestureDetector(
+                        key: Key(avanti
+                            ? 'oroscopo_tradition_avanti'
+                            : 'oroscopo_tradition_indietro'),
+                        behavior: HitTestBehavior.opaque,
+                        onTap: () => _scorri(context, avanti: avanti),
+                        child: Container(
+                          width: 26,
+                          height: 26,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: palette.deepest.withValues(alpha: 0.85),
+                            border: Border.all(
+                                color: palette.gold.withValues(alpha: 0.6)),
+                          ),
+                          child: Icon(
+                              avanti
+                                  ? Icons.chevron_right_rounded
+                                  : Icons.chevron_left_rounded,
+                              size: 20,
+                              color: palette.goldSoft),
+                        ),
+                      ),
+                    ),
+                  ),
+                );
+            // La riga sta sempre nello stesso posto dell'albero, senza chiave
+            // che cambi: se cambiasse, la riga rinascerebbe e tornerebbe
+            // all'inizio a ogni tocco del bordo. Le chiavi della sfumatura
+            // stanno su due segni vuoti, per le prove.
+            return Stack(
+              children: [
+                Positioned(
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  right: postoDellaFreccia,
+                  child: ShaderMask(
+                    blendMode: BlendMode.dstIn,
+                    shaderCallback: (r) => LinearGradient(
+                      colors: [
+                        prima ? Colors.transparent : Colors.white,
+                        Colors.white,
+                        Colors.white,
+                        dopo ? Colors.transparent : Colors.white,
+                      ],
+                      stops: const [0, 0.08, 0.88, 1],
+                    ).createShader(r),
+                    child: figlio,
+                  ),
+                ),
+                if (prima)
+                  const SizedBox.shrink(
+                      key: Key('oroscopo_tradition_sfuma_sx')),
+                if (dopo)
+                  const SizedBox.shrink(
+                      key: Key('oroscopo_tradition_sfuma_dx')),
+                if (prima) freccia(false),
+                if (dopo) freccia(true),
+              ],
+            );
+          },
+          child: riga,
+        );
+      }),
     );
+  }
+
+  /// Il posto della freccia a destra della riga.
+  static const double postoDellaFreccia = 30;
+
+  /// Quanto della quarta bolla resta in vista: poco meno di meta'.
+  static const double sbirciata = 0.45;
+
+  /// La larghezza propria di una bolla, prima del minimo: il nome (con la
+  /// clessidra se e' in arrivo) o "In arrivo", piu' il margine e il bordo
+  /// della bolla. Lo stesso conto del disegno di [_TraditionChip].
+  static double larghezzaPropria(AstroTradition t, TextScaler scala) {
+    double di(String s, double spaziatura) {
+      final p = TextPainter(
+        text: TextSpan(
+            text: s,
+            style: TypographyTokens.etichetta()
+                .copyWith(letterSpacing: spaziatura)),
+        textDirection: TextDirection.ltr,
+        textScaler: scala,
+        maxLines: 1,
+      )..layout();
+      final w = p.width;
+      p.dispose();
+      return w;
+    }
+
+    final locked = !t.unlocked;
+    var w = di(t.label, 0.5) + (locked ? 3 + 10 : 0);
+    if (locked) {
+      final arrivo = di('In arrivo', 0.3);
+      if (arrivo > w) w = arrivo;
+    }
+    if (w < 22) w = 22;
+    return w + 2 * SpacingTokens.sm + 2;
+  }
+
+  /// **LA LARGHEZZA MINIMA PERCHE' LA QUARTA BOLLA SI VEDA A META'.** Si
+  /// cerca il minimo per cui, con le prime tre bolle alla loro larghezza (la
+  /// propria o il minimo, la maggiore), della quarta resta in vista
+  /// [sbirciata]. Con il carattere grande le prime tre possono gia' superare
+  /// la riga: allora il minimo e' quello per cui almeno la quarta comincia.
+  ///
+  /// **E SE TRE NON CI STANNO, DUE.** Sui telefoni da 360 a 390 punti le
+  /// tre bolle aperte riempiono gia' la riga, e la quarta comincia proprio sul
+  /// bordo: la riga sembrava finita li'. Allora si allungano le bolle (il
+  /// fondatore: *"magari allungando leggermente le bolle"*) finche' la terza
+  /// resta tagliata dal bordo, leggibile per [sbirciataDellaTerza]; e se
+  /// nemmeno due ci stanno, la seconda.
+  static double larghezzaPerLaSbirciata(double riga, TextScaler scala) {
+    final proprie = [
+      for (final t in AstroTradition.values.take(4)) larghezzaPropria(t, scala),
+    ];
+    for (final (intere, quota) in const [
+      (3, sbirciata),
+      (2, sbirciataDellaTerza),
+      (1, sbirciataDellaTerza),
+    ]) {
+      double resto(double m) {
+        double l(int i) => proprie[i] > m ? proprie[i] : m;
+        var occupate = intere * SpacingTokens.xs;
+        for (var i = 0; i < intere; i++) {
+          occupate += l(i);
+        }
+        return riga - occupate - quota * l(intere);
+      }
+
+      if (resto(0) <= 0) continue;
+      var basso = 0.0, alto = riga;
+      for (var i = 0; i < 40; i++) {
+        final m = (basso + alto) / 2;
+        if (resto(m) > 0) {
+          basso = m;
+        } else {
+          alto = m;
+        }
+      }
+      return basso;
+    }
+    return 0;
+  }
+
+  /// Quanto si legge della bolla tagliata quando le intere sono meno di
+  /// tre: abbastanza per leggerne il nome.
+  static const double sbirciataDellaTerza = 0.7;
+
+  final ScrollController _scorrimento = ScrollController();
+
+  /// Se c'e' da scorrere prima (a sinistra) e dopo (a destra).
+  final ValueNotifier<(bool, bool)> _bordi = ValueNotifier((false, true));
+
+  /// Un tocco sulla freccia: la riga scorre di due terzi di quello che si
+  /// vede, verso il bordo toccato.
+  void _scorri(BuildContext context, {required bool avanti}) {
+    if (!_scorrimento.hasClients) return;
+    final p = _scorrimento.position;
+    final dove = (p.pixels + (avanti ? 1 : -1) * p.viewportDimension * 2 / 3)
+        .clamp(0.0, p.maxScrollExtent);
+    if (MediaQuery.of(context).disableAnimations) {
+      _scorrimento.jumpTo(dove);
+    } else {
+      unawaited(_scorrimento.animateTo(dove,
+          duration: const Duration(milliseconds: 300), curve: Curves.easeOut));
+    }
+  }
+
+  void _leggiIBordi() {
+    if (!_scorrimento.hasClients) return;
+    final p = _scorrimento.position;
+    final nuovi = (p.pixels > 1, p.pixels < p.maxScrollExtent - 1);
+    if (nuovi != _bordi.value) _bordi.value = nuovi;
+  }
+
+  @override
+  void dispose() {
+    _scorrimento.dispose();
+    _bordi.dispose();
+    super.dispose();
   }
 }
 
