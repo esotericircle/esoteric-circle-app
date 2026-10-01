@@ -9,7 +9,6 @@ import 'package:esoteric_circle/core/archetypes/archetype_scoring.dart';
 import 'package:esoteric_circle/core/astro/il_cielo_detto.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/chat/i_responsi_di_oggi.dart';
-import 'package:esoteric_circle/core/chat/la_marca_del_genere.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/horoscope/cielo_di_oggi.dart';
@@ -335,6 +334,7 @@ void main() {
     var senzaNomi = 0;
     for (var i = 0; i < responsi.length; i++) {
       final voce = responsi[i];
+      // ignore: invalid_use_of_visible_for_testing_member
       IResponsiDiOggi.dimentica();
       for (final x in responsi) {
         IResponsiDiOggi.ricorda(x.r, adesso: adesso);

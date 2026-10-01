@@ -76,6 +76,7 @@ class ScaricoDeiTuoiDati {
     'amici_offline': 'I tuoi amici offline, coi loro dati di nascita',
     'carta.natale': 'La tua carta natale conservata',
     'carta_natale_': 'La tua carta natale, nella forma vecchia',
+    'chat.responsi_di_oggi': 'I responsi che hai letto oggi',
     'cielo_posizione': 'Il permesso di posizione per il cielo',
     'filo.': 'Il filo del giorno',
     'luogo.': 'Dove sei adesso',

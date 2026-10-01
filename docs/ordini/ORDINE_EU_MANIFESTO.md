@@ -150,7 +150,7 @@ DOMANDA: "quando l'utente fa click per la prima volta su vedica o cinese o altro
 
 **APERTA IN ATTESA DI VERIFICA**: misurata e scritta, aspetta l'Architetto. Le ripetizioni in novanta giorni sono zero (`docs/collaudo/EU/ripetizioni_90_giorni.txt`: voci del Giorno tornate entro trenta giorni 0, con e senza carta; voci della Settimana, del Mese e dell'Anno 0; frasi uguali fra periodi 0; fasce diverse dal livello 0, su 12.240 schede), il linguaggio di ogni tipologia e' quello dei dodici corpora. **La verita' delle interpretazioni no**: delle 759 affermazioni dei "Da dove viene" e delle note del metodo, 671 hanno una fonte dichiarata e **88 no** (`docs/collaudo/EU/affermazioni.md`, una per una). Si chiude quando l'Architetto le ha verificate o tolte.
 
-Prosegue nell'ordine EV, voce EV.08.
+prosegue nell'ordine EV, voce EV.08.
 
 DOMANDA: "IMPORTANTISSIMO: VERIFICA CHE L'INTERPRETAZIONE SIA REALE E NON INVENTATA E CHE NON SIA RIPETITIVA. Voglio moltissime combinazioni in modo che non cinsiano ripetizioni almeno per 3 mesi, fai i calcoli esatti e usa linguaggio adatto e consono per ogni tipologia di oroscopo."
 

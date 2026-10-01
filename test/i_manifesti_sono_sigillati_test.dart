@@ -315,6 +315,11 @@ void main() {
     // EU: diciannove voci, contate coi titoli "## VOCE EU." del manifesto il
     // 1 ottobre 2026, dai due pezzi dell'ordine.
     'EU': 19,
+    // EV: tredici voci il 1 ottobre 2026, contate coi titoli "## VOCE EV."
+    // del manifesto: le sei del pezzo 1 e le sette segnalazioni del
+    // fondatore arrivate durante il lavoro (EV.51-EV.57). Il pezzo 2 non e'
+    // arrivato.
+    'EV': 13,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,
