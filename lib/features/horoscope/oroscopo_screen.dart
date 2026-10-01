@@ -38,6 +38,7 @@ import '../pricing/pricing_screen.dart';
 import 'horoscope_visuals.dart';
 import 'la_testa_della_tradizione.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
+import '../shell/barra_dell_identita.dart';
 import '../../core/horoscope/il_domani.dart';
 import '../../core/horoscope/l_ora_d_oro.dart';
 import 'la_ruota_del_passaggio.dart';
@@ -45,6 +46,7 @@ import 'il_periodo_view.dart';
 import '../../design_system/components/riquadro_in_evidenza.dart';
 import 'i_dodici_mesi_view.dart';
 import 'le_ore_del_giorno_view.dart';
+import 'letture_complete.dart';
 import '../../core/horoscope/le_ore_del_giorno.dart';
 import '../../core/horoscope/i_dodici_mesi.dart';
 import '../../core/horoscope/l_almanacco_cinese.dart';
@@ -1118,6 +1120,18 @@ class _OroscopoScreenState extends State<OroscopoScreen>
             // Il giorno personale del numero fortunato, ordine ES voce 29.
             nascita:
                 profile.identity.isExample ? null : profile.identity.birthDate);
+    // Le stesse schede del Giorno occidentale nella lettura completa: il
+    // foglio dell'oroscopo completo ne mostra l'inizio a chi non ce l'ha
+    // ([_offriLaLunga]). Si compongono solo se il foglio si apre.
+    _lungheDiOggi = () => Horoscope.forSign(
+        sign: widget.userSign,
+        dayOfYear: _dayOfYear,
+        year: _year,
+        vocativo: vocative,
+        cielo: cielo,
+        profonde: {for (final d in HoroscopeDomain.values) d: true},
+        nascita:
+            profile.identity.isExample ? null : profile.identity.birthDate);
 
     // **I TRE CIELI, ordine ES voce 36.** Solo a chi legge tutte e tre le
     // tradizioni, cioe' dal primo piano a pagamento e con la data di
@@ -1166,7 +1180,20 @@ class _OroscopoScreenState extends State<OroscopoScreen>
           backgroundColor: Colors.transparent,
           extendBodyBehindAppBar: true,
           appBar: AppBar(
-            backgroundColor: Colors.transparent,
+            key: const Key('oroscopo_barra'),
+            // **IL VELO SOTTO LA BARRA QUANDO IL TESTO CI SCORRE SOTTO.**
+            // Visto sul Realme il 1 ottobre 2026 (ordine EU): la barra era
+            // trasparente anche con l'elenco scorso, la "i" delle fonti
+            // copriva il punto interrogativo del segno e i titoli delle
+            // schede passavano sotto le icone. A riposo resta trasparente, sul
+            // cielo; appena qualcosa le scorre sotto prende lo stesso velo
+            // della barra in alto (ordine EU voce 19, 92 per cento).
+            backgroundColor: WidgetStateColor.resolveWith((stati) =>
+                stati.contains(WidgetState.scrolledUnder)
+                    ? palette.deepest.withValues(alpha: BarraDellIdentita.velo)
+                    : Colors.transparent),
+            surfaceTintColor: Colors.transparent,
+            scrolledUnderElevation: 0,
             elevation: 0,
             iconTheme: IconThemeData(color: palette.goldSoft),
             leading: IconButton(
@@ -1770,12 +1797,29 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     // **LE PAROLE DEL FONDATORE**, 1 ottobre 2026: non il nome del piano ne'
     // "la Lunga", che chi legge non conosce, ma l'invito ad abbonarsi per
     // avere sempre l'oroscopo completo.
+    // E non "due paragrafi in piu'" (il fondatore, la stessa sera): che cosa
+    // da' la lettura completa, e il prezzo ([LettureComplete]).
     showUpgradeInvite(
       context,
       title: 'Abbonati per avere sempre l\'oroscopo completo',
-      message: 'La risposta completa aggiunge due paragrafi su ogni scheda, '
-          '${domain.label} compresa: con l\'abbonamento la leggi sempre.',
+      message: LettureComplete.invito(
+          conIGiorni: _period == HoroscopePeriod.settimana ||
+              _period == HoroscopePeriod.mese),
     );
+  }
+
+  /// Le schede del Giorno occidentale nella lettura completa, composte da
+  /// `build` con lo stesso cielo e lo stesso vocativo della lettura a video.
+  List<HoroscopeCard> Function()? _lungheDiOggi;
+
+  /// L'inizio vero della parte che la lettura breve di [domain] non mostra.
+  String? _anteprimaDellaCompleta(HoroscopeDomain domain) {
+    final schede = _lungheDiOggi?.call();
+    if (schede == null) return null;
+    for (final s in schede) {
+      if (s.domain == domain) return LettureComplete.anteprima(s);
+    }
+    return null;
   }
 
   /// **LA LUNGA DI OGGI, CON GLI EOS O COL PIANO, ordine EU voce 15.**
@@ -1814,18 +1858,54 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                 // principalmente oppure a spendere eos solo per l'occasione."*
                 // Il pulsante pieno porta all'abbonamento; gli Eos stanno
                 // sotto, col bordo, per oggi soltanto.
-                Text('L\'oroscopo completo',
+                //
+                // **NON SI VENDONO PARAGRAFI, SI VENDE LA RISPOSTA.** Il
+                // fondatore, la stessa sera: *"Ma dai, elimina che aggiungiamo
+                // 2 paragrafi [...] Io penserei: "ma devo spendere soldi per
+                // solo 2 paragrafi di merda?"*. Il foglio dice che cosa da' la
+                // lettura completa (il perche' e il come, passo per passo), ne
+                // fa leggere l'inizio vero di oggi, e dice in una riga che
+                // cosa porta l'abbonamento, col suo prezzo dal listino.
+                Text('L\'oroscopo completo di oggi',
                     key: const Key('oroscopo_lunga_titolo'),
                     style: TypographyTokens.titoloDiSchermata()
                         .copyWith(color: palette.goldSoft)),
                 const SizedBox(height: SpacingTokens.sm),
-                Text(
-                    'Ogni scheda con la risposta completa: due paragrafi in '
-                    'più per capire che cosa succede e che cosa fare. Con '
-                    'l\'abbonamento la leggi ogni giorno, in tutte le schede.',
-                    style: TypographyTokens.corpo().copyWith(
-                        color: ColorTokens.textSecondary, height: 1.4)),
+                Text(LettureComplete.promessa,
+                    style: TypographyTokens.corpo()
+                        .copyWith(color: ColorTokens.textPrimary, height: 1.4)),
+                if (_anteprimaDellaCompleta(domain) case final inizio?) ...[
+                  const SizedBox(height: SpacingTokens.md),
+                  Text('Ecco come continua la scheda ${domain.label} di oggi:',
+                      style: TypographyTokens.didascalia()
+                          .copyWith(color: ColorTokens.textSecondary)),
+                  const SizedBox(height: SpacingTokens.xs),
+                  // L'inizio vero del paragrafo che la Breve non mostra, che
+                  // sfuma: si legge abbastanza per volerne il resto.
+                  ShaderMask(
+                    key: const Key('oroscopo_lunga_anteprima'),
+                    blendMode: BlendMode.dstIn,
+                    shaderCallback: (r) => const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Colors.white, Colors.white, Colors.transparent],
+                      stops: [0, 0.45, 1],
+                    ).createShader(r),
+                    child: Text(inizio,
+                        maxLines: 3,
+                        overflow: TextOverflow.clip,
+                        style: TypographyTokens.lettura().copyWith(
+                            color: palette.goldSoft,
+                            fontStyle: FontStyle.italic,
+                            height: 1.45)),
+                  ),
+                ],
                 const SizedBox(height: SpacingTokens.md),
+                Text(LettureComplete.conLAbbonamento(),
+                    key: const Key('oroscopo_lunga_cosa_porta'),
+                    style: TypographyTokens.didascalia().copyWith(
+                        color: ColorTokens.textSecondary, height: 1.4)),
+                const SizedBox(height: SpacingTokens.sm),
                 FilledButton(
                   key: const Key('oroscopo_lunga_col_piano'),
                   style: FilledButton.styleFrom(
@@ -3198,54 +3278,85 @@ class _HoroscopeCardView extends StatelessWidget {
         children: [
           // In alto a sinistra titolo e categoria, in alto a destra la
           // profondita' della risposta.
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // **A CAPO FRA LE PAROLE, MAI DENTRO.** Sulla build 2285
-                    // (ordine ER) la scheda della Fortuna dei Gemelli si
-                    // leggeva "AMICI PORT / AFORTUNA": i titoli del giorno
-                    // della voce ER.14 sono piu' lunghi, e la colonna accanto
-                    // alla tendina e' stretta. La card da condividere lo
-                    // risolveva dall'ordine BD voce 07; qui mancava. Vedi
-                    // [TitoloDellaSchedaDelGiorno].
-                    TitoloDellaSchedaDelGiorno(
-                        key: Key('oroscopo_titolo_${card.domain.name}'),
-                        testo: card.title,
-                        stile: TypographyTokens.titoloScheda()
-                            .copyWith(color: palette.goldSoft, height: 1.1)),
-                    Text(card.domain.label.toUpperCase(),
-                        style: TypographyTokens.etichetta().copyWith(
-                            color: ColorTokens.textSecondary,
-                            letterSpacing: 1.4)),
-                  ],
+          //
+          // **IL TITOLO SOPRA, QUANDO ACCANTO SI SPEZZEREBBE.** Visto sul
+          // Realme il 1 ottobre 2026 (ordine EU): accanto al selettore la
+          // colonna e' stretta, e "RICOMINCIARE DALLE STANZE" diventava
+          // "RICOMIN- / CIARE DAL- / LE STANZE". Se nella colonna stretta il
+          // titolo andrebbe a capo col trattino, il titolo prende tutta la
+          // larghezza della scheda, e sotto stanno il dominio e il
+          // selettore.
+          LayoutBuilder(builder: (context, vincoli) {
+            final scala = MediaQuery.textScalerOf(context);
+            final stileDelTitolo = TypographyTokens.titoloScheda()
+                .copyWith(color: palette.goldSoft, height: 1.1);
+            final sopra = TitoloDellaSchedaDelGiorno.vaSopra(card.title,
+                stile: stileDelTitolo,
+                larghezza: vincoli.maxWidth,
+                accanto: AnswerDepthSelector.larghezza(scala),
+                distanza: SpacingTokens.sm,
+                scala: scala);
+            // **A CAPO FRA LE PAROLE, MAI DENTRO.** Sulla build 2285 (ordine
+            // ER) la scheda della Fortuna dei Gemelli si leggeva "AMICI PORT
+            // / AFORTUNA": i titoli del giorno della voce ER.14 sono piu'
+            // lunghi, e la colonna accanto alla tendina e' stretta. La card
+            // da condividere lo risolveva dall'ordine BD voce 07; qui
+            // mancava. Vedi [TitoloDellaSchedaDelGiorno].
+            final titolo = TitoloDellaSchedaDelGiorno(
+                key: Key('oroscopo_titolo_${card.domain.name}'),
+                testo: card.title,
+                stile: stileDelTitolo);
+            final dominio = Text(card.domain.label.toUpperCase(),
+                style: TypographyTokens.etichetta().copyWith(
+                    color: ColorTokens.textSecondary, letterSpacing: 1.4));
+            // **LA PROFONDITA' C'E' SEMPRE, su ogni scheda** (il fondatore,
+            // 30 settembre 2026): anche su quelle dell'anno, che la voce
+            // ES.04 aveva lasciato senza. Menu a tendina compatto: le
+            // etichette sono corte, quindi resta leggibile.
+            final selettore = AnswerDepthSelector(
+              key: Key('oroscopo_depth_${card.domain.name}'),
+              current: depth,
+              palette: palette,
+              // Chi ha pagato deve poter aprire la Profonda. Questo
+              // parametro non veniva passato da nessuno in tutta l'app,
+              // quindi restava falso e il lucchetto valeva anche per chi
+              // l'aveva comprata: una funzione venduta e mai consegnata.
+              premiumUnlocked: premiumUnlocked,
+              onSelect: onDepthSelected,
+              onLockedTap: onDepthLocked,
+            );
+            if (sopra) {
+              return Column(
+                key: Key('oroscopo_titolo_sopra_${card.domain.name}'),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  titolo,
+                  const SizedBox(height: SpacingTokens.xs),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(child: dominio),
+                      const SizedBox(width: SpacingTokens.sm),
+                      selettore,
+                    ],
+                  ),
+                ],
+              );
+            }
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [titolo, dominio],
+                  ),
                 ),
-              ),
-              // **LA PROFONDITA' C'E' SEMPRE, su ogni scheda** (il fondatore,
-              // 30 settembre 2026): anche su quelle dell'anno, che la voce
-              // ES.04 aveva lasciato senza.
-              ...[
                 const SizedBox(width: SpacingTokens.sm),
-                // Menu a tendina compatto: ora le etichette sono corte, quindi
-                // resta leggibile senza rubare spazio al titolo.
-                AnswerDepthSelector(
-                  key: Key('oroscopo_depth_${card.domain.name}'),
-                  current: depth,
-                  palette: palette,
-                  // Chi ha pagato deve poter aprire la Profonda. Questo
-                  // parametro non veniva passato da nessuno in tutta l'app,
-                  // quindi restava falso e il lucchetto valeva anche per chi
-                  // l'aveva comprata: una funzione venduta e mai consegnata.
-                  premiumUnlocked: premiumUnlocked,
-                  onSelect: onDepthSelected,
-                  onLockedTap: onDepthLocked,
-                ),
+                selettore,
               ],
-            ],
-          ),
+            );
+          }),
           const SizedBox(height: SpacingTokens.sm),
           // Poi l'infografica a cinque icone col numero, sotto il titolo.
           // Accanto, dall'ordine ES voce 30, il punto interrogativo del

@@ -210,7 +210,7 @@ class PlanCatalog {
         'Sintesi comparativa dei tre Maestri',
         'Correlazione mood-transiti attiva',
         'Cosmic Journal completo, obiettivi e traguardi per Maestro',
-        'Scelta della profondità dell\'oroscopo: Breve o Lunga',
+        'L\'oroscopo completo, su ogni scheda e ogni giorno',
         'Oroscopo cinese del giorno, dall\'almanacco e dai Dieci Dei',
         'Oroscopo vedico del giorno, dalla Luna siderale e dal Rahu Kalam',
         'L’oroscopo per gli amici, fino a tre',
@@ -376,11 +376,11 @@ class PlanCatalog {
     final riga = matrix.where((r) => r.chiave == RigaDelPiano.profondita);
     if (riga.isEmpty) return false;
     const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
-    // Dall'ordine EU voce 15 la cella del Viandante dice anche la Lunga con
-    // gli Eos: la profondita' del piano e' solo "Breve o Lunga".
-    return riga.first.values[ordine.indexOf(tier)]
-        .toLowerCase()
-        .startsWith('breve o lunga');
+    // Dall'ordine EU voce 15 la cella del Viandante dice anche gli Eos per
+    // un giorno; dalla sera del 1 ottobre 2026 la riga parla con le parole di
+    // chi legge ("Oroscopo completo": "Sempre"), e il piano ce l'ha quando
+    // la sua cella dice "Sempre".
+    return riga.first.values[ordine.indexOf(tier)].toLowerCase() == 'sempre';
   }
 
   /// SE QUEL PIANO PORTA EOS OGNI MESE, e con quale parola lo promette.
@@ -509,14 +509,11 @@ class PlanCatalog {
         chiave: RigaDelPiano.oroscopoSettimanale),
     // LA LUNGA DEL GIORNO CON GLI EOS, ordine EU voce 15: il Viandante la
     // apre per la giornata con 50 Eos (tabella ES.06).
-    FeatureRow(
-        'Profondità dell\'oroscopo',
-        [
-          'Breve; la Lunga del giorno con gli Eos',
-          'Breve o Lunga',
-          'Breve o Lunga',
-          'Breve o Lunga'
-        ],
+    // **CON LE PAROLE DI CHI LEGGE**, il fondatore il 1 ottobre 2026 sera:
+    // "la Lunga" chi legge non la capisce, e l'oroscopo completo si', che
+    // cosa sia e quando ce l'ha.
+    FeatureRow('Oroscopo completo',
+        ['Con gli Eos, per un giorno', 'Sempre', 'Sempre', 'Sempre'],
         chiave: RigaDelPiano.profondita),
     FeatureRow('Oroscopo mensile', ['No', 'No', 'Sì', 'Sì']),
     // L'ANNO DAL COMPLEANNO, ordine ES voce 04: "dall'Adepto in su, 300 Eos,

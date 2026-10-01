@@ -569,35 +569,76 @@ class _Riquadro extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: sopra == null || sopra!.isEmpty
-                    ? Text(titolo,
-                        style: TypographyTokens.titoloScheda()
-                            .copyWith(color: palette.goldSoft))
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TitoloDellaSchedaDelGiorno(
-                              key: chiaveDelTitolo,
-                              testo: sopra!,
-                              stile: TypographyTokens.titoloScheda().copyWith(
-                                  color: palette.goldSoft, height: 1.1)),
-                          Text(titolo.toUpperCase(),
-                              style: TypographyTokens.etichetta().copyWith(
-                                  color: ColorTokens.textSecondary,
-                                  letterSpacing: 1.4)),
-                        ],
-                      ),
-              ),
-              if (accanto != null) ...[
-                const SizedBox(width: SpacingTokens.sm),
-                accanto!,
+          // **IL TITOLO SOPRA, QUANDO ACCANTO SI SPEZZEREBBE**, come nella
+          // scheda del Giorno (visto sul Realme il 1 ottobre 2026, ordine
+          // EU): se accanto al selettore il titolo andrebbe a capo col
+          // trattino, prende tutta la larghezza e sotto stanno il dominio e
+          // il selettore.
+          LayoutBuilder(builder: (context, vincoli) {
+            final stileDelTitolo = TypographyTokens.titoloScheda()
+                .copyWith(color: palette.goldSoft, height: 1.1);
+            final scala = MediaQuery.textScalerOf(context);
+            final conTitolo = sopra != null && sopra!.isNotEmpty;
+            final sopraIlSelettore = conTitolo &&
+                accanto is AnswerDepthSelector &&
+                TitoloDellaSchedaDelGiorno.vaSopra(sopra!,
+                    stile: stileDelTitolo,
+                    larghezza: vincoli.maxWidth,
+                    accanto: AnswerDepthSelector.larghezza(scala),
+                    distanza: SpacingTokens.sm,
+                    scala: scala);
+            final dominio = Text(titolo.toUpperCase(),
+                style: TypographyTokens.etichetta().copyWith(
+                    color: ColorTokens.textSecondary, letterSpacing: 1.4));
+            if (sopraIlSelettore) {
+              return Column(
+                key: chiaveDelTitolo is ValueKey<String>
+                    ? Key('${(chiaveDelTitolo! as ValueKey<String>).value}'
+                        '_sopra')
+                    : null,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TitoloDellaSchedaDelGiorno(
+                      key: chiaveDelTitolo,
+                      testo: sopra!,
+                      stile: stileDelTitolo),
+                  const SizedBox(height: SpacingTokens.xs),
+                  Row(
+                    children: [
+                      Expanded(child: dominio),
+                      const SizedBox(width: SpacingTokens.sm),
+                      accanto!,
+                    ],
+                  ),
+                ],
+              );
+            }
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: !conTitolo
+                      ? Text(titolo,
+                          style: TypographyTokens.titoloScheda()
+                              .copyWith(color: palette.goldSoft))
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TitoloDellaSchedaDelGiorno(
+                                key: chiaveDelTitolo,
+                                testo: sopra!,
+                                stile: stileDelTitolo),
+                            dominio,
+                          ],
+                        ),
+                ),
+                if (accanto != null) ...[
+                  const SizedBox(width: SpacingTokens.sm),
+                  accanto!,
+                ],
               ],
-            ],
-          ),
+            );
+          }),
           const SizedBox(height: SpacingTokens.sm),
           ...figli,
         ],

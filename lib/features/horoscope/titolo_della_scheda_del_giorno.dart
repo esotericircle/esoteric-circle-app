@@ -28,6 +28,27 @@ class TitoloDellaSchedaDelGiorno extends StatelessWidget {
   /// `TitoloCheNonSiRompe.margineDellaScatola`).
   static const double margine = 4;
 
+  /// **IL TITOLO VA SOPRA IL SELETTORE?** Ordine EU, visto sul Realme il 1
+  /// ottobre 2026: accanto al selettore della profondita' "RICOMINCIARE
+  /// DALLE STANZE" diventava "RICOMIN- / CIARE DAL- / LE STANZE". Vero quando
+  /// nella colonna accanto al selettore (largo [accanto], con lo spazio di
+  /// [distanza] in mezzo) il titolo andrebbe a capo col trattino: allora la
+  /// scheda lo mette sopra, largo quanto lei ([larghezza]).
+  static bool vaSopra(
+    String testo, {
+    required TextStyle stile,
+    required double larghezza,
+    required double accanto,
+    required double distanza,
+    TextScaler scala = TextScaler.noScaling,
+  }) =>
+      IlTitoloColTrattino.righe(testo,
+              stile: stile,
+              larghezza: larghezza - distanza - accanto - margine,
+              scala: scala,
+              maxRighe: 3)
+          .any((r) => r.endsWith('-'));
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, vincoli) {

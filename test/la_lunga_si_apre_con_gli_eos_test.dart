@@ -205,6 +205,35 @@ void main() {
         'sopra gli Eos col bordo; "$costo"');
     expect(ignote, isEmpty,
         reason: 'parole che chi legge non conosce nel foglio: $ignote');
+    // **NON SI VENDONO PARAGRAFI**, il fondatore la stessa sera: *"Ma dai,
+    // elimina che aggiungiamo 2 paragrafi [...] Io penserei: "ma devo
+    // spendere soldi per solo 2 paragrafi di merda?"*. Si misura: nessuna
+    // scritta del foglio parla di paragrafi; il foglio fa leggere l'inizio
+    // vero della parte che la Breve non mostra; dice che cosa porta
+    // l'abbonamento, col suo prezzo.
+    final paragrafi = [
+      for (final p in parole)
+        if (p.toLowerCase().contains('paragraf')) p,
+    ];
+    final anteprima = find.byKey(const Key('oroscopo_lunga_anteprima'));
+    final inizio = anteprima.evaluate().isEmpty
+        ? ''
+        : tester
+            .widget<Text>(
+                find.descendant(of: anteprima, matching: find.byType(Text)))
+            .data!;
+    final cosaPorta = tester
+        .widget<Text>(find.byKey(const Key('oroscopo_lunga_cosa_porta')))
+        .data!;
+    print('ORDINE EU, LA SERA: scritte che parlano di paragrafi '
+        '${paragrafi.length}; anteprima di ${inizio.length} caratteri; '
+        '"$cosaPorta"');
+    expect(paragrafi, isEmpty,
+        reason: 'il foglio vende ancora paragrafi: $paragrafi');
+    expect(inizio.length, greaterThan(60),
+        reason: 'il foglio non fa leggere l\'inizio della lettura completa');
+    expect(cosaPorta, contains('a settimana'),
+        reason: 'il foglio non dice il prezzo dell\'abbonamento');
     // **LA SCRITTA DEL PIANO STA AL CENTRO DEL SUO PULSANTE**, visto sul
     // Realme il 1 ottobre 2026: andava a capo su due righe allineate a
     // sinistra. Si misura il centro di ogni riga contro quello del pulsante.

@@ -94,7 +94,15 @@ void main() {
     final righeDeiPiani = [
       for (final p in PlanCatalog.plans) ...p.highlights,
       for (final r in PlanCatalog.matrix) ...[r.label, ...r.values],
-    ].where((r) => r.contains('profondità')).toList();
+      // LAPIDE, ordine EU, sera del 1 ottobre 2026: la pagina dei piani non
+      // dice piu' "profondita' dell'oroscopo: Breve o Lunga" ma, con le
+      // parole di chi legge, "L'oroscopo completo". Le righe si cercano con
+      // tutte e due le parole.
+    ]
+        .where((r) =>
+            r.contains('profondità') ||
+            r.toLowerCase().contains('oroscopo completo'))
+        .toList();
     cardinaleMinimo(righeDeiPiani.length, 1,
         cosa: 'righe dei piani sulla profondita\'');
     final vecchie = righeDeiPiani

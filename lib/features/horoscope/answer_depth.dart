@@ -83,6 +83,43 @@ class AnswerDepthSelector extends StatelessWidget {
 
   bool _locked(AnswerDepth depth) => depth.premium && !premiumUnlocked;
 
+  /// **QUANTO E' LARGO IL SELETTORE, prima di disegnarlo.** Ordine EU, visto
+  /// sul Realme il 1 ottobre 2026: accanto al selettore la colonna del
+  /// titolo della scheda e' stretta, e titoli come "RICOMINCIARE DALLE
+  /// STANZE" andavano a capo con due trattini. La scheda sceglie se mettere
+  /// il titolo accanto al selettore o sopra, e per scegliere deve sapere
+  /// quanto spazio lascia il selettore: lo stesso conto del suo disegno qui
+  /// sotto (l'etichetta, oppure la voce piu' lunga col lucchetto e la
+  /// freccia, piu' il margine e il bordo). La guardia
+  /// `il_titolo_sta_sopra_quando_si_spezzerebbe_test.dart` confronta il conto
+  /// con la larghezza disegnata.
+  static double larghezza(TextScaler scala, {bool compact = false}) {
+    double di(String t, TextStyle s) {
+      final p = TextPainter(
+        text: TextSpan(text: t, style: s),
+        textDirection: TextDirection.ltr,
+        textScaler: scala,
+        maxLines: 1,
+      )..layout();
+      final w = p.width;
+      p.dispose();
+      return w;
+    }
+
+    final etichetta = compact
+        ? 0.0
+        : di(
+            'PROFONDITÀ',
+            TypographyTokens.etichetta().copyWith(
+                color: ColorTokens.textSecondary, letterSpacing: 0.8));
+    var voce = 0.0;
+    for (final d in AnswerDepth.shown) {
+      final w = di(d.label, TypographyTokens.didascalia()) + 4 + 12 + 16;
+      if (w > voce) voce = w;
+    }
+    return (etichetta > voce ? etichetta : voce) + 20 + 2;
+  }
+
   @override
   Widget build(BuildContext context) {
     // **LA VOCE MOSTRATA E' QUELLA CHE SI LEGGE**, ordine EU voce 15, visto

@@ -261,10 +261,14 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
                   key: const Key('amico_tradizioni'),
                   mainAxisSize: MainAxisSize.min,
                   children: [
+                    // **LO STESSO ORDINE DELL'OROSCOPO DELLA PERSONA**, visto
+                    // sul Realme il 1 ottobre 2026 (ordine EU): qui era
+                    // Occidentale, Cinese, Vedica, e nell'oroscopo della
+                    // persona Occidentale, Vedica, Cinese.
                     for (final t in const [
                       AstroTradition.occidentale,
-                      AstroTradition.cinese,
                       AstroTradition.vedica,
+                      AstroTradition.cinese,
                     ])
                       Padding(
                         padding: const EdgeInsets.symmetric(

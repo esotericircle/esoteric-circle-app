@@ -277,6 +277,20 @@ void main() {
     expect(find.text('Abbonati per avere sempre l\'oroscopo completo'),
         findsWidgets,
         reason: 'l\'invito non invita ad abbonarsi');
+    // E non vende "due paragrafi" (il fondatore, la stessa sera): dice che
+    // cosa da' la lettura completa e il prezzo.
+    expect(
+        find.descendant(
+            of: find.byKey(const Key('upgrade_invite')),
+            matching: find.textContaining('paragraf')),
+        findsNothing,
+        reason: 'l\'invito vende ancora paragrafi');
+    expect(
+        find.descendant(
+            of: find.byKey(const Key('upgrade_invite')),
+            matching: find.textContaining('perché succede proprio a te')),
+        findsOneWidget,
+        reason: 'l\'invito non dice che cosa da\' la lettura completa');
     expect(
         find.descendant(
             of: find.byKey(const Key('upgrade_invite')),
