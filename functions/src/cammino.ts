@@ -1,3 +1,5 @@
+import {Memorie, fondiMemorie, leggiMemorie} from "./memorie";
+
 /**
  * IL CAMMINO CUSTODITO DAL CERCHIO. Ordine AP voce 01.
  *
@@ -111,6 +113,11 @@ export interface CamminoCustodito {
    * fra due copie, tiene quella piu' avanti.
    */
   viaggioDelloSciamano?: Record<string, unknown>;
+  /**
+   * **LE ALTRE MEMORIE DELLA PERSONA**, ordine EV (`memorie.ts`): le chiavi
+   * del telefono famiglia per famiglia, fuse senza perdere niente.
+   */
+  memorie?: Memorie;
 }
 
 /** Quanto puo' pesare il diario dell'Alba, scritto: un ciclo pieno sta sotto. */
@@ -235,6 +242,10 @@ export function leggiCammino(grezzo: unknown): CamminoCustodito {
   ) {
     fuori.viaggioDelloSciamano = viaggio as Record<string, unknown>;
   }
+
+  // Ordine EV: le altre memorie della persona.
+  const memorie = leggiMemorie(c.memorie);
+  if (memorie) fuori.memorie = memorie;
   return fuori;
 }
 
@@ -430,10 +441,12 @@ export function fondiCammini(
     if (Object.keys(archetipo).length > 0) fuori.archetipo = archetipo;
   }
 
-  // LE ARTI PREFERITE: vince chi ne ha, e a parita' il server. Non si
-  // uniscono, perche' sono un ORDINE scelto dalla persona e un'unione
-  // inventerebbe un ordine che nessuno ha scelto.
-  const arti = a.artiPreferite ?? b.artiPreferite;
+  // LE ARTI PREFERITE: vince chi ne ha. Non si uniscono, perche' sono un
+  // ORDINE scelto dalla persona e un'unione inventerebbe un ordine che
+  // nessuno ha scelto. Dall'ordine EV, a parita' vince il telefono: il
+  // telefono le manda solo quando la persona le ha scelte (mai il seme), e
+  // prima un cambio fatto dopo la prima custodia tornava indietro.
+  const arti = b.artiPreferite ?? a.artiPreferite;
   if (arti && arti.length > 0) fuori.artiPreferite = arti;
 
   const primo = laPiuVecchia(a.primoGiorno, b.primoGiorno);
@@ -448,6 +461,9 @@ export function fondiCammini(
     b.viaggioDelloSciamano
   );
   if (viaggio) fuori.viaggioDelloSciamano = viaggio;
+
+  const memorie = fondiMemorie(a.memorie, b.memorie);
+  if (memorie) fuori.memorie = memorie;
 
   return fuori;
 }

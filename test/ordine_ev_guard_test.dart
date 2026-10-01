@@ -6,15 +6,16 @@ import 'package:flutter_test/flutter_test.dart';
 /// **LA GUARDIA DELL'ORDINE EV.** 1 ottobre 2026.
 ///
 /// Il manifesto `ORDINE_EV_MANIFESTO.md` porta le sei voci del pezzo 1
-/// (EV.01-EV.06) e le sette segnalazioni del fondatore arrivate durante il
-/// lavoro (EV.51-EV.57), ognuna con uno stato solo; i marcatori dicono le
+/// (EV.01-EV.06) e le otto segnalazioni del fondatore arrivate durante il
+/// lavoro (EV.51-EV.58), ognuna con uno stato solo; i marcatori dicono le
 /// stesse cose delle voci; e la voce EU.14 ha nel manifesto EU la riga che
 /// l'ordine le chiede, "prosegue nell'ordine EV, voce EV.08".
 void main() {
   final manifesto = File('docs/ordini/ORDINE_EV_MANIFESTO.md');
   const voci = [
     'EV.01', 'EV.02', 'EV.03', 'EV.04', 'EV.05', 'EV.06', //
-    'EV.51', 'EV.52', 'EV.53', 'EV.54', 'EV.55', 'EV.56', 'EV.57',
+    'EV.51', 'EV.52', 'EV.53', 'EV.54', 'EV.55', 'EV.56', 'EV.57', //
+    'EV.58',
   ];
 
   int marcatore(String testo, String nome) {
@@ -25,7 +26,7 @@ void main() {
     return int.parse(trovato!.group(1)!);
   }
 
-  test('il manifesto esiste e porta tutte le tredici voci', () {
+  test('il manifesto esiste e porta tutte le quattordici voci', () {
     expect(manifesto.existsSync(), isTrue);
     final testo = manifesto.readAsStringSync();
     final mancanti = [

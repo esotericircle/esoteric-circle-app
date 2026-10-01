@@ -443,6 +443,39 @@ class DiarioDelCammino extends ChangeNotifier {
     }
   }
 
+  /// **LE CHIAVI DEL CAMMINO TORNATE COL TUO ACCOUNT**, ordine EV. La
+  /// famiglia "cammino" di `LeMemorieCustodite` riscrive sul disco cio' che
+  /// il Cerchio prima non riceveva: l'ultimo giorno di ogni rito (senza, la
+  /// serie che torna si vedeva a 1 e da li' ripartiva), i giorni per rito, i
+  /// dettagli, l'ora fedele, l'ultimo giorno. Qui si rileggono **solo
+  /// quelle**, unendo e tenendo il massimo: `carica` sommerebbe due volte i
+  /// gesti di chi ha gia' scritto in questa apertura.
+  Future<void> adottaLeMemorieDelCammino() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      _leggiMappa(prefs.getString(_kOraDelGesto), _oraDelGesto,
+          tenendoIlMassimo: true);
+      _leggiTesti(prefs.getString(_kUltimoGiornoPerOra), _ultimoGiornoPerOra);
+      _leggiIDettagli(prefs.getString(_kDettagli), sommando: false);
+      _leggiIDettagliRecenti(prefs.getString(_kDettagliRecenti));
+      _leggiTesti(
+          prefs.getString(_kUltimoPerSentiero), _ultimoGiornoPerSentiero);
+      final ultimo = prefs.getString(_kUltimoGiorno);
+      if (ultimo != null &&
+          (_ultimoGiorno == null || ultimo.compareTo(_ultimoGiorno!) > 0)) {
+        _ultimoGiorno = ultimo;
+      }
+      _leggiMappa(prefs.getString(_kSerie), _seriePerRito,
+          tenendoIlMassimo: true);
+      _leggiTesti(prefs.getString(_kUltimoPerRito), _ultimoGiornoPerRito);
+      _leggiIGiorniPerRito(prefs.getString(_kGiorniPerRito));
+      notifyListeners();
+      await _salva();
+    } catch (errore) {
+      debugPrint('Diario: le memorie del cammino non si rileggono. $errore');
+    }
+  }
+
   /// Rilegge dal disco i giorni recenti di ogni rito, unendoli a quelli che
   /// nel frattempo sono nati in memoria. Ordine AS voce 12.
   void _leggiIGiorniPerRito(String? testo) {

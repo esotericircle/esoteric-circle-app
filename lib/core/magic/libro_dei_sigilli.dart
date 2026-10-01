@@ -14,8 +14,11 @@ import 'la_chiamata_del_sigillo.dart';
 ///
 /// E' il posto dove stanno i sigilli della persona, ed e' la risposta a
 /// *"cosa mi rimane"*: senza di lui nessun'altra voce dell'ordine ha un posto
-/// dove esistere. Vive sul telefono, come il Diario dei Viaggi: un sigillo e'
-/// una cosa privata, e l'intenzione per esteso non lascia il dispositivo.
+/// dove esistere. Vive sul telefono, come il Diario dei Viaggi, e **dall'
+/// ordine EV viaggia col tuo account** come lui (`LeMemorieCustodite`,
+/// famiglia "sigilli"): il fondatore ha chiesto che niente di cio' che la
+/// persona ha costruito si perda reinstallando l'app. L'intenzione arrivava
+/// gia' al modello quando Calìgo la riscrive.
 ///
 /// **LE CHIAMATE LE TIENE LUI**, voce DO.08: un sigillo che entra programma
 /// la sua, uno che si chiude la toglie, uno che si rinnova la sposta. Stare

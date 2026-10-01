@@ -36,6 +36,7 @@ class CamminoDaCustodire {
     this.ultimoGiorno,
     this.arcanoDellAlba,
     this.viaggioDelloSciamano,
+    this.memorie,
   });
 
   /// L'identita' di nascita: cio' che la persona ha DATO, non cio' che si
@@ -80,6 +81,11 @@ class CamminoDaCustodire {
   /// finche' la persona non e' mai scesa.
   final Map<String, Object?>? viaggioDelloSciamano;
 
+  /// **LE ALTRE MEMORIE DELLA PERSONA**, ordine EV: famiglia -> chiave ->
+  /// {t, v}, raccolte e riscritte da `LeMemorieCustodite`; il Cerchio le
+  /// fonde senza perdere niente (`functions/src/memorie.ts`).
+  final Map<String, Object?>? memorie;
+
   /// Vero se non c'e' proprio niente da custodire: si evita di mandare un
   /// guscio vuoto a ogni apertura.
   bool get eVuoto =>
@@ -92,7 +98,8 @@ class CamminoDaCustodire {
       archetipoDominante == null &&
       artiPreferite.isEmpty &&
       arcanoDellAlba == null &&
-      viaggioDelloSciamano == null;
+      viaggioDelloSciamano == null &&
+      memorie == null;
 
   Map<String, Object?> aMappa() => {
         if (identita != null) 'identita': identita!.aMappa(),
@@ -118,6 +125,7 @@ class CamminoDaCustodire {
         if (arcanoDellAlba != null) 'arcanoDellAlba': arcanoDellAlba,
         if (viaggioDelloSciamano != null)
           'viaggioDelloSciamano': viaggioDelloSciamano,
+        if (memorie != null) 'memorie': memorie,
       };
 
   /// Rilegge il cammino che il Cerchio ha restituito.
@@ -183,6 +191,9 @@ class CamminoDaCustodire {
           : null,
       viaggioDelloSciamano: risposta['viaggioDelloSciamano'] is Map
           ? Map<String, Object?>.from(risposta['viaggioDelloSciamano'] as Map)
+          : null,
+      memorie: risposta['memorie'] is Map
+          ? Map<String, Object?>.from(risposta['memorie'] as Map)
           : null,
     );
   }

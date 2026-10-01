@@ -17,11 +17,11 @@ questo manifesto perche' nessuno le ha scritte: si aggiungono quando arrivano.
 fondatore** in coda al pezzo 1: "Alla fine di tutto, crea nuova Build, test su
 Cell e consegna su AppTester e dimmi quando posso lanciare codemagic".
 
-Le voci EV.51-EV.57 sono le segnalazioni del fondatore arrivate durante il
+Le voci EV.51-EV.58 sono le segnalazioni del fondatore arrivate durante il
 lavoro, numerate da Code dopo il posto delle voci dell'Architetto.
 
-VOCI_TOTALI: 13
-VOCI_CHIUSE: 4
+VOCI_TOTALI: 14
+VOCI_CHIUSE: 5
 VOCI_APERTE: 9
 VOCI_DA_FARE: 0
 
@@ -220,13 +220,15 @@ DOMANDA: "Il pulsante giallo non si può cliccare perché è sotto il menù espl
 
 ## VOCE EV.56, NIENTE CATTURE DELLO SCHERMO
 
-**APERTA IN ATTESA DI VERIFICA**: si chiude con la cattura nera dalla build consegnata. Su Android lo schermo si protegge all'avvio (`FLAG_SECURE`): niente
+**CHIUSA.** Sul Realme, con la build 2290 costruita senza
+`CATTURE_PERMESSE`, la finestra dell'app porta il segno `SECURE` e tre catture
+su tre escono vuote (0 byte): il sistema le rifiuta. Su Android lo schermo si protegge all'avvio (`FLAG_SECURE`): niente
 cattura, niente registrazione, l'anteprima fra le app recenti nera. Su iOS il
 sistema non lascia a un'app il modo di impedire una cattura.
 
 DOMANDA: "Inoltre, vorrei disattivassi la possibilità di fare screenshot"
-PROVA: docs/collaudo/EV/realme/ev56_cattura_dalla_build_consegnata.png
-MISURA: catture leggibili dalla build consegnata sul Realme, 0 su 1 (l'immagine e' nera); dalla build di collaudo 1 su 1
+PROVA: docs/collaudo/EV/ev56_catture_bloccate.txt
+MISURA: catture leggibili dalla build senza CATTURE_PERMESSE sul Realme, prima (build di collaudo) tutte quelle della cartella realme, dopo 0 su 3 (0 byte, finestra SECURE)
 
 ## VOCE EV.57, "ONLINE" CHE CAMBIA NUMERO
 
@@ -238,3 +240,62 @@ con la 2290 e la funzione nuova chi chiude esce subito e chi apre entra entro
 un minuto.
 
 DOMANDA: "Devi sistemare l'indicatore ONLINE che continua a cambiare numero di utenti online. Honio dubbio che indichi il numero degli utenti nella mia rete locale."
+
+## VOCE EV.58, LE MEMORIE CHE TORNANO COL TUO ACCOUNT
+
+**APERTA IN ATTESA DI VERIFICA**: si vede solo disinstallando, reinstallando
+e rientrando con lo stesso account, che e' un gesto del fondatore, e solo
+dopo che la build nuova ha mandato almeno una volta le memorie al Cerchio.
+
+Il fatto del fondatore e' la Runa del Tramonto (cinque sere, dopo la
+reinstallazione una), ma il fondatore ha chiesto di cercare lo stesso difetto
+in tutte le funzioni, e lo stesso difetto c'era. **Il censimento**: ogni
+chiave che l'app scrive sul telefono e che `CioCheETuo` dichiara della
+persona (40 prefissi) e' stata messa in una di tre caselle, e la prova
+`test/le_memorie_tornano_col_tuo_account_test.dart` pretende che nessuna resti
+senza casella:
+
+- **tornano con le memorie del cammino** (7 prefissi, 12 famiglie): la Runa
+  del Tramonto, i riti e il loro ultimo giorno, i dettagli del cammino
+  (serie, ora del gesto, sentieri), i Sigilli del Libro, gli amici offline
+  gia' posti, le sinastrie, gli Oroscopi aperti e comprati, le letture del
+  mese, il Loto, i titoli delle conversazioni, gli avvisi scelti, il verso
+  del Viaggio gia' udito;
+- **hanno gia' una strada loro** (9 prefissi): l'Arcano dell'Alba, le arti
+  preferite, il cammino, il profilo, il Viaggio, i Ricordi, il borsellino;
+- **restano sul telefono, con la ragione scritta accanto** (26 prefissi):
+  le impostazioni, i permessi, la posizione, i responsi di oggi, la cache
+  della carta natale; e **per una promessa scritta nella schermata e
+  nell'informativa** gli amici offline, le letture del viso e lo storico
+  completo dell'archetipo, che restano sul telefono per scelta.
+
+Le memorie viaggiano nel giro del Custode che c'era gia' (ogni rientro e ogni
+riconoscimento): il telefono manda i valori col loro tipo, il server
+(`functions/src/memorie.ts`) li unisce senza perdere niente (le liste per
+identita', i numeri al piu' alto, le scelte del telefono prima), e il
+telefono reinstallato li riprende quando non li ha. I Ricordi del Cosmic
+Journal, che non arrivavano mai al Cerchio, si mandano e si riprendono una
+volta per installazione. Le arti preferite: il telefono le manda solo quando
+la persona le ha scelte (mai il seme), e quelle vincono.
+
+**Padri.** Le sere del Tramonto stavano solo sul telefono dalla loro nascita
+(commit `6d58b51f`, 26 luglio 2026, prima degli ordini a lettere); il
+difetto e' dell'**ordine AP voce 01** (commit `d2f41ba0`), che ha costruito la
+custodia del cammino elencando alcune famiglie e lasciando fuori le altre,
+senza un censimento che dicesse quali. I Ricordi: **ordine CG voce 03**
+(commit `0c4da6f7`), `sincronizza` scritta e mai chiamata. Le arti preferite
+che tornavano indietro: **ordine AP voce 02**, a parita' vinceva il server e
+il telefono mandava anche il seme.
+
+**Cio' che non torna.** Le memorie partono dal telefono con questa build:
+quello che e' andato perso prima (le cinque sere del fondatore, cancellate con
+la disinstallazione) non era mai arrivato al Cerchio e non puo' tornare. Da
+qui in avanti resta.
+
+Prove: `test/le_memorie_tornano_col_tuo_account_test.dart` (innesto A27
+rosso), `test/la_runa_del_tramonto_torna_col_tuo_account_test.dart` (A24,
+A25, A28 rossi), `test/i_ricordi_tornano_col_tuo_account_test.dart` (A26
+rosso), `functions/src/memorie.test.ts` e `functions/src/cammino.test.ts`
+(innesti a mano rossi), in `docs/collaudo/EV/regola_a_ev.txt`.
+
+DOMANDA: "Un'altra cosa che non mi ha riaccreditatto dopo la disinstallazione e reinstallazione con inserimento della stessa email sono gli storici del dono "runa del tramonto". Avevo già accumulato 5 "runa del tramonto" e adesso devo ricominciare da 1. [...] Se c'è una tipologia di problema, probabilmente c'è lo stesso problema con altre funzionalità, per logica. È tuo compito controllare dipendenze simili!"

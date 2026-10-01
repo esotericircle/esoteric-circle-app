@@ -318,8 +318,9 @@ void main() {
     // EV: tredici voci il 1 ottobre 2026, contate coi titoli "## VOCE EV."
     // del manifesto: le sei del pezzo 1 e le sette segnalazioni del
     // fondatore arrivate durante il lavoro (EV.51-EV.57). Il pezzo 2 non e'
-    // arrivato.
-    'EV': 13,
+    // arrivato. Quattordici dalla sera del 1 ottobre, con la EV.58 (le
+    // memorie che tornano col tuo account, dopo la Runa del Tramonto).
+    'EV': 14,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

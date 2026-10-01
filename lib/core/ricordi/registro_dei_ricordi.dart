@@ -314,6 +314,39 @@ class RegistroDeiRicordi extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// **I RICORDI TORNANO COL TUO ACCOUNT.** Ordine EV: la timeline del Cosmic
+  /// Journal non arrivava mai al Cerchio (`sincronizza` non aveva chiamanti) e
+  /// su un telefono nuovo non tornava. Dopo il riconoscimento si manda cio'
+  /// che il telefono ha e si riprendono i [mesi] dal Cerchio, **unendo**: le
+  /// righe del telefono restano, quelle del Cerchio che mancano entrano. Torna
+  /// quante righe sono entrate.
+  Future<int> riprendiDalCerchio({int mesi = 12}) async {
+    await sincronizza(forza: true);
+    final adesso = _orologio();
+    var entrate = 0;
+    for (var i = 0; i < mesi; i++) {
+      final g = DateTime(adesso.year, adesso.month - i, 1);
+      final mese = '${g.year.toString().padLeft(4, '0')}-'
+          '${g.month.toString().padLeft(2, '0')}';
+      final righe = await _porta.leggi(mese);
+      lettureDalServer++;
+      if (righe.isEmpty) continue;
+      final dentro = _perMese.putIfAbsent(mese, () => {});
+      var qui = 0;
+      for (final r in righe) {
+        if (dentro.containsKey(r.chiave)) continue;
+        dentro[r.chiave] = r;
+        qui++;
+      }
+      if (qui > 0) {
+        entrate += qui;
+        await _salva(mese);
+      }
+    }
+    if (entrate > 0) notifyListeners();
+    return entrate;
+  }
+
   /// Dimentica tutto, per la cancellazione del Cerchio e per le prove.
   void dimentica() {
     _perMese.clear();

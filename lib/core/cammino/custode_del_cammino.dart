@@ -1,5 +1,11 @@
 import '../rituals/arcano_dell_alba/archivio_dell_alba.dart';
 import '../viaggio/il_viaggio_custodito.dart';
+import 'le_memorie_custodite.dart';
+import '../ricordi/registro_dei_ricordi.dart';
+import '../ricordi/scrigno_dei_custoditi.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../rituals/scelta_degli_avvisi.dart';
+import '../synastry/collezione_delle_coppie.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter/material.dart';
 
@@ -113,7 +119,8 @@ class CustodeDelCammino {
 
     List<String> arti = const [];
     try {
-      arti = context.read<ArtiPreferiteController>().ids;
+      final preferite = context.read<ArtiPreferiteController>();
+      if (preferite.scelteDallaPersona) arti = preferite.ids;
     } catch (errore) {
       arti = const [];
     }
@@ -143,6 +150,8 @@ class CustodeDelCammino {
       // chiavi del telefono e non lasciava il telefono: chi aggiornava l'app
       // rifaceva da zero quattro discese in quattro giorni.
       viaggioDelloSciamano: await IlViaggioCustodito.daCustodire(),
+      // Ordine EV: tutte le altre memorie della persona.
+      memorie: await LeMemorieCustodite.daCustodire(),
     );
   }
 
@@ -406,6 +415,56 @@ class CustodeDelCammino {
     );
   }
 
+  /// **CHI TIENE UNA MEMORIA TORNATA LA RILEGGE**, ordine EV. Le famiglie di
+  /// `LeMemorieCustodite` che le schermate leggono quando si aprono non hanno
+  /// bisogno di niente; quelle che un controllore tiene in memoria dall'avvio
+  /// si rileggono qui, se il Cerchio le ha cambiate.
+  static Future<void> _rileggi(
+      BuildContext context, Set<String> famiglie) async {
+    Future<void> prova(String cosa, Future<void> Function() fai) async {
+      try {
+        await fai();
+      } catch (errore) {
+        debugPrint('Memorie tornate: $cosa non si rilegge. $errore');
+      }
+    }
+
+    if (famiglie.contains('sinastria')) {
+      await prova('la collezione delle coppie',
+          () => context.read<CollezioneDelleCoppie>().carica());
+    }
+    if (!context.mounted) return;
+    if (famiglie.contains('avvisi_scelti')) {
+      await prova('la scelta degli avvisi',
+          () => context.read<SceltaDegliAvvisi>().carica());
+    }
+    if (!context.mounted) return;
+    if (famiglie.contains('cammino')) {
+      await prova('le memorie del cammino',
+          () => context.read<DiarioDelCammino>().adottaLeMemorieDelCammino());
+    }
+  }
+
+  /// La chiave che dice che questa installazione ha gia' ripreso i Ricordi.
+  static const String chiaveRicordiRipresi = 'ricordi.ripresiDalCerchio';
+
+  static Future<void> _riprendiIRicordi(BuildContext context) async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      if (prefs.getBool(chiaveRicordiRipresi) ?? false) return;
+      if (!context.mounted) return;
+      final registro = context.read<RegistroDeiRicordi>();
+      final scrigno = context.read<ScrignoDeiCustoditi>();
+      await registro.riprendiDalCerchio();
+      await scrigno.riprendiDalServer();
+      await prefs.setBool(chiaveRicordiRipresi, true);
+    } catch (errore) {
+      // Senza i Ricordi (una prova che monta una scena sola, o la rete
+      // assente) si ritenta al prossimo giro.
+      debugPrint('Cammino: i Ricordi non si riprendono. $errore');
+    }
+  }
+
   /// ADOTTA il cammino che il Cerchio ha restituito.
   ///
   /// **Non e' una sostituzione cieca**, e la ragione e' che cio' che arriva
@@ -464,6 +523,19 @@ class CustodeDelCammino {
     // **E IL VIAGGIO DELLO SCIAMANO TORNA COL SUO ACCOUNT**, ordine EE voce
     // 13. Come per l'Alba, non serve il contesto: la porta sono le chiavi.
     await IlViaggioCustodito.adottaDalCerchio(cammino.viaggioDelloSciamano);
+    // **E LE ALTRE MEMORIE DELLA PERSONA**, ordine EV: la Runa del Tramonto,
+    // i sogni, il Libro dei Sigilli e le altre famiglie di
+    // `LeMemorieCustodite`. Chi le tiene in memoria le rilegge.
+    final cambiate = await LeMemorieCustodite.adottaDalCerchio(cammino.memorie);
+    if (!context.mounted) return;
+    if (cambiate.isNotEmpty) {
+      await _rileggi(context, cambiate);
+    }
+    if (!context.mounted) return;
+    // **I RICORDI E LE CARTE CUSTODITE**, ordine EV: avevano gia' la loro
+    // porta sul server, ma nessuno la chiamava. Una volta per installazione:
+    // il telefono manda cio' che ha e riprende dal Cerchio cio' che manca.
+    await _riprendiIRicordi(context);
     if (!context.mounted) return;
     // **E L'ARCHETIPO TORNA COL SUO EMBLEMA**, ordine EV: il Cerchio lo
     // custodiva dall'ordine CF e lo rimandava, e qui nessuno lo riprendeva.

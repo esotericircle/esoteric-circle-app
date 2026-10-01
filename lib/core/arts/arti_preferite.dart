@@ -109,9 +109,18 @@ class ArtiPreferiteController extends ChangeNotifier {
   Maestro? _maestro;
   List<String> _ids = const [];
   bool _caricato = false;
+  bool _scelte = false;
 
   /// Le arti nello scaffale, nell'ordine in cui vanno mostrate.
   List<String> get ids => List.unmodifiable(_ids);
+
+  /// Vero quando lo scaffale e' una scelta della persona e non il seme.
+  /// Ordine EV, dal censimento delle memorie: il telefono mandava al Cerchio
+  /// anche il seme, e il server teneva le sue arti per prime; cosi' un cambio
+  /// fatto dopo la prima custodia tornava indietro, e un telefono appena
+  /// reinstallato avrebbe potuto mandare il seme sopra le scelte vere. Ora si
+  /// manda solo cio' che la persona ha scelto, e quello vince.
+  bool get scelteDallaPersona => _scelte;
 
   /// Vero quando lo stato e' stato letto dal disco: prima di allora la
   /// schermata mostra il seme invece di un vuoto momentaneo.
@@ -167,6 +176,7 @@ class ArtiPreferiteController extends ChangeNotifier {
     ];
     if (valide.isEmpty) return;
     _ids = valide;
+    _scelte = true;
     notifyListeners();
     await _salva();
   }
@@ -179,11 +189,13 @@ class ArtiPreferiteController extends ChangeNotifier {
     final valide =
         (salvate ?? const <String>[]).where(selezionabili.contains).toList();
     _ids = valide.isEmpty ? semePer(_maestro) : valide;
+    _scelte = valide.isNotEmpty;
     _caricato = true;
     notifyListeners();
   }
 
   Future<void> _salva() async {
+    _scelte = true;
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList(_chiave, _ids);
   }

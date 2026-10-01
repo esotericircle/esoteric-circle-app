@@ -6214,8 +6214,8 @@ Ordine del 2 ottobre 2026 (lavorato il 1 ottobre sul calendario del PC),
 arrivato solo il pezzo 1 su 2: sei voci (EV.01-EV.06); le voci
 dell'Architetto EV.07 ed EV.08 non sono arrivate, e la voce EU.14 del
 manifesto EU porta la riga "prosegue nell'ordine EV, voce EV.08". Durante il
-lavoro il fondatore ha mandato sette segnalazioni, che il manifesto porta come
-EV.51-EV.57. Partenza dal commit `0f7a0625`. **La regola 6 ("non consegna
+lavoro il fondatore ha mandato otto segnalazioni, che il manifesto porta come
+EV.51-EV.58. Partenza dal commit `0f7a0625`. **La regola 6 ("non consegna
 niente") l'ha superata il fondatore**: "Alla fine di tutto, crea nuova Build,
 test su Cell e consegna su AppTester e dimmi quando posso lanciare codemagic".
 Manifesto `docs/ordini/ORDINE_EV_MANIFESTO.md`, rapporto
@@ -6299,15 +6299,45 @@ Manifesto `docs/ordini/ORDINE_EV_MANIFESTO.md`, rapporto
   schermo su Android (EV.56: `lib/core/sensi/lo_schermo_protetto.dart`,
   `FLAG_SECURE` dal canale `esoteric_circle/schermo` metodo `proteggi`; le
   build di collaudo lo spengono con `--dart-define=CATTURE_PERMESSE=true`; su
-  iOS non si puo').
+  iOS non si puo'. Chiusa: sul Realme la finestra ha il segno `SECURE` e tre
+  catture su tre escono vuote, `docs/collaudo/EV/ev56_catture_bloccate.txt`).
+- **Le memorie che tornano col tuo account (EV.58, aperta per la
+  reinstallazione).** Dal fatto della Runa del Tramonto (cinque sere, dopo la
+  reinstallazione una) e dal censimento chiesto dal fondatore su tutte le
+  funzioni: `lib/core/cammino/le_memorie_custodite.dart` mette ogni prefisso
+  che `CioCheETuo` dichiara della persona (40) in una casella: torna con le
+  memorie (`famiglie`: tramonto, riti, cammino, sigilli, amici, sinastria,
+  oroscopo, letture, loto, titoli, avvisi_scelti, verso), ha una porta sua
+  (`conUnaPortaSua`), o resta sul telefono con la ragione (`delTelefono`;
+  per promessa scritta gli amici offline, il viso e lo storico
+  dell'archetipo). Le memorie viaggiano nel giro del Custode:
+  `CamminoDaCustodire.memorie` (valori col tipo `{t, v}`), fuse sul server da
+  `functions/src/memorie.ts` (liste unite per identita', numeri al piu' alto,
+  booleani in o, a parita' il telefono; tetto 60000 caratteri per famiglia),
+  riprese da `LeMemorieCustodite.adottaDalCerchio` solo dove il telefono non
+  le ha, con la rilettura dei controller (`CollezioneDelleCoppie`,
+  `SceltaDegliAvvisi`, `DiarioDelCammino.adottaLeMemorieDelCammino`). I
+  Ricordi del Cosmic Journal si mandano e si riprendono una volta per
+  installazione (`RegistroDeiRicordi.riprendiDalCerchio`, chiave
+  `ricordi.ripresiDalCerchio`). Le arti preferite partono solo se scelte
+  dalla persona (`ArtiPreferiteController.scelteDallaPersona`) e sul server
+  vince il telefono. Padri: ordine AP voce 01 (la custodia senza censimento),
+  CG voce 03 (i Ricordi mai mandati), AP voce 02 (le arti). Le cinque sere
+  perse prima della build nuova non possono tornare. Altri difetti del
+  censimento non curati, scritti nel rapporto: l'Alba sul server legge un
+  `sacchetto` che il telefono non manda, l'identita' a parita' vince il
+  server, i movimenti degli Eos e la foto del profilo non tornano, la serie
+  del cammino fusa al piu' alto.
 
 **Prove e guardie.** Prove nuove: `il_sigillo_si_traccia_sempre`,
 `chi_esce_dal_cerchio_esce_dal_conto`, `la_tastiera_si_chiude_tornando`,
 `medora_sa_il_cielo_e_il_responso`, `l_archetipo_torna_dal_cerchio`,
 `la_bolla_degli_angeli_ne_mostra_tre`, `le_notifiche_si_chiedono_al_primo_dono`,
 `lo_schermo_non_si_cattura`, `i_prezzi_dei_piani_stanno_interi`,
-`ordine_ev_guard` (646 nel registro) e due prove del server in
-`functions/src/cammino.test.ts`; tutte viste rosse, innesti in
+`le_memorie_tornano_col_tuo_account`, `la_runa_del_tramonto_torna_col_tuo_account`,
+`i_ricordi_tornano_col_tuo_account`, `ordine_ev_guard` (646 nel registro),
+tre prove del server in `functions/src/cammino.test.ts` e quattro in
+`functions/src/memorie.test.ts`; tutte viste rosse, innesti in
 `docs/collaudo/EV/regola_a_ev.txt`. La versione e' 0.1.0+2290.
 
 ## Regole ferree

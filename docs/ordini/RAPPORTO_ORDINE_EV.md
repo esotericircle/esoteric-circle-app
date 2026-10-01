@@ -2,9 +2,8 @@
 
 Ramo `claude/esoteric-circle-master-order-e798aj`, partenza `0f7a0625`.
 Il manifesto con le DOMANDA, PROVA e MISURA di ogni voce:
-`docs/ordini/ORDINE_EV_MANIFESTO.md`. **Le voci 13: chiuse 4, aperte in attesa
-di verifica 9** (la EV.56 si chiude con la cattura dalla build consegnata, vedi
-in fondo).
+`docs/ordini/ORDINE_EV_MANIFESTO.md`. **Le voci 14: chiuse 5, aperte in attesa
+di verifica 9.**
 
 ## Le voci chiuse, con la prova
 
@@ -14,6 +13,7 @@ in fondo).
 | EV.04 Medora non nega il responso | `docs/collaudo/EV/medora_e_il_responso.txt` | risposte che negano o ignorano il responso, da 9 su 10 a 0 su 10, in due esecuzioni con persone diverse |
 | EV.51 le richieste di "Note di Keep" | `docs/collaudo/EV/note_di_keep.txt` | permessi sugli account nell'archivio 0 su 18 |
 | EV.54 i tre Angeli nel Passaporto | `docs/collaudo/EV/realme/ev_angeli_tre_nel_passaporto.png` | carte nella bolla da 1 a 3, nomi da 1 a 3 |
+| EV.56 niente catture dello schermo | `docs/collaudo/EV/ev56_catture_bloccate.txt` | catture leggibili dalla build senza catture permesse, da tutte a 0 su 3 (0 byte, finestra SECURE) |
 
 ## Le voci aperte, e che cosa manca a ognuna
 
@@ -26,8 +26,8 @@ in fondo).
 | EV.52 l'archetipo dopo la reinstallazione | corretto, prova rossa e verde | la reinstallazione con l'account del fondatore |
 | EV.53 il Viaggio che torna al primo cammino | corretto e pubblicato sul server | un cammino nuovo e l'app riaperta |
 | EV.55 la scheda delle notifiche | tolta dall'avvio, due righe al primo Dono | un telefono che non ha mai concesso le notifiche |
-| EV.56 niente catture | fatto | la cattura nera dalla build consegnata (in fondo) |
 | EV.57 ONLINE che cambia numero | con EV.06 | con EV.06 |
+| EV.58 le memorie che tornano col tuo account | censimento di 40 prefissi, 12 famiglie nuove che viaggiano col Custode, i Ricordi mandati e ripresi, le arti preferite scelte che vincono; prove rosse e verdi, server provato | la funzione statoDelCerchio pubblicata con le memorie; poi la reinstallazione con l'account del fondatore, dopo che la build nuova ha mandato le memorie almeno una volta |
 
 **Il pezzo 2 dell'ordine non e' arrivato**: le voci dell'Architetto EV.07 ed
 EV.08 non ci sono. La voce EU.14 del manifesto EU porta la riga "prosegue
@@ -231,11 +231,79 @@ dai telefoni Android con la build consegnata. Se vi servono durante il
 collaudo, ditemelo e consegno le build di collaudo con le catture accese
 (`--dart-define=CATTURE_PERMESSE=true`).
 
+Provato sul Realme con la build 2290 senza catture permesse: la finestra
+dell'app ha il segno `SECURE` e tre catture su tre escono vuote
+(`docs/collaudo/EV/ev56_catture_bloccate.txt`).
+
+### EV.58, le memorie che tornano col tuo account
+
+**Il difetto c'era, e non solo nella Runa del Tramonto.** Hai chiesto di
+cercare lo stesso problema nelle altre funzioni: l'ho cercato su tutte. Ho
+preso ogni chiave che l'app scrive sul telefono e che l'app stessa dichiara
+tua (40 prefissi) e ho guardato, per ognuna, se dopo una reinstallazione
+torna. **Dodici famiglie non tornavano**, e adesso viaggiano col Custode
+(lo stesso giro che gia' riportava Eos, Sigilli, Alba e Viaggio):
+
+1. la Runa del Tramonto (le sere della settimana);
+2. i riti, col loro ultimo giorno (la serie che vedi);
+3. i dettagli del cammino: ora del gesto, sentieri, ultimo giorno;
+4. i Sigilli del Libro;
+5. gli amici offline gia' posti;
+6. le sinastrie salvate;
+7. gli Oroscopi aperti e comprati, i tre cieli, il segno e la testa rivelati;
+8. le letture del mese;
+9. il Loto;
+10. i titoli delle conversazioni;
+11. gli avvisi scelti;
+12. il verso del Viaggio gia' udito.
+
+E due strade che esistevano a meta': **i Ricordi del Cosmic Journal** non
+arrivavano mai al Cerchio (la funzione che li manda non aveva chiamanti,
+padre ordine CG voce 03): adesso si mandano e si riprendono una volta per
+installazione. **Le arti preferite** tornavano indietro se le cambiavi dopo la
+prima custodia (a parita' vinceva il server, e il telefono mandava anche lo
+scaffale di partenza; padre ordine AP voce 02): adesso il telefono le manda
+solo quando le hai scelte, e vincono.
+
+Il padre del difetto principale e' l'**ordine AP voce 01** (commit
+`d2f41ba0`): la custodia del cammino e' nata elencando alcune famiglie e
+lasciando fuori le altre, senza un censimento che dicesse quali. La guardia
+nuova (`test/le_memorie_tornano_col_tuo_account_test.dart`) pretende che ogni
+chiave dichiarata tua abbia una casella: torna con le memorie, ha una strada
+sua, o resta sul telefono con la ragione scritta. Una chiave nuova senza
+casella la fa diventare rossa.
+
+**Restano sul telefono, per scelta**: le impostazioni, i permessi, la
+posizione, la cache della carta natale (si ricalcola), e tre cose che la
+schermata e l'informativa promettono di non portare via dal telefono: la
+lista degli amici offline, le letture del viso, lo storico completo
+dell'archetipo (il dominante col suo giorno invece torna, voce EV.52). Se
+vuoi che viaggino anche quelle, va cambiata prima la promessa scritta.
+
+**Cio' che non torna**: le tue cinque sere del Tramonto. Stavano solo sul
+telefono e la disinstallazione le ha cancellate prima che esistesse una
+strada verso il Cerchio. Da questa build in avanti restano.
+
+**Altri difetti trovati nel censimento, non curati in questo ordine** (non
+toccano cio' che hai segnalato, li scrivo perche' non si perdano):
+
+- l'Alba fusa sul server legge un campo `sacchetto` che il telefono non manda:
+  PROVENIENZA IGNOTA, non risalito;
+- l'identita' (nome, data, ora, luogo) si fonde campo per campo e a parita'
+  vince il server: un cambio fatto sul telefono dopo la prima custodia puo'
+  tornare indietro. PROVENIENZA IGNOTA, non risalito;
+- l'elenco dei movimenti degli Eos non torna dopo una reinstallazione (torna
+  il saldo): PROVENIENZA IGNOTA;
+- la foto del profilo non torna: PROVENIENZA IGNOTA;
+- la serie del cammino si fonde al piu' alto, e una serie interrotta sul
+  telefono puo' tornare intera dal Cerchio: PROVENIENZA IGNOTA.
+
 ## Le guardie e la Regola A
 
 Ogni prova nuova e' nata rossa, con l'innesto del difetto verificato col grep e
 il file rimesso identico (sha1): `docs/collaudo/EV/regola_a_ev.txt`, innesti
-A3-A23. Due innesti sono stati verdi o rossi per la ragione sbagliata al primo
+A3-A28, piu' due innesti a mano sul server (le memorie lette dal cammino, le
+arti preferite del telefono che vincono), rossi e poi rimessi. Due innesti sono stati verdi o rossi per la ragione sbagliata al primo
 giro e sono stati rifatti, scritto nello stesso file (A6: la prova non misurava
 la data; A17 e A19: la compilazione rotta). Guardia nuova nel registro:
 `ordine_ev_guard` (646). La Regola B non e' stata fatta prima di toccare le

@@ -423,3 +423,13 @@ test("a parita' di riconoscimento vince chi ha piu' discese", () => {
     tre
   );
 });
+
+test("EV: le arti preferite scelte sul telefono vincono su quelle del server", () => {
+  // Il telefono le manda solo quando la persona le ha scelte: prima vinceva il
+  // server, e un cambio fatto dopo la prima custodia tornava indietro.
+  const fuso = fondiCammini(
+    {artiPreferite: ["horoscope", "tarot_spread_three"]},
+    {artiPreferite: ["sunset_rune"]}
+  );
+  assert.deepEqual(fuso.artiPreferite, ["sunset_rune"]);
+});
