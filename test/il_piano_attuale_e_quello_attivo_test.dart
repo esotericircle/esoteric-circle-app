@@ -91,19 +91,79 @@ void main() {
     return (quanti: quanti, sullaDemo: sullaDemo);
   }
 
-  testWidgets('in Demo senza piano attivo, il badge sta sulla card Demo',
-      (t) async {
+  // **LAPIDE, 1 ottobre 2026, ordine EU voce 07.** Qui si pretendeva il badge
+  // sulla card Demo quando il piano e' "free". Ma nella demo il piano "free"
+  // e' il Viandante, coi suoi lucchetti (la Lunga, la Cinese, la Vedica, gli
+  // amici), e da quando il fondatore lo sceglie dal telefono per le prove
+  // (*"Per ora è necessario rendere disponibile il cambio di abbonamento in
+  // "viandante" per fare le prove."*) il badge sta sulla scheda del
+  // Viandante, e la card Demo resta la presentazione.
+  testWidgets('in Demo col Viandante, il badge sta sul Viandante', (t) async {
     unaFinestraCheTieneTuttiIPiani(t);
-    // **Qui non si scorre**: la card Demo sta in cima, e scorrendo fino in
-    // fondo uscirebbe dall'albero, facendo leggere zero per il motivo
-    // sbagliato.
     await t.pumpWidget(conPiano(Tier.free, isDemo: true));
     await t.pump();
     final b = await badge(t);
-    print('ORDINE EG: badge in Demo senza piano, quanti ${b.quanti}, '
+    print('ORDINE EU: badge in Demo col Viandante, quanti ${b.quanti}, '
         'sulla card Demo ${b.sullaDemo}');
-    expect(b.sullaDemo, isTrue,
-        reason: 'senza nessun piano attivo il piano attuale E\' la Demo');
+    expect(b.sullaDemo, isFalse,
+        reason: 'col Viandante la card Demo dice di essere il piano attuale');
+    expect(
+        find.descendant(
+            of: find.byKey(const Key('plan_free')),
+            matching: find.text('Piano Attuale')),
+        findsOneWidget,
+        reason: 'il Viandante attivo non porta il badge');
+    expect(find.byKey(const Key('choose_free')), findsNothing,
+        reason: 'il Viandante gia\' attivo offre ancora di passarci');
+  });
+
+  testWidgets(
+      'in Demo, da un piano a pagamento si passa al Viandante e si '
+      'torna indietro', (t) async {
+    unaFinestraCheTieneTuttiIPiani(t);
+    await t.pumpWidget(conPiano(Tier.tier3, isDemo: true));
+    await t.pump();
+    final viandante = find.byKey(const Key('choose_free'));
+    expect(viandante, findsOneWidget,
+        reason: 'nella demo il Viandante non si sceglie dal telefono');
+    await t.ensureVisible(viandante);
+    await t.tap(viandante);
+    await t.pump();
+    await t.pump(const Duration(milliseconds: 300));
+    final servizio = t
+        .element(find.byKey(const Key('plan_free')))
+        .read<EntitlementService>();
+    expect(servizio.tier, Tier.free, reason: 'il tocco non porta al Viandante');
+    // L'avviso del cambio se ne va da solo: finche' c'e', copre il fondo.
+    await t.pump(const Duration(seconds: 5));
+    await t.pumpAndSettle();
+    // E indietro: l'Illuminato si sceglie col suo pulsante, come sempre.
+    final illuminato = find.byKey(const Key('choose_tier3'));
+    // Sotto la lista c'e' la striscia fissa della demo: si scorre finche' il
+    // dito prende davvero il pulsante.
+    for (var i = 0;
+        i < 12 && illuminato.hitTestable().evaluate().isEmpty;
+        i++) {
+      await t.drag(
+          find.byKey(const Key('pricing_list')), const Offset(0, -250));
+      await t.pumpAndSettle();
+    }
+    await t.tap(illuminato);
+    await t.pumpAndSettle();
+    await t.tap(find.byKey(const Key('activate_demo')));
+    await t.pump();
+    await t.pump(const Duration(milliseconds: 300));
+    expect(servizio.tier, Tier.tier3, reason: 'non si torna al piano di prima');
+    print('ORDINE EU: piani raggiungibili dal telefono nella demo 4 su 4');
+  });
+
+  testWidgets('fuori dalla demo il Viandante non si sceglie', (t) async {
+    unaFinestraCheTieneTuttiIPiani(t);
+    await t.pumpWidget(conPiano(Tier.tier3, isDemo: false));
+    await t.pump();
+    expect(find.byKey(const Key('choose_free')), findsNothing,
+        reason: 'il pulsante del Viandante esiste nella versione per il '
+            'pubblico');
   });
 
   testWidgets('attivato un piano, il badge lascia la card Demo e lo segue',

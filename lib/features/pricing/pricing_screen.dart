@@ -1,10 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/config/app_flags.dart';
 import '../../core/entitlement/entitlement_service.dart';
 import '../../core/entitlement/plan_catalog.dart';
-import '../../core/entitlement/tier.dart';
 import '../../core/entitlement/question_allowance.dart';
 import '../../design_system/components/depth_card.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -77,7 +78,12 @@ class PricingScreen extends StatelessWidget {
                       // **IL BADGE SEGUE IL PIANO VERO, ordine EG.** Finche'
                       // nessun livello e' attivo il piano attuale e' la Demo;
                       // appena se ne attiva uno, il badge se ne va di la'.
-                      eIlPianoAttuale: current == Tier.free,
+                      // **NON PIU' COL VIANDANTE, ordine EU voce 07.** Il
+                      // piano "free" nella demo e' il Viandante, coi suoi
+                      // lucchetti: da quando si sceglie dal telefono il
+                      // badge sta sulla sua scheda, e la Demo resta la
+                      // presentazione.
+                      eIlPianoAttuale: false,
                     ),
                     const SizedBox(height: SpacingTokens.md),
                   ],
@@ -102,8 +108,8 @@ class PricingScreen extends StatelessWidget {
                       // e' attivo, il piano attuale e' la Demo e non il
                       // Viandante: la prima stesura lo metteva su tutte e
                       // due, e `pricing_test` l'ha presa.
-                      isCurrent: plan.tier == current &&
-                          !(isDemo && current == Tier.free),
+                      isCurrent: plan.tier == current,
+                      isDemo: isDemo,
                       palette: palette,
                     ),
                     const SizedBox(height: SpacingTokens.md),
@@ -198,11 +204,15 @@ class _PlanCard extends StatefulWidget {
     required this.plan,
     required this.isCurrent,
     required this.palette,
+    this.isDemo = false,
   });
 
   final Plan plan;
   final bool isCurrent;
   final MaestroPalette palette;
+
+  /// Nella demo il Viandante si sceglie dal telefono (ordine EU voce 07).
+  final bool isDemo;
 
   @override
   State<_PlanCard> createState() => _PlanCardState();
@@ -266,6 +276,16 @@ class _PlanCardState extends State<_PlanCard> {
                     letterSpacing: 0.2,
                   )),
             ),
+          // **IL VIANDANTE SI SCEGLIE DAL TELEFONO, NELLA DEMO.** Ordine EU
+          // voce 07, il fondatore: *"Per ora è necessario rendere disponibile
+          // il cambio di abbonamento in "viandante" per fare le prove."*
+          // Solo dietro `AppFlags.isDemo`: nella versione per il pubblico il
+          // Viandante e' il piano di chi non ne ha comprato uno, e non si
+          // sceglie.
+          if (plan.isFree && widget.isDemo && !isCurrent) ...[
+            const SizedBox(height: SpacingTokens.md),
+            _ProvaIlViandante(plan: plan, palette: palette),
+          ],
           if (plan.price != null) ...[
             const SizedBox(height: SpacingTokens.md),
             _PriceCycles(
@@ -642,7 +662,6 @@ class _ChoosePlanButton extends StatelessWidget {
   }
 
   void _openSheet(BuildContext context) {
-    final entitlement = context.read<EntitlementService>();
     foglioDelCerchio<void>(
       context: context,
       backgroundColor: Colors.transparent,
@@ -689,66 +708,9 @@ class _ChoosePlanButton extends StatelessWidget {
                   const SizedBox(width: SpacingTokens.sm),
                   TextButton(
                     key: const Key('activate_demo'),
-                    onPressed: () async {
-                      // Il messenger si prende PRIMA di mutare lo stato: il
-                      // cambio di tier ricostruisce la schermata e puo'
-                      // deattivare proprio questo bottone, e cercare un
-                      // antenato da un elemento deattivato e' lo schianto
-                      // "deactivated widget's ancestor" della famiglia dei
-                      // difetti di ciclo di vita.
-                      final messenger = ScaffoldMessenger.of(context);
-                      // **E ANCHE LA PORTA E I CONTATORI, PRIMA DELL'ATTESA**,
-                      // per la stessa ragione: dopo un await questo albero
-                      // puo' non esserci piu'.
-                      // **NON SI PRETENDE UN PROVIDER, ordine CQ voce
-                      // 1.01.** Chiedere `AppServices` con un `read` nudo fa
-                      // cadere ogni prova e ogni anteprima che monta questa
-                      // schermata da sola, ed e' una famiglia di difetti gia'
-                      // vista in questa casa: un provider preteso rompe
-                      // lontano da dove e' scritto. Qui la porta e' un di
-                      // piu': se non c'e', il piano vale su questo telefono e
-                      // basta, che e' cio' che la Demo ha sempre fatto.
-                      PortaDelCerchio? porta;
-                      QuestionAllowance? borsa;
-                      try {
-                        porta = context.read<AppServices>().porta;
-                        borsa = context.read<QuestionAllowance>();
-                      } catch (senzaAlbero) {
-                        porta = null;
-                        borsa = null;
-                      }
+                    onPressed: () {
                       Navigator.of(sheetContext).pop();
-                      // **IL PIANO SI SCRIVE SUL SERVER, ordine CQ voce
-                      // 1.01.** Cambiarlo solo qui dentro lasciava il server
-                      // a contare i budget sul Viandante: il telefono
-                      // mostrava il tetto dell'Illuminato e il server negava
-                      // alla prima gettata. Adesso si chiede al server di
-                      // scriverlo, e **si dice alla persona cosa e'
-                      // successo davvero**, invece di annunciare un piano
-                      // attivo che il server non conosce.
-                      final scritto = await porta?.attivaIlPianoInDemo(
-                          EntitlementService.nomeDelServer(plan.tier));
-                      if (scritto == null) {
-                        // La porta e' spenta, chiusa o muta: si tiene il
-                        // cambio locale, che e' cio' che la Demo senza rete
-                        // ha sempre fatto, e lo si DICHIARA.
-                        entitlement.setTier(plan.tier);
-                        messenger.showSnackBar(
-                          SnackBar(
-                              content: Text(
-                                  '${plan.name} attivo solo su questo telefono: il server non lo ha registrato.')),
-                        );
-                        return;
-                      }
-                      entitlement.applicaIlPianoDelServer(scritto);
-                      // I residui si rileggono col piano nuovo, altrimenti
-                      // restano quelli contati sul piano di prima.
-                      await borsa?.sincronizza();
-                      messenger.showSnackBar(
-                        SnackBar(
-                            content: Text(
-                                '${plan.name} attivo in Demo. Il pagamento vero arriva dal web.')),
-                      );
+                      unawaited(_attivaInDemo(context, plan));
                     },
                     child: Text('Attiva in Demo',
                         style: TypographyTokens.label(size: 13)
@@ -757,6 +719,110 @@ class _ChoosePlanButton extends StatelessWidget {
                 ],
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// **ATTIVA UN PIANO NELLA DEMO**, dal foglio dei piani a pagamento e dal
+/// pulsante del Viandante (ordine EU voce 07): il piano si scrive sul server,
+/// e senza server vale su questo telefono e lo si dice.
+Future<void> _attivaInDemo(BuildContext context, Plan plan) async {
+  final entitlement = context.read<EntitlementService>();
+  // Il messenger si prende PRIMA di mutare lo stato: il
+  // cambio di tier ricostruisce la schermata e puo'
+  // deattivare proprio questo bottone, e cercare un
+  // antenato da un elemento deattivato e' lo schianto
+  // "deactivated widget's ancestor" della famiglia dei
+  // difetti di ciclo di vita.
+  final messenger = ScaffoldMessenger.of(context);
+  // **E ANCHE LA PORTA E I CONTATORI, PRIMA DELL'ATTESA**,
+  // per la stessa ragione: dopo un await questo albero
+  // puo' non esserci piu'.
+  // **NON SI PRETENDE UN PROVIDER, ordine CQ voce
+  // 1.01.** Chiedere `AppServices` con un `read` nudo fa
+  // cadere ogni prova e ogni anteprima che monta questa
+  // schermata da sola, ed e' una famiglia di difetti gia'
+  // vista in questa casa: un provider preteso rompe
+  // lontano da dove e' scritto. Qui la porta e' un di
+  // piu': se non c'e', il piano vale su questo telefono e
+  // basta, che e' cio' che la Demo ha sempre fatto.
+  PortaDelCerchio? porta;
+  QuestionAllowance? borsa;
+  try {
+    porta = context.read<AppServices>().porta;
+    borsa = context.read<QuestionAllowance>();
+  } catch (senzaAlbero) {
+    porta = null;
+    borsa = null;
+  }
+  // **IL PIANO SI SCRIVE SUL SERVER, ordine CQ voce
+  // 1.01.** Cambiarlo solo qui dentro lasciava il server
+  // a contare i budget sul Viandante: il telefono
+  // mostrava il tetto dell'Illuminato e il server negava
+  // alla prima gettata. Adesso si chiede al server di
+  // scriverlo, e **si dice alla persona cosa e'
+  // successo davvero**, invece di annunciare un piano
+  // attivo che il server non conosce.
+  final scritto = await porta
+      ?.attivaIlPianoInDemo(EntitlementService.nomeDelServer(plan.tier));
+  if (scritto == null) {
+    // La porta e' spenta, chiusa o muta: si tiene il
+    // cambio locale, che e' cio' che la Demo senza rete
+    // ha sempre fatto, e lo si DICHIARA.
+    entitlement.setTier(plan.tier);
+    messenger.showSnackBar(
+      SnackBar(
+          content: Text(
+              '${plan.name} attivo solo su questo telefono: il server non lo ha registrato.')),
+    );
+    return;
+  }
+  entitlement.applicaIlPianoDelServer(scritto);
+  // I residui si rileggono col piano nuovo, altrimenti
+  // restano quelli contati sul piano di prima.
+  await borsa?.sincronizza();
+  messenger.showSnackBar(
+    SnackBar(
+        content: Text(
+            '${plan.name} attivo in Demo. Il pagamento vero arriva dal web.')),
+  );
+}
+
+/// Il pulsante del Viandante nella demo: un tocco, e il piano e' il
+/// Viandante, coi suoi lucchetti e i suoi inviti; per tornare indietro si
+/// sceglie di nuovo il piano di prima.
+class _ProvaIlViandante extends StatelessWidget {
+  const _ProvaIlViandante({required this.plan, required this.palette});
+
+  final Plan plan;
+  final MaestroPalette palette;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          enableFeedback: false,
+          key: const Key('choose_free'),
+          borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+          onTap: () => unawaited(_attivaInDemo(context, plan)),
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+                vertical: SpacingTokens.sm, horizontal: SpacingTokens.md),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(SpacingTokens.radiusPill),
+              border: Border.all(color: palette.gold.withValues(alpha: 0.6)),
+            ),
+            child: Text('Prova ${plan.name} in Demo',
+                textAlign: TextAlign.center,
+                style: TypographyTokens.titoloDiRiga()
+                    .copyWith(color: palette.goldSoft)),
           ),
         ),
       ),
