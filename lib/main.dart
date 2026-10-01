@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'app.dart';
 import 'core/chat/i_responsi_di_oggi.dart';
 import 'core/diagnosi/briciole.dart';
+import 'core/sensi/lo_schermo_protetto.dart';
 import 'core/l10n/la_lingua_del_cerchio.dart';
 import 'services/push/la_push_in_arrivo.dart';
 import 'services/app_services.dart';
@@ -122,5 +123,8 @@ Future<void> main() async {
   // letto l'Oroscopo, ha chiuso l'app e scrive a Medora dopo pranzo trova
   // un Maestro che sa che cosa ha letto.
   unawaited(IResponsiDiOggi.carica());
+  // **E LO SCHERMO SI PROTEGGE DALLE CATTURE**, ordine EV: su Android, salvo
+  // nelle build di collaudo che dichiarano CATTURE_PERMESSE.
+  unawaited(LoSchermoProtetto.applica());
   runApp(EsotericCircleApp(services: services));
 }

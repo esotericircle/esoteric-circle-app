@@ -56,6 +56,15 @@ class MainActivity : FlutterActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (motoreRitrovato) setFrameworkHandlesBack(true)
+        applicaLaProtezione()
+    }
+
+    private fun applicaLaProtezione() {
+        if (protetto) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        } else {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+        }
     }
 
     override fun onDestroy() {
@@ -124,6 +133,20 @@ class MainActivity : FlutterActivity() {
         // sulla finestra non chiede permessi e se ne va con la finestra.
         MethodChannel(flutterEngine.dartExecutor.binaryMessenger, SCHERMO)
             .setMethodCallHandler { chiamata, risposta ->
+                // NIENTE CATTURE DELLO SCHERMO. Ordine EV, il fondatore il 1
+                // ottobre 2026: "vorrei disattivassi la possibilita' di fare
+                // screenshot". FLAG_SECURE toglie la cattura e la
+                // registrazione dello schermo e nasconde l'anteprima fra le
+                // app recenti. Lo chiede Dart all'avvio; resta scritto qui
+                // perche' un'attivita' ricreata col motore in cache lo rimetta.
+                if (chiamata.method == "proteggi") {
+                    protetto = chiamata.arguments as? Boolean ?: true
+                    runOnUiThread {
+                        applicaLaProtezione()
+                        risposta.success(null)
+                    }
+                    return@setMethodCallHandler
+                }
                 if (chiamata.method != "tieniAcceso") {
                     risposta.notImplemented()
                     return@setMethodCallHandler
@@ -141,6 +164,8 @@ class MainActivity : FlutterActivity() {
     }
 
     companion object {
+        // Se lo schermo e' protetto dalle catture: lo decide Dart all'avvio.
+        var protetto = false
         const val CANALE = "esoteric_circle/sfondo"
         const val SCHERMO = "esoteric_circle/schermo"
         const val MOTORE = "esoteric_circle/motore"
