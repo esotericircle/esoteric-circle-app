@@ -25,3 +25,30 @@ UNA DOMANDA COL SUO TOCCO, a freddo: prima 0,00690 + 0,00390 = 0,01080 $; dopo (
 IL RESTO NON E' ZERO: 3 o 4 tocchi su 24 chiamano ancora, quando il modello non ha scritto il segno o il seguito ripulito resta vuoto. La voce chiedeva "dopo 0": il dopo misurato e' 0,12 e 0,17.
 
 IL CONFRONTO ALLA CIECA, misura E (seguito): giro finale contro prima2, docs/collaudo/EX/qualita/finale3/.
+
+L'EX AGGIUNTA 4: IL TESTO C'E' SEMPRE GIA' QUANDO LA PERSONA TOCCA (2 ottobre 2026 sera)
+DOMANDA: "Voglio tutto sistemato." (EX Aggiunta 4: zero chiamate al tocco del "Vai più a fondo", prima 0,17.)
+MISURA chiesta: chiamate al tocco 0,17 -> 0; casi in cui il seguito non arriva con la risposta, prima e dopo; confronto alla cieca.
+
+DA DOVE VENIVANO LE CHIAMATE AL TOCCO: il modello saltava il seguito in 3 o 4 risposte su 24 (uscite da 29 a 95 token), e la correzione corta dell'EX.07 non lo chiedeva: una risposta corretta arrivava senza seguito.
+
+IL CODICE
+- La correzione corta chiede anche il seguito (MaestroPersona.istruzioneDellaCorrezione con conSeguito, FirebaseAiProvider.correggi), e il seguito che arriva e' quello della risposta corretta o nessuno.
+- Se la risposta arriva senza seguito, il controller lo prepara subito in sottofondo (MaestroChatController._preparaIlSeguitoSeManca), lo tiene nascosto nel messaggio e lo salva con lui; il tocco lo scopre, o aspetta quello in preparazione, senza chiamare. All'uscita dal LIVE si prepara quello dell'ultima risposta. All'apertura della chat no: la prima stesura lo preparava anche li', e al banco (giro ex07a) ogni apertura costava una chiamata anche a chi non tocca mai; tolto (padre: questa voce).
+- Prova nuova test/il_seguito_e_gia_pronto_test.dart (4 prove, nata rossa, A15). Nelle prove della suite la preparazione e' spenta (test/flutter_test_config.dart), perche' le prove che contano le chiamate della risposta ne vedrebbero una in piu' che non e' loro; la prova della preparazione la riaccende.
+
+LA MISURA (tool/il_banco_della_qualita.dart, 24 casi di chat, ogni risposta toccata; il banco registra i seguiti preparati, quelli aspettati dal tocco e quelli chiesti al tocco)
+| Giro | Chiamate al tocco | Risposte senza seguito, preparato in sottofondo | Costo di un tocco a freddo (con la preparazione) |
+|---|---|---|---|
+| fine4 (prima) | 0,17 (4 tocchi su 24 chiamano) | 4 su 24, chiesto al tocco | 0,00042 $ |
+| ex07e | 0 | 3 su 24 | 0,00034 $ |
+| ex07f | 0 | 3 su 24 | 0,00032 $ |
+| ex07g | 0 | 4 su 24 | 0,00057 $ |
+| ex07h | 0 | 4 su 24 | 0,00047 $ |
+| ex07i | 0 | 6 su 24 | 0,00068 $ |
+| ex07j (finale) | 0 | 1 su 24 | 0,00011 $ |
+Chiamate al tocco: prima 0,17, dopo 0 in sei giri su sei (144 tocchi). Il seguito che non arriva con la risposta costa ancora una chiamata, ma la paga l'app in sottofondo subito dopo la risposta, e la persona trova il testo gia' pronto.
+
+IL CONFRONTO ALLA CIECA, misura E (seguito), giro finale ex07j contro fine4, due giudici (docs/collaudo/EX/qualita/chat_ex07j/): 20 contro 14 e 21 contro 18 su 24. Al giro ex07i (chat_ex07i): 18 contro 12 e 22 contro 15.
+
+STATO: APERTA IN ATTESA DI VERIFICA finche' il tocco non e' guardato a video sul Realme con la build nuova.

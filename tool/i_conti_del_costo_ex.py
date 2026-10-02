@@ -35,7 +35,7 @@ _q = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_q)
 
 GIRO_PRIMA = 'prima2'
-GIRO_DOPO = 'fine4'
+GIRO_DOPO = 'ex07j'
 
 # I costi per uso dell'ordine EW (docs/costi/i_conti_del_costo.txt):
 # (senza cache, con la cache misurata).

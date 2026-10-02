@@ -29,3 +29,44 @@ Ingresso della correzione al giro 1: 5.745 token contro 8.857; costo 0,0020 cont
 DIFETTO TROVATO E CURATO DENTRO LA VOCE: al giro finale (fine2) una correzione corta ha scritto "il primo gennaio 2028 Giove sarà nel Cancro" (e' in Vergine; il seguito della stessa risposta, scritto dalla richiesta intera, diceva Vergine). Padre: ordine EX voce 07 (la correzione non chiama le funzioni del cielo e non riceveva i loro fatti). Cura: la correzione riceve il cielo di oggi e dei giorni chiesti nel turno, dalle stesse effemeridi (controller _cieloDelTurno, MaestroPersona.istruzioneDellaCorrezione cieloDelTurno); prova test/la_correzione_porta_il_cielo_del_turno_test.dart, nata rossa (regola_a_ex.txt, A7).
 
 IL CONFRONTO ALLA CIECA SUL BANCO INTERO: giro finale contro prima2, docs/collaudo/EX/qualita/finale3/.
+
+L'EX AGGIUNTA 4: LA PRIMA RISPOSTA PASSA GIA' (2 ottobre 2026 sera)
+DOMANDA: "Voglio tutto sistemato." (EX Aggiunta 4: "Code conta quali controlli scartano più spesso la prima risposta e corregge l'istruzione del modello perché la prima risposta li passi già; la correzione corta resta per i casi che restano." Obiettivo 1,3 chiamate per risposta o meno, prima 1,71.)
+MISURA chiesta: chiamate per risposta; scarti per controllo; confronto alla cieca.
+
+CHI SCARTAVA LA PRIMA RISPOSTA (tool/i_motivi_degli_scarti.dart sulle 62 risposte scartate dei due giri della correzione corta; il banco registra adesso ogni scarto e la sua correzione)
+- la rete della posizione, 37 su 62: quasi sempre "Il tuo cielo dice che tua madre comprenderà" o "dice di non firmare", cioe' la posizione detta come un fatto o come un consiglio;
+- la rete delle certezze, 25 su 62: il futuro dato per certo, spesso nella stessa frase;
+- e al giro fine4 tre cause che nessun contatore diceva: la rete del lessico dei Maestri (LaVoceNonSiConfonde) rifaceva da capo 4 risposte su 30, le funzioni del cielo per i giorni nominati costavano 5 chiamate, e due domande "Da dove...?" erano lette da si' o no.
+
+IL CODICE
+1. Il primo turno dice cio' che diceva solo la correzione (LaPosizioneDellaLettura.perIlTurno): per il si' o il no le tre forme ("dice di sì, se ...", "dice di no, per ora: ...", "dice: non ancora, ..."), niente "che" al posto del si' o del no, anche quando la domanda chiede se conviene fare una cosa; la condizione dopo "se" e' una cosa da fare, mai un modo di sentirsi; in tutta la risposta il futuro di cio' che nessuno sa si dice con la sua condizione o come cio' che puo' accadere; alla domanda "da dove comincio" il primo passo.
+2. Le domande con la parola che chiede dopo una preposizione ("Da dove riparto?", "Con chi ne parlo?") sono aperte (LaPosizioneDellaLettura.tipo; prova rossa sul difetto vero, A16; padre ordine ET voce 01).
+3. Il cielo dei giorni che la domanda nomina ("domani", "il 15 novembre", "il primo gennaio 2028", "sabato") si calcola e arriva con la domanda (IGiorniNominati, LeFunzioniDelCielo.cieloDeiGiorniNominati); con quel cielo davanti il turno non chiama funzioni e non riceve il sollecito del rimando (A17, A20). Difetto trovato e curato dentro la voce: alla prima stesura il sollecito sostituiva la risposta buona con "ho bisogno che tu mi dica quale data" in quattro domande su quattro (giro ex07d; padre: questa voce).
+4. La rete delle certezze non scarta il cielo calcolato ("Giove sarà a 27 gradi in Vergine", "la sua luce stava aumentando" della Luna), e lo scarta ancora quando la frase parla della persona (A19; padre ordine ET voce 01, nata prima delle funzioni del cielo).
+5. La rete del lessico non conta le parole che la persona ha scritto ("la casa in centro" a chi ha scritto "una in centro"), anche nel seguito, e si conta come le altre reti (A18; padre ordine EC voce 03). In fondo all'istruzione, subito prima del controllo finale, il controllo delle parole degli altri due Maestri con la parola da dire al loro posto ("sentire": "avvertire" o "provare"; "centro": "cuore"; "ascendente": "il segno che sorgeva alla tua nascita").
+
+LE CHIAMATE PER RISPOSTA (24 casi di chat; python tool/i_conti_della_qualita.py)
+| Giro | Chiamate per risposta | Posizione | Certezza | Lessico | Correzioni corte |
+|---|---|---|---|---|---|
+| fine4 (prima) | 1,71 | 4 | 3 | non contate (4 rifatte) | 7 |
+| ex07e | 1,29 | 0 | 2 | 4 | 3 |
+| ex07f | 1,33 | 0 | 3 | 4 | 3 |
+| ex07g | 1,17 | 1 | 2 | 4 | 3 |
+| ex07h | 1,29 | 1 | 3 | 4 | 5 |
+| ex07i | 1,25 | 1 | 3 | 3 | 4 |
+| ex07j (codice finale) | 1,33 | 0 | 4 | 5 | 4 |
+| ex07k (codice finale, secondo giro) | 1,38 | 0 | 4 | 5 | 4 |
+Le reti si contano su 30 casi, LIVE compreso. Media dei sette giri dopo: 1,29 chiamate per risposta; sui due giri del codice finale 1,33 e 1,38, media 1,36. Le chiamate in piu' sul codice finale: 5 risposte su 24 rifatte da capo dalla rete del lessico in tutti e due i giri ("sentire" in bocca a Medora, "ascendente" in bocca ad Aura e a Calìgo, "centro", "transito"), e 3 o 4 correzioni corte per le certezze. Le domande sul cielo di altre date: da 2,75 chiamate a 1,00-1,25. Una risposta a freddo: da 0,00495 a 0,00419 dollari.
+
+IL CONFRONTO ALLA CIECA, giro finale ex07j contro fine4, due giudici (docs/collaudo/EX/qualita/chat_ex07j/):
+| | A regole | B memoria | C cielo | D merito | E seguito |
+|---|---|---|---|---|---|
+| giudice 1, dopo | 30/30 | 9/11 | 10/10 | 27/30 | 20/24 |
+| giudice 1, prima | 28/30 | 9/11 | 9/10 | 27/30 | 14/24 |
+| giudice 2, dopo | 30/30 | 9/11 | 10/10 | 27/30 | 21/24 |
+| giudice 2, prima | 28/30 | 10/11 | 9/10 | 25/30 | 18/24 |
+Al giro ex07i il merito era 24 e 25 contro 25 e 26: le risposte scese erano di Aura (un "sì, se lo senti", la domanda "da dove" con un invito al respiro); la condizione che e' una cosa da fare e il primo passo a "da dove" sono nati da li', e al giro finale il merito e' 27 e 27.
+L'attribuzione alla cieca dei tre Maestri sull'istruzione finale: 58 su 60, 96,7 per cento, ogni Maestro sopra l'85 (docs/collaudo/EX/attribuzione_dopo_aggiunta4.txt); le impronte dell'istruzione aggiornate.
+
+STATO: APERTA. Le chiamate per risposta sono scese da 1,71 a 1,29 di media sui sette giri, e le risposte non peggiorano alla lettura alla cieca; ma sul codice finale i due giri danno 1,33 e 1,38, sopra l'obiettivo "1,3 o meno". Cio' che resta e' la rete del lessico dei Maestri: le parole di firma degli altri due che sono anche parole di tutti i giorni ("sentire", "ascendente") tornano nonostante il divieto in testa e il controllo in fondo con la parola da usare. Code non le toglie dal testo, perche' sarebbe riscrivere la risposta. Una strada da misurare dopo: far correggere corto anche le parole del lessico invece di rifare la risposta intera (stessa chiamata, ingresso da 8.900 a circa 6.000 token), oppure decidere col fondatore se "sentire" e "ascendente", che sono parole comuni, debbano restare parole di firma.

@@ -576,13 +576,14 @@ class MaestroPersona {
             giro: testiGiaDetti.length, oggi: DateTime.now())
       ],
       if (correzione != null) ...['', correzione],
-      if (!seguito) ...['', LaRispostaNelMerito.primaDiScrivere],
       // **LE PAROLE DEGLI ALTRI DUE, ANCHE IN FONDO. Ordine EX Aggiunta 4,
       // voce EX.07.** Al banco della qualita' (giro ex07a) la rete del
       // lessico (`LaVoceNonSiConfonde`) rifaceva da capo dieci risposte su
       // trenta, sei per "sentire" in bocca a Medora e a Calìgo: il divieto
       // sta in testa all'istruzione, a ventimila caratteri dalla fine.
-      // Qui si ripete corto, dove il modello legge per ultimo.
+      // Qui si ripete corto, subito prima del controllo finale: quello resta
+      // l'ultima cosa che il modello legge (`prima_la_sua_arte_test.dart`,
+      // che la suite intera ha visto rossa sulla prima stesura).
       '',
       'ULTIMO CONTROLLO DELLE PAROLE: nella risposta non c\'è nessuna di '
           'queste parole degli altri due Maestri, nemmeno come verbo o in un '
@@ -593,6 +594,7 @@ class MaestroPersona {
           // banco le parole rifatte erano quasi sempre le comuni, "sentire",
           // "centro", "ascendente": qui la parola da usare al loro posto.
           '${_alPostoDi(maestro)}.',
+      if (!seguito) ...['', LaRispostaNelMerito.primaDiScrivere],
       // IL SEGUITO, quando si sta scrivendo il seguito e non la prima
       // risposta, per ultimo. Il modello riceve cio' che ha gia' detto,
       // perche' non si continua un discorso che non si e' visto, e con esso

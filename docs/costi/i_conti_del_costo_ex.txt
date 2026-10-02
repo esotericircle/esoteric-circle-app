@@ -1,11 +1,11 @@
 == I RAPPORTI DEL BANCO DELLA QUALITA' (dopo / prima, senza cache e con la cache)
-domanda: 0.718 e 1.244; tocco del Vai più a fondo: 0.108 e 0.276
-prima2: risposta 0.00690 a freddo, tocco 0.00390; fine4: risposta 0.00495, tocco 0.00042
+domanda: 0.607 e 1.351; tocco del Vai più a fondo: 0.029 e 0.074
+prima2: risposta 0.00690 a freddo, tocco 0.00390; ex07j: risposta 0.00419, tocco 0.00011
 
 == I COSTI PER USO (senza cache, con la cache)
-domanda_vuota: prima 0.00521 0.00252; dopo 0.00374 0.00314
-domanda: prima 0.00694 0.00431; dopo 0.00498 0.00536
-tocco: prima 0.00430 0.00236; dopo 0.00046 0.00065
+domanda_vuota: prima 0.00521 0.00252; dopo 0.00316 0.00340
+domanda: prima 0.00694 0.00431; dopo 0.00421 0.00582
+tocco: prima 0.00430 0.00236; dopo 0.00012 0.00017
 confronto: prima 0.00250 0.00219; dopo 0.00250 0.00219
 stesa3: prima 0.00207 0.00203; dopo 0.00207 0.00203
 gettata: prima 0.00601 0.00405; dopo 0.00601 0.00405
@@ -16,28 +16,28 @@ titolo: prima 0.00002 0.00002; dopo 0.00002 0.00002
 ricordi: prima 0.00010 0.00010; dopo 0.00010 0.00010
 
 == IL MESE AL MASSIMO, SENZA CACHE (dollari, 30 giorni, LIVE compreso)
-Viandante: prima 0.84 (LIVE 0.00); dopo 0.71 (LIVE 0.00); dopo, con le rune dal corpus 0.53; tetto nessuno
-   dopo, al giorno: domande 0.0113; Vai più a fondo 0.0000; confronti 0.0000; tarocchi 0.0021; gettate 0.0060; discese 0.0035; segni 0.0000; sigilli 0.0007; Ricordi 0.0000
-Iniziato: prima 5.66 (LIVE 0.00); dopo 2.54 (LIVE 0.00); dopo, con le rune dal corpus 2.18; tetto 2.36
-   dopo, al giorno: domande 0.0600; Vai più a fondo 0.0009; confronti 0.0025; tarocchi 0.0041; gettate 0.0120; discese 0.0035; segni 0.0001; sigilli 0.0014; Ricordi 0.0000
-   domande in piu' al giorno sotto il tetto, con le rune dal corpus: 1.2 (a 0.00500 l'una)
-Adepto: prima 11.90 (LIVE 2.13); dopo 5.08 (LIVE 1.28); dopo, con le rune dal corpus 4.54; tetto 4.72
-   dopo, al giorno: domande 0.0900; Vai più a fondo 0.0009; confronti 0.0050; tarocchi 0.0069; gettate 0.0180; discese 0.0035; segni 0.0001; sigilli 0.0021; Ricordi 0.0000
-   domande in piu' al giorno sotto il tetto, con le rune dal corpus: 1.2 (a 0.00500 l'una)
-Illuminato: prima 31.73 (LIVE 5.33); dopo 7.31 (LIVE 2.56); dopo, con le rune dal corpus 6.77; tetto 7.08
-   dopo, al giorno: domande 0.1101; Vai più a fondo 0.0014; confronti 0.0075; tarocchi 0.0103; gettate 0.0180; discese 0.0070; segni 0.0006; sigilli 0.0035; Ricordi 0.0000
-   domande in piu' al giorno sotto il tetto, con le rune dal corpus: 2.1 (a 0.00500 l'una)
+Viandante: prima 0.84 (LIVE 0.00); dopo 0.66 (LIVE 0.00); dopo, con le rune dal corpus 0.48; tetto nessuno
+   dopo, al giorno: domande 0.0095; Vai più a fondo 0.0000; confronti 0.0000; tarocchi 0.0021; gettate 0.0060; discese 0.0035; segni 0.0000; sigilli 0.0007; Ricordi 0.0000
+Iniziato: prima 5.66 (LIVE 0.00); dopo 2.24 (LIVE 0.00); dopo, con le rune dal corpus 1.88; tetto 2.36
+   dopo, al giorno: domande 0.0508; Vai più a fondo 0.0002; confronti 0.0025; tarocchi 0.0041; gettate 0.0120; discese 0.0035; segni 0.0001; sigilli 0.0014; Ricordi 0.0000
+   domande in piu' al giorno sotto il tetto, con le rune dal corpus: 3.8 (a 0.00423 l'una)
+Adepto: prima 11.90 (LIVE 2.13); dopo 4.64 (LIVE 1.28); dopo, con le rune dal corpus 4.10; tetto 4.72
+   dopo, al giorno: domande 0.0762; Vai più a fondo 0.0002; confronti 0.0050; tarocchi 0.0069; gettate 0.0180; discese 0.0035; segni 0.0001; sigilli 0.0021; Ricordi 0.0000
+   domande in piu' al giorno sotto il tetto, con le rune dal corpus: 4.9 (a 0.00423 l'una)
+Illuminato: prima 31.73 (LIVE 5.33); dopo 6.77 (LIVE 2.56); dopo, con le rune dal corpus 6.23; tetto 7.08
+   dopo, al giorno: domande 0.0931; Vai più a fondo 0.0004; confronti 0.0075; tarocchi 0.0103; gettate 0.0180; discese 0.0070; segni 0.0006; sigilli 0.0035; Ricordi 0.0000
+   domande in piu' al giorno sotto il tetto, con le rune dal corpus: 6.7 (a 0.00423 l'una)
 
 == IL MESE AL MASSIMO, CON LA CACHE MISURATA (dollari, 30 giorni, LIVE compreso)
-Viandante: prima 0.54 (LIVE 0.00); dopo 0.59 (LIVE 0.00); dopo, con le rune dal corpus 0.47; tetto nessuno
-   dopo, al giorno: domande 0.0095; Vai più a fondo 0.0000; confronti 0.0000; tarocchi 0.0020; gettate 0.0040; discese 0.0034; segni 0.0000; sigilli 0.0007; Ricordi 0.0000
-Iniziato: prima 3.88 (LIVE 0.00); dopo 2.56 (LIVE 0.00); dopo, con le rune dal corpus 2.31; tetto 2.36
-   dopo, al giorno: domande 0.0646; Vai più a fondo 0.0013; confronti 0.0022; tarocchi 0.0041; gettate 0.0081; discese 0.0034; segni 0.0001; sigilli 0.0014; Ricordi 0.0000
-   domande in piu' al giorno sotto il tetto, con le rune dal corpus: 0.3 (a 0.00538 l'una)
-Adepto: prima 8.71 (LIVE 2.13); dopo 5.09 (LIVE 1.28); dopo, con le rune dal corpus 4.73; tetto 4.72
-   dopo, al giorno: domande 0.0969; Vai più a fondo 0.0013; confronti 0.0044; tarocchi 0.0068; gettate 0.0121; discese 0.0034; segni 0.0001; sigilli 0.0021; Ricordi 0.0000
-   domande in piu' al giorno sotto il tetto, con le rune dal corpus: -0.1 (a 0.00538 l'una)
-Illuminato: prima 22.88 (LIVE 5.33); dopo 7.36 (LIVE 2.56); dopo, con le rune dal corpus 7.00; tetto 7.08
-   dopo, al giorno: domande 0.1184; Vai più a fondo 0.0020; confronti 0.0066; tarocchi 0.0102; gettate 0.0121; discese 0.0069; segni 0.0006; sigilli 0.0035; Ricordi 0.0000
-   domande in piu' al giorno sotto il tetto, con le rune dal corpus: 0.5 (a 0.00538 l'una)
+Viandante: prima 0.54 (LIVE 0.00); dopo 0.62 (LIVE 0.00); dopo, con le rune dal corpus 0.49; tetto nessuno
+   dopo, al giorno: domande 0.0103; Vai più a fondo 0.0000; confronti 0.0000; tarocchi 0.0020; gettate 0.0040; discese 0.0034; segni 0.0000; sigilli 0.0007; Ricordi 0.0000
+Iniziato: prima 3.88 (LIVE 0.00); dopo 2.69 (LIVE 0.00); dopo, con le rune dal corpus 2.45; tetto 2.36
+   dopo, al giorno: domande 0.0701; Vai più a fondo 0.0003; confronti 0.0022; tarocchi 0.0041; gettate 0.0081; discese 0.0034; segni 0.0001; sigilli 0.0014; Ricordi 0.0000
+   domande in piu' al giorno sotto il tetto, con le rune dal corpus: -0.5 (a 0.00584 l'una)
+Adepto: prima 8.71 (LIVE 2.13); dopo 5.31 (LIVE 1.28); dopo, con le rune dal corpus 4.95; tetto 4.72
+   dopo, al giorno: domande 0.1052; Vai più a fondo 0.0003; confronti 0.0044; tarocchi 0.0068; gettate 0.0121; discese 0.0034; segni 0.0001; sigilli 0.0021; Ricordi 0.0000
+   domande in piu' al giorno sotto il tetto, con le rune dal corpus: -1.3 (a 0.00584 l'una)
+Illuminato: prima 22.88 (LIVE 5.33); dopo 7.63 (LIVE 2.56); dopo, con le rune dal corpus 7.26; tetto 7.08
+   dopo, al giorno: domande 0.1285; Vai più a fondo 0.0005; confronti 0.0066; tarocchi 0.0102; gettate 0.0121; discese 0.0069; segni 0.0006; sigilli 0.0035; Ricordi 0.0000
+   domande in piu' al giorno sotto il tetto, con le rune dal corpus: -1.0 (a 0.00584 l'una)
 

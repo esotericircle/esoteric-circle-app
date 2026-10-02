@@ -139,6 +139,21 @@ void main() {
             'errore': null,
             'dalModello': r.dalModello,
             'chiamateScena': n,
+            // Ordine EX Aggiunta 4, voce EX.10: i consumi di ogni chiamata
+            // della scena, per il costo di una discesa.
+            'consumiScena': giro == 'casa'
+                ? const []
+                : [
+                    for (final x in registro.sublist(daQui))
+                      {
+                        'funzione': x.funzione,
+                        'modello': x.modello,
+                        'ingresso': x.ingresso,
+                        'uscita': x.uscita,
+                        'ragionamento': x.ragionamento,
+                        'cache': x.dallaCache,
+                      }
+                  ],
             'scarti': giro == 'casa' ? const [] : scarti,
             'chiamateRisposta': const [],
             'fattiDellaMemoria': const [],

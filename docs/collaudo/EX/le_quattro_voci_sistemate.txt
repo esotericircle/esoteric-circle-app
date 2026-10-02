@@ -1,0 +1,45 @@
+ORDINE EX AGGIUNTA 4, LE QUATTRO VOCI APERTE. 2 ottobre 2026 sera.
+
+Il fondatore: "Voglio tutto sistemato." Le quattro voci aperte dell'ordine EX: EX.04 (il "Vai più a fondo" a zero chiamate), EX.07 (1,3 chiamate per risposta o meno), EX.05 (la cache garantita sopra la soglia), EX.10 (il Viaggio con meno scene scartate).
+
+COME SI E' MISURATO
+- La chat: tool/il_banco_della_qualita.dart, 30 casi fissi col codice vero e Gemini in europe-west1 (24 di chat, 6 del LIVE); il banco registra adesso ogni rete che scarta una risposta e la sua correzione, la rete del lessico, i seguiti preparati, aspettati e chiesti al tocco, le risposte dalla cache. I conti: python tool/i_conti_della_qualita.py <giro>.
+- Il Viaggio: tool/la_scena_senza_modello_a_confronto.dart, 20 discese, con ogni riga scartata e la guardia che l'ha scartata, e i consumi di ogni chiamata. I conti: python tool/i_conti_del_viaggio.py <giro>.
+- Il merito: due giudici alla cieca per ogni confronto (il secondo legge all'indietro), la regola in docs/collaudo/EX/qualita/regola_della_lettura.md, fascicoli e giudizi in docs/collaudo/EX/qualita/. Il rumore fra due giri dello stesso codice e' di circa 2 o 3 punti per misura.
+- Le guardie nuove nascono rosse: docs/collaudo/EX/regola_a_ex.txt, A15-A25, B19, B24.
+
+EX.04, IL "VAI PIU' A FONDO" GIA' PRONTO QUANDO SI TOCCA
+DOMANDA: "Voglio tutto sistemato." (zero chiamate al tocco, prima 0,17)
+PROVA: docs/collaudo/EX/vai_piu_a_fondo.txt (sezione L'EX AGGIUNTA 4)
+MISURA: chiamate al tocco, prima 0,17 (4 tocchi su 24 chiamano), dopo 0 in sei giri su sei (144 tocchi); risposte senza seguito, prima 4 su 24 col seguito chiesto al tocco, dopo da 1 a 6 su 24 col seguito preparato in sottofondo subito dopo la risposta; seguito alla lettura alla cieca, prima 14 e 18 su 24, dopo 20 e 21
+Cura dentro la voce: la prima stesura preparava il seguito anche all'apertura della chat, una chiamata a ogni apertura (giro ex07a); tolto.
+STATO: si chiude quando il tocco e' guardato a video sul Realme con la build nuova.
+
+EX.07, LA PRIMA RISPOSTA PASSA GIA'
+DOMANDA: "Voglio tutto sistemato." (1,3 chiamate per risposta o meno, prima 1,71)
+PROVA: docs/collaudo/EX/risposte_rifatte.txt (sezione L'EX AGGIUNTA 4)
+MISURA: chiamate per risposta, prima 1,71, dopo 1,29, 1,33, 1,17, 1,29, 1,25, 1,33 e 1,38 nei sette giri dopo (media 1,29; sul codice finale 1,33 e 1,38, media 1,36); correzioni per la posizione, prima 4, dopo da 0 a 1; domande sul cielo di altre date, prima 2,75 chiamate, dopo 1,00; merito alla lettura alla cieca, prima 27 e 25 su 30, dopo 27 e 27; regole 28 e 28, dopo 30 e 30; cielo 9 e 9, dopo 10 e 10; attribuzione cieca dei Maestri 58 su 60
+Chi scartava: la rete della posizione (37 su 62 risposte scartate), la rete delle certezze (25 su 62), e tre cause che nessun contatore diceva: la rete del lessico dei Maestri (4 risposte su 30 rifatte da capo), le funzioni del cielo per i giorni nominati (5 chiamate), due domande "Da dove...?" lette da si' o no.
+STATO: APERTA. L'obiettivo 1,3 e' raggiunto dalla media dei giri ma non dal codice finale: restano 5 risposte su 24 rifatte dalla rete del lessico ("sentire", "ascendente"), che Code non toglie dal testo.
+Cure dentro la voce: il sollecito del rimando che sostituiva la risposta buona con "ho bisogno che tu mi dica quale data" (giro ex07d); il controllo delle parole messo dopo il controllo finale (preso dalla suite intera, prima_la_sua_arte); i due falsi positivi delle reti (il cielo calcolato, la parola della persona).
+
+EX.05, LA CACHE GARANTITA SOPRA LA SOGLIA
+DOMANDA: "Voglio tutto sistemato." (una cache garantita che si accende sopra la soglia e si spegne sotto, senza costi fissi; la soglia la calcola Code e la dichiara)
+PROVA: docs/collaudo/EX/la_cache_garantita.txt
+MISURA: soglia dichiarata, pareggio 22,2 richieste all'ora, accensione a 23, spegnimento sotto 18 (l'ordine diceva circa 33, il conto con nove varianti); traffico simulato 2 casi su 2 (a 10 all'ora sempre spenta, a 50 sempre accesa); costo al mese dell'inizio dell'istruzione, a 10 richieste all'ora 10,56 $ senza e con l'interruttore (22,17 $ sempre accesa), a 50 52,78 $ senza e 26,39 $ con (50 per cento), a 200 211,12 $ senza e 42,22 $ con (80 per cento); la via della cache alla lettura alla cieca: merito pari (26 e 26 contro 26 e 25), seguito sotto (18 e 12 contro 22 e 18), cielo sotto (7 contro 10 su 10 con tutti e due i giudici)
+Il limite di Firebase: la cache esplicita dal telefono passa solo dai template, che non portano ne' la conversazione ne' le funzioni.
+DECISIONE: per la regola NESSUNA RISPOSTA PEGGIORA la via della cache non si accende. Il codice c'e' ed e' provato (funzione, telefono, prefissi, template), spento in tre punti: l'interruttore dell'app, la funzione non esportata, la regola di Firestore fuori dal repository. Niente da pubblicare.
+STATO: APERTA.
+
+EX.10, IL VIAGGIO CON MENO SCENE SCARTATE
+DOMANDA: "Voglio tutto sistemato." (chiamate per discesa 3,8 -> 2,5 o meno, scena 1,5 o meno; la scena resta del modello, le guardie non si allentano)
+PROVA: docs/collaudo/EX/la_scena_con_meno_scarti.txt
+MISURA: chiamate di scena per discesa, prima 2,70, dopo 1,90 e 1,80; chiamate per discesa con la domanda scritta, prima 3,8, dopo circa 3,0; scene dal modello 19 su 20 prima, 20 su 20 dopo; silenzi 1 prima, 0 dopo; righe scartate per "chiede di scrivere" 16 prima, 9 dopo, per "previsione certa" 13 prima, 4 dopo; merito alla lettura alla cieca 13 e 13 prima, 13 e 12 dopo; regole 20 e 20 prima, 18 e 19 dopo
+Nessuna riga delle guardie toccata. Due tentativi invece di tre davano 1,65 chiamate, ma il merito scendeva di 1 e 2: restano tre.
+STATO: APERTA. Gli obiettivi 1,5 e 2,5 non sono raggiunti.
+
+IL COSTO PER PIANO (docs/costi/costo_per_utente_dopo_ex.md, sezione Dopo l'EX Aggiunta 4; tool/i_conti_del_costo_ex.py col giro ex07j): al mese al massimo, senza cache, LIVE compreso, rune dal corpus: Iniziato da 2,18 a 1,88 $ (tetto 2,36), Adepto da 4,54 a 4,10 $ (tetto 4,72), Illuminato da 6,77 a 6,23 $ (tetto 7,08). Sotto il tetto in 3 piani su 3.
+
+LA SUITE INTERA sul commit 8ec2bbf2: +6571 ~11 -10, sette rosse accettate e tre nuove, curate (regola_a_ex.txt, SUITE INTERA).
+
+LE FUNZIONI DEL SERVER: nessuna da pubblicare. La sola funzione nuova (laCacheDelContesto) non e' esportata.

@@ -6553,31 +6553,68 @@ le catture dello schermo sono permesse di base: la protezione solo con
 - **Il Vai piu' a fondo scritto insieme** (EX.04): `[[SEGUITO]]`
   (`lib/core/maestro/il_seguito_nascosto.dart`), tenuto in
   `ChatMessage.seguitoNascosto` e scoperto senza chiamata: 20 tocchi su 24 al
-  banco; se manca, il tocco chiama come prima.
+  banco; se manca, il tocco chiama come prima. **Dall'EX Aggiunta 4** il
+  seguito che non arriva con la risposta si prepara in sottofondo subito dopo
+  (`MaestroChatController._preparaIlSeguitoSeManca`, anche all'uscita dal LIVE,
+  non all'apertura della chat), e la correzione corta lo chiede: 0 chiamate
+  al tocco in sei giri su sei. Nelle prove la preparazione e' spenta
+  (`test/flutter_test_config.dart`) e la riaccende
+  `test/il_seguito_e_gia_pronto_test.dart`. APERTA IN ATTESA DI VERIFICA a
+  video sul Realme.
 - **L'istruzione della chat** (EX.05): prima la parte comune a tutti, poi
   quella della persona e del turno (guardia
   `test/la_parte_comune_viene_prima_test.dart`). La cache implicita non e'
   garantita; quella esplicita conviene sopra circa 33 richieste all'ora.
+  **Dall'EX Aggiunta 4** la cache esplicita e' scritta e provata ma SPENTA:
+  la funzione `laCacheDelContesto` (`functions/src/la_cache_del_contesto.ts`,
+  soglia 23 richieste all'ora, spenta sotto 18, NON esportata), il telefono
+  (`lib/services/ai/la_cache_del_contesto.dart`, `accesaNellApp = false`), i
+  prefissi (`functions/src/la_cache_prefissi.json` da
+  `tool/i_prefissi_della_cache.dart`, guardia
+  `test/i_prefissi_della_cache_sono_quelli_dell_app_test.dart`) e il template
+  (`docs/collaudo/EX/il_template_della_cache.txt`). Firebase permette la
+  cache dal telefono solo coi template, senza conversazione e senza
+  funzioni; cosi' la via della cache sbagliava il cielo (7 contro 10 su 10) e
+  scriveva un seguito piu' generico. La regola di Firestore che serve sta nel
+  documento, non nel repository.
 - **La penna dei Ricordi** (EX.06) chiama europe-west1.
 - **La correzione corta** (EX.07): quando una rete scarta una risposta si chiede
   una correzione corta (`chat_correzione`) con la memoria e il cielo del
   turno; la rete della posizione non rifa' piu' le domande di fatti del cielo.
-  Chiamate per risposta al banco da 2,46 a 1,71.
+  Chiamate per risposta al banco da 2,46 a 1,71. **Dall'EX Aggiunta 4** il
+  primo turno detta le tre forme del si' o del no e la condizione che e' una
+  cosa da fare; le domande "Da dove...?" sono aperte; il cielo dei giorni che
+  la domanda nomina arriva gia' calcolato (`lib/core/astro/i_giorni_nominati.dart`,
+  e il turno non chiama funzioni); la rete delle certezze non scarta il cielo
+  calcolato; la rete del lessico non conta le parole della persona e si conta.
+  Chiamate per risposta 1,29 di media sui sette giri, 1,36 sul codice finale:
+  resta APERTA per la rete del lessico ("sentire", "ascendente").
 - **Il cielo di oggi** (EX.08) si calcola una volta al giorno e sta nella
   richiesta: per oggi la funzione non si chiama piu'.
 - **La memoria compatta** (EX.09): 8 messaggi di storia (era 20) piu' cio' che
   la persona ha scritto prima, nell'istruzione.
 - **Il Viaggio** (EX.10) resta col modello: tre vie piu' economiche peggioravano
-  il merito.
+  il merito. **Dall'EX Aggiunta 4**: la frase scartata dopo la prima si toglie
+  in casa se il resto regge (`LaScenaDalModello.senzaLaFraseScartata`), il
+  modello scrive due riserve di ogni testo nella stessa chiamata
+  (`conLaRiserva`), l'istruzione dice per nome cio' che le guardie scartano;
+  guardie invariate. Scena da 2,70 a 1,80-1,90 chiamate per discesa, merito
+  pari; APERTA, gli obiettivi 1,5 e 2,5 non sono raggiunti.
 - **Il costo** (EX.11), al massimo in 30 giorni senza cache col LIVE: Iniziato
   1,28 $ (tetto 2,36), Adepto 3,34 (4,72), Illuminato 5,42 (7,08); prima 5,66,
-  11,90, 31,73.
+  11,90, 31,73. Con le domande alzate dell'EX Aggiunta 3 2,18, 4,54 e 6,77; dopo
+  l'EX Aggiunta 4 (rune dal corpus) **1,88, 4,10 e 6,23**
+  (`docs/costi/costo_per_utente_dopo_ex.md`).
 - **Strumenti**: `tool/il_banco_della_qualita.dart` (30 casi, GIRO=nome),
   `tool/il_fascicolo_della_qualita.py` (fascicoli alla cieca e conti dei
   giudizi), `tool/i_conti_della_qualita.py`, `tool/i_conti_del_costo_ex.py`,
   `tool/la_cache_a_dieci_minuti.dart`, `tool/la_memoria_compatta_a_confronto.dart`,
   `tool/la_scena_senza_modello_a_confronto.dart` (TENTATIVI, GIRO),
-  `tool/la_correzione_corta_a_confronto.dart`.
+  `tool/la_correzione_corta_a_confronto.dart`; dall'EX Aggiunta 4
+  `tool/i_conti_del_viaggio.py`, `tool/i_motivi_degli_scarti.dart`,
+  `tool/i_prefissi_della_cache.dart`, il banco della qualita' con
+  `CACHE=simulata`. Il documento dell'aggiunta:
+  `docs/collaudo/EX/le_quattro_voci_sistemate.txt`.
 - **Le prove** sono costate al massimo 3,19 $ di Gemini
   (`docs/collaudo/EX/il_costo_delle_prove.txt`).
 

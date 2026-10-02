@@ -60,6 +60,33 @@ void main() {
         reason: 'chiamate senza etichetta:\n${senza.join('\n')}');
   });
 
+  /// **E LE CHIAMATE DAL TEMPLATE, DICHIARATE UNA PER UNA.** Ordine EX
+  /// Aggiunta 4, voce EX.05: la via della cache chiede la risposta a un
+  /// template di Firebase AI Logic, `templateGenerativeModel()`, che non
+  /// accetta il client dell'etichetta. La prova di sopra cerca solo
+  /// `.generativeModel(` e non la vedeva: cieca al bersaglio per la classe
+  /// nuova. Qui ogni chiamata dal template deve stare nell'elenco, con la sua
+  /// ragione; una nuova la fa diventare rossa.
+  test(
+      'ORDINE EX AGGIUNTA 4: ogni chiamata dal template e\' dichiarata, '
+      'perche\' non porta l\'etichetta', () {
+    const dichiarate = {
+      // La via della cache (EX.05): il costo si legge dal conto delle
+      // risposte dalla cache, non dall'etichetta.
+      'firebase_maestro_ai_provider.dart',
+    };
+    final trovate = <String>[];
+    for (final f in sorgentiDiLib()) {
+      final s = f.readAsStringSync();
+      for (final _ in RegExp(r'\.templateGenerativeModel\(').allMatches(s)) {
+        trovate.add(f.uri.pathSegments.last);
+      }
+    }
+    expect(trovate.toSet(), dichiarate,
+        reason: 'chiamate dal template: $trovate');
+    expect(trovate, hasLength(dichiarate.length));
+  });
+
   test(
       'ORDINE EW VOCE 03: le chiamate di sintesi del server portano '
       'l\'etichetta', () {

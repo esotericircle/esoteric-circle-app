@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart' show debugPrint, visibleForTesting;
 
 import '../../core/chat/chat_message.dart';
+import '../../core/maestro/il_seguito_nascosto.dart';
 import '../../core/maestro/maestro.dart';
 import 'maestro_persona.dart';
 
@@ -40,6 +41,15 @@ abstract final class LaCacheDelContesto {
 
   /// Il modello della cache: la risposta della chat a ogni livello.
   static const String modello = 'gemini-2.5-flash';
+
+  /// **L'INTERRUTTORE DELL'APP, SPENTO.** Ordine EX Aggiunta 4, voce EX.05:
+  /// alla lettura alla cieca la via della cache sbagliava il cielo (7 su 10
+  /// contro 10 su 10) e scriveva un seguito piu' generico, e per la regola
+  /// NESSUNA RISPOSTA PEGGIORA non si accende. Spento, il telefono non legge
+  /// nemmeno `configurazione/cache` (che le regole di Firestore oggi non
+  /// lasciano leggere): nessuna attesa in piu' sulla risposta. Si accende
+  /// insieme alla funzione del server, quando la via della cache regge.
+  static const bool accesaNellApp = false;
 
   /// **NEL BANCO**, la richiesta della cache va a Vertex senza cache, per
   /// misurarne il merito (vedi `FirebaseMaestroAiProvider`).
@@ -93,6 +103,7 @@ abstract final class LaCacheDelContesto {
   /// Il nome della cache viva per [variante], o null: spenta, scaduta fra
   /// meno di un minuto, d'un'altra impronta, o documento che non si legge.
   static Future<String?> nomePer(String variante, {DateTime? adesso}) async {
+    if (statoDiProva == null && !accesaNellApp) return null;
     final ora = adesso ?? DateTime.now();
     Map<String, Object?> dati;
     try {
@@ -135,8 +146,22 @@ abstract final class LaCacheDelContesto {
     required List<ChatMessage> storia,
     required String domanda,
   }) {
+    // **IL SEGUITO PER ULTIMO, COME NELLA VIA DI SEMPRE.** Ordine EX
+    // Aggiunta 4, voce EX.05: alla lettura alla cieca del giro ex05a il
+    // seguito scritto per la via della cache era piu' generico (12 e 14 su
+    // 24 contro 15 e 18): l'istruzione del seguito, che nella via di sempre
+    // e' l'ultima cosa che il modello legge, qui stava prima della
+    // conversazione e della domanda. Va dopo la domanda.
+    var persona = parteDellaPersona.trim();
+    final seguito = persona.endsWith(IlSeguitoNascosto.istruzione)
+        ? IlSeguitoNascosto.istruzione
+        : null;
+    if (seguito != null) {
+      persona =
+          persona.substring(0, persona.length - seguito.length).trimRight();
+    }
     final righe = <String>[
-      parteDellaPersona.trim(),
+      persona,
       if (cieloDiOggi.trim().isNotEmpty) ...['', cieloDiOggi.trim()],
       if (storia.isNotEmpty) ...[
         '',
@@ -147,6 +172,7 @@ abstract final class LaCacheDelContesto {
       '',
       'LA PERSONA TI SCRIVE ADESSO:',
       domanda.trim(),
+      if (seguito != null) ...['', seguito],
     ];
     return righe.join('\n');
   }

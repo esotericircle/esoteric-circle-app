@@ -32,6 +32,11 @@ void main() {
     'docs/costi/costo_per_utente_dopo_ex.md',
     'docs/collaudo/EX/il_costo_delle_prove.txt',
     'docs/collaudo/EX/regola_a_ex.txt',
+    // L'EX Aggiunta 4, le quattro voci aperte.
+    'docs/collaudo/EX/le_quattro_voci_sistemate.txt',
+    'docs/collaudo/EX/la_cache_garantita.txt',
+    'docs/collaudo/EX/la_scena_con_meno_scarti.txt',
+    'docs/collaudo/EX/attribuzione_dopo_aggiunta4.txt',
   ];
 
   int marcatore(String testo, String nome) {
@@ -67,9 +72,9 @@ void main() {
         in testo.split(RegExp(r'^## VOCE ', multiLine: true)).skip(1)) {
       final nome = v.split('\n').first;
       final chiusa = RegExp(r'^\*\*CHIUSA\.\*\*', multiLine: true).hasMatch(v);
-      final aperta = RegExp(
-              r'^\*\*APERTA( IN ATTESA DI VERIFICA)?\.\*\*', multiLine: true)
-          .hasMatch(v);
+      final aperta =
+          RegExp(r'^\*\*APERTA( IN ATTESA DI VERIFICA)?\.\*\*', multiLine: true)
+              .hasMatch(v);
       final stati = [chiusa, aperta].where((x) => x).length;
       if (stati == 0) senzaStato.add(nome);
       if (stati > 1) conPiuStati.add(nome);
@@ -99,7 +104,8 @@ void main() {
       () {
     // L'uscita dello script, senza cache, rune dal corpus: Iniziato,
     // Adepto e Illuminato.
-    final conti = File('docs/costi/i_conti_del_costo_ex.txt').readAsStringSync();
+    final conti =
+        File('docs/costi/i_conti_del_costo_ex.txt').readAsStringSync();
     final senzaCache = conti.split('CON LA CACHE').first;
     final documento =
         File('docs/costi/costo_per_utente_dopo_ex.md').readAsStringSync();

@@ -41,6 +41,29 @@ resto uguale. Stesso conto, senza cache, LIVE compreso, rune dal corpus:
 Tutti e tre i piani restano sotto il tetto. Le domande in piu' costano 0,005 $
 l'una a freddo (il costo misurato al giro finale del banco della qualita').
 
+## Dopo l'EX Aggiunta 4: meno risposte rifatte
+
+> *"Voglio tutto sistemato."*
+
+Stesso conto, senza cache, LIVE compreso, rune dal corpus; le domande e i
+tocchi del "Vai piu' a fondo" dal giro finale del banco della qualita' dopo le
+voci EX.04 ed EX.07 (`ex07j`, `GIRO_DOPO` di `tool/i_conti_del_costo_ex.py`):
+una domanda a freddo da 0,00495 $ a 0,00419 $, 1,33 chiamate per risposta
+invece di 1,71. Le discese del Viaggio restano al costo dell'EW: la scena
+misurata dopo l'EX.10 costa 0,00310 $ su 1,8 chiamate, perche' le due riserve
+allungano l'uscita.
+
+| Piano | Prima dell'Aggiunta 4 | Dopo l'Aggiunta 4 | Tetto | Margine che resta |
+|---|---|---|---|---|
+| Iniziato | 2,18 $ | **1,88 $** | 2,36 $ | 0,48 $ |
+| Adepto | 4,54 $ | **4,10 $** | 4,72 $ | 0,62 $ |
+| Illuminato | 6,77 $ | **6,23 $** | 7,08 $ | 0,85 $ |
+
+Tutti e tre i piani restano sotto il tetto, con piu' margine di prima. La cache
+esplicita (EX.05) non e' in questo conto: si accende solo sopra 23 richieste
+all'ora sull'insieme della chat, e a quel traffico il conto e' quello di
+`docs/collaudo/EX/la_cache_garantita.txt`.
+
 ## Da dove vengono i numeri
 
 **I limiti** sono quelli della matrice nuova (EX.02): domande 3/6/10/13,

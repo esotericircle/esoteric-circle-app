@@ -77,14 +77,17 @@ export {sfocaLeConversazioni} from "./sfocatura";
 export {sistemaLeLapidi} from "./lapidi";
 
 /**
- * LA CACHE DEL CONTESTO. Ordine EX Aggiunta 4, voce EX.05.
+ * LA CACHE DEL CONTESTO NON SI PUBBLICA ANCORA. Ordine EX Aggiunta 4, voce
+ * EX.05.
  *
- * Ogni dieci minuti conta le richieste della chat dell'ultima ora: sopra la
- * soglia (23 all'ora) tiene in cache su Vertex la parte comune
- * dell'istruzione dei tre Maestri, sotto 18 la lascia scadere. Spenta, non
- * costa niente.
+ * La funzione `laCacheDelContesto` (./la_cache_del_contesto.ts) e' scritta e
+ * provata, ma NON e' esportata: alla lettura alla cieca la via della cache
+ * sbagliava il cielo (7 su 10 contro 10 su 10) e scriveva un seguito piu'
+ * generico, e per la regola NESSUNA RISPOSTA PEGGIORA non si accende.
+ * Esportarla qui vorrebbe dire che un deploy di tutte le funzioni la accende
+ * sopra 23 richieste all'ora. Si esporta quando la via della cache regge la
+ * lettura alla cieca (docs/collaudo/EX/la_cache_garantita.txt).
  */
-export {laCacheDelContesto} from "./la_cache_del_contesto";
 
 /**
  * LE PUSH DEI DONI DEL GIORNO. Ordine CG voce 16.

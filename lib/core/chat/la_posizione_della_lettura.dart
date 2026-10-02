@@ -215,7 +215,12 @@ abstract final class LaPosizioneDellaLettura {
             'nessuna descrizione al loro posto. Vale anche quando la domanda '
             'chiede se conviene fare una cosa: non "$comincia di non farlo", '
             'ma "$comincia di no, per ora: ...". Mai "$comincia che lui '
-            'tornerà": il sì o il no vengono prima della cosa.',
+            'tornerà": il sì o il no vengono prima della cosa. '
+            // Ordine EX Aggiunta 4, voce EX.07: alla lettura alla cieca del
+            // giro ex07i "dicono di sì, se lo senti" era bocciata nel
+            // merito; e' la regola della condizione che il Viaggio ha gia'.
+            'La condizione dopo "se" è una cosa da fare, con chi o quando, '
+            'mai un modo di sentirsi.',
       TipoDellaDomanda.scelta =>
         'e sceglie una delle strade della domanda, nominandola. Per esempio: '
             '"$comincia: scrivigli tu, ..." .',

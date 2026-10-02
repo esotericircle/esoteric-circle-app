@@ -112,6 +112,21 @@ rumore; al giro prima della cura era 9 contro 13 e 7 contro 11, e la voce
 sarebbe restata aperta. Resta aperta perche' 0,17 non e' 0 e il tocco non e'
 ancora stato guardato a video. Prova: `docs/collaudo/EX/vai_piu_a_fondo.txt`.
 
+**EX Aggiunta 4, 2 ottobre 2026 sera.** Le chiamate al tocco nascevano dal
+modello che saltava il seguito (3 o 4 risposte su 24) e dalla correzione corta
+che non lo chiedeva. Adesso la correzione corta chiede anche il seguito, e se
+la risposta arriva senza, l'app lo prepara subito in sottofondo
+(`MaestroChatController._preparaIlSeguitoSeManca`): il tocco lo trova pronto,
+o aspetta quello in preparazione, senza chiamare. Al banco: chiamate al tocco
+da 0,17 a 0 in sei giri su sei (144 tocchi); risposte senza seguito da 1 a 6
+su 24, col seguito preparato dopo la risposta. Seguito alla lettura alla cieca,
+giro finale contro fine4: 20 contro 14 e 21 contro 18 su 24. Difetto della
+prima stesura curato dentro la voce: la preparazione partiva anche
+all'apertura della chat, una chiamata a ogni apertura (padre: questa voce).
+Prova nuova nata rossa (A15). Resta in attesa del tocco guardato a video sul
+Realme con la build nuova. Prova: `docs/collaudo/EX/vai_piu_a_fondo.txt` e
+`docs/collaudo/EX/le_quattro_voci_sistemate.txt`.
+
 ## VOCE EX.05, LA CACHE DEL CONTESTO GARANTITA
 
 **APERTA.** L'istruzione ha adesso la parte comune in testa: due persone
@@ -124,6 +139,23 @@ non e' garantita: a dieci minuti la quota media e' stata 34 per cento prima e
 accende. Attribuzione alla cieca dei Maestri dopo il riordino: 56 su 60, ogni
 Maestro sopra l'85 per cento (`docs/collaudo/EX/attribuzione_dopo_ex05.txt`).
 Prova: `docs/collaudo/EX/la_cache.txt`.
+
+**EX Aggiunta 4, 2 ottobre 2026 sera.** La cache garantita e' scritta e
+provata: la funzione `laCacheDelContesto` che ogni dieci minuti conta le
+richieste dell'ultima ora e accende o lascia scadere le cache su Vertex, il
+telefono che chiede la risposta al template di Firebase con la cache, i
+prefissi con la loro guardia (nata rossa, A24). La soglia calcolata e
+dichiarata: pareggio a 22,2 richieste all'ora, accensione a 23, spegnimento
+sotto 18 (sei varianti; il "circa 33" era il conto con nove). Traffico simulato
+2 casi su 2; a 50 richieste all'ora l'inizio dell'istruzione costa il 50 per
+cento in meno, a 200 l'80. **Ma la via della cache non regge la lettura alla
+cieca**: il merito e' pari, il seguito scende (18 e 12 contro 22 e 18) e il
+cielo sbaglia (7 contro 10 su 10 con tutti e due i giudici), perche' i
+template di Firebase non portano ne' la conversazione ne' le funzioni e il
+cielo di oggi si confonde con quello del giorno chiesto. Per la regola NESSUNA
+RISPOSTA PEGGIORA resta spenta in tre punti (l'interruttore dell'app, la
+funzione non esportata, la regola di Firestore fuori dal repository) e non c'e'
+niente da pubblicare. Prova: `docs/collaudo/EX/la_cache_garantita.txt`.
 
 ## VOCE EX.06, I RICORDI NELLA REGIONE DEI DATI
 
@@ -148,6 +180,25 @@ risposta scartata, due giri e due giudici: regole 77 contro 75, memoria 55
 contro 49, merito 74 contro 74. Difetto trovato e curato dentro la voce: una
 correzione ha scritto "Giove in Cancro" per il 2028 (e' in Vergine), padre
 EX.07; adesso riceve il cielo del turno (prova nuova nata rossa, A7). Prova:
+`docs/collaudo/EX/risposte_rifatte.txt`.
+
+**EX Aggiunta 4, 2 ottobre 2026 sera.** Contati gli scarti della prima
+risposta: la rete della posizione (37 su 62) e quella delle certezze (25 su
+62), piu' tre cause che nessun contatore diceva (la rete del lessico, le
+funzioni del cielo per i giorni nominati, le domande "Da dove...?" lette da si'
+o no). Il primo turno adesso dice cio' che diceva solo la correzione (le tre
+forme del si' o del no, la condizione che e' una cosa da fare, il futuro con
+la sua condizione), il cielo dei giorni nominati arriva gia' calcolato, e due
+falsi positivi delle reti sono curati (il cielo calcolato preso per una
+certezza, la parola della persona presa per la firma di un altro Maestro).
+Prove nuove nate rosse (A16-A20). Chiamate per risposta da 1,71 a 1,29 di
+media sui sette giri; domande sul cielo di altre date da 2,75 a 1,00; alla
+lettura alla cieca, giro finale contro fine4, merito 27 e 27 contro 27 e 25,
+regole 30 e 30 contro 28 e 28, cielo 10 e 10 contro 9 e 9, seguito 20 e 21
+contro 14 e 18; attribuzione cieca dei Maestri 58 su 60. **Resta aperta**: sul
+codice finale due giri danno 1,33 e 1,38, sopra l'1,3; restano 5 risposte su
+24 rifatte dalla rete del lessico ("sentire" in bocca a Medora, "ascendente"
+in bocca ad Aura e a Calìgo), che Code non toglie dal testo. Prova:
 `docs/collaudo/EX/risposte_rifatte.txt`.
 
 ## VOCE EX.08, IL CIELO DI OGGI GIA' NELLA RICHIESTA
@@ -180,6 +231,19 @@ tutti e due i giudici: la scena di casa (12 contro 1 e 12 contro 0 su 20), un
 tentativo solo (11 contro 3, 10 contro 6), due tentativi (10 contro 7, 9
 contro 6). Il codice della scena resta quello di oggi, 2,6 chiamate di scena
 per discesa. Prova: `docs/collaudo/EX/scena_del_viaggio.txt`.
+
+**EX Aggiunta 4, 2 ottobre 2026 sera.** Contati gli scarti per guardia (al
+codice di partenza 78 righe in 20 discese, prime "chiede di scrivere" 16 e
+"previsione certa" 13), l'istruzione li dice per nome; una frase scartata dopo
+la prima si toglie in casa se il resto regge a tutte le guardie; il modello
+scrive due riserve di ogni testo nella stessa chiamata, lette dalle stesse
+guardie (prova nuova nata rossa, A21). Nessuna riga delle guardie toccata.
+Chiamate di scena per discesa da 2,70 a 1,90 e 1,80, scene dal modello 20 su
+20, nessun silenzio; merito alla lettura alla cieca 13 e 12 contro 13 e 13.
+Con due tentativi invece di tre si scendeva a 1,65 ma il merito perdeva 1 e 2:
+restano tre. Gli obiettivi (scena 1,5, discesa 2,5) non sono raggiunti: la
+discesa con la domanda scritta fa circa 3,0 chiamate. Prova:
+`docs/collaudo/EX/la_scena_con_meno_scarti.txt`.
 
 ## VOCE EX.11, LA MISURA FINALE
 
