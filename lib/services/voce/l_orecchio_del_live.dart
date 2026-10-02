@@ -17,6 +17,7 @@ import '../../features/maestri/live/il_silenzio_vero.dart';
 import '../ai/firebase_maestro_ai_provider.dart';
 import '../ai/registro_dei_guasti.dart';
 import 'il_banco_dell_orecchio.dart';
+import '../ai/l_etichetta_della_funzione.dart';
 
 /// **L'ORECCHIO DEL LIVE.** Ordine EJ voce 01, 24 settembre 2026.
 ///
@@ -649,6 +650,7 @@ abstract final class LaTrascrizione {
       // 42 nomi giusti su 44 contro 40, e un tempo mediano di 1.060 ms
       // contro 1.161. Il modello sta nella regione dei dati.
       model: FirebaseMaestroAiProvider.kMaestroChatModel,
+      httpClient: ClientConEtichetta(LeFunzioniDelModello.ascoltoLive),
       generationConfig: GenerationConfig(
         temperature: 0,
         maxOutputTokens: 600,

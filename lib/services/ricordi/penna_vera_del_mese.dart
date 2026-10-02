@@ -25,6 +25,7 @@ import '../../core/ricordi/riassunti_del_tempo.dart';
 import '../../core/chat/user_profile.dart';
 import '../ai/firebase_maestro_ai_provider.dart';
 import '../ai/maestro_persona.dart';
+import '../ai/l_etichetta_della_funzione.dart';
 
 class PennaVeraDelMese extends PennaDelMese {
   const PennaVeraDelMese();
@@ -74,6 +75,7 @@ class PennaVeraDelMese extends PennaDelMese {
     try {
       final model = FirebaseAI.vertexAI().generativeModel(
         model: FirebaseMaestroAiProvider.kMaestroBreveModel,
+        httpClient: ClientConEtichetta(LeFunzioniDelModello.ricordiDelMese),
         systemInstruction: Content.system(istruzione(chi)),
       );
       final testo =

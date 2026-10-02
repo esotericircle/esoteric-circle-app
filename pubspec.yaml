@@ -71,6 +71,10 @@ dependencies:
   # Firebase AI Logic: chat dei Maestri su Gemini via backend Vertex, protetta
   # da App Check. E' la sola via all'LLM a runtime.
   firebase_ai: 3.13.1
+  # Il client HTTP che mette l'etichetta della funzione su ogni chiamata al
+  # modello (ordine EW voce EW.03, `l_etichetta_della_funzione.dart`). Era
+  # gia' nell'albero come dipendenza di firebase_ai, alla stessa versione.
+  http: ^1.6.0
 
   # App Check: protegge le chiamate all'AI Logic dagli abusi.
   firebase_app_check: 0.4.5
@@ -195,6 +199,10 @@ dev_dependencies:
   # Linter ufficiale Flutter.
   flutter_lints: ^4.0.0
   fake_cloud_firestore: ^4.1.1
+  # L'app Firebase finta dei banchi del costo (ordine EW voce EW.04): fa
+  # girare sul PC le chiamate vere dell'app a Gemini. Era gia' nell'albero,
+  # alla stessa versione.
+  firebase_core_platform_interface: 7.1.0
 
   # Lettura di pubspec.yaml nei test di coerenza dello stato asset.
   yaml: ^3.1.2

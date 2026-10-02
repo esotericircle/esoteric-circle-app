@@ -22,6 +22,7 @@ import '../../core/chat/le_conversazioni_passate.dart';
 import '../../core/config/la_regione_dei_dati.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/viaggio/la_domanda_capita.dart';
+import 'l_etichetta_della_funzione.dart';
 
 class TitoliDaGemini extends ScrittoreDeiTitoli {
   const TitoliDaGemini();
@@ -56,6 +57,8 @@ class TitoliDaGemini extends ScrittoreDeiTitoli {
       final m = FirebaseAI.vertexAI(location: LaRegioneDeiDati.regione)
           .generativeModel(
         model: modello,
+        httpClient:
+            ClientConEtichetta(LeFunzioniDelModello.titoliConversazioni),
         systemInstruction: Content.system(istruzione),
         generationConfig: GenerationConfig(
           temperature: 0.3,

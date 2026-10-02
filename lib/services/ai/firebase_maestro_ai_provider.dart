@@ -23,6 +23,7 @@ import '../../core/chat/i_responsi_di_oggi.dart';
 import 'maestro_persona.dart';
 import 'la_richiesta_del_turno.dart';
 import 'registro_dei_guasti.dart';
+import 'l_etichetta_della_funzione.dart';
 
 /// Implementazione dell'AI dei Maestri su Gemini via Firebase AI Logic.
 ///
@@ -161,6 +162,13 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     final turno = LaRichiestaDelTurno.corrente;
     final model = _ai.generativeModel(
       model: modelloDelTurno(nelLive: turno.nelLive, chatModel: chatModel),
+      // L'etichetta della funzione, ordine EW voce EW.03: la risposta della
+      // chat, il seguito ("Vai piu' a fondo") o la risposta del LIVE.
+      httpClient: ClientConEtichetta(turno.nelLive
+          ? LeFunzioniDelModello.chatLive
+          : rispostaGiaData == null
+              ? LeFunzioniDelModello.chatRisposta
+              : LeFunzioniDelModello.chatSeguito),
       systemInstruction: Content.system(
         MaestroPersona.systemInstruction(
           maestro: maestro,
@@ -288,6 +296,9 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     // solo: Flash-Lite e ragionamento spento per la Breve, Flash per la Profonda.
     final model = _ai.generativeModel(
       model: modelForDepth(depth),
+      httpClient: ClientConEtichetta(depth == ConsultDepth.profonda
+          ? LeFunzioniDelModello.interrogaProfonda
+          : LeFunzioniDelModello.interrogaBreve),
       systemInstruction: Content.system(
         MaestroPersona.consultInstruction(
           maestro: maestro,
@@ -340,6 +351,7 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     // Flash, ragionamento spento, tetto contenuto: la sintesi e' breve.
     final model = _ai.generativeModel(
       model: kMaestroProfondaModel,
+      httpClient: ClientConEtichetta(LeFunzioniDelModello.interrogaSintesi),
       systemInstruction: Content.system(
         // Ordine EE voce 09: il profilo arriva fin qui, o la sintesi
         // dichiara di non conoscere un nome che l'app conosce.
@@ -387,6 +399,7 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     // errore inghiottito nel punto piu' profondo non lo vede piu' nessuno.
     final model = _ai.generativeModel(
       model: distillModel,
+      httpClient: ClientConEtichetta(LeFunzioniDelModello.distillatoMemoria),
       systemInstruction: Content.system(
         MaestroPersona.distillInstruction(maestro, profile),
       ),
@@ -455,6 +468,7 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     // Flash-Lite, come le risposte brevi.
     final model = _ai.generativeModel(
       model: kMaestroRuneModel,
+      httpClient: ClientConEtichetta(LeFunzioniDelModello.letturaRune),
       systemInstruction: Content.system(
         MaestroPersona.presagioInstruction(
           profile: profile,

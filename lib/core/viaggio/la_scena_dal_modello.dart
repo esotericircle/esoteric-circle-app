@@ -16,6 +16,7 @@ import 'la_voce_del_mondo_di_sotto.dart';
 import 'le_guardie_del_responso.dart';
 import '../l10n/la_lingua_del_modello.dart';
 import '../tarot/la_lettura_dal_modello.dart';
+import '../../services/ai/l_etichetta_della_funzione.dart';
 
 /// **I QUATTRO PEZZI CHE IL MODELLO HA SCELTO**, per id.
 typedef PezziScelti = ({
@@ -1040,6 +1041,7 @@ abstract final class LaScenaDalModello {
       String istruzione, String richiesta, PezziAmmessi ammessi) async {
     final m = FirebaseAI.vertexAI(location: regione).generativeModel(
       model: modello,
+      httpClient: ClientConEtichetta(LeFunzioniDelModello.viaggioScena),
       systemInstruction: Content.system(istruzione),
       generationConfig: GenerationConfig(
         temperature: 0.8,

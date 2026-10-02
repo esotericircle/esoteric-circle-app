@@ -324,6 +324,9 @@ void main() {
     // dell'Architetto (EV.07-EV.10), il Viaggio che tace (EV.59) e le catture
     // che tornano (EV.60).
     'EV': 20,
+    // EW: sette voci, contate coi titoli "## VOCE EW." del manifesto il 2
+    // ottobre 2026, dai tre pezzi dell'ordine.
+    'EW': 7,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

@@ -13,6 +13,7 @@ import '../responsi/confine_del_responso.dart';
 import '../viaggio/la_domanda_capita.dart';
 import 'tarot_reading.dart';
 import 'tarot_spread.dart';
+import '../../services/ai/l_etichetta_della_funzione.dart';
 
 /// La firma di una chiamata al modello: l'istruzione e la richiesta, la
 /// risposta come testo JSON. Le prove ne passano una finta.
@@ -619,6 +620,7 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
     final m =
         FirebaseAI.vertexAI(location: LaRegioneDeiDati.regione).generativeModel(
       model: modello,
+      httpClient: ClientConEtichetta(LeFunzioniDelModello.letturaTarocchi),
       systemInstruction: Content.system(istruzione),
       generationConfig: GenerationConfig(
         temperature: 0.8,

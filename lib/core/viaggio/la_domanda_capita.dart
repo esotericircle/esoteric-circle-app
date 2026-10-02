@@ -8,6 +8,7 @@ import 'il_tetto_delle_chiamate.dart';
 import '../config/la_regione_dei_dati.dart';
 import 'la_domanda_del_viaggio.dart';
 import 'dart:convert';
+import '../../services/ai/l_etichetta_della_funzione.dart';
 
 /// **DA DOVE VIENE IL TEMA DI UNA DOMANDA LIBERA**, per il rapporto e per il
 /// registro dei guasti.
@@ -538,6 +539,7 @@ abstract final class LaDomandaCapita {
       String istruzione, String domanda) async {
     final m = FirebaseAI.vertexAI(location: regione).generativeModel(
       model: modello,
+      httpClient: ClientConEtichetta(LeFunzioniDelModello.viaggioDomanda),
       systemInstruction: Content.system(istruzione),
       generationConfig: GenerationConfig(
         temperature: 0,

@@ -12,6 +12,7 @@ import '../viaggio/le_guardie_del_responso.dart';
 import 'intention_sigil.dart';
 import 'la_voce_del_sigillo.dart';
 import '../l10n/la_lingua_del_modello.dart';
+import '../../services/ai/l_etichetta_della_funzione.dart';
 
 /// La firma di una chiamata al modello: l'istruzione e la richiesta, la
 /// risposta come testo JSON. Le prove ne passano una finta.
@@ -639,6 +640,7 @@ Rispondi solo con un oggetto JSON con il campo "riformulata".''';
     final m =
         FirebaseAI.vertexAI(location: LaRegioneDeiDati.regione).generativeModel(
       model: modello,
+      httpClient: ClientConEtichetta(LeFunzioniDelModello.sigillo),
       systemInstruction: Content.system(istruzione),
       generationConfig: GenerationConfig(
         temperature: 0.8,

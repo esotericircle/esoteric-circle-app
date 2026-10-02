@@ -11,6 +11,7 @@ import '../chat/user_profile.dart';
 import '../chat/le_forme_del_genere.dart';
 import 'le_guardie_del_responso.dart';
 import '../l10n/la_lingua_del_modello.dart';
+import '../../services/ai/l_etichetta_della_funzione.dart';
 
 /// **I GESTI CON CUI L'ANIMALE RISPONDE, e nessuno di piu'.**
 /// Ordine DI voce 14, 12 settembre 2026; ridotti a tre dall'ordine DJ voce 08,
@@ -329,6 +330,7 @@ abstract final class GestiDelSegno {
       String istruzione, String richiesta) async {
     final m = FirebaseAI.vertexAI(location: regione).generativeModel(
       model: modello,
+      httpClient: ClientConEtichetta(LeFunzioniDelModello.viaggioSegno),
       systemInstruction: Content.system(istruzione),
       generationConfig: GenerationConfig(
         temperature: 0.7,

@@ -978,6 +978,14 @@ async function soloFondatori(uid: string | undefined): Promise<void> {
   }
 }
 
+/**
+ * Le etichette delle chiamate di sintesi a Gemini, ordine EW voce EW.03: la
+ * voce del Maestro nel LIVE e l'ascolto di prova delle voci dei fondatori.
+ * Chirp 3 HD (Cloud Text-to-Speech) non accetta etichette nella richiesta.
+ */
+export const ETICHETTA_VOCE_DEL_MAESTRO = "voce_maestro";
+export const ETICHETTA_ASCOLTO_DELLE_VOCI = "voce_ascolto_di_prova";
+
 /** L'audio intero di una frase, non a flusso: serve all'ascolto di prova. */
 async function laVoceIntera(
   testo: string,
@@ -1001,6 +1009,9 @@ async function laVoceIntera(
         responseModalities: ["AUDIO"],
         speechConfig: {voiceConfig: {prebuiltVoiceConfig: {voiceName: voce}}},
       },
+      // L'etichetta della funzione, ordine EW voce EW.03: il report
+      // Fatturazione divide il costo per funzione.
+      labels: {funzione: ETICHETTA_ASCOLTO_DELLE_VOCI},
     }),
   });
   if (!risposta.ok) {
@@ -1182,6 +1193,7 @@ export const laVoceDelMaestro = onCall(
             voiceConfig: {prebuiltVoiceConfig: {voiceName: come.voce}},
           },
         },
+        labels: {funzione: ETICHETTA_VOCE_DEL_MAESTRO},
       }),
     });
     if (!risposta.ok || !risposta.body) {

@@ -56,6 +56,10 @@ void main() {
     'cupertino_icons': null,
     'provider': null,
     'shared_preferences': null,
+    // Ordine EW voce EW.03: `http` sta sotto l'etichetta della funzione di
+    // ogni chiamata al modello. E' Dart puro (nessuna cartella `ios/` ne'
+    // `darwin/` nel pacchetto 1.6.0): nessun framework di Apple.
+    'http': null,
     'path_provider': null,
     'timezone': null,
     'video_player': null,

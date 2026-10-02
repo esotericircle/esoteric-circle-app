@@ -6435,8 +6435,64 @@ nelle quote gratuite; nessuna istanza minima, nessun Cloud SQL, nessun Redis.
 Non misurabili dall'account di Code: la fattura vera (ruolo Visualizzatore
 fatturazione), i token di ragionamento dentro la metrica, la divisione per
 funzione fra gli usi di Flash (manca un'etichetta per funzione nelle chiamate
-dell'app). I progetti Default Gemini Project e i due My First Project non
+dell'app). **Dall'ordine EW due di queste tre sono risolte**: la metrica
+`token_count` conta il ragionamento (verificato al token,
+`docs/collaudo/EW/token_count_conta_il_ragionamento.txt`), e ogni chiamata al
+modello porta l'etichetta della sua funzione (voce EW.03, aperta finche' il
+report Fatturazione non la mostra). I progetti Default Gemini Project e i due My First Project non
 hanno chiamate nei 30 giorni.
+
+## L'ORDINE EW, QUANTO COSTA UN UTENTE (2 ottobre 2026)
+
+Manifesto `docs/ordini/ORDINE_EW_MANIFESTO.md`, rapporto
+`docs/ordini/RAPPORTO_ORDINE_EW.md`, documenti in `docs/costi/`, prove in
+`docs/collaudo/EW/`. **Sette voci: cinque chiuse (EW.01, EW.02, EW.04, EW.05,
+EW.06), due aperte in attesa di verifica (EW.03, EW.07).** Nessuna build:
+l'ordine non consegna niente, e nessun comportamento dell'app cambia salvo
+l'etichetta.
+
+- **Le chiamate al modello** (EW.01, `docs/costi/le_chiamate_al_modello.md`):
+  18 punti, 12 fra Tarocchi, chat e LIVE e 6 fuori (Rune, Sigillo, tre del
+  Viaggio, Ricordi del mese). La penna dei Ricordi parte da us-central1
+  (padre CG.11), il distillato della memoria non ha chiamanti (CG.09), la
+  consulta Profonda non la chiede nessuno.
+- **L'etichetta della funzione** (EW.03): `ClientConEtichetta` in
+  `lib/services/ai/l_etichetta_della_funzione.dart` sotto ogni
+  `generativeModel(` del telefono (13 su 13, 16 etichette), `labels` nelle due
+  chiamate di sintesi del server (`functions/src/live.ts`). **Prodotto e
+  agganciato; le funzioni del server NON pubblicate** (la pubblicazione e' stata
+  negata a Code dal controllo dei permessi: la fa il fondatore); le etichette
+  del telefono arrivano con la prima build dopo l'ordine; la verifica e' il
+  report Fatturazione filtrato per `funzione`. Monitoring non porta le
+  etichette e l'esportazione in BigQuery non e' attiva. Guardia
+  `ogni_chiamata_al_modello_porta_l_etichetta`. Dipendenza diretta nuova:
+  `http` (era gia' nell'albero); di sviluppo `firebase_core_platform_interface`.
+- **Il banco del costo** (EW.04): `tool/il_banco_del_costo.dart` fa girare il
+  codice vero dell'app con Gemini in europe-west1 e legge `usageMetadata`; 621
+  chiamate in 17 casi (`docs/costi/costo_per_funzione_chiamate.jsonl`), conti
+  in `tool/i_conti_del_costo_ew.py`. Una domanda in chat 0,0069 $ senza cache;
+  una gettata di rune 0,0060; la voce di una risposta del LIVE 0,0078; una
+  discesa del Viaggio 0,0035.
+- **Il costo per utente** (EW.05, `docs/costi/costo_per_utente.md`): al
+  massimo in 30 giorni Viandante 0,84 $, Iniziato 5,66 (meta' dei 9,99 euro),
+  Adepto 11,90 e Illuminato 31,72 col LIVE. **95 $ al mese sono 17 Iniziati che
+  usano tutto.** Le gettate di rune sono quasi due terzi del costo
+  dell'Iniziato.
+- **Le leve** (EW.06, `docs/costi/le_leve_del_costo.md`): 12, nessuna
+  applicata; le piu' forti meno gettate di rune, le rune su Flash-Lite, la
+  cache del contesto.
+- **Il minuto del LIVE** (EW.07, `docs/costi/il_minuto_del_live.md`): 0,0213 $
+  al minuto in conversazione, misurato su una sessione vera col Realme
+  (Protoface 0,0113, voce 0,0040, risposte 0,0034, ascolto 0,0025); 0,0125 senza
+  conversazione. **I minuti del mese del LIVE non scendono mai**:
+  `minutiUsati` e' letto dal server e nessuno lo scrive (padre EG.06); il LIVE
+  si limita solo con le domande del giorno (ogni turno a voce costa una
+  domanda, EQ.07) e coi 20 minuti per sessione. Il piano Protoface e' almeno il
+  Launch (una sessione del 30 settembre di 14:45); Launch o Scale, e il piano
+  LiveKit, li dice il fondatore.
+- **Le prove col modello vero** sono costate al massimo 2,03 $ (1.125
+  chiamate a Gemini e 9 crediti Protoface),
+  `docs/collaudo/EW/il_costo_delle_prove.txt`.
 
 ## Regole ferree
 
