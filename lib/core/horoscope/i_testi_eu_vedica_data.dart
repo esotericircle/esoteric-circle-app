@@ -309,7 +309,7 @@ abstract final class ITestiEuVedicaData {
             'La giornata non spinge e non frena: offre lo spazio giusto per poche cose fatte bene. Il rischio è disperderti in mille piccoli compiti che sembrano tutti urgenti allo stesso modo.',
             'Prima di aprire la posta scrivi su un foglio le tre cose che contano oggi e mettile in ordine. Comincia dalla prima e non passare alla seconda finché non l\'hai chiusa davvero.',
             'Quando ogni cosa reclama attenzione nello stesso momento, la misura diventa una forma di rispetto per il tuo tempo. Una lista corta ti lascia arrivare a sera con la sensazione di aver lavorato sul serio.',
-            'Tieni il foglio accanto a te per tutta la giornata e spunta ogni voce appena finita. Se arriva una richiesta nuova, annotala sul retro: la guarderai domani mattina con calma, a lista chiusa.',
+            'Tieni il foglio accanto a te per tutta la giornata e spunta ogni voce appena finita. Se arriva una richiesta nuova, annotala sul retro e rimandala a domani mattina, con calma, a lista chiusa.',
           ),
           VoceEu(
             'La promessa onorata',
@@ -344,7 +344,7 @@ abstract final class ITestiEuVedicaData {
             'Fra le cose di oggi ce n\'è una che non compare in nessuna lista: una persona cara che senti di rado e che aspetta, senza chiederlo, di sentire la tua voce per qualche minuto.',
             'Chiama nel pomeriggio un parente che non senti da tempo, in un\'ora in cui nessuno dei due ha fretta. Fai una domanda precisa sulle sue giornate e lascia che la risposta sia lunga.',
             'Le relazioni di ogni giorno vivono di piccoli gesti regolari più che di grandi occasioni. Una voce che arriva senza un motivo particolare vale spesso più di un regalo pensato per una ricorrenza.',
-            'Alla fine della chiamata fissa già la prossima e scrivila in agenda, anche se cade fra due settimane. Annota accanto una cosa che ti ha raccontato: la volta successiva potrai ripartire proprio da lì.',
+            'Alla fine della chiamata fissa già la prossima e scrivila in agenda, anche se cade fra due settimane. Annota accanto una cosa che ti ha raccontato: la volta successiva si riparte proprio da lì.',
           ),
           VoceEu(
             'Faccende divise',
@@ -421,14 +421,14 @@ abstract final class ITestiEuVedicaData {
             'Una persona giovane di casa o di famiglia oggi ha bisogno di attenzione più che di soluzioni: un compito difficile, una mattina storta a scuola, una domanda rimasta in sospeso.',
             'Nel pomeriggio siediti accanto a chi studia per mezz\'ora, senza fare i compiti al suo posto. Chiedi che cosa ha capito e che cosa no, poi lascia che sia la sua mano a scrivere.',
             'La presenza tranquilla di chi è più grande insegna più di ogni spiegazione: mostra che le difficoltà si affrontano con ordine e senza panico. Il valore di oggi sta nel restare, non nel risolvere.',
-            'Stasera a cena chiedi qual è stata la cosa migliore e quella più difficile della giornata. Ascolta senza correggere e ricorda una delle due risposte: domani potrai chiedere com\'è andata a finire.',
+            'Stasera a cena chiedi qual è stata la cosa migliore e quella più difficile della giornata. Ascolta senza correggere e ricorda una delle due risposte: domani chiedi com\'è andata a finire.',
           ),
           VoceEu(
             'Spesa con la lista',
             'La dispensa e il frigorifero raccontano giorni di acquisti fatti di corsa: doppioni, cose dimenticate, cibo che scade prima di essere usato. Oggi è adatto a rimettere ordine anche qui.',
             'Prima di andare a fare la spesa apri frigorifero e dispensa e scrivi solo ciò che manca davvero. Pensa a tre pasti precisi e compra per quelli, senza aggiungere nulla fuori lista.',
             'Una spesa pensata è un piccolo esercizio di misura: prendi quello che serve nella quantità giusta e niente va sprecato. Anche la cucina, quando è ordinata, rende più semplici le sere di chi ci vive.',
-            'Al ritorno sistema gli acquisti mettendo davanti le cose che scadono prima. Attacca la lista usata allo sportello: domani potrai partire da quella per la prossima, correggendo ciò che è avanzato.',
+            'Al ritorno sistema gli acquisti mettendo davanti le cose che scadono prima. Attacca la lista usata allo sportello: domani parti da quella per la prossima, correggendo ciò che è avanzato.',
           ),
           VoceEu(
             'Impegni da confermare',
@@ -469,7 +469,7 @@ abstract final class ITestiEuVedicaData {
             'La sera che prepara',
             'La giornata si chiude senza grandi scosse e lascia un margine prezioso nelle ultime ore. È il tempo adatto per preparare il domani invece di lasciarlo arrivare all\'improvviso.',
             'Prima di cena scrivi su un foglietto la prima cosa da fare domani e lascialo sul tavolo, accanto a chiavi e telefono. Scegli anche i vestiti e metti nella borsa quello che ti serve.',
-            'Nella tradizione vedica ogni inizio si prepara il giorno prima, con la mente ancora calma. Ciò che decidi stasera senza fretta, domani lo farai con la tranquillità di chi conosce già la strada.',
+            'Nella tradizione vedica ogni inizio si prepara il giorno prima, con la mente ancora calma. Ciò che decidi stasera senza fretta, domani si fa con la tranquillità di chi conosce già la strada.',
             'Chiudi la giornata riordinando una sola superficie della casa, poi spegni le luci una alla volta. Tieni per ultima quella della camera e dedica i minuti prima del sonno a ricordare una cosa riuscita oggi.',
           ),
         ],
@@ -500,7 +500,7 @@ abstract final class ITestiEuVedicaData {
             'Una coincidenza persa, un autobus che parte sotto i tuoi occhi, un semaforo rosso dopo l\'altro: oggi gli spostamenti possono andare storti e mettere alla prova i nervi fin dalle prime ore.',
             'Esci di casa dieci minuti prima del solito e tieni in tasca un piano di riserva: l\'orario della corsa successiva, una strada alternativa, il numero di chi ti aspetta per avvisare in tempo.',
             'Il ritardo, in giornate come questa, non dice niente del tuo valore: è solo traffico, attrito, coincidenze sfavorevoli. Arrivare con calma qualche minuto dopo vale più che arrivare in orario col fiato corto.',
-            'Durante l\'attesa alla fermata o al volante lascia stare il telefono: guarda la strada, respira contando fino a quattro, ripassa a mente la prima cosa che dirai arrivando. Il viaggio diventa una pausa.',
+            'Durante l\'attesa alla fermata o al volante lascia stare il telefono: guarda la strada, respira contando fino a quattro, ripassa a mente la prima cosa da dire arrivando. Il viaggio diventa una pausa.',
           ),
           VoceEu(
             'Il riso sul fuoco',
@@ -1127,7 +1127,7 @@ abstract final class ITestiEuVedicaData {
             'Tre storie vere',
             'Un colloquio vicino ti mette addosso un\'attesa che oggi può diventare energia utile. La giornata sostiene la preparazione: le idee si mettono in fila e le parole trovano la loro misura.',
             'Prepara tre esempi concreti del tuo lavoro passato: un problema risolto, un risultato misurabile, una cosa imparata da un errore. Raccontali a voce alta finché ognuno sta in un minuto.',
-            'Chi ti ascolterà cerca una persona affidabile prima ancora che brillante. La sobrietà ha una sua forza: dire con calma ciò che hai fatto vale più di promettere ciò che farai.',
+            'Chi ti ascolterà cerca una persona affidabile prima ancora che brillante. La sobrietà ha una sua forza: dire con calma ciò che hai fatto vale più di promettere ciò che verrà.',
             'Stasera prepara gli abiti, i documenti e il percorso, poi chiudi i quaderni: niente ripassi dopo cena. Domattina esci con dieci minuti di anticipo e usali per rileggere solo i tre esempi.',
           ),
           VoceEu(
@@ -1291,7 +1291,7 @@ abstract final class ITestiEuVedicaData {
             'La giornata non chiede di cominciare cose nuove ma di portare avanti con cura quelle già aperte. Sul tuo tavolo c\'è una pratica avviata qualche giorno fa che aspetta soltanto continuità.',
             'Appena arrivi apri quella pratica prima della posta e lavoraci per un\'ora intera, con il telefono chiuso in un cassetto. Annota su un foglio il punto preciso in cui ti fermi.',
             'C\'è un tempo per accendere la lampada e un tempo per custodirne la fiamma. Oggi appartiene al secondo: il valore sta nella costanza più che nello slancio di chi inizia.',
-            'Domani mattina riparti esattamente da quel punto, nello stesso orario. Se qualcuno ti propone un fronte nuovo, rispondi con calma che te ne occupi appena avrai chiuso questo.',
+            'Domani mattina riparti esattamente da quel punto, nello stesso orario. Se qualcuno ti propone un fronte nuovo, rispondi con calma che te ne occupi appena chiuso questo.',
           ),
           VoceEu(
             'Una modifica fuori patto',
@@ -1317,7 +1317,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Il progetto nel cassetto',
             'Un progetto tuo, rimandato da mesi, oggi ti torna in mente con insistenza. Non è il giorno del grande avvio ma quello della preparazione: si sta sulla soglia e si guarda dove mettere il piede.',
-            'Dedica mezz\'ora a scrivere su un foglio che cosa vuoi ottenere, quanto tempo puoi dargli ogni settimana e qual è il primo passo pratico. Fissa nel calendario la data in cui lo farai.',
+            'Dedica mezz\'ora a scrivere su un foglio che cosa vuoi ottenere, quanto tempo puoi dargli ogni settimana e qual è il primo passo pratico. Fissa nel calendario la data in cui farlo.',
             'Le cose cominciate con ordine hanno radici più solide di quelle nate da un entusiasmo improvviso. Preparare bene la partenza non significa rimandare: vuol dire dare al progetto la possibilità di durare.',
             'Domani racconta il progetto a una persona di fiducia in cinque minuti e chiedile quale parte le sembra meno chiara. Correggi il foglio con quella osservazione prima di cominciare davvero.',
           ),
@@ -1436,7 +1436,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Il computer chiuso',
             'Lavorando da casa la giornata tende ad allungarsi senza che te ne accorga e le ore si confondono con quelle private. Oggi c\'è spazio per rimettere un confine semplice e chiaro.',
-            'Decidi ora l\'orario in cui chiuderai il computer e scrivilo su un foglietto attaccato allo schermo. Quando arriva quell\'ora, annota il punto in cui ti fermi e spegni davvero tutto.',
+            'Decidi ora l\'orario di chiusura del computer e scrivilo su un foglietto attaccato allo schermo. Quando arriva quell\'ora, annota il punto in cui ti fermi e spegni davvero tutto.',
             'Un lavoro ben fatto ha bisogno di un inizio e di una fine, anche quando non c\'è un ufficio a segnarli. Il riposo della sera fa parte del lavoro di domani, non è una pausa rubata.',
             'Domattina ricrea il rito dell\'inizio: una passeggiata breve, un caffè, la lista dei compiti sul tavolo. Comunica ai colleghi l\'orario in cui rispondi, così le richieste arrivano al momento giusto.',
           ),
@@ -1575,7 +1575,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Lo scaffale degli scambi',
             'Nel tuo quartiere circola più di quanto vedi: uno scaffale di libri da scambiare, una cassetta di oggetti lasciati per chi passa. Oggi lì c\'è qualcosa che fa al caso tuo.',
-            'Porta con te un libro letto che non rileggerai e lascialo nello scaffale del bar o della biblioteca. Guarda con calma che cosa trovi al suo posto prima di andare via.',
+            'Porta con te un libro già letto che non pensi di rileggere e lascialo nello scaffale del bar o della biblioteca. Guarda con calma che cosa trovi al suo posto prima di andare via.',
             'Dare e ricevere qui seguono un passo regolare, senza conti in sospeso. Chi lascia qualcosa con cura mette in moto una piccola corrente: le cose giuste cominciano a girare anche verso di te.',
             'Scrivi sulla prima pagina del libro che lasci una riga di dedica senza firma. Se ne prendi uno, segna in agenda il giorno in cui riportarlo: la parola mantenuta tiene viva la catena.',
           ),
@@ -1633,7 +1633,7 @@ abstract final class ITestiEuVedicaData {
             'Nel freddo del congelatore aspettano scorte dimenticate: pane, verdure, un sugo preparato tempo fa. Oggi sono una risorsa a portata di mano, se le rimetti in vista.',
             'Svuota un ripiano del congelatore, butta ciò che ha perso sapore e scrivi su un nastro di carta contenuto e data di ogni sacchetto. Scegli subito che cosa scongelare per cena.',
             'Conoscere ciò che possiedi è il primo vantaggio. Un ordine piccolo fatto bene risparmia corse al supermercato, decisioni affrettate e cibo sprecato nei giorni pieni.',
-            'Attacca allo sportello un elenco di ciò che resta, con le date più vicine in alto. Domani, prima di fare la spesa, consultalo: comprerai meno e cucinerai con più calma.',
+            'Attacca allo sportello un elenco di ciò che resta, con le date più vicine in alto. Domani, prima di fare la spesa, consultalo: aiuta a comprare il giusto e a cucinare con più calma.',
           ),
           VoceEu(
             'Talee sul davanzale',
@@ -1696,7 +1696,7 @@ abstract final class ITestiEuVedicaData {
             'Fra gli abbonamenti e i servizi che si rinnovano da soli c\'è qualcosa che non usi più. Oggi è facile accorgersene e fermarlo senza fatica.',
             'Apri sul telefono l\'elenco dei pagamenti ricorrenti e cerca le voci che non ricordi. Disattiva subito quella che non ti serve, prima del rinnovo successivo.',
             'La cura delle proprie risorse comincia dalle piccole uscite che nessuno guarda. Un controllo calmo, fatto con il foglio davanti, restituisce ordine e la sensazione di tenere tu le redini.',
-            'Scrivi in un elenco ogni servizio che tieni, con la data del prossimo rinnovo. Domani imposta un promemoria qualche giorno prima di ciascuna scadenza: deciderai ogni volta con lucidità.',
+            'Scrivi in un elenco ogni servizio che tieni, con la data del prossimo rinnovo. Domani imposta un promemoria qualche giorno prima di ciascuna scadenza: così ogni scelta arriva con il tempo per pensarci.',
           ),
           VoceEu(
             'Il biglietto nel taschino',
@@ -1810,7 +1810,7 @@ abstract final class ITestiEuVedicaData {
             'Una pianta che cresce troppo, tua o di chi abita accanto, può diventare oggi un piccolo scambio fortunato: talee, vasi vuoti, consigli che passano di mano in mano.',
             'Prepara due talee sane dalla tua pianta più rigogliosa e mettile in un bicchiere d\'acqua. Offrile a chi incontri sulle scale e chiedi in cambio un vaso o un seme che non hai.',
             'Questa giornata favorisce ciò che si moltiplica piano. Una pianta divisa non perde nulla, anzi si rinforza; lo stesso vale per le piccole cose di casa che fai circolare con generosità e senza calcolo.',
-            'Domani controlla l\'acqua delle talee e sistemale vicino alla finestra, dove la luce del mattino arriva diretta. Annota chi ti ha dato che cosa: alla prossima occasione saprai a chi bussare.',
+            'Domani controlla l\'acqua delle talee e sistemale vicino alla finestra, dove la luce del mattino arriva diretta. Annota chi ti ha dato che cosa: alla prossima occasione sai già a chi bussare.',
           ),
           VoceEu(
             'Il libro sulla bancarella',
@@ -1887,7 +1887,7 @@ abstract final class ITestiEuVedicaData {
             'Un documento che scade fra qualche settimana chiede oggi la tua attenzione. Gli appuntamenti agli sportelli si liberano spesso al mattino presto ed è lì che si trova il piccolo vantaggio.',
             'Imposta la sveglia dieci minuti prima del solito e controlla il portale del comune per un appuntamento. Prepara la fotografia, il vecchio documento e una copia del codice fiscale in una busta.',
             'Le scadenze affrontate in anticipo smettono di pesare. Questa giornata è adatta alle pratiche ordinarie: la fila spesso è più corta, gli impiegati hanno più pazienza, la mente ha spazio per ricordare tutto.',
-            'Quando hai la data, scrivila in agenda con un promemoria due giorni prima. Lascia la busta pronta sulla soglia di casa: il giorno dell\'appuntamento non dovrai cercare nulla.',
+            'Quando hai la data, scrivila in agenda con un promemoria due giorni prima. Lascia la busta pronta sulla soglia di casa: il giorno dell\'appuntamento non c\'è niente da cercare.',
           ),
           VoceEu(
             'Il mobile da salutare',
@@ -1942,7 +1942,7 @@ abstract final class ITestiEuVedicaData {
             'La promessa puntuale',
             'Qualche giorno fa hai promesso a qualcuno un contatto, un\'informazione o un oggetto. Oggi mantenere quella parola apre una porta: chi riceve ricorda a lungo la puntualità.',
             'Ritrova nei messaggi la promessa fatta e mantienila entro mezzogiorno: inoltra il numero, spedisci il file, consegna il libro. Aggiungi una riga che spieghi perché può essere utile.',
-            'Nella tradizione la parola mantenuta è una lampada che resta accesa anche quando nessuno la guarda. Un piccolo impegno rispettato oggi rende credibile ogni proposta che farai domani.',
+            'Nella tradizione la parola mantenuta è una lampada che resta accesa anche quando nessuno la guarda. Un piccolo impegno rispettato oggi rende credibile ogni proposta di domani.',
             'Stasera scrivi in una lista le ultime promesse fatte a voce, al lavoro o in famiglia. Scegline una da chiudere domani e lascia andare quelle che non puoi più mantenere, dicendolo con franchezza.',
           ),
         ],
@@ -2248,7 +2248,7 @@ abstract final class ITestiEuVedicaData {
             'Hai diverse cose avviate e nessuna davvero conclusa: un armadio a metà, una pratica aperta, un libro lasciato a pagina cento. La settimana non spinge verso il nuovo: chiede di chiudere prima di aprire.',
             'Lunedì scrivi l\'elenco delle cose rimaste a metà e scegline una sola da portare a termine entro venerdì. Finché non è chiusa, non cominciare niente di nuovo, nemmeno una cosa piccola.',
             'Nella lettura vedica portare avanti ciò che è avviato vale quanto cominciare. Una cosa chiusa libera l\'energia che tutte quelle aperte trattengono in silenzio, come stanze con la luce lasciata accesa.',
-            'Quando l\'avrai chiusa, cancellala dall\'elenco con una riga netta e scegli la successiva per la settimana che viene. Nel frattempo togli dalla vista ciò che resta in sospeso: basta una scatola per ognuna.',
+            'Chiusa questa, cancellala dall\'elenco con una riga netta e scegli la successiva per la settimana che viene. Nel frattempo togli dalla vista ciò che resta in sospeso: basta una scatola per ognuna.',
           ),
           VoceEu(
             'Il passo della sera',
@@ -2305,7 +2305,7 @@ abstract final class ITestiEuVedicaData {
             'Il favore declinato',
             'Le richieste arrivano da più parti: un passaggio, un trasloco da aiutare, un compito che qualcuno non riesce a finire. Dire sempre sì in questi giorni rischia di lasciarti senza tempo per le tue cose.',
             'Prima di accettare una nuova richiesta, prenditi qualche ora per rispondere. Se non hai spazio, declina con una frase gentile e precisa, offrendo se puoi un\'alternativa piccola: un consiglio, un contatto, un\'altra data.',
-            'Un no detto con garbo protegge anche i sì che darai dopo. Chi accetta tutto finisce per fare ogni cosa con meno cura, mentre chi sceglie può mantenere la parola data fino in fondo e farlo bene.',
+            'Un no detto con garbo protegge anche i sì che vengono dopo. Chi accetta tutto finisce per fare ogni cosa con meno cura, mentre chi sceglie può mantenere la parola data fino in fondo e farlo bene.',
             'Tieni in agenda l\'elenco di ciò che hai già accettato nei prossimi giorni e guardalo prima di ogni nuova risposta. Se un impegno preso ti pesa troppo, avvisa entro mercoledì invece di disdire all\'ultimo momento.',
           ),
           VoceEu(
@@ -2473,7 +2473,7 @@ abstract final class ITestiEuVedicaData {
             'Dici di voler conoscere qualcuno ma le tue sere finiscono tutte in ufficio o sul divano dopo il lavoro. Senza un legame in corso, questa settimana chiede di fare posto prima di cercare.',
             'Apri l\'agenda lunedì e blocca due sere, per esempio martedì e giovedì, in cui esci dal lavoro all\'orario giusto. In una delle due iscriviti a un\'attività di gruppo, nell\'altra accetta un invito.',
             'Le persone nuove entrano dove trovano spazio. Una vita piena fino all\'orlo lascia fuori anche ciò che si desidera; due sere protette sono un inizio misurato, che non stravolge il resto.',
-            'Tieni le due sere libere per almeno tre settimane di fila, anche quando il lavoro preme. Annota ogni volta chi hai incontrato e se ti ha fatto piacere: dopo un mese vedrai quale strada vale la pena seguire.',
+            'Tieni le due sere libere per almeno tre settimane di fila, anche quando il lavoro preme. Annota ogni volta chi hai incontrato e se ti ha fatto piacere: dopo un mese si vede quale strada vale la pena seguire.',
           ),
           VoceEu(
             'Le chiavi di riserva',
@@ -2641,7 +2641,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Fra due amicizie',
             'Due persone a cui vuoi bene hanno litigato e ciascuna ti cerca per raccontare la propria versione. La settimana rischia di metterti nel mezzo, a portare messaggi e a prendere parte senza volerlo.',
-            'Alla prossima telefonata spiega con gentilezza che tieni a entrambe le persone e che non porterai messaggi. Proponi piuttosto un incontro diretto fra loro, in un posto neutro, se serve con te presente.',
+            'Alla prossima telefonata spiega con gentilezza che tieni a entrambe le persone e che non fai da messaggero. Proponi piuttosto un incontro diretto fra loro, in un posto neutro, se serve con te presente.',
             'Fare da ponte sembra un aiuto ma spesso allunga le liti: le parole riportate si deformano a ogni passaggio. Restare fuori dal conflitto è il modo più leale per conservare due legami a cui tieni.',
             'Vedi ciascuna persona separatamente nel fine settimana per un\'attività leggera, senza tornare sul litigio. Se l\'argomento torna, ascolta senza commentare e riporta il discorso su altro.',
           ),
@@ -3151,7 +3151,7 @@ abstract final class ITestiEuVedicaData {
           ),
           VoceEu(
             'Un dono fuori misura',
-            'Ti trovi in casa un regalo che non userai: un doppione, una taglia sbagliata, un oggetto lontano dai tuoi gusti. Restano pochi giorni per cambiarlo; è una piccola scelta da non lasciare al caso.',
+            'Ti trovi in casa un regalo che non usi: un doppione, una taglia sbagliata, un oggetto lontano dai tuoi gusti. Restano pochi giorni per cambiarlo; è una piccola scelta da non lasciare al caso.',
             'Ritrova lo scontrino di cortesia o chiedi con garbo a chi te l\'ha fatto il nome del negozio. Vai entro venerdì, con la confezione integra, sapendo già che cosa vorresti al suo posto.',
             'Cambiare un regalo non offende chi lo ha scelto: rispetta il gesto più di un oggetto dimenticato in fondo a un armadio. Ciò che hai trasformato in qualcosa di utile porta con sé la stessa intenzione affettuosa.',
             'Quando rivedi chi ti ha fatto il dono, racconta in modo semplice che cosa hai scelto e perché. Se il cambio non è possibile, pensa a una persona a cui quell\'oggetto farebbe piacere e consegnalo nel fine settimana.',
@@ -3202,7 +3202,7 @@ abstract final class ITestiEuVedicaData {
           ),
           VoceEu(
             'La disdetta in tempo',
-            'Hai prenotato qualcosa a cui forse non andrai: una cena, una stanza, una visita guidata, una lezione. Lasciar passare il termine per annullare può costare caro; questi giorni chiedono attenzione alle date.',
+            'Hai prenotato qualcosa a cui forse non vai: una cena, una stanza, una visita guidata, una lezione. Lasciar passare il termine per annullare può costare caro; questi giorni chiedono attenzione alle date.',
             'Rileggi entro martedì le conferme ricevute nelle ultime settimane e annota per ciascuna la data limite per disdire senza penale. Se un impegno non ti convince più, annullalo adesso, senza arrivare all\'ultimo giorno.',
             'Rimandare una decisione sembra un modo di tenersi aperte le porte; spesso le chiude una a una. La lettura vedica dà valore alla parola data, anche quando consiste nel ritirarla in tempo, con chiarezza e rispetto.',
             'Quando disdici, scrivi due righe gentili a chi ti ospitava o ti attendeva: un posto liberato presto può servire a qualcun altro. Per il futuro salva ogni prenotazione nel calendario con un avviso tre giorni prima del termine.',
@@ -3238,7 +3238,7 @@ abstract final class ITestiEuVedicaData {
           VoceEu(
             'Una data più avanti',
             'Un\'occasione che ti piace, un corso, un viaggio, un piccolo progetto, si presenta proprio quando la settimana è già piena. Dire sì adesso rischia di sprecarla; il suo momento può essere poco più in là.',
-            'Rispondi entro due giorni con interesse sincero e chiedi se esiste una data successiva o un\'iscrizione posticipata. Intanto annota in agenda il giorno esatto in cui avrai più respiro.',
+            'Rispondi entro due giorni con interesse sincero e chiedi se esiste una data successiva o un\'iscrizione posticipata. Intanto annota in agenda il giorno esatto in cui hai più respiro.',
             'La lettura vedica distingue con cura il momento di cominciare da quello di portare avanti. Un inizio forzato in giorni affollati si regge male; lo stesso inizio, spostato di poco, può ricevere tutta l\'attenzione che merita.',
             'Scrivi su un foglio che cosa ti serve per accogliere bene quell\'occasione: ore libere, materiale, un accordo con chi vive con te. Sistema una di queste cose entro domenica, così la porta resta aperta mentre attendi.',
           ),
@@ -3510,7 +3510,7 @@ abstract final class ITestiEuVedicaData {
             'Una tesi, un esame o un progetto personale avanza a strappi: grandi sessioni seguite da lunghe pause. Questo mese chiede un ritmo diverso, più quieto e costante, che porta risultati senza sfinire.',
             'Scegli un orario fisso, anche solo trenta minuti prima di ogni altra attività: dedicalo a quel lavoro per tutte le prossime settimane. Spegni le notifiche e tieni sul tavolo solo ciò che serve.',
             'La costanza è una forma di rispetto per ciò che si vuole costruire. Mezz\'ora tenuta con regolarità pesa più di una notte intera ogni tanto: la mente ritrova il filo senza doverlo cercare ogni volta.',
-            'Tieni un foglio accanto e alla fine di ogni sessione annota la frase da cui ripartire il giorno dopo. Dopo quindici mattine rileggi l\'elenco: vedrai quanta strada si è fatta in silenzio.',
+            'Tieni un foglio accanto e alla fine di ogni sessione annota la frase da cui ripartire il giorno dopo. Dopo quindici mattine rileggi l\'elenco: si vede quanta strada si è fatta in silenzio.',
           ),
         ],
         [

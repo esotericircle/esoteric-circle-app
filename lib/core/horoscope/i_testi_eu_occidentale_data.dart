@@ -314,7 +314,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'L\'agenda da sfoltire',
             'Hai messo troppe cose nella stessa giornata e lo sai già da quando hai aperto gli occhi. Niente di grave: il tempo basta, a patto di decidere tu che cosa entra e che cosa aspetta.',
-            'Prendi la lista degli impegni di oggi e cancella con una riga netta l\'ultimo, quello meno urgente. Spostalo a domani scrivendo già l\'ora precisa in cui lo farai.',
+            'Prendi la lista degli impegni di oggi e cancella con una riga netta l\'ultimo, quello meno urgente. Spostalo a domani scrivendo già l\'ora precisa in cui farlo.',
             'Il vero peso non sono gli impegni ma il rumore di quelli lasciati in sospeso. Quando una cosa ha un posto preciso nel calendario smette di bussare alla mente e lascia spazio a quella che hai davanti.',
             'Avvisa con un messaggio breve chi aspettava quella cosa da te: due righe, senza scuse lunghe. Poi dedica la mezz\'ora guadagnata a finire bene un compito, dall\'inizio alla fine.',
           ),
@@ -335,7 +335,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Una sera vuota',
             'Stasera hai un\'ora libera che nessuno ha ancora reclamato. La tentazione è riempirla con il primo schermo a portata di mano, senza sceglierla davvero.',
-            'Decidi adesso, al mattino, che cosa farai di quell\'ora: un disco ascoltato per intero, una ricetta nuova, una lettera a mano. Scrivilo su un foglietto e attaccalo al frigorifero.',
+            'Decidi adesso, al mattino, come usare quell\'ora: un disco ascoltato per intero, una ricetta nuova, una lettera a mano. Scrivilo su un foglietto e attaccalo al frigorifero.',
             'Il tempo libero non scelto si consuma in fretta e lascia una stanchezza strana. Quello scelto, anche se breve, ha un inizio e una fine: ti accorgi di averlo vissuto.',
             'Quando arriva l\'ora, spegni le notifiche e mettiti nel posto più comodo della casa. Alla fine annota in una riga che cosa ti è piaciuto: domani può servirti per scegliere di nuovo.',
           ),
@@ -533,7 +533,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Prima le fondamenta',
             'Spunta oggi la voglia di cominciare qualcosa di nuovo: un corso, un\'abitudine, un piccolo progetto personale. Lo slancio è sincero, ma il terreno chiede ancora qualche preparativo prima di partire.',
-            'Invece di iniziare subito, usa la giornata per raccogliere ciò che serve: un quaderno dedicato, gli orari, i materiali. Scrivi la data in cui partirai davvero e cerchiala sul calendario.',
+            'Invece di iniziare subito, usa la giornata per raccogliere ciò che serve: un quaderno dedicato, gli orari, i materiali. Scrivi la data della partenza vera e cerchiala sul calendario.',
             'Le iniziative che nascono di slancio tendono a spegnersi al primo intoppo, quelle preparate con calma reggono meglio la fatica. Il desiderio di oggi ha bisogno di qualche giorno di radici.',
             'Racconta il tuo progetto a una persona fidata e chiedile di domandarti fra qualche giorno a che punto sei. Avere qualcuno che si ricorda dei tuoi propositi aiuta a mantenerli anche quando lo slancio cala.',
           ),
@@ -1431,7 +1431,7 @@ abstract final class ITestiEuOccidentaleData {
             'Nel laboratorio attrezzi e materiali si sono sparsi sul banco e ogni lavoro comincia con una ricerca. Il mestiere c\'è tutto: manca lo spazio per esercitarlo con agio.',
             'Sgombra il banco prima di iniziare la commessa di oggi e rimetti al loro posto solo gli strumenti che servono per quel lavoro. Il resto va sugli scaffali, con etichette scritte a mano.',
             'Un banco ordinato non è una questione di estetica: riduce gli errori e accorcia i tempi. Chi lavora con le mani conosce bene il sollievo di trovare l\'attrezzo giusto senza nemmeno guardare.',
-            'A fine giornata dedica dieci minuti a pulire il piano e a preparare i materiali per domani. Domattina potrai mettere mano al lavoro appena entri, con la testa già sul pezzo da finire.',
+            'A fine giornata dedica dieci minuti a pulire il piano e a preparare i materiali per domani. Domattina si riparte appena entri, con la testa già sul pezzo da finire.',
           ),
           VoceEu(
             'Correzioni a tappe',
@@ -1821,7 +1821,7 @@ abstract final class ITestiEuOccidentaleData {
           ),
           VoceEu(
             'Attrezzi in comune',
-            'Ti serve un oggetto che userai una volta soltanto: una scala, un trapano, una teglia grande. Oggi la soluzione più fortunata è vicina a te e non passa per forza dal negozio.',
+            'Ti serve un oggetto da usare una volta soltanto: una scala, un trapano, una teglia grande. Oggi la soluzione più fortunata è vicina a te e non passa per forza dal negozio.',
             'Scrivi nel gruppo del palazzo o a un vicino di cui ti fidi: chiedi se può darti l\'oggetto per qualche ora e offri in cambio un dolce o un piccolo favore.',
             'Lo scambio fra vicini crea un credito di fiducia che torna utile in mille occasioni. La giornata favorisce questi legami pratici, fatti di cose che passano di mano e tornano indietro.',
             'Restituisci l\'oggetto pulito e prima del tempo promesso, con due righe di ringraziamento. Poi annota che cosa puoi offrire tu a tua volta: un attrezzo, un\'ora di aiuto, una ricetta.',
@@ -1843,7 +1843,7 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'L\'ora che avanza',
             'Un impegno salta o finisce prima del previsto e ti ritrovi con un\'ora libera in mano. È questa la piccola fortuna del giorno: tempo inatteso, da spendere con una scelta precisa.',
-            'Decidi in anticipo che cosa farai di quell\'ora, prima che il telefono la mangi: una pratica da chiudere, una telefonata rimandata, una passeggiata fino a un posto che vuoi vedere.',
+            'Decidi in anticipo come usare quell\'ora, prima che il telefono la mangi: una pratica da chiudere, una telefonata rimandata, una passeggiata fino a un posto che vuoi vedere.',
             'Il tempo è una risorsa che si perde senza accorgersene. Un\'ora usata bene in una giornata tranquilla vale più di tre ore rincorse in una giornata piena di richieste.',
             'Tieni da oggi una lista corta di cose da fare quando capita un buco nell\'agenda, non più di cinque voci. Stasera riguardala e togli quella fatta, mettendone un\'altra al suo posto.',
           ),
@@ -2099,7 +2099,7 @@ abstract final class ITestiEuOccidentaleData {
             'Una persona cara vive lontano e le vostre chiamate si sono ridotte a messaggi frettolosi. I prossimi giorni offrono il tempo e la disposizione giusta per una conversazione lunga, con calma.',
             'Proponi per sabato mattina una videochiamata di un\'ora, scegliendo un orario che vada bene anche col fuso dell\'altra parte; mandale l\'invito già lunedì, così può organizzarsi.',
             'La distanza pesa meno quando ci si racconta le cose piccole: che cosa hai mangiato, la strada nuova che fai per andare al lavoro. Sono quelle a far sentire vicini, più delle notizie importanti.',
-            'Durante la settimana tieni sul telefono una nota con le cose da raccontare, man mano che capitano: sabato avrai una lista viva da cui partire, invece del solito scambio di saluti di rito.',
+            'Durante la settimana tieni sul telefono una nota con le cose da raccontare, man mano che capitano: sabato c\'è una lista viva da cui partire, invece del solito scambio di saluti di rito.',
           ),
           VoceEu(
             'Lo sgabuzzino aperto',
@@ -2634,9 +2634,9 @@ abstract final class ITestiEuOccidentaleData {
           VoceEu(
             'Una festa di coppie',
             'Ti arriva un invito a una festa dove quasi tutti arrivano in coppia: per chi è senza legame, questi giorni possono rendere la serata più pesante del previsto e riaccendere vecchie domande.',
-            'Chiedi a chi organizza se puoi portare una persona amica e scegli qualcuno con cui ti diverti davvero. Se l\'idea ti pesa troppo, rispondi con garbo che passerai solo per il brindisi.',
+            'Chiedi a chi organizza se puoi portare una persona amica e scegli qualcuno con cui ti diverti davvero. Se l\'idea ti pesa troppo, rispondi con garbo che passi solo per il brindisi.',
             'Il confronto con le vite altrui pesa di più quando ci si sente in ritardo su una tabella di marcia che nessuno ha scritto. Le coppie che vedi alla festa mostrano la loro serata migliore, non le loro fatiche.',
-            'Alla festa cerca una o due conversazioni vere invece di girare fra i gruppi. Decidi prima l\'ora in cui andrai via e rispettala: uscire con un buon ricordo vale più di restare per dovere.',
+            'Alla festa cerca una o due conversazioni vere invece di girare fra i gruppi. Decidi prima l\'ora per andare via e rispettala: uscire con un buon ricordo vale più di restare per dovere.',
           ),
           VoceEu(
             'Le chiamate saltate',
@@ -2817,7 +2817,7 @@ abstract final class ITestiEuOccidentaleData {
             'Il libro, il corso o l\'idea che porti avanti accanto al lavoro procede, ma senza un ritmo preciso. Non serve un\'accelerazione: questa settimana conta trovare una cadenza che possa durare mesi.',
             'Scegli due mattine della settimana, per esempio martedì e sabato: blocca un\'ora in agenda come fosse un appuntamento con un cliente. Prepara la sera prima il file aperto sulla pagina giusta.',
             'Un progetto personale si spegne più per discontinuità che per mancanza di talento. Un\'ora regolare vale più di un fine settimana intero ogni tanto: tiene viva la memoria dell\'ultima pagina scritta.',
-            'Alla fine di ogni sessione scrivi una riga su che cosa farai la volta successiva. Sabato rileggi le righe della settimana: se le sessioni sono state due, la parte più difficile è già alle spalle.',
+            'Alla fine di ogni sessione scrivi una riga su che cosa fare la volta successiva. Sabato rileggi le righe della settimana: se le sessioni sono state due, la parte più difficile è già alle spalle.',
           ),
           VoceEu(
             'Lodi e riserve',
@@ -3123,8 +3123,8 @@ abstract final class ITestiEuOccidentaleData {
           ),
           VoceEu(
             'Il regalo da cambiare',
-            'Hai ricevuto un dono gentile ma poco adatto a te: una taglia sbagliata, un libro già letto, un oggetto che non userai. Lasciarlo in un cassetto non rende onore a chi te l\'ha fatto.',
-            'Chiedi con delicatezza a chi te l\'ha regalato se esiste lo scontrino per il cambio, oppure verifica entro giovedì le condizioni del negozio. Scegli al suo posto qualcosa che userai davvero.',
+            'Hai ricevuto un dono gentile ma poco adatto a te: una taglia sbagliata, un libro già letto, un oggetto che resta nel cassetto. Lasciarlo in un cassetto non rende onore a chi te l\'ha fatto.',
+            'Chiedi con delicatezza a chi te l\'ha regalato se esiste lo scontrino per il cambio, oppure verifica entro giovedì le condizioni del negozio. Scegli al suo posto qualcosa da usare davvero.',
             'Un regalo vive quando viene usato. Trasformarlo in qualcosa di utile non toglie nulla all\'affetto di chi l\'ha scelto: anzi, prolunga il pensiero e gli dà un posto vero nella tua vita.',
             'Se il cambio non è possibile, pensa a chi potrebbe apprezzarlo e regalalo entro il fine settimana con un biglietto sincero. Racconta poi a chi te l\'aveva donato com\'è finita, se il legame lo permette.',
           ),
@@ -3746,7 +3746,7 @@ abstract final class ITestiEuOccidentaleData {
             'L\'anno che si apre ha il passo giusto per crescere nel lavoro: un ruolo con più responsabilità, un progetto che porta il tuo nome. Le occasioni cercano chi si fa trovare con le competenze in ordine.',
             'Nei prossimi mesi individua il ruolo a cui aspiri e osserva chi lo ricopre già: che cosa sa fare che tu ancora non fai? Scegli una di quelle capacità e comincia a coltivarla entro tre mesi.',
             'Questo è un anno in cui la fatica dei periodi passati può trasformarsi in riconoscimento, a patto che qualcuno metta in fila i risultati e li renda visibili. Quel qualcuno puoi essere tu.',
-            'Tieni un quaderno dei risultati: ogni mese annota un obiettivo raggiunto, con numeri e date. Quando arriva il colloquio annuale potrai raccontare il tuo anno con fatti chiari, difficili da ignorare.',
+            'Tieni un quaderno dei risultati: ogni mese annota un obiettivo raggiunto, con numeri e date. Così, al colloquio annuale, il tuo anno si racconta con fatti chiari, difficili da ignorare.',
           ),
           VoceEu(
             'Il progetto prende forma',

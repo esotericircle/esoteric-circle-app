@@ -42,16 +42,13 @@ void main() {
         'lib/features/horoscope/il_periodo_view.dart',
   };
 
-  /// **GLI ADATTAMENTI DICHIARATI**, uno per riga e col perche': la regola
-  /// del fondatore sulla virgola prima della "e" non ha deroghe
-  /// (`language_rule_test`), e i testi dell'Architetto per O-M-006, V-M-001
-  /// e C-G-069 la portavano: la virgola diventa un punto. Ogni altro
-  /// carattere resta il suo.
-  const adattati = {
-    'O-M-006': (', e contano', '. Contano'),
-    'V-M-001': (', e il giorno', '. Il giorno'),
-    'C-G-069': (', e per il tuo', '. Per il tuo'),
-  };
+  /// **GLI ADATTAMENTI DI CODE, NESSUNO.** LAPIDE: dalla voce EV.08 alla EV
+  /// Aggiunta qui c'erano tre adattamenti (O-M-006, V-M-001 e C-G-069: la
+  /// virgola prima della "e" diventata un punto, per la regola del
+  /// fondatore). L'Architetto ha riscritto i tre testi il 2 ottobre 2026, e
+  /// l'elenco e' vuoto: un testo dell'Architetto che non passa una regola di
+  /// casa si riporta a lui, non si adatta.
+  const adattati = <String, (String, String)>{};
 
   /// Il testo di un file come lo legge chi guarda le stringhe: in Dart le
   /// stringhe adiacenti si riuniscono e gli apostrofi si tolgono la barra.
@@ -108,5 +105,8 @@ void main() {
         'dalla fonte ${diversi.length}, senza casa ${senzaCasa.length}');
     expect(senzaCasa, isEmpty, reason: senzaCasa.join('\n'));
     expect(diversi, isEmpty, reason: diversi.join('\n'));
+    expect(adattati, isEmpty,
+        reason: 'un adattamento di Code nei testi dell\'Architetto: si '
+            'riporta a lui, non si adatta');
   });
 }

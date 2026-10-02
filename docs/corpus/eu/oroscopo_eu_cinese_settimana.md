@@ -63,7 +63,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 - Risposta: Un lavoro di casa rimandato perché troppo pesante per due mani trova il momento giusto: spostare l'armadio, svuotare la cantina, montare la libreria arrivata da tempo.
 - Che cosa fare: Scrivi entro martedì a due amici o parenti e chiedi un paio d'ore sabato mattina, promettendo pranzo e una mano ricambiata. Prepara gli attrezzi e i sacchi venerdì sera.
 - Risposta, Lunga: Chiedere aiuto per un lavoro concreto avvicina più di tante parole. Fatica condivisa e un pranzo alla buona lasciano un ricordo comune e un debito di gentilezza che fa piacere onorare.
-- Che cosa fare, Lunga: Finito il lavoro, segna sul calendario la data in cui restituirai il favore e diglielo subito, a voce. Nei giorni dopo manda una foto dell'angolo sistemato, con un grazie preciso.
+- Che cosa fare, Lunga: Finito il lavoro, segna sul calendario la data per restituire il favore e diglielo subito, a voce. Nei giorni dopo manda una foto dell'angolo sistemato, con un grazie preciso.
 
 #### Generale, favorevole, voce 9: Cucina per tre giorni
 
@@ -616,7 +616,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Carriera, favorevole, voce 1: Tre pagine chiare
 
 - Risposta: Un cliente che ti ha cercato per un lavoro nuovo aspetta da te una proposta. Questa settimana è adatta a mettere le cose nero su bianco: il terreno è buono e chi ti ha chiamato ha voglia di cominciare.
-- Che cosa fare: Entro mercoledì scrivi la proposta in tre pagine al massimo: che cosa farai, in quali tappe, con quali consegne. Mandala in mattinata con una riga che offre una telefonata di dieci minuti per chiarire i dubbi.
+- Che cosa fare: Entro mercoledì scrivi la proposta in tre pagine al massimo: che cosa fai, in quali tappe, con quali consegne. Mandala in mattinata con una riga che offre una telefonata di dieci minuti per chiarire i dubbi.
 - Risposta, Lunga: Il momento sostiene chi si presenta con ordine più di chi promette molto. Una proposta breve, con le tappe chiare, fa sentire all'altra parte che il lavoro è già in buone mani e rende più facile dire di sì senza rinvii.
 - Che cosa fare, Lunga: Se la risposta arriva entro venerdì, fissa subito la data di partenza e chiedi i materiali che ti servono per la prima tappa. Se tarda, lascia passare il fine settimana e scrivi lunedì mattina con una domanda sola, gentile e precisa.
 
@@ -867,7 +867,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 - Risposta: Il progetto personale su cui lavori da mesi riceve meno attenzione di quanto sperassi e la motivazione vacilla. Questa settimana chiede pazienza: è poco adatta ai bilanci definitivi, molto di più alle piccole correzioni.
 - Che cosa fare: Scegli tre persone che conoscono il tuo pubblico e chiedi a ciascuna, entro giovedì, un giudizio sincero su un solo punto: il titolo, la presentazione o il modo in cui fai sapere che il progetto esiste.
 - Risposta, Lunga: Spesso un lavoro valido resta in ombra per come viene mostrato più che per ciò che contiene. Nei periodi lenti la tentazione è lasciar perdere, mentre è proprio il momento giusto per rivedere le fondamenta senza fretta.
-- Che cosa fare, Lunga: Con i tre pareri scegli una sola modifica e applicala prima del fine settimana. Poi fissa un traguardo modesto per le prossime quattro settimane e scrivilo su un foglio, accanto alla data in cui lo verificherai.
+- Che cosa fare, Lunga: Con i tre pareri scegli una sola modifica e applicala prima del fine settimana. Poi fissa un traguardo modesto per le prossime quattro settimane e scrivilo su un foglio, accanto alla data della verifica.
 
 #### Carriera, salita, voce 9: Attrito in riunione
 
@@ -1055,7 +1055,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 - Risposta: Un incontro con chi lavora nel campo che ti interessa può arrivare a breve, un caffè o una telefonata. Il valore di quell'occasione dipende quasi tutto dalla preparazione.
 - Che cosa fare: Prima dell'appuntamento scrivi su un quaderno tre domande precise, quelle a cui non trovi risposta altrove. Mettile in ordine di importanza e tieni il quaderno sul tavolo durante il caffè.
 - Risposta, Lunga: La misura sta nel non chiedere troppo. Chi ti riceve dà volentieri mezz'ora se sente rispetto per il suo tempo; diventa più cauto se l'incontro si trasforma in una richiesta di favori.
-- Che cosa fare, Lunga: A fine incontro chiedi se c'è un'altra persona con cui ti consiglia di parlare. Entro tre giorni scrivi un ringraziamento in cui citi una cosa che hai imparato e il passo che farai.
+- Che cosa fare, Lunga: A fine incontro chiedi se c'è un'altra persona con cui ti consiglia di parlare. Entro tre giorni scrivi un ringraziamento in cui citi una cosa che hai imparato e il passo successivo.
 
 #### Fortuna, equilibrio, voce 7: Lo spazio esaurito
 

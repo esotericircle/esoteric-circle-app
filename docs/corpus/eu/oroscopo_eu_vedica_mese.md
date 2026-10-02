@@ -249,7 +249,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 - Risposta: Una tesi, un esame o un progetto personale avanza a strappi: grandi sessioni seguite da lunghe pause. Questo mese chiede un ritmo diverso, più quieto e costante, che porta risultati senza sfinire.
 - Che cosa fare: Scegli un orario fisso, anche solo trenta minuti prima di ogni altra attività: dedicalo a quel lavoro per tutte le prossime settimane. Spegni le notifiche e tieni sul tavolo solo ciò che serve.
 - Risposta, Lunga: La costanza è una forma di rispetto per ciò che si vuole costruire. Mezz'ora tenuta con regolarità pesa più di una notte intera ogni tanto: la mente ritrova il filo senza doverlo cercare ogni volta.
-- Che cosa fare, Lunga: Tieni un foglio accanto e alla fine di ogni sessione annota la frase da cui ripartire il giorno dopo. Dopo quindici mattine rileggi l'elenco: vedrai quanta strada si è fatta in silenzio.
+- Che cosa fare, Lunga: Tieni un foglio accanto e alla fine di ogni sessione annota la frase da cui ripartire il giorno dopo. Dopo quindici mattine rileggi l'elenco: si vede quanta strada si è fatta in silenzio.
 
 ### Carriera, In salita (livello 2 e sotto)
 

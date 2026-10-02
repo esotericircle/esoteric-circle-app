@@ -49,7 +49,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 - Risposta: Una persona cara vive lontano e le vostre chiamate si sono ridotte a messaggi frettolosi. I prossimi giorni offrono il tempo e la disposizione giusta per una conversazione lunga, con calma.
 - Che cosa fare: Proponi per sabato mattina una videochiamata di un'ora, scegliendo un orario che vada bene anche col fuso dell'altra parte; mandale l'invito già lunedì, così può organizzarsi.
 - Risposta, Lunga: La distanza pesa meno quando ci si racconta le cose piccole: che cosa hai mangiato, la strada nuova che fai per andare al lavoro. Sono quelle a far sentire vicini, più delle notizie importanti.
-- Che cosa fare, Lunga: Durante la settimana tieni sul telefono una nota con le cose da raccontare, man mano che capitano: sabato avrai una lista viva da cui partire, invece del solito scambio di saluti di rito.
+- Che cosa fare, Lunga: Durante la settimana tieni sul telefono una nota con le cose da raccontare, man mano che capitano: sabato c'è una lista viva da cui partire, invece del solito scambio di saluti di rito.
 
 #### Generale, favorevole, voce 7: Lo sgabuzzino aperto
 
@@ -584,9 +584,9 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Amore, salita, voce 11: Una festa di coppie
 
 - Risposta: Ti arriva un invito a una festa dove quasi tutti arrivano in coppia: per chi è senza legame, questi giorni possono rendere la serata più pesante del previsto e riaccendere vecchie domande.
-- Che cosa fare: Chiedi a chi organizza se puoi portare una persona amica e scegli qualcuno con cui ti diverti davvero. Se l'idea ti pesa troppo, rispondi con garbo che passerai solo per il brindisi.
+- Che cosa fare: Chiedi a chi organizza se puoi portare una persona amica e scegli qualcuno con cui ti diverti davvero. Se l'idea ti pesa troppo, rispondi con garbo che passi solo per il brindisi.
 - Risposta, Lunga: Il confronto con le vite altrui pesa di più quando ci si sente in ritardo su una tabella di marcia che nessuno ha scritto. Le coppie che vedi alla festa mostrano la loro serata migliore, non le loro fatiche.
-- Che cosa fare, Lunga: Alla festa cerca una o due conversazioni vere invece di girare fra i gruppi. Decidi prima l'ora in cui andrai via e rispettala: uscire con un buon ricordo vale più di restare per dovere.
+- Che cosa fare, Lunga: Alla festa cerca una o due conversazioni vere invece di girare fra i gruppi. Decidi prima l'ora per andare via e rispettala: uscire con un buon ricordo vale più di restare per dovere.
 
 #### Amore, salita, voce 12: Le chiamate saltate
 
@@ -767,7 +767,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 - Risposta: Il libro, il corso o l'idea che porti avanti accanto al lavoro procede, ma senza un ritmo preciso. Non serve un'accelerazione: questa settimana conta trovare una cadenza che possa durare mesi.
 - Che cosa fare: Scegli due mattine della settimana, per esempio martedì e sabato: blocca un'ora in agenda come fosse un appuntamento con un cliente. Prepara la sera prima il file aperto sulla pagina giusta.
 - Risposta, Lunga: Un progetto personale si spegne più per discontinuità che per mancanza di talento. Un'ora regolare vale più di un fine settimana intero ogni tanto: tiene viva la memoria dell'ultima pagina scritta.
-- Che cosa fare, Lunga: Alla fine di ogni sessione scrivi una riga su che cosa farai la volta successiva. Sabato rileggi le righe della settimana: se le sessioni sono state due, la parte più difficile è già alle spalle.
+- Che cosa fare, Lunga: Alla fine di ogni sessione scrivi una riga su che cosa fare la volta successiva. Sabato rileggi le righe della settimana: se le sessioni sono state due, la parte più difficile è già alle spalle.
 
 #### Carriera, equilibrio, voce 9: Lodi e riserve
 
@@ -1073,8 +1073,8 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Fortuna, equilibrio, voce 9: Il regalo da cambiare
 
-- Risposta: Hai ricevuto un dono gentile ma poco adatto a te: una taglia sbagliata, un libro già letto, un oggetto che non userai. Lasciarlo in un cassetto non rende onore a chi te l'ha fatto.
-- Che cosa fare: Chiedi con delicatezza a chi te l'ha regalato se esiste lo scontrino per il cambio, oppure verifica entro giovedì le condizioni del negozio. Scegli al suo posto qualcosa che userai davvero.
+- Risposta: Hai ricevuto un dono gentile ma poco adatto a te: una taglia sbagliata, un libro già letto, un oggetto che resta nel cassetto. Lasciarlo in un cassetto non rende onore a chi te l'ha fatto.
+- Che cosa fare: Chiedi con delicatezza a chi te l'ha regalato se esiste lo scontrino per il cambio, oppure verifica entro giovedì le condizioni del negozio. Scegli al suo posto qualcosa da usare davvero.
 - Risposta, Lunga: Un regalo vive quando viene usato. Trasformarlo in qualcosa di utile non toglie nulla all'affetto di chi l'ha scelto: anzi, prolunga il pensiero e gli dà un posto vero nella tua vita.
 - Che cosa fare, Lunga: Se il cambio non è possibile, pensa a chi potrebbe apprezzarlo e regalalo entro il fine settimana con un biglietto sincero. Racconta poi a chi te l'aveva donato com'è finita, se il legame lo permette.
 

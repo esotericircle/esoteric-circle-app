@@ -21,8 +21,8 @@ Le voci EV.51-EV.60 sono le segnalazioni del fondatore arrivate durante il
 lavoro, numerate da Code dopo il posto delle voci dell'Architetto.
 
 VOCI_TOTALI: 20
-VOCI_CHIUSE: 8
-VOCI_APERTE: 12
+VOCI_CHIUSE: 9
+VOCI_APERTE: 11
 VOCI_DA_FARE: 0
 
 Le prove stanno in `docs/collaudo/EV/`, quelle del telefono di prova (Realme
@@ -154,8 +154,22 @@ DOMANDA: "Dopo cinque minuti o cmq da ieri l'indicatore"ONLINE" RESTA FERMO A 1 
 
 ## VOCE EV.07, I CORPORA CORRETTI E IL CONFINE COM'ERA
 
-**APERTA IN ATTESA DI VERIFICA**: aspetta i testi dell'Architetto per quindici
-frasi.
+**CHIUSA.** Con l'EV Aggiunta del 2 ottobre 2026 l'Architetto ha controllato i
+dodici corpora interi, ha trovato le frasi con un verbo al futuro rivolto a
+chi legge (55 per il suo conto, 54 frasi e 56 parole per quello di Code) e le
+ha riscritte tutte al presente o all'infinito. I dieci file riscritti sono nel
+ramo uguali byte per byte, i dati rigenerati, l'elenco
+`test/le_frasi_dei_corpora_in_attesa.dart` vuoto. Una guardia nuova,
+`test/i_corpora_non_dicono_il_futuro_test.dart`, legge ogni riga dei dodici
+corpora e diventa rossa su una parola in "-rai" che non sia dichiarata fra i
+non futuri (oggi solo "distrai" compare); nasce rossa su una frase innestata
+(A44). **Perche' le frasi erano 55 e non 15**: il confine cerca i futuri con
+almeno tre lettere prima di -erai, -irai, -drai, -rrai, e i futuri corti
+("vedrai", "farai", "avrai", "potrai", "saprai", "userai") non ci entrano;
+l'innesto A45 lo mostra (verde col confine, rosso con la guardia nuova). Il
+confine resta com'era, per decisione dell'Architetto.
+
+Quello che segue e' la storia della voce fino al 1 ottobre.
 
 I cinque corpora corretti dall'Architetto sono entrati nel ramo uguali byte per
 byte (venti righe: le tre frasi al presente, le sedici senza "almanacco",
@@ -180,7 +194,7 @@ Proposte di riscrittura nel rapporto, per l'Architetto.
 
 DOMANDA: rapporto EU, "Per l'Architetto", punti 1, 2 e 3; Linee Guida, sezione 8, "IL CONFINE DEL RESPONSO, E VIVE IN UN PUNTO SOLO".
 PROVA: docs/collaudo/EV/ev07_corpora_e_confine.txt
-MISURA: corpora diversi dalla fonte, prima 5 su 12, dopo 0 su 12 (sha1); eccezioni del confine aggiunte nell'ordine EU, da 1 a 0; frasi dei corpora fuori dal confine, 15 su 6192 (col confine dell'ordine EU 10), tutte dichiarate in attesa dei testi dell'Architetto, non dichiarate 0
+MISURA: corpora diversi dalla fonte, 0 su 12 (sha1), e 0 su 10 file dell'EV Aggiunta; eccezioni del confine aggiunte nell'ordine EU, da 1 a 0; frasi con un verbo al futuro rivolto a chi legge nei dodici corpora, da 54 a 0 (55 per il conto dell'Architetto); frasi dei corpora fuori dal confine, da 15 a 0 su 6192, dichiarate in attesa 0
 
 ## VOCE EV.08, LA VERIFICA DELLE AFFERMAZIONI
 
@@ -207,7 +221,7 @@ rapporto.
 
 DOMANDA: "VERIFICA CHE L'INTERPRETAZIONE SIA REALE E NON INVENTATA E CHE NON SIA RIPETITIVA"; voce EU.14.
 PROVA: docs/collaudo/EV/affermazioni.md
-MISURA: affermazioni SENZA FONTE, prima 88 su 759, dopo 0 su 759; testi nuovi diversi dalla fonte, 0 su 20, di cui 3 con una virgola prima della "e" diventata un punto per la regola del fondatore (O-M-006, V-M-001, C-G-069), dichiarati nella guardia
+MISURA: affermazioni SENZA FONTE, prima 88 su 759, dopo 0 su 759; testi nuovi diversi dalla fonte, 0 su 20; adattamenti di Code nei testi dell'Architetto, da 3 a 0 (O-M-006, V-M-001 e C-G-069 riscritti dall'Architetto senza la virgola prima della "e", EV Aggiunta)
 
 ## VOCE EV.09, LE RIFINITURE DEI "DA DOVE VIENE"
 

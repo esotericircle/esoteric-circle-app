@@ -109,7 +109,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Il cambio di stagione',
             'È un giorno buono per mettere mano agli armadi: le cose da tenere si riconoscono al primo sguardo e quelle da lasciare non fanno resistenza.',
-            'Svuota un solo ripiano, metti in uno scatolone i capi leggeri che non userai fino a primavera e scrivi sopra con un pennarello che cosa contiene.',
+            'Svuota un solo ripiano, metti in uno scatolone i capi leggeri che non servono fino a primavera e scrivi sopra con un pennarello che cosa contiene.',
             'L\'ordine fuori porta ordine dentro, dice un vecchio modo di pensare: quando apri l\'anta e trovi solo ciò che indossi davvero, la mattina comincia con una scelta in meno.',
             'Tieni da parte una borsa per i vestiti in buono stato che non metti più e lasciala accanto alla porta: domani mattina, uscendo, portala al punto di raccolta del quartiere.',
           ),
@@ -328,7 +328,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'La visita promessa',
             'Una persona anziana della tua famiglia aspetta tue notizie più di quanto lasci capire. La giornata è adatta ai legami di lunga data, purché il gesto sia preciso e non un generico ci sentiamo presto.',
-            'Chiamala in un\'ora tranquilla, a metà pomeriggio. Prima di riattaccare fissa una data per andarla a trovare: giorno, ora e che cosa porterai, anche solo un dolce o il giornale del mattino.',
+            'Chiamala in un\'ora tranquilla, a metà pomeriggio. Prima di riattaccare fissa una data per andarla a trovare: giorno, ora e che cosa portare, anche solo un dolce o il giornale del mattino.',
             'Per chi vive giornate lente una visita annunciata vale due volte: c\'è l\'incontro e c\'è l\'attesa che lo prepara. Dare una data significa regalare qualche giorno di qualcosa da aspettare con piacere.',
             'Scrivi la visita in agenda come un impegno di lavoro, con un promemoria la sera prima. Il giorno dell\'incontro porta una fotografia vecchia o una domanda sul passato: apre racconti che altrimenti restano chiusi.',
           ),
@@ -547,7 +547,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Decidere in famiglia',
             'Una decisione di famiglia, dove passare una ricorrenza o chi ospita chi, oggi trova le persone poco disposte a cedere. Il momento non è adatto a chiudere la questione, piuttosto a raccogliere le posizioni.',
-            'Telefona a una persona per volta e chiedi che cosa le sta più a cuore, senza proporre ancora una soluzione. Annota le risposte: domani avrai un quadro più chiaro di dove ci si può incontrare.',
+            'Telefona a una persona per volta e chiedi che cosa le sta più a cuore, senza proporre ancora una soluzione. Annota le risposte: così domani il quadro di dove ci si può incontrare è più chiaro.',
             'Quando tutti parlano insieme vince chi alza la voce, non chi ha l\'idea migliore. Sentire le persone separatamente toglie la gara e fa emergere i punti in comune che nella discussione collettiva restano nascosti.',
             'Tra un giorno o due prepara una proposta che tenga conto di almeno un desiderio di ciascuno e mandala a tutti nello stesso momento. Chiedi una risposta entro una data precisa, con garbo e senza pressione.',
           ),
@@ -707,7 +707,7 @@ abstract final class ITestiEuCineseData {
             'Una persona anziana della tua famiglia ha racconti che nessuno ha mai raccolto per intero. La giornata è adatta ai legami fra generazioni e quelle memorie chiedono di essere ascoltate.',
             'Chiama oggi o passa a trovarla e chiedi di raccontarti come si sono conosciuti i suoi genitori. Con il permesso, registra la voce sul telefono e lascia che il racconto vada dove vuole.',
             'Le storie di famiglia si perdono in una sola generazione se nessuno le chiede. Mostrare interesse per quel passato restituisce importanza a chi lo ha vissuto e ti consegna radici che altrimenti resterebbero mute.',
-            'Domani riascolta la registrazione e trascrivi le frasi più belle in un quaderno dedicato. Alla prossima visita leggigliele ad alta voce: vedrai quanto le fa piacere ritrovare le sue parole custodite con cura.',
+            'Domani riascolta la registrazione e trascrivi le frasi più belle in un quaderno dedicato. Alla prossima visita leggigliele ad alta voce: ritrovare le proprie parole custodite con cura fa piacere a chiunque.',
           ),
           VoceEu(
             'La porta di casa',
@@ -762,7 +762,7 @@ abstract final class ITestiEuCineseData {
             'Un compagno di scuola',
             'Una persona dei tempi della scuola ti ha scritto dopo anni, con un tono che va oltre la semplice cortesia. Oggi favorisce i ritorni e uno sguardo nuovo su chi credevi di conoscere.',
             'Rispondi entro sera con calore e proponi una telefonata per domani invece di uno scambio di messaggi. Prepara una domanda su com\'è oggi la sua vita, non solo sui ricordi comuni.',
-            'Le persone del passato portano con sé una parte di noi che altri non hanno visto. Riallacciare quel filo può restare nostalgia oppure l\'inizio di qualcosa di nuovo: lo saprai solo lasciando spazio.',
+            'Le persone del passato portano con sé una parte di noi che altri non hanno visto. Riallacciare quel filo può restare nostalgia oppure l\'inizio di qualcosa di nuovo: lo si scopre solo lasciando spazio.',
             'Durante la telefonata, se la conversazione scorre, proponi di vedervi in un luogo legato a quegli anni: il bar davanti alla scuola, il campo sportivo. Fissa giorno e ora prima di riattaccare.',
           ),
           VoceEu(
@@ -814,7 +814,7 @@ abstract final class ITestiEuCineseData {
             'Un genitore anziano o una persona cara di famiglia sente la tua mancanza senza dirlo. Fra voi non c\'è attrito, c\'è una distanza fatta di telefonate frettolose e di visite rimandate.',
             'Oggi passa a fare visita nel pomeriggio, anche per un\'ora, con qualcosa di piccolo da condividere: dei biscotti, il giornale, una piantina. Lascia che sia l\'altra persona a scegliere di che cosa parlare.',
             'Con gli anni le persone care misurano l\'affetto in presenza più che in parole. Un\'ora seduti allo stesso tavolo rimette in ordine le cose: ci si racconta, si ride di un ricordo, si torna vicini.',
-            'Prima di uscire chiedi se c\'è una piccola faccenda da sistemare: una lampadina, un modulo da leggere, un cassetto inceppato. Occupatene subito oppure fissa il giorno in cui tornerai a farlo.',
+            'Prima di uscire chiedi se c\'è una piccola faccenda da sistemare: una lampadina, un modulo da leggere, un cassetto inceppato. Occupatene subito oppure fissa il giorno per tornare a farlo.',
           ),
           VoceEu(
             'La discussione di ieri',
@@ -961,7 +961,7 @@ abstract final class ITestiEuCineseData {
             'Con un cugino, un\'amica o un fratello è calato un gelo dopo un litigio ormai vecchio: nessuno ricorda bene le parole, resta la distanza. La giornata è propizia ai primi gesti di disgelo.',
             'Manda oggi un messaggio breve e senza riferimenti al passato: la foto di un luogo che conoscete entrambi, un ricordo buffo, un augurio. Non chiedere risposte e non aggiungere spiegazioni.',
             'Riaprire un rapporto non richiede di stabilire chi aveva ragione. Spesso entrambe le parti aspettano soltanto che qualcuno faccia il primo passo: un tono leggero rende più facile rispondere senza perdere la faccia.',
-            'Se la risposta arriva, mantieni il tono cordiale e proponi per domani o dopodomani un caffè in un posto neutro. Se tace, lascia la porta socchiusa: fra qualche tempo potrai riprovare con lo stesso garbo.',
+            'Se la risposta arriva, mantieni il tono cordiale e proponi per domani o dopodomani un caffè in un posto neutro. Se tace, lascia la porta socchiusa: fra qualche tempo si può riprovare con lo stesso garbo.',
           ),
         ],
         [
@@ -998,7 +998,7 @@ abstract final class ITestiEuCineseData {
             'Qualcuno incontrato di recente può proporti di vedervi: il pensiero corre subito lontano. Il giorno è adatto ai primi passi piccoli, non alle grandi aspettative.',
             'Se l\'invito arriva, rispondi con una controproposta leggera: un caffè di mezz\'ora in un posto che conosci, alla luce del giorno. Una cena lunga può aspettare un\'altra occasione.',
             'Correre avanti con la fantasia rende ogni dettaglio carico di significato, perfino la scelta delle parole in un messaggio. Tenere l\'incontro breve protegge la curiosità e lascia margine per conoscersi davvero.',
-            'Prima di uscire decidi l\'ora in cui saluterai e rispettala, anche se il caffè va bene. Stasera annota due cose che ti hanno colpito di quella persona: domani ti aiutano a capire se vuoi rivederla.',
+            'Prima di uscire decidi l\'ora dei saluti e rispettala, anche se il caffè va bene. Stasera annota due cose che ti hanno colpito di quella persona: domani ti aiutano a capire se vuoi rivederla.',
           ),
           VoceEu(
             'L\'amicizia distratta',
@@ -1163,7 +1163,7 @@ abstract final class ITestiEuCineseData {
             'Sul tavolo ci sono due proposte di lavoro e non puoi accettarle entrambe con la stessa cura. La giornata è adatta a scegliere: oggi hai la lucidità per vedere quale ti fa crescere davvero.',
             'Scrivi le due proposte una accanto all\'altra con tre colonne: tempo richiesto, che cosa impari, che rapporto nasce col cliente. Scegli quella che vince in due colonne su tre e rispondi a entrambi entro sera.',
             'Dire di no a un incarico non chiude una porta, la socchiude. Chi riceve un rifiuto garbato e motivato spesso torna con una proposta più adatta, perché ha capito che lavori con misura e non per riempire il calendario.',
-            'Alla proposta che lasci andare rispondi con una mail cordiale: ringrazia, spiega che ora non potresti darle la cura che merita e indica da quando avrai più spazio. Segna quella data in agenda per riprendere il contatto.',
+            'Alla proposta che lasci andare rispondi con una mail cordiale: ringrazia, spiega che ora non potresti darle la cura che merita e indica da quando hai più spazio. Segna quella data in agenda per riprendere il contatto.',
           ),
           VoceEu(
             'Il cambio di reparto',
@@ -1480,7 +1480,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'L\'offerta da chiarire',
             'Arriva un\'offerta di lavoro, ma alcune cose restano vaghe: la durata del contratto, gli orari, il luogo preciso. La spinta a dire sì per sollievo è forte. Oggi è un giorno per le domande, non per le firme rapide.',
-            'Rispondi ringraziando e chiedi per iscritto tre dettagli: durata, orario settimanale, sede. Aggiungi che darai la tua risposta entro due giorni dal momento in cui ricevi le informazioni.',
+            'Rispondi ringraziando e chiedi per iscritto tre dettagli: durata, orario settimanale, sede. Aggiungi che rispondi entro due giorni dal momento in cui ricevi le informazioni.',
             'Chi offre un posto sa che le domande fanno parte dello scambio e chi le pone con garbo mostra serietà. L\'entusiasmo che ti spinge verso il sì è sincero; merita solo di poggiare su condizioni chiare, non su promesse a voce.',
             'Quando arrivano le risposte, mettile su un foglio accanto a ciò che per te è irrinunciabile: tempi di viaggio, giorni liberi, possibilità di crescere. Decidi dopo averlo riletto con calma, davanti a una tazza di tè.',
           ),
@@ -1552,7 +1552,7 @@ abstract final class ITestiEuCineseData {
             'Lavori di giorno e studi la sera: oggi le forze rischiano di finire prima del previsto. Il libro aperto alle nove può restare alla stessa pagina fino a mezzanotte, con gli occhi che scorrono e la testa altrove.',
             'Scegli ora un solo obiettivo per lo studio di stasera, piccolo e misurabile: dieci pagine, un esercizio, un riassunto. Fissa la fine alle dieci e mezza e quando arriva chiudi, anche se avanza tempo.',
             'Chi tiene insieme lavoro e studio non perde per lentezza ma per dispersione: tante ore a metà valgono meno di una sola ora piena. La giornata chiede misura, non eroismo: il passo breve tenuto ogni sera porta lontano.',
-            'Approfitta della pausa pranzo per rileggere gli appunti di ieri per un quarto d\'ora. La sera, a casa, riprenderai da un punto già caldo e non sprecherai l\'inizio a ricordare dove avevi interrotto.',
+            'Approfitta della pausa pranzo per rileggere gli appunti di ieri per un quarto d\'ora. La sera, a casa, riparti da un punto già caldo, senza sprecare l\'inizio a ricordare dove avevi interrotto.',
           ),
           VoceEu(
             'La chiamata imprevista',
@@ -1787,7 +1787,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'La tenda in viaggio',
             'Una persona amica ti chiede in uso la tenda, la bici o la macchina fotografica per qualche giorno. Il momento è adatto a dire sì, purché le cose siano chiare prima della partenza e non al ritorno.',
-            'Fotografa l\'oggetto davanti a chi lo riceve e mostrate insieme come si monta o si carica. Scrivi in un messaggio la data in cui lo riavrai: una riga cordiale basta a evitare ogni equivoco.',
+            'Fotografa l\'oggetto davanti a chi lo riceve e mostrate insieme come si monta o si carica. Scrivi in un messaggio la data della restituzione: una riga cordiale basta a evitare ogni equivoco.',
             'Un oggetto che viaggia fra le mani degli amici lega le persone, a patto che torni intero e puntuale. Quando i termini sono detti con garbo all\'inizio, nessuno deve trovarsi in difetto dopo: il favore resta un favore.',
             'Metti nella sacca anche un foglietto con le due cose da sapere: dove stanno i picchetti, quale caricatore usare. Chi riceve trova tutto pronto e restituisce più volentieri ciò che gli è arrivato in ordine.',
           ),
@@ -2113,7 +2113,7 @@ abstract final class ITestiEuCineseData {
             'Un lavoro di casa rimandato perché troppo pesante per due mani trova il momento giusto: spostare l\'armadio, svuotare la cantina, montare la libreria arrivata da tempo.',
             'Scrivi entro martedì a due amici o parenti e chiedi un paio d\'ore sabato mattina, promettendo pranzo e una mano ricambiata. Prepara gli attrezzi e i sacchi venerdì sera.',
             'Chiedere aiuto per un lavoro concreto avvicina più di tante parole. Fatica condivisa e un pranzo alla buona lasciano un ricordo comune e un debito di gentilezza che fa piacere onorare.',
-            'Finito il lavoro, segna sul calendario la data in cui restituirai il favore e diglielo subito, a voce. Nei giorni dopo manda una foto dell\'angolo sistemato, con un grazie preciso.',
+            'Finito il lavoro, segna sul calendario la data per restituire il favore e diglielo subito, a voce. Nei giorni dopo manda una foto dell\'angolo sistemato, con un grazie preciso.',
           ),
           VoceEu(
             'Cucina per tre giorni',
@@ -2666,7 +2666,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Tre pagine chiare',
             'Un cliente che ti ha cercato per un lavoro nuovo aspetta da te una proposta. Questa settimana è adatta a mettere le cose nero su bianco: il terreno è buono e chi ti ha chiamato ha voglia di cominciare.',
-            'Entro mercoledì scrivi la proposta in tre pagine al massimo: che cosa farai, in quali tappe, con quali consegne. Mandala in mattinata con una riga che offre una telefonata di dieci minuti per chiarire i dubbi.',
+            'Entro mercoledì scrivi la proposta in tre pagine al massimo: che cosa fai, in quali tappe, con quali consegne. Mandala in mattinata con una riga che offre una telefonata di dieci minuti per chiarire i dubbi.',
             'Il momento sostiene chi si presenta con ordine più di chi promette molto. Una proposta breve, con le tappe chiare, fa sentire all\'altra parte che il lavoro è già in buone mani e rende più facile dire di sì senza rinvii.',
             'Se la risposta arriva entro venerdì, fissa subito la data di partenza e chiedi i materiali che ti servono per la prima tappa. Se tarda, lascia passare il fine settimana e scrivi lunedì mattina con una domanda sola, gentile e precisa.',
           ),
@@ -2917,7 +2917,7 @@ abstract final class ITestiEuCineseData {
             'Il progetto personale su cui lavori da mesi riceve meno attenzione di quanto sperassi e la motivazione vacilla. Questa settimana chiede pazienza: è poco adatta ai bilanci definitivi, molto di più alle piccole correzioni.',
             'Scegli tre persone che conoscono il tuo pubblico e chiedi a ciascuna, entro giovedì, un giudizio sincero su un solo punto: il titolo, la presentazione o il modo in cui fai sapere che il progetto esiste.',
             'Spesso un lavoro valido resta in ombra per come viene mostrato più che per ciò che contiene. Nei periodi lenti la tentazione è lasciar perdere, mentre è proprio il momento giusto per rivedere le fondamenta senza fretta.',
-            'Con i tre pareri scegli una sola modifica e applicala prima del fine settimana. Poi fissa un traguardo modesto per le prossime quattro settimane e scrivilo su un foglio, accanto alla data in cui lo verificherai.',
+            'Con i tre pareri scegli una sola modifica e applicala prima del fine settimana. Poi fissa un traguardo modesto per le prossime quattro settimane e scrivilo su un foglio, accanto alla data della verifica.',
           ),
           VoceEu(
             'Attrito in riunione',
@@ -3105,7 +3105,7 @@ abstract final class ITestiEuCineseData {
             'Un incontro con chi lavora nel campo che ti interessa può arrivare a breve, un caffè o una telefonata. Il valore di quell\'occasione dipende quasi tutto dalla preparazione.',
             'Prima dell\'appuntamento scrivi su un quaderno tre domande precise, quelle a cui non trovi risposta altrove. Mettile in ordine di importanza e tieni il quaderno sul tavolo durante il caffè.',
             'La misura sta nel non chiedere troppo. Chi ti riceve dà volentieri mezz\'ora se sente rispetto per il suo tempo; diventa più cauto se l\'incontro si trasforma in una richiesta di favori.',
-            'A fine incontro chiedi se c\'è un\'altra persona con cui ti consiglia di parlare. Entro tre giorni scrivi un ringraziamento in cui citi una cosa che hai imparato e il passo che farai.',
+            'A fine incontro chiedi se c\'è un\'altra persona con cui ti consiglia di parlare. Entro tre giorni scrivi un ringraziamento in cui citi una cosa che hai imparato e il passo successivo.',
           ),
           VoceEu(
             'Lo spazio esaurito',
@@ -3365,7 +3365,7 @@ abstract final class ITestiEuCineseData {
           VoceEu(
             'Il pranzo delle presentazioni',
             'Da tempo chi ami conosce i tuoi amici ma non ancora la tua famiglia: la cosa resta sospesa fra voi. Questo mese è adatto alle presentazioni, perché gli animi intorno sono ben disposti.',
-            'Nelle prossime settimane proponi un pranzo di domenica, semplice e senza cerimonie. Avverti prima i tuoi con due righe su chi porterai, così nessuno si trova a improvvisare domande.',
+            'Nelle prossime settimane proponi un pranzo di domenica, semplice e senza cerimonie. Avverti prima i tuoi con due righe sulla persona che porti con te, così nessuno si trova a improvvisare domande.',
             'Le famiglie accolgono meglio ciò che arriva con ordine: un invito fatto per tempo, un orario chiaro, un dolce portato da fuori. Chi ami trova un posto preparato invece di un esame da superare.',
             'Dopo il pranzo chiedi a chi ami che impressione ha avuto, senza difendere nessuno. Se qualcosa è andato storto lascialo correre; se è andato bene, fissate già una seconda occasione entro la fine del mese.',
           ),

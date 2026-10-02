@@ -2,8 +2,8 @@
 
 Ramo `claude/esoteric-circle-master-order-e798aj`, partenza `0f7a0625`.
 Il manifesto con le DOMANDA, PROVA e MISURA di ogni voce:
-`docs/ordini/ORDINE_EV_MANIFESTO.md`. **Le voci 20: chiuse 8, aperte in attesa
-di verifica 12.** Il pezzo 2 (le voci dell'Architetto EV.07-EV.10) e' arrivato
+`docs/ordini/ORDINE_EV_MANIFESTO.md`. **Le voci 20: chiuse 9, aperte in attesa
+di verifica 11.** Il pezzo 2 (le voci dell'Architetto EV.07-EV.10) e' arrivato
 la sera del 1 ottobre, dopo la consegna della 2291; durante il suo lavoro il
 fondatore ha segnalato il Viaggio che tace (EV.59) e ha chiesto le catture
 indietro (EV.60).
@@ -23,6 +23,7 @@ senza disturbarmi") non mi sono fermato.
 | EV.51 le richieste di "Note di Keep" | `docs/collaudo/EV/note_di_keep.txt` | permessi sugli account nell'archivio 0 su 18 |
 | EV.54 i tre Angeli nel Passaporto | `docs/collaudo/EV/realme/ev_angeli_tre_nel_passaporto.png` | carte nella bolla da 1 a 3, nomi da 1 a 3 |
 | EV.56 niente catture dello schermo (superata da EV.60) | `docs/collaudo/EV/ev56_catture_bloccate.txt` | catture leggibili dalla build senza catture permesse, da tutte a 0 su 3 (0 byte, finestra SECURE) |
+| EV.07 i corpora e il confine (con l'EV Aggiunta) | `docs/collaudo/EV/ev07_corpora_e_confine.txt` | file diversi dalla fonte 0 su 13; frasi al futuro rivolte a chi legge da 54 a 0; frasi fuori dal confine da 15 a 0 |
 | EV.08 la verifica delle affermazioni | `docs/collaudo/EV/affermazioni.md` | affermazioni SENZA FONTE da 88 a 0 su 759; testi nuovi diversi dalla fonte 0 su 20 |
 | EV.60 le catture tornano | `docs/collaudo/EV/ev60_catture_tornate.txt` | catture leggibili dalla build consegnata da 0 su 3 (2290) a 1 su 1 (2292), 338.676 byte |
 | EV.10 il "Rivediamoci domani" | `docs/collaudo/EV/inviti_del_cielo.txt` | inviti col cielo sbagliato in sessanta giorni, da 101 a 0 su 480 |
@@ -39,7 +40,6 @@ senza disturbarmi") non mi sono fermato.
 | EV.53 il Viaggio che torna al primo cammino | corretto e pubblicato sul server | un cammino nuovo e l'app riaperta |
 | EV.55 la scheda delle notifiche | tolta dall'avvio, due righe al primo Dono | un telefono che non ha mai concesso le notifiche |
 | EV.57 ONLINE che cambia numero | con EV.06 | con EV.06 |
-| EV.07 i corpora e il confine | corpora uguali alla fonte 12 su 12, confine com'era (0 righe dal commit `103c0df4`) | i testi dell'Architetto per 15 frasi col futuro di un gesto, elencate qui sotto |
 | EV.09 le rifiniture dei "Da dove viene" | i cinque testi nel codice, guardia rossa su cinque innesti | le catture della Settimana Lunga vedica e cinese: dal Realme non si portano sul PC (il cavo cade oltre una decina di KB); le puoi fare tu dalla 2292, che lascia catturare |
 | EV.59 il Viaggio che tace | silenzi al primo strato da 8 su 12 a 3 su 18; la cenere torna com'era dopo un silenzio | una discesa con la domanda scritta sul telefono del fondatore |
 | EV.58 le memorie che tornano col tuo account | censimento di 40 prefissi, 12 famiglie nuove che viaggiano col Custode, i Ricordi mandati e ripresi, le arti preferite scelte che vincono; prove rosse e verdi, server provato | la funzione statoDelCerchio pubblicata con le memorie; poi la reinstallazione con l'account del fondatore, dopo che la build nuova ha mandato le memorie almeno una volta |
@@ -234,6 +234,30 @@ La maggior parte e' il futuro di un gesto scelto, come le tre gia' corrette;
 la 4, la 13 e la 14 dicono invece un effetto ("comprerai meno"), che e' piu'
 vicino a una previsione. Padre del difetto di misura: ordine EU voce EU.14.
 
+### L'EV Aggiunta, le frasi al futuro e le tre virgole
+
+L'Architetto ha controllato i dodici corpora interi e ha riscritto **tutte**
+le frasi con un verbo al futuro rivolto a chi legge (per il suo conto 55; per
+il mio 54 frasi e 56 parole, fra cui "farai" 10 volte, "avrai" e "potrai" 6,
+"userai" 5), e i tre testi del file di verifica con la virgola prima della
+"e". I dieci file sono nel ramo uguali byte per byte; i tre testi nel codice
+sono i suoi, carattere per carattere, e **i miei adattamenti col punto non ci
+sono piu' (da 3 a 0)**; l'elenco delle frasi in attesa e' vuoto, e la EV.07 e'
+chiusa.
+
+**Perche' erano 55 e non 15**, ed e' una cosa da sapere: il confine del
+responso cerca il futuro con almeno tre lettere prima di "-erai", "-irai",
+"-drai", "-rrai", quindi "vedrai", "farai", "avrai", "potrai", "saprai" e
+"userai" gli sfuggono. Il confine e' rimasto com'era per decisione
+dell'Architetto; i futuri dei corpora li tiene fuori la guardia nuova
+`i_corpora_non_dicono_il_futuro`, che legge ogni riga dei dodici corpora e
+diventa rossa su qualunque parola in "-rai" non dichiarata (le dichiarate, una
+per una con la ragione, sono "distrai", "attrai", "estrai", "sottrai",
+"trai", "ritrai", "contrai"; nei corpora c'e' solo "distrai"). **Per
+l'Architetto**: il confine vale anche per le risposte dei modelli (Rune,
+Tarocchi), dove i futuri corti oggi passano; se vuole, la regola si allarga
+con una sua voce.
+
 ### EV.08, la verifica delle affermazioni
 
 Fatta tutta, coi testi e le fonti dell'Architetto: diciassette testi nuovi
@@ -242,8 +266,9 @@ sua frase. `docs/collaudo/EV/affermazioni.md` e' rigenerato da uno strumento
 (`tool/rigenera_affermazioni_ev.py`) che parte dal file EU, da' a ogni riga
 l'esito dell'Architetto e riporta ogni "file:riga" allo stato di oggi: 759
 affermazioni, 722 con una fonte, 32 fatti di calcolo, 5 scelte dell'app,
-nessuna senza fonte. **Tre testi nuovi portavano una virgola prima della
-"e"** (O-M-006 "lo abbassano, e contano", V-M-001 "nel 1955, e il giorno",
+nessuna senza fonte. **(Superato dall'EV Aggiunta: l'Architetto ha
+riscritto i tre testi e gli adattamenti sono zero.)** **Tre testi nuovi
+portavano una virgola prima della "e"** (O-M-006 "lo abbassano, e contano", V-M-001 "nel 1955, e il giorno",
 C-G-069 "dodici giorni, e per il tuo"): la regola del fondatore non ha
 deroghe, e la virgola e' diventata un punto ("lo abbassano. Contano"); ogni
 altro carattere e' dell'Architetto, e la guardia dichiara i tre adattamenti.

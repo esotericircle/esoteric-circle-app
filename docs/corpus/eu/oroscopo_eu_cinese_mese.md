@@ -104,7 +104,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Amore, favorevole, voce 1: Il pranzo delle presentazioni
 
 - Risposta: Da tempo chi ami conosce i tuoi amici ma non ancora la tua famiglia: la cosa resta sospesa fra voi. Questo mese è adatto alle presentazioni, perché gli animi intorno sono ben disposti.
-- Che cosa fare: Nelle prossime settimane proponi un pranzo di domenica, semplice e senza cerimonie. Avverti prima i tuoi con due righe su chi porterai, così nessuno si trova a improvvisare domande.
+- Che cosa fare: Nelle prossime settimane proponi un pranzo di domenica, semplice e senza cerimonie. Avverti prima i tuoi con due righe sulla persona che porti con te, così nessuno si trova a improvvisare domande.
 - Risposta, Lunga: Le famiglie accolgono meglio ciò che arriva con ordine: un invito fatto per tempo, un orario chiaro, un dolce portato da fuori. Chi ami trova un posto preparato invece di un esame da superare.
 - Che cosa fare, Lunga: Dopo il pranzo chiedi a chi ami che impressione ha avuto, senza difendere nessuno. Se qualcosa è andato storto lascialo correre; se è andato bene, fissate già una seconda occasione entro la fine del mese.
 

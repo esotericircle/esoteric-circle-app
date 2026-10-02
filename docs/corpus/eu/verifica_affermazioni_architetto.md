@@ -1,5 +1,7 @@
 # La verifica delle 88 affermazioni senza fonte
 
+Aggiornata il 2 ottobre 2026: O-M-006, V-M-001 e C-G-069 senza la virgola prima della "e".
+
 L'Architetto, 2 ottobre 2026. Risponde a `docs/collaudo/EU/affermazioni.md` (ordine EU, voce 14). Ogni riga dice l'esito e, dove serve, il testo nuovo da mettere al posto del vecchio, carattere per carattere. Le sigle sono quelle del file di Code.
 
 Esiti:
@@ -22,7 +24,7 @@ Esiti:
 - O-M-003: NUOVO TESTO: "Il livello viene dai transiti di oggi sui tuoi pianeti di nascita, calcolati sul telefono dalle effemeridi. Senza l'ora di nascita le case non si calcolano."
 - O-M-004: NUOVO TESTO: "Senza ora e luogo di nascita non c'è una carta: il livello viene dalla Luna di oggi e dal pianeta di questo campo, con le case solari contate dal tuo segno, come fa l'astrologia moderna per chi non ha l'ora di nascita."
 - O-M-005: NUOVO TESTO: "Il livello da due a cinque viene dalla Luna di oggi e dal pianeta di questo campo: dal segno in cui si trovano rispetto al tuo e dalle case solari che attraversano. Tre vuol dire un giorno neutro. È una regola dell'app costruita sugli aspetti fra segni di Tolomeo."
-- O-M-006: NUOVO TESTO: "Il livello da due a cinque viene dai passaggi di oggi che parlano a questo campo, entro due gradi: quelli armonici lo alzano, quelli tesi lo abbassano, e contano di più quanto sono stretti. È una regola dell'app costruita sugli aspetti di Tolomeo."
+- O-M-006: NUOVO TESTO: "Il livello da due a cinque viene dai passaggi di oggi che parlano a questo campo, entro due gradi: quelli armonici lo alzano e quelli tesi lo abbassano; contano di più quanto sono stretti. È una regola dell'app costruita sugli aspetti di Tolomeo."
 - O-M-007: NUOVO TESTO: "Il numero è il giorno personale della numerologia moderna, dalla tua data di nascita e da quella di oggi."
 - O-M-012: CALCOLO.
 - O-M-013: SCELTA, già dichiarata dalla frase.
@@ -34,7 +36,7 @@ Esiti:
 - V-G-095, V-G-096, V-G-097: FONTE. La Luna in undicesima è fra le posizioni buone del gochara (Phaladeepika, cap. 26); ogni pianeta guarda per intero la settima casa da sé, quindi dall'undicesima guarda la quinta (Brihat Parashara Hora Shastra, cap. 26).
 - V-S-001, V-S-002: CALCOLO. Il difetto della parola "oggi" sotto la data di un altro giorno resta da correggere (ordine EV).
 - V-A-005: FONTE, come V-M-011 nuova.
-- V-M-001: NUOVO TESTO: "La Luna di oggi è siderale, con l'ayanamsa di Lahiri, quella adottata dal governo indiano nel 1955, e il giorno si legge all'alba del luogo, come nei Panchang."
+- V-M-001: NUOVO TESTO: "La Luna di oggi è siderale, con l'ayanamsa di Lahiri, quella adottata dal governo indiano nel 1955; il giorno si legge all'alba del luogo, come nei Panchang."
 - V-M-004: NUOVO TESTO: "Senza l'ora di nascita la tua stella di nascita può non essere certa, perché la Luna cambia stella circa una volta al giorno: per questo la Tara Bala non si calcola."
 - V-M-008: SCELTA, già dichiarata dalla frase.
 - V-M-009: NUOVO TESTO: "L'anno va da compleanno a compleanno: è una scelta dell'app, che guarda Giove e Saturno nel giorno del tuo compleanno."
@@ -43,8 +45,8 @@ Esiti:
 ## Cinese
 
 - C-G-009, C-G-043: CALCOLO.
-- C-G-068: NUOVO TESTO: "Oggi è il giorno di {animale_giorno}, il tuo stesso animale: ritorna ogni dodici giorni." Motivo: "i rami uguali si rafforzano" non ha fonte. Per il Drago, il Cavallo, il Gallo e il Maiale lo stesso animale è già la punizione di sé nel codice (`l_almanacco_cinese.dart`), e questa frase per loro non esce.
-- C-G-069: NUOVO TESTO: "Il ramo di oggi è il tuo: torna ogni dodici giorni, e per il tuo animale non è uno dei rapporti che la tradizione classifica."
+- C-G-068: NUOVO TESTO: "Oggi è il giorno di {animale_giorno}, il tuo stesso animale: ritorna ogni dodici giorni." Motivo: "i rami uguali si rafforzano" non ha fonte. Per il Drago, il Cavallo, il Gallo e il Maiale lo stesso animale è già la punizione di sé nel codice (`l_almanacco_cinese.dart`) e questa frase per loro non esce.
+- C-G-069: NUOVO TESTO: "Il ramo di oggi è il tuo: torna ogni dodici giorni; per il tuo animale non è uno dei rapporti che la tradizione classifica."
 - C-G-070: FONTE. I rapporti classificati fra i rami (armonia, tripla armonia, scontro, punizione, danno) sono quelli del Sanming Tonghui di Wan Minying (1578).
 - Da C-G-232 a C-G-261: FONTE. Le definizioni dei Dieci Dei sono esatte. Per il Compagno e il Rivale come fratelli, amici e pari, la Ricchezza diretta come la moglie per un uomo e l'Ufficiale diretto come il marito per una donna: Shen Xiaozhan, Ziping Zhenquan (XVIII secolo), i capitoli sui dieci dei e sui sei parenti; Xu Dasheng, Yuanhai Ziping (dinastia Song).
 - C-S-001, C-S-002: CALCOLO. Il difetto della parola "oggi" sotto la data di un altro giorno resta da correggere (ordine EV).

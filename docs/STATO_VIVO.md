@@ -6329,8 +6329,18 @@ Manifesto `docs/ordini/ORDINE_EV_MANIFESTO.md`, rapporto
   server, i movimenti degli Eos e la foto del profilo non tornano, la serie
   del cammino fusa al piu' alto.
 
-- **I corpora corretti e il confine com'era (EV.07, aperta per quindici
-  frasi).** I cinque corpora dell'Architetto in `docs/corpus/eu/` uguali byte
+- **I corpora corretti e il confine com'era (EV.07, chiusa con l'EV Aggiunta del
+  2 ottobre).** L'Architetto ha riscritto tutte le frasi dei dodici corpora
+  con un verbo al futuro rivolto a chi legge (55 per lui, 54 frasi per Code;
+  i futuri corti come "vedrai", "farai", "avrai" sfuggono al confine, che
+  vuole tre lettere prima di -erai, -irai, -drai, -rrai) e i tre testi
+  O-M-006, V-M-001, C-G-069 senza la virgola prima della "e": dieci file nel
+  ramo uguali byte per byte, gli adattamenti di Code da 3 a 0 (la guardia
+  `i_testi_nuovi_dell_architetto_sono_nel_codice` pretende l'elenco vuoto),
+  l'elenco delle frasi in attesa vuoto. Guardia nuova
+  `i_corpora_non_dicono_il_futuro`: ogni parola in "-rai" nei dodici corpora,
+  tranne i non futuri dichiarati (distrai, attrai, estrai, sottrai, trai,
+  ritrai, contrai). Storia di prima: I cinque corpora dell'Architetto in `docs/corpus/eu/` uguali byte
   per byte, i dati rigenerati; `confine_del_responso.dart` identico a quello
   del commit `103c0df4` (tolta l'eccezione `futuroDellaTuaScelta` dell'EU
   Aggiunta). Sui dodici corpora il confine di prima segna quindici frasi col

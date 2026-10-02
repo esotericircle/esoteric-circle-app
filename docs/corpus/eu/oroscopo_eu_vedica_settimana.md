@@ -198,7 +198,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 - Risposta: Hai diverse cose avviate e nessuna davvero conclusa: un armadio a metà, una pratica aperta, un libro lasciato a pagina cento. La settimana non spinge verso il nuovo: chiede di chiudere prima di aprire.
 - Che cosa fare: Lunedì scrivi l'elenco delle cose rimaste a metà e scegline una sola da portare a termine entro venerdì. Finché non è chiusa, non cominciare niente di nuovo, nemmeno una cosa piccola.
 - Risposta, Lunga: Nella lettura vedica portare avanti ciò che è avviato vale quanto cominciare. Una cosa chiusa libera l'energia che tutte quelle aperte trattengono in silenzio, come stanze con la luce lasciata accesa.
-- Che cosa fare, Lunga: Quando l'avrai chiusa, cancellala dall'elenco con una riga netta e scegli la successiva per la settimana che viene. Nel frattempo togli dalla vista ciò che resta in sospeso: basta una scatola per ognuna.
+- Che cosa fare, Lunga: Chiusa questa, cancellala dall'elenco con una riga netta e scegli la successiva per la settimana che viene. Nel frattempo togli dalla vista ciò che resta in sospeso: basta una scatola per ognuna.
 
 #### Generale, equilibrio, voce 14: Il passo della sera
 
@@ -255,7 +255,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 - Risposta: Le richieste arrivano da più parti: un passaggio, un trasloco da aiutare, un compito che qualcuno non riesce a finire. Dire sempre sì in questi giorni rischia di lasciarti senza tempo per le tue cose.
 - Che cosa fare: Prima di accettare una nuova richiesta, prenditi qualche ora per rispondere. Se non hai spazio, declina con una frase gentile e precisa, offrendo se puoi un'alternativa piccola: un consiglio, un contatto, un'altra data.
-- Risposta, Lunga: Un no detto con garbo protegge anche i sì che darai dopo. Chi accetta tutto finisce per fare ogni cosa con meno cura, mentre chi sceglie può mantenere la parola data fino in fondo e farlo bene.
+- Risposta, Lunga: Un no detto con garbo protegge anche i sì che vengono dopo. Chi accetta tutto finisce per fare ogni cosa con meno cura, mentre chi sceglie può mantenere la parola data fino in fondo e farlo bene.
 - Che cosa fare, Lunga: Tieni in agenda l'elenco di ciò che hai già accettato nei prossimi giorni e guardalo prima di ogni nuova risposta. Se un impegno preso ti pesa troppo, avvisa entro mercoledì invece di disdire all'ultimo momento.
 
 #### Generale, salita, voce 8: Il piano al coperto
@@ -423,7 +423,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 - Risposta: Dici di voler conoscere qualcuno ma le tue sere finiscono tutte in ufficio o sul divano dopo il lavoro. Senza un legame in corso, questa settimana chiede di fare posto prima di cercare.
 - Che cosa fare: Apri l'agenda lunedì e blocca due sere, per esempio martedì e giovedì, in cui esci dal lavoro all'orario giusto. In una delle due iscriviti a un'attività di gruppo, nell'altra accetta un invito.
 - Risposta, Lunga: Le persone nuove entrano dove trovano spazio. Una vita piena fino all'orlo lascia fuori anche ciò che si desidera; due sere protette sono un inizio misurato, che non stravolge il resto.
-- Che cosa fare, Lunga: Tieni le due sere libere per almeno tre settimane di fila, anche quando il lavoro preme. Annota ogni volta chi hai incontrato e se ti ha fatto piacere: dopo un mese vedrai quale strada vale la pena seguire.
+- Che cosa fare, Lunga: Tieni le due sere libere per almeno tre settimane di fila, anche quando il lavoro preme. Annota ogni volta chi hai incontrato e se ti ha fatto piacere: dopo un mese si vede quale strada vale la pena seguire.
 
 #### Amore, equilibrio, voce 3: Le chiavi di riserva
 
@@ -591,7 +591,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Amore, salita, voce 12: Fra due amicizie
 
 - Risposta: Due persone a cui vuoi bene hanno litigato e ciascuna ti cerca per raccontare la propria versione. La settimana rischia di metterti nel mezzo, a portare messaggi e a prendere parte senza volerlo.
-- Che cosa fare: Alla prossima telefonata spiega con gentilezza che tieni a entrambe le persone e che non porterai messaggi. Proponi piuttosto un incontro diretto fra loro, in un posto neutro, se serve con te presente.
+- Che cosa fare: Alla prossima telefonata spiega con gentilezza che tieni a entrambe le persone e che non fai da messaggero. Proponi piuttosto un incontro diretto fra loro, in un posto neutro, se serve con te presente.
 - Risposta, Lunga: Fare da ponte sembra un aiuto ma spesso allunga le liti: le parole riportate si deformano a ogni passaggio. Restare fuori dal conflitto è il modo più leale per conservare due legami a cui tieni.
 - Che cosa fare, Lunga: Vedi ciascuna persona separatamente nel fine settimana per un'attività leggera, senza tornare sul litigio. Se l'argomento torna, ascolta senza commentare e riporta il discorso su altro.
 
@@ -1101,7 +1101,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Fortuna, equilibrio, voce 13: Un dono fuori misura
 
-- Risposta: Ti trovi in casa un regalo che non userai: un doppione, una taglia sbagliata, un oggetto lontano dai tuoi gusti. Restano pochi giorni per cambiarlo; è una piccola scelta da non lasciare al caso.
+- Risposta: Ti trovi in casa un regalo che non usi: un doppione, una taglia sbagliata, un oggetto lontano dai tuoi gusti. Restano pochi giorni per cambiarlo; è una piccola scelta da non lasciare al caso.
 - Che cosa fare: Ritrova lo scontrino di cortesia o chiedi con garbo a chi te l'ha fatto il nome del negozio. Vai entro venerdì, con la confezione integra, sapendo già che cosa vorresti al suo posto.
 - Risposta, Lunga: Cambiare un regalo non offende chi lo ha scelto: rispetta il gesto più di un oggetto dimenticato in fondo a un armadio. Ciò che hai trasformato in qualcosa di utile porta con sé la stessa intenzione affettuosa.
 - Che cosa fare, Lunga: Quando rivedi chi ti ha fatto il dono, racconta in modo semplice che cosa hai scelto e perché. Se il cambio non è possibile, pensa a una persona a cui quell'oggetto farebbe piacere e consegnalo nel fine settimana.
@@ -1152,7 +1152,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 
 #### Fortuna, salita, voce 6: La disdetta in tempo
 
-- Risposta: Hai prenotato qualcosa a cui forse non andrai: una cena, una stanza, una visita guidata, una lezione. Lasciar passare il termine per annullare può costare caro; questi giorni chiedono attenzione alle date.
+- Risposta: Hai prenotato qualcosa a cui forse non vai: una cena, una stanza, una visita guidata, una lezione. Lasciar passare il termine per annullare può costare caro; questi giorni chiedono attenzione alle date.
 - Che cosa fare: Rileggi entro martedì le conferme ricevute nelle ultime settimane e annota per ciascuna la data limite per disdire senza penale. Se un impegno non ti convince più, annullalo adesso, senza arrivare all'ultimo giorno.
 - Risposta, Lunga: Rimandare una decisione sembra un modo di tenersi aperte le porte; spesso le chiude una a una. La lettura vedica dà valore alla parola data, anche quando consiste nel ritirarla in tempo, con chiarezza e rispetto.
 - Che cosa fare, Lunga: Quando disdici, scrivi due righe gentili a chi ti ospitava o ti attendeva: un posto liberato presto può servire a qualcun altro. Per il futuro salva ogni prenotazione nel calendario con un avviso tre giorni prima del termine.
@@ -1188,7 +1188,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 #### Fortuna, salita, voce 11: Una data più avanti
 
 - Risposta: Un'occasione che ti piace, un corso, un viaggio, un piccolo progetto, si presenta proprio quando la settimana è già piena. Dire sì adesso rischia di sprecarla; il suo momento può essere poco più in là.
-- Che cosa fare: Rispondi entro due giorni con interesse sincero e chiedi se esiste una data successiva o un'iscrizione posticipata. Intanto annota in agenda il giorno esatto in cui avrai più respiro.
+- Che cosa fare: Rispondi entro due giorni con interesse sincero e chiedi se esiste una data successiva o un'iscrizione posticipata. Intanto annota in agenda il giorno esatto in cui hai più respiro.
 - Risposta, Lunga: La lettura vedica distingue con cura il momento di cominciare da quello di portare avanti. Un inizio forzato in giorni affollati si regge male; lo stesso inizio, spostato di poco, può ricevere tutta l'attenzione che merita.
 - Che cosa fare, Lunga: Scrivi su un foglio che cosa ti serve per accogliere bene quell'occasione: ore libere, materiale, un accordo con chi vive con te. Sistema una di queste cose entro domenica, così la porta resta aperta mentre attendi.
 

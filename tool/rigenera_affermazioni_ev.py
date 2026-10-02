@@ -85,11 +85,11 @@ NUOVI = {
                 'scelta', "le case solari, pratica dell'astrologia moderna, dichiarate nel testo"),
     'O-M-005': ("Il livello da due a cinque viene dalla Luna di oggi e dal pianeta di questo campo: dal segno in cui si trovano rispetto al tuo e dalle case solari che attraversano. Tre vuol dire un giorno neutro. È una regola dell'app costruita sugli aspetti fra segni di Tolomeo.",
                 'fonte', 'Tolomeo, Tetrabiblos, libro I, cap. 13 (commento nel codice); la regola e\' dichiarata dell\'app'),
-    'O-M-006': ("Il livello da due a cinque viene dai passaggi di oggi che parlano a questo campo, entro due gradi: quelli armonici lo alzano, quelli tesi lo abbassano. Contano di più quanto sono stretti. È una regola dell'app costruita sugli aspetti di Tolomeo.",
+    'O-M-006': ("Il livello da due a cinque viene dai passaggi di oggi che parlano a questo campo, entro due gradi: quelli armonici lo alzano e quelli tesi lo abbassano; contano di più quanto sono stretti. È una regola dell'app costruita sugli aspetti di Tolomeo.",
                 'fonte', 'Tolomeo, Tetrabiblos, libro I, cap. 13; la soglia dei due gradi e\' dichiarata dell\'app'),
     'O-M-007': ("Il numero è il giorno personale della numerologia moderna, dalla tua data di nascita e da quella di oggi.",
                 'fonte', 'Florence Campbell, Your Days Are Numbered (1931), commento nel codice'),
-    'V-M-001': ("La Luna di oggi è siderale, con l'ayanamsa di Lahiri, quella adottata dal governo indiano nel 1955. Il giorno si legge all'alba del luogo, come nei Panchang.",
+    'V-M-001': ("La Luna di oggi è siderale, con l'ayanamsa di Lahiri, quella adottata dal governo indiano nel 1955; il giorno si legge all'alba del luogo, come nei Panchang.",
                 'fonte', "l'ayanamsa di Lahiri adottata dal governo indiano nel 1955; i Panchang"),
     'V-M-004': ("Senza l'ora di nascita la tua stella di nascita può non essere certa, perché la Luna cambia stella circa una volta al giorno: per questo la Tara Bala non si calcola.",
                 'calcolo', 'avvertenza di calcolo'),
@@ -99,7 +99,7 @@ NUOVI = {
                 'fonte', 'Phaladeepika, cap. 26'),
     'C-G-068': ("Oggi è il giorno di {animale_giorno}, il tuo stesso animale: ritorna ogni dodici giorni.",
                 'calcolo', "il ciclo dei dodici rami; \"i rami uguali si rafforzano\" e' tolto perche' non ha fonte"),
-    'C-G-069': ("Il ramo di oggi è il tuo: torna ogni dodici giorni. Per il tuo animale non è uno dei rapporti che la tradizione classifica.",
+    'C-G-069': ("Il ramo di oggi è il tuo: torna ogni dodici giorni; per il tuo animale non è uno dei rapporti che la tradizione classifica.",
                 'fonte', 'Wan Minying, Sanming Tonghui (1578), come C-G-070'),
     'C-M-002': ("Il guardiano del giorno è uno dei dodici del calendario, contato dal mese solare.",
                 'calcolo', 'fatto di calendario'),
@@ -227,8 +227,8 @@ def main() -> None:
             else:
                 fonte = f'nessuna opera: {ragione}'
                 livello = 'calcolo' if esito == 'calcolo' else 'scelta'
-            adattato = ('; una virgola prima della "e" del testo dell\'Architetto '
-                        'e\' diventata un punto, per la regola del fondatore'
+            adattato = ('; riscritto dall\'Architetto il 2 ottobre 2026 senza la '
+                        'virgola prima della "e" (EV Aggiunta)'
                         if sigla in ('O-M-006', 'V-M-001', 'C-G-069') else '')
             nota = (f'TESTO NUOVO dell\'Architetto ({ARCH}), al posto di quello '
                     f'dell\'ordine EU{adattato}' + (f'; {nota}' if nota else ''))

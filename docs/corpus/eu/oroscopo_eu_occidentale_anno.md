@@ -114,7 +114,7 @@ La fascia la decide il livello del dominio nel periodo. Le voci di una fascia si
 - Risposta: L'anno che si apre ha il passo giusto per crescere nel lavoro: un ruolo con più responsabilità, un progetto che porta il tuo nome. Le occasioni cercano chi si fa trovare con le competenze in ordine.
 - Che cosa fare: Nei prossimi mesi individua il ruolo a cui aspiri e osserva chi lo ricopre già: che cosa sa fare che tu ancora non fai? Scegli una di quelle capacità e comincia a coltivarla entro tre mesi.
 - Risposta, Lunga: Questo è un anno in cui la fatica dei periodi passati può trasformarsi in riconoscimento, a patto che qualcuno metta in fila i risultati e li renda visibili. Quel qualcuno puoi essere tu.
-- Che cosa fare, Lunga: Tieni un quaderno dei risultati: ogni mese annota un obiettivo raggiunto, con numeri e date. Quando arriva il colloquio annuale potrai raccontare il tuo anno con fatti chiari, difficili da ignorare.
+- Che cosa fare, Lunga: Tieni un quaderno dei risultati: ogni mese annota un obiettivo raggiunto, con numeri e date. Così, al colloquio annuale, il tuo anno si racconta con fatti chiari, difficili da ignorare.
 
 #### Carriera, favorevole, voce 2: Il progetto prende forma
 

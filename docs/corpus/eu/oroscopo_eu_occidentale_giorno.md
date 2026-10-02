@@ -313,7 +313,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Generale, equilibrio, voce 2: L'agenda da sfoltire
 
 - Risposta: Hai messo troppe cose nella stessa giornata e lo sai già da quando hai aperto gli occhi. Niente di grave: il tempo basta, a patto di decidere tu che cosa entra e che cosa aspetta.
-- Che cosa fare: Prendi la lista degli impegni di oggi e cancella con una riga netta l'ultimo, quello meno urgente. Spostalo a domani scrivendo già l'ora precisa in cui lo farai.
+- Che cosa fare: Prendi la lista degli impegni di oggi e cancella con una riga netta l'ultimo, quello meno urgente. Spostalo a domani scrivendo già l'ora precisa in cui farlo.
 - Risposta, Lunga: Il vero peso non sono gli impegni ma il rumore di quelli lasciati in sospeso. Quando una cosa ha un posto preciso nel calendario smette di bussare alla mente e lascia spazio a quella che hai davanti.
 - Che cosa fare, Lunga: Avvisa con un messaggio breve chi aspettava quella cosa da te: due righe, senza scuse lunghe. Poi dedica la mezz'ora guadagnata a finire bene un compito, dall'inizio alla fine.
 
@@ -334,7 +334,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Generale, equilibrio, voce 5: Una sera vuota
 
 - Risposta: Stasera hai un'ora libera che nessuno ha ancora reclamato. La tentazione è riempirla con il primo schermo a portata di mano, senza sceglierla davvero.
-- Che cosa fare: Decidi adesso, al mattino, che cosa farai di quell'ora: un disco ascoltato per intero, una ricetta nuova, una lettera a mano. Scrivilo su un foglietto e attaccalo al frigorifero.
+- Che cosa fare: Decidi adesso, al mattino, come usare quell'ora: un disco ascoltato per intero, una ricetta nuova, una lettera a mano. Scrivilo su un foglietto e attaccalo al frigorifero.
 - Risposta, Lunga: Il tempo libero non scelto si consuma in fretta e lascia una stanchezza strana. Quello scelto, anche se breve, ha un inizio e una fine: ti accorgi di averlo vissuto.
 - Che cosa fare, Lunga: Quando arriva l'ora, spegni le notifiche e mettiti nel posto più comodo della casa. Alla fine annota in una riga che cosa ti è piaciuto: domani può servirti per scegliere di nuovo.
 
@@ -532,7 +532,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Generale, salita, voce 9: Prima le fondamenta
 
 - Risposta: Spunta oggi la voglia di cominciare qualcosa di nuovo: un corso, un'abitudine, un piccolo progetto personale. Lo slancio è sincero, ma il terreno chiede ancora qualche preparativo prima di partire.
-- Che cosa fare: Invece di iniziare subito, usa la giornata per raccogliere ciò che serve: un quaderno dedicato, gli orari, i materiali. Scrivi la data in cui partirai davvero e cerchiala sul calendario.
+- Che cosa fare: Invece di iniziare subito, usa la giornata per raccogliere ciò che serve: un quaderno dedicato, gli orari, i materiali. Scrivi la data della partenza vera e cerchiala sul calendario.
 - Risposta, Lunga: Le iniziative che nascono di slancio tendono a spegnersi al primo intoppo, quelle preparate con calma reggono meglio la fatica. Il desiderio di oggi ha bisogno di qualche giorno di radici.
 - Che cosa fare, Lunga: Racconta il tuo progetto a una persona fidata e chiedile di domandarti fra qualche giorno a che punto sei. Avere qualcuno che si ricorda dei tuoi propositi aiuta a mantenerli anche quando lo slancio cala.
 
@@ -1430,7 +1430,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 - Risposta: Nel laboratorio attrezzi e materiali si sono sparsi sul banco e ogni lavoro comincia con una ricerca. Il mestiere c'è tutto: manca lo spazio per esercitarlo con agio.
 - Che cosa fare: Sgombra il banco prima di iniziare la commessa di oggi e rimetti al loro posto solo gli strumenti che servono per quel lavoro. Il resto va sugli scaffali, con etichette scritte a mano.
 - Risposta, Lunga: Un banco ordinato non è una questione di estetica: riduce gli errori e accorcia i tempi. Chi lavora con le mani conosce bene il sollievo di trovare l'attrezzo giusto senza nemmeno guardare.
-- Che cosa fare, Lunga: A fine giornata dedica dieci minuti a pulire il piano e a preparare i materiali per domani. Domattina potrai mettere mano al lavoro appena entri, con la testa già sul pezzo da finire.
+- Che cosa fare, Lunga: A fine giornata dedica dieci minuti a pulire il piano e a preparare i materiali per domani. Domattina si riparte appena entri, con la testa già sul pezzo da finire.
 
 #### Carriera, equilibrio, voce 22: Correzioni a tappe
 
@@ -1820,7 +1820,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 #### Fortuna, equilibrio, voce 7: Attrezzi in comune
 
-- Risposta: Ti serve un oggetto che userai una volta soltanto: una scala, un trapano, una teglia grande. Oggi la soluzione più fortunata è vicina a te e non passa per forza dal negozio.
+- Risposta: Ti serve un oggetto da usare una volta soltanto: una scala, un trapano, una teglia grande. Oggi la soluzione più fortunata è vicina a te e non passa per forza dal negozio.
 - Che cosa fare: Scrivi nel gruppo del palazzo o a un vicino di cui ti fidi: chiedi se può darti l'oggetto per qualche ora e offri in cambio un dolce o un piccolo favore.
 - Risposta, Lunga: Lo scambio fra vicini crea un credito di fiducia che torna utile in mille occasioni. La giornata favorisce questi legami pratici, fatti di cose che passano di mano e tornano indietro.
 - Che cosa fare, Lunga: Restituisci l'oggetto pulito e prima del tempo promesso, con due righe di ringraziamento. Poi annota che cosa puoi offrire tu a tua volta: un attrezzo, un'ora di aiuto, una ricetta.
@@ -1842,7 +1842,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Fortuna, equilibrio, voce 10: L'ora che avanza
 
 - Risposta: Un impegno salta o finisce prima del previsto e ti ritrovi con un'ora libera in mano. È questa la piccola fortuna del giorno: tempo inatteso, da spendere con una scelta precisa.
-- Che cosa fare: Decidi in anticipo che cosa farai di quell'ora, prima che il telefono la mangi: una pratica da chiudere, una telefonata rimandata, una passeggiata fino a un posto che vuoi vedere.
+- Che cosa fare: Decidi in anticipo come usare quell'ora, prima che il telefono la mangi: una pratica da chiudere, una telefonata rimandata, una passeggiata fino a un posto che vuoi vedere.
 - Risposta, Lunga: Il tempo è una risorsa che si perde senza accorgersene. Un'ora usata bene in una giornata tranquilla vale più di tre ore rincorse in una giornata piena di richieste.
 - Che cosa fare, Lunga: Tieni da oggi una lista corta di cose da fare quando capita un buco nell'agenda, non più di cinque voci. Stasera riguardala e togli quella fatta, mettendone un'altra al suo posto.
 

@@ -108,7 +108,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Generale, favorevole, voce 3: Il cambio di stagione
 
 - Risposta: È un giorno buono per mettere mano agli armadi: le cose da tenere si riconoscono al primo sguardo e quelle da lasciare non fanno resistenza.
-- Che cosa fare: Svuota un solo ripiano, metti in uno scatolone i capi leggeri che non userai fino a primavera e scrivi sopra con un pennarello che cosa contiene.
+- Che cosa fare: Svuota un solo ripiano, metti in uno scatolone i capi leggeri che non servono fino a primavera e scrivi sopra con un pennarello che cosa contiene.
 - Risposta, Lunga: L'ordine fuori porta ordine dentro, dice un vecchio modo di pensare: quando apri l'anta e trovi solo ciò che indossi davvero, la mattina comincia con una scelta in meno.
 - Che cosa fare, Lunga: Tieni da parte una borsa per i vestiti in buono stato che non metti più e lasciala accanto alla porta: domani mattina, uscendo, portala al punto di raccolta del quartiere.
 
@@ -327,7 +327,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Generale, equilibrio, voce 4: La visita promessa
 
 - Risposta: Una persona anziana della tua famiglia aspetta tue notizie più di quanto lasci capire. La giornata è adatta ai legami di lunga data, purché il gesto sia preciso e non un generico ci sentiamo presto.
-- Che cosa fare: Chiamala in un'ora tranquilla, a metà pomeriggio. Prima di riattaccare fissa una data per andarla a trovare: giorno, ora e che cosa porterai, anche solo un dolce o il giornale del mattino.
+- Che cosa fare: Chiamala in un'ora tranquilla, a metà pomeriggio. Prima di riattaccare fissa una data per andarla a trovare: giorno, ora e che cosa portare, anche solo un dolce o il giornale del mattino.
 - Risposta, Lunga: Per chi vive giornate lente una visita annunciata vale due volte: c'è l'incontro e c'è l'attesa che lo prepara. Dare una data significa regalare qualche giorno di qualcosa da aspettare con piacere.
 - Che cosa fare, Lunga: Scrivi la visita in agenda come un impegno di lavoro, con un promemoria la sera prima. Il giorno dell'incontro porta una fotografia vecchia o una domanda sul passato: apre racconti che altrimenti restano chiusi.
 
@@ -546,7 +546,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Generale, salita, voce 11: Decidere in famiglia
 
 - Risposta: Una decisione di famiglia, dove passare una ricorrenza o chi ospita chi, oggi trova le persone poco disposte a cedere. Il momento non è adatto a chiudere la questione, piuttosto a raccogliere le posizioni.
-- Che cosa fare: Telefona a una persona per volta e chiedi che cosa le sta più a cuore, senza proporre ancora una soluzione. Annota le risposte: domani avrai un quadro più chiaro di dove ci si può incontrare.
+- Che cosa fare: Telefona a una persona per volta e chiedi che cosa le sta più a cuore, senza proporre ancora una soluzione. Annota le risposte: così domani il quadro di dove ci si può incontrare è più chiaro.
 - Risposta, Lunga: Quando tutti parlano insieme vince chi alza la voce, non chi ha l'idea migliore. Sentire le persone separatamente toglie la gara e fa emergere i punti in comune che nella discussione collettiva restano nascosti.
 - Che cosa fare, Lunga: Tra un giorno o due prepara una proposta che tenga conto di almeno un desiderio di ciascuno e mandala a tutti nello stesso momento. Chiedi una risposta entro una data precisa, con garbo e senza pressione.
 
@@ -706,7 +706,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 - Risposta: Una persona anziana della tua famiglia ha racconti che nessuno ha mai raccolto per intero. La giornata è adatta ai legami fra generazioni e quelle memorie chiedono di essere ascoltate.
 - Che cosa fare: Chiama oggi o passa a trovarla e chiedi di raccontarti come si sono conosciuti i suoi genitori. Con il permesso, registra la voce sul telefono e lascia che il racconto vada dove vuole.
 - Risposta, Lunga: Le storie di famiglia si perdono in una sola generazione se nessuno le chiede. Mostrare interesse per quel passato restituisce importanza a chi lo ha vissuto e ti consegna radici che altrimenti resterebbero mute.
-- Che cosa fare, Lunga: Domani riascolta la registrazione e trascrivi le frasi più belle in un quaderno dedicato. Alla prossima visita leggigliele ad alta voce: vedrai quanto le fa piacere ritrovare le sue parole custodite con cura.
+- Che cosa fare, Lunga: Domani riascolta la registrazione e trascrivi le frasi più belle in un quaderno dedicato. Alla prossima visita leggigliele ad alta voce: ritrovare le proprie parole custodite con cura fa piacere a chiunque.
 
 #### Amore, favorevole, voce 19: La porta di casa
 
@@ -761,7 +761,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Una persona dei tempi della scuola ti ha scritto dopo anni, con un tono che va oltre la semplice cortesia. Oggi favorisce i ritorni e uno sguardo nuovo su chi credevi di conoscere.
 - Che cosa fare: Rispondi entro sera con calore e proponi una telefonata per domani invece di uno scambio di messaggi. Prepara una domanda su com'è oggi la sua vita, non solo sui ricordi comuni.
-- Risposta, Lunga: Le persone del passato portano con sé una parte di noi che altri non hanno visto. Riallacciare quel filo può restare nostalgia oppure l'inizio di qualcosa di nuovo: lo saprai solo lasciando spazio.
+- Risposta, Lunga: Le persone del passato portano con sé una parte di noi che altri non hanno visto. Riallacciare quel filo può restare nostalgia oppure l'inizio di qualcosa di nuovo: lo si scopre solo lasciando spazio.
 - Che cosa fare, Lunga: Durante la telefonata, se la conversazione scorre, proponi di vedervi in un luogo legato a quegli anni: il bar davanti alla scuola, il campo sportivo. Fissa giorno e ora prima di riattaccare.
 
 #### Amore, favorevole, voce 27: Il pranzo della domenica
@@ -813,7 +813,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 - Risposta: Un genitore anziano o una persona cara di famiglia sente la tua mancanza senza dirlo. Fra voi non c'è attrito, c'è una distanza fatta di telefonate frettolose e di visite rimandate.
 - Che cosa fare: Oggi passa a fare visita nel pomeriggio, anche per un'ora, con qualcosa di piccolo da condividere: dei biscotti, il giornale, una piantina. Lascia che sia l'altra persona a scegliere di che cosa parlare.
 - Risposta, Lunga: Con gli anni le persone care misurano l'affetto in presenza più che in parole. Un'ora seduti allo stesso tavolo rimette in ordine le cose: ci si racconta, si ride di un ricordo, si torna vicini.
-- Che cosa fare, Lunga: Prima di uscire chiedi se c'è una piccola faccenda da sistemare: una lampadina, un modulo da leggere, un cassetto inceppato. Occupatene subito oppure fissa il giorno in cui tornerai a farlo.
+- Che cosa fare, Lunga: Prima di uscire chiedi se c'è una piccola faccenda da sistemare: una lampadina, un modulo da leggere, un cassetto inceppato. Occupatene subito oppure fissa il giorno per tornare a farlo.
 
 #### Amore, equilibrio, voce 4: La discussione di ieri
 
@@ -960,7 +960,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 - Risposta: Con un cugino, un'amica o un fratello è calato un gelo dopo un litigio ormai vecchio: nessuno ricorda bene le parole, resta la distanza. La giornata è propizia ai primi gesti di disgelo.
 - Che cosa fare: Manda oggi un messaggio breve e senza riferimenti al passato: la foto di un luogo che conoscete entrambi, un ricordo buffo, un augurio. Non chiedere risposte e non aggiungere spiegazioni.
 - Risposta, Lunga: Riaprire un rapporto non richiede di stabilire chi aveva ragione. Spesso entrambe le parti aspettano soltanto che qualcuno faccia il primo passo: un tono leggero rende più facile rispondere senza perdere la faccia.
-- Che cosa fare, Lunga: Se la risposta arriva, mantieni il tono cordiale e proponi per domani o dopodomani un caffè in un posto neutro. Se tace, lascia la porta socchiusa: fra qualche tempo potrai riprovare con lo stesso garbo.
+- Che cosa fare, Lunga: Se la risposta arriva, mantieni il tono cordiale e proponi per domani o dopodomani un caffè in un posto neutro. Se tace, lascia la porta socchiusa: fra qualche tempo si può riprovare con lo stesso garbo.
 
 ### Amore, In salita (livello 2 e sotto)
 
@@ -997,7 +997,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 - Risposta: Qualcuno incontrato di recente può proporti di vedervi: il pensiero corre subito lontano. Il giorno è adatto ai primi passi piccoli, non alle grandi aspettative.
 - Che cosa fare: Se l'invito arriva, rispondi con una controproposta leggera: un caffè di mezz'ora in un posto che conosci, alla luce del giorno. Una cena lunga può aspettare un'altra occasione.
 - Risposta, Lunga: Correre avanti con la fantasia rende ogni dettaglio carico di significato, perfino la scelta delle parole in un messaggio. Tenere l'incontro breve protegge la curiosità e lascia margine per conoscersi davvero.
-- Che cosa fare, Lunga: Prima di uscire decidi l'ora in cui saluterai e rispettala, anche se il caffè va bene. Stasera annota due cose che ti hanno colpito di quella persona: domani ti aiutano a capire se vuoi rivederla.
+- Che cosa fare, Lunga: Prima di uscire decidi l'ora dei saluti e rispettala, anche se il caffè va bene. Stasera annota due cose che ti hanno colpito di quella persona: domani ti aiutano a capire se vuoi rivederla.
 
 #### Amore, salita, voce 6: L'amicizia distratta
 
@@ -1162,7 +1162,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 - Risposta: Sul tavolo ci sono due proposte di lavoro e non puoi accettarle entrambe con la stessa cura. La giornata è adatta a scegliere: oggi hai la lucidità per vedere quale ti fa crescere davvero.
 - Che cosa fare: Scrivi le due proposte una accanto all'altra con tre colonne: tempo richiesto, che cosa impari, che rapporto nasce col cliente. Scegli quella che vince in due colonne su tre e rispondi a entrambi entro sera.
 - Risposta, Lunga: Dire di no a un incarico non chiude una porta, la socchiude. Chi riceve un rifiuto garbato e motivato spesso torna con una proposta più adatta, perché ha capito che lavori con misura e non per riempire il calendario.
-- Che cosa fare, Lunga: Alla proposta che lasci andare rispondi con una mail cordiale: ringrazia, spiega che ora non potresti darle la cura che merita e indica da quando avrai più spazio. Segna quella data in agenda per riprendere il contatto.
+- Che cosa fare, Lunga: Alla proposta che lasci andare rispondi con una mail cordiale: ringrazia, spiega che ora non potresti darle la cura che merita e indica da quando hai più spazio. Segna quella data in agenda per riprendere il contatto.
 
 #### Carriera, favorevole, voce 14: Il cambio di reparto
 
@@ -1479,7 +1479,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, salita, voce 4: L'offerta da chiarire
 
 - Risposta: Arriva un'offerta di lavoro, ma alcune cose restano vaghe: la durata del contratto, gli orari, il luogo preciso. La spinta a dire sì per sollievo è forte. Oggi è un giorno per le domande, non per le firme rapide.
-- Che cosa fare: Rispondi ringraziando e chiedi per iscritto tre dettagli: durata, orario settimanale, sede. Aggiungi che darai la tua risposta entro due giorni dal momento in cui ricevi le informazioni.
+- Che cosa fare: Rispondi ringraziando e chiedi per iscritto tre dettagli: durata, orario settimanale, sede. Aggiungi che rispondi entro due giorni dal momento in cui ricevi le informazioni.
 - Risposta, Lunga: Chi offre un posto sa che le domande fanno parte dello scambio e chi le pone con garbo mostra serietà. L'entusiasmo che ti spinge verso il sì è sincero; merita solo di poggiare su condizioni chiare, non su promesse a voce.
 - Che cosa fare, Lunga: Quando arrivano le risposte, mettile su un foglio accanto a ciò che per te è irrinunciabile: tempi di viaggio, giorni liberi, possibilità di crescere. Decidi dopo averlo riletto con calma, davanti a una tazza di tè.
 
@@ -1551,7 +1551,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 - Risposta: Lavori di giorno e studi la sera: oggi le forze rischiano di finire prima del previsto. Il libro aperto alle nove può restare alla stessa pagina fino a mezzanotte, con gli occhi che scorrono e la testa altrove.
 - Che cosa fare: Scegli ora un solo obiettivo per lo studio di stasera, piccolo e misurabile: dieci pagine, un esercizio, un riassunto. Fissa la fine alle dieci e mezza e quando arriva chiudi, anche se avanza tempo.
 - Risposta, Lunga: Chi tiene insieme lavoro e studio non perde per lentezza ma per dispersione: tante ore a metà valgono meno di una sola ora piena. La giornata chiede misura, non eroismo: il passo breve tenuto ogni sera porta lontano.
-- Che cosa fare, Lunga: Approfitta della pausa pranzo per rileggere gli appunti di ieri per un quarto d'ora. La sera, a casa, riprenderai da un punto già caldo e non sprecherai l'inizio a ricordare dove avevi interrotto.
+- Che cosa fare, Lunga: Approfitta della pausa pranzo per rileggere gli appunti di ieri per un quarto d'ora. La sera, a casa, riparti da un punto già caldo, senza sprecare l'inizio a ricordare dove avevi interrotto.
 
 #### Carriera, salita, voce 15: La chiamata imprevista
 
@@ -1786,7 +1786,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Fortuna, equilibrio, voce 2: La tenda in viaggio
 
 - Risposta: Una persona amica ti chiede in uso la tenda, la bici o la macchina fotografica per qualche giorno. Il momento è adatto a dire sì, purché le cose siano chiare prima della partenza e non al ritorno.
-- Che cosa fare: Fotografa l'oggetto davanti a chi lo riceve e mostrate insieme come si monta o si carica. Scrivi in un messaggio la data in cui lo riavrai: una riga cordiale basta a evitare ogni equivoco.
+- Che cosa fare: Fotografa l'oggetto davanti a chi lo riceve e mostrate insieme come si monta o si carica. Scrivi in un messaggio la data della restituzione: una riga cordiale basta a evitare ogni equivoco.
 - Risposta, Lunga: Un oggetto che viaggia fra le mani degli amici lega le persone, a patto che torni intero e puntuale. Quando i termini sono detti con garbo all'inizio, nessuno deve trovarsi in difetto dopo: il favore resta un favore.
 - Che cosa fare, Lunga: Metti nella sacca anche un foglietto con le due cose da sapere: dove stanno i picchetti, quale caricatore usare. Chi riceve trova tutto pronto e restituisce più volentieri ciò che gli è arrivato in ordine.
 

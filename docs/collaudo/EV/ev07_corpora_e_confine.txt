@@ -31,3 +31,28 @@ ORDINE EV VOCE 07, I CORPORA CORRETTI E IL CONFINE COM'ERA: LA PROVA
    Le quindici frasi col futuro di un gesto che il confine di prima segna, e che il rapporto EU non aveva elencato
    (ne nominava tre, gia' corrette dall'Architetto), sono in test/le_frasi_dei_corpora_in_attesa.dart col file e la riga.
    Col confine dell'ordine EU (eccezione per le relative) le stesse voci ne davano 10: l'eccezione ne copriva 5.
+
+4. EV AGGIUNTA, 2 ottobre 2026: i dieci file riscritti dall'Architetto (55 frasi al futuro per il suo conto, i tre testi senza la virgola prima della e), fonte contro ramo, sha1 dei byte:
+   UGUALE  a82db75d9b8cc1b286ec4ebbeb38c314d8649030  a82db75d9b8cc1b286ec4ebbeb38c314d8649030  oroscopo_eu_cinese_anno.md
+   UGUALE  da58dc359fed747c230c5dc012cb94a94ff2cb46  da58dc359fed747c230c5dc012cb94a94ff2cb46  oroscopo_eu_cinese_giorno.md
+   UGUALE  9edbb27d574ffa3ce09ebc54d5eec466d89adcff  9edbb27d574ffa3ce09ebc54d5eec466d89adcff  oroscopo_eu_cinese_mese.md
+   UGUALE  48ed114469ce6dda73188ec498bf8c20b55889a4  48ed114469ce6dda73188ec498bf8c20b55889a4  oroscopo_eu_cinese_settimana.md
+   UGUALE  6f39396ff43b452e8f2f4792f265da680da0d6ec  6f39396ff43b452e8f2f4792f265da680da0d6ec  oroscopo_eu_occidentale_anno.md
+   UGUALE  bc16da0af6952d4256da7d7edd30529f15ccaa73  bc16da0af6952d4256da7d7edd30529f15ccaa73  oroscopo_eu_occidentale_giorno.md
+   UGUALE  01583f69e3885a23d89aef903f9883de25a02c6c  01583f69e3885a23d89aef903f9883de25a02c6c  oroscopo_eu_occidentale_mese.md
+   UGUALE  8684879beb50b841a1d12834f8c86a13e07293ad  8684879beb50b841a1d12834f8c86a13e07293ad  oroscopo_eu_occidentale_settimana.md
+   UGUALE  689901bcc1cc4d26d5c154426cddbe345c20efaf  689901bcc1cc4d26d5c154426cddbe345c20efaf  oroscopo_eu_vedica_anno.md
+   UGUALE  851de2a763c5ddad87e680d151b0f8bae081faea  851de2a763c5ddad87e680d151b0f8bae081faea  oroscopo_eu_vedica_giorno.md
+   UGUALE  41b7a9c3921ec8bdb912c290b71af3ff11af6a89  41b7a9c3921ec8bdb912c290b71af3ff11af6a89  oroscopo_eu_vedica_mese.md
+   UGUALE  8c5d913c5313bbb1da6ea09b9bdccfa7d4c9531e  8c5d913c5313bbb1da6ea09b9bdccfa7d4c9531e  oroscopo_eu_vedica_settimana.md
+   UGUALE  99b143334401b0d2b4f8c6491f912c48cf78e765  99b143334401b0d2b4f8c6491f912c48cf78e765  verifica_affermazioni_architetto.md
+
+   Frasi con un verbo al futuro rivolto a chi legge (parole in -rai, tranne distrai), contate da Code frase per frase:
+   HEAD frasi con un futuro in -rai: 54 parole: 56
+   [('farai', 10), ('avrai', 6), ('potrai', 6), ('userai', 5), ('porterai', 3), ('vedrai', 3), ('saprai', 2), ('darai', 2), ('andrai', 2), ('tornerai', 1), ('saluterai', 1), ('riprenderai', 1), ('sprecherai', 1), ('riavrai', 1), ('restituirai', 1), ('verificherai', 1), ('partirai', 1), ('passerai', 1), ('guarderai', 1), ('dirai', 1), ('chiuderai', 1), ('rileggerai', 1), ('comprerai', 1), ('cucinerai', 1), ('deciderai', 1), ('dovrai', 1)]
+   ORA frasi con un futuro in -rai: 0 parole: 0
+   (HEAD = il commit 67bf4d1c, prima dei file nuovi; ORA = il ramo con i file nuovi)
+
+   test/i_corpora_non_dicono_il_futuro_test.dart: righe dei dodici corpora 11538, futuri rivolti a chi legge 0, parole dichiarate non futuri 1 (distrai)
+   test/il_confine_passa_sui_dodici_corpora_test.dart: voci dei dodici corpora 6192, fuori dal confine 0, in attesa dell'Architetto 0 su 0 dichiarate
+   Il confine di prima ne segnava 15 su 54: cerca i futuri con almeno tre lettere prima di -erai, -irai, -drai, -rrai, e "vedrai", "farai", "avrai", "potrai", "saprai", "userai" non ci entrano.

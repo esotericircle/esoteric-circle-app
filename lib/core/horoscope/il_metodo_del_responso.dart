@@ -50,13 +50,12 @@ abstract final class IlMetodoDelResponso {
             'fra segni di Tolomeo.'
         // O-M-006, testo dell'Architetto (ordine EV voce EV.08): la soglia
         // dei due gradi e' una scelta dell'app, gli aspetti sono di Tolomeo.
-        // **Una sola differenza dal testo dell'Architetto**: ", e contano"
-        // diventa ". Contano", per la regola del fondatore sulla virgola
-        // prima della "e", che non ha deroghe (`language_rule_test`). Scritto
-        // nel rapporto dell'ordine EV per l'Architetto.
+        // Il testo riscritto dall'Architetto il 2 ottobre 2026 senza la
+        // virgola prima della "e" (EV Aggiunta): qui c'era l'adattamento di
+        // Code ". Contano".
         : 'Il livello da due a cinque viene dai passaggi di oggi che '
             'parlano a questo campo, entro due gradi: quelli armonici lo '
-            'alzano, quelli tesi lo abbassano. Contano di più quanto sono '
+            'alzano e quelli tesi lo abbassano; contano di più quanto sono '
             'stretti. È una regola dell\'app costruita sugli aspetti di '
             'Tolomeo.';
     // Dall'ordine ES voce 29 numero e colore hanno una regola

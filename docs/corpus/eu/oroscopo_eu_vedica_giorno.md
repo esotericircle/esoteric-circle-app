@@ -308,7 +308,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 - Risposta: La giornata non spinge e non frena: offre lo spazio giusto per poche cose fatte bene. Il rischio è disperderti in mille piccoli compiti che sembrano tutti urgenti allo stesso modo.
 - Che cosa fare: Prima di aprire la posta scrivi su un foglio le tre cose che contano oggi e mettile in ordine. Comincia dalla prima e non passare alla seconda finché non l'hai chiusa davvero.
 - Risposta, Lunga: Quando ogni cosa reclama attenzione nello stesso momento, la misura diventa una forma di rispetto per il tuo tempo. Una lista corta ti lascia arrivare a sera con la sensazione di aver lavorato sul serio.
-- Che cosa fare, Lunga: Tieni il foglio accanto a te per tutta la giornata e spunta ogni voce appena finita. Se arriva una richiesta nuova, annotala sul retro: la guarderai domani mattina con calma, a lista chiusa.
+- Che cosa fare, Lunga: Tieni il foglio accanto a te per tutta la giornata e spunta ogni voce appena finita. Se arriva una richiesta nuova, annotala sul retro e rimandala a domani mattina, con calma, a lista chiusa.
 
 #### Generale, equilibrio, voce 2: La promessa onorata
 
@@ -343,7 +343,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 - Risposta: Fra le cose di oggi ce n'è una che non compare in nessuna lista: una persona cara che senti di rado e che aspetta, senza chiederlo, di sentire la tua voce per qualche minuto.
 - Che cosa fare: Chiama nel pomeriggio un parente che non senti da tempo, in un'ora in cui nessuno dei due ha fretta. Fai una domanda precisa sulle sue giornate e lascia che la risposta sia lunga.
 - Risposta, Lunga: Le relazioni di ogni giorno vivono di piccoli gesti regolari più che di grandi occasioni. Una voce che arriva senza un motivo particolare vale spesso più di un regalo pensato per una ricorrenza.
-- Che cosa fare, Lunga: Alla fine della chiamata fissa già la prossima e scrivila in agenda, anche se cade fra due settimane. Annota accanto una cosa che ti ha raccontato: la volta successiva potrai ripartire proprio da lì.
+- Che cosa fare, Lunga: Alla fine della chiamata fissa già la prossima e scrivila in agenda, anche se cade fra due settimane. Annota accanto una cosa che ti ha raccontato: la volta successiva si riparte proprio da lì.
 
 #### Generale, equilibrio, voce 7: Faccende divise
 
@@ -420,14 +420,14 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 - Risposta: Una persona giovane di casa o di famiglia oggi ha bisogno di attenzione più che di soluzioni: un compito difficile, una mattina storta a scuola, una domanda rimasta in sospeso.
 - Che cosa fare: Nel pomeriggio siediti accanto a chi studia per mezz'ora, senza fare i compiti al suo posto. Chiedi che cosa ha capito e che cosa no, poi lascia che sia la sua mano a scrivere.
 - Risposta, Lunga: La presenza tranquilla di chi è più grande insegna più di ogni spiegazione: mostra che le difficoltà si affrontano con ordine e senza panico. Il valore di oggi sta nel restare, non nel risolvere.
-- Che cosa fare, Lunga: Stasera a cena chiedi qual è stata la cosa migliore e quella più difficile della giornata. Ascolta senza correggere e ricorda una delle due risposte: domani potrai chiedere com'è andata a finire.
+- Che cosa fare, Lunga: Stasera a cena chiedi qual è stata la cosa migliore e quella più difficile della giornata. Ascolta senza correggere e ricorda una delle due risposte: domani chiedi com'è andata a finire.
 
 #### Generale, equilibrio, voce 18: Spesa con la lista
 
 - Risposta: La dispensa e il frigorifero raccontano giorni di acquisti fatti di corsa: doppioni, cose dimenticate, cibo che scade prima di essere usato. Oggi è adatto a rimettere ordine anche qui.
 - Che cosa fare: Prima di andare a fare la spesa apri frigorifero e dispensa e scrivi solo ciò che manca davvero. Pensa a tre pasti precisi e compra per quelli, senza aggiungere nulla fuori lista.
 - Risposta, Lunga: Una spesa pensata è un piccolo esercizio di misura: prendi quello che serve nella quantità giusta e niente va sprecato. Anche la cucina, quando è ordinata, rende più semplici le sere di chi ci vive.
-- Che cosa fare, Lunga: Al ritorno sistema gli acquisti mettendo davanti le cose che scadono prima. Attacca la lista usata allo sportello: domani potrai partire da quella per la prossima, correggendo ciò che è avanzato.
+- Che cosa fare, Lunga: Al ritorno sistema gli acquisti mettendo davanti le cose che scadono prima. Attacca la lista usata allo sportello: domani parti da quella per la prossima, correggendo ciò che è avanzato.
 
 #### Generale, equilibrio, voce 19: Impegni da confermare
 
@@ -468,7 +468,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: La giornata si chiude senza grandi scosse e lascia un margine prezioso nelle ultime ore. È il tempo adatto per preparare il domani invece di lasciarlo arrivare all'improvviso.
 - Che cosa fare: Prima di cena scrivi su un foglietto la prima cosa da fare domani e lascialo sul tavolo, accanto a chiavi e telefono. Scegli anche i vestiti e metti nella borsa quello che ti serve.
-- Risposta, Lunga: Nella tradizione vedica ogni inizio si prepara il giorno prima, con la mente ancora calma. Ciò che decidi stasera senza fretta, domani lo farai con la tranquillità di chi conosce già la strada.
+- Risposta, Lunga: Nella tradizione vedica ogni inizio si prepara il giorno prima, con la mente ancora calma. Ciò che decidi stasera senza fretta, domani si fa con la tranquillità di chi conosce già la strada.
 - Che cosa fare, Lunga: Chiudi la giornata riordinando una sola superficie della casa, poi spegni le luci una alla volta. Tieni per ultima quella della camera e dedica i minuti prima del sonno a ricordare una cosa riuscita oggi.
 
 ### Generale, In salita (livello 2 e sotto)
@@ -499,7 +499,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 - Risposta: Una coincidenza persa, un autobus che parte sotto i tuoi occhi, un semaforo rosso dopo l'altro: oggi gli spostamenti possono andare storti e mettere alla prova i nervi fin dalle prime ore.
 - Che cosa fare: Esci di casa dieci minuti prima del solito e tieni in tasca un piano di riserva: l'orario della corsa successiva, una strada alternativa, il numero di chi ti aspetta per avvisare in tempo.
 - Risposta, Lunga: Il ritardo, in giornate come questa, non dice niente del tuo valore: è solo traffico, attrito, coincidenze sfavorevoli. Arrivare con calma qualche minuto dopo vale più che arrivare in orario col fiato corto.
-- Che cosa fare, Lunga: Durante l'attesa alla fermata o al volante lascia stare il telefono: guarda la strada, respira contando fino a quattro, ripassa a mente la prima cosa che dirai arrivando. Il viaggio diventa una pausa.
+- Che cosa fare, Lunga: Durante l'attesa alla fermata o al volante lascia stare il telefono: guarda la strada, respira contando fino a quattro, ripassa a mente la prima cosa da dire arrivando. Il viaggio diventa una pausa.
 
 #### Generale, salita, voce 5: Il riso sul fuoco
 
@@ -1126,7 +1126,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Un colloquio vicino ti mette addosso un'attesa che oggi può diventare energia utile. La giornata sostiene la preparazione: le idee si mettono in fila e le parole trovano la loro misura.
 - Che cosa fare: Prepara tre esempi concreti del tuo lavoro passato: un problema risolto, un risultato misurabile, una cosa imparata da un errore. Raccontali a voce alta finché ognuno sta in un minuto.
-- Risposta, Lunga: Chi ti ascolterà cerca una persona affidabile prima ancora che brillante. La sobrietà ha una sua forza: dire con calma ciò che hai fatto vale più di promettere ciò che farai.
+- Risposta, Lunga: Chi ti ascolterà cerca una persona affidabile prima ancora che brillante. La sobrietà ha una sua forza: dire con calma ciò che hai fatto vale più di promettere ciò che verrà.
 - Che cosa fare, Lunga: Stasera prepara gli abiti, i documenti e il percorso, poi chiudi i quaderni: niente ripassi dopo cena. Domattina esci con dieci minuti di anticipo e usali per rileggere solo i tre esempi.
 
 #### Carriera, favorevole, voce 9: Il registro delle ore
@@ -1290,7 +1290,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 - Risposta: La giornata non chiede di cominciare cose nuove ma di portare avanti con cura quelle già aperte. Sul tuo tavolo c'è una pratica avviata qualche giorno fa che aspetta soltanto continuità.
 - Che cosa fare: Appena arrivi apri quella pratica prima della posta e lavoraci per un'ora intera, con il telefono chiuso in un cassetto. Annota su un foglio il punto preciso in cui ti fermi.
 - Risposta, Lunga: C'è un tempo per accendere la lampada e un tempo per custodirne la fiamma. Oggi appartiene al secondo: il valore sta nella costanza più che nello slancio di chi inizia.
-- Che cosa fare, Lunga: Domani mattina riparti esattamente da quel punto, nello stesso orario. Se qualcuno ti propone un fronte nuovo, rispondi con calma che te ne occupi appena avrai chiuso questo.
+- Che cosa fare, Lunga: Domani mattina riparti esattamente da quel punto, nello stesso orario. Se qualcuno ti propone un fronte nuovo, rispondi con calma che te ne occupi appena chiuso questo.
 
 #### Carriera, equilibrio, voce 2: Una modifica fuori patto
 
@@ -1316,7 +1316,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, equilibrio, voce 5: Il progetto nel cassetto
 
 - Risposta: Un progetto tuo, rimandato da mesi, oggi ti torna in mente con insistenza. Non è il giorno del grande avvio ma quello della preparazione: si sta sulla soglia e si guarda dove mettere il piede.
-- Che cosa fare: Dedica mezz'ora a scrivere su un foglio che cosa vuoi ottenere, quanto tempo puoi dargli ogni settimana e qual è il primo passo pratico. Fissa nel calendario la data in cui lo farai.
+- Che cosa fare: Dedica mezz'ora a scrivere su un foglio che cosa vuoi ottenere, quanto tempo puoi dargli ogni settimana e qual è il primo passo pratico. Fissa nel calendario la data in cui farlo.
 - Risposta, Lunga: Le cose cominciate con ordine hanno radici più solide di quelle nate da un entusiasmo improvviso. Preparare bene la partenza non significa rimandare: vuol dire dare al progetto la possibilità di durare.
 - Che cosa fare, Lunga: Domani racconta il progetto a una persona di fiducia in cinque minuti e chiedile quale parte le sembra meno chiara. Correggi il foglio con quella osservazione prima di cominciare davvero.
 
@@ -1435,7 +1435,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Carriera, equilibrio, voce 22: Il computer chiuso
 
 - Risposta: Lavorando da casa la giornata tende ad allungarsi senza che te ne accorga e le ore si confondono con quelle private. Oggi c'è spazio per rimettere un confine semplice e chiaro.
-- Che cosa fare: Decidi ora l'orario in cui chiuderai il computer e scrivilo su un foglietto attaccato allo schermo. Quando arriva quell'ora, annota il punto in cui ti fermi e spegni davvero tutto.
+- Che cosa fare: Decidi ora l'orario di chiusura del computer e scrivilo su un foglietto attaccato allo schermo. Quando arriva quell'ora, annota il punto in cui ti fermi e spegni davvero tutto.
 - Risposta, Lunga: Un lavoro ben fatto ha bisogno di un inizio e di una fine, anche quando non c'è un ufficio a segnarli. Il riposo della sera fa parte del lavoro di domani, non è una pausa rubata.
 - Che cosa fare, Lunga: Domattina ricrea il rito dell'inizio: una passeggiata breve, un caffè, la lista dei compiti sul tavolo. Comunica ai colleghi l'orario in cui rispondi, così le richieste arrivano al momento giusto.
 
@@ -1574,7 +1574,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 #### Fortuna, favorevole, voce 2: Lo scaffale degli scambi
 
 - Risposta: Nel tuo quartiere circola più di quanto vedi: uno scaffale di libri da scambiare, una cassetta di oggetti lasciati per chi passa. Oggi lì c'è qualcosa che fa al caso tuo.
-- Che cosa fare: Porta con te un libro letto che non rileggerai e lascialo nello scaffale del bar o della biblioteca. Guarda con calma che cosa trovi al suo posto prima di andare via.
+- Che cosa fare: Porta con te un libro già letto che non pensi di rileggere e lascialo nello scaffale del bar o della biblioteca. Guarda con calma che cosa trovi al suo posto prima di andare via.
 - Risposta, Lunga: Dare e ricevere qui seguono un passo regolare, senza conti in sospeso. Chi lascia qualcosa con cura mette in moto una piccola corrente: le cose giuste cominciano a girare anche verso di te.
 - Che cosa fare, Lunga: Scrivi sulla prima pagina del libro che lasci una riga di dedica senza firma. Se ne prendi uno, segna in agenda il giorno in cui riportarlo: la parola mantenuta tiene viva la catena.
 
@@ -1632,7 +1632,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 - Risposta: Nel freddo del congelatore aspettano scorte dimenticate: pane, verdure, un sugo preparato tempo fa. Oggi sono una risorsa a portata di mano, se le rimetti in vista.
 - Che cosa fare: Svuota un ripiano del congelatore, butta ciò che ha perso sapore e scrivi su un nastro di carta contenuto e data di ogni sacchetto. Scegli subito che cosa scongelare per cena.
 - Risposta, Lunga: Conoscere ciò che possiedi è il primo vantaggio. Un ordine piccolo fatto bene risparmia corse al supermercato, decisioni affrettate e cibo sprecato nei giorni pieni.
-- Che cosa fare, Lunga: Attacca allo sportello un elenco di ciò che resta, con le date più vicine in alto. Domani, prima di fare la spesa, consultalo: comprerai meno e cucinerai con più calma.
+- Che cosa fare, Lunga: Attacca allo sportello un elenco di ciò che resta, con le date più vicine in alto. Domani, prima di fare la spesa, consultalo: aiuta a comprare il giusto e a cucinare con più calma.
 
 #### Fortuna, favorevole, voce 11: Talee sul davanzale
 
@@ -1695,7 +1695,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 - Risposta: Fra gli abbonamenti e i servizi che si rinnovano da soli c'è qualcosa che non usi più. Oggi è facile accorgersene e fermarlo senza fatica.
 - Che cosa fare: Apri sul telefono l'elenco dei pagamenti ricorrenti e cerca le voci che non ricordi. Disattiva subito quella che non ti serve, prima del rinnovo successivo.
 - Risposta, Lunga: La cura delle proprie risorse comincia dalle piccole uscite che nessuno guarda. Un controllo calmo, fatto con il foglio davanti, restituisce ordine e la sensazione di tenere tu le redini.
-- Che cosa fare, Lunga: Scrivi in un elenco ogni servizio che tieni, con la data del prossimo rinnovo. Domani imposta un promemoria qualche giorno prima di ciascuna scadenza: deciderai ogni volta con lucidità.
+- Che cosa fare, Lunga: Scrivi in un elenco ogni servizio che tieni, con la data del prossimo rinnovo. Domani imposta un promemoria qualche giorno prima di ciascuna scadenza: così ogni scelta arriva con il tempo per pensarci.
 
 #### Fortuna, favorevole, voce 20: Il biglietto nel taschino
 
@@ -1809,7 +1809,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 - Risposta: Una pianta che cresce troppo, tua o di chi abita accanto, può diventare oggi un piccolo scambio fortunato: talee, vasi vuoti, consigli che passano di mano in mano.
 - Che cosa fare: Prepara due talee sane dalla tua pianta più rigogliosa e mettile in un bicchiere d'acqua. Offrile a chi incontri sulle scale e chiedi in cambio un vaso o un seme che non hai.
 - Risposta, Lunga: Questa giornata favorisce ciò che si moltiplica piano. Una pianta divisa non perde nulla, anzi si rinforza; lo stesso vale per le piccole cose di casa che fai circolare con generosità e senza calcolo.
-- Che cosa fare, Lunga: Domani controlla l'acqua delle talee e sistemale vicino alla finestra, dove la luce del mattino arriva diretta. Annota chi ti ha dato che cosa: alla prossima occasione saprai a chi bussare.
+- Che cosa fare, Lunga: Domani controlla l'acqua delle talee e sistemale vicino alla finestra, dove la luce del mattino arriva diretta. Annota chi ti ha dato che cosa: alla prossima occasione sai già a chi bussare.
 
 #### Fortuna, equilibrio, voce 6: Il libro sulla bancarella
 
@@ -1886,7 +1886,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 - Risposta: Un documento che scade fra qualche settimana chiede oggi la tua attenzione. Gli appuntamenti agli sportelli si liberano spesso al mattino presto ed è lì che si trova il piccolo vantaggio.
 - Che cosa fare: Imposta la sveglia dieci minuti prima del solito e controlla il portale del comune per un appuntamento. Prepara la fotografia, il vecchio documento e una copia del codice fiscale in una busta.
 - Risposta, Lunga: Le scadenze affrontate in anticipo smettono di pesare. Questa giornata è adatta alle pratiche ordinarie: la fila spesso è più corta, gli impiegati hanno più pazienza, la mente ha spazio per ricordare tutto.
-- Che cosa fare, Lunga: Quando hai la data, scrivila in agenda con un promemoria due giorni prima. Lascia la busta pronta sulla soglia di casa: il giorno dell'appuntamento non dovrai cercare nulla.
+- Che cosa fare, Lunga: Quando hai la data, scrivila in agenda con un promemoria due giorni prima. Lascia la busta pronta sulla soglia di casa: il giorno dell'appuntamento non c'è niente da cercare.
 
 #### Fortuna, equilibrio, voce 17: Il mobile da salutare
 
@@ -1941,7 +1941,7 @@ Il saluto personale in testa alla scheda Generale. [Nome] è il vocativo complet
 
 - Risposta: Qualche giorno fa hai promesso a qualcuno un contatto, un'informazione o un oggetto. Oggi mantenere quella parola apre una porta: chi riceve ricorda a lungo la puntualità.
 - Che cosa fare: Ritrova nei messaggi la promessa fatta e mantienila entro mezzogiorno: inoltra il numero, spedisci il file, consegna il libro. Aggiungi una riga che spieghi perché può essere utile.
-- Risposta, Lunga: Nella tradizione la parola mantenuta è una lampada che resta accesa anche quando nessuno la guarda. Un piccolo impegno rispettato oggi rende credibile ogni proposta che farai domani.
+- Risposta, Lunga: Nella tradizione la parola mantenuta è una lampada che resta accesa anche quando nessuno la guarda. Un piccolo impegno rispettato oggi rende credibile ogni proposta di domani.
 - Che cosa fare, Lunga: Stasera scrivi in una lista le ultime promesse fatte a voce, al lavoro o in famiglia. Scegline una da chiudere domani e lascia andare quelle che non puoi più mantenere, dicendolo con franchezza.
 
 ### Fortuna, In salita (livello 2 e sotto)
