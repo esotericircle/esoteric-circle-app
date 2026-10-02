@@ -160,11 +160,12 @@ abstract final class LeMemorieCustodite {
     if (v is bool) return {'t': 'b', 'v': v};
     if (v is int) return {'t': 'i', 'v': v};
     if (v is double) return {'t': 'd', 'v': v};
-    if (v is List)
+    if (v is List) {
       return {
         't': 'l',
-        'v': [for (final x in v) '$x']
+        'v': [for (final x in v) '$x'],
       };
+    }
     return null;
   }
 

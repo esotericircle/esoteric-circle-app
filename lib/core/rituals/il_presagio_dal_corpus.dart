@@ -212,18 +212,15 @@ abstract final class IlPresagioDalCorpus {
 
   /// **LE VOCI TRATTENUTE, IN ATTESA DELL'ARCHITETTO.** Ordine EX, EX
   /// Aggiunta 2: "Se una prova si ferma per un testo, Code lo scrive nel
-  /// rapporto... e il testo lo corregge l'Architetto". La guardia del genere
-  /// (`il_genere_non_si_indovina_test.dart`) ha trovato due voci che dicono
-  /// a chi legge di essere un uomo: PIETRA Uruz dritta 56 ("resti ben
-  /// piantato") e PIETRA Mannaz in ombra 38 ("giudichi te stesso"). Il testo
-  /// resta quello dell'Architetto, parola per parola; finche' non lo
-  /// corregge, la voce non si sceglie mai (i due gruppi hanno 70 voci su 66 e
-  /// 45 su 41). Quando la voce corretta entra, il suo identificativo si
-  /// toglie da qui.
-  static const Set<String> vociTrattenute = {
-    'pietra/Uruz/dritta/56',
-    'pietra/Mannaz/ombra/38',
-  };
+  /// rapporto... e il testo lo corregge l'Architetto". Una voce che una
+  /// guardia ferma resta nel corpus parola per parola, ma qui dentro non si
+  /// sceglie mai, finche' l'Architetto non la corregge.
+  ///
+  /// **Vuoto dal 2 ottobre 2026.** Ci sono state PIETRA Uruz dritta 56
+  /// ("resti ben piantato") e PIETRA Mannaz in ombra 38 ("giudichi te
+  /// stesso"), che la guardia del genere aveva fermato; l'Architetto le ha
+  /// corrette lo stesso giorno e sono tornate a uscire.
+  static const Set<String> vociTrattenute = <String>{};
 
   /// **LA SCELTA.** Fra le voci del gruppo, nell'ordine proprio di questa
   /// persona (una permutazione seminata dal suo identificativo), la prima

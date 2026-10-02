@@ -169,7 +169,7 @@
 53. Più riserve di quante ne conti: Uruz, nel posto che dice {glossa}, chiede di fidarti del tuo corpo affaticato ma vivo, perché dentro {cosa} la forza non è finita.
 54. C'è un vigore che sale dalla terra come vapore al mattino. Uruz, nel posto che nomina {glossa}, lo porta dentro {cosa}: lascialo crescere senza fretta.
 55. La forza si allena, insegna Uruz posata come {glossa}: per {cosa} ripeti ogni giorno lo stesso piccolo sforzo finché diventa naturale.
-56. Uruz posata qui come {glossa} somiglia al toro che scuote la testa dalla pioggia: per {cosa} le difficoltà scivolano via se resti ben piantato a terra.
+56. Uruz posata qui come {glossa} somiglia al toro che scuote la testa dalla pioggia: per {cosa} le difficoltà scivolano via se tieni i piedi ben piantati a terra.
 57. Nel luogo che dice {glossa}, Uruz porta la voglia di fare che precede ogni impresa: per {cosa} usa questo slancio finché è caldo, non lasciarlo raffreddare.
 58. La forza vera non ha bisogno di mostrarsi. Uruz, quando parla come {glossa}, dice che con {cosa} basta esserci con calma e presenza perché gli altri lo sentano.
 59. La pietra dell'uro parla di confini difesi con il corpo. Uruz, come {glossa}, chiede di dire un no chiaro dove {cosa} ti chiede troppo.
@@ -2242,7 +2242,7 @@
 35. Quando Mannaz esce capovolta come {glossa}, chiede di smettere di recitare una parte per piacere. Dentro {cosa} mostrati come sei, con misura.
 36. Una sedia vuota a tavola dice che qualcuno manca. Mannaz in ombra, come {glossa}, invita per {cosa} a chiederti chi manca davvero e perché.
 37. In ombra nel punto che dice {glossa}, Mannaz parla della fatica di stare fra la gente: per {cosa} concediti pause brevi, poi torna al legame.
-38. Mannaz rovesciata, chiamata a dire {glossa}, segnala che giudichi te stesso con metri che non useresti per altri. Dentro {cosa} usa la stessa clemenza.
+38. Mannaz rovesciata, chiamata a dire {glossa}, segnala che con te usi metri più severi di quelli che useresti con gli altri. Dentro {cosa} concediti la stessa clemenza.
 39. Il vento che separa può anche riavvicinare. Mannaz, girata in ombra come {glossa}, ricorda per {cosa} che una distanza non dura per forza.
 40. Dove la gettata mette {glossa}, Mannaz esce rovesciata: un vecchio rancore pesa ancora. Per {cosa} decidi se tenerlo o posarlo come una pietra a lato del sentiero.
 41. Sentire la propria differenza può isolare o distinguere: Mannaz in ombra come {glossa} chiede per {cosa} di trasformare quella differenza in contributo.

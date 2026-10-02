@@ -245,8 +245,12 @@ void main() {
   /// codice: la prova deve sapere da sola quali voci non possono uscire, se
   /// no un elenco svuotato per errore nel codice la lascerebbe verde.
   /// Quando una voce arriva corretta, si toglie da qui e da
-  /// `IlPresagioDalCorpus.vociTrattenute`.
-  const daCorreggere = {'pietra/Uruz/dritta/56', 'pietra/Mannaz/ombra/38'};
+  /// `IlPresagioDalCorpus.vociTrattenute`, e passa fra le [rientrate].
+  const daCorreggere = <String>{};
+
+  /// **LE VOCI CORRETTE DALL'ARCHITETTO E RIENTRATE**, 2 ottobre 2026: erano
+  /// trattenute e adesso devono tornare a uscire, se no il blocco e' rimasto.
+  const rientrate = {'pietra/Uruz/dritta/56', 'pietra/Mannaz/ombra/38'};
 
   test(
       '3. SESSANTA GIORNI AL MASSIMO DELL\'ILLUMINATO SUL CORPUS VERO: '
@@ -256,6 +260,7 @@ void main() {
     var lette = 0;
     var parti = 0;
     var trattenuteUscite = 0;
+    final rientrateUscite = <String>{};
     for (final peggiore in [false, true]) {
       for (var persona = 0; persona < persone; persona++) {
         final caso = Random(7000 * (peggiore ? 2 : 1) + persona);
@@ -292,6 +297,7 @@ void main() {
               if (daCorreggere.contains(id)) {
                 trattenuteUscite++;
               }
+              if (rientrate.contains(id)) rientrateUscite.add(id);
               final prima = ultimaLettura[id];
               if (prima != null && giorno - prima < 60) ripetute++;
               ultimaLettura[id] = giorno;
@@ -305,6 +311,11 @@ void main() {
         '(due scenari), gettate $lette, voci ripetute in 60 giorni '
         '$ripetute, voci trattenute uscite $trattenuteUscite');
     cardinaleMinimo(lette, 300000, cosa: 'gettate simulate');
+    print('ORDINE EX VOCE 03: voci corrette e rientrate uscite '
+        '${rientrateUscite.length} su ${rientrate.length}');
+    expect(rientrateUscite, rientrate,
+        reason: 'una voce corretta dall\'Architetto non esce: e\' ancora '
+            'trattenuta');
     expect(trattenuteUscite, 0,
         reason: 'una voce trattenuta in attesa dell\'Architetto e\' uscita');
     cardinaleMinimo(parti, 900000, cosa: 'parti composte');
