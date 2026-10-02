@@ -5,6 +5,7 @@ import '../../../ricordi/azioni_del_responso.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../core/entitlement/entitlement_service.dart';
@@ -13,6 +14,8 @@ import '../../../../core/entitlement/question_allowance.dart';
 import '../../../../core/entitlement/tier.dart';
 import '../../../../core/maestro/maestro.dart';
 import '../../../../core/rituals/rune_cast.dart';
+import '../../../../core/rituals/il_presagio_dal_corpus.dart';
+import '../../../../core/rituals/il_corpus_del_presagio.g.dart';
 import '../../../../core/rituals/sunset_rune_corpus.dart';
 import '../../../../core/rituals/rune_lore.g.dart';
 import '../../../../core/rituals/rune_presage.dart';
@@ -343,6 +346,14 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
   void _chiediIlPresagio() {
     final esito = _esito;
     if (esito == null) return;
+    // **IL CORPUS DELL'ARCHITETTO, QUANDO C'E' TUTTO. Ordine EX voce 03.**
+    // La lettura si compone sul telefono, senza modello e senza ripetere un
+    // testo alla stessa persona per sessanta giorni. Finche' il corpus non
+    // e' completo si passa oltre, e la lettura e' quella del modello.
+    if (corpusDelPresagio.completo) {
+      unawaited(_presagioDalCorpus(esito));
+      return;
+    }
     // **LA LETTURA E' NULLABILE apposta:** questa schermata si monta anche da sola
     // nelle prove e nelle catture, dove `AppServices` non c'e'. Senza il punto di
     // domanda il getto schianterebbe la' dentro.
@@ -391,6 +402,43 @@ class _RuneDrawScreenState extends State<RuneDrawScreen> {
         setState(() => _presagioInArrivo = false);
       }
     }());
+  }
+
+  /// **IL PRESAGIO DAL CORPUS.** Ordine EX voce 03. La memoria di cio' che
+  /// la persona ha letto vive sul telefono, con un identificativo suo che
+  /// semina l'ordine delle voci.
+  Future<void> _presagioDalCorpus(EsitoGettata esito) async {
+    const chiaveDellaMemoria = 'rune.presagio.memoria';
+    const chiaveDellaPersona = 'rune.presagio.persona';
+    final domanda = _domanda.text.trim();
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      var persona = prefs.getString(chiaveDellaPersona);
+      if (persona == null) {
+        persona = '${DateTime.now().microsecondsSinceEpoch}';
+        await prefs.setString(chiaveDellaPersona, persona);
+      }
+      final memoria =
+          LaMemoriaDelPresagio.daTesto(prefs.getString(chiaveDellaMemoria));
+      final responso = IlPresagioDalCorpus.componi(
+        corpus: corpusDelPresagio,
+        esito: esito,
+        domanda: domanda,
+        persona: persona,
+        oggi: DateTime.now(),
+        memoria: memoria,
+      );
+      await prefs.setString(chiaveDellaMemoria, memoria.comeTesto());
+      if (!mounted || !identical(_esito, esito)) return;
+      setState(() {
+        _presagioDelModello = responso;
+        _presagioInArrivo = false;
+      });
+    } catch (errore, traccia) {
+      // La lettura di casa resta: alla persona non si dice niente.
+      annotaGuastoInnocuo(
+          'componendo il presagio delle rune dal corpus', errore, traccia);
+    }
   }
 
   /// IL SEME DELLA FISICA: persona, giorno, domanda e rune uscite.
