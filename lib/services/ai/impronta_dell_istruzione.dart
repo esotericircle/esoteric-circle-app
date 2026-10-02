@@ -62,7 +62,7 @@ class ImprontaDellIstruzione {
         '**MISURA PRESA SU DI LEI**: un giro di attribuzione cieca, 56 su 60, '
         '93,3 per cento, docs/collaudo/EX/attribuzione_dopo_ex05.txt. Caduta '
         'con l\'EX Aggiunta 4: la parte comune separata (voce EX.05), le tre '
-        'forme del si\' o del no, il futuro con la sua condizione, il primo '
+        'forme del sì o del no, il futuro con la sua condizione, il primo '
         'passo a "da dove", il cielo dei giorni nominati e il controllo delle '
         'parole degli altri due Maestri (voce EX.07). Sulla stringa nuova, un '
         'giro: 58 su 60, 96,7 per cento, ogni Maestro sopra 85, '
