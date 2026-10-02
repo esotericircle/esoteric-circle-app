@@ -6410,6 +6410,24 @@ telefono il log dell'avvio e la lettura del numero, e se il telefono tace
 legge il numero dall'archivio. Il registro `docs/versione_distribuita.json`
 della 2291 e' scritto a mano coi valori della procedura, e lo dichiara.
 
+## LA STIMA DEI COSTI DI GOOGLE CLOUD (ordine extra del 2 ottobre 2026)
+
+Stima in sola lettura dei 30 giorni dal 2 settembre al 1 ottobre 2026 (ora di
+Roma), dalle metriche di Cloud Monitoring e dai prezzi pubblici letti il 2
+ottobre: `docs/costi/stima_costi_30_giorni.md`, strumento
+`tool/stima_costi_30_giorni.py`. **Circa 95 $ in tutto, e circa 5 $ dell'app**:
+quasi tutto e' Gemini 2.5 Flash chiamato dai banchi di prova di Code (93.808
+chiamate su 96.287, riconosciute dalla credenziale di `gcloud`); l'app vale
+circa 2,84 $ di Flash, 2,18 $ di voce e 0,04 $ di Flash-Lite. Fissi circa 0,18 $
+al mese (Storage, il quarto lavoro pianificato, la settima versione di
+segreto); funzioni del server, Firestore, registri, Artifact Registry e build
+nelle quote gratuite; nessuna istanza minima, nessun Cloud SQL, nessun Redis.
+Non misurabili dall'account di Code: la fattura vera (ruolo Visualizzatore
+fatturazione), i token di ragionamento dentro la metrica, la divisione per
+funzione fra gli usi di Flash (manca un'etichetta per funzione nelle chiamate
+dell'app). I progetti Default Gemini Project e i due My First Project non
+hanno chiamate nei 30 giorni.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.
