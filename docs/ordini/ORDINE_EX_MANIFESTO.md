@@ -26,42 +26,55 @@ dello stesso codice e' di circa 2 o 3 punti per misura
 dollari (`docs/collaudo/EX/il_costo_delle_prove.txt`).
 
 VOCI_TOTALI: 11
-VOCI_CHIUSE: 4
-VOCI_APERTE: 7
+VOCI_CHIUSE: 7
+VOCI_APERTE: 4
 VOCI_DA_FARE: 0
 
 ## VOCE EX.01, I MINUTI DEL LIVE SCENDONO DAVVERO
 
-**APERTA IN ATTESA DI VERIFICA.** Il codice e' fatto e provato
-(`functions/src/live.ts`, commit `da7f7957`): i minuti si contano coi secondi
-veri di Protoface all'apertura e alla chiusura di ogni sessione, una sessione
-dura al massimo i secondi rimasti, i tetti sono 60 e 120 minuti al mese.
-`functions/src/live.test.ts`: 5 prove nuove, nate rosse (A1 in
-`docs/collaudo/EX/regola_a_ex.txt`). **Manca la pubblicazione delle funzioni**:
-il fondatore l'ha autorizzata in chat, ma il controllo dei permessi della
-sessione di Code l'ha bloccata. Finche' non e' pubblicata, in produzione i
-minuti non scendono. Dopo la pubblicazione: tre sessioni sul Realme e
-un'apertura coi minuti finiti, nel "dopo" di
-`docs/collaudo/EX/minuti_del_live.txt`.
+**CHIUSA.** I minuti si contano coi secondi veri di Protoface all'apertura e
+alla chiusura di ogni sessione, una sessione dura al massimo i secondi
+rimasti, i tetti sono 60 e 120 minuti al mese (`functions/src/live.ts`).
+Pubblicate dal fondatore alle 14:03 UTC dal commit `1a076c42`. Al collaudo sul
+Realme (sola lettura del registro del server): minuti rimasti all'apertura
+120, 119, 118, 117; coi minuti finiti il telefono dice "Per questo mese ho
+finito il fiato" e nessuna sessione si apre. Difetto trovato dal collaudo e
+curato (padre EX.01): una sessione chiusa prima che Protoface scrivesse i suoi
+secondi si contava zero (28 secondi, fatturati 29); adesso resta da contare
+(prova nata rossa, A14). Ripubblicate dal fondatore alle 15:15 UTC dal commit
+`2a811596`; dopo la cura una sessione chiusa dopo 8 secondi si conta 8, e il
+consumo del mese di Protoface sale di 8. Per la prova dei minuti finiti Code
+aveva scritto per un momento sui dati del telefono di collaudo: il fondatore
+ha vietato ogni scrittura sui dati di produzione, e la regola sta nelle note
+di lavoro.
+
+DOMANDA: "Il difetto dei minuti che non scendono va assolutamente sistemato."
+PROVA: docs/collaudo/EX/minuti_del_live.txt
+MISURA: minuti rimasti all'apertura dopo tre sessioni, prima 250 e 250 (fermi), dopo 120, 119, 118, 117; sessione aperta coi minuti finiti, prima si', dopo no; secondi contati contro fatturati da Protoface, uguali al secondo in 5 sessioni su 6 verificate (41, 79, 27, 20 e, dopo la cura, 8); la sesta contata 0 invece di 29, difetto curato
 
 ## VOCE EX.02, LA MATRICE NUOVA
 
-**APERTA IN ATTESA DI VERIFICA.** Telefono e server portano la matrice
-dell'ordine (commit `7a6bf8ba`): domande 3/6/10/13, Vai piu' a fondo
-0/2/2/3, confronti 0/1/2/3, carte estratte 3/6/10/15 contate a carte anche sul
-server, stesa da 10 solo per Adepto e Illuminato, gettate 1/2/3/3, minuti LIVE
-0/0/60/120; discese, segni e sigilli come prima. Le card dei piani portavano 8
-numeri diversi dalla matrice nuova, adesso nessuno. La frase "col Cerchio le
-domande ai Maestri sono senza limiti" (falsa per ogni piano, PROVENIENZA
-IGNOTA) dice adesso il numero del cammino dopo. Il listino degli Eos
-(`listino_degli_eos.dart`) e' disallineato, PROVENIENZA IGNOTA, e non e' montato
-da nessuna schermata. Cosa succede quando finisce ogni limite: in
-`docs/collaudo/EX/la_matrice_nuova.txt`. **Il server pubblicato ha ancora i
-limiti di prima** (stessa pubblicazione dell'EX.01): fino ad allora un
-Iniziato si ferma a 5 domande sul server invece di 6. Le catture del Realme
-stanno in `docs/collaudo/EX/realme/`. Difetto trovato dalla suite intera e curato: il Consiglio dei Maestri
-mostrava solo il Maestro di partenza all'Iniziato col suo unico confronto
-pagato (padre EX.02; A11).
+**CHIUSA.** Telefono e server portano la matrice dell'ordine (commit
+`7a6bf8ba`), con le domande alzate dall'EX Aggiunta 3: domande 3/12/18/22
+(con l'EX.02 erano 3/6/10/13), Vai piu' a fondo 0/2/2/3, confronti 0/1/2/3,
+carte estratte 3/6/10/15 contate a carte anche sul server, stesa da 10 solo
+per Adepto e Illuminato, gettate 1/2/3/3, minuti LIVE 0/0/60/120; discese,
+segni e sigilli come prima. Server pubblicato dal fondatore (14:03 e 15:15
+UTC). La frase "col Cerchio le domande ai Maestri sono senza limiti" (falsa
+per ogni piano, PROVENIENZA IGNOTA) dice adesso il numero del cammino dopo. Il
+listino degli Eos (`listino_degli_eos.dart`) e' disallineato, PROVENIENZA
+IGNOTA, e non e' montato da nessuna schermata. Cosa succede quando finisce
+ogni limite: in `docs/collaudo/EX/la_matrice_nuova.txt`. Difetto trovato dalla
+suite intera e curato: il Consiglio dei Maestri mostrava solo il Maestro di
+partenza all'Iniziato col suo unico confronto pagato (padre EX.02; A11).
+Guardato sul Realme con la build 2293: le card dell'Iniziato, dell'Adepto e
+dell'Illuminato dicono 12, 18 e 22 domande, 6, 10 e 15 carte, 2 e 3 gettate,
+60 e 120 minuti; la chat legge dal server "Ti restano 17 domande ai Maestri
+su 22".
+
+DOMANDA: "Cmq, partiamo da qui, come dici tu e mettiamo limite delle carte estratte e la stesa a 10 solo dal tier 2 19,99."
+PROVA: docs/collaudo/EX/la_matrice_nuova.txt
+MISURA: numeri delle card dei piani diversi dalla matrice, prima 8, dopo 0 (catture docs/collaudo/EX/realme/piani_aggiunta3_*.png); tetti del server diversi dalla matrice, dopo 0 (test/i_limiti_del_server_sono_quelli_promessi_test.dart); domande al giorno sul server, prima 3/5/10/50, dopo 3/12/18/22
 
 ## VOCE EX.03, LE RUNE DAL CORPUS, SENZA RIPETIZIONI PER 60 GIORNI
 
@@ -170,10 +183,16 @@ per discesa. Prova: `docs/collaudo/EX/scena_del_viaggio.txt`.
 
 ## VOCE EX.11, LA MISURA FINALE
 
-**APERTA IN ATTESA DI VERIFICA.** Col codice di questo ordine, al massimo per
-trenta giorni, senza cache, LIVE compreso: Iniziato 1,28 dollari (tetto 2,36),
-Adepto 3,34 (tetto 4,72), Illuminato 5,42 (tetto 7,08); prima 5,66, 11,90 e
-31,73. Le stese da 1, 5 e 10 carte sono una stima dichiarata. Resta aperta
-perche' il LIVE dentro il tetto vale solo quando i minuti scendono davvero
-(EX.01, pubblicazione) e perche' i limiti nuovi del server non sono
-pubblicati. Prova: `docs/costi/costo_per_utente_dopo_ex.md`.
+**CHIUSA.** Col codice di questo ordine e le domande dell'EX Aggiunta 3, al
+massimo per trenta giorni, senza cache, LIVE compreso, rune dal corpus:
+Iniziato 2,18 dollari (tetto 2,36), Adepto 4,54 (tetto 4,72), Illuminato 6,77
+(tetto 7,08); prima dell'ordine 5,66, 11,90 e 31,73. Con le domande
+dell'EX.02 (3/6/10/13) erano 1,28, 3,34 e 5,42: il fondatore ha scelto di
+spendere quasi tutto il margine in domande. Le stese da 1, 5 e 10 carte sono
+una stima dichiarata. Il LIVE dentro il tetto vale davvero: i minuti
+scendono e si fermano a 60 e 120 (EX.01), e i limiti del server sono quelli
+della matrice (EX.02).
+
+DOMANDA: "30% Dopo iva e Store, 2,36$."
+PROVA: docs/costi/costo_per_utente_dopo_ex.md
+MISURA: costo al mese al massimo per piano, prima 5,66, 11,90 e 31,73 dollari, dopo 2,18, 4,54 e 6,77, sotto il tetto (2,36, 4,72 e 7,08) in 3 piani su 3

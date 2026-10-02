@@ -4,18 +4,18 @@
 
 ## Le voci chiuse, con la prova di ciascuna
 
+- **EX.01**, i minuti del LIVE scendono davvero: `docs/collaudo/EX/minuti_del_live.txt`
+- **EX.02**, la matrice nuova: `docs/collaudo/EX/la_matrice_nuova.txt`
 - **EX.03**, le rune dal corpus: `docs/collaudo/EX/rune_senza_ripetizioni.txt`
 - **EX.06**, i Ricordi nella regione dei dati: `docs/collaudo/EX/regione_dei_ricordi.txt`
 - **EX.08**, il cielo di oggi nella richiesta: `docs/collaudo/EX/il_cielo_nella_richiesta.txt`
 - **EX.09**, la memoria compatta: `docs/collaudo/EX/memoria_compatta.txt`
+- **EX.11**, la misura finale: `docs/costi/costo_per_utente_dopo_ex.md`
+
+E l'EX Aggiunta 3, le domande alzate: `docs/collaudo/EX/le_domande_alzate.txt`.
 
 ## Le voci aperte, e che cosa manca
 
-- **EX.01**, i minuti del LIVE: codice fatto e provato; manca la
-  **pubblicazione delle funzioni**, autorizzata dal fondatore ma bloccata dal
-  controllo dei permessi della sessione di Code. Poi tre sessioni sul Realme.
-- **EX.02**, la matrice nuova: telefono e server pronti, catture in
-  `docs/collaudo/EX/realme/`; manca la stessa pubblicazione.
 - **EX.04**, il Vai piu' a fondo scritto insieme: 20 tocchi su 24 senza
   chiamata (prima 0), 0,17 chiamate al tocco invece di 0.
 - **EX.05**, la cache garantita: la parte comune e' in testa, ma la cache
@@ -25,20 +25,27 @@
   l'obiettivo verso 1,3 non e' raggiunto.
 - **EX.10**, la scena del Viaggio senza modello: le tre vie misurate peggiorano
   il merito; il codice resta com'e'.
-- **EX.11**, la misura finale: i conti sono sotto il tetto per ogni piano, ma
-  valgono in produzione solo dopo la pubblicazione.
+
+## La build 2293 e Codemagic
+
+- Build Android 2293 dal commit `2a811596` (cancello verde), consegnata su App
+  Tester: release `2hhg5dlk19l30`, distribuita a cloud@esotericircle.app, 1
+  invito accettato; `docs/versione_distribuita.json` da 2292 a 2293.
+- Lo sbarramento: 6.548 prove, solo i rossi accettati dal fondatore.
+- Per Codemagic: il commit e il cancello stanno nell'ultimo messaggio di Code
+  al fondatore e in STATO_VIVO; il codice dell'app e' quello di `2a811596`.
 
 ## Il costo per piano, prima e dopo, accanto al tetto
 
 Al massimo per trenta giorni, senza cache, LIVE compreso
 (`docs/costi/costo_per_utente_dopo_ex.md`):
 
-| Piano | Prima | Dopo | Tetto |
-|---|---|---|---|
-| Viandante | 0,84 $ | 0,53 $ | |
-| Iniziato | 5,66 $ | 1,28 $ | 2,36 $ |
-| Adepto | 11,90 $ | 3,34 $ | 4,72 $ |
-| Illuminato | 31,73 $ | 5,42 $ | 7,08 $ |
+| Piano | Prima | Dopo l'EX.02 (3, 6, 10, 13 domande) | Dopo l'EX Aggiunta 3 (3, 12, 18, 22 domande) | Tetto |
+|---|---|---|---|---|
+| Viandante | 0,84 $ | 0,53 $ | 0,53 $ | |
+| Iniziato | 5,66 $ | 1,28 $ | 2,18 $ | 2,36 $ |
+| Adepto | 11,90 $ | 3,34 $ | 4,54 $ | 4,72 $ |
+| Illuminato | 31,73 $ | 5,42 $ | 6,77 $ | 7,08 $ |
 
 Sotto il tetto starebbero ancora, al giorno, circa 7 domande in piu'
 all'Iniziato, 9 all'Adepto e 11 all'Illuminato.

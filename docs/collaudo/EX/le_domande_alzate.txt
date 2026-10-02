@@ -24,4 +24,8 @@ Sotto il tetto in 3 piani su 3: Code non si ferma.
 
 3. LA PUBBLICAZIONE: la fa il fondatore (consumaDelGiorno, statoDelCerchio, muoviGliEos per i limiti; apriUnaSessioneLive, chiudiLaSessioneLive, statoDellaSessioneLive per la cura dei minuti dell'EX.01), dalla copia di lavoro di Code.
 
-4. LE CARD SUL REALME: con la build consegnata, in docs/collaudo/EX/realme/ (piani_aggiunta3_*.png).
+3b. PUBBLICATE dal fondatore alle 15:15 UTC dal commit 2a811596 (le sei funzioni, Deploy complete).
+
+4. LE CARD SUL REALME, build 2293 dal commit 2a811596: docs/collaudo/EX/realme/piani_aggiunta3_iniziato.png ("12 domande al giorno ai Maestri"), piani_aggiunta3_adepto.png ("18 domande al giorno ai Maestri"), piani_aggiunta3_illuminato.png ("22 domande ai Maestri al giorno"); la chat legge il server nuovo, chat_aggiunta3_contatore_22.png ("Ti restano 17 domande ai Maestri su 22, oggi"). Card con un numero diverso dalla matrice: 0.
+
+5. LE BUILD: Android 2293 su App Tester (release 2hhg5dlk19l30, distribuita, 1 invito accettato; sbarramento 6.548 prove, solo i rossi accettati). Il commit per Codemagic sta nel messaggio di Code al fondatore e in STATO_VIVO.

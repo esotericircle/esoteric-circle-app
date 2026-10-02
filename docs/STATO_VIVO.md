@@ -6500,11 +6500,18 @@ l'etichetta.
 
 Manifesto `docs/ordini/ORDINE_EX_MANIFESTO.md`, rapporto
 `docs/ordini/RAPPORTO_ORDINE_EX.md`, prove in `docs/collaudo/EX/`, conti in
-`docs/costi/costo_per_utente_dopo_ex.md`. **Undici voci: quattro chiuse
-(EX.03, EX.06, EX.08, EX.09), quattro aperte in attesa di verifica (EX.01,
-EX.02, EX.04, EX.11), tre aperte (EX.05, EX.07, EX.10).**
-Nessuna build consegnata; sul Realme una build di collaudo 2292 con le catture
-permesse, solo per guardare.
+`docs/costi/costo_per_utente_dopo_ex.md`. **Undici voci: sette chiuse
+(EX.01, EX.02, EX.03, EX.06, EX.08, EX.09, EX.11), una aperta in attesa di
+verifica (EX.04), tre aperte (EX.05, EX.07, EX.10)**, piu' l'EX Aggiunta 3
+(le domande alzate). **Build 2293 consegnata su App Tester** il 2 ottobre
+2026 dal commit `2a811596` (release `2hhg5dlk19l30`, sbarramento 6.548 prove,
+solo i rossi accettati); lo stesso codice e' pronto per Codemagic. Dalla 2292
+le catture dello schermo sono permesse di base: la protezione solo con
+`--dart-define=CATTURE_VIETATE=true`.
+
+- **Nessuna scrittura sui dati di produzione**, nemmeno sul telefono di
+  collaudo e nemmeno per un momento: regola del fondatore del 2 ottobre 2026.
+  Se una prova la richiede, Code si ferma e chiede.
 
 - **Le funzioni del server le pubblica il fondatore.** Il controllo dei
   permessi della sessione di Code blocca la pubblicazione: Code prepara il
@@ -6514,10 +6521,10 @@ permesse, solo per guardare.
   `chiudiLaSessioneLive`, `statoDelCerchio`, `consumaDelGiorno` e
   `muoviGliEos`. **I minuti del LIVE scendono davvero** (collaudo sul Realme:
   rimasti 120, 119, 118, 117 a ogni apertura; coi minuti finiti il LIVE non si
-  apre, `docs/collaudo/EX/minuti_del_live.txt`). **Da ripubblicare**: le tre
-  del LIVE per la cura dei secondi non ancora fatturati (una sessione finita
-  con zero secondi si contava zero; adesso resta da contare) e le tre del
-  Cerchio per le domande alzate dell'EX Aggiunta 3.
+  apre, `docs/collaudo/EX/minuti_del_live.txt`). Ripubblicate dal fondatore
+  alle 15:15 UTC dal commit `2a811596`, con la cura dei secondi non ancora
+  fatturati (una sessione finita con zero secondi si contava zero; adesso
+  resta da contare) e le domande alzate dell'EX Aggiunta 3.
 - **La matrice dei piani** (EX.02): domande 3/12/18/22 (dall'EX Aggiunta 3
   del 2 ottobre, "Poco sotto il margine (Consigliata)"; con l'EX.02 erano
   3/6/10/13, prima 3/5/10/50), Vai piu' a fondo

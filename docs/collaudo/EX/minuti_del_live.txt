@@ -60,3 +60,13 @@ fatturati resta da contare finche' arrivano"), rossa sul codice pubblicato, verd
 Il conto del telefono di collaudo e' stato corretto a mano da 167 a 196 secondi (41+79+27+29+20), quanto ha
 fatturato Protoface. La cura va pubblicata (apriUnaSessioneLive, chiudiLaSessioneLive, statoDellaSessioneLive)
 e poi vista con una sessione chiusa subito.
+
+== DOPO LA CURA (ripubblicate dal fondatore alle 15:15 UTC dal commit 2a811596)
+  15:46:08 LIVE aperto, rimasti 116        | Uso di Protoface nel mese 785 s
+  15:46:18 chiuso dal telefono dopo 10 s   -> Minuti LIVE contati: secondiUsati 204 (+8)
+  15:47:25 LIVE aperto, rimasti 116        | Uso 793 s   (+8: la sessione chiusa subito, fatturata 8)
+  15:47:36 chiuso dal telefono             -> secondiUsati 218 (+14)
+La sessione chiusa subito e' contata coi suoi secondi veri. Il caso del difetto (secondi non ancora scritti da
+Protoface alla chiusura) non si e' ripresentato; la cura lo copre con la prova di functions/src/live.test.ts.
+Nessuna scrittura sui dati di produzione in questa parte: regola del fondatore del 2 ottobre 2026.
+
