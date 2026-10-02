@@ -258,6 +258,9 @@ l'Architetto**: il confine vale anche per le risposte dei modelli (Rune,
 Tarocchi), dove i futuri corti oggi passano; se vuole, la regola si allarga
 con una sua voce.
 
+La suite intera sul commit `8a56f7a1`: **6519 verdi, 11 saltate, 7 rosse**, le
+7 accettate di sempre (le soglie delle pose e sei guardie d'ordine vecchie).
+
 ### EV.08, la verifica delle affermazioni
 
 Fatta tutta, coi testi e le fonti dell'Architetto: diciassette testi nuovi
