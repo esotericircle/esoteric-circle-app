@@ -188,7 +188,9 @@ class VoceSorvegliata implements MaestroAiProvider, LaCorrezioneCorta {
     required String domanda,
     required String risposta,
     required String correzione,
+    MaestroMemory memory = MaestroMemory.empty,
     bool nelLive = false,
+    String? cieloDelTurno,
   }) {
     final voce = _voce;
     if (voce is! LaCorrezioneCorta) {
@@ -203,7 +205,9 @@ class VoceSorvegliata implements MaestroAiProvider, LaCorrezioneCorta {
         domanda: domanda,
         risposta: risposta,
         correzione: correzione,
+        memory: memory,
         nelLive: nelLive,
+        cieloDelTurno: cieloDelTurno,
       ),
     );
   }

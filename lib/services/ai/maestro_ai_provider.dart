@@ -251,6 +251,12 @@ abstract interface class LaCorrezioneCorta {
     required String domanda,
     required String risposta,
     required String correzione,
+    MaestroMemory memory = MaestroMemory.empty,
     bool nelLive = false,
+
+    /// I fatti del cielo che il turno ha avuto dalle effemeridi (oggi e i
+    /// giorni chiesti alla funzione): la correzione non chiama funzioni, e
+    /// senza di loro il modello li riscriverebbe a memoria.
+    String? cieloDelTurno,
   });
 }

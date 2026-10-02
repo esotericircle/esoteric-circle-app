@@ -36,6 +36,7 @@ import '../../../core/chat/il_rimando_in_fondo.dart';
 import '../../../core/chat/le_certezze_del_maestro.dart';
 import '../../../core/chat/l_italiano_del_maestro.dart';
 import '../../../core/chat/i_ricordi_degli_altri.dart';
+import '../../../core/astro/il_cielo_per_il_maestro.dart';
 import '../../../services/ai/le_funzioni_del_cielo.dart';
 import '../../../services/ai/la_richiesta_del_turno.dart';
 import '../../../core/astro/il_cielo_detto.dart';
@@ -43,6 +44,7 @@ import '../../../core/chat/immersive_intents.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../services/ai/maestro_ai_provider.dart';
 import '../../../services/ai/maestro_persona.dart';
+import '../../../core/maestro/il_seguito_nascosto.dart';
 import '../../../services/ai/registro_dei_guasti.dart';
 import '../../../services/memory/maestro_memory_repository.dart';
 import '../../../core/config/app_flags.dart';
@@ -687,24 +689,40 @@ class MaestroChatController extends ChangeNotifier {
     String? daProgramma,
     String? daAttesa,
     String? correzione,
-  }) =>
-      LaRichiestaDelTurno(
-        nelLive: nelLive,
-        daNonRipetere: daNonRipetere,
-        daProgramma: daProgramma,
-        daAttesa: daAttesa,
-        domanda: domanda,
-        daCorreggere: correzione,
-        suTesto: nelLive ? _mostraMentreArriva : null,
-      ).per(() => _ai.reply(
-            maestro: chi,
-            profile: _profile,
-            memory: _memoriaPerIlModello,
-            history: storia,
-            userMessage: domanda,
-            natal: natal,
-            insistiSullAncoraggio: insisti,
-          ));
+  }) async {
+    final grezzo = await LaRichiestaDelTurno(
+      nelLive: nelLive,
+      daNonRipetere: daNonRipetere,
+      daProgramma: daProgramma,
+      daAttesa: daAttesa,
+      domanda: domanda,
+      daCorreggere: correzione,
+      suTesto: nelLive ? _mostraMentreArriva : null,
+      conSeguito: _conSeguito,
+    ).per(() => _ai.reply(
+          maestro: chi,
+          profile: _profile,
+          memory: _memoriaPerIlModello,
+          history: storia,
+          userMessage: domanda,
+          natal: natal,
+          insistiSullAncoraggio: insisti,
+        ));
+    // **IL SEGUITO SI SEPARA PRIMA DI TUTTO**, ordine EX voce 04: le reti
+    // del turno leggono solo la risposta.
+    final (risposta, seguito) = IlSeguitoNascosto.dividi(grezzo);
+    if (seguito != null) _seguitoDelTurno = seguito;
+    return risposta;
+  }
+
+  /// **SE IL TURNO SCRIVE ANCHE IL SEGUITO. Ordine EX voce 04.** Nella chat
+  /// scritta, per chi ha il "Vai più a fondo" nel piano: a chi non ce l'ha
+  /// si risparmia l'uscita, e se sale di piano il tocco lo chiede come
+  /// prima.
+  bool get _conSeguito => !nelLive && ilPianoComprendeIlSecondoStrato;
+
+  /// Il seguito scritto in questo turno, da nascondere nella risposta.
+  String? _seguitoDelTurno;
 
   /// **LA RISPOSTA SCARTATA SI CORREGGE CORTA. Ordine EX voce 07.**
   ///
@@ -734,7 +752,9 @@ class MaestroChatController extends ChangeNotifier {
           domanda: domanda,
           risposta: risposta,
           correzione: correzione,
+          memory: _memoriaPerIlModello,
           nelLive: nelLive,
+          cieloDelTurno: _cieloDelTurno(),
         );
       } on MaestroAiUnavailable catch (errore, traccia) {
         annotaGuastoInnocuo(
@@ -750,6 +770,31 @@ class MaestroChatController extends ChangeNotifier {
   /// Quante correzioni corte sono partite, in questa sessione. Ordine EX
   /// voce 07.
   int correzioniCorte = 0;
+
+  /// Da dove cominciano, nel registro di [LeFunzioniDelCielo.giorniChiesti],
+  /// i giorni chiesti in questo turno.
+  int _giorniDelTurnoDa = 0;
+
+  /// **IL CIELO DEL TURNO, PER LA CORREZIONE CORTA.** Il cielo di oggi e
+  /// quello dei giorni che il Maestro ha chiesto in questo turno, dalle
+  /// stesse effemeridi della funzione.
+  String _cieloDelTurno() {
+    final oggi = _adesso;
+    final giorni = <String, DateTime>{
+      '${oggi.year}-${oggi.month}-${oggi.day}': oggi,
+      for (final d in LeFunzioniDelCielo.giorniDa(_giorniDelTurnoDa))
+        '${d.year}-${d.month}-${d.day}': d,
+    };
+    // Il testo delle effemeridi si intitola "IL CIELO DI OGGI" per ogni
+    // data: per un altro giorno il titolo dice il giorno, non "oggi".
+    return [
+      for (final d in giorni.values)
+        identical(d, oggi)
+            ? IlCieloPerIlMaestro.oggiInRighe(d)
+            : IlCieloPerIlMaestro.oggiInRighe(d)
+                .replaceFirst('IL CIELO DI OGGI (', 'IL CIELO DEL ('),
+    ].join('\n\n');
+  }
 
   @override
   void dispose() {
@@ -1133,6 +1178,22 @@ class MaestroChatController extends ChangeNotifier {
         : null;
     if (domanda == null) return false;
 
+    // **IL SEGUITO GIA' SCRITTO SI SCOPRE. Ordine EX voce 04.** Nessuna
+    // chiamata: il seguito diventa visibile e il conto del piano si paga
+    // come prima, quando la persona lo legge.
+    final nascosto = prima.seguitoNascosto;
+    if (nascosto != null && nascosto.trim().isNotEmpty) {
+      final scoperta = prima.copyWith(
+          approfondita: true, seguito: nascosto, seguitoInArrivo: false);
+      _messages[indice] = scoperta;
+      seguitiScoperti++;
+      final piano = _tier?.call();
+      if (piano != null) _allowance?.registraApprofondimento(piano);
+      notifyListeners();
+      await _sostituisci(scoperta);
+      return true;
+    }
+
     _sending = true;
     _seguitoInVolo = true;
     // IL TESTO GIA' LETTO NON SI TOCCA.
@@ -1225,6 +1286,10 @@ class MaestroChatController extends ChangeNotifier {
     }
   }
 
+  /// Quanti seguiti scritti insieme alla risposta si sono scoperti senza
+  /// chiamare nessuno, in questa sessione. Ordine EX voce 04.
+  int seguitiScoperti = 0;
+
   /// Quante frasi del seguito ripetevano cio' che era gia' stato letto, in
   /// questa sessione. Un numero che cresce dice che l'istruzione non regge, e
   /// va corretta nel prompt invece che nel filtro.
@@ -1272,9 +1337,11 @@ class MaestroChatController extends ChangeNotifier {
     final chiRisponde = per ?? maestro;
     maestroInAscolto = chiRisponde;
     _sending = true;
+    _seguitoDelTurno = null;
     // Da qui in poi i giorni di cui il Maestro chiede il cielo sono di
     // questo turno (ordine EV voce 03): la rete del cielo detto li riceve.
     final giorniDaQui = LeFunzioniDelCielo.giorniChiesti.length;
+    _giorniDelTurnoDa = giorniDaQui;
     // LA PAUSA COMINCIA QUI, con la domanda, e non quando la rete risponde:
     // il tempo che conta e' quello che aspetta la persona.
     final cronometro = Stopwatch()..start();
@@ -1800,11 +1867,23 @@ class MaestroChatController extends ChangeNotifier {
       if (nelLive) {
         reply = LeTreFrasiDelLive.scritta(reply, domanda: userText);
       }
+      // **IL SEGUITO NASCOSTO, ripulito come al tocco.** Ordine EX voce 04:
+      // le frasi gia' lette si tolgono (`SeguitoDellaLettura.pulisci`), e
+      // le certezze come nella risposta.
+      final grezzoDelSeguito = _seguitoDelTurno;
+      final seguitoNascosto = grezzoDelSeguito == null
+          ? null
+          : LeCertezzeDelMaestro.senzaLeFrasiCerte(SeguitoDellaLettura.pulisci(
+                  gia: ConsiglioFinale.corpoDa(reply),
+                  seguito: grezzoDelSeguito))
+              .trim();
       final answer = ChatMessage(
         role: ChatRole.maestro,
         text: reply,
         at: _adesso,
         autore: chiRisponde,
+        seguitoNascosto:
+            (seguitoNascosto?.isEmpty ?? true) ? null : seguitoNascosto,
         // Ordine ES voce 20: sotto la risposta detta a voce la chat non
         // aggiunge l'invito a tornare.
         dettoNelLive: nelLive,

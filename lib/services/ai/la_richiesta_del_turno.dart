@@ -33,6 +33,7 @@ class LaRichiestaDelTurno {
     this.suTesto,
     this.domanda,
     this.daCorreggere,
+    this.conSeguito = false,
   });
 
   /// Vero quando il turno e' detto nel LIVE.
@@ -63,6 +64,11 @@ class LaRichiestaDelTurno {
   /// **La correzione nominata**, quando la prima frase che e' tornata non ha
   /// preso posizione e il turno si chiede di nuovo. Ordine ET voce 01.
   final String? daCorreggere;
+
+  /// **IL SEGUITO NELLA STESSA RISPOSTA. Ordine EX voce 04.** Vero quando il
+  /// piano ha il "Vai più a fondo": il Maestro scrive anche il seguito,
+  /// dopo `IlSeguitoNascosto.segno`.
+  final bool conSeguito;
 
   /// La richiesta di un turno qualunque della chat.
   static const LaRichiestaDelTurno normale = LaRichiestaDelTurno();

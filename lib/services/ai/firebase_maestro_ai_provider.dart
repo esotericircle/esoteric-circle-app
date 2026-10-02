@@ -38,7 +38,20 @@ class FirebaseMaestroAiProvider
     FirebaseAI? ai,
     this.chatModel = kMaestroChatModel,
     this.distillModel = kMaestroDistillModel,
+    this.finestraDellaStoria = kHistoryWindow,
+    this.conIlRiassunto = true,
   }) : _ai = ai ?? FirebaseAI.vertexAI(location: kVertexLocation);
+
+  /// Quanti messaggi recenti arrivano come storia: di serie
+  /// [kHistoryWindow]. Il banco della memoria compatta
+  /// (`tool/la_memoria_compatta_a_confronto.dart`) ci rimette la regola di
+  /// prima dell'ordine EX, venti messaggi e nessun riassunto, sullo stesso
+  /// codice.
+  final int finestraDellaStoria;
+
+  /// Se la persona ritrova nell'istruzione cio' che ha scritto prima della
+  /// finestra: vedi [scrittoPrimaDellaFinestra].
+  final bool conIlRiassunto;
 
   /// Regione del backend Vertex: **quella dei dati**, `LaRegioneDeiDati`,
   /// ordine DJ voce 03. Un modello che li' non risponde non si usa.
@@ -117,11 +130,12 @@ class FirebaseMaestroAiProvider
     double? topP,
     String? responseMimeType,
     Schema? responseSchema,
+    int tettoInPiu = 0,
   }) =>
       GenerationConfig(
         temperature: temperature,
         topP: topP,
-        maxOutputTokens: misura.tetto,
+        maxOutputTokens: misura.tetto + tettoInPiu,
         thinkingConfig: ThinkingConfig.withThinkingBudget(misura.ragionamento),
         responseMimeType: responseMimeType,
         responseSchema: responseSchema,
@@ -138,7 +152,15 @@ class FirebaseMaestroAiProvider
 
   /// Quanti messaggi recenti passare come storia al modello. Oltre questa
   /// soglia il filo lo tiene la sintesi di sessione, non la cronologia piena.
-  static const int kHistoryWindow = 20;
+  ///
+  /// **OTTO, cioe' quattro scambi, dall'ordine EX voce 09** (erano venti):
+  /// *"Nella richiesta, al posto degli ultimi 20 turni della conversazione: un
+  /// riassunto breve più gli ultimi 4-6 turni."* Il riassunto e' la sintesi
+  /// della memoria, che l'istruzione porta gia' insieme ai fatti, piu' cio'
+  /// che la persona ha scritto prima della finestra in questa conversazione
+  /// ([scrittoPrimaDellaFinestra]): la memoria che il Maestro conosce non
+  /// cambia, cambia come gli arriva.
+  static const int kHistoryWindow = 8;
 
   final FirebaseAI _ai;
   final String chatModel;
@@ -189,16 +211,25 @@ class FirebaseMaestroAiProvider
           daAttesa: turno.daAttesa,
           domandaDiAdesso: turno.domanda,
           correzione: turno.daCorreggere,
+          conSeguito: turno.conSeguito,
+          scrittoPrima: conIlRiassunto
+              ? scrittoPrimaDellaFinestra(history,
+                  finestra: finestraDellaStoria)
+              : const [],
         ),
       ),
       // La PRIMA risposta arriva sempre alla stessa misura per tutti: la
       // profondita' non si sceglie prima, si chiede dopo aver letto.
-      generationConfig: configurazionePer(
-        rispostaGiaData == null
-            ? MisuraDellaRisposta.perIlTurno(nelLive: turno.nelLive)
-            : MisuraDellaRisposta.perIlSeguito,
-        temperature: 0.9,
-        topP: 0.95,
+      generationConfig: _conLoSpazioDelSeguito(
+        configurazionePer(
+          rispostaGiaData == null
+              ? MisuraDellaRisposta.perIlTurno(nelLive: turno.nelLive)
+              : MisuraDellaRisposta.perIlSeguito,
+          temperature: 0.9,
+          topP: 0.95,
+        ),
+        conSeguito:
+            turno.conSeguito && rispostaGiaData == null && !turno.nelLive,
       ),
       // **IL CIELO SI CHIEDE ALL'APP. Ordine EV voce 03.** Il modello riceve
       // le funzioni del cielo e, quando la domanda tocca il cielo di un
@@ -279,6 +310,20 @@ class FirebaseMaestroAiProvider
     return TestoDelResponso.pulisci(text);
   }
 
+  /// **LO SPAZIO DEL SEGUITO, quando si scrive insieme alla risposta.**
+  /// Ordine EX voce 04: al tetto della risposta si aggiunge quello del
+  /// seguito, cosi' nessuno dei due arriva troncato.
+  static GenerationConfig _conLoSpazioDelSeguito(GenerationConfig c,
+          {required bool conSeguito}) =>
+      !conSeguito
+          ? c
+          : configurazionePer(
+              MisuraDellaRisposta.perIlTurno(nelLive: false),
+              temperature: 0.9,
+              topP: 0.95,
+              tettoInPiu: MisuraDellaRisposta.perIlSeguito.tetto,
+            );
+
   @override
   bool get correggeCorto => true;
 
@@ -295,7 +340,9 @@ class FirebaseMaestroAiProvider
     required String domanda,
     required String risposta,
     required String correzione,
+    MaestroMemory memory = MaestroMemory.empty,
     bool nelLive = false,
+    String? cieloDelTurno,
   }) async {
     final model = _ai.generativeModel(
       model: modelloDelTurno(nelLive: nelLive, chatModel: chatModel),
@@ -305,7 +352,9 @@ class FirebaseMaestroAiProvider
           maestro: maestro,
           profile: profile,
           correzione: correzione,
+          memory: memory,
           nelLive: nelLive,
+          cieloDelTurno: cieloDelTurno,
         ),
       ),
       generationConfig: configurazionePer(
@@ -489,12 +538,37 @@ class FirebaseMaestroAiProvider
 
   /// Traduce la storia di dominio nella forma attesa da Gemini, tenendo solo la
   /// finestra recente e lasciando fuori i messaggi ancora in sospeso o falliti.
+  /// **CIO' CHE LA PERSONA HA SCRITTO PRIMA DELLA FINESTRA. Ordine EX voce
+  /// 09.** Fino a venti messaggi indietro (la finestra di prima
+  /// dell'ordine EX), i messaggi della persona che la finestra di otto non
+  /// porta piu', accorciati a centosessanta caratteri: il riassunto breve
+  /// che l'ordine chiede, senza un modello che lo scriva.
+  static const int kFinestraDelRiassunto = 20;
+
+  static List<String> scrittoPrimaDellaFinestra(List<ChatMessage> history,
+      {int finestra = kHistoryWindow}) {
+    final pulita = history
+        .where((m) => !m.pending && !m.failed && m.text.trim().isNotEmpty)
+        .toList();
+    if (pulita.length <= finestra) return const [];
+    final da = pulita.length > kFinestraDelRiassunto
+        ? pulita.length - kFinestraDelRiassunto
+        : 0;
+    return [
+      for (final m in pulita.sublist(da, pulita.length - finestra))
+        if (m.isUser)
+          m.text.trim().length <= 160
+              ? m.text.trim()
+              : '${m.text.trim().substring(0, 157)}...',
+    ];
+  }
+
   List<Content> _toHistory(List<ChatMessage> history) {
     final clean = history
         .where((m) => !m.pending && !m.failed && m.text.trim().isNotEmpty)
         .toList();
-    final windowed = clean.length > kHistoryWindow
-        ? clean.sublist(clean.length - kHistoryWindow)
+    final windowed = clean.length > finestraDellaStoria
+        ? clean.sublist(clean.length - finestraDellaStoria)
         : clean;
     return [
       for (final m in windowed)

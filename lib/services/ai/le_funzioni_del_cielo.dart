@@ -46,7 +46,8 @@ abstract final class LeFunzioniDelCielo {
 
   static DateTime? _data(Object? valore) {
     if (valore is! String) return null;
-    final m = RegExp(r'^(\d{4})-(\d{1,2})-(\d{1,2})$').firstMatch(valore.trim());
+    final m =
+        RegExp(r'^(\d{4})-(\d{1,2})-(\d{1,2})$').firstMatch(valore.trim());
     if (m == null) return null;
     final anno = int.parse(m.group(1)!);
     final mese = int.parse(m.group(2)!);
@@ -63,7 +64,9 @@ abstract final class LeFunzioniDelCielo {
     registro.add('$cieloDelGiorno(${args['data']})');
     debugPrint('Cielo per il Maestro: $cieloDelGiorno(${args['data']})');
     if (d == null) {
-      return {'errore': 'La data va scritta AAAA-MM-GG, per esempio 2026-10-02.'};
+      return {
+        'errore': 'La data va scritta AAAA-MM-GG, per esempio 2026-10-02.'
+      };
     }
     giorniChiesti.add(DateTime(d.year, d.month, d.day, 12));
     return IlCieloPerIlMaestro.delGiorno(d, carta: carta);
@@ -156,11 +159,28 @@ abstract final class LeFunzioniDelCielo {
   /// descrizione dice che ogni fatto del cielo viene solo da qui, che la data
   /// detta dalla persona si usa senza chiederla, e porta il cielo di oggi gia'
   /// calcolato, per chi ha i dati di nascita e per chi non li ha.
+  /// **IL CIELO DI OGGI, CALCOLATO UNA VOLTA AL GIORNO SUL TELEFONO.**
+  /// Ordine EX voce 08: prima si ricalcolava a ogni turno, e il modello
+  /// chiamava lo stesso la funzione anche per oggi (al banco della qualita'
+  /// 2,6 chiamate a domanda sul cielo di oggi). La chiave e' il giorno e la
+  /// carta della persona.
+  static String _cieloDiOggi(DateTime ora, NatalChart? carta) {
+    final chiave = '${_oggi(ora)}|${identityHashCode(carta)}';
+    final gia = _cieloDiOggiCalcolato;
+    if (gia != null && gia.$1 == chiave) return gia.$2;
+    final cielo = IlCieloPerIlMaestro.oggiInRighe(ora, carta: carta);
+    _cieloDiOggiCalcolato = (chiave, cielo);
+    return cielo;
+  }
+
+  static (String, String)? _cieloDiOggiCalcolato;
+
   static List<Tool> perIlMaestro({NatalChart? carta, DateTime? adesso}) {
     final ora = adesso ?? DateTime.now();
     final oggi = _oggi(ora);
     final domani = _oggi(DateTime(ora.year, ora.month, ora.day + 1));
-    final cieloDiOggi = IlCieloPerIlMaestro.oggiInRighe(ora, carta: carta);
+    // **IL CIELO DI OGGI SI CALCOLA UNA VOLTA AL GIORNO. Ordine EX voce 08.**
+    final cieloDiOggi = _cieloDiOggi(ora, carta);
     return [
       Tool.functionDeclarations([
         AutoFunctionDeclaration(
@@ -170,13 +190,17 @@ abstract final class LeFunzioniDelCielo {
               'pianeti da Mercurio a Plutone, quali sono retrogradi, segno e '
               'fase della Luna, gli aspetti fra i pianeti, le eclissi e, se la '
               'persona ha la carta natale, i transiti sulla sua carta. '
-              'Tu non conosci il cielo di nessun giorno: ogni segno, grado, '
-              'fase, retrogrado, aspetto o eclissi di oggi, di domani, del '
-              'passato o del futuro lo sai solo da qui. Oggi è $oggi, domani '
-              'è $domani. Chiamala ogni volta che la persona chiede del cielo '
-              'di un giorno o di un pianeta, di un transito, di un '
-              'retrogrado, della Luna, prima di rispondere. Se la persona ha '
-              'scritto la data, usala: non chiederla di nuovo. Rispondi solo '
+              'Il cielo di OGGI ce l\'hai già, calcolato qui sotto: per una '
+              'domanda sul cielo di oggi non chiamarla, rispondi con quei '
+              'fatti. Non copiare quel blocco: scegli solo i fatti che la '
+              'domanda chiede e dilli con parole tue (degli aspetti, i due o '
+              'tre con l\'orbo più stretto). Del cielo di ogni altro giorno tu non sai niente: ogni '
+              'segno, grado, fase, retrogrado, aspetto o eclissi di domani, '
+              'del passato o del futuro lo sai solo da qui. Oggi è $oggi, '
+              'domani è $domani. Chiamala ogni volta che la persona chiede '
+              'del cielo di un giorno diverso da oggi, prima di rispondere. '
+              'Se la persona ha scritto la data, usala: non chiederla di '
+              'nuovo. Rispondi solo '
               'con i fatti che restituisce, non dire mai un fatto del cielo '
               'che non viene da qui e non negare mai un fatto che viene da '
               'qui. I corpi che restituisce sono quelli del cielo del '

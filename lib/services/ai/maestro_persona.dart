@@ -13,6 +13,7 @@ import '../../core/maestro/lente_del_cielo.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/misura_della_risposta.dart';
 import '../../core/maestro/natal_context.dart';
+import '../../core/maestro/il_seguito_nascosto.dart';
 import '../../core/maestro/seguito_della_lettura.dart';
 import '../../core/maestro/voce_del_maestro.dart';
 import '../../core/responsi/anatomia_del_responso.dart';
@@ -35,7 +36,7 @@ class MaestroPersona {
   const MaestroPersona._();
 
   /// Regole comuni a tutti i Maestri, sempre in testa alle istruzioni.
-  static String _commonRules(UserProfile profile) {
+  static String _regoleDiLingua() {
     final buffer = StringBuffer()
       ..writeln('REGOLE DI LINGUA E STILE, NON NEGOZIABILI:')
       ..writeln(LaLinguaDelModello.laRiga)
@@ -150,12 +151,16 @@ class MaestroPersona {
       // scrive di suo, che e' l'altra meta' dello stesso difetto.
       ..writeln(LaRispostaNelMerito.perIlModello);
 
-    // Come rivolgersi all'utente, dal profilo.
-    buffer
-      ..writeln()
-      ..write(bloccoDiCortesia(profile));
     return buffer.toString();
   }
+
+  /// **LE REGOLE DI LINGUA E STILE E LA CORTESIA, insieme.** Ordine EX voce
+  /// 05: le regole sono uguali per tutti e la cortesia e' della persona;
+  /// l'istruzione della chat le tiene separate perche' la parte uguale per
+  /// tutti stia in testa e la cache la ritrovi. Gli altri chiamanti le
+  /// vogliono insieme, come prima.
+  static String _commonRules(UserProfile profile) =>
+      '${_regoleDiLingua()}\n${bloccoDiCortesia(profile)}';
 
   /// **IL BLOCCO DI CORTESIA**, ordine DL voce 04: vive in
   /// `IlBloccoDiCortesia`, accanto alla porta del genere, perche' lo usano
@@ -383,6 +388,8 @@ class MaestroPersona {
     String? daAttesa,
     String? domandaDiAdesso,
     String? correzione,
+    bool conSeguito = false,
+    List<String> scrittoPrima = const [],
   }) {
     final natalBlock = _natalContext(natal);
     // **IL SEGUITO NON E' UNA PRIMA RISPOSTA.** Ordine EQ, 27 settembre 2026:
@@ -400,32 +407,17 @@ class MaestroPersona {
       profile: profile,
       memory: memory,
     );
+    // **PRIMA CIO' CHE E' DI TUTTI, POI CIO' CHE E' DELLA PERSONA. Ordine EX
+    // voce 05.** La cache implicita di Vertex riusa l'inizio uguale di due
+    // richieste: con la voce del Maestro, le regole di lingua, la misura, la
+    // forma, i due strati e il consiglio finale in testa, due persone
+    // diverse che parlano con lo stesso Maestro condividono quella parte.
+    // Prima la parte della persona (cortesia, nascita, memoria) stava in
+    // mezzo, e la parte comune dopo di lei non si riusava mai.
     return [
       voceDi(maestro),
       '',
-      _commonRules(profile),
-      '',
-      if (natalBlock.isNotEmpty) ...[natalBlock, ''],
-      // **I RESPONSI CHE LA PERSONA HA LETTO OGGI. Ordine EV voce 04.** Il
-      // Maestro non nega mai un fatto che l'app ha mostrato: sulle catture
-      // dei fondatori Medora diceva di non sapere che Urano fosse retrogrado,
-      // e chiedeva chi l'avesse scritto, a chi l'aveva appena letto
-      // nell'Oroscopo. Assente quando oggi non c'e' niente: l'istruzione a
-      // profilo vuoto, e la sua impronta, non cambiano.
-      if (natal.responsiDiOggi != null) ...[natal.responsiDiOggi!, ''],
-      _regolaDellAncoraggio(ancoraggi,
-          insisti: insistiSullAncoraggio, primaRisposta: primaRisposta),
-      // LO STESSO DATO, TRE LENTI. Senza questa riga tutti e tre dicevano il
-      // cielo allo stesso modo, e a rimetterci era Medora, per cui il cielo
-      // era la firma.
-      if (ancoraggi.isNotEmpty) ...['', LenteDelCielo.istruzionePer(maestro)],
-      // **CIO' CHE ARRIVA. Ordine CQ voce 2.15**, 4 settembre 2026, e chiude
-      // la regola 8 del fondatore: i Maestri devono sapere gli eventi in
-      // arrivo e il prossimo passo del Cammino. Il motore delle date esisteva
-      // da tre ordini e nessuno lo portava qui dentro.
-      if (_cioCheArriva(natal).isNotEmpty) ...['', _cioCheArriva(natal)],
-      '',
-      _memoryContext(memory),
+      _regoleDiLingua(),
       // LA LUNGHEZZA SI CHIEDE, non si lascia decidere al tetto.
       //
       // Un tetto che taglia produce un moncone, e la persona lo legge come
@@ -450,6 +442,54 @@ class MaestroPersona {
       // legge. Non e' un contenuto premium, e' la cosa che una persona di
       // fretta legge al posto di tutto il resto.
       if (!seguito) ...['', ConsiglioFinale.istruzione],
+      // **DOPO L'ULTIMA RIGA, IL SEGUITO. Ordine EX voce 04.** Qui, accanto
+      // alla regola che dice "l'ultima": al banco finale il modello si
+      // fermava sulla riga col carattere speciale e il seguito arrivava in 6
+      // risposte su 24.
+      if (conSeguito && !seguito && !nelLive)
+        '- Quella riga è l\'ultima della risposta; dopo di lei scrivi sempre '
+            '${IlSeguitoNascosto.segno} e il seguito, come spiegato in fondo.',
+      // **DETTA A VOCE, NEL LIVE, TRE FRASI. Ordine EN voce 01.** Nel primo
+      // giro del collaudo la misura in parole non ha accorciato niente: con
+      // "circa trentacinque parole" Medora ne ha scritte centodieci, perche'
+      // la struttura della risposta chiede sintesi, testo narrato e chiusura.
+      // Un numero di frasi il modello lo conta.
+      if (nelLive) ...['', rispostaDettaAVoce],
+      '',
+      // --- da qui, cio' che e' di questa persona e di questo turno.
+      bloccoDiCortesia(profile),
+      '',
+      if (natalBlock.isNotEmpty) ...[natalBlock, ''],
+      // **I RESPONSI CHE LA PERSONA HA LETTO OGGI. Ordine EV voce 04.** Il
+      // Maestro non nega mai un fatto che l'app ha mostrato: sulle catture
+      // dei fondatori Medora diceva di non sapere che Urano fosse retrogrado,
+      // e chiedeva chi l'avesse scritto, a chi l'aveva appena letto
+      // nell'Oroscopo. Assente quando oggi non c'e' niente: l'istruzione a
+      // profilo vuoto, e la sua impronta, non cambiano.
+      if (natal.responsiDiOggi != null) ...[natal.responsiDiOggi!, ''],
+      _regolaDellAncoraggio(ancoraggi,
+          insisti: insistiSullAncoraggio, primaRisposta: primaRisposta),
+      // LO STESSO DATO, TRE LENTI. Senza questa riga tutti e tre dicevano il
+      // cielo allo stesso modo, e a rimetterci era Medora, per cui il cielo
+      // era la firma.
+      if (ancoraggi.isNotEmpty) ...['', LenteDelCielo.istruzionePer(maestro)],
+      // **CIO' CHE ARRIVA. Ordine CQ voce 2.15**, 4 settembre 2026, e chiude
+      // la regola 8 del fondatore: i Maestri devono sapere gli eventi in
+      // arrivo e il prossimo passo del Cammino. Il motore delle date esisteva
+      // da tre ordini e nessuno lo portava qui dentro.
+      if (_cioCheArriva(natal).isNotEmpty) ...['', _cioCheArriva(natal)],
+      '',
+      _memoryContext(memory),
+      // **IL RIASSUNTO BREVE DELLA CONVERSAZIONE DI PRIMA. Ordine EX voce
+      // 09.** La storia che arriva al modello e' degli ultimi quattro scambi;
+      // cio' che la persona ha scritto prima, in questa conversazione, arriva
+      // qui, accorciato e senza le risposte del Maestro.
+      if (scrittoPrima.isNotEmpty) ...[
+        '',
+        'PRIMA, IN QUESTA CONVERSAZIONE, LA PERSONA TI HA SCRITTO (dal più '
+            'vecchio; tienilo presente come la memoria, senza ripeterlo):',
+        for (final r in scrittoPrima) '- $r',
+      ],
       // **LE RIGHE GIA' SCRITTE, PER NOME.** Ordine EJ voce 05: la regola
       // "non ripetere una riga gia' scritta" non bastava, e Medora ha scritto
       // la stessa riga d'oro tre volte in sei scambi del collaudo EJ.
@@ -458,12 +498,6 @@ class MaestroPersona {
         '',
         ConsiglioFinale.righeGiaScritte(testiGiaDetti),
       ],
-      // **DETTA A VOCE, NEL LIVE, TRE FRASI. Ordine EN voce 01.** Nel primo
-      // giro del collaudo la misura in parole non ha accorciato niente: con
-      // "circa trentacinque parole" Medora ne ha scritte centodieci, perche'
-      // la struttura della risposta chiede sintesi, testo narrato e chiusura.
-      // Un numero di frasi il modello lo conta.
-      if (nelLive) ...['', rispostaDettaAVoce],
       // **LA RISPOSTA APPENA RIPETUTA, PER NOME. Ordine EN voce 06.** Arriva
       // solo quando il controller ha visto la risposta nuova ricalcare una
       // gia' data, e la chiede di nuovo.
@@ -501,6 +535,12 @@ class MaestroPersona {
         '',
         SeguitoDellaLettura.istruzione(rispostaGiaData),
       ],
+      // **IL SEGUITO DA SCOPRIRE, per ultimo. Ordine EX voce 04.** Solo nella
+      // prima risposta della chat scritta, per chi ha il "Vai più a fondo".
+      if (conSeguito && !seguito && !nelLive) ...[
+        '',
+        IlSeguitoNascosto.istruzione,
+      ],
     ].join('\n');
   }
 
@@ -524,12 +564,32 @@ class MaestroPersona {
     required Maestro maestro,
     required UserProfile profile,
     required String correzione,
+    MaestroMemory memory = MaestroMemory.empty,
     bool nelLive = false,
+    String? cieloDelTurno,
   }) =>
       [
         voceDi(maestro),
         '',
         _commonRules(profile),
+        '',
+        // **LA MEMORIA VIAGGIA ANCHE NELLA CORREZIONE.** Al banco della
+        // qualita' una risposta corretta corta perdeva il fatto che la
+        // richiesta intera avrebbe potuto aggiungere: la sintesi e i fatti
+        // costano poche centinaia di token.
+        _memoryContext(memory),
+        // **IL CIELO DEL TURNO VIAGGIA ANCHE NELLA CORREZIONE.** Al banco
+        // finale dell'ordine EX una correzione ha scritto "Giove in Cancro"
+        // per il primo gennaio 2028 (e' in Vergine): la correzione non chiama
+        // la funzione del cielo, e il fatto tolto dalla rete lo rimetteva a
+        // memoria.
+        if (cieloDelTurno != null && cieloDelTurno.trim().isNotEmpty) ...[
+          '',
+          'IL CIELO DI QUESTO TURNO, calcolato dalle effemeridi dell\'app. '
+              'Ogni fatto del cielo della risposta viene solo da qui: non '
+              'dirne nessun altro e non negarne nessuno.',
+          cieloDelTurno,
+        ],
         '',
         MisuraDellaRisposta.perIlTurno(nelLive: nelLive).istruzione,
         '',
@@ -547,6 +607,11 @@ class MaestroPersona {
             'ciò che chiede questa correzione.',
         '',
         correzione,
+        // **IL CONTROLLO DEL MERITO, per ultimo come nella richiesta intera.**
+        // Al primo confronto alla cieca la correzione corta senza questa riga
+        // perdeva due risposte nel merito su ventiquattro.
+        '',
+        LaRispostaNelMerito.primaDiScrivere,
       ].join('\n');
 
   static const String rispostaDettaAVoce = 'LA RISPOSTA È DETTA A VOCE, NEL '

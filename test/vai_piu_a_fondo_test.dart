@@ -104,17 +104,20 @@ void main() {
       expect(contatore.puoiApprofondire(Tier.free), isFalse);
     });
 
-    test('Iniziato tre, Adepto dieci, Illuminato trenta', () {
+    // Ordine EX voce 02: il nome dice i numeri nuovi, erano tre, dieci e
+    // trenta.
+    test('Iniziato due, Adepto due, Illuminato tre', () {
       // **TRENTA, E NON PIU' "SENZA LIMITE".** Ordine CE voce 08: il
       // fondatore ha chiesto che l'illimitato sparisca da ogni cella. Il
       // numero segue il dato del listino, non lo anticipa, e il residuo
       // dell'Illuminato adesso e' un conto vero invece del tetto di
       // correttezza che si usava quando non c'era nessun tetto.
       final contatore = QuestionAllowance();
-      expect(contatore.limiteApprofondimenti(Tier.tier1), 3);
-      expect(contatore.limiteApprofondimenti(Tier.tier2), 10);
-      expect(contatore.limiteApprofondimenti(Tier.tier3), 30);
-      expect(contatore.approfondimentiRimasti(Tier.tier3), 30);
+      // Ordine EX voce 02: 2, 2 e 3, erano 3, 10 e 30.
+      expect(contatore.limiteApprofondimenti(Tier.tier1), 2);
+      expect(contatore.limiteApprofondimenti(Tier.tier2), 2);
+      expect(contatore.limiteApprofondimenti(Tier.tier3), 3);
+      expect(contatore.approfondimentiRimasti(Tier.tier3), 3);
     });
 
     test('Una lettura intera NON consuma una domanda del giorno', () {
@@ -124,7 +127,8 @@ void main() {
       expect(contatore.remaining(Tier.tier1), domandePrima,
           reason: 'se consumasse una domanda la persona esiterebbe, e '
               'l\'esitazione uccide l\'intimita\'');
-      expect(contatore.approfondimentiRimasti(Tier.tier1), 2);
+      // Ordine EX voce 02: due meno uno, erano tre meno uno.
+      expect(contatore.approfondimentiRimasti(Tier.tier1), 1);
     });
 
     test('I due budget ribaltano insieme, perche\' il giorno e\' lo stesso',
@@ -133,9 +137,10 @@ void main() {
       final contatore = QuestionAllowance(clock: () => oggi);
       contatore.record(Tier.tier1);
       contatore.registraApprofondimento(Tier.tier1);
-      expect(contatore.approfondimentiRimasti(Tier.tier1), 2);
+      // Ordine EX voce 02: l'Iniziato ne ha due, erano tre.
+      expect(contatore.approfondimentiRimasti(Tier.tier1), 1);
       oggi = DateTime(2026, 8, 3, 1, 0);
-      expect(contatore.approfondimentiRimasti(Tier.tier1), 3);
+      expect(contatore.approfondimentiRimasti(Tier.tier1), 2);
       expect(contatore.usedToday(), 0);
     });
 
@@ -159,7 +164,10 @@ void main() {
     test('Finito il budget, la lettura resta breve e non si legge oltre',
         () async {
       final contatore = QuestionAllowance();
-      for (var i = 0; i < 3; i++) {
+      // Ordine EX voce 02: l'Iniziato ha due approfondimenti, erano tre; il
+      // budget si brucia col suo numero esatto, e prima dell'ultimo si puo'.
+      for (var i = 0; i < 2; i++) {
+        expect(contatore.puoiApprofondire(Tier.tier1), isTrue);
         contatore.registraApprofondimento(Tier.tier1);
       }
       expect(contatore.puoiApprofondire(Tier.tier1), isFalse);

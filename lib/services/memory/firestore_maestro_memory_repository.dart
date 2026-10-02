@@ -349,6 +349,8 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
         'ripiego': m.ripiego,
         'approfondita': m.approfondita,
         if (m.seguito != null) 'seguito': m.seguito,
+        // Ordine EX voce 04: il seguito scritto e non ancora scoperto.
+        if (m.seguitoNascosto != null) 'seguitoNascosto': m.seguitoNascosto,
         if (m.autore != null) 'autore': m.autore!.id,
         if (m.intentId != null) 'intentId': m.intentId,
         if (m.tipo != null) 'tipo': m.tipo!.name,
@@ -462,6 +464,7 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
       ripiego: (data['ripiego'] as bool?) ?? false,
       approfondita: (data['approfondita'] as bool?) ?? false,
       seguito: data['seguito'] as String?,
+      seguitoNascosto: data['seguitoNascosto'] as String?,
       intentId: data['intentId'] as String?,
       autore: _primoDove(Maestro.values, (m) => m.id == data['autore']),
       tipo: _primoDove(TipoDiMessaggio.values, (t) => t.name == data['tipo']),

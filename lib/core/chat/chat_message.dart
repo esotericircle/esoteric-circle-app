@@ -51,6 +51,7 @@ class ChatMessage {
     this.ripiego = false,
     this.approfondita = false,
     this.seguito,
+    this.seguitoNascosto,
     this.seguitoInArrivo = false,
     this.tipo,
     this.intentId,
@@ -103,6 +104,12 @@ class ChatMessage {
   /// corpo e la riga del consiglio, e un testo incollato in coda finirebbe
   /// SOTTO il consiglio, che e' esattamente cio' che non deve succedere.
   final String? seguito;
+
+  /// **IL SEGUITO SCRITTO E NON ANCORA SCOPERTO. Ordine EX voce 04.** Il
+  /// Maestro lo scrive insieme alla risposta, per chi ha il "Vai più a
+  /// fondo" nel piano; al tocco diventa [seguito] senza chiamare nessuno.
+  /// Nullo quando non c'e', e allora il tocco lo chiede come prima.
+  final String? seguitoNascosto;
 
   /// VERO MENTRE IL SEGUITO STA ARRIVANDO, e il testo resta dov'e'.
   ///
@@ -172,6 +179,7 @@ class ChatMessage {
     bool? ripiego,
     bool? approfondita,
     String? seguito,
+    String? seguitoNascosto,
     bool? seguitoInArrivo,
   }) {
     return ChatMessage(
@@ -186,6 +194,7 @@ class ChatMessage {
       ripiego: ripiego ?? this.ripiego,
       approfondita: approfondita ?? this.approfondita,
       seguito: seguito ?? this.seguito,
+      seguitoNascosto: seguitoNascosto ?? this.seguitoNascosto,
       seguitoInArrivo: seguitoInArrivo ?? this.seguitoInArrivo,
       tipo: tipo,
       intentId: intentId,

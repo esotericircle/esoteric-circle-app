@@ -90,7 +90,9 @@ void main() {
   });
 
   group('I tetti governano l\'ACCESSO, non la produzione', () {
-    test('Tre, dieci, trenta, dal listino e non da qui', () {
+    // Ordine EX voce 02: il nome dice i numeri nuovi, erano tre, dieci e
+    // trenta.
+    test('Due, due, tre, dal listino e non da qui', () {
       // Un solo meccanismo di gating: `PlanCatalog`, la stessa matrice che
       // dice chi ha la memoria dei Maestri.
       //
@@ -106,15 +108,18 @@ void main() {
       expect(
           PlanCatalog.limiteGiornaliero(
               PlanCatalog.rigaApprofondimenti, Tier.tier1),
-          3);
+          // Ordine EX voce 02: due all'Iniziato, erano tre.
+          2);
       expect(
           PlanCatalog.limiteGiornaliero(
               PlanCatalog.rigaApprofondimenti, Tier.tier2),
-          10);
+          // Ordine EX voce 02: due all'Adepto, erano dieci.
+          2);
       expect(
           PlanCatalog.limiteGiornaliero(
               PlanCatalog.rigaApprofondimenti, Tier.tier3),
-          30);
+          // Ordine EX voce 02: tre all'Illuminato, erano trenta.
+          3);
       expect(QuestionAllowance.kTettoDiCorrettezza, 30);
     });
 

@@ -226,8 +226,15 @@ void main() {
           reason: 'il codice nomina "$vietato": il runtime resta Google, '
               'cioe\' Gemini su Vertex, ed e\' la regola d\'oro dello stack');
     }
-    expect(soloCodice.contains('FirebaseAI.vertexAI()'), isTrue,
-        reason: 'la penna deve passare da Vertex');
+    // **LAPIDE, ordine EX voce 06.** Qui si pretendeva il testo esatto
+    // `FirebaseAI.vertexAI()`, cioe' la chiamata senza regione che andava a
+    // us-central1. La penna passa ancora da Vertex, adesso nella regione dei
+    // dati.
+    expect(
+        soloCodice
+            .contains('FirebaseAI.vertexAI(location: LaRegioneDeiDati.regione)'),
+        isTrue,
+        reason: 'la penna deve passare da Vertex, nella regione dei dati');
   });
 
   test('CG.11: la riga della matrice dice la lettura dal Tier 1', () {
