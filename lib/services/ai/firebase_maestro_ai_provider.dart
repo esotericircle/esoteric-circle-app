@@ -32,7 +32,8 @@ import 'l_etichetta_della_funzione.dart';
 /// cosi' il domani (gateway di caching, altro fornitore) non tocca la UI.
 ///
 /// Riferimento: regola d'oro dello stack e note di runtime C3.
-class FirebaseMaestroAiProvider implements MaestroAiProvider {
+class FirebaseMaestroAiProvider
+    implements MaestroAiProvider, LaCorrezioneCorta {
   FirebaseMaestroAiProvider({
     FirebaseAI? ai,
     this.chatModel = kMaestroChatModel,
@@ -275,6 +276,53 @@ class FirebaseMaestroAiProvider implements MaestroAiProvider {
     // LA RIPULITURA AL CONFINE. Il vincolo nella persona regge quasi sempre, e
     // "quasi" non basta per una cosa che dipende da un modello: qui e' l'ultima
     // riga prima dello schermo.
+    return TestoDelResponso.pulisci(text);
+  }
+
+  @override
+  bool get correggeCorto => true;
+
+  /// **LA CORREZIONE CORTA. Ordine EX voce 07.** Una chiamata sola, senza
+  /// conversazione e senza funzioni del cielo: l'istruzione della
+  /// correzione (`MaestroPersona.istruzioneDellaCorrezione`), la domanda e la
+  /// risposta da riscrivere. Al banco della qualita' una richiesta intera
+  /// della chat portava da 8.600 a 8.900 token in ingresso, e le reti ne
+  /// chiedevano una seconda in 18 casi su 30.
+  @override
+  Future<String> correggi({
+    required Maestro maestro,
+    required UserProfile profile,
+    required String domanda,
+    required String risposta,
+    required String correzione,
+    bool nelLive = false,
+  }) async {
+    final model = _ai.generativeModel(
+      model: modelloDelTurno(nelLive: nelLive, chatModel: chatModel),
+      httpClient: ClientConEtichetta(LeFunzioniDelModello.chatCorrezione),
+      systemInstruction: Content.system(
+        MaestroPersona.istruzioneDellaCorrezione(
+          maestro: maestro,
+          profile: profile,
+          correzione: correzione,
+          nelLive: nelLive,
+        ),
+      ),
+      generationConfig: configurazionePer(
+        MisuraDellaRisposta.perIlTurno(nelLive: nelLive),
+        temperature: 0.9,
+        topP: 0.95,
+      ),
+    );
+    final r = await model.generateContent([
+      Content.text('LA DOMANDA DELLA PERSONA:\n$domanda\n\n'
+          'LA TUA RISPOSTA DA CORREGGERE:\n$risposta'),
+    ]);
+    final text = r.text?.trim();
+    if (text == null || text.isEmpty) {
+      throw const MaestroAiUnavailable('Il Maestro non ha trovato le parole.');
+    }
+    if (eTroncata(r)) throw const MaestroAiTroncata();
     return TestoDelResponso.pulisci(text);
   }
 

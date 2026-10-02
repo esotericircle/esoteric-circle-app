@@ -80,6 +80,10 @@ abstract final class LeFunzioniDelModello {
   static const String chatRisposta = 'chat_risposta';
   static const String chatSeguito = 'chat_seguito';
   static const String chatLive = 'chat_live';
+
+  /// La correzione corta di una risposta scartata da una rete, ordine EX
+  /// voce 07.
+  static const String chatCorrezione = 'chat_correzione';
   static const String interrogaBreve = 'interroga_breve';
   static const String interrogaProfonda = 'interroga_profonda';
   static const String interrogaSintesi = 'interroga_sintesi';
@@ -98,6 +102,7 @@ abstract final class LeFunzioniDelModello {
     chatRisposta,
     chatSeguito,
     chatLive,
+    chatCorrezione,
     interrogaBreve,
     interrogaProfonda,
     interrogaSintesi,

@@ -36,7 +36,7 @@ import '../../core/rituals/rune_cast.dart';
 /// **Un successo che nasconde tre tentativi va detto a chi sviluppa.** Il
 /// conteggio finisce nel pannello di messa a punto, cosi' un problema di quota
 /// resta invisibile alla persona ma non a noi.
-class VoceSorvegliata implements MaestroAiProvider {
+class VoceSorvegliata implements MaestroAiProvider, LaCorrezioneCorta {
   VoceSorvegliata({required MaestroAiProvider voce, required this.registro})
       : _voce = voce;
 
@@ -170,6 +170,42 @@ class VoceSorvegliata implements MaestroAiProvider {
       );
       return prima;
     }
+  }
+
+  /// **LA CORREZIONE CORTA PASSA DALLA SORVEGLIANZA**, ordine EX voce 07,
+  /// quando la voce sorvegliata la offre.
+  @override
+  bool get correggeCorto {
+    final voce = _voce;
+    return voce is LaCorrezioneCorta &&
+        (voce as LaCorrezioneCorta).correggeCorto;
+  }
+
+  @override
+  Future<String> correggi({
+    required Maestro maestro,
+    required UserProfile profile,
+    required String domanda,
+    required String risposta,
+    required String correzione,
+    bool nelLive = false,
+  }) {
+    final voce = _voce;
+    if (voce is! LaCorrezioneCorta) {
+      throw const MaestroAiUnavailable('La voce non sa correggere corto.');
+    }
+    final corta = voce as LaCorrezioneCorta;
+    return _sorvegliando(
+      'correggi',
+      () => corta.correggi(
+        maestro: maestro,
+        profile: profile,
+        domanda: domanda,
+        risposta: risposta,
+        correzione: correzione,
+        nelLive: nelLive,
+      ),
+    );
   }
 
   @override

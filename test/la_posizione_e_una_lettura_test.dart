@@ -123,6 +123,22 @@ void main() {
       'Ricordi il nome del mio cane?': TipoDellaDomanda.aperta,
       'Mia moglie mi ha lasciato. Cosa posso fare per farla tornare?':
           TipoDellaDomanda.aperta,
+      // **LE DOMANDE DI FATTI DEL CIELO SONO APERTE. Ordine EX voce 07.** Al
+      // banco della qualita' la rete le leggeva da si' o no e chiedeva di
+      // nuovo la risposta (11 rigenerazioni su 30 casi), e la seconda
+      // apriva con "Le carte e il tuo cielo dicono di sì: il 20 luglio 1969
+      // la Luna era in fase crescente".
+      'In che segno è la Luna oggi, e in che fase?': TipoDellaDomanda.aperta,
+      'Che fase aveva la Luna il 20 luglio 1969?': TipoDellaDomanda.aperta,
+      'Dov\'è Venere oggi?': TipoDellaDomanda.aperta,
+      'Com\'è il cielo di oggi per me?': TipoDellaDomanda.aperta,
+      'In che segno era Saturno il primo gennaio 2000?':
+          TipoDellaDomanda.aperta,
+      'Che aspetti ci sono oggi fra i pianeti?': TipoDellaDomanda.aperta,
+      // E le domande del si', del no e della scelta restano com'erano.
+      'Che faccio, parto o resto?': TipoDellaDomanda.scelta,
+      'Il 15 novembre è un buon giorno per firmare un contratto?':
+          TipoDellaDomanda.siONo,
     };
     for (final e in attesi.entries) {
       expect(LaPosizioneDellaLettura.tipo(e.key), e.value, reason: e.key);

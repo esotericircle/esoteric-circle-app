@@ -232,3 +232,25 @@ class UnavailableMaestroAiProvider implements MaestroAiProvider {
     return null;
   }
 }
+
+/// **LA CORREZIONE CORTA. Ordine EX voce 07.**
+///
+/// Una voce che sa riscrivere una risposta gia' data con una richiesta
+/// corta: la domanda, la risposta e la correzione, senza l'istruzione
+/// intera, la conversazione e le funzioni del cielo. Il controller della
+/// chat la usa quando una rete scarta una risposta; una voce che non la
+/// offre (le voci finte delle prove, la voce inerte) fa come prima, con la
+/// richiesta intera.
+abstract interface class LaCorrezioneCorta {
+  /// Vero quando la correzione corta si puo' chiedere davvero.
+  bool get correggeCorto;
+
+  Future<String> correggi({
+    required Maestro maestro,
+    required UserProfile profile,
+    required String domanda,
+    required String risposta,
+    required String correzione,
+    bool nelLive = false,
+  });
+}

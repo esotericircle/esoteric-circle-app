@@ -42,6 +42,7 @@ import '../../../core/astro/il_cielo_detto.dart';
 import '../../../core/chat/immersive_intents.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../services/ai/maestro_ai_provider.dart';
+import '../../../services/ai/maestro_persona.dart';
 import '../../../services/ai/registro_dei_guasti.dart';
 import '../../../services/memory/maestro_memory_repository.dart';
 import '../../../core/config/app_flags.dart';
@@ -705,6 +706,51 @@ class MaestroChatController extends ChangeNotifier {
             insistiSullAncoraggio: insisti,
           ));
 
+  /// **LA RISPOSTA SCARTATA SI CORREGGE CORTA. Ordine EX voce 07.**
+  ///
+  /// Le reti del turno (la prima frase senza posizione, le certezze, la
+  /// risposta da programma, quella che dice solo di aspettare, quella gia'
+  /// data) chiedevano di nuovo TUTTO: l'istruzione intera, la conversazione
+  /// e le funzioni del cielo, cioe' da 8.600 a 8.900 token in ingresso a
+  /// richiesta. Al banco della qualita' succedeva in 18 casi su 30. Adesso la
+  /// voce riceve la domanda, la sua risposta e la [correzione], e la
+  /// riscrive. Se la voce non sa correggere corto (le voci finte delle
+  /// prove) o la correzione non arriva, si fa come prima con
+  /// [allaVecchia], la richiesta intera.
+  Future<String> _correggiCorto({
+    required Maestro chi,
+    required String domanda,
+    required String risposta,
+    required String correzione,
+    required Future<String> Function() allaVecchia,
+  }) async {
+    final ai = _ai;
+    if (ai is LaCorrezioneCorta && (ai as LaCorrezioneCorta).correggeCorto) {
+      try {
+        correzioniCorte++;
+        return await (ai as LaCorrezioneCorta).correggi(
+          maestro: chi,
+          profile: _profile,
+          domanda: domanda,
+          risposta: risposta,
+          correzione: correzione,
+          nelLive: nelLive,
+        );
+      } on MaestroAiUnavailable catch (errore, traccia) {
+        annotaGuastoInnocuo(
+            'correzione corta non riuscita, ${chi.displayName}: si chiede '
+            'la risposta intera',
+            errore,
+            traccia);
+      }
+    }
+    return allaVecchia();
+  }
+
+  /// Quante correzioni corte sono partite, in questa sessione. Ordine EX
+  /// voce 07.
+  int correzioniCorte = 0;
+
   @override
   void dispose() {
     testoInArrivo.dispose();
@@ -1347,14 +1393,21 @@ class MaestroChatController extends ChangeNotifier {
           !LaRispostaCheChiede.eUnaDomanda(reply) &&
           !LaPosizioneDellaLettura.rispetta(chiRisponde, userText, reply)) {
         rigenerazioniPerPosizione++;
-        final altra = await _chiediAlMaestro(
+        final laCorrezione = LaPosizioneDellaLettura.correzione(
+            chiRisponde, LaPosizioneDellaLettura.primaFraseDi(reply),
+            domanda: userText);
+        final altra = await _correggiCorto(
           chi: chiRisponde,
-          storia: priorHistory,
           domanda: userText,
-          natal: natal,
-          correzione: LaPosizioneDellaLettura.correzione(
-              chiRisponde, LaPosizioneDellaLettura.primaFraseDi(reply),
-              domanda: userText),
+          risposta: reply,
+          correzione: laCorrezione,
+          allaVecchia: () => _chiediAlMaestro(
+            chi: chiRisponde,
+            storia: priorHistory,
+            domanda: userText,
+            natal: natal,
+            correzione: laCorrezione,
+          ),
         );
         if (LaPosizioneDellaLettura.rispetta(chiRisponde, userText, altra)) {
           reply = altra;
@@ -1382,13 +1435,20 @@ class MaestroChatController extends ChangeNotifier {
       final certe = certeIn(reply);
       if (certe.isNotEmpty && !LaRispostaCheChiede.eUnaDomanda(reply)) {
         rigenerazioniPerCertezza++;
+        final laCorrezione = LeCertezzeDelMaestro.correzione(certe);
         final altra = LeCertezzeDelMaestro.senzaIlFattoDopoLaPosizione(
-            await _chiediAlMaestro(
+            await _correggiCorto(
           chi: chiRisponde,
-          storia: priorHistory,
           domanda: userText,
-          natal: natal,
-          correzione: LeCertezzeDelMaestro.correzione(certe),
+          risposta: reply,
+          correzione: laCorrezione,
+          allaVecchia: () => _chiediAlMaestro(
+            chi: chiRisponde,
+            storia: priorHistory,
+            domanda: userText,
+            natal: natal,
+            correzione: laCorrezione,
+          ),
         ));
         // **LA POSIZIONE NON SI PERDE TOGLIENDO LA CERTEZZA**, ordine ES
         // voce 19, terzo giro. Con la rete delle certezze allineata ai
@@ -1468,12 +1528,19 @@ class MaestroChatController extends ChangeNotifier {
       // la prima e il guasto resta nel registro.
       if (LaRispostaDaProgramma.segno(reply) != null) {
         rigenerazioniPerProgramma++;
-        final altra = await _chiediAlMaestro(
+        final daNonDare = reply;
+        final altra = await _correggiCorto(
           chi: chiRisponde,
-          storia: priorHistory,
           domanda: userText,
-          natal: natal,
-          daProgramma: reply,
+          risposta: daNonDare,
+          correzione: MaestroPersona.rispostaDaProgramma(daNonDare),
+          allaVecchia: () => _chiediAlMaestro(
+            chi: chiRisponde,
+            storia: priorHistory,
+            domanda: userText,
+            natal: natal,
+            daProgramma: daNonDare,
+          ),
         );
         if (LaRispostaDaProgramma.segno(altra) == null) {
           reply = altra;
@@ -1498,12 +1565,19 @@ class MaestroChatController extends ChangeNotifier {
       // riga d'oro, perche' la risposta nuova passi anche da loro.
       if (LaRispostaDAttesa.segno(reply) != null) {
         rigenerazioniPerAttesa++;
-        final altra = await _chiediAlMaestro(
+        final daNonDare = reply;
+        final altra = await _correggiCorto(
           chi: chiRisponde,
-          storia: priorHistory,
           domanda: userText,
-          natal: natal,
-          daAttesa: reply,
+          risposta: daNonDare,
+          correzione: MaestroPersona.rispostaDAttesa(daNonDare),
+          allaVecchia: () => _chiediAlMaestro(
+            chi: chiRisponde,
+            storia: priorHistory,
+            domanda: userText,
+            natal: natal,
+            daAttesa: daNonDare,
+          ),
         );
         if (LaRispostaDAttesa.segno(altra) == null) {
           reply = altra;
@@ -1539,12 +1613,18 @@ class MaestroChatController extends ChangeNotifier {
           domanda: userText, domandaPrima: domandaPrima);
       if (ripetuta != null) {
         rigenerazioniPerRipetizione++;
-        final altra = await _chiediAlMaestro(
+        final altra = await _correggiCorto(
           chi: chiRisponde,
-          storia: priorHistory,
           domanda: userText,
-          natal: natal,
-          daNonRipetere: ripetuta,
+          risposta: reply,
+          correzione: MaestroPersona.rispostaDaNonRipetere(ripetuta),
+          allaVecchia: () => _chiediAlMaestro(
+            chi: chiRisponde,
+            storia: priorHistory,
+            domanda: userText,
+            natal: natal,
+            daNonRipetere: ripetuta,
+          ),
         );
         if (LaRispostaRipetuta.inComune(altra, ripetuta) <
             LaRispostaRipetuta.inComune(reply, ripetuta)) {

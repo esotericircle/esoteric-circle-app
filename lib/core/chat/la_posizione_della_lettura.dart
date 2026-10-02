@@ -105,9 +105,16 @@ abstract final class LaPosizioneDellaLettura {
     bool comincia(String alternative) =>
         proposizioni.any((p) => _parole(alternative, inizio: true).hasMatch(p));
     if (comincia('quando')) return TipoDellaDomanda.quando;
+    // **LE DOMANDE DI FATTI SONO APERTE**, ordine EX voce 07: "In che segno
+    // è la Luna?", "Che fase aveva?", "Dov'è Venere?", "Com'è il cielo?"
+    // erano lette da sì o no, e la rete chiedeva di nuovo la risposta per
+    // farle dire "di sì".
     if (comincia('perch[eé]|come|che cosa|cosa|qual[ei]?|quali|chi|dove|'
         'quanto|quanta|quanti|in che modo|ricordi|ti ricordi|sai|conosci|'
-        'mi hai detto')) {
+        'mi hai detto|in che|a che|di che|da che|che (?:fase|segno|segni|'
+        'grado|gradi|pianeta|pianeti|aspetto|aspetti|luna|giorno|ora|'
+        'transito|transiti|carta|carte|runa|rune|tempo)|'
+        "dov['’](?:è|era|erano|sono|sarà)|com['’](?:è|era|erano|sarà)")) {
       return TipoDellaDomanda.aperta;
     }
     if (_siONo.hasMatch(frase)) return TipoDellaDomanda.scelta;

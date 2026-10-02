@@ -511,6 +511,44 @@ class MaestroPersona {
   /// "Quanto tempo mi serve per decidere?" con "La decisione è già tua. Ogni
   /// momento è soglia.", Aura a quasi ogni turno con il respiro. La misura
   /// corta resta; cambia che cosa ci sta dentro.
+  /// **L'ISTRUZIONE DELLA CORREZIONE CORTA. Ordine EX voce 07.**
+  ///
+  /// Quando una rete del controller scarta una risposta (la prima frase
+  /// senza posizione, una certezza, una risposta da programma, una che dice
+  /// solo di aspettare, una gia' data), la risposta non si rifa' da capo con
+  /// l'istruzione intera, la conversazione e le funzioni del cielo: il
+  /// modello riceve la sua risposta e la correzione, e la riscrive. Le regole
+  /// che fanno il responso restano tutte, quelle della persona e del cielo
+  /// arrivano gia' dentro la risposta da correggere.
+  static String istruzioneDellaCorrezione({
+    required Maestro maestro,
+    required UserProfile profile,
+    required String correzione,
+    bool nelLive = false,
+  }) =>
+      [
+        voceDi(maestro),
+        '',
+        _commonRules(profile),
+        '',
+        MisuraDellaRisposta.perIlTurno(nelLive: nelLive).istruzione,
+        '',
+        TestoDelResponso.vincoloDiFormato,
+        '',
+        regolaDeiDueStrati,
+        '',
+        ConsiglioFinale.istruzione,
+        if (nelLive) ...['', rispostaDettaAVoce],
+        '',
+        'LA RISPOSTA DA CORREGGERE. Ti arrivano la domanda della persona e la '
+            'risposta che hai scritto. Riscrivila intera, nella tua voce: '
+            'tieni tutto ciò che è giusto, i fatti del cielo, ciò che sai '
+            'della persona, la lettura e il consiglio finale, e cambia solo '
+            'ciò che chiede questa correzione.',
+        '',
+        correzione,
+      ].join('\n');
+
   static const String rispostaDettaAVoce = 'LA RISPOSTA È DETTA A VOCE, NEL '
       'LIVE:\n'
       '- Al massimo tre frasi brevi, poi la riga con ✦ quando c\'è un passo '
