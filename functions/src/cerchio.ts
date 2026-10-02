@@ -18,7 +18,9 @@ import {
   budgetValido,
   decidi,
   pianoValido,
+  quantiValidi,
   restaOggi,
+  UNITA_DEL_RISCATTO,
 } from "./budget";
 import {
   CamminoCustodito,
@@ -656,6 +658,8 @@ export const consumaDelGiorno = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
       "Ogni consumo porta il suo identificativo."
     );
   }
+  // **LE CARTE DI UNA STESA SI CONTANO INSIEME**, ordine EX voce 02.
+  const quanti = quantiValidi(budget, request.data?.quanti);
   const piano = await pianoDi(uid);
   const giorno = chiaveDelGiorno();
 
@@ -680,14 +684,15 @@ export const consumaDelGiorno = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
       };
     }
 
-    const esito = decidi(budget, piano, spesi[budget] ?? 0);
+    const esito = decidi(budget, piano, spesi[budget] ?? 0, quanti);
     if (esito.concesso) {
-      spesi[budget] = (spesi[budget] ?? 0) + 1;
+      spesi[budget] = (spesi[budget] ?? 0) + quanti;
       tx.set(contatoriDoc(uid), {giorno, spesi});
     }
     tx.set(segno, {
       budget,
       giorno,
+      quanti,
       concesso: esito.concesso,
       quando: FieldValue.serverTimestamp(),
     });
@@ -890,7 +895,9 @@ export const muoviGliEos = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     const budgetRiscattato =
       causale === "spesa" ? budgetDelRiscatto(motivo) : null;
     if (budgetRiscattato !== null) {
-      spesiOggi[budgetRiscattato] = (spesiOggi[budgetRiscattato] ?? 0) - 1;
+      spesiOggi[budgetRiscattato] =
+        (spesiOggi[budgetRiscattato] ?? 0) -
+        (UNITA_DEL_RISCATTO[budgetRiscattato] ?? 1);
       tx.set(contatoriDoc(uid), {giorno, spesi: spesiOggi});
     }
 

@@ -52,6 +52,8 @@ import '../../core/condivisione/premio_della_condivisione.dart';
 import '../../core/entitlement/entitlement_service.dart';
 import '../../core/entitlement/tier.dart';
 import '../../core/entitlement/question_allowance.dart';
+import '../../core/entitlement/plan_catalog.dart';
+import '../../core/tarot/tarot_spread_type.dart';
 import '../pricing/upgrade_invite.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/components/riga_del_residuo.dart';
@@ -839,8 +841,11 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
         mounted && (_stoPerRiflettere || _attesa != StatoDellAttesa.assente));
     final borsa = _forse<QuestionAllowance>(context);
     if (borsa != null) {
+      // **LE CARTE, NON LA STESA**, ordine EX voce 02: si contano tutte le
+      // carte della stesa letta.
       borsa.registraStesa(
-          _forse<EntitlementService>(context)?.tier ?? Tier.free);
+          _forse<EntitlementService>(context)?.tier ?? Tier.free,
+          carte: _spread.cards.length);
     }
     final carte = _spread.cards;
     unawaited(RegiaDelCammino.dopoUnGesto(
@@ -936,8 +941,17 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
     // `test/il_gating_della_stesa_test.dart`, che legge `lib/app.dart`.
     if (borsa == null) return true;
     final piano = _forse<EntitlementService>(context)?.tier ?? Tier.free;
-    if (borsa.puoiStendere(piano)) return true;
+    final carte = _spread.cards.length;
+    if (borsa.puoiStendere(piano, carte: carte)) return true;
     final limite = borsa.limiteStese(piano);
+    final restano = borsa.steseRimaste(piano) ?? 0;
+    // Il numero del livello dopo, letto dalla matrice: all'Illuminato non c'e'
+    // un livello dopo, e la frase non promette niente.
+    const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
+    final dopo = ordine.indexOf(piano) + 1;
+    final piuInSu = dopo < ordine.length
+        ? PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStese, ordine[dopo])
+        : null;
     final riscatto = corredoDelRiscatto(
       context,
       budget: 'stese',
@@ -952,20 +966,23 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       // **DUE SITUAZIONI DIVERSE MERITANO DUE FRASI DIVERSE.** Un piano che
       // le stese complete le compra in Eos non ha "finito" niente: non aveva
       // niente da finire, e dirgli che il giorno e' esaurito sarebbe falso.
-      title: limite == 0
-          ? 'La stesa completa si apre con gli Eos'
-          : 'Le stese di oggi sono finite',
-      message: limite == 0
-          ? 'Nel tuo piano la stesa completa non è compresa: puoi aprirne '
-              'una con gli Eos, oppure salire di livello nel Cerchio, dove '
-              'le stese sono comprese ogni giorno.'
-          : limite == 1
-              ? 'La stesa del giorno è stata fatta. Puoi riscattarne una con '
-                  'gli Eos, oppure salire di livello nel Cerchio: '
-                  'dall\'Illuminato le stese sono senza limiti.'
-              : 'Le $limite stese del giorno sono state fatte. Puoi '
-                  'riscattarne una con gli Eos, oppure salire di livello nel '
-                  'Cerchio: dall\'Illuminato le stese sono senza limiti.',
+      // **I NUMERI VERI, ordine EX voce 02.** Le frasi di prima dicevano
+      // "dall'Illuminato le stese sono senza limiti" (l'Illuminato ne aveva
+      // venti) e prevedevano un piano a zero stese che non esiste piu'.
+      title: restano > 0
+          ? 'Le carte di oggi non bastano'
+          : 'Le carte di oggi sono finite',
+      message: [
+        restano > 0
+            ? 'Ti ${restano == 1 ? 'resta una carta' : 'restano $restano carte'} '
+                'e questa stesa ne chiede $carte.'
+            : 'Le ${limite ?? 0} carte del giorno sono state estratte.',
+        piuInSu == null
+            ? 'Puoi riscattare una stesa con gli Eos, oppure tornare domani.'
+            : 'Puoi riscattare una stesa con gli Eos, oppure salire di '
+                'livello nel Cerchio: dal livello successivo le carte del '
+                'giorno sono $piuInSu.',
+      ].join(' '),
       riscattoLabel: riscatto.label,
       onRiscatta: riscatto.azione,
     );
@@ -1364,6 +1381,7 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             onToggle: () => setState(() => _setupAperto = !_setupAperto),
             onChanged: (s) => setState(() => _setup = s),
             onLocked: _showComingSoon,
+            piano: _forse<EntitlementService>(context)?.tier ?? Tier.free,
           ),
           const SizedBox(height: SpacingTokens.sm),
         ],
@@ -1843,6 +1861,20 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   }
 
   void _showComingSoon(String voce) {
+    // **LA STESA CHE IL PIANO NON APRE NON "ARRIVA PRESTO"**, ordine EX voce
+    // 02: la stesa da dieci carte, quando sara' disponibile, si apre
+    // dall'Adepto, e a chi non lo e' si dice come aprirla.
+    final tipo =
+        TarotSpreadType.values.where((t) => t.nome == voce).firstOrNull;
+    if (tipo != null && tipo.disponibile) {
+      showUpgradeInvite(
+        context,
+        title: 'La stesa a dieci carte è dell’Adepto',
+        message: 'La stesa a dieci carte si apre dal piano Adepto in su, '
+            'insieme a dieci carte al giorno.',
+      );
+      return;
+    }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('$voce arriva presto nel Cerchio.')),
     );

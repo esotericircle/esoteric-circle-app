@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/entitlement/tier.dart';
 import '../../core/tarot/tarot_spread_type.dart';
 import '../../core/tarot/tarot_topic.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -141,7 +142,12 @@ class TarotSetupPanel extends StatelessWidget {
     required this.onLocked,
     this.aperto = false,
     this.onToggle,
+    this.piano = Tier.tier3,
   });
+
+  /// Il piano della persona: la stesa da dieci carte si apre dall'Adepto.
+  /// Ordine EX voce 02.
+  final Tier piano;
 
   final TarotSetup setup;
   final MaestroPalette palette;
@@ -327,7 +333,7 @@ class TarotSetupPanel extends StatelessWidget {
                       palette: palette,
                       etichetta: (t) => t.breve,
                       sottotitolo: (t) => t.descrizione,
-                      bloccata: (t) => !t.disponibile,
+                      bloccata: (t) => !t.apribileDa(piano),
                       onSelect: (t) => onChanged(setup.copyWith(tipo: t)),
                       onLocked: (t) => onLocked(t.nome),
                     ),

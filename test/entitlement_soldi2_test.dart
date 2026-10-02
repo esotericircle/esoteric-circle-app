@@ -102,22 +102,29 @@ void main() {
 
   group('V7, i limiti di sinastria e tarocchi esistono', () {
     test('La matrice li promette, quindi il codice li sa leggere', () {
-      // Tre sinastrie e una carta al giorno per il Viandante: sono promesse
+      // Tre sinastrie e tre carte al giorno per il Viandante (una carta
+      // fino all'ordine EX voce 02): sono promesse
       // scritte nella matrice, e finche' nessuno le legge sono regali.
       expect(
           PlanCatalog.limiteGiornaliero(PlanCatalog.rigaSinastria, Tier.free),
           3);
+      // Ordine EX voce 02: la carta singola non e' piu' una riga a se', e'
+      // una carta estratta e legge la riga delle carte delle stese, che al
+      // Viandante ne da' tre (la riga "Tarocchi carta singola" ne dava una).
+      expect(PlanCatalog.rigaCartaSingola, PlanCatalog.rigaStese);
       expect(
           PlanCatalog.limiteGiornaliero(
               PlanCatalog.rigaCartaSingola, Tier.free),
-          1);
+          3);
       // **NON PIU" + E + " ILLIMITATI, ordine CE voce 08.** L\'Adepto ha trenta
       // carte singole al giorno e l\'Illuminato cinquanta: numeri ampi, ma
       // numeri.
       expect(
           PlanCatalog.limiteGiornaliero(
               PlanCatalog.rigaCartaSingola, Tier.tier2),
-          30,
+          // Ordine EX voce 02: dieci carte estratte all'Adepto, erano trenta
+          // carte singole.
+          10,
           reason: 'il tetto delle carte singole dell\'Adepto e\' cambiato');
     });
 
@@ -132,10 +139,15 @@ void main() {
       expect(c.puo(RitualQuota.sinastria, Tier.free), isFalse,
           reason: 'la quarta sinastria del Viandante passa lo stesso');
 
-      expect(c.puo(RitualQuota.cartaSingola, Tier.free), isTrue);
-      c.registra(RitualQuota.cartaSingola, Tier.free);
+      // Ordine EX voce 02: la carta singola conta fra le carte estratte, tre
+      // al giorno per il Viandante (era una): tre estrazioni passano, la
+      // quarta no.
+      for (var i = 0; i < 3; i++) {
+        expect(c.puo(RitualQuota.cartaSingola, Tier.free), isTrue);
+        c.registra(RitualQuota.cartaSingola, Tier.free);
+      }
       expect(c.puo(RitualQuota.cartaSingola, Tier.free), isFalse,
-          reason: 'la seconda estrazione dello stesso giorno passa lo stesso');
+          reason: 'la quarta estrazione dello stesso giorno passa lo stesso');
 
       // Il giorno rituale nuovo azzera tutto.
       giorno = DateTime(2026, 7, 31, 10);

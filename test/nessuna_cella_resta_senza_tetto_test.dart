@@ -96,15 +96,16 @@ void main() {
   });
 
   test('i tetti dell\'Illuminato sono ampi, e sono quelli decisi', () {
-    // I numeri li ha scelti Code e stanno scritti nel manifesto con la loro
-    // ragione: ogni tetto e' almeno tre volte quello del piano sotto, e
-    // nessuno e' raggiungibile con un uso umano intensivo.
+    // **LA MATRICE DELL'ORDINE EX, voce EX.02**, approvata dal fondatore il 2
+    // ottobre 2026 ("Si ok, approvo."): i numeri dell'ordine CE voce 08 (50,
+    // 30, 20, 50, 50) li aveva scelti Code; adesso sono quelli della tabella
+    // dell'Architetto. La carta singola e' una carta estratta, nelle stese.
     const attesi = <RigaDelPiano, int>{
-      RigaDelPiano.domande: 50,
-      RigaDelPiano.approfondimenti: 30,
-      RigaDelPiano.confronti: 20,
-      RigaDelPiano.cartaSingola: 50,
-      RigaDelPiano.gettate: 50,
+      RigaDelPiano.domande: 13,
+      RigaDelPiano.approfondimenti: 3,
+      RigaDelPiano.confronti: 3,
+      RigaDelPiano.stese: 15,
+      RigaDelPiano.gettate: 3,
       RigaDelPiano.sinastria: 25,
     };
     final sbagliati = <String>[];

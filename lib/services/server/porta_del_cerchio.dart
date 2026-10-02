@@ -290,6 +290,16 @@ abstract class PortaDelCerchio {
     required String idMovimento,
   });
 
+  /// **CONSUMA PIU' UNITA' INSIEME**, le carte di una stesa. Ordine EX voce
+  /// 02: il server conta tutte le carte o nessuna. Chi non la sovrascrive
+  /// (le porte finte delle prove) consuma come [consuma].
+  Future<EsitoDelConsumo?> consumaQuanti({
+    required String budget,
+    required String idMovimento,
+    required int quanti,
+  }) =>
+      consuma(budget: budget, idMovimento: idMovimento);
+
   /// Muove gli Eos. Torna il saldo nuovo, oppure nullo se non si e' potuto.
   Future<int?> muoviGliEos({
     required String causale,
@@ -475,10 +485,19 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
   Future<EsitoDelConsumo?> consuma({
     required String budget,
     required String idMovimento,
+  }) =>
+      consumaQuanti(budget: budget, idMovimento: idMovimento, quanti: 1);
+
+  @override
+  Future<EsitoDelConsumo?> consumaQuanti({
+    required String budget,
+    required String idMovimento,
+    required int quanti,
   }) async {
     final risposta = await _chiama('consumaDelGiorno', {
       'budget': budget,
       'idMovimento': idMovimento,
+      if (quanti > 1) 'quanti': quanti,
     });
     if (risposta is! Map) return null;
     final resta = risposta['resta'];

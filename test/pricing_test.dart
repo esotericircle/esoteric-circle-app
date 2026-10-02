@@ -59,8 +59,12 @@ void main() {
 
     // I limiti reali di reset compaiono negli highlights, uno per Tier.
     expect(find.text('Sinastria VIP fino a 3 al giorno'), findsOneWidget);
-    expect(find.text('5 domande al giorno ai Maestri'), findsOneWidget);
+    // Ordine EX voce 02: sei domande all'Iniziato, erano cinque.
+    expect(find.text('6 domande al giorno ai Maestri'), findsOneWidget);
     expect(find.text('10 domande al giorno ai Maestri'), findsOneWidget);
+    // Ordine EX voce 02: le carte del giorno si dicono nelle card dei piani.
+    expect(find.text('10 carte di tarocchi al giorno, da stendere come vuoi'),
+        findsOneWidget);
     // **LA DOMANDA AL MAESTRO REALE NON SI OFFRE**, ordine DJ voce 09:
     // nessuna parte dell'app la esegue.
     expect(find.textContaining('Maestro reale'), findsNothing);

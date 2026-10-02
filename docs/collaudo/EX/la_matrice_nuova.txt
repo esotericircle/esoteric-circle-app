@@ -1,0 +1,130 @@
+ORDINE EX VOCE 02, LA MATRICE NUOVA. 2 ottobre 2026.
+
+DOMANDA: "Cmq, partiamo da qui, come dici tu e mettiamo limite delle carte estratte e la stesa a 10 solo dal tier 2 19,99." / "Si ok, approvo."
+
+LA MATRICE DELL'ORDINE E DOVE STA NEL CODICE (Viandante / Iniziato / Adepto / Illuminato)
+
+| Riga | Ordine EX | Prima (666d0745) | Telefono, plan_catalog.dart | Server, budget.ts e live.ts |
+|---|---|---|---|---|
+| Domande | 3/6/10/13 | 3/5/10/50 | 3/6/10/13 al giorno | domande [3, 6, 10, 13] |
+| Vai più a fondo | 0/2/2/3 | 0/3/10/30 | No/2/2/3 al giorno | approfondimenti [0, 2, 2, 3] |
+| Confronti | 0/1/2/3 | 0/3/5/20 | No/1/2/3 al giorno | confronti [0, 1, 2, 3] |
+| Carte estratte | 3/6/10/15 | stese 1/4/7/20 e carta singola 1/3/30/50 | 3/6/10/15 carte al giorno | stese [3, 6, 10, 15], contate a carte (decidi con la quantità) |
+| Stesa da 10 | solo Adepto e Illuminato | nessuna riga | No/No/Sì/Sì; TarotSpreadType.apribileDa | (la stesa da 10 consuma 10 carte) |
+| Gettate | 1/2/3/3 | 1/20/30/50 | 1/2/3/3 al giorno | gettate [1, 2, 3, 3] |
+| Minuti LIVE | 0/0/60/120 al mese | 0/0/100/250 | No/No/60/120 al mese | MINUTI_DEL_MESE {0, 0, 60, 120} |
+| Discese, segni, sigilli | come oggi | 1/1/1/2, 1 sett/3 sett/1/5, 1/2/3/5 | invariati | invariati |
+
+La riga "Tarocchi carta singola" e' tolta: la carta singola e' una stesa di una carta e consuma una carta del budget delle carte. La riga del listino "Sinastria VIP" (3/5/5/25) l'ordine non la nomina: resta com'e'.
+
+LE RIGHE COME LE LEGGE IL CODICE (PlanCatalog.matrix, stampata il 2 ottobre 2026 da una prova temporanea, tolta dopo)
+  Pubblicità banner inferiore|Sì|No|No|No
+  Carta natale occidentale|Base lettura|Completa + transiti|Completa + transiti|Completa + transiti
+  Soffio del Destino|Sì|Sì|Sì|Sì
+  Arcano dell'Alba|Sì|Sì|Sì|Sì
+  La Runa del Tramonto|Sì|Sì|Sì|Sì
+  Oroscopo settimanale|No|Sì|Sì|Sì
+  Oroscopo completo|Con gli Eos, per un giorno|Sempre|Sempre|Sempre
+  Oroscopo mensile|No|No|Sì|Sì
+  Oroscopo dell’anno|Con gli Eos|Con gli Eos|Sì|Sì, col PDF
+  Oroscopo cinese del giorno|Solo il segno|Sì|Sì|Sì
+  Oroscopo vedico del giorno|Solo il segno|Sì|Sì|Sì
+  Memoria AI dei Maestri|No|Esclusiva|Sì|Sì
+  Oroscopo per gli amici|No|3|10|Senza limite
+  Confronti nel Cerchio|No|1 al giorno|2 al giorno|3 al giorno
+  Domande a un Maestro|3 al giorno|6 al giorno|10 al giorno|13 al giorno
+  Vai più a fondo|No|2 al giorno|2 al giorno|3 al giorno
+  Sintesi comparativa dei Maestri|No|Sì|Sì|Sì
+  Voce AI dei Maestri|No|No|Esclusiva|Sì
+  Minuti di LIVE|No|No|60 al mese|120 al mese
+  Carte estratte nelle stese|3 al giorno|6 al giorno|10 al giorno|15 al giorno
+  Stesa da 10 carte|No|No|Sì|Sì
+  Rune, I-Ching, Pendolo|Eos|Eos scontati|Inclusi|Inclusi
+  Gettate di rune|1 al giorno|2 al giorno|3 al giorno|3 al giorno
+  Discese nel Mondo di Sotto|1 al giorno|1 al giorno|1 al giorno|2 al giorno
+  Segni chiesti all'animale guida|1 a settimana|3 a settimana|1 al giorno|5 al giorno
+  Nutrire l'animale guida|Sempre|Sempre|Sempre|Sempre
+  Sigilli dell'Intenzione vivi insieme|1|2|3|5
+  Caricare i propri sigilli|Sempre|Sempre|Sempre|Sempre
+  Sinastria VIP|3 al giorno|5 al giorno|5 al giorno|25 al giorno
+  Correlazione mood-transiti|No|Sì|Sì|Sì
+  Cosmic Journal|Cammino e Ricordi|Con la lettura del mese|Con la lettura del mese|Con la lettura del mese e il report
+  Notifiche del Cerchio|Un mese di prova, poi gli avvisi del telefono|Sempre, anche a Cerchio chiuso|Sempre, anche a Cerchio chiuso|Sempre, anche a Cerchio chiuso
+  Compatibilità a tre livelli|No|No|No|Esclusiva
+  Albero della Vita dinamico|Contemplativo|Contemplativo|Contemplativo|Dinamico esclusivo
+  Eos in dono alla sottoscrizione|No|500|1.500|3.000
+  Accesso anticipato nuove funzioni|No|No|No|Sì
+  Eos bonus mensili|No|Medio|Alto|Massimo
+
+LE CARD DEI PIANI (PlanCatalog.plans, highlights)
+  free|Accesso al Cerchio con i tre Maestri
+  free|I Doni del giorno: Arcano dell'Alba, Soffio del Destino, Runa del Tramonto e Sigillo del Sogno
+  free|Carta natale occidentale in lettura base
+  free|Tre domande al giorno a un Maestro, senza memoria
+  free|Tre carte di tarocchi al giorno, da stendere come vuoi
+  free|Sinastria VIP fino a 3 al giorno
+  free|Oroscopo del giorno occidentale; il tuo segno cinese e vedico
+  free|Angel Numbers e Angelo Custode una tantum
+  free|Mood Tracker base, senza correlazione transiti
+  free|Con piccolo banner inferiore e video reward opzionali
+  tier1|Tutto di Viandante, senza pubblicità
+  tier1|Memoria AI dei Maestri, esclusiva e persistente
+  tier1|Carta natale completa con transiti dinamici
+  tier1|Oroscopo settimanale
+  tier1|6 domande al giorno ai Maestri
+  tier1|6 carte di tarocchi al giorno, da stendere come vuoi
+  tier1|Sinastria VIP fino a 5 al giorno
+  tier1|Sintesi comparativa dei tre Maestri
+  tier1|Correlazione mood-transiti attiva
+  tier1|Cosmic Journal completo, obiettivi e traguardi per Maestro
+  tier1|L'oroscopo completo, su ogni scheda e ogni giorno
+  tier1|Oroscopo cinese del giorno, dall'almanacco e dai Dieci Dei
+  tier1|Oroscopo vedico del giorno, dalla Luna siderale e dal Rahu Kalam
+  tier1|L’oroscopo per gli amici, fino a tre
+  tier1|2 gettate di rune al giorno; I-Ching e Pendolo a Eos scontati
+  tier2|Tutto di Iniziato
+  tier2|Voce AI dei tre Maestri nel LIVE, 60 minuti al mese
+  tier2|10 domande al giorno ai Maestri
+  tier2|10 carte di tarocchi al giorno, da stendere come vuoi
+  tier2|La stesa a dieci carte, appena arriva nel Cerchio
+  tier2|Sinastria VIP fino a 5 al giorno
+  tier2|3 gettate di rune al giorno; I-Ching e Pendolo inclusi
+  tier2|Oroscopo mensile
+  tier2|Oroscopo dell’anno dal compleanno, con la Rivoluzione Solare
+  tier2|L’oroscopo per gli amici, fino a dieci
+  tier2|Oracoli secondari, meditazioni e frequenze
+  tier2|Transit tracker con alert
+  tier2|Cosmic Journal con AI
+  tier2|Memoria AI profonda, riconosce pattern e cicli
+  tier3|Tutto di Adepto, coi tetti più alti del Cerchio
+  tier3|13 domande ai Maestri al giorno
+  tier3|15 carte di tarocchi al giorno, anche nella stesa a dieci carte
+  tier3|Voce AI dei tre Maestri nel LIVE, 120 minuti al mese
+  tier3|25 sinastrie VIP al giorno
+  tier3|Compatibilità a tre livelli, esclusiva
+  tier3|Albero della Vita dinamico, esclusivo
+  tier3|Memoria anima, sintesi evolutiva
+  tier3|Cosmic Journal completo con AI e report PDF esportabili
+  tier3|Accesso anticipato alle nuove funzioni
+  tier3|Eos bonus mensili al massimo, card dal design premium
+
+Prima del cambio le card portavano 8 numeri diversi dalla matrice nuova (5 domande all'Iniziato, 50 all'Illuminato, 3 carte singole e stese a Eos scontati all'Iniziato, 30 carte singole e 5 stese all'Adepto, 50 stese all'Illuminato, nessun minuto LIVE).
+
+QUANDO OGNI LIMITE FINISCE (cosa vede la persona)
+- Domande, nella chat: la frase del limite del Maestro (FraseDelLimite), senza invito. In "Chiedi ai Maestri": l'invito "Hai posto le tue domande di oggi" col riscatto in Eos (80) e, da questo ordine, il numero vero del cammino dopo ("le domande ai Maestri diventano 6 al giorno"); all'Illuminato "tornare domani". Prima diceva "col Cerchio le domande ai Maestri sono senza limiti", falso per ogni piano (PROVENIENZA IGNOTA: la frase precede la matrice dell'ordine BV, quando l'Illuminato aveva 50).
+- Vai più a fondo: l'invito al piano che lo comprende, o la riga che dice che oggi sono finiti; riscatto in Eos (60). Dall'EX.04 il seguito e' gia' scritto: scoprirlo non chiama il modello, ma consuma ancora il suo budget.
+- Confronti: l'invito col riscatto (150) o, al Viandante, l'invito al piano.
+- Carte delle stese: "Le carte di oggi sono finite" quando non ne resta nessuna, "Le carte di oggi non bastano" quando ne restano meno di quante la stesa ne estrae; riscatto in Eos (150) che rende 3 carte (UNITA_DEL_RISCATTO.stese = 3, kCarteDelRiscatto = 3); nell'invito il numero del piano dopo.
+- Stesa da 10 a Viandante e Iniziato: "La stesa a dieci carte è dell'Adepto". Oggi la stesa da 10 e' ancora "Coming soon" su ogni piano (il motore legge tre posizioni): il cancello del piano e' pronto per quando arriva.
+- Gettate: "Le gettate di oggi sono finite", riscatto in Eos (60) e il numero del piano dopo.
+- Minuti LIVE: la porta del LIVE grigia con "Per questo mese ho finito il fiato"; dall'EX.01 una sessione aperta dura al massimo i secondi rimasti, e alla fine "Il tempo di questa voce è finito".
+
+LE PROVE
+- functions: npm test, 145 su 145 (cerchio.test.ts, coi numeri nuovi e la prova delle carte contate a quantità).
+- test/i_limiti_del_server_sono_quelli_promessi_test.dart: i tetti del server contro la matrice, minuti LIVE compresi.
+- test/nessuna_cella_resta_senza_tetto_test.dart: i tetti dell'Illuminato 13/3/3/15/3/25.
+- Circa venti file di prova aggiornati ai numeri nuovi (entitlement, confronti, vai più a fondo, gating della stesa, ventaglio, gettate, pricing).
+
+STATO
+- Il codice del telefono e del server e' pronto. Il server pubblicato ha ancora i limiti di prima: la pubblicazione delle funzioni consumaDelGiorno, muoviGliEos, statoDelCerchio (e di quelle del LIVE per l'EX.01) aspetta il si' del fondatore.
+- Le catture delle card e delle schermate sul Realme vanno in docs/collaudo/EX/realme/ con la build di collaudo.

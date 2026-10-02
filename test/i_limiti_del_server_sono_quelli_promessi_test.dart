@@ -77,4 +77,27 @@ void main() {
         reason: 'il tetto di correttezza del server non e\' piu\' quello che '
             'il client dichiara in QuestionAllowance');
   });
+
+  test(
+      'ORDINE EX VOCE 02: i minuti del LIVE del server sono quelli della '
+      'matrice', () {
+    final sorgente = File('functions/src/live.ts').readAsStringSync();
+    final blocco = RegExp(
+            r'MINUTI_DEL_MESE: Record<string, number> = \{(.*?)\};',
+            dotAll: true)
+        .firstMatch(sorgente);
+    expect(blocco, isNotNull,
+        reason: 'MINUTI_DEL_MESE non si trova più in functions/src/live.ts');
+    const chiavi = ['free', 'tier1', 'tier2', 'tier3'];
+    for (var i = 0; i < 4; i++) {
+      final cella =
+          RegExp('${chiavi[i]}: (\\d+)').firstMatch(blocco!.group(1)!);
+      expect(cella, isNotNull, reason: 'il server non dice ${chiavi[i]}');
+      final imposto = int.parse(cella!.group(1)!);
+      final promesso = PlanCatalog.minutiDelLiveAlMese(ordine[i]);
+      expect(imposto, promesso,
+          reason: 'per il LIVE col piano ${ordine[i].name} la matrice promette '
+              '$promesso minuti al mese e il server ne concede $imposto');
+    }
+  });
 }

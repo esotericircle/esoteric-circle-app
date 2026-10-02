@@ -1,3 +1,6 @@
+import '../entitlement/plan_catalog.dart';
+import '../entitlement/tier.dart';
+
 /// I tipi di stesa che il Cerchio offre.
 ///
 /// Il nome non e' una stringa scritta a mano nella schermata: e' un dato della
@@ -52,4 +55,10 @@ enum TarotSpreadType {
 
   /// La stesa della Demo, l'unica viva.
   static const TarotSpreadType predefinita = TarotSpreadType.treCarte;
+
+  /// **SE QUESTO PIANO PUO' APRIRE QUESTA STESA.** Ordine EX voce 02: la
+  /// stesa da dieci carte solo dall'Adepto, *"la stesa a 10 solo dal tier 2
+  /// 19,99"*. Una stesa non ancora disponibile non si apre per nessuno.
+  bool apribileDa(Tier tier) =>
+      disponibile && (carte < 10 || PlanCatalog.haLaStesaDaDieci(tier));
 }

@@ -6,7 +6,8 @@ import 'package:flutter_test/flutter_test.dart';
 /// Entitlement: il contatore giornaliero delle domande per tier e i piani.
 void main() {
   group('Contatore delle domande', () {
-    test('Il limite giornaliero segue i tier: 3, 5, 10, 50', () {
+    // Ordine EX voce 02: il nome dice i numeri nuovi, erano 3, 5, 10, 50.
+    test('Il limite giornaliero segue i tier: 3, 6, 10, 13', () {
       final a = QuestionAllowance(clock: () => DateTime(2026, 7, 13));
       // TRE, che e' il numero deciso e approvato dal fondatore.
       //
@@ -17,12 +18,14 @@ void main() {
       // cristallizzata. Il 2 agosto il fondatore ha letto "una domanda al
       // giorno" sul telefono.
       expect(a.dailyLimit(Tier.free), 3);
-      expect(a.dailyLimit(Tier.tier1), 5);
+      // Ordine EX voce 02: sei domande all'Iniziato, erano cinque.
+      expect(a.dailyLimit(Tier.tier1), 6);
       expect(a.dailyLimit(Tier.tier2), 10);
       // **NON PIU' NULLO, ordine CE voce 08.** L'illimitato e' uscito
       // dalla matrice e dalla logica: l'Illuminato ha cinquanta domande
       // al giorno, che nessun uso umano intensivo raggiunge.
-      expect(a.dailyLimit(Tier.tier3), 50);
+      // Ordine EX voce 02: tredici domande all'Illuminato, erano cinquanta.
+      expect(a.dailyLimit(Tier.tier3), 13);
     });
 
     test('Viandante ha tre risposte al giorno, si azzerano il giorno dopo', () {
@@ -41,10 +44,11 @@ void main() {
       expect(allowance.canAsk(Tier.free), isTrue);
     });
 
-    test('L\'Iniziato consuma fino a cinque domande al giorno', () {
+    // Ordine EX voce 02: sei domande all'Iniziato, erano cinque.
+    test('L\'Iniziato consuma fino a sei domande al giorno', () {
       var now = DateTime(2026, 7, 13);
       final allowance = QuestionAllowance(clock: () => now);
-      for (var i = 0; i < 5; i++) {
+      for (var i = 0; i < 6; i++) {
         expect(allowance.canAsk(Tier.tier1), isTrue);
         allowance.record(Tier.tier1);
       }
@@ -64,7 +68,8 @@ void main() {
       allowance.record(Tier.tier3);
       expect(allowance.usedToday(), 2);
       expect(allowance.canAsk(Tier.tier3), isTrue);
-      expect(allowance.remaining(Tier.tier3), 48);
+      // Ordine EX voce 02: tredici meno due, erano cinquanta meno due.
+      expect(allowance.remaining(Tier.tier3), 11);
     });
 
     test('Il confronto a piu Maestri e riservato al Tier a pagamento', () {
@@ -187,7 +192,8 @@ void main() {
       // DIECI dall'ordine DJ voce 09, per ordine del fondatore e non per
       // condensare: la Domanda al Maestro reale non si conta piu' fra cio'
       // che il piano da', perche' nessuna parte dell'app la esegue.
-      expect(PlanCatalog.forTier(Tier.tier3).highlights.length, 10);
+      // UNDICI dall'ordine EX voce 02: i minuti del LIVE dell'Illuminato.
+      expect(PlanCatalog.forTier(Tier.tier3).highlights.length, 11);
     });
 
     test('Gli highlights portano i limiti reali di reset giornaliero', () {
@@ -196,7 +202,7 @@ void main() {
           viandante.any((h) => h.contains('Sinastria VIP fino a 3 al giorno')),
           isTrue);
       expect(
-          viandante.any((h) => h.contains('Una carta di tarocchi al giorno')),
+          viandante.any((h) => h.contains('Tre carte di tarocchi al giorno')),
           isTrue);
       expect(
           viandante
@@ -205,20 +211,19 @@ void main() {
 
       final iniziato = PlanCatalog.forTier(Tier.tier1).highlights;
       expect(iniziato.first, contains('senza pubblicità'));
-      expect(iniziato.any((h) => h.contains('5 domande al giorno ai Maestri')),
+      // Ordine EX voce 02: la matrice nuova.
+      expect(iniziato.any((h) => h.contains('6 domande al giorno ai Maestri')),
           isTrue);
 
       final adepto = PlanCatalog.forTier(Tier.tier2).highlights;
       expect(adepto.any((h) => h.contains('10 domande al giorno ai Maestri')),
           isTrue);
-      expect(
-          adepto
-              .any((h) => h.contains('5 stese complete di tarocchi al giorno')),
+      expect(adepto.any((h) => h.contains('10 carte di tarocchi al giorno')),
           isTrue);
 
       final illuminato = PlanCatalog.forTier(Tier.tier3).highlights;
       expect(
-          illuminato.any((h) => h.contains('50 domande ai Maestri')), isTrue);
+          illuminato.any((h) => h.contains('13 domande ai Maestri')), isTrue);
       // **E NON LA DOMANDA AL MAESTRO REALE**, uscita con l'ordine DJ voce 09.
       expect(illuminato.any((h) => h.contains('Maestro reale')), isFalse);
     });
@@ -250,13 +255,17 @@ void main() {
       // dell'oroscopo, Breve per il Viandante.
       // TRENTACINQUE dalla voce ES.04: la riga dell'oroscopo dell'anno.
       // TRENTASEI dalla voce ES.12: la riga degli amici.
-      expect(PlanCatalog.matrix.length, 36);
+      // TRENTASETTE dall'ordine EX voce 02: la carta singola entra nelle
+      // carte estratte, ed entrano la stesa da dieci carte e i minuti del
+      // LIVE.
+      expect(PlanCatalog.matrix.length, 37);
       final gettate =
           PlanCatalog.matrix.firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di
       // Mauro: erano tre dall'ordine I.
+      // Ordine EX voce 02: 1, 2, 3 e 3.
       expect(gettate.values,
-          ['1 al giorno', '20 al giorno', '30 al giorno', '50 al giorno']);
+          ['1 al giorno', '2 al giorno', '3 al giorno', '3 al giorno']);
       for (final row in PlanCatalog.matrix) {
         expect(row.values.length, 4, reason: 'riga ${row.label}');
       }
@@ -266,7 +275,7 @@ void main() {
       final domande = PlanCatalog.matrix
           .firstWhere((r) => r.label == 'Domande a un Maestro');
       expect(domande.values,
-          ['3 al giorno', '5 al giorno', '10 al giorno', '50 al giorno']);
+          ['3 al giorno', '6 al giorno', '10 al giorno', '13 al giorno']);
       final voce = PlanCatalog.matrix
           .firstWhere((r) => r.label == 'Voce AI dei Maestri');
       expect(voce.values, ['No', 'No', 'Esclusiva', 'Sì']);

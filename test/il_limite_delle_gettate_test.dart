@@ -35,11 +35,12 @@ void main() {
     // **NON PIU" + E + " ILLIMITATE, ordine CE voce 08.** Erano senza tetto dal
     // Tier 1 in su e adesso hanno venti, trenta e cinquanta al giorno:
     // numeri che nessun uso umano intensivo raggiunge, ma numeri.
-    const tetti = {Tier.tier1: 20, Tier.tier2: 30, Tier.tier3: 50};
+    // Ordine EX voce 02: due, tre e tre, erano venti, trenta e cinquanta.
+    const tetti = {Tier.tier1: 2, Tier.tier2: 3, Tier.tier3: 3};
     tetti.forEach((t, atteso) {
       expect(PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate, t), atteso,
           reason: 'il tetto delle gettate per $t non e\' piu\' quello '
-              'deciso dall\'ordine CE voce 08');
+              'deciso dall\'ordine EX voce 02');
     });
   });
 
@@ -116,16 +117,19 @@ void main() {
         reason: 'Il quarto getto ha intaccato un contatore gia\' a zero.');
   });
 
-  testWidgets('al quarto getto il Tier 1 non e\' fermo', (tester) async {
+  // **ORDINE EX VOCE 02: il Tier 1 ha DUE gettate al giorno**, erano venti.
+  // La prova diceva "al quarto getto il Tier 1 non e' fermo", che con due
+  // gettate non e' piu' vero. La regola equivalente: dopo il primo getto, dove
+  // il Viandante e' gia' fermo, il Tier 1 non lo e'; al secondo ha speso le
+  // sue due, e il terzo tocco apre l'invito, mai muto.
+  testWidgets('al primo getto il Tier 1 non e\' fermo, al terzo tocco si\'',
+      (tester) async {
     final borsa = await monta(tester, piano: Tier.tier1);
     await getta(tester);
-    await ancora(tester);
-    await ancora(tester);
-    await ancora(tester);
-    // Quattro getti, nessun invito e nessun lucchetto: la strada e' aperta.
+    // Un getto, nessun invito e nessun lucchetto: la strada e' aperta.
     expect(find.byKey(const Key('upgrade_invite')), findsNothing,
-        reason: 'Il Tier 1 ha le gettate illimitate, e al quarto getto gli '
-            'e\' comparso il gating.');
+        reason: 'Il Tier 1 ha due gettate, e al primo getto gli e\' comparso '
+            'il gating.');
     expect(
         find.descendant(
             of: find.byKey(const Key('rune_recast')),
@@ -133,10 +137,23 @@ void main() {
         findsNothing,
         reason: 'Il pulsante del Tier 1 si e\' spento: il limite sta '
             'mordendo il piano sbagliato.');
-    // **UN RESIDUO ADESSO C\'E\', ordine CE voce 08.** Il Tier 1 ha venti
-    // gettate al giorno: al quarto getto ne restano sedici, e la strada e\'
-    // ancora larga.
-    expect(borsa.gettateRimaste(Tier.tier1), 16,
+    // Ordine EX voce 02: due meno uno, erano venti meno quattro.
+    expect(borsa.gettateRimaste(Tier.tier1), 1,
         reason: 'il conto del Tier 1 non segue il tetto nuovo');
+    await ancora(tester);
+    expect(borsa.gettateRimaste(Tier.tier1), 0,
+        reason: 'Dopo due getti al Tier 1 deve restare zero.');
+    expect(
+        find.descendant(
+            of: find.byKey(const Key('rune_recast')),
+            matching: find.byIcon(Icons.lock_outline_rounded)),
+        findsOneWidget,
+        reason: 'A quota esaurita Getta ancora non si spegne per il Tier 1.');
+    await ancora(tester);
+    expect(find.byKey(const Key('upgrade_invite')), findsOneWidget,
+        reason: 'Il terzo getto del Tier 1 e\' un blocco muto: nessun '
+            'invito comparso.');
+    expect(borsa.gettateRimaste(Tier.tier1), 0,
+        reason: 'Il terzo getto ha intaccato un contatore gia\' a zero.');
   });
 }

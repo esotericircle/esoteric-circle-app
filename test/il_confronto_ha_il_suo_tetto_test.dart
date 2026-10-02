@@ -30,7 +30,8 @@ import 'package:provider/provider.dart';
 /// mentre ogni tocco sono due chiamate al modello.
 void main() {
   group('Il tetto vive nel listino, e non in un secondo posto', () {
-    test('Viandante lucchetto, Iniziato 3, Adepto 5, Illuminato 20', () {
+    // Ordine EX voce 02: il nome dice i numeri nuovi, erano 3, 5 e 20.
+    test('Viandante lucchetto, Iniziato 1, Adepto 2, Illuminato 3', () {
       // **VENTI, E NON PIU\' "SENZA LIMITE".** Ordine CE voce 08: il
       // fondatore ha chiesto che l\'illimitato sparisca da ogni cella, e il
       // numero qui segue il dato del listino, non lo anticipa.
@@ -39,13 +40,16 @@ void main() {
           0);
       expect(
           PlanCatalog.limiteGiornaliero(PlanCatalog.rigaConfronti, Tier.tier1),
-          3);
+          // Ordine EX voce 02: uno all'Iniziato, erano tre.
+          1);
       expect(
           PlanCatalog.limiteGiornaliero(PlanCatalog.rigaConfronti, Tier.tier2),
-          5);
+          // Ordine EX voce 02: due all'Adepto, erano cinque.
+          2);
       expect(
           PlanCatalog.limiteGiornaliero(PlanCatalog.rigaConfronti, Tier.tier3),
-          20);
+          // Ordine EX voce 02: tre all'Illuminato, erano venti.
+          3);
     });
 
     test('`canCompare` CHIEDE al listino invece di decidere da solo', () {
@@ -82,26 +86,36 @@ void main() {
       c.record(Tier.tier1);
       c.registraApprofondimento(Tier.tier1);
       c.registraConfronto(Tier.tier1);
-      expect(c.confrontiRimasti(Tier.tier1), 2);
-      expect(c.approfondimentiRimasti(Tier.tier1), 2);
+      // Ordine EX voce 02: l'Iniziato ha un confronto e due approfondimenti
+      // (erano tre e tre): dopo uno ne restano zero e uno.
+      expect(c.confrontiRimasti(Tier.tier1), 0);
+      expect(c.approfondimentiRimasti(Tier.tier1), 1);
       oggi = DateTime(2026, 8, 3, 1, 0);
-      expect(c.confrontiRimasti(Tier.tier1), 3,
+      expect(c.confrontiRimasti(Tier.tier1), 1,
           reason: 'i confronti non ribaltano a mezzanotte come gli altri due');
-      expect(c.approfondimentiRimasti(Tier.tier1), 3);
+      expect(c.approfondimentiRimasti(Tier.tier1), 2);
       expect(c.usedToday(), 0);
     });
   });
 
   group('Il conto, e il residuo che si vede prima', () {
     test('Tre tocchi bruciano i tre, il quarto non passa', () {
+      // Ordine EX voce 02: i tre confronti sono dell'Illuminato, l'Iniziato
+      // adesso ne ha uno; la prova resta sui tre col piano che li ha.
       final c = QuestionAllowance();
       for (var i = 0; i < 3; i++) {
-        expect(c.puoiConfrontare(Tier.tier1), isTrue);
-        c.registraConfronto(Tier.tier1);
+        expect(c.puoiConfrontare(Tier.tier3), isTrue);
+        c.registraConfronto(Tier.tier3);
       }
-      expect(c.confrontiRimasti(Tier.tier1), 0);
-      expect(c.puoiConfrontare(Tier.tier1), isFalse,
+      expect(c.confrontiRimasti(Tier.tier3), 0);
+      expect(c.puoiConfrontare(Tier.tier3), isFalse,
           reason: 'un confronto oltre il tetto del giorno');
+      // E l'Iniziato, col suo uno: il secondo non passa.
+      final i = QuestionAllowance();
+      expect(i.puoiConfrontare(Tier.tier1), isTrue);
+      i.registraConfronto(Tier.tier1);
+      expect(i.puoiConfrontare(Tier.tier1), isFalse,
+          reason: 'un secondo confronto dell\'Iniziato oltre il tetto');
     });
 
     test('Un confronto NON consuma una domanda del giorno', () {
@@ -125,18 +139,21 @@ void main() {
       // 50 domande ai Maestri" della testata il fondatore ha letto due conti
       // della stessa cosa che non tornavano. Adesso dice fra chi, e la forma
       // e' quella di ogni residuo dell'app.
+      //
+      // Ordine EX voce 02: da tre a zero si scende con l'Illuminato, che ha
+      // tre confronti; l'Iniziato ne ha uno.
       final c = QuestionAllowance();
-      expect(c.residuoDeiConfronti(Tier.tier1),
+      expect(c.residuoDeiConfronti(Tier.tier3),
           'Oggi hai 3 confronti fra i Maestri');
-      c.registraConfronto(Tier.tier1);
-      expect(c.residuoDeiConfronti(Tier.tier1),
+      c.registraConfronto(Tier.tier3);
+      expect(c.residuoDeiConfronti(Tier.tier3),
           'Ti restano 2 confronti fra i Maestri su 3, oggi');
-      c.registraConfronto(Tier.tier1);
-      expect(c.residuoDeiConfronti(Tier.tier1),
+      c.registraConfronto(Tier.tier3);
+      expect(c.residuoDeiConfronti(Tier.tier3),
           'Ti resta 1 confronto fra i Maestri su 3, oggi',
           reason: 'a uno solo ci vuole il singolare');
-      c.registraConfronto(Tier.tier1);
-      expect(c.residuoDeiConfronti(Tier.tier1),
+      c.registraConfronto(Tier.tier3);
+      expect(c.residuoDeiConfronti(Tier.tier3),
           'Non ti resta nessun confronto fra i Maestri, oggi',
           reason: 'a zero non e\' un residuo, e\' la fine: dirlo con un numero '
               'davanti a "su tre" e\' un conto, non una frase');
@@ -159,8 +176,12 @@ void main() {
       // **E ALL'ILLUMINATO ADESSO SI DICE, ordine CE voce 08.** Prima non
       // aveva nessun tetto e non c'era niente da contare; adesso ne ha venti,
       // e il residuo si vede come a tutti gli altri.
+      // Ordine EX voce 02: tre, erano venti. E all'Iniziato, che ne ha uno,
+      // la dotazione e' al singolare.
+      expect(c.residuoDeiConfronti(Tier.tier1),
+          'Oggi hai 1 confronto fra i Maestri');
       expect(c.residuoDeiConfronti(Tier.tier3),
-          'Oggi hai 20 confronti fra i Maestri',
+          'Oggi hai 3 confronti fra i Maestri',
           reason: 'chi ha un tetto deve vederlo, anche quando e\' alto');
     });
   });
@@ -217,7 +238,8 @@ void main() {
     final residuo = find.byKey(const Key('chat_residuo_confronti'));
     expect(residuo, findsOneWidget,
         reason: 'chi tocca non sa cosa spende prima di spenderlo');
-    expect(find.text('Oggi hai 3 confronti fra i Maestri'), findsOneWidget);
+    // Ordine EX voce 02: l'Iniziato ha un confronto, erano tre.
+    expect(find.text('Oggi hai 1 confronto fra i Maestri'), findsOneWidget);
     // E sta SOTTO il pulsante, non sopra: prima si legge cosa si fa, poi
     // quanto costa.
     final pulsante = find.byKey(const Key('chat_altre_voci'));

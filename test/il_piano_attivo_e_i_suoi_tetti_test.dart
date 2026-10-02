@@ -40,7 +40,8 @@ void main() {
   /// Le arti che hanno un tetto, con la riga del listino che lo promette e il
   /// modo in cui il motore lo applica. **Una riga per arte**: la voce chiede
   /// la verifica per OGNI arte, non a campione.
-  final arti = <String, ({RigaDelPiano riga, int? Function(QuestionAllowance, Tier) applicato})>{
+  final arti = <String,
+      ({RigaDelPiano riga, int? Function(QuestionAllowance, Tier) applicato})>{
     'domande': (
       riga: PlanCatalog.rigaDomande,
       applicato: (b, t) => b.dailyLimit(t),
@@ -78,8 +79,7 @@ void main() {
     for (final tier in Tier.values) {
       for (final arte in arti.entries) {
         confronti++;
-        final promesso =
-            PlanCatalog.limiteGiornaliero(arte.value.riga, tier);
+        final promesso = PlanCatalog.limiteGiornaliero(arte.value.riga, tier);
         final applicato = arte.value.applicato(borsa, tier);
         tavola.add('${tier.label} ${arte.key}: promesso $promesso, '
             'applicato $applicato');
@@ -128,9 +128,16 @@ void main() {
     // ignore: avoid_print
     print('ORDINE CQ RILANCIO 1: con l Adepto e una gettata fatta, la '
         'schermata dice "$frase"');
-    expect(frase, 'Ti restano 29 gettate di rune su 30, oggi',
-        reason: 'la frase dello screenshot non si riproduce dall Adepto: '
-            'allora il trenta viene da qualche altra parte, e va trovata');
+    // **ORDINE EX VOCE 02: l'Adepto ha tre gettate, non piu' trenta.** Lo
+    // screenshot del "29 su 30" e' di prima; la pretesa resta la stessa, cioe'
+    // che la frase discenda dal tetto dell'Adepto scritto nella matrice, e il
+    // numero segue la matrice nuova: "2 su 3".
+    expect(borsa.limiteGettate(Tier.tier2),
+        PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate, Tier.tier2),
+        reason: 'il tetto delle gettate dell Adepto non viene dalla matrice');
+    expect(frase, 'Ti restano 2 gettate di rune su 3, oggi',
+        reason: 'la frase non si riproduce dall Adepto: allora il tetto '
+            'viene da qualche altra parte, e va trovato');
   });
 
   test('il tetto delle gettate ha un lettore solo, e passa dalla matrice',
@@ -236,8 +243,8 @@ void main() {
     borsa.registraGettata(Tier.tier2);
     // La coda parte da sola: si aspetta che il no sia arrivato.
     await Future<void>.delayed(const Duration(milliseconds: 50));
-    final tetto = PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate,
-        Tier.tier2)!;
+    final tetto =
+        PlanCatalog.limiteGiornaliero(PlanCatalog.rigaGettate, Tier.tier2)!;
     // ignore: avoid_print
     print('ORDINE CQ VOCE 1.01: dopo il no del server, gettate rimaste '
         '${borsa.gettateRimaste(Tier.tier2)} su un tetto di $tetto, '

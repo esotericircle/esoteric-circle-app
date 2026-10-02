@@ -206,6 +206,11 @@ class QuestionAllowance extends ChangeNotifier {
   int? limiteApprofondimenti(Tier tier) =>
       PlanCatalog.limiteGiornaliero(PlanCatalog.rigaApprofondimenti, tier);
 
+  /// Quante carte ridà il riscatto di una stesa: la stesa a tre carte.
+  /// Ordine EX voce 02; il server ha lo stesso numero in
+  /// `functions/src/budget.ts`, `UNITA_DEL_RISCATTO`.
+  static const int kCarteDelRiscatto = 3;
+
   /// Il tetto di CORRETTEZZA per chi non ha limite: non e' una restrizione
   /// commerciale, e' la difesa contro un tocco ripetuto per sbaglio o per
   /// gioco. Chi arriva qui in un giorno solo non sta piu' leggendo.
@@ -602,7 +607,9 @@ class QuestionAllowance extends ChangeNotifier {
   int? limiteStese(Tier tier) =>
       PlanCatalog.limiteGiornaliero(PlanCatalog.rigaStese, tier);
 
-  /// Quante stese restano oggi, oppure null se sono illimitate.
+  /// **LE CARTE, NON LE STESE. Ordine EX voce 02.** Il contatore delle
+  /// stese conta le carte estratte: i nomi dei metodi restano, l'unita'
+  /// cambia. Quante carte restano oggi, oppure null se sono illimitate.
   int? steseRimaste(Tier tier) {
     final limite = limiteStese(tier);
     if (limite == null) return null;
@@ -615,9 +622,9 @@ class QuestionAllowance extends ChangeNotifier {
   /// RIMASTI e non il piano: chi ha riscattato una stesa con gli Eos ha il
   /// contatore sotto zero e quindi un rimasto, anche dove il piano non ne
   /// prevede nessuna.
-  bool puoiStendere(Tier tier) {
+  bool puoiStendere(Tier tier, {int carte = 3}) {
     final resta = steseRimaste(tier);
-    return resta == null || resta > 0;
+    return resta == null || resta >= carte;
   }
 
   /// Registra una stesa consumata. Chi ha l'illimitato non intacca niente.
@@ -625,13 +632,13 @@ class QuestionAllowance extends ChangeNotifier {
   /// Si chiama UNA volta per stesa e non una per carta, nel momento in cui la
   /// stesa e' compiuta: una stesa cominciata e abbandonata non consuma
   /// niente.
-  void registraStesa(Tier tier) {
+  void registraStesa(Tier tier, {int carte = 3}) {
     if (limiteStese(tier) == null) return;
     _rollover();
-    _stese++;
+    _stese += carte;
     notifyListeners();
     _persist();
-    _chiediAlServer('stese');
+    _chiediAlServer('stese', quanti: carte);
   }
 
   /// Quante SINASTRIE CELEB al giorno prevede il piano, oppure null se sono
@@ -912,7 +919,9 @@ class QuestionAllowance extends ChangeNotifier {
       case 'gettate':
         _gettate--;
       case 'stese':
-        _stese--;
+        // Il riscatto ridà la stesa che oggi si apre, quella a tre carte:
+        // ordine EX voce 02, come `UNITA_DEL_RISCATTO` del server.
+        _stese -= kCarteDelRiscatto;
       case 'sinastrie':
         _sinastrie--;
     }
@@ -935,11 +944,12 @@ class QuestionAllowance extends ChangeNotifier {
   }
 
   /// Segna il gesto per il server e prova a mandarlo subito.
-  void _chiediAlServer(String budget) {
+  void _chiediAlServer(String budget, {int quanti = 1}) {
     if (!_porta.viva) return;
     _daMandare.add({
       'budget': budget,
       'id': PortaDelCerchio.nuovoIdentificativo('$_day-$budget'),
+      if (quanti > 1) 'quanti': '$quanti',
     });
     _persist();
     _svuotaLaCoda();
@@ -966,9 +976,10 @@ class QuestionAllowance extends ChangeNotifier {
   Future<void> _svuotaDavvero() async {
     while (_daMandare.isNotEmpty) {
       final primo = _daMandare.first;
-      final esito = await _porta.consuma(
+      final esito = await _porta.consumaQuanti(
         budget: primo['budget']!,
         idMovimento: primo['id']!,
+        quanti: int.tryParse(primo['quanti'] ?? '') ?? 1,
       );
       if (esito == null) return;
       _daMandare.removeAt(0);
@@ -1049,7 +1060,11 @@ class QuestionAllowance extends ChangeNotifier {
       return [
         for (final voce in letta)
           if (voce is Map && voce['budget'] is String && voce['id'] is String)
-            {'budget': '${voce['budget']}', 'id': '${voce['id']}'},
+            {
+              'budget': '${voce['budget']}',
+              'id': '${voce['id']}',
+              if (voce['quanti'] is String) 'quanti': '${voce['quanti']}',
+            },
       ];
     } catch (errore) {
       // Si ignora: una coda illeggibile (preferenze corrotte, formato

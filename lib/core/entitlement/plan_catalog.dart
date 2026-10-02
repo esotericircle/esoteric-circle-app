@@ -112,8 +112,16 @@ enum RigaDelPiano {
   approfondimenti,
   confronti,
   sinastria,
-  cartaSingola,
+  /// **LE CARTE ESTRATTE NELLE STESE, ordine EX voce 02.** La chiave resta
+  /// `stese`, come il budget del server, ma l'unita' e' la carta: chi
+  /// stende tre carte ne spende tre. La carta singola e' una stesa da una
+  /// carta, e conta qui.
   stese,
+  /// La stesa da dieci carte, solo dall'Adepto. Ordine EX voce 02.
+  stesaDaDieci,
+  /// I minuti del LIVE al mese. Ordine EX voce 02; il server li conta in
+  /// `functions/src/live.ts`, `MINUTI_DEL_MESE`.
+  minutiLive,
   gettate,
   memoria,
   oroscopoSettimanale,
@@ -197,7 +205,7 @@ class PlanCatalog {
         'I Doni del giorno: Arcano dell\'Alba, Soffio del Destino, Runa del Tramonto e Sigillo del Sogno',
         'Carta natale occidentale in lettura base',
         'Tre domande al giorno a un Maestro, senza memoria',
-        'Una carta di tarocchi al giorno',
+        'Tre carte di tarocchi al giorno, da stendere come vuoi',
         'Sinastria VIP fino a 3 al giorno',
         'Oroscopo del giorno occidentale; il tuo segno cinese e vedico',
         'Angel Numbers e Angelo Custode una tantum',
@@ -222,8 +230,8 @@ class PlanCatalog {
         'Memoria AI dei Maestri, esclusiva e persistente',
         'Carta natale completa con transiti dinamici',
         'Oroscopo settimanale',
-        '5 domande al giorno ai Maestri',
-        '3 carte di tarocchi al giorno, stese complete a Eos scontati',
+        '6 domande al giorno ai Maestri',
+        '6 carte di tarocchi al giorno, da stendere come vuoi',
         'Sinastria VIP fino a 5 al giorno',
         'Sintesi comparativa dei tre Maestri',
         'Correlazione mood-transiti attiva',
@@ -232,7 +240,7 @@ class PlanCatalog {
         'Oroscopo cinese del giorno, dall\'almanacco e dai Dieci Dei',
         'Oroscopo vedico del giorno, dalla Luna siderale e dal Rahu Kalam',
         'L’oroscopo per gli amici, fino a tre',
-        'Rune, I-Ching e Pendolo a Eos scontati',
+        '2 gettate di rune al giorno; I-Ching e Pendolo a Eos scontati',
       ],
     ),
     Plan(
@@ -248,16 +256,16 @@ class PlanCatalog {
       ),
       highlights: [
         'Tutto di Iniziato',
-        'Voce AI dei tre Maestri, esclusiva',
+        'Voce AI dei tre Maestri nel LIVE, 60 minuti al mese',
         '10 domande al giorno ai Maestri',
-        'Tarocchi carta singola, 30 al giorno',
-        '5 stese complete di tarocchi al giorno',
+        '10 carte di tarocchi al giorno, da stendere come vuoi',
+        'La stesa a dieci carte, appena arriva nel Cerchio',
         'Sinastria VIP fino a 5 al giorno',
-        'Rune, I-Ching e Pendolo inclusi',
+        '3 gettate di rune al giorno; I-Ching e Pendolo inclusi',
         'Oroscopo mensile',
         'Oroscopo dell’anno dal compleanno, con la Rivoluzione Solare',
         'L’oroscopo per gli amici, fino a dieci',
-        'Oracoli secondari, meditazioni e frequenze, 30 al giorno',
+        'Oracoli secondari, meditazioni e frequenze',
         'Transit tracker con alert',
         'Cosmic Journal con AI',
         'Memoria AI profonda, riconosce pattern e cicli',
@@ -276,8 +284,9 @@ class PlanCatalog {
       ),
       highlights: [
         'Tutto di Adepto, coi tetti più alti del Cerchio',
-        '50 domande ai Maestri al giorno',
-        '50 stese di tarocchi al giorno',
+        '13 domande ai Maestri al giorno',
+        '15 carte di tarocchi al giorno, anche nella stesa a dieci carte',
+        'Voce AI dei tre Maestri nel LIVE, 120 minuti al mese',
         '25 sinastrie VIP al giorno',
         // **QUI C'ERA LA DOMANDA AL MAESTRO REALE**, una al mese con risposta
         // entro quarantotto ore. Uscita con l'ordine DJ voce 09: nessuna
@@ -370,6 +379,26 @@ class PlanCatalog {
       quanti: numero == null ? 0 : int.parse(numero.group(1)!),
       allaSettimana: cella.contains('settiman'),
     );
+  }
+
+  /// **SE QUEL PIANO APRE LA STESA DA DIECI CARTE.** Ordine EX voce 02: solo
+  /// dall'Adepto, *"la stesa a 10 solo dal tier 2 19,99"*.
+  static bool haLaStesaDaDieci(Tier tier) {
+    final riga = matrix.where((r) => r.chiave == RigaDelPiano.stesaDaDieci);
+    if (riga.isEmpty) return false;
+    const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
+    return riga.first.values[ordine.indexOf(tier)] == 'Sì';
+  }
+
+  /// I minuti di LIVE al mese di quel piano. Ordine EX voce 02. La cella dice
+  /// "al mese": [limiteGiornaliero] non va chiesto per questa riga.
+  static int minutiDelLiveAlMese(Tier tier) {
+    final riga = matrix.where((r) => r.chiave == RigaDelPiano.minutiLive);
+    if (riga.isEmpty) return 0;
+    const ordine = [Tier.free, Tier.tier1, Tier.tier2, Tier.tier3];
+    final numero =
+        RegExp(r'(\d+)').firstMatch(riga.first.values[ordine.indexOf(tier)]);
+    return numero == null ? 0 : int.parse(numero.group(1)!);
   }
 
   /// Se quel piano ha diritto alla memoria dei Maestri.
@@ -489,7 +518,9 @@ class PlanCatalog {
   /// ogni tocco sono due chiamate al modello.
   static const RigaDelPiano rigaConfronti = RigaDelPiano.confronti;
   static const RigaDelPiano rigaSinastria = RigaDelPiano.sinastria;
-  static const RigaDelPiano rigaCartaSingola = RigaDelPiano.cartaSingola;
+  /// La carta singola e' una stesa da una carta: conta fra le carte
+  /// estratte. Ordine EX voce 02.
+  static const RigaDelPiano rigaCartaSingola = RigaDelPiano.stese;
 
   /// Quante STESE COMPLETE di tarocchi al giorno, che e' una riga diversa da
   /// [rigaCartaSingola] e non un suo sinonimo.
@@ -556,7 +587,11 @@ class PlanCatalog {
     // non un consumo del modello.
     FeatureRow('Oroscopo per gli amici', ['No', '3', '10', 'Senza limite'],
         chiave: RigaDelPiano.amici),
-    FeatureRow('Confronti nel Cerchio', ['No', '3', '5', '20 al giorno'],
+    // **LA MATRICE DELL'ORDINE EX, voce EX.02, 2 ottobre 2026**: la tabella
+    // dell'Architetto approvata dal fondatore, "Si ok, approvo.", e "mettiamo
+    // limite delle carte estratte e la stesa a 10 solo dal tier 2 19,99".
+    FeatureRow('Confronti nel Cerchio',
+        ['No', '1 al giorno', '2 al giorno', '3 al giorno'],
         chiave: RigaDelPiano.confronti),
     // TRE per il Viandante, che e' il numero deciso e approvato dal fondatore.
     // Diceva UNO, e l'app non mentiva: leggeva questo dato e lo ripeteva
@@ -564,16 +599,18 @@ class PlanCatalog {
     // una divergenza fra matrice e codice e' stata risolta facendo vincere la
     // matrice: la correzione era giusta nel metodo, sbagliata nel valore.
     FeatureRow('Domande a un Maestro',
-        ['3 al giorno', '5 al giorno', '10 al giorno', '50 al giorno'],
+        ['3 al giorno', '6 al giorno', '10 al giorno', '13 al giorno'],
         chiave: RigaDelPiano.domande),
     FeatureRow('Vai più a fondo',
-        ['No', '3 al giorno', '10 al giorno', '30 al giorno'],
+        ['No', '2 al giorno', '2 al giorno', '3 al giorno'],
         chiave: RigaDelPiano.approfondimenti),
     FeatureRow('Sintesi comparativa dei Maestri', ['No', 'Sì', 'Sì', 'Sì']),
     FeatureRow('Voce AI dei Maestri', ['No', 'No', 'Esclusiva', 'Sì']),
-    FeatureRow('Tarocchi carta singola',
-        ['1 al giorno', '3 al giorno', '30 al giorno', '50 al giorno'],
-        chiave: RigaDelPiano.cartaSingola),
+    // **LA MATRICE DELL'ORDINE EX, voce EX.02, 2 ottobre 2026**: la tabella
+    // dell'Architetto approvata dal fondatore, "Si ok, approvo.", e "mettiamo
+    // limite delle carte estratte e la stesa a 10 solo dal tier 2 19,99".
+    FeatureRow('Minuti di LIVE', ['No', 'No', '60 al mese', '120 al mese'],
+        chiave: RigaDelPiano.minutiLive),
     // **UNA STESA AL GIORNO AL VIANDANTE, ordine BU voce 04, e la decisione
     // e' del fondatore: "il viandante ha una stesa al giorno".** La cella
     // diceva "Eos pieno", che questa classe legge come zero usi gratis: era
@@ -588,17 +625,32 @@ class PlanCatalog {
     // essere gratis 1, tier 1 4 stese, tier 2 7 stese e tier 3 20 stese. tu mi
     // hai insegnato di non fare nulla di illimitato". **L'illimitato sparisce
     // anche dall'ultimo livello**, ed e' un principio, non un numero.
-    FeatureRow('Stese complete tarocchi',
-        ['1 al giorno', '4 al giorno', '7 al giorno', '20 al giorno'],
+    // **LE CARTE, NON LE STESE, ordine EX voce 02**, e supera i numeri
+    // dell'ordine BV: la persona spende le carte del giorno come vuole (per
+    // l'Iniziato due stese da tre, oppure una da cinque e una da una).
+    // Contano le carte di una stesa letta dal modello; i rituali
+    // deterministici (l'Arcano dell'Alba, la carta di nascita) no. La
+    // carta singola e la riga "Tarocchi carta singola" (1, 3, 30, 50, mai
+    // applicata: `RitualAllowance` non aveva chiamanti) stanno qui dentro.
+    // **LA MATRICE DELL'ORDINE EX, voce EX.02, 2 ottobre 2026**: la tabella
+    // dell'Architetto approvata dal fondatore, "Si ok, approvo.", e "mettiamo
+    // limite delle carte estratte e la stesa a 10 solo dal tier 2 19,99".
+    FeatureRow('Carte estratte nelle stese',
+        ['3 al giorno', '6 al giorno', '10 al giorno', '15 al giorno'],
         chiave: RigaDelPiano.stese),
+    FeatureRow('Stesa da 10 carte', ['No', 'No', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.stesaDaDieci),
     FeatureRow('Rune, I-Ching, Pendolo',
         ['Eos', 'Eos scontati', 'Inclusi', 'Inclusi']),
     // UNA GETTATA AL GIORNO PER IL VIANDANTE, deciso da Mauro con l'ordine O
     // del 12 agosto 2026. Erano tre dall'ordine I: il numero e' sceso perche'
     // la gettata e' il gesto che porta indietro domani, e tre al giorno lo
     // consumavano in un pomeriggio. Dal Tier 1 in su restano illimitate.
+    // **LA MATRICE DELL'ORDINE EX, voce EX.02, 2 ottobre 2026**: la tabella
+    // dell'Architetto approvata dal fondatore, "Si ok, approvo.", e "mettiamo
+    // limite delle carte estratte e la stesa a 10 solo dal tier 2 19,99".
     FeatureRow('Gettate di rune',
-        ['1 al giorno', '20 al giorno', '30 al giorno', '50 al giorno'],
+        ['1 al giorno', '2 al giorno', '3 al giorno', '3 al giorno'],
         chiave: RigaDelPiano.gettate),
     // **IL VIAGGIO DELLO SCIAMANO, ordine DI voce 15, 12 settembre 2026.** I
     // valori sono dell'ordine, parola per parola. **Prima del riconoscimento

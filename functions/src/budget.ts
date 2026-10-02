@@ -51,11 +51,17 @@ export const BUDGET: Budget[] = [
  * cinquanta gettate, venticinque sinastrie. Le stese avevano gia' venti dalla
  * voce BV.03, e restano.
  */
+/*
+ * **LA MATRICE DELL'ORDINE EX, voce EX.02, 2 ottobre 2026**: la tabella
+ * dell'Architetto approvata dal fondatore ("Si ok, approvo."). Le stese si
+ * contano a CARTE: "mettiamo limite delle carte estratte e la stesa a 10
+ * solo dal tier 2 19,99".
+ */
 const LIMITI: Record<Budget, (number | null)[]> = {
-  domande: [3, 5, 10, 50],
-  approfondimenti: [0, 3, 10, 30],
-  confronti: [0, 3, 5, 20],
-  gettate: [1, 20, 30, 50],
+  domande: [3, 6, 10, 13],
+  approfondimenti: [0, 2, 2, 3],
+  confronti: [0, 1, 2, 3],
+  gettate: [1, 2, 3, 3],
   /**
    * LE STESE COMPLETE DI TAROCCHI, ordine BN voce 09.
    *
@@ -90,8 +96,13 @@ const LIMITI: Record<Budget, (number | null)[]> = {
    * essere gratis 1, tier 1 4 stese, tier 2 7 stese e tier 3 20 stese. tu mi
    * hai insegnato di non fare nulla di illimitato". L illimitato sparisce anche
    * dall ultimo livello.
+   *
+   * **LE CARTE, NON LE STESE, ordine EX voce 02.** Il budget conserva il
+   * nome `stese`, ma l'unita' e' la carta estratta in una stesa letta dal
+   * modello: tre, sei, dieci e quindici al giorno. Una stesa consuma tutte
+   * le sue carte in un colpo (`decidi` con la quantita').
    */
-  stese: [1, 4, 7, 20],
+  stese: [3, 6, 10, 15],
   /**
    * LE SINASTRIE CELEB, ordine BO voce 13.
    *
@@ -171,7 +182,8 @@ export function restaOggi(
 export function decidi(
   budget: Budget,
   piano: Piano,
-  speso: number
+  speso: number,
+  quanti = 1
 ): {concesso: boolean; resta: number | null; motivo?: string} {
   const limite = limiteDi(budget, piano);
   // **IL LIMITE ZERO CEDE AL CREDITO COMPRATO, ordine BN voce 09.**
@@ -196,13 +208,32 @@ export function decidi(
     };
   }
   const resta = restaOggi(budget, piano, speso);
-  if (resta !== null && resta <= 0) {
+  // **TUTTE LE CARTE O NIENTE**, ordine EX voce 02: una stesa da tre con
+  // due carte rimaste non si apre a meta'.
+  if (resta !== null && (resta <= 0 || resta < quanti)) {
     return {
       concesso: false,
       resta: 0,
       motivo: "Il budget di oggi e' finito.",
     };
   }
-  const dopo = restaOggi(budget, piano, speso + 1);
+  const dopo = restaOggi(budget, piano, speso + quanti);
   return {concesso: true, resta: dopo};
+}
+
+/**
+ * **QUANTO RIDA' UN RISCATTO, per budget.** Ordine EX voce 02: un riscatto
+ * ha sempre ridato un uso; per le stese l'uso e' adesso la carta, e il
+ * riscatto da 150 Eos ridà la stesa che oggi si apre, quella a tre carte.
+ */
+export const UNITA_DEL_RISCATTO: Partial<Record<Budget, number>> = {
+  stese: 3,
+};
+
+/** Le carte di una stesa vanno da 1 a 15: piu' di cosi' non esiste. */
+export function quantiValidi(budget: Budget, valore: unknown): number {
+  const n = Math.floor(Number(valore ?? 1));
+  if (!Number.isFinite(n) || n < 1) return 1;
+  if (budget !== "stese") return 1;
+  return Math.min(n, 15);
 }

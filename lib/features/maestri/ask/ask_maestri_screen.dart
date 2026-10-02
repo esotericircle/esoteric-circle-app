@@ -8,6 +8,8 @@ import '../../shell/spazio_della_barra.dart';
 import '../../../core/entitlement/entitlement_service.dart';
 import '../../../core/entitlement/esito_del_turno.dart';
 import '../../../core/entitlement/question_allowance.dart';
+import '../../../core/entitlement/tier.dart';
+import '../../../core/entitlement/plan_catalog.dart';
 import '../../../core/identity/natal_identity.dart';
 import '../../../core/identity/profile_controller.dart';
 import '../../../core/maestro/consiglio_finale.dart';
@@ -222,12 +224,27 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
             budget: 'domande',
             cosaUna: 'una domanda in più',
           );
+          // **IL NUMERO VERO DEL CAMMINO DOPO.** Ordine EX voce 02: la frase
+          // prometteva "domande senza limiti" col Cerchio, e nessun piano le
+          // ha senza limiti (l'Illuminato ne ha 13).
+          final dopo = switch (piano) {
+            Tier.free => Tier.tier1,
+            Tier.tier1 => Tier.tier2,
+            Tier.tier2 => Tier.tier3,
+            Tier.tier3 => null,
+          };
+          final quanteDopo = dopo == null
+              ? null
+              : PlanCatalog.limiteGiornaliero(PlanCatalog.rigaDomande, dopo);
           showUpgradeInvite(
             context,
             title: 'Hai posto le tue domande di oggi',
-            message: 'Puoi riscattarne una con gli Eos, oppure col Cerchio le '
-                'domande ai Maestri sono senza limiti e puoi metterne a '
-                'confronto gli sguardi.',
+            message: quanteDopo == null
+                ? 'Puoi riscattarne una con gli Eos, oppure tornare domani: '
+                    'le domande ai Maestri ripartono ogni giorno.'
+                : 'Puoi riscattarne una con gli Eos, oppure salire di '
+                    'cammino: le domande ai Maestri diventano $quanteDopo al '
+                    'giorno.',
             riscattoLabel: riscatto.label,
             onRiscatta: riscatto.azione,
           );

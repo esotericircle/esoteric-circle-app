@@ -1,7 +1,10 @@
 import {test} from "node:test";
 import assert from "node:assert/strict";
 import {chiaveDelGiorno, eOggi} from "./giorno";
-import {decidi, limiteDi, restaOggi, TETTO_DI_CORRETTEZZA} from "./budget";
+import {
+  decidi, limiteDi, quantiValidi, restaOggi, TETTO_DI_CORRETTEZZA,
+  UNITA_DEL_RISCATTO,
+} from "./budget";
 import {
   ACCREDITO_DEL_GIORNO,
   BENVENUTO,
@@ -51,9 +54,13 @@ test("i limiti del giorno sono quelli del piano", () => {
   // chiesto che sparisca da ogni cella: dove queste righe dicevano `null`
   // adesso c'e' un numero, e il numero segue il listino invece di
   // anticiparlo.
-  assert.equal(limiteDi("domande", "tier3"), 50);
+  // Ordine EX voce 02: la matrice nuova, 3, 6, 10 e 13 domande; 1, 2, 3 e 3
+  // gettate.
+  assert.equal(limiteDi("domande", "tier3"), 13);
+  assert.equal(limiteDi("domande", "tier1"), 6);
   assert.equal(limiteDi("gettate", "free"), 1);
-  assert.equal(limiteDi("gettate", "tier1"), 20);
+  assert.equal(limiteDi("gettate", "tier1"), 2);
+  assert.equal(limiteDi("gettate", "tier3"), 3);
   // "No" nella matrice vale ZERO, non "senza limite": e' l'errore che
   // regalerebbe una funzione a chi non l'ha nel piano.
   assert.equal(limiteDi("approfondimenti", "free"), 0);
@@ -79,8 +86,8 @@ test("adesso ogni piano ha il suo tetto, e il residuo lo dice", () => {
   // limite resta il tetto di correttezza": dall'ordine CE voce 08 non c'e'
   // piu' nessuna cella senza limite, quindi il residuo viene dal listino e
   // non dalla rete di sicurezza.
-  assert.equal(restaOggi("domande", "tier3", 0), 50);
-  assert.equal(decidi("domande", "tier3", 50).concesso, false);
+  assert.equal(restaOggi("domande", "tier3", 0), 13);
+  assert.equal(decidi("domande", "tier3", 13).concesso, false);
   // E le gettate, che erano l'esempio di cio' che non si difendeva, adesso
   // hanno anche loro il loro numero.
   assert.equal(restaOggi("gettate", "tier1", 100), 0);
@@ -227,10 +234,11 @@ test("le stese hanno il budget del listino, e non quello della carta singola", (
   // suite di Flutter non esegue le prove del server: l'ha trovato l'ordine BX
   // voce 02 mentre lavorava qui accanto, ed e' il motivo per cui adesso la
   // legge di consegna le include.
-  assert.equal(limiteDi("stese", "free"), 1);
-  assert.equal(limiteDi("stese", "tier1"), 4);
-  assert.equal(limiteDi("stese", "tier2"), 7);
-  assert.equal(limiteDi("stese", "tier3"), 20);
+  // **LE CARTE, NON LE STESE, ordine EX voce 02**: 3, 6, 10 e 15 carte.
+  assert.equal(limiteDi("stese", "free"), 3);
+  assert.equal(limiteDi("stese", "tier1"), 6);
+  assert.equal(limiteDi("stese", "tier2"), 10);
+  assert.equal(limiteDi("stese", "tier3"), 15);
   // E non e' il budget delle gettate: due contatori, due promesse.
   assert.notDeepEqual(
     ["free", "tier1", "tier2", "tier3"].map((p) => limiteDi("stese", p as never)),
@@ -251,8 +259,11 @@ test("il limite zero cede al credito comprato, e una volta sola", () => {
   assert.equal(comprata.resta, 0);
   assert.equal(decidi("approfondimenti", "free", 0).concesso, false);
   // E la stesa comprata oltre il proprio limite si comporta allo stesso modo.
-  assert.equal(decidi("stese", "free", 1).concesso, false);
-  assert.equal(decidi("stese", "free", 0).concesso, true);
+  // Le carte del Viandante sono tre: una stesa a tre carte le prende
+  // tutte, la seconda no, e col riscatto (tre carte) torna possibile.
+  assert.equal(decidi("stese", "free", 0, 3).concesso, true);
+  assert.equal(decidi("stese", "free", 3, 3).concesso, false);
+  assert.equal(decidi("stese", "free", 0, 3).resta, 0);
 });
 
 test("il riscatto ignora il numero del client e usa il listino", () => {
@@ -281,7 +292,9 @@ test("il riscatto scala il contatore dentro la transazione del saldo", () => {
     "il riscatto non passa piu' dal budget del motivo"
   );
   assert.ok(
-    transazione.includes("spesiOggi[budgetRiscattato] ?? 0) - 1"),
+    // Ordine EX voce 02: il riscatto scala l'unita' del budget (tre carte
+    // per le stese, uno per gli altri).
+    transazione.includes("(UNITA_DEL_RISCATTO[budgetRiscattato] ?? 1)"),
     "il contatore del giorno non viene piu' scalato dal riscatto"
   );
   // E il listino viaggia con lo stato.
@@ -359,4 +372,18 @@ test("la lapide ferma il secondo benvenuto e sopravvive all'oblio", () => {
     !cancella.includes("lapidi_del_benvenuto"),
     "la cancellazione tocca le lapidi: il buco della frode si riapre"
   );
+});
+
+test("le carte di una stesa si contano tutte o nessuna (ordine EX voce 02)", () => {
+  // L'Iniziato ha sei carte: due stese da tre, poi niente.
+  assert.equal(decidi("stese", "tier1", 0, 3).resta, 3);
+  assert.equal(decidi("stese", "tier1", 3, 3).resta, 0);
+  // Con due carte rimaste una stesa da tre non si apre a meta'.
+  assert.equal(decidi("stese", "tier1", 4, 3).concesso, false);
+  // Le carte valide stanno fra 1 e 15, e solo le stese ne consumano piu' di una.
+  assert.equal(quantiValidi("stese", 3), 3);
+  assert.equal(quantiValidi("stese", 99), 15);
+  assert.equal(quantiValidi("stese", "x"), 1);
+  assert.equal(quantiValidi("domande", 3), 1);
+  assert.equal(UNITA_DEL_RISCATTO.stese, 3);
 });

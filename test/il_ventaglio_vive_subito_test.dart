@@ -75,7 +75,8 @@ void main() {
         ChangeNotifierProvider(create: (_) => ParallaxController()),
         ChangeNotifierProvider(create: (_) => QualityTierController()),
         ChangeNotifierProvider(create: (_) => ZodiacController()),
-        ChangeNotifierProvider(create: (_) => EntitlementService(initial: piano)),
+        ChangeNotifierProvider(
+            create: (_) => EntitlementService(initial: piano)),
         ChangeNotifierProvider<QuestionAllowance>.value(value: borsa),
       ],
       child: MediaQuery(
@@ -193,9 +194,11 @@ void main() {
     expect(dopoLeCarte, partenza,
         reason: 'tre carte posate hanno gia consumato la stesa: chi ci '
             'ripensa prima di leggere paga per niente');
-    expect(dopoIlPulsante, partenza! - 1,
-        reason: 'il pulsante non consuma la stesa, oppure ne consuma piu di '
-            'una: il conto e per lettura');
+    // Ordine EX voce 02: la stesa a tre carte consuma tre carte, una volta
+    // sola (era una stesa, meno uno).
+    expect(dopoIlPulsante, partenza! - 3,
+        reason: 'il pulsante non consuma le tre carte della stesa, oppure le '
+            'consuma piu di una volta: il conto e per lettura');
     await calma(tester);
   });
 
