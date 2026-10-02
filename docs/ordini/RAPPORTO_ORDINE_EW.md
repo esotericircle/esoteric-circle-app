@@ -19,8 +19,8 @@ di verifica 2.** Nessuna build: l'ordine non consegna niente.
 
 | voce | fatto | manca |
 | --- | --- | --- |
-| EW.03 l'etichetta della funzione | 15 chiamate su 15 etichettate nel codice; guardia rossa su tre innesti; 621 chiamate del banco e due serie riconoscibili (`prova_ew_passaggio`, `prova_ew_diretto`) etichettate | il report Fatturazione del 3 ottobre filtrato per l'etichetta `funzione` (lo legge il fondatore); la pubblicazione delle due funzioni della voce (negata a Code dal controllo dei permessi); la prima build dopo quest'ordine porta le etichette del telefono |
-| EW.07 il minuto del LIVE | sessione vera sul Realme: 0,0213 dollari al minuto, telefono 7:04, app 6:58, Protoface 7:03 e 8 crediti; piano Protoface almeno Launch | il piano Protoface (Launch o Scale) e il piano e i minuti di LiveKit della sessione, dai pannelli del fondatore; i 725 crediti del 28-30 settembre (PROVENIENZA IGNOTA per Code) |
+| EW.03 l'etichetta della funzione | 15 chiamate su 15 etichettate nel codice; guardia rossa su tre innesti; 621 chiamate del banco e due serie riconoscibili (`prova_ew_passaggio`, `prova_ew_diretto`) etichettate | il report Fatturazione del 3 ottobre filtrato per l'etichetta `funzione` (lo legge il fondatore); la prima chiamata vera della voce del Maestro nel report (le due funzioni della voce sono pubblicate il 2 ottobre 2026 alle 06:22 UTC da Code, col si' del fondatore, dal commit 8e798a60); la prima build dopo quest'ordine porta le etichette del telefono |
+| EW.07 il minuto del LIVE | sessione vera sul Realme: 0,0213 dollari al minuto, telefono 7:04, app 6:58, Protoface 7:03 e 8 crediti; piano Protoface almeno Launch | il piano Protoface (Launch o Scale) e il piano e i minuti di LiveKit della sessione, dai pannelli del fondatore |
 
 ## Per il fondatore, in parole semplici
 
@@ -81,21 +81,25 @@ contro i 12-18 dichiarati prima di cominciare.
 
 ## Cosa serve dal fondatore
 
-1. **Il piano Protoface** (Launch o Scale) e la divisione per superficie dei
-   725 crediti del 28-30 settembre, dal pannello di Protoface.
+1. **Il piano Protoface** (Launch o Scale), dal pannello di Protoface. I 725
+   crediti del 28-30 settembre sono un video extra del fondatore (sua risposta
+   del 2 ottobre), non vengono dall'app.
 2. **Il piano LiveKit** e i minuti della sessione del 2 ottobre, 04:17-04:24
    UTC, dal pannello di LiveKit.
 3. **Il report Fatturazione del 3 ottobre** filtrato per l'etichetta
    `funzione`: se compare `prova_ew_passaggio`, l'etichetta arriva anche dalla
    strada dell'app.
-4. **La pubblicazione delle due funzioni della voce** con l'etichetta, o il
-   permesso di farla:
+4. **Le leve**, quale e se.
 
-```bash
-firebase deploy --only functions:laVoceDelMaestro,functions:ascoltaUnaVoce --project esoteric-circle
-```
+**Fatto dopo la prima consegna del rapporto.** Il fondatore ha autorizzato la
+pubblicazione delle due funzioni della voce (il suo tentativo dal Desktop si
+era fermato prima di pubblicare, "tsc" non riconosciuto): `firebase deploy
+--only functions:laVoceDelMaestro,functions:ascoltaUnaVoce` dal commit
+`8e798a60`, aggiornate alle 06:22 UTC, stato ACTIVE, una chiamata senza account
+rifiutata con 401. Il codice pubblicato differisce da quello del 26 settembre
+(`5c35032e`) per le sole righe delle etichette; `live.ts` non importa altri
+file del progetto.
 
-5. **Le leve**, quale e se.
 
 ## Voce per voce
 
@@ -225,7 +229,7 @@ le etichette e non prima. La rete era viva. Padre: ordine EW, voce EW.03.
 | Il distillato della memoria senza chiamanti, codice rimasto | ordine CG, voce CG.09, commit `7492c113` |
 | La riga dei modelli di `CLAUDE.md` (Flash-Lite per la Breve e il Free) che la chat non segue | ordine ED (la riga) ed ordine EQ voce 03 (la chat su Flash) |
 | Il limite della carta singola dei tarocchi non applicato (`RitualAllowance` senza chiamanti) | PROVENIENZA IGNOTA |
-| 725 crediti Protoface del 28-30 settembre fuori dal LIVE dell'app | PROVENIENZA IGNOTA |
+| 725 crediti Protoface del 28-30 settembre fuori dal LIVE dell'app | non un difetto: un video extra del fondatore |
 | La guardia dell'ordine verde al primo innesto | ordine EW, voce EW.05 (la guardia scritta da Code) |
 | Il marcatore delle voci aperte scritto male nel manifesto | ordine EW, il manifesto |
 

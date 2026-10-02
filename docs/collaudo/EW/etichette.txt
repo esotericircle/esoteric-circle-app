@@ -48,9 +48,12 @@ Firebase la toglie e la voce va ripresa.
 == COSA MANCA PERCHE' LA VOCE SIA CHIUSA
 1. Il report Fatturazione del 3 ottobre filtrato per l'etichetta "funzione": lo legge il fondatore
    (Code non ha accesso al report, che non ha un'interfaccia di sola lettura da riga di comando).
-2. Le etichette del server (voce_maestro, voce_ascolto_di_prova) sono nel codice ma NON pubblicate:
-   la pubblicazione di laVoceDelMaestro e ascoltaUnaVoce e' stata negata dal controllo dei permessi
-   di Code il 2 ottobre. La pubblica il fondatore, o la autorizza:
+2. Le etichette del server (voce_maestro, voce_ascolto_di_prova) sono PUBBLICATE: negata a Code la
+   prima volta dal controllo dei permessi, la pubblicazione e' stata autorizzata dal fondatore e fatta
+   il 2 ottobre 2026 dal commit 8e798a60:
      firebase deploy --only functions:laVoceDelMaestro,functions:ascoltaUnaVoce --project esoteric-circle
-   La differenza dal codice pubblicato il 26 settembre (commit 5c35032e) sono le sole righe delle etichette.
+   laVoceDelMaestro aggiornata 2026-10-02T06:22:36Z, ascoltaUnaVoce 2026-10-02T06:22:37Z, tutte e due
+   ACTIVE; una chiamata senza account a laVoceDelMaestro risponde HTTP 401 (la funzione parte).
+   La differenza dal codice pubblicato il 26 settembre (commit 5c35032e) sono le sole righe delle
+   etichette. Resta da vedere nel report la prima voce del Maestro di un LIVE vero, etichetta voce_maestro.
 3. Le etichette del telefono arrivano agli utenti con la prima build dopo questo ordine.

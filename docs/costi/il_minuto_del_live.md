@@ -56,8 +56,8 @@ minuto intero: la seconda apertura di prova, 13 secondi, ha pagato 1 credito.
 1.188 (725 crediti, 7,25 dollari) mentre i secondi del LIVE sono saliti solo
 di 288 (una sessione). Quei crediti non vengono dalle sessioni dell'app:
 Protoface conta anche i video generati in Studio e le chiamate di generazione
-(`by_billing_surface`, `by_operation` nel riepilogo `/v1/usage`). PROVENIENZA
-IGNOTA per Code; si legge nel pannello di Protoface.
+(`by_billing_surface`, `by_operation` nel riepilogo `/v1/usage`). **Il
+fondatore lo ha confermato il 2 ottobre: e' un suo video extra**, non l'app.
 
 ## Il minuto, pezzo per pezzo
 
@@ -193,8 +193,6 @@ Cosa vuol dire oggi, con i limiti che restano:
 
 1. **Il piano Protoface** sottoscritto (pannello di Protoface, Billing): il nome
    del piano e i crediti rimasti. Nessuna credenziale.
-2. **I 725 crediti del 28-30 settembre**: nel pannello di Protoface, la
-   divisione per superficie (API o Studio) di quei giorni.
-3. **Il piano LiveKit** e i minuti della sessione del 2 ottobre 04:17-04:24 UTC,
+2. **Il piano LiveKit** e i minuti della sessione del 2 ottobre 04:17-04:24 UTC,
    dal pannello di LiveKit: per confrontarli coi 7:03 di Protoface e i 7:04
    del telefono, e per sapere se LiveKit conta uno o due partecipanti.

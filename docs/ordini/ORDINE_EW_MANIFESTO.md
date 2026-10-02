@@ -78,8 +78,9 @@ Cosa manca, in tre punti: (1) **le etichette si vedono solo nel report
 Fatturazione**, con un giorno di ritardo: Monitoring non le porta e
 l'esportazione in BigQuery non e' attiva; le serie di prova `prova_ew_passaggio`
 e `prova_ew_diretto` dicono domani se il passaggio di Firebase le fa arrivare;
-(2) **la pubblicazione delle due funzioni del server e' stata negata dal
-controllo dei permessi di Code**: la fa o la autorizza il fondatore; (3) le
+(2) **le due funzioni del server con l'etichetta sono pubblicate** (il 2
+ottobre alle 06:22 UTC, col si' del fondatore, dal commit `8e798a60`): la
+prima chiamata vera della voce del Maestro e' da leggere nel report; (3) le
 etichette del telefono arrivano con la prima build dopo quest'ordine. Misurato
 anche: un'etichetta non valida passa con HTTP 200 sia dal passaggio di Firebase
 sia da Vertex, quindi il codice di risposta non prova niente.
@@ -151,8 +152,9 @@ sessione del 30 settembre e' durata 14:45, oltre i 10 minuti dello Starter).
 Cosa manca: **il piano Protoface** (Launch o Scale) e **il piano e i minuti di
 LiveKit** della sessione, che stanno nei pannelli del fondatore; la lettura
 della quota di Protoface con la chiave dell'app e' stata negata dal controllo
-dei permessi di Code. E i 725 crediti di Protoface del 28-30 settembre che non
-vengono dal LIVE dell'app: PROVENIENZA IGNOTA per Code.
+dei permessi di Code. I 725 crediti di Protoface del 28-30 settembre che non
+vengono dal LIVE dell'app sono un video extra del fondatore (sua risposta del 2
+ottobre).
 
 DOMANDA: "Vorrei anche essere sicuro del costo di Protoface e del costo al minuto per la chat live attraverso Protoface."
 PROVA: docs/costi/il_minuto_del_live.md

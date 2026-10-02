@@ -6460,8 +6460,8 @@ l'etichetta.
   `lib/services/ai/l_etichetta_della_funzione.dart` sotto ogni
   `generativeModel(` del telefono (13 su 13, 16 etichette), `labels` nelle due
   chiamate di sintesi del server (`functions/src/live.ts`). **Prodotto e
-  agganciato; le funzioni del server NON pubblicate** (la pubblicazione e' stata
-  negata a Code dal controllo dei permessi: la fa il fondatore); le etichette
+  agganciato; le due funzioni del server pubblicate** il 2 ottobre alle 06:22
+  UTC, col si' del fondatore, dal commit `8e798a60`; le etichette
   del telefono arrivano con la prima build dopo l'ordine; la verifica e' il
   report Fatturazione filtrato per `funzione`. Monitoring non porta le
   etichette e l'esportazione in BigQuery non e' attiva. Guardia
