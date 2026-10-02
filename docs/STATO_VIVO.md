@@ -6393,6 +6393,13 @@ tre prove del server in `functions/src/cammino.test.ts` e quattro in
 `functions/src/memorie.test.ts`; tutte viste rosse, innesti in
 `docs/collaudo/EV/regola_a_ev.txt`. La versione e' 0.1.0+2291 (la 2290 non e' mai stata distribuita, solo installata sul Realme di collaudo).
 
+**La consegna del pezzo 2.** Build 2292 dal commit `eec08c93` col cancello
+verde, release `4jncjpqp18rh8` su App Distribution, inviti accettati 1, accesa
+e installata sul Realme (`versionCode=2292`); dalla 2292 le catture si fanno
+(sul Realme 338.676 byte, finestra senza SECURE). Le note della release si
+correggono sul server se un carattere accentato arriva rotto dalla riga di
+comando di Windows.
+
 **La consegna.** Build 2291 dal commit `a8d35a53` col cancello verde,
 release `3k9n4mjs9m5dg` su App Distribution, inviti accettati 1, accesa e
 installata sul Realme (`versionCode=2291`). Pubblicate sul server dal commit

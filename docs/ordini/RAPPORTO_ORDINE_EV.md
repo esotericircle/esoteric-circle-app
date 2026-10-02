@@ -2,8 +2,8 @@
 
 Ramo `claude/esoteric-circle-master-order-e798aj`, partenza `0f7a0625`.
 Il manifesto con le DOMANDA, PROVA e MISURA di ogni voce:
-`docs/ordini/ORDINE_EV_MANIFESTO.md`. **Le voci 20: chiuse 7, aperte in attesa
-di verifica 13.** Il pezzo 2 (le voci dell'Architetto EV.07-EV.10) e' arrivato
+`docs/ordini/ORDINE_EV_MANIFESTO.md`. **Le voci 20: chiuse 8, aperte in attesa
+di verifica 12.** Il pezzo 2 (le voci dell'Architetto EV.07-EV.10) e' arrivato
 la sera del 1 ottobre, dopo la consegna della 2291; durante il suo lavoro il
 fondatore ha segnalato il Viaggio che tace (EV.59) e ha chiesto le catture
 indietro (EV.60).
@@ -24,6 +24,7 @@ senza disturbarmi") non mi sono fermato.
 | EV.54 i tre Angeli nel Passaporto | `docs/collaudo/EV/realme/ev_angeli_tre_nel_passaporto.png` | carte nella bolla da 1 a 3, nomi da 1 a 3 |
 | EV.56 niente catture dello schermo (superata da EV.60) | `docs/collaudo/EV/ev56_catture_bloccate.txt` | catture leggibili dalla build senza catture permesse, da tutte a 0 su 3 (0 byte, finestra SECURE) |
 | EV.08 la verifica delle affermazioni | `docs/collaudo/EV/affermazioni.md` | affermazioni SENZA FONTE da 88 a 0 su 759; testi nuovi diversi dalla fonte 0 su 20 |
+| EV.60 le catture tornano | `docs/collaudo/EV/ev60_catture_tornate.txt` | catture leggibili dalla build consegnata da 0 su 3 (2290) a 1 su 1 (2292), 338.676 byte |
 | EV.10 il "Rivediamoci domani" | `docs/collaudo/EV/inviti_del_cielo.txt` | inviti col cielo sbagliato in sessanta giorni, da 101 a 0 su 480 |
 
 ## Le voci aperte, e che cosa manca a ognuna
@@ -39,9 +40,8 @@ senza disturbarmi") non mi sono fermato.
 | EV.55 la scheda delle notifiche | tolta dall'avvio, due righe al primo Dono | un telefono che non ha mai concesso le notifiche |
 | EV.57 ONLINE che cambia numero | con EV.06 | con EV.06 |
 | EV.07 i corpora e il confine | corpora uguali alla fonte 12 su 12, confine com'era (0 righe dal commit `103c0df4`) | i testi dell'Architetto per 15 frasi col futuro di un gesto, elencate qui sotto |
-| EV.09 le rifiniture dei "Da dove viene" | i cinque testi nel codice, guardia rossa su cinque innesti | le catture della Settimana Lunga vedica e cinese dal Realme con la build nuova |
+| EV.09 le rifiniture dei "Da dove viene" | i cinque testi nel codice, guardia rossa su cinque innesti | le catture della Settimana Lunga vedica e cinese: dal Realme non si portano sul PC (il cavo cade oltre una decina di KB); le puoi fare tu dalla 2292, che lascia catturare |
 | EV.59 il Viaggio che tace | silenzi al primo strato da 8 su 12 a 3 su 18; la cenere torna com'era dopo un silenzio | una discesa con la domanda scritta sul telefono del fondatore |
-| EV.60 le catture tornano | l'avvio toglie FLAG_SECURE, la protezione solo con CATTURE_VIETATE | una cattura leggibile dalla build consegnata |
 | EV.58 le memorie che tornano col tuo account | censimento di 40 prefissi, 12 famiglie nuove che viaggiano col Custode, i Ricordi mandati e ripresi, le arti preferite scelte che vincono; prove rosse e verdi, server provato | la funzione statoDelCerchio pubblicata con le memorie; poi la reinstallazione con l'account del fondatore, dopo che la build nuova ha mandato le memorie almeno una volta |
 
 La voce EU.14 del manifesto EU porta la riga "prosegue nell'ordine EV, voce
@@ -516,6 +516,16 @@ Il registro `docs/versione_distribuita.json` l'ho scritto a mano coi valori
 della procedura (numero dall'archivio con aapt2, peso, release, cancello) e
 lo dice nel campo del telefono; `tool/consegna.py` ora filtra anche quella
 lettura sul telefono e, se il telefono tace, legge il numero dall'archivio.
+
+**La build 2292, col pezzo 2**, dal commit `eec08c93` col cancello verde
+(segno `refs/verde/eec08c93...`), 248.231.356 byte, numero 2292 letto
+dall'archivio. Prova di accensione sul Realme passata, installata
+(`versionCode=2292`). **Release `4jncjpqp18rh8`**, distribuita a
+cloud@esotericircle.app, riletta dal server: inviti accettati 1. Le note
+passavano dalla riga di comando di Windows e "più" e' arrivato come "pi?":
+corrette sul server con una richiesta di modifica della release, rilette giuste.
+Questa volta il registro l'ha scritto la consegna da sola. Il server non e'
+cambiato dal pezzo 1.
 
 **Codemagic (iPhone)**: si puo' lanciare adesso, sul ramo
 `claude/esoteric-circle-master-order-e798aj`, dall'ultimo commit di questo

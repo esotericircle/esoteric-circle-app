@@ -21,8 +21,8 @@ Le voci EV.51-EV.60 sono le segnalazioni del fondatore arrivate durante il
 lavoro, numerate da Code dopo il posto delle voci dell'Architetto.
 
 VOCI_TOTALI: 20
-VOCI_CHIUSE: 7
-VOCI_APERTE: 13
+VOCI_CHIUSE: 8
+VOCI_APERTE: 12
 VOCI_DA_FARE: 0
 
 Le prove stanno in `docs/collaudo/EV/`, quelle del telefono di prova (Realme
@@ -446,8 +446,8 @@ MISURA: discese al primo strato finite nel silenzio, prima 8 su 12 (docs/collaud
 
 ## VOCE EV.60, LE CATTURE DELLO SCHERMO TORNANO
 
-**APERTA IN ATTESA DI VERIFICA**: si chiude con una cattura leggibile dalla
-build consegnata.
+**CHIUSA.** Sul Realme con la build consegnata 2292 la finestra non porta piu'
+il segno `SECURE` e la cattura dello schermo pesa 338.676 byte (con la 2290, 0).
 
 Il fondatore, lo stesso giorno della voce EV.56: "Devi riattivare la
 possibilità di fare screenshot, così non posso farli nemmeno per te". Adesso
@@ -457,3 +457,5 @@ resta pronta per la build che la dichiara con `--dart-define=CATTURE_VIETATE=tru
 `test/lo_schermo_e_le_catture_test.dart`, innesto A33 rosso.
 
 DOMANDA: "Devi riattivare la possibilità di fare screenshot, così non posso farli nemmeno per te."
+PROVA: docs/collaudo/EV/ev60_catture_tornate.txt
+MISURA: catture leggibili dalla build consegnata, prima (2290) 0 su 3, dopo (2292) 1 su 1, 338676 byte; segno SECURE sulla finestra, prima si', dopo no
