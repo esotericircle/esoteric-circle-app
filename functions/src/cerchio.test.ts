@@ -49,15 +49,17 @@ test("il giorno e' quello di Roma, non quello di chi chiama", () => {
 
 test("i limiti del giorno sono quelli del piano", () => {
   assert.equal(limiteDi("domande", "free"), 3);
-  assert.equal(limiteDi("domande", "tier2"), 10);
+  // Ordine EX Aggiunta 3: diciotto all'Adepto, erano dieci.
+  assert.equal(limiteDi("domande", "tier2"), 18);
   // **L'ILLIMITATO NON ESISTE PIU', ordine CE voce 08.** Il fondatore ha
   // chiesto che sparisca da ogni cella: dove queste righe dicevano `null`
   // adesso c'e' un numero, e il numero segue il listino invece di
   // anticiparlo.
   // Ordine EX voce 02: la matrice nuova, 3, 6, 10 e 13 domande; 1, 2, 3 e 3
   // gettate.
-  assert.equal(limiteDi("domande", "tier3"), 13);
-  assert.equal(limiteDi("domande", "tier1"), 6);
+  // Ordine EX Aggiunta 3: le domande si alzano a 12, 18 e 22.
+  assert.equal(limiteDi("domande", "tier3"), 22);
+  assert.equal(limiteDi("domande", "tier1"), 12);
   assert.equal(limiteDi("gettate", "free"), 1);
   assert.equal(limiteDi("gettate", "tier1"), 2);
   assert.equal(limiteDi("gettate", "tier3"), 3);
@@ -86,8 +88,9 @@ test("adesso ogni piano ha il suo tetto, e il residuo lo dice", () => {
   // limite resta il tetto di correttezza": dall'ordine CE voce 08 non c'e'
   // piu' nessuna cella senza limite, quindi il residuo viene dal listino e
   // non dalla rete di sicurezza.
-  assert.equal(restaOggi("domande", "tier3", 0), 13);
-  assert.equal(decidi("domande", "tier3", 13).concesso, false);
+  // Ordine EX Aggiunta 3: ventidue all'Illuminato, erano tredici.
+  assert.equal(restaOggi("domande", "tier3", 0), 22);
+  assert.equal(decidi("domande", "tier3", 22).concesso, false);
   // E le gettate, che erano l'esempio di cio' che non si difendeva, adesso
   // hanno anche loro il loro numero.
   assert.equal(restaOggi("gettate", "tier1", 100), 0);

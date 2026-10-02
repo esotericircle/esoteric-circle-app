@@ -101,7 +101,8 @@ void main() {
     // 30, 20, 50, 50) li aveva scelti Code; adesso sono quelli della tabella
     // dell'Architetto. La carta singola e' una carta estratta, nelle stese.
     const attesi = <RigaDelPiano, int>{
-      RigaDelPiano.domande: 13,
+      // Ordine EX Aggiunta 3: ventidue, erano tredici.
+      RigaDelPiano.domande: 22,
       RigaDelPiano.approfondimenti: 3,
       RigaDelPiano.confronti: 3,
       RigaDelPiano.stese: 15,

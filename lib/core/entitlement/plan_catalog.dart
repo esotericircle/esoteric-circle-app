@@ -112,13 +112,16 @@ enum RigaDelPiano {
   approfondimenti,
   confronti,
   sinastria,
+
   /// **LE CARTE ESTRATTE NELLE STESE, ordine EX voce 02.** La chiave resta
   /// `stese`, come il budget del server, ma l'unita' e' la carta: chi
   /// stende tre carte ne spende tre. La carta singola e' una stesa da una
   /// carta, e conta qui.
   stese,
+
   /// La stesa da dieci carte, solo dall'Adepto. Ordine EX voce 02.
   stesaDaDieci,
+
   /// I minuti del LIVE al mese. Ordine EX voce 02; il server li conta in
   /// `functions/src/live.ts`, `MINUTI_DEL_MESE`.
   minutiLive,
@@ -230,7 +233,7 @@ class PlanCatalog {
         'Memoria AI dei Maestri, esclusiva e persistente',
         'Carta natale completa con transiti dinamici',
         'Oroscopo settimanale',
-        '6 domande al giorno ai Maestri',
+        '12 domande al giorno ai Maestri',
         '6 carte di tarocchi al giorno, da stendere come vuoi',
         'Sinastria VIP fino a 5 al giorno',
         'Sintesi comparativa dei tre Maestri',
@@ -257,7 +260,7 @@ class PlanCatalog {
       highlights: [
         'Tutto di Iniziato',
         'Voce AI dei tre Maestri nel LIVE, 60 minuti al mese',
-        '10 domande al giorno ai Maestri',
+        '18 domande al giorno ai Maestri',
         '10 carte di tarocchi al giorno, da stendere come vuoi',
         'La stesa a dieci carte, appena arriva nel Cerchio',
         'Sinastria VIP fino a 5 al giorno',
@@ -284,7 +287,7 @@ class PlanCatalog {
       ),
       highlights: [
         'Tutto di Adepto, coi tetti più alti del Cerchio',
-        '13 domande ai Maestri al giorno',
+        '22 domande ai Maestri al giorno',
         '15 carte di tarocchi al giorno, anche nella stesa a dieci carte',
         'Voce AI dei tre Maestri nel LIVE, 120 minuti al mese',
         '25 sinastrie VIP al giorno',
@@ -518,6 +521,7 @@ class PlanCatalog {
   /// ogni tocco sono due chiamate al modello.
   static const RigaDelPiano rigaConfronti = RigaDelPiano.confronti;
   static const RigaDelPiano rigaSinastria = RigaDelPiano.sinastria;
+
   /// La carta singola e' una stesa da una carta: conta fra le carte
   /// estratte. Ordine EX voce 02.
   static const RigaDelPiano rigaCartaSingola = RigaDelPiano.stese;
@@ -598,11 +602,13 @@ class PlanCatalog {
     // fedelmente. A mentire era il dato. Era finito qui il 31 luglio, quando
     // una divergenza fra matrice e codice e' stata risolta facendo vincere la
     // matrice: la correzione era giusta nel metodo, sbagliata nel valore.
-    FeatureRow('Domande a un Maestro',
-        ['3 al giorno', '6 al giorno', '10 al giorno', '13 al giorno'],
+    FeatureRow(
+        'Domande a un Maestro',
+        // Ordine EX Aggiunta 3: erano 3, 6, 10, 13.
+        ['3 al giorno', '12 al giorno', '18 al giorno', '22 al giorno'],
         chiave: RigaDelPiano.domande),
-    FeatureRow('Vai più a fondo',
-        ['No', '2 al giorno', '2 al giorno', '3 al giorno'],
+    FeatureRow(
+        'Vai più a fondo', ['No', '2 al giorno', '2 al giorno', '3 al giorno'],
         chiave: RigaDelPiano.approfondimenti),
     FeatureRow('Sintesi comparativa dei Maestri', ['No', 'Sì', 'Sì', 'Sì']),
     FeatureRow('Voce AI dei Maestri', ['No', 'No', 'Esclusiva', 'Sì']),

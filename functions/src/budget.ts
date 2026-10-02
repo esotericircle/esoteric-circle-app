@@ -58,7 +58,13 @@ export const BUDGET: Budget[] = [
  * solo dal tier 2 19,99".
  */
 const LIMITI: Record<Budget, (number | null)[]> = {
-  domande: [3, 6, 10, 13],
+  /**
+   * **LE DOMANDE SI ALZANO, ordine EX Aggiunta 3, 2 ottobre 2026.** Il
+   * fondatore: "Cmq, alziamo subito il limite"; quanto: "Poco sotto il
+   * margine (Consigliata)", il margine misurato dalla voce EX.11 (circa 7, 9
+   * e 11 domande in piu' al giorno). Erano 3, 6, 10, 13.
+   */
+  domande: [3, 12, 18, 22],
   approfondimenti: [0, 2, 2, 3],
   confronti: [0, 1, 2, 3],
   gettate: [1, 2, 3, 3],

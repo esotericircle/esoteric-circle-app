@@ -6506,14 +6506,21 @@ EX.02, EX.04, EX.11), tre aperte (EX.05, EX.07, EX.10).**
 Nessuna build consegnata; sul Realme una build di collaudo 2292 con le catture
 permesse, solo per guardare.
 
-- **Le funzioni del server non sono pubblicate.** `apriUnaSessioneLive`,
-  `statoDellaSessioneLive`, `chiudiLaSessioneLive`, `statoDelCerchio`,
-  `consumaDelGiorno` e `muoviGliEos` portano i minuti del LIVE che scendono
-  (EX.01) e i limiti nuovi (EX.02): il fondatore ha autorizzato, il controllo
-  dei permessi della sessione di Code ha bloccato la pubblicazione. **Finche'
-  non sono pubblicate, in produzione valgono i limiti di prima e i minuti del
-  LIVE non scendono.**
-- **La matrice dei piani** (EX.02): domande 3/6/10/13, Vai piu' a fondo
+- **Le funzioni del server le pubblica il fondatore.** Il controllo dei
+  permessi della sessione di Code blocca la pubblicazione: Code prepara il
+  commit e la copia di lavoro, il fondatore lancia `firebase deploy` da li'.
+  Il 2 ottobre alle 14:03 UTC il fondatore ha pubblicato dal commit
+  `1a076c42` `apriUnaSessioneLive`, `statoDellaSessioneLive`,
+  `chiudiLaSessioneLive`, `statoDelCerchio`, `consumaDelGiorno` e
+  `muoviGliEos`. **I minuti del LIVE scendono davvero** (collaudo sul Realme:
+  rimasti 120, 119, 118, 117 a ogni apertura; coi minuti finiti il LIVE non si
+  apre, `docs/collaudo/EX/minuti_del_live.txt`). **Da ripubblicare**: le tre
+  del LIVE per la cura dei secondi non ancora fatturati (una sessione finita
+  con zero secondi si contava zero; adesso resta da contare) e le tre del
+  Cerchio per le domande alzate dell'EX Aggiunta 3.
+- **La matrice dei piani** (EX.02): domande 3/12/18/22 (dall'EX Aggiunta 3
+  del 2 ottobre, "Poco sotto il margine (Consigliata)"; con l'EX.02 erano
+  3/6/10/13, prima 3/5/10/50), Vai piu' a fondo
   0/2/2/3, confronti 0/1/2/3, carte estratte 3/6/10/15 (la stesa consuma le
   sue carte, `consumaDelGiorno` con `quanti`; il riscatto da 150 Eos rende 3
   carte), stesa da 10 solo Adepto e Illuminato (`TarotSpreadType.apribileDa`,
@@ -6530,11 +6537,12 @@ permesse, solo per guardare.
   giorni; la memoria delle voci lette sta in SharedPreferences
   (`rune.presagio.memoria`, `rune.presagio.persona`). Zero chiamate per
   gettata (prima 1,85), guardato a video sul Realme. Una voce si cambia solo
-  nei file dell'Architetto e si rigenera. **Due voci aspettano la correzione
-  dell'Architetto** (PIETRA Uruz dritta 56 e Mannaz in ombra 38, dicono a chi
-  legge di essere un uomo): il codice non le sceglie
-  (`IlPresagioDalCorpus.vociTrattenute`); quando arrivano corrette si tolgono
-  da quell'elenco.
+  nei file dell'Architetto e si rigenera. Due voci che dicevano a chi legge
+  di essere un uomo (PIETRA Uruz dritta 56 e Mannaz in ombra 38) sono state
+  trattenute e poi corrette dall'Architetto lo stesso giorno: l'elenco
+  `IlPresagioDalCorpus.vociTrattenute` e' vuoto e resta per le prossime. La
+  memoria delle voci lette torna con l'account (famiglia "rune" di
+  `LeMemorieCustodite`) e si scarica coi dati della persona.
 - **Il Vai piu' a fondo scritto insieme** (EX.04): `[[SEGUITO]]`
   (`lib/core/maestro/il_seguito_nascosto.dart`), tenuto in
   `ChatMessage.seguitoNascosto` e scoperto senza chiamata: 20 tocchi su 24 al

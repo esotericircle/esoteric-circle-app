@@ -24,6 +24,23 @@ la quota presa dalla cache cambia molto da un giro all'altro (fra il 43 e il
 73 per cento), e la cache implicita non e' garantita (`docs/collaudo/EX/la_cache.txt`),
 quindi il conto che vale e' quello senza cache.
 
+## Dopo l'EX Aggiunta 3: le domande si alzano
+
+> *"Cmq, alziamo subito il limite e poi chiediamo nuova build per android e
+> pronta per codemagic"*; *"Poco sotto il margine (Consigliata)"*.
+
+Domande ai Maestri al giorno 3, 12, 18 e 22 (erano 3, 6, 10 e 13), tutto il
+resto uguale. Stesso conto, senza cache, LIVE compreso, rune dal corpus:
+
+| Piano | Con 3, 6, 10, 13 domande | Con 3, 12, 18, 22 domande | Tetto | Margine che resta |
+|---|---|---|---|---|
+| Iniziato | 1,28 $ | **2,18 $** | 2,36 $ | 0,18 $, circa una domanda al giorno |
+| Adepto | 3,34 $ | **4,54 $** | 4,72 $ | 0,18 $, circa una domanda al giorno |
+| Illuminato | 5,42 $ | **6,77 $** | 7,08 $ | 0,31 $, circa due domande al giorno |
+
+Tutti e tre i piani restano sotto il tetto. Le domande in piu' costano 0,005 $
+l'una a freddo (il costo misurato al giro finale del banco della qualita').
+
 ## Da dove vengono i numeri
 
 **I limiti** sono quelli della matrice nuova (EX.02): domande 3/6/10/13,

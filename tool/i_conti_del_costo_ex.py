@@ -60,7 +60,8 @@ PREZZI_EURO = [0, 9.99, 19.99, 29.99]
 
 # La matrice dell'EX.02 (e le righe che l'ordine lascia come sono).
 NUOVI = {
-    'domande': [3, 6, 10, 13],
+    # Ordine EX Aggiunta 3: erano 3, 6, 10, 13.
+    'domande': [3, 12, 18, 22],
     'approfondimenti': [0, 2, 2, 3],
     'confronti': [0, 1, 2, 3],
     'carte': [3, 6, 10, 15],

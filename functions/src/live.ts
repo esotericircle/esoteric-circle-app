@@ -207,6 +207,14 @@ export function ilContoDeiMinuti(
     const meseDellaSessione = daContare[s.id];
     if (meseDellaSessione === undefined) continue;
     if (!STATI_FINITI.includes(s.stato)) continue;
+    // **FINITA NON VUOL DIRE GIA' FATTURATA.** Al collaudo del 2 ottobre 2026
+    // una sessione di 28 secondi era "ended" con zero secondi alla chiusura,
+    // e Protoface l'ha fatturata 29 secondi poco dopo: tolta dal registro,
+    // quei secondi non si contavano piu'. Una sessione del mese finita
+    // senza secondi resta da contare; fallite e annullate escono a zero.
+    if (s.stato === "ended" && s.secondi <= 0 && meseDellaSessione === mese) {
+      continue;
+    }
     if (meseDellaSessione === mese) secondi += Math.max(0, s.secondi);
     delete daContare[s.id];
   }

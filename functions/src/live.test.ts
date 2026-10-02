@@ -206,6 +206,35 @@ test("le sessioni finite sommano i loro secondi veri, le vive restano da contare
   assert.deepEqual(conto.daContare, {sess_b: "2026-10"});
 });
 
+/**
+ * UNA SESSIONE FINITA SENZA SECONDI FATTURATI NON E' UNA SESSIONE DA ZERO.
+ * Ordine EX voce 01, collaudo sul Realme del 2 ottobre 2026: la quarta
+ * sessione (sess_01M3YGGJPS3RV9CNSPNTP1A1AY, 28 secondi) alla chiusura era
+ * gia' "ended" ma Protoface non aveva ancora scritto i suoi secondi; il conto
+ * l'ha tolta dal registro con zero, e Protoface l'ha fatturata 29 secondi
+ * (l'uso del mese da 736 a 765). Adesso resta da contare finche' i secondi
+ * non arrivano; quelle fallite o annullate escono anche a zero.
+ */
+test("una sessione finita senza secondi fatturati resta da contare finche' arrivano", () => {
+  const dati = {
+    mese: "2026-10",
+    secondiUsati: 147,
+    daContare: {sess_4: "2026-10", sess_x: "2026-10", sess_v: "2026-09"},
+  };
+  const subito = ilContoDeiMinuti(dati, "2026-10", [
+    {id: "sess_4", stato: "ended", secondi: 0},
+    {id: "sess_x", stato: "failed", secondi: 0},
+    {id: "sess_v", stato: "ended", secondi: 0},
+  ]);
+  assert.equal(subito.secondiUsati, 147);
+  assert.deepEqual(subito.daContare, {sess_4: "2026-10"});
+  const dopo = ilContoDeiMinuti(subito, "2026-10", [
+    {id: "sess_4", stato: "ended", secondi: 29},
+  ]);
+  assert.equal(dopo.secondiUsati, 176);
+  assert.deepEqual(dopo.daContare, {});
+});
+
 test("tre sessioni contate fanno scendere i minuti rimasti della loro durata", () => {
   let dati: Record<string, any> = {};
   const durate = [423, 13, 300];

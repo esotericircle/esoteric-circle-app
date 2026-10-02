@@ -1,0 +1,27 @@
+ORDINE EX AGGIUNTA 3, LE DOMANDE AI MAESTRI SI ALZANO. 2 ottobre 2026.
+
+DOMANDA: "Cmq, alziamo subito il limite e poi chiediamo nuova build per android e pronta per codemagic"; "Poco sotto il margine (Consigliata)".
+
+1. I NUMERI (domande ai Maestri al giorno, chat e LIVE insieme)
+| Piano | Prima | Dopo |
+|---|---|---|
+| Viandante | 3 | 3 |
+| Iniziato | 6 | 12 |
+| Adepto | 10 | 18 |
+| Illuminato | 13 | 22 |
+- Server: functions/src/budget.ts, LIMITI.domande = [3, 12, 18, 22]; functions/src/cerchio.test.ts aggiornato; npm test 146 su 146.
+- Telefono: lib/core/entitlement/plan_catalog.dart, riga "Domande a un Maestro" ['3 al giorno', '12 al giorno', '18 al giorno', '22 al giorno'] e le card dei piani ("12 domande al giorno ai Maestri", "18 domande al giorno ai Maestri", "22 domande ai Maestri al giorno"). Le altre frasi dell'app che dicono il limite lo leggono dalla matrice (PlanCatalog.limiteGiornaliero, promessaDomande, l'invito di "Chiedi ai Maestri"); nessuna stringa di lib scrive piu' 6, 10 o 13 domande.
+- La guardia test/i_limiti_del_server_sono_quelli_promessi_test.dart confronta i tetti del server con la matrice: verde.
+- Nessun altro limite cambia.
+
+2. IL COSTO (python tool/i_conti_del_costo_ex.py, docs/costi/i_conti_del_costo_ex.txt; senza cache, LIVE compreso, rune dal corpus)
+| Piano | Dopo | Tetto |
+|---|---|---|
+| Iniziato | 2,18 $ | 2,36 $ |
+| Adepto | 4,54 $ | 4,72 $ |
+| Illuminato | 6,77 $ | 7,08 $ |
+Sotto il tetto in 3 piani su 3: Code non si ferma.
+
+3. LA PUBBLICAZIONE: la fa il fondatore (consumaDelGiorno, statoDelCerchio, muoviGliEos per i limiti; apriUnaSessioneLive, chiudiLaSessioneLive, statoDellaSessioneLive per la cura dei minuti dell'EX.01), dalla copia di lavoro di Code.
+
+4. LE CARD SUL REALME: con la build consegnata, in docs/collaudo/EX/realme/ (piani_aggiunta3_*.png).

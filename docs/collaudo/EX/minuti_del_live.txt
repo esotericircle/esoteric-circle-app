@@ -23,6 +23,40 @@ functions/src/live.ts leggeva users/{uid}/stato/live.minutiUsati all'apertura e 
   quello dell'Illuminato, salvo configurazione/live.minutiDeiFondatori (campo nuovo, facoltativo).
 Prove: functions/src/live.test.ts, 15 su 15 verdi; rosse su un innesto (docs/collaudo/EX/regola_a_ex.txt, A1).
 
-== DOPO
-(da misurare con tre sessioni vere sul Realme dopo la pubblicazione di apriUnaSessioneLive e
-chiudiLaSessioneLive)
+== DOPO (2 ottobre 2026, funzioni pubblicate dal fondatore alle 14:03 UTC dal commit 1a076c42)
+Realme 767f596c, app di collaudo, account iToukegmg2P3LBmlyYGJjkxvFbs1 (Illuminato, non fondatore: tetto 120
+minuti dalla matrice). Registro del server, Cloud Logging, sola lettura:
+
+  14:26:49 LIVE aperto, rimasti 120        | Uso di Protoface nel mese 589 s
+  14:27:33 chiuso dal telefono (silenzio)  -> Minuti LIVE contati: secondiUsati 41
+  14:29:07 LIVE aperto, rimasti 119        | Uso 630 s   (+41, la prima sessione)
+  14:30:24 chiuso dal telefono (la X)      -> secondiUsati 120  (+79)
+  14:31:20 LIVE aperto, rimasti 118        | Uso 709 s   (+79)
+  14:31:51 chiuso dal telefono (la X)      -> secondiUsati 147  (+27)
+  14:32:54 LIVE aperto, rimasti 117        | Uso 736 s   (+27)
+  14:33:22 chiuso dal telefono             -> secondiUsati 147  (+0: DIFETTO, vedi sotto)
+  14:43:10 LIVE aperto, rimasti 117        | Uso 765 s   (+29: la quarta sessione era fatturata 29 s)
+  14:43:30 chiuso dal telefono             -> secondiUsati 167  (+20)
+
+- minuti rimasti dopo tre sessioni: PRIMA 250 e 250 (non scendevano), DOPO 120, 119, 118, 117;
+- i secondi contati coincidono con la fatturazione di Protoface per le sessioni 1, 2, 3 e 5 (41, 79, 27, 20);
+- una domanda detta nel LIVE conta fra le domande del giorno: la chat dopo il LIVE dice "Ti restano 8 domande
+  ai Maestri su 13" (prima 9);
+- sessione aperta coi minuti finiti: PRIMA si', DOPO no. Prova fatta portando per un momento secondiUsati del
+  telefono di collaudo a 7.180 su 7.200 (20 secondi rimasti, sotto il minimo di 30): alle 14:34:52 il telefono
+  dice "Per questo mese ho finito il fiato. Resto qui, in silenzio e per iscritto, finché non torna.", nessun
+  "LIVE aperto" nel registro e nessuna sessione Protoface; poi secondiUsati e minutiUsati rimessi ai valori veri.
+  Il campo configurazione/live.minutiDeiFondatori, aggiunto per errore prima (il telefono non e' un
+  fondatore e non ne era toccato), e' stato tolto: il documento ha di nuovo i suoi cinque campi.
+- Catture: docs/collaudo/EX/realme/live_1_aperta.png, live_2_risponde.png, live_3_minuti_finiti.png.
+
+== IL DIFETTO TROVATO DAL COLLAUDO (padre: ordine EX voce 01)
+La quarta sessione (sess_01M3YGGJPS3RV9CNSPNTP1A1AY, 28 secondi) alla chiusura era gia' "ended" ma Protoface non
+aveva ancora scritto i suoi billable_seconds: il conto l'ha tolta dal registro con zero, e Protoface l'ha
+fatturata 29 secondi (l'uso del mese da 736 a 765). Cura (functions/src/live.ts, ilContoDeiMinuti): una sessione
+del mese finita senza secondi fatturati resta da contare e si riconta alla prossima apertura o chiusura; fallite
+e annullate escono anche a zero. Prova nuova in functions/src/live.test.ts ("una sessione finita senza secondi
+fatturati resta da contare finche' arrivano"), rossa sul codice pubblicato, verde dopo; 146 su 146.
+Il conto del telefono di collaudo e' stato corretto a mano da 167 a 196 secondi (41+79+27+29+20), quanto ha
+fatturato Protoface. La cura va pubblicata (apriUnaSessioneLive, chiudiLaSessioneLive, statoDellaSessioneLive)
+e poi vista con una sessione chiusa subito.
