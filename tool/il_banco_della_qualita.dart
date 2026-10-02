@@ -238,6 +238,9 @@ Future<InMemoryMaestroMemoryRepository> _memoria(Maestro m, DateTime ora) async 
 
 void main() {
   setUpAll(preparaIlBanco);
+  // I guasti innocui (reti, frasi del cielo smentite) a video, col caso.
+  setUp(() => GuastiVersoIlCruscotto.inoltro =
+      (cosa, errore, traccia) => print('GUASTO INNOCUO: $cosa'));
 
   test('il banco della qualita', () async {
     final giro = Platform.environment['GIRO'] ?? 'senza_nome';
@@ -323,6 +326,8 @@ void main() {
           'ripetizione': controller.rigenerazioniPerRipetizione,
           'rigaDOro': controller.rigenerazioniPerRigaDOro,
           'vuota': controller.rigenerazioniPerVuota,
+          'cieloSmentito': controller.frasiDelCieloSmentite,
+          'correzioniCorte': controller.correzioniCorte,
         },
         'fattiDellaMemoria': c.fatti,
         'cieloDelleDate': [

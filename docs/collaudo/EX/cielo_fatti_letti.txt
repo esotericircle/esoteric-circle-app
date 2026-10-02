@@ -1,0 +1,52 @@
+LETTURA A MANO DEI FATTI DEL CIELO, cielo_prima.txt e cielo_dopo.txt (banco di Medora e del cielo, 2026-10-02).
+Regola: ogni fatto astronomico affermato nella risposta a video confrontato coi FATTI DALLE EFFEMERIDI DELL'APP sotto la stessa domanda.
+SBAGLIATO = contraddice le effemeridi. NEGATO = dice di non sapere o rifiuta un fatto che le effemeridi contengono.
+NON VERIFICABILE = fatto preciso (data, grado, percentuale) che le effemeridi sotto non coprono. Le interpretazioni simboliche e i dati natali della persona (Ascendente, Sole, Luna di nascita) non si contano.
+
+prima|1|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Urano retrogrado oggi: giusto
+prima|2|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Luna in Gemelli, Gibbosa calante: giusto
+prima|3|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Saturno, Urano, Nettuno, Plutone retrogradi: giusto
+prima|4|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Venere a 8 gradi in Scorpione: giusto
+prima|5|SBAGLIATI 1|NEGATI 0|NON VERIFICABILI 0|aspetti del Sole giusti; ma "La Luna, nel tuo segno di nascita in Bilancia, forma un trigono con Mercurio, un sestile con Giove e una quadratura con Nettuno": la Luna che oggi forma quegli aspetti e' in Gemelli, non in Bilancia (e la Luna natale a 27 Bilancia non li forma)
+prima|6|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Marte a 2 gradi in Leone: giusto
+prima|7|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Sole 9 Bilancia, Luna 25 Gemelli, Mercurio e Venere in Scorpione, Marte e Giove in Leone, quattro retrogradi coi segni giusti
+prima|8|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 1|tutte le posizioni, Primo quarto e Giove congiunto Saturno giusti; "illuminata al 45%" non coperto
+prima|9|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Saturno in Toro, retrogrado: giusto
+prima|10|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Luna crescente in Bilancia: giusto
+prima|11|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|eclissi solare totale, Luna nuova in Ariete: giusto
+prima|12|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|retrogrado a inizio agosto e diretto l'11 agosto: giusto; il segno Leone non e' coperto dagli eventi (segno, non data ne' grado)
+prima|13|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Giove in Cancro al primo grado: giusto
+prima|14|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Luna in Cancro, Ultimo quarto, Sole in Bilancia: giusto ("entra in Cancro domani": l'ingresso cade fra le due istantanee, il 2 la Luna e' a 25 Gemelli, il 3 a 9 Cancro; non contraddice). Non dice che Venere diventa retrograda il 3
+prima|15|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Urano diretto l'8 febbraio 2027, in Gemelli: giusto
+prima|16|SBAGLIATI 1|NEGATI 0|NON VERIFICABILI 2|eventi del mese tutti giusti; SBAGLIATO "Marte e Giove sono in Leone" all'inizio del mese: Marte e' in Vergine dal 2026-11-26 (lo dicono le effemeridi dell'app nel blocco della domanda 15; il blocco della 16 non nomina Marte); non verificabili: Sole a 9 gradi in Sagittario, Luna a 12 gradi in Vergine all'ultimo quarto (plausibili)
+prima|17|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|quattro eclissi: solari 6 febbraio e 2 agosto, lunari di penombra 20 febbraio e 17 agosto: conformi alle effemeridi (non dice anulare e totale)
+prima|18|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Luna piena il 26 ottobre 2026 in Toro: giusto
+prima|19|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 1|retrogrado a inizio novembre e diretto il 14: giusto; "il 1 novembre a 16 gradi in Scorpione" non coperto
+prima|20|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Giove a 27 gradi in Vergine: giusto
+
+TOTALE prima|SBAGLIATI 2|NEGATI 0|NON VERIFICABILI 4|domande con almeno un fatto sbagliato: 2 su 20 (5 e 16)
+
+dopo|1|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 1|Urano retrogrado in Gemelli: giusto; "lo e' dal 5 settembre" non coperto
+dopo|2|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Luna in Gemelli, Gibbosa calante: giusto
+dopo|3|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Saturno, Urano, Nettuno, Plutone retrogradi: giusto
+dopo|4|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Venere a 8 gradi in Scorpione: giusto
+dopo|5|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|fine MAX_TOKENS: a video c'e' il blocco grezzo delle effemeridi incollato (fatti identici, quindi giusti) e poi la frase si tronca a "una rete complessa di legami tra"; nessun fatto sbagliato, ma risposta rotta
+dopo|6|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Marte a 2 gradi in Leone: giusto
+dopo|7|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Sole opposto Saturno retrogrado in Ariete; Mercurio e Venere in quadratura a Marte e a Plutone retrogrado; Luna in Gemelli sestile Giove in Leone: tutto giusto
+dopo|8|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|tutte le posizioni, Primo quarto e Giove congiunto Saturno giusti
+dopo|9|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Saturno a 10 gradi in Toro, retrogrado: giusto
+dopo|10|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Luna crescente in Bilancia, congiunta a Giove e Urano: giusto
+dopo|11|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|eclissi solare totale, Luna nuova a 15 Ariete, Sole a 19 Ariete: giusto
+dopo|12|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 1|retrogrado a inizio agosto: giusto; "il primo del mese a 8 gradi in Leone" non coperto; non dice che torna diretto l'11 (omissione, non contata)
+dopo|13|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Giove a 1 grado in Cancro: giusto
+dopo|14|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Luna in Cancro, Sole in Bilancia in quadratura alla Luna: giusto (stessa nota sull'ingresso della prima). Non dice che Venere diventa retrograda il 3
+dopo|15|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Urano retrogrado ora, diretto l'8 febbraio 2027: giusto
+dopo|16|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 4|eventi del mese tutti giusti con le date; non verificabili i quattro gradi d'apertura: Sole 9 Sagittario, Luna 12 Vergine all'ultimo quarto, Mercurio 22 Scorpione, Venere 28 Bilancia (segni coerenti con gli eventi); Marte non nominato
+dopo|17|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|quattro eclissi, due solari e due lunari, 6 e 20 febbraio, 2 e 17 agosto: conformi alle effemeridi
+dopo|18|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Luna piena il 26 ottobre in Toro: giusto
+dopo|19|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|retrogrado a inizio novembre, diretto il 14: giusto
+dopo|20|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 0|Giove a 27 gradi in Vergine: giusto
+
+TOTALE dopo|SBAGLIATI 0|NEGATI 0|NON VERIFICABILI 6|domande con almeno un fatto sbagliato: 0 su 20; una risposta troncata (5, MAX_TOKENS)
+
+Nota fuori conteggio: per il 2027 le effemeridi dell'app danno quattro eclissi; nella realta' c'e' anche un'eclissi lunare di penombra marginalissima il 18 luglio 2027, che l'app segna solo come Luna piena in Capricorno. Le due risposte sono conformi all'app, quindi non contate.

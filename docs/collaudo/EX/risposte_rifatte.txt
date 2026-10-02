@@ -1,0 +1,31 @@
+ORDINE EX VOCE 07, MENO RISPOSTE RIFATTE. 2 ottobre 2026.
+
+DOMANDA: "...Ma la cache e gli scheletri che dovevano abbattere del 70% i costi AI funzionano?"
+MISURA chiesta: chiamate per una domanda della chat verso 1,3; confronto alla cieca.
+
+IL CODICE
+1. La rete della posizione classificava come "lettura" le domande di fatti del cielo ("in che segno è la Luna", "dov'è Venere", "com'è il cielo") e le faceva rifare: lib/core/chat/la_posizione_della_lettura.dart, tipo() apre anche "in che / a che / di che / da che / che fase, segno... / dov'è / com'è". Prova: test/la_posizione_e_una_lettura_test.dart, rossa sui casi nuovi prima della cura.
+2. La correzione corta: quando una rete (posizione, certezze, risposta da programma, risposta d'attesa, risposta ripetuta) scarta la risposta, non si rifà la richiesta intera (istruzione, storia, funzioni del cielo) ma una richiesta corta con la domanda, la risposta da correggere e la correzione: MaestroPersona.istruzioneDellaCorrezione, FirebaseMaestroAiProvider.correggi (etichetta chat_correzione), il controller in _correggiCorto, con la richiesta intera come ripiego se la corta non riesce. Porta la memoria (aggiunta dopo il primo confronto), il controllo del merito (LaRispostaNelMerito.primaDiScrivere) e, dal giro finale, il cielo del turno (sotto).
+
+LE CHIAMATE (tool/il_banco_della_qualita.dart, 24 casi di chat; python tool/i_conti_della_qualita.py)
+| Giro | Chiamate per risposta | Reti scattate (posizione, certezza) | Costo di una risposta a freddo |
+|---|---|---|---|
+| prima | 2,58 | non registrate | 0,00727 $ |
+| prima2 | 2,46 | 11, 7 | 0,00690 $ |
+| ex07 (EX.07 e EX.08) | 1,46 | 4, 2 | 0,00388 $ |
+| fine3 (tutte le voci) | 1,62 | 3, 4 (7 correzioni corte) | 0,00462 $ |
+Il giro finale e' sopra l'1,46 dell'ex07 perche' la risposta porta anche il seguito (EX.04): le chiamate che restano sopra 1 sono le funzioni del cielo per le date (C5-C8: 2,5 chiamate) e le correzioni. Senza le quattro domande sul cielo di altre date, le chiamate per risposta sono 1,45 (20 casi). L'obiettivo "verso 1,3" e' vicino ma non raggiunto sul banco intero.
+
+LA CORREZIONE CORTA CONTRO QUELLA INTERA, SULLA STESSA RISPOSTA SCARTATA (tool/la_correzione_corta_a_confronto.dart; due giri, due giudici alla cieca ciascuno)
+| | A regole | B memoria | D merito |
+|---|---|---|---|
+| giro 1, giudice 1 (corta contro piena) | 20 contro 18 | 14 contro 11 | 13 contro 13 |
+| giro 1, giudice 2 | 19 contro 17 | 13 contro 10 | 15 contro 17 |
+| giro 2, giudice 1 | 19 contro 21 | 14 contro 14 | 23 contro 22 |
+| giro 2, giudice 2 | 19 contro 19 | 14 contro 14 | 23 contro 22 |
+| somma | 77 contro 75 | 55 contro 49 | 74 contro 74 |
+Ingresso della correzione al giro 1: 5.745 token contro 8.857; costo 0,0020 contro 0,0029 $. Il giro 2 ha la memoria e il controllo del merito nella correzione. Le cadute sulle regole sono tutte "previsione certa", in tutti e due i modi. Fascicoli: docs/collaudo/EX/qualita/corta_giro1/ e corta/.
+
+DIFETTO TROVATO E CURATO DENTRO LA VOCE: al giro finale (fine2) una correzione corta ha scritto "il primo gennaio 2028 Giove sarà nel Cancro" (e' in Vergine; il seguito della stessa risposta, scritto dalla richiesta intera, diceva Vergine). Padre: ordine EX voce 07 (la correzione non chiama le funzioni del cielo e non riceveva i loro fatti). Cura: la correzione riceve il cielo di oggi e dei giorni chiesti nel turno, dalle stesse effemeridi (controller _cieloDelTurno, MaestroPersona.istruzioneDellaCorrezione cieloDelTurno); prova test/la_correzione_porta_il_cielo_del_turno_test.dart, nata rossa (regola_a_ex.txt, A7).
+
+IL CONFRONTO ALLA CIECA SUL BANCO INTERO: giro finale contro prima2, docs/collaudo/EX/qualita/finale3/.

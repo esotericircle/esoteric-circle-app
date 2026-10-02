@@ -1,0 +1,40 @@
+S01|NO|NA|NA|SI|NA|A NO: i segni dicono di sì al colloquio che andrà bene, previsione data per certa; il gesto sugli intervistatori è nel merito.
+S02|SI|NA|NA|NO|NA|Al limite su A: afferma i sentimenti di Marco e poi dice che non si possono sapere; gesto generico, non risponde se la ama.
+S03|NO|NA|NA|NO|NA|Al limite su A: segnaposto di silenzio al posto della risposta, nessuna indicazione; non dice che cosa la blocca.
+S04|SI|NA|NA|NO|NA|Frasi astratte sul confine già tracciato e gesto simbolico della mappa, nessuna direzione concreta per lei.
+S05|SI|NA|NA|NO|NA|Nessun contenuto sulla fiducia, solo la telefonata che stai rimandando, valida per chiunque.
+S06|SI|NA|NA|SI|NA|Risponde di aprire, piano dei primi tre mesi e contatto con chi ha una bottega simile: concreto e pertinente.
+S07|NO|NA|NA|NO|NA|Al limite su A: afferma per certo che ciò che arriva non è ciò che cerca; gesto del tavolo generico.
+S08|SI|NA|NA|NO|NA|Immagine della frattura senza indicare quale strada scegliere; gesto di scrivere cosa farebbe stare meglio generico.
+S09|SI|NA|NA|NO|NA|Il blocco creato da te e cambiare abitudine sono massime valide per chiunque, nessun contenuto specifico.
+S10|SI|NA|NA|SI|NA|Dice sì se sceglie lei come aiutare e di chiedere al fratello un piano concreto entro domenica: nel merito.
+S11|SI|NA|NA|NO|NA|Risponde sì a un perché, non spiega l'insonnia; gesto della telefonata rimandata generico.
+S12|SI|NA|NA|SI|NA|Sì condizionato e gesto preciso: scrivere a tre conoscenti a Berlino sulle difficoltà del trasferimento.
+S13|NO|NA|NA|NO|NA|Al limite su A: segnaposto di silenzio al posto della risposta; non dice nulla sul matrimonio.
+S14|SI|NA|NA|NO|NA|Al limite su A: sì al prestito senza contenuto; gesto di scrivere cosa farebbe stare meglio generico.
+S15|SI|NA|NA|SI|NA|Nessuna previsione; preparare due risposte per ogni domanda è indicazione concreta per il colloquio.
+S16|SI|NA|NA|NO|NA|Lascia che si chiarisca da sola è un invito al tempo valido per chiunque; gesto dell'albero simbolico.
+S17|SI|NA|NA|SI|NA|Al limite su A, sì a un perché; poi spiega il peso di essere sempre disponibile e dà il gesto del telefono spento.
+S18|SI|NA|NA|SI|NA|Indica di chiedere un incontro alla persona e di scriverle entro domani sera: concreto sulla domanda.
+S19|SI|NA|NA|NO|NA|Il blocco non ti appartiene e osserva come reagisci: massime generiche senza contenuto specifico.
+S20|SI|NA|NA|SI|NA|Telefonare alla madre entro domenica e proporre un incontro a due per parlare con calma: concreto.
+S21|SI|NA|NA|NO|NA|Al limite su D: frase vuota sulla decisione importante, non dice nulla su cosa prova Marco.
+S22|SI|NA|NA|SI|NA|Al limite su D: smettere di nascondersi e dire ciò che pensi in una situazione di disagio entro domani.
+S23|SI|NA|NA|SI|NA|Sì condizionato e messaggio alla sorella per un caffè; piccola incoerenza fra venerdì e giovedì.
+S24|SI|NA|NA|NO|NA|Considerare le priorità e agire adesso sono massime per chiunque; gesto del parere altrui generico.
+S25|SI|NA|NA|NO|NA|Nessun contenuto sulla madre, solo il gesto generico di scrivere cosa farebbe stare meglio.
+S26|NO|NA|NA|NO|NA|Al limite su A: segnaposto di silenzio al posto della risposta; non dice nulla sul progetto.
+S27|SI|NA|NA|NO|NA|Definire la priorità e cercare un luogo di pace sulla mappa non dicono se le conviene cambiare casa.
+S28|SI|NA|NA|SI|NA|Sì condizionato, incontro in luogo neutro, parlare senza accusare e lettera di scuse: concreto.
+S29|SI|NA|NA|NO|NA|Scegli che cosa fare con ciò che è finito ripete la domanda; gesto dell'oggetto generico.
+S30|SI|NA|NA|NO|NA|Al limite su A; il peso che non è tuo e venti minuti di silenzio sono generici, nessun contenuto specifico.
+S31|SI|NA|NA|SI|NA|Al limite su D: sì condizionato al dialogo con chi condivide la scelta e scrivere a chi è a Berlino.
+S32|SI|NA|NA|NO|NA|Un passo alla volta con compagnia fedele e individuare un impedimento sono inviti per chiunque.
+S33|SI|NA|NA|NO|NA|Sì condizionato poi dice che non si può sapere; la cena con un amico non riguarda il ritorno di lui.
+S34|SI|NA|NA|NO|NA|Una direzione esiste e fai un piccolo passo: massime valide per chiunque, nessuna direzione indicata.
+S35|SI|NA|NA|NO|NA|Al limite su A: risponde sì a un quando e afferma l'unione già presente; non dice quando.
+S36|NO|NA|NA|SI|NA|Al limite: i segni dicono di no per ora, previsione sul ritorno data come certa; gesto delle notifiche pertinente.
+S37|SI|NA|NA|NO|NA|Non dice che cosa la blocca nel lavoro, solo un gesto sul talento da mostrare.
+S38|SI|NA|NA|SI|NA|Sì ad aprire e visita di due spazi entro giovedì; condizione del luogo già pronto un po' incoerente.
+S39|SI|NA|NA|SI|NA|Chiedere in modo diretto che cosa cerca da lei e fissare un incontro entro domani sera: concreto.
+S40|SI|NA|NA|NO|NA|Non dice se conviene cambiare casa quest'anno; casa già presente vaga, gesto di sgombero generico.

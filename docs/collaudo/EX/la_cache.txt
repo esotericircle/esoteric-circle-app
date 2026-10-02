@@ -1,0 +1,31 @@
+ORDINE EX VOCE 05, LA CACHE DEL CONTESTO. 2 ottobre 2026. APERTA.
+
+DOMANDA: "...Ma la cache e gli scheletri che dovevano abbattere del 70% i costi AI funzionano?"
+MISURA chiesta: quota dell'ingresso presa dalla cache con richieste a 10 minuti; costo medio di una domanda.
+
+IL CODICE
+- MaestroPersona.systemInstruction riordinata: prima cio' che e' di tutti (voce del Maestro, regole di lingua, misura, forma del testo, due strati, consiglio finale, risposta detta a voce nel LIVE), poi cio' che e' della persona e del turno (cortesia, nascita, responsi, ancoraggio, memoria, righe gia' scritte, parti del turno, controllo prima di scrivere, seguito). Prima la cortesia e la nascita stavano subito dopo la voce del Maestro.
+- La guardia nuova test/la_parte_comune_viene_prima_test.dart: due persone diverse ricevono la stessa istruzione fino al consiglio finale compreso. Inizio uguale: 18.849 caratteri su 23.697 (Medora), 18.589 su 23.221 (Aura), 18.785 su 23.536 (Caligo), circa l'80 per cento. Con l'ordine di prima, 5.617 caratteri (innesto A5 in docs/collaudo/EX/regola_a_ex.txt).
+
+LA MISURA (tool/la_cache_a_dieci_minuti.dart: il provider vero della chat, Medora, due persone diverse che si alternano ogni 10 minuti, sei domande, poi due di fila; europe-west1)
+prima (ordine vecchio), docs/collaudo/EX/cache/prima.txt:
+  10:28 Sofia 0% | 10:38 Luca 52% | 10:48 Sofia 66% | 10:58 Luca 52% | 11:08 Sofia 0% | 11:18 Luca 52% | di fila: 52%, 0%
+dopo (ordine nuovo), docs/collaudo/EX/cache/dopo.txt:
+  11:20 Sofia 65% | 11:30 Luca 65% | 11:40 Sofia 0% | 11:50 Luca 0% | 12:00 Sofia 0% | 12:10 Luca 0% | di fila: 0%, 0%
+(La prima domanda del "dopo" non e' fredda: il banco della qualita' era appena girato con lo stesso inizio d'istruzione.)
+
+CHE COSA DICONO I NUMERI
+1. Quando la cache implicita prende, prende di piu' col nuovo ordine: 4.820 token invece di 3.854 (65 per cento dell'ingresso invece di 52). E' l'inizio comune che si allunga.
+2. La cache implicita di Vertex non e' garantita: nel "prima" due domande su otto a 0 per cento, nel "dopo" sei su otto, comprese due domande di fila a tre secondi. Sulle otto richieste la quota media e' 34 per cento prima e 16 per cento dopo: con richieste rade la cache implicita non si puo' contare, ne' prima ne' dopo.
+3. Al banco della qualita', con le richieste una dietro l'altra, la quota d'ingresso dalla cache delle risposte della chat e' fra il 45 e il 73 per cento a seconda del giro (python tool/i_conti_della_qualita.py).
+
+LA CACHE GARANTITA, CIOE' ESPLICITA (Vertex CachedContent): QUANTO COSTEREBBE
+- Inizio comune da tenere in cache: circa 4.820 token per Maestro e per variante (chat con e senza seguito, LIVE): 3 Maestri x 3 varianti, circa 43.000 token.
+- Conservazione: 1 dollaro al milione di token all'ora per Flash, circa 0,043 $ all'ora, circa 31 $ al mese.
+- Risparmio per richiesta: 4.820 token al 90 per cento di sconto, 0,30 $ al milione: circa 0,0013 $.
+- Pareggio: circa 33 richieste all'ora sull'insieme della chat, giorno e notte. Il costo di tutta l'app nel mese misurato dall'ordine EW e' di circa 5 dollari: oggi la cache esplicita costerebbe piu' di quanto fa risparmiare.
+- Da verificare prima di farla: se il pacchetto firebase_ai del telefono accetta un contenuto in cache (la richiesta parte dal telefono, non dal server).
+
+DECISIONE (scelta consigliata, scritta qui come vuole la regola): la cache esplicita non si accende adesso; si accende quando la chat supera stabilmente le 33 richieste all'ora, e l'ordine resta pronto perche' l'inizio comune e' gia' in testa. La voce resta APERTA: "garantita" non e' fatto, e la quota misurata a 10 minuti non e' salita.
+
+COSTO MEDIO DI UNA DOMANDA: vedi docs/collaudo/EX/vai_piu_a_fondo.txt e docs/costi/costo_per_utente_dopo_ex.md (a freddo 0,00690 $ prima, 0,00462 dopo; il calo viene dall'EX.07, EX.08 e EX.09, non dalla cache).

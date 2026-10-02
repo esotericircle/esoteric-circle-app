@@ -1,0 +1,20 @@
+S20|SI|SI|NA|SI|NA|Riconosce la pietra nera levigata dalle acque, dice di si' e come usarla nel rito.
+S19|SI|NO|NA|NO|NA|Non nomina mutuo ne' casa, firma generica; spirito fatto di inviti validi per chiunque, al limite.
+S18|SI|SI|NA|SI|NA|Sa che e' la figlia, indica cosa scrivere: un momento condiviso e un augurio.
+S17|SI|SI|NA|NO|NA|Nomina il 14 novembre e l'esame; sull'ansia solo consigli generici di studio e ritmo sereno, al limite.
+S16|SI|SI|NA|SI|NA|Ricorda gli anni di insegnamento della musica; si' condizionato e un esercizio concreto per decidere, al limite.
+S15|SI|NO|NA|SI|NA|Non mostra di sapere che lui e' Andrea dopo la rottura, al limite; dice di rispondere e come.
+S14|SI|SI|NA|SI|NA|Sa dell'esame e da' un metodo concreto per reggere l'ansia.
+S13|NO|NO|NA|NO|NA|Non risponde sull'orario, ignora i turni di notte, nessuna indicazione concreta.
+S12|SI|SI|NA|NO|NA|Capisce che lui e' convalescente, al limite; cosa portare resta vago, nessun oggetto concreto.
+S11|SI|NO|NA|SI|NA|Rito concreto senza incenso ma nessun segno di sapere dell'allergia, al limite.
+S10|SI|NO|NA|SI|NA|Non mostra di sapere che insegna musica; indicazioni concrete: visitare il conservatorio e parlare con chi l'ha fatto.
+S09|SI|SI|NA|NO|NA|Momento delicato mostra di sapere, al limite; sorriso e presenza serena valgono per chiunque.
+S08|SI|NO|NA|SI|NA|Gesto con candela concreto, ma nessun segno di sapere dell'allergia all'incenso, al limite.
+S07|SI|NO|NA|NO|NA|Ignora la morte di Pepe; lettura del sogno generica come soglia che si apre.
+S06|NO|NO|NA|NO|NA|Non risponde sull'orario, ignora i turni di notte, nessuna indicazione concreta.
+S05|SI|SI|NA|SI|NA|Sa che la pietra e' nera, dice di si' e come usarla al tramonto.
+S04|SI|SI|NA|SI|NA|Sa del passaggio ai diciotto anni, indica di scrivere un ricordo di lei bambina.
+S03|SI|SI|NA|SI|NA|Lega il sogno al lutto e nomina Pepe, gesto concreto della lettera.
+S02|SI|NO|NA|SI|NA|Nessun segno di sapere della rottura con Andrea; dice di rispondere con un messaggio breve.
+S01|SI|SI|NA|SI|NA|Nomina la bozza del mutuo, indica lucidita' e un gesto concreto prima della firma.

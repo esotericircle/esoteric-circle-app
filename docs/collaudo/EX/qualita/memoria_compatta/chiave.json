@@ -1,0 +1,82 @@
+{
+ "S01": {
+  "giro": "mc_dopo",
+  "caso": "K07"
+ },
+ "S02": {
+  "giro": "mc_prima",
+  "caso": "K06"
+ },
+ "S03": {
+  "giro": "mc_dopo",
+  "caso": "K09"
+ },
+ "S04": {
+  "giro": "mc_prima",
+  "caso": "K04"
+ },
+ "S05": {
+  "giro": "mc_dopo",
+  "caso": "K03"
+ },
+ "S06": {
+  "giro": "mc_dopo",
+  "caso": "K05"
+ },
+ "S07": {
+  "giro": "mc_prima",
+  "caso": "K09"
+ },
+ "S08": {
+  "giro": "mc_dopo",
+  "caso": "K08"
+ },
+ "S09": {
+  "giro": "mc_dopo",
+  "caso": "K02"
+ },
+ "S10": {
+  "giro": "mc_prima",
+  "caso": "K10"
+ },
+ "S11": {
+  "giro": "mc_prima",
+  "caso": "K08"
+ },
+ "S12": {
+  "giro": "mc_prima",
+  "caso": "K02"
+ },
+ "S13": {
+  "giro": "mc_prima",
+  "caso": "K05"
+ },
+ "S14": {
+  "giro": "mc_dopo",
+  "caso": "K01"
+ },
+ "S15": {
+  "giro": "mc_dopo",
+  "caso": "K06"
+ },
+ "S16": {
+  "giro": "mc_dopo",
+  "caso": "K10"
+ },
+ "S17": {
+  "giro": "mc_prima",
+  "caso": "K01"
+ },
+ "S18": {
+  "giro": "mc_dopo",
+  "caso": "K04"
+ },
+ "S19": {
+  "giro": "mc_prima",
+  "caso": "K07"
+ },
+ "S20": {
+  "giro": "mc_prima",
+  "caso": "K03"
+ }
+}
