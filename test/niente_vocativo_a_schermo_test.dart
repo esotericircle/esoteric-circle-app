@@ -83,6 +83,13 @@ void main() {
           // pulsante [amico/a]"*. Non e' un participio rivolto a chi legge:
           // e' il nome del pulsante che porta agli amici, scritto come lui.
           if (trovata == "'amico/a'") continue;
+          // **IL NOME DI UN GRUPPO DEL CORPUS DELLE RUNE NON E' UN TESTO
+          // MOSTRATO**, ordine EX voce 03: `'Othala/ombra'` e' la chiave della
+          // runa e del verso nel corpus generato (la "a" di Othala e la "o" di
+          // ombra), mai una parola a video.
+          if (RegExp(r"^'[A-Z][a-z]+/(dritta|ombra)'$").hasMatch(trovata)) {
+            continue;
+          }
           sospette.add('${f.path}:${i + 1} $trovata');
         }
       }

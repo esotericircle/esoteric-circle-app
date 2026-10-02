@@ -114,6 +114,26 @@ void main() {
     // sopra racconta. Ognuna di queste sei e' un uso legittimo: o e' proprio
     // l'audio, o e' un grado, o e' una figura del parlare.
     const frasiAmmesse = <String, String>{
+      // **IL CORPUS DELLE RUNE DELL'ARCHITETTO**, ordine EX, EX Aggiunta 2:
+      // otto voci su 5.411 dove "voce" e' una figura del parlare (la voce di
+      // un'intuizione, di una pietra, della gettata) o una voce di un
+      // elenco; mai il Maestro, mai l'audio.
+      'la sua voce è sommessa ma conosce la strada':
+          'la voce di un\'intuizione (RISPOSTA)',
+      'Wunjo e la sua voce, come {glossa}, è limpida':
+          'la voce della runa (PIETRA Wunjo dritta)',
+      'di sentire le altre voci prima di alzare la propria':
+          'le voci di un coro, figura (PIETRA Wunjo in ombra)',
+      'la sua voce resta intera e cade nella tua giornata':
+          'la voce della pietra (LEGAME odino)',
+      'non deve prevalere su altre voci':
+          'la voce della pietra fra altre (LEGAME odino)',
+      'la sua voce torna utile come un attrezzo noto':
+          'la voce della pietra (LEGAME odino)',
+      'mette la sua voce più grave, nel collo stretto':
+          'la voce della gettata, figura (LEGAME)',
+      'tre voci che non hanno più senso':
+          'le voci di una lista di cose da fare (GESTO)',
       'Il respiro guidato dalla voce di Aura':
           'e\' proprio l\'audio: il respiro guidato SUONA, e la voce che lo '
               'guida e\' quella sintetizzata',

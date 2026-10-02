@@ -33,7 +33,7 @@ abstract final class IlSeguitoNascosto {
       'risposta: l\'app li toglie prima di mostrarla e li tiene da parte, la '
       'persona li leggerà solo se lo chiede. Un testo che finisce senza $segno '
       'e il seguito è incompleto. La risposta sopra deve stare in piedi da '
-      'sola, e non deve annunciare il seguito.\n'
+      'sola e non deve annunciare il seguito.\n'
       '- Riprendi da dove hai lasciato, con cose nuove. Non riassumere, non '
       'riformulare, non ripetere con altre parole ciò che hai già detto: chi '
       'rilegge due volte la stessa cosa si sente preso in giro.\n'

@@ -6479,13 +6479,15 @@ l'etichetta.
   usano tutto.** Le gettate di rune sono quasi due terzi del costo
   dell'Iniziato.
 - **Le leve** (EW.06, `docs/costi/le_leve_del_costo.md`): 12, nessuna
-  applicata; le piu' forti meno gettate di rune, le rune su Flash-Lite, la
+  applicata dall'EW (l'ordine EX ne ha applicate: vedi sotto); le piu' forti meno gettate di rune, le rune su Flash-Lite, la
   cache del contesto.
 - **Il minuto del LIVE** (EW.07, `docs/costi/il_minuto_del_live.md`): 0,0213 $
   al minuto in conversazione, misurato su una sessione vera col Realme
   (Protoface 0,0113, voce 0,0040, risposte 0,0034, ascolto 0,0025); 0,0125 senza
   conversazione. **I minuti del mese del LIVE non scendono mai**:
-  `minutiUsati` e' letto dal server e nessuno lo scrive (padre EG.06); il LIVE
+  `minutiUsati` e' letto dal server e nessuno lo scrive (padre EG.06; **dal
+  codice dell'ordine EX voce 01 si contano coi secondi veri di Protoface, in
+  produzione dopo la pubblicazione delle funzioni**); il LIVE
   si limita solo con le domande del giorno (ogni turno a voce costa una
   domanda, EQ.07) e coi 20 minuti per sessione. Il piano Protoface e' almeno il
   Launch (una sessione del 30 settembre di 14:45); Launch o Scale, e il piano
@@ -6493,6 +6495,76 @@ l'etichetta.
 - **Le prove col modello vero** sono costate al massimo 2,03 $ (1.125
   chiamate a Gemini e 9 crediti Protoface),
   `docs/collaudo/EW/il_costo_delle_prove.txt`.
+
+## L'ORDINE EX, IL COSTO AI SOTTO IL 30 PER CENTO SENZA PERDERE QUALITA' (2 ottobre 2026)
+
+Manifesto `docs/ordini/ORDINE_EX_MANIFESTO.md`, rapporto
+`docs/ordini/RAPPORTO_ORDINE_EX.md`, prove in `docs/collaudo/EX/`, conti in
+`docs/costi/costo_per_utente_dopo_ex.md`. **Undici voci: quattro chiuse
+(EX.03, EX.06, EX.08, EX.09), quattro aperte in attesa di verifica (EX.01,
+EX.02, EX.04, EX.11), tre aperte (EX.05, EX.07, EX.10).**
+Nessuna build consegnata; sul Realme una build di collaudo 2292 con le catture
+permesse, solo per guardare.
+
+- **Le funzioni del server non sono pubblicate.** `apriUnaSessioneLive`,
+  `statoDellaSessioneLive`, `chiudiLaSessioneLive`, `statoDelCerchio`,
+  `consumaDelGiorno` e `muoviGliEos` portano i minuti del LIVE che scendono
+  (EX.01) e i limiti nuovi (EX.02): il fondatore ha autorizzato, il controllo
+  dei permessi della sessione di Code ha bloccato la pubblicazione. **Finche'
+  non sono pubblicate, in produzione valgono i limiti di prima e i minuti del
+  LIVE non scendono.**
+- **La matrice dei piani** (EX.02): domande 3/6/10/13, Vai piu' a fondo
+  0/2/2/3, confronti 0/1/2/3, carte estratte 3/6/10/15 (la stesa consuma le
+  sue carte, `consumaDelGiorno` con `quanti`; il riscatto da 150 Eos rende 3
+  carte), stesa da 10 solo Adepto e Illuminato (`TarotSpreadType.apribileDa`,
+  oggi ancora Coming soon per tutti), gettate 1/2/3/3, minuti LIVE 0/0/60/120.
+  La riga "Tarocchi carta singola" non c'e' piu'. Card dei piani coi numeri
+  nuovi. Il listino degli Eos (`listino_degli_eos.dart`) resta disallineato e
+  non montato.
+- **Le rune senza modello** (EX.03): il corpus dell'Architetto (5.411 voci,
+  `docs/corpus/rune/*.md`, generato in
+  `lib/core/rituals/il_corpus_del_presagio.g.dart` da
+  `tool/genera_corpus_del_presagio.py`; controllo dei testi in
+  `tool/controlla_il_corpus_delle_rune.py`) compone il presagio sul telefono
+  (`IlPresagioDalCorpus`), senza ripetere una voce alla stessa persona per 60
+  giorni; la memoria delle voci lette sta in SharedPreferences
+  (`rune.presagio.memoria`, `rune.presagio.persona`). Zero chiamate per
+  gettata (prima 1,85), guardato a video sul Realme. Una voce si cambia solo
+  nei file dell'Architetto e si rigenera. **Due voci aspettano la correzione
+  dell'Architetto** (PIETRA Uruz dritta 56 e Mannaz in ombra 38, dicono a chi
+  legge di essere un uomo): il codice non le sceglie
+  (`IlPresagioDalCorpus.vociTrattenute`); quando arrivano corrette si tolgono
+  da quell'elenco.
+- **Il Vai piu' a fondo scritto insieme** (EX.04): `[[SEGUITO]]`
+  (`lib/core/maestro/il_seguito_nascosto.dart`), tenuto in
+  `ChatMessage.seguitoNascosto` e scoperto senza chiamata: 20 tocchi su 24 al
+  banco; se manca, il tocco chiama come prima.
+- **L'istruzione della chat** (EX.05): prima la parte comune a tutti, poi
+  quella della persona e del turno (guardia
+  `test/la_parte_comune_viene_prima_test.dart`). La cache implicita non e'
+  garantita; quella esplicita conviene sopra circa 33 richieste all'ora.
+- **La penna dei Ricordi** (EX.06) chiama europe-west1.
+- **La correzione corta** (EX.07): quando una rete scarta una risposta si chiede
+  una correzione corta (`chat_correzione`) con la memoria e il cielo del
+  turno; la rete della posizione non rifa' piu' le domande di fatti del cielo.
+  Chiamate per risposta al banco da 2,46 a 1,71.
+- **Il cielo di oggi** (EX.08) si calcola una volta al giorno e sta nella
+  richiesta: per oggi la funzione non si chiama piu'.
+- **La memoria compatta** (EX.09): 8 messaggi di storia (era 20) piu' cio' che
+  la persona ha scritto prima, nell'istruzione.
+- **Il Viaggio** (EX.10) resta col modello: tre vie piu' economiche peggioravano
+  il merito.
+- **Il costo** (EX.11), al massimo in 30 giorni senza cache col LIVE: Iniziato
+  1,28 $ (tetto 2,36), Adepto 3,34 (4,72), Illuminato 5,42 (7,08); prima 5,66,
+  11,90, 31,73.
+- **Strumenti**: `tool/il_banco_della_qualita.dart` (30 casi, GIRO=nome),
+  `tool/il_fascicolo_della_qualita.py` (fascicoli alla cieca e conti dei
+  giudizi), `tool/i_conti_della_qualita.py`, `tool/i_conti_del_costo_ex.py`,
+  `tool/la_cache_a_dieci_minuti.dart`, `tool/la_memoria_compatta_a_confronto.dart`,
+  `tool/la_scena_senza_modello_a_confronto.dart` (TENTATIVI, GIRO),
+  `tool/la_correzione_corta_a_confronto.dart`.
+- **Le prove** sono costate al massimo 3,19 $ di Gemini
+  (`docs/collaudo/EX/il_costo_delle_prove.txt`).
 
 ## Regole ferree
 

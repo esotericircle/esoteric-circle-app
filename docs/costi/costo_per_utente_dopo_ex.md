@@ -1,0 +1,93 @@
+# Quanto costa un utente che usa tutto, dopo l'ordine EX
+
+Ordine EX, voce EX.11, 2 ottobre 2026.
+
+> *"30% Dopo iva e Store, 2,36$."*
+
+## In breve
+
+Il mese di una persona che usa **ogni limite del suo piano ogni giorno per
+trenta giorni**, LIVE compreso coi minuti del piano, **senza la cache** (ogni
+domanda paga l'ingresso intero: e' il caso peggiore, come nell'ordine EW).
+
+| Piano | Prima dell'ordine EX | Dopo l'ordine EX | Tetto (30 per cento dopo IVA e store) | Sotto il tetto? | Domande in piu' al giorno che starebbero sotto il tetto |
+|---|---|---|---|---|---|
+| Viandante | 0,84 $ | **0,53 $** | (gratuito) | | |
+| Iniziato | 5,66 $ | **1,28 $** | 2,36 $ | si', 54 per cento del tetto | **7** |
+| Adepto | 11,90 $ (LIVE 2,13) | **3,34 $** (LIVE 1,28) | 4,72 $ | si', 71 per cento del tetto | **9** |
+| Illuminato | 31,73 $ (LIVE 5,33) | **5,42 $** (LIVE 2,56) | 7,08 $ | si', 77 per cento del tetto | **11** |
+
+Il calcolo e' `tool/i_conti_del_costo_ex.py`, l'uscita
+`docs/costi/i_conti_del_costo_ex.txt`. Con la cache misurata i numeri sono
+vicini (Iniziato 1,34, Adepto 3,44, Illuminato 5,55): al banco della qualita'
+la quota presa dalla cache cambia molto da un giro all'altro (fra il 43 e il
+73 per cento), e la cache implicita non e' garantita (`docs/collaudo/EX/la_cache.txt`),
+quindi il conto che vale e' quello senza cache.
+
+## Da dove vengono i numeri
+
+**I limiti** sono quelli della matrice nuova (EX.02): domande 3/6/10/13,
+Vai piu' a fondo 0/2/2/3, confronti 0/1/2/3, carte estratte 3/6/10/15,
+gettate 1/2/3/3, minuti LIVE 0/0/60/120 al mese; discese, segni e sigilli
+come prima.
+
+**I costi per uso**, senza cache:
+
+| Uso | Prima (ordine EW) | Dopo | Da dove |
+|---|---|---|---|
+| Una domanda a un Maestro (memoria piena) | 0,00694 $ | **0,00498 $** | EW per il rapporto fra il giro finale (fine4) e il giro prima2 del banco della qualita', 0,718; il prima2 a freddo costa come l'EW (0,00690) |
+| Un tocco del Vai piu' a fondo | 0,00430 $ | **0,00046 $** | come sopra, rapporto 0,108: 20 tocchi su 24 non chiamano piu' il modello (EX.04) |
+| Una gettata di rune | 0,00601 $ | **0** | il corpus dell'Architetto (EX.03): nessuna chiamata |
+| Una carta estratta | 0,00069 $ | 0,00069 $ | un terzo della stesa da tre carte misurata dall'EW (0,00207). **Le stese da 1, 5 e 10 carte non esistono ancora: il loro costo e' una STIMA**, carte per 0,00069 |
+| Una discesa del Viaggio | 0,00350 $ | 0,00350 $ | EX.10 aperta: la scena resta al modello |
+| Un confronto, i sigilli, i segni, il titolo, i Ricordi | come l'EW | come l'EW | non toccati |
+| Un minuto di LIVE in conversazione | 0,0213 $ | 0,0213 $ | EW.07, sul Realme |
+
+**Le domande in piu'** sono lo spazio fra il mese al massimo e il tetto,
+diviso per trenta giorni e per il costo di una domanda (0,00500 $ col suo
+titolo). Sono un'indicazione per decidere, non una proposta: ogni domanda in
+piu' alza anche il LIVE solo se la persona lo usa a voce, dove ogni turno vale
+una domanda del giorno.
+
+## La giornata al massimo, dopo (dollari, senza cache, rune dal corpus)
+
+| Voce | Viandante | Iniziato | Adepto | Illuminato |
+|---|---|---|---|---|
+| Domande (col titolo) | 0,0113 | 0,0300 | 0,0500 | 0,0650 |
+| Vai piu' a fondo | 0 | 0,0009 | 0,0009 | 0,0014 |
+| Confronti | 0 | 0,0025 | 0,0050 | 0,0075 |
+| Tarocchi (carte) | 0,0021 | 0,0041 | 0,0069 | 0,0103 |
+| Gettate | 0 | 0 | 0 | 0 |
+| Discese | 0,0035 | 0,0035 | 0,0035 | 0,0070 |
+| Sigilli, segni, Ricordi | 0,0007 | 0,0015 | 0,0022 | 0,0041 |
+| LIVE al mese | 0 | 0 | 1,28 | 2,56 |
+
+Le cifre per voce stanno in `docs/costi/i_conti_del_costo_ex.txt` (righe
+"dopo, al giorno"; la riga delle gettate li' e' quella col modello, qui a zero
+perche' il corpus e' entrato).
+
+## Che cosa ha abbassato il costo, voce per voce (Iniziato al massimo, senza cache)
+
+- **I limiti nuovi (EX.02)**: le gettate da 20 a 2 al giorno erano quasi due
+  terzi del costo dell'Iniziato (3,61 $ su 5,66); il Vai piu' a fondo da 3 a 2.
+- **Le rune dal corpus (EX.03)**: le gettate che restano costano zero.
+- **Meno risposte rifatte e il cielo nella richiesta (EX.07, EX.08)**: le
+  chiamate per una domanda da 2,46 a 1,71 al banco della qualita'.
+- **Il Vai piu' a fondo scritto insieme (EX.04)**: da 1,46 chiamate al tocco
+  a 0,17.
+- **La memoria compatta (EX.09)**: circa 500 token d'ingresso in meno per
+  richiesta nelle conversazioni lunghe.
+
+## Il Briefing, sezione 22, e la matrice nuova
+
+Il Briefing non si tocca (regola dell'ordine): le differenze si elencano.
+
+| Riga | Briefing §22 (Free, Tier 1, Tier 2, Tier 3) | Codice dopo l'EX.02 (Viandante, Iniziato, Adepto, Illuminato) |
+|---|---|---|
+| Domande a un Maestro | 1, 5, 10, illimitate al giorno | 3, 6, 10, 13 al giorno |
+| Tarocchi carta singola | 1, 3, illimitati, illimitati | non c'e' piu' una riga a parte: carte estratte 3, 6, 10, 15 al giorno, in qualunque stesa |
+| Stese complete | Eos pieno, Eos scontati, 5 al giorno, illimitate | contate a carte; la stesa da 10 solo Adepto e Illuminato |
+| Rune, I-Ching, Pendolo | Eos, Eos scontati, inclusi, inclusi | gettate 1, 2, 3, 3 al giorno |
+| Sinastria | 3, 5+, 5, illimitata | 3, 5, 5, 25 (non toccata dall'ordine) |
+| Voce AI dei Maestri | No, No, Esclusiva, Si' | uguale, solo nel LIVE, 60 e 120 minuti al mese |
+| Righe che il Briefing non ha | | Vai piu' a fondo, confronti, discese, segni, sigilli, minuti LIVE |

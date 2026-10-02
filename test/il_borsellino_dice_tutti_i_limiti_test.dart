@@ -45,7 +45,9 @@ void main() {
       'approfondiment',
       'confront',
       'gettat',
-      'stes',
+      // **LE CARTE, NON LE STESE**, ordine EX voce 02: il budget delle stese
+      // si conta a carte estratte, e la riga dice "carte".
+      'cart',
       'sinastri',
     ]) {
       // Senza maiuscole: dall'ordine BG voce 02 le righe del piano che non

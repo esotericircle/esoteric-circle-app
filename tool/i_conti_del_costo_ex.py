@@ -35,7 +35,7 @@ _q = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_q)
 
 GIRO_PRIMA = 'prima2'
-GIRO_DOPO = 'fine3'
+GIRO_DOPO = 'fine4'
 
 # I costi per uso dell'ordine EW (docs/costi/i_conti_del_costo.txt):
 # (senza cache, con la cache misurata).
@@ -157,9 +157,11 @@ def main():
                 f'{n} {v:.4f}' for n, v in nuovo.items()))
             if tetto is not None:
                 dom = dopo['domanda'][k] + dopo['titolo'][k]
-                spazio = (tetto - mn) / 30 / dom
-                print(f'   domande in piu\' al giorno sotto il tetto: '
-                      f'{spazio:.1f} (a {dom:.5f} l\'una)')
+                # Il corpus delle rune e' nel codice (EX Aggiunta 2): il
+                # mese vero e' quello con le rune dal corpus.
+                spazio = (tetto - mc) / 30 / dom
+                print(f'   domande in piu\' al giorno sotto il tetto, con le '
+                      f'rune dal corpus: {spazio:.1f} (a {dom:.5f} l\'una)')
         print()
 
 

@@ -82,7 +82,17 @@ class AskMaestriScreen extends StatefulWidget {
     this.oracle = const MaestroOracle(),
     this.temaIniziale,
     this.lentiIniziali = const [],
+    this.confrontoPagato = false,
   });
+
+  /// **IL CONFRONTO E' GIA' PAGATO** quando si arriva dalla chat, che lo
+  /// registra al tocco (`maestro_chat_screen.dart`, "IL CONFRONTO SI CONTA
+  /// QUI"). Ordine EX voce 02: con un confronto al giorno all'Iniziato, la
+  /// chat lo registrava e qui i rimasti erano zero, quindi gli altri due
+  /// Maestri non venivano chiesti: la persona pagava il confronto e vedeva
+  /// solo il Maestro di partenza. Con tre al giorno ne restavano due e il
+  /// difetto non si vedeva. Padre: ordine EX voce 02.
+  final bool confrontoPagato;
 
   /// La domanda gia' posta nella chat. Con questa la schermata NON riparte da
   /// zero: e' arrivata qui per sintetizzare voci che esistono gia'.
@@ -114,6 +124,7 @@ class AskMaestriScreen extends StatefulWidget {
             starter: starter,
             temaIniziale: tema,
             lentiIniziali: lenti,
+            confrontoPagato: true,
           ),
         ));
   }
@@ -502,7 +513,7 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
     //
     // Chi paga e riceve meno di quanto ha pagato e' il difetto piu' grave
     // che questa app possa avere.
-    final puoConfrontare =
+    final puoConfrontare = widget.confrontoPagato ||
         context.read<QuestionAllowance>().puoiConfrontare(piano);
 
     for (final m in Maestro.fixedOrder) {

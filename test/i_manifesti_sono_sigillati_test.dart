@@ -327,6 +327,9 @@ void main() {
     // EW: sette voci, contate coi titoli "## VOCE EW." del manifesto il 2
     // ottobre 2026, dai tre pezzi dell'ordine.
     'EW': 7,
+    // EX: undici voci, contate coi titoli "## VOCE EX." del manifesto il 2
+    // ottobre 2026, dai tre pezzi dell'ordine e dalle due Aggiunte.
+    'EX': 11,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

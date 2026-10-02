@@ -161,11 +161,13 @@ void main() {
       // passano da una funzione sola, `pezzo`, che chiama `pulisci` una volta per
       // tutte e tre. La chat, la sintesi, i tre strati del Consulta e il
       // presagio.
-      expect('TestoDelResponso.pulisci('.allMatches(sorgente).length, 6,
-          reason:
-              'la chat, la sintesi, i tre strati del Consulta e il presagio '
-              'delle rune: sei punti, e se ne manca uno un asterisco arriva a '
-              'video');
+      // **SETTE DALL'ORDINE EX VOCE 07**: la correzione corta (`correggi`)
+      // e' un'uscita che la persona legge, e passa dalla ripulitura come le
+      // altre.
+      expect('TestoDelResponso.pulisci('.allMatches(sorgente).length, 7,
+          reason: 'la chat, la sintesi, i tre strati del Consulta, il presagio '
+              'delle rune e la correzione corta: sette punti, e se ne manca '
+              'uno un asterisco arriva a video');
     });
 
     test('Ogni misura ha un tetto piu\' grande del proprio ragionamento', () {

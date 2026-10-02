@@ -186,9 +186,16 @@ void main() {
       for (final MapEntry(key: gruppo, value: quante)
           in servono[campo]!.entries) {
         gruppi++;
-        final piene = (corpusDelPresagio.voci[campo]?[gruppo] ?? const [])
-            .where((v) => v.trim().isNotEmpty)
-            .length;
+        // Le voci trattenute in attesa dell'Architetto non contano: non si
+        // scelgono (`IlPresagioDalCorpus.vociTrattenute`).
+        final voci = corpusDelPresagio.voci[campo]?[gruppo] ?? const [];
+        final piene = [
+          for (var i = 0; i < voci.length; i++)
+            if (voci[i].trim().isNotEmpty &&
+                !IlPresagioDalCorpus.vociTrattenute
+                    .contains('$campo/$gruppo/${i + 1}'))
+              i
+        ].length;
         if (piene < quante) sotto.add('$campo/$gruppo: $piene su $quante');
       }
     }
@@ -234,6 +241,13 @@ void main() {
     expect(diverse, 0);
   });
 
+  /// **LE VOCI RIPORTATE ALL'ARCHITETTO**, scritte qui e non lette dal
+  /// codice: la prova deve sapere da sola quali voci non possono uscire, se
+  /// no un elenco svuotato per errore nel codice la lascerebbe verde.
+  /// Quando una voce arriva corretta, si toglie da qui e da
+  /// `IlPresagioDalCorpus.vociTrattenute`.
+  const daCorreggere = {'pietra/Uruz/dritta/56', 'pietra/Mannaz/ombra/38'};
+
   test(
       '3. SESSANTA GIORNI AL MASSIMO DELL\'ILLUMINATO SUL CORPUS VERO: '
       'nessuna voce torna alla stessa persona', () {
@@ -241,6 +255,7 @@ void main() {
     var ripetute = 0;
     var lette = 0;
     var parti = 0;
+    var trattenuteUscite = 0;
     for (final peggiore in [false, true]) {
       for (var persona = 0; persona < persone; persona++) {
         final caso = Random(7000 * (peggiore ? 2 : 1) + persona);
@@ -274,6 +289,9 @@ void main() {
             }
             if (giaOggi) continue;
             for (final id in memoria.diOggi[firma]!) {
+              if (daCorreggere.contains(id)) {
+                trattenuteUscite++;
+              }
               final prima = ultimaLettura[id];
               if (prima != null && giorno - prima < 60) ripetute++;
               ultimaLettura[id] = giorno;
@@ -285,8 +303,10 @@ void main() {
     }
     print('ORDINE EX VOCE 03 SUL CORPUS VERO: persone ${persone * 2} '
         '(due scenari), gettate $lette, voci ripetute in 60 giorni '
-        '$ripetute');
+        '$ripetute, voci trattenute uscite $trattenuteUscite');
     cardinaleMinimo(lette, 300000, cosa: 'gettate simulate');
+    expect(trattenuteUscite, 0,
+        reason: 'una voce trattenuta in attesa dell\'Architetto e\' uscita');
     cardinaleMinimo(parti, 900000, cosa: 'parti composte');
     expect(ripetute, 0);
   }, timeout: const Timeout(Duration(minutes: 20)));

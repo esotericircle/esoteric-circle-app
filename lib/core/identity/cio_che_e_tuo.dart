@@ -103,6 +103,10 @@ class CioCheETuo {
     'santuario.',
     // Quali mappe dei sentieri hai gia' aperto.
     'sentiero.',
+    // Le voci del presagio delle rune che hai letto negli ultimi sessanta
+    // giorni, e l'identificativo che ne semina l'ordine: dicono che cosa ti
+    // hanno detto le rune. Ordine EX voce 03.
+    'rune.presagio.',
     // I Sigilli accesi.
     'sigilli.',
     // Le coppie della Sinastria che hai scoperto.

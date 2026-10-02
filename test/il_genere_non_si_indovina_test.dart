@@ -6,6 +6,8 @@ import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/core/rituals/il_corpus_del_presagio.g.dart';
+import 'package:esoteric_circle/core/rituals/il_presagio_dal_corpus.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/onboarding/scena_del_ritrovamento.dart';
 import 'package:flutter/material.dart';
@@ -127,6 +129,33 @@ void main() {
   const frasiDelCorpus = <String, String>{
     'una stanchezza che ha bisogno di essere riconosciuta':
         '"riconosciuta" concorda con "stanchezza", non con chi legge',
+    // **IL CORPUS DELLE RUNE**, ordine EX, EX Aggiunta 2.
+    'la forza è già tua e attende solo di essere spesa bene':
+        '"spesa" concorda con "la forza" (RISPOSTA Uruz dritta 16)',
+    'un\'energia che chiede di essere spesa con gioia':
+        '"spesa" concorda con "energia" (PIETRA Fehu dritta 43)',
+    'ogni progresso modesto merita di essere riconosciuto':
+        '"riconosciuto" concorda con "progresso" (PIETRA Jera dritta 52)',
+    'qualcosa dura oltre l\'inverno e non chiede di essere difeso':
+        '"difeso" concorda con "qualcosa" (PIETRA Eihwaz dritta 8)',
+    'un segno ancora piccolo che merita di essere difeso':
+        '"difeso" concorda con "un segno" (PIETRA Berkano dritta 56)',
+    'Ciò che è tuo nel profondo non chiede di essere difeso':
+        '"difeso" concorda con "ciò che è tuo" (PIETRA Othala dritta 56)',
+  };
+
+  /// **LE VOCI DEL CORPUS DELLE RUNE TRATTENUTE**, che dicono davvero il
+  /// genere di chi legge: non si esentano per la frase ma perche' il codice
+  /// non le sceglie mai (`IlPresagioDalCorpus.vociTrattenute`), finche'
+  /// l'Architetto non le corregge. Il testo viene dal corpus stesso: se
+  /// l'identificativo esce dall'elenco, la voce torna sotto la guardia.
+  final trattenute = {
+    for (final id in IlPresagioDalCorpus.vociTrattenute)
+      (() {
+        final p = id.split('/');
+        return corpusDelPresagio.voci[p[0]]![
+            p.sublist(1, p.length - 1).join('/')]![int.parse(p.last) - 1];
+      })()
   };
 
   test('nessuna stringa dice il genere di chi legge fuori da una marca', () {
@@ -141,6 +170,7 @@ void main() {
         final forme = formeDelGenere(l.testo);
         if (forme.isEmpty || porte.contains(percorso)) continue;
         if (frasiDelCorpus.keys.any(l.testo.contains)) continue;
+        if (trattenute.contains(l.testo)) continue;
         colpe.add('$percorso:${l.riga} $forme');
       }
     }

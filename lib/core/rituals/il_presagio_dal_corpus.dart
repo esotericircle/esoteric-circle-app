@@ -1,3 +1,4 @@
+import '../domande/domande_del_cerchio.dart';
 import 'dart:convert';
 
 import '../chat/user_profile.dart';
@@ -209,6 +210,21 @@ abstract final class IlPresagioDalCorpus {
     return h;
   }
 
+  /// **LE VOCI TRATTENUTE, IN ATTESA DELL'ARCHITETTO.** Ordine EX, EX
+  /// Aggiunta 2: "Se una prova si ferma per un testo, Code lo scrive nel
+  /// rapporto... e il testo lo corregge l'Architetto". La guardia del genere
+  /// (`il_genere_non_si_indovina_test.dart`) ha trovato due voci che dicono
+  /// a chi legge di essere un uomo: PIETRA Uruz dritta 56 ("resti ben
+  /// piantato") e PIETRA Mannaz in ombra 38 ("giudichi te stesso"). Il testo
+  /// resta quello dell'Architetto, parola per parola; finche' non lo
+  /// corregge, la voce non si sceglie mai (i due gruppi hanno 70 voci su 66 e
+  /// 45 su 41). Quando la voce corretta entra, il suo identificativo si
+  /// toglie da qui.
+  static const Set<String> vociTrattenute = {
+    'pietra/Uruz/dritta/56',
+    'pietra/Mannaz/ombra/38',
+  };
+
   /// **LA SCELTA.** Fra le voci del gruppo, nell'ordine proprio di questa
   /// persona (una permutazione seminata dal suo identificativo), la prima
   /// che non ha letto nei sessanta giorni; se le ha lette tutte, quella
@@ -295,7 +311,9 @@ abstract final class IlPresagioDalCorpus {
         persona: persona,
         memoria: memoria,
         giaPresi: presi.toSet(),
-        vuota: (i) => corpus.voci[campo]![gruppo]![i].trim().isEmpty,
+        vuota: (i) =>
+            corpus.voci[campo]![gruppo]![i].trim().isEmpty ||
+            vociTrattenute.contains('$campo/$gruppo/${i + 1}'),
       );
       presi.add(v);
       return v;
@@ -367,21 +385,36 @@ abstract final class IlPresagioDalCorpus {
     return 'ciò che hai chiesto';
   }
 
-  static const Map<String, String> _delCerchio = {
-    'Cosa devo sapere sul mio momento?': 'il tuo momento',
-    'In amore, dove sto andando?': 'l’amore',
-    'Nel lavoro, quale passo fare?': 'il lavoro',
-    'Una scelta mi blocca: cosa la scioglie?': 'la scelta che ti blocca',
-    'Cosa mi sfugge di questa situazione?': 'questa situazione',
-    'Cosa conviene lasciare andare adesso?': 'ciò che va lasciato',
-    'Su cosa vale la pena insistere?': 'ciò su cui insistere',
-    'Cosa non sto guardando di me?': 'ciò che non guardi di te',
-    'La runa di ieri sera: cosa continua oggi?':
-        'ciò che continua da ieri sera',
-    'La parola di stamattina: dove la ritrovo?': 'la parola di stamattina',
-    'Il mio animale guida: cosa mi dice ora?': 'il tuo animale guida',
-    'Il mio archetipo: quale passo mi somiglia?': 'il tuo archetipo',
-  };
+  /// **LE DOMANDE DEL CERCHIO VENGONO DAL PUNTO UNICO**
+  /// (`DomandeDelCerchio`, ordine S voce 21): qui stanno solo le cose della
+  /// specifica (SPECIFICA.md, sezione 2), nello stesso ordine delle otto
+  /// generiche e delle quattro personali della gettata.
+  static const List<String> _coseDelleDomande = [
+    'il tuo momento',
+    'l’amore',
+    'il lavoro',
+    'la scelta che ti blocca',
+    'questa situazione',
+    'ciò che va lasciato',
+    'ciò su cui insistere',
+    'ciò che non guardi di te',
+    'ciò che continua da ieri sera',
+    'la parola di stamattina',
+    'il tuo animale guida',
+    'il tuo archetipo',
+  ];
+
+  static final Map<String, String> _delCerchio = () {
+    final domande = [
+      ...DomandeDelCerchio.generichePerLaGettata,
+      ...DomandeDelCerchio.personaliPerLaGettata,
+    ];
+    assert(domande.length == _coseDelleDomande.length);
+    return {
+      for (var i = 0; i < domande.length && i < _coseDelleDomande.length; i++)
+        domande[i].testo: _coseDelleDomande[i],
+    };
+  }();
 
   static const Map<String, String> _famiglie = {
     r'\b(amor\w*|innamorat\w*|fidanzat\w*|marit\w*|mogli\w*|sposar\w*|relazion\w*|lui|lei)\b':

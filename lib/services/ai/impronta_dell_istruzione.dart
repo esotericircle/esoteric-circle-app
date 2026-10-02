@@ -36,14 +36,15 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        '439c601d7b61e8063bf891be0ce6e67ca82b6c940b88fb1af8549abeb379f3c4',
-    'aura': 'dea6c1407044a52d42cf4807b50683613275f2b5ba322dc6147bce17899c7d04',
+        'a309f7c54486ae773259bc1a406122e0ae038b6dedac9acaafce19302574d7e3',
+    'aura': 'cd4c2bb4774546f5059eff1531fc3ab835dcf85508f848173ad563f090c070f8',
     'caligo':
-        'cb5982e7a7f5ab0e2f2bd42afc51593dc39f92605e287843b01e82fa78b68b43',
+        'b39570ac482cb3fb6ffb07cbb74117b6937333a9c7ac3c1a9867322ed97aff0d',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
-  static const String registrateIl = '29 settembre 2026, ordine ES voce 18';
+  static const String registrateIl =
+      '2 ottobre 2026, ordine EX voci 05, 07 e 09';
 
   /// LO STORICO DELLE IMPRONTE, cioe' le stringhe che non esistono piu'.
   ///
@@ -53,6 +54,17 @@ class ImprontaDellIstruzione {
   /// cancella niente: quando l'istruzione cambia, l'impronta vecchia scende in
   /// questo elenco con la sua data e con cio' che le e' successo.
   static const List<String> storicoDelleImpronte = [
+    'DAL 29 SETTEMBRE 2026 AL 2 OTTOBRE 2026, LA STRINGA DELL\'ORDINE ES '
+        'VOCE 18. Impronte: medora '
+        '439c601d7b61e8063bf891be0ce6e67ca82b6c940b88fb1af8549abeb379f3c4, '
+        'aura dea6c1407044a52d42cf4807b50683613275f2b5ba322dc6147bce17899c7d04, '
+        'caligo cb5982e7a7f5ab0e2f2bd42afc51593dc39f92605e287843b01e82fa78b68b43. '
+        '**MISURA PRESA SU DI LEI**: tre giri di attribuzione cieca, media '
+        '94,4 per cento (170 su 180), docs/collaudo/ES/attribuzione/. Caduta '
+        'con l\'ordine EX: la parte comune in testa (voce 05), la memoria '
+        'compatta (voce 09) e le righe del turno (voce 07). Sulla stringa '
+        'nuova, un giro: 56 su 60, 93,3 per cento, ogni Maestro sopra 85, '
+        'docs/collaudo/EX/attribuzione_dopo_ex05.txt.',
     'DAL 28 SETTEMBRE 2026 AL 29 SETTEMBRE 2026, LA STRINGA DELL\'ORDINE ET '
         'VOCE 01. Impronte: medora '
         '2fc1c5ba4c91b91f7a4035ad20609fc367ccb18f00535e2f74721290070b5f0b, '

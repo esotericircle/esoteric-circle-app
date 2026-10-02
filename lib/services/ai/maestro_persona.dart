@@ -603,7 +603,7 @@ class MaestroPersona {
         'LA RISPOSTA DA CORREGGERE. Ti arrivano la domanda della persona e la '
             'risposta che hai scritto. Riscrivila intera, nella tua voce: '
             'tieni tutto ciò che è giusto, i fatti del cielo, ciò che sai '
-            'della persona, la lettura e il consiglio finale, e cambia solo '
+            'della persona, la lettura e il consiglio finale; cambia solo '
             'ciò che chiede questa correzione.',
         '',
         correzione,
