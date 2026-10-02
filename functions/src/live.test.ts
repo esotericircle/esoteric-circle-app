@@ -4,7 +4,8 @@ import {readFileSync} from "node:fs";
 import {join} from "node:path";
 import {
   I_MODELLI_DELLA_VOCE, LE_CANDIDATE, LE_VOCI_DI_PARTENZA, eUnaVoceChirp,
-  laStanzaE,
+  laStanzaE, ilContoDeiMinuti, secondiRimasti, MINUTI_DEL_MESE,
+  SECONDI_MINIMI_PER_APRIRE, StatoDeiMinuti,
 } from "./live";
 
 /**
@@ -182,4 +183,67 @@ test("il modo di Calìgo non porta le parole che lo rallentano", () => {
   }
   assert.ok(testo.includes("madrelingua"),
     "il modo di Calìgo ha perso la pronuncia di madrelingua");
+});
+
+/**
+ * I MINUTI DEL LIVE SCENDONO DAVVERO. Ordine EX voce 01: il server leggeva
+ * `minutiUsati` e nessuno lo scriveva (ordine EG voce 06), e dopo tre
+ * sessioni diceva ancora "rimasti 250" (ordine EW, voce EW.07).
+ */
+test("le sessioni finite sommano i loro secondi veri, le vive restano da contare", () => {
+  const dati = {
+    mese: "2026-10",
+    secondiUsati: 100,
+    daContare: {sess_a: "2026-10", sess_b: "2026-10", sess_c: "2026-09"},
+  };
+  const conto = ilContoDeiMinuti(dati, "2026-10", [
+    {id: "sess_a", stato: "ended", secondi: 423},
+    {id: "sess_b", stato: "running", secondi: 50},
+    {id: "sess_c", stato: "ended", secondi: 900},
+  ]);
+  assert.equal(conto.secondiUsati, 523);
+  assert.equal(conto.minutiUsati, 8.72);
+  assert.deepEqual(conto.daContare, {sess_b: "2026-10"});
+});
+
+test("tre sessioni contate fanno scendere i minuti rimasti della loro durata", () => {
+  let dati: Record<string, any> = {};
+  const durate = [423, 13, 300];
+  durate.forEach((secondi, i) => {
+    dati = {...dati, ...ilContoDeiMinuti(dati, "2026-10", [])};
+    dati.daContare = {...dati.daContare, [`sess_${i}`]: "2026-10"};
+    dati = ilContoDeiMinuti(dati, "2026-10", [
+      {id: `sess_${i}`, stato: "ended", secondi},
+    ]);
+  });
+  const conto = dati as StatoDeiMinuti;
+  assert.equal(conto.secondiUsati, 736);
+  assert.equal(secondiRimasti(MINUTI_DEL_MESE.tier2, conto), 3600 - 736);
+});
+
+test("un mese nuovo riparte da zero e i minuti finiti non si superano", () => {
+  const vecchio = ilContoDeiMinuti(
+    {mese: "2026-09", secondiUsati: 7200, daContare: {}}, "2026-10", []);
+  assert.equal(vecchio.secondiUsati, 0);
+  const finiti = ilContoDeiMinuti(
+    {mese: "2026-10", secondiUsati: 7300, daContare: {}}, "2026-10", []);
+  assert.equal(secondiRimasti(MINUTI_DEL_MESE.tier3, finiti), 0);
+  assert.ok(secondiRimasti(MINUTI_DEL_MESE.tier3, finiti) < SECONDI_MINIMI_PER_APRIRE);
+});
+
+test("il conto legge i minuti scritti prima dell'ordine EX", () => {
+  const conto = ilContoDeiMinuti(
+    {mese: "2026-10", minutiUsati: 2}, "2026-10", []);
+  assert.equal(conto.secondiUsati, 120);
+});
+
+test("l'apertura conta prima di decidere, e la sessione aperta entra nel registro", () => {
+  const apri = corpoDi("apriUnaSessioneLive");
+  assert.ok(apri.indexOf("contaLeSessioniFinite(uid)") > -1);
+  assert.ok(apri.indexOf("contaLeSessioniFinite(uid)") < apri.indexOf("SECONDI_MINIMI_PER_APRIRE"));
+  assert.ok(apri.includes("daContare(uid, String(sessione.id))"));
+  assert.ok(apri.includes("Math.min(DURATA_MASSIMA, Math.floor(restano))"));
+  const chiudi = corpoDi("chiudiLaSessioneLive");
+  assert.ok(chiudi.includes("contaLeSessioniFinite(uid)"));
+  assert.deepEqual(MINUTI_DEL_MESE, {free: 0, tier1: 0, tier2: 60, tier3: 120});
 });

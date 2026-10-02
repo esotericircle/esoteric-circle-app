@@ -140,13 +140,94 @@ async function lAvatarDi(maestro: string): Promise<string | undefined> {
   return AVATAR[maestro];
 }
 
-/** I minuti LIVE del mese, per piano. Ordine EG voce 06. */
-const MINUTI_DEL_MESE: Record<string, number> = {
+/**
+ * I minuti LIVE del mese, per piano. Ordine EG voce 06; dall'ordine EX voce
+ * 02, la matrice approvata dal fondatore il 2 ottobre 2026 ("Si ok,
+ * approvo."): 60 all'Adepto e 120 all'Illuminato (erano 100 e 250).
+ */
+export const MINUTI_DEL_MESE: Record<string, number> = {
   free: 0,
   tier1: 0,
-  tier2: 100,
-  tier3: 250,
+  tier2: 60,
+  tier3: 120,
 };
+
+/**
+ * Gli stati in cui una sessione di Protoface e' finita e il suo consumo non
+ * cresce piu': *"Terminal states are `ended`, `failed`, `canceled`"*
+ * (docs.protoface.com, Retrieve a session, letta il 2 ottobre 2026).
+ */
+export const STATI_FINITI = ["ended", "failed", "canceled"];
+
+/**
+ * LO STATO DEI MINUTI DEL LIVE, come sta in `users/{uid}/stato/live`.
+ * Ordine EX voce 01.
+ *
+ * **I minuti del mese non scendevano mai.** L'ordine EG voce 06 aveva messo
+ * la lettura di `minutiUsati` all'apertura e nessuna scrittura: nell'ordine
+ * EW, voce EW.07, il server ha detto `"rimasti": 250` dopo tre sessioni.
+ * Adesso ogni sessione aperta entra in `daContare` col suo mese, e quando
+ * Protoface la dice finita i suoi secondi veri (`billable_seconds`) si
+ * sommano a `secondiUsati` del mese. `minutiUsati` resta, in minuti con i
+ * decimali, per chi lo leggeva.
+ */
+export interface StatoDeiMinuti {
+  mese: string;
+  secondiUsati: number;
+  minutiUsati: number;
+  daContare: Record<string, string>;
+}
+
+/** Una sessione letta da Protoface: lo stato e i secondi fatturabili. */
+export interface SessioneLetta {
+  id: string;
+  stato: string;
+  secondi: number;
+}
+
+/**
+ * Il conto dei minuti dopo aver letto le sessioni ancora da contare. Pura:
+ * le sessioni finite del mese corrente sommano i loro secondi, quelle finite
+ * di un mese passato si tolgono senza sommare, quelle ancora vive restano da
+ * contare. Un mese nuovo riparte da zero.
+ */
+export function ilContoDeiMinuti(
+  dati: Record<string, any>,
+  mese: string,
+  lette: SessioneLetta[]
+): StatoDeiMinuti {
+  const stessoMese = dati.mese === mese;
+  let secondi = stessoMese ?
+    Number(dati.secondiUsati ?? Number(dati.minutiUsati ?? 0) * 60) :
+    0;
+  const daContare: Record<string, string> = {
+    ...((dati.daContare ?? {}) as Record<string, string>),
+  };
+  for (const s of lette) {
+    const meseDellaSessione = daContare[s.id];
+    if (meseDellaSessione === undefined) continue;
+    if (!STATI_FINITI.includes(s.stato)) continue;
+    if (meseDellaSessione === mese) secondi += Math.max(0, s.secondi);
+    delete daContare[s.id];
+  }
+  return {
+    mese,
+    secondiUsati: secondi,
+    minutiUsati: Math.round((secondi / 60) * 100) / 100,
+    daContare,
+  };
+}
+
+/** I secondi che restano nel mese, col tetto in minuti. Mai sotto zero. */
+export function secondiRimasti(tettoInMinuti: number, conto: StatoDeiMinuti): number {
+  return Math.max(0, tettoInMinuti * 60 - conto.secondiUsati);
+}
+
+/**
+ * Sotto questa soglia non si apre una sessione: Protoface fattura comunque
+ * un minuto intero, e mezzo minuto non basta a una domanda e a una risposta.
+ */
+export const SECONDI_MINIMI_PER_APRIRE = 30;
 
 /**
  * Quanto puo' durare al massimo una sessione, in secondi.
@@ -216,6 +297,72 @@ function meseCorrente(): string {
 }
 
 /**
+ * CONTA LE SESSIONI FINITE di una persona e scrive il conto. Ordine EX voce
+ * 01. La chiamano l'apertura (prima di decidere i minuti rimasti, cosi' una
+ * sessione che il telefono non ha chiuso si conta alla volta dopo) e la
+ * chiusura dal telefono.
+ *
+ * **Le letture fuori dalla transazione.** Protoface si interroga prima; la
+ * transazione rilegge il documento e applica solo cio' che e' ancora da
+ * contare, cosi' due chiamate insieme non contano due volte la stessa
+ * sessione.
+ */
+async function contaLeSessioniFinite(uid: string): Promise<StatoDeiMinuti> {
+  const db = getFirestore();
+  const rif = db.doc(`users/${uid}/stato/live`);
+  const mese = meseCorrente();
+  const prima = (await rif.get()).data() ?? {};
+  const ids = Object.keys((prima.daContare ?? {}) as Record<string, string>);
+  const lette: SessioneLetta[] = [];
+  for (const id of ids) {
+    try {
+      const r = await fetch(`${PROTOFACE}/sessions/${id}`, {
+        headers: {Authorization: `Bearer ${PROTOFACE_API_KEY.value()}`},
+      });
+      if (r.status === 404) {
+        // Una sessione che Protoface non conosce non si contera' mai: esce
+        // dal registro senza sommare niente.
+        lette.push({id, stato: "canceled", secondi: 0});
+        continue;
+      }
+      if (!r.ok) continue;
+      const s = (await r.json()) as Record<string, any>;
+      lette.push({
+        id,
+        stato: String(s.status ?? ""),
+        secondi: Number(s.usage?.billable_seconds ?? 0),
+      });
+    } catch (errore) {
+      // Protoface non risponde: la sessione resta da contare, la si
+      // riprova alla prossima apertura o chiusura.
+      logger.warn("Sessione LIVE non letta per il conto", {
+        sessione: id,
+        errore: String(errore),
+      });
+    }
+  }
+  return db.runTransaction(async (t) => {
+    const dati = (await t.get(rif)).data() ?? {};
+    const conto = ilContoDeiMinuti(dati, mese, lette);
+    t.set(rif, conto, {merge: true});
+    return conto;
+  });
+}
+
+/** Mette una sessione appena aperta nel registro di quelle da contare. */
+async function daContare(uid: string, sessione: string): Promise<void> {
+  const db = getFirestore();
+  const rif = db.doc(`users/${uid}/stato/live`);
+  await db.runTransaction(async (t) => {
+    const dati = (await t.get(rif)).data() ?? {};
+    const mese = meseCorrente();
+    const conto = ilContoDeiMinuti(dati, mese, []);
+    conto.daContare[sessione] = mese;
+    t.set(rif, conto, {merge: true});
+  });
+}
+
+/**
  * APRE UNA SESSIONE LIVE. Ordine EG voci 01, 04 e 06.
  *
  * **Tutto cio' che decide sta qui e non sul telefono**, ed e' la ragione per
@@ -262,24 +409,34 @@ export const apriUnaSessioneLive = onCall(
     // **Ai fondatori si concede il tetto piu' alto**, non l'assenza di tetto:
     // un conto che non esiste non si puo' guardare, e il giorno che qualcosa
     // consuma senza fermarsi nessuno se ne accorge.
-    const tetto = eFondatore
-      ? MINUTI_DEL_MESE.tier3
-      : (MINUTI_DEL_MESE[piano] ?? 0);
-    const mese = meseCorrente();
-    const statoLive = await db.doc(`users/${uid}/stato/live`).get();
-    const dati = statoLive.data() ?? {};
-    const usati = dati.mese === mese ? Number(dati.minutiUsati ?? 0) : 0;
-    const rimasti = Math.max(0, tetto - usati);
-    if (rimasti <= 0) {
+    //
+    // **Ordine EX voce 01: i minuti scendono davvero.** Prima di decidere si
+    // contano le sessioni finite (anche quelle che il telefono non ha
+    // chiuso), coi secondi veri di Protoface. I fondatori hanno il tetto
+    // dell'Illuminato, salvo `configurazione/live.minutiDeiFondatori`, che il
+    // fondatore puo' alzare per i collaudi senza toccare i piani.
+    const configurazioneLive = await db.doc("configurazione/live").get();
+    const minutiDeiFondatori = Number(
+      configurazioneLive.data()?.minutiDeiFondatori ?? MINUTI_DEL_MESE.tier3
+    );
+    const tetto = eFondatore ?
+      minutiDeiFondatori :
+      (MINUTI_DEL_MESE[piano] ?? 0);
+    const conto = await contaLeSessioniFinite(uid);
+    const restano = secondiRimasti(tetto, conto);
+    if (restano < SECONDI_MINIMI_PER_APRIRE) {
       throw new HttpsError(
         "resource-exhausted",
         "I minuti LIVE di questo mese sono finiti."
       );
     }
+    const rimasti = Math.floor(restano / 60);
 
     // --- I DUE GETTONI.
     const stanza = `live_${uid}_${Date.now()}`;
-    const durata = Math.min(DURATA_MASSIMA, rimasti * 60);
+    // **La sessione si ferma quando i minuti finiscono**: Protoface la chiude
+    // a `max_duration_seconds`, che non supera i secondi rimasti.
+    const durata = Math.min(DURATA_MASSIMA, Math.floor(restano));
 
     async function gettone(
       identita: string,
@@ -359,6 +516,8 @@ export const apriUnaSessioneLive = onCall(
       );
     }
     const sessione = (await risposta.json()) as Record<string, unknown>;
+    // Ordine EX voce 01: la sessione entra nel registro di quelle da contare.
+    await daContare(uid, String(sessione.id));
 
     logger.info("LIVE aperto", {
       uid,
@@ -500,7 +659,35 @@ export const chiudiLaSessioneLive = onCall(
       sessione: id,
       stato: chiusa.status ?? null,
     });
-    return {stato: chiusa.status ?? null};
+    // **Ordine EX voce 01: i minuti si contano alla chiusura.** Dopo `/end`
+    // la sessione passa per `ending`: si aspetta fino a dieci secondi che
+    // arrivi a uno stato finale, poi si conta. Se non ci arriva, la conta la
+    // prossima apertura: il registro non perde niente.
+    let minuti: StatoDeiMinuti | undefined;
+    try {
+      for (let giro = 0; giro < 5; giro++) {
+        const r = await fetch(`${PROTOFACE}/sessions/${id}`, {headers: chiave});
+        const stato = r.ok ?
+          String(((await r.json()) as Record<string, any>).status ?? "") :
+          "";
+        if (STATI_FINITI.includes(stato)) break;
+        await new Promise((fatto) => setTimeout(fatto, 2000));
+      }
+      minuti = await contaLeSessioniFinite(uid);
+      logger.info("Minuti LIVE contati", {
+        uid,
+        sessione: id,
+        mese: minuti.mese,
+        secondiUsati: minuti.secondiUsati,
+        ancoraDaContare: Object.keys(minuti.daContare).length,
+      });
+    } catch (errore) {
+      logger.warn("Minuti LIVE non contati alla chiusura", {
+        sessione: id,
+        errore: String(errore),
+      });
+    }
+    return {stato: chiusa.status ?? null, secondiUsati: minuti?.secondiUsati ?? null};
   }
 );
 

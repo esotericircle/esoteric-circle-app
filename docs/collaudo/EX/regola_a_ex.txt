@@ -1,0 +1,4 @@
+ORDINE EX, LA REGOLA A E LA REGOLA B. Ogni innesto: il difetto messo a mano, verificato col grep, la prova fatta girare, il file rimesso uguale byte per byte.
+
+B0 (EX.06) i_modelli_stanno_nella_regione_dei_dati: vista rossa il 2 ottobre (innesto B1 dell'ordine EW) e non copriva la chiamata SENZA regione; prova nuova "OGNI FirebaseAI.vertexAI DEL TELEFONO DICE LA SUA REGIONE", nata ROSSA sul difetto vero (penna_vera_del_mese.dart:76), verde dopo la cura.
+A1 (EX.01) functions/src/live.test.ts, i minuti del LIVE: innestato "secondi += 0" al posto della somma dei secondi della sessione finita in ilContoDeiMinuti; grep dell'innesto 1; prove rosse 2 su 15 ("le sessioni finite sommano i loro secondi veri", "tre sessioni contate fanno scendere i minuti rimasti"); file rimesso uguale (cmp), 15 su 15 verdi.

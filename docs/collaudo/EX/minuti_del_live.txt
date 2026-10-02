@@ -1,0 +1,28 @@
+ORDINE EX, VOCE EX.01: I MINUTI DEL LIVE CHE SCENDONO DAVVERO. 2 ottobre 2026.
+
+== PRIMA (codice pubblicato fino all'ordine EX)
+functions/src/live.ts leggeva users/{uid}/stato/live.minutiUsati all'apertura e nessuna riga lo scriveva
+(padre: ordine EG, voce EG.06). Dal registro del server (Cloud Logging, sola lettura):
+- minuti rimasti dopo tre sessioni, uguali all'inizio: il 2 ottobre "LIVE aperto" alle 04:17 e alle 04:28 UTC
+  dicono "rimasti": 250 tutte e due, dopo le sessioni del 1 ottobre e quella di 7:03 delle 04:17
+  (docs/collaudo/EW/live_registro_del_server.txt);
+- sessione aperta coi minuti finiti: SI'. Il 30 settembre il mese aveva gia' 24.088 secondi fatturati da
+  Protoface (401 minuti, riga "Uso di Protoface nel mese" delle 12:52), oltre i 250 del tetto dei
+  fondatori, e "LIVE aperto" delle 12:52:37 UTC dice "rimasti": 250.
+
+== LA CURA (functions/src/live.ts)
+- ogni sessione aperta entra in users/{uid}/stato/live.daContare col suo mese;
+- all'apertura (prima di decidere) e alla chiusura dal telefono (dopo /end, aspettando fino a 10 secondi lo
+  stato finale) il server legge da Protoface le sessioni da contare e somma i billable_seconds di quelle
+  finite (ended, failed, canceled) a secondiUsati del mese; minutiUsati resta, coi decimali;
+- secondi rimasti = tetto del piano x 60 - secondiUsati; sotto 30 secondi il LIVE non si apre
+  ("resource-exhausted", che il telefono gia' traduce in "minuti finiti");
+- la sessione dura al massimo i secondi rimasti (max_duration_seconds): il LIVE si ferma quando i minuti
+  del mese finiscono;
+- i tetti del mese diventano quelli dell'ordine EX voce 02: Adepto 60, Illuminato 120; i fondatori hanno
+  quello dell'Illuminato, salvo configurazione/live.minutiDeiFondatori (campo nuovo, facoltativo).
+Prove: functions/src/live.test.ts, 15 su 15 verdi; rosse su un innesto (docs/collaudo/EX/regola_a_ex.txt, A1).
+
+== DOPO
+(da misurare con tre sessioni vere sul Realme dopo la pubblicazione di apriUnaSessioneLive e
+chiudiLaSessioneLive)
