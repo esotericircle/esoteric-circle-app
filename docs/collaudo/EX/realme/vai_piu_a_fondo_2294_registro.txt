@@ -1,0 +1,7 @@
+REGISTRO DEL REALME 767f596c, build 2294, 3 ottobre 2026, dalla pulizia delle 00:15:58 (prima della domanda) a dopo il tocco delle 00:22:31.
+Prima riga del registro:
+10-03 00:15:58.182  1500  2308 D OplusSmartBrightnessController: handleMessage MSG_LUX_CHANGED, mLux:0.0 luxQueue=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+Tutte le righe di flutter nel registro (la riga 'SEGUITO: tentativo' si scrive, anche in rilascio, ogni volta che il seguito si chiede al modello; 'Cielo per il Maestro' a ogni funzione del cielo):
+10-03 00:21:45.811 25916 25916 I flutter : La sentinella ha trovato il tappeto fermo: riparte.
+Righe 'SEGUITO': 0
+Ora della cattura a 0,6 secondi dal tocco, dal telefono: 00:22:32.278

@@ -51,4 +51,5 @@ Chiamate al tocco: prima 0,17, dopo 0 in sei giri su sei (144 tocchi). Il seguit
 
 IL CONFRONTO ALLA CIECA, misura E (seguito), giro finale ex07j contro fine4, due giudici (docs/collaudo/EX/qualita/chat_ex07j/): 20 contro 14 e 21 contro 18 su 24. Al giro ex07i (chat_ex07i): 18 contro 12 e 22 contro 15.
 
-STATO: APERTA IN ATTESA DI VERIFICA finche' il tocco non e' guardato a video sul Realme con la build nuova.
+A VIDEO SUL REALME, build 2294, 3 ottobre 2026: domanda a Medora "Devo accettare il nuovo lavoro?", risposta col seguito nascosto; al tocco di "Vai più a fondo" il contatore scende da 3 a 2 approfondimenti, a 0,6 secondi il messaggio e' gia' aperto e il seguito sta dentro la risposta sopra la riga d'oro. Il registro del telefono, dalla pulizia delle 00:15:58 (prima della domanda) a dopo il tocco delle 00:22:31, non porta nessuna riga "SEGUITO" (che si scrive anche in rilascio ogni volta che il seguito si chiede al modello): nessuna chiamata, ne' in sottofondo ne' al tocco. Catture: docs/collaudo/EX/realme/vai_piu_a_fondo_2294_1_prima_del_tocco.jpg, _2_a_0_6_secondi.jpg, _3_il_seguito.jpg; registro: docs/collaudo/EX/realme/vai_piu_a_fondo_2294_registro.txt.
+STATO: CHIUSA.

@@ -6503,7 +6503,11 @@ Manifesto `docs/ordini/ORDINE_EX_MANIFESTO.md`, rapporto
 `docs/costi/costo_per_utente_dopo_ex.md`. **Undici voci: sette chiuse
 (EX.01, EX.02, EX.03, EX.06, EX.08, EX.09, EX.11), una aperta in attesa di
 verifica (EX.04), tre aperte (EX.05, EX.07, EX.10)**, piu' l'EX Aggiunta 3
-(le domande alzate). **Build 2293 consegnata su App Tester** il 2 ottobre
+(le domande alzate). **Dopo l'EX Aggiunta 4 (2-3 ottobre 2026): otto chiuse
+(anche EX.04), tre aperte (EX.05, EX.07, EX.10); build 2294 consegnata su
+App Tester dal commit `6d96fb91` col cancello verde (release
+`4l2al7v4k1480`), lo stesso commit pronto per Codemagic; nessuna funzione
+del server da pubblicare.** **Build 2293 consegnata su App Tester** il 2 ottobre
 2026 dal commit `2a811596` (release `2hhg5dlk19l30`, sbarramento 6.548 prove,
 solo i rossi accettati); lo stesso codice e' pronto per Codemagic. Dalla 2292
 le catture dello schermo sono permesse di base: la protezione solo con
@@ -6559,8 +6563,9 @@ le catture dello schermo sono permesse di base: la protezione solo con
   non all'apertura della chat), e la correzione corta lo chiede: 0 chiamate
   al tocco in sei giri su sei. Nelle prove la preparazione e' spenta
   (`test/flutter_test_config.dart`) e la riaccende
-  `test/il_seguito_e_gia_pronto_test.dart`. APERTA IN ATTESA DI VERIFICA a
-  video sul Realme.
+  `test/il_seguito_e_gia_pronto_test.dart`. **CHIUSA** il 3 ottobre 2026, a
+  video sul Realme con la build 2294: al tocco nessuna chiamata nel registro
+  del telefono.
 - **L'istruzione della chat** (EX.05): prima la parte comune a tutti, poi
   quella della persona e del turno (guardia
   `test/la_parte_comune_viene_prima_test.dart`). La cache implicita non e'

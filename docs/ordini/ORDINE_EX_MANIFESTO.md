@@ -26,8 +26,8 @@ dello stesso codice e' di circa 2 o 3 punti per misura
 dollari (`docs/collaudo/EX/il_costo_delle_prove.txt`).
 
 VOCI_TOTALI: 11
-VOCI_CHIUSE: 7
-VOCI_APERTE: 4
+VOCI_CHIUSE: 8
+VOCI_APERTE: 3
 VOCI_DA_FARE: 0
 
 ## VOCE EX.01, I MINUTI DEL LIVE SCENDONO DAVVERO
@@ -99,7 +99,7 @@ MISURA: file del codice diversi da quelli dell'Architetto 0 su 5; gruppi sotto i
 
 ## VOCE EX.04, IL "VAI PIU' A FONDO" SCRITTO INSIEME ALLA RISPOSTA
 
-**APERTA IN ATTESA DI VERIFICA.** Per i piani col secondo strato il Maestro
+**CHIUSA.** Per i piani col secondo strato il Maestro
 scrive il seguito nella stessa risposta, dopo il segno `[[SEGUITO]]`; il
 telefono lo tiene nascosto e lo scopre al tocco senza chiamare (commit
 `431f7b4c`). Al banco: tocchi senza chiamata da 0 su 24 a 20 su 24, chiamate
@@ -123,9 +123,15 @@ su 24, col seguito preparato dopo la risposta. Seguito alla lettura alla cieca,
 giro finale contro fine4: 20 contro 14 e 21 contro 18 su 24. Difetto della
 prima stesura curato dentro la voce: la preparazione partiva anche
 all'apertura della chat, una chiamata a ogni apertura (padre: questa voce).
-Prova nuova nata rossa (A15). Resta in attesa del tocco guardato a video sul
-Realme con la build nuova. Prova: `docs/collaudo/EX/vai_piu_a_fondo.txt` e
+Prova nuova nata rossa (A15). Guardato a video sul Realme con la build 2294 il 3 ottobre 2026: al
+tocco il contatore scende da 3 a 2 approfondimenti, il seguito c'e' a
+0,6 secondi, e il registro del telefono non porta nessuna chiamata del
+seguito, ne' in sottofondo ne' al tocco. Prova: `docs/collaudo/EX/vai_piu_a_fondo.txt` e
 `docs/collaudo/EX/le_quattro_voci_sistemate.txt`.
+
+DOMANDA: "il "vai più a fondo" dovrebbe essere già generato, va solo scoperto, in modo da non fare un'altra chiamata, o sbaglio?"; EX Aggiunta 4: "Voglio tutto sistemato."
+PROVA: docs/collaudo/EX/realme/vai_piu_a_fondo_2294_registro.txt
+MISURA: chiamate al tocco al banco, prima 0,17, dopo 0 in sei giri su sei (144 tocchi); sul Realme, build 2294, chiamate del seguito nel registro dalla domanda al tocco 0, seguito a video a 0,6 secondi dal tocco; seguito alla lettura alla cieca, prima 14 e 18 su 24, dopo 20 e 21
 
 ## VOCE EX.05, LA CACHE DEL CONTESTO GARANTITA
 

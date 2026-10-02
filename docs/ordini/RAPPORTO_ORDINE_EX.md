@@ -11,6 +11,7 @@
 - **EX.08**, il cielo di oggi nella richiesta: `docs/collaudo/EX/il_cielo_nella_richiesta.txt`
 - **EX.09**, la memoria compatta: `docs/collaudo/EX/memoria_compatta.txt`
 - **EX.11**, la misura finale: `docs/costi/costo_per_utente_dopo_ex.md`
+- **EX.04**, il Vai piu' a fondo gia' pronto (EX Aggiunta 4): `docs/collaudo/EX/realme/vai_piu_a_fondo_2294_registro.txt`
 
 E l'EX Aggiunta 3, le domande alzate: `docs/collaudo/EX/le_domande_alzate.txt`.
 
@@ -43,6 +44,20 @@ E l'EX Aggiunta 3, le domande alzate: `docs/collaudo/EX/le_domande_alzate.txt`.
 
 L'EX Aggiunta 4 per intero, con domanda, prova e misura di ogni voce:
 `docs/collaudo/EX/le_quattro_voci_sistemate.txt`.
+
+## La build 2294 e Codemagic (EX Aggiunta 4)
+
+- Build Android 2294 dal commit `6d96fb91` (cancello verde), consegnata su App
+  Tester il 3 ottobre 2026: release `4l2al7v4k1480`, distribuita a
+  cloud@esotericircle.app, 1 invito accettato; `docs/versione_distribuita.json`
+  da 2293 a 2294.
+- Lo sbarramento: 6.575 prove, solo i rossi accettati dal fondatore; al primo
+  giro aveva preso un si' con l'apostrofo nello storico delle impronte
+  (padre: l'aggiunta), corretto prima della consegna.
+- Per Codemagic: il commit `6d96fb91`, col cancello verde.
+- Sul Realme, la stessa build: il Vai piu' a fondo si apre senza chiamata
+  (EX.04 chiusa).
+- Nessuna funzione del server da pubblicare.
 
 ## La build 2293 e Codemagic
 
