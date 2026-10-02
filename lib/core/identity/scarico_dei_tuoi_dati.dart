@@ -86,6 +86,8 @@ class ScaricoDeiTuoiDati {
     'push.': 'Il gettone con cui ti raggiungono le notifiche',
     'ricordi.': 'L\'indice dei tuoi Ricordi del Cerchio',
     'ritual.': 'Le serie dei tuoi riti',
+    // Ordine EX voce 03.
+    'rune.presagio.': 'Le voci del presagio delle rune che hai già letto',
     'sentiero.': 'Le mappe dei sentieri che hai aperto',
     'sinastria.': 'Le coppie che hai scoperto',
     'maestro.': 'Quali benvenuti ti hanno già detto i Maestri',

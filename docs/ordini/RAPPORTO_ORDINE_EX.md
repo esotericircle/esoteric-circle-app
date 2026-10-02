@@ -123,5 +123,14 @@ Non toccato. Le differenze fra il Briefing e la matrice nuova stanno in
   richieste all'ora della chat.
 - **EX.10**: il Viaggio resta col modello finche' non c'e' una via che non
   peggiora il merito.
+- **La memoria delle rune torna con l'account** (famiglia "rune" delle
+  memorie custodite) e si scarica coi tuoi dati: senza, un telefono nuovo
+  ripeterebbe voci gia' lette. Chi getta il telo al massimo ogni giorno puo'
+  superare il peso di una famiglia (60.000 caratteri): allora il Cerchio
+  tiene quella di prima.
+- **La suite intera** sul commit finale prima di spingere: 6.546 verdi, 11
+  saltate, 9 rosse; sette sono i rossi accettati dal fondatore (le soglie
+  della scansione e le sei guardie degli ordini EI-EN), due nascevano dalla
+  memoria delle rune e sono curati e rifatti uno per uno.
 - **Build di collaudo sul Realme** col numero 2292, lo stesso della build
   installata: e' solo per guardare, non e' consegnata.

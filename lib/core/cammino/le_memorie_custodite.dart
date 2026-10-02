@@ -73,6 +73,12 @@ abstract final class LeMemorieCustodite {
     'avvisi_scelti': ['rituale.'],
     // Il verso dell'animale, una volta nella vita.
     'verso': ['viaggio.verso.udito'],
+    // Le voci del presagio delle rune lette negli ultimi sessanta giorni, e
+    // l'identificativo che ne semina l'ordine: senza, un telefono nuovo
+    // ripeterebbe voci gia' lette. Ordine EX voce 03. Chi getta il telo al
+    // massimo ogni giorno puo' superare il peso di una famiglia (60.000
+    // caratteri): allora il Cerchio tiene quella di prima.
+    'rune': ['rune.presagio.'],
   };
 
   /// I prefissi di `CioCheETuo` che tornano con una porta loro, e quale.
@@ -154,7 +160,11 @@ abstract final class LeMemorieCustodite {
     if (v is bool) return {'t': 'b', 'v': v};
     if (v is int) return {'t': 'i', 'v': v};
     if (v is double) return {'t': 'd', 'v': v};
-    if (v is List) return {'t': 'l', 'v': [for (final x in v) '$x']};
+    if (v is List)
+      return {
+        't': 'l',
+        'v': [for (final x in v) '$x']
+      };
     return null;
   }
 
@@ -220,8 +230,8 @@ abstract final class LeMemorieCustodite {
               }
             case 'l' when valore is List:
               final lista = [for (final x in valore) '$x'];
-              if (!listEquals(prima is List ? prima.cast<String>() : null,
-                  lista)) {
+              if (!listEquals(
+                  prima is List ? prima.cast<String>() : null, lista)) {
                 await prefs.setStringList(chiave, lista);
                 cambiate.add(voce.key);
               }
