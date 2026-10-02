@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:esoteric_circle/features/maestri/chat/maestro_chat_controller.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -83,5 +84,12 @@ Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   }
   await loadFont('MaterialIcons', trovato);
 
+  // **IL SEGUITO PREPARATO IN SOTTOFONDO, SPENTO NELLA SUITE.** Ordine EX
+  // Aggiunta 4, voce EX.04: dopo una risposta senza seguito l'app chiede il
+  // seguito in sottofondo, e le prove che contano le chiamate della risposta
+  // (le reti, le correzioni, la strada del tocco) ne vedrebbero una in piu'
+  // che non e' loro. La preparazione la sorveglia, riaccesa,
+  // `il_seguito_e_gia_pronto_test.dart`.
+  MaestroChatController.preparaIlSeguitoDiSerie = false;
   await testMain();
 }

@@ -229,8 +229,42 @@ abstract final class LeCertezzeDelMaestro {
       .where((p) => p.trim().isNotEmpty)
       .toList();
 
+  /// **IL CIELO CALCOLATO NON E' UNA PREVISIONE.** Ordine EX Aggiunta 4,
+  /// voce EX.07: *"Il primo gennaio 2028 Giove sarà a 27 gradi in Vergine"*
+  /// e' il cielo che l'app calcola dalle effemeridi per quel giorno, e al
+  /// banco la rete lo scartava. Un corpo del cielo, il suo verbo al futuro e
+  /// un segno, dei gradi o il moto: niente della persona nella stessa
+  /// proposizione ([_dellaPersona]), che allora resta una certezza
+  /// (*"Venere sarà in Bilancia e ti porterà l'amore"*).
+  static final RegExp _cieloCalcolato = _re(
+      '$_prima(?:Sole|Luna|Mercurio|Venere|Marte|Giove|Saturno|Urano|'
+      'Nettuno|Plutone)$_dopo[^,;:]*?'
+      '$_prima(?:sarà|saranno|entrerà|entreranno|si troverà|si troveranno|'
+      'transiterà|transiteranno|tornerà|torneranno|diventerà|'
+      'diventeranno)$_dopo[^,;:]*?'
+      '(?:$_prima(?:in|nel segno (?:del|della|dello|dei|delle|dell[\'’]\\s*)?)'
+      '\\s*(?:Ariete|Toro|Gemelli|Cancro|Leone|Vergine|Bilancia|'
+      'Scorpione|Sagittario|Capricorno|Acquario|Pesci)$_dopo|'
+      '$_prima\\d+ gradi$_dopo|${_prima}retrograd[oaie]$_dopo|'
+      '${_prima}dirett[oaie]$_dopo)');
+
+  /// **LA LUCE E IL MOTO DI UN CORPO DEL CIELO**, dal giro ex07e: *"La sua
+  /// luce stava aumentando"*, detto della Luna, non e' l'animo di un'altra
+  /// persona. Solo con le parole che una persona non ha.
+  static final RegExp _cosaDelCielo =
+      _re(r'^\s*(?:(?:e|ma)\s+)?(?:il suo|la sua|i suoi|le sue)\s+(?:luce|moto|'
+          r'transito|transiti|orbita|fase|fasi|ingresso|retrogradazione)'
+          '$_dopo');
+
+  static final RegExp _dellaPersona =
+      _re('$_prima(?:ti|te|tuo|tua|tuoi|tue|sarai|avrai|tu)$_dopo');
+
   /// Vero se la proposizione [p] da' per certo cio' che nessuno sa.
   static bool _certa(String p, {required bool letta}) {
+    if ((_cieloCalcolato.hasMatch(p) || _cosaDelCielo.hasMatch(p)) &&
+        !_dellaPersona.hasMatch(p)) {
+      return false;
+    }
     if (_condizione.hasMatch(p)) return false;
     for (final m in _futuro.allMatches(p)) {
       final futuro = m.group(1)!.toLowerCase();

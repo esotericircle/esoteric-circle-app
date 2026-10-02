@@ -30,27 +30,38 @@ abstract final class LaVoceNonSiConfonde {
   ///
   /// Si guardano come parole intere: *lama* non scatta dentro *lamenta*, e
   /// *runa* non scatta dentro *pruna*.
-  static List<String> paroleAltruiIn(Maestro maestro, String testo) {
+  ///
+  /// **LA PAROLA CHE LA PERSONA HA SCRITTO NON CONTA.** Ordine EX Aggiunta
+  /// 4, voce EX.07: a *"una in centro piccola, una in periferia grande.
+  /// Quale?"* Calìgo deve poter dire *"la casa in centro"*, e la rete
+  /// rifaceva la risposta per la firma di Aura. Le parole che stanno in
+  /// [domanda] non sono la firma di nessuno.
+  static List<String> paroleAltruiIn(Maestro maestro, String testo,
+      {String domanda = ''}) {
     final basso = testo.toLowerCase();
+    final chiesto = domanda.toLowerCase();
+    bool c(String parola, String dove) =>
+        RegExp('\\b${RegExp.escape(parola.toLowerCase())}\\b').hasMatch(dove);
     return [
       for (final parola in VoceDelMaestro.lessicoDegliAltri(maestro))
-        if (RegExp('\\b${RegExp.escape(parola.toLowerCase())}\\b')
-            .hasMatch(basso))
-          parola,
+        if (c(parola, basso) && !c(parola, chiesto)) parola,
     ];
   }
 
-  /// Vero se [testo] porta almeno una parola di firma di un altro Maestro.
-  static bool siConfonde(Maestro maestro, String testo) =>
-      paroleAltruiIn(maestro, testo).isNotEmpty;
+  /// Vero se [testo] porta almeno una parola di firma di un altro Maestro
+  /// che la persona non ha scritto in [domanda].
+  static bool siConfonde(Maestro maestro, String testo,
+          {String domanda = ''}) =>
+      paroleAltruiIn(maestro, testo, domanda: domanda).isNotEmpty;
 
   /// Fra due risposte, quella che si confonde di meno.
   ///
   /// A parita' resta la prima: non si scambia una risposta con un'altra
   /// uguale solo perche' e' arrivata dopo.
-  static String laMenoConfusa(Maestro maestro, String prima, String poi) =>
-      paroleAltruiIn(maestro, poi).length <
-              paroleAltruiIn(maestro, prima).length
+  static String laMenoConfusa(Maestro maestro, String prima, String poi,
+          {String domanda = ''}) =>
+      paroleAltruiIn(maestro, poi, domanda: domanda).length <
+              paroleAltruiIn(maestro, prima, domanda: domanda).length
           ? poi
           : prima;
 }

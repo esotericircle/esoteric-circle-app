@@ -135,6 +135,19 @@ void main() {
       'In che segno era Saturno il primo gennaio 2000?':
           TipoDellaDomanda.aperta,
       'Che aspetti ci sono oggi fra i pianeti?': TipoDellaDomanda.aperta,
+      // **LA PAROLA CHE CHIEDE DOPO UNA PREPOSIZIONE. Ordine EX Aggiunta 4,
+      // voce EX.07.** Al banco "Da dove riparto?" e "Da dove comincio a
+      // rimettere in ordine i conti?" erano lette da sì o no: la rete
+      // scartava la risposta e la correzione la faceva cominciare con "I
+      // tuoi centri dicono di sì", a una domanda che non chiede un sì.
+      'Mi sento in colpa per come sono andate le cose con lei a Natale. Da '
+          'dove riparto?': TipoDellaDomanda.aperta,
+      'Ho speso troppo quest\'anno e mi vergogno. Da dove comincio a '
+          'rimettere in ordine i conti?': TipoDellaDomanda.aperta,
+      'Con chi ne parlo prima?': TipoDellaDomanda.aperta,
+      'Di chi mi posso fidare al lavoro?': TipoDellaDomanda.aperta,
+      'Fino a dove posso spingermi?': TipoDellaDomanda.aperta,
+      'Per quanto tempo ancora starò così?': TipoDellaDomanda.aperta,
       // E le domande del si', del no e della scelta restano com'erano.
       'Che faccio, parto o resto?': TipoDellaDomanda.scelta,
       'Il 15 novembre è un buon giorno per firmare un contratto?':

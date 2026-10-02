@@ -49,6 +49,11 @@ class VoceSorvegliata implements MaestroAiProvider, LaCorrezioneCorta {
   /// La voce sorvegliata, per chi deve sapere chi c'e' davvero sotto.
   MaestroAiProvider get voce => _voce;
 
+  /// Le risposte chieste di nuovo perche' portavano una parola di firma di
+  /// un altro Maestro, e quali parole. Ordine EX Aggiunta 4, voce EX.07.
+  int confusioni = 0;
+  final List<String> paroleConfuse = [];
+
   @override
   bool get isReady => _voce.isReady;
 
@@ -146,16 +151,36 @@ class VoceSorvegliata implements MaestroAiProvider, LaCorrezioneCorta {
     // **Un ritentativo solo, e la persona non resta mai senza risposta**: se
     // anche la seconda si confonde passa quella con meno parole altrui, e il
     // guasto resta nel registro.
-    if (!LaVoceNonSiConfonde.siConfonde(maestro, prima)) return prima;
-    final altrui = LaVoceNonSiConfonde.paroleAltruiIn(maestro, prima);
+    // Ordine EX Aggiunta 4, voce EX.07: le parole scritte dalla persona non
+    // sono la firma di nessuno.
+    // Nel seguito la richiesta e' quella del tocco: la domanda e' l'ultima
+    // della persona nella storia.
+    final domanda = rispostaGiaData == null
+        ? userMessage
+        : history
+            .lastWhere((m) => !m.isMaestro,
+                orElse: () =>
+                    ChatMessage(role: ChatRole.user, text: userMessage))
+            .text;
+    if (!LaVoceNonSiConfonde.siConfonde(maestro, prima, domanda: domanda)) {
+      return prima;
+    }
+    final altrui =
+        LaVoceNonSiConfonde.paroleAltruiIn(maestro, prima, domanda: domanda);
+    // **SI CONTA, COME LE ALTRE RETI.** Ordine EX Aggiunta 4, voce EX.07:
+    // al banco quattro risposte su trenta si rifacevano da capo qui, e nessun
+    // contatore lo diceva.
+    confusioni++;
+    paroleConfuse.add('${maestro.id}: ${altrui.join(", ")}');
     try {
       final poi = await chiedi();
-      final scelta = LaVoceNonSiConfonde.laMenoConfusa(maestro, prima, poi);
-      if (LaVoceNonSiConfonde.siConfonde(maestro, scelta)) {
+      final scelta = LaVoceNonSiConfonde.laMenoConfusa(maestro, prima, poi,
+          domanda: domanda);
+      if (LaVoceNonSiConfonde.siConfonde(maestro, scelta, domanda: domanda)) {
         registro.registra(
           operazione: 'reply',
           errore: '${maestro.id} si è confuso due volte con un altro Maestro: '
-              '${LaVoceNonSiConfonde.paroleAltruiIn(maestro, scelta).join(", ")}',
+              '${LaVoceNonSiConfonde.paroleAltruiIn(maestro, scelta, domanda: domanda).join(", ")}',
         );
       }
       return scelta;
@@ -191,6 +216,7 @@ class VoceSorvegliata implements MaestroAiProvider, LaCorrezioneCorta {
     MaestroMemory memory = MaestroMemory.empty,
     bool nelLive = false,
     String? cieloDelTurno,
+    bool conSeguito = false,
   }) {
     final voce = _voce;
     if (voce is! LaCorrezioneCorta) {
@@ -208,6 +234,7 @@ class VoceSorvegliata implements MaestroAiProvider, LaCorrezioneCorta {
         memory: memory,
         nelLive: nelLive,
         cieloDelTurno: cieloDelTurno,
+        conSeguito: conSeguito,
       ),
     );
   }

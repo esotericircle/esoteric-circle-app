@@ -258,5 +258,10 @@ abstract interface class LaCorrezioneCorta {
     /// giorni chiesti alla funzione): la correzione non chiama funzioni, e
     /// senza di loro il modello li riscriverebbe a memoria.
     String? cieloDelTurno,
+
+    /// Se la risposta corretta porta anche il suo seguito nascosto (ordine
+    /// EX Aggiunta 4, EX.04): il seguito della risposta scartata non va piu'
+    /// d'accordo con quella corretta.
+    bool conSeguito = false,
   });
 }

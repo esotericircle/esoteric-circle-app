@@ -18,6 +18,7 @@ import '../../core/maestro/misura_della_risposta.dart';
 import '../../core/maestro/natal_context.dart';
 import 'maestro_ai_provider.dart';
 import 'maestro_oracle.dart';
+import 'la_cache_del_contesto.dart';
 import 'le_funzioni_del_cielo.dart';
 import '../../core/chat/i_responsi_di_oggi.dart';
 import 'maestro_persona.dart';
@@ -183,6 +184,78 @@ class FirebaseMaestroAiProvider
     // **CIO' CHE IL TURNO CHIEDE E LA FIRMA NON PORTA.** Ordine EN voci 01
     // e 06: nel LIVE la misura della voce, e la risposta da non ripetere.
     final turno = LaRichiestaDelTurno.corrente;
+    // Ordine EX Aggiunta 4, voce EX.07: il cielo dei giorni che la domanda
+    // nomina, gia' calcolato.
+    // Nel seguito la domanda e' l'ultima della persona nella storia: la
+    // richiesta del tocco non nomina giorni.
+    final laDomanda = turno.domanda ??
+        (rispostaGiaData == null
+            ? userMessage
+            : history
+                .lastWhere((m) => !m.isMaestro,
+                    orElse: () =>
+                        ChatMessage(role: ChatRole.user, text: userMessage))
+                .text);
+    final cieloDeiGiorni = LeFunzioniDelCielo.cieloDeiGiorniNominati(laDomanda,
+        carta: natal.carta);
+    final istruzione = MaestroPersona.systemInstruction(
+      maestro: maestro,
+      profile: profile,
+      memory: memory,
+      natal: natal,
+      insistiSullAncoraggio: insistiSullAncoraggio,
+      rispostaGiaData: rispostaGiaData,
+      primaRisposta: !history.any((m) => m.isMaestro),
+      testiGiaDetti: [
+        for (final m in history)
+          if (m.isMaestro) m.text
+      ],
+      nelLive: turno.nelLive,
+      daNonRipetere: turno.daNonRipetere,
+      daProgramma: turno.daProgramma,
+      daAttesa: turno.daAttesa,
+      domandaDiAdesso: turno.domanda,
+      correzione: turno.daCorreggere,
+      conSeguito: turno.conSeguito,
+      // Ordine EX Aggiunta 4, voce EX.07: il cielo dei giorni che la
+      // domanda nomina, gia' calcolato.
+      cieloDeiGiorni: cieloDeiGiorni,
+      scrittoPrima: conIlRiassunto
+          ? scrittoPrimaDellaFinestra(history, finestra: finestraDellaStoria)
+          : const [],
+    );
+    // La PRIMA risposta arriva sempre alla stessa misura per tutti: la
+    // profondita' non si sceglie prima, si chiede dopo aver letto.
+    final configurazione = _conLoSpazioDelSeguito(
+      configurazionePer(
+        rispostaGiaData == null
+            ? MisuraDellaRisposta.perIlTurno(nelLive: turno.nelLive)
+            : MisuraDellaRisposta.perIlSeguito,
+        temperature: 0.9,
+        topP: 0.95,
+      ),
+      conSeguito: turno.conSeguito && rispostaGiaData == null && !turno.nelLive,
+    );
+    // **LA CACHE DEL CONTESTO, QUANDO E' ACCESA.** Ordine EX Aggiunta 4, voce
+    // EX.05: la prima risposta della chat scritta, se la cache della sua
+    // variante e' viva, passa dal template con la cache; altrimenti, o se
+    // qualcosa non va, dalla via di sempre qui sotto.
+    if (rispostaGiaData == null &&
+        !turno.nelLive &&
+        turno.suTesto == null &&
+        turno.daCorreggere == null) {
+      final dallaCache = await _conLaCache(
+        maestro: maestro,
+        istruzione: istruzione,
+        conSeguito: turno.conSeguito,
+        configurazione: configurazione,
+        history: history,
+        userMessage: userMessage,
+        laDomanda: laDomanda,
+        natal: natal,
+      );
+      if (dallaCache != null) return dallaCache;
+    }
     final model = _ai.generativeModel(
       model: modelloDelTurno(nelLive: turno.nelLive, chatModel: chatModel),
       // L'etichetta della funzione, ordine EW voce EW.03: la risposta della
@@ -192,51 +265,23 @@ class FirebaseMaestroAiProvider
           : rispostaGiaData == null
               ? LeFunzioniDelModello.chatRisposta
               : LeFunzioniDelModello.chatSeguito),
-      systemInstruction: Content.system(
-        MaestroPersona.systemInstruction(
-          maestro: maestro,
-          profile: profile,
-          memory: memory,
-          natal: natal,
-          insistiSullAncoraggio: insistiSullAncoraggio,
-          rispostaGiaData: rispostaGiaData,
-          primaRisposta: !history.any((m) => m.isMaestro),
-          testiGiaDetti: [
-            for (final m in history)
-              if (m.isMaestro) m.text
-          ],
-          nelLive: turno.nelLive,
-          daNonRipetere: turno.daNonRipetere,
-          daProgramma: turno.daProgramma,
-          daAttesa: turno.daAttesa,
-          domandaDiAdesso: turno.domanda,
-          correzione: turno.daCorreggere,
-          conSeguito: turno.conSeguito,
-          scrittoPrima: conIlRiassunto
-              ? scrittoPrimaDellaFinestra(history,
-                  finestra: finestraDellaStoria)
-              : const [],
-        ),
-      ),
-      // La PRIMA risposta arriva sempre alla stessa misura per tutti: la
-      // profondita' non si sceglie prima, si chiede dopo aver letto.
-      generationConfig: _conLoSpazioDelSeguito(
-        configurazionePer(
-          rispostaGiaData == null
-              ? MisuraDellaRisposta.perIlTurno(nelLive: turno.nelLive)
-              : MisuraDellaRisposta.perIlSeguito,
-          temperature: 0.9,
-          topP: 0.95,
-        ),
-        conSeguito:
-            turno.conSeguito && rispostaGiaData == null && !turno.nelLive,
-      ),
+      systemInstruction: Content.system(istruzione),
+      generationConfig: configurazione,
       // **IL CIELO SI CHIEDE ALL'APP. Ordine EV voce 03.** Il modello riceve
       // le funzioni del cielo e, quando la domanda tocca il cielo di un
       // giorno o di un periodo, le chiama: la libreria le esegue sul
       // telefono e gli rimanda i fatti, prima che scriva. Chat e LIVE
       // passano da qui.
       tools: LeFunzioniDelCielo.perIlMaestro(carta: natal.carta),
+      // **COL CIELO GIA' DAVANTI, LA FUNZIONE NON SI CHIAMA.** Ordine EX
+      // Aggiunta 4, voce EX.07: al banco (giro ex07c) il modello chiamava la
+      // funzione per il giorno che aveva gia' nell'istruzione in sei domande
+      // su sei, anche con la descrizione che glielo diceva. Quando la
+      // domanda nomina dei giorni e il loro cielo e' calcolato, il turno non
+      // chiama funzioni.
+      toolConfig: cieloDeiGiorni.isEmpty
+          ? null
+          : ToolConfig(functionCallingConfig: FunctionCallingConfig.none()),
     );
 
     final chat = model.startChat(history: _toHistory(history));
@@ -267,7 +312,13 @@ class FirebaseMaestroAiProvider
     // domanda sul cielo a cui il modello risponde "devo consultare il cielo"
     // senza chiamare la funzione riceve il sollecito, nella stessa
     // conversazione, e la risposta vera prende il posto del rinvio.
+    // **COL CIELO GIA' DATO, NIENTE SOLLECITO.** Ordine EX Aggiunta 4, voce
+    // EX.07: al banco (giro ex07d), con la funzione spenta per il turno, il
+    // sollecito chiedeva di chiamarla, e il modello rispondeva "ho bisogno
+    // che tu mi dica quale data": quella frase prendeva il posto della
+    // risposta buona in quattro domande su quattro. Padre: questa voce.
     if (text != null &&
+        cieloDeiGiorni.isEmpty &&
         LeFunzioniDelCielo.registro.length == chiamateDelCielo &&
         LeFunzioniDelCielo.rimanda(domanda: userMessage, risposta: text)) {
       debugPrint('Cielo per il Maestro: la risposta rimanda, sollecito.');
@@ -343,6 +394,7 @@ class FirebaseMaestroAiProvider
     MaestroMemory memory = MaestroMemory.empty,
     bool nelLive = false,
     String? cieloDelTurno,
+    bool conSeguito = false,
   }) async {
     final model = _ai.generativeModel(
       model: modelloDelTurno(nelLive: nelLive, chatModel: chatModel),
@@ -355,12 +407,16 @@ class FirebaseMaestroAiProvider
           memory: memory,
           nelLive: nelLive,
           cieloDelTurno: cieloDelTurno,
+          conSeguito: conSeguito && !nelLive,
         ),
       ),
-      generationConfig: configurazionePer(
-        MisuraDellaRisposta.perIlTurno(nelLive: nelLive),
-        temperature: 0.9,
-        topP: 0.95,
+      generationConfig: _conLoSpazioDelSeguito(
+        configurazionePer(
+          MisuraDellaRisposta.perIlTurno(nelLive: nelLive),
+          temperature: 0.9,
+          topP: 0.95,
+        ),
+        conSeguito: conSeguito && !nelLive,
       ),
     );
     final r = await model.generateContent([
@@ -561,6 +617,85 @@ class FirebaseMaestroAiProvider
               ? m.text.trim()
               : '${m.text.trim().substring(0, 157)}...',
     ];
+  }
+
+  /// **LA RISPOSTA DAL TEMPLATE CON LA CACHE**, o null per la via di
+  /// sempre. Ordine EX Aggiunta 4, voce EX.05: vedi [LaCacheDelContesto].
+  /// Nel banco ([LaCacheDelContesto.simulataNelBanco]) la stessa richiesta
+  /// va a Vertex senza cache: l'istruzione comune come istruzione di
+  /// sistema e il resto come testo, cioe' cio' che il modello legge col
+  /// template, per misurarne il merito senza creare niente su Google.
+  Future<String?> _conLaCache({
+    required Maestro maestro,
+    required String istruzione,
+    required bool conSeguito,
+    required GenerationConfig configurazione,
+    required List<ChatMessage> history,
+    required String userMessage,
+    required String laDomanda,
+    required NatalContext natal,
+  }) async {
+    // La cache e' di gemini-2.5-flash: un altro modello non la legge.
+    if (chatModel != LaCacheDelContesto.modello) return null;
+    // Il cielo di un periodo vuole la funzione, che il template non ha.
+    if (LeFunzioniDelCielo.serveUnaFunzione(laDomanda)) return null;
+    final comune =
+        MaestroPersona.parteComune(maestro: maestro, conSeguito: conSeguito);
+    if (!istruzione.startsWith(comune)) return null;
+    final simulata = LaCacheDelContesto.simulataNelBanco;
+    final nome = simulata
+        ? 'simulata'
+        : await LaCacheDelContesto.nomePer(
+            LaCacheDelContesto.variante(maestro, conSeguito: conSeguito));
+    if (nome == null) return null;
+    final richiesta = LaCacheDelContesto.richiesta(
+      parteDellaPersona: istruzione.substring(comune.length),
+      cieloDiOggi:
+          LeFunzioniDelCielo.cieloDiOggiPerIlModello(carta: natal.carta),
+      storia: _finestra(history),
+      domanda: userMessage,
+    );
+    try {
+      final GenerateContentResponse r;
+      if (simulata) {
+        r = await _ai
+            .generativeModel(
+          model: chatModel,
+          httpClient: ClientConEtichetta(LeFunzioniDelModello.chatRisposta),
+          systemInstruction: Content.system(comune),
+          generationConfig: configurazione,
+        )
+            .generateContent([Content.text(richiesta)]);
+      } else {
+        // I template di Firebase AI Logic sono ancora sperimentali nel
+        // pacchetto: sono la sola strada per la cache esplicita dal telefono,
+        // e se cambiano la chiamata cade nel catch e risponde la via di
+        // sempre.
+        // ignore: experimental_member_use
+        r = await _ai.templateGenerativeModel().generateContent(
+            LaCacheDelContesto.template,
+            inputs: {'cache': nome, 'richiesta': richiesta});
+      }
+      final t = r.text?.trim();
+      if (t == null || t.isEmpty || eTroncata(r)) return null;
+      LaCacheDelContesto.risposteDallaCache++;
+      return TestoDelResponso.pulisci(t);
+    } catch (errore) {
+      // La cache non e' mai la sola strada: risponde la via di sempre.
+      debugPrint('Cache del contesto: via di sempre dopo $errore');
+      return null;
+    }
+  }
+
+  /// I messaggi della storia che arrivano al modello: gli ultimi
+  /// [finestraDellaStoria], interi e non in attesa.
+  List<ChatMessage> _finestra(List<ChatMessage> history) {
+    final clean = history
+        .where((m) => !m.pending && !m.failed && m.text.trim().isNotEmpty)
+        .toList();
+    return clean.length > finestraDellaStoria
+        ? clean.sublist(clean.length - finestraDellaStoria)
+        : clean;
   }
 
   List<Content> _toHistory(List<ChatMessage> history) {

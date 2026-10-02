@@ -178,7 +178,17 @@ class MaestroChatController extends ChangeNotifier {
   /// rapporto EQ: *"I turni Live contano come domande."* Adesso un turno detto
   /// a voce costa una domanda come uno scritto, e il limite del giorno vale
   /// anche nel LIVE; i minuti restano il tetto della sessione.
-  bool nelLive = false;
+  bool get nelLive => _nelLive;
+  set nelLive(bool valore) {
+    final finisce = _nelLive && !valore;
+    _nelLive = valore;
+    // **USCENDO DAL LIVE, IL SEGUITO SI PREPARA.** Ordine EX Aggiunta 4,
+    // EX.04: nel LIVE il seguito non si scrive (la risposta e' detta a voce),
+    // ma tornati nella chat il "Vai più a fondo" c'e' sotto l'ultima risposta.
+    if (finisce) _preparaIlSeguitoSeManca();
+  }
+
+  bool _nelLive = false;
 
   void _applicaIlCosto(EsitoDelTurno esito) {
     final piano = _tier?.call();
@@ -641,6 +651,11 @@ class MaestroChatController extends ChangeNotifier {
     } finally {
       _loading = false;
       notifyListeners();
+      // **ALL'APERTURA NON SI PREPARA NIENTE.** Ordine EX Aggiunta 4, EX.04:
+      // la prima stesura preparava qui il seguito dell'ultima risposta, e al
+      // banco (giro ex07a) ogni apertura della chat costava una chiamata,
+      // anche a chi non tocca mai. Le risposte nuove lo preparano quando
+      // arrivano; una risposta di prima dell'ordine lo chiede al tocco.
     }
   }
 
@@ -711,7 +726,10 @@ class MaestroChatController extends ChangeNotifier {
     // **IL SEGUITO SI SEPARA PRIMA DI TUTTO**, ordine EX voce 04: le reti
     // del turno leggono solo la risposta.
     final (risposta, seguito) = IlSeguitoNascosto.dividi(grezzo);
-    if (seguito != null) _seguitoDelTurno = seguito;
+    // **SEMPRE, ANCHE NULLO.** Ordine EX Aggiunta 4: una risposta chiesta di
+    // nuovo porta il suo seguito o nessuno; quello della risposta scartata
+    // non va piu' d'accordo con lei.
+    _seguitoDelTurno = seguito;
     return risposta;
   }
 
@@ -742,11 +760,14 @@ class MaestroChatController extends ChangeNotifier {
     required String correzione,
     required Future<String> Function() allaVecchia,
   }) async {
+    // Ordine EX Aggiunta 4, voce EX.07: il banco della qualita' legge quale
+    // risposta e' stata scartata e con quale correzione.
+    risposteScartate.add((risposta: risposta, correzione: correzione));
     final ai = _ai;
     if (ai is LaCorrezioneCorta && (ai as LaCorrezioneCorta).correggeCorto) {
       try {
         correzioniCorte++;
-        return await (ai as LaCorrezioneCorta).correggi(
+        final corretta = await (ai as LaCorrezioneCorta).correggi(
           maestro: chi,
           profile: _profile,
           domanda: domanda,
@@ -755,7 +776,13 @@ class MaestroChatController extends ChangeNotifier {
           memory: _memoriaPerIlModello,
           nelLive: nelLive,
           cieloDelTurno: _cieloDelTurno(),
+          conSeguito: _conSeguito,
         );
+        // Ordine EX Aggiunta 4, EX.04: il seguito e' quello della risposta
+        // corretta, o nessuno.
+        final (testo, seguito) = IlSeguitoNascosto.dividi(corretta);
+        _seguitoDelTurno = seguito;
+        return testo;
       } on MaestroAiUnavailable catch (errore, traccia) {
         annotaGuastoInnocuo(
             'correzione corta non riuscita, ${chi.displayName}: si chiede '
@@ -770,6 +797,11 @@ class MaestroChatController extends ChangeNotifier {
   /// Quante correzioni corte sono partite, in questa sessione. Ordine EX
   /// voce 07.
   int correzioniCorte = 0;
+
+  /// Le risposte scartate dalle reti in questa sessione, con la correzione
+  /// che le ha fatte riscrivere. Ordine EX Aggiunta 4, voce EX.07: le legge
+  /// il banco della qualita'.
+  final List<({String risposta, String correzione})> risposteScartate = [];
 
   /// Da dove cominciano, nel registro di [LeFunzioniDelCielo.giorniChiesti],
   /// i giorni chiesti in questo turno.
@@ -798,9 +830,14 @@ class MaestroChatController extends ChangeNotifier {
 
   @override
   void dispose() {
+    _chiuso = true;
     testoInArrivo.dispose();
     super.dispose();
   }
+
+  /// Vero dopo [dispose]: un seguito preparato che arriva dopo non avvisa
+  /// nessuno.
+  bool _chiuso = false;
 
   void _mostraMentreArriva(String scrittoFinora) {
     var testo = scrittoFinora.replaceAll(RegExp(r'\[\[[A-Z]+\]\]'), '');
@@ -1206,48 +1243,22 @@ class MaestroChatController extends ChangeNotifier {
     notifyListeners();
 
     try {
-      final natal = _natal?.call() ?? NatalContext.none;
-      // **LA RICHIESTA E' QUELLA DEL TOCCO, dopo la risposta gia' data.**
-      // Ordine EQ: qui l'ultimo turno della persona era la sua domanda di
-      // prima, e il modello le rispondeva di nuovo; il filtro buttava tutto
-      // e il tocco non faceva niente. Adesso il modello vede la domanda, la
-      // sua risposta, e la persona che chiede di scendere piu' a fondo.
-      Future<String> chiedi() => _ai.reply(
-            maestro: prima.autoreEffettivo(maestro),
-            profile: _profile,
-            memory: _memoriaPerIlModello,
-            history: [..._messages.sublist(0, indice), prima],
-            userMessage: SeguitoDellaLettura.laRichiesta,
-            natal: natal,
-            // CIO' CHE LA PERSONA HA GIA' LETTO, per intero: senza il corpo
-            // il modello non saprebbe da dove continuare, e senza la riga
-            // finale rischierebbe di riscriverla.
-            rispostaGiaData: prima.text,
-          );
-      var grezzo = await chiedi();
-      // L'APP CONTROLLA, invece di fidarsi dell'istruzione.
-      final corpoGia = ConsiglioFinale.corpoDa(prima.text);
-      var pulito = '';
-      for (var tentativo = 1; tentativo <= 2; tentativo++) {
-        if (tentativo == 2) {
-          seguitiRichiestiDiNuovo++;
-          grezzo = await chiedi();
-        }
-        pulito = SeguitoDellaLettura.pulisci(gia: corpoGia, seguito: grezzo);
-        final ripetute =
-            SeguitoDellaLettura.quanteRipetute(gia: corpoGia, seguito: grezzo);
-        frasiRipetuteNelSeguito += ripetute;
-        // **IL REGISTRO DEL SEGUITO, anche in una build release.** Ordine
-        // EQ: sul Realme "Vai più a fondo" non faceva niente, e nessuna riga
-        // diceva perche'; `annotaGuastoInnocuo` scrive in un registro che il
-        // logcat di una release non vede.
-        debugPrint('SEGUITO: tentativo $tentativo, grezzo ${grezzo.length} '
-            'caratteri, frasi ripetute $ripetute, pulito '
-            '${pulito.trim().length} caratteri');
-        if (pulito.trim().isNotEmpty) break;
-        debugPrint('SEGUITO: scartato intero: «$grezzo»');
+      // **IL SEGUITO GIA' IN PREPARAZIONE SI ASPETTA. Ordine EX Aggiunta 4,
+      // EX.04**: e' partito alla fine della risposta, all'apertura della
+      // chat o all'uscita dal LIVE; il tocco non chiama un'altra volta.
+      final inPreparazione = identical(_seguitoPerIlMessaggio, prima)
+          ? _seguitoInPreparazione
+          : null;
+      String? pulito;
+      if (inPreparazione != null) {
+        pulito = await inPreparazione;
+        if (pulito != null) seguitiAttesi++;
       }
-      if (pulito.trim().isEmpty) {
+      if (pulito == null) {
+        seguitiChiestiAlTocco++;
+        pulito = await _scriviIlSeguito(indice, prima);
+      }
+      if (pulito == null || pulito.trim().isEmpty) {
         // Un seguito che era tutto ripetizione, due volte, non e' un
         // seguito: si rimette la risposta com'era, senza marcarla
         // approfondita, cosi' la freccia resta e la persona puo' riprovare.
@@ -1285,6 +1296,122 @@ class MaestroChatController extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  /// **SCRIVE IL SEGUITO DI UNA RISPOSTA**, chiedendolo al modello: la
+  /// richiesta del tocco, con la risposta gia' data, e la ripulitura delle
+  /// frasi gia' lette (due tentativi). Torna il seguito ripulito, o nullo.
+  /// La usano il tocco, quando niente e' pronto, e [_preparaIlSeguitoSeManca].
+  Future<String?> _scriviIlSeguito(int indice, ChatMessage prima) async {
+    final natal = _natal?.call() ?? NatalContext.none;
+    // **LA RICHIESTA E' QUELLA DEL TOCCO, dopo la risposta gia' data.**
+    // Ordine EQ: qui l'ultimo turno della persona era la sua domanda di
+    // prima, e il modello le rispondeva di nuovo; il filtro buttava tutto
+    // e il tocco non faceva niente. Adesso il modello vede la domanda, la
+    // sua risposta, e la persona che chiede di scendere piu' a fondo.
+    Future<String> chiedi() => _ai.reply(
+          maestro: prima.autoreEffettivo(maestro),
+          profile: _profile,
+          memory: _memoriaPerIlModello,
+          history: [..._messages.sublist(0, indice), prima],
+          userMessage: SeguitoDellaLettura.laRichiesta,
+          natal: natal,
+          // CIO' CHE LA PERSONA HA GIA' LETTO, per intero: senza il corpo
+          // il modello non saprebbe da dove continuare, e senza la riga
+          // finale rischierebbe di riscriverla.
+          rispostaGiaData: prima.text,
+        );
+    var grezzo = await chiedi();
+    // L'APP CONTROLLA, invece di fidarsi dell'istruzione.
+    final corpoGia = ConsiglioFinale.corpoDa(prima.text);
+    var pulito = '';
+    for (var tentativo = 1; tentativo <= 2; tentativo++) {
+      if (tentativo == 2) {
+        seguitiRichiestiDiNuovo++;
+        grezzo = await chiedi();
+      }
+      pulito = SeguitoDellaLettura.pulisci(gia: corpoGia, seguito: grezzo);
+      final ripetute =
+          SeguitoDellaLettura.quanteRipetute(gia: corpoGia, seguito: grezzo);
+      frasiRipetuteNelSeguito += ripetute;
+      // **IL REGISTRO DEL SEGUITO, anche in una build release.** Ordine
+      // EQ: sul Realme "Vai più a fondo" non faceva niente, e nessuna riga
+      // diceva perche'; `annotaGuastoInnocuo` scrive in un registro che il
+      // logcat di una release non vede.
+      debugPrint('SEGUITO: tentativo $tentativo, grezzo ${grezzo.length} '
+          'caratteri, frasi ripetute $ripetute, pulito '
+          '${pulito.trim().length} caratteri');
+      if (pulito.trim().isNotEmpty) break;
+      debugPrint('SEGUITO: scartato intero: «$grezzo»');
+    }
+    return pulito.trim().isEmpty ? null : pulito;
+  }
+
+  /// **PREPARA IL SEGUITO DELL'ULTIMA RISPOSTA, SE MANCA.** Ordine EX
+  /// Aggiunta 4, EX.04: *"il testo ci sia sempre già quando la persona
+  /// tocca"*. Parte in sottofondo alla fine di una risposta senza seguito
+  /// e all'uscita dal LIVE, solo per chi ha il
+  /// "Vai più a fondo" nel piano e solo sotto una risposta che lo mostra.
+  /// Il seguito pronto resta nascosto nel messaggio e si salva con lui; al
+  /// tocco si scopre senza chiamare.
+  void _preparaIlSeguitoSeManca() {
+    if (!preparaIlSeguitoDiSerie) return;
+    if (_chiuso || nelLive || _messages.isEmpty) return;
+    if (!ilPianoComprendeIlSecondoStrato) return;
+    final indice = _messages.length - 1;
+    final ultima = _messages[indice];
+    if (!ultima.isMaestro ||
+        ultima.pending ||
+        ultima.failed ||
+        !ultima.portaUnResponso ||
+        ultima.approfondita) {
+      return;
+    }
+    if ((ultima.seguitoNascosto ?? '').trim().isNotEmpty) return;
+    if (indice == 0 || !_messages[indice - 1].isUser) return;
+    if (identical(_seguitoPerIlMessaggio, ultima) &&
+        _seguitoInPreparazione != null) {
+      return;
+    }
+    _seguitoPerIlMessaggio = ultima;
+    seguitiPreparati++;
+    _seguitoInPreparazione = () async {
+      try {
+        final pulito = await _scriviIlSeguito(indice, ultima);
+        if (pulito == null || _chiuso) return pulito;
+        // Si scrive solo se l'ultima risposta e' ancora quella: un turno
+        // nuovo nel frattempo ha la sua.
+        if (_messages.isNotEmpty && identical(_messages.last, ultima)) {
+          final pronto = ultima.copyWith(seguitoNascosto: pulito);
+          _messages[_messages.length - 1] = pronto;
+          _seguitoPerIlMessaggio = pronto;
+          _seguitoInPreparazione = Future<String?>.value(pulito);
+          await _sostituisci(pronto);
+        }
+        return pulito;
+      } catch (errore, traccia) {
+        annotaGuastoInnocuo(
+            'preparando il seguito di ${maestro.displayName}', errore, traccia);
+        return null;
+      }
+    }();
+  }
+
+  /// **L'INTERRUTTORE DELLA PREPARAZIONE**, acceso nell'app. Le prove che
+  /// sorvegliano la strada del tocco (il seguito chiesto al modello quando
+  /// niente e' pronto: i messaggi di prima e una preparazione fallita) lo
+  /// spengono e lo riaccendono alla fine.
+  static bool preparaIlSeguitoDiSerie = true;
+
+  /// Il seguito in preparazione e la risposta a cui appartiene.
+  Future<String?>? _seguitoInPreparazione;
+  ChatMessage? _seguitoPerIlMessaggio;
+
+  /// Quanti seguiti si sono preparati in sottofondo, quanti tocchi hanno
+  /// aspettato uno in preparazione, e quanti hanno dovuto chiamare il
+  /// modello, in questa sessione. Ordine EX Aggiunta 4.
+  int seguitiPreparati = 0;
+  int seguitiAttesi = 0;
+  int seguitiChiestiAlTocco = 0;
 
   /// Quanti seguiti scritti insieme alla risposta si sono scoperti senza
   /// chiamare nessuno, in questa sessione. Ordine EX voce 04.
@@ -1890,6 +2017,10 @@ class MaestroChatController extends ChangeNotifier {
       );
       final risposta = cronometro.elapsedMilliseconds;
       await _consegna(answer, cronometro);
+      // **IL SEGUITO CHE NON E' ARRIVATO SI PREPARA SUBITO.** Ordine EX
+      // Aggiunta 4, EX.04: al banco il modello lo saltava in 3 o 4
+      // risposte su 24, e il tocco chiamava. Adesso al tocco c'e' gia'.
+      if (answer.seguitoNascosto == null) _preparaIlSeguitoSeManca();
       if (nelLive) {
         debugPrint('CHAT TEMPI: in attesa salvata a $salvataInAttesa ms, '
             'risposta del modello a $risposta ms, consegnata e salvata a '

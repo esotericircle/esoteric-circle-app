@@ -1,6 +1,7 @@
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/foundation.dart';
 
+import '../../core/astro/i_giorni_nominati.dart';
 import '../../core/astro/il_cielo_per_il_maestro.dart';
 import '../../core/astro/natal_chart.dart';
 
@@ -54,6 +55,32 @@ abstract final class LeFunzioniDelCielo {
     final giorno = int.parse(m.group(3)!);
     if (mese < 1 || mese > 12 || giorno < 1 || giorno > 31) return null;
     return DateTime(anno, mese, giorno);
+  }
+
+  /// **IL CIELO DEI GIORNI CHE LA PERSONA NOMINA, GIA' CALCOLATO.** Ordine
+  /// EX Aggiunta 4, voce EX.07: al banco ogni domanda sul cielo di un altro
+  /// giorno costava una chiamata in piu', quella in cui il modello chiedeva
+  /// il cielo alla funzione. Il giorno scritto nella domanda si legge qui
+  /// ([IGiorniNominati]) e il suo cielo arriva insieme alla domanda. I
+  /// giorni entrano in [giorniChiesti], come se il modello li avesse
+  /// chiesti: la rete del cielo detto non toglie cio' che di quei giorni e'
+  /// vero. Vuoto se la domanda non nomina un giorno diverso da oggi.
+  static String cieloDeiGiorniNominati(String domanda,
+      {NatalChart? carta, DateTime? adesso}) {
+    final giorni = IGiorniNominati.in_(domanda, adesso ?? DateTime.now());
+    if (giorni.isEmpty) return '';
+    for (final d in giorni) {
+      giorniChiesti.add(DateTime(d.year, d.month, d.day, 12));
+    }
+    return [
+      'IL CIELO DEI GIORNI CHE LA PERSONA NOMINA, già calcolato dalla '
+          'funzione $cieloDelGiorno: per questi giorni non chiamarla, '
+          'rispondi con questi fatti. Se la domanda non tocca il cielo, non '
+          'devi parlarne.',
+      for (final d in giorni)
+        IlCieloPerIlMaestro.oggiInRighe(d, carta: carta)
+            .replaceFirst('IL CIELO DI OGGI (', 'IL CIELO DEL ('),
+    ].join('\n\n');
   }
 
   /// La risposta di [cieloDelGiorno], fuori dal modello: le prove e il banco
@@ -175,6 +202,39 @@ abstract final class LeFunzioniDelCielo {
 
   static (String, String)? _cieloDiOggiCalcolato;
 
+  /// Il cielo di oggi gia' calcolato, per chi lo porta fuori dalle funzioni:
+  /// la richiesta della cache del contesto (ordine EX Aggiunta 4, voce
+  /// EX.05), che non ha le funzioni.
+  static String cieloDiOggiPerIlModello(
+          {NatalChart? carta, DateTime? adesso}) =>
+      _cieloDiOggi(adesso ?? DateTime.now(), carta);
+
+  /// **SE LA DOMANDA VUOLE LA FUNZIONE.** Ordine EX Aggiunta 4, voce EX.05:
+  /// una domanda sul cielo di un periodo (un mese, un anno, "quando torna
+  /// diretto") o di un giorno che [IGiorniNominati] non riconosce chiede la
+  /// funzione, che il template della cache non ha; resta sulla via di
+  /// sempre. Il cielo di oggi e dei giorni nominati arriva gia' calcolato.
+  static bool serveUnaFunzione(String domanda, {DateTime? adesso}) {
+    final d = domanda.toLowerCase();
+    final cielo = RegExp(
+            r'(?<!\p{L})(pianet\p{L}*|luna|lune|sole|retrograd\p{L}*|eclissi|'
+            r'cielo|mercurio|venere|marte|giove|saturno|urano|nettuno|'
+            r'plutone|transit\p{L}*|stelle|astr\p{L}*)(?!\p{L})',
+            unicode: true)
+        .hasMatch(d);
+    if (!cielo) return false;
+    if (IGiorniNominati.in_(domanda, adesso ?? DateTime.now()).isNotEmpty) {
+      return false;
+    }
+    return RegExp(
+            r'(?<!\p{L})(quando|mese|mesi|anno|anni|settiman\p{L}*|'
+            r'prossim\p{L}*|gennaio|febbraio|marzo|aprile|maggio|giugno|'
+            r'luglio|agosto|settembre|ottobre|novembre|dicembre)(?!\p{L})|'
+            r'\d{4}',
+            unicode: true)
+        .hasMatch(d);
+  }
+
   static List<Tool> perIlMaestro({NatalChart? carta, DateTime? adesso}) {
     final ora = adesso ?? DateTime.now();
     final oggi = _oggi(ora);
@@ -198,7 +258,12 @@ abstract final class LeFunzioniDelCielo {
               'segno, grado, fase, retrogrado, aspetto o eclissi di domani, '
               'del passato o del futuro lo sai solo da qui. Oggi è $oggi, '
               'domani è $domani. Chiamala ogni volta che la persona chiede '
-              'del cielo di un giorno diverso da oggi, prima di rispondere. '
+              'del cielo di un giorno diverso da oggi, prima di rispondere, '
+              // Ordine EX Aggiunta 4, voce EX.07: al banco il modello la
+              // chiamava anche col cielo del giorno gia' davanti.
+              'tranne quando il cielo di quel giorno ti è già stato dato '
+              'nell\'istruzione, sotto "IL CIELO DEI GIORNI CHE LA PERSONA '
+              'NOMINA": allora rispondi con quello. '
               'Se la persona ha scritto la data, usala: non chiederla di '
               'nuovo. Rispondi solo '
               'con i fatti che restituisce, non dire mai un fatto del cielo '

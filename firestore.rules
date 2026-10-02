@@ -38,6 +38,16 @@ service cloud.firestore {
       }
     }
 
+    // **LO STATO DELLA CACHE DEL CONTESTO.** Ordine EX Aggiunta 4, voce
+    // EX.05: lo scrive solo la funzione `laCacheDelContesto` (che passa dalle
+    // credenziali del server, non da queste regole); il telefono lo legge per
+    // sapere se la cache e' accesa e come si chiama. Non porta niente di
+    // nessuno: i nomi delle cache e l'ora in cui scadono.
+    match /configurazione/cache {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
     // Fuori da users non c'e' niente che il client debba toccare.
     match /{documento=**} {
       allow read, write: if false;

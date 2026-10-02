@@ -258,8 +258,11 @@ abstract final class LaScenaDalModello {
     // gli esempi, ed e' lo stesso meccanismo della riga d'oro della chat
     // (voce EQ.01). Gli esempi che scrivono restano fuori.
     final gesti = [
+      // Ordine EX Aggiunta 4, voce EX.10: anche segnarsi qualcosa e
+      // rileggere una riga sono scrivere e leggere, e al banco dodici azioni
+      // su venti discese chiedevano ancora di scrivere o di annotare.
       for (final g in LaVoceDelMondoDiSotto.gestiColTempo)
-        if (!g.toLowerCase().contains('scriv')) g,
+        if (!RegExp('scriv|segna|rilegg|annot').hasMatch(g.toLowerCase())) g,
       LaVoceDelMondoDiSotto.cosaPuoiFare[10],
       LaVoceDelMondoDiSotto.cosaPuoiFare[16],
     ];
@@ -297,7 +300,10 @@ abstract final class LaScenaDalModello {
           'già una '
           'risposta, si legge da solo e non è una domanda. Parla alla '
           'persona in seconda persona singolare. Niente due punti, niente '
-          'punto finale. Nessuna parola di tempo, né "ora" né "oggi": il '
+          'punto finale. Nessuna parola di tempo, né "ora" né "oggi" né '
+          // Ordine EX Aggiunta 4, voce EX.10: "adesso" scartava quattro
+          // titoli su venti discese al banco.
+          '"adesso": il '
           "tempo lo dice l'azione. Non ripete nessuno dei titoli già dati. "
           'Non usa '
           'le parole del luogo, della cosa, del gesto e del momento che '
@@ -325,12 +331,26 @@ abstract final class LaScenaDalModello {
           'luogo, fare una prova piccola, cercare un\'informazione, toccare o '
           'spostare una cosa. Scrivere, fare una lista o i pro e i contro '
           'non è un\'azione del viaggio: la persona l\'ha già ricevuta troppe '
-          'volte. Non ripete e non somiglia alle azioni già date a questa '
+          // **LE PAROLE PER NOME**, ordine EX Aggiunta 4, voce EX.10: con la
+          // sola regola il modello chiedeva ancora di scrivere su un foglio
+          // in sedici righe scartate su settantotto, al banco.
+          'volte. L\'azione non contiene mai le parole "scrivi", "scrivere", '
+          '"foglio", "lista", "elenco" o "annota". Non ripete e non somiglia alle azioni già date a questa '
           'persona, scritte nella richiesta. COMINCIA DAL SUO '
           'TEMPO: "Stasera ...", "Domani mattina ...", "Entro sabato '
           '...". Un tempo solo. Non è un consiglio di vita, non è una '
           'massima, non è un invito a riflettere. NIENTE FUOCO: non si '
           'brucia, non si accende e non si incendia niente.',
+      // **LA RISERVA DI OGNI TESTO, DALLA STESSA CHIAMATA.** Ordine EX
+      // Aggiunta 4, voce EX.10: al banco una riga scartata richiamava il
+      // modello, 2,3 e 2,4 chiamate di scena per discesa. La seconda
+      // versione passa dalle stesse guardie, e se regge il modello non si
+      // richiama ([conLaRiserva]).
+      '- titoloDiRiserva, rispostaDiRiserva, azioneDiRiserva; poi '
+          'titoloDiRiserva2, rispostaDiRiserva2, azioneDiRiserva2: altre due '
+          'versioni di ogni testo, diverse nelle parole, che rispettano le '
+          'stesse regole. Servono se la prima non le rispetta: non sono '
+          'copie della prima.',
       'REGOLE DEI TRE TESTI:',
       // **PRENDERE POSIZIONE**, ordine ER voce 02, 27 settembre 2026. Il
       // fondatore: *"Le persone vogliono risposte dirette, Senza tanti
@@ -371,6 +391,12 @@ abstract final class LaScenaDalModello {
           'persona può fare o verificare, con chi o entro quando («I segni '
           'del viaggio dicono di sì, se prima di sabato chiedi a tuo cugino '
           'quando è libero»), mai un modo di sentirsi. '
+          // Ordine EX Aggiunta 4, voce EX.10: al banco quattordici righe
+          // scartate su cinquantasette, in venti discese, cadevano per
+          // "dicono di sì, se riconosci ciò che ti blocca", "se sai perché",
+          // "se ti permetti".
+          'La condizione non è mai "se riconosci", "se capisci", "se sai" o '
+          '"se ti permetti": è una cosa da fare con le mani o con la voce. '
           'Se chiede che cosa fare o come, dice il gesto concreto, con chi o '
           'quando, mai un atteggiamento. Se la domanda è un argomento '
           'generale, dice in concreto che cosa il viaggio mostra della '
@@ -382,6 +408,14 @@ abstract final class LaScenaDalModello {
       '- La posizione si prende su ciò che la persona fa e su ciò che i '
           'segni mostrano adesso, non su un evento futuro dato per certo: '
           'niente "avrà", "succederà", "è già fatta".',
+      // **NESSUN FUTURO, NEMMENO QUELLO DEL GESTO**, ordine EX Aggiunta 4,
+      // voce EX.10: la guardia della certezza scarta ogni verbo al futuro,
+      // e al banco tredici righe su settantotto cadevano per "Questo ti
+      // darà", "ti permetterà", e per "Non è il momento".
+      '- In tutti e tre i testi nessun verbo al futuro, nemmeno per dire che '
+          'cosa porta un gesto: non "questo ti darà", "ti permetterà", '
+          '"farai", "troverai". Scrivi al presente, all\'imperativo o con '
+          '"puoi". Mai "non è il momento" né "non è il tempo".',
       '- Nessuna promessa su salute, denaro, morte, gravidanza, cause '
           'legali o eventi garantiti. Niente che somigli a una diagnosi o a '
           'un consiglio medico.',
@@ -494,7 +528,12 @@ abstract final class LaScenaDalModello {
               'della risposta cominciano da chi legge, con ciò che fa: "Fai '
               'tu il primo passo", "Parlane questa settimana", "Scegli", '
               '"Puoi", "Non puoi". Dell\'altra persona non dire niente di ciò '
-              'che prova, pensa, vede, vuole o fa.\n'
+              'che prova, pensa, vede, vuole o fa. '
+              // Ordine EX Aggiunta 4, voce EX.10: al banco dieci righe su
+              // settantotto cadevano qui, e sette erano titoli come "La
+              // scelta è tua" o "C'è più di una strada".
+              'Anche il titolo comincia con un verbo che dice che cosa fa chi '
+              'legge, mai con "La scelta", "Non è" o "C\'è".\n'
           : '')
       // **SENZA OGGETTO LA RIGA NON C'E'**, ordine DL voce 08: con *"non
       // noto"* il modello prendeva le due parole per la cosa chiesta, e
@@ -744,6 +783,112 @@ abstract final class LaScenaDalModello {
     return t;
   }
 
+  /// **LA RISERVA DI OGNI TESTO, DALLA STESSA RISPOSTA.** Ordine EX
+  /// Aggiunta 4, voce EX.10. Il modello scrive anche `titoloDiRiserva`,
+  /// `rispostaDiRiserva` e `azioneDiRiserva`: per ogni pezzo che la prima
+  /// versione non ha retto, la riserva passa dalle stesse guardie (e dalla
+  /// frase tolta in casa, [senzaLaFraseScartata]); se regge, e' il pezzo, e
+  /// il modello non si richiama. Le righe scartate della riserva si contano
+  /// con le altre.
+  static TestiDelModello conLaRiserva(
+      TestiDelModello t, String? risposta, CioCheSiSa s, PezziScelti? pezzi) {
+    final Object? j;
+    try {
+      j = jsonDecode(risposta ?? '');
+    } catch (errore) {
+      // Una risposta che non e' JSON non ha riserva: i testi restano com'erano.
+      return t;
+    }
+    if (j is! Map) return t;
+    var testi = t;
+    for (final suffisso in suffissiDellaRiserva) {
+      if (testi.titolo != null &&
+          testi.risposta != null &&
+          testi.azione != null) {
+        return testi;
+      }
+      final conRiserva = <String, Object?>{
+        for (final e in j.entries) '${e.key}': e.value,
+      };
+      var ce = false;
+      for (final p in const ['titolo', 'risposta', 'azione']) {
+        final r = j['$p$suffisso'];
+        if (r is String && r.trim().isNotEmpty) {
+          conRiserva[p] = r;
+          ce = true;
+        }
+      }
+      if (!ce) continue;
+      final l = senzaLaFraseScartata(
+          leggiTesti(jsonEncode(conRiserva), s, pezzi: pezzi), s, pezzi);
+      final presi = <String>{
+        if (testi.titolo == null && l.titolo != null) 'titolo: di riserva',
+        if (testi.risposta == null && l.risposta != null)
+          'risposta: di riserva',
+        if (testi.azione == null && l.azione != null) 'azione: di riserva',
+      };
+      testi = TestiDelModello(
+        titolo: testi.titolo ?? l.titolo,
+        risposta: testi.risposta ?? l.risposta,
+        azione: testi.azione ?? l.azione,
+        scarti: [...testi.scarti, ...l.scarti],
+        recuperate: testi.recuperate,
+        dallaSeconda: {...testi.dallaSeconda, ...presi},
+        posizione: testi.posizione ?? l.posizione,
+      );
+    }
+    return testi;
+  }
+
+  /// **LE DUE RISERVE**, nell'ordine in cui si provano: `titoloDiRiserva`,
+  /// poi `titoloDiRiserva2`, e cosi' per la risposta e l'azione. Ordine EX
+  /// Aggiunta 4, voce EX.10: con una riserva sola il banco faceva 1,95
+  /// chiamate di scena per discesa (giro scena4).
+  static const List<String> suffissiDellaRiserva = ['DiRiserva', 'DiRiserva2'];
+
+  /// **LA FRASE SCARTATA SI TOGLIE IN CASA, SE IL RESTO REGGE.** Ordine EX
+  /// Aggiunta 4, voce EX.10. Al banco del Viaggio (giro scena2) molte
+  /// risposte cadevano per una frase sola dopo la prima, che prendeva
+  /// posizione (*"La decisione di tua sorella non è tua da prendere, ma..."*,
+  /// *"Quello che non superi è un riflesso"*), e ogni scarto richiamava il
+  /// modello: 2,30 chiamate di scena per discesa. Qui una frase dopo la
+  /// prima si toglie, una alla volta dall'ultima, e la risposta che resta
+  /// ripassa da tutte le guardie, intere: se regge, e' la risposta. La prima
+  /// frase non si toglie mai, perche' e' la posizione; restano almeno due
+  /// frasi, la posizione e il consiglio.
+  static TestiDelModello senzaLaFraseScartata(
+      TestiDelModello t, CioCheSiSa s, PezziScelti? pezzi) {
+    if (t.risposta != null || s.domanda.trim().isEmpty) return t;
+    for (final r in t.scarti.reversed) {
+      if (r.pezzo != 'risposta') continue;
+      final frasi = [
+        for (final m
+            in RegExp(r'[^.!?]+[.!?]+(?=\s|$)').allMatches(r.testo.trim()))
+          m.group(0)!.trim(),
+      ];
+      // Restano almeno due frasi: la posizione e il consiglio.
+      if (frasi.length < 3) continue;
+      for (var k = frasi.length - 1; k >= 1; k--) {
+        final resto = [
+          for (var i = 0; i < frasi.length; i++)
+            if (i != k) frasi[i]
+        ].join(' ');
+        final regge = leggiTesti(
+                jsonEncode({
+                  'risposta': resto,
+                  if (t.posizione != null) 'posizione': t.posizione,
+                }),
+                s,
+                pezzi: pezzi)
+            .risposta;
+        if (regge != null) {
+          return t.conLaRisposta(regge, 'risposta: senza la frase scartata');
+        }
+      }
+    }
+    return t;
+  }
+
   /// **LA PRIMA FRASE DI UNA RISPOSTA SCARTATA, SE REGGE DA SOLA.** Ordine
   /// ET voce 08. Al giro 8 dell'ordine ER due e tre discese su venti
   /// finivano sulla riserva, e la riserva non prendeva posizione: a
@@ -820,7 +965,12 @@ abstract final class LaScenaDalModello {
             .timeout(resta);
         final scelti = sceltiPrima ??
             leggi(risposta, s.animale, ultimeScene: s.ultimeScene);
-        final letti = leggiTesti(risposta, s, pezzi: scelti);
+        final letti = conLaRiserva(
+            senzaLaFraseScartata(
+                leggiTesti(risposta, s, pezzi: scelti), s, scelti),
+            risposta,
+            s,
+            scelti);
         for (final r in letti.scarti) {
           seScartata?.call(r);
         }
@@ -847,7 +997,16 @@ abstract final class LaScenaDalModello {
           // **UNA RIGA SCARTATA FA RICHIAMARE IL MODELLO**, ordine DQ voce
           // 06 e ordine DR voce 07: la scena resta quella della prima
           // risposta, e i testi si richiedono fino a [quantiTentativi].
-          if (tentativo < quantiTentativi - 1 && letti.scarti.isNotEmpty) {
+          // Ordine EX Aggiunta 4, voce EX.10: si richiama se uno scarto ha
+          // lasciato un pezzo senza riga. Prima bastava lo scarto, e una
+          // risposta riparata in casa ([senzaLaFraseScartata]) o presa dalla
+          // riserva ([conLaRiserva]) richiamava lo stesso il modello.
+          final manca = letti.titolo == null ||
+              letti.risposta == null ||
+              letti.azione == null;
+          if (tentativo < quantiTentativi - 1 &&
+              letti.scarti.isNotEmpty &&
+              manca) {
             daCorreggere = letti.scarti;
             sceltiPrima = scelti;
             consentiti = _soloQuesti(scelti);
@@ -1047,7 +1206,10 @@ abstract final class LaScenaDalModello {
         temperature: 0.8,
         // **SEICENTO TOKEN**, ordine DL voce 07: oltre ai quattro id, il
         // titolo, la risposta e il gesto. Duecento in piu' a discesa.
-        maxOutputTokens: 640,
+        // **MILLE**, ordine EX Aggiunta 4, voce EX.10: con le due riserve
+        // di ogni testo l'uscita sta fra 400 e 600 token, e un JSON tagliato
+        // a meta' si perde intero.
+        maxOutputTokens: 1024,
         thinkingConfig: LaDomandaCapita.ragionamentoPer(modello),
         responseMimeType: 'application/json',
         // **QUATTRO ELENCHI CHIUSI** per la scena, per costruzione, e i tre
@@ -1066,6 +1228,10 @@ abstract final class LaScenaDalModello {
           'posizione': Schema.enumString(enumValues: posizioni),
           'risposta': Schema.string(),
           'azione': Schema.string(),
+          // Ordine EX Aggiunta 4, voce EX.10: la riserva di ogni testo.
+          for (final suffisso in suffissiDellaRiserva)
+            for (final p in const ['titolo', 'risposta', 'azione'])
+              '$p$suffisso': Schema.string(),
         }),
       ),
     );

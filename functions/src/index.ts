@@ -77,6 +77,16 @@ export {sfocaLeConversazioni} from "./sfocatura";
 export {sistemaLeLapidi} from "./lapidi";
 
 /**
+ * LA CACHE DEL CONTESTO. Ordine EX Aggiunta 4, voce EX.05.
+ *
+ * Ogni dieci minuti conta le richieste della chat dell'ultima ora: sopra la
+ * soglia (23 all'ora) tiene in cache su Vertex la parte comune
+ * dell'istruzione dei tre Maestri, sotto 18 la lascia scadere. Spenta, non
+ * costa niente.
+ */
+export {laCacheDelContesto} from "./la_cache_del_contesto";
+
+/**
  * LE PUSH DEI DONI DEL GIORNO. Ordine CG voce 16.
  *
  * Il giro chiede SOLO i destinatari del quarto d ora, e non scorre tutti gli

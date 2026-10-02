@@ -372,6 +372,86 @@ class MaestroPersona {
     return '$blocco\n${IlCieloDetto.oggiPerIlModello(DateTime.now())}';
   }
 
+  /// **LA PARTE COMUNE DELL'ISTRUZIONE.** Ordine EX Aggiunta 4, voce EX.05:
+  /// cio' che e' uguale per tutte le persone che parlano con lo stesso
+  /// Maestro, nella stessa forma (chat, chat col seguito, LIVE). Sta in testa
+  /// a [systemInstruction], e la cache del contesto la tiene da parte
+  /// (`functions/src/la_cache_del_contesto.ts`); la guardia
+  /// `test/la_parte_comune_viene_prima_test.dart` la misura.
+  static String parteComune({
+    required Maestro maestro,
+    bool nelLive = false,
+    bool conSeguito = false,
+    bool seguito = false,
+  }) =>
+      [
+        voceDi(maestro),
+        '',
+        _regoleDiLingua(),
+        // LA LUNGHEZZA SI CHIEDE, non si lascia decidere al tetto.
+        //
+        // Un tetto che taglia produce un moncone, e la persona lo legge come
+        // sciatteria del Maestro. Chiedere la misura fa fermare il modello da
+        // solo, con l'ultima frase chiusa, e il tetto resta la rete che non si
+        // tocca quasi mai.
+        '',
+        // **NEL LIVE LA MISURA E' DELLA VOCE.** Ordine EN voce 01.
+        (!seguito
+                ? MisuraDellaRisposta.perIlTurno(nelLive: nelLive)
+                : MisuraDellaRisposta.perIlSeguito)
+            .istruzione,
+        '',
+        TestoDelResponso.vincoloDiFormato,
+        '',
+        regolaDeiDueStrati,
+        // IL CONSIGLIO FINALE, in ogni risposta e per ogni livello; non nel
+        // seguito, che entra sopra la riga gia' data.
+        //
+        // L'istruzione vive accanto al lettore che la sollevera', in
+        // `ConsiglioFinale`: chi cambia la forma della riga vede subito chi la
+        // legge. Non e' un contenuto premium, e' la cosa che una persona di
+        // fretta legge al posto di tutto il resto.
+        if (!seguito) ...['', ConsiglioFinale.istruzione],
+        // **DOPO L'ULTIMA RIGA, IL SEGUITO. Ordine EX voce 04.** Qui, accanto
+        // alla regola che dice "l'ultima": al banco finale il modello si
+        // fermava sulla riga col carattere speciale e il seguito arrivava in 6
+        // risposte su 24.
+        if (conSeguito && !seguito && !nelLive)
+          '- Quella riga è l\'ultima della risposta; dopo di lei scrivi sempre '
+              '${IlSeguitoNascosto.segno} e il seguito, come spiegato in fondo.',
+        // **DETTA A VOCE, NEL LIVE, TRE FRASI. Ordine EN voce 01.** Nel primo
+        // giro del collaudo la misura in parole non ha accorciato niente: con
+        // "circa trentacinque parole" Medora ne ha scritte centodieci, perche'
+        // la struttura della risposta chiede sintesi, testo narrato e chiusura.
+        // Un numero di frasi il modello lo conta.
+        if (nelLive) ...['', rispostaDettaAVoce],
+      ].join('\n');
+
+  /// **LE PAROLE COMUNI DEGLI ALTRI DUE, E CHE COSA DIRE AL LORO POSTO.**
+  /// Ordine EX Aggiunta 4, voce EX.07. Solo le parole di firma che sono
+  /// anche parole di tutti i giorni, e che il modello scrive senza
+  /// accorgersene; le altre (runa, arcano, sigillo) non scivolano.
+  static const Map<String, String> _sostituti = {
+    'sentire': '"avvertire" o "provare"',
+    'centro': '"cuore" o "nel mezzo"',
+    'ascendente': '"il segno che sorgeva alla tua nascita"',
+    'respiro': '"fiato"',
+    'radice': '"origine"',
+    'soglia': '"passaggio"',
+    'sentiero': '"strada"',
+    'cielo': '"le stelle"',
+  };
+
+  /// ": al posto di "sentire" scrivi ...", per le parole degli altri due
+  /// che [maestro] non puo' usare; vuoto se nessuna ha un sostituto.
+  static String _alPostoDi(Maestro maestro) {
+    final righe = [
+      for (final p in VoceDelMaestro.lessicoDegliAltri(maestro))
+        if (_sostituti[p.toLowerCase()] case final s?) 'al posto di "$p" $s',
+    ];
+    return righe.isEmpty ? '' : ': ${righe.join('; ')}';
+  }
+
   /// Istruzione di sistema completa per una conversazione con [maestro].
   static String systemInstruction({
     required Maestro maestro,
@@ -390,6 +470,7 @@ class MaestroPersona {
     String? correzione,
     bool conSeguito = false,
     List<String> scrittoPrima = const [],
+    String cieloDeiGiorni = '',
   }) {
     final natalBlock = _natalContext(natal);
     // **IL SEGUITO NON E' UNA PRIMA RISPOSTA.** Ordine EQ, 27 settembre 2026:
@@ -415,46 +496,11 @@ class MaestroPersona {
     // Prima la parte della persona (cortesia, nascita, memoria) stava in
     // mezzo, e la parte comune dopo di lei non si riusava mai.
     return [
-      voceDi(maestro),
-      '',
-      _regoleDiLingua(),
-      // LA LUNGHEZZA SI CHIEDE, non si lascia decidere al tetto.
-      //
-      // Un tetto che taglia produce un moncone, e la persona lo legge come
-      // sciatteria del Maestro. Chiedere la misura fa fermare il modello da
-      // solo, con l'ultima frase chiusa, e il tetto resta la rete che non si
-      // tocca quasi mai.
-      '',
-      // **NEL LIVE LA MISURA E' DELLA VOCE.** Ordine EN voce 01.
-      (rispostaGiaData == null
-              ? MisuraDellaRisposta.perIlTurno(nelLive: nelLive)
-              : MisuraDellaRisposta.perIlSeguito)
-          .istruzione,
-      '',
-      TestoDelResponso.vincoloDiFormato,
-      '',
-      regolaDeiDueStrati,
-      // IL CONSIGLIO FINALE, in ogni risposta e per ogni livello; non nel
-      // seguito, che entra sopra la riga gia' data.
-      //
-      // L'istruzione vive accanto al lettore che la sollevera', in
-      // `ConsiglioFinale`: chi cambia la forma della riga vede subito chi la
-      // legge. Non e' un contenuto premium, e' la cosa che una persona di
-      // fretta legge al posto di tutto il resto.
-      if (!seguito) ...['', ConsiglioFinale.istruzione],
-      // **DOPO L'ULTIMA RIGA, IL SEGUITO. Ordine EX voce 04.** Qui, accanto
-      // alla regola che dice "l'ultima": al banco finale il modello si
-      // fermava sulla riga col carattere speciale e il seguito arrivava in 6
-      // risposte su 24.
-      if (conSeguito && !seguito && !nelLive)
-        '- Quella riga è l\'ultima della risposta; dopo di lei scrivi sempre '
-            '${IlSeguitoNascosto.segno} e il seguito, come spiegato in fondo.',
-      // **DETTA A VOCE, NEL LIVE, TRE FRASI. Ordine EN voce 01.** Nel primo
-      // giro del collaudo la misura in parole non ha accorciato niente: con
-      // "circa trentacinque parole" Medora ne ha scritte centodieci, perche'
-      // la struttura della risposta chiede sintesi, testo narrato e chiusura.
-      // Un numero di frasi il modello lo conta.
-      if (nelLive) ...['', rispostaDettaAVoce],
+      parteComune(
+          maestro: maestro,
+          nelLive: nelLive,
+          conSeguito: conSeguito,
+          seguito: seguito),
       '',
       // --- da qui, cio' che e' di questa persona e di questo turno.
       bloccoDiCortesia(profile),
@@ -519,6 +565,11 @@ class MaestroPersona {
       // **LA FORMA DELLA PRIMA FRASE PER QUESTA DOMANDA. Ordine ET voce 01.**
       // Il blocco del turno e la correzione nominata, subito prima del
       // controllo finale.
+      // **IL CIELO DEI GIORNI NOMINATI NELLA DOMANDA. Ordine EX Aggiunta 4,
+      // voce EX.07**: calcolato prima, perche' il modello non chiami la
+      // funzione per un giorno che la persona ha gia' scritto. Dopo la parte
+      // comune, perche' cambia con la domanda.
+      if (cieloDeiGiorni.isNotEmpty) ...['', cieloDeiGiorni],
       if (!seguito && domandaDiAdesso != null) ...[
         '',
         LaPosizioneDellaLettura.perIlTurno(maestro, domandaDiAdesso,
@@ -526,6 +577,22 @@ class MaestroPersona {
       ],
       if (correzione != null) ...['', correzione],
       if (!seguito) ...['', LaRispostaNelMerito.primaDiScrivere],
+      // **LE PAROLE DEGLI ALTRI DUE, ANCHE IN FONDO. Ordine EX Aggiunta 4,
+      // voce EX.07.** Al banco della qualita' (giro ex07a) la rete del
+      // lessico (`LaVoceNonSiConfonde`) rifaceva da capo dieci risposte su
+      // trenta, sei per "sentire" in bocca a Medora e a Calìgo: il divieto
+      // sta in testa all'istruzione, a ventimila caratteri dalla fine.
+      // Qui si ripete corto, dove il modello legge per ultimo.
+      '',
+      'ULTIMO CONTROLLO DELLE PAROLE: nella risposta non c\'è nessuna di '
+          'queste parole degli altri due Maestri, nemmeno come verbo o in un '
+          'modo di dire: '
+          '${VoceDelMaestro.lessicoDegliAltri(maestro).join(', ')}. Se ne '
+          'hai scritta una, cambiala con una parola tua'
+          // Ordine EX Aggiunta 4, voce EX.07: ai giri ex07e ed ex07f del
+          // banco le parole rifatte erano quasi sempre le comuni, "sentire",
+          // "centro", "ascendente": qui la parola da usare al loro posto.
+          '${_alPostoDi(maestro)}.',
       // IL SEGUITO, quando si sta scrivendo il seguito e non la prima
       // risposta, per ultimo. Il modello riceve cio' che ha gia' detto,
       // perche' non si continua un discorso che non si e' visto, e con esso
@@ -567,6 +634,7 @@ class MaestroPersona {
     MaestroMemory memory = MaestroMemory.empty,
     bool nelLive = false,
     String? cieloDelTurno,
+    bool conSeguito = false,
   }) =>
       [
         voceDi(maestro),
@@ -598,6 +666,12 @@ class MaestroPersona {
         regolaDeiDueStrati,
         '',
         ConsiglioFinale.istruzione,
+        // **DOPO L'ULTIMA RIGA, IL SEGUITO**, anche nella correzione. Ordine
+        // EX Aggiunta 4, EX.04: la risposta corretta porta il suo seguito, e
+        // il tocco del "Vai più a fondo" non chiama.
+        if (conSeguito)
+          '- Quella riga è l\'ultima della risposta; dopo di lei scrivi sempre '
+              '${IlSeguitoNascosto.segno} e il seguito, come spiegato in fondo.',
         if (nelLive) ...['', rispostaDettaAVoce],
         '',
         'LA RISPOSTA DA CORREGGERE. Ti arrivano la domanda della persona e la '
@@ -612,6 +686,7 @@ class MaestroPersona {
         // perdeva due risposte nel merito su ventiquattro.
         '',
         LaRispostaNelMerito.primaDiScrivere,
+        if (conSeguito) ...['', IlSeguitoNascosto.istruzione],
       ].join('\n');
 
   static const String rispostaDettaAVoce = 'LA RISPOSTA È DETTA A VOCE, NEL '

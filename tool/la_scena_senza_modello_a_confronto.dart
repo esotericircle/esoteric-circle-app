@@ -83,6 +83,9 @@ void main() {
           await LaDomandaCapita.capisci(d, prendiUnaChiamata: () async => true);
       final daQui = registro.length;
       var permessi = 0;
+      // Ordine EX Aggiunta 4, voce EX.10: ogni riga scartata, con la guardia
+      // che l'ha scartata.
+      final scarti = <Map<String, String>>[];
       final strato = i.isEven ? null : 1 + (i % 4);
       final scritta = await LaScenaDalModello.chiediTutto(
         CioCheSiSa(
@@ -96,6 +99,8 @@ void main() {
           strato: strato,
         ),
         prendiUnaChiamata: () async => ++permessi <= _tentativi,
+        seScartata: (r) => scarti
+            .add({'pezzo': r.pezzo, 'motivo': r.motivo.name, 'testo': r.testo}),
       ).timeout(const Duration(seconds: 20),
           onTimeout: () => (pezzi: null, testi: TestiDelModello.nessuno));
       final chiamateScena = registro.length - daQui;
@@ -134,6 +139,7 @@ void main() {
             'errore': null,
             'dalModello': r.dalModello,
             'chiamateScena': n,
+            'scarti': giro == 'casa' ? const [] : scarti,
             'chiamateRisposta': const [],
             'fattiDellaMemoria': const [],
             'cieloDelleDate': const [],

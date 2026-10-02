@@ -114,7 +114,15 @@ abstract final class LaPosizioneDellaLettura {
         'mi hai detto|in che|a che|di che|da che|che (?:fase|segno|segni|'
         'grado|gradi|pianeta|pianeti|aspetto|aspetti|luna|giorno|ora|'
         'transito|transiti|carta|carte|runa|rune|tempo)|'
-        "dov['’](?:è|era|erano|sono|sarà)|com['’](?:è|era|erano|sarà)")) {
+        "dov['’](?:è|era|erano|sono|sarà)|com['’](?:è|era|erano|sarà)|"
+        // **LA PAROLA CHE CHIEDE DOPO UNA PREPOSIZIONE**, ordine EX Aggiunta
+        // 4, voce EX.07: "Da dove riparto?" e "Da dove comincio?" erano
+        // lette da sì o no, e al banco la correzione le faceva cominciare
+        // con "I tuoi centri dicono di sì". Padre: la prima stesura di
+        // questo elenco, ordine ET voce 01, che guardava solo la parola
+        // in testa.
+        '(?:da|di|a|in|con|per|su|fino a|verso) (?:dove|chi|che cosa|cosa|'
+        'qual[ei]?|quali|quant[oaie]|come)')) {
       return TipoDellaDomanda.aperta;
     }
     if (_siONo.hasMatch(frase)) return TipoDellaDomanda.scelta;
@@ -177,7 +185,12 @@ abstract final class LaPosizioneDellaLettura {
       return 'LA TUA PRIMA FRASE, PER QUESTA DOMANDA ("$domanda"): risponde '
           'a quello che la persona chiede con parole di tutti i giorni: la '
           'causa, se chiede perché; il passo da fare, con chi o quando, se '
-          'chiede come o che cosa fare; la cosa, se chiede quale o che cosa. '
+          'chiede come o che cosa fare; '
+          // Ordine EX Aggiunta 4, voce EX.07: "Da dove riparto?", letta da
+          // aperta, al banco riceveva da Aura un invito al respiro, e i
+          // giudici alla cieca la bocciavano nel merito.
+          'il primo passo, con chi o quando, se chiede da dove cominciare o '
+          'ripartire; la cosa, se chiede quale o che cosa. '
           'È una frase che la persona può verificare o fare nella sua vita. '
           'La tua arte entra dalla seconda frase, a dire da dove lo leggi, a '
           'meno che la domanda chieda proprio della tua arte. '
@@ -185,10 +198,24 @@ abstract final class LaPosizioneDellaLettura {
           'che cosa sia l\'amore, la solitudine o la felicità.';
     }
     final che = switch (tipo(domanda)) {
+      // **LE TRE FORME GIA' NEL PRIMO TURNO. Ordine EX Aggiunta 4, voce
+      // EX.07.** Sulle 62 risposte scartate dei due giri della correzione
+      // corta, 37 erano scartate dalla rete della posizione, e quasi tutte
+      // cominciavano con "Il tuo cielo dice che tua madre comprenderà" o
+      // "dice di non firmare": la posizione detta come un fatto o come un
+      // consiglio, che e' anche la prima delle certezze (25 scarti). La
+      // correzione dettava gia' le tre forme e il "niente che"; il primo
+      // turno dava solo due esempi. Adesso il primo turno dice cio' che
+      // diceva la correzione.
       TipoDellaDomanda.siONo =>
-        'e prende posizione: sì, no, non ancora, o sì a una condizione che '
-            'nomini. Per esempio: "$comincia di sì, se ..." oppure '
-            '"$comincia di no, per ora: ...".',
+        'e prende posizione con una di queste tre forme, che completi: '
+            '"$comincia di sì, se ...", "$comincia di no, per ora: ...", '
+            '"$comincia: non ancora, ...". Subito dopo "$comincia" vengono '
+            'le parole "di sì", "di no" o "non ancora": niente "che" e '
+            'nessuna descrizione al loro posto. Vale anche quando la domanda '
+            'chiede se conviene fare una cosa: non "$comincia di non farlo", '
+            'ma "$comincia di no, per ora: ...". Mai "$comincia che lui '
+            'tornerà": il sì o il no vengono prima della cosa.',
       TipoDellaDomanda.scelta =>
         'e sceglie una delle strade della domanda, nominandola. Per esempio: '
             '"$comincia: scrivigli tu, ..." .',
@@ -230,7 +257,17 @@ abstract final class LaPosizioneDellaLettura {
     };
     return 'LA TUA PRIMA FRASE, PER QUESTA DOMANDA ("$domanda"): comincia con '
         '"$comincia" $che È la tua lettura, non un fatto: non dire mai che '
-        'cosa prova o farà un\'altra persona come una certezza. Non '
+        'cosa prova o farà un\'altra persona come una certezza. '
+        // **IL FUTURO CON LA SUA CONDIZIONE**, ordine EX Aggiunta 4, voce
+        // EX.07: la rete delle certezze (`LeCertezzeDelMaestro`) lascia
+        // passare il futuro con la sua condizione accanto o detto come cio'
+        // che puo' accadere, e il primo turno non lo diceva: lo diceva solo
+        // la correzione.
+        'In tutta la risposta ciò che accadrà e nessuno sa (che lui tornerà, '
+        'che il lavoro arriverà, che andrà bene, che capirà) non lo dici mai '
+        'al futuro da solo: lo dici con la sua condizione nella stessa frase '
+        '("se ...", "quando ...") oppure come ciò che può accadere ("può '
+        'tornare"). Non '
         'cominciare dicendo che nessuno può saperlo, che la tua arte non se ne '
         'occupa o che la volontà dell\'altro è sua: se serve, lo dici dopo.';
   }
