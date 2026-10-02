@@ -25,7 +25,8 @@ import 'sorgenti_di_lib.dart';
 /// regione. **E ogni chiamata a Vertex dell'app parte dalla regione dei
 /// dati**, mai da `global`.
 void main() {
-  test('OGNI MODELLO NOMINATO IN lib E NEL SERVER E VERIFICATO NELLA REGIONE '
+  test(
+      'OGNI MODELLO NOMINATO IN lib E NEL SERVER E VERIFICATO NELLA REGIONE '
       'DEI DATI, e nessuna chiamata parte da global', () {
     // **UN MODELLO HA LA VERSIONE E LA SUA VARIANTE**, `gemini-2.5-flash`:
     // la prima stesura prendeva anche `gemini-2.5`, che e' il prefisso della
@@ -48,14 +49,16 @@ void main() {
         for (final m in nome.allMatches(codice)) {
           trovati.putIfAbsent(m.group(1)!, () => []).add(f.path);
         }
-        if (RegExp(r'''location:\s*['"]global['"]|regione\s*=\s*['"]global['"]''')
+        if (RegExp(
+                r'''location:\s*['"]global['"]|regione\s*=\s*['"]global['"]''')
             .hasMatch(codice)) {
           daGlobal.add('${f.path}: $codice');
         }
       }
     }
     // ignore: avoid_print
-    print('ORDINE DJ VOCE 03: modelli nominati ${trovati.keys.toList()..sort()}, '
+    print(
+        'ORDINE DJ VOCE 03: modelli nominati ${trovati.keys.toList()..sort()}, '
         'verificati in ${LaRegioneDeiDati.regione} '
         '${LaRegioneDeiDati.modelliVerificati.keys.toList()}');
     cardinaleMinimo(trovati.length, 2,
@@ -72,7 +75,8 @@ void main() {
     expect(daGlobal, isEmpty, reason: daGlobal.join('\n'));
   });
 
-  test('E IL DOCUMENTO CHE L AGENTE LEGGE NON NOMINA UNA FAMIGLIA DI MODELLI '
+  test(
+      'E IL DOCUMENTO CHE L AGENTE LEGGE NON NOMINA UNA FAMIGLIA DI MODELLI '
       'CHE L APP NON CHIAMA', () {
     // **IL BUCO CHE HA FATTO NASCERE QUESTA PROVA.** Ordine ED voce 04, 21
     // settembre 2026. La prova qui sopra guarda `lib` e il server, e li'
@@ -109,7 +113,33 @@ void main() {
             'un\'idea falsa di cosa gira. Le famiglie vere sono $famiglie');
   });
 
-  test('LE CHIAMATE DELL APP PARTONO DALLA REGIONE DEI DATI, coi modelli '
+  test(
+      'OGNI FirebaseAI.vertexAI DEL TELEFONO DICE LA SUA REGIONE (ordine EX '
+      'voce 06)', () {
+    // **Senza `location:` la libreria va a us-central1.** La penna dei
+    // Ricordi ci e' andata dall'ordine CG voce 11 fino all'ordine EX, e
+    // questa guardia guardava i nomi dei modelli e "global", non la regione
+    // che manca: un buco trovato nell'ordine EW, voce EW.01.
+    var chiamate = 0;
+    final senza = <String>[];
+    for (final f in sorgentiDiLib()) {
+      final s = f.readAsStringSync();
+      for (final m
+          in RegExp(r'FirebaseAI\.vertexAI\(([^)]*)\)').allMatches(s)) {
+        chiamate++;
+        if (!m.group(1)!.contains('location:')) {
+          senza.add('${f.path}:${s.substring(0, m.start).split('\n').length}');
+        }
+      }
+    }
+    cardinaleMinimo(chiamate, 9, cosa: 'FirebaseAI.vertexAI nel telefono');
+    expect(senza, isEmpty,
+        reason: 'chiamate senza regione, cioe\' da us-central1:\n'
+            '${senza.join('\n')}');
+  });
+
+  test(
+      'LE CHIAMATE DELL APP PARTONO DALLA REGIONE DEI DATI, coi modelli '
       'verificati', () {
     expect(LaRegioneDeiDati.regione, 'europe-west1');
     expect(FirebaseMaestroAiProvider.kVertexLocation, LaRegioneDeiDati.regione);

@@ -26,6 +26,7 @@ import '../../core/chat/user_profile.dart';
 import '../ai/firebase_maestro_ai_provider.dart';
 import '../ai/maestro_persona.dart';
 import '../ai/l_etichetta_della_funzione.dart';
+import '../../core/config/la_regione_dei_dati.dart';
 
 class PennaVeraDelMese extends PennaDelMese {
   const PennaVeraDelMese();
@@ -73,7 +74,10 @@ class PennaVeraDelMese extends PennaDelMese {
     final chi = Maestro.values
         .firstWhere((m) => m.id == maestro, orElse: () => Maestro.medora);
     try {
-      final model = FirebaseAI.vertexAI().generativeModel(
+      // **Nella regione dei dati**, ordine EX voce 06: senza `location:` la
+      // libreria andava a us-central1, dall'ordine CG voce 11.
+      final model = FirebaseAI.vertexAI(location: LaRegioneDeiDati.regione)
+          .generativeModel(
         model: FirebaseMaestroAiProvider.kMaestroBreveModel,
         httpClient: ClientConEtichetta(LeFunzioniDelModello.ricordiDelMese),
         systemInstruction: Content.system(istruzione(chi)),
