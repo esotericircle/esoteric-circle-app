@@ -44,6 +44,7 @@ import '../../../core/astro/il_cielo_detto.dart';
 import '../../../core/chat/immersive_intents.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../services/ai/maestro_ai_provider.dart';
+import '../../../services/ai/voce_sorvegliata.dart';
 import '../../../services/ai/maestro_persona.dart';
 import '../../../core/maestro/il_seguito_nascosto.dart';
 import '../../../services/ai/registro_dei_guasti.dart';
@@ -771,7 +772,7 @@ class MaestroChatController extends ChangeNotifier {
     // EX.07.** Se la risposta da correggere porta anche una parola di firma
     // di un altro Maestro, la correzione la nomina: una chiamata sola per
     // due reti.
-    final altrui = conIlLessico
+    final altrui = conIlLessico && _ilLessicoTocca
         ? LaVoceNonSiConfonde.paroleAltruiIn(
             chi, '$risposta\n${_seguitoDelTurno ?? ''}',
             domanda: domanda)
@@ -811,8 +812,23 @@ class MaestroChatController extends ChangeNotifier {
             traccia);
       }
     }
+    _laCorrezioneEraIntera = true;
     return allaVecchia();
   }
+
+  /// Vero quando l'ultima [_correggiCorto] ha chiesto la risposta intera
+  /// (la voce non sa correggere corto, o la correzione corta non e'
+  /// riuscita). Ordine EX Aggiunta 5, voce EX.07: la rete del lessico non la
+  /// chiede una seconda volta.
+  bool _laCorrezioneEraIntera = false;
+
+  /// **LA RETE DEL LESSICO E' DELLA VOCE SORVEGLIATA.** Ordine EX Aggiunta
+  /// 5, voce EX.07. Dall'ordine EC voce 03 la rete stava in
+  /// [VoceSorvegliata], che nell'app avvolge sempre la voce dei Maestri
+  /// (`AppServices`); adesso la correzione la fa il turno, ma solo dove la
+  /// rete c'era: con una voce non sorvegliata (le voci finte delle prove) il
+  /// turno resta quello di prima.
+  bool get _ilLessicoTocca => _ai is VoceSorvegliata;
 
   /// Quante correzioni corte sono partite, in questa sessione. Ordine EX
   /// voce 07.
@@ -853,7 +869,7 @@ class MaestroChatController extends ChangeNotifier {
     final altrui = LaVoceNonSiConfonde.paroleAltruiIn(
         chi, '$risposta\n${_seguitoDelTurno ?? ''}',
         domanda: domanda);
-    if (altrui.isEmpty) return risposta;
+    if (altrui.isEmpty || !_ilLessicoTocca) return risposta;
     correzioniDelLessico++;
     final primaQuante = quante(risposta);
     final seguitoDiPrima = _seguitoDelTurno;
@@ -872,6 +888,7 @@ class MaestroChatController extends ChangeNotifier {
         LaVoceNonSiConfonde.paroleAltruiIn(chi, seguitoDiPrima,
                 domanda: domanda)
             .isEmpty;
+    _laCorrezioneEraIntera = false;
     final altra = LeCertezzeDelMaestro.senzaLeFrasiCerte(await _correggiCorto(
       chi: chi,
       domanda: domanda,
@@ -904,6 +921,18 @@ class MaestroChatController extends ChangeNotifier {
     // rifatta da capo consegnava 0 risposte su 27 con una parola altrui, la
     // correzione corta da sola 2. Quando la parola resta, si chiede la
     // risposta intera come faceva la rete prima di quest'ordine.
+    // Se la risposta intera e' gia' stata chiesta (la voce non sa correggere
+    // corto), non si chiede una seconda volta: vale quella, come prima.
+    if (_laCorrezioneEraIntera) {
+      _seguitoDelTurno = seguitoDiPrima;
+      annotaGuastoInnocuo(
+        'parole di un altro Maestro consegnate comunque, ${chi.displayName}: '
+        '${altrui.join(', ')} (dopo la risposta intera)',
+        StateError('la voce si confonde con un altro Maestro dopo la '
+            'risposta intera'),
+      );
+      return risposta;
+    }
     lessicoAllaVecchia++;
     final dellaCorta = altra;
     _seguitoDelTurno = seguitoDiPrima;
