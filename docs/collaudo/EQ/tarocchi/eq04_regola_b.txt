@@ -1,0 +1,58 @@
+# EQ.04, Regola B sulle zone della lettura (27 settembre 2026)
+
+Prima di toccare TarotReading e l'attesa di Medora nella stesa, le guardie delle zone viste rosse con un innesto verificato col grep, ogni file tornato identico (sha1).
+
+== EQ.04 Regola B 1: la carta si legge col testo di un altro verso
+   file lib/core/tarot/tarot_reading.dart, sha1 prima 198a5f119642, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +11 -1: Some tests failed.
+   Expected: 'Metodo, affidabilità, impegno paziente: avanzi con costanza verso la meta. Qui la lentezza non è un limite, è la tua forza. Chi va piano e non si ferma, arriva sempre.'
+   Actual: 'Il passo costante.'
+   Expected: Metodo, af ...
+   Actual: Il passo c ...
+   ripristinato: sha1 198a5f119642, uguale
+== EQ.04 Regola B 2: il consiglio non guarda piu' le carte uscite
+   file lib/core/tarot/tarot_reading.dart, sha1 prima 198a5f119642, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:07 +1 -2: Some tests failed.
+   Expected: true
+   Actual: <false>
+   Expected: a value less than or equal to <1>
+   Actual: <4>
+   ripristinato: sha1 198a5f119642, uguale
+== EQ.04 Regola B 3: lo stesso innesto davanti alla guardia della diversita'
+   file lib/core/tarot/tarot_reading.dart, sha1 prima 198a5f119642, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:06 +2 -1: Some tests failed.
+   Expected: true
+   Actual: <false>
+   ripristinato: sha1 198a5f119642, uguale
+== EQ.04 Regola B 4: Medora non pensa, il responso arriva subito
+   file lib/features/tarot/stesa_tre_carte_screen.dart, sha1 prima aaa0603b9cc9, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:08 +3: All tests passed!
+   ripristinato: sha1 aaa0603b9cc9, uguale
+
+## Il quarto innesto era sbagliato, mio
+
+la_scena_di_attesa_si_vede guarda l'attesa nelle CHAT, non nella stesa: l'ho scelta dal nome. Rifatto sulla guardia della stesa, la_stesa_si_capisce, prova "fra l'ultima carta e il responso c'e' la scena di Medora":
+
+== EQ.04 Regola B 4, rifatta sulla guardia giusta: Medora non pensa, il responso arriva subito
+   file lib/features/tarot/stesa_tre_carte_screen.dart, sha1 prima aaa0603b9cc9, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:02 +1: All tests passed!
+   ripristinato: sha1 aaa0603b9cc9, uguale
+
+## La guardia era cieca alla durata
+
+Verde anche con l'attesa a zero millesimi: guardava che la scena comparisse e che poi se ne andasse, non per quanto restava. Cambiata la grandezza, non la soglia: a ogni passo di 100 millesimi, fino a un soffio dal minimo garantito, il consiglio non deve ancora essere nato. Stesso innesto, di nuovo:
+
+== EQ.04 Regola B 4, rifatta sulla guardia giusta: Medora non pensa, il responso arriva subito
+   file lib/features/tarot/stesa_tre_carte_screen.dart, sha1 prima aaa0603b9cc9, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:03 +0 -1: Some tests failed.
+   Expected: no matching candidates
+   Actual: _KeyWidgetFinder:<Found 1 widget with key [<'stesa_consiglio'>]: [
+   ripristinato: sha1 aaa0603b9cc9, uguale
+
+Senza innesto: 00:03 +1: All tests passed!

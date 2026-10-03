@@ -1,0 +1,27 @@
+dopo_esecuzione1: dirette 16 su 20 con domanda (senza domanda 0 su 4); pietre tutte lette 18 su 24; legame 22; consiglio 24; errori di italiano 4; scartate 0
+dopo_esecuzione2: dirette 13 su 20 con domanda (senza domanda 1 su 4); pietre tutte lette 17 su 24; legame 22; consiglio 22; errori di italiano 5; scartate 1
+partenza_esecuzione1: dirette 11 su 20 con domanda (senza domanda 1 su 4); pietre tutte lette 16 su 24; legame 23; consiglio 22; errori di italiano 5; scartate 1
+partenza_esecuzione2: dirette 14 su 20 con domanda (senza domanda 0 su 4); pietre tutte lette 13 su 24; legame 20; consiglio 21; errori di italiano 4; scartate 3
+
+ERRORI dopo_esecuzione1
+    19: ciò che sembra crollare ora, libererà il terreno (virgola fra soggetto e verbo)
+    8: La tua scelta blocca perché un vecchio schema deve ancora dissolversi
+    17: chiedendole di incontrarsi per un caffè
+    17: Kenaz, la torcia che rivela la conoscenza, una scintilla che illumina l'opera.
+ERRORI dopo_esecuzione2
+    19: solo per farle sapere che la pensi (colloquiale: che pensi a lei)
+    11: parla di gioia e armonia raggiunta (raggiunte)
+    16: il desiderio di un nuovo cammino è profondo e radicato, ma richiedono un'azione ponderata
+    8: Gebo, nella posizione Esito, indica che tenere in equilibrio ciò che dai con ciò che ricevi.
+    9: Sowilo, nella posizione Esito, indica energia piena e di tenere la rotta che hai scelto
+ERRORI partenza_esecuzione1
+    19: Nel suo verso, Ascolta il segno (maiuscola dopo virgola)
+    19: Nel suo verso, Tempo di attesa e di chiarezza (maiuscola dopo virgola)
+    19: Nel suo verso, Ciò che crolla libera spazio (maiuscola dopo virgola)
+    20: Ciò che vi univa, ora è fermo (virgola fra soggetto e verbo)
+    3: muovi verso un nuovo inizio
+ERRORI partenza_esecuzione2
+    18: esprimendo il desiderio di riprendere il dialogo, è il sentiero che si apre (periodo sconnesso)
+    13: è la grandine, la scossa che passa, dopo la tempesta, terreno pulito (periodo giustapposto sconnesso)
+    14: ritrova il ritmo comune, poi riprendete la corsa (tu e voi mescolati)
+    10: guardalo, di conclusione di un ciclo (frase sgrammaticata, manca un pezzo)

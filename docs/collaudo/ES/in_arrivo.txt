@@ -1,0 +1,549 @@
+# Tradizioni in arrivo: specifiche di calcolo verificate
+
+Ricerca del 29 settembre 2026. Quattro "segni" da calcolare dalla data di nascita
+(e, per l'Araba, anche dall'ora e dal luogo): Maya (Tzolk'in), Celtica degli alberi
+(Graves), Egizia (decano del Sole), Araba (dimora lunare).
+
+File di questa cartella:
+
+- `tradizioni_in_arrivo.md`: questo documento (specifiche, tabelle, fonti, casi limite).
+- `dieci_date.csv`: i quattro segni per le dieci date di prova, con la provenienza di ogni numero.
+- `calcola_dieci_date.py`: lo script indipendente dall'app che li calcola (skyfield 1.55 con effemeridi JPL DE421, controllo con PyEphem 4.2.1, fusi storici da tzdata). Si rilancia con `python calcola_dieci_date.py`; contiene le asserzioni che confrontano il Maya con i due convertitori online.
+- `uscita_calcolo.txt`: l'uscita vera dell'ultimo giro dello script.
+- `fonti/convertitori_maya_29set2026.txt`: le letture dei due convertitori Maya online (Fourmilab e Smithsonian NMAI).
+- `fonti/`: le copie delle pagine consultate (Wikipedia in wikitesto, Firmico e Efestione da archive.org, pagine di Warnock ed Ellis).
+
+Tre stati, per non confonderli: tutto qui e' **prodotto e verificato sulle fonti e
+con lo script**; niente e' **agganciato al codice** dell'app; niente e' **verificato a video**.
+
+---
+
+## 1. MAYA: il giorno di nascita nello Tzolk'in
+
+### Che cosa si calcola
+
+Il giorno dello Tzolk'in, il ciclo rituale di 260 giorni: un **numero da 1 a 13**
+combinato con uno dei **venti nomi di giorno**. I due cicli girano insieme: ogni giorno
+il numero sale di uno (dopo 13 torna 1) e il nome passa al successivo (dopo Ajaw torna Imix).
+
+### Grafia scelta e perche'
+
+Si usa la **grafia moderna dell'Academia de Lenguas Mayas de Guatemala (ALMG, 1989)
+applicata ai nomi yucatechi**, la stessa della voce Tzolk'in di Wikipedia inglese, che
+dichiara di seguire il riassunto di Kettunen e Helmke (2020), e la stessa del
+convertitore dello Smithsonian (NMAI). E' la grafia oggi usata dagli epigrafisti; la
+grafia coloniale (Akbal, Cimi, Chicchan, Cauac, Ahau, Caban, Cib...) resta in molti libri
+divulgativi e nel convertitore di Fourmilab, ma e' la stessa sequenza.
+
+| # | Nome (ALMG) | Grafia coloniale | Nota |
+|---|---|---|---|
+| 1 | Imix | Imix | |
+| 2 | Ik' | Ik | |
+| 3 | Ak'b'al | Akbal | |
+| 4 | K'an | Kan | |
+| 5 | Chikchan | Chicchan | |
+| 6 | Kimi | Cimi | |
+| 7 | Manik' | Manik | |
+| 8 | Lamat | Lamat | |
+| 9 | Muluk | Muluc | |
+| 10 | Ok | Oc | |
+| 11 | Chuwen | Chuen | |
+| 12 | Eb' | Eb | |
+| 13 | B'en | Ben | |
+| 14 | Ix | Ix | |
+| 15 | Men | Men | |
+| 16 | K'ib' | Cib | |
+| 17 | Kab'an | Caban | |
+| 18 | Etz'nab' | Etznab | |
+| 19 | Kawak | Cauac | |
+| 20 | Ajaw | Ahau | |
+
+L'apostrofo segna l'occlusiva glottidale, non un accento: nel testo mostrato
+all'utente conviene il carattere **ʼ (U+02BC, lettera modificatrice apostrofo)**, come fa
+Wikipedia, e non l'apostrofo tipografico. Suggerimento per l'app: la regola di casa sugli
+apostrofi nelle stringhe di `lib` potrebbe scambiarlo per un accento mancato; U+02BC lo
+evita e conserva la grafia. Le chiavi interne restino ASCII (`akbal`, `ajaw`...).
+
+### Correlazione: si usa la GMT 584283
+
+La correlazione e' il numero del giorno giuliano (JDN) della data era del Lungo Computo,
+13.0.0.0.0 4 Ajaw 8 Kumk'u (11 agosto 3114 a.C. gregoriano prolettico).
+
+- **584283 (GMT, Goodman, Martinez, Thompson)**: la si usa. E' l'unica compatibile con il
+  conteggio dei giorni che le comunita' maya degli altopiani del Guatemala (K'iche', Ixil,
+  Mam...) tengono senza interruzione da oltre cinque secoli, con gli Annali dei Kaqchikel e
+  con il calendario K'iche' del 1722 trascritto da Weeks, Sachse e Prager (2013), che
+  scrivono: con A = 584,283 tutti i valori del calendario corrispondono. Edmonson (1988),
+  su 60 calendari mesoamericani, trova che solo la GMT regge tutte le prove.
+- **584285 (Thompson 1935, sostenuta poi da Lounsbury sulle tavole di Venere del Codice
+  di Dresda)**: due giorni dopo. Sposta la data era al 13 agosto e il 21 dicembre 2012
+  diventa 2 Etz'nab' invece di 4 Ajaw. Non la si usa perche' **non coincide con il
+  conteggio vivo**, che e' la ragione stessa per cui un segno del giorno ha senso oggi.
+
+Entrambi i convertitori online consultati usano la 584283 (Fourmilab nel codice:
+`MAYAN_COUNT_EPOCH = 584282.5`).
+
+### Non e' il Dreamspell
+
+Il **Dreamspell** di Jose' e Lloydine Argüelles (avviato nel 1987, gioco nel 1990) e' una
+creazione moderna che prende il nome Tzolkin ma usa altri nomi e colori (Drago Rosso,
+Vento Bianco, Notte Blu...) e **non conta il 29 febbraio** (lo chiama "0.0 Hunab Ku"), per
+cui si sfasa dal conteggio tradizionale di un giorno a ogni anno bisestile. L'app non deve
+usarlo, ne' mescolarne i nomi.
+
+### Algoritmo
+
+Ingresso: la **data civile locale** di nascita (anno a, mese m, giorno g, gregoriano).
+L'ora non serve (vedi i casi limite).
+
+1. Numero del giorno giuliano della data civile (Fliegel e Van Flandern 1968), con
+   divisione intera che **tronca verso zero** (in Dart `~/`):
+
+   ```
+   k   = (m - 14) ~/ 12          // -1 per gennaio e febbraio, 0 altrimenti
+   JDN = (1461 * (a + 4800 + k)) ~/ 4
+       + (367 * (m - 2 - 12 * k)) ~/ 12
+       - (3 * ((a + 4900 + k) ~/ 100)) ~/ 4
+       + g - 32075
+   ```
+
+   Controllo: 1 gennaio 2000 = 2451545; 21 dicembre 2012 = 2456283.
+   Attenzione, trappola vista nel lavoro: in Python `//` arrotonda verso il basso e con
+   `(m - 14) // 12` gennaio e febbraio vengono sbagliati di due giorni. In Dart `~/`
+   tronca verso zero, quindi la formula originale funziona; basta non "tradurla" con una
+   divisione che arrotonda verso il basso.
+
+2. Giorni dalla data era: `d = JDN - 584283`.
+
+3. Numero: `n = ((d + 3) mod 13) + 1` (alla data era il numero e' 4).
+
+4. Nome: `nome = NOMI[(d + 19) mod 20]` con NOMI indicizzato da 0 (Imix) a 19 (Ajaw)
+   (alla data era il nome e' Ajaw).
+
+   Il `mod` deve dare sempre un resto non negativo (in Dart `%` lo fa gia'): serve per
+   le date precedenti la data era, che l'app non vedra' ma una prova puo' usare.
+
+5. Facoltativo, per mostrare il Lungo Computo: `b'ak'tun = d div 144000`, poi
+   `k'atun`, `tun`, `winal`, `k'in` con i divisori 7200, 360, 20.
+
+Controllo noto: 21 dicembre 2012, JDN 2456283, d = 1872000, Lungo Computo 13.0.0.0.0,
+Tzolk'in **4 Ajaw**. Con la 584285 sarebbe 2 Etz'nab'. Verificato con lo script e con i
+due convertitori.
+
+### Casi limite
+
+- **Mezzanotte e fuso**: vale la data civile del luogo di nascita, non la data UTC. Il
+  2000-01-01 00:05 a Napoli e' ancora 1999-12-31 in UTC: con la data UTC l'app darebbe
+  10 Imix invece di 11 Ik'. Nella tradizione il giorno maya comincia al tramonto o
+  all'alba secondo le fonti e le comunita'; tutti i convertitori consultati usano il
+  giorno civile, e cosi' si fa.
+- **Ora con la frazione**: non si calcola da un giorno giuliano con la frazione dell'ora.
+  Fourmilab stesso, se gli si da' l'ora 12:00, passa al giorno dopo (21/12/2012 12:00 gli
+  risulta 5 Imix): il segno viene dal numero intero del giorno civile.
+- **29 febbraio**: e' un giorno come gli altri (differenza con il Dreamspell).
+- **Date giuliane**: prima del 15 ottobre 1582 la formula e' sul gregoriano prolettico;
+  per le nascite dell'app non succede.
+
+### Fonti
+
+- Wikipedia inglese, "Tzolkʼin", https://en.wikipedia.org/wiki/Tzolk%CA%BCin (nomi e grafia; rimanda a Kettunen, H. e Helmke, C., *Introduction to Maya Hieroglyphs*, 2020).
+- Wikipedia inglese, "Mesoamerican Long Count calendar", https://en.wikipedia.org/wiki/Mesoamerican_Long_Count_calendar (correlazioni 584283 e 584285, Annali dei Kaqchikel, calendario K'iche' del 1722).
+- Weeks, J. M., Sachse, F., Prager, C. M., *Maya Daykeeping: Three Calendars from Highland Guatemala*, University Press of Colorado, 2013, appendice 2 (citata dalla voce precedente).
+- Edmonson, M. S., *The Book of the Year: Middle American Calendrical Systems*, University of Utah Press, 1988.
+- Tedlock, B., *Time and the Highland Maya*, ed. riveduta, University of New Mexico Press, 1992.
+- Fliegel, H. F. e Van Flandern, T. C., "A Machine Algorithm for Processing Calendar Dates", *Communications of the ACM* 11 (10), 1968, p. 657.
+- Convertitore di John Walker, Fourmilab, https://www.fourmilab.ch/documents/calendar/ (costante 584282.5 nel codice).
+- Smithsonian National Museum of the American Indian, "Maya Calendar Converter", https://maya.nmai.si.edu/calendar/maya-calendar-converter
+- Wikipedia inglese, "Dreamspell", https://en.wikipedia.org/wiki/Dreamspell (0.0 Hunab Ku, nomi dei sigilli; Argüelles, *The Mayan Factor*, 1987).
+
+---
+
+## 2. CELTICA: il calendario degli alberi di Robert Graves
+
+### Che cos'e', detto chiaramente
+
+E' una **costruzione moderna** di Robert Graves, *The White Goddess: a Historical Grammar
+of Poetic Myth* (Faber and Faber, Londra, 1948), capitolo X, "The Tree-Alphabet". Graves
+lega le tredici consonanti dell'alfabeto ogamico "Beth-Luis-Nion" a tredici alberi e a
+tredici mesi. **Non e' un calendario dei Celti storici**: non c'e' alcuna fonte antica o
+medievale che lo attesti.
+
+- Peter Berresford Ellis, "The Fabrication of 'Celtic' Astrology", *The Astrological
+  Journal* 39 (4), 1997, ripubblicato dal C.U.R.A., http://cura.free.fr/xv/13ellis2.html:
+  parla delle "fabbricazioni dello zodiaco degli alberi" come risultato diretto
+  dell'invenzione di Graves.
+- Wikipedia inglese, "The White Goddess", sezione "Celtic tree calendar": il calendario
+  di Graves non ha relazione con alcun calendario celtico storico.
+- Wikipedia inglese, "Ogham", sezione "Neopaganism": le teorie di Graves sono state
+  scartate dagli studiosi, compreso Macalister con cui Graves era in corrispondenza.
+- Heiss, A. G. e Leskovar, J., "Der ›keltische Baumkalender‹. Zur Entwicklung und
+  Rezeption eines Mythos", *Ethnographisch-Archäologische Zeitschrift* 54, 2013 (uscito 2015), pp. 99-136.
+- Birkhan, H., *Nachantike Keltenrezeption*, Praesens, Vienna, 2009, p. 569 nota 1
+  (citato dalla voce tedesca qui sotto): dei nomi delle lettere ogamiche solo alcuni sono
+  nomi di alberi; *luis* vale "fiamma" o "erba", *nin* "forcella", *hÚath* "terrore",
+  *tinne* "lingotto", *muin* "collo", *gort* "campo", *gétal* "uccisione", *ruis*
+  "rossore". Sull'ogam in generale: McManus, D., *A Guide to Ogam*, Maynooth, 1991.
+
+I "mesi" di Graves **non sono lunazioni vere**: Graves li definisce come il mese "lunare"
+del diritto comune inglese, di **28 giorni fissi** (Blackstone): tredici mesi di 28 giorni
+fanno 364 giorni, piu' un giorno fuori dai mesi. Quindi le date sono fisse ogni anno e non
+seguono la Luna.
+
+### Da non confondere: l'"oroscopo celtico degli alberi" francese
+
+Esiste un secondo sistema, molto diffuso online, con **21 o 22 alberi e date doppie**
+(ogni albero governa due periodi dell'anno, per esempio Melo, Abete, Olmo...). **Non e'
+quello di Graves.** Lo invento' la giornalista francese Paula Delsol nel 1971 per la
+rivista *Marie Claire* (poi *Horoscopes insolites*, France Loisirs, 1981), insieme a un
+"oroscopo arabo" e a un "oroscopo tibetano" altrettanto inventati; in tedesco usci' nel
+1984 come *Bäume lügen nicht*, e la sua origine fu ricostruita in una causa arrivata al
+Bundesgerichtshof (sentenza del 27 giugno 1991, I ZR 7/90). Fonte: Wikipedia tedesca,
+"Keltisches Baumhoroskop", https://de.wikipedia.org/wiki/Keltisches_Baumhoroskop, che
+cita Heiss e Leskovar. **L'app usa Graves.**
+
+Nota a margine utile per l'Araba: l'"oroscopo arabo" di Delsol non ha niente a che fare
+con le dimore lunari della sezione 4.
+
+### Tabella (date verificate sul testo di Graves)
+
+Le date sono state lette una per una nel testo di *The White Goddess* (edizione su
+archive.org, elemento `the-white-goddess`, ricerca nel testo): per esempio "We can
+therefore regard the Birch month as extending from December 24th to January 20th", "The
+second month extends from January 21st to February 17th", e per il Sambuco "to the winter
+solstice of December 22nd"; il 23 dicembre e' "the extra day of the year".
+
+| # | Albero | Nome ogamico (Graves) | Lettera | Dal | Al |
+|---|---|---|---|---|---|
+| 1 | Betulla | Beth | B | 24 dicembre | 20 gennaio |
+| 2 | Sorbo | Luis | L | 21 gennaio | 17 febbraio |
+| 3 | Frassino | Nion | N | 18 febbraio | 17 marzo |
+| 4 | Ontano | Fearn | F | 18 marzo | 14 aprile |
+| 5 | Salice | Saille | S | 15 aprile | 12 maggio |
+| 6 | Biancospino | Huath (anche Uath) | H | 13 maggio | 9 giugno |
+| 7 | Quercia | Duir | D | 10 giugno | 7 luglio |
+| 8 | Agrifoglio | Tinne | T | 8 luglio | 4 agosto |
+| 9 | Nocciolo | Coll | C | 5 agosto | 1 settembre |
+| 10 | Vite | Muin | M | 2 settembre | 29 settembre |
+| 11 | Edera | Gort | G | 30 settembre | 27 ottobre |
+| 12 | Canna | Ngetal | Ng | 28 ottobre | 24 novembre |
+| 13 | Sambuco | Ruis | R | 25 novembre | 22 dicembre |
+| | Giorno fuori dai mesi | nessun albero | | 23 dicembre | 23 dicembre |
+
+### Algoritmo
+
+Ingresso: la data civile locale (mese, giorno). Anno e ora non servono.
+
+1. Se la data e' il 23 dicembre: "il giorno senza albero" (Graves: non e' governato da
+   nessun albero; nella sua lettura e' il giorno del "year and a day"). L'app deve avere
+   un testo apposta per questo giorno, non un ripiego su Betulla o Sambuco.
+2. Se la data e' fra il 24 e il 31 dicembre o fra l'1 e il 20 gennaio: Betulla.
+3. Altrimenti: l'ultimo mese della tabella la cui data di inizio (mese, giorno) non supera
+   la data di nascita.
+
+### Casi limite
+
+- **29 febbraio**: le date di Graves sono date fisse del calendario civile, quindi il 29
+  febbraio cade nel Frassino (18 febbraio - 17 marzo), che negli anni bisestili ha 29
+  giorni. Graves non tratta il bisestile; qualche sito propone altre soluzioni (per esempio
+  un Sambuco allungato), ma nessuna viene da Graves. Si usa la data fissa.
+- **Confini**: verificati con lo script i giorni 22, 23 e 24 dicembre, 20 e 21 gennaio,
+  17 e 18 febbraio, 29 febbraio, 17 e 18 marzo, 9 e 10 giugno, 1 e 2 settembre, 29 e 30
+  settembre, 24 e 25 novembre (vedi `uscita_calcolo.txt`).
+- **Fuso**: vale la data civile locale, come per il Maya.
+- **Date "21 gennaio" nei siti**: qualche fonte secondaria da' la Betulla fino al 21
+  gennaio; il testo di Graves dice 20, e il Sorbo comincia il 21.
+
+---
+
+## 3. EGIZIA: il decano del Sole di nascita
+
+### Che cosa si calcola, e con quale convenzione
+
+I decani nascono come **36 gruppi di stelle** dell'astronomia egizia (tavole stellari
+"diagonali" sui coperchi dei sarcofagi dal Primo Periodo Intermedio): segnavano le ore
+della notte e, con il loro sorgere eliaco, periodi di dieci giorni. **L'assegnazione dei
+decani a settori di 10 gradi dei segni zodiacali e' ellenistica**, non dell'Egitto
+faraonico: e' nell'astrologia greco-egizia di eta' tolemaica e romana (lo zodiaco di
+Dendera, circa 50 a.C., mostra i due sistemi insieme), e la dicono esplicitamente
+Efestione di Tebe e Firmico Materno.
+
+Efestione di Tebe, *Apotelesmatika* I.1 (circa 415 d.C.), a proposito dell'Ariete:
+"per ogni segno fissarono tre decani secondo un intervallo di dieci gradi, e il primo e'
+Chontare, il secondo Chontachre, il terzo Siket" (testo greco in Engelbrecht 1887:
+ἑκάστου ζῳδίου τρεῖς ἀφώρισαν δεκανοὺς κατὰ δεκαμοιριαῖον διάστημα). Firmico Materno,
+*Mathesis* II.4 (circa 335 d.C.): ogni segno e' diviso in tre parti, ciascun decano
+"possiede dieci delle trenta parti" (ex triginta partibus denas possident partes).
+
+**Convenzione per l'app**: 36 settori di 10 gradi dell'**eclittica tropicale** a partire da
+0 gradi Ariete, longitudine geocentrica apparente del Sole all'istante di nascita. E' la
+stessa convenzione dello zodiaco occidentale che l'app usa gia', e la lettura ellenistica
+e' fatta per segni. Un purista potrebbe chiedere lo zodiaco siderale (i decani egizi
+erano stelle): lo si scrive nella scheda come nota, non lo si calcola.
+
+### Lista scelta: Efestione di Tebe, Apotelesmatika I.1
+
+Si sceglie **una** lista antica, quella di **Efestione di Tebe**, perche' e' la piu' vicina
+ai nomi egizi (Chontare da *ḫnt ḥrw*, Sothis da *spdt*, Chnoumis...), ed e' esplicitamente
+assegnata ai tre settori di 10 gradi di ogni segno. Testo critico moderno: D. Pingree,
+*Hephaestionis Thebani Apotelesmaticorum libri tres*, Teubner, Lipsia, 1973-1974;
+traduzione inglese del libro I: R. Schmidt, *Hephaistio of Thebes, Apotelesmatics Book I*,
+Project Hindsight, 1994. I nomi qui sotto sono stati **letti nel testo greco** dell'edizione
+di A. Engelbrecht, *Hephaestion von Theben und sein astrologisches Compendium*, Vienna,
+1887 (archive.org, elemento `bub_gb_Y8h-AAAAIAAJ`, pubblico dominio), segno per segno.
+Il riferimento di studio per il confronto fra le liste egizie e quelle greco-egizie e'
+O. Neugebauer e R. A. Parker, *Egyptian Astronomical Texts*, 3 volumi, Brown University
+Press, 1960-1969 (il III, 1969, tratta i decani delle epoche tarde); non e' stato riletto
+in questa ricerca, quindi non se ne citano pagine. Altre fonti usate per il confronto:
+W. Gundel, *Dekane und Dekansternbilder*, Glückstadt e Amburgo, 1936, e la tabella della
+voce "Decan" di Wikipedia inglese (https://en.wikipedia.org/wiki/Decan), che riporta da
+Gundel e Budge (1904) le liste egizia, greco-egizia, ermetica e di Firmico.
+
+| Settore | Da | A | Segno, decano | Greco (Efestione) | Nome per l'app |
+|---|---|---|---|---|---|
+| 1 | 0 | 10 | Ariete I | Χονταρέ | Chontare |
+| 2 | 10 | 20 | Ariete II | Χονταχρέ | Chontachre |
+| 3 | 20 | 30 | Ariete III | Σικέτ | Siket |
+| 4 | 30 | 40 | Toro I | Χώου | Choou |
+| 5 | 40 | 50 | Toro II | Ἐρώ | Ero |
+| 6 | 50 | 60 | Toro III | Ῥομβρόμαρε | Rhombromare |
+| 7 | 60 | 70 | Gemelli I | Θοσόλκ | Thosolk |
+| 8 | 70 | 80 | Gemelli II | Οὐαρέ | Ouare |
+| 9 | 80 | 90 | Gemelli III | Φουόρι | Phouori |
+| 10 | 90 | 100 | Cancro I | Σωθίς | Sothis |
+| 11 | 100 | 110 | Cancro II | Σίτ | Sit |
+| 12 | 110 | 120 | Cancro III | Χνουμίς | Chnoumis |
+| 13 | 120 | 130 | Leone I | Χαρχνοῦμις | Charchnoumis |
+| 14 | 130 | 140 | Leone II | Ἠπή | Epe |
+| 15 | 140 | 150 | Leone III | Φουπή | Phoupe |
+| 16 | 150 | 160 | Vergine I | Τώμ | Tom |
+| 17 | 160 | 170 | Vergine II | Οὐεστεβκώτι | Ouestebkoti |
+| 18 | 170 | 180 | Vergine III | Ἀφόσο | Aphoso |
+| 19 | 180 | 190 | Bilancia I | Σουχωέ | Souchoe |
+| 20 | 190 | 200 | Bilancia II | Πτηχούτ | Ptechout |
+| 21 | 200 | 210 | Bilancia III | Χονταρέ | Chontare |
+| 22 | 210 | 220 | Scorpione I | Στωχνηνέ | Stochnene |
+| 23 | 220 | 230 | Scorpione II | Σεσμέ | Sesme |
+| 24 | 230 | 240 | Scorpione III | Σισιεμέ | Sisieme |
+| 25 | 240 | 250 | Sagittario I | Ῥηουώ | Reouo |
+| 26 | 250 | 260 | Sagittario II | Σεσμέ | Sesme |
+| 27 | 260 | 270 | Sagittario III | Κομμέ | Komme |
+| 28 | 270 | 280 | Capricorno I | Σμάτ | Smat |
+| 29 | 280 | 290 | Capricorno II | Σρώ | Sro |
+| 30 | 290 | 300 | Capricorno III | Ἰσρώ | Isro |
+| 31 | 300 | 310 | Acquario I | Πτιαύ | Ptiau |
+| 32 | 310 | 320 | Acquario II | Ἀεύ | Aeu |
+| 33 | 320 | 330 | Acquario III | Πτιβιού | Ptibiou |
+| 34 | 330 | 340 | Pesci I | Ἀβιού | Abiou |
+| 35 | 340 | 350 | Pesci II | Χονταρέ | Chontare |
+| 36 | 350 | 360 | Pesci III | Πτιβιού | Ptibiou |
+
+Punti di cautela sulla lettura (il testo di archive.org e' una scansione con errori di
+riconoscimento del greco, e la sua qualita' e' la maggiore incertezza di questa sezione):
+
+- Leggibili senza dubbi: Ariete (tutti e tre), Toro, Gemelli I e III, Cancro I e III,
+  Leone I e III, Vergine I, II e III, Bilancia, Scorpione I e II, Sagittario I e II,
+  Acquario I e II, Pesci I e III.
+- Letti attraverso errori di scansione, e coerenti con le altre liste greco-egizie della
+  voce "Decan" di Wikipedia: Gemelli II (la scansione dice οὔσρε, Οὐαρέ; la lista di
+  Budge da' Uaret), Cancro II (la scansione da' "ale", Σίτ; Budge Seta, Firmico Sith),
+  Leone II (la scansione da' "mn", Ἠπή; Budge Ha-tet), Scorpione III (στστεμέ,
+  Σισιεμέ; Budge Si-sesme), Capricorno (la scansione da' "suat ... spW ... ἐσρὼ",
+  Σμάτ, Σρώ, Ἰσρώ).
+- Sagittario III: il testo e' illeggibile, ma l'apparato critico di Engelbrecht registra
+  la variante "κομὲ P", dunque Κομμέ.
+- Acquario III: la scansione dice πτηβυού; si uniforma a Πτιβιού, lo stesso decano che
+  ritorna in Pesci III.
+- Pesci II: Engelbrecht stampa χονταρέ e segnala in apparato la variante χονταχρέ del
+  codice P.
+- Prima di pubblicare i nomi nell'app, **conviene un controllo sull'edizione Pingree** o
+  sulla traduzione di Schmidt, che non erano consultabili in rete.
+
+**Nomi ripetuti**: Chontare torna tre volte (Ariete I, Bilancia III, Pesci II), Sesme due
+(Scorpione II, Sagittario II), Ptibiou due (Acquario III, Pesci III). E' cosi' nella fonte:
+le liste greco-egizie riciclano i nomi. L'app mostri sempre il nome **con** il segno e il
+numero del decano ("Chontare, primo decano dell'Ariete") e usi come chiave il numero del
+settore (1-36), mai il nome.
+
+### Algoritmo
+
+1. Istante di nascita: data e ora locali, convertite in UTC con il fuso storico del luogo
+   (database tz, per l'Italia `Europe/Rome`: l'ora legale c'era per esempio nel 1966-1980
+   da fine maggio a fine settembre, e la regola e' cambiata piu' volte).
+2. Longitudine eclittica geocentrica apparente del Sole, riferita all'equinozio della data
+   (zodiaco tropicale), in gradi 0-360.
+3. `settore = floor(longitudine / 10)`, da 0 a 35; nome = tabella; segno =
+   `floor(settore / 3)`; decano nel segno = `settore mod 3 + 1`.
+
+La precisione richiesta e' modesta: basta un algoritmo solare a bassa precisione (Meeus,
+*Astronomical Algorithms*, 2a ed. 1998, cap. 25, errore circa 0,01 gradi) o l'effemeride
+che l'app usa gia'. Il Sole fa circa 0,041 gradi all'ora.
+
+### Casi limite
+
+- **Senza ora**: il Sole fa circa un grado al giorno, quindi solo vicino ai confini l'ora
+  conta. Regola: calcolare a 00:00 e a 23:59 locali; se il settore e' lo stesso, il decano
+  e' certo; altrimenti chiedere l'ora (o mostrare i due decani). Fra le dieci date,
+  quattro sarebbero incerte senza ora: 2000-01-01, 1968-06-21, 2004-02-29, 1958-04-30.
+- **Nati vicino al confine**: il 1968-06-21 alle 12:00 a Firenze il Sole e' a 0 gradi 04
+  primi del Cancro, 1,7 ore dopo il solstizio; il 1958-04-30 alle 20:30 a Genova e' a 9
+  gradi 56 primi del Toro, 1,5 ore prima del cambio di decano. Qui una differenza di
+  fuso (ora legale sbagliata) cambia il risultato.
+- **360 gradi**: una longitudine di esattamente 360,0 va ridotta a 0 (Ariete I).
+
+---
+
+## 4. ARABA: la dimora lunare di nascita (manazil al-qamar)
+
+### Che cosa si calcola
+
+In quale delle **28 dimore lunari** (*manāzil al-qamar*, singolare *manzil*, "stazione,
+dimora") si trova la Luna all'istante di nascita.
+
+### Tropicale o siderale: che cosa dicono le fonti e quale conviene
+
+- In origine le dimore arabe erano **stellari** (legate a stelle di riferimento,
+  ampiezze irregolari da 3 a 27 gradi) e servivano anche al calendario delle piogge
+  (*anwā'*): cosi' in al-Biruni, *Kitāb al-tafhīm* (1029), trad. R. Ramsay Wright, *The
+  Book of Instruction in the Elements of the Art of Astrology*, Luzac, Londra, 1934.
+- Nell'astrologia e nella magia medievali le dimore diventano **regolari**: 28 settori
+  uguali di 360/28 = **12 gradi 51 primi 25,7 secondi** a partire dall'**inizio
+  dell'Ariete**, cioe' agganciati al punto equinoziale e dunque **tropicali**. Cosi' il
+  *Picatrix* (dall'arabo *Ghāyat al-Ḥakīm*, XI secolo; versione latina del XIII secolo,
+  libro I, capitolo 4: la prima dimora, Alnath, va dall'inizio dell'Ariete a 12 gradi
+  51 primi 26 secondi) e Agrippa, *De occulta philosophia* (1533), libro II, capitolo 33:
+  "ciascuna contiene dodici gradi, cinquantuno minuti e quasi ventisei secondi", la prima
+  "dalla testa dell'Ariete".
+- Christopher Warnock (renaissanceastrology.com), che ha tradotto il Picatrix con
+  J. M. Greer, riassume: le enumerazioni piu' tarde legano i confini alla misura statica
+  dello zodiaco tropicale senza correggere la precessione. Ricorda anche che nel Picatrix
+  alcuni talismani usano ancora i confini siderali.
+- Ibn al-Arabi (*al-Futūḥāt al-Makkiyya*) lega le 28 dimore alle 28 lettere dell'alfabeto
+  arabo in una lettura cosmologica; non fissa una convenzione di calcolo e qui non e'
+  stato letto direttamente.
+
+**Scelta per l'app: settori regolari tropicali da 0 gradi Ariete**, come Picatrix e
+Agrippa e coerenti con il resto dell'app. Da scrivere nella scheda: e' la convenzione
+medievale regolare; la versione stellare originaria, e quella siderale moderna, darebbero
+per la stessa Luna di solito una dimora o due prima (con uno scarto di circa 24 gradi, per
+le dieci date la dimora siderale Lahiri sarebbe sempre da 1 a 2 posti indietro).
+
+### Tabella delle 28 dimore
+
+Nomi nella traslitterazione semplificata richiesta (con l'articolo scritto "al-" anche
+davanti alle lettere solari: in arabo si pronuncia assimilato, ash-Sharatan, ath-Thurayya).
+Accanto, la forma latina di Agrippa (utile perche' molte fonti occidentali usano quella).
+
+| # | Da (gradi tropicali) | Nome | Significato | Stelle di riferimento | Agrippa |
+|---|---|---|---|---|---|
+| 1 | 0°00' Ariete | al-Sharatain | i due segni | β, γ Arietis | Alnath |
+| 2 | 12°51' Ariete | al-Butain | il piccolo ventre | 35, 39, 41 Arietis | Allothaim, Albochan |
+| 3 | 25°43' Ariete | al-Thurayya | le Pleiadi | Pleiadi | Achaomazon, Athoray |
+| 4 | 8°34' Toro | al-Dabaran | l'inseguitore (delle Pleiadi) | Aldebaran | Aldebaram |
+| 5 | 21°26' Toro | al-Haq'a | il ciuffo bianco | λ, φ Orionis | Alchatay, Albachay |
+| 6 | 4°17' Gemelli | al-Han'a | il marchio (sul collo) | γ, ξ Geminorum | Alhanna, Alchaya |
+| 7 | 17°09' Gemelli | al-Dhira' | l'avambraccio | Castore e Polluce | Aldimiach, Alarzach |
+| 8 | 0°00' Cancro | al-Nathra | la punta del naso | Presepe, γ, δ Cancri | Alnaza, Anatrachya |
+| 9 | 12°51' Cancro | al-Tarf | lo sguardo | κ Cancri, λ Leonis | Archaam, Arcaph |
+| 10 | 25°43' Cancro | al-Jabha | la fronte (del Leone) | Regolo e compagne | Algelioche, Albgebh |
+| 11 | 8°34' Leone | al-Zubra | la criniera | δ, θ Leonis | Azobra, Ardaf |
+| 12 | 21°26' Leone | al-Sarfa | il mutamento (del tempo) | Denebola | Alzarpha, Azarpha |
+| 13 | 4°17' Vergine | al-'Awwa' | il latratore | β, η, γ, δ, ε Virginis | Alhaire |
+| 14 | 17°09' Vergine | al-Simak (al-A'zal) | l'inerme | Spica | Achureth, Arimet |
+| 15 | 0°00' Bilancia | al-Ghafr | la copertura | ι, κ, λ Virginis | Agrapha, Algarpha |
+| 16 | 12°51' Bilancia | al-Zubana | le chele (dello Scorpione) | α, β Librae | Azubene, Ahubene |
+| 17 | 25°43' Bilancia | al-Iklil | la corona | β, δ, π Scorpii | Alchil |
+| 18 | 8°34' Scorpione | al-Qalb | il cuore (dello Scorpione) | Antares | Alchas, Altob |
+| 19 | 21°26' Scorpione | al-Shawla | il pungiglione (la coda sollevata) | λ, υ Scorpii | Allatha, Achala |
+| 20 | 4°17' Sagittario | al-Na'a'im | gli struzzi | stelle del Sagittario | Abnahaya |
+| 21 | 17°09' Sagittario | al-Balda | la citta' (lo spazio vuoto) | zona vuota vicino a π Sgr | Abeda, Albeldach |
+| 22 | 0°00' Capricorno | Sa'd al-Dhabih | la fortuna del sacrificatore | α, β Capricorni | Sadahacha, Zodeboluch |
+| 23 | 12°51' Capricorno | Sa'd Bula' | la fortuna dell'inghiottitore | ε, μ Aquarii | Zabadola, Zobrach |
+| 24 | 25°43' Capricorno | Sa'd al-Su'ud | la fortuna delle fortune | β, ξ Aquarii | Sadabath, Chadezoad |
+| 25 | 8°34' Acquario | Sa'd al-Akhbiya | la fortuna delle tende | γ, π, ζ, η Aquarii | Sadalabra, Sadalachia |
+| 26 | 21°26' Acquario | al-Fargh al-Muqaddam | il primo beccuccio (anteriore) | α, β Pegasi | Alpharg, Phragal Mocaden |
+| 27 | 4°17' Pesci | al-Fargh al-Mu'akhkhar | il secondo beccuccio (posteriore) | γ Pegasi, α Andromedae | Alcharya, Alhalgalmoad |
+| 28 | 17°09' Pesci | Batn al-Hut | il ventre del pesce (detta anche al-Risha, la corda) | β Andromedae e vicine | Albotham, Alchalcy |
+
+Le dimore 26 e 27 si trovano anche come al-Fargh al-Awwal e al-Fargh al-Thani ("il
+primo" e "il secondo"). La prima dimora si trova anche come al-Natḥ, "le corna", da cui il
+latino Alnath. Gli inizi in tabella sono arrotondati al primo; il calcolo usa il valore
+esatto 360/28. Agrippa tronca ai minuti (12°51', 25°42', 8°34'...): la differenza e' di
+meno di un primo e non cambia il conto.
+
+### Algoritmo
+
+1. Istante di nascita in UTC dalla data, dall'ora e dal fuso storico del luogo (come per
+   l'Egizia).
+2. Longitudine eclittica **geocentrica** apparente della Luna, equinozio della data
+   (tropicale), in gradi 0-360. Geocentrica perche' l'astrologia tradizionale lavora cosi';
+   la correzione topocentrica (parallasse, fino a circa un grado) per le dieci date non
+   cambia mai la dimora.
+3. `dimora = floor(longitudine / (360 / 28)) + 1`, da 1 a 28.
+
+Precisione: la Luna fa da 12 a 15 gradi al giorno (circa mezzo grado all'ora); serve una
+teoria lunare di almeno 0,1 gradi. Va bene l'algoritmo di Meeus, *Astronomical
+Algorithms* (2a ed., 1998), capitolo 47 (ELP-2000/82 troncata, errore circa 10 secondi
+d'arco), o un'effemeride. Lo script usa JPL DE421 e confronta con PyEphem: lo scarto
+massimo fra i due sulle dieci date e' 0,0016 gradi.
+
+### Casi limite
+
+- **L'ora e' indispensabile.** Fra le dieci date, **tutte e dieci** senza ora sarebbero
+  incerte: nel corso del giorno civile la Luna attraversa sempre un confine, e il
+  1972-11-23 ne attraversa due (dalla dimora 7 alla 9, perche' quel giorno la Luna
+  correva a piu' di 12,86 gradi al giorno). Senza ora l'app non deve dare una dimora:
+  deve chiederla, o dire le due (o tre) possibili.
+- **Ora approssimata**: il margine dal confine, in ore, e' nel CSV. Il piu' stretto e'
+  il 1990-03-15 (2,1 ore): un errore di due ore sull'ora dichiarata cambierebbe la dimora.
+- **Fuso e ora legale** storici: come per l'Egizia.
+- **Luogo**: con il calcolo geocentrico il luogo serve solo a scegliere il fuso orario.
+
+---
+
+## 5. Le dieci date
+
+Il dettaglio con la provenienza di ogni numero e' in `dieci_date.csv`. Riassunto:
+
+| Data | Ora | Luogo | Maya | Celtica | Egizia | Araba |
+|---|---|---|---|---|---|---|
+| 1990-03-15 | 08:30 | Roma | 7 Ak'b'al | Frassino (Nion) | Ptibiou, Pesci III | 17 al-Iklil |
+| 1985-07-04 | 22:10 | Milano | 8 Lamat | Quercia (Duir) | Sit, Cancro II | 25 Sa'd al-Akhbiya |
+| 2000-01-01 | 00:05 | Napoli | 11 Ik' | Betulla (Beth) | Smat, Capricorno I | 17 al-Iklil |
+| 1972-11-23 | 14:00 | Torino | 4 Ik' | Canna (Ngetal) | Reouo, Sagittario I | 8 al-Nathra |
+| 1995-12-24 | 06:45 | Palermo | 11 B'en | Betulla (Beth) | Smat, Capricorno I | 24 Sa'd al-Su'ud |
+| 1968-06-21 | 12:00 | Firenze | 13 Kimi | Quercia (Duir) | Sothis, Cancro I | 4 al-Dabaran |
+| 2004-02-29 | 18:20 | Bologna | 10 Ik' | Frassino (Nion) | Chontare, Pesci II | 7 al-Dhira' |
+| 1979-09-09 | 03:15 | Bari | 2 Ak'b'al | Vite (Muin) | Ouestebkoti, Vergine II | 2 al-Butain |
+| 1999-08-11 | 11:00 | Venezia | 11 Kawak | Nocciolo (Coll) | Epe, Leone II | 11 al-Zubra |
+| 1958-04-30 | 20:30 | Genova | 13 Imix | Salice (Saille) | Choou, Toro I | 15 al-Ghafr |
+
+Da dove viene ogni colonna:
+
+- **Maya**: script (JDN della data civile locale, correlazione 584283), e **tutte e dieci**
+  le date confrontate con due convertitori online, **Fourmilab** e **Smithsonian NMAI**,
+  che danno gli stessi dieci risultati e lo stesso Lungo Computo (letture in
+  `fonti/convertitori_maya_29set2026.txt`; lo script le riporta e fallisce se non
+  coincidono). Il JDN dello script coincide con quello di PyEphem per tutte le date.
+- **Celtica**: tabella di Graves.
+- **Egizia**: Sole con skyfield e DE421, controllato con PyEphem (scarto massimo 0,0002
+  gradi), tabella di Efestione.
+- **Araba**: Luna con skyfield e DE421, controllata con PyEphem (scarto massimo 0,0016
+  gradi), 28 settori tropicali regolari.
+- **Fusi**: tzdata `Europe/Rome`. CEST (UTC+2) per 1985-07-04, 1968-06-21, 1979-09-09,
+  1999-08-11; CET (UTC+1) per le altre. Il 15 marzo 1990 l'ora legale non era ancora
+  cominciata (comincio' il 25 marzo), e nel 1958 in Italia non c'era.
+
+Date che fanno da casi limite (utili come prove dell'app):
+
+- **2000-01-01 00:05 Napoli**: in UTC e' ancora il 31 dicembre 1999. Maya con la data UTC
+  darebbe 10 Imix (sbagliato). Sole a 9 gradi 49 primi del Capricorno, 4,4 ore dal
+  cambio di decano.
+- **1995-12-24**: primo giorno della Betulla.
+- **2004-02-29**: giorno bisestile, Frassino; il decano cambia verso le 7 del mattino
+  (alle 18:20 il Sole e' a 10 gradi 28 primi dei Pesci, 11 ore dopo il confine).
+- **1968-06-21 12:00**: Sole a 0 gradi 04 primi del Cancro, 1,7 ore dopo il confine.
+- **1958-04-30 20:30**: Sole a 9 gradi 56 primi del Toro, 1,5 ore prima del confine.
+- **1972-11-23**: la Luna attraversa tre dimore nello stesso giorno civile.
+- **1990-03-15**: la dimora piu' vicina al confine (2,1 ore).
+- **1999-08-11 11:00 Venezia**: giorno dell'eclissi totale di Sole; Luna e Sole a un
+  grado l'uno dall'altra, prova che il calcolo lunare non confonda i due corpi.

@@ -1,0 +1,218 @@
+{
+ "S01": {
+  "giro": "ag5_lessico_prima",
+  "caso": "M6a"
+ },
+ "S02": {
+  "giro": "ag5_lessico_prima",
+  "caso": "R8b"
+ },
+ "S03": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "C4b"
+ },
+ "S04": {
+  "giro": "ag5_lessico_prima",
+  "caso": "C4c"
+ },
+ "S05": {
+  "giro": "ag5_lessico_prima",
+  "caso": "C2b"
+ },
+ "S06": {
+  "giro": "ag5_lessico_prima",
+  "caso": "M5a"
+ },
+ "S07": {
+  "giro": "ag5_lessico_prima",
+  "caso": "M2c"
+ },
+ "S08": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "R6c"
+ },
+ "S09": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "M5c"
+ },
+ "S10": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "C4a"
+ },
+ "S11": {
+  "giro": "ag5_lessico_prima",
+  "caso": "R2b"
+ },
+ "S12": {
+  "giro": "ag5_lessico_prima",
+  "caso": "R6c"
+ },
+ "S13": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "M6c"
+ },
+ "S14": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "M5a"
+ },
+ "S15": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "C8c"
+ },
+ "S16": {
+  "giro": "ag5_lessico_prima",
+  "caso": "R6b"
+ },
+ "S17": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "M2b"
+ },
+ "S18": {
+  "giro": "ag5_lessico_prima",
+  "caso": "C8a"
+ },
+ "S19": {
+  "giro": "ag5_lessico_prima",
+  "caso": "M2a"
+ },
+ "S20": {
+  "giro": "ag5_lessico_prima",
+  "caso": "C8b"
+ },
+ "S21": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "M2a"
+ },
+ "S22": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "R2b"
+ },
+ "S23": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "R2c"
+ },
+ "S24": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "C4c"
+ },
+ "S25": {
+  "giro": "ag5_lessico_prima",
+  "caso": "M6c"
+ },
+ "S26": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "R2a"
+ },
+ "S27": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "R8b"
+ },
+ "S28": {
+  "giro": "ag5_lessico_prima",
+  "caso": "M5b"
+ },
+ "S29": {
+  "giro": "ag5_lessico_prima",
+  "caso": "C2a"
+ },
+ "S30": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "R6a"
+ },
+ "S31": {
+  "giro": "ag5_lessico_prima",
+  "caso": "C4a"
+ },
+ "S32": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "M5b"
+ },
+ "S33": {
+  "giro": "ag5_lessico_prima",
+  "caso": "R2c"
+ },
+ "S34": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "R8a"
+ },
+ "S35": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "R6b"
+ },
+ "S36": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "C8a"
+ },
+ "S37": {
+  "giro": "ag5_lessico_prima",
+  "caso": "C4b"
+ },
+ "S38": {
+  "giro": "ag5_lessico_prima",
+  "caso": "C2c"
+ },
+ "S39": {
+  "giro": "ag5_lessico_prima",
+  "caso": "R8c"
+ },
+ "S40": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "M2c"
+ },
+ "S41": {
+  "giro": "ag5_lessico_prima",
+  "caso": "R2a"
+ },
+ "S42": {
+  "giro": "ag5_lessico_prima",
+  "caso": "M6b"
+ },
+ "S43": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "C2b"
+ },
+ "S44": {
+  "giro": "ag5_lessico_prima",
+  "caso": "R8a"
+ },
+ "S45": {
+  "giro": "ag5_lessico_prima",
+  "caso": "C8c"
+ },
+ "S46": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "M6a"
+ },
+ "S47": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "M6b"
+ },
+ "S48": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "R8c"
+ },
+ "S49": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "C2c"
+ },
+ "S50": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "C8b"
+ },
+ "S51": {
+  "giro": "ag5_lessico_prima",
+  "caso": "R6a"
+ },
+ "S52": {
+  "giro": "ag5_lessico_dopo",
+  "caso": "C2a"
+ },
+ "S53": {
+  "giro": "ag5_lessico_prima",
+  "caso": "M2b"
+ },
+ "S54": {
+  "giro": "ag5_lessico_prima",
+  "caso": "M5c"
+ }
+}

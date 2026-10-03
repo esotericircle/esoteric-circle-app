@@ -1,0 +1,26 @@
+EQ.07 dopo la risposta del fondatore, "I turni Live contano come domande", 27 settembre 2026
+
+REGOLA B, prima di toccare il controller:
+== Regola B, i turni del LIVE contano: il costo non si spegne piu' nel LIVE
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima 46060bbe3c00, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:04 +3 -1: Some tests failed.
+   Expected: <0>
+   Actual: <1>
+   ripristinato: sha1 46060bbe3c00, uguale
+
+REGOLA A sulle due prove rovesciate (il primo "NO" del grep era un falso dello strumento: il testo nuovo contiene il vecchio; verificato a mano, grep -c "if (nelLive) return;" = 1, rossa col motivo "un turno a voce non ha consumato la sua domanda"; lo strumento e' corretto):
+== Regola A, EQ.07: il costo torna spento nel LIVE
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima 01e824acd6ce, innesto verificato col grep: NO
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: <1>
+   Actual: <0>
+   ripristinato: sha1 01e824acd6ce, uguale
+== Regola A, EQ.07: il limite torna a non valere nel LIVE
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima 01e824acd6ce, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: TipoDiMessaggio:<TipoDiMessaggio.limiteRaggiunto>
+   Actual: <null>
+   ripristinato: sha1 01e824acd6ce, uguale

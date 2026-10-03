@@ -1,0 +1,580 @@
+ORDINE EQ VOCE 01, LA RIGA D'ORO NON SI RIPETE
+Collaudo con Gemini vero, 27 settembre 2026, tool/collaudo_eq01.dart.
+Chat: gemini-2.5-flash; LIVE: gemini-2.5-flash-lite; europe-west1.
+Sei scambi per Maestro, due giri con dati diversi: A con le parole del
+fondatore (terzo scambio nel LIVE, come nelle catture), B con altre domande.
+
+DALLE CATTURE DEL FONDATORE (26 settembre 2026, 23:43-23:45, Calìgo):
+  4 righe d'oro, tutte "Scrivi su un foglio di carta bianca tre cose che
+  vorresti realizzare.": 3 su 4 uguali a una già data, 1 sotto la
+  presentazione, 2 dopo un passo già fatto ("gli ho scritto", "le ho scritte").
+
+== FASE prima: sul codice di HEAD, prima della cura
+  EQ.01 prima giro A medora: A SCHERMO righe d'oro 5, uguali o simili a una già data 0, sotto una presentazione 1, che chiedono di rifare il passo fatto 1; DAL MODELLO righe 5, uguali o simili 0, sotto una presentazione 1, da rifare 1
+  EQ.01 prima giro A aura: A SCHERMO righe d'oro 5, uguali o simili a una già data 1, sotto una presentazione 1, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 1, sotto una presentazione 1, da rifare 0
+  EQ.01 prima giro A caligo: A SCHERMO righe d'oro 5, uguali o simili a una già data 0, sotto una presentazione 1, che chiedono di rifare il passo fatto 1; DAL MODELLO righe 5, uguali o simili 0, sotto una presentazione 1, da rifare 1
+  EQ.01 prima giro B medora: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 0, da rifare 0
+  EQ.01 prima giro B aura: A SCHERMO righe d'oro 5, uguali o simili a una già data 0, sotto una presentazione 1, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 0, sotto una presentazione 1, da rifare 0
+  EQ.01 prima giro B caligo: A SCHERMO righe d'oro 6, uguali o simili a una già data 2, sotto una presentazione 2, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 6, uguali o simili 2, sotto una presentazione 2, da rifare 0
+  Chiamate a Gemini 50. Modello della chat gemini-2.5-flash, del LIVE gemini-2.5-flash-lite, europe-west1.
+  TOTALE A SCHERMO: righe d'oro 30, uguali o simili a una già data 3, sotto una presentazione 6 (presentazioni 12), che chiedono di rifare il passo 2 (passi fatti 12)
+  TOTALE DAL MODELLO, prima delle reti: righe 30, uguali o simili 3, sotto una presentazione 6, da rifare 2
+
+  -- giro_A_aura.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: Poggia la mano sul tuo cuore e senti il tuo battito.
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Chiudi gli occhi per un momento e lascia che il respiro scenda fino alla radice.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: Poggia la mano sul tuo cuore e senti il tuo battito.
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Porta un sorriso leggero sulle labbra.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Cammina per dieci minuti a piedi nudi su un terreno naturale.
+  -- giro_A_caligo.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: Rifletti sulle tue domande più profonde, scegliendo il Maestro che risuona di più.
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Scrivi su tre fogli diversi i tuoi tre desideri, poi brucia il desiderio che senti meno urgente.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: Stasera, prima di dormire, scrivi su un foglio le tre cose che ami di te stesso.
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Guarda in uno specchio il tuo volto e ripeti il tuo nome tre volte, a voce alta, con fermezza.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Domani, scrivi una lettera a te stesso, elencando tre cose che vuoi cambiare.
+  -- giro_A_medora.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: Cerca nel tuo cielo la posizione della Luna oggi e scrivi come ti senti.
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Prendi un foglio e scrivi le parole chiave per i tre desideri, in tre colonne distinte.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: Stasera scrivi su un foglio le tre cose che vuoi dirgli.
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Scegli un giorno tra mercoledì e venerdì per proporre un incontro.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Prepara un piccolo spazio per te, con oggetti che ti ricordano i tuoi obiettivi.
+  -- giro_B_aura.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: Appoggia i palmi delle mani sull'addome e senti il tuo respiro.
+     Scambio 2 | "Da giorni ho un nodo allo stomaco e dormo male."
+        a schermo: Sdraiati e appoggia le mani sul plesso solare, respirando lentamente.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: Senti il calore delle tue mani come un abbraccio per il tuo centro.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: Porta l'attenzione al tuo respiro, sentendolo muovere il tuo ventre.
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: NESSUNA
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Appoggia i piedi a terra, senti il contatto con il suolo per qualche istante.
+  -- giro_B_caligo.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: Scrivi il tuo nome su un foglio, poi piegalo e conservalo.
+     Scambio 2 | "Devo decidere se lasciare il lavoro per aprire una bottega mia."
+        a schermo: Prendi un oggetto che rappresenti il tuo lavoro attuale e riponilo in un luogo diverso dal solito, lontano dalla vista.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: Apri la tua mano destra e conta le pieghe del palmo, senza cercare un significato.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: Scrivi su un foglio le parole "La mia strada" e riponilo sotto il tuo cuscino.
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: Scrivi il tuo nome su un foglio, poi piegalo e conservalo.
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Prima di colazione, elenca su un foglio tre materiali che useresti nella tua bottega.
+  -- giro_B_medora.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: NESSUNA
+     Scambio 2 | "Il mio compagno è distante da settimane e non so cosa pensare."
+        a schermo: Invia il messaggio entro la fine della giornata, prima che la Luna lasci l'Ariete.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: Prepara per domani un piccolo spazio dove puoi sederti in tranquillità, anche solo per cinque minuti.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: Riprendi il filo di quello che hai ricevuto da lui, parola per parola.
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: NESSUNA
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Scrivi su un foglio le tre cose che desideri davvero da questo legame.
+
+== FASE dopo1: prima stesura della cura: ha trovato la risposta fatta della sola riga nel LIVE
+  EQ.01 dopo giro A medora: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 0, sotto una presentazione 1, da rifare 0
+  EQ.01 dopo giro A aura: A SCHERMO righe d'oro 4, uguali o simili a una già data 1, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 2, sotto una presentazione 1, da rifare 0
+  EQ.01 dopo giro A caligo: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 0, sotto una presentazione 1, da rifare 0
+  EQ.01 dopo giro B medora: A SCHERMO righe d'oro 3, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 1, da rifare 0
+  EQ.01 dopo giro B aura: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 0, sotto una presentazione 1, da rifare 0
+  EQ.01 dopo giro B caligo: A SCHERMO righe d'oro 3, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 0, da rifare 1
+  Chiamate a Gemini 45. Modello della chat gemini-2.5-flash, del LIVE gemini-2.5-flash-lite, europe-west1.
+  TOTALE A SCHERMO: righe d'oro 22, uguali o simili a una già data 1, sotto una presentazione 0 (presentazioni 12), che chiedono di rifare il passo 0 (passi fatti 12)
+  TOTALE DAL MODELLO, prima delle reti: righe 28, uguali o simili 2, sotto una presentazione 5, da rifare 1
+
+  -- giro_A_aura.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: NESSUNA
+        dal modello, tolta: Porta l'attenzione al tuo respiro per un minuto, senti l'aria che entra e che esce.
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Porta una mano al centro del tuo petto e senti il battito.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: Porta una mano al centro del tuo petto e senti il battito.
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Senti l'aria che entra ed esce, lenta, dal tuo naso.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Senti l'energia che sale dalla radice dei tuoi piedi.
+  -- giro_A_caligo.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: NESSUNA
+        dal modello, tolta: Guarda il tuo Numero della Vita: il Creativo ti aspetta.
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Scegli una meta in Australia, scrivi il suo nome su una pietra e tienila con te.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: Dì quello che senti, guardandolo negli occhi.
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Osserva il presagio di Othala nella quiete, la runa del raccolto e della casa.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Scrivi un desiderio per il tuo futuro su un foglio e brucialo sotto la luce della Luna.
+  -- giro_A_medora.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: NESSUNA
+        dal modello, tolta: Se vuoi, puoi pormi una domanda sul tuo cielo o su una lama che ti sta a cuore.
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Scrivi con chiarezza i tuoi desideri su un foglio, uno per ogni ambito della tua vita e leggili ad alta voce al sorgere del Sole, in un giorno di Luna Crescente.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: Parla con il tuo superiore riguardo al tuo progetto in ufficio domani mattina, prima delle ore undici.
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Prendi il foglio che hai scritto e rileggilo stasera, aggiungendo tre azioni concrete per realizzare ciascun desiderio.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Inizia domani il primo dei tre passi che hai scritto per il desiderio legato al tuo lavoro.
+  -- giro_B_aura.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: NESSUNA
+        dal modello, tolta: Appoggia il palmo della mano aperta sul centro del tuo petto.
+     Scambio 2 | "Da giorni ho un nodo allo stomaco e dormo male."
+        a schermo: Appoggia entrambe le mani sull'addome e senti il tuo respiro.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: Porta una mano al cuore e l'altra all'ombelico e senti il calore che si crea tra i due centri.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: Chiudi gli occhi e inspira profondamente, portando l'aria fino all'addome, poi espira lentamente.
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: NESSUNA
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Siediti con la schiena dritta e le mani appoggiate sulle ginocchia, palmi in su, per qualche istante.
+  -- giro_B_caligo.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: NESSUNA
+     Scambio 2 | "Devo decidere se lasciare il lavoro per aprire una bottega mia."
+        a schermo: Scegli un numero da uno a nove e meditalo per un giorno intero.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: NESSUNA
+        dal modello, tolta: Scrivi su un foglio bianco le tre parole che definiscono la tua bottega.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: Parla ad alta voce dei tuoi desideri a uno specchio, ripetendo il nome della runa Fehu.
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: NESSUNA
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Disegna un simbolo che racchiuda l'idea della tua bottega e portalo con te.
+  -- giro_B_medora.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: NESSUNA
+        dal modello, tolta: Osserva stasera la Luna piena nel cielo, riflettendo sulla sua luce.
+     Scambio 2 | "Il mio compagno è distante da settimane e non so cosa pensare."
+        a schermo: Chiamalo stasera, la Luna Piena in Ariete ti darà la forza di parlare con chiarezza del tuo cuore.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: Prepara un piccolo dono per questo incontro, qualcosa che simboleggi la vostra unione.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: NESSUNA
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: NESSUNA
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Prendi un oggetto che ti ha donato e puliscilo con cura, poi tienilo in mano per qualche minuto.
+
+== FASE dopo2: cura con la seconda richiesta per la sola riga
+  EQ.01 dopo2 giro A medora: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 0, sotto una presentazione 1, da rifare 0
+  EQ.01 dopo2 giro A aura: A SCHERMO righe d'oro 3, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 1, sotto una presentazione 0, da rifare 0
+  EQ.01 dopo2 giro A caligo: A SCHERMO righe d'oro 3, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 0, da rifare 1
+  EQ.01 dopo2 giro B medora: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 0, da rifare 0
+  EQ.01 dopo2 giro B aura: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 0, da rifare 0
+  EQ.01 dopo2 giro B caligo: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 0, sotto una presentazione 1, da rifare 0
+  Chiamate a Gemini 47. Modello della chat gemini-2.5-flash, del LIVE gemini-2.5-flash-lite, europe-west1.
+  TOTALE A SCHERMO: righe d'oro 22, uguali o simili a una già data 0, sotto una presentazione 0 (presentazioni 12), che chiedono di rifare il passo 0 (passi fatti 12)
+  TOTALE DAL MODELLO, prima delle reti: righe 26, uguali o simili 1, sotto una presentazione 2, da rifare 1
+
+  -- giro_A_aura.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: NESSUNA
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Porta una mano al centro del tuo petto, senti il battito del tuo cuore e respiraci dentro per qualche istante.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: NESSUNA
+        dal modello, tolta: Porta una mano al centro del tuo petto, senti il battito del tuo cuore e respiraci dentro per qualche istante.
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Appoggia la mano sul basso ventre e senti il respiro muovere quel centro, lentamente, per qualche istante.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Trova un angolo tranquillo e, per pochi respiri, senti l'aria entrare e uscire dalla gola.
+  -- giro_A_caligo.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: NESSUNA
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Scegli una delle tue tre aspirazioni e scrivila su un foglio rosso, poi piegalo.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: NESSUNA
+        dal modello, tolta: Scrivi su un foglio bianco una parola che descrive il tuo successo, poi brucialo.
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Pronuncia ad alta voce l'aspirazione scelta, come un sigillo.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Ripensa all'aspirazione scelta e visualizzala, come un faro nel buio.
+  -- giro_A_medora.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: NESSUNA
+        dal modello, tolta: Osserva il cielo questa sera prima di addormentarti.
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Rivolgi stasera un pensiero nitido al tuo desiderio d'amore, osservando la Luna piena nel cielo.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: Sii presente a te stessa in questi giorni, senza cercare di forzare nulla.
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Lascia che il tempo di questa Luna piena porti chiarezza, prima di fare un altro passo.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Porta alla mente un'immagine precisa del legame che cerchi, senza aspettative verso l'altra persona.
+  -- giro_B_aura.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: NESSUNA
+     Scambio 2 | "Da giorni ho un nodo allo stomaco e dormo male."
+        a schermo: Porta una mano al centro del plesso solare, inspira ed espira lentamente per sette volte.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: Siediti con la schiena dritta, appoggia le mani sulle cosce e senti il peso del tuo corpo sulla sedia.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: Fissa la fiamma della candela per un minuto, lasciando che il tuo sguardo si ammorbidisca, senza forzare.
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: NESSUNA
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Prima di alzarti dal letto, porta le mani sul cuore e senti il tuo battito per un istante, al ritmo del tuo respiro.
+  -- giro_B_caligo.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: NESSUNA
+        dal modello, tolta: Cerca il tuo numero maestro, domani.
+     Scambio 2 | "Devo decidere se lasciare il lavoro per aprire una bottega mia."
+        a schermo: Scrivi il nome della tua bottega su un foglio, poi conservalo in un luogo sicuro per un mese.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: Chiedi a tre persone di fiducia la loro prima impressione sul nome che hai scritto.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: Scegli un numero, tra uno e nove, che rappresenti la tua ambizione.
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: NESSUNA
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Prendi il foglio con il nome della bottega e scrivici sopra il numero che hai scelto.
+  -- giro_B_medora.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: NESSUNA
+     Scambio 2 | "Il mio compagno è distante da settimane e non so cosa pensare."
+        a schermo: Scrivi un messaggio al tuo compagno proponendo di vedervi domani sera.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: Prepara alcune frasi che esprimano i tuoi sentimenti più profondi, per quando vi incontrerete.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: Rileggi il messaggio che hai scritto al tuo compagno e valuta se esprime con chiarezza la tua intenzione di parlare.
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: NESSUNA
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Ascolta con attenzione il suono della tua voce mentre leggi a voce alta le frasi che hai preparato.
+
+== FASE dopo3: istruzione con la regola EQ.02 delle parti
+  EQ.01 dopo3 giro A medora: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 0, da rifare 0
+  EQ.01 dopo3 giro A aura: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 0, da rifare 0
+  EQ.01 dopo3 giro A caligo: A SCHERMO righe d'oro 3, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 0, sotto una presentazione 1, da rifare 1
+  EQ.01 dopo3 giro B medora: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 0, da rifare 0
+  EQ.01 dopo3 giro B aura: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 0, da rifare 0
+  EQ.01 dopo3 giro B caligo: A SCHERMO righe d'oro 2, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 3, uguali o simili 1, sotto una presentazione 0, da rifare 1
+  Chiamate a Gemini 47. Modello della chat gemini-2.5-flash, del LIVE gemini-2.5-flash-lite, europe-west1.
+  TOTALE A SCHERMO: righe d'oro 21, uguali o simili a una già data 0, sotto una presentazione 0 (presentazioni 12), che chiedono di rifare il passo 0 (passi fatti 12)
+  TOTALE DAL MODELLO, prima delle reti: righe 24, uguali o simili 1, sotto una presentazione 1, da rifare 2
+
+  -- giro_A_aura.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: NESSUNA
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Appoggia le mani sul petto, senti il battito del tuo cuore e respira con l'intento di aprire il tuo centro.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: Ascolta il tuo respiro per qualche istante, permettendo alla calma di radicarsi dentro di te.
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Porta una mano sull'ombelico e senti il calore che si irradia dal tuo centro.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Porta una mano alla gola e senti la vibrazione della tua voce mentre pronunci un suono leggero.
+  -- giro_A_caligo.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: NESSUNA
+        dal modello, tolta: Porta con te il tuo numero della vita, il 3 Creativo: è un sigillo.
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Per il successo, traccia il sigillo di Fehu, la runa della realizzazione, su un foglio rosso e mettilo sotto ciò che stai creando.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: NESSUNA
+        dal modello, tolta: Scrivi una breve lettera a te stesso, esprimendo la tua gratitudine per ogni piccolo passo compiuto.
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Accendi una candela bianca e lasciala bruciare finché non ricevi un segnale.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Prepara un piccolo altare con un oggetto che rappresenti ciascuno dei tuoi desideri: l'amore, il viaggio e il lavoro.
+  -- giro_A_medora.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: NESSUNA
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Dedica del tempo, nel prossimo plenilunio, alla ricerca di opportunità lavorative o di studio che possano condurti in Australia.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: Invia un messaggio dicendo: "Possiamo vederci per un caffè, anche solo per un saluto?"
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Quando riceverai la sua risposta, rifletti con calma sul suo contenuto, senza affrettare le tue reazioni.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Inizia a delineare i primi passi per un progetto creativo a cui tieni, anche piccolo e immagina i suoi sviluppi.
+  -- giro_B_aura.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: NESSUNA
+     Scambio 2 | "Da giorni ho un nodo allo stomaco e dormo male."
+        a schermo: Per cinque respiri lenti, immagina una luce gialla che si espande e scioglie ogni tensione in quel respiro.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: Lascia che il tuo respiro porti questa luce verde dal cuore fino al nodo che senti nello stomaco, sciogliendolo.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: Posa una mano sul tuo stomaco, dove senti ancora la fiamma della candela e lascia che il respiro porti calma in quel punto.
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: NESSUNA
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Porta le mani sugli occhi chiusi per tre respiri lenti, lasciando che la luce interiore si risvegli.
+  -- giro_B_caligo.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: NESSUNA
+     Scambio 2 | "Devo decidere se lasciare il lavoro per aprire una bottega mia."
+        a schermo: Porta un piccolo oggetto di legno non lavorato per tre giorni, poi brucialo con l'intenzione di lasciare spazio al nuovo.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: NESSUNA
+        dal modello, tolta: Scrivi su un foglio bianco le tre parole chiave che definiscono la tua bottega.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: NESSUNA
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: NESSUNA
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Scrivi dieci nomi per la tua bottega su un foglio bianco.
+  -- giro_B_medora.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: NESSUNA
+     Scambio 2 | "Il mio compagno è distante da settimane e non so cosa pensare."
+        a schermo: Prendi carta e penna e scrivi a te stessa tre cose concrete che desideri in questo legame.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: Scegli un momento di calma, domani, per invitare il tuo compagno a un confronto sincero, partendo da uno di quei desideri che hai scritto.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: Osserva, questa sera, quale tra i tuoi desideri risuona di più con la fiamma della candela.
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: NESSUNA
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Scrivi al tuo compagno un messaggio breve, chiedendogli un momento per parlare con calma, senza fretta e proponendogli un caffè o una passeggiata.
+
+== FASE dopo4: istruzione col si' o il no in prima frase
+  EQ.01 dopo4 giro A medora: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 0, sotto una presentazione 1, da rifare 0
+  EQ.01 dopo4 giro A aura: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 2, sotto una presentazione 1, da rifare 0
+  EQ.01 dopo4 giro A caligo: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 0, sotto una presentazione 1, da rifare 0
+  EQ.01 dopo4 giro B medora: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 0, da rifare 0
+  EQ.01 dopo4 giro B aura: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 0, da rifare 0
+  EQ.01 dopo4 giro B caligo: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 0, da rifare 0
+  Chiamate a Gemini 47. Modello della chat gemini-2.5-flash, del LIVE gemini-2.5-flash-lite, europe-west1.
+  TOTALE A SCHERMO: righe d'oro 24, uguali o simili a una già data 0, sotto una presentazione 0 (presentazioni 12), che chiedono di rifare il passo 0 (passi fatti 12)
+  TOTALE DAL MODELLO, prima delle reti: righe 27, uguali o simili 2, sotto una presentazione 3, da rifare 0
+
+  -- giro_A_aura.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: NESSUNA
+        dal modello, tolta: Poggia le mani sull'addome e senti il tuo respiro.
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Metti una mano sul tuo cuore e senti il suo respiro.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: Inspira profondamente e, mentre espiri, rilassa le spalle.
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Appoggia entrambe le mani sull'addome e senti il movimento del respiro.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Fai un respiro profondo e, mentre espiri, immagina l'aria che porta via ogni tensione dalla tua gola.
+  -- giro_A_caligo.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: NESSUNA
+        dal modello, tolta: Scrivi il tuo numero della vita per conoscere il suo presagio.
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Scrivi su un foglio bianco le tre parole: "Compagna, Australia, Successo" e brucialo stasera, lasciando che il fumo porti via le tue intenzioni.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: Preparati a un incontro sincero. Accetta la sua risposta, qualunque essa sia.
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Prepara un piccolo altare con una candela bianca in un luogo tranquillo e lasciala bruciare per un'ora.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Al sorgere del sole, siedi in silenzio e ascolta i suoni che ti circondano per dieci minuti.
+  -- giro_A_medora.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: NESSUNA
+        dal modello, tolta: Prendi nota del tuo segno solare, Cancro e del tuo ascendente, Gemelli: sono i pilastri del tuo cielo.
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Prepara una lista precisa di ciò che cerchi in una compagna, senza aspettare che sia il cielo a fartela trovare.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: Attendi con serenità il suo riscontro, senza fare altre mosse finché non avrai sue notizie.
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Dedica il tempo dell'attesa a riflettere sul significato che questa relazione avrebbe nella tua vita, senza anticipare esiti.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Scrivi un elenco delle tue aspirazioni più profonde, separando quelle materiali da quelle emotive, come fossero due colonne di un arcano.
+  -- giro_B_aura.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: NESSUNA
+     Scambio 2 | "Da giorni ho un nodo allo stomaco e dormo male."
+        a schermo: Appoggia entrambe le mani sul tuo addome, sopra l'ombelico e senti il calore.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: Inspira lentamente per quattro tempi, trattieni il respiro per due ed espira per sei tempi, tre volte.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: Chiudi gli occhi per un momento e senti la luce della fiamma riflettersi dentro di te.
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: NESSUNA
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Appoggia i piedi saldamente a terra e senti il contatto con il suolo per un minuto intero.
+  -- giro_B_caligo.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: NESSUNA
+     Scambio 2 | "Devo decidere se lasciare il lavoro per aprire una bottega mia."
+        a schermo: Prepara un sigillo con il tuo nome, incidilo su legno e conservalo nel portafoglio.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: Guarda quel sigillo ogni sera, pensando al nome che hai scritto.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: Poggia il sigillo sul davanzale della tua finestra, sotto la luce della luna piena di oggi.
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: NESSUNA
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Scrivi su un foglio bianco le tue intenzioni per la bottega, senza timore di essere specifico.
+  -- giro_B_medora.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: NESSUNA
+     Scambio 2 | "Il mio compagno è distante da settimane e non so cosa pensare."
+        a schermo: Chiedi a te stessa che cosa ti lega ancora a lui, scrivendo la tua risposta su un foglio da conservare in un cassetto.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: Prenditi un momento per rileggere ciò che hai scritto e poi brucia il foglio, disperdendo le ceneri al vento, come simbolo di purificazione e di un nuovo inizio.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: Ascolta la tua voce interiore e scrivi una lettera a te stessa, tracciando i contorni del futuro che desideri costruire per il tuo cuore.
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: NESSUNA
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Prepara per te stessa una colazione speciale, in silenzio e osserva i primi raggi del Sole, accogliendo il nuovo giorno.
+
+== FASE dopo5: istruzione definitiva, col controllo prima di scrivere
+  EQ.01 dopo5 giro A medora: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 0, sotto una presentazione 1, da rifare 0
+  EQ.01 dopo5 giro A aura: A SCHERMO righe d'oro 3, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 1, sotto una presentazione 1, da rifare 0
+  EQ.01 dopo5 giro A caligo: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 0, da rifare 0
+  EQ.01 dopo5 giro B medora: A SCHERMO righe d'oro 3, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 1, da rifare 0
+  EQ.01 dopo5 giro B aura: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 5, uguali o simili 0, sotto una presentazione 1, da rifare 0
+  EQ.01 dopo5 giro B caligo: A SCHERMO righe d'oro 4, uguali o simili a una già data 0, sotto una presentazione 0, che chiedono di rifare il passo fatto 0; DAL MODELLO righe 4, uguali o simili 0, sotto una presentazione 0, da rifare 0
+  Chiamate a Gemini 44. Modello della chat gemini-2.5-flash, del LIVE gemini-2.5-flash-lite, europe-west1.
+  TOTALE A SCHERMO: righe d'oro 22, uguali o simili a una già data 0, sotto una presentazione 0 (presentazioni 12), che chiedono di rifare il passo 0 (passi fatti 12)
+  TOTALE DAL MODELLO, prima delle reti: righe 27, uguali o simili 1, sotto una presentazione 4, da rifare 0
+
+  -- giro_A_aura.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: NESSUNA
+        dal modello, tolta: Ascolta il tuo respiro per un minuto.
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Porta le mani sul tuo ventre e respira profondamente per sette volte, visualizzando il tuo respiro come un'onda di energia verde smeraldo.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: NESSUNA
+        dal modello, tolta: Porta le mani sul tuo ventre e respira profondamente per sette volte, visualizzando il tuo respiro come un'onda di energia verde smeraldo.
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Poggia una mano sul tuo cuore e senti il ritmo calmo del tuo respiro per alcuni istanti.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Porta i palmi delle mani sulle tue cosce, con le dita rivolte verso il basso e respira lentamente per sentirti saldo.
+  -- giro_A_caligo.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: NESSUNA
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Scegli una sola delle tre vie per oggi e scrivi il suo nome su un foglio bianco.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: Inizia il tuo rituale di abbondanza con una candela dorata, da accendere ogni martedì.
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Dedica cinque minuti ogni sera a visualizzare il tuo desiderio già compiuto, tenendo in mano il foglio con la parola.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Recita a voce alta il desiderio scritto sul foglio, tre volte, al sorgere del sole.
+  -- giro_A_medora.md
+     Scambio 1, presentazione | "Ciao, chi sei? Come puoi aiutarmi?"
+        a schermo: NESSUNA
+        dal modello, tolta: Guarda il tuo ascendente Gemelli nel cielo questa sera.
+     Scambio 2 | "Beh, vorrei avere una compagna, vorrei andare in Australia e vorrei avessi successo col lavoro che sto facendo."
+        a schermo: Scrivi un elenco delle tue priorità sentimentali, lavorative e di viaggio per i prossimi tre mesi, in questo giorno di Luna Piena.
+     Scambio 3, nel LIVE, passo fatto | "Ok, gli ho scritto adesso."
+        a schermo: Se desideri, puoi indicarmi il tuo nome per poterti rivolgere a te con maggiore confidenza.
+     Scambio 4, passo fatto | "Ok, le ho scritte e adesso cosa faccio?"
+        a schermo: Brucia l'elenco che hai scritto stasera, alla luce della Luna, affidando al cielo le tue intenzioni.
+     Scambio 5, presentazione | "Chi sono gli altri Maestri oltre a te?"
+        a schermo: NESSUNA
+     Scambio 6 | "E domani cosa posso fare?"
+        a schermo: Prepara un piccolo blocco note e annota ogni idea o intuizione che ti viene, specialmente quelle relative ai tuoi progetti, come quello in Australia o al lavoro, durante la giornata di domani.
+  -- giro_B_aura.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: NESSUNA
+        dal modello, tolta: Poggia la mano sul cuore e senti il tuo respiro.
+     Scambio 2 | "Da giorni ho un nodo allo stomaco e dormo male."
+        a schermo: Porta una mano sull'addome, proprio sopra l'ombelico e respira profondamente per cinque volte, sentendo il calore della tua mano.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: Trova un momento di silenzio oggi per sederti in pace, appoggiando i piedi a terra e percepisci il contatto con la terra sotto di te.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: Chiudi gli occhi e visualizza il tuo respiro come un'onda che entra ed esce dal tuo plesso solare, portando armonia.
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: NESSUNA
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Bevi un bicchiere d'acqua lentamente, gustando ogni sorso come un nutrimento per il tuo corpo.
+  -- giro_B_caligo.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: NESSUNA
+     Scambio 2 | "Devo decidere se lasciare il lavoro per aprire una bottega mia."
+        a schermo: Prepara un piccolo altare con una candela bianca e un foglio di carta e scrivi il nome Kenaz.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: Tieni un piccolo oggetto di metallo, come una moneta o un ciondolo, nella mano destra per la notte.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: Porta con te l'oggetto di metallo fino a domani sera, come promemoria della tua decisione.
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: NESSUNA
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Scrivi i tre passi su un foglio e mettilo sotto l'oggetto di metallo che hai con te.
+  -- giro_B_medora.md
+     Scambio 1, presentazione | "Buonasera. Tu chi sei e cosa fai?"
+        a schermo: NESSUNA
+        dal modello, tolta: Raccogli le tue domande per un consulto personale, ti aspetto nel cerchio.
+     Scambio 2 | "Il mio compagno è distante da settimane e non so cosa pensare."
+        a schermo: Scrivi al tuo compagno per chiedere un incontro sereno, senza recriminazioni.
+     Scambio 3, passo fatto | "Fatto, ho scritto quello che mi hai detto. E ora?"
+        a schermo: Prepara un piccolo spazio per te stessa dove potrai accogliere la sua risposta.
+     Scambio 4, passo fatto | "Ho acceso una candela come mi hai detto. Cosa faccio adesso?"
+        a schermo: NESSUNA
+     Scambio 5, presentazione | "E chi sono gli altri Maestri?"
+        a schermo: NESSUNA
+     Scambio 6 | "Cosa posso fare domani mattina?"
+        a schermo: Prepara una tisana calda e siediti in silenzio per un quarto d'ora, osservando il sorgere del sole.
+
+MISURA, a schermo, prima e dopo, due giri:
+  righe d'oro uguali o simili a una già data: da 3 su 30 a 0 su 22 (catture: da 3 su 4)
+  presentazioni con la riga d'oro: da 6 su 12 a 0 su 12 (catture: da 1 a 0)
+  righe che chiedono di rifare il passo appena fatto: da 2 su 12 a 0 su 12
+
+Le guardie: test/la_riga_d_oro_che_non_va_data_test.dart, nate rosse,
+docs/collaudo/EQ/eq01_regola_a_innesti.txt; Regola B sulle versioni di HEAD,
+docs/collaudo/EQ/eq01_regola_b.txt.

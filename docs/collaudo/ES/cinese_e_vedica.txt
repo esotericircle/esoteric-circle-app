@@ -1,0 +1,399 @@
+# Segno cinese e segno vedico, specifiche per il calcolo offline
+
+Ricerca del 29 settembre 2026. Nessun file del repository e' stato toccato:
+tutto sta in questa cartella `ricerca/` e negli script accanto (`../capodanno.py`,
+`../finale.py`, `../vedica.py`), che si possono rilanciare.
+
+File prodotti:
+
+- `capodanno_lunare_1900_2100.csv`: 201 righe, una per anno, con data del
+  Capodanno lunare, animale, animale precedente, ultimo giorno che resta
+  all'animale precedente, Lichun con l'ora, confronto con l'Osservatorio di Hong
+  Kong e con la libreria `lunardate`.
+- `cinese_vedica_dieci_date.csv`: le dieci nascite di prova con Luna tropicale
+  (due strumenti), ayanamsa, Luna siderale, rashi, distanza dal confine del
+  segno, animale cinese, e per completezza il Lagna.
+- questo documento.
+
+---
+
+## 1. Il segno cinese (l'animale dell'anno)
+
+### 1.1 Da quando comincia l'anno dell'animale
+
+L'animale non cambia il 1 gennaio. Esistono due confini in uso, ed e' bene
+saperli entrambi:
+
+1. **Capodanno lunare** (Chunjie, primo giorno del primo mese del calendario
+   lunisolare cinese). Cade fra il 21 gennaio e il 20 febbraio. E' il confine
+   del **segno popolare**: quello dei calendari, degli auguri, dei siti di
+   oroscopo cinese, di cio' che una persona sa di se' ("sono del Drago").
+   **E' quello che l'app deve usare per il segno dell'animale.**
+2. **Lichun** (inizio della primavera), il termine solare in cui la longitudine
+   eclittica apparente del Sole vale 315 gradi. Cade il 3, 4 o 5 febbraio
+   (nel 1900..2100 fra il 3 e il 5), e conta **l'istante**, non solo il giorno.
+   E' il confine del **pilastro dell'anno nel Ba Zi** (i Quattro Pilastri) e di
+   parte della tradizione degli almanacchi (Tong Shu). Per il Ba Zi il calendario
+   di riferimento e' solare (i dodici mesi cominciano ai "termini di sezione",
+   jieqi), non lunare.
+
+Le due convenzioni danno un animale diverso a chi nasce fra le due date: se il
+Capodanno viene dopo il Lichun (esempio 2026: Lichun 4 febbraio, Capodanno 17
+febbraio) chi nasce dal 4 al 16 febbraio 2026 e' Serpente nel segno popolare e
+Cavallo nel Ba Zi; se il Capodanno viene prima (esempio 2023: Capodanno 22
+gennaio, Lichun 4 febbraio) chi nasce dal 22 gennaio al 3 febbraio 2023 e'
+Coniglio nel segno popolare e ancora Tigre nel Ba Zi. La tabella porta entrambe
+le date, quindi un eventuale Ba Zi futuro non richiede altra ricerca (ma per il
+Ba Zi serve l'ora del Lichun, che la tabella da' in UTC+8 al minuto).
+
+### 1.2 Le regole del calendario (per chi vuole sapere da dove vengono le date)
+
+Regole del calendario moderno, come le enunciano Yuk Tung Liu e Helmer Aslaksen
+e come le fissa lo standard cinese GB/T 33661-2017:
+
+1. Gli istanti di luna nuova e dei termini solari si calcolano per il meridiano
+   120 gradi Est, cioe' nel fuso UTC+8, **dal 1929**. Prima si usava il meridiano
+   di Pechino, 116 gradi 25 primi Est (ora media locale, UTC+7 ore 45 minuti
+   40 secondi circa). Prima del 1912 il calendario ufficiale era lo Shixian della
+   dinastia Qing, calcolato con metodi astronomici meno precisi.
+2. Il giorno che contiene la luna nuova e' il primo giorno del mese.
+3. Il solstizio d'inverno cade sempre nel mese 11.
+4. Se fra un mese 11 e il successivo ci sono tredici mesi, il primo di essi che
+   non contiene un termine principale (zhongqi, longitudine solare multipla di
+   30 gradi) e' intercalare.
+5. Il Capodanno e' l'inizio del secondo mese dopo il mese 11, senza contare un
+   eventuale mese intercalare. Di solito e' quindi la seconda luna nuova dopo il
+   solstizio d'inverno; e' la terza quando c'e' un mese 11 o 12 intercalare. Nel
+   1900..2100 succede una volta sola: il mese 11 intercalare del 2033 (il noto
+   "problema del 2033"), per cui il Capodanno 2034 cade il 19 febbraio.
+
+### 1.3 Come e' stata costruita e verificata la tabella
+
+Tre fonti indipendenti, confrontate anno per anno:
+
+- **Calcolo astronomico mio** (`../capodanno.py`): lune nuove e termini solari
+  dall'effemeride JPL DE440s con skyfield 1.55, applicando le regole qui sopra.
+  L'ho fatto girare due volte, in UTC+8 e nell'ora media di Pechino. La tabella
+  finale usa l'ora media di Pechino per il 1900..1928 e UTC+8 dal 1929.
+- **Osservatorio di Hong Kong** (HKO), tabelle ufficiali di conversione
+  gregoriano lunare, un file per anno dal 1901 al 2100, scaricate tutte e lette
+  a macchina (`https://www.hko.gov.hk/en/gts/time/calendar/text/files/T2007e.txt`
+  e simili). Dal file si legge la riga "1st Lunar month" e la riga "Spring
+  Commences" (il Lichun).
+- **Libreria `lunardate` 0.3.0** (tabella del calendario 1900..2099).
+
+Esito (numeri riletti dall'uscita di `../finale.py`, vedi le colonne
+`concorda_hko`, `concorda_lichun_hko`, `concorda_lunardate` del CSV):
+
+- Capodanno: il mio calcolo coincide con HKO in **200 anni su 200** (1901..2100)
+  e con `lunardate` in **200 su 200** (1900..2099). Il 1900 lo coprono solo il
+  calcolo e `lunardate` (31 gennaio 1900, Topo, come chiesto); il 2100 solo il
+  calcolo e HKO (9 febbraio 2100).
+- Lichun: la mia data in UTC+8 coincide con quella HKO in **200 anni su 200**.
+
+**Il fuso conta davvero.** Con il solo UTC+8 il calcolo sbaglierebbe il 1916
+(darebbe 4 febbraio invece di 3); con la sola ora di Pechino sbaglierebbe il 2007
+(17 invece di 18 febbraio) e il 2030 (2 invece di 3 febbraio). In quegli anni la
+luna nuova cade a pochi minuti dalla mezzanotte. Anni con la luna nuova del
+Capodanno a meno di mezz'ora dalla mezzanotte (colonna `nota`): 1903, 1916, 1935,
+1954, 1958, 1966, 1968, 1969, 1988, 2007, 2027 (4 minuti), 2030. Dopo il 2030 il
+margine piu' stretto e' 31 minuti (2053), quindi l'incertezza sul Delta T futuro
+(secondi o decine di secondi) non puo' spostare nessuna data fino al 2100.
+
+**Raccomandazione per l'app: non calcolare, tabellare.** Le 201 date entrano in
+una lista costante (201 righe, pochi kilobyte) generata dal CSV; il calcolo
+astronomico sul telefono non serve e porterebbe solo rischi.
+
+### 1.4 Chi cambia animale nascendo a gennaio o febbraio
+
+- Chi nasce **dal 1 al 20 gennaio** ha **sempre** l'animale dell'anno
+  gregoriano precedente (il Capodanno piu' precoce del 1900..2100 e' il 21
+  gennaio: 1966, 2061, 2099).
+- Chi nasce **dal 21 febbraio in poi** ha **sempre** l'animale del proprio anno
+  gregoriano (il Capodanno piu' tardo e' il 20 febbraio: 1920, 1985).
+- Chi nasce **fra il 21 gennaio e il 20 febbraio** dipende dall'anno: e' il
+  caso che la tabella risolve. La colonna
+  `nati_1_gennaio_fino_a_con_animale_precedente` dice l'ultimo giorno che resta
+  all'animale precedente.
+
+Quindi **ogni anno** ha una finestra di nascite (dal 1 gennaio alla vigilia del
+Capodanno, da 20 a 50 giorni) in cui l'animale non e' quello dell'anno
+gregoriano. Esempi utili come prove:
+
+| nascita | animale giusto | errore se si usasse l'anno gregoriano |
+|---|---|---|
+| 1 gennaio 2000 | Coniglio (Capodanno 5 febbraio 2000) | Drago |
+| 19 febbraio 1985 | Topo (Capodanno 20 febbraio 1985) | Bue |
+| 20 febbraio 1985 | Bue | |
+| 3 febbraio 1916 | Drago (Capodanno 3 febbraio 1916) | |
+| 2 febbraio 1916 | Coniglio | Drago |
+| 17 febbraio 2007 | Cane (Capodanno 18 febbraio 2007) | Maiale |
+| 16 febbraio 2026 | Serpente (Capodanno 17 febbraio 2026) | Cavallo |
+| 18 febbraio 2034 | Bue (Capodanno 19 febbraio 2034, mese 11 intercalare) | Tigre |
+
+### 1.5 Una decisione da prendere: il fuso della nascita
+
+La data del Capodanno e' una data civile cinese (UTC+8). Per chi nasce in Italia
+la sola nascita ambigua e' quella della **vigilia** dopo le 17:00 ora italiana
+(in gennaio e febbraio l'Italia e' in UTC+1): in quel momento a Pechino e' gia'
+il giorno del Capodanno. Due scelte possibili:
+
+- **data civile locale** (consigliata): si confronta la data di nascita
+  italiana con la data del Capodanno. E' cio' che fanno i calcolatori popolari ed
+  e' cio' che la persona si aspetta.
+- istante convertito in UTC+8: piu' rigoroso sul piano del calendario cinese,
+  ma sposta all'anno nuovo chi e' nato la sera della vigilia.
+
+La differenza tocca poche ore l'anno. La scelta e' di Mauro; qui propongo la data
+civile locale.
+
+### 1.6 Ordine degli animali
+
+Topo, Bue, Tigre, Coniglio, Drago, Serpente, Cavallo, Capra, Scimmia, Gallo,
+Cane, Maiale. Indice = (anno cinese - 1900) modulo 12, con 1900 = Topo (dal 31
+gennaio 1900). L'anno cinese e' l'anno gregoriano se la data e' dal Capodanno in
+poi, altrimenti l'anno gregoriano meno uno.
+
+---
+
+## 2. Il segno vedico (rashi lunare, Chandra rashi)
+
+### 2.1 Qual e' "il segno" di una persona in India
+
+Nella pratica indiana comune il segno di una persona, **Rashi** o **Janma
+Rashi**, e' il segno **siderale** in cui si trova **la Luna** alla nascita
+(Chandra rashi), non il Sole. Drik Panchang, il riferimento indiano piu' diffuso
+per i calcoli di panchang, lo scrive in apertura del suo calcolatore: "Moonsign
+at the time of the birth is known as Rashi or Janma Rashi", e aggiunge che e'
+l'astrologia occidentale a dare piu' peso al segno solare. Gli oroscopi
+quotidiani indiani si leggono sul rashi lunare, e sul rashi e sul nakshatra
+lunari si fondano la scelta del nome (namakarana) e la compatibilita' di coppia.
+
+**Il Lagna** (ascendente siderale, il segno che sorge a Est all'istante della
+nascita) e' per gli astrologi la base della carta natale (primo bhava) e
+dell'interpretazione piu' completa; la Luna resta il riferimento per il segno
+"di tutti i giorni" e il ripiego quando l'ora di nascita non e' nota. Il Lagna
+cambia segno circa ogni due ore, quindi **richiede ora e luogo esatti**, mentre
+il rashi lunare cambia ogni due giorni e un quarto circa e regge anche con
+un'ora di nascita approssimata (tranne vicino al confine, vedi 2.5).
+
+**Proposta per l'app: il "segno vedico" e' il Chandra rashi.** Il Lagna si puo'
+aggiungere quando l'ora di nascita e' certa; la formula e' in 2.6.
+
+### 2.2 I dodici rashi
+
+| n | sanscrito | italiano | longitudine siderale |
+|---|---|---|---|
+| 1 | Mesha | Ariete | 0 a 30 |
+| 2 | Vrishabha | Toro | 30 a 60 |
+| 3 | Mithuna | Gemelli | 60 a 90 |
+| 4 | Karka | Cancro | 90 a 120 |
+| 5 | Simha | Leone | 120 a 150 |
+| 6 | Kanya | Vergine | 150 a 180 |
+| 7 | Tula | Bilancia | 180 a 210 |
+| 8 | Vrishchika | Scorpione | 210 a 240 |
+| 9 | Dhanu | Sagittario | 240 a 270 |
+| 10 | Makara | Capricorno | 270 a 300 |
+| 11 | Kumbha | Acquario | 300 a 330 |
+| 12 | Mina | Pesci | 330 a 360 |
+
+Indice = parte intera di (longitudine siderale / 30).
+
+### 2.3 L'ayanamsa di Lahiri (Chitrapaksha)
+
+**Definizione.** L'Indian Calendar Reform Committee (1955, relazione del 1956)
+ha fissato l'ayanamsa a **23 gradi 15 primi 00 secondi il 21 marzo 1956 alle
+0:00 Tempo delle Effemeridi**, con il punto zero del zodiaco siderale opposto
+alla stella Spica (Chitra, da cui "Chitrapaksha"). E' diventata la base
+dell'Indian Ephemeris and Nautical Almanac, dell'Indian Astronomical Ephemeris
+(IAE) e del Rashtriya Panchang. Dal 1985 l'IAE ha corretto il valore iniziale a
+**23 gradi 15 primi 00,658 secondi**; secondo la documentazione di Swiss
+Ephemeris il valore e' un'ayanamsa **vera** (con la nutazione, riferita
+all'equinozio vero della data), anche se l'IAE la chiama "media". Swiss
+Ephemeris usa la definizione IAE 1985 come suo `SE_SIDM_LAHIRI` (numero 1); la
+definizione originale ICRC a 23 gradi 15 primi 00,0 secondi e' la numero 46
+(`LAHIRI_ICRC`). La differenza fra le due e' di 0,66 secondi d'arco,
+irrilevante per il rashi.
+
+Fonte: Swiss Ephemeris, documentazione generale, paragrafo "The Spica/Citra
+tradition and the Lahiri ayanamsha" (www.astro.com/swisseph/swisseph.htm), e
+guida del programmatore, paragrafo su `swe_get_ayanamsa` (www.astro.com/swisseph/swephprg.htm).
+
+**Formula per l'app** (ricavata da me interpolando Swiss Ephemeris 2.10.03,
+`SE_SIDM_LAHIRI`, ayanamsa senza nutazione, 2001 punti dal 1900 al 2101):
+
+```
+T = (JD_TT - 2451545.0) / 36525        secoli giuliani da J2000.0, tempo terrestre
+ayanamsa_media (gradi) = 23.8570923260
+                       + 1.3968879401 * T
+                       + 0.0003070962 * T^2
+```
+
+In secondi d'arco: 23 gradi 51 primi 25,532 secondi + 5028,797" T + 1,1056" T^2.
+Il tasso lineare e' la precessione generale in longitudine del modello IAU 2006
+(5028,796195" per secolo), come ci si aspetta. **Scarto massimo rispetto a Swiss
+Ephemeris nel 1900..2100: sotto un millesimo di secondo d'arco.** La sola
+versione lineare (23.8571958098 + 1.3968910089 T) sbaglia al massimo di 0,74
+secondi d'arco: anche quella basta di molto al "minuto d'arco o meglio" chiesto.
+
+**Ayanamsa vera** = ayanamsa media + nutazione in longitudine (delta psi, al
+massimo circa 17 secondi d'arco). La regola di coerenza e' una sola:
+
+- se la Luna tropicale e' **apparente** (equinozio vero, con la nutazione, come
+  in Meeus capitolo 47 completo), si sottrae l'ayanamsa vera;
+- se la Luna tropicale e' riferita all'**equinozio medio della data** (senza
+  delta psi), si sottrae l'ayanamsa media.
+
+Mescolarle costa al massimo 17 secondi d'arco, cioe' circa mezzo minuto di tempo
+di Luna: irrilevante per il rashi, ma meglio non farlo.
+
+Controllo del punto di definizione: Swiss Ephemeris da' al 21 marzo 1956 0h TT
+un'ayanamsa vera di 23 gradi 15 primi 00,80 secondi, contro i 00,658 della
+definizione: 0,14 secondi d'arco, dovuti ai modelli di precessione e nutazione
+moderni che Swiss Ephemeris usa.
+
+Valori di controllo (Swiss Ephemeris, Lahiri, 1 gennaio 0h): 1900 22,4605 gradi
+(media); 1950 23,1587; 2000 23,8571; 2026 24,2203 (24 gradi 13 primi 13 secondi,
+lo stesso valore che pubblicano i siti di astrologia indiana); 2100 25,2543.
+
+### 2.4 La catena di calcolo
+
+1. Ora locale di nascita con fuso e ora legale storici (per l'Italia: tzdata
+   `Europe/Rome`; attenzione all'ora legale 1966..1979 e a quella di guerra
+   1940..1948), poi UT.
+2. TT = UT + Delta T (circa 30 secondi nel 1900, 63 nel 2000, 69 oggi; per la
+   Luna 1 minuto di tempo vale 0,55 primi d'arco, quindi trascurarlo costa poco
+   ma e' meglio metterlo).
+3. Longitudine eclittica geocentrica tropicale della Luna.
+4. Longitudine siderale = tropicale - ayanamsa (vedi la regola di coerenza).
+5. Rashi = parte intera di (siderale / 30).
+
+Si usa la Luna **geocentrica**, come fanno Swiss Ephemeris e i software indiani
+per il rashi; la parallasse (fino a circa un grado) serve solo a chi calcola in
+modo topocentrico, pratica minoritaria.
+
+### 2.5 Attenzione alla Luna dell'app
+
+L'app ha oggi una sola funzione per la Luna, `Effemeridi._luna` in
+`lib/core/astro/effemeridi.dart` (Meeus capitolo 47 troncato a undici termini,
+senza Delta T). L'ho riscritta identica in Python e confrontata con JPL DE440s su
+20.000 istanti casuali fra il 1900 e il 2100: **errore medio 0,08 gradi, 95
+percentile 0,17, massimo 0,27 gradi**. Col solo cambio di Luna, sottraendo la
+stessa ayanamsa, **il rashi esce diverso nello 0,32 per cento delle nascite**,
+circa una su trecento (quelle con la Luna a meno di un quarto di grado dal
+confine). Per il rashi conviene la serie completa di Meeus capitolo 47 (60
+termini in longitudine, precisione dichiarata da Meeus intorno ai 10 secondi
+d'arco), che per stima porta l'errore sul rashi all'ordine di una nascita su
+diecimila (stima dal rapporto fra errore e ampiezza del segno, non misurata:
+la serie completa non l'ho scritta); per i nakshatra (settori di 13 gradi
+20 primi) e per il Lagna la precisione della serie completa e' comunque
+necessaria. Questa e' una misura, non una modifica: il codice non e' stato
+toccato.
+
+### 2.6 Il Lagna, per completezza
+
+Formula verificata contro Swiss Ephemeris (`houses_ex`) su due nascite, scarto
+zero alla quarta cifra decimale:
+
+```
+theta = tempo siderale locale apparente in gradi (ARMC)
+eps   = obliquita' vera dell'eclittica
+phi   = latitudine geografica
+ascendente_tropicale = atan2( cos(theta), -( sin(theta)*cos(eps) + tan(phi)*sin(eps) ) )
+lagna_siderale = ascendente_tropicale - ayanamsa_vera
+```
+
+Il rashi del Lagna di ciascuna delle dieci nascite di prova e' nel CSV.
+
+### 2.7 Le dieci nascite di prova
+
+Strumento A: Swiss Ephemeris 2.10.03 (pacchetto `pysweph`, la Luna col
+modello analitico di Moshier perche' i file `.se1` non sono installati),
+`SE_SIDM_LAHIRI`, posizione siderale chiesta direttamente con
+`SEFLG_SIDEREAL`. Strumento B: skyfield con JPL DE440s per la Luna tropicale
+apparente, meno la formula di 2.3 piu' la nutazione. **I due strumenti
+concordano sul rashi in dieci casi su dieci**, con uno scarto sulla longitudine
+siderale fra 0,1 e 5 secondi d'arco. Ore locali convertite con tzdata
+`Europe/Rome`: ora legale nel 1968, 1979, 1985 e 1999.
+
+| nascita (ora italiana) | UT | Luna tropicale | ayanamsa vera | Luna siderale | rashi lunare | animale |
+|---|---|---|---|---|---|---|
+| 1990-03-15 08:30 Roma | 07:30 | 217,513 | 23,7236 | 193,789 | Tula (Bilancia) | Cavallo |
+| 1985-07-04 22:10 Milano | 20:10 | 312,755 | 23,6515 | 289,104 | Makara (Capricorno) | Bue |
+| 2000-01-01 00:05 Napoli | 1999-12-31 23:05 | 216,831 | 23,8532 | 192,978 | Tula (Bilancia) | Coniglio (non Drago) |
+| 1972-11-23 14:00 Torino | 13:00 | 97,712 | 23,4827 | 74,229 | Mithuna (Gemelli) | Topo |
+| 1995-12-24 06:45 Palermo | 05:45 | 302,444 | 23,8029 | 278,641 | Makara (Capricorno) | Maiale |
+| 1968-06-21 12:00 Firenze | 10:00 | 40,642 | 23,4155 | 17,227 | Mesha (Ariete) | Scimmia |
+| 2004-02-29 18:20 Bologna | 17:20 | 87,583 | 23,9122 | 63,671 | Mithuna (Gemelli) | Scimmia |
+| 1979-09-09 03:15 Bari | 01:15 | 22,165 | 23,5716 | 358,593 | Mina (Pesci) | Capra |
+| 1999-08-11 11:00 Venezia | 09:00 | 137,108 | 23,8485 | 113,259 | Karka (Cancro) | Coniglio |
+| 1958-04-30 20:30 Genova | 19:30 | 182,100 | 23,2772 | 158,823 | Kanya (Vergine) | Cane |
+
+Da notare, perche' sono buone prove:
+
+- **Bari 1979**: la Luna e' a 22 gradi dell'Ariete tropicale ma a 28 gradi 36
+  primi dei **Pesci** siderali, a 1,4 gradi (circa 2,3 ore) dal confine con
+  Mesha. Una Luna con un errore di qualche decimo di grado resta dentro, ma e' il
+  caso piu' vicino al confine dei dieci.
+- **Firenze 1968**: Toro tropicale, **Ariete** siderale: mostra bene che il
+  segno vedico non e' il segno occidentale spostato di un nome fisso, lo e' solo
+  se la Luna sta nei primi 23 gradi circa del segno tropicale.
+- **Napoli 2000**: nata il 1 gennaio 2000, cinque minuti dopo mezzanotte, e'
+  **Coniglio**, non Drago.
+- **Venezia 1999**: e' la mattina dell'eclissi totale di Sole dell'11 agosto
+  1999 (massimo alle 11:03 UT); la Luna a 137,1 gradi tropicali e' poco dietro
+  il Sole, come deve: controllo di buon senso superato.
+
+---
+
+## 3. Incertezze e limiti
+
+1. **Anni prima del 1929.** La tabella segue HKO e `lunardate`, che per quegli
+   anni coincidono col calcolo nell'ora media di Pechino. Il calendario Qing
+   (fino al 1912) era calcolato con metodi piu' vecchi: fonti storiche diverse da
+   HKO potrebbero divergere di un giorno in qualche anno. Non l'ho verificato su
+   almanacchi dell'epoca.
+2. **Il fuso della nascita per il Capodanno** (1.5): scelta da fare, tocca solo
+   la sera della vigilia.
+3. **Lahiri ha piu' varianti** (IAE 1985, ICRC 1956, Lahiri 1940, "True
+   Chitrapaksha" con Spica sempre a 180 gradi). Differiscono da meno di un
+   secondo d'arco (ICRC contro IAE) a circa un minuto d'arco (Lahiri 1940, True
+   Chitrapaksha). Per il rashi la scelta cambia il risultato solo per la Luna a
+   meno di un minuto d'arco dal confine, cioe' in una finestra di circa due
+   minuti di tempo. La formula data e' quella dello standard `SE_SIDM_LAHIRI`,
+   che e' anche il predefinito di Jagannatha Hora e di Drik Panchang.
+4. **Swiss Ephemeris senza i file `.se1`** calcola la Luna col modello di
+   Moshier (precisione dell'ordine del secondo d'arco); per questo l'ho
+   confrontata con DE440s, e lo scarto massimo sulle dieci nascite e' 5 secondi
+   d'arco (Genova 1958, dove pesa la differenza di Delta T fra i due programmi).
+5. **Lagna**: il valore nel CSV usa le coordinate del centro citta'; un Lagna
+   vero richiede luogo e ora esatti al minuto.
+6. Il confronto con fonti online sulle dieci nascite vediche non e' stato fatto
+   con un sito indiano (i calcolatori sono moduli interattivi); la verifica e'
+   fra due strumenti indipendenti, uno dei quali (Swiss Ephemeris) e' il motore
+   stesso che usano quei siti.
+
+## 4. Fonti
+
+- Hong Kong Observatory, Gregorian-Lunar Calendar Conversion Table, file annuali
+  1901..2100: https://www.hko.gov.hk/en/gts/time/calendar/text/files/T2026e.txt
+  (e gli altri anni con lo stesso schema).
+- Yuk Tung Liu, Rules for the Chinese Calendar:
+  https://ytliu0.github.io/ChineseCalendar/rules.html (regole, meridiano 120 E
+  dal 1929, Pechino prima, GB/T 33661-2017).
+- Helmer Aslaksen, The Mathematics of the Chinese Calendar (National University
+  of Singapore), copia: https://gwern.net/doc/science/physics/astronomy/2010-aslaksen.pdf
+- Swiss Ephemeris, documentazione generale, paragrafo sulla tradizione
+  Spica/Citra e l'ayanamsa di Lahiri: https://www.astro.com/swisseph/swisseph.htm
+- Swiss Ephemeris, guida del programmatore, ayanamsa con e senza nutazione:
+  https://www.astro.com/swisseph/swephprg.htm
+- Drik Panchang, Rashi calculator (definizione di Janma Rashi come segno
+  lunare): https://www.drikpanchang.com/utilities/horoscope/hindu-moonsign-calculator.html
+- Wikipedia, Lagna: https://en.wikipedia.org/wiki/Lagna
+- Sul confine Lichun e Capodanno nel Ba Zi: per esempio
+  https://jadezodiac.com/methodology (fonte divulgativa, la regola e' pero'
+  quella di tutti i manuali di Ba Zi).
+- Jean Meeus, Astronomical Algorithms, 2a edizione, capitoli 22 (nutazione) e
+  47 (posizione della Luna).
+- Strumenti: skyfield 1.55 con JPL DE440s; pysweph 2.10.3.6 (Swiss Ephemeris
+  2.10.03); lunardate 0.3.0; tzdata 2026.4.

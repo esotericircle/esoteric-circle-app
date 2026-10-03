@@ -1,0 +1,28 @@
+== EQ.02 Regola B 1: il cerchio non dice piu' "soltanto tre" (i_maestri_si_conoscono_e_non_rifiutano)
+   file lib/core/maestro/voce_del_maestro.dart, sha1 prima 16cec2b07396, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +7 -1: Some tests failed.
+   Expected: contains 'sono tre e soltanto tre'
+   Actual: 'IDENTITÀ:\n'
+   ripristinato: sha1 16cec2b07396, uguale
+== EQ.02 Regola B 2: le parole di firma degli altri arrivano a meta' (le_tre_voci_non_si_confondono)
+   file lib/services/ai/maestro_persona.dart, sha1 prima cb3307c095b4, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +10 -1: Some tests failed.
+   Expected: contains 'corona'
+   Actual: 'le parole degli altri due, che non dici mai, nemmeno una volta e nemmeno di sfuggita:\n'
+   ripristinato: sha1 cb3307c095b4, uguale
+== EQ.02 Regola B 3: la domanda si rifiuta per un dettaglio (i_maestri_si_conoscono_e_non_rifiutano)
+   file lib/services/ai/maestro_persona.dart, sha1 prima cb3307c095b4, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +7 -1: Some tests failed.
+   Expected: contains 'Una domanda non si rifiuta per un dettaglio'
+   Actual: 'IDENTITÀ:\n'
+   ripristinato: sha1 cb3307c095b4, uguale
+== EQ.02 Regola B 4: la risposta nel merito non dice piu' di interpretare il responso (il_maestro_risponde_nel_merito)
+   file lib/core/chat/la_risposta_nel_merito.dart, sha1 prima 87bce716cbfb, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +2 -1: Some tests failed.
+   Expected: empty
+   Actual: ['non dice di interpretare il responso che la persona ha gia\' in mano']
+   ripristinato: sha1 87bce716cbfb, uguale

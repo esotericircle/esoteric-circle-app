@@ -1,0 +1,4 @@
+EQ.04, l'attesa della stesa sul Realme 767f596c, build locale di prova del 27 settembre 2026 (non una consegna), dal tocco su Leggi le Carte al testo:
+09-27 10:20:50 STESA TEMPI: testo a 3931 ms dal tocco, lettura del modello, chiamate 1, riscritture 0 (Devo cambiare lavoro questo inverno?)
+09-27 10:25:50 STESA TEMPI: testo a 10001 ms dal tocco, lettura di casa (la chiamata non e' tornata: TimeoutException after 0:00:09.999997), chiamate 1, riscritture 0 (Devo accettare il nuovo lavoro a Milano?)
+09-27 10:28:44 STESA TEMPI: testo a 4011 ms dal tocco, lettura del modello, chiamate 1, riscritture 0 (Devo trasferirmi al mare questa estate?)

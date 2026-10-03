@@ -1,0 +1,94 @@
+ORDINE EN, LE RISPOSTE DEI MAESTRI E LA MEMORIA SUL REALME, 25 SETTEMBRE 2026
+Realme 767f596c, account di prova. Le domande nel LIVE le dice la voce italiana di Windows dalle casse del PC; in chat
+le scrivo con adb. I testi interi delle risposte vengono dal dump di uiautomator della chat, dove il LIVE scrive i suoi
+turni (en/ui_medora1, ui_medora2, ui_caligo1 nello scratchpad), le catture dalle raffiche di schermate.
+
+1. LA SEQUENZA DELLE CATTURE DEL FONDATORE, NEL LIVE DI MEDORA (build 2282 di prova 2, 11:54-11:56)
+   Le catture del fondatore, build 2281, 09:54-09:58: alla prima domanda una risposta nel merito col gesto "Acquista
+   un foglio di carta di buona qualità e una penna con..."; a "Prova ancora" il rifiuto "La tua domanda sulla moglie
+   esula dal mio dominio" col "Maestro dei Sentimenti"; a "E chi è il maestro di centimenti?" il Maestro inventato
+   descritto come "un'altra delle voci che ti accompagnano".
+
+   Persona: "Ciao. Mia moglie mi ha lasciato con l'avvocato. Cosa posso fare per farla tornare?"
+   Medora:  "Nessun gesto, rito o momento del cielo può far tornare una persona che ha scelto di allontanarsi: la sua
+            volontà è sua. Ciò che puoi fare è concentrarti sul tuo cammino e, se desideri un chiarimento, chiederle
+            un solo incontro per parlare con sincerità, accettando la sua risposta. Il transito di Saturno retrogrado,
+            oggi, ti invita a riflettere profondamente sulle fondamenta del tuo legame.
+            Per la parte legale affidati a un avvocato tuo: il suo tempo e il tuo non sono lo stesso.
+            ✦ Scrivi su un foglio i motivi per cui la ami ancora e conservalo fino alla Luna piena."
+            (la frase sull'avvocato e' della rete di chi di dovere: la risposta del modello non lo nominava. La sua
+            seconda meta' si leggeva male sotto questa domanda, "il suo" come la moglie: riscritta dopo questa prova,
+            "io leggo il tempo, non le carte bollate")
+   Persona: "Prova ancora a rispondermi sulla moglie."
+   Medora:  "Prova a scriverle un messaggio semplice, senza chiedere nulla, solo per farle sapere che stai pensando a
+            lei. Poi attendi una sua reazione.
+            ✦ Porta con te il ricordo di un momento felice con lei, come un talismano, per tutta la giornata di domani."
+   Persona: "E chi è il maestro dei sentimenti?"
+   Medora:  "Il maestro dei sentimenti sono io, Medora: mi occupo dell'amore, della coppia e dei legami, attraverso
+            l'Astrologia, la Cartomanzia e il Destino."
+   Persona: "C'è un maestro che si occupa dei sentimenti e dell'amore?"
+   Medora:  "Il maestro dei sentimenti e dell'amore sono io, Medora. Le mie arti sono l'Astrologia, la Cartomanzia e
+            il Destino e sono io che leggo i legami e le unioni. Aura si occupa di Chakra, Energia e Archetipi, mentre
+            Calìgo è il maestro di Rune, Rituali e Numerologia."
+   Conto: rifiuti 0 su 4 (le catture: 1 su 3); Maestri inventati 0 su 4 (le catture: 2 su 3); riti o gesti per far
+   tornare la moglie 0 su 4; l'avvocato indicato nella risposta alla domanda che lo nomina, 1 su 1; risposte uguali
+   0. Il volto ha parlato a 5,4, 6,9, 6,2 e 5,8 secondi dalla fine della domanda.
+   Cattura: en05_en08_medora_nel_live_la_moglie.jpg
+
+2. CALÌGO NEL LIVE (build 2282 di prova 2, 12:00)
+   Persona: "Ciao. Chi sono gli altri maestri oltre a te?"
+   Calìgo:  "Medora è la Maestra dell'Astrologia, della Cartomanzia e del Destino. Aura è la Maestra dei Chakra,
+            dell'Energia e degli Archetipi."
+            (nelle catture del fondatore: "Non ti è dato sapere. Io sono Caligo, il Custode dei segni antichi. La runa
+            del mistero, Perthro [...] ✦ Apri una pagina bianca, scrivi il tuo nome e bruciala.")
+   Persona: "Calìgo, mia moglie mi ha lasciato. Quale rito posso fare per farla tornare?"
+   Calìgo:  "Nessun rito, gesto o lettera può forzare la volontà di un altro. La sua scelta è sua. Puoi agire solo su
+            ciò che ti riguarda. La tua Luna gibbosa calante al momento della nascita indica un ciclo di chiusura, di
+            accettazione.
+            ✦ Chiedile un incontro, senza pretese, per ascoltare. Domani al tramonto una runa nuova ti aspetta."
+            (l'invito della sera e' dell'app)
+   Conto: altri due nominati 2 su 2, lettura non chiesta 0; riti per far tornare 0 su 1.
+   Cattura: en07_en08_caligo_nel_live_il_rito.jpg
+
+3. LA MEMORIA, IN CHAT E NEL LIVE, FRA MAESTRI DIVERSI (voce EN.09)
+   IL LIVELLO DELL'ACCOUNT DI PROVA: a video "Oggi hai 50 domande ai Maestri" e "Oggi hai 30 approfondimenti", cioe'
+   il piano Tier 3 della matrice (lib/core/entitlement/plan_catalog.dart, righe 503-508: "Domande a un Maestro"
+   50 al giorno e "Vai più a fondo" 30 al giorno sono i valori del Tier 3). E la build gira in demo
+   (lib/core/config/app_flags.dart, riga 10, isDemo = true), dove la memoria e' accesa per tutti per ordine BG voce
+   03. I turni degli altri due Maestri arrivano solo dove arriva la memoria calda: chi ha la memoria nel piano, o la
+   demo; la guardia nuova lo prova anche al contrario, col piano Free fuori demo, dove non arrivano.
+
+   a) CHAT DI MEDORA, poi LIVE DI AURA (build 2282 di prova, 11:21-11:28)
+      In chat a Medora: "Mia sorella Clara si sposa il 10 maggio a Verona e io sono agitato. Cosa mi consigli per
+      quel giorno?" (cattura en09_1_il_fatto_scritto_a_medora_in_chat.jpg)
+      Nel LIVE di Aura, detto: "Aura, sai chi si sposa a maggio nella mia famiglia?" (trascritto "Ora sai chi si sposa
+      a maggio nella mia famiglia.")
+      Aura: "La cerimonia di tua sorella Clara porta con sé un'energia di rinnovamento, un vortice che può toccare
+            anche il tuo centro del cuore, Anahata, che sentivi bloccato. [...] ✦ Porta una mano al cuore e senti il
+            suo ritmo." (cattura en09_2_aura_nel_live_sa_di_clara.jpg)
+      ESITO: il fatto detto a Medora in chat arriva ad Aura nel LIVE. Con la 2281 non poteva: la memoria era di un
+      Maestro solo.
+
+   b) LIVE DI AURA, poi CHAT DI AURA, stesso Maestro (11:28-11:36)
+      Nel LIVE di Aura, detto: "Il mio cane si chiama Argo e ha paura dei temporali. Come posso calmarlo?"
+      In chat ad Aura: "Come si chiama il mio cane?"
+      Aura: "Il tuo cane si chiama Argo. Questo nome risuona con un'energia antica e forte. [...]"
+      (cattura en09_3_aura_in_chat_sa_di_argo.jpg)
+
+   c) LIVE DI AURA, poi CHAT DI MEDORA, Maestri diversi
+      Prima prova, build 2282 di prova, 11:37: "Come si chiama il mio cane?"
+      Medora: "Non posso dirti il nome del tuo cane. Non è un dato che il cielo o le carte rivelano."
+      (cattura en09_4_medora_in_chat_non_sa_di_argo_build_di_prova.jpg)
+      LA CAUSA: dagli altri due Maestri arrivavano le ultime SEI frasi della persona. Nel LIVE di Aura il cane era la
+      seconda di otto frasi, seguita da sei domande e da una in chat: era fuori. Padre: questo stesso ordine, voce
+      EN.09, la prima stesura di lib/core/chat/i_ricordi_degli_altri.dart. Portate a dodici frasi, lette dagli
+      ultimi quaranta messaggi; la guardia nuova "un fatto detto prima di otto domande arriva lo stesso" vista rossa
+      col limite di prima.
+      Seconda prova, build 2282 di prova 2, 11:53: "Ricordi il nome del mio cane?" (domanda nuova: la stessa di prima
+      l'avrebbe ridetta la lettura del giorno senza chiamare il modello)
+      Medora: "Il tuo cane si chiama Argo. [...] ✦ Prepara per Argo un posto caldo vicino a te questa sera."
+      (cattura en09_5_medora_in_chat_sa_di_argo.jpg)
+      ESITO: il fatto detto ad Aura nel LIVE arriva a Medora in chat.
+
+   Conto finale: tre strade su tre (chat verso LIVE con un Maestro diverso, LIVE verso chat con lo stesso Maestro,
+   LIVE verso chat con un Maestro diverso); prima della cura, con Maestri diversi, zero su due.

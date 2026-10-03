@@ -1,0 +1,48 @@
+S01|SI|SI|NA|SI|NA|al limite: la paura di deludere traspare nel desiderio di essere accolta; dono alla madre concreto
+S02|SI|NA|NA|SI|NA|verdetto chiaro e passo concreto: tre curriculum domani mattina
+S03|SI|NO|NA|SI|NA|B NO al limite: inventa un'offerta di lavoro che la memoria non porta
+S04|NO|SI|NA|SI|NA|A NO: non sarà un periodo di avanzamenti, avrai l'occasione detti come certezza; B al limite, colloquio e ceramica invece della banca
+S05|SI|SI|NA|NO|NA|D NO: trasformazione e profondità vanno bene per chiunque; portare Ombra al parco non riguarda Marco
+S06|SI|NO|NA|NO|NA|B NO: ignora i 34 anni; D NO: nessuna data, solo ascoltare il corpo, massima generica
+S07|SI|NA|NA|SI|NA|appuntamento col consulente entro la prossima settimana, passo concreto sulla casa
+S08|NO|NO|NA|SI|NA|A e B NO: attribuisce alla madre il Sole in Cancro, fatto inventato; chiamarla stasera è concreto
+S09|SI|SI|NA|SI|NA|al limite: Marco trattato come noto; chiedergli dei suoi sogni è un passo concreto
+S10|NO|SI|NA|SI|NA|A NO: Ombra si abituerà detto come certezza
+S11|SI|SI|NA|NO|NA|D NO: dialogo onesto e primo passo valgono per chiunque; gesto del respiro estraneo alla sorella
+S12|SI|NA|NA|SI|NA|verdetto e passo concreto sul curriculum
+S13|SI|SI|NA|NO|NA|D NO: parlarle col cuore aperto è una massima per chiunque
+S14|NO|NA|NA|SI|NA|A NO: non prima di tre mesi, dopo che avrai parlato con tua madre, tempi dati per certi
+S15|NO|SI|NA|SI|NA|A NO: Ombra si adatterà e lei la sentirà detti come certezza; D al limite
+S16|SI|SI|NA|SI|NA|usa colloquio, Berlino e ceramica; condizione precisa sul colloquio
+S17|SI|NO|NA|NO|NA|B NO: Marco ignorato; D NO: apriti e ascolta il cuore, generico
+S18|SI|NA|NA|NO|NA|D NO al limite: chiarezza e niente fretta valgono per chiunque; il passo parla di Berlino, non del lavoro
+S19|SI|NA|NA|NO|NA|D NO al limite: solo un'attesa e un rito della moneta, nulla su come riavere i soldi
+S20|SI|NA|NA|SI|NA|aspettare qualche giorno e riparlarne entro mercoledì, concreto
+S21|SI|NA|NA|SI|NA|informarsi sui mutui questa settimana, passo concreto e non consulenza
+S22|SI|NO|NA|NO|NA|B NO: Marco ignorato; D NO: fluidità ed energia, frasi per chiunque
+S23|SI|SI|NA|SI|NA|usa il timore del giudizio; lettera da consegnare fra tre giorni
+S24|NO|NA|NA|NO|NA|A NO: la tua fortuna cambierà detto per certo; D NO al limite: confronto e lettera vaghi
+S25|SI|SI|NA|SI|NA|al limite: verdetto motivato e lista di spinte e freni sul trasferimento
+S26|NO|SI|NA|SI|NA|A NO: Ombra troverà il suo equilibrio detto come certezza; D al limite
+S27|SI|SI|NA|NO|NA|D NO: primo passo e gesto generici; il respiro sul ventre non tocca la sorella
+S28|SI|SI|NA|SI|NA|al limite: verdetto e foglio sulle paure del trasferimento a Berlino
+S29|SI|NO|NA|NO|NA|B NO: ignora i 34 anni; D NO: respiro e fioritura, nessuna indicazione
+S30|SI|SI|NA|SI|NA|al limite: verdetto e lista dei pro e contro per Berlino
+S31|NO|SI|NA|SI|NA|A NO: il sonno arriverà dopo il colloquio detto come certezza
+S32|SI|SI|NA|NO|NA|D NO: gesto di vicinanza e ponte col cuore, massime per chiunque; A al limite
+S33|SI|SI|NA|SI|NA|al limite: il fuoco di Marco è dedotto senza dati; passo concreto prima di rivederlo
+S34|SI|NA|NA|NO|NA|D NO: senti dentro di te e respira, generico
+S35|SI|SI|NA|SI|NA|parlare con Marco stasera dei desideri, passo concreto
+S36|SI|NA|NA|NO|NA|D NO: radicamento e mano sulla radice, nessuna indicazione; A al limite
+S37|NO|NA|NA|SI|NA|A NO: sentirai forte l'equilibrio come certezza, e chiama Bilancia il segno di nascita; D al limite
+S38|SI|SI|NA|SI|NA|al limite: usa il colloquio, non la banca; elenco di priorità concreto
+S39|NO|NO|NA|NO|NA|A NO al limite: osserva il desiderio non è fattibile; B non sa di Berlino; D consolidare generico
+S40|SI|NA|NA|SI|NA|al limite su trovi equilibrio; firma venerdì e rileggi il contratto, preciso
+S41|SI|NA|NA|NO|NA|D NO: consolidare e affinare valgono per chiunque; le mani della persona amata non c'entrano col lavoro
+S42|SI|SI|NA|SI|NA|usa il timore della reazione; parlarle stasera, concreto
+S43|NO|NO|NA|SI|NA|A NO: non prima di tre mesi dato per certo; B NO al limite: ignora le scadenze
+S44|SI|SI|NA|SI|NA|al limite: usa Berlino e la ceramica; condizione e passo simbolici
+S45|SI|NA|NA|SI|NA|al limite: verdetto e messaggio all'amico, passo concreto
+S46|SI|NA|NA|SI|NA|sì condizionato e rilettura del contratto, concreto
+S47|NO|SI|NA|SI|NA|A NO: Ombra si abituerà detto come certezza; D al limite
+S48|SI|NO|NA|SI|NA|B NO al limite: Berlino mai nominata; parlarne con la sorella a cena è concreto

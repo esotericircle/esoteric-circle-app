@@ -1,0 +1,3 @@
+PRIMA STESURA della prova: la domanda era "Mi ama ancora?", che la rete della prima frase legge come domanda di si' o no; li' la riscrittura senza il si' era gia' scartata dalla rete, e l'innesto sulla regola nuova restava VERDE. La prova adesso usa una domanda che la rete legge come aperta, "Che cosa dicono le carte di lui?", dove senza la regola nuova passava tutto.
+INNESTO la risposta nuova passa anche senza la posizione: grep nel file SI; prova ROSSA; file rimesso sha1 6f5df581836772b6f945c80af1f1b72a3d94e915 -> 6f5df581836772b6f945c80af1f1b72a3d94e915 IDENTICO
+INNESTO la correzione non chiede di tenere il sì: grep nel file SI; prova ROSSA; file rimesso sha1 68ea09e6b6daaeea183290add13ad2ed5436816a -> 68ea09e6b6daaeea183290add13ad2ed5436816a IDENTICO

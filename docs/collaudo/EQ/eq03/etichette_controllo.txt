@@ -1,0 +1,62 @@
+# Ordine EQ voce 03: il CONTROLLO del giudice. Risposte vere del collaudo
+# "prima" etichettate a mano il 27 settembre 2026, con la stessa regola di
+# etichette_taratura.txt, PRIMA di far girare su di loro il giudice della
+# seconda stesura: il giudice non e' stato scritto guardandole. Leggendole ho
+# nascosto il verdetto del giudice della prima stesura.
+#
+# I casi dubbi non si scrivono, e qui si contano. Del secondo giro nel LIVE:
+# Medora n. 6 ("scegli un momento in cui la Luna non sia in tensione, sii
+# chiaro e diretto": dice come, ma in modo generico); Caligo n. 6 ("Non
+# chiedere il riconoscimento, crealo", poi un sigillo di eccellenza che non si
+# capisce) e n. 8 ("La tua scelta e' un tuo sentiero, non un giudizio sul
+# suo": non si sa se e' la frase da dirle).
+#
+# trascrizione|numero|atteso|perche'
+prima/LIVE_con_Flash_Lite_giro_2_medora.md|1|SI|dice chi e' e con quali arti guida
+prima/LIVE_con_Flash_Lite_giro_2_medora.md|2|NO|letture vaghe per l'amore e il lavoro, l'Australia ignorata, un gesto verso chi ti ha ferito che non c'entra
+prima/LIVE_con_Flash_Lite_giro_2_medora.md|3|NO|Ascendente e numero, non affrettare le cose: ignora cio' che ha detto
+prima/LIVE_con_Flash_Lite_giro_2_medora.md|4|NO|l'importanza di portare a termine cio' che inizi: una massima
+prima/LIVE_con_Flash_Lite_giro_2_medora.md|5|SI|comincia dal lavoro, e dice perche'
+prima/LIVE_con_Flash_Lite_giro_2_medora.md|7|NO|trovare appagamento nella tua compagnia: generico
+prima/LIVE_con_Flash_Lite_giro_2_medora.md|8|NO|spiega le tue ragioni con chiarezza: non dice che cosa risponderle
+prima/LIVE_con_Flash_Lite_giro_2_medora.md|9|SI|le lacrime sono parte del legame, accettale senza doverle risolvere
+prima/LIVE_con_Flash_Lite_giro_2_medora.md|10|NO|la decisione arrivera' quando le idee saranno espresse: vago
+prima/LIVE_con_Flash_Lite_giro_2_medora.md|11|NO|concentrati sulla preparazione concreta: generico
+prima/LIVE_con_Flash_Lite_giro_2_medora.md|12|SI|al risveglio respirare e centrarsi, alla domanda su domani mattina
+prima/LIVE_con_Flash_Lite_giro_2_aura.md|1|SI|dice chi e' e come aiuta
+prima/LIVE_con_Flash_Lite_giro_2_aura.md|2|NO|rimanda a Medora, poi la forza che abita in te: generico
+prima/LIVE_con_Flash_Lite_giro_2_aura.md|3|NO|solo la riga del respiro: ignora cio' che ha detto
+prima/LIVE_con_Flash_Lite_giro_2_aura.md|4|NO|ascolta il corpo: vuota
+prima/LIVE_con_Flash_Lite_giro_2_aura.md|5|NO|rimanda a Caligo e a Medora, poi senti dove risuona il corpo
+prima/LIVE_con_Flash_Lite_giro_2_aura.md|6|NO|rimanda a Medora, poi nutri l'attesa col respiro
+prima/LIVE_con_Flash_Lite_giro_2_aura.md|7|NO|rimanda a Medora, poi accogli la solitudine senza giudizio
+prima/LIVE_con_Flash_Lite_giro_2_aura.md|8|NO|per le parole rimanda a Medora, poi esprimiti con calma: non dice che cosa
+prima/LIVE_con_Flash_Lite_giro_2_aura.md|9|NO|e' naturale che le emozioni affiorino, poi il respiro: generico
+prima/LIVE_con_Flash_Lite_giro_2_aura.md|10|NO|rimanda a Caligo, poi ascolta il centro
+prima/LIVE_con_Flash_Lite_giro_2_aura.md|11|NO|senti la scelta nel corpo: ignora che cosa fare adesso
+prima/LIVE_con_Flash_Lite_giro_2_aura.md|12|SI|al risveglio il respiro, alla domanda su domani mattina
+prima/LIVE_con_Flash_Lite_giro_2_caligo.md|1|SI|dice chi e' e le sue arti
+prima/LIVE_con_Flash_Lite_giro_2_caligo.md|2|NO|l'amore rimandato a Medora, per il lavoro un sentiero vago, l'Australia ignorata
+prima/LIVE_con_Flash_Lite_giro_2_caligo.md|3|NO|attendi il momento propizio: vago
+prima/LIVE_con_Flash_Lite_giro_2_caligo.md|4|NO|attendi con pazienza: vuota
+prima/LIVE_con_Flash_Lite_giro_2_caligo.md|5|NO|il viaggio rimandato a Medora, non sceglie
+prima/LIVE_con_Flash_Lite_giro_2_caligo.md|7|NO|rimanda a Medora, poi un presagio di scoperta
+prima/LIVE_con_Flash_Lite_giro_2_caligo.md|9|SI|il pianto e' affetto, non un ostacolo: accoglilo senza fermarti
+prima/LIVE_con_Flash_Lite_giro_2_caligo.md|10|NO|la decisione e' gia' in atto: una massima
+prima/LIVE_con_Flash_Lite_giro_2_caligo.md|11|NO|definisci i dettagli del cammino: generico
+prima/LIVE_con_Flash_Lite_giro_2_caligo.md|12|SI|al sorgere del sole scrivere il proposito
+# La chat, primo giro di Caligo: le frasi del corpo sono spesso sentenze, e
+# il passo concreto sta nella riga con la stella. Conta quando parte da cio'
+# che la persona ha detto. Dubbi: n. 2 (tre "non posso" e un numero vago, poi
+# un progetto per ogni desiderio) e n. 11 (disegnare tre simboli
+# dell'Australia dopo "parto a marzo").
+prima/chat_con_Flash_giro_1_caligo.md|1|SI|dice chi e' e le sue arti
+prima/chat_con_Flash_giro_1_caligo.md|3|SI|leggere ad alta voce ogni mattina per sette giorni cio' che ha scritto
+prima/chat_con_Flash_giro_1_caligo.md|4|SI|un colore per ogni progetto scritto
+prima/chat_con_Flash_giro_1_caligo.md|5|SI|comincia dal lavoro, e un altare per il lavoro
+prima/chat_con_Flash_giro_1_caligo.md|6|SI|chiedi un confronto, un incontro di mezz'ora col capo
+prima/chat_con_Flash_giro_1_caligo.md|7|SI|una lettera a se' da aprire in Australia
+prima/chat_con_Flash_giro_1_caligo.md|8|SI|non risponderle, scrivi le tue ragioni e rileggile ogni sera
+prima/chat_con_Flash_giro_1_caligo.md|9|SI|il pianto libera, racconta a tua madre un ricordo felice
+prima/chat_con_Flash_giro_1_caligo.md|10|SI|fissa una data entro la fine del mese per annunciare la partenza
+prima/chat_con_Flash_giro_1_caligo.md|12|NO|non cercare una nuova direzione, indossa qualcosa di rosso: vale per chiunque

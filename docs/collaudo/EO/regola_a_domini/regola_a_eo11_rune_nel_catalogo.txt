@@ -1,0 +1,9 @@
+innesto in lib/core/arts/art_catalog.dart: il vecchio compare 0 volte, il nuovo 1 volte ("    ArtSection(title: 'Divinazione', arts: [\n" -> "    ArtSection(title: 'Rune', arts: [\n")
+  00:00 +0 -1: EO.11: nessuna riga a video coi nomi vecchi delle due sezioni [E]
+    Expected: empty
+      Actual: ['titolo di sezione nel dominio di caligo: Rune']
+  00:00 +0 -2: EO.10 e EO.11: le sezioni di ogni Maestro, coi nomi e nell'ordine del fondatore [E]
+    Expected: ['Divinazione', 'Rituali', 'Magia', 'Numerologia']
+      Actual: ['Rune', 'Rituali', 'Magia', 'Numerologia']
+  00:00 +0 -2: Some tests failed.
+ripristino lib/core/arts/art_catalog.dart: sha1 6d5079c95f27 -> 6d5079c95f27, IDENTICO

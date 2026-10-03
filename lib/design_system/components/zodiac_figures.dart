@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 import 'dart:ui';
 
 import '../../core/astro/zodiac.dart';
@@ -35,7 +36,12 @@ const List<ZodiacConstellation> kZodiacConstellations = [
   ZodiacConstellation(
     sign: Zodiac.aries,
     anchor: Offset(0.22, 0.12),
-    points: [Offset(0.05, 0.62), Offset(0.4, 0.5), Offset(0.72, 0.6), Offset(0.96, 0.4)],
+    points: [
+      Offset(0.05, 0.62),
+      Offset(0.4, 0.5),
+      Offset(0.72, 0.6),
+      Offset(0.96, 0.4)
+    ],
     edges: [(0, 1), (1, 2), (2, 3)],
   ),
   // Toro: la V degli occhi con le corna.
@@ -69,7 +75,12 @@ const List<ZodiacConstellation> kZodiacConstellations = [
   ZodiacConstellation(
     sign: Zodiac.cancer,
     anchor: Offset(0.14, 0.35),
-    points: [Offset(0.5, 0.46), Offset(0.5, 0.05), Offset(0.16, 0.92), Offset(0.84, 0.86)],
+    points: [
+      Offset(0.5, 0.46),
+      Offset(0.5, 0.05),
+      Offset(0.16, 0.92),
+      Offset(0.84, 0.86)
+    ],
     edges: [(0, 1), (0, 2), (0, 3)],
   ),
   // Leone: la falce piu' il triangolo posteriore.
@@ -150,7 +161,12 @@ const List<ZodiacConstellation> kZodiacConstellations = [
   ZodiacConstellation(
     sign: Zodiac.capricorn,
     anchor: Offset(0.18, 0.84),
-    points: [Offset(0.08, 0.34), Offset(0.5, 0.1), Offset(0.92, 0.4), Offset(0.55, 0.9)],
+    points: [
+      Offset(0.08, 0.34),
+      Offset(0.5, 0.1),
+      Offset(0.92, 0.4),
+      Offset(0.55, 0.9)
+    ],
     edges: [(0, 1), (1, 2), (2, 3), (3, 0)],
   ),
   // Acquario: lo zigzag dell'acqua.
@@ -183,3 +199,79 @@ const List<ZodiacConstellation> kZodiacConstellations = [
     edges: [(0, 1), (1, 2), (2, 3), (3, 4), (0, 5)],
   ),
 ];
+
+/// Dove stanno le dodici, in questa schermata.
+///
+/// PRIMA questa classe non esisteva e le ancore erano costanti: ogni fondale
+/// dell'app disegnava lo stesso Ariete nello stesso angolo, e l'occhio lo
+/// riconosceva subito. I semi introdotti prima muovevano stelle sparse,
+/// nebulose e comete, mai l'asterismo, quindi il criterio "zero costellazioni
+/// ripetute" risultava verde mentre a schermo il difetto era intatto.
+///
+/// Adesso la volta ruota: ogni schermata riceve dal seme una permutazione
+/// delle celle della griglia, un piccolo scarto dentro la cella, una scala
+/// leggermente diversa e un ribaltamento orizzontale. Due schermate non
+/// mostrano mai lo stesso segno nello stesso punto, mentre la stessa
+/// schermata rida' sempre la stessa volta, perche' tutto nasce dal seme.
+class ZodiacLayout {
+  /// Le celle della griglia morbida: tre colonne per quattro fasce. La griglia
+  /// resta, altrimenti le figure si accavallerebbero; e' l'assegnazione dei
+  /// segni alle celle a cambiare.
+  static const List<Offset> _celle = [
+    Offset(0.20, 0.10),
+    Offset(0.52, 0.16),
+    Offset(0.82, 0.09),
+    Offset(0.16, 0.34),
+    Offset(0.50, 0.40),
+    Offset(0.84, 0.32),
+    Offset(0.22, 0.58),
+    Offset(0.54, 0.64),
+    Offset(0.80, 0.56),
+    Offset(0.18, 0.82),
+    Offset(0.48, 0.88),
+    Offset(0.82, 0.80),
+  ];
+
+  /// La disposizione delle dodici per una schermata col suo seme.
+  static List<ZodiacConstellation> perSeed(int seed) {
+    // Lo stesso moltiplicatore primo del cosmo: semi vicini danno volte
+    // lontane, e non ci si ritrova due schermate quasi uguali.
+    final rnd = math.Random(4177 + seed * 7919);
+
+    final ordine = List<int>.generate(_celle.length, (i) => i);
+    for (var i = ordine.length - 1; i > 0; i--) {
+      final j = rnd.nextInt(i + 1);
+      final t = ordine[i];
+      ordine[i] = ordine[j];
+      ordine[j] = t;
+    }
+
+    return [
+      for (var i = 0; i < kZodiacConstellations.length; i++)
+        _riposiziona(kZodiacConstellations[i], _celle[ordine[i]], rnd),
+    ];
+  }
+
+  static ZodiacConstellation _riposiziona(
+      ZodiacConstellation c, Offset cella, math.Random rnd) {
+    // Uno scarto dentro la cella: piccolo, altrimenti le figure si toccano.
+    final dx = (rnd.nextDouble() - 0.5) * 0.05;
+    final dy = (rnd.nextDouble() - 0.5) * 0.05;
+    // La scala varia di poco: la figura resta riconoscibile come asterismo,
+    // ma non e' il calco identico dell'altra schermata.
+    final scala = c.scale * (0.85 + rnd.nextDouble() * 0.35);
+    // Il ribaltamento orizzontale e' l'ultimo tocco: e' cio' che rompe il
+    // riconoscimento immediato senza inventare astronomia falsa, perche' una
+    // costellazione vista da un'altra latitudine si presenta specchiata.
+    final specchia = rnd.nextBool();
+    return ZodiacConstellation(
+      sign: c.sign,
+      anchor: Offset(cella.dx + dx, cella.dy + dy),
+      scale: scala,
+      points: specchia
+          ? [for (final p in c.points) Offset(1 - p.dx, p.dy)]
+          : c.points,
+      edges: c.edges,
+    );
+  }
+}

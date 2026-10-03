@@ -1,0 +1,60 @@
+S01|SI|SI|NA|NO|SI|al limite: non affrettare e lista pro e contro valgono per chiunque; il seguito aggiunge Saturno e la paura della madre
+S02|SI|NA|NO|NO|NA|non dice segno né fase della Luna chiesta; invito generico; scrivere un messaggio a Ombra, un cane, è assurdo
+S03|SI|SI|NA|SI|SI|usa la ceramica; seguito al limite, Fehu aggiunge poco oltre preparare il progetto
+S04|SI|NA|SI|SI|SI|Venere a 8 Scorpione e aspetti del seguito giusti
+S05|SI|SI|NA|SI|NO|seguito generico, ripete ascolta il respiro senza aggiungere nulla di concreto
+S06|SI|NA|NA|SI|SI|dice chi è e le sue arti; seguito al limite, esempio pratico di aiuto
+S07|NO|NA|NA|SI|NO|dice Cancro lunare ma la sua Luna è in Bilancia; seguito generico
+S08|SI|NA|SI|SI|SI|Giove a 27 Vergine giusto; seguito al limite, lega al colloquio
+S09|SI|NA|SI|SI|SI|Luna in Cancro, quadratura col Sole e ultimo quarto giusti
+S10|SI|SI|NA|SI|NO|memoria al limite; seguito generico sulla meditazione
+S11|SI|SI|NA|NO|SI|risposta sul respiro senza dire come ripartire con la sorella; memoria solo nel seguito, al limite
+S12|SI|NA|NA|SI|NO|seguito ripete la risposta, al limite
+S13|SI|NA|SI|SI|SI|retrogradi giusti, il seguito spiega ogni pianeta
+S14|SI|NA|NA|NO|NA|valuta i segni e lista di tre cose valgono per chiunque
+S15|SI|SI|NA|SI|NO|seguito cambia argomento sulla madre invece di Ombra
+S16|SI|SI|NA|SI|NO|al limite: ignora la meditazione mattutina ma conosce ceramica e colloquio; seguito ripete le due opzioni
+S17|SI|SI|NA|NO|NO|al limite: piccolo gesto di cura vale per chiunque; seguito generico
+S18|SI|NA|SI|SI|NO|fatto giusto; seguito ripete, al limite
+S19|SI|SI|NA|SI|NO|seguito ripete con altre parole, al limite
+S20|SI|NA|SI|SI|NO|quadrature giuste; seguito ripete la quadratura, al limite
+S21|SI|NA|NA|SI|SI|elenco delle spese concreto, il seguito aggiunge un passo
+S22|SI|SI|NA|SI|NA|al limite: chiarezza e discorso preparato
+S23|SI|NA|NO|SI|NO|seguito: venerdì 9 ottobre la Luna è in Vergine, non in Capricorno; il seguito vira su Marco
+S24|SI|NA|SI|SI|NO|fatto giusto; seguito ripete la revisione delle basi
+S25|SI|NA|NA|SI|NO|seguito generico sul benessere
+S26|SI|SI|NA|SI|NA|al limite: Hagalaz detta forza è forzato ma indica che cosa portare
+S27|SI|NA|SI|SI|NO|fase e segno giusti; seguito generico
+S28|SI|SI|NA|SI|NO|seguito generico, al limite
+S29|SI|NA|NA|SI|SI|sceglie la casa grande col perché; il seguito aggiunge Wunjo
+S30|SI|NA|NA|SI|NO|seguito parla di sonno e colloquio, non di chi è
+S31|SI|SI|NA|NO|NO|al limite: parla con tua madre non dice come prepararsi al colloquio; seguito generico
+S32|NO|NA|NA|SI|NO|al limite: spinge a prestare dicendo che la paura di perdere è un'illusione; il seguito promette il ritorno
+S33|SI|NA|NA|NO|NO|solo respiro, non dice da dove rimettere ordine nelle spese; seguito generico
+S34|SI|NA|NA|SI|SI|al limite: no motivato debolmente; il seguito aggiunge Thurisaz e il limite
+S35|SI|SI|NA|SI|SI|usa la meditazione; seguito al limite
+S36|SI|NA|SI|SI|NO|merito al limite; seguito divaga sulla camomilla
+S37|SI|SI|NA|SI|NA|scrivere alla sorella, concreto
+S38|NO|NA|NA|SI|SI|dice la Bilancia segno opposto al Cancro, falso; seguito al limite, aggiunge la madre
+S39|SI|NA|NA|SI|NA|al limite: sì con lista pro e contro
+S40|SI|NA|NA|SI|SI|seguito aggiunge la visualizzazione, al limite
+S41|SI|NO|NA|NO|NO|non nomina la sorella, devia sulla ceramica senza dire come ripartire con lei
+S42|SI|NA|SI|SI|NO|fatto giusto; seguito tratta il transito del 2000 come presente, generico
+S43|SI|NA|NA|SI|NO|seguito generico, al limite
+S44|SI|NA|SI|SI|SI|fatti giusti, il seguito aggiunge Mercurio, Venere, Marte e Giove
+S45|SI|SI|NA|SI|SI|usa Berlino; seguito al limite
+S46|SI|NA|SI|SI|NO|fatto giusto; seguito tratta il 1969 come suo cielo e vira su Berlino e Marco
+S47|SI|SI|NA|SI|NA|messaggio alla sorella concreto
+S48|SI|SI|NA|SI|NO|seguito generico sul respiro
+S49|SI|NA|NA|SI|NO|perché al limite; seguito con Gebo generico, non conferma il centro
+S50|SI|NA|SI|SI|NO|fatto giusto; seguito ripete, al limite
+S51|SI|NA|SI|SI|SI|Giove in Vergine e trigoni giusti
+S52|SI|NA|SI|SI|SI|fatti giusti; seguito al limite
+S53|SI|NA|NA|SI|NA|sì non subito e parlare col capo
+S54|SI|NA|SI|SI|NO|retrogradi giusti; seguito generico
+S55|SI|NO|NA|SI|NA|non usa il dormire male prima delle scadenze
+S56|SI|NA|SI|SI|NA|Luna in Gemelli giusta
+S57|SI|SI|NA|SI|NO|seguito ripete il sì con altre parole, al limite
+S58|SI|NA|SI|SI|NO|fatti giusti; azione di rileggere dopo la firma incoerente; seguito ripete
+S59|SI|NO|NA|SI|NA|non usa il dormire male prima delle scadenze
+S60|SI|NA|NA|SI|NA|al limite: decidere ora con Wunjo

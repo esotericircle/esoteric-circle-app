@@ -1,0 +1,46 @@
+== EQ.03 Regola B: la regola comune non vieta piu' la funzione al posto della risposta
+   file lib/core/chat/la_risposta_nel_merito.dart, sha1 prima 87d39dbc8a43, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +2 -1: Some tests failed.
+   Expected: empty
+   Actual: [
+   ripristinato: sha1 87d39dbc8a43, uguale
+== EQ.03 Regola B: il controllo finale non vieta piu' di concentrarsi su una sola parte
+   file lib/core/chat/la_risposta_nel_merito.dart, sha1 prima 87d39dbc8a43, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'Non dirle mai di concentrarsi su una sola'
+   Actual: 'PRIMA DI SCRIVERE, CONTROLLA:\n'
+   ripristinato: sha1 87d39dbc8a43, uguale
+== EQ.03 Regola B: nel LIVE la riga d'oro torna pretesa sotto ogni risposta
+   file lib/services/ai/maestro_persona.dart, sha1 prima 5f5c79071833, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +1 -1: Some tests failed.
+   Expected: contains 'quando c\'è un passo da dare'
+   Actual: 'LA RISPOSTA È DETTA A VOCE, NEL LIVE:\n'
+   ripristinato: sha1 5f5c79071833, uguale
+
+Regola B prima di toccare il registro di Aura:
+== EQ.03 Regola B: il registro di Aura perde il suo asse
+   file lib/core/maestro/voce_del_maestro.dart, sha1 prima b4314e34c6fb, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: a value greater than or equal to <0>
+   Actual: <-1>
+   ripristinato: sha1 b4314e34c6fb, uguale
+== EQ.03 Regola B: il timbro di Aura resta vuoto
+   file lib/core/maestro/voce_del_maestro.dart, sha1 prima b4314e34c6fb, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: non-empty
+   Actual: ''
+   ripristinato: sha1 b4314e34c6fb, uguale
+
+Regola B prima di cambiare il modello del LIVE:
+== EQ.03 Regola B: il modello del turno del LIVE diventa quello della chat
+   file lib/services/ai/firebase_maestro_ai_provider.dart, sha1 prima 6e6b42b1af7a, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: 'gemini-2.5-flash-lite'
+   Actual: 'gemini-2.5-flash'
+   ripristinato: sha1 6e6b42b1af7a, uguale

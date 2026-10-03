@@ -1,0 +1,325 @@
+library;
+
+import 'dart:math' as math;
+
+import 'forma_dell_elemento.dart';
+import 'lettura_degli_ancoraggi.dart';
+import 'sentieri.dart';
+
+/// COME SI RICONOSCE UN TRAGUARDO SU CIASCUNA DELLE TRE ARTI. Ordine T voce 01.
+///
+/// **Una regola per sentiero, perche' le tre arti non si somigliano.** Sul
+/// sentiero di Caligo le sfere sono GRIGIE in mezzo all'oro e al rosso: il segno
+/// e' l'assenza di colore, non la sua presenza. Sui due sentieri che passano
+/// dalla strada dei pallini il segno e' il colore pieno di un pallino.
+///
+/// **La regola sta qui e non dentro il lettore**, cosi' un sentiero nuovo si
+/// aggiunge in un punto solo e il codice che conta non si tocca.
+class RegoleDelleTreArti {
+  const RegoleDelleTreArti._();
+
+  /// DOVE STA L'ARTE di un sentiero.
+  static String arteDi(Sentiero sentiero) =>
+      'brand_assets/sentieri/${_nomeDelFile(sentiero)}.png';
+
+  /// DOVE STAREBBE IL LIVELLO DEI PALLINI, se quel sentiero ne ha bisogno.
+  static String palliniDi(Sentiero sentiero) =>
+      'brand_assets/sentieri/${_nomeDelFile(sentiero)}_pallini.png';
+
+  static String _nomeDelFile(Sentiero sentiero) => switch (sentiero) {
+        Sentiero.costellazione => 'costellazione',
+        Sentiero.albero => 'albero',
+        Sentiero.loto => 'loto',
+      };
+
+  /// **L'ALBERO DELLA VITA: le sfere sono NEUTRE in mezzo a un'arte calda.**
+  ///
+  /// Misurato sull'arte vera prima di scrivere la regola: una sfera vale
+  /// rgb 195/175/173 oppure 163/149/137, cioe' rosso e blu quasi uguali; l'oro
+  /// che le circonda vale 130/62/15, con centoquindici punti fra rosso e blu.
+  /// **Il segno e' l'assenza di colore, e regge su tutte e cinquantacinque.**
+  ///
+  /// La luminanza minima toglie l'ombra: il nero fra un ramo e l'altro e' neutro
+  /// anche lui, ma non e' una sfera.
+  static final RegolaDiRiconoscimento albero = RegolaDiRiconoscimento(
+    nome: 'albero, le sfere neutre in mezzo all\'oro',
+    riconosci: (r, g, b, a) {
+      if (a <= 200) return false;
+      final massimo = r > g ? (r > b ? r : b) : (g > b ? g : b);
+      final minimo = r < g ? (r < b ? r : b) : (g < b ? g : b);
+      final luminanza = (r * 299 + g * 587 + b * 114) ~/ 1000;
+      if (luminanza <= 45) return false;
+      // Croma sotto il trenta per cento del canale piu' alto: neutro.
+      return (massimo - minimo) * 100 < 30 * (massimo < 1 ? 1 : massimo);
+    },
+    // **VENTI PIXEL, e non viene da cio' che si e' misurato.** Sull'arte a 941
+    // di larghezza venti pixel sono poco piu' di un fiammifero: sotto questa
+    // misura non si sta guardando una sfera ma un riflesso su un ramo. La sfera
+    // piccola vera ne misura una trentina, la grande una sessantina.
+    diametroMinimo: 20,
+  );
+
+  /// **LA REGOLA DEI PALLINI**, quella della strada B.
+  ///
+  /// Il livello dei pallini e' un PNG alla stessa misura dell'arte, con
+  /// cinquantacinque pallini pieni su fondo trasparente. Qui basta l'opacita':
+  /// tutto cio' che e' opaco e' un pallino, e il colore dice a quale gruppo
+  /// appartiene. **Il gruppo NON si ricava dal colore in questo punto**, si
+  /// ricava dalla vicinanza al grande come sugli altri sentieri: il colore resta
+  /// il modo con cui Mauro tiene il conto mentre disegna, e una prova lo
+  /// confronta col gruppo trovato.
+  static final RegolaDiRiconoscimento pallini = RegolaDiRiconoscimento(
+    nome: 'pallini, un livello a parte',
+    riconosci: (r, g, b, a) => a > 128,
+    diametroMinimo: 12,
+    // Un pallino pieno riempie il suo riquadro quasi del tutto: chiedere di
+    // piu' che sull'arte e' giusto, perche' qui non ci sono ombre.
+    pienoMinimo: 0.60,
+    quadroMinimo: 0.70,
+  );
+
+  /// LA REGOLA IN USO per un sentiero, oggi.
+  static RegolaDiRiconoscimento per(Sentiero sentiero) =>
+      switch (sorgenteDi(sentiero)) {
+        SorgenteDegliAncoraggi.arte => albero,
+        SorgenteDegliAncoraggi.pallini => pallini,
+      };
+
+  /// **DA DOVE VENGONO GLI ANCORAGGI DI CIASCUN SENTIERO, e il perche' di
+  /// ognuno.** Ordine T voce 02.
+  ///
+  /// **E' un dato, non un "se" sparso nel codice**: se un giorno l'Albero avesse
+  /// il suo file di pallini, si cambia questa riga e nient'altro.
+  ///
+  /// - **Albero, dall'arte**: le sfere sono grigie in mezzo a un disegno caldo,
+  ///   e la lettura automatica trova le cinquantacinque macchie con un baratro
+  ///   fra grandi e piccoli. Chiusa nella voce T.01 e non si tocca.
+  /// - **Costellazione e Loto, dai pallini**: sulla costellazione gli orbi di
+  ///   lapis sono spezzati dai riflessi dorati e le mezzelune portano lo stesso
+  ///   smalto blu; sul loto i petali si toccano fra loro e le foglie decorative
+  ///   hanno lo stesso verde e la stessa forma. Cinque strade automatiche
+  ///   misurate, nessuna arriva: il file dei pallini non e' un ripiego, e' il
+  ///   dato che l'arte non porta.
+  static SorgenteDegliAncoraggi sorgenteDi(Sentiero sentiero) =>
+      switch (sentiero) {
+        Sentiero.albero => SorgenteDegliAncoraggi.arte,
+        Sentiero.costellazione => SorgenteDegliAncoraggi.pallini,
+        Sentiero.loto => SorgenteDegliAncoraggi.pallini,
+      };
+
+  /// **COME CRESCE UNA FORMA SU CIASCUNA ARTE.** Ordine T voce 02.
+  ///
+  /// **Il muro e' sempre l'oro, riconosciuto dalla TINTA**, e questa parte e'
+  /// uguale per tutte e tre. Cio' che cambia e' se all'oro serve un aiuto, e i
+  /// numeri vengono da una misura fatta prima di scriverli.
+  ///
+  /// - **Albero: solo l'oro, con una chiusura di 3.** La sfera e' cinta da un
+  ///   anello d'oro che chiude da solo; la chiusura scavalca le sottili nervature
+  ///   dorate che attraversano la pietra. Cosi' le forme sono 55 su 55, mediana
+  ///   1.686 pixel. Senza chiusura sarebbero 54.
+  /// - **Costellazione: solo l'oro, nessuna chiusura.** L'orbo di lapis sta
+  ///   dentro un castone d'oro chiuso: 55 forme su 55, mediana 1.788 pixel.
+  /// - **Loto: l'oro NON basta, e serve anche la materia, con tolleranza 110.**
+  ///   I petali si toccano e dove il contorno inciso si assottiglia la crescita
+  ///   passa nel petalo accanto e poi nelle foglie: col solo oro escono 4 forme
+  ///   su 55, con l'oro piu' la materia diventano 22, mediana 4.297 pixel, che
+  ///   e' l'ordine di grandezza di un petalo.
+  ///
+  /// **I TRENTATRE RIPIEGHI DEL LOTO NON SI NASCONDONO, e la loro causa e' stata
+  /// riscritta il 15 agosto 2026 con l'ordine Y voce 02, perche' quella che stava
+  /// qui era FALSA.** Diceva che i semi del file dei pallini cadono sulla
+  /// filigrana d'oro fra un petalo e l'altro. Misurato seme per seme: **solo
+  /// CINQUE semi stanno sull'oro, e sono i cinque centri dei fiori**; nessuno dei
+  /// ventotto petali caduti ha il seme sull'oro, e ventidue semi altrettanto
+  /// verdi crescono benissimo. La posizione dei semi spiega cinque ripieghi su
+  /// trentatre e nessuno dei petali.
+  ///
+  /// **LE TRENTATRE CAUSE, CONTATE UNA A UNA strumentando la crescita:** 28 escono
+  /// dalla finestra, cioe' la regione non si chiude e corre via; 4 non trovano un
+  /// pixel libero vicino al seme; 1 chiude su un'area di un pixel solo. Le ultime
+  /// cinque sono i centri, e non sono correggibili spostando un pallino: il
+  /// bottone centrale e' d'oro, cioe' e' il muro, e la materia di riferimento
+  /// viene letta SUL SEME, quindi la crescita va a cercare materia dorata mentre
+  /// la regola dell'oro gliela vieta. E' una contraddizione che puo' solo
+  /// ripiegare.
+  ///
+  /// **PERCHE' LA CHIUSURA NON E' LA CURA, rimisurato il 16 agosto 2026 con
+  /// l'ordine Z, dopo che la guardia della colata era stata riparata.** I numeri
+  /// che stavano qui erano presi con la guardia rotta e dicevano che a ogni
+  /// valore le forme diventavano 50 su 55: era tutto e solo l'effetto del bordo
+  /// eroso. **Con la guardia viva il Loto PEGGIORA a ogni valore**, e il
+  /// conteggio adesso lo dice invece di nasconderlo: chiusura 0 da' 33 ripieghi e
+  /// 22 forme vere, mediana 4.297 e massima 6.921; chiusura 1 da' 37 e 18,
+  /// mediana 5.049 massima 12.276; chiusura 2 da' 44 e 11, mediana 5.362 massima
+  /// 13.655; chiusura 3 da' 49 e 6, mediana 5.794 massima 9.065; chiusura 4 da'
+  /// 52 e 3, mediana 5.507 massima 6.642; chiusura 5 da' 52 e 3, mediana 5.789
+  /// massima 6.847. **Zero e' il valore migliore su ogni misura.**
+  ///
+  /// **E LA RAGIONE E' GEOMETRICA, non di taratura: chiudere la REGIONE gonfia
+  /// il libero, quindi ALLARGA i passaggi invece di sigillarli.** Serve
+  /// l'operazione opposta, sigillare il MURO, cioe' saldare le fessure sottili
+  /// del contorno d'oro prima di crescere. E' un ordine suo e questi sono i due
+  /// dati per chi lo scrivera': le ventotto colate non sono ventotto buchi
+  /// diversi ma **SEDICI SISTEMI**, perche' i petali vicini si fondono nella
+  /// stessa colata, fino a quattro insieme sul fiore 2; e la strozzatura da cui
+  /// passano, cercata dentro ogni colata come il cammino che tiene il valore piu'
+  /// alto nel suo punto peggiore, e' larga **da 1 a 5 pixel, mediana 3**.
+  ///
+  /// **Una misura fatta che NON risponde, e si dichiara perche' nessuno la
+  /// rifaccia**: la larghezza dell'oro sul segmento che unisce due semi non
+  /// separa le coppie che si fondono da quelle che tengono, mediana 3 contro 2.
+  /// La colata non passa dove passa quella retta.
+  ///
+  /// **L'Albero non era gonfiato, verificato con la guardia viva**: a chiusura 3
+  /// resta 55 su 55 con mediana 1.700, a chiusura 0 resta 54 su 55 con mediana
+  /// 1.479, gli stessi numeri di prima della riparazione. La sua forma da 13.045
+  /// pixel, contro una mediana di 1.700, **non tocca mai il bordo della
+  /// finestra**: non era una colata nascosta, e' una regione vera che si prende un
+  /// quarto della finestra. Resta un difetto da guardare, non un errore di
+  /// conteggio, e non e' stato toccato perche' l'Albero non era l'oggetto
+  /// dell'ordine.
+  ///
+  /// **ANCHE SALDARE IL MURO E' STATO PROVATO E SCARTATO, il 16 agosto 2026 con
+  /// l'ordine AA voce 01, ed era l'operazione OPPOSTA alla chiusura.** Dilatare
+  /// il muro prima di crescere restringe davvero i passaggi fra due petali, e il
+  /// conteggio infatti sale: sul Loto il muro passa da 577.180 pixel a 703.519
+  /// con saldatura 1, a 805.560 con 2, a 892.019 con 3, e le forme vere passano
+  /// da 22 a 31, 38 e 49. **Ma l'area crolla, e il criterio aveva due gambe
+  /// apposta**: la mediana passa da 4.297 pixel a 2.662, 2.063 e 1.653, cioe'
+  /// fuori dalla banda fra 3.438 e 5.156 gia' col valore piu' piccolo.
+  ///
+  /// **E NON E' UN EFFETTO DELLA POPOLAZIONE CHE CAMBIA**, che era l'obiezione da
+  /// abbattere prima di dare un verdetto: guardando SOLO i ventidue petali che si
+  /// chiudevano gia' senza saldatura, e che continuano a chiudersi a ogni valore,
+  /// la loro mediana scende da 4.297 a 2.677, 1.863 e 1.439. **Sono gli stessi
+  /// petali e diventano meno della meta'.** La causa e' quella dichiarata prima
+  /// di misurare: la venatura centrale e' oro, quindi si salda anche lei e taglia
+  /// il petalo in due. Il conteggio salirebbe rimpicciolendo la cosa contata, che
+  /// e' la bugia uguale e contraria a quella della chiusura.
+  ///
+  /// **Le due strade automatiche sono quindi ESCLUSE con una misura, tutte e
+  /// due**, e quel che resta tocca i file di Mauro, l'arte o i pallini, e la
+  /// decisione e' sua.
+  ///
+  /// Il raggio massimo e' il **dodici per cento della larghezza dell'arte**, e
+  /// non viene dalle misure: viene da cosa e' un elemento. Un Journal ne porta
+  /// cinquantacinque, quindi nessuno puo' allontanarsi dal proprio seme piu' di
+  /// una frazione della figura; oltre, non si sta illuminando un elemento ma il
+  /// disegno.
+  static RegolaDellaForma formaDi(Sentiero sentiero, int larghezzaArte) =>
+      RegolaDellaForma(
+        tolleranza: switch (sentiero) {
+          Sentiero.loto => 110,
+          Sentiero.costellazione => 0,
+          Sentiero.albero => 0,
+        },
+        chiusura: switch (sentiero) {
+          Sentiero.loto => 0,
+          Sentiero.costellazione => 0,
+          Sentiero.albero => 3,
+        },
+        raggioMassimo: (larghezzaArte * 0.12).round(),
+        areaMinima: CrescitaDellaForma.areaDelRipiego,
+        // **NESSUN SENTIERO SALDA IL MURO, e lo zero non e' provvisorio: e'
+        // misurato.** Vedi la tabella nella dichiarazione di questo metodo.
+        saldaturaDelMuro: switch (sentiero) {
+          Sentiero.loto => 0,
+          Sentiero.costellazione => 0,
+          Sentiero.albero => 0,
+        },
+      );
+
+  /// Il file da cui si leggono gli ancoraggi: l'arte stessa oppure i pallini.
+  static String daDoveSiLegge(Sentiero sentiero) =>
+      switch (sorgenteDi(sentiero)) {
+        SorgenteDegliAncoraggi.arte => arteDi(sentiero),
+        SorgenteDegliAncoraggi.pallini => palliniDi(sentiero),
+      };
+}
+
+/// **LA STRUTTURA DEL LOTO, dichiarata da chi ha disegnato l'arte.** Ordine Y
+/// voce 01.
+///
+/// **Non e' un'ipotesi ricavata dai pixel: e' un fatto detto da Mauro.** Il Loto
+/// e' fatto di CINQUE FIORI, e ogni fiore ha UN CENTRO e DIECI PETALI attorno.
+/// Cinque piu' cinquanta fa cinquantacinque, che e' il numero dei traguardi, e
+/// la coincidenza non e' una coincidenza: i traguardi sono stati disposti su
+/// questa struttura.
+///
+/// **A cosa serve avere la struttura come DATO invece che come commento.** Fino
+/// a ieri il difetto del Loto si riportava come "22 forme su 55", che dice che
+/// c'e' un problema e non dice dove. Con i fiori e i petali si dice quale fiore
+/// e quale petalo, e chi deve correggere a mano ne marca pochi invece di
+/// cinquanta al buio.
+///
+/// **UNA TRAPPOLA, e sta scritta qui perche' non ci caschi il prossimo.**
+/// Attorno al bottone centrale di ogni fiore c'e' una corona interna di petali
+/// piccoli, tutti d'oro, che NON sono i dieci. I dieci sono i petali VERDI e
+/// grandi, ognuno con la sua venatura dorata al centro. Un conteggio fatto sui
+/// pixel dell'arte che ne trovasse venti per fiore starebbe contando anche la
+/// corona dorata. **Qui non si contano i petali sull'arte**: si contano gli
+/// ancoraggi, che vengono dal file dei pallini, quindi la trappola non morde da
+/// questa parte. Morderebbe il giorno in cui qualcuno provasse a ricavare la
+/// struttura dall'immagine.
+class StrutturaDelLoto {
+  const StrutturaDelLoto._();
+
+  /// Quanti fiori porta il Loto.
+  static const int quantiFiori = 5;
+
+  /// Quanti petali ha ogni fiore, oltre al centro.
+  static const int petaliPerFiore = 10;
+
+  /// **I PETALI DI UN FIORE, IN SENSO ORARIO DAL PIU' IN ALTO**, come indici
+  /// dentro la lista intera degli ancoraggi.
+  ///
+  /// **Il verso e il punto di partenza si dichiarano perche' un numero di petalo
+  /// senza di essi non vuol dire niente**: chi legge "fiore 2, petalo 7" deve
+  /// poterlo trovare sull'immagine senza chiedere.
+  ///
+  /// L'angolo si misura in PIXEL e non nelle coordinate relative: l'arte e' alta
+  /// quasi il doppio di quanto e' larga, e su coordinate relative un fiore tondo
+  /// sembrerebbe schiacciato e l'ordine attorno al giro cambierebbe.
+  static List<int> petaliInSensoOrario(
+    List<AncoraggioDelSentiero> ancoraggi,
+    int fiore, {
+    required int larghezzaArte,
+    required int altezzaArte,
+  }) {
+    final centro = centroDi(ancoraggi, fiore);
+    if (centro < 0) return const [];
+    final cx = ancoraggi[centro].x * larghezzaArte;
+    final cy = ancoraggi[centro].y * altezzaArte;
+    final petali = <int>[];
+    for (var i = 0; i < ancoraggi.length; i++) {
+      if (ancoraggi[i].gruppo != fiore || ancoraggi[i].eGrande) continue;
+      petali.add(i);
+    }
+    petali.sort((a, b) {
+      // Zero in cima, e cresce girando in senso orario.
+      double giro(int i) {
+        final dx = ancoraggi[i].x * larghezzaArte - cx;
+        final dy = ancoraggi[i].y * altezzaArte - cy;
+        final ang = math.atan2(dx, -dy);
+        return ang < 0 ? ang + 2 * math.pi : ang;
+      }
+
+      return giro(a).compareTo(giro(b));
+    });
+    return petali;
+  }
+
+  /// Il centro di un fiore, come indice dentro la lista intera.
+  static int centroDi(List<AncoraggioDelSentiero> ancoraggi, int fiore) =>
+      ancoraggi.indexWhere((a) => a.gruppo == fiore && a.eGrande);
+}
+
+/// Le due strade per sapere dove stanno i cinquantacinque elementi.
+enum SorgenteDegliAncoraggi {
+  /// Si riconoscono dentro l'arte stessa.
+  arte,
+
+  /// Si leggono da un secondo PNG con cinquantacinque dischi pieni, cinque
+  /// colori per i cinque gruppi, il grande di diametro doppio.
+  pallini,
+}

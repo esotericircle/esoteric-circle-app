@@ -1,0 +1,251 @@
+import 'dart:io';
+
+import 'package:esoteric_circle/core/chat/chat_message.dart';
+import 'package:esoteric_circle/core/entitlement/plan_catalog.dart';
+import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
+import 'package:esoteric_circle/core/entitlement/tier.dart';
+import 'package:esoteric_circle/core/identity/natal_identity.dart';
+import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
+import 'package:esoteric_circle/features/maestri/chat/widgets/chat_bubble.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
+
+/// IL CONFRONTO COSTA UNA DOMANDA SOLA, CON UN TETTO SUO.
+///
+/// **Il numero vero, misurato dentro la schermata prima di toccare codice.**
+/// L'ordine partiva da "tre risposte vere valgono tre domande". Non e' cosi':
+/// `_fetchLens` conta solo la voce di partenza, `countsAgainstAllowance: m ==
+/// widget.starter`, e aprendo il Consiglio dalla chat la lente di partenza
+/// arriva GIA' PRONTA dalla conversazione, quindi non viene nemmeno richiesta.
+/// Un confronto consuma **ZERO** domande in piu' di quella gia' pagata nella
+/// chat. Aprendo la schermata a freddo, cosa che nell'app non succede da
+/// nessuna porta, ne consuma UNA.
+///
+/// **Percio' il tetto separato serve lo stesso.** Se il gesto non costa
+/// niente, senza un tetto suo sarebbe gratuito e ripetibile all'infinito,
+/// mentre ogni tocco sono due chiamate al modello.
+void main() {
+  group('Il tetto vive nel listino, e non in un secondo posto', () {
+    // Ordine EX voce 02: il nome dice i numeri nuovi, erano 3, 5 e 20.
+    test('Viandante lucchetto, Iniziato 1, Adepto 2, Illuminato 3', () {
+      // **VENTI, E NON PIU\' "SENZA LIMITE".** Ordine CE voce 08: il
+      // fondatore ha chiesto che l\'illimitato sparisca da ogni cella, e il
+      // numero qui segue il dato del listino, non lo anticipa.
+      expect(
+          PlanCatalog.limiteGiornaliero(PlanCatalog.rigaConfronti, Tier.free),
+          0);
+      expect(
+          PlanCatalog.limiteGiornaliero(PlanCatalog.rigaConfronti, Tier.tier1),
+          // Ordine EX voce 02: uno all'Iniziato, erano tre.
+          1);
+      expect(
+          PlanCatalog.limiteGiornaliero(PlanCatalog.rigaConfronti, Tier.tier2),
+          // Ordine EX voce 02: due all'Adepto, erano cinque.
+          2);
+      expect(
+          PlanCatalog.limiteGiornaliero(PlanCatalog.rigaConfronti, Tier.tier3),
+          // Ordine EX voce 02: tre all'Illuminato, erano venti.
+          3);
+    });
+
+    test('`canCompare` CHIEDE al listino invece di decidere da solo', () {
+      // Diceva `tier != Tier.free`, cioe' era un secondo posto dove si
+      // stabiliva chi puo' cosa. Adesso legge la riga, come la memoria dei
+      // Maestri e la profondita' dell'oroscopo.
+      final c = QuestionAllowance();
+      expect(c.canCompare(Tier.free), isFalse);
+      for (final t in [Tier.tier1, Tier.tier2, Tier.tier3]) {
+        expect(c.canCompare(t), isTrue);
+      }
+      // E la decisione NON e' piu' scritta a mano da nessuna parte. Si
+      // guardano le righe vive, non i commenti che raccontano com'era.
+      final righe = File('lib/core/entitlement/question_allowance.dart')
+          .readAsLinesSync();
+      final scrittaAMano = [
+        for (var i = 0; i < righe.length; i++)
+          if (!righe[i].trimLeft().startsWith('//') &&
+              !righe[i].trimLeft().startsWith('///') &&
+              righe[i].contains('tier != Tier.free'))
+            'riga ${i + 1}: ${righe[i].trim()}'
+      ];
+      expect(scrittaAMano, isEmpty,
+          reason: 'il confronto decide di nuovo da solo chi puo\' cosa:'
+              '${scrittaAMano.join()}');
+      expect(righe.join(), contains('PlanCatalog.rigaConfronti'));
+    });
+
+    test('UN SOLO confine del giorno, e i tre contatori lo guardano', () {
+      // Un secondo confine accanto a questo divergerebbe alla prima ora
+      // legale: `ConfineDelGiorno` e' uno.
+      var oggi = DateTime(2026, 8, 2, 23, 0);
+      final c = QuestionAllowance(clock: () => oggi);
+      c.record(Tier.tier1);
+      c.registraApprofondimento(Tier.tier1);
+      c.registraConfronto(Tier.tier1);
+      // Ordine EX voce 02: l'Iniziato ha un confronto e due approfondimenti
+      // (erano tre e tre): dopo uno ne restano zero e uno.
+      expect(c.confrontiRimasti(Tier.tier1), 0);
+      expect(c.approfondimentiRimasti(Tier.tier1), 1);
+      oggi = DateTime(2026, 8, 3, 1, 0);
+      expect(c.confrontiRimasti(Tier.tier1), 1,
+          reason: 'i confronti non ribaltano a mezzanotte come gli altri due');
+      expect(c.approfondimentiRimasti(Tier.tier1), 2);
+      expect(c.usedToday(), 0);
+    });
+  });
+
+  group('Il conto, e il residuo che si vede prima', () {
+    test('Tre tocchi bruciano i tre, il quarto non passa', () {
+      // Ordine EX voce 02: i tre confronti sono dell'Illuminato, l'Iniziato
+      // adesso ne ha uno; la prova resta sui tre col piano che li ha.
+      final c = QuestionAllowance();
+      for (var i = 0; i < 3; i++) {
+        expect(c.puoiConfrontare(Tier.tier3), isTrue);
+        c.registraConfronto(Tier.tier3);
+      }
+      expect(c.confrontiRimasti(Tier.tier3), 0);
+      expect(c.puoiConfrontare(Tier.tier3), isFalse,
+          reason: 'un confronto oltre il tetto del giorno');
+      // E l'Iniziato, col suo uno: il secondo non passa.
+      final i = QuestionAllowance();
+      expect(i.puoiConfrontare(Tier.tier1), isTrue);
+      i.registraConfronto(Tier.tier1);
+      expect(i.puoiConfrontare(Tier.tier1), isFalse,
+          reason: 'un secondo confronto dell\'Iniziato oltre il tetto');
+    });
+
+    test('Un confronto NON consuma una domanda del giorno', () {
+      final c = QuestionAllowance();
+      final domande = c.remaining(Tier.tier1);
+      c.registraConfronto(Tier.tier1);
+      expect(c.remaining(Tier.tier1), domande,
+          reason: 'il confronto ha il suo tetto: contarlo anche sulle domande '
+              'sarebbe pagarlo due volte');
+    });
+
+    test('Il residuo CONCORDA col numero e dice di che cosa, da tre a zero',
+        () {
+      // **QUESTA PROVA DICEVA IL CONTRARIO, e proteggeva l'errore.** Pretendeva
+      // "Oggi te ne resta 3 su 3" e chiamava quella mancanza di accordo una
+      // scelta: era sgrammaticata, e l'anteprima della build 2148 la mostrava
+      // a video con quelle parole esatte.
+      //
+      // **LAPIDE: "Oggi te ne restano 3 su 3".** Ordine EQ voce 07: il numero
+      // concordava, ma la frase non diceva di che cosa, e accanto a "Oggi hai
+      // 50 domande ai Maestri" della testata il fondatore ha letto due conti
+      // della stessa cosa che non tornavano. Adesso dice fra chi, e la forma
+      // e' quella di ogni residuo dell'app.
+      //
+      // Ordine EX voce 02: da tre a zero si scende con l'Illuminato, che ha
+      // tre confronti; l'Iniziato ne ha uno.
+      final c = QuestionAllowance();
+      expect(c.residuoDeiConfronti(Tier.tier3),
+          'Oggi hai 3 confronti fra i Maestri');
+      c.registraConfronto(Tier.tier3);
+      expect(c.residuoDeiConfronti(Tier.tier3),
+          'Ti restano 2 confronti fra i Maestri su 3, oggi');
+      c.registraConfronto(Tier.tier3);
+      expect(c.residuoDeiConfronti(Tier.tier3),
+          'Ti resta 1 confronto fra i Maestri su 3, oggi',
+          reason: 'a uno solo ci vuole il singolare');
+      c.registraConfronto(Tier.tier3);
+      expect(c.residuoDeiConfronti(Tier.tier3),
+          'Non ti resta nessun confronto fra i Maestri, oggi',
+          reason: 'a zero non e\' un residuo, e\' la fine: dirlo con un numero '
+              'davanti a "su tre" e\' un conto, non una frase');
+    });
+
+    test('Il residuo dei confronti non si confonde con le domande', () {
+      // Ordine EQ voce 07: la bolla e la testata contano due cose diverse, e
+      // la bolla deve nominare la sua.
+      final c = QuestionAllowance();
+      final riga = c.residuoDeiConfronti(Tier.tier1)!;
+      expect(riga, contains('confront'));
+      expect(riga, isNot(contains('domand')));
+    });
+
+    test('Al Viandante non si dice un residuo: e\' un lucchetto', () {
+      final c = QuestionAllowance();
+      expect(c.residuoDeiConfronti(Tier.free), isNull,
+          reason: 'a chi non ce l\'ha nel piano si mostra un numero invece '
+              'della porta');
+      // **E ALL'ILLUMINATO ADESSO SI DICE, ordine CE voce 08.** Prima non
+      // aveva nessun tetto e non c'era niente da contare; adesso ne ha venti,
+      // e il residuo si vede come a tutti gli altri.
+      // Ordine EX voce 02: tre, erano venti. E all'Iniziato, che ne ha uno,
+      // la dotazione e' al singolare.
+      expect(c.residuoDeiConfronti(Tier.tier1),
+          'Oggi hai 1 confronto fra i Maestri');
+      expect(c.residuoDeiConfronti(Tier.tier3),
+          'Oggi hai 3 confronti fra i Maestri',
+          reason: 'chi ha un tetto deve vederlo, anche quando e\' alto');
+    });
+  });
+
+  test('Il tetto e il conto esistono nella schermata, non solo nel dato', () {
+    final s = File('lib/features/maestri/chat/maestro_chat_screen.dart')
+        .readAsStringSync();
+    expect(s, contains('puoiConfrontare'),
+        reason: 'la chat non guarda il tetto del giorno prima di aprire');
+    expect(s, contains('registraConfronto'),
+        reason: 'nessuno conta il confronto quando avviene');
+  });
+
+  testWidgets('IL RESIDUO SI VEDE, sotto il pulsante e prima del tocco',
+      (tester) async {
+    // **UNA PROVA DEL ROSSO RESTATA VERDE l'ha chiesta a video.** La prima
+    // stesura cercava la chiave nel SORGENTE: spegnendo il ramo con un `if
+    // (false)` la chiave restava scritta, quindi la prova passava mentre a
+    // schermo non c'era piu' niente. Un ramo spento resta scritto.
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(360 * 3, 797 * 3);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => QualityTierController()),
+        ChangeNotifierProvider(create: (_) => MaestroController()),
+        ChangeNotifierProvider(create: (_) => BirthIdentityController()),
+      ],
+      child: MaterialApp(
+        home: MaestroScope(
+          maestro: Maestro.medora,
+          child: Scaffold(
+            body: SingleChildScrollView(
+              child: ChatBubble(
+                message: const ChatMessage(
+                  role: ChatRole.maestro,
+                  text: 'La lettura di Medora, per esteso.',
+                ),
+                maestro: Maestro.medora,
+                durataMassimaDiScrittura: const Duration(seconds: 10),
+                altreVoci: const [Maestro.caligo, Maestro.aura],
+                onChiediAgliAltri: () {},
+                residuoDeiConfronti:
+                    QuestionAllowance().residuoDeiConfronti(Tier.tier1),
+              ),
+            ),
+          ),
+        ),
+      ),
+    ));
+    await tester.pump();
+
+    final residuo = find.byKey(const Key('chat_residuo_confronti'));
+    expect(residuo, findsOneWidget,
+        reason: 'chi tocca non sa cosa spende prima di spenderlo');
+    // Ordine EX voce 02: l'Iniziato ha un confronto, erano tre.
+    expect(find.text('Oggi hai 1 confronto fra i Maestri'), findsOneWidget);
+    // E sta SOTTO il pulsante, non sopra: prima si legge cosa si fa, poi
+    // quanto costa.
+    final pulsante = find.byKey(const Key('chat_altre_voci'));
+    expect(pulsante, findsOneWidget);
+    expect(tester.getTopLeft(residuo).dy,
+        greaterThan(tester.getTopLeft(pulsante).dy),
+        reason: 'il residuo e\' disegnato sopra il pulsante');
+  });
+}

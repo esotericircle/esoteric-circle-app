@@ -1,0 +1,404 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:esoteric_circle/core/chat/maestro_memory.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
+import 'package:esoteric_circle/core/maestro/corpus_neutro.dart';
+import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/maestro/misura_della_risposta.dart';
+import 'package:esoteric_circle/core/maestro/natal_context.dart';
+import 'package:esoteric_circle/core/maestro/tempi_dell_attesa.dart';
+import 'package:esoteric_circle/services/ai/firebase_maestro_ai_provider.dart';
+import 'package:esoteric_circle/services/ai/maestro_persona.dart';
+import 'package:flutter_test/flutter_test.dart';
+
+/// LA MISURA DELLE RISPOSTE INTERE: quante parole, e quante si fermano al muro.
+///
+/// **Non e' nella suite, ed e' voluto**, per la stessa ragione di
+/// `attribuzione_cieca.dart`: costa chiamate vere a Gemini. `flutter test`
+/// guarda solo `test/`, quindi da qui non parte mai da solo.
+///
+/// ```
+/// flutter test tool/risposte_intere.dart
+/// ```
+///
+/// **Cosa misura.** Pone le venti domande neutre di [CorpusNeutro] con le
+/// istruzioni di sistema VERE dell'app e la configurazione VERA del provider,
+/// tetto e ragionamento presi dalla stessa [MisuraDellaRisposta] che usa la
+/// chat. Per ciascuna riporta il `finishReason` grezzo, le parole prodotte e i
+/// token del ragionamento.
+///
+/// **La riga che conta e' una sola: quante risposte si sono fermate al muro.**
+/// Deve essere ZERO. Il 2 agosto 2026, prima di questo lavoro, la stessa
+/// chiamata dava `finishReason: MAX_TOKENS` con `thoughtsTokenCount: 150` su un
+/// tetto di 160 e sei token di testo, cioe' quattro parole a video.
+void main() {
+  const progetto = 'esoteric-circle';
+  const regione = 'europe-west1';
+  /// QUANTE CHIAMATE INSIEME. UNA, cioe' DAVVERO in fila.
+  ///
+  /// **Il dato che ha fatto scendere questo numero.** Valeva 5, e il rapporto
+  /// stampava "chiamate in fila": non era vero, ne partivano cinque insieme e
+  /// si accodavano fra loro, quindi il tempo di rete misurato conteneva
+  /// l'attesa che le altre quattro finissero. Il numero che la persona aspetta
+  /// e' quello di UNA domanda sola, che e' come si usa l'app.
+  ///
+  /// E c'era un secondo effetto: cinque chiamate insieme facevano scattare il
+  /// 429 di Vertex, "RESOURCE_EXHAUSTED", e la misura si fermava a meta'.
+  /// Tre esecuzioni di fila hanno reso 17, 12 e 7 risposte su 20.
+  const insieme = 1;
+
+  test('Venti risposte vere, e nessuna tronca', () async {
+    final gettone = await _gettone();
+    if (gettone == null) {
+      fail('Nessun gettone di accesso. Serve una sessione gcloud attiva: '
+          'gcloud auth login');
+    }
+
+    for (final m in [
+      MisuraDellaRisposta.perChat,
+      MisuraDellaRisposta.perIlSeguito,
+    ]) {
+      stdout.writeln('${m.name}: ${m.parole} parole (${m.inLettere}). '
+          'Tetto: ${m.tetto} token. Ragionamento: ${m.ragionamento}.');
+    }
+
+    Future<_Esito?> chiedi(Maestro maestro, String domanda,
+        {String? rispostaGiaData}) async {
+      // La misura la decide il tipo di chiamata: breve la prima, seguito la
+      // seconda. E' lo stesso ramo che percorre l'app.
+      final misura = rispostaGiaData == null
+          ? MisuraDellaRisposta.perChat
+          : MisuraDellaRisposta.perIlSeguito;
+      final uri = Uri.https(
+        '$regione-aiplatform.googleapis.com',
+        '/v1/projects/$progetto/locations/$regione/publishers/google/models/'
+            '${FirebaseMaestroAiProvider.kMaestroChatModel}:generateContent',
+      );
+      final corpo = jsonEncode({
+        'systemInstruction': {
+          'parts': [
+            {
+              'text': MaestroPersona.systemInstruction(
+                maestro: maestro,
+                profile: UserProfile(displayName: 'Sofia'),
+                memory: MaestroMemory.empty,
+                natal: const NatalContext(
+                  sunSign: 'Leone',
+                  moonSign: 'Cancro',
+                  lifeNumber: 7,
+                  lifeNumberTitle: 'il Cercatore',
+                ),
+                rispostaGiaData: rispostaGiaData,
+              )
+            }
+          ]
+        },
+        'contents': [
+          {
+            'role': 'user',
+            'parts': [
+              {'text': domanda}
+            ]
+          }
+        ],
+        'generationConfig': {
+          'temperature': 0.9,
+          'topP': 0.95,
+          'maxOutputTokens': misura.tetto,
+          'thinkingConfig': {'thinkingBudget': misura.ragionamento},
+        },
+      });
+      final client = HttpClient();
+      final cronometro = Stopwatch()..start();
+      try {
+        final richiesta = await client.postUrl(uri);
+        richiesta.headers.set('Authorization', 'Bearer $gettone');
+        richiesta.headers.set('Content-Type', 'application/json');
+        richiesta.add(utf8.encode(corpo));
+        final risposta = await richiesta.close();
+        final grezzo = await risposta.transform(utf8.decoder).join();
+        if (risposta.statusCode != 200) {
+          stderr.writeln('HTTP ${risposta.statusCode}: '
+              '${grezzo.substring(0, grezzo.length.clamp(0, 300))}');
+          return null;
+        }
+        final d = jsonDecode(grezzo) as Map<String, dynamic>;
+        final candidati = d['candidates'] as List?;
+        if (candidati == null || candidati.isEmpty) return null;
+        final c = candidati.first as Map<String, dynamic>;
+        final parti =
+            ((c['content'] as Map?)?['parts'] as List?) ?? const <dynamic>[];
+        final testo = parti
+            .map((p) => (p as Map)['text']?.toString() ?? '')
+            .join()
+            .trim();
+        final uso = (d['usageMetadata'] as Map?) ?? const {};
+        return _Esito(
+          maestro: maestro,
+          domanda: domanda,
+          testo: testo,
+          motivo: c['finishReason']?.toString() ?? 'assente',
+          // Il tempo di RETE, cioe' quanto la persona aspetta prima che la
+          // prima parola possa comparire. E' il numero su cui si tara la durata
+          // minima della scena del consulto: una scena piu' corta della rete
+          // non serve a niente, una molto piu' lunga fa aspettare per finta.
+          millisecondi: cronometro.elapsedMilliseconds,
+          parole: testo.split(RegExp(r'\s+')).where((p) => p.isNotEmpty).length,
+          tokenIngresso: (uso['promptTokenCount'] as num?)?.toInt() ?? 0,
+          tokenTesto: (uso['candidatesTokenCount'] as num?)?.toInt() ?? 0,
+          tokenPensiero: (uso['thoughtsTokenCount'] as num?)?.toInt() ?? 0,
+        );
+      } finally {
+        client.close(force: true);
+      }
+    }
+
+    // Le venti domande distribuite sui tre Maestri a giro, cosi' la misura non
+    // vale per una voce sola: le tre hanno lessici diversi e lunghezze diverse.
+    // QUANTE DOMANDE, dichiarabile da fuori.
+    //
+    // Venti e' il valore di casa. Serve poterlo abbassare perche' la quota di
+    // Vertex e' finita: quattro esecuzioni di fila hanno reso 17, 12, 7 e 18
+    // risposte su 20, e una misura parziale il rapporto la rifiuta. Con dieci
+    // chiamate la misura e' meta' del carico e resta vera, purche' il numero
+    // sia scritto nel rapporto, come e' scritto.
+    final quante = int.tryParse(
+            Platform.environment['QUANTE_DOMANDE'] ?? '') ??
+        CorpusNeutro.domande.length;
+    final lavori = [
+      for (var i = 0; i < quante && i < CorpusNeutro.domande.length; i++)
+        (
+          maestro: Maestro.values[i % Maestro.values.length],
+          domanda: CorpusNeutro.domande[i],
+        ),
+    ];
+
+    final esiti = <_Esito>[];
+    final seguiti = <_Esito>[];
+    for (var i = 0; i < lavori.length; i += insieme) {
+      final lotto = lavori.skip(i).take(insieme).toList();
+      final risultati = await Future.wait(
+          lotto.map((l) => chiedi(l.maestro, l.domanda)));
+      esiti.addAll(risultati.whereType<_Esito>());
+      // IL SEGUITO NASCE DAL BREVE, e non da un testo inventato: e' una
+      // seconda chiamata che porta dentro la risposta gia' data, quindi il suo
+      // ingresso e' piu' grande di quello della prima.
+      for (final breve in risultati.whereType<_Esito>()) {
+        final seguito = await chiedi(breve.maestro, breve.domanda,
+            rispostaGiaData: breve.testo);
+        if (seguito != null) seguiti.add(seguito);
+      }
+      stdout.writeln('  ${esiti.length}/${lavori.length}');
+    }
+
+    expect(esiti.length, lavori.length,
+        reason: 'qualche chiamata non e\' tornata: la misura sarebbe parziale');
+
+    // LE COPPIE VERE SU FILE, per calibrare la soglia della ripetizione.
+    //
+    // La soglia oltre la quale due frasi dicono la stessa cosa non si sceglie
+    // a occhio: si guarda dove cadono le frasi vere. Qui escono le coppie
+    // (primo strato, seguito) come sono arrivate dal modello, grezze.
+    final dove = Platform.environment['COPPIE_SU_FILE'];
+    if (dove != null && dove.isNotEmpty) {
+      final coppie = <Map<String, String>>[];
+      for (var i = 0; i < seguiti.length && i < esiti.length; i++) {
+        coppie.add({
+          'maestro': esiti[i].maestro.displayName,
+          'domanda': esiti[i].domanda,
+          'gia': esiti[i].testo,
+          'seguito': seguiti[i].testo,
+        });
+      }
+      File(dove).writeAsStringSync(jsonEncode(coppie));
+      stdout.writeln('COPPIE su $dove: ${coppie.length}');
+    }
+
+    // IL COSTO VERO DEL SEGUITO, misurato e non stimato.
+    if (seguiti.isNotEmpty) {
+      int mediana(List<int> v) {
+        final o = [...v]..sort();
+        return o[o.length ~/ 2];
+      }
+
+      String tre(List<int> v) {
+        final o = [...v]..sort();
+        return 'min ${o.first} mediana ${mediana(v)} max ${o.last}';
+      }
+
+      final ing = seguiti.map((e) => e.tokenIngresso).toList();
+      final usc = seguiti.map((e) => e.tokenTesto).toList();
+      final par = seguiti.map((e) => e.parole).toList();
+      final ms = seguiti.map((e) => e.millisecondi).toList();
+      final ingB = esiti.map((e) => e.tokenIngresso).toList();
+      final uscB = esiti.map((e) => e.tokenTesto).toList();
+      stdout.writeln('IL SEGUITO, ${seguiti.length} chiamate vere:');
+      stdout.writeln('  ingresso  ${tre(ing)}');
+      stdout.writeln('  uscita    ${tre(usc)}');
+      stdout.writeln('  parole    ${tre(par)}');
+      stdout.writeln('  rete ms   ${tre(ms)}');
+      final costoBreve = mediana(ingB) + mediana(uscB);
+      final costoSeguito = mediana(ing) + mediana(usc);
+      final sempreIntero = mediana(ingB) + 350;
+      stdout.writeln('  IL CONTO, coi mediani veri:');
+      stdout.writeln('    breve   ${mediana(ingB)} + ${mediana(uscB)} = '
+          '$costoBreve');
+      stdout.writeln('    seguito ${mediana(ing)} + ${mediana(usc)} = '
+          '$costoSeguito');
+      stdout.writeln('    sempre intero costerebbe $sempreIntero a risposta');
+      final pareggio = (sempreIntero - costoBreve) / costoSeguito;
+      stdout.writeln('    PAREGGIO al ${(pareggio * 100).toStringAsFixed(1)} '
+          'per cento di risposte approfondite');
+    }
+
+    stdout.writeln('\n${'-' * 78}');
+    for (final e in esiti) {
+      stdout.writeln('${e.maestro.displayName.padRight(7)} '
+          '${e.parole.toString().padLeft(3)} parole  '
+          '${e.motivo.padRight(10)} '
+          '${(e.millisecondi / 1000).toStringAsFixed(1)}s  '
+          'testo ${e.tokenTesto.toString().padLeft(4)} tok, '
+          'pensiero ${e.tokenPensiero}  '
+          '«${e.domanda}»');
+      stdout.writeln('        ...${e.coda}');
+    }
+
+    // UNA RISPOSTA PER INTERO, per Maestro. Le code non bastano a giudicare se
+    // una risposta sta in piedi: la si legge tutta, oppure non la si e' letta.
+    stdout.writeln('${'-' * 78}\nUNA RISPOSTA INTERA PER CIASCUNO:');
+    for (final maestro in Maestro.values) {
+      final suo = esiti.where((e) => e.maestro == maestro);
+      if (suo.isEmpty) continue;
+      final e = suo.first;
+      stdout.writeln('\n### ${maestro.displayName}, «${e.domanda}», '
+          '${e.parole} parole\n${e.testo}');
+    }
+
+    // IL TEMPO DI RETE, MISURATO DA SOLO E IN FILA.
+    //
+    // Le venti qui sopra partono a cinque per volta, quindi il loro tempo porta
+    // dentro la coda dell'una sull'altra: userebbe un numero piu' alto del vero
+    // per tarare la scena dell'attesa. Queste dieci partono UNA ALLA VOLTA, ed
+    // e' il tempo che aspetta una persona sola col telefono in mano.
+    stdout.writeln('${'-' * 78}\nDIECI CHIAMATE IN FILA, per il tempo vero:');
+    final tempi = <int>[];
+    // `lavori.length` e non dieci fisse: con QUANTE_DOMANDE piu' basso questo
+    // giro leggeva oltre la fine della lista e la misura moriva DOPO aver
+    // speso tutte le chiamate vere.
+    for (var i = 0; i < 10 && i < lavori.length; i++) {
+      final l = lavori[i];
+      final e = await chiedi(l.maestro, l.domanda);
+      if (e == null) continue;
+      tempi.add(e.millisecondi);
+      stdout.writeln('  ${(e.millisecondi / 1000).toStringAsFixed(2)}s  '
+          '${e.maestro.displayName}, ${e.parole} parole');
+    }
+    tempi.sort();
+
+    // I CARATTERI VERI, non stimati: il tempo della macchina da scrivere si
+    // calcola sui caratteri, e "circa sei per parola" e' una stima che non
+    // vale la pena di fare quando il numero si puo' contare.
+    final caratteri = esiti.map((e) => e.testo.length).toList()..sort();
+
+
+    final parole = esiti.map((e) => e.parole).toList()..sort();
+    final tronche = esiti.where((e) => e.motivo == 'MAX_TOKENS').toList();
+    final pensanti = esiti.where((e) => e.tokenPensiero > 0).toList();
+    // I TOKEN VERI, che servono a sostituire con fatti la stima del costo per
+    // utente: oggi e' calcolata su 2.000 in ingresso e 110 in uscita.
+    final ingresso = esiti.map((e) => e.tokenIngresso).toList()..sort();
+    final uscita = esiti.map((e) => e.tokenTesto).toList()..sort();
+    final pensiero = esiti.map((e) => e.tokenPensiero).toList()..sort();
+
+    String ms(int v) => '${(v / 1000).toStringAsFixed(2)}s';
+    stdout.writeln('${'-' * 78}\n'
+        'RETE    minimo ${ms(tempi.first)}  '
+        'mediana ${ms(tempi[tempi.length ~/ 2])}  '
+        'massimo ${ms(tempi.last)}   (${tempi.length} chiamate in fila)\n'
+        'PAROLE  minimo ${parole.first}  '
+        'mediana ${parole[parole.length ~/ 2]}  '
+        'massimo ${parole.last}   (chieste ${MisuraDellaRisposta.perChat.parole})\n'
+        'CARATT. minimo ${caratteri.first}  '
+        'mediana ${caratteri[caratteri.length ~/ 2]}  '
+        'massimo ${caratteri.last}\n'
+        'PRIMA PAROLA  ${ms(TempiDellAttesa.allaPrimaParola(tempi.first).inMilliseconds)}  '
+        '${ms(TempiDellAttesa.allaPrimaParola(tempi[tempi.length ~/ 2]).inMilliseconds)}  '
+        '${ms(TempiDellAttesa.allaPrimaParola(tempi.last).inMilliseconds)}\n'
+        'TESTO COMPLETO  '
+        '${ms(_completo(tempi.first, caratteri.first))}  '
+        '${ms(_completo(tempi[tempi.length ~/ 2], caratteri[caratteri.length ~/ 2]))}  '
+        '${ms(_completo(tempi.last, caratteri.last))}\n'
+        'TOKEN INGRESSO minimo ${ingresso.first}  '
+        'mediana ${ingresso[ingresso.length ~/ 2]}  '
+        'massimo ${ingresso.last}\n'
+        'TOKEN USCITA   minimo ${uscita.first}  '
+        'mediana ${uscita[uscita.length ~/ 2]}  '
+        'massimo ${uscita.last}\n'
+        'TOKEN PENSIERO minimo ${pensiero.first}  '
+        'mediana ${pensiero[pensiero.length ~/ 2]}  '
+        'massimo ${pensiero.last}\n'
+        'FERMATE AL MURO: ${tronche.length} su ${esiti.length}\n'
+        'CON RAGIONAMENTO ACCESO: ${pensanti.length} su ${esiti.length}');
+
+    expect(tronche, isEmpty,
+        reason: 'una risposta fermata dal limite e\' un moncone a video');
+    expect(pensanti, isEmpty,
+        reason: 'il ragionamento e\' dichiarato a zero ma il modello ha '
+            'pensato lo stesso: e\' cio' ' che mangiava il tetto');
+  }, timeout: const Timeout(Duration(minutes: 10)));
+}
+
+class _Esito {
+  _Esito({
+    required this.maestro,
+    required this.domanda,
+    required this.testo,
+    required this.motivo,
+    required this.parole,
+    required this.millisecondi,
+    required this.tokenTesto,
+    required this.tokenIngresso,
+    required this.tokenPensiero,
+  });
+
+  final Maestro maestro;
+  final String domanda;
+  final String testo;
+  final String motivo;
+  final int parole;
+
+  /// Quanto e' durata la chiamata, dalla richiesta alla risposta completa.
+  final int millisecondi;
+  final int tokenTesto;
+  final int tokenIngresso;
+  final int tokenPensiero;
+
+  /// Le ultime parole, che sono il punto: una risposta tronca finisce senza
+  /// punteggiatura, a meta' di una parola o di un pensiero.
+  String get coda =>
+      testo.length <= 60 ? testo : testo.substring(testo.length - 60);
+}
+
+/// Il tempo dalla domanda all'ultima lettera, con la rete e i caratteri veri.
+/// Chiama gli stessi conti dell'app, non li rifa': una seconda copia
+/// dell'aritmetica finirebbe per misurare se stessa.
+int _completo(int reteMs, int caratteri) =>
+    TempiDellAttesa.allaPrimaParola(reteMs).inMilliseconds +
+    TempiDellAttesa.durataDiScrittura(
+            caratteri, TempiDellAttesa.perScrivere(reteMs))
+        .inMilliseconds;
+
+/// Il gettone di accesso dalla sessione gcloud gia' attiva sul PC.
+Future<String?> _gettone() async {
+  try {
+    final esito = await Process.run(
+        'gcloud', ['auth', 'print-access-token'],
+        runInShell: true);
+    if (esito.exitCode != 0) return null;
+    final t = (esito.stdout as String).trim();
+    return t.isEmpty ? null : t;
+  } catch (_) {
+    return null;
+  }
+}

@@ -1,0 +1,51 @@
+== EQ.05 innesto: le carte tornano a crescere attorno al centro
+   file lib/features/tarot/stesa_tre_carte_screen.dart, sha1 prima aaa0603b9cc9, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +0 -2: Some tests failed.
+   Expected: a value greater than or equal to <8>
+   Actual: <7.5499999999999545>
+   Expected: a value less than or equal to <1>
+   Actual: <17.75999999999999>
+   ripristinato: sha1 aaa0603b9cc9, uguale
+== EQ.06 innesto: il segno del verso torna nel Wrap del nome
+   file lib/features/tarot/stesa_tre_carte_screen.dart, sha1 prima aaa0603b9cc9, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +1 -1: Some tests failed.
+   Expected: a value greater than or equal to <764.4000000000001>
+   Actual: <738.9000000000001>
+   ripristinato: sha1 aaa0603b9cc9, uguale
+== EQ.06 innesto: la colonna delle posizioni della card torna di 74 punti
+   file lib/features/tarot/stesa_share_card.dart, sha1 prima f02f752345e7, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:01 +0 -1: Some tests failed.
+   Expected: <1>
+   Actual: <2>
+   ripristinato: sha1 f02f752345e7, uguale
+== EQ.11 innesto: il titolo della stesa torna su due righe
+   file lib/features/tarot/stesa_tre_carte_screen.dart, sha1 prima aaa0603b9cc9, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +1 -1: Some tests failed.
+   Expected: <1>
+   Actual: <2>
+   ripristinato: sha1 aaa0603b9cc9, uguale
+== EQ.12 innesto: il titolo del consiglio torna un Text con maxLines 1
+   file lib/features/tarot/stesa_tre_carte_screen.dart, sha1 prima aaa0603b9cc9, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:01 +2: All tests passed!
+   ripristinato: sha1 aaa0603b9cc9, uguale
+== EQ.12 innesto, secondo giro: il titolo del consiglio torna un Text con maxLines 1 (prova con la scala 1,3)
+   file lib/features/tarot/stesa_tre_carte_screen.dart, sha1 prima aaa0603b9cc9, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:03 +0 -2: Some tests failed.
+   Expected: false
+   Actual: <true>
+   Expected: false
+   Actual: <true>
+   ripristinato: sha1 aaa0603b9cc9, uguale
+== EQ.12 innesto: il titolo a una riga torna a tagliare invece di andare a capo
+   file lib/design_system/components/titolo_che_non_si_rompe.dart, sha1 prima 3faa715638a5, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:01 +0 -1: Some tests failed.
+   Expected: false
+   Actual: <true>
+   ripristinato: sha1 3faa715638a5, uguale

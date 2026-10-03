@@ -1,0 +1,10 @@
+ORDINE EM VOCE 10, L'ALTEZZA DEL VOLTO NEI QUATTRO MOMENTI DEL TURNO, 25 settembre 2026
+Finestra 390x844 punti, come il telefono di prova dell'app. Prima: la disposizione della 2280 (commit 8a44fa3f,
+schermata_live.dart righe 664-708) ricostruita in una prova di widget; adesso: LaScenaDelLive, la stessa
+composizione che monta la schermata. Larghezza x altezza del volto, in punti.
+
+il saluto: prima 390x736, adesso 390x497
+si ascolta: prima 390x669, adesso 390x497
+la domanda: prima 390x656, adesso 390x497
+la risposta lunga: prima 390x567, adesso 390x497
+il saluto col suo sottotitolo: prima 390x680

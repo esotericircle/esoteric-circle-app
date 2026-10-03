@@ -1,0 +1,40 @@
+S01|SI|NA|NA|NO|NA|al limite: sì condizionato alla preparazione, consiglio da manuale per qualunque colloquio e gesto del limite di tempo scollegato.
+S02|SI|NA|NA|SI|NA|al limite: no per ora e un passo pertinente, parlarne con una persona di fiducia entro fine mese.
+S03|SI|NA|NA|SI|NA|sì condizionato al primo passo, lettera alla sorella entro domani sera: concreto e sulla domanda.
+S04|NO|NA|NA|SI|NA|sì secco al colloquio detto come certezza; il gesto di sapere chi farà il colloquio è concreto.
+S05|SI|NA|NA|NO|NA|massima generica sulla direzione nuova e telefonata rimandata che va bene per chiunque.
+S06|SI|NA|NA|NO|NA|venti minuti di silenzio vanno bene per chiunque; non dice che cosa fare con ciò che aspetta.
+S07|SI|NA|NA|SI|NA|al limite: dire ciò che pensa in una situazione scomoda entro domani è un passo sulla fiducia.
+S08|SI|NA|NA|SI|NA|al limite: secca ma indica di chiedere direttamente alla persona con un messaggio entro domani.
+S09|SI|NA|NA|SI|NA|sì condizionato e messaggio alla sorella domattina per incontrarsi: concreto e sulla domanda.
+S10|SI|NA|NA|NO|NA|compagnia fedele e piccolo impedimento sono generici, nulla dice del progetto.
+S11|SI|NA|NA|NO|NA|ascolta l'intuizione e la telefonata rimandata sono massime per chiunque.
+S12|SI|NA|NA|SI|NA|indica una causa, la disponibilità per tutti, e un gesto sul sonno, telefono spento fino al risveglio.
+S13|SI|NA|NA|NO|NA|al limite su A per il no per ora; il tè lento non ha nulla a che fare con lui.
+S14|SI|NA|NA|SI|NA|sì condizionato e scrivere a tre conoscenti a Berlino domani: concreto e sulla scelta.
+S15|SI|NA|NA|SI|NA|al limite: indica di aprire con un perché, ma il gesto finale è generico e scollegato.
+S16|SI|NA|NA|NO|NA|non risponde se prestare i soldi, solo un gesto generico di scrittura.
+S17|SI|NA|NA|NO|NA|al limite su A; non dice nulla sul quando e il limite di tempo non c'entra.
+S18|SI|NA|NA|SI|NA|sì, piano dei primi tre mesi e contatto con chi ha una bottega simile: concreto.
+S19|SI|NA|NA|NO|NA|piantare un seme è un gesto simbolico che va bene per chiunque.
+S20|SI|NA|NA|SI|NA|al limite: non nomina il blocco ma indica di prendersi il merito di un talento al lavoro entro dopodomani.
+S21|NO|NA|NA|NO|NA|silenzio: nessuna risposta e nessuna indicazione alla domanda sul lavoro.
+S22|SI|NA|NA|NO|NA|chiarire le priorità e il limite di tempo sono massime generiche, nulla sul progetto.
+S23|SI|NA|NA|NO|NA|chiedere il parere a una persona di fiducia va bene per qualunque scelta, nessuna lettura.
+S24|SI|NA|NA|SI|NA|al limite: dice di andare con una scadenza e preparare il trasloco, ma il gesto finale è generico.
+S25|SI|NA|NA|NO|NA|al limite su A: ripensare all'ultima volta è vago; nessuna direzione data.
+S26|SI|NA|NA|NO|NA|al limite su A; sì incoerente a un perché e la telefonata rimandata non riguarda il sonno.
+S27|SI|NA|NA|SI|NA|telefonare alla madre entro domenica e proporre un incontro a due: concreto e sulla domanda.
+S28|SI|NA|NA|SI|NA|al limite su A per il denaro; sì condizionato e chiedere al fratello un piano concreto entro domenica.
+S29|SI|NA|NA|SI|NA|chiedere direttamente alla persona che cosa cerca e incontrarla entro domani sera.
+S30|NO|NA|NA|NO|NA|silenzio: nessuna risposta alla domanda sul matrimonio.
+S31|NO|NA|NA|NO|NA|silenzio: nessuna risposta e nessuna indicazione per fare pace con la madre.
+S32|SI|NA|NA|NO|NA|frasi astratte sui confini e un percorso sulla mappa che va bene per chiunque.
+S33|SI|NA|NA|NO|NA|al limite: non dice se conviene cambiare casa, la casa già presente è vaga, gesti generici.
+S34|SI|NA|NA|NO|NA|al limite su A per il no su Marco; nessun perché e gesto generico.
+S35|SI|NA|NA|NO|NA|sì incoerente con la domanda, nessuna indicazione sulla scelta, gesto generico.
+S36|SI|NA|NA|NO|NA|ripete la domanda come comando; guardare un oggetto conservato è vago.
+S37|SI|NA|NA|SI|NA|al limite: un limite di tempo all'attesa è pertinente, anche se formula ricorrente.
+S38|SI|NA|NA|NO|NA|al limite su A per il sì condizionato; la cena con un amico non riguarda lui.
+S39|SI|NA|NA|NO|NA|al limite su A: afferma i sentimenti di Marco e subito dopo dice che non si possono sapere; gesto generico.
+S40|SI|NA|NA|NO|NA|il blocco creato da te e l'abitudine da rompere sono massime per chiunque.

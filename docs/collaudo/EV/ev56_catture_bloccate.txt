@@ -1,0 +1,18 @@
+ORDINE EV VOCE 56, NIENTE CATTURE DELLO SCHERMO: LA PROVA SUL REALME
+
+Il fondatore: "Inoltre, vorrei disattivassi la possibilità di fare screenshot".
+
+Realme 767f596c, 1 ottobre 2026, ore 19:54, build consegnata 0.1.0+2290 (versionCode 2290 letto con dumpsys package, costruita senza CATTURE_PERMESSE dal commit 0574e89f), app aperta sulla home.
+
+1. La finestra dell'app (adb shell dumpsys window windows):
+   Window{62df576 u0 com.esotericircle.esoteric_circle/com.esotericircle.esoteric_circle.MainActivity}
+   fl=LAYOUT_IN_SCREEN SECURE LAYOUT_INSET_DECOR SPLIT_TOUCH HARDWARE_ACCELERATED DRAWS_SYSTEM_BAR_BACKGROUNDS
+   Il segno SECURE e' sulla finestra.
+
+2. La cattura dello schermo (adb shell screencap -p) con l'app davanti, tre volte (da exec-out, in /sdcard e in /data/local/tmp): 0 byte tutte e tre. Il sistema rifiuta la cattura.
+   -rw-rw-r-- 1 shell shell 0 2026-10-01 19:54 /data/local/tmp/ev56.png
+
+3. Con la build di collaudo dello stesso codice (--dart-define=CATTURE_PERMESSE=true, installata prima sullo stesso telefono) le catture escono intere: per esempio realme/ev01_adepto_prezzi_interi.png, 300.185 byte, e tutte le altre di questa cartella.
+
+MISURA: catture leggibili dalla build consegnata 0 su 3; dalla build di collaudo, tutte quelle della cartella realme.
+Su iOS il sistema non lascia a un'app il modo di impedire una cattura: la voce vale per Android.

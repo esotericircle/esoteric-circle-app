@@ -1,0 +1,26 @@
+Realme 767f596c, build locale del 24/09/2026 04:28 (release, non consegnata), LIVE di Medora.
+Estratto del registro del telefono: righe 'flutter' del LIVE, cosi' come le ha scritte l'app.
+Frase 1: il portatile dice 'lunga' (scratchpad parla.ps1) con pause di 1,5 s, 1,3 s e 1,6 s, ascolto automatico.
+Frase 2: il portatile dice 'mano' con pause di 3,0 s, 3,5 s e 3,0 s, microfono tenuto premuto per 28 s.
+
+09-24 04:33:39.215 11922 11922 I flutter : LIVE: primo suono al volto dopo 922 ms, audio di 7432 ms, scritto in 2448 ms
+09-24 04:33:44.793 11922 11922 I flutter : LIVE VIDEO: ricevuto 384x384 a 25.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 936x1170 px veri, ritaglio 619x774 millesimi del video
+09-24 04:33:46.061 11922 11922 I flutter : LIVE: il volto ha finito dopo 9294 ms, lo ha detto lui
+09-24 04:33:53.047 11922 11922 I flutter : LIVE: frase di 3360 ms registrata in 6986 ms, trascritta in 1683 ms: «»
+09-24 04:34:01.820 11922 11922 I flutter : LIVE VIDEO: ricevuto 512x512 a 25.0 fps, codec video/H264, decoder OMX.qcom.video.decoder.avc; finestra 936x1170 px veri, ritaglio 619x774 millesimi del video
+09-24 04:34:16.797 11922 11922 I flutter : LIVE: frase di 4880 ms registrata in 23749 ms, trascritta in 1592 ms: «Mei d'ora vorrei chiederti una cosa»
+09-24 04:34:20.533 11922 11922 I flutter : LIVE: la chat ha risposto in 3728 ms (rigenerazioni finora: ancoraggio 1, troncatura 0)
+09-24 04:34:23.458 11922 11922 I flutter : LIVE: primo suono al volto dopo 743 ms, audio di 5352 ms, scritto in 2924 ms
+09-24 04:34:27.591 11922 11922 I flutter : LIVE: il volto ha finito dopo 7057 ms, lo ha detto lui
+09-24 04:34:34.037 11922 11922 I flutter : LIVE: frase di 3360 ms registrata in 6445 ms, trascritta in 1515 ms: «»
+09-24 04:34:40.283 11922 11922 I flutter : LIVE: frase di 2560 ms registrata in 6246 ms, trascritta in 1110 ms: «»
+09-24 04:34:47.361 11922 11922 I flutter : LIVE: frase di 3360 ms registrata in 7077 ms, trascritta in 1135 ms: «»
+09-24 04:35:00.976 11922 11922 I flutter : LIVE: frase di 3360 ms registrata in 13614 ms, trascritta in 1072 ms: «»
+09-24 04:35:14.675 11922 11922 I flutter : LIVE: frase di 3280 ms registrata in 13699 ms, trascritta in 1055 ms: «»
+09-24 04:35:28.488 11922 11922 I flutter : LIVE: frase di 3280 ms registrata in 13813 ms, trascritta in 1146 ms: «»
+09-24 04:35:56.584 11922 11922 I flutter : LIVE: frase di 25920 ms registrata in 28096 ms, trascritta in 1640 ms: «Ti racconto una cosa lunga.
+09-24 04:35:56.585 11922 11922 I flutter : Mia sorella vive lontano.
+09-24 04:35:56.585 11922 11922 I flutter : E da quando se n'è andata ci sentiamo poco.
+09-24 04:35:56.585 11922 11922 I flutter : Vorrei riavvicinarmi a lei senza sembrare invadente.»
+09-24 04:35:58.919 11922 11922 I flutter : LIVE: la chat ha risposto in 2333 ms (rigenerazioni finora: ancoraggio 1, troncatura 0)
+09-24 04:36:14.531 11922 11922 I flutter : LIVE: primo suono al volto dopo 698 ms, audio di 39135 ms, scritto in 15609 ms

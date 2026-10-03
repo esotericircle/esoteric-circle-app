@@ -1,0 +1,46 @@
+ORDINE EX VOCE 03, LE RUNE SENZA RIPETIZIONI PER SESSANTA GIORNI. 2 ottobre 2026.
+
+DOMANDA: "Voglio corpus grandi, non voglio ripetizioni per almeno 60gg e voglio tenere alta l'esperienza utente e non voglio critiche per le risposte, mi raccomando."
+
+IL CORPUS DELL'ARCHITETTO (EX Aggiunta 2): cinque file in docs/corpus/rune/ (risposta.md, verdetto.md, pietra.md, legame.md, gesto.md), copiati dalla cartella del fondatore identici al byte (cmp; sha1 risposta cd2331075833, verdetto 3a94813e54ac, pietra 3a463d714cf2, legame e0527dee8036, gesto 88357ffc88f4). 5.411 voci: RISPOSTA 832, VERDETTO 503, PIETRA 2.611, LEGAME 633, GESTO 832. Le voci di PIETRA usano solo {glossa}, mai {posizione}, come ha scelto l'Architetto; nessuna voce usa la marca del genere. Code non ha scritto, riscritto o riformulato nessuna voce.
+
+LE PROVE DELLA SPECIFICA, SEZIONE 7, SUL CORPUS VERO (test/il_corpus_delle_rune_test.dart e test/le_rune_non_chiamano_il_modello_test.dart, 2 ottobre 2026)
+ORDINE EX VOCE 03: voci del corpus 5411
+1. LA FORMA. ORDINE EX VOCE 03: voci guardate 5411, difetti 0 (gruppi, spazi permessi per campo, lunghezze a spazi riempiti, parole vietate, astri, trattino lungo, virgola prima della "e", nomi di runa dove non vanno, la sua runa in PIETRA, apostrofi al posto degli accenti, "ascolta te stesso", parentesi quadre). Lo stesso controllo, prima di generare il codice, in tool/controlla_il_corpus_delle_rune.py: 0 difetti, e 4 su 4 trovati su una copia con quattro difetti innestati.
+2. LA QUANTITA'. ORDINE EX VOCE 03: gruppi 140, sotto il numero che serve 0
+3. LE RIPETIZIONI A 60 GIORNI. ORDINE EX VOCE 03 SUL CORPUS VERO: persone 2000 (due scenari), gettate 359931, voci ripetute in 60 giorni 0 (1.000 persone per scenario, misto e peggiore, 60 giorni, 3 gettate al giorno; le 69 gettate che mancano a 360.000 sono la stessa firma lo stesso giorno, che ridà lo stesso presagio per regola, sezione 5).
+4. LA PAROLA PER PAROLA. ORDINE EX VOCE 03: file del codice diversi da quelli dell'Architetto 0 su 5
+5. LE CHIAMATE AL MODELLO PER GETTATA. La schermata vera con un modello pronto che conta: 0 chiamate per una gettata delle tre Norne (prima 1,85 in media, ordine EW, docs/costi/i_conti_del_costo.txt).
+Regola A: innesti A8, A9 e A10 in docs/collaudo/EX/regola_a_ex.txt, tutte rosse sull'innesto.
+
+LE VOCI CHE LA SUITE INTERA HA FERMATO (guardie di casa, non della specifica), 2 ottobre 2026
+Da correggere per l'Architetto, perche' dicono a chi legge di essere un uomo (test/il_genere_non_si_indovina_test.dart):
+- pietra.md, Uruz dritta, voce 56: "...le difficoltà scivolano via se resti ben piantato a terra."
+- pietra.md, Mannaz in ombra, voce 38: "...segnala che giudichi te stesso con metri che non useresti per altri..."
+Code non le ha toccate: il testo nel codice e' ancora il loro, parola per parola. Finche' l'Architetto non le corregge il codice non le sceglie mai (IlPresagioDalCorpus.vociTrattenute; i due gruppi restano sopra il numero che serve, 69 su 66 e 44 su 41), e la prova delle ripetizioni pretende che non escano.
+Dichiarate a frase nelle guardie, perche' la forma non e' di chi legge o la parola e' una figura del parlare (nessuna da correggere):
+- genere: risposta.md Uruz dritta 16 ("la forza... di essere spesa"), pietra.md Fehu dritta 43 ("un'energia... spesa"), Jera dritta 52 ("ogni progresso... riconosciuto"), Eihwaz dritta 8 ("qualcosa... difeso"), Berkano dritta 56 ("un segno... difeso"), Othala dritta 56 ("Ciò che è tuo... difeso");
+- la parola "voce" (test/la_parola_voce_resta_allaudio_test.dart): otto voci dove "voce" e' la voce di un'intuizione, di una pietra, della gettata, o una voce di un elenco (risposta, pietra Wunjo dritta e in ombra, legame odino tre volte, legame del telo, gesto).
+
+IL PASSAGGIO: il generatore (python tool/genera_corpus_del_presagio.py) ha scritto lib/core/rituals/il_corpus_del_presagio.g.dart; CorpusDelPresagio.completo e' vero e RuneDrawScreen compone il presagio dal corpus. Una voce tolta dall'Architetto (numero senza testo) non viene mai scelta (IlPresagioDalCorpus.scegli, parametro vuota).
+
+LA PARTE CHE SEGUE E' LA MISURA FATTA PRIMA DEL CORPUS, COL CORPUS DI PROVA:
+
+COSA C'E'
+- La specifica per l'Architetto: docs/corpus/rune/SPECIFICA.md, con le voci che servono gruppo per gruppo in docs/corpus/rune/le_voci_che_servono.txt (140 gruppi, 4.929 voci; spinta col commit 44004806 prima di ogni altra voce EX).
+- La regola di scelta: lib/core/rituals/il_presagio_dal_corpus.dart (IlPresagioDalCorpus). Per ogni campo e gruppo un ordine delle voci seminato dalla persona (FNV e Fisher-Yates); si prende la prima voce che la persona non ha letto nei sessanta giorni (LaMemoriaDelPresagio, finestra 60, sul telefono); se le ha lette tutte, quella letta da piu' tempo. Stessa gettata e stessa domanda nello stesso giorno ridanno lo stesso presagio.
+- Il generatore: tool/genera_corpus_del_presagio.py legge i cinque file dell'Architetto (docs/corpus/rune/risposta.md, verdetto.md, pietra.md, legame.md, gesto.md) e scrive lib/core/rituals/il_corpus_del_presagio.g.dart. Oggi i file non ci sono: il corpus e' vuoto.
+- La schermata: lib/features/maestri/caligo/rune/rune_draw_screen.dart compone il presagio dal corpus SOLO quando il corpus e' completo (CorpusDelPresagio.completo); finche' non lo e', la lettura resta quella del modello, come oggi. Il passaggio avviene quando entra il corpus completo, come dice l'ordine.
+
+LA MISURA (test/il_presagio_dal_corpus_test.dart, corpus di prova con tante voci quante la specifica ne chiede, ognuna fatta del suo identificativo)
+flutter test -r expanded test/il_presagio_dal_corpus_test.dart, 2 ottobre 2026:
+ORDINE EX VOCE 03: gruppi 140, voci che servono 4929
+ORDINE EX VOCE 03: gettate simulate 54000, voci ripetute in 60 giorni 0
+00:10 +5: All tests passed!
+
+54.000 gettate = 150 persone x 2 scenari (gettate miste; sempre la gettata piu' grande) x 60 giorni x 3 gettate al giorno, il massimo dell'Illuminato. Voci ripetute alla stessa persona entro 60 giorni: 0.
+
+LA REGOLA A (docs/collaudo/EX/regola_a_ex.txt, A2): con la scelta che dimentica cio' che la persona ha letto la stessa prova da' 472.319 ripetizioni su 54.000 gettate, rossa.
+
+CHE COSA RESTA DA GUARDARE
+- La gettata col corpus sul Realme, a video: docs/collaudo/EX/realme/ (con la build di collaudo).

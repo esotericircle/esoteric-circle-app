@@ -51,6 +51,21 @@ flutter analyze      # analisi statica, deve essere pulita
 flutter test         # test di avviamento, navigazione e feature flag
 ```
 
+### Nota sulle anteprime
+
+Le anteprime committate in `docs/preview/` nascono dai widget test di cattura.
+Durante un normale `flutter test` le catture finiscono in `build/preview/`, che
+non e' versionata: la suite verifica che ogni schermata renda ancora, senza mai
+sporcare l'albero di lavoro. Per aggiornare davvero i PNG committati serve una
+richiesta esplicita, un solo comando:
+
+```bash
+./tool/aggiorna_anteprime.sh     # oppure .\tool\aggiorna_anteprime.ps1 su Windows
+```
+
+Poi si rivedono le differenze con `git diff --stat docs/preview` e si committa
+quello che si vuole tenere.
+
 ### Nota sui font
 
 La tipografia usa `google_fonts`, che scarica i font a runtime al primo avvio

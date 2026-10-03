@@ -1,0 +1,8 @@
+EQ.02 dopo giro A medora: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 0 su 4, parole di firma degli altri due 0
+EQ.02 dopo giro A aura: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 2 su 4, parole di firma degli altri due 0
+EQ.02 dopo giro A caligo: domande 3, prime frasi che rimandano a un altro Maestro 0, parti della domanda senza risposta 3 su 5, parole di firma degli altri due 0
+Giro fermato a mano il 27 settembre 2026 durante il giro B (processi chiusi a mano), dopo il giro A intero:
+la prima stesura della regola del cerchio toglieva il rimando in apertura
+(0 prime frasi su 9 domande) ma lasciava parti della domanda senza risposta
+(Calìgo 3 su 5, Aura 2 su 4 nel giro A). La regola e' stata resa piu' stretta
+e rimisurata nel giro dopo2.

@@ -1,0 +1,6 @@
+innesto in lib/features/schede/la_luce_delle_schede.dart: il vecchio compare 0 volte, il nuovo 6293 volte ('    if (MediaQuery.maybeDisableAnimationsOf(context) ?? fals' -> '')
+  Expected: no matching candidates
+    Actual: _WidgetPredicateWidgetFinder:<Found 2 widgets with widget matching predicate: [
+  00:01 +0 -1: EO.06: il riflesso c'e', senza sensore segue la riga, e si spegne con la riduzione del movimento [E]
+  00:01 +0 -1: Some tests failed.
+ripristino lib/features/schede/la_luce_delle_schede.dart: sha1 5bc3d4ec4dc9 -> 5bc3d4ec4dc9, IDENTICO

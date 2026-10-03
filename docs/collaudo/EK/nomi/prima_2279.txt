@@ -1,0 +1,35 @@
+ORDINE EK VOCE 03, LA TRASCRIZIONE DEL LIVE PRIMA DELLA CURA.
+Realme 767f596c, build 2279 consegnata (release 6gqoq7qjcg7eg), LIVE di Medora, 24 settembre 2026.
+Le frasi le dice il portatile accanto al telefono, voce Microsoft Elsa (italiano), scratchpad parla_nomi.ps1.
+Righe "LIVE: frase ... trascritta ..." del registro del telefono, cosi' come le ha scritte l'app.
+
+LE FRASI DETTE:
+  1. Medora, ho pescato la Torre e poi l'Appeso. Cosa vogliono dire per me?
+  2. Calìgo, stamattina ho tirato Fehu, Thurisaz e Algiz.
+  3. Aura, sento un blocco ad Anahata e anche a Vishuddha.
+  4. Sono dello Scorpione con ascendente Sagittario e la Luna in Capricorno.
+  5. Medora, la Papessa e l'Imperatrice sono uscite insieme.
+  6. Calìgo, che cosa significa la runa Eihwaz accanto a Perthro?
+
+LE TRASCRIZIONI:
+  09-24 13:19:31.815 28891 28891 I flutter : LIVE: frase di 8160 ms in 1 pezzi, trascritta in 1632 ms: «Nei giorni d'oggi ho pescato la torre e poi l'ho appeso. Cosa vogliono dire per me?» (parte)
+  09-24 13:20:50.840 28891 28891 I flutter : LIVE: frase di 2800 ms in 1 pezzi, trascritta in 1012 ms: «» (si ascolta ancora)
+  09-24 13:20:57.970 28891 28891 I flutter : LIVE: frase di 9760 ms in 2 pezzi, trascritta in 1183 ms: «Canigo stamattina ho tirato feù, tu risazzi algaz» (parte)
+  09-24 13:21:22.106 28891 28891 I flutter : LIVE: frase di 6960 ms in 1 pezzi, trascritta in 1326 ms: «Laura, sento un blocco ad Anata e anche a Vicenza.» (parte)
+  09-24 13:21:48.290 28891 28891 I flutter : LIVE: frase di 7360 ms in 1 pezzi, trascritta in 1703 ms: «Sono dello scorpione con ascendente sagittario e la luna in capricorno.» (parte)
+  09-24 13:23:03.511 28891 28891 I flutter : LIVE: frase di 7440 ms in 1 pezzi, trascritta in 1528 ms: «Nei giorni la papessa e l'imperatrice sono uscite insieme.» (parte)
+  09-24 13:29:29.424 28891 28891 I flutter : LIVE: frase di 6480 ms in 1 pezzi, trascritta in 1526 ms: «Caligo che cosa significa la luna e accanto a Bertu» (si ascolta ancora)
+
+LA SESTA FRASE era caduta nella prima sessione: alle 13:24:05 lo schermo si e' spento da solo, cinque minuti
+dopo l'ultimo tocco, mentre Medora rispondeva; il microfono e' andato a -100 dB e il LIVE si e' chiuso dopo
+trenta secondi di silenzio. E' un guasto a se', curato in questo ordine (LoSchermoAcceso). La sesta frase e'
+stata detta di nuovo in una sessione breve alle 13:29.
+
+I NOMI, UNO PER UNO (giusto se la parola c'e', senza badare alle maiuscole):
+  1. Medora NO (Nei giorni d'oggi), Torre si, Appeso NO (l'ho appeso)
+  2. Calìgo NO (Canigo), Fehu NO (feù), Thurisaz NO (tu risazzi), Algiz NO (algaz)
+  3. Aura NO (Laura), Anahata NO (Anata), Vishuddha NO (Vicenza)
+  4. Scorpione si, Sagittario si, Capricorno si
+  5. Medora NO (Nei giorni), Papessa si, Imperatrice si
+  6. Calìgo si (Caligo), Eihwaz NO (e), Perthro NO (Bertu)
+  TOTALE: 7 nomi giusti su 19.

@@ -1,0 +1,18 @@
+SENZA RIFLESSO (build 2283 di consegna, animazioni del telefono a zero)
+totalFrames = 666
+missedFrames = 0
+displayOnTime = 11118 ms
+totalFrames = 664
+droppedFrames = 0
+totalFrames = 0
+droppedFrames = 0
+
+CON RIFLESSO E SOLLEVAMENTO ACCESI A FORZA (build di misura, EO_LUCE_FORZATA)
+totalFrames = 658
+missedFrames = 0
+displayOnTime = 10989 ms
+totalFrames = 656
+droppedFrames = 0
+totalFrames = 2
+droppedFrames = 0
+totalFrames = 0

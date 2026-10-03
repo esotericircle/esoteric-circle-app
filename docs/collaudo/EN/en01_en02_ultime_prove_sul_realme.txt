@@ -1,0 +1,31 @@
+ORDINE EN, LE ULTIME PROVE SUL REALME PRIMA DELLA CONSEGNA DELLA 2282, 25 SETTEMBRE 2026
+Realme 767f596c. Domande dette dalla voce italiana di Windows dalle casse del PC; tempi dal registro "LIVE ATTESA" e
+"CHAT TEMPI" del telefono; testi dalla conversazione di Medora, dove il LIVE scrive i suoi turni.
+
+1. IL PRIMO ARCHIVIO 2282, sha1 214c8a411b24, dal commit 201ac46f (14:20-14:24), LIVE di Medora
+   "Medora, il mio socio vuole chiudere la societa' e mi ha mandato il suo avvocato. Cosa faccio?"
+     trascritta intera; risposta del modello a 1.383 ms, 379 caratteri; primo audio al volto 6.844 ms, il volto parla
+     9.755 ms dalla fine del parlato (la prima domanda dopo l'apertura del LIVE).
+     Medora: "Parla con il tuo socio in un luogo neutro, chiedendogli un incontro di persona, in un momento in cui la
+     Luna e' nel tuo segno. Per le questioni legali, affidati al tuo avvocato. [...]" (l'avvocato lo nomina il modello:
+     la rete di chi di dovere non aggiunge niente)
+   "Medora, mio fratello si sposa a giugno e devo fare il discorso. Come lo preparo?"
+     risposta del modello a 1.474 ms, 330 caratteri; primo audio 3.992 ms, il volto parla 6.385 ms.
+   LA CORNICE: arco d'oro con la chiave di volta, filo esterno, davanzale con le borchie (raffica delle 14:22).
+   IL DIFETTO: dopo trenta secondi di silenzio il LIVE si chiude, e "Torna alla conversazione" si disegna sopra la
+   domanda in oro (en02_il_congedo_prima_e_dopo.jpg, a sinistra). Padre: voce EN.02. Questo archivio NON e' stato
+   consegnato.
+
+2. L'ARCHIVIO CONSEGNATO, sha1 066f2fa474a0, 218.693.034 byte, dal commit a35d25fe (15:30-15:34), LIVE di Medora
+   "Medora, lunedi' chiedo un aumento al mio capo. Come mi preparo?"
+     trascritta intera; il turno in attesa salvato a 2.259 ms e la risposta del modello a 6.358 ms (di solito
+     1.200-1.500: la rete era lenta), 250 caratteri; primo audio 9.580 ms, il volto parla 11.254 ms.
+     Medora: "Prepara la tua argomentazione per lunedi' con precisione e calma, strutturando i punti chiave che vuoi
+     presentare. Il tuo segno dei Gemelli ti offre l'abilita' di comunicare con chiarezza, usa questo dono.
+     Scrivi un elenco dei tuoi successi recenti. Rivediamoci domani: la Luna entra in Ariete."
+     Due frasi e la riga d'oro: la regola delle tre frasi del LIVE.
+   IL CONGEDO: chiuso dopo trenta secondi di silenzio (15:33:29), il busto, la frase della fine e "Torna alla
+   conversazione" al loro posto, niente sovrapposto (en02_il_congedo_prima_e_dopo.jpg, a destra); il pulsante riporta
+   alla conversazione, dove il turno detto a voce e' scritto.
+   LA PROVA DI ACCENSIONE di tool/consegna.py sullo stesso archivio: processo vivo, primo fotogramma disegnato, nessun
+   FATAL EXCEPTION, versionCode 2282.

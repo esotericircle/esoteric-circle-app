@@ -1,0 +1,24 @@
+EQ.03 dopo LIVE con Flash-Lite giro 1 aura: nel merito 5 su 12 lette, tempo del modello mediano 819 ms
+EQ.03 dopo LIVE con Flash-Lite giro 1 caligo: nel merito 1 su 12 lette, tempo del modello mediano 677 ms
+EQ.03 dopo LIVE con Flash-Lite giro 1 medora: nel merito 7 su 12 lette, tempo del modello mediano 876 ms
+EQ.03 dopo LIVE con Flash-Lite giro 2 aura: nel merito 5 su 12 lette, tempo del modello mediano 884 ms
+EQ.03 dopo LIVE con Flash-Lite giro 2 caligo: nel merito 3 su 12 lette, tempo del modello mediano 629 ms
+EQ.03 dopo LIVE con Flash-Lite giro 2 medora: nel merito 6 su 12 lette, tempo del modello mediano 856 ms
+EQ.03 dopo LIVE con Flash giro 1 aura: nel merito 5 su 12 lette, tempo del modello mediano 1212 ms
+EQ.03 dopo LIVE con Flash giro 1 caligo: nel merito 10 su 12 lette, tempo del modello mediano 1121 ms
+EQ.03 dopo LIVE con Flash giro 1 medora: nel merito 10 su 12 lette, tempo del modello mediano 1236 ms
+EQ.03 dopo LIVE con Flash giro 2 aura: nel merito 6 su 12 lette, tempo del modello mediano 1465 ms
+EQ.03 dopo LIVE con Flash giro 2 caligo: nel merito 12 su 12 lette, tempo del modello mediano 950 ms
+EQ.03 dopo LIVE con Flash giro 2 medora: nel merito 11 su 12 lette, tempo del modello mediano 1136 ms
+EQ.03 dopo chat con Flash giro 1 aura: nel merito 5 su 12 lette, tempo del modello mediano 1700 ms
+EQ.03 dopo chat con Flash giro 1 caligo: nel merito 11 su 12 lette, tempo del modello mediano 1559 ms
+EQ.03 dopo chat con Flash giro 1 medora: nel merito 10 su 12 lette, tempo del modello mediano 1528 ms
+EQ.03 dopo chat con Flash giro 2 aura: nel merito 4 su 12 lette, tempo del modello mediano 1810 ms
+EQ.03 dopo chat con Flash giro 2 caligo: nel merito 5 su 12 lette, tempo del modello mediano 1307 ms
+EQ.03 dopo chat con Flash giro 2 medora: nel merito 7 su 12 lette, tempo del modello mediano 1630 ms
+
+TOTALE LIVE CON FLASH-LITE: nel merito 27 su 72 lette, tempo del modello mediano 781 ms su 72 risposte
+TOTALE LIVE CON FLASH: nel merito 54 su 72 lette, tempo del modello mediano 1175 ms su 72 risposte
+TOTALE CHAT CON FLASH: nel merito 42 su 72 lette, tempo del modello mediano 1609 ms su 72 risposte
+Modelli: chat gemini-2.5-flash, LIVE dell'app gemini-2.5-flash-lite; europe-west1.
+Il merito viene dalla lettura con la regola scritta, docs/collaudo/EQ/eq03/lettura_dopo.txt; le risposte e i tempi sono quelli della generazione.

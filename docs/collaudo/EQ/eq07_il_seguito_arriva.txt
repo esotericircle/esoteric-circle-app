@@ -1,0 +1,95 @@
+EQ.07, "VAI PIU' A FONDO" CHE NON RISPONDEVA: IL CONTO (27 settembre 2026)
+
+Banco tool/sonda_del_seguito.dart, Gemini vero in europe-west1, controller vero: tre Maestri, tre domande delle catture, dopo ogni risposta il tocco su "Vai più a fondo".
+
+== SUL CODICE DI PRIMA DELL'ORDINE EQ (commit 168d7cce), sonda_prima_dell_ordine/
+SEGUITO medora: arrivati 0 su 3 tocchi, frasi ripetute tolte 8
+SEGUITO aura: arrivati 0 su 3 tocchi, frasi ripetute tolte 9
+SEGUITO caligo: arrivati 2 su 3 tocchi, frasi ripetute tolte 8
+
+== PRIMA DELLA CURA (codice dell'ordine EQ), sonda_prima_della_cura/
+SEGUITO medora: arrivati 1 su 3 tocchi, frasi ripetute tolte 15
+SEGUITO aura: arrivati 0 su 3 tocchi, frasi ripetute tolte 10
+SEGUITO caligo: arrivati 0 su 3 tocchi, frasi ripetute tolte 12
+
+== DOPO LA CURA, DUE GIRI, sonda_dopo_giro_1/ e sonda_dopo_giro_2/
+SEGUITO medora: arrivati 3 su 3 tocchi, frasi ripetute tolte 0
+SEGUITO aura: arrivati 3 su 3 tocchi, frasi ripetute tolte 1
+SEGUITO caligo: arrivati 3 su 3 tocchi, frasi ripetute tolte 0
+SEGUITO medora: arrivati 3 su 3 tocchi, frasi ripetute tolte 0
+SEGUITO aura: arrivati 3 su 3 tocchi, frasi ripetute tolte 0
+SEGUITO caligo: arrivati 3 su 3 tocchi, frasi ripetute tolte 0
+
+Seguiti arrivati: 2 su 9 prima dell'ordine, 1 su 9 prima della cura, 9 su 9 e 9 su 9 dopo; secondi tentativi serviti: 0.
+La causa, vista nei grezzi: il modello riceveva come ultimo turno la domanda di prima e l'istruzione del seguito sotto le regole della prima risposta, e rispondeva di nuovo alla domanda; il filtro delle ripetizioni buttava tutto e il controller tornava senza dire niente.
+
+== REGOLA B
+== Regola B, seguito: il tocco non passa piu' la risposta gia' data
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima 8817240b490c, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:04 +0 -1: Some tests failed.
+   Expected: 'Il tuo Sole in Cancro chiede riparo prima di chiedere strada. Quello che senti come confusione e\' un confine che si sposta. Guarda dove ti fermi a respirare: quella e\' la direzione. Sotto la superficie c\'e\
+   Actual: <null>
+   ripristinato: sha1 8817240b490c, uguale
+== Regola B, seguito: l'istruzione del seguito sparisce
+   file lib/services/ai/maestro_persona.dart, sha1 prima 61c179a6ac1c, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +1: All tests passed!
+   ripristinato: sha1 61c179a6ac1c, uguale
+(la seconda guardia, il_seguito_scende_sotto, e' rimasta VERDE togliendo l'istruzione del seguito dall'istruzione del Maestro: guarda il testo dell'istruzione, non che arrivi al modello. La copre la guardia nuova.)
+
+== REGOLA A, guardia test/il_seguito_arriva_davvero_test.dart
+== Regola A, seguito: il controllo della prima frase torna nel seguito
+   file lib/services/ai/maestro_persona.dart, sha1 prima 93f5e6939017, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not contains 'PRIMA DI SCRIVERE, CONTROLLA:\n'
+   Actual: 'IDENTITÀ:\n'
+   ripristinato: sha1 93f5e6939017, uguale
+== Regola A, seguito: il consiglio finale torna nel seguito
+   file lib/services/ai/maestro_persona.dart, sha1 prima 93f5e6939017, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not contains 'IL CONSIGLIO FINALE, SEMPRE, IN OGNI RISPOSTA:\n'
+   Actual: 'IDENTITÀ:\n'
+   ripristinato: sha1 93f5e6939017, uguale
+== Regola A, seguito: il turno torna la domanda di prima
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima 6ce064e32ccc, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: 'Vai più a fondo: continua da dove ti sei fermato, con cose nuove.'
+   Actual: 'Da dove comincio, dal lavoro o dal viaggio?'
+   Expected: Vai più a  ...
+   Actual: Da dove co ...
+   ripristinato: sha1 6ce064e32ccc, uguale
+== Regola A, seguito: la risposta gia' data esce dalla storia
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima 6ce064e32ccc, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   ripristinato: sha1 6ce064e32ccc, uguale
+== Regola A, seguito: nessun secondo tentativo
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima 6ce064e32ccc, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: true
+   Actual: <false>
+   ripristinato: sha1 6ce064e32ccc, uguale
+== Regola A, seguito: il tocco vuoto torna a tacere
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima 6ce064e32ccc, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: false
+   Actual: <true>
+   ripristinato: sha1 6ce064e32ccc, uguale
+== Regola A, seguito: la stella butta la riga intera
+   file lib/core/maestro/seguito_della_lettura.dart, sha1 prima f9e04c5d000a, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: 'Laguz scorre anche sotto il ghiaccio.'
+   Actual: ''
+   ripristinato: sha1 f9e04c5d000a, uguale
+
+== DOPO LA RICHIESTA SENZA GENERE ("riprendi da dove hai lasciato" al posto di "continua da dove ti sei fermato", presa dalla guardia il_genere_non_si_indovina nella suite intera; padre: la cura di EQ.07), sonda_dopo_la_richiesta_senza_genere/
+SEGUITO medora: arrivati 3 su 3 tocchi, frasi ripetute tolte 0
+SEGUITO aura: arrivati 3 su 3 tocchi, frasi ripetute tolte 0
+SEGUITO caligo: arrivati 3 su 3 tocchi, frasi ripetute tolte 0

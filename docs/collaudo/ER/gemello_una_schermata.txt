@@ -1,0 +1,69 @@
+ORDINE ER VOCE 06: IL GEMELLO ASTRALE IN UNA SCHERMATA SOLA. 27 settembre 2026
+
+Uscita della prova test/il_gemello_in_una_schermata_sola_test.dart (DOPO):
+ORDINE ER VOCE 6: elementi della galleria nella schermata del Gemello 0 []
+ORDINE ER VOCE 6: carte a schermo 7, righe 1, copertura fra vicine {0.24}
+ORDINE ER VOCE 6: a nastro fermo [Snoop Dogg, Ariana Grande, Taylor Swift], il gemello dista dal centro 0.0 punti
+ORDINE ER VOCE 6: gesti fra il pulsante e il responso intero 0; delle 11 parti del responso ne mancano 0; percentuali sul podio 3 su 3
+00:02 +2: All tests passed!
+
+PRIMA, misurato con la stessa prova rimettendo nella porta la rotta di prima (la galleria):
+ORDINE ER VOCE 6: elementi della galleria nella schermata del Gemello 4 [il titolo "Scegli il tuo VIP", la ricerca, la categoria, l'elenco dei VIP]
+Gesti fra la ricerca e il responso intero, prima: 1, il tocco sulla carta del gemello (chiave 'gemello_apri_la_schermata' in sinastria_gallery_screen.dart al commit 3a2c12d3, che apriva SchermataDelGemello). Dopo: 0.
+
+MISURA: elementi della galleria 4 -> 0; gesti fra il pulsante e il responso intero 1 -> 0.
+
+La forma, dichiarata: il nastro corre (curva quartica, 3400 ms, 44 carte) e si ferma con i tre gemelli nell'ordine del podio (secondo, gemello, terzo); le altre carte si spengono in 300 ms; le tre salgono sul podio con le percentuali (900 ms); poi il cerchio, il nome e il titolo (4300 ms), il responso con le barre (5000 ms).
+
+===================== regola_b_gemello =====================
+== Controllo della base (HEAD intera, un innesto che non cambia il senso: una riga vuota in un commento)
+   file lib/features/synastry/schermata_del_gemello.dart, sha1 prima 74dc4ded9b8b, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:02 +8: All tests passed!
+   ripristinato: sha1 74dc4ded9b8b, uguale, compagni tornati: True
+== Regola B, ER.06 (fatta DOPO aver toccato la zona, sulla versione di HEAD): il responso arriva insieme al nome
+   file lib/features/synastry/schermata_del_gemello.dart, sha1 prima 74dc4ded9b8b, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:03 +5 -3: Some tests failed.
+   Expected: <0>
+   Actual: <1>
+   ripristinato: sha1 74dc4ded9b8b, uguale, compagni tornati: True
+
+===================== regola_a_er06 =====================
+== Regola A, ER.06: la porta torna ad aprire la galleria dei VIP (com'era prima)
+   file lib/features/synastry/porta_della_sinastria.dart, sha1 prima d51d487de4b1, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:03 +0 -2: Some tests failed.
+   Expected: exactly one matching candidate
+   Actual: _TypeWidgetFinder:<Found 0 widgets with type "SchermataDelGemello": []>
+   ripristinato: sha1 d51d487de4b1, uguale
+== Regola A, ER.06: la corsa si ferma col secondo e il terzo scambiati
+   file lib/features/synastry/schermata_del_gemello.dart, sha1 prima 2eebc86a2afa, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:03 +1 -1: Some tests failed.
+   Expected: ['Snoop Dogg', 'Ariana Grande', 'Taylor Swift']
+   Actual: ['Taylor Swift', 'Ariana Grande', 'Taylor Swift']
+   ripristinato: sha1 2eebc86a2afa, uguale
+== Regola A, ER.06: il responso non arriva senza un altro gesto
+   file lib/features/synastry/schermata_del_gemello.dart, sha1 prima 2eebc86a2afa, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:02 +1 -1: Some tests failed.
+   Expected: empty
+   Actual: [
+   ripristinato: sha1 2eebc86a2afa, uguale
+== Regola A, ER.06: le carte del nastro si coprono per piu' di meta'
+   file lib/features/synastry/schermata_del_gemello.dart, sha1 prima 2eebc86a2afa, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:03 +1 -1: Some tests failed.
+   Expected: true
+   Actual: <false>
+   ripristinato: sha1 2eebc86a2afa, uguale
+== Regola A, ER.06: il podio perde il segno della percentuale
+   file lib/features/synastry/podio_del_gemello.dart, sha1 prima 27710a13ced1, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:03 +1 -1: Some tests failed.
+   Expected: an object with length of <3>
+   Actual: []
+   ripristinato: sha1 27710a13ced1, uguale
+
+REGOLA B FATTA DOPO: la zona e' stata toccata prima di vedere rossa la sua guardia. Il primo tentativo sulla versione di HEAD e' uscito rosso per una compilazione fallita (la porta nuova chiamava un metodo che la schermata vecchia non ha): un rosso falso, scartato. Rifatta con porta, galleria e podio di HEAD: la base verde +8, l'innesto rosso +5 -3.

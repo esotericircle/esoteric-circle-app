@@ -1,0 +1,56 @@
+== EQ.01 innesto 1: il controller non toglie piu' la riga d'oro
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima 7396ac31c93d, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: [
+   Actual: [
+   ripristinato: sha1 7396ac31c93d, uguale
+== EQ.01 innesto 2: nel LIVE il testo non si ferma piu' alla stella
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima 7396ac31c93d, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: WhereIterable<String>:[
+   ripristinato: sha1 7396ac31c93d, uguale
+== EQ.01 innesto 3: la bolla mostra la riga anche sotto una presentazione
+   file lib/features/maestri/chat/widgets/chat_bubble.dart, sha1 prima 072e07503772, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:10 +1 -1: Some tests failed.
+   Expected: exactly 0 matching candidates
+   Actual: _TypeWidgetFinder:<Found 1 widget with type "RigaDelConsiglio": [
+   ripristinato: sha1 072e07503772, uguale
+== EQ.01 innesto 4: la regola non riconosce piu' le presentazioni
+   file lib/core/chat/il_passo_da_non_dare.dart, sha1 prima c4f963060309, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: [
+   Actual: [
+   ripristinato: sha1 c4f963060309, uguale
+== EQ.01 innesto 5: la somiglianza torna quella di casa, senza le parole del passo
+   file lib/core/chat/il_passo_da_non_dare.dart, sha1 prima c4f963060309, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: false
+   Actual: <true>
+   ripristinato: sha1 c4f963060309, uguale
+== EQ.01 innesto 6: la risposta fatta della sola riga non si chiede di nuovo
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima 630f9bb61265, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: <1>
+   Actual: <0>
+   ripristinato: sha1 630f9bb61265, uguale
+== EQ.01 innesto 7: dopo la seconda richiesta la riga passa, senza ripiego
+   file lib/features/maestri/chat/maestro_chat_controller.dart, sha1 prima 630f9bb61265, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: true
+   Actual: <false>
+   ripristinato: sha1 630f9bb61265, uguale
+== EQ.01 innesto 8: nel LIVE l'istruzione torna a pretendere la riga sempre
+   file lib/services/ai/maestro_persona.dart, sha1 prima cb3307c095b4, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'quando c\'è un passo da dare'
+   Actual: 'LA RISPOSTA È DETTA A VOCE, NEL LIVE:\n'
+   ripristinato: sha1 cb3307c095b4, uguale

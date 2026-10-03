@@ -1,0 +1,7 @@
+{
+  "flutter": "3.44.5",
+  "dart": "3.12.2",
+  "canale": "stable",
+  "misurata": "2026-08-16",
+  "nota": "La versione sovrana di Flutter per le build di CI, misurata sul PC di Mauro con flutter --version. Vive qui e nei due file della CI (.github/workflows/android-build.yml e codemagic.yaml), e test/la_versione_di_flutter_e_una_sola_test.dart pretende che i tre numeri coincidano: chi rialza, rialza tutto insieme o la suite lo ferma. La versione si rialza A MANO e con giudizio, mai inseguendo l'ultima, e il portatile di Mauro installa questa."
+}

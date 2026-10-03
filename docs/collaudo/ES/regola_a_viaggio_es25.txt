@@ -1,0 +1,2 @@
+REGOLA A, 30 settembre 2026, innesto "la guardia senza le forme del secondo giro": grep nel file SI; prova ROSSA; ORDINE ES VOCE 25: giro 3 (tarata) senza posizione prese 20 su 21, buone prese 0 su 51; giro 1 (non guardato) senza posizione prese 12 su 22, buone prese 3 su 50 / ORDINE ES VOCE 25: giro del 30 settembre senza posizione prese 8 su 27, buone prese 2 su 45
+file rimesso: sha1 prima 6a1573108422613e04356161b9343b0f5919cbe9, dopo 6a1573108422613e04356161b9343b0f5919cbe9, IDENTICO

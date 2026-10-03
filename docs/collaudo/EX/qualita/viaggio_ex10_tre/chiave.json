@@ -1,0 +1,162 @@
+{
+ "S01": {
+  "giro": "viaggio_scena5",
+  "caso": "V08"
+ },
+ "S02": {
+  "giro": "viaggio_scena5",
+  "caso": "V12"
+ },
+ "S03": {
+  "giro": "viaggio_scena5",
+  "caso": "V09"
+ },
+ "S04": {
+  "giro": "viaggio_modello2",
+  "caso": "V18"
+ },
+ "S05": {
+  "giro": "viaggio_scena5",
+  "caso": "V16"
+ },
+ "S06": {
+  "giro": "viaggio_modello2",
+  "caso": "V02"
+ },
+ "S07": {
+  "giro": "viaggio_scena5",
+  "caso": "V01"
+ },
+ "S08": {
+  "giro": "viaggio_modello2",
+  "caso": "V10"
+ },
+ "S09": {
+  "giro": "viaggio_scena5",
+  "caso": "V18"
+ },
+ "S10": {
+  "giro": "viaggio_modello2",
+  "caso": "V12"
+ },
+ "S11": {
+  "giro": "viaggio_scena5",
+  "caso": "V06"
+ },
+ "S12": {
+  "giro": "viaggio_modello2",
+  "caso": "V08"
+ },
+ "S13": {
+  "giro": "viaggio_modello2",
+  "caso": "V20"
+ },
+ "S14": {
+  "giro": "viaggio_scena5",
+  "caso": "V02"
+ },
+ "S15": {
+  "giro": "viaggio_modello2",
+  "caso": "V09"
+ },
+ "S16": {
+  "giro": "viaggio_modello2",
+  "caso": "V14"
+ },
+ "S17": {
+  "giro": "viaggio_scena5",
+  "caso": "V11"
+ },
+ "S18": {
+  "giro": "viaggio_scena5",
+  "caso": "V03"
+ },
+ "S19": {
+  "giro": "viaggio_scena5",
+  "caso": "V04"
+ },
+ "S20": {
+  "giro": "viaggio_modello2",
+  "caso": "V07"
+ },
+ "S21": {
+  "giro": "viaggio_scena5",
+  "caso": "V10"
+ },
+ "S22": {
+  "giro": "viaggio_modello2",
+  "caso": "V17"
+ },
+ "S23": {
+  "giro": "viaggio_modello2",
+  "caso": "V06"
+ },
+ "S24": {
+  "giro": "viaggio_modello2",
+  "caso": "V01"
+ },
+ "S25": {
+  "giro": "viaggio_modello2",
+  "caso": "V15"
+ },
+ "S26": {
+  "giro": "viaggio_modello2",
+  "caso": "V03"
+ },
+ "S27": {
+  "giro": "viaggio_modello2",
+  "caso": "V11"
+ },
+ "S28": {
+  "giro": "viaggio_scena5",
+  "caso": "V20"
+ },
+ "S29": {
+  "giro": "viaggio_scena5",
+  "caso": "V14"
+ },
+ "S30": {
+  "giro": "viaggio_modello2",
+  "caso": "V13"
+ },
+ "S31": {
+  "giro": "viaggio_scena5",
+  "caso": "V13"
+ },
+ "S32": {
+  "giro": "viaggio_modello2",
+  "caso": "V05"
+ },
+ "S33": {
+  "giro": "viaggio_scena5",
+  "caso": "V19"
+ },
+ "S34": {
+  "giro": "viaggio_modello2",
+  "caso": "V19"
+ },
+ "S35": {
+  "giro": "viaggio_modello2",
+  "caso": "V04"
+ },
+ "S36": {
+  "giro": "viaggio_scena5",
+  "caso": "V17"
+ },
+ "S37": {
+  "giro": "viaggio_modello2",
+  "caso": "V16"
+ },
+ "S38": {
+  "giro": "viaggio_scena5",
+  "caso": "V07"
+ },
+ "S39": {
+  "giro": "viaggio_scena5",
+  "caso": "V05"
+ },
+ "S40": {
+  "giro": "viaggio_scena5",
+  "caso": "V15"
+ }
+}

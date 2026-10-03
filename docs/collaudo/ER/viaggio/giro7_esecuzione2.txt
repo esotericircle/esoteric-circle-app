@@ -1,0 +1,181 @@
+ORDINE ER VOCI 02 E 15: IL BANCO DEL VIAGGIO, "giro7_esecuzione2", 2026-09-27 21:53:46.150250
+Modello gemini-2.5-flash, regione europe-west1. Discese dopo il riconoscimento dell'animale, profilo neutro.
+
+== VENTI DISCESE: DIECI DOMANDE, DUE VOLTE CIASCUNA ==
+[1] DOMANDA: Mi trasferisco a Berlino per lavoro?
+    TITOLO: La destinazione non è tutto
+    RISPOSTA: I segni del viaggio indicano di sì, a condizione che tu sia consapevole di ciò che vuoi lasciare qui. Non è solo un luogo che cambi. Le tue aspettative su Berlino non devono oscurare quello che è importante per te.
+    AZIONE: Stasera, trova un'immagine di Berlino che non sia una cartolina. Osservala per dieci minuti, cercando di capire cosa ti trasmette.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}
+    SCARTI: azione chiedeDiScrivere: Entro sabato, scrivi su un foglio tre cose importanti che questa scelta implicherebbe lasciare o mettere in secondo piano. ; risposta decisioneGrave: I segni del viaggio dicono di sì. Puoi trasferirti a Berlino per lavoro, ma ti è chiesto di guardare con molta attenzione ciò che dovrai affrontare.
+[2] DOMANDA: Mi trasferisco a Berlino per lavoro?
+    TITOLO: Cosa nasce da qui
+    RISPOSTA: Chiediti quale delle due potresti ancora correggere.
+    AZIONE: Domani mattina cerca tre annunci di lavoro che ti interessano a Berlino e salva le descrizioni.
+    FONTI: {scena: modello, titolo: modello, risposta: riserva: nonNominaLaDomanda, gesto: modello: seconda chiamata}
+    SCARTI: risposta nonNominaLaDomanda: I segni del viaggio dicono di sì, a condizione che tu abbia ben chiaro cosa vuoi costruire. Hai il potere di iniziare qualcosa di significativo, anche in un luogo nuovo. È un buon momento per piantare un seme. ; azione chiedeDiScrivere: Entro domani sera scrivi su un foglio tre cose che vorresti veder crescere nella tua vita a Berlino. ; risposta anticipaLaScena: I segni del viaggio dicono di sì, se tu prepari bene il tuo trasferimento a Berlino. Puoi costruire qualcosa di nuovo e significativo lì. È un buon momento per piantare un seme per il tuo futuro. ; azione toccaUnTerzo: Entro sabato cerca e contatta almeno una persona che conosci che viva già a Berlino, per un confronto. ; risposta gergo: I segni del viaggio dicono di sì, a condizione che tu faccia chiarezza prima di partire. Puoi trovare la stabilità che cerchi, devi solo organizzare bene i prossimi passi. Preparati con cura al cambiamento.
+[3] DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+    TITOLO: La bottega ti aspetta
+    RISPOSTA: I segni del viaggio indicano che puoi aprire la tua bottega. È importante però che tu definisca con precisione quale tipo di ceramica proporre. La tua offerta ha bisogno di un'identità chiara e riconoscibile.
+    AZIONE: Entro domenica contatta tre persone che hanno già una bottega simile alla tua e chiedi un incontro.
+    FONTI: {scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}
+    SCARTI: risposta previsioneCerta: I segni del viaggio dicono di sì, a condizione che tu definisca bene la tua offerta. La tua ceramica ha bisogno di un'identità chiara. Non è il momento di lasciare tutto senza un piano preciso. ; azione chiedeDiScrivere: Entro sabato scrivi tre frasi che descrivono il tipo di ceramica che vuoi realizzare nella tua bottega.
+[4] DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+    TITOLO: La bottega è già lì
+    RISPOSTA: I segni del viaggio dicono di sì a lasciare il lavoro in banca per aprire la tua bottega di ceramica. Hai già una parte importante di ciò che serve per realizzarla. La tua determinazione è una buona base.
+    AZIONE: Entro sabato parla con tre persone che hanno già aperto una loro attività e chiedi del primo anno di avvio.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}
+    SCARTI: azione chiedeDiScrivere: Entro giovedì scrivi una lista delle dieci cose più belle che hai creato con la ceramica.
+[5] DOMANDA: Il mio cane è malato, cosa devo fare?
+    TITOLO: Riconosci quello che senti
+    RISPOSTA: Ascolta il tuo sentire sul cane malato. Sai cosa è meglio fare per lui. Non fare finta di non sapere quello che senti.
+    AZIONE: Entro domani mattina, prima di fare qualsiasi altra cosa, prenditi un momento in silenzio con il tuo cane e osserva che cosa ti comunica. Non fare niente, solo osserva.
+    FONTI: {scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}
+    SCARTI: risposta gergo: Ascolta la tua intuizione sul tuo cane. Hai già dentro di te la conoscenza di ciò che è meglio fare. Non ignorare i segnali sottili che percepisci. ; risposta gergo: Fai ciò che sai essere giusto per il tuo cane. Hai già dentro di te la conoscenza di ciò che è meglio fare. Non ignorare quello che senti. ; azione chiedeDiScrivere: Entro domani sera scrivi su un foglio che cosa pensi sia meglio per il tuo cane. Non buttarlo via, mettilo sotto al suo cuscino.
+[6] DOMANDA: Il mio cane è malato, cosa devo fare?
+    TITOLO: C'è altro da considerare
+    RISPOSTA: Ascolta il veterinario e ponigli ogni domanda che hai. Valuta con lui ogni possibile opzione di cura per il tuo cane. Hai il diritto di avere tutte le informazioni per decidere.
+    AZIONE: Oggi pomeriggio, prendi il tuo cane e siedi con lui in un luogo tranquillo. Guarda il suo sguardo per dieci minuti.
+    FONTI: {scena: modello, titolo: modello: seconda chiamata, risposta: modello, gesto: modello: seconda chiamata}
+    SCARTI: titolo tempoNelTitolo: C'è altro che puoi fare adesso ; azione toccaUnTerzo: Domani mattina telefona al veterinario e chiedi un appuntamento per avere un confronto sulle opzioni disponibili.
+[7] DOMANDA: Cosa pensa di me la mia collega?
+    TITOLO: Puoi chiarire quello che senti
+    RISPOSTA: Puoi chiedere alla tua collega di incontrarvi per un caffè. Puoi parlare delle tue impressioni su di lei. Puoi ascoltare quello che ha da dire.
+    AZIONE: Entro dopodomani chiedi alla tua collega di prendere un caffè nel fine settimana.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: nessuno
+[8] DOMANDA: Cosa pensa di me la mia collega?
+    TITOLO: Chiedi alla tua collega
+    RISPOSTA: Il posto che ha per te lo sai già: quello che manca è dirlo.
+    AZIONE: Entro domani, invia un messaggio alla tua collega per un caffè o un tè nei prossimi giorni.
+    FONTI: {scena: modello, titolo: modello, risposta: riserva: statoDiUnTerzo, gesto: modello}
+    SCARTI: titolo troppoLunga: La tua è la parte che puoi ; risposta statoDiUnTerzo: Chiedi alla tua collega di prendere un caffè insieme. La sua opinione non ti definisce. Puoi fare tu il primo passo per capire meglio. ; risposta previsioneCerta: Puoi chiarire i tuoi dubbi. Un dialogo aperto ti permetterà di comprendere meglio la situazione. Puoi scegliere tu come iniziare. ; risposta previsioneCerta: Puoi chiedere alla tua collega che cosa pensa di te. Un dialogo aperto ti permetmetterà di comprendere meglio la situazione. Puoi scegliere tu come iniziare la conversazione.
+[9] DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+    TITOLO: Non è una scelta tua
+    RISPOSTA: Puoi scegliere tu come vuoi vivere questa situazione con tua madre. Non puoi decidere per tua madre. Puoi decidere tu fino a che punto coinvolgere tua madre nella tua relazione.
+    AZIONE: Entro domenica trova una foto che ti lega a tua madre e una che ti lega alla tua compagna. Non farle vedere a nessuno.
+    FONTI: {scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}
+    SCARTI: risposta statoDiUnTerzo: Puoi scegliere di accettare tua madre per quello che è. Puoi mostrare a tua madre la tua compagna per come la vedi tu. La decisione di tua madre non ti appartiene. ; risposta statoDiUnTerzo: Puoi scegliere tu come vuoi vivere questa situazione con tua madre. Non puoi cambiare i sentimenti di tua madre verso la tua compagna. Puoi decidere tu fino a che punto coinvolgere tua madre nella tua relazione. ; titolo statoDiUnTerzo: La scelta è solo tua
+[10] DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+    TITOLO: Decidi tu quanta distanza
+    RISPOSTA: Chiediti quale delle due potresti ancora correggere.
+    AZIONE: Entro domenica non parlare con tua madre di questo argomento.
+    FONTI: {scena: modello, titolo: modello, risposta: riserva: statoDiUnTerzo, gesto: modello}
+    SCARTI: titolo statoDiUnTerzo: Crea la tua distanza ; risposta statoDiUnTerzo: Puoi scegliere tu quanta distanza avere adesso da tua madre. Non è necessario un confronto diretto. Puoi proteggere il tuo spazio e quello della tua compagna senza spiegarvi. ; risposta statoDiUnTerzo: Puoi decidere tu quanta vicinanza avere adesso con tua madre. Non è necessario un confronto diretto. Puoi proteggere il tuo spazio e quello della tua compagna senza spiegazioni. ; risposta statoDiUnTerzo: Puoi scegliere tu quanta vicinanza avere con tua madre. Non serve affrontare la situazione subito. Puoi proteggere il tuo spazio e quello della tua compagna senza dover dare spiegazioni. ; azione genereContrario: Entro sabato, scrivi una lettera a tua madre senza spedirla. Descrivi come ti senti riguardo alla situazione, poi strappala.
+[11] DOMANDA: Mio fratello non mi parla da mesi, lo chiamo io?
+    TITOLO: La tua è una scelta semplice
+    RISPOSTA: I segni del viaggio indicano che puoi chiamare tuo fratello. Non devi sapere come risponderà. Puoi scegliere tu i tempi e i modi per farlo.
+    AZIONE: Domani mattina, prepara un messaggio vocale da inviare a tuo fratello. Non inviarlo subito, riascoltalo domani sera.
+    FONTI: {scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}
+    SCARTI: risposta statoDiUnTerzo: Puoi chiamare tuo fratello questa settimana. Non è necessario sapere come risponderà. Puoi scegliere tu i tempi e i modi per farlo. ; titolo statoDiUnTerzo: La scelta è solo tua
+[12] DOMANDA: Mio fratello non mi parla da mesi, lo chiamo io?
+    TITOLO: Il rischio è più piccolo di così
+    RISPOSTA: Sì, i segni del viaggio dicono che puoi chiamare tuo fratello. La decisione di tuo fratello non è tua da prendere. Tu puoi fare il primo passo.
+    AZIONE: Domani mattina invia un messaggio a tuo fratello e proponi di sentirvi per telefono.
+    FONTI: {scena: modello, titolo: riserva: statoDiUnTerzo, risposta: modello, gesto: modello}
+    SCARTI: titolo statoDiUnTerzo: La scelta è solo tua ; titolo statoDiUnTerzo: C'è un passo da fare ; risposta statoDiUnTerzo: Puoi chiamare tuo fratello. I segni del viaggio indicano che il momento per un riavvicinamento è favorevole. La condizione è che tu sia pronto ad ascoltare senza giudicare. ; titolo statoDiUnTerzo: La scelta è tua ; azione chiedeDiScrivere: Entro domani sera scrivi un breve messaggio, anche solo «ciao», a tuo fratello.
+[13] DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+    TITOLO: Metti una data e scegli
+    RISPOSTA: I segni del viaggio dicono di sì, se il guadagno inferiore non ti impedisce di raggiungere i tuoi obiettivi. L'offerta a Milano presenta un'opportunità. Valuta con attenzione ciò che ricevi in cambio.
+    AZIONE: Prendi carta e penna e fai l'elenco di chi può aiutarti.
+    FONTI: {scena: modello, titolo: riserva: troppoLunga, risposta: modello: seconda chiamata, gesto: riserva: chiedeDiScrivere}
+    SCARTI: titolo troppoLunga: Il nuovo inizia da un piccolo gesto ; risposta gergo: I segni del viaggio dicono di sì, ma non è una strada che si apre da sola. Devi essere tu a iniziare a tracciare il tuo percorso. Il guadagno minore non è un impedimento. ; azione chiedeDiScrivere: Entro domani sera scrivi su un foglio tre cose che questa offerta di lavoro ti permette di fare. ; titolo troppoLunga: Il valore sta in quello che fai ; risposta promessa: I segni del viaggio dicono di sì, se ti concentri su ciò che l'offerta ti porta oltre al guadagno. Il lavoro a Milano può darti molto. Non è il denaro la misura di questa occasione. ; azione previsioneCerta: Entro sabato contatta una persona che ha già lavorato per l'azienda di Milano e chiedile della sua esperienza. ; titolo troppoLunga: Il valore sta in quello che fai ; azione previsioneCerta: Entro sabato contatta una persona che ha già lavorato per l'azienda di Milano e chiedile della sua esperienza.
+[14] DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+    TITOLO: Non è la tua strada
+    RISPOSTA: I segni del viaggio dicono di no. Non accettare l'offerta di lavoro a Milano con queste condizioni. Per ora quella via non ti si mostra aperta.
+    AZIONE: Entro domenica contatta l'azienda per cui lavori ora. Chiedi un colloquio esplorativo su nuove possibilità interne.
+    FONTI: {scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}
+    SCARTI: titolo previsioneCerta: Non è il momento giusto ; risposta anticipaLaScena: I segni del viaggio non indicano l'accettazione dell'offerta a Milano. Quella porta in questo momento è chiusa. Non è la direzione che ti è indicata ora. ; risposta previsioneCerta: I segni del viaggio dicono di no. Non è il momento di accettare l'offerta di lavoro a Milano. Non è la direzione che ti è indicata ora. ; azione chiedeDiScrivere: Entro domani sera scrivi i pro e i contro di rimanere dove sei. ; titolo tempoNelTitolo: Non è la tua direzione adesso
+[15] DOMANDA: Riuscirò a superare il concorso di ottobre?
+    TITOLO: C'è più di un percorso
+    RISPOSTA: I segni del viaggio dicono di sì, se ti prepari a un percorso che non ha una sola direzione. Il concorso non è l'unico modo per raggiungere ciò che desideri. Hai una direzione chiara, ma non una sola strada.
+    AZIONE: Entro domani sera individua una persona che ha superato un concorso simile e chiedi di incontrarla per un caffè.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}
+    SCARTI: azione chiedeDiScrivere: Domani mattina scrivi tre cose che faresti se non ci fosse il concorso.
+[16] DOMANDA: Riuscirò a superare il concorso di ottobre?
+    TITOLO: La tua vera forza
+    RISPOSTA: I segni del viaggio dicono di sì, a condizione che tu mostri il tuo valore. Il concorso non chiede una parte di te che non c'è. Richiede piuttosto la tua presenza intera, senza filtri o finzioni.
+    AZIONE: Entro domani rileggi il bando del concorso. Non cercare le parole che non conosci, ma quelle che ti descrivono.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: nessuno
+[17] DOMANDA: Come faccio a sentirmi meno sola la sera?
+    TITOLO: C'è qualcosa che può crescere
+    RISPOSTA: Per sentirti meno sola la sera, puoi dedicarti a un'attività che ti connetta con te stessa. Fai qualcosa che ti nutra profondamente. Ricorda che la solitudine non è assenza di persone, ma assenza di contatto con il tuo mondo interiore.
+    AZIONE: Stasera, prima di dormire, sposta un oggetto da un luogo all'altro della tua casa. Non rimetterlo al suo posto per almeno una settimana.
+    FONTI: {scena: modello, titolo: modello: seconda chiamata, risposta: modello, gesto: modello: seconda chiamata}
+    SCARTI: titolo troppoLunga: La radice è già dentro di te ; azione chiedeDiScrivere: Stasera scrivi un pensiero positivo su un bigliettino e mettilo sotto il tuo cuscino. ; risposta gergo: Per sentirti meno sola la sera, devi creare le tue radici. Ciò che cerchi è già dentro di te. Ha solo bisogno di un terreno fertile.
+[18] DOMANDA: Come faccio a sentirmi meno sola la sera?
+    TITOLO: Accogli quello che vedi
+    RISPOSTA: Per sentirti meno sola la sera, il viaggio ti indica di creare un nuovo rituale. Non chiuderti. Non rimandare il contatto con il mondo fuori.
+    AZIONE: Stasera, dopo cena, esci per una passeggiata di almeno quindici minuti.
+    FONTI: {scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}
+    SCARTI: risposta anticipaLaScena: Per sentirti meno sola la sera, il viaggio ti indica di creare un nuovo rituale. Non chiuderti in casa. Non rimandare il contatto con il mondo fuori.
+[19] DOMANDA: Devo dire a Marco che mi piace?
+    TITOLO: La tua forza non è nascosta
+    RISPOSTA: I segni del viaggio non mostrano che tu debba dirlo a Marco adesso. Una parte di te non è ancora pronta. Dagli tempo.
+    AZIONE: Domani sera, quando lo vedi, guardalo negli occhi per più di tre secondi e sorridi.
+    FONTI: {scena: modello, titolo: modello: seconda chiamata, risposta: modello, gesto: modello: seconda chiamata}
+    SCARTI: titolo previsioneCerta: Non è il momento ; azione chiedeDiScrivere: Entro domani sera scrivi su un foglio solo per te cosa ti frena dal dirgli quello che provi. ; risposta nonNominaLaDomanda: I segni del viaggio dicono di sì, a condizione che tu sia pronta ad accettare la sua reazione. Non aspettarti una risposta immediata da parte sua.
+[20] DOMANDA: Devo dire a Marco che mi piace?
+    TITOLO: Guarda come si muove il cuore
+    RISPOSTA: I segni del viaggio dicono di sì, ma non è il momento adesso. Il tuo desiderio per Marco è chiaro. Lascia che si manifesti con la giusta chiarezza, prima di esprimerlo.
+    AZIONE: Domani mattina, scegli un piccolo gesto gentile da fare per Marco.
+    FONTI: {scena: modello, titolo: modello: seconda chiamata, risposta: modello, gesto: modello}
+    SCARTI: titolo troppoLunga: C'è un tempo per il tuo desiderio ; risposta nonNominaLaDomanda: I segni del viaggio dicono di sì, ma non è il momento adesso. Il tuo desiderio è chiaro. Lascia che si manifesti con la giusta chiarezza, prima di esprimerlo. ; azione chiedeDiScrivere: Entro sabato, scrivi una lista di tre cose che ti piacciono di più di Marco. ; titolo previsioneCerta: Non è il tempo giusto
+
+Azioni che chiedono di scrivere su un foglio (o su un biglietto, un quaderno, una carta): 1 su 20.
+
+== DIECI DISCESE DI SEGUITO DELLA STESSA PERSONA ==
+[giorno 1] DOMANDA: Mi trasferisco a Berlino per lavoro?
+    RISPOSTA: Chiediti quale racconterai meglio fra dieci anni.
+    AZIONE: Entro sabato cerca tre annunci di lavoro in una città diversa da Berlino, in un settore che non avevi considerato prima.
+    FONTI: {scena: riserva: titoloAnticipaLaScena, titolo: modello, risposta: riserva: anticipaLaScena, gesto: modello}
+    SCARTI: risposta anticipaLaScena: I segni del viaggio non indicano Berlino per la tua domanda. La porta chiusa in questo momento non è quella che pensi. C'è altro che ti aspetta. ; titolo previsioneCerta: Non è ancora il momento ; risposta nonNominaLaDomanda: I segni del viaggio non indicano di sì per la tua domanda. C'è altro che ti aspetta. La tua decisione può aspettare. ; risposta previsioneCerta: I segni del viaggio non indicano di sì per il tuo trasferimento a Berlino. C'è altro che ti aspetta. La tua decisione può aspettare, non è il momento di chiudere questa trattativa. ; azione nomeProprio: Entro giovedì, chiedi il dettaglio delle mansioni e lo stipendio per il lavoro che ti offrono in Italia.
+[giorno 2] DOMANDA: Lascio il lavoro in banca per aprire la mia bottega di ceramica?
+    RISPOSTA: I segni del viaggio dicono di sì, a condizione che tu trovi un modo di nutrirti mentre la tua bottega cresce. Aprire la tua bottega di ceramica è un passo importante. Hai il talento e la dedizione necessari.
+    AZIONE: Entro giovedì cerca tre corsi o workshop intensivi sulla gestione di una piccola attività, anche online.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: nessuno
+[giorno 3] DOMANDA: Il mio cane è malato, cosa devo fare?
+    RISPOSTA: Per il tuo cane, chiedi al veterinario di spiegarti tutte le opzioni possibili, anche quelle più difficili. Fai domande finché non hai capito tutto bene. Hai bisogno di avere un quadro completo prima di prendere una decisione.
+    AZIONE: Domani mattina telefona al veterinario e fissa un appuntamento per approfondire la situazione del tuo cane.
+    FONTI: {scena: modello, titolo: modello: seconda chiamata, risposta: modello: seconda chiamata, gesto: modello}
+    SCARTI: titolo tempoNelTitolo: Non serve sapere tutto adesso ; risposta nonNominaLaDomanda: Chiedi al veterinario di spiegarti tutte le opzioni possibili, anche quelle più difficili. Fai domande finché non hai capito tutto bene. Hai bisogno di avere un quadro completo prima di prendere una decisione.
+[giorno 4] DOMANDA: Cosa pensa di me la mia collega?
+    RISPOSTA: Se dovessi allontanarti, sapresti già cosa perdi.
+    AZIONE: Entro giovedì offri il tuo aiuto alla tua collega su un suo compito.
+    FONTI: {scena: modello, titolo: modello, risposta: riserva: statoDiUnTerzo, gesto: modello: seconda chiamata}
+    SCARTI: risposta statoDiUnTerzo: Puoi chiedere direttamente alla tua collega ciò che pensa di te. I segni del viaggio mostrano che è questo il modo per avere chiarezza. Non lasciare che le interpretazioni altrui ti distraggano. ; azione toccaUnTerzo: Entro domani sera scrivi un messaggio alla tua collega e proponi di fare due chiacchiere per un confronto sul vostro lavoro in comune. ; titolo statoDiUnTerzo: La tua collega non sa ; risposta statoDiUnTerzo: Puoi chiarire la tua percezione. Il viaggio indica che un gesto da parte tua è necessario. Non ti serve una risposta che non puoi verificare. ; azione chiedeDiScrivere: Entro giovedì osserva tre volte la tua collega. Annota su un quaderno come ti senti in quel momento. ; risposta statoDiUnTerzo: Puoi scegliere tu di sapere cosa c'è. Un gesto da parte tua è necessario per chiarire la situazione. Non serve una risposta che non puoi verificare.
+[giorno 5] DOMANDA: Mia madre non accetta la mia compagna, cosa faccio?
+    RISPOSTA: Scegli chi vuoi avere al tuo fianco. Puoi mostrare a tua madre che la tua compagna è un arricchimento per la vostra famiglia. Non puoi forzare l'accettazione, ma puoi dare tempo e spazio.
+    AZIONE: Domani mattina invita a casa tua la tua compagna e un'altra persona che ti vuole bene e che le vuole bene.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello}
+    SCARTI: nessuno
+[giorno 6] DOMANDA: Mio fratello non mi parla da mesi, lo chiamo io?
+    RISPOSTA: Puoi chiamare tuo fratello, se senti che tu sei prontissima a sentire qualsiasi cosa lui ti dica. Non puoi controllare la sua reazione, ma puoi scegliere il tuo stato d'animo prima di fare la chiamata.
+    AZIONE: Entro mercoledì telefona a tuo fratello e chiedigli come sta.
+    FONTI: {scena: modello, titolo: modello: seconda chiamata, risposta: modello, gesto: modello: seconda chiamata}
+    SCARTI: titolo troppoLunga: La tua è una scelta che apri ; azione chiedeDiScrivere: Stasera scrivi su un foglio le tre paure più grandi che hai rispetto a quella telefonata.
+[giorno 7] DOMANDA: Accetto l'offerta di lavoro a Milano anche se guadagno meno?
+    RISPOSTA: La paura è di perdere l'altra, non di prendere questa.
+    AZIONE: Entro sabato cerca due referenze professionali, persone con cui hai già lavorato, che possano parlare delle tue capacità.
+    FONTI: {scena: modello, titolo: modello, risposta: riserva: promessa, gesto: modello}
+    SCARTI: risposta promessa: Accetta l'offerta di lavoro a Milano. I segni del viaggio ti dicono di sì, ma a una condizione: non lasciare che il guadagno minore offuschi il tuo valore. Sii tu a definire il tuo successo, oltre il denaro. ; azione chiedeDiScrivere: Entro venerdì scrivi tre aspetti della tua esperienza professionale che non sono negoziabili, anche se il guadagno è minore. ; risposta previsioneCerta: I segni del viaggio indicano di accettare l'offerta a Milano. Una condizione importante è che tu sappia che il valore del lavoro che farai è più grande del guadagno. Sei tu a definire il tuo successo, non il denaro. ; risposta previsioneCerta: I segni del viaggio indicano di accettare l'offerta a Milano, a condizione che tu sia consapevole del valore intrinseco del lavoro che andrai a svolgere. Il tuo successo dipende da come tu lo definisci. Non è il denaro a misurare il tuo valore.
+[giorno 8] DOMANDA: Riuscirò a superare il concorso di ottobre?
+    RISPOSTA: Il viaggio indica che puoi superare il concorso, ma devi cercare altre strade per prepararti. Trova i materiali di studio necessari, anche in contesti diversi da quelli che hai esplorato finora. Non fermarti alla prima apparenza.
+    AZIONE: Entro domenica cerca un corso online o un libro specifico che copra argomenti del concorso che ti sembrano più difficili.
+    FONTI: {scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}
+    SCARTI: risposta gergo: Il viaggio indica che puoi superare il concorso, ma devi lasciare andare l'idea di un percorso lineare. Cerca gli strumenti necessari, anche fuori dal tuo solito raggio d'azione. Non ti fermare alla prima difficoltà.
+[giorno 9] DOMANDA: Come faccio a sentirmi meno sola la sera?
+    RISPOSTA: La solitudine che senti la sera non è un vuoto da riempire. Scegli un'attività che ti appassiona davvero. La compagnia migliore è quella che nasce dalla tua gioia.
+    AZIONE: Stasera prepara la tua cena preferita e invita una persona con cui ti senti a tuo agio a condividerla.
+    FONTI: {scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello: seconda chiamata}
+    SCARTI: titolo troppoLunga: La solitudine non è il tuo posto ; risposta troppoLunga: I segni del viaggio indicano che puoi sentirti meno sola la sera se ti dedichi a ciò che ti nutre davvero. Non si tratta di riempire un vuoto, ma di coltivare la tua parte più autentica. Trova le situazioni e le persone che ti permettono di esprimerti con libertà e serenità. ; azione virgolaEe: Domani sera scegli un'attività che ti piace fare da sola, senza distrazioni, e dedicale un'ora intera. ; risposta nonNominaLaDomanda: La tua solitudine serale non è un vuoto da riempire. Coltiva le tue passioni più profonde. Trova le situazioni che ti permettono di esprimerti appieno. ; azione chiedeDiScrivere: Domani sera fai un elenco di tre cose che desideri imparare da sola. Scegline una e cerca un modo per iniziare.
+[giorno 10] DOMANDA: Devo dire a Marco che mi piace?
+    RISPOSTA: Dire a Marco che ti piace è un sì, ma a una condizione. Non aspettare una sua reazione. La tua dichiarazione è un dono, non una richiesta.
+    AZIONE: Entro domani sera pensa a un modo per trascorrere del tempo con Marco, solo voi due.
+    FONTI: {scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}
+    SCARTI: azione chiedeDiScrivere: Domani sera, prima di addormentarti, scrivi cinque motivi per cui ti piace Marco.
+
+Coppie di azioni uguali o simili fra le dieci discese della stessa persona (IlPassoDaNonDare.simili, la misura della voce EQ.01): 0 [].
+Azioni col foglio fra le dieci: 0 su 10.

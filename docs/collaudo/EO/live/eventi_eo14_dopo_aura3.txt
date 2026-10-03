@@ -1,0 +1,10 @@
+saluto finito 1790407992.818
+frase 1, inizio 1790407995.802: Aura, come ritrovo la calma prima di un esame?
+detta in 3.8 secondi: Aura, come ritrovo la calma prima di un esame?
+frase 1, fine 1790408000.287
+frase 1 trascritta 1790408003.294
+frase 1: risposta non finita in 120 s
+frase 2, inizio 1790408127.511: Aura, come ritrovo la calma prima di un esame?
+detta in 3.8 secondi: Aura, come ritrovo la calma prima di un esame?
+frase 2, fine 1790408131.906
+frase 2: nessuna trascrizione in 40 s

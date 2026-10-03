@@ -1,0 +1,69 @@
+ORDINE EM VOCI 04 E 05, IL MICROFONO CON LA TELEVISIONE E COL RESPIRO, E LA CHIUSURA DOPO TRENTA SECONDI
+Realme 767f596c, LIVE di Aura, 25 settembre 2026, dalle 02:52 alle 05:05.
+
+IL BANCO. Tre tracce suonate intere dalle casse del PC accanto al telefono (scratchpad, componi_banco_em.py):
+- banco_tv.wav: un notiziario italiano di Gemini-TTS (voce Iapetus) con sotto la musica dell'app a -14 dB, che
+  non si ferma mai; sopra, a 20,0 secondi, la domanda "Aura, sento un blocco ad Anahata, [1,5 s] e anche a
+  Vishuddha, [1,5 s] cosa posso fare questa settimana per riaprirli?" detta dalla voce italiana di Windows,
+  12 dB sopra la televisione; poi 110 secondi di sola televisione.
+- banco_respiro.wav: la stessa domanda sopra un respiro sintetico (fruscio passato basso con l'inviluppo di
+  inspiro ed espiro), 6 dB sotto la voce, che non si ferma mai.
+- banco_quiete.wav: la stessa domanda, senza niente sotto.
+Il respiro vero resta la prova del fondatore, la sua scelta "Sintetico, poi il mio".
+
+LE SCENE, in ordine. I secondi della chiusura e dell'attesa sono quelli del registro del telefono.
+
+tv1, build di collaudo a (prima stesura della regola, quella consegnata col commit f80e2ced):
+  la televisione apre una frase al terzo secondo e la tiene aperta 141.600 millesimi, finche' la traccia
+  finisce. Trascrizione: "[SILENZIO] Ah, io sento un blocco ad Anahata. Cosa posso fare questa settimana per
+  riaprirli?", con il segno del silenzio dentro la domanda, a video e in chat. E' il guasto del fondatore:
+  "fin quando il microfono rileva il minimo rumore, la risposta non parte".
+respiro1, stessa build: il respiro non apre la frase e non la tiene aperta; chiusa 1.997 ms dopo l'ultima
+  parola. Trascrizione "Aura, se non ho problemi anche a Vishuddha..." (il respiro a -6 dB copre "sento un
+  blocco ad Anahata"). LIVE chiuso dopo 30 secondi di respiro.
+quiete1, stessa build: "Aura, sento un blocco ad Anahata. E anche a Vishuddha. Cosa posso fare questa
+  settimana per riaprirli?", 11 parole su 11. LIVE chiuso dopo 30 secondi di silenzio.
+
+tv2, build di collaudo b (secondo giro: media di mezzo secondo, controllo, stanza che impara dalle frasi
+  scartate): la frase aperta dalla televisione e' scartata al primo controllo, la stanza impara il
+  sottofondo a -27 dB, la televisione non apre piu' frasi; la domanda si chiude 1.995 ms dopo la fine del
+  parlato e parte: "Sento un blocco ad Anahata. Cosa posso fare questa settimana per riaprirli?" (9 su 11).
+  LIVE chiuso dopo 30 secondi con la televisione accesa.
+tv3, build di banco 1: come tv2; "Sento un blocco ad Anahata e anche a Vishuddha. Cosa posso fare questa
+  settimana per riaprirli?" (10 su 11). L'audio della frase, salvato dal banco, contiene "Aura" a -18/-20
+  dB: la parola la perde la trascrizione, non il microfono. Al banco, sullo stesso audio, 5 volte su 5
+  senza "Aura"; tagliato a 200 ms prima della voce, 11 su 11 cinque volte su cinque: il secondo di audio di
+  prima portava parole della televisione attaccate al nome. Da qui la frase comincia 400 ms prima della
+  voce vicina quando la stanza conosce un sottofondo.
+tv4, build di banco 2: il controllo della DOMANDA VERA torna vuoto, la frase e' scartata e la stanza impara
+  la voce della persona: sottofondo da -26 a -19 dB, la domanda non parte e il LIVE si chiude per silenzio.
+  Difetto della voce EM.04 secondo giro, il controllo. Riparato: una frase che sta sopra il sottofondo
+  conosciuto non si scarta e non si impara (LaStanza.sembraSottofondo). Al banco, sull'audio vero di quel
+  controllo, l'istruzione dell'app torna vuota 3 volte su 3; sulla sola televisione "[SILENZIO]" 3 su 3;
+  sulla frase intera 11 parole su 11, 3 su 3. L'istruzione resta com'e': la variante che nomina solo
+  televisione e radio trascrive il telegiornale (9 parole della televisione).
+tv5, build di banco 3: il controllo della domanda torna vuoto di nuovo; il registro dice "la frase 2 sta
+  sopra il sottofondo: non si scarta"; la domanda si chiude 2.004 ms dopo la fine del parlato e parte:
+  "Aura, sento un blocco ad Anahata. Cosa posso fare questa settimana per riaprirli?" (10 su 11). LIVE
+  chiuso dopo 30 secondi con la televisione accesa.
+respiro2, build di banco 3: il respiro non apre la frase; chiusa 1.994 ms dopo l'ultima parola; parte "Aura,
+  se non ho problemi. E anche a Vishuddha. Cosa posso fare questa settimana per riaprirli?". LIVE chiuso
+  dopo 30 secondi di respiro.
+
+tv6, build di consegna 2281 (commit 803c19b4), 06:59: la frase di sola televisione chiede due controlli
+  vuoti prima di essere scartata (a 6,5 e a 9,7 secondi: senza un sottofondo conosciuto ne servono due), la
+  stanza impara il sottofondo a -27 dB e la televisione non apre piu' frasi; la domanda arriva intera,
+  "Aura, sento un blocco ad Anahata e anche a Vishuddha. Cosa posso fare questa settimana per riaprirli?", 11
+  parole su 11; il volto parla a 5,9 secondi dalla fine; LIVE chiuso dopo 30 secondi con la televisione accesa.
+
+LA CHIUSURA DELLA SESSIONE SUL SERVER (voce EM.05), registro di Cloud Run, ora UTC:
+  01:50:19 apriunasessionelive "Uso di Protoface nel mese" secondi 11850 crediti 257
+  01:52:34 chiudilasessionelive "LIVE chiuso dal telefono" stato ending        (scena tv2, televisione accesa)
+  02:04:30 apriunasessionelive "Uso di Protoface nel mese" secondi 11987 crediti 260
+  02:06:49 chiudilasessionelive "LIVE chiuso dal telefono" stato ending        (scena tv3, televisione accesa)
+  La sessione della scena tv2 e' durata 135 secondi dall'apertura alla chiusura; i secondi addebitati del
+  mese, fra un'apertura e la successiva, sono cresciuti di 137: dopo la chiusura non si paga piu' niente.
+
+COSA RESTA AL FONDATORE: il suo respiro vero e la sua televisione, sul suo telefono. Con la voce di Windows
+dalle casse del PC, che il modello puo' scambiare per un apparecchio come la televisione, un pezzo breve in
+mezzo alla domanda e' caduto in due scene su cinque con la televisione accesa.

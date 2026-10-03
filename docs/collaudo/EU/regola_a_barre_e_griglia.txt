@@ -1,0 +1,6 @@
+REGOLA A, ordine EU voci 09 e 11, 1 ottobre 2026: la guardia le_barre_e_la_griglia_si_leggono vista rossa.
+INNESTO A1 l'altezza di prima, da 20 a 56 punti: grep del difetto nel file SI; prova test/le_barre_e_la_griglia_si_leggono_test.dart ROSSA; file rimesso sha1 3091c2c891e6 -> 3091c2c891e6 IDENTICO
+INNESTO A2 il colore di prima, lo stesso oro velato per ogni barra: grep del difetto nel file SI; prova test/le_barre_e_la_griglia_si_leggono_test.dart ROSSA; file rimesso sha1 3091c2c891e6 -> 3091c2c891e6 IDENTICO
+INNESTO A3 il rosso fuoco piu' scuro, FF3A22 (2,89 sul verde di Aura): grep del difetto nel file SI; prova test/le_barre_e_la_griglia_si_leggono_test.dart ROSSA; file rimesso sha1 5767382b55ad -> 5767382b55ad IDENTICO
+INNESTO A4 nel Mese l'ultimo giorno senza casella: grep del difetto nel file SI; prova test/le_barre_e_la_griglia_si_leggono_test.dart ROSSA; file rimesso sha1 3091c2c891e6 -> 3091c2c891e6 IDENTICO
+INNESTO A5 la percentuale tolta dalla barra migliore: grep del difetto nel file SI; prova test/le_barre_e_la_griglia_si_leggono_test.dart ROSSA; file rimesso sha1 3091c2c891e6 -> 3091c2c891e6 IDENTICO

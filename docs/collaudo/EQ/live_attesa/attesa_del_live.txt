@@ -1,0 +1,34 @@
+EQ.03, L'ATTESA DEL LIVE SUL REALME, 27 settembre 2026
+
+Dalla fine del parlato della persona, in millesimi, riga "LIVE ATTESA" del registro del telefono. Voce detta dalle casse del PC.
+"il volto parla" viene dal riconoscimento di chi parla di LiveKit; "si sente" (solo nella terza build) dall'energia dell'audio che il telefono riceve dal volto e suona: e' quando la persona sente il Maestro.
+Nota sull'ordine EO: i 4,8 secondi dei suoi collaudi sono stati misurati con la chat che rispondeva in 2-7 millesimi, cioe' su risposte gia' date quel giorno e ripetute senza modello (docs/collaudo/EO/live/logcat_eo14_dopo_*.txt, righe "la chat ha risposto in").
+
+== build di prova 1 (commit eb94acd5, voce chiesta a risposta intera)
+  frase chiusa 2003 ms, trascritta 2576 ms, primo testo 3486 ms, risposta 4224 ms, primo audio al volto 4903 ms, il volto parla 6986 ms
+  frase chiusa 1992 ms, trascritta 2138 ms, primo testo 2937 ms, risposta 3630 ms, primo audio al volto 4338 ms, il volto parla 6468 ms
+  frase chiusa 2007 ms, trascritta 2069 ms, primo testo 2917 ms, risposta 3582 ms, primo audio al volto 4357 ms, il volto parla 6111 ms
+  frase chiusa 1999 ms, trascritta 3745 ms, primo testo 4820 ms, risposta 5124 ms, primo audio al volto 5833 ms, il volto parla 8210 ms
+  frase chiusa 2000 ms, trascritta 3800 ms, risposta 3956 ms, primo audio al volto 4685 ms, il volto parla 6831 ms
+  frase chiusa 1956 ms, trascritta 1957 ms, primo testo 2899 ms, risposta 3580 ms, primo audio al volto 4277 ms, il volto parla 6039 ms
+  frase chiusa 2008 ms, trascritta 2008 ms, primo testo 2791 ms, risposta 3385 ms, primo audio al volto 4099 ms, il volto parla 6322 ms
+  turni 7; "il volto parla" mediana 6468 ms; dalla risposta al primo audio al volto mediana 709 ms
+
+== build di prova 2 (commit 34e56fcb, voce della prima frase anticipata, flusso aperto prima)
+  frase chiusa 1998 ms, trascritta 2082 ms, primo testo 2972 ms, prima frase chiusa 3217 ms, flusso aperto in anticipo 3905 ms, risposta 4030 ms, voce pronta 4031 ms, primo audio al volto 4031 ms, il volto parla 6027 ms
+  frase chiusa 2001 ms, trascritta 2040 ms, primo testo 2897 ms, prima frase chiusa 3020 ms, flusso aperto in anticipo 3784 ms, risposta 3821 ms, voce pronta 3823 ms, primo audio al volto 3823 ms, il volto parla 6220 ms
+  frase chiusa 1999 ms, trascritta 2152 ms, primo testo 3011 ms, prima frase chiusa 3194 ms, risposta 3866 ms, voce pronta 3898 ms, flusso aperto in anticipo 3910 ms, primo audio al volto 3911 ms, il volto parla 5889 ms
+  frase chiusa 1996 ms, trascritta 2088 ms, primo testo 3018 ms, prima frase chiusa 3253 ms, flusso aperto in anticipo 3867 ms, risposta 3924 ms, voce pronta 3926 ms, primo audio al volto 3926 ms, il volto parla 6323 ms
+  frase chiusa 2016 ms, trascritta 2074 ms, primo testo 3393 ms, prima frase chiusa 3626 ms, flusso aperto in anticipo 4272 ms, risposta 4315 ms, voce pronta 4316 ms, primo audio al volto 4316 ms, il volto parla 6072 ms
+  frase chiusa 2001 ms, trascritta 3542 ms, primo testo 4447 ms, prima frase chiusa 4631 ms, risposta 5231 ms, flusso aperto in anticipo 5259 ms, voce pronta 5824 ms, primo audio al volto 5824 ms, il volto parla 7497 ms
+  frase chiusa 2007 ms, trascritta 2082 ms, primo testo 3096 ms, prima frase chiusa 3254 ms, flusso aperto in anticipo 3883 ms, risposta 3982 ms, voce pronta 3984 ms, primo audio al volto 3984 ms, il volto parla 5444 ms
+  turni 7; "il volto parla" mediana 6072 ms; dalla risposta al primo audio al volto mediana 2 ms
+
+== build di prova 3 (commit 781d7beb, piu' la trascrizione in pausa a 400 ms e la tappa "si sente")
+  frase chiusa 1826 ms, trascritta 1827 ms, primo testo 2641 ms, prima frase chiusa 3249 ms, risposta 3433 ms, voce pronta 3937 ms, flusso aperto in anticipo 3949 ms, primo audio al volto 3949 ms, si sente 5532 ms, il volto parla 6054 ms
+  frase chiusa 1997 ms, trascritta 3584 ms, primo testo 4448 ms, prima frase chiusa 4716 ms, risposta 4996 ms, voce pronta 5387 ms, flusso aperto in anticipo 5401 ms, primo audio al volto 5402 ms, si sente 6959 ms, il volto parla 7503 ms
+  frase chiusa 2003 ms, trascritta 3346 ms, primo testo 4287 ms, prima frase chiusa 4599 ms, risposta 4973 ms, voce pronta 5250 ms, flusso aperto in anticipo 5257 ms, primo audio al volto 5257 ms, si sente 6717 ms, il volto parla 6800 ms
+  frase chiusa 1829 ms, trascritta 1830 ms, primo testo 2718 ms, prima frase chiusa 3006 ms, risposta 3407 ms, voce pronta 3761 ms, flusso aperto in anticipo 3780 ms, primo audio al volto 3780 ms, si sente 5165 ms, il volto parla 5752 ms
+  frase chiusa 2003 ms, trascritta 2021 ms, primo testo 3090 ms, prima frase chiusa 3557 ms, risposta 3974 ms, voce pronta 4195 ms, flusso aperto in anticipo 4200 ms, primo audio al volto 4200 ms, si sente 5710 ms, il volto parla 6226 ms
+  turni 5; "il volto parla" mediana 6226 ms; dalla risposta al primo audio al volto mediana 373 ms; "si sente" mediana 5710 ms
+

@@ -1,0 +1,11 @@
+IL SUONO DEL RESPONSO DELL'OROSCOPO, SUL REALME 767f596c, 30 settembre 2026 sera, build di prova dal commit 6e8fddb0.
+
+Richiesta del fondatore: "Quando compare il responso del l'oroscopo si sente un suono che va eliminato. Sostituiscilo con: Orchestral Game Notification.wav"
+
+Il file: sound effect/orchestral-game-notification-2026-05-18-17-43-39-utc/Orchestral Game Notification.wav, WAV stereo 44,1 kHz 16 bit, 3,02 secondi, 532.748 byte, sonorita' momentanea massima -9,3 LUFS, picco -1,0 dBFS, silenzio in coda di 0,35 secondi.
+Convertito in assets/audio/responso_oroscopo.mp3: MP3 mono 44,1 kHz 96 kbps come gli altri effetti, silenzio in coda tolto con una sfumatura di 0,12 secondi, 2,72 secondi, 33.585 byte (sedici volte meno del WAV), sonorita' -15,95 LUFS contro il bersaglio -16 della famiglia, picco -4,8 (misure di tool/misura_i_suoni.py, in docs/sonorita.json).
+
+La misura sul telefono: tocco su "Interroga il cielo", poi per 11 secondi, ogni 0,35 secondi circa, le tracce audio attive lette da dumpsys media.audio_flinger (la musica d'ambiente tiene sempre una traccia attiva).
+Tracce attive nel tempo (secondi dal tocco, tracce): 0.3 1 | 0.8 2 | 1.1 1 | ... | 3.3 1 | 3.7 2 | 4.0 2 | 4.4 2 | 4.7 2 | 5.1 2 | 5.4 2 | 5.8 2 | 6.1 2 | 6.5 1 | ... | 11.0 1
+Lettura: la soglia al tocco (una traccia breve, sotto 0,5 secondi); alla comparsa del responso una traccia in piu' da 3,7 a 6,1-6,5 secondi, cioe' fra 2,4 e 2,8 secondi di suono, la durata del file nuovo (2,72). Il suono di prima (rivelazione.mp3) durava 1,5 secondi.
+Il suono si e' misurato dal sistema del telefono, non ascoltato: chi collauda da questo PC non sente l'altoparlante del Realme.

@@ -48,8 +48,31 @@ class ColorTokens {
 
   // --- Neutri di testo e superfici trasparenti ---
   static const Color textPrimary = Color(0xFFF4F1E8);
-  static const Color textSecondary = Color(0xFFC7C2B4);
-  static const Color textMuted = Color(0xFF8A8578);
+
+  /// **IL SECONDO GRIGIO SI SCHIARISCE CON L'ALTRO. Ordine AU voce 08.**
+  ///
+  /// Era `0xFFC7C2B4` e sulla superficie di Aura faceva 6,68: sotto il 7,0 che
+  /// l'ordine pretende dai testi piccoli. Adesso vale `0xFFD7D2C2`, e il
+  /// peggiore dei fondi veri gli da' 7,61.
+  static const Color textSecondary = Color(0xFFD7D2C2);
+
+  /// **IL GRIGIO PIU' SCURO SI SCHIARISCE UN'ALTRA VOLTA. Ordine AU voce 08,
+  /// ed e' la terza volta che il fondatore lo segnala.**
+  ///
+  /// Era `0xFF8A8578`, poi l'ordine AS voce 05 lo porto' a `0xFFA39D8E`
+  /// dichiarando "6,59 su Aura" e chiuse la voce. **Quel numero era misurato
+  /// sul fondo sbagliato**: `auraDeep`, che e' il fondo profondo della
+  /// schermata, mentre questi testi stanno sulle CARD, cioe' su `auraSurface`,
+  /// che e' piu' chiara. Sul fondo vero facevano 4,40, e sul vetro delle bolle
+  /// 4,21: ecco perche' il fondatore continuava a non leggerli mentre la
+  /// prova era verde. E' esattamente cio' che quest'ordine vieta, misurare sul
+  /// fondo teorico invece che su quello su cui il testo e' davvero dipinto.
+  ///
+  /// Adesso vale `0xFFD8D0BD`, misurato sui sette fondi veri: 12,79 sul piu'
+  /// scuro, 9,67 su Medora, 8,63 su Caligo, 7,28 sulla superficie di Aura e
+  /// **7,05 sul vetro sopra Aura**, che e' il peggiore di tutti. Resta piu'
+  /// scuro di [textSecondary], quindi i tre livelli restano tre.
+  static const Color textMuted = Color(0xFFD8D0BD);
 
   // Velo scuro per il glassmorphism e le superfici in vetro.
   static const Color glassTint = Color(0x1AFFFFFF);
@@ -59,4 +82,32 @@ class ColorTokens {
   // Stato disabilitato / Coming soon: grigio desaturato.
   static const Color comingSoonVeil = Color(0xB3121016);
   static const Color lockedVeil = Color(0xCC0B0A0F);
+
+  // **LA LUCINA DI CHI E' ONLINE, ordine ES voce 15.** Il fondatore l'ha
+  // chiesta verde, ed e' l'unico verde dell'app che non appartiene ad Aura:
+  // quello di Aura e' smeraldo e porta il suo nome, questo e' il verde di un
+  // segnale acceso, piu' giallo e piu' chiaro, perche' non si confonda con
+  // la tinta di un Maestro.
+  static const Color lucinaOnline = Color(0xFF4BE37A);
+
+  // **LA SCALA DEL LIVELLO DEI GIORNI, ordine EU voci 09 e 11.** Il
+  // fondatore, sulle barre della Settimana: *"da giallo opaco a rosso fuoco
+  // per il giorno migliore"*. Cinque gradini, dal livello 1 al 5. Ogni
+  // gradino ha almeno 3 di contrasto sul fondo delle schede del periodo con
+  // le quattro palette (il peggiore, il rosso sul verde di Aura, 3,2): lo
+  // misura `le_barre_e_la_griglia_si_leggono_test`.
+  static const List<Color> scalaDelLivello = [
+    Color(0xFFA8994E), // 1, giallo opaco
+    Color(0xFFE6C443), // 2, giallo
+    Color(0xFFF5A132), // 3, arancio
+    Color(0xFFF7702F), // 4, arancio rosso
+    Color(0xFFFF5233), // 5, rosso fuoco
+  ];
+
+  /// Il gradino del livello [livello], da 1 a 5.
+  static Color delLivello(int livello) =>
+      scalaDelLivello[livello.clamp(1, 5) - 1];
+
+  // Il numero scritto sopra un gradino: scuro, almeno 5,9 su ognuno.
+  static const Color inchiostroSulLivello = Color(0xFF010208);
 }

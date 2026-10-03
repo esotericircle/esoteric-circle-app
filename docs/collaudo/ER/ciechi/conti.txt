@@ -1,0 +1,42 @@
+ORDINE ER, I GIUDIZI ALLA CIECA, 27 settembre 2026
+Ogni fascicolo mescola le letture di prima (commit 3a2c12d3) e delle due esecuzioni dopo; il giudice (un agente che non conosce la chiave) le legge senza sapere da dove vengono. I conti qui sotto sono letti dai file giudizio_*.json con la chiave chiave_*.json di questa cartella.
+
+== RUNE, fascicolo del giro5 (giudizio_rune_giro5.json)
+  giro5_esecuzione1: dirette 14 su 20 con domanda; pietre tutte lette 8 su 24; legame 24; consiglio 24; errori di italiano 8; in riserva 0
+  giro5_esecuzione2: dirette 13 su 20 con domanda; pietre tutte lette 11 su 24; legame 24; consiglio 23; errori di italiano 8; in riserva 0
+  prima: dirette 6 su 20 con domanda; pietre tutte lette 0 su 24; legame 6; consiglio 18; errori di italiano 5; in riserva 0
+
+== RUNE, fascicolo del giro6 (giudizio_rune_giro6.json)
+  giro6_esecuzione1: dirette 14 su 20 con domanda; pietre tutte lette 22 su 24; legame 23; consiglio 22; errori di italiano 11; in riserva 0
+  giro6_esecuzione2: dirette 11 su 20 con domanda; pietre tutte lette 21 su 24; legame 23; consiglio 22; errori di italiano 5; in riserva 1
+  prima: dirette 5 su 20 con domanda; pietre tutte lette 0 su 24; legame 7; consiglio 18; errori di italiano 2; in riserva 0
+
+== RUNE, fascicolo del giro7 (giudizio_rune_giro7.json)
+  giro7_esecuzione1: dirette 15 su 20 con domanda; pietre tutte lette 17 su 24; legame 21; consiglio 21; errori di italiano 3; in riserva 3
+  giro7_esecuzione2: dirette 13 su 20 con domanda; pietre tutte lette 15 su 24; legame 20; consiglio 20; errori di italiano 3; in riserva 4
+  prima: dirette 5 su 20 con domanda; pietre tutte lette 0 su 24; legame 5; consiglio 17; errori di italiano 5; in riserva 0
+
+== RUNE, fascicolo del giro8 (giudizio_rune_giro8.json)
+  giro8_esecuzione1: dirette 12 su 20 con domanda; pietre tutte lette 14 su 24; legame 22; consiglio 20; errori di italiano 9; in riserva 2
+  giro8_esecuzione2: dirette 17 su 20 con domanda; pietre tutte lette 14 su 24; legame 24; consiglio 24; errori di italiano 4; in riserva 0
+  prima: dirette 5 su 20 con domanda; pietre tutte lette 0 su 24; legame 4; consiglio 18; errori di italiano 4; in riserva 0
+
+== VIAGGIO, fascicolo del giro5 (giudizio_viaggio_giro5.json)
+  giro5_esecuzione1: prima frase che prende posizione 10 su 20 (finite sulla riserva 8, contate fra quelle che non la prendono); consiglio concreto 0; frasi vuote 24; errori di italiano 0
+  giro5_esecuzione2: prima frase che prende posizione 11 su 20 (finite sulla riserva 6, contate fra quelle che non la prendono); consiglio concreto 0; frasi vuote 25; errori di italiano 0
+  prima: prima frase che prende posizione 2 su 20 (finite sulla riserva 6, contate fra quelle che non la prendono); consiglio concreto 0; frasi vuote 42; errori di italiano 0
+
+== VIAGGIO, fascicolo del giro7 (giudizio_viaggio_giro7.json)
+  giro7_esecuzione1: prima frase che prende posizione 12 su 20 (finite sulla riserva 2, contate fra quelle che non la prendono); consiglio concreto 12; frasi vuote 26; errori di italiano 7
+  giro7_esecuzione2: prima frase che prende posizione 12 su 20 (finite sulla riserva 3, contate fra quelle che non la prendono); consiglio concreto 10; frasi vuote 30; errori di italiano 5
+  prima: prima frase che prende posizione 0 su 20 (finite sulla riserva 6, contate fra quelle che non la prendono); consiglio concreto 1; frasi vuote 43; errori di italiano 5
+
+== VIAGGIO, fascicolo del giro8 (giudizio_viaggio_giro8.json)
+  giro8_esecuzione1: prima frase che prende posizione 15 su 20 (finite sulla riserva 2, contate fra quelle che non la prendono); consiglio concreto 9; frasi vuote 30; errori di italiano 3
+  giro8_esecuzione2: prima frase che prende posizione 16 su 20 (finite sulla riserva 3, contate fra quelle che non la prendono); consiglio concreto 11; frasi vuote 24; errori di italiano 4
+  prima: prima frase che prende posizione 0 su 20 (finite sulla riserva 6, contate fra quelle che non la prendono); consiglio concreto 1; frasi vuote 44; errori di italiano 7
+
+== LIVE, ER.12, merito alla cieca con la regola dell'ordine EQ voce 03 (giudizio_live_er12.json)
+  giro 1: risposte intere nel merito 20 su 36; tagliate a tre frasi 19 su 36
+  giro 2: risposte intere nel merito 23 su 36; tagliate a tre frasi 22 su 36
+  turni che il taglio porta fuori dal merito 2 [('medora', 2, 2), ('caligo', 1, 8)]; turni che porta dentro 0

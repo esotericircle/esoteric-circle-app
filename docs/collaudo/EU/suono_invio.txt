@@ -1,0 +1,20 @@
+IL SUONO ALLA PRESSIONE DEI TASTI DI INVIO, ordine EU voce 03, 1 ottobre 2026.
+
+Come si e' cercato: tutti i punti di lib che fanno suonare un effetto del catalogo (PaletteSensoriale.suona e PaletteSensoriale.momento col parametro suono), letti uno per uno, e per ciascuno il momento in cui suona.
+
+I tasti di invio che suonavano alla pressione, PRIMA (commit 902ef8e5):
+1. "Interroga il cielo", "Apri l'almanacco", "Interroga la Luna" (lo stesso pulsante dell'Oroscopo, oroscopo_interroga, in Occidentale, Cinese e Vedica): soglia.mp3, 0,5 secondi. Messo dall'ordine BK voce 04 (commit 23349fee).
+2. L'avvio della stesa dei tarocchi (stesa_tre_carte_screen.dart): soglia.mp3. Messo dall'ordine CO voce 07 (commit 0ccf1b5d), spostato col pulsante nuovo.
+Tasti di invio che suonavano alla pressione: 2.
+
+DOPO: 0. Resta la vibrazione al tocco. La soglia non la chiama piu' nessun sorgente (guardia il_tasto_di_invio_non_suona, rossa rimettendola).
+
+Gli altri suoni dell'app, che non partono alla pressione di un invio e restano:
+- responso_oroscopo.mp3 alla comparsa del responso dell'Oroscopo (ES.38), il suono orchestrale del fondatore;
+- rivelazione.mp3 alla carta girata del responso della stesa e all'accensione del Sigillo dei Tre Cieli;
+- carta.mp3 alla carta che si gira;
+- pietra.mp3 quando le pietre delle rune toccano il telo nella gettata (dopo il gesto, non alla pressione);
+- festa.mp3 alla festa di un traguardo; eos.mp3 al volo degli Eos; custodisci.mp3 al sigillo di un ricordo; firma.mp3 all'apertura dell'app.
+
+La misura in prova (la_soglia_e_la_rivelazione_dell_oroscopo_test): suoni al tocco di "Interroga il cielo", dopo 0; il responso suona a 4.000 millesimi, alla sua comparsa.
+La misura dal sistema audio del Realme (docs/collaudo/EU/realme/eu03_suono_invio_realme.txt): sulla prima e sulla seconda tradizione del giorno nessuna traccia al tocco, il responso dopo 4,5 e 3,3 secondi. Sulla TERZA tradizione del giorno una traccia 0,5 secondi dopo il tocco, la rivelazione del Sigillo dei Tre Cieli (ordine ES voce 37), che questo elenco non aveva: partiva da un'altra porta, dopo l'invio, solo la terza volta. Tasti di invio che suonano alla pressione, contati dal telefono: 1 su 3. Curato col Sigillo che si accende con la sola vibrazione; la prova "il terzo cielo del giorno non suona alla pressione" misura 1 prima e 0 dopo.

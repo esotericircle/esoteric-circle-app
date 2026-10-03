@@ -1,0 +1,8 @@
+11:20:42 prima domanda Sofia: ingresso 7457, dalla cache 4820 (65%)
+11:30:48 dopo 10 minuti Luca: ingresso 7431, dalla cache 4819 (65%)
+11:40:51 dopo 10 minuti Sofia: ingresso 7436, dalla cache 0 (0%)
+11:50:53 dopo 10 minuti Luca: ingresso 7422, dalla cache 0 (0%)
+12:00:55 dopo 10 minuti Sofia: ingresso 7447, dalla cache 0 (0%)
+12:10:57 dopo 10 minuti Luca: ingresso 7429, dalla cache 0 (0%)
+12:10:59 di fila Sofia: ingresso 7457, dalla cache 0 (0%)
+12:11:01 di fila Luca: ingresso 7431, dalla cache 0 (0%)

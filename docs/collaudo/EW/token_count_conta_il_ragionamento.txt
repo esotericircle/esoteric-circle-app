@@ -1,0 +1,18 @@
+ORDINE EW, VOCE EW.04: LA METRICA token_count DI MONITORING CONTA IL RAGIONAMENTO? 2 ottobre 2026.
+
+Il secondo giro del banco del costo (tool/il_banco_del_costo.dart, CASI=ascolto,profonda) ha fatto solo
+chiamate a gemini-2.5-flash in europe-west1: 20 ascolti del LIVE e 20 lenti Profonde di Interroga (le uniche
+col ragionamento acceso, budget 512). Dalle risposte (usageMetadata, docs/costi/costo_per_funzione_chiamate.jsonl):
+  ascolto:  ingresso 11930, uscita 200, ragionamento 0
+  Profonda: ingresso 104603, uscita 4676, ragionamento 8530 (totalTokenCount = ingresso + uscita + ragionamento in 20 su 20)
+  somma:    ingresso 116533, uscita 4876, uscita con il ragionamento 13406
+
+Monitoring, aiplatform.googleapis.com/publisher/online_serving/token_count, modello gemini-2.5-flash, europe-west1,
+somma per minuto (ALIGN_SUM 60 s), dalle 04:33 alle 04:38 UTC (il registro di Monitoring arriva circa un minuto dopo):
+  input:  3101 + 14698 + 38082 + 44973 + 15679 = 116533
+  output: 2 + 50 + 294 + 5257 + 6470 + 1333 = 13406
+
+Risposta: l'ingresso coincide al token (116533 su 116533) e l'uscita di Monitoring e' 13406, cioe' l'uscita del
+testo (4876) PIU' il ragionamento (8530). La metrica token_count di tipo output CONTA il ragionamento; la stima dei
+30 giorni (docs/costi/stima_costi_30_giorni.md), che prezza l'output al prezzo dell'uscita, lo ha gia' contato al
+prezzo giusto (Vertex fattura il ragionamento come uscita).

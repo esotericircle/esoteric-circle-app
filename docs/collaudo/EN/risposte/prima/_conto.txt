@@ -1,0 +1,19 @@
+EN prima chat medora altro_maestro: inventati 2, rifiuti 0, caratteri 460/356, nomina aura NO
+EN prima chat medora chi_sono: inventati 0, rifiuti 0, caratteri 372, altri nominati 0 su 2, lettura non chiesta SI
+EN prima chat medora moglie: inventati 0, rifiuti 0, caratteri 743/151, riti sulla volonta 1, parte legale indicata 0 su 2, parole in comune fra le due risposte 0 per cento
+EN prima chat aura altro_maestro: inventati 0, rifiuti 0, caratteri 392/159, nomina caligo NO
+EN prima chat aura chi_sono: inventati 1, rifiuti 0, caratteri 570, altri nominati 0 su 2, lettura non chiesta SI
+EN prima chat aura moglie: inventati 0, rifiuti 0, caratteri 518/568, riti sulla volonta 0, parte legale indicata 1 su 2, parole in comune fra le due risposte 18 per cento
+EN prima chat caligo altro_maestro: inventati 0, rifiuti 1, caratteri 267/140, nomina medora NO
+EN prima chat caligo chi_sono: inventati 0, rifiuti 0, caratteri 242, altri nominati 0 su 2, lettura non chiesta SI
+EN prima chat caligo moglie: inventati 1, rifiuti 0, caratteri 323/402, riti sulla volonta 0, parte legale indicata 0 su 2, parole in comune fra le due risposte 4 per cento
+EN prima live medora altro_maestro: inventati 2, rifiuti 0, caratteri 171/167, nomina aura NO
+EN prima live medora chi_sono: inventati 1, rifiuti 0, caratteri 222, altri nominati 0 su 2, lettura non chiesta SI
+EN prima live medora moglie: inventati 0, rifiuti 0, caratteri 460/323, riti sulla volonta 0, parte legale indicata 0 su 2, parole in comune fra le due risposte 5 per cento
+EN prima live aura altro_maestro: inventati 2, rifiuti 0, caratteri 336/312, nomina caligo NO
+EN prima live aura chi_sono: inventati 0, rifiuti 0, caratteri 390, altri nominati 0 su 2, lettura non chiesta SI
+EN prima live aura moglie: inventati 0, rifiuti 0, caratteri 441/427, riti sulla volonta 0, parte legale indicata 0 su 2, parole in comune fra le due risposte 23 per cento
+EN prima live caligo altro_maestro: inventati 1, rifiuti 0, caratteri 370/123, nomina medora NO
+EN prima live caligo chi_sono: inventati 0, rifiuti 0, caratteri 223, altri nominati 0 su 2, lettura non chiesta SI
+EN prima live caligo moglie: inventati 0, rifiuti 0, caratteri 466/584, riti sulla volonta 0, parte legale indicata 0 su 2, parole in comune fra le due risposte 23 per cento
+Chiamate a Gemini per i Maestri 46, domande al giudice 126. Modello gemini-2.5-flash, europe-west1.

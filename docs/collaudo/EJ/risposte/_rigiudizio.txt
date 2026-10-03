@@ -1,0 +1,10 @@
+RIGIUDIZIO dopo aura: risposte 6, chiusure ripetute 0, frasi vietate 0, dati ripetuti 0, anticipazioni 0, errori di regola 0, non dirette 1, senza passo concreto 0
+RIGIUDIZIO dopo caligo: risposte 6, chiusure ripetute 0, frasi vietate 0, dati ripetuti 3, anticipazioni 0, errori di regola 0, non dirette 4, senza passo concreto 0
+RIGIUDIZIO dopo medora: risposte 6, chiusure ripetute 0, frasi vietate 0, dati ripetuti 0, anticipazioni 0, errori di regola 0, non dirette 2, senza passo concreto 1
+RIGIUDIZIO dopo2 aura: risposte 6, chiusure ripetute 0, frasi vietate 0, dati ripetuti 0, anticipazioni 0, errori di regola 0, non dirette 1, senza passo concreto 0
+RIGIUDIZIO dopo2 caligo: risposte 6, chiusure ripetute 0, frasi vietate 0, dati ripetuti 1, anticipazioni 0, errori di regola 0, non dirette 4, senza passo concreto 1
+RIGIUDIZIO dopo2 medora: risposte 6, chiusure ripetute 0, frasi vietate 0, dati ripetuti 2, anticipazioni 0, errori di regola 0, non dirette 4, senza passo concreto 1
+RIGIUDIZIO prima aura: risposte 6, chiusure ripetute 5, frasi vietate 0, dati ripetuti 4, anticipazioni 6, errori di regola 0, non dirette 4, senza passo concreto 1
+RIGIUDIZIO prima caligo: risposte 6, chiusure ripetute 5, frasi vietate 0, dati ripetuti 4, anticipazioni 6, errori di regola 0, non dirette 6, senza passo concreto 6
+RIGIUDIZIO prima medora: risposte 6, chiusure ripetute 5, frasi vietate 0, dati ripetuti 9, anticipazioni 0, errori di regola 0, non dirette 5, senza passo concreto 6
+Domande al giudice: 324, ragionamento 512 gettoni ciascuna.

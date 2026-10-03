@@ -1,0 +1,50 @@
+00:00 +0: loading C:/Users/user/Desktop/esoteric-circle-app/.claude/worktrees/esoteric-circle-master-order-63fd44/tool/attribuzione_cieca.dart
+00:00 +0: Attribuzione cieca dei tre Maestri
+Shell: Chiedo 60 risposte, 20 domande per tre Maestri...
+Shell:   6/60
+Shell:   12/60
+Shell:   18/60
+Shell:   24/60
+Shell:   30/60
+Shell:   36/60
+Shell:   42/60
+Shell:   48/60
+Shell:   54/60
+Shell:   60/60
+Shell: Faccio giudicare 60 risposte...
+Shell:   6/60
+Shell:   12/60
+Shell:   18/60
+Shell:   24/60
+Shell:   30/60
+Shell:   36/60
+Shell:   42/60
+Shell:   48/60
+Shell:   54/60
+Shell:   60/60
+Shell: 
+Shell: MATRICE DI CONFUSIONE, righe: chi ha scritto, colonne: chi ha indovinato il giudice
+Shell:            medora     aura   caligo     totale   giusti
+Shell: medora         19        0        1       20    95.0%
+Shell: aura            0       20        0       20   100.0%
+Shell: caligo          2        0       18       20    90.0%
+Shell: 
+Shell: Attribuzione corretta: 57 su 60, cioe' 95.0 per cento.
+Shell: Caso cieco: 33.3 per cento. Soglia: 85 per cento.
+Shell: Verdetti illeggibili: 0.
+Shell: 
+Shell: LE FRASI SU CUI IL GIUDICE SI E' PERSO
+Shell: --- medora: 1 risposte attribuite ad altri
+Shell:   [creduto caligo] domanda: non so se restare
+Shell:      prima frase: ✦ Trova un momento di silenzio domani all'alba per scrivere su un foglio le tue domande.
+Shell: --- caligo: 2 risposte attribuite ad altri
+Shell:   [creduto medora] domanda: mi sento distante da chi amo
+Shell:      prima frase: Questa distanza è un segnale, non un destino.
+Shell:   [creduto medora] domanda: come faccio a fidarmi di nuovo
+Shell:      prima frase: Non cercare la fiducia, costruisci la verità.
+Shell: 
+Shell: RITMO DELLE VOCI, sulle risposte di questo giro
+Shell: medora   frasi contate 90, frase mediana 18.0 parole, domande 0, parole che ammorbidiscono 0
+Shell: aura     frasi contate 112, frase mediana 19.0 parole, domande 0, parole che ammorbidiscono 12
+Shell: caligo   frasi contate 116, frase mediana 9.0 parole, domande 0, parole che ammorbidiscono 0
+00:47 +1: All tests passed!

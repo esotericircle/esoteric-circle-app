@@ -1,0 +1,24 @@
+ORDINE EV VOCE 06, "ONLINE" FERMO A 1: LE PRESENZE LETTE DAL DATABASE
+
+Il fondatore: "Dopo cinque minuti o cmq da ieri l'indicatore "ONLINE" RESTA FERMO A 1 sia sul mio Cell e sia sul realme collegato." Durante l'ordine, dopo: "Ti segnalo che l'indicatore ONLINE segna "2" correttamente" e poi "Adesso realme mostra "online 1", ma il mio 2".
+
+COME SI CONTA (codice del commit 0f7a0625, quello di partenza)
+- Ogni telefono aperto chiama la funzione chiEOnline ogni 2 minuti (lib/services/server/chi_e_online.dart, Duration(minutes: 2)); la funzione scrive utenti/{uid}/presenza/adesso con l'ora (campo "ultimo") e conta i documenti "presenza" con l'ora negli ultimi 150 secondi (functions/src/presenza.ts).
+- Il telefono mostra il numero dell'ultima risposta, fino alla chiamata successiva: fino a 2 minuti di ritardo.
+- Quando l'app va in pausa il telefono smette di chiamare, ma la sua presenza resta nel conto finche' non invecchia: fino a 150 secondi dopo.
+
+LE PRESENZE LETTE NEL DATABASE il 1 ottobre 2026 (ore UTC, la collezione "presenza" di tutti gli utenti, letta con l'interrogazione runQuery di Firestore; gli identificativi non si scrivono)
+- prima lettura, durante la segnalazione "realme mostra 1, il mio 2": il Realme aveva chiamato alle 14:32:04 e alle 14:34:04, ogni due minuti; il telefono del fondatore alle 14:32:42 e poi piu' niente, perche' l'app era andata in pausa.
+  Alle 14:33 il Realme riceveva 2 (le due presenze dentro i 150 secondi); alle 14:34:04 il Realme chiedeva di nuovo e riceveva ancora 2, ma il fondatore, riaprendo, chiamava e riceveva il suo conto con il Realme dentro: i due telefoni mostravano numeri presi in momenti diversi, fino a due minuti l'uno dall'altro. Un telefono che si chiude resta contato due minuti e mezzo, uno che si apre si vede solo alla chiamata successiva dell'altro: da qui "1" su uno e "2" sull'altro, e "1" su tutti e due quando le due finestre non si sovrappongono.
+- seconda lettura, 16:05:51: tre presenze nel database, con l'ultima chiamata alle 14:43:21, 15:58:52 e 16:02:50. Contate dentro i 150 secondi: 1.
+
+PERCHE' IL CONTO RESTAVA A 1
+Non e' un guasto del conto: e' il ritardo. Con una chiamata ogni 2 minuti e una finestra di 150 secondi, due telefoni aperti si vedono solo quando le loro chiamate cadono vicine, e un telefono messo in pausa (lo schermo spento, un'altra app davanti) sparisce dal conto degli altri solo dopo due minuti e mezzo, ma intanto non chiede piu' e il suo numero resta fermo. Padre: ordine ES voce 15 (commit 78d1388c del 29 settembre 2026), che ha fatto nascere il contatore con la chiamata ogni due minuti e senza l'uscita; l'ordine EU (commit 91cb1217) lo ha "verificato col server" con un telefono solo, e un telefono solo non puo' vedere il difetto.
+
+LA CURA (commit d2e773ec)
+- il telefono chiama ogni 60 secondi (ChiEOnline.ogni);
+- la finestra del conto e' 90 secondi (functions/src/presenza.ts, OGNI_QUANTO_CHIEDE_MS = 60 * 1000 piu' mezzo passo);
+- quando l'app va in pausa il telefono chiama chiEOnline con {esce: true} e il server cancella la sua presenza (functions/src/cerchio.ts): chi si chiude esce subito dal conto degli altri.
+- prova: test/chi_esce_dal_cerchio_esce_dal_conto_test.dart (rossa sul codice di partenza 3 su 3, verde dopo) e functions/src/presenza.test.ts.
+
+LA FUNZIONE chiEOnline VA PUBBLICATA INSIEME ALLA BUILD 2290: i telefoni con la build di prima chiamano ogni 2 minuti, e con la finestra di 90 secondi sparirebbero dal conto per mezzo minuto a ogni giro.

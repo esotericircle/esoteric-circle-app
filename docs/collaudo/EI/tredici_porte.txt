@@ -1,0 +1,61 @@
+LE TREDICI PORTE DI APPROFONDIMENTO VERSO UN MAESTRO
+Ordine EI voce 01, che riapre la voce EB.01.
+
+Per ogni porta: il testo che compare nel campo della chat, esattamente come lo legge una persona prima di inviarlo.
+Ordine DX voce 01: il testo ASPETTA nel campo e parte solo quando l'utente invia.
+
+--- 1. Stesa di Tarocchi
+    porta: LA DOMANDA DELLA PERSONA piu' le carte col verso
+    testo: Ho chiesto alle carte: «Lavoro e carriera». Sono uscite Il Papa, Re di Spade rovesciato e Dieci di Spade. Come si legge questa sequenza sulla mia situazione?
+
+--- 2. Consiglio dei Maestri
+    porta: LA DOMANDA DELLA PERSONA, per intero
+    testo: Nel Consiglio ho chiesto: «Devo accettare il trasferimento che mi hanno proposto?». Vorrei approfondire con te.
+
+--- 3. Animale Guida
+    porta: il nome dell'animale, col suo articolo dal catalogo
+    testo: Il mio animale guida è la Lince, cosa vuole dirmi?
+
+--- 4. Runa del Tramonto
+    porta: la runa della sera e il suo verso
+    testo: La mia runa del tramonto è Isa diritta. Cosa devo lasciare fuori stanotte?
+
+--- 5. Estrazione delle Rune
+    porta: la gettata e le rune uscite
+    testo: Ho consultato le rune con Le tre Norne: Fehu, Isa e Raidho. Cosa vogliono dirmi?
+
+--- 6. Archetipo
+    porta: l'archetipo col suo articolo
+    testo: Il mio archetipo è il Costruttore, aiutami a capirlo meglio.
+
+--- 7. Costellazione del Viso
+    porta: la categoria del tratto e il tratto
+    testo: Il mio tratto dominante è gli zigomi morbidi, cosa racconta di me?
+
+--- 8. Oroscopo
+    porta: il segno
+    testo: Ho letto il mio oroscopo di oggi, Capricorno. Cosa vuole dirmi il cielo che non ho colto?
+
+--- 9. Sinastria VIP
+    porta: il nome e il punteggio
+    testo: La mia sinastria con Frida Kahlo dice 78 per cento. Cosa ci lega davvero?
+
+--- 10. Sigillo dell'Intenzione
+    porta: l'intenzione scritta dalla persona
+    testo: Ho sigillato questa intenzione: «Trovare il coraggio di dire di no». Come la tengo viva?
+
+--- 11. Soffio del Destino
+    porta: il responso del soffio
+    testo: Il mio soffio di oggi dice: «Quello che lasci andare stasera non ti serviva piu'». Cosa mi chiede di lasciare andare?
+
+--- 12. Arcano dell'Alba
+    porta: la carta col verso e il gesto del mattino
+    testo: Oggi mi è uscita La Stella diritta, col gesto «aprire la finestra». Come lo porto nella mia giornata?
+
+--- 13. Sigillo del Sogno
+    porta: il responso della notte
+    testo: Stanotte il Cerchio mi dice: «La Luna cala in Cancro: stanotte custodisci invece di cercare». Cosa porto nel sonno?
+
+DELLE TREDICI, DUE NASCONO DA UNA DOMANDA DELLA PERSONA:
+la Stesa di Tarocchi e il Consiglio dei Maestri, e tutte e due la portano per intero.
+Le altre undici nascono da un gesto o da un dato, non da una domanda, e portano quel dato.

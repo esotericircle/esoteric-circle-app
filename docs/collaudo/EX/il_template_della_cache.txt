@@ -1,0 +1,20 @@
+IL TEMPLATE DELLA CACHE DEL CONTESTO. Ordine EX Aggiunta 4, voce EX.05.
+Si crea nella console di Firebase, AI Logic, Prompt templates, regione europe-west1, con l'identificativo "maestro-con-la-cache" e questo testo:
+
+---
+model: gemini-2.5-flash
+config:
+  temperature: 0.9
+  topP: 0.95
+  maxOutputTokens: 1000
+  thinkingConfig:
+    thinkingBudget: 0
+input:
+  schema:
+    cache: string
+    richiesta: string
+---
+{{cachedContent name=cache}}
+
+{{role "user"}}
+{{richiesta}}

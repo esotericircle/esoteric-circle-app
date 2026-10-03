@@ -1,0 +1,40 @@
+S01|SI|NA|NA|SI|NA|Sì condizionato alle modalità del prestito e gesto preciso: fissare entro domani un momento per parlarne col fratello.
+S02|SI|NA|NA|SI|NA|Indica di chiedere direttamente a Marco, entro la settimana, in un luogo tranquillo: risposta concreta alla domanda.
+S03|SI|NA|NA|NO|NA|Al limite per A: "no, per ora" a una domanda sul quando non risponde; gesto sull'incertezza generico, vale per chiunque.
+S04|SI|NA|NA|SI|NA|Al limite: condizione strana ma chiara, esplorare tre luoghi di Torino prima di partire per capire cosa la trattiene.
+S05|SI|NA|NA|NO|NA|Silenzio: nessuna risposta alla domanda sulla madre.
+S06|SI|NA|NA|NO|NA|Un sì a una domanda che non è sì o no; gesto vago, non indica da che parte guardare.
+S07|SI|NA|NA|SI|NA|Gesto preciso e pertinente: chiamare la madre questa settimana solo per chiederle come sta.
+S08|SI|NA|NA|SI|NA|Al limite: passi concreti per decidere sul cambio di casa, anche se cita una zona mai nominata.
+S09|SI|NA|NA|SI|NA|Indica di chiedere direttamente che posto ha, contattando oggi la persona per fissare un momento.
+S10|SI|NA|NA|SI|NA|Al limite: il testo indica di presentare il progetto a un collaboratore; la riga finale sulla canzone non c'entra.
+S11|SI|NA|NA|SI|NA|Al limite: sì condizionato, gesto pertinente di parlare del progetto e delle preoccupazioni a una persona fidata.
+S12|SI|NA|NA|SI|NA|Indica la prima mossa: scrivere a Marco entro domani proponendo un incontro con giorno e ora precisi.
+S13|SI|NA|NA|NO|NA|Un sì senza senso per la domanda; cercare immagini di fiumi non dice come superare ciò che la blocca.
+S14|SI|NA|NA|NO|NA|Massima generica sullo spostare lo sguardo e gesto dell'oggetto: non aiuta a scegliere, vale per chiunque.
+S15|SI|NA|NA|SI|NA|Al limite per A: non conta sul ritorno senza darlo per certo; gesto concreto, togliere un oggetto che la lega a lui.
+S16|SI|NA|NA|SI|NA|Indica di chiedere alla persona che posto ha, sabato mattina in mezz'ora di dialogo.
+S17|SI|NA|NA|NO|NA|Nessuna risposta; preparare una colazione per altri non riguarda la fiducia in sé stessa.
+S18|SI|NA|NA|NO|NA|Massima sul muoversi; riordinare una stanza non c'entra con ciò che aspetta, vale per chiunque.
+S19|SI|NA|NA|SI|NA|Gesto pertinente: ricordare tre momenti di difficoltà superati da sola per ritrovare la fiducia.
+S20|SI|NA|NA|SI|NA|Indica un passo preciso prima di aprire: visitare tre botteghe di ceramica entro sabato e annotare.
+S21|SI|NA|NA|SI|NA|Indica di contattare entro una settimana chi ha già una bottega di ceramica e ascoltarne l'esperienza.
+S22|SI|NA|NA|SI|NA|Al limite: indica di parlarle senza aspettarsi nulla; il gesto di rileggere i messaggi è meno diretto.
+S23|SI|NA|NA|SI|NA|Al limite: testo di massime, ma gesto legato a ciò che è finito, spostare un oggetto di quel tempo.
+S24|SI|NA|NA|SI|NA|Al limite per A sul contratto, consiglio di buon senso; indica piano di restituzione e condizioni da dire al fratello.
+S25|SI|NA|NA|NO|NA|Non dice cosa la blocca nel lavoro; il gesto della maschera è generico e non tocca il lavoro.
+S26|SI|NA|NA|NO|NA|Un sì incoerente e frasi oscure sul punto di rottura; descrivere un oggetto non dà una direzione.
+S27|SI|NA|NA|SI|NA|Al limite: invita a dare un nome al blocco e riconoscerne il valore; il gesto dell'oggetto è simbolico.
+S28|SI|NA|NA|SI|NA|Al limite: dice di prendere un pezzo alla volta e mettere via un oggetto di ciò che è finito.
+S29|SI|NA|NA|NO|NA|Al limite per A sulla causa dell'insonnia; un sì senza senso al perché, causa generica valida per chiunque.
+S30|NO|NA|NA|SI|NA|"I segni dicono di no" dà per certo che lui non tornerà; al limite D, risponde ma il gesto è generico.
+S31|SI|NA|NA|NO|NA|Un sì a una domanda sul quando; parlare dei propri desideri a qualcuno non risponde, vale per chiunque.
+S32|SI|NA|NA|SI|NA|Indica di controllare ogni costo del trasloco e confrontarlo con le risorse prima di decidere.
+S33|SI|NA|NA|NO|NA|Al limite: un sì a partire per Berlino con il gesto di cercare lavoro a Torino, contraddittorio e senza perché.
+S34|SI|NA|NA|SI|NA|Al limite: nessun perché, ma il gesto prepara al colloquio mettendosi dalla parte di chi seleziona.
+S35|SI|NA|NA|SI|NA|Non predice l'esito; indica di chiedere a fine colloquio i suoi punti di forza, gesto preciso.
+S36|SI|NA|NA|NO|NA|Un sì al perché è incoerente; il peso che non è tuo è una formula generica, non spiega l'insonnia.
+S37|SI|NA|NA|SI|NA|Al limite: nessuna spiegazione, ma il gesto indica dove cercare il blocco, le persone intorno al lavoro.
+S38|SI|NA|NA|SI|NA|Indica di chiedere perdono e scrivere entro domani sera alla sorella per incontrarsi.
+S39|SI|NA|NA|NO|NA|Non dice nulla su ciò che aspetta; parlare con chi è difficile è un invito valido per chiunque.
+S40|SI|NA|NA|NO|NA|Scegliere una cosa che blocca e allontanarsene è un invito generico, non dà alcuna direzione.

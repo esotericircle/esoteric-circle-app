@@ -1,0 +1,179 @@
+ORDINE ES VOCE 22, LA TELEVISIONE RESTA FUORI: sei pezzi della televisione finta dell'ordine EM, tre istruzioni, tre giri del banco da tre passate l'uno. 30 settembre 2026.
+
+=== primo giro ===
+televisione prima giro 1 tv_01.wav: «»
+televisione prima giro 1 tv_02.wav: «»
+televisione prima giro 1 tv_03.wav: «»
+televisione prima giro 1 tv_04.wav: «»
+televisione prima giro 1 tv_05.wav: «»
+televisione prima giro 1 tv_06.wav: «»
+televisione prima giro 2 tv_01.wav: «»
+televisione prima giro 2 tv_02.wav: «»
+televisione prima giro 2 tv_03.wav: «»
+televisione prima giro 2 tv_04.wav: «»
+televisione prima giro 2 tv_05.wav: «»
+televisione prima giro 2 tv_06.wav: «»
+televisione prima giro 3 tv_01.wav: «»
+televisione prima giro 3 tv_02.wav: «»
+televisione prima giro 3 tv_03.wav: «»
+televisione prima giro 3 tv_04.wav: «»
+televisione prima giro 3 tv_05.wav: «»
+televisione prima giro 3 tv_06.wav: «»
+TOTALE televisione prima: pezzi trascritti come parole della persona 0 su 18
+televisione stesura giro 1 tv_01.wav: «»
+televisione stesura giro 1 tv_02.wav: «»
+televisione stesura giro 1 tv_03.wav: «»
+televisione stesura giro 1 tv_04.wav: «»
+televisione stesura giro 1 tv_05.wav: «»
+televisione stesura giro 1 tv_06.wav: «»
+televisione stesura giro 2 tv_01.wav: «»
+televisione stesura giro 2 tv_02.wav: «»
+televisione stesura giro 2 tv_03.wav: «»
+televisione stesura giro 2 tv_04.wav: «»
+televisione stesura giro 2 tv_05.wav: «»
+televisione stesura giro 2 tv_06.wav: «»
+televisione stesura giro 3 tv_01.wav: «»
+televisione stesura giro 3 tv_02.wav: «»
+televisione stesura giro 3 tv_03.wav: «»
+televisione stesura giro 3 tv_04.wav: «»
+televisione stesura giro 3 tv_05.wav: «»
+televisione stesura giro 3 tv_06.wav: «»
+TOTALE televisione stesura: pezzi trascritti come parole della persona 0 su 18
+televisione oggi giro 1 tv_01.wav: «»
+televisione oggi giro 1 tv_02.wav: «»
+televisione oggi giro 1 tv_03.wav: «»
+televisione oggi giro 1 tv_04.wav: «»
+televisione oggi giro 1 tv_05.wav: «»
+televisione oggi giro 1 tv_06.wav: «»
+televisione oggi giro 2 tv_01.wav: «»
+televisione oggi giro 2 tv_02.wav: «»
+televisione oggi giro 2 tv_03.wav: «»
+televisione oggi giro 2 tv_04.wav: «»
+televisione oggi giro 2 tv_05.wav: «»
+televisione oggi giro 2 tv_06.wav: «»
+televisione oggi giro 3 tv_01.wav: «Buonasera e bentrovati. Apriamo con il meteo. Domani»
+televisione oggi giro 3 tv_02.wav: «»
+televisione oggi giro 3 tv_03.wav: «»
+televisione oggi giro 3 tv_04.wav: «»
+televisione oggi giro 3 tv_05.wav: «»
+televisione oggi giro 3 tv_06.wav: «»
+TOTALE televisione oggi: pezzi trascritti come parole della persona 1 su 18
+
+=== secondo giro ===
+televisione prima giro 1 tv_01.wav: «»
+televisione prima giro 1 tv_02.wav: «»
+televisione prima giro 1 tv_03.wav: «»
+televisione prima giro 1 tv_04.wav: «»
+televisione prima giro 1 tv_05.wav: «»
+televisione prima giro 1 tv_06.wav: «»
+televisione prima giro 2 tv_01.wav: «»
+televisione prima giro 2 tv_02.wav: «»
+televisione prima giro 2 tv_03.wav: «»
+televisione prima giro 2 tv_04.wav: «»
+televisione prima giro 2 tv_05.wav: «»
+televisione prima giro 2 tv_06.wav: «»
+televisione prima giro 3 tv_01.wav: «»
+televisione prima giro 3 tv_02.wav: «»
+televisione prima giro 3 tv_03.wav: «»
+televisione prima giro 3 tv_04.wav: «»
+televisione prima giro 3 tv_05.wav: «»
+televisione prima giro 3 tv_06.wav: «»
+TOTALE televisione prima: pezzi trascritti come parole della persona 0 su 18
+televisione stesura giro 1 tv_01.wav: «»
+televisione stesura giro 1 tv_02.wav: «»
+televisione stesura giro 1 tv_03.wav: «»
+televisione stesura giro 1 tv_04.wav: «»
+televisione stesura giro 1 tv_05.wav: «»
+televisione stesura giro 1 tv_06.wav: «»
+televisione stesura giro 2 tv_01.wav: «»
+televisione stesura giro 2 tv_02.wav: «»
+televisione stesura giro 2 tv_03.wav: «»
+televisione stesura giro 2 tv_04.wav: «»
+televisione stesura giro 2 tv_05.wav: «»
+televisione stesura giro 2 tv_06.wav: «»
+televisione stesura giro 3 tv_01.wav: «»
+televisione stesura giro 3 tv_02.wav: «»
+televisione stesura giro 3 tv_03.wav: «»
+televisione stesura giro 3 tv_04.wav: «»
+televisione stesura giro 3 tv_05.wav: «»
+televisione stesura giro 3 tv_06.wav: «»
+TOTALE televisione stesura: pezzi trascritti come parole della persona 0 su 18
+televisione oggi giro 1 tv_01.wav: «»
+televisione oggi giro 1 tv_02.wav: «»
+televisione oggi giro 1 tv_03.wav: «»
+televisione oggi giro 1 tv_04.wav: «»
+televisione oggi giro 1 tv_05.wav: «»
+televisione oggi giro 1 tv_06.wav: «»
+televisione oggi giro 2 tv_01.wav: «»
+televisione oggi giro 2 tv_02.wav: «»
+televisione oggi giro 2 tv_03.wav: «»
+televisione oggi giro 2 tv_04.wav: «»
+televisione oggi giro 2 tv_05.wav: «»
+televisione oggi giro 2 tv_06.wav: «»
+televisione oggi giro 3 tv_01.wav: «»
+televisione oggi giro 3 tv_02.wav: «»
+televisione oggi giro 3 tv_03.wav: «»
+televisione oggi giro 3 tv_04.wav: «»
+televisione oggi giro 3 tv_05.wav: «»
+televisione oggi giro 3 tv_06.wav: «»
+TOTALE televisione oggi: pezzi trascritti come parole della persona 0 su 18
+
+=== terzo giro ===
+televisione prima giro 1 tv_01.wav: «»
+televisione prima giro 1 tv_02.wav: «»
+televisione prima giro 1 tv_03.wav: «»
+televisione prima giro 1 tv_04.wav: «»
+televisione prima giro 1 tv_05.wav: «»
+televisione prima giro 1 tv_06.wav: «»
+televisione prima giro 2 tv_01.wav: «»
+televisione prima giro 2 tv_02.wav: «»
+televisione prima giro 2 tv_03.wav: «»
+televisione prima giro 2 tv_04.wav: «»
+televisione prima giro 2 tv_05.wav: «»
+televisione prima giro 2 tv_06.wav: «»
+televisione prima giro 3 tv_01.wav: «»
+televisione prima giro 3 tv_02.wav: «»
+televisione prima giro 3 tv_03.wav: «»
+televisione prima giro 3 tv_04.wav: «»
+televisione prima giro 3 tv_05.wav: «»
+televisione prima giro 3 tv_06.wav: «»
+TOTALE televisione prima: pezzi trascritti come parole della persona 0 su 18
+televisione stesura giro 1 tv_01.wav: «»
+televisione stesura giro 1 tv_02.wav: «»
+televisione stesura giro 1 tv_03.wav: «»
+televisione stesura giro 1 tv_04.wav: «»
+televisione stesura giro 1 tv_05.wav: «»
+televisione stesura giro 1 tv_06.wav: «»
+televisione stesura giro 2 tv_01.wav: «»
+televisione stesura giro 2 tv_02.wav: «»
+televisione stesura giro 2 tv_03.wav: «»
+televisione stesura giro 2 tv_04.wav: «»
+televisione stesura giro 2 tv_05.wav: «»
+televisione stesura giro 2 tv_06.wav: «»
+televisione stesura giro 3 tv_01.wav: «»
+televisione stesura giro 3 tv_02.wav: «»
+televisione stesura giro 3 tv_03.wav: «»
+televisione stesura giro 3 tv_04.wav: «»
+televisione stesura giro 3 tv_05.wav: «»
+televisione stesura giro 3 tv_06.wav: «»
+TOTALE televisione stesura: pezzi trascritti come parole della persona 0 su 18
+televisione oggi giro 1 tv_01.wav: «»
+televisione oggi giro 1 tv_02.wav: «»
+televisione oggi giro 1 tv_03.wav: «»
+televisione oggi giro 1 tv_04.wav: «»
+televisione oggi giro 1 tv_05.wav: «»
+televisione oggi giro 1 tv_06.wav: «»
+televisione oggi giro 2 tv_01.wav: «»
+televisione oggi giro 2 tv_02.wav: «»
+televisione oggi giro 2 tv_03.wav: «»
+televisione oggi giro 2 tv_04.wav: «»
+televisione oggi giro 2 tv_05.wav: «»
+televisione oggi giro 2 tv_06.wav: «»
+televisione oggi giro 3 tv_01.wav: «»
+televisione oggi giro 3 tv_02.wav: «»
+televisione oggi giro 3 tv_03.wav: «»
+televisione oggi giro 3 tv_04.wav: «»
+televisione oggi giro 3 tv_05.wav: «»
+televisione oggi giro 3 tv_06.wav: «»
+TOTALE televisione oggi: pezzi trascritti come parole della persona 0 su 18
+

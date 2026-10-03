@@ -1,0 +1,37 @@
+ORDINE EK VOCE 03, DOPO LA RIAPERTURA DELLA FATTURAZIONE (24 settembre 2026, 17:31 UTC billingEnabled true).
+Realme 767f596c, build 2280 installata per le prove (sha1 f8099324e7df, la stessa di finale_2280.txt), LIVE di Medora.
+Orari del registro del telefono in UTC+2: 19:36:21 sul telefono sono le 17:36:21 UTC.
+Stesse sei frasi e stessa voce delle prove prima (Microsoft Elsa dal portatile, scratchpad parla_nomi.ps1),
+scratchpad prova_riaperta.sh, che apre il LIVE, misura la musica, dice le frasi, esce e rimisura.
+
+IL REGISTRO:
+  09-24 19:35:36.081 LIVE: primo suono al volto dopo 883 ms, audio di 7832 ms, scritto in 1958 ms
+  09-24 19:35:42.133 LIVE VIDEO: ricevuto 384x384 a 25.0 fps, codec video/H264
+  09-24 19:35:43.767 LIVE: il volto ha finito dopo 9644 ms, lo ha detto lui
+  09-24 19:35:59.134 LIVE VIDEO: ricevuto 512x512 a 26.0 fps, codec video/H264
+  09-24 19:36:21.124 LIVE: chiusa dopo 30 secondi di silenzio
+  09-24 19:36:21.258 LIVE: frase di 8240 ms in 1 pezzi, trascritta in 1640 ms: «Medora, ho pescato La Torre e poi L'Appeso. Cosa vogliono dire per me?» (parte)
+  09-24 19:36:21.263 LIVE: la chat ha risposto in 1 ms (rigenerazioni finora: ancoraggio 0, troncatura 0)
+
+I NOMI:
+  1. Medora si, Torre si, Appeso si
+  TOTALE: 3 su 3, di nuovo sulla frase 1 sola. Le frasi da 2 a 6 non hanno trovato il LIVE aperto.
+
+IL GUASTO TROVATO. Il saluto finisce alle 19:35:43.8; la prova aspetta il video a 512 (19:35:59) e poi il
+silenzio, e la frase 1 comincia alle 19:36:12, 28 secondi dopo. L'orologio del silenzio del LIVE
+(lib/features/maestri/live/schermata_live.dart, _batti) si FERMA mentre la persona parla ma non riparte
+da zero: la presenza la da' solo una frase trascritta con parole. Finita la frase, alle 19:36:19.5, la
+trascrizione impiega 1,6 secondi, e quei secondi contano come silenzio: a 30 il LIVE si chiude, alle
+19:36:21.124, 134 millisecondi prima che la domanda torni scritta. La domanda si perde e il Maestro non
+risponde. Padre: ordine EJ voce 01, commit 5b160747, che ha spostato la presenza dall'inizio della frase
+alla frase trascritta senza fermare l'orologio durante la trascrizione.
+
+LA MUSICA NEL LIVE, misurata dall'audio_flinger (scratchpad musica_attiva.sh: tracce attive del processo
+dell'app, uso 1 e contenuto 2 = musica; uso 2 e contenuto 1 = la voce della chiamata):
+  17:33:46 UTC home: traccia 1331 usg 1 ct 2, musica attiva 1
+  17:34:33 UTC chat di Medora, prima del LIVE: traccia 1332 usg 1 ct 2, musica attiva 1
+  17:36:03 UTC nel LIVE di Medora, appena aperto: traccia 1333 usg 2 ct 1, musica attiva 0
+  17:42:09 UTC nel LIVE, chiuso ma ancora a schermo: nessuna traccia, musica attiva 0
+  17:42:18 UTC chat di Medora, sei secondi dopo l'uscita dal LIVE: traccia 1332 usg 1 ct 2, musica attiva 1
+La musica tace finche' il LIVE e' a schermo e torna quando si esce. Lo schermo e' rimasto acceso fino alla
+fine (KEEP_SCREEN_ON presente, mWakefulness Awake).

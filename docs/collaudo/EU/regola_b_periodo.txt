@@ -1,0 +1,2 @@
+REGOLA B, ordine EU voci 09 e 11, 1 ottobre 2026: la guardia della vista del periodo vista rossa prima di toccarla. Nessuna guardia misurava le barre: zona scoperta, la copre da oggi la guardia nuova delle barre e della griglia.
+INNESTO B1 la chiave della Settimana e del Mese tolta dalla vista del periodo: grep del difetto nel file SI; prova test/il_periodo_si_apre_col_piano_test.dart ROSSA; file rimesso sha1 3538ff757099 -> 3538ff757099 IDENTICO

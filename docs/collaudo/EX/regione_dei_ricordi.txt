@@ -1,0 +1,24 @@
+ORDINE EX, VOCE EX.06: LA LETTURA DEL MESE DEI RICORDI NELLA REGIONE DEI DATI. 2 ottobre 2026.
+
+IL DIFETTO: lib/services/ricordi/penna_vera_del_mese.dart chiamava FirebaseAI.vertexAI() senza location:, e
+firebase_ai 3.13.1 senza regione va a us-central1. Padre: ordine CG, voce CG.11, commit e69c13e3. Trovato
+nell'ordine EW, voce EW.01 (docs/costi/le_chiamate_al_modello.md).
+
+LA GUARDIA, PRIMA RIPARATA (Regola B): i_modelli_stanno_nella_regione_dei_dati, vista rossa il 2 ottobre
+(innesto B1 dell'ordine EW, docs/collaudo/EW/regola_a_ew.txt), guardava i nomi dei modelli e la regione
+"global", non una chiamata SENZA regione: non copriva questa zona. Prova nuova nella stessa guardia: "OGNI
+FirebaseAI.vertexAI DEL TELEFONO DICE LA SUA REGIONE", cardinale 9. Nata ROSSA sul difetto vero, senza
+innesto:
+  chiamate senza regione, cioe' da us-central1: lib\services\ricordi\penna_vera_del_mese.dart:76
+Dopo la cura: verde, 4 prove su 4.
+
+LA CURA: FirebaseAI.vertexAI(location: LaRegioneDeiDati.regione), come gli altri otto punti del telefono.
+
+LA MISURA, col banco del costo (tool/il_banco_del_costo.dart), che annota la regione da cui l'app chiamerebbe
+prima di portare la richiesta a europe-west1:
+  PRIMA (ordine EW, 20 letture del mese): "Chiamate che nell'app partono fuori da europe-west1, misurate in
+         europe-west1: 20 (us-central1)" (docs/costi/costo_per_funzione_misure.txt)
+  DOPO  (2 ottobre, 3 letture del mese, CASI=ricordi): nessuna riga "fuori da europe-west1": 0 su 3.
+Nel telefono: FirebaseAI.vertexAI senza regione, prima 1 su 9, dopo 0 su 9. Nel server le chiamate a
+Gemini partono da europe-west1; Chirp 3 HD dall'endpoint "eu", l'eccezione dell'ordine EM voce 02.
+Costo della prova: 3 chiamate, 0,0003 $.

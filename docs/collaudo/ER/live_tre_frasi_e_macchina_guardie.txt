@@ -1,0 +1,105 @@
+ER.12 ed ER.13, LE TRE FRASI E LA MACCHINA DA SCRIVERE: LE GUARDIE, 27 settembre 2026
+
+Regola B, sulla versione del commit 3a2c12d3 della schermata del LIVE (confessione: la schermata l'ho toccata prima di vedere rosse le sue guardie):
+== Regola B ER.12/ER.13 sulla versione di HEAD: la voce parte dal testo che arriva
+   file lib/features/maestri/live/schermata_live.dart, sha1 prima 3f8e75f1b1ba, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'await _dillo(risposta.text, conAttesa: true)'
+   Actual: 'import \'dart:async\';\n'
+   ripristinato: sha1 3f8e75f1b1ba, uguale, compagni tornati: True
+== Regola B ER.12/ER.13 sulla versione di HEAD: la voce va al volto mentre il testo arriva
+   file lib/features/maestri/live/schermata_live.dart, sha1 prima 3f8e75f1b1ba, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: not contains '_dillo('
+   Actual: 'void mentreArriva() {\n'
+   ripristinato: sha1 3f8e75f1b1ba, uguale, compagni tornati: True
+
+Regola A, guardia nuova test/il_live_dice_tre_frasi_e_le_scrive_a_macchina_test.dart, primo giro:
+== Regola A, ER.12: senza gesto si dicono quattro frasi
+   file lib/features/maestri/live/le_tre_frasi_del_live.dart, sha1 prima 17e9e33bcdf8, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: 'Uno. Due due. Tre tre tre.'
+   Actual: 'Uno. Due due. Tre tre tre. Quattro.'
+   ripristinato: sha1 17e9e33bcdf8, uguale
+== Regola A, ER.12: il gesto non si dice
+   file lib/features/maestri/live/le_tre_frasi_del_live.dart, sha1 prima 17e9e33bcdf8, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: 'Domani al colloquio porta con te una pietra liscia. Tienila in tasca e stringila prima di entrare. Stasera prepara la pietra sul comodino.'
+   Actual: 'Domani al colloquio porta con te una pietra liscia. Tienila in tasca e stringila prima di entrare.'
+   ripristinato: sha1 17e9e33bcdf8, uguale
+== Regola A, ER.12: mentre arriva si scrive la terza frase del corpo
+   file lib/features/maestri/live/le_tre_frasi_del_live.dart, sha1 prima 17e9e33bcdf8, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: a string starting with 'Domani al colloquio porta con te una pietra liscia. Tienila in tasca e stringila prima di entrare. Il respiro lento'
+   Actual: 'Domani al colloquio porta con te una pietra liscia. Tienila in tasca e stringila prima di entrare. Stasera prepara la pietra sul comodino.'
+   ripristinato: sha1 17e9e33bcdf8, uguale
+== Regola A, ER.13: la scrittura non tiene il passo della voce
+   file lib/features/maestri/live/la_macchina_da_scrivere.dart, sha1 prima 437007b3a055, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +1: All tests passed!
+   ripristinato: sha1 437007b3a055, uguale
+== Regola A, ER.13: la risposta cambiata dalle reti resta a video
+   file lib/features/maestri/live/la_macchina_da_scrivere.dart, sha1 prima 437007b3a055, innesto verificato col grep: si
+   esito: codice 0, VERDE
+   ultima riga: 00:00 +1: All tests passed!
+   ripristinato: sha1 437007b3a055, uguale
+== Regola A, ER.13: la schermata non dice alla macchina quando parla la voce
+   file lib/features/maestri/live/schermata_live.dart, sha1 prima 3f8e75f1b1ba, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains '_macchina.voceIniziata('
+   Actual: 'import \'dart:async\';\n'
+   ripristinato: sha1 3f8e75f1b1ba, uguale
+== Regola A, ER.12: la voce del turno dice la risposta intera
+   file lib/features/maestri/live/schermata_live.dart, sha1 prima 3f8e75f1b1ba, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: contains 'conAttesa ? LeTreFrasiDelLive.di(scritto)'
+   Actual: 'Future<void> _dillo(\n'
+   ripristinato: sha1 3f8e75f1b1ba, uguale
+
+Due innesti del primo giro sono rimasti VERDI. Il primo toglieva una regola ridondante (la scrittura alzata al passo della voce: la risposta si scrive gia' a 40 lettere al secondo contro le 16 di una voce), e la regola e' stata tolta dal codice; il secondo misurava con un'asserzione troppo larga, stretta. Rifatti sul difetto vero:
+== Regola A, ER.13, rifatta sul difetto vero: la risposta si scrive piu' lenta della voce
+   file lib/features/maestri/live/la_macchina_da_scrivere.dart, sha1 prima 2c9350c7edde, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: a value greater than or equal to <3>
+   Actual: <2>
+   ripristinato: sha1 2c9350c7edde, uguale
+== Regola A, ER.13, rifatta: la risposta cambiata dalle reti resta a video
+   file lib/features/maestri/live/la_macchina_da_scrivere.dart, sha1 prima 2c9350c7edde, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: empty
+   Actual: 'Scrivile stasera.'
+   ripristinato: sha1 2c9350c7edde, uguale
+== Regola A, ER.13: la domanda lunga non si completa quando parla la voce
+   file lib/features/maestri/live/la_macchina_da_scrivere.dart, sha1 prima 2c9350c7edde, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -1: Some tests failed.
+   Expected: a value greater than or equal to <1>
+   Actual: <0>
+   ripristinato: sha1 2c9350c7edde, uguale
+
+Regola A della guardia del manifesto, test/ordine_er_guard_test.dart:
+== Regola A, guardia ER: una voce tolta
+   file docs/ordini/ORDINE_ER_MANIFESTO.md, sha1 prima 7524ea0153f5, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +0 -2: Some tests failed.
+   Expected: empty
+   Actual: ['ER.19']
+   Expected: <19>
+   Actual: <18>
+   ripristinato: sha1 7524ea0153f5, uguale
+== Regola A, guardia ER: il marcatore delle voci da fare mente
+   file docs/ordini/ORDINE_ER_MANIFESTO.md, sha1 prima 7524ea0153f5, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:00 +1 -1: Some tests failed.
+   Expected: <18>
+   Actual: <19>
+   ripristinato: sha1 7524ea0153f5, uguale

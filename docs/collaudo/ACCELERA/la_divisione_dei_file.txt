@@ -1,0 +1,6 @@
+ORDINE ACCELERA, 26 settembre 2026: uscita di test/lo_sbarramento_diviso_test.dart
+ACCELERA: 6 pezzi, file 1072, nei pezzi 1072, doppi 0
+00:10 +8: All tests passed!
+
+La divisione calcolata da tool/i_pezzi_della_suite.py coi pesi misurati sul PC (secondi di suite per pezzo):
+6 pezzi, carichi [658, 658, 658, 658, 658, 658] file per pezzo [82, 195, 195, 200, 200, 200]

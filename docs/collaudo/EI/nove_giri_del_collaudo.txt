@@ -1,0 +1,82 @@
+IL COLLAUDO DELLE SEDICI MOSSE SU GEMINI VERO, NOVE GIRI
+Ordine EI voci 03 e 04, che riaprono EC.01, EC.02, EC.03 e ED.02.
+
+IL CRITERIO E' CAMBIATO, E IL FONDATORE LO HA DECISO IL 23 SETTEMBRE 2026.
+L'ordine diceva "il giro si rilancia finche' non ne resta nessuna".
+Nove giri dicono che quel verde arriva per caso: il PRIMO giro e' uscito
+a zero cadute AVENDO DENTRO il difetto dei contatori della voce EI.02,
+che faceva pagare un malinteso a tutti e tre i Maestri.
+Un giro verde non dice che non ci sono difetti, e un giro rosso non dice
+che ce ne sia uno nuovo. Messo davanti al dato, il fondatore ha scelto
+la misura a frequenza, che e' quella gia' in uso per l'attribuzione cieca.
+
+--- LE CADUTE, GIRO PER GIRO
+
+  giro 1: 0 cadute
+  giro 2: 2 cadute
+      mossa 3, rifiuta una proposta del Maestro, medora
+      mossa 8, messaggio incomprensibile, aura
+  giro 3: 4 cadute
+      mossa 3, rifiuta una proposta del Maestro, medora
+      mossa 8, messaggio incomprensibile, medora
+      mossa 8, messaggio incomprensibile, aura
+      mossa 8, messaggio incomprensibile, caligo
+  giro 4: 1 cadute
+      mossa 3, rifiuta una proposta del Maestro, aura
+  giro 5: 5 cadute
+      mossa 14, chiede una funzione che non esiste, medora
+      mossa 5, domanda fuori dal suo dominio, dentro l'esoterico, aura
+      mossa 14, chiede una funzione che non esiste, aura
+      mossa 3, rifiuta una proposta del Maestro, caligo
+      mossa 14, chiede una funzione che non esiste, caligo
+  giro 6: 3 cadute
+      mossa 12, tocca un argomento di cautela, medora
+      mossa 6, domanda fuori dall'esoterico, aura
+      mossa 8, messaggio incomprensibile, caligo
+  giro 7: 3 cadute
+      mossa 5, domanda fuori dal suo dominio, dentro l'esoterico, aura
+      mossa 8, messaggio incomprensibile, caligo
+      03:04 +43 -3: ED mossa 17, la sintesi comparativa del Consiglio [E]
+  giro 8: 2 cadute
+      mossa 6, domanda fuori dall'esoterico, medora
+      mossa 12, tocca un argomento di cautela, medora
+  giro 9: 2 cadute
+      mossa 14, chiede una funzione che non esiste, aura
+      mossa 14, chiede una funzione che non esiste, caligo
+
+--- LA MISURA
+
+  giri: 9
+  conversazioni: 405 (45 per giro, 16 mosse per 3 Maestri)
+  chiamate a Gemini: 47 per giro, 423 in tutto
+  cadute totali: 22, cioe' il 5.4 per cento
+  escursione: da 0 a 5 cadute per giro
+
+--- QUANTE VOLTE TORNA CIASCUNA, SU NOVE GIRI
+
+  3 su 9  mossa 8, messaggio incomprensibile, caligo
+  2 su 9  mossa 12, tocca un argomento di cautela, medora
+  2 su 9  mossa 14, chiede una funzione che non esiste, aura
+  2 su 9  mossa 14, chiede una funzione che non esiste, caligo
+  2 su 9  mossa 3, rifiuta una proposta del Maestro, medora
+  2 su 9  mossa 5, domanda fuori dal suo dominio, dentro l'esoterico, aura
+  2 su 9  mossa 8, messaggio incomprensibile, aura
+  1 su 9  03:04 +43 -3: ED mossa 17, la sintesi comparativa del Consiglio [E]
+  1 su 9  mossa 14, chiede una funzione che non esiste, medora
+  1 su 9  mossa 3, rifiuta una proposta del Maestro, aura
+  1 su 9  mossa 3, rifiuta una proposta del Maestro, caligo
+  1 su 9  mossa 6, domanda fuori dall'esoterico, aura
+  1 su 9  mossa 6, domanda fuori dall'esoterico, medora
+  1 su 9  mossa 8, messaggio incomprensibile, medora
+
+  La piu' frequente torna 3 volte su 9. NESSUN DIFETTO E' SISTEMATICO:
+  le cadute si spostano da un giro all'altro, ed e' la firma della
+  variabilita' del modello, non di un guasto del codice.
+
+--- E LE TRE CURE FATTE IN QUESTO ORDINE, che i giri hanno provato
+
+  1. il contatore della mossa 8 scende da 1 a 0 (voce EI.02)
+  2. il Maestro non chiede piu' alla persona di spiegargli il responso
+     che le abbiamo dato noi (mossa 3)
+  3. il marcatore si mette solo se in tutta la risposta non c'e' niente
+     che risponda: dire di no e' una risposta (mossa 14)

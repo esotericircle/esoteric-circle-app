@@ -1,0 +1,53 @@
+ORDINE ES VOCE 16: IL SIGILLO DEL SOGNO DI MEDORA NON PARLA DI RUNE. 28 settembre 2026.
+
+IL FATTO: nella cattura del fondatore (Catture fondatore\ES\sigillo_sogno_2_runa_berkano.jpg)
+il Sigillo del Sogno dice "Porti dentro la notte la runa Berkano: lasciala
+parlare mentre chiudi il giorno."
+
+I MAESTRI DEI DONI (lib/core/rituals/daily_elements.dart): Arcano dell'Alba
+Medora, Respiro Aura, Runa del Tramonto Caligo, Sigillo del Sogno Medora.
+
+IL PADRE (Regola C): la riga e' dell'ordine P voce 18 (la cerniera fra la
+Runa del Tramonto e il Sogno), portata nel saluto dall'ordine DD voce 04,
+quando il Sigillo ruotava fra i tre Maestri; dall'ordine DT voce 15 il
+Sigillo e' di Medora e la riga e' rimasta.
+
+LA CURA (lib/features/rituals/dream_rite_screen.dart): la riga della runa e
+la lettura della cerniera (SunsetRuneMemory.ultimaPerCerniera) sono tolte
+dal Sigillo; gli import delle rune escono dalla schermata. La parola
+dell'Alba resta. I commenti dicono il Maestro vero: in testa alla classe
+"di Medora, dall'ordine DT voce 15, e non ruota piu'"; nel richiamo della
+giornata e nelle azioni del responso.
+
+LE GUARDIE:
+- nuova, test/il_sigillo_del_sogno_non_parla_di_rune_test.dart: legge tutte
+  le frasi scritte nella schermata del Sigillo (i letterali, commenti
+  esclusi), 85 frasi, col metro della casa LaVoceNonSiConfonde: nessuna
+  parola di firma di Aura o di Caligo. Rossa sul codice di prima, sul
+  difetto vero: "runa" in "Porti dentro la notte la runa $_runaTramonto".
+  Il nome del rito, "Sigillo del Sogno", e' escluso (sigillo e' parola di
+  firma di Caligo, ma qui e' un nome proprio dato dal fondatore).
+- riscritta con la lapide, test/i_doni_si_agganciano_test.dart ("il filo
+  non apre una seconda porta per la runa del tramonto"): pretendeva che il
+  Sogno leggesse la cerniera della runa; adesso pretende il contrario.
+  Vista rossa prima di toccare la zona (Regola B), con la cerniera tolta
+  per innesto. Una prima prova dell'innesto era cieca, confessata: il nome
+  nuovo conteneva ancora "ultimaPerCerniera", e la guardia legge solo se la
+  parola c'e'.
+- tutte le prove del Sigillo, dei Doni e delle rune: 121 su 121.
+
+LE ALTRE RIGHE DEL SIGILLO CHE VENGONO DALLE ARTI DI AURA O DI CALIGO:
+- il respiro di oggi, dal Dono del Respiro di Aura (ordine DA voce 06,
+  lib/core/maestro/il_respiro_di_oggi.dart), una riga sola e solo se oggi
+  si e' respirato: "Oggi hai respirato sul cuore. Vedi se è rimasto
+  qualcosa."; con piu' sessioni "Oggi hai respirato 2 volte, sul cuore.
+  Vedi se è rimasto qualcosa."; senza arrivare in fondo "Oggi ti sei
+  fermata a respirare sul cuore. Anche quello è passato per la tua
+  giornata." (il centro e' il chakra dell'ultima sessione). E' un fatto
+  della giornata detto da Medora, ma nomina un chakra, che e' la materia di
+  Aura: resta, come chiede l'ordine, e si decide col controllo della voce
+  ES.18.
+- nessun'altra riga delle arti di Caligo: la runa era la sola.
+
+DA FARE: la cattura dal Realme del Sigillo del Sogno in una sera con la Runa
+del Tramonto fatta.

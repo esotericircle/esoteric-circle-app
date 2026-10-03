@@ -1,0 +1,9 @@
+innesto in lib/core/arts/art_catalog.dart: il vecchio compare 0 volte, il nuovo 1 volte ('        soloNelPassaporto: true,\n      ),\n      ArtEntry(\n  ' -> "      ),\n      ArtEntry(\n        id: 'face_constellation',")
+  Expected: exactly one matching candidate
+    Actual: _DescendantWidgetFinder:<Found 0 widgets with key [<'scheda_clessidra_archetype_test'>]
+  00:03 +1 -1: EO.10 e EO.13: il dominio di Aura a video, contro l'elenco del fondatore [E]
+  00:04 +2 -2: EO.12: il Test Archetipo vive solo nel Passaporto [E]
+    Expected: true
+      Actual: <false>
+  00:04 +5 -2: Some tests failed.
+ripristino lib/core/arts/art_catalog.dart: sha1 6d5079c95f27 -> 6d5079c95f27, IDENTICO

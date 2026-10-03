@@ -1,0 +1,51 @@
+ORDINE ES, BLOCCO 2 (OROSCOPO OCCIDENTALE): LA REGOLA A SULLE GUARDIE NUOVE. 29 settembre 2026.
+
+Ogni riga: il difetto innestato, se l'innesto e' entrato (lo script si ferma
+con un assert se il testo non c'e'; il conteggio del grep sulle righe
+multiple non e' la prova), l'esito, e se il file e' tornato identico (cmp).
+
+TRE INNESTI VERDI AL PRIMO GIRO, CONFESSATI: la Media rimessa non era
+entrata (Windows teneva il file bloccato); l'ordine di preferenza dell'ora
+d'oro non lo vedeva nessuno dei dieci giorni, e si e' aggiunto col JPL un
+giorno con due candidati (congiunzione al Sole alle 5, trigono a Giove alle
+17); la nota del metodo si confrontava con se stessa. Rifatti in fondo: rossi.
+
+ES.01 senza l'aggiunta dell'Approfondita | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+ES.01 la Media rimessa | innesto nel file (grep): 1 | esito: 00:00 +1: All tests passed! | file rimesso identico: si
+ES.28 il livello dalla data | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+ES.28 con la carta il livello ignora i passaggi | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+ES.29 il numero di prima | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+ES.29 il colore dal segno del Sole | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+ES.32 prima la congiunzione | innesto nel file (grep): 4 | esito: 00:00 +1: All tests passed! | file rimesso identico: si
+ES.32 un'ora d'oro anche senza passaggio | innesto nel file (grep): 22 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+ES.33 la ruota col pianeta spostato | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+ES.34 domani e' oggi | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+Sole di nascita senza la seconda armonica | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+ES.30 la nota del livello di prima | innesto nel file (grep): 1 | esito: 00:02 +1: All tests passed! | file rimesso identico: si
+FINITO
+ES.01 la Media rimessa (secondo giro) | innesto nel file (grep): 2 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+ES.32 prima la congiunzione (secondo giro) | innesto nel file (grep): 4 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+ES.30 la nota del livello di prima (secondo giro) | innesto nel file (grep): 1 | esito: 00:03 +0 -1: Some tests failed. | file rimesso identico: si
+FINITO
+
+SETTIMANALE, MENSILE E APERTURA PER PIANO (voci 02, 03 e 06):
+ES.02 fasi della Luna col Sole dei transiti di un grado | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+ES.02 le righe senza il cielo del giorno | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+ES.03 il mese senza eclissi | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+ES.06 la Settimana aperta a tutti | innesto nel file (grep): 1 | esito: 00:02 +0 -1: Some tests failed. | file rimesso identico: si
+ES.06 l'Adepto senza il Mese | innesto nel file (grep): 1 | esito: 00:02 +0 -1: Some tests failed. | file rimesso identico: si
+FINITO
+
+DIFETTI VISTI SUL REALME (build prova_es_1 dal commit 7e1db15d), CURE E INNESTI:
+- senza carta tutte le schede allo stesso livello, e il neutro a 4: il corpo del dominio pesa, il neutro e' 3;
+- il chip acceso restava l'Occidentale toccando un'altra tradizione;
+- il nome del decano egizio su quattro righe: in grande il solo nome;
+- la vista del periodo decideva da sola sui dati mancanti (la guardia comune guarda solo che il file nomini la porta): ora legge il livello della porta, e una prova monta la vista coi tre livelli.
+Due innesti verdi al primo giro (la vista del periodo, il chip), resi rossi con le pretese nuove:
+il livello senza il corpo del dominio | innesto nel file (grep): 1 | esito: 00:00 +0 -1: Some tests failed. | file rimesso identico: si
+il periodo decide da solo sui dati mancanti | innesto nel file (grep): 1 | esito: 00:00 +2: All tests passed! | file rimesso identico: si
+il chip acceso resta l'Occidentale | innesto nel file (grep): 1 | esito: 00:02 +1: All tests passed! | file rimesso identico: si
+FINITO
+il periodo decide da solo sui dati mancanti (secondo giro) | innesto nel file (grep): 1 | esito: 00:01 +0 -1: Some tests failed. | file rimesso identico: si
+il chip acceso resta l'Occidentale (secondo giro) | innesto nel file (grep): 1 | esito: 00:02 +0 -1: Some tests failed. | file rimesso identico: si
+FINITO

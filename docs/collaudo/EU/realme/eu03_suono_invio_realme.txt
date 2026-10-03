@@ -1,0 +1,17 @@
+IL SUONO ALL'INVIO SUL REALME, ordine EU voce 03, 1 ottobre 2026, build di prova dal commit 8b9a581a (numero 2289, non e' una consegna).
+
+Come si e' misurato: il tocco con adb (input tap) sul tasto di invio, e per otto secondi il registro delle tracce di audio_flinger (dumpsys media.audio_flinger, le righe AT::add del processo dell'app), letto ogni 0,3 secondi. Ogni suono dell'app apre una traccia nuova; l'ora della traccia e' l'ora del telefono, accanto all'ora del tocco. Lo script e' tool/ascolta_il_realme.py (python tool/ascolta_il_realme.py X Y SECONDI). Le durate delle tracce vengono dal numero di fotogrammi scritto alla loro chiusura, a 44.100 al secondo.
+
+1. Occidentale, Giorno, "Interroga il cielo" (prima tradizione del giorno).
+   Tocco alle 06:50:36.010. Tracce nuove: 1, alle 06:50:40.497, cioe' 4,5 secondi dopo il tocco, lunga 120.000 fotogrammi (2,72 secondi): e' responso_oroscopo.mp3 (2,72 secondi), il suono orchestrale del fondatore alla comparsa del responso. Al tocco: niente.
+
+2. Vedica, Giorno, "Interroga la Luna" (seconda tradizione del giorno).
+   Tocco alle 06:57:18.046. Tracce nuove: 1, alle 06:57:21.381 (3,3 secondi dopo), 120.000 fotogrammi: il responso. Al tocco: niente. (Il telefono ha le animazioni spente, e la riflessione col movimento ridotto e' piu' corta.)
+
+3. Cinese, Giorno, "Apri l'almanacco" (TERZA tradizione del giorno).
+   Tocco alle 06:58:59.229. Tracce nuove: 2.
+   - alle 06:58:59.736, 0,5 secondi dopo il tocco, 66.150 fotogrammi (1,5 secondi): rivelazione.mp3 (1,5 secondi). E' il Sigillo dei Tre Cieli (ordine ES voce 37) che si accende alla terza tradizione letta nel giorno e suonava la rivelazione ALLA PRESSIONE DELL'INVIO.
+   - alle 06:59:02.535: il responso.
+   DIFETTO: un suono alla pressione dell'invio, quello che il fondatore ha chiesto di eliminare. Padre: ordine ES voce 37 (il suono del Sigillo); la voce EU.03 non l'aveva trovato perche' cercava i suoni dei tasti di invio e questo parte da un'altra porta, dopo l'invio, solo la terza volta nel giorno. Curato: il Sigillo si accende con la sola vibrazione (lib/features/horoscope/oroscopo_screen.dart); la prova "il terzo cielo del giorno non suona alla pressione" e' rossa sul codice di prima e verde dopo (docs/collaudo/EU/regola_a_dopo_il_realme.txt).
+
+Da rifare sul Realme con la build che porta la cura: la terza tradizione del giorno, nessuna traccia nel primo secondo dopo il tocco.

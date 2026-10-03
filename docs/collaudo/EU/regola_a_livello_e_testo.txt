@@ -1,0 +1,3 @@
+REGOLA A, ordine EU voce 17, 1 ottobre 2026: la guardia il_livello_e_il_testo_dicono_lo_stesso vista rossa.
+INNESTO A1 la fascia del Giorno occidentale presa un gradino sopra: grep del difetto nel file SI; prova test/il_livello_e_il_testo_dicono_lo_stesso_test.dart ROSSA; ORDINE EU VOCE 17: schede con un paragrafo di una fascia diversa dal livello 136 su 1476; file rimesso sha1 1aa632c32b8b -> 1aa632c32b8b IDENTICO
+INNESTO A2 la fascia dell'Anno vedico e cinese presa dal livello della Generale: grep del difetto nel file SI; prova test/il_livello_e_il_testo_dicono_lo_stesso_test.dart ROSSA; ORDINE EU VOCE 17: schede con un paragrafo di una fascia diversa dal livello 23 su 1476; file rimesso sha1 1bb0056744bc -> 1bb0056744bc IDENTICO

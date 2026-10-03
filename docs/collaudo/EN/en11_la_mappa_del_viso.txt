@@ -1,0 +1,40 @@
+ORDINE EN VOCE 11, LA COSTELLAZIONE DEL VISO DIVENTA MAPPA DEL VISO
+Le parole del fondatore, 25 settembre 2026: "Mappa del Viso senza articolo" e "Va bene mappa del viso".
+
+LA RICERCA DEL VECCHIO NOME NEI TESTI A VIDEO: ogni riga di codice di lib che non e' un commento, con
+"Costellazione del Viso", "Costellazione del viso" o "COSTELLAZIONE DEL VISO".
+
+PRIMA, ramo a fbcbb674: 23 righe in 15 file.
+    1  lib/core/arts/art_catalog.dart                                   il titolo nel catalogo
+    1  lib/core/chat/immersive_intents.dart                             il pulsante "Apri la ... del viso"
+    1  lib/core/face/face_corpus.dart                                   il testo che i Maestri leggono
+    1  lib/core/feature_flags/feature_catalog.dart                      lo scaffale delle funzioni
+    1  lib/core/l10n/app_strings.dart                                   il nome per lingua ("Face Map" in inglese)
+    1  lib/core/legal/privacy_policy.dart                               la privacy
+    1  lib/core/permissions/registro_dei_permessi.dart                  il permesso della fotocamera
+    1  lib/core/ricordi/arti_con_responso.dart                          i Ricordi
+    1  lib/core/ricordi/artwork_del_ricordo.dart                        il Ricordo custodito
+    1  lib/core/santuario/function_shelf.dart                           il Santuario
+    6  lib/core/sigilli/sentiero_loto.dart                              i traguardi del Loto (Passaporto)
+    3  lib/features/maestri/aura/face/face_constellation_screen.dart    la schermata, la condivisione
+    2  lib/features/maestri/aura/face/face_share_card.dart              la card da condividere
+    1  lib/features/maestri/aura/face/le_tue_letture_del_viso.dart      le letture passate
+    1  lib/features/sigilli/la_mappa_del_sentiero.dart                  la mappa del Sentiero
+  I sei traguardi del Loto sono un corpus generato: il nome e' cambiato alla fonte, tool/corpus_traguardi_dati.py e
+  tool/corpus_traguardi.py; il corpus e' stato rigenerato con tool/genera_corpus_f.py. La differenza del JSON e
+  del Dart e' di sole righe col nome.
+
+DOPO: 0 righe col vecchio nome a video. Resta una sola riga, dichiarata: la parola chiave con cui la persona puo'
+ancora chiedere l'arte in chat col vecchio nome, lib/core/chat/immersive_intents.dart, accanto a quella nuova,
+"mappa del viso". Il nome nuovo compare in 23 righe. I commenti del codice restano col nome di allora: raccontano la storia: riscriverli la cambierebbe.
+
+LA GUARDIA: test/la_mappa_del_viso_si_chiama_cosi_test.dart, vista rossa col titolo del catalogo rimesso col
+vecchio nome (due prove rosse).
+
+SUL REALME, build 2282 di prova, 25 settembre 2026 11:19-11:20:
+  en11_mappa_del_viso_nel_dominio_di_aura.jpg   la scheda "Mappa del Viso" negli Archetipi di Aura
+  en11_mappa_del_viso_la_schermata.jpg          il titolo della schermata, "Mappa del Viso"
+  Nella schermata resta la frase "I tratti del tuo volto, una costellazione": descrive il disegno, i punti del volto uniti come stelle: non e' il nome dell'arte. L'ho lasciata; se il fondatore la vuole cambiare, e' una
+  riga in face_constellation_screen.dart.
+
+I DOCUMENTI DEL PROGETTO: il cambio sta in docs/STATO_VIVO.md con la data, senza cancellare il vecchio nome.

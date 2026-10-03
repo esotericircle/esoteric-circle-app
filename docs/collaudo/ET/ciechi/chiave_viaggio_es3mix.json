@@ -1,0 +1,642 @@
+{
+ "V001": {
+  "file": "es3_esecuzione1",
+  "n": 11,
+  "domanda": "Mio fratello non mi parla da mesi, lo chiamo io?",
+  "risposta": "I segni del viaggio indicano di sì, se prima chiedi a tua madre qual è il momento migliore per tuo fratello. Tu puoi fare il primo passo, ma non puoi forzarlo. Scegli le parole con attenzione.",
+  "azione": "Domani mattina telefona a tua madre e chiedile come sta tuo fratello, senza parlare della lite.",
+  "fonti": "{scena: modello, titolo: modello: seconda chiamata, risposta: modello, gesto: modello}"
+ },
+ "V002": {
+  "file": "es3_esecuzione2",
+  "n": 11,
+  "domanda": "Mio fratello non mi parla da mesi, lo chiamo io?",
+  "risposta": "I segni del viaggio dicono di sì, puoi chiamare tuo fratello. Non puoi sapere come accoglierà il tuo gesto, né puoi decidere per lui. Puoi fare tu il primo passo, senza aspettarti una risposta.",
+  "azione": "Entro domani sera invia un messaggio a tuo fratello, solo per dire che pensi a lui.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}"
+ },
+ "V003": {
+  "file": "es3_esecuzione1",
+  "n": 20,
+  "domanda": "Devo dire a Marco che mi piace?",
+  "risposta": "I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.",
+  "azione": "Oggi pomeriggio chiama la tua amica più vicina e chiedile un parere su come vi comportate tu e Marco.",
+  "fonti": "{scena: modello, titolo: modello, risposta: riserva con la posizione sì a una condizione: nonPrendePosizione, gesto: modello}"
+ },
+ "V004": {
+  "file": "es2_esecuzione1",
+  "n": 13,
+  "domanda": "Accetto l'offerta di lavoro a Milano anche se guadagno meno?",
+  "risposta": "I segni del viaggio dicono di sì, se il guadagno inferiore non compromette la tua stabilità economica immediata. L'offerta di lavoro a Milano è una strada da prendere per il tuo futuro. Non lasciare che la paura del cambiamento ti fermi.",
+  "azione": "Oggi pomeriggio contatta qualcuno che ha già fatto un trasferimento simile per chiedere un consiglio pratico.",
+  "fonti": "{scena: riserva: titoloAnticipaLaScena, titolo: modello, risposta: modello, gesto: modello}"
+ },
+ "V005": {
+  "file": "es2_esecuzione2",
+  "n": 1,
+  "domanda": "Mi trasferisco a Berlino per lavoro?",
+  "risposta": "I segni del viaggio dicono di sì, se prepari il tuo arrivo. Berlino aspetta solo di accoglierti. Prevedi un piano concreto per il primo mese nella città.",
+  "azione": "Entro giovedì, cerca tre annunci di stanze o appartamenti a Berlino.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello}"
+ },
+ "V006": {
+  "file": "es2_esecuzione2",
+  "n": 15,
+  "domanda": "Riuscirò a superare il concorso di ottobre?",
+  "risposta": "I segni del viaggio dicono di sì, se prima di sostenere il concorso rivedi le materie che ti sembrano più difficili. Hai il tempo e le risorse per prepararti al meglio. Le incertezze del momento non definiscono il tuo risultato.",
+  "azione": "Oggi pomeriggio individua due argomenti che ti mettono in difficoltà e procurati il materiale per approfondirli.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello}"
+ },
+ "V007": {
+  "file": "es3_esecuzione1",
+  "n": 9,
+  "domanda": "Mia madre non accetta la mia compagna, cosa faccio?",
+  "risposta": "Chiedi a tua madre di non parlare della tua compagna. Puoi decidere tu quando e come affrontare l'argomento. Non puoi controllare l'approvazione di tua madre.",
+  "azione": "Oggi pomeriggio invia un messaggio a tua madre per chiederle un incontro a breve, senza dire il motivo.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}"
+ },
+ "V008": {
+  "file": "es2_esecuzione2",
+  "n": 5,
+  "domanda": "Il mio cane è malato, cosa devo fare?",
+  "risposta": "Ascolta il parere di un altro veterinario. La situazione del tuo cane richiede di avere tutte le informazioni disponibili.",
+  "azione": "Entro domani sera contatta un altro veterinario per un secondo parere sul tuo cane.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello}"
+ },
+ "V009": {
+  "file": "es2_esecuzione1",
+  "n": 10,
+  "domanda": "Mia madre non accetta la mia compagna, cosa faccio?",
+  "risposta": "I segni del viaggio indicano un passo da fare: è quello qui sotto.",
+  "azione": "Entro domani sera, invia un messaggio a tua madre per proporle un pranzo insieme la prossima settimana.",
+  "fonti": "{scena: modello, titolo: modello, risposta: riserva con la posizione un gesto da fare: nonPrendePosizione, gesto: modello}"
+ },
+ "V010": {
+  "file": "es2_esecuzione1",
+  "n": 17,
+  "domanda": "Come faccio a sentirmi meno sola la sera?",
+  "risposta": "I segni del viaggio dicono di sì, se ti permetti di sentire pienamente la solitudine serale. Non si tratta di riempire un vuoto. La solitudine è una compagna che può rivelarti molto di te stessa.",
+  "azione": "Stasera, prima di andare a dormire, metti una coperta che ti piace sul divano e siediti per cinque minuti.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}"
+ },
+ "V011": {
+  "file": "es3_esecuzione2",
+  "n": 15,
+  "domanda": "Riuscirò a superare il concorso di ottobre?",
+  "risposta": "I segni del viaggio dicono di sì, se prima di fare il concorso hai controllato la tua preparazione con qualcuno.",
+  "azione": "Mercoledì prossimo chiedi a una persona che ha superato il concorso di farti due domande su un argomento a tua scelta.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: prima frase di una risposta scartata, gesto: modello}"
+ },
+ "V012": {
+  "file": "es3_esecuzione2",
+  "n": 17,
+  "domanda": "Come faccio a sentirmi meno sola la sera?",
+  "risposta": "Per sentirti meno sola la sera, puoi occupare lo spazio che si crea. La solitudine serale che senti non è un vuoto da riempire. È un'opportunità per un contatto diverso.",
+  "azione": "Stasera, prima di coricarti, entra in una stanza in cui di solito non passi molto tempo. Resta lì in silenzio per cinque minuti, senza fare nulla.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}"
+ },
+ "V013": {
+  "file": "es3_esecuzione1",
+  "n": 3,
+  "domanda": "Lascio il lavoro in banca per aprire la mia bottega di ceramica?",
+  "risposta": "I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.",
+  "azione": "Prendi carta e penna e fai l'elenco di chi può aiutarti.",
+  "fonti": "{scena: modello, titolo: modello, risposta: riserva con la posizione sì a una condizione: troppoLunga, gesto: riserva: chiedeDiScrivere}"
+ },
+ "V014": {
+  "file": "es3_esecuzione1",
+  "n": 19,
+  "domanda": "Devo dire a Marco che mi piace?",
+  "risposta": "I segni del viaggio indicano che puoi dire a Marco che ti piace. Non è necessario un grande discorso. Puoi farglielo capire con un piccolo gesto.",
+  "azione": "Entro domani sera, invia un messaggio a Marco e proponigli di fare qualcosa insieme la prossima settimana.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello}"
+ },
+ "V015": {
+  "file": "es2_esecuzione1",
+  "n": 11,
+  "domanda": "Mio fratello non mi parla da mesi, lo chiamo io?",
+  "risposta": "I segni del viaggio dicono di sì, se prepari quello che vuoi dire. Puoi chiamare tuo fratello, ma devi avere chiarezza prima di farlo.",
+  "azione": "Prendi carta e penna e fai l'elenco di chi può aiutarti.",
+  "fonti": "{scena: modello, titolo: riserva: tempoNelTitolo, risposta: modello, gesto: riserva: chiedeDiScrivere}"
+ },
+ "V016": {
+  "file": "es3_esecuzione1",
+  "n": 2,
+  "domanda": "Mi trasferisco a Berlino per lavoro?",
+  "risposta": "I segni del viaggio dicono di sì, se prima chiedi un contatto specifico a Berlino. La possibilità di trasferirsi è presente e puoi preparare il terreno.",
+  "azione": "Entro domani sera scrivi a una persona che già conosci a Berlino chiedendo un suggerimento su un contatto lavorativo, un luogo o un appartamento.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello}"
+ },
+ "V017": {
+  "file": "es3_esecuzione2",
+  "n": 16,
+  "domanda": "Riuscirò a superare il concorso di ottobre?",
+  "risposta": "I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.",
+  "azione": "Scrivi tre cose che sai già su questa domanda.",
+  "fonti": "{scena: modello, titolo: modello, risposta: riserva con la posizione sì a una condizione: gergo, gesto: riserva: previsioneCerta}"
+ },
+ "V018": {
+  "file": "es3_esecuzione2",
+  "n": 8,
+  "domanda": "Cosa pensa di me la mia collega?",
+  "risposta": "Parla con la tua collega entro sabato. I segni del viaggio indicano che puoi chiarire ciò che ti preoccupa. Tu puoi fare il primo passo.",
+  "azione": "Oggi al caffè, invitala a pranzo con te questa settimana.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}"
+ },
+ "V019": {
+  "file": "es3_esecuzione2",
+  "n": 3,
+  "domanda": "Lascio il lavoro in banca per aprire la mia bottega di ceramica?",
+  "risposta": "I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.",
+  "azione": "Prendi carta e penna e fai l'elenco di chi può aiutarti.",
+  "fonti": "{scena: modello, titolo: modello, risposta: riserva con la posizione sì a una condizione: previsioneCerta, gesto: riserva: virgolaEe}"
+ },
+ "V020": {
+  "file": "es2_esecuzione2",
+  "n": 12,
+  "domanda": "Mio fratello non mi parla da mesi, lo chiamo io?",
+  "risposta": "I segni del viaggio dicono di sì, se prima chiedi a tua madre un consiglio. Hai la possibilità di ristabilire un contatto. Puoi fare il primo passo verso tuo fratello.",
+  "azione": "Entro domani, scegli un momento e chiama tuo fratello senza aspettare la sua risposta. Fai squillare il telefono finché non smette.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}"
+ },
+ "V021": {
+  "file": "es3_esecuzione2",
+  "n": 6,
+  "domanda": "Il mio cane è malato, cosa devo fare?",
+  "risposta": "Ascolta la tua intuizione. I segni del viaggio indicano che devi agire con fiducia. Hai già gli strumenti per prenderti cura del tuo cane.",
+  "azione": "Domattina, prima di agire, prenditi cinque minuti per stare in silenzio e ascolta la prima cosa che ti viene in mente per aiutare il tuo cane.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello}"
+ },
+ "V022": {
+  "file": "es2_esecuzione1",
+  "n": 18,
+  "domanda": "Come faccio a sentirmi meno sola la sera?",
+  "risposta": "Per sentirti meno sola la sera, devi chiamare un'amica.",
+  "azione": "Domani sera chiama un'amica che non senti da tempo e proponile di fare qualcosa insieme la prossima settimana.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: prima frase di una risposta scartata, gesto: modello}"
+ },
+ "V023": {
+  "file": "es2_esecuzione1",
+  "n": 20,
+  "domanda": "Devo dire a Marco che mi piace?",
+  "risposta": "I segni del viaggio dicono di sì, se prima di parlare con Marco ti chiedi cosa ti spinge davvero a dirgli che ti piace. Non è solo ciò che provi per lui, ma anche ciò che speri per te stessa.",
+  "azione": "Stasera, quando lo senti, chiedigli di raccontarti qualcosa delle sue paure su un legame con te.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}"
+ },
+ "V024": {
+  "file": "es3_esecuzione2",
+  "n": 4,
+  "domanda": "Lascio il lavoro in banca per aprire la mia bottega di ceramica?",
+  "risposta": "I segni del viaggio dicono di sì, se prepari il luogo fisico della tua bottega entro la fine del mese. La tua bottega ha bisogno di cure e attenzioni fin da subito. Non è un passo da fare senza una base solida.",
+  "azione": "Entro giovedì, cerca tre potenziali fornitori per la materia prima della tua ceramica.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}"
+ },
+ "V025": {
+  "file": "es3_esecuzione1",
+  "n": 5,
+  "domanda": "Il mio cane è malato, cosa devo fare?",
+  "risposta": "Ascolta il tuo cane con attenzione e cerca di capire la sua condizione. I segni del viaggio indicano che devi agire con decisione per il suo benessere. Fai quello che senti giusto per lui.",
+  "azione": "Entro domani sera, chiama il veterinario e chiedi un secondo parere sulle cure del tuo cane.",
+  "fonti": "{scena: modello, titolo: modello: seconda chiamata, risposta: modello, gesto: modello}"
+ },
+ "V026": {
+  "file": "es2_esecuzione1",
+  "n": 14,
+  "domanda": "Accetto l'offerta di lavoro a Milano anche se guadagno meno?",
+  "risposta": "I segni del viaggio dicono di sì a questa offerta di lavoro, se prima hai verificato che ti offra un concreto spazio di crescita professionale. Milano ha molto da offrire. Non guardare solo al guadagno immediato, ma a quello che puoi costruire.",
+  "azione": "Domani mattina, chiedi un colloquio chiarificatore sui percorsi di carriera previsti dall'azienda a Milano.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello}"
+ },
+ "V027": {
+  "file": "es3_esecuzione2",
+  "n": 2,
+  "domanda": "Mi trasferisco a Berlino per lavoro?",
+  "risposta": "I segni del viaggio dicono di sì, puoi trasferirti a Berlino per lavoro, se entro una settimana trovi un alloggio per il primo mese.",
+  "azione": "Entro domani sera scrivi a tre agenzie immobiliari a Berlino.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: prima frase di una risposta scartata, gesto: modello}"
+ },
+ "V028": {
+  "file": "es3_esecuzione2",
+  "n": 7,
+  "domanda": "Cosa pensa di me la mia collega?",
+  "risposta": "Chiedi alla tua collega di incontrarti per un caffè o un pranzo.",
+  "azione": "Entro domani, scrivi una mail alla tua collega proponendole di incontrarvi per un caffè la prossima settimana.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: prima frase di una risposta scartata, gesto: modello}"
+ },
+ "V029": {
+  "file": "es2_esecuzione1",
+  "n": 6,
+  "domanda": "Il mio cane è malato, cosa devo fare?",
+  "risposta": "Ascolta il tuo cane, in questo momento ti sta parlando. Ha bisogno di cure e di attenzione. Solo tu puoi capire cosa è meglio per lui.",
+  "azione": "Domani mattina contatta il veterinario e chiedi un consulto per capire meglio la situazione del tuo cane.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello}"
+ },
+ "V030": {
+  "file": "es2_esecuzione1",
+  "n": 15,
+  "domanda": "Riuscirò a superare il concorso di ottobre?",
+  "risposta": "I segni del viaggio dicono di sì, se prima di ottobre trovi una guida con cui confrontarti. La preparazione al concorso richiede uno sguardo esterno.",
+  "azione": "Entro domani sera individua un'area specifica del programma che ti sembra più difficile e cerca tre fonti diverse per studiarla.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}"
+ },
+ "V031": {
+  "file": "es2_esecuzione1",
+  "n": 12,
+  "domanda": "Mio fratello non mi parla da mesi, lo chiamo io?",
+  "risposta": "I segni del viaggio dicono di sì, se prima di chiamare tuo fratello scrivi quello che vuoi chiedergli. Tu puoi fare il primo passo verso un dialogo. Non aspettare che sia lui a cercarti.",
+  "azione": "Stasera, scrivi un messaggio breve a tuo fratello per chiedergli come sta.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}"
+ },
+ "V032": {
+  "file": "es2_esecuzione2",
+  "n": 4,
+  "domanda": "Lascio il lavoro in banca per aprire la mia bottega di ceramica?",
+  "risposta": "I segni del viaggio dicono di sì. La bottega di ceramica è un passo importante. Hai già quello che serve per cominciare.",
+  "azione": "Entro sabato, parla con tre persone che conosci e che stimi: chiedi a ognuno di loro cosa manca al tuo progetto per la bottega.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}"
+ },
+ "V033": {
+  "file": "es2_esecuzione1",
+  "n": 2,
+  "domanda": "Mi trasferisco a Berlino per lavoro?",
+  "risposta": "I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.",
+  "azione": "Entro giovedì scrivi a tre persone che conosci già a Berlino per chiedere un consiglio pratico sui primi giorni.",
+  "fonti": "{scena: modello, titolo: modello, risposta: riserva con la posizione sì a una condizione: previsioneCerta, gesto: modello}"
+ },
+ "V034": {
+  "file": "es2_esecuzione2",
+  "n": 16,
+  "domanda": "Riuscirò a superare il concorso di ottobre?",
+  "risposta": "I segni del viaggio dicono di sì, se ti prepari a mostrare chi sei e cosa sai fare. Il concorso ti chiede di presentarti con la tua identità. Non puoi fingere di essere un altro.",
+  "azione": "Scrivi tre cose che sai già su questa domanda.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: riserva: troppoLunga}"
+ },
+ "V035": {
+  "file": "es2_esecuzione2",
+  "n": 9,
+  "domanda": "Mia madre non accetta la mia compagna, cosa faccio?",
+  "risposta": "Chiedi a tua madre un momento per parlare. Puoi ascoltare quello che dice, senza doverlo accettare. Non puoi fare in modo che lei cambi idea.",
+  "azione": "Questa settimana parla con la tua compagna e stabilite insieme una frase esatta da usare quando tua madre si oppone.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}"
+ },
+ "V036": {
+  "file": "es3_esecuzione2",
+  "n": 20,
+  "domanda": "Devo dire a Marco che mi piace?",
+  "risposta": "I segni del viaggio dicono di sì, se prima di parlare con Marco hai un'idea più chiara di ciò che desideri. Non lasciare che le aspettative altrui influenzino la tua decisione. La tua felicità viene prima di tutto.",
+  "azione": "Domani mattina, cerca Marco e digli la verità sui tuoi sentimenti.",
+  "fonti": "{scena: riserva: titoloAnticipaLaScena, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}"
+ },
+ "V037": {
+  "file": "es3_esecuzione2",
+  "n": 9,
+  "domanda": "Mia madre non accetta la mia compagna, cosa faccio?",
+  "risposta": "Chiedi a tua madre un incontro in cui parli solo tu della tua compagna.",
+  "azione": "Entro domani sera, scrivi un messaggio a tua madre per chiederle di incontrarvi a breve.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: prima frase di una risposta scartata, gesto: modello}"
+ },
+ "V038": {
+  "file": "es3_esecuzione1",
+  "n": 13,
+  "domanda": "Accetto l'offerta di lavoro a Milano anche se guadagno meno?",
+  "risposta": "I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.",
+  "azione": "Prendi carta e penna e fai l'elenco di chi può aiutarti.",
+  "fonti": "{scena: modello, titolo: modello, risposta: riserva con la posizione sì a una condizione: nonPrendePosizione, gesto: riserva: chiedeDiScrivere}"
+ },
+ "V039": {
+  "file": "es3_esecuzione1",
+  "n": 7,
+  "domanda": "Cosa pensa di me la mia collega?",
+  "risposta": "Chiedi alla tua collega di prendere un caffè con te. Questo è il momento di un gesto che non hai ancora fatto. Puoi scoprire qualcosa di nuovo.",
+  "azione": "Domattina, appena la vedi, chiedile se ha tempo per un caffè nei prossimi giorni.",
+  "fonti": "{scena: modello, titolo: modello: seconda chiamata, risposta: modello, gesto: modello}"
+ },
+ "V040": {
+  "file": "es2_esecuzione1",
+  "n": 16,
+  "domanda": "Riuscirò a superare il concorso di ottobre?",
+  "risposta": "I segni del viaggio indicano che puoi superare il concorso, se prima verifichi le tue aspettative sul tipo di prova. Hai già la preparazione necessaria. Non è il concorso in sé a essere l'ostacolo.",
+  "azione": "Entro dopodomani cerca online tre simulazioni del concorso, anche di anni precedenti. Svolgine una cronometrando il tempo.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}"
+ },
+ "V041": {
+  "file": "es3_esecuzione2",
+  "n": 14,
+  "domanda": "Accetto l'offerta di lavoro a Milano anche se guadagno meno?",
+  "risposta": "I segni del viaggio dicono di sì, se prima di accettare l'offerta hai verificato tutte le nuove spese a Milano. Hai considerato solo un aspetto del cambiamento economico. C'è altro da mettere in conto.",
+  "azione": "Entro sabato verifica con precisione il costo di un affitto e delle utenze per un mese a Milano.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello: seconda chiamata}"
+ },
+ "V042": {
+  "file": "es2_esecuzione1",
+  "n": 7,
+  "domanda": "Cosa pensa di me la mia collega?",
+  "risposta": "Se ci pensi ogni giorno, il posto ce l'ha già.",
+  "azione": "Prendi carta e penna e fai l'elenco di chi può aiutarti.",
+  "fonti": "{scena: riserva, titolo: riserva, risposta: riserva, gesto: riserva}"
+ },
+ "V043": {
+  "file": "es3_esecuzione1",
+  "n": 14,
+  "domanda": "Accetto l'offerta di lavoro a Milano anche se guadagno meno?",
+  "risposta": "I segni del viaggio dicono di sì, se prima di accettare l'offerta di lavoro a Milano hai verificato tutti i costi della città. Non guardare solo il guadagno, ma il bilancio complessivo. Valuta la tua capacità di gestire le nuove spese e il nuovo equilibrio.",
+  "azione": "Entro dopodomani incontra una persona che vive a Milano e ha una situazione economica simile alla tua, per capire il suo costo della vita reale.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}"
+ },
+ "V044": {
+  "file": "es3_esecuzione1",
+  "n": 8,
+  "domanda": "Cosa pensa di me la mia collega?",
+  "risposta": "Chiedi alla tua collega come sta. Puoi ascoltare la sua risposta con attenzione, senza aggiungere altro. Tu puoi decidere di avvicinarti.",
+  "azione": "Domani mattina, appena la vedi, salutala per prima.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}"
+ },
+ "V045": {
+  "file": "es3_esecuzione1",
+  "n": 1,
+  "domanda": "Mi trasferisco a Berlino per lavoro?",
+  "risposta": "I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.",
+  "azione": "Entro giovedì sera contatta tre agenzie immobiliari a Berlino.",
+  "fonti": "{scena: riserva: titoloAnticipaLaScena, titolo: modello, risposta: riserva con la posizione sì a una condizione: nonPrendePosizione, gesto: modello}"
+ },
+ "V046": {
+  "file": "es3_esecuzione1",
+  "n": 15,
+  "domanda": "Riuscirò a superare il concorso di ottobre?",
+  "risposta": "I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.",
+  "azione": "Entro sabato cerca due offerte di lavoro che ti interessano, come se il concorso non esistesse.",
+  "fonti": "{scena: modello, titolo: modello, risposta: riserva con la posizione sì a una condizione: nonPrendePosizione, gesto: modello}"
+ },
+ "V047": {
+  "file": "es2_esecuzione2",
+  "n": 14,
+  "domanda": "Accetto l'offerta di lavoro a Milano anche se guadagno meno?",
+  "risposta": "I segni del viaggio dicono di sì, se sai cosa ti porta lì davvero. Quello che guadagni è solo una parte del valore. Dai un nome chiaro a ciò che ti attrae di Milano e di questa offerta.",
+  "azione": "Entro dopodomani cerca una persona che ha fatto un percorso di carriera simile al tuo e chiedi un'ora per un caffè.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}"
+ },
+ "V048": {
+  "file": "es3_esecuzione2",
+  "n": 19,
+  "domanda": "Devo dire a Marco che mi piace?",
+  "risposta": "I segni del viaggio dicono di sì, se prima di venerdì ti accerti che Marco sia libero.",
+  "azione": "Entro domani sera, scrivi un messaggio a Marco per proporgli di vedervi in questi giorni.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: prima frase di una risposta scartata, gesto: modello}"
+ },
+ "V049": {
+  "file": "es3_esecuzione2",
+  "n": 5,
+  "domanda": "Il mio cane è malato, cosa devo fare?",
+  "risposta": "I segni del viaggio ti indicano di chiedere al tuo cane cosa desidera. Ascolta i suoi segnali con attenzione. È il momento di accogliere le sue necessità.",
+  "azione": "Domani mattina tocca il suo muso e le sue zampe. Osserva se mostra dolore o disagio in qualche punto specifico.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}"
+ },
+ "V050": {
+  "file": "es3_esecuzione2",
+  "n": 13,
+  "domanda": "Accetto l'offerta di lavoro a Milano anche se guadagno meno?",
+  "risposta": "I segni del viaggio dicono di sì, se prima di accettare l'offerta verifichi i dettagli della proposta. Concentrati su ciò che è importante per te, oltre al guadagno. Valuta ogni aspetto con attenzione.",
+  "azione": "Entro sabato contatta chi ti ha fatto la proposta di lavoro e chiedi chiarimenti su tutti i punti che non ti sono ancora del tutto chiari.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello: seconda chiamata}"
+ },
+ "V051": {
+  "file": "es3_esecuzione1",
+  "n": 17,
+  "domanda": "Come faccio a sentirmi meno sola la sera?",
+  "risposta": "Per sentirti meno sola la sera, devi riconoscere che questa sensazione è una parte che indossi. Non è chi sei veramente. Lascia che il silenzio ti parli.",
+  "azione": "Stasera, prima di dormire, siediti in silenzio per cinque minuti nella stanza dove ti senti più sola.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}"
+ },
+ "V052": {
+  "file": "es2_esecuzione2",
+  "n": 17,
+  "domanda": "Come faccio a sentirmi meno sola la sera?",
+  "risposta": "I segni del viaggio indicano un passo da fare: è quello qui sotto.",
+  "azione": "Manda un messaggio, anche corto, a chi sai tu.",
+  "fonti": "{scena: modello, titolo: modello, risposta: riserva con la posizione un gesto da fare: nonPrendePosizione, gesto: riserva: consiglioDiVita}"
+ },
+ "V053": {
+  "file": "es2_esecuzione2",
+  "n": 6,
+  "domanda": "Il mio cane è malato, cosa devo fare?",
+  "risposta": "Chiedi al tuo cane cosa vuole. Puoi ascoltare la risposta con il tuo cuore. Hai l'amore che serve per accogliere la sua volontà.",
+  "azione": "Domani mattina, prima di dargli da mangiare, siedi accanto al tuo cane e rimani in silenzio per cinque minuti, come se non ci fosse altro da fare.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello}"
+ },
+ "V054": {
+  "file": "es3_esecuzione1",
+  "n": 16,
+  "domanda": "Riuscirò a superare il concorso di ottobre?",
+  "risposta": "I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.",
+  "azione": "Entro domani rileggi il bando e sottolinea ogni volta che viene nominato il requisito di un titolo di studio.",
+  "fonti": "{scena: modello, titolo: modello, risposta: riserva con la posizione sì a una condizione: nonPrendePosizione, gesto: modello}"
+ },
+ "V055": {
+  "file": "es2_esecuzione1",
+  "n": 19,
+  "domanda": "Devo dire a Marco che mi piace?",
+  "risposta": "I segni del viaggio dicono di sì. È il momento di dire a Marco che ti piace. Parla con lui in modo sincero e diretto.",
+  "azione": "Domani mattina, trova un momento per parlare a Marco, da sola con lui.",
+  "fonti": "{scena: riserva: titoloAnticipaLaScena, titolo: modello, risposta: modello: seconda chiamata, gesto: modello: seconda chiamata}"
+ },
+ "V056": {
+  "file": "es3_esecuzione2",
+  "n": 12,
+  "domanda": "Mio fratello non mi parla da mesi, lo chiamo io?",
+  "risposta": "I segni del viaggio dicono di sì, se prima di chiamarlo metti in chiaro con te cosa vuoi dirgli. Puoi prepararti bene alle sue domande. Puoi anche decidere di non aspettarti niente da lui.",
+  "azione": "Oggi pomeriggio fai la telefonata che stai rimandando a tuo fratello.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}"
+ },
+ "V057": {
+  "file": "es2_esecuzione1",
+  "n": 1,
+  "domanda": "Mi trasferisco a Berlino per lavoro?",
+  "risposta": "I segni del viaggio dicono di sì, se il primo passo lo fai tu: è quello qui sotto.",
+  "azione": "Entro sabato telefona a un amico che vive a Berlino e chiedigli una cosa sola che non sai.",
+  "fonti": "{scena: modello, titolo: modello: seconda chiamata, risposta: riserva con la posizione sì a una condizione: nonPrendePosizione, gesto: modello: seconda chiamata}"
+ },
+ "V058": {
+  "file": "es3_esecuzione1",
+  "n": 10,
+  "domanda": "Mia madre non accetta la mia compagna, cosa faccio?",
+  "risposta": "Chiedi a tua madre di incontrarvi in un luogo neutro. I segni del viaggio indicano che puoi mostrare le tue decisioni senza forzare la sua accettazione. Tu puoi scegliere di proteggere la tua relazione.",
+  "azione": "Domani mattina invita tua madre a prendere un caffè in un luogo neutro, per un breve incontro.",
+  "fonti": "{scena: modello, titolo: modello: seconda chiamata, risposta: modello, gesto: modello: seconda chiamata}"
+ },
+ "V059": {
+  "file": "es2_esecuzione2",
+  "n": 19,
+  "domanda": "Devo dire a Marco che mi piace?",
+  "risposta": "I segni del viaggio dicono di sì, se prima gli mostri qualcosa di te che non riveli spesso. Quello che vuoi dire a Marco ha bisogno della tua autenticità, non di un'aspettativa.",
+  "azione": "Domani mattina indossa qualcosa che ti fa sentire completamente te stessa, senza preoccuparti del giudizio.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello}"
+ },
+ "V060": {
+  "file": "es2_esecuzione1",
+  "n": 9,
+  "domanda": "Mia madre non accetta la mia compagna, cosa faccio?",
+  "risposta": "Chiarisci cosa vuoi ottenere da tua madre.",
+  "azione": "Entro il fine settimana invita tua compagna a cena fuori, in un posto che piace solo a voi due.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: prima frase di una risposta scartata, gesto: modello: seconda chiamata}"
+ },
+ "V061": {
+  "file": "es3_esecuzione2",
+  "n": 10,
+  "domanda": "Mia madre non accetta la mia compagna, cosa faccio?",
+  "risposta": "Puoi scegliere di parlare con tua madre. Non puoi costringerla ad accettare la tua compagna. Puoi decidere tu fino a che punto vuoi affrontare la situazione.",
+  "azione": "Entro giovedì, scrivi a tua madre per chiederle quando potete vedervi da sole.",
+  "fonti": "{scena: modello, titolo: modello: seconda chiamata, risposta: modello, gesto: modello}"
+ },
+ "V062": {
+  "file": "es2_esecuzione2",
+  "n": 8,
+  "domanda": "Cosa pensa di me la mia collega?",
+  "risposta": "Chiedi alla tua collega di parlare con te. Puoi proporle una pausa caffè per questo. Ascolta quello che ti dice.",
+  "azione": "Domani mattina, mentre siete in ufficio, proponi alla tua collega di prendere un caffè insieme, anche solo per cinque minuti.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}"
+ },
+ "V063": {
+  "file": "es3_esecuzione1",
+  "n": 4,
+  "domanda": "Lascio il lavoro in banca per aprire la mia bottega di ceramica?",
+  "risposta": "I segni del viaggio dicono di sì, se chiedi un incontro con tre botteghe di ceramica entro la prossima settimana. Non devi avere tutte le risposte. Puoi partire con un piccolo passo che ti avvicina al tuo desiderio.",
+  "azione": "Entro giovedì prossimo fissa un appuntamento per visitare un laboratorio di ceramica artigianale.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello: seconda chiamata}"
+ },
+ "V064": {
+  "file": "es3_esecuzione1",
+  "n": 18,
+  "domanda": "Come faccio a sentirmi meno sola la sera?",
+  "risposta": "Per sentirti meno sola la sera, devi riorganizzare il tuo spazio personale.",
+  "azione": "Stasera chiama una persona che conosci bene e con cui non parli da tempo.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: prima frase di una risposta scartata, gesto: modello}"
+ },
+ "V065": {
+  "file": "es2_esecuzione2",
+  "n": 7,
+  "domanda": "Cosa pensa di me la mia collega?",
+  "risposta": "Puoi conoscere meglio la tua collega soltanto se mostri qualcosa di te. Non puoi sapere cosa pensa se non ti fai vedere. Sii disponibile a parlare con lei.",
+  "azione": "Domani mattina, prima di iniziare a lavorare, saluta la tua collega e chiedi come ha passato la serata.",
+  "fonti": "{scena: modello, titolo: modello: seconda chiamata, risposta: modello, gesto: modello}"
+ },
+ "V066": {
+  "file": "es2_esecuzione1",
+  "n": 4,
+  "domanda": "Lascio il lavoro in banca per aprire la mia bottega di ceramica?",
+  "risposta": "I segni del viaggio dicono di sì, se hai un piano chiaro per la tua bottega. La decisione di lasciare il lavoro è grande e richiede preparazione. Valuta i tuoi prossimi passi con attenzione.",
+  "azione": "Metti un limite di tempo, poi rispettalo.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: riserva: chiedeDiScrivere}"
+ },
+ "V067": {
+  "file": "es2_esecuzione1",
+  "n": 3,
+  "domanda": "Lascio il lavoro in banca per aprire la mia bottega di ceramica?",
+  "risposta": "I segni del viaggio dicono di sì, se ti senti di mettere radici in un nuovo terreno. Non ti serve una certezza assoluta, ma una direzione chiara per la tua bottega. Valuta chi può accompagnarti in questo inizio.",
+  "azione": "Entro giovedì vai a visitare una bottega di ceramica che ammiri. Parla con chi la gestisce e chiedi un consiglio pratico.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}"
+ },
+ "V068": {
+  "file": "es3_esecuzione2",
+  "n": 18,
+  "domanda": "Come faccio a sentirmi meno sola la sera?",
+  "risposta": "Smetti di aspettare le serate, ma agisci per renderle come vuoi. Non devi sentirti intrappolata nel ricordo di serate passate. Puoi scegliere di costruire qualcosa di nuovo.",
+  "azione": "Entro domani sera scrivi un messaggio a una persona con cui non parli da tempo, ma con cui hai dei bei ricordi.",
+  "fonti": "{scena: modello, titolo: modello: seconda chiamata, risposta: modello, gesto: modello}"
+ },
+ "V069": {
+  "file": "es3_esecuzione1",
+  "n": 6,
+  "domanda": "Il mio cane è malato, cosa devo fare?",
+  "risposta": "Porta il tuo cane nel luogo che sente come casa. Lascia che riposi lì e che senta la tua vicinanza.",
+  "azione": "Oggi pomeriggio, se il tuo cane lo consente, prendilo in braccio e portalo nel suo posto preferito della casa.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello}"
+ },
+ "V070": {
+  "file": "es2_esecuzione2",
+  "n": 18,
+  "domanda": "Come faccio a sentirmi meno sola la sera?",
+  "risposta": "I segni del viaggio dicono di sì, se ti permetti di riconoscere quello che già c'è. Il tuo sentirti meno sola la sera può iniziare dal guardarti intorno con occhi nuovi. Non sempre l'assenza è vuoto.",
+  "azione": "Stasera, prima di dormire, scegli un oggetto che ti piace in casa tua. Prendilo in mano e tieni gli occhi chiusi per un minuto. Lascia che la sensazione ti avvolga.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello: seconda chiamata}"
+ },
+ "V071": {
+  "file": "es2_esecuzione2",
+  "n": 10,
+  "domanda": "Mia madre non accetta la mia compagna, cosa faccio?",
+  "risposta": "I segni del viaggio indicano un passo da fare: è quello qui sotto.",
+  "azione": "Metti un limite di tempo, poi rispettalo.",
+  "fonti": "{scena: modello, titolo: riserva: statoDiUnTerzo, risposta: riserva con la posizione un gesto da fare: nonPrendePosizione, gesto: riserva: chiedeDiScrivere}"
+ },
+ "V072": {
+  "file": "es3_esecuzione1",
+  "n": 12,
+  "domanda": "Mio fratello non mi parla da mesi, lo chiamo io?",
+  "risposta": "I segni del viaggio dicono di sì, chiama tuo fratello, ma prima chiedi a un conoscente in comune come sta. Puoi fare la tua parte senza aspettarti una risposta immediata.",
+  "azione": "Oggi pomeriggio contatta un amico o un parente in comune e chiedigli come sta tuo fratello.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}"
+ },
+ "V073": {
+  "file": "es3_esecuzione2",
+  "n": 1,
+  "domanda": "Mi trasferisco a Berlino per lavoro?",
+  "risposta": "I segni del viaggio dicono di sì, se prima chiedi a chi ti ha fatto la proposta il nome del tuo referente diretto a Berlino.",
+  "azione": "Domani mattina chiedi ai tuoi contatti a Berlino quali sono i tre quartieri che suggeriscono per vivere. Non chiedere altro.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: prima frase di una risposta scartata, gesto: modello}"
+ },
+ "V074": {
+  "file": "es2_esecuzione1",
+  "n": 5,
+  "domanda": "Il mio cane è malato, cosa devo fare?",
+  "risposta": "Parla con il veterinario oggi stesso per capire le opzioni. I segni del viaggio indicano che devi agire per il tuo cane. Hai bisogno di tutte le informazioni disponibili.",
+  "azione": "Oggi pomeriggio, contatta il veterinario e chiedi un appuntamento per discutere della situazione e delle possibili cure.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello}"
+ },
+ "V075": {
+  "file": "es2_esecuzione2",
+  "n": 13,
+  "domanda": "Accetto l'offerta di lavoro a Milano anche se guadagno meno?",
+  "risposta": "I segni del viaggio dicono di sì, se sai che cosa vuoi ottenere da questo cambiamento. Milano può offrirti molto. Non basare questa decisione solo sull'aspetto economico attuale.",
+  "azione": "Prendi carta e penna e fai l'elenco di chi può aiutarti.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: riserva: senzaTempo}"
+ },
+ "V076": {
+  "file": "es2_esecuzione2",
+  "n": 11,
+  "domanda": "Mio fratello non mi parla da mesi, lo chiamo io?",
+  "risposta": "I segni del viaggio dicono di sì, se prima di chiamarlo metti in ordine i tuoi pensieri. Tu puoi fare il primo passo per riavvicinarti. Puoi chiarire a te chi sei e cosa vuoi da questa relazione.",
+  "azione": "Entro domani sera invia un messaggio a tuo fratello con una sola domanda su un vostro ricordo d'infanzia.",
+  "fonti": "{scena: modello, titolo: riserva: statoDiUnTerzo, risposta: modello, gesto: modello}"
+ },
+ "V077": {
+  "file": "es2_esecuzione1",
+  "n": 8,
+  "domanda": "Cosa pensa di me la mia collega?",
+  "risposta": "Chiedi alla tua collega ciò che vuoi sapere. Non puoi sapere cosa pensano gli altri se non glielo domandi. Puoi costruire il vostro rapporto con onestà.",
+  "azione": "Oggi, all'inizio della giornata lavorativa, fai alla tua collega una domanda diretta su un aspetto del vostro lavoro.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello}"
+ },
+ "V078": {
+  "file": "es2_esecuzione2",
+  "n": 20,
+  "domanda": "Devo dire a Marco che mi piace?",
+  "risposta": "I segni del viaggio dicono di sì. Puoi dirgli che ti piace. È il momento giusto per farlo.",
+  "azione": "Domattina, scrivi a Marco e proponigli di vedervi per un caffè, senza altri impegni.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: modello}"
+ },
+ "V079": {
+  "file": "es2_esecuzione2",
+  "n": 2,
+  "domanda": "Mi trasferisco a Berlino per lavoro?",
+  "risposta": "I segni del viaggio dicono di sì, se conosci la vera motivazione del tuo trasferimento a Berlino. Spesso un cambiamento importante nasconde desideri più profondi. Trova la ragione autentica che ti spinge a fare questo passo.",
+  "azione": "Metti un limite di tempo, poi rispettalo.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello, gesto: riserva: chiedeDiScrivere}"
+ },
+ "V080": {
+  "file": "es2_esecuzione2",
+  "n": 3,
+  "domanda": "Lascio il lavoro in banca per aprire la mia bottega di ceramica?",
+  "risposta": "I segni del viaggio dicono di sì, se prima chiedi un consiglio pratico. La tua bottega ha bisogno di una base solida. Non è una scelta da fare alla cieca.",
+  "azione": "Entro venerdì, contatta almeno una persona che ha una bottega di ceramica e chiedi un'ora del suo tempo per una chiacchierata informale.",
+  "fonti": "{scena: modello, titolo: modello, risposta: modello: seconda chiamata, gesto: modello}"
+ }
+}

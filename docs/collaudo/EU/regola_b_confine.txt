@@ -1,0 +1,5 @@
+REGOLA B, EU Aggiunta, 1 ottobre 2026: la guardia del confine vista rossa prima di toccarlo.
+INNESTO B1 il futuro in seconda persona tolto dalle forme della previsione: grep del difetto nel file SI; prova test/il_confine_del_responso_test.dart ROSSA; file rimesso sha1 69fe7aa34407 -> 69fe7aa34407 IDENTICO
+REGOLA A, la regola nuova del futuro della scelta vista rossa:
+INNESTO A1 il futuro della scelta non si toglie piu: grep del difetto nel file SI; prova test/il_confine_del_responso_test.dart ROSSA; file rimesso sha1 ab2f8692aac6 -> ab2f8692aac6 IDENTICO
+INNESTO A2 il futuro della scelta preso largo, ogni futuro: grep del difetto nel file SI; prova test/il_confine_del_responso_test.dart ROSSA; file rimesso sha1 ab2f8692aac6 -> ab2f8692aac6 IDENTICO

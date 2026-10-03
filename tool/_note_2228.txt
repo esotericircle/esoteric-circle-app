@@ -1,0 +1,115 @@
+Build 2228. La Costellazione del Viso, rifatta vera.
+
+Questa build porta le prime tre tappe dell'ordine CR. La quarta, il wow e la
+card, non c'e' ancora, e lo dico subito invece che in fondo.
+
+PERCHE' UN MURO TI DAVA UN RESPONSO.
+
+Era una riga sola. Nel momento dello scatto c'era scritto: prendi i contorni
+del volto rilevato, OPPURE, se non ce ne sono, prendi la sagoma neutra. Quella
+sagoma e' un volto disegnato a mano, nato per il ripiego tattile e per le
+anteprime: proporzioni scelte da una persona, non misurate su nessuno.
+
+Davanti a un muro il rilevatore non trovava mai un volto, quella sagoma entrava
+al suo posto, e la lettura proseguiva identica a quella di un viso vero. La
+stessa riga stava anche nella scena, e disegnava la costellazione SOPRA IL MURO.
+
+Adesso o c'e' un volto rilevato, o non si passa. Il ripiego tattile resta, ma si
+sceglie: non si attiva piu' da solo al posto di una scansione fallita.
+
+UNA COSA CHE TI ALLEGGERISCE, E L'HO MISURATA.
+
+I tratti NON erano falsi. Il codice calcolava gia' rapporti veri su misure vere:
+larghezza del volto a tre altezze, distanza e grandezza degli occhi, naso,
+labbra, bocca, mento, mascella. Nessun hash, nessun sorteggio. Era il DATO IN
+INGRESSO a essere inventato, non la geometria.
+
+IL MOTORE NUOVO.
+
+L'app usava ML Kit, che per il volto dettagliato ha la documentazione solo per
+Android e non da' i coefficienti dell'espressione: sarebbero state due funzioni
+diverse su due telefoni diversi. Adesso c'e' MediaPipe: 478 punti del viso,
+l'iride, gli angoli della testa e 52 coefficienti dell'espressione, su Android e
+su iPhone allo stesso modo.
+
+QUANTO COSTA, MISURATO SULL'ARCHIVIO E NON STIMATO: l'app passa da 176,8 a 193,3
+megabyte, cioe' quindici e sette in piu'. E il minimo Android sale da 6.0 a 7.0,
+quindi chi ha un telefono del 2015 non la installa piu'.
+
+LA SCANSIONE A QUATTRO POSE.
+
+Non fai piu' una foto: compi una scansione. Prima ti aggancia guardando dritto,
+poi ti chiede un movimento alla volta: destra, sinistra, in alto, in basso. Ogni
+posa vale solo se tieni l'angolo per il tempo richiesto, e se lo perdi quella
+posa ricomincia, non si salta avanti.
+
+IL FASCIO DI LUCE NON E' UN ORNAMENTO, ed e' la parte che si vede: la lama
+scende CON LA TENUTA DELLA POSA e si ferma nell'istante in cui perdi l'angolo.
+Quel movimento e' la misura, non una decorazione che gira sempre uguale.
+
+E LE QUATTRO POSE SONO LA PROVA CHE SEI VIVO: una fotografia stampata o una
+faccia su uno schermo non girano la testa. Misurato: restando immobili si
+compiono zero pose su quattro.
+
+LE SOGLIE NON LE HA MISURATE NESSUNO, E LO DICO.
+
+Venti gradi per girarsi, quindici per alzare o abbassare il mento, otto decimi
+di secondo di tenuta. Sono valori ragionati, non misurati su un telefono: non ne
+avevo uno collegato. Provale e dimmi se le pose sono troppo facili o
+impossibili.
+
+Nel progetto resta accesa una prova ROSSA APPOSTA finche' quei numeri non
+vengono misurati davvero. Non si spegne scrivendo codice: si spegne quando
+qualcuno li misura e scrive su quale telefono.
+
+L'ESPRESSIONE DEL MOMENTO.
+
+I tratti dicono come sei e non cambiano. L'espressione dice come sei ADESSO, e
+cambia ogni volta. Sono due letture separate e non si mescolano mai.
+
+E QUI C'E' UN CONFINE CHE NON HO SUPERATO: non ti diro' mai che sei triste,
+stanco o preoccupato. Il motore misura muscoli, non stati d'animo. Un volto teso
+puo' essere concentrato, o uno che ride trattenendosi. Quello che leggi e' cosa
+sta facendo il tuo viso, restituito come uno specchio: "le sopracciglia sono
+alzate", non "sei preoccupato".
+
+IL MIAN XIANG, E COSA NON HO POTUTO VERIFICARE.
+
+Ho aggiunto la fisiognomica cinese accanto alla Personologia. I due testi
+classici sono il Shenxiang quanbian dei Ming e il Mayi shenxiang dei Song, e la
+fonte accademica e' Livia Kohn, Asian Folklore Studies 45/2 del 1986.
+
+MA QUELL'ARTICOLO NON L'HO LETTO: il PDF risponde 404, JSTOR non si apre.
+Ho i dati bibliografici, non il testo.
+
+Percio' i DODICI PALAZZI non ci sono. L'elenco delle zone non l'ho trovato su
+nessuna fonte verificabile, e i siti divulgativi non concordano nemmeno sui
+nomi. Scriverli lo stesso sarebbe stato dare qualcosa che SEMBRA documentato.
+
+E gli ufficiali sono quattro invece di cinque: il quinto sono le orecchie, che
+MediaPipe non vede e la fotocamera frontale spesso non inquadra. Un ufficiale
+che non si vede non si legge.
+
+Dei cinque elementi ne assegno quattro: il Metallo si riconosce dalla
+regolarita', che e' una misura che ancora non faccio. Meglio quattro veri che
+cinque di cui uno a caso.
+
+NULLA ESCE DAL TUO TELEFONO, E L'HO VERIFICATO NEL CODICE.
+
+Diciannove file toccano il volto e nessuno conosce la rete. Non e' una promessa:
+se non c'e' un modo di mandare qualcosa, niente parte. Su disco restano la data,
+il nome del tratto e quanto e' marcato: nessuna immagine, nessuna coordinata,
+nessun coefficiente. E stanno sotto la chiave che la cancellazione porta via.
+
+COSA MANCA ANCORA.
+
+La funzione ripetibile, cioe' la scansione breve dei ritorni. La maschera che
+segue il volto in tre dimensioni, la costellazione che reagisce alla tua
+espressione, i colori dei cinque elementi sulle zone, la composizione finale che
+si stacca dal viso. E la card rifatta.
+
+E UNA COSA CHE NON HO POTUTO PROVARE: il motore nuovo non l'ho mai visto girare
+su un telefono. Compila, ma se la scansione non si aggancia o le pose non
+scattano, lo scoprirai tu per primo.
+
+DA FARE DAL TUO PC: niente.

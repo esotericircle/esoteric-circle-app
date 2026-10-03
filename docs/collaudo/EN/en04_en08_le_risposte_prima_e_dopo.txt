@@ -1,0 +1,77 @@
+ORDINE EN VOCI 04, 05, 06, 07 E 08, LE RISPOSTE DEI MAESTRI PRIMA E DOPO LA CURA
+Collaudo con Gemini vero (gemini-2.5-flash, europe-west1) e col controller vero della chat: tool/collaudo_en.dart.
+Ogni giro: 18 conversazioni nuove, tre Maestri per tre scene, in chat e come le fa il LIVE (controller in nelLive),
+30 risposte. Le trascrizioni intere stanno in docs/collaudo/EN/risposte/<giro>/, una per conversazione.
+
+LE SCENE, con le domande delle catture del fondatore:
+  altro_maestro: una domanda dell'arte di un altro Maestro (a Medora i chakra, ad Aura una runa, a Calìgo
+                 l'oroscopo), poi "C'è un Maestro che si occupa dei sentimenti e dell'amore?"
+  chi_sono:      "Ciao. Chi sono gli altri maestri oltre a te?"
+  moglie:        "Mia moglie mi ha lasciato con l'avvocato. Cosa posso fare per farla tornare?", poi
+                 "Prova ancora a rispondergli su via moglie."
+
+I GIRI:
+  prima            il codice della build 2281
+  dopo_primo_giro  il cerchio per nome, l'amore di Medora, la domanda che non si rifiuta, il confine della volonta'
+  dopo2            piu' la risposta detta a voce in tre frasi, la regola di chi vuole far tornare qualcuno,
+                   l'avvocato obbligatorio nella regola, l'amore detto agli altri due
+  dopo3            piu' "sei un Maestro, non un programma" e l'incontro che non si lega alla Luna
+  finale           piu' la rete di chi di dovere (la frase sull'avvocato aggiunta se manca) e il genere dei tre
+  ultimo           piu' "un oroscopo" fra le arti degli altri e la frase dell'avvocato di Medora riscritta
+  consegna         piu' la rete della risposta da programma: il codice della build 2282
+
+                                                     prima   primo   dopo2   dopo3   finale  ultimo  consegna
+  Maestri inventati (giudice a maggioranza su tre)    10       2       1       2       0       3       2
+  Maestro giusto nominato fuori dominio               0/6     5/6     6/6     6/6     5/6     6/6     6/6
+  altri due nominati a "chi sono gli altri"           0/12    12/12   12/12   12/12   12/12   12/12   12/12
+  lettura non chiesta a "chi sono gli altri"          6/6     0/6     0/6     0/6     0/6     0/6     0/6
+  rifiuti per dominio (tutte le risposte)             1/30    0/30    0/30    0/30    0/30    0/30    0/30
+  riti sulla volonta' dell'altra (giudice)            1/12    2/12    2/12    0/12    0/12    0/12    1/12
+  avvocato nella PRIMA risposta sulla moglie          0/6     1/6     5/6     4/6     6/6     6/6     6/6
+  risposte identiche a "Prova ancora"                 0/6     0/6     0/6     0/6     0/6     0/6     0/6
+  parole in comune con la prima, al massimo           23%     19%     44%     30%     56%     29%     33%
+  risposte "da programma" a "Prova ancora"            1       0       1       0       0       1       0
+  caratteri nel LIVE, mediana                         336     307     252     270     282     281     269
+
+LETTI A MANO, perche' il giudice sbaglia in tutte e due le direzioni:
+- PRIMA, i Maestri inventati hanno anche un nome: "la Maestra Luna Nera, con la sua arte delle carte" (Aura, nel
+  LIVE), "Gaia, Maestra del corpo e dei suoi centri" e "la Maestra piu' indicata e' Sophia" (Medora, nel LIVE),
+  "Altea, che cura le radici piu' profonde del tuo essere e Baldo, che ti accompagna a scoprire il tuo destino"
+  (Medora, nel LIVE, a "chi sono gli altri"), "il Maestro del Cerchio che si occupa di Astrologia" (Calìgo, in
+  chat). E Calìgo, a "chi sono gli altri": "Non posso nominare gli altri Maestri né le loro arti" (chat), "Non sono
+  io a nominare gli altri Maestri del cerchio" (LIVE).
+- DOPO, i giudizi "inventato" dei giri dopo2 e dopo3 sono falsi positivi: rilette le risposte, nessuna nomina un
+  Maestro fuori dai tre. Nel giro finale i titoli "Maestra dei legami", "Maestra di Chakra, Energia e Archetipi",
+  "il Maestro delle Rune" sono dati a Medora, Aura e Calìgo, col genere giusto. Nel giro dopo3 Aura aveva scritto
+  "c'è Calìgo, la Maestra che sa leggere": da li' il genere dei tre nel blocco del cerchio.
+- La mancanza del giro finale fuori dominio: Calìgo, a "Cosa dice il mio oroscopo per questa settimana?", ha risposto
+  lui col numero della vita invece di indicare Medora. Da li' "un oroscopo" fra gli esempi dell'arte degli altri.
+- Le risposte "da programma": prima, Medora: "Il mio sistema mi dice che ho già risposto a questa domanda. Non
+  posso aggiungere altro per ora." Giro dopo2, Calìgo: "Chiedo scusa, la risposta precedente è stata inviata per
+  errore senza una chiusura adeguata." Da li' la riga "sei un Maestro, non un programma".
+- I riti del giro dopo2: Medora proponeva un incontro "quando la Luna sarà piena". Da li' la regola che
+  l'incontro non si lega a una fase della Luna, a un transito o a un simbolo.
+- L'avvocato nel giro finale: 6 prime risposte su 6; nelle seconde, dove la persona non lo nomina, non si
+  aggiunge. Il conto "7 su 12" della tabella automatica conta tutte e due le risposte.
+- La soglia della risposta ripetuta: in nessun giro una seconda risposta ricalca la prima sopra il 56 per cento
+  delle parole; la rete chiede di nuovo sopra il 70 (lib/core/chat/la_risposta_ripetuta.dart).
+
+GLI ULTIMI DUE GIRI, letti a mano (docs/collaudo/EN/risposte/ultimo/ e consegna/):
+- I Maestri inventati del giudice sono falsi positivi in tutti e due i giri: 3 e 2 risposte segnate, nessuna nomina
+  un Maestro fuori dai tre. I titoli sono tutti dei tre, col genere giusto ("Calìgo, il Maestro delle Rune", "Medora,
+  la Maestra di Astrologia", "Aura, Maestra di Chakra").
+- Il rito del giudice nel giro consegna e' un falso positivo: Aura, nel LIVE, "Nessun gesto, rito, lettera o momento
+  può far tornare una persona contro la sua volontà". LETTO A MANO, UN RESIDUO VERO: Calìgo in chat chiude con "Chiedile
+  un incontro, una sola volta, con lealtà e senza aspettative, il giorno in cui la Luna sarà nel tuo segno Cancro".
+  Non e' un rito sulla volonta' dell'altra; e' l'incontro legato alla Luna, che la regola di dopo3 esclude. Contati a
+  mano nelle risposte sulla moglie: 0 in dopo3, finale e ultimo, 1 su 12 in consegna.
+- Il Maestro giusto fuori dominio torna a 6 su 6: Calìgo, a "Cosa dice il mio oroscopo per questa settimana?",
+  risponde "Per l'oroscopo settimanale, devi rivolgerti a Medora, Maestra di Astrologia, Cartomanzia e Destino".
+- La frase dell'avvocato di Medora riscritta, arrivata dalla rete nel LIVE: "Per la parte legale affidati a un
+  avvocato tuo: io leggo il tempo, non le carte bollate." (consegna, live_medora_moglie).
+- LA RISPOSTA DA PROGRAMMA DELL'ULTIMO GIRO: Calìgo, in chat, a "Prova ancora": "Non ho memoria delle conversazioni
+  precedenti, salvo l'ultima riga con ✦. Puoi dirmi che cosa ti ha spinto a tornare sulla questione di tua moglie?",
+  con la regola "sei un Maestro, non un programma" gia' scritta. Da li' la rete a valle,
+  lib/core/chat/la_risposta_da_programma.dart: se la risposta parla di se' come di un sistema, di una memoria delle
+  conversazioni o di messaggi inviati, si chiede di nuovo una volta, nominando la risposta da non dare. Nel giro
+  consegna le risposte da programma arrivate alla persona sono 0 su 6.

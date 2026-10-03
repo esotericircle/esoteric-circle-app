@@ -1,0 +1,19 @@
+ORDINE ET VOCE 09: IL TESTO DEL RETRO DELLE SCHEDE SI LEGGE, 28 settembre 2026
+
+Prova: test/il_retro_delle_schede_si_legge_test.dart (guardia nuova, per ogni arte della home e per ogni formato gira la scheda con la i e misura in punti veri la didascalia del retro, in home e alla larghezza dei domini).
+
+== PRIMA (commit 5fac9a89, il FittedBox che rimpicciolisce il testo dentro la scheda)
+ORDINE ET VOCE 9: arti della home 67, coppie arte e formato 74; testo del retro nei domini 15.9 punti; il piu' piccolo in home: orizzontale 5.0, quadrata 8.4, verticale 7.7; arti col testo del retro rimpicciolito in home 67 su 67
+
+== DOPO (il retro grande della home, alla misura dei domini)
+ORDINE ET VOCE 9: arti della home 67, coppie arte e formato 74; testo del retro nei domini 15.9 punti; il piu' piccolo in home: orizzontale 15.9, quadrata 15.5, verticale 14.3; arti col testo del retro rimpicciolito in home 0 su 67
+
+Le righe arte per arte in retro_delle_schede_prima.txt e retro_delle_schede_dopo.txt.
+
+== Regola B, ET.09: il retro perde le informazioni dell'arte
+   file lib/features/schede/la_scheda_dell_arte.dart, sha1 prima 20b98510ad0a, innesto verificato col grep: si
+   esito: codice 1, ROSSA
+   ultima riga: 00:01 +0 -1: Some tests failed.
+   Expected: exactly one matching candidate
+   Actual: _KeyWidgetFinder:<Found 0 widgets with key [<'scheda_informazioni_rune_draw'>]: []>
+   ripristinato: sha1 20b98510ad0a, uguale

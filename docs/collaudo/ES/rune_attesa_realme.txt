@@ -1,0 +1,25 @@
+ORDINE ES VOCE 24: L'ATTESA DELLA LETTURA DELLE RUNE SUL REALME, DIECI GETTATE. 30 settembre 2026.
+
+Build di prova del commit 9deede23 sul Realme 767f596c, conto di collaudo, Le tre Norne con la domanda
+"Nel lavoro, quale passo fare?". Dieci volte di fila "Getta ancora". Il momento in cui la lettura arriva si
+legge dall'albero dello schermo (uiautomator): sotto "Il presagio di Calìgo" la riga "Calìgo sta leggendo le
+pietre" lascia il posto al testo. Mentre la schermata si muove l'albero si legge in circa cinque secondi, quindi
+ogni riga dice due istanti: l'ultimo in cui la lettura non c'era e il primo in cui c'era. La misura vera
+dell'attesa del modello resta quella del banco (tempo mediano della chiamata 4,9 e 7,3 secondi); questa dice che
+sul telefono, dieci volte su dieci, la lettura e' a schermo entro il secondo istante.
+
+Lo script e' scratchpad es/gettate.py.
+
+gettata 1: la lettura arriva fra 0.4 e 6.5 s dal tocco, alberi letti 2, alle 12:27:33: Le rune indicano che il passo da fare nel lavoro è ascoltare con maggiore attenzione, prima di agire.
+gettata 2: la lettura arriva fra 0.4 e 5.5 s dal tocco, alberi letti 2, alle 12:27:48: Le rune ti indicano di definire con fermezza i tuoi confini nel lavoro. Questo ti permetterà di raccogliere i 
+gettata 3: la lettura arriva fra 0.6 e 6.9 s dal tocco, alberi letti 2, alle 12:28:04: Le pietre indicano di ritrovare il passo comune con chi ti affianca nel lavoro e di non trattenere ciò che hai
+gettata 4: la lettura arriva fra 0.6 e 5.7 s dal tocco, alberi letti 2, alle 12:28:19: Nel lavoro, è il momento di avanzare con decisione. Le rune mostrano che la tua forza ti porta a cogliere i fr
+gettata 5: la lettura arriva fra 0.5 e 5.9 s dal tocco, alberi letti 2, alle 12:28:34: Le rune mostrano che è tempo di raccogliere i frutti del tuo impegno nel lavoro, per poi investire le tue riso
+gettata 6: la lettura arriva fra 0.5 e 5.8 s dal tocco, alberi letti 2, alle 12:28:49: Le pietre indicano che è il momento di un passo deciso nel tuo lavoro, una scelta che chiarisca la direzione.
+gettata 7: la lettura arriva fra 0.4 e 5.8 s dal tocco, alberi letti 2, alle 12:29:04: Le pietre indicano di rallentare il passo, non di fermarti, per ritrovare il giusto ritmo nel lavoro.
+gettata 8: la lettura arriva fra 0.4 e 6.0 s dal tocco, alberi letti 2, alle 12:29:20: Le rune ti indicano di non forzare gli eventi nel lavoro, la strada è di attendere il momento propizio per agi
+gettata 9: la lettura arriva fra 0.6 e 6.3 s dal tocco, alberi letti 2, alle 12:29:35: Le rune ti indicano di non isolarti nel lavoro e di curare i legami con chi ti circonda.
+gettata 10: la lettura arriva fra 0.4 e 5.5 s dal tocco, alberi letti 2, alle 12:29:49: Nel lavoro, è tempo di una pausa necessaria. Non forzare il corso degli eventi, ma osserva e attendi il moment
+
+Gettate 10; lettura a schermo entro 6.9 secondi dal tocco in 10 su 10 (la piu' lenta 6.9, la piu' svelta 5.5); prime frasi che cominciano dalla cosa chiesta (il passo nel lavoro) 10 su 10, lette a mano 10 su 10.
+Catture: docs/collaudo/ES/realme/es24_rune_pietre.jpg, es24_rune_lettura.jpg, es24_rune_decima_gettata.jpg.
