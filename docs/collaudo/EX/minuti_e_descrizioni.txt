@@ -48,4 +48,4 @@ Il documento del costo: docs/costi/costo_per_utente_dopo_ex.md, sezione "Dopo le
 DOMANDA: "Si fammi aggiunta ordine con aumento limiti di minuti. Ci saranno da cambiare anche le descrizione degli abbonamenti"
 PROVA: docs/collaudo/EX/minuti_e_descrizioni.txt
 MISURA: minuti del LIVE al mese, prima 0/0/60/120, dopo 0/0/80/150 nella matrice e nel server; posti dell'app con un numero diverso dalla matrice, prima 2 frasi delle card (piu' il server), dopo 0; testi degli store lasciati stare per decisione del fondatore; costo al mese al massimo, Adepto 4,58 e Illuminato 6,93 dollari, sotto il tetto 2 su 2.
-LE CATTURE DAL REALME delle card dei piani: docs/collaudo/EX/realme/ (le aggiunge il collaudo della build nuova).
+LE CATTURE DAL REALME delle card dei piani e della tabella del confronto, build 2295: docs/collaudo/EX/realme/ag6_piani_01 ... ag6_piani_08, descritte in docs/collaudo/EX/realme/ex12_e_piani_2295.txt. A video: Viandante "Tre domande al giorno", Iniziato 12, Adepto 18 domande e 80 minuti, Illuminato 22 domande e 150 minuti; nella tabella 3/12/18/22 al giorno e No/No/80/150 al mese.

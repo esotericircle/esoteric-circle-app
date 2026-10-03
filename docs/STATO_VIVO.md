@@ -6507,7 +6507,12 @@ verifica (EX.04), tre aperte (EX.05, EX.07, EX.10)**, piu' l'EX Aggiunta 3
 (anche EX.04), tre aperte (EX.05, EX.07, EX.10); build 2294 consegnata su
 App Tester dal commit `6d96fb91` col cancello verde (release
 `4l2al7v4k1480`), lo stesso commit pronto per Codemagic; nessuna funzione
-del server da pubblicare.** **Build 2293 consegnata su App Tester** il 2 ottobre
+del server da pubblicare.** **Dopo le EX Aggiunte 5 e 6 (3 ottobre 2026):
+dodici voci, undici chiuse (anche EX.05, EX.10 e la nuova EX.12), una aperta
+(EX.07, le chiamate per risposta 1,38, 1,29 e 1,25 sopra l'1,3 in un giro);
+build 2295 consegnata su App Tester dal commit `aafdd96b` col cancello verde
+(release `12d92pon7vjao`), lo stesso commit pronto per Codemagic; **da
+ripubblicare dal fondatore `apriUnaSessioneLive`** per i minuti nuovi.** **Build 2293 consegnata su App Tester** il 2 ottobre
 2026 dal commit `2a811596` (release `2hhg5dlk19l30`, sbarramento 6.548 prove,
 solo i rossi accettati); lo stesso codice e' pronto per Codemagic. Dalla 2292
 le catture dello schermo sono permesse di base: la protezione solo con
@@ -6535,7 +6540,10 @@ le catture dello schermo sono permesse di base: la protezione solo con
   0/2/2/3, confronti 0/1/2/3, carte estratte 3/6/10/15 (la stesa consuma le
   sue carte, `consumaDelGiorno` con `quanti`; il riscatto da 150 Eos rende 3
   carte), stesa da 10 solo Adepto e Illuminato (`TarotSpreadType.apribileDa`,
-  oggi ancora Coming soon per tutti), gettate 1/2/3/3, minuti LIVE 0/0/60/120.
+  oggi ancora Coming soon per tutti), gettate 1/2/3/3, minuti LIVE 0/0/60/120
+  (**0/0/80/150 dall'EX Aggiunta 6** del 3 ottobre 2026, nella matrice, nelle
+  card e in `MINUTI_DEL_MESE`; guardia
+  `test/le_card_dei_piani_dicono_i_numeri_della_matrice_test.dart`).
   La riga "Tarocchi carta singola" non c'e' piu'. Card dei piani coi numeri
   nuovi. Il listino degli Eos (`listino_degli_eos.dart`) resta disallineato e
   non montato.
@@ -6581,7 +6589,8 @@ le catture dello schermo sono permesse di base: la protezione solo con
   cache dal telefono solo coi template, senza conversazione e senza
   funzioni; cosi' la via della cache sbagliava il cielo (7 contro 10 su 10) e
   scriveva un seguito piu' generico. La regola di Firestore che serve sta nel
-  documento, non nel repository.
+  documento, non nel repository. **CHIUSA con la cache spenta** dall'EX
+  Aggiunta 5 (il fondatore: "Resta spenta per ora").
 - **La penna dei Ricordi** (EX.06) chiama europe-west1.
 - **La correzione corta** (EX.07): quando una rete scarta una risposta si chiede
   una correzione corta (`chat_correzione`) con la memoria e il cielo del
@@ -6594,6 +6603,13 @@ le catture dello schermo sono permesse di base: la protezione solo con
   calcolato; la rete del lessico non conta le parole della persona e si conta.
   Chiamate per risposta 1,29 di media sui sette giri, 1,36 sul codice finale:
   resta APERTA per la rete del lessico ("sentire", "ascendente").
+  **Dall'EX Aggiunta 5** la parola riservata si corregge corta nel controller
+  (`MaestroChatController._ilLessicoDelTurno`, `LaVoceNonSiConfonde.correzione`),
+  dentro la correzione di un'altra rete quando c'e', col seguito pulito che
+  resta, e con la risposta intera se la corta non basta; solo con la voce
+  sorvegliata (`LaRichiestaDelTurno.ilLessicoLoCorreggeIlTurno`). Prova
+  `test/il_lessico_si_corregge_corto_test.dart`. Nessuna risposta peggiora;
+  chiamate 1,38, 1,29 e 1,25: resta APERTA.
 - **Il cielo di oggi** (EX.08) si calcola una volta al giorno e sta nella
   richiesta: per oggi la funzione non si chiama piu'.
 - **La memoria compatta** (EX.09): 8 messaggi di storia (era 20) piu' cio' che
@@ -6604,12 +6620,23 @@ le catture dello schermo sono permesse di base: la protezione solo con
   modello scrive due riserve di ogni testo nella stessa chiamata
   (`conLaRiserva`), l'istruzione dice per nome cio' che le guardie scartano;
   guardie invariate. Scena da 2,70 a 1,80-1,90 chiamate per discesa, merito
-  pari; APERTA, gli obiettivi 1,5 e 2,5 non sono raggiunti.
+  pari; gli obiettivi 1,5 e 2,5 non sono raggiunti. **CHIUSA** col risultato
+  misurato dall'EX Aggiunta 5 (il fondatore: "Sì, si chiude così").
 - **Il costo** (EX.11), al massimo in 30 giorni senza cache col LIVE: Iniziato
   1,28 $ (tetto 2,36), Adepto 3,34 (4,72), Illuminato 5,42 (7,08); prima 5,66,
   11,90, 31,73. Con le domande alzate dell'EX Aggiunta 3 2,18, 4,54 e 6,77; dopo
-  l'EX Aggiunta 4 (rune dal corpus) **1,88, 4,10 e 6,23**
+  l'EX Aggiunta 4 (rune dal corpus) **1,88, 4,10 e 6,23**; coi minuti 80 e
+  150 dell'EX Aggiunta 6 **1,91, 4,58 e 6,93**, sotto il tetto 3 su 3
   (`docs/costi/costo_per_utente_dopo_ex.md`).
+- **Il gesto in tutti i periodi** (EX.12, EX Aggiunta 5): Settimana, Mese e
+  Anno dell'oroscopo si aprono col gesto come il Giorno ("Interroga il cielo",
+  "Interroga la Luna", "Apri l'almanacco", `InterrogaIlCielo`), in tutte e
+  tre le tradizioni; anche l'oroscopo dell'amico, che ha solo il giorno. Ogni
+  periodo di ogni tradizione ha il suo consulto. Nella suite l'interruttore
+  `InterrogaIlCielo.ancheFuoriDalGiorno` e' spento
+  (`test/flutter_test_config.dart`) e lo riaccende
+  `test/il_gesto_in_tutti_i_periodi_test.dart`. **CHIUSA**, a video sul Realme
+  con la build 2295 (`docs/collaudo/EX/realme/ex12_e_piani_2295.txt`).
 - **Strumenti**: `tool/il_banco_della_qualita.dart` (30 casi, GIRO=nome),
   `tool/il_fascicolo_della_qualita.py` (fascicoli alla cieca e conti dei
   giudizi), `tool/i_conti_della_qualita.py`, `tool/i_conti_del_costo_ex.py`,

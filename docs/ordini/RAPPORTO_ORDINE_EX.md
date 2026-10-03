@@ -12,10 +12,25 @@
 - **EX.09**, la memoria compatta: `docs/collaudo/EX/memoria_compatta.txt`
 - **EX.11**, la misura finale: `docs/costi/costo_per_utente_dopo_ex.md`
 - **EX.04**, il Vai piu' a fondo gia' pronto (EX Aggiunta 4): `docs/collaudo/EX/realme/vai_piu_a_fondo_2294_registro.txt`
+- **EX.05**, la cache spenta, con la soglia e il motivo (EX Aggiunta 5): `docs/collaudo/EX/la_cache_garantita.txt`
+- **EX.10**, il Viaggio col risultato misurato (EX Aggiunta 5): `docs/collaudo/EX/la_scena_con_meno_scarti.txt`
+- **EX.12**, il gesto in Settimana, Mese e Anno (EX Aggiunta 5), a video sul Realme con la build 2295: `docs/collaudo/EX/realme/ex12_e_piani_2295.txt`
+- **EX Aggiunta 6**, i minuti del LIVE 80 e 150 e le descrizioni dei piani: `docs/collaudo/EX/minuti_e_descrizioni.txt`
 
 E l'EX Aggiunta 3, le domande alzate: `docs/collaudo/EX/le_domande_alzate.txt`.
 
 ## Le voci aperte, e che cosa manca
+
+**Dopo le EX Aggiunte 5 e 6 (3 ottobre 2026) resta aperta una voce sola,
+l'EX.07.** Le parole riservate si correggono corte e nessuna risposta
+peggiora (0 su 27 consegnate con una parola altrui, prima e dopo; alla cieca
+il codice finale e' pari o meglio su ogni misura), ma le chiamate per risposta
+sono 1,38, 1,29 e 1,25 nei tre giri finali: l'1,3 non regge in tutti i giri.
+Le chiamate in piu' vengono soprattutto dalla rete delle certezze. E
+l'attribuzione alla cieca arriva a 58 su 60 in un giro su tre (57, 58, 56),
+con l'istruzione identica a quella dell'Aggiunta 4.
+`docs/collaudo/EX/le_ultime_voci.txt`. Le righe qui sotto sono lo stato di
+prima, com'era.
 
 - **EX.04**, il Vai piu' a fondo scritto insieme: 20 tocchi su 24 senza
   chiamata (prima 0), 0,17 chiamate al tocco invece di 0. **Dopo l'EX
@@ -44,6 +59,29 @@ E l'EX Aggiunta 3, le domande alzate: `docs/collaudo/EX/le_domande_alzate.txt`.
 
 L'EX Aggiunta 4 per intero, con domanda, prova e misura di ogni voce:
 `docs/collaudo/EX/le_quattro_voci_sistemate.txt`.
+
+## La build 2295 e Codemagic (EX Aggiunte 5 e 6)
+
+- Build Android 2295 dal commit `aafdd96b` (cancello verde,
+  `refs/verde/aafdd96ba1bee2dc28bb48aaf3b2f20e62e60275`), consegnata su App
+  Tester il 3 ottobre 2026: release `12d92pon7vjao`, distribuita a
+  cloud@esotericircle.app, 1 invito accettato; `docs/versione_distribuita.json`
+  da 2294 a 2295.
+- La suite intera sul commit `cae0d3e5`: +6580 ~11 -11, sette rosse accettate
+  e quattro nuove, curate nel commit `aafdd96b` (padre: la prima stesura
+  dell'EX.07). Lo sbarramento sul commit `aafdd96b`: 6.584 prove, solo i rossi
+  accettati.
+- Per Codemagic: il commit `aafdd96b`, col cancello verde.
+- Sul Realme, la stessa build: Settimana, Mese e Anno col gesto nelle tre
+  tradizioni e l'oroscopo dell'amico (EX.12 chiusa); le card e la tabella dei
+  piani coi numeri della matrice.
+- **Una funzione del server da pubblicare, la pubblica il fondatore**:
+  `apriUnaSessioneLive`, l'unica che legge `MINUTI_DEL_MESE`. Da PowerShell,
+  nella copia di lavoro: `cd C:\Users\user\Desktop\esoteric-circle-app`,
+  `git pull`, `firebase deploy --only functions:apriUnaSessioneLive`. Finche'
+  non e' ripubblicata il server dice 60 e 120 minuti e le card 80 e 150.
+- I testi degli store: lasciati stare, i prodotti negli store non esistono
+  ancora (decisione del fondatore).
 
 ## La build 2294 e Codemagic (EX Aggiunta 4)
 
@@ -115,6 +153,26 @@ Al massimo 3,19 dollari di Gemini in europe-west1, nessun costo di Protoface
 
 ## I difetti, ognuno col padre
 
+Dalle EX Aggiunte 5 e 6:
+- La correzione corta del lessico toglieva la parola dalla risposta e la
+  rimetteva nel seguito che riscriveva: padre la prima stesura dell'EX.07 di
+  quest'aggiunta; curato (A29).
+- La correzione corta da sola consegnava 2 risposte su 27 con una parola
+  altrui contro 0 del codice di prima: padre la prima stesura dell'EX.07;
+  curato col ripiego sulla risposta intera (A30).
+- Quattro prove della suite intera rosse: la rete del lessico spostata nel
+  controller scattava anche con le voci finte, che non passano dalla voce
+  sorvegliata, e chiedeva la risposta intera due volte: padre la prima
+  stesura dell'EX.07; curato.
+- 28 prove dell'oroscopo rosse con le letture dietro il gesto, poi due per la
+  card della Settimana legata alla fase: padre la prima stesura dell'EX.12;
+  curato con l'interruttore spento nella suite e la condizione della card.
+- I conti del costo scritti da Python su Windows in cp1252: padre questa
+  aggiunta; rigenerati in UTF-8.
+- I giri del banco `ex07k` sovrascritto per un nome gia' usato
+  dall'Aggiunta 4: padre questa aggiunta; rimesso dal commit, i giri nuovi
+  hanno il prefisso `ag5_`.
+
 Dall'EX Aggiunta 4:
 - La preparazione del seguito partiva anche all'apertura della chat, una
   chiamata a ogni apertura: padre EX Aggiunta 4, EX.04; tolta.
@@ -181,6 +239,18 @@ Non toccato. Le differenze fra il Briefing e la matrice nuova stanno in
 `docs/costi/costo_per_utente_dopo_ex.md`, ultima sezione.
 
 ## Le decisioni prese con la scelta consigliata
+
+Dalle EX Aggiunte 5 e 6:
+- **La rete del lessico, dopo la correzione corta, ripiega sulla risposta
+  intera** quando la parola resta: la regola NESSUNA RISPOSTA PEGGIORA viene
+  prima del numero delle chiamate.
+- **Il controller corregge il lessico solo con la voce sorvegliata**, che
+  nell'app c'e' sempre: con le voci finte delle prove il turno resta com'era.
+- **L'interruttore del gesto fuori dal Giorno e' spento nella suite**
+  (`test/flutter_test_config.dart`) e riacceso nella sua prova, come il
+  seguito in sottofondo.
+- **L'amico ha solo il giorno**: Settimana, Mese e Anno non esistono per gli
+  amici, il gesto c'e' sul giorno.
 
 Dall'EX Aggiunta 4:
 - **La via della cache resta spenta** in tre punti (l'interruttore dell'app,

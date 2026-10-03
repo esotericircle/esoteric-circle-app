@@ -60,4 +60,6 @@ LA MISURA AL BANCO (test/il_gesto_in_tutti_i_periodi_test.dart, nata rossa, A26)
 - Periodi col gesto, per tradizione: prima 1 su 4 (solo il Giorno), dopo 4 su 4 nell'Occidentale, nella Vedica e nella Cinese (12 su 12).
 - Letture a video senza il tocco: dopo 0 su 12.
 - L'amico: prima le schede subito, dopo 0 schede prima del tocco e 4 dopo.
-STATO: APERTA IN ATTESA DI VERIFICA, finche' le catture dal Realme della build nuova non sono in docs/collaudo/EX/realme/.
+A VIDEO SUL REALME, build 2295, 3 ottobre 2026: Settimana, Mese e Anno nell'Occidentale, nella Vedica e nella Cinese, prima del tocco il pulsante e nessuna lettura, dopo il tocco la lettura (9 su 9); l'oroscopo dell'amico col pulsante e poi le schede. Catture e registro: docs/collaudo/EX/realme/ex12_e_piani_2295.txt.
+PROVA: docs/collaudo/EX/realme/ex12_e_piani_2295.txt
+STATO: CHIUSA.

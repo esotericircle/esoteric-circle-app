@@ -26,8 +26,8 @@ dello stesso codice e' di circa 2 o 3 punti per misura
 dollari (`docs/collaudo/EX/il_costo_delle_prove.txt`).
 
 VOCI_TOTALI: 12
-VOCI_CHIUSE: 10
-VOCI_APERTE: 2
+VOCI_CHIUSE: 11
+VOCI_APERTE: 1
 VOCI_DA_FARE: 0
 
 ## VOCE EX.01, I MINUTI DEL LIVE SCENDONO DAVVERO
@@ -334,7 +334,7 @@ MISURA: costo al mese al massimo per piano, prima 5,66, 11,90 e 31,73 dollari, d
 
 ## VOCE EX.12, IL GESTO ANCHE IN SETTIMANA, MESE E ANNO
 
-**APERTA IN ATTESA DI VERIFICA.** EX Aggiunta 5, 3 ottobre 2026. Il
+**CHIUSA.** EX Aggiunta 5, 3 ottobre 2026. Il
 fondatore: *"Nell'oroscopo il pulsante "interroga il cielo, la luna,
 l'almanacco" compaiono solo per il giornaliero mentre non c'è per settimanale,
 mensile e annuale"* (catture in `docs/collaudo/EX/catture_fondatore/`). Adesso
@@ -346,8 +346,13 @@ suono alla comparsa; ogni periodo di ogni tradizione ha il suo consulto, e la
 card da condividere compare solo dopo la lettura. Anche l'oroscopo dell'amico
 si apre col gesto; l'amico ha solo il giorno (Settimana, Mese e Anno non ci
 sono per gli amici). Guardia nuova nata rossa,
-`test/il_gesto_in_tutti_i_periodi_test.dart` (A26). Resta in attesa delle
-catture dal Realme con la build nuova.
+`test/il_gesto_in_tutti_i_periodi_test.dart` (A26). Guardato a video sul
+Realme con la build 2295 il 3 ottobre 2026: Settimana, Mese e Anno nelle tre
+tradizioni, prima e dopo il tocco, e l'oroscopo dell'amico.
+
+DOMANDA: "Nell'oroscopo il pulsante "interroga il cielo, la luna, l'almanacco" compaiono solo per il giornaliero mentre non c'è per settimanale, mensile e annuale"
+PROVA: docs/collaudo/EX/realme/ex12_e_piani_2295.txt
+MISURA: periodi col pulsante, prima 1 su 4 in ogni tradizione, dopo 4 su 4 nell'Occidentale, nella Vedica e nella Cinese (al banco 12 su 12; sul Realme Settimana, Mese e Anno 9 su 9); letture a video senza il tocco, dopo 0 (0 su 12 al banco, 0 su 9 sul Realme); l'oroscopo dell'amico, prima le schede subito, dopo 0 schede prima del tocco
 
 ## L'EX AGGIUNTA 6, I MINUTI DEL LIVE E LE DESCRIZIONI DEI PIANI
 
@@ -365,4 +370,9 @@ rossa, `test/le_card_dei_piani_dicono_i_numeri_della_matrice_test.dart` (A27).
 Funzione del server da ripubblicare: solo `apriUnaSessioneLive`, col comando
 scritto al fondatore; Code non la pubblica. Costo al mese al massimo, senza
 cache, LIVE compreso: Adepto 4,58 dollari (tetto 4,72), Illuminato 6,93
-(tetto 7,08). Prova: `docs/collaudo/EX/minuti_e_descrizioni.txt`.
+(tetto 7,08). Catture dal Realme con la build 2295, le card dei piani e la
+tabella del confronto: `docs/collaudo/EX/realme/ex12_e_piani_2295.txt`.
+
+DOMANDA: "Si fammi aggiunta ordine con aumento limiti di minuti. Ci saranno da cambiare anche le descrizione degli abbonamenti"
+PROVA: docs/collaudo/EX/minuti_e_descrizioni.txt
+MISURA: minuti del LIVE al mese, prima 0/0/60/120, dopo 0/0/80/150 nella matrice, nelle card e nel server; posti dell'app con un numero diverso dalla matrice, prima 2 frasi delle card, dopo 0 (al banco e a video sul Realme); testi degli store lasciati stare per decisione del fondatore; costo al mese al massimo sotto il tetto, Adepto 4,58 su 4,72 e Illuminato 6,93 su 7,08, 2 su 2
