@@ -328,8 +328,10 @@ void main() {
     // ottobre 2026, dai tre pezzi dell'ordine.
     'EW': 7,
     // EX: undici voci, contate coi titoli "## VOCE EX." del manifesto il 2
-    // ottobre 2026, dai tre pezzi dell'ordine e dalle due Aggiunte.
-    'EX': 11,
+    // ottobre 2026, dai tre pezzi dell'ordine e dalle due Aggiunte; dodici
+    // dal 3 ottobre, con l'EX.12 dell'EX Aggiunta 5 (il gesto in Settimana,
+    // Mese e Anno).
+    'EX': 12,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

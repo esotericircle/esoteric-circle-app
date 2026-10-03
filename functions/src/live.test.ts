@@ -247,7 +247,7 @@ test("tre sessioni contate fanno scendere i minuti rimasti della loro durata", (
   });
   const conto = dati as StatoDeiMinuti;
   assert.equal(conto.secondiUsati, 736);
-  assert.equal(secondiRimasti(MINUTI_DEL_MESE.tier2, conto), 3600 - 736);
+  assert.equal(secondiRimasti(MINUTI_DEL_MESE.tier2, conto), 4800 - 736);
 });
 
 test("un mese nuovo riparte da zero e i minuti finiti non si superano", () => {
@@ -255,7 +255,7 @@ test("un mese nuovo riparte da zero e i minuti finiti non si superano", () => {
     {mese: "2026-09", secondiUsati: 7200, daContare: {}}, "2026-10", []);
   assert.equal(vecchio.secondiUsati, 0);
   const finiti = ilContoDeiMinuti(
-    {mese: "2026-10", secondiUsati: 7300, daContare: {}}, "2026-10", []);
+    {mese: "2026-10", secondiUsati: 9100, daContare: {}}, "2026-10", []);
   assert.equal(secondiRimasti(MINUTI_DEL_MESE.tier3, finiti), 0);
   assert.ok(secondiRimasti(MINUTI_DEL_MESE.tier3, finiti) < SECONDI_MINIMI_PER_APRIRE);
 });
@@ -274,5 +274,5 @@ test("l'apertura conta prima di decidere, e la sessione aperta entra nel registr
   assert.ok(apri.includes("Math.min(DURATA_MASSIMA, Math.floor(restano))"));
   const chiudi = corpoDi("chiudiLaSessioneLive");
   assert.ok(chiudi.includes("contaLeSessioniFinite(uid)"));
-  assert.deepEqual(MINUTI_DEL_MESE, {free: 0, tier1: 0, tier2: 60, tier3: 120});
+  assert.deepEqual(MINUTI_DEL_MESE, {free: 0, tier1: 0, tier2: 80, tier3: 150});
 });

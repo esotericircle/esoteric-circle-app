@@ -1,0 +1,24 @@
+S24|SI|NA|SI|SI|SI|Retrogradi giusti (Venere, Saturno, Urano, Nettuno, Plutone); seguito con Venere in Scorpione e Saturno in Ariete corretti e nuovi. Ascendente non verificabile, al limite.
+S23|SI|NA|SI|SI|SI|Saturno retrogrado e Luna crescente in Acquario giusti; risposta specifica sul contratto e le clausole, seguito aggiunge. Il no alla firma è al limite.
+S22|SI|NA|NO|SI|NO|Seguito dice Ultimo Quarto e Venere retrograda, ma la Luna è crescente e Venere è diretta in Bilancia; contraddice anche il suo stesso testo.
+S21|SI|NA|NO|SI|NO|Seguito dice Luna all'ultimo quarto e poi in Cancro: il 15 novembre è crescente in Acquario. Cielo sbagliato anche nel seguito.
+S20|SI|NA|NO|SI|NO|Seguito dice Sole congiunto a Mercurio: sono a 18 gradi di distanza. Resto del cielo giusto, risposta nel merito.
+S19|SI|NA|SI|SI|SI|Retrogradi giusti; seguito aggiunge Venere in Scorpione e il resto, poi scivola sul generico. Al limite sul seguito.
+S18|SI|NA|SI|SI|NA|Luna in Cancro giusta, bisogno di nutrimento e candela blu come gesto concreto per stasera.
+S17|SI|NA|SI|SI|SI|Sole in Scorpione, Saturno retrogrado, Luna crescente in Acquario e quadratura con Mercurio tutti giusti; consiglio concreto sul contratto.
+S16|SI|NA|SI|SI|NA|Luna in Cancro giusta; gesto concreto con Ombra stasera. Nessun fatto di memoria elencato, quindi B NA.
+S15|SI|NA|NO|SI|SI|Dice Luna quadratura Plutone ma è congiunzione (orbo 2); quadratura con Mercurio giusta. Seguito aggiunge il passo dell'avvocato. Al limite.
+S14|SI|NA|NO|NO|NA|Non dice mai dove sia la Luna di stasera; temi familiari senza il fatto chiesto, risposta valida per chiunque.
+S13|SI|NA|SI|SI|SI|Retrogradi giusti, Venere in Scorpione e Saturno in Ariete giusti; seguito concreto e coerente.
+S12|SI|NA|NO|NO|NA|Non dice il segno della Luna di stasera; casa interiore e sicurezza restano generici. Il foglio con tre cose è concreto.
+S11|SI|NA|SI|SI|SI|Quadratura Sole Marte, Luna in Acquario e quadratura con Mercurio giuste; consigli concreti sulle clausole.
+S10|SI|NA|SI|SI|SI|Retrogradi giusti; seguito con Venere in Scorpione, Luna in Cancro e Saturno in Ariete corretto.
+S09|SI|NA|SI|SI|NA|Luna in Cancro giusta; lettera alla famiglia come azione concreta.
+S08|SI|NA|SI|SI|NA|Luna in Cancro e Ultimo quarto giusti; lettera a tua madre come azione. Nessun fatto di memoria elencato.
+S07|NO|NA|NO|NO|NO|Prima risposta dice di non aver capito e non dà il fatto; il seguito omette Venere retrograda e si contraddice con la risposta.
+S06|SI|NA|SI|SI|NA|Luna in Cancro giusta; lista di tre cose come azione concreta.
+S05|SI|NA|SI|SI|SI|Retrogradi giusti; seguito con Venere in Scorpione e Saturno in Ariete corretto. Nessun fatto di memoria elencato, quindi B NA.
+S04|NO|NA|NO|NO|NO|Chiede di riformulare una domanda chiara, parla di funzione del cielo, nel seguito compare il segnaposto CHIEDO. Nessun fatto dato.
+S03|SI|NA|SI|SI|SI|Retrogradi giusti; seguito con Venere in Scorpione e Saturno in Ariete corretto, aggiunge dettagli.
+S02|SI|NA|SI|SI|SI|Luna in Acquario, congiunzione con Plutone e quadratura Luna Mercurio giuste; consigli concreti sul contratto. Segno lunare natale non verificabile.
+S01|NO|NA|NO|NO|NA|Risposta troncata a metà frase, non dice che la Luna è in Cancro; nessuna indicazione concreta, invito generico.

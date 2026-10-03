@@ -259,7 +259,7 @@ class PlanCatalog {
       ),
       highlights: [
         'Tutto di Iniziato',
-        'Voce AI dei tre Maestri nel LIVE, 60 minuti al mese',
+        'Voce AI dei tre Maestri nel LIVE, 80 minuti al mese',
         '18 domande al giorno ai Maestri',
         '10 carte di tarocchi al giorno, da stendere come vuoi',
         'La stesa a dieci carte, appena arriva nel Cerchio',
@@ -289,7 +289,7 @@ class PlanCatalog {
         'Tutto di Adepto, coi tetti più alti del Cerchio',
         '22 domande ai Maestri al giorno',
         '15 carte di tarocchi al giorno, anche nella stesa a dieci carte',
-        'Voce AI dei tre Maestri nel LIVE, 120 minuti al mese',
+        'Voce AI dei tre Maestri nel LIVE, 150 minuti al mese',
         '25 sinastrie VIP al giorno',
         // **QUI C'ERA LA DOMANDA AL MAESTRO REALE**, una al mese con risposta
         // entro quarantotto ore. Uscita con l'ordine DJ voce 09: nessuna
@@ -615,7 +615,9 @@ class PlanCatalog {
     // **LA MATRICE DELL'ORDINE EX, voce EX.02, 2 ottobre 2026**: la tabella
     // dell'Architetto approvata dal fondatore, "Si ok, approvo.", e "mettiamo
     // limite delle carte estratte e la stesa a 10 solo dal tier 2 19,99".
-    FeatureRow('Minuti di LIVE', ['No', 'No', '60 al mese', '120 al mese'],
+    // I minuti dall'ordine EX Aggiunta 6, 3 ottobre 2026: 80 e 150 (erano 60
+    // e 120), "Si fammi aggiunta ordine con aumento limiti di minuti".
+    FeatureRow('Minuti di LIVE', ['No', 'No', '80 al mese', '150 al mese'],
         chiave: RigaDelPiano.minutiLive),
     // **UNA STESA AL GIORNO AL VIANDANTE, ordine BU voce 04, e la decisione
     // e' del fondatore: "il viandante ha una stesa al giorno".** La cella

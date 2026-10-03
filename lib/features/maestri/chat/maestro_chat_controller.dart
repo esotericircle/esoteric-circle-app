@@ -38,6 +38,7 @@ import '../../../core/chat/l_italiano_del_maestro.dart';
 import '../../../core/chat/i_ricordi_degli_altri.dart';
 import '../../../core/astro/il_cielo_per_il_maestro.dart';
 import '../../../services/ai/le_funzioni_del_cielo.dart';
+import '../../../core/maestro/la_voce_non_si_confonde.dart';
 import '../../../services/ai/la_richiesta_del_turno.dart';
 import '../../../core/astro/il_cielo_detto.dart';
 import '../../../core/chat/immersive_intents.dart';
@@ -704,6 +705,7 @@ class MaestroChatController extends ChangeNotifier {
     String? daProgramma,
     String? daAttesa,
     String? correzione,
+    bool ilLessicoAlTurno = true,
   }) async {
     final grezzo = await LaRichiestaDelTurno(
       nelLive: nelLive,
@@ -714,6 +716,9 @@ class MaestroChatController extends ChangeNotifier {
       daCorreggere: correzione,
       suTesto: nelLive ? _mostraMentreArriva : null,
       conSeguito: _conSeguito,
+      // Ordine EX Aggiunta 5, voce EX.07: le parole altrui le corregge il
+      // turno, corte, dopo le reti (`_ilLessicoDelTurno`).
+      ilLessicoLoCorreggeIlTurno: ilLessicoAlTurno,
     ).per(() => _ai.reply(
           maestro: chi,
           profile: _profile,
@@ -759,10 +764,25 @@ class MaestroChatController extends ChangeNotifier {
     required String risposta,
     required String correzione,
     required Future<String> Function() allaVecchia,
+    bool conIlLessico = true,
+    bool? conSeguito,
   }) async {
+    // **LE PAROLE ALTRUI NELLA STESSA CORREZIONE. Ordine EX Aggiunta 5, voce
+    // EX.07.** Se la risposta da correggere porta anche una parola di firma
+    // di un altro Maestro, la correzione la nomina: una chiamata sola per
+    // due reti.
+    final altrui = conIlLessico
+        ? LaVoceNonSiConfonde.paroleAltruiIn(
+            chi, '$risposta\n${_seguitoDelTurno ?? ''}',
+            domanda: domanda)
+        : const <String>[];
+    if (altrui.isNotEmpty) lessicoNelleCorrezioni++;
+    final laCorrezione = altrui.isEmpty
+        ? correzione
+        : '$correzione\n\n${LaVoceNonSiConfonde.correzione(altrui)}';
     // Ordine EX Aggiunta 4, voce EX.07: il banco della qualita' legge quale
     // risposta e' stata scartata e con quale correzione.
-    risposteScartate.add((risposta: risposta, correzione: correzione));
+    risposteScartate.add((risposta: risposta, correzione: laCorrezione));
     final ai = _ai;
     if (ai is LaCorrezioneCorta && (ai as LaCorrezioneCorta).correggeCorto) {
       try {
@@ -772,11 +792,11 @@ class MaestroChatController extends ChangeNotifier {
           profile: _profile,
           domanda: domanda,
           risposta: risposta,
-          correzione: correzione,
+          correzione: laCorrezione,
           memory: _memoriaPerIlModello,
           nelLive: nelLive,
           cieloDelTurno: _cieloDelTurno(),
-          conSeguito: _conSeguito,
+          conSeguito: conSeguito ?? _conSeguito,
         );
         // Ordine EX Aggiunta 4, EX.04: il seguito e' quello della risposta
         // corretta, o nessuno.
@@ -797,6 +817,116 @@ class MaestroChatController extends ChangeNotifier {
   /// Quante correzioni corte sono partite, in questa sessione. Ordine EX
   /// voce 07.
   int correzioniCorte = 0;
+
+  /// Le correzioni corte chieste solo per le parole di un altro Maestro, e
+  /// quelle di un'altra rete che le hanno corrette insieme. Ordine EX
+  /// Aggiunta 5, voce EX.07.
+  int correzioniDelLessico = 0;
+  int lessicoNelleCorrezioni = 0;
+
+  /// Le risposte chieste intere dopo una correzione del lessico che non
+  /// bastava. Ordine EX Aggiunta 5, voce EX.07.
+  int lessicoAllaVecchia = 0;
+
+  /// **LE PAROLE DEGLI ALTRI MAESTRI, CORRETTE CORTE. Ordine EX Aggiunta 5,
+  /// voce EX.07.** Il fondatore: *"Restano riservate, correzione corta"*. La
+  /// rete del lessico (`LaVoceNonSiConfonde`) e' la stessa; cambia la cura:
+  /// al banco della qualita' rifaceva da capo cinque risposte su
+  /// ventiquattro, con l'istruzione intera, la conversazione e le funzioni
+  /// del cielo. Adesso, dopo le reti che correggono, se la risposta (o il
+  /// suo seguito) porta ancora una parola altrui, la correzione corta cambia
+  /// solo quella. Passa la risposta che ne porta meno e non perde la
+  /// posizione ne' aggiunge certezze; se resta confusa, il guasto resta nel
+  /// registro.
+  Future<String> _ilLessicoDelTurno({
+    required Maestro chi,
+    required String domanda,
+    required String risposta,
+    required List<ChatMessage> storia,
+    required NatalContext natal,
+    required List<String> Function(String) certeIn,
+  }) async {
+    int quante(String r) =>
+        LaVoceNonSiConfonde.paroleAltruiIn(chi, '$r\n${_seguitoDelTurno ?? ''}',
+                domanda: domanda)
+            .length;
+    final altrui = LaVoceNonSiConfonde.paroleAltruiIn(
+        chi, '$risposta\n${_seguitoDelTurno ?? ''}',
+        domanda: domanda);
+    if (altrui.isEmpty) return risposta;
+    correzioniDelLessico++;
+    final primaQuante = quante(risposta);
+    final seguitoDiPrima = _seguitoDelTurno;
+    bool regge(String altra) =>
+        altra.trim().isNotEmpty &&
+        quante(altra) < primaQuante &&
+        (LaPosizioneDellaLettura.rispetta(chi, domanda, altra) ||
+            !LaPosizioneDellaLettura.rispetta(chi, domanda, risposta)) &&
+        certeIn(altra).length <= certeIn(risposta).length;
+    // **IL SEGUITO PULITO RESTA QUELLO.** Ordine EX Aggiunta 5, voce EX.07:
+    // alla sonda del banco la correzione toglieva la parola dalla risposta e
+    // la rimetteva nel seguito che riscriveva. Se la parola sta solo nella
+    // risposta, la correzione riscrive solo la risposta e il seguito di
+    // prima, scritto per la stessa lettura, resta.
+    final seguitoPulito = seguitoDiPrima == null ||
+        LaVoceNonSiConfonde.paroleAltruiIn(chi, seguitoDiPrima,
+                domanda: domanda)
+            .isEmpty;
+    final altra = LeCertezzeDelMaestro.senzaLeFrasiCerte(await _correggiCorto(
+      chi: chi,
+      domanda: domanda,
+      risposta: risposta,
+      correzione: LaVoceNonSiConfonde.correzione(altrui),
+      conIlLessico: false,
+      conSeguito: seguitoPulito ? false : null,
+      allaVecchia: () => _chiediAlMaestro(
+        chi: chi,
+        storia: storia,
+        domanda: domanda,
+        natal: natal,
+        ilLessicoAlTurno: false,
+      ),
+    ));
+    if (seguitoPulito) _seguitoDelTurno = seguitoDiPrima;
+    if (regge(altra)) {
+      if (quante(altra) > 0) {
+        annotaGuastoInnocuo(
+          'parole di un altro Maestro rimaste dopo la correzione corta, '
+          '${chi.displayName}',
+          StateError('la voce si confonde ancora con un altro Maestro'),
+        );
+      }
+      return altra;
+    }
+    // **SE LA CORREZIONE CORTA NON BASTA, LA RISPOSTA INTERA, COME PRIMA.**
+    // Ordine EX Aggiunta 5, voce EX.07, regola NESSUNA RISPOSTA PEGGIORA:
+    // sugli stessi nove casi del banco, nello stesso giorno, la risposta
+    // rifatta da capo consegnava 0 risposte su 27 con una parola altrui, la
+    // correzione corta da sola 2. Quando la parola resta, si chiede la
+    // risposta intera come faceva la rete prima di quest'ordine.
+    lessicoAllaVecchia++;
+    final dellaCorta = altra;
+    _seguitoDelTurno = seguitoDiPrima;
+    final intera = LeCertezzeDelMaestro.senzaLeFrasiCerte(
+        LeCertezzeDelMaestro.senzaIlFattoDopoLaPosizione(await _chiediAlMaestro(
+      chi: chi,
+      storia: storia,
+      domanda: domanda,
+      natal: natal,
+    )));
+    if (regge(intera)) return intera;
+    _seguitoDelTurno = seguitoDiPrima;
+    annotaGuastoInnocuo(
+      'parole di un altro Maestro consegnate comunque, ${chi.displayName}: '
+      '${altrui.join(', ')} (dopo la correzione corta '
+      '${LaVoceNonSiConfonde.paroleAltruiIn(chi, dellaCorta, domanda: domanda).length}'
+      ' nella risposta, dopo la risposta intera ${quante(intera)} su '
+      '$primaQuante): ${dellaCorta.replaceAll('\n', ' ')}',
+      StateError('la voce si confonde con un altro Maestro dopo la '
+          'correzione corta e la risposta intera'),
+    );
+    return risposta;
+  }
 
   /// Le risposte scartate dalle reti in questa sessione, con la correzione
   /// che le ha fatte riscrivere. Ordine EX Aggiunta 4, voce EX.07: le legge
@@ -1836,6 +1966,18 @@ class MaestroChatController extends ChangeNotifier {
         }
       }
 
+      // **LE PAROLE DEGLI ALTRI MAESTRI, CORTE. Ordine EX Aggiunta 5, voce
+      // EX.07.** Dopo le reti che chiedono di nuovo, prima di quelle che
+      // tolgono senza chiamare.
+      reply = await _ilLessicoDelTurno(
+        chi: chiRisponde,
+        domanda: userText,
+        risposta: reply,
+        storia: priorHistory,
+        natal: natal,
+        certeIn: certeIn,
+      );
+
       // **LA RIGA D'ORO CHE NON VA DATA. Ordine EQ voce 01.** Sotto una
       // presentazione, uguale o simile a una gia' data nella conversazione,
       // o che chiede di rifare il passo che la persona ha appena detto di aver
@@ -1864,6 +2006,9 @@ class MaestroChatController extends ChangeNotifier {
           domanda: userText,
           natal: natal,
           daNonRipetere: reply,
+          // Dopo la rete del lessico del turno: la guarda la voce
+          // sorvegliata, come prima (EX Aggiunta 5, EX.07).
+          ilLessicoAlTurno: false,
         );
         tolta = IlPassoDaNonDare.perche(
             domanda: userText, risposta: reply, righeGiaDate: righeGiaDate);
@@ -1956,6 +2101,7 @@ class MaestroChatController extends ChangeNotifier {
           storia: priorHistory,
           domanda: userText,
           natal: natal,
+          ilLessicoAlTurno: false,
         );
         haChiesto = LaRispostaCheChiede.eUnaDomanda(altra);
         reply = LaRispostaCheChiede.senzaIlMarcatore(altra);

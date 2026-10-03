@@ -34,6 +34,7 @@ class LaRichiestaDelTurno {
     this.domanda,
     this.daCorreggere,
     this.conSeguito = false,
+    this.ilLessicoLoCorreggeIlTurno = false,
   });
 
   /// Vero quando il turno e' detto nel LIVE.
@@ -69,6 +70,13 @@ class LaRichiestaDelTurno {
   /// piano ha il "Vai più a fondo": il Maestro scrive anche il seguito,
   /// dopo `IlSeguitoNascosto.segno`.
   final bool conSeguito;
+
+  /// **LE PAROLE DEGLI ALTRI MAESTRI LE CORREGGE IL TURNO. Ordine EX
+  /// Aggiunta 5, voce EX.07.** Vero quando il controller della chat guarda
+  /// lui il lessico della risposta e la corregge corta, insieme alle altre
+  /// reti: allora la voce sorvegliata conta la confusione ma non rifa' la
+  /// risposta da capo.
+  final bool ilLessicoLoCorreggeIlTurno;
 
   /// La richiesta di un turno qualunque della chat.
   static const LaRichiestaDelTurno normale = LaRichiestaDelTurno();

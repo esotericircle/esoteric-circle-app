@@ -8,6 +8,7 @@ import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_reply.dart';
 import '../../core/maestro/natal_context.dart';
 import 'maestro_ai_provider.dart';
+import 'la_richiesta_del_turno.dart';
 import 'maestro_oracle.dart';
 import 'registro_dei_guasti.dart';
 import 'ritentativi_della_voce.dart';
@@ -172,6 +173,12 @@ class VoceSorvegliata implements MaestroAiProvider, LaCorrezioneCorta {
     // contatore lo diceva.
     confusioni++;
     paroleConfuse.add('${maestro.id}: ${altrui.join(", ")}');
+    // **LA CORREGGE IL TURNO, CORTA. Ordine EX Aggiunta 5, voce EX.07.** Il
+    // fondatore: *"Restano riservate, correzione corta"*. Nella chat il
+    // controller guarda le parole altrui dopo le sue reti e le corregge con
+    // la correzione corta, nella stessa chiamata di un'altra rete quando ce
+    // n'e' una: qui la risposta non si rifa' da capo.
+    if (LaRichiestaDelTurno.corrente.ilLessicoLoCorreggeIlTurno) return prima;
     try {
       final poi = await chiedi();
       final scelta = LaVoceNonSiConfonde.laMenoConfusa(maestro, prima, poi,

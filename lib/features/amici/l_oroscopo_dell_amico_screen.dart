@@ -18,6 +18,9 @@ import '../../core/horoscope/horoscope.dart';
 import '../../core/horoscope/i_segni_delle_tradizioni.dart';
 import '../../core/horoscope/la_lettura_cinese.dart';
 import '../../core/horoscope/la_lettura_vedica.dart';
+import '../../core/horoscope/riflessione_del_cielo.dart';
+import '../../core/sensi/catalogo_suoni.dart';
+import '../../core/sensi/palette_sensoriale.dart';
 import '../../core/maestro/maestro.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
@@ -29,9 +32,11 @@ import '../../design_system/typography/paragrafi_di_lettura.dart';
 import 'amici_screen.dart';
 import '../horoscope/oroscopo_per.dart';
 import '../horoscope/answer_depth.dart';
+import '../horoscope/corsa_dello_zodiaco.dart';
 import '../horoscope/horoscope_visuals.dart';
 import '../horoscope/la_rivelazione_del_segno.dart';
 import '../horoscope/la_testa_della_tradizione.dart';
+import '../horoscope/oroscopo_screen.dart' show InterrogaIlCielo;
 import '../horoscope/oroscopo_share_card.dart';
 import '../horoscope/titolo_della_scheda_del_giorno.dart';
 import '../pricing/upgrade_invite.dart';
@@ -96,6 +101,41 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
     });
   }
 
+  /// **IL GESTO ANCHE PER L'AMICO, ordine EX Aggiunta 5, voce EX.12.** Il
+  /// fondatore: il pulsante "interroga il cielo, la luna, l'almanacco" in
+  /// tutti i periodi "e anche nell'oroscopo dell'amico". Qui le schede
+  /// comparivano subito, senza gesto; adesso ogni tradizione si interroga,
+  /// col gesto e la rivelazione dell'oroscopo di chi usa l'app (la stessa
+  /// scritta, la vibrazione, la corsa dello zodiaco sul segno dell'amico, la
+  /// pausa della riflessione e il suono alla comparsa).
+  final Set<AstroTradition> _interrogate = {};
+  bool _riflettendo = false;
+  bool _corsaInScena = false;
+  Timer? _fineDellaCorsa;
+  static const Duration _dissolvenzaDellaCorsa = Duration(milliseconds: 700);
+
+  Future<void> _interroga() async {
+    if (_riflettendo) return;
+    final quale = _tradizione;
+    unawaited(PaletteSensoriale.momento(context, aptica: SchemaAptico.tocco));
+    setState(() {
+      _riflettendo = true;
+      _corsaInScena = true;
+    });
+    final passo = RiflessioneDelCielo.momento(piena: true);
+    await Future<void>.delayed(passo * 2);
+    if (!mounted) return;
+    setState(() {
+      _riflettendo = false;
+      if (_tradizione == quale) _interrogate.add(quale);
+    });
+    _fineDellaCorsa?.cancel();
+    _fineDellaCorsa = Timer(_dissolvenzaDellaCorsa, () {
+      if (mounted) setState(() => _corsaInScena = false);
+    });
+    unawaited(PaletteSensoriale.suona(context, SuonoDelCerchio.responso));
+  }
+
   LuogoDelGiorno? _luogo;
   final GlobalKey _cardKey = GlobalKey();
   bool _renderCard = false;
@@ -132,6 +172,7 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
 
   @override
   void dispose() {
+    _fineDellaCorsa?.cancel();
     _pulse.dispose();
     super.dispose();
   }
@@ -243,6 +284,8 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
     final segno = ISegniDelleTradizioni.per(_tradizione, _nascita).dettoDi(
         OroscopoShareCard.soloIlNome(widget.amico.nome) ?? widget.amico.nome);
     final schede = _schede(segno);
+    final interrogata = !InterrogaIlCielo.ancheFuoriDalGiorno ||
+        _interrogate.contains(_tradizione);
     return Scaffold(
       backgroundColor: palette.deepest,
       appBar: AppBar(
@@ -343,7 +386,17 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
                     textAlign: TextAlign.center,
                     style: TypographyTokens.corpo()
                         .copyWith(color: ColorTokens.textSecondary)),
-              if (schede != null)
+              // Ordine EX Aggiunta 5, voce EX.12: prima del tocco il gesto.
+              if (schede != null && !interrogata && !_riflettendo) ...[
+                const SizedBox(height: SpacingTokens.lg),
+                InterrogaIlCielo(
+                  key: const Key('amico_interroga'),
+                  palette: palette,
+                  onTap: _interroga,
+                  etichetta: InterrogaIlCielo.etichettaPer(_tradizione),
+                ),
+              ],
+              if (schede != null && interrogata)
                 for (final s in schede) ...[
                   const SizedBox(height: SpacingTokens.md),
                   _Scheda(
@@ -366,7 +419,7 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
                   ),
                 ],
               const SizedBox(height: SpacingTokens.lg),
-              if (schede != null)
+              if (schede != null && interrogata)
                 FilledButton.icon(
                   key: const Key('amico_condividi'),
                   onPressed: () => _condividi(segno),
@@ -376,6 +429,24 @@ class _LOroscopoDellAmicoScreenState extends State<LOroscopoDellAmicoScreen>
                 ),
             ],
           ),
+          // La corsa dello zodiaco sul segno dell'amico, come nell'oroscopo
+          // di chi usa l'app (EX.12).
+          if (_corsaInScena)
+            CorsaDelloZodiaco(
+              key: const Key('amico_corsa_dello_zodiaco'),
+              segno: Zodiac.fromDate(widget.amico.nascita),
+              palette: palette,
+              animaleCinese:
+                  _tradizione == AstroTradition.cinese ? segno.animale : null,
+              nomeFinale:
+                  _tradizione == AstroTradition.occidentale ? null : segno.nome,
+              figuraFinale: _tradizione == AstroTradition.vedica
+                  ? LaTestaDellaTradizione.figura(_tradizione, segno)
+                  : null,
+              durata: RiflessioneDelCielo.momento(piena: true) * 2 +
+                  _dissolvenzaDellaCorsa,
+              riduciMovimento: MediaQuery.of(context).disableAnimations,
+            ),
           if (_renderCard && schede != null)
             Positioned(
               left: -3000,

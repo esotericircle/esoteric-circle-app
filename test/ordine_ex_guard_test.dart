@@ -5,8 +5,8 @@ import 'package:flutter_test/flutter_test.dart';
 
 /// **LA GUARDIA DELL'ORDINE EX.** 2 ottobre 2026.
 ///
-/// Il manifesto `ORDINE_EX_MANIFESTO.md` porta le undici voci dell'ordine
-/// (EX.01-EX.11), ognuna con uno stato solo (CHIUSA, APERTA IN ATTESA DI
+/// Il manifesto `ORDINE_EX_MANIFESTO.md` porta le dodici voci dell'ordine
+/// (EX.01-EX.11, e l'EX.12 dell'EX Aggiunta 5), ognuna con uno stato solo (CHIUSA, APERTA IN ATTESA DI
 /// VERIFICA, oppure APERTA), e i marcatori dicono le stesse cose delle voci.
 /// Le prove che l'ordine chiede esistono e non sono vuote, e il costo per
 /// utente nel documento e' quello che scrive `tool/i_conti_del_costo_ex.py`.
@@ -15,6 +15,8 @@ void main() {
   const voci = [
     'EX.01', 'EX.02', 'EX.03', 'EX.04', 'EX.05', 'EX.06', //
     'EX.07', 'EX.08', 'EX.09', 'EX.10', 'EX.11', //
+    // L'EX Aggiunta 5: il gesto in Settimana, Mese e Anno.
+    'EX.12',
   ];
   const prove = [
     'docs/collaudo/EX/minuti_del_live.txt',
@@ -37,6 +39,10 @@ void main() {
     'docs/collaudo/EX/la_cache_garantita.txt',
     'docs/collaudo/EX/la_scena_con_meno_scarti.txt',
     'docs/collaudo/EX/attribuzione_dopo_aggiunta4.txt',
+    // Le EX Aggiunte 5 e 6.
+    'docs/collaudo/EX/le_ultime_voci.txt',
+    'docs/collaudo/EX/minuti_e_descrizioni.txt',
+    'docs/collaudo/EX/attribuzione_dopo_aggiunta5.txt',
   ];
 
   int marcatore(String testo, String nome) {
@@ -47,7 +53,7 @@ void main() {
     return int.parse(trovato!.group(1)!);
   }
 
-  test('il manifesto esiste e porta tutte le undici voci', () {
+  test('il manifesto esiste e porta tutte le dodici voci', () {
     expect(manifesto.existsSync(), isTrue);
     final testo = manifesto.readAsStringSync();
     final mancanti = [

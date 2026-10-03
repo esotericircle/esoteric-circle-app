@@ -385,6 +385,11 @@ void main() {
           // Ordine EX Aggiunta 4, voce EX.07: la rete del lessico, che
           // rifa' la risposta da capo e prima non si contava.
           'voceConfusa': sorvegliata.confusioni,
+          // Ordine EX Aggiunta 5, voce EX.07: le parole altrui corrette
+          // corte, da sole o dentro la correzione di un'altra rete.
+          'lessicoCorto': controller.correzioniDelLessico,
+          'lessicoInsieme': controller.lessicoNelleCorrezioni,
+          'lessicoIntero': controller.lessicoAllaVecchia,
         },
         'dallaCache': LaCacheDelContesto.risposteDallaCache - dallaCachePrima,
         'paroleConfuse': sorvegliata.paroleConfuse,

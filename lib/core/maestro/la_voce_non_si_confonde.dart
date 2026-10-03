@@ -54,6 +54,28 @@ abstract final class LaVoceNonSiConfonde {
           {String domanda = ''}) =>
       paroleAltruiIn(maestro, testo, domanda: domanda).isNotEmpty;
 
+  /// **LA CORREZIONE DELLE PAROLE ALTRUI. Ordine EX Aggiunta 5, voce
+  /// EX.07.** Il fondatore: *"Restano riservate, correzione corta"*. Quando
+  /// la rete scatta la risposta non si rifa' piu' da capo: il Maestro la
+  /// riceve con le parole da cambiare, e cambia solo quelle.
+  ///
+  /// **NEMMENO NEL SEGUITO.** Alla sonda del banco la correzione toglieva la
+  /// parola dalla risposta e la rimetteva nel seguito che riscrive (Calìgo,
+  /// "ascendente"): la risposta corretta non portava meno parole altrui e
+  /// passava quella di prima. Padre: la prima stesura di questa riga.
+  static String correzione(List<String> parole) {
+    final elenco = [for (final p in parole) '"$p"'].join(', ');
+    final una = parole.length == 1;
+    return 'LE PAROLE CHE NON SONO TUE. Nella risposta hai scritto $elenco: '
+        '${una ? 'è una parola' : 'sono parole'} della voce di un altro '
+        'Maestro che tu non usi mai. Cambia solo '
+        '${una ? 'quella parola' : 'quelle parole'}, o la frase che '
+        '${una ? 'la' : 'le'} porta, con parole della tua voce; tutto il resto '
+        'resta com\'è. Non '
+        '${una ? 'usarla' : 'usarle'} in nessun punto, nemmeno in ciò che '
+        'scrivi dopo la risposta.';
+  }
+
   /// Fra due risposte, quella che si confonde di meno.
   ///
   /// A parita' resta la prima: non si scambia una risposta con un'altra

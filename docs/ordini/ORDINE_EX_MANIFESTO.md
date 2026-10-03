@@ -25,9 +25,9 @@ dello stesso codice e' di circa 2 o 3 punti per misura
 **Le prove col modello vero**: dichiarate, in europe-west1, al massimo 3,19
 dollari (`docs/collaudo/EX/il_costo_delle_prove.txt`).
 
-VOCI_TOTALI: 11
-VOCI_CHIUSE: 8
-VOCI_APERTE: 3
+VOCI_TOTALI: 12
+VOCI_CHIUSE: 10
+VOCI_APERTE: 2
 VOCI_DA_FARE: 0
 
 ## VOCE EX.01, I MINUTI DEL LIVE SCENDONO DAVVERO
@@ -135,7 +135,7 @@ MISURA: chiamate al tocco al banco, prima 0,17, dopo 0 in sei giri su sei (144 t
 
 ## VOCE EX.05, LA CACHE DEL CONTESTO GARANTITA
 
-**APERTA.** L'istruzione ha adesso la parte comune in testa: due persone
+**CHIUSA.** L'istruzione ha adesso la parte comune in testa: due persone
 diverse condividono circa l'80 per cento dell'istruzione (guardia nuova
 `test/la_parte_comune_viene_prima_test.dart`, nata rossa, A5); quando la cache
 implicita prende, prende 4.820 token invece di 3.854. Ma la cache implicita
@@ -162,6 +162,26 @@ cielo di oggi si confonde con quello del giorno chiesto. Per la regola NESSUNA
 RISPOSTA PEGGIORA resta spenta in tre punti (l'interruttore dell'app, la
 funzione non esportata, la regola di Firestore fuori dal repository) e non c'e'
 niente da pubblicare. Prova: `docs/collaudo/EX/la_cache_garantita.txt`.
+
+**EX Aggiunta 5, 3 ottobre 2026: si chiude con la cache spenta.** Il fondatore
+ha scelto *"Resta spenta per ora"*. La cache garantita resta scritta, provata e
+spenta nei tre punti dove l'ha spenta Code, verificati sul codice del commit
+di questa aggiunta: `LaCacheDelContesto.accesaNellApp = false`
+(`lib/services/ai/la_cache_del_contesto.dart`), la funzione
+`laCacheDelContesto` non esportata in `functions/src/index.ts`, nessuna regola
+di Firestore che apra `configurazione/cache`. **La soglia**: si accende a 23
+richieste all'ora e si spegne sotto 18 (pareggio a 22,2, sei varianti).
+**Il risparmio misurato**: l'inizio dell'istruzione costa il 50 per cento in
+meno a 50 richieste all'ora, l'80 per cento a 200. **Il motivo per cui e'
+spenta**: i template di Firebase, l'unica strada della cache esplicita dal
+telefono, non portano ne' la conversazione ne' le funzioni del cielo, e alla
+lettura alla cieca il cielo scendeva a 7 su 10 contro 10 su 10. Si riaccende
+quando la via della cache regge la lettura alla cieca.
+
+DOMANDA: "Resta spenta per ora (Consigliata)"
+PROVA: docs/collaudo/EX/la_cache_garantita.txt
+MISURA: punti in cui la cache e' spenta, 3 su 3 (interruttore dell'app, funzione non esportata, regola di Firestore assente); soglia scritta nel manifesto, accensione a 23 richieste all'ora e spegnimento sotto 18; risparmio 50 per cento a 50 richieste all'ora e 80 a 200; motivo scritto, cielo 7 su 10 contro 10 su 10
+
 
 ## VOCE EX.06, I RICORDI NELLA REGIONE DEI DATI
 
@@ -207,6 +227,37 @@ codice finale due giri danno 1,33 e 1,38, sopra l'1,3; restano 5 risposte su
 in bocca ad Aura e a Calìgo), che Code non toglie dal testo. Prova:
 `docs/collaudo/EX/risposte_rifatte.txt`.
 
+**EX Aggiunta 5, 3 ottobre 2026: le parole riservate si correggono corte. Resta
+aperta.** Il fondatore ha scelto *"Restano riservate, correzione corta"*. La
+rete del lessico e' la stessa (`LaVoceNonSiConfonde`); quando scatta la
+risposta non si rifa' piu' da capo: il controller della chat, dopo le reti che
+correggono, chiede la correzione corta che nomina le parole da cambiare, e
+quando un'altra rete corregge gia' la stessa risposta la parola va nella stessa
+correzione (una chiamata sola). Due difetti della prima stesura trovati al
+banco e curati dentro la voce (padre: questa aggiunta): la correzione toglieva
+la parola dalla risposta e la rimetteva nel seguito che riscriveva (ora il
+seguito pulito resta quello di prima, e la correzione dice che la parola non
+va usata nemmeno li', A29); e sugli stessi nove casi a rischio, nello stesso
+giorno, la correzione corta da sola consegnava 2 risposte su 27 con una parola
+altrui contro 0 del codice di prima: ora, se la parola resta, si chiede la
+risposta intera come prima (A30), e il conto torna 0 contro 0. Prove nuove
+nate rosse: `test/il_lessico_si_corregge_corto_test.dart` (A28, A29, A30).
+**Le chiamate per risposta non arrivano all'1,3 in tutti i giri**: col codice
+finale 1,38, 1,29 e 1,25 (media 1,31); il codice di prima, lo stesso giorno,
+1,38. Una correzione del lessico resta una chiamata, piu' leggera (circa 6.700
+token in ingresso contro 9.100), e le chiamate in piu' vengono soprattutto
+dalla rete delle certezze (da 2 a 5 risposte per giro), che quest'aggiunta non
+tocca. Alla lettura alla cieca, codice di prima contro codice finale nello
+stesso giorno, il finale e' pari o meglio su ogni misura con tutti e due i
+giudici. Attribuzione alla cieca dei Maestri 57, 58 e 56 su 60, con
+l'istruzione identica a quella dell'Aggiunta 4. Prova:
+`docs/collaudo/EX/le_ultime_voci.txt`.
+
+DOMANDA: "Restano riservate, correzione corta (Consigliata)"
+PROVA: docs/collaudo/EX/le_ultime_voci.txt
+MISURA: chiamate per risposta della chat, prima 1,33 e 1,38 (Aggiunta 4) e 1,38 lo stesso giorno, dopo 1,38, 1,29 e 1,25, l'1,3 NON raggiunto in tutti i giri; risposte rifatte da capo per una parola riservata, prima 5 su 24 (ex07j), dopo 0, 0 e 0 rifatte senza prima la correzione corta, 2, 0 e 1 rifatte dopo una correzione corta che non bastava; risposte consegnate con una parola riservata sugli stessi nove casi, prima 0 su 27, dopo 0 su 27; lettura alla cieca, prima e dopo nello stesso giorno, regole 28 e 28 contro 29 e 30, cielo 8 e 8 contro 9 e 9, merito 25 e 26 contro 28 e 28, seguito 17 e 19 contro 21 e 23; attribuzione alla cieca 57, 58 e 56 su 60, il 58 raggiunto in 1 giro su 3
+
+
 ## VOCE EX.08, IL CIELO DI OGGI GIA' NELLA RICHIESTA
 
 **CHIUSA.** Il cielo di oggi si calcola una volta al giorno e sta gia' nella
@@ -232,7 +283,7 @@ MISURA: dettaglio detto da 5 a 9 scambi prima usato dalla risposta, prima 4 su 1
 
 ## VOCE EX.10, LA SCENA DEL VIAGGIO SENZA MODELLO
 
-**APERTA.** Tre vie misurate, tutte peggiori nel merito oltre il rumore con
+**CHIUSA.** Tre vie misurate, tutte peggiori nel merito oltre il rumore con
 tutti e due i giudici: la scena di casa (12 contro 1 e 12 contro 0 su 20), un
 tentativo solo (11 contro 3, 10 contro 6), due tentativi (10 contro 7, 9
 contro 6). Il codice della scena resta quello di oggi, 2,6 chiamate di scena
@@ -251,6 +302,18 @@ restano tre. Gli obiettivi (scena 1,5, discesa 2,5) non sono raggiunti: la
 discesa con la domanda scritta fa circa 3,0 chiamate. Prova:
 `docs/collaudo/EX/la_scena_con_meno_scarti.txt`.
 
+**EX Aggiunta 5, 3 ottobre 2026: si chiude col risultato misurato.** Il
+fondatore: *"Sì, si chiude così"*. Chiamate di scena per discesa da 2,70 a
+1,90 e 1,80 (circa 1,85), con le stesse guardie, nessuna riga toccata; merito
+alla lettura alla cieca pari al rumore (13 e 12 contro 13 e 13); la scena
+costa 0,00310 dollari a discesa a freddo (scena7, consumi misurati), circa i
+0,0035 dell'intera discesa misurata dall'ordine EW.
+
+DOMANDA: "Sì, si chiude così (Consigliata)"
+PROVA: docs/collaudo/EX/la_scena_con_meno_scarti.txt
+MISURA: chiamate di scena per discesa, prima 2,70, dopo 1,90 e 1,80; righe delle guardie toccate 0; merito alla cieca, prima 13 e 13, dopo 13 e 12; costo della scena 0,00310 dollari a discesa
+
+
 ## VOCE EX.11, LA MISURA FINALE
 
 **CHIUSA.** Col codice di questo ordine e le domande dell'EX Aggiunta 3, al
@@ -261,8 +324,45 @@ dell'EX.02 (3/6/10/13) erano 1,28, 3,34 e 5,42: il fondatore ha scelto di
 spendere quasi tutto il margine in domande. Le stese da 1, 5 e 10 carte sono
 una stima dichiarata. Il LIVE dentro il tetto vale davvero: i minuti
 scendono e si fermano a 60 e 120 (EX.01), e i limiti del server sono quelli
-della matrice (EX.02).
+della matrice (EX.02). Dall'EX Aggiunta 6 i minuti sono 80 e 150: i conti coi
+minuti nuovi stanno nella sezione L'EX AGGIUNTA 6, in fondo, e in
+`docs/collaudo/EX/minuti_e_descrizioni.txt`.
 
 DOMANDA: "30% Dopo iva e Store, 2,36$."
 PROVA: docs/costi/costo_per_utente_dopo_ex.md
 MISURA: costo al mese al massimo per piano, prima 5,66, 11,90 e 31,73 dollari, dopo 2,18, 4,54 e 6,77, sotto il tetto (2,36, 4,72 e 7,08) in 3 piani su 3
+
+## VOCE EX.12, IL GESTO ANCHE IN SETTIMANA, MESE E ANNO
+
+**APERTA IN ATTESA DI VERIFICA.** EX Aggiunta 5, 3 ottobre 2026. Il
+fondatore: *"Nell'oroscopo il pulsante "interroga il cielo, la luna,
+l'almanacco" compaiono solo per il giornaliero mentre non c'è per settimanale,
+mensile e annuale"* (catture in `docs/collaudo/EX/catture_fondatore/`). Adesso
+la Settimana, il Mese e l'Anno si aprono col gesto come il Giorno, in tutte e
+tre le tradizioni: "Interroga il cielo" (Occidentale), "Interroga la Luna"
+(Vedica), "Apri l'almanacco" (Cinese), lo stesso pulsante, la stessa
+vibrazione, la stessa corsa dello zodiaco, la stessa riflessione e lo stesso
+suono alla comparsa; ogni periodo di ogni tradizione ha il suo consulto, e la
+card da condividere compare solo dopo la lettura. Anche l'oroscopo dell'amico
+si apre col gesto; l'amico ha solo il giorno (Settimana, Mese e Anno non ci
+sono per gli amici). Guardia nuova nata rossa,
+`test/il_gesto_in_tutti_i_periodi_test.dart` (A26). Resta in attesa delle
+catture dal Realme con la build nuova.
+
+## L'EX AGGIUNTA 6, I MINUTI DEL LIVE E LE DESCRIZIONI DEI PIANI
+
+3 ottobre 2026. Il fondatore: *"Si fammi aggiunta ordine con aumento limiti di
+minuti. Ci saranno da cambiare anche le descrizione degli abbonamenti"*; e
+poi: *"I testi degli store lasciali stare: i prodotti negli store non esistono
+ancora. Per il punto 2 dell'EX Aggiunta 6 conta solo l'app"*. I minuti del
+LIVE al mese passano da 0/0/60/120 a 0/0/80/150 nella matrice dell'app e nel
+server (`MINUTI_DEL_MESE`); il conto dei minuti gia' usati non cambia. Ogni
+posto dell'app che descrive un piano o un limite e' stato cercato: le sole
+frasi con un numero diverso dalla matrice erano le due delle card
+dell'Adepto e dell'Illuminato (60 e 120 minuti), cambiate solo nel numero;
+gli inviti e gli avvisi leggono i numeri dalla matrice. Guardia nuova nata
+rossa, `test/le_card_dei_piani_dicono_i_numeri_della_matrice_test.dart` (A27).
+Funzione del server da ripubblicare: solo `apriUnaSessioneLive`, col comando
+scritto al fondatore; Code non la pubblica. Costo al mese al massimo, senza
+cache, LIVE compreso: Adepto 4,58 dollari (tetto 4,72), Illuminato 6,93
+(tetto 7,08). Prova: `docs/collaudo/EX/minuti_e_descrizioni.txt`.

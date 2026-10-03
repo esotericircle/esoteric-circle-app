@@ -144,12 +144,15 @@ async function lAvatarDi(maestro: string): Promise<string | undefined> {
  * I minuti LIVE del mese, per piano. Ordine EG voce 06; dall'ordine EX voce
  * 02, la matrice approvata dal fondatore il 2 ottobre 2026 ("Si ok,
  * approvo."): 60 all'Adepto e 120 all'Illuminato (erano 100 e 250).
+ * Dall'ordine EX Aggiunta 6, 3 ottobre 2026, il fondatore: "Si fammi
+ * aggiunta ordine con aumento limiti di minuti": 80 all'Adepto e 150
+ * all'Illuminato. Il conto dei minuti gia' usati nel mese non cambia.
  */
 export const MINUTI_DEL_MESE: Record<string, number> = {
   free: 0,
   tier1: 0,
-  tier2: 60,
-  tier3: 120,
+  tier2: 80,
+  tier3: 150,
 };
 
 /**

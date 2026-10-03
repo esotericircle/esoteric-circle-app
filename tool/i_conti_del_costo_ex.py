@@ -26,6 +26,7 @@ misurata):
   python tool/i_conti_del_costo_ex.py
 """
 import importlib.util
+import os
 import pathlib
 
 RADICE = pathlib.Path(__file__).resolve().parent.parent
@@ -35,7 +36,9 @@ _q = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(_q)
 
 GIRO_PRIMA = 'prima2'
-GIRO_DOPO = 'ex07j'
+# Il giro del banco della qualita' col codice da misurare; si sceglie con
+# GIRO_DOPO=nome nell'ambiente (EX Aggiunta 5).
+GIRO_DOPO = os.environ.get('GIRO_DOPO', 'ex07j')
 
 # I costi per uso dell'ordine EW (docs/costi/i_conti_del_costo.txt):
 # (senza cache, con la cache misurata).
@@ -70,7 +73,8 @@ NUOVI = {
     'segni': [1 / 7, 3 / 7, 1, 5],
     'sigilli': [1, 2, 3, 5],
     'ricordi': [0, 1 / 30, 1 / 30, 1 / 30],
-    'minuti_live': [0, 0, 60, 120],
+    # Ordine EX Aggiunta 6, 3 ottobre 2026: erano 60 e 120.
+    'minuti_live': [0, 0, 80, 150],
 }
 PRIMA = {
     'domande': [3, 5, 10, 50],

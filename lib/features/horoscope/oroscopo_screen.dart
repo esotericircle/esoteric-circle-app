@@ -354,7 +354,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     setState(() {
       _fase = _FaseDelConsulto.responso;
       _turnoDiScrittura = 0;
-      _consultate.add(quale);
+      _consultate.add(_chiaveDelConsulto(_period, quale));
     });
     // La corsa non sparisce col cambio di fase: resta sopra il responso il
     // tempo della sua dissolvenza, ed e' quella dissolvenza a scoprirlo.
@@ -430,7 +430,63 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   /// la Cinese trova il gesto per interrogarla, non le schede cinesi gia'
   /// scritte senza averle chieste; chi torna a una tradizione gia' letta la
   /// ritrova scritta.
-  final Set<AstroTradition> _consultate = {};
+  ///
+  /// **E PER PERIODO, ordine EX Aggiunta 5, voce EX.12.** Il fondatore:
+  /// *"Nell'oroscopo il pulsante "interroga il cielo, la luna, l'almanacco"
+  /// compaiono solo per il giornaliero mentre non c'è per settimanale,
+  /// mensile e annuale"*. Adesso anche la Settimana, il Mese e l'Anno si
+  /// aprono col gesto, e ogni periodo di ogni tradizione ha il suo consulto:
+  /// la chiave e' [_chiaveDelConsulto].
+  final Set<String> _consultate = {};
+
+  /// La chiave di un consulto: il periodo e la tradizione.
+  static String _chiaveDelConsulto(
+          HoroscopePeriod periodo, AstroTradition tradizione) =>
+      '${periodo.name}|${tradizione.name}';
+
+  /// **LA LETTURA DEL PERIODO DIETRO IL GESTO, ordine EX Aggiunta 5, voce
+  /// EX.12.** Prima del tocco il gesto, uguale a quello del Giorno (stessa
+  /// scritta per tradizione, stessa vibrazione, stessa corsa dello zodiaco,
+  /// stessa riflessione, stesso suono alla comparsa); durante la
+  /// riflessione i suoi due momenti; dopo, la lettura. Gli inviti a
+  /// completare i dati e il piano chiuso restano fuori dal gesto: li' non
+  /// c'e' niente da interrogare.
+  List<Widget> _dietroIlGesto(MaestroPalette palette, List<Widget> lettura) {
+    final cinese = _inCima == AstroTradition.cinese;
+    final vedica = _inCima == AstroTradition.vedica;
+    final cielo = _cieloDelGesto;
+    if (!InterrogaIlCielo.ancheFuoriDalGiorno) return lettura;
+    return switch (_fase) {
+      _FaseDelConsulto.attesa => [
+          InterrogaIlCielo(
+            key: Key('oroscopo_${_period.name}_interroga'),
+            palette: palette,
+            onTap: _interrogaIlCielo,
+            etichetta: InterrogaIlCielo.etichettaPer(_inCima),
+          ),
+        ],
+      _FaseDelConsulto.raccolta || _FaseDelConsulto.nomina => [
+          if (cielo != null)
+            RigaDellaRiflessione(
+              momento: _fase == _FaseDelConsulto.raccolta
+                  ? MomentoDellaRiflessione.raccolta
+                  : MomentoDellaRiflessione.nomina,
+              cielo: cielo,
+              palette: palette,
+              almanacco: cinese
+                  ? LaLetturaCinese.fattoDelGiorno(_date)
+                  : vedica
+                      ? LaLetturaVedica.fattoDelGiorno(_date, _luogo)
+                      : null,
+            ),
+        ],
+      _FaseDelConsulto.responso => lettura,
+    };
+  }
+
+  /// Il cielo di oggi della costruzione in corso, per la riflessione del
+  /// periodo.
+  CieloDiOggi? _cieloDelGesto;
 
   /// **LA SETTIMANA E IL MESE SI CALCOLANO UNA VOLTA**, per periodo, carta e
   /// giorno: sono qualche migliaio di posizioni.
@@ -598,24 +654,27 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     return [
       riga,
       const SizedBox(height: SpacingTokens.md),
-      for (final s in schede) ...[
-        _HoroscopeCardView(
-          scrivendo: false,
-          durataScrittura: Duration.zero,
-          card: s,
-          palette: palette,
-          pulse: _pulse,
-          depth: _depth[s.domain]!,
-          onDepthSelected: (scelta) => _scegliProfondita(s.domain, scelta),
-          onDepthLocked: (scelta) => _showDepthLocked(s.domain, scelta),
-          premiumUnlocked: PlanCatalog.haProfondita(tier),
-          giaScritto: () => true,
-          onScritto: () {},
-          livello: livello,
-          mesi: mesi,
-        ),
-        const SizedBox(height: SpacingTokens.md),
-      ],
+      // Ordine EX Aggiunta 5, voce EX.12: l'anno si apre col gesto.
+      ..._dietroIlGesto(palette, [
+        for (final s in schede) ...[
+          _HoroscopeCardView(
+            scrivendo: false,
+            durataScrittura: Duration.zero,
+            card: s,
+            palette: palette,
+            pulse: _pulse,
+            depth: _depth[s.domain]!,
+            onDepthSelected: (scelta) => _scegliProfondita(s.domain, scelta),
+            onDepthLocked: (scelta) => _showDepthLocked(s.domain, scelta),
+            premiumUnlocked: PlanCatalog.haProfondita(tier),
+            giaScritto: () => true,
+            onScritto: () {},
+            livello: livello,
+            mesi: mesi,
+          ),
+          const SizedBox(height: SpacingTokens.md),
+        ],
+      ]),
     ];
   }
 
@@ -904,67 +963,71 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     return [
       riga,
       const SizedBox(height: SpacingTokens.md),
-      for (final s in schede) ...[
-        _HoroscopeCardView(
-          scrivendo: false,
-          durataScrittura: Duration.zero,
-          card: s,
-          palette: palette,
-          pulse: _pulse,
-          depth: _depth[s.domain]!,
-          onDepthSelected: (scelta) => _scegliProfondita(s.domain, scelta),
-          onDepthLocked: (scelta) => _showDepthLocked(s.domain, scelta),
-          premiumUnlocked: PlanCatalog.haProfondita(tier),
-          giaScritto: () => true,
-          onScritto: () {},
-          livello: livello,
-          mesi: mesi,
-        ),
-        const SizedBox(height: SpacingTokens.md),
-      ],
-      // LA CARD DELL'ANNO, col suo emblema (ordine ES voce 05).
-      _CondividiIlPeriodo(
-          periodo: HoroscopePeriod.anno,
-          palette: palette,
-          sharing: _sharing,
-          onShare: _onShare),
-      const SizedBox(height: SpacingTokens.sm),
-      // IL PDF DELL'ANNO, all'Illuminato (l'annuale approvato dal fondatore).
-      if (tier.level >= Tier.tier3.level)
-        OutlinedButton(
-          key: const Key('oroscopo_anno_pdf'),
-          style: OutlinedButton.styleFrom(
-            minimumSize: const Size(0, 44),
-            side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+      // Ordine EX Aggiunta 5, voce EX.12: l'anno si apre col gesto.
+      ..._dietroIlGesto(palette, [
+        for (final s in schede) ...[
+          _HoroscopeCardView(
+            scrivendo: false,
+            durataScrittura: Duration.zero,
+            card: s,
+            palette: palette,
+            pulse: _pulse,
+            depth: _depth[s.domain]!,
+            onDepthSelected: (scelta) => _scegliProfondita(s.domain, scelta),
+            onDepthLocked: (scelta) => _showDepthLocked(s.domain, scelta),
+            premiumUnlocked: PlanCatalog.haProfondita(tier),
+            giaScritto: () => true,
+            onScritto: () {},
+            livello: livello,
+            mesi: mesi,
           ),
-          onPressed: () async {
-            final andata = await IlPdfDellAnno.condividi(
-              intere,
-              titolo: 'Il tuo anno dal ${italianLongDate(locale)}',
-              sottotitolo: 'Rivoluzione Solare del ${italianLongDate(locale)} '
-                  'alle $ora, per $dove',
-            );
-            // Il premio della condivisione avvenuta, come per ogni responso
-            // mandato (ordine BG voce 04).
-            if (andata && context.mounted) {
-              await PremioDellaCondivisione.premia(context,
-                  cosa: 'Hai condiviso il tuo anno');
-            }
-          },
-          // Su una riga: "Scarica il PDF del tuo anno" col premio accanto
-          // andava a capo sul Realme (visto il 30 settembre 2026).
-          child: FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Text(
-                PremioDellaCondivisione.etichetta(context,
-                    base: 'Il PDF del tuo anno'),
-                key: const Key('oroscopo_anno_pdf_etichetta'),
-                maxLines: 1,
-                softWrap: false,
-                style:
-                    TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
+          const SizedBox(height: SpacingTokens.md),
+        ],
+        // LA CARD DELL'ANNO, col suo emblema (ordine ES voce 05).
+        _CondividiIlPeriodo(
+            periodo: HoroscopePeriod.anno,
+            palette: palette,
+            sharing: _sharing,
+            onShare: _onShare),
+        const SizedBox(height: SpacingTokens.sm),
+        // IL PDF DELL'ANNO, all'Illuminato (l'annuale approvato dal fondatore).
+        if (tier.level >= Tier.tier3.level)
+          OutlinedButton(
+            key: const Key('oroscopo_anno_pdf'),
+            style: OutlinedButton.styleFrom(
+              minimumSize: const Size(0, 44),
+              side: BorderSide(color: palette.gold.withValues(alpha: 0.6)),
+            ),
+            onPressed: () async {
+              final andata = await IlPdfDellAnno.condividi(
+                intere,
+                titolo: 'Il tuo anno dal ${italianLongDate(locale)}',
+                sottotitolo:
+                    'Rivoluzione Solare del ${italianLongDate(locale)} '
+                    'alle $ora, per $dove',
+              );
+              // Il premio della condivisione avvenuta, come per ogni responso
+              // mandato (ordine BG voce 04).
+              if (andata && context.mounted) {
+                await PremioDellaCondivisione.premia(context,
+                    cosa: 'Hai condiviso il tuo anno');
+              }
+            },
+            // Su una riga: "Scarica il PDF del tuo anno" col premio accanto
+            // andava a capo sul Realme (visto il 30 settembre 2026).
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(
+                  PremioDellaCondivisione.etichetta(context,
+                      base: 'Il PDF del tuo anno'),
+                  key: const Key('oroscopo_anno_pdf_etichetta'),
+                  maxLines: 1,
+                  softWrap: false,
+                  style: TypographyTokens.corpo()
+                      .copyWith(color: palette.goldSoft)),
+            ),
           ),
-        ),
+      ]),
     ];
   }
 
@@ -1033,6 +1096,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     final cielo = CieloDiOggi.perIlGiorno(
         adesso: _date,
         carta: context.watch<BirthIdentityController>().cartaCompleta);
+    _cieloDelGesto = cielo;
     final notaDelCielo = CorrenteDelCielo.notaDelLivello(cielo);
     // I dati di nascita per il segno delle altre tradizioni (ordine ES).
     final nascita = context.watch<BirthIdentityController>().details;
@@ -1355,22 +1419,27 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       if (_inCima == AstroTradition.occidentale &&
                           (_period == HoroscopePeriod.settimana ||
                               _period == HoroscopePeriod.mese))
-                        IlPeriodoView(
-                          periodo: _periodoDelCielo(context
-                              .watch<BirthIdentityController>()
-                              .cartaCompleta),
-                          mese: _period == HoroscopePeriod.mese,
-                          palette: palette,
-                          livello: cielo.livello,
-                          // La profondita' su ogni scheda, come nel Giorno.
-                          profondita: _depth,
-                          premiumUnlocked: PlanCatalog.haProfondita(tier),
-                          onDepthSelected: _scegliProfondita,
-                          onDepthLocked: _showDepthLocked,
-                        ),
+                        ..._dietroIlGesto(palette, [
+                          IlPeriodoView(
+                            periodo: _periodoDelCielo(context
+                                .watch<BirthIdentityController>()
+                                .cartaCompleta),
+                            mese: _period == HoroscopePeriod.mese,
+                            palette: palette,
+                            livello: cielo.livello,
+                            // La profondita' su ogni scheda, come nel Giorno.
+                            profondita: _depth,
+                            premiumUnlocked: PlanCatalog.haProfondita(tier),
+                            onDepthSelected: _scegliProfondita,
+                            onDepthLocked: _showDepthLocked,
+                          ),
+                        ]),
                       // LA CARD DELLA SETTIMANA E DEL MESE, col loro emblema
-                      // (ordine ES voce 05).
-                      if (periodoAVideo) ...[
+                      // (ordine ES voce 05): si porta con se' solo cio' che
+                      // si e' letto, dopo il gesto (EX.12).
+                      if (periodoAVideo &&
+                          (!InterrogaIlCielo.ancheFuoriDalGiorno ||
+                              _fase == _FaseDelConsulto.responso)) ...[
                         const SizedBox(height: SpacingTokens.md),
                         _CondividiIlPeriodo(
                             periodo: _period,
@@ -1413,17 +1482,19 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                         if (_periodoDellaTradizione(
                                 nascitaDeiSegni, profile.courtesy, animale)
                             case final p?)
-                          IlPeriodoView(
-                            key: Key('oroscopo_${_inCima.name}_periodo'),
-                            periodo: p,
-                            mese: _period == HoroscopePeriod.mese,
-                            palette: palette,
-                            livello: cielo.livello,
-                            profondita: _depth,
-                            premiumUnlocked: PlanCatalog.haProfondita(tier),
-                            onDepthSelected: _scegliProfondita,
-                            onDepthLocked: _showDepthLocked,
-                          ),
+                          ..._dietroIlGesto(palette, [
+                            IlPeriodoView(
+                              key: Key('oroscopo_${_inCima.name}_periodo'),
+                              periodo: p,
+                              mese: _period == HoroscopePeriod.mese,
+                              palette: palette,
+                              livello: cielo.livello,
+                              profondita: _depth,
+                              premiumUnlocked: PlanCatalog.haProfondita(tier),
+                              onDepthSelected: _scegliProfondita,
+                              onDepthLocked: _showDepthLocked,
+                            ),
+                          ]),
                       if (altra &&
                           leggeLaTradizione &&
                           nascitaDeiSegni != null &&
@@ -1486,14 +1557,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                             palette: palette,
                             alRitorno: _leggiIlLuogo),
                       if (consulto && _fase == _FaseDelConsulto.attesa)
-                        _InterrogaIlCielo(
+                        InterrogaIlCielo(
                           palette: palette,
                           onTap: _interrogaIlCielo,
-                          etichetta: cinese
-                              ? 'Apri l\'almanacco'
-                              : vedica
-                                  ? 'Interroga la Luna'
-                                  : 'Interroga il cielo',
+                          etichetta: InterrogaIlCielo.etichettaPer(_inCima),
                         ),
                       // L'INVITO A COMPLETARE I DATI DI NASCITA, ordine ES
                       // voce 31. **Sotto il gesto, non sopra**: sopra spingeva
@@ -2055,7 +2122,11 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   void _selectPeriod(HoroscopePeriod period) {
     final tier = context.read<EntitlementService>().tier;
     if (period.apertoPer(tier)) {
-      setState(() => _period = period);
+      setState(() {
+        _period = period;
+        // Ordine EX Aggiunta 5, voce EX.12: ogni periodo ha il suo consulto.
+        _consultoDi(_inCima);
+      });
       return;
     }
     // **IL PIANO SI CHIAMA COL SUO NOME, ordine ES voce 06**, non "Cerchio
@@ -2127,7 +2198,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     _cascata?.cancel();
     _fineDellaCorsa?.cancel();
     _corsaInScena = false;
-    if (_consultate.contains(nuova)) {
+    if (_consultate.contains(_chiaveDelConsulto(_period, nuova))) {
       _fase = _FaseDelConsulto.responso;
       _turnoDiScrittura = _quanteSchede - 1;
     } else {
@@ -2538,9 +2609,28 @@ class _InvitoAllaNascita extends StatelessWidget {
 /// Ordine 2171, voce 5. Prima la schermata si apriva con l'oroscopo gia'
 /// scritto: sembrava uscito da una macchina, senza studio ne' interpretazione.
 /// Un consulto comincia quando qualcuno lo chiede.
-class _InterrogaIlCielo extends StatelessWidget {
-  const _InterrogaIlCielo(
-      {required this.palette,
+class InterrogaIlCielo extends StatelessWidget {
+  /// **L'INTERRUTTORE DEL GESTO FUORI DAL GIORNO**, acceso nell'app (ordine
+  /// EX Aggiunta 5, voce EX.12): la Settimana, il Mese, l'Anno e l'oroscopo
+  /// dell'amico si aprono col gesto. Le prove del contenuto dei periodi lo
+  /// spengono (`test/flutter_test_config.dart`); lo riaccende e lo sorveglia
+  /// `test/il_gesto_in_tutti_i_periodi_test.dart`. Il gesto del Giorno non
+  /// dipende da lui.
+  static bool ancheFuoriDalGiorno = true;
+
+  /// La scritta del gesto, la stessa in ogni periodo e per l'amico (ordine
+  /// EX Aggiunta 5, voce EX.12): "Interroga il cielo"
+  /// (Occidentale), "Interroga la Luna" (Vedica), "Apri l'almanacco"
+  /// (Cinese).
+  static String etichettaPer(AstroTradition t) => t == AstroTradition.cinese
+      ? 'Apri l\'almanacco'
+      : t == AstroTradition.vedica
+          ? 'Interroga la Luna'
+          : 'Interroga il cielo';
+
+  const InterrogaIlCielo(
+      {super.key,
+      required this.palette,
       required this.onTap,
       this.etichetta = 'Interroga il cielo'});
 

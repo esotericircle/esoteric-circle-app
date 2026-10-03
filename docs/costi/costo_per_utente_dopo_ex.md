@@ -64,11 +64,35 @@ esplicita (EX.05) non e' in questo conto: si accende solo sopra 23 richieste
 all'ora sull'insieme della chat, e a quel traffico il conto e' quello di
 `docs/collaudo/EX/la_cache_garantita.txt`.
 
+## Dopo le EX Aggiunte 5 e 6: i minuti nuovi e il lessico corretto corto
+
+> *"Si fammi aggiunta ordine con aumento limiti di minuti. Ci saranno da
+> cambiare anche le descrizione degli abbonamenti"*
+
+Stesso conto, senza cache, LIVE compreso, rune dal corpus, con due cose
+cambiate: i minuti del LIVE dell'Adepto e dell'Illuminato salgono da 60 e 120
+a **80 e 150** al mese (EX Aggiunta 6), e le domande e i tocchi vengono dal
+giro piu' caro dei tre giri finali del banco della qualita' col codice
+consegnato (`ag5_finale1`, `GIRO_DOPO` di `tool/i_conti_del_costo_ex.py`):
+una domanda a freddo 0,00428 $, 1,38 chiamate per risposta (gli altri due
+giri 1,29 e 1,25). Il LIVE costa 0,0213 $ al minuto (EW.07): i 20 minuti in
+piu' dell'Adepto valgono 0,43 $, i 30 dell'Illuminato 0,64 $.
+
+| Piano | Dopo l'Aggiunta 4 | Dopo le Aggiunte 5 e 6 | Tetto | Margine che resta |
+|---|---|---|---|---|
+| Iniziato | 1,88 $ | **1,91 $** | 2,36 $ | 0,45 $ |
+| Adepto | 4,10 $ | **4,58 $** | 4,72 $ | 0,14 $ |
+| Illuminato | 6,23 $ | **6,93 $** | 7,08 $ | 0,15 $ |
+
+Tutti e tre i piani restano sotto il tetto, 3 su 3; coi minuti nuovi l'Adepto
+e l'Illuminato hanno un margine di circa una domanda e mezza al giorno.
+
 ## Da dove vengono i numeri
 
 **I limiti** sono quelli della matrice nuova (EX.02): domande 3/6/10/13,
 Vai piu' a fondo 0/2/2/3, confronti 0/1/2/3, carte estratte 3/6/10/15,
-gettate 1/2/3/3, minuti LIVE 0/0/60/120 al mese; discese, segni e sigilli
+gettate 1/2/3/3, minuti LIVE 0/0/60/120 al mese (0/0/80/150 dall'EX
+Aggiunta 6); discese, segni e sigilli
 come prima.
 
 **I costi per uso**, senza cache:

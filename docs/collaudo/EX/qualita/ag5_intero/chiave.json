@@ -1,0 +1,242 @@
+{
+ "S01": {
+  "giro": "ag5_finale1",
+  "caso": "M6"
+ },
+ "S02": {
+  "giro": "ag5_prima_intero",
+  "caso": "R5"
+ },
+ "S03": {
+  "giro": "ag5_finale1",
+  "caso": "M8"
+ },
+ "S04": {
+  "giro": "ag5_prima_intero",
+  "caso": "R4"
+ },
+ "S05": {
+  "giro": "ag5_prima_intero",
+  "caso": "C7"
+ },
+ "S06": {
+  "giro": "ag5_prima_intero",
+  "caso": "L5"
+ },
+ "S07": {
+  "giro": "ag5_finale1",
+  "caso": "C8"
+ },
+ "S08": {
+  "giro": "ag5_prima_intero",
+  "caso": "C4"
+ },
+ "S09": {
+  "giro": "ag5_prima_intero",
+  "caso": "C8"
+ },
+ "S10": {
+  "giro": "ag5_finale1",
+  "caso": "M5"
+ },
+ "S11": {
+  "giro": "ag5_finale1",
+  "caso": "L4"
+ },
+ "S12": {
+  "giro": "ag5_finale1",
+  "caso": "R8"
+ },
+ "S13": {
+  "giro": "ag5_finale1",
+  "caso": "L2"
+ },
+ "S14": {
+  "giro": "ag5_finale1",
+  "caso": "R2"
+ },
+ "S15": {
+  "giro": "ag5_finale1",
+  "caso": "R5"
+ },
+ "S16": {
+  "giro": "ag5_finale1",
+  "caso": "C5"
+ },
+ "S17": {
+  "giro": "ag5_prima_intero",
+  "caso": "L4"
+ },
+ "S18": {
+  "giro": "ag5_prima_intero",
+  "caso": "M4"
+ },
+ "S19": {
+  "giro": "ag5_finale1",
+  "caso": "C7"
+ },
+ "S20": {
+  "giro": "ag5_finale1",
+  "caso": "L6"
+ },
+ "S21": {
+  "giro": "ag5_finale1",
+  "caso": "R3"
+ },
+ "S22": {
+  "giro": "ag5_finale1",
+  "caso": "L3"
+ },
+ "S23": {
+  "giro": "ag5_finale1",
+  "caso": "C6"
+ },
+ "S24": {
+  "giro": "ag5_prima_intero",
+  "caso": "R2"
+ },
+ "S25": {
+  "giro": "ag5_prima_intero",
+  "caso": "L3"
+ },
+ "S26": {
+  "giro": "ag5_prima_intero",
+  "caso": "C6"
+ },
+ "S27": {
+  "giro": "ag5_finale1",
+  "caso": "M1"
+ },
+ "S28": {
+  "giro": "ag5_prima_intero",
+  "caso": "L2"
+ },
+ "S29": {
+  "giro": "ag5_prima_intero",
+  "caso": "C3"
+ },
+ "S30": {
+  "giro": "ag5_finale1",
+  "caso": "M4"
+ },
+ "S31": {
+  "giro": "ag5_finale1",
+  "caso": "L1"
+ },
+ "S32": {
+  "giro": "ag5_finale1",
+  "caso": "M3"
+ },
+ "S33": {
+  "giro": "ag5_prima_intero",
+  "caso": "R3"
+ },
+ "S34": {
+  "giro": "ag5_prima_intero",
+  "caso": "M2"
+ },
+ "S35": {
+  "giro": "ag5_prima_intero",
+  "caso": "M5"
+ },
+ "S36": {
+  "giro": "ag5_prima_intero",
+  "caso": "R7"
+ },
+ "S37": {
+  "giro": "ag5_prima_intero",
+  "caso": "L1"
+ },
+ "S38": {
+  "giro": "ag5_prima_intero",
+  "caso": "R1"
+ },
+ "S39": {
+  "giro": "ag5_prima_intero",
+  "caso": "R8"
+ },
+ "S40": {
+  "giro": "ag5_finale1",
+  "caso": "L5"
+ },
+ "S41": {
+  "giro": "ag5_prima_intero",
+  "caso": "R6"
+ },
+ "S42": {
+  "giro": "ag5_prima_intero",
+  "caso": "C2"
+ },
+ "S43": {
+  "giro": "ag5_finale1",
+  "caso": "C1"
+ },
+ "S44": {
+  "giro": "ag5_prima_intero",
+  "caso": "M8"
+ },
+ "S45": {
+  "giro": "ag5_finale1",
+  "caso": "R7"
+ },
+ "S46": {
+  "giro": "ag5_finale1",
+  "caso": "R4"
+ },
+ "S47": {
+  "giro": "ag5_prima_intero",
+  "caso": "M3"
+ },
+ "S48": {
+  "giro": "ag5_prima_intero",
+  "caso": "M1"
+ },
+ "S49": {
+  "giro": "ag5_prima_intero",
+  "caso": "C1"
+ },
+ "S50": {
+  "giro": "ag5_finale1",
+  "caso": "C4"
+ },
+ "S51": {
+  "giro": "ag5_finale1",
+  "caso": "C2"
+ },
+ "S52": {
+  "giro": "ag5_prima_intero",
+  "caso": "L6"
+ },
+ "S53": {
+  "giro": "ag5_prima_intero",
+  "caso": "C5"
+ },
+ "S54": {
+  "giro": "ag5_finale1",
+  "caso": "M7"
+ },
+ "S55": {
+  "giro": "ag5_finale1",
+  "caso": "R6"
+ },
+ "S56": {
+  "giro": "ag5_finale1",
+  "caso": "M2"
+ },
+ "S57": {
+  "giro": "ag5_finale1",
+  "caso": "R1"
+ },
+ "S58": {
+  "giro": "ag5_prima_intero",
+  "caso": "M6"
+ },
+ "S59": {
+  "giro": "ag5_prima_intero",
+  "caso": "M7"
+ },
+ "S60": {
+  "giro": "ag5_finale1",
+  "caso": "C3"
+ }
+}
