@@ -80,6 +80,9 @@ L'EX Aggiunta 4 per intero, con domanda, prova e misura di ogni voce:
   nella copia di lavoro: `cd C:\Users\user\Desktop\esoteric-circle-app`,
   `git pull`, `firebase deploy --only functions:apriUnaSessioneLive`. Finche'
   non e' ripubblicata il server dice 60 e 120 minuti e le card 80 e 150.
+  **Pubblicata** dal fondatore il 4 ottobre 2026 alle 01:02, dalla copia
+  di lavoro di Code al commit `f414b0f6` ("Deploy complete!"; in sola
+  lettura `updateTime` 2026-10-03T23:02:12Z, stato ACTIVE).
 - I testi degli store: lasciati stare, i prodotti negli store non esistono
   ancora (decisione del fondatore).
 

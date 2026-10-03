@@ -35,6 +35,7 @@ Il comando, da PowerShell, nella cartella della copia di lavoro del fondatore, d
   firebase deploy --only functions:apriUnaSessioneLive
 Code non pubblica le funzioni: l'elenco e il comando vanno al fondatore, che conferma.
 Finche' la funzione non e' ripubblicata, il server dice ancora 60 e 120 minuti e le card ne promettono 80 e 150.
+Pubblicata dal fondatore il 4 ottobre 2026 alle 01:02 (23:02 UTC del 3), da PowerShell nella copia di lavoro di Code al commit f414b0f6: "Deploy complete!", apriUnaSessioneLive(europe-west1) "Successful update operation"; gcloud functions describe, in sola lettura: updateTime 2026-10-03T23:02:12Z, stato ACTIVE, nodejs22. Da qui il server concede 80 e 150 minuti. Il primo tentativo del fondatore dalla sua copia sul Desktop si era fermato prima di pubblicare: il git pull rifiutato per file suoi modificati e nuovi, poi "tsc" non riconosciuto; nulla pubblicato da li'.
 
 4. IL COSTO AL MESE AL MASSIMO, COI MINUTI NUOVI
 Senza cache, LIVE compreso (0,0213 dollari al minuto, EW.07), rune dal corpus, 30 giorni: tool/i_conti_del_costo_ex.py, uscita in docs/costi/i_conti_del_costo_ex.txt.

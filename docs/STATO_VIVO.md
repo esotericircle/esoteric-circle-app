@@ -6512,7 +6512,9 @@ dodici voci, undici chiuse (anche EX.05, EX.10 e la nuova EX.12), una aperta
 (EX.07, le chiamate per risposta 1,38, 1,29 e 1,25 sopra l'1,3 in un giro);
 build 2295 consegnata su App Tester dal commit `aafdd96b` col cancello verde
 (release `12d92pon7vjao`), lo stesso commit pronto per Codemagic; **da
-ripubblicare dal fondatore `apriUnaSessioneLive`** per i minuti nuovi.** **Build 2293 consegnata su App Tester** il 2 ottobre
+ripubblicare dal fondatore `apriUnaSessioneLive`** per i minuti nuovi:
+**pubblicata il 4 ottobre 2026 alle 01:02** dalla copia di lavoro di Code
+al commit `f414b0f6` (stato ACTIVE), il server concede 80 e 150 minuti.** **Build 2293 consegnata su App Tester** il 2 ottobre
 2026 dal commit `2a811596` (release `2hhg5dlk19l30`, sbarramento 6.548 prove,
 solo i rossi accettati); lo stesso codice e' pronto per Codemagic. Dalla 2292
 le catture dello schermo sono permesse di base: la protezione solo con
