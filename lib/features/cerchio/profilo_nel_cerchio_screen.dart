@@ -109,6 +109,7 @@ class _ProfiloNelCerchioScreenState extends State<ProfiloNelCerchioScreen> {
       builder: (c) => fondoDelFoglio(
         c,
         _LaSceltaDellIcona(
+          attuale: context.read<IlCerchioSociale>().profilo?.icona,
           incontrata: (i) => i.incontrata(
               diario: diario,
               identita: identita,
@@ -329,15 +330,17 @@ class _ProfiloNelCerchioScreenState extends State<ProfiloNelCerchioScreen> {
                       decoration: const BoxDecoration(
                           shape: BoxShape.circle, color: Color(0xFFE5484D)),
                     ),
-                    title: Text(b.nome,
-                        style: TypographyTokens.corpo()
-                            .copyWith(color: ColorTokens.textPrimary)),
-                    subtitle: Text(
-                        b.sigillo == null || b.sigillo!.isEmpty
-                            ? ''
-                            : 'Sigillo ${b.sigillo}',
-                        style: TypographyTokens.didascalia()
-                            .copyWith(color: ColorTokens.textSecondary)),
+                    // Il sigillo accanto al nome solo quando due persone
+                    // bloccate si chiamano allo stesso modo (ordine FA voce
+                    // 04): prima lo portava sempre, sotto il nome.
+                    title: ElencoDelCerchio(
+                      persone: sociale.cerchio.bloccati,
+                      child: NomeDellaPersona(
+                          nome: b.nome,
+                          sigillo: b.sigillo,
+                          stile: TypographyTokens.corpo()
+                              .copyWith(color: ColorTokens.textPrimary)),
+                    ),
                     trailing: TextButton(
                       style: TextButton.styleFrom(
                           foregroundColor: MaestroPalette.neutral.goldSoft),
@@ -369,12 +372,30 @@ class _Sezione extends StatelessWidget {
       );
 }
 
-/// LA SCELTA DELL'ICONA: quattro set, le icone non ancora incontrate spente
+/// LA SCELTA DELL'ICONA: tre famiglie, le icone non ancora incontrate spente
 /// con la riga che dice da dove si aprono. **Una vetrina, non un lucchetto.**
-class _LaSceltaDellIcona extends StatelessWidget {
-  const _LaSceltaDellIcona({required this.incontrata});
+///
+/// **UNA FAMIGLIA ALLA VOLTA, ordine FA voce 03.** Le tre scelte in cima
+/// mostrano i dodici segni, i dodici animali o le dodici statue; si apre
+/// sulla famiglia dell'icona di oggi. Prima la vetrina era un elenco unico:
+/// con tre famiglie scorreva appena, le ultime due finivano sulla stessa
+/// schermata, e una cattura della vetrina poteva mostrare una famiglia per
+/// un'altra senza che nessuno se ne accorgesse (premessa F7 dell'ordine FA).
+class _LaSceltaDellIcona extends StatefulWidget {
+  const _LaSceltaDellIcona({required this.incontrata, this.attuale});
 
   final bool Function(IconaDelProfilo) incontrata;
+
+  /// Il codice dell'icona di oggi: la vetrina si apre sulla sua famiglia.
+  final String? attuale;
+
+  @override
+  State<_LaSceltaDellIcona> createState() => _LaSceltaDellIconaState();
+}
+
+class _LaSceltaDellIconaState extends State<_LaSceltaDellIcona> {
+  late FamigliaDelleIcone _famiglia =
+      IconaDelProfilo.da(widget.attuale).famiglia;
 
   @override
   Widget build(BuildContext context) {
@@ -400,23 +421,38 @@ class _LaSceltaDellIcona extends StatelessWidget {
               ),
             ],
           ),
-          for (final f in FamigliaDelleIcone.values) ...[
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: SpacingTokens.md, bottom: SpacingTokens.xs),
-              child: Text(f.titolo.toUpperCase(),
-                  style: TypographyTokens.etichetta()
-                      .copyWith(color: palette.goldSoft, letterSpacing: 1.4)),
-            ),
-            Wrap(
-              spacing: SpacingTokens.sm,
-              runSpacing: SpacingTokens.sm,
-              children: [
-                for (final i in IconaDelProfilo.di(f))
-                  _UnIcona(icona: i, aperta: incontrata(i)),
-              ],
-            ),
-          ],
+          const SizedBox(height: SpacingTokens.sm),
+          Wrap(
+            spacing: SpacingTokens.xs,
+            runSpacing: SpacingTokens.xs,
+            children: [
+              for (final f in FamigliaDelleIcone.values)
+                ChoiceChip(
+                  key: Key('vetrina_famiglia_${f.name}'),
+                  selected: f == _famiglia,
+                  showCheckmark: false,
+                  backgroundColor: palette.deepest,
+                  selectedColor: palette.gold.withValues(alpha: 0.28),
+                  side: BorderSide(
+                      color: palette.gold
+                          .withValues(alpha: f == _famiglia ? 0.9 : 0.4)),
+                  label: Text(f.titolo,
+                      style: TypographyTokens.etichetta()
+                          .copyWith(color: palette.goldSoft)),
+                  onSelected: (_) => setState(() => _famiglia = f),
+                ),
+            ],
+          ),
+          const SizedBox(height: SpacingTokens.md),
+          Wrap(
+            key: Key('vetrina_icone_${_famiglia.name}'),
+            spacing: SpacingTokens.sm,
+            runSpacing: SpacingTokens.sm,
+            children: [
+              for (final i in IconaDelProfilo.di(_famiglia))
+                _UnIcona(icona: i, aperta: widget.incontrata(i)),
+            ],
+          ),
         ],
       ),
     );

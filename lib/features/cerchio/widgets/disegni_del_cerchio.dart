@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../../../core/cerchio/i_segni_del_cerchio.dart';
 import '../../../core/cerchio/il_cerchio_sociale.dart';
 import '../../../core/cerchio/le_icone_del_cerchio.dart';
+import '../../../core/cerchio/le_regole_del_nome.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../design_system/components/cosmos_background.dart';
 import '../../../design_system/theme/maestro_palette.dart';
@@ -23,7 +24,8 @@ import '../../../design_system/tokens/typography_tokens.dart';
 MaestroPalette paletteDi(Maestro? m) =>
     m == null ? MaestroPalette.neutral : MaestroPalette.forKey(ThemeKey.of(m));
 
-/// L'icona tonda del profilo, dai quattro set disegnati. **Mai una foto.**
+/// L'icona tonda del profilo, dai tre set disegnati (gli Arcani sono usciti con
+/// l'ordine FA voce 01). **Mai una foto.**
 class IconaTonda extends StatelessWidget {
   const IconaTonda({
     super.key,
@@ -58,10 +60,9 @@ class IconaTonda extends StatelessWidget {
   /// icone e cerca pixel del soggetto nella corona fuori dal quadrato.
   ///
   /// Il cerchio non si rimpicciolisce: l'anello e la misura restano quelli,
-  /// si adatta cio' che sta dentro. Le carte dei Tarocchi sono alte e non
-  /// quadrate, e stanno intere anche loro: dentro il quadrato si vedono per
-  /// altezza. Un'immagine dell'Arcano senza la cornice della carta nel
-  /// progetto non esiste.
+  /// si adatta cio' che sta dentro. Con l'ordine EZ c'erano anche le carte
+  /// dei Tarocchi, che intere nel quadrato diventavano un francobollo
+  /// verticale: il fondatore le ha tolte dalle icone (ordine FA voce 01).
   static double quadratoInscritto(double lato) =>
       ((lato - 2 * anelloDi(lato)) * math.sqrt1_2).floorToDouble();
 
@@ -562,6 +563,91 @@ class _PittoreDelDono extends CustomPainter {
 /// il nero pieno. Il fondatore il 4 ottobre 2026: "Tutte le anteprime che
 /// riguardano il cerchio hanno sfondo nero, anziché lo sfondo cosmico
 /// dell'app". Le schermate del Cerchio hanno la Scaffold trasparente.
+/// **L'ELENCO DEL CERCHIO, ordine FA voce 04.** Il nome nel Cerchio non e'
+/// unico per scelta: l'unicita' la porta il sigillo. Il sigillo non si
+/// mostra sotto ogni nome, perche' sporcherebbe ogni elenco; si mostra
+/// accanto al nome SOLO quando in quello stesso elenco due o piu' nomi
+/// coincidono, e allora su tutti quelli che coincidono. Il confronto e'
+/// sulla forma dei nomi riservati (`LeRegoleDelNome.formaDelNome`): "Luce di
+/// Scorpione" e "luce di scorpione" sono lo stesso nome per l'occhio.
+///
+/// Ogni schermata del Cerchio avvolge il suo elenco con le persone che ci
+/// sono dentro (la tendina, il tuo Cerchio, le persone bloccate), e la riga
+/// di una persona (`NomeDellaPersona`) chiede qui se il suo nome e' doppio.
+class ElencoDelCerchio extends InheritedWidget {
+  ElencoDelCerchio({
+    super.key,
+    required List<PersonaDelCerchio> persone,
+    required super.child,
+  }) : doppi = _doppi(persone);
+
+  /// Le forme dei nomi che nell'elenco compaiono due o piu' volte.
+  final Set<String> doppi;
+
+  static Set<String> _doppi(List<PersonaDelCerchio> persone) {
+    final viste = <String>{};
+    final doppi = <String>{};
+    for (final p in persone) {
+      final forma = LeRegoleDelNome.formaDelNome(p.nome);
+      if (forma.isEmpty) continue;
+      if (!viste.add(forma)) doppi.add(forma);
+    }
+    return doppi;
+  }
+
+  /// Se [nome] coincide con un altro nome dell'elenco in cui sta.
+  static bool eDoppio(BuildContext context, String nome) {
+    final elenco =
+        context.dependOnInheritedWidgetOfExactType<ElencoDelCerchio>();
+    return elenco != null &&
+        elenco.doppi.contains(LeRegoleDelNome.formaDelNome(nome));
+  }
+
+  @override
+  bool updateShouldNotify(ElencoDelCerchio old) =>
+      old.doppi.length != doppi.length || !old.doppi.containsAll(doppi);
+}
+
+/// IL NOME DI UNA PERSONA IN UN ELENCO, col sigillo solo quando serve
+/// (ordine FA voce 04): piccolo, dopo il nome, nel grigio delle didascalie,
+/// mai in oro e mai piu' grande del nome. Il nome resta il protagonista.
+class NomeDellaPersona extends StatelessWidget {
+  const NomeDellaPersona({
+    super.key,
+    required this.nome,
+    required this.sigillo,
+    required this.stile,
+  });
+
+  final String nome;
+  final String? sigillo;
+  final TextStyle stile;
+
+  @override
+  Widget build(BuildContext context) {
+    final conSigillo = sigillo != null &&
+        sigillo!.isNotEmpty &&
+        ElencoDelCerchio.eDoppio(context, nome);
+    final piccolo = TypographyTokens.didascalia()
+        .copyWith(color: ColorTokens.textSecondary);
+    return Text.rich(
+      TextSpan(children: [
+        TextSpan(text: nome, style: stile),
+        if (conSigillo)
+          TextSpan(
+              text: '  $sigillo',
+              style: piccolo.copyWith(
+                  fontSize: (piccolo.fontSize ?? 12) <= (stile.fontSize ?? 16)
+                      ? piccolo.fontSize
+                      : stile.fontSize)),
+      ]),
+      key: conSigillo ? Key('sigillo_accanto_a_$nome') : null,
+      overflow: TextOverflow.ellipsis,
+      maxLines: 1,
+    );
+  }
+}
+
 /// Se la data di nascita dice meno di quattordici anni (ordine EZ voce 04).
 /// Senza il Cerchio sociale fra i provider (una prova, un'anteprima) la
 /// soglia non si conosce e le schermate restano com'erano.

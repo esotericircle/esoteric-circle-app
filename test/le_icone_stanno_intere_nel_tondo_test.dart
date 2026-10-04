@@ -22,7 +22,7 @@ import 'sorgenti_di_lib.dart';
 /// - **La prima ENUMERA**: l'immagine di un'icona del profilo si legge in
 ///   un punto solo, `IconaTonda`. Un secondo punto che la disegna per conto
 ///   suo rifarebbe il ritaglio, e la prova cade col nome del file.
-/// - **La seconda MISURA in pixel**: rende ciascuna delle 58 icone dentro il
+/// - **La seconda MISURA in pixel**: rende ciascuna delle 36 icone dentro il
 ///   tondo, a 112 punti come nel profilo e a 44 come nel tuo Cerchio, e
 ///   pretende che nella CORONA, cioe' dentro l'anello ma fuori dal quadrato
 ///   inscritto, non ci sia un pixel diverso dal fondo. Non conta widget:
@@ -80,7 +80,7 @@ void main() {
 
   for (final lato in const [112.0, 44.0]) {
     testWidgets(
-        'EZ.01: le 58 icone a $lato punti stanno nel quadrato '
+        'EZ.01: le 36 icone a $lato punti stanno nel quadrato '
         'inscritto', (tester) async {
       tester.view.devicePixelRatio = 1.0;
       tester.view.physicalSize = const Size(1200, 1600);
@@ -88,9 +88,10 @@ void main() {
       final icone = [
         for (final f in FamigliaDelleIcone.values) ...IconaDelProfilo.di(f),
       ];
-      cardinaleMinimo(icone.length, 58,
+      // LAPIDE, ordine FA voce 01: erano 58 coi ventidue Arcani.
+      cardinaleMinimo(icone.length, 36,
           cosa: 'icone del profilo',
-          perche: 'I quattro set sono 12, 12, 22 e 12.');
+          perche: 'I tre set sono 12, 12 e 12.');
       final fondo = MaestroPalette.neutral.deepest;
       const scala = 3.0;
       final cadute = <String>[];

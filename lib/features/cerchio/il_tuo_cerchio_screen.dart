@@ -84,95 +84,100 @@ class _IlTuoCerchioScreenState extends State<IlTuoCerchioScreen> {
           ),
           body: RefreshIndicator(
             onRefresh: sociale.caricaIlCerchio,
-            child: ListView(
-              key: const Key('il_tuo_cerchio_lista'),
-              padding: const EdgeInsets.fromLTRB(
-                  SpacingTokens.md, 0, SpacingTokens.md, SpacingTokens.xl),
-              children: [
-                _IPosti(
-                    amici: c.amici.length, posti: c.posti, palette: palette),
-                const SizedBox(height: SpacingTokens.md),
-                if (!sociale.vivo)
-                  Text(
-                    // **IL RIPIEGO, DICHIARATO A SCHERMO**: senza il server il
-                    // Cerchio sociale non c'e', e lo si dice invece di mostrare
-                    // un elenco vuoto che sembra vero.
-                    'Il Cerchio non risponde adesso: amici, segni e inviti tornano '
-                    'appena c’è la rete.',
-                    key: const Key('cerchio_silenzio'),
-                    style: TypographyTokens.corpo().copyWith(
-                        color: ColorTokens.textSecondary, height: 1.4),
+            // Tutte le persone della schermata sono un elenco solo: chi ti
+            // cerca, i tuoi amici e chi aspetta la tua risposta (FA.04).
+            child: ElencoDelCerchio(
+              persone: [...c.ricevuti, ...c.amici, ...c.inviati],
+              child: ListView(
+                key: const Key('il_tuo_cerchio_lista'),
+                padding: const EdgeInsets.fromLTRB(
+                    SpacingTokens.md, 0, SpacingTokens.md, SpacingTokens.xl),
+                children: [
+                  _IPosti(
+                      amici: c.amici.length, posti: c.posti, palette: palette),
+                  const SizedBox(height: SpacingTokens.md),
+                  if (!sociale.vivo)
+                    Text(
+                      // **IL RIPIEGO, DICHIARATO A SCHERMO**: senza il server il
+                      // Cerchio sociale non c'e', e lo si dice invece di mostrare
+                      // un elenco vuoto che sembra vero.
+                      'Il Cerchio non risponde adesso: amici, segni e inviti tornano '
+                      'appena c’è la rete.',
+                      key: const Key('cerchio_silenzio'),
+                      style: TypographyTokens.corpo().copyWith(
+                          color: ColorTokens.textSecondary, height: 1.4),
+                    ),
+                  FilledButton.icon(
+                    key: const Key('cerchio_invita'),
+                    style: FilledButton.styleFrom(
+                      backgroundColor: palette.gold,
+                      foregroundColor: palette.onPrimary,
+                      minimumSize: const Size.fromHeight(48),
+                    ),
+                    onPressed: () => Navigator.of(context)
+                        .push(InvitaNelCerchioScreen.route()),
+                    icon: const Icon(Icons.person_add_alt_1_rounded),
+                    label: Text('Chiama nel tuo Cerchio',
+                        style: TypographyTokens.etichetta()),
                   ),
-                FilledButton.icon(
-                  key: const Key('cerchio_invita'),
-                  style: FilledButton.styleFrom(
-                    backgroundColor: palette.gold,
-                    foregroundColor: palette.onPrimary,
-                    minimumSize: const Size.fromHeight(48),
-                  ),
-                  onPressed: () => Navigator.of(context)
-                      .push(InvitaNelCerchioScreen.route()),
-                  icon: const Icon(Icons.person_add_alt_1_rounded),
-                  label: Text('Chiama nel tuo Cerchio',
-                      style: TypographyTokens.etichetta()),
-                ),
-                if (c.ricevuti.isNotEmpty) ...[
-                  const _Titolo('Ti cercano'),
-                  for (final p in c.ricevuti)
+                  if (c.ricevuti.isNotEmpty) ...[
+                    const _Titolo('Ti cercano'),
+                    for (final p in c.ricevuti)
+                      RigaDellaPersona(
+                        persona: p,
+                        sotto: 'Ti ha invitato nel suo Cerchio',
+                        azioniSotto: true,
+                        azioni: [
+                          TextButton(
+                            key: Key('accetta_${p.uid}'),
+                            onPressed: () => _rispondi(p, 'accetta'),
+                            child: Text('Accetta',
+                                style: TypographyTokens.etichetta()
+                                    .copyWith(color: Semaforino.verde)),
+                          ),
+                          TextButton(
+                            key: Key('rifiuta_${p.uid}'),
+                            onPressed: () => _rispondi(p, 'rifiuta'),
+                            child: Text('Non ora',
+                                style: TypographyTokens.etichetta().copyWith(
+                                    color: ColorTokens.textSecondary)),
+                          ),
+                        ],
+                      ),
+                  ],
+                  const _Titolo('I tuoi amici'),
+                  if (c.amici.isEmpty)
+                    Text(
+                      'Il tuo Cerchio è ancora vuoto. Manda il tuo invito, oppure '
+                      'fai inquadrare il tuo codice a chi ti sta accanto.',
+                      style: TypographyTokens.corpo().copyWith(
+                          color: ColorTokens.textSecondary, height: 1.4),
+                    ),
+                  for (final p in c.amici)
                     RigaDellaPersona(
                       persona: p,
-                      sotto: 'Ti ha invitato nel suo Cerchio',
-                      azioniSotto: true,
-                      azioni: [
-                        TextButton(
-                          key: Key('accetta_${p.uid}'),
-                          onPressed: () => _rispondi(p, 'accetta'),
-                          child: Text('Accetta',
-                              style: TypographyTokens.etichetta()
-                                  .copyWith(color: Semaforino.verde)),
-                        ),
-                        TextButton(
-                          key: Key('rifiuta_${p.uid}'),
-                          onPressed: () => _rispondi(p, 'rifiuta'),
-                          child: Text('Non ora',
-                              style: TypographyTokens.etichetta()
-                                  .copyWith(color: ColorTokens.textSecondary)),
-                        ),
-                      ],
+                      onTap: () => Navigator.of(context)
+                          .push(SchedaDellAmicoScreen.route(p)),
                     ),
+                  if (c.segni.isNotEmpty) ...[
+                    const _Titolo('I segni'),
+                    ISegniRicevuti(segni: c.segni),
+                  ],
+                  if (c.inviati.isNotEmpty) ...[
+                    const _Titolo('Aspetti una risposta'),
+                    for (final p in c.inviati)
+                      RigaDellaPersona(
+                        persona: p,
+                        sotto:
+                            'Hai mandato il tuo invito: aspetti la sua risposta',
+                        onTap: () => ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text(
+                                    'Hai invitato ${p.nome}: aspetti la sua risposta.'))),
+                      ),
+                  ],
                 ],
-                const _Titolo('I tuoi amici'),
-                if (c.amici.isEmpty)
-                  Text(
-                    'Il tuo Cerchio è ancora vuoto. Manda il tuo invito, oppure '
-                    'fai inquadrare il tuo codice a chi ti sta accanto.',
-                    style: TypographyTokens.corpo().copyWith(
-                        color: ColorTokens.textSecondary, height: 1.4),
-                  ),
-                for (final p in c.amici)
-                  RigaDellaPersona(
-                    persona: p,
-                    onTap: () => Navigator.of(context)
-                        .push(SchedaDellAmicoScreen.route(p)),
-                  ),
-                if (c.segni.isNotEmpty) ...[
-                  const _Titolo('I segni'),
-                  ISegniRicevuti(segni: c.segni),
-                ],
-                if (c.inviati.isNotEmpty) ...[
-                  const _Titolo('Aspetti una risposta'),
-                  for (final p in c.inviati)
-                    RigaDellaPersona(
-                      persona: p,
-                      sotto:
-                          'Hai mandato il tuo invito: aspetti la sua risposta',
-                      onTap: () => ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text(
-                                  'Hai invitato ${p.nome}: aspetti la sua risposta.'))),
-                    ),
-                ],
-              ],
+              ),
             ),
           ),
         ));
@@ -309,9 +314,10 @@ class RigaDellaPersona extends StatelessWidget {
                     children: [
                       Row(children: [
                         Flexible(
-                          child: Text(persona.nome,
-                              overflow: TextOverflow.ellipsis,
-                              style: TypographyTokens.titoloDiRiga()
+                          child: NomeDellaPersona(
+                              nome: persona.nome,
+                              sigillo: persona.sigillo,
+                              stile: TypographyTokens.titoloDiRiga()
                                   .copyWith(color: palette.goldSoft)),
                         ),
                         const SizedBox(width: SpacingTokens.xs),

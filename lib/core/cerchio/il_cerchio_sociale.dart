@@ -8,6 +8,7 @@ import '../condivisione/porta_della_condivisione.dart';
 import '../identity/birth_identity.dart';
 import '../maestro/maestro.dart';
 import 'il_nome_iniziatico.dart';
+import 'le_icone_del_cerchio.dart';
 import 'l_arte_di_adesso.dart';
 
 /// **IL SEMAFORINO ACCANTO AL NOME, ordine EY voce 05.** Quattro stati, come
@@ -92,11 +93,14 @@ class ProfiloNelCerchio {
 
   bool get haUnNome => nome.isNotEmpty;
 
-  factory ProfiloNelCerchio.da(Map<String, Object?> d) => ProfiloNelCerchio(
+  /// [segno] e' il segno solare di chi guarda: un'icona che non vale piu'
+  /// diventa il suo emblema (ordine FA voce 01).
+  factory ProfiloNelCerchio.da(Map<String, Object?> d, {Zodiac? segno}) =>
+      ProfiloNelCerchio(
         uid: d['uid'] as String? ?? '',
         sigillo: d['sigillo'] as String? ?? '',
         nome: d['nome'] as String? ?? '',
-        icona: d['icona'] as String? ?? 'segno:0',
+        icona: IconaDelProfilo.valida(d['icona'] as String?, segno: segno),
         visibilita: VisibilitaNelCerchio.da(d['visibilita']),
         visibilitaEffettiva: VisibilitaNelCerchio.da(d['visibilitaEffettiva']),
         soloColSigillo: d['chiPuoInvitare'] == 'sigillo',
@@ -150,7 +154,10 @@ class PersonaDelCerchio {
   factory PersonaDelCerchio.da(Map<String, Object?> d) => PersonaDelCerchio(
         uid: d['uid'] as String? ?? '',
         nome: (d['nome'] as String?) ?? 'Una persona del Cerchio',
-        icona: d['icona'] as String? ?? 'segno:0',
+        icona: IconaDelProfilo.valida(d['icona'] as String?,
+            segno: d['segno'] is String
+                ? Zodiac.fromId(d['segno'] as String)
+                : null),
         segno:
             d['segno'] is String ? Zodiac.fromId(d['segno'] as String) : null,
         maestro: _maestro(d['maestro']),
@@ -428,6 +435,10 @@ class IlCerchioSociale extends ChangeNotifier {
 
   bool _chiusoPerEta = false;
 
+  /// Il segno solare di chi guarda, dall'ultima sincronizzazione: serve al
+  /// ripiego dell'icona (ordine FA voce 01).
+  Zodiac? _mioSegno;
+
   /// Vero quando la data di nascita dice meno di quattordici anni.
   bool get chiusoPerEta => _chiusoPerEta;
 
@@ -492,6 +503,7 @@ class IlCerchioSociale extends ChangeNotifier {
   }) async {
     if (!vivo) return;
     final segno = identita?.sunSign;
+    _mioSegno = segno;
     final adesso = oggi ?? DateTime.now();
     final quattordici = quattordiciAnni(identita, adesso);
     if (_chiusoPerEta == quattordici) {
@@ -508,7 +520,7 @@ class IlCerchioSociale extends ChangeNotifier {
       'quattordici': quattordici,
     });
     if (!quattordici || esito == null || esito.rifiutato) return;
-    _profilo = ProfiloNelCerchio.da(esito.dati);
+    _profilo = ProfiloNelCerchio.da(esito.dati, segno: _mioSegno);
     notifyListeners();
     if (!_profilo!.haUnNome) {
       // **CHI ERA GIA' NEL CERCHIO PRIMA DELL'ORDINE EY** non e' passato dal
@@ -567,7 +579,8 @@ class IlCerchioSociale extends ChangeNotifier {
     final esito = _esito(e);
     final profilo = e?.dati['profilo'];
     if (profilo is Map) {
-      _profilo = ProfiloNelCerchio.da(Map<String, Object?>.from(profilo));
+      _profilo = ProfiloNelCerchio.da(Map<String, Object?>.from(profilo),
+          segno: _mioSegno);
       try {
         final p = await SharedPreferences.getInstance();
         await p.remove(chiaveDelNomeProposto);
@@ -592,7 +605,7 @@ class IlCerchioSociale extends ChangeNotifier {
         'chiPuoInvitare': soloColSigillo ? 'sigillo' : 'tutti',
     });
     if (e != null && !e.rifiutato) {
-      _profilo = ProfiloNelCerchio.da(e.dati);
+      _profilo = ProfiloNelCerchio.da(e.dati, segno: _mioSegno);
       notifyListeners();
       return const EsitoDelGesto(ok: true);
     }

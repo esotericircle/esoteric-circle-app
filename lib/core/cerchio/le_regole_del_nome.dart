@@ -33,6 +33,22 @@ class LeRegoleDelNome {
     return _caricate = LeRegoleDelNome.da(testo);
   }
 
+  /// **LA FORMA CON CUI DUE NOMI SI CONFRONTANO A OCCHIO, ordine FA voce 04.**
+  /// La stessa dei nomi riservati: minuscole, accenti tolti, cifre e caratteri
+  /// che si confondono riportati alle lettere, spazi e punteggiatura tolti.
+  /// "Luce di Scorpione" e "luce di scorpione" danno la stessa forma. Se il
+  /// dato delle regole non e' ancora arrivato, vale la riduzione senza le
+  /// tavole del dato (minuscole, accenti, solo lettere e cifre): e' la parte
+  /// che basta a due nomi scritti con le maiuscole diverse.
+  static String formaDelNome(String nome) =>
+      _caricate?._riduci(nome, 'i') ??
+      nome
+          .toLowerCase()
+          .split('')
+          .map(_senzaAccento)
+          .join()
+          .replaceAll(RegExp('[^a-z0-9]'), '');
+
   /// Dal testo del dato, per le prove che lo leggono dal disco.
   factory LeRegoleDelNome.da(String testo) =>
       LeRegoleDelNome._(jsonDecode(testo) as Map<String, dynamic>);

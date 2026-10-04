@@ -196,7 +196,9 @@ void main() {
     final foglio = find.byType(Scrollable).last;
     for (final (f, nome) in const [
       (FamigliaDelleIcone.animale, 'ez01_vetrina_gli_animali'),
-      (FamigliaDelleIcone.arcano, 'ez01_vetrina_gli_arcani'),
+      // LAPIDE, ordine FA voce 01: qui stava la vetrina degli Arcani, usciti
+      // dalle icone del profilo; la cattura ez01_vetrina_gli_arcani resta in
+      // docs come prova dell'ordine EZ.
       (FamigliaDelleIcone.archetipo, 'ez01_vetrina_gli_archetipi'),
     ]) {
       await tester.scrollUntilVisible(find.text(f.titolo.toUpperCase()), 200,

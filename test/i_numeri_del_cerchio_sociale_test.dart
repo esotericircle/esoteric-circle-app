@@ -133,11 +133,14 @@ void main() {
     expect([for (final a in ArteDellaPresenza.values) a.name], delServer);
   });
 
-  test('EY.03: le icone sono i quattro set disegnati, contati come il server',
-      () {
+  // LAPIDE, ordine FA voce 01: erano i quattro set con gli Arcani (58 icone);
+  // gli Arcani sono usciti dalle icone del profilo, e i set sono tre (36).
+  test('EY.03 e FA.01: le icone sono i tre set disegnati, contati come il '
+      'server', () {
     final quante = tabella('QUANTE_ICONE');
     expect(
         {for (final f in FamigliaDelleIcone.values) f.name: f.quante}, quante);
+    expect(quante, {'segno': 12, 'animale': 12, 'archetipo': 12});
     for (final f in FamigliaDelleIcone.values) {
       for (final i in IconaDelProfilo.di(f)) {
         expect(File(i.asset).existsSync(), isTrue,
