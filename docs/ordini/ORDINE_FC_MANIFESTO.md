@@ -185,23 +185,43 @@ PROVA: docs/collaudo/FC/il_cancello_diventa_rosso.txt
 MISURA: cosa esegue il cancello prima e dopo: analisi, suite intera in 6 pezzi, corredo a scala 1,3, server e chiusure, decisione finale (prima e dopo uguale); rossi accettati detti dal verde prima 0 (solo nel registro chiuso), dopo 12 righe per nome, che coprono 17 prove rosse; uscita della decisione finale sui registri veri 0, con una prova rossa innestata 1
 ACCETTAZIONE: aprendo un verde del cancello leggo, nelle annotazioni, quanti e quali rossi ha accettato
 
-## VOCE FC.09, IL CERCHIO SI VEDE DALLA RUBRICA DEGLI AMICI
+## VOCE FC.09, GLI AMICI ONLINE NELLA RUBRICA DEGLI AMICI
 
-**CHIUSA.** Ordine FC Aggiunta 1. In cima alla rubrica degli amici una riga
-sola, viva e toccabile, che porta al Cerchio (`IlPonteVersoIlCerchio`), nei
-tre casi dichiarati nel codice: con amici nel Cerchio e la tendina fresca
-dice quante persone ci sono e quante sono qui adesso; con amici nel Cerchio
-e senza la tendina (o con una tendina piu' vecchia di un minuto) dice solo
-quante sono, e non inventa uno "zero presenti"; senza nessuno nel Cerchio
-dice che il Cerchio aspetta, e porta all'invito. I testi sono segnaposto
-dichiarati: li scrive l'Architetto. La riga non elenca nessuno, non chiama la
-tendina e non apre porte: i legami vengono da cio' che il telefono ha gia',
-i presenti dall'ultima tendina di questa sessione. La fusione delle due
-rubriche non si apre qui, e il perche' e' scritto nel codice. Il verso
-contrario, dal Cerchio alla rubrica delle schede, oggi non esiste: la
-rubrica si apre solo dall'Oroscopo; non si costruisce qui.
+**CHIUSA.** Ordine FC Aggiunta 1, nella forma che il fondatore le ha dato la
+stessa sera. La prima stesura era una riga in cima alla rubrica che portava
+al Cerchio, senza chiamare la tendina; guardandola il fondatore ha chiesto
+due pulsanti invece di un'altra schermata. Adesso in cima a "I tuoi amici"
+ci sono **Offline** a sinistra e **Online** a destra, col numero degli amici
+online e il cerchietto verde (pieno quando qualcuno c'e', velato quando
+nessuno c'e' o il numero non si sa). **Di default e' scelto Offline**, gli
+amici scritti dalla persona come prima; **Online** mostra gli amici del
+Cerchio presenti adesso, con la stessa riga della tendina (`AmicoPresente`,
+resa pubblica e scritta una volta), e sotto la strada al Cerchio intero;
+senza nessuno nel Cerchio, l'invito. Il codice sta in
+`lib/features/amici/gli_amici_online.dart`; la riga di prima
+(`il_ponte_verso_il_cerchio.dart`) e' tolta.
 
-DOMANDA: "in amico vorrei che comparissero anche gli amici online"
+**IL COSTO, CHE LA PRIMA FORMA NON AVEVA.** Il numero e l'elenco vengono
+dalla tendina del Cerchio: la rubrica la chiede **al piu' una volta per
+apertura**, e mai quando la tendina ha meno di un minuto (si riusa), quando
+nel Cerchio non c'e' nessuno (il numero e' zero, ed e' vero) o quando il
+Cerchio e' chiuso per eta'. Una chiamata legge 5 documenti (misurati dalla
+guardia `la_tendina_non_supera_dieci_letture`) e ne scrive 1 (il tetto della
+porta): circa **0,0000027 euro, 0,27 centesimi ogni mille aperture**. E' una
+deroga alla regola R14 chiesta dal fondatore con le sue parole, e la scrivo
+qui per esteso. Il riuso di un minuto tiene la rubrica lontana dal tetto
+della tendina, trenta chiamate l'ora. **Nessuno zero inventato**: senza la
+tendina accanto a Online non c'e' un numero, e l'elenco dice che il Cerchio
+non risponde, con Riprova.
+
+**Le due rubriche restano due**: il selettore le mette sotto lo stesso
+titolo, non le fonde. Il verso contrario, dal Cerchio alla rubrica delle
+schede, oggi non esiste; non si costruisce qui. I testi nuovi ("I tuoi amici
+del Cerchio che sono qui adesso.", la riga del silenzio) sono segnaposto
+dichiarati: li scrive l'Architetto; gli altri sono quelli gia' in uso nella
+tendina e nell'invito.
+
+DOMANDA: "in amico vorrei che comparissero anche gli amici online"; e poi "inserire 2 pulsanti: a sinistra offline e a destra online con a fianco il numero di amici online e un cerchietto verde. Di default è selezionato il pulsante offline che mostra gli amici creati dall'utente e se clicca su online compaiono gli amici online."
 PROVA: test/il_cerchio_si_vede_dalla_rubrica_test.dart
-MISURA: chiamate al server all'apertura della rubrica degli amici prima 0 (la rubrica non toccava il Cerchio), dopo 0 nei tre casi; i tre casi della riga a schermo, uno per uno; tendina piu' vecchia di un minuto letta come assente; il tocco con amici apre il tuo Cerchio, senza amici l'invito; catture dei tre casi in docs/preview/prima_dopo/fc09_rubrica_*
-ACCETTAZIONE: aprendo "I tuoi amici" dall'Oroscopo leggo in cima quante persone ho nel Cerchio, e quante sono qui adesso quando lo so, e toccando la riga entro nel Cerchio
+MISURA: amici online visibili dalla rubrica prima 0 (la rubrica mostrava solo le schede), dopo 1 su 1 nella prova (Stella Lieve su Online, nascosta su Offline); pulsante scelto all'apertura Offline; chiamate della tendina all'apertura: 0 con la tendina fresca, 1 senza tendina, 0 riaperta subito dopo, 1 con la tendina vecchia di due minuti, 0 senza amici nel Cerchio (numero 0); col Cerchio che non risponde nessun numero; catture in docs/preview/prima_dopo/fc09_rubrica_offline_dopo.png, fc09_rubrica_online_dopo.png, fc09_rubrica_online_nessuno_nel_cerchio_dopo.png
+ACCETTAZIONE: aprendo "I tuoi amici" vedo Offline scelto coi miei amici e, accanto a Online, quanti amici sono online col cerchietto verde; toccando Online compaiono loro, e toccando uno di loro si apre la sua scheda

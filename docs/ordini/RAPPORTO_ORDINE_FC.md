@@ -7,8 +7,9 @@ le infografiche, i quattro periodi e le tradizioni. Il nome dell'arte e'
 "Oroscopo Universale". Il cancello di GitHub esegue gia' la suite intera, e
 adesso il suo verde dice quanti e quali rossi ha accettato. Delle sette rosse
 ereditate una e' chiusa, sei restano dichiarate col gesto che serve. E in
-cima alla rubrica degli amici c'e' una riga che porta al Cerchio, coi
-presenti quando il telefono li sa gia' (Aggiunta 1, voce FC.09).
+cima alla rubrica degli amici ci sono due pulsanti, Offline e Online, col
+numero degli amici online e il cerchietto verde (Aggiunta 1, voce FC.09,
+nella forma che il fondatore le ha dato la stessa sera).
 
 Ramo `claude/esoteric-circle-master-order-e798aj`, partenza `bcf8eaff`, 4
 ottobre 2026. Manifesto: `docs/ordini/ORDINE_FC_MANIFESTO.md`. Regola A:
@@ -25,7 +26,7 @@ per 797 punti: `docs/preview/prima_dopo/fc_*`. Prova del cancello:
 - FC.05, le stesse infografiche: test/l_oroscopo_e_uno_solo_test.dart
 - FC.06, giorno, settimana, mese, anno anche per l'amico: test/l_oroscopo_e_uno_solo_test.dart
 - FC.08, il cancello esegue la suite intera: docs/collaudo/FC/il_cancello_diventa_rosso.txt
-- FC.09, il Cerchio si vede dalla rubrica degli amici: test/il_cerchio_si_vede_dalla_rubrica_test.dart
+- FC.09, gli amici online nella rubrica degli amici: test/il_cerchio_si_vede_dalla_rubrica_test.dart
 
 La FC.07 e' APERTA: sei rosse su sette restano, dichiarate una per una qui
 sotto e nel manifesto.
@@ -151,36 +152,55 @@ volute, tutte scritte in `IlSoggettoDellOroscopo`:
     tu, altrimenti sul luogo di nascita del soggetto: come faceva la
     schermata dell'amico.
 
-## LA RIGA DEL CERCHIO NELLA RUBRICA (FC.09)
+## GLI AMICI ONLINE NELLA RUBRICA (FC.09)
 
-Il fondatore: *"in amico vorrei che comparissero anche gli amici online"*.
-In cima alla rubrica "I tuoi amici" una riga sola, toccabile, nei tre casi
-dichiarati in `lib/features/amici/il_ponte_verso_il_cerchio.dart`:
+Il fondatore, nell'Aggiunta: *"in amico vorrei che comparissero anche gli
+amici online"*. La prima stesura era una riga in cima alla rubrica che
+portava al Cerchio, senza chiamare la tendina, come chiedeva l'Aggiunta. Il
+fondatore, la stessa sera: *"anziché aprire una nuova schermata per gli amici
+online, sarebbe meglio inserire 2 pulsanti: a sinistra offline e a destra
+online con a fianco il numero di amici online e un cerchietto verde"*. Fatto
+cosi' (`lib/features/amici/gli_amici_online.dart`, la riga di prima tolta):
 
-| caso | quando | testo segnaposto | il tocco |
-| --- | --- | --- | --- |
-| con i presenti | amici nel Cerchio e una tendina di questa sessione, vecchia al piu' un minuto | "Nel tuo Cerchio c'è 1 persona: 1 è qui adesso." | il tuo Cerchio |
-| senza i presenti | amici nel Cerchio, tendina mai arrivata o vecchia | "Nel tuo Cerchio c'è 1 persona." (nessuno zero inventato) | il tuo Cerchio |
-| il Cerchio ti aspetta | nessun amico nel Cerchio | "Il tuo Cerchio ti aspetta: chiama chi ti sta a cuore." | l'invito |
+| cosa | come |
+| --- | --- |
+| all'apertura | Offline scelto: le schede scritte dalla persona, come prima |
+| accanto a Online | il numero degli amici online e il cerchietto verde, pieno se qualcuno c'e', velato se nessuno o se il numero non si sa |
+| tocco su Online | gli amici del Cerchio presenti, con la riga della tendina (`AmicoPresente`); sotto, "Il tuo Cerchio" |
+| nessuno nel Cerchio | numero 0, ed e' vero; Online dice che il Cerchio e' da chiamare e porta all'invito |
+| il Cerchio non risponde | nessun numero; Online dice il perche' e offre Riprova |
 
-**I testi sono segnaposto dichiarati**, al neutro ("persone", perche' il
-genere di chi e' nel Cerchio non si sa): li scrive l'Architetto. **Nessuna
-lettura in piu'**: gli amici del Cerchio vengono dai legami che il telefono
-ha gia', i presenti solo dall'ultima tendina; la riga non chiama mai la
-tendina. Misura: chiamate al server all'apertura della rubrica **0 prima e
-0 dopo** in tutti e tre i casi (`test/il_cerchio_si_vede_dalla_rubrica_test.dart`).
-**La riga non elenca nessuno**: niente nomi, niente volti; l'elenco vive nel
-Cerchio. Anteprime dei tre casi: `docs/preview/prima_dopo/fc09_rubrica_*`.
+**Il costo, che la prima forma non aveva, coi numeri.** Il numero e
+l'elenco vengono dalla tendina. La rubrica la chiede **al piu' una volta per
+apertura**, e mai quando la tendina ha meno di un minuto, quando nel Cerchio
+non c'e' nessuno o quando il Cerchio e' chiuso per eta'. Una chiamata legge
+**5 documenti** (misurati oggi dalla guardia
+`la_tendina_non_supera_dieci_letture`) e ne scrive **1** (il tetto della
+porta): circa **0,0000027 euro a chiamata, 0,27 centesimi ogni mille
+aperture** della rubrica. E' una deroga alla R14, chiesta dal fondatore con le
+sue parole. Misura nella prova: chiamate all'apertura 0 con la tendina
+fresca, 1 senza tendina, 0 riaperta subito dopo (e' cio' che tiene la
+rubrica lontana dal tetto di trenta chiamate l'ora), 1 con la tendina
+vecchia di due minuti, 0 senza amici nel Cerchio.
 
-**Il ponte al contrario non c'e'**: misurato il 4 ottobre 2026, dal Cerchio
-alla rubrica degli amici non porta nessun tocco, e la rubrica si apre solo
-dall'oroscopo ("Oroscopo per"). Non costruito, come chiede l'Aggiunta. La
-fusione delle due rubriche resta una decisione del fondatore (sotto).
+**Le due rubriche restano due**: il selettore le mette sotto lo stesso
+titolo e non le fonde. **Il ponte al contrario non c'e'**: misurato il 4
+ottobre 2026, dal Cerchio alla rubrica degli amici non porta nessun tocco, e
+la rubrica si apre solo dall'oroscopo ("Oroscopo per"). Non costruito, come
+chiede l'Aggiunta. **I testi nuovi sono segnaposto dichiarati** ("I tuoi
+amici del Cerchio che sono qui adesso.", la riga del silenzio): li scrive
+l'Architetto. Anteprime: `docs/preview/prima_dopo/fc09_rubrica_offline_dopo.png`,
+`fc09_rubrica_online_dopo.png`, `fc09_rubrica_online_nessuno_nel_cerchio_dopo.png`.
+Le tre della prima forma (`fc09_rubrica_con_i_presenti`, `senza_i_presenti`,
+`il_cerchio_ti_aspetta`) sono tolte con lei.
 
-**R16, il giro dell'utente sulla riga**: chi apre "Oroscopo per" per
-scegliere un amico trova in cima il Cerchio, e un tocco lo porta via
-dall'oroscopo; col tasto indietro torna alla rubrica, e da li' all'oroscopo.
-E' la sola strada nuova, e torna indietro da dove e' venuta.
+**R16, il giro dell'utente**: chi apre "Oroscopo per" per scegliere un amico
+trova Offline scelto, cioe' esattamente cio' che cercava; Online e' un
+tocco in piu' e non lo porta via dalla rubrica. Toccando un amico online
+entra nella sua scheda del Cerchio, e col tasto indietro torna alla rubrica.
+**Il gemello** e' la tendina dell'indicatore online: l'elenco Online usa la
+stessa riga, gli stessi due gesti e la stessa porta, e quindi dice le
+stesse persone.
 
 ## LO STATO DELLE SETTE ROSSE (FC.07)
 
@@ -204,12 +224,16 @@ fondatore, qui sotto.
 ## FIN DOVE SONO ARRIVATO, E PERCHE'
 
 Tutte e nove le voci; otto chiuse, la FC.07 aperta con sei rosse che non si
-chiudono senza un gesto del fondatore. **SUITE_E_CONSEGNA**
+chiudono senza un gesto del fondatore. La suite intera, il verdetto del
+cancello, la build e la consegna col giro sul Realme stanno in coda, nelle
+righe "Aggiunta del 4 ottobre 2026": arrivano dopo che il rapporto e'
+registrato, e il cancello lo pretende registrato prima di spingere.
 
 ## LA REGOLA A E LA REGOLA B
 
-**Regola A**: 23 innesti, tutti entrati (verificati col grep) e tutti rossi,
-ognuno restituito al byte. Il registro e' `docs/collaudo/FC/regola_a_fc.txt`,
+**Regola A**: 28 innesti, tutti entrati (verificati col grep) e tutti rossi,
+ognuno restituito al byte. A21, A22 e A23 hanno provato la prima forma della
+FC.09; A24-A28 i due pulsanti. Il registro e' `docs/collaudo/FC/regola_a_fc.txt`,
 il banco `tool/gli_innesti_dell_ordine_fc.py`. Una nota: l'innesto A15 (il
 catalogo col nome di prima) ha fatto cadere `il_nome_breve_dell_oroscopo` e
 `i_domini_a_schede` nel banco; la terza, `le_schede_dell_arte`, l'ho vista
@@ -219,6 +243,11 @@ rossa a mano col catalogo di prima, perche' il banco ne mostrava solo due.
 dell'arte le ho cambiate insieme al catalogo senza vederle rosse prima.
 Recuperata con l'innesto A15, che le ha viste rosse dopo; la data nel
 registro `docs/guardie.md` porta la nota. **Padre: ordine FC voce 01.**
+E una seconda volta, sulla FC.09: la riga dell'amico presente della tendina
+l'ho resa pubblica (per usarla nell'elenco Online) prima di vedere rossa
+`la_tendina_mostra_tutti_gli_amici`. Recuperata dopo: rossa col ciclo degli
+amici presenti tolto, verde al ripristino. **Padre: ordine FC voce 09.** La
+guardia della rubrica, invece, l'ho vista rossa prima di toccarla.
 
 **Una prova diventata tautologica, dichiarata**:
 `le_tradizioni_dell_amico_nell_ordine_della_persona` controllava che la
@@ -233,8 +262,8 @@ A 360 per 797 punti, a coppie (se', amico), in `docs/preview/prima_dopo/`:
 `fc_tuo_apertura`, `fc_tuo_riflessione`, `fc_tuo_responso`,
 `fc_tuo_settimana` e le stesse `fc_amico_*`, ognuna prima e dopo (manca solo
 `fc_amico_settimana_prima`: la schermata dell'amico non aveva i periodi);
-`fc_amici_lista` prima e dopo; i tre casi della riga del Cerchio
-`fc09_rubrica_*`. Le "prima" sono uscite dal codice di `bcf8eaff` col gesto
+`fc_amici_lista` prima e dopo; i tre momenti della rubrica coi due
+pulsanti `fc09_rubrica_*`. Le "prima" sono uscite dal codice di `bcf8eaff` col gesto
 riacceso nelle prove, perche' la configurazione di allora lo spegneva: la
 variante della prova sta in
 `docs/collaudo/FC/le_anteprime_dell_ordine_fc_prima_test.dart.txt`. Dove la
@@ -285,8 +314,9 @@ raccoglie.".
    G.
 2. **La fusione delle due rubriche** ("I tuoi amici" sul telefono e "Il
    tuo Cerchio" sul server), e cosa succede alla scheda di una persona
-   quando entra davvero nel Cerchio. La FC.09 e' un ponte, non la fusione.
-   E i testi segnaposto della riga, che scrive l'Architetto.
+   quando entra davvero nel Cerchio. I due pulsanti della FC.09 le mettono
+   sotto lo stesso titolo, non le fondono. E i testi segnaposto
+   dell'elenco Online, che scrive l'Architetto.
 3. **I dieci rossi del corredo a scala 1,3**, accettati dall'ordine CM e mai
    chiusi: sono testi tagliati a carattere grande nel Risveglio, nella chat,
    nella custodia del cielo e nella galleria della Sinastria VIP. Non erano
@@ -320,6 +350,7 @@ Viste con il codice davanti, non costruite.
 6. **Il Cammino degli amici**, senza chiamate in piu': un traguardo locale
    "hai letto il cielo di tre amici", che oggi la regola R14 lascia fuori dal
    Cammino del server.
-7. **Le lucine del Cerchio nella riga**: quando i presenti sono noti, tante
-   lucine quanti sono, accese una dopo l'altra (non i volti, che la riga non
-   elenca), e la riga che respira piano finche' c'e' qualcuno.
+7. **Il cerchietto verde che respira**: quando qualcuno e' online, il
+   cerchietto accanto a Online pulsa piano, come la lucina dell'indicatore
+   nella barra; e gli amici online che hanno anche una scheda nella rubrica
+   Offline potrebbero portare la stessa lucina accanto al loro nome.

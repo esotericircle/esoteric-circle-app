@@ -201,15 +201,16 @@ void main() {
     await scatta(tester, 'fc_amici_lista');
   });
 
-  // **FC.09, I TRE CASI DELLA RIGA DEL CERCHIO** nella rubrica degli amici:
-  // coi presenti noti da una tendina fresca, senza, e senza amici nel
+  // **FC.09, OFFLINE E ONLINE** nella rubrica degli amici, nella forma del
+  // fondatore: di default Offline (gli amici scritti, col numero accanto a
+  // Online), poi Online con gli amici presenti, e Online senza nessuno nel
   // Cerchio. Il Cerchio sociale con la porta finta delle prove del Cerchio.
-  for (final (caso, conAmici, conLaTendina) in const [
-    ('con_i_presenti', true, true),
-    ('senza_i_presenti', true, false),
-    ('il_cerchio_ti_aspetta', false, false),
+  for (final (caso, conAmici, suOnline) in const [
+    ('offline', true, false),
+    ('online', true, true),
+    ('online_nessuno_nel_cerchio', false, true),
   ]) {
-    testWidgets('FC.09: la riga del Cerchio, $caso', (tester) async {
+    testWidgets('FC.09: la rubrica, $caso', (tester) async {
       if (_stato.isEmpty) return;
       final finta = PortaFintaDelCerchioSociale(amici: conAmici);
       final sociale = IlCerchioSociale(porta: finta);
@@ -217,7 +218,7 @@ void main() {
         await sociale.sincronizza(
             identita: BirthIdentity(birthMoment: DateTime(1990, 5, 12, 10)));
         await sociale.caricaIlCerchio();
-        if (conLaTendina) await sociale.caricaLaTendina();
+        await sociale.caricaLaTendina();
       });
       await monta(
           tester,
@@ -229,6 +230,10 @@ void main() {
             ],
             child: const AmiciScreen(),
           ));
+      if (suOnline) {
+        await tester.tap(find.byKey(const Key('amici_online')));
+        await passa(tester, 4);
+      }
       await scatta(tester, 'fc09_rubrica_$caso');
     });
   }
