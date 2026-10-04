@@ -161,6 +161,11 @@ Diciassette innesti, uno o due per ogni prova nuova, tutti entrati (grep del pez
 - **La regola delle forme vietate non vedeva "è"** (EZ.08): in Dart `\b` non
   conta le lettere accentate. L'ha mostrato la prova stessa, che prendeva tre
   righe di prima su quattro; i confini sono scritti a mano.
+- **"Qualcuno ha visto quanto sei arrivato lontano" dice il genere di chi
+  legge** (EZ.08): l'ha preso la guardia del genere nella suite intera. La
+  riga e' marcata con le tre forme della casa (ordine DL): maschile e
+  femminile dell'Architetto, e il neutro "Qualcuno ha visto quanta strada
+  hai fatto.", l'unico ritocco al suo testo, da confermare.
 - **Le prove del Cerchio montavano il Cerchio senza data di nascita**
   (EZ.04): con la soglia nuova sarebbero diventate tutte la riga dei
   quattordici anni. Ora montano una nascita adulta.

@@ -125,7 +125,12 @@ abstract final class ISegniDelCerchio {
         id: 'coraggio',
         categoria: CategoriaDelSegno.personali,
         testo: 'Hai fatto molta strada',
-        rigaDiChiRiceve: 'Qualcuno ha visto quanto sei arrivato lontano.',
+        // La riga dell'Architetto e' al maschile: si marca (ordine DL), e il
+        // neutro la riformula, l'unico ritocco al suo testo.
+        rigaDiChiRiceve:
+            '[Qualcuno ha visto quanto sei arrivato lontano.|Qualcuno ha visto '
+            'quanto sei arrivata lontano.|Qualcuno ha visto quanta strada hai '
+            'fatto.]',
         risposte: ['Grazie', 'Un pezzo è merito tuo'],
         motivo: MotivoDelSegno.stella),
     SegnoDelCerchio(

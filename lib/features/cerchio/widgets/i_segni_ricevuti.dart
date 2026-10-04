@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../../core/cerchio/i_segni_del_cerchio.dart';
 import '../../../core/cerchio/il_cerchio_sociale.dart';
+import '../../../core/chat/la_marca_del_genere.dart';
 import '../../../core/identity/profile_controller.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/tokens/color_tokens.dart';
@@ -123,7 +124,10 @@ class _UnSegno extends StatelessWidget {
                     children: [
                       // Chi riceve legge la sua riga, chi ha mandato il
                       // titolo del pulsante; il nome lo dice la cornice.
-                      Text(segno.ricevuto ? dato.rigaDiChiRiceve : dato.testo,
+                      Text(
+                          segno.ricevuto
+                              ? LaMarcaDelGenere.risolvi(dato.rigaDiChiRiceve)
+                              : dato.testo,
                           style: TypographyTokens.titoloDiRiga()
                               .copyWith(color: palette.goldSoft)),
                       Text(
