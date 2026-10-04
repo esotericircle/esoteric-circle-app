@@ -609,7 +609,17 @@ class PlanCatalog {
     // l'Iniziato, 10 per l'Adepto, nessun limite per l'Illuminato [...] 100
     // Eos per un posto in più", "ok , approvato". Un elenco sul telefono,
     // non un consumo del modello.
-    FeatureRow('Oroscopo per gli amici', ['No', '3', '10', 'Senza limite'],
+    //
+    // **CINQUANTA ALL'ILLUMINATO, ordine EZ voce 06, 4 ottobre 2026.** Era
+    // "Senza limite", contro la decisione del fondatore del 29 agosto:
+    // "illimitato mi espone all'abuso o uso incontrollato o bot". Il numero e'
+    // dell'Architetto, approvato dal fondatore ("Per ogni domanda approvo tuoi
+    // suggerimenti"). **Perche' qui si sta sotto ai legami del Cerchio (3, 15,
+    // 50, 150)**: un amico offline e' una scheda coi dati di nascita di una
+    // persona che non ha dato nessun consenso, mentre un legame e' una persona
+    // che ha accettato. Il numero vive qui e solo qui: lo legge
+    // `AmiciOffline.posti`, e il posto in piu' resta `amicoInPiu` a 100 Eos.
+    FeatureRow('Oroscopo per gli amici', ['No', '3', '10', '50'],
         chiave: RigaDelPiano.amici),
     // **IL MOTORE SOCIALE DEL CERCHIO, ordine EY, 4 ottobre 2026**: la
     // tabella del punto 8 approvata dal fondatore. I posti del legame fra

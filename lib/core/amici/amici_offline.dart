@@ -85,7 +85,10 @@ class Amico {
 ///
 /// **Quanti**, dal fondatore: il Viandante nessuno ("lo vede e se fa click,
 /// viene invitato a sottoscrivere abbonamento"), l'Iniziato tre, l'Adepto
-/// dieci, l'Illuminato senza limite; un posto in piu' costa 100 Eos.
+/// dieci, l'Illuminato senza limite; un posto in piu' costa 100 Eos. Dal 4
+/// ottobre 2026 (ordine EZ voce 06) anche l'Illuminato ha un numero,
+/// cinquanta, perche' l'illimitato esponeva all'abuso e ai bot; chi ne aveva
+/// gia' di piu' le tiene tutte e non ne aggiunge.
 class AmiciOffline extends ChangeNotifier {
   static const String _chiave = 'amici_offline';
   static const String _chiavePosti = 'amici_offline_posti';

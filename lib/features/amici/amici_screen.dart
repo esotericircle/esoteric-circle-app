@@ -194,7 +194,15 @@ class _AmiciScreenState extends State<AmiciScreen> {
             Text(
                 posti == null
                     ? 'Col tuo piano gli amici non hanno limite.'
-                    : 'Amici ${_amici.tutti.length} su $posti.',
+                    : _amici.tutti.length > posti
+                        // **CHI NE HA GIA' DI PIU' NON LE PERDE**, ordine EZ
+                        // voce 06: cancellare i dati di una persona per un
+                        // limite nuovo sarebbe un danno che nessun limite
+                        // giustifica. Le tiene tutte e non ne aggiunge.
+                        ? 'Hai ${_amici.tutti.length} amici, oltre i $posti '
+                            'del tuo piano: restano tutti, ma non se ne '
+                            'aggiungono altri.'
+                        : 'Amici ${_amici.tutti.length} su $posti.',
                 key: const Key('amici_posti'),
                 textAlign: TextAlign.center,
                 style: TypographyTokens.didascalia()
@@ -207,7 +215,9 @@ class _AmiciScreenState extends State<AmiciScreen> {
                 palette: palette,
                 onTap: () => _aggiungi(tier),
               )
-            else
+            // Oltre il numero del piano un posto comprato non basterebbe a
+            // far entrare nessuno: niente spesa che non porta a niente.
+            else if (posti == null || _amici.tutti.length <= posti)
               PortaDellaSpesa(
                 voce: ListinoDegliEos.amicoInPiu,
                 etichetta: 'Un posto in più',

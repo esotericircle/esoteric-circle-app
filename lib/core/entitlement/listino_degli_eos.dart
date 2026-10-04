@@ -179,6 +179,10 @@ class ListinoDegliEos {
   /// l'Illuminato [...] 100 Eos per un posto in più", "ok , approvato". E'
   /// l'unica voce che compra qualcosa che resta, contro la regola scritta
   /// sopra: la decisione e' sua e porta la sua data.
+  ///
+  /// **Il nullo dell'Illuminato se n'e' andato, ordine EZ voce 06**: anche
+  /// l'Illuminato ha un numero (50, nella matrice dei piani), e oltre quel
+  /// numero il posto si compra come per gli altri piani.
   static const amicoInPiu = VoceDelListino(
     id: 'amico_in_piu',
     nome: 'Un posto in più fra gli amici',
@@ -188,7 +192,7 @@ class ListinoDegliEos {
       Tier.free: 0,
       Tier.tier1: 0,
       Tier.tier2: 0,
-      Tier.tier3: null,
+      Tier.tier3: 0,
     },
   );
 

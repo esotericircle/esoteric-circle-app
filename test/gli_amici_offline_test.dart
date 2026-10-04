@@ -42,7 +42,9 @@ void main() {
     expect(a.posti(Tier.free), 0);
     expect(a.posti(Tier.tier1), 3);
     expect(a.posti(Tier.tier2), 10);
-    expect(a.posti(Tier.tier3), isNull);
+    // LAPIDE, ordine EZ voce 06: qui stava isNull, l'Illuminato senza
+    // limite. Adesso ha cinquanta posti, sotto i 150 legami del Cerchio.
+    expect(a.posti(Tier.tier3), 50);
     expect(ListinoDegliEos.amicoInPiu.costo, 100);
     // L'Iniziato ne tiene tre, il quarto no.
     for (var i = 0; i < 3; i++) {
