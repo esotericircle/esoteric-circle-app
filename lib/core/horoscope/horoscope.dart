@@ -10,6 +10,7 @@ import 'horoscope_data.dart';
 import 'i_testi_eu.dart';
 import '../astro/natal_chart.dart';
 import '../astro/transiti_del_giorno.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// I quattro domini dell'Oroscopo, nell'ordine di layout. L'indice enum e' anche
 /// l'intero fisso del dominio: Generale 0, Amore 1, Carriera 2, Fortuna 3.
@@ -222,7 +223,7 @@ class Horoscope {
   static int casaDellaLuna(Zodiac sign, int dayOfYear, int year) {
     final mezzogiorno =
         DateTime.utc(year).add(Duration(days: dayOfYear, hours: 12));
-    return (NightSky.moonSign(mezzogiorno).index - sign.index) % 12;
+    return (IlSegnoDelCielo.dellaLuna(mezzogiorno).index - sign.index) % 12;
   }
 
   /// **LA VARIANTE DEL GIORNO**, fra le tre di ogni casa. Il resto della

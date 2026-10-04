@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:esoteric_circle/core/archetypes/archetype_history.dart';
-import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
@@ -25,6 +24,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'alzare_il_sole.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// IL RESPONSO SI LEGGE OVUNQUE, NON SOLO DA MEDORA. Ordine BV voce 06.
 ///
@@ -286,7 +286,7 @@ void main() {
         await passo(tester);
         await seCeTocca(tester, const Key('dream_fog_skip'));
         await passo(tester);
-        final segno = NightSky.moonSign(quando);
+        final segno = IlSegnoDelCielo.dellaLuna(quando);
         final figura = kZodiacConstellations.firstWhere((c) => c.sign == segno);
         for (var i = 0; i < figura.points.length; i++) {
           if (!await seCeTocca(tester, Key('dream_star_$i'))) break;

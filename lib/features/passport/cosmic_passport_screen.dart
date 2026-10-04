@@ -20,7 +20,6 @@ import '../../core/astro/zodiac.dart';
 import '../../core/astro/zodiac_controller.dart';
 import '../shell/spazio_della_barra.dart';
 
-import '../../core/astro/night_sky.dart';
 import '../../core/sigilli/diario_del_cammino.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/birth_moon.dart';
@@ -59,6 +58,7 @@ import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../core/primo_uso/suggerimenti_di_zona.dart';
 import '../../design_system/components/suggerimento_al_primo_uso.dart';
+import '../../core/astro/il_segno_del_cielo.dart';
 
 /// Schermata del Cosmic Passport.
 ///
@@ -584,7 +584,7 @@ class _GuideAnimalCardState extends State<_GuideAnimalCard> {
   Widget build(BuildContext context) {
     final identity = widget.identity;
     final palette = context.palette;
-    final segno = NightSky.sunSign(identity.birthMoment);
+    final segno = IlSegnoDelCielo.delSole(identity.birthMoment);
     final animal = GuideAnimalDerivation.forSign(segno);
     // **IL NOME SI DICE DOPO QUATTRO DISCESE, e l'animale e' quello della
     // nascita.** Ordine DG voce 01: qui si chiedeva quale ombra era stata

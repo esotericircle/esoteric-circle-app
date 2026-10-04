@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:esoteric_circle/core/astro/birth_details.dart';
 import 'package:esoteric_circle/core/astro/birth_place.dart';
 import 'package:esoteric_circle/core/astro/natal_chart_controller.dart';
-import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/services/free_astro_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -87,7 +86,7 @@ void main() {
       expect(controller.status, ChartStatus.ready);
       expect(controller.chart, isNotNull);
       // Cielo essenziale: il Sole reale dalla data, senza pianeti dall'API.
-      expect(controller.chart!.sunSign, Zodiac.fromDate(details.date));
+      expect(controller.chart!.sunSign, details.segno);
       expect(controller.note, isNotNull);
     });
 

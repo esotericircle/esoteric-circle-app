@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/astro/il_segno_del_cielo.dart';
 import '../../../core/magic/la_voce_del_sigillo.dart';
 
 import '../../../design_system/components/fatto_del_foglio.dart';
@@ -165,12 +166,14 @@ class TestiDelleFonti {
       '${LaVoceDelSigillo.illeggibileApposta}\n\n'
       'Il libro è The Book of Pleasure, che Spare pubblicò nel 1913.';
 
-  /// L'Oroscopo Personalizzato.
+  /// L'Oroscopo Universale. Il metodo del segno e' la frase del fondatore
+  /// (ordine FC voce 10), dalla porta del segno.
   static const String oroscopo =
       'Le quattro schede nascono dal cielo vero di oggi sopra la tua carta '
       'di nascita: gli aspetti che i pianeti di adesso formano coi tuoi '
       'punti natali, la casa che ognuno sta attraversando e chi è '
       'retrogrado.\n\n'
+      '${IlSegnoDelCielo.metodo}\n\n'
       'La carta di nascita si calcola sulle effemeridi svizzere, lo '
       'standard astronomico che l\'astrologia usa da decenni; i transiti '
       'del giorno si calcolano sul dispositivo, senza rete.\n\n'

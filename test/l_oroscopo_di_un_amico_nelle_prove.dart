@@ -1,5 +1,4 @@
 import 'package:esoteric_circle/core/amici/amici_offline.dart';
-import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
@@ -47,7 +46,7 @@ Widget lOroscopoDiUnAmico(Amico amico,
           child: MaestroScope(maestro: Maestro.medora, child: child!),
         ),
         home: OroscopoScreen(
-            userSign: Zodiac.fromDate(amico.nascita),
+            userSign: amico.segno,
             amico: amico,
             now: adesso ?? DateTime(2026, 9, 30, 12)),
       ),

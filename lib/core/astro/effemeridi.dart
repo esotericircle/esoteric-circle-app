@@ -16,7 +16,8 @@ import 'dart:math' as math;
 /// `NightSky.sunSign`, `NightSky.moonSign`, `MoonPhase.forDate`,
 /// `ArchetypeSky.pianetiDelGiorno` restano quelle di prima: cambia cosa c'e'
 /// dentro, non come si chiamano. Nessun consumatore fuori da `lib/core/astro/`
-/// e' stato toccato.
+/// e' stato toccato. (Dall'ordine FC voce 10 i due segni non passano piu' da
+/// `NightSky`: il segno di una data lo dice solo `IlSegnoDelCielo`.)
 ///
 /// **Nessuna rete.** Tutto e' aritmetica locale: niente API, niente quota,
 /// niente chiave, niente cache da tenere allineata.

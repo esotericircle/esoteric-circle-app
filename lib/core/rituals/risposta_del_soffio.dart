@@ -1,9 +1,9 @@
 import '../astro/effemeridi.dart';
 import '../astro/moon_phase.dart';
-import '../astro/night_sky.dart';
 import 'risposta_del_dono.dart';
 import '../astro/natal_chart.dart';
 import '../horoscope/cielo_di_oggi.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// LA RISPOSTA DEL SOFFIO: cosa si apre oggi, e cosa oggi non si lascia
 /// forzare.
@@ -78,7 +78,7 @@ class RispostaDelSoffio {
   RispostaDelDono comeRisposta() {
     final titolo = switch ((apre != null, nonForzare != null)) {
       (true, true) => 'Il respiro di oggi ti serve a riconoscere dove passare '
-            'e dove non spingere.',
+          'e dove non spingere.',
       (true, false) =>
         'Il respiro di oggi ti serve a riconoscere dove passare.',
       (false, true) =>
@@ -116,7 +116,7 @@ class RispostaDelSoffio {
   /// segno vengono dal cielo, cosa farne col respiro lo scrive il Cerchio.
   static RispostaDelDono senzaIlTuoCielo(DateTime giorno) {
     final luna = MoonPhase.forDate(giorno);
-    final segno = NightSky.moonSign(giorno);
+    final segno = IlSegnoDelCielo.dellaLuna(giorno);
     final nome = luna.italianName.toLowerCase();
     final titolo = switch (nome) {
       'luna nuova' =>

@@ -119,8 +119,8 @@ class PittoreDelBosco extends CustomPainter {
       ),
       Paint()
         ..color = const Color(0xFF120A06).withValues(alpha: 0.72)
-        ..maskFilter = MaskFilter.blur(
-            BlurStyle.normal, size.shortestSide * 0.035),
+        ..maskFilter =
+            MaskFilter.blur(BlurStyle.normal, size.shortestSide * 0.035),
     );
 
     // **POI I VICINI**, che fanno da cornice e sono quasi neri.
@@ -137,8 +137,8 @@ class PittoreDelBosco extends CustomPainter {
         ),
         Paint()
           ..color = const Color(0xFFCBBDA2).withValues(alpha: 0.12 + 0.05 * i)
-          ..maskFilter = MaskFilter.blur(
-              BlurStyle.normal, size.shortestSide * 0.06),
+          ..maskFilter =
+              MaskFilter.blur(BlurStyle.normal, size.shortestSide * 0.06),
       );
     }
 
@@ -151,8 +151,8 @@ class PittoreDelBosco extends CustomPainter {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [Color(0x00150D07), Color(0xCC120B06)],
-        ).createShader(Rect.fromLTRB(
-            0, size.height * 0.86, size.width, size.height)),
+        ).createShader(
+            Rect.fromLTRB(0, size.height * 0.86, size.width, size.height)),
     );
     canvas.drawOval(
       Rect.fromCenter(
@@ -162,8 +162,8 @@ class PittoreDelBosco extends CustomPainter {
       ),
       Paint()
         ..color = const Color(0xFFE0B478).withValues(alpha: 0.16)
-        ..maskFilter = MaskFilter.blur(
-            BlurStyle.normal, size.shortestSide * 0.07),
+        ..maskFilter =
+            MaskFilter.blur(BlurStyle.normal, size.shortestSide * 0.07),
     );
   }
 
@@ -227,8 +227,7 @@ class PittoreDelBosco extends CustomPainter {
               tinta.withValues(alpha: opacita * 0.92),
             ],
             stops: const [0.0, 0.82, 0.94, 1.0],
-          ).createShader(
-              Rect.fromLTRB(x - w * 0.7, cima, x + w * 0.7, piede)),
+          ).createShader(Rect.fromLTRB(x - w * 0.7, cima, x + w * 0.7, piede)),
       );
 
       // **DUE RAMI**, solo sul piano vicino: sui lontani sarebbero rumore.

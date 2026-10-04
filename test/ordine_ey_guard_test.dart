@@ -13,7 +13,9 @@ import 'package:flutter_test/flutter_test.dart';
 /// nomina esistono.
 void main() {
   final manifesto = File('docs/ordini/ORDINE_EY_MANIFESTO.md');
-  final voci = [for (var i = 1; i <= 17; i++) 'EY.${i.toString().padLeft(2, '0')}'];
+  final voci = [
+    for (var i = 1; i <= 17; i++) 'EY.${i.toString().padLeft(2, '0')}'
+  ];
 
   int marcatore(String testo, String nome) {
     final trovato =

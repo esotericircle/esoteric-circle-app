@@ -67,8 +67,7 @@ import 'oroscopo_share_card.dart';
 class IlSoggettoDellOroscopo {
   const IlSoggettoDellOroscopo.io(this._segnoTuo) : amico = null;
 
-  IlSoggettoDellOroscopo.amico(Amico this.amico)
-      : _segnoTuo = Zodiac.fromDate(amico.nascita);
+  IlSoggettoDellOroscopo.amico(Amico this.amico) : _segnoTuo = amico.segno;
 
   /// L'amico di cui si legge; nullo per la lettura propria.
   final Amico? amico;
@@ -114,7 +113,7 @@ class IlSoggettoDellOroscopo {
   /// lettura di un amico; nullo se la sua nascita e' quella d'esempio.
   static Zodiac? segnoDiChiGuarda(BuildContext context) {
     final io = context.read<ProfileController>().identity;
-    return io.isExample ? null : Zodiac.fromDate(io.birthDate);
+    return io.sunSign;
   }
 
   /// 2. La data di nascita, per lo scarto della scelta delle voci e il giorno

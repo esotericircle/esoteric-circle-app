@@ -229,8 +229,7 @@ class BirthIdentityController extends ChangeNotifier {
   Zodiac? get sunSign {
     final daCarta = _chart?.sunSign;
     if (daCarta != null) return daCarta;
-    final data = _details?.date;
-    return data == null ? null : Zodiac.fromDate(data);
+    return _details?.segno;
   }
 
   void setBirth(BirthDetails details, NatalChart? chart) {

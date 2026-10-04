@@ -1,5 +1,6 @@
 import '../astro/zodiac.dart';
 import 'cammino_da_custodire.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// COSA HA PORTATO IL GIRO DEL CUSTODE, E PERCHE' NON HA PORTATO NIENTE.
 /// Ordine AZ voce 01, fatto F1.
@@ -222,11 +223,25 @@ class Ritrovamento {
       quantiEos: saldoEos,
       cerchioAppenaNato: cerchioAppenaNato,
       nome: identita?.nome,
-      segno:
-          identita?.giorno == null ? null : Zodiac.fromDate(identita!.giorno!),
+      segno: identita?.giorno == null
+          ? null
+          : IlSegnoDelCielo.diNascita(_momento(identita!.giorno!, identita.ora),
+              oraNota: identita.ora != null, fuso: identita.fuso),
       rifiutatoDalServer: rifiutatoDalServer,
       senzaRisposta: senzaRisposta,
       identita: identita,
     );
+  }
+
+  /// Il momento di nascita custodito: il giorno, all'ora "HH:mm" quando
+  /// c'e', a mezzogiorno altrimenti.
+  static DateTime _momento(DateTime giorno, String? ora) {
+    final p = (ora ?? '12:00').split(':');
+    return DateTime(
+        giorno.year,
+        giorno.month,
+        giorno.day,
+        int.tryParse(p.first) ?? 12,
+        p.length > 1 ? int.tryParse(p[1]) ?? 0 : 0);
   }
 }

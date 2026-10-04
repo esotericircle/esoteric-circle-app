@@ -2,9 +2,9 @@ import 'package:flutter/material.dart' show TimeOfDay;
 
 import '../astro/birth_details.dart' as astro;
 import '../astro/birth_place.dart' as astro;
-import '../astro/night_sky.dart';
 import '../astro/zodiac.dart';
 import 'birth_place.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// I dati identitari fissi dell'utente, da cui nascono i fatti deterministici
 /// del Cosmic Passport.
@@ -88,7 +88,13 @@ class BirthIdentity {
   /// **Nullo quando non e' calcolabile**, cioe' finche' i dati sono quelli
   /// d'esempio: chi non ha ancora dato la sua data non ha un segno, e non se ne
   /// inventa uno. Le frasi che lo nominano devono reggere anche senza.
-  Zodiac? get sunSign => isExample ? null : NightSky.sunSign(birthDate);
+  Zodiac? get sunSign => isExample ? null : segnoDellaNascita;
+
+  /// Il segno solare della nascita scritta, anche quando e' quella
+  /// d'esempio (il sigillo del Cerchio e il dono dell'alba ne vogliono
+  /// sempre uno), dalla porta sola del segno (ordine FC voce 10).
+  Zodiac get segnoDellaNascita => IlSegnoDelCielo.diNascita(birthMoment,
+      oraNota: hasBirthTime, fuso: birthPlace?.timeZoneId);
 
   /// Gli stessi dati nella forma che chiedono i motori astrologici.
   ///

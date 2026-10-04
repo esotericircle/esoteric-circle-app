@@ -1,7 +1,7 @@
-import '../astro/night_sky.dart';
 import '../astro/zodiac.dart';
 import 'animal_catalog.dart';
 import 'guide_animal_corpus.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// Il tema del cielo di oggi, dalla natura del transito. Quattro nature grezze,
 /// bastano a colorare il messaggio senza promettere nulla.
@@ -67,7 +67,7 @@ class GuideAnimalDay {
     // Ancoraggio al mezzogiorno del giorno locale: un valore per data, stabile
     // fino alla mezzanotte, come `ArchetypeSky`.
     final gg = DateTime.utc(giorno.year, giorno.month, giorno.day, 12);
-    final lunaOggi = NightSky.moonSign(gg);
+    final lunaOggi = IlSegnoDelCielo.dellaLuna(gg);
     final aspetto = _aspettoPerSegno(lunaOggi, soleNatale);
     final tema = _temaDa(aspetto);
 
@@ -79,7 +79,8 @@ class GuideAnimalDay {
     final transito = 'Oggi la Luna in ${lunaOggi.italianName} '
         '${_fraseAspetto(aspetto)} ${soleNatale.italianName}.';
 
-    final lunaNatale = nascita != null ? NightSky.moonSign(nascita) : null;
+    final lunaNatale =
+        nascita != null ? IlSegnoDelCielo.dellaLuna(nascita) : null;
     final datiNatali = lunaNatale != null
         ? 'Sole in ${soleNatale.italianName}, Luna in ${lunaNatale.italianName}'
         : 'Sole in ${soleNatale.italianName}';

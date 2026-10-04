@@ -3,6 +3,7 @@ import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/core/identity/birth_moon.dart';
 import 'package:esoteric_circle/core/identity/numerology.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// Fatti identitari deterministici dalla sola data di nascita: Numero della
 /// vita (numerologia) e Fase lunare di nascita (fase e segno lunare).
@@ -90,7 +91,7 @@ void main() {
       expect(a.sign, b.sign);
       expect(a.phase.italianName, b.phase.italianName);
       // Il segno viene dalla longitudine lunare reale.
-      expect(a.sign, NightSky.moonSign(DateTime(1990, 6, 15, 2, 30)));
+      expect(a.sign, IlSegnoDelCielo.dellaLuna(DateTime(1990, 6, 15, 2, 30)));
       // Etichetta e significato pieni.
       expect(a.label, contains(' in '));
       expect(a.label, contains(a.sign.italianName));
@@ -109,8 +110,9 @@ void main() {
     test('la Luna attraversa piu\' segni in un mese', () {
       final signs = <String>{};
       for (var d = 0; d < 28; d++) {
-        signs.add(
-            NightSky.moonSign(DateTime(1990, 6, 1).add(Duration(days: d))).id);
+        signs.add(IlSegnoDelCielo.dellaLuna(
+                DateTime(1990, 6, 1).add(Duration(days: d)))
+            .id);
       }
       // In un mese la Luna percorre tutto lo zodiaco: molti segni distinti.
       expect(signs.length, greaterThanOrEqualTo(10));

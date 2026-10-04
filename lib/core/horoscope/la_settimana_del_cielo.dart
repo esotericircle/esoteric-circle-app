@@ -15,6 +15,7 @@ import 'i_tre_cieli.dart';
 import 'il_cielo_del_segno.dart';
 import 'il_livello_del_cielo.dart';
 import 'l_ora_d_oro.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// Un fatto del cielo in un periodo: un ingresso o una fase della Luna.
 class EventoDelCielo {
@@ -319,7 +320,7 @@ abstract final class LaSettimanaDelCielo {
       DateTime da, DateTime a) {
     final trovati = <(DateTime, CorpoCeleste, Zodiac)>[];
     int segno(CorpoCeleste c, DateTime t) =>
-        (Effemeridi.longitudineEclittica(c, Celestial.julianDay(t)) ~/ 30) % 12;
+        IlSegnoDelCielo.delCorpo(c, t).index;
     for (final c in _chiEntra) {
       var t0 = da;
       var s0 = segno(c, t0);
@@ -357,7 +358,7 @@ abstract final class LaSettimanaDelCielo {
       if (c != null) return (c, true);
     }
     return (
-      IlCieloDelSegno.casaSolare(segno, Zodiac.values[(l ~/ 30) % 12]),
+      IlCieloDelSegno.casaSolare(segno, IlSegnoDelCielo.dellaLongitudine(l)),
       false
     );
   }
@@ -380,7 +381,7 @@ abstract final class LaSettimanaDelCielo {
     for (final (t, k) in fasiDelPeriodo) {
       final l = LaLunaIntera.longitudine(LaLunaIntera.giornoGiuliano(t));
       final (casa, natale) = _casa(l, segno, carta);
-      final dove = Zodiac.values[(l ~/ 30) % 12];
+      final dove = IlSegnoDelCielo.dellaLongitudine(l);
       eventi.add(EventoDelCielo(
         istante: t,
         conOra: true,
@@ -413,7 +414,7 @@ abstract final class LaSettimanaDelCielo {
         // Luna sta dove si oscura: in tutti e due i casi il punto e' la Luna.
         final lDove = l;
         final (casa, natale) = _casa(lDove, segno, carta);
-        final dove = Zodiac.values[(lDove ~/ 30) % 12];
+        final dove = IlSegnoDelCielo.dellaLongitudine(lDove);
         eventi.add(EventoDelCielo(
           istante: e.massimo,
           conOra: true,
@@ -667,7 +668,7 @@ abstract final class LaSettimanaDelCielo {
     final (t, k) = scelta;
     final l = LaLunaIntera.longitudine(LaLunaIntera.giornoGiuliano(t));
     final (casa, natale) = _casa(l, segno, carta);
-    final dove = Zodiac.values[(l ~/ 30) % 12];
+    final dove = IlSegnoDelCielo.dellaLongitudine(l);
     return '${data(t)} alle ${ora(t)}: ${_nomiDelleFasi[k]} in '
         '${dove.italianName}, nella tua '
         '${CorrenteDelCielo.ordinaliDelleCase[casa - 1]} casa'

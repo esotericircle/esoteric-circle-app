@@ -1,7 +1,6 @@
 // ignore_for_file: avoid_print
 import 'dart:io';
 
-import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/maestro/cio_che_arriva.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
@@ -18,6 +17,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'cardinale_minimo.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// **IL SIGILLO DEL SOGNO DICE IL VERO. Ordine ES voce 18, 29 settembre
 /// 2026.**
@@ -112,10 +112,11 @@ void main() {
       if (riga == null) continue;
       righe++;
       // Le notti in cui la Luna resta nel segno, dopo stanotte.
-      final segno = NightSky.moonSign(quando);
+      final segno = IlSegnoDelCielo.dellaLuna(quando);
       var restano = 0;
       while (
-          NightSky.moonSign(quando.add(Duration(days: restano + 1))) == segno) {
+          IlSegnoDelCielo.dellaLuna(quando.add(Duration(days: restano + 1))) ==
+              segno) {
         restano++;
       }
       final detto = riga.contains('ancora una notte')

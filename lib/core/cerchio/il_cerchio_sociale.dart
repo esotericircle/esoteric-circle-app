@@ -425,13 +425,48 @@ class IlCerchioSociale extends ChangeNotifier {
   /// uid di chi l'ha ricevuta e si rilegge solo per lui.
   static const String chiaveDellUltimaTendina = 'cerchio.ultimaTendina';
 
-  /// "Aggiornato alle 21:47.": l'ora dell'ultimo dato noto della tendina,
-  /// nell'ora del telefono, per la tendina e per la rubrica degli amici.
-  /// SEGNAPOSTO dichiarato, ordine FC voce 09: lo scrive l'Architetto.
-  static String rigaDellUltimoDato(DateTime quando) {
-    final l = quando.toLocal();
-    return 'Aggiornato alle ${l.hour.toString().padLeft(2, '0')}:'
-        '${l.minute.toString().padLeft(2, '0')}.';
+  /// **LA RIGA DELL'ULTIMO DATO**, testo del fondatore (ordine FC,
+  /// Aggiunta della voce FC.10, parte prima), identico nella tendina e nella
+  /// rubrica: "Il Cerchio come era alle 21:47." [ora] e' l'ora in cui
+  /// l'istantanea e' stata presa, gia' scritta nel formato del telefono
+  /// (`l_ora_del_telefono.dart`), mai quella dell'apertura.
+  static String rigaDellUltimoDato(String ora) =>
+      'Il Cerchio come era alle $ora.';
+
+  /// **L'ULTIMO DATO VALE UN'ORA.** Il fondatore: la presenza vive in una
+  /// finestra di novanta secondi e il tetto e' orario, quindi un dato preso
+  /// da meno di un'ora e' coerente col tetto, mentre uno del giorno prima
+  /// dichiarerebbe presente chi non c'e'. Oltre l'ora non si mostra, e si
+  /// cancella dalla memoria e dal telefono: l'ora da sola, senza "ieri" e
+  /// senza una data, resta cosi' sempre vera.
+  static const Duration vitaDellUltimoDato = Duration(hours: 1);
+
+  /// Se l'ultima tendina e' stata presa da meno di [vitaDellUltimoDato]
+  /// all'istante [adesso].
+  bool ultimoDatoValido(DateTime adesso) {
+    final quando = _tendinaArrivata;
+    return _tendina != null &&
+        quando != null &&
+        adesso.difference(quando) < vitaDellUltimoDato;
+  }
+
+  /// Toglie l'ultima tendina, dalla memoria e dal telefono, se all'istante
+  /// [adesso] e' piu' vecchia di un'ora.
+  Future<void> scartaLUltimaSeScaduta(DateTime adesso) async {
+    if (_tendina == null || ultimoDatoValido(adesso)) return;
+    _tendina = null;
+    _tendinaArrivata = null;
+    notifyListeners();
+    await _dimenticaLUltimaTendina();
+  }
+
+  Future<void> _dimenticaLUltimaTendina() async {
+    try {
+      final p = await SharedPreferences.getInstance();
+      await p.remove(chiaveDellUltimaTendina);
+    } catch (senzaDisco) {
+      debugPrint('Cerchio: l\'ultima tendina non si toglie. $senzaDisco');
+    }
   }
 
   bool get vivo => _porta.viva;
@@ -791,11 +826,14 @@ class IlCerchioSociale extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<EsitoDelGesto> caricaLaTendina() async {
+  /// [adesso] e' l'istante su cui si misura l'eta' dell'ultimo dato quando
+  /// la richiesta non arriva: l'orologio, o quello di una prova.
+  Future<EsitoDelGesto> caricaLaTendina({DateTime? adesso}) async {
     final e = await _chiedi('laTendinaDelCerchio');
     if (e == null || e.rifiutato) {
       if (_tendina == null) await _rileggiLUltimaTendina();
       _tendinaNonAggiornata = true;
+      await scartaLUltimaSeScaduta(adesso ?? DateTime.now());
       notifyListeners();
       return _esito(e);
     }

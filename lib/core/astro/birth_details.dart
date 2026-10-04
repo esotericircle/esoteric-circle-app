@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'birth_place.dart';
+import 'il_segno_del_cielo.dart';
+import 'zodiac.dart';
 
 /// Genere, opzionale e non discriminante.
 enum Gender {
@@ -43,6 +45,12 @@ class BirthDetails {
 
   /// Vero se il luogo c'e': solo allora Ascendente e case hanno un senso.
   bool get hasPlace => place != null;
+
+  /// Il segno solare di questa nascita, dalla porta sola (ordine FC voce
+  /// 10): la posizione reale del Sole, all'ora di nascita o a mezzogiorno,
+  /// nel fuso del luogo.
+  Zodiac get segno => IlSegnoDelCielo.diNascita(dateTime,
+      oraNota: hasTime, fuso: place?.timezone);
 
   /// DateTime combinato di data e ora (mezzogiorno se l'ora manca, scelta
   /// neutra per il calcolo del solo Sole).

@@ -8,6 +8,7 @@ import 'il_capodanno_lunare.dart';
 import 'l_almanacco_cinese.dart';
 import 'la_lettura_cinese.dart';
 import 'la_lettura_vedica.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// L'anno di una persona in una tradizione: da quando a quando, il numero
 /// dell'anno, i livelli dei quattro domini e da dove vengono.
@@ -173,16 +174,16 @@ abstract final class LAnnoDelleTradizioni {
     }
     final a = compleanno(da.year + 1);
     final istante = DateTime.utc(da.year, da.month, da.day, 12);
-    int casaDi(CorpoCeleste c) =>
-        LaLetturaVedica.casa(rashiNascita, siderale(c, istante) ~/ 30);
+    int casaDi(CorpoCeleste c) => LaLetturaVedica.casa(rashiNascita,
+        IlSegnoDelCielo.dellaLongitudine(siderale(c, istante)).index);
     final giove = casaDi(CorpoCeleste.giove);
     final saturno = casaDi(CorpoCeleste.saturno);
     final g = caseBuoneDiGiove.contains(giove) ? 1 : 0;
     final sadeSati = caseDellaSadeSati.contains(saturno);
     final s = caseBuoneDiSaturno.contains(saturno) ? 1 : (sadeSati ? -1 : 0);
     int tra(int x) => x.clamp(2, 5);
-    String segno(CorpoCeleste c) =>
-        ISegniDelleTradizioni.rashi[siderale(c, istante) ~/ 30 % 12];
+    String segno(CorpoCeleste c) => ISegniDelleTradizioni
+        .rashi[IlSegnoDelCielo.dellaLongitudine(siderale(c, istante)).index];
     const ordinali = LaLetturaVedica.ordinali;
     final diGiove = 'Al tuo compleanno del ${_data(da)} Giove era in '
         '${segno(CorpoCeleste.giove)}, nella tua ${ordinali[giove - 1]} casa '
@@ -310,8 +311,8 @@ abstract final class LAnnoDelleTradizioni {
       for (final d in HoroscopeDomain.values)
         () {
           final (corpo, buone) = pianetiDelMese[d]!;
-          final h = LaLetturaVedica.casa(
-              rashiNascita, siderale(corpo, istante) ~/ 30);
+          final h = LaLetturaVedica.casa(rashiNascita,
+              IlSegnoDelCielo.dellaLongitudine(siderale(corpo, istante)).index);
           return buone.contains(h) ? 4 : 2;
         }(),
     ];

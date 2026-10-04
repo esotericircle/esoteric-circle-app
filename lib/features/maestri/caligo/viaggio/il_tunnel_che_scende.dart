@@ -185,8 +185,8 @@ class PittoreDelTunnel extends CustomPainter {
             brunoDelleRadici.withValues(alpha: 0.10),
           ],
           stops: const [0.0, 0.22, 1.0],
-        ).createShader(Rect.fromCircle(
-            center: centro, radius: misuraCheCopre(size) / 2)),
+        ).createShader(
+            Rect.fromCircle(center: centro, radius: misuraCheCopre(size) / 2)),
     );
 
     // **LA LUCE ALLE SPALLE, che si stringe fino a un punto.** Ordine DC voce
@@ -203,8 +203,7 @@ class PittoreDelTunnel extends CustomPainter {
           ..shader = RadialGradient(colors: [
             const Color(0xFFF6E7C8).withValues(alpha: 0.55 * quotaLuce),
             Colors.transparent,
-          ]).createShader(
-              Rect.fromCircle(center: centro, radius: raggioLuce)),
+          ]).createShader(Rect.fromCircle(center: centro, radius: raggioLuce)),
       );
     }
   }

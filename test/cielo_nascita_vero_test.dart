@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// Il cielo di nascita deve essere il TUO, e deve dirlo.
 ///
@@ -156,7 +157,7 @@ void main() {
     final settembre =
         NightSky.constellationsHighTonight(DateTime(1985, 9, 3, 7, 20));
 
-    expect(NightSky.sunSign(DateTime(1985, 3, 3)), Zodiac.pisces);
+    expect(IlSegnoDelCielo.delSole(DateTime(1985, 3, 3)), Zodiac.pisces);
     expect(marzo.length, 3);
     expect(marzo.toSet().length, 3, reason: 'tre segni distinti');
     expect(marzo, isNot(equals(settembre)),

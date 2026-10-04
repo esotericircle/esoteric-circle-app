@@ -7,6 +7,7 @@ import 'i_segni_delle_tradizioni.dart';
 import 'la_lettura_cinese.dart';
 import 'le_parti_del_responso.dart';
 import 'oroscopo_vedico_data.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// Il luogo di oggi per l'alba, il tramonto e il Rahu Kalam.
 class LuogoDelGiorno {
@@ -132,7 +133,10 @@ abstract final class LaLetturaVedica {
   /// Il rashi e il nakshatra della Luna siderale all'istante [utc].
   static (int, int) lunaAlle(DateTime utc) {
     final l = ISegniDelleTradizioni.lunaSiderale(utc);
-    return ((l ~/ 30) % 12, (l / (360 / 27)).floor() % 27);
+    return (
+      IlSegnoDelCielo.dellaLongitudine(l).index,
+      (l / (360 / 27)).floor() % 27
+    );
   }
 
   /// L'istante del giorno civile [giorno] a cui si legge la Luna: l'alba del

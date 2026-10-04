@@ -1,11 +1,11 @@
 import '../astro/effemeridi.dart';
-import '../astro/zodiac.dart';
 import '../chat/user_profile.dart';
 import 'horoscope.dart';
 import 'i_testi_eu.dart';
 import 'la_rivoluzione_solare.dart';
 import 'le_parti_del_responso.dart';
 import 'oroscopo_annuale_data.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// **L'ANNUALE DAL COMPLEANNO, ordine ES voce 04.**
 ///
@@ -80,7 +80,8 @@ abstract final class LAnnuale {
   static String doveSta(
       String pianeta, CorpoCeleste corpo, TemaDellaRivoluzione tema) {
     final casa = tema.casaDi(corpo);
-    final segno = _segni[TemaDellaRivoluzione.segno(tema.longitudini[corpo]!)];
+    final segno = _segni[
+        IlSegnoDelCielo.dellaLongitudine(tema.longitudini[corpo]!).index];
     final peso = switch (forza(casa)) {
       3 => 'una casa angolare, dove per la tradizione il pianeta è fra i '
           'protagonisti dell\'anno',
@@ -219,7 +220,4 @@ abstract final class LAnnuale {
               '${OroscopoAnnualeData.notaTutte}'),
     ];
   }
-
-  /// Il segno zodiacale di una longitudine, per chi disegna.
-  static Zodiac segno(double l) => Zodiac.values[TemaDellaRivoluzione.segno(l)];
 }

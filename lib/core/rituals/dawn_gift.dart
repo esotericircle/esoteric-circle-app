@@ -1,4 +1,3 @@
-import '../astro/night_sky.dart';
 import '../astro/natal_chart.dart';
 import '../astro/zodiac.dart';
 import '../horoscope/cielo_di_oggi.dart';
@@ -158,8 +157,7 @@ class DawnGift {
       PosizioneDiStamattina? posizione,
       NatalChart? carta,
       RispostaDelDono? rispostaPropria}) {
-    final natalSun =
-        identity == null ? null : NightSky.sunSign(identity.birthMoment);
+    final natalSun = identity?.segnoDellaNascita;
 
     // IL RITO VERO, che ha preso il posto del segnaposto.
     //
@@ -175,14 +173,13 @@ class DawnGift {
     // "da dove nasce", e chi compiva il rito non incontrava mai la propria
     // carta dentro cio' che leggeva. Adesso il gesto, il respiro e la parola
     // del giorno nascono anche dal suo Sole.
-    final ritoDelGiorno =
-        RitoAlba.diOggi(date,
-            posizione: posizione,
-            soleNatale: natalSun,
-            // **LA NASCITA INTERA ENTRA NEL RITO.** Ordine CS voce S4: col
-            // solo segno, in un giorno esistevano dodici Albe diverse in
-            // tutto il mondo. L'identita' arriva gia' qui, bastava passarla.
-            nascita: identity?.birthMoment);
+    final ritoDelGiorno = RitoAlba.diOggi(date,
+        posizione: posizione,
+        soleNatale: natalSun,
+        // **LA NASCITA INTERA ENTRA NEL RITO.** Ordine CS voce S4: col
+        // solo segno, in un giorno esistevano dodici Albe diverse in
+        // tutto il mondo. L'identita' arriva gia' qui, bastava passarla.
+        nascita: identity?.birthMoment);
     final rito = rispostaPropria == null || ritoDelGiorno == null
         ? ritoDelGiorno
         : ritoDelGiorno.conRisposta(rispostaPropria);
@@ -221,9 +218,8 @@ class DawnGift {
       //
       // IL RESPIRO NON STA NEL TESTO, ordine P voce 17: e' un respiro guidato
       // a schermo. I suoi numeri restano in `rito.tempi` e `rito.giri`.
-      orientation: rito == null
-          ? provisionalOrientation
-          : rito.risposta.risposta,
+      orientation:
+          rito == null ? provisionalOrientation : rito.risposta.risposta,
       word: rito?.parola,
       rito: rito,
       // Il dono non e' piu' provvisorio quando il rito c'e': il contenuto

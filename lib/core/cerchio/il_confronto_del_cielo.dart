@@ -4,6 +4,7 @@ import '../astro/night_sky.dart';
 import '../astro/zodiac.dart';
 import '../synastry/altre_affinita.dart';
 import '../synastry/cielo_della_sinastria.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// **IL CONFRONTO DEL CIELO FRA DUE AMICI, ordine EY voce 13.**
 ///
@@ -121,7 +122,7 @@ class IlConfrontoDelCielo {
     final (aspetto, nome) = aspettoFra(a, b);
     // A mezzogiorno del giorno: la Luna del giorno e' una per tutti e due.
     final mezzogiorno = DateTime.utc(giorno.year, giorno.month, giorno.day, 12);
-    final luna = NightSky.moonSign(mezzogiorno);
+    final luna = IlSegnoDelCielo.dellaLuna(mezzogiorno);
     final distanza =
         NightSky.moonEclipticLongitude(mezzogiorno) - puntoDIncontro(a, b);
     // Da +1 con la Luna sul punto d'incontro a -1 con la Luna opposta.

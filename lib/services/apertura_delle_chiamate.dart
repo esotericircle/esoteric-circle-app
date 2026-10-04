@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../core/astro/zodiac.dart';
 import '../core/identity/profile_controller.dart';
 import '../core/rituals/avvisi_del_rito.dart';
 import '../core/magic/la_chiamata_del_sigillo.dart';
@@ -11,6 +10,7 @@ import '../features/horoscope/oroscopo_screen.dart';
 import '../features/maestri/caligo/rune/rune_draw_screen.dart';
 import '../features/rituals/sunset_rune_screen.dart';
 import '../features/santuario/daily_strip.dart';
+import '../core/astro/il_segno_del_cielo.dart';
 
 /// OGNI AVVISO APRE LA SCENA CHE PROMETTE, mai la home. Ordine M voce 2f.
 ///
@@ -49,7 +49,7 @@ class AperturaDelleChiamate {
         return SunsetRuneScreen.route(dataNascita: nascita);
       case AvvisiDelRito.caricoOroscopo:
         final segno = context.read<ProfileController>().identity.sunSign ??
-            Zodiac.fromDate(DateTime.now());
+            IlSegnoDelCielo.delSole(DateTime.now());
         return OroscopoScreen.route(userSign: segno);
       case AvvisiDelRito.caricoGettate:
         // Senza segno, ordine EA voce 05.

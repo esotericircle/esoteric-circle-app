@@ -187,8 +187,9 @@ class RigaDellaRiflessione extends StatelessWidget {
 
   /// Cosa si legge in questo momento.
   String get testo => switch (momento) {
-        MomentoDellaRiflessione.raccolta =>
-          almanacco == null ? 'Il cielo si raccoglie.' : 'L\'almanacco si apre.',
+        MomentoDellaRiflessione.raccolta => almanacco == null
+            ? 'Il cielo si raccoglie.'
+            : 'L\'almanacco si apre.',
         MomentoDellaRiflessione.nomina =>
           almanacco ?? RiflessioneDelCielo.rigaDelSecondoMomento(cielo),
       };

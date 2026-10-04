@@ -123,7 +123,7 @@ class NatalChartController extends ChangeNotifier {
     note = null;
     notifyListeners();
 
-    final localSun = Zodiac.fromDate(details.date);
+    final localSun = details.segno;
 
     // Prima la memoria: rivedere un cielo gia' visto non deve dipendere dalla
     // rete. La risposta conservata si reinterpreta, cosi' se domani

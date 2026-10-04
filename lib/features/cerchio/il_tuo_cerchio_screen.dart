@@ -306,7 +306,7 @@ class RigaDellaPersona extends StatelessWidget {
           child: Column(children: [
             Row(
               children: [
-                IconaTonda(icona: persona.icona, lato: 44),
+                IconaTonda(icona: persona.icona, lato: 44, nome: persona.nome),
                 const SizedBox(width: SpacingTokens.sm),
                 Expanded(
                   child: Column(

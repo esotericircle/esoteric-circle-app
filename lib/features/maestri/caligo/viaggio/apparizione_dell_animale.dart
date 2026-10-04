@@ -35,8 +35,7 @@ class ApparizioneDellAnimale extends StatefulWidget {
   final VoidCallback? quandoEPassata;
 
   @override
-  State<ApparizioneDellAnimale> createState() =>
-      _ApparizioneDellAnimaleState();
+  State<ApparizioneDellAnimale> createState() => _ApparizioneDellAnimaleState();
 }
 
 class _ApparizioneDellAnimaleState extends State<ApparizioneDellAnimale>

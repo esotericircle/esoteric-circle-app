@@ -11,7 +11,7 @@ import '../../design_system/components/zodiac_wheel.dart' show drawZodiacGlyph;
 /// o, sotto Riduci Movimento, mostrarle gia' compiute a t = 1 senza moto.
 
 /// Il Sole scende e si posa nel segno ricavato dalla data. Astronomia vera dietro
-/// (il segno viene da `NightSky.sunSign`), qui solo la messa in scena.
+/// (il segno viene da `IlSegnoDelCielo.delSole`), qui solo la messa in scena.
 class SunInSignPainter extends CustomPainter {
   SunInSignPainter({
     required this.sign,

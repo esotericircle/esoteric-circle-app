@@ -1,6 +1,5 @@
 import 'dart:ui' show Color;
 
-import '../astro/night_sky.dart';
 import '../astro/zodiac.dart';
 import 'birth_identity.dart';
 import 'numerology.dart';
@@ -89,7 +88,7 @@ class CircleSeal {
 
   factory CircleSeal.from(
       {required String name, required BirthIdentity identity}) {
-    final sign = NightSky.sunSign(identity.birthMoment);
+    final sign = identity.segnoDellaNascita;
     return CircleSeal(
       name: name,
       sign: sign,

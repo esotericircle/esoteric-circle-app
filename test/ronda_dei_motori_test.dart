@@ -4,7 +4,6 @@ import 'package:esoteric_circle/core/angels/guardian_angels.dart';
 import 'package:esoteric_circle/core/astro/birth_details.dart';
 import 'package:esoteric_circle/core/astro/celestial.dart';
 import 'package:esoteric_circle/core/astro/moon_phase.dart';
-import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/astro/sky.dart';
 import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/core/astro/birth_place.dart';
@@ -13,6 +12,7 @@ import 'package:flutter/material.dart' show TimeOfDay;
 import 'package:esoteric_circle/core/magic/intention_sigil.dart';
 import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// LA RONDA DEI MOTORI.
 ///
@@ -177,16 +177,16 @@ void main() {
     });
 
     test('Segno solare: due date diverse danno segni diversi', () {
-      expect(NightSky.sunSign(DateTime(1990, 5, 12)),
-          isNot(NightSky.sunSign(DateTime(1990, 11, 12))),
+      expect(IlSegnoDelCielo.delSole(DateTime(1990, 5, 12)),
+          isNot(IlSegnoDelCielo.delSole(DateTime(1990, 11, 12))),
           reason: 'maggio e novembre danno lo stesso segno solare');
     });
 
     test('Segno lunare: due date diverse danno segni diversi', () {
       // La Luna cambia segno ogni due giorni e mezzo: a dieci giorni di
       // distanza il segno deve essere un altro.
-      expect(NightSky.moonSign(DateTime(2026, 7, 1)),
-          isNot(NightSky.moonSign(DateTime(2026, 7, 11))),
+      expect(IlSegnoDelCielo.dellaLuna(DateTime(2026, 7, 1)),
+          isNot(IlSegnoDelCielo.dellaLuna(DateTime(2026, 7, 11))),
           reason: 'a dieci giorni di distanza la Luna risulta nello stesso '
               'segno');
     });
@@ -200,9 +200,9 @@ void main() {
 
     test('Animale Guida: due segni diversi danno animali diversi', () {
       final a = GuideAnimalDerivation.forSign(
-          NightSky.sunSign(DateTime(1990, 5, 12)));
+          IlSegnoDelCielo.delSole(DateTime(1990, 5, 12)));
       final b = GuideAnimalDerivation.forSign(
-          NightSky.sunSign(DateTime(1990, 11, 12)));
+          IlSegnoDelCielo.delSole(DateTime(1990, 11, 12)));
       expect(a.name, isNot(b.name),
           reason: 'due segni diversi ricevono lo stesso animale guida');
     });

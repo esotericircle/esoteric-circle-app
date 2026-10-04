@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
@@ -15,6 +14,7 @@ import 'package:esoteric_circle/core/rituals/arcano_dell_alba/archivio_dell_alba
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// La schermata del Sigillo del Sogno: nebbia, cielo, stelle unite, saluto.
 void main() {
@@ -72,7 +72,7 @@ void main() {
   Future<void> compiIlRito(WidgetTester tester) async {
     await tester.tap(find.byKey(const Key('dream_fog_skip')));
     await passo(tester);
-    final segno = NightSky.moonSign(quando);
+    final segno = IlSegnoDelCielo.dellaLuna(quando);
     final figura = kZodiacConstellations.firstWhere((c) => c.sign == segno);
     for (var i = 0; i < figura.points.length; i++) {
       await tester.tap(find.byKey(Key('dream_star_$i')));
@@ -114,7 +114,7 @@ void main() {
     // vale invece di "Alza il telefono verso il cielo.".
     expect(find.text("Tocca le stelle, una dopo l'altra."), findsOneWidget);
     // La costellazione e' quella del segno della Luna di quel momento.
-    final segno = NightSky.moonSign(quando);
+    final segno = IlSegnoDelCielo.dellaLuna(quando);
     expect(find.textContaining(segno.italianName), findsWidgets);
   });
 
@@ -127,7 +127,7 @@ void main() {
     await tester.tap(find.byKey(const Key('dream_fog_skip')));
     await passo(tester);
 
-    final segno = NightSky.moonSign(quando);
+    final segno = IlSegnoDelCielo.dellaLuna(quando);
     final figura = kZodiacConstellations.firstWhere((c) => c.sign == segno);
     // Toccare l'ultima per prima non unisce nulla.
     await tester.tap(find.byKey(Key('dream_star_${figura.points.length - 1}')));

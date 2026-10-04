@@ -9,6 +9,7 @@ import 'package:esoteric_circle/core/horoscope/il_domani.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// **LA RAGIONE PER TORNARE DOMANI DICE IL VERO SUL GIORNO DOPO.** Ordine ES
 /// voce 34, 29 settembre 2026.
@@ -29,7 +30,7 @@ void main() {
       final domani = DateTime.utc(oggi.year, oggi.month, oggi.day, 12)
           .add(const Duration(days: 1));
       final casa = IlCieloDelSegno.casaSolare(
-          segno, IlCieloDelSegno.segnoDi(CorpoCeleste.luna, domani));
+          segno, IlSegnoDelCielo.delCorpo(CorpoCeleste.luna, domani));
       final atteso = CorrenteDelCielo.ordinaliDelleCase[casa - 1];
       giorni++;
       if (!riga.contains('tua $atteso casa solare')) {

@@ -136,10 +136,7 @@ void main() {
         ),
         home: amico == null
             ? OroscopoScreen(userSign: Zodiac.gemini, now: adesso)
-            : OroscopoScreen(
-                userSign: Zodiac.fromDate(amico.nascita),
-                amico: amico,
-                now: adesso),
+            : OroscopoScreen(userSign: amico.segno, amico: amico, now: adesso),
       ),
     ));
     await tester.pump();

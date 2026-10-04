@@ -369,10 +369,9 @@ class SynastryBarRow extends StatelessWidget {
     // Adesso la barra e' la percentuale vera e a destra c'e' il numero, come
     // nelle altre.
     final fraction = bar.frazione;
-    final valueText =
-        isMeeting && meetingReport != null
-            ? meetingReport!.meetingLabel
-            : '${bar.value}%';
+    final valueText = isMeeting && meetingReport != null
+        ? meetingReport!.meetingLabel
+        : '${bar.value}%';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

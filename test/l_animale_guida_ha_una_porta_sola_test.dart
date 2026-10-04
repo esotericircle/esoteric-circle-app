@@ -28,13 +28,13 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/rituals/animal_catalog.dart';
 import 'package:esoteric_circle/core/rituals/guide_animal_derivation.dart';
 import 'package:esoteric_circle/core/viaggio/i_quattro_viaggi.dart';
 
 import 'sorgenti_di_lib.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 void main() {
   test('MILLE ESECUZIONI, a parita di nascita, danno sempre lo stesso animale',
@@ -57,9 +57,11 @@ void main() {
     var giri = 0;
     for (final nascita in nascite) {
       final primo =
-          GuideAnimalDerivation.forSign(NightSky.sunSign(nascita)).name;
+          GuideAnimalDerivation.forSign(IlSegnoDelCielo.delSole(nascita)).name;
       for (var i = 0; i < 1000; i++) {
-        expect(GuideAnimalDerivation.forSign(NightSky.sunSign(nascita)).name,
+        expect(
+            GuideAnimalDerivation.forSign(IlSegnoDelCielo.delSole(nascita))
+                .name,
             primo,
             reason: 'la stessa nascita ha dato due animali diversi');
         giri++;
@@ -77,11 +79,12 @@ void main() {
     // questa prova tiene ferma quella riga: se qualcuno rimescolasse la
     // tabella, il suo animale cambierebbe senza che nessuno se ne accorga.
     final nascita = DateTime(1980, 7, 10);
-    expect(NightSky.sunSign(nascita), Zodiac.cancer);
+    expect(IlSegnoDelCielo.delSole(nascita), Zodiac.cancer);
     expect(GuideAnimalDerivation.forSign(Zodiac.cancer).name, 'Lupo');
   });
 
-  test('IL NOME CHE IL VIAGGIO CONSEGNA E QUELLO DELLA NASCITA, e non un '
+  test(
+      'IL NOME CHE IL VIAGGIO CONSEGNA E QUELLO DELLA NASCITA, e non un '
       'altro', () {
     for (final a in AnimalCatalog.animals) {
       // Prima delle quattro discese non si dice niente.

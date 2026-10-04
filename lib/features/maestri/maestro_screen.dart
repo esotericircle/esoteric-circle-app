@@ -237,6 +237,7 @@ class CircleArtTile extends StatelessWidget {
       art.id,
       userBirth:
           profile.identity.isExample ? null : profile.identity.birthMoment,
+      userFuso: profile.identity.birthPlace?.timeZoneId,
       userName: profile.hasName ? profile.vocative : null,
     );
     if (route == null) return;

@@ -330,8 +330,7 @@ class _FaceConstellationScreenState extends State<FaceConstellationScreen> {
         // un'altra: a capo FRA le parole, e la misura scende solo quanto
         // serve, entro un minimo dichiarato.
         titolo: TitoloCheNonSiRompe(
-            testo: 'Mappa del Viso',
-            stile: TypographyTokens.titoloScheda()),
+            testo: 'Mappa del Viso', stile: TypographyTokens.titoloScheda()),
         azioni: [
           IconButton(
             key: const Key('face_sources'),

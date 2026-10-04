@@ -61,8 +61,7 @@ class _GirandolaDegliAnimaliState extends State<GirandolaDegliAnimali>
 
   @override
   Widget build(BuildContext context) {
-    final fermo =
-        widget.senzaMoto ?? MediaQuery.of(context).disableAnimations;
+    final fermo = widget.senzaMoto ?? MediaQuery.of(context).disableAnimations;
     if (fermo) {
       if (_giro.isAnimating) _giro.stop();
     } else if (!_giro.isAnimating) {
@@ -113,8 +112,8 @@ class _GirandolaDegliAnimaliState extends State<GirandolaDegliAnimali>
             // sceglierne uno con gli occhi.
             opacity: 0.52,
             child: ColorFiltered(
-              colorFilter: const ColorFilter.mode(
-                  Color(0xFF9C7B4A), BlendMode.modulate),
+              colorFilter:
+                  const ColorFilter.mode(Color(0xFF9C7B4A), BlendMode.modulate),
               child: Image.asset(
                 a.thumbPath,
                 fit: BoxFit.contain,

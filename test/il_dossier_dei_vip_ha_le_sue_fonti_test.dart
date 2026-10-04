@@ -1,7 +1,7 @@
 import 'package:esoteric_circle/core/astro/data_italiana.dart';
-import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/synastry/vip_catalog.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// IL DOSSIER DEI CINQUANTA HA LE SUE FONTI. Ordine BO voce 01.
 ///
@@ -93,7 +93,7 @@ void main() {
     // avesse sbagliato anche un solo giorno, il segno solare calcolato dalla
     // data non combacerebbe piu' con quello dichiarato.
     for (final v in VipCatalog.vips) {
-      expect(NightSky.sunSign(v.momentoDiNascita), v.sign,
+      expect(IlSegnoDelCielo.delSole(v.momentoDiNascita), v.sign,
           reason: '${v.name}: la data ${v.note} non da\' il segno '
               '${v.sign.name} dichiarato nel catalogo');
     }

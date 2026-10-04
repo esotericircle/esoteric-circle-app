@@ -31,6 +31,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'cardinale_minimo.dart';
 import 'il_gesto_nelle_prove.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// **LA PROFONDITA' STA SU OGNI SCHEDA, E L'AMICO STA IN ALTO.** Ordine ES,
 /// 30 settembre 2026, le richieste del fondatore mentre guardava le anteprime
@@ -110,7 +111,7 @@ void main() {
             ? OroscopoScreen(
                 userSign: Zodiac.gemini, now: DateTime(2026, 9, 30, 12, 5))
             : OroscopoScreen(
-                userSign: Zodiac.fromDate(amico.nascita),
+                userSign: amico.segno,
                 amico: amico,
                 now: DateTime(2026, 9, 30, 12, 5)),
       ),
@@ -195,8 +196,8 @@ void main() {
         (HoroscopeDomain.amore, 'Venere', CorpoCeleste.venere),
         (HoroscopeDomain.fortuna, 'Giove', CorpoCeleste.giove),
       ]) {
-        final segno =
-            segni[TemaDellaRivoluzione.segno(tema.longitudini[corpo]!)];
+        final segno = segni[
+            IlSegnoDelCielo.dellaLongitudine(tema.longitudini[corpo]!).index];
         final attesa = '$nome era in $segno, nella casa ${tema.casaDi(corpo)} '
             'del tuo anno';
         final lunga = lunghe.firstWhere((s) => s.domain == dominio);

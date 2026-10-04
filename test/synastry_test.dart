@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// Sinastria VIP: responso e quattro barre deterministici per coppia, senza AI,
 /// piu' la schermata avvolta nel cosmo, il ritratto del VIP sul polo destro, la
@@ -55,9 +56,8 @@ void main() {
   /// affermazione di prima, detta con l'oggetto giusto.
   final cieliDiSegno = <Zodiac, CieloDiSinastria>{};
   CieloDiSinastria cieloDi(Zodiac segno) => cieliDiSegno.putIfAbsent(segno, () {
-        final (mese, giorno) = segno.from;
-        // Tre giorni dentro il segno, cosi' nessun caso limite di confine.
-        final data = DateTime(1990, mese, giorno).add(const Duration(days: 3));
+        // A meta' del segno, cosi' nessun caso limite di confine.
+        final data = _dentroIlSegno(segno);
         return CieloDiSinastria.perIdentita(
             BirthIdentity.fromParts(birthDate: data));
       });
@@ -447,4 +447,14 @@ class _FakePhotoService implements UserPhotoService {
 
   @override
   Future<Uint8List?> pick(UserPhotoSource source) async => _bytes;
+}
+
+DateTime _dentroIlSegno(Zodiac segno) {
+  // Ordine FC voce 10: la tabella delle date fisse non c'e' piu'. Il giorno
+  // sta a meta' del segno (il 4 aprile 1990 e' a meta' dell'Ariete, poi un
+  // mese per segno), e la porta del segno conferma che e' quello.
+  final d =
+      DateTime(1990, 4, 4).add(Duration(days: (segno.index * 30.44).round()));
+  assert(IlSegnoDelCielo.diNascita(d, oraNota: false) == segno);
+  return d;
 }

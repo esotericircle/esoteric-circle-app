@@ -10,7 +10,7 @@ enum DatoDelCielo {
   /// La fase lunare vera, da `MoonPhase.forDate`.
   faseLunare('{fase}'),
 
-  /// Il segno in cui si trova la Luna, da `NightSky.moonSign`.
+  /// Il segno in cui si trova la Luna, da `IlSegnoDelCielo.dellaLuna`.
   segnoLunare('{segno}'),
 
   /// L'ora del sorgere del sole per il luogo della persona, da

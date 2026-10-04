@@ -12,6 +12,7 @@ import 'confronto_del_cielo_screen.dart';
 import 'il_tuo_cerchio_screen.dart';
 import 'scheda_dell_amico_screen.dart';
 import 'widgets/disegni_del_cerchio.dart';
+import 'l_ora_del_telefono.dart';
 
 /// **LA TENDINA DELL'INDICATORE ONLINE, ordine EY voce 08.** Al tocco
 /// sull'indicatore scende una tendina, col movimento di un velo che si apre e
@@ -175,8 +176,8 @@ class _LaTendina extends StatelessWidget {
                                 padding: const EdgeInsets.only(
                                     top: SpacingTokens.sm),
                                 child: Text(
-                                    IlCerchioSociale.rigaDellUltimoDato(
-                                        sociale.tendinaArrivata!),
+                                    rigaDellUltimoDato(
+                                        context, sociale.tendinaArrivata!),
                                     key: const Key('tendina_ultimo_dato'),
                                     style: TypographyTokens.didascalia()
                                         .copyWith(color: palette.goldSoft)),

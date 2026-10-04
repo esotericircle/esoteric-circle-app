@@ -194,8 +194,8 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
                       IlVeloCheSiScosta.quantoDuraLaCaduta.inMilliseconds)
               .clamp(0.0, 1.0);
         }
-        _particelle.removeWhere((p) =>
-            _adesso - p.nata > IlVeloCheSiScosta.vitaDellaParticella);
+        _particelle.removeWhere(
+            (p) => _adesso - p.nata > IlVeloCheSiScosta.vitaDellaParticella);
         _braci.removeWhere(
             (b) => _adesso - b.nata > IlVeloCheSiScosta.vitaDellaBrace);
       });
@@ -262,7 +262,8 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
 
   /// **UN GRANELLO SI SOLLEVA E RICADE**, spinto dal verso del dito.
   void _sollevaDa(Offset dove, Offset verso) {
-    final lato = verso.distance == 0 ? const Offset(0, 0) : verso / verso.distance;
+    final lato =
+        verso.distance == 0 ? const Offset(0, 0) : verso / verso.distance;
     _particelle.add(_Particella(
       da: dove + Offset((_caso.nextDouble() - 0.5) * 8, 0),
       verso: Offset(lato.dx * 30 + (_caso.nextDouble() - 0.5) * 40,
@@ -298,8 +299,7 @@ class _IlVeloCheSiScostaState extends State<IlVeloCheSiScosta> {
           IlVeloCheSiScosta.doveStaLIllustrazione(scena, misura);
       _illustrazione = illustrazione;
       // **LA GRANA ALLA RISOLUZIONE DELLO SCHERMO**, una volta per misura.
-      final grana = GranaDellaCenere.allaScena(
-          illustrazione.size, dpr, () {
+      final grana = GranaDellaCenere.allaScena(illustrazione.size, dpr, () {
         if (mounted) setState(() {});
       });
       final coperte = _cadeDaSolo && _caduta <= 0
@@ -465,8 +465,8 @@ abstract final class GranaDellaCenere {
 
   static Future<ui.Image> prepara() => _inCorso ??= () {
         final fatto = Completer<ui.Image>();
-        ui.decodeImageFromPixels(
-            pixel(), lato, lato, ui.PixelFormat.rgba8888, (img) {
+        ui.decodeImageFromPixels(pixel(), lato, lato, ui.PixelFormat.rgba8888,
+            (img) {
           _pronta = img;
           fatto.complete(img);
         });
@@ -491,7 +491,8 @@ abstract final class GranaDellaCenere {
   /// **LA GRANA DELLA SCENA**, di [misura] punti a [dpr] pixel per punto: la
   /// restituisce quando e' pronta, e la prepara la prima volta, fuori dal
   /// filo del disegno; [quandoPronta] viene chiamato allora.
-  static ui.Image? allaScena(Size misura, double dpr, VoidCallback quandoPronta) {
+  static ui.Image? allaScena(
+      Size misura, double dpr, VoidCallback quandoPronta) {
     if (!accesa) return null;
     final larga = (misura.width * dpr).round();
     final alta = (misura.height * dpr).round();
@@ -501,9 +502,13 @@ abstract final class GranaDellaCenere {
     if (_inPreparazione != chiave) {
       _inPreparazione = chiave;
       final d = densita;
-      unawaited(compute(pixelAllaScena,
-              (larga: larga, alta: alta, seme: 20260915, densita: d, periodica: false))
-          .then((pixel) {
+      unawaited(compute(pixelAllaScena, (
+        larga: larga,
+        alta: alta,
+        seme: 20260915,
+        densita: d,
+        periodica: false
+      )).then((pixel) {
         ui.decodeImageFromPixels(pixel, larga, alta, ui.PixelFormat.rgba8888,
             (img) {
           if (_inPreparazione != chiave) return;
@@ -600,7 +605,8 @@ abstract final class GranaDellaCenere {
 /// Dal fondo si prende il muro di carboni a sinistra, dove le crepe sono
 /// arancio, e non il logo in basso: un ritaglio che si ripete a specchio.
 abstract final class LeBraciDellaViaRossa {
-  static const String fondo = 'assets/img/sigillo/fondi/fondo_via_rossa_v1.webp';
+  static const String fondo =
+      'assets/img/sigillo/fondi/fondo_via_rossa_v1.webp';
 
   /// **IL RITAGLIO**, in frazioni del fondo di 1440 per 3200: il muro di
   /// carboni a sinistra, dove le crepe sono arancio.
@@ -613,15 +619,16 @@ abstract final class LeBraciDellaViaRossa {
   static Future<void> prepara() => _inCorso ??= () async {
         try {
           final dati = await rootBundle.load(fondo);
-          final codec = await ui.instantiateImageCodec(dati.buffer.asUint8List());
+          final codec =
+              await ui.instantiateImageCodec(dati.buffer.asUint8List());
           final intero = (await codec.getNextFrame()).image;
           final w = intero.width.toDouble();
           final h = intero.height.toDouble();
           final src = Rect.fromLTRB(ritaglio.left * w, ritaglio.top * h,
               ritaglio.right * w, ritaglio.bottom * h);
           final registro = ui.PictureRecorder();
-          Canvas(registro).drawImageRect(intero, src,
-              Rect.fromLTWH(0, 0, src.width, src.height), Paint());
+          Canvas(registro).drawImageRect(
+              intero, src, Rect.fromLTWH(0, 0, src.width, src.height), Paint());
           _pronte = registro
               .endRecording()
               .toImageSync(src.width.round(), src.height.round());
@@ -795,7 +802,8 @@ class PittoreDellaCenere extends CustomPainter {
               (seme.nextDouble() - 0.5) * 1.4;
           final fuori = raggio * (0.85 + seme.nextDouble() * 0.35);
           p.addOval(Rect.fromCircle(
-              center: centro + Offset(math.cos(angolo), math.sin(angolo)) * fuori,
+              center:
+                  centro + Offset(math.cos(angolo), math.sin(angolo)) * fuori,
               radius: lato * (0.08 + seme.nextDouble() * 0.16)));
         }
       }
@@ -819,14 +827,16 @@ class PittoreDellaCenere extends CustomPainter {
     final corto = math.min(a, b);
     for (var k = 0; k < 9; k++) {
       final angolo = (k + seme.nextDouble() * 0.6) / 9 * 2 * math.pi;
-      final dove = c + Offset(math.cos(angolo) * a, math.sin(angolo) * b) * 0.86;
+      final dove =
+          c + Offset(math.cos(angolo) * a, math.sin(angolo) * b) * 0.86;
       p.addOval(Rect.fromCircle(
           center: dove, radius: corto * (0.16 + seme.nextDouble() * 0.14)));
     }
     for (var k = 0; k < 90; k++) {
       final angolo = seme.nextDouble() * 2 * math.pi;
       final fuori = 0.97 + seme.nextDouble() * 0.12;
-      final dove = c + Offset(math.cos(angolo) * a, math.sin(angolo) * b) * fuori;
+      final dove =
+          c + Offset(math.cos(angolo) * a, math.sin(angolo) * b) * fuori;
       p.addOval(Rect.fromCircle(
           center: dove, radius: lato * (0.12 + seme.nextDouble() * 0.3)));
     }
@@ -851,8 +861,8 @@ class PittoreDellaCenere extends CustomPainter {
       // due lati combaciano per costruzione. La piastrella di riserva invece
       // nasce periodica, e ripetuta sta bene com'e'.
       final come = granaAllaScena ? TileMode.mirror : TileMode.repeated;
-      colore.shader = ImageShader(
-          g, come, come, Matrix4.diagonal3Values(k, k, 1).storage);
+      colore.shader =
+          ImageShader(g, come, come, Matrix4.diagonal3Values(k, k, 1).storage);
     }
     return colore;
   }
@@ -888,8 +898,8 @@ class PittoreDellaCenere extends CustomPainter {
       c.drawPath(
           forma,
           _pittura(1)
-            ..maskFilter = const MaskFilter.blur(BlurStyle.normal,
-                IlVeloDellAnimale.raggioDelPennello * 0.35));
+            ..maskFilter = const MaskFilter.blur(
+                BlurStyle.normal, IlVeloDellAnimale.raggioDelPennello * 0.35));
     });
     if (_dipinte.length > 6) _dipinte.clear();
     return _dipinte[chiave] = (coltre, cumulo);
@@ -945,7 +955,8 @@ class PittoreDellaCenere extends CustomPainter {
     if (quali.isEmpty) return;
     const r = IlVeloDellAnimale.raggioDelPennello;
     final solco = _tracciato(quali, size);
-    Paint pennello(double largo, Color colore, BlendMode modo, double morbido) =>
+    Paint pennello(
+            double largo, Color colore, BlendMode modo, double morbido) =>
         Paint()
           ..style = PaintingStyle.stroke
           ..strokeWidth = largo
@@ -958,14 +969,14 @@ class PittoreDellaCenere extends CustomPainter {
     //    nessuno ha toccato.
     canvas.drawPath(
         solco,
-        pennello(r * 3.2, Colors.black.withValues(alpha: 0.2),
-            BlendMode.dstOut, r * 0.6));
+        pennello(r * 3.2, Colors.black.withValues(alpha: 0.2), BlendMode.dstOut,
+            r * 0.6));
     // 2. **LA CENERE SPOSTATA SI ACCUMULA AI LATI**: una cresta piu'
     //    chiara, solo dove la cenere c'e'.
     canvas.drawPath(
         solco,
-        pennello(r * 2.55, accumulo.withValues(alpha: 0.8),
-            BlendMode.srcATop, r * 0.12));
+        pennello(r * 2.55, accumulo.withValues(alpha: 0.8), BlendMode.srcATop,
+            r * 0.12));
     // 3. **IL SOLCO**, col bordo morbido del pennello.
     canvas.drawPath(
         solco, pennello(r * 2, Colors.black, BlendMode.dstOut, r * 0.22));
@@ -1010,8 +1021,8 @@ class PittoreDellaCenere extends CustomPainter {
     final buchi = Path();
     for (final i in scoperte) {
       buchi.addOval(Rect.fromCircle(
-          center: Offset((i % velo.colonne + 0.5) * cw,
-              (i ~/ velo.colonne + 0.5) * ch),
+          center: Offset(
+              (i % velo.colonne + 0.5) * cw, (i ~/ velo.colonne + 0.5) * ch),
           radius: raggio));
     }
     canvas.drawPath(
@@ -1108,19 +1119,22 @@ class PittoreDellaCenere extends CustomPainter {
     final c = Canvas(registro)
       ..scale(dpr)
       ..translate(m, m);
-    final tutta = Rect.fromLTWH(-m, -m, size.width + 2 * m, size.height + 2 * m);
+    final tutta =
+        Rect.fromLTWH(-m, -m, size.width + 2 * m, size.height + 2 * m);
     if (seguito) {
       // **SOPRA L'IMMAGINE DI PRIMA**, e solo il pezzo nuovo.
       c.drawImageRect(
           vecchia,
-          Rect.fromLTWH(0, 0, vecchia.width.toDouble(), vecchia.height.toDouble()),
+          Rect.fromLTWH(
+              0, 0, vecchia.width.toDouble(), vecchia.height.toDouble()),
           tutta,
           Paint()..filterQuality = FilterQuality.none);
       _scava(c, size, _cioCheManca(prima, quali));
     } else {
       c.drawImageRect(
           coltre,
-          Rect.fromLTWH(0, 0, coltre.width.toDouble(), coltre.height.toDouble()),
+          Rect.fromLTWH(
+              0, 0, coltre.width.toDouble(), coltre.height.toDouble()),
           tutta,
           Paint()..filterQuality = FilterQuality.none);
       _scava(c, size, quali);
@@ -1150,8 +1164,8 @@ class PittoreDellaCenere extends CustomPainter {
       }
     }
     final cotta = _cenereScavata(size, cotti);
-    canvas.saveLayer(tutta,
-        Paint()..color = Colors.white.withValues(alpha: quanta));
+    canvas.saveLayer(
+        tutta, Paint()..color = Colors.white.withValues(alpha: quanta));
     canvas.drawImageRect(
         cotta,
         Rect.fromLTWH(0, 0, cotta.width.toDouble(), cotta.height.toDouble()),
@@ -1163,7 +1177,8 @@ class PittoreDellaCenere extends CustomPainter {
     if (coperte.any(velo.testa.contains)) {
       canvas.drawImageRect(
           cumulo,
-          Rect.fromLTWH(0, 0, cumulo.width.toDouble(), cumulo.height.toDouble()),
+          Rect.fromLTWH(
+              0, 0, cumulo.width.toDouble(), cumulo.height.toDouble()),
           tutta,
           Paint()..filterQuality = FilterQuality.none);
     }

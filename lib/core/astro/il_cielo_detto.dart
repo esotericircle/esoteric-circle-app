@@ -3,6 +3,7 @@ import 'effemeridi.dart';
 import 'moon_phase.dart';
 import 'night_sky.dart';
 import 'zodiac.dart';
+import 'il_segno_del_cielo.dart';
 
 /// Una frase sul cielo che il calcolo smentisce, col perche'.
 class FraseSmentita {
@@ -71,7 +72,7 @@ abstract final class IlCieloDetto {
   /// mai la Luna di oggi: chi voleva parlarne doveva indovinarla. Adesso la
   /// riceve calcolata, e il verificatore sopra controlla cio' che ne dice.
   static String oggiPerIlModello(DateTime adesso) {
-    final segno = NightSky.moonSign(adesso).italianName;
+    final segno = IlSegnoDelCielo.dellaLuna(adesso).italianName;
     final fase = MoonPhase.comeSiDice(MoonPhase.forDate(adesso).italianName);
     return 'IL CIELO DI OGGI, calcolato: la Luna è in $segno ed è $fase. '
         'Se parli della Luna di oggi, sono la sola posizione e la sola fase '
@@ -98,13 +99,6 @@ abstract final class IlCieloDetto {
     CorpoCeleste.plutone,
   ];
 
-  static Zodiac _segnoDi(CorpoCeleste corpo, DateTime adesso) {
-    if (corpo == CorpoCeleste.luna) return NightSky.moonSign(adesso);
-    final jd = Celestial.julianDay(adesso.toUtc());
-    return Zodiac
-        .values[(Effemeridi.longitudineEclittica(corpo, jd) / 30).floor() % 12];
-  }
-
   static bool _retrogrado(CorpoCeleste corpo, DateTime adesso) =>
       corpo != CorpoCeleste.sole &&
       corpo != CorpoCeleste.luna &&
@@ -118,7 +112,7 @@ abstract final class IlCieloDetto {
   static String pianetiDiOggi(DateTime adesso) {
     final pianeti = [
       for (final c in _pianeti)
-        '${c.nome} in ${_segnoDi(c, adesso).italianName}'
+        '${c.nome} in ${IlSegnoDelCielo.delCorpo(c, adesso).italianName}'
             '${_retrogrado(c, adesso) ? (c == CorpoCeleste.venere ? ' retrograda' : ' retrogrado') : ''}',
     ];
     return 'I PIANETI DI OGGI, calcolati: ${pianeti.join(', ')}. Sono le sole '
@@ -324,9 +318,10 @@ abstract final class IlCieloDetto {
           continue;
         }
         if (nascita[nome] == detto) continue;
-        final vero = _segnoDi(corpo, adesso);
+        final vero = IlSegnoDelCielo.delCorpo(corpo, adesso);
         if (vero != segno &&
-            !altriGiorni.any((g) => _segnoDi(corpo, g) == segno)) {
+            !altriGiorni
+                .any((g) => IlSegnoDelCielo.delCorpo(corpo, g) == segno)) {
           return 'dice ${corpo.nome} in ${segno.italianName}, ma oggi il '
               'calcolo lo dà in ${vero.italianName}';
         }
@@ -415,9 +410,10 @@ abstract final class IlCieloDetto {
         if (_piano(z.italianName) == ingresso.group(1)) segno = z;
       }
       if (segno != null) {
-        final giorni = NightSky.moonSign(adesso) == segno
+        final giorni = IlSegnoDelCielo.dellaLuna(adesso) == segno
             ? 0
-            : _giorniFinoA(adesso, (t) => NightSky.moonSign(t) == segno);
+            : _giorniFinoA(
+                adesso, (t) => IlSegnoDelCielo.dellaLuna(t) == segno);
         if (giorni != quandoIngresso) {
           return 'dice la Luna in ${segno.italianName} fra $quandoIngresso '
               'giorni, ma il calcolo la dà fra $giorni';

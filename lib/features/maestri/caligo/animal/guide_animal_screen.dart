@@ -221,31 +221,31 @@ class _GuideAnimalScreenState extends State<GuideAnimalScreen> {
                   // riempie.
                   ? _AncoraNo(palette: palette, animal: _animal)
                   : widget.modo == GuideAnimalMode.identita
-                  ? _Identita(
-                      palette: palette,
-                      animal: _animal,
-                      userSign: widget.userSign,
-                      archetipo: _archetipo,
-                      origine: _origine,
-                    )
-                  : switch (_fase) {
-                      _Fase.viaggio => AnimalJourney(
+                      ? _Identita(
                           palette: palette,
                           animal: _animal,
-                          onComplete: _viaggioCompiuto),
-                      _Fase.messaggio => _Messaggio(
-                          palette: palette,
-                          animal: _animal,
+                          userSign: widget.userSign,
+                          archetipo: _archetipo,
                           origine: _origine,
-                          messaggio: GuideAnimalDay.per(
-                            animale: _animal,
-                            soleNatale: widget.userSign,
-                            giorno: _clock(),
-                            nascita: widget.userBirth,
-                          ),
-                          onIdentita: _apriIdentita,
-                        ),
-                    },
+                        )
+                      : switch (_fase) {
+                          _Fase.viaggio => AnimalJourney(
+                              palette: palette,
+                              animal: _animal,
+                              onComplete: _viaggioCompiuto),
+                          _Fase.messaggio => _Messaggio(
+                              palette: palette,
+                              animal: _animal,
+                              origine: _origine,
+                              messaggio: GuideAnimalDay.per(
+                                animale: _animal,
+                                soleNatale: widget.userSign,
+                                giorno: _clock(),
+                                nascita: widget.userBirth,
+                              ),
+                              onIdentita: _apriIdentita,
+                            ),
+                        },
         ),
       ),
     );
@@ -788,7 +788,6 @@ class _AzioniState extends State<_Azioni> {
     );
   }
 }
-
 
 /// **QUELLO CHE SI VEDE PRIMA DELLE QUATTRO DISCESE.** Ordine DG voce 02.
 ///

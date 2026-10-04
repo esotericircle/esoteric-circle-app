@@ -56,7 +56,8 @@ void main() {
         reason: 'le voci scritte CHIUSA sono $contateChiuse, il marcatore '
             'dice $chiuse');
     expect(contateAperte, aperte,
-        reason: 'le voci aperte sono $contateAperte, il marcatore dice $aperte');
+        reason:
+            'le voci aperte sono $contateAperte, il marcatore dice $aperte');
     expect(chiuse + aperte, quante,
         reason: 'chiuse piu\' aperte fanno ${chiuse + aperte} e le voci sono '
             '$quante: un conto che non torna nasconde una voce senza stato');

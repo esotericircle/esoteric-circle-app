@@ -36,6 +36,7 @@ import '../../core/condivisione/premio_della_condivisione.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../core/l10n/numero_del_cerchio.dart';
+import '../../core/astro/il_segno_del_cielo.dart';
 
 /// QUANDO: l'avverbio di tempo della schermata del cielo, in un punto solo.
 ///
@@ -493,7 +494,7 @@ class _SkyOverviewScreenState extends State<SkyOverviewScreen> {
                           _rigaValore(
                               palette,
                               'Luna nel segno',
-                              NightSky.moonSign(cielo.istanteLocale)
+                              IlSegnoDelCielo.dellaLuna(cielo.istanteLocale)
                                   .italianName),
                           _rigaValore(
                               palette,
@@ -1354,7 +1355,7 @@ class _SkyBody {
       return '$base. Il segno e la posizione sul suolo arrivano quando il '
           'cielo risulta calcolato su un luogo.';
     }
-    final segno = NightSky.moonSign(cielo.istanteLocale).italianName;
+    final segno = IlSegnoDelCielo.dellaLuna(cielo.istanteLocale).italianName;
     final alt = cielo.moon?.altDeg;
     // Due difetti stavano in queste tre righe. Il dollaro era ESCAPATO, quindi
     // a video si leggeva il codice invece del numero. E il frammento diceva

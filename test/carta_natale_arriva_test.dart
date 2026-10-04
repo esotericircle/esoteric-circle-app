@@ -9,7 +9,6 @@ import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/onboarding/natal_chart_reveal.dart';
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
-import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/services/free_astro_client.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -219,8 +218,7 @@ class _ClienteMuto extends FreeAstroClient {
   // riapre il Passport in aereo.
   @override
   NatalChart parseResponse(Map<String, dynamic> json, BirthDetails details) =>
-      NatalChart.essential(
-          sunSign: Zodiac.fromDate(details.date), hasTime: true);
+      NatalChart.essential(sunSign: details.segno, hasTime: true);
 }
 
 /// Un cielo che risponde con una carta minima ma completa.
@@ -231,8 +229,7 @@ class _ClienteCheRisponde extends FreeAstroClient {
 
   @override
   NatalChart parseResponse(Map<String, dynamic> json, BirthDetails details) =>
-      NatalChart.essential(
-          sunSign: Zodiac.fromDate(details.date), hasTime: true);
+      NatalChart.essential(sunSign: details.segno, hasTime: true);
 }
 
 const _rispostaMinima = <String, dynamic>{'planets': <dynamic>[]};

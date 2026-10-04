@@ -11,6 +11,7 @@ import 'package:esoteric_circle/features/horoscope/answer_depth.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// **BREVE E APPROFONDITA, SENZA MEDIA; E L'APPROFONDITA DICE DI PIU' ANCHE
 /// SENZA CARTA.** Ordine ES voce 01, 29 settembre 2026.
@@ -46,7 +47,7 @@ void main() {
         // La frase aggiunta: la Luna, poi il corpo del dominio, coi segni
         // veri di oggi.
         final aggiunta = p.substring(b.length).trim();
-        final luna = IlCieloDelSegno.segnoDi(CorpoCeleste.luna, mezzogiorno);
+        final luna = IlSegnoDelCielo.delCorpo(CorpoCeleste.luna, mezzogiorno);
         final corpo = IlCieloDelSegno.corpoDi[dominio]!;
         final l = Effemeridi.longitudineEclittica(
             corpo, Celestial.julianDay(mezzogiorno));

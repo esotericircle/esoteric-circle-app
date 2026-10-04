@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// Accenti veri ovunque nella Sinastria VIP: nessun apostrofo al posto
 /// dell'accento ("AFFINITA'", "e'", "piu'") ne nelle etichette del codice ne
@@ -53,10 +54,8 @@ void main() {
   // persona per segno, nata a mezzogiorno tre giorni dentro il segno.
   final cieli = <Zodiac, CieloDiSinastria>{};
   CieloDiSinastria cieloDi(Zodiac segno) => cieli.putIfAbsent(segno, () {
-        final (mese, giorno) = segno.from;
-        return CieloDiSinastria.perIdentita(BirthIdentity.fromParts(
-            birthDate:
-                DateTime(1990, mese, giorno).add(const Duration(days: 3))));
+        return CieloDiSinastria.perIdentita(
+            BirthIdentity.fromParts(birthDate: _dentroIlSegno(segno)));
       });
 
   test('I dati composti del responso usano accenti veri', () {
@@ -132,4 +131,14 @@ void main() {
       if (data != null) expectClean(data, 'Text a video');
     }
   });
+}
+
+DateTime _dentroIlSegno(Zodiac segno) {
+  // Ordine FC voce 10: la tabella delle date fisse non c'e' piu'. Il giorno
+  // sta a meta' del segno (il 4 aprile 1990 e' a meta' dell'Ariete, poi un
+  // mese per segno), e la porta del segno conferma che e' quello.
+  final d =
+      DateTime(1990, 4, 4).add(Duration(days: (segno.index * 30.44).round()));
+  assert(IlSegnoDelCielo.diNascita(d, oraNota: false) == segno);
+  return d;
 }

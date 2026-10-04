@@ -187,15 +187,15 @@ class CardDelRespiro extends StatelessWidget {
             // diventa un muro di lettere larghe"*.
             Text('Esoteric Circle · Aura · ${centro.italiano}',
                 style: TypographyTokens.corpo().copyWith(
-                    color: ColoreDelCentro.bordoDi(colore)
-                        .withValues(alpha: 0.75),
+                    color:
+                        ColoreDelCentro.bordoDi(colore).withValues(alpha: 0.75),
                     letterSpacing: 1.0)),
             const SizedBox(height: 2),
             Text(Brand.domain,
                 key: const Key('card_respiro_indirizzo'),
                 style: TypographyTokens.corpo().copyWith(
-                    color: ColoreDelCentro.bordoDi(colore)
-                        .withValues(alpha: 0.9),
+                    color:
+                        ColoreDelCentro.bordoDi(colore).withValues(alpha: 0.9),
                     letterSpacing: 0.8)),
           ],
         ),
@@ -304,8 +304,7 @@ class PittoreDellaFigura extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant PittoreDellaFigura vecchio) =>
-      vecchio.colore != colore ||
-      vecchio.figura.length != figura.length;
+      vecchio.colore != colore || vecchio.figura.length != figura.length;
 }
 
 /// **CONDIVIDE LA CARD, DAL PUNTO UNICO.** Ordine DB voce 10: *"passa dal

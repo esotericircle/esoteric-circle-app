@@ -1,6 +1,7 @@
 import 'effemeridi.dart';
 import 'moon_phase.dart';
 import 'zodiac.dart';
+import 'il_segno_del_cielo.dart';
 
 /// Cielo del momento, ancorato all'ora di adesso invece che alla nascita.
 ///
@@ -26,10 +27,6 @@ class NightSky {
       Effemeridi.longitudineEclittica(
           CorpoCeleste.sole, MoonPhase.julianDay(date));
 
-  /// Segno in cui si trova il Sole adesso (tropicale, Ariete a 0 gradi).
-  static Zodiac sunSign(DateTime date) =>
-      _signOfLongitude(sunEclipticLongitude(date));
-
   /// Longitudine eclittica della Luna in gradi [0, 360).
   ///
   /// **La firma resta, il calcolo no.** Questa era la piu' ricca delle tre
@@ -38,10 +35,6 @@ class NightSky {
   static double moonEclipticLongitude(DateTime date) =>
       Effemeridi.longitudineEclittica(
           CorpoCeleste.luna, MoonPhase.julianDay(date));
-
-  /// Segno in cui si trova la Luna in una certa data (tropicale).
-  static Zodiac moonSign(DateTime date) =>
-      _signOfLongitude(moonEclipticLongitude(date));
 
   /// **IL QUARTO DEL CICLO**, ordine EV voce EV.10: 0 dalla Luna nuova al
   /// Primo quarto, 1 fino alla piena, 2 fino all'Ultimo quarto, 3 fino alla
@@ -83,7 +76,7 @@ class NightSky {
     final oreDaMezzanotte =
         date.hour + date.minute / 60.0 + date.second / 3600.0;
     final culminante = _norm360(opposition + 15.0 * oreDaMezzanotte);
-    final center = (culminante / 30).floor() % 12;
+    final center = IlSegnoDelCielo.dellaLongitudine(culminante).index;
     final order = <int>[0]; // centro
     for (var d = 1; order.length < count; d++) {
       order.add(d); // vicino a est
@@ -118,9 +111,6 @@ class NightSky {
     final quando = birth ? 'quella notte' : 'stanotte';
     return '${moon.italianName}, la luce $verso $quando.';
   }
-
-  static Zodiac _signOfLongitude(double deg) =>
-      Zodiac.values[(deg / 30).floor() % 12];
 
   static double _norm360(double deg) {
     final r = deg % 360.0;

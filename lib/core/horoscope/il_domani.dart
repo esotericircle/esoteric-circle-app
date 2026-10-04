@@ -5,6 +5,7 @@ import '../astro/transiti_nelle_case.dart';
 import '../astro/zodiac.dart';
 import 'corrente_del_cielo.dart';
 import 'il_cielo_del_segno.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// **LA RAGIONE PER TORNARE DOMANI, ordine ES voce 34.**
 ///
@@ -26,7 +27,7 @@ abstract final class IlDomani {
       final casa = TransitiNelleCase.casaDi(l, carta.houses);
       if (casa != null) return (casa, true);
     }
-    final dove = Zodiac.values[(l ~/ 30) % 12];
+    final dove = IlSegnoDelCielo.dellaLongitudine(l);
     return (IlCieloDelSegno.casaSolare(segno, dove), false);
   }
 
@@ -34,8 +35,8 @@ abstract final class IlDomani {
   static String riga(Zodiac segno, NatalChart? carta, DateTime oggi) {
     final mezzogiorno = DateTime.utc(oggi.year, oggi.month, oggi.day, 12);
     final (casaOggi, _) = casaDellaLuna(segno, carta, mezzogiorno);
-    final (casaDomani, natale) = casaDellaLuna(
-        segno, carta, mezzogiorno.add(const Duration(days: 1)));
+    final (casaDomani, natale) =
+        casaDellaLuna(segno, carta, mezzogiorno.add(const Duration(days: 1)));
     final ordinale = CorrenteDelCielo.ordinaliDelleCase[casaDomani - 1];
     final materia = CorrenteDelCielo.materiaDelleCase[casaDomani - 1];
     final tipo = natale ? 'casa' : 'casa solare';

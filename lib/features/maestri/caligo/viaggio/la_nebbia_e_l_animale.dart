@@ -113,8 +113,8 @@ class PittoreDellaNebbia extends CustomPainter {
     for (var s = 0; s < quantiStrati; s++) {
       final quota = (s + 1) / quantiStrati;
       final pittura = Paint()
-        ..color = const Color(0xFF9FA8BF).withValues(
-            alpha: (0.13 + 0.10 * quota) * densita * (1 - apertura))
+        ..color = const Color(0xFF9FA8BF)
+            .withValues(alpha: (0.13 + 0.10 * quota) * densita * (1 - apertura))
         ..maskFilter = MaskFilter.blur(BlurStyle.normal, 18.0 + 22.0 * quota);
       // Bande morbide sfalsate, che a strati sovrapposti si leggono come
       // nebbia invece che come strisce.

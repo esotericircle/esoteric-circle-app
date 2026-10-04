@@ -9,6 +9,7 @@ import '../cerchio/il_tuo_cerchio_screen.dart';
 import '../cerchio/invita_nel_cerchio_screen.dart';
 import '../cerchio/la_tendina_del_cerchio.dart';
 import '../cerchio/widgets/disegni_del_cerchio.dart';
+import '../cerchio/l_ora_del_telefono.dart';
 
 /// **GLI AMICI ONLINE NELLA RUBRICA, ordine FC voce 09 nella forma del
 /// fondatore del 4 ottobre 2026.**
@@ -306,7 +307,7 @@ class ElencoDegliAmiciOnline extends StatelessWidget {
       if (ultimoDatoDelle != null) {
         figli.add(Padding(
           padding: const EdgeInsets.only(bottom: SpacingTokens.sm),
-          child: Text(IlCerchioSociale.rigaDellUltimoDato(ultimoDatoDelle!),
+          child: Text(rigaDellUltimoDato(context, ultimoDatoDelle!),
               key: const Key('amici_online_ultimo_dato'),
               style: TypographyTokens.didascalia()
                   .copyWith(color: palette.goldSoft)),

@@ -2,6 +2,7 @@ import 'package:esoteric_circle/core/astro/moon_phase.dart';
 import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// Il motore del cielo del momento usa astronomia vera per cio' che non dipende
 /// dal luogo: la longitudine del Sole dalla data e, di conseguenza, quali
@@ -10,10 +11,11 @@ void main() {
   // Il Sole in mezzo a ciascuna stagione sta nel segno atteso (date scelte
   // lontane dai confini per non dipendere dal grado esatto).
   test('Il segno del Sole segue le stagioni', () {
-    expect(NightSky.sunSign(DateTime.utc(2026, 4, 5)), Zodiac.aries);
-    expect(NightSky.sunSign(DateTime.utc(2026, 7, 10)), Zodiac.cancer);
-    expect(NightSky.sunSign(DateTime.utc(2026, 10, 10)), Zodiac.libra);
-    expect(NightSky.sunSign(DateTime.utc(2026, 1, 10)), Zodiac.capricorn);
+    expect(IlSegnoDelCielo.delSole(DateTime.utc(2026, 4, 5)), Zodiac.aries);
+    expect(IlSegnoDelCielo.delSole(DateTime.utc(2026, 7, 10)), Zodiac.cancer);
+    expect(IlSegnoDelCielo.delSole(DateTime.utc(2026, 10, 10)), Zodiac.libra);
+    expect(
+        IlSegnoDelCielo.delSole(DateTime.utc(2026, 1, 10)), Zodiac.capricorn);
   });
 
   test('Le costellazioni alte stanotte stanno di fronte al Sole', () {
@@ -23,7 +25,7 @@ void main() {
       DateTime.utc(2026, 10, 10),
       DateTime.utc(2026, 1, 10),
     ]) {
-      final sun = NightSky.sunSign(d);
+      final sun = IlSegnoDelCielo.delSole(d);
       final high = NightSky.constellationsHighTonight(d);
       expect(high.length, 3);
       // Il primo, il piu' alto, e' il segno opposto al Sole (a sei segni).

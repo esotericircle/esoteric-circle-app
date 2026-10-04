@@ -5,6 +5,7 @@ import 'cielo_di_oggi.dart';
 import 'corrente_del_cielo.dart';
 import 'horoscope.dart';
 import 'il_cielo_del_segno.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// **IL LIVELLO DI OGNI SCHEDA DAL CIELO VERO, ordine ES voce 28.**
 ///
@@ -233,7 +234,7 @@ abstract final class IlLivelloDelCielo {
           : 'Dal cielo ${oggi ? 'di oggi' : 'del giorno'}: $elenco.';
       return (_scala(somma), riga);
     }
-    final luna = IlCieloDelSegno.segnoDi(CorpoCeleste.luna, quando);
+    final luna = IlSegnoDelCielo.delCorpo(CorpoCeleste.luna, quando);
     final casa = IlCieloDelSegno.casaSolare(segno, luna);
     final caseDelDominio = CorrenteDelCielo.caseDi[dominio] ?? const <int>{};
     var somma = pesoDellaCasaSolare(casa);
@@ -244,7 +245,7 @@ abstract final class IlLivelloDelCielo {
     // Marte, Giove) pesa la meta' della Luna, dalla sua casa solare, e la riga
     // lo nomina.
     final corpo = IlCieloDelSegno.corpoDi[dominio]!;
-    final suo = IlCieloDelSegno.segnoDi(corpo, quando);
+    final suo = IlSegnoDelCielo.delCorpo(corpo, quando);
     final casaSua = IlCieloDelSegno.casaSolare(segno, suo);
     somma += 0.5 * pesoDellaCasaSolare(casaSua);
     if (caseDelDominio.contains(casaSua)) somma += 0.5;

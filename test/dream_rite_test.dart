@@ -1,5 +1,4 @@
 import 'package:esoteric_circle/core/astro/moon_phase.dart';
-import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/identity/birth_moon.dart';
 import 'package:esoteric_circle/core/rituals/daily_elements.dart';
@@ -7,6 +6,7 @@ import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/rituals/dream_rite_corpus.dart';
 import 'package:esoteric_circle/design_system/components/zodiac_figures.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// Il Sigillo del Sogno, ex Rito della Buonanotte: contenuto deterministico dal
 /// cielo notturno reale.
@@ -30,7 +30,7 @@ void main() {
   group('Il cielo reale', () {
     test('Segno e fase della Luna vengono da NightSky e da MoonPhase', () {
       final luna = DreamRiteCorpus.lunaDi(date);
-      expect(luna.sign, NightSky.moonSign(date));
+      expect(luna.sign, IlSegnoDelCielo.dellaLuna(date));
       expect(luna.phase.italianName, MoonPhase.forDate(date).italianName);
       expect(luna.phase.waxing, MoonPhase.forDate(date).waxing);
     });
@@ -41,7 +41,8 @@ void main() {
         final luna = DreamRiteCorpus.lunaDi(quando);
         final figura =
             kZodiacConstellations.firstWhere((c) => c.sign == luna.sign);
-        expect(figura.sign, NightSky.moonSign(quando), reason: 'giorno $g');
+        expect(figura.sign, IlSegnoDelCielo.dellaLuna(quando),
+            reason: 'giorno $g');
         expect(figura.points.length, greaterThanOrEqualTo(3));
         expect(figura.edges, isNotEmpty);
       }

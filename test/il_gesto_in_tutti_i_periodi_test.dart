@@ -135,9 +135,7 @@ void main() {
     (
       'amico',
       () => OroscopoScreen(
-          userSign: Zodiac.fromDate(amico.nascita),
-          amico: amico,
-          now: DateTime(2026, 10, 3))
+          userSign: amico.segno, amico: amico, now: DateTime(2026, 10, 3))
     ),
   ]) {
     testWidgets('ogni periodo con una lettura si apre col gesto ($soggetto)',

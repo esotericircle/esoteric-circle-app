@@ -4,9 +4,8 @@ import 'eclissi.dart';
 import 'effemeridi.dart';
 import 'moon_phase.dart';
 import 'natal_chart.dart';
-import 'night_sky.dart';
 import 'transiti_del_giorno.dart';
-import 'zodiac.dart';
+import 'il_segno_del_cielo.dart';
 
 /// **IL CIELO DI QUALUNQUE GIORNO, PER IL MAESTRO.** Ordine EV voce 03, il
 /// fondatore: *"Medora in chat deve sapere qual è la situazione astrale oggi
@@ -40,12 +39,11 @@ abstract final class IlCieloPerIlMaestro {
   }
 
   static String _segno(double longitudine) =>
-      Zodiac.values[(longitudine / 30).floor() % 12].italianName;
+      IlSegnoDelCielo.dellaLongitudine(longitudine).italianName;
 
   static int _gradi(double longitudine) => (longitudine % 30).floor();
 
-  static String _data(DateTime g) =>
-      '${g.year.toString().padLeft(4, '0')}-'
+  static String _data(DateTime g) => '${g.year.toString().padLeft(4, '0')}-'
       '${g.month.toString().padLeft(2, '0')}-'
       '${g.day.toString().padLeft(2, '0')}';
 
@@ -110,7 +108,7 @@ abstract final class IlCieloPerIlMaestro {
           'di nascita. I suoi aspetti non sono aspetti della sua Luna.',
       'pianeti': pianeti,
       'luna': {
-        'segno': NightSky.moonSign(istante).italianName,
+        'segno': IlSegnoDelCielo.dellaLuna(istante).italianName,
         'fase': fase.italianName,
         'illuminata_per_cento': (fase.illumination * 100).round(),
       },
@@ -205,7 +203,7 @@ abstract final class IlCieloPerIlMaestro {
               Effemeridi.retrogrado(c, jd),
       },
       fase: MoonPhase.forDate(istante).italianName,
-      segnoDellaLuna: NightSky.moonSign(istante).italianName,
+      segnoDellaLuna: IlSegnoDelCielo.dellaLuna(istante).italianName,
     );
   }
 

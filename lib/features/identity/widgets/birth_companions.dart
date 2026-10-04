@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../../../core/angels/guardian_angels.dart';
 import '../../../core/assets/family_image.dart';
 import '../../../core/astro/birth_details.dart';
-import '../../../core/astro/night_sky.dart';
 import '../../../core/identity/birth_identity.dart';
 import '../../../core/rituals/guide_animal_derivation.dart';
 import '../../../core/rituals/animal_catalog.dart';
@@ -41,7 +40,7 @@ class BirthCompanions extends StatelessWidget {
   Widget build(BuildContext context) {
     final palette = context.palette;
     final triade = GuardianAngels.forBirth(details);
-    final segno = NightSky.sunSign(details.dateTime);
+    final segno = details.segno;
     final animale = GuideAnimalDerivation.forSign(segno);
 
     return Column(
@@ -150,7 +149,6 @@ class BirthCompanions extends StatelessWidget {
 /// tagliavano. Un componente che risolve il difetto in un file solo non e' un
 /// componente, e' una correzione locale.
 typedef _Miniatura = MiniaturaIntera;
-
 
 /// **LA TESSERA DELL'ANIMALE, e sa tacere.** Ordine DG voce 02,
 /// 12 settembre 2026.

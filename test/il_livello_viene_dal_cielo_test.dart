@@ -10,6 +10,7 @@ import 'package:esoteric_circle/core/horoscope/il_cielo_del_segno.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// **IL LIVELLO DI OGNI SCHEDA VIENE DAL CIELO.** Ordine ES voce 28, 29
 /// settembre 2026.
@@ -36,11 +37,11 @@ void main() {
           // Il cielo del giorno senza carta: la casa solare della Luna e
           // quella del corpo del dominio (vista sul Realme, ordine ES).
           final casa = IlCieloDelSegno.casaSolare(segno,
-                      IlCieloDelSegno.segnoDi(CorpoCeleste.luna, quando)) *
+                      IlSegnoDelCielo.delCorpo(CorpoCeleste.luna, quando)) *
                   100 +
               IlCieloDelSegno.casaSolare(
                   segno,
-                  IlCieloDelSegno.segnoDi(
+                  IlSegnoDelCielo.delCorpo(
                       IlCieloDelSegno.corpoDi[dominio]!, quando));
           perCasa.putIfAbsent(casa, () => {}).add(carta.indicator);
           expect(carta.rigaDelLivello, contains('Luna di oggi'));

@@ -179,8 +179,9 @@ class SantuarioBottomBar extends StatelessWidget {
                     // faceva crescere la barra di cinque punti, cioe' un
                     // quarto di cio' che l'ordine CF voce 03 aveva tolto per
                     // decisione del fondatore.
-                    style: TypographyTokens.label(size: _BarItem.misuraDellaVoce)
-                        .copyWith(
+                    style:
+                        TypographyTokens.label(size: _BarItem.misuraDellaVoce)
+                            .copyWith(
                       color: coloreDelTitolo(palette),
                       letterSpacing: 3.2,
                       // L'OMBRA AL POSTO DELLA FASCIA, ordine 2164 voce 1: e'

@@ -65,8 +65,7 @@ class CardDellaRivelazione extends StatelessWidget {
 
   /// Le due righe di seguito, per chi ha bisogno del titolo in una stringa
   /// sola: le prove che leggono la card, e chi la condivide.
-  static String titolo(GuideAnimal animale) =>
-      '$primaRiga ${ilNome(animale)}';
+  static String titolo(GuideAnimal animale) => '$primaRiga ${ilNome(animale)}';
 
   /// **L'ARTICOLO DAVANTI AL GIORNO, e non e' sempre lo stesso.**
   ///
@@ -89,8 +88,18 @@ class CardDellaRivelazione extends StatelessWidget {
   /// La riga della data, per esteso e in italiano.
   static String laData(DateTime giorno) {
     const mesi = [
-      'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno',
-      'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre',
+      'gennaio',
+      'febbraio',
+      'marzo',
+      'aprile',
+      'maggio',
+      'giugno',
+      'luglio',
+      'agosto',
+      'settembre',
+      'ottobre',
+      'novembre',
+      'dicembre',
     ];
     return '${giorno.day} ${mesi[giorno.month - 1]} ${giorno.year}';
   }

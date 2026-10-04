@@ -171,8 +171,7 @@ class PittoreDelLoto extends CustomPainter {
   /// Quante forme vive il pittore disegna al culmine: la somma dei petali di
   /// tutte le corone, piu' l'alone, il cuore e le gocce.
   static int formeAlCulmine() {
-    final petali =
-        LotoCheRespira.petaliPerCorona.reduce((a, b) => a + b);
+    final petali = LotoCheRespira.petaliPerCorona.reduce((a, b) => a + b);
     // Ogni petalo e' una forma piena piu' il suo filo di luce sul bordo.
     return petali * 2 + 2 + LotoCheRespira.petaliPerCorona.first;
   }
@@ -187,8 +186,7 @@ class PittoreDelLoto extends CustomPainter {
     // dell'inspiro il cuore si accende e l'alone si allarga; sull'espiro la
     // luce si ritira. **Il respiro deve essere leggibile a occhi socchiusi**,
     // guardando solo il chiarore.
-    final raggioEsterno =
-        raggioDellaCorona(lato, apertura, corone - 1, corone);
+    final raggioEsterno = raggioDellaCorona(lato, apertura, corone - 1, corone);
     canvas.drawCircle(
       centro,
       raggioEsterno * (0.85 + 0.35 * apertura),
@@ -268,7 +266,8 @@ class PittoreDelLoto extends CustomPainter {
       // raggio cresce da solo col respiro, da 0,54 a 0,88 del lato, e i
       // petali passano da sottili a pieni con `largo`.
       final lungo = raggio;
-      final largo = raggio * (0.13 + 0.10 * apertaQui) *
+      final largo = raggio *
+          (0.13 + 0.10 * apertaQui) *
           (quanti <= 8 ? 1.0 : 7 / quanti + 0.35);
 
       // La traccia vive sulla corona del cuore, dove i petali sono sette.
@@ -305,8 +304,8 @@ class PittoreDelLoto extends CustomPainter {
   Path _petalo(Offset centro, double angolo, double lungo, double largo) {
     final punta = centro + Offset(math.cos(angolo), math.sin(angolo)) * lungo;
     final normale = Offset(-math.sin(angolo), math.cos(angolo));
-    final meta = centro +
-        Offset(math.cos(angolo), math.sin(angolo)) * (lungo * 0.45);
+    final meta =
+        centro + Offset(math.cos(angolo), math.sin(angolo)) * (lungo * 0.45);
     final a = meta + normale * largo;
     final b = meta - normale * largo;
     return Path()

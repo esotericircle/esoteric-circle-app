@@ -13,6 +13,7 @@ import 'package:esoteric_circle/features/amici/amici_screen.dart';
 import 'package:esoteric_circle/features/amici/gli_amici_online.dart';
 import 'package:esoteric_circle/features/cerchio/il_tuo_cerchio_screen.dart';
 import 'package:esoteric_circle/features/cerchio/invita_nel_cerchio_screen.dart';
+import 'package:esoteric_circle/features/cerchio/l_ora_del_telefono.dart';
 import 'package:esoteric_circle/features/cerchio/la_tendina_del_cerchio.dart';
 import 'package:esoteric_circle/features/cerchio/scheda_dell_amico_screen.dart';
 import 'package:esoteric_circle/services/app_services.dart';
@@ -23,6 +24,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'porta_finta_del_cerchio_sociale.dart';
+import 'sorgenti_di_lib.dart';
 
 /// **GLI AMICI ONLINE NELLA RUBRICA. Ordine FC voce 09, 4 ottobre 2026.**
 ///
@@ -322,7 +324,8 @@ void main() {
     await passa();
     expect(find.text('Stella Lieve'), findsOneWidget);
     final presa = sociale.tendinaArrivata!;
-    final ora = IlCerchioSociale.rigaDellUltimoDato(presa);
+    // La riga com'e' a schermo, nel formato dell'ora di questo "telefono".
+    final ora = rigaDellUltimoDato(tester.element(find.text('tendina')), presa);
     chiudi(find.byKey(const Key('la_tendina_del_cerchio')));
     await passa();
 
@@ -370,10 +373,12 @@ void main() {
             .toList();
     expect(tettoDellaTendina, ['30']);
     final chiamanti = <String>[];
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is File &&
-          f.path.endsWith('.dart') &&
-          f.readAsStringSync().contains("'laTendinaDelCerchio'")) {
+    // Dalla porta comune dei sorgenti, che dichiara quanti file guarda e si
+    // rifiuta di tornare un elenco troppo corto (ordine CM voce 02; la
+    // prima stesura scorreva lib per conto suo, e le guardie CM.02 e del
+    // cardinale l'hanno presa).
+    for (final f in sorgentiDiLib()) {
+      if (f.readAsStringSync().contains("'laTendinaDelCerchio'")) {
         chiamanti.add(f.path.replaceAll(r'\', '/'));
       }
     }

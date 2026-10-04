@@ -1,9 +1,9 @@
 import 'dart:io';
 
-import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/features/maestri/art_navigation.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// IL SEGNO NASCE DALLA DATA, E NON VIAGGIA COME PARAMETRO.
 ///
@@ -38,7 +38,7 @@ void main() {
     // Il segno che la sorgente ricava dalla data e quello vero: se qualcuno
     // reintroducesse un parametro, questa prova non basterebbe da sola, ed e'
     // per questo che c'e' anche quella sopra.
-    expect(NightSky.sunSign(cancro), Zodiac.cancer);
+    expect(IlSegnoDelCielo.delSole(cancro), Zodiac.cancer);
     // Le rotte si aprono davvero, quindi il segno arriva.
     for (final id in const [
       'horoscope',

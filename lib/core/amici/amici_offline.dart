@@ -5,6 +5,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../entitlement/plan_catalog.dart';
 import '../entitlement/tier.dart';
+import '../astro/il_segno_del_cielo.dart';
+import '../astro/zodiac.dart';
 
 /// Un amico degli "amici offline": nome e nascita, niente di piu'.
 class Amico {
@@ -35,6 +37,13 @@ class Amico {
   final String? fuso;
 
   bool get oraNota => ora != null;
+
+  /// **IL SEGNO SOLARE DELL'AMICO**, dalla porta sola (ordine FC voce 10):
+  /// la posizione reale del Sole alla sua nascita, all'ora scritta o a
+  /// mezzogiorno, nel fuso del suo luogo. Il tondo, la rubrica e
+  /// l'oroscopo dell'amico lo leggono qui.
+  Zodiac get segno =>
+      IlSegnoDelCielo.diNascita(momento, oraNota: oraNota, fuso: fuso);
 
   /// La nascita con l'ora, quando c'e'; a mezzogiorno altrimenti.
   DateTime get momento {

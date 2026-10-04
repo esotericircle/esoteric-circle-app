@@ -1,4 +1,3 @@
-import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/design_system/components/zodiac_figures.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
@@ -11,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// IL SIGILLO DEL SOGNO NOMINA UN MAESTRO SOLO. Ordine CW, voce 02.
 ///
@@ -113,7 +113,7 @@ void main() {
       await tester.tap(find.byKey(const Key('dream_fog_skip')));
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 400));
-      final segno = NightSky.moonSign(data!);
+      final segno = IlSegnoDelCielo.dellaLuna(data!);
       final figura = kZodiacConstellations.firstWhere((c) => c.sign == segno);
       for (var i = 0; i < figura.points.length; i++) {
         await tester.tap(find.byKey(Key('dream_star_$i')));

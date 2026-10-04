@@ -1,6 +1,7 @@
 import '../tempo/confine_del_giorno.dart';
 import '../astro/night_sky.dart';
 import 'maestro.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// IL CONSIGLIO FINALE: una riga sola, in oro, preceduta da una STELLA.
 ///
@@ -82,15 +83,15 @@ class ProssimoCambioDellaLuna {
 
   /// Il prossimo segno in cui la Luna entra.
   static ProssimoCambioDellaLuna ingresso(DateTime da) {
-    final adesso = NightSky.moonSign(da);
-    bool cambiato(DateTime t) => NightSky.moonSign(t) != adesso;
+    final adesso = IlSegnoDelCielo.dellaLuna(da);
+    bool cambiato(DateTime t) => IlSegnoDelCielo.dellaLuna(t) != adesso;
     for (var h = 1; h <= _oreMassime; h++) {
       final t = da.add(Duration(hours: h));
       if (cambiato(t)) {
         final quando =
             _alMinuto(t.subtract(const Duration(hours: 1)), t, cambiato);
         return ProssimoCambioDellaLuna._(
-            NightSky.moonSign(quando).italianName, _giorni(da, quando));
+            IlSegnoDelCielo.dellaLuna(quando).italianName, _giorni(da, quando));
       }
     }
     // La Luna cambia segno ogni due giorni e mezzo: qui non si arriva.

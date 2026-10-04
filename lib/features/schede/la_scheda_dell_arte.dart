@@ -646,6 +646,7 @@ Future<void> apriLArte(
     userBirth: profilo == null || profilo.identity.isExample
         ? null
         : profilo.identity.birthMoment,
+    userFuso: profilo?.identity.birthPlace?.timeZoneId,
     userName: profilo != null && profilo.hasName ? profilo.vocative : null,
   );
   if (route != null) {

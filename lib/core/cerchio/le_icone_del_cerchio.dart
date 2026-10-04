@@ -67,9 +67,13 @@ class IconaDelProfilo {
   /// l'emblema del SUO segno solare, non l'Ariete per chiunque; solo se il
   /// segno non si conosce, il primo della lista. Lo stesso ripiego del
   /// server (`iconaDelSegno` in `functions/src/il_cerchio_sociale.ts`).
-  static String valida(String? codice, {Zodiac? segno}) => eValida(codice)
-      ? codice!
-      : '${FamigliaDelleIcone.segno.name}:${segno?.index ?? 0}';
+  static String valida(String? codice, {Zodiac? segno}) =>
+      eValida(codice) ? codice! : delSegno(segno ?? Zodiac.aries);
+
+  /// Il codice dell'emblema di [segno] nella famiglia dei segni: lo portano
+  /// anche gli amici scritti, ordine FC voce 10.
+  static String delSegno(Zodiac segno) =>
+      '${FamigliaDelleIcone.segno.name}:${segno.index}';
 
   static List<IconaDelProfilo> di(FamigliaDelleIcone f) =>
       [for (var i = 0; i < f.quante; i++) IconaDelProfilo._(f, i)];

@@ -1,5 +1,4 @@
 import '../astro/moon_phase.dart';
-import '../astro/night_sky.dart';
 import '../astro/luogo_attuale.dart';
 import '../astro/sky_location.dart';
 import '../astro/solar_time.dart';
@@ -9,6 +8,7 @@ import 'daily_rituals.dart';
 import 'rito_alba_corpus.dart';
 import 'risposta_del_dono.dart';
 import '../../core/chat/user_profile.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// DA DOVE VENGONO LE COORDINATE dell'alba.
 ///
@@ -125,7 +125,7 @@ class PosizioneDiStamattina {
 /// IL CIELO DI STAMATTINA, cioe' i dati veri che il rito puo' nominare.
 ///
 /// **Si LEGGE da `lib/core/astro/`, non si ricalcola.** La fase lunare viene da
-/// `MoonPhase.forDate`, il segno della Luna da `NightSky.moonSign`, l'ora del
+/// `MoonPhase.forDate`, il segno della Luna da `IlSegnoDelCielo.dellaLuna`, l'ora del
 /// sorgere da `SunsetTime.albaPerData`. Nessuna astronomia e' scritta qui.
 class CieloDiStamattina {
   const CieloDiStamattina({
@@ -169,7 +169,7 @@ class CieloDiStamattina {
     }
     return CieloDiStamattina(
       faseLunare: MoonPhase.forDate(giorno).italianName,
-      segnoLunare: NightSky.moonSign(giorno),
+      segnoLunare: IlSegnoDelCielo.dellaLuna(giorno),
       oraDellAlba: alba,
     );
   }

@@ -9,7 +9,6 @@ import 'package:esoteric_circle/core/horoscope/la_lettura_vedica.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/amici/amici_screen.dart';
-import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
@@ -109,9 +108,7 @@ void main() {
             child: MaestroScope(maestro: Maestro.medora, child: child!),
           ),
           home: OroscopoScreen(
-              userSign: Zodiac.fromDate(a.nascita),
-              amico: a,
-              now: DateTime(2026, 10, 5, 9)),
+              userSign: a.segno, amico: a, now: DateTime(2026, 10, 5, 9)),
         ),
       );
 

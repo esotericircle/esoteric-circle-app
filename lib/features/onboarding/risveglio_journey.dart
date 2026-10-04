@@ -12,7 +12,6 @@ import '../../core/diagnosi/briciole.dart';
 import '../../core/astro/birth_details.dart';
 import '../../core/astro/natal_chart_controller.dart';
 import '../../core/angels/guardian_angels.dart';
-import '../../core/astro/night_sky.dart';
 import '../../core/astro/resonance.dart';
 import '../../core/rituals/guide_animal_derivation.dart';
 import '../../core/astro/zodiac_controller.dart';
@@ -33,6 +32,7 @@ import 'primo_approdo.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../core/chat/user_profile.dart';
 import 'widgets/pulsante_del_risveglio.dart';
+import '../../core/astro/il_segno_del_cielo.dart';
 
 /// La coda del Risveglio, dal sigillo in poi: il cielo reale di nascita, la
 /// carta natale ornata, la risonanza coi Maestri e la rivelazione col soffio.
@@ -306,7 +306,7 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
           child: TrionfoAnimale(
             key: const ValueKey('animale'),
             animale: GuideAnimalDerivation.forSign(
-                NightSky.sunSign(widget.details.dateTime)),
+                IlSegnoDelCielo.delSole(widget.details.dateTime)),
             palette: context.palette,
             reduceMotion: MediaQuery.of(context).disableAnimations,
             onContinue: _onAnimaleContinue,
@@ -413,7 +413,7 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
         return TrionfoAnimale(
           key: const ValueKey('animale'),
           animale: GuideAnimalDerivation.forSign(
-              NightSky.sunSign(widget.details.dateTime)),
+              IlSegnoDelCielo.delSole(widget.details.dateTime)),
           palette: context.palette,
           reduceMotion: MediaQuery.of(context).disableAnimations,
           onContinue: _onAnimaleContinue,

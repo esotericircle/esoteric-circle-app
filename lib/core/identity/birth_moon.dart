@@ -1,11 +1,11 @@
 import '../astro/moon_phase.dart';
-import '../astro/night_sky.dart';
 import '../astro/zodiac.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// Fase lunare di nascita: la fase e il segno lunare del giorno di nascita.
 ///
 /// Riusa il motore reale gia' presente: la fase da `MoonPhase.forDate` e il
-/// segno da `NightSky.moonSign` (longitudine eclittica della Luna, formula
+/// segno da `IlSegnoDelCielo.dellaLuna` (longitudine eclittica della Luna, formula
 /// reale a bassa precisione). Deterministico, senza rete ne' asset. L'ora
 /// precisa affinera' il segno quando ci sara' il dato reale di nascita.
 class BirthMoon {
@@ -24,7 +24,7 @@ class BirthMoon {
 
   factory BirthMoon.forDate(DateTime date) {
     final phase = MoonPhase.forDate(date);
-    final sign = NightSky.moonSign(date);
+    final sign = IlSegnoDelCielo.dellaLuna(date);
     return BirthMoon(
       phase: phase,
       sign: sign,

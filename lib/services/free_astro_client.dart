@@ -5,6 +5,7 @@ import 'package:cloud_functions/cloud_functions.dart';
 import '../core/astro/birth_details.dart';
 import '../core/astro/natal_chart.dart';
 import '../core/astro/zodiac.dart';
+import '../core/astro/il_segno_del_cielo.dart';
 
 /// Errore del motore astrologico, con un messaggio gia' in tono per l'utente.
 class AstroApiException implements Exception {
@@ -196,7 +197,8 @@ class FreeAstroClient {
           (map['id'] ?? map['name'] ?? '').toString().toLowerCase().trim();
       final lon = _num(map['abs_pos'] ?? map['fullDegree'] ?? map['longitude']);
       if (lon == null) continue;
-      final sign = _sign(map['sign_id'] ?? map['sign']) ?? _signFromLon(lon);
+      final sign = _sign(map['sign_id'] ?? map['sign']) ??
+          IlSegnoDelCielo.dellaLongitudine(lon);
       final it = _planetIt[id];
       if (it == null) continue; // punti non gestiti in C3
       lonById[id] = lon;
@@ -227,9 +229,9 @@ class FreeAstroClient {
       ascLon = _num(angles['asc']);
       mcLon = _num(angles['mc']);
       ascendant = _sign(angleDetails?['asc']?['sign_id']) ??
-          (ascLon != null ? _signFromLon(ascLon) : null);
+          (ascLon != null ? IlSegnoDelCielo.dellaLongitudine(ascLon) : null);
       mc = _sign(angleDetails?['mc']?['sign_id']) ??
-          (mcLon != null ? _signFromLon(mcLon) : null);
+          (mcLon != null ? IlSegnoDelCielo.dellaLongitudine(mcLon) : null);
     }
 
     // CASE, E IL SISTEMA E' PLACIDUS.
@@ -281,7 +283,7 @@ class FreeAstroClient {
       }
     }
 
-    sunSign ??= Zodiac.fromDate(details.date);
+    sunSign ??= details.segno;
 
     return NatalChart(
       sunSign: sunSign,
@@ -301,11 +303,6 @@ class FreeAstroClient {
     if (v is num) return v.toDouble();
     if (v is String) return double.tryParse(v);
     return null;
-  }
-
-  static Zodiac _signFromLon(double lon) {
-    final n = ((lon % 360) + 360) % 360;
-    return Zodiac.values[(n ~/ 30).clamp(0, 11)];
   }
 
   static Zodiac? _sign(dynamic v) {

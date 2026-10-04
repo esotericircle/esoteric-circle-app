@@ -6,6 +6,7 @@ import 'daily_elements.dart';
 import 'filo_del_giorno.dart';
 import 'relazione_lunare.dart';
 import '../../core/chat/user_profile.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// La voce del Sigillo del Sogno per un segno della Luna: una parola calmante e le
 /// righe che guardano al giorno appena concluso.
@@ -106,7 +107,7 @@ class VoceDelSogno {
 /// Il Sigillo del Sogno, ex Rito della Buonanotte: il messaggio della notte, la
 /// parola e la trasparenza, tutti deterministici dal cielo reale di adesso.
 ///
-/// La Luna arriva da `NightSky.moonSign` per il segno e da `MoonPhase.forDate`
+/// La Luna arriva da `IlSegnoDelCielo.dellaLuna` per il segno e da `MoonPhase.forDate`
 /// per la fase, tramite `BirthMoon.forDate`. Nessuna AI a runtime.
 class DreamRiteCorpus {
   const DreamRiteCorpus._();
@@ -329,7 +330,7 @@ class DreamRiteCorpus {
     return '${p[0].toUpperCase()}${p.substring(1)}.';
   }
 
-  /// La Luna reale di adesso: segno da `NightSky.moonSign`, fase da `MoonPhase`.
+  /// La Luna reale di adesso: segno da `IlSegnoDelCielo.dellaLuna`, fase da `MoonPhase`.
   static BirthMoon lunaDi(DateTime quando) => BirthMoon.forDate(quando);
 
   /// L'apertura sulla Luna, dalla sua fase reale.
@@ -365,12 +366,14 @@ class DreamRiteCorpus {
   /// la stessa figura perche' la Luna non si e' ancora mossa.
   ///
   /// Si conta in avanti di giorno in giorno finche' il segno cambia. Non e'
-  /// un'approssimazione: e' lo stesso `NightSky.moonSign` che disegna la
+  /// un'approssimazione: e' lo stesso `IlSegnoDelCielo.dellaLuna` che disegna la
   /// figura, interrogato sulle notti che vengono.
   static int notteInCuiLaLunaCambiaSegno(DateTime quando, {int tetto = 4}) {
-    final adesso = NightSky.moonSign(quando);
+    final adesso = IlSegnoDelCielo.dellaLuna(quando);
     for (var n = 1; n <= tetto; n++) {
-      if (NightSky.moonSign(quando.add(Duration(days: n))) != adesso) return n;
+      if (IlSegnoDelCielo.dellaLuna(quando.add(Duration(days: n))) != adesso) {
+        return n;
+      }
     }
     return tetto;
   }
@@ -382,7 +385,7 @@ class DreamRiteCorpus {
   static String? perchePosaLaStessaFigura(DateTime quando) {
     final notti = notteInCuiLaLunaCambiaSegno(quando);
     if (notti <= 1) return null;
-    final segno = NightSky.moonSign(quando).italianName;
+    final segno = IlSegnoDelCielo.dellaLuna(quando).italianName;
     return notti == 2
         ? 'La Luna resta in $segno ancora una notte: fino a domani la figura '
             'del cielo è questa.'

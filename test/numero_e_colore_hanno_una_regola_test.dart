@@ -5,13 +5,13 @@ import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/horoscope/cielo_di_oggi.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
-import 'package:esoteric_circle/core/horoscope/il_cielo_del_segno.dart';
 import 'package:esoteric_circle/core/horoscope/il_numero_e_il_colore.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_colors.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
 import 'oroscopo_eu_comune.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// **NUMERO FORTUNATO E COLORE DEL GIORNO CON UNA REGOLA.** Ordine ES voce
 /// 29, 29 settembre 2026.
@@ -62,7 +62,7 @@ void main() {
         final numero = IlNumeroEIlColore.giornoPersonale(nascita, oggi);
         final mezzogiorno =
             DateTime.utc(oggi.year).add(Duration(days: g, hours: 12));
-        final luna = IlCieloDelSegno.segnoDi(CorpoCeleste.luna, mezzogiorno);
+        final luna = IlSegnoDelCielo.delCorpo(CorpoCeleste.luna, mezzogiorno);
         final pianeta = IlNumeroEIlColore.signoreDi[luna]!;
         final colore = IlNumeroEIlColore.coloreDi[pianeta]!;
         if (carta.luckyNumber != numero || carta.dayColor != colore) {

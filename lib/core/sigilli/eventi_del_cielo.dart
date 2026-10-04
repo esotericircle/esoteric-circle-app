@@ -2,10 +2,10 @@ import '../astro/aspetti_di_oggi.dart';
 import '../astro/effemeridi.dart';
 import '../astro/moon_phase.dart';
 import '../astro/natal_chart.dart';
-import '../astro/night_sky.dart';
 import '../astro/transiti_del_giorno.dart';
 import '../astro/zodiac.dart';
 import '../astro/eclissi.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// GLI EVENTI DEL CIELO VERI DI OGGI, in un punto solo.
 ///
@@ -142,7 +142,7 @@ class EventiDelCielo {
     }
     eventi.add(fase.waxing ? lunaCrescente : lunaCalante);
 
-    final segnoDellaLuna = NightSky.moonSign(adesso);
+    final segnoDellaLuna = IlSegnoDelCielo.dellaLuna(adesso);
     final mio = segno ?? (carta?.sunSign);
     if (mio != null) {
       if (segnoDellaLuna == mio) {
@@ -151,7 +151,9 @@ class EventiDelCielo {
         if (eventi.contains(lunaNuova)) eventi.add(lunaNuovaNelTuoSegno);
       }
       if (segnoDellaLuna == _opposto(mio)) eventi.add(lunaNelSegnoOpposto);
-      if (NightSky.sunSign(adesso) == mio) eventi.add(soleNelTuoSegno);
+      if (IlSegnoDelCielo.delSole(adesso) == mio) {
+        eventi.add(soleNelTuoSegno);
+      }
     }
 
     // SOLSTIZI ED EQUINOZI: il Sole che passa su 0, 90, 180 o 270 gradi. Si

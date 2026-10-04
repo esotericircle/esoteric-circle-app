@@ -189,6 +189,7 @@ import 'package:esoteric_circle/features/passport/cosmic_passport_screen.dart';
 import 'package:esoteric_circle/features/synastry/schermata_del_gemello.dart';
 import 'package:esoteric_circle/core/synastry/gemello_astrale.dart';
 import 'server_fedele_della_memoria.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// Cattura headless delle schermate, con font reali (corpo e icone), provider
 /// AI offline e conversazioni gia' seminate. Nessuna rete, nessun device.
@@ -1884,7 +1885,7 @@ void main() {
 
     // Si uniscono le stelle della costellazione del segno della Luna.
     final figura = kZodiacConstellations
-        .firstWhere((c) => c.sign == NightSky.moonSign(quando));
+        .firstWhere((c) => c.sign == IlSegnoDelCielo.dellaLuna(quando));
     for (var i = 0; i < figura.points.length; i++) {
       await tester.tap(find.byKey(Key('dream_star_$i')));
       await tester.pump(const Duration(milliseconds: 80));
@@ -2632,7 +2633,7 @@ void main() {
     await tester.runAsync(() async {
       final element = tester.element(find.byType(CosmicPassport));
       final animal = GuideAnimalDerivation.forSign(
-          NightSky.sunSign(BirthIdentity.example.birthMoment));
+          IlSegnoDelCielo.delSole(BirthIdentity.example.birthMoment));
       await precacheImage(AssetImage(animal.thumbPath), element);
     });
     await step(tester);
@@ -7172,7 +7173,7 @@ void main() {
     await tester.tap(find.byKey(const Key('dream_fog_skip')));
     await step(tester);
     final figura = kZodiacConstellations
-        .firstWhere((c) => c.sign == NightSky.moonSign(quando));
+        .firstWhere((c) => c.sign == IlSegnoDelCielo.dellaLuna(quando));
     for (var i = 0; i < figura.points.length; i++) {
       await tester.tap(find.byKey(Key('dream_star_$i')));
       await tester.pump(const Duration(milliseconds: 80));

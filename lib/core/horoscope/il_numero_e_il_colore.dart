@@ -1,7 +1,7 @@
 import '../astro/effemeridi.dart';
 import '../astro/zodiac.dart';
 import 'cielo_di_oggi.dart';
-import 'il_cielo_del_segno.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// **NUMERO FORTUNATO E COLORE DEL GIORNO CON UNA REGOLA DICHIARATA, ordine
 /// ES voce 29.**
@@ -110,7 +110,7 @@ abstract final class IlNumeroEIlColore {
         );
       }
     }
-    final luna = IlCieloDelSegno.segnoDi(CorpoCeleste.luna, quando);
+    final luna = IlSegnoDelCielo.delCorpo(CorpoCeleste.luna, quando);
     final signore = signoreDi[luna]!;
     return (
       signore,

@@ -50,7 +50,8 @@ class IlDiarioDeiViaggiScreen extends StatelessWidget {
             // dalla prova del cammino, dove quello scope non c'e' e la
             // pagina cadeva.
             maestro: Maestro.caligo,
-            child: IlDiarioDeiViaggiScreen(diario: diario, evidenzia: evidenzia),
+            child:
+                IlDiarioDeiViaggiScreen(diario: diario, evidenzia: evidenzia),
           ));
 
   @override
@@ -93,7 +94,10 @@ class IlDiarioDeiViaggiScreen extends StatelessWidget {
               ),
             for (final c in cammini) ...[
               _UnCammino(
-                  id: c.id, domanda: c.domanda, strati: c.strati, palette: palette),
+                  id: c.id,
+                  domanda: c.domanda,
+                  strati: c.strati,
+                  palette: palette),
               const SizedBox(height: SpacingTokens.lg),
             ],
             if (altre.isNotEmpty) ...[
@@ -151,8 +155,7 @@ class _UnCammino extends StatelessWidget {
           ),
           const SizedBox(height: SpacingTokens.xs),
           ParagrafiDiLettura(
-            testo:
-                conDomanda ? domanda : LeParoleDelCammino.soloPerIncontrarlo,
+            testo: conDomanda ? domanda : LeParoleDelCammino.soloPerIncontrarlo,
             stile: TypographyTokens.lettura()
                 .copyWith(color: ColorTokens.textPrimary),
           ),

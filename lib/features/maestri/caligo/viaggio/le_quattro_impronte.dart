@@ -202,8 +202,8 @@ class _PittoreDelSentiero extends CustomPainter {
       // **UNA CURVA E NON UNA SPEZZATA.** Un cammino fatto di segmenti dritti
       // e' un grafico; il punto di controllo a meta' strada, spostato in
       // basso, gli da' l'andatura di qualcosa che ha camminato li'.
-      cammino.quadraticBezierTo(
-          (a.dx + b.dx) / 2, (a.dy + b.dy) / 2 + size.height * 0.10, b.dx, b.dy);
+      cammino.quadraticBezierTo((a.dx + b.dx) / 2,
+          (a.dy + b.dy) / 2 + size.height * 0.10, b.dx, b.dy);
     }
     canvas.drawPath(
       cammino,

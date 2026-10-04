@@ -27,6 +27,7 @@ class OroscopoPer extends StatelessWidget {
     required this.onTe,
     required this.onAmico,
     this.nomeAmico,
+    this.emblemaAmico,
   });
 
   /// Il nome della persona, o "te" se l'app non lo conosce.
@@ -34,6 +35,9 @@ class OroscopoPer extends StatelessWidget {
 
   /// Il nome dell'amico di cui si legge l'oroscopo; senza, "amico/a".
   final String? nomeAmico;
+
+  /// L'emblema dell'amico scelto, accanto al suo nome (ordine FC voce 10).
+  final Widget? emblemaAmico;
 
   final MaestroPalette palette;
 
@@ -46,13 +50,14 @@ class OroscopoPer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final perTe = nomeAmico == null;
-    Widget scelta(
-            String chiave, String testo, bool scelto, VoidCallback tocco) =>
+    Widget scelta(String chiave, String testo, bool scelto, VoidCallback tocco,
+            {Widget? avatar}) =>
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xs / 2),
           child: ChoiceChip(
             key: Key(chiave),
             showCheckmark: false,
+            avatar: avatar,
             shape: const StadiumBorder(),
             side: BorderSide(
                 color: palette.gold.withValues(alpha: scelto ? 0.7 : 0.25)),
@@ -79,7 +84,8 @@ class OroscopoPer extends StatelessWidget {
                   .copyWith(color: ColorTokens.textSecondary)),
           const SizedBox(width: SpacingTokens.xs),
           scelta('oroscopo_per_te', nomeTuo, perTe, onTe),
-          scelta('oroscopo_per_amico', nomeAmico ?? 'amico/a', !perTe, onAmico),
+          scelta('oroscopo_per_amico', nomeAmico ?? 'amico/a', !perTe, onAmico,
+              avatar: emblemaAmico),
         ],
       ),
     );

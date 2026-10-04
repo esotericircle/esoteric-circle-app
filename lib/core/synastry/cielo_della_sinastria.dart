@@ -7,6 +7,7 @@ import '../astro/zodiac.dart';
 import '../identity/birth_identity.dart';
 import 'vip_catalog.dart';
 import '../l10n/numero_del_cerchio.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// I PUNTI CHE ENTRANO NELLA SINASTRIA, e perche' sono questi.
 ///
@@ -165,7 +166,7 @@ class CieloDiSinastria {
     final sole = punti[PuntoDelCielo.sole] ?? 0;
     return CieloDiSinastria(
       longitudini: punti,
-      segnoSolare: segnoDichiarato ?? segnoDiLongitudine(sole),
+      segnoSolare: segnoDichiarato ?? IlSegnoDelCielo.dellaLongitudine(sole),
       oraNota: oraNota,
       nome: nome,
     );
@@ -183,7 +184,8 @@ class CieloDiSinastria {
         ascendantLongitude: longitudini[PuntoDelCielo.ascendente],
         ascendant: longitudini[PuntoDelCielo.ascendente] == null
             ? null
-            : segnoDiLongitudine(longitudini[PuntoDelCielo.ascendente]!),
+            : IlSegnoDelCielo.dellaLongitudine(
+                longitudini[PuntoDelCielo.ascendente]!),
         planets: [
           for (final p in PuntoDelCielo.values)
             if (p.corpo != null && longitudini[p] != null)
@@ -192,16 +194,10 @@ class CieloDiSinastria {
                 name: p.nome,
                 glyph: p.glifo,
                 longitude: longitudini[p]!,
-                sign: segnoDiLongitudine(longitudini[p]!),
+                sign: IlSegnoDelCielo.dellaLongitudine(longitudini[p]!),
               ),
         ],
       );
-
-  /// Il segno in cui cade una longitudine eclittica.
-  static Zodiac segnoDiLongitudine(double longitudine) {
-    final l = ((longitudine % 360) + 360) % 360;
-    return Zodiac.values[(l ~/ 30) % 12];
-  }
 
   /// L'ASCENDENTE, dal tempo siderale locale e dalla latitudine.
   ///

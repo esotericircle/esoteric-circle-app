@@ -6,6 +6,7 @@ import '../astro/la_luna_intera.dart';
 import '../astro/zodiac.dart';
 import 'astro_tradition.dart';
 import 'il_capodanno_lunare.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// **IL SEGNO DELLA PERSONA IN OGNI TRADIZIONE, ordine ES voci 07 e 11.**
 ///
@@ -161,7 +162,7 @@ abstract final class ISegniDelleTradizioni {
   // ---------------------------------------------------------------------------
 
   static SegnoDellaTradizione occidentale(NascitaDeiSegni n) {
-    final z = Zodiac.values[(_sole(_utc(n)) ~/ 30) % 12];
+    final z = IlSegnoDelCielo.delSole(_utc(n));
     return SegnoDellaTradizione(
       tradizione: AstroTradition.occidentale,
       nome: z.italianName,
@@ -262,8 +263,9 @@ abstract final class ISegniDelleTradizioni {
       );
     }
 
-    int alle(DateTime locale) =>
-        (lunaSiderale(IlFusoDellaNascita.inUtc(locale, n.fuso)) ~/ 30) % 12;
+    int alle(DateTime locale) => IlSegnoDelCielo.dellaLongitudine(
+            lunaSiderale(IlFusoDellaNascita.inUtc(locale, n.fuso)))
+        .index;
     if (n.oraNota) return a(alle(n.locale));
     final (prima, dopo) = _estremiDelGiorno(n.locale);
     final i = alle(prima);

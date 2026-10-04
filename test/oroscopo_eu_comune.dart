@@ -13,6 +13,7 @@ import 'package:esoteric_circle/core/horoscope/la_lettura_cinese.dart';
 import 'package:esoteric_circle/core/horoscope/la_lettura_vedica.dart';
 import 'package:esoteric_circle/core/horoscope/la_rivoluzione_solare.dart';
 import 'package:esoteric_circle/core/horoscope/la_settimana_del_cielo.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// **LE PERSONE E LE SCHEDE DELLE PROVE DELL'ORDINE EU** (voci 01, 14, 16
 /// e 17): dodici nascite di segni e anni diversi, con la carta natale vera
@@ -28,18 +29,18 @@ class PersonaDiProva {
   final double ascendente;
 
   late final NatalChart? carta = conCarta ? _carta() : null;
-  late final Zodiac segno = Zodiac.fromDate(nascita);
+  late final Zodiac segno = IlSegnoDelCielo.diNascita(nascita, oraNota: false);
   late final NascitaDeiSegni nascitaDeiSegni =
       NascitaDeiSegni(locale: nascita, oraNota: conCarta, fuso: 'Europe/Rome');
-  late final int animale = ISegniDelleTradizioni.cinese(nascitaDeiSegni).animale!;
+  late final int animale =
+      ISegniDelleTradizioni.cinese(nascitaDeiSegni).animale!;
   late final int? rashi = LaLetturaVedica.lunaDiNascita(nascitaDeiSegni)?.$1;
 
   /// Se la persona legge la tradizione [t]: la Vedica vuole la Luna di
   /// nascita, che senza l'ora si sa solo quando non cambia segno quel giorno.
   bool legge(TradizioneEu t) => t != TradizioneEu.vedica || rashi != null;
 
-  String get nome =>
-      '${nascita.day}/${nascita.month}/${nascita.year} '
+  String get nome => '${nascita.day}/${nascita.month}/${nascita.year} '
       '(${segno.italianName}${conCarta ? ', con la carta' : ', senza carta'})';
 
   NatalChart _carta() {
@@ -103,7 +104,8 @@ class PersonaDiProva {
   }
 
   /// La Settimana o il Mese nella tradizione [t].
-  IlPeriodoDelCielo periodo(TradizioneEu t, DateTime oggi, {required bool mese}) {
+  IlPeriodoDelCielo periodo(TradizioneEu t, DateTime oggi,
+      {required bool mese}) {
     final giorni = mese ? 30 : 7;
     if (t == TradizioneEu.occidentale) {
       return LaSettimanaDelCielo.per(
@@ -165,8 +167,8 @@ List<String> frasiDelTesto(String testo) => [
 
 /// La voce del corpus da cui viene una scheda: cercata col titolo e il
 /// testo, in ogni fascia. Null se non viene dal corpus.
-(FasciaEu, int)? voceDellaScheda(
-    TradizioneEu t, PeriodoEu p, HoroscopeDomain d, String titolo, String testo) {
+(FasciaEu, int)? voceDellaScheda(TradizioneEu t, PeriodoEu p, HoroscopeDomain d,
+    String titolo, String testo) {
   for (final f in FasciaEu.values) {
     final voci = ITestiEu.fascia(t, p, d, f);
     for (var i = 0; i < voci.length; i++) {

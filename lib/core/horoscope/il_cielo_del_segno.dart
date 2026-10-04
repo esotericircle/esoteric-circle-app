@@ -1,4 +1,4 @@
-import '../astro/celestial.dart';
+import '../astro/il_segno_del_cielo.dart';
 import '../astro/effemeridi.dart';
 import '../astro/zodiac.dart';
 import 'corrente_del_cielo.dart';
@@ -31,13 +31,6 @@ abstract final class IlCieloDelSegno {
     HoroscopeDomain.fortuna: CorpoCeleste.giove,
   };
 
-  /// Il segno in cui sta [corpo] a [quando].
-  static Zodiac segnoDi(CorpoCeleste corpo, DateTime quando) {
-    final l = Effemeridi.longitudineEclittica(
-        corpo, Celestial.julianDay(quando.toUtc()));
-    return Zodiac.values[(l ~/ 30) % 12];
-  }
-
   /// La casa solare, da 1 a 12, del segno [dove] per chi e' del segno
   /// [segno].
   static int casaSolare(Zodiac segno, Zodiac dove) =>
@@ -47,7 +40,7 @@ abstract final class IlCieloDelSegno {
   /// casa solare, quella dei legami che contano."
   static String fraseDi(CorpoCeleste corpo, Zodiac segno, DateTime quando,
       {bool oggi = true}) {
-    final dove = segnoDi(corpo, quando);
+    final dove = IlSegnoDelCielo.delCorpo(corpo, quando);
     final casa = casaSolare(segno, dove);
     final chi = CorrenteDelCielo.colSuoArticolo(corpo, maiuscola: !oggi);
     final inizio = oggi ? 'Oggi $chi' : chi;

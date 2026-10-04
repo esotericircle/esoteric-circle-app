@@ -4,6 +4,7 @@ import '../astro/effemeridi.dart';
 import '../astro/il_cielo_del_jpl.dart';
 import '../astro/il_sole_di_nascita.dart';
 import '../astro/la_luna_intera.dart';
+import '../astro/il_segno_del_cielo.dart';
 
 /// Il tema della Rivoluzione Solare di un anno.
 class TemaDellaRivoluzione {
@@ -25,16 +26,19 @@ class TemaDellaRivoluzione {
   final Map<CorpoCeleste, double> longitudini;
 
   /// Il segno (0 Ariete ... 11 Pesci) di una longitudine.
-  static int segno(double l) => (((l % 360) + 360) % 360 ~/ 30) % 12;
 
-  int get segnoDellAscendente => segno(ascendente);
-  int get segnoDelMedioCielo => segno(medioCielo);
+  int get segnoDellAscendente =>
+      IlSegnoDelCielo.dellaLongitudine(ascendente).index;
+  int get segnoDelMedioCielo =>
+      IlSegnoDelCielo.dellaLongitudine(medioCielo).index;
 
   /// **LA CASA, a case equali dall'Ascendente**: la prima casa sono i trenta
   /// gradi che seguono l'Ascendente. E' una scelta dell'app, dichiarata nella
-  /// nota del metodo: si calcola sul telefono, senza tavole delle case.
+  /// nota del metodo: si calcola sul telefono, senza tavole delle case. Il
+  /// settore di trenta gradi contato dall'Ascendente e' la stessa aritmetica
+  /// del segno, e passa dalla stessa porta (ordine FC voce 10).
   int casaDi(CorpoCeleste c) =>
-      (((longitudini[c]! - ascendente) % 360 + 360) % 360 ~/ 30) % 12 + 1;
+      IlSegnoDelCielo.dellaLongitudine(longitudini[c]! - ascendente).index + 1;
 }
 
 /// **LA RIVOLUZIONE SOLARE, ordine ES voce 04.**

@@ -18,9 +18,9 @@ import '../rituals/arcano_dell_alba_screen.dart';
 import '../rituals/sunset_rune_screen.dart';
 import '../synastry/porta_della_sinastria.dart';
 import '../tarot/stesa_tre_carte_screen.dart';
-import '../../core/astro/night_sky.dart';
 import '../account/dati_di_nascita_screen.dart';
 import '../../core/cerchio/l_arte_di_adesso.dart';
+import '../../core/astro/il_segno_del_cielo.dart';
 
 /// La navigazione condivisa verso le arti del Cerchio: mappa l'id di un'arte
 /// alla sua rotta, quando l'arte e' viva, oppure null se e' ancora dietro il
@@ -61,11 +61,13 @@ const Map<String, Maestro> artiSullaSoglia = <String, Maestro>{};
 Route<void>? artRouteFor(
   String id, {
   DateTime? userBirth,
+  String? userFuso,
   String? userName,
 }) {
   // **LA ROTTA PORTA LA SUA ARTE, ordine EY voce 08**: la presenza dice agli
   // amici "ai tarocchi" senza che la schermata dei tarocchi lo sappia.
-  final rotta = _rottaDellArte(id, userBirth: userBirth, userName: userName);
+  final rotta = _rottaDellArte(id,
+      userBirth: userBirth, userFuso: userFuso, userName: userName);
   return rotta == null
       ? null
       : LArteDiAdesso.segna(rotta, ArteDellaPresenza.perLArte(id));
@@ -74,12 +76,15 @@ Route<void>? artRouteFor(
 Route<void>? _rottaDellArte(
   String id, {
   DateTime? userBirth,
+  String? userFuso,
   String? userName,
 }) {
-  // La sorgente unica: il segno discende dalla data, qui e in nessun altro
-  // posto di questa catena.
-  final Zodiac? userSign =
-      userBirth == null ? null : NightSky.sunSign(userBirth);
+  // La sorgente unica: il segno discende dalla nascita, dalla porta sola del
+  // segno (ordine FC voce 10). [userBirth] e' il momento di nascita (a
+  // mezzogiorno se l'ora manca), [userFuso] il fuso del luogo.
+  final Zodiac? userSign = userBirth == null
+      ? null
+      : IlSegnoDelCielo.diNascita(userBirth, oraNota: true, fuso: userFuso);
   final sullaSoglia = artiSullaSoglia[id];
   if (sullaSoglia != null) {
     final art = ArtCatalog.all.firstWhere((a) => a.id == id);

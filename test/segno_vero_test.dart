@@ -1,9 +1,9 @@
-import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// IL SEGNO MOSTRATO E' QUELLO VERO, e discende dalla data di nascita.
 ///
@@ -54,7 +54,7 @@ void main() {
         DateTime(2001, 3, 21),
       ]) {
         expect(BirthIdentity.fromParts(birthDate: data).sunSign,
-            NightSky.sunSign(data),
+            IlSegnoDelCielo.delSole(data),
             reason:
                 'per $data il segno del dato di nascita e quello del motore '
                 'non coincidono');

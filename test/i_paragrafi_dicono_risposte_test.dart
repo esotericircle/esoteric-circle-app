@@ -19,6 +19,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// **I PARAGRAFI DICONO RISPOSTE.** Ordine EU voce 01, 1 ottobre 2026.
 ///
@@ -95,8 +96,8 @@ void main() {
     final righe = <String>[];
     var schede = 0;
 
-    void misura(String dove, List<HoroscopeCard> breve,
-        List<HoroscopeCard> lunga) {
+    void misura(
+        String dove, List<HoroscopeCard> breve, List<HoroscopeCard> lunga) {
       for (final (profondita, elenco, attesi) in [
         ('Breve', breve, 2),
         ('Lunga', lunga, 4),
@@ -133,7 +134,9 @@ void main() {
           }
         }
         righe.add('$dove, $profondita: ${elenco.length} schede, paragrafi '
-            '${[for (final c in elenco) spezzaInParagrafi(c.text, stile: stile).length].join(' ')}'
+            '${[
+          for (final c in elenco) spezzaInParagrafi(c.text, stile: stile).length
+        ].join(' ')}'
             ', fuori misura $sbagliati, parole del cielo $parole, cielo due '
             'volte $doppie');
       }
@@ -141,17 +144,16 @@ void main() {
 
     for (final (nascita, asc, conCarta) in persone) {
       final carta = conCarta ? cartaDi(nascita.toUtc(), asc) : null;
-      final segno = Zodiac.fromDate(nascita);
-      final n = NascitaDeiSegni(
-          locale: nascita, oraNota: true, fuso: 'Europe/Rome');
+      final segno = IlSegnoDelCielo.diNascita(nascita, oraNota: false);
+      final n =
+          NascitaDeiSegni(locale: nascita, oraNota: true, fuso: 'Europe/Rome');
       final animale = ISegniDelleTradizioni.cinese(n).animale!;
       final chi = 'nato il ${nascita.day}/${nascita.month}/${nascita.year}'
           '${conCarta ? ' con la carta' : ' senza carta'}';
       for (final oggi in giorni) {
         final g = '$chi, ${oggi.day}/${oggi.month}/${oggi.year}';
         final m = DateTime.utc(oggi.year, oggi.month, oggi.day, 12);
-        final cieloDelGiorno =
-            CieloDiOggi.perIlGiorno(adesso: m, carta: carta);
+        final cieloDelGiorno = CieloDiOggi.perIlGiorno(adesso: m, carta: carta);
         List<HoroscopeCard> occ(bool lunga) => Horoscope.forSign(
             sign: segno,
             dayOfYear: Horoscope.dayOfYear(oggi),
@@ -174,9 +176,7 @@ void main() {
             nascita: n,
             forma: CourtesyForm.unknown,
             vocativo: 'Ciao Prova',
-            approfondite: {
-              for (final d in HoroscopeDomain.values) d: lunga
-            })!;
+            approfondite: {for (final d in HoroscopeDomain.values) d: lunga})!;
         misura('Vedica Giorno, $g', ved(false), ved(true));
         List<HoroscopeCard> cin(bool lunga) => LaLetturaCinese.schede(
             oggi: oggi,
@@ -184,9 +184,7 @@ void main() {
             animale: animale,
             forma: CourtesyForm.unknown,
             vocativo: 'Ciao Prova',
-            approfondite: {
-              for (final d in HoroscopeDomain.values) d: lunga
-            })!;
+            approfondite: {for (final d in HoroscopeDomain.values) d: lunga})!;
         misura('Cinese Giorno, $g', cin(false), cin(true));
         // La Settimana e il Mese: i paragrafi della voce del periodo.
         for (final mese in [false, true]) {
@@ -227,11 +225,10 @@ void main() {
                     synthesis: d.voce.risposta,
                     indicator: d.livello,
                     rigaDelLivello: d.momentoChiave);
-            misura('${e.key} $nome, $g', [
-              for (final d in e.value.domini) comeScheda(d, false)
-            ], [
-              for (final d in e.value.domini) comeScheda(d, true)
-            ]);
+            misura(
+                '${e.key} $nome, $g',
+                [for (final d in e.value.domini) comeScheda(d, false)],
+                [for (final d in e.value.domini) comeScheda(d, true)]);
           }
         }
         // L'Anno della Vedica e della Cinese (quello occidentale lo misura

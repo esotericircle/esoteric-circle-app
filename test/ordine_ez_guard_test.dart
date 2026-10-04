@@ -12,7 +12,9 @@ import 'package:flutter_test/flutter_test.dart';
 /// MISURA e la frase di ACCETTAZIONE, e le prove che nomina esistono.
 void main() {
   final manifesto = File('docs/ordini/ORDINE_EZ_MANIFESTO.md');
-  final voci = [for (var i = 1; i <= 8; i++) 'EZ.${i.toString().padLeft(2, '0')}'];
+  final voci = [
+    for (var i = 1; i <= 8; i++) 'EZ.${i.toString().padLeft(2, '0')}'
+  ];
 
   int marcatore(String testo, String nome) {
     final trovato =

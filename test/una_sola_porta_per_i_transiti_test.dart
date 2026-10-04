@@ -12,6 +12,7 @@ import 'package:esoteric_circle/core/tempo/confine_del_giorno.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'sorgenti_di_lib.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 
 /// LE CINQUE PROVE DEL ROSSO DELLA VOCE 1, piu' quella sulle firme.
 ///
@@ -195,8 +196,8 @@ void main() {
       expect(ArchetypeSky.pianetiCalcolabili, 2);
 
       // Le altre firme pubbliche che il resto dell'app usa.
-      expect(NightSky.sunSign(DateTime(2026, 8, 4)), isNotNull);
-      expect(NightSky.moonSign(DateTime(2026, 8, 4)), isNotNull);
+      expect(IlSegnoDelCielo.delSole(DateTime(2026, 8, 4)), isNotNull);
+      expect(IlSegnoDelCielo.dellaLuna(DateTime(2026, 8, 4)), isNotNull);
       expect(NightSky.sunEclipticLongitude(DateTime(2026, 8, 4)),
           inInclusiveRange(0, 360));
       expect(NightSky.moonEclipticLongitude(DateTime(2026, 8, 4)),

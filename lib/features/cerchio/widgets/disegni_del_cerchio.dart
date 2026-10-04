@@ -33,12 +33,26 @@ class IconaTonda extends StatelessWidget {
     this.lato = 48,
     this.spenta = false,
     this.anello,
+    this.nome,
   });
 
   final String icona;
+
+  /// **NESSUN TONDO NERO, ordine FC voce 10.4.** Il nome di chi porta
+  /// l'icona: finche' l'immagine non e' disegnata (in caricamento) o se non
+  /// si carica, nel tondo sta la sua prima lettera in maiuscolo, centrata,
+  /// nei colori del tondo. Senza nome il tondo resta come prima.
+  final String? nome;
   final double lato;
   final bool spenta;
   final Color? anello;
+
+  /// La prima lettera del nome, in maiuscolo; nulla senza nome.
+  static String? _iniziale(String? nome) {
+    final n = nome?.trim() ?? '';
+    if (n.isEmpty) return null;
+    return String.fromCharCode(n.runes.first).toUpperCase();
+  }
 
   /// Lo spessore dell'anello d'oro: il tondo utile e' quello dentro l'anello.
   static double anelloDi(double lato) => lato > 60 ? 2.5 : 1.5;
@@ -71,13 +85,30 @@ class IconaTonda extends StatelessWidget {
     final i = IconaDelProfilo.da(icona);
     final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
     final quadrato = quadratoInscritto(lato);
+    final iniziale = _iniziale(nome);
+    Widget lettera() => iniziale == null
+        ? SizedBox.square(dimension: quadrato)
+        : SizedBox.square(
+            key: const Key('icona_tonda_iniziale'),
+            dimension: quadrato,
+            child: Center(
+              child: Text(iniziale,
+                  textAlign: TextAlign.center,
+                  style: TypographyTokens.titoloDiRiga().copyWith(
+                      color: palette.goldSoft,
+                      fontSize: quadrato * 0.62,
+                      height: 1.0)),
+            ),
+          );
     Widget immagine = Image.asset(
       i.asset,
       key: const Key('icona_tonda_immagine'),
       width: quadrato,
       height: quadrato,
       fit: BoxFit.contain,
-      errorBuilder: (_, __, ___) => SizedBox.square(dimension: quadrato),
+      frameBuilder: (_, figlio, fotogramma, subito) =>
+          fotogramma == null && !subito ? lettera() : figlio,
+      errorBuilder: (_, __, ___) => lettera(),
     );
     if (spenta) {
       immagine = ColorFiltered(

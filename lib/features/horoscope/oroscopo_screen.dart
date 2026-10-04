@@ -89,6 +89,7 @@ import '../sigilli/celebrazione.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import 'corsa_dello_zodiaco.dart';
 import 'la_rivelazione_del_segno.dart';
+import '../amici/l_emblema_dell_amico.dart';
 
 const List<String> _mesiItaliani = [
   'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
@@ -223,7 +224,7 @@ class OroscopoScreen extends StatefulWidget {
         id: 'horoscope',
         maestro: Maestro.medora,
         child: OroscopoScreen(
-            userSign: Zodiac.fromDate(amico.nascita),
+            userSign: amico.segno,
             now: now,
             amico: amico,
             apertaDallOroscopo: apertaDallOroscopo)));
@@ -1386,12 +1387,17 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                 ? null
                 : FittedBox(
                     fit: BoxFit.scaleDown,
-                    child: Text(_soggetto.titolo!,
-                        key: const Key('oroscopo_titolo_del_soggetto'),
-                        maxLines: 1,
-                        softWrap: false,
-                        style: TypographyTokens.titoloDiSchermata()
-                            .copyWith(color: palette.goldSoft)),
+                    child: Row(mainAxisSize: MainAxisSize.min, children: [
+                      // L'emblema dell'amico (ordine FC voce 10).
+                      LEmblemaDellAmico(amico: widget.amico!, lato: 32),
+                      const SizedBox(width: SpacingTokens.xs),
+                      Text(_soggetto.titolo!,
+                          key: const Key('oroscopo_titolo_del_soggetto'),
+                          maxLines: 1,
+                          softWrap: false,
+                          style: TypographyTokens.titoloDiSchermata()
+                              .copyWith(color: palette.goldSoft)),
+                    ]),
                   ),
             // **L'OROSCOPO PER UN AMICO NON STA PIU' NELLA BARRA.** Il 30
             // settembre 2026 il fondatore l'aveva voluto in alto e stava qui;
@@ -1523,6 +1529,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                         OroscopoPer(
                           nomeTuo: nomeTuo,
                           nomeAmico: _soggetto.nomeAmico,
+                          emblemaAmico: widget.amico == null
+                              ? null
+                              : LEmblemaDellAmico(
+                                  amico: widget.amico!, lato: 24),
                           palette: palette,
                           onTe: _tornaATe,
                           onAmico: _scegliUnAmico,

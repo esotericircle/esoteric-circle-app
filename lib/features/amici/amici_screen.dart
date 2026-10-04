@@ -7,7 +7,6 @@ import '../../core/amici/amici_offline.dart';
 import '../../core/astro/city_catalog.dart';
 import '../../core/cerchio/il_cerchio_sociale.dart';
 import '../../core/astro/ricerca_del_luogo.dart';
-import '../../core/astro/zodiac.dart';
 import '../../core/entitlement/entitlement_service.dart';
 import '../../core/lang/euphonic.dart';
 import '../../core/entitlement/listino_degli_eos.dart';
@@ -26,6 +25,7 @@ import '../pricing/upgrade_invite.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../horoscope/oroscopo_screen.dart';
 import 'gli_amici_online.dart';
+import 'l_emblema_dell_amico.dart';
 
 /// **GLI AMICI OFFLINE, ordine ES voce 12.**
 ///
@@ -110,7 +110,7 @@ class _AmiciScreenState extends State<AmiciScreen> {
     if (!apertura) {
       setState(() => _inAttesa = true);
     }
-    final esito = await s.caricaLaTendina();
+    final esito = await s.caricaLaTendina(adesso: _adesso);
     if (!mounted) return;
     setState(() {
       _inAttesa = false;
@@ -159,6 +159,8 @@ class _AmiciScreenState extends State<AmiciScreen> {
       builder: (ctx) => AlertDialog(
         key: const Key('amici_togli_dialogo'),
         backgroundColor: palette.deepest,
+        // L'emblema dell'amico anche qui (ordine FC voce 10).
+        icon: LEmblemaDellAmico(amico: a, lato: 56),
         title: Text('Togliere ${a.nome}?',
             style: TypographyTokens.cerimoniale()
                 .copyWith(color: palette.goldSoft)),
@@ -254,11 +256,13 @@ class _AmiciScreenState extends State<AmiciScreen> {
                       child: ListTile(
                         key: Key('amico_${a.id}'),
                         enableFeedback: false,
+                        // L'emblema del suo segno (ordine FC voce 10).
+                        leading: LEmblemaDellAmico(amico: a),
                         title: Text(a.nome,
                             style: TypographyTokens.titoloScheda()
                                 .copyWith(color: palette.goldSoft)),
                         subtitle: Text(
-                            '${Zodiac.fromDate(a.nascita).italianName}, nascita del '
+                            '${a.segno.italianName}, nascita del '
                             '${a.nascita.day}/${a.nascita.month}/${a.nascita.year}',
                             style: TypographyTokens.didascalia()
                                 .copyWith(color: ColorTokens.textSecondary)),

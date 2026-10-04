@@ -161,9 +161,7 @@ void main() {
   Widget schermata(String chi) => chi == 'tuo'
       ? OroscopoScreen(userSign: Zodiac.gemini, now: DateTime(2026, 10, 4, 12))
       : OroscopoScreen(
-          userSign: Zodiac.fromDate(amica.nascita),
-          amico: amica,
-          now: DateTime(2026, 10, 4, 12));
+          userSign: amica.segno, amico: amica, now: DateTime(2026, 10, 4, 12));
 
   for (final chi in const ['tuo', 'amico']) {
     testWidgets('FC: l\'oroscopo $chi, l\'apertura, il gesto e il responso',

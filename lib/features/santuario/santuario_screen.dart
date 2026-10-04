@@ -14,7 +14,6 @@ import '../shell/santuario_bottom_bar.dart';
 
 import '../../core/astro/moon_phase.dart';
 import '../../core/astro/zodiac.dart';
-import '../../core/astro/night_sky.dart';
 import '../../core/rituals/guide_animal_derivation.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
@@ -40,6 +39,7 @@ import 'widgets/maestro_bust.dart';
 import 'widgets/moon_widget.dart';
 import 'le_righe_della_casa.dart';
 import '../onboarding/primo_approdo.dart';
+import '../../core/astro/il_segno_del_cielo.dart';
 
 /// La schermata eroe, il Santuario.
 ///
@@ -610,7 +610,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
       if (!mounted) return;
       final profilo = context.read<ProfileController>();
       final suo = GuideAnimalDerivation.forSign(
-          NightSky.sunSign(profilo.identity.birthDate));
+          IlSegnoDelCielo.delSole(profilo.identity.birthDate));
       if (IQuattroViaggi.nomeDopoLeQuattroDiscese(
               diario.apparizioni, suo.name) ==
           null) {
@@ -679,7 +679,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     // e' un segno cablato, e' il segno di quella data. La FRASE sopra invece
     // non lo usa, perche' li' un segno che non e' il tuo e' una bugia detta
     // alla persona, ed era esattamente il difetto.
-    final userZodiac = NightSky.sunSign(profilo.identity.birthDate);
+    final userZodiac = IlSegnoDelCielo.delSole(profilo.identity.birthDate);
     // **LA COPPIA DELLE RIGHE, ordine BF voce 06.** La variante col segno
     // sui telefoni stretti usciva coi puntini A MEZZA PAROLA ("una runa di
     // pazie...", vista sull'anteprima della home): la legge di AV.03 (una
