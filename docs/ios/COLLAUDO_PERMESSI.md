@@ -120,7 +120,7 @@ Se dopo la riapertura sono spariti, o se l'app ti chiede di nuovo i dati di nasc
 
 ### Le due funzioni da aprire per vedere che la usano davvero
 
-1. **Oroscopo Personalizzato**, dal dominio di Medora. Scorri fino in fondo alle schede. **Non deve esserci** il riquadro che dice "Questa lettura parla al tuo segno, non ancora al tuo cielo: senza ora e luogo di nascita i transiti sulla tua carta non si possono calcolare". Se compare, l'app sta dicendo il falso: tu ora e luogo li hai dati.
+1. **Oroscopo Universale** (fino al 4 ottobre 2026 "Oroscopo Personalizzato"), dal dominio di Medora. Scorri fino in fondo alle schede. **Non deve esserci** il riquadro che dice "Questa lettura parla al tuo segno, non ancora al tuo cielo: senza ora e luogo di nascita i transiti sulla tua carta non si possono calcolare". Se compare, l'app sta dicendo il falso: tu ora e luogo li hai dati.
 
 2. **Soffio del Destino**, dalla home. In fondo, sotto la scheda dell'intenzione, deve comparire **La Risposta del Soffio**, che parla dei transiti veri sopra di te. Se non compare, vuol dire che l'app non trova la tua carta.
 

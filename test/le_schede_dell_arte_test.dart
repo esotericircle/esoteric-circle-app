@@ -624,7 +624,7 @@ void main() {
   /// "La tua energia", per il Segreto dell'Iride.
   const elencoDelFondatore = <String, List<String>>{
     'Le arti preferite': [
-      'Oroscopo Personalizzato',
+      'Oroscopo Universale',
       'Mappa del Viso',
       'Stesa di Tarocchi',
       'Estrazione Rune',
@@ -653,7 +653,7 @@ void main() {
       'Sinastria NFC e QR',
     ],
     'Il cielo ti parla': [
-      'Oroscopo Personalizzato',
+      'Oroscopo Universale',
       'Mood Tracker',
       'Il Respiro della Luna',
       'Numeri Ricorrenti',
@@ -664,7 +664,7 @@ void main() {
     'I più condivisi': [
       'Sinastria VIP',
       'Mappa del Viso',
-      'Oroscopo Personalizzato',
+      'Oroscopo Universale',
       "Sigillo dell'Intenzione",
       'Stesa di Tarocchi',
       'Cosmic Wrapped',

@@ -1,6 +1,6 @@
 import '../entitlement/tier.dart';
 
-/// Le tradizioni astrologiche dell'Oroscopo Personalizzato.
+/// Le tradizioni astrologiche dell'Oroscopo Universale.
 ///
 /// Non sono funzioni a se': non hanno una card nel dominio ne' una schermata
 /// propria, e vivono soltanto come scelta dentro l'Oroscopo. Cosi' il cielo di

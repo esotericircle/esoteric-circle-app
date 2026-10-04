@@ -108,7 +108,8 @@ class ImmersiveIntents {
       // diceva "Apri l'Arcano del Giorno" a chi aveva chiesto l'oroscopo, e
       // apriva una carta: la promessa e la destinazione coincidevano fra
       // loro, e nessuna delle due era cio' che la persona aveva chiesto.
-      buttonLabel: 'Apri l\'Oroscopo Personalizzato',
+      // Il nome dell'arte, ordine FC voce 01: l'Oroscopo Universale.
+      buttonLabel: 'Apri l\'Oroscopo Universale',
     ),
     // **LA CARTA DEL GIORNO CONSEGNA UNA CARTA. Ordine DS voce 08.**
     //

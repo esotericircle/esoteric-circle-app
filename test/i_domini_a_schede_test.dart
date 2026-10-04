@@ -38,7 +38,8 @@ void main() {
       (
         'Astrologia',
         [
-          'Oroscopo Personalizzato',
+          // Il nome dall'ordine FC voce 01, 4 ottobre 2026.
+          'Oroscopo Universale',
           'Pet Astrology',
           'Carta Natale interattiva',
           'Ritorni Planetari',

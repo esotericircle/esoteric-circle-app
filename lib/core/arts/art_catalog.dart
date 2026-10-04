@@ -218,7 +218,11 @@ class ArtCatalog {
     ArtSection(title: 'Astrologia', arts: [
       ArtEntry(
         id: 'horoscope',
-        title: 'Oroscopo Personalizzato',
+        // **L'OROSCOPO UNIVERSALE, ordine FC voce 01**, 4 ottobre 2026. Il
+        // fondatore: *"il nome oroscopo personalizzato vorrei cambiarlo"*, e
+        // la sua scelta, *"Oroscopo universale"*. L'identificativo
+        // `horoscope` resta: cambia cio' che la persona legge.
+        title: 'Oroscopo Universale',
         teaser: 'Le quattro schede del tuo giorno, sul tuo segno di nascita.',
         icon: Icons.auto_awesome,
         state: ArtState.attiva,
@@ -249,7 +253,7 @@ class ArtCatalog {
       ),
       // Le astrologie non occidentali (vedica, cinese, maya, celtica, egizia,
       // araba) non hanno una card propria: vivono come tradizioni dentro
-      // l'Oroscopo Personalizzato, cosi' non occupano spazio nel dominio.
+      // l'Oroscopo Universale, cosi' non occupano spazio nel dominio.
       ArtEntry(
         id: 'astrocartography',
         title: 'Astrocartografia',

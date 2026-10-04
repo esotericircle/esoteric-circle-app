@@ -16,9 +16,12 @@ import 'package:flutter_test/flutter_test.dart';
 /// conta su tutta la home i titoli rimpiccioliti e li vuole a zero. Qui resta
 /// la sola pretesa che vale ancora: il nome dell'arte, nel catalogo.
 void main() {
-  test('il catalogo continua a dire "Oroscopo Personalizzato"', () {
+  // LAPIDE, ordine FC voce 01, 4 ottobre 2026: qui si pretendeva
+  // "Oroscopo Personalizzato". Il fondatore ha scelto il nome nuovo, *"Oroscopo
+  // universale"*; l'identificativo `horoscope` non cambia.
+  test('il catalogo dice "Oroscopo Universale"', () {
     final arte = ArtCatalog.all.firstWhere((a) => a.id == 'horoscope');
-    expect(arte.title, 'Oroscopo Personalizzato',
+    expect(arte.title, 'Oroscopo Universale',
         reason:
             'il nome dell\'arte e\' quello lungo, e dall\'ordine EO voce 02 '
             'e\' anche quello scritto sotto la scheda');
