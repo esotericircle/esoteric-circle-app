@@ -342,6 +342,10 @@ void main() {
     // FA: sei voci, contate coi titoli "## VOCE FA." del manifesto il 4
     // ottobre 2026, dai due pezzi dell'ordine (le icone, i nomi e le promesse).
     'FA': 6,
+    // FB: tre voci, contate coi titoli "## VOCE FB." del manifesto il 4
+    // ottobre 2026, dal pezzo unico dell'ordine (tutti gli amici nella
+    // tendina).
+    'FB': 3,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,
