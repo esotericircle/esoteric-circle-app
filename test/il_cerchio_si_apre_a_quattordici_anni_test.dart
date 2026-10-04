@@ -57,6 +57,22 @@ void main() {
         reason: 'la soglia deve venire prima del conto del tetto');
     expect(presenza.contains('if (scheda === null)'), isTrue,
         reason: 'la presenza si scrive anche sotto i quattordici anni');
+    // **LA VOCE NEL FRAMMENTO SE NE VA, ordine FB voce 01.** Dall'ordine FB
+    // la presenza sta in un frammento condiviso: chi ha meno di quattordici
+    // anni deve uscirne, nel passo (`chiEOnline`) e quando il profilo lo
+    // scopre (`ilMioProfiloNelCerchio`). Nella prima stesura dell'ordine FB
+    // il profilo cancellava solo il documento di prima.
+    final passo = presenza.substring(presenza.indexOf('if (scheda === null)'));
+    final profilo = sorgente.substring(
+        sorgente.indexOf('export const ilMioProfiloNelCerchio = onCall('));
+    final ramoDelProfilo = profilo.substring(
+        profilo.indexOf('if (!quattordici)'),
+        profilo.indexOf('return {chiuso: true'));
+    expect(passo.substring(0, 300), contains('scriviLaPresenza(uid, null)'),
+        reason: 'sotto i quattordici anni il passo non toglie la voce');
+    expect(ramoDelProfilo, contains('scriviLaPresenza(uid, null)'),
+        reason: 'sotto i quattordici anni il profilo non toglie la voce dal '
+            'frammento');
   });
 
   test('EZ.04: l\'eta\' viene solo dalla data di nascita', () {

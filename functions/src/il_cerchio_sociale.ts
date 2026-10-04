@@ -17,25 +17,24 @@ import {
   verdettoDelNome,
 } from "./il_nome_del_cerchio";
 import {
-  ARTI_DELLA_PRESENZA,
   ArteDellaPresenza,
   DURATE_DEL_CODICE,
+  FRAMMENTI_DELLA_PRESENZA,
   EOS_DEL_POSTO_IN_PIU,
   Istantanea,
+  OGNI_QUANTO_SI_RIFA_L_ISTANTANEA_MS,
   POSTI_DEL_LEGAME,
   RIGA_DEI_QUATTORDICI,
   PREZZI_DEI_DONI,
   Presenza,
+  SchedaCompatta,
   RISPOSTE_PER_SEGNO,
   SEGNI_AL_GIORNO,
   StatoDelLegame,
   TETTI_DELLE_PORTE,
   TipoDelCodice,
-  AMICI_NELLA_TENDINA,
-  VETRINA_DELL_ISTANTANEA,
   VISIBILITA_PREDEFINITA,
   Visibilita,
-  arteValida,
   codiceScritto,
   costruisciLIstantanea,
   coppia,
@@ -47,6 +46,7 @@ import {
   donoValido,
   fineDelRifiuto,
   fineDellaQuarantena,
+  frammentoDi,
   gradinoValido,
   quattordiciDichiarati,
   iconaDelSegno,
@@ -58,6 +58,7 @@ import {
   registraLoScambio,
   rigaDelTetto,
   scadenzaDelNomeLasciato,
+  scompatta,
   segnoValido,
   semaforoPer,
   sogliaDellEtaPassata,
@@ -219,18 +220,17 @@ async function leggiIdentita(uid: string): Promise<Identita> {
 }
 
 /** La scheda che la presenza porta con se', per l'istantanea. */
-function schedaDellaPresenza(uid: string, i: Identita): Record<string, unknown> {
+function schedaDellaPresenza(i: Identita): SchedaCompatta {
   return {
-    uid,
-    visibilita: visibilitaEffettiva(i.visibilita, i.maggiorenne),
-    maggiorenne: i.maggiorenne,
-    nome: i.nome.length > 0 ? i.nome : null,
-    icona: i.icona,
-    segno: i.segno,
-    maestro: i.maestro,
-    gradino: i.gradino,
-    chiPuoInvitare: i.chiPuoInvitare,
-    sigillo: i.sigillo,
+    n: i.nome.length > 0 ? i.nome : null,
+    s: i.sigillo,
+    i: i.icona,
+    z: i.segno,
+    m: i.maestro,
+    g: i.gradino,
+    v: visibilitaEffettiva(i.visibilita, i.maggiorenne),
+    M: i.maggiorenne,
+    c: i.chiPuoInvitare,
   };
 }
 
@@ -312,14 +312,10 @@ function aggiornaGliElenchi(
   };
   if (dove !== null) campi[dove] = FieldValue.arrayUnion(altro);
   tx.set(statoDi(uid, "legami"), campi, {merge: true});
-  // **GLI AMICI VIAGGIANO CON LA PRESENZA, ordine FA voce 05**: la tendina
-  // trova gli amici presenti con una domanda sola sulle presenze che portano
-  // chi guarda fra i loro amici. Si scrive qui, nello stesso punto e nella
-  // stessa transazione degli elenchi, cosi' i due non discordano.
-  tx.set(utente(uid).collection("presenza").doc("adesso"), {
-    amici: dove === "amici" ?
-      FieldValue.arrayUnion(altro) : FieldValue.arrayRemove(altro),
-  }, {merge: true});
+  // LAPIDE, ordine FB voce 01: qui l'ordine FA scriveva gli amici anche
+  // nella presenza, per trovarli con una domanda chiusa a sei. Adesso la
+  // tendina li incrocia in memoria con l'istantanea, e questa scrittura in
+  // piu' non serve.
 }
 
 /** Il contatore sociale di oggi: inviti, segni, segni per persona, regali. */
@@ -409,8 +405,12 @@ export const ilMioProfiloNelCerchio = onCall(OPZIONI_SOCIALI, async (request) =>
   ]);
   if (!quattordici) {
     // Nessun profilo pubblico e nessuna presenza: se c'erano, se ne vanno.
+    // Dall'ordine FB voce 01 la presenza sta nel suo frammento: la voce si
+    // toglie da li'; il documento di prima si cancella ancora, perche' chi
+    // aveva una presenza prima della pubblicazione puo' averlo.
     await Promise.all([
       db().collection("profili").doc(uid).delete(),
+      scriviLaPresenza(uid, null),
       utente(uid).collection("presenza").doc("adesso").delete(),
     ]);
     return {chiuso: true, riga: RIGA_DEI_QUATTORDICI};
@@ -1018,115 +1018,138 @@ export const compraUnPostoNelCerchio = onCall(OPZIONI_SOCIALI, async (request) =
 // PARTE C, LA PRESENZA
 // ---------------------------------------------------------------------------
 
-/** Una presenza letta dal suo documento, nella forma dell'istantanea. */
-function presenzaDa(uid: string, p: Record<string, unknown>): Presenza {
-  return {
-    uid,
-    ultimo: (p.ultimo as Timestamp | undefined)?.toMillis() ?? 0,
-    arte: arteValida(p.arte),
-    visibilita: visibilitaValida(p.visibilita) ?? "amici",
-    maggiorenne: p.maggiorenne === true,
-    nome: typeof p.nome === "string" ? p.nome : null,
-    icona: iconaValida(p.icona) ?? iconaDelSegno(p.segno),
-    segno: segnoValido(p.segno),
-    maestro: maestroValido(p.maestro),
-    gradino: gradinoValido(p.gradino) ?? 0,
-    chiPuoInvitare: p.chiPuoInvitare === "sigillo" ? "sigillo" : "tutti",
-    sigillo: typeof p.sigillo === "string" ? p.sigillo : null,
-  };
-}
+const FRAMMENTO = (k: number) =>
+  db().collection("cerchio_presenze").doc(String(k));
+const TURNO = () => db().collection("cerchio_adesso").doc("turno");
 
 /**
- * LA PRESENZA DI UNA PERSONA SOLA, per i gesti verso chi non e' amico: una
- * lettura, il suo documento, e solo se e' dentro la finestra.
+ * **SCRIVE LA PRESENZA NEL SUO FRAMMENTO, ordine FB voce 01**: la voce della
+ * persona dentro `cerchio_presenze/{k}`. Nulla la toglie (chi esce, chi ha
+ * meno di quattordici anni, chi cancella il Cerchio). Una scrittura, come
+ * prima la scrittura del documento della persona.
  */
-async function presenzaDi(uid: string): Promise<Presenza | undefined> {
-  const snap = await db().collection("users").doc(uid)
-    .collection("presenza").doc("adesso").get();
-  const p = snap.data();
-  if (!p) return undefined;
-  const presenza = presenzaDa(uid, p);
-  return presenza.ultimo >= confineDellaPresenza(Date.now()) ? presenza : undefined;
+export async function scriviLaPresenza(uid: string,
+  campi: SchedaCompatta | null): Promise<void> {
+  const doc = FRAMMENTO(frammentoDi(uid));
+  if (campi === null) {
+    try {
+      await doc.update({[`p.${uid}`]: FieldValue.delete()});
+    } catch (senzaFrammento) {
+      logger.debug("La presenza da togliere non c'era.", {uid});
+    }
+    return;
+  }
+  await doc.set({p: {[uid]: campi}}, {merge: true});
 }
 
 /**
  * **L'ISTANTANEA IN MEMORIA, ordine EZ voce 03.** Ogni istanza del server
  * tiene l'ultima istantanea letta per trenta secondi: le aperture che
- * arrivano nello stesso mezzo minuto non la rileggono. La verita' non
- * cambia: l'istantanea stessa si rifa' al massimo ogni trenta secondi.
+ * arrivano nello stesso mezzo minuto non la rileggono. `letta` e' quando
+ * l'istanza l'ha letta, che non e' quando e' stata fatta.
  */
-let istantaneaInMemoria: Istantanea | null = null;
+let istantaneaInMemoria: {ist: Istantanea; letta: number} | null = null;
+
+function istantaneaVuota(adesso: number): Istantanea {
+  return {quando: adesso, totale: 0, perArte: {}, presenti: {}, nascosti: [],
+    troncata: false};
+}
 
 /**
- * Rifa' l'istantanea se ha piu' di trenta secondi. **Non legge piu' una
- * presenza per persona** (ordine EZ voce 03): conta i presenti di ogni arte
- * con un'aggregazione, che Firestore fattura una lettura ogni mille voci
- * d'indice, e legge al massimo ventiquattro presenze visibili a tutti e
- * maggiorenni per la vetrina. Gli invisibili non contano: la loro scheda
- * dice `invisibile` e le aggregazioni chiedono le altre due visibilita'.
+ * **L'ISTANTANEA COI PRESENTI, ordine FB voce 01.** Si rifa' al massimo una
+ * volta ogni trenta secondi PER TUTTO IL CERCHIO: chi la trova vecchia prende
+ * il turno in transazione (`cerchio_adesso/turno`), e solo chi l'ha preso la
+ * ricostruisce; gli altri servono quella che c'e'. La ricostruzione legge il
+ * turno e i novantasei frammenti, qualunque sia il numero dei presenti, e
+ * toglie dai frammenti le voci scadute da piu' di un'ora.
+ *
+ * **LA RICOSTRUISCE SOLO IL PASSO DELLA PRESENZA** (`ricostruisci: true`, la
+ * chiama `chiEOnline`), mai la tendina ne' i gesti. Nella prima stesura di
+ * questa voce l'apertura della tendina che trovava l'istantanea vecchia la
+ * rifaceva, e quell'apertura leggeva centodue documenti invece di cinque:
+ * una ogni trenta secondi, ma sopra la soglia delle dieci. Adesso la tendina
+ * legge l'istantanea com'e': chi la apre e' presente e il suo passo la tiene
+ * fresca, al massimo un minuto.
  */
-async function istantanea(): Promise<Istantanea> {
+export async function istantanea(
+  {ricostruisci}: {ricostruisci: boolean}): Promise<Istantanea> {
   const adesso = Date.now();
-  if (istantaneaInMemoria &&
-    !istantaneaVecchia(istantaneaInMemoria.quando, adesso)) {
-    return istantaneaInMemoria;
+  const inMemoria = istantaneaInMemoria;
+  if (inMemoria && !istantaneaVecchia(inMemoria.letta, adesso) &&
+    (!ricostruisci || !istantaneaVecchia(inMemoria.ist.quando, adesso))) {
+    return inMemoria.ist;
   }
   const snap = await ISTANTANEA().get();
   const d = snap.data() as Istantanea | undefined;
-  if (d && Array.isArray(d.vetrina) && !istantaneaVecchia(d.quando, adesso)) {
-    istantaneaInMemoria = d;
+  const valida = d !== undefined && typeof d.presenti === "object" &&
+    d.presenti !== null;
+  if (valida && (!ricostruisci || !istantaneaVecchia(d.quando, adesso))) {
+    istantaneaInMemoria = {ist: d, letta: adesso};
     return d;
   }
-  const confine = Timestamp.fromMillis(confineDellaPresenza(adesso));
-  const presenze = () => db().collectionGroup("presenza");
-  const conti = await Promise.all(ARTI_DELLA_PRESENZA.map(async (arte) => {
-    const c = await presenze()
-      .where("arte", "==", arte)
-      .where("visibilita", "in", ["amici", "tutti"])
-      .where("ultimo", ">=", confine)
-      .count()
-      .get();
-    return [arte, c.data().count] as const;
-  }));
-  const candidati = await presenze()
-    .where("visibilita", "==", "tutti")
-    .where("maggiorenne", "==", true)
-    .where("ultimo", ">=", confine)
-    .limit(VETRINA_DELL_ISTANTANEA)
-    .get();
-  const nuova = costruisciLIstantanea({
-    perArte: Object.fromEntries(conti),
-    candidati: candidati.docs.flatMap((doc) => {
-      const uid = doc.ref.parent.parent?.id;
-      return uid ? [presenzaDa(uid, doc.data())] : [];
-    }),
+  if (!ricostruisci) return istantaneaVuota(adesso);
+  const mioIlTurno = await db().runTransaction(async (tx) => {
+    const turno = await tx.get(TURNO());
+    const fino = (turno.data()?.fino as number | undefined) ?? 0;
+    if (fino > adesso) return false;
+    tx.set(TURNO(), {fino: adesso + OGNI_QUANTO_SI_RIFA_L_ISTANTANEA_MS});
+    return true;
+  });
+  if (!mioIlTurno) return valida ? d : istantaneaVuota(adesso);
+  // Solo i frammenti che esistono: con un presente solo, uno (ordine FB voce
+  // 01, i vuoti si cancellano qui sotto).
+  const esistenti = await db().collection("cerchio_presenze").get();
+  const frammenti = new Array<Record<string, SchedaCompatta> | undefined>(
+    FRAMMENTI_DELLA_PRESENZA).fill(undefined);
+  const istanti = new Map<number, Timestamp>();
+  for (const f of esistenti.docs) {
+    const k = Number(f.id);
+    if (!Number.isInteger(k) || k < 0 || k >= FRAMMENTI_DELLA_PRESENZA) continue;
+    frammenti[k] = (f.data()?.p ?? {}) as Record<string, SchedaCompatta>;
+    istanti.set(k, f.updateTime);
+  }
+  const {istantanea: nuova, scadute, vuoti} = costruisciLIstantanea({
+    frammenti,
     adessoMs: adesso,
+    confineMs: confineDellaPresenza(adesso),
   });
   await ISTANTANEA().set(nuova);
-  istantaneaInMemoria = nuova;
+  if (scadute.length > 0 || vuoti.length > 0) {
+    // La pulizia vale solo se il frammento e' ancora quello letto: un passo
+    // arrivato nel frattempo cambia l'ora del documento, la precondizione
+    // fa cadere il lotto e la voce fresca resta. Si riprova alla prossima.
+    const perFrammento = new Map<number, Record<string, unknown>>();
+    for (const {frammento, uid} of scadute) {
+      const campi = perFrammento.get(frammento) ?? {};
+      campi[`p.${uid}`] = FieldValue.delete();
+      perFrammento.set(frammento, campi);
+    }
+    const batch = db().batch();
+    for (const k of vuoti) {
+      batch.delete(FRAMMENTO(k), {lastUpdateTime: istanti.get(k)!});
+      perFrammento.delete(k);
+    }
+    for (const [k, campi] of perFrammento) {
+      batch.update(FRAMMENTO(k), campi, {lastUpdateTime: istanti.get(k)!});
+    }
+    try {
+      await batch.commit();
+    } catch (cambiatoNelFrattempo) {
+      logger.debug("La pulizia dei frammenti si rifa' alla prossima.",
+        {errore: String(cambiatoNelFrattempo)});
+    }
+  }
+  istantaneaInMemoria = {ist: nuova, letta: adesso};
   return nuova;
 }
 
 /**
- * GLI AMICI PRESENTI, con UNA domanda, ordine FA voce 05: le presenze che
- * portano chi guarda fra i loro amici (il legame e' simmetrico), dentro la
- * finestra, al massimo `AMICI_NELLA_TENDINA`. Costa una lettura per amico
- * trovato, o una sola se non ce n'e', e mai piu' di sei, qualunque sia il
- * numero degli amici. Prima erano domande a gruppi di trenta, e una lettura
- * per ogni amico presente senza un tetto.
+ * LA PRESENZA DI UNA PERSONA SOLA, per i gesti verso chi non e' amico:
+ * dall'istantanea, senza una lettura in piu' (ordine FB voce 01).
  */
-async function amiciPresentiDi(uid: string): Promise<Presenza[]> {
-  const confine = Timestamp.fromMillis(confineDellaPresenza(Date.now()));
-  const risposta = await db()
-    .collectionGroup("presenza")
-    .where("amici", "array-contains", uid)
-    .where("ultimo", ">=", confine)
-    .limit(AMICI_NELLA_TENDINA)
-    .get();
-  return risposta.docs.flatMap((doc) => {
-    const di = doc.ref.parent.parent?.id;
-    return di ? [presenzaDa(di, doc.data())] : [];
-  });
+async function presenzaDi(uid: string): Promise<Presenza | undefined> {
+  const ist = await istantanea({ricostruisci: false});
+  return scompatta(uid, ist.presenti?.[uid]) ?? undefined;
 }
 
 /** L'affinita' alta fra due segni: lo stesso elemento, cioe' il trigono. */
@@ -1148,7 +1171,7 @@ export const laTendinaDelCerchio = onCall(OPZIONI_SOCIALI, async (request) => {
   const uid = uidDi(request);
   await tettoDellaPorta(uid, "laTendinaDelCerchio");
   const [ist, legamiSnap, blocchi, io] = await Promise.all([
-    istantanea(),
+    istantanea({ricostruisci: false}),
     statoDi(uid, "legami").get(),
     blocchiDi(uid),
     leggiIdentita(uid),
@@ -1156,10 +1179,15 @@ export const laTendinaDelCerchio = onCall(OPZIONI_SOCIALI, async (request) => {
   const amici = new Set(elenco(legamiSnap.data()?.amici));
   const inviati = new Set(elenco(legamiSnap.data()?.inviati));
   const ricevuti = new Set(elenco(legamiSnap.data()?.ricevuti));
-  const presentiFraGliAmici = amici.size === 0 ? [] : await amiciPresentiDi(uid);
-  const amiciPresenti = presentiFraGliAmici
-    .filter((p) => amici.has(p.uid) && !blocchi.has(p.uid) &&
-      p.visibilita !== "invisibile")
+  // **TUTTI GLI AMICI PRESENTI, ordine FB voce 01**: incrociati IN MEMORIA
+  // fra l'istantanea e i legami gia' letti. Nessuna lettura per amico: sei
+  // amici presenti o centocinquanta costano le stesse letture.
+  const amiciPresenti = [...amici]
+    .filter((a) => !blocchi.has(a))
+    .flatMap((a) => {
+      const p = scompatta(a, ist.presenti?.[a]);
+      return p ? [p] : [];
+    })
     .map((p) => ({uid: p.uid, nome: p.nome, icona: p.icona, segno: p.segno,
       maestro: p.maestro, arte: p.arte, sigillo: p.sigillo, semaforo: "verde"}));
   const esclusi = new Set<string>([...amici, ...blocchi]);
@@ -1200,27 +1228,18 @@ export const laTendinaDelCerchio = onCall(OPZIONI_SOCIALI, async (request) => {
  */
 async function aggiornaLaSchedaDellaPresenza(uid: string, io: Identita):
   Promise<void> {
-  try {
-    await utente(uid).collection("presenza").doc("adesso")
-      .update(schedaDellaPresenza(uid, io));
-  } catch (nonPresente) {
-    logger.debug("La scheda della presenza aspetta il primo passo.", {uid});
-  }
+  // Una voce senza passo (`u`) non conta, e la ricostruzione la toglie: chi
+  // non e' presente adesso non diventa presente per un cambio di profilo.
+  await scriviLaPresenza(uid, io.quattordici ? schedaDellaPresenza(io) : null);
 }
 
 /** Scrive la scheda della presenza; la chiama `chiEOnline` al primo passo. */
 export async function rinnovaLaScheda(uid: string, arte: ArteDellaPresenza):
-  Promise<Record<string, unknown> | null> {
-  const [io, legami] = await Promise.all([
-    leggiIdentita(uid),
-    statoDi(uid, "legami").get(),
-  ]);
+  Promise<SchedaCompatta | null> {
+  const io = await leggiIdentita(uid);
   // Sotto i quattordici anni nessuna presenza (ordine EZ voce 04).
   if (!io.quattordici) return null;
-  // Gli amici viaggiano con la scheda (ordine FA voce 05): la scheda si
-  // riscrive intera al primo passo, e porta l'elenco di oggi.
-  return {...schedaDellaPresenza(uid, io), arte,
-    amici: elenco(legami.data()?.amici)};
+  return {...schedaDellaPresenza(io), a: arte};
 }
 
 // ---------------------------------------------------------------------------
@@ -1542,6 +1561,7 @@ export async function cancellaIlSociale(uid: string): Promise<void> {
     ...elenco(legami.data()?.inviati),
     ...elenco(legami.data()?.ricevuti),
   ]);
+  await scriviLaPresenza(uid, null);
   const batch = db().batch();
   batch.delete(profiloDi(uid));
   if (io.sigillo !== null) {
@@ -1555,8 +1575,6 @@ export async function cancellaIlSociale(uid: string): Promise<void> {
       inviati: FieldValue.arrayRemove(uid),
       ricevuti: FieldValue.arrayRemove(uid),
     }, {merge: true});
-    batch.set(utente(altro).collection("presenza").doc("adesso"),
-      {amici: FieldValue.arrayRemove(uid)}, {merge: true});
   }
   for (const altro of elenco(blocchi.data()?.bloccati)) {
     batch.set(statoDi(altro, "blocchi"), {bloccatoDa: FieldValue.arrayRemove(uid)},

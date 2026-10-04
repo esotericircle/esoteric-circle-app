@@ -524,42 +524,221 @@ export interface Presenza {
 export const OGNI_QUANTO_SI_RIFA_L_ISTANTANEA_MS = 30 * 1000;
 
 /**
- * **L'ISTANTANEA NON CONTIENE TUTTI I PRESENTI, ordine EZ voce 03.** Un
- * documento Firestore ha un tetto di un mega: a centomila presenti un elenco
- * completo non starebbe in piedi, e soprattutto ricostruirlo voleva dire
- * leggere UNA PRESENZA PER PERSONA ogni trenta secondi (mille letture con
- * mille presenti). L'istantanea porta adesso soltanto:
- * - **i conteggi per arte**, che sono numeri, presi con le aggregazioni di
- *   Firestore (una lettura ogni mille voci d'indice, non una per persona);
- * - **la vetrina**: al massimo ventiquattro presenti visibili a tutti e
- *   maggiorenni, gia' con nome, sigillo, icona, segno e Maestro, da cui il
- *   server sceglie per chi guarda le dodici persone simili.
- * Gli amici presenti restano fuori: sono pochi e sono i soli che la persona
- * vuole per nome, e si leggono con una domanda mirata sulle loro presenze.
+ * **I FRAMMENTI DELLA PRESENZA, ordine FB voce 01.** La presenza non si scrive
+ * piu' in un documento per persona: si scrive nella sua voce dentro uno di
+ * `FRAMMENTI_DELLA_PRESENZA` documenti condivisi (`cerchio_presenze/{k}`),
+ * scelto dall'identificativo. Il passo del telefono scrive una volta al
+ * minuto come prima, ma nel frammento; e la ricostruzione dell'istantanea
+ * legge i frammenti, non le persone: novantasei letture con mille presenti
+ * come con centomila. Prima (ordine EZ) erano quattordici aggregazioni per
+ * arte e una vetrina di ventiquattro, perche' leggere le persone costava
+ * una lettura per persona; e gli amici presenti si leggevano a parte, una
+ * lettura per amico (ordine FA, chiusa a sei).
+ *
+ * **Quanto regge un frammento.** Firestore regge circa una scrittura al
+ * secondo per documento in modo continuo: con un passo al minuto, un
+ * frammento regge sessanta persone presenti nello stesso momento, e
+ * novantasei frammenti ne reggono 5.760, piu' del tetto dell'istantanea
+ * (`PRESENZE_NELL_ISTANTANEA`). I due tetti stanno insieme, e la prova
+ * `I FRAMMENTI REGGONO IL TETTO DELL'ISTANTANEA` cade se si separano: con
+ * trentadue frammenti (la prima stesura di questa voce) il Cerchio ne
+ * reggeva 1.920, e fra 1.920 e 5.000 presenti le scritture sarebbero andate
+ * in contesa senza che nessun numero lo dicesse. Ogni frammento in piu'
+ * costa una lettura per ricostruzione: novantasei frammenti, con qualcuno
+ * presente a ogni ora del mese, costano circa 2,90 euro al mese (rapporto FB).
  */
-export const VETRINA_DELL_ISTANTANEA = 24;
+export const FRAMMENTI_DELLA_PRESENZA = 96;
+
+/** Le persone presenti che un frammento regge: un passo al minuto ciascuna. */
+export const PRESENTI_PER_FRAMMENTO = 60;
+
+export function frammentoDi(uid: string): number {
+  return createHash("sha256").update(uid).digest()
+    .readUInt32BE(0) % FRAMMENTI_DELLA_PRESENZA;
+}
+
+/**
+ * LA SCHEDA COMPATTA di una persona presente, con chiavi di una lettera: e'
+ * quella che sta nel frammento e nell'istantanea, e ogni byte conta perche'
+ * un documento ha un tetto di un mebibyte. `u` e' l'ultimo passo, in
+ * millisecondi.
+ */
+export interface SchedaCompatta {
+  n?: string | null; // nome
+  s?: string | null; // sigillo
+  i?: string | null; // icona
+  z?: string | null; // segno
+  m?: string | null; // Maestro
+  g?: number; // gradino
+  a?: string; // arte di adesso
+  v?: string; // visibilita'
+  M?: boolean; // maggiorenne
+  c?: string; // chi puo' invitare
+  u?: number; // ultimo passo
+}
+
+export function compatta(p: Omit<Presenza, "uid" | "ultimo">): SchedaCompatta {
+  return {n: p.nome, s: p.sigillo, i: p.icona, z: p.segno, m: p.maestro,
+    g: p.gradino, a: p.arte, v: p.visibilita, M: p.maggiorenne,
+    c: p.chiPuoInvitare};
+}
+
+/** Dalla scheda compatta alla presenza; nulla se manca il passo o il nome. */
+export function scompatta(uid: string, c: SchedaCompatta | undefined):
+  Presenza | null {
+  if (!c || typeof c.u !== "number" || typeof c.v !== "string") return null;
+  return {
+    uid,
+    ultimo: c.u,
+    arte: arteValida(c.a),
+    visibilita: visibilitaValida(c.v) ?? "amici",
+    maggiorenne: c.M === true,
+    nome: typeof c.n === "string" ? c.n : null,
+    icona: iconaValida(c.i) ?? iconaDelSegno(c.z),
+    segno: segnoValido(c.z),
+    maestro: maestroValido(c.m),
+    gradino: gradinoValido(c.g) ?? 0,
+    chiPuoInvitare: c.c === "sigillo" ? "sigillo" : "tutti",
+    sigillo: typeof c.s === "string" ? c.s : null,
+  };
+}
+
+/**
+ * **I BYTE, coi conti di Firestore**: una stringa vale i suoi byte UTF-8 piu'
+ * uno, un numero otto, un booleano uno, un nulla uno, una mappa la somma dei
+ * nomi dei campi (byte piu' uno) e dei valori. Una voce dell'istantanea e'
+ * l'identificativo (nome del campo) e la sua scheda.
+ */
+function byteDi(valore: unknown): number {
+  if (valore === null || valore === undefined) return 1;
+  if (typeof valore === "string") return Buffer.byteLength(valore, "utf8") + 1;
+  if (typeof valore === "number") return 8;
+  if (typeof valore === "boolean") return 1;
+  if (Array.isArray(valore)) return valore.reduce((n, v) => n + byteDi(v), 0);
+  if (typeof valore === "object") {
+    return Object.entries(valore as Record<string, unknown>).reduce(
+      (n, [k, v]) => n + Buffer.byteLength(k, "utf8") + 1 + byteDi(v), 0);
+  }
+  return 8;
+}
+
+export function byteDiUnaVoce(uid: string, c: SchedaCompatta): number {
+  return Buffer.byteLength(uid, "utf8") + 1 + byteDi(c);
+}
+
+export function byteDellIstantanea(ist: Istantanea): number {
+  // Il nome del documento e i 32 byte che Firestore aggiunge a ogni documento.
+  return Buffer.byteLength("cerchio_adesso/istantanea", "utf8") + 1 + 32 +
+    byteDi(ist);
+}
+
+export const LIMITE_DI_UN_DOCUMENTO = 1_048_576;
+
+/**
+ * **QUANTI PRESENTI STANNO NELL'ISTANTANEA, misurati.** La voce piu' grande
+ * possibile (identificativo di 28 caratteri, nome di 20 lettere accentate,
+ * sigillo, l'icona e il segno piu' lunghi, l'arte piu' lunga) pesa 172 byte:
+ * un mebibyte ne terrebbe 6.096. Il tetto dichiarato e' cinquemila, che
+ * pieni di voci grandi occupano l'82 per cento del limite: la prova
+ * `L'ISTANTANEA STA NEL SUO DOCUMENTO` misura l'istantanea piena e cade
+ * sopra l'85 per cento, PRIMA del limite (basta un campo in piu' per voce). Oltre i
+ * cinquemila presenti l'istantanea si tronca (e lo dice, `troncata`), e il
+ * giorno che serviranno andra' spezzata come la presenza: in frammenti.
+ */
+export const PRESENZE_NELL_ISTANTANEA = 5000;
 
 export interface Istantanea {
   quando: number;
+  /** Tutti i presenti dentro la finestra, invisibili compresi. */
+  totale: number;
   /** Le presenze aggregate per arte: chi e' invisibile non conta. */
   perArte: Record<string, number>;
-  /** Al massimo ventiquattro presenti visibili a tutti e maggiorenni. */
-  vetrina: Presenza[];
+  /**
+   * I presenti non invisibili, con la loro scheda compatta. **Non esce mai
+   * dal server**: la tendina ne restituisce solo gli amici di chi chiede.
+   */
+  presenti: Record<string, SchedaCompatta>;
+  /** Chi e' presente ma invisibile: solo l'identificativo, per il conto. */
+  nascosti: string[];
+  troncata: boolean;
 }
 
+/**
+ * Costruisce l'istantanea dai frammenti, e dice quali voci sono scadute da
+ * piu' di un'ora (le toglie la ricostruzione, cosi' i frammenti non crescono)
+ * e quali frammenti restano VUOTI (senza voci, oppure con le sole voci
+ * scadute): la ricostruzione li cancella. Un frammento che non esiste e'
+ * `undefined` nell'elenco.
+ *
+ * **PERCHE' I VUOTI SI CANCELLANO, ordine FB voce 01.** La ricostruzione legge
+ * i frammenti che esistono, non tutti e novantasei: con una persona sola
+ * presente legge il turno e un frammento. Nella prima stesura di questa voce
+ * li leggeva sempre tutti, e con pochi presenti costava piu' dell'ordine FA:
+ * 2,90 euro al mese contro 0,51 con una persona presente tutto il mese, 6,81
+ * contro 6,50 con cento (`docs/collaudo/FB/i_costi_in_euro.txt`). R14 vuole
+ * che nessuna voce aumenti il costo, a nessuna scala.
+ */
 export function costruisciLIstantanea(args: {
-  perArte: Record<string, number>;
-  candidati: Presenza[];
+  frammenti: (Record<string, SchedaCompatta> | undefined)[];
   adessoMs: number;
-}): Istantanea {
+  confineMs: number;
+}): {
+  istantanea: Istantanea;
+  scadute: {frammento: number; uid: string}[];
+  vuoti: number[];
+} {
   const perArte: Record<string, number> = {};
-  for (const [arte, quanti] of Object.entries(args.perArte)) {
-    if (quanti > 0) perArte[arte] = quanti;
-  }
-  const vetrina = args.candidati
-    .filter((p) => p.visibilita === "tutti" && p.maggiorenne)
-    .slice(0, VETRINA_DELL_ISTANTANEA);
-  return {quando: args.adessoMs, perArte, vetrina};
+  const presenti: Record<string, SchedaCompatta> = {};
+  const nascosti: string[] = [];
+  const scadute: {frammento: number; uid: string}[] = [];
+  let totale = 0;
+  let quanti = 0;
+  let troncata = false;
+  const vuoti: number[] = [];
+  args.frammenti.forEach((voci, frammento) => {
+    if (voci === undefined) return;
+    const tutte = Object.keys(voci).length;
+    let viaDaQui = 0;
+    for (const [uid, c] of Object.entries(voci)) {
+      const u = typeof c?.u === "number" ? c.u : null;
+      if (u === null || u < args.confineMs) {
+        if (u === null || u < args.adessoMs - 60 * 60 * 1000) {
+          scadute.push({frammento, uid});
+          viaDaQui++;
+        }
+        continue;
+      }
+      if (typeof c.v !== "string") continue;
+      totale++;
+      if (c.v === "invisibile") {
+        nascosti.push(uid);
+        continue;
+      }
+      const arte = arteValida(c.a);
+      perArte[arte] = (perArte[arte] ?? 0) + 1;
+      if (quanti >= PRESENZE_NELL_ISTANTANEA) {
+        troncata = true;
+        continue;
+      }
+      presenti[uid] = c;
+      quanti++;
+    }
+    if (viaDaQui === tutte) vuoti.push(frammento);
+  });
+  return {
+    istantanea: {quando: args.adessoMs, totale, perArte, presenti, nascosti,
+      troncata},
+    scadute,
+    vuoti,
+  };
+}
+
+/** I presenti dell'istantanea, come presenze. */
+export function presentiDi(ist: Istantanea): Presenza[] {
+  return Object.entries(ist.presenti ?? {}).flatMap(([uid, c]) => {
+    const p = scompatta(uid, c);
+    return p ? [p] : [];
+  });
 }
 
 /**
@@ -641,7 +820,7 @@ export function somiglianti(args: {
   affinitaAlta: (segnoA: string, segnoB: string) => boolean;
 }): {persona: Presenza; criterio: CriterioDiSomiglianza}[] {
   const fuori: {persona: Presenza; criterio: CriterioDiSomiglianza}[] = [];
-  for (const p of args.istantanea.vetrina) {
+  for (const p of presentiDi(args.istantanea)) {
     if (p.uid === args.chiGuarda || args.esclusi.has(p.uid)) continue;
     if (p.visibilita !== "tutti" || !p.maggiorenne) continue;
     let criterio: CriterioDiSomiglianza | null = null;
@@ -695,31 +874,36 @@ export function somiglianti(args: {
 export const LETTURE_FISSE_DI_UN_APERTURA = 4;
 
 /**
- * **GLI AMICI PRESENTI NELLA TENDINA SONO AL MASSIMO SEI, ordine FA voce 05.**
- * La soglia dell'Architetto: non piu' di dieci letture per apertura. Le
- * fisse sono quattro (il tetto della porta, l'identita', i legami, i
- * blocchi); gli amici presenti si leggono con UNA domanda sulle presenze che
- * portano chi guarda fra i loro amici, chiusa a sei: quattro piu' sei fa
- * dieci, qualunque sia il numero degli amici. La ricostruzione
- * dell'istantanea non conta: e' una spesa sola ogni trenta secondi per tutto
- * il Cerchio, condivisa, che non cresce con chi guarda.
+ * **TUTTI GLI AMICI NELLA TENDINA, ordine FB voce 01.** Il tetto dei sei amici
+ * dell'ordine FA e' tolto: gli amici presenti il server li trova INCROCIANDO
+ * IN MEMORIA l'istantanea con i legami di chi chiede, che legge gia'. Un
+ * amico presente costa zero letture, sei come centocinquanta. La soglia
+ * dell'Architetto resta dieci letture per apertura, e adesso vale davvero per
+ * qualunque numero di amici: le letture di un'apertura sono le quattro fisse.
+ * La ricostruzione dell'istantanea non conta: una sola ogni trenta secondi
+ * per tutto il Cerchio, condivisa.
  */
-export const AMICI_NELLA_TENDINA = 6;
 export const SOGLIA_DELLE_LETTURE_PER_APERTURA = 10;
 
-export function lettureDegliAmici(amici: number, amiciPresenti: number): number {
-  if (amici <= 0) return 0;
-  return Math.max(1, Math.min(amiciPresenti, AMICI_NELLA_TENDINA));
+/** Gli amici presenti costano zero letture: si incrociano in memoria. */
+export function lettureDegliAmici(_amici: number, _amiciPresenti: number): number {
+  return 0;
 }
 
+/**
+ * Le letture di una ricostruzione: prima (ordine EZ) una per persona; poi
+ * (ordine EZ voce 03) quattordici aggregazioni e la vetrina; adesso (ordine
+ * FB) il turno della ricostruzione e i frammenti che esistono: al piu' uno
+ * per presente e al piu' novantasei, qualunque sia il numero dei presenti
+ * (una domanda che non trova niente costa comunque una lettura).
+ */
 export function lettureDellaRicostruzione(presenti: number): {
   prima: number;
   dopo: number;
 } {
-  const conteggi = ARTI_DELLA_PRESENZA.length * Math.max(1, Math.ceil(presenti / 1000));
   return {
     prima: presenti + 1,
-    dopo: conteggi + Math.max(1, Math.min(VETRINA_DELL_ISTANTANEA, presenti)),
+    dopo: 1 + Math.max(1, Math.min(FRAMMENTI_DELLA_PRESENZA, presenti)),
   };
 }
 
@@ -746,16 +930,20 @@ export function lettureAllOra(args: {
   const unAperturaPrima = LETTURE_FISSE_DI_UN_APERTURA + 1;
   const unAperturaDopo =
     LETTURE_FISSE_DI_UN_APERTURA + lettureDegliAmici(args.amici, args.amiciPresenti);
+  // L'istantanea l'apertura la rilegge al massimo (una per istanza ogni
+  // trenta secondi) e non la ricostruisce mai: la ricostruzione la fa il
+  // passo della presenza (ordine FB voce 01).
   const conteggioDelPasso = Math.max(1, Math.ceil(args.presenti / 1000));
   return {
     prima: Math.round(args.aperturePerOra * unAperturaPrima + quota * ricostruzione.prima),
     dopo: Math.round(args.aperturePerOra * unAperturaDopo +
       quota * (1 + ricostruzione.dopo)),
     unAperturaPrima: unAperturaPrima + ricostruzione.prima,
-    unAperturaDopo: unAperturaDopo + 1 + ricostruzione.dopo,
+    unAperturaDopo: unAperturaDopo + 1,
     passoPrima: 60 * (1 + conteggioDelPasso),
-    // Il primo passo legge l'identita' e, dall'ordine FA, i legami.
-    passoDopo: 60 * conteggioDelPasso + 2,
+    // Il primo passo legge l'identita'; il numero dei presenti viene
+    // dall'istantanea in memoria (ordine FB), non da un'aggregazione.
+    passoDopo: 1 + 0 * conteggioDelPasso,
     viaIngenua: args.aperturePerOra * args.presenti * 2,
   };
 }

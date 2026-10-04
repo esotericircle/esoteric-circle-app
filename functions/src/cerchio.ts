@@ -6,15 +6,17 @@ import * as logger from "firebase-functions/logger";
 // 2026) e spegne l'avviso EBADENGINE sul PC del fondatore, che gira Node 24.
 import {createHash} from "node:crypto";
 import {initializeApp} from "firebase-admin/app";
-import {getFirestore, FieldValue, Timestamp} from "firebase-admin/firestore";
-import {confineDellaPresenza, quantiDaMostrare} from "./presenza";
+import {getFirestore, FieldValue} from "firebase-admin/firestore";
+import {quantiDaMostrare} from "./presenza";
 import {getAuth} from "firebase-admin/auth";
 import {chiaveDelGiorno} from "./giorno";
 import {scriviIlMessaggio} from "./doppioni";
 import {
   cancellaIlSociale,
   invitoDalRiscatto,
+  istantanea,
   rinnovaLaScheda,
+  scriviLaPresenza,
 } from "./il_cerchio_sociale";
 import {arteValida, leggiIlCodiceDellInvito} from "./sociale";
 import {
@@ -1146,6 +1148,14 @@ export const attivaIlPianoInDemo = onCall(
  * una sottoraccolta non crea il documento dell'utente, quindi non fa credere
  * a `esisteIlCerchio` che esista un Cerchio che non c'e'.
  *
+ * **DALL'ORDINE FB VOCE 01 NON E' PIU' COSI'**: la presenza sta nella voce
+ * della persona dentro un frammento condiviso (`cerchio_presenze/{k}`, vedi
+ * `scriviLaPresenza`), e fuori dal ramo di chi chiama. Per questo le due porte
+ * che cancellano (`azzeraIDatiDelCerchio` e `cancellaIlCerchio`) passano da
+ * `cancellaIlSociale`, che toglie anche la voce, e il ramo dei quattordici
+ * anni la toglie a parte. Una voce che nessuno toglie esce dal conto alla
+ * fine della finestra e dal frammento dopo un'ora, alla ricostruzione.
+ *
  * Poi si contano le presenze piu' giovani della finestra (`presenza.ts`) con
  * un conto aggregato: al telefono torna un numero e basta, mai l'elenco di
  * chi c'e'. Il conto sul gruppo `presenza` vuole il suo indice, dichiarato in
@@ -1163,12 +1173,11 @@ export const attivaIlPianoInDemo = onCall(
 export const chiEOnline = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
   const uid = uidDi(request);
   const adesso = Date.now();
-  const presenza = utente(uid).collection("presenza").doc("adesso");
   // **CHI ESCE, ESCE DAL CONTO SUBITO.** Ordine EV voce 06: il telefono che
   // va in pausa lo dice, e la sua presenza si toglie invece di restare nel
   // conto degli altri fino alla fine della finestra.
   if ((request.data as {esce?: unknown} | undefined)?.esce === true) {
-    await presenza.delete();
+    await scriviLaPresenza(uid, null);
     return {quanti: 0};
   }
   const corpo = request.data as {arte?: unknown; scheda?: unknown} | undefined;
@@ -1180,31 +1189,34 @@ export const chiEOnline = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
   // ritorno; un telefono vecchio non lo dice, e per lui la scheda si
   // riscrive sempre, com'era. Le porte del profilo aggiornano la scheda
   // quando il profilo cambia (`aggiornaLaSchedaDellaPresenza`).
+  //
+  // **LA PRESENZA STA NEL SUO FRAMMENTO, ordine FB voce 01**: la stessa
+  // scrittura di prima, nel documento condiviso dove la ricostruzione
+  // dell'istantanea la trova senza leggere le persone una per una.
   const conScheda = corpo?.scheda !== false;
+  let contata = true;
   if (conScheda) {
     const scheda = await rinnovaLaScheda(uid, arte);
     if (scheda === null) {
       // Sotto i quattordici anni nessuna presenza (ordine EZ voce 04): il
       // numero si legge, la persona non si conta e non compare.
-      await presenza.delete();
+      await scriviLaPresenza(uid, null);
+      contata = false;
     } else {
-      await presenza.set({...scheda, ultimo: Timestamp.fromMillis(adesso)});
+      await scriviLaPresenza(uid, {...scheda, u: adesso});
     }
   } else {
-    try {
-      // Il passo senza scheda aggiorna solo l'arte e l'ora, e solo se la
-      // presenza c'e': non la crea mai senza la sua scheda.
-      await presenza.update({arte, ultimo: Timestamp.fromMillis(adesso)});
-    } catch (senzaPresenza) {
-      logger.debug("chiEOnline: il passo aspetta la scheda.", {uid});
-    }
+    // Il passo senza scheda aggiorna solo l'arte e l'ora.
+    await scriviLaPresenza(uid, {a: arte, u: adesso});
   }
-  const conto = await db
-    .collectionGroup("presenza")
-    .where("ultimo", ">=", Timestamp.fromMillis(confineDellaPresenza(adesso)))
-    .count()
-    .get();
-  return {quanti: quantiDaMostrare(conto.data().count)};
+  // **IL NUMERO DALL'ISTANTANEA, ordine FB voce 01**: non piu' un'aggregazione
+  // a ogni passo. L'istantanea ha al massimo trenta secondi: chi e' appena
+  // arrivato si conta da se', finche' la ricostruzione non lo trova.
+  const ist = await istantanea({ricostruisci: true});
+  const giaDentro = ist.presenti?.[uid] !== undefined ||
+    (ist.nascosti ?? []).includes(uid);
+  return {quanti: quantiDaMostrare(ist.totale +
+    (contata && !giaDentro ? 1 : 0))};
 });
 
 export const azzeraIDatiDelCerchio = onCall(

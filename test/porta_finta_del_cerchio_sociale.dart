@@ -10,12 +10,17 @@ class PortaFintaDelCerchioSociale extends PortaSpentaDelCerchio {
     this.sigillo = 'K7Q2',
     this.amici = true,
     this.confrontoConcesso = true,
+    this.amiciPresenti,
   });
 
   final String nome;
   final String sigillo;
   final bool amici;
   final bool confrontoConcesso;
+
+  /// Gli amici presenti che la tendina riceve; nulla vuol dire la sola
+  /// Stella Lieve (ordine FB voce 01: la prova coi centocinquanta).
+  final List<Map<String, Object?>>? amiciPresenti;
 
   /// Ogni porta chiesta, col suo corpo.
   final List<(String, Map<String, Object?>)> chieste = [];
@@ -125,21 +130,27 @@ class PortaFintaDelCerchioSociale extends PortaSpentaDelCerchio {
             },
           ],
           'doni': [
-            {'id': 'd1', 'dono': 'scintilla', 'da': 'u-stella', 'nomeDa': 'Stella Lieve'},
+            {
+              'id': 'd1',
+              'dono': 'scintilla',
+              'da': 'u-stella',
+              'nomeDa': 'Stella Lieve'
+            },
           ],
         });
       case 'laTendinaDelCerchio':
-        return const EsitoSociale(dati: {
-          'amiciPresenti': [
-            {
-              'uid': 'u-stella',
-              'nome': 'Stella Lieve',
-              'icona': 'animale:6',
-              'segno': 'pisces',
-              'maestro': 'aura',
-              'arte': 'tarocchi',
-            },
-          ],
+        return EsitoSociale(dati: {
+          'amiciPresenti': amiciPresenti ??
+              const [
+                {
+                  'uid': 'u-stella',
+                  'nome': 'Stella Lieve',
+                  'icona': 'animale:6',
+                  'segno': 'pisces',
+                  'maestro': 'aura',
+                  'arte': 'tarocchi',
+                },
+              ],
           'perArte': {'tarocchi': 14, 'viaggio': 7, 'cerchio': 3, 'rune': 5},
           'somiglianti': [
             {
