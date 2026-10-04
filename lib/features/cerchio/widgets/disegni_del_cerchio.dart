@@ -572,8 +572,10 @@ class _PittoreDelDono extends CustomPainter {
 /// Scorpione" e "luce di scorpione" sono lo stesso nome per l'occhio.
 ///
 /// Ogni schermata del Cerchio avvolge il suo elenco con le persone che ci
-/// sono dentro (la tendina, il tuo Cerchio, le persone bloccate), e la riga
-/// di una persona (`NomeDellaPersona`) chiede qui se il suo nome e' doppio.
+/// sono dentro (la tendina, il tuo Cerchio), e la riga di una persona
+/// (`NomeDellaPersona`) chiede qui se il suo nome e' doppio. Le persone
+/// bloccate no: dall'ordine FB voce 02 portano il sigillo sempre
+/// (`NomeDellaPersona.sempre`).
 class ElencoDelCerchio extends InheritedWidget {
   ElencoDelCerchio({
     super.key,
@@ -617,33 +619,73 @@ class NomeDellaPersona extends StatelessWidget {
     required this.nome,
     required this.sigillo,
     required this.stile,
+    this.sempre = false,
   });
 
   final String nome;
   final String? sigillo;
   final TextStyle stile;
 
+  /// **IL SIGILLO SEMPRE, ordine FB voce 02.** Solo l'elenco delle
+  /// persone bloccate lo chiede: e' l'unico elenco in cui un errore di
+  /// persona fa un danno, perche' sbloccare la persona sbagliata riapre la
+  /// porta a chi si era voluto tenere fuori. Altrove resta la regola
+  /// dell'ordine FA voce 04: il sigillo solo quando due nomi coincidono.
+  final bool sempre;
+
   @override
   Widget build(BuildContext context) {
     final conSigillo = sigillo != null &&
         sigillo!.isNotEmpty &&
-        ElencoDelCerchio.eDoppio(context, nome);
+        (sempre || ElencoDelCerchio.eDoppio(context, nome));
     final piccolo = TypographyTokens.didascalia()
         .copyWith(color: ColorTokens.textSecondary);
-    return Text.rich(
-      TextSpan(children: [
-        TextSpan(text: nome, style: stile),
-        if (conSigillo)
-          TextSpan(
-              text: '  $sigillo',
-              style: piccolo.copyWith(
-                  fontSize: (piccolo.fontSize ?? 12) <= (stile.fontSize ?? 16)
-                      ? piccolo.fontSize
-                      : stile.fontSize)),
-      ]),
-      key: conSigillo ? Key('sigillo_accanto_a_$nome') : null,
-      overflow: TextOverflow.ellipsis,
-      maxLines: 1,
+    final nomeSolo =
+        Text(nome, style: stile, overflow: TextOverflow.ellipsis, maxLines: 1);
+    if (!conSigillo) return nomeSolo;
+    final stileDelSigillo = piccolo.copyWith(
+        fontSize: (piccolo.fontSize ?? 12) <= (stile.fontSize ?? 16)
+            ? piccolo.fontSize
+            : stile.fontSize);
+    if (sempre) {
+      // Fra i bloccati la riga e' stretta (il pallino rosso e "Sblocca"):
+      // accanto al nome il sigillo lo riduceva a "Brina Lu...", e una
+      // persona che non si riconosce dal nome non si distingue nemmeno col
+      // sigillo. Qui il nome sta intero sopra, fino a due righe, e il
+      // sigillo sotto, com'era prima dell'ordine FA.
+      return Column(
+        key: Key('sigillo_accanto_a_$nome'),
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(nome,
+              style: stile, overflow: TextOverflow.ellipsis, maxLines: 2),
+          Text(sigillo!,
+              key: Key('il_sigillo_$sigillo'),
+              maxLines: 1,
+              softWrap: false,
+              style: stileDelSigillo),
+        ],
+      );
+    }
+    // **IL SIGILLO NON SI TAGLIA, ordine FB voce 02.** Con l'ordine FA nome
+    // e sigillo stavano in un solo testo coi puntini in coda: dove la riga
+    // era stretta (fra i bloccati, accanto a "Sblocca") i puntini mangiavano
+    // proprio il sigillo, e la persona restava indistinguibile. Adesso si
+    // accorcia il nome, e il sigillo resta intero.
+    return Row(
+      key: Key('sigillo_accanto_a_$nome'),
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
+      children: [
+        Flexible(child: nomeSolo),
+        Text('  $sigillo',
+            key: Key('il_sigillo_$sigillo'),
+            maxLines: 1,
+            softWrap: false,
+            style: stileDelSigillo),
+      ],
     );
   }
 }

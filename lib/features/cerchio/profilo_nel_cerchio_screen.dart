@@ -330,17 +330,20 @@ class _ProfiloNelCerchioScreenState extends State<ProfiloNelCerchioScreen> {
                       decoration: const BoxDecoration(
                           shape: BoxShape.circle, color: Color(0xFFE5484D)),
                     ),
-                    // Il sigillo accanto al nome solo quando due persone
-                    // bloccate si chiamano allo stesso modo (ordine FA voce
-                    // 04): prima lo portava sempre, sotto il nome.
-                    title: ElencoDelCerchio(
-                      persone: sociale.cerchio.bloccati,
-                      child: NomeDellaPersona(
-                          nome: b.nome,
-                          sigillo: b.sigillo,
-                          stile: TypographyTokens.corpo()
-                              .copyWith(color: ColorTokens.textPrimary)),
-                    ),
+                    // **IL SIGILLO SEMPRE, ordine FB voce 02**: questo e'
+                    // l'unico elenco in cui un errore di persona fa un
+                    // danno, perche' sbloccare la persona sbagliata riapre
+                    // la porta a chi si era voluto tenere fuori. Qui il
+                    // sigillo sta sotto ogni nome, anche senza nomi
+                    // uguali; negli altri elenchi resta la regola
+                    // dell'ordine FA voce 04 (solo quando due nomi
+                    // coincidono).
+                    title: NomeDellaPersona(
+                        nome: b.nome,
+                        sigillo: b.sigillo,
+                        sempre: true,
+                        stile: TypographyTokens.corpo()
+                            .copyWith(color: ColorTokens.textPrimary)),
                     trailing: TextButton(
                       style: TextButton.styleFrom(
                           foregroundColor: MaestroPalette.neutral.goldSoft),
