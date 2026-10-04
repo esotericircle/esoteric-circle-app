@@ -7,13 +7,10 @@ import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/horoscope/astro_tradition.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
-import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
-import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
-import 'package:esoteric_circle/features/amici/l_oroscopo_dell_amico_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -29,6 +26,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 ///
 /// Si legge l'ordine da sinistra a destra delle tre tradizioni nei due
 /// oroscopi montati, e si pretende che sia lo stesso.
+import 'l_oroscopo_di_un_amico_nelle_prove.dart';
+
 void main() {
   const tre = [
     AstroTradition.occidentale,
@@ -87,28 +86,24 @@ void main() {
     await tester.pump(const Duration(milliseconds: 600));
     final dellaPersona = inFila(tester, 'oroscopo_tradition_');
 
-    await tester.pumpWidget(MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-            create: (_) => EntitlementService(initial: Tier.tier1)),
-      ],
-      child: MaterialApp(
-          theme: AppTheme.dark(),
-          home: MaestroScope(
-              maestro: Maestro.medora,
-              child: LOroscopoDellAmicoScreen(
-                  amico: Amico(
-                      id: 'l',
-                      nome: 'Lucia',
-                      nascita: DateTime(1990, 1, 12),
-                      ora: '08:10'),
-                  adesso: DateTime(2026, 10, 1, 12)))),
-    ));
+    // LAPIDE, ordine FC voce 02: qui si montava la schermata dell'amico,
+    // che aveva la sua riga delle tradizioni (`amico_tradizione_`) scritta a
+    // parte, e l'ordine era diverso da quello della persona (visto sul Realme
+    // il 1 ottobre 2026). Adesso l'oroscopo di un amico e' l'Oroscopo: la
+    // riga e' la stessa, e la prova resta a sorvegliare che lo resti.
+    await tester.pumpWidget(lOroscopoDiUnAmico(
+        Amico(
+            id: 'l',
+            nome: 'Lucia',
+            nascita: DateTime(1990, 1, 12),
+            ora: '08:10'),
+        tier: Tier.tier1,
+        adesso: DateTime(2026, 10, 1, 12)));
     await tester.pump();
     await tester
         .runAsync(() => Future<void>.delayed(const Duration(milliseconds: 50)));
     await tester.pump(const Duration(milliseconds: 300));
-    final dellAmico = inFila(tester, 'amico_tradizione_');
+    final dellAmico = inFila(tester, 'oroscopo_tradition_');
     print('LE TRADIZIONI DELL\'AMICO: della persona '
         '${dellaPersona.map((t) => t.label).join(', ')}; dell\'amico '
         '${dellAmico.map((t) => t.label).join(', ')}');

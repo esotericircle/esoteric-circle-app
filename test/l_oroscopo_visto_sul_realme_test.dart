@@ -30,6 +30,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
 import 'cardinale_minimo.dart';
+import 'il_gesto_nelle_prove.dart';
 
 /// **L'OROSCOPO COME SI VEDE SUL REALME.** Ordine ES, 30 settembre 2026.
 ///
@@ -258,6 +259,8 @@ void main() {
     await tester.tap(anno);
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));
+    // Ordine FC voce 03: l'anno si legge col gesto, sempre.
+    expect(await interrogaSeCe(tester), isTrue);
     expect(find.byKey(const Key('oroscopo_anno_riga')), findsOneWidget);
     final fortuna = find.byKey(const Key('oroscopo_card_fortuna'));
     await tester.dragUntilVisible(
@@ -321,6 +324,9 @@ void main() {
       await tester.tap(scheda);
       await tester.pump();
       await tester.pump(const Duration(milliseconds: 600));
+      // Ordine FC voce 03: il periodo si legge col gesto, sempre.
+      expect(await interrogaSeCe(tester), isTrue,
+          reason: '${p.name}: manca il gesto');
       // La lista e' pigra e la vista del periodo e' lunga: il gesto sta in
       // fondo, e si scorre finche' non nasce.
       final gesto = find.byKey(Key('oroscopo_condividi_${p.name}'));

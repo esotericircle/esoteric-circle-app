@@ -6,6 +6,7 @@ import 'package:esoteric_circle/core/ricordi/scrigno_dei_custoditi.dart';
 import 'package:esoteric_circle/core/ricordi/voce_del_ricordo.dart';
 import 'package:esoteric_circle/features/ricordi/ricordi_screen.dart';
 import 'dart:async';
+import 'il_gesto_nelle_prove.dart';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math' show Random;
@@ -127,7 +128,6 @@ import 'package:esoteric_circle/core/amici/amici_offline.dart';
 import 'package:esoteric_circle/core/horoscope/l_annuale.dart';
 import 'package:esoteric_circle/core/horoscope/la_rivoluzione_solare.dart';
 import 'package:esoteric_circle/core/horoscope/la_settimana_del_cielo.dart';
-import 'package:esoteric_circle/features/amici/l_oroscopo_dell_amico_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_share_card.dart';
 import 'package:esoteric_circle/features/synastry/sinastria_gallery_screen.dart';
@@ -3354,6 +3354,10 @@ void main() {
       await tester.tap(find.byKey(Key('oroscopo_period_$nome')));
       await step(tester);
       await step(tester);
+      // Ordine FC voce 03: il periodo si legge col gesto, sempre.
+      expect(await interrogaSeCe(tester), isTrue,
+          reason: 'il periodo $nome non ha il gesto');
+      await step(tester);
       expect(find.byKey(Key(chiave)), findsOneWidget,
           reason: 'il periodo $nome non si e\' aperto');
       await capture(tester, rootKey, file);
@@ -3494,7 +3498,9 @@ void main() {
     nav.pop();
     await step(tester);
     await montaLoSchermo(tester, const Size(360, 2080));
-    unawaited(nav.push(LOroscopoDellAmicoScreen.route(
+    // Ordine FC voce 02: l'oroscopo di un amico e' l'Oroscopo, col soggetto
+    // impostato su di lui.
+    unawaited(nav.push(OroscopoScreen.perUnAmico(
         Amico(id: 'lucia', nome: 'Lucia', nascita: DateTime(1990, 1, 12)))));
     await step(tester);
     await step(tester);

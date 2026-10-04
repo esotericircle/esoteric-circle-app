@@ -74,9 +74,10 @@ void main() {
       'lib/features/rituals/dream_rite_screen.dart',
       'lib/features/rituals/sunset_rune_screen.dart',
       'lib/features/synastry/sinastria_vip_screen.dart',
-      // Ordine ES voci 12 e 35: l'oroscopo mandato a un amico e la
-      // rivelazione del segno condividono una card anche loro.
-      'lib/features/amici/l_oroscopo_dell_amico_screen.dart',
+      // Ordine ES voce 35: la rivelazione del segno condivide una card anche
+      // lei. LAPIDE, ordine FC voce 02: qui stava anche la schermata
+      // dell'oroscopo dell'amico; adesso l'oroscopo di un amico e'
+      // l'Oroscopo (la prima riga), e paga il premio dallo stesso punto.
       'lib/features/horoscope/la_rivelazione_del_segno.dart',
     ];
     for (final percorso in chiamanti) {

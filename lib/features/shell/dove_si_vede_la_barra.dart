@@ -109,7 +109,6 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   'InvitaNelCerchioScreen': PresenzaDellaBarra.assente,
   'SchedaDellAmicoScreen': PresenzaDellaBarra.assente,
   'ConfrontoDelCieloScreen': PresenzaDellaBarra.assente,
-  'LOroscopoDellAmicoScreen': PresenzaDellaBarra.assente,
   'SkyOverviewScreen': PresenzaDellaBarra.assente,
   'AngelsScreen': PresenzaDellaBarra.assente,
   'SinastriaGalleryScreen': PresenzaDellaBarra.assente,

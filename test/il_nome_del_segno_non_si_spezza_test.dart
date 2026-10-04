@@ -1,22 +1,18 @@
 // ignore_for_file: avoid_print
 import 'package:esoteric_circle/core/amici/amici_offline.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
-import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
-import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/horoscope/astro_tradition.dart';
 import 'package:esoteric_circle/core/horoscope/i_segni_delle_tradizioni.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
-import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/design_system/tokens/spacing_tokens.dart';
-import 'package:esoteric_circle/features/amici/l_oroscopo_dell_amico_screen.dart';
 import 'package:esoteric_circle/features/horoscope/la_testa_della_tradizione.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:provider/provider.dart';
 
 import 'cardinale_minimo.dart';
+import 'l_oroscopo_di_un_amico_nelle_prove.dart';
 
 /// **IL NOME DEL SEGNO NON SI SPEZZA, E IL SEGNO DI UN AMICO E' IL SUO.**
 /// Ordine ES voci 10 e 12, 30 settembre 2026.
@@ -154,19 +150,11 @@ void main() {
     tester.view.physicalSize = const Size(360, 2400);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
-    await tester.pumpWidget(MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-            create: (_) => EntitlementService(initial: Tier.tier3)),
-      ],
-      child: MaterialApp(
-          home: MaestroScope(
-              maestro: Maestro.medora,
-              child: LOroscopoDellAmicoScreen(
-                  amico: Amico(
-                      id: 'l', nome: 'Lucia', nascita: DateTime(1990, 1, 12)),
-                  adesso: DateTime(2026, 9, 30, 12)))),
-    ));
+    // LAPIDE, ordine FC voce 02: qui si montava la schermata dell'amico;
+    // adesso e' l'Oroscopo col soggetto impostato su Lucia.
+    await tester.pumpWidget(lOroscopoDiUnAmico(
+        Amico(id: 'l', nome: 'Lucia', nascita: DateTime(1990, 1, 12)),
+        adesso: DateTime(2026, 9, 30, 12)));
     await tester.pump(const Duration(milliseconds: 300));
     final viste = <String>[];
     for (final (t, attesa) in const [
@@ -174,8 +162,15 @@ void main() {
       ('cinese', 'Il segno cinese di Lucia è il Serpente'),
       ('vedica', 'Il segno vedico di Lucia è Karka (Cancro)'),
     ]) {
-      await tester.tap(find.byKey(Key('amico_tradizione_$t')));
+      final chip = find.byKey(Key('oroscopo_tradition_$t'));
+      await tester.ensureVisible(chip);
+      await tester.tap(chip);
       await tester.pump(const Duration(milliseconds: 300));
+      final frasi = find.byKey(Key('oroscopo_frase_$t'));
+      if (frasi.evaluate().isEmpty) {
+        await tester.scrollUntilVisible(frasi, -300,
+            scrollable: find.byType(Scrollable).first);
+      }
       final frase =
           tester.widget<Text>(find.byKey(Key('oroscopo_frase_$t'))).data!;
       viste.add(frase);

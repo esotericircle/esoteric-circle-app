@@ -13,7 +13,6 @@ import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
-import 'package:esoteric_circle/features/amici/l_oroscopo_dell_amico_screen.dart';
 import 'package:esoteric_circle/features/horoscope/il_periodo_view.dart';
 import 'package:esoteric_circle/features/horoscope/la_rivelazione_del_segno.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
@@ -34,9 +33,8 @@ import 'cardinale_minimo.dart';
 /// dell'amico, che ha solo il giorno, si apre col gesto anche lui.
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
-  // La suite lo spegne (`flutter_test_config.dart`): qui si riaccende.
-  setUpAll(() => InterrogaIlCielo.ancheFuoriDalGiorno = true);
-  tearDownAll(() => InterrogaIlCielo.ancheFuoriDalGiorno = false);
+  // LAPIDE, ordine FC voce 03: qui si riaccendeva l'interruttore del gesto
+  // che la suite spegneva; l'interruttore non c'e' piu'.
 
   Future<void> monta(WidgetTester tester, Widget home) async {
     // La rivelazione del segno gia' vista: e' un'altra scena, e la sua
@@ -116,80 +114,92 @@ void main() {
     }
   }
 
-  testWidgets('ogni periodo con una lettura si apre col gesto', (tester) async {
-    final righe = <String>[];
-    var conGesto = 0, guardati = 0, senzaTocco = 0;
-    final perTradizione = <AstroTradition, int>{};
-    for (final t in const [
-      AstroTradition.occidentale,
-      AstroTradition.vedica,
-      AstroTradition.cinese,
-    ]) {
-      for (final p in HoroscopePeriod.values) {
-        await monta(
-            tester,
-            OroscopoScreen(
-                userSign: Zodiac.cancer, now: DateTime(2026, 10, 3)));
-        if (t != AstroTradition.occidentale) {
-          final chip = find.byKey(Key('oroscopo_tradition_${t.name}'));
-          await tester.ensureVisible(chip);
-          await tester.tap(chip);
-          for (var i = 0; i < 8; i++) {
-            await tester.pump(const Duration(milliseconds: 250));
-          }
-        }
-        final tab = find.byKey(Key('oroscopo_period_${p.name}'));
-        await tester.ensureVisible(tab);
-        await tester.tap(tab);
-        await tester.pump();
-        await tester.pump(const Duration(milliseconds: 600));
-        final primaLetture = letture();
-        final primaGesto = gesto();
-        if (primaGesto) await interroga(tester);
-        final dopoLetture = letture();
-        righe.add(
-            '${t.name} ${p.name}: prima ${primaGesto ? 'gesto' : 'niente'} '
-            '$primaLetture letture, dopo $dopoLetture');
-        if (primaLetture > 0) senzaTocco++;
-        if (primaGesto && dopoLetture > 0) {
-          conGesto++;
-          perTradizione[t] = (perTradizione[t] ?? 0) + 1;
-        }
-        guardati++;
-        await tester.pumpWidget(const SizedBox());
-      }
-    }
-    print('ORDINE EX AGGIUNTA 5, EX.12: ${righe.join('; ')}');
-    print('ORDINE EX AGGIUNTA 5, EX.12: periodi col gesto $conGesto su '
-        '$guardati, per tradizione $perTradizione; letture senza il tocco '
-        '$senzaTocco');
-    cardinaleMinimo(guardati, 12, cosa: 'periodi delle tre tradizioni');
-    expect(senzaTocco, 0, reason: righe.join('\n'));
-    // Quattro periodi su quattro col gesto, in ognuna delle tre tradizioni.
-    for (final t in const [
-      AstroTradition.occidentale,
-      AstroTradition.vedica,
-      AstroTradition.cinese,
-    ]) {
-      expect(perTradizione[t], 4, reason: '${t.name}\n${righe.join('\n')}');
-    }
-  });
+  /// **LO STESSO GIRO PER SE' E PER UN AMICO, ordine FC voce 03**: con la
+  /// porta unica dell'ordine FC voce 02 e' lo stesso codice, e la prova lo
+  /// pretende su tutti e due i soggetti.
+  final amico = Amico(
+      id: 'prova',
+      nome: 'Lucia',
+      nascita: DateTime(1990, 6, 21),
+      ora: '10:30',
+      luogo: 'Roma',
+      lat: 41.9,
+      lon: 12.5,
+      fuso: 'Europe/Rome');
 
-  testWidgets('l\'oroscopo dell\'amico si apre col gesto', (tester) async {
-    final amico = Amico(
-        id: 'prova',
-        nome: 'Lucia',
-        nascita: DateTime(1990, 6, 21),
-        ora: '10:30');
-    await monta(tester,
-        LOroscopoDellAmicoScreen(amico: amico, adesso: DateTime(2026, 10, 3)));
-    expect(letture(), 0, reason: 'le schede dell\'amico prima del tocco');
-    expect(gesto(), isTrue);
-    expect(find.text('Interroga il cielo'), findsOneWidget);
-    await interroga(tester);
-    expect(letture(), greaterThan(0));
-    expect(gesto(), isFalse);
-    print('ORDINE EX AGGIUNTA 5, EX.12: amico, prima 0 schede e il gesto, '
-        'dopo ${letture()} schede');
-  });
+  for (final (soggetto, schermata) in [
+    (
+      'io',
+      () => OroscopoScreen(userSign: Zodiac.cancer, now: DateTime(2026, 10, 3))
+    ),
+    (
+      'amico',
+      () => OroscopoScreen(
+          userSign: Zodiac.fromDate(amico.nascita),
+          amico: amico,
+          now: DateTime(2026, 10, 3))
+    ),
+  ]) {
+    testWidgets('ogni periodo con una lettura si apre col gesto ($soggetto)',
+        (tester) async {
+      final righe = <String>[];
+      var conGesto = 0, guardati = 0, senzaTocco = 0;
+      final perTradizione = <AstroTradition, int>{};
+      for (final t in const [
+        AstroTradition.occidentale,
+        AstroTradition.vedica,
+        AstroTradition.cinese,
+      ]) {
+        for (final p in HoroscopePeriod.values) {
+          await monta(tester, schermata());
+          if (t != AstroTradition.occidentale) {
+            final chip = find.byKey(Key('oroscopo_tradition_${t.name}'));
+            await tester.ensureVisible(chip);
+            await tester.tap(chip);
+            for (var i = 0; i < 8; i++) {
+              await tester.pump(const Duration(milliseconds: 250));
+            }
+          }
+          final tab = find.byKey(Key('oroscopo_period_${p.name}'));
+          await tester.ensureVisible(tab);
+          await tester.tap(tab);
+          await tester.pump();
+          await tester.pump(const Duration(milliseconds: 600));
+          final primaLetture = letture();
+          final primaGesto = gesto();
+          if (primaGesto) await interroga(tester);
+          final dopoLetture = letture();
+          righe.add(
+              '${t.name} ${p.name}: prima ${primaGesto ? 'gesto' : 'niente'} '
+              '$primaLetture letture, dopo $dopoLetture');
+          if (primaLetture > 0) senzaTocco++;
+          if (primaGesto && dopoLetture > 0) {
+            conGesto++;
+            perTradizione[t] = (perTradizione[t] ?? 0) + 1;
+          }
+          guardati++;
+          await tester.pumpWidget(const SizedBox());
+        }
+      }
+      print('ORDINE FC VOCE 03 ($soggetto): ${righe.join('; ')}');
+      print('ORDINE FC VOCE 03 ($soggetto): periodi col gesto $conGesto su '
+          '$guardati, per tradizione $perTradizione; letture senza il tocco '
+          '$senzaTocco');
+      cardinaleMinimo(guardati, 12, cosa: 'periodi delle tre tradizioni');
+      expect(senzaTocco, 0, reason: righe.join('\n'));
+      // Quattro periodi su quattro col gesto, in ognuna delle tre tradizioni.
+      for (final t in const [
+        AstroTradition.occidentale,
+        AstroTradition.vedica,
+        AstroTradition.cinese,
+      ]) {
+        expect(perTradizione[t], 4, reason: '${t.name}\n${righe.join('\n')}');
+      }
+    });
+  }
+
+  // LAPIDE, ordine FC voce 03: qui stava la prova "l'oroscopo dell'amico si
+  // apre col gesto", sulla schermata dell'amico (`LOroscopoDellAmicoScreen`),
+  // che aveva solo il Giorno. La schermata non c'e' piu' (ordine FC voce 02):
+  // l'amico passa dal giro qui sopra, tre tradizioni per quattro periodi.
 }

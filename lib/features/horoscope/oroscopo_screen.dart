@@ -9,7 +9,6 @@ import '../sigilli/regia_del_cammino.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/entitlement/entitlement_service.dart';
-import '../../core/brand/brand.dart';
 import '../../core/entitlement/plan_catalog.dart';
 
 import '../../core/astro/zodiac.dart';
@@ -18,7 +17,6 @@ import '../../core/horoscope/cielo_di_oggi.dart';
 import '../../core/horoscope/corrente_del_cielo.dart';
 import '../../core/horoscope/horoscope.dart';
 import '../../core/horoscope/riflessione_del_cielo.dart';
-import '../../core/identity/natal_identity.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/sensi/catalogo_suoni.dart';
@@ -67,12 +65,12 @@ import '../../core/horoscope/i_testi_eu.dart';
 import '../../core/horoscope/la_rivoluzione_solare.dart';
 import '../../core/horoscope/gli_anni_aperti.dart';
 import '../../core/astro/il_fuso_della_nascita.dart';
-import '../../core/astro/birth_details.dart';
 import '../../core/entitlement/listino_degli_eos.dart';
 import '../../design_system/components/porta_della_spesa.dart';
 import 'il_pdf_dell_anno.dart';
+import 'il_soggetto_dell_oroscopo.dart';
 import 'oroscopo_per.dart';
-import '../amici/l_oroscopo_dell_amico_screen.dart';
+import '../../core/amici/amici_offline.dart';
 import '../amici/amici_screen.dart';
 import '../../core/astro/luogo_attuale.dart';
 import '../../core/lang/euphonic.dart';
@@ -180,7 +178,8 @@ enum HoroscopePeriod {
       'Oroscopo ${etichetta.replaceAll(' ', '\u00A0')}';
 }
 
-/// Oroscopo Personalizzato, la headline di Medora.
+/// L'Oroscopo Universale, la headline di Medora (il nome dall'ordine FC voce
+/// 01; prima "Oroscopo Personalizzato").
 ///
 /// Quattro schede per il segno di nascita della persona (Generale, Amore,
 /// Carriera, Fortuna), ognuna con la sua forma a tema e il livello da 1 a 5,
@@ -188,16 +187,46 @@ enum HoroscopePeriod {
 /// giorno si legge una sola volta qui e si passa come intero ai calcoli, cosi'
 /// l'hash resta puro. Contenuto su dispositivo, senza backend.
 class OroscopoScreen extends StatefulWidget {
-  const OroscopoScreen({super.key, required this.userSign, this.now});
+  const OroscopoScreen(
+      {super.key,
+      required this.userSign,
+      this.now,
+      this.amico,
+      this.apertaDallOroscopo = false});
 
+  /// Il segno solare del soggetto: di chi usa l'app, o dell'amico.
   final Zodiac userSign;
   final DateTime? now;
+
+  /// **L'AMICO DI CUI SI LEGGE, ordine FC voce 02.** Nullo per la lettura
+  /// propria. Cio' che cambia col soggetto sta in [IlSoggettoDellOroscopo], e
+  /// in nessun altro posto.
+  final Amico? amico;
+
+  /// Se la lettura dell'amico e' stata aperta dalla riga "Oroscopo per"
+  /// dell'Oroscopo proprio: allora il nome di chi guarda ci riporta
+  /// indietro; aperta dalla lista degli amici, apre la lettura propria.
+  final bool apertaDallOroscopo;
 
   static Route<void> route({required Zodiac userSign, DateTime? now}) {
     return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
         id: 'horoscope',
         maestro: Maestro.medora,
         child: OroscopoScreen(userSign: userSign, now: now)));
+  }
+
+  /// **L'OROSCOPO DI UN AMICO E' L'OROSCOPO, ordine FC voce 02**: la stessa
+  /// schermata, la stessa soglia, col soggetto impostato sull'amico.
+  static Route<void> perUnAmico(Amico amico,
+      {bool apertaDallOroscopo = false, DateTime? now}) {
+    return PassaggioDelCerchio.rotta<void>((_) => SogliaArte(
+        id: 'horoscope',
+        maestro: Maestro.medora,
+        child: OroscopoScreen(
+            userSign: Zodiac.fromDate(amico.nascita),
+            now: now,
+            amico: amico,
+            apertaDallOroscopo: apertaDallOroscopo)));
   }
 
   @override
@@ -212,6 +241,12 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   late final int _year = _date.year;
 
   HoroscopePeriod _period = HoroscopePeriod.giorno;
+
+  /// **DI CHI E' LA LETTURA, ordine FC voce 02.** La schermata non legge i
+  /// dati di nascita da sola: chiede qui.
+  late final IlSoggettoDellOroscopo _soggetto = widget.amico == null
+      ? IlSoggettoDellOroscopo.io(widget.userSign)
+      : IlSoggettoDellOroscopo.amico(widget.amico!);
 
   /// IL CIELO SI INTERROGA, NON SI APRE GIA' PRONTO. Ordine 2171, voce 5.
   ///
@@ -234,7 +269,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   /// Non si va a cercarlo da nessuna parte: la schermata dell'Oroscopo lo ha
   /// gia' in mano, perche' e' il segno con cui e' stata aperta. Una seconda
   /// via per lo stesso dato sarebbe la solita seconda porta.
-  Zodiac get _segnoDiChiGuarda => widget.userSign;
+  Zodiac get _segnoDiChiGuarda => _soggetto.segno;
 
   /// **LA CORSA RESTA IN SCENA MENTRE SI DISSOLVE. Ordine CC voce 03.**
   ///
@@ -321,7 +356,9 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     ));
     // **IL SIGILLO DEI TRE CIELI, ordine ES voce 37**: la lettura del giorno
     // di questa tradizione entra nel conto di oggi.
-    if (_period == HoroscopePeriod.giorno) {
+    // Il Sigillo e' la pratica di chi usa l'app: leggere un amico non lo
+    // accende (ordine FC voce 02, [IlSoggettoDellOroscopo] punto 6).
+    if (_period == HoroscopePeriod.giorno && !_soggetto.eUnAmico) {
       unawaited(IlSigilloDeiTreCieli.segna(quale, _date).then((stato) {
         if (!mounted) return;
         setState(() => _sigilloDeiTreCieli = stato);
@@ -455,7 +492,14 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     final cinese = _inCima == AstroTradition.cinese;
     final vedica = _inCima == AstroTradition.vedica;
     final cielo = _cieloDelGesto;
-    if (!InterrogaIlCielo.ancheFuoriDalGiorno) return lettura;
+    // **IL GESTO C'E' SEMPRE, ordine FC voce 03.** Qui stava
+    // `if (!InterrogaIlCielo.ancheFuoriDalGiorno) return lettura;`: con
+    // l'interruttore spento la lettura compariva senza gesto e senza
+    // riflessione. Nell'app era acceso, ma era un modo di saltare il rito
+    // scritto nel codice dell'app, e la schermata dell'amico ne aveva una
+    // copia. Il fondatore, 4 ottobre 2026: *"mi compare l'oroscopo di botto,
+    // senza pulsante e senza animazione di riflessione"*. L'interruttore non
+    // c'e' piu': il responso non compare mai da solo.
     return switch (_fase) {
       _FaseDelConsulto.attesa => [
           InterrogaIlCielo(
@@ -496,18 +540,17 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   IlPeriodoDelCielo _periodoDelCielo(NatalChart? carta) {
     // La data di nascita, per lo scarto della scelta delle voci (EU
     // Aggiunta): la stessa che usa il Giorno.
-    final identita = context.read<ProfileController>().identity;
-    final nascita = identita.isExample ? null : identita.birthDate;
+    final nascita = _soggetto.dataDiNascita(context);
     final chiave =
         (_period, carta, _date.year, _date.month, _date.day, nascita);
     if (chiave != _chiaveDelPeriodo || _ilPeriodo == null) {
       _chiaveDelPeriodo = chiave;
-      _ilPeriodo = LaSettimanaDelCielo.per(
-          segno: widget.userSign,
+      _ilPeriodo = _soggetto.alNeutro(() => LaSettimanaDelCielo.per(
+          segno: _soggetto.segno,
           carta: carta,
           oggi: _date,
           giorni: _period == HoroscopePeriod.mese ? 30 : 7,
-          nascita: nascita);
+          nascita: nascita));
     }
     return _ilPeriodo!;
   }
@@ -536,25 +579,25 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       _chiaveDelPeriodoAltro = chiave;
       _ilPeriodoAltro = cinese && animale == null
           ? null
-          : LaSettimanaDelCielo.dalleSchede(
-              oggi: _date,
-              giorni: _period == HoroscopePeriod.mese ? 30 : 7,
-              tradizione: cinese ? TradizioneEu.cinese : TradizioneEu.vedica,
-              scarto: ITestiEu.scarto(n.locale),
-              schedeDi: (g) => cinese
-                  ? LaLetturaCinese.schede(
-                      oggi: g,
-                      nascita: n.locale,
-                      animale: animale!,
-                      forma: forma,
-                      diOggi: false)
-                  : LaLetturaVedica.schede(
-                      adesso: DateTime(g.year, g.month, g.day, 12),
-                      nascita: n,
-                      luogo: _luogo,
-                      forma: forma,
-                      oggi: false),
-            );
+          : _soggetto.alNeutro(() => LaSettimanaDelCielo.dalleSchede(
+                oggi: _date,
+                giorni: _period == HoroscopePeriod.mese ? 30 : 7,
+                tradizione: cinese ? TradizioneEu.cinese : TradizioneEu.vedica,
+                scarto: ITestiEu.scarto(n.locale),
+                schedeDi: (g) => cinese
+                    ? LaLetturaCinese.schede(
+                        oggi: g,
+                        nascita: n.locale,
+                        animale: animale!,
+                        forma: forma,
+                        diOggi: false)
+                    : LaLetturaVedica.schede(
+                        adesso: DateTime(g.year, g.month, g.day, 12),
+                        nascita: n,
+                        luogo: _luogo,
+                        forma: forma,
+                        oggi: false),
+              ));
     }
     return _ilPeriodoAltro;
   }
@@ -585,16 +628,24 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       return [
         _InvitoAllaNascita(
             testo: cinese
-                ? 'Per l\'anno cinese serve la tua data di nascita: '
-                    'aggiungila qui.'
-                : 'Per l\'anno vedico serve la tua Luna di nascita: '
+                ? _soggetto.perTeOPerLui(
+                    'Per l\'anno cinese serve la tua data di nascita: '
+                    'aggiungila qui.',
+                    (n) => 'Per l\'anno cinese serve la data di nascita di '
+                        '$n.')
+                : _soggetto.perTeOPerLui(
+                    'Per l\'anno vedico serve la tua Luna di nascita: '
                     'aggiungi l\'ora di nascita qui.',
+                    (n) => 'Per l\'anno vedico serve la Luna di nascita di '
+                        '$n, cioè la sua ora di nascita.'),
             palette: palette,
+            soggetto: _soggetto,
             alRitorno: _leggiIlLuogo),
       ];
     }
     final riga = Text(
-        'Il tuo anno ${cinese ? 'cinese' : 'vedico'} va dal '
+        '${_soggetto.perTeOPerLui('Il tuo anno', (n) => 'L\'anno di $n')} '
+        '${cinese ? 'cinese' : 'vedico'} va dal '
         '${italianLongDate(anno.da)} al ${italianLongDate(anno.a)}.',
         key: Key('oroscopo_${_inCima.name}_anno_riga'),
         textAlign: TextAlign.center,
@@ -633,7 +684,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     }
     // **I DODICI MESI**, il fondatore il 1 ottobre 2026: i giorni favorevoli
     // di ogni mese dell'anno della tradizione, dalle schede del Giorno.
-    final forma = context.read<ProfileController>().courtesy;
+    final forma = _soggetto.forma(context);
     final signore = LAlmanaccoCinese.tronco(nascita.locale);
     final mesi = IDodiciMesi.perLivelli(
       chiave:
@@ -644,13 +695,13 @@ class _OroscopoScreenState extends State<OroscopoScreen>
               da, a, animale!, signore, forma)
           : LAnnoDelleTradizioni.livelliDelMeseVedico(da, a, rashi!),
     );
-    final schede = LAnnoDelleTradizioni.schede(
-        cinese ? TradizioneEu.cinese : TradizioneEu.vedica, anno,
-        scarto: ITestiEu.scarto(nascita.locale),
-        approfondite: {
-          for (final voce in _depth.entries)
-            voce.key: voce.value == AnswerDepth.profonda,
-        });
+    final schede = _soggetto.alNeutro(() => LAnnoDelleTradizioni.schede(
+            cinese ? TradizioneEu.cinese : TradizioneEu.vedica, anno,
+            scarto: ITestiEu.scarto(nascita.locale),
+            approfondite: {
+              for (final voce in _depth.entries)
+                voce.key: voce.value == AnswerDepth.profonda,
+            }));
     return [
       riga,
       const SizedBox(height: SpacingTokens.md),
@@ -696,10 +747,13 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     _testaDaRivelare = null;
     final viste = _testeRivelate;
     if (t == AstroTradition.occidentale || viste == null) return;
-    if (viste.contains(t.name)) return;
-    viste.add(t.name);
+    // Per soggetto (ordine FC voce 02): la chiave dell'amico e' quella che
+    // usava la sua schermata, quindi le teste gia' viste restano viste.
+    final chi = _soggetto.chiave(t.name);
+    if (viste.contains(chi)) return;
+    viste.add(chi);
     _testaDaRivelare = t;
-    unawaited(LaRivelazioneDelSegno.segnaLaTesta(t.name));
+    unawaited(LaRivelazioneDelSegno.segnaLaTesta(chi));
   }
 
   // Pulsazione lenta condivisa: respiro dell'emblema e delle forme a tema.
@@ -795,12 +849,38 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   /// **IL TOCCO SU "AMICO/A"**, ordine EU voce 05: "I tuoi amici" per
   /// scegliere, poi la lettura dell'amico scelto, che porta in cima la stessa
   /// riga col suo nome.
-  Future<void> _scegliUnAmico(String nomeTuo) async {
+  Future<void> _scegliUnAmico() async {
     final navigatore = Navigator.of(context);
     final scelto = await navigatore.push(AmiciScreen.route(perScegliere: true));
     if (scelto == null || !mounted) return;
+    // Ordine FC voce 02: l'oroscopo dell'amico e' questo, col soggetto
+    // impostato su di lui. Dalla lettura di un amico, il nuovo amico prende
+    // il posto di quello di prima.
+    if (_soggetto.eUnAmico) {
+      unawaited(navigatore.pushReplacement(OroscopoScreen.perUnAmico(scelto,
+          apertaDallOroscopo: widget.apertaDallOroscopo)));
+      return;
+    }
     unawaited(navigatore
-        .push(LOroscopoDellAmicoScreen.route(scelto, nomeTuo: nomeTuo)));
+        .push(OroscopoScreen.perUnAmico(scelto, apertaDallOroscopo: true)));
+  }
+
+  /// Il tocco sul nome di chi guarda nella riga "Oroscopo per": dalla
+  /// lettura di un amico aperta dall'Oroscopo si torna indietro; aperta dalla
+  /// lista degli amici si apre la lettura propria al suo posto.
+  void _tornaATe() {
+    if (!_soggetto.eUnAmico) return;
+    final navigatore = Navigator.of(context);
+    if (widget.apertaDallOroscopo) {
+      navigatore.pop();
+      return;
+    }
+    final mio = IlSoggettoDellOroscopo.segnoDiChiGuarda(context);
+    if (mio == null) {
+      unawaited(navigatore.pushReplacement(DatiDiNascitaScreen.route()));
+      return;
+    }
+    unawaited(navigatore.pushReplacement(OroscopoScreen.route(userSign: mio)));
   }
 
   /// **LE DATE DELL'ANNO PER LA TESTATA**, ordine EU voce 04: il ritorno del
@@ -842,7 +922,6 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     required MaestroPalette palette,
     required Tier tier,
     required NascitaDeiSegni? nascita,
-    required BirthDetails? dettagli,
     required LivelloPersonalizzazione livello,
   }) {
     // Senza l'ora il ritorno del Sole non ha un'ora, e l'Ascendente dell'anno
@@ -850,26 +929,39 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     if (nascita == null || !nascita.oraNota) {
       return [
         _InvitoAllaNascita(
-            testo: 'L\'anno dal tuo compleanno si legge dall\'istante in cui '
+            testo: _soggetto.perTeOPerLui(
+                'L\'anno dal tuo compleanno si legge dall\'istante in cui '
                 'il Sole torna dov\'era alla tua nascita: serve l\'ora di '
                 'nascita, aggiungila qui.',
+                (n) => 'L\'anno dal compleanno di $n si legge dall\'istante '
+                    'in cui il Sole torna dov\'era alla sua nascita: serve la '
+                    'sua ora di nascita.'),
             palette: palette,
+            soggetto: _soggetto,
             alRitorno: _leggiIlLuogo),
       ];
     }
-    // Il luogo: dove vivi adesso, altrimenti quello di nascita, e si dice.
-    final lat = _luogo?.lat ?? dettagli?.place?.latitude;
-    final lon = _luogo?.lon ?? dettagli?.place?.longitude;
-    final dove = _luogo?.citta ?? dettagli?.place?.label ?? 'il tuo luogo';
-    if (lat == null || lon == null) {
+    // Il luogo: per sé dove vivi adesso, altrimenti quello di nascita; per un
+    // amico il suo luogo di nascita. E si dice.
+    final luogo = _soggetto.luogoDellAnno(context,
+        latDiOggi: _luogo?.lat,
+        lonDiOggi: _luogo?.lon,
+        cittaDiOggi: _luogo?.citta);
+    if (luogo == null) {
       return [
         _InvitoAllaNascita(
-            testo: 'Il tema dell\'anno si calcola per il luogo in cui sei: '
+            testo: _soggetto.perTeOPerLui(
+                'Il tema dell\'anno si calcola per il luogo in cui sei: '
                 'scegli dove vivi adesso.',
+                (n) => 'Il tema dell\'anno si calcola sul luogo di nascita di '
+                    '$n, che non c\'è.'),
             palette: palette,
+            soggetto: _soggetto,
             alRitorno: _leggiIlLuogo),
       ];
     }
+    final (lat, lon, dove) = luogo;
+    final suoLuogoDiNascita = _soggetto.eUnAmico || _luogo == null;
     final nascitaUtc = IlFusoDellaNascita.inUtc(nascita.locale, nascita.fuso);
     final istante = LaRivoluzioneSolare.ritornoInCorso(nascitaUtc, _date);
     final prossimo = LaRivoluzioneSolare.prossimoRitorno(nascitaUtc, _date);
@@ -879,11 +971,13 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     final ora = '${locale.hour.toString().padLeft(2, '0')}:'
         '${locale.minute.toString().padLeft(2, '0')}';
     final riga = Text(
-        'Il tuo anno va dal ${italianLongDate(locale)} al '
+        '${_soggetto.perTeOPerLui('Il tuo anno', (n) => 'L\'anno di $n')} '
+        'va dal ${italianLongDate(locale)} al '
         '${italianLongDate(prossimo.toLocal())}. La Rivoluzione Solare è '
-        'l\'istante in cui il Sole è tornato dov\'era alla tua nascita: il '
+        'l\'istante in cui il Sole è tornato dov\'era alla '
+        '${_soggetto.perTeOPerLui('tua', (_) => 'sua')} nascita: il '
         '${italianLongDate(locale)} alle $ora, calcolata per '
-        '$dove${_luogo == null ? ', il luogo di nascita' : ''}.',
+        '$dove${suoLuogoDiNascita ? ', il luogo di nascita' : ''}.',
         key: const Key('oroscopo_anno_riga'),
         textAlign: TextAlign.center,
         style: TypographyTokens.didascalia()
@@ -905,10 +999,12 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         const SizedBox(height: SpacingTokens.sm),
         PortaDellaSpesa(
           voce: ListinoDegliEos.oroscopoAnnuale,
-          etichetta: 'Apri il tuo anno',
+          etichetta: _soggetto.perTeOPerLui(
+              'Apri il tuo anno', (n) => 'Apri l\'anno di $n'),
           suSpesaFatta: () {
             setState(() => _anniAperti.add(istante.year));
-            unawaited(GliAnniAperti.apri(istante.year));
+            unawaited(
+                GliAnniAperti.apri(istante.year, soggetto: _chiaveDegliAnni));
           },
         ),
         const SizedBox(height: SpacingTokens.sm),
@@ -934,29 +1030,32 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     final tema = LaRivoluzioneSolare.tema(istante, lat, lon);
     // **I DODICI MESI**, il fondatore il 1 ottobre 2026: i giorni favorevoli
     // di ogni mese dell'anno dal ritorno del Sole, dalle schede del Giorno.
-    final carta = context.read<BirthIdentityController>().cartaCompleta;
+    final carta = _soggetto.carta(context);
     final mesi = IDodiciMesi.di(
-      chiave: Horoscope.chiaveDellaStoria(widget.userSign, carta),
+      chiave: Horoscope.chiaveDellaStoria(_soggetto.segno, carta),
       inizio: DateTime(locale.year, locale.month, locale.day),
-      livelli: (g) => Horoscope.livelliDelGiorno(widget.userSign, carta, g),
+      livelli: (g) => Horoscope.livelliDelGiorno(_soggetto.segno, carta, g),
     );
     // **LA PROFONDITA' ANCHE SULL'ANNO.** Il fondatore, 30 settembre 2026:
     // *"Ogni scheda deve avere sempre il pulsante profondità e la scelta
     // "approfondita" è esclusiva dei premium."* A video ogni scheda si legge
     // alla profondita' scelta; il PDF e la card portano la lettura intera.
-    final forma = context.read<ProfileController>().courtesy;
-    final schede = LAnnuale.schede(tema,
-        forma: forma,
-        nascita: nascita.locale,
-        approfondite: {
-          for (final voce in _depth.entries)
-            voce.key: voce.value == AnswerDepth.profonda,
-        });
-    final intere = LAnnuale.schede(tema, forma: forma, nascita: nascita.locale);
+    final forma = _soggetto.forma(context);
+    final schede = _soggetto.alNeutro(() => LAnnuale.schede(tema,
+            forma: forma,
+            nascita: nascita.locale,
+            approfondite: {
+              for (final voce in _depth.entries)
+                voce.key: voce.value == AnswerDepth.profonda,
+            }));
+    final intere = _soggetto.alNeutro(
+        () => LAnnuale.schede(tema, forma: forma, nascita: nascita.locale));
     _schedeDelPeriodo = intere;
     // L'AVVISO DEL COMPLEANNO: l'anno nuovo e' pronto all'istante del
     // prossimo ritorno. Una volta per apertura, e solo col permesso.
-    if (!_avvisoDellAnno) {
+    // Il compleanno solare e' di chi usa l'app: leggere l'anno di un amico non
+    // programma l'avviso del suo (ordine FC voce 02, punto 6).
+    if (!_avvisoDellAnno && !_soggetto.eUnAmico) {
       _avvisoDellAnno = true;
       unawaited(LAvvisoDellAnno.programma(prossimo));
     }
@@ -1001,7 +1100,9 @@ class _OroscopoScreenState extends State<OroscopoScreen>
             onPressed: () async {
               final andata = await IlPdfDellAnno.condividi(
                 intere,
-                titolo: 'Il tuo anno dal ${italianLongDate(locale)}',
+                titolo:
+                    '${_soggetto.perTeOPerLui('Il tuo anno', (n) => 'L\'anno di $n')} '
+                    'dal ${italianLongDate(locale)}',
                 sottotitolo:
                     'Rivoluzione Solare del ${italianLongDate(locale)} '
                     'alle $ora, per $dove',
@@ -1010,7 +1111,8 @@ class _OroscopoScreenState extends State<OroscopoScreen>
               // mandato (ordine BG voce 04).
               if (andata && context.mounted) {
                 await PremioDellaCondivisione.premia(context,
-                    cosa: 'Hai condiviso il tuo anno');
+                    cosa: _soggetto.perTeOPerLui('Hai condiviso il tuo anno',
+                        (n) => 'Hai condiviso l\'anno di $n'));
               }
             },
             // Su una riga: "Scarica il PDF del tuo anno" col premio accanto
@@ -1019,7 +1121,8 @@ class _OroscopoScreenState extends State<OroscopoScreen>
               fit: BoxFit.scaleDown,
               child: Text(
                   PremioDellaCondivisione.etichetta(context,
-                      base: 'Il PDF del tuo anno'),
+                      base: _soggetto.perTeOPerLui('Il PDF del tuo anno',
+                          (n) => 'Il PDF dell\'anno di $n')),
                   key: const Key('oroscopo_anno_pdf_etichetta'),
                   maxLines: 1,
                   softWrap: false,
@@ -1030,6 +1133,11 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       ]),
     ];
   }
+
+  /// Gli anni aperti con gli Eos si ricordano per soggetto (ordine FC voce
+  /// 02): nulla per la lettura propria, che resta sulla chiave di prima.
+  String? get _chiaveDegliAnni =>
+      _soggetto.eUnAmico ? _soggetto.chiave('anni') : null;
 
   Future<void> _leggiIlLuogo() async {
     final l = await DoveSonoAdesso.letto();
@@ -1048,7 +1156,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       if (mounted && si) setState(() => _lungaDiOggi = true);
     }));
     unawaited(_leggiIlLuogo());
-    unawaited(GliAnniAperti.letti().then((a) {
+    unawaited(GliAnniAperti.letti(soggetto: _chiaveDegliAnni).then((a) {
       if (mounted) setState(() => _anniAperti.addAll(a));
     }));
     // **L'ATTESA PIENA SI CHIEDE AL DISCO ALL'APERTURA, ordine BK voce 05.**
@@ -1079,7 +1187,12 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     // attivo altrove fosse un altro. Lo sfondo resta il cosmo ambientale.
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
     final profile = context.watch<ProfileController>();
-    final vocative = Horoscope.vocativeFor(profile.vocative, profile.courtesy);
+    // Ordine FC voce 02: di chi e' la lettura lo dice il soggetto; il
+    // profilo qui sotto e' di chi guarda (il suo nome nella riga "Oroscopo
+    // per", chi manda la card).
+    final vocative = _soggetto.vocativo(context);
+    final forma = _soggetto.forma(context);
+    final carta = _soggetto.carta(context);
     // IL CIELO VERO DI QUESTA PERSONA, quando c'e' una carta da interrogare.
     //
     // **Qui muore l'hash.** La corrente del giorno usciva da un pool di frasi
@@ -1093,18 +1206,16 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     // astro non sono transiti. Il livello a valle ripiegava gia' sul pool a
     // hash quando la carta era essenziale, ma lo capiva guardando dentro
     // l'oggetto: adesso la distinzione la fa la porta, una volta per tutti.
-    final cielo = CieloDiOggi.perIlGiorno(
-        adesso: _date,
-        carta: context.watch<BirthIdentityController>().cartaCompleta);
+    final cielo = CieloDiOggi.perIlGiorno(adesso: _date, carta: carta);
     _cieloDelGesto = cielo;
     final notaDelCielo = CorrenteDelCielo.notaDelLivello(cielo);
     // I dati di nascita per il segno delle altre tradizioni (ordine ES).
-    final nascita = context.watch<BirthIdentityController>().details;
     final tier = context.watch<EntitlementService>().tier;
-    final nascitaDeiSegni = NascitaDeiSegni.daiDati(nascita, profile.identity);
+    final nascitaDeiSegni = _soggetto.nascitaDeiSegni(context);
+    final dataDiNascita = _soggetto.dataDiNascita(context);
     final segnoInCima = nascitaDeiSegni == null
         ? null
-        : ISegniDelleTradizioni.per(_inCima, nascitaDeiSegni);
+        : _soggetto.detto(ISegniDelleTradizioni.per(_inCima, nascitaDeiSegni));
     // **LA LETTURA CINESE, ordine ES voce 08**: dal primo piano a pagamento,
     // con la data di nascita (l'animale dell'anno e il tronco del giorno).
     // **LA VEDICA, voce 09**: con la Luna di nascita, e l'ora per la stella.
@@ -1124,28 +1235,28 @@ class _OroscopoScreenState extends State<OroscopoScreen>
             leggeLaTradizione &&
             animale != null &&
             nascitaDeiSegni != null
-        ? LaLetturaCinese.schede(
+        ? _soggetto.alNeutro(() => LaLetturaCinese.schede(
             oggi: _date,
             nascita: nascitaDeiSegni.locale,
             animale: animale,
-            forma: profile.courtesy,
+            forma: forma,
             approfondite: {
               for (final voce in _depth.entries)
                 voce.key: voce.value == AnswerDepth.profonda,
             },
-            vocativo: comeTiChiamo)
+            vocativo: comeTiChiamo))
         : null;
     final schedeVediche = vedica && leggeLaTradizione && nascitaDeiSegni != null
-        ? LaLetturaVedica.schede(
+        ? _soggetto.alNeutro(() => LaLetturaVedica.schede(
             adesso: _date,
             nascita: nascitaDeiSegni,
             luogo: _luogo,
-            forma: profile.courtesy,
+            forma: forma,
             approfondite: {
               for (final voce in _depth.entries)
                 voce.key: voce.value == AnswerDepth.profonda,
             },
-            vocativo: comeTiChiamo)
+            vocativo: comeTiChiamo))
         : null;
     final schedeAltre = schedeCinesi ?? schedeVediche;
     // Il segno lunare di nascita, su cui si ferma la corsa della Vedica.
@@ -1158,20 +1269,18 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         (_inCima == AstroTradition.occidentale || schedeAltre != null);
     _segnoCondiviso = schedeAltre != null
         ? '${segnoInCima!.nome} nella tradizione $aggettivo'
-        : widget.userSign.italianName;
+        : _soggetto.segno.italianName;
     // La card del periodo: l'anno la scrive `_lAnno`, quando e' aperto.
     final periodoAVideo = _inCima == AstroTradition.occidentale &&
         (_period == HoroscopePeriod.settimana ||
             _period == HoroscopePeriod.mese);
     _schedeDelPeriodo = periodoAVideo
-        ? LaSettimanaDelCielo.tessere(
-            _periodoDelCielo(
-                context.watch<BirthIdentityController>().cartaCompleta),
+        ? LaSettimanaDelCielo.tessere(_periodoDelCielo(carta),
             mese: _period == HoroscopePeriod.mese)
         : null;
     final cards = schedeAltre ??
-        Horoscope.forSign(
-            sign: widget.userSign,
+        _soggetto.alNeutro<List<HoroscopeCard>>(() => Horoscope.forSign(
+            sign: _soggetto.segno,
             dayOfYear: _dayOfYear,
             year: _year,
             // L'apertura viene dal corpus del Giorno (EU Aggiunta), col
@@ -1183,20 +1292,18 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                 voce.key: voce.value == AnswerDepth.profonda,
             },
             // Il giorno personale del numero fortunato, ordine ES voce 29.
-            nascita:
-                profile.identity.isExample ? null : profile.identity.birthDate);
+            nascita: dataDiNascita));
     // Le stesse schede del Giorno occidentale nella lettura completa: il
     // foglio dell'oroscopo completo ne mostra l'inizio a chi non ce l'ha
     // ([_offriLaLunga]). Si compongono solo se il foglio si apre.
-    _lungheDiOggi = () => Horoscope.forSign(
-        sign: widget.userSign,
+    _lungheDiOggi = () => _soggetto.alNeutro(() => Horoscope.forSign(
+        sign: _soggetto.segno,
         dayOfYear: _dayOfYear,
         year: _year,
         vocativo: vocative,
         cielo: cielo,
         profonde: {for (final d in HoroscopeDomain.values) d: true},
-        nascita:
-            profile.identity.isExample ? null : profile.identity.birthDate);
+        nascita: dataDiNascita));
 
     // **I TRE CIELI, ordine ES voce 36.** Solo a chi legge tutte e tre le
     // tradizioni, cioe' dal primo piano a pagamento e con la data di
@@ -1204,7 +1311,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     // vedono, e quelle letture non sono sue.
     final chiaveDeiTreCieli = '${_date.year}-${_date.month}-${_date.day}|'
         '${tier.name}|${_luogo?.citta}|${cielo.livello}|'
-        '${nascitaDeiSegni?.locale}';
+        '${nascitaDeiSegni?.locale}|${_soggetto.chiave('')}';
     if (_chiaveDeiTreCieli != chiaveDeiTreCieli) {
       _chiaveDeiTreCieli = chiaveDeiTreCieli;
       _treCieli = const [];
@@ -1214,28 +1321,26 @@ class _OroscopoScreenState extends State<OroscopoScreen>
         final animaleDiNascita =
             ISegniDelleTradizioni.per(AstroTradition.cinese, nascitaDeiSegni)
                 .animale;
-        _treCieli = ITreCieli.di(
-          occidentale: Horoscope.forSign(
-              sign: widget.userSign,
-              dayOfYear: _dayOfYear,
-              year: _year,
-              cielo: cielo,
-              nascita: profile.identity.isExample
+        _treCieli = _soggetto.alNeutro(() => ITreCieli.di(
+              occidentale: Horoscope.forSign(
+                  sign: _soggetto.segno,
+                  dayOfYear: _dayOfYear,
+                  year: _year,
+                  cielo: cielo,
+                  nascita: dataDiNascita),
+              cinese: animaleDiNascita == null
                   ? null
-                  : profile.identity.birthDate),
-          cinese: animaleDiNascita == null
-              ? null
-              : LaLetturaCinese.schede(
-                  oggi: _date,
-                  nascita: nascitaDeiSegni.locale,
-                  animale: animaleDiNascita,
-                  forma: profile.courtesy),
-          vedica: LaLetturaVedica.schede(
-              adesso: _date,
-              nascita: nascitaDeiSegni,
-              luogo: _luogo,
-              forma: profile.courtesy),
-        );
+                  : LaLetturaCinese.schede(
+                      oggi: _date,
+                      nascita: nascitaDeiSegni.locale,
+                      animale: animaleDiNascita,
+                      forma: forma),
+              vedica: LaLetturaVedica.schede(
+                  adesso: _date,
+                  nascita: nascitaDeiSegni,
+                  luogo: _luogo,
+                  forma: forma),
+            ));
       }
     }
 
@@ -1266,6 +1371,21 @@ class _OroscopoScreenState extends State<OroscopoScreen>
               tooltip: 'Indietro',
               onPressed: () => Navigator.of(context).maybePop(),
             ),
+            // Di chi e' la lettura, per un amico (ordine FC voce 02).
+            // Intero e su una riga: fra la freccia e le icone c'e' poco
+            // posto, e "L'oroscopo di Lu..." non dice di chi e' (visto
+            // nell'anteprima dell'ordine FC): se non ci sta si rimpicciolisce.
+            title: _soggetto.titolo == null
+                ? null
+                : FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(_soggetto.titolo!,
+                        key: const Key('oroscopo_titolo_del_soggetto'),
+                        maxLines: 1,
+                        softWrap: false,
+                        style: TypographyTokens.titoloDiSchermata()
+                            .copyWith(color: palette.goldSoft)),
+                  ),
             // **L'OROSCOPO PER UN AMICO NON STA PIU' NELLA BARRA.** Il 30
             // settembre 2026 il fondatore l'aveva voluto in alto e stava qui;
             // il 1 ottobre (ordine EU voce 05) lo ha trovato poco visibile, e
@@ -1284,7 +1404,8 @@ class _OroscopoScreenState extends State<OroscopoScreen>
             ],
           ),
           body: CosmosBackground(
-            seed: 5,
+            // Il cielo del soggetto (ordine FC voce 04): il 5 per sé.
+            seed: _soggetto.semeDelCielo,
             showZodiac: false,
             child: SafeArea(
               child: Stack(
@@ -1308,13 +1429,13 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                               // Accanto, dall'ordine ES voce 10, il punto
                               // interrogativo che apre la nota della tradizione.
                               NomeConLaNota(
-                                  nome: widget.userSign.italianName,
+                                  nome: _soggetto.segno.italianName,
                                   tradizione: AstroTradition.occidentale,
                                   palette: palette,
                                   chiave: const Key('oroscopo_sign_name')),
                               const SizedBox(height: SpacingTokens.xs),
                               _Hero(
-                                sign: widget.userSign,
+                                sign: _soggetto.segno,
                                 palette: palette,
                                 pulse: _pulse,
                                 // L'EMBLEMA PULSA MENTRE IL CIELO SI INTERROGA: e' il
@@ -1337,6 +1458,23 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                                 durataDelMomento: RiflessioneDelCielo.momento(
                                     piena: _pienaQuestoConsulto),
                               ),
+                              // Di chi e' il segno, per un amico (ordine FC
+                              // voce 02): la frase che la testa delle altre
+                              // tradizioni porta gia'.
+                              if (_soggetto.eUnAmico && nascitaDeiSegni != null)
+                                Text(
+                                    _soggetto
+                                        .detto(ISegniDelleTradizioni.per(
+                                            AstroTradition.occidentale,
+                                            nascitaDeiSegni))
+                                        .frase,
+                                    key:
+                                        const Key('oroscopo_frase_occidentale'),
+                                    textAlign: TextAlign.center,
+                                    style: TypographyTokens.didascalia()
+                                        .copyWith(
+                                            color: palette.goldSoft,
+                                            height: 1.35)),
                             ],
                           ),
                     items: [
@@ -1367,16 +1505,20 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                             palette: palette,
                             anno: _period == HoroscopePeriod.anno
                                 ? _ilTuoAnno(nascitaDeiSegni)
-                                : null),
+                                : null,
+                            senzaLeDateDellAnno: _soggetto.perTeOPerLui(
+                                'dal tuo compleanno al prossimo',
+                                (n) => 'dal compleanno di $n al prossimo')),
                         const SizedBox(height: SpacingTokens.md),
                         // **"OROSCOPO PER", ordine EU voce 05**: proprio
                         // sopra il selettore dei periodi, il nome della
                         // persona scelto e "amico/a".
                         OroscopoPer(
                           nomeTuo: nomeTuo,
+                          nomeAmico: _soggetto.nomeAmico,
                           palette: palette,
-                          onTe: () {},
-                          onAmico: () => _scegliUnAmico(nomeTuo),
+                          onTe: _tornaATe,
+                          onAmico: _scegliUnAmico,
                         ),
                         const SizedBox(height: SpacingTokens.sm),
                         _PeriodTabs(
@@ -1421,9 +1563,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                               _period == HoroscopePeriod.mese))
                         ..._dietroIlGesto(palette, [
                           IlPeriodoView(
-                            periodo: _periodoDelCielo(context
-                                .watch<BirthIdentityController>()
-                                .cartaCompleta),
+                            periodo: _periodoDelCielo(carta),
                             mese: _period == HoroscopePeriod.mese,
                             palette: palette,
                             livello: cielo.livello,
@@ -1438,8 +1578,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       // (ordine ES voce 05): si porta con se' solo cio' che
                       // si e' letto, dopo il gesto (EX.12).
                       if (periodoAVideo &&
-                          (!InterrogaIlCielo.ancheFuoriDalGiorno ||
-                              _fase == _FaseDelConsulto.responso)) ...[
+                          _fase == _FaseDelConsulto.responso) ...[
                         const SizedBox(height: SpacingTokens.md),
                         _CondividiIlPeriodo(
                             periodo: _period,
@@ -1454,7 +1593,6 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                             palette: palette,
                             tier: tier,
                             nascita: nascitaDeiSegni,
-                            dettagli: nascita,
                             livello: cielo.livello),
                       if (!_inCima.unlocked)
                         _LaLetturaEInArrivo(
@@ -1480,7 +1618,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                           (_period == HoroscopePeriod.settimana ||
                               _period == HoroscopePeriod.mese))
                         if (_periodoDellaTradizione(
-                                nascitaDeiSegni, profile.courtesy, animale)
+                                nascitaDeiSegni, forma, animale)
                             case final p?)
                           ..._dietroIlGesto(palette, [
                             IlPeriodoView(
@@ -1515,7 +1653,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                           chiaveDelGesto:
                               Key('oroscopo_${_inCima.name}_scopri_il_piano'),
                           testo:
-                              'Qui vedi il tuo segno ${cinese ? 'cinese' : 'vedico'}. '
+                              'Qui vedi ${_soggetto.perTeOPerLui('il tuo segno', (n) => 'il segno di $n')} ${cinese ? 'cinese' : 'vedico'}. '
                               'La lettura del giorno, '
                               '${cinese ? 'dall\'almanacco e dai Dieci Dei' : 'dalla Luna e dal calendario indiano'}, '
                               'si apre ${conPiano(PlanCatalog.forTier(Tier.values[_inCima.livelloDellaLettura]).name)}.',
@@ -1524,9 +1662,13 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                         ),
                       if (altra && leggeLaTradizione && segnoInCima == null)
                         _InvitoAllaNascita(
-                            testo: 'Per la lettura $aggettivo serve la tua '
+                            testo: _soggetto.perTeOPerLui(
+                                'Per la lettura $aggettivo serve la tua '
                                 'data di nascita: aggiungila qui.',
+                                (n) => 'Per la lettura $aggettivo serve la '
+                                    'data di nascita di $n.'),
                             palette: palette,
+                            soggetto: _soggetto,
                             alRitorno: _leggiIlLuogo),
                       // **LA VEDICA DICE CHE COSA LE MANCA**, ordine ES voce
                       // 09: il segno lunare incerto senza l'ora; la stella
@@ -1537,18 +1679,28 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                           segnoInCima != null &&
                           schedeVediche == null)
                         _InvitoAllaNascita(
-                            testo: 'Il giorno della tua nascita la Luna ha '
+                            testo: _soggetto.perTeOPerLui(
+                                'Il giorno della tua nascita la Luna ha '
                                 'cambiato segno: con l\'ora di nascita so '
                                 'qual è il tuo: così leggo il tuo giorno.',
+                                (n) => 'Il giorno della nascita di $n la Luna '
+                                    'ha cambiato segno: con la sua ora di '
+                                    'nascita saprei qual è il suo, e leggerei '
+                                    'il suo giorno.'),
                             palette: palette,
+                            soggetto: _soggetto,
                             alRitorno: _leggiIlLuogo),
                       if (schedeVediche != null &&
                           nascitaDeiSegni != null &&
                           !nascitaDeiSegni.oraNota)
                         _InvitoAllaNascita(
-                            testo: 'Con l\'ora di nascita leggo anche la tua '
+                            testo: _soggetto.perTeOPerLui(
+                                'Con l\'ora di nascita leggo anche la tua '
                                 'stella, la Tara Bala: aggiungila qui.',
+                                (n) => 'Con l\'ora di nascita di $n leggerei '
+                                    'anche la sua stella, la Tara Bala.'),
                             palette: palette,
+                            soggetto: _soggetto,
                             alRitorno: _leggiIlLuogo),
                       if (schedeVediche != null && _luogo == null)
                         _InvitoAllaNascita(
@@ -1567,7 +1719,22 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       // "Interroga il cielo" sotto la piega dello schermo, e il
                       // gesto principale della schermata va visto senza
                       // scorrere. Dopo il consulto resta qui, sopra le schede.
+                      // Per un amico, al posto dell'invito ai propri dati,
+                      // la nota che la lettura sta sul suo segno solare
+                      // (ordine FC voce 02, [IlSoggettoDellOroscopo] punto 3).
                       if (_inCima == AstroTradition.occidentale &&
+                          _soggetto.notaDelSegnoSolare != null)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: SpacingTokens.sm),
+                          child: Text(_soggetto.notaDelSegnoSolare!,
+                              key: const Key('oroscopo_nota_del_segno_solare'),
+                              textAlign: TextAlign.center,
+                              style: TypographyTokens.didascalia().copyWith(
+                                  color: ColorTokens.textSecondary,
+                                  height: 1.4)),
+                        )
+                      else if (_inCima == AstroTradition.occidentale &&
                           CorrenteDelCielo.rigaDellInvito(cielo) != null)
                         _InvitoAllaNascita(
                             testo: CorrenteDelCielo.rigaDellInvito(cielo)!,
@@ -1617,17 +1784,9 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                                           cielo, cards[i].domain)
                                       .firstOrNull
                                   : null,
-                              carta: altra
-                                  ? null
-                                  : context
-                                      .watch<BirthIdentityController>()
-                                      .cartaCompleta,
+                              carta: altra ? null : carta,
                               adesso: _date,
-                              oraDOro: altra
-                                  ? null
-                                  : _oraDOro(context
-                                      .watch<BirthIdentityController>()
-                                      .cartaCompleta),
+                              oraDOro: altra ? null : _oraDOro(carta),
                               scrivendo: true,
                               durataScrittura:
                                   RiflessioneDelCielo.scritturaDiUnaScheda,
@@ -1669,7 +1828,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                           _treCieli.isNotEmpty) ...[
                         _ITreCieliView(
                             accordi: _treCieli,
-                            sigillo: _sigilloDeiTreCieli,
+                            // Il Sigillo e' di chi guarda: sotto la lettura
+                            // di un amico non se ne parla (ordine FC voce 02).
+                            sigillo:
+                                _soggetto.eUnAmico ? null : _sigilloDeiTreCieli,
                             palette: palette),
                         const SizedBox(height: SpacingTokens.md),
                       ],
@@ -1679,7 +1841,11 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       // vera si legge come vera: qui si dice a parole che senza
                       // ora e luogo di nascita quella lettura parla al segno, non
                       // al cielo di questa persona, e si dice come rimediare.
-                      if (consulto && !altra && notaDelCielo != null) ...[
+                      // Per un amico la nota del segno solare sta gia' sopra.
+                      if (consulto &&
+                          !altra &&
+                          notaDelCielo != null &&
+                          !_soggetto.eUnAmico) ...[
                         _NotaDelCielo(
                             testo: notaDelCielo,
                             palette: palette,
@@ -1698,6 +1864,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                           sharing: _sharing,
                           onShare: _onShare,
                           segno: _segnoCondiviso,
+                          soggetto: _soggetto,
                           // **IL TESTO CHE SI CUSTODISCE E' QUELLO CHE SI E'
                           // LETTO**, cioe' le schede del cielo di oggi in fila:
                           // custodire un testo diverso da quello a video sarebbe
@@ -1740,11 +1907,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                                                   nascitaDeiSegni!, _luogo)
                                               : null) ??
                                       IlDomani.riga(
-                                          widget.userSign,
-                                          context
-                                              .watch<BirthIdentityController>()
-                                              .cartaCompleta,
-                                          _date),
+                                          _soggetto.segno, carta, _date),
                                   style: TypographyTokens.didascalia().copyWith(
                                       color: palette.goldSoft, height: 1.4),
                                 ),
@@ -1768,7 +1931,14 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       child: RepaintBoundary(
                         key: _cardKey,
                         child: OroscopoShareCard(
-                          sign: widget.userSign,
+                          sign: _soggetto.segno,
+                          // La card di un amico e' un regalo: "Il tuo
+                          // oroscopo", "Te lo manda" (ordine FC voce 02).
+                          perUnAmico: _soggetto.perUnAmico,
+                          daParteDi: _soggetto.eUnAmico
+                              ? OroscopoShareCard.soloIlNome(
+                                  profile.profile.displayName)
+                              : null,
                           // Nel Giorno le schede del consulto; negli altri
                           // periodi le loro tessere (ordine ES voce 05).
                           cards: _period == HoroscopePeriod.giorno
@@ -1799,17 +1969,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                                   _leOre!.$1, HoroscopeDomain.generale,
                                   adesso: DateTime.now())
                               : null,
-                          nome: OroscopoShareCard.soloIlNome(
-                              profile.profile.displayName),
-                          nascita: profile.identity.isExample
-                              ? null
-                              : OroscopoShareCard.laNascitaScritta(
-                                  profile.identity.birthDate,
-                                  ora: profile.identity.hasBirthTime
-                                      ? profile.identity.birthMoment.hour
-                                      : null,
-                                  minuto: profile.identity.birthMoment.minute,
-                                  luogo: profile.identity.birthPlace?.city),
+                          nome: _soggetto.nomeAmico ??
+                              OroscopoShareCard.soloIlNome(
+                                  profile.profile.displayName),
+                          nascita: _soggetto.nascitaScritta(context),
                         ),
                       ),
                     ),
@@ -2061,9 +2224,10 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       for (final d in HoroscopeDomain.values)
         cards.firstWhere((c) => c.domain == d).indicator,
     ];
-    final dettagli = context.read<BirthIdentityController>().details;
-    final lat = _luogo?.lat ?? dettagli?.place?.latitude;
-    final lon = _luogo?.lon ?? dettagli?.place?.longitude;
+    // Dove si e' adesso, altrimenti il luogo di nascita del soggetto.
+    final diNascita = _soggetto.luogoDiNascita(context);
+    final lat = _luogo?.lat ?? diNascita?.$1;
+    final lon = _luogo?.lon ?? diNascita?.$2;
     final chiave = (
       _inCima,
       _date.year,
@@ -2085,7 +2249,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                     giorno: _date,
                     animale: animale,
                     signore: LAlmanaccoCinese.tronco(nascita.locale),
-                    forma: context.read<ProfileController>().courtesy),
+                    forma: _soggetto.forma(context, ascolta: false)),
                 'Le dodici ore doppie della tradizione cinese, dalle 23 di '
                     'ieri.'
               );
@@ -2158,10 +2322,11 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       });
       // **LA RIVELAZIONE DEL SEGNO, ordine ES voce 35**: la prima volta che
       // si sceglie la Cinese o la Vedica, dopo il frame della scelta.
-      if (LaRivelazioneDelSegno.tradizioni.contains(tradition)) {
-        final nascita = NascitaDeiSegni.daiDati(
-            context.read<BirthIdentityController>().details,
-            context.read<ProfileController>().identity);
+      // La rivelazione dice "il tuo segno": per un amico la sua testa si
+      // rivela in cima ([_forseRivela]), e questo foglio non si apre.
+      if (LaRivelazioneDelSegno.tradizioni.contains(tradition) &&
+          !_soggetto.eUnAmico) {
+        final nascita = _soggetto.nascitaDeiSegni(context, ascolta: false);
         final palette =
             MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -2234,6 +2399,11 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       _sharing = true;
       _renderCard = true;
     });
+    // Il testo si compone prima delle attese: legge il profilo dal contesto.
+    final testo = _soggetto.testoDellaCondivisione(context,
+        periodo:
+            _period == HoroscopePeriod.giorno ? 'di oggi' : _period.etichetta,
+        segno: _segnoCondiviso);
     try {
       await WidgetsBinding.instance.endOfFrame;
       await Future<void>.delayed(const Duration(milliseconds: 80));
@@ -2241,17 +2411,14 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       await WidgetsBinding.instance.endOfFrame;
       final andata = await shareOroscopoCard(
         boundaryKey: _cardKey,
-        text: _period == HoroscopePeriod.giorno
-            ? 'Il mio oroscopo di oggi, $_segnoCondiviso. Scopri il tuo: '
-                '${Brand.url}'
-            : 'Il mio oroscopo ${_period.etichetta}, $_segnoCondiviso. '
-                'Scopri il tuo: ${Brand.url}',
+        text: testo,
       );
       if (andata && mounted) {
         // Ordine BG voce 04: il premio dichiarato sul pulsante si paga qui,
         // a condivisione davvero avvenuta.
         await PremioDellaCondivisione.premia(context,
-            cosa: 'Hai condiviso il tuo oroscopo');
+            cosa: _soggetto.perTeOPerLui('Hai condiviso il tuo oroscopo',
+                (n) => 'Hai mandato un oroscopo a $n'));
       }
       return andata;
     } catch (_) {
@@ -2551,10 +2718,18 @@ class _LaLetturaEInArrivo extends StatelessWidget {
 /// Quando i dati ci sono non c'e'.
 class _InvitoAllaNascita extends StatelessWidget {
   const _InvitoAllaNascita(
-      {required this.testo, required this.palette, this.alRitorno});
+      {required this.testo,
+      required this.palette,
+      this.alRitorno,
+      this.soggetto});
 
   final String testo;
   final MaestroPalette palette;
+
+  /// **PER UN AMICO NON SI TOCCA, ordine FC voce 02**: porterebbe ai dati di
+  /// nascita di chi guarda, non a quelli dell'amico. La riga dice cosa manca
+  /// e di chi, senza la freccia.
+  final IlSoggettoDellOroscopo? soggetto;
 
   /// Chiamato al ritorno dai dati di nascita: la citta' di oggi si sceglie
   /// li', e la lettura vedica la rilegge (ordine ES voce 09).
@@ -2573,9 +2748,11 @@ class _InvitoAllaNascita extends StatelessWidget {
           // L'interruttore del silenzio del Cerchio: niente click di sistema.
           enableFeedback: false,
           borderRadius: BorderRadius.circular(SpacingTokens.radiusMd),
-          onTap: () => Navigator.of(context)
-              .push(DatiDiNascitaScreen.route())
-              .then((_) => alRitorno?.call()),
+          onTap: soggetto?.eUnAmico == true
+              ? null
+              : () => Navigator.of(context)
+                  .push(DatiDiNascitaScreen.route())
+                  .then((_) => alRitorno?.call()),
           child: Container(
             constraints: const BoxConstraints(minHeight: 44),
             padding: const EdgeInsets.symmetric(
@@ -2593,8 +2770,9 @@ class _InvitoAllaNascita extends StatelessWidget {
                       style: TypographyTokens.didascalia().copyWith(
                           color: ColorTokens.textPrimary, height: 1.35)),
                 ),
-                Icon(Icons.chevron_right_rounded,
-                    size: 20, color: palette.goldSoft),
+                if (soggetto?.eUnAmico != true)
+                  Icon(Icons.chevron_right_rounded,
+                      size: 20, color: palette.goldSoft),
               ],
             ),
           ),
@@ -2610,13 +2788,10 @@ class _InvitoAllaNascita extends StatelessWidget {
 /// scritto: sembrava uscito da una macchina, senza studio ne' interpretazione.
 /// Un consulto comincia quando qualcuno lo chiede.
 class InterrogaIlCielo extends StatelessWidget {
-  /// **L'INTERRUTTORE DEL GESTO FUORI DAL GIORNO**, acceso nell'app (ordine
-  /// EX Aggiunta 5, voce EX.12): la Settimana, il Mese, l'Anno e l'oroscopo
-  /// dell'amico si aprono col gesto. Le prove del contenuto dei periodi lo
-  /// spengono (`test/flutter_test_config.dart`); lo riaccende e lo sorveglia
-  /// `test/il_gesto_in_tutti_i_periodi_test.dart`. Il gesto del Giorno non
-  /// dipende da lui.
-  static bool ancheFuoriDalGiorno = true;
+  /// LAPIDE, ordine FC voce 03: qui stava `ancheFuoriDalGiorno`,
+  /// l'interruttore che spento faceva comparire la lettura senza gesto. Le
+  /// prove lo spegnevano per leggere i periodi senza toccare; adesso toccano
+  /// il gesto come lo tocca una persona.
 
   /// La scritta del gesto, la stessa in ogni periodo e per l'amico (ordine
   /// EX Aggiunta 5, voce EX.12): "Interroga il cielo"
@@ -2779,11 +2954,16 @@ class _Heading extends StatelessWidget {
       {required this.periodo,
       required this.date,
       required this.palette,
+      required this.senzaLeDateDellAnno,
       this.anno});
 
   final HoroscopePeriod periodo;
   final DateTime date;
   final MaestroPalette palette;
+
+  /// La riga dell'anno senza l'ora di nascita: "dal tuo compleanno al
+  /// prossimo", o quella dell'amico (ordine FC voce 02).
+  final String senzaLeDateDellAnno;
 
   /// Il ritorno del Sole in corso e il prossimo: le date dell'Anno.
   final (DateTime, DateTime)? anno;
@@ -2813,7 +2993,7 @@ class _Heading extends StatelessWidget {
               // nascita le date vere (ordine EU voce 04: "sotto la data o
               // date corrispondenti"), senza la frase che lo dice.
               HoroscopePeriod.anno => anno == null
-                  ? 'dal tuo compleanno al prossimo'
+                  ? senzaLeDateDellAnno
                   : 'dal ${anno!.$1.day} ${_mesiItaliani[anno!.$1.month - 1]} '
                       '${anno!.$1.year} al ${italianLongDate(anno!.$2)}',
             },
@@ -3854,12 +4034,15 @@ class _ITreCieliView extends StatelessWidget {
       {required this.accordi, required this.sigillo, required this.palette});
 
   final List<AccordoDelDominio> accordi;
-  final StatoDeiTreCieli sigillo;
+
+  /// Nullo sotto la lettura di un amico: il Sigillo e' di chi guarda.
+  final StatoDeiTreCieli? sigillo;
   final MaestroPalette palette;
 
   /// La riga del Sigillo dei Tre Cieli (ordine ES voce 37): acceso, o cosa
   /// manca per accenderlo oggi.
   String get _rigaDelSigillo {
+    final sigillo = this.sigillo!;
     if (sigillo.accesoOggi) {
       final quante = sigillo.giorni > 1
           ? ' In tutto si è acceso in ${sigillo.giorni} giorni.'
@@ -3893,33 +4076,35 @@ class _ITreCieliView extends StatelessWidget {
                   height: 1.4),
             ),
           ],
-          const SizedBox(height: SpacingTokens.md),
-          Row(
-            key: const Key('oroscopo_sigillo_tre_cieli'),
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Icon(
-                  sigillo.accesoOggi
-                      ? Icons.verified_rounded
-                      : Icons.radio_button_unchecked_rounded,
-                  size: 18,
-                  color: sigillo.accesoOggi
-                      ? palette.gold
-                      : ColorTokens.textMuted),
-              const SizedBox(width: SpacingTokens.sm),
-              Expanded(
-                child: Text(
-                  _rigaDelSigillo,
-                  key: const Key('oroscopo_sigillo_tre_cieli_riga'),
-                  style: TypographyTokens.didascalia().copyWith(
-                      color: sigillo.accesoOggi
-                          ? palette.goldSoft
-                          : ColorTokens.textMuted,
-                      height: 1.4),
+          if (sigillo case final sigillo?) ...[
+            const SizedBox(height: SpacingTokens.md),
+            Row(
+              key: const Key('oroscopo_sigillo_tre_cieli'),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(
+                    sigillo.accesoOggi
+                        ? Icons.verified_rounded
+                        : Icons.radio_button_unchecked_rounded,
+                    size: 18,
+                    color: sigillo.accesoOggi
+                        ? palette.gold
+                        : ColorTokens.textMuted),
+                const SizedBox(width: SpacingTokens.sm),
+                Expanded(
+                  child: Text(
+                    _rigaDelSigillo,
+                    key: const Key('oroscopo_sigillo_tre_cieli_riga'),
+                    style: TypographyTokens.didascalia().copyWith(
+                        color: sigillo.accesoOggi
+                            ? palette.goldSoft
+                            : ColorTokens.textMuted,
+                        height: 1.4),
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
+          ],
         ],
       ),
     );
@@ -4023,12 +4208,17 @@ class _ShareBlock extends StatelessWidget {
       required this.onShare,
       required this.segno,
       required this.testoDelResponso,
+      required this.soggetto,
       this.perIlMaestro});
 
   final MaestroPalette palette;
   final bool sharing;
   final Future<bool> Function() onShare;
   final String segno;
+
+  /// Di chi e' la lettura (ordine FC voce 02): per un amico il cielo si
+  /// manda a lui, e il responso si custodisce col suo nome.
+  final IlSoggettoDellOroscopo soggetto;
 
   /// Il testo che si custodisce: le schede del cielo di oggi, in fila.
   final String testoDelResponso;
@@ -4040,7 +4230,9 @@ class _ShareBlock extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text('Porta il tuo cielo di oggi con te',
+        Text(
+            soggetto.perTeOPerLui('Porta il tuo cielo di oggi con te',
+                (n) => 'Manda a $n il suo cielo di oggi'),
             textAlign: TextAlign.center,
             style: TypographyTokens.didascalia()
                 .copyWith(color: ColorTokens.textSecondary)),
@@ -4051,13 +4243,16 @@ class _ShareBlock extends StatelessWidget {
           dorato: true,
           responso: ResponsoDaCustodire(
             arte: 'oroscopo',
-            titolo: 'Il tuo oroscopo, $segno',
+            titolo: soggetto.perTeOPerLui(
+                'Il tuo oroscopo, $segno', (n) => 'L\'oroscopo di $n, $segno'),
             testo: testoDelResponso,
             dati: {'segno': segno},
             perIlMaestro: perIlMaestro,
           ),
           condividi: onShare,
-          aperturaDellaChat: ChatOpeners.oroscopo(segno),
+          aperturaDellaChat: soggetto.eUnAmico
+              ? ChatOpeners.oroscopoDiUnAmico(soggetto.nomeAmico!, segno)
+              : ChatOpeners.oroscopo(segno),
         ),
       ],
     );

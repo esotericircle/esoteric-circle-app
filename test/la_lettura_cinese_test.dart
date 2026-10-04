@@ -30,6 +30,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
 import 'cardinale_minimo.dart';
+import 'il_gesto_nelle_prove.dart';
 
 /// **LA TRADIZIONE CINESE, APERTA. Ordine ES voce 08, 29 settembre 2026.**
 ///
@@ -545,6 +546,8 @@ void main() {
     await tester.tap(find.byKey(const Key('oroscopo_period_settimana')));
     await tester.pump();
     await toccaLaTradizione(tester, AstroTradition.cinese);
+    // Ordine FC voce 03: la settimana cinese si apre col gesto, sempre.
+    expect(await interrogaSeCe(tester), isTrue);
     final periodo = find.byKey(const Key('oroscopo_cinese_periodo'));
     await tester.dragUntilVisible(
         periodo, find.byKey(const Key('oroscopo_list')), const Offset(0, -300));

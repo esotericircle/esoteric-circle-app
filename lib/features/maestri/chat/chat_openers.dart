@@ -102,6 +102,12 @@ class ChatOpeners {
       'Ho letto il mio oroscopo di oggi, $segno. Cosa vuole dirmi il cielo che '
       'non ho colto?';
 
+  /// Dall'Oroscopo di un amico verso Medora (ordine FC voce 02): la stessa
+  /// domanda, col nome di chi si e' letto.
+  static String oroscopoDiUnAmico(String nome, String segno) =>
+      'Ho letto l\'oroscopo di oggi di $nome, $segno. Cosa vuole dire il cielo '
+      'a $nome che non ho colto?';
+
   /// Dalla Stesa di Tarocchi verso Medora, con la domanda e le carte uscite.
   ///
   /// **LE CARTE RISPONDONO A UNA DOMANDA. Ordine EB voce 01, 21 settembre

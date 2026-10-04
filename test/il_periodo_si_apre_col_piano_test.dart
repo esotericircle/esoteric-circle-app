@@ -20,6 +20,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 
+import 'il_gesto_nelle_prove.dart';
+
 /// **LA SETTIMANA E IL MESE SI APRONO COL PIANO.** Ordine ES voci 02, 03 e
 /// 06, 29 settembre 2026.
 ///
@@ -92,6 +94,10 @@ void main() {
       ]) {
         await monta(tester, tier);
         await tocca(tester, p);
+        // Ordine FC voce 03: il periodo aperto si legge col gesto, sempre;
+        // a chi non ha il piano resta l'invito, e il gesto del Giorno sotto
+        // l'invito non si tocca.
+        if (atteso) await interrogaSeCe(tester);
         final aperto = find.byKey(Key(chiave)).evaluate().isNotEmpty;
         final invito = find.textContaining(piano).evaluate().isNotEmpty;
         righe.add('${tier.name} ${p.name}: '

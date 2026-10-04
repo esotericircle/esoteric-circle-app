@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_controller.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -92,10 +91,9 @@ Future<void> testExecutable(FutureOr<void> Function() testMain) async {
   // che non e' loro. La preparazione la sorveglia, riaccesa,
   // `il_seguito_e_gia_pronto_test.dart`.
   MaestroChatController.preparaIlSeguitoDiSerie = false;
-  // **IL GESTO FUORI DAL GIORNO, SPENTO NELLA SUITE.** Ordine EX Aggiunta 5,
-  // voce EX.12: la Settimana, il Mese, l'Anno e l'oroscopo dell'amico si
-  // aprono col gesto, e le prove del loro contenuto li troverebbero chiusi.
-  // Lo riaccende e lo sorveglia `il_gesto_in_tutti_i_periodi_test.dart`.
-  InterrogaIlCielo.ancheFuoriDalGiorno = false;
+  // LAPIDE, ordine FC voce 03: qui la suite spegneva il gesto fuori dal
+  // giorno (`InterrogaIlCielo.ancheFuoriDalGiorno`), e le prove dei periodi
+  // leggevano la lettura senza toccare. L'interruttore non esiste piu': il
+  // responso non compare mai da solo, nemmeno in prova.
   await testMain();
 }

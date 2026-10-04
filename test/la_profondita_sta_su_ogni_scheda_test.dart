@@ -13,14 +13,12 @@ import 'package:esoteric_circle/core/horoscope/l_annuale.dart';
 import 'package:esoteric_circle/core/horoscope/la_rivoluzione_solare.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
-import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
 import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/amici/amici_screen.dart';
-import 'package:esoteric_circle/features/amici/l_oroscopo_dell_amico_screen.dart';
 import 'package:esoteric_circle/features/horoscope/answer_depth.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
@@ -32,6 +30,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'cardinale_minimo.dart';
+import 'il_gesto_nelle_prove.dart';
 
 /// **LA PROFONDITA' STA SU OGNI SCHEDA, E L'AMICO STA IN ALTO.** Ordine ES,
 /// 30 settembre 2026, le richieste del fondatore mentre guardava le anteprime
@@ -66,6 +65,7 @@ void main() {
     double scala = 1.0,
     QuestionAllowance? borsa,
     Size finestra = const Size(360, 2400),
+    Amico? amico,
   }) async {
     final messenger = binding.defaultBinaryMessenger;
     messenger.setMockMethodCallHandler(
@@ -104,8 +104,15 @@ void main() {
               disableAnimations: true, textScaler: TextScaler.linear(scala)),
           child: MaestroScope(child: child!),
         ),
-        home: OroscopoScreen(
-            userSign: Zodiac.gemini, now: DateTime(2026, 9, 30, 12, 5)),
+        // Ordine FC voce 02: l'oroscopo di un amico e' l'Oroscopo, col
+        // soggetto impostato su di lui.
+        home: amico == null
+            ? OroscopoScreen(
+                userSign: Zodiac.gemini, now: DateTime(2026, 9, 30, 12, 5))
+            : OroscopoScreen(
+                userSign: Zodiac.fromDate(amico.nascita),
+                amico: amico,
+                now: DateTime(2026, 9, 30, 12, 5)),
       ),
     ));
     await tester.pump();
@@ -117,6 +124,10 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));
     await tester.pump(const Duration(milliseconds: 600));
+    // Ordine FC voce 03: la lettura del periodo si apre col gesto, sempre.
+    // Se il periodo e' chiuso dal piano il gesto non c'e', e resta l'invito.
+    final gesto = find.byKey(Key('oroscopo_${nome}_interroga'));
+    if (gesto.evaluate().isNotEmpty) await interrogaSeCe(tester);
   }
 
   Future<void> scegli(
@@ -347,29 +358,20 @@ void main() {
     print('LA PROFONDITA\' SULLA SETTIMANA E SUL MESE: ${esiti.join('; ')}');
   });
 
+  // LAPIDE, ordine FC voce 02: questa prova montava la schermata dell'amico
+  // (`LOroscopoDellAmicoScreen`) con le sue chiavi `amico_*`. Adesso
+  // l'oroscopo di un amico e' l'Oroscopo: stesse chiavi, stesso gesto.
   testWidgets(
       'l\'oroscopo di un amico: il pulsante su ogni scheda, e la Lunga '
       'dice di piu\' nelle tre tradizioni', (tester) async {
-    tester.view.physicalSize = const Size(360, 3200);
-    tester.view.devicePixelRatio = 1.0;
-    addTearDown(tester.view.reset);
-    await tester.pumpWidget(MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-            create: (_) => EntitlementService(initial: Tier.tier1)),
-      ],
-      child: MaterialApp(
-          theme: AppTheme.dark(),
-          home: MaestroScope(
-              maestro: Maestro.medora,
-              child: LOroscopoDellAmicoScreen(
-                  amico: Amico(
-                      id: 'l',
-                      nome: 'Lucia',
-                      nascita: DateTime(1990, 1, 12),
-                      ora: '08:10'),
-                  adesso: DateTime(2026, 9, 30, 12)))),
-    ));
+    await monta(tester,
+        tier: Tier.tier1,
+        finestra: const Size(360, 3200),
+        amico: Amico(
+            id: 'l',
+            nome: 'Lucia',
+            nascita: DateTime(1990, 1, 12),
+            ora: '08:10'));
     await tester.pump(const Duration(milliseconds: 300));
     var misurate = 0;
     final ferme = <String>[];
@@ -378,13 +380,19 @@ void main() {
       // Dalla EU Aggiunta le schede sono piu' alte: dopo l'ultima si risale
       // alla riga delle tradizioni.
       await tester.scrollUntilVisible(
-          find.byKey(Key('amico_tradizione_$t')), -300,
+          find.byKey(Key('oroscopo_tradition_$t')), -300,
           scrollable: find.byType(Scrollable).first);
-      await tester.tap(find.byKey(Key('amico_tradizione_$t')));
+      await tester.tap(find.byKey(Key('oroscopo_tradition_$t')));
       await tester.pump(const Duration(milliseconds: 300));
+      // Ordine FC voce 03: le schede dell'amico nascono dal gesto.
+      await interrogaSeCe(tester);
       for (final d in HoroscopeDomain.values) {
-        final scheda = find.byKey(Key('amico_scheda_${d.name}'));
-        final pulsante = find.byKey(Key('amico_depth_${d.name}'));
+        final scheda = find.byKey(Key('oroscopo_card_${d.name}'));
+        final pulsante = find.byKey(Key('oroscopo_depth_${d.name}'));
+        if (scheda.evaluate().isEmpty) {
+          await tester.scrollUntilVisible(scheda, 300,
+              scrollable: find.byType(Scrollable).first);
+        }
         expect(scheda, findsOneWidget, reason: '$t ${d.name}');
         if (pulsante.evaluate().isEmpty) {
           senzaPulsante++;
@@ -486,7 +494,9 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));
     await tester.pump(const Duration(milliseconds: 600));
-    expect(find.byType(LOroscopoDellAmicoScreen), findsOneWidget,
+    expect(
+        find.byWidgetPredicate((w) => w is OroscopoScreen && w.amico != null),
+        findsOneWidget,
         reason: 'scelta l\'amica, la sua lettura non si apre');
     final rigaAmica = find.byKey(const Key('oroscopo_per'));
     expect(rigaAmica, findsOneWidget,
@@ -501,7 +511,9 @@ void main() {
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 600));
     await tester.pump(const Duration(milliseconds: 600));
-    expect(find.byType(LOroscopoDellAmicoScreen), findsNothing,
+    expect(
+        find.byWidgetPredicate((w) => w is OroscopoScreen && w.amico != null),
+        findsNothing,
         reason: 'il nome della persona non riporta alla sua lettura');
     expect(find.byType(OroscopoScreen), findsOneWidget);
     print('"OROSCOPO PER": letture dell\'amica raggiunte dal selettore 1 su 1, '

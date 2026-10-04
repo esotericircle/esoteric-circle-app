@@ -9,13 +9,10 @@ import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/horoscope/astro_tradition.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
-import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
-import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
-import 'package:esoteric_circle/features/amici/l_oroscopo_dell_amico_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,6 +34,8 @@ import 'cardinale_minimo.dart';
 /// rivelazione e' piena; alla seconda apertura e' piena subito. Con Riduci
 /// Movimento e' piena subito anche la prima volta. Per l'amico, la prima
 /// apertura di una sua tradizione si rivela allo stesso modo.
+import 'l_oroscopo_di_un_amico_nelle_prove.dart';
+
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
   final nascita = BirthDetails(
@@ -193,30 +192,27 @@ void main() {
     tester.view.physicalSize = const Size(360, 3200);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
-    await tester.pumpWidget(MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-            create: (_) => EntitlementService(initial: Tier.tier1)),
-      ],
-      child: MaterialApp(
-          theme: AppTheme.dark(),
-          home: MaestroScope(
-              maestro: Maestro.medora,
-              child: LOroscopoDellAmicoScreen(
-                  amico: Amico(
-                      id: 'l',
-                      nome: 'Lucia',
-                      nascita: DateTime(1990, 1, 12),
-                      ora: '08:10'),
-                  adesso: DateTime(2026, 9, 30, 12)))),
-    ));
+    // LAPIDE, ordine FC voce 02: qui si montava la schermata dell'amico;
+    // adesso e' l'Oroscopo col soggetto impostato su Lucia, e la chiave
+    // della testa rivelata e' quella di prima (`amico|l|cinese`).
+    await tester.pumpWidget(lOroscopoDiUnAmico(
+        Amico(
+            id: 'l',
+            nome: 'Lucia',
+            nascita: DateTime(1990, 1, 12),
+            ora: '08:10'),
+        tier: Tier.tier1,
+        riduciMovimento: false,
+        adesso: DateTime(2026, 9, 30, 12)));
     await tester.pump();
     await tester
         .runAsync(() => Future<void>.delayed(const Duration(milliseconds: 50)));
     await tester.pump(const Duration(milliseconds: 300));
     final righe = <String>[];
     for (final t in [AstroTradition.cinese, AstroTradition.vedica]) {
-      await tester.tap(find.byKey(Key('amico_tradizione_${t.name}')));
+      final chip = find.byKey(Key('oroscopo_tradition_${t.name}'));
+      await tester.ensureVisible(chip);
+      await tester.tap(chip);
       await tester.pump();
       final subito = opacita(tester, t);
       await tester.pump(const Duration(milliseconds: 1700));
@@ -226,7 +222,9 @@ void main() {
       expect(subito, lessThan(0.3), reason: t.name);
       expect(dopo, 1.0, reason: t.name);
     }
-    await tester.tap(find.byKey(const Key('amico_tradizione_cinese')));
+    final cinese = find.byKey(const Key('oroscopo_tradition_cinese'));
+    await tester.ensureVisible(cinese);
+    await tester.tap(cinese);
     await tester.pump();
     expect(opacita(tester, AstroTradition.cinese), 1.0,
         reason: 'la seconda apertura dell\'amico rivela di nuovo');

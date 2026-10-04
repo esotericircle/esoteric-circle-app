@@ -9,16 +9,25 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// e lo dice il rapporto.
 ///
 /// Best-effort come gli altri store: senza preferenze torna l'insieme vuoto.
+///
+/// **PER SOGGETTO, ordine FC voce 02.** Dall'ordine FC l'Oroscopo legge anche
+/// un amico: aprire con gli Eos l'anno di un amico non apre il proprio, e
+/// viceversa. [soggetto] e' la chiave del soggetto
+/// (`IlSoggettoDellOroscopo.chiave`); nullo per la lettura propria, che resta
+/// sulla chiave di prima.
 class GliAnniAperti {
   const GliAnniAperti._();
 
   static const String _chiave = 'oroscopo_annuale_aperti';
 
-  static Future<Set<int>> letti() async {
+  static String _di(String? soggetto) =>
+      soggetto == null ? _chiave : '$_chiave|$soggetto';
+
+  static Future<Set<int>> letti({String? soggetto}) async {
     try {
       final prefs = await SharedPreferences.getInstance();
       return {
-        for (final s in prefs.getStringList(_chiave) ?? const <String>[])
+        for (final s in prefs.getStringList(_di(soggetto)) ?? const <String>[])
           if (int.tryParse(s) != null) int.parse(s),
       };
     } catch (errore) {
@@ -26,12 +35,12 @@ class GliAnniAperti {
     }
   }
 
-  static Future<void> apri(int anno) async {
+  static Future<void> apri(int anno, {String? soggetto}) async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      final gia = prefs.getStringList(_chiave) ?? const <String>[];
+      final gia = prefs.getStringList(_di(soggetto)) ?? const <String>[];
       if (gia.contains('$anno')) return;
-      await prefs.setStringList(_chiave, [...gia, '$anno']);
+      await prefs.setStringList(_di(soggetto), [...gia, '$anno']);
     } catch (errore) {
       // Il disco che non scrive non toglie l'anno aperto adesso: la
       // schermata lo tiene in memoria fino a quando resta aperta.

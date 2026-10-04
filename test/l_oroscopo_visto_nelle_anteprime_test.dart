@@ -9,7 +9,6 @@ import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/horoscope/astro_tradition.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/identity/profile_controller.dart';
-import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
@@ -17,7 +16,6 @@ import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/design_system/tokens/spacing_tokens.dart';
-import 'package:esoteric_circle/features/amici/l_oroscopo_dell_amico_screen.dart';
 import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -41,6 +39,8 @@ import 'cardinale_minimo.dart';
 /// - "Condividi" e "Manda a Lucia" in viola scuro sul pulsante viola
 ///   (PROVENIENZA IGNOTA: il tema non ha mai dichiarato il colore di cio' che
 ///   sta sul primario).
+import 'l_oroscopo_di_un_amico_nelle_prove.dart';
+
 void main() {
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -224,37 +224,30 @@ void main() {
       tester.view.physicalSize = const Size(360, 2400);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(tester.view.reset);
-      await tester.pumpWidget(MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-              create: (_) => EntitlementService(initial: Tier.tier3)),
-        ],
-        child: MaterialApp(
-            theme: AppTheme.dark(),
-            builder: (ctx, child) => MediaQuery(
-                  data: MediaQuery.of(ctx)
-                      .copyWith(textScaler: TextScaler.linear(scala)),
-                  child: child!,
-                ),
-            home: MaestroScope(
-                maestro: Maestro.medora,
-                child: LOroscopoDellAmicoScreen(
-                    amico: Amico(
-                        id: 'l', nome: 'Lucia', nascita: DateTime(1990, 1, 12)),
-                    adesso: DateTime(2026, 9, 30, 12)))),
-      ));
+      // LAPIDE, ordine FC voce 02: qui si montava la schermata dell'amico,
+      // con una riga delle tradizioni sua (`amico_tradizione_`) che doveva
+      // stare intera nei 360 punti. Adesso l'oroscopo di un amico e'
+      // l'Oroscopo, e la riga e' quella della persona: una riga sola che
+      // scorre, con la terza voce che si intravede (`_TraditionTabs`). Si
+      // pretende che le voci stiano su una riga e dentro la riga che scorre,
+      // e che nessun nome vada a capo; il bordo dello schermo non si pretende
+      // piu', perche' la riga scorre per scelta.
+      await tester.pumpWidget(lOroscopoDiUnAmico(
+          Amico(id: 'l', nome: 'Lucia', nascita: DateTime(1990, 1, 12)),
+          scala: scala,
+          adesso: DateTime(2026, 9, 30, 12)));
       await tester.pump(const Duration(milliseconds: 300));
       final centri = <double>{};
+      final riga = find.byKey(const Key('oroscopo_tradition_tabs'));
+      expect(riga, findsOneWidget);
       for (final t in const ['occidentale', 'cinese', 'vedica']) {
-        final voce = find.byKey(Key('amico_tradizione_$t'));
+        final voce = find.byKey(Key('oroscopo_tradition_$t'));
         expect(voce, findsOneWidget);
+        expect(find.descendant(of: riga, matching: voce), findsOneWidget,
+            reason: '$t sta fuori dalla riga delle tradizioni');
         final r = tester.getRect(voce);
         misurate++;
         centri.add(r.center.dy.roundToDouble());
-        if (r.left < -0.5 || r.right > 360.5) {
-          guasti.add('scala $scala, $t: esce dallo schermo '
-              '(${r.left.round()}, ${r.right.round()})');
-        }
         // Il nome su una riga sola.
         final nome = find.descendant(of: voce, matching: find.byType(RichText));
         final paragrafo = tester.renderObject<RenderParagraph>(nome.first);
@@ -270,7 +263,9 @@ void main() {
         guasti.add('scala $scala: le tre voci su ${centri.length} righe');
       }
       // La scelta si tocca ancora, e cambia la lettura.
-      await tester.tap(find.byKey(const Key('amico_tradizione_cinese')));
+      final cinese = find.byKey(const Key('oroscopo_tradition_cinese'));
+      await tester.ensureVisible(cinese);
+      await tester.tap(cinese);
       await tester.pump(const Duration(milliseconds: 300));
       expect(find.byKey(const Key('oroscopo_frase_cinese')), findsOneWidget);
       await tester.pumpWidget(const SizedBox());

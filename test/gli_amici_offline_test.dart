@@ -9,11 +9,20 @@ import 'package:esoteric_circle/core/horoscope/la_lettura_vedica.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/amici/amici_screen.dart';
-import 'package:esoteric_circle/features/amici/l_oroscopo_dell_amico_screen.dart';
+import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
+import 'package:esoteric_circle/core/identity/natal_identity.dart';
+import 'package:esoteric_circle/core/identity/profile_controller.dart';
+import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
+import 'package:esoteric_circle/core/motion/parallax_controller.dart';
+import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/features/horoscope/oroscopo_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'il_gesto_nelle_prove.dart';
 
 /// **GLI AMICI OFFLINE E L'OROSCOPO PER GLI AMICI. Ordine ES voce 12, 29
 /// settembre 2026.**
@@ -80,6 +89,32 @@ void main() {
             home: MaestroScope(maestro: Maestro.medora, child: figlio)),
       );
 
+  /// **L'OROSCOPO DI UN AMICO E' L'OROSCOPO, ordine FC voce 02**: si monta
+  /// con quello che l'Oroscopo vuole intorno, come nell'app.
+  Widget montaLOroscopo(Amico a, Tier tier) => MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => MaestroController()),
+          ChangeNotifierProvider(
+              create: (_) => EntitlementService(initial: tier)),
+          ChangeNotifierProvider(create: (_) => QualityTierController()),
+          ChangeNotifierProvider(create: (_) => ParallaxController()),
+          ChangeNotifierProvider(create: (_) => ZodiacController()),
+          ChangeNotifierProvider(create: (_) => ProfileController()),
+          ChangeNotifierProvider(create: (_) => BirthIdentityController()),
+          ChangeNotifierProvider(create: (_) => AmiciOffline()),
+        ],
+        child: MaterialApp(
+          builder: (ctx, child) => MediaQuery(
+            data: MediaQuery.of(ctx).copyWith(disableAnimations: true),
+            child: MaestroScope(maestro: Maestro.medora, child: child!),
+          ),
+          home: OroscopoScreen(
+              userSign: Zodiac.fromDate(a.nascita),
+              amico: a,
+              now: DateTime(2026, 10, 5, 9)),
+        ),
+      );
+
   testWidgets('il Viandante vede la voce e il tocco lo invita al piano',
       (tester) async {
     await tester.pumpWidget(monta(const AmiciScreen(), Tier.free));
@@ -117,15 +152,21 @@ void main() {
     final senza = <String>[];
     final chiedeLOra = <String>[];
     for (final (i, ora) in [(1, '08:30'), (5, null), (2, null)]) {
-      await tester.pumpWidget(monta(
-          LOroscopoDellAmicoScreen(
-              amico: amico(i, ora: ora), adesso: DateTime(2026, 10, 5, 9)),
-          Tier.tier1));
+      // LAPIDE, ordine FC voce 02: qui si montava la schermata dell'amico
+      // (`LOroscopoDellAmicoScreen`); adesso e' l'Oroscopo col soggetto
+      // impostato sull'amico, e le schede nascono dal gesto (FC.03).
+      await tester.pumpWidget(montaLOroscopo(amico(i, ora: ora), Tier.tier1));
+      // Il profilo appena creato scrive la sua forma nella statica: la forma
+      // di chi usa l'app si mette dopo, e la schermata deve lasciarla com'e'.
+      LaMarcaDelGenere.formaCorrente = CourtesyForm.masculine;
       await tester.pump(const Duration(milliseconds: 300));
       for (final t in const ['occidentale', 'cinese', 'vedica']) {
-        await tester.tap(find.byKey(Key('amico_tradizione_$t')));
+        final chip = find.byKey(Key('oroscopo_tradition_$t'));
+        await tester.ensureVisible(chip);
+        await tester.tap(chip);
         await tester.pump(const Duration(milliseconds: 300));
-        final schede = find.byKey(const Key('amico_scheda_generale'));
+        await interrogaSeCe(tester);
+        final schede = find.byKey(const Key('oroscopo_card_generale'));
         if (schede.evaluate().isNotEmpty) continue;
         // **LA VEDICA SENZA ORA, quando la Luna cambia segno quel giorno.**
         // La Luna resta in un segno due giorni e mezzo: nata in un giorno
@@ -139,7 +180,7 @@ void main() {
                 null;
         if (ambigua &&
             find
-                .byKey(const Key('amico_senza_lettura'))
+                .byKey(const Key('oroscopo_invito_nascita'))
                 .evaluate()
                 .isNotEmpty) {
           chiedeLOra.add('amico $i');
