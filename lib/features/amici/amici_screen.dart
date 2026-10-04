@@ -24,6 +24,7 @@ import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../pricing/upgrade_invite.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../horoscope/oroscopo_screen.dart';
+import 'il_ponte_verso_il_cerchio.dart';
 
 /// **GLI AMICI OFFLINE, ordine ES voce 12.**
 ///
@@ -33,7 +34,12 @@ import '../horoscope/oroscopo_screen.dart';
 /// all'amico"*; *"l'utente free non può fare orsocopo per amici, lo vede e se
 /// fa click, viene invitato a sottoscrivere abbonamento"*.
 class AmiciScreen extends StatefulWidget {
-  const AmiciScreen({super.key, this.amici, this.perScegliere = false});
+  const AmiciScreen(
+      {super.key, this.amici, this.perScegliere = false, this.adesso});
+
+  /// L'istante di adesso, per le prove della riga del Cerchio (ordine FC
+  /// voce 09): la freschezza della tendina si misura su di lui.
+  final DateTime? adesso;
 
   /// Il contenitore, per le prove; nell'app se ne crea uno e si carica.
   final AmiciOffline? amici;
@@ -157,6 +163,9 @@ class _AmiciScreenState extends State<AmiciScreen> {
             key: const Key('amici_lista'),
             padding: const EdgeInsets.all(SpacingTokens.lg),
             children: [
+              // **IL PONTE VERSO IL CERCHIO, ordine FC voce 09**: in cima,
+              // una riga sola. Il perche' sta in `il_ponte_verso_il_cerchio.dart`.
+              IlPonteVersoIlCerchio(adesso: widget.adesso),
               Text(
                   'Il nome e la nascita di chi ti sta a cuore: scopri il suo segno '
                   'nelle tre tradizioni e mandagli il suo oroscopo del giorno. I '

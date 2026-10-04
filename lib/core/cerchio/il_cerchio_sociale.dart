@@ -392,6 +392,13 @@ class IlCerchioSociale extends ChangeNotifier {
   ProfiloNelCerchio? get profilo => _profilo;
   IlMioCerchio get cerchio => _cerchio;
   LaTendina? get tendina => _tendina;
+
+  /// **QUANDO E' ARRIVATA L'ULTIMA TENDINA, ordine FC voce 09.** In memoria,
+  /// di questa sessione e basta: la riga del Cerchio nella rubrica degli
+  /// amici dice quanti sono presenti solo se la tendina e' fresca, e non la
+  /// chiama mai. Nulla finche' la tendina non e' arrivata.
+  DateTime? _tendinaArrivata;
+  DateTime? get tendinaArrivata => _tendinaArrivata;
   bool get vivo => _porta.viva;
 
   /// **IL CERCHIO SOCIALE SI APRE A QUATTORDICI ANNI, ordine EZ voce 04.**
@@ -753,6 +760,7 @@ class IlCerchioSociale extends ChangeNotifier {
     final e = await _chiedi('laTendinaDelCerchio');
     if (e == null || e.rifiutato) return _esito(e);
     _tendina = LaTendina.da(e.dati);
+    _tendinaArrivata = DateTime.now();
     notifyListeners();
     return const EsitoDelGesto(ok: true);
   }
@@ -808,6 +816,7 @@ class IlCerchioSociale extends ChangeNotifier {
     _profilo = null;
     _cerchio = const IlMioCerchio();
     _tendina = null;
+    _tendinaArrivata = null;
     _codiceDelLink = null;
     _scadenzaDelLink = null;
     try {
