@@ -37,7 +37,12 @@ Verificate sul worktree alla testa `6d0ba515`, prima di scrivere codice.
 ## FIN DOVE SONO ARRIVATO, E PERCHE'
 
 Tutte e tre le voci, col codice, le prove, la Regola A, le anteprime e i
-costi in euro. **Server: 185 prove su 185.** La suite intera sta in fondo.
+costi in euro. **Server: 185 prove su 185.** **Suite intera** al commit
+`3c526014`, sulla copia a parte: **+6683 ~11 -9**. Sette cadute erano rosse
+prima di quest'ordine e non sono sue (`le_soglie_della_scansione_sono_provvisorie`,
+ordine CR voce 13, e le guardie degli ordini ACCELERA, EI, EJ, EK, EM ed EN);
+due erano mie, e sono il difetto 9 qui sotto, corrette dopo la suite e
+riprovate una per una.
 
 **I numeri che l'ordine chiede.**
 
@@ -143,6 +148,21 @@ di tutti i cinquanta rapporti, questo compreso. La regola e' scritta anche in
    Windows non stampava il segno delle prove cadute. Il file era gia' rimesso
    dalla copia, verificato col grep; rilanciato in UTF-8. **Padre: ordine FB,
    il banco.**
+9. **Due prove cadute nella suite intera per il cambio della presenza.**
+   `chi_esce_dal_cerchio_esce_dal_conto` cercava la parola `.delete()` nella
+   porta, cioe' come si toglieva il documento di prima, e non il fatto;
+   `online_nella_barra_e_gli_eventi_nel_passport` (ordine ES voce 15)
+   pretendeva la presenza sotto users/{uid}, il conto `.count()` e il suo
+   indice. Viste rosse dalla suite prima di toccarle, riscritte sul fatto:
+   il ramo di chi esce toglie la presenza prima di rispondere (A18); le
+   porte che cancellano tolgono la voce prima del ramo (A19) e ogni risposta
+   porta il solo numero (A20). **Padre: ordine FB voce 01**, che le ha
+   cambiate sotto i piedi, e per la prima la guardia legata alla parola
+   dell'ordine EV voce 06. **E un difetto mio nella riscrittura**: la prima
+   A19 era cieca, perche' la guardia riscritta cadeva anche senza innesto
+   (un'espressione regolare sbagliata); e una prova a mano con una chiave in
+   piu' nella risposta mostrava che la guardia non la vedeva. Corretta,
+   stretta, e A19 e A20 rifatte.
 
 ## LE DECISIONI CHE RESTANO AL FONDATORE
 
@@ -180,6 +200,7 @@ pubblica anche il lavoro EZ e FA ancora fermo.
 
 ## LA REGOLA A
 
-Diciassette innesti in tre giri, tutti entrati (grep del pezzo nuovo e del
+Venti innesti in cinque giri, tutti entrati (grep del pezzo nuovo e del
 vecchio), tutti rossi sul bersaglio, ogni file rimesso dalla copia e
-confrontato al byte: `docs/collaudo/FB/regola_a_fb.txt`.
+confrontato al byte: `docs/collaudo/FB/regola_a_fb.txt`. La prima A19 era
+cieca ed e' confessata nel registro e al difetto 9.

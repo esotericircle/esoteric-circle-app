@@ -113,28 +113,56 @@ void main() {
           reason: 'la finestra non e\' piu\' il passo piu\' mezzo minuto');
     });
 
-    test('la presenza sta nel ramo di chi chiama e se ne va con lui', () {
+    test('la presenza se ne va con chi cancella, e si conta senza elenco', () {
+      // LAPIDE, ordine FB voce 01 (4 ottobre 2026). Questa prova si
+      // chiamava "la presenza sta nel ramo di chi chiama e se ne va con lui"
+      // e pretendeva la presenza sotto users/{uid}, un conto `.count()` e il
+      // suo indice. Dall'ordine FB la presenza e' la voce della persona in
+      // un frammento condiviso (`scriviLaPresenza`), e il numero viene
+      // dall'istantanea. I fatti che la prova difendeva restano: chi
+      // cancella se ne va anche dal conto, e al telefono torna un numero,
+      // mai l'elenco.
       final cerchio = File('functions/src/cerchio.ts').readAsStringSync();
+      final sociale =
+          File('functions/src/il_cerchio_sociale.ts').readAsStringSync();
       final i = cerchio.indexOf('export const chiEOnline');
       expect(i, greaterThan(0), reason: 'la porta chiEOnline non c\'e\'');
-      // La fine e' la riga che chiude la porta: dentro il corpo c'e' gia'
-      // un "});" a meta' riga, quello della scrittura della presenza.
       final corpo = cerchio.substring(i, cerchio.indexOf('\n});', i));
       expect(corpo.contains('uidDi(request)'), isTrue,
           reason: 'l\'uid non arriva dal token');
+      expect(corpo.contains('scriviLaPresenza(uid, {'), isTrue,
+          reason: 'la porta non scrive la presenza');
+      expect(corpo.contains('istantanea({ricostruisci: true})'), isTrue,
+          reason: 'il numero non viene dall\'istantanea');
+      // Ogni risposta della porta e' un oggetto con la sola chiave quanti:
+      // chi esce riceve zero, gli altri il numero da mostrare, e nient'altro.
+      final risposte = RegExp(r'return \{').allMatches(corpo).length;
+      final soloIlNumero =
+          RegExp(r'return \{quanti: 0\};').allMatches(corpo).length +
+              RegExp(r'return \{quanti: quantiDaMostrare\([^;{}]*\)\};')
+                  .allMatches(corpo)
+                  .length;
+      print('ORDINE FB VOCE 01: risposte della porta chiEOnline $risposte, '
+          'col solo numero $soloIlNumero');
+      expect(risposte >= 2 && soloIlNumero == risposte, isTrue,
+          reason: 'al telefono non torna un numero solo');
+      // Chi cancella se ne va dal conto: le due porte passano da
+      // cancellaIlSociale PRIMA di cancellare il ramo, e lei toglie la voce.
+      final cancella = sociale.substring(
+          sociale.indexOf('export async function cancellaIlSociale('));
       expect(
-          RegExp(r'utente\(uid\)\s*\.collection\("presenza"\)').hasMatch(corpo),
+          cancella
+              .substring(0, cancella.indexOf('\n}\n'))
+              .contains('scriviLaPresenza(uid, null)'),
           isTrue,
-          reason: 'la presenza non sta sotto users/{uid}: la cancellazione '
-              'del ramo non la porterebbe via');
-      expect(corpo.contains('.count()'), isTrue,
-          reason: 'si legge l\'elenco invece di contare');
-      final indice = File('firestore.indexes.json').readAsStringSync();
-      expect(
-          RegExp(r'"collectionGroup": "presenza",\s*"fieldPath": "ultimo"')
-              .hasMatch(indice),
-          isTrue,
-          reason: 'il conto sul gruppo presenza non ha il suo indice');
+          reason: 'chi cancella il Cerchio resta nel frammento');
+      for (final porta in ['azzeraIDatiDelCerchio', 'cancellaIlCerchio']) {
+        final p = cerchio.substring(cerchio.indexOf('export const $porta'));
+        final ramo = p.indexOf('recursiveDelete(utente(uid))');
+        final prima = p.indexOf('cancellaIlSociale(uid)');
+        expect(prima >= 0 && prima < ramo, isTrue,
+            reason: '$porta non toglie la voce prima di cancellare il ramo');
+      }
       final index = File('functions/src/index.ts').readAsStringSync();
       expect(index.contains('  chiEOnline,'), isTrue,
           reason: 'la porta non si esporta: Firebase non la vede');

@@ -61,7 +61,17 @@ void main() {
     final corpo = cerchio.substring(i, cerchio.indexOf('\n});', i));
     expect(corpo.contains('esce'), isTrue,
         reason: 'la porta non sa che qualcuno esce');
-    expect(corpo.contains('.delete()'), isTrue,
+    // **IL RAMO DI CHI ESCE TOGLIE LA PRESENZA PRIMA DI RISPONDERE.** Fino
+    // all'ordine FB la prova cercava `.delete()` in tutta la porta, cioe' la
+    // parola con cui allora si toglieva il documento; dall'ordine FB voce 01
+    // la presenza e' una voce in un frammento e si toglie con
+    // `scriviLaPresenza(uid, null)`. Si guarda il ramo, non la parola.
+    final ramo = corpo.substring(
+        corpo.indexOf('esce === true'), corpo.indexOf('return {quanti: 0}'));
+    expect(
+        ramo.contains('scriviLaPresenza(uid, null)') ||
+            ramo.contains('.delete()'),
+        isTrue,
         reason: 'chi esce resta nel conto fino alla fine della finestra');
   });
 }
