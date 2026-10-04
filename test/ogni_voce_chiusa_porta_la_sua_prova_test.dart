@@ -296,6 +296,7 @@ void main() {
     final colpe = <String>[];
     var rapportiGuardati = 0;
     var vociCercate = 0;
+    var vociInCoda = 0;
 
     for (final f in manifesti) {
       final sigla = siglaDi(f);
@@ -307,6 +308,20 @@ void main() {
       rapportiGuardati++;
       final testo = rapporto.readAsStringSync();
       final cima = testo.substring(0, (testo.length / 2).round());
+      // **LE AGGIUNTE IN CODA, ordine FB voce 03.** Un rapporto consegnato
+      // non si corregge nel corpo: riceve solo righe in coda. Una voce chiusa
+      // DOPO la consegna (EZ.03, chiusa dall'ordine FA) non puo' stare
+      // nell'elenco in cima senza riscrivere il rapporto consegnato, che e'
+      // proprio cio' che il fondatore ha vietato. Fino all'ordine FB questa
+      // prova pretendeva l'elenco in cima uguale al manifesto di oggi, e
+      // l'ordine FA, per tenerla verde, aveva aggiunto una riga nel corpo
+      // del rapporto EZ: la prova spingeva a falsare un documento
+      // consegnato. Adesso una voce chiusa dopo e' in regola se una riga
+      // `**Aggiunta del` in coda la nomina con la sua prova.
+      final aggiunte = RegExp(r'^\*\*Aggiunta del .*$', multiLine: true)
+          .allMatches(testo)
+          .map((m) => m.group(0)!)
+          .toList();
 
       for (final voce in vociDi(f.readAsStringSync())) {
         if (!RegExp(r'^\*\*CHIUSA[.,*]', multiLine: true)
@@ -318,6 +333,15 @@ void main() {
             .firstMatch(voce.corpo)
             ?.group(1)
             ?.trim();
+        final inCoda = aggiunte.where((a) =>
+            RegExp('\\b${RegExp.escape(voce.nome)}\\b').hasMatch(a) &&
+            (prova == null || a.contains(prova)));
+        final inCima =
+            cima.contains(voce.nome) && (prova == null || cima.contains(prova));
+        if (!inCima && inCoda.isNotEmpty) {
+          vociInCoda++;
+          continue;
+        }
         if (!cima.contains(voce.nome)) {
           colpe.add('il rapporto dell\'ordine $sigla non nomina ${voce.nome} '
               'nella sua prima meta\': chi lo apre non trova l\'elenco in '
@@ -332,7 +356,8 @@ void main() {
     }
 
     print('ORDINE EH VOCE 04: rapporti guardati $rapportiGuardati, voci '
-        'chiuse cercate in cima $vociCercate');
+        'chiuse cercate in cima $vociCercate, di cui chiuse dopo la consegna '
+        'e trovate nelle aggiunte in coda $vociInCoda');
     // **Il cardinale**: senza questa riga, il giorno che nessun rapporto
     // esistesse piu' questa prova sarebbe verde avendo letto il vuoto.
     expect(rapportiGuardati, greaterThanOrEqualTo(1),

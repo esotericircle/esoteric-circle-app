@@ -126,6 +126,16 @@ La guardia che lo fa valere e' `ogni_voce_chiusa_porta_la_sua_prova_test.dart`,
 e **in cima a ogni rapporto sta l'elenco delle voci chiuse con accanto la
 prova di ciascuna**, cosi' il fondatore controlla in trenta secondi.
 
+**Un rapporto consegnato non si corregge nel corpo**, ordine FB voce 03 del 4
+ottobre 2026: riceve solo righe in coda, che cominciano con `**Aggiunta del`
+e portano la data e l'ordine. L'ordine FA aveva aggiunto una riga nell'elenco
+in cima al rapporto EZ gia' consegnato, per tenere verde una guardia che lo
+pretendeva: la guardia e' corretta, e una voce chiusa da un ordine successivo
+si dichiara in coda col suo nome e il percorso della sua prova. Alla consegna
+il rapporto si registra con `python tool/i_rapporti_consegnati.py
+RAPPORTO_ORDINE_<sigla>.md`, e la guardia
+`i_rapporti_consegnati_non_si_correggono_test.dart` cade se il corpo cambia.
+
 ## Cosa stai costruendo
 
 Esoteric Circle, app nativa Flutter con un solo codebase per iOS e Android, primo ecosistema esoterico completo (astrologia, cartomanzia, chakra, rituali, rune, Cabala) guidato da tre Maestri AI con memoria persistente. Non esiste una demo separata: si sviluppa direttamente l'app definitiva con il pattern del feature flagging. Le funzioni non ancora pronte restano visibili ma in grigio con badge Coming soon. Lo stato dell'app a un certo punto dello sviluppo (checkpoint C6) e' cio' che si presenta a Google, ed e' gia' il codice della nativa finale.
