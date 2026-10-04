@@ -1,3 +1,4 @@
+import '../../core/cerchio/il_cerchio_sociale.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -209,6 +210,9 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
 
   void _onRevealed(Maestro maestro) {
     context.read<MaestroController>().selectMaestro(maestro);
+    // **IL MAESTRO DI RIFERIMENTO DEL PROFILO PUBBLICO, ordine EY voce 02**:
+    // e' quello rivelato qui, e finora non si conservava da nessuna parte.
+    IlCerchioSociale.ricordaIlMaestro(maestro);
     final sun = context.read<NatalChartController>().sunSign;
     if (sun != null) context.read<ZodiacController>().setSunSign(sun);
     _assigned = maestro;

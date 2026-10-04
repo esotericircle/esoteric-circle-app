@@ -94,6 +94,28 @@
                       android:host="esotericircle.app"
                       android:pathPrefix="/entra"/>
             </intent-filter>
+            <!-- IL LINK D'INVITO DEL CERCHIO APRE L'APP. Ordine EY voce 04.
+                 https://esotericircle.app/i/CODICE porta chi ha l'app dritto
+                 nella richiesta di legame; chi non ce l'ha vede la pagina del
+                 server. Senza la verifica del dominio (assetlinks.json, che
+                 serve l'impronta della chiave di firma e la mette il
+                 fondatore) Android chiede con cosa aprirlo: per questo c'e'
+                 anche lo schema esotericircle://, che il pulsante della
+                 pagina usa e che apre l'app sempre. -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="https"
+                      android:host="esotericircle.app"
+                      android:pathPrefix="/i/"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="esotericircle" android:host="i"/>
+            </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->

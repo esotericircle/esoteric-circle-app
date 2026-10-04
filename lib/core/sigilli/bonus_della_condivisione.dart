@@ -1,4 +1,5 @@
 import '../brand/brand.dart';
+import '../condivisione/porta_della_condivisione.dart';
 import '../../services/server/porta_del_cerchio.dart';
 import 'sentieri.dart';
 
@@ -104,21 +105,21 @@ enum ModoDellaCondivisione {
 class TestoDellaCondivisione {
   const TestoDellaCondivisione._();
 
-  /// **IL CODICE DELL'INVITO VIAGGIA NEL LINK. Ordine BX voce 02.**
+  /// **IL LINK NON PORTA PIU' L'UID. Ordine EY voce 17**, che supera la BX
+  /// voce 02.
   ///
-  /// Prima il link era nudo: chi arrivava non portava con se' nessuna traccia
-  /// di chi lo aveva invitato, quindi il premio si pagava alla condivisione e
-  /// non all'ingresso. Adesso il link porta `?invito=<uid>.<maestro>`: l'uid
-  /// per attribuire, il Maestro perche' il corpus ha tre voci, una per porta.
-  ///
-  /// **Senza uid il link resta quello di prima**, e il premio semplicemente
-  /// non si potra' attribuire: meglio un invito senza codice di un invito che
-  /// finge di averne uno.
-  static String codiceDellInvito(String? uid, String? maestro) {
-    if (uid == null || uid.trim().isEmpty) return '';
-    final porta = (maestro ?? '').trim();
-    return porta.isEmpty ? uid.trim() : '${uid.trim()}.$porta';
-  }
+  /// Qui c'era `codiceDellInvito(uid, maestro)`, che componeva
+  /// `<uid>.<maestro>` per il link `?invito=`: l'identificativo stabile di una
+  /// persona viaggiava in chiaro su WhatsApp e sui social, valeva per sempre e
+  /// non si poteva revocare. **Adesso il testo lascia solo il segno della
+  /// porta del Maestro** (`PortaDellaCondivisione.segnoDellaPorta`), perche'
+  /// il corpus ha tre voci, una per porta; il codice OPACO lo genera il server
+  /// e lo mette la porta della condivisione, in un posto solo (EY.15). Una
+  /// prova enumera i punti che compongono un testo d'invito e cade se un uid
+  /// ci entra.
+  static String _link(String? maestro) => (maestro ?? '').trim().isEmpty
+      ? Brand.url
+      : PortaDellaCondivisione.segnoDellaPorta(maestro!.trim());
 
   /// **I TRE TESTI PARLANO A CHI LI RICEVE, e portano tutti il link. Ordine DW
   /// voce 04.**
@@ -132,10 +133,8 @@ class TestoDellaCondivisione {
   /// alla persona giusta. Il link porta il codice dell'invito in tutti e tre i
   /// modi, perche' anche un messaggio privato puo' portare qualcuno dentro.
   static String perIlTraguardo(Traguardo traguardo, ModoDellaCondivisione modo,
-      {String? codiceInvito, int? premioInvito}) {
-    final link = (codiceInvito ?? '').isEmpty
-        ? Brand.url
-        : '${Brand.url}?invito=$codiceInvito';
+      {String? maestro, int? premioInvito}) {
+    final link = _link(maestro);
     switch (modo) {
       case ModoDellaCondivisione.invitoConDownload:
         return 'Ti invito nel Cerchio: ho appena acceso il Sigillo '
@@ -153,10 +152,8 @@ class TestoDellaCondivisione {
   /// **L'INVITO DAL MENU', senza aspettare un traguardo. Ordine DW voce 05.**
   /// Invitare qualcuno si poteva solo dalla festa di un Sigillo: chi non ne
   /// aveva acceso nessuno non aveva modo di farlo.
-  static String invitoLibero({String? codiceInvito, int? premioInvito}) {
-    final link = (codiceInvito ?? '').isEmpty
-        ? Brand.url
-        : '${Brand.url}?invito=$codiceInvito';
+  static String invitoLibero({int? premioInvito}) {
+    final link = _link(null);
     return 'Ti invito nel Cerchio, l\'app dei tre Maestri: astrologia, '
         'tarocchi, rune e chakra. Scarica ${Brand.name} e, quando ti '
         'registri, incolla questo link${_aTesta(premioInvito)}. $link';

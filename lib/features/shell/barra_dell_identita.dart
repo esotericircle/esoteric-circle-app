@@ -1,3 +1,5 @@
+import '../../core/cerchio/il_cerchio_sociale.dart';
+import '../cerchio/la_tendina_del_cerchio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -338,9 +340,11 @@ class _AreaDiTocco extends StatelessWidget {
 /// rete, si legge la lucina con "Online" e nessun numero: un numero
 /// inventato sarebbe peggio di un numero che manca.
 ///
-/// **Non e' una porta**: e' un segnale, e un tocco qui non porta da nessuna
-/// parte perche' non c'e' niente da aprire. Chi cerca gli eventi li trova nel
-/// Passport, in cima.
+/// **ADESSO E' UNA PORTA, ordine EY voce 08**, e la regola di prima ("non e'
+/// una porta: non c'e' niente da aprire") cade perche' adesso c'e': al tocco
+/// scende la tendina del Cerchio, coi tuoi amici presenti e il Cerchio per
+/// arte. Senza il Cerchio sociale (le prove che montano la barra da sola) il
+/// tocco non fa niente, come prima.
 class _ChiEOnline extends StatelessWidget {
   const _ChiEOnline();
 
@@ -358,47 +362,61 @@ class _ChiEOnline extends StatelessWidget {
     }
     final quanti = chi?.quanti;
     final stile = TypographyTokens.etichetta();
-    return Semantics(
-      key: const Key('barra_online'),
-      container: true,
-      excludeSemantics: true,
-      label: quanti == null
-          ? 'Online'
-          : quanti == 1
-              ? 'Online adesso: una persona'
-              : 'Online adesso: ${NumeroDelCerchio.interi(quanti)} persone',
-      child: Container(
-        alignment: Alignment.center,
-        height: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xs),
-        // Si adatta invece di troncarsi, come la scritta che c'era prima:
-        // su uno schermo stretto un numero tagliato a meta' direbbe il falso.
-        child: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const _Lucina(),
-              const SizedBox(width: SpacingTokens.xs),
-              Text(
-                'Online',
-                key: const Key('barra_online_scritta'),
-                maxLines: 1,
-                style: stile.copyWith(color: palette.goldSoft),
-              ),
-              if (quanti != null) ...[
+    var conLaTendina = false;
+    try {
+      Provider.of<IlCerchioSociale>(context, listen: false);
+      conLaTendina = true;
+    } on ProviderNotFoundException {
+      conLaTendina = false;
+    }
+    return GestureDetector(
+      key: const Key('barra_online_tocco'),
+      behavior: HitTestBehavior.opaque,
+      onTap: conLaTendina ? () => apriLaTendinaDelCerchio(context) : null,
+      child: Semantics(
+        key: const Key('barra_online'),
+        container: true,
+        excludeSemantics: true,
+        button: conLaTendina,
+        hint: conLaTendina ? 'Apre chi è nel Cerchio adesso' : null,
+        label: quanti == null
+            ? 'Online'
+            : quanti == 1
+                ? 'Online adesso: una persona'
+                : 'Online adesso: ${NumeroDelCerchio.interi(quanti)} persone',
+        child: Container(
+          alignment: Alignment.center,
+          height: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.xs),
+          // Si adatta invece di troncarsi, come la scritta che c'era prima:
+          // su uno schermo stretto un numero tagliato a meta' direbbe il falso.
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const _Lucina(),
                 const SizedBox(width: SpacingTokens.xs),
                 Text(
-                  NumeroDelCerchio.interi(quanti),
-                  key: const Key('barra_online_numero'),
+                  'Online',
+                  key: const Key('barra_online_scritta'),
                   maxLines: 1,
-                  style: stile.copyWith(
-                    color: ColorTokens.textPrimary,
-                    fontFeatures: const [FontFeature.tabularFigures()],
-                  ),
+                  style: stile.copyWith(color: palette.goldSoft),
                 ),
+                if (quanti != null) ...[
+                  const SizedBox(width: SpacingTokens.xs),
+                  Text(
+                    NumeroDelCerchio.interi(quanti),
+                    key: const Key('barra_online_numero'),
+                    maxLines: 1,
+                    style: stile.copyWith(
+                      color: ColorTokens.textPrimary,
+                      fontFeatures: const [FontFeature.tabularFigures()],
+                    ),
+                  ),
+                ],
               ],
-            ],
+            ),
           ),
         ),
       ),

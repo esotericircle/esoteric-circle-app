@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 
 import '../../core/entitlement/question_allowance.dart';
 import '../../core/sigilli/bonus_della_condivisione.dart';
-import '../../core/identity/account_del_cerchio.dart';
 import '../../core/sigilli/diario_del_cammino.dart';
 import '../../core/sigilli/sentieri.dart';
 import '../../design_system/components/cosmos_background.dart';
@@ -1092,16 +1091,10 @@ Future<void> condividiIlTraguardo(
   final registro = _registroDegliEos(context);
 
   // 1. SI CONDIVIDE DAVVERO.
-  // **IL LINK PORTA IL CODICE DELL'INVITO, ordine BX voce 02**: l'uid di chi
-  // invita e la porta del Maestro da cui l'invito parte. Senza uid, per
-  // esempio prima della registrazione, il link resta quello nudo di prima e
-  // il premio semplicemente non si potra' attribuire.
-  String? uid;
-  try {
-    uid = context.read<AccountDelCerchio>().uid;
-  } catch (senzaAccount) {
-    uid = null;
-  }
+  // **IL LINK PORTA IL CODICE DELL'INVITO, ordine BX voce 02**, e dall'ordine
+  // EY voce 17 non e' piu' l'uid: il testo dice solo la porta del Maestro da
+  // cui l'invito parte, e il codice opaco lo aggiunge la porta della
+  // condivisione.
   final maestro = MaestroScope.forse(context)?.key.maestro?.name;
   // **E PARTE CON LA SUA IMMAGINE, ordine DW voce 04.** Dalla festa partiva
   // un testo solo: chi lo riceveva non vedeva niente del Sigillo.
@@ -1111,8 +1104,7 @@ Future<void> condividiIlTraguardo(
         traguardo: traguardo,
         palette: MaestroScope.forse(context) ?? MaestroPalette.neutral),
     testo: TestoDellaCondivisione.perIlTraguardo(traguardo, modo,
-        codiceInvito: TestoDellaCondivisione.codiceDellInvito(uid, maestro),
-        premioInvito: borsa.premioDellInvito),
+        maestro: maestro, premioInvito: borsa.premioDellInvito),
     nomeDelFile: 'sigillo_${traguardo.id}.png',
   );
   if (!context.mounted) return;

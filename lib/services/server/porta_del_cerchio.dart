@@ -1,4 +1,5 @@
 import '../../core/cammino/cammino_da_custodire.dart';
+import '../../core/cerchio/l_arte_di_adesso.dart';
 import 'dart:math' as math;
 
 import 'package:cloud_functions/cloud_functions.dart';
@@ -349,6 +350,17 @@ abstract class PortaDelCerchio {
   /// invece di inventarne uno.
   Future<int?> chiEOnline() async => null;
 
+  /// **IL MOTORE SOCIALE DEL CERCHIO, ordine EY.** Una porta sola per le
+  /// sedici callable sociali (`functions/src/il_cerchio_sociale.ts`): il
+  /// telefono propone, il server decide e scrive. Torna la risposta del
+  /// server, oppure il rifiuto col suo codice e la riga che la persona legge
+  /// (il tetto della porta dice quanto manca). **Nullo vuol dire "il Cerchio
+  /// non risponde"**: la porta finta non risponde mai, e chi chiama lo dice a
+  /// schermo invece di fingere un esito.
+  Future<EsitoSociale?> sociale(String porta,
+          [Map<String, Object?> corpo = const {}]) async =>
+      null;
+
   /// **CHI ESCE DAL CERCHIO ESCE DAL CONTO.** Ordine EV voce 06: quando l'app
   /// va in pausa il telefono lo dice al server, che toglie la sua presenza
   /// subito invece di aspettare la fine della finestra. La porta finta non
@@ -556,10 +568,34 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
     // risposte da rispettare; qui un rifiuto vuol dire soltanto che il
     // numero non si sa, e la barra lo tratta come la rete assente.
     try {
-      final risposta = await _chiama('chiEOnline', const {});
+      // **L'ARTE VIAGGIA CON LA PRESENZA, ordine EY voce 08**: come
+      // categoria dell'elenco chiuso, mai come testo libero.
+      final risposta = await _chiama(
+          'chiEOnline', {'arte': LArteDiAdesso.attuale.value.name});
       final quanti = risposta is Map ? risposta['quanti'] : null;
       return quanti is int && quanti > 0 ? quanti : null;
     } catch (errore) {
+      return null;
+    }
+  }
+
+  @override
+  Future<EsitoSociale?> sociale(String porta,
+      [Map<String, Object?> corpo = const {}]) async {
+    try {
+      final esito = await _funzioni.httpsCallable(porta).call<Object?>(corpo);
+      final dati = esito.data;
+      return EsitoSociale(
+          dati: dati is Map ? Map<String, Object?>.from(dati) : const {});
+    } on FirebaseFunctionsException catch (errore) {
+      // Il rifiuto del server e' una risposta: arriva col suo codice e con la
+      // riga scritta dal server, che dice per esempio quanto manca al tetto.
+      return EsitoSociale(
+          dati: const {}, errore: errore.code, riga: errore.message);
+    } catch (errore) {
+      // Rete giu', funzione non ancora pubblicata, tempo scaduto: nullo, e
+      // chi chiama dice che il Cerchio non risponde.
+      debugPrint('Cerchio: la porta $porta non risponde. $errore');
       return null;
     }
   }
@@ -693,6 +729,30 @@ class PortaSpentaDelCerchio extends PortaDelCerchio {
 
   @override
   Future<bool> cancellaIlCerchio() async => false;
+}
+
+/// **LA RISPOSTA DI UNA PORTA SOCIALE, ordine EY.** I dati del server, oppure
+/// il rifiuto col suo codice e la riga da mostrare.
+class EsitoSociale {
+  const EsitoSociale({required this.dati, this.errore, this.riga});
+
+  final Map<String, Object?> dati;
+
+  /// Il codice del rifiuto (`resource-exhausted` per il tetto della porta),
+  /// oppure nullo se la porta ha risposto.
+  final String? errore;
+
+  /// La riga che la persona legge, scritta dal server.
+  final String? riga;
+
+  bool get rifiutato => errore != null;
+
+  /// Il risultato logico della porta: `ok` vero, senza rifiuto.
+  bool get ok => !rifiutato && dati['ok'] == true;
+
+  /// La riga da mostrare quando qualcosa non e' andato: quella del rifiuto,
+  /// quella che la porta ha messo nei dati, o nessuna.
+  String? get rigaDaMostrare => riga ?? dati['riga'] as String?;
 }
 
 /// La risposta della sonda dell'ingresso (BI.01): l'email ha un Cerchio?

@@ -1,3 +1,6 @@
+import '../../core/cerchio/il_cerchio_sociale.dart';
+import '../../core/cerchio/il_nome_iniziatico.dart';
+import '../../core/cerchio/le_regole_del_nome.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -296,6 +299,31 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   final TextEditingController _nameCtrl = TextEditingController();
   CourtesyForm? _courtesy;
 
+  /// **IL NOME NEL CERCHIO, ordine EY voce 01.** Il secondo campo del passo
+  /// del nome: arriva gia' compilato col nome iniziatico che il Cerchio
+  /// propone, e la persona lo tiene oppure ne scrive uno suo. Finche' non lo
+  /// tocca, il nome proposto segue il nome proprio, perche' non deve mai
+  /// contenerlo.
+  final TextEditingController _pseudonimoCtrl = TextEditingController();
+  bool _pseudonimoScritto = false;
+  int _tentativoDelNome = 0;
+  LeRegoleDelNome? _regoleDelNome;
+
+  void _proponiIlNomeIniziatico() {
+    if (_pseudonimoScritto) return;
+    _pseudonimoCtrl.text = IlNomeIniziatico.per(
+      identita: _identity,
+      nomeProprio: _nameCtrl.text,
+      tentativo: _tentativoDelNome,
+    );
+  }
+
+  /// Il verdetto sul nome del Cerchio, dalle stesse regole del server. Senza
+  /// le regole caricate decide solo il server, alla prima occasione: e' un
+  /// ripiego dichiarato, e il campo non blocca nessuno per un asset mancante.
+  PercheNoAlNome? get _verdettoDelNome =>
+      _regoleDelNome?.verdetto(_pseudonimoCtrl.text);
+
   @override
   void initState() {
     super.initState();
@@ -308,6 +336,11 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     });
     _riprendiCioCheIlCerchioSapeva();
     _chiediSeIlTelefonoPropone();
+    LeRegoleDelNome.carica().then((r) {
+      if (mounted) setState(() => _regoleDelNome = r);
+    }).catchError((Object errore) {
+      debugPrint('Onboarding: le regole del nome non si caricano. $errore');
+    });
     _ignite = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),
@@ -335,6 +368,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     _luogoFocus.dispose();
     _placeCtrl.dispose();
     _nameCtrl.dispose();
+    _pseudonimoCtrl.dispose();
     super.dispose();
   }
 
@@ -381,6 +415,10 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     const order = _Step.values;
     final i = _step.index;
     if (i < order.length - 1) {
+      // Il nome nel Cerchio arriva gia' compilato (ordine EY voce 01).
+      if (order[i + 1] == _Step.nome && _pseudonimoCtrl.text.isEmpty) {
+        _proponiIlNomeIniziatico();
+      }
       setState(() => _step = order[i + 1]);
       _playIgnition();
     }
@@ -405,6 +443,12 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     // **LA FORMA VA SOLO NEL PROFILO**, ordine DL voce 01: qui si scriveva
     // anche in un secondo enum, `AddressForm`, che nessuno salvava.
     context.read<IdentityController>().setName(name);
+
+    // **IL NOME NEL CERCHIO SI PROPONE, NON SI SCRIVE, ordine EY voce 01.**
+    // Resta sul telefono finche' il server lo riceve e lo decide: lo manda
+    // il custode del Cerchio sociale alla prima occasione.
+    final pseudonimo = _pseudonimoCtrl.text.trim();
+    if (pseudonimo.isNotEmpty) IlCerchioSociale.proponiIlNome(pseudonimo);
 
     // Ponte: dai dati raccolti nasce il BirthDetails che alimenta la carta.
     final details = BirthDetails(
@@ -972,6 +1016,14 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   // --- Passo 4: il nome ---
   Widget _nomeStep() {
+    // Chi riprende il rito da qui trova il nome nel Cerchio gia' proposto.
+    if (_pseudonimoCtrl.text.isEmpty && !_pseudonimoScritto) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted && _pseudonimoCtrl.text.isEmpty && !_pseudonimoScritto) {
+          setState(_proponiIlNomeIniziatico);
+        }
+      });
+    }
     return _StepBody(
       visual: _NameGlow(
         name: _nameCtrl.text.trim(),
@@ -980,30 +1032,49 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       ),
       title: 'Come ti chiami',
       subtitle: 'Il cerchio ti chiamerà per nome, non con un\'etichetta.',
-      content: TextField(
-        key: const Key('risveglio_nome_field'),
-        controller: _nameCtrl,
-        textAlign: TextAlign.center,
-        onChanged: (_) => setState(() {}),
-        style:
-            TypographyTokens.titoloSezione().copyWith(color: _palette.goldSoft),
-        cursorColor: _palette.goldSoft,
-        decoration: InputDecoration(
-          hintText: 'Il tuo nome',
-          hintStyle: TypographyTokens.corpo()
-              .copyWith(color: ColorTokens.textSecondary),
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: _palette.gold.withValues(alpha: 0.4)),
+      content: Column(
+        children: [
+          TextField(
+            key: const Key('risveglio_nome_field'),
+            controller: _nameCtrl,
+            textAlign: TextAlign.center,
+            onChanged: (_) => setState(_proponiIlNomeIniziatico),
+            style: TypographyTokens.titoloSezione()
+                .copyWith(color: _palette.goldSoft),
+            cursorColor: _palette.goldSoft,
+            decoration: InputDecoration(
+              hintText: 'Il tuo nome',
+              hintStyle: TypographyTokens.corpo()
+                  .copyWith(color: ColorTokens.textSecondary),
+              enabledBorder: UnderlineInputBorder(
+                borderSide:
+                    BorderSide(color: _palette.gold.withValues(alpha: 0.4)),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: _palette.goldSoft),
+              ),
+            ),
           ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: _palette.goldSoft),
+          const SizedBox(height: SpacingTokens.xl),
+          _IlNomeNelCerchio(
+            controller: _pseudonimoCtrl,
+            palette: _palette,
+            verdetto: _verdettoDelNome,
+            onScritto: () => setState(() => _pseudonimoScritto = true),
+            onUnAltro: () => setState(() {
+              _pseudonimoScritto = false;
+              _tentativoDelNome++;
+              _proponiIlNomeIniziatico();
+            }),
           ),
-        ),
+        ],
       ),
       cta: _Cta(
         label: 'Continua',
         palette: _palette,
-        enabled: _nameCtrl.text.trim().isNotEmpty,
+        enabled: _nameCtrl.text.trim().isNotEmpty &&
+            _pseudonimoCtrl.text.trim().isNotEmpty &&
+            _verdettoDelNome == null,
         onTap: _goNext,
       ),
     );
@@ -1070,6 +1141,82 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 // Impalcatura comune di un passo: visivo in alto, titolo, sottotitolo,
 // corpo, e l'invito a proseguire.
 // ------------------------------------------------------------------
+/// **IL NOME NEL CERCHIO**, il secondo campo del passo del nome (ordine EY
+/// voce 01). Sopra la domanda, sotto la riga che dice da dove viene il nome
+/// proposto; se il nome non passa le regole, la riga del perche'.
+class _IlNomeNelCerchio extends StatelessWidget {
+  const _IlNomeNelCerchio({
+    required this.controller,
+    required this.palette,
+    required this.verdetto,
+    required this.onScritto,
+    required this.onUnAltro,
+  });
+
+  final TextEditingController controller;
+  final MaestroPalette palette;
+  final PercheNoAlNome? verdetto;
+  final VoidCallback onScritto;
+  final VoidCallback onUnAltro;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          'Con quale nome vuoi essere trovato nel Cerchio?',
+          textAlign: TextAlign.center,
+          style: TypographyTokens.corpo().copyWith(color: palette.goldSoft),
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        TextField(
+          key: const Key('risveglio_nome_nel_cerchio'),
+          controller: controller,
+          textAlign: TextAlign.center,
+          maxLength: 20,
+          onChanged: (_) => onScritto(),
+          style: TypographyTokens.titoloSezione()
+              .copyWith(color: ColorTokens.textPrimary),
+          cursorColor: palette.goldSoft,
+          decoration: InputDecoration(
+            counterText: '',
+            enabledBorder: UnderlineInputBorder(
+              borderSide:
+                  BorderSide(color: palette.gold.withValues(alpha: 0.4)),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: palette.goldSoft),
+            ),
+          ),
+        ),
+        const SizedBox(height: SpacingTokens.sm),
+        Text(
+          verdetto?.riga ??
+              'Questo è il nome che il Cerchio ti ha dato: tienilo, oppure '
+                  'scrivine uno tuo. Potrai cambiarlo dal tuo profilo.',
+          key: const Key('risveglio_nome_nel_cerchio_riga'),
+          textAlign: TextAlign.center,
+          style: TypographyTokens.didascalia().copyWith(
+            color: verdetto == null
+                ? ColorTokens.textSecondary
+                : const Color(0xFFFFB4A2),
+            height: 1.4,
+          ),
+        ),
+        TextButton(
+          key: const Key('risveglio_un_altro_nome'),
+          onPressed: onUnAltro,
+          child: Text(
+            'Proponimene un altro',
+            style: TypographyTokens.didascalia().copyWith(
+                color: palette.goldSoft, decoration: TextDecoration.underline),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
 class _StepBody extends StatelessWidget {
   const _StepBody({
     required this.visual,

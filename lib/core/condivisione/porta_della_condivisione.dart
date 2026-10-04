@@ -2,6 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/widgets.dart';
 import 'package:share_plus/share_plus.dart';
+import '../brand/brand.dart';
 import '../misura/misura_del_ritorno.dart';
 import '../misura/registro_del_ritorno.dart';
 
@@ -29,6 +30,61 @@ class PortaDellaCondivisione {
 
   /// La firma comune col nome del file delle immagini condivise.
   static const String nomeDelFile = 'esoteric-circle.png';
+
+  /// **IL LINK DI INVITO STA DENTRO LA PORTA, ordine EY voce 15.** Chi
+  /// condivide una card manda anche il suo invito, cosi' una card che gira
+  /// produce un invito attribuito. Lo aggiunge la porta e non i suoi
+  /// chiamanti: se lo mettesse ciascuno di loro, sarebbero diciannove posti
+  /// dove sbagliarlo.
+  ///
+  /// Il codice lo da' il Cerchio sociale (`CustodeDelCerchioSociale` lo
+  /// collega qui all'avvio): e' il codice OPACO del server (EY.17), mai
+  /// l'uid. Nullo quando nessuno l'ha collegato, come nelle prove.
+  static Future<String?> Function()? codiceDellInvito;
+
+  /// Il segno che un testo lascia per dire da quale Maestro parte l'invito:
+  /// `${Brand.url}?porta=aura`. La porta lo sostituisce col link vero.
+  static String segnoDellaPorta(String maestro) =>
+      '${Brand.url}?porta=$maestro';
+
+  /// Il testo col link d'invito. Dove il testo nomina gia' l'indirizzo del
+  /// Cerchio, il link prende il suo posto; dove non lo nomina, si aggiunge in
+  /// fondo, su una riga sua: il testo resta breve e non ripete l'immagine.
+  ///
+  /// **IL RIPIEGO, DICHIARATO**: senza codice (rete assente, funzione non
+  /// pubblicata, nessun account) il testo parte com'e', con l'indirizzo nudo
+  /// del Cerchio che si legge nel foglio di sistema: si condivide lo stesso,
+  /// e l'invito semplicemente non e' attribuito. Il codice si aspetta al
+  /// massimo tre secondi, perche' chi condivide sta finendo un rito.
+  static Future<String?> conIlLink(String? testo) async {
+    final chiedi = codiceDellInvito;
+    // Il codice si aspetta come `String?` dichiarato: un tempo scaduto o un
+    // guasto della rete danno nullo, cioe' il ripiego, e non salgono mai fino
+    // a chi sta condividendo.
+    // Il corpo asincrono da' un futuro proprio, di tipo `String?`, anche
+    // quando chi lo collega ne ritorna uno di tipo `String`.
+    Future<String?> ilCodice() async => await chiedi!();
+    final codice = chiedi == null
+        ? null
+        : await ilCodice()
+            .timeout(const Duration(seconds: 3), onTimeout: () => null)
+            .catchError((Object _) => null);
+    if (codice == null || codice.isEmpty) return testo;
+    final base = testo ?? '';
+    if (base.contains('${Brand.url}/i/')) return base;
+    final porta =
+        RegExp(RegExp.escape(Brand.url) + r'\?porta=(\w+)').firstMatch(base);
+    if (porta != null) {
+      return base.replaceFirst(
+          porta.group(0)!, '${Brand.url}/i/$codice.${porta.group(1)}');
+    }
+    if (base.contains(Brand.url)) {
+      return base.replaceFirst(Brand.url, '${Brand.url}/i/$codice');
+    }
+    return base.trim().isEmpty
+        ? '${Brand.url}/i/$codice'
+        : '$base\n${Brand.url}/i/$codice';
+  }
 
   /// **DOVE E' ANDATA L'ULTIMA CONDIVISIONE, e vive un istante. Ordine BX
   /// voce 10.**
@@ -153,10 +209,11 @@ class PortaDellaCondivisione {
   /// Manda del TESTO. Torna falso se la condivisione non e' partita.
   static Future<bool> testo(String cosa, {String? oggetto}) async {
     if (cosa.trim().isEmpty) return false;
+    final conLink = await conIlLink(cosa) ?? cosa;
     try {
       final esito = await SharePlus.instance.share(
         ShareParams(
-            text: cosa,
+            text: conLink,
             subject: oggetto,
             sharePositionOrigin: origineDelFoglio()),
       );
@@ -180,11 +237,12 @@ class PortaDellaCondivisione {
     String tipo = 'image/png',
   }) async {
     if (percorso.isEmpty) return false;
+    final conLink = await conIlLink(testo);
     try {
       final esito = await SharePlus.instance.share(
         ShareParams(
           sharePositionOrigin: origineDelFoglio(),
-          text: testo,
+          text: conLink,
           files: [XFile(percorso, mimeType: tipo)],
         ),
       );
@@ -233,11 +291,12 @@ class PortaDellaCondivisione {
     String tipo = 'image/png',
   }) async {
     if (byte.isEmpty) return false;
+    final conLink = await conIlLink(testo);
     try {
       final esito = await SharePlus.instance.share(
         ShareParams(
           sharePositionOrigin: origineDelFoglio(),
-          text: testo,
+          text: conLink,
           files: [XFile.fromData(byte, name: nome, mimeType: tipo)],
         ),
       );

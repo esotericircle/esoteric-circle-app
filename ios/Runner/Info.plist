@@ -100,6 +100,19 @@
 				<string>com.googleusercontent.apps.425821975933-vq6jtskejop8aibnlrqjs7v15ud66849</string>
 			</array>
 		</dict>
+		<!-- IL LINK D'INVITO DEL CERCHIO, ordine EY voce 04: lo schema
+		     esotericircle:// apre l'invito nell'app dal pulsante della pagina
+		     del link. -->
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>com.esotericircle.invito</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>esotericircle</string>
+			</array>
+		</dict>
 	</array>
 	<!-- NIENTE CRITTOGRAFIA PROPRIA, dichiarato una volta per tutte: l'app usa
 	     solo l'HTTPS di sistema, che e' esente. Senza questa chiave, App Store

@@ -330,7 +330,7 @@ class SynastryBarRow extends StatelessWidget {
     required this.bar,
     required this.palette,
     required this.progress,
-    required this.meetingReport,
+    this.meetingReport,
   });
 
   final SynastryBar bar;
@@ -338,7 +338,9 @@ class SynastryBarRow extends StatelessWidget {
   final double progress;
 
   /// Serve solo per la barra dell'incontro, per la percentuale minima esatta.
-  final SynastryReport meetingReport;
+  /// **Facoltativo dall'ordine EY voce 13**: il confronto del cielo fra due
+  /// amici riusa questa barra e non ha nessun incontro da misurare.
+  final SynastryReport? meetingReport;
 
   @override
   Widget build(BuildContext context) {
@@ -368,7 +370,9 @@ class SynastryBarRow extends StatelessWidget {
     // nelle altre.
     final fraction = bar.frazione;
     final valueText =
-        isMeeting ? meetingReport.meetingLabel : '${bar.value}%';
+        isMeeting && meetingReport != null
+            ? meetingReport!.meetingLabel
+            : '${bar.value}%';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

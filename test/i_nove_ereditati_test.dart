@@ -102,6 +102,30 @@ void main() {
           reason: 'un guasto non si traduce piu\' in un no: chi chiama non ha '
               'modo di sapere che la condivisione non e\' avvenuta');
     });
+
+    // **ESTESA DALL'ORDINE EY VOCE 15**: il link d'invito sta DENTRO la porta,
+    // in un posto solo, e non nei suoi chiamanti. Ogni via che manda una card
+    // o un testo a qualcuno passa dal punto che aggiunge il link prima di
+    // aprire il foglio di sistema; se una via nuova nasce senza, questa cade.
+    // Lo scarico dei propri dati (`piuFile`) resta fuori, e si dichiara: e'
+    // l'archivio di una persona, non una card per qualcun altro.
+    test('ogni via che condivide passa dal punto che aggiunge il link', () {
+      final s = sorgente('lib/core/condivisione/porta_della_condivisione.dart');
+      final senza = <String>[];
+      for (final via in const ['testo', 'daFile', 'immagine']) {
+        final i = s.indexOf('static Future<bool> $via(');
+        final fine = s.indexOf('SharePlus.instance.share(', i);
+        final prima = s.substring(i, fine);
+        if (!prima.contains('conIlLink(')) senza.add(via);
+      }
+      // ignore: avoid_print
+      print('ORDINE EY VOCE 15: vie della porta senza il link ${senza.length}');
+      expect(senza, isEmpty,
+          reason: 'queste vie condividono senza il link d\'invito: $senza');
+      final i = s.indexOf('static Future<bool> piuFile(');
+      expect(s.substring(i, s.indexOf('SharePlus.instance.share(', i)),
+          isNot(contains('conIlLink(')));
+    });
   });
 
   group('P.29 la rinomina di sunset_time in solar_time', () {

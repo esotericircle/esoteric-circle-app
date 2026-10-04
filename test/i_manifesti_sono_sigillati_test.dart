@@ -332,6 +332,10 @@ void main() {
     // dal 3 ottobre, con l'EX.12 dell'EX Aggiunta 5 (il gesto in Settimana,
     // Mese e Anno).
     'EX': 12,
+    // EY: diciassette voci, contate coi titoli "## VOCE EY." del manifesto il
+    // 4 ottobre 2026: sedici dai tre pezzi dell'ordine, piu' l'EY.17 dell'EY
+    // Aggiunta 1 (il codice dell'invito diventa opaco).
+    'EY': 17,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

@@ -18,6 +18,7 @@ import {
   decidiIlSegno,
   decidiIlTetto,
   decidiLInvito,
+  istantaneaVecchia,
   donoPerIlPiano,
   eUnSigillo,
   leggiIlCodiceDellInvito,
@@ -181,6 +182,16 @@ test("EY.08 le persone simili: al massimo dodici, mescolate per giorno e per chi
   for (const escluso of ["minore", "soloAmici", "amico", "io"]) {
     assert.ok(!oggi.includes(escluso), `${escluso} non doveva comparire`);
   }
+});
+
+test("EY.08 l'istantanea si rifa' al massimo ogni trenta secondi, non a ogni domanda", () => {
+  // Nata dalla Regola A (A20): la misura delle letture non vedeva il passo,
+  // perche' la ricostruzione si divide fra chi chiede. Qui si pretende il
+  // passo stesso.
+  const t0 = 5_000_000;
+  assert.equal(istantaneaVecchia(null, t0), true);
+  assert.equal(istantaneaVecchia(t0, t0 + 29_999), false);
+  assert.equal(istantaneaVecchia(t0, t0 + 30_000), true);
 });
 
 test("EY.08 LA MISURA DELLE LETTURE: istantanea contro via ingenua, mille presenti", () => {

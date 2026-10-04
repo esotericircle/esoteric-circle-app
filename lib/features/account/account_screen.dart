@@ -1,3 +1,4 @@
+import '../cerchio/il_tuo_cerchio_screen.dart';
 import 'package:flutter/material.dart';
 import '../ricordi/ricordi_screen.dart';
 import 'package:provider/provider.dart';
@@ -79,6 +80,16 @@ class AccountScreen extends StatelessWidget {
           icon: Icons.cake_outlined,
           onTap: (context) =>
               Navigator.of(context).push(DatiDiNascitaScreen.route()),
+        ),
+        // **IL TUO CERCHIO, ordine EY**: gli amici dell'app, gli inviti, i
+        // segni e i doni. Il nome e il sigillo stanno nel Profilo.
+        _AccountEntry(
+          id: 'cerchio',
+          title: 'Il tuo Cerchio',
+          subtitle: 'I tuoi amici, i segni e gli inviti',
+          icon: Icons.diversity_3_outlined,
+          onTap: (context) =>
+              Navigator.of(context).push(IlTuoCerchioScreen.route()),
         ),
         // **CHI TI HA INVITATO, ordine BX voce 02.** Il premio dell'invito lo
         // paga l'ingresso vero di una persona, e l'ingresso ha bisogno di una

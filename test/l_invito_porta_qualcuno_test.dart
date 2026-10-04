@@ -45,8 +45,16 @@ void main() {
           reason: 'il listino della condivisione paga di nuovo l\'invito: '
               'chi condivide e non porta nessuno incassa lo stesso');
       // E il premio dell'invito accolto esiste, con il suo valore.
-      expect(listino.contains('EOS_DELL_INVITO_ACCOLTO = 60'), isTrue,
-          reason: 'il premio dell\'invito accolto non vale piu\' sessanta Eos');
+      // **LAPIDE, ordine EY Aggiunta 1, 4 ottobre 2026**: qui c'era
+      // "EOS_DELL_INVITO_ACCOLTO = 60", la decisione del 18 settembre. Il
+      // fondatore l'ha superata con centocinquanta a testa: la prova difende
+      // la regola nuova, non quella vecchia.
+      expect(listino.contains('EOS_DELL_INVITO_ACCOLTO = 150'), isTrue,
+          reason: 'il premio dell\'invito accolto non vale piu\' '
+              'centocinquanta Eos');
+      expect(listino.contains('EOS_A_CHI_ARRIVA_CON_UN_INVITO = 150'), isTrue,
+          reason: 'chi arriva con un invito non riceve piu\' centocinquanta '
+              'Eos');
       final cerchio = File('functions/src/cerchio.ts').readAsStringSync();
       expect(cerchio.contains('export const riscattaLInvito'), isTrue,
           reason: 'la porta che paga l\'invito accolto non esiste piu\'');
@@ -102,8 +110,8 @@ void main() {
       // dichiarare invece di lasciarla implicita: se un giorno tornera', la
       // riga qui sotto cadra' e chi la legge sapra' che il premio e' tornato.
       final sullInvito = Sentieri.tuttiITraguardi
-          .where((t) => t.condizione.gestiNominati
-              .any((g) => g.startsWith('invito')))
+          .where((t) =>
+              t.condizione.gestiNominati.any((g) => g.startsWith('invito')))
           .map((t) => t.id)
           .toList();
       // ignore: avoid_print
@@ -114,37 +122,26 @@ void main() {
               'va scritto, perche dipende da un altra persona');
     });
 
-    test('Il link dell\'invito porta il codice, e il codice torna indietro',
-        () {
-      final codice =
-          TestoDellaCondivisione.codiceDellInvito('abc123xyz', 'aura');
-      expect(codice, 'abc123xyz.aura');
+    // **LAPIDE, ordine EY voce 17, 4 ottobre 2026.** Qui c'erano due prove
+    // dell'ordine BX voce 02: "il link dell'invito porta il codice", che
+    // pretendeva `invito=<uid>.<maestro>` nel testo, e "senza uid il link
+    // resta quello nudo". Difendevano l'uid in chiaro su WhatsApp, che
+    // l'ordine EY ha tolto: il testo adesso porta solo la porta del Maestro,
+    // e il codice OPACO lo mette la porta della condivisione. La regola nuova
+    // la difende `il_link_d_invito_non_porta_l_uid_test.dart`; qui resta il
+    // riscatto, che il codice incollato lo capisce ancora.
+    test('Il testo dell\'invito porta la porta del Maestro e nessun uid', () {
       final traguardo = Sentieri.tuttiITraguardi.first;
       final testo = TestoDellaCondivisione.perIlTraguardo(
           traguardo, ModoDellaCondivisione.invitoConDownload,
-          codiceInvito: codice);
+          maestro: 'aura');
       // ignore: avoid_print
-      print('ORDINE BX VOCE 2: il testo dell\'invito dice "$testo"');
-      expect(testo.contains('invito=abc123xyz.aura'), isTrue,
-          reason: 'il link dell\'invito non porta il codice: chi arriva non '
-              'puo\' riconoscere nessuno');
-      // E chi incolla il link intero deve essere capito lo stesso.
-      expect(codiceDaCioCheEStatoIncollato(testo), 'abc123xyz.aura');
-      expect(codiceDaCioCheEStatoIncollato('abc123xyz.aura'), 'abc123xyz.aura');
-    });
-
-    test('Senza uid il link resta quello nudo di prima', () {
-      final codice = TestoDellaCondivisione.codiceDellInvito(null, 'aura');
-      expect(codice, '');
-      final testo = TestoDellaCondivisione.perIlTraguardo(
-          Sentieri.tuttiITraguardi.first,
-          ModoDellaCondivisione.invitoConDownload,
-          codiceInvito: codice);
-      // ignore: avoid_print
-      print('ORDINE BX VOCE 2: senza uid il link porta un codice? '
-          '${testo.contains('invito=')}');
-      expect(testo.contains('invito='), isFalse,
-          reason: 'senza uid il link finge di avere un codice');
+      print('ORDINE EY VOCE 17: il testo dell\'invito dice "$testo"');
+      expect(testo.contains('?porta=aura'), isTrue);
+      expect(testo.contains('invito='), isFalse);
+      // E chi incolla il link d'invito intero deve essere capito lo stesso.
+      expect(codiceDaCioCheEStatoIncollato('https://x?invito=AB12CD34.aura'),
+          'AB12CD34.aura');
     });
   });
 }

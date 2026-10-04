@@ -165,6 +165,9 @@ void main() {
       // **BI.04**: il secondo fattore vive in un file suo, e la guardia lo
       // guarda, o una callable nata li' sfuggirebbe al conto.
       'functions/src/secondo_fattore.ts',
+      // **ORDINE EY VOCE 16**: le porte del motore sociale vivono in un file
+      // loro, e la guardia lo guarda, o una porta nata li' sfuggirebbe.
+      'functions/src/il_cerchio_sociale.ts',
     ]) {
       final testo = File(f).readAsStringSync();
       for (final riga in testo.split('\n')) {
@@ -222,9 +225,33 @@ void main() {
     // davanti. Mandare lo stato intero ogni due minuti per sapere un numero
     // sarebbe stato il contrario della porta leggera che serve: questa
     // scrive un campo e torna un numero.
-    expect(callable.length, 13,
-        reason: 'le callable non sono piu\' tredici: $callable. Se ne serviva '
-            'una nuova andava dichiarata e motivata nel rapporto');
+    // **VENTINOVE, ordine EY, 4 ottobre 2026**: sedici porte del motore
+    // sociale del Cerchio, tutte in `il_cerchio_sociale.ts`, ognuna motivata
+    // nel rapporto dell'ordine e ognuna col suo tetto per identita' (EY.16).
+    // Non potevano viaggiare dentro `statoDelCerchio`: ognuna scrive su un
+    // dato diverso (il profilo pubblico, un legame fra due persone, il ramo
+    // di un'altra persona per un segno o un dono), e un gesto che tocca un
+    // terzo ha bisogno della sua porta con le sue difese, come
+    // `riscattaLInvito`.
+    expect(callable.length, 29,
+        reason: 'le callable non sono piu\' ventinove: $callable. Se ne '
+            'serviva una nuova andava dichiarata e motivata nel rapporto');
+    // E OGNI PORTA SOCIALE HA IL SUO TETTO, contato prima di ogni altra cosa
+    // (EY.16): una porta nuova non puo' nascere senza.
+    final sociale =
+        File('functions/src/il_cerchio_sociale.ts').readAsStringSync();
+    final senzaTetto = <String>[];
+    for (final m in RegExp(r'^export const (\w+) = onCall\(', multiLine: true)
+        .allMatches(sociale)) {
+      final fine = sociale.indexOf('\n});', m.start);
+      final corpo = sociale.substring(m.start, fine);
+      if (!corpo.contains('await tettoDellaPorta(uid, "${m.group(1)}");')) {
+        senzaTetto.add(m.group(1)!);
+      }
+    }
+    // ignore: avoid_print
+    print('ORDINE EY VOCE 16: porte sociali senza tetto ${senzaTetto.length}');
+    expect(senzaTetto, isEmpty);
   });
 
   test('la forma dice la sua versione, per chi la leggera\' domani', () {

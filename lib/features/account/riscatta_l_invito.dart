@@ -147,6 +147,15 @@ Future<void> riscattaIlCodiceDellInvito(
 String codiceDaCioCheEStatoIncollato(String grezzo) {
   final pulito = grezzo.trim();
   if (pulito.isEmpty) return '';
+  // **IL LINK NUOVO, ordine EY voce 17**: `.../i/CODICE.maestro`, col codice
+  // opaco del server. Si prende cio' che segue `/i/` fino a uno spazio.
+  const nuovo = '/i/';
+  final doveNuovo = pulito.indexOf(nuovo);
+  if (doveNuovo >= 0) {
+    final coda = pulito.substring(doveNuovo + nuovo.length);
+    final fine = coda.indexOf(RegExp(r'[?&#\s/]'));
+    return fine < 0 ? coda : coda.substring(0, fine);
+  }
   const marcatore = 'invito=';
   final dove = pulito.indexOf(marcatore);
   if (dove < 0) return pulito;

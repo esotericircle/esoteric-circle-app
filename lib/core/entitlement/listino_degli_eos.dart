@@ -192,6 +192,54 @@ class ListinoDegliEos {
     },
   );
 
+  /// **UN CONFRONTO DEL CIELO IN PIU', ordine EY voce 13**: 30 Eos, quando i
+  /// confronti del giorno del piano sono finiti. Il server lo conta sul budget
+  /// `cieli` e il prezzo lo ripete `PREZZI_DEL_RISCATTO` in
+  /// `functions/src/borsellino.ts`; una prova pretende che i due coincidano.
+  static const confrontoDelCieloInPiu = VoceDelListino(
+    id: 'confronto_del_cielo',
+    nome: 'Un confronto del cielo in più',
+    costo: 30,
+    budget: 'cieli',
+    gratisAlGiorno: {
+      Tier.free: 1,
+      Tier.tier1: 5,
+      Tier.tier2: 15,
+      Tier.tier3: 30,
+    },
+  );
+
+  /// **LA SCINTILLA, ordine EY voce 12**: il secondo dei tre doni, dall'Adepto
+  /// in su. Il dono non conia Eos a chi lo riceve: riceve l'oggetto. Il
+  /// prezzo lo ripete `PREZZI_DEI_DONI` in `functions/src/sociale.ts`.
+  static const scintilla = VoceDelListino(
+    id: 'dono_scintilla',
+    nome: 'Una scintilla da donare',
+    costo: 30,
+    budget: null,
+    gratisAlGiorno: {
+      Tier.free: 0,
+      Tier.tier1: 0,
+      Tier.tier2: 0,
+      Tier.tier3: 0,
+    },
+  );
+
+  /// **IL SIGILLO DA DONARE, ordine EY voce 12**: il dono piu' alto,
+  /// dall'Adepto in su. Il cenno e' gratuito e non sta nel listino.
+  static const sigilloDaDonare = VoceDelListino(
+    id: 'dono_sigillo',
+    nome: 'Un sigillo da donare',
+    costo: 80,
+    budget: null,
+    gratisAlGiorno: {
+      Tier.free: 0,
+      Tier.tier1: 0,
+      Tier.tier2: 0,
+      Tier.tier3: 0,
+    },
+  );
+
   static const List<VoceDelListino> tutte = [
     stesaTreCarte,
     cartaExtra,
@@ -201,6 +249,9 @@ class ListinoDegliEos {
     oroscopoAnnuale,
     oroscopoLungaDelGiorno,
     amicoInPiu,
+    confrontoDelCieloInPiu,
+    scintilla,
+    sigilloDaDonare,
   ];
 
   /// La voce di un'arte, oppure nulla se quell'arte non si compra a Eos.

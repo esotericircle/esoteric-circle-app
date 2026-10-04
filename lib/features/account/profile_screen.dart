@@ -1,3 +1,4 @@
+import '../cerchio/profilo_nel_cerchio_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -73,6 +74,18 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: SpacingTokens.xl),
+            // **IL TUO NOME NEL CERCHIO, ordine EY voce 03**: il nome con cui
+            // ti trovano, il sigillo, l'icona, chi ti vede e chi puo'
+            // invitarti. La foto qui sotto resta sul telefono: il profilo
+            // pubblico non porta mai foto.
+            _Action(
+              key: const Key('profile_nome_nel_cerchio'),
+              icon: Icons.badge_outlined,
+              label: 'Il tuo nome nel Cerchio',
+              onTap: () =>
+                  Navigator.of(context).push(ProfiloNelCerchioScreen.route()),
+            ),
+            const SizedBox(height: SpacingTokens.sm),
             _Action(
               key: const Key('profile_avatar_pick'),
               icon: Icons.add_a_photo_outlined,

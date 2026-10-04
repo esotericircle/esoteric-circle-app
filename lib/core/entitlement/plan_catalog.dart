@@ -149,6 +149,23 @@ enum RigaDelPiano {
 
   /// **GLI AMICI OFFLINE**, ordine ES voce 12: quanti amici tiene il piano.
   amici,
+
+  /// **I POSTI DEL LEGAME FRA ACCOUNT**, ordine EY voce 07: cosa diversa
+  /// dagli amici offline. Il server li impone con `POSTI_DEL_LEGAME` in
+  /// `functions/src/sociale.ts`, e una prova pretende che siano questi.
+  legami,
+
+  /// **I SEGNI DEL CERCHIO AL GIORNO**, ordine EY voce 10. Il server:
+  /// `SEGNI_AL_GIORNO` in `functions/src/sociale.ts`.
+  segniDelCerchio,
+
+  /// **I CONFRONTI DEL CIELO CON UN AMICO AL GIORNO**, ordine EY voce 13. Il
+  /// server: il budget `cieli` in `functions/src/budget.ts`.
+  cieli,
+
+  /// **LA SCINTILLA E IL SIGILLO DA DONARE**, ordine EY voce 12: dall'Adepto
+  /// in su. Il cenno e' di tutti e non sta in questa riga.
+  doni,
 }
 
 /// I quattro livelli canonici del briefing, con i prezzi e la mappa funzioni.
@@ -545,6 +562,9 @@ class PlanCatalog {
   /// la matrice. La schermata delle rune legge da qui e non riscrive.
   static const RigaDelPiano rigaGettate = RigaDelPiano.gettate;
 
+  /// I confronti del cielo con un amico al giorno, ordine EY voce 13.
+  static const RigaDelPiano rigaCieli = RigaDelPiano.cieli;
+
   static const List<FeatureRow> matrix = [
     FeatureRow('Pubblicità banner inferiore', ['Sì', 'No', 'No', 'No']),
     FeatureRow('Carta natale occidentale', [
@@ -591,6 +611,22 @@ class PlanCatalog {
     // non un consumo del modello.
     FeatureRow('Oroscopo per gli amici', ['No', '3', '10', 'Senza limite'],
         chiave: RigaDelPiano.amici),
+    // **IL MOTORE SOCIALE DEL CERCHIO, ordine EY, 4 ottobre 2026**: la
+    // tabella del punto 8 approvata dal fondatore. I posti del legame fra
+    // account sono cosa diversa dagli amici offline qui sopra. **NESSUN
+    // SENZA LIMITE, nemmeno all'Illuminato**: l'illimitato e' stato eliminato
+    // ovunque per decisione del fondatore del 29 agosto 2026, e qui l'abuso
+    // sarebbe raccogliere migliaia di persone.
+    FeatureRow('Amici nel Cerchio', ['3', '15', '50', '150'],
+        chiave: RigaDelPiano.legami),
+    FeatureRow('Segni agli amici',
+        ['5 al giorno', '20 al giorno', '40 al giorno', '60 al giorno'],
+        chiave: RigaDelPiano.segniDelCerchio),
+    FeatureRow('Confronti del cielo con gli amici',
+        ['1 al giorno', '5 al giorno', '15 al giorno', '30 al giorno'],
+        chiave: RigaDelPiano.cieli),
+    FeatureRow('Scintilla e Sigillo da donare', ['No', 'No', 'Sì', 'Sì'],
+        chiave: RigaDelPiano.doni),
     // **LA MATRICE DELL'ORDINE EX, voce EX.02, 2 ottobre 2026**: la tabella
     // dell'Architetto approvata dal fondatore, "Si ok, approvo.", e "mettiamo
     // limite delle carte estratte e la stesa a 10 solo dal tier 2 19,99".

@@ -32,6 +32,22 @@ DailyElement? donoDellaPush(Map<String, dynamic> dati) {
 /// Consegna una push di Dono alla porta sola degli avvisi.
 Future<EsitoDellaPush?> consegnaLaPush(
     Map<String, dynamic> dati, AvvisiLocali servizio) async {
+  // **LA PUSH DEL CERCHIO, ordine EY voce 10**: un segno, un invito, un dono.
+  // Il testo lo compone il server e nomina la cosa ("Lunaria ti ha mandato un
+  // segno"), mai "apri l'app"; qui si mostra sul canale del Cerchio.
+  if (dati['tipo'] == 'cerchio') {
+    final testo = dati['testo'];
+    if (testo is String && testo.isNotEmpty) {
+      await servizio.mostraDelDono(
+        id: 90100 + testo.hashCode.abs() % 800,
+        titolo: (dati['titolo'] as String?) ?? 'Il Cerchio',
+        testo: testo,
+        canale: 'cerchio',
+        carico: 'cerchio',
+      );
+    }
+    return null;
+  }
   final dono = donoDellaPush(dati);
   if (dono == null) return null;
   return AvvisiDelRito.allaPushDelDono(

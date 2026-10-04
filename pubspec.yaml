@@ -175,6 +175,8 @@ dependencies:
   app_links: ^7.2.1
   livekit_client: ^2.13.0
   pdf: ^3.13.1
+  qr_flutter: ^4.1.0
+  google_mlkit_barcode_scanning: ^0.14.2
 
 # Un solo blocco, per un guasto a monte che ferma la build Android.
 #
@@ -249,6 +251,10 @@ flutter:
     # alpha per Maestro, due secondi esatti.
     - assets/
     - assets/data/
+    # **LE REGOLE DEL NOME NEL CERCHIO, ordine EY voce 01**: un dato solo per
+    # il server e per il telefono. Sta dove lo legge il server, e il telefono
+    # lo porta da li', cosi' non esiste una seconda copia che diverge.
+    - functions/src/il_nome_del_cerchio.json
     - assets/fonts/
     - assets/ritual_backgrounds/
     # Gli sfondi delle schede delle arti, tre formati per arte (ordine EO voce 01):

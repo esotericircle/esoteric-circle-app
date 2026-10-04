@@ -1,3 +1,4 @@
+import '../../../core/cerchio/l_arte_di_adesso.dart';
 import '../../../core/sigilli/diario_del_cammino.dart';
 import 'dart:math' as math;
 import 'dart:async';
@@ -112,67 +113,71 @@ class MaestroChatScreen extends StatefulWidget {
     String? initialUserMessage,
     Dettatura? dettatura,
   }) {
-    return PassaggioDelCerchio.rotta<void>(
-        // Il contesto della rotta, non quello del builder interno: da qui si
-        // leggono il contatore delle domande e il piano attivo, che senza
-        // questo passaggio la chat non vedrebbe mai.
-        (rotta) => ChangeNotifierProvider<MaestroChatController>(
-              create: (_) => MaestroChatController(
-                maestro: maestro,
-                // **I TURNI ENTRANO NEI RICORDI, ordine CI voce 06.** Qui,
-                // dove il registro c'e' gia': il controllore non conosce
-                // Firestore e non deve conoscerlo.
-                // **OGNI APERTURA E' UNA CONVERSAZIONE NUOVA E VUOTA. Ordine
-                // EA voce 06**, che allarga la DZ voce 01 (solo dagli
-                // approfondimenti). Parole del fondatore: *"quando apro la
-                // chat con i maestri, deve aprirsi da capo, una chat vuota
-                // nuova"*. Le conversazioni di prima stanno nel menu'.
-                conversazioneNuova: true,
-                // **IL TITOLO LO SCRIVE GEMINI. Ordine DZ voce 04.** Solo
-                // dove Firebase c'e': nelle prove resta il titolo di ripiego.
-                titoli: Firebase.apps.isEmpty
-                    ? const ScrittoreDeiTitoliSpento()
-                    : const TitoliDaGemini(),
-                segnaNeiRicordi: (domanda) {
-                  try {
-                    rotta.read<RegistroDeiRicordi>().segna(VoceDelRicordo(
-                          quando: domanda.at ?? DateTime.now(),
-                          arte: 'chat',
-                          maestro: maestro.id,
-                          titolo: domanda.text,
-                          tipo: TipoDelRicordo.conversazione,
-                        ));
-                  } catch (errore) {
-                    debugPrint('Chat: il turno non entra nei Ricordi. $errore');
-                  }
-                },
-                ai: services.ai,
-                memory: services.memory,
-                allowance: rotta.read<QuestionAllowance>(),
-                tier: () => rotta.read<EntitlementService>().tier,
-                // Il cielo della persona arriva al Maestro. Una funzione, non un
-                // valore: chi completa i dati di nascita mentre la chat e' aperta
-                // deve essere riconosciuto al turno dopo.
-                natal: () => SorgenteNatale.daIdentita(
-                    rotta.read<BirthIdentityController>(),
-                    diario: _forseIlDiario(rotta)),
-              )..init(),
-              // La chat appartiene a UN Maestro, quindi il suo colore e' il suo e non
-              // quello di chi era attivo un istante prima. Senza questo `maestro:` lo
-              // scope seguiva `MaestroController`, e chi apriva la chat da una strada
-              // che non passa dal Santuario vedeva le bolle nel viola della palette
-              // neutra invece che nel blu di Medora. E' lo stesso difetto gia'
-              // corretto nell'Oroscopo, e la correzione e' la stessa.
-              child: MaestroScope(
-                maestro: maestro,
-                child: MaestroChatScreen(
-                  maestro: maestro,
-                  initialTheme: initialTheme,
-                  initialUserMessage: initialUserMessage,
-                  dettatura: dettatura,
-                ),
-              ),
-            ));
+    // La rotta porta la sua arte per la presenza, ordine EY voce 08.
+    return LArteDiAdesso.segna(
+        PassaggioDelCerchio.rotta<void>(
+            // Il contesto della rotta, non quello del builder interno: da qui si
+            // leggono il contatore delle domande e il piano attivo, che senza
+            // questo passaggio la chat non vedrebbe mai.
+            (rotta) => ChangeNotifierProvider<MaestroChatController>(
+                  create: (_) => MaestroChatController(
+                    maestro: maestro,
+                    // **I TURNI ENTRANO NEI RICORDI, ordine CI voce 06.** Qui,
+                    // dove il registro c'e' gia': il controllore non conosce
+                    // Firestore e non deve conoscerlo.
+                    // **OGNI APERTURA E' UNA CONVERSAZIONE NUOVA E VUOTA. Ordine
+                    // EA voce 06**, che allarga la DZ voce 01 (solo dagli
+                    // approfondimenti). Parole del fondatore: *"quando apro la
+                    // chat con i maestri, deve aprirsi da capo, una chat vuota
+                    // nuova"*. Le conversazioni di prima stanno nel menu'.
+                    conversazioneNuova: true,
+                    // **IL TITOLO LO SCRIVE GEMINI. Ordine DZ voce 04.** Solo
+                    // dove Firebase c'e': nelle prove resta il titolo di ripiego.
+                    titoli: Firebase.apps.isEmpty
+                        ? const ScrittoreDeiTitoliSpento()
+                        : const TitoliDaGemini(),
+                    segnaNeiRicordi: (domanda) {
+                      try {
+                        rotta.read<RegistroDeiRicordi>().segna(VoceDelRicordo(
+                              quando: domanda.at ?? DateTime.now(),
+                              arte: 'chat',
+                              maestro: maestro.id,
+                              titolo: domanda.text,
+                              tipo: TipoDelRicordo.conversazione,
+                            ));
+                      } catch (errore) {
+                        debugPrint(
+                            'Chat: il turno non entra nei Ricordi. $errore');
+                      }
+                    },
+                    ai: services.ai,
+                    memory: services.memory,
+                    allowance: rotta.read<QuestionAllowance>(),
+                    tier: () => rotta.read<EntitlementService>().tier,
+                    // Il cielo della persona arriva al Maestro. Una funzione, non un
+                    // valore: chi completa i dati di nascita mentre la chat e' aperta
+                    // deve essere riconosciuto al turno dopo.
+                    natal: () => SorgenteNatale.daIdentita(
+                        rotta.read<BirthIdentityController>(),
+                        diario: _forseIlDiario(rotta)),
+                  )..init(),
+                  // La chat appartiene a UN Maestro, quindi il suo colore e' il suo e non
+                  // quello di chi era attivo un istante prima. Senza questo `maestro:` lo
+                  // scope seguiva `MaestroController`, e chi apriva la chat da una strada
+                  // che non passa dal Santuario vedeva le bolle nel viola della palette
+                  // neutra invece che nel blu di Medora. E' lo stesso difetto gia'
+                  // corretto nell'Oroscopo, e la correzione e' la stessa.
+                  child: MaestroScope(
+                    maestro: maestro,
+                    child: MaestroChatScreen(
+                      maestro: maestro,
+                      initialTheme: initialTheme,
+                      initialUserMessage: initialUserMessage,
+                      dettatura: dettatura,
+                    ),
+                  ),
+                )),
+        ArteDellaPresenza.maestri);
   }
 
   @override

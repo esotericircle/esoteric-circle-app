@@ -72,6 +72,13 @@ class AvvisiLocali extends ServizioAvvisi {
       'Un avviso all\'alba con le ore del Rahu Kalam di oggi nella tua '
           'città.'
     ),
+    // **IL CERCHIO, ordine EY voce 10**: i segni, gli inviti e i doni dei
+    // tuoi amici. Arrivano con la stessa push dei Doni, e il canale dice
+    // cosa sono.
+    'cerchio': (
+      'Il Cerchio',
+      'I segni, gli inviti e i doni dei tuoi amici nel Cerchio.'
+    ),
     // **I TRE CANALI STANTII SONO STATI TOLTI, ordine BG voce 03.** Il
     // cielo di oggi, i Sigilli del Cammino e le gettate di rune comparivano
     // nelle impostazioni di Android promettendo avvisi che nessuno
