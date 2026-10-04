@@ -259,3 +259,11 @@ jobs:
       - name: Il verdetto del cancello, leggibile senza credenziali
         if: failure()
         run: bash tool/il_verdetto_del_cancello.sh /tmp/sbarramento.txt
+
+      # **IL VERDE DICE IL VERO. Ordine FC voce 08, 4 ottobre 2026.** Un verde
+      # con dei rossi accettati si leggeva come un verde pieno: l'elenco stava
+      # nel registro, che senza credenziali non si legge. Questo passo lo
+      # porta nelle annotazioni pubbliche, con quanti e quali.
+      - name: Il verde, coi rossi accettati detti per nome
+        if: success()
+        run: bash tool/il_verdetto_del_cancello.sh /tmp/sbarramento.txt verde
