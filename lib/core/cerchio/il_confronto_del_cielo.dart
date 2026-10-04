@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import '../astro/night_sky.dart';
 import '../astro/zodiac.dart';
 import '../synastry/altre_affinita.dart';
@@ -17,17 +19,39 @@ import '../synastry/cielo_della_sinastria.dart';
 /// - **L'aspetto dei segni**: la distanza fra i due segni sulla ruota, cioe'
 ///   l'aspetto tolemaico fra i loro gradi medi (congiunzione, sestile,
 ///   quadrato, trigono, opposizione, e i due minori).
-/// - **Il cielo di oggi**: dove sta la Luna oggi (`NightSky.moonSign`, il
-///   cielo che l'app calcola gia') e l'aspetto che fa con ciascuno dei due
-///   segni, in media. **Non l'elemento**: per due segni di elementi opposti
-///   (un Leone e un Pesci) la media dell'accordo d'elemento con la Luna vale
-///   sempre 60, qualunque sia la Luna, e il cielo del giorno non avrebbe
-///   contato niente. L'ha trovato la prova che fa scorrere trenta giorni.
+/// - **Il cielo di oggi, ordine EZ voce 02**: la LONGITUDINE VERA della Luna
+///   di oggi (`NightSky.moonEclipticLongitude`, che chiede a `Effemeridi`, la
+///   porta sola del cielo) misurata dal PUNTO D'INCONTRO dei due segni, il
+///   punto medio fra i loro gradi centrali sull'arco piu' corto: e' il punto
+///   su cui la tradizione costruisce la carta composita di una coppia. La
+///   Luna congiunta al punto accorda tutti e due, opposta li mette alla
+///   prova, e in mezzo la giornata scorre: il valore e' il coseno della
+///   distanza. Per due segni opposti i punti medi sono due, a 180 gradi
+///   l'uno dall'altro, e la loro media annullerebbe il cielo: vale quello
+///   che viene prima nella ruota dall'Ariete, una regola che non dipende
+///   dall'ordine dei due.
+///
+///   **Perche' non piu' il segno della Luna.** Con l'ordine EY il cielo del
+///   giorno guardava la Luna per segno, che resta nello stesso segno due o
+///   tre giorni: Leone e Pesci leggevano quattro valori in trenta giorni, e
+///   per ventisei giorni su trenta lo stesso numero. Rilievo
+///   dell'Architetto del 4 ottobre 2026, approvato dal fondatore.
+///
+/// **IL CIELO MODULA, NON SOSTITUISCE.** La base e' la media pesata delle tre
+/// barre dei segni, che non cambiano mai per una coppia; il cielo di oggi la
+/// sposta di al massimo venti punti in su o in giu'. Per lasciargli posto
+/// senza sfondare il cento, la base si avvicina al cinquanta di tre decimi,
+/// uguale per tutte le coppie: chi sta sopra resta sopra nei giorni medi.
+/// Le due prove dell'ordine EZ voce 02 lo misurano su tutte le 78 coppie e
+/// trenta giorni: almeno quindici valori per coppia e venti di mediana,
+/// perche' un numero che non cambia almeno un giorno su due non da'
+/// nessuna ragione per tornare; e mai un salto oltre dodici punti fra due
+/// giorni, perche' un numero che salta da 87 a 42 sembra tirato a caso.
 ///
 /// **LA SIMMETRIA E' UNA PROVA, NON UNA SPERANZA.** Ogni barra e' simmetrica
-/// per costruzione, e l'affinita' e' una loro media pesata: da A verso B e da
-/// B verso A esce lo stesso numero. Una prova enumera le 78 coppie di segni
-/// in piu' giorni e lo pretende.
+/// per costruzione, e il punto d'incontro e' lo stesso visto dai due lati:
+/// da A verso B e da B verso A esce lo stesso numero. Una prova enumera le
+/// 78 coppie di segni in piu' giorni e lo pretende.
 class IlConfrontoDelCielo {
   const IlConfrontoDelCielo._({
     required this.affinita,
@@ -48,12 +72,30 @@ class IlConfrontoDelCielo {
   final Zodiac lunaDiOggi;
   final String nomeDellAspetto;
 
-  /// I pesi della media, dichiarati: elemento e aspetto pesano di piu',
+  /// I pesi della base, dichiarati: elemento e aspetto pesano di piu',
   /// perche' sono le due relazioni che la tradizione mette davanti.
   static const double pesoTerra = 0.3;
   static const double pesoRitmo = 0.2;
   static const double pesoAspetto = 0.3;
-  static const double pesoGiorno = 0.2;
+
+  /// Di quanto la base si avvicina al cinquanta per lasciare posto al cielo.
+  static const double fattoreDellaBase = 0.7;
+
+  /// Di quanti punti, al massimo, il cielo di oggi sposta il numero.
+  static const double ampiezzaDelGiorno = 20;
+
+  /// IL PUNTO D'INCONTRO dei due segni, in gradi: il punto medio fra i loro
+  /// gradi centrali sull'arco piu' corto. Per due segni opposti, quello dei
+  /// due che viene prima nella ruota dall'Ariete.
+  static double puntoDIncontro(Zodiac a, Zodiac b) {
+    final ma = a.index * 30 + 15.0;
+    var d = (b.index * 30 + 15.0 - ma) % 360;
+    if (d > 180) d -= 360;
+    if (d.abs() == 180) {
+      return math.min((ma + 90) % 360, (ma + 270) % 360);
+    }
+    return (ma + d / 2) % 360;
+  }
 
   static CieloDiSinastria _cielo(Zodiac s) =>
       CieloDiSinastria(longitudini: const {}, segnoSolare: s, oraNota: false);
@@ -78,16 +120,18 @@ class IlConfrontoDelCielo {
     final ritmo = AltreAffinita.ritmo(_cielo(a), _cielo(b));
     final (aspetto, nome) = aspettoFra(a, b);
     // A mezzogiorno del giorno: la Luna del giorno e' una per tutti e due.
-    final luna = NightSky.moonSign(
-        DateTime.utc(giorno.year, giorno.month, giorno.day, 12));
-    final (giornoA, _) = aspettoFra(luna, a);
-    final (giornoB, _) = aspettoFra(luna, b);
-    // La somma prima della divisione: l'ordine dei due non cambia niente.
-    final cieloDiOggi = ((giornoA + giornoB) / 2).round();
-    final totale = pesoTerra * terra +
-        pesoRitmo * ritmo +
-        pesoAspetto * aspetto +
-        pesoGiorno * cieloDiOggi;
+    final mezzogiorno = DateTime.utc(giorno.year, giorno.month, giorno.day, 12);
+    final luna = NightSky.moonSign(mezzogiorno);
+    final distanza =
+        NightSky.moonEclipticLongitude(mezzogiorno) - puntoDIncontro(a, b);
+    // Da +1 con la Luna sul punto d'incontro a -1 con la Luna opposta.
+    final accordo = math.cos(distanza * math.pi / 180);
+    final cieloDiOggi = (50 + 50 * accordo).round();
+    final base =
+        (pesoTerra * terra + pesoRitmo * ritmo + pesoAspetto * aspetto) /
+            (pesoTerra + pesoRitmo + pesoAspetto);
+    final totale =
+        50 + fattoreDellaBase * (base - 50) + ampiezzaDelGiorno * accordo;
     return IlConfrontoDelCielo._(
       affinita: totale.round().clamp(0, 100),
       terraComune: terra,
@@ -120,13 +164,17 @@ class IlConfrontoDelCielo {
 
   /// IL PANNELLO FONTI E METODO, come su ogni arte.
   static const String fontiEMetodo =
-      'Da dove viene la percentuale. È la media pesata di quattro misure, '
-      'tutte sui due segni solari: l’elemento (Terra comune, 30 per cento), '
-      'la modalità cardinale, fissa o mobile (Ritmo, 20 per cento), l’aspetto '
-      'fra i due segni sulla ruota (30 per cento) e l’aspetto che la Luna di '
-      'oggi fa con tutti e due (20 per cento). Elementi, modalità e aspetti '
-      'tolemaici sono della tradizione astrologica, la stessa da cui nascono '
-      'le barre della Sinastria VIP.\n\n'
+      'Da dove viene la percentuale. La base sono tre misure sui due segni '
+      'solari, che per la vostra coppia non cambiano mai: l’elemento (Terra '
+      'comune), la modalità cardinale, fissa o mobile (Ritmo) e l’aspetto '
+      'fra i due segni sulla ruota. Il cielo di oggi la sposta di al massimo '
+      'venti punti: è la distanza della Luna vera di oggi dal punto '
+      'd’incontro dei vostri due segni, il punto medio su cui la tradizione '
+      'costruisce la carta composita di una coppia. Luna vicina, giornata '
+      'che vi accorda; Luna opposta, giornata che vi mette alla prova. '
+      'Elementi, modalità e aspetti tolemaici sono della tradizione '
+      'astrologica, la stessa da cui nascono le barre della Sinastria '
+      'VIP.\n\n'
       'Cosa confronta. Il segno e non la carta intera: del cielo di un amico '
       'il Cerchio conosce il segno, mai la data, l’ora o il luogo. Per questo '
       'il numero non finge la precisione di una sinastria completa.\n\n'

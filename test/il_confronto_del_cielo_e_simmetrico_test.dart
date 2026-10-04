@@ -16,7 +16,8 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test('GUARDIA EY.13: le 78 coppie danno lo stesso numero nei due versi', () {
     final giorni = [
-      for (var d = 0; d < 365; d += 13) DateTime(2026, 1, 1).add(Duration(days: d)),
+      for (var d = 0; d < 365; d += 13)
+        DateTime(2026, 1, 1).add(Duration(days: d)),
     ];
     var coppie = 0;
     var confronti = 0;
@@ -45,15 +46,87 @@ void main() {
     expect(diversi, isEmpty);
   });
 
-  test('il numero cambia col giorno: il cielo di oggi conta davvero', () {
-    final valori = {
-      for (var d = 0; d < 30; d++)
-        IlConfrontoDelCielo.fra(Zodiac.leo, Zodiac.pisces,
-                DateTime(2026, 10, 1).add(Duration(days: d)))
-            .affinita,
-    };
-    print('EY.13 VALORI DI LEONE E PESCI IN TRENTA GIORNI: $valori');
-    expect(valori.length, greaterThan(1));
+  // LAPIDE, ordine EZ voce 02: qui stava "il numero cambia col giorno", che
+  // pretendeva soltanto greaterThan(1) su una coppia sola, Leone e Pesci, e
+  // passava con quattro valori in trenta giorni. Le due guardie che seguono
+  // la sostituiscono e guardano tutte le coppie.
+
+  /// Quattro finestre di trenta giorni consecutivi, in stagioni diverse: un
+  /// mese fortunato non fa passare la guardia.
+  final finestre = [
+    DateTime(2026, 10, 4),
+    DateTime(2027, 1, 10),
+    DateTime(2027, 4, 20),
+    DateTime(2027, 7, 30),
+  ];
+
+  /// Le 78 coppie, ciascuna coi suoi trenta numeri consecutivi.
+  Map<String, List<int>> trentaGiorni(DateTime partenza) => {
+        for (var i = 0; i < 12; i++)
+          for (var j = i; j < 12; j++)
+            '${Zodiac.values[i].id}/${Zodiac.values[j].id}': [
+              for (var d = 0; d < 30; d++)
+                IlConfrontoDelCielo.fra(Zodiac.values[i], Zodiac.values[j],
+                        partenza.add(Duration(days: d)))
+                    .affinita,
+            ],
+      };
+
+  test(
+      'GUARDIA EZ.02, LA VARIETA\': almeno quindici valori in trenta giorni '
+      'per ogni coppia, e venti di mediana', () {
+    // Le soglie sono dell'Architetto (ordine EZ voce 02): un numero che non
+    // cambia almeno un giorno su due non da' nessuna ragione per tornare il
+    // giorno dopo, ed era esattamente il difetto dell'ordine EY.
+    for (final partenza in finestre) {
+      final coppie = trentaGiorni(partenza);
+      expect(coppie.length, 78);
+      final distinti = {
+        for (final e in coppie.entries) e.key: e.value.toSet().length,
+      };
+      final ordinati = distinti.values.toList()..sort();
+      final mediana = ordinati[ordinati.length ~/ 2];
+      final peggiore =
+          distinti.entries.reduce((x, y) => x.value <= y.value ? x : y);
+      final sotto = [
+        for (final e in distinti.entries)
+          if (e.value < 15) '${e.key} ${e.value}',
+      ];
+      print(
+          'EZ.02 LA VARIETA\' dal ${partenza.toIso8601String().substring(0, 10)}: '
+          'valori distinti per coppia da ${ordinati.first} a ${ordinati.last}, '
+          'mediana $mediana, la coppia peggiore ${peggiore.key} '
+          '(${peggiore.value}); Leone e Pesci ${distinti['leo/pisces']}');
+      expect(sotto, isEmpty,
+          reason: 'queste coppie leggono meno di quindici numeri in trenta '
+              'giorni: $sotto');
+      expect(mediana, greaterThanOrEqualTo(20));
+    }
+  });
+
+  test(
+      'GUARDIA EZ.02, LA CONTINUITA\': fra due giorni di fila la stessa '
+      'coppia non salta piu\' di dodici punti', () {
+    // Senza questo tetto il numero sembra tirato a caso: uno che salta da 87
+    // a 42 distrugge la credibilita' piu' di uno che sta fermo.
+    for (final partenza in finestre) {
+      var saltoMax = 0;
+      var dove = '';
+      for (final e in trentaGiorni(partenza).entries) {
+        for (var d = 1; d < e.value.length; d++) {
+          final salto = (e.value[d] - e.value[d - 1]).abs();
+          if (salto > saltoMax) {
+            saltoMax = salto;
+            dove = '${e.key} al giorno $d';
+          }
+        }
+      }
+      print(
+          'EZ.02 LA CONTINUITA\' dal ${partenza.toIso8601String().substring(0, 10)}: '
+          'salto massimo $saltoMax ($dove)');
+      expect(saltoMax, lessThanOrEqualTo(12),
+          reason: 'la coppia $dove salta di $saltoMax punti in un giorno');
+    }
   });
 
   test('il confronto usa le barre della Sinastria VIP e non le riscrive', () {
