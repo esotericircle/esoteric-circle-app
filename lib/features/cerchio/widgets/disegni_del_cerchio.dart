@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/cerchio/i_segni_del_cerchio.dart';
 import '../../../core/cerchio/il_cerchio_sociale.dart';
@@ -11,6 +12,7 @@ import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
 import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
+import '../../../design_system/tokens/typography_tokens.dart';
 
 /// **I DISEGNI DEL CERCHIO SOCIALE, ordine EY.** Il livello visivo viene prima
 /// del testo (Linee Guida UX, sezione 2): ogni cosa nuova del motore sociale
@@ -36,15 +38,45 @@ class IconaTonda extends StatelessWidget {
   final bool spenta;
   final Color? anello;
 
+  /// Lo spessore dell'anello d'oro: il tondo utile e' quello dentro l'anello.
+  static double anelloDi(double lato) => lato > 60 ? 2.5 : 1.5;
+
+  /// **L'ICONA STA INTERA DENTRO IL TONDO, ordine EZ voce 01.** Il fondatore
+  /// il 4 ottobre 2026: "le immagini profilo proposte all'interno del
+  /// cerchio e tutte sono tagliate dalla cornice del cerchio, vorrei che la
+  /// figura o emblema si vedesse bene e non venga tagliato".
+  ///
+  /// La geometria: un'immagine che riempie il tondo ne perde gli angoli e le
+  /// fasce esterne; tutto cio' che sta dentro il QUADRATO INSCRITTO nel
+  /// cerchio invece si vede intero. Il lato del quadrato inscritto e' il
+  /// diametro per 0,7071 (radice di due mezzi), quindi il margine per lato e'
+  /// 0,1464 volte il diametro. Qui il diametro e' quello DENTRO l'anello, e
+  /// il lato si arrotonda per difetto al punto intero: a 112 punti il
+  /// quadrato e' di 75, il margine 18,5 punti per lato (16,5 per cento); a
+  /// 44 punti il quadrato e' di 28, il margine 8 (18 per cento). La misura
+  /// vera la fa la prova `le_icone_stanno_intere_nel_tondo`, che rende le 58
+  /// icone e cerca pixel del soggetto nella corona fuori dal quadrato.
+  ///
+  /// Il cerchio non si rimpicciolisce: l'anello e la misura restano quelli,
+  /// si adatta cio' che sta dentro. Le carte dei Tarocchi sono alte e non
+  /// quadrate, e stanno intere anche loro: dentro il quadrato si vedono per
+  /// altezza. Un'immagine dell'Arcano senza la cornice della carta nel
+  /// progetto non esiste.
+  static double quadratoInscritto(double lato) =>
+      ((lato - 2 * anelloDi(lato)) * math.sqrt1_2).floorToDouble();
+
   @override
   Widget build(BuildContext context) {
     final i = IconaDelProfilo.da(icona);
     final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
+    final quadrato = quadratoInscritto(lato);
     Widget immagine = Image.asset(
       i.asset,
-      fit: BoxFit.cover,
-      alignment: i.eUnaCarta ? const Alignment(0, -0.2) : Alignment.center,
-      errorBuilder: (_, __, ___) => ColoredBox(color: palette.surfaceElevated),
+      key: const Key('icona_tonda_immagine'),
+      width: quadrato,
+      height: quadrato,
+      fit: BoxFit.contain,
+      errorBuilder: (_, __, ___) => SizedBox.square(dimension: quadrato),
     );
     if (spenta) {
       immagine = ColorFiltered(
@@ -66,7 +98,7 @@ class IconaTonda extends StatelessWidget {
         border: Border.all(
             color:
                 anello ?? palette.gold.withValues(alpha: spenta ? 0.25 : 0.7),
-            width: lato > 60 ? 2.5 : 1.5),
+            width: anelloDi(lato)),
         boxShadow: spenta
             ? null
             : [
@@ -75,7 +107,9 @@ class IconaTonda extends StatelessWidget {
                     blurRadius: lato * 0.2),
               ],
       ),
-      child: ClipOval(child: immagine),
+      // **Nessun ritaglio tondo**: l'immagine sta nel quadrato inscritto, e
+      // un ClipOval nasconderebbe proprio il difetto che la prova cerca.
+      child: Center(child: immagine),
     );
   }
 }
@@ -528,6 +562,46 @@ class _PittoreDelDono extends CustomPainter {
 /// il nero pieno. Il fondatore il 4 ottobre 2026: "Tutte le anteprime che
 /// riguardano il cerchio hanno sfondo nero, anziché lo sfondo cosmico
 /// dell'app". Le schermate del Cerchio hanno la Scaffold trasparente.
+/// Se la data di nascita dice meno di quattordici anni (ordine EZ voce 04).
+/// Senza il Cerchio sociale fra i provider (una prova, un'anteprima) la
+/// soglia non si conosce e le schermate restano com'erano.
+bool chiusoPerEta(BuildContext context) {
+  try {
+    return Provider.of<IlCerchioSociale>(context).chiusoPerEta;
+  } on ProviderNotFoundException catch (senzaCerchio) {
+    debugPrint('Il Cerchio sociale non è fra i provider: $senzaCerchio');
+    return false;
+  }
+}
+
+/// LA RIGA SOLA dei quattordici anni, con la strada per tornare indietro.
+class IlCerchioSiApreAQuattordiciAnni extends StatelessWidget {
+  const IlCerchioSiApreAQuattordiciAnni({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = MaestroScope.forse(context) ?? MaestroPalette.neutral;
+    return Scaffold(
+      key: const Key('cerchio_quattordici_anni'),
+      backgroundColor: Colors.transparent,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        iconTheme: IconThemeData(color: palette.goldSoft),
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(SpacingTokens.lg),
+          child: Text(IlCerchioSociale.rigaDeiQuattordici,
+              textAlign: TextAlign.center,
+              style:
+                  TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
+        ),
+      ),
+    );
+  }
+}
+
 /// **I FOGLI DEL CERCHIO HANNO IL VELO DELLA TENDINA**, non il nero pieno:
 /// dal profondo viola del Maestro al suo fondo, con gli angoli in alto
 /// arrotondati e i pulsanti di testo d'oro. Visto sul Realme con la build
@@ -562,6 +636,12 @@ Widget fondoDelFoglio(BuildContext context, Widget figlio,
 
 Widget conIPulsantiDOro(BuildContext context, Widget figlio, {int seme = 23}) {
   final tema = Theme.of(context);
+  // **SOTTO I QUATTORDICI ANNI, una riga sola**, ordine EZ voce 04: tutte le
+  // schermate del Cerchio sociale passano di qui, e al posto del loro
+  // contenuto si legge "Il Cerchio si apre a quattordici anni", senza
+  // spiegazioni di legge e senza chiedere niente. Il resto dell'app resta
+  // intero.
+  if (chiusoPerEta(context)) figlio = const IlCerchioSiApreAQuattordiciAnni();
   return CosmosBackground(
     key: const Key('cerchio_cosmo'),
     seed: seme,

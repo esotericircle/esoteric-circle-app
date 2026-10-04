@@ -6,11 +6,13 @@ import '../../core/cerchio/il_cerchio_sociale.dart';
 import '../../core/cerchio/il_glifo_del_legame.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/entitlement/listino_degli_eos.dart';
+import '../../core/feature_flags/feature_flag.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
 import '../../design_system/components/borsellino.dart';
 import '../../design_system/components/icona_degli_eos.dart';
+import '../../design_system/components/status_badge.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -376,17 +378,56 @@ class SchedaDellAmicoScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: SpacingTokens.md),
-              OutlinedButton(
-                key: const Key('amico_regala_eos'),
-                onPressed: () => _regala(context),
-                style: OutlinedButton.styleFrom(
-                  minimumSize: const Size.fromHeight(44),
-                  side: BorderSide(color: palette.gold.withValues(alpha: 0.5)),
+              if (IlCerchioSociale.ilGiftEosEAperto)
+                OutlinedButton(
+                  key: const Key('amico_regala_eos'),
+                  onPressed: () => _regala(context),
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(44),
+                    side:
+                        BorderSide(color: palette.gold.withValues(alpha: 0.5)),
+                  ),
+                  child: Text('Regala Eos',
+                      style: TypographyTokens.etichetta()
+                          .copyWith(color: palette.goldSoft)),
+                )
+              else
+                // **DICHIARATO, NON SPENTO A META'**, ordine EZ voce 05: la
+                // voce si vede, dice da cosa si apre, e nessun tocco prova a
+                // spendere.
+                Opacity(
+                  key: const Key('amico_regala_eos_dietro_il_velo'),
+                  opacity: 0.72,
+                  child: Container(
+                    padding: const EdgeInsets.all(SpacingTokens.sm),
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.circular(SpacingTokens.radiusMd),
+                      border: Border.all(
+                          color: palette.gold.withValues(alpha: 0.35)),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text('Regala Eos',
+                                  style: TypographyTokens.etichetta()
+                                      .copyWith(color: palette.goldSoft)),
+                            ),
+                            const StatusBadge(status: FeatureStatus.comingSoon),
+                          ],
+                        ),
+                        const SizedBox(height: SpacingTokens.xxs),
+                        Text(IlCerchioSociale.rigaDelGiftEos,
+                            key: const Key('amico_regala_eos_riga'),
+                            style: TypographyTokens.didascalia()
+                                .copyWith(color: ColorTokens.textSecondary)),
+                      ],
+                    ),
+                  ),
                 ),
-                child: Text('Regala Eos',
-                    style: TypographyTokens.etichetta()
-                        .copyWith(color: palette.goldSoft)),
-              ),
               const SizedBox(height: SpacingTokens.lg),
               // IL PANNELLO FONTI E METODO: qui, e mai accanto all'elenco delle
               // fonti di un'arte, il glifo si dichiara un segno del Cerchio.

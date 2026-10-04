@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/cerchio/il_cerchio_sociale.dart';
+import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/core/cerchio/i_segni_del_cerchio.dart';
 import 'package:esoteric_circle/features/cerchio/confronto_del_cielo_screen.dart';
 import 'package:esoteric_circle/features/cerchio/il_tuo_cerchio_screen.dart';
@@ -32,7 +33,10 @@ void main() {
     addTearDown(tester.view.reset);
     final finta = porta ?? PortaFintaDelCerchioSociale();
     final sociale = IlCerchioSociale(porta: finta);
-    await sociale.sincronizza();
+    // Una nascita adulta: senza data il Cerchio sociale resta chiuso
+    // (ordine EZ voce 04, i quattordici anni).
+    await sociale.sincronizza(
+        identita: BirthIdentity(birthMoment: DateTime(1990, 5, 12, 10)));
     await sociale.caricaIlCerchio();
     await tester.pumpWidget(MultiProvider(
       providers: [

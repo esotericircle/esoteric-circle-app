@@ -387,8 +387,74 @@ class IlCerchioSociale extends ChangeNotifier {
   LaTendina? get tendina => _tendina;
   bool get vivo => _porta.viva;
 
+  /// **IL CERCHIO SOCIALE SI APRE A QUATTORDICI ANNI, ordine EZ voce 04.**
+  ///
+  /// Tutto il resto dell'app resta intero: nessuna arte si chiude, nessun
+  /// responso si tocca, nessun limite cambia. Questa regola vale solo per le
+  /// porte del Cerchio sociale e non e' un divieto sulle arti.
+  ///
+  /// Sotto i quattordici anni il consenso lo presta chi esercita la
+  /// responsabilita' genitoriale, e il fondatore il 4 ottobre 2026 ha
+  /// approvato di non costruire nessun meccanismo di consenso: le funzioni
+  /// sociali semplicemente non si aprono. L'eta' viene SOLO dalla data di
+  /// nascita che il profilo ha gia' (`quattordiciAnni`): non si chiede, non si
+  /// verifica con documenti, e il compleanno apre da solo al primo ingresso
+  /// utile. Nessuna etichetta dice a nessuno che una persona e' minorenne.
+  static const String rigaDeiQuattordici =
+      'Il Cerchio si apre a quattordici anni';
+
+  /// **IL GIFT EOS SI DICHIARA, INVECE DI FALLIRE, ordine EZ voce 05.**
+  ///
+  /// La regola resta scritta sul server (`decidiIlGift` in `sociale.ts`): si
+  /// regalano solo Eos comprati o quelli della dote del piano, mai quelli
+  /// guadagnati gratis, da cento a cinquecento al giorno. Ma oggi nessuna
+  /// porta accredita Eos comprati e la dote del piano non si accredita ancora
+  /// (`DOTE_DEL_PIANO` in `borsellino.ts`): gli Eos regalabili valgono zero
+  /// per tutti, per costruzione. Un pulsante che tenta e fallisce sarebbe un
+  /// vicolo cieco; la voce resta visibile e dichiarata non ancora attiva, con
+  /// la riga che dice da cosa si apre.
+  ///
+  /// **Si apre cambiando questa sola riga**, nell'ordine che rendera'
+  /// acquistabili gli abbonamenti e i pacchetti di Eos: quell'ordine e' una
+  /// decisione del fondatore, e questo non costruisce niente sugli acquisti.
+  static bool get ilGiftEosEAperto => false;
+
+  static const String rigaDelGiftEos =
+      'Si apre quando gli abbonamenti e i pacchetti di Eos saranno '
+      'acquistabili';
+
+  /// La sola porta che resta aperta: e' quella che riceve l'eta'.
+  static const String portaCheRiceveLEta = 'ilMioProfiloNelCerchio';
+
+  bool _chiusoPerEta = false;
+
+  /// Vero quando la data di nascita dice meno di quattordici anni.
+  bool get chiusoPerEta => _chiusoPerEta;
+
+  /// Gli anni compiuti alla data, dalla sola data di nascita. Senza una data
+  /// vera (l'identita' d'esempio) il Cerchio sociale non si apre: si apre
+  /// quando la data c'e'.
+  static bool quattordiciAnni(BirthIdentity? identita, DateTime oggi) =>
+      _anni(identita, oggi) >= 14;
+
+  static int _anni(BirthIdentity? identita, DateTime oggi) {
+    if (identita == null || identita.isExample) return -1;
+    final n = identita.birthDate;
+    var anni = oggi.year - n.year;
+    if (oggi.month < n.month || (oggi.month == n.month && oggi.day < n.day)) {
+      anni--;
+    }
+    return anni;
+  }
+
   Future<EsitoSociale?> _chiedi(String porta,
       [Map<String, Object?> corpo = const {}]) async {
+    // Sotto i quattordici anni nessuna porta sociale parte dal telefono: la
+    // risposta e' la riga sola, la stessa che il server darebbe.
+    if (_chiusoPerEta && porta != portaCheRiceveLEta) {
+      return const EsitoSociale(
+          dati: {}, errore: 'sottoLaSoglia', riga: rigaDeiQuattordici);
+    }
     try {
       return await _porta.sociale(porta, corpo);
     } catch (errore) {
@@ -411,15 +477,8 @@ class IlCerchioSociale extends ChangeNotifier {
   /// **MAGGIORENNE, dalla data di nascita che il profilo ha gia'**, senza
   /// chiedere niente in piu'. Senza data nessuno e' maggiorenne: la presenza
   /// pubblica resta chiusa invece di aprirsi per un dato che manca.
-  static bool maggiorenne(BirthIdentity? identita, DateTime oggi) {
-    if (identita == null || identita.isExample) return false;
-    final n = identita.birthDate;
-    var anni = oggi.year - n.year;
-    if (oggi.month < n.month || (oggi.month == n.month && oggi.day < n.day)) {
-      anni--;
-    }
-    return anni >= 18;
-  }
+  static bool maggiorenne(BirthIdentity? identita, DateTime oggi) =>
+      _anni(identita, oggi) >= 18;
 
   /// Sincronizza il profilo: il segno (mai la data), il Maestro, il gradino
   /// del Cammino e la maggiore eta'. Se l'onboarding ha lasciato un nome da
@@ -433,13 +492,22 @@ class IlCerchioSociale extends ChangeNotifier {
   }) async {
     if (!vivo) return;
     final segno = identita?.sunSign;
-    final esito = await _chiedi('ilMioProfiloNelCerchio', {
-      if (segno != null) 'segno': segno.id,
-      if (maestro != null) 'maestro': maestro.name,
-      'gradino': gradino,
-      'maggiorenne': maggiorenne(identita, oggi ?? DateTime.now()),
+    final adesso = oggi ?? DateTime.now();
+    final quattordici = quattordiciAnni(identita, adesso);
+    if (_chiusoPerEta == quattordici) {
+      _chiusoPerEta = !quattordici;
+      notifyListeners();
+    }
+    final esito = await _chiedi(portaCheRiceveLEta, {
+      // Sotto i quattordici anni viaggia solo l'eta': nessun segno, nessun
+      // Maestro, nessun gradino per un profilo che non esiste.
+      if (quattordici && segno != null) 'segno': segno.id,
+      if (quattordici && maestro != null) 'maestro': maestro.name,
+      if (quattordici) 'gradino': gradino,
+      'maggiorenne': maggiorenne(identita, adesso),
+      'quattordici': quattordici,
     });
-    if (esito == null || esito.rifiutato) return;
+    if (!quattordici || esito == null || esito.rifiutato) return;
     _profilo = ProfiloNelCerchio.da(esito.dati);
     notifyListeners();
     if (!_profilo!.haUnNome) {

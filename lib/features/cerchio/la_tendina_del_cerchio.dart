@@ -109,64 +109,76 @@ class _LaTendina extends StatelessWidget {
                     blurRadius: 30),
               ],
             ),
-            child: t == null
-                ? const Padding(
-                    padding: EdgeInsets.all(SpacingTokens.xl),
-                    child: Center(child: CircularProgressIndicator()),
+            child: sociale.chiusoPerEta
+                // Sotto i quattordici anni la tendina dice la riga sola
+                // (ordine EZ voce 04).
+                ? Padding(
+                    key: const Key('tendina_quattordici_anni'),
+                    padding: const EdgeInsets.all(SpacingTokens.xl),
+                    child: Text(IlCerchioSociale.rigaDeiQuattordici,
+                        textAlign: TextAlign.center,
+                        style: TypographyTokens.corpo()
+                            .copyWith(color: palette.goldSoft)),
                   )
-                : ListView(
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.all(SpacingTokens.md),
-                    children: [
-                      Center(
-                        child: Container(
-                          width: 44,
-                          height: 4,
-                          decoration: BoxDecoration(
-                              color: palette.gold.withValues(alpha: 0.5),
-                              borderRadius: BorderRadius.circular(2)),
-                        ),
+                : t == null
+                    ? const Padding(
+                        padding: EdgeInsets.all(SpacingTokens.xl),
+                        child: Center(child: CircularProgressIndicator()),
+                      )
+                    : ListView(
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.all(SpacingTokens.md),
+                        children: [
+                          Center(
+                            child: Container(
+                              width: 44,
+                              height: 4,
+                              decoration: BoxDecoration(
+                                  color: palette.gold.withValues(alpha: 0.5),
+                                  borderRadius: BorderRadius.circular(2)),
+                            ),
+                          ),
+                          if (t.visibilita == VisibilitaNelCerchio.invisibile)
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: SpacingTokens.sm),
+                              child: Text(
+                                  'Sei invisibile: nessuno ti vede e tu vedi gli '
+                                  'altri.',
+                                  key: const Key('tendina_invisibile'),
+                                  style: TypographyTokens.didascalia()
+                                      .copyWith(color: palette.goldSoft)),
+                            ),
+                          const _Piano('I tuoi amici presenti'),
+                          if (t.amiciPresenti.isEmpty)
+                            Text(
+                                sociale.cerchio.amici.isEmpty
+                                    ? 'Il tuo Cerchio è ancora da chiamare.'
+                                    : 'Nessuno dei tuoi amici è qui adesso.',
+                                style: TypographyTokens.corpo().copyWith(
+                                    color: ColorTokens.textSecondary)),
+                          for (final p in t.amiciPresenti)
+                            _AmicoPresente(persona: p),
+                          const _Piano('Il Cerchio adesso'),
+                          _LeArti(perArte: t.perArte),
+                          if (t.somiglianti.isNotEmpty) ...[
+                            const _Piano('Ti somigliano'),
+                            for (final p in t.somiglianti) _Simile(persona: p),
+                          ],
+                          const SizedBox(height: SpacingTokens.sm),
+                          TextButton(
+                            key: const Key('tendina_al_cerchio'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              Navigator.of(context)
+                                  .push(IlTuoCerchioScreen.route());
+                            },
+                            child: Text('Il tuo Cerchio',
+                                style: TypographyTokens.etichetta()
+                                    .copyWith(color: palette.goldSoft)),
+                          ),
+                        ],
                       ),
-                      if (t.visibilita == VisibilitaNelCerchio.invisibile)
-                        Padding(
-                          padding: const EdgeInsets.only(top: SpacingTokens.sm),
-                          child: Text(
-                              'Sei invisibile: nessuno ti vede e tu vedi gli '
-                              'altri.',
-                              key: const Key('tendina_invisibile'),
-                              style: TypographyTokens.didascalia()
-                                  .copyWith(color: palette.goldSoft)),
-                        ),
-                      const _Piano('I tuoi amici presenti'),
-                      if (t.amiciPresenti.isEmpty)
-                        Text(
-                            sociale.cerchio.amici.isEmpty
-                                ? 'Il tuo Cerchio è ancora da chiamare.'
-                                : 'Nessuno dei tuoi amici è qui adesso.',
-                            style: TypographyTokens.corpo()
-                                .copyWith(color: ColorTokens.textSecondary)),
-                      for (final p in t.amiciPresenti)
-                        _AmicoPresente(persona: p),
-                      const _Piano('Il Cerchio adesso'),
-                      _LeArti(perArte: t.perArte),
-                      if (t.somiglianti.isNotEmpty) ...[
-                        const _Piano('Ti somigliano'),
-                        for (final p in t.somiglianti) _Simile(persona: p),
-                      ],
-                      const SizedBox(height: SpacingTokens.sm),
-                      TextButton(
-                        key: const Key('tendina_al_cerchio'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          Navigator.of(context)
-                              .push(IlTuoCerchioScreen.route());
-                        },
-                        child: Text('Il tuo Cerchio',
-                            style: TypographyTokens.etichetta()
-                                .copyWith(color: palette.goldSoft)),
-                      ),
-                    ],
-                  ),
           ),
         ),
       ),
