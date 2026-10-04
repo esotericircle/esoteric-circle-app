@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../../../core/cerchio/i_segni_del_cerchio.dart';
 import '../../../core/cerchio/il_cerchio_sociale.dart';
-import '../../../core/chat/la_marca_del_genere.dart';
 import '../../../core/identity/profile_controller.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/tokens/color_tokens.dart';
@@ -31,6 +30,30 @@ class ISegniRicevuti extends StatelessWidget {
   }
 }
 
+/// **DOVE PORTA UNA RICHIESTA, in un punto solo, ordine FA voce 02.** Ogni
+/// richiesta apre una funzione che esiste: la prova
+/// `ogni_richiesta_apre_una_cosa_che_esiste` chiama questa funzione per ogni
+/// segno delle richieste e cade col nome del segno se la destinazione non si
+/// raggiunge. Il confronto e il glifo vogliono l'amico; le arti la nascita
+/// di chi riceve, che le arti stesse chiedono se manca.
+Route<void>? rottaDellaRichiesta(ArteDellaRichiesta arte,
+    {PersonaDelCerchio? amico, DateTime? nascita}) {
+  return switch (arte) {
+    ArteDellaRichiesta.confronto =>
+      amico == null ? null : ConfrontoDelCieloScreen.route(amico),
+    // L'unica sinastria che esiste e' la Sinastria VIP (ordine FA voce 02).
+    ArteDellaRichiesta.sinastriaVip =>
+      artRouteFor('synastry_vip', userBirth: nascita),
+    ArteDellaRichiesta.tarocchi =>
+      artRouteFor('day_oracle', userBirth: nascita),
+    ArteDellaRichiesta.rune => artRouteFor('rune_draw', userBirth: nascita),
+    ArteDellaRichiesta.archetipo =>
+      artRouteFor('archetype_test', userBirth: nascita),
+    ArteDellaRichiesta.glifo =>
+      amico == null ? null : SchedaDellAmicoScreen.route(amico),
+  };
+}
+
 class _UnSegno extends StatelessWidget {
   const _UnSegno({required this.segno});
 
@@ -50,7 +73,6 @@ class _UnSegno extends StatelessWidget {
   }
 
   void _apri(BuildContext context, ArteDellaRichiesta arte) {
-    final navigatore = Navigator.of(context);
     DateTime? nascita;
     try {
       final id = context.read<ProfileController>().identity;
@@ -64,31 +86,8 @@ class _UnSegno extends StatelessWidget {
         .amici
         .where((p) => p.uid == segno.con)
         .firstOrNull;
-    // Ogni richiesta apre la sua funzione (ordine EZ voce 08).
-    switch (arte) {
-      case ArteDellaRichiesta.confronto:
-        if (amico != null) {
-          navigatore.push(ConfrontoDelCieloScreen.route(amico));
-        }
-      case ArteDellaRichiesta.sinastria:
-        // Il Cerchio non porta la nascita di un amico, solo il segno: la
-        // sinastria si apre sulla sua porta, dove si sceglie con chi farla.
-        final r = artRouteFor('synastry_vip', userBirth: nascita);
-        if (r != null) navigatore.push(r);
-      case ArteDellaRichiesta.tarocchi:
-        final r = artRouteFor('day_oracle', userBirth: nascita);
-        if (r != null) navigatore.push(r);
-      case ArteDellaRichiesta.rune:
-        final r = artRouteFor('rune_draw', userBirth: nascita);
-        if (r != null) navigatore.push(r);
-      case ArteDellaRichiesta.archetipo:
-        final r = artRouteFor('archetype_test', userBirth: nascita);
-        if (r != null) navigatore.push(r);
-      case ArteDellaRichiesta.glifo:
-        if (amico != null) {
-          navigatore.push(SchedaDellAmicoScreen.route(amico));
-        }
-    }
+    final rotta = rottaDellaRichiesta(arte, amico: amico, nascita: nascita);
+    if (rotta != null) Navigator.of(context).push(rotta);
   }
 
   @override
@@ -124,10 +123,7 @@ class _UnSegno extends StatelessWidget {
                     children: [
                       // Chi riceve legge la sua riga, chi ha mandato il
                       // titolo del pulsante; il nome lo dice la cornice.
-                      Text(
-                          segno.ricevuto
-                              ? LaMarcaDelGenere.risolvi(dato.rigaDiChiRiceve)
-                              : dato.testo,
+                      Text(segno.ricevuto ? dato.rigaDiChiRiceve : dato.testo,
                           style: TypographyTokens.titoloDiRiga()
                               .copyWith(color: palette.goldSoft)),
                       Text(

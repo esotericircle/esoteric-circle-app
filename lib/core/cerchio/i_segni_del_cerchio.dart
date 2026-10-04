@@ -41,7 +41,7 @@ enum MotivoDelSegno {
 /// Cosa apre una richiesta, al tocco di chi la riceve (ordine EZ voce 08).
 enum ArteDellaRichiesta {
   confronto,
-  sinastria,
+  sinastriaVip,
   tarocchi,
   rune,
   archetipo,
@@ -125,12 +125,12 @@ abstract final class ISegniDelCerchio {
         id: 'coraggio',
         categoria: CategoriaDelSegno.personali,
         testo: 'Hai fatto molta strada',
-        // La riga dell'Architetto e' al maschile: si marca (ordine DL), e il
-        // neutro la riformula, l'unico ritocco al suo testo.
-        rigaDiChiRiceve:
-            '[Qualcuno ha visto quanto sei arrivato lontano.|Qualcuno ha visto '
-            'quanto sei arrivata lontano.|Qualcuno ha visto quanta strada hai '
-            'fatto.]',
+        // **UNA FORMA SOLA, QUELLA NEUTRA, ordine FA voce 06.** Con l'ordine EZ
+        // la riga era marcata col genere (maschile, femminile e neutro). Le
+        // varianti sono tolte: una variante di genere per un solo segno su
+        // diciotto e' un'asimmetria che qualcuno dovrebbe mantenere per
+        // sempre, e la forma neutra si legge meglio per tutti.
+        rigaDiChiRiceve: 'Qualcuno ha visto quanta strada hai fatto.',
         risposte: ['Grazie', 'Un pezzo è merito tuo'],
         motivo: MotivoDelSegno.stella),
     SegnoDelCerchio(
@@ -204,11 +204,18 @@ abstract final class ISegniDelCerchio {
     SegnoDelCerchio(
         id: 'facciamoLaSinastria',
         categoria: CategoriaDelSegno.richieste,
-        testo: 'Facciamo la sinastria',
-        rigaDiChiRiceve: 'Qualcuno vuole sapere come state insieme, nel cielo.',
-        risposte: ['Vediamo', 'Non adesso'],
+        // **IL SEGNO 15 DICE IL VERO, ordine FA voce 02, 4 ottobre 2026.** Era
+        // "Facciamo la sinastria": prometteva un confronto fra voi due e apriva
+        // la porta dove si sceglie un VIP, perche' nel progetto l'unica
+        // sinastria che esiste e' la Sinastria VIP. Il fondatore: "Appena
+        // faremo la sinastria per amici o sinastria approfondita, aggiorneremo
+        // il collegamento". Quel giorno il segno tornera' a parlare di voi
+        // due; l'identificativo resta, perche' lo conosce il server.
+        testo: 'Sfidami con un VIP',
+        rigaDiChiRiceve: 'Qualcuno ti sfida: con quale VIP fai più scintille?',
+        risposte: ['Accetto la sfida', 'Più tardi'],
         motivo: MotivoDelSegno.spirale,
-        apre: ArteDellaRichiesta.sinastria),
+        apre: ArteDellaRichiesta.sinastriaVip),
     SegnoDelCerchio(
         id: 'stessaCarta',
         categoria: CategoriaDelSegno.richieste,
