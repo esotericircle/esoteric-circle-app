@@ -336,6 +336,9 @@ void main() {
     // 4 ottobre 2026: sedici dai tre pezzi dell'ordine, piu' l'EY.17 dell'EY
     // Aggiunta 1 (il codice dell'invito diventa opaco).
     'EY': 17,
+    // EZ: otto voci, contate coi titoli "## VOCE EZ." del manifesto il 4
+    // ottobre 2026, dai tre pezzi dell'ordine (il Cerchio senza difetti).
+    'EZ': 8,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,
