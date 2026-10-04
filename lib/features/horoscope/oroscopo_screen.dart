@@ -349,11 +349,18 @@ class _OroscopoScreenState extends State<OroscopoScreen>
     // **QUALE PERIODO, ordine AR voce 11.** La scena sa se si sta
     // interrogando il giorno, la settimana o il mese: e' il dettaglio che
     // distingue chi legge sempre l'oggi da chi guarda piu' lontano.
-    unawaited(RegiaDelCammino.dopoUnGesto(
-      context,
-      'oroscopo',
-      dettagli: {'periodo': _period.name, 'tradizione': quale.name},
-    ));
+    // **LA LETTURA DI UN AMICO NON ENTRA NEL CAMMINO**, ordine FC voce 02
+    // (punto 6 di [IlSoggettoDellOroscopo]): il gesto del Cammino segnala al
+    // server il rito compiuto, e prima dell'ordine FC la lettura di un amico
+    // non passava di qui; farcela passare sarebbe una chiamata in piu' per
+    // ogni lettura (R14).
+    if (!_soggetto.eUnAmico) {
+      unawaited(RegiaDelCammino.dopoUnGesto(
+        context,
+        'oroscopo',
+        dettagli: {'periodo': _period.name, 'tradizione': quale.name},
+      ));
+    }
     // **IL SIGILLO DEI TRE CIELI, ordine ES voce 37**: la lettura del giorno
     // di questa tradizione entra nel conto di oggi.
     // Il Sigillo e' la pratica di chi usa l'app: leggere un amico non lo
@@ -1685,7 +1692,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                                 'qual è il tuo: così leggo il tuo giorno.',
                                 (n) => 'Il giorno della nascita di $n la Luna '
                                     'ha cambiato segno: con la sua ora di '
-                                    'nascita saprei qual è il suo, e leggerei '
+                                    'nascita saprei qual è il suo e leggerei '
                                     'il suo giorno.'),
                             palette: palette,
                             soggetto: _soggetto,

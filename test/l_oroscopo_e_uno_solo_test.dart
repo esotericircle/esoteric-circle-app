@@ -15,6 +15,7 @@ import 'package:esoteric_circle/core/identity/profile_controller.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';
 import 'package:esoteric_circle/core/quality/quality_tier.dart';
+import 'package:esoteric_circle/core/sigilli/diario_del_cammino.dart';
 import 'package:esoteric_circle/design_system/components/cosmos_background.dart';
 import 'package:esoteric_circle/design_system/theme/app_theme.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
@@ -90,7 +91,7 @@ void main() {
   );
 
   Future<void> monta(WidgetTester tester,
-      {Amico? amico, Tier tier = Tier.tier3}) async {
+      {Amico? amico, Tier tier = Tier.tier3, DiarioDelCammino? diario}) async {
     SharedPreferences.setMockInitialValues({
       'oroscopo_segno_rivelato': ['cinese', 'vedica'],
     });
@@ -125,6 +126,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => ProfileController()),
         ChangeNotifierProvider.value(value: nascite),
         ChangeNotifierProvider(create: (_) => AmiciOffline()),
+        if (diario != null) ChangeNotifierProvider.value(value: diario),
       ],
       child: MaterialApp(
         theme: AppTheme.dark(),
@@ -356,6 +358,29 @@ void main() {
     final porta = File('lib/design_system/components/porta_della_spesa.dart')
         .readAsStringSync();
     expect(porta, contains('context.read<QuestionAllowance>()'));
+  });
+
+  testWidgets(
+      'FC.02: la lettura di un amico non entra nel Cammino, la propria si',
+      (tester) async {
+    // Il gesto del Cammino segnala al server il rito compiuto: prima
+    // dell'ordine FC la lettura di un amico non ci passava, e la porta unica
+    // non deve aggiungere una chiamata per ogni lettura (R14).
+    final conti = <String, int>{};
+    for (final (chi, amico) in [('io', null), ('amico', amica)]) {
+      final diario =
+          DiarioDelCammino(orologio: () => DateTime(2026, 10, 4, 12));
+      await monta(tester, amico: amico, diario: diario);
+      await interrogaSeCe(tester);
+      conti[chi] = diario.quanteVolte('oroscopo');
+      await tester.pumpWidget(const SizedBox());
+    }
+    print('ORDINE FC VOCE 02: gesti dell\'oroscopo nel Cammino, lettura '
+        'propria ${conti['io']}, lettura di un amico ${conti['amico']}');
+    expect(conti['io'], 1, reason: 'la lettura propria non entra nel Cammino');
+    expect(conti['amico'], 0,
+        reason: 'la lettura di un amico entra nel Cammino: una chiamata in '
+            'piu\' al server per ogni lettura');
   });
 
   test('FC.02: la schermata non legge i dati di nascita da sola', () {

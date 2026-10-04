@@ -50,7 +50,10 @@ import 'oroscopo_share_card.dart';
 ///    che la accompagna e' rivolto all'amico ([perUnAmico]).
 /// 6. **CIO' CHE E' SOLO DI CHI GUARDA NON SI TOCCA leggendo un amico**: il
 ///    Sigillo dei Tre Cieli (e' la pratica quotidiana della persona) e
-///    l'avviso del prossimo compleanno solare (e' il suo) ([eUnAmico]).
+///    l'avviso del prossimo compleanno solare (e' il suo), e il gesto del
+///    Cammino, che segnala al server il rito compiuto: prima dell'ordine FC
+///    la lettura di un amico non ci passava, e farcela passare sarebbe una
+///    chiamata in piu' per ogni lettura, contro la regola R14 ([eUnAmico]).
 ///    I limiti del piano, gli Eos e i contatori invece sono di chi guarda
 ///    anche quando legge un amico: e' lui che usa l'app.
 /// 7. **I DATI CHE MANCANO**: per sé l'invito porta ai propri dati di
