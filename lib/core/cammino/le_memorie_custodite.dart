@@ -126,6 +126,11 @@ abstract final class LeMemorieCustodite {
     'arti_del_giorno.': 'le arti aperte oggi, per il puntino d\'oro',
     'push.': 'il gettone delle notifiche di questo telefono',
     'sogni.': 'prefisso senza chiavi: oggi nessuna memoria lo scrive',
+    // Ordine EY: il nome nel Cerchio e il Maestro del profilo vivono sul
+    // server (profili/{uid}) e tornano da li' con l'account; sul telefono
+    // restano solo la proposta dell'onboarding e la copia del Maestro.
+    'cerchio.': 'la proposta del nome e il Maestro del profilo, che il '
+        'server custodisce nel profilo del Cerchio',
     'device.id': 'l\'identità di questo telefono',
     'settings.': 'com\'è regolato questo telefono',
     'app_check_debug_token': 'il gettone di prova di App Check',

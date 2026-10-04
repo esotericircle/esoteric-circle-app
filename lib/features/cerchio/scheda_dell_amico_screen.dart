@@ -199,7 +199,7 @@ class SchedaDellAmicoScreen extends StatelessWidget {
     return conIPulsantiDOro(
         context,
         Scaffold(
-          backgroundColor: palette.deepest,
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,

@@ -48,10 +48,12 @@ class _CustodeDelCerchioSocialeState extends State<CustodeDelCerchioSociale> {
     final sociale = _sociale();
     if (sociale == null || !sociale.vivo || !mounted) return;
     BirthIdentity? identita;
+    String? nomeProprio;
     int gradino = 0;
     try {
       final p = context.read<ProfileController>();
       identita = p.identity.isExample ? null : p.identity;
+      nomeProprio = p.profile.displayName;
     } catch (senzaQuelDato) {
       // Il dato e' facoltativo: senza, si va avanti col ripiego.
     }
@@ -73,7 +75,10 @@ class _CustodeDelCerchioSocialeState extends State<CustodeDelCerchioSociale> {
     if (firma == _ultimaFirma) return;
     _ultimaFirma = firma;
     await sociale.sincronizza(
-        identita: identita, maestro: maestro, gradino: gradino);
+        identita: identita,
+        maestro: maestro,
+        gradino: gradino,
+        nomeProprio: nomeProprio);
     await sociale.caricaIlCerchio();
     if (!_recapitoDato) {
       _recapitoDato = true;

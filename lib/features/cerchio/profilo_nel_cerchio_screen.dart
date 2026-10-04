@@ -124,12 +124,12 @@ class _ProfiloNelCerchioScreenState extends State<ProfiloNelCerchioScreen> {
     return conIPulsantiDOro(
         context,
         Scaffold(
-          backgroundColor: palette.deepest,
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
             iconTheme: IconThemeData(color: palette.goldSoft),
-            title: Text('Il tuo nome nel Cerchio',
+            title: Text('Nome nel Cerchio',
                 style: TypographyTokens.titoloDiSchermata()
                     .copyWith(color: palette.goldSoft)),
           ),

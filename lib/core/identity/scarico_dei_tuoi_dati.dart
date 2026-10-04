@@ -90,6 +90,7 @@ class ScaricoDeiTuoiDati {
     'rune.presagio.': 'Le voci del presagio delle rune che hai già letto',
     'sentiero.': 'Le mappe dei sentieri che hai aperto',
     'sinastria.': 'Le coppie che hai scoperto',
+    'cerchio.': 'Il nome proposto nel Cerchio e il tuo Maestro di riferimento',
     'maestro.': 'Quali benvenuti ti hanno già detto i Maestri',
     // Ordine DZ voce 04: i titoli che il modello ha dato alle tue
     // conversazioni, come si cancellano cosi' si scaricano.

@@ -372,7 +372,14 @@ class _ChiEOnline extends StatelessWidget {
     return GestureDetector(
       key: const Key('barra_online_tocco'),
       behavior: HitTestBehavior.opaque,
-      onTap: conLaTendina ? () => apriLaTendinaDelCerchio(context) : null,
+      // **COL CONTESTO DEL NAVIGATORE, come il volto.** La barra vive nel
+      // `builder` di `MaterialApp`, sopra il Navigator: col suo contesto la
+      // tendina non trovava nessuna pila e non si apriva. Visto sul Realme
+      // con la build 2296; la prova `la_tendina_si_apre_dalla_barra`.
+      onTap: conLaTendina
+          ? () => apriLaTendinaDelCerchio(
+              NavigazioneDellaBarra.contestoDelNavigatore())
+          : null,
       child: Semantics(
         key: const Key('barra_online'),
         container: true,

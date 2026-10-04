@@ -6,6 +6,7 @@ import '../../../core/cerchio/i_segni_del_cerchio.dart';
 import '../../../core/cerchio/il_cerchio_sociale.dart';
 import '../../../core/cerchio/le_icone_del_cerchio.dart';
 import '../../../core/maestro/maestro.dart';
+import '../../../design_system/components/cosmos_background.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
 import '../../../design_system/tokens/color_tokens.dart';
@@ -521,15 +522,24 @@ class _PittoreDelDono extends CustomPainter {
 /// **I PULSANTI DI TESTO DEL CERCHIO SONO D'ORO.** Senza, un `TextButton`
 /// eredita il viola primario del tema, che sul nero delle schermate sociali
 /// non si legge: visto nelle anteprime (Rinnova, Revoca, Sblocca).
-Widget conIPulsantiDOro(BuildContext context, Widget figlio) {
+///
+/// **E IL CIELO DEL CERCHIO SOTTO**: lo sfondo cosmico del menu' utente, non
+/// il nero pieno. Il fondatore il 4 ottobre 2026: "Tutte le anteprime che
+/// riguardano il cerchio hanno sfondo nero, anziché lo sfondo cosmico
+/// dell'app". Le schermate del Cerchio hanno la Scaffold trasparente.
+Widget conIPulsantiDOro(BuildContext context, Widget figlio, {int seme = 23}) {
   final tema = Theme.of(context);
-  return Theme(
-    data: tema.copyWith(
-      textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(
-            foregroundColor: MaestroPalette.neutral.goldSoft),
+  return CosmosBackground(
+    key: const Key('cerchio_cosmo'),
+    seed: seme,
+    child: Theme(
+      data: tema.copyWith(
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+              foregroundColor: MaestroPalette.neutral.goldSoft),
+        ),
       ),
+      child: figlio,
     ),
-    child: figlio,
   );
 }

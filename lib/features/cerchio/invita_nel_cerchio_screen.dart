@@ -65,12 +65,12 @@ class _InvitaNelCerchioScreenState extends State<InvitaNelCerchioScreen> {
     return conIPulsantiDOro(
         context,
         Scaffold(
-          backgroundColor: palette.deepest,
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
             iconTheme: IconThemeData(color: palette.goldSoft),
-            title: Text('Chiama nel tuo Cerchio',
+            title: Text('Chiama nel Cerchio',
                 style: TypographyTokens.titoloDiSchermata()
                     .copyWith(color: palette.goldSoft)),
           ),
@@ -100,20 +100,33 @@ class _InvitaNelCerchioScreenState extends State<InvitaNelCerchioScreen> {
                 riga:
                     'Uno mostra il suo codice, l’altro lo inquadra. Il codice '
                     'vale cinque minuti: una sua fotografia domani non vale niente.',
-                child: Row(
+                // Uno sotto l'altro e d'oro: affiancati andavano a capo e il
+                // viola del tema non si leggeva (visto sul Realme, 2296).
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Expanded(
+                    SizedBox(
                       child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            foregroundColor: palette.goldSoft,
+                            side: BorderSide(
+                                color: palette.gold.withValues(alpha: 0.6)),
+                            minimumSize: const Size.fromHeight(46)),
                         key: const Key('invita_mostra'),
                         onPressed: () => Navigator.of(context).push(
                             PassaggioDelCerchio.rotta<void>(
                                 (_) => const IlMioCodice())),
-                        child: const Text('Mostra il mio'),
+                        child: const Text('Mostra il mio codice'),
                       ),
                     ),
-                    const SizedBox(width: SpacingTokens.sm),
-                    Expanded(
+                    const SizedBox(height: SpacingTokens.sm),
+                    SizedBox(
                       child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            foregroundColor: palette.goldSoft,
+                            side: BorderSide(
+                                color: palette.gold.withValues(alpha: 0.6)),
+                            minimumSize: const Size.fromHeight(46)),
                         key: const Key('invita_inquadra'),
                         onPressed: () async {
                           final codice = await Navigator.of(context)
@@ -123,7 +136,7 @@ class _InvitaNelCerchioScreenState extends State<InvitaNelCerchioScreen> {
                             await mostraLaRichiestaDiLegame(context, codice);
                           }
                         },
-                        child: const Text('Inquadra il suo'),
+                        child: const Text('Inquadra il suo codice'),
                       ),
                     ),
                   ],
@@ -266,7 +279,7 @@ class _IlMioCodiceState extends State<IlMioCodice> {
     return conIPulsantiDOro(
         context,
         Scaffold(
-          backgroundColor: palette.deepest,
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
@@ -424,7 +437,7 @@ class _InquadraIlCodiceState extends State<InquadraIlCodice> {
     return conIPulsantiDOro(
         context,
         Scaffold(
-          backgroundColor: palette.deepest,
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,

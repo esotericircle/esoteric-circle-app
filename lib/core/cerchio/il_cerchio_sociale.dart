@@ -7,6 +7,7 @@ import '../brand/brand.dart';
 import '../condivisione/porta_della_condivisione.dart';
 import '../identity/birth_identity.dart';
 import '../maestro/maestro.dart';
+import 'il_nome_iniziatico.dart';
 import 'l_arte_di_adesso.dart';
 
 /// **IL SEMAFORINO ACCANTO AL NOME, ordine EY voce 05.** Quattro stati, come
@@ -428,6 +429,7 @@ class IlCerchioSociale extends ChangeNotifier {
     Maestro? maestro,
     int gradino = 0,
     DateTime? oggi,
+    String? nomeProprio,
   }) async {
     if (!vivo) return;
     final segno = identita?.sunSign;
@@ -441,8 +443,14 @@ class IlCerchioSociale extends ChangeNotifier {
     _profilo = ProfiloNelCerchio.da(esito.dati);
     notifyListeners();
     if (!_profilo!.haUnNome) {
-      final proposto = await _nomeProposto();
-      if (proposto != null) await scegliIlNome(proposto);
+      // **CHI ERA GIA' NEL CERCHIO PRIMA DELL'ORDINE EY** non e' passato dal
+      // campo dell'onboarding: riceve il nome iniziatico dalla sua nascita,
+      // come chi arriva. E' il primo nome, non un cambio: il primo cambio
+      // resta libero. Visto sul Realme con la build 2296, "Ancora senza
+      // nome".
+      final proposto = await _nomeProposto() ??
+          IlNomeIniziatico.per(identita: identita, nomeProprio: nomeProprio);
+      await scegliIlNome(proposto);
     }
   }
 

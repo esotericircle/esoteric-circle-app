@@ -138,7 +138,7 @@ class _ConfrontoDelCieloScreenState extends State<ConfrontoDelCieloScreen> {
     return conIPulsantiDOro(
         context,
         Scaffold(
-          backgroundColor: palette.deepest,
+          backgroundColor: Colors.transparent,
           appBar: AppBar(
             backgroundColor: Colors.transparent,
             elevation: 0,
