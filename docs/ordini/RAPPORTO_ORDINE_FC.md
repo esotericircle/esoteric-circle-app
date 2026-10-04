@@ -159,38 +159,80 @@ amici online"*. La prima stesura era una riga in cima alla rubrica che
 portava al Cerchio, senza chiamare la tendina, come chiedeva l'Aggiunta. Il
 fondatore, la stessa sera: *"anziché aprire una nuova schermata per gli amici
 online, sarebbe meglio inserire 2 pulsanti: a sinistra offline e a destra
-online con a fianco il numero di amici online e un cerchietto verde"*. Fatto
+online con a fianco il numero di amici online e un cerchietto verde"*. Poi la
+risposta dell'Architetto: i due testi definitivi, la deroga alla R14
+approvata col vincolo del tetto condiviso, la domanda sull'icona nera. Fatto
 cosi' (`lib/features/amici/gli_amici_online.dart`, la riga di prima tolta):
 
-| cosa | come |
+| stato | cosa si vede |
 | --- | --- |
 | all'apertura | Offline scelto: le schede scritte dalla persona, come prima |
 | accanto a Online | il numero degli amici online e il cerchietto verde, pieno se qualcuno c'e', velato se nessuno o se il numero non si sa |
-| tocco su Online | gli amici del Cerchio presenti, con la riga della tendina (`AmicoPresente`); sotto, "Il tuo Cerchio" |
-| nessuno nel Cerchio | numero 0, ed e' vero; Online dice che il Cerchio e' da chiamare e porta all'invito |
-| il Cerchio non risponde | nessun numero; Online dice il perche' e offre Riprova |
+| Cerchio popolato | "Chi del tuo Cerchio è qui con te, adesso." e gli amici presenti con la riga della tendina (`AmicoPresente`), con la loro icona; sotto, "Il tuo Cerchio" |
+| Cerchio vuoto | numero 0, ed e' vero; "Il tuo Cerchio è ancora da chiamare." (intatto) e l'invito |
+| tetto raggiunto, o rete assente, con un ultimo dato | l'ultimo dato noto, il suo numero e "Aggiornato alle" con l'ora; nessun guasto |
+| nessun ultimo dato e il Cerchio non risponde | nessun numero; "Il Cerchio non risponde in questo momento. Riprova fra poco." e Riprova |
 
-**Il costo, che la prima forma non aveva, coi numeri.** Il numero e
-l'elenco vengono dalla tendina. La rubrica la chiede **al piu' una volta per
-apertura**, e mai quando la tendina ha meno di un minuto, quando nel Cerchio
-non c'e' nessuno o quando il Cerchio e' chiuso per eta'. Una chiamata legge
-**5 documenti** (misurati oggi dalla guardia
+**Il costo, approvato.** La rubrica chiede la tendina **al piu' una volta
+per apertura**, e mai quando la tendina ha meno di un minuto, quando nel
+Cerchio non c'e' nessuno o quando il Cerchio e' chiuso per eta'. Una chiamata
+legge **5 documenti** (misurati oggi dalla guardia
 `la_tendina_non_supera_dieci_letture`) e ne scrive **1** (il tetto della
 porta): circa **0,0000027 euro a chiamata, 0,27 centesimi ogni mille
-aperture** della rubrica. E' una deroga alla R14, chiesta dal fondatore con le
-sue parole. Misura nella prova: chiamate all'apertura 0 con la tendina
-fresca, 1 senza tendina, 0 riaperta subito dopo (e' cio' che tiene la
-rubrica lontana dal tetto di trenta chiamate l'ora), 1 con la tendina
+aperture** della rubrica. Misura nella prova: chiamate all'apertura 0 con la
+tendina fresca, 1 senza tendina, 0 riaperta subito dopo, 1 con la tendina
 vecchia di due minuti, 0 senza amici nel Cerchio.
 
-**Le due rubriche restano due**: il selettore le mette sotto lo stesso
-titolo e non le fonde. **Il ponte al contrario non c'e'**: misurato il 4
-ottobre 2026, dal Cerchio alla rubrica degli amici non porta nessun tocco, e
-la rubrica si apre solo dall'oroscopo ("Oroscopo per"). Non costruito, come
-chiede l'Aggiunta. **I testi nuovi sono segnaposto dichiarati** ("I tuoi
-amici del Cerchio che sono qui adesso.", la riga del silenzio): li scrive
-l'Architetto. Anteprime: `docs/preview/prima_dopo/fc09_rubrica_offline_dopo.png`,
-`fc09_rubrica_online_dopo.png`, `fc09_rubrica_online_nessuno_nel_cerchio_dopo.png`.
+**Il tetto condiviso, col vincolo dell'Architetto.** Il tetto di trenta
+chiamate l'ora e' della porta `laTendinaDelCerchio` sul server, uno solo, e
+il telefono la chiama da un punto solo (`IlCerchioSociale.caricaLaTendina`),
+che adesso usano due schermate. Quando la richiesta non arriva il Cerchio
+sociale tiene l'ultima tendina e lo dice (`tendinaNonAggiornata`); la
+rubrica e la tendina la mostrano con "Aggiornato alle" e l'ora a cui e' stata
+presa. L'ultima tendina sta anche sul telefono (`cerchio.ultimaTendina`, con
+lo uid di chi l'ha ricevuta, tolta all'uscita), per l'app riaperta dentro
+l'ora del tetto. Misura nella prova del tetto, con la porta che concede una
+chiamata e poi risponde `resource-exhausted` come il server: chiamate alla
+porta 3 (tendina, rubrica, tendina); messaggi di guasto a video **0 nella
+rubrica, 0 nella tendina, 0 nella rubrica dopo la riapertura**, con
+l'ultimo dato e la sua ora. **Prima** la rubrica, con la tendina vecchia e il
+tetto, mostrava la riga del tetto ("Hai bussato molte volte: riprova fra un
+minuto."): 1 messaggio di guasto, letto sul codice di `15b6461d` e non
+misurato. E la tendina, senza alcun dato e col rifiuto, restava sulla rotella
+per sempre: adesso dice il testo del fondatore.
+
+**L'icona nera era la cattura (causa a), non la riga.** Rifatta in un
+processo nuovo, con lo stesso codice e lo stesso dato, cambiando solo il
+caricamento delle icone prima dello scatto (le anteprime del Cerchio le
+caricano, la mia non lo faceva): senza, il tondo di Stella e' nero
+(luminosita' media 20,5, 771 pixel chiari su 10000,
+`fc09_rubrica_online_senza_icone_caricate_dopo.png`); con, c'e' la lince
+(39,5 e 2391, `fc09_rubrica_online_dopo.png`). La cattura senza caricamento
+va fatta da sola: la cache delle immagini sopravvive fra le prove dello
+stesso file, e nel giro intero quella cattura usciva gia' con la lince. **I
+punti dove la riga Online riceve l'icona**: il server mette `icona` in ogni
+amico presente (`laTendinaDelCerchio` in `functions/src/il_cerchio_sociale.ts`);
+`PersonaDelCerchio.da` la legge; `AmicoPresente` la passa con `conSemaforo`,
+che la conserva; `RigaDellaPersona` la disegna con `IconaTonda`. Sono gli
+stessi della tendina, perche' la riga e' la stessa. **La lista Offline non ha
+icone**: le schede degli amici scritti non ne hanno, quindi il confronto
+chiesto si fa con la tendina, il gemello. La guardia adesso prova che la riga
+Online riceve `assets/img_thumb/animali/ani_lince_v1.webp` per `animale:6`, e
+cade se la riga perde l'icona (A34).
+
+**Le due rubriche restano due**, e i due pulsanti si fermano li'. **Il ponte
+al contrario non c'e'**: misurato il 4 ottobre 2026, dal Cerchio alla rubrica
+degli amici non porta nessun tocco, e la rubrica si apre solo dall'oroscopo
+("Oroscopo per"). Non costruito. **I testi**: i due del fondatore sono
+scritti carattere per carattere e provati dalla guardia; resta segnaposto
+dichiarato solo "Aggiornato alle 21:47.". Anteprime a 360 per 797 punti, in
+`docs/preview/prima_dopo/`: prima `fc_amici_lista_prima.png` (la rubrica
+senza Online); dopo `fc09_rubrica_offline_dopo.png`,
+`fc09_rubrica_online_dopo.png` (Cerchio popolato),
+`fc09_rubrica_online_nessuno_nel_cerchio_dopo.png` (Cerchio vuoto),
+`fc09_rubrica_online_ultimo_dato_dopo.png` (tetto, ultimo dato con l'ora),
+`fc09_rubrica_online_non_risponde_dopo.png` (errore senza ultimo dato),
+`fc09_rubrica_online_senza_icone_caricate_dopo.png` (la prova dell'icona).
 Le tre della prima forma (`fc09_rubrica_con_i_presenti`, `senza_i_presenti`,
 `il_cerchio_ti_aspetta`) sono tolte con lei.
 
@@ -198,9 +240,11 @@ Le tre della prima forma (`fc09_rubrica_con_i_presenti`, `senza_i_presenti`,
 trova Offline scelto, cioe' esattamente cio' che cercava; Online e' un
 tocco in piu' e non lo porta via dalla rubrica. Toccando un amico online
 entra nella sua scheda del Cerchio, e col tasto indietro torna alla rubrica.
-**Il gemello** e' la tendina dell'indicatore online: l'elenco Online usa la
-stessa riga, gli stessi due gesti e la stessa porta, e quindi dice le
-stesse persone.
+Chi apre la tendina e poi la rubrica, o il contrario, molte volte in un'ora
+non legge mai un guasto. **Il gemello** e' la tendina dell'indicatore online:
+l'elenco Online usa la stessa riga, gli stessi due gesti e la stessa porta,
+e quindi dice le stesse persone, con lo stesso ultimo dato quando il tetto e'
+raggiunto.
 
 ## LO STATO DELLE SETTE ROSSE (FC.07)
 
@@ -227,13 +271,17 @@ Tutte e nove le voci; otto chiuse, la FC.07 aperta con sei rosse che non si
 chiudono senza un gesto del fondatore. La suite intera, il verdetto del
 cancello, la build e la consegna col giro sul Realme stanno in coda, nelle
 righe "Aggiunta del 4 ottobre 2026": arrivano dopo che il rapporto e'
-registrato, e il cancello lo pretende registrato prima di spingere.
+registrato, e il cancello lo pretende registrato prima di spingere. **Una
+nota sull'impronta**: il rapporto era stato registrato una prima volta prima
+della risposta dell'Architetto sulla FC.09, e mai spinto; l'impronta e' stata
+tolta e riscritta con questo corpo, prima di qualunque consegna.
 
 ## LA REGOLA A E LA REGOLA B
 
-**Regola A**: 28 innesti, tutti entrati (verificati col grep) e tutti rossi,
+**Regola A**: 34 innesti, tutti entrati (verificati col grep) e tutti rossi,
 ognuno restituito al byte. A21, A22 e A23 hanno provato la prima forma della
-FC.09; A24-A28 i due pulsanti. Il registro e' `docs/collaudo/FC/regola_a_fc.txt`,
+FC.09; A24-A28 i due pulsanti; A29-A34 il tetto condiviso, i due testi del
+fondatore e l'icona del membro nella riga. Il registro e' `docs/collaudo/FC/regola_a_fc.txt`,
 il banco `tool/gli_innesti_dell_ordine_fc.py`. Una nota: l'innesto A15 (il
 catalogo col nome di prima) ha fatto cadere `il_nome_breve_dell_oroscopo` e
 `i_domini_a_schede` nel banco; la terza, `le_schede_dell_arte`, l'ho vista
@@ -262,8 +310,8 @@ A 360 per 797 punti, a coppie (se', amico), in `docs/preview/prima_dopo/`:
 `fc_tuo_apertura`, `fc_tuo_riflessione`, `fc_tuo_responso`,
 `fc_tuo_settimana` e le stesse `fc_amico_*`, ognuna prima e dopo (manca solo
 `fc_amico_settimana_prima`: la schermata dell'amico non aveva i periodi);
-`fc_amici_lista` prima e dopo; i tre momenti della rubrica coi due
-pulsanti `fc09_rubrica_*`. Le "prima" sono uscite dal codice di `bcf8eaff` col gesto
+`fc_amici_lista` prima e dopo; i sei stati della rubrica coi due
+pulsanti `fc09_rubrica_*`, elencati nella sezione della FC.09. Le "prima" sono uscite dal codice di `bcf8eaff` col gesto
 riacceso nelle prove, perche' la configurazione di allora lo spegneva: la
 variante della prova sta in
 `docs/collaudo/FC/le_anteprime_dell_ordine_fc_prima_test.dart.txt`. Dove la
@@ -302,6 +350,16 @@ raccoglie.".
    dall'asserzione) e una volta scrivendo in una prova (trovato dall'analisi);
    e un'espressione regolare sbagliata nella prima stesura della guardia di
    FC.01 (trovata dall'analisi). **Padre: ordine FC, il banco.**
+9. **L'icona nera nella prima anteprima dello stato Online.** Era la
+   cattura: scattata senza caricare le icone del Cerchio, come invece fanno
+   le anteprime del Cerchio. **Padre: ordine FC voce 09**, la mia prova delle
+   anteprime. Trovata dall'Architetto guardando la cattura.
+10. **Il tetto condiviso che si vedeva come un guasto.** Nella prima forma
+   dei due pulsanti, col tetto raggiunto la rubrica mostrava la riga del
+   tetto; e la tendina, senza dati, restava sulla rotella. **Padre: ordine
+   FC voce 09** per la rubrica (la chiamata in piu' l'ha portata li') e
+   **ordine EY voce 08** per la rotella della tendina, che non ha mai avuto
+   un ramo per il rifiuto. Trovato dall'Architetto, che ha posto il vincolo.
 
 ## LE DECISIONI CHE RESTANO AL FONDATORE
 
@@ -315,8 +373,8 @@ raccoglie.".
 2. **La fusione delle due rubriche** ("I tuoi amici" sul telefono e "Il
    tuo Cerchio" sul server), e cosa succede alla scheda di una persona
    quando entra davvero nel Cerchio. I due pulsanti della FC.09 le mettono
-   sotto lo stesso titolo, non le fondono. E i testi segnaposto
-   dell'elenco Online, che scrive l'Architetto.
+   sotto lo stesso titolo, non le fondono. E la riga dell'ora dell'ultimo
+   dato, "Aggiornato alle 21:47.", ancora segnaposto.
 3. **I dieci rossi del corredo a scala 1,3**, accettati dall'ordine CM e mai
    chiusi: sono testi tagliati a carattere grande nel Risveglio, nella chat,
    nella custodia del cielo e nella galleria della Sinastria VIP. Non erano

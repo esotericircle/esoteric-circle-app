@@ -4,6 +4,8 @@ import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/core/amici/amici_offline.dart';
 import 'package:esoteric_circle/core/cerchio/il_cerchio_sociale.dart';
+import 'package:esoteric_circle/core/cerchio/le_icone_del_cerchio.dart';
+import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
 import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/core/astro/birth_details.dart';
@@ -202,23 +204,35 @@ void main() {
   });
 
   // **FC.09, OFFLINE E ONLINE** nella rubrica degli amici, nella forma del
-  // fondatore: di default Offline (gli amici scritti, col numero accanto a
-  // Online), poi Online con gli amici presenti, e Online senza nessuno nel
-  // Cerchio. Il Cerchio sociale con la porta finta delle prove del Cerchio.
-  for (final (caso, conAmici, suOnline) in const [
-    ('offline', true, false),
-    ('online', true, true),
-    ('online_nessuno_nel_cerchio', false, true),
+  // fondatore, con le icone del Cerchio caricate prima dello scatto (come
+  // nelle anteprime del Cerchio): di default Offline; Online col Cerchio
+  // popolato; Online col Cerchio vuoto; Online col tetto raggiunto, che
+  // mostra l'ultimo dato noto con la sua ora; Online col Cerchio che non
+  // risponde e nessun ultimo dato. E una cattura SENZA le icone caricate, per
+  // la prova dell'icona nera (ordine FC voce 09, punto 3 della risposta).
+  for (final (caso, conAmici, suOnline, tendina, icone) in const [
+    ('offline', true, false, 'arriva', true),
+    ('online', true, true, 'arriva', true),
+    ('online_nessuno_nel_cerchio', false, true, 'arriva', true),
+    ('online_ultimo_dato', true, true, 'tetto', true),
+    ('online_non_risponde', true, true, 'muta', true),
+    ('online_senza_icone_caricate', true, true, 'arriva', false),
   ]) {
     testWidgets('FC.09: la rubrica, $caso', (tester) async {
       if (_stato.isEmpty) return;
-      final finta = PortaFintaDelCerchioSociale(amici: conAmici);
+      final finta = _PortaDelleAnteprime(amici: conAmici, tendina: tendina);
       final sociale = IlCerchioSociale(porta: finta);
       await tester.runAsync(() async {
         await sociale.sincronizza(
             identita: BirthIdentity(birthMoment: DateTime(1990, 5, 12, 10)));
         await sociale.caricaIlCerchio();
-        await sociale.caricaLaTendina();
+        // Col tetto: la tendina e' arrivata una volta, e cinque minuti
+        // dopo la rubrica la richiede e trova il tetto.
+        if (tendina == 'tetto') {
+          finta.concedi = true;
+          await sociale.caricaLaTendina();
+          finta.concedi = false;
+        }
       });
       await monta(
           tester,
@@ -228,13 +242,50 @@ void main() {
               Provider<AppServices>.value(
                   value: AppServices.offline(null, finta)),
             ],
-            child: const AmiciScreen(),
+            child: AmiciScreen(
+                adesso: tendina == 'tetto'
+                    ? sociale.tendinaArrivata!.add(const Duration(minutes: 5))
+                    : null),
           ));
+      if (icone) {
+        await tester.runAsync(() async {
+          final ctx = radice.currentContext!;
+          for (final f in FamigliaDelleIcone.values) {
+            for (final i in IconaDelProfilo.di(f)) {
+              await precacheImage(AssetImage(i.asset), ctx);
+            }
+          }
+        });
+      }
       if (suOnline) {
         await tester.tap(find.byKey(const Key('amici_online')));
-        await passa(tester, 4);
       }
+      await passa(tester, 6);
       await scatta(tester, 'fc09_rubrica_$caso');
     });
+  }
+}
+
+/// La porta delle anteprime della FC.09: la tendina arriva, risponde col
+/// tetto dopo la prima ([concedi] la lascia passare), o non risponde.
+class _PortaDelleAnteprime extends PortaFintaDelCerchioSociale {
+  _PortaDelleAnteprime({required super.amici, required this.tendina});
+
+  final String tendina;
+  bool concedi = false;
+
+  @override
+  Future<EsitoSociale?> sociale(String porta,
+      [Map<String, Object?> corpo = const {}]) async {
+    if (porta == 'laTendinaDelCerchio' && !concedi) {
+      if (tendina == 'tetto') {
+        return const EsitoSociale(
+            dati: {},
+            errore: 'resource-exhausted',
+            riga: 'Hai bussato molte volte: riprova fra un minuto.');
+      }
+      if (tendina == 'muta') throw StateError('la tendina non risponde');
+    }
+    return super.sociale(porta, corpo);
   }
 }
