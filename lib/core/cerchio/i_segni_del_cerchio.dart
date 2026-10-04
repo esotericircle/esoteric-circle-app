@@ -6,10 +6,10 @@
 /// scegliendo, si reagisce con una figura. Cosi' lo scambio esiste senza aprire
 /// il testo, e con lui gli insulti, le molestie e la moderazione.
 ///
-/// **I TESTI SONO SEGNAPOSTO DICHIARATI.** Le frasi dei segni e delle risposte
-/// le scrive l'Architetto: queste sono di Code, scritte perche' il motore si
-/// possa provare a video, e vanno riscritte. Gli identificativi invece restano:
-/// sono quelli che il server conosce (`RISPOSTE_PER_SEGNO` in
+/// **I TESTI SONO DELL'ARCHITETTO, ordine EZ voce 08.** Nell'ordine EY
+/// erano segnaposto dichiarati di Code; il 4 ottobre 2026 l'Architetto li ha
+/// scritti, e i segnaposto sono usciti tutti. Gli identificativi invece
+/// restano: sono quelli che il server conosce (`RISPOSTE_PER_SEGNO` in
 /// `functions/src/sociale.ts`), e una prova pretende che i due elenchi
 /// coincidano, con lo stesso numero di risposte.
 enum CategoriaDelSegno {
@@ -38,14 +38,22 @@ enum MotivoDelSegno {
   respiro,
 }
 
-/// Cosa apre una richiesta, al tocco di chi la riceve.
-enum ArteDellaRichiesta { confronto, tarocchi, rune, meditazione, oroscopo }
+/// Cosa apre una richiesta, al tocco di chi la riceve (ordine EZ voce 08).
+enum ArteDellaRichiesta {
+  confronto,
+  sinastria,
+  tarocchi,
+  rune,
+  archetipo,
+  glifo
+}
 
 class SegnoDelCerchio {
   const SegnoDelCerchio({
     required this.id,
     required this.categoria,
     required this.testo,
+    required this.rigaDiChiRiceve,
     required this.risposte,
     required this.motivo,
     this.apre,
@@ -53,16 +61,35 @@ class SegnoDelCerchio {
 
   final String id;
   final CategoriaDelSegno categoria;
+
+  /// Il titolo sul pulsante di chi manda.
   final String testo;
+
+  /// La riga che legge chi riceve. **Non nomina mai la persona**: il nome lo
+  /// mette la cornice, cosi' la stessa riga vale per tutti e non si compone a
+  /// mano. "Qualcuno" sta dove chi riceve non ha ancora aperto il segno; dove
+  /// il nome e' gia' a schermo, la cornice lo mostra e la riga resta com'e'.
+  final String rigaDiChiRiceve;
 
   /// Da due a quattro risposte, scelte da chi riceve.
   final List<String> risposte;
   final MotivoDelSegno motivo;
 
-  /// Per le richieste: la funzione che si apre al tocco di chi riceve.
+  /// Per le richieste: la funzione che si apre al tocco di chi riceve, sulla
+  /// prima risposta.
   final ArteDellaRichiesta? apre;
 }
 
+/// **I DICIOTTO SEGNI DEL CERCHIO, coi testi dell'Architetto, ordine EZ voce
+/// 08 (4 ottobre 2026).** I testi provvisori di Code dell'ordine EY sono
+/// usciti tutti. Gli identificativi NON sono cambiati, perche' li conosce il
+/// server (`RISPOSTE_PER_SEGNO` in `functions/src/sociale.ts`): ai diciotto
+/// identificativi di prima stanno i diciotto segni nuovi, nella stessa
+/// categoria. Per sei di loro l'identificativo dice ancora la cosa di prima
+/// (`coraggio`, `grazieDiEsserci`, `martePerTe`, `venerePerTe`,
+/// `ilSoleTiCerca`, `stelleDiStanotte` fra personali e astrali,
+/// `respiriamoInsieme` e `alzaLoSguardo` fra le richieste): e' un nome
+/// interno che nessuno legge, e cambiarlo vorrebbe dire cambiare il server.
 abstract final class ISegniDelCerchio {
   static const List<SegnoDelCerchio> tutti = [
     // PERSONALI
@@ -70,118 +97,147 @@ abstract final class ISegniDelCerchio {
         id: 'tiPenso',
         categoria: CategoriaDelSegno.personali,
         testo: 'Ti penso',
-        risposte: ['Anch’io ti penso', 'Mi fa bene saperlo', 'Grazie'],
+        rigaDiChiRiceve: 'Qualcuno nel Cerchio ti ha pensato.',
+        risposte: ['Anch’io', 'Grazie, ci voleva', 'Raccontami'],
         motivo: MotivoDelSegno.fiamma),
-    SegnoDelCerchio(
-        id: 'miManchi',
-        categoria: CategoriaDelSegno.personali,
-        testo: 'Mi manchi',
-        risposte: ['Anche tu', 'Sentiamoci presto', 'Ti abbraccio'],
-        motivo: MotivoDelSegno.luna),
     SegnoDelCerchio(
         id: 'buonCammino',
         categoria: CategoriaDelSegno.personali,
         testo: 'Buon cammino',
-        risposte: ['Anche a te', 'Ne avevo bisogno'],
+        rigaDiChiRiceve: 'Che il tuo passo oggi sia leggero.',
+        risposte: ['Anche il tuo', 'Mi serviva'],
         motivo: MotivoDelSegno.sentiero),
+    SegnoDelCerchio(
+        id: 'miManchi',
+        categoria: CategoriaDelSegno.personali,
+        testo: 'Mi manchi',
+        rigaDiChiRiceve: 'Qualcuno sente la tua mancanza nel Cerchio.',
+        risposte: ['Anche tu a me', 'Torno presto'],
+        motivo: MotivoDelSegno.spirale),
     SegnoDelCerchio(
         id: 'sonoQui',
         categoria: CategoriaDelSegno.personali,
-        testo: 'Sono qui per te',
-        risposte: ['Lo so', 'Grazie', 'Ci conto'],
+        testo: 'Sono con te',
+        rigaDiChiRiceve: 'Qualcuno è con te in questo passaggio.',
+        risposte: ['Lo sentivo', 'Grazie di esserci'],
         motivo: MotivoDelSegno.mano),
     SegnoDelCerchio(
         id: 'coraggio',
         categoria: CategoriaDelSegno.personali,
-        testo: 'Coraggio',
-        risposte: ['Grazie', 'Ce la farò'],
+        testo: 'Hai fatto molta strada',
+        rigaDiChiRiceve: 'Qualcuno ha visto quanto sei arrivato lontano.',
+        risposte: ['Grazie', 'Un pezzo è merito tuo'],
         motivo: MotivoDelSegno.stella),
     SegnoDelCerchio(
         id: 'grazieDiEsserci',
         categoria: CategoriaDelSegno.personali,
-        testo: 'Grazie di esserci',
-        risposte: ['Sempre', 'Grazie a te'],
-        motivo: MotivoDelSegno.spirale),
+        testo: 'Buona notte',
+        rigaDiChiRiceve: 'Che la notte ti sia amica.',
+        risposte: ['Anche a te', 'Ne avevo bisogno'],
+        motivo: MotivoDelSegno.luna),
     // ASTRALI
+    //
+    // **UN SEGNO INVITA A GUARDARE IL CIELO, NON DICHIARA MAI UN FATTO DEL
+    // CIELO.** "La Luna è nel tuo segno" mandato da una persona a un'altra
+    // sarebbe falso per quasi tutti quelli che lo ricevono: un fatto del cielo
+    // si calcola e si mostra come responso, non si manda come segno. Nessuno
+    // dei sei qui sotto afferma niente: tutti e sei mandano a vedere. La
+    // prova `i_segni_del_cerchio_hanno_i_testi_veri` lo pretende.
     SegnoDelCerchio(
         id: 'ilTuoCielo',
         categoria: CategoriaDelSegno.astrali,
-        testo: 'Hai visto il tuo cielo di oggi?',
-        risposte: ['Sì, l’ho visto', 'Lo guardo adesso', 'Non ancora'],
-        motivo: MotivoDelSegno.stella),
-    SegnoDelCerchio(
-        id: 'martePerTe',
-        categoria: CategoriaDelSegno.astrali,
-        testo: 'Guarda cosa dice Marte per te',
-        risposte: ['Lo guardo adesso', 'Già visto', 'Grazie'],
+        testo: 'Guarda il tuo cielo',
+        rigaDiChiRiceve: 'Qualcuno ti manda a leggere il tuo cielo di oggi.',
+        risposte: ['L’ho letto', 'Ci vado adesso'],
         motivo: MotivoDelSegno.pianeta),
     SegnoDelCerchio(
         id: 'lunaPerTe',
         categoria: CategoriaDelSegno.astrali,
-        testo: 'La Luna stanotte è per te',
-        risposte: ['La guarderò', 'Che bello', 'Grazie'],
+        testo: 'Chiedi alla Luna',
+        rigaDiChiRiceve: 'Qualcuno ti manda dalla Luna di stanotte.',
+        risposte: ['Lo faccio', 'Dimmi cosa hai visto tu'],
         motivo: MotivoDelSegno.luna),
+    SegnoDelCerchio(
+        id: 'martePerTe',
+        categoria: CategoriaDelSegno.astrali,
+        testo: 'Pesca la tua carta',
+        rigaDiChiRiceve: 'Qualcuno ti manda a scoprire la tua carta di oggi.',
+        risposte: ['Pescata', 'Quale è uscita a te?'],
+        motivo: MotivoDelSegno.carta),
     SegnoDelCerchio(
         id: 'venerePerTe',
         categoria: CategoriaDelSegno.astrali,
-        testo: 'Venere oggi ti guarda',
-        risposte: ['Lo sento', 'Speriamo', 'Grazie'],
-        motivo: MotivoDelSegno.pianeta),
+        testo: 'Getta una runa',
+        rigaDiChiRiceve: 'Qualcuno ti manda a gettare una runa.',
+        risposte: ['Gettata', 'Quale è uscita a te?'],
+        motivo: MotivoDelSegno.runa),
     SegnoDelCerchio(
         id: 'ilSoleTiCerca',
         categoria: CategoriaDelSegno.astrali,
-        testo: 'Il Sole oggi ti cerca',
-        risposte: ['Mi faccio trovare', 'Grazie'],
-        motivo: MotivoDelSegno.sole),
+        testo: 'Chiedi a un Maestro',
+        rigaDiChiRiceve:
+            'Qualcuno ti manda a fare la domanda che non fai a nessuno.',
+        risposte: ['Ci vado', 'L’ho già fatta'],
+        motivo: MotivoDelSegno.respiro),
     SegnoDelCerchio(
         id: 'stelleDiStanotte',
         categoria: CategoriaDelSegno.astrali,
-        testo: 'Guarda le stelle stanotte',
-        risposte: ['Lo farò', 'Insieme', 'Grazie'],
-        motivo: MotivoDelSegno.stella),
-    // RICHIESTE: non sono messaggi, sono inviti a fare una cosa insieme.
+        testo: 'Cerca il tuo animale',
+        rigaDiChiRiceve: 'Qualcuno ti manda a cercare il tuo animale guida.',
+        risposte: ['Ci vado', 'È arrivato'],
+        motivo: MotivoDelSegno.sentiero),
+    // RICHIESTE: non sono messaggi, sono inviti a fare una cosa insieme, e
+    // ognuna apre la sua funzione al tocco della prima risposta.
     SegnoDelCerchio(
         id: 'confrontiamoICieli',
         categoria: CategoriaDelSegno.richieste,
-        testo: 'Confrontiamo i cieli di oggi',
-        risposte: ['Sì, confrontiamoli', 'Più tardi'],
+        testo: 'Confrontiamo i cieli',
+        rigaDiChiRiceve: 'Qualcuno vuole mettere il suo cielo accanto al tuo.',
+        risposte: ['Apriamolo', 'Non adesso'],
         motivo: MotivoDelSegno.onda,
         apre: ArteDellaRichiesta.confronto),
     SegnoDelCerchio(
         id: 'facciamoLaSinastria',
         categoria: CategoriaDelSegno.richieste,
         testo: 'Facciamo la sinastria',
-        risposte: ['Sì, facciamola', 'Più tardi'],
+        rigaDiChiRiceve: 'Qualcuno vuole sapere come state insieme, nel cielo.',
+        risposte: ['Vediamo', 'Non adesso'],
         motivo: MotivoDelSegno.spirale,
-        apre: ArteDellaRichiesta.confronto),
+        apre: ArteDellaRichiesta.sinastria),
     SegnoDelCerchio(
         id: 'stessaCarta',
         categoria: CategoriaDelSegno.richieste,
-        testo: 'Estraiamo oggi la stessa carta',
-        risposte: ['Estraggo adesso', 'Più tardi'],
+        testo: 'Stessa carta, oggi',
+        rigaDiChiRiceve:
+            'Qualcuno vuole estrarre la carta nello stesso momento tuo.',
+        risposte: ['Estraiamo', 'Più tardi'],
         motivo: MotivoDelSegno.carta,
         apre: ArteDellaRichiesta.tarocchi),
     SegnoDelCerchio(
         id: 'stessaRuna',
         categoria: CategoriaDelSegno.richieste,
-        testo: 'Gettiamo le rune insieme',
-        risposte: ['Le getto adesso', 'Più tardi'],
+        testo: 'Mostrami la tua runa',
+        rigaDiChiRiceve: 'Qualcuno vuole vedere quale runa ti è uscita oggi.',
+        risposte: ['Te la mostro', 'Oggi non l’ho gettata'],
         motivo: MotivoDelSegno.runa,
         apre: ArteDellaRichiesta.rune),
     SegnoDelCerchio(
         id: 'respiriamoInsieme',
         categoria: CategoriaDelSegno.richieste,
-        testo: 'Respiriamo insieme',
-        risposte: ['Respiro con te', 'Più tardi'],
-        motivo: MotivoDelSegno.respiro,
-        apre: ArteDellaRichiesta.meditazione),
+        testo: 'Che archetipo sei',
+        rigaDiChiRiceve: 'Qualcuno vuole conoscere il tuo archetipo.',
+        risposte: ['Te lo dico', 'Devo ancora scoprirlo'],
+        motivo: MotivoDelSegno.stella,
+        apre: ArteDellaRichiesta.archetipo),
     SegnoDelCerchio(
         id: 'alzaLoSguardo',
         categoria: CategoriaDelSegno.richieste,
-        testo: 'Leggiamo il cielo di oggi',
-        risposte: ['Lo leggo adesso', 'Più tardi'],
+        testo: 'Guarda il nostro glifo',
+        rigaDiChiRiceve:
+            'Qualcuno ti invita a guardare il segno del vostro legame.',
+        risposte: ['Lo guardo', 'Quanti tratti ci restano?'],
         motivo: MotivoDelSegno.sole,
-        apre: ArteDellaRichiesta.oroscopo),
+        apre: ArteDellaRichiesta.glifo),
   ];
 
   static SegnoDelCerchio? perId(String id) {

@@ -10,6 +10,7 @@ import '../../../design_system/tokens/spacing_tokens.dart';
 import '../../../design_system/tokens/typography_tokens.dart';
 import '../../maestri/art_navigation.dart';
 import '../confronto_del_cielo_screen.dart';
+import '../scheda_dell_amico_screen.dart';
 import 'disegni_del_cerchio.dart';
 
 /// **I SEGNI, ricevuti e mandati, ordine EY voci 10 e 11.** Ogni segno arriva
@@ -56,29 +57,36 @@ class _UnSegno extends StatelessWidget {
     } catch (senzaQuelDato) {
       // Il dato e' facoltativo: senza, si va avanti col ripiego.
     }
+    final amico = context
+        .read<IlCerchioSociale>()
+        .cerchio
+        .amici
+        .where((p) => p.uid == segno.con)
+        .firstOrNull;
+    // Ogni richiesta apre la sua funzione (ordine EZ voce 08).
     switch (arte) {
       case ArteDellaRichiesta.confronto:
-        final amico = context
-            .read<IlCerchioSociale>()
-            .cerchio
-            .amici
-            .where((p) => p.uid == segno.con)
-            .firstOrNull;
         if (amico != null) {
           navigatore.push(ConfrontoDelCieloScreen.route(amico));
         }
+      case ArteDellaRichiesta.sinastria:
+        // Il Cerchio non porta la nascita di un amico, solo il segno: la
+        // sinastria si apre sulla sua porta, dove si sceglie con chi farla.
+        final r = artRouteFor('synastry_vip', userBirth: nascita);
+        if (r != null) navigatore.push(r);
       case ArteDellaRichiesta.tarocchi:
         final r = artRouteFor('day_oracle', userBirth: nascita);
         if (r != null) navigatore.push(r);
       case ArteDellaRichiesta.rune:
         final r = artRouteFor('rune_draw', userBirth: nascita);
         if (r != null) navigatore.push(r);
-      case ArteDellaRichiesta.meditazione:
-        final r = artRouteFor('meditation', userBirth: nascita);
+      case ArteDellaRichiesta.archetipo:
+        final r = artRouteFor('archetype_test', userBirth: nascita);
         if (r != null) navigatore.push(r);
-      case ArteDellaRichiesta.oroscopo:
-        final r = artRouteFor('horoscope', userBirth: nascita);
-        if (r != null) navigatore.push(r);
+      case ArteDellaRichiesta.glifo:
+        if (amico != null) {
+          navigatore.push(SchedaDellAmicoScreen.route(amico));
+        }
     }
   }
 
@@ -113,7 +121,9 @@ class _UnSegno extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(dato.testo,
+                      // Chi riceve legge la sua riga, chi ha mandato il
+                      // titolo del pulsante; il nome lo dice la cornice.
+                      Text(segno.ricevuto ? dato.rigaDiChiRiceve : dato.testo,
                           style: TypographyTokens.titoloDiRiga()
                               .copyWith(color: palette.goldSoft)),
                       Text(
