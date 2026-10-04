@@ -1,3 +1,6 @@
+import 'dart:math' as math;
+
+import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 
 import 'corsa_della_barra.dart';
@@ -71,6 +74,10 @@ class _BarraDelCerchioState extends State<BarraDelCerchio> {
   /// `UserScrollNotification` produce uno scatto, e uno scatto non si puo'
   /// seguire col dito.
   double _discesa = 0;
+
+  /// L'altezza della barra com'e' disegnata, misurata dopo l'impaginazione:
+  /// a carattere grande supera [BarraDelCerchio.corsa] (ordine FC voce 11).
+  double _altezzaVera = BarraDelCerchio.corsa;
 
   /// **LA CORSA, DETTA A CHI LE STA SOPRA.** Ordine CI voce 03: il campo di
   /// scrittura della chat la ascolta e si sposta con lei, cosi' sotto di lui
@@ -272,17 +279,62 @@ class _BarraDelCerchioState extends State<BarraDelCerchio> {
                   ? const Duration(milliseconds: 220)
                   : Duration.zero,
               curve: Curves.easeOut,
+              // **LA BARRA ESCE INTERA ANCHE A CARATTERE GRANDE**, ordine FC
+              // voce 11: la corsa e' di [BarraDelCerchio.corsa] punti, ma a
+              // scala 1,3 la barra disegnata e' piu' alta, e da ritirata ne
+              // restavano fuori dodici punti (due rossi accettati
+              // dall'ordine CM, curati). La discesa resta in punti di corsa,
+              // e il disegno la porta in proporzione all'altezza vera.
               builder: (context, quanto, figlio) => Transform.translate(
-                offset: Offset(0, quanto),
+                offset: Offset(
+                    0,
+                    quanto *
+                        math.max(1.0, _altezzaVera / BarraDelCerchio.corsa)),
                 child: figlio,
               ),
               // LA BARRA E' QUELLA STORICA, non ridisegnata: stesse cinque
               // voci, stesse icone, stessa gerarchia fra accesa e smorzate.
-              child: _LaBarra(maestro: _maestro, schermata: _schermata),
+              child: _LaSuaAltezza(
+                quando: (altezza) {
+                  if ((altezza - _altezzaVera).abs() < 0.5) return;
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    if (mounted) setState(() => _altezzaVera = altezza);
+                  });
+                },
+                child: _LaBarra(maestro: _maestro, schermata: _schermata),
+              ),
             ),
           ),
       ],
     );
+  }
+}
+
+/// Dice l'altezza del figlio ogni volta che l'impaginazione la cambia.
+class _LaSuaAltezza extends SingleChildRenderObjectWidget {
+  const _LaSuaAltezza({required this.quando, required super.child});
+
+  final void Function(double altezza) quando;
+
+  @override
+  RenderObject createRenderObject(BuildContext context) =>
+      _RenderLaSuaAltezza(quando);
+
+  @override
+  void updateRenderObject(
+          BuildContext context, _RenderLaSuaAltezza renderObject) =>
+      renderObject.quando = quando;
+}
+
+class _RenderLaSuaAltezza extends RenderProxyBox {
+  _RenderLaSuaAltezza(this.quando);
+
+  void Function(double altezza) quando;
+
+  @override
+  void performLayout() {
+    super.performLayout();
+    quando(size.height);
   }
 }
 

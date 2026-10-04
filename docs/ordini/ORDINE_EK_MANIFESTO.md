@@ -252,6 +252,8 @@ controllo dopo la risposta, che la faccia riscrivere quando le prime due
 frasi non rispondono. Costa una chiamata in piu' in circa una risposta su
 sette e qualche secondo di attesa in quelle; la scelta e' del fondatore.
 
+ASPETTA: la scelta del fondatore sul controllo dopo la risposta, che costa una chiamata in piu' in circa una risposta su sette.
+
 ## VOCE EK.03, I NOMI GIUSTI NELLA TRASCRIZIONE DEL LIVE
 
 **La domanda.** Il rapporto EJ: *"la trascrizione del LIVE ha scritto
@@ -405,6 +407,8 @@ video piu' grande che Protoface non offre. **Il file delle voci,
 **APERTA IN ATTESA DI VERIFICA.** Le immagini, gli avatar e l'aggancio sono
 fatti e misurati sul Realme; se il volto nel LIVE e' piu' nitido lo giudica
 il fondatore guardandolo, dalla build 2280.
+
+ASPETTA: lo sguardo del fondatore sui volti nel LIVE, con docs/collaudo/EK/volti/misure.txt.
 
 ## VOCE EK.05, UN ALTRO GIRO DELL'ATTRIBUZIONE CIECA
 

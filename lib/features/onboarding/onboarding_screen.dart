@@ -14,7 +14,6 @@ import '../../core/astro/birth_place.dart' as astro;
 import 'mappa_della_nazione.dart';
 import '../../core/astro/city_catalog.dart';
 import '../../core/astro/ricerca_del_luogo.dart';
-import '../../core/astro/night_sky.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/identity/birth_identity.dart';
@@ -384,7 +383,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
     }
   }
 
-  Zodiac get _sunSign => NightSky.sunSign(_birthDate);
+  Zodiac get _sunSign => _identity.segnoDellaNascita;
 
   BirthIdentity get _identity => BirthIdentity.fromParts(
         birthDate: _birthDate,
@@ -1922,9 +1921,19 @@ class _SignBadge extends StatelessWidget {
         children: [
           Icon(Icons.wb_sunny_rounded, size: 18, color: palette.goldSoft),
           const SizedBox(width: SpacingTokens.sm),
-          Text('Sole in ${sign.italianName}',
-              style: TypographyTokens.titoloScheda()
-                  .copyWith(color: palette.goldSoft)),
+          // **A CARATTERE GRANDE SI RIMPICCIOLISCE, NON SI TAGLIA**, ordine
+          // FC voce 11: a scala 1,3 "Sole in Sagittario" col glifo sforava di
+          // dieci punti a destra (rosso accettato dall'ordine CM, curato).
+          Flexible(
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text('Sole in ${sign.italianName}',
+                  maxLines: 1,
+                  softWrap: false,
+                  style: TypographyTokens.titoloScheda()
+                      .copyWith(color: palette.goldSoft)),
+            ),
+          ),
           const SizedBox(width: SpacingTokens.sm),
           // Il simbolo del segno, tracciato a vettori dal codice, non un glifo
           // di font: si rende identico ovunque.

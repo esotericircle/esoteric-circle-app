@@ -147,11 +147,15 @@ void main() {
 
     final accettati = File('tool/rossi_accettati.txt').readAsLinesSync();
     final aScala = accettati.where((r) => r.startsWith('SCALA 1,3: ')).toList();
-    cardinaleMinimo(aScala.length, 1,
-        cosa: 'schermate dichiarate rotte al testo massimo',
-        perche: 'Se questo elenco si svuota di colpo, o sono state riparate '
-            'tutte, e allora va tolto anche il numero dal manifesto, oppure '
-            'qualcuno ha cancellato le righe invece delle cause.');
+    // **LAPIDE, ordine FC voce 11, 5 ottobre 2026.** Qui stava un cardinale
+    // minimo di una riga: l'elenco non poteva svuotarsi. Si e' svuotato
+    // perche' le dieci schermate sono state riparate nel codice (il corredo
+    // a scala 1,3 passa 193 su 193), e il messaggio di quel cardinale lo
+    // prevedeva: "o sono state riparate tutte, e allora va tolto anche il
+    // numero dal manifesto". Il manifesto adesso dice ZERO, e il conto sotto
+    // pretende che registro e manifesto dicano la stessa cosa anche a zero.
+    // Il corredo resta sorvegliato dal suo cardinale nello sbarramento
+    // (GUARDATE almeno 150), quindi un giro vuoto non passa per verde.
 
     final testo = testoDelManifesto();
     final dichiarate = RegExp(r'RESTANO (\w+) SCHERMATE').firstMatch(testo);
@@ -170,6 +174,7 @@ void main() {
     // Adesso il numero SEGUE la parola: la prova non sa quante siano,
     // sa che il manifesto e il registro devono dire la stessa cosa.
     const numeri = <String, int>{
+      'ZERO': 0,
       'DIECI': 10,
       'UNDICI': 11,
       'DODICI': 12,

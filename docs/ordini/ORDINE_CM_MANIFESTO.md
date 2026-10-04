@@ -317,7 +317,7 @@ tutte e tre viste rosse con l'innesto verificato prima:
 
 ## VOCE 11, QUANTE NE RESTANO E IN QUANTI ORDINI SI CHIUDONO
 
-**RESTANO DIECI SCHERMATE ROTTE AL TESTO MASSIMO, su centosettantanove.** Erano tredici fino al 30 settembre 2026: quella sera il cancello di GitHub, sul commit `368fb5ef` dell'ordine ES, ha visto passare a scala 1,3 le due catture dell'Oroscopo (la pastiglia della tradizione che sforava di cinque punti, curata con la riga delle tradizioni che cresce col carattere) e quella dei tre momenti della corsa dello zodiaco, e le loro righe sono uscite dal registro dei rossi.
+**RESTANO ZERO SCHERMATE ROTTE AL TESTO MASSIMO.** Il 5 ottobre 2026 l'ordine FC voce 11 ha riparato le dieci che restavano, nel codice e non nel registro: il distintivo del Sole nel Risveglio si rimpicciolisce intero (sei catture), la custodia del cielo scorre, la tendina della galleria VIP si rimpicciolisce, e la barra si ritira della sua altezza vera (due catture che a testo grande ne lasciavano fuori dodici punti). Il corredo a scala 1,3 passa 193 su 193, e il registro dei rossi accettati non ha piu' righe. Prima erano dieci, su centosettantanove. Erano tredici fino al 30 settembre 2026: quella sera il cancello di GitHub, sul commit `368fb5ef` dell'ordine ES, ha visto passare a scala 1,3 le due catture dell'Oroscopo (la pastiglia della tradizione che sforava di cinque punti, curata con la riga delle tradizioni che cresce col carattere) e quella dei tre momenti della corsa dello zodiaco, e le loro righe sono uscite dal registro dei rossi.
 
 **Erano diciotto quando quest'ordine si e' chiuso.** Sono scese a diciassette la
 sera stessa, quando l'ordine CN voce 12 ha portato la decisione sulla card da

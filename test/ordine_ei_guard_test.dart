@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'le_voci_aperte_dicono_cosa_aspettano.dart';
+
 /// LA GUARDIA DELL'ORDINE EI, le dodici voci che tornano aperte.
 ///
 /// **Questa guardia nasce rossa per costruzione**, ed e' la prima volta che
@@ -41,14 +43,6 @@ void main() {
     'EF.04',
   ];
 
-  int marcatore(String testo, String nome) {
-    final trovato =
-        RegExp('^$nome:\\s*(\\d+)\\s*\$', multiLine: true).firstMatch(testo);
-    expect(trovato, isNotNull,
-        reason: 'il manifesto non porta il marcatore $nome');
-    return int.parse(trovato!.group(1)!);
-  }
-
   test('il manifesto esiste e porta tutte e dieci le voci', () {
     expect(manifesto.existsSync(), isTrue,
         reason: 'il manifesto nasce prima del codice');
@@ -78,19 +72,17 @@ void main() {
             'volta, e quella e\' la ragione per cui esiste quest\'ordine');
   });
 
-  test('ogni voce dichiara uno stato terminale, e i conti tornano', () {
-    final testo = manifesto.readAsStringSync();
-    final chiuse = marcatore(testo, 'VOCI_CHIUSE');
-    final aperte = marcatore(testo, 'VOCI_APERTE');
-    final dichiarate = marcatore(testo, 'VOCI_TOTALI');
-    print('ORDINE EI: voci $dichiarate, chiuse $chiuse, aperte $aperte');
-    expect(dichiarate, quante,
-        reason: 'il manifesto dichiara $dichiarate voci e sono $quante');
-    expect(chiuse + aperte, quante,
-        reason: 'chiuse piu\' aperte fanno ${chiuse + aperte} e le voci sono '
-            '$quante: un conto che non torna nasconde una voce senza stato');
-    expect(aperte, 0,
-        reason: 'restano $aperte voci aperte: l\'ordine non e\' chiuso');
+  // **LAPIDE, ordine FC voce 11.** Qui c'era "ogni voce dichiara uno stato
+  // terminale, e i conti tornano", che pretendeva zero voci aperte ed era
+  // rossa per costruzione: le voci aperte aspettano gesti del fondatore che
+  // sul ramo non esistono. Il fondatore, il 5 ottobre 2026, ha scelto la
+  // cura (3) della FC.11: la prova gira sul ramo e pretende che ogni voce
+  // aperta dica quale gesto aspetta. Il perche' per esteso sta in
+  // `le_voci_aperte_dicono_cosa_aspettano.dart`.
+  test(
+      'ogni voce ha uno stato, i conti tornano, e ogni voce aperta dice '
+      'quale gesto aspetta', () {
+    leVociAperteDiconoCosaAspettano('EI', quante);
   });
 
   test('gli scarti fra l\'ordine e il ramo sono dichiarati col file e la riga',

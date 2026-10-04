@@ -157,6 +157,8 @@ finto e le stesse candidate, `docs/collaudo/EJ/voci/selettore_medora.png`.
 fondatore ascoltandole, e il selettore non e' stato visto su un telefono di
 un fondatore.
 
+ASPETTA: la scelta del fondatore della voce di Aura nel selettore, ascoltandola (Despina per Medora e Orus per Caligo le ha scelte il 24 settembre 2026).
+
 ## VOCE EJ.03, I MEZZIBUSTI SFOCATI
 
 **Cosa si e' misurato.** Le immagini da cui sono nati gli avatar sono PNG da
@@ -187,6 +189,8 @@ sono due, e la scelta e' del fondatore: una finestra piu' piccola, che
 ingrandisce meno, oppure chiedere a Protoface se esiste un'uscita piu' grande
 di 512 pixel.
 
+ASPETTA: la scelta del fondatore fra una finestra piu' piccola e un'uscita di Protoface oltre i 512 punti.
+
 ## VOCE EJ.04, SI DICE CALÌGO
 
 Nel file del fondatore, `D:\Clienti Roogly\Rituali Cartomanzia\App\Avatar\Ok\
@@ -205,6 +209,8 @@ Le registrazioni prima e dopo stanno in `docs/collaudo/EJ/nome/`, e la guardia
 
 **APERTA IN ATTESA DI VERIFICA.** Come suona il nome lo giudica l'orecchio
 del fondatore.
+
+ASPETTA: l'orecchio del fondatore sulla pronuncia di Caligo, sulle registrazioni in docs/collaudo/EJ/nome/.
 
 ## PARTE SECONDA, LE RISPOSTE DEI MAESTRI
 
@@ -237,6 +243,8 @@ ripetuti **17 prima, poi 3, 3, 5 e 7**.
 ancora in tre-sette risposte su diciotto, e se ogni volta servissero lo puo'
 dire solo chi le legge.
 
+ASPETTA: il criterio del fondatore: quante ripetizioni su diciotto risposte sono troppe.
+
 ## VOCE EJ.06, RISPOSTE DIRETTE
 
 **Cosa e' cambiato.** `lib/core/chat/la_risposta_nel_merito.dart`: rispondi
@@ -255,6 +263,8 @@ senza passo concreto **13 su 18 prima, poi 1, 2, 0 e 1**. Medora oscilla fra
 
 **APERTA.** Il passo concreto c'e' quasi sempre; la risposta diretta manca
 ancora in sette-dieci risposte su diciotto.
+
+ASPETTA: prosegue in EK.02: la scelta del fondatore sul controllo dopo la risposta.
 
 ## VOCE EJ.07, NESSUNA ANTICIPAZIONE DEI DONI
 
@@ -289,6 +299,8 @@ respiro"*.
 **APERTA.** Un errore vero in settantadue risposte, e l'errore del
 fondatore, "un soglia", non si e' ripresentato ne' prima ne' dopo: la misura
 non basta a dire che e' sparito.
+
+ASPETTA: la soglia del fondatore: quanti errori di italiano su settantadue risposte sono troppi.
 
 ## AGGIUNTA DEL 25 SETTEMBRE 2026
 
@@ -370,6 +382,8 @@ piano, il foglio e la strada ai piani.
 
 **APERTA IN ATTESA DI VERIFICA.** Lo stato d'oro va visto su un telefono
 con un piano dal tier 2 in su, e il tocco che entra nel LIVE da li'.
+
+ASPETTA: lo stato d'oro visto sul Realme col piano Illuminato e il tocco che entra nel LIVE: lo fa Code nel giro sul Realme della build 2297, ordine FC.
 
 ---
 

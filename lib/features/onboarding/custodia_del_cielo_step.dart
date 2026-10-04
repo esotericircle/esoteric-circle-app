@@ -118,132 +118,151 @@ class _CustodiaDelCieloStepState extends State<CustodiaDelCieloStep> {
       child: Material(
         type: MaterialType.transparency,
         child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: SpacingTokens.lg),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Spacer(flex: 3),
-                Icon(Icons.shield_moon_outlined,
-                    size: 46, color: palette.goldSoft),
-                const SizedBox(height: SpacingTokens.md),
-                Text(
-                  'Non perdere il tuo cielo',
-                  key: const Key('custodia_titolo'),
-                  textAlign: TextAlign.center,
-                  style: TypographyTokens.cerimoniale()
-                      .copyWith(color: palette.goldSoft),
-                ),
-                const SizedBox(height: SpacingTokens.md),
-                // **UNA RIGA SOLA, ordine AQ voce 05.** Qui stavano DUE
-                // blocchi di seguito, e con l'eventuale guaio e il "Continua
-                // come" la colonna arrivava a nove elementi: Mauro l'ha vista
-                // confusionaria, e aveva ragione. Il testo che avanzava si e'
-                // TOLTO, non rimpicciolito: il corpo resta quello di casa,
-                // sedici punti. Chi e' gia' riconosciuto non la legge
-                // affatto, perche' per lui la strada e' un'altra, e le parole
-                // che non servono spariscono invece di restare grigie.
-                if (!_riconosciuto)
-                  Text(
-                    'La tua carta natale e il tuo cammino vivono su questo '
-                    'telefono: collegali a te e ti seguiranno ovunque.',
-                    key: const Key('custodia_ragione'),
-                    textAlign: TextAlign.center,
-                    style: TypographyTokens.corpo().copyWith(
-                      color: ColorTokens.textPrimary,
-                      height: 1.5,
+          // **A CARATTERE GRANDE SI SCORRE, NON SI TAGLIA**, ordine FC voce
+          // 11: a scala 1,3 la colonna sforava in basso (rosso accettato
+          // dall'ordine CM, curato). Quando c'e' posto la colonna occupa lo
+          // schermo intero e gli Spacer fanno il loro lavoro; quando non c'e',
+          // la pagina scorre.
+          child: LayoutBuilder(
+            builder: (context, spazio) => SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: spazio.maxHeight),
+                child: IntrinsicHeight(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: SpacingTokens.lg),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Spacer(flex: 3),
+                        Icon(Icons.shield_moon_outlined,
+                            size: 46, color: palette.goldSoft),
+                        const SizedBox(height: SpacingTokens.md),
+                        Text(
+                          'Non perdere il tuo cielo',
+                          key: const Key('custodia_titolo'),
+                          textAlign: TextAlign.center,
+                          style: TypographyTokens.cerimoniale()
+                              .copyWith(color: palette.goldSoft),
+                        ),
+                        const SizedBox(height: SpacingTokens.md),
+                        // **UNA RIGA SOLA, ordine AQ voce 05.** Qui stavano DUE
+                        // blocchi di seguito, e con l'eventuale guaio e il "Continua
+                        // come" la colonna arrivava a nove elementi: Mauro l'ha vista
+                        // confusionaria, e aveva ragione. Il testo che avanzava si e'
+                        // TOLTO, non rimpicciolito: il corpo resta quello di casa,
+                        // sedici punti. Chi e' gia' riconosciuto non la legge
+                        // affatto, perche' per lui la strada e' un'altra, e le parole
+                        // che non servono spariscono invece di restare grigie.
+                        if (!_riconosciuto)
+                          Text(
+                            'La tua carta natale e il tuo cammino vivono su questo '
+                            'telefono: collegali a te e ti seguiranno ovunque.',
+                            key: const Key('custodia_ragione'),
+                            textAlign: TextAlign.center,
+                            style: TypographyTokens.corpo().copyWith(
+                              color: ColorTokens.textPrimary,
+                              height: 1.5,
+                            ),
+                          ),
+                        // **LA PROMESSA DEL PREMIO, ordine BH voce 01, posteriore
+                        // alla riga sola di AQ.05 e voluta dal fondatore**: "il
+                        // premio di 250 Eos proprio scritto nell'invito a
+                        // registrarsi". Una riga corta, in oro, col numero del
+                        // server: la sobrieta' di AQ resta, la motivazione arriva.
+                        if (!_riconosciuto) ...[
+                          const SizedBox(height: SpacingTokens.sm),
+                          Text(
+                            PromessaDellaRegistrazione.frase(context),
+                            key: const Key('custodia_promessa'),
+                            textAlign: TextAlign.center,
+                            style: TypographyTokens.corpo().copyWith(
+                              color: palette.goldSoft,
+                              height: 1.5,
+                            ),
+                          ),
+                        ],
+                        if (_guaio != null) ...[
+                          const SizedBox(height: SpacingTokens.md),
+                          Text(_guaio!,
+                              key: const Key('custodia_guaio'),
+                              textAlign: TextAlign.center,
+                              style: TypographyTokens.didascalia().copyWith(
+                                  color: palette.goldSoft, height: 1.4)),
+                        ],
+                        if (_riconosciuto) ...[
+                          const SizedBox(height: SpacingTokens.md),
+                          ContinuaComeRiconosciuto(
+                            account: context.read<AccountDelCerchio>(),
+                            suEsito: (esito) async {
+                              if (!mounted) return;
+                              if (esito == EsitoDellaCustodia.riuscita) {
+                                // **QUI IL PULSANTE NON SI LIMITA PIU' A FAR
+                                // ENTRARE, ordine AP voce 06**: chiama il giro del
+                                // Custode, che riporta il cammino, salta il rito se
+                                // non resta niente da chiedere e mostra cio' che e'
+                                // stato ritrovato. E' lo stesso giro della porta
+                                // piccola della voce 04: due strade, un posto solo.
+                                await CustodeDelCammino.dopoIlRiconoscimento(
+                                    context);
+                                if (!mounted) return;
+                                widget.suFine();
+                                return;
+                              }
+                              setState(() => _guaio = frasePerEsito(esito));
+                            },
+                          ),
+                        ],
+                        const SizedBox(height: SpacingTokens.xl),
+                        VieDellaCustodia(
+                          inCorso: _inCorso,
+                          suScelta: (via, {email, parola}) =>
+                              _custodisci(via, email: email, parola: parola),
+                        ),
+                        // IL VUOTO IN FONDO E' MISURATO, non uno Spacer pari: con
+                        // due Spacer uguali il Piu' tardi finiva a mezzo schermo dai
+                        // pulsanti, e sembrava di un'altra scena. Visto sull'anteprima.
+                        const Spacer(),
+                        const SizedBox(height: SpacingTokens.xxl),
+                        TextButton(
+                          key: const Key('custodia_piu_tardi'),
+                          onPressed: _inCorso != null
+                              ? null
+                              : () async {
+                                  final account =
+                                      context.read<AccountDelCerchio>();
+                                  account.rimanda();
+                                  // **IL PASSO VALE COME PRIMO INVITO, ordine BJ
+                                  // voce 01**: la custodia e' appena stata proposta
+                                  // qui, alla fine del rito. Senza questa data il
+                                  // "primo avviso" di BE.07 sbucherebbe nel
+                                  // Santuario un attimo dopo il no appena detto.
+                                  try {
+                                    final prefs =
+                                        await SharedPreferences.getInstance();
+                                    await prefs.setString(
+                                        QuandoChiedereLaCustodia
+                                            .chiaveUltimoInvito,
+                                        DateTime.now().toIso8601String());
+                                  } catch (senzaDisco) {
+                                    // Senza disco l'invito potra' ripresentarsi
+                                    // prima: meglio di un rito che non prosegue.
+                                  }
+                                  if (!mounted) return;
+                                  widget.suFine();
+                                },
+                          child: Text(
+                            'Più tardi',
+                            style: TypographyTokens.etichetta()
+                                .copyWith(color: ColorTokens.textSecondary),
+                          ),
+                        ),
+                        const SizedBox(height: SpacingTokens.md),
+                      ],
                     ),
                   ),
-                // **LA PROMESSA DEL PREMIO, ordine BH voce 01, posteriore
-                // alla riga sola di AQ.05 e voluta dal fondatore**: "il
-                // premio di 250 Eos proprio scritto nell'invito a
-                // registrarsi". Una riga corta, in oro, col numero del
-                // server: la sobrieta' di AQ resta, la motivazione arriva.
-                if (!_riconosciuto) ...[
-                  const SizedBox(height: SpacingTokens.sm),
-                  Text(
-                    PromessaDellaRegistrazione.frase(context),
-                    key: const Key('custodia_promessa'),
-                    textAlign: TextAlign.center,
-                    style: TypographyTokens.corpo().copyWith(
-                      color: palette.goldSoft,
-                      height: 1.5,
-                    ),
-                  ),
-                ],
-                if (_guaio != null) ...[
-                  const SizedBox(height: SpacingTokens.md),
-                  Text(_guaio!,
-                      key: const Key('custodia_guaio'),
-                      textAlign: TextAlign.center,
-                      style: TypographyTokens.didascalia()
-                          .copyWith(color: palette.goldSoft, height: 1.4)),
-                ],
-                if (_riconosciuto) ...[
-                  const SizedBox(height: SpacingTokens.md),
-                  ContinuaComeRiconosciuto(
-                    account: context.read<AccountDelCerchio>(),
-                    suEsito: (esito) async {
-                      if (!mounted) return;
-                      if (esito == EsitoDellaCustodia.riuscita) {
-                        // **QUI IL PULSANTE NON SI LIMITA PIU' A FAR
-                        // ENTRARE, ordine AP voce 06**: chiama il giro del
-                        // Custode, che riporta il cammino, salta il rito se
-                        // non resta niente da chiedere e mostra cio' che e'
-                        // stato ritrovato. E' lo stesso giro della porta
-                        // piccola della voce 04: due strade, un posto solo.
-                        await CustodeDelCammino.dopoIlRiconoscimento(context);
-                        if (!mounted) return;
-                        widget.suFine();
-                        return;
-                      }
-                      setState(() => _guaio = frasePerEsito(esito));
-                    },
-                  ),
-                ],
-                const SizedBox(height: SpacingTokens.xl),
-                VieDellaCustodia(
-                  inCorso: _inCorso,
-                  suScelta: (via, {email, parola}) =>
-                      _custodisci(via, email: email, parola: parola),
                 ),
-                // IL VUOTO IN FONDO E' MISURATO, non uno Spacer pari: con
-                // due Spacer uguali il Piu' tardi finiva a mezzo schermo dai
-                // pulsanti, e sembrava di un'altra scena. Visto sull'anteprima.
-                const Spacer(),
-                const SizedBox(height: SpacingTokens.xxl),
-                TextButton(
-                  key: const Key('custodia_piu_tardi'),
-                  onPressed: _inCorso != null
-                      ? null
-                      : () async {
-                          final account = context.read<AccountDelCerchio>();
-                          account.rimanda();
-                          // **IL PASSO VALE COME PRIMO INVITO, ordine BJ
-                          // voce 01**: la custodia e' appena stata proposta
-                          // qui, alla fine del rito. Senza questa data il
-                          // "primo avviso" di BE.07 sbucherebbe nel
-                          // Santuario un attimo dopo il no appena detto.
-                          try {
-                            final prefs = await SharedPreferences.getInstance();
-                            await prefs.setString(
-                                QuandoChiedereLaCustodia.chiaveUltimoInvito,
-                                DateTime.now().toIso8601String());
-                          } catch (senzaDisco) {
-                            // Senza disco l'invito potra' ripresentarsi
-                            // prima: meglio di un rito che non prosegue.
-                          }
-                          if (!mounted) return;
-                          widget.suFine();
-                        },
-                  child: Text(
-                    'Più tardi',
-                    style: TypographyTokens.etichetta()
-                        .copyWith(color: ColorTokens.textSecondary),
-                  ),
-                ),
-                const SizedBox(height: SpacingTokens.md),
-              ],
+              ),
             ),
           ),
         ),

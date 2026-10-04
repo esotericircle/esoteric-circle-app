@@ -152,6 +152,8 @@ per ordine. La prova: scegliere una voce Chirp nel selettore e parlare nel
 LIVE; il registro del server, riga "voce del Maestro", scrive la voce, la
 famiglia e il punto, `eu-texttospeech.googleapis.com`.
 
+ASPETTA: l'account del Realme fra i fondatori del LIVE (configurazione/live.fondatori, dalla console: la scrittura su Firestore di produzione e' negata a Code), poi l'orecchio del fondatore sulla voce.
+
 ## VOCE EM.03, L'ATTRIBUZIONE CIECA LA CHIUDE IL FONDATORE
 
 Fonte: `docs/ordini/ORDINE_EK_MANIFESTO.md`, voce EK.05, e la risposta del
@@ -282,6 +284,8 @@ niente. Tutto in `docs/collaudo/EM/em04_em05_televisione_e_respiro.txt`.
 **APERTA IN ATTESA DI VERIFICA**, con la voce EM.04: il respiro vero e la
 televisione vera sono la prova del fondatore.
 
+ASPETTA: il respiro vero e la televisione vera del fondatore nel LIVE.
+
 ## VOCE EM.06, LA VOCE SCELTA NEL SELETTORE NON SI APPLICA
 
 Fonte: il fondatore, 25 settembre 2026: *"Quando seleziono la voce nel
@@ -314,6 +318,8 @@ Realme aspetta l'account fra i fondatori (voce EM.02), e il confronto con
 l'anteprima e' del fondatore. La voce EJ.02 resta aperta finche' lui non la
 verifica.
 
+ASPETTA: l'account del Realme fra i fondatori del LIVE dalla console, poi il confronto del fondatore con l'anteprima.
+
 ## VOCE EM.07, L'ELENCO DELLE VOCI NON SCORRE
 
 Fonte: il fondatore, 25 settembre 2026: *"Non posso scorrere le voci, lo
@@ -333,6 +339,8 @@ e la sceglie; vista rossa rendendo l'elenco fermo
 
 **APERTA IN ATTESA DI VERIFICA**: la registrazione dello schermo del Realme
 aspetta l'account fra i fondatori (voce EM.02).
+
+ASPETTA: l'account del Realme fra i fondatori del LIVE dalla console; poi la registrazione dello scorrimento la fa Code.
 
 ## VOCE EM.08, DOPO IL SELETTORE IL MICROFONO NON FUNZIONA PIÙ
 
@@ -356,6 +364,8 @@ selettore (`regola_a_client_em`).
 
 **APERTA IN ATTESA DI VERIFICA**: la registrazione sul Realme con selettore,
 ritorno e domanda aspetta l'account fra i fondatori (voce EM.02).
+
+ASPETTA: l'account del Realme fra i fondatori del LIVE dalla console; poi la prova del microfono dopo il selettore la fa Code.
 
 ## VOCE EM.09, LA DOMANDA A VIDEO SOPRA LA RISPOSTA
 
@@ -457,6 +467,8 @@ della risposta intera (troncatura, ancoraggio, cielo smentito).
 
 **APERTA IN ATTESA DI VERIFICA**: *"circa 4"* secondi li ha contati il
 fondatore sul suo telefono; se l'attesa di adesso gli basta lo dice lui.
+
+ASPETTA: prosegue in EN.01: il giudizio del fondatore sull'attesa.
 
 ## VOCE EM.12, LE VOCI DI CALÌGO RALLENTATE
 

@@ -29,21 +29,51 @@ import 'cardinale_minimo.dart';
 /// sbarramento produce l'archivio e il registro della build la stampa: il rosso
 /// resta visibile a ogni consegna invece di essere dimenticato.
 void main() {
-  test('le soglie delle quattro pose sono state misurate su un telefono', () {
+  // **LAPIDE, ordine FC voce 11, 5 ottobre 2026.** Qui c'era "le soglie
+  // delle quattro pose sono state misurate su un telefono", rossa apposta
+  // finche' `tarateSuUnDispositivo` era falso. La misura aspetta una persona
+  // davanti al telefono che gira la testa: un gesto che sul ramo non esiste.
+  // Il fondatore ha scelto la cura (3) della FC.11: la prova gira sul ramo
+  // e pretende che il flag, il referto e la riga ASPETTA del file delle
+  // soglie dicano la stessa cosa. Il ricordo che quei numeri sono inventati
+  // non si spegne: sta nella riga ASPETTA, nel rapporto dell'ordine FC e in
+  // docs/STATO_VIVO.md, fra i gesti del fondatore.
+  test(
+      'le soglie delle quattro pose dicono se sono misurate, e se no quale '
+      'gesto aspettano', () {
+    final sorgente =
+        File('lib/core/face/soglie_della_scansione.dart').readAsStringSync();
+    final aspetta = RegExp(r'^/// ASPETTA: (.{40,})$', multiLine: true)
+        .firstMatch(sorgente)
+        ?.group(1);
+    final referto = File('docs/collaudo/CR/taratura_delle_soglie.txt');
     // ignore: avoid_print
     print('ORDINE CR VOCE 13: soglie tarate su un dispositivo '
         '${SoglieDellaScansione.tarateSuUnDispositivo}, profilo '
         '${SoglieDellaScansione.gradiDiProfilo} gradi, inclinazione '
         '${SoglieDellaScansione.gradiDiInclinazione} gradi, tolleranza del '
         'fronte ${SoglieDellaScansione.tolleranzaDelFronte} gradi, tenuta '
-        '${SoglieDellaScansione.tenuta.inMilliseconds} millisecondi');
-    expect(SoglieDellaScansione.tarateSuUnDispositivo, isTrue,
-        reason: 'LE SOGLIE DELLA SCANSIONE NON SONO STATE MISURATE SU NESSUN '
-            'TELEFONO. Questa prova e rossa apposta, per ordine del fondatore '
-            '(CR.13): i valori sono ragionati ma inventati, e restano tali '
-            'finche qualcuno non li misura su un dispositivo vero, sostituisce '
-            'i numeri, porta tarateSuUnDispositivo a vero e scrive nel referto '
-            'su quale telefono li ha presi. Non si ripara scrivendo codice.');
+        '${SoglieDellaScansione.tenuta.inMilliseconds} millisecondi; '
+        'aspetta: ${aspetta ?? 'niente'}; referto ${referto.existsSync()}');
+    if (SoglieDellaScansione.tarateSuUnDispositivo) {
+      // Misurate: il referto dice su quale telefono, e niente aspetta piu'.
+      expect(referto.existsSync(), isTrue,
+          reason: 'le soglie si dicono tarate e il referto col nome del '
+              'telefono non c\'e\'');
+      expect(aspetta, isNull,
+          reason: 'le soglie sono tarate e la riga ASPETTA resta');
+    } else {
+      // Non misurate: il file lo dice, con il gesto che aspetta, e nessun
+      // referto finge una taratura.
+      expect(aspetta, isNotNull,
+          reason: 'LE SOGLIE NON SONO STATE MISURATE e il file non dice quale '
+              'gesto aspetta: la riga "/// ASPETTA:" in '
+              'lib/core/face/soglie_della_scansione.dart');
+      expect(aspetta, contains('gira la testa'));
+      expect(referto.existsSync(), isFalse,
+          reason: 'un referto di taratura con le soglie dichiarate non '
+              'misurate');
+    }
   });
 
   test('e i numeri vivono in un posto solo, non sparsi', () {
@@ -52,8 +82,8 @@ void main() {
     // qualcuno copiasse un venti o un ottocento dentro la schermata, la
     // taratura ne correggerebbe uno e lascerebbe l'altro, e nessuno se ne
     // accorgerebbe.
-    final schermata = File(
-        'lib/features/maestri/aura/face/face_constellation_screen.dart');
+    final schermata =
+        File('lib/features/maestri/aura/face/face_constellation_screen.dart');
     expect(schermata.existsSync(), isTrue,
         reason: 'la schermata della Costellazione non esiste piu');
     final testo = schermata.readAsStringSync();

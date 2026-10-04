@@ -630,19 +630,26 @@ class _TendinaDelleCategorie extends StatelessWidget {
           // guarda deve sapere cosa sta scegliendo prima di aprirla.
           selectedItemBuilder: (context) => [
             for (final c in categorie)
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('CATEGORIA VIP',
-                      style: TypographyTokens.etichetta().copyWith(
-                          color: palette.goldSoft, letterSpacing: 0.8)),
-                  Text(c,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TypographyTokens.didascalia()
-                          .copyWith(color: ColorTokens.textPrimary)),
-                ],
+              // A carattere grande le due righe stanno nell'altezza della
+              // tendina rimpicciolendosi intere (ordine FC voce 11: a scala
+              // 1,3 sforavano in basso, rosso accettato dall'ordine CM).
+              FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('CATEGORIA VIP',
+                        style: TypographyTokens.etichetta().copyWith(
+                            color: palette.goldSoft, letterSpacing: 0.8)),
+                    Text(c,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TypographyTokens.didascalia()
+                            .copyWith(color: ColorTokens.textPrimary)),
+                  ],
+                ),
               ),
           ],
           items: [

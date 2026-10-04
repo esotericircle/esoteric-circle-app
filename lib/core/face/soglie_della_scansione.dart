@@ -25,11 +25,18 @@
 ///
 /// **COME SMETTONO DI ESSERE PROVVISORIE.** Si sostituiscono con misure prese
 /// su un telefono vero, si porta [tarateSuUnDispositivo] a vero, e chi le
-/// sostituisce scrive nel referto **su quale telefono** le ha prese. Finche'
-/// quel flag e' falso, la guardia `le_soglie_della_scansione_sono_provvisorie`
-/// resta ROSSA APPOSTA: e' la stessa famiglia della riga rossa che i manifesti
-/// tengono accesa finche' una voce resta aperta, e non si tocca per far
-/// passare una build.
+/// sostituisce scrive nel referto **su quale telefono** le ha prese.
+///
+/// **LA GUARDIA, DALL'ORDINE FC VOCE 11.** Fino al 5 ottobre 2026 la guardia
+/// `le_soglie_della_scansione_sono_provvisorie` restava ROSSA APPOSTA finche'
+/// questo flag era falso. La misura aspetta una persona davanti al telefono
+/// che gira la testa nelle quattro pose: un gesto che sul ramo non esiste e
+/// che il codice non puo' fare (una fotocamera senza un volto non da' nessun
+/// angolo, e un volto stampato misurerebbe il riconoscitore, non il collo).
+/// Il fondatore ha scelto la cura (3) dell'ordine FC voce 11: la prova gira
+/// sul ramo e pretende che il flag e questa riga dicano la stessa cosa.
+///
+/// ASPETTA: una persona davanti al Realme che gira la testa nelle quattro pose, con gli angoli scritti nel registro, e il referto col nome del telefono in docs/collaudo/CR/taratura_delle_soglie.txt.
 class SoglieDellaScansione {
   const SoglieDellaScansione._();
 

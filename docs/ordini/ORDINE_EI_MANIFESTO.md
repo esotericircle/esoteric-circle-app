@@ -487,3 +487,5 @@ funzione che lo giudica, non che il telefono in mano a una persona lo senta.
 
 **APERTA IN ATTESA DI VERIFICA**, e resta aperta apposta: chiuderla senza il
 fiato del fondatore sarebbe esattamente il difetto che l'ordine EH ha vietato.
+
+ASPETTA: il soffio vero del fondatore sul Soffio del Destino, sul Realme: chiuderla senza il suo fiato sarebbe il difetto che l'ordine EH ha vietato.

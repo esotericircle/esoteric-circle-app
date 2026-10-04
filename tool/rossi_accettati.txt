@@ -24,7 +24,6 @@
 #
 # Formato: nome esatto della prova | ragione, con la data
 
-le soglie delle quattro pose sono state misurate su un telefono | Rosso DICHIARATO E VOLUTO, acceso il 6 settembre 2026 con l'ordine CR voce 13. Le soglie degli angoli e i tempi di tenuta della scansione a quattro pose NON sono stati misurati su nessun dispositivo: il fondatore non aveva un telefono collegato e ha deciso di partire da valori ragionati, dichiarati provvisori. L'ordine chiede per nome che una guardia resti rossa finche' quei valori sono marcati come non misurati, ed e' questa. **Non si ripara scrivendo codice**: si spegne quando qualcuno misura gli angoli e i tempi su un telefono vero, sostituisce i numeri in `SoglieDellaScansione`, porta `tarateSuUnDispositivo` a vero e scrive nel referto su quale telefono li ha presi.
 
 # =====================================================================
 # IL CORREDO A SCALA MASSIMA. Ordine CM voce 10, 1 settembre 2026.
@@ -42,16 +41,6 @@ le soglie delle quattro pose sono state misurate su un telefono | Rosso DICHIARA
 # fa cadere l'archivio se un nome resta scritto qui mentre quella cattura ha
 # smesso di rompersi. Nessuna riga nuova ci entra da sola.
 # =====================================================================
-SCALA 1,3: CI.04: a dito alzato la barra non resta a meta | Non e' un traboccamento: la prova misura in punti quanto la barra si ritira, e a testo grande la barra e' piu' alta. Stessa cura della riga sopra.
-SCALA 1,3: Cattura il Risveglio, il genere, schermo basso | Stessa causa, onboarding_screen.dart:1760, su schermo basso.
-SCALA 1,3: Cattura il Risveglio, il luogo offline | Stessa causa, onboarding_screen.dart:1760.
-SCALA 1,3: Cattura il Risveglio, il luogo scelto | Stessa causa, onboarding_screen.dart:1760.
-SCALA 1,3: Cattura il Risveglio, il sigillo | Stessa causa, onboarding_screen.dart:1760, all'ultimo passo.
-SCALA 1,3: Cattura il Risveglio, l'ora e l'Ascendente | Stessa causa della riga sopra, onboarding_screen.dart:1760.
-SCALA 1,3: Cattura il Risveglio, la data col Sole nel segno | Sfora 10 punti a destra da lib/features/onboarding/onboarding_screen.dart:1760, riga di comandi del Risveglio. Famiglia B, contenitore di misura fissa. Si chiude nell'ordine dopo il CM.
-SCALA 1,3: Cattura la chat con la barra fuori | Non e' un traboccamento: la cattura pretende una posizione della barra misurata in punti, e a testo grande la barra sta altrove. La pretesa va rifatta in proporzione, non in punti.
-SCALA 1,3: Cattura la custodia del cielo | Sfora 2 punti in basso da lib/features/onboarding/custodia_del_cielo_step.dart:123. Famiglia B. Due punti soli, ma sono due punti di testo tagliato.
-SCALA 1,3: Cattura la galleria di scelta della Sinastria VIP | Sfora 6 punti in basso da lib/features/synastry/sinastria_gallery_screen.dart:694, la tendina delle categorie: DropdownButton impone l'altezza della voce chiusa. Famiglia B.
 # E IL SIGILLO A SCHERMO BASSO E' USCITO, ordine CQ voce 6.23 del 4 settembre
 # 2026, e non per una cura mirata: la soglia del Sigillo e' una ListView, che
 # costruisce solo cio' che sta a vista. Salita la prosa a venti punti il
@@ -78,4 +67,16 @@ SCALA 1,3: Cattura la galleria di scelta della Sinastria VIP | Sfora 6 punti in 
 # EI.10 resta aperta perche' IL FIATO VERO NON SI PUO' SIMULARE: che il
 # microfono senta il soffio di una persona lo puo' dire solo il fondatore.
 # EG e' in corso, ripreso dopo l'interruzione dell'ordine EH.
-ogni voce dichiara uno stato terminale, e i conti tornano | Rosso DICHIARATO E VOLUTO, 23 settembre 2026. Le guardie degli ordini EI, EJ, EK, EM ed EN pretendono zero voci aperte, e i cinque ordini sono in corso: EI.10 aspetta il soffio vero del fondatore, che nessuna prova puo' dare al posto suo; EJ, aperto il 24 settembre 2026, ha voci che aspettano il giudizio del fondatore su voci, volto e tono; EK, lavorato lo stesso giorno, ha i volti nuovi che aspettano il suo sguardo e le risposte dirette che non sono ancora a zero; EM, lavorato il 25 settembre 2026, ha sei voci che aspettano il fondatore: la chiusura con la sua televisione vera, il selettore delle voci sul telefono, le voci all'orecchio e l'attesa (EM.04 ed EM.12 le ha chiuse lui con l'ordine EN); EN, lavorato lo stesso giorno, ha tre voci che aspettano il suo giudizio: l'attesa del LIVE, la cornice del volto e il testo intero della risposta sulla moglie, che vive nella sua chat. EO, lavorato il 26 settembre 2026, ha chiuso le sue tre voci aperte con le risposte del fondatore nell'ordine EP dello stesso giorno, ed EP e' nato chiuso. ACCELERA e' uscito da questa riga il 4 ottobre 2026 (ordine FC voce 07): la sua voce aperta aspettava la prima consegna col verdetto di GitHub, che era arrivata con la 2287 il 28 settembre 2026 senza che il manifesto lo dicesse. Si toglie quando i cinque ordini chiudono, e lo sbarramento fa cadere questa riga da solo se resta scritta dopo.
+
+# IL REGISTRO SI E' SVUOTATO, ordine FC voce 11 del 5 ottobre 2026. Il
+# fondatore: "non voglio ordini non conclusi o parziali"; "Le sette prove
+# rosse rimaste sul ramo si curano dentro questa aggiunta". Uscite tutte:
+# - le soglie delle quattro pose (CR.13) e le guardie degli ordini EI, EJ,
+#   EK, EM ed EN: cura (3) della FC.11, scelta dal fondatore. La prova gira
+#   sul ramo e pretende che ogni voce aperta, e le soglie non misurate,
+#   dicano in una riga "ASPETTA:" quale gesto del fondatore aspettano;
+# - i dieci rossi del corredo a scala 1,3: curati nel codice. Il distintivo
+#   del Sole nel Risveglio si rimpicciolisce intero, la custodia del cielo
+#   scorre, la tendina della galleria VIP si rimpicciolisce, e la barra si
+#   ritira della sua altezza vera invece che della costante da 112 punti.
+# Da oggi una caduta qualunque ferma il cancello.

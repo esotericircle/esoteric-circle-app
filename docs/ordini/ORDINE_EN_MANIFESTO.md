@@ -180,6 +180,8 @@ nel selettore; Protoface, 1,4-2,4 secondi dal primo audio al volto che parla.
 **APERTA IN ATTESA DI VERIFICA**: il giudizio sull'attesa e' del fondatore,
 per ordine.
 
+ASPETTA: il giudizio del fondatore sull'attesa, rimisurata col modello Flash che dall'ordine EQ risponde nel LIVE.
+
 ## VOCE EN.02, PIÙ RIGHE DI RISPOSTA LEGGIBILI
 
 **Fonte, frase del fondatore**: *"l'area per leggere le risposte è molto
@@ -244,6 +246,8 @@ oro sopra l'arco, sul fianco e sotto il busto, niente dentro il volto.
 (`docs/collaudo/EN/en03_la_cornice_dei_tre_maestri.jpg`).
 
 **APERTA IN ATTESA DI VERIFICA**: il giudizio e' del fondatore, per ordine.
+
+ASPETTA: il giudizio del fondatore sulla cornice.
 
 ---
 
@@ -450,6 +454,8 @@ qualità e una penna con..."*.
 **APERTA IN ATTESA DI VERIFICA**: la chiusura chiede il testo intero della risposta originale nel manifesto: quel testo lo ha il fondatore: basta una
 cattura del messaggio delle 09:54 nella sua chat di Medora, sopra *"Prova
 ancora"*. Il resto della voce e' fatto e misurato.
+
+ASPETTA: la cattura del fondatore del testo intero della risposta delle 09:54, dalla sua chat (la lettura di Firestore di produzione e' negata a Code).
 
 ## VOCE EN.09, LA MEMORIA IN CHAT E NEL LIVE
 
