@@ -17,8 +17,8 @@ cambiano il server: il comando per il fondatore sta nel rapporto. Senza la
 pubblicazione il telefono di oggi continua a funzionare come prima.
 
 VOCI_TOTALI: 8
-VOCI_CHIUSE: 4
-VOCI_APERTE: 4
+VOCI_CHIUSE: 5
+VOCI_APERTE: 3
 VOCI_DA_FARE: 0
 
 ## VOCE EZ.01, LE ICONE SI VEDONO INTERE DENTRO IL CERCHIO
@@ -62,7 +62,11 @@ ACCETTAZIONE: aprendo il confronto con lo stesso amico due giorni di fila il num
 
 ## VOCE EZ.03, LE LETTURE DELLA TENDINA SCENDONO
 
-**APERTA.** Sulla soglia: il costo che cresceva con le persone e' sceso di
+**CHIUSA.** Chiusa dall'ordine FA voce 05 (4 ottobre 2026), che ha fissato la
+soglia vera: non piu' di dieci letture per ogni apertura della tendina, la
+ricostruzione esclusa perche' condivisa; un'apertura ne legge al massimo
+dieci (`test/la_tendina_non_supera_dieci_letture_test.dart`). Quello che
+segue e' com'era scritto prima. Sulla soglia: il costo che cresceva con le persone e' sceso di
 venti volte, ma nello scenario dell'ordine EY (sessanta aperture in un'ora)
 le letture fisse di ogni apertura bastano da sole a superare centocinquanta,
 e nessun disegno le toglie. Il numero e la scelta stanno nel rapporto.

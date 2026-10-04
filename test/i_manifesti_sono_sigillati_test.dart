@@ -339,6 +339,9 @@ void main() {
     // EZ: otto voci, contate coi titoli "## VOCE EZ." del manifesto il 4
     // ottobre 2026, dai tre pezzi dell'ordine (il Cerchio senza difetti).
     'EZ': 8,
+    // FA: sei voci, contate coi titoli "## VOCE FA." del manifesto il 4
+    // ottobre 2026, dai due pezzi dell'ordine (le icone, i nomi e le promesse).
+    'FA': 6,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,

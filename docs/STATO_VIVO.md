@@ -6677,6 +6677,17 @@ Tre pezzi, partenza `983a9cfc`. Manifesto `docs/ordini/ORDINE_EZ_MANIFESTO.md` (
 - **EZ.07, i link**: i file di verifica li genera gia' Firebase Hosting su `esoteric-circle.web.app/.well-known/` (SHA-256 della firma uguale all'APK, team Z3T97U389U): non copiati nel repo. Aggiunti `autoVerify` sul filtro Android di web.app e `applinks:esoteric-circle.web.app` su iOS. La pagina del link senza store, gli indirizzi in `INDIRIZZI_DEGLI_STORE` (vuoti).
 - **EZ.08, i segni**: i 18 testi dell'Architetto sugli identificativi di prima, `rigaDiChiRiceve` nuova, le sei richieste aprono la loro funzione, `RISPOSTE_PER_SEGNO` aggiornato (nessun numero salito).
 
+## L'ORDINE FA, LE ICONE, I NOMI E LE PROMESSE (4 ottobre 2026)
+
+Due pezzi, partenza `31821ce2`. Manifesto `docs/ordini/ORDINE_FA_MANIFESTO.md` (6 voci: 4 CHIUSE, FA.01, FA.02, FA.03 e FA.06; FA.04 ed FA.05 APERTE IN ATTESA DI VERIFICA, server da pubblicare), rapporto `docs/ordini/RAPPORTO_ORDINE_FA.md`, Regola A `docs/collaudo/FA/regola_a_fa.txt` (12 innesti rossi, A5 rifatto per un difetto del banco e confessato), guardie da 670 a **675**. Nessuna build, nessuna chiamata al modello. Chiude anche la voce EZ.03 (riga di stato nel manifesto EZ, 5 chiuse e 3 aperte).
+
+- **FA.01**: gli Arcani escono dalle icone del profilo, tre famiglie e 36 icone, telefono e server insieme; un codice non piu' valido diventa l'emblema del segno della persona (`IconaDelProfilo.valida`, `iconaDelSegno`). L'Arcano personale resta nel Passaporto.
+- **FA.02**: il segno 15 (`facciamoLaSinastria`) diventa "Sfidami con un VIP" e apre la Sinastria VIP; le richieste aprono da `rottaDellaRichiesta`.
+- **FA.03**: le due catture EZ uguali erano la cattura (elenco a fine corsa), non l'app; la vetrina mostra adesso una famiglia alla volta, tre scelte in cima.
+- **FA.04**: il sigillo accanto al nome solo quando due nomi coincidono nell'elenco (`ElencoDelCerchio`, `NomeDellaPersona`, `LeRegoleDelNome.formaDelNome`); il server porta il sigillo nella presenza e nella tendina.
+- **FA.05**: la soglia e' dieci letture per apertura della tendina; la presenza porta l'elenco degli amici e la tendina trova gli amici presenti con una domanda sola chiusa a sei (`AMICI_NELLA_TENDINA`); indice nuovo `amici` CONTAINS + `ultimo`.
+- **FA.06**: "Hai fatto molta strada" ha la sola forma neutra.
+
 ## Regole ferree
 
 **ESPLORA E IL SUO MENU' A SCOMPARSA NON SI TOCCANO**, ed e' normale che a volte si sovrappongano ad altro: decisione di Mauro del 17 agosto 2026, riportata dall'ordine AO come vincolo permanente da ripetere in ogni ordine futuro. Chi la trova sovrapposta a qualcosa non ha trovato un difetto. **L'unica eccezione, voluta dal fondatore con l'ordine EJ voce 09 del 25 settembre 2026, sta nelle chat dei Maestri**: *"il menù dovrebbe restare nascosto e compare con lo scrolling"*. Li' la barra si apre ritirata, compare quando il dito scende verso i messaggi di prima e si ritira quando si torna a leggere in avanti o si tocca il campo; la conversazione non le tiene piu' il posto. L'elenco sta in `lib/features/shell/dove_si_vede_la_barra.dart`, `barraNascostaAllApertura`, e fuori da quell'elenco la regola vale intera.

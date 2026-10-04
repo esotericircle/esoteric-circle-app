@@ -8,6 +8,7 @@ per 797 punti: `docs/preview/prima_dopo/ez*`. **Nessuna build** (R9).
 ## LE VOCI CHIUSE, con la prova di ciascuna
 
 - EZ.02, il confronto del cielo cambia davvero ogni giorno: test/il_confronto_del_cielo_e_simmetrico_test.dart
+- EZ.03, le letture della tendina scendono (chiusa dall'ordine FA voce 05): functions/src/sociale.test.ts
 - EZ.05, il gift Eos si dichiara invece di fallire: test/il_gift_eos_si_dichiara_test.dart
 - EZ.06, gli amici offline hanno un numero anche all'Illuminato: test/gli_amici_offline_hanno_un_numero_test.dart
 - EZ.08, i diciotto segni coi testi veri: test/i_segni_del_cerchio_hanno_i_testi_veri_test.dart
