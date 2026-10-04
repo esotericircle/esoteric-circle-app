@@ -71,19 +71,21 @@ class PortaDellaCondivisione {
             .catchError((Object _) => null);
     if (codice == null || codice.isEmpty) return testo;
     final base = testo ?? '';
-    if (base.contains('${Brand.url}/i/')) return base;
+    if (base.contains('${Brand.urlDegliInviti}/i/')) return base;
+    // Il link prende il posto dell'indirizzo del Cerchio nel testo, ma vive
+    // dove vive la pagina del link (`Brand.urlDegliInviti`).
     final porta =
         RegExp(RegExp.escape(Brand.url) + r'\?porta=(\w+)').firstMatch(base);
     if (porta != null) {
-      return base.replaceFirst(
-          porta.group(0)!, '${Brand.url}/i/$codice.${porta.group(1)}');
+      return base.replaceFirst(porta.group(0)!,
+          '${Brand.urlDegliInviti}/i/$codice.${porta.group(1)}');
     }
     if (base.contains(Brand.url)) {
-      return base.replaceFirst(Brand.url, '${Brand.url}/i/$codice');
+      return base.replaceFirst(Brand.url, '${Brand.urlDegliInviti}/i/$codice');
     }
     return base.trim().isEmpty
-        ? '${Brand.url}/i/$codice'
-        : '$base\n${Brand.url}/i/$codice';
+        ? '${Brand.urlDegliInviti}/i/$codice'
+        : '$base\n${Brand.urlDegliInviti}/i/$codice';
   }
 
   /// **DOVE E' ANDATA L'ULTIMA CONDIVISIONE, e vive un istante. Ordine BX

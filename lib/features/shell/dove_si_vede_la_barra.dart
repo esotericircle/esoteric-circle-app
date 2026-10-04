@@ -102,6 +102,13 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   // GLI AMICI OFFLINE, ordine ES voce 12: si aprono dall'Oroscopo e sono una
   // scena sua, come lei senza barra.
   'AmiciScreen': PresenzaDellaBarra.assente,
+  // IL CERCHIO SOCIALE, ordine EY: schermate del menu' account e della
+  // tendina, come le altre del menu' senza barra.
+  'IlTuoCerchioScreen': PresenzaDellaBarra.assente,
+  'ProfiloNelCerchioScreen': PresenzaDellaBarra.assente,
+  'InvitaNelCerchioScreen': PresenzaDellaBarra.assente,
+  'SchedaDellAmicoScreen': PresenzaDellaBarra.assente,
+  'ConfrontoDelCieloScreen': PresenzaDellaBarra.assente,
   'LOroscopoDellAmicoScreen': PresenzaDellaBarra.assente,
   'SkyOverviewScreen': PresenzaDellaBarra.assente,
   'AngelsScreen': PresenzaDellaBarra.assente,

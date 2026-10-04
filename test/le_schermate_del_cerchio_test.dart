@@ -181,10 +181,14 @@ void main() {
           scrollable: lista);
       expect(find.byKey(Key('manda_${s.id}')), findsOneWidget, reason: s.id);
     }
-    await tester.scrollUntilVisible(find.text('80 Eos'), 200,
+    await tester.scrollUntilVisible(
+        find.byKey(const Key('prezzo_sigillo')), 200,
         scrollable: lista);
-    expect(find.text('30 Eos'), findsOneWidget);
-    expect(find.text('80 Eos'), findsOneWidget);
+    expect(find.byKey(const Key('prezzo_scintilla')), findsOneWidget);
+    expect(tester.widget<Text>(find.byKey(const Key('prezzo_scintilla'))).data,
+        '30');
+    expect(tester.widget<Text>(find.byKey(const Key('prezzo_sigillo'))).data,
+        '80');
     expect(find.text('Gratuito'), findsOneWidget);
     await tester.scrollUntilVisible(
         find.byKey(const Key('manda_tiPenso')), -200,

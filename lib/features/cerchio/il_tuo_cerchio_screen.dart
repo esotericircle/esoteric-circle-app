@@ -113,7 +113,7 @@ class _IlTuoCerchioScreenState extends State<IlTuoCerchioScreen> {
                   onPressed: () => Navigator.of(context)
                       .push(InvitaNelCerchioScreen.route()),
                   icon: const Icon(Icons.person_add_alt_1_rounded),
-                  label: Text('Chiama qualcuno nel tuo Cerchio',
+                  label: Text('Chiama nel tuo Cerchio',
                       style: TypographyTokens.etichetta()),
                 ),
                 if (c.ricevuti.isNotEmpty) ...[

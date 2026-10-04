@@ -5,6 +5,14 @@ ottobre 2026. Manifesto: `docs/ordini/ORDINE_EY_MANIFESTO.md`. Registro della
 Regola A: `docs/collaudo/EY/regola_a_ey.txt`. Anteprime:
 `docs/preview/prima_dopo/ey*`.
 
+## LE VOCI CHIUSE, con la prova di ciascuna
+
+- EY.07, quanti amici per piano: test/i_numeri_del_cerchio_sociale_test.dart
+- EY.16, il tetto per identita' sulle porte sociali: test/il_cerchio_custodisce_il_cammino_test.dart
+
+Le altre quindici sono APERTE IN ATTESA DI VERIFICA (si chiudono guardate a
+video sul Realme) oppure APERTE su una decisione del fondatore (EY.09, EY.12).
+
 ## LE PREMESSE ABBATTUTE
 
 Verificate tutte sul worktree di lavoro alla testa `784dd20b`, prima di

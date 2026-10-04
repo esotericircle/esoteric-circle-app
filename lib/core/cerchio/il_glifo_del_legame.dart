@@ -97,8 +97,8 @@ class IlGlifoDelLegame {
   /// mai accostata all'elenco delle fonti**: il glifo non viene da una.
   static const String rigaDelMetodo =
       'Il glifo del legame è un segno del Cerchio e non un sigillo '
-      'tradizionale: nasce dai vostri due sigilli e dai vostri due segni, è '
-      'lo stesso per tutti e due, e si accende un tratto per ogni giorno in '
+      'tradizionale. Nasce dai vostri due sigilli e dai vostri due segni ed è '
+      'lo stesso per tutti e due. Si accende un tratto per ogni giorno in '
       'cui vi siete scambiati un segno.';
 }
 

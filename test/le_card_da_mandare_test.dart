@@ -122,9 +122,12 @@ void main() {
     final cadute = <String>[];
     for (final t in sigilli) {
       for (final modo in ModoDellaCondivisione.values) {
-        final testo = TestoDellaCondivisione.perIlTraguardo(t, modo,
-            codiceInvito: 'abcdefgh12.medora');
-        if (!testo.contains('${Brand.url}?invito=abcdefgh12.medora')) {
+        // LAPIDE, ordine EY voce 17: il testo portava `?invito=<uid>`; adesso
+        // porta la porta del Maestro, e il codice opaco lo mette la porta
+        // della condivisione.
+        final testo =
+            TestoDellaCondivisione.perIlTraguardo(t, modo, maestro: 'medora');
+        if (!testo.contains('${Brand.url}?porta=medora')) {
           cadute.add('${t.id} ${modo.name}: senza il link dell\'invito');
         }
         if (t.frase.trim().isNotEmpty && testo.contains(t.frase.trim())) {
@@ -171,9 +174,9 @@ void main() {
     expect(conto.contains('invitaUnAmico(context)'), isTrue,
         reason: 'il menu\' Account non offre piu\' Invita un amico: senza un '
             'Sigillo acceso non si potrebbe invitare nessuno');
-    final libero =
-        TestoDellaCondivisione.invitoLibero(codiceInvito: 'abcdefgh12');
-    expect(libero, contains('${Brand.url}?invito=abcdefgh12'));
+    final libero = TestoDellaCondivisione.invitoLibero();
+    expect(libero, contains(Brand.url));
+    expect(libero, isNot(contains('invito=')));
     final custode =
         File('lib/core/cammino/custode_del_cammino.dart').readAsStringSync();
     expect(
@@ -189,10 +192,11 @@ void main() {
     expect(server.contains('.doc("benvenuto-invito")'), isTrue,
         reason: 'il server non paga piu\' chi arriva con un invito');
     final listino = File('functions/src/borsellino.ts').readAsStringSync();
-    expect(listino.contains('EOS_A_CHI_ARRIVA_CON_UN_INVITO = 60'), isTrue,
-        reason: 'il messaggio promette 60 Eos a testa: il listino deve dire '
-            'la stessa cifra');
-    expect(listino.contains('EOS_DELL_INVITO_ACCOLTO = 60'), isTrue);
+    // LAPIDE, ordine EY Aggiunta 1: erano 60 a testa, il fondatore li ha
+    // portati a 150 il 4 ottobre 2026. La cifra a video la dice il server.
+    expect(listino.contains('EOS_A_CHI_ARRIVA_CON_UN_INVITO = 150'), isTrue,
+        reason: 'il listino non dice la cifra decisa dal fondatore');
+    expect(listino.contains('EOS_DELL_INVITO_ACCOLTO = 150'), isTrue);
     print('ORDINE DW voce 05: il messaggio dell\'invito libero: $libero');
   });
 }

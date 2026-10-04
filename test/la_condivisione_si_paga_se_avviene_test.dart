@@ -121,8 +121,11 @@ void main() {
                 ''),
         isFalse,
         reason: 'il listino della condivisione paga di nuovo l\'invito');
-    expect(server.contains('EOS_DELL_INVITO_ACCOLTO = 60'), isTrue,
-        reason: 'il premio dell\'invito accolto non vale piu\' sessanta Eos');
+    // LAPIDE, ordine EY Aggiunta 1: erano sessanta, il fondatore li ha
+    // portati a centocinquanta il 4 ottobre 2026.
+    expect(server.contains('EOS_DELL_INVITO_ACCOLTO = 150'), isTrue,
+        reason: 'il premio dell\'invito accolto non vale piu\' '
+            'centocinquanta Eos');
     expect(server.contains('social_pubblico: 30'), isTrue);
     expect(server.contains('condivisione_privata: 15'), isTrue);
     expect(server.contains('TETTO_CONDIVISIONI_PREMIATE = 3'), isTrue,

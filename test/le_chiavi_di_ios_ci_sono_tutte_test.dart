@@ -115,6 +115,12 @@ void main() {
     'camera': 'NSCameraUsageDescription',
     'google_mlkit_face_detection': 'NSCameraUsageDescription',
     'mediapipe_face_mesh': 'NSCameraUsageDescription',
+    // **IL CODICE DA INQUADRARE, ordine EY voce 04**: il lettore legge una
+    // fotografia gia' scattata dal pacchetto camera, che la sua chiave la
+    // porta gia'; il disegno del codice e' solo Dart, senza nessun
+    // framework di Apple.
+    'google_mlkit_barcode_scanning': 'NSCameraUsageDescription',
+    'qr_flutter': null,
   };
 
   /// **LE CHIAVI CHE APPLE CHIEDE PER CIO' CHE STA NEL BINARIO**, ordine DQ

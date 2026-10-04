@@ -3,7 +3,6 @@ import '../astro/zodiac.dart';
 import '../identity/birth_identity.dart';
 import '../rituals/animal_catalog.dart';
 import '../rituals/carta_di_nascita_dei_tarocchi.dart';
-import '../rituals/guide_animal_derivation.dart';
 import '../rituals/runes.dart';
 import 'i_nomi_iniziatici.dart';
 
@@ -34,9 +33,11 @@ abstract final class IlNomeIniziatico {
             ? [segno.italianName]
             : [for (final z in Zodiac.values) z.italianName];
       case 1:
-        return segno != null
-            ? [GuideAnimalDerivation.forSign(segno).name]
-            : [for (final a in AnimalCatalog.animals) a.name];
+        // **L'ANIMALE GUIDA NON SI SVELA QUI.** Si dice dopo le quattro
+        // discese del Viaggio: il nome pesca fra tutti e dodici, mai
+        // quello della persona derivato dal segno (la guardia
+        // `l_animale_resta_velato_ovunque` lo ha trovato).
+        return [for (final a in AnimalCatalog.animals) a.name];
       case 2:
         if (identita != null && !identita.isExample) {
           final n =

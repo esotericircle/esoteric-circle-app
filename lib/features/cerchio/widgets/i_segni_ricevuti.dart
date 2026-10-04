@@ -53,7 +53,9 @@ class _UnSegno extends StatelessWidget {
     try {
       final id = context.read<ProfileController>().identity;
       nascita = id.isExample ? null : id.birthDate;
-    } catch (_) {}
+    } catch (senzaQuelDato) {
+      // Il dato e' facoltativo: senza, si va avanti col ripiego.
+    }
     switch (arte) {
       case ArteDellaRichiesta.confronto:
         final amico = context

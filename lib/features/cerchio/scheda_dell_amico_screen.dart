@@ -10,12 +10,14 @@ import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/maestro/maestro_controller.dart';
 import '../../design_system/components/borsellino.dart';
+import '../../design_system/components/icona_degli_eos.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 import 'confronto_del_cielo_screen.dart';
 import 'widgets/disegni_del_cerchio.dart';
 
@@ -50,15 +52,18 @@ class SchedaDellAmicoScreen extends StatelessWidget {
     };
     // **IL PREZZO SI DICHIARA PRIMA DEL GESTO**, e viene dal listino.
     if (voce != null) {
-      final si = await showDialog<bool>(
+      final si = await dialogoDelCerchio<bool>(
         context: context,
         builder: (c) => AlertDialog(
+          backgroundColor: MaestroPalette.neutral.surfaceElevated,
           title: Text(d.nome),
           content: Text('${voce.nome}: ${ListinoDegliEos.prezzo(voce.costo)}. '
-              'Il dono resta nel profilo di ${amico.nome}; a lei o a lui non '
-              'arriva nessun Eos.'),
+              'Il dono resta come ornamento nel profilo di ${amico.nome}: un '
+              'dono non porta Eos a chi lo riceve.'),
           actions: [
             TextButton(
+                style: TextButton.styleFrom(
+                    foregroundColor: MaestroPalette.neutral.goldSoft),
                 onPressed: () => Navigator.of(c).pop(false),
                 child: const Text('Non ora')),
             FilledButton(
@@ -91,7 +96,7 @@ class SchedaDellAmicoScreen extends StatelessWidget {
 
   Future<void> _regala(BuildContext context) async {
     var quanti = 100.0;
-    final scelto = await showModalBottomSheet<int>(
+    final scelto = await foglioDelCerchio<int>(
       context: context,
       backgroundColor: MaestroPalette.neutral.deepest,
       builder: (c) => StatefulBuilder(
@@ -126,6 +131,8 @@ class SchedaDellAmicoScreen extends StatelessWidget {
                 child: Text('Regala ${quanti.round()} Eos'),
               ),
               TextButton(
+                style: TextButton.styleFrom(
+                    foregroundColor: MaestroPalette.neutral.goldSoft),
                 onPressed: () => Navigator.of(c).pop(),
                 child: const Text('Fatto'),
               ),
@@ -147,16 +154,19 @@ class SchedaDellAmicoScreen extends StatelessWidget {
   Future<void> _togliOBlocca(BuildContext context, String cosa) async {
     final sociale = context.read<IlCerchioSociale>();
     final navigatore = Navigator.of(context);
-    final si = await showDialog<bool>(
+    final si = await dialogoDelCerchio<bool>(
       context: context,
       builder: (c) => AlertDialog(
+        backgroundColor: MaestroPalette.neutral.surfaceElevated,
         content: Text(cosa == 'blocca'
             ? 'Blocchi ${amico.nome}? Non ti vedrà, non potrà invitarti né '
-                'mandarti niente, e non ne sarà avvisato. Lo sblocchi quando '
-                'vuoi dal tuo profilo.'
+                'mandarti niente e il Cerchio non glielo dirà. Lo sblocchi '
+                'quando vuoi dal tuo profilo.'
             : 'Togli ${amico.nome} dal tuo Cerchio?'),
         actions: [
           TextButton(
+              style: TextButton.styleFrom(
+                  foregroundColor: MaestroPalette.neutral.goldSoft),
               onPressed: () => Navigator.of(c).pop(false),
               child: const Text('Non ora')),
           FilledButton(
@@ -230,7 +240,7 @@ class SchedaDellAmicoScreen extends StatelessWidget {
                   if (amico.maestro != null) 'con ${amico.maestro!.nomeAVideo}',
                   if (amico.sigillo != null && amico.sigillo!.isNotEmpty)
                     'sigillo ${amico.sigillo}',
-                ].join(' · '),
+                ].join(', '),
                 textAlign: TextAlign.center,
                 style: TypographyTokens.didascalia()
                     .copyWith(color: ColorTokens.textSecondary),
@@ -336,17 +346,27 @@ class SchedaDellAmicoScreen extends StatelessWidget {
                                 style: TypographyTokens.etichetta()
                                     .copyWith(color: palette.goldSoft)),
                           ),
-                          Text(
-                            switch (d) {
-                              Dono.cenno => 'Gratuito',
-                              Dono.scintilla => ListinoDegliEos.prezzo(
-                                  ListinoDegliEos.scintilla.costo),
-                              Dono.sigillo => ListinoDegliEos.prezzo(
-                                  ListinoDegliEos.sigilloDaDonare.costo),
-                            },
-                            style: TypographyTokens.didascalia()
-                                .copyWith(color: ColorTokens.textSecondary),
-                          ),
+                          // IL PREZZO COL SEGNO DEGLI EOS, dal listino: il
+                          // denaro del Cerchio ha un'icona sua.
+                          if (d == Dono.cenno)
+                            Text('Gratuito',
+                                style: TypographyTokens.didascalia()
+                                    .copyWith(color: ColorTokens.textSecondary))
+                          else
+                            Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconaDegliEos(
+                                    misura: 14, colore: palette.goldSoft),
+                                const SizedBox(width: SpacingTokens.xxs),
+                                Text(
+                                    '${d == Dono.scintilla ? ListinoDegliEos.scintilla.costo : ListinoDegliEos.sigilloDaDonare.costo}',
+                                    key: Key('prezzo_${d.name}'),
+                                    style: TypographyTokens.didascalia()
+                                        .copyWith(
+                                            color: ColorTokens.textSecondary)),
+                              ],
+                            ),
                         ]),
                       ),
                     ),
@@ -394,7 +414,8 @@ Zodiac? _mioSegno(BuildContext context) {
   try {
     final id = context.read<ProfileController>().identity;
     return id.isExample ? null : id.sunSign;
-  } catch (_) {
+  } catch (senzaQuelDato) {
+    // Il dato e' facoltativo: senza, si va avanti col ripiego.
     return null;
   }
 }
@@ -403,7 +424,8 @@ Zodiac? _mioSegno(BuildContext context) {
 Maestro? _mioMaestro(BuildContext context) {
   try {
     return context.read<MaestroController>().activeMaestro;
-  } catch (_) {
+  } catch (senzaQuelDato) {
+    // Il dato e' facoltativo: senza, si va avanti col ripiego.
     return null;
   }
 }

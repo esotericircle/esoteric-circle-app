@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/cerchio/il_cerchio_sociale.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -29,7 +30,7 @@ Future<void> mostraLaRichiestaDiLegame(
         SnackBar(content: Text('${chi.nome} è già nel tuo Cerchio.')));
     return;
   }
-  final accetta = await showModalBottomSheet<bool>(
+  final accetta = await foglioDelCerchio<bool>(
     context: context,
     backgroundColor: paletteDi(chi.maestro).deepest,
     builder: (c) => _LaRichiesta(chi: chi),

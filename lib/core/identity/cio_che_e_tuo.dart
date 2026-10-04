@@ -56,6 +56,9 @@ class CioCheETuo {
     'borsellino.',
     // Il diario del cammino: gesti, giorni, ore, dettagli, feste in attesa.
     'cammino.',
+    // **IL CERCHIO SOCIALE, ordine EY**: il nome nel Cerchio proposto
+    // nell'onboarding e il Maestro di riferimento del profilo pubblico.
+    'cerchio.',
     // La carta natale conservata. **Due forme, e la seconda e' un debito
     // vecchio**: `carta.natale` e' quella di oggi, `carta_natale_` e' la
     // vecchia, il cui NOME portava in chiaro data, ora, minuto, latitudine,

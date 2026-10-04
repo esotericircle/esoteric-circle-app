@@ -10,15 +10,13 @@ import 'widgets/disegni_del_cerchio.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../core/cerchio/il_cerchio_sociale.dart';
-import '../../core/condivisione/porta_della_condivisione.dart';
-import '../../core/entitlement/question_allowance.dart';
-import '../../core/sigilli/bonus_della_condivisione.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../account/invita_un_amico.dart';
 import 'la_richiesta_di_legame.dart';
 
 /// **CHIAMA QUALCUNO NEL TUO CERCHIO, ordine EY voce 04.** Due vie e non tre:
@@ -45,15 +43,10 @@ class _InvitaNelCerchioScreenState extends State<InvitaNelCerchioScreen> {
     super.dispose();
   }
 
+  /// Il link col codice opaco: la stessa porta dell'invito dal menu',
+  /// `invitaUnAmico`, che restituisce l'esito della condivisione.
   Future<void> _mandaIlLink() async {
-    int? premio;
-    try {
-      premio = context.read<QuestionAllowance>().premioDellInvito;
-    } catch (_) {}
-    // Il link col codice opaco lo aggiunge la porta della condivisione, in un
-    // posto solo (EY.15): qui non passa nessun uid.
-    await PortaDellaCondivisione.testo(
-        TestoDellaCondivisione.invitoLibero(premioInvito: premio));
+    await invitaUnAmico(context);
   }
 
   Future<void> _colSigillo() async {
@@ -323,6 +316,9 @@ class _IlMioCodiceState extends State<IlMioCodice> {
                                     color: ColorTokens.textSecondary)),
                             if (scaduto)
                               TextButton(
+                                style: TextButton.styleFrom(
+                                    foregroundColor:
+                                        MaestroPalette.neutral.goldSoft),
                                 key: const Key('codice_nuovo'),
                                 onPressed: _chiedi,
                                 child: const Text('Un codice nuovo'),
@@ -404,7 +400,8 @@ class _InquadraIlCodiceState extends State<InquadraIlCodice> {
           return;
         }
       }
-    } catch (_) {
+    } catch (senzaQuelDato) {
+      // Il dato e' facoltativo: senza, si va avanti col ripiego.
       // Una lettura mancata non e' un guasto: si riprova al giro dopo.
     } finally {
       _occupato = false;
@@ -457,7 +454,9 @@ class _InquadraIlCodiceState extends State<InquadraIlCodice> {
                 ),
               ),
               const SizedBox(height: SpacingTokens.md),
-              Text('Oppure scrivi il codice che vedi sul suo telefono',
+              Text(
+                  'Se la fotocamera non legge, scrivi il codice toccando il '
+                  'campo qui sotto: \u00e8 il ripiego che c\u2019\u00e8 sempre.',
                   textAlign: TextAlign.center,
                   style: TypographyTokens.didascalia()
                       .copyWith(color: ColorTokens.textSecondary)),

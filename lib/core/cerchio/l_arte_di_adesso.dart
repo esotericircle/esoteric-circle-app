@@ -15,7 +15,7 @@ enum ArteDellaPresenza {
   rune('alle rune'),
   angeli('con gli Angeli'),
   archetipi('agli archetipi'),
-  viso('alla costellazione del viso'),
+  viso('alla Mappa del Viso'),
   meditazione('in meditazione'),
   viaggio('nel Viaggio'),
   sigilli('ai sigilli'),

@@ -37,6 +37,10 @@ void main() {
             'dentro il mese di prova: una data fissa scadrebbe da sola col '
             'passare del tempo, ed e\' il difetto che questa guardia esiste '
             'per prendere',
+    'porta_finta_del_cerchio_sociale.dart':
+        'ordine EY voce 04: il codice da inquadrare vale cinque minuti da '
+            'ADESSO, e la schermata conta quanto manca: un istante fisso '
+            'sarebbe gia\' passato e mostrerebbe un codice scaduto',
     'istante_dichiarato.dart':
         'e\' il file che DICHIARA l\'istante: qui la data si scrive, non si legge',
     'la_striscia_delle_arti_anche_in_home_test.dart':

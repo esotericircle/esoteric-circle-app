@@ -16,6 +16,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 import 'widgets/disegni_del_cerchio.dart';
 
 /// **IL TUO NOME NEL CERCHIO, ordine EY voce 03.** Una schermata sola, dal
@@ -85,17 +86,23 @@ class _ProfiloNelCerchioScreenState extends State<ProfiloNelCerchioScreen> {
     try {
       final i = context.read<ProfileController>().identity;
       identita = i.isExample ? null : i;
-    } catch (_) {}
+    } catch (senzaQuelDato) {
+      // Il dato e' facoltativo: senza, si va avanti col ripiego.
+    }
     try {
       diario = context.read<DiarioDelCammino>();
-    } catch (_) {}
+    } catch (senzaQuelDato) {
+      // Il dato e' facoltativo: senza, si va avanti col ripiego.
+    }
     try {
       archetipi = {
         for (final e in context.read<ArchetypeHistory>().esiti)
           e.dominante.index,
       };
-    } catch (_) {}
-    final scelta = await showModalBottomSheet<String>(
+    } catch (senzaQuelDato) {
+      // Il dato e' facoltativo: senza, si va avanti col ripiego.
+    }
+    final scelta = await foglioDelCerchio<String>(
       context: context,
       isScrollControlled: true,
       backgroundColor: MaestroPalette.neutral.deepest,
@@ -197,6 +204,8 @@ class _ProfiloNelCerchioScreenState extends State<ProfiloNelCerchioScreen> {
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
+                    style: TextButton.styleFrom(
+                        foregroundColor: MaestroPalette.neutral.goldSoft),
                     key: const Key('profilo_salva_nome'),
                     onPressed: riapre == null && !_scrivo ? _salvaIlNome : null,
                     child: Text(_scrivo ? 'Un momento...' : 'Cambia il nome'),
@@ -266,6 +275,8 @@ class _ProfiloNelCerchioScreenState extends State<ProfiloNelCerchioScreen> {
                 Row(
                   children: [
                     TextButton(
+                      style: TextButton.styleFrom(
+                          foregroundColor: MaestroPalette.neutral.goldSoft),
                       key: const Key('link_rinnova'),
                       onPressed: () => context
                           .read<IlCerchioSociale>()
@@ -273,6 +284,8 @@ class _ProfiloNelCerchioScreenState extends State<ProfiloNelCerchioScreen> {
                       child: const Text('Rinnova'),
                     ),
                     TextButton(
+                      style: TextButton.styleFrom(
+                          foregroundColor: MaestroPalette.neutral.goldSoft),
                       key: const Key('link_revoca'),
                       onPressed: () =>
                           context.read<IlCerchioSociale>().codice(revoca: true),
@@ -321,6 +334,8 @@ class _ProfiloNelCerchioScreenState extends State<ProfiloNelCerchioScreen> {
                         style: TypographyTokens.didascalia()
                             .copyWith(color: ColorTokens.textSecondary)),
                     trailing: TextButton(
+                      style: TextButton.styleFrom(
+                          foregroundColor: MaestroPalette.neutral.goldSoft),
                       key: Key('sblocca_${b.uid}'),
                       onPressed: () => context
                           .read<IlCerchioSociale>()

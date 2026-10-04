@@ -11,6 +11,8 @@ import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'cardinale_minimo.dart';
+
 /// **I NUMERI DEL CERCHIO SOCIALE DETTI DUE VOLTE DICONO LO STESSO, ordine
 /// EY.** Il telefono promette (matrice dei piani, listino, elenchi dei
 /// segni), il server impone (`functions/src/sociale.ts`, `budget.ts`,
@@ -36,8 +38,8 @@ void main() {
     final segni = tabella('SEGNI_AL_GIORNO');
     for (var i = 0; i < 4; i++) {
       final t = ordine[i];
-      expect(posti[t.name],
-          PlanCatalog.limiteGiornaliero(RigaDelPiano.legami, t),
+      expect(
+          posti[t.name], PlanCatalog.limiteGiornaliero(RigaDelPiano.legami, t),
           reason: 'posti del legame, ${t.name}');
       expect(segni[t.name],
           PlanCatalog.limiteGiornaliero(RigaDelPiano.segniDelCerchio, t),
@@ -56,7 +58,8 @@ void main() {
     final riga = RegExp(r'cieli: \[([^\]]*)\]').firstMatch(budget)!.group(1)!;
     final celle = riga.split(',').map((c) => int.parse(c.trim())).toList();
     for (var i = 0; i < 4; i++) {
-      expect(celle[i], PlanCatalog.limiteGiornaliero(RigaDelPiano.cieli, ordine[i]));
+      expect(celle[i],
+          PlanCatalog.limiteGiornaliero(RigaDelPiano.cieli, ordine[i]));
       expect(celle[i],
           ListinoDegliEos.confrontoDelCieloInPiu.gratisAlGiorno[ordine[i]]);
     }
@@ -75,15 +78,19 @@ void main() {
     expect(sociale.contains('EOS_DEL_POSTO_IN_PIU = 100'), isTrue);
     expect(ListinoDegliEos.amicoInPiu.costo, 100);
     // Nessun prezzo scritto nelle schermate sociali: li dice il listino.
-    final schermate = Directory('lib/features/cerchio')
+    final fileSociali = Directory('lib/features/cerchio')
         .listSync(recursive: true)
         .whereType<File>()
-        .map((f) => f.readAsStringSync())
-        .join();
+        .toList();
+    cardinaleMinimo(fileSociali.length, 8,
+        cosa: 'file delle schermate sociali',
+        perche: 'Su una cartella vuota nessun prezzo sarebbe scritto a mano.');
+    final schermate = fileSociali.map((f) => f.readAsStringSync()).join();
     expect(RegExp(r"'\d+ Eos").hasMatch(schermate), isFalse);
   });
 
-  test('EY.10 ed EY.11: i segni e le reazioni del telefono sono quelli del '
+  test(
+      'EY.10 ed EY.11: i segni e le reazioni del telefono sono quelli del '
       'server, con le loro risposte', () {
     final risposte = tabella('RISPOSTE_PER_SEGNO');
     final telefono = {
@@ -106,8 +113,7 @@ void main() {
       for (final m in RegExp(r'(\w+): "(\w+)"').allMatches(reazioni))
         m.group(1)!: m.group(2)!,
     };
-    expect({for (final r in Reazione.values) r.name},
-        delServer.keys.toSet());
+    expect({for (final r in Reazione.values) r.name}, delServer.keys.toSet());
     for (final r in Reazione.values) {
       expect(r.negativa, delServer[r.name] == 'negativa', reason: r.name);
     }
@@ -130,8 +136,8 @@ void main() {
   test('EY.03: le icone sono i quattro set disegnati, contati come il server',
       () {
     final quante = tabella('QUANTE_ICONE');
-    expect({for (final f in FamigliaDelleIcone.values) f.name: f.quante},
-        quante);
+    expect(
+        {for (final f in FamigliaDelleIcone.values) f.name: f.quante}, quante);
     for (final f in FamigliaDelleIcone.values) {
       for (final i in IconaDelProfilo.di(f)) {
         expect(File(i.asset).existsSync(), isTrue,
@@ -150,12 +156,15 @@ void main() {
         isFalse);
     expect(IlCerchioSociale.maggiorenne(null, oggi), isFalse);
     // Nessuna etichetta che dica che una persona e' minorenne.
-    final schermate = Directory('lib/features/cerchio')
+    final fileSociali = Directory('lib/features/cerchio')
         .listSync(recursive: true)
         .whereType<File>()
-        .map((f) => f.readAsStringSync())
-        .join()
-        .toLowerCase();
+        .toList();
+    cardinaleMinimo(fileSociali.length, 8,
+        cosa: 'file delle schermate sociali',
+        perche: 'Su una cartella vuota nessuna etichetta sarebbe trovata.');
+    final schermate =
+        fileSociali.map((f) => f.readAsStringSync()).join().toLowerCase();
     expect(RegExp(r"'[^']*minorenn[^']*'").hasMatch(schermate), isFalse);
   });
 }

@@ -262,7 +262,9 @@ void main() {
       // TRENTASETTE dall'ordine EX voce 02: la carta singola entra nelle
       // carte estratte, ed entrano la stesa da dieci carte e i minuti del
       // LIVE.
-      expect(PlanCatalog.matrix.length, 37);
+      // QUARANTUNO dall'ordine EY: le righe del motore sociale, amici nel
+      // Cerchio, segni, confronti del cielo e i doni.
+      expect(PlanCatalog.matrix.length, 41);
       final gettate =
           PlanCatalog.matrix.firstWhere((r) => r.label == 'Gettate di rune');
       // UNA al giorno dall'ordine O del 12 agosto 2026, per decisione di

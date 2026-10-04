@@ -1,7 +1,7 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 164 -->
-<!-- FILE_CON_VUOTI: 71 -->
+<!-- VUOTI_CENSITI: 165 -->
+<!-- FILE_CON_VUOTI: 72 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
 
@@ -11,8 +11,8 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **164** |
-| File che ne contengono | **71** |
+| Vuoti verticali dichiarati | **165** |
+| File che ne contengono | **72** |
 | Oltre la soglia di 48 punti | **2** |
 
 ## Da dove viene la soglia
@@ -23,7 +23,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | ---: | ---: |
 | 0 | 1 |
 | 2 | 87 |
-| 3 | 7 |
+| 3 | 8 |
 | 4 | 32 |
 | 5 | 2 |
 | 6 | 15 |
@@ -97,6 +97,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/design_system/components/segno_della_provenienza.dart` | 1 | 0 |
 | `lib/features/account/notifiche_screen.dart` | 1 | 0 |
 | `lib/features/calendario/calendario_degli_eventi_screen.dart` | 1 | 0 |
+| `lib/features/cerchio/la_tendina_del_cerchio.dart` | 1 | 0 |
 | `lib/features/debug/app_check_debug_view.dart` | 1 | 0 |
 | `lib/features/horoscope/le_ore_del_giorno_view.dart` | 1 | 0 |
 | `lib/features/intro/sequenza_intro.dart` | 1 | 0 |

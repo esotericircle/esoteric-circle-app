@@ -16,6 +16,7 @@ import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
+import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../services/app_services.dart';
 import '../synastry/podio_del_gemello.dart';
 import '../synastry/sinastria_share_card.dart';
@@ -107,7 +108,8 @@ class _ConfrontoDelCieloScreenState extends State<ConfrontoDelCieloScreen> {
     try {
       final id = context.read<ProfileController>().identity;
       return id.isExample ? null : id.sunSign;
-    } catch (_) {
+    } catch (senzaQuelDato) {
+      // Il dato e' facoltativo: senza, si va avanti col ripiego.
       return null;
     }
   }
@@ -177,7 +179,8 @@ class _ConfrontoDelCieloScreenState extends State<ConfrontoDelCieloScreen> {
     try {
       final id = context.read<ProfileController>().identity;
       return id.isExample ? null : id.birthDate;
-    } catch (_) {
+    } catch (senzaQuelDato) {
+      // Il dato e' facoltativo: senza, si va avanti col ripiego.
       return null;
     }
   }
@@ -310,11 +313,15 @@ class _IlConfronto extends StatelessWidget {
             ],
           ),
           const SizedBox(height: SpacingTokens.md),
-          Text(confronto.rigaDelGiorno(mio, suo),
-              key: const Key('confronto_riga_del_giorno'),
+          Center(
+            key: const Key('confronto_riga_del_giorno'),
+            child: ParagrafiDiLettura(
+              testo: confronto.rigaDelGiorno(mio, suo),
+              stile: TypographyTokens.lettura()
+                  .copyWith(color: ColorTokens.textPrimary, height: 1.45),
               textAlign: TextAlign.center,
-              style: TypographyTokens.lettura()
-                  .copyWith(color: ColorTokens.textPrimary, height: 1.45)),
+            ),
+          ),
           const SizedBox(height: SpacingTokens.sm),
           Text(IlConfrontoDelCielo.sulSegno,
               textAlign: TextAlign.center,

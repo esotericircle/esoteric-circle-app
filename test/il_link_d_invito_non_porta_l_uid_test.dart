@@ -66,19 +66,20 @@ void main() {
   group('GUARDIA EY.15: il link d\'invito lo mette la porta', () {
     tearDown(() => PortaDellaCondivisione.codiceDellInvito = null);
 
-    test('dove il testo nomina il Cerchio, il link col codice ne prende il '
+    test(
+        'dove il testo nomina il Cerchio, il link col codice ne prende il '
         'posto', () async {
       PortaDellaCondivisione.codiceDellInvito = () async => 'AB12CD34';
-      final con = await PortaDellaCondivisione.conIlLink(
-          'Scopri il tuo: ${Brand.url}');
-      expect(con, 'Scopri il tuo: ${Brand.url}/i/AB12CD34');
+      final con =
+          await PortaDellaCondivisione.conIlLink('Scopri il tuo: ${Brand.url}');
+      expect(con, 'Scopri il tuo: ${Brand.urlDegliInviti}/i/AB12CD34');
       final porta = await PortaDellaCondivisione.conIlLink(
           'Vieni: ${PortaDellaCondivisione.segnoDellaPorta('aura')}');
-      expect(porta, 'Vieni: ${Brand.url}/i/AB12CD34.aura');
+      expect(porta, 'Vieni: ${Brand.urlDegliInviti}/i/AB12CD34.aura');
       final senza = await PortaDellaCondivisione.conIlLink('Guarda che carta');
-      expect(senza, 'Guarda che carta\n${Brand.url}/i/AB12CD34');
+      expect(senza, 'Guarda che carta\n${Brand.urlDegliInviti}/i/AB12CD34');
       final nulla = await PortaDellaCondivisione.conIlLink(null);
-      expect(nulla, '${Brand.url}/i/AB12CD34');
+      expect(nulla, '${Brand.urlDegliInviti}/i/AB12CD34');
       print('EY.15 LINK NELLA CARD: "$con"');
     });
 
@@ -94,7 +95,7 @@ void main() {
 
     test('il link porta solo il codice opaco, e il codice torna indietro', () {
       final link = IlCerchioSociale.linkDi('AB12CD34');
-      expect(link, '${Brand.url}/i/AB12CD34');
+      expect(link, '${Brand.urlDegliInviti}/i/AB12CD34');
       expect(IlCerchioSociale.codiceDaUnLink(link), 'AB12CD34');
       expect(IlCerchioSociale.codiceDaUnLink('esotericircle://i/K7Q2M9'),
           'K7Q2M9');
@@ -105,7 +106,8 @@ void main() {
               '${Brand.url}?invito=kJ3nX9aQ2bYt7Lm4Pq8Rs1Uv0WxZ.aura'),
           isNull);
       // Il riscatto lo capisce, nelle due forme.
-      expect(codiceDaCioCheEStatoIncollato('Ciao! $link.aura'), 'AB12CD34.aura');
+      expect(
+          codiceDaCioCheEStatoIncollato('Ciao! $link.aura'), 'AB12CD34.aura');
     });
   });
 }

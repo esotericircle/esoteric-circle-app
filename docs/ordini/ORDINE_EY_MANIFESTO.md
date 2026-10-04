@@ -123,7 +123,7 @@ ancora illimitato all'Illuminato, contro la decisione del 29 agosto 2026: lo
 decide il fondatore.
 
 DOMANDA: approvazione integrale della tabella del punto 8, 4 ottobre 2026
-PROVA: test/i_numeri_del_cerchio_sociale_test.dart, functions/src/sociale.test.ts
+PROVA: test/i_numeri_del_cerchio_sociale_test.dart
 MISURA: posti del server uguali alla matrice 4 piani su 4; posti senza limite 0 su 4
 ACCETTAZIONE: nella pagina dei Piani compare "Amici nel Cerchio: 3, 15, 50, 150"
 
@@ -239,7 +239,7 @@ guardia che enumera le callable e' stata estesa al file nuovo (13 diventano 29)
 e pretende il tetto in ogni porta sociale. App Check non e' stato toccato.
 
 DOMANDA: Sicurezza_dell_App_Esoteric_Circle.md, sezione 3
-PROVA: test/il_cerchio_custodisce_il_cammino_test.dart, functions/src/sociale.test.ts
+PROVA: test/il_cerchio_custodisce_il_cammino_test.dart
 MISURA: porte sociali 16, senza tetto 0; callable contate 29
 ACCETTAZIONE: nessuna a video: la si legge nel rapporto
 

@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../archetypes/archetype_history.dart';
+import '../cerchio/il_cerchio_sociale.dart';
 import '../arts/arti_preferite.dart';
 import '../astro/natal_chart_controller.dart';
 import '../astro/zodiac_controller.dart';
@@ -126,6 +127,9 @@ class DimenticanzaDellaMemoriaViva {
     // l'archetipo scoperto, il saluto dei Maestri, le arti preferite e il
     // fatto stesso di aver gia' fatto l'onboarding.
     prova(() => context.read<ArchetypeHistory>().dimenticaChiSeNeVa());
+    // **IL CERCHIO SOCIALE, ordine EY**: il profilo, gli amici, i segni e
+    // il codice del link di chi se ne va.
+    prova(() => context.read<IlCerchioSociale>().dimenticaChiSeNeVa());
     prova(() => context.read<GreetingController>().dimenticaChiSeNeVa());
     prova(() => context.read<ArtiPreferiteController>().dimenticaChiSeNeVa());
     prova(() => context.read<OnboardingController>().dimenticaChiSeNeVa());

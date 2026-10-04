@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/cerchio/il_cerchio_sociale.dart';
 import '../../core/cerchio/l_arte_di_adesso.dart';
 import '../../design_system/theme/maestro_palette.dart';
+import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -27,15 +28,28 @@ import 'scheda_dell_amico_screen.dart';
 Future<void> apriLaTendinaDelCerchio(BuildContext context) {
   final sociale = context.read<IlCerchioSociale>();
   sociale.caricaLaTendina();
-  return showGeneralDialog<void>(
+  return dialogoGeneraleDelCerchio<void>(
     context: context,
     barrierDismissible: true,
     barrierLabel: 'Chiudi la tendina',
     barrierColor: const Color(0xAA05030F),
     transitionDuration: const Duration(milliseconds: 420),
+    // Il fondo e' trasparente apposta: il velo lo mette la porta, e la
+    // tendina porta il suo. Il tocco fuori dalla tendina la chiude.
     pageBuilder: (c, _, __) => ChangeNotifierProvider.value(
       value: sociale,
-      child: const _LaTendina(),
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(children: [
+          Positioned.fill(
+            child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
+              onTap: () => Navigator.of(c).pop(),
+            ),
+          ),
+          const _LaTendina(),
+        ]),
+      ),
     ),
     transitionBuilder: (c, animazione, _, figlio) {
       final curva =
@@ -117,7 +131,7 @@ class _LaTendina extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(top: SpacingTokens.sm),
                           child: Text(
-                              'Sei invisibile: nessuno ti vede, e tu vedi gli '
+                              'Sei invisibile: nessuno ti vede e tu vedi gli '
                               'altri.',
                               key: const Key('tendina_invisibile'),
                               style: TypographyTokens.didascalia()

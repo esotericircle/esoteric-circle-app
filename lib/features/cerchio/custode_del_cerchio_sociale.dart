@@ -2,7 +2,6 @@ import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/cerchio/il_cerchio_sociale.dart';
-import '../../core/condivisione/porta_della_condivisione.dart';
 import '../../core/identity/birth_identity.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/maestro/maestro_controller.dart';
@@ -17,8 +16,6 @@ import '../push/custode_montato.dart';
 ///    Cammino e la maggiore eta';
 /// 2. da' al server il recapito delle notifiche, se il permesso c'e' gia',
 ///    perche' i segni arrivino anche a chi non ha acceso i Doni;
-/// 3. insegna alla porta della condivisione dove prendere il codice del
-///    link d'invito (EY.15).
 class CustodeDelCerchioSociale extends StatefulWidget {
   const CustodeDelCerchioSociale({
     super.key,
@@ -55,15 +52,21 @@ class _CustodeDelCerchioSocialeState extends State<CustodeDelCerchioSociale> {
     try {
       final p = context.read<ProfileController>();
       identita = p.identity.isExample ? null : p.identity;
-    } catch (_) {}
+    } catch (senzaQuelDato) {
+      // Il dato e' facoltativo: senza, si va avanti col ripiego.
+    }
     try {
       gradino = context.read<DiarioDelCammino>().progressoDelCammino.accesi;
-    } catch (_) {}
+    } catch (senzaQuelDato) {
+      // Il dato e' facoltativo: senza, si va avanti col ripiego.
+    }
     var maestro = await IlCerchioSociale.ilMaestroRicordato();
     if (maestro == null && mounted) {
       try {
         maestro = context.read<MaestroController>().activeMaestro;
-      } catch (_) {}
+      } catch (senzaQuelDato) {
+        // Il dato e' facoltativo: senza, si va avanti col ripiego.
+      }
     }
     final firma =
         '${identita?.birthDate.toIso8601String()}|${maestro?.name}|$gradino';
@@ -82,24 +85,15 @@ class _CustodeDelCerchioSocialeState extends State<CustodeDelCerchioSociale> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    // **LA CARD PORTA IL LINK, ordine EY voce 15**: la porta unica della
-    // condivisione chiede il codice qui, e lo aggiunge lei.
-    PortaDellaCondivisione.codiceDellInvito = () async {
-      final sociale = _sociale();
-      return sociale?.codiceDelLink();
-    };
-  }
-
-  @override
   Widget build(BuildContext context) {
     // Si riascoltano i dati che il profilo pubblico porta: un gradino nuovo
     // o la nascita corretta arrivano al Cerchio da soli.
     try {
       context.watch<ProfileController>();
       context.watch<DiarioDelCammino>();
-    } catch (_) {}
+    } catch (senzaQuelDato) {
+      // Il dato e' facoltativo: senza, si va avanti col ripiego.
+    }
     WidgetsBinding.instance.addPostFrameCallback((_) => _sincronizza());
     return widget.child;
   }

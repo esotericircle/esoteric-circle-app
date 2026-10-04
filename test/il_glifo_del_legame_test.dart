@@ -1,6 +1,5 @@
 // ignore_for_file: avoid_print
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/cerchio/il_glifo_del_legame.dart';

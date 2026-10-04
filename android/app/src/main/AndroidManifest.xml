@@ -109,6 +109,11 @@
                 <data android:scheme="https"
                       android:host="esotericircle.app"
                       android:pathPrefix="/i/"/>
+                <!-- Dove i link d'invito partono oggi: Brand.urlDegliInviti,
+                     finche' il dominio non passa a Firebase Hosting. -->
+                <data android:scheme="https"
+                      android:host="esoteric-circle.web.app"
+                      android:pathPrefix="/i/"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>

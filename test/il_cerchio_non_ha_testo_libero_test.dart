@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+import 'cardinale_minimo.dart';
+
 /// **ZERO TESTO LIBERO NEL MOTORE SOCIALE, ordine EY voce 10 punto 1.**
 ///
 /// In nessun punto del motore sociale una persona scrive una frase che
@@ -34,13 +36,14 @@ void main() {
     final colpevoli = <String>[];
     for (final f in file) {
       final s = f.readAsStringSync();
-      for (final m in RegExp(r'\b(TextField|TextFormField|EditableText|CupertinoTextField)\(')
+      for (final m in RegExp(
+              r'\b(TextField|TextFormField|EditableText|CupertinoTextField)\(')
           .allMatches(s)) {
         campi++;
         final dopo = s.substring(m.start, (m.start + 700).clamp(0, s.length));
         final chiave = RegExp(r"Key\('(\w+)'\)").firstMatch(dopo)?.group(1);
-        final massimo =
-            int.tryParse(RegExp(r'maxLength: (\d+)').firstMatch(dopo)?.group(1) ?? '');
+        final massimo = int.tryParse(
+            RegExp(r'maxLength: (\d+)').firstMatch(dopo)?.group(1) ?? '');
         if (chiave == null || !ammessi.containsKey(chiave)) {
           colpevoli.add('${f.path}: campo $chiave non dichiarato');
         } else if (massimo == null || massimo > ammessi[chiave]!) {
@@ -48,6 +51,9 @@ void main() {
         }
       }
     }
+    cardinaleMinimo(file.length, 8,
+        cosa: 'file delle schermate sociali',
+        perche: 'Su una cartella vuota nessun campo sarebbe colpevole.');
     print('EY.10 TESTO LIBERO: ${file.length} file sociali, $campi campi, '
         'colpevoli ${colpevoli.length}');
     expect(campi, ammessi.length);

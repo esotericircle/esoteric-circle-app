@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../services/server/porta_del_cerchio.dart';
 import '../astro/zodiac.dart';
 import '../brand/brand.dart';
+import '../condivisione/porta_della_condivisione.dart';
 import '../identity/birth_identity.dart';
 import '../maestro/maestro.dart';
 import 'l_arte_di_adesso.dart';
@@ -360,7 +361,11 @@ class EsitoDelGesto {
 /// server con il suo tetto (EY.16), e qui si tiene solo cio' che il server
 /// ha risposto. Nessun gesto si compie sul telefono da solo.
 class IlCerchioSociale extends ChangeNotifier {
-  IlCerchioSociale({required PortaDelCerchio porta}) : _porta = porta;
+  IlCerchioSociale({required PortaDelCerchio porta}) : _porta = porta {
+    // **LA CARD PORTA IL LINK, ordine EY voce 15**: la porta unica della
+    // condivisione chiede il codice qui, e lo aggiunge lei.
+    PortaDellaCondivisione.codiceDellInvito = codiceDelLink;
+  }
 
   final PortaDelCerchio _porta;
 
@@ -490,7 +495,9 @@ class IlCerchioSociale extends ChangeNotifier {
       try {
         final p = await SharedPreferences.getInstance();
         await p.remove(chiaveDelNomeProposto);
-      } catch (_) {}
+      } catch (senzaQuelDato) {
+        // Il dato e' facoltativo: senza, si va avanti col ripiego.
+      }
       notifyListeners();
     }
     return esito;
@@ -539,7 +546,8 @@ class IlCerchioSociale extends ChangeNotifier {
   /// Il link d'invito di un codice: sul dominio del progetto, accanto a
   /// `/entra`. **Nel link c'e' solo il codice opaco**, mai l'uid.
   static String linkDi(String codice, {Maestro? maestro}) =>
-      '${Brand.url}/i/$codice${maestro == null ? '' : '.${maestro.name}'}';
+      '${Brand.urlDegliInviti}/i/$codice'
+      '${maestro == null ? '' : '.${maestro.name}'}';
 
   /// IL CODICE DA UN LINK O DA UN CODICE INQUADRATO, oppure nullo. Le forme:
   /// `https://esotericircle.app/i/CODICE(.maestro)`, `esotericircle://i/CODICE`
@@ -555,7 +563,8 @@ class IlCerchioSociale extends ChangeNotifier {
     } else if (uri != null &&
         uri.pathSegments.length >= 2 &&
         uri.pathSegments.first == 'i' &&
-        testo.startsWith(Brand.url)) {
+        (testo.startsWith(Brand.url) ||
+            testo.startsWith(Brand.urlDegliInviti))) {
       corpo = uri.pathSegments[1];
     } else if (RegExp(r'^[0-9A-Za-z]{6}$|^[0-9A-Za-z]{8}$').hasMatch(testo)) {
       corpo = testo;
@@ -701,6 +710,26 @@ class IlCerchioSociale extends ChangeNotifier {
       'quanti': quanti,
       'idMovimento': PortaDelCerchio.nuovoIdentificativo('regalo'),
     }));
+  }
+
+  /// **CHI SE NE VA PORTA VIA ANCHE IL SUO CERCHIO**: il profilo, gli
+  /// amici, i segni in memoria, il codice del link, il nome proposto e il
+  /// Maestro di riferimento. Sul server se ne vanno con la cancellazione.
+  Future<void> dimenticaChiSeNeVa() async {
+    _profilo = null;
+    _cerchio = const IlMioCerchio();
+    _tendina = null;
+    _codiceDelLink = null;
+    _scadenzaDelLink = null;
+    try {
+      final p = await SharedPreferences.getInstance();
+      await p.remove(chiaveDelNomeProposto);
+      await p.remove(chiaveDelMaestro);
+    } catch (senzaDisco) {
+      // Le chiavi stanno sotto il prefisso `cerchio.` di CioCheETuo, che
+      // le toglie comunque con tutte le altre.
+    }
+    notifyListeners();
   }
 
   /// Il recapito delle notifiche, quando il telefono ha gia' il permesso.
