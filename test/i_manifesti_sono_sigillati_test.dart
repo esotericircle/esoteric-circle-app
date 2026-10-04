@@ -346,6 +346,10 @@ void main() {
     // ottobre 2026, dal pezzo unico dell'ordine (tutti gli amici nella
     // tendina).
     'FB': 3,
+    // FC: nove voci, contate coi titoli "## VOCE FC." del manifesto il 4
+    // ottobre 2026: otto dai tre pezzi dell'ordine, piu' la FC.09
+    // dell'Aggiunta 1 (il Cerchio si vede dalla rubrica degli amici).
+    'FC': 9,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,
