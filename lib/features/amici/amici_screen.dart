@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/amici/amici_offline.dart';
 import '../../core/astro/city_catalog.dart';
+import '../../core/cerchio/il_cerchio_sociale.dart';
 import '../../core/astro/ricerca_del_luogo.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/entitlement/entitlement_service.dart';
@@ -24,7 +25,7 @@ import '../../design_system/transizioni/velo_del_cerchio.dart';
 import '../pricing/upgrade_invite.dart';
 import '../../design_system/components/cosmos_background.dart';
 import '../horoscope/oroscopo_screen.dart';
-import 'il_ponte_verso_il_cerchio.dart';
+import 'gli_amici_online.dart';
 
 /// **GLI AMICI OFFLINE, ordine ES voce 12.**
 ///
@@ -37,8 +38,8 @@ class AmiciScreen extends StatefulWidget {
   const AmiciScreen(
       {super.key, this.amici, this.perScegliere = false, this.adesso});
 
-  /// L'istante di adesso, per le prove della riga del Cerchio (ordine FC
-  /// voce 09): la freschezza della tendina si misura su di lui.
+  /// L'istante di adesso, per le prove degli amici online (ordine FC voce
+  /// 09): la freschezza della tendina si misura su di lui.
   final DateTime? adesso;
 
   /// Il contenitore, per le prove; nell'app se ne crea uno e si carica.
@@ -67,11 +68,59 @@ class AmiciScreen extends StatefulWidget {
 class _AmiciScreenState extends State<AmiciScreen> {
   late final AmiciOffline _amici = widget.amici ?? AmiciOffline();
 
+  /// **OFFLINE O ONLINE, ordine FC voce 09**: di default Offline, gli amici
+  /// scritti dalla persona. Il perche' e il costo stanno in
+  /// `gli_amici_online.dart`.
+  bool _suOnline = false;
+
+  /// La tendina chiesta da questa apertura: in attesa, arrivata, o la riga
+  /// del perche' no.
+  bool _inAttesa = false;
+  bool _arrivataQui = false;
+  String? _rigaDelSilenzio;
+
+  DateTime get _adesso => widget.adesso ?? DateTime.now();
+
+  /// Il Cerchio sociale, se c'e' (una prova che monta la rubrica da sola
+  /// non lo ha: allora i due pulsanti non ci sono).
+  IlCerchioSociale? _sociale(BuildContext context, {bool ascolta = false}) {
+    try {
+      return Provider.of<IlCerchioSociale>(context, listen: ascolta);
+    } on ProviderNotFoundException catch (senzaCerchio) {
+      debugPrint('Gli amici online: nessun Cerchio sociale. $senzaCerchio');
+      return null;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
     if (!_amici.caricati) unawaited(_amici.carica());
     _amici.addListener(_aggiorna);
+    final s = _sociale(context);
+    if (s != null && GliAmiciOnline.vaChiesta(s, _adesso)) {
+      // Dentro initState lo stato si scrive senza setState.
+      _inAttesa = true;
+      unawaited(_chiediLaTendina(s, apertura: true));
+    }
+  }
+
+  /// Al piu' una chiamata per apertura, e una per ogni Riprova toccato.
+  Future<void> _chiediLaTendina(IlCerchioSociale s,
+      {bool apertura = false}) async {
+    if (!apertura) {
+      setState(() {
+        _inAttesa = true;
+        _rigaDelSilenzio = null;
+      });
+    }
+    final esito = await s.caricaLaTendina();
+    if (!mounted) return;
+    setState(() {
+      _inAttesa = false;
+      _arrivataQui = esito.ok;
+      _rigaDelSilenzio = esito.ok ? null : esito.riga;
+    });
   }
 
   void _aggiorna() {
@@ -142,6 +191,11 @@ class _AmiciScreenState extends State<AmiciScreen> {
     final palette = MaestroPalette.forKey(const ThemeKey.of(Maestro.medora));
     final tier = context.watch<EntitlementService>().tier;
     final posti = _amici.posti(tier);
+    final sociale = _sociale(context, ascolta: true);
+    final quanti = sociale == null
+        ? null
+        : GliAmiciOnline.quanti(sociale, _adesso, arrivataQui: _arrivataQui);
+    final online = sociale != null && _suOnline;
     return Scaffold(
       backgroundColor: palette.deepest,
       extendBodyBehindAppBar: true,
@@ -163,85 +217,105 @@ class _AmiciScreenState extends State<AmiciScreen> {
             key: const Key('amici_lista'),
             padding: const EdgeInsets.all(SpacingTokens.lg),
             children: [
-              // **IL PONTE VERSO IL CERCHIO, ordine FC voce 09**: in cima,
-              // una riga sola. Il perche' sta in `il_ponte_verso_il_cerchio.dart`.
-              IlPonteVersoIlCerchio(adesso: widget.adesso),
-              Text(
-                  'Il nome e la nascita di chi ti sta a cuore: scopri il suo segno '
-                  'nelle tre tradizioni e mandagli il suo oroscopo del giorno. I '
-                  'dati restano sul tuo telefono.',
-                  style: TypographyTokens.corpo()
-                      .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
-              const SizedBox(height: SpacingTokens.lg),
-              if (tier == Tier.free) ...[
-                _Bottone(
-                  chiave: const Key('amici_invito_al_piano'),
-                  etichetta: 'Aggiungi un amico',
+              // **OFFLINE E ONLINE, ordine FC voce 09** nella forma del
+              // fondatore: due pulsanti in cima, Offline scelto di default.
+              if (sociale != null)
+                IlSelettoreDegliAmici(
+                  suOnline: _suOnline,
+                  quanti: quanti,
                   palette: palette,
-                  onTap: _invita,
+                  onOffline: () => setState(() => _suOnline = false),
+                  onOnline: () => setState(() => _suOnline = true),
                 ),
-              ] else ...[
-                for (final a in _amici.tutti)
-                  Card(
-                    color: palette.surfaceElevated.withValues(alpha: 0.8),
-                    child: ListTile(
-                      key: Key('amico_${a.id}'),
-                      enableFeedback: false,
-                      title: Text(a.nome,
-                          style: TypographyTokens.titoloScheda()
-                              .copyWith(color: palette.goldSoft)),
-                      subtitle: Text(
-                          '${Zodiac.fromDate(a.nascita).italianName}, nascita del '
-                          '${a.nascita.day}/${a.nascita.month}/${a.nascita.year}',
-                          style: TypographyTokens.didascalia()
-                              .copyWith(color: ColorTokens.textSecondary)),
-                      trailing: IconButton(
-                        tooltip: 'Togli',
-                        icon: Icon(Icons.delete_outline_rounded,
-                            color: palette.goldSoft),
-                        onPressed: () => _togli(a),
-                      ),
-                      onTap: () => widget.perScegliere
-                          ? Navigator.of(context).pop(a)
-                          // Ordine FC voce 02: l'oroscopo dell'amico e'
-                          // l'Oroscopo, col soggetto impostato su di lui.
-                          : Navigator.of(context)
-                              .push(OroscopoScreen.perUnAmico(a)),
-                    ),
-                  ),
-                const SizedBox(height: SpacingTokens.md),
+              if (online)
+                ElencoDegliAmiciOnline(
+                  key: const Key('amici_elenco_online'),
+                  sociale: sociale,
+                  inAttesa: _inAttesa,
+                  valida: _arrivataQui ||
+                      GliAmiciOnline.tendinaFresca(sociale, _adesso),
+                  riga: _rigaDelSilenzio,
+                  onRiprova: () => unawaited(_chiediLaTendina(sociale)),
+                  palette: palette,
+                )
+              else ...[
                 Text(
-                    posti == null
-                        ? 'Col tuo piano gli amici non hanno limite.'
-                        : _amici.tutti.length > posti
-                            // **CHI NE HA GIA' DI PIU' NON LE PERDE**, ordine EZ
-                            // voce 06: cancellare i dati di una persona per un
-                            // limite nuovo sarebbe un danno che nessun limite
-                            // giustifica. Le tiene tutte e non ne aggiunge.
-                            ? 'Hai ${_amici.tutti.length} amici, oltre i $posti '
-                                'del tuo piano: restano tutti, ma non se ne '
-                                'aggiungono altri.'
-                            : 'Amici ${_amici.tutti.length} su $posti.',
-                    key: const Key('amici_posti'),
-                    textAlign: TextAlign.center,
-                    style: TypographyTokens.didascalia()
-                        .copyWith(color: ColorTokens.textSecondary)),
-                const SizedBox(height: SpacingTokens.sm),
-                if (_amici.siPuoAggiungere(tier))
+                    'Il nome e la nascita di chi ti sta a cuore: scopri il suo segno '
+                    'nelle tre tradizioni e mandagli il suo oroscopo del giorno. I '
+                    'dati restano sul tuo telefono.',
+                    style: TypographyTokens.corpo().copyWith(
+                        color: ColorTokens.textSecondary, height: 1.4)),
+                const SizedBox(height: SpacingTokens.lg),
+                if (tier == Tier.free) ...[
                   _Bottone(
-                    chiave: const Key('amici_aggiungi'),
+                    chiave: const Key('amici_invito_al_piano'),
                     etichetta: 'Aggiungi un amico',
                     palette: palette,
-                    onTap: () => _aggiungi(tier),
-                  )
-                // Oltre il numero del piano un posto comprato non basterebbe a
-                // far entrare nessuno: niente spesa che non porta a niente.
-                else if (posti == null || _amici.tutti.length <= posti)
-                  PortaDellaSpesa(
-                    voce: ListinoDegliEos.amicoInPiu,
-                    etichetta: 'Un posto in più',
-                    suSpesaFatta: () => unawaited(_amici.unPostoInPiu()),
+                    onTap: _invita,
                   ),
+                ] else ...[
+                  for (final a in _amici.tutti)
+                    Card(
+                      color: palette.surfaceElevated.withValues(alpha: 0.8),
+                      child: ListTile(
+                        key: Key('amico_${a.id}'),
+                        enableFeedback: false,
+                        title: Text(a.nome,
+                            style: TypographyTokens.titoloScheda()
+                                .copyWith(color: palette.goldSoft)),
+                        subtitle: Text(
+                            '${Zodiac.fromDate(a.nascita).italianName}, nascita del '
+                            '${a.nascita.day}/${a.nascita.month}/${a.nascita.year}',
+                            style: TypographyTokens.didascalia()
+                                .copyWith(color: ColorTokens.textSecondary)),
+                        trailing: IconButton(
+                          tooltip: 'Togli',
+                          icon: Icon(Icons.delete_outline_rounded,
+                              color: palette.goldSoft),
+                          onPressed: () => _togli(a),
+                        ),
+                        onTap: () => widget.perScegliere
+                            ? Navigator.of(context).pop(a)
+                            // Ordine FC voce 02: l'oroscopo dell'amico e'
+                            // l'Oroscopo, col soggetto impostato su di lui.
+                            : Navigator.of(context)
+                                .push(OroscopoScreen.perUnAmico(a)),
+                      ),
+                    ),
+                  const SizedBox(height: SpacingTokens.md),
+                  Text(
+                      posti == null
+                          ? 'Col tuo piano gli amici non hanno limite.'
+                          : _amici.tutti.length > posti
+                              // **CHI NE HA GIA' DI PIU' NON LE PERDE**, ordine EZ
+                              // voce 06: cancellare i dati di una persona per un
+                              // limite nuovo sarebbe un danno che nessun limite
+                              // giustifica. Le tiene tutte e non ne aggiunge.
+                              ? 'Hai ${_amici.tutti.length} amici, oltre i $posti '
+                                  'del tuo piano: restano tutti, ma non se ne '
+                                  'aggiungono altri.'
+                              : 'Amici ${_amici.tutti.length} su $posti.',
+                      key: const Key('amici_posti'),
+                      textAlign: TextAlign.center,
+                      style: TypographyTokens.didascalia()
+                          .copyWith(color: ColorTokens.textSecondary)),
+                  const SizedBox(height: SpacingTokens.sm),
+                  if (_amici.siPuoAggiungere(tier))
+                    _Bottone(
+                      chiave: const Key('amici_aggiungi'),
+                      etichetta: 'Aggiungi un amico',
+                      palette: palette,
+                      onTap: () => _aggiungi(tier),
+                    )
+                  // Oltre il numero del piano un posto comprato non basterebbe a
+                  // far entrare nessuno: niente spesa che non porta a niente.
+                  else if (posti == null || _amici.tutti.length <= posti)
+                    PortaDellaSpesa(
+                      voce: ListinoDegliEos.amicoInPiu,
+                      etichetta: 'Un posto in più',
+                      suSpesaFatta: () => unawaited(_amici.unPostoInPiu()),
+                    ),
+                ],
               ],
             ],
           ),

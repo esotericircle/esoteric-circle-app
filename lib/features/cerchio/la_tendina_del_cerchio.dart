@@ -163,7 +163,7 @@ class _LaTendina extends StatelessWidget {
                                   style: TypographyTokens.corpo().copyWith(
                                       color: ColorTokens.textSecondary)),
                             for (final p in t.amiciPresenti)
-                              _AmicoPresente(persona: p),
+                              AmicoPresente(persona: p),
                             const _Piano('Il Cerchio adesso'),
                             _LeArti(perArte: t.perArte),
                             if (t.somiglianti.isNotEmpty) ...[
@@ -207,9 +207,22 @@ class _Piano extends StatelessWidget {
       );
 }
 
-class _AmicoPresente extends StatelessWidget {
-  const _AmicoPresente({required this.persona});
+/// **UN AMICO PRESENTE**, la riga col semaforino e i due gesti. La usano la
+/// tendina e, dall'ordine FC voce 09, l'elenco Online della rubrica degli
+/// amici: la stessa riga in due posti, scritta una volta.
+class AmicoPresente extends StatelessWidget {
+  const AmicoPresente(
+      {super.key, required this.persona, this.chiudiPrima = true});
   final PersonaDelCerchio persona;
+
+  /// Nella tendina il tocco la chiude prima di aprire; nella rubrica no.
+  final bool chiudiPrima;
+
+  void _apri(BuildContext context, Route<void> rotta) {
+    final nav = Navigator.of(context);
+    if (chiudiPrima) nav.pop();
+    nav.push(rotta);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -219,10 +232,7 @@ class _AmicoPresente extends StatelessWidget {
             persona;
     return RigaDellaPersona(
       persona: persona.conSemaforo(Semaforo.verde),
-      onTap: () {
-        Navigator.of(context).pop();
-        Navigator.of(context).push(SchedaDellAmicoScreen.route(completo));
-      },
+      onTap: () => _apri(context, SchedaDellAmicoScreen.route(completo)),
       azioni: [
         IconButton(
           visualDensity: VisualDensity.compact,
@@ -230,10 +240,8 @@ class _AmicoPresente extends StatelessWidget {
           tooltip: 'Manda un segno',
           icon:
               Icon(Icons.auto_awesome, color: MaestroPalette.neutral.goldSoft),
-          onPressed: () {
-            Navigator.of(context).pop();
-            Navigator.of(context).push(SchedaDellAmicoScreen.route(completo));
-          },
+          onPressed: () =>
+              _apri(context, SchedaDellAmicoScreen.route(completo)),
         ),
         IconButton(
           visualDensity: VisualDensity.compact,
@@ -241,10 +249,8 @@ class _AmicoPresente extends StatelessWidget {
           tooltip: 'Confronta i cieli',
           icon: Icon(Icons.join_inner_rounded,
               color: MaestroPalette.neutral.goldSoft),
-          onPressed: () {
-            Navigator.of(context).pop();
-            Navigator.of(context).push(ConfrontoDelCieloScreen.route(completo));
-          },
+          onPressed: () =>
+              _apri(context, ConfrontoDelCieloScreen.route(completo)),
         ),
       ],
     );
