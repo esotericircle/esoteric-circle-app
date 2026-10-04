@@ -7,11 +7,18 @@ Regola A: `docs/collaudo/EY/regola_a_ey.txt`. Anteprime:
 
 ## LE VOCI CHIUSE, con la prova di ciascuna
 
+- EY.01, lo pseudonimo e il sigillo: docs/collaudo/EY/realme/07_nome_riservato.png
+- EY.03, il menu' del profilo: docs/collaudo/EY/realme/18_icona_scelta_toro.png
 - EY.07, quanti amici per piano: test/i_numeri_del_cerchio_sociale_test.dart
 - EY.16, il tetto per identita' sulle porte sociali: test/il_cerchio_custodisce_il_cammino_test.dart
 
-Le altre quindici sono APERTE IN ATTESA DI VERIFICA (si chiudono guardate a
-video sul Realme) oppure APERTE su una decisione del fondatore (EY.09, EY.12).
+Le altre tredici sono APERTE IN ATTESA DI VERIFICA oppure APERTE su una
+decisione del fondatore (EY.09, EY.12). **Undici di loro chiedono due
+persone**: il legame, i semaforini, la tendina con gli amici presenti, i
+segni, le reazioni, i doni, il confronto, il glifo, il link aperto da un
+altro telefono. Con un telefono solo si vede la propria meta' (catture
+01-18 in `docs/collaudo/EY/realme/`): si chiudono col secondo telefono del
+fondatore, seguendo le frasi di collaudo piu' sotto.
 
 ## LE PREMESSE ABBATTUTE
 
@@ -64,9 +71,76 @@ dell'invito resta di sessanta. Per questo le voci che si vedono sul telefono
 sono APERTE IN ATTESA DI VERIFICA: si chiudono quando le avro' guardate sul
 Realme con le funzioni pubblicate.
 
+**Le funzioni e l'hosting li ha pubblicati il fondatore il 4 ottobre 2026**
+coi due comandi qui sotto; verificato in sola lettura con gcloud: le sedici
+porte nuove ACTIVE alle 04:52Z, e la pagina del link risponde su
+`esoteric-circle.web.app/i/...`. Da li' il collaudo sul Realme, nella
+sezione che segue.
+
+## IL COLLAUDO SUL REALME, e cio' che ha trovato
+
+Realme 767f596c, build 2296, catture in `docs/collaudo/EY/realme/` (01-18).
+Visto con un telefono solo: il sigillo W9TP, il nome riservato rifiutato e
+il libero accettato, "0 amici su 150 posti", il codice da inquadrare
+opaco (712HS9) col conto alla rovescia dei cinque minuti, il foglio di
+condivisione che parte da "Manda il link", la tendina dal tocco su
+Online, l'icona cambiata e tornata dal server.
+
+Cio' che ha trovato, ognuno col suo padre (Regola C):
+
+- **Il tocco su "Online" non apriva la tendina** (EY.08). La barra vive
+  sopra il Navigator e la tendina partiva da quel contesto: il dialogo
+  moriva in silenzio. Prove e anteprime montavano la tendina da sola e non
+  potevano vederlo. Curato col contesto del navigatore; la prova
+  `test/la_tendina_si_apre_dalla_barra_test.dart` monta l'app intera e
+  tocca la barra vera, rossa col difetto rimesso (A21).
+- **"Ancora senza nome" per chi era gia' nel Cerchio** (EY.01): il nome
+  si proponeva solo nell'onboarding. Adesso chi entra senza nome riceve il
+  nome iniziatico dalla sua nascita.
+- **I titoli troncati** ("Il tuo nome nel Cerc...", "Chiama nel tuo
+  Cerc...", EY.03 ed EY.04): accorciati in "Nome nel Cerchio" e "Chiama
+  nel Cerchio".
+- **I due pulsanti del codice viola e a capo** (EY.04): d'oro, uno sotto
+  l'altro, "Mostra il mio codice" e "Inquadra il suo codice".
+- **Lo sfondo nero delle schermate del Cerchio**, visto dal fondatore
+  sulle anteprime (EY.03, EY.04, EY.05, EY.13, EY.14): adesso il cielo
+  cosmico dell'app sotto ogni schermata, la Scaffold trasparente.
+- **I fogli neri** (EY.03, EY.04, EY.12): il foglio delle icone, la
+  richiesta di legame e il regalo degli Eos, col "Fatto" viola. Adesso
+  hanno il velo della tendina e i pulsanti d'oro (`fondoDelFoglio`).
+- **Il prefisso `cerchio.` senza strada** (EY.01), trovato dalla suite:
+  la proposta del nome e il Maestro del profilo non avevano una via ne'
+  nelle memorie custodite ne' nello scarico dei tuoi dati. Dichiarati.
+- **Il cancello di GitHub era rosso su analyze da prima di questo
+  ordine**: era rosso anche su `784dd20b`. Padre: ordine EW voce 04, il
+  banco del costo in `tool/` (un uso della porta dei banchi non
+  dichiarato e un const). Riparato.
+
+**Le frasi per il secondo telefono del fondatore**, una per voce:
+
+- EY.04: dal telefono A "Mostra il mio codice", dal B "Inquadra il suo
+  codice": sul B compare la richiesta col nome e l'icona di A, e il
+  legame nasce solo col tocco su "Entra nel suo Cerchio".
+- EY.05: sul telefono che ha mandato il link, l'amico appare arancione
+  finche' l'altro non accetta, poi verde; un blocco lo toglie dagli elenchi
+  senza che l'altro lo sappia.
+- EY.06 ed EY.15/EY.17: il link mandato da A, aperto dal B appena
+  installato e registrato: 150 Eos a tutti e due, e l'invito di A gia'
+  pronto sul B; il link non porta l'uid, solo il codice dopo `/i/`.
+- EY.08: con A e B amici e tutti e due nell'app, il tocco su Online mostra
+  l'altro fra i presenti con cosa sta facendo.
+- EY.10, EY.11, EY.12: A manda un segno, B risponde con una risposta o una
+  reazione; A manda un dono; i prezzi in Eos sono quelli del listino.
+- EY.13 ed EY.14: dalla scheda dell'amico, "Confronta i cieli di oggi" da
+  tutti e due i lati da' lo stesso numero; il glifo ha la stessa forma sui
+  due telefoni.
+- EY.02: la scheda di A vista dal B non porta mai nome vero, nascita,
+  luogo, email ne' foto.
+
 ## LE DECISIONI CHE RESTANO AL FONDATORE
 
-1. **La pubblicazione delle funzioni e dell'hosting** (il comando e' qui sotto).
+1. **La pubblicazione delle funzioni e dell'hosting**: fatta dal fondatore il
+   4 ottobre 2026, verificata ACTIVE.
 2. **Sotto i quattordici anni (EY.09)**: in Italia il consenso lo presta chi
    esercita la responsabilita' genitoriale. Nessun meccanismo costruito, come
    l'ordine prescrive. La voce resta APERTA su questa decisione.

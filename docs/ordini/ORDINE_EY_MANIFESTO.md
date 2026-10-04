@@ -19,13 +19,16 @@ offline restano sul telefono** (legge L2): nessuna voce li fa salire.
 dall'Architetto. Gli identificativi restano, perche' li conosce il server.
 
 VOCI_TOTALI: 17
-VOCI_CHIUSE: 2
-VOCI_APERTE: 15
+VOCI_CHIUSE: 4
+VOCI_APERTE: 13
 VOCI_DA_FARE: 0
 
 ## VOCE EY.01, LO PSEUDONIMO E IL SIGILLO
 
-**APERTA IN ATTESA DI VERIFICA.** Il secondo campo nel passo del nome
+**CHIUSA.** Guardata sul Realme con la build 2296 il 4 ottobre 2026 dopo la
+pubblicazione delle funzioni: il sigillo W9TP assegnato dal server, "M3dora"
+rifiutato con la riga "Questo nome è del Cerchio: scegline un altro.",
+"Lunaria" accettato e tornato dal server. Il secondo campo nel passo del nome
 dell'onboarding, gia' compilato col nome iniziatico (appellativo, simbolo dai
 set del progetto, qualita'), che non contiene mai il nome proprio. Le regole
 del nome vivono in un dato solo, `functions/src/il_nome_del_cerchio.json`,
@@ -34,11 +37,13 @@ decide (forma, riservati sulla forma normalizzata con i caratteri di altri
 alfabeti e le cifre riportati al latino, offensive, nome lasciato da meno di
 novanta giorni, cadenza di trenta giorni). Il sigillo, quattro caratteri
 dell'alfabeto di Crockford, lo assegna il server in transazione e non cambia.
-Aspetta la pubblicazione delle funzioni e la prova a video sul Realme.
+Chi era gia' nel Cerchio prima dell'ordine e non passa dall'onboarding
+("Ancora senza nome" sul Realme, cattura 07) riceve adesso il nome
+iniziatico dalla sua nascita al primo ingresso.
 
 DOMANDA: "nella schermata di richiesta del nome inserirei un campo per inserire lo pseudonimo per i social (che dovrà essere unico e non occupato da altri)"
-PROVA: test/il_nome_del_cerchio_test.dart, test/il_nome_nel_cerchio_nell_onboarding_test.dart, functions/src/il_nome_del_cerchio.test.ts
-MISURA: riservati 15 nomi, forme provate 264 sul server e 219 sul telefono, passate 0 (prima del campo: nessun controllo); nomi veri 55, caduti 0; verdetti condivisi telefono e server 46 su 46 uguali; generatore su 1000 nascite: 974 nomi diversi, 0 col nome proprio, 0 rifiutati; elenchi 56 appellativi e 62 qualita' (soglie 50 e 60); filtro offensivo 32 radici e 24 parole
+PROVA: docs/collaudo/EY/realme/07_nome_riservato.png
+MISURA: sul telefono nomi provati 2, il riservato rifiutato 1 su 1, il libero accettato 1 su 1 (cattura 15), sigilli assegnati 1 (W9TP); nelle prove (test/il_nome_del_cerchio_test.dart, test/il_nome_nel_cerchio_nell_onboarding_test.dart, functions/src/il_nome_del_cerchio.test.ts) riservati 15 nomi, forme provate 264 sul server e 219 sul telefono, passate 0 (prima del campo: nessun controllo); nomi veri 55, caduti 0; verdetti condivisi telefono e server 46 su 46 uguali; generatore su 1000 nascite: 974 nomi diversi, 0 col nome proprio, 0 rifiutati; elenchi 56 appellativi e 62 qualita' (soglie 50 e 60); filtro offensivo 32 radici e 24 parole
 ACCETTAZIONE: nel Risveglio, al passo del nome, sotto il tuo nome compare "Con quale nome vuoi essere trovato nel Cerchio?" col nome gia' scritto; "Medora" dice "Questo nome è del Cerchio"; nel profilo del Cerchio leggi il tuo sigillo di quattro caratteri
 
 ## VOCE EY.02, IL PROFILO PUBBLICO, E CIO' CHE NON CONTIENE MAI
@@ -58,15 +63,20 @@ ACCETTAZIONE: un amico vede di te nome, icona, segno e Maestro, e mai la data di
 
 ## VOCE EY.03, IL MENU' DEL PROFILO
 
-**APERTA IN ATTESA DI VERIFICA.** "Il tuo nome nel Cerchio", dal Profilo: il
+**CHIUSA.** Guardata sul Realme con la build 2296 il 4 ottobre 2026: il
+nome cambiato, l'icona scelta dalla vetrina (dall'Ariete al Toro) e tornata
+dal server, chi ti vede, chi puo' invitarti, il link da rinnovare o
+revocare, le persone bloccate. Il titolo e' diventato "Nome nel Cerchio"
+perche' sul telefono si troncava, e il foglio delle icone, nero col "Fatto"
+viola (cattura 17), ha adesso il velo della tendina. "Il tuo nome nel Cerchio", dal Profilo: il
 nome e il sigillo in alto, il cambio del nome con la cadenza e il giorno in cui
 si riapre, la vetrina delle icone dai quattro set (le non incontrate spente
 con la riga da dove si aprono), chi ti vede, chi puo' invitarti, il link da
 rinnovare o revocare, i doni ricevuti, le persone bloccate con lo sblocco.
 
 DOMANDA: "dovrà esserci nel menù utente la possibilità di inserire o cambiare lo pseudonimo oltre che cambiare icona del profilo o altre personalizzazioni"
-PROVA: test/le_schermate_del_cerchio_test.dart, test/i_numeri_del_cerchio_sociale_test.dart
-MISURA: icone 58 nei quattro set, con l'arte esistente 58 su 58, uguali ai conti del server 4 famiglie su 4; la scelta dell'icona arriva al server col suo codice
+PROVA: docs/collaudo/EY/realme/18_icona_scelta_toro.png
+MISURA: sul telefono icone cambiate 1 (Ariete prima, Toro dopo, letta dal server), sezioni del menu' viste 5 su 5 (cattura 16); nelle prove (test/le_schermate_del_cerchio_test.dart, test/i_numeri_del_cerchio_sociale_test.dart) icone 58 nei quattro set, con l'arte esistente 58 su 58, uguali ai conti del server 4 famiglie su 4; la scelta dell'icona arriva al server col suo codice
 ACCETTAZIONE: Profilo, "Il tuo nome nel Cerchio": tocchi l'icona e scegli un segno; gli animali che non hai incontrato sono spenti e dicono dove si aprono
 
 ## VOCE EY.04, L'INVITO
