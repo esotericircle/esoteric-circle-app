@@ -124,6 +124,31 @@ export {
   lasciaIlResponso,
 } from "./ricordi";
 
+/**
+ * IL MOTORE SOCIALE DEL CERCHIO, ordine EY. Sedici porte, ognuna col suo
+ * tetto per identita' (`TETTI_DELLE_PORTE` in `sociale.ts`), piu' la pagina
+ * del link d'invito per chi non ha ancora l'app. Nessuna chiama un modello.
+ */
+export {
+  ilMioProfiloNelCerchio,
+  scegliIlNome,
+  aggiornaIlProfiloNelCerchio,
+  ilCodiceDellInvito,
+  leggiIlCodice,
+  chiediIlLegame,
+  rispondiAlLegame,
+  bloccaUnaPersona,
+  ilMioCerchio,
+  compraUnPostoNelCerchio,
+  laTendinaDelCerchio,
+  mandaUnSegno,
+  rispondiAlSegno,
+  mandaUnDono,
+  regalaGliEos,
+  scriviIlTokenDelCerchio,
+} from "./il_cerchio_sociale";
+export {paginaDellInvito} from "./la_pagina_dell_invito";
+
 // I TRENTA GIORNI NON ESISTONO PIU', ordine BE voce 07: chiediLOblio,
 // annullaLOblio e il lavoro notturno cancellaGliOblioScaduti sono stati
 // RIMOSSI per decisione del fondatore. La cancellazione e' immediata e

@@ -36,6 +36,13 @@
       {
         "source": "/disclaimer",
         "destination": "/index.html"
+      },
+      {
+        "source": "/i/**",
+        "function": {
+          "functionId": "paginaDellInvito",
+          "region": "europe-west1"
+        }
       }
     ]
   },

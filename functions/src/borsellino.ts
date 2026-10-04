@@ -90,21 +90,34 @@ export const TETTO_CONDIVISIONI_PREMIATE = 3;
 /**
  * QUANTO VALE UN INVITO ACCOLTO. Ordine BX voce 02.
  *
- * Sessanta Eos, il numero che la riga sotto il pulsante promette da sempre.
+ * **CENTOCINQUANTA EOS, ordine EY Aggiunta 1, decisione del fondatore del 4
+ * ottobre 2026** ("Fai ordine aggiuntivo EY 1 con 150 EOS per invito"), che
+ * supera la sua decisione del 18 settembre 2026 dei sessanta a testa.
+ *
+ * **Il senso del numero**: 150 Eos sono il prezzo di una sinastria in piu' e
+ * di una stesa completa nel listino del riscatto (`PREZZI_DEL_RISCATTO`,
+ * sinastrie 150 e stese 150), quindi un invito accolto vale esattamente
+ * un'esperienza premium.
+ *
  * **Lo paga soltanto `riscattaLInvito`**, e una volta sola per persona
  * invitata: il client non puo' chiederlo, perche' questo non sta nel listino
- * dei motivi chiedibili.
+ * dei motivi chiedibili. La cifra che la persona legge la dice il server.
  */
-export const EOS_DELL_INVITO_ACCOLTO = 60;
+export const EOS_DELL_INVITO_ACCOLTO = 150;
 
 /**
  * **E CHI ARRIVA CON UN INVITO RICEVE LO STESSO. Ordine DW voce 05.**
- * Decisione del fondatore del 18 settembre 2026: *"60 Eos a tutti e due"*.
  * L'invito diventa un regalo da offrire invece di una richiesta. Lo paga
  * soltanto `riscattaLInvito`, con un movimento idempotente sul ramo di chi
  * arriva.
+ *
+ * **CENTOCINQUANTA EOS, ordine EY Aggiunta 1, decisione del fondatore del 4
+ * ottobre 2026**, che supera la sua decisione del 18 settembre 2026 (*"60 Eos
+ * a tutti e due"*). Lo stesso senso del numero accanto: un invito accolto
+ * vale una sinastria in piu' o una stesa completa, cioe' un'esperienza
+ * premium, per chi invita e per chi arriva.
  */
-export const EOS_A_CHI_ARRIVA_CON_UN_INVITO = 60;
+export const EOS_A_CHI_ARRIVA_CON_UN_INVITO = 150;
 
 /**
  * IL LISTINO DEL RISCATTO, ordine BG voce 05: quando un budget del giorno e'
@@ -147,6 +160,11 @@ export const PREZZI_DEL_RISCATTO: Record<Budget, number> = {
    * si sceglie, si legge.
    */
   sinastrie: 150,
+  /**
+   * UN CONFRONTO DEL CIELO IN PIU' COSTA 30 EOS, ordine EY voce 13: la voce
+   * nuova del listino del telefono, `confrontoDelCieloInPiu`.
+   */
+  cieli: 30,
 };
 
 /** Il motivo di un riscatto, dal budget: una forma sola, condivisa. */

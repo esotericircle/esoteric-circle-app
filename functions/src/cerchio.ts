@@ -12,6 +12,12 @@ import {getAuth} from "firebase-admin/auth";
 import {chiaveDelGiorno} from "./giorno";
 import {scriviIlMessaggio} from "./doppioni";
 import {
+  cancellaIlSociale,
+  invitoDalRiscatto,
+  rinnovaLaScheda,
+} from "./il_cerchio_sociale";
+import {arteValida, leggiIlCodiceDellInvito} from "./sociale";
+import {
   Budget,
   Piano,
   BUDGET,
@@ -748,12 +754,27 @@ export const riscattaLInvito = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
   // voci misurerebbero lo stesso identico fatto, e sarebbero un gradino detto
   // tre volte. La forma e' `uid.maestro`; senza il punto vale il Maestro di
   // chi non lo dichiara, cioe' nessuno dei tre.
-  const punto = grezzo.lastIndexOf(".");
-  const codice = punto > 0 ? grezzo.slice(0, punto) : grezzo;
-  const porta = punto > 0 ? grezzo.slice(punto + 1) : "";
-  const maestro = ["medora", "aura", "caligo"].includes(porta) ? porta : null;
-  if (codice.length < 8 || codice.length > 200) {
+  //
+  // **IL CODICE E' OPACO, ordine EY voce 17.** Il link nuovo porta un codice
+  // che genera il server (`ilCodiceDellInvito`) e che solo il server sa
+  // tradurre in uid, qui, al riscatto. Il formato vecchio con l'uid in
+  // chiaro resta accettato: **E' UNA COMPATIBILITA' DICHIARATA** per i link
+  // gia' in giro, e si potra' togliere trenta giorni dopo la prima build che
+  // porta il codice nuovo (`FINE_DELLA_COMPATIBILITA` in `sociale.ts`).
+  const letto = leggiIlCodiceDellInvito(grezzo);
+  if (letto === null) {
     throw new HttpsError("invalid-argument", "codice non valido");
+  }
+  const maestro = letto.maestro;
+  let codice = letto.codice;
+  if (letto.forma === "nuova") {
+    const opaco = await db.collection("codici_invito").doc(letto.codice).get();
+    const d = opaco.data();
+    if (!d || typeof d.uid !== "string" || typeof d.scade !== "number" ||
+      d.scade <= Date.now()) {
+      return {accolto: false, perche: "codice scaduto"};
+    }
+    codice = d.uid;
   }
   if (codice === uid) {
     // Non e' un guasto: e' qualcuno che prova a invitarsi da solo.
@@ -786,6 +807,11 @@ export const riscattaLInvito = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     return {accolto: true, perche: null};
   });
   if (!esito.accolto) return esito;
+
+  // **L'INVITO AL LEGAME, ordine EY Aggiunta 1 punto 2**: chi arriva col tuo
+  // invito non diventa tuo amico da solo, trova l'invito in arrivo e lo
+  // accetta con un tocco.
+  await invitoDalRiscatto(codice, uid);
 
   // **IL PREMIO VA A CHI HA INVITATO, non a chi arriva**, ed e' idempotente
   // come ogni movimento di questo file: due riscatti dello stesso invitato
@@ -1124,6 +1150,15 @@ export const attivaIlPianoInDemo = onCall(
  * un conto aggregato: al telefono torna un numero e basta, mai l'elenco di
  * chi c'e'. Il conto sul gruppo `presenza` vuole il suo indice, dichiarato in
  * `firestore.indexes.json`.
+ *
+ * **LA PRESENZA PORTA LA SUA SCHEDA, ordine EY voce 08.** Oltre all'istante,
+ * la presenza scrive l'arte che la persona sta usando, come CATEGORIA di un
+ * elenco chiuso e mai come testo libero, e la scheda che serve
+ * all'istantanea della tendina: visibilita', nome, icona, segno, Maestro,
+ * gradino. La scheda la prende il server dal ramo della persona
+ * (`stato/identita`), non dal telefono: il telefono manda solo l'arte. Cosi'
+ * l'istantanea, rifatta al massimo ogni trenta secondi, legge una presenza
+ * per persona e niente altro.
  */
 export const chiEOnline = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
   const uid = uidDi(request);
@@ -1136,7 +1171,9 @@ export const chiEOnline = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     await presenza.delete();
     return {quanti: 0};
   }
-  await presenza.set({ultimo: Timestamp.fromMillis(adesso)});
+  const scheda = await rinnovaLaScheda(
+    uid, arteValida((request.data as {arte?: unknown} | undefined)?.arte));
+  await presenza.set({...scheda, ultimo: Timestamp.fromMillis(adesso)});
   const conto = await db
     .collectionGroup("presenza")
     .where("ultimo", ">=", Timestamp.fromMillis(confineDellaPresenza(adesso)))
@@ -1150,6 +1187,9 @@ export const azzeraIDatiDelCerchio = onCall(
   async (request) => {
     const uid = uidDi(request);
     await scriviIlCongedo(request, "dati");
+    // Ordine EY voce 02: il profilo pubblico, i legami e i codici stanno
+    // fuori dal ramo, e se ne vanno qui; il sigillo va in quarantena.
+    await cancellaIlSociale(uid);
     await db.recursiveDelete(utente(uid));
     logger.info("azzeraIDatiDelCerchio: ramo azzerato, account vivo", {uid});
     return {datiAzzerati: true};
@@ -1208,6 +1248,9 @@ export const cancellaIlCerchio = onCall(
   async (request) => {
     const uid = uidDi(request);
     await scriviIlCongedo(request, "account");
+    // Ordine EY voce 02: chi cancella l'account perde anche il profilo
+    // pubblico; il sigillo resta in quarantena novanta giorni senza il resto.
+    await cancellaIlSociale(uid);
     await db.recursiveDelete(utente(uid));
     try {
       await getAuth().deleteUser(uid);

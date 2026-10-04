@@ -20,7 +20,8 @@ export type Budget =
   | "confronti"
   | "gettate"
   | "stese"
-  | "sinastrie";
+  | "sinastrie"
+  | "cieli";
 
 export const PIANI: Piano[] = ["free", "tier1", "tier2", "tier3"];
 export const BUDGET: Budget[] = [
@@ -30,6 +31,10 @@ export const BUDGET: Budget[] = [
   "gettate",
   "stese",
   "sinastrie",
+  // I CONFRONTI DEL CIELO CON UN AMICO, ordine EY voce 13: uno, cinque,
+  // quindici e trenta al giorno. Il confronto non chiama nessun modello, si
+  // calcola sul telefono; il tetto e' del server come ogni altro.
+  "cieli",
 ];
 
 /** Nell'ordine dei piani: Viandante, Iniziato, Adepto, Illuminato. */
@@ -134,6 +139,13 @@ const LIMITI: Record<Budget, (number | null)[]> = {
    * ingovernata.
    */
   sinastrie: [3, 5, 5, 25],
+  /**
+   * I CONFRONTI DEL CIELO CON UN AMICO, ordine EY voce 13, 4 ottobre 2026:
+   * la tabella del punto 8 approvata dal fondatore. La riga che li promette
+   * e' `Confronti del cielo con gli amici`, cosa diversa sia dai confronti
+   * del Consiglio dei Maestri sia dalla Sinastria VIP.
+   */
+  cieli: [1, 5, 15, 30],
 };
 
 /**
