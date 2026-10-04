@@ -98,45 +98,48 @@ class SchedaDellAmicoScreen extends StatelessWidget {
     var quanti = 100.0;
     final scelto = await foglioDelCerchio<int>(
       context: context,
-      backgroundColor: MaestroPalette.neutral.deepest,
+      backgroundColor: Colors.transparent,
       builder: (c) => StatefulBuilder(
-        builder: (c, aggiorna) => Padding(
-          padding: const EdgeInsets.all(SpacingTokens.lg),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('Regala Eos a ${amico.nome}',
-                  style: TypographyTokens.titoloScheda()
-                      .copyWith(color: MaestroPalette.neutral.goldSoft)),
-              const SizedBox(height: SpacingTokens.xs),
-              Text(
-                  'Da cento a cinquecento al giorno, solo dagli Eos comprati '
-                  'o dalla dote del piano: quelli guadagnati nel Cammino '
-                  'restano tuoi.',
-                  textAlign: TextAlign.center,
-                  style: TypographyTokens.didascalia()
-                      .copyWith(color: ColorTokens.textSecondary)),
-              Slider(
-                key: const Key('regala_quanti'),
-                min: 100,
-                max: 500,
-                divisions: 8,
-                value: quanti,
-                label: '${quanti.round()} Eos',
-                onChanged: (v) => aggiorna(() => quanti = v),
-              ),
-              FilledButton(
-                key: const Key('regala_conferma'),
-                onPressed: () => Navigator.of(c).pop(quanti.round()),
-                child: Text('Regala ${quanti.round()} Eos'),
-              ),
-              TextButton(
-                style: TextButton.styleFrom(
-                    foregroundColor: MaestroPalette.neutral.goldSoft),
-                onPressed: () => Navigator.of(c).pop(),
-                child: const Text('Fatto'),
-              ),
-            ],
+        builder: (c, aggiorna) => fondoDelFoglio(
+          c,
+          Padding(
+            padding: const EdgeInsets.all(SpacingTokens.lg),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Regala Eos a ${amico.nome}',
+                    style: TypographyTokens.titoloScheda()
+                        .copyWith(color: MaestroPalette.neutral.goldSoft)),
+                const SizedBox(height: SpacingTokens.xs),
+                Text(
+                    'Da cento a cinquecento al giorno, solo dagli Eos comprati '
+                    'o dalla dote del piano: quelli guadagnati nel Cammino '
+                    'restano tuoi.',
+                    textAlign: TextAlign.center,
+                    style: TypographyTokens.didascalia()
+                        .copyWith(color: ColorTokens.textSecondary)),
+                Slider(
+                  key: const Key('regala_quanti'),
+                  min: 100,
+                  max: 500,
+                  divisions: 8,
+                  value: quanti,
+                  label: '${quanti.round()} Eos',
+                  onChanged: (v) => aggiorna(() => quanti = v),
+                ),
+                FilledButton(
+                  key: const Key('regala_conferma'),
+                  onPressed: () => Navigator.of(c).pop(quanti.round()),
+                  child: Text('Regala ${quanti.round()} Eos'),
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                      foregroundColor: MaestroPalette.neutral.goldSoft),
+                  onPressed: () => Navigator.of(c).pop(),
+                  child: const Text('Fatto'),
+                ),
+              ],
+            ),
           ),
         ),
       ),

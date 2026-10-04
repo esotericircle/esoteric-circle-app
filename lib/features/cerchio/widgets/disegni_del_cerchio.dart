@@ -10,6 +10,7 @@ import '../../../design_system/components/cosmos_background.dart';
 import '../../../design_system/theme/maestro_palette.dart';
 import '../../../design_system/theme/maestro_scope.dart';
 import '../../../design_system/tokens/color_tokens.dart';
+import '../../../design_system/tokens/spacing_tokens.dart';
 
 /// **I DISEGNI DEL CERCHIO SOCIALE, ordine EY.** Il livello visivo viene prima
 /// del testo (Linee Guida UX, sezione 2): ogni cosa nuova del motore sociale
@@ -527,6 +528,38 @@ class _PittoreDelDono extends CustomPainter {
 /// il nero pieno. Il fondatore il 4 ottobre 2026: "Tutte le anteprime che
 /// riguardano il cerchio hanno sfondo nero, anziché lo sfondo cosmico
 /// dell'app". Le schermate del Cerchio hanno la Scaffold trasparente.
+/// **I FOGLI DEL CERCHIO HANNO IL VELO DELLA TENDINA**, non il nero pieno:
+/// dal profondo viola del Maestro al suo fondo, con gli angoli in alto
+/// arrotondati e i pulsanti di testo d'oro. Visto sul Realme con la build
+/// 2296: il foglio delle icone era nero e il suo "Fatto" viola. Il foglio
+/// si apre col fondo trasparente e questo lo veste.
+Widget fondoDelFoglio(BuildContext context, Widget figlio,
+    {MaestroPalette palette = MaestroPalette.neutral}) {
+  final tema = Theme.of(context);
+  return DecoratedBox(
+    key: const Key('cerchio_fondo_del_foglio'),
+    decoration: BoxDecoration(
+      borderRadius: const BorderRadius.vertical(
+          top: Radius.circular(SpacingTokens.radiusLg)),
+      border:
+          Border(top: BorderSide(color: palette.gold.withValues(alpha: 0.45))),
+      gradient: LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+        colors: [palette.surfaceElevated, palette.deepest],
+      ),
+    ),
+    child: Theme(
+      data: tema.copyWith(
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(foregroundColor: palette.goldSoft),
+        ),
+      ),
+      child: figlio,
+    ),
+  );
+}
+
 Widget conIPulsantiDOro(BuildContext context, Widget figlio, {int seme = 23}) {
   final tema = Theme.of(context);
   return CosmosBackground(

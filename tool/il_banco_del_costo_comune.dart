@@ -131,5 +131,8 @@ Future<void> preparaIlBanco() async {
     // I finti di Firebase hanno gia' l'app di base: va bene quella.
     if (e.code != 'duplicate-app') rethrow;
   }
+  // Il banco e' l'unico chiamante dichiarato fuori dalle prove: la porta e'
+  // scritta per lui (vedi `ClientConEtichetta.internoDeiBanchi`).
+  // ignore: invalid_use_of_visible_for_testing_member
   ClientConEtichetta.internoDeiBanchi = VersoVertex();
 }

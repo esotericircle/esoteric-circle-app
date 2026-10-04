@@ -541,7 +541,7 @@ void main() {
     }
 
     if (_gira('titoli')) {
-      final t = TitoliDaGemini();
+      const t = TitoliDaGemini();
       for (var i = 0; i < _volte; i++) {
         await _unUso(
             'Il titolo della conversazione',

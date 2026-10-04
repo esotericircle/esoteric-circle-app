@@ -105,10 +105,15 @@ class _ProfiloNelCerchioScreenState extends State<ProfiloNelCerchioScreen> {
     final scelta = await foglioDelCerchio<String>(
       context: context,
       isScrollControlled: true,
-      backgroundColor: MaestroPalette.neutral.deepest,
-      builder: (c) => _LaSceltaDellIcona(
-        incontrata: (i) => i.incontrata(
-            diario: diario, identita: identita, archetipiIncontrati: archetipi),
+      backgroundColor: Colors.transparent,
+      builder: (c) => fondoDelFoglio(
+        c,
+        _LaSceltaDellIcona(
+          incontrata: (i) => i.incontrata(
+              diario: diario,
+              identita: identita,
+              archetipiIncontrati: archetipi),
+        ),
       ),
     );
     if (scelta == null || !mounted) return;

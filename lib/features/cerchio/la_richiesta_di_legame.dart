@@ -32,8 +32,9 @@ Future<void> mostraLaRichiestaDiLegame(
   }
   final accetta = await foglioDelCerchio<bool>(
     context: context,
-    backgroundColor: paletteDi(chi.maestro).deepest,
-    builder: (c) => _LaRichiesta(chi: chi),
+    backgroundColor: Colors.transparent,
+    builder: (c) => fondoDelFoglio(c, _LaRichiesta(chi: chi),
+        palette: paletteDi(chi.maestro)),
   );
   if (accetta != true) return;
   final esito = await sociale.chiediIlLegame(codice: codice);
