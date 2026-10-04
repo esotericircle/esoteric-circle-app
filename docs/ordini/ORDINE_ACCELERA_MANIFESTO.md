@@ -17,8 +17,8 @@ prove) durava circa 38 minuti in locale, lo sbarramento locale circa 45, lo
 sbarramento su GitHub circa 33 minuti per commit su una macchina sola.
 
 VOCI_TOTALI: 4
-VOCI_CHIUSE: 3
-VOCI_APERTE: 1
+VOCI_CHIUSE: 4
+VOCI_APERTE: 0
 
 Le prove stanno in `docs/collaudo/ACCELERA/`.
 
@@ -85,9 +85,19 @@ Provato sul PC: lo script del cancello, chiamato da `consegna.py` col bash
 di Git, dice verde sul commit `cfefb7c1`; con l'albero sporco la consegna
 rifiuta.
 
-**APERTA IN ATTESA DI VERIFICA**: la prima consegna vera senza lo
+Era aperta in attesa di verifica: la prima consegna vera senza lo
 sbarramento del PC, cioe' la risposta alla domanda del fondatore *"Ma ancora
-sbarramentii da 40 Min?"*.
+sbarramentii da 40 Min?"*. E' arrivata con la build 2287, il 28 settembre
+2026, dal commit `32197ad4`, col cancello di GitHub verde dodici controlli su
+dodici (`docs/ordini/RAPPORTO_ORDINE_ER.md`, sezione LA CONSEGNA), e da
+allora il registro delle versioni scrive quale cancello ha fatto passare ogni
+consegna. Nessuno aveva aggiornato questa voce: chiusa dall'ordine FC voce 07
+il 4 ottobre 2026, con la storia ricalcolata dal registro.
+
+**CHIUSA.**
+DOMANDA: "Ma ancora sbarramentii da 40 Min?"
+PROVA: docs/collaudo/ACCELERA/le_consegne_col_cancello_di_github.txt
+MISURA: consegne passate dal cancello di GitHub invece che dal gettone del PC, prima dell'ordine ACCELERA 0 su 6 (dalla 2279 alla 2284, campo assente), dopo 8 su 9 (dalla 2287 alla 2296; la 2293 col gettone locale); la prima, la 2287 del 28 settembre 2026, verde dodici controlli su dodici
 
 ## VOCE ACCELERA.04, DUE DIFETTI CHE LO SBARRAMENTO AVEVA GIA'
 
