@@ -22,8 +22,40 @@
 set -u
 
 REGISTRO="${1:-}"
+MODO="${2:-rosso}"
 if [ -z "$REGISTRO" ] || [ ! -f "$REGISTRO" ]; then
   echo "::error title=Il verdetto del cancello::il registro dello sbarramento non esiste: '${REGISTRO}'. Il cancello e' caduto senza lasciare il suo testo."
+  exit 0
+fi
+
+# **IL VERDE DICE IL VERO, ordine FC voce 08, 4 ottobre 2026.** Il cancello
+# esegue la suite intera dall'ordine ACCELERA, e diventa rosso per ogni rosso
+# che nessuno ha accettato. Ma un verde con dei rossi accettati e un verde
+# senza nessun rosso si leggevano uguali: l'elenco stava nel registro del
+# giro, che senza credenziali non si legge, e per settimane nessun rapporto
+# ha detto che dentro il verde c'erano sette prove rosse. Adesso il verde lo
+# dice pubblicamente, con quanti e quali: un avviso se ci sono rossi
+# accettati, una nota se non ce n'e' nessuno.
+if [ "$MODO" = "verde" ]; then
+  # Il blocco e': il titolo, una riga di trattini, le righe accettate, una
+  # riga di trattini. Si prendono le righe fra le due righe di trattini dopo
+  # il titolo, e di ognuna il nome della prova (prima della barra).
+  ACCETTATI="$(awk '
+    /ROSSI ACCETTATI, E SOLO QUELLI/ { dentro = 1; trattini = 0; next }
+    dentro && /^ *-{20,} *$/ { trattini++; if (trattini == 2) exit; next }
+    dentro && trattini == 1 { print }
+  ' "$REGISTRO" | sed 's/^ *//' | cut -d'|' -f1 | sed 's/ *$//')"
+  if [ -n "$ACCETTATI" ]; then
+    QUANTI="$(printf '%s\n' "$ACCETTATI" | grep -c .)"
+    TESTO="$(printf 'VERDE CON %s ROSSI ACCETTATI, ognuno con la sua ragione in tool/rossi_accettati.txt:\n%s' "$QUANTI" "$ACCETTATI")"
+    FUGATO="$(printf '%s' "$TESTO" | sed -e 's/%/%25/g' -e 's/\r/%0D/g' \
+      | awk '{printf "%s%%0A", $0}' | cut -c1-9000)"
+    echo "::warning title=Il verde ha dei rossi accettati::$FUGATO"
+    [ -n "${GITHUB_STEP_SUMMARY:-}" ] && printf '## %s\n' "$TESTO" >> "$GITHUB_STEP_SUMMARY"
+  else
+    echo "::notice title=Il verde e' pieno::nessuna prova rossa, nemmeno fra le accettate."
+    [ -n "${GITHUB_STEP_SUMMARY:-}" ] && echo "## Verde pieno: nessuna prova rossa." >> "$GITHUB_STEP_SUMMARY"
+  fi
   exit 0
 fi
 
