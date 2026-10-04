@@ -116,6 +116,14 @@ Cio' che ha trovato, ognuno col suo padre (Regola C):
   banco del costo in `tool/` (un uso della porta dei banchi non
   dichiarato e un const). Riparato.
 
+**La build consegnata.** 2296, dal commit `9ccc5ef1` col cancello di GitHub
+verde (segno `refs/verde/9ccc5ef1...`), release App Distribution
+`62oo5v3oerb0g` a cloud@esotericircle.app, accettata 1, registro da 2295 a
+2296. Prima di caricare: prova di accensione sul Realme, archivio guardato
+dentro. Il foglio delle icone col velo, visto sul telefono con questa build:
+`docs/collaudo/EY/realme/19_foglio_icone_col_velo.png`. **Pronta per
+Codemagic** dal ramo canonico, che e' lo stesso commit.
+
 **Le frasi per il secondo telefono del fondatore**, una per voce:
 
 - EY.04: dal telefono A "Mostra il mio codice", dal B "Inquadra il suo
