@@ -561,6 +561,13 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
     return risposta is Map && risposta['datiCancellati'] == true;
   }
 
+  /// **LA SCHEDA VIAGGIA SOLO AL PRIMO PASSO, ordine EZ voce 03.** Il server
+  /// riscrive nome, icona e visibilita' della presenza solo quando il
+  /// telefono lo chiede: al primo passo dopo l'avvio e dopo ogni uscita. Agli
+  /// altri passi il server non rilegge l'identita', e risparmia una lettura
+  /// al minuto per ogni presente.
+  bool _schedaDaMandare = true;
+
   @override
   Future<int?> chiEOnline() async {
     // **UN RIFIUTO NON ARRIVA ALLA BARRA.** `_chiama` rilancia i rifiuti del
@@ -570,8 +577,11 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
     try {
       // **L'ARTE VIAGGIA CON LA PRESENZA, ordine EY voce 08**: come
       // categoria dell'elenco chiuso, mai come testo libero.
-      final risposta = await _chiama(
-          'chiEOnline', {'arte': LArteDiAdesso.attuale.value.name});
+      final risposta = await _chiama('chiEOnline', {
+        'arte': LArteDiAdesso.attuale.value.name,
+        'scheda': _schedaDaMandare,
+      });
+      _schedaDaMandare = false;
       final quanti = risposta is Map ? risposta['quanti'] : null;
       return quanti is int && quanti > 0 ? quanti : null;
     } catch (errore) {
@@ -602,6 +612,8 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
 
   @override
   Future<void> esciDalCerchio() async {
+    // Chi esce perde la presenza: al ritorno la scheda si riscrive intera.
+    _schedaDaMandare = true;
     try {
       await _chiama('chiEOnline', const {'esce': true});
     } catch (errore) {

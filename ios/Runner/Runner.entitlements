@@ -25,6 +25,10 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:esotericircle.app</string>
+		<!-- Ordine EZ voce 07: i link d'invito oggi partono da qui
+		     (Brand.urlDegliInviti), e Firebase Hosting pubblica gia' da se'
+		     il file di Apple con Z3T97U389U.com.esotericircle.esotericCircle. -->
+		<string>applinks:esoteric-circle.web.app</string>
 	</array>
 </dict>
 </plist>

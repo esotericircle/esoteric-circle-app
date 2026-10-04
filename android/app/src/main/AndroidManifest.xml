@@ -109,8 +109,20 @@
                 <data android:scheme="https"
                       android:host="esotericircle.app"
                       android:pathPrefix="/i/"/>
-                <!-- Dove i link d'invito partono oggi: Brand.urlDegliInviti,
-                     finche' il dominio non passa a Firebase Hosting. -->
+            </intent-filter>
+            <!-- Dove i link d'invito partono oggi: Brand.urlDegliInviti,
+                 finche' il dominio non passa a Firebase Hosting. **Con la
+                 verifica, ordine EZ voce 07**: Firebase Hosting pubblica gia'
+                 da se' https://esoteric-circle.web.app/.well-known/assetlinks.json
+                 con l'impronta della firma di rilascio (B4:0D...8C:B6, la
+                 stessa dell'APK, letta il 4 ottobre 2026), quindi Android puo'
+                 aprire il link nell'app senza chiedere. Un filtro a parte,
+                 perche' esotericircle.app oggi non risponde e la sua verifica
+                 non deve pesare su questa. -->
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
                 <data android:scheme="https"
                       android:host="esoteric-circle.web.app"
                       android:pathPrefix="/i/"/>

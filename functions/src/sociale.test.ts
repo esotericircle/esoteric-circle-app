@@ -11,7 +11,10 @@ import {
   POSTI_DEL_LEGAME,
   Presenza,
   SEGNI_AL_GIORNO,
+  PORTA_CHE_RICEVE_L_ETA,
+  RIGA_DEI_QUATTORDICI,
   TETTI_DELLE_PORTE,
+  VETRINA_DELL_ISTANTANEA,
   codiceScritto,
   costruisciLIstantanea,
   decidiIlGift,
@@ -23,10 +26,12 @@ import {
   eUnSigillo,
   leggiIlCodiceDellInvito,
   lettureAllOra,
+  quattordiciDichiarati,
   quandoSiRiapreIlNome,
   reazioneValida,
   registraLoScambio,
   semaforoPer,
+  sogliaDellEtaPassata,
   sigilloScritto,
   soloIlPubblico,
   somiglianti,
@@ -34,7 +39,7 @@ import {
   unSigillo,
   visibilitaEffettiva,
 } from "./sociale";
-import {laPagina} from "./la_pagina_dell_invito";
+import {INDIRIZZI_DEGLI_STORE, RIGA_DEL_CODICE, laPagina} from "./la_pagina_dell_invito";
 
 /**
  * IL MOTORE SOCIALE DEL CERCHIO, ordine EY: la parte senza database, provata
@@ -155,13 +160,23 @@ function presenza(uid: string, cosa: Partial<Presenza> = {}): Presenza {
     chiPuoInvitare: "tutti", ...cosa};
 }
 
-test("EY.08 l'istantanea: aggregato per arte senza gli invisibili", () => {
-  const ist = costruisciLIstantanea([
-    presenza("a"), presenza("b", {arte: "viaggio"}),
-    presenza("c", {visibilita: "invisibile"}), presenza("d", {visibilita: "amici"}),
-  ], 10);
-  assert.deepEqual(ist.perArte, {tarocchi: 2, viaggio: 1});
-  assert.deepEqual(ist.presenti.map((p) => p.uid), ["a", "b", "d"]);
+test("EZ.03 l'istantanea: i conteggi per arte e la vetrina, mai tutti i presenti", () => {
+  // LAPIDE, ordine EZ voce 03: l'istantanea portava `presenti`, l'elenco di
+  // tutti; adesso porta i conteggi (che il server prende con le aggregazioni)
+  // e una vetrina di al massimo ventiquattro persone visibili a tutti.
+  const molte = Array.from({length: 40}, (_, i) => presenza(`p${i}`));
+  const ist = costruisciLIstantanea({
+    perArte: {tarocchi: 37, viaggio: 3, rune: 0},
+    candidati: [presenza("minore", {maggiorenne: false}),
+      presenza("soloAmici", {visibilita: "amici"}), ...molte],
+    adessoMs: 10,
+  });
+  assert.deepEqual(ist.perArte, {tarocchi: 37, viaggio: 3});
+  assert.equal(ist.vetrina.length, VETRINA_DELL_ISTANTANEA);
+  assert.ok(!ist.vetrina.some((p) => p.uid === "minore" || p.uid === "soloAmici"));
+  assert.ok(!("presenti" in ist), "l'istantanea porta di nuovo tutti i presenti");
+  // Un mega al massimo: ventiquattro schede stanno in pochi chilobyte.
+  assert.ok(JSON.stringify(ist).length < 20_000);
 });
 
 test("EY.08 le persone simili: al massimo dodici, mescolate per giorno e per chi guarda", () => {
@@ -169,7 +184,7 @@ test("EY.08 le persone simili: al massimo dodici, mescolate per giorno e per chi
   molte.push(presenza("minore", {maggiorenne: false}));
   molte.push(presenza("soloAmici", {visibilita: "amici"}));
   molte.push(presenza("amico"));
-  const ist = costruisciLIstantanea(molte, 10);
+  const ist = costruisciLIstantanea({perArte: {}, candidati: molte, adessoMs: 10});
   const chiedi = (giorno: string, chi: string) => somiglianti({
     istantanea: ist, chiGuarda: chi, giorno, mioSegno: "leo", mioMaestro: null,
     mioGradino: 0, esclusi: new Set(["amico"]), affinitaAlta: () => false,
@@ -194,14 +209,27 @@ test("EY.08 l'istantanea si rifa' al massimo ogni trenta secondi, non a ogni dom
   assert.equal(istantaneaVecchia(t0, t0 + 30_000), true);
 });
 
-test("EY.08 LA MISURA DELLE LETTURE: istantanea contro via ingenua, mille presenti", () => {
-  // Un telefono con la tendina aperta che la chiede una volta al minuto per
-  // un'ora, con cento telefoni che la chiedono nello stesso mezzo minuto.
-  const m = lettureAllOra({presenti: 1000, aperturePerOra: 60, telefoniCheChiedono: 100});
-  console.log(`EY.08 LETTURE PER TELEFONO IN UN'ORA con mille presenti: ` +
-    `istantanea ${m.conLIstantanea}, via ingenua ${m.viaIngenua}`);
-  assert.equal(m.viaIngenua, 120000);
-  assert.ok(m.conLIstantanea < 1000, `troppe letture: ${m.conLIstantanea}`);
+test("EZ.03 LA MISURA DELLE LETTURE, prima e dopo, mille presenti", () => {
+  // Lo scenario dell'ordine EY, per poter confrontare: un telefono che apre
+  // la tendina una volta al minuto per un'ora, cento telefoni che la chiedono
+  // nello stesso mezzo minuto; in piu' quindici amici, uno presente.
+  const ey = lettureAllOra({presenti: 1000, aperturePerOra: 60,
+    telefoniCheChiedono: 100, amici: 15, amiciPresenti: 1});
+  // Uno scenario d'uso: la tendina aperta sei volte in un'ora.
+  const uso = lettureAllOra({presenti: 1000, aperturePerOra: 6,
+    telefoniCheChiedono: 100, amici: 15, amiciPresenti: 1});
+  console.log(`EZ.03 LETTURE DELLA TENDINA in un'ora con mille presenti, ` +
+    `60 aperture: prima ${ey.prima}, dopo ${ey.dopo}; 6 aperture: prima ` +
+    `${uso.prima}, dopo ${uso.dopo}; UNA APERTURA che trova l'istantanea ` +
+    `vecchia: prima ${ey.unAperturaPrima}, dopo ${ey.unAperturaDopo}; ` +
+    `il passo della presenza in un'ora: prima ${ey.passoPrima}, dopo ` +
+    `${ey.passoDopo}; via ingenua ${ey.viaIngenua}`);
+  assert.equal(ey.viaIngenua, 120000);
+  // La ricostruzione non legge piu' una presenza per persona.
+  assert.ok(ey.unAperturaDopo <= 50, `un'apertura costa ${ey.unAperturaDopo}`);
+  assert.ok(ey.dopo < ey.prima / 2, `dopo ${ey.dopo}, prima ${ey.prima}`);
+  assert.ok(uso.dopo <= 150, `sei aperture costano ${uso.dopo}`);
+  assert.ok(ey.passoDopo < ey.passoPrima);
 });
 
 test("EY.10 i tetti dei segni: piano, stessa persona, non ricambiati, amici", () => {
@@ -314,4 +342,39 @@ test("EY.04 la pagina del link non si apre a chi ci scrive dentro", () => {
   assert.ok(p.includes("esotericircle://i/AB12CD34"));
   const scaduto = laPagina(null, null);
   assert.ok(scaduto.includes("non vale più"));
+});
+
+test("EZ.07 la pagina del link senza store non rimanda a uno store, col dato pieno si'", () => {
+  const vuoti = {android: "", iphone: ""};
+  const senza = laPagina("Lunaria", "AB12CD34", vuoti);
+  const rimandi = (p: string) =>
+    ["play.google.com", "apps.apple.com", "class=\"pulsante store\""]
+      .filter((r) => p.includes(r));
+  console.log(`EZ.07 LA PAGINA SENZA STORE: rimandi ${rimandi(senza).length}; ` +
+    `il dato di oggi ${JSON.stringify(INDIRIZZI_DEGLI_STORE)}`);
+  assert.deepEqual(rimandi(senza), []);
+  assert.ok(senza.includes(RIGA_DEL_CODICE));
+  assert.ok(senza.includes("AB12CD34"));
+  assert.deepEqual(rimandi(laPagina(null, null, vuoti)), []);
+  // Il dato di oggi e' vuoto: la pagina pubblicata non porta store.
+  assert.deepEqual(rimandi(laPagina("Lunaria", "AB12CD34")), []);
+  const pieno = laPagina("Lunaria", "AB12CD34", {
+    android: "https://play.google.com/store/apps/details?id=com.esotericircle.esoteric_circle",
+    iphone: "https://apps.apple.com/app/id1",
+  });
+  assert.equal((pieno.match(/class="pulsante store"/g) ?? []).length, 2);
+});
+
+test("EZ.04 la soglia dei quattordici anni: ogni porta sociale tranne quella che riceve l'eta'", () => {
+  const porte = Object.keys(TETTI_DELLE_PORTE);
+  assert.equal(porte.length, 16);
+  const aperteSotto = porte.filter((p) => sogliaDellEtaPassata(p, false) ||
+    sogliaDellEtaPassata(p, undefined));
+  console.log(`EZ.04 LE PORTE APERTE SOTTO I QUATTORDICI ANNI: ${aperteSotto}`);
+  assert.deepEqual(aperteSotto, [PORTA_CHE_RICEVE_L_ETA]);
+  assert.ok(porte.every((p) => sogliaDellEtaPassata(p, true)));
+  assert.equal(quattordiciDichiarati({quattordici: false, maggiorenne: true}), false);
+  assert.equal(quattordiciDichiarati({maggiorenne: true}), true);
+  assert.equal(quattordiciDichiarati({}), false);
+  assert.equal(RIGA_DEI_QUATTORDICI, "Il Cerchio si apre a quattordici anni");
 });

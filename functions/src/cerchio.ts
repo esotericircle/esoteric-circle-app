@@ -1171,9 +1171,34 @@ export const chiEOnline = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
     await presenza.delete();
     return {quanti: 0};
   }
-  const scheda = await rinnovaLaScheda(
-    uid, arteValida((request.data as {arte?: unknown} | undefined)?.arte));
-  await presenza.set({...scheda, ultimo: Timestamp.fromMillis(adesso)});
+  const corpo = request.data as {arte?: unknown; scheda?: unknown} | undefined;
+  const arte = arteValida(corpo?.arte);
+  // **LA SCHEDA SI RISCRIVE SOLO AL PRIMO PASSO, ordine EZ voce 03.** Il
+  // nome, l'icona e la visibilita' cambiano di rado: rileggere l'identita'
+  // a ogni passo costava una lettura al minuto per ogni presente. Il
+  // telefono dice `scheda: true` al primo passo dopo l'avvio e dopo ogni
+  // ritorno; un telefono vecchio non lo dice, e per lui la scheda si
+  // riscrive sempre, com'era. Le porte del profilo aggiornano la scheda
+  // quando il profilo cambia (`aggiornaLaSchedaDellaPresenza`).
+  const conScheda = corpo?.scheda !== false;
+  if (conScheda) {
+    const scheda = await rinnovaLaScheda(uid, arte);
+    if (scheda === null) {
+      // Sotto i quattordici anni nessuna presenza (ordine EZ voce 04): il
+      // numero si legge, la persona non si conta e non compare.
+      await presenza.delete();
+    } else {
+      await presenza.set({...scheda, ultimo: Timestamp.fromMillis(adesso)});
+    }
+  } else {
+    try {
+      // Il passo senza scheda aggiorna solo l'arte e l'ora, e solo se la
+      // presenza c'e': non la crea mai senza la sua scheda.
+      await presenza.update({arte, ultimo: Timestamp.fromMillis(adesso)});
+    } catch (senzaPresenza) {
+      logger.debug("chiEOnline: il passo aspetta la scheda.", {uid});
+    }
+  }
   const conto = await db
     .collectionGroup("presenza")
     .where("ultimo", ">=", Timestamp.fromMillis(confineDellaPresenza(adesso)))

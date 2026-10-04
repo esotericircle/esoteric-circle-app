@@ -17,11 +17,13 @@ import {
   verdettoDelNome,
 } from "./il_nome_del_cerchio";
 import {
+  ARTI_DELLA_PRESENZA,
   ArteDellaPresenza,
   DURATE_DEL_CODICE,
   EOS_DEL_POSTO_IN_PIU,
   Istantanea,
   POSTI_DEL_LEGAME,
+  RIGA_DEI_QUATTORDICI,
   PREZZI_DEI_DONI,
   Presenza,
   RISPOSTE_PER_SEGNO,
@@ -29,6 +31,7 @@ import {
   StatoDelLegame,
   TETTI_DELLE_PORTE,
   TipoDelCodice,
+  VETRINA_DELL_ISTANTANEA,
   VISIBILITA_PREDEFINITA,
   Visibilita,
   arteValida,
@@ -44,6 +47,7 @@ import {
   fineDelRifiuto,
   fineDellaQuarantena,
   gradinoValido,
+  quattordiciDichiarati,
   iconaValida,
   istantaneaVecchia,
   maestroValido,
@@ -54,6 +58,7 @@ import {
   scadenzaDelNomeLasciato,
   segnoValido,
   semaforoPer,
+  sogliaDellEtaPassata,
   sigilloScritto,
   soloIlPubblico,
   somiglianti,
@@ -132,6 +137,11 @@ async function tettoDellaPorta(uid: string, porta: string): Promise<void> {
   const doc = statoDi(uid, "tetti_sociali");
   const esito = await db().runTransaction(async (tx) => {
     const snap = await tx.get(doc);
+    // **LA SOGLIA DEI QUATTORDICI ANNI, ordine EZ voce 04**, nello stesso
+    // documento del tetto: nessuna lettura in piu' per gesto.
+    if (!sogliaDellEtaPassata(porta, snap.data()?.quattordici)) {
+      return {concesso: false as const, sottoLaSoglia: true, mancaMs: 0};
+    }
     const dati = (snap.data()?.[porta] ?? {}) as Record<string, unknown>;
     const decisione = decidiIlTetto({
       porta,
@@ -145,6 +155,9 @@ async function tettoDellaPorta(uid: string, porta: string): Promise<void> {
     }
     return decisione;
   });
+  if ("sottoLaSoglia" in esito) {
+    throw new HttpsError("permission-denied", RIGA_DEI_QUATTORDICI);
+  }
   if (!esito.concesso) {
     throw new HttpsError("resource-exhausted", rigaDelTetto(esito.mancaMs));
   }
@@ -169,6 +182,7 @@ interface Identita {
   visibilita: Visibilita;
   chiPuoInvitare: "tutti" | "sigillo";
   maggiorenne: boolean;
+  quattordici: boolean;
   icona: string;
   segno: string | null;
   maestro: string | null;
@@ -188,6 +202,7 @@ function identitaDa(dati: Record<string, unknown> | undefined): Identita {
     // **Finche' il telefono non lo dice, nessuno e' maggiorenne**: la
     // presenza pubblica resta chiusa invece di aprirsi per un dato mancante.
     maggiorenne: d.maggiorenne === true,
+    quattordici: quattordiciDichiarati(d),
     icona: iconaValida(d.icona) ?? "segno:0",
     segno: segnoValido(d.segno),
     maestro: maestroValido(d.maestro),
@@ -202,8 +217,9 @@ async function leggiIdentita(uid: string): Promise<Identita> {
 }
 
 /** La scheda che la presenza porta con se', per l'istantanea. */
-function schedaDellaPresenza(i: Identita): Record<string, unknown> {
+function schedaDellaPresenza(uid: string, i: Identita): Record<string, unknown> {
   return {
+    uid,
     visibilita: visibilitaEffettiva(i.visibilita, i.maggiorenne),
     maggiorenne: i.maggiorenne,
     nome: i.nome.length > 0 ? i.nome : null,
@@ -372,8 +388,23 @@ async function avvisa(uid: string, testo: string, tipo: string): Promise<void> {
 export const ilMioProfiloNelCerchio = onCall(OPZIONI_SOCIALI, async (request) => {
   const uid = uidDi(request);
   await tettoDellaPorta(uid, "ilMioProfiloNelCerchio");
-  const sigillo = await assicuraIlSigillo(uid);
   const corpo = (request.data ?? {}) as Record<string, unknown>;
+  // **I QUATTORDICI ANNI, ordine EZ voce 04**: si scrivono nel documento del
+  // tetto, dove tutte le altre porte li trovano senza una lettura in piu'.
+  const quattordici = quattordiciDichiarati(corpo);
+  await Promise.all([
+    statoDi(uid, "tetti_sociali").set({quattordici}, {merge: true}),
+    statoDi(uid, "identita").set({quattordici}, {merge: true}),
+  ]);
+  if (!quattordici) {
+    // Nessun profilo pubblico e nessuna presenza: se c'erano, se ne vanno.
+    await Promise.all([
+      db().collection("profili").doc(uid).delete(),
+      utente(uid).collection("presenza").doc("adesso").delete(),
+    ]);
+    return {chiuso: true, riga: RIGA_DEI_QUATTORDICI};
+  }
+  const sigillo = await assicuraIlSigillo(uid);
   const aggiornamenti: Record<string, unknown> = {};
   if (corpo.segno !== undefined) aggiornamenti.segno = segnoValido(corpo.segno);
   if (corpo.maestro !== undefined) aggiornamenti.maestro = maestroValido(corpo.maestro);
@@ -388,6 +419,7 @@ export const ilMioProfiloNelCerchio = onCall(OPZIONI_SOCIALI, async (request) =>
   }
   const io = await leggiIdentita(uid);
   if (io.nome.length > 0) await scriviIlPubblico(uid, io);
+  await aggiornaLaSchedaDellaPresenza(uid, io);
   return vistaDelProfilo(uid, io, sigillo);
 });
 
@@ -470,6 +502,7 @@ export const scegliIlNome = onCall(OPZIONI_SOCIALI, async (request) => {
   if (!esito.ok) return esito;
   const io = await leggiIdentita(uid);
   await scriviIlPubblico(uid, io);
+  await aggiornaLaSchedaDellaPresenza(uid, io);
   return {...esito, profilo: vistaDelProfilo(uid, io, sigillo)};
 });
 
@@ -502,6 +535,7 @@ export const aggiornaIlProfiloNelCerchio = onCall(OPZIONI_SOCIALI, async (reques
   }
   const io = await leggiIdentita(uid);
   await scriviIlPubblico(uid, io);
+  await aggiornaLaSchedaDellaPresenza(uid, io);
   return vistaDelProfilo(uid, io, sigillo);
 });
 
@@ -745,8 +779,7 @@ export const chiediIlLegame = onCall(OPZIONI_SOCIALI, async (request) => {
     }
   } else {
     const di = String(corpo.uid ?? "");
-    const ist = (await ISTANTANEA().get()).data() as Istantanea | undefined;
-    const presente = ist?.presenti?.find((p) => p.uid === di);
+    const presente = di.length === 0 ? undefined : await presenzaDi(di);
     if (presente === undefined || presente.visibilita !== "tutti" ||
       !presente.maggiorenne) {
       esito = {ok: false, perche: "assente"};
@@ -974,42 +1007,113 @@ export const compraUnPostoNelCerchio = onCall(OPZIONI_SOCIALI, async (request) =
 // PARTE C, LA PRESENZA
 // ---------------------------------------------------------------------------
 
+/** Una presenza letta dal suo documento, nella forma dell'istantanea. */
+function presenzaDa(uid: string, p: Record<string, unknown>): Presenza {
+  return {
+    uid,
+    ultimo: (p.ultimo as Timestamp | undefined)?.toMillis() ?? 0,
+    arte: arteValida(p.arte),
+    visibilita: visibilitaValida(p.visibilita) ?? "amici",
+    maggiorenne: p.maggiorenne === true,
+    nome: typeof p.nome === "string" ? p.nome : null,
+    icona: iconaValida(p.icona),
+    segno: segnoValido(p.segno),
+    maestro: maestroValido(p.maestro),
+    gradino: gradinoValido(p.gradino) ?? 0,
+    chiPuoInvitare: p.chiPuoInvitare === "sigillo" ? "sigillo" : "tutti",
+  };
+}
+
 /**
- * Rifa' l'istantanea se ha piu' di trenta secondi. Legge una presenza per
- * persona, ma una volta ogni trenta secondi per tutto il Cerchio: e' la
- * differenza fra questa via e quella ingenua, misurata in `lettureAllOra`.
+ * LA PRESENZA DI UNA PERSONA SOLA, per i gesti verso chi non e' amico: una
+ * lettura, il suo documento, e solo se e' dentro la finestra.
+ */
+async function presenzaDi(uid: string): Promise<Presenza | undefined> {
+  const snap = await db().collection("users").doc(uid)
+    .collection("presenza").doc("adesso").get();
+  const p = snap.data();
+  if (!p) return undefined;
+  const presenza = presenzaDa(uid, p);
+  return presenza.ultimo >= confineDellaPresenza(Date.now()) ? presenza : undefined;
+}
+
+/**
+ * **L'ISTANTANEA IN MEMORIA, ordine EZ voce 03.** Ogni istanza del server
+ * tiene l'ultima istantanea letta per trenta secondi: le aperture che
+ * arrivano nello stesso mezzo minuto non la rileggono. La verita' non
+ * cambia: l'istantanea stessa si rifa' al massimo ogni trenta secondi.
+ */
+let istantaneaInMemoria: Istantanea | null = null;
+
+/**
+ * Rifa' l'istantanea se ha piu' di trenta secondi. **Non legge piu' una
+ * presenza per persona** (ordine EZ voce 03): conta i presenti di ogni arte
+ * con un'aggregazione, che Firestore fattura una lettura ogni mille voci
+ * d'indice, e legge al massimo ventiquattro presenze visibili a tutti e
+ * maggiorenni per la vetrina. Gli invisibili non contano: la loro scheda
+ * dice `invisibile` e le aggregazioni chiedono le altre due visibilita'.
  */
 async function istantanea(): Promise<Istantanea> {
+  const adesso = Date.now();
+  if (istantaneaInMemoria &&
+    !istantaneaVecchia(istantaneaInMemoria.quando, adesso)) {
+    return istantaneaInMemoria;
+  }
   const snap = await ISTANTANEA().get();
   const d = snap.data() as Istantanea | undefined;
-  const adesso = Date.now();
-  if (d && !istantaneaVecchia(d.quando, adesso)) return d;
-  const presenze = await db()
-    .collectionGroup("presenza")
-    .where("ultimo", ">=", Timestamp.fromMillis(confineDellaPresenza(adesso)))
-    .get();
-  const elencoPresenze: Presenza[] = [];
-  for (const doc of presenze.docs) {
-    const uid = doc.ref.parent.parent?.id;
-    if (!uid) continue;
-    const p = doc.data();
-    elencoPresenze.push({
-      uid,
-      ultimo: (p.ultimo as Timestamp).toMillis(),
-      arte: arteValida(p.arte),
-      visibilita: visibilitaValida(p.visibilita) ?? "amici",
-      maggiorenne: p.maggiorenne === true,
-      nome: typeof p.nome === "string" ? p.nome : null,
-      icona: iconaValida(p.icona),
-      segno: segnoValido(p.segno),
-      maestro: maestroValido(p.maestro),
-      gradino: gradinoValido(p.gradino) ?? 0,
-      chiPuoInvitare: p.chiPuoInvitare === "sigillo" ? "sigillo" : "tutti",
-    });
+  if (d && Array.isArray(d.vetrina) && !istantaneaVecchia(d.quando, adesso)) {
+    istantaneaInMemoria = d;
+    return d;
   }
-  const nuova = costruisciLIstantanea(elencoPresenze, adesso);
+  const confine = Timestamp.fromMillis(confineDellaPresenza(adesso));
+  const presenze = () => db().collectionGroup("presenza");
+  const conti = await Promise.all(ARTI_DELLA_PRESENZA.map(async (arte) => {
+    const c = await presenze()
+      .where("arte", "==", arte)
+      .where("visibilita", "in", ["amici", "tutti"])
+      .where("ultimo", ">=", confine)
+      .count()
+      .get();
+    return [arte, c.data().count] as const;
+  }));
+  const candidati = await presenze()
+    .where("visibilita", "==", "tutti")
+    .where("maggiorenne", "==", true)
+    .where("ultimo", ">=", confine)
+    .limit(VETRINA_DELL_ISTANTANEA)
+    .get();
+  const nuova = costruisciLIstantanea({
+    perArte: Object.fromEntries(conti),
+    candidati: candidati.docs.flatMap((doc) => {
+      const uid = doc.ref.parent.parent?.id;
+      return uid ? [presenzaDa(uid, doc.data())] : [];
+    }),
+    adessoMs: adesso,
+  });
   await ISTANTANEA().set(nuova);
+  istantaneaInMemoria = nuova;
   return nuova;
+}
+
+/**
+ * GLI AMICI PRESENTI, con una domanda mirata sulle loro sole presenze: a
+ * gruppi di trenta, il massimo che Firestore accetta in un `in`. Una
+ * domanda costa una lettura per amico presente, o una sola se non ce n'e'.
+ */
+async function amiciPresentiFra(amici: string[]): Promise<Presenza[]> {
+  if (amici.length === 0) return [];
+  const confine = Timestamp.fromMillis(confineDellaPresenza(Date.now()));
+  const gruppi: string[][] = [];
+  for (let i = 0; i < amici.length; i += 30) gruppi.push(amici.slice(i, i + 30));
+  const risposte = await Promise.all(gruppi.map((g) => db()
+    .collectionGroup("presenza")
+    .where("uid", "in", g)
+    .where("ultimo", ">=", confine)
+    .get()));
+  return risposte.flatMap((r) => r.docs.flatMap((doc) => {
+    const uid = doc.ref.parent.parent?.id;
+    return uid ? [presenzaDa(uid, doc.data())] : [];
+  }));
 }
 
 /** L'affinita' alta fra due segni: lo stesso elemento, cioe' il trigono. */
@@ -1039,8 +1143,10 @@ export const laTendinaDelCerchio = onCall(OPZIONI_SOCIALI, async (request) => {
   const amici = new Set(elenco(legamiSnap.data()?.amici));
   const inviati = new Set(elenco(legamiSnap.data()?.inviati));
   const ricevuti = new Set(elenco(legamiSnap.data()?.ricevuti));
-  const amiciPresenti = ist.presenti
-    .filter((p) => amici.has(p.uid) && !blocchi.has(p.uid))
+  const presentiFraGliAmici = await amiciPresentiFra(
+    [...amici].filter((a) => !blocchi.has(a)));
+  const amiciPresenti = presentiFraGliAmici
+    .filter((p) => p.visibilita !== "invisibile")
     .map((p) => ({uid: p.uid, nome: p.nome, icona: p.icona, segno: p.segno,
       maestro: p.maestro, arte: p.arte, semaforo: "verde"}));
   const esclusi = new Set<string>([...amici, ...blocchi]);
@@ -1072,11 +1178,30 @@ export const laTendinaDelCerchio = onCall(OPZIONI_SOCIALI, async (request) => {
   };
 });
 
-/** Scrive la scheda della presenza; la chiama `chiEOnline` a ogni passo. */
+/**
+ * LA SCHEDA SEGUE IL PROFILO, ordine EZ voce 03: il passo della presenza non
+ * rilegge piu' l'identita' a ogni minuto, quindi quando il profilo cambia la
+ * scheda si aggiorna qui, con l'identita' gia' letta dalla porta. Se la
+ * persona non e' presente adesso il documento non c'e', e la scheda si
+ * scrivera' al suo primo passo.
+ */
+async function aggiornaLaSchedaDellaPresenza(uid: string, io: Identita):
+  Promise<void> {
+  try {
+    await utente(uid).collection("presenza").doc("adesso")
+      .update(schedaDellaPresenza(uid, io));
+  } catch (nonPresente) {
+    logger.debug("La scheda della presenza aspetta il primo passo.", {uid});
+  }
+}
+
+/** Scrive la scheda della presenza; la chiama `chiEOnline` al primo passo. */
 export async function rinnovaLaScheda(uid: string, arte: ArteDellaPresenza):
-  Promise<Record<string, unknown>> {
+  Promise<Record<string, unknown> | null> {
   const io = await leggiIdentita(uid);
-  return {...schedaDellaPresenza(io), arte};
+  // Sotto i quattordici anni nessuna presenza (ordine EZ voce 04).
+  if (!io.quattordici) return null;
+  return {...schedaDellaPresenza(uid, io), arte};
 }
 
 // ---------------------------------------------------------------------------
@@ -1253,8 +1378,9 @@ export const mandaUnDono = onCall(OPZIONI_SOCIALI, async (request) => {
       riga: "Scintilla e Sigillo si donano dall’Adepto in su."};
   }
   const prezzo = PREZZI_DEI_DONI[dono];
-  const ist = dono === "cenno" ? (await ISTANTANEA().get()).data() as Istantanea | undefined :
-    undefined;
+  // Il cenno a chi non e' amico guarda la sua presenza sola (ordine EZ
+  // voce 03), non l'elenco dei presenti che l'istantanea non porta piu'.
+  const presenzaDiA = dono === "cenno" ? await presenzaDi(a) : undefined;
   const esito = await db().runTransaction(async (tx) => {
     const movimento = utente(uid).collection("movimenti").doc(`dono-${id}`);
     const gia = await tx.get(movimento);
@@ -1269,7 +1395,7 @@ export const mandaUnDono = onCall(OPZIONI_SOCIALI, async (request) => {
     if (bloccati) return {ok: false, perche: "nonRaggiungibile", riga: null};
     const amici = legame?.stato === "amici";
     if (!amici) {
-      const presente = ist?.presenti?.find((p) => p.uid === a);
+      const presente = presenzaDiA;
       const giaSalutato = cenni.data()?.[a] === true;
       if (dono !== "cenno" || presente === undefined ||
         presente.visibilita !== "tutti" || !presente.maggiorenne || giaSalutato) {
@@ -1433,6 +1559,11 @@ export async function cancellaIlSociale(uid: string): Promise<void> {
  */
 export async function invitoDalRiscatto(chiInvita: string, chiArriva: string):
   Promise<void> {
+  // Chi ha dichiarato meno di quattordici anni non riceve (ordine EZ voce
+  // 04). Chi non l'ha ancora dichiarato riceve l'invito, ma non lo vede
+  // finche' le porte del suo Cerchio non si aprono.
+  const tetti = await statoDi(chiArriva, "tetti_sociali").get();
+  if (tetti.data()?.quattordici === false) return;
   try {
     await apriIlLegame({da: chiInvita, a: chiArriva, comeAmici: false,
       conIlSigillo: true, contaLInvito: false});

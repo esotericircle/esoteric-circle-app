@@ -8,7 +8,9 @@ import {codiceScritto, soloIlPubblico} from "./sociale";
  * Il link dell'invito vive sul dominio che il progetto usa gia', accanto a
  * `/entra` di `link_di_ingresso.dart`: `https://esotericircle.app/i/CODICE`.
  * Chi lo apre SENZA l'app arriva qui e vede chi lo ha chiamato, il codice da
- * incollare quando si registra, e la via per lo store. Chi lo apre CON l'app
+ * incollare quando si registra, e la via per lo store quando gli store ci
+ * saranno (`INDIRIZZI_DEGLI_STORE`, vuoti finche' l'app non e' pubblicata,
+ * ordine EZ voce 07). Chi lo apre CON l'app
  * entra dritto nella richiesta di legame (App Links su Android, lo schema
  * `esotericircle://` dal pulsante qui sotto ovunque).
  *
@@ -48,6 +50,22 @@ export const paginaDellInvito = onRequest(
   }
 );
 
+/**
+ * **GLI INDIRIZZI DEGLI STORE, in un dato solo, ordine EZ voce 07.** Vuoti
+ * adesso: l'app non e' pubblicata, e un rimando a uno store che non esiste
+ * sarebbe un vicolo cieco. Quando il fondatore li dara', si scrivono qui e
+ * la pagina li mostra senza che nessuno riscriva altro. Vuoti, i pulsanti
+ * non compaiono: non spenti, non con un avviso.
+ */
+export const INDIRIZZI_DEGLI_STORE: {android: string; iphone: string} = {
+  android: "",
+  iphone: "",
+};
+
+/** La riga sola della pagina, finche' l'invito vale. */
+export const RIGA_DEL_CODICE =
+  "Scarica Esoteric Circle e incolla questo codice quando ti registri";
+
 /** Il testo che finisce nell'HTML, senza nessun carattere che lo apra. */
 function pulito(testo: string): string {
   return testo.replace(/[&<>"']/g, (c) => ({
@@ -55,15 +73,18 @@ function pulito(testo: string): string {
   }[c] ?? c));
 }
 
-export function laPagina(nome: string | null, codice: string | null): string {
+export function laPagina(
+  nome: string | null,
+  codice: string | null,
+  store: {android: string; iphone: string} = INDIRIZZI_DEGLI_STORE,
+): string {
   const chi = nome === null ?
     "Il Cerchio ti chiama" :
     `${pulito(nome)} ti chiama nel suo Cerchio`;
   const blocco = codice === null ?
     `<p class="nota">Questo invito non vale più. Chiedine uno nuovo a chi te
     l’ha mandato, oppure entra nel Cerchio da solo.</p>` :
-    `<p class="nota">Quando ti registri, il Cerchio ti chiede se ti ha invitato
-    qualcuno: incolla questo codice e riceverete un dono di Eos tutti e due.</p>
+    `<p class="nota">${RIGA_DEL_CODICE}.</p>
     <div class="codice" id="codice">${pulito(codice)}</div>
     <button onclick="navigator.clipboard &amp;&amp; navigator.clipboard.writeText(
       document.getElementById('codice').textContent)">Copia il codice</button>
@@ -93,7 +114,9 @@ text-decoration:none;box-sizing:border-box;font-family:inherit}
 <div class="cerchio" aria-hidden="true"></div>
 <h1>${chi}</h1>
 ${blocco}
-<a class="pulsante store" href="https://play.google.com/store/apps/details?id=com.esotericircle.esoteric_circle">Scarica Esoteric Circle per Android</a>
-<a class="pulsante store" href="https://apps.apple.com/it/search?term=Esoteric%20Circle">Scarica Esoteric Circle per iPhone</a>
+${store.android.length > 0 ?
+    `<a class="pulsante store" href="${pulito(store.android)}">Scarica Esoteric Circle per Android</a>` : ""}
+${store.iphone.length > 0 ?
+    `<a class="pulsante store" href="${pulito(store.iphone)}">Scarica Esoteric Circle per iPhone</a>` : ""}
 </main></body></html>`;
 }

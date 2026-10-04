@@ -506,32 +506,85 @@ export interface Presenza {
 export const OGNI_QUANTO_SI_RIFA_L_ISTANTANEA_MS = 30 * 1000;
 
 /**
- * Quante persone porta al massimo l'istantanea: un documento Firestore sta in
- * un mega, e una presenza ne occupa circa duecento byte. Oltre, l'aggregato
- * per arte resta esatto e l'elenco delle persone si ferma qui.
+ * **L'ISTANTANEA NON CONTIENE TUTTI I PRESENTI, ordine EZ voce 03.** Un
+ * documento Firestore ha un tetto di un mega: a centomila presenti un elenco
+ * completo non starebbe in piedi, e soprattutto ricostruirlo voleva dire
+ * leggere UNA PRESENZA PER PERSONA ogni trenta secondi (mille letture con
+ * mille presenti). L'istantanea porta adesso soltanto:
+ * - **i conteggi per arte**, che sono numeri, presi con le aggregazioni di
+ *   Firestore (una lettura ogni mille voci d'indice, non una per persona);
+ * - **la vetrina**: al massimo ventiquattro presenti visibili a tutti e
+ *   maggiorenni, gia' con nome, sigillo, icona, segno e Maestro, da cui il
+ *   server sceglie per chi guarda le dodici persone simili.
+ * Gli amici presenti restano fuori: sono pochi e sono i soli che la persona
+ * vuole per nome, e si leggono con una domanda mirata sulle loro presenze.
  */
-export const PRESENZE_NELL_ISTANTANEA = 3000;
+export const VETRINA_DELL_ISTANTANEA = 24;
 
 export interface Istantanea {
   quando: number;
   /** Le presenze aggregate per arte: chi e' invisibile non conta. */
   perArte: Record<string, number>;
-  /** Tutti i presenti non invisibili, per trovare gli amici. */
-  presenti: Presenza[];
+  /** Al massimo ventiquattro presenti visibili a tutti e maggiorenni. */
+  vetrina: Presenza[];
 }
 
-export function costruisciLIstantanea(
-  presenze: Presenza[],
-  adessoMs: number
-): Istantanea {
+export function costruisciLIstantanea(args: {
+  perArte: Record<string, number>;
+  candidati: Presenza[];
+  adessoMs: number;
+}): Istantanea {
   const perArte: Record<string, number> = {};
-  const presenti: Presenza[] = [];
-  for (const p of presenze) {
-    if (p.visibilita === "invisibile") continue;
-    perArte[p.arte] = (perArte[p.arte] ?? 0) + 1;
-    if (presenti.length < PRESENZE_NELL_ISTANTANEA) presenti.push(p);
+  for (const [arte, quanti] of Object.entries(args.perArte)) {
+    if (quanti > 0) perArte[arte] = quanti;
   }
-  return {quando: adessoMs, perArte, presenti};
+  const vetrina = args.candidati
+    .filter((p) => p.visibilita === "tutti" && p.maggiorenne)
+    .slice(0, VETRINA_DELL_ISTANTANEA);
+  return {quando: args.adessoMs, perArte, vetrina};
+}
+
+/**
+ * **IL CERCHIO SOCIALE SI APRE A QUATTORDICI ANNI, ordine EZ voce 04.** In
+ * Italia chi ha compiuto quattordici anni presta da se' il consenso per i
+ * servizi della societa' dell'informazione; sotto, lo presta chi esercita la
+ * responsabilita' genitoriale. Il fondatore il 4 ottobre 2026 ha approvato la
+ * scelta dell'Architetto: nessun meccanismo di consenso genitoriale, che
+ * sarebbe pesante, aggirabile da chiunque, e sposterebbe sull'app una
+ * responsabilita' che non sa verificare. Sotto i quattordici anni le funzioni
+ * SOCIALI non si aprono: nessun profilo pubblico, nessuna presenza, nessun
+ * legame, nessun segno, nessun dono, nessun confronto con un'altra persona.
+ *
+ * **TUTTO IL RESTO DELL'APP RESTA INTERO.** Nessuna arte si chiude, nessun
+ * responso si tocca, nessun limite cambia: questa regola vale soltanto per le
+ * porte del Cerchio sociale, e non e' un divieto sulle arti.
+ *
+ * L'eta' la ricava il telefono dalla data di nascita che il profilo ha gia',
+ * senza chiedere niente e senza documenti, e la dichiara alla porta del
+ * profilo, l'unica che resta aperta perche' e' quella che la riceve. Nessuna
+ * etichetta dice a nessuno che una persona e' minorenne: chi e' sotto i
+ * quattordici semplicemente non compare e non riceve.
+ */
+export const ETA_DEL_CERCHIO = 14;
+export const RIGA_DEI_QUATTORDICI = "Il Cerchio si apre a quattordici anni";
+export const PORTA_CHE_RICEVE_L_ETA = "ilMioProfiloNelCerchio";
+
+/** Se una porta sociale risponde a chi chiama. */
+export function sogliaDellEtaPassata(porta: string, quattordici: unknown): boolean {
+  return porta === PORTA_CHE_RICEVE_L_ETA || quattordici === true;
+}
+
+/**
+ * I quattordici anni dichiarati dal telefono. Un telefono di prima
+ * dell'ordine EZ dice solo se e' maggiorenne: chi lo e' ha certo quattordici
+ * anni, chi non lo e' resta fuori finche' il telefono nuovo non lo dice.
+ */
+export function quattordiciDichiarati(corpo: {
+  quattordici?: unknown;
+  maggiorenne?: unknown;
+}): boolean {
+  if (typeof corpo.quattordici === "boolean") return corpo.quattordici;
+  return corpo.maggiorenne === true;
 }
 
 export function istantaneaVecchia(
@@ -570,7 +623,7 @@ export function somiglianti(args: {
   affinitaAlta: (segnoA: string, segnoB: string) => boolean;
 }): {persona: Presenza; criterio: CriterioDiSomiglianza}[] {
   const fuori: {persona: Presenza; criterio: CriterioDiSomiglianza}[] = [];
-  for (const p of args.istantanea.presenti) {
+  for (const p of args.istantanea.vetrina) {
     if (p.uid === args.chiGuarda || args.esclusi.has(p.uid)) continue;
     if (p.visibilita !== "tutti" || !p.maggiorenne) continue;
     let criterio: CriterioDiSomiglianza | null = null;
@@ -596,29 +649,81 @@ export function somiglianti(args: {
 }
 
 /**
- * LE LETTURE DI FIRESTORE, la misura che l'ordine chiede per la tendina.
+ * LE LETTURE DI FIRESTORE, ordine EZ voce 03: la misura prima e dopo, col
+ * metodo scritto. Una lettura e' quella che Firestore fattura: un documento
+ * letto, oppure un'aggregazione ogni mille voci d'indice, oppure una domanda
+ * che non trova niente (che costa comunque una lettura).
  *
- * - **Con l'istantanea**: ogni apertura legge l'istantanea, il proprio stato
- *   dei legami, i propri blocchi e il proprio profilo, quattro letture; la
- *   ricostruzione legge una presenza per persona, ma una volta ogni trenta
- *   secondi per TUTTO il Cerchio, quindi la sua quota per telefono e' quella
- *   divisa per quanti chiedono nello stesso mezzo minuto.
- * - **Via ingenua**: ogni telefono interroga tutte le presenze e tutti i
- *   profili a ogni richiesta.
+ * **UN'APERTURA DELLA TENDINA** legge, in tutte e due le vie, il tetto della
+ * porta (EY.16, una lettura in transazione), la propria identita', i propri
+ * legami e i propri blocchi: quattro letture fisse.
+ * - **Prima** leggeva anche l'istantanea, e se l'istantanea aveva piu' di
+ *   trenta secondi la RICOSTRUIVA leggendo una presenza per persona: mille
+ *   letture e una con mille presenti, pagate da chi apriva per primo.
+ * - **Dopo** l'istantanea si tiene anche in memoria per trenta secondi (una
+ *   lettura per istanza del server, non per apertura), la ricostruzione
+ *   costa un'aggregazione per arte (quattordici) piu' la vetrina (al massimo
+ *   ventiquattro), e gli amici presenti si leggono con una domanda mirata:
+ *   una lettura per ogni gruppo di trenta amici, oppure una per ogni amico
+ *   presente se sono di piu'.
+ *
+ * **IL PASSO DELLA PRESENZA**, ogni sessanta secondi, fuori dalla tendina:
+ * prima leggeva l'identita' e contava i presenti (due letture), dopo legge
+ * l'identita' solo al primo passo dopo l'avvio (una lettura al minuto).
+ *
+ * **La quota della ricostruzione** si divide fra i telefoni che chiedono nello
+ * stesso mezzo minuto: chi apre per primo la paga, gli altri la trovano.
  */
+export const LETTURE_FISSE_DI_UN_APERTURA = 4;
+
+export function lettureDegliAmici(amici: number, amiciPresenti: number): number {
+  if (amici <= 0) return 0;
+  return Math.max(Math.ceil(amici / 30), amiciPresenti);
+}
+
+export function lettureDellaRicostruzione(presenti: number): {
+  prima: number;
+  dopo: number;
+} {
+  const conteggi = ARTI_DELLA_PRESENZA.length * Math.max(1, Math.ceil(presenti / 1000));
+  return {
+    prima: presenti + 1,
+    dopo: conteggi + Math.max(1, Math.min(VETRINA_DELL_ISTANTANEA, presenti)),
+  };
+}
+
 export function lettureAllOra(args: {
   presenti: number;
   aperturePerOra: number;
   telefoniCheChiedono: number;
-}): {conLIstantanea: number; viaIngenua: number} {
+  amici: number;
+  amiciPresenti: number;
+}): {
+  prima: number;
+  dopo: number;
+  unAperturaPrima: number;
+  unAperturaDopo: number;
+  passoPrima: number;
+  passoDopo: number;
+  viaIngenua: number;
+} {
   const ricostruzioniAllOra = 3600 / (OGNI_QUANTO_SI_RIFA_L_ISTANTANEA_MS / 1000);
-  const ricostruzioniMie =
+  const quota =
     Math.min(args.aperturePerOra, ricostruzioniAllOra) /
     Math.max(1, args.telefoniCheChiedono);
+  const ricostruzione = lettureDellaRicostruzione(args.presenti);
+  const unAperturaPrima = LETTURE_FISSE_DI_UN_APERTURA + 1;
+  const unAperturaDopo =
+    LETTURE_FISSE_DI_UN_APERTURA + lettureDegliAmici(args.amici, args.amiciPresenti);
+  const conteggioDelPasso = Math.max(1, Math.ceil(args.presenti / 1000));
   return {
-    conLIstantanea: Math.round(
-      args.aperturePerOra * 4 + ricostruzioniMie * (args.presenti + 1)
-    ),
+    prima: Math.round(args.aperturePerOra * unAperturaPrima + quota * ricostruzione.prima),
+    dopo: Math.round(args.aperturePerOra * unAperturaDopo +
+      quota * (1 + ricostruzione.dopo)),
+    unAperturaPrima: unAperturaPrima + ricostruzione.prima,
+    unAperturaDopo: unAperturaDopo + 1 + ricostruzione.dopo,
+    passoPrima: 60 * (1 + conteggioDelPasso),
+    passoDopo: 60 * conteggioDelPasso + 1,
     viaIngenua: args.aperturePerOra * args.presenti * 2,
   };
 }
@@ -699,19 +804,22 @@ export function reazioneValida(valore: unknown): Reazione | null {
  * rifiutare cio' che non esiste. Una prova pretende che i due elenchi siano
  * gli stessi.
  */
+// Ordine EZ voce 08: i testi dell'Architetto hanno tre risposte per "Ti
+// penso" e due per tutti gli altri. Nessun numero e' salito: il server di
+// prima accettava gia' tutte le risposte nuove.
 export const RISPOSTE_PER_SEGNO: Record<string, number> = {
   tiPenso: 3,
-  miManchi: 3,
+  miManchi: 2,
   buonCammino: 2,
-  sonoQui: 3,
+  sonoQui: 2,
   coraggio: 2,
   grazieDiEsserci: 2,
-  ilTuoCielo: 3,
-  martePerTe: 3,
-  lunaPerTe: 3,
-  venerePerTe: 3,
+  ilTuoCielo: 2,
+  martePerTe: 2,
+  lunaPerTe: 2,
+  venerePerTe: 2,
   ilSoleTiCerca: 2,
-  stelleDiStanotte: 3,
+  stelleDiStanotte: 2,
   confrontiamoICieli: 2,
   facciamoLaSinastria: 2,
   stessaCarta: 2,

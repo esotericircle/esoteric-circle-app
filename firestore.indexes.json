@@ -1,5 +1,56 @@
 {
-  "indexes": [],
+  "indexes": [
+    {
+      "collectionGroup": "presenza",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "arte",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "visibilita",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "ultimo",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "presenza",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "visibilita",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "maggiorenne",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "ultimo",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "presenza",
+      "queryScope": "COLLECTION_GROUP",
+      "fields": [
+        {
+          "fieldPath": "uid",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "ultimo",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
   "fieldOverrides": [
     {
       "collectionGroup": "presenza",
