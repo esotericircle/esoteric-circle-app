@@ -416,6 +416,7 @@ class _LaSceltaDellIconaState extends State<_LaSceltaDellIcona> {
                         .copyWith(color: palette.goldSoft)),
               ),
               TextButton(
+                style: TextButton.styleFrom(foregroundColor: palette.goldSoft),
                 onPressed: () => Navigator.of(c).pop(),
                 child: const Text('Fatto'),
               ),
