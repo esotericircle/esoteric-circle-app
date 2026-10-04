@@ -117,19 +117,32 @@ export const SEGNI = [
 ] as const;
 export const MAESTRI = ["medora", "aura", "caligo"] as const;
 export const FAMIGLIE_DELLE_ICONE =
-  ["segno", "animale", "arcano", "archetipo"] as const;
+  ["segno", "animale", "archetipo"] as const;
 
 /**
- * **L'ICONA DEL PROFILO si sceglie fra i quattro set disegnati**, mai una
- * foto. La forma e' `famiglia:indice`: dodici segni, dodici animali, ventidue
- * Arcani, dodici archetipi.
+ * **L'ICONA DEL PROFILO si sceglie fra tre set disegnati**, mai una foto. La
+ * forma e' `famiglia:indice`: dodici segni, dodici animali, dodici
+ * archetipi. **Gli Arcani sono usciti dalle icone** con l'ordine FA voce 01
+ * (4 ottobre 2026): una carta intera dentro il tondo non si riconosce. Un
+ * codice `arcano:N` non e' piu' valido e ricade sul segno della persona
+ * (`iconaDelSegno`).
  */
 export const QUANTE_ICONE: Record<string, number> = {
   segno: 12,
   animale: 12,
-  arcano: 22,
   archetipo: 12,
 };
+
+/**
+ * IL RIPIEGO DELL'ICONA E' IL SEGNO DELLA PERSONA, ordine FA voce 01: un
+ * codice che non vale piu' diventa l'emblema del suo segno solare, e solo se
+ * il segno non si conosce il primo della lista. Lo stesso del telefono
+ * (`IconaDelProfilo.valida`).
+ */
+export function iconaDelSegno(segno: unknown): string {
+  const i = (SEGNI as readonly string[]).indexOf(String(segno));
+  return `segno:${i < 0 ? 0 : i}`;
+}
 
 export function iconaValida(valore: unknown): string | null {
   const testo = String(valore ?? "");
@@ -195,7 +208,7 @@ export function soloIlPubblico(dati: Record<string, unknown>): ProfiloPubblico {
   return {
     nome: String(dati.nome ?? ""),
     sigillo: String(dati.sigillo ?? ""),
-    icona: iconaValida(dati.icona) ?? "segno:0",
+    icona: iconaValida(dati.icona) ?? iconaDelSegno(dati.segno),
     segno: segnoValido(dati.segno),
     gradino: gradinoValido(dati.gradino) ?? 0,
     maestro: maestroValido(dati.maestro),
@@ -494,6 +507,11 @@ export interface Presenza {
   maestro: string | null;
   gradino: number;
   chiPuoInvitare: "tutti" | "sigillo";
+  /**
+   * Il sigillo viaggia con la presenza perche' la tendina lo mostri accanto
+   * al nome quando due nomi coincidono (ordine FA voce 04); mai da solo.
+   */
+  sigillo: string | null;
 }
 
 /**
@@ -676,9 +694,22 @@ export function somiglianti(args: {
  */
 export const LETTURE_FISSE_DI_UN_APERTURA = 4;
 
+/**
+ * **GLI AMICI PRESENTI NELLA TENDINA SONO AL MASSIMO SEI, ordine FA voce 05.**
+ * La soglia dell'Architetto: non piu' di dieci letture per apertura. Le
+ * fisse sono quattro (il tetto della porta, l'identita', i legami, i
+ * blocchi); gli amici presenti si leggono con UNA domanda sulle presenze che
+ * portano chi guarda fra i loro amici, chiusa a sei: quattro piu' sei fa
+ * dieci, qualunque sia il numero degli amici. La ricostruzione
+ * dell'istantanea non conta: e' una spesa sola ogni trenta secondi per tutto
+ * il Cerchio, condivisa, che non cresce con chi guarda.
+ */
+export const AMICI_NELLA_TENDINA = 6;
+export const SOGLIA_DELLE_LETTURE_PER_APERTURA = 10;
+
 export function lettureDegliAmici(amici: number, amiciPresenti: number): number {
   if (amici <= 0) return 0;
-  return Math.max(Math.ceil(amici / 30), amiciPresenti);
+  return Math.max(1, Math.min(amiciPresenti, AMICI_NELLA_TENDINA));
 }
 
 export function lettureDellaRicostruzione(presenti: number): {
@@ -723,7 +754,8 @@ export function lettureAllOra(args: {
     unAperturaPrima: unAperturaPrima + ricostruzione.prima,
     unAperturaDopo: unAperturaDopo + 1 + ricostruzione.dopo,
     passoPrima: 60 * (1 + conteggioDelPasso),
-    passoDopo: 60 * conteggioDelPasso + 1,
+    // Il primo passo legge l'identita' e, dall'ordine FA, i legami.
+    passoDopo: 60 * conteggioDelPasso + 2,
     viaIngenua: args.aperturePerOra * args.presenti * 2,
   };
 }

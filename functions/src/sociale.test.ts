@@ -13,6 +13,7 @@ import {
   SEGNI_AL_GIORNO,
   PORTA_CHE_RICEVE_L_ETA,
   RIGA_DEI_QUATTORDICI,
+  QUANTE_ICONE,
   TETTI_DELLE_PORTE,
   VETRINA_DELL_ISTANTANEA,
   codiceScritto,
@@ -38,6 +39,8 @@ import {
   unCodice,
   unSigillo,
   visibilitaEffettiva,
+  iconaValida,
+  iconaDelSegno,
 } from "./sociale";
 import {INDIRIZZI_DEGLI_STORE, RIGA_DEL_CODICE, laPagina} from "./la_pagina_dell_invito";
 
@@ -157,7 +160,7 @@ test("EY.09 i minorenni restano visibili ai soli amici, l'invisibile resta invis
 function presenza(uid: string, cosa: Partial<Presenza> = {}): Presenza {
   return {uid, ultimo: 1, arte: "tarocchi", visibilita: "tutti", maggiorenne: true,
     nome: uid, icona: "segno:0", segno: "leo", maestro: "aura", gradino: 3,
-    chiPuoInvitare: "tutti", ...cosa};
+    chiPuoInvitare: "tutti", sigillo: null, ...cosa};
 }
 
 test("EZ.03 l'istantanea: i conteggi per arte e la vetrina, mai tutti i presenti", () => {
@@ -377,4 +380,15 @@ test("EZ.04 la soglia dei quattordici anni: ogni porta sociale tranne quella che
   assert.equal(quattordiciDichiarati({maggiorenne: true}), true);
   assert.equal(quattordiciDichiarati({}), false);
   assert.equal(RIGA_DEI_QUATTORDICI, "Il Cerchio si apre a quattordici anni");
+});
+
+test("FA.01 le icone sono tre famiglie, e un Arcano ricade sul segno della persona", () => {
+  assert.deepEqual(QUANTE_ICONE, {segno: 12, animale: 12, archetipo: 12});
+  assert.equal(iconaValida("arcano:1"), null);
+  assert.equal(iconaValida("archetipo:11"), "archetipo:11");
+  assert.equal(iconaDelSegno("pisces"), "segno:11");
+  assert.equal(iconaDelSegno(null), "segno:0");
+  const pubblico = soloIlPubblico({nome: "Luce", icona: "arcano:1", segno: "pisces"});
+  console.log(`FA.01 IL PROFILO PUBBLICO CON UN ARCANO: ${pubblico.icona}`);
+  assert.equal(pubblico.icona, "segno:11");
 });

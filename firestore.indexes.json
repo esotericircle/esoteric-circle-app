@@ -41,8 +41,8 @@
       "queryScope": "COLLECTION_GROUP",
       "fields": [
         {
-          "fieldPath": "uid",
-          "order": "ASCENDING"
+          "fieldPath": "amici",
+          "arrayConfig": "CONTAINS"
         },
         {
           "fieldPath": "ultimo",

@@ -31,6 +31,7 @@ import {
   StatoDelLegame,
   TETTI_DELLE_PORTE,
   TipoDelCodice,
+  AMICI_NELLA_TENDINA,
   VETRINA_DELL_ISTANTANEA,
   VISIBILITA_PREDEFINITA,
   Visibilita,
@@ -48,6 +49,7 @@ import {
   fineDellaQuarantena,
   gradinoValido,
   quattordiciDichiarati,
+  iconaDelSegno,
   iconaValida,
   istantaneaVecchia,
   maestroValido,
@@ -203,7 +205,7 @@ function identitaDa(dati: Record<string, unknown> | undefined): Identita {
     // presenza pubblica resta chiusa invece di aprirsi per un dato mancante.
     maggiorenne: d.maggiorenne === true,
     quattordici: quattordiciDichiarati(d),
-    icona: iconaValida(d.icona) ?? "segno:0",
+    icona: iconaValida(d.icona) ?? iconaDelSegno(d.segno),
     segno: segnoValido(d.segno),
     maestro: maestroValido(d.maestro),
     gradino: gradinoValido(d.gradino) ?? 0,
@@ -228,6 +230,7 @@ function schedaDellaPresenza(uid: string, i: Identita): Record<string, unknown> 
     maestro: i.maestro,
     gradino: i.gradino,
     chiPuoInvitare: i.chiPuoInvitare,
+    sigillo: i.sigillo,
   };
 }
 
@@ -309,6 +312,14 @@ function aggiornaGliElenchi(
   };
   if (dove !== null) campi[dove] = FieldValue.arrayUnion(altro);
   tx.set(statoDi(uid, "legami"), campi, {merge: true});
+  // **GLI AMICI VIAGGIANO CON LA PRESENZA, ordine FA voce 05**: la tendina
+  // trova gli amici presenti con una domanda sola sulle presenze che portano
+  // chi guarda fra i loro amici. Si scrive qui, nello stesso punto e nella
+  // stessa transazione degli elenchi, cosi' i due non discordano.
+  tx.set(utente(uid).collection("presenza").doc("adesso"), {
+    amici: dove === "amici" ?
+      FieldValue.arrayUnion(altro) : FieldValue.arrayRemove(altro),
+  }, {merge: true});
 }
 
 /** Il contatore sociale di oggi: inviti, segni, segni per persona, regali. */
@@ -1016,11 +1027,12 @@ function presenzaDa(uid: string, p: Record<string, unknown>): Presenza {
     visibilita: visibilitaValida(p.visibilita) ?? "amici",
     maggiorenne: p.maggiorenne === true,
     nome: typeof p.nome === "string" ? p.nome : null,
-    icona: iconaValida(p.icona),
+    icona: iconaValida(p.icona) ?? iconaDelSegno(p.segno),
     segno: segnoValido(p.segno),
     maestro: maestroValido(p.maestro),
     gradino: gradinoValido(p.gradino) ?? 0,
     chiPuoInvitare: p.chiPuoInvitare === "sigillo" ? "sigillo" : "tutti",
+    sigillo: typeof p.sigillo === "string" ? p.sigillo : null,
   };
 }
 
@@ -1096,24 +1108,25 @@ async function istantanea(): Promise<Istantanea> {
 }
 
 /**
- * GLI AMICI PRESENTI, con una domanda mirata sulle loro sole presenze: a
- * gruppi di trenta, il massimo che Firestore accetta in un `in`. Una
- * domanda costa una lettura per amico presente, o una sola se non ce n'e'.
+ * GLI AMICI PRESENTI, con UNA domanda, ordine FA voce 05: le presenze che
+ * portano chi guarda fra i loro amici (il legame e' simmetrico), dentro la
+ * finestra, al massimo `AMICI_NELLA_TENDINA`. Costa una lettura per amico
+ * trovato, o una sola se non ce n'e', e mai piu' di sei, qualunque sia il
+ * numero degli amici. Prima erano domande a gruppi di trenta, e una lettura
+ * per ogni amico presente senza un tetto.
  */
-async function amiciPresentiFra(amici: string[]): Promise<Presenza[]> {
-  if (amici.length === 0) return [];
+async function amiciPresentiDi(uid: string): Promise<Presenza[]> {
   const confine = Timestamp.fromMillis(confineDellaPresenza(Date.now()));
-  const gruppi: string[][] = [];
-  for (let i = 0; i < amici.length; i += 30) gruppi.push(amici.slice(i, i + 30));
-  const risposte = await Promise.all(gruppi.map((g) => db()
+  const risposta = await db()
     .collectionGroup("presenza")
-    .where("uid", "in", g)
+    .where("amici", "array-contains", uid)
     .where("ultimo", ">=", confine)
-    .get()));
-  return risposte.flatMap((r) => r.docs.flatMap((doc) => {
-    const uid = doc.ref.parent.parent?.id;
-    return uid ? [presenzaDa(uid, doc.data())] : [];
-  }));
+    .limit(AMICI_NELLA_TENDINA)
+    .get();
+  return risposta.docs.flatMap((doc) => {
+    const di = doc.ref.parent.parent?.id;
+    return di ? [presenzaDa(di, doc.data())] : [];
+  });
 }
 
 /** L'affinita' alta fra due segni: lo stesso elemento, cioe' il trigono. */
@@ -1143,12 +1156,12 @@ export const laTendinaDelCerchio = onCall(OPZIONI_SOCIALI, async (request) => {
   const amici = new Set(elenco(legamiSnap.data()?.amici));
   const inviati = new Set(elenco(legamiSnap.data()?.inviati));
   const ricevuti = new Set(elenco(legamiSnap.data()?.ricevuti));
-  const presentiFraGliAmici = await amiciPresentiFra(
-    [...amici].filter((a) => !blocchi.has(a)));
+  const presentiFraGliAmici = amici.size === 0 ? [] : await amiciPresentiDi(uid);
   const amiciPresenti = presentiFraGliAmici
-    .filter((p) => p.visibilita !== "invisibile")
+    .filter((p) => amici.has(p.uid) && !blocchi.has(p.uid) &&
+      p.visibilita !== "invisibile")
     .map((p) => ({uid: p.uid, nome: p.nome, icona: p.icona, segno: p.segno,
-      maestro: p.maestro, arte: p.arte, semaforo: "verde"}));
+      maestro: p.maestro, arte: p.arte, sigillo: p.sigillo, semaforo: "verde"}));
   const esclusi = new Set<string>([...amici, ...blocchi]);
   // **Un minorenne non vede sconosciuti e non e' visto da loro**: la tendina
   // gli mostra gli amici e il Cerchio per arte, non le persone che somigliano.
@@ -1164,7 +1177,7 @@ export const laTendinaDelCerchio = onCall(OPZIONI_SOCIALI, async (request) => {
   }).map(({persona, criterio}) => ({
     uid: persona.uid, nome: persona.nome, icona: persona.icona,
     segno: persona.segno, maestro: persona.maestro, gradino: persona.gradino,
-    criterio,
+    sigillo: persona.sigillo, criterio,
     semaforo: inviati.has(persona.uid) ? "arancioneChiaro" :
       ricevuti.has(persona.uid) ? "arancionePieno" : "spento",
     invitabile: persona.chiPuoInvitare === "tutti",
@@ -1198,10 +1211,16 @@ async function aggiornaLaSchedaDellaPresenza(uid: string, io: Identita):
 /** Scrive la scheda della presenza; la chiama `chiEOnline` al primo passo. */
 export async function rinnovaLaScheda(uid: string, arte: ArteDellaPresenza):
   Promise<Record<string, unknown> | null> {
-  const io = await leggiIdentita(uid);
+  const [io, legami] = await Promise.all([
+    leggiIdentita(uid),
+    statoDi(uid, "legami").get(),
+  ]);
   // Sotto i quattordici anni nessuna presenza (ordine EZ voce 04).
   if (!io.quattordici) return null;
-  return {...schedaDellaPresenza(uid, io), arte};
+  // Gli amici viaggiano con la scheda (ordine FA voce 05): la scheda si
+  // riscrive intera al primo passo, e porta l'elenco di oggi.
+  return {...schedaDellaPresenza(uid, io), arte,
+    amici: elenco(legami.data()?.amici)};
 }
 
 // ---------------------------------------------------------------------------
@@ -1536,6 +1555,8 @@ export async function cancellaIlSociale(uid: string): Promise<void> {
       inviati: FieldValue.arrayRemove(uid),
       ricevuti: FieldValue.arrayRemove(uid),
     }, {merge: true});
+    batch.set(utente(altro).collection("presenza").doc("adesso"),
+      {amici: FieldValue.arrayRemove(uid)}, {merge: true});
   }
   for (const altro of elenco(blocchi.data()?.bloccati)) {
     batch.set(statoDi(altro, "blocchi"), {bloccatoDa: FieldValue.arrayRemove(uid)},
