@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -393,12 +395,45 @@ class IlCerchioSociale extends ChangeNotifier {
   IlMioCerchio get cerchio => _cerchio;
   LaTendina? get tendina => _tendina;
 
-  /// **QUANDO E' ARRIVATA L'ULTIMA TENDINA, ordine FC voce 09.** In memoria,
-  /// di questa sessione e basta: la riga del Cerchio nella rubrica degli
-  /// amici dice quanti sono presenti solo se la tendina e' fresca, e non la
-  /// chiama mai. Nulla finche' la tendina non e' arrivata.
+  /// **QUANDO E' ARRIVATA L'ULTIMA TENDINA, ordine FC voce 09.** La rubrica
+  /// degli amici la riusa se ha meno di un minuto, e chi mostra l'ultimo
+  /// dato noto ne dice l'ora. Nulla finche' nessuna tendina e' arrivata.
   DateTime? _tendinaArrivata;
   DateTime? get tendinaArrivata => _tendinaArrivata;
+
+  /// **L'ULTIMA RICHIESTA DELLA TENDINA NON E' ARRIVATA**, ordine FC voce 09
+  /// col vincolo del fondatore: *"Quando il tetto e' raggiunto, l'app NON
+  /// mostra un errore: mostra l'ultimo dato noto con l'ora a cui e' stato
+  /// preso."* Il tetto di trenta chiamate l'ora e' della porta
+  /// `laTendinaDelCerchio`, e adesso la chiamano due schermate, la tendina
+  /// e la rubrica degli amici: e' condiviso. Quando una richiesta non arriva
+  /// (il tetto, oppure la rete), [tendina] resta l'ultima arrivata e questo
+  /// e' vero; chi la mostra scrive l'ora di [tendinaArrivata] invece di un
+  /// guasto. Solo quando nessuna tendina e' mai arrivata si legge
+  /// [rigaDellaTendinaCheNonArriva].
+  bool _tendinaNonAggiornata = false;
+  bool get tendinaNonAggiornata => _tendinaNonAggiornata;
+
+  /// La riga quando la tendina non arriva e non c'e' un ultimo dato noto.
+  /// Testo del fondatore, ordine FC voce 09.
+  static const String rigaDellaTendinaCheNonArriva =
+      'Il Cerchio non risponde in questo momento. Riprova fra poco.';
+
+  /// **L'ULTIMA TENDINA SUL TELEFONO**, perche' l'ultimo dato noto ci sia
+  /// anche dopo una riapertura dell'app dentro l'ora del tetto. Sotto il
+  /// prefisso `cerchio.`, che l'uscita toglie con tutto il resto; porta lo
+  /// uid di chi l'ha ricevuta e si rilegge solo per lui.
+  static const String chiaveDellUltimaTendina = 'cerchio.ultimaTendina';
+
+  /// "Aggiornato alle 21:47.": l'ora dell'ultimo dato noto della tendina,
+  /// nell'ora del telefono, per la tendina e per la rubrica degli amici.
+  /// SEGNAPOSTO dichiarato, ordine FC voce 09: lo scrive l'Architetto.
+  static String rigaDellUltimoDato(DateTime quando) {
+    final l = quando.toLocal();
+    return 'Aggiornato alle ${l.hour.toString().padLeft(2, '0')}:'
+        '${l.minute.toString().padLeft(2, '0')}.';
+  }
+
   bool get vivo => _porta.viva;
 
   /// **IL CERCHIO SOCIALE SI APRE A QUATTORDICI ANNI, ordine EZ voce 04.**
@@ -758,11 +793,55 @@ class IlCerchioSociale extends ChangeNotifier {
 
   Future<EsitoDelGesto> caricaLaTendina() async {
     final e = await _chiedi('laTendinaDelCerchio');
-    if (e == null || e.rifiutato) return _esito(e);
+    if (e == null || e.rifiutato) {
+      if (_tendina == null) await _rileggiLUltimaTendina();
+      _tendinaNonAggiornata = true;
+      notifyListeners();
+      return _esito(e);
+    }
     _tendina = LaTendina.da(e.dati);
     _tendinaArrivata = DateTime.now();
+    _tendinaNonAggiornata = false;
     notifyListeners();
+    await _conservaLUltimaTendina(e.dati, _tendinaArrivata!);
     return const EsitoDelGesto(ok: true);
+  }
+
+  Future<void> _conservaLUltimaTendina(
+      Map<String, Object?> dati, DateTime quando) async {
+    final uid = _profilo?.uid;
+    if (uid == null) return;
+    try {
+      final p = await SharedPreferences.getInstance();
+      await p.setString(
+          chiaveDellUltimaTendina,
+          jsonEncode({
+            'uid': uid,
+            'quando': quando.millisecondsSinceEpoch,
+            'dati': dati,
+          }));
+    } catch (senzaDisco) {
+      // Senza disco resta l'ultimo dato in memoria: basta per la sessione.
+      debugPrint('Cerchio: l\'ultima tendina resta in memoria. $senzaDisco');
+    }
+  }
+
+  Future<void> _rileggiLUltimaTendina() async {
+    final uid = _profilo?.uid;
+    if (uid == null) return;
+    try {
+      final p = await SharedPreferences.getInstance();
+      final testo = p.getString(chiaveDellUltimaTendina);
+      if (testo == null) return;
+      final d = jsonDecode(testo);
+      if (d is! Map || d['uid'] != uid || d['dati'] is! Map) return;
+      final quando = d['quando'];
+      if (quando is! int) return;
+      _tendina = LaTendina.da(Map<String, Object?>.from(d['dati'] as Map));
+      _tendinaArrivata = DateTime.fromMillisecondsSinceEpoch(quando);
+    } catch (illeggibile) {
+      debugPrint('Cerchio: l\'ultima tendina non si rilegge. $illeggibile');
+    }
   }
 
   Future<EsitoDelGesto> compraUnPosto() async {
@@ -817,12 +896,14 @@ class IlCerchioSociale extends ChangeNotifier {
     _cerchio = const IlMioCerchio();
     _tendina = null;
     _tendinaArrivata = null;
+    _tendinaNonAggiornata = false;
     _codiceDelLink = null;
     _scadenzaDelLink = null;
     try {
       final p = await SharedPreferences.getInstance();
       await p.remove(chiaveDelNomeProposto);
       await p.remove(chiaveDelMaestro);
+      await p.remove(chiaveDellUltimaTendina);
     } catch (senzaDisco) {
       // Le chiavi stanno sotto il prefisso `cerchio.` di CioCheETuo, che
       // le toglie comunque con tutte le altre.

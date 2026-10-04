@@ -126,9 +126,20 @@ class _LaTendina extends StatelessWidget {
                               .copyWith(color: palette.goldSoft)),
                     )
                   : t == null
-                      ? const Padding(
-                          padding: EdgeInsets.all(SpacingTokens.xl),
-                          child: Center(child: CircularProgressIndicator()),
+                      // Ordine FC voce 09: se la tendina non arriva e non
+                      // c'e' un ultimo dato noto, la riga del fondatore;
+                      // altrimenti si aspetta.
+                      ? Padding(
+                          padding: const EdgeInsets.all(SpacingTokens.xl),
+                          child: sociale.tendinaNonAggiornata
+                              ? Text(
+                                  IlCerchioSociale.rigaDellaTendinaCheNonArriva,
+                                  key: const Key('tendina_non_arriva'),
+                                  textAlign: TextAlign.center,
+                                  style: TypographyTokens.corpo()
+                                      .copyWith(color: palette.goldSoft))
+                              : const Center(
+                                  child: CircularProgressIndicator()),
                         )
                       : ListView(
                           shrinkWrap: true,
@@ -151,6 +162,22 @@ class _LaTendina extends StatelessWidget {
                                     'Sei invisibile: nessuno ti vede e tu vedi gli '
                                     'altri.',
                                     key: const Key('tendina_invisibile'),
+                                    style: TypographyTokens.didascalia()
+                                        .copyWith(color: palette.goldSoft)),
+                              ),
+                            // **L'ULTIMO DATO NOTO, CON LA SUA ORA**, ordine
+                            // FC voce 09: il tetto della porta e' condiviso
+                            // con la rubrica degli amici, e quando la
+                            // richiesta non arriva non si vede un guasto.
+                            if (sociale.tendinaNonAggiornata &&
+                                sociale.tendinaArrivata != null)
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: SpacingTokens.sm),
+                                child: Text(
+                                    IlCerchioSociale.rigaDellUltimoDato(
+                                        sociale.tendinaArrivata!),
+                                    key: const Key('tendina_ultimo_dato'),
                                     style: TypographyTokens.didascalia()
                                         .copyWith(color: palette.goldSoft)),
                               ),

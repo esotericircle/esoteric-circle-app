@@ -73,11 +73,10 @@ class _AmiciScreenState extends State<AmiciScreen> {
   /// `gli_amici_online.dart`.
   bool _suOnline = false;
 
-  /// La tendina chiesta da questa apertura: in attesa, arrivata, o la riga
-  /// del perche' no.
+  /// La tendina chiesta da questa apertura: in attesa, o arrivata. Quando
+  /// non arriva vale l'ultimo dato noto, con la sua ora.
   bool _inAttesa = false;
   bool _arrivataQui = false;
-  String? _rigaDelSilenzio;
 
   DateTime get _adesso => widget.adesso ?? DateTime.now();
 
@@ -109,17 +108,13 @@ class _AmiciScreenState extends State<AmiciScreen> {
   Future<void> _chiediLaTendina(IlCerchioSociale s,
       {bool apertura = false}) async {
     if (!apertura) {
-      setState(() {
-        _inAttesa = true;
-        _rigaDelSilenzio = null;
-      });
+      setState(() => _inAttesa = true);
     }
     final esito = await s.caricaLaTendina();
     if (!mounted) return;
     setState(() {
       _inAttesa = false;
       _arrivataQui = esito.ok;
-      _rigaDelSilenzio = esito.ok ? null : esito.riga;
     });
   }
 
@@ -232,9 +227,8 @@ class _AmiciScreenState extends State<AmiciScreen> {
                   key: const Key('amici_elenco_online'),
                   sociale: sociale,
                   inAttesa: _inAttesa,
-                  valida: _arrivataQui ||
-                      GliAmiciOnline.tendinaFresca(sociale, _adesso),
-                  riga: _rigaDelSilenzio,
+                  ultimoDatoDelle: GliAmiciOnline.ultimoDatoDelle(sociale,
+                      arrivataQui: _arrivataQui),
                   onRiprova: () => unawaited(_chiediLaTendina(sociale)),
                   palette: palette,
                 )

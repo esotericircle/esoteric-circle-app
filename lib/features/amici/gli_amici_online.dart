@@ -44,8 +44,18 @@ import '../cerchio/widgets/disegni_del_cerchio.dart';
 /// un minuto fa si' che la rubrica da sola non lo raggiunga aprendosi e
 /// chiudendosi.
 ///
-/// **NESSUNO ZERO INVENTATO**: finche' la tendina non e' arrivata, o se il
-/// Cerchio non risponde, accanto a Online non c'e' un numero.
+/// **NESSUNO ZERO INVENTATO**: finche' nessuna tendina e' arrivata, accanto
+/// a Online non c'e' un numero.
+///
+/// **IL TETTO E' CONDIVISO, E NON SI VEDE COME UN GUASTO.** Il fondatore,
+/// approvando la chiamata in piu': *"Quando il tetto e' raggiunto, l'app NON
+/// mostra un errore: mostra l'ultimo dato noto con l'ora a cui e' stato
+/// preso. L'utente non deve mai vedere un messaggio di guasto per avere
+/// aperto due schermate che leggono la stessa istantanea."* Quando la
+/// richiesta non arriva, per il tetto o per la rete, la rubrica mostra
+/// l'ultima tendina con la sua ora ([IlCerchioSociale.tendinaNonAggiornata]);
+/// il testo del guasto ([IlCerchioSociale.rigaDellaTendinaCheNonArriva])
+/// compare solo se un ultimo dato noto non c'e'.
 abstract final class GliAmiciOnline {
   /// Quanto puo' essere vecchia la tendina per essere riusata.
   static const Duration freschezzaDellaTendina = Duration(minutes: 1);
@@ -76,8 +86,22 @@ abstract final class GliAmiciOnline {
     if (s.cerchio.amici.isEmpty) return 0;
     final t = s.tendina;
     if (t == null) return null;
-    if (arrivataQui || tendinaFresca(s, adesso)) return t.amiciPresenti.length;
+    if (arrivataQui || tendinaFresca(s, adesso) || s.tendinaNonAggiornata) {
+      return t.amiciPresenti.length;
+    }
     return null;
+  }
+
+  /// L'ora dell'ultimo dato noto, quando l'ultima richiesta della tendina
+  /// non e' arrivata (il tetto o la rete): si dice sempre, anche se il dato
+  /// ha pochi secondi. Nulla quando il dato e' arrivato per questa apertura
+  /// o nessuna richiesta e' fallita.
+  static DateTime? ultimoDatoDelle(IlCerchioSociale s,
+      {bool arrivataQui = false}) {
+    if (s.tendina == null || arrivataQui || !s.tendinaNonAggiornata) {
+      return null;
+    }
+    return s.tendinaArrivata;
   }
 }
 
@@ -202,16 +226,16 @@ class _Pulsante extends StatelessWidget {
 /// **L'ELENCO ONLINE**: gli amici del Cerchio presenti adesso, con la stessa
 /// riga della tendina ([AmicoPresente]). Sotto, la strada al Cerchio intero.
 ///
-/// **I TESTI NUOVI SONO SEGNAPOSTO DICHIARATI** (li scrive l'Architetto):
-/// la riga in cima e quella del Cerchio che non risponde. Gli altri sono gli
-/// stessi della tendina e dell'invito, gia' in uso.
+/// **I TESTI**: la riga in cima e quella del Cerchio che non risponde sono
+/// del fondatore (ordine FC voce 09, carattere per carattere); "Il tuo
+/// Cerchio è ancora da chiamare." resta quello della tendina; l'ora
+/// dell'ultimo dato e' un segnaposto dichiarato.
 class ElencoDegliAmiciOnline extends StatelessWidget {
   const ElencoDegliAmiciOnline({
     super.key,
     required this.sociale,
     required this.inAttesa,
-    required this.valida,
-    required this.riga,
+    required this.ultimoDatoDelle,
     required this.onRiprova,
     required this.palette,
   });
@@ -221,12 +245,9 @@ class ElencoDegliAmiciOnline extends StatelessWidget {
   /// La tendina chiesta all'apertura non e' ancora arrivata.
   final bool inAttesa;
 
-  /// La tendina e' fresca, o e' arrivata per questa apertura: si puo'
-  /// mostrare. Una tendina vecchia non si mostra come se fosse di adesso.
-  final bool valida;
-
-  /// Perche' la tendina non e' arrivata, se non e' arrivata.
-  final String? riga;
+  /// L'ora dell'ultimo dato noto, quando quello che si mostra non e' di
+  /// adesso ([GliAmiciOnline.ultimoDatoDelle]); nulla se e' di adesso.
+  final DateTime? ultimoDatoDelle;
   final VoidCallback onRiprova;
   final MaestroPalette palette;
 
@@ -258,8 +279,9 @@ class ElencoDegliAmiciOnline extends StatelessWidget {
     }
     final t = sociale.tendina;
     final figli = <Widget>[
-      // SEGNAPOSTO, ordine FC voce 09.
-      Text('I tuoi amici del Cerchio che sono qui adesso.', style: corpo),
+      // Testo del fondatore, ordine FC voce 09.
+      Text('Chi del tuo Cerchio è qui con te, adesso.',
+          key: const Key('amici_online_sottotitolo'), style: corpo),
       const SizedBox(height: SpacingTokens.md),
     ];
     if (inAttesa) {
@@ -267,9 +289,9 @@ class ElencoDegliAmiciOnline extends StatelessWidget {
         padding: EdgeInsets.all(SpacingTokens.lg),
         child: Center(child: CircularProgressIndicator()),
       ));
-    } else if (!valida || t == null) {
+    } else if (t == null) {
       figli.addAll([
-        Text(riga ?? EsitoDelGesto.silenzio.riga!,
+        Text(IlCerchioSociale.rigaDellaTendinaCheNonArriva,
             key: const Key('amici_online_silenzio'), style: corpo),
         const SizedBox(height: SpacingTokens.sm),
         _Strada(
@@ -281,6 +303,15 @@ class ElencoDegliAmiciOnline extends StatelessWidget {
         ),
       ]);
     } else {
+      if (ultimoDatoDelle != null) {
+        figli.add(Padding(
+          padding: const EdgeInsets.only(bottom: SpacingTokens.sm),
+          child: Text(IlCerchioSociale.rigaDellUltimoDato(ultimoDatoDelle!),
+              key: const Key('amici_online_ultimo_dato'),
+              style: TypographyTokens.didascalia()
+                  .copyWith(color: palette.goldSoft)),
+        ));
+      }
       if (t.visibilita == VisibilitaNelCerchio.invisibile) {
         figli.add(Padding(
           padding: const EdgeInsets.only(bottom: SpacingTokens.sm),
