@@ -4,6 +4,7 @@ import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 
 import '../../core/chat/chat_message.dart';
+import '../../core/chat/il_filo_del_consulto.dart';
 import '../../core/config/la_regione_dei_dati.dart';
 import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/testo_del_responso.dart';
@@ -228,6 +229,19 @@ class FirebaseMaestroAiProvider
       scrittoPrima: conIlRiassunto
           ? scrittoPrimaDellaFinestra(history, finestra: finestraDellaStoria)
           : const [],
+      // **IL FILO DEL CONSULTO. Ordine FE voci 08-14.** La scheda dei punti
+      // fermi dalla memoria unica, e la frase del Maestro che la persona
+      // riprende, se la riprende.
+      filo: IlFiloDelConsulto.bloccoPer(maestro,
+          fraseRipresa: rispostaGiaData != null
+              ? null
+              : LaFraseRipresa.trova(
+                  laDomanda,
+                  history
+                      .lastWhere((m) => m.isMaestro,
+                          orElse: () =>
+                              const ChatMessage(role: ChatRole.user, text: ''))
+                      .text)),
     );
     // La PRIMA risposta arriva sempre alla stessa misura per tutti: la
     // profondita' non si sceglie prima, si chiede dopo aver letto.
@@ -464,6 +478,8 @@ class FirebaseMaestroAiProvider
           memory: memory,
           natal: natal,
           depth: depth,
+          // Ordine FE voce 08: il Consiglio legge lo stesso filo della chat.
+          filo: IlFiloDelConsulto.bloccoPer(maestro),
         ),
       ),
       // Uscita nei tre strati come JSON, cosi' l'app la mostra come qualunque

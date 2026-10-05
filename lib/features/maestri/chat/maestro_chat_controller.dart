@@ -11,6 +11,7 @@ import '../../../core/chat/altre_voci.dart';
 import '../../../core/maestro/consiglio_finale.dart';
 import '../../../core/maestro/seguito_della_lettura.dart';
 import '../../../core/chat/chat_message.dart';
+import '../../../core/chat/il_filo_del_consulto.dart';
 import '../../../core/chat/la_risposta_che_chiede.dart';
 import '../../../core/chat/cronologia_senza_doppioni.dart';
 import '../../../core/chat/intent_classifier.dart';
@@ -568,6 +569,8 @@ class MaestroChatController extends ChangeNotifier {
 
   /// Carica profilo, memoria e cronologia recente all'apertura della chat.
   Future<void> init() async {
+    // Ordine FE voce 09: il filo del consulto in corso, se c'e'.
+    await IlFiloDelConsulto.carica();
     try {
       final results = await Future.wait([
         _memory.loadProfile(),
@@ -2192,6 +2195,12 @@ class MaestroChatController extends ChangeNotifier {
       );
       final risposta = cronometro.elapsedMilliseconds;
       await _consegna(answer, cronometro);
+      // **IL TURNO ENTRA NEL FILO DEL CONSULTO. Ordine FE voce 09.** Il tema
+      // se il consulto comincia qui, e il nucleo del parere di chi ha
+      // risposto: la stessa memoria che leggono gli altri Maestri.
+      IlFiloDelConsulto.annota(
+          maestro: chiRisponde, domanda: userText, risposta: reply);
+      notifyListeners();
       // **IL SEGUITO CHE NON E' ARRIVATO SI PREPARA SUBITO.** Ordine EX
       // Aggiunta 4, EX.04: al banco il modello lo saltava in 3 o 4
       // risposte su 24, e il tocco chiamava. Adesso al tocco c'e' gia'.

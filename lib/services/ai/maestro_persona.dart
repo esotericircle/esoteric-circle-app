@@ -489,6 +489,7 @@ class MaestroPersona {
     bool conSeguito = false,
     List<String> scrittoPrima = const [],
     String cieloDeiGiorni = '',
+    String filo = '',
   }) {
     final natalBlock = _natalContext(natal);
     final cioCheArriva = _cioCheArriva(natal);
@@ -546,6 +547,11 @@ class MaestroPersona {
       if (cioCheArriva.isNotEmpty) ...['', cioCheArriva],
       '',
       _memoryContext(memory),
+      // **IL FILO DEL CONSULTO. Ordine FE voci 09-14.** La scheda dei punti
+      // fermi, la legge della coerenza e il parere degli altri Maestri: vuoto
+      // senza un consulto in corso, cosi' l'istruzione di base resta quella
+      // dell'attribuzione cieca.
+      if (filo.isNotEmpty) ...['', filo],
       // **IL RIASSUNTO BREVE DELLA CONVERSAZIONE DI PRIMA. Ordine EX voce
       // 09.** La storia che arriva al modello e' degli ultimi quattro scambi;
       // cio' che la persona ha scritto prima, in questa conversazione, arriva
@@ -1049,6 +1055,7 @@ class MaestroPersona {
     required MaestroMemory memory,
     NatalContext? natal,
     ConsultDepth depth = ConsultDepth.breve,
+    String filo = '',
   }) {
     final natalBlock = _natalContext(natal);
     final rigaProfondita = depth == ConsultDepth.profonda
@@ -1060,6 +1067,9 @@ class MaestroPersona {
       _commonRules(profile),
       '',
       if (natalBlock.isNotEmpty) ...[natalBlock, ''],
+      // Ordine FE voce 08: il Consiglio dei Maestri riceve anche lui il filo
+      // del consulto, dalla stessa memoria della chat.
+      if (filo.isNotEmpty) ...[filo, ''],
       // **I RESPONSI CHE LA PERSONA HA LETTO OGGI. Ordine EV voce 04.** Il
       // Maestro non nega mai un fatto che l'app ha mostrato: sulle catture
       // dei fondatori Medora diceva di non sapere che Urano fosse retrogrado,
