@@ -9,8 +9,8 @@ giorno avanti, ed e' dichiarata qui invece di corretta.
 **Ramo:** `claude/esoteric-circle-master-order-e798aj`.
 
 VOCI_TOTALI: 10
-VOCI_CHIUSE: 3
-VOCI_APERTE: 7
+VOCI_CHIUSE: 4
+VOCI_APERTE: 6
 
 Le prove stanno in `docs/collaudo/EJ/`.
 
@@ -380,10 +380,16 @@ tier 2, `docs/preview/ej-dal-vivo-oro-medora.png` e le altre due. La guardia
 `la_barra_e_la_pastiglia_della_chat_test.dart` prova i due stati per ogni
 piano, il foglio e la strada ai piani.
 
-**APERTA IN ATTESA DI VERIFICA.** Lo stato d'oro va visto su un telefono
-con un piano dal tier 2 in su, e il tocco che entra nel LIVE da li'.
-
-ASPETTA: il tocco che entra nel LIVE dalla pastiglia d'oro, sul Realme. Lo stato d'oro l'ha visto Code il 5 ottobre 2026 sulla build 2297 col piano Illuminato (docs/collaudo/FC/realme/13_ej10_chat_medora.png); il tocco apre subito una sessione vera, con la voce sintetizzata e il volto, cioe' chiamate a pagamento che la regola R11 dell'ordine FC vietava: lo fa il fondatore, o Code in un ordine che lo permetta.
+**CHIUSA.** Chiusa dall'ordine FD voce 01.6, il 5 ottobre 2026, sulla
+build 2298: sul Realme col piano Illuminato la pastiglia e' d'oro nella
+chat di Medora, e il tocco apre la conferma dei minuti del LIVE, "Stai per
+aprire una sessione dal vivo.", coi minuti veri letti dal server; "Non
+ora" lascia la chat com'era e nessuna sessione si apre. La sessione vera
+parte solo da "Apri la sessione", che non e' stato toccato: e' una
+chiamata a pagamento.
+DOMANDA: "il tocco che entra nel LIVE dalla pastiglia d'oro, sul Realme"
+PROVA: docs/collaudo/FD/realme/04_conferma_dei_minuti_del_live.png
+MISURA: tocchi sulla pastiglia d'oro che aprono una sessione a pagamento senza conferma prima 1 su 1 (build 2297), dopo 0 su 1 (build 2298); la conferma dice 20 minuti dei 146 disponibili; dopo "Non ora" sessioni aperte 0 (docs/collaudo/FD/realme/05_dopo_non_ora_nessuna_sessione.png)
 
 ---
 

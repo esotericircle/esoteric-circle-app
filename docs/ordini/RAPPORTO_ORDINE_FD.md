@@ -255,3 +255,7 @@ rosse prima del tocco: `una_sola_porta_per_i_transiti`, `fase_lunare_vera`,
    "codice scaduto"; ogni altro rifiuto resta il rifiuto di prima.
 6. **Il secondo telefono finto al posto dell'emulatore**, finche' la
    virtualizzazione resta spenta nel firmware del PC.
+
+**Aggiunta del 5 ottobre 2026, ordine FD, voce chiusa**: FD.01, nessuna spesa senza conferma: test/la_spesa_passa_dalla_conferma_test.dart, e sul Realme con la build 2298 docs/collaudo/FD/realme/04_conferma_dei_minuti_del_live.png (il tocco sulla pastiglia d'oro apre "Stai per aprire una sessione dal vivo." con 20 minuti dei 146 disponibili) e 05_dopo_non_ora_nessuna_sessione.png ("Non ora" non apre niente); chiude anche la EJ.10, con la riga in coda al rapporto EJ.
+
+**Aggiunta del 5 ottobre 2026, ordine FD, voce chiusa**: FD.04, il tasto indietro non esce mai dall'app: test/il_tasto_indietro_non_esce_dall_app_test.dart, e sul Realme con la build 2298 docs/collaudo/FD/realme/06_home_premi_di_nuovo_per_uscire.png (dalla chat di Medora al dominio, dal dominio alla home, sulla home "Premi di nuovo per uscire." e l'app resta in primo piano quattro secondi dopo).

@@ -23,13 +23,18 @@ telefono finto"*: un client che parla al server come l'app.
 Cerchio, porta le voci da cinque a sei. Non conteneva domande.
 
 VOCI_TOTALI: 6
-VOCI_CHIUSE: 4
-VOCI_APERTE: 2
+VOCI_CHIUSE: 6
+VOCI_APERTE: 0
 VOCI_DA_FARE: 0
 
 ## VOCE FD.01, NESSUNA SPESA SENZA CONFERMA
 
-**APERTA IN ATTESA DI VERIFICA.** Nessun punto dell'app consuma minuti o
+**CHIUSA.** Vista sul Realme con la build 2298: il tocco sulla pastiglia
+d'oro apre "Stai per aprire una sessione dal vivo." con 20 minuti dei 146
+disponibili, e "Non ora" non apre niente
+(`docs/collaudo/FD/realme/04_conferma_dei_minuti_del_live.png`,
+`05_dopo_non_ora_nessuna_sessione.png`); chiude anche la EJ.10. Nessun
+punto dell'app consuma minuti o
 Eos al primo tocco: prima compare la conferma unica,
 `LaConfermaDellaSpesa`, col costo, il saldo e due pulsanti, coi testi
 dell'ordine alla lettera (l'unico scarto: "1 minuto" al singolare). Ogni
@@ -74,7 +79,11 @@ ACCETTAZIONE: lancio un comando e trovo il file del giro coi cinque esiti e il c
 
 ## VOCE FD.04, IL TASTO INDIETRO NON ESCE MAI DALL'APP
 
-**APERTA IN ATTESA DI VERIFICA.** Da ogni schermata interna il tasto
+**CHIUSA.** Vista sul Realme con la build 2298: dalla chat di Medora il
+tasto indietro torna al dominio, dal dominio alla home, e sulla home il
+primo tocco mostra "Premi di nuovo per uscire." e l'app resta aperta
+(`docs/collaudo/FD/realme/06_home_premi_di_nuovo_per_uscire.png`). Da
+ogni schermata interna il tasto
 indietro torna alla precedente; dal Passport torna al Cerchio; sulla home il
 primo tocco mostra "Premi di nuovo per uscire." per due secondi e solo un
 secondo tocco entro due secondi esce. Le 67 rotte (66 prima della rubrica dell'aggiunta FD.06) con file e riga e dove

@@ -229,3 +229,5 @@ Nessuna build consegnata su App Distribution. Quattro build locali installate
 sul Realme per le prove. **Una build per il fondatore servirebbe** a fargli
 provare il microfono con la sua voce, i timbri col selettore e la barra nelle
 chat: si fa solo col suo ordine.
+
+**Aggiunta del 5 ottobre 2026, ordine FD voce 01.6, voce chiusa**: EJ.10, la pastiglia "Dal vivo" nella testata: docs/collaudo/FD/realme/04_conferma_dei_minuti_del_live.png (sulla build 2298 il tocco sulla pastiglia d'oro apre la conferma dei minuti, 20 dei 146 disponibili, e "Non ora" non apre nessuna sessione).
