@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 
-import 'il_sole_di_nascita.dart';
-import 'la_luna_intera.dart';
+import 'il_cielo_di_meeus.dart';
 
 /// **L'ALBA E IL TRAMONTO AL MINUTO, per il Rahu Kalam.** Ordine ES voce 09,
 /// 29 settembre 2026.
@@ -10,11 +9,12 @@ import 'la_luna_intera.dart';
 /// sull'alba o sul tramonto e' un minuto di errore sui suoi estremi, e Drik
 /// Panchang, la fonte che la tradizione consulta, li stampa al minuto. Qui
 /// l'alba e il tramonto si calcolano col Sole apparente di Meeus
-/// ([IlSoleDiNascita], cap. 25) e il tempo siderale apparente (cap. 12 e
-/// 22), iterando sull'istante finche' il centro del Sole sta a -0,8333 gradi:
-/// il bordo superiore con la rifrazione standard, senza quota, la convenzione
-/// che Drik dichiara. `SunsetTime` resta com'e' per chi lo usa: la sua
-/// formula semplificata basta a un'ora del giorno, non al minuto.
+/// e il tempo siderale apparente (cap. 12 e 22), dalla porta
+/// [IlCieloDiMeeus] (ordine FD voce 02), iterando sull'istante finche' il
+/// centro del Sole sta a -0,8333 gradi: il bordo superiore con la rifrazione
+/// standard, senza quota, la convenzione che Drik dichiara. Dall'ordine FD
+/// anche `SunsetTime` passa da qui: la sua formula NOAA, un secondo Sole,
+/// e' stata tolta.
 abstract final class LAlbaEIlTramonto {
   static const double _g = math.pi / 180.0;
 
@@ -43,7 +43,7 @@ abstract final class LAlbaEIlTramonto {
       {required bool sorge}) {
     var t = mezzogiorno.add(Duration(hours: sorge ? -6 : 6));
     for (var i = 0; i < 8; i++) {
-      final jd = LaLunaIntera.giornoGiuliano(t);
+      final jd = IlCieloDiMeeus.giornoGiuliano(t);
       final (alfa, delta) = _ascensioneEDeclinazione(jd);
       final cosH0 =
           (math.sin(altezza * _g) - math.sin(lat * _g) * math.sin(delta)) /
@@ -62,32 +62,16 @@ abstract final class LAlbaEIlTramonto {
     return t;
   }
 
-  /// Ascensione retta e declinazione apparenti del Sole, in radianti.
+  /// Ascensione retta e declinazione apparenti del Sole, in radianti, dalla
+  /// porta del cielo: Sole, obliquita' vera e conversione sono quelli di
+  /// tutta l'app (ordine FD voce 02).
   static (double, double) _ascensioneEDeclinazione(double jdUt) {
-    final lambda = IlSoleDiNascita.longitudine(jdUt) * _g;
-    final anno = 2000 + (jdUt - 2451545.0) / 365.25;
-    final jde = jdUt + LaLunaIntera.deltaT(anno) / 86400.0;
-    final t = (jde - 2451545.0) / 36525.0;
-    final omega = (125.04 - 1934.136 * t) * _g;
-    // L'obliquita' vera, per la posizione apparente (Meeus 25.8).
-    final eps = (23.4392911 - 0.0130042 * t + 0.00256 * math.cos(omega)) * _g;
-    final alfa = math.atan2(math.cos(eps) * math.sin(lambda), math.cos(lambda));
-    final delta = math.asin(math.sin(eps) * math.sin(lambda));
-    return (alfa < 0 ? alfa + 2 * math.pi : alfa, delta);
+    final e = IlCieloDiMeeus.equatoriali(
+        IlCieloDiMeeus.longitudine(CorpoCeleste.sole, jdUt), 0, jdUt);
+    return (e.ascensioneRetta * _g, e.declinazione * _g);
   }
 
-  /// Il tempo siderale apparente di Greenwich, in gradi (Meeus 12.4 con la
-  /// nutazione in ascensione retta).
-  static double _tempoSiderale(double jdUt) {
-    final t = (jdUt - 2451545.0) / 36525.0;
-    final medio = 280.46061837 +
-        360.98564736629 * (jdUt - 2451545.0) +
-        0.000387933 * t * t -
-        t * t * t / 38710000.0;
-    final anno = 2000 + (jdUt - 2451545.0) / 365.25;
-    final jde = jdUt + LaLunaIntera.deltaT(anno) / 86400.0;
-    final nut = LaLunaIntera.nutazioneInLongitudine(jde);
-    final eps = (23.4392911 - 0.0130042 * t) * _g;
-    return (medio + nut * math.cos(eps)) % 360.0;
-  }
+  /// Il tempo siderale apparente di Greenwich, in gradi, dalla porta.
+  static double _tempoSiderale(double jdUt) =>
+      IlCieloDiMeeus.tempoSiderale(jdUt);
 }

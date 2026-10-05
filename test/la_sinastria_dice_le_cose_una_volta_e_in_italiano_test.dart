@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'dart:io';
 
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
 import 'package:esoteric_circle/core/synastry/cielo_del_giorno_sulla_coppia.dart';
 import 'package:esoteric_circle/core/synastry/cielo_della_sinastria.dart';

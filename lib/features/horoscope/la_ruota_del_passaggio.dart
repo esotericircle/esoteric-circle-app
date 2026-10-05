@@ -1,10 +1,10 @@
+import '../../core/astro/meeus/il_cielo_di_meeus.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
 import '../../core/astro/aspetti_di_oggi.dart';
 import '../../core/astro/celestial.dart';
-import '../../core/astro/effemeridi.dart';
 import '../../core/astro/natal_chart.dart';
 import '../../core/horoscope/cielo_di_oggi.dart';
 import '../../core/horoscope/corrente_del_cielo.dart';
@@ -38,7 +38,7 @@ class LaRigaDelPassaggio extends StatefulWidget {
 
   /// La longitudine di oggi del pianeta che passa.
   static double longitudineDiOggi(VoceDelCielo v, DateTime adesso) =>
-      Effemeridi.longitudineEclittica(
+      IlCieloDiMeeus.longitudine(
           v.transito, Celestial.julianDay(adesso.toUtc()));
 
   /// La longitudine natale del punto toccato, o null.

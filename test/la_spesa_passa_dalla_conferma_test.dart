@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
-import 'package:esoteric_circle/core/entitlement/il_consenso_della_spesa.dart';
 import 'package:esoteric_circle/core/entitlement/listino_degli_eos.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
@@ -71,7 +70,7 @@ void main() {
       final porta = _PortaCheSpende(saldo: 300);
       final borsa = await borsaCon(porta);
       var fatta = 0;
-      final voce = ListinoDegliEos.oroscopoLungaDelGiorno;
+      const voce = ListinoDegliEos.oroscopoLungaDelGiorno;
       await monta(
           tester,
           borsa,
@@ -112,7 +111,7 @@ void main() {
         (tester) async {
       final porta = _PortaCheSpende(saldo: 10);
       final borsa = await borsaCon(porta);
-      final voce = ListinoDegliEos.oroscopoLungaDelGiorno;
+      const voce = ListinoDegliEos.oroscopoLungaDelGiorno;
       await monta(tester, borsa, porta,
           PortaDellaSpesa(voce: voce, etichetta: 'Leggi', suSpesaFatta: () {}));
 

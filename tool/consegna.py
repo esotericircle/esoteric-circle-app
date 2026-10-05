@@ -314,6 +314,37 @@ def lo_sbarramento_di_github(numero_atteso, archivio):
     return (True, commit)
 
 
+def i_banchi_sono_passati():
+    """L'ultimo giro dei cinque banchi col modello e' passato tutto, ed e'
+    stato fatto su un commit il cui codice (lib, test e i banchi) e' uguale a
+    quello di adesso. Ordine FD voce 03."""
+    cartella = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..',
+                            'docs', 'collaudo', 'banchi_col_modello')
+    if not os.path.isdir(cartella):
+        return (False, 'nessun giro dei banchi in docs/collaudo/banchi_col_modello')
+    giri = sorted(n for n in os.listdir(cartella) if n.endswith('.txt'))
+    if not giri:
+        return (False, 'nessun giro dei banchi in docs/collaudo/banchi_col_modello')
+    ultimo = os.path.join(cartella, giri[-1])
+    testo = io.open(ultimo, encoding='utf-8').read()
+    risultati = re.findall(r'^RISULTATO \d: (\S+)', testo, re.M)
+    if len(risultati) != 5:
+        return (False, giri[-1] + ' porta ' + str(len(risultati)) +
+                ' risultati invece di cinque')
+    if any(r != 'PASSATO' for r in risultati):
+        return (False, giri[-1] + ' ha banchi non passati: ' + ', '.join(risultati))
+    trovato = re.search(r'^commit: ([0-9a-f]{40})$', testo, re.M)
+    if not trovato:
+        return (False, giri[-1] + ' non dice il commit')
+    r = subprocess.run(['git', 'diff', '--quiet', trovato.group(1), 'HEAD', '--',
+                        'lib', 'test', 'tool/banchi_col_modello'])
+    if r.returncode != 0:
+        return (False, 'i banchi di ' + giri[-1] + ' hanno girato sul commit ' +
+                trovato.group(1)[:8] + ', e il codice di adesso e\' diverso')
+    return (True, giri[-1] + ': cinque banchi passati sul commit ' +
+            trovato.group(1)[:8] + ', codice uguale a quello consegnato')
+
+
 def main():
     if len(sys.argv) < 3:
         raise SystemExit('uso: consegna.py <archivio> "<note>" oppure '
@@ -410,6 +441,18 @@ def main():
     # **E LO SBARRAMENTO DEVE ESSERE PASSATO SU QUESTO ALBERO.**
     # Ordine CZ voce 14: la falla per cui un rosso ha attraversato una
     # consegna intera era che questo file non lo nominava affatto.
+    # **I CINQUE BANCHI COL MODELLO, PRIMA DI CARICARE. Ordine FD voce 03.**
+    # I banchi che chiamano Gemini davvero non girano a ogni commit, perche'
+    # costano: girano a ogni consegna, e la consegna non parte se l'ultimo
+    # giro non e' passato tutto sullo stesso codice che si consegna.
+    print('')
+    print('== I CINQUE BANCHI COL MODELLO ==')
+    passati, perche = i_banchi_sono_passati()
+    if not passati:
+        raise SystemExit('BANCHI COL MODELLO: ' + perche + '. Lancia: python '
+                         'tool/banchi_col_modello/i_cinque_banchi.py --costo')
+    print('  ' + perche)
+
     print('')
     print('== LO SBARRAMENTO, PRIMA DI CARICARE ==')
     numero_dell_archivio = ispeziona_archivio.versione_dall_archivio(archivio)

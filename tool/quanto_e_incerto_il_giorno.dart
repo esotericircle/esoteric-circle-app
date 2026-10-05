@@ -1,7 +1,7 @@
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'dart:io';
 
 import 'package:esoteric_circle/core/astro/celestial.dart';
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// DI QUANTI GIORNI E' INCERTO IL GIORNO DI UN TRANSITO, corpo per corpo.
@@ -29,13 +29,14 @@ void main() {
     for (final corpo in CorpoCeleste.values) {
       final valori = <double>[];
       for (final g in giorni) {
-        valori.add(Effemeridi.giorniDiIncertezza(corpo, Celestial.julianDay(g)));
+        valori.add(
+            IlCieloDiMeeus.giorniDiIncertezza(corpo, Celestial.julianDay(g)));
       }
       valori.sort();
       final jd = Celestial.julianDay(giorni[1]);
       stdout.writeln('${corpo.nome.padRight(10)} '
-          '${Effemeridi.scartoMisurato[corpo]!.toStringAsFixed(4).padLeft(7)} '
-          '${Effemeridi.velocitaGiornaliera(corpo, jd).abs().toStringAsFixed(4).padLeft(9)} '
+          '${IlCieloDiMeeus.scartoMisurato[corpo]!.toStringAsFixed(4).padLeft(7)} '
+          '${IlCieloDiMeeus.velocitaGiornaliera(corpo, jd).abs().toStringAsFixed(4).padLeft(9)} '
           '   min ${valori.first.toStringAsFixed(2).padLeft(8)}  '
           'max ${valori.last.toStringAsFixed(2).padLeft(8)}');
     }

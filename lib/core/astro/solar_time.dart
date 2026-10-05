@@ -1,8 +1,9 @@
-import 'dart:math';
+import 'meeus/l_alba_e_il_tramonto.dart';
 
-import 'moon_phase.dart';
-
-/// LE ORE VERE DEL SOLE, calcolate offline con l'algoritmo NOAA, senza rete.
+/// LE ORE VERE DEL SOLE, calcolate offline senza rete. Dall'ordine FD voce
+/// 02 vengono dalla porta del cielo, attraverso [LAlbaEIlTramonto] (Meeus,
+/// Sole apparente e tempo siderale): l'algoritmo NOAA che stava qui, scritto
+/// due volte con un Sole e un'obliquita' propri, e' stato tolto.
 ///
 /// **Il file portava il nome del solo tramonto, e dichiarava il falso.**
 /// Ordine P voce 29: qui dentro c'e' anche il SORGERE, che il Rito dell'Alba
@@ -11,19 +12,12 @@ import 'moon_phase.dart';
 /// riscrivere. La classe conserva il nome storico perche' entra nei
 /// salvataggi e nelle firme di mezza app: a mentire era il file.
 ///
-/// Riusa il giorno giuliano gia' in `MoonPhase.julianDay`, non riscrive
-/// l'astronomia di base. La longitudine e' est positivo, la latitudine in gradi,
+/// La longitudine e' est positivo, la latitudine in gradi,
 /// e il risultato e' l'ora locale a muro dato lo scarto di fuso. Nei casi polari,
 /// dove il Sole non tramonta o non sorge, ritorna null e il chiamante ripiega
 /// sull'ora media, senza eccezioni.
 class SunsetTime {
   const SunsetTime._();
-
-  /// Obliquita' dell'eclittica, in gradi.
-  static const double _obliquita = 23.4397;
-
-  /// Altezza del centro del Sole al tramonto, rifrazione piu' raggio, in gradi.
-  static const double _altezzaTramonto = -0.833;
 
   /// Latitudine di ripiego quando la posizione non e' attiva.
   static const double latDiRipiego = 45.0;
@@ -36,41 +30,9 @@ class SunsetTime {
     required double lat,
     required double lon,
     required Duration offset,
-  }) {
-    // La mezzanotte locale del giorno, espressa in UTC togliendo lo scarto di
-    // fuso: cosi' l'indice del giorno si ancora al giorno LOCALE e non a quello
-    // di Greenwich. Senza questo, a est e a ovest il giorno di calcolo scivola e
-    // il tramonto puo' cadere nella data sbagliata.
-    final mezzanotteLocaleUtc =
-        DateTime.utc(giorno.year, giorno.month, giorno.day).subtract(offset);
-    final jd0 = MoonPhase.julianDay(mezzanotteLocaleUtc);
-    // Conteggio intero dei giorni da J2000 (che cade a mezzogiorno): il ceil
-    // snappa al giorno e centra il calcolo sul mezzogiorno solare.
-    final n = (jd0 - 2451545.0 + 0.0008).ceilToDouble();
-    final lw = -lon; // longitudine ovest, come vuole l'algoritmo NOAA
-    // Mezzogiorno solare medio: piu' presto a est, piu' tardi a ovest.
-    final jStar = n + lw / 360.0;
-    final m = _norm360(357.5291 + 0.98560028 * jStar); // anomalia media, gradi
-    final mr = _rad(m);
-    final c = 1.9148 * sin(mr) + 0.0200 * sin(2 * mr) + 0.0003 * sin(3 * mr);
-    final lambda = _norm360(m + c + 180 + 102.9372); // longitudine eclittica
-    final lr = _rad(lambda);
-    final jTransit =
-        2451545.0 + jStar + 0.0053 * sin(mr) - 0.0069 * sin(2 * lr);
-    final decl = asin(sin(lr) * sin(_rad(_obliquita)));
-    final latR = _rad(lat);
-    final cosH = (sin(_rad(_altezzaTramonto)) - sin(latR) * sin(decl)) /
-        (cos(latR) * cos(decl));
-    if (cosH > 1 || cosH < -1) return null; // notte polare o giorno polare
-    final h = _deg(acos(cosH)); // angolo orario del tramonto, gradi
-    final jSet = jTransit + h / 360.0;
-    final utc = _daJulianDay(jSet);
-    final s = utc.add(offset); // spostato all'ora locale a muro
-    return DateTime(s.year, s.month, s.day, s.hour, s.minute, s.second);
-  }
+  }) =>
+      _estremiSolari(giorno, lat: lat, lon: lon, offset: offset)?.tramonto;
 
-  /// L'ora media del tramonto, per i casi polari o quando manca la posizione:
-  /// le diciotto locali del giorno rituale. Sempre valida, mai un'eccezione.
   static DateTime oraMedia(DateTime giorno) =>
       DateTime(giorno.year, giorno.month, giorno.day, 18, 0);
 
@@ -78,20 +40,6 @@ class SunsetTime {
   /// quindici gradi per ogni ora di scarto.
   static double longitudineDaFuso(Duration offset) =>
       offset.inMinutes / 60.0 * 15.0;
-
-  static DateTime _daJulianDay(double jd) {
-    // JD 2440587.5 e' l'epoch unix, 1970-01-01T00:00Z.
-    final ms = (jd - 2440587.5) * 86400000.0;
-    return DateTime.fromMillisecondsSinceEpoch(ms.round(), isUtc: true);
-  }
-
-  static double _rad(double gradi) => gradi * pi / 180.0;
-  static double _deg(double rad) => rad * 180.0 / pi;
-
-  static double _norm360(double gradi) {
-    final r = gradi % 360.0;
-    return r < 0 ? r + 360.0 : r;
-  }
 
   // ===========================================================================
   // IL SORGERE DEL SOLE, aggiunto il 5 agosto 2026
@@ -143,43 +91,29 @@ class SunsetTime {
   /// Quando sara' permesso modificare il file, [perData] deve delegare a questo
   /// metodo e la duplicazione sparisce. E' l'unica cosa che manca, ed e' una
   /// riga.
+  /// **I DUE ESTREMI DEL GIORNO DALLA PORTA DEL CIELO**, ordine FD voce 02.
+  /// Qui stava l'algoritmo NOAA, scritto due volte, con un Sole proprio e
+  /// un'obliquita' fissa: una seconda via per la posizione del Sole. Adesso
+  /// l'alba e il tramonto vengono da [LAlbaEIlTramonto], che itera col Sole
+  /// apparente e il tempo siderale della porta, e qui si portano all'ora
+  /// locale a muro, come prima.
   static ({DateTime alba, DateTime tramonto})? _estremiSolari(
     DateTime giorno, {
     required double lat,
     required double lon,
     required Duration offset,
   }) {
-    final mezzanotteLocaleUtc =
-        DateTime.utc(giorno.year, giorno.month, giorno.day).subtract(offset);
-    final jd0 = MoonPhase.julianDay(mezzanotteLocaleUtc);
-    final n = (jd0 - 2451545.0 + 0.0008).ceilToDouble();
-    final lw = -lon;
-    final jStar = n + lw / 360.0;
-    final m = _norm360(357.5291 + 0.98560028 * jStar);
-    final mr = _rad(m);
-    final c = 1.9148 * sin(mr) + 0.0200 * sin(2 * mr) + 0.0003 * sin(3 * mr);
-    final lambda = _norm360(m + c + 180 + 102.9372);
-    final lr = _rad(lambda);
-    final jTransit =
-        2451545.0 + jStar + 0.0053 * sin(mr) - 0.0069 * sin(2 * lr);
-    final decl = asin(sin(lr) * sin(_rad(_obliquita)));
-    final latR = _rad(lat);
-    final cosH = (sin(_rad(_altezzaTramonto)) - sin(latR) * sin(decl)) /
-        (cos(latR) * cos(decl));
-    if (cosH > 1 || cosH < -1) return null; // notte polare o giorno polare
-    final h = _deg(acos(cosH));
-
-    // Qui sta tutta la differenza fra i due estremi: il tramonto somma
-    // l'angolo orario al mezzogiorno solare, il sorgere lo sottrae.
+    final e =
+        LAlbaEIlTramonto.delGiorno(giorno, lat: lat, lon: lon, offset: offset);
+    if (e == null) return null; // notte polare o giorno polare
     return (
-      alba: _oraLocale(jTransit - h / 360.0, offset),
-      tramonto: _oraLocale(jTransit + h / 360.0, offset),
+      alba: _oraLocale(e.alba, offset),
+      tramonto: _oraLocale(e.tramonto, offset),
     );
   }
 
-  /// Da giorno giuliano a ora locale a muro, con lo scarto di fuso.
-  static DateTime _oraLocale(double jd, Duration offset) {
-    final s = _daJulianDay(jd).add(offset);
+  static DateTime _oraLocale(DateTime utc, Duration offset) {
+    final s = utc.add(offset);
     return DateTime(s.year, s.month, s.day, s.hour, s.minute, s.second);
   }
 }

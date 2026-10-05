@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:esoteric_circle/core/horoscope/cielo_di_oggi.dart';
 import 'package:esoteric_circle/core/horoscope/i_testi_eu.dart';
 import 'package:esoteric_circle/core/horoscope/la_lettura_vedica.dart';
@@ -19,7 +19,8 @@ import 'oroscopo_eu_comune.dart';
 void main() {
   test('ORDINE EV VOCE 09: il venerdì vedico è screziato, nei due posti', () {
     final venerdi = LaLetturaVedica.pianetiDelGiorno[5];
-    print('ORDINE EV VOCE 09: colore del venerdì nella Fortuna "${venerdi.$2}"');
+    print(
+        'ORDINE EV VOCE 09: colore del venerdì nella Fortuna "${venerdi.$2}"');
     expect(venerdi.$1, 'Venere');
     expect(venerdi.$2, 'screziato');
     expect(OroscopoVedicoData.righeDelGiorno.join(' '),
@@ -36,8 +37,10 @@ void main() {
     print('ORDINE EV VOCE 09: varianti del Rahu in corso senza l\'ora '
         '${senzaOra.length} su ${inCorso.length}');
     expect(senzaOra, isEmpty);
-    expect(inCorso.join('\n'),
-        contains('Siamo dentro il Rahu Kalam di oggi, dalle {inizio} alle {fine}.'));
+    expect(
+        inCorso.join('\n'),
+        contains(
+            'Siamo dentro il Rahu Kalam di oggi, dalle {inizio} alle {fine}.'));
   });
 
   test('ORDINE EV VOCE 09: la riga della ruota non ripete il passaggio', () {
@@ -77,8 +80,7 @@ void main() {
     expect(righe[0], isNot(righe[1]));
   });
 
-  test('ORDINE EV VOCE 09: sotto la data di un altro giorno niente "oggi"',
-      () {
+  test('ORDINE EV VOCE 09: sotto la data di un altro giorno niente "oggi"', () {
     final oggiParola = RegExp(r'\boggi\b', caseSensitive: false);
     var righe = 0;
     final conOggi = <String>[];
@@ -95,7 +97,9 @@ void main() {
               if (oggiParola.hasMatch(r.motivo)) {
                 conOggi.add('${t.name} ${r.giorno}: ${r.motivo}');
               }
-              if (esempi.length < 40 && r.motivo != r.motivo.toLowerCase()) esempi.add('${t.name}: ${r.motivo}');
+              if (esempi.length < 40 && r.motivo != r.motivo.toLowerCase()) {
+                esempi.add('${t.name}: ${r.motivo}');
+              }
             }
           }
         }

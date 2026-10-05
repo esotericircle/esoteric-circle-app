@@ -1,8 +1,6 @@
+import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../astro/celestial.dart';
-import '../astro/eclissi.dart';
-import '../astro/effemeridi.dart';
-import '../astro/il_sole_di_nascita.dart';
-import '../astro/la_luna_intera.dart';
+import '../astro/meeus/eclissi.dart';
 import '../astro/natal_chart.dart';
 import '../astro/transiti_del_giorno.dart';
 import '../astro/transiti_nelle_case.dart';
@@ -271,8 +269,9 @@ abstract final class LaSettimanaDelCielo {
   ];
 
   static double _elongazione(DateTime utc) {
-    final jd = LaLunaIntera.giornoGiuliano(utc);
-    final d = (LaLunaIntera.longitudine(jd) - IlSoleDiNascita.longitudine(jd)) %
+    final jd = IlCieloDiMeeus.giornoGiuliano(utc);
+    final d = (IlCieloDiMeeus.longitudine(CorpoCeleste.luna, jd) -
+            IlCieloDiMeeus.longitudine(CorpoCeleste.sole, jd)) %
         360.0;
     return d < 0 ? d + 360 : d;
   }
@@ -379,7 +378,8 @@ abstract final class LaSettimanaDelCielo {
     final eventi = <EventoDelCielo>[];
     final fasiDelPeriodo = fasi(da, a);
     for (final (t, k) in fasiDelPeriodo) {
-      final l = LaLunaIntera.longitudine(LaLunaIntera.giornoGiuliano(t));
+      final l = IlCieloDiMeeus.longitudine(
+          CorpoCeleste.luna, IlCieloDiMeeus.giornoGiuliano(t));
       final (casa, natale) = _casa(l, segno, carta);
       final dove = IlSegnoDelCielo.dellaLongitudine(l);
       eventi.add(EventoDelCielo(
@@ -394,7 +394,7 @@ abstract final class LaSettimanaDelCielo {
     for (final (t, c, z) in ingressi(da, a)) {
       // Un pianeta retrogrado "torna" nel segno da cui era uscito: dire
       // "entra" due volte nello stesso mese farebbe chiedere come si puo'.
-      final indietro = Effemeridi.retrogrado(c, Celestial.julianDay(t));
+      final indietro = IlCieloDiMeeus.retrogrado(c, Celestial.julianDay(t));
       eventi.add(EventoDelCielo(
         istante: t,
         testo: '${data(t)}: '
@@ -406,10 +406,11 @@ abstract final class LaSettimanaDelCielo {
     // Le eclissi del periodo, dal motore verificato col canone (ordine CE
     // voce 16), nella casa in cui cadono.
     for (var anno = da.year; anno <= a.year; anno++) {
+      if (!MotoreDelleEclissi.annoVerificato(anno)) continue;
       for (final e in MotoreDelleEclissi.nellAnnoDi(anno)) {
         if (e.massimo.isBefore(da) || !e.massimo.isBefore(a)) continue;
-        final l =
-            LaLunaIntera.longitudine(LaLunaIntera.giornoGiuliano(e.massimo));
+        final l = IlCieloDiMeeus.longitudine(
+            CorpoCeleste.luna, IlCieloDiMeeus.giornoGiuliano(e.massimo));
         // All'eclissi solare Luna e Sole stanno insieme; a quella lunare la
         // Luna sta dove si oscura: in tutti e due i casi il punto e' la Luna.
         final lDove = l;
@@ -651,7 +652,8 @@ abstract final class LaSettimanaDelCielo {
     final caseDelDominio = CorrenteDelCielo.caseDi[dominio]!;
     (DateTime, int)? scelta;
     for (final f in fasiDelPeriodo) {
-      final l = LaLunaIntera.longitudine(LaLunaIntera.giornoGiuliano(f.$1));
+      final l = IlCieloDiMeeus.longitudine(
+          CorpoCeleste.luna, IlCieloDiMeeus.giornoGiuliano(f.$1));
       final (casa, _) = _casa(l, segno, carta);
       if (caseDelDominio.contains(casa)) {
         scelta = f;
@@ -666,7 +668,8 @@ abstract final class LaSettimanaDelCielo {
     // Col segno e la casa: "Ultimo quarto" da solo non dice che cosa c'entri
     // con chi legge (visto sul Realme).
     final (t, k) = scelta;
-    final l = LaLunaIntera.longitudine(LaLunaIntera.giornoGiuliano(t));
+    final l = IlCieloDiMeeus.longitudine(
+        CorpoCeleste.luna, IlCieloDiMeeus.giornoGiuliano(t));
     final (casa, natale) = _casa(l, segno, carta);
     final dove = IlSegnoDelCielo.dellaLongitudine(l);
     return '${data(t)} alle ${ora(t)}: ${_nomiDelleFasi[k]} in '

@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print, prefer_const_constructors
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'dart:io';
 
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:esoteric_circle/core/astro/il_cielo_detto.dart';
 import 'package:esoteric_circle/core/astro/il_cielo_per_il_maestro.dart';
 import 'package:esoteric_circle/core/chat/i_responsi_di_oggi.dart';
@@ -65,7 +65,7 @@ void main() {
     ]) {
       final g = IlCieloPerIlMaestro.delGiorno(giorno);
       final jd = IlCieloPerIlMaestro.giornoGiulianoDi(giorno);
-      final pos = Effemeridi.tutte(jd);
+      final pos = IlCieloDiMeeus.tutte(jd);
       for (final p in (g['pianeti']! as List).cast<Map<String, Object?>>()) {
         final c = CorpoCeleste.values.firstWhere((c) => c.nome == p['corpo']);
         contati++;
@@ -99,17 +99,16 @@ void main() {
   });
 
   test('le funzioni del cielo: il modello le riceve e rispondono', () {
-    final strumenti = LeFunzioniDelCielo.perIlMaestro(
-        adesso: DateTime(2026, 10, 1));
+    final strumenti =
+        LeFunzioniDelCielo.perIlMaestro(adesso: DateTime(2026, 10, 1));
     expect(strumenti, hasLength(1));
     final giorno = LeFunzioniDelCielo.giorno({'data': '2026-10-01'});
     expect(giorno['data'], '2026-10-01');
     final sbagliato = LeFunzioniDelCielo.giorno({'data': 'domani'});
     expect(sbagliato['errore'], isNotNull);
     // E la porta del modello le passa: senza `tools` il modello non le vede.
-    final provider =
-        File('lib/services/ai/firebase_maestro_ai_provider.dart')
-            .readAsStringSync();
+    final provider = File('lib/services/ai/firebase_maestro_ai_provider.dart')
+        .readAsStringSync();
     expect(provider, contains('tools: LeFunzioniDelCielo.perIlMaestro('),
         reason: 'il modello della chat e del LIVE non riceve le funzioni del '
             'cielo: torna a inventare o a negare');
@@ -152,8 +151,7 @@ void main() {
         '${vere.length}');
     expect(prese, isEmpty);
     // E oggi resta sorvegliato.
-    expect(
-        IlCieloDetto.smentite('Oggi Urano è in Toro.', adesso: adesso),
+    expect(IlCieloDetto.smentite('Oggi Urano è in Toro.', adesso: adesso),
         isNotEmpty);
   });
 
@@ -176,7 +174,8 @@ void main() {
     const frase = 'Osserva oggi, con l\'aiuto della tua Luna in Gemelli, come '
         'il tuo bisogno di sicurezza si esprime.';
     final sbagliata = IlCieloDetto.smentite(frase,
-        adesso: adesso, diNascita: const {'Sole': 'Cancro', 'Luna': 'Bilancia'});
+        adesso: adesso,
+        diNascita: const {'Sole': 'Cancro', 'Luna': 'Bilancia'});
     final giusta = IlCieloDetto.smentite(frase,
         adesso: adesso, diNascita: const {'Luna': 'Gemelli'});
     final senzaNascita = IlCieloDetto.smentite(frase, adesso: adesso);
@@ -258,7 +257,8 @@ void main() {
     // E il provider sollecita: senza questa riga il rinvio arriva a video.
     final provider = File('lib/services/ai/firebase_maestro_ai_provider.dart')
         .readAsStringSync();
-    expect(provider, contains('LeFunzioniDelCielo.rimanda(domanda: userMessage'));
+    expect(
+        provider, contains('LeFunzioniDelCielo.rimanda(domanda: userMessage'));
     expect(provider, contains('Content.text(LeFunzioniDelCielo.sollecito)'));
   });
 
@@ -367,8 +367,10 @@ void main() {
       memory: MaestroMemory.empty,
       natal: const NatalContext(sunSign: 'Cancro', moonSign: 'Bilancia'),
     );
-    expect(istruzione, contains('i pianeti del cielo di oggi non sono i '
-        'suoi, come quelli dei responsi di oggi'));
+    expect(
+        istruzione,
+        contains('i pianeti del cielo di oggi non sono i '
+            'suoi, come quelli dei responsi di oggi'));
   });
 
   test('senza responsi oggi l\'istruzione non cambia', () {

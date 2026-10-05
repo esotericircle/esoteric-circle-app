@@ -1,4 +1,4 @@
-import '../astro/l_alba_e_il_tramonto.dart';
+import '../astro/meeus/l_alba_e_il_tramonto.dart';
 import '../astro/natal_chart.dart';
 import '../rituals/avvisi_del_rito.dart';
 import 'l_ora_d_oro.dart';

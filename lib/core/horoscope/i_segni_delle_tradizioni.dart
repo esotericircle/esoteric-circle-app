@@ -1,8 +1,7 @@
+import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../astro/birth_details.dart';
 import '../identity/birth_identity.dart';
-import '../astro/il_sole_di_nascita.dart';
 import '../astro/il_fuso_della_nascita.dart';
-import '../astro/la_luna_intera.dart';
 import '../astro/zodiac.dart';
 import 'astro_tradition.dart';
 import 'il_capodanno_lunare.dart';
@@ -231,23 +230,11 @@ abstract final class ISegniDelleTradizioni {
     'Mina',
   ];
 
-  /// L'ayanamsa di Lahiri media, in gradi, per [t] secoli da J2000 in tempo
-  /// terrestre. Interpolata sulla Swiss Ephemeris 2.10.03 (SE_SIDM_LAHIRI,
-  /// 23 gradi 15 primi 0,658 secondi al 21 marzo 1956): scarto sotto un
-  /// millesimo di secondo d'arco fra il 1900 e il 2100.
-  static double ayanamsaMedia(double t) =>
-      23.8570923260 + 1.3968879401 * t + 0.0003070962 * t * t;
-
-  /// La longitudine siderale della Luna all'istante [utc].
-  static double lunaSiderale(DateTime utc) {
-    final jd = LaLunaIntera.giornoGiuliano(utc);
-    final jde = jd + LaLunaIntera.deltaT(_annoDecimale(utc)) / 86400.0;
-    final t = (jde - 2451545.0) / 36525.0;
-    // La Luna e' apparente, quindi si toglie l'ayanamsa vera: la media piu'
-    // la nutazione in longitudine.
-    final vera = ayanamsaMedia(t) + LaLunaIntera.nutazioneInLongitudine(jde);
-    return _norm360(LaLunaIntera.longitudine(jd) - vera);
-  }
+  /// La longitudine siderale della Luna all'istante [utc], dalla porta del
+  /// cielo: l'ayanamsa di Lahiri e la nutazione stanno la', in una
+  /// definizione sola (ordine FD voce 02).
+  static double lunaSiderale(DateTime utc) => IlCieloDiMeeus.siderale(
+      CorpoCeleste.luna, IlCieloDiMeeus.giornoGiuliano(utc));
 
   static SegnoDellaTradizione vedica(NascitaDeiSegni n) {
     SegnoDellaTradizione a(int i, {bool certo = true, String? nota}) {
@@ -503,7 +490,8 @@ abstract final class ISegniDelleTradizioni {
   /// La dimora (da 0 a 27) della Luna all'istante [utc]: settori regolari di
   /// 360/28 gradi dall'inizio dell'Ariete tropicale.
   static int dimoraAlle(DateTime utc) {
-    final l = LaLunaIntera.longitudine(LaLunaIntera.giornoGiuliano(utc));
+    final l = IlCieloDiMeeus.longitudine(
+        CorpoCeleste.luna, IlCieloDiMeeus.giornoGiuliano(utc));
     return (l / (360.0 / 28.0)).floor() % 28;
   }
 
@@ -532,21 +520,13 @@ abstract final class ISegniDelleTradizioni {
   static DateTime _utc(NascitaDeiSegni n) =>
       IlFusoDellaNascita.inUtc(n.locale, n.fuso);
 
-  // Il Sole di nascita dal suo calcolo misurato, non dal motore dei
-  // transiti, che e' verificato solo dal 2020 al 2030.
+  // Il Sole di nascita, dalla porta del cielo.
   static double _sole(DateTime utc) =>
-      IlSoleDiNascita.longitudine(LaLunaIntera.giornoGiuliano(utc));
+      IlCieloDiMeeus.longitudineAllIstante(CorpoCeleste.sole, utc);
 
   static (DateTime, DateTime) _estremiDelGiorno(DateTime g) => (
         DateTime(g.year, g.month, g.day, 0, 0),
         DateTime(g.year, g.month, g.day, 23, 59),
       );
 
-  static double _annoDecimale(DateTime utc) =>
-      utc.year + (utc.month - 0.5) / 12.0;
-
-  static double _norm360(double x) {
-    final v = x % 360.0;
-    return v < 0 ? v + 360.0 : v;
-  }
 }

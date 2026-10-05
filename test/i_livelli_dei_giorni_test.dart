@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'dart:io';
 
 import 'package:esoteric_circle/core/astro/celestial.dart';
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/aspetti_di_oggi.dart';
@@ -28,7 +28,7 @@ void main() {
     final pianeti = [
       for (final c in CorpoCeleste.values)
         () {
-          final l = Effemeridi.longitudineEclittica(c, jd);
+          final l = IlCieloDiMeeus.longitudine(c, jd);
           return PlanetPosition(
               id: c.id,
               name: c.nome,

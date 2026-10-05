@@ -1,10 +1,9 @@
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'dart:io';
-import 'dart:math' as math;
 
 import 'package:esoteric_circle/core/archetypes/archetype_sky.dart';
 import 'package:esoteric_circle/core/archetypes/archetype_transits.dart';
 import 'package:esoteric_circle/core/astro/celestial.dart';
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:esoteric_circle/core/astro/moon_phase.dart';
 import 'package:esoteric_circle/core/astro/night_sky.dart';
 import 'package:esoteric_circle/core/astro/transiti_del_giorno.dart';
@@ -20,9 +19,16 @@ import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 /// ognuna e' stata vista fallire prima di essere vista passare.
 void main() {
   group('Una porta sola per la longitudine', () {
+    // **LAPIDE, ordine FD voce 02, 5 ottobre 2026.** Questo gruppo
+    // difendeva `Effemeridi` come porta sola: le sue impronte fuori da
+    // `effemeridi.dart`, e il suo Sole fermo al millesimo. `Effemeridi` non
+    // c'e' piu'; la porta sola e' `IlCieloDiMeeus`, e la guardia larga, che
+    // cerca tutte le impronte di un calcolo di posizione e non solo queste
+    // sei, e' `il_cielo_ha_una_porta_sola_test.dart`. Qui le due prove
+    // restano, sulla regola nuova.
     test('nessun file calcola una seconda volta la stessa serie', () {
-      // Le costanti che identificano le serie: se compaiono fuori da
-      // `effemeridi.dart`, qualcuno ha riscritto la formula invece di chiedere.
+      // Le costanti che identificano le serie del motore di prima: non
+      // devono rinascere da nessuna parte, nemmeno nella libreria di Meeus.
       const impronte = <String, String>{
         '280.460': 'longitudine media del Sole',
         '0.9856474': 'moto medio del Sole',
@@ -43,7 +49,6 @@ void main() {
       for (final f in sorgentiDiLib()) {
         final testo = f.readAsStringSync();
         final normalizzato = f.path.replaceAll(r'\', '/');
-        if (normalizzato.endsWith('lib/core/astro/effemeridi.dart')) continue;
         for (final voce in impronte.entries) {
           if (intero(voce.key).hasMatch(testo)) {
             (colpevoli[normalizzato] ??= []).add('${voce.key} (${voce.value})');
@@ -56,21 +61,23 @@ void main() {
               'ma queste serie vivono anche altrove: $colpevoli');
     });
 
-    test('il Sole non si e\' spostato di un millesimo con l\'unificazione', () {
-      // I valori verificati il 1 agosto 2026 poggiano su questa formula. La
-      // prova la ricalcola a mano, come stava scritta prima, e pretende che
-      // coincida cifra per cifra: se qualcuno "migliora" il Sole, cade.
-      for (final giorno in [0.0, 9000.0, 12000.0, -3000.0]) {
-        final jd = 2451545.0 + giorno;
-        final n = jd - 2451545.0;
-        final l = (280.460 + 0.9856474 * n) % 360.0;
-        final g = (357.528 + 0.9856003 * n) * 3.141592653589793 / 180.0;
-        var atteso = (l + 1.915 * _sin(g) + 0.020 * _sin(2 * g)) % 360.0;
-        if (atteso < 0) atteso += 360.0;
+    test('il Sole della porta sta sul JPL al secondo d\'arco', () {
+      // Gli stessi quattro giorni di quando qui si pretendeva il Sole di
+      // `Effemeridi` fermo al millesimo; adesso si pretende il JPL DE440s
+      // (skyfield, longitudine apparente della data) entro cinque secondi
+      // d'arco, lo scarto massimo misurato sul secolo.
+      final jpl = {
+        0.0: 280.368918,
+        9000.0: 149.882913,
+        12000.0: 226.635478,
+        -3000.0: 201.636859,
+      };
+      for (final e in jpl.entries) {
+        final jd = 2451545.0 + e.key;
         expect(
-          Effemeridi.longitudineEclittica(CorpoCeleste.sole, jd),
-          closeTo(atteso, 1e-9),
-          reason: 'la formula del Sole e\' cambiata',
+          IlCieloDiMeeus.longitudine(CorpoCeleste.sole, jd),
+          closeTo(e.value, 5 / 3600),
+          reason: 'il Sole della porta si e\' allontanato dal JPL',
         );
       }
     });
@@ -145,7 +152,10 @@ void main() {
   group('Niente rete nel cammino dei transiti', () {
     test('i file del calcolo non importano nulla che parli fuori', () {
       const cammino = [
-        'lib/core/astro/effemeridi.dart',
+        'lib/core/astro/meeus/il_cielo_di_meeus.dart',
+        'lib/core/astro/meeus/i_pianeti_di_meeus.dart',
+        'lib/core/astro/meeus/la_luna_intera.dart',
+        'lib/core/astro/meeus/le_tabelle_dei_pianeti.dart',
         'lib/core/astro/transiti_del_giorno.dart',
         'lib/core/astro/aspetti_di_oggi.dart',
       ];
@@ -212,5 +222,3 @@ void main() {
     });
   });
 }
-
-double _sin(double x) => math.sin(x);

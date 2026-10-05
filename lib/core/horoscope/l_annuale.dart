@@ -1,4 +1,4 @@
-import '../astro/effemeridi.dart';
+import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../chat/user_profile.dart';
 import 'horoscope.dart';
 import 'i_testi_eu.dart';

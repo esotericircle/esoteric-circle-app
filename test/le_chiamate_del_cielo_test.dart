@@ -2,7 +2,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:esoteric_circle/core/astro/l_alba_e_il_tramonto.dart';
+import 'package:esoteric_circle/core/astro/meeus/l_alba_e_il_tramonto.dart';
 import 'package:esoteric_circle/core/identity/natal_identity.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/motion/parallax_controller.dart';

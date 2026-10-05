@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'dart:io';
 
 import 'package:esoteric_circle/core/astro/celestial.dart';
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/maestro/consiglio_finale.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -15,15 +15,15 @@ import 'package:flutter_test/flutter_test.dart';
 /// che vengono, e il giorno ("oggi, più tardi", "domani", "fra n giorni")
 /// quello in cui accadono. La misura intera, quattro ore al giorno, sta in
 /// `docs/collaudo/EV/inviti_del_cielo.txt` (`tool/inviti_del_cielo.dart`).
-Zodiac _segno(DateTime t) => Zodiac.values[(Effemeridi.longitudineEclittica(
+Zodiac _segno(DateTime t) => Zodiac.values[(IlCieloDiMeeus.longitudine(
             CorpoCeleste.luna, Celestial.julianDay(t.toUtc())) ~/
         30) %
     12];
 
 int _quarto(DateTime t) {
   final jd = Celestial.julianDay(t.toUtc());
-  return ((Effemeridi.longitudineEclittica(CorpoCeleste.luna, jd) -
-              Effemeridi.longitudineEclittica(CorpoCeleste.sole, jd)) %
+  return ((IlCieloDiMeeus.longitudine(CorpoCeleste.luna, jd) -
+              IlCieloDiMeeus.longitudine(CorpoCeleste.sole, jd)) %
           360 ~/
           90) %
       4;

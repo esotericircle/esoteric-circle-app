@@ -1,5 +1,5 @@
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'package:esoteric_circle/core/astro/celestial.dart';
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
@@ -48,7 +48,7 @@ class PersonaDiProva {
     final pianeti = [
       for (final c in CorpoCeleste.values)
         () {
-          final l = Effemeridi.longitudineEclittica(c, jd);
+          final l = IlCieloDiMeeus.longitudine(c, jd);
           return PlanetPosition(
               id: c.id,
               name: c.nome,

@@ -1,6 +1,6 @@
+import 'meeus/il_cielo_di_meeus.dart';
 import '../tempo/confine_del_giorno.dart';
 import 'celestial.dart';
-import 'effemeridi.dart';
 
 /// IL CIELO DI OGGI, A UN ISTANTE SOLO PER TUTTO IL GIORNO.
 ///
@@ -56,10 +56,9 @@ class TransitiDelGiorno {
 
   /// Le longitudini eclittiche dei corpi per il giorno civile di [adesso].
   static Map<CorpoCeleste, double> posizioni(DateTime adesso) =>
-      Effemeridi.tutte(giornoGiulianoDi(adesso));
+      IlCieloDiMeeus.tutte(giornoGiulianoDi(adesso));
 
   /// La longitudine di un solo corpo per il giorno civile di [adesso].
   static double posizioneDi(CorpoCeleste corpo, DateTime adesso) =>
-      Effemeridi.longitudineEclittica(
-          corpo, Celestial.julianDay(istanteDi(adesso)));
+      IlCieloDiMeeus.longitudine(corpo, Celestial.julianDay(istanteDi(adesso)));
 }

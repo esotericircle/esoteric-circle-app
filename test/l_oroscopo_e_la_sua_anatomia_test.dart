@@ -1,6 +1,6 @@
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/aspetti_di_oggi.dart';
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
 import 'package:esoteric_circle/core/horoscope/cielo_di_oggi.dart';
 import 'package:esoteric_circle/core/horoscope/corrente_del_cielo.dart';

@@ -1,5 +1,5 @@
+import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../astro/celestial.dart';
-import '../astro/effemeridi.dart';
 import '../astro/natal_chart.dart';
 import '../astro/transiti_nelle_case.dart';
 import '../astro/zodiac.dart';
@@ -21,7 +21,7 @@ abstract final class IlDomani {
   /// natale.
   static (int, bool) casaDellaLuna(
       Zodiac segno, NatalChart? carta, DateTime quando) {
-    final l = Effemeridi.longitudineEclittica(
+    final l = IlCieloDiMeeus.longitudine(
         CorpoCeleste.luna, Celestial.julianDay(quando.toUtc()));
     if (carta != null && carta.hasTime && carta.houses.length == 12) {
       final casa = TransitiNelleCase.casaDi(l, carta.houses);

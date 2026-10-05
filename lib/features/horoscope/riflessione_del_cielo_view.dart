@@ -1,8 +1,8 @@
+import '../../core/astro/meeus/il_cielo_di_meeus.dart';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import '../../core/astro/effemeridi.dart';
 import '../../core/astro/transiti_del_giorno.dart';
 import '../../core/horoscope/cielo_di_oggi.dart';
 import '../../core/horoscope/riflessione_del_cielo.dart';

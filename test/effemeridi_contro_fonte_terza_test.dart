@@ -1,5 +1,5 @@
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'package:esoteric_circle/core/astro/celestial.dart';
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// LA PROVA CHE DECIDE SE UN CORPO SI CONSEGNA.
@@ -83,7 +83,7 @@ void main() {
         final atteso = riferimento[corpo]!;
         final scarti = <double>[];
         for (var i = 0; i < date.length; i++) {
-          final calcolata = Effemeridi.longitudineEclittica(
+          final calcolata = IlCieloDiMeeus.longitudine(
             corpo,
             Celestial.julianDay(date[i]),
           );

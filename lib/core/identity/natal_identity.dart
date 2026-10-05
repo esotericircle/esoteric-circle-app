@@ -91,7 +91,7 @@ class NatalFacts {
 /// lavora sulla posizione nel ciclo e non sulla luce: la luce da sola non
 /// distingue una crescente da una calante.
 String phaseNameOf(MoonIllumination m) =>
-    MoonPhase.nomeItaliano(m.elongationDeg / 360.0);
+    MoonPhase.nomeItaliano(m.frazionePerIlNome);
 
 /// Riga di significato della fase, come tratto identitario (non oroscopo).
 String phaseMeaningOf(MoonIllumination m) {

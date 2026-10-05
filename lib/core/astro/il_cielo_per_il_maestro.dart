@@ -1,7 +1,7 @@
+import 'meeus/il_cielo_di_meeus.dart';
 import 'aspetti_di_oggi.dart';
 import 'celestial.dart';
-import 'eclissi.dart';
-import 'effemeridi.dart';
+import 'meeus/eclissi.dart';
 import 'moon_phase.dart';
 import 'natal_chart.dart';
 import 'transiti_del_giorno.dart';
@@ -66,7 +66,7 @@ abstract final class IlCieloPerIlMaestro {
     final civile = DateTime(giorno.year, giorno.month, giorno.day);
     final jd = TransitiDelGiorno.giornoGiulianoDi(civile);
     final istante = TransitiDelGiorno.istanteDi(civile);
-    final posizioni = Effemeridi.tutte(jd);
+    final posizioni = IlCieloDiMeeus.tutte(jd);
     final pianeti = <Map<String, Object?>>[
       for (final c in corpi)
         {
@@ -74,7 +74,7 @@ abstract final class IlCieloPerIlMaestro {
           'segno': _segno(posizioni[c]!),
           'gradi': _gradi(posizioni[c]!),
           if (c != CorpoCeleste.sole && c != CorpoCeleste.luna)
-            'retrogrado': Effemeridi.retrogrado(c, jd),
+            'retrogrado': IlCieloDiMeeus.retrogrado(c, jd),
         },
     ];
     final aspetti = <String>[];
@@ -93,7 +93,10 @@ abstract final class IlCieloPerIlMaestro {
       }
     }
     final fase = MoonPhase.forDate(istante);
-    final eclissi = MotoreDelleEclissi.nelGiornoDi(civile);
+    // Fuori dalla finestra verificata delle eclissi non si chiede.
+    final eclissi = MotoreDelleEclissi.annoVerificato(civile.year)
+        ? MotoreDelleEclissi.nelGiornoDi(civile)
+        : null;
     final transiti = carta == null
         ? const <ChartAspect>[]
         : AspettiDiOggi.fra(transiti: posizioni, carta: carta);
@@ -125,13 +128,10 @@ abstract final class IlCieloPerIlMaestro {
                 '${t.type.italianName.toLowerCase()} '
                 '${_puntoNatale(t.bId ?? '')} di nascita',
         ],
-      'precisione': Effemeridi.dentroEpocaVerificata(civile)
-          ? 'calcolato dalle effemeridi dell\'app, verificate contro il JPL '
-              'entro un decimo di grado'
-          : 'calcolato dalle effemeridi dell\'app, fuori dagli anni '
-              '${Effemeridi.primoAnnoVerificato}-'
-              '${Effemeridi.ultimoAnnoVerificato} in cui sono verificate: '
-              'i segni restano giusti, i gradi possono sbagliare di poco',
+      // Fuori dall'intervallo verificato la porta non risponde, e qui non si
+      // arriva: la precisione si dice una volta sola (ordine FD voce 02).
+      'precisione': 'calcolato con Meeus dall\'app, verificato contro il '
+          'JPL dal 1900 al 2099 entro un centesimo di grado',
     };
   }
 
@@ -168,7 +168,9 @@ abstract final class IlCieloPerIlMaestro {
           (oggi.fase == 'Luna nuova' || oggi.fase == 'Luna piena')) {
         eventi.add('${_data(g)}: ${oggi.fase} in ${oggi.segnoDellaLuna}');
       }
-      final e = MotoreDelleEclissi.nelGiornoDi(g);
+      final e = MotoreDelleEclissi.annoVerificato(g.year)
+          ? MotoreDelleEclissi.nelGiornoDi(g)
+          : null;
       if (e != null && e.giorno.day == g.day && e.giorno.month == g.month) {
         eventi.add('${_data(g)}: ${e.specie.nome}');
       }
@@ -192,7 +194,7 @@ abstract final class IlCieloPerIlMaestro {
 
   static _StatoDelGiorno _stato(DateTime g) {
     final jd = TransitiDelGiorno.giornoGiulianoDi(g);
-    final pos = Effemeridi.tutte(jd);
+    final pos = IlCieloDiMeeus.tutte(jd);
     final istante = TransitiDelGiorno.istanteDi(g);
     return _StatoDelGiorno(
       segni: {for (final c in corpi) c: _segno(pos[c]!)},
@@ -200,7 +202,7 @@ abstract final class IlCieloPerIlMaestro {
         for (final c in corpi)
           c: c != CorpoCeleste.sole &&
               c != CorpoCeleste.luna &&
-              Effemeridi.retrogrado(c, jd),
+              IlCieloDiMeeus.retrogrado(c, jd),
       },
       fase: MoonPhase.forDate(istante).italianName,
       segnoDellaLuna: IlSegnoDelCielo.dellaLuna(istante).italianName,

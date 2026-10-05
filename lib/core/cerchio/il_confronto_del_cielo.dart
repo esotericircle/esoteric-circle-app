@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import '../astro/night_sky.dart';
+import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../astro/zodiac.dart';
 import '../synastry/altre_affinita.dart';
 import '../synastry/cielo_della_sinastria.dart';
@@ -21,7 +21,7 @@ import '../astro/il_segno_del_cielo.dart';
 ///   l'aspetto tolemaico fra i loro gradi medi (congiunzione, sestile,
 ///   quadrato, trigono, opposizione, e i due minori).
 /// - **Il cielo di oggi, ordine EZ voce 02**: la LONGITUDINE VERA della Luna
-///   di oggi (`NightSky.moonEclipticLongitude`, che chiede a `Effemeridi`, la
+///   di oggi (`IlCieloDiMeeus`, dall'ordine FD voce 02, la
 ///   porta sola del cielo) misurata dal PUNTO D'INCONTRO dei due segni, il
 ///   punto medio fra i loro gradi centrali sull'arco piu' corto: e' il punto
 ///   su cui la tradizione costruisce la carta composita di una coppia. La
@@ -122,9 +122,15 @@ class IlConfrontoDelCielo {
     final (aspetto, nome) = aspettoFra(a, b);
     // A mezzogiorno del giorno: la Luna del giorno e' una per tutti e due.
     final mezzogiorno = DateTime.utc(giorno.year, giorno.month, giorno.day, 12);
-    final luna = IlSegnoDelCielo.dellaLuna(mezzogiorno);
-    final distanza =
-        NightSky.moonEclipticLongitude(mezzogiorno) - puntoDIncontro(a, b);
+    // **LA LUNA DI MEEUS, UNA CHIAMATA SOLA.** Ordine FD voce 02: qui c'erano
+    // due chiamate, il segno e la longitudine, tutte e due verso il motore
+    // `Effemeridi` (2020-2030, la Luna a undici termini). Adesso la Luna
+    // viene dalla porta del cielo, il capitolo 47 intero, e il segno si
+    // ricava dalla stessa longitudine.
+    final lunaInGradi =
+        IlCieloDiMeeus.longitudineAllIstante(CorpoCeleste.luna, mezzogiorno);
+    final luna = IlSegnoDelCielo.dellaLongitudine(lunaInGradi);
+    final distanza = lunaInGradi - puntoDIncontro(a, b);
     // Da +1 con la Luna sul punto d'incontro a -1 con la Luna opposta.
     final accordo = math.cos(distanza * math.pi / 180);
     final cieloDiOggi = (50 + 50 * accordo).round();

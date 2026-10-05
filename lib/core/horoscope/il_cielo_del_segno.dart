@@ -1,5 +1,5 @@
+import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../astro/il_segno_del_cielo.dart';
-import '../astro/effemeridi.dart';
 import '../astro/zodiac.dart';
 import 'corrente_del_cielo.dart';
 import 'horoscope.dart';

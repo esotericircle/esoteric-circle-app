@@ -1,5 +1,5 @@
-import '../astro/effemeridi.dart';
-import '../astro/l_alba_e_il_tramonto.dart';
+import '../astro/meeus/il_cielo_di_meeus.dart';
+import '../astro/meeus/l_alba_e_il_tramonto.dart';
 import '../chat/user_profile.dart';
 import 'horoscope.dart';
 import 'l_almanacco_cinese.dart';

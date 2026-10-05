@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'dart:io';
 
 import 'package:esoteric_circle/core/astro/celestial.dart';
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/entitlement/plan_catalog.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
@@ -49,8 +49,8 @@ void main() {
         final aggiunta = p.substring(b.length).trim();
         final luna = IlSegnoDelCielo.delCorpo(CorpoCeleste.luna, mezzogiorno);
         final corpo = IlCieloDelSegno.corpoDi[dominio]!;
-        final l = Effemeridi.longitudineEclittica(
-            corpo, Celestial.julianDay(mezzogiorno));
+        final l =
+            IlCieloDiMeeus.longitudine(corpo, Celestial.julianDay(mezzogiorno));
         final suo = Zodiac.values[(l ~/ 30) % 12];
         expect(p.startsWith(b), isTrue,
             reason: '${segno.id} ${dominio.name}: l\'Approfondita non '

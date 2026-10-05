@@ -1,4 +1,4 @@
-import 'effemeridi.dart';
+import 'meeus/il_cielo_di_meeus.dart';
 import 'moon_phase.dart';
 import 'zodiac.dart';
 import 'il_segno_del_cielo.dart';
@@ -24,8 +24,7 @@ class NightSky {
   /// `Effemeridi`, la porta sola. La formula e' la stessa, quindi i valori non
   /// si sono mossi.
   static double sunEclipticLongitude(DateTime date) =>
-      Effemeridi.longitudineEclittica(
-          CorpoCeleste.sole, MoonPhase.julianDay(date));
+      IlCieloDiMeeus.longitudine(CorpoCeleste.sole, MoonPhase.julianDay(date));
 
   /// Longitudine eclittica della Luna in gradi [0, 360).
   ///
@@ -33,8 +32,7 @@ class NightSky {
   /// serie lunari che convivevano, e ha vinto: `Effemeridi` la usa, piu' il
   /// termine da 0,214 gradi che solo `Celestial.moonEquatorial` aveva.
   static double moonEclipticLongitude(DateTime date) =>
-      Effemeridi.longitudineEclittica(
-          CorpoCeleste.luna, MoonPhase.julianDay(date));
+      IlCieloDiMeeus.longitudine(CorpoCeleste.luna, MoonPhase.julianDay(date));
 
   /// **IL QUARTO DEL CICLO**, ordine EV voce EV.10: 0 dalla Luna nuova al
   /// Primo quarto, 1 fino alla piena, 2 fino all'Ultimo quarto, 3 fino alla

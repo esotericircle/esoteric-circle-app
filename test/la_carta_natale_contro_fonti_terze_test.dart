@@ -1,8 +1,7 @@
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:esoteric_circle/core/astro/celestial.dart';
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// LA CARTA NATALE CONTRO FONTI TERZE ACCREDITATE.
@@ -245,75 +244,38 @@ void main() {
       ),
     };
 
-    /// Le stesse tolleranze della prova sulle date recenti: se un'epoca
-    /// lontana le sfondasse, vorrebbe dire che i polinomi reggono soltanto
-    /// vicino a oggi, ed e' proprio quello che si vuole scoprire.
-    /// **QUI QUALCOSA NON REGGE, ED E' SCRITTO INVECE CHE AGGIUSTATO.**
-    ///
-    /// Con la tolleranza che vale per le date vicine a oggi (0,200 gradi per
-    /// Saturno) questa prova CADE su un caso solo: Saturno al 21 marzo 1950
-    /// sbaglia 0,570 gradi, quasi tre volte tanto. Sole e Luna reggono in
-    /// tutte e due le epoche.
-    ///
-    /// Non e' un capriccio del numero: le nostre effemeridi usano polinomi
-    /// costruiti attorno all'epoca corrente, e piu' ci si allontana piu' i
-    /// pianeti lenti sbandano.
-    ///
-    /// **Cosa comporta davvero.** Queste effemeridi servono ai TRANSITI e al
-    /// cielo di oggi, non alla carta di nascita, che viene dal motore remoto
-    /// ed e' esatta al mezzo millesimo di grado (misurato qui sopra). Il caso
-    /// del 1950 conterebbe solo se un giorno qualcuno calcolasse una carta di
-    /// nascita in locale: quel giorno, questo mezzo grado va risolto prima.
-    ///
-    /// La soglia per Saturno NON e' una tolleranza di progetto: e' il degrado
-    /// misurato, inchiodato al valore che ha oggi.
-    const tolleranza = <CorpoCeleste, double>{
-      CorpoCeleste.sole: 0.010,
-      CorpoCeleste.luna: 0.200,
-      CorpoCeleste.saturno: 0.600, // DEGRADO NOTO: misurato 0,570 nel 1950
-    };
+    /// **LAPIDE, ordine FD voce 02, 5 ottobre 2026.** Qui le tolleranze
+    /// erano quelle di `Effemeridi`, il motore a elementi medi: 0,200 gradi
+    /// per la Luna e 0,600 per Saturno, col "degrado noto" di 0,570 al 1950
+    /// inchiodato da una seconda prova che pretendeva di vederlo. Quella prova
+    /// diceva da se' cosa fare il giorno che il motore fosse migliorato:
+    /// riscrivere la nota con la misura nuova. L'ordine FD ha cancellato
+    /// `Effemeridi`: ogni posizione viene da `IlCieloDiMeeus`, e la tolleranza
+    /// di ogni corpo e' lo scarto che la porta dichiara contro il JPL, piu'
+    /// due secondi d'arco per l'arrotondamento dei valori di Horizons.
+    double tolleranza(CorpoCeleste c) =>
+        IlCieloDiMeeus.scartoMisurato[c]! + 2 / 3600;
 
-    test('Sole e Luna reggono a settanta anni, Saturno NO e si dichiara', () {
+    test('Sole, Luna e Saturno reggono a settanta anni', () {
       final fuori = <String>[];
       nascite.forEach((nome, dati) {
         final (istante, riferimenti) = dati;
-        final jd = Celestial.julianDay(istante);
+        final jd = IlCieloDiMeeus.giornoGiuliano(istante);
         riferimenti.forEach((corpo, atteso) {
-          final nostro = Effemeridi.longitudineEclittica(corpo, jd);
+          final nostro = IlCieloDiMeeus.longitudine(corpo, jd);
           final s = scarto(nostro, atteso);
           // ignore: avoid_print
           print('EPOCHE $nome ${corpo.name.padRight(8)} nostro '
               '${nostro.toStringAsFixed(4)}  Horizons '
               '${atteso.toStringAsFixed(4)}  scarto '
               '${s.toStringAsFixed(5)} gradi');
-          if (s > tolleranza[corpo]!) {
+          if (s > tolleranza(corpo)) {
             fuori.add('$nome, ${corpo.name}: scarto '
-                '${s.toStringAsFixed(5)} contro ${tolleranza[corpo]}');
+                '${s.toStringAsFixed(5)} contro ${tolleranza(corpo)}');
           }
         });
       });
       expect(fuori, isEmpty, reason: fuori.join('\n'));
-    });
-
-    test('il degrado di Saturno nelle epoche lontane e\' quello dichiarato',
-        () {
-      // **QUESTA PROVA ESISTE PER NON DIMENTICARE.** Il numero qui sotto e' un
-      // difetto misurato, non una tolleranza: se un giorno le effemeridi
-      // migliorassero, questa prova cadrebbe e sarebbe una buona notizia da
-      // scrivere; se peggiorassero, cadrebbe lo stesso.
-      final jd = Celestial.julianDay(DateTime.utc(1950, 3, 21, 6, 15));
-      final nostro = Effemeridi.longitudineEclittica(CorpoCeleste.saturno, jd);
-      final s = scarto(nostro, 164.9486174);
-      // ignore: avoid_print
-      print('DEGRADO: Saturno al 1950 sbaglia ${s.toStringAsFixed(3)} gradi, '
-          'contro i 0,141 misurati sulle date del 2026');
-      expect(s, greaterThan(0.4),
-          reason: 'Saturno nel 1950 e\' migliorato: la nota sul degrado va '
-              'riscritta con la misura nuova, invece di restare a dichiarare '
-              'un difetto che non c\'e\' piu\'');
-      expect(s, lessThan(0.6),
-          reason: 'Saturno nel 1950 e\' peggiorato oltre il mezzo grado gia\' '
-              'dichiarato');
     });
   });
 }

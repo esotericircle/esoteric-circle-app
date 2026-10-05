@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'package:esoteric_circle/core/astro/celestial.dart';
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:esoteric_circle/core/astro/il_cielo_detto.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -25,12 +25,11 @@ void main() {
   final jd = Celestial.julianDay(adesso.toUtc());
 
   String segnoDi(CorpoCeleste c) => Zodiac
-      .values[(Effemeridi.longitudineEclittica(c, jd) / 30).floor() % 12]
+      .values[(IlCieloDiMeeus.longitudine(c, jd) / 30).floor() % 12]
       .italianName;
 
-  String altroSegno(CorpoCeleste c) => Zodiac.values
-      .firstWhere((z) => z.italianName != segnoDi(c))
-      .italianName;
+  String altroSegno(CorpoCeleste c) =>
+      Zodiac.values.firstWhere((z) => z.italianName != segnoDi(c)).italianName;
 
   test('il cielo di oggi per il modello porta i pianeti calcolati', () {
     final cielo = IlCieloDetto.oggiPerIlModello(adesso);
@@ -78,7 +77,7 @@ void main() {
     ]) {
       final frase = 'Il transito di ${c.nome} retrogrado ti chiede di '
           'rivedere le parole non dette.';
-      final retro = Effemeridi.retrogrado(c, jd);
+      final retro = IlCieloDiMeeus.retrogrado(c, jd);
       expect(IlCieloDetto.smentite(frase, adesso: adesso).isNotEmpty, !retro,
           reason: '${c.nome} ${retro ? 'e\'' : 'non e\''} retrogrado oggi');
     }
@@ -100,8 +99,7 @@ void main() {
       'Il Sole in Scorpione e la Luna in Pesci indicano una profondità di '
           'sentimenti.',
     ]) {
-      expect(
-          IlCieloDetto.smentite(f, adesso: adesso, diNascita: diNascita),
+      expect(IlCieloDetto.smentite(f, adesso: adesso, diNascita: diNascita),
           isEmpty,
           reason: f);
     }

@@ -1,5 +1,5 @@
 import '../astro/il_fuso_della_nascita.dart';
-import '../astro/l_alba_e_il_tramonto.dart';
+import '../astro/meeus/l_alba_e_il_tramonto.dart';
 import '../chat/user_profile.dart';
 import 'horoscope.dart';
 import 'i_testi_eu.dart';

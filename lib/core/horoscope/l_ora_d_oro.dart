@@ -1,4 +1,4 @@
-import '../astro/la_luna_intera.dart';
+import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../astro/natal_chart.dart';
 
 /// Un'ora d'oro: quando, quale aspetto e a quale punto natale.
@@ -84,8 +84,8 @@ abstract final class LOraDOro {
     AspectType.conjunction: [0],
   };
 
-  static double _luna(DateTime utc) =>
-      LaLunaIntera.longitudine(LaLunaIntera.giornoGiuliano(utc));
+  static double _luna(DateTime utc) => IlCieloDiMeeus.longitudine(
+      CorpoCeleste.luna, IlCieloDiMeeus.giornoGiuliano(utc));
 
   /// Di quanti gradi la Luna manca (o ha passato) l'angolo [bersaglio], in
   /// (-180, 180].

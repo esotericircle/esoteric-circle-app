@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'dart:io';
 
-import 'package:esoteric_circle/core/astro/il_sole_di_nascita.dart';
-import 'package:esoteric_circle/core/astro/la_luna_intera.dart';
+import 'package:esoteric_circle/core/astro/meeus/la_luna_intera.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'cardinale_minimo.dart';
@@ -36,11 +36,22 @@ void main() {
         cosa: 'istanti di riferimento della Luna');
     var peggiore = 0.0;
     final lontani = <String>[];
+    var oltre = 0;
     for (final r in righe) {
       final c = r.split(',');
       final quando = DateTime.parse(c[0]);
       final jpl = double.parse(c[1]);
-      final app = LaLunaIntera.longitudine(LaLunaIntera.giornoGiuliano(quando));
+      final jd = IlCieloDiMeeus.giornoGiuliano(quando);
+      // **ORDINE FD VOCE 02**: la porta del cielo e' verificata fino al 31
+      // dicembre 2099, e oltre non risponde. Gli istanti di questo file oltre
+      // quel giorno pretendono il rifiuto, non un numero.
+      if (!IlCieloDiMeeus.verificato(jd)) {
+        oltre++;
+        expect(() => IlCieloDiMeeus.longitudine(CorpoCeleste.luna, jd),
+            throwsA(isA<FuoriDalCieloVerificato>()));
+        continue;
+      }
+      final app = IlCieloDiMeeus.longitudine(CorpoCeleste.luna, jd);
       var d = (app - jpl).abs() % 360;
       if (d > 180) d = 360 - d;
       if (d > peggiore) peggiore = d;
@@ -48,8 +59,11 @@ void main() {
       // quello del JPL: la tolleranza e' quella misurata, 0,025 gradi.
       if (d > 0.025) lontani.add('$quando: app $app, JPL $jpl');
     }
-    print('ORDINE ES: Luna intera contro JPL su ${righe.length} istanti, '
-        'scarto massimo ${peggiore.toStringAsFixed(4)} gradi');
+    print('ORDINE ES: Luna intera contro JPL su ${righe.length - oltre} '
+        'istanti dentro l\'intervallo verificato, scarto massimo '
+        '${peggiore.toStringAsFixed(4)} gradi; $oltre oltre il 2099, rifiutati');
+    cardinaleMinimo(righe.length - oltre, 35,
+        cosa: 'istanti della Luna dentro l\'intervallo verificato');
     expect(lontani, isEmpty, reason: lontani.join('\n'));
   });
 
@@ -63,8 +77,8 @@ void main() {
     var peggiore = 0.0;
     for (final r in righe) {
       final c = r.split(',');
-      final app = IlSoleDiNascita.longitudine(
-          LaLunaIntera.giornoGiuliano(DateTime.parse(c[0])));
+      final app = IlCieloDiMeeus.longitudine(CorpoCeleste.sole,
+          IlCieloDiMeeus.giornoGiuliano(DateTime.parse(c[0])));
       var d = (app - double.parse(c[1])).abs() % 360;
       if (d > 180) d = 360 - d;
       if (d > peggiore) peggiore = d;

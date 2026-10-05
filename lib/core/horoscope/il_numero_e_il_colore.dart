@@ -1,4 +1,4 @@
-import '../astro/effemeridi.dart';
+import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../astro/zodiac.dart';
 import 'cielo_di_oggi.dart';
 import '../astro/il_segno_del_cielo.dart';

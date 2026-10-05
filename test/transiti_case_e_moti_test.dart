@@ -1,7 +1,7 @@
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'dart:io';
 
 import 'package:esoteric_circle/core/astro/aspetti_di_oggi.dart';
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
 import 'package:esoteric_circle/core/astro/transiti_del_giorno.dart';
 import 'package:esoteric_circle/core/astro/transiti_nelle_case.dart';
@@ -110,8 +110,8 @@ void main() {
       for (var g = 0; g < 800; g += 3) {
         final jd = TransitiDelGiorno.giornoGiulianoDi(
             DateTime(2026, 1, 1).add(Duration(days: g)));
-        expect(Effemeridi.retrogrado(CorpoCeleste.sole, jd), isFalse);
-        expect(Effemeridi.retrogrado(CorpoCeleste.luna, jd), isFalse);
+        expect(IlCieloDiMeeus.retrogrado(CorpoCeleste.sole, jd), isFalse);
+        expect(IlCieloDiMeeus.retrogrado(CorpoCeleste.luna, jd), isFalse);
       }
     });
 
@@ -123,7 +123,7 @@ void main() {
       for (var g = 0; g < 365; g++) {
         final jd = TransitiDelGiorno.giornoGiulianoDi(
             DateTime(2026, 1, 1).add(Duration(days: g)));
-        if (Effemeridi.retrogrado(CorpoCeleste.mercurio, jd)) giorni++;
+        if (IlCieloDiMeeus.retrogrado(CorpoCeleste.mercurio, jd)) giorni++;
       }
       expect(giorni, inInclusiveRange(45, 80),
           reason: 'Mercurio retrogrado $giorni giorni nel 2026');
@@ -141,7 +141,7 @@ void main() {
         for (var g = 0; g < 365; g++) {
           final jd = TransitiDelGiorno.giornoGiulianoDi(
               DateTime(2026, 1, 1).add(Duration(days: g)));
-          if (Effemeridi.retrogrado(corpo, jd)) giorni++;
+          if (IlCieloDiMeeus.retrogrado(corpo, jd)) giorni++;
         }
         expect(giorni, inInclusiveRange(120, 190),
             reason: '${corpo.nome} retrogrado $giorni giorni nel 2026');
@@ -155,8 +155,8 @@ void main() {
         for (var g = 0; g < 400; g += 17) {
           final jd = TransitiDelGiorno.giornoGiulianoDi(
               DateTime(2026, 1, 1).add(Duration(days: g)));
-          expect(Effemeridi.retrogrado(corpo, jd),
-              Effemeridi.velocitaGiornaliera(corpo, jd) < 0);
+          expect(IlCieloDiMeeus.retrogrado(corpo, jd),
+              IlCieloDiMeeus.velocitaGiornaliera(corpo, jd) < 0);
         }
       }
     });
@@ -215,25 +215,30 @@ void main() {
     test('ogni corpo sa dire di quanti giorni e\' incerto', () {
       final jd = TransitiDelGiorno.giornoGiulianoDi(DateTime(2026, 8, 4));
       for (final corpo in CorpoCeleste.values) {
-        expect(Effemeridi.scartoMisurato[corpo], isNotNull,
+        expect(IlCieloDiMeeus.scartoMisurato[corpo], isNotNull,
             reason: '${corpo.nome} non dichiara il suo scarto misurato');
-        expect(Effemeridi.giorniDiIncertezza(corpo, jd), greaterThan(0));
+        expect(IlCieloDiMeeus.giorniDiIncertezza(corpo, jd), greaterThan(0));
       }
     });
 
-    test('Saturno e\' incerto di giorni, non di ore', () {
-      // Il numero che l'ordine chiede di dichiarare: 0,1414 gradi di scarto su
-      // un pianeta che fa circa 0,03 gradi al giorno sono giorni, non ore.
+    // **LAPIDE, ordine FD voce 02, 5 ottobre 2026.** Qui stava "Saturno e'
+    // incerto di giorni, non di ore": 0,1414 gradi di scarto di `Effemeridi`
+    // su un pianeta che fa 0,03 gradi al giorno. Col motore di Meeus lo
+    // scarto misurato contro il JPL e' 0,0004 gradi, e l'incertezza sotto
+    // l'ora: la regola si rimisura, non si tiene.
+    test('Saturno e\' incerto di minuti, non di giorni', () {
       final jd = TransitiDelGiorno.giornoGiulianoDi(DateTime(2026, 8, 4));
-      final giorni = Effemeridi.giorniDiIncertezza(CorpoCeleste.saturno, jd);
-      expect(giorni, greaterThan(1.0),
-          reason: 'se fosse sotto il giorno, un testo potrebbe dire "esatto '
-              'oggi", e non puo\'');
+      final giorni =
+          IlCieloDiMeeus.giorniDiIncertezza(CorpoCeleste.saturno, jd);
+      // ignore: avoid_print
+      print('ORDINE FD VOCE 02: Saturno incerto di '
+          '${(giorni * 24 * 60).toStringAsFixed(1)} minuti');
+      expect(giorni, lessThan(1 / 24));
     });
 
     test('lo scarto dichiarato copre tutti i corpi consegnati', () {
-      expect(
-          Effemeridi.scartoMisurato.keys.toSet(), CorpoCeleste.values.toSet());
+      expect(IlCieloDiMeeus.scartoMisurato.keys.toSet(),
+          CorpoCeleste.values.toSet());
     });
   });
 

@@ -1,10 +1,10 @@
+import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../astro/aspetti_di_oggi.dart';
-import '../astro/effemeridi.dart';
 import '../astro/moon_phase.dart';
 import '../astro/natal_chart.dart';
 import '../astro/transiti_del_giorno.dart';
 import '../astro/zodiac.dart';
-import '../astro/eclissi.dart';
+import '../astro/meeus/eclissi.dart';
 import '../astro/il_segno_del_cielo.dart';
 
 /// GLI EVENTI DEL CIELO VERI DI OGGI, in un punto solo.
@@ -162,8 +162,8 @@ class EventiDelCielo {
     final jd = TransitiDelGiorno.giornoGiulianoDi(adesso);
     final ieri = TransitiDelGiorno.giornoGiulianoDi(
         adesso.subtract(const Duration(days: 1)));
-    final soleOggi = Effemeridi.longitudineEclittica(CorpoCeleste.sole, jd);
-    final soleIeri = Effemeridi.longitudineEclittica(CorpoCeleste.sole, ieri);
+    final soleOggi = IlCieloDiMeeus.longitudine(CorpoCeleste.sole, jd);
+    final soleIeri = IlCieloDiMeeus.longitudine(CorpoCeleste.sole, ieri);
     for (final grado in const [0.0, 180.0]) {
       if (_haAttraversato(soleIeri, soleOggi, grado)) eventi.add(equinozio);
     }
@@ -173,7 +173,8 @@ class EventiDelCielo {
 
     // **L'ECLISSI, ordine CE voce 16.** Il motore la sa dire per il giorno,
     // e la sa dire offline: e' un conto di Meeus, non una chiamata.
-    if (MotoreDelleEclissi.nelGiornoDi(adesso.toUtc()) != null) {
+    if (MotoreDelleEclissi.annoVerificato(adesso.toUtc().year) &&
+        MotoreDelleEclissi.nelGiornoDi(adesso.toUtc()) != null) {
       eventi.add(eclissi);
     }
 

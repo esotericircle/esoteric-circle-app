@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:esoteric_circle/core/astro/eclissi.dart';
+import 'package:esoteric_circle/core/astro/meeus/eclissi.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// IL MOTORE DELLE ECLISSI, VERIFICATO CONTRO UNA FONTE TERZA.

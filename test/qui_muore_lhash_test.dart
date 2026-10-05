@@ -1,5 +1,5 @@
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'package:esoteric_circle/core/astro/aspetti_di_oggi.dart';
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
 import 'package:esoteric_circle/core/astro/transiti_del_giorno.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
@@ -178,18 +178,21 @@ void main() {
 
   group('VOCE 2b. Il giorno esatto non si promette', () {
     test('Saturno non si data mai al giorno, e la frase lo dichiara', () {
-      // **IL NUMERO CHE DECIDE.** Misurato il 5 agosto 2026 con
-      // `flutter test tool/quanto_e_incerto_il_giorno.dart` su tre date: lo
-      // scarto di Saturno contro JPL Horizons e' 0,1414 gradi e Saturno
-      // percorre 0,0159 gradi al giorno, cioe' fra 1,29 e 8,92 giorni di
-      // incertezza su QUANDO l'aspetto e' esatto. Per dire che c'e' basta e
-      // avanza, l'orbo e' due gradi. Per dire "oggi" no.
+      // **LAPIDE, ordine FD voce 02, 5 ottobre 2026.** Qui il numero che
+      // decideva era quello di `Effemeridi`: Saturno sbagliava 0,1414 gradi,
+      // cioe' fra 1,29 e 8,92 giorni di incertezza, e la prova pretendeva
+      // un'incertezza sopra il giorno, con la nota di rimisurarla se il
+      // motore fosse migliorato. L'ordine FD ha messo il motore di Meeus:
+      // Saturno sbaglia 0,0004 gradi contro il JPL, e l'incertezza
+      // RIMISURATA e' sotto l'ora. La frase per un transito incerto di giorni
+      // resta provata qui sotto con l'incertezza scritta: se un giorno un
+      // corpo tornasse incerto, la frase deve continuare a dirlo.
       final jd = TransitiDelGiorno.giornoGiulianoDi(giorno);
-      final incerto = Effemeridi.giorniDiIncertezza(CorpoCeleste.saturno, jd);
-      expect(incerto, greaterThan(1.0),
-          reason: 'Saturno risulta certo entro il giorno: se il motore e\' '
-              'davvero migliorato, questa regola va rimisurata invece che '
-              'allentata a mano');
+      final incerto =
+          IlCieloDiMeeus.giorniDiIncertezza(CorpoCeleste.saturno, jd);
+      expect(incerto, lessThan(1 / 24),
+          reason: 'Saturno risulta incerto di piu\' di un\'ora: lo scarto '
+              'dichiarato della porta non e\' piu\' quello misurato');
 
       const v = VoceDelCielo(
         transito: CorpoCeleste.saturno,
@@ -246,7 +249,7 @@ void main() {
         CorpoCeleste.mercurio,
         CorpoCeleste.venere,
       ]) {
-        expect(Effemeridi.giorniDiIncertezza(corpo, jd), lessThan(1.0),
+        expect(IlCieloDiMeeus.giorniDiIncertezza(corpo, jd), lessThan(1.0),
             reason: '${corpo.nome} risulta incerto oltre il giorno');
       }
       const v = VoceDelCielo(
@@ -353,8 +356,7 @@ void main() {
       // il_ripiego_del_cielo_non_e_un_vicolo_cieco_test.dart, che tocca e
       // guarda su quale schermata si e' trovata. Qui basta che
       // l'invito esista per questo livello.
-      expect(CorrenteDelCielo.invitoDelLivello(CieloDiOggi.nessuno),
-          isNotNull,
+      expect(CorrenteDelCielo.invitoDelLivello(CieloDiOggi.nessuno), isNotNull,
           reason: 'senza carta non si offre nessun invito a completarla, '
               'cioe\' il ripiego torna a essere un vicolo cieco');
     });
@@ -615,8 +617,7 @@ void main() {
     test('Nessuna scheda porta il transito nel testo', () {
       final carte = schede(cartaUna, giorno);
       for (final c in carte) {
-        expect(CorpoCeleste.values.any((x) => c.text.contains(x.nome)),
-            isFalse,
+        expect(CorpoCeleste.values.any((x) => c.text.contains(x.nome)), isFalse,
             reason: 'la scheda ${c.domain.label} porta il cielo nel testo: '
                 '«${c.text}»');
       }

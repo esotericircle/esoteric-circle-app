@@ -1,5 +1,5 @@
+import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../astro/aspetti_di_oggi.dart';
-import '../astro/effemeridi.dart';
 import '../astro/natal_chart.dart';
 import '../astro/transiti_del_giorno.dart';
 import '../astro/transiti_nelle_case.dart';
@@ -100,13 +100,13 @@ class CieloDiOggi {
         applicativo: a.applicativo,
         casa: case_[corpo],
         retrogrado: retrogradi.contains(corpo),
-        giorniDiIncertezza: Effemeridi.giorniDiIncertezza(corpo, jd),
+        giorniDiIncertezza: IlCieloDiMeeus.giorniDiIncertezza(corpo, jd),
       ));
     }
     return CieloDiOggi(
       voci: voci,
       livello: livello,
-      lunaDelGiorno: Effemeridi.longitudineEclittica(CorpoCeleste.luna, jd),
+      lunaDelGiorno: IlCieloDiMeeus.longitudine(CorpoCeleste.luna, jd),
       natali: {
         for (final p in carta.planets) p.id: (p.name, p.longitude),
       },

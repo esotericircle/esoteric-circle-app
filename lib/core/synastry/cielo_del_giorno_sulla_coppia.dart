@@ -1,5 +1,5 @@
+import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../astro/celestial.dart';
-import '../astro/effemeridi.dart';
 import '../astro/natal_chart.dart';
 import '../tempo/confine_del_giorno.dart';
 import 'cielo_della_sinastria.dart';
@@ -104,7 +104,7 @@ class MoltiplicatoreCeleste {
     }
     final jd = Celestial.julianDay(
         DateTime.utc(giorno.year, giorno.month, giorno.day, 12));
-    final transiti = Effemeridi.tutte(jd);
+    final transiti = IlCieloDiMeeus.tutte(jd);
 
     var somma = 0.0;
     CorpoCeleste? migliore;

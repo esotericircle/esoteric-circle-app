@@ -1,6 +1,6 @@
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'dart:io';
 
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

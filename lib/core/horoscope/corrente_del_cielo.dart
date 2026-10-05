@@ -1,5 +1,5 @@
+import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../astro/aspetti_di_oggi.dart';
-import '../astro/effemeridi.dart';
 import '../astro/natal_chart.dart';
 import 'cielo_di_oggi.dart';
 import 'horoscope.dart';

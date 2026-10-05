@@ -1,8 +1,7 @@
 // ignore_for_file: avoid_print
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'package:esoteric_circle/core/amici/amici_offline.dart';
 import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
-import 'package:esoteric_circle/core/astro/il_sole_di_nascita.dart';
-import 'package:esoteric_circle/core/astro/la_luna_intera.dart';
 import 'package:esoteric_circle/core/astro/il_fuso_della_nascita.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/cerchio/il_cerchio_sociale.dart';
@@ -97,8 +96,9 @@ void main() {
     for (final (giorno, delleDateFisse, delSole) in cuspidi) {
       final a = amico('c', 'Cuspide', giorno);
       // La longitudine del Sole a mezzogiorno di Roma, letta direttamente.
-      final l = IlSoleDiNascita.longitudine(LaLunaIntera.giornoGiuliano(
-          IlFusoDellaNascita.inUtc(
+      final l = IlCieloDiMeeus.longitudine(
+          CorpoCeleste.sole,
+          IlCieloDiMeeus.giornoGiuliano(IlFusoDellaNascita.inUtc(
               DateTime(giorno.year, giorno.month, giorno.day, 12),
               'Europe/Rome')));
       righe.add('${giorno.day}/${giorno.month}/${giorno.year}: Sole a '

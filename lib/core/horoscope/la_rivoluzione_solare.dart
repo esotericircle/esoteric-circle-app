@@ -1,9 +1,4 @@
-import 'dart:math' as math;
-
-import '../astro/effemeridi.dart';
-import '../astro/il_cielo_del_jpl.dart';
-import '../astro/il_sole_di_nascita.dart';
-import '../astro/la_luna_intera.dart';
+import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../astro/il_segno_del_cielo.dart';
 
 /// Il tema della Rivoluzione Solare di un anno.
@@ -47,25 +42,22 @@ class TemaDellaRivoluzione {
 /// grado che aveva alla nascita, nel luogo in cui la persona si trova. Tutto
 /// sul telefono.
 ///
-/// **Il Sole viene dal JPL** ([IlCieloDelJpl], 1900-2050): un centesimo di
-/// grado sul Sole sono quattordici minuti sull'istante del ritorno, e
-/// l'Ascendente si muove di un grado ogni quattro minuti. Col Sole di Meeus
-/// l'istante sbagliava fino a 638 secondi e l'Ascendente fino a 2,7 gradi
-/// (`la_rivoluzione_solare_test.dart`). Anche Venere, Giove e Saturno vengono
-/// dal JPL; la Luna da [LaLunaIntera]. Ascendente e Medio Cielo col tempo
-/// siderale apparente e l'obliquita' vera.
+/// **Il Sole viene dalla porta del cielo** ([IlCieloDiMeeus], ordine FD
+/// voce 02): il VSOP87D intero della Terra, cioe' Meeus al secondo d'arco.
+/// Un centesimo di grado sul Sole sono quattordici minuti sull'istante del
+/// ritorno, e l'Ascendente si muove di un grado ogni quattro minuti: col Sole
+/// di Meeus del capitolo 25 l'istante sbagliava fino a 638 secondi, e per
+/// questo dall'ordine ES al FD il Sole veniva da polinomi sul JPL DE421.
+/// L'ordine FD li ha cancellati: una sola via per una posizione del cielo.
+/// Venere, Giove, Saturno e la Luna dalla stessa porta, Ascendente e Medio
+/// Cielo anche (tempo siderale apparente e obliquita' vera).
 abstract final class LaRivoluzioneSolare {
-  static const double _g = math.pi / 180.0;
+  static double _jd(DateTime utc) => IlCieloDiMeeus.giornoGiuliano(utc);
 
-  static double _jd(DateTime utc) => LaLunaIntera.giornoGiuliano(utc);
-
-  /// Il Sole apparente: dal JPL, o da Meeus fuori dal 1900-2050.
+  /// Il Sole apparente, dalla porta del cielo.
   static double sole(double jd) =>
-      IlCieloDelJpl.longitudine(CorpoCeleste.sole, jd) ??
-      IlSoleDiNascita.longitudine(jd);
+      IlCieloDiMeeus.longitudine(CorpoCeleste.sole, jd);
 
-  /// L'istante del ritorno del Sole alla longitudine [soleNatale] nell'anno
-  /// [anno], cercato attorno al compleanno [giorno]/[mese].
   static DateTime ritorno(double soleNatale, int anno, int mese, int giorno) {
     var t = DateTime.utc(anno, mese, giorno, 12);
     for (var i = 0; i < 12; i++) {
@@ -102,46 +94,19 @@ abstract final class LaRivoluzioneSolare {
   /// Il tema all'istante [istante] nel luogo [lat], [lon] (est positiva).
   static TemaDellaRivoluzione tema(DateTime istante, double lat, double lon) {
     final jd = _jd(istante.toUtc());
-    final t = (jd - 2451545.0) / 36525.0;
-    final anno = 2000 + (jd - 2451545.0) / 365.25;
-    final jde = jd + LaLunaIntera.deltaT(anno) / 86400.0;
-    final te = (jde - 2451545.0) / 36525.0;
-    // Obliquita' media (Meeus 22.2) piu' la nutazione in obliquita' (22.A,
-    // i due termini maggiori).
-    final omega = (125.04452 - 1934.136261 * te) * _g;
-    final lSole = (280.4665 + 36000.7698 * te) * _g;
-    final media = 23.4392911 -
-        (46.8150 * te + 0.00059 * te * te - 0.001813 * te * te * te) / 3600;
-    final deps = (9.20 * math.cos(omega) + 0.57 * math.cos(2 * lSole)) / 3600;
-    final eps = (media + deps) * _g;
-    // Tempo siderale apparente (Meeus 12.4 piu' l'equazione degli equinozi).
-    final gmst = 280.46061837 +
-        360.98564736629 * (jd - 2451545.0) +
-        0.000387933 * t * t -
-        t * t * t / 38710000.0;
-    final gast =
-        gmst + LaLunaIntera.nutazioneInLongitudine(jde) * math.cos(eps);
-    final ramc = ((gast + lon) % 360) * _g;
-    final phi = lat * _g;
-    var asc = math.atan2(math.cos(ramc),
-            -math.sin(ramc) * math.cos(eps) - math.tan(phi) * math.sin(eps)) /
-        _g;
-    asc = (asc % 360 + 360) % 360;
-    var mc = math.atan2(math.sin(ramc), math.cos(ramc) * math.cos(eps)) / _g;
-    mc = (mc % 360 + 360) % 360;
-    double corpo(CorpoCeleste c) =>
-        IlCieloDelJpl.longitudine(c, jd) ??
-        Effemeridi.longitudineEclittica(c, jd);
     return TemaDellaRivoluzione(
       istante: istante.toUtc(),
-      ascendente: asc,
-      medioCielo: mc,
+      ascendente: IlCieloDiMeeus.ascendente(jd, lat, lon),
+      medioCielo: IlCieloDiMeeus.medioCielo(jd, lon),
       longitudini: {
-        CorpoCeleste.sole: sole(jd),
-        CorpoCeleste.luna: LaLunaIntera.longitudine(jd),
-        CorpoCeleste.venere: corpo(CorpoCeleste.venere),
-        CorpoCeleste.giove: corpo(CorpoCeleste.giove),
-        CorpoCeleste.saturno: corpo(CorpoCeleste.saturno),
+        for (final c in const [
+          CorpoCeleste.sole,
+          CorpoCeleste.luna,
+          CorpoCeleste.venere,
+          CorpoCeleste.giove,
+          CorpoCeleste.saturno,
+        ])
+          c: IlCieloDiMeeus.longitudine(c, jd),
       },
     );
   }

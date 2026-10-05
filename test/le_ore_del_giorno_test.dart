@@ -1,5 +1,5 @@
 // ignore_for_file: avoid_print
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/horoscope/l_almanacco_cinese.dart';
 import 'package:esoteric_circle/core/horoscope/la_lettura_cinese.dart';

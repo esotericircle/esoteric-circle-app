@@ -1,4 +1,4 @@
-import 'effemeridi.dart';
+import 'meeus/il_cielo_di_meeus.dart';
 import 'natal_chart.dart';
 import 'transiti_del_giorno.dart';
 
@@ -234,7 +234,7 @@ class AspettiDiOggi {
     final jd = TransitiDelGiorno.giornoGiulianoDi(adesso);
     return {
       for (final corpo in CorpoCeleste.values)
-        if (Effemeridi.retrogrado(corpo, jd)) corpo,
+        if (IlCieloDiMeeus.retrogrado(corpo, jd)) corpo,
     };
   }
 }

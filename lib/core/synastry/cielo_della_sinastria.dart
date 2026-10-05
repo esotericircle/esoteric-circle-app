@@ -1,7 +1,6 @@
-import 'dart:math' as math;
+import '../astro/meeus/il_cielo_di_meeus.dart';
 
 import '../astro/celestial.dart';
-import '../astro/effemeridi.dart';
 import '../astro/natal_chart.dart';
 import '../astro/zodiac.dart';
 import '../identity/birth_identity.dart';
@@ -147,7 +146,7 @@ class CieloDiSinastria {
     bool oraNota = false,
   }) {
     final jd = Celestial.julianDay(momentoUtc);
-    final tutte = Effemeridi.tutte(jd);
+    final tutte = IlCieloDiMeeus.tutte(jd);
     final punti = <PuntoDelCielo, double>{};
     for (final p in PuntoDelCielo.values) {
       final corpo = p.corpo;
@@ -199,26 +198,13 @@ class CieloDiSinastria {
         ],
       );
 
-  /// L'ASCENDENTE, dal tempo siderale locale e dalla latitudine.
-  ///
-  /// E' la formula classica: l'Ascendente e' il punto dell'eclittica che sorge
-  /// all'orizzonte est, e si ricava dall'arco siderale locale, dall'obliquita'
-  /// dell'eclittica e dalla latitudine del luogo. Il tempo siderale locale e
-  /// l'obliquita' li da' gia' `Celestial`, che li usa per il cielo del giorno:
-  /// qui non ne nasce una seconda definizione.
-  static double ascendenteDi(double jd, double latitudine, double longitudine) {
-    const grad = math.pi / 180.0;
-    final lst = Celestial.localSiderealDegrees(jd, longitudine);
-    final eps = Celestial.obliquitaEclittica(jd) * grad;
-    final ramc = lst * grad;
-    final lat = latitudine * grad;
-    // tan(Asc) = cos(RAMC) / ( -sin(RAMC) cos(eps) - tan(lat) sin(eps) )
-    final y = math.cos(ramc);
-    final x = -math.sin(ramc) * math.cos(eps) - math.tan(lat) * math.sin(eps);
-    var asc = math.atan2(y, x) / grad;
-    asc = ((asc % 360) + 360) % 360;
-    return asc;
-  }
+  /// L'ASCENDENTE, dalla porta del cielo: tempo siderale apparente,
+  /// obliquita' vera e latitudine (Meeus cap. 12, 22 e 14). Ordine FD voce
+  /// 02: qui c'era una seconda formula, col tempo siderale medio e
+  /// l'obliquita' lineare di `Celestial`.
+  static double ascendenteDi(
+          double jd, double latitudine, double longitudine) =>
+      IlCieloDiMeeus.ascendente(jd, latitudine, longitudine);
 }
 
 /// Un aspetto fra un punto del cielo di uno e un punto del cielo dell'altro.

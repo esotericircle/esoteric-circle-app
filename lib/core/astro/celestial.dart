@@ -1,6 +1,5 @@
+import 'meeus/il_cielo_di_meeus.dart';
 import 'dart:math' as math;
-
-import 'effemeridi.dart';
 
 /// Motore astronomico leggero per il cielo reale della nascita.
 ///
@@ -20,45 +19,17 @@ class Celestial {
     return v;
   }
 
-  /// Giorno giuliano da un istante UTC.
-  static double julianDay(DateTime utc) {
-    final u = utc.toUtc();
-    var y = u.year;
-    var m = u.month;
-    if (m <= 2) {
-      y -= 1;
-      m += 12;
-    }
-    final a = (y / 100).floor();
-    final b = 2 - a + (a / 4).floor();
-    final day = u.day + (u.hour + u.minute / 60.0 + u.second / 3600.0) / 24.0;
-    return (365.25 * (y + 4716)).floor() +
-        (30.6001 * (m + 1)).floor() +
-        day +
-        b -
-        1524.5;
-  }
+  /// Giorno giuliano da un istante UTC, dalla porta del cielo (ordine FD
+  /// voce 02: qui stava una seconda formula del giorno giuliano).
+  static double julianDay(DateTime utc) => IlCieloDiMeeus.giornoGiuliano(utc);
 
-  /// Giorni dall'epoca J2000.0.
-  static double _n(double jd) => jd - 2451545.0;
+  /// L'OBLIQUITA' DELL'ECLITTICA in gradi, quella vera della porta del cielo.
+  /// Ordine FD voce 02: qui stava una formula lineare propria.
+  static double obliquitaEclittica(double jd) =>
+      IlCieloDiMeeus.obliquitaVera(jd);
 
-  /// Obliquita' dell'eclittica in gradi.
-  static double _obliquity(double jd) => 23.439 - 0.0000004 * _n(jd);
-
-  /// L'OBLIQUITA' DELL'ECLITTICA in gradi, la stessa che il cielo del giorno
-  /// gia' usa.
-  ///
-  /// Era privata perche' finora la voleva solo questo file. L'Ascendente della
-  /// Sinastria, ordine BO voce 02, ha bisogno dello stesso numero: aprirlo
-  /// costa una riga, riscriverlo altrove sarebbe la seconda definizione di una
-  /// costante che deve restare una.
-  static double obliquitaEclittica(double jd) => _obliquity(jd);
-
-  /// Tempo siderale medio di Greenwich in gradi.
-  static double gmstDegrees(double jd) {
-    final n = _n(jd);
-    return _norm360(280.46061837 + 360.98564736629 * n);
-  }
+  /// Tempo siderale apparente di Greenwich in gradi, dalla porta del cielo.
+  static double gmstDegrees(double jd) => IlCieloDiMeeus.tempoSiderale(jd);
 
   /// Tempo siderale locale in gradi (longitudine est positiva).
   static double localSiderealDegrees(double jd, double longitudeEast) =>
@@ -94,40 +65,19 @@ class Celestial {
   /// dentro e' identica a quella che stava qui, quindi i valori verificati il
   /// 1 agosto 2026 non si sono mossi di un millesimo.
   static double sunEclipticLongitude(double jd) =>
-      Effemeridi.longitudineEclittica(CorpoCeleste.sole, jd);
+      IlCieloDiMeeus.longitudine(CorpoCeleste.sole, jd);
 
-  /// Posizione equatoriale della Luna.
-  ///
-  /// La LONGITUDINE arriva da `Effemeridi`, la latitudine resta qui: e' una
-  /// serie diversa, che nessun altro calcolava, quindi non c'era niente da
-  /// unificare.
+  /// Posizione equatoriale della Luna: longitudine e latitudine dalla porta
+  /// del cielo (Meeus cap. 47, tabelle 47.A e 47.B intere), e la conversione
+  /// con l'obliquita' vera. Ordine FD voce 02: la latitudine stava qui, con
+  /// quattro termini, ed era l'unica del progetto.
   static EquatorialCoord moonEquatorial(double jd) {
-    final n = _n(jd);
-    final mp = (134.963 + 13.064993 * n) * _deg; // anomalia media lunare
-    final d = (297.8502 + 12.1907491 * n) * _deg; // elongazione media
-    final f = (93.272 + 13.229350 * n) * _deg; // argomento di latitudine
-
-    final lon = Effemeridi.longitudineEclittica(CorpoCeleste.luna, jd);
-    final lat = 5.128 * math.sin(f) +
-        0.281 * math.sin(mp + f) +
-        0.278 * math.sin(f - mp) +
-        0.173 * math.sin(2 * d - f);
-
-    return _eclipticToEquatorial(lon, lat, _obliquity(jd));
-  }
-
-  static EquatorialCoord _eclipticToEquatorial(
-      double lonDeg, double latDeg, double oblDeg) {
-    final lon = lonDeg * _deg;
-    final lat = latDeg * _deg;
-    final obl = oblDeg * _deg;
-    final sinDec = math.sin(lat) * math.cos(obl) +
-        math.cos(lat) * math.sin(obl) * math.sin(lon);
-    final dec = math.asin(sinDec.clamp(-1.0, 1.0));
-    final y = math.sin(lon) * math.cos(obl) - math.tan(lat) * math.sin(obl);
-    final x = math.cos(lon);
-    final ra = _norm360(math.atan2(y, x) / _deg);
-    return EquatorialCoord(raDeg: ra, decDeg: dec / _deg);
+    final e = IlCieloDiMeeus.equatoriali(
+      IlCieloDiMeeus.longitudine(CorpoCeleste.luna, jd),
+      IlCieloDiMeeus.latitudineDellaLuna(jd),
+      jd,
+    );
+    return EquatorialCoord(raDeg: e.ascensioneRetta, decDeg: e.declinazione);
   }
 
   /// Illuminazione della Luna a una data: frazione illuminata [0,1] e se e' in
@@ -137,13 +87,44 @@ class Celestial {
     // la piu' povera: tre termini contro i sei di `moonEquatorial` e i dieci di
     // `NightSky`. Tre troncature diverse della stessa serie davano tre Lune
     // leggermente diverse nella stessa app.
-    final sun = Effemeridi.longitudineEclittica(CorpoCeleste.sole, jd);
-    final moonLon = Effemeridi.longitudineEclittica(CorpoCeleste.luna, jd);
+    final sun = IlCieloDiMeeus.longitudine(CorpoCeleste.sole, jd);
+    final moonLon = IlCieloDiMeeus.longitudine(CorpoCeleste.luna, jd);
     final elong = _norm360(moonLon - sun); // 0 novilunio, 180 plenilunio
     final fraction = (1 - math.cos(elong * _deg)) / 2;
     final waxing = elong < 180;
     return MoonIllumination(
-        fraction: fraction, waxing: waxing, elongationDeg: elong);
+        fraction: fraction,
+        waxing: waxing,
+        elongationDeg: elong,
+        frazionePerIlNome: _frazioneNelTempo(elong / 360.0, jd));
+  }
+
+  /// **LA FINESTRA DI DODICI ORE, IN ORE VERE.** Ordine FD voce 02.
+  ///
+  /// `MoonPhase.nomeItaliano` misura la distanza dalla fase principale in
+  /// frazione del ciclo, e la soglia traduce dodici ore col moto MEDIO della
+  /// Luna. Ma la Luna va da 11,8 a 15,4 gradi al giorno rispetto al Sole:
+  /// alla Luna piena del 24 dicembre 2026, alle 01:28 UTC con la Luna
+  /// veloce, a mezzogiorno del 24 l'elongazione era gia' oltre la soglia, e
+  /// il 23 non ancora dentro: in quel mese la Luna piena non cadeva in
+  /// nessun giorno. Col motore di prima, piu' grossolano, l'errore la teneva
+  /// dentro per caso. Padre: commit `4f349ceb`, che ha messo la finestra di
+  /// dodici ore sul ciclo medio.
+  ///
+  /// Qui la distanza dalla fase principale piu' vicina si riporta in tempo
+  /// con la velocita' vera di quel momento, e poi in frazione del ciclo
+  /// medio: la soglia del nome, letta su questa frazione, vale dodici ore
+  /// vere. Serve al solo nome: la frazione e la luce restano quelle vere.
+  static double _frazioneNelTempo(double f, double jd) {
+    final principale = (f * 4).round() / 4;
+    final scarto = f - principale; // in frazione del ciclo
+    if (scarto.abs() > 0.125) return f;
+    final relativa = IlCieloDiMeeus.velocitaGiornaliera(CorpoCeleste.luna, jd) -
+        IlCieloDiMeeus.velocitaGiornaliera(CorpoCeleste.sole, jd);
+    if (relativa <= 0) return f;
+    const media = 360.0 / 29.53;
+    final g = principale + scarto * media / relativa;
+    return g < 0 ? g + 1 : (g >= 1 ? g - 1 : g);
   }
 }
 
@@ -168,7 +149,15 @@ class MoonIllumination {
     required this.fraction,
     required this.waxing,
     required this.elongationDeg,
-  });
+    double? frazionePerIlNome,
+  }) : _frazionePerIlNome = frazionePerIlNome;
+
+  final double? _frazionePerIlNome;
+
+  /// La posizione nel ciclo da cui si legge il NOME della fase: quella vera,
+  /// riportata in tempo con la velocita' vera della Luna (ordine FD voce 02).
+  /// Chi costruisce una luce senza saperla ha la posizione vera.
+  double get frazionePerIlNome => _frazionePerIlNome ?? elongationDeg / 360.0;
 
   /// Frazione illuminata del disco, da 0 (nuova) a 1 (piena).
   final double fraction;

@@ -1,4 +1,4 @@
-import '../astro/effemeridi.dart';
+import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../astro/moon_phase.dart';
 import 'risposta_del_dono.dart';
 import '../astro/natal_chart.dart';

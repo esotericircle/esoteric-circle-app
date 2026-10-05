@@ -13,6 +13,8 @@
 // https://eclipse.gsfc.nasa.gov/SEhelp/deltatpoly2004.html
 
 import 'dart:math' as math;
+import 'le_tabelle_dei_pianeti.dart'
+    show deltaTAnnuale, lunaLatitudine, primoAnnoDelDeltaT;
 
 /// La Luna di Meeus, Astronomical Algorithms, 2a ed. 1998, capitolo 47.
 abstract final class LaLunaIntera {
@@ -164,10 +166,24 @@ abstract final class LaLunaIntera {
     return 2440587.5 + u.microsecondsSinceEpoch / 86400000000.0;
   }
 
-  /// Delta T in secondi per l'anno decimale [anno] (Espenak e Meeus 2006,
-  /// polinomi NASA), 1900-2150. Fuori dall'intervallo usa i due rami
-  /// estremi della stessa pagina (1860-1900 e dopo il 2150).
+  /// Delta T in secondi per l'anno decimale [anno].
+  ///
+  /// **Dal 1899 al 2101 dalla tabella anno per anno** ([deltaTAnnuale], Meeus
+  /// cap. 10: valori misurati dall'IERS e, per il futuro, il modello a lungo
+  /// termine del 2021), interpolata fra i due 1 gennaio. Ordine FD voce 02:
+  /// qui c'erano solo i polinomi di Espenak e Meeus del 2006, che per il
+  /// 2026 danno 75 secondi contro i 69 misurati, e quei sei secondi finivano
+  /// interi sull'istante della Rivoluzione Solare.
+  ///
+  /// Fuori dalla tabella restano i polinomi di Espenak e Meeus (pagina NASA),
+  /// che la porta del cielo pero' non raggiunge: fuori dall'intervallo
+  /// verificato non risponde.
   static double deltaT(double anno) {
+    final i = anno.floor() - primoAnnoDelDeltaT;
+    if (i >= 0 && i + 1 < deltaTAnnuale.length) {
+      final f = anno - anno.floor();
+      return deltaTAnnuale[i] + (deltaTAnnuale[i + 1] - deltaTAnnuale[i]) * f;
+    }
     final y = anno;
     if (y < 1900) {
       final t = y - 1860;
@@ -319,5 +335,68 @@ abstract final class LaLunaIntera {
 
     final lambdaMedia = l1 + sigmaL / 1000000.0;
     return _normalizza(lambdaMedia + nutazioneInLongitudine(jde));
+  }
+
+  /// Latitudine eclittica geocentrica della Luna, in gradi, per il giorno
+  /// giuliano [jdUt] in tempo universale: tabella 47.B intera (sessanta
+  /// termini) e i sei termini additivi di Meeus p. 338. Ordine FD voce 02:
+  /// prima la latitudine stava solo dentro `Celestial.moonEquatorial`, con
+  /// quattro termini.
+  static double latitudine(double jdUt) {
+    final anno = 2000.0 + (jdUt - 2451545.0) / 365.25;
+    final jde = jdUt + deltaT(anno) / 86400.0;
+    final t = (jde - 2451545.0) / 36525.0;
+    final t2 = t * t;
+    final t3 = t2 * t;
+    final t4 = t3 * t;
+    final l1 = 218.3164477 +
+        481267.88123421 * t -
+        0.0015786 * t2 +
+        t3 / 538841.0 -
+        t4 / 65194000.0;
+    final d = 297.8501921 +
+        445267.1114034 * t -
+        0.0018819 * t2 +
+        t3 / 545868.0 -
+        t4 / 113065000.0;
+    final m =
+        357.5291092 + 35999.0502909 * t - 0.0001536 * t2 + t3 / 24490000.0;
+    final m1 = 134.9633964 +
+        477198.8675055 * t +
+        0.0087414 * t2 +
+        t3 / 69699.0 -
+        t4 / 14712000.0;
+    final f = 93.2720950 +
+        483202.0175233 * t -
+        0.0036539 * t2 -
+        t3 / 3526000.0 +
+        t4 / 863310000.0;
+    final a1 = _normalizza(119.75 + 131.849 * t) * _gradi;
+    final a3 = _normalizza(313.45 + 481266.484 * t) * _gradi;
+    final e = 1.0 - 0.002516 * t - 0.0000074 * t2;
+    final l1r = _normalizza(l1) * _gradi;
+    final dr = _normalizza(d) * _gradi;
+    final mr = _normalizza(m) * _gradi;
+    final m1r = _normalizza(m1) * _gradi;
+    final fr = _normalizza(f) * _gradi;
+    var sigmaB = 0.0; // milionesimi di grado
+    for (final r in lunaLatitudine) {
+      final argomento = r[0] * dr + r[1] * mr + r[2] * m1r + r[3] * fr;
+      var coefficiente = r[4].toDouble();
+      final am = r[1].abs();
+      if (am == 1) {
+        coefficiente *= e;
+      } else if (am == 2) {
+        coefficiente *= e * e;
+      }
+      sigmaB += coefficiente * math.sin(argomento);
+    }
+    sigmaB += -2235.0 * math.sin(l1r) +
+        382.0 * math.sin(a3) +
+        175.0 * math.sin(a1 - fr) +
+        175.0 * math.sin(a1 + fr) +
+        127.0 * math.sin(l1r - m1r) -
+        115.0 * math.sin(l1r + m1r);
+    return sigmaB / 1000000.0;
   }
 }

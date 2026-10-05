@@ -1,6 +1,5 @@
-import '../astro/celestial.dart';
+import '../astro/meeus/il_cielo_di_meeus.dart';
 import '../chat/user_profile.dart';
-import '../astro/effemeridi.dart';
 import 'horoscope.dart';
 import 'i_segni_delle_tradizioni.dart';
 import 'i_testi_eu.dart';
@@ -141,14 +140,8 @@ abstract final class LAnnoDelleTradizioni {
   }
 
   /// La longitudine siderale (Lahiri) di [corpo] all'istante [utc].
-  static double siderale(CorpoCeleste corpo, DateTime utc) {
-    final jd = Celestial.julianDay(utc);
-    final t = (jd - 2451545.0) / 36525.0;
-    final l = Effemeridi.longitudineEclittica(corpo, jd) -
-        ISegniDelleTradizioni.ayanamsaMedia(t);
-    final n = l % 360.0;
-    return n < 0 ? n + 360 : n;
-  }
+  static double siderale(CorpoCeleste corpo, DateTime utc) =>
+      IlCieloDiMeeus.siderale(corpo, IlCieloDiMeeus.giornoGiuliano(utc));
 
   /// Le case favorevoli del gochara, Phaladeepika cap. 26.
   static const Set<int> caseBuoneDiGiove = {2, 5, 7, 9, 11};

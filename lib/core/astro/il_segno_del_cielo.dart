@@ -1,7 +1,5 @@
-import 'effemeridi.dart';
+import 'meeus/il_cielo_di_meeus.dart';
 import 'il_fuso_della_nascita.dart';
-import 'il_sole_di_nascita.dart';
-import 'la_luna_intera.dart';
 import 'moon_phase.dart';
 import 'zodiac.dart';
 
@@ -53,8 +51,8 @@ abstract final class IlSegnoDelCielo {
   /// Il segno in cui sta il Sole all'istante [istante] (in qualunque fuso:
   /// conta l'istante, non l'ora scritta).
   static Zodiac delSole(DateTime istante) =>
-      dellaLongitudine(IlSoleDiNascita.longitudine(
-          LaLunaIntera.giornoGiuliano(istante.toUtc())));
+      dellaLongitudine(IlCieloDiMeeus.longitudine(
+          CorpoCeleste.sole, IlCieloDiMeeus.giornoGiuliano(istante.toUtc())));
 
   /// Il segno solare di una nascita: il giorno [locale] (anno, mese,
   /// giorno), l'ora di [locale] se [oraNota] e mezzogiorno altrimenti, nel
@@ -72,9 +70,9 @@ abstract final class IlSegnoDelCielo {
 
   /// Il segno in cui sta [corpo] all'istante [istante]: il Sole dal suo
   /// calcolo misurato, la Luna e i pianeti dal motore dei transiti.
-  static Zodiac delCorpo(CorpoCeleste corpo, DateTime istante) => corpo ==
-          CorpoCeleste.sole
-      ? delSole(istante)
-      : dellaLongitudine(
-          Effemeridi.longitudineEclittica(corpo, MoonPhase.julianDay(istante)));
+  static Zodiac delCorpo(CorpoCeleste corpo, DateTime istante) =>
+      corpo == CorpoCeleste.sole
+          ? delSole(istante)
+          : dellaLongitudine(
+              IlCieloDiMeeus.longitudine(corpo, MoonPhase.julianDay(istante)));
 }

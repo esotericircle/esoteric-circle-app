@@ -1,8 +1,8 @@
 // ignore_for_file: avoid_print
+import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'dart:io';
 
 import 'package:esoteric_circle/core/astro/celestial.dart';
-import 'package:esoteric_circle/core/astro/effemeridi.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/maestro/consiglio_finale.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
@@ -22,8 +22,8 @@ import 'package:flutter_test/flutter_test.dart';
 ///
 /// Scrive `docs/collaudo/EV/inviti_del_cielo.txt`.
 Zodiac _segno(DateTime utc) {
-  final l = Effemeridi.longitudineEclittica(
-      CorpoCeleste.luna, Celestial.julianDay(utc));
+  final l =
+      IlCieloDiMeeus.longitudine(CorpoCeleste.luna, Celestial.julianDay(utc));
   return Zodiac.values[(l ~/ 30) % 12];
 }
 
@@ -45,8 +45,8 @@ Zodiac _segno(DateTime utc) {
 (String, DateTime) _fase(DateTime daUtc) {
   double elongazione(DateTime t) {
     final jd = Celestial.julianDay(t);
-    return (Effemeridi.longitudineEclittica(CorpoCeleste.luna, jd) -
-            Effemeridi.longitudineEclittica(CorpoCeleste.sole, jd)) %
+    return (IlCieloDiMeeus.longitudine(CorpoCeleste.luna, jd) -
+            IlCieloDiMeeus.longitudine(CorpoCeleste.sole, jd)) %
         360;
   }
 

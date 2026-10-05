@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 import 'dart:io';
 
-import 'package:esoteric_circle/core/astro/l_alba_e_il_tramonto.dart';
+import 'package:esoteric_circle/core/astro/meeus/l_alba_e_il_tramonto.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/horoscope/horoscope.dart';
 import 'package:esoteric_circle/core/horoscope/i_segni_delle_tradizioni.dart';
@@ -229,8 +229,8 @@ void main() {
       for (final c in s) {
         final voci = ITestiEu.fascia(TradizioneEu.vedica, PeriodoEu.giorno,
             c.domain, FasciaEu.di(c.indicator));
-        if (!voci.any((v) =>
-            v.titolo == c.title && v.testo(lunga: false) == c.text)) {
+        if (!voci.any(
+            (v) => v.titolo == c.title && v.testo(lunga: false) == c.text)) {
           fuori.add('${c.domain.name} $k fuori dalla sua fascia');
         }
       }

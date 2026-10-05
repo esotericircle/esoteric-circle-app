@@ -1,5 +1,5 @@
+import 'meeus/il_cielo_di_meeus.dart';
 import 'celestial.dart';
-import 'effemeridi.dart';
 import 'moon_phase.dart';
 import 'night_sky.dart';
 import 'zodiac.dart';
@@ -102,7 +102,7 @@ abstract final class IlCieloDetto {
   static bool _retrogrado(CorpoCeleste corpo, DateTime adesso) =>
       corpo != CorpoCeleste.sole &&
       corpo != CorpoCeleste.luna &&
-      Effemeridi.retrogrado(corpo, Celestial.julianDay(adesso.toUtc()));
+      IlCieloDiMeeus.retrogrado(corpo, Celestial.julianDay(adesso.toUtc()));
 
   /// **I PIANETI DI OGGI, per il modello.** Ordine ET voce 01, 28 settembre
   /// 2026: il modello riceveva la sola Luna di oggi, e nella sonda del banco

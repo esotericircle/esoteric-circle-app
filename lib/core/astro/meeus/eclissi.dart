@@ -2,6 +2,9 @@ library;
 
 import 'dart:math' as math;
 
+import 'il_cielo_di_meeus.dart';
+import 'la_luna_intera.dart';
+
 /// IL MOTORE DELLE ECLISSI. Ordine CE voce 16.
 ///
 /// **Perche' esiste.** Tre gradini del Cammino erano dormienti con la ragione
@@ -25,10 +28,13 @@ import 'dart:math' as math;
 ///   misurato contro una fonte terza, e quello scarto sta scritto in
 ///   `scartoMassimoMisurato`.
 ///
-/// **LA FINESTRA TEMPORALE, dichiarata.** Il motore e' verificato dal 2015 al
-/// 2030, che copre l'era in cui l'app vive e i primi anni davanti. Fuori da
-/// quella finestra il conto resta buono per costruzione, perche' le formule
-/// sono secolari, ma nessuno lo ha misurato: [dentroEpocaVerificata] lo dice.
+/// **LA FINESTRA TEMPORALE, dichiarata, e fuori la chiamata non gira.** Il
+/// motore e' misurato contro il canone di Espenak e Meeus dal 2021 al 2030
+/// (la dichiarazione diceva dal 2015, ma la prova non e' mai partita prima
+/// del 2021: ordine FD voce 02). Fuori da quella finestra [nellAnnoDi] e
+/// [nelGiornoDi] lanciano `FuoriDalCieloVerificato`, e chi chiama guarda
+/// prima [annoVerificato]: per un anno non verificato l'app non dice ne' che
+/// c'e' un'eclissi ne' che non c'e'.
 ///
 /// **NON DICE DOVE SI VEDE.** Un'eclissi totale in Australia non e' un'eclissi
 /// a Milano, e questo motore non lo distingue. I tre gradini del Cammino
@@ -94,7 +100,7 @@ class Eclissi {
 /// Il motore. Deterministico, offline, senza rete.
 abstract final class MotoreDelleEclissi {
   /// Il primo anno verificato contro la fonte terza.
-  static const int primoAnnoVerificato = 2015;
+  static const int primoAnnoVerificato = 2021;
 
   /// L'ultimo anno verificato contro la fonte terza.
   static const int ultimoAnnoVerificato = 2030;
@@ -112,7 +118,19 @@ abstract final class MotoreDelleEclissi {
 
   /// Vero se [quando] cade nella finestra su cui il motore e' stato misurato.
   static bool dentroEpocaVerificata(DateTime quando) =>
-      quando.year >= primoAnnoVerificato && quando.year <= ultimoAnnoVerificato;
+      annoVerificato(quando.year);
+
+  /// Vero se l'anno sta nella finestra verificata. Chi chiama [nellAnnoDi] o
+  /// [nelGiornoDi] lo guarda prima: fuori, quelle lanciano.
+  static bool annoVerificato(int anno) =>
+      anno >= primoAnnoVerificato && anno <= ultimoAnnoVerificato;
+
+  static void _pretendi(int anno) {
+    if (!annoVerificato(anno)) {
+      throw FuoriDalCieloVerificato('le eclissi del $anno',
+          IlCieloDiMeeus.giornoGiuliano(DateTime.utc(anno)));
+    }
+  }
 
   static const double _grad = math.pi / 180.0;
 
@@ -125,6 +143,7 @@ abstract final class MotoreDelleEclissi {
   /// canone data le eclissi, e mescolarlo col fuso di chi guarda darebbe due
   /// date diverse per lo stesso evento.
   static Eclissi? nelGiornoDi(DateTime quando) {
+    _pretendi(quando.year);
     final giorno = DateTime.utc(quando.year, quando.month, quando.day);
     for (final e in nellAnnoDi(quando.year)) {
       if (e.giorno == giorno) return e;
@@ -132,6 +151,7 @@ abstract final class MotoreDelleEclissi {
     // Un'eclissi a cavallo di capodanno appartiene all'anno del suo massimo:
     // si guarda anche l'anno accanto, che costa due giri di lunazioni.
     for (final anno in [quando.year - 1, quando.year + 1]) {
+      if (!annoVerificato(anno)) continue;
       for (final e in nellAnnoDi(anno)) {
         if (e.giorno == giorno) return e;
       }
@@ -145,6 +165,7 @@ abstract final class MotoreDelleEclissi {
   /// a Luna nuova o a Luna piena, quindi cercarla giorno per giorno sarebbe
   /// trecentosessantacinque conti per trovarne quattro. Qui si va per fasi.
   static List<Eclissi> nellAnnoDi(int anno) {
+    _pretendi(anno);
     final trovate = <Eclissi>[];
     // Il k di Meeus conta le lunazioni dal 2000: si parte un po' prima e si
     // finisce un po' dopo, cosi' nessuna eclissi di bordo si perde.
@@ -303,12 +324,12 @@ abstract final class MotoreDelleEclissi {
   ///
   /// **La differenza fra tempo dinamico e tempo universale si toglie qui.** Le
   /// formule di Meeus danno un JDE in tempo dinamico, e il canone data le
-  /// eclissi in Tempo Universale: nella nostra epoca i due differiscono di
-  /// circa settanta secondi, ed e' una correzione dichiarata e non un
-  /// aggiustamento a occhio.
+  /// eclissi in Tempo Universale. Il Delta T e' quello della libreria
+  /// (Espenak e Meeus): qui c'era una costante di settanta secondi, una
+  /// seconda definizione dello stesso numero (ordine FD voce 02).
   static DateTime _daGiulianoUtc(double jde) {
-    const deltaTinGiorni = 70.0 / 86400.0;
-    final jd = jde - deltaTinGiorni;
+    final annoDecimale = 2000.0 + (jde - 2451545.0) / 365.25;
+    final jd = jde - LaLunaIntera.deltaT(annoDecimale) / 86400.0;
     final z = (jd + 0.5).floor();
     final f = (jd + 0.5) - z;
     var a = z;

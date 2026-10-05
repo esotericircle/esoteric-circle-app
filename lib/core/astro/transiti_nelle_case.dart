@@ -1,4 +1,4 @@
-import 'effemeridi.dart';
+import 'meeus/il_cielo_di_meeus.dart';
 import 'natal_chart.dart';
 import 'transiti_del_giorno.dart';
 
