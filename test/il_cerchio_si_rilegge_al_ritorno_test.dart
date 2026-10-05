@@ -22,10 +22,10 @@ class _IlLegameNasceDopo extends PortaFintaDelCerchioSociale {
       [Map<String, Object?> corpo = const {}]) async {
     if (porta == 'ilMioCerchio' && !legame) {
       chieste.add((porta, corpo));
-      return EsitoSociale(dati: {
-        'amici': const <Object?>[],
-        'ricevuti': const <Object?>[],
-        'inviati': const <Object?>[],
+      return const EsitoSociale(dati: {
+        'amici': <Object?>[],
+        'ricevuti': <Object?>[],
+        'inviati': <Object?>[],
       });
     }
     return super.sociale(porta, corpo);

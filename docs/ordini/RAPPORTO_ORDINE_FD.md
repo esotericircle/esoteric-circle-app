@@ -160,8 +160,8 @@ del Realme che chiudono la FD.01 (e la EJ.10) e la FD.04.
 ## LA REGOLA A E LA REGOLA B
 
 Gli innesti in `docs/collaudo/FD/regola_a_fd.txt`, col banco
-`tool/gli_innesti_dell_ordine_fd.py`: A1-A7 e A9-A35, tutti rossi sul
-bersaglio, piu' B1-B3. A8 e' stato tolto perche' misurava un doppione del
+`tool/gli_innesti_dell_ordine_fd.py`: A1-A7 e A9-A36, tutti rossi sul
+bersaglio, piu' B1-B3 (A35 e A36 fatti a mano e scritti nello stesso registro). A8 e' stato tolto perche' misurava un doppione del
 pulsante spento, poi tolto dal codice. A14, A26 e A27 sono stati verdi al
 primo giro, e adesso sono rossi. A14: lo scarto che la porta dichiarava
 era piu' largo del vero, e un difetto ci stava dentro; e' stato rimisurato
@@ -217,7 +217,13 @@ rosse prima del tocco: `una_sola_porta_per_i_transiti`, `fase_lunare_vera`,
    l'uscita delle prove non si teneva, e il motivo del rosso si e' letto solo
    rifacendo il banco da solo; e le misure stampate dai banchi non venivano
    lette. Curati nello stesso commit. Il giro rosso resta in
-   `docs/collaudo/banchi_col_modello/2026-10-05.giro_rosso_429`.
+   `docs/collaudo/banchi_col_modello/2026-10-05.giro_rosso_429`. E la
+   consegna confrontava tutta la cartella `test/` col commit del giro: un
+   `const` chiesto dall'analisi in una prova del Cerchio avrebbe preteso un
+   giro nuovo, ottanta minuti e tre euro, senza che i banchi eseguissero
+   quella prova. Padre: ordine FD voce 03. Adesso confronta `lib`, la
+   cartella dei banchi e i file di `test/` che i banchi importano a catena,
+   quattro (A36: rossa contro il commit di prima dei nuovi tentativi).
 6. **La barra grigia della rubrica.** Vista nell'anteprima al tetto dei dieci.
    Padre: ordine FD voce 06. Curata avvolgendo la schermata come le altre del
    Cerchio.

@@ -314,6 +314,37 @@ def lo_sbarramento_di_github(numero_atteso, archivio):
     return (True, commit)
 
 
+def i_file_di_test_dei_banchi():
+    """I file di `test/` che i banchi eseguono davvero: quelli che importano,
+    seguendo gli import, gli export e i part a catena.
+
+    Prima il confronto prendeva tutta la cartella `test/`, e un `const` in
+    una prova che coi banchi non ha niente a che fare chiedeva un giro nuovo,
+    ottanta minuti e tre euro (ordine FD, 5 ottobre 2026). Il codice dei
+    banchi e' `lib`, la loro cartella e questi file: si confronta quello."""
+    radice = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+    cartella = os.path.join(radice, 'tool', 'banchi_col_modello')
+    da_leggere = [os.path.join(cartella, n) for n in os.listdir(cartella)
+                  if n.endswith('.dart')]
+    visti, di_test = set(), set()
+    rinvio = re.compile(r"""^\s*(?:import|export|part)\s+'([^']+)'""", re.M)
+    while da_leggere:
+        f = os.path.normpath(da_leggere.pop())
+        if f in visti or not os.path.isfile(f):
+            continue
+        visti.add(f)
+        relativo = os.path.relpath(f, radice).replace(os.sep, '/')
+        if relativo.startswith('test/'):
+            di_test.add(relativo)
+        testo = io.open(f, encoding='utf-8').read()
+        for m in rinvio.finditer(testo):
+            dove = m.group(1)
+            if ':' in dove:
+                continue  # package: e dart: stanno in lib o fuori dal repo
+            da_leggere.append(os.path.join(os.path.dirname(f), dove))
+    return sorted(di_test)
+
+
 def i_banchi_sono_passati():
     """L'ultimo giro dei cinque banchi col modello e' passato tutto, ed e'
     stato fatto su un commit il cui codice (lib, test e i banchi) e' uguale a
@@ -337,8 +368,9 @@ def i_banchi_sono_passati():
     if not trovato:
         return (False, giri[-1] + ' non dice il commit')
     r = subprocess.run(['git', 'diff', '--quiet', trovato.group(1), 'HEAD', '--',
-                        'lib', 'test', 'tool/banchi_col_modello',
-                        ':(exclude)tool/banchi_col_modello/README.md'])
+                        'lib', 'tool/banchi_col_modello',
+                        ':(exclude)tool/banchi_col_modello/README.md',
+                        *i_file_di_test_dei_banchi()])
     if r.returncode != 0:
         return (False, 'i banchi di ' + giri[-1] + ' hanno girato sul commit ' +
                 trovato.group(1)[:8] + ', e il codice di adesso e\' diverso')
