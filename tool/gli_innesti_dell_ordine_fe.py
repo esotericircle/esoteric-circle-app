@@ -93,6 +93,22 @@ INNESTI = [
      '      false &&\n      s != null &&\n',
      'flutter test test/il_filo_in_cima_test.dart -r expanded',
      'la domanda e i pareri ci sono'),
+    # FE.12, il filo vive quanto il consulto.
+    ('A14', 'FE.12', 'lib/features/maestri/chat/maestro_chat_controller.dart',
+     '        _filoDiPrima = entroLOra\n',
+     '        _filoDiPrima = false\n',
+     'flutter test test/il_filo_vive_quanto_il_consulto_test.dart -r expanded',
+     'entro l\'ora il Maestro riceve le battute di prima'),
+    ('A15', 'FE.12', 'lib/features/maestri/chat/maestro_chat_controller.dart',
+     '            _adesso.difference(ultimo) <= IlFiloDelConsulto.vita;\n',
+     '            _adesso.difference(ultimo) <= const Duration(days: 1);\n',
+     'flutter test test/il_filo_vive_quanto_il_consulto_test.dart -r expanded',
+     'oltre l\'ora il consulto e\' nuovo'),
+    ('A16', 'FE.12', 'lib/features/maestri/chat/maestro_chat_controller.dart',
+     '  static const int _battuteDelFilo = 20;\n',
+     '  static const int _battuteDelFilo = 200;\n',
+     'flutter test test/il_filo_vive_quanto_il_consulto_test.dart -r expanded',
+     'il filo porta al piu'),
     # Regola B PRIMA del tocco: le guardie degli eventi in arrivo (il crash
     # vero del Redmi, FE.01) e della memoria della chat (parte terza).
     ('B5', 'FE.01', 'lib/services/ai/maestro_persona.dart',

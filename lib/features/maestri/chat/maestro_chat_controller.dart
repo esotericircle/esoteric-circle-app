@@ -115,6 +115,15 @@ class MaestroChatController extends ChangeNotifier {
   List<ConversazionePassata> get conversazioniPassate => _passate;
   final Set<String> _titoliInCorso = {};
 
+  /// **IL FILO DI PRIMA. Ordine FE voce 12.** Le ultime battute della
+  /// conversazione chiusa meno di un'ora fa con questo Maestro: non stanno a
+  /// schermo, stanno davanti alla storia che il Maestro riceve.
+  List<ChatMessage> _filoDiPrima = const [];
+  List<ChatMessage> get filoDiPrima => _filoDiPrima;
+
+  /// Le battute del filo: venti, la misura dell'ordine FE voce 12.
+  static const int _battuteDelFilo = 20;
+
   /// Quante letture sono state ridette invece di chiedere di nuovo al modello.
   int lettureRidette = 0;
 
@@ -641,6 +650,19 @@ class MaestroChatController extends ChangeNotifier {
       // **DA UN APPROFONDIMENTO SI COMINCIA PULITI. Ordine DZ voce 01.** La
       // conversazione appena letta resta nell'archivio, quindi nel menu'.
       if (conversazioneNuova) {
+        // **ENTRO L'ORA SI RITROVA IL FILO. Ordine FE voce 12.** Lo schermo
+        // resta vuoto, come vuole l'ordine EA voce 06; il Maestro invece
+        // riceve le ultime battute della conversazione di prima, se l'ultima
+        // e' di meno di un'ora fa. Oltre l'ora il consulto e' nuovo e il
+        // Maestro non finge di ricordare.
+        final ultimo = _messages.isEmpty ? null : _messages.last.at;
+        final entroLOra = ultimo != null &&
+            _adesso.difference(ultimo) <= IlFiloDelConsulto.vita;
+        _filoDiPrima = entroLOra
+            ? List<ChatMessage>.unmodifiable(_messages.length > _battuteDelFilo
+                ? _messages.sublist(_messages.length - _battuteDelFilo)
+                : _messages)
+            : const [];
         _archivio = [...cronologia];
         _conversazione = 'c${_adesso.millisecondsSinceEpoch}';
         _messages.clear();
@@ -727,7 +749,7 @@ class MaestroChatController extends ChangeNotifier {
           maestro: chi,
           profile: _profile,
           memory: _memoriaPerIlModello,
-          history: storia,
+          history: [..._filoDiPrima, ...storia],
           userMessage: domanda,
           natal: natal,
           insistiSullAncoraggio: insisti,
