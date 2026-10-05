@@ -179,7 +179,37 @@ export interface StatoDeiMinuti {
   secondiUsati: number;
   minutiUsati: number;
   daContare: Record<string, string>;
+  /** Le sessioni da contare che il telefono ha chiuso senza voce. FE.07. */
+  senzaVoce: Record<string, boolean>;
+  /** I secondi del mese non scalati perche' la voce non e' partita. FE.07. */
+  secondiSenzaVoce: number;
 }
+
+/**
+ * **IL TEMPO SENZA VOCE NON SI SCALA. Ordine FE voce 07.** Una sessione che
+ * il telefono chiude dicendo che la voce non e' mai partita (il volto non
+ * entra, la stanza non si collega, il saluto non esce) non somma i suoi
+ * secondi, se e' durata al piu' questo tanto: venti secondi di attesa del
+ * volto, la chiusura, e il minuto intero che Protoface fattura comunque.
+ * Oltre, la sessione ha avuto il tempo di una conversazione vera e si conta:
+ * il segno del telefono non deve poter regalare minuti.
+ */
+export const SECONDI_SENZA_VOCE = 90;
+
+/**
+ * **I CAMPI DEL CONTO SI SCRIVONO INTERI.** Ordine FE, difetto del conto
+ * trovato lavorando alla voce 07, padre l'ordine EX voce 01: il conto si
+ * scriveva con `merge: true`, che in Firestore fonde anche le mappe
+ * annidate, quindi la sessione tolta da `daContare` dopo essere stata
+ * contata restava nel documento, e a ogni conto successivo si sommava di
+ * nuovo. Provato sull'emulatore di Firestore il 6 ottobre 2026: dopo il
+ * merge la chiave tolta c'era ancora; con `mergeFields` la mappa si
+ * sostituisce e gli altri campi del documento restano.
+ */
+export const I_CAMPI_DEL_CONTO = [
+  "mese", "secondiUsati", "minutiUsati", "daContare", "senzaVoce",
+  "secondiSenzaVoce",
+];
 
 /** Una sessione letta da Protoface: lo stato e i secondi fatturabili. */
 export interface SessioneLetta {
@@ -203,8 +233,12 @@ export function ilContoDeiMinuti(
   let secondi = stessoMese ?
     Number(dati.secondiUsati ?? Number(dati.minutiUsati ?? 0) * 60) :
     0;
+  let condonati = stessoMese ? Number(dati.secondiSenzaVoce ?? 0) : 0;
   const daContare: Record<string, string> = {
     ...((dati.daContare ?? {}) as Record<string, string>),
+  };
+  const senzaVoce: Record<string, boolean> = {
+    ...((dati.senzaVoce ?? {}) as Record<string, boolean>),
   };
   for (const s of lette) {
     const meseDellaSessione = daContare[s.id];
@@ -218,14 +252,27 @@ export function ilContoDeiMinuti(
     if (s.stato === "ended" && s.secondi <= 0 && meseDellaSessione === mese) {
       continue;
     }
-    if (meseDellaSessione === mese) secondi += Math.max(0, s.secondi);
+    if (meseDellaSessione === mese) {
+      if (senzaVoce[s.id] === true && s.secondi <= SECONDI_SENZA_VOCE) {
+        condonati += Math.max(0, s.secondi);
+      } else {
+        secondi += Math.max(0, s.secondi);
+      }
+    }
     delete daContare[s.id];
+    delete senzaVoce[s.id];
+  }
+  // Un segno senza una sessione da contare non serve piu'.
+  for (const id of Object.keys(senzaVoce)) {
+    if (daContare[id] === undefined) delete senzaVoce[id];
   }
   return {
     mese,
     secondiUsati: secondi,
     minutiUsati: Math.round((secondi / 60) * 100) / 100,
     daContare,
+    senzaVoce,
+    secondiSenzaVoce: condonati,
   };
 }
 
@@ -355,8 +402,25 @@ async function contaLeSessioniFinite(uid: string): Promise<StatoDeiMinuti> {
   return db.runTransaction(async (t) => {
     const dati = (await t.get(rif)).data() ?? {};
     const conto = ilContoDeiMinuti(dati, mese, lette);
-    t.set(rif, conto, {merge: true});
+    t.set(rif, conto, {mergeFields: I_CAMPI_DEL_CONTO});
     return conto;
+  });
+}
+
+/**
+ * Segna senza voce una sessione ancora da contare. Ordine FE voce 07. Una
+ * sessione che non e' nel registro non si segna: il segno vale solo per
+ * sessioni aperte da questa persona e non ancora contate.
+ */
+async function segnaSenzaVoce(uid: string, sessione: string): Promise<void> {
+  const db = getFirestore();
+  const rif = db.doc(`users/${uid}/stato/live`);
+  await db.runTransaction(async (t) => {
+    const dati = (await t.get(rif)).data() ?? {};
+    const conto = ilContoDeiMinuti(dati, meseCorrente(), []);
+    if (conto.daContare[sessione] === undefined) return;
+    conto.senzaVoce[sessione] = true;
+    t.set(rif, conto, {mergeFields: I_CAMPI_DEL_CONTO});
   });
 }
 
@@ -369,7 +433,7 @@ async function daContare(uid: string, sessione: string): Promise<void> {
     const mese = meseCorrente();
     const conto = ilContoDeiMinuti(dati, mese, []);
     conto.daContare[sessione] = mese;
-    t.set(rif, conto, {merge: true});
+    t.set(rif, conto, {mergeFields: I_CAMPI_DEL_CONTO});
   });
 }
 
@@ -735,6 +799,20 @@ export const chiudiLaSessioneLive = onCall(
     // arrivi a uno stato finale, poi si conta. Se non ci arriva, la conta la
     // prossima apertura: il registro non perde niente.
     let minuti: StatoDeiMinuti | undefined;
+    // **LA SESSIONE SENZA VOCE. Ordine FE voce 07.** Il telefono la segna,
+    // e il conto non ne somma i secondi se e' durata poco
+    // (`SECONDI_SENZA_VOCE`).
+    if (request.data?.senzaVoce === true) {
+      try {
+        await segnaSenzaVoce(uid, id);
+        logger.info("LIVE chiuso senza voce", {uid, sessione: id});
+      } catch (errore) {
+        logger.warn("Sessione senza voce non segnata", {
+          sessione: id,
+          errore: String(errore),
+        });
+      }
+    }
     try {
       for (let giro = 0; giro < 5; giro++) {
         const r = await fetch(`${PROTOFACE}/sessions/${id}`, {headers: chiave});

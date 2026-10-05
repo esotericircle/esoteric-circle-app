@@ -347,10 +347,35 @@ class _SchermataLiveState extends State<SchermataLive> {
   /// sessanta secondi dopo l'uscita, e li faceva pagare. Si chiama da ogni
   /// strada che esce: la croce, il tempo finito, il silenzio, il tasto
   /// indietro, e il volto che non arriva.
-  void _chiudiLaSessione() {
+  void _chiudiLaSessione({bool senzaVoce = false}) {
     final id = _sessioneAperta;
     _sessioneAperta = null;
-    if (id != null) unawaited(PortaDelLive.chiudi(id));
+    if (id != null) {
+      unawaited(PortaDelLive.chiudi(id, senzaVoce: senzaVoce));
+    }
+  }
+
+  /// **LA VOCE NON PARTE: SI CONTINUA PER ISCRITTO. Ordine FE voce 07.**
+  /// Prima la persona leggeva "La voce non arriva, stasera" e la sessione si
+  /// chiudeva, ma i secondi che Protoface aveva gia' fatturato si
+  /// sommavano ai suoi minuti. Adesso la sessione si chiude subito, col
+  /// segno [senzaVoce] quando non ha mai avuto voce (il server allora non
+  /// ne conta i secondi), e la persona legge la frase dell'ordine con la
+  /// strada per la conversazione scritta. Quando la voce si perde a meta'
+  /// consulto, i turni detti hanno avuto voce e si contano: si chiude
+  /// subito, perche' il tempo senza voce resti di pochi secondi.
+  Future<void> _laVoceNonParte({required bool senzaVoce}) async {
+    _orologio?.cancel();
+    await _orecchio.ferma();
+    await _lasciaLaStanza();
+    _chiudiLaSessione(senzaVoce: senzaVoce);
+    debugPrint('LIVE: la voce non parte, si continua per iscritto'
+        '${senzaVoce ? ', sessione senza voce' : ''}');
+    if (!mounted) return;
+    setState(() => _quadro = _quadro.con(
+          momento: MomentoDelLive.nonSiApre,
+          perche: PerchePerILiveNonSiApre.vocePerduta,
+        ));
   }
 
   Future<void> _apri() async {
@@ -435,21 +460,26 @@ class _SchermataLiveState extends State<SchermataLive> {
           '${s.sessione}',
           StateError('nessun ${s.lavoratore} in 20 secondi'),
         );
-        _chiudiLaSessione();
-        if (!mounted) return;
-        setState(() => _quadro = _quadro.con(
-              momento: MomentoDelLive.nonSiApre,
-              perche: PerchePerILiveNonSiApre.guasto,
-            ));
+        await _laVoceNonParte(senzaVoce: true);
         return;
       }
       if (!mounted) return;
       setState(() => _quadro = _quadro.con(momento: MomentoDelLive.vivo));
-      await _dillo(ilSalutoDellaVoceViva(widget.maestro),
+      final sentito = await _dillo(ilSalutoDellaVoceViva(widget.maestro),
           giaPronta: salutoPronto);
+      if (!sentito) {
+        await _laVoceNonParte(senzaVoce: true);
+        return;
+      }
       await _ascoltaLaPersona();
     } catch (errore) {
       annotaGuastoInnocuo('il LIVE non entra nella stanza', errore);
+      // A sessione aperta il guasto e' una voce che non parte: si chiude
+      // senza scalare i minuti e si continua per iscritto. Ordine FE voce 07.
+      if (_sessioneAperta != null) {
+        await _laVoceNonParte(senzaVoce: true);
+        return;
+      }
       if (!mounted) return;
       setState(() => _quadro = _quadro.con(
             momento: MomentoDelLive.nonSiApre,
@@ -918,7 +948,12 @@ class _SchermataLiveState extends State<SchermataLive> {
     if (risposta != null) {
       _macchina.risposta(
           LeTreFrasiDelLive.di(risposta.text, domanda: testo), DateTime.now());
-      await _dillo(risposta.text, conAttesa: true);
+      if (!await _dillo(risposta.text, conAttesa: true)) {
+        // La risposta e' gia' scritta a video e nella chat: si continua da
+        // li'. Ordine FE voce 07.
+        await _laVoceNonParte(senzaVoce: false);
+        return;
+      }
     } else {
       _fineDelParlato = null;
     }
@@ -949,7 +984,11 @@ class _SchermataLiveState extends State<SchermataLive> {
   /// in meno di un secondo e la bocca comincia a muoversi mentre il resto si
   /// sta ancora componendo; la voce si compone piu' in fretta di quanto si
   /// pronunci, quindi il volto non resta mai senza niente da dire.
-  Future<void> _dillo(
+  ///
+  /// **Dice se la voce e' uscita.** Ordine FE voce 07: falso quando niente
+  /// e' arrivato al volto, e allora si continua per iscritto. Vero anche
+  /// quando non c'era niente da dire.
+  Future<bool> _dillo(
     String scritto, {
     Future<List<({Uint8List pcm, int tasso, int canali})>>? giaPronta,
     bool conAttesa = false,
@@ -957,7 +996,7 @@ class _SchermataLiveState extends State<SchermataLive> {
     final stanza = _stanza;
     final s = _quadro.sessione;
     final io = stanza?.localParticipant;
-    if (stanza == null || s == null || io == null) return;
+    if (stanza == null || s == null || io == null) return false;
     // **La risposta di un turno si ferma alla terza frase.** Ordine ER voce
     // 12: la voce dice le stesse frasi che la macchina da scrivere scrive.
     final pezzi = IlParlatoDelMaestro.pezzi(
@@ -965,7 +1004,7 @@ class _SchermataLiveState extends State<SchermataLive> {
             ? LeTreFrasiDelLive.di(scritto, domanda: _domandaDelTurno)
             : scritto,
         primaFraseSola: conAttesa);
-    if (pezzi.isEmpty) return;
+    if (pezzi.isEmpty) return true;
 
     setState(() {
       _parla = true;
@@ -1071,6 +1110,7 @@ class _SchermataLiveState extends State<SchermataLive> {
       _cePresenza();
       if (mounted) setState(() => _parla = false);
     }
+    return primoSuono != null;
   }
 
   /// **QUANDO LA PERSONA SENTE IL MAESTRO**, dall'energia dell'audio che il

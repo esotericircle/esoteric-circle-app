@@ -129,6 +129,12 @@ enum PerchePerILiveNonSiApre {
   /// Al Maestro manca un pezzo del collegamento vocale: la voce, l'avatar,
   /// il gettone o la stanza. Ordine FE voce 03: si dice, non si cade.
   configurazioneIncompleta,
+
+  /// La sessione si e' aperta ma la voce non riesce a partire: il volto non
+  /// entra nella stanza, la stanza non si collega, o l'audio del Maestro non
+  /// esce. Ordine FE voce 07: si continua per iscritto, e il tempo senza
+  /// voce non si scala dai minuti.
+  vocePerduta,
 }
 
 class IlLiveNonSiApre implements Exception {
@@ -327,9 +333,16 @@ abstract final class PortaDelLive {
   /// **Non ferma niente se non risponde**: la persona sta gia' uscendo, e il
   /// silenzio tollerato resta la rete sotto. Ma non si tace: un guasto qui
   /// costa minuti, e deve potersi leggere.
-  static Future<void> chiudi(String sessione) async {
+  ///
+  /// **[senzaVoce]: la sessione non ha mai avuto voce.** Ordine FE voce 07:
+  /// il server non ne somma i secondi ai minuti usati, se e' durata poco
+  /// (`SECONDI_SENZA_VOCE` in `functions/src/live.ts`).
+  static Future<void> chiudi(String sessione, {bool senzaVoce = false}) async {
     try {
-      await chiama('chiudiLaSessioneLive', {'sessione': sessione});
+      await chiama('chiudiLaSessioneLive', {
+        'sessione': sessione,
+        if (senzaVoce) 'senzaVoce': true,
+      });
     } catch (errore) {
       annotaGuastoInnocuo(
         'la sessione LIVE non si chiude dal telefono, sessione $sessione',

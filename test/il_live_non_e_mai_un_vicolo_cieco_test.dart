@@ -93,9 +93,13 @@ void main() {
     // Il cardinale: quattro ragioni, quattro frasi. **Lapide dell'ordine FE
     // voce 03, 5 ottobre 2026**: erano tre; la quarta e' il Maestro a cui
     // manca un pezzo del collegamento vocale, col testo che il fondatore ha
-    // scritto carattere per carattere.
-    expect(PerchePerILiveNonSiApre.values.length, 4);
-    expect(frasi.values.toSet().length, 4,
+    // scritto carattere per carattere. **Lapide dell'ordine FE voce 07, 6
+    // ottobre 2026**: erano quattro; la quinta e' la voce che non riesce a
+    // partire, e la sua frase e' quella dell'ordine, alla lettera.
+    expect(PerchePerILiveNonSiApre.values.length, 5);
+    expect(frasi[PerchePerILiveNonSiApre.vocePerduta],
+        'La voce non riesce a raggiungerti. Continuo a scriverti.');
+    expect(frasi.values.toSet().length, 5,
         reason: 'due ragioni diverse danno la stessa frase: chi ha finito i '
             'minuti legge la stessa cosa di chi non ha il diritto');
 

@@ -6,7 +6,8 @@ import {
   I_MODELLI_DELLA_VOCE, LE_CANDIDATE, LE_VOCI_DI_PARTENZA, eUnaVoceChirp,
   laStanzaE, ilContoDeiMinuti, secondiRimasti, MINUTI_DEL_MESE,
   SECONDI_MINIMI_PER_APRIRE, StatoDeiMinuti, iMinutiPerLaConferma,
-  I_MAESTRI_DEL_LIVE, leMancanzeDelMaestro,
+  I_MAESTRI_DEL_LIVE, leMancanzeDelMaestro, SECONDI_SENZA_VOCE,
+  I_CAMPI_DEL_CONTO,
 } from "./live";
 
 /**
@@ -315,4 +316,70 @@ test("l'apertura conta prima di decidere, e la sessione aperta entra nel registr
   const chiudi = corpoDi("chiudiLaSessioneLive");
   assert.ok(chiudi.includes("contaLeSessioniFinite(uid)"));
   assert.deepEqual(MINUTI_DEL_MESE, {free: 0, tier1: 0, tier2: 80, tier3: 150});
+});
+
+/**
+ * IL TEMPO SENZA VOCE NON SI SCALA. Ordine FE voce 07. Una sessione segnata
+ * senza voce dal telefono non somma i suoi secondi se e' durata al piu'
+ * SECONDI_SENZA_VOCE; oltre si conta, perche' il segno non regali minuti.
+ */
+test("FE.07: la sessione senza voce non scala i minuti, oltre il tetto si", () => {
+  const dati = {
+    mese: "2026-10",
+    secondiUsati: 300,
+    daContare: {sess_muta: "2026-10", sess_lunga: "2026-10", sess_vera: "2026-10"},
+    senzaVoce: {sess_muta: true, sess_lunga: true},
+  };
+  const conto = ilContoDeiMinuti(dati, "2026-10", [
+    {id: "sess_muta", stato: "ended", secondi: 60},
+    {id: "sess_lunga", stato: "ended", secondi: SECONDI_SENZA_VOCE + 1},
+    {id: "sess_vera", stato: "ended", secondi: 120},
+  ]);
+  assert.equal(conto.secondiUsati, 300 + SECONDI_SENZA_VOCE + 1 + 120);
+  assert.equal(conto.secondiSenzaVoce, 60);
+  assert.deepEqual(conto.daContare, {});
+  assert.deepEqual(conto.senzaVoce, {});
+});
+
+test("FE.07: senza il segno, la stessa sessione breve si conta", () => {
+  const conto = ilContoDeiMinuti(
+    {mese: "2026-10", secondiUsati: 0, daContare: {sess_muta: "2026-10"}},
+    "2026-10",
+    [{id: "sess_muta", stato: "ended", secondi: 60}]);
+  assert.equal(conto.secondiUsati, 60);
+  assert.equal(conto.secondiSenzaVoce, 0);
+});
+
+/**
+ * UNA SESSIONE SI CONTA UNA VOLTA. Ordine FE, difetto trovato alla voce 07,
+ * padre l'ordine EX voce 01: il conto si scriveva con merge, che lascia nel
+ * documento le chiavi tolte da daContare, e la sessione si sommava di nuovo
+ * a ogni conto. Qui si scrive il conto come fa Firestore con mergeFields (i
+ * campi del conto sostituiti interi), poi si conta di nuovo.
+ */
+test("una sessione contata non si somma una seconda volta", () => {
+  const scrivi = (doc: Record<string, any>, conto: StatoDeiMinuti) => {
+    const nuovo = {...doc};
+    for (const campo of I_CAMPI_DEL_CONTO) {
+      nuovo[campo] = (conto as unknown as Record<string, unknown>)[campo];
+    }
+    return nuovo;
+  };
+  let doc: Record<string, any> = {
+    mese: "2026-10", secondiUsati: 0, daContare: {sess_a: "2026-10"},
+  };
+  const lette = [{id: "sess_a", stato: "ended", secondi: 100}];
+  doc = scrivi(doc, ilContoDeiMinuti(doc, "2026-10", lette));
+  doc = scrivi(doc, ilContoDeiMinuti(doc, "2026-10", lette));
+  assert.equal(doc.secondiUsati, 100);
+  for (const campo of ["mese", "secondiUsati", "minutiUsati", "daContare",
+    "senzaVoce", "secondiSenzaVoce"]) {
+    assert.ok(I_CAMPI_DEL_CONTO.includes(campo), campo);
+  }
+  const sorgente = readFileSync(join(__dirname, "..", "src", "live.ts"), "utf8");
+  const conti = sorgente.match(/t\.set\(rif, conto, \{[^}]*\}\)/g) ?? [];
+  assert.ok(conti.length >= 3, `scritture del conto trovate: ${conti.length}`);
+  for (const c of conti) {
+    assert.ok(c.includes("mergeFields: I_CAMPI_DEL_CONTO"), c);
+  }
 });

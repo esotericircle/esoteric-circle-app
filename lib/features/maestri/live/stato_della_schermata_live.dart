@@ -353,6 +353,11 @@ class QuadroDelLive {
   static const String rigaDelMaestroNonRaggiungibile =
       'Questo Maestro non è raggiungibile adesso. Riprova fra poco.';
 
+  /// La frase quando la voce non riesce a partire. Ordine FE voce 07,
+  /// carattere per carattere.
+  static const String rigaDellaVocePerduta =
+      'La voce non riesce a raggiungerti. Continuo a scriverti.';
+
   /// La frase che la persona legge quando il LIVE non si apre.
   ///
   /// **Le tre ragioni danno tre frasi diverse**, e nessuna e' un messaggio
@@ -367,6 +372,8 @@ class QuadroDelLive {
         // Ordine FE voce 03, carattere per carattere.
         PerchePerILiveNonSiApre.configurazioneIncompleta =>
           rigaDelMaestroNonRaggiungibile,
+        // Ordine FE voce 07, carattere per carattere.
+        PerchePerILiveNonSiApre.vocePerduta => rigaDellaVocePerduta,
         _ => 'La voce non arriva, stasera. Scrivimi: quello che ci siamo '
             'detti non si perde.',
       };
