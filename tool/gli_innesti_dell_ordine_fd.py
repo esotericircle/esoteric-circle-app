@@ -27,6 +27,12 @@ SPESA = 'flutter test test/la_spesa_passa_dalla_conferma_test.dart -r expanded'
 CONFERMA = 'lib/design_system/components/la_conferma_della_spesa.dart'
 PORTA_SPESA = 'lib/design_system/components/porta_della_spesa.dart'
 ENTRATA = 'lib/features/maestri/live/l_entrata_nel_vivo.dart'
+MEEUS = 'lib/core/astro/meeus/il_cielo_di_meeus.dart'
+PORTA_SOLA = 'flutter test test/il_cielo_ha_una_porta_sola_test.dart -r expanded'
+JPL = 'flutter test test/il_cielo_di_meeus_contro_il_jpl_test.dart -r expanded'
+BANCHI = 'flutter test test/i_banchi_col_modello_hanno_un_comando_test.dart -r expanded'
+COLLAUDI = 'flutter test test/i_collaudi_sono_registrati_test.dart -r expanded'
+SERVER = 'cd functions && npm test'
 
 # sigla, voce, file, vecchio, nuovo, comando, la prova che deve cadere
 INNESTI = [
@@ -86,6 +92,57 @@ INNESTI = [
      '  Future<EsitoDelGesto> regalaGliEos(String a, int quanti,\n'
      '      {ConsensoDellaSpesa? consenso}) async {',
      SPESA, 'lo crea la conferma'),
+    # FD.02, la porta sola del cielo.
+    ('A12', 'FD.02', 'lib/core/astro/night_sky.dart',
+     '  static double moonEclipticLongitude(DateTime date) =>',
+     '  static double soleMedio(double n) => (280.46 + 0.9856474 * n) % 360;\n\n'
+     '  static double moonEclipticLongitude(DateTime date) =>',
+     PORTA_SOLA, 'nessuna seconda via'),
+    ('A13', 'FD.02', MEEUS,
+     "    _pretendi('la longitudine di ${corpo.nome}', jdUt);\n", '',
+     JPL, 'non gira'),
+    ('A14', 'FD.02', MEEUS,
+     '    CorpoCeleste.sole: 0.0001,', '    CorpoCeleste.sole: 0.00005,',
+     JPL, 'scarto dichiarato'),
+    ('A15', 'FD.02', 'lib/core/cerchio/il_confronto_del_cielo.dart',
+     [("import '../astro/meeus/il_cielo_di_meeus.dart';",
+       "import '../astro/meeus/il_cielo_di_meeus.dart';\n"
+       "import '../astro/night_sky.dart';"),
+      ('    final lunaInGradi =\n'
+       '        IlCieloDiMeeus.longitudineAllIstante(CorpoCeleste.luna, mezzogiorno);',
+       '    final lunaInGradi = NightSky.moonEclipticLongitude(mezzogiorno);')],
+     None, PORTA_SOLA, 'viene dalla porta di Meeus'),
+    ('A16', 'FD.02', 'lib/core/astro/celestial.dart',
+     '    if (scarto.abs() > 0.125) return f;', '    return f;',
+     'flutter test test/medora_sa_il_cielo_e_il_responso_test.dart -r expanded',
+     'nel giorno chiesto'),
+    ('A17', 'FD.02', 'lib/core/astro/meeus/la_luna_intera.dart',
+     '    if (i >= 0 && i + 1 < deltaTAnnuale.length) {',
+     '    if (i < 0 && i + 1 < deltaTAnnuale.length) {',
+     'flutter test test/la_rivoluzione_solare_test.dart -r expanded',
+     'contro il JPL'),
+    ('A18', 'FD.02', 'lib/core/astro/meeus/eclissi.dart',
+     '    _pretendi(anno);\n', '',
+     PORTA_SOLA, 'le eclissi non girano'),
+    # FD.03, i banchi col modello.
+    ('A19', 'FD.03', 'tool/consegna.py',
+     '    passati, perche = i_banchi_sono_passati()',
+     '    passati, perche = True, \'saltati\'',
+     BANCHI, 'la consegna non parte'),
+    # FD.05, i collaudi separati.
+    ('A20', 'FD.05', 'functions/src/il_cerchio_sociale.ts',
+     '  const doc = FRAMMENTO(frammentoDi(uid), spazioDi(uid));',
+     '  const doc = FRAMMENTO(frammentoDi(uid), "");',
+     SERVER, 'ogni via alla presenza'),
+    ('A21', 'FD.05', 'docs/collaudo/registro_dei_collaudi.md',
+     '| `iToukegmg2P3LBmlyYGJjkxvFbs1` |',
+     '| `iToukegmg2P3LBmlyYGJjkxvFbs2` |',
+     COLLAUDI, 'gli stessi account'),
+    # FD.01, la lettura dei minuti sul server.
+    ('A22', 'FD.01', 'functions/src/live.ts',
+     '    apribile: r >= SECONDI_MINIMI_PER_APRIRE,',
+     '    apribile: r > 0,',
+     SERVER, 'i minuti per la conferma'),
 ]
 
 
@@ -127,7 +184,10 @@ def un_innesto(sigla, voce, percorso, vecchio, nuovo, comando, bersaglio):
                                text=True, encoding='utf-8', errors='replace')
         uscita = esito.stdout + esito.stderr
         rossa = esito.returncode != 0
-        cadute = [r.strip()[:170] for r in uscita.splitlines() if '[E]' in r]
+        # Le cadute di flutter test portano [E]; quelle del server, col
+        # rapporto spec di node, cominciano con la crocetta pesante.
+        cadute = [r.strip()[:170] for r in uscita.splitlines()
+                  if '[E]' in r or r.lstrip().startswith('✖')]
         nel_bersaglio = any(bersaglio in c for c in cadute)
         misure = [r.strip()[:220] for r in uscita.splitlines()
                   if r.startswith('ORDINE FD')][:2]

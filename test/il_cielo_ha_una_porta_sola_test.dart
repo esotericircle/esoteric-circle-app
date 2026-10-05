@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:esoteric_circle/core/astro/meeus/eclissi.dart';
 import 'package:esoteric_circle/core/astro/meeus/il_cielo_di_meeus.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/cerchio/il_confronto_del_cielo.dart';
@@ -103,6 +104,25 @@ void main() {
         reason: 'Una seconda via per una posizione del cielo, fuori dalla '
             'libreria di Meeus:\n${colpe.join('\n')}\nSi chiede alla porta, '
             'IlCieloDiMeeus.');
+  });
+
+  test('c) fuori dalla finestra verificata le eclissi non girano', () {
+    // Il motore delle eclissi (Meeus cap. 49 e 54) e' misurato contro il
+    // canone dal 2021 al 2030: fuori, la chiamata non gira.
+    for (final anno in [2020, 2031]) {
+      expect(MotoreDelleEclissi.annoVerificato(anno), isFalse);
+      expect(() => MotoreDelleEclissi.nellAnnoDi(anno),
+          throwsA(isA<FuoriDalCieloVerificato>()),
+          reason: 'le eclissi del $anno hanno risposto un elenco');
+      expect(() => MotoreDelleEclissi.nelGiornoDi(DateTime.utc(anno, 6, 1)),
+          throwsA(isA<FuoriDalCieloVerificato>()));
+    }
+    // Dentro, ai due estremi, risponde, e il giorno del bordo non chiede
+    // l'anno accanto fuori dalla finestra.
+    expect(MotoreDelleEclissi.nellAnnoDi(2021), isNotEmpty);
+    expect(MotoreDelleEclissi.nellAnnoDi(2030), isNotEmpty);
+    expect(() => MotoreDelleEclissi.nelGiornoDi(DateTime.utc(2021, 1, 1)),
+        returnsNormally);
   });
 
   test('b) i motori cancellati non esistono piu\'', () {

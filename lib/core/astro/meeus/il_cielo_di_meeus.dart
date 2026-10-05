@@ -145,18 +145,21 @@ abstract final class IlCieloDiMeeus {
       velocitaGiornaliera(corpo, jdUt) < 0;
 
   /// LO SCARTO MASSIMO MISURATO contro il JPL DE440s, in gradi, sui sessanta
-  /// istanti fra il 1900 e il 2099 (5 ottobre 2026). Arrotondato per eccesso;
-  /// la prova `il_cielo_di_meeus_contro_il_jpl_test.dart` pretende che lo
-  /// scarto vero non lo superi.
+  /// istanti fra il 31 dicembre 1899 e il 31 dicembre 2099 (5 ottobre 2026,
+  /// col Delta T anno per anno). Misurati, in secondi d'arco: Sole 0,3, Luna
+  /// 11,0, Mercurio 0,5, Venere 1,0, Marte 2,5, Giove 1,1, Saturno 1,0, Urano
+  /// 2,5, Nettuno 2,7, Plutone 3,3. Qui arrotondati per eccesso al decimillesimo
+  /// di grado sopra; la prova `il_cielo_di_meeus_contro_il_jpl_test.dart`
+  /// pretende che lo scarto vero non lo superi.
   static const Map<CorpoCeleste, double> scartoMisurato = {
-    CorpoCeleste.sole: 0.0014,
-    CorpoCeleste.luna: 0.0190,
-    CorpoCeleste.mercurio: 0.0022,
-    CorpoCeleste.venere: 0.0016,
-    CorpoCeleste.marte: 0.0010,
-    CorpoCeleste.giove: 0.0005,
-    CorpoCeleste.saturno: 0.0004,
-    CorpoCeleste.urano: 0.0007,
+    CorpoCeleste.sole: 0.0001,
+    CorpoCeleste.luna: 0.0035,
+    CorpoCeleste.mercurio: 0.0002,
+    CorpoCeleste.venere: 0.0003,
+    CorpoCeleste.marte: 0.0008,
+    CorpoCeleste.giove: 0.0004,
+    CorpoCeleste.saturno: 0.0003,
+    CorpoCeleste.urano: 0.0008,
     CorpoCeleste.nettuno: 0.0008,
     CorpoCeleste.plutone: 0.0010,
   };
