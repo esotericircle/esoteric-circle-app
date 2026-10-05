@@ -77,6 +77,29 @@ class _CustodiaDelCieloStepState extends State<CustodiaDelCieloStep> {
     });
   }
 
+  /// Il "Piu' tardi" del rito. Portato qui dal corpo del pulsante con
+  /// l'ordine FC voce 11: la pagina che scorre a carattere grande ha messo
+  /// il pulsante piu' a destra, e il formattatore spezzava la chiave
+  /// dell'invito su due righe, dove la prova del passo non la trovava piu'.
+  Future<void> _piuTardi() async {
+    final account = context.read<AccountDelCerchio>();
+    account.rimanda();
+    // **IL PASSO VALE COME PRIMO INVITO, ordine BJ voce 01**: la custodia e'
+    // appena stata proposta qui, alla fine del rito. Senza questa data il
+    // "primo avviso" di BE.07 sbucherebbe nel Santuario un attimo dopo il no
+    // appena detto.
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString(QuandoChiedereLaCustodia.chiaveUltimoInvito,
+          DateTime.now().toIso8601String());
+    } catch (senzaDisco) {
+      // Senza disco l'invito potra' ripresentarsi prima: meglio di un rito
+      // che non prosegue.
+    }
+    if (!mounted) return;
+    widget.suFine();
+  }
+
   Future<void> _custodisci(ViaDellaCustodia via,
       {String? email, String? parola}) async {
     setState(() {
@@ -226,31 +249,7 @@ class _CustodiaDelCieloStepState extends State<CustodiaDelCieloStep> {
                         const SizedBox(height: SpacingTokens.xxl),
                         TextButton(
                           key: const Key('custodia_piu_tardi'),
-                          onPressed: _inCorso != null
-                              ? null
-                              : () async {
-                                  final account =
-                                      context.read<AccountDelCerchio>();
-                                  account.rimanda();
-                                  // **IL PASSO VALE COME PRIMO INVITO, ordine BJ
-                                  // voce 01**: la custodia e' appena stata proposta
-                                  // qui, alla fine del rito. Senza questa data il
-                                  // "primo avviso" di BE.07 sbucherebbe nel
-                                  // Santuario un attimo dopo il no appena detto.
-                                  try {
-                                    final prefs =
-                                        await SharedPreferences.getInstance();
-                                    await prefs.setString(
-                                        QuandoChiedereLaCustodia
-                                            .chiaveUltimoInvito,
-                                        DateTime.now().toIso8601String());
-                                  } catch (senzaDisco) {
-                                    // Senza disco l'invito potra' ripresentarsi
-                                    // prima: meglio di un rito che non prosegue.
-                                  }
-                                  if (!mounted) return;
-                                  widget.suFine();
-                                },
+                          onPressed: _inCorso != null ? null : _piuTardi,
                           child: Text(
                             'Più tardi',
                             style: TypographyTokens.etichetta()

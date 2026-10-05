@@ -587,6 +587,17 @@ raccoglie.".
    che me lo vieta: nessun file cambiato di suo, e l'unico file toccato dalle
    prove (`docs/collaudo/EU/paragrafi_misura.txt`) rimesso com'era. **Padre:
    ordine FC voce 10, il banco.**
+16. **Tre rosse portate dalle cure della scala, prese dalla suite intera sul
+   commit `57f74b32`** (6740 verdi, 3 rosse, nessuna saltata). La custodia del
+   cielo che scorre aveva spinto il "Piu' tardi" piu' a destra, e il
+   formattatore spezzava `QuandoChiedereLaCustodia.chiaveUltimoInvito` su due
+   righe, dove `la_registrazione_non_interrompe_il_risveglio` non la trovava:
+   il corpo del pulsante e' diventato il metodo `_piuTardi`, niente di
+   perso. E due prove di `una_barra_sola` pretendevano che la barra ritirata
+   scendesse della corsa dichiarata, 112 punti, mentre la barra disegnata ne
+   misura 114 (dentro la tolleranza di 2 della sua prova dell'altezza): adesso
+   si ritira della sua altezza vera, e la prova misura quella, con la lapide.
+   **Padre: ordine FC voce 11.**
 
 ## LE DECISIONI CHE RESTANO AL FONDATORE
 

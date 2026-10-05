@@ -73,6 +73,12 @@ void main() {
   double doveStaLaBarra(WidgetTester tester) =>
       tester.getTopLeft(find.byType(SantuarioBottomBar)).dy;
 
+  /// L'altezza della barra com'e' disegnata, mai meno della corsa.
+  double altezzaVera(WidgetTester tester) {
+    final h = tester.getSize(find.byType(SantuarioBottomBar)).height;
+    return h > BarraDelCerchio.corsa ? h : BarraDelCerchio.corsa;
+  }
+
   Route<void> versoIlConsiglio() => AskMaestriScreen.perLaSintesi(
         starter: Maestro.medora,
         tema: 'una scelta',
@@ -229,8 +235,13 @@ void main() {
       await gesto.moveBy(const Offset(0, -kDragSlopDefault));
       await gesto.moveBy(const Offset(0, -BarraDelCerchio.corsa * 4));
       await tester.pump();
-      expect(doveStaLaBarra(tester) - inVista,
-          closeTo(BarraDelCerchio.corsa, 1.0));
+      // **FINO ALLA SUA ALTEZZA VERA, ordine FC voce 11.** Qui si pretendeva
+      // la corsa dichiarata, 112 punti; la barra disegnata ne misura 114, e
+      // ritirata ne lasciava fuori 2 (a carattere grande 12, i due rossi
+      // della scala). Adesso si ritira della sua altezza vera, e la prova
+      // misura quella.
+      expect(
+          doveStaLaBarra(tester) - inVista, closeTo(altezzaVera(tester), 1.0));
       await gesto.moveBy(const Offset(0, BarraDelCerchio.corsa * 8));
       await tester.pump();
       expect(doveStaLaBarra(tester), closeTo(inVista, 1.0));
@@ -248,8 +259,9 @@ void main() {
       // cambio secco e' gia' tutta scesa.
       await gesto.moveBy(const Offset(0, -1));
       await tester.pump();
-      expect(doveStaLaBarra(tester) - inVista,
-          closeTo(BarraDelCerchio.corsa, 1.0));
+      // Tutta scesa: fino alla sua altezza vera (ordine FC voce 11).
+      expect(
+          doveStaLaBarra(tester) - inVista, closeTo(altezzaVera(tester), 1.0));
       await gesto.up();
       await tester.pump();
     });
