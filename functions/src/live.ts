@@ -479,6 +479,14 @@ export const apriUnaSessioneLive = onCall(
     if (!avatarId) {
       throw new HttpsError("invalid-argument", `Maestro sconosciuto: ${maestro}`);
     }
+    // --- LA CONFIGURAZIONE COMPLETA. Ordine FE voce 03: un Maestro a cui
+    // manca un pezzo del collegamento vocale non apre la sessione, e il
+    // telefono dice che non e' raggiungibile invece di cadere.
+    const mancanze = leMancanzeDelMaestro(maestro);
+    if (mancanze.length > 0) {
+      throw new HttpsError("failed-precondition",
+        `Configurazione incompleta di ${maestro}: ${mancanze.join(", ")}`);
+    }
 
     // --- IL DIRITTO. Voce 04, in un punto solo: vale anche per la voce.
     const {eFondatore, piano} = await ilDirittoAlLive(uid);
@@ -1119,6 +1127,26 @@ const LA_FRASE_DI_PROVA: Record<string, string> = {
   caligo: "Sono Calìgo. Le rune tacciono finché non parli tu.",
   aura: "Sono Aura. Prendi un respiro con me, poi dimmi cosa senti.",
 };
+
+/** I tre Maestri che il collegamento vocale serve. Ordine FE voce 03. */
+export const I_MAESTRI_DEL_LIVE = ["medora", "aura", "caligo"] as const;
+
+/**
+ * **CIO' CHE MANCA A UN MAESTRO PER IL COLLEGAMENTO VOCALE.** Ordine FE voce
+ * 03: ogni tabella che il LIVE legge per un Maestro (l'avatar di riserva, la
+ * voce di partenza, il genere, il modo, la frase di prova, le voci
+ * candidate) deve averlo, non vuoto. Vuoto vuol dire completo.
+ */
+export function leMancanzeDelMaestro(maestro: string): string[] {
+  const mancanze: string[] = [];
+  if (!AVATAR[maestro]) mancanze.push("avatar");
+  if (!LE_VOCI_DI_PARTENZA[maestro]?.voce) mancanze.push("voce di partenza");
+  if (!IL_GENERE[maestro]) mancanze.push("genere");
+  if (!I_MODI[maestro]) mancanze.push("modo");
+  if (!LA_FRASE_DI_PROVA[maestro]) mancanze.push("frase di prova");
+  if (!(LE_CANDIDATE[maestro]?.length > 0)) mancanze.push("voci candidate");
+  return mancanze;
+}
 
 let scelteInCache: {
   quando: number;

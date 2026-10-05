@@ -348,6 +348,11 @@ class QuadroDelLive {
             'ci siamo detti resta scritto nella nostra conversazione.',
       };
 
+  /// La frase del Maestro a cui manca un pezzo del collegamento vocale.
+  /// Ordine FE voce 03.
+  static const String rigaDelMaestroNonRaggiungibile =
+      'Questo Maestro non è raggiungibile adesso. Riprova fra poco.';
+
   /// La frase che la persona legge quando il LIVE non si apre.
   ///
   /// **Le tre ragioni danno tre frasi diverse**, e nessuna e' un messaggio
@@ -359,6 +364,9 @@ class QuadroDelLive {
         PerchePerILiveNonSiApre.minutiFiniti =>
           'Per questo mese ho finito il fiato. Resto qui, in silenzio e '
               'per iscritto, finché non torna.',
+        // Ordine FE voce 03, carattere per carattere.
+        PerchePerILiveNonSiApre.configurazioneIncompleta =>
+          rigaDelMaestroNonRaggiungibile,
         _ => 'La voce non arriva, stasera. Scrivimi: quello che ci siamo '
             'detti non si perde.',
       };

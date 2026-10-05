@@ -74,6 +74,15 @@ class SessioneLive {
             (m['durataMassimaSecondi'] as num?)?.toInt() ?? 20 * 60,
         eFondatore: m['eFondatore'] == true,
       );
+
+  /// I pezzi senza i quali il collegamento non regge, se mancano. Ordine FE
+  /// voce 03.
+  List<String> get mancanze => [
+        if (url.isEmpty) 'url',
+        if (gettone.isEmpty) 'gettone',
+        if (sessione.isEmpty) 'sessione',
+        if (avatar.isEmpty) 'avatar',
+      ];
 }
 
 /// Lo stato di una sessione, e cio' che e' costata davvero.
@@ -116,6 +125,10 @@ enum PerchePerILiveNonSiApre {
 
   /// Qualcosa non ha risposto: rete, Protoface, LiveKit.
   guasto,
+
+  /// Al Maestro manca un pezzo del collegamento vocale: la voce, l'avatar,
+  /// il gettone o la stanza. Ordine FE voce 03: si dice, non si cade.
+  configurazioneIncompleta,
 }
 
 class IlLiveNonSiApre implements Exception {
@@ -138,6 +151,7 @@ class IlLiveNonSiApre implements Exception {
 PerchePerILiveNonSiApre perchePerIlCodice(String codice) => switch (codice) {
       'permission-denied' => PerchePerILiveNonSiApre.nonEPerTe,
       'resource-exhausted' => PerchePerILiveNonSiApre.minutiFiniti,
+      'failed-precondition' => PerchePerILiveNonSiApre.configurazioneIncompleta,
       _ => PerchePerILiveNonSiApre.guasto,
     };
 
@@ -196,7 +210,18 @@ abstract final class PortaDelLive {
   static Future<SessioneLive> apri(Maestro maestro) async {
     try {
       final m = await chiama('apriUnaSessioneLive', {'maestro': maestro.name});
-      return SessioneLive.daMappa(m);
+      final s = SessioneLive.daMappa(m);
+      // **UNA SESSIONE A META' NON SI APRE. Ordine FE voce 03.** Senza la
+      // stanza, il gettone, la sessione o l'avatar il collegamento non
+      // regge: si dice che il Maestro non e' raggiungibile.
+      final mancanze = s.mancanze;
+      if (mancanze.isNotEmpty) {
+        throw IlLiveNonSiApre(PerchePerILiveNonSiApre.configurazioneIncompleta,
+            'manca ${mancanze.join(', ')}');
+      }
+      return s;
+    } on IlLiveNonSiApre {
+      rethrow;
     } on FirebaseFunctionsException catch (e) {
       // **Il codice lo sceglie il server apposta**, e qui si traduce invece di
       // mostrarlo: `permission-denied` quando il LIVE non e' per quell'account,

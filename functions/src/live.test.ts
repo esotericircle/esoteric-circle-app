@@ -6,7 +6,25 @@ import {
   I_MODELLI_DELLA_VOCE, LE_CANDIDATE, LE_VOCI_DI_PARTENZA, eUnaVoceChirp,
   laStanzaE, ilContoDeiMinuti, secondiRimasti, MINUTI_DEL_MESE,
   SECONDI_MINIMI_PER_APRIRE, StatoDeiMinuti, iMinutiPerLaConferma,
+  I_MAESTRI_DEL_LIVE, leMancanzeDelMaestro,
 } from "./live";
+
+/**
+ * LA CONFIGURAZIONE COMPLETA, ordine FE voce 03: ognuno dei tre Maestri ha
+ * ogni pezzo che il collegamento vocale legge, e l'apertura rifiuta con
+ * failed-precondition un Maestro a cui ne manca uno.
+ */
+test("FE.03 ogni Maestro del LIVE ha la configurazione completa", () => {
+  const mancanze = Object.fromEntries(
+    I_MAESTRI_DEL_LIVE.map((m) => [m, leMancanzeDelMaestro(m)]));
+  console.log(`FE.03 LE MANCANZE DEI MAESTRI: ${JSON.stringify(mancanze)}`);
+  assert.equal(I_MAESTRI_DEL_LIVE.length, 3);
+  for (const m of I_MAESTRI_DEL_LIVE) assert.deepEqual(mancanze[m], [], m);
+  assert.equal(leMancanzeDelMaestro("nessuno").length, 6);
+  const sorgente = readFileSync(join(__dirname, "..", "src", "live.ts"), "utf8");
+  assert.ok(sorgente.includes("const mancanze = leMancanzeDelMaestro(maestro);"));
+  assert.ok(sorgente.includes("throw new HttpsError(\"failed-precondition\","));
+});
 
 /**
  * I MINUTI PER LA CONFERMA, ordine FD voce 01: quanto dura al massimo la
