@@ -184,8 +184,20 @@ def main():
         # I punti di Monitoring arrivano un minuto dopo le chiamate.
         print('aspetto tre minuti i punti di Monitoring...', flush=True)
         time.sleep(180)
-        conti, secondi = monitoring(tok, inizio,
-                                    fine + datetime.timedelta(minutes=2))
+        # **IL GETTONE SI PRENDE ADESSO, non all'inizio.** Il primo giro
+        # dell'ordine FD e' durato ottanta minuti e il gettone preso
+        # all'inizio era scaduto: Monitoring ha risposto 401 e il file del
+        # giro non e' nato. Se il costo non si legge lo stesso, gli esiti
+        # si scrivono comunque e il comando esce rosso.
+        try:
+            conti, secondi = monitoring(gettone(), inizio,
+                                        fine + datetime.timedelta(minutes=2))
+        except Exception as errore:  # noqa: BLE001
+            conti, secondi = None, 0
+            righe.append('')
+            righe.append(f'COSTO NON LETTO: {errore}')
+            rossi += 1
+    if '--costo' in sys.argv and conti is not None:
         dollari = 0.0
         righe.append('')
         righe.append(f'--- il costo, da Cloud Monitoring (token_count), '
