@@ -179,6 +179,15 @@ const esenzioni = <Esenzione>[
       'lib/core/tarot/domanda_della_persona.dart',
       "'impresa', 'libreria', 'negozio', 'attivita', 'attività'],",
       'stessa tavola: attivita e una chiave di confronto'),
+  // **ORDINE FD VOCE 06.8**: il nome del campo con cui il server dice
+  // perche' ha rifiutato il riscatto dell'invito. E' la chiave della
+  // risposta di `riscattaLInvito`, scritta cosi' nel server, e non esce mai
+  // a video: a video va la riga del link scaduto.
+  Esenzione(
+      'lib/services/server/porta_del_cerchio.dart',
+      "return risposta['perche'] == 'codice scaduto'",
+      'e la CHIAVE del campo della risposta del server, non una parola '
+          'mostrata'),
 ];
 
 /// Le stringhe di [righe] che usano l'apostrofo al posto dell'accento.

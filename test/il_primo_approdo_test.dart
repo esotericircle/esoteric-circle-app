@@ -98,7 +98,18 @@ void main() {
         Size schermo = const Size(360, 800),
         double altoIlBersaglio = 60,
         Map<String, Object> disco = const {},
-        bool apertura = false}) async {
+        bool apertura = false,
+        double barraDiStato = 0,
+        double barraDeiTasti = 0,
+        double scalaDelCarattere = 1.0}) async {
+      tester.view.viewPadding =
+          FakeViewPadding(top: barraDiStato, bottom: barraDeiTasti);
+      tester.view.padding =
+          FakeViewPadding(top: barraDiStato, bottom: barraDeiTasti);
+      addTearDown(tester.view.resetViewPadding);
+      addTearDown(tester.view.resetPadding);
+      tester.platformDispatcher.textScaleFactorTestValue = scalaDelCarattere;
+      addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
       SharedPreferences.setMockInitialValues({
         if (armato) MemoriaDelPrimoApprodo.chiaveArmata: true,
         ...disco,
@@ -350,6 +361,56 @@ void main() {
           '${fuori.length} su ${cinqueFumetti.length}');
       expect(fuori, isEmpty,
           reason: 'questi fumetti escono dallo schermo: $fuori');
+    });
+
+    testWidgets(
+        'coi tasti di sistema e il carattere grande, i tre tasti del fumetto '
+        'restano fra le barre', (tester) async {
+      // **IL FATTO DI UN TESTER, 5 ottobre 2026**: su un Redmi Note 14 coi
+      // tre tasti di sistema il tasto Avanti del fumetto dei Maestri finiva
+      // sotto la barra dei tasti, e il tutorial non si chiudeva ne' andava
+      // avanti. Il Redmi: 1080x2400 a 2,75, cioe' 393x873 punti; la barra
+      // dei tasti 48, quella di stato 32; il carattere ingrandito; il
+      // carosello dei Maestri alto circa 270 punti a meta' schermo.
+      const alto = 873.0, tasti = 48.0, stato = 32.0;
+      await monta(tester,
+          armato: true,
+          schermo: const Size(393, alto),
+          altoIlBersaglio: 270,
+          barraDiStato: stato,
+          barraDeiTasti: tasti,
+          scalaDelCarattere: 1.3);
+      final fuori = <String>[];
+      for (var i = 0; i < cinqueFumetti.length; i++) {
+        final carta =
+            tester.getRect(find.byKey(Key('primo_approdo_titolo_$i')));
+        for (final k in [
+          'primo_approdo_avanti',
+          'primo_approdo_salta',
+          'primo_approdo_disattiva',
+        ]) {
+          final r = tester.getRect(find.byKey(Key(k)));
+          if (r.bottom > alto - tasti) {
+            fuori.add('${cinqueFumetti[i].titolo}, $k: fondo '
+                '${r.bottom.round()} oltre ${(alto - tasti).round()}');
+          }
+        }
+        if (carta.top < stato) {
+          fuori.add('${cinqueFumetti[i].titolo}: cima ${carta.top.round()} '
+              'sotto la barra di stato');
+        }
+        if (i < cinqueFumetti.length - 1) {
+          await tester.tap(find.byKey(const Key('primo_approdo_avanti')));
+          await tester.pumpAndSettle();
+          expect(
+              find.byKey(Key('primo_approdo_titolo_${i + 1}')), findsOneWidget,
+              reason: 'il tocco su Avanti non porta al passo ${i + 2}');
+        }
+      }
+      // ignore: avoid_print
+      print('ORDINE FD, IL REDMI: tasti del fumetto sotto le barre di '
+          'sistema ${fuori.length} su ${cinqueFumetti.length * 3}');
+      expect(fuori, isEmpty, reason: '$fuori');
     });
 
     testWidgets('senza il pezzo di scena il fumetto resta, senza freccia',

@@ -68,7 +68,7 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
         'tuo telefono e servono solo a scegliere chi chiamare nel tuo '
         'Cerchio. Non li mandiamo a nessun server, non li conserviamo e non '
         'cerchiamo chi della tua rubrica è già nel Cerchio. L’invito parte '
-        'dall’app dei messaggi del tuo telefono, e lo mandi tu.',
+        'dall’app dei messaggi del tuo telefono: lo mandi tu.',
   ),
   SezioneDellaPolicy(
     titolo: 'Perché li trattiamo e con quale base',

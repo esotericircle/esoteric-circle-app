@@ -20,6 +20,8 @@
 /// da questo progetto.
 library;
 
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -632,22 +634,43 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
   Widget _fumetto(BuildContext context, MaestroPalette palette, Size schermo,
       Rect? bersaglio) {
     final larghezza = schermo.width - SpacingTokens.lg * 2;
-    final carta = _Carta(
-      fumetto: fumetto,
-      passo: passo,
-      quanti: quanti,
-      avanti: avanti,
-      salta: salta,
-      disattiva: disattiva,
-      palette: palette,
-      larghezza: larghezza,
-    );
+    // **LO SCHERMO UTILE NON E' LO SCHERMO INTERO.** Il fatto di un tester,
+    // 5 ottobre 2026, su un Redmi Note 14 coi tre tasti di sistema: il
+    // fumetto dei Maestri finiva col tasto Avanti sotto la barra dei tasti, e
+    // il tutorial non si chiudeva ne' andava avanti. Il conto usava l'altezza
+    // intera dello schermo, barra compresa, e misurava la carta col carattere
+    // a scala 1, mentre quel telefono lo ingrandisce. Difetto dell'ordine CB
+    // voce 02 (il conto dell'ingombro). Adesso il fumetto sta fra la barra di
+    // stato e la barra dei tasti, la carta si misura con la scala vera, e se
+    // non ci sta lo stesso il testo scorre dentro la carta: i tre tasti
+    // restano sempre in vista.
+    final bordi = MediaQuery.viewPaddingOf(context);
+    final cima = bordi.top + _orlo;
+    final fondo = schermo.height - bordi.bottom - _orlo;
+    final scala = MediaQuery.textScalerOf(context);
+    Widget carta({required double alMassimo}) => _Carta(
+          fumetto: fumetto,
+          passo: passo,
+          quanti: quanti,
+          avanti: avanti,
+          salta: salta,
+          disattiva: disattiva,
+          palette: palette,
+          larghezza: larghezza,
+          alMassimo: alMassimo,
+        );
 
     // **SENZA BERSAGLIO IL FUMETTO STA AL CENTRO, senza freccia.** E' la
     // scelta dichiarata per la soglia e per la zona non visibile: puntare una
     // freccia verso il nulla sarebbe peggio che non puntarla.
     if (bersaglio == null || fumetto.lato == LatoDelFumetto.soglia) {
-      return Center(child: carta);
+      return Positioned(
+        left: 0,
+        right: 0,
+        top: cima,
+        bottom: schermo.height - fondo,
+        child: Center(child: carta(alMassimo: fondo - cima)),
+      );
     }
 
     // **L'INGOMBRO SI MISURA PRIMA DI POSARE IL FUMETTO.**
@@ -662,9 +685,10 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
     // corpus chiede se ci sta, l'altro lato se ci sta quello, il centro senza
     // freccia se non ci sta nessuno dei due. Meglio un fumetto al centro che
     // un fumetto mezzo fuori.
-    final alta = _quantoEAlta(carta, larghezza) + _freccia;
-    final sottoLibero = schermo.height - bersaglio.bottom - _aria - _orlo;
-    final sopraLibero = bersaglio.top - _aria - _orlo;
+    final alta = math.min(
+        _quantoEAlta(fumetto, larghezza, scala) + _freccia, fondo - cima);
+    final sottoLibero = fondo - bersaglio.bottom - _aria;
+    final sopraLibero = bersaglio.top - _aria - cima;
     final volutoSotto = fumetto.lato == LatoDelFumetto.sotto;
     // Il lato voluto se ci sta, l'altro se ci sta l'altro, e se non ci sta
     // nessuno dei due quello che ha piu' spazio.
@@ -697,7 +721,7 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
     // restano 203, sopra 264, e la carta ne chiede 285.
     final voluto =
         sotto ? bersaglio.bottom + _aria : bersaglio.top - _aria - alta;
-    final quota = voluto.clamp(_orlo, schermo.height - alta - _orlo);
+    final quota = voluto.clamp(cima, fondo - alta);
 
     return Positioned(
       left: SpacingTokens.lg,
@@ -707,7 +731,7 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (sotto) _puntaVerso(bersaglio, palette, versoIlBasso: false),
-          carta,
+          carta(alMassimo: alta - _freccia),
           if (!sotto) _puntaVerso(bersaglio, palette, versoIlBasso: true),
         ],
       ),
@@ -718,25 +742,28 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
   ///
   /// Le due altezze che non vengono dal testo sono quelle dei pezzi fissi:
   /// il bordo e i due riempimenti, la riga del conto e il pulsante largo.
-  static double _quantoEAlta(_Carta carta, double larghezza) {
+  static double _quantoEAlta(
+      FumettoDelPrimoApprodo fumetto, double larghezza, TextScaler scala) {
     final dentro = larghezza - SpacingTokens.md * 2;
     double riga(String testo, TextStyle stile) {
       final p = TextPainter(
         text: TextSpan(text: testo, style: stile),
         textDirection: TextDirection.ltr,
+        textScaler: scala,
       )..layout(maxWidth: dentro);
       return p.height;
     }
 
+    // La riga del conto e il pulsante crescono col carattere anche loro:
+    // il loro minimo e' quello di un dito, il loro testo scala.
     return SpacingTokens.md * 2 +
-        riga(carta.fumetto.titolo, TypographyTokens.titoloScheda()) +
+        riga(fumetto.titolo, TypographyTokens.titoloScheda()) +
         SpacingTokens.xs +
-        riga(carta.fumetto.testo,
-            TypographyTokens.corpo().copyWith(height: 1.45)) +
+        riga(fumetto.testo, TypographyTokens.corpo().copyWith(height: 1.45)) +
         SpacingTokens.md +
-        _altezzaDellaRiga +
+        math.max(_altezzaDellaRiga, scala.scale(_altezzaDellaRiga)) +
         SpacingTokens.xs +
-        _altezzaDelPulsante;
+        math.max(_altezzaDelPulsante, scala.scale(_altezzaDelPulsante));
   }
 
   Widget _puntaVerso(Rect bersaglio, MaestroPalette palette,
@@ -768,6 +795,7 @@ class _Carta extends StatelessWidget {
     required this.disattiva,
     required this.palette,
     required this.larghezza,
+    required this.alMassimo,
   });
 
   final FumettoDelPrimoApprodo fumetto;
@@ -781,11 +809,16 @@ class _Carta extends StatelessWidget {
   final MaestroPalette palette;
   final double larghezza;
 
+  /// L'altezza che la carta non supera mai: lo spazio fra le barre di
+  /// sistema. Se il testo non ci sta, scorre lui, e i tasti restano.
+  final double alMassimo;
+
   @override
   Widget build(BuildContext context) {
     final ultimo = passo + 1 >= quanti;
     return Container(
       width: larghezza,
+      constraints: BoxConstraints(maxHeight: alMassimo),
       padding: const EdgeInsets.all(SpacingTokens.md),
       decoration: BoxDecoration(
         color: palette.surface,
@@ -803,18 +836,28 @@ class _Carta extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            fumetto.titolo,
-            key: Key('primo_approdo_titolo_$passo'),
-            style:
-                TypographyTokens.titoloScheda().copyWith(color: palette.gold),
-          ),
-          const SizedBox(height: SpacingTokens.xs),
-          Text(
-            fumetto.testo,
-            key: Key('primo_approdo_testo_$passo'),
-            style: TypographyTokens.corpo()
-                .copyWith(color: palette.textPrimary, height: 1.45),
+          Flexible(
+            child: SingleChildScrollView(
+              key: const Key('primo_approdo_scorre'),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    fumetto.titolo,
+                    key: Key('primo_approdo_titolo_$passo'),
+                    style: TypographyTokens.titoloScheda()
+                        .copyWith(color: palette.gold),
+                  ),
+                  const SizedBox(height: SpacingTokens.xs),
+                  Text(
+                    fumetto.testo,
+                    key: Key('primo_approdo_testo_$passo'),
+                    style: TypographyTokens.corpo()
+                        .copyWith(color: palette.textPrimary, height: 1.45),
+                  ),
+                ],
+              ),
+            ),
           ),
           const SizedBox(height: SpacingTokens.md),
           // **IL CONTO E LO SKIP SOPRA, IL PASSO AVANTI SOTTO.** In fila su
