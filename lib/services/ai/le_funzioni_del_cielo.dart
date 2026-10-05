@@ -1,3 +1,5 @@
+import 'dart:isolate';
+
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/foundation.dart';
 
@@ -67,11 +69,29 @@ abstract final class LeFunzioniDelCielo {
   /// vero. Vuoto se la domanda non nomina un giorno diverso da oggi.
   static String cieloDeiGiorniNominati(String domanda,
       {NatalChart? carta, DateTime? adesso}) {
-    final giorni = IGiorniNominati.in_(domanda, adesso ?? DateTime.now());
+    final giorni = _giorniNominati(domanda, adesso);
     if (giorni.isEmpty) return '';
+    return _cieloDeiGiorni(giorni, carta);
+  }
+
+  /// Lo stesso blocco di [cieloDeiGiorniNominati], calcolato fuori dal filo
+  /// dell'interfaccia (ordine FE voce 01): e' quello che il turno usa.
+  static Future<String> cieloDeiGiorniNominatiFuoriDalFilo(String domanda,
+      {NatalChart? carta, DateTime? adesso}) async {
+    final giorni = _giorniNominati(domanda, adesso);
+    if (giorni.isEmpty) return '';
+    return fuoriDalFilo(() => _cieloDeiGiorni(giorni, carta));
+  }
+
+  static List<DateTime> _giorniNominati(String domanda, DateTime? adesso) {
+    final giorni = IGiorniNominati.in_(domanda, adesso ?? DateTime.now());
     for (final d in giorni) {
       giorniChiesti.add(DateTime(d.year, d.month, d.day, 12));
     }
+    return giorni;
+  }
+
+  static String _cieloDeiGiorni(List<DateTime> giorni, NatalChart? carta) {
     return [
       'IL CIELO DEI GIORNI CHE LA PERSONA NOMINA, già calcolato dalla '
           'funzione $cieloDelGiorno: per questi giorni non chiamarla, '
@@ -83,36 +103,95 @@ abstract final class LeFunzioniDelCielo {
     ].join('\n\n');
   }
 
-  /// La risposta di [cieloDelGiorno], fuori dal modello: le prove e il banco
-  /// la chiamano direttamente.
-  static Map<String, Object?> giorno(Map<String, Object?> args,
-      {NatalChart? carta}) {
+  /// **IL CALCOLO DEL CIELO NON GIRA SUL FILO DELL'INTERFACCIA. Ordine FE
+  /// voce 01.** Il 5 ottobre 2026 un tester su un Redmi Note 14 Pro 5G ha
+  /// visto l'app chiudersi nel LIVE di Medora e di Aura: Crashlytics ha un ANR
+  /// della build 2298 col filo principale dentro `cos`, sotto 143 passi di
+  /// codice Dart. Il cielo di un periodo, che il modello chiede con
+  /// [cieloDelPeriodo], costa col motore di Meeus 2,3 secondi sul PC per 400
+  /// giorni, e sul Realme ha fermato l'interfaccia per 214 fotogrammi; con
+  /// Flutter il codice Dart gira sul filo principale di Android, e oltre i
+  /// cinque secondi Android chiude l'app. Medora e Aura leggono il cielo,
+  /// Caligo no: per questo cadevano loro. Adesso il calcolo gira in un
+  /// isolate a parte, e il filo dell'interfaccia resta libero.
+  static Future<T> fuoriDalFilo<T>(T Function() calcolo) =>
+      Isolate.run(calcolo);
+
+  /// La data di [cieloDelGiorno] letta e registrata, o l'errore da rendere.
+  static (DateTime?, Map<String, Object?>?) _apriIlGiorno(
+      Map<String, Object?> args) {
     final d = _data(args['data']);
     registro.add('$cieloDelGiorno(${args['data']})');
     debugPrint('Cielo per il Maestro: $cieloDelGiorno(${args['data']})');
     if (d == null) {
-      return {
-        'errore': 'La data va scritta AAAA-MM-GG, per esempio 2026-10-02.'
-      };
+      return (
+        null,
+        {'errore': 'La data va scritta AAAA-MM-GG, per esempio 2026-10-02.'}
+      );
     }
     giorniChiesti.add(DateTime(d.year, d.month, d.day, 12));
-    return IlCieloPerIlMaestro.delGiorno(d, carta: carta);
+    return (d, null);
   }
 
-  /// La risposta di [cieloDelPeriodo], fuori dal modello.
-  static Map<String, Object?> periodo(Map<String, Object?> args) {
+  /// La risposta di [cieloDelGiorno], fuori dal modello: le prove e il banco
+  /// la chiamano direttamente.
+  static Map<String, Object?> giorno(Map<String, Object?> args,
+      {NatalChart? carta}) {
+    final (d, errore) = _apriIlGiorno(args);
+    if (errore != null) return errore;
+    return IlCieloPerIlMaestro.delGiorno(d!, carta: carta);
+  }
+
+  /// La stessa risposta di [giorno], calcolata fuori dal filo
+  /// dell'interfaccia: e' quella che il modello chiama.
+  static Future<Map<String, Object?>> giornoFuoriDalFilo(
+      Map<String, Object?> args,
+      {NatalChart? carta}) async {
+    final (d, errore) = _apriIlGiorno(args);
+    if (errore != null) return errore;
+    return fuoriDalFilo(() => IlCieloPerIlMaestro.delGiorno(d!, carta: carta));
+  }
+
+  /// Le date di [cieloDelPeriodo] lette e registrate, o l'errore da rendere.
+  static (DateTime?, DateTime?, Map<String, Object?>?) _apriIlPeriodo(
+      Map<String, Object?> args) {
     final dal = _data(args['dal']);
     final al = _data(args['al']);
     registro.add('$cieloDelPeriodo(${args['dal']}, ${args['al']})');
     debugPrint('Cielo per il Maestro: $cieloDelPeriodo(${args['dal']}, '
         '${args['al']})');
     if (dal == null || al == null) {
-      return {
-        'errore': 'Le date vanno scritte AAAA-MM-GG, per esempio dal '
-            '2026-12-01 al 2026-12-31.'
-      };
+      return (
+        null,
+        null,
+        {
+          'errore': 'Le date vanno scritte AAAA-MM-GG, per esempio dal '
+              '2026-12-01 al 2026-12-31.'
+        }
+      );
     }
-    final esito = IlCieloPerIlMaestro.delPeriodo(dal, al);
+    return (dal, al, null);
+  }
+
+  /// La risposta di [cieloDelPeriodo], fuori dal modello.
+  static Map<String, Object?> periodo(Map<String, Object?> args) {
+    final (dal, al, errore) = _apriIlPeriodo(args);
+    if (errore != null) return errore;
+    return _chiudiIlPeriodo(IlCieloPerIlMaestro.delPeriodo(dal!, al!));
+  }
+
+  /// La stessa risposta di [periodo], calcolata fuori dal filo
+  /// dell'interfaccia: e' quella che il modello chiama.
+  static Future<Map<String, Object?>> periodoFuoriDalFilo(
+      Map<String, Object?> args) async {
+    final (dal, al, errore) = _apriIlPeriodo(args);
+    if (errore != null) return errore;
+    return _chiudiIlPeriodo(
+        await fuoriDalFilo(() => IlCieloPerIlMaestro.delPeriodo(dal!, al!)));
+  }
+
+  /// I giorni del periodo calcolato entrano fra i giorni chiesti.
+  static Map<String, Object?> _chiudiIlPeriodo(Map<String, Object?> esito) {
     final primo = DateTime.parse('${esito['dal']}');
     final ultimo = DateTime.parse('${esito['al']}');
     for (var g = primo;
@@ -235,74 +314,78 @@ abstract final class LeFunzioniDelCielo {
         .hasMatch(d);
   }
 
-  static List<Tool> perIlMaestro({NatalChart? carta, DateTime? adesso}) {
+  static List<Tool> perIlMaestro({NatalChart? carta, DateTime? adesso}) =>
+      [Tool.functionDeclarations(dichiarazioni(carta: carta, adesso: adesso))];
+
+  /// Le funzioni del cielo come le riceve il modello: le prove le chiamano
+  /// come le chiama la libreria (ordine FE voce 01).
+  static List<AutoFunctionDeclaration> dichiarazioni(
+      {NatalChart? carta, DateTime? adesso}) {
     final ora = adesso ?? DateTime.now();
     final oggi = _oggi(ora);
     final domani = _oggi(DateTime(ora.year, ora.month, ora.day + 1));
     // **IL CIELO DI OGGI SI CALCOLA UNA VOLTA AL GIORNO. Ordine EX voce 08.**
     final cieloDiOggi = _cieloDiOggi(ora, carta);
     return [
-      Tool.functionDeclarations([
-        AutoFunctionDeclaration(
-          name: cieloDelGiorno,
-          description: 'Il cielo vero di un giorno, calcolato dalle '
-              'effemeridi dell\'app: segno e grado del Sole, della Luna e dei '
-              'pianeti da Mercurio a Plutone, quali sono retrogradi, segno e '
-              'fase della Luna, gli aspetti fra i pianeti, le eclissi e, se la '
-              'persona ha la carta natale, i transiti sulla sua carta. '
-              'Il cielo di OGGI ce l\'hai già, calcolato qui sotto: per una '
-              'domanda sul cielo di oggi non chiamarla, rispondi con quei '
-              'fatti. Non copiare quel blocco: scegli solo i fatti che la '
-              'domanda chiede e dilli con parole tue (degli aspetti, i due o '
-              'tre con l\'orbo più stretto). Del cielo di ogni altro giorno tu non sai niente: ogni '
-              'segno, grado, fase, retrogrado, aspetto o eclissi di domani, '
-              'del passato o del futuro lo sai solo da qui. Oggi è $oggi, '
-              'domani è $domani. Chiamala ogni volta che la persona chiede '
-              'del cielo di un giorno diverso da oggi, prima di rispondere, '
-              // Ordine EX Aggiunta 4, voce EX.07: al banco il modello la
-              // chiamava anche col cielo del giorno gia' davanti.
-              'tranne quando il cielo di quel giorno ti è già stato dato '
-              'nell\'istruzione, sotto "IL CIELO DEI GIORNI CHE LA PERSONA '
-              'NOMINA": allora rispondi con quello. '
-              'Se la persona ha scritto la data, usala: non chiederla di '
-              'nuovo. Rispondi solo '
-              'con i fatti che restituisce, non dire mai un fatto del cielo '
-              'che non viene da qui e non negare mai un fatto che viene da '
-              'qui. I corpi che restituisce sono quelli del cielo del '
-              'giorno, non quelli di nascita della persona: la Luna del '
-              'giorno non è la sua Luna. Non darle il segno o gli aspetti '
-              'della Luna del giorno. Il cielo di oggi, già calcolato da '
-              'questa funzione: '
-              '$cieloDiOggi',
-          parameters: {
-            'data': Schema.string(
-                description: 'Il giorno, nella forma AAAA-MM-GG. Oggi è '
-                    '$oggi.'),
-          },
-          callable: (args) => giorno(args, carta: carta),
-        ),
-        AutoFunctionDeclaration(
-          name: cieloDelPeriodo,
-          description: 'Il cielo vero di un periodo, fino a un anno: le '
-              'posizioni al primo giorno e gli eventi giorno per giorno '
-              '(pianeti che cambiano segno, che diventano retrogradi o '
-              'tornano diretti, lune nuove e piene, eclissi). Oggi è $oggi. '
-              'Chiamala quando la persona chiede del cielo di un mese, di un '
-              'anno o di un periodo, o di quando succede qualcosa (quando '
-              'torna diretto un pianeta, la prossima Luna piena, le eclissi): '
-              'per un mese chiedi dal primo all\'ultimo giorno del mese, per '
-              'un anno dal primo gennaio al trentuno dicembre, per "quando" '
-              'da oggi a un anno da oggi. Non chiedere alla persona di '
-              'precisare il periodo: scegli tu queste date e chiama.',
-          parameters: {
-            'dal': Schema.string(
-                description: 'Il primo giorno, nella forma AAAA-MM-GG.'),
-            'al': Schema.string(
-                description: 'L\'ultimo giorno, nella forma AAAA-MM-GG.'),
-          },
-          callable: periodo,
-        ),
-      ]),
+      AutoFunctionDeclaration(
+        name: cieloDelGiorno,
+        description: 'Il cielo vero di un giorno, calcolato dalle '
+            'effemeridi dell\'app: segno e grado del Sole, della Luna e dei '
+            'pianeti da Mercurio a Plutone, quali sono retrogradi, segno e '
+            'fase della Luna, gli aspetti fra i pianeti, le eclissi e, se la '
+            'persona ha la carta natale, i transiti sulla sua carta. '
+            'Il cielo di OGGI ce l\'hai già, calcolato qui sotto: per una '
+            'domanda sul cielo di oggi non chiamarla, rispondi con quei '
+            'fatti. Non copiare quel blocco: scegli solo i fatti che la '
+            'domanda chiede e dilli con parole tue (degli aspetti, i due o '
+            'tre con l\'orbo più stretto). Del cielo di ogni altro giorno tu non sai niente: ogni '
+            'segno, grado, fase, retrogrado, aspetto o eclissi di domani, '
+            'del passato o del futuro lo sai solo da qui. Oggi è $oggi, '
+            'domani è $domani. Chiamala ogni volta che la persona chiede '
+            'del cielo di un giorno diverso da oggi, prima di rispondere, '
+            // Ordine EX Aggiunta 4, voce EX.07: al banco il modello la
+            // chiamava anche col cielo del giorno gia' davanti.
+            'tranne quando il cielo di quel giorno ti è già stato dato '
+            'nell\'istruzione, sotto "IL CIELO DEI GIORNI CHE LA PERSONA '
+            'NOMINA": allora rispondi con quello. '
+            'Se la persona ha scritto la data, usala: non chiederla di '
+            'nuovo. Rispondi solo '
+            'con i fatti che restituisce, non dire mai un fatto del cielo '
+            'che non viene da qui e non negare mai un fatto che viene da '
+            'qui. I corpi che restituisce sono quelli del cielo del '
+            'giorno, non quelli di nascita della persona: la Luna del '
+            'giorno non è la sua Luna. Non darle il segno o gli aspetti '
+            'della Luna del giorno. Il cielo di oggi, già calcolato da '
+            'questa funzione: '
+            '$cieloDiOggi',
+        parameters: {
+          'data': Schema.string(
+              description: 'Il giorno, nella forma AAAA-MM-GG. Oggi è '
+                  '$oggi.'),
+        },
+        callable: (args) => giornoFuoriDalFilo(args, carta: carta),
+      ),
+      AutoFunctionDeclaration(
+        name: cieloDelPeriodo,
+        description: 'Il cielo vero di un periodo, fino a un anno: le '
+            'posizioni al primo giorno e gli eventi giorno per giorno '
+            '(pianeti che cambiano segno, che diventano retrogradi o '
+            'tornano diretti, lune nuove e piene, eclissi). Oggi è $oggi. '
+            'Chiamala quando la persona chiede del cielo di un mese, di un '
+            'anno o di un periodo, o di quando succede qualcosa (quando '
+            'torna diretto un pianeta, la prossima Luna piena, le eclissi): '
+            'per un mese chiedi dal primo all\'ultimo giorno del mese, per '
+            'un anno dal primo gennaio al trentuno dicembre, per "quando" '
+            'da oggi a un anno da oggi. Non chiedere alla persona di '
+            'precisare il periodo: scegli tu queste date e chiama.',
+        parameters: {
+          'dal': Schema.string(
+              description: 'Il primo giorno, nella forma AAAA-MM-GG.'),
+          'al': Schema.string(
+              description: 'L\'ultimo giorno, nella forma AAAA-MM-GG.'),
+        },
+        callable: periodoFuoriDalFilo,
+      ),
     ];
   }
 }

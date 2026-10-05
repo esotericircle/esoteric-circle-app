@@ -196,8 +196,10 @@ class FirebaseMaestroAiProvider
                     orElse: () =>
                         ChatMessage(role: ChatRole.user, text: userMessage))
                 .text);
-    final cieloDeiGiorni = LeFunzioniDelCielo.cieloDeiGiorniNominati(laDomanda,
-        carta: natal.carta);
+    // Ordine FE voce 01: fuori dal filo dell'interfaccia.
+    final cieloDeiGiorni =
+        await LeFunzioniDelCielo.cieloDeiGiorniNominatiFuoriDalFilo(laDomanda,
+            carta: natal.carta);
     final istruzione = MaestroPersona.systemInstruction(
       maestro: maestro,
       profile: profile,
