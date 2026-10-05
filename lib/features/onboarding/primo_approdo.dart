@@ -719,21 +719,32 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
     // sfiorarne il bordo che nasconderla tutta. Il caso vero e' uno solo, il
     // carosello dei Maestri, che a 360 punti e' alto 274 su 797: sotto ne
     // restano 203, sopra 264, e la carta ne chiede 285.
-    final voluto =
-        sotto ? bersaglio.bottom + _aria : bersaglio.top - _aria - alta;
-    final quota = voluto.clamp(cima, fondo - alta);
-
-    return Positioned(
-      left: SpacingTokens.lg,
-      top: quota,
-      width: larghezza,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          if (sotto) _puntaVerso(bersaglio, palette, versoIlBasso: false),
-          carta(alMassimo: alta - _freccia),
-          if (!sotto) _puntaVerso(bersaglio, palette, versoIlBasso: true),
-        ],
+    // **IL FUMETTO SI POSA SULLA SUA ALTEZZA VERA, non sulla stima.** Sul
+    // Realme con la 2298 la stima era corta di dieci punti: il fumetto dei
+    // Maestri, posato su quella, aveva il tetto troppo basso e l'ultima riga
+    // restava tagliata con lo spazio libero sotto. La stima serve a scegliere
+    // il lato; la quota la decide `_PosaDelFumetto` con la misura del motore
+    // che lo disegna, sempre fra la barra di stato e la barra dei tasti.
+    return Positioned.fill(
+      child: CustomSingleChildLayout(
+        delegate: _PosaDelFumetto(
+          sinistra: SpacingTokens.lg,
+          larghezza: larghezza,
+          cima: cima,
+          fondo: fondo,
+          sotto: sotto,
+          bersaglio: bersaglio,
+          aria: _aria,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (sotto) _puntaVerso(bersaglio, palette, versoIlBasso: false),
+            Flexible(child: carta(alMassimo: fondo - cima - _freccia)),
+            if (!sotto) _puntaVerso(bersaglio, palette, versoIlBasso: true),
+          ],
+        ),
       ),
     );
   }
@@ -744,7 +755,9 @@ class _VeloDelPrimoApprodo extends StatelessWidget {
   /// il bordo e i due riempimenti, la riga del conto e il pulsante largo.
   static double _quantoEAlta(
       FumettoDelPrimoApprodo fumetto, double larghezza, TextScaler scala) {
-    final dentro = larghezza - SpacingTokens.md * 2;
+    // Il bordo d'oro della carta, un punto per lato, toglie larghezza al
+    // testo: senza contarlo una riga va a capo nella carta e non nella misura.
+    final dentro = larghezza - SpacingTokens.md * 2 - 2;
     double riga(String testo, TextStyle stile) {
       final p = TextPainter(
         text: TextSpan(text: testo, style: stile),
@@ -910,6 +923,52 @@ class _Carta extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Dove sta il fumetto, misurato: accanto al bersaglio dal lato scelto, e mai
+/// sopra la barra di stato ne' sotto la barra dei tasti.
+class _PosaDelFumetto extends SingleChildLayoutDelegate {
+  const _PosaDelFumetto({
+    required this.sinistra,
+    required this.larghezza,
+    required this.cima,
+    required this.fondo,
+    required this.sotto,
+    required this.bersaglio,
+    required this.aria,
+  });
+
+  final double sinistra;
+  final double larghezza;
+  final double cima;
+  final double fondo;
+  final bool sotto;
+  final Rect bersaglio;
+  final double aria;
+
+  @override
+  BoxConstraints getConstraintsForChild(BoxConstraints constraints) =>
+      BoxConstraints(
+          maxWidth: larghezza, maxHeight: math.max(0.0, fondo - cima));
+
+  @override
+  Offset getPositionForChild(Size size, Size figlio) {
+    final voluto =
+        sotto ? bersaglio.bottom + aria : bersaglio.top - aria - figlio.height;
+    final y =
+        voluto.clamp(cima, math.max(cima, fondo - figlio.height)).toDouble();
+    return Offset(sinistra, y);
+  }
+
+  @override
+  bool shouldRelayout(_PosaDelFumetto vecchio) =>
+      vecchio.sinistra != sinistra ||
+      vecchio.larghezza != larghezza ||
+      vecchio.cima != cima ||
+      vecchio.fondo != fondo ||
+      vecchio.sotto != sotto ||
+      vecchio.bersaglio != bersaglio ||
+      vecchio.aria != aria;
 }
 
 /// IL VELO COL BUCO: scurisce tutto tranne la cosa di cui si parla.

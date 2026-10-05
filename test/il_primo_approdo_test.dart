@@ -413,6 +413,44 @@ void main() {
       expect(fuori, isEmpty, reason: '$fuori');
     });
 
+    testWidgets(
+        'quando lo spazio c\'e\', il testo del fumetto non resta tagliato',
+        (tester) async {
+      // **VISTO SUL REALME CON LA 2298**, 5 ottobre 2026: al passo dei
+      // Maestri l'ultima riga, "Tocca un volto ed entra nel suo dominio",
+      // restava tagliata a meta' con lo spazio libero sotto. Il Realme:
+      // 360x800 punti, i tre tasti di sistema 48, la barra di stato 24, il
+      // carattere a scala 1. Il bersaglio come il carosello dei Maestri.
+      await monta(tester,
+          armato: true,
+          schermo: const Size(360, 800),
+          altoIlBersaglio: 270,
+          barraDiStato: 24,
+          barraDeiTasti: 48);
+      final tagliati = <String>[];
+      for (var i = 0; i < cinqueFumetti.length; i++) {
+        final scorre = tester.state<ScrollableState>(find.descendant(
+            of: find.byKey(const Key('primo_approdo_scorre')),
+            matching: find.byType(Scrollable)));
+        final nascosto = scorre.position.maxScrollExtent;
+        final avanti =
+            tester.getRect(find.byKey(const Key('primo_approdo_avanti')));
+        final libero = 800 - 48 - avanti.bottom;
+        if (nascosto > 0.5 && libero > nascosto) {
+          tagliati.add('${cinqueFumetti[i].titolo}: ${nascosto.round()} '
+              'punti di testo nascosti con ${libero.round()} liberi sotto');
+        }
+        if (i < cinqueFumetti.length - 1) {
+          await tester.tap(find.byKey(const Key('primo_approdo_avanti')));
+          await tester.pumpAndSettle();
+        }
+      }
+      // ignore: avoid_print
+      print('ORDINE FD, IL REALME: fumetti col testo tagliato e lo spazio '
+          'libero ${tagliati.length} su ${cinqueFumetti.length}');
+      expect(tagliati, isEmpty, reason: '$tagliati');
+    });
+
     testWidgets('senza il pezzo di scena il fumetto resta, senza freccia',
         (tester) async {
       // **LA SCELTA DICHIARATA PER LE ZONE NON VISIBILI.** Se cio' che il
