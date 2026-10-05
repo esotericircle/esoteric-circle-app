@@ -6,6 +6,7 @@ import 'package:esoteric_circle/core/astro/natal_chart.dart';
 import 'package:esoteric_circle/core/astro/zodiac.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/chat/chat_message.dart';
+import 'package:esoteric_circle/core/chat/il_filo_del_consulto.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
@@ -197,6 +198,46 @@ void main() {
     expect(sintesi,
         contains('Dove gli sguardi concordano, ascolta con più fiducia'));
     expect(sintesi, isNot(contains('Stessa domanda')));
+  });
+
+  // **IL PARERE DEL CONSIGLIO ENTRA NEL FILO. Ordine FE voce 13.** Con
+  // "Continua con" il Maestro scelto e la scheda in cima alla chat devono
+  // sapere cosa hanno detto gli altri nel Consiglio; il ripiego no.
+  testWidgets('FE.13: i pareri del Consiglio entrano nel filo del consulto',
+      (tester) async {
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(430, 2200);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    IlFiloDelConsulto.dimentica();
+    addTearDown(IlFiloDelConsulto.dimentica);
+    await tester.pumpWidget(host(
+      tema: 'una scelta',
+      tier: Tier.tier1,
+      starter: Maestro.medora,
+      services: _servicesWith(_ReadyAi()),
+    ));
+    await tester.pumpAndSettle();
+    final s = IlFiloDelConsulto.scheda;
+    expect(s, isNotNull, reason: 'il Consiglio non ha scritto il filo');
+    expect(s!.tema, 'una scelta');
+    expect(s.maestri.toSet(), Maestro.values.toSet(),
+        reason: 'ogni Maestro del Consiglio deve lasciare il suo parere');
+    expect(s.pareri.map((p) => p.parere),
+        contains('Aura sente una scelta con la sua lente.'));
+  });
+
+  testWidgets('FE.13: il ripiego dell\'oracolo non entra nel filo',
+      (tester) async {
+    tester.view.devicePixelRatio = 1.0;
+    tester.view.physicalSize = const Size(430, 2200);
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    IlFiloDelConsulto.dimentica();
+    addTearDown(IlFiloDelConsulto.dimentica);
+    await tester.pumpWidget(host(tema: 'una scelta', tier: Tier.tier1));
+    await tester.pumpAndSettle();
+    expect(IlFiloDelConsulto.scheda, isNull);
   });
 
   testWidgets('Il titolo della Sintesi si legge intero, su schermo stretto',

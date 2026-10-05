@@ -109,6 +109,18 @@ INNESTI = [
      '  static const int _battuteDelFilo = 200;\n',
      'flutter test test/il_filo_vive_quanto_il_consulto_test.dart -r expanded',
      'il filo porta al piu'),
+    # FE.13, i pareri del Consiglio entrano nel filo (il file ha i fine
+    # riga di Windows: i pezzi stanno su una riga sola, senza il suo a capo).
+    ('A17', 'FE.13', 'lib/features/maestri/ask/ask_maestri_screen.dart',
+     '    if (!lens.ripiego) {',
+     '    if (false) {',
+     'flutter test test/ask_maestri_test.dart -r expanded',
+     'i pareri del Consiglio entrano nel filo'),
+    ('A18', 'FE.13', 'lib/features/maestri/ask/ask_maestri_screen.dart',
+     '    if (!lens.ripiego) {',
+     '    if (true) {',
+     'flutter test test/ask_maestri_test.dart -r expanded',
+     'il ripiego dell\'oracolo non entra nel filo'),
     # Regola B PRIMA del tocco: le guardie degli eventi in arrivo (il crash
     # vero del Redmi, FE.01) e della memoria della chat (parte terza).
     ('B5', 'FE.01', 'lib/services/ai/maestro_persona.dart',

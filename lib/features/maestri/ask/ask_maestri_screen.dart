@@ -1,3 +1,4 @@
+import '../../../core/chat/il_filo_del_consulto.dart';
 import '../../../core/sigilli/diario_del_cammino.dart';
 import 'dart:async';
 
@@ -357,6 +358,19 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
       _lenses[maestro] = lens!;
       _loading.remove(maestro);
     });
+    // **IL PARERE DEL CONSIGLIO ENTRA NEL FILO. Ordine FE voce 13.** Prima
+    // il Consiglio leggeva la scheda del consulto ma non la scriveva: con
+    // "Continua con" il Maestro scelto, e la scheda in cima alla chat, non
+    // sapevano cosa si era detto qui. Il ripiego dell'oracolo non e' un
+    // parere del Maestro e non entra.
+    if (!lens.ripiego) {
+      IlFiloDelConsulto.annota(
+          maestro: maestro,
+          domanda: theme,
+          risposta: lens.reply.glance.trim().isNotEmpty
+              ? lens.reply.glance
+              : lens.reply.reading);
+    }
     // La scheda appena arrivata si scrive UNA volta: quando la scrittura si
     // sara' esaurita, la marca la congela per sempre (voce 10).
     _pianificaLaMarca(maestro);
