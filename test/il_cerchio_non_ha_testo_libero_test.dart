@@ -23,6 +23,9 @@ void main() {
     'invita_campo_sigillo': 4,
     // Il codice da inquadrare, scritto a mano: sei caratteri.
     'invita_campo_codice': 6,
+    // Ordine FD voce 06.4: la ricerca nella rubrica. Filtra l'elenco sul
+    // telefono e non esce mai di li': nessuna porta la riceve.
+    'rubrica_ricerca': 40,
   };
 
   test('GUARDIA EY.10: nessun campo di testo libero nelle schermate sociali',

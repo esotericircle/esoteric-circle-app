@@ -66,6 +66,12 @@ void main() {
     'audioplayers': null,
     'geocoding': null,
     'share_plus': null,
+    // **LA RUBRICA E I MESSAGGI, ordine FD voce 06.** `flutter_contacts`
+    // legge la rubrica (il framework Contacts di Apple) e vuole la sua
+    // chiave; `url_launcher` apre l'app dei messaggi con lo schema `sms:`,
+    // nessuna API sensibile.
+    'flutter_contacts': 'NSContactsUsageDescription',
+    'url_launcher': null,
     // **IL PDF DELL'ANNO, ordine ES voce 04**, 29 settembre 2026: `pdf` e'
     // Dart puro, e nella sua cartella (pdf-3.13.1) non ci sono ne' `ios/` ne'
     // `darwin/`; compone il documento in memoria, e il file lo manda la porta

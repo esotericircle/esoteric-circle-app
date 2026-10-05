@@ -17,13 +17,15 @@ class SezioneDellaPolicy {
   final String corpo;
 }
 
-/// La data dell'ultima revisione, mostrata in testa. **29 settembre 2026**:
-/// il testo e' cambiato quel giorno, con la presenza per il numero di chi e'
+/// La data dell'ultima revisione, mostrata in testa. **5 ottobre 2026**: la
+/// sezione del Cerchio, coi testi tolti dalle schede della schermata "Chiama
+/// nel Cerchio" e la rubrica (ordine FD voce 06). Prima il **29 settembre
+/// 2026**: il testo era cambiato quel giorno, con la presenza per il numero di chi e'
 /// online (ordine ES voce 15). Prima era il 25 settembre 2026, quando
 /// "Mappa del Viso" aveva preso il posto di "Costellazione del Viso" (ordine
 /// EN voce 11) e il fondatore aveva deciso che la data passasse con la
 /// build successiva (*"La farai con la prossima build"*).
-const String dataDellaPolicy = '29 settembre 2026';
+const String dataDellaPolicy = '5 ottobre 2026';
 
 /// Il titolare del trattamento e il contatto.
 const String titolareDellaPolicy =
@@ -51,6 +53,22 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
         'caricate. Il microfono ascolta il soffio senza registrare audio. '
         'La posizione serve a mostrare il cielo sopra di te; le coordinate '
         'restano sul telefono.',
+  ),
+  // **IL CERCHIO: INVITI, CODICI E RUBRICA.** Ordine FD voce 06.7: le
+  // righe che spiegavano durate e riservatezza stavano dentro le schede
+  // della schermata "Chiama nel Cerchio"; sono state tolte da li' e stanno
+  // qui intere, parola per parola, con la rubrica della voce 06.
+  SezioneDellaPolicy(
+    titolo: 'Il Cerchio: inviti, codici e rubrica',
+    corpo: 'Il link vale trenta giorni e porta solo un codice del Cerchio: '
+        'niente del tuo nome vero, niente della tua nascita. Uno mostra il '
+        'suo codice, l’altro lo inquadra. Il codice vale cinque minuti: una '
+        'sua fotografia domani non vale niente. La rubrica del telefono si '
+        'apre solo quando tocchi "Apri la rubrica": i contatti restano sul '
+        'tuo telefono e servono solo a scegliere chi chiamare nel tuo '
+        'Cerchio. Non li mandiamo a nessun server, non li conserviamo e non '
+        'cerchiamo chi della tua rubrica è già nel Cerchio. L’invito parte '
+        'dall’app dei messaggi del tuo telefono, e lo mandi tu.',
   ),
   SezioneDellaPolicy(
     titolo: 'Perché li trattiamo e con quale base',

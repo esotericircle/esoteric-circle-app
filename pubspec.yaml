@@ -9,7 +9,7 @@ publish_to: "none"
 # lo split somma duemila per l'ABI arm64, quindi si riparte da sopra quella
 # soglia. Il lucchetto e' test/versione_build_test.dart, che confronta il
 # numero con docs/versione_distribuita.json.
-version: 0.1.0+2297
+version: 0.1.0+2298
 
 environment:
   sdk: ">=3.4.0 <4.0.0"
@@ -177,6 +177,8 @@ dependencies:
   pdf: ^3.13.1
   qr_flutter: ^4.1.0
   google_mlkit_barcode_scanning: ^0.14.2
+  flutter_contacts: ^2.6.0
+  url_launcher: ^6.3.3
 
 # Un solo blocco, per un guasto a monte che ferma la build Android.
 #

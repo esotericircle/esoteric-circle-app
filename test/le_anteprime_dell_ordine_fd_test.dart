@@ -3,6 +3,12 @@ import 'dart:io';
 import 'dart:ui' as ui;
 
 import 'package:esoteric_circle/app.dart';
+import 'package:esoteric_circle/core/cerchio/il_cerchio_sociale.dart';
+import 'package:esoteric_circle/core/cerchio/la_rubrica_del_telefono.dart';
+import 'package:esoteric_circle/core/condivisione/la_porta_dei_messaggi.dart';
+import 'package:esoteric_circle/core/identity/birth_identity.dart';
+import 'package:esoteric_circle/features/cerchio/invita_nel_cerchio_screen.dart';
+import 'package:esoteric_circle/features/cerchio/la_richiesta_di_legame.dart';
 import 'package:esoteric_circle/core/cammino/cammino_da_custodire.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/design_system/components/la_conferma_della_spesa.dart';
@@ -18,6 +24,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'porta_finta_del_cerchio_sociale.dart';
 
 /// LE ANTEPRIME DELL'ORDINE FD, a 360 per 797 punti logici col rapporto di
 /// pixel 3. Le quattro della consegna: la conferma dei minuti, quella degli
@@ -70,7 +78,8 @@ void main() {
       final dati = await img.toByteData(format: ui.ImageByteFormat.png);
       final dir = Directory('docs/preview/FD');
       if (!dir.existsSync()) dir.createSync(recursive: true);
-      File('${dir.path}/$nome.png').writeAsBytesSync(dati!.buffer.asUint8List());
+      File('${dir.path}/$nome.png')
+          .writeAsBytesSync(dati!.buffer.asUint8List());
       print('FD ANTEPRIMA: ${dir.path}/$nome.png ${img.width}x${img.height}');
       img.dispose();
     });
@@ -176,6 +185,140 @@ void main() {
     await scatta(tester, 'fd_home_avviso_indietro');
     await tester.pump(const Duration(seconds: 3));
   });
+
+  // --- FD.06, LA RUBRICA COME PRIMA STRADA DEL CERCHIO ---
+
+  final rubrica = [
+    for (final n in const [
+      'Alba Ferri',
+      'Bruno Sala',
+      'Carla Neri',
+      'Dario Monti',
+      'Elena Riva',
+      'Fabio Greco',
+      'Giulia Conti',
+      'Luca Bassi',
+      'Marta Leone',
+      'Nadia Fontana',
+      'Omar Villa',
+      'Paola Serra',
+    ])
+      ContattoDellaRubrica(
+          nome: n, numero: '+39 333 ${n.length}00 ${n.codeUnitAt(0)}'),
+  ];
+
+  Future<void> montaLInvito(WidgetTester tester,
+      {bool concedi = true, PortaFintaDelCerchioSociale? porta}) async {
+    silenzia();
+    SharedPreferences.setMockInitialValues({});
+    finestra(tester);
+    LaRubricaDelTelefono.richiesta = () async => concedi;
+    LaRubricaDelTelefono.giaConcessa = () async => false;
+    LaRubricaDelTelefono.leggi = () async => rubrica;
+    LaPortaDeiMessaggi.apri = (u) async => true;
+    final finta = porta ?? PortaFintaDelCerchioSociale();
+    final sociale = IlCerchioSociale(porta: finta);
+    await tester.runAsync(() async {
+      await sociale.sincronizza(
+          identita: BirthIdentity(birthMoment: DateTime(1990, 5, 12, 10)));
+      await sociale.caricaIlCerchio();
+    });
+    await tester.pumpWidget(MultiProvider(
+      providers: [
+        ChangeNotifierProvider<IlCerchioSociale>.value(value: sociale),
+        Provider<AppServices>.value(value: AppServices.offline(null, finta)),
+      ],
+      child: RepaintBoundary(
+        key: radice,
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme.dark(),
+          builder: (c, f) => MediaQuery(
+            data: MediaQuery.of(c).copyWith(disableAnimations: true),
+            child: MaestroScope(neutro: true, child: f!),
+          ),
+          home: const InvitaNelCerchioScreen(),
+        ),
+      ),
+    ));
+    await passa(tester, 8);
+  }
+
+  Future<void> apriLaRubrica(WidgetTester tester) async {
+    await tester.tap(find.byKey(const Key('invita_rubrica')));
+    await passa(tester, 8);
+    final cta = find.widgetWithText(FilledButton, 'Apri la rubrica');
+    if (cta.evaluate().length > 1) {
+      await tester.tap(cta.last);
+      await passa(tester, 8);
+    }
+  }
+
+  testWidgets('FD.06: le quattro schede nel nuovo ordine', (tester) async {
+    await montaLInvito(tester);
+    expect(find.text('Chiama chi conosci'), findsOneWidget);
+    expect(find.text('Apri la rubrica'), findsOneWidget);
+    await scatta(tester, 'fd06_quattro_schede');
+  });
+
+  testWidgets('FD.06: la rubrica con tre contatti scelti', (tester) async {
+    await montaLInvito(tester);
+    await apriLaRubrica(tester);
+    for (final i in [0, 2, 3]) {
+      await tester.tap(find.byKey(Key('rubrica_$i')));
+      await tester.pump();
+    }
+    await passa(tester, 3);
+    expect(find.text('Manda l’invito'), findsOneWidget);
+    await scatta(tester, 'fd06_rubrica_tre_scelti');
+  });
+
+  testWidgets('FD.06: la rubrica al tetto dei dieci', (tester) async {
+    await montaLInvito(tester);
+    await apriLaRubrica(tester);
+    for (var i = 0; i < 10; i++) {
+      final k = find.byKey(Key('rubrica_$i'));
+      await tester.ensureVisible(k);
+      await tester.tap(k);
+      await tester.pump();
+    }
+    await tester.ensureVisible(find.byKey(const Key('rubrica_11')));
+    await passa(tester, 3);
+    expect(find.text('Dieci per volta.'), findsOneWidget);
+    await scatta(tester, 'fd06_rubrica_al_tetto');
+  });
+
+  testWidgets('FD.06: la scheda col permesso negato', (tester) async {
+    await montaLInvito(tester, concedi: false);
+    await apriLaRubrica(tester);
+    expect(find.text('La rubrica è chiusa. Puoi sempre mandare il link.'),
+        findsOneWidget);
+    await scatta(tester, 'fd06_permesso_negato');
+  });
+
+  testWidgets('FD.06: il link scaduto', (tester) async {
+    await montaLInvito(tester, porta: _PortaColCodiceScaduto());
+    mostraLaRichiestaDiLegame(
+        tester.element(find.byType(InvitaNelCerchioScreen)), 'AB12CD34');
+    await passa(tester, 6);
+    expect(
+        find.text('Questo invito è scaduto. Chiedi alla persona che te lo ha '
+            'mandato di rifarlo.'),
+        findsOneWidget);
+    await scatta(tester, 'fd06_link_scaduto');
+    await tester.pump(const Duration(seconds: 5));
+  });
+}
+
+class _PortaColCodiceScaduto extends PortaFintaDelCerchioSociale {
+  @override
+  Future<EsitoSociale?> sociale(String porta,
+      [Map<String, Object?> corpo = const {}]) async {
+    if (porta == 'leggiIlCodice') {
+      return const EsitoSociale(dati: {'valido': false});
+    }
+    return super.sociale(porta, corpo);
+  }
 }
 
 class _PortaFerma extends PortaDelCerchio {

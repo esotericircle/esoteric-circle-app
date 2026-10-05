@@ -7,15 +7,15 @@ import 'package:flutter_test/flutter_test.dart';
 /// CIELO, I BANCHI, IL TASTO INDIETRO E IL CERCHIO DEI COLLAUDI.** 5 ottobre
 /// 2026.
 ///
-/// Il manifesto `ORDINE_FD_MANIFESTO.md` porta le cinque voci dell'ordine
-/// (FD.01-FD.05), ognuna con uno stato solo fra quelli canonici (CHIUSA,
-/// APERTA, oppure APERTA IN ATTESA DI VERIFICA), e i marcatori dicono le
-/// stesse cose delle voci. Ogni voce porta la DOMANDA, la PROVA, la MISURA e
+/// Il manifesto `ORDINE_FD_MANIFESTO.md` porta le sei voci dell'ordine
+/// (FD.01-FD.06, la sesta e' l'aggiunta della rubrica), ognuna con uno
+/// stato solo fra quelli canonici (CHIUSA, APERTA, oppure APERTA IN ATTESA DI
+/// VERIFICA), e i marcatori dicono le stesse cose delle voci. Ogni voce porta la DOMANDA, la PROVA, la MISURA e
 /// la frase di ACCETTAZIONE, e le prove che nomina esistono.
 void main() {
   final manifesto = File('docs/ordini/ORDINE_FD_MANIFESTO.md');
   final voci = [
-    for (var i = 1; i <= 5; i++) 'FD.${i.toString().padLeft(2, '0')}'
+    for (var i = 1; i <= 6; i++) 'FD.${i.toString().padLeft(2, '0')}'
   ];
 
   int marcatore(String testo, String nome) {
@@ -26,14 +26,14 @@ void main() {
     return int.parse(trovato!.group(1)!);
   }
 
-  test('il manifesto esiste e porta tutte le cinque voci', () {
+  test('il manifesto esiste e porta tutte le sei voci', () {
     expect(manifesto.existsSync(), isTrue);
     final testo = manifesto.readAsStringSync();
     final mancanti = [
       for (final v in voci)
         if (!testo.contains('## VOCE $v,')) v,
     ];
-    expect(voci, hasLength(5));
+    expect(voci, hasLength(6));
     expect(mancanti, isEmpty, reason: 'voci non nominate: $mancanti');
   });
 
@@ -69,7 +69,7 @@ void main() {
     print('ORDINE FD: voci $dichiarate, chiuse $chiuse, aperte $aperte, da '
         'fare $daFare');
     expect(storte, isEmpty);
-    expect(dichiarate, 5);
+    expect(dichiarate, 6);
     expect(contateChiuse, chiuse);
     expect(contateAperte, aperte);
     expect(daFare, 0);

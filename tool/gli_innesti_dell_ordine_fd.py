@@ -33,6 +33,8 @@ JPL = 'flutter test test/il_cielo_di_meeus_contro_il_jpl_test.dart -r expanded'
 BANCHI = 'flutter test test/i_banchi_col_modello_hanno_un_comando_test.dart -r expanded'
 COLLAUDI = 'flutter test test/i_collaudi_sono_registrati_test.dart -r expanded'
 SERVER = 'cd functions && npm test'
+RUBRICA = 'flutter test test/la_rubrica_resta_sul_telefono_test.dart -r expanded'
+SCEGLI = 'lib/features/cerchio/scegli_dalla_rubrica_screen.dart'
 
 # sigla, voce, file, vecchio, nuovo, comando, la prova che deve cadere
 INNESTI = [
@@ -97,6 +99,76 @@ INNESTI = [
      '                type: MaterialType.transparency,\n',
      '              child: KeyedSubtree(\n',
      INDIETRO, 'un tocco avvisa'),
+    # FD.05, il Cerchio che si rilegge al ritorno (difetto visto sul Realme).
+    ('A33', 'FD.05', 'lib/features/cerchio/il_tuo_cerchio_screen.dart',
+     '  void didPopNext() => _rileggi();\n',
+     '  void didPopNext() {}\n',
+     'flutter test test/il_cerchio_si_rilegge_al_ritorno_test.dart -r expanded',
+     'chiusa la rotta sopra'),
+    ('A34', 'FD.05', 'lib/features/cerchio/il_tuo_cerchio_screen.dart',
+     '    if (stato == AppLifecycleState.resumed) _rileggi();\n',
+     '',
+     'flutter test test/il_cerchio_si_rilegge_al_ritorno_test.dart -r expanded',
+     'tornata in primo piano'),
+    # FD.06, la rubrica come prima strada del Cerchio.
+    ('A24', 'FD.06', 'docs/ordini/ORDINE_FD_MANIFESTO.md',
+     'VOCI_TOTALI: 6\n',
+     'VOCI_TOTALI: 5\n',
+     'flutter test test/ordine_fd_guard_test.dart -r expanded',
+     'i conti tornano'),
+    # Regola B delle tre guardie che FD.06 ha toccato: il difetto e' la riga
+    # della guardia tolta (o il testo di prima del server), e la guardia
+    # deve cadere sul codice nuovo.
+    ('B1', 'FD.06', 'test/il_cerchio_non_ha_testo_libero_test.dart',
+     "    'rubrica_ricerca': 40,\n", '',
+     'flutter test test/il_cerchio_non_ha_testo_libero_test.dart -r expanded',
+     '[E]'),
+    ('B2', 'FD.06', 'test/le_chiavi_di_ios_ci_sono_tutte_test.dart',
+     "    'flutter_contacts': 'NSContactsUsageDescription',\n", '',
+     'flutter test test/le_chiavi_di_ios_ci_sono_tutte_test.dart -r expanded',
+     '[E]'),
+    ('B3', 'FD.06', 'functions/src/la_pagina_dell_invito.ts',
+     '    `<p class="nota">Questo invito è scaduto. Chiedi alla persona che te lo ha\n'
+     '    mandato di rifarlo.</p>` :',
+     '    `<p class="nota">Questo invito non vale più. Chiedine uno nuovo a chi te\n'
+     '    l’ha mandato, oppure entra nel Cerchio da solo.</p>` :',
+     SERVER, 'EY.04 la pagina del link'),
+    ('A25', 'FD.06', INVITA,
+     '    _rileggiLaRubricaChiusa();\n',
+     '    _rileggiLaRubricaChiusa();\n    LaRubricaDelTelefono.richiesta();\n',
+     RUBRICA, 'nessuna richiesta all'),
+    ('A26', 'FD.06', SCEGLI,
+     '    final numeri = [for (final i in _scelti) contatti[i].numero];',
+     '    final numeri = [for (final i in _scelti) contatti[i].numero];\n'
+     '    await sociale.chiediIlLegame(sigillo: numeri.join(\',\'));',
+     RUBRICA, 'non escono dal telefono'),
+    ('A27', 'FD.06', SCEGLI,
+     '    final pieno = _scelti.length >= IlMessaggioDellInvito.tetto;',
+     '    final pieno = _scelti.length >= 99;',
+     RUBRICA, 'le spunte si fermano'),
+    ('A28', 'FD.06', SCEGLI,
+     "      '${ListinoDegliEos.premioDiChiArrivaConUnInvito} Eos:\\n$link';",
+     "      '100 Eos:\\n$link';",
+     RUBRICA, 'il link e gli Eos'),
+    ('A29', 'FD.06', INVITA,
+     '      if (mounted) setState(() => _rubricaChiusa = true);',
+     '',
+     RUBRICA, 'col permesso negato'),
+    ('A30', 'FD.06', INVITA,
+     "                titolo: 'Manda il tuo invito',",
+     "                titolo: 'Manda il tuo invito',\n"
+     "                riga: 'Il link vale trenta giorni e porta solo un codice del '\n"
+     "                    'Cerchio: niente del tuo nome vero, niente della tua nascita.',",
+     RUBRICA, 'le righe tolte'),
+    ('A31', 'FD.06', 'lib/features/cerchio/la_richiesta_di_legame.dart',
+     'codice.length == 6 ? rigaDelCodiceScaduto : rigaDelLinkScaduto',
+     'rigaDelLinkScaduto',
+     RUBRICA, 'dicono la loro riga'),
+    ('A32', 'FD.06', 'lib/core/cerchio/la_rubrica_del_telefono.dart',
+     '  static Future<List<ContattoDellaRubrica>> Function() leggi = _dalTelefono;',
+     '  static List<ContattoDellaRubrica> ultimi = [];\n'
+     '  static Future<List<ContattoDellaRubrica>> Function() leggi = _dalTelefono;',
+     RUBRICA, 'nessun contatto resta'),
     # FD.02, la porta sola del cielo.
     ('A12', 'FD.02', 'lib/core/astro/night_sky.dart',
      '  static double moonEclipticLongitude(DateTime date) =>',

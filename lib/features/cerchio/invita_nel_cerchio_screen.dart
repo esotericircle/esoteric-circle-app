@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:camera/camera.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_mlkit_barcode_scanning/google_mlkit_barcode_scanning.dart';
@@ -8,8 +9,12 @@ import 'package:provider/provider.dart';
 
 import 'widgets/disegni_del_cerchio.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/cerchio/il_cerchio_sociale.dart';
+import '../../core/cerchio/la_rubrica_del_telefono.dart';
+import '../../core/permissions/app_permission.dart';
+import '../../core/permissions/esito_del_permesso.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -18,6 +23,7 @@ import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../account/invita_un_amico.dart';
 import 'la_richiesta_di_legame.dart';
+import 'scegli_dalla_rubrica_screen.dart';
 
 /// **CHIAMA QUALCUNO NEL TUO CERCHIO, ordine EY voce 04.** Due vie e non tre:
 /// il link da mandare, e il codice da inquadrare quando i due telefoni sono
@@ -36,6 +42,74 @@ class InvitaNelCerchioScreen extends StatefulWidget {
 class _InvitaNelCerchioScreenState extends State<InvitaNelCerchioScreen> {
   final TextEditingController _sigillo = TextEditingController();
   String? _riga;
+
+  /// Vero quando la persona ha negato la rubrica: la scheda mostra la sua
+  /// riga sola e non la chiede piu' da se' (FD.06.6). Si ricorda fra le
+  /// aperture, e si rilegge col solo controllo del sistema, che non mostra
+  /// nessuna finestra: se la persona l'ha riaperta dalle impostazioni, il
+  /// pulsante torna.
+  bool _rubricaChiusa = false;
+
+  /// La chiave del ricordo della rubrica negata.
+  static const String chiaveDellaRubricaChiusa = 'cerchio.rubricaChiusa';
+
+  /// La riga della rubrica negata, alla lettera (FD.06.6).
+  static const String rigaDellaRubricaChiusa =
+      'La rubrica è chiusa. Puoi sempre mandare il link.';
+
+  @override
+  void initState() {
+    super.initState();
+    _rileggiLaRubricaChiusa();
+  }
+
+  Future<void> _rileggiLaRubricaChiusa() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (!(prefs.getBool(chiaveDellaRubricaChiusa) ?? false)) return;
+    var ancoraChiusa = true;
+    try {
+      ancoraChiusa = !await LaRubricaDelTelefono.giaConcessa();
+    } catch (errore) {
+      // Senza la risposta del sistema resta chiusa: e' cio' che si sapeva.
+      debugPrint('Il permesso della rubrica non si legge: $errore');
+    }
+    if (!ancoraChiusa) await prefs.remove(chiaveDellaRubricaChiusa);
+    if (mounted) setState(() => _rubricaChiusa = ancoraChiusa);
+  }
+
+  /// **IL PERMESSO SI CHIEDE SOLO QUI, AL TOCCO DI "APRI LA RUBRICA".**
+  /// FD.06.2. Su iOS la finestra di sistema porta la riga dell'ordine
+  /// (NSContactsUsageDescription); su Android la finestra di sistema non ha
+  /// un campo di testo, e la stessa riga compare nella spiegazione subito
+  /// prima.
+  Future<void> _apriLaRubrica() async {
+    EsitoDelPermesso? esito;
+    Future<bool> diSistema() async {
+      esito = await PortaDelPermesso.chiedi(AppPermission.contatti,
+          richiestaDiSistema: LaRubricaDelTelefono.richiesta);
+      return esito == EsitoDelPermesso.concesso;
+    }
+
+    final concesso = defaultTargetPlatform == TargetPlatform.android
+        ? await requestPermissionWithPrelude(context,
+            permission: AppPermission.contatti,
+            palette: MaestroPalette.neutral,
+            systemRequest: diSistema)
+        : await diSistema();
+    if (!mounted) return;
+    if (concesso) {
+      await Navigator.of(context).push(ScegliDallaRubricaScreen.route());
+      return;
+    }
+    // "Non ora" nella spiegazione non e' un no del sistema: la scheda resta
+    // com'era. Un no del sistema chiude la rubrica.
+    if (esito == EsitoDelPermesso.negato ||
+        esito == EsitoDelPermesso.negatoPerSempre) {
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool(chiaveDellaRubricaChiusa, true);
+      if (mounted) setState(() => _rubricaChiusa = true);
+    }
+  }
 
   @override
   void dispose() {
@@ -79,11 +153,33 @@ class _InvitaNelCerchioScreenState extends State<InvitaNelCerchioScreen> {
             padding: const EdgeInsets.fromLTRB(
                 SpacingTokens.md, 0, SpacingTokens.md, SpacingTokens.xl),
             children: [
+              // **CHIAMA CHI CONOSCI, PRIMA DI TUTTE.** Ordine FD voce 06.1.
               _Via(
+                chiave: const Key('invita_scheda_rubrica'),
+                icona: Icons.contacts_rounded,
+                titolo: 'Chiama chi conosci',
+                child: _rubricaChiusa
+                    ? Text(rigaDellaRubricaChiusa,
+                        key: const Key('invita_rubrica_chiusa'),
+                        style: TypographyTokens.corpo()
+                            .copyWith(color: ColorTokens.textPrimary))
+                    : FilledButton(
+                        key: const Key('invita_rubrica'),
+                        style: FilledButton.styleFrom(
+                            backgroundColor: palette.gold,
+                            foregroundColor: palette.onPrimary,
+                            minimumSize: const Size.fromHeight(48)),
+                        onPressed: _apriLaRubrica,
+                        child: const Text('Apri la rubrica'),
+                      ),
+              ),
+              // FD.06.7: le righe sulla durata del link, su cio' che porta e
+              // sulla durata del codice sono andate nella pagina unica della
+              // riservatezza, sezione del Cerchio.
+              _Via(
+                chiave: const Key('invita_scheda_link'),
                 icona: Icons.link_rounded,
                 titolo: 'Manda il tuo invito',
-                riga: 'Il link vale trenta giorni e porta solo un codice del '
-                    'Cerchio: niente del tuo nome vero, niente della tua nascita.',
                 child: FilledButton(
                   key: const Key('invita_link'),
                   style: FilledButton.styleFrom(
@@ -95,13 +191,9 @@ class _InvitaNelCerchioScreenState extends State<InvitaNelCerchioScreen> {
                 ),
               ),
               _Via(
+                chiave: const Key('invita_scheda_vicini'),
                 icona: Icons.qr_code_2_rounded,
                 titolo: 'Siete vicini',
-                riga:
-                    'Uno mostra il suo codice, l’altro lo inquadra. Il codice '
-                    'vale cinque minuti: una sua fotografia domani non vale niente.',
-                // Uno sotto l'altro e d'oro: affiancati andavano a capo e il
-                // viola del tema non si leggeva (visto sul Realme, 2296).
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -143,10 +235,10 @@ class _InvitaNelCerchioScreenState extends State<InvitaNelCerchioScreen> {
                 ),
               ),
               _Via(
+                chiave: const Key('invita_scheda_sigillo'),
                 icona: Icons.tag_rounded,
                 titolo: 'Hai il suo sigillo?',
-                riga:
-                    'Quattro caratteri: lo trovi nel suo profilo del Cerchio.',
+                riga: 'Quattro caratteri dal suo profilo.',
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -186,13 +278,16 @@ class _InvitaNelCerchioScreenState extends State<InvitaNelCerchioScreen> {
 
 class _Via extends StatelessWidget {
   const _Via(
-      {required this.icona,
+      {this.chiave,
+      required this.icona,
       required this.titolo,
-      required this.riga,
-      required this.child});
+      this.riga,
+      required this.child})
+      : super(key: chiave);
+  final Key? chiave;
   final IconData icona;
   final String titolo;
-  final String riga;
+  final String? riga;
   final Widget child;
 
   @override
@@ -218,10 +313,12 @@ class _Via extends StatelessWidget {
                       .copyWith(color: palette.goldSoft)),
             ),
           ]),
-          const SizedBox(height: SpacingTokens.xs),
-          Text(riga,
-              style: TypographyTokens.didascalia()
-                  .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
+          if (riga != null) ...[
+            const SizedBox(height: SpacingTokens.xs),
+            Text(riga!,
+                style: TypographyTokens.didascalia()
+                    .copyWith(color: ColorTokens.textSecondary, height: 1.4)),
+          ],
           const SizedBox(height: SpacingTokens.sm),
           child,
         ],

@@ -748,7 +748,10 @@ const RIGHE_DEL_LEGAME: Record<string, string> = {
   postiFinitiDellAltro: "I suoi posti nel Cerchio sono pieni.",
   invitiFiniti: "Per oggi hai mandato tutti gli inviti: venti al giorno.",
   soloColSigillo: "Questa persona si invita solo col suo sigillo.",
-  codice: "Questo codice non vale più: chiedine uno nuovo.",
+  // Ordine FD voce 06.8, alla lettera: il codice da inquadrare (sei
+  // caratteri) e il link d'invito (otto) dicono ciascuno la sua scadenza.
+  codice: "Questo codice non vale più. Fatelo mostrare di nuovo.",
+  link: "Questo invito è scaduto. Chiedi alla persona che te lo ha mandato di rifarlo.",
   assente: "Questa persona non è nel Cerchio adesso.",
 };
 
@@ -770,7 +773,8 @@ export const chiediIlLegame = onCall(OPZIONI_SOCIALI, async (request) => {
     const codice = codiceScritto(corpo.codice);
     const di = codice === null ? null : await chiPortaIlCodice(codice);
     if (di === null) {
-      esito = {ok: false, perche: "codice"};
+      esito = {ok: false,
+        perche: codice !== null && codice.length !== 6 ? "link" : "codice"};
     } else {
       esito = await apriIlLegame({da: uid, a: di, comeAmici: true,
         conIlSigillo: true, contaLInvito: false});

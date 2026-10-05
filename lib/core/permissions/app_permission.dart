@@ -23,6 +23,10 @@ enum AppPermission {
   motion,
   notifications,
   location,
+
+  /// La rubrica, solo in lettura e solo al tocco di "Apri la rubrica".
+  /// Ordine FD voce 06.
+  contatti,
 }
 
 /// Testo del pre-avviso, nel tono del Maestro quando pertinente. E' onesto: dice
@@ -97,6 +101,17 @@ PermissionCopy permissionCopy(AppPermission p, {Maestro? maestro}) {
         body:
             'La posizione serve a mostrare il cielo sopra di te ora. Le coordinate restano qui; il solo nome del luogo lo chiedo al sistema del telefono.',
         cta: 'Usa la mia posizione',
+      );
+    case AppPermission.contatti:
+      // Ordine FD voce 06.2: la riga che il sistema mostra nella finestra del
+      // permesso, alla lettera. Su Android la finestra di sistema non ha un
+      // campo di testo: questa e' la spiegazione che compare subito prima.
+      return const PermissionCopy(
+        icon: Icons.contacts_outlined,
+        title: 'Chiama chi conosci',
+        body:
+            'I contatti restano sul tuo telefono e servono solo a scegliere chi chiamare nel tuo Cerchio.',
+        cta: 'Apri la rubrica',
       );
   }
 }

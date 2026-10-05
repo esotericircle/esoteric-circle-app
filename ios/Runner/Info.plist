@@ -34,6 +34,8 @@
 	<string>La posizione serve a orientare il cielo sopra di te sul luogo reale in cui ti trovi, e solo mentre stai usando l'app: Esoteric Circle non segue i tuoi spostamenti quando e' chiusa. Le coordinate restano sul dispositivo; per scrivere il nome della citta' sotto il cielo le chiedo ai servizi di sistema.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Il microfono coglie il tuo soffio nel Soffio del Destino, per liberare i semi, e ascolta la tua voce solo quando scegli di dettare una domanda ai Maestri. L'app non registra e non conserva audio, e puoi sempre usare il dito o la tastiera.</string>
+	<key>NSContactsUsageDescription</key>
+	<string>I contatti restano sul tuo telefono e servono solo a scegliere chi chiamare nel tuo Cerchio.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>La fotocamera serve se scegli di mettere il tuo volto nella card della Sinastria o di leggere i tuoi tratti nella Costellazione del Viso. Tutto resta sul dispositivo: nessuna immagine viene caricata, nessuna foto viene salvata oltre l'uso del momento.</string>
 	<key>NSPhotoLibraryUsageDescription</key>

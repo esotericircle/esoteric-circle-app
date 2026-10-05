@@ -107,6 +107,7 @@ const Map<String, PresenzaDellaBarra> presenzaPerSchermata = {
   'IlTuoCerchioScreen': PresenzaDellaBarra.assente,
   'ProfiloNelCerchioScreen': PresenzaDellaBarra.assente,
   'InvitaNelCerchioScreen': PresenzaDellaBarra.assente,
+  'ScegliDallaRubricaScreen': PresenzaDellaBarra.assente,
   'SchedaDellAmicoScreen': PresenzaDellaBarra.assente,
   'ConfrontoDelCieloScreen': PresenzaDellaBarra.assente,
   'SkyOverviewScreen': PresenzaDellaBarra.assente,

@@ -82,8 +82,9 @@ export function laPagina(
     "Il Cerchio ti chiama" :
     `${pulito(nome)} ti chiama nel suo Cerchio`;
   const blocco = codice === null ?
-    `<p class="nota">Questo invito non vale più. Chiedine uno nuovo a chi te
-    l’ha mandato, oppure entra nel Cerchio da solo.</p>` :
+    // Ordine FD voce 06.8, alla lettera.
+    `<p class="nota">Questo invito è scaduto. Chiedi alla persona che te lo ha
+    mandato di rifarlo.</p>` :
     `<p class="nota">${RIGA_DEL_CODICE}.</p>
     <div class="codice" id="codice">${pulito(codice)}</div>
     <button onclick="navigator.clipboard &amp;&amp; navigator.clipboard.writeText(

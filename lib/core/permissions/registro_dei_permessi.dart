@@ -51,6 +51,16 @@ class RegistroDeiPermessi {
   const RegistroDeiPermessi._();
 
   static const List<VoceDelRegistro> voci = [
+    // Ordine FD voce 06: la rubrica, in sola lettura, chiesta solo al tocco
+    // di "Apri la rubrica" nella schermata "Chiama nel Cerchio".
+    VoceDelRegistro(
+      permesso: AppPermission.contatti,
+      chiaveIos: 'NSContactsUsageDescription',
+      ragioneSenzaChiave: '',
+      vociAndroid: ['android.permission.READ_CONTACTS'],
+      doveSiChiede: 'lib/features/cerchio/invita_nel_cerchio_screen.dart',
+      ripiego: 'La rubrica è chiusa. Puoi sempre mandare il link.',
+    ),
     VoceDelRegistro(
       permesso: AppPermission.location,
       chiaveIos: 'NSLocationWhenInUseUsageDescription',

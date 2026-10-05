@@ -8,6 +8,8 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../services/app_services.dart';
+import '../../services/server/porta_del_cerchio.dart';
+import '../cerchio/la_richiesta_di_legame.dart' show rigaDelLinkScaduto;
 import '../../design_system/transizioni/velo_del_cerchio.dart';
 
 /// CHI TI HA INVITATO. Ordine BX voce 02.
@@ -127,7 +129,8 @@ Future<void> apriIlRiscattoDellInvito(BuildContext context) async {
 Future<void> riscattaIlCodiceDellInvito(
     BuildContext context, String codice) async {
   final porta = context.read<AppServices>().porta;
-  final accolto = await porta.riscattaLInvito(codice);
+  final esito = await porta.riscattaLInvito(codice);
+  final accolto = esito == EsitoDelRiscatto.accolto;
   if (!context.mounted) return;
   // Il conto degli inviti vive sul server: si richiede lo stato, che lo porta.
   if (accolto) await context.read<QuestionAllowance>().sincronizza();
@@ -136,7 +139,10 @@ Future<void> riscattaIlCodiceDellInvito(
     content: Text(accolto
         // Ordine DW voce 05: il premio arriva a tutti e due, e si dice.
         ? 'Fatto: il premio in Eos arriva a te e a chi ti ha invitato.'
-        : 'Questo codice non vale: forse è il tuo, o lo hai già usato.'),
+        : esito == EsitoDelRiscatto.scaduto
+            // Ordine FD voce 06.8, alla lettera.
+            ? rigaDelLinkScaduto
+            : 'Questo codice non vale: forse è il tuo, o lo hai già usato.'),
   ));
 }
 

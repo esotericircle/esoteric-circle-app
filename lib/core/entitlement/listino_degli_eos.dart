@@ -63,6 +63,15 @@ class VoceDelListino {
 class ListinoDegliEos {
   const ListinoDegliEos._();
 
+  /// IL PREMIO DI CHI ARRIVA CON UN INVITO, in Eos. Ordine FD voce 06.5: il
+  /// numero del messaggio "Entrando da qui ricevi NN Eos" si legge da qui, e
+  /// non si scrive a mano nel testo. Lo paga il server
+  /// (`EOS_A_CHI_ARRIVA_CON_UN_INVITO` in `functions/src/borsellino.ts`), e
+  /// la prova `la_rubrica_resta_sul_telefono_test.dart` pretende che i due
+  /// numeri siano uguali: un premio promesso diverso da quello pagato e' una
+  /// promessa falsa.
+  static const int premioDiChiArrivaConUnInvito = 150;
+
   /// LA STESA A TRE CARTE.
   static const stesaTreCarte = VoceDelListino(
     id: 'tarot_spread_three',

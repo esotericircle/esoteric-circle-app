@@ -467,7 +467,8 @@ test("EY.04 la pagina del link non si apre a chi ci scrive dentro", () => {
   assert.ok(p.includes("&lt;script&gt;"));
   assert.ok(p.includes("esotericircle://i/AB12CD34"));
   const scaduto = laPagina(null, null);
-  assert.ok(scaduto.includes("non vale più"));
+  // Ordine FD voce 06.8: il testo del link scaduto, alla lettera.
+  assert.ok(scaduto.includes("Questo invito è scaduto. Chiedi alla persona che te lo ha\n    mandato di rifarlo."));
 });
 
 test("EZ.07 la pagina del link senza store non rimanda a uno store, col dato pieno si'", () => {

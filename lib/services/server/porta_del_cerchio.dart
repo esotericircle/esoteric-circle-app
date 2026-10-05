@@ -10,6 +10,11 @@ import 'package:flutter/foundation.dart';
 /// Il giorno e' una stringa OPACA: il client non la ricalcola e non la
 /// interpreta, la conserva e la confronta. E' cosi' che spostare l'orologio
 /// del telefono smette di avere effetto sui contatori.
+/// L'esito del riscatto di un invito alla registrazione. Ordine FD voce
+/// 06.8: prima era vero o falso, e il link scaduto si confondeva col codice
+/// proprio o gia' usato.
+enum EsitoDelRiscatto { accolto, scaduto, rifiutato }
+
 class StatoDelCerchio {
   const StatoDelCerchio({
     required this.giorno,
@@ -279,7 +284,8 @@ abstract class PortaDelCerchio {
   /// di chi ha invitato e gli accredita il premio. **Torna vero solo se
   /// l'invito e' stato accolto davvero**: un codice gia' usato, o il proprio,
   /// tornano falso senza rompere niente.
-  Future<bool> riscattaLInvito(String codice) async => false;
+  Future<EsitoDelRiscatto> riscattaLInvito(String codice) async =>
+      EsitoDelRiscatto.rifiutato;
 
   Future<StatoDelCerchio?> stato(
       {CamminoDaCustodire? cammino, bool azzeraIlCammino = false});
@@ -472,14 +478,18 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
   }
 
   @override
-  Future<bool> riscattaLInvito(String codice) async {
+  Future<EsitoDelRiscatto> riscattaLInvito(String codice) async {
     // **IL CODICE VA AL SERVER E BASTA.** Qui non si decide niente: chi ha
     // invitato, se il codice vale, se e' gia' stato usato e quanto vale il
     // premio lo sa solo il ramo di chi ha invitato, che il telefono non puo'
     // nemmeno leggere.
     final risposta = await _chiama('riscattaLInvito', {'codice': codice});
-    if (risposta is! Map) return false;
-    return risposta['accolto'] == true;
+    if (risposta is! Map) return EsitoDelRiscatto.rifiutato;
+    if (risposta['accolto'] == true) return EsitoDelRiscatto.accolto;
+    // Ordine FD voce 06.8: il link scaduto si dice per quello che e'.
+    return risposta['perche'] == 'codice scaduto'
+        ? EsitoDelRiscatto.scaduto
+        : EsitoDelRiscatto.rifiutato;
   }
 
   @override

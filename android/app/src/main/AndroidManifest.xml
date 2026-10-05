@@ -11,6 +11,9 @@
          Viso. Nessuna immagine lascia il dispositivo. Con ripiego tattile se il
          permesso manca o la fotocamera non c'e'. -->
     <uses-permission android:name="android.permission.CAMERA"/>
+    <!-- La rubrica, ordine FD voce 06: in sola lettura, chiesta solo al
+         tocco di "Apri la rubrica". I contatti restano sul telefono. -->
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
     <!-- Notifiche: un avviso al giorno, quando il sole sorge, che il Rito
          dell'Alba e' pronto. Si chiede la prima volta che si apre il rito, non
          all'avvio dell'app, e chi dice no continua a usare tutto.
@@ -197,6 +200,12 @@
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
             <data android:mimeType="text/plain"/>
+        </intent>
+        <!-- L'app dei messaggi, ordine FD voce 06: il messaggio gia' scritto
+             si consegna a lei, che lo manda solo se la persona lo manda. -->
+        <intent>
+            <action android:name="android.intent.action.SENDTO"/>
+            <data android:scheme="smsto"/>
         </intent>
     </queries>
 </manifest>

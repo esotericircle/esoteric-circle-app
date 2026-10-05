@@ -13,6 +13,14 @@ import 'widgets/disegni_del_cerchio.dart';
 /// qui: vede chi lo chiama e decide. Chi ha dato il codice ha gia' detto si'
 /// dandolo; chi lo usa dice si' adesso, e nasce l'amicizia. **Nessun legame
 /// nasce senza questo tocco.**
+/// La riga del link d'invito scaduto, alla lettera. Ordine FD voce 06.8.
+const String rigaDelLinkScaduto =
+    'Questo invito è scaduto. Chiedi alla persona che te lo ha mandato di rifarlo.';
+
+/// La riga del codice da inquadrare scaduto, alla lettera. FD.06.8.
+const String rigaDelCodiceScaduto =
+    'Questo codice non vale più. Fatelo mostrare di nuovo.';
+
 Future<void> mostraLaRichiestaDiLegame(
     BuildContext context, String codice) async {
   final sociale = context.read<IlCerchioSociale>();
@@ -20,8 +28,11 @@ Future<void> mostraLaRichiestaDiLegame(
   final letto = await sociale.leggiIlCodice(codice);
   if (!context.mounted) return;
   if (!letto.valido || letto.chi == null) {
-    messaggero?.showSnackBar(const SnackBar(
-        content: Text('Questo invito non vale più: chiedine uno nuovo.')));
+    // Ordine FD voce 06.8: il link d'invito (otto caratteri) e il codice da
+    // inquadrare (sei) dicono ciascuno la sua scadenza, alla lettera.
+    messaggero?.showSnackBar(SnackBar(
+        content: Text(
+            codice.length == 6 ? rigaDelCodiceScaduto : rigaDelLinkScaduto)));
     return;
   }
   final chi = letto.chi!;

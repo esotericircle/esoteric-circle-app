@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../../core/cerchio/i_segni_del_cerchio.dart';
 import '../../core/cerchio/il_cerchio_sociale.dart';
+import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -33,13 +34,47 @@ class IlTuoCerchioScreen extends StatefulWidget {
   State<IlTuoCerchioScreen> createState() => _IlTuoCerchioScreenState();
 }
 
-class _IlTuoCerchioScreenState extends State<IlTuoCerchioScreen> {
+/// **Il Cerchio si rilegge quando si torna qui**, ordine FD voce 05: nel
+/// collaudo sul Realme il legame e' nato mentre la schermata era aperta sotto
+/// l'invito, e al ritorno l'elenco diceva ancora "Il tuo Cerchio è ancora
+/// vuoto" mentre la tendina sopra mostrava l'amico presente. Il difetto
+/// veniva dall'ordine EY (commit af6a327d), che leggeva il Cerchio una volta
+/// sola, all'apertura. Adesso si rilegge quando si chiude una rotta sopra di
+/// lei (la tendina, l'invito, la scheda dell'amico) e quando l'app torna in
+/// primo piano.
+class _IlTuoCerchioScreenState extends State<IlTuoCerchioScreen>
+    with RouteAware, WidgetsBindingObserver {
+  void _rileggi() {
+    if (mounted) context.read<IlCerchioSociale>().caricaIlCerchio();
+  }
+
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted) context.read<IlCerchioSociale>().caricaIlCerchio();
-    });
+    WidgetsBinding.instance.addObserver(this);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _rileggi());
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final rotta = ModalRoute.of(context);
+    if (rotta != null) osservatoreDelCielo.subscribe(this, rotta);
+  }
+
+  @override
+  void dispose() {
+    osservatoreDelCielo.unsubscribe(this);
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didPopNext() => _rileggi();
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState stato) {
+    if (stato == AppLifecycleState.resumed) _rileggi();
   }
 
   Future<void> _rispondi(PersonaDelCerchio p, String azione) async {

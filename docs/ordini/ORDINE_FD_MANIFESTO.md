@@ -11,14 +11,20 @@ nessun rosso si consegna e i tre numeri delle prove coincidono; R8 niente
 dati di produzione; R9 il manifesto coi quattro marcatori; R10 nessuna
 credenziale chiesta in chat. La build 2298 l'ha ordinata il fondatore.
 
-**Le due scelte del fondatore del 5 ottobre 2026**, chieste perche'
+**Le tre scelte del fondatore del 5 ottobre 2026**, chieste perche'
 necessarie: per la R8 i collaudi del Cerchio si isolano in uno spazio
 proprio della presenza (*"Isolare i collaudi"*), e il secondo account di
-collaudo lo crea Code sull'emulatore (*"Sì, fallo tu"*).
+collaudo lo crea Code sull'emulatore (*"Sì, fallo tu"*). L'emulatore non
+parte (virtualizzazione spenta nel firmware, il servizio aehd esce con
+l'errore -95), e la terza scelta, dello stesso giorno, e' il *"Secondo
+telefono finto"*: un client che parla al server come l'app.
 
-VOCI_TOTALI: 5
+**L'aggiunta FD.06 del 5 ottobre 2026**, la rubrica come prima strada nel
+Cerchio, porta le voci da cinque a sei. Non conteneva domande.
+
+VOCI_TOTALI: 6
 VOCI_CHIUSE: 0
-VOCI_APERTE: 5
+VOCI_APERTE: 6
 VOCI_DA_FARE: 0
 
 ## VOCE FD.01, NESSUNA SPESA SENZA CONFERMA
@@ -84,9 +90,43 @@ ACCETTAZIONE: sul telefono il tasto indietro mi riporta indietro, e sulla home m
 **APERTA IN ATTESA DI VERIFICA.** I collaudi hanno uno spazio proprio della
 presenza (`functions/src/i_collaudi.ts`, registro leggibile in
 `docs/collaudo/registro_dei_collaudi.md`), cosi' il giro fra il Realme e
-l'emulatore non legge ne' scrive documenti di utenti reali.
+il secondo telefono finto (`tool/il_secondo_telefono.py`, account
+`Osut7u5T...` nato anonimo, registro dei passi in
+`docs/collaudo/FD/il_secondo_telefono.txt`) non legge ne' scrive documenti
+di utenti reali. Le catture stanno in `docs/collaudo/FD/realme/`. Il giro
+sul Realme ha trovato un difetto dell'ordine EY (commit `af6a327d`): "Il
+tuo Cerchio" leggeva gli amici una volta sola, e dopo il legame nato con la
+schermata aperta diceva ancora "Il tuo Cerchio è ancora vuoto" sotto la
+tendina che mostrava l'amico presente. Adesso si rilegge quando si chiude
+una rotta sopra di lei e quando l'app torna in primo piano
+(`test/il_cerchio_si_rilegge_al_ritorno_test.dart`, rossa con A33 e A34).
 
 DOMANDA: "il Cerchio popolato con il semaforo verde, la riga dell'ultimo dato noto con l'ora, e il Cerchio che torna vuoto quando il primo account esce"
 PROVA: test/i_collaudi_sono_registrati_test.dart
-MISURA: account di collaudo registrati prima 0, dopo 1 su 2
+MISURA: account di collaudo registrati prima 0, dopo 2 su 2; persone nel Cerchio del Realme col secondo account presente 1 col semaforo verde, dopo la sua uscita 0 (ONLINE da 2 a 1); letture del Cerchio di "Il tuo Cerchio" al ritorno da una rotta sopra prima 0, dopo 1
 ACCETTAZIONE: sul Realme vedo l'altro account nel mio Cerchio col semaforo verde, e quando esce il Cerchio torna vuoto
+
+## VOCE FD.06, LA RUBRICA COME PRIMA STRADA NEL CERCHIO
+
+**APERTA IN ATTESA DI VERIFICA.** La schermata "Chiama nel Cerchio" apre
+con una scheda nuova, "Chiama chi conosci", col pulsante "Apri la rubrica";
+le altre tre seguono nell'ordine scritto. Il permesso si chiede solo al
+tocco, una volta, con la riga dell'ordine alla lettera; se e' negato la
+scheda dice "La rubrica è chiusa. Puoi sempre mandare il link." e non lo
+richiede da se'. I contatti si leggono sul telefono
+(`lib/core/cerchio/la_rubrica_del_telefono.dart`), si mostrano in ordine
+alfabetico con la ricerca, se ne scelgono fino a dieci, e il messaggio unico
+coi destinatari va all'app dei messaggi
+(`lib/core/condivisione/la_porta_dei_messaggi.dart`); nessuna copia, nessun
+indice, nessun confronto con gli utenti. Gli Eos del messaggio vengono dal
+listino (`ListinoDegliEos.premioDiChiArrivaConUnInvito`, 150). Le due righe
+di rassicurazione tolte dalle schede stanno intere nella pagina unica della
+privacy, sezione del Cerchio. Premessa abbattuta: "Manda il link" non manda
+a una persona per volta, apre il foglio di condivisione del sistema
+(`lib/features/account/invita_un_amico.dart:29-30`). I testi nuovi della
+scadenza stanno anche nel server, che il fondatore ripubblica.
+
+DOMANDA: "La rubrica diventa la prima strada per portare persone nel Cerchio."
+PROVA: test/la_rubrica_resta_sul_telefono_test.dart
+MISURA: strade nel Cerchio dalla rubrica prima 0, dopo 1, la prima delle quattro schede; richieste del permesso all'apertura della schermata 0, al tocco 1; chiamate di rete che portano un nome o un numero della rubrica 0; persone per messaggio prima 1 per volta dal foglio di condivisione, dopo fino a 10 in un messaggio solo; righe di rassicurazione sulle schede prima 2, dopo 0, nella pagina della privacy prima 0, dopo 2; anteprime a 360x797 5 in docs/preview/FD/
+ACCETTAZIONE: tocco "Apri la rubrica", scelgo tre persone, tocco "Manda l'invito" e l'app dei messaggi si apre con loro tre e il link

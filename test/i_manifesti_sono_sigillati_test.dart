@@ -353,7 +353,7 @@ void main() {
     // FD: cinque voci, contate coi titoli "## VOCE FD." del manifesto il 5
     // ottobre 2026: la conferma della spesa, la porta sola del cielo, i banchi
     // col modello, il tasto indietro, il Cerchio dei collaudi.
-    'FD': 5,
+    'FD': 6,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,
