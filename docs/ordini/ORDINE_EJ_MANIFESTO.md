@@ -383,7 +383,7 @@ piano, il foglio e la strada ai piani.
 **APERTA IN ATTESA DI VERIFICA.** Lo stato d'oro va visto su un telefono
 con un piano dal tier 2 in su, e il tocco che entra nel LIVE da li'.
 
-ASPETTA: lo stato d'oro visto sul Realme col piano Illuminato e il tocco che entra nel LIVE: lo fa Code nel giro sul Realme della build 2297, ordine FC.
+ASPETTA: il tocco che entra nel LIVE dalla pastiglia d'oro, sul Realme. Lo stato d'oro l'ha visto Code il 5 ottobre 2026 sulla build 2297 col piano Illuminato (docs/collaudo/FC/realme/13_ej10_chat_medora.png); il tocco apre subito una sessione vera, con la voce sintetizzata e il volto, cioe' chiamate a pagamento che la regola R11 dell'ordine FC vietava: lo fa il fondatore, o Code in un ordine che lo permetta.
 
 ---
 

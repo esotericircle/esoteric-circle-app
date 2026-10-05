@@ -16,8 +16,8 @@ aumenta il costo: tutto sul telefono, nessuna porta del server nuova.
 unica le ha chiuse insieme, e ognuna ha la sua riga e la sua misura.
 
 VOCI_TOTALI: 11
-VOCI_CHIUSE: 10
-VOCI_APERTE: 1
+VOCI_CHIUSE: 11
+VOCI_APERTE: 0
 VOCI_DA_FARE: 0
 
 ## VOCE FC.01, L'OROSCOPO SI CHIAMA UNIVERSALE
@@ -273,7 +273,7 @@ ACCETTAZIONE: nella rubrica ogni amico ha l'emblema del suo segno, lo stesso che
 
 ## VOCE FC.11, LA SUITE TUTTA VERDE E IL CANCELLO CHE LA ESEGUE
 
-**APERTA IN ATTESA DI VERIFICA.** Ordine FC, Aggiunta del 5 ottobre 2026.
+**CHIUSA.** Ordine FC, Aggiunta del 5 ottobre 2026.
 Prima parte, **nessun rosso si consegna**: le sei rosse ereditate curate con la cura (3) scelta dal
 fondatore (la FC.07), le due rosse che avevo portato io con la prova del
 tetto curate passando dalla porta comune dei sorgenti, e i dieci rossi del
@@ -287,11 +287,13 @@ modello vero stanno fra gli strumenti (`tool/banchi_col_modello/`), perche'
 chiamano Gemini, costano e misurano il modello e non il ramo; cinque prove
 che potevano saltarsi da sole lo pretendono adesso; lo sbarramento conta
 passate, rosse e saltate di ogni pezzo e cade se un caso e' saltato; il
-server scrive il rapporto spec, che nomina le sue cadute. **Resta da vedere
-il cancello su GitHub coi numeri nuovi**: per questo la voce aspetta la
-verifica, e si chiude nella riga in coda al rapporto con i numeri del giro.
+server scrive il rapporto spec, che nomina le sue cadute. **Il cancello di
+GitHub sul commit `c903a01c`** (giro 37256829583) ha eseguito 6743 casi: 6743
+passati, 0 rossi, 0 saltati, in sei pezzi, e il server 185; la suite intera in
+locale sulle stesse prove 6743, il corredo a scala 1,3 193 su 193. La ref
+`refs/verde/c903a01c...` l'ha scritta GitHub, e la build 2297 e' uscita da li'.
 
 DOMANDA: "Il cancello su GitHub deve eseguire tutte le prove del ramo, non una parte [...] dichiara nel rapporto il numero di prove eseguite dal cancello prima e dopo la cura, più il numero di prove che esistono sul ramo. I tre numeri devono coincidere dopo."
-PROVA: test/il_cancello_esegue_tutte_le_prove_test.dart
-MISURA: casi eseguiti dal cancello prima 6692 (6685 passati e 7 rossi, giro 37215562849) su 6703 casi del ramo, 11 saltati; dopo, i casi del cancello e quelli della suite intera locale sullo stesso commit, scritti nella riga in coda al rapporto; rossi accettati prima 12 righe per 17 prove, dopo 0; file di prova che si saltano da soli prima 6, dopo 0
+PROVA: docs/collaudo/FC/il_cancello_esegue_tutto.txt
+MISURA: casi eseguiti dal cancello prima 6692 su 6703 del ramo (6685 passati, 7 rossi accettati, 11 saltati, giro 37215562849 su bcf8eaff), dopo 6743 su 6743 (6743 passati, 0 rossi, 0 saltati, giro 37256829583 su c903a01c); suite intera locale sulle stesse prove 6743 passati su 6743; rossi accettati prima 12 righe per 17 prove, dopo 0; file di prova che si saltano da soli prima 6, dopo 0; corredo a scala 1,3 prima 183 su 193, dopo 193 su 193
 ACCETTAZIONE: il verde di GitHub dice quanti casi ha eseguito, sono tutti quelli del ramo, e nessuno e' rosso
