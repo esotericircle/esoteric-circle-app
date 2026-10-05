@@ -34,11 +34,11 @@ enum LivelloPersonalizzazione {
 ///
 /// **LE DUE ORIGINI, e vanno dette.** Il lato NATALE arriva dalle effemeridi
 /// svizzere, per la callable `natalChart`, ed e' conservato cosi' com'e'. Il
-/// lato TRANSITO arriva dal motore locale di `Effemeridi`, elementi orbitali di
-/// Meeus. Sono due sorgenti diverse per lo stesso tipo di grandezza: misurate
-/// contro JPL Horizons, le longitudini locali stanno entro un decimo di grado
-/// (la Luna e Saturno entro due decimi), mentre l'orbo piu' stretto che qui si
-/// usa e' due gradi. Lo scarto fra le due origini e' dunque venti volte piu'
+/// lato TRANSITO arriva dalla porta del cielo, `IlCieloDiMeeus` (ordine FD
+/// voce 02: prima era `Effemeridi`, a elementi medi). Sono due sorgenti
+/// diverse per lo stesso tipo di grandezza: misurate contro il JPL, le
+/// longitudini locali stanno entro quattro secondi d'arco (la Luna entro
+/// dodici), mentre l'orbo piu' stretto che qui si usa e' due gradi. Lo scarto fra le due origini e' dunque venti volte piu'
 /// piccolo della soglia che decide se un aspetto c'e': in pratica non sposta
 /// niente. Va scritto lo stesso, perche' chi trovera' questo file fra sei mesi
 /// deve sapere che le origini sono due e non una.

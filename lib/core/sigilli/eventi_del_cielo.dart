@@ -18,7 +18,8 @@ import '../astro/il_segno_del_cielo.dart';
 ///
 /// **Tutto nasce da cio' che esisteva.** Le fasi da `MoonPhase`, il segno
 /// della Luna da `NightSky`, i retrogradi da `AspettiDiOggi.retrogradiDelGiorno`,
-/// le longitudini da `Effemeridi`. Le uniche due cose che non c'erano, il
+/// le longitudini dalla porta del cielo, `IlCieloDiMeeus` (prima
+/// dell'ordine FD da `Effemeridi`). Le uniche due cose che non c'erano, il
 /// RITORNO SOLARE e il passaggio da retrogrado a DIRETTO, si ricavano da
 /// quelle stesse effemeridi confrontando due giorni vicini: nessun motore
 /// nuovo, nessuna seconda porta dell'astronomia.

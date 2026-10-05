@@ -61,9 +61,8 @@ class Celestial {
   ///
   /// **La firma resta, il calcolo no.** Il corpo di questa funzione era una
   /// delle DUE copie della stessa formula, l'altra in `NightSky`. Adesso
-  /// entrambe chiedono a `Effemeridi`, che e' la porta sola. La formula la'
-  /// dentro e' identica a quella che stava qui, quindi i valori verificati il
-  /// 1 agosto 2026 non si sono mossi di un millesimo.
+  /// entrambe chiedono alla porta del cielo, `IlCieloDiMeeus` (ordine FD voce
+  /// 02; dal 1 agosto 2026 all'ordine FD la porta era `Effemeridi`).
   static double sunEclipticLongitude(double jd) =>
       IlCieloDiMeeus.longitudine(CorpoCeleste.sole, jd);
 

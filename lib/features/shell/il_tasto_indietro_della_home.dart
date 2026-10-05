@@ -98,26 +98,33 @@ class _IlTastoIndietroDellaHomeState extends State<IlTastoIndietroDellaHome> {
             left: 24,
             right: 24,
             bottom: fondo + 16,
+            // Sta sopra lo Scaffold, fuori dal suo Material: senza questo il
+            // testo prende la sottolineatura gialla dei testi senza Material
+            // (vista nell'anteprima dell'ordine FD).
             child: IgnorePointer(
-              child: AnimatedOpacity(
-                opacity: _avvisoAcceso ? 1 : 0,
-                duration: const Duration(milliseconds: 180),
-                child: Center(
-                  child: Container(
-                    key: const Key('home_avviso_uscita'),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 18, vertical: 10),
-                    decoration: BoxDecoration(
-                      color: ColorTokens.neutralDeepest.withValues(alpha: 0.92),
-                      borderRadius: BorderRadius.circular(22),
-                      border: Border.all(
-                          color: ColorTokens.gold.withValues(alpha: 0.55)),
-                    ),
-                    child: Text(
-                      _avvisoAcceso ? IlTastoIndietroDellaHome.avviso : '',
-                      textAlign: TextAlign.center,
-                      style: TypographyTokens.corpo()
-                          .copyWith(color: ColorTokens.textPrimary),
+              child: Material(
+                type: MaterialType.transparency,
+                child: AnimatedOpacity(
+                  opacity: _avvisoAcceso ? 1 : 0,
+                  duration: const Duration(milliseconds: 180),
+                  child: Center(
+                    child: Container(
+                      key: const Key('home_avviso_uscita'),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18, vertical: 10),
+                      decoration: BoxDecoration(
+                        color:
+                            ColorTokens.neutralDeepest.withValues(alpha: 0.92),
+                        borderRadius: BorderRadius.circular(22),
+                        border: Border.all(
+                            color: ColorTokens.gold.withValues(alpha: 0.55)),
+                      ),
+                      child: Text(
+                        _avvisoAcceso ? IlTastoIndietroDellaHome.avviso : '',
+                        textAlign: TextAlign.center,
+                        style: TypographyTokens.corpo()
+                            .copyWith(color: ColorTokens.textPrimary),
+                      ),
                     ),
                   ),
                 ),

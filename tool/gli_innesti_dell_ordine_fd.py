@@ -92,6 +92,11 @@ INNESTI = [
      '  Future<EsitoDelGesto> regalaGliEos(String a, int quanti,\n'
      '      {ConsensoDellaSpesa? consenso}) async {',
      SPESA, 'lo crea la conferma'),
+    ('A23', 'FD.04', LA_PORTA,
+     '              child: Material(\n'
+     '                type: MaterialType.transparency,\n',
+     '              child: KeyedSubtree(\n',
+     INDIETRO, 'un tocco avvisa'),
     # FD.02, la porta sola del cielo.
     ('A12', 'FD.02', 'lib/core/astro/night_sky.dart',
      '  static double moonEclipticLongitude(DateTime date) =>',

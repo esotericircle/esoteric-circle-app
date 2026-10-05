@@ -19,8 +19,8 @@ import 'il_segno_del_cielo.dart';
 /// avevano), e il cielo arrivava solo a chi aveva i dati di nascita.
 ///
 /// Qui il cielo di un giorno e di un periodo si compone dal motore delle
-/// effemeridi dell'app ([Effemeridi], la stessa porta dei transiti
-/// dell'Oroscopo), in una forma che il modello riceve quando lo chiede con
+/// effemeridi dell'app ([IlCieloDiMeeus], la stessa porta dei transiti
+/// dell'Oroscopo, ordine FD voce 02), in una forma che il modello riceve quando lo chiede con
 /// una funzione (`LeFunzioniDelCielo`): il modello non sa il cielo, lo
 /// domanda, e non lo inventa.
 abstract final class IlCieloPerIlMaestro {

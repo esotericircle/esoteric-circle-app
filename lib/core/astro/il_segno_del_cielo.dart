@@ -22,13 +22,11 @@ import 'zodiac.dart';
 /// FC). Sono tutte cancellate o portate qui. La guardia
 /// `il_segno_ha_una_porta_sola` cade se ne nasce una seconda.
 ///
-/// **IL SOLE DI NASCITA** e' [IlSoleDiNascita], nella libreria del cielo: il
-/// Sole di Meeus (*Astronomical Algorithms*, cap. 25), misurato contro il JPL
-/// DE440s su quaranta istanti fra il 1900 e il 2100. Il motore dei transiti
-/// ([Effemeridi]) e' verificato dal 2020 al 2030, e la guardia
-/// `il_motore_locale_e_per_oggi` vieta giustamente di usarlo per una
-/// nascita: per il Sole non serve, perche' quello di Meeus vale per tutti e
-/// due. **L'ORA**: quella di nascita quando c'e', mezzogiorno dell'ora locale
+/// **IL SOLE DI NASCITA** viene dalla porta del cielo, [IlCieloDiMeeus]
+/// (ordine FD voce 02): Meeus col VSOP87D, misurato contro il JPL DE440s dal
+/// 1900 al 2099, lo stesso Sole dei transiti. Prima dell'ordine FD le
+/// nascite avevano un Sole proprio, perche' il motore dei transiti valeva
+/// solo dal 2020 al 2030. **L'ORA**: quella di nascita quando c'e', mezzogiorno dell'ora locale
 /// quando manca; il fuso del luogo di nascita, o quello di ripiego di
 /// [IlFusoDellaNascita].
 ///

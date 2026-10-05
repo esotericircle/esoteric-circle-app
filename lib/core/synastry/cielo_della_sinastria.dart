@@ -15,7 +15,7 @@ import '../astro/il_segno_del_cielo.dart';
 /// la schermata mostra da sempre una barra che si chiama "Intesa mentale", e
 /// Mercurio e' il pianeta che nella tradizione la regge. Calcolarla senza di
 /// lui avrebbe voluto dire misurare la testa con i pianeti del cuore.
-/// `Effemeridi` lo da' gia', quindi non costa niente in piu'.
+/// La porta del cielo lo da' gia', quindi non costa niente in piu'.
 enum PuntoDelCielo {
   sole('Sole', '☉', CorpoCeleste.sole, femminile: false),
   luna('Luna', '☽', CorpoCeleste.luna, femminile: true),
@@ -59,7 +59,8 @@ enum PuntoDelCielo {
 /// IL CIELO DI UNA PERSONA per la Sinastria: le longitudini dei punti che
 /// contano, e niente altro.
 ///
-/// **Nasce in locale, senza rete.** `Effemeridi` e' aritmetica pura, quindi il
+/// **Nasce in locale, senza rete.** La porta del cielo e' aritmetica pura
+/// (Meeus, ordine FD voce 02), quindi il
 /// cielo di un VIP si calcola sul dispositivo alla velocita' di una moltiplicazione
 /// e cinquanta cieli costano quanto uno. Non c'e' nessuna chiamata, nessuna
 /// chiave, nessuna cache da tenere allineata.

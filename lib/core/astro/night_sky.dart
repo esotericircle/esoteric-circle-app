@@ -20,17 +20,16 @@ class NightSky {
   ///
   /// **La firma resta, il calcolo no.** Qui stava la seconda copia della
   /// formula del Sole, gemella di quella di `Celestial`: due scritture a mano
-  /// dello stesso numero, che prima o poi divergono. Ora la risposta viene da
-  /// `Effemeridi`, la porta sola. La formula e' la stessa, quindi i valori non
-  /// si sono mossi.
+  /// dello stesso numero, che prima o poi divergono. Ora la risposta viene
+  /// dalla porta sola del cielo, `IlCieloDiMeeus` (ordine FD voce 02).
   static double sunEclipticLongitude(DateTime date) =>
       IlCieloDiMeeus.longitudine(CorpoCeleste.sole, MoonPhase.julianDay(date));
 
   /// Longitudine eclittica della Luna in gradi [0, 360).
   ///
   /// **La firma resta, il calcolo no.** Questa era la piu' ricca delle tre
-  /// serie lunari che convivevano, e ha vinto: `Effemeridi` la usa, piu' il
-  /// termine da 0,214 gradi che solo `Celestial.moonEquatorial` aveva.
+  /// serie lunari che convivevano, e ha vinto fino all'ordine FD. Adesso la
+  /// Luna viene dalla porta del cielo: il capitolo 47 di Meeus intero.
   static double moonEclipticLongitude(DateTime date) =>
       IlCieloDiMeeus.longitudine(CorpoCeleste.luna, MoonPhase.julianDay(date));
 

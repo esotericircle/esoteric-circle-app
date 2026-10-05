@@ -143,6 +143,11 @@ void main() {
     await indietro(tester);
     expect(uscite, 0, reason: 'il primo tocco sulla home ha chiuso l\'app');
     expect(avviso, findsOneWidget, reason: 'il primo tocco non ha avvisato');
+    // Fuori da un Material il testo prende la sottolineatura gialla di
+    // debug: l'ha mostrata l'anteprima dell'ordine FD.
+    expect(find.ancestor(of: avviso, matching: find.byType(Material)),
+        findsWidgets,
+        reason: 'l\'avviso sta fuori da un Material: sottolineatura gialla');
 
     ora = ora.add(const Duration(milliseconds: 1500));
     await indietro(tester);

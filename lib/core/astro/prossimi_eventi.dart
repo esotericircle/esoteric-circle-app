@@ -31,8 +31,8 @@ class EventoInArrivo {
 ///
 /// **Una porta sola per l'astronomia, e questa non ne apre una seconda.**
 /// `EventiDelCielo.diOggi` sa dire quali eventi sono attivi in un giorno
-/// dato, leggendo da `MoonPhase`, `NightSky`, `AspettiDiOggi` ed
-/// `Effemeridi`. Qui non si ricalcola niente di astronomico: si CHIEDE A LUI
+/// dato, leggendo da `MoonPhase`, `NightSky`, `AspettiDiOggi` e dalla porta
+/// del cielo, `IlCieloDiMeeus`. Qui non si ricalcola niente di astronomico: si CHIEDE A LUI
 /// giorno per giorno, avanti nel tempo, e si registra dove ogni evento
 /// comincia. Un secondo motore darebbe due risposte diverse alla stessa
 /// domanda, ed e' esattamente la famiglia di difetti che il progetto evita.
