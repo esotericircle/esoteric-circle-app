@@ -39,7 +39,6 @@ import 'widgets/maestro_bust.dart';
 import 'widgets/moon_widget.dart';
 import 'le_righe_della_casa.dart';
 import '../onboarding/primo_approdo.dart';
-import '../../core/astro/il_segno_del_cielo.dart';
 
 /// La schermata eroe, il Santuario.
 ///
@@ -609,8 +608,8 @@ class _SantuarioScreenState extends State<SantuarioScreen>
       // volte, cioe' la seconda porta dell'animale guida.
       if (!mounted) return;
       final profilo = context.read<ProfileController>();
-      final suo = GuideAnimalDerivation.forSign(
-          IlSegnoDelCielo.delSole(profilo.identity.birthDate));
+      final suo =
+          GuideAnimalDerivation.forSign(profilo.identity.segnoDellaNascita);
       if (IQuattroViaggi.nomeDopoLeQuattroDiscese(
               diario.apparizioni, suo.name) ==
           null) {
@@ -679,7 +678,7 @@ class _SantuarioScreenState extends State<SantuarioScreen>
     // e' un segno cablato, e' il segno di quella data. La FRASE sopra invece
     // non lo usa, perche' li' un segno che non e' il tuo e' una bugia detta
     // alla persona, ed era esattamente il difetto.
-    final userZodiac = IlSegnoDelCielo.delSole(profilo.identity.birthDate);
+    final userZodiac = profilo.identity.segnoDellaNascita;
     // **LA COPPIA DELLE RIGHE, ordine BF voce 06.** La variante col segno
     // sui telefoni stretti usciva coi puntini A MEZZA PAROLA ("una runa di
     // pazie...", vista sull'anteprima della home): la legge di AV.03 (una

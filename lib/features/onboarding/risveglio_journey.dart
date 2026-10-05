@@ -32,7 +32,6 @@ import 'primo_approdo.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../core/chat/user_profile.dart';
 import 'widgets/pulsante_del_risveglio.dart';
-import '../../core/astro/il_segno_del_cielo.dart';
 
 /// La coda del Risveglio, dal sigillo in poi: il cielo reale di nascita, la
 /// carta natale ornata, la risonanza coi Maestri e la rivelazione col soffio.
@@ -305,8 +304,7 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
           seed: 14,
           child: TrionfoAnimale(
             key: const ValueKey('animale'),
-            animale: GuideAnimalDerivation.forSign(
-                IlSegnoDelCielo.delSole(widget.details.dateTime)),
+            animale: GuideAnimalDerivation.forSign(widget.details.segno),
             palette: context.palette,
             reduceMotion: MediaQuery.of(context).disableAnimations,
             onContinue: _onAnimaleContinue,
@@ -412,8 +410,7 @@ class _RisveglioJourneyState extends State<RisveglioJourney> {
       case _Phase.animale:
         return TrionfoAnimale(
           key: const ValueKey('animale'),
-          animale: GuideAnimalDerivation.forSign(
-              IlSegnoDelCielo.delSole(widget.details.dateTime)),
+          animale: GuideAnimalDerivation.forSign(widget.details.segno),
           palette: context.palette,
           reduceMotion: MediaQuery.of(context).disableAnimations,
           onContinue: _onAnimaleContinue,

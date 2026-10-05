@@ -45,7 +45,6 @@ import '../maestri/rotta_arte.dart';
 import '../../core/condivisione/premio_della_condivisione.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
 import '../../design_system/transizioni/velo_del_cerchio.dart';
-import '../../core/astro/il_segno_del_cielo.dart';
 
 const List<String> _mesiItaliani = [
   'gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', //
@@ -175,8 +174,7 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
   bool _renderCard = false;
 
   Zodiac get _userSign =>
-      widget.userSign ??
-      IlSegnoDelCielo.delSole(BirthIdentity.example.birthMoment);
+      widget.userSign ?? BirthIdentity.example.segnoDellaNascita;
 
   DateTime get _userBirth =>
       widget.userBirth ?? BirthIdentity.example.birthMoment;
