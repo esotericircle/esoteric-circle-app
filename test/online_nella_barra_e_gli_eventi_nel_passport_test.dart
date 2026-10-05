@@ -227,6 +227,13 @@ void main() {
       Provider.of<NavigationController>(ctxNav, listen: false).goToPassport();
       await tester.pump();
       await tester.pump(const Duration(seconds: 1));
+      // **Lapide dell'ordine FE voce 01**: gli eventi si calcolano in un
+      // isolate (IlCieloCheArriva), che nel tempo finto della prova non
+      // gira; si lascia correre il tempo vero, poi si ridisegna.
+      await tester
+          .runAsync(() => Future<void>.delayed(const Duration(seconds: 6)));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 300));
     }
 
     final tessera = find.byKey(const Key('passport_prossimi_eventi'));

@@ -1,3 +1,4 @@
+import 'package:esoteric_circle/core/astro/il_cielo_che_arriva.dart';
 import 'package:esoteric_circle/core/astro/lingua_degli_eventi.dart';
 import 'package:esoteric_circle/core/astro/natal_chart.dart';
 import 'package:esoteric_circle/core/astro/natal_chart_controller.dart';
@@ -48,6 +49,12 @@ void main() {
     addTearDown(tester.view.reset);
     final carte = NatalChartController();
     if (carta != null) carte.chart = carta;
+    // **Lapide dell'ordine FE voce 01**: il cielo che viene si calcola in un
+    // isolate (IlCieloCheArriva). Si prepara col tempo vero prima di aprire
+    // la schermata, che lo trova pronto: chiesto dalla schermata, dentro il
+    // tempo finto della prova, l'isolate non tornerebbe mai.
+    await tester.runAsync(() => IlCieloCheArriva.prepara(
+        adesso: DateTime(2026, 8, 18), carta: carta, segno: segno));
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MaestroController()),

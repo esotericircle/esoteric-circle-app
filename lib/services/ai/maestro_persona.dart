@@ -3,6 +3,7 @@ import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/testo_del_responso.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/maestro/cio_che_arriva.dart';
+import '../../core/astro/il_cielo_che_arriva.dart';
 import '../../core/astro/prossimi_eventi.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/astro/il_cielo_detto.dart';
@@ -348,14 +349,31 @@ class MaestroPersona {
   /// che questo oggetto porta sempre quando c'e' una nascita: senza segno non
   /// si calcola niente e il blocco non compare, invece di comparire coi soli
   /// eventi generali spacciati per personali.
-  static String _cioCheArriva(NatalContext natal) {
-    Zodiac? segno;
+  static Zodiac? _segnoDi(NatalContext natal) {
     for (final z in Zodiac.values) {
-      if (z.italianName == natal.sunSign) segno = z;
+      if (z.italianName == natal.sunSign) return z;
     }
+    return null;
+  }
+
+  /// **IL CIELO CHE ARRIVA SI PREPARA PRIMA DI COMPORRE. Ordine FE voce
+  /// 01.** Gli eventi in arrivo si calcolano fuori dal filo
+  /// dell'interfaccia ([IlCieloCheArriva]); chi compone l'istruzione per un
+  /// turno lo chiama prima, e l'istruzione li legge gia' pronti.
+  static Future<void> preparaIlCielo(NatalContext natal) async {
+    final segno = _segnoDi(natal);
+    if (segno == null) return;
+    await IlCieloCheArriva.prepara(adesso: DateTime.now(), segno: segno);
+  }
+
+  static String _cioCheArriva(NatalContext natal) {
+    final segno = _segnoDi(natal);
+    // Ordine FE voce 01: gli eventi si leggono gia' calcolati, mai qui sul
+    // filo dell'interfaccia. Se non sono pronti il blocco porta il resto.
     final eventi = segno == null
         ? const <EventoInArrivo>[]
-        : ProssimiEventi.da(adesso: DateTime.now(), segno: segno);
+        : IlCieloCheArriva.gia(adesso: DateTime.now(), segno: segno) ??
+            const <EventoInArrivo>[];
     final blocco = CioCheArriva.blocco(
       eventi: eventi,
       prossimoTraguardo: natal.prossimoTraguardo,
@@ -473,6 +491,7 @@ class MaestroPersona {
     String cieloDeiGiorni = '',
   }) {
     final natalBlock = _natalContext(natal);
+    final cioCheArriva = _cioCheArriva(natal);
     // **IL SEGUITO NON E' UNA PRIMA RISPOSTA.** Ordine EQ, 27 settembre 2026:
     // sul Realme "Vai più a fondo" non faceva niente, e al banco
     // (`tool/sonda_del_seguito.dart`) il seguito arrivava 1 volta su 9 tocchi,
@@ -523,7 +542,8 @@ class MaestroPersona {
       // la regola 8 del fondatore: i Maestri devono sapere gli eventi in
       // arrivo e il prossimo passo del Cammino. Il motore delle date esisteva
       // da tre ordini e nessuno lo portava qui dentro.
-      if (_cioCheArriva(natal).isNotEmpty) ...['', _cioCheArriva(natal)],
+      // Ordine FE voce 01: composto una volta, non due.
+      if (cioCheArriva.isNotEmpty) ...['', cioCheArriva],
       '',
       _memoryContext(memory),
       // **IL RIASSUNTO BREVE DELLA CONVERSAZIONE DI PRIMA. Ordine EX voce

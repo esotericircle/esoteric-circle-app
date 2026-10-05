@@ -15,6 +15,7 @@ import 'specchio_dei_dati.dart';
 import '../shell/barra_del_cerchio.dart';
 import '../../core/astro/lingua_degli_eventi.dart';
 import '../../core/astro/natal_chart.dart';
+import '../../core/astro/il_cielo_che_arriva.dart';
 import '../../core/astro/prossimi_eventi.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/astro/zodiac_controller.dart';
@@ -1340,12 +1341,31 @@ class _ProssimiEventiCosmiciState extends State<_ProssimiEventiCosmici> {
     } catch (errore) {
       carta = null;
     }
-    _eventi = ProssimiEventi.da(
-      adesso: DateTime.now(),
+    // **FUORI DAL FILO. Ordine FE voce 01.** Gli eventi si leggono dalla
+    // porta sola, gia' pronti, o si chiedono e arrivano dopo: l'apertura del
+    // Passport non calcola piu' il cielo sul filo dell'interfaccia.
+    final adesso = DateTime.now();
+    final pronti = IlCieloCheArriva.gia(
+      adesso: adesso,
       carta: carta,
       segno: segno,
       orizzonte: _ProssimiEventiCosmici.orizzonte,
-    ).take(_ProssimiEventiCosmici.quanti).toList();
+    );
+    if (pronti != null) {
+      _eventi = pronti.take(_ProssimiEventiCosmici.quanti).toList();
+      return;
+    }
+    _eventi = const <EventoInArrivo>[];
+    IlCieloCheArriva.prepara(
+      adesso: adesso,
+      carta: carta,
+      segno: segno,
+      orizzonte: _ProssimiEventiCosmici.orizzonte,
+    ).then((eventi) {
+      if (!mounted) return;
+      setState(
+          () => _eventi = eventi.take(_ProssimiEventiCosmici.quanti).toList());
+    });
   }
 
   @override

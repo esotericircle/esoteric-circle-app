@@ -5,6 +5,7 @@ import '../../core/astro/aspetti_di_oggi.dart';
 import '../../core/astro/lingua_degli_eventi.dart';
 import '../../core/astro/natal_chart.dart';
 import '../../core/astro/natal_chart_controller.dart';
+import '../../core/astro/il_cielo_che_arriva.dart';
 import '../../core/astro/prossimi_eventi.dart';
 import '../../core/astro/zodiac.dart';
 import '../../core/astro/zodiac_controller.dart';
@@ -65,7 +66,6 @@ class CalendarioDegliEventiScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final palette = context.palette;
     final quando = adesso ?? DateTime.now();
     Zodiac? segno;
     NatalChart? carta;
@@ -85,6 +85,26 @@ class CalendarioDegliEventiScreen extends StatelessWidget {
       carta = null;
     }
 
+    // **IL CIELO CHE VIENE SI CALCOLA FUORI DAL FILO. Ordine FE voce 01.**
+    // Era calcolato qui dentro, a ogni ridisegno della schermata, sul filo
+    // dell'interfaccia: 400 giorni di cielo col motore di Meeus. Adesso
+    // viene dalla porta sola, gia' pronto o atteso.
+    final pronti =
+        IlCieloCheArriva.gia(adesso: quando, carta: carta, segno: segno);
+    if (pronti != null) {
+      return _conGliEventi(context, segno, carta, pronti);
+    }
+    return FutureBuilder<List<EventoInArrivo>>(
+      future:
+          IlCieloCheArriva.prepara(adesso: quando, carta: carta, segno: segno),
+      builder: (context, esito) => _conGliEventi(
+          context, segno, carta, esito.data ?? const <EventoInArrivo>[]),
+    );
+  }
+
+  Widget _conGliEventi(BuildContext context, Zodiac? segno, NatalChart? carta,
+      List<EventoInArrivo> tutti) {
+    final palette = context.palette;
     // **QUANTO SI SA DI QUESTA PERSONA, chiesto alla porta unica.** La prima
     // stesura decideva l'invito con una condizione scritta qui, e sarebbe
     // stata la seconda verita' sui dati di nascita: il giorno che il Cerchio
@@ -95,7 +115,6 @@ class CalendarioDegliEventiScreen extends StatelessWidget {
     final nullaDiTuo =
         livello == LivelloPersonalizzazione.soloSegno && segno == null;
 
-    final tutti = ProssimiEventi.da(adesso: quando, carta: carta, segno: segno);
     final elenco = [
       for (final evento in tutti)
         if (evento.fraQuantiGiorni <= orizzonteComune ||

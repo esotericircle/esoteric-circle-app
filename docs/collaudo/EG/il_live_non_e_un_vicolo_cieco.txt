@@ -13,6 +13,9 @@ persona legge in ciascuna:
 --- guasto
     La voce non arriva, stasera. Scrivimi: quello che ci siamo detti non si perde.
 
+--- configurazioneIncompleta
+    Questo Maestro non è raggiungibile adesso. Riprova fra poco.
+
 IL TEMPO, voce 06: tetto di 1200 secondi, cioe' venti minuti.
     a 0 secondi passati il Maestro non saluta ancora
     a 1141 secondi mancano meno di 60 secondi: SALUTA

@@ -200,6 +200,9 @@ class FirebaseMaestroAiProvider
     final cieloDeiGiorni =
         await LeFunzioniDelCielo.cieloDeiGiorniNominatiFuoriDalFilo(laDomanda,
             carta: natal.carta);
+    // Ordine FE voce 01, il crash vero del Redmi: gli eventi in arrivo si
+    // calcolano fuori dal filo prima di comporre l'istruzione.
+    await MaestroPersona.preparaIlCielo(natal);
     final istruzione = MaestroPersona.systemInstruction(
       maestro: maestro,
       profile: profile,

@@ -33,6 +33,12 @@ void main() {
         natal: natal,
       );
 
+  // **Lapide dell'ordine FE voce 01**: l'istruzione legge gli eventi gia'
+  // pronti e non li calcola piu' sul filo dell'interfaccia; chi compone un
+  // turno li prepara prima, come fa il provider.
+  setUpAll(() =>
+      MaestroPersona.preparaIlCielo(const NatalContext(sunSign: 'Leone')));
+
   test('il blocco entra nell istruzione di sistema, con un evento vero', () {
     const natal = NatalContext(sunSign: 'Leone');
     final testo = istruzione(natal);
