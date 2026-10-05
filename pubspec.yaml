@@ -199,6 +199,9 @@ dependency_overrides:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  # Le prove sul dispositivo vero, Firebase Test Lab (ordine FE voce 21).
+  integration_test:
+    sdk: flutter
 
   # Linter ufficiale Flutter.
   flutter_lints: ^4.0.0
