@@ -143,7 +143,8 @@ def main():
         for f, nome, cosa in BANCHI:
             print(f'{CARTELLA}/{f} | {nome} | {cosa}')
         return
-    sporco = git('status', '--porcelain', '--', 'lib', 'test', CARTELLA)
+    sporco = git('status', '--porcelain', '--', 'lib', 'test', CARTELLA,
+                 ':(exclude)' + CARTELLA + '/README.md')
     if sporco:
         raise SystemExit('albero non pulito in lib, test o nei banchi: il '
                          'risultato non varrebbe per un commit.\n' + sporco)

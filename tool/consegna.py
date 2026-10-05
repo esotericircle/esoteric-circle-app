@@ -337,7 +337,8 @@ def i_banchi_sono_passati():
     if not trovato:
         return (False, giri[-1] + ' non dice il commit')
     r = subprocess.run(['git', 'diff', '--quiet', trovato.group(1), 'HEAD', '--',
-                        'lib', 'test', 'tool/banchi_col_modello'])
+                        'lib', 'test', 'tool/banchi_col_modello',
+                        ':(exclude)tool/banchi_col_modello/README.md'])
     if r.returncode != 0:
         return (False, 'i banchi di ' + giri[-1] + ' hanno girato sul commit ' +
                 trovato.group(1)[:8] + ', e il codice di adesso e\' diverso')

@@ -19,3 +19,4 @@ e non nel server, o il contrario, la fa cadere.
 | uid | dove | nome nel Cerchio | nato | note |
 |---|---|---|---|---|
 | `iToukegmg2P3LBmlyYGJjkxvFbs1` | Realme 767f596c | Collaudo | prima dell'ordine EN | piano Illuminato, non fondatore |
+| `Osut7u5TyGeq0sr6O54644VNxiE3` | il secondo telefono, `tool/il_secondo_telefono.py` | Collaudo Due | 5 ottobre 2026, ordine FD | account anonimo; l'emulatore non parte (virtualizzazione spenta nel firmware), il fondatore ha scelto il client finto |

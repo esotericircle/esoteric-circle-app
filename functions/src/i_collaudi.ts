@@ -20,6 +20,7 @@
  */
 export const ACCOUNT_DI_COLLAUDO: Readonly<Record<string, string>> = {
   "iToukegmg2P3LBmlyYGJjkxvFbs1": "Realme 767f596c, nome nel Cerchio Collaudo",
+  "Osut7u5TyGeq0sr6O54644VNxiE3": "il secondo telefono, tool/il_secondo_telefono.py, nome nel Cerchio Collaudo Due",
 };
 
 /** Vero se [uid] e' un account di collaudo. */
