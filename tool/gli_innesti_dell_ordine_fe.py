@@ -87,6 +87,12 @@ INNESTI = [
      '      if (dellaFrase >= 0.99 && dellaDomanda >= 0.6 && dellaFrase > meglio) {',
      'flutter test test/il_filo_del_consulto_test.dart -r expanded',
      'la frase ripresa si riconosce'),
+    # FE.22, il filo in cima alla chat.
+    ('A13', 'FE.22', 'lib/features/maestri/chat/widgets/il_filo_in_cima.dart',
+     '      s != null &&\n',
+     '      false &&\n      s != null &&\n',
+     'flutter test test/il_filo_in_cima_test.dart -r expanded',
+     'la domanda e i pareri ci sono'),
     # Regola B PRIMA del tocco: le guardie degli eventi in arrivo (il crash
     # vero del Redmi, FE.01) e della memoria della chat (parte terza).
     ('B5', 'FE.01', 'lib/services/ai/maestro_persona.dart',

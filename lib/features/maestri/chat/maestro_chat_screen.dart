@@ -57,6 +57,7 @@ import 'maestro_chat_controller.dart';
 import 'widgets/chat_bubble.dart';
 import 'widgets/chat_composer.dart';
 import 'widgets/chat_empty_state.dart';
+import 'widgets/il_filo_in_cima.dart';
 import 'widgets/chat_suggestions.dart';
 import '../../../services/ai/voce_sorvegliata.dart';
 import 'widgets/diagnostics_dialog.dart';
@@ -748,6 +749,10 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                   // la scena VIVA pretende la sua altezza minima e si stende
                   // sopra la cima della conversazione, che non si muove. La
                   // ragione intera sta su ScenaSopraLaConversazione.
+                  // **IL FILO IN CIMA. Ordine FE voce 22**: la domanda del
+                  // consulto e i pareri dei Maestri gia' consultati, quando il
+                  // consulto passa da un Maestro all'altro.
+                  IlFiloInCima(maestro: widget.maestro),
                   Expanded(
                     child: ScenaSopraLaConversazione(
                       altezzaMinimaDellaScena: controller.mostraLaScenaDiAttesa
