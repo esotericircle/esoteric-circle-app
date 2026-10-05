@@ -18,10 +18,13 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   testWidgets('la card della rivelazione, per la Volpe e per l\'Orso',
       (tester) async {
-    if (Platform.environment['ANTEPRIMA_CARD'] != '1') {
-      markTestSkipped('senza ANTEPRIMA_CARD non si scrive niente');
-      return;
-    }
+    // **GIRA SEMPRE, SCRIVE SOLO A RICHIESTA. Ordine FC voce 11.2**: qui si
+    // saltava senza ANTEPRIMA_CARD, e il cancello di GitHub contava due casi
+    // saltati a ogni giro. Adesso il componente vero si monta sempre e la
+    // prova pretende che si disegni; l'immagine si scrive solo con
+    // ANTEPRIMA_CARD=1, perche' la suite non deve toccare i file del
+    // repository.
+    final scrivi = Platform.environment['ANTEPRIMA_CARD'] == '1';
     // **IL RAPPORTO E' TRE, come per ogni altra anteprima del progetto.**
     // Ordine CODEMAGIC1 voce 01: qui c'era due, e `corredo_anteprime` l'ha
     // preso sul mac mini facendo cadere la build 2264 al passo dello
@@ -55,9 +58,13 @@ void main() {
         ),
       ));
       await tester.pump(const Duration(milliseconds: 400));
-      await tester.runAsync(() => Future<void>.delayed(
-          const Duration(milliseconds: 300)));
+      await tester.runAsync(
+          () => Future<void>.delayed(const Duration(milliseconds: 300)));
       await tester.pump(const Duration(milliseconds: 400));
+      expect(find.byType(CardDellaRivelazione), findsOneWidget);
+      expect(tester.takeException(), isNull,
+          reason: 'la card della rivelazione di $nome non si disegna');
+      if (!scrivi) continue;
       final png = await (await tester
               .renderObject<RenderRepaintBoundary>(find.byKey(ValueKey(nome)))
               .toImage(pixelRatio: 3))

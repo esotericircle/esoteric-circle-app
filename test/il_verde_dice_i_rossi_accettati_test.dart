@@ -33,10 +33,10 @@ void main() {
 
   test('FC.08: lo script dice quanti e quali rossi sono accettati', () {
     final bash = Process.runSync('bash', ['--version']);
-    if (bash.exitCode != 0) {
-      markTestSkipped('bash non c\'e\' su questa macchina');
-      return;
-    }
+    // **NON SI SALTA, ordine FC voce 11.2**: bash c'e' su ogni macchina del
+    // progetto (Git Bash sul PC, Linux su GitHub). Se manca, la prova lo
+    // dice cadendo invece di saltarsi.
+    expect(bash.exitCode, 0, reason: 'bash non c\'e\' su questa macchina');
     final cartella = Directory.systemTemp.createTempSync('verdetto');
     final conRossi = File('${cartella.path}/con_rossi.txt')
       ..writeAsStringSync('''

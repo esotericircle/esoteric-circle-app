@@ -150,6 +150,8 @@ if [ -n "$DAI_REGISTRI" ]; then
   fi
   ESITO=0
   CONTO_DEI_PEZZI=0
+  SALTATE_DEI_PEZZI=0
+  ROSSE_DEI_PEZZI=0
   PEZZO_LETTO="$(mktemp)"
   for ((k = 0; k < QUANTI_PEZZI; k++)); do
     pretendi_il_registro "suite_$k"
@@ -159,11 +161,31 @@ if [ -n "$DAI_REGISTRI" ]; then
     # Le prove passate di ogni pezzo, dal suo massimo: si sommano.
     MASSIMO_PEZZO="$(sed -nE 's/^[0-9:]+ [+]([0-9]+).*$/\1/p' "$PEZZO_LETTO" \
       | sort -n | tail -1)"
+    # **E ANCHE LE SALTATE E LE ROSSE, ordine FC voce 11.2.** Il cancello
+    # contava solo le passate: un caso saltato non era eseguito e nessuno lo
+    # vedeva. Si leggono dal massimo di ogni contatore del pezzo.
+    SALTATE_PEZZO="$(sed -nE 's/^[0-9:]+ [+][0-9]+ ~([0-9]+).*$/\1/p' \
+      "$PEZZO_LETTO" | sort -n | tail -1)"
+    ROSSE_PEZZO="$(sed -nE 's/^[0-9:]+ [+][0-9]+( ~[0-9]+)? -([0-9]+):.*$/\2/p' \
+      "$PEZZO_LETTO" | sort -n | tail -1)"
     CONTO_DEI_PEZZI=$((CONTO_DEI_PEZZI + ${MASSIMO_PEZZO:-0}))
-    echo "== PEZZO $k: ${MASSIMO_PEZZO:-0} prove passate, esito ${ESITO_PEZZO:-?} =="
+    SALTATE_DEI_PEZZI=$((SALTATE_DEI_PEZZI + ${SALTATE_PEZZO:-0}))
+    ROSSE_DEI_PEZZI=$((ROSSE_DEI_PEZZI + ${ROSSE_PEZZO:-0}))
+    echo "== PEZZO $k: ${MASSIMO_PEZZO:-0} prove passate, ${ROSSE_PEZZO:-0} rosse, ${SALTATE_PEZZO:-0} saltate, esito ${ESITO_PEZZO:-?} =="
     [ "${ESITO_PEZZO:-1}" != "0" ] && ESITO=1
   done
   rm -f "$PEZZO_LETTO"
+  ESEGUITE_DEI_PEZZI=$((CONTO_DEI_PEZZI + ROSSE_DEI_PEZZI))
+  echo "== IL CANCELLO HA ESEGUITO $ESEGUITE_DEI_PEZZI CASI: $CONTO_DEI_PEZZI passati, $ROSSE_DEI_PEZZI rossi, $SALTATE_DEI_PEZZI saltati, in $QUANTI_PEZZI pezzi =="
+  # **UN CASO SALTATO E' UNA PROVA CHE IL CANCELLO NON ESEGUE.** Il
+  # fondatore, ordine FC voce 11.2: "Il cancello su GitHub deve eseguire
+  # tutte le prove del ramo, non una parte". Fino al 5 ottobre 2026 se ne
+  # saltavano undici a ogni giro, e il verde non lo diceva.
+  if [ "$SALTATE_DEI_PEZZI" -gt 0 ]; then
+    echo "== CASI SALTATI: $SALTATE_DEI_PEZZI. Il cancello non li ha eseguiti, e un verde che non li conta non e' vero =="
+    ESITO=1
+    echo "00:00 +0 -1: CASI SALTATI NEL CANCELLO, $SALTATE_DEI_PEZZI [E]" >> "$REGISTRO"
+  fi
   # Una riga sola col totale, cosi' il gettone conta tutte le prove e non
   # quelle del pezzo piu' grande.
   echo "00:00 +$CONTO_DEI_PEZZI: i $QUANTI_PEZZI pezzi della suite, insieme" >> "$REGISTRO"
@@ -239,6 +261,15 @@ if [ -n "$SERVER_DA" ]; then
         [ -z "$nome" ] && continue
         echo "00:00 +0 -1: $nome [E]" >> "$REGISTRO"
       done
+  # **IL RAPPORTO A SPEC E' FORZATO, ordine FC voce 11.2.** Su GitHub
+  # `node --test` senza terminale scriveva il formato TAP ("not ok 3 -
+  # nome"), e qui si cercava solo la crocetta: un rosso del server non
+  # entrava fra le cadute per nome. Adesso lo script `test` di
+  # functions/package.json chiede `--test-reporter=spec` ovunque. E il conto
+  # dei casi del server si dice, a parte da quelli di Flutter.
+  CASI_SERVER="$(sed -nE 's/^[^0-9a-z]*tests ([0-9]+)[[:space:]]*$/\1/p' \
+    "$REGISTRO_SERVER" | tail -1)"
+  echo "== IL SERVER HA ESEGUITO ${CASI_SERVER:-?} CASI =="
   rm -f "$REGISTRO_SERVER"
   if [ "${ESITO_SERVER:-1}" != "0" ]; then
     ESITO=1
@@ -531,6 +562,10 @@ scrivi_il_gettone() {
     echo "SBARRAMENTO_PASSATO"
     echo "numero=${NUMERO:-ignoto}"
     echo "prove=${PASSATE:-0}"
+    # Dall'ordine FC voce 11.2 il gettone dice anche quanti casi il cancello
+    # ha eseguito e quanti ne ha saltati, quando li conta dai pezzi.
+    [ -n "${ESEGUITE_DEI_PEZZI:-}" ] && echo "eseguite=$ESEGUITE_DEI_PEZZI"
+    [ -n "${SALTATE_DEI_PEZZI:-}" ] && echo "saltate=$SALTATE_DEI_PEZZI"
     echo "quando=$(date -u +%Y-%m-%dT%H:%M:%SZ)"
     echo "esito=$1"
   } > "$QUI/../build/sbarramento_passato.txt"

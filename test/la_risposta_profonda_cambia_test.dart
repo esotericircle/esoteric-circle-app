@@ -68,15 +68,13 @@ void main() {
   test('col cielo vero, profonda dice PIU\' cose di breve', () {
     final cielo = CieloDiOggi.perIlGiorno(
         adesso: DateTime(2026, 8, 8), carta: cartaCompleta());
-    if (!cielo.ceCieloVero) {
-      // Il cielo di un giorno puo' non portare nessun transito: senza voci
-      // non c'e' niente da approfondire, e la prova lo dichiara invece di
-      // passare in silenzio su un caso che non ha misurato.
-      markTestSkipped('Il cielo di questo giorno non porta transiti: non '
-          'c\'e'
-          ' niente da approfondire.');
-      return;
-    }
+    // **NON SI SALTA, ordine FC voce 11.2**: qui c'era un markTestSkipped.
+    // Il giorno e' fisso, l'8 agosto 2026, e porta transiti: si pretende, e
+    // se un giorno non li portasse la prova lo direbbe cadendo, invece di
+    // passare in silenzio su un caso che non ha misurato.
+    expect(cielo.ceCieloVero, isTrue,
+        reason: 'Il cielo dell\'8 agosto 2026 non porta transiti: scegli un '
+            'giorno che li porti, la prova non si salta.');
 
     final differenze = <String>[];
     for (final dominio in HoroscopeDomain.values) {

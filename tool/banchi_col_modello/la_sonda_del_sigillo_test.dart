@@ -1,3 +1,18 @@
+// **UN BANCO COL MODELLO VERO, NON UNA PROVA DEL RAMO.** Ordine FC voce
+// 11.2, 5 ottobre 2026.
+//
+// Questi casi stavano in `test/la_sonda_del_sigillo_test.dart` e si saltavano a ogni giro
+// senza `VERTEX_TOKEN`: chiamano Gemini davvero, costano, e misurano il
+// modello, non il codice del ramo. Il fondatore: *"Il cancello su GitHub
+// deve eseguire tutte le prove del ramo, non una parte"*, e *"Nessuna prova
+// viene cancellata, disattivata, saltata"*. Un banco che non puo' girare
+// senza un token e senza spendere non e' una prova che il cancello possa
+// eseguire: e' uno strumento di misura, e sta fra gli strumenti. I casi
+// senza rete dello stesso file restano in `test/` e girano a ogni giro.
+//
+// Si lancia a mano, col token:
+//
+//     VERTEX_TOKEN=$(gcloud auth print-access-token) flutter test tool/banchi_col_modello/la_sonda_del_sigillo_test.dart
 import 'dart:convert';
 import 'dart:io';
 
@@ -76,8 +91,8 @@ void main() {
     for (final (i, (intenzione, via)) in casi.indexed) {
       final forma = forme[i % forme.length];
       final grezzi = <String, String>{};
-      Future<String?> chiamata(
-          String istruzione, String richiesta, Map<String, Schema> campi) async {
+      Future<String?> chiamata(String istruzione, String richiesta,
+          Map<String, Schema> campi) async {
         try {
           final t = await _vertex(istruzione, richiesta, campi, conto);
           grezzi[campi.keys.join(',')] = t ?? '';

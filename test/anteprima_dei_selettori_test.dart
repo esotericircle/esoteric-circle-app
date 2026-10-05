@@ -35,6 +35,7 @@ void main() {
     required bool coiDelegati,
     required LinguaDelCerchio lingua,
     required bool ora,
+    required bool scrivi,
   }) async {
     final chiave = GlobalKey();
     await tester.pumpWidget(
@@ -79,6 +80,15 @@ void main() {
     );
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 400));
+    expect(
+        find.byType(ora ? TimePickerDialog : DatePickerDialog), findsOneWidget);
+    expect(tester.takeException(), isNull,
+        reason: 'il selettore $nome non si disegna');
+    if (!scrivi) {
+      await tester.pumpWidget(const SizedBox.shrink());
+      await tester.pump();
+      return;
+    }
 
     final confine =
         chiave.currentContext!.findRenderObject()! as RenderRepaintBoundary;
@@ -124,17 +134,18 @@ void main() {
 
   for (final (nome, delegati, lingua, ora) in scatti) {
     testWidgets(nome, (tester) async {
-      if (Platform.environment['ANTEPRIMA_SELETTORI'] != '1') {
-        markTestSkipped('senza ANTEPRIMA_SELETTORI non si scrive niente');
-        return;
-      }
+      // **GIRA SEMPRE, SCRIVE SOLO A RICHIESTA. Ordine FC voce 11.2**: qui
+      // si saltava senza ANTEPRIMA_SELETTORI, e il cancello contava cinque
+      // casi saltati a ogni giro. Il selettore si monta sempre; l'immagine
+      // si scrive solo con ANTEPRIMA_SELETTORI=1.
+      final scrivi = Platform.environment['ANTEPRIMA_SELETTORI'] == '1';
       // La finestra e' quella di un telefono vero, in punti logici; il
       // rapporto tre lo mette lo scatto.
       tester.view.physicalSize = const Size(1260, 2580);
       tester.view.devicePixelRatio = 3.0;
       addTearDown(tester.view.reset);
       await scatta(tester, nome,
-          coiDelegati: delegati, lingua: lingua, ora: ora);
+          coiDelegati: delegati, lingua: lingua, ora: ora, scrivi: scrivi);
     });
   }
 }

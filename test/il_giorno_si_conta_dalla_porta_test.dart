@@ -123,13 +123,15 @@ void main() {
         DateTime(2026, 7, 15).timeZoneOffset;
 
     test('lo stesso giorno civile da\' lo stesso Maestro, a ogni ora', () {
-      if (!conOraLegale) {
-        markTestSkipped('questo fuso non ha l\'ora legale (gennaio e luglio '
-            'hanno lo stesso scarto): il difetto non si manifesta e la misura '
-            'direbbe il vero per il motivo sbagliato. Lanciala con '
-            'TZ=Europe/Rome. La guardia strutturale qui sopra vale comunque.');
-        return;
-      }
+      // **NON SI SALTA, ordine FC voce 11.2**: qui c'era un markTestSkipped
+      // per i fusi senza ora legale. Il cancello gira con TZ=Europe/Rome
+      // (tool/sbarramento.sh) e il PC del progetto e' in Italia: l'ora
+      // legale si pretende, e senza la prova lo dice cadendo.
+      expect(conOraLegale, isTrue,
+          reason: 'questo fuso non ha l\'ora legale (gennaio e luglio hanno '
+              'lo stesso scarto): il difetto non si manifesta e la misura '
+              'direbbe il vero per il motivo sbagliato. Lanciala con '
+              'TZ=Europe/Rome.');
       // Dentro l'ora legale, dove la formula vecchia cambiava alle 01:00.
       final giorno = DateTime(2026, 8, 5);
       final atteso = DailyRituals.dawnMaestro(giorno);
@@ -148,10 +150,8 @@ void main() {
     });
 
     test('e attraversando la mezzanotte il Maestro CAMBIA', () {
-      if (!conOraLegale) {
-        markTestSkipped('fuso senza ora legale, vedi sopra');
-        return;
-      }
+      expect(conOraLegale, isTrue,
+          reason: 'fuso senza ora legale, vedi sopra: TZ=Europe/Rome');
       final ieri = DailyRituals.dawnMaestro(DateTime(2026, 8, 4, 23, 59));
       final oggi = DailyRituals.dawnMaestro(DateTime(2026, 8, 5, 0, 0));
       expect(oggi, isNot(ieri),

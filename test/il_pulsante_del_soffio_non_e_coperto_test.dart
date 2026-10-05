@@ -54,11 +54,12 @@ void main() {
       (tester) async {
     await soffio(tester);
     final pulsante = find.byKey(const Key('respiro_tocca'));
-    if (pulsante.evaluate().isEmpty) {
-      markTestSkipped('Il rito di questo giorno non porta un respiro '
-          'contato: non c\'e\' nessun pulsante da misurare.');
-      return;
-    }
+    // **NON SI SALTA, ordine FC voce 11.2**: qui c'era un markTestSkipped.
+    // Il rito e' quello del 7 agosto 2026, che porta il respiro contato: il
+    // pulsante si pretende, e se non c'e' la prova lo dice cadendo.
+    expect(pulsante, findsOneWidget,
+        reason: 'Il rito del 7 agosto 2026 non porta piu\' un respiro '
+            'contato: scegli un giorno che lo porti, la prova non si salta.');
     final rPulsante = tester.getRect(pulsante);
 
     // LA SCHEDA DELL'INTENZIONE: e' cio' che saliva sopra il pulsante.
@@ -91,11 +92,10 @@ void main() {
       (tester) async {
     await soffio(tester);
     final pulsante = find.byKey(const Key('respiro_tocca'));
-    if (pulsante.evaluate().isEmpty) {
-      markTestSkipped('Il rito di questo giorno non porta un respiro '
-          'contato.');
-      return;
-    }
+    // **NON SI SALTA, ordine FC voce 11.2**: il pulsante si pretende.
+    expect(pulsante, findsOneWidget,
+        reason: 'Il rito del 7 agosto 2026 non porta piu\' un respiro '
+            'contato: scegli un giorno che lo porti, la prova non si salta.');
     // SI TOCCA IL CENTRO VERO, non il widget per chiave: toccare per chiave
     // arriverebbe anche a un pulsante coperto, e proverebbe il contrario di
     // cio' che serve. Al centro ci arriva chi ha il dito.
@@ -124,5 +124,4 @@ void main() {
   // `test/il_soffione_respira_test.dart`, che dipinge il pittore vero e
   // guarda i pixel. Al culmine il soffione prende il 71,0 per cento della
   // larghezza, cioe' la quota che l'ordine DD voce 03 pretendeva.
-
 }

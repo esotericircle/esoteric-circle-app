@@ -85,8 +85,7 @@ void main() {
     for (final altezza in altezze) {
       for (final rientri in barre) {
         for (final scala in scale) {
-          await monta(tester,
-              altezza: altezza, rientri: rientri, scala: scala);
+          await monta(tester, altezza: altezza, rientri: rientri, scala: scala);
           final guida = find.byKey(const Key('guida_respiro'));
           final scheda = find.byKey(const Key('ritual_content'));
           if (guida.evaluate().isEmpty || scheda.evaluate().isEmpty) continue;
@@ -139,8 +138,7 @@ void main() {
     for (final altezza in altezze) {
       for (final rientri in barre) {
         for (final scala in scale) {
-          await monta(tester,
-              altezza: altezza, rientri: rientri, scala: scala);
+          await monta(tester, altezza: altezza, rientri: rientri, scala: scala);
           final pulsante = find.byKey(const Key('respiro_tocca'));
           if (pulsante.evaluate().isEmpty) continue;
           misurate++;
@@ -175,15 +173,17 @@ void main() {
         rientri: const EdgeInsets.only(top: 48, bottom: 48),
         scala: 1.3);
     final pulsante = find.byKey(const Key('respiro_tocca'));
-    if (pulsante.evaluate().isEmpty) {
-      markTestSkipped('Il rito di questo giorno non porta un respiro '
-          'contato: non c\'e\' nessun pulsante da toccare.');
-      return;
-    }
+    // **NON SI SALTA, ordine FC voce 11.2**: qui c'era un markTestSkipped.
+    // Il rito e' quello del 7 agosto 2026, che porta il respiro contato: il
+    // pulsante si pretende, e se non c'e' la prova lo dice cadendo.
+    expect(pulsante, findsOneWidget,
+        reason: 'Il rito del 7 agosto 2026 non porta piu\' un respiro '
+            'contato: scegli un giorno che lo porti, la prova non si salta.');
     await tester.tapAt(tester.getCenter(pulsante));
     await tester.pump();
     expect(find.text('3'), findsOneWidget,
-        reason: 'sullo schermo piu' ' stretto il tocco al centro non fa '
+        reason: 'sullo schermo piu'
+            ' stretto il tocco al centro non fa '
             'partire il conto: qualcosa sta davanti e se lo prende');
     await tester.pump(ParoleDelRespiro.durataDelConto);
     await tester.pump(const Duration(milliseconds: 200));
