@@ -50,4 +50,11 @@ casi senza lanciare niente.
 
 ## Quanto costa un giro
 
-COSTO_DEL_GIRO
+**3,22 euro**, misurato una volta il 5 ottobre 2026 sul giro passato del
+commit `5710ea75` (`docs/collaudo/banchi_col_modello/2026-10-05.txt`): 3,60
+dollari da Cloud Monitoring in 83 minuti, quasi tutti di gemini-2.5-flash
+nelle cento discese, al cambio BCE del giorno (1 euro = 1,1204 dollari). E'
+un massimo: nella stessa finestra possono esserci chiamate dell'app di altre
+persone, che Monitoring non separa. Il giro caduto sul 429 dello stesso
+giorno era costato 6,55 euro: lo si conta, perche' un giro rosso si paga
+intero e si rifa'.

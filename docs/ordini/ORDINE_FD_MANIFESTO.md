@@ -23,8 +23,8 @@ telefono finto"*: un client che parla al server come l'app.
 Cerchio, porta le voci da cinque a sei. Non conteneva domande.
 
 VOCI_TOTALI: 6
-VOCI_CHIUSE: 0
-VOCI_APERTE: 6
+VOCI_CHIUSE: 4
+VOCI_APERTE: 2
 VOCI_DA_FARE: 0
 
 ## VOCE FD.01, NESSUNA SPESA SENZA CONFERMA
@@ -46,7 +46,7 @@ ACCETTAZIONE: toccando la pastiglia LIVE vedo "Stai per aprire una sessione dal 
 
 ## VOCE FD.02, UNA PORTA SOLA PER IL CIELO, CON LA SUA VALIDITA'
 
-**APERTA IN ATTESA DI VERIFICA.** Il cielo si calcola con Meeus in una
+**CHIUSA.** Il cielo si calcola con Meeus in una
 libreria sola, `lib/core/astro/meeus/`, e da una porta sola,
 `IlCieloDiMeeus`. Il motore limitato al 2020-2030, `Effemeridi`, e' cancellato,
 come il Sole del capitolo 25, i polinomi sul JPL e il Sole NOAA dell'alba e
@@ -61,7 +61,7 @@ ACCETTAZIONE: il confronto del cielo fra due amici da' gli stessi numeri sulle s
 
 ## VOCE FD.03, I BANCHI COL MODELLO NON SONO CODICE MORTO
 
-**APERTA IN ATTESA DI VERIFICA.** Un comando solo,
+**CHIUSA.** Un comando solo,
 `python tool/banchi_col_modello/i_cinque_banchi.py --costo`, lancia i cinque
 banchi e scrive `docs/collaudo/banchi_col_modello/<data>.txt`; il README dice
 cosa misura ognuno e il costo di un giro in euro; `tool/consegna.py` non
@@ -69,7 +69,7 @@ consegna senza un giro passato sullo stesso codice.
 
 DOMANDA: "un comando solo, scritto in un README in tool/banchi_col_modello/ insieme a cosa testa ciascuno dei cinque banchi"
 PROVA: test/i_banchi_col_modello_hanno_un_comando_test.dart
-MISURA: comandi per lanciare i banchi prima 0 (tre righe a mano, una per file), dopo 1; giri registrati prima 0, dopo 1
+MISURA: comandi per lanciare i banchi prima 0 (tre righe a mano, una per file), dopo 1; giri registrati prima 0, dopo 1 con cinque PASSATO su cinque sul commit 5710ea75 (docs/collaudo/banchi_col_modello/2026-10-05.txt); costo di un giro 3,22 euro
 ACCETTAZIONE: lancio un comando e trovo il file del giro coi cinque esiti e il costo
 
 ## VOCE FD.04, IL TASTO INDIETRO NON ESCE MAI DALL'APP
@@ -87,7 +87,7 @@ ACCETTAZIONE: sul telefono il tasto indietro mi riporta indietro, e sulla home m
 
 ## VOCE FD.05, IL CERCHIO POPOLATO VISTO SU UN TELEFONO VERO
 
-**APERTA IN ATTESA DI VERIFICA.** I collaudi hanno uno spazio proprio della
+**CHIUSA.** I collaudi hanno uno spazio proprio della
 presenza (`functions/src/i_collaudi.ts`, registro leggibile in
 `docs/collaudo/registro_dei_collaudi.md`), cosi' il giro fra il Realme e
 il secondo telefono finto (`tool/il_secondo_telefono.py`, account
@@ -108,7 +108,7 @@ ACCETTAZIONE: sul Realme vedo l'altro account nel mio Cerchio col semaforo verde
 
 ## VOCE FD.06, LA RUBRICA COME PRIMA STRADA NEL CERCHIO
 
-**APERTA IN ATTESA DI VERIFICA.** La schermata "Chiama nel Cerchio" apre
+**CHIUSA.** La schermata "Chiama nel Cerchio" apre
 con una scheda nuova, "Chiama chi conosci", col pulsante "Apri la rubrica";
 le altre tre seguono nell'ordine scritto. Il permesso si chiede solo al
 tocco, una volta, con la riga dell'ordine alla lettera; se e' negato la
