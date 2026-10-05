@@ -1,6 +1,6 @@
 # ORDINE FC, L'OROSCOPO UNIVERSALE, UNA PORTA SOLA E IL VERDE CHE DICE IL VERO
 
-**Sigla:** FC. **Data dell'ordine:** 4 ottobre 2026, tre pezzi e un'Aggiunta (la voce FC.09). **Ramo:**
+**Sigla:** FC. **Data dell'ordine:** 4 ottobre 2026, tre pezzi e due Aggiunte (la voce FC.09 il 4 ottobre, le voci FC.10 e FC.11 il 5 ottobre 2026). **Ramo:**
 `claude/esoteric-circle-master-order-e798aj`, nessun altro. **Partenza:**
 commit `bcf8eaff`, la testa col lavoro dell'ordine FB.
 
@@ -15,8 +15,8 @@ aumenta il costo: tutto sul telefono, nessuna porta del server nuova.
 **Le voci FC.03, FC.04, FC.05 e FC.06 sono figlie della FC.02**: la porta
 unica le ha chiuse insieme, e ognuna ha la sua riga e la sua misura.
 
-VOCI_TOTALI: 9
-VOCI_CHIUSE: 8
+VOCI_TOTALI: 11
+VOCI_CHIUSE: 10
 VOCI_APERTE: 1
 VOCI_DA_FARE: 0
 
@@ -126,47 +126,29 @@ ACCETTAZIONE: nell'oroscopo di un amico scelgo giorno, settimana, mese o anno co
 
 ## VOCE FC.07, LE SETTE PROVE ROSSE DEL RAMO
 
-**APERTA.** Delle sette rosse ereditate una e' chiusa e sei restano rosse,
-DICHIARATE: nessuna si cancella e nessuna si allenta, e tutte e sette sono
-rosse dalla nascita, volute dal loro ordine e scritte fra i rossi accettati
-di `tool/rossi_accettati.txt`.
+**CHIUSA.** Chiusa dalla FC.11.1 il 5 ottobre 2026, con la cura che il
+fondatore ha scelto. Delle sette rosse ereditate:
 
-- **ACCELERA, chiusa.** La sua voce aperta, ACCELERA.03, aspettava la prima
-  consegna col verdetto di GitHub: era arrivata con la 2287 il 28 settembre
-  2026 e nessuno aveva aggiornato il manifesto. Rossa dal 26 settembre 2026
-  (commit `91c21317`). Cura (1), il lavoro era fatto: il manifesto porta la
-  chiusura con la prova ricalcolata dal registro delle versioni.
-- **CR.13, rossa dichiarata** dal 6 settembre 2026 (commit `6734d8c3`):
-  pretende che le soglie della scansione a quattro pose siano misurate su un
-  telefono. Cura (1), la guardia ha ragione: serve il fondatore davanti al
-  Realme che gira la testa, coi valori letti da una riga di registro; nessun
-  agente puo' farlo da solo.
-- **EI, rossa dichiarata** dal 23 settembre 2026 (commit `83084b8b`): EI.10
-  aspetta il soffio vero del fondatore sul Soffio del Destino.
-- **EJ, rossa dichiarata** dal 24 settembre 2026 (commit `8aa44dcd`): sette
-  voci aspettano il giudizio del fondatore (il selettore delle voci, i
-  mezzibusti, Calìgo all'orecchio, lo stato d'oro della pastiglia) o un
-  bersaglio non ancora raggiunto (le risposte dirette).
-- **EK, rossa dichiarata** dal 24 settembre 2026 (commit `9100412c`): il
-  controllo dopo la risposta aspetta la scelta del fondatore, i volti il suo
-  sguardo.
-- **EM, rossa dichiarata** dal 25 settembre 2026 (commit `55ab1bda`): quattro
-  voci aspettano che il fondatore aggiunga l'account del Realme ai fondatori
-  del LIVE dalla console (Code non scrive dati di produzione), una la
-  televisione vera, una (EM.11) ha gia' il suo no e prosegue in altri ordini.
-- **EN, rossa dichiarata** dal 25 settembre 2026 (commit `201ac46f`): l'attesa
-  del LIVE (il fondatore ha detto che deve diminuire), la cornice del volto,
-  il testo della risposta delle 09:54 che vive solo nella sua chat.
+- **ACCELERA, chiusa il 4 ottobre 2026** (cura (1), il lavoro era fatto): la
+  sua voce aperta aspettava la prima consegna col verdetto di GitHub, arrivata
+  con la 2287 il 28 settembre 2026 senza che il manifesto lo dicesse. Rossa
+  dal 26 settembre 2026, commit `91c21317`.
+- **CR.13**, rossa dal 6 settembre 2026 (commit `6734d8c3`), e **le guardie
+  degli ordini EI** (23 settembre, `83084b8b`), **EJ** (24 settembre,
+  `8aa44dcd`), **EK** (24 settembre, `9100412c`), **EM** (25 settembre,
+  `55ab1bda`) ed **EN** (25 settembre, `201ac46f`): pretendevano un gesto del
+  fondatore che sul ramo non esiste (il soffio, una testa davanti al
+  telefono, l'orecchio, lo sguardo, una scrittura in console, una cattura
+  della sua chat). Il fondatore, il 5 ottobre 2026, ha scelto la cura (3)
+  della FC.11.1: la prova gira sul ramo e pretende che ogni voce aperta, e le
+  soglie non misurate, dicano in una riga `ASPETTA:` quale gesto aspettano.
+  Diciannove voci su diciannove lo dicono, e la CR.13 lo dice nel file delle
+  soglie. La REGOLA G cede per queste cinque guardie, sulla sua parola.
 
-La forma usata dalle guardie dall'ordine EQ in poi (le aperte dichiarate e
-non pretese a zero) per queste cinque sarebbe la cura (3), e contraddice la
-REGOLA G del fondatore (un ordine e' finito solo con zero voci aperte): non
-si applica senza un suo si'.
-
-DOMANDA: "Il fatto: sulla testa del ramo la suite intera ha sette prove rosse ereditate, e nessun rapporto le aveva mai dichiarate"
-PROVA: docs/collaudo/ACCELERA/le_consegne_col_cancello_di_github.txt
-MISURA: rosse ereditate prima 7, dopo 6; ognuna con la data e il commit in cui lo e' diventata, e con cio' che serve per chiuderla
-ACCETTAZIONE: nel rapporto leggo per ognuna delle sette rosse cosa pretende, da quando e' rossa e cosa serve per chiuderla
+DOMANDA: "Le sette prove rosse rimaste sul ramo si curano dentro questa aggiunta. Non si segnalano, non si elencano con la causa in attesa di un ordine futuro, non si marcano come note: si curano."
+PROVA: test/le_voci_aperte_dicono_cosa_aspettano.dart
+MISURA: rosse ereditate prima 7, dopo 0; voci aperte dei cinque ordini che dicono quale gesto aspettano prima 0 su 19, dopo 19 su 19; righe del registro dei rossi accettati per queste rosse prima 2, dopo 0
+ACCETTAZIONE: nella suite intera non c'e' piu' nessuna delle sette rosse, e ogni voce aperta di quei cinque ordini dice quale mio gesto aspetta
 
 ## VOCE FC.08, IL CANCELLO ESEGUE LA SUITE INTERA
 
@@ -206,8 +188,14 @@ guardia: il sottotitolo di Online "Chi del tuo Cerchio è qui con te,
 adesso." e, quando la tendina non arriva e non c'e' un ultimo dato noto, "Il
 Cerchio non risponde in questo momento. Riprova fra poco."
 (`IlCerchioSociale.rigaDellaTendinaCheNonArriva`, la stessa nella tendina).
-Resta segnaposto dichiarato solo l'ora dell'ultimo dato, "Aggiornato alle
-21:47." (`IlCerchioSociale.rigaDellUltimoDato`).
+La riga dell'ora e' anche lei del fondatore dal 5 ottobre 2026 (Aggiunta della
+voce FC.10, parte prima): "Il Cerchio come era alle 21:47.", identica nella
+tendina e nella rubrica, con l'ora in cui l'istantanea e' stata presa nel
+formato del telefono (ventiquattro ore, o dodici con AM e PM:
+`lib/features/cerchio/l_ora_del_telefono.dart`). **L'ultimo dato vale
+un'ora**: oltre l'ora non si mostra, si cancella dalla memoria e dal
+telefono, e compare "Il Cerchio non risponde in questo momento. Riprova fra
+poco." Prova: `test/l_ultimo_dato_vale_un_ora_test.dart`.
 
 **IL COSTO, APPROVATO.** La rubrica chiede la tendina **al piu' una volta per
 apertura**, e mai quando la tendina ha meno di un minuto (si riusa), quando
@@ -246,5 +234,64 @@ alla rubrica delle schede, oggi non esiste; non si costruisce qui.
 
 DOMANDA: "in amico vorrei che comparissero anche gli amici online"; e poi "inserire 2 pulsanti: a sinistra offline e a destra online con a fianco il numero di amici online e un cerchietto verde. Di default è selezionato il pulsante offline che mostra gli amici creati dall'utente e se clicca su online compaiono gli amici online."; e il vincolo: "Quando il tetto è raggiunto, l'app NON mostra un errore: mostra l'ultimo dato noto con l'ora a cui è stato preso."
 PROVA: test/il_cerchio_si_vede_dalla_rubrica_test.dart
-MISURA: amici online visibili dalla rubrica prima 0 (la rubrica mostrava solo le schede), dopo 1 su 1 nella prova (Stella Lieve su Online, nascosta su Offline); pulsante scelto all'apertura Offline; chiamate della tendina all'apertura: 0 con la tendina fresca, 1 senza tendina, 0 riaperta subito dopo, 1 con la tendina vecchia di due minuti, 0 senza amici nel Cerchio (numero 0); messaggi di guasto a video col tetto raggiunto prima 1 nella rubrica (la riga del tetto, letta sul codice di 15b6461d e non misurata), dopo 0 nella rubrica, 0 nella tendina, 0 nella rubrica dopo la riapertura dell'app, con "Aggiornato alle" e l'ora dell'ultima tendina; chiamate alla porta della tendina 3 da due schermate e un tetto solo sul server (30); l'icona di Stella nel tondo, luminosita' media 20,5 senza le icone caricate e 39,5 con; catture: docs/preview/prima_dopo/fc09_rubrica_offline_dopo.png, fc09_rubrica_online_dopo.png (Cerchio popolato), fc09_rubrica_online_nessuno_nel_cerchio_dopo.png (Cerchio vuoto), fc09_rubrica_online_ultimo_dato_dopo.png (tetto raggiunto, ultimo dato noto con l'ora), fc09_rubrica_online_non_risponde_dopo.png (errore senza ultimo dato), fc09_rubrica_online_senza_icone_caricate_dopo.png (la prova dell'icona nera); prima: fc_amici_lista_prima.png
+MISURA: amici online visibili dalla rubrica prima 0 (la rubrica mostrava solo le schede), dopo 1 su 1 nella prova (Stella Lieve su Online, nascosta su Offline); pulsante scelto all'apertura Offline; chiamate della tendina all'apertura: 0 con la tendina fresca, 1 senza tendina, 0 riaperta subito dopo, 1 con la tendina vecchia di due minuti, 0 senza amici nel Cerchio (numero 0); messaggi di guasto a video col tetto raggiunto prima 1 nella rubrica (la riga del tetto, letta sul codice di 15b6461d e non misurata), dopo 0 nella rubrica, 0 nella tendina, 0 nella rubrica dopo la riapertura dell'app, con "Il Cerchio come era alle" e l'ora dell'ultima tendina (meno di un'ora; oltre si cancella); chiamate alla porta della tendina 3 da due schermate e un tetto solo sul server (30); l'icona di Stella nel tondo, luminosita' media 20,5 senza le icone caricate e 39,5 con; catture: docs/preview/prima_dopo/fc09_rubrica_offline_dopo.png, fc09_rubrica_online_dopo.png (Cerchio popolato), fc09_rubrica_online_nessuno_nel_cerchio_dopo.png (Cerchio vuoto), fc09_rubrica_online_ultimo_dato_dopo.png (tetto raggiunto, ultimo dato noto con l'ora), fc09_rubrica_online_non_risponde_dopo.png (errore senza ultimo dato), fc09_rubrica_online_senza_icone_caricate_dopo.png (la prova dell'icona nera); prima: fc_amici_lista_prima.png
 ACCETTAZIONE: aprendo "I tuoi amici" vedo Offline scelto coi miei amici e, accanto a Online, quanti amici sono online col cerchietto verde; toccando Online compaiono loro con la loro icona, e se il Cerchio ha detto basta per un po' vedo gli ultimi che c'erano con l'ora, mai un messaggio di guasto
+
+## VOCE FC.10, L'EMBLEMA DELL'AMICO SCRITTO E LA PORTA SOLA DEL SEGNO
+
+**CHIUSA.** Ordine FC, Aggiunta del 5 ottobre 2026. Ogni amico scritto porta
+nel tondo l'emblema del suo segno solare (`LEmblemaDellAmico`, che riusa
+`IconaTonda` del Cerchio coi margini dell'ordine EZ e le icone dei segni
+della famiglia del Cerchio: nessun asset nuovo), nella rubrica, nel bottone
+dell'amico di "Oroscopo per", nel titolo del suo oroscopo e nel dialogo che
+lo toglie. La card da condividere porta gia' l'emblema del suo segno come
+protagonista. **Mai un tondo nero**: finche' l'immagine non c'e', la prima
+lettera del nome; l'amico senza data sul ramo non esiste (il modulo non
+salva senza data, e dal primo giorno, `50747b54`, un dato senza data non si
+legge).
+
+**IL SEGNO DAL SOLE VERO, DA UNA PORTA SOLA.** `IlSegnoDelCielo`
+(`lib/core/astro/il_segno_del_cielo.dart`): il Sole di Meeus della libreria
+del cielo (`IlSoleDiNascita`, misurato contro il JPL fra il 1900 e il 2100),
+all'ora di nascita o a mezzogiorno, nel fuso del luogo. **Scelta presa e
+dichiarata**: l'ordine diceva la libreria che il confronto del cielo usa per
+la Luna, cioe' `NightSky` sopra `Effemeridi`; quel motore e' verificato dal
+2020 al 2030 e la guardia `il_motore_locale_e_per_oggi` vieta di usarlo per
+una nascita, quindi il Sole viene dal calcolo per le nascite della stessa
+libreria, che c'era gia' (nessun secondo calcolo del cielo). Cancellate
+`Zodiac.fromDate` e la sua tabella di date, `NightSky.sunSign`,
+`NightSky.moonSign`, `IlCieloDelSegno.segnoDi`, il `_segnoDi` del cielo
+detto, `CieloDiSinastria.segnoDiLongitudine`, `LAnnuale.segno`,
+`TemaDellaRivoluzione.segno`, `_signFromLon` e `_signOfLongitude`; tutti i
+chiamanti passano dalla porta. La frase del metodo e' nel foglio delle fonti
+dell'oroscopo. Il costo: zero letture e zero scritture.
+
+DOMANDA: "Emblema del segno zodiacale, aggiungi e riscrivi ordine"
+PROVA: test/l_emblema_dell_amico_test.dart
+MISURA: amici scritti con l'emblema prima 0, dopo tutti (3 su 3 nella prova, 12 segni su 12); strade dalla data al segno prima 6 piu' 13 conti dei trenta gradi a mano, dopo 1 porta (test/il_segno_ha_una_porta_sola_test.dart, rossa con una gemella innestata); giorni dal 1900 al 2100 col segno diverso dalle date fisse 1084 su 73414, in 27 giorni del calendario (docs/collaudo/FC/le_cuspidi_del_segno.txt); chiamate al server all'apertura della rubrica prima 0, dopo 0; tondi vuoti nella rubrica Offline prima dell'immagine prima 3 su 3, dopo 0; catture in docs/preview/prima_dopo/fc09_rubrica_offline_dopo.png
+ACCETTAZIONE: nella rubrica ogni amico ha l'emblema del suo segno, lo stesso che dice il suo oroscopo, anche chi e' nato nel giorno in cui il Sole cambia segno
+
+## VOCE FC.11, LA SUITE TUTTA VERDE E IL CANCELLO CHE LA ESEGUE
+
+**APERTA IN ATTESA DI VERIFICA.** Ordine FC, Aggiunta del 5 ottobre 2026.
+Prima parte, **nessun rosso si consegna**: le sei rosse ereditate curate con la cura (3) scelta dal
+fondatore (la FC.07), le due rosse che avevo portato io con la prova del
+tetto curate passando dalla porta comune dei sorgenti, e i dieci rossi del
+corredo a scala 1,3 curati nel codice (il distintivo del Sole del Risveglio,
+la custodia del cielo, la tendina della galleria VIP, la barra che si ritira
+della sua altezza vera): il registro dei rossi accettati non ha piu' righe.
+Seconda parte, **il cancello esegue tutto**: il cancello eseguiva gia' tutti i 1248 file, ma 11 casi si
+saltavano a ogni giro e il suo numero contava solo le passate. Le sei
+anteprime girano sempre e scrivono solo a richiesta; i cinque casi col
+modello vero stanno fra gli strumenti (`tool/banchi_col_modello/`), perche'
+chiamano Gemini, costano e misurano il modello e non il ramo; cinque prove
+che potevano saltarsi da sole lo pretendono adesso; lo sbarramento conta
+passate, rosse e saltate di ogni pezzo e cade se un caso e' saltato; il
+server scrive il rapporto spec, che nomina le sue cadute. **Resta da vedere
+il cancello su GitHub coi numeri nuovi**: per questo la voce aspetta la
+verifica, e si chiude nella riga in coda al rapporto con i numeri del giro.
+
+DOMANDA: "Il cancello su GitHub deve eseguire tutte le prove del ramo, non una parte [...] dichiara nel rapporto il numero di prove eseguite dal cancello prima e dopo la cura, più il numero di prove che esistono sul ramo. I tre numeri devono coincidere dopo."
+PROVA: test/il_cancello_esegue_tutte_le_prove_test.dart
+MISURA: casi eseguiti dal cancello prima 6692 (6685 passati e 7 rossi, giro 37215562849) su 6703 casi del ramo, 11 saltati; dopo, i casi del cancello e quelli della suite intera locale sullo stesso commit, scritti nella riga in coda al rapporto; rossi accettati prima 12 righe per 17 prove, dopo 0; file di prova che si saltano da soli prima 6, dopo 0
+ACCETTAZIONE: il verde di GitHub dice quanti casi ha eseguito, sono tutti quelli del ramo, e nessuno e' rosso

@@ -23,6 +23,10 @@ NOME = 'flutter test test/l_oroscopo_si_chiama_universale_test.dart -r expanded'
 VERDE = 'flutter test test/il_verde_dice_i_rossi_accettati_test.dart -r expanded'
 GESTO = 'flutter test test/il_gesto_in_tutti_i_periodi_test.dart -r expanded'
 RUBRICA = 'flutter test test/il_cerchio_si_vede_dalla_rubrica_test.dart -r expanded'
+PORTA = 'flutter test test/il_segno_ha_una_porta_sola_test.dart -r expanded'
+EMBLEMA = 'flutter test test/l_emblema_dell_amico_test.dart -r expanded'
+ORA = 'flutter test test/l_ultimo_dato_vale_un_ora_test.dart -r expanded'
+CANCELLO = 'flutter test test/il_cancello_esegue_tutte_le_prove_test.dart -r expanded'
 SCHERMATA = 'lib/features/horoscope/oroscopo_screen.dart'
 SOGGETTO = 'lib/features/horoscope/il_soggetto_dell_oroscopo.dart'
 
@@ -163,10 +167,73 @@ INNESTI = [
      "      Text('I tuoi amici del Cerchio che sono qui adesso.',",
      RUBRICA, 'Offline li nasconde'),
     # La causa (b) dell'icona nera, innestata: la riga perde l'icona.
+    # A34 e' stata provata sulla riga com'era prima dell'ordine FC voce 10,
+    # che le ha aggiunto il nome per la lettera nel tondo: il pezzo e' quello
+    # di adesso.
     ('A34', 'FC.09', 'lib/features/cerchio/il_tuo_cerchio_screen.dart',
-     '                IconaTonda(icona: persona.icona, lato: 44),',
-     "                IconaTonda(icona: '', lato: 44),",
+     '                IconaTonda(icona: persona.icona, lato: 44, nome: persona.nome),',
+     "                IconaTonda(icona: '', lato: 44, nome: persona.nome),",
      RUBRICA, 'Offline li nasconde'),
+    # FC.10, la porta sola del segno e l'emblema dell'amico.
+    ('A35', 'FC.10', 'lib/core/astro/night_sky.dart',
+     '  const NightSky._();',
+     '  const NightSky._();\n\n'
+     '  static Zodiac sunSign(DateTime date) =>\n'
+     '      Zodiac.values[(sunEclipticLongitude(date) / 30).floor() % 12];',
+     PORTA, 'solo nella porta'),
+    ('A36', 'FC.10', 'lib/core/cerchio/le_icone_del_cerchio.dart',
+     "      '${FamigliaDelleIcone.segno.name}:${segno.index}';",
+     "      '${FamigliaDelleIcone.segno.name}:${(segno.index + 1) % 12}';",
+     EMBLEMA, 'dodici nascite'),
+    ('A37', 'FC.10', 'lib/core/astro/il_segno_del_cielo.dart',
+     '    final v = gradi % 360.0;',
+     '    final v = (gradi + 1.5) % 360.0;',
+     EMBLEMA, 'le cuspidi'),
+    ('A38', 'FC.10', 'lib/features/cerchio/widgets/disegni_del_cerchio.dart',
+     '          fotogramma == null && !subito ? lettera() : figlio,',
+     '          figlio,',
+     EMBLEMA, 'nessun tondo vuoto'),
+    ('A39', 'FC.10', 'lib/core/astro/il_segno_del_cielo.dart',
+     "      'nascita. In assenza dell\\'ora di nascita si usa mezzogiorno.';",
+     "      'nascita.';",
+     EMBLEMA, 'il metodo'),
+    # FC.10, parte prima: l'ultimo dato e l'ora del telefono.
+    ('A40', 'FC.10', 'lib/core/cerchio/il_cerchio_sociale.dart',
+     '  static const Duration vitaDellUltimoDato = Duration(hours: 1);',
+     '  static const Duration vitaDellUltimoDato = Duration(hours: 2);',
+     ORA, 'sessantuno minuti'),
+    ('A41', 'FC.10', 'lib/features/cerchio/l_ora_del_telefono.dart',
+     '  if (MediaQuery.alwaysUse24HourFormatOf(context)) {',
+     '  if (true) {',
+     ORA, 'dodici ore'),
+    ('A42', 'FC.10', 'lib/core/cerchio/il_cerchio_sociale.dart',
+     '    await _dimenticaLUltimaTendina();',
+     '    // dimenticata la cancellazione',
+     ORA, 'si cancella'),
+    # FC.11, le rosse curate e il cancello.
+    ('A43', 'FC.11', 'docs/ordini/ORDINE_EK_MANIFESTO.md',
+     'ASPETTA: lo sguardo del fondatore sui volti nel LIVE',
+     'Lo sguardo del fondatore sui volti nel LIVE',
+     'flutter test test/ordine_ek_guard_test.dart -r expanded',
+     'quale gesto aspetta'),
+    ('A44', 'FC.11', 'lib/core/face/soglie_della_scansione.dart',
+     '/// ASPETTA: una persona davanti al Realme',
+     '/// Aspetta una persona davanti al Realme',
+     'flutter test test/le_soglie_della_scansione_sono_provvisorie_test.dart -r expanded',
+     'quale gesto aspettano'),
+    ('A45', 'FC.11', 'tool/sbarramento.sh',
+     '  if [ "$SALTATE_DEI_PEZZI" -gt 0 ]; then',
+     '  if false; then',
+     CANCELLO, 'un caso saltato'),
+    ('A46', 'FC.11', 'functions/package.json',
+     'node --test --test-reporter=spec lib/',
+     'node --test lib/',
+     CANCELLO, 'rapporto spec'),
+    ('A47', 'FC.11', 'test/anteprima_card_della_rivelazione_test.dart',
+     "    final scrivi = Platform.environment['ANTEPRIMA_CARD'] == '1';",
+     "    markTestSkipped('di nuovo saltata');\n"
+     "    final scrivi = Platform.environment['ANTEPRIMA_CARD'] == '1';",
+     CANCELLO, 'si salta da sola'),
     ('A12', 'FC.02', SOGGETTO,
      '      amico == null ? s : s.dettoDi(nomeAmico!);',
      '      s;',

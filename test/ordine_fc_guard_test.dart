@@ -7,14 +7,15 @@ import 'package:flutter_test/flutter_test.dart';
 /// VERDE CHE DICE IL VERO.** 4 ottobre 2026.
 ///
 /// Il manifesto `ORDINE_FC_MANIFESTO.md` porta le nove voci dell'ordine
-/// (FC.01-FC.08 dei tre pezzi, FC.09 dell'Aggiunta 1), ognuna con uno stato solo fra quelli canonici
+/// (FC.01-FC.08 dei tre pezzi, FC.09 dell'Aggiunta 1, FC.10 e FC.11
+/// dell'Aggiunta del 5 ottobre 2026), ognuna con uno stato solo fra quelli canonici
 /// (CHIUSA, APERTA, oppure APERTA IN ATTESA DI VERIFICA), e i marcatori
 /// dicono le stesse cose delle voci. Ogni voce porta la DOMANDA, la PROVA, la
 /// MISURA e la frase di ACCETTAZIONE, e le prove che nomina esistono.
 void main() {
   final manifesto = File('docs/ordini/ORDINE_FC_MANIFESTO.md');
   final voci = [
-    for (var i = 1; i <= 9; i++) 'FC.${i.toString().padLeft(2, '0')}'
+    for (var i = 1; i <= 11; i++) 'FC.${i.toString().padLeft(2, '0')}'
   ];
 
   int marcatore(String testo, String nome) {
@@ -25,14 +26,14 @@ void main() {
     return int.parse(trovato!.group(1)!);
   }
 
-  test('il manifesto esiste e porta tutte le nove voci', () {
+  test('il manifesto esiste e porta tutte le undici voci', () {
     expect(manifesto.existsSync(), isTrue);
     final testo = manifesto.readAsStringSync();
     final mancanti = [
       for (final v in voci)
         if (!testo.contains('## VOCE $v,')) v,
     ];
-    expect(voci, hasLength(9));
+    expect(voci, hasLength(11));
     expect(mancanti, isEmpty, reason: 'voci non nominate: $mancanti');
   });
 
@@ -68,7 +69,7 @@ void main() {
     print('ORDINE FC: voci $dichiarate, chiuse $chiuse, aperte $aperte, da '
         'fare $daFare');
     expect(storte, isEmpty);
-    expect(dichiarate, 9);
+    expect(dichiarate, 11);
     expect(contateChiuse, chiuse);
     expect(contateAperte, aperte);
     expect(daFare, 0);

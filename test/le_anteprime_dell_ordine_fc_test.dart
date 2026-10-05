@@ -98,7 +98,8 @@ void main() {
     });
   }
 
-  Future<void> monta(WidgetTester tester, Widget home) async {
+  Future<void> monta(WidgetTester tester, Widget home,
+      {List<Amico> anche = const []}) async {
     silenzia();
     SharedPreferences.setMockInitialValues({
       'oroscopo_segno_rivelato': ['cinese', 'vedica'],
@@ -122,6 +123,9 @@ void main() {
     await tester.runAsync(() async {
       await amici.carica();
       await amici.aggiungi(amica, Tier.tier3);
+      for (final a in anche) {
+        await amici.aggiungi(a, Tier.tier3);
+      }
     });
     await tester.pumpWidget(MultiProvider(
       providers: [
@@ -244,7 +248,15 @@ void main() {
                 adesso: tendina == 'tetto'
                     ? sociale.tendinaArrivata!.add(const Duration(minutes: 5))
                     : null),
-          ));
+          ),
+          // Tre amici scritti di segni diversi, perche' gli emblemi si
+          // vedano (ordine FC voce 10): Lucia Capricorno, Marco Cancro, e
+          // Sara nata il 20 gennaio 1950, Capricorno per il Sole vero e
+          // Acquario per le date fisse di prima.
+          anche: [
+            Amico(id: 'marco', nome: 'Marco', nascita: DateTime(1985, 7, 15)),
+            Amico(id: 'sara', nome: 'Sara', nascita: DateTime(1950, 1, 20)),
+          ]);
       if (icone) {
         await tester.runAsync(() async {
           final ctx = radice.currentContext!;

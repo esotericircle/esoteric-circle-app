@@ -5,11 +5,15 @@ piu': chi apre l'oroscopo di un amico apre la stessa schermata del proprio,
 col soggetto impostato su di lui, e ha il cielo, il gesto con la sua scena,
 le infografiche, i quattro periodi e le tradizioni. Il nome dell'arte e'
 "Oroscopo Universale". Il cancello di GitHub esegue gia' la suite intera, e
-adesso il suo verde dice quanti e quali rossi ha accettato. Delle sette rosse
-ereditate una e' chiusa, sei restano dichiarate col gesto che serve. E in
-cima alla rubrica degli amici ci sono due pulsanti, Offline e Online, col
-numero degli amici online e il cerchietto verde (Aggiunta 1, voce FC.09,
-nella forma che il fondatore le ha dato la stessa sera).
+adesso il suo verde dice quanti e quali rossi ha accettato. In cima alla
+rubrica degli amici ci sono due pulsanti, Offline e Online, col numero degli
+amici online e il cerchietto verde (Aggiunta 1, voce FC.09). **E con
+l'Aggiunta del 5 ottobre 2026**: ogni amico scritto porta nel tondo
+l'emblema del suo segno, e il segno di una data nasce da una porta sola, dalla
+posizione vera del Sole (FC.10); l'ultimo dato del Cerchio dice "Il Cerchio
+come era alle" con l'ora del telefono e vale un'ora; nessuna prova del ramo e'
+piu' rossa, nessuna si salta, e il registro dei rossi accettati e' vuoto
+(FC.11).
 
 Ramo `claude/esoteric-circle-master-order-e798aj`, partenza `bcf8eaff`, 4
 ottobre 2026. Manifesto: `docs/ordini/ORDINE_FC_MANIFESTO.md`. Regola A:
@@ -25,11 +29,14 @@ per 797 punti: `docs/preview/prima_dopo/fc_*`. Prova del cancello:
 - FC.04, il fondale cosmico, non il nero: test/l_oroscopo_e_uno_solo_test.dart
 - FC.05, le stesse infografiche: test/l_oroscopo_e_uno_solo_test.dart
 - FC.06, giorno, settimana, mese, anno anche per l'amico: test/l_oroscopo_e_uno_solo_test.dart
+- FC.07, le sette prove rosse del ramo: test/le_voci_aperte_dicono_cosa_aspettano.dart
 - FC.08, il cancello esegue la suite intera: docs/collaudo/FC/il_cancello_diventa_rosso.txt
 - FC.09, gli amici online nella rubrica degli amici: test/il_cerchio_si_vede_dalla_rubrica_test.dart
+- FC.10, l'emblema dell'amico scritto e la porta sola del segno: test/l_emblema_dell_amico_test.dart
 
-La FC.07 e' APERTA: sei rosse su sette restano, dichiarate una per una qui
-sotto e nel manifesto.
+La FC.11 e' APERTA IN ATTESA DI VERIFICA: il codice e le prove sono fatti, e
+si chiude nella riga in coda col numero dei casi che il cancello di GitHub
+ha eseguito, accanto a quello della suite intera sullo stesso commit.
 
 ## LE PREMESSE ABBATTUTE
 
@@ -170,7 +177,8 @@ cosi' (`lib/features/amici/gli_amici_online.dart`, la riga di prima tolta):
 | accanto a Online | il numero degli amici online e il cerchietto verde, pieno se qualcuno c'e', velato se nessuno o se il numero non si sa |
 | Cerchio popolato | "Chi del tuo Cerchio è qui con te, adesso." e gli amici presenti con la riga della tendina (`AmicoPresente`), con la loro icona; sotto, "Il tuo Cerchio" |
 | Cerchio vuoto | numero 0, ed e' vero; "Il tuo Cerchio è ancora da chiamare." (intatto) e l'invito |
-| tetto raggiunto, o rete assente, con un ultimo dato | l'ultimo dato noto, il suo numero e "Aggiornato alle" con l'ora; nessun guasto |
+| tetto raggiunto, o rete assente, con un ultimo dato di meno di un'ora | l'ultimo dato noto, il suo numero e "Il Cerchio come era alle 21:47." con l'ora in cui e' stato preso, nel formato del telefono; nessun guasto |
+| ultimo dato di piu' di un'ora | non si mostra, si cancella dalla memoria e dal telefono, e compare "Il Cerchio non risponde in questo momento. Riprova fra poco." |
 | nessun ultimo dato e il Cerchio non risponde | nessun numero; "Il Cerchio non risponde in questo momento. Riprova fra poco." e Riprova |
 
 **Il costo, approvato.** La rubrica chiede la tendina **al piu' una volta
@@ -188,8 +196,16 @@ chiamate l'ora e' della porta `laTendinaDelCerchio` sul server, uno solo, e
 il telefono la chiama da un punto solo (`IlCerchioSociale.caricaLaTendina`),
 che adesso usano due schermate. Quando la richiesta non arriva il Cerchio
 sociale tiene l'ultima tendina e lo dice (`tendinaNonAggiornata`); la
-rubrica e la tendina la mostrano con "Aggiornato alle" e l'ora a cui e' stata
-presa. L'ultima tendina sta anche sul telefono (`cerchio.ultimaTendina`, con
+rubrica e la tendina la mostrano con "Il Cerchio come era alle" e l'ora a cui
+e' stata presa (testo del fondatore dall'Aggiunta del 5 ottobre 2026; l'ora
+segue il telefono, ventiquattro ore oppure dodici con AM e PM,
+`lib/features/cerchio/l_ora_del_telefono.dart`). **L'ultimo dato vale
+un'ora**: la presenza vive in novanta secondi e il tetto e' orario, quindi
+oltre l'ora il dato direbbe presente chi non c'e'; si cancella dalla memoria
+e dal telefono. Misura in `test/l_ultimo_dato_vale_un_ora_test.dart`: a 59
+minuti l'elenco con "Il Cerchio come era alle 01:06.", a 61 minuti nessun
+elenco e il testo del guasto; "21:47" a ventiquattro ore e "9:47 PM" a
+dodici; l'ultima tendina sul telefono prima vera, dopo l'ora falsa. L'ultima tendina sta anche sul telefono (`cerchio.ultimaTendina`, con
 lo uid di chi l'ha ricevuta, tolta all'uscita), per l'app riaperta dentro
 l'ora del tetto. Misura nella prova del tetto, con la porta che concede una
 chiamata e poi risponde `resource-exhausted` come il server: chiamate alla
@@ -224,8 +240,8 @@ cade se la riga perde l'icona (A34).
 al contrario non c'e'**: misurato il 4 ottobre 2026, dal Cerchio alla rubrica
 degli amici non porta nessun tocco, e la rubrica si apre solo dall'oroscopo
 ("Oroscopo per"). Non costruito. **I testi**: i due del fondatore sono
-scritti carattere per carattere e provati dalla guardia; resta segnaposto
-dichiarato solo "Aggiornato alle 21:47.". Anteprime a 360 per 797 punti, in
+scritti carattere per carattere e provati dalla guardia, e dal 5 ottobre
+2026 anche la riga dell'ora, "Il Cerchio come era alle 21:47." Anteprime a 360 per 797 punti, in
 `docs/preview/prima_dopo/`: prima `fc_amici_lista_prima.png` (la rubrica
 senza Online); dopo `fc09_rubrica_offline_dopo.png`,
 `fc09_rubrica_online_dopo.png` (Cerchio popolato),
@@ -246,42 +262,231 @@ l'elenco Online usa la stessa riga, gli stessi due gesti e la stessa porta,
 e quindi dice le stesse persone, con lo stesso ultimo dato quando il tetto e'
 raggiunto.
 
-## LO STATO DELLE SETTE ROSSE (FC.07)
+## LO STATO DELLE SETTE ROSSE (FC.07), CURATE DALLA FC.11
 
-Rosse prima 7, dopo 6. Tutte rosse dalla nascita, volute dal loro ordine:
+Rosse prima 7, dopo 0. Il fondatore, nell'Aggiunta del 5 ottobre 2026: *"Le
+sette prove rosse rimaste sul ramo si curano dentro questa aggiunta. Non si
+segnalano"*. Per ognuna il nome, la causa misurata, la cura, il verde:
 
-| rossa | cosa pretende | rossa da | stato |
+| prova | causa misurata | cura | verde |
 | --- | --- | --- | --- |
-| ACCELERA | zero voci aperte; ACCELERA.03 aspettava la prima consegna col verdetto di GitHub | 26/09/2026, `91c21317` | **chiusa**: la consegna era arrivata con la 2287 il 28/09, e il manifesto non lo diceva |
-| CR.13 | le soglie della scansione a quattro pose misurate su un telefono | 06/09/2026, `6734d8c3` | **rossa dichiarata**: serve il fondatore davanti al Realme che gira la testa |
-| EI | zero voci aperte; EI.10 | 23/09/2026, `83084b8b` | **rossa dichiarata**: il soffio vero del fondatore |
-| EJ | zero voci aperte; sette voci | 24/09/2026, `8aa44dcd` | **rossa dichiarata**: giudizi del fondatore e risposte dirette non ancora a zero |
-| EK | zero voci aperte; due voci | 24/09/2026, `9100412c` | **rossa dichiarata**: la scelta sul controllo dopo la risposta, lo sguardo sui volti |
-| EM | zero voci aperte; sei voci | 25/09/2026, `55ab1bda` | **rossa dichiarata**: l'account del Realme fra i fondatori del LIVE (console), la televisione vera, l'attesa |
-| EN | zero voci aperte; tre voci | 25/09/2026, `201ac46f` | **rossa dichiarata**: l'attesa del LIVE, la cornice, il testo delle 09:54 |
+| `ordine_accelera_guard`, "ogni voce dichiara uno stato terminale" | ACCELERA.03 aspettava la prima consegna col verdetto di GitHub, arrivata con la 2287 il 28/09 senza che il manifesto lo dicesse (rossa dal 26/09, `91c21317`) | (1), il lavoro era fatto: la voce chiusa con la prova ricalcolata dal registro delle versioni (4 ottobre) | 4 su 4 |
+| `le_soglie_della_scansione_sono_provvisorie`, "le soglie delle quattro pose sono state misurate su un telefono" | `tarateSuUnDispositivo` falso: le soglie aspettano una persona davanti al telefono che gira la testa (rossa dal 06/09, `6734d8c3`) | (3), scelta dal fondatore: la prova riscritta con la lapide pretende che il flag, il referto e la riga `ASPETTA:` del file delle soglie dicano la stessa cosa | 2 su 2 |
+| `ordine_ei_guard`, "ogni voce dichiara uno stato terminale" | EI.10 aspetta il soffio vero del fondatore (rossa dal 23/09, `83084b8b`) | (3): la prova comune `le_voci_aperte_dicono_cosa_aspettano.dart`, ogni voce aperta con la sua riga `ASPETTA:` | 1 aperta su 1 dice cosa aspetta |
+| `ordine_ej_guard`, idem | sette voci aspettano il fondatore (rossa dal 24/09, `8aa44dcd`) | (3), idem | 7 su 7 |
+| `ordine_ek_guard`, idem | due voci (rossa dal 24/09, `9100412c`) | (3), idem | 2 su 2 |
+| `ordine_em_guard`, idem | sei voci (rossa dal 25/09, `55ab1bda`) | (3), idem | 6 su 6 |
+| `ordine_en_guard`, idem | tre voci (rossa dal 25/09, `201ac46f`) | (3), idem | 3 su 3 |
 
-Nessuna cancellata, nessuna allentata. Per EI, EJ, EK, EM ed EN la forma delle
-guardie dall'ordine EQ in poi (le aperte dichiarate e non pretese a zero)
-sarebbe la cura (3), e contraddice la REGOLA G: e' una decisione del
-fondatore, qui sotto.
+**Le prove sparite dall'elenco**: il caso "ogni voce dichiara uno stato
+terminale, e i conti tornano" delle cinque guardie d'ordine e' sostituito da
+"ogni voce ha uno stato, i conti tornano, e ogni voce aperta dice quale gesto
+aspetta", nello stesso file, con la lapide; "le soglie delle quattro pose
+sono state misurate su un telefono" e' sostituito da "le soglie delle quattro
+pose dicono se sono misurate, e se no quale gesto aspettano". Il perche':
+pretendevano un gesto che sul ramo non esiste, e il fondatore ha scelto la
+cura (3) il 5 ottobre 2026 sapendo che la REGOLA G cede per queste cinque.
+**I gesti che restano al fondatore** sono nelle decisioni qui sotto, uno per
+voce.
+
+**E i rossi che il verde accettava senza essere fra le sette**: i dieci del
+corredo a scala 1,3 e le due prove che avevo portato io con la prova del
+tetto. Curati nel codice, sezione della FC.11.
+
+## L'EMBLEMA DELL'AMICO E LA PORTA SOLA DEL SEGNO (FC.10)
+
+Il fondatore, il 5 ottobre 2026: *"Emblema del segno zodiacale, aggiungi e
+riscrivi ordine"*. **La premessa abbattuta**: la lista Offline non aveva
+icone perche' nessuno gliele aveva date, non perche' gli amici scritti non
+ne avessero: la data di nascita dice il segno, e i dodici emblemi stanno gia'
+nella famiglia delle icone del Cerchio.
+
+**L'emblema** (`lib/features/amici/l_emblema_dell_amico.dart`) riusa
+`IconaTonda` del Cerchio, coi margini interni dell'ordine EZ: l'emblema sta
+intero nel quadrato inscritto. Nessun asset nuovo. **Dove compare un amico
+scritto, tutti i punti del ramo**:
+
+| punto | file e riga | l'emblema |
+| --- | --- | --- |
+| la riga della rubrica "I tuoi amici" | `lib/features/amici/amici_screen.dart:260` | si', 44 punti |
+| il dialogo "Togliere Lucia?" | `lib/features/amici/amici_screen.dart:163` | si', 56 punti |
+| il bottone dell'amico in "Oroscopo per" | `lib/features/horoscope/oroscopo_screen.dart:1534`, `oroscopo_per.dart:88` | si', 24 punti |
+| il titolo "L'oroscopo di Lucia" | `lib/features/horoscope/oroscopo_screen.dart:1392` | si', 32 punti |
+| la card da condividere | `lib/features/horoscope/oroscopo_share_card.dart:230` | l'emblema del suo segno e' gia' il protagonista della card, sopra il nome: un tondo in piu' lo ripeterebbe |
+| il premio della condivisione, "Hai mandato un oroscopo a Lucia" | `lib/features/horoscope/oroscopo_screen.dart:2438` | testo di un momento, non una vista dell'amico |
+| la frase con cui si apre la chat di Medora | `lib/features/maestri/chat/chat_openers.dart:107` | testo che la persona manda, non una vista |
+
+**Mai un tondo nero**: finche' l'immagine non e' disegnata, o se non si
+carica, nel tondo sta la prima lettera del nome, centrata, nei colori del
+tondo (anche nelle righe del Cerchio). **L'amico senza data non esiste sul
+ramo**, misurato: il modulo non salva senza la data (`amico_salva` spento), e
+dal primo giorno (`50747b54`, 29 settembre 2026) `Amico.fromJson` scarta un
+dato senza data. Quindi l'anteprima "amico senza data" non c'e'.
+
+**Il segno dal Sole vero.** Il metodo del fondatore: il settore di trenta
+gradi in cui sta il Sole alla nascita, all'ora scritta o a mezzogiorno, nel
+fuso del luogo. **La scelta, presa e dichiarata**: l'ordine nominava la
+libreria che il confronto del cielo usa per la Luna, `NightSky` sopra
+`Effemeridi`; quel motore e' verificato dal 2020 al 2030 e la guardia
+`il_motore_locale_e_per_oggi` vieta giustamente di usarlo per una nascita. La
+stessa libreria del cielo ha gia' il Sole per le nascite, `IlSoleDiNascita`
+(Meeus, misurato contro il JPL fra il 1900 e il 2100), ed e' quello che usava
+gia' l'occidentale delle tradizioni: la porta e' nata da li', senza un secondo
+calcolo del cielo. La frase del metodo sta nel foglio delle fonti
+dell'oroscopo, con le parole del fondatore.
+
+**I punti dove un segno nasceva da una data, prima della cura** (commit
+`7fd8098d`, 75 righe di `lib`, nessuna nel server):
+
+- **A date fisse**: `lib/core/astro/zodiac.dart:124` (`Zodiac.fromDate`,
+  con la tabella `from`/`to` di ogni segno), chiamata da
+  `lib/core/astro/natal_chart_controller.dart:126`,
+  `lib/core/cammino/ritrovamento.dart:226`,
+  `lib/core/identity/natal_identity.dart:233`,
+  `lib/features/amici/amici_screen.dart:261`,
+  `lib/features/horoscope/il_soggetto_dell_oroscopo.dart:71` e `:117`,
+  `lib/features/horoscope/oroscopo_screen.dart:226`,
+  `lib/services/apertura_delle_chiamate.dart:52`,
+  `lib/services/free_astro_client.dart:284`.
+- **Sul motore dei transiti, anche per le nascite**:
+  `lib/core/astro/night_sky.dart:30` (`NightSky.sunSign`), chiamata da
+  `lib/core/identity/birth_identity.dart:91`,
+  `lib/core/identity/circle_seal.dart:92`,
+  `lib/core/rituals/dawn_gift.dart:162`,
+  `lib/core/sigilli/eventi_del_cielo.dart:154`,
+  `lib/features/identity/widgets/birth_companions.dart:44`,
+  `lib/features/maestri/art_navigation.dart:82`,
+  `lib/features/onboarding/onboarding_screen.dart:387`,
+  `lib/features/onboarding/risveglio_journey.dart:309` e `:416`,
+  `lib/features/passport/cosmic_passport_screen.dart:587`,
+  `lib/features/santuario/santuario_screen.dart:613` e `:682`,
+  `lib/features/synastry/sinastria_vip_screen.dart:178`.
+- **Il segno della Luna da una data**: `lib/core/astro/night_sky.dart:43`
+  (`NightSky.moonSign`), con ventidue chiamanti in `lib` (il cielo detto, il
+  cielo per il Maestro, il confronto del cielo, l'oroscopo, la Luna di
+  nascita, il consiglio finale, il rito del sogno, l'animale del giorno, il
+  soffio, il rito dell'alba, gli eventi del cielo, il Santuario).
+- **Il segno di un corpo a una data, due gemelle**:
+  `lib/core/horoscope/il_cielo_del_segno.dart:35`
+  (`IlCieloDelSegno.segnoDi`, chiamata da `il_livello_del_cielo.dart:236` e
+  `:247`, `il_numero_e_il_colore.dart:113`) e
+  `lib/core/astro/il_cielo_detto.dart:101` (`_segnoDi`).
+- **I trenta gradi a mano**: `lib/core/astro/night_sky.dart:86` e `:122`,
+  `lib/core/astro/il_cielo_per_il_maestro.dart:43`,
+  `lib/core/horoscope/i_segni_delle_tradizioni.dart:164` (l'occidentale, il
+  solo che applicava gia' il metodo) e `:266`, `il_domani.dart:29`,
+  `l_anno_delle_tradizioni.dart:177`, `:185` e `:314`, `l_annuale.dart:224`,
+  `la_lettura_vedica.dart:135`, `la_rivoluzione_solare.dart:28` e `:37`,
+  `la_settimana_del_cielo.dart:322`, `:360`, `:383`, `:416` e `:670`,
+  `lib/core/synastry/cielo_della_sinastria.dart:201`,
+  `lib/services/free_astro_client.dart:306`.
+
+**Dopo la cura** la porta e' una, `IlSegnoDelCielo`
+(`lib/core/astro/il_segno_del_cielo.dart`), con 66 chiamate in `lib`; le
+gemelle sono **cancellate**, non deprecate: `Zodiac.fromDate` con la sua
+tabella, `NightSky.sunSign`, `NightSky.moonSign`, `NightSky._signOfLongitude`,
+`IlCieloDelSegno.segnoDi`, il `_segnoDi` del cielo detto,
+`CieloDiSinastria.segnoDiLongitudine`, `LAnnuale.segno`,
+`TemaDellaRivoluzione.segno`, `_signFromLon`. La Luna e i pianeti passano
+dalla porta col motore dei transiti di prima: i loro valori non si sono mossi.
+La guardia `test/il_segno_ha_una_porta_sola_test.dart` cade se ne nasce una
+seconda: rotta una volta con un `NightSky.sunSign` innestato (A35).
+
+**Le date che ricevono un segno diverso**, dal 1900 al 2100, a mezzogiorno
+di Roma (`docs/collaudo/FC/le_cuspidi_del_segno.txt`): **1084 giorni su
+73414, in 27 giorni del calendario**, tutti a cavallo dei passaggi: il 19 e
+20 gennaio, il 18 e 19 febbraio, il 20 e 21 marzo, il 19 e 20 aprile, il 20 e
+21 maggio, dal 20 al 22 giugno, il 22 e 23 luglio, il 22 e 23 agosto, il 22 e
+23 settembre, dal 22 al 24 ottobre, dal 21 al 23 novembre, il 21 e 22
+dicembre. Per esempio il 20 gennaio, per 91 anni su 201, era Acquario e il
+Sole e' ancora in Capricorno; il 21 giugno, per 101 anni, era Cancro e il Sole
+e' ancora in Gemelli.
+
+**Il costo**: zero. Letture all'apertura della rubrica coi tre emblemi 0,
+prima 0 (`l_emblema_dell_amico_test.dart`, g).
+
+**Un difetto mio, trovato rileggendo l'elenco e corretto prima di
+consegnare**: lo spostamento meccanico aveva portato sei segni di nascita (il
+Risveglio due volte, il passaporto, il Santuario due volte, la Sinastria VIP)
+su `IlSegnoDelCielo.delSole(data)`, cioe' all'istante scritto nel fuso del
+telefono e, per il Santuario, alla mezzanotte; adesso passano dalla nascita
+vera (`BirthDetails.segno`, `BirthIdentity.segnoDellaNascita`), all'ora o a
+mezzogiorno, nel fuso del luogo. **Padre: ordine FC voce 10.**
+
+## LA SUITE TUTTA VERDE E IL CANCELLO CHE LA ESEGUE (FC.11)
+
+Il fondatore: *"non voglio ordini non conclusi o parziali"*.
+
+**Nessun rosso si consegna.** Oltre alle sette rosse (sezione della FC.07):
+
+| prova | causa misurata | cura | verde |
+| --- | --- | --- | --- |
+| `ogni_guardia_dichiara_quanto_guarda` e `ordine_cm_guard` (CM.02) | la prova del tetto della FC.09 scorreva `lib` per conto suo senza dichiarare quanti file (padre: ordine FC voce 09, `dca17019`) | (2) sulla prova: passa da `sorgentiDiLib()`, che dichiara il cardinale | 14 su 14 |
+| SCALA 1,3, sei catture del Risveglio | il distintivo "Sole in ..." col glifo sforava di 10 punti a destra (padre: `9cf89375`, 17 luglio 2026, il Risveglio a passi) | (2) nel codice: il testo si rimpicciolisce intero | 193 su 193 a scala 1,3 |
+| SCALA 1,3, la custodia del cielo | la colonna con gli spazi elastici sforava di 41 punti in basso (padre: `df7551f1`, 11 agosto 2026) | (2): la pagina scorre quando non ci sta, e occupa lo schermo quando ci sta | idem |
+| SCALA 1,3, la galleria della Sinastria VIP | la tendina chiusa teneva due righe in 48 punti (padre: `ee334c7e`, 28 agosto 2026) | (2): le due righe si rimpiccioliscono intere | idem |
+| SCALA 1,3, CI.04 e la chat con la barra fuori | la barra a carattere grande e' piu' alta della sua corsa di 112 punti, e ritirata ne lasciava fuori 12 (padre: `3a65c0ec`, 6 agosto 2026, la barra unica) | (2): la barra si ritira della sua altezza vera, misurata dopo l'impaginazione | idem |
+
+Il registro dei rossi accettati: prima 12 righe per 17 prove, dopo **0
+righe**. La guardia CM.10, che pretendeva almeno una riga di scala, portata
+allo zero vero (il manifesto CM dice ZERO schermate rotte).
+
+**Il cancello esegue tutte le prove.** Misurato sul giro 37215562849 (commit
+`bcf8eaff`, l'ultimo verde prima di quest'ordine): **1248 file su 1248**
+assegnati ai sei pezzi, **6703 casi** sul ramo, di cui il cancello ne
+eseguiva **6692** (6685 passati e 7 rossi accettati) e ne saltava **11**; il
+suo numero ne diceva 6685. I salti erano:
+
+- sei anteprime senza la loro variabile (`anteprima_card_della_rivelazione`,
+  due casi; `anteprima_dei_selettori`, cinque): adesso girano sempre, montano
+  il componente vero e pretendono che si disegni, e scrivono l'immagine solo
+  con la variabile;
+- cinque banchi col modello vero senza `VERTEX_TOKEN`
+  (`il_banco_delle_domande_libere`, "CON RETE: il classificatore vero sul
+  banco"; `la_prova_a_cento_discese`, tre casi CON RETE; `la_sonda_del_sigillo`,
+  "Tre chiamate vere per ogni sigillo"): **spostati fra gli strumenti**, in
+  `tool/banchi_col_modello/`, perche' chiamano Gemini, costano, e misurano il
+  modello e non il codice del ramo. I casi senza rete degli stessi file
+  restano in `test/` e girano a ogni giro (le parti comuni della prova a
+  cento discese stanno in `test/la_prova_a_cento_discese_comune.dart`).
+
+E cinque prove che potevano saltarsi da sole a seconda del giorno o della
+macchina (il soffio due volte, la scheda sul respiro, la risposta profonda, il
+fuso con l'ora legale, bash) adesso pretendono la loro condizione: le date
+erano gia' fisse, il fuso del cancello e' Europe/Rome. Lo sbarramento conta
+passate, rosse e saltate di ogni pezzo, lo scrive nel gettone, e **cade se un
+solo caso e' saltato**; il server scrive il rapporto spec, che nomina le sue
+cadute (su GitHub scriveva TAP, e un suo rosso non si leggeva per nome). La
+guardia e' `test/il_cancello_esegue_tutte_le_prove_test.dart`. **I numeri del
+cancello dopo la cura** si leggono sul giro di GitHub del commit che spingo, e
+stanno nella riga in coda.
 
 ## FIN DOVE SONO ARRIVATO, E PERCHE'
 
-Tutte e nove le voci; otto chiuse, la FC.07 aperta con sei rosse che non si
-chiudono senza un gesto del fondatore. La suite intera, il verdetto del
-cancello, la build e la consegna col giro sul Realme stanno in coda, nelle
-righe "Aggiunta del 4 ottobre 2026": arrivano dopo che il rapporto e'
+Tutte e undici le voci: dieci chiuse, e la FC.11 fatta e in attesa della
+verifica del cancello. La suite intera, il verdetto del cancello coi suoi
+numeri, la build e la consegna col giro sul Realme stanno in coda, nelle
+righe "Aggiunta del 5 ottobre 2026": arrivano dopo che il rapporto e'
 registrato, e il cancello lo pretende registrato prima di spingere. **Una
-nota sull'impronta**: il rapporto era stato registrato una prima volta prima
-della risposta dell'Architetto sulla FC.09, e mai spinto; l'impronta e' stata
+nota sull'impronta**: il rapporto e' stato registrato due volte prima di
+questa (prima della risposta dell'Architetto sulla FC.09, e prima
+dell'Aggiunta della FC.10 e della FC.11), e mai spinto; l'impronta e' stata
 tolta e riscritta con questo corpo, prima di qualunque consegna.
 
 ## LA REGOLA A E LA REGOLA B
 
-**Regola A**: 34 innesti, tutti entrati (verificati col grep) e tutti rossi,
-ognuno restituito al byte. A21, A22 e A23 hanno provato la prima forma della
-FC.09; A24-A28 i due pulsanti; A29-A34 il tetto condiviso, i due testi del
-fondatore e l'icona del membro nella riga. Il registro e' `docs/collaudo/FC/regola_a_fc.txt`,
+**Regola A**: 47 innesti in tutto l'ordine, tutti entrati (verificati col
+grep) e tutti rossi, ognuno restituito al byte. A21, A22 e A23 hanno provato
+la prima forma della FC.09; A24-A28 i due pulsanti; A29-A34 il tetto
+condiviso, i due testi del fondatore e l'icona del membro nella riga (A34
+rifatto sulla riga col nome); A35-A39 la porta sola del segno (una gemella di
+`NightSky.sunSign` innestata), l'emblema spostato di un segno, il Sole
+spostato di un grado e mezzo, il tondo senza la lettera, la frase del metodo;
+A40-A42 l'ultimo dato a due ore, l'ora sempre a ventiquattro, il dato
+scaduto lasciato sul telefono; A43-A47 una riga ASPETTA tolta, la riga delle
+soglie tolta, il salto permesso nel cancello, il rapporto del server di
+prima, un'anteprima di nuovo saltata. I dieci rossi della scala e i sei
+ereditati li ho visti rossi nella suite intera prima di curarli (Regola B). Il registro e' `docs/collaudo/FC/regola_a_fc.txt`,
 il banco `tool/gli_innesti_dell_ordine_fc.py`. Una nota: l'innesto A15 (il
 catalogo col nome di prima) ha fatto cadere `il_nome_breve_dell_oroscopo` e
 `i_domini_a_schede` nel banco; la terza, `le_schede_dell_arte`, l'ho vista
@@ -310,8 +515,13 @@ A 360 per 797 punti, a coppie (se', amico), in `docs/preview/prima_dopo/`:
 `fc_tuo_apertura`, `fc_tuo_riflessione`, `fc_tuo_responso`,
 `fc_tuo_settimana` e le stesse `fc_amico_*`, ognuna prima e dopo (manca solo
 `fc_amico_settimana_prima`: la schermata dell'amico non aveva i periodi);
-`fc_amici_lista` prima e dopo; i sei stati della rubrica coi due
-pulsanti `fc09_rubrica_*`, elencati nella sezione della FC.09. Le "prima" sono uscite dal codice di `bcf8eaff` col gesto
+`fc_amici_lista` prima e dopo; gli stati della rubrica coi due pulsanti
+`fc09_rubrica_*`: Offline con tre emblemi (Lucia e Sara in Capricorno, Marco
+in Cancro), Cerchio popolato, Cerchio vuoto, ultimo dato con "Il Cerchio come
+era alle", errore senza dati, e la prova dell'icona senza le immagini
+caricate. Nelle anteprime il finto telefono e' a dodici ore, e l'ora esce
+"1:57 AM"; sul Realme segue il suo formato. L'anteprima "amico senza data"
+non c'e', perche' il caso sul ramo non esiste. Le "prima" sono uscite dal codice di `bcf8eaff` col gesto
 riacceso nelle prove, perche' la configurazione di allora lo spegneva: la
 variante della prova sta in
 `docs/collaudo/FC/le_anteprime_dell_ordine_fc_prima_test.dart.txt`. Dove la
@@ -360,26 +570,58 @@ raccoglie.".
    FC voce 09** per la rubrica (la chiamata in piu' l'ha portata li') e
    **ordine EY voce 08** per la rotella della tendina, che non ha mai avuto
    un ramo per il rifiuto. Trovato dall'Architetto, che ha posto il vincolo.
+11. **Due rosse portate da me**: la prova del tetto scorreva `lib` senza il
+   suo cardinale. **Padre: ordine FC voce 09**, `dca17019`. Curate.
+12. **Sei segni di nascita sull'istante sbagliato** dopo lo spostamento
+   meccanico sulla porta. **Padre: ordine FC voce 10.** Corretti prima di
+   consegnare, sezione della FC.10.
+13. **I dieci rossi della scala 1,3**, coi loro padri nella tabella della
+   FC.11: il Risveglio a passi (`9cf89375`), la custodia del cielo
+   (`df7551f1`), la galleria VIP (`ee334c7e`), la barra unica (`3a65c0ec`).
+14. **Il verde che saltava undici casi e contava solo le passate.** **Padre:
+   ordine ACCELERA** per il conto, che ha portato la suite nel cancello
+   sommando i massimi delle passate; gli ordini **DQ** e **DM** per le
+   anteprime che si saltavano, **DI**, **DL** e **DO** per i banchi col modello
+   dentro la suite; **CF voce 18** per il server letto solo nella forma spec.
+15. **Il formattatore lanciato su due cartelle intere**, contro la regola
+   che me lo vieta: nessun file cambiato di suo, e l'unico file toccato dalle
+   prove (`docs/collaudo/EU/paragrafi_misura.txt`) rimesso com'era. **Padre:
+   ordine FC voce 10, il banco.**
 
 ## LE DECISIONI CHE RESTANO AL FONDATORE
 
-1. **Le sei rosse dichiarate**, ognuna col suo gesto: misurare le soglie
-   della scansione sul Realme (CR.13); soffiare sul Soffio del Destino
-   (EI.10); aggiungere l'account del Realme ai fondatori del LIVE dalla
-   console (EM.02, 06, 07, 08); i giudizi su voci, volti, cornice e attesa
-   (EJ, EK, EM, EN). Oppure decidere la cura (3) per le cinque guardie
-   d'ordine: le aperte dichiarate invece che pretese a zero, contro la REGOLA
-   G.
+1. **I tuoi gesti, uno per voce aperta**, scritti in una riga `ASPETTA:` nel
+   manifesto di ogni ordine (e la CR.13 nel file delle soglie). Quando ne fai
+   uno, la voce si chiude col protocollo della chiusura e la sua riga se ne va:
+   - **EI.10**: soffiare davvero sul Soffio del Destino, sul Realme.
+   - **CR.13**: stare davanti al Realme e girare la testa nelle quattro pose;
+     gli angoli li scrivo io nel registro e li misuro.
+   - **EM.02, EM.06, EM.07, EM.08**: aggiungere l'account del Realme ai
+     fondatori del LIVE dalla console (`configurazione/live.fondatori`); poi
+     EM.07 ed EM.08 le chiudo io, EM.02 ed EM.06 aspettano il tuo orecchio.
+   - **EJ.02**: scegliere la voce di Aura nel selettore (Despina e Orus li
+     hai gia' scelti il 24 settembre).
+   - **EJ.03**: scegliere fra una finestra piu' piccola e un'uscita di
+     Protoface oltre i 512 punti.
+   - **EJ.04**: ascoltare la pronuncia di Calìgo.
+   - **EJ.05** ed **EJ.08**: dire quante ripetizioni su diciotto, e quanti
+     errori di italiano su settantadue, sono troppi.
+   - **EJ.06** ed **EK.02**: scegliere il controllo dopo la risposta (una
+     chiamata in piu' in circa una risposta su sette).
+   - **EK.04**: guardare i volti nel LIVE.
+   - **EM.05**: il respiro vero e la televisione vera nel LIVE.
+   - **EM.11** ed **EN.01**: giudicare l'attesa del LIVE, rimisurata con
+     Flash.
+   - **EN.03**: giudicare la cornice.
+   - **EN.08**: mandarmi la cattura del testo intero della risposta delle
+     09:54, dalla tua chat.
+   - **EJ.10**: niente, la chiudo io nel giro sul Realme della build 2297
+     (il Realme e' Illuminato, e lo stato d'oro si vede).
 2. **La fusione delle due rubriche** ("I tuoi amici" sul telefono e "Il
    tuo Cerchio" sul server), e cosa succede alla scheda di una persona
    quando entra davvero nel Cerchio. I due pulsanti della FC.09 le mettono
-   sotto lo stesso titolo, non le fondono. E la riga dell'ora dell'ultimo
-   dato, "Aggiornato alle 21:47.", ancora segnaposto.
-3. **I dieci rossi del corredo a scala 1,3**, accettati dall'ordine CM e mai
-   chiusi: sono testi tagliati a carattere grande nel Risveglio, nella chat,
-   nella custodia del cielo e nella galleria della Sinastria VIP. Non erano
-   in quest'ordine; li dichiaro perche' stanno nel verde.
-4. **I quattro briefing**: nessuno usa "Oroscopo Personalizzato" come nome
+   sotto lo stesso titolo, non le fondono.
+3. **I quattro briefing**: nessuno usa "Oroscopo Personalizzato" come nome
    dell'arte (li' si chiama "Oroscopo a quattro versioni"); nel Briefing
    Progetto Definitivo ci sono due usi comuni, riga 22 ("l oroscopo
    personalizzato", sul posizionamento) e riga 49 ("oroscopi
@@ -412,3 +654,7 @@ Viste con il codice davanti, non costruite.
    cerchietto accanto a Online pulsa piano, come la lucina dell'indicatore
    nella barra; e gli amici online che hanno anche una scheda nella rubrica
    Offline potrebbero portare la stessa lucina accanto al loro nome.
+8. **L'emblema che si accende nel giorno del segno**: quando il Sole entra
+   nel segno di un amico scritto, il suo emblema nella rubrica brilla per un
+   mese, e "Oroscopo per" lo propone per primo: e' il suo mese, e mandargli
+   l'oroscopo e' un regalo giusto.
