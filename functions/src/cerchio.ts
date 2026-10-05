@@ -8,6 +8,7 @@ import {createHash} from "node:crypto";
 import {initializeApp} from "firebase-admin/app";
 import {getFirestore, FieldValue} from "firebase-admin/firestore";
 import {quantiDaMostrare} from "./presenza";
+import {spazioDi} from "./i_collaudi";
 import {getAuth} from "firebase-admin/auth";
 import {chiaveDelGiorno} from "./giorno";
 import {scriviIlMessaggio} from "./doppioni";
@@ -1212,7 +1213,7 @@ export const chiEOnline = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
   // **IL NUMERO DALL'ISTANTANEA, ordine FB voce 01**: non piu' un'aggregazione
   // a ogni passo. L'istantanea ha al massimo trenta secondi: chi e' appena
   // arrivato si conta da se', finche' la ricostruzione non lo trova.
-  const ist = await istantanea({ricostruisci: true});
+  const ist = await istantanea({ricostruisci: true, spazio: spazioDi(uid)});
   const giaDentro = ist.presenti?.[uid] !== undefined ||
     (ist.nascosti ?? []).includes(uid);
   return {quanti: quantiDaMostrare(ist.totale +

@@ -1,4 +1,5 @@
 import {onCall, HttpsError, CallableRequest} from "firebase-functions/v2/https";
+import {SpazioDellaPresenza, spazioDi} from "./i_collaudi";
 import * as logger from "firebase-functions/logger";
 import {
   getFirestore,
@@ -121,7 +122,9 @@ const statoDi = (uid: string, nome: string) =>
 const profiloDi = (uid: string) => db().collection("profili").doc(uid);
 const legameDi = (a: string, b: string) =>
   db().collection("legami").doc(coppia(a, b));
-const ISTANTANEA = () => db().collection("cerchio_adesso").doc("istantanea");
+// Lo spazio della presenza, ordine FD voce 05: i collaudi hanno il proprio.
+const ISTANTANEA = (spazio: SpazioDellaPresenza) =>
+  db().collection(`${spazio}cerchio_adesso`).doc("istantanea");
 
 function uidDi(request: CallableRequest): string {
   const uid = request.auth?.uid;
@@ -790,7 +793,7 @@ export const chiediIlLegame = onCall(OPZIONI_SOCIALI, async (request) => {
     }
   } else {
     const di = String(corpo.uid ?? "");
-    const presente = di.length === 0 ? undefined : await presenzaDi(di);
+    const presente = di.length === 0 ? undefined : await presenzaDi(di, uid);
     if (presente === undefined || presente.visibilita !== "tutti" ||
       !presente.maggiorenne) {
       esito = {ok: false, perche: "assente"};
@@ -1018,9 +1021,10 @@ export const compraUnPostoNelCerchio = onCall(OPZIONI_SOCIALI, async (request) =
 // PARTE C, LA PRESENZA
 // ---------------------------------------------------------------------------
 
-const FRAMMENTO = (k: number) =>
-  db().collection("cerchio_presenze").doc(String(k));
-const TURNO = () => db().collection("cerchio_adesso").doc("turno");
+const FRAMMENTO = (k: number, spazio: SpazioDellaPresenza) =>
+  db().collection(`${spazio}cerchio_presenze`).doc(String(k));
+const TURNO = (spazio: SpazioDellaPresenza) =>
+  db().collection(`${spazio}cerchio_adesso`).doc("turno");
 
 /**
  * **SCRIVE LA PRESENZA NEL SUO FRAMMENTO, ordine FB voce 01**: la voce della
@@ -1030,7 +1034,7 @@ const TURNO = () => db().collection("cerchio_adesso").doc("turno");
  */
 export async function scriviLaPresenza(uid: string,
   campi: SchedaCompatta | null): Promise<void> {
-  const doc = FRAMMENTO(frammentoDi(uid));
+  const doc = FRAMMENTO(frammentoDi(uid), spazioDi(uid));
   if (campi === null) {
     try {
       await doc.update({[`p.${uid}`]: FieldValue.delete()});
@@ -1048,7 +1052,11 @@ export async function scriviLaPresenza(uid: string,
  * arrivano nello stesso mezzo minuto non la rileggono. `letta` e' quando
  * l'istanza l'ha letta, che non e' quando e' stata fatta.
  */
-let istantaneaInMemoria: {ist: Istantanea; letta: number} | null = null;
+//
+// **Una per spazio**, ordine FD voce 05: i collaudi non leggono la memoria
+// degli utenti, e gli utenti non leggono la loro.
+const istantaneaInMemoria = new Map<SpazioDellaPresenza,
+  {ist: Istantanea; letta: number}>();
 
 function istantaneaVuota(adesso: number): Istantanea {
   return {quando: adesso, totale: 0, perArte: {}, presenti: {}, nascosti: [],
@@ -1072,33 +1080,34 @@ function istantaneaVuota(adesso: number): Istantanea {
  * fresca, al massimo un minuto.
  */
 export async function istantanea(
-  {ricostruisci}: {ricostruisci: boolean}): Promise<Istantanea> {
+  {ricostruisci, spazio}: {ricostruisci: boolean; spazio: SpazioDellaPresenza}):
+  Promise<Istantanea> {
   const adesso = Date.now();
-  const inMemoria = istantaneaInMemoria;
+  const inMemoria = istantaneaInMemoria.get(spazio);
   if (inMemoria && !istantaneaVecchia(inMemoria.letta, adesso) &&
     (!ricostruisci || !istantaneaVecchia(inMemoria.ist.quando, adesso))) {
     return inMemoria.ist;
   }
-  const snap = await ISTANTANEA().get();
+  const snap = await ISTANTANEA(spazio).get();
   const d = snap.data() as Istantanea | undefined;
   const valida = d !== undefined && typeof d.presenti === "object" &&
     d.presenti !== null;
   if (valida && (!ricostruisci || !istantaneaVecchia(d.quando, adesso))) {
-    istantaneaInMemoria = {ist: d, letta: adesso};
+    istantaneaInMemoria.set(spazio, {ist: d, letta: adesso});
     return d;
   }
   if (!ricostruisci) return istantaneaVuota(adesso);
   const mioIlTurno = await db().runTransaction(async (tx) => {
-    const turno = await tx.get(TURNO());
+    const turno = await tx.get(TURNO(spazio));
     const fino = (turno.data()?.fino as number | undefined) ?? 0;
     if (fino > adesso) return false;
-    tx.set(TURNO(), {fino: adesso + OGNI_QUANTO_SI_RIFA_L_ISTANTANEA_MS});
+    tx.set(TURNO(spazio), {fino: adesso + OGNI_QUANTO_SI_RIFA_L_ISTANTANEA_MS});
     return true;
   });
   if (!mioIlTurno) return valida ? d : istantaneaVuota(adesso);
   // Solo i frammenti che esistono: con un presente solo, uno (ordine FB voce
   // 01, i vuoti si cancellano qui sotto).
-  const esistenti = await db().collection("cerchio_presenze").get();
+  const esistenti = await db().collection(`${spazio}cerchio_presenze`).get();
   const frammenti = new Array<Record<string, SchedaCompatta> | undefined>(
     FRAMMENTI_DELLA_PRESENZA).fill(undefined);
   const istanti = new Map<number, Timestamp>();
@@ -1113,7 +1122,7 @@ export async function istantanea(
     adessoMs: adesso,
     confineMs: confineDellaPresenza(adesso),
   });
-  await ISTANTANEA().set(nuova);
+  await ISTANTANEA(spazio).set(nuova);
   if (scadute.length > 0 || vuoti.length > 0) {
     // La pulizia vale solo se il frammento e' ancora quello letto: un passo
     // arrivato nel frattempo cambia l'ora del documento, la precondizione
@@ -1126,11 +1135,11 @@ export async function istantanea(
     }
     const batch = db().batch();
     for (const k of vuoti) {
-      batch.delete(FRAMMENTO(k), {lastUpdateTime: istanti.get(k)!});
+      batch.delete(FRAMMENTO(k, spazio), {lastUpdateTime: istanti.get(k)!});
       perFrammento.delete(k);
     }
     for (const [k, campi] of perFrammento) {
-      batch.update(FRAMMENTO(k), campi, {lastUpdateTime: istanti.get(k)!});
+      batch.update(FRAMMENTO(k, spazio), campi, {lastUpdateTime: istanti.get(k)!});
     }
     try {
       await batch.commit();
@@ -1139,7 +1148,7 @@ export async function istantanea(
         {errore: String(cambiatoNelFrattempo)});
     }
   }
-  istantaneaInMemoria = {ist: nuova, letta: adesso};
+  istantaneaInMemoria.set(spazio, {ist: nuova, letta: adesso});
   return nuova;
 }
 
@@ -1147,8 +1156,9 @@ export async function istantanea(
  * LA PRESENZA DI UNA PERSONA SOLA, per i gesti verso chi non e' amico:
  * dall'istantanea, senza una lettura in piu' (ordine FB voce 01).
  */
-async function presenzaDi(uid: string): Promise<Presenza | undefined> {
-  const ist = await istantanea({ricostruisci: false});
+async function presenzaDi(uid: string, chiGuarda: string):
+  Promise<Presenza | undefined> {
+  const ist = await istantanea({ricostruisci: false, spazio: spazioDi(chiGuarda)});
   return scompatta(uid, ist.presenti?.[uid]) ?? undefined;
 }
 
@@ -1171,7 +1181,7 @@ export const laTendinaDelCerchio = onCall(OPZIONI_SOCIALI, async (request) => {
   const uid = uidDi(request);
   await tettoDellaPorta(uid, "laTendinaDelCerchio");
   const [ist, legamiSnap, blocchi, io] = await Promise.all([
-    istantanea({ricostruisci: false}),
+    istantanea({ricostruisci: false, spazio: spazioDi(uid)}),
     statoDi(uid, "legami").get(),
     blocchiDi(uid),
     leggiIdentita(uid),
@@ -1418,7 +1428,7 @@ export const mandaUnDono = onCall(OPZIONI_SOCIALI, async (request) => {
   const prezzo = PREZZI_DEI_DONI[dono];
   // Il cenno a chi non e' amico guarda la sua presenza sola (ordine EZ
   // voce 03), non l'elenco dei presenti che l'istantanea non porta piu'.
-  const presenzaDiA = dono === "cenno" ? await presenzaDi(a) : undefined;
+  const presenzaDiA = dono === "cenno" ? await presenzaDi(a, uid) : undefined;
   const esito = await db().runTransaction(async (tx) => {
     const movimento = utente(uid).collection("movimenti").doc(`dono-${id}`);
     const gia = await tx.get(movimento);
