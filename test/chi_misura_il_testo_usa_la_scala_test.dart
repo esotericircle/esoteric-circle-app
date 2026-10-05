@@ -43,8 +43,6 @@ void main() {
         'CustomPainter: i nomi degli archetipi stanno sull\'astrolabio',
     'lib/features/maestri/caligo/sigillo/sigillo_intenzione_screen.dart':
         'CustomPainter: le lettere corrono lungo la ruota del sigillo',
-    'lib/features/onboarding/primo_approdo.dart':
-        'CustomPainter: il velo forato ritaglia una figura disegnata',
     'lib/features/passport/cosmic_passport_screen.dart':
         'CustomPainter: il sigillo del sentiero di vita e\' un disegno',
     'lib/features/santuario/santuario_screen.dart':

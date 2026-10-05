@@ -258,7 +258,8 @@ void main() {
   testWidgets('il tutorial sul Redmi coi tasti di sistema', (tester) async {
     // Il fatto di un tester del 5 ottobre 2026: sul Redmi Note 14 il tasto
     // Avanti del fumetto dei Maestri stava sotto la barra dei tre tasti.
-    // 1080x2400 a 2,75, la barra dei tasti 48 punti, quella di stato 32, il
+    // 1080x2400 a 2,75, cioe' 393x873 punti, qui a densita' 3 come tutte le
+    // anteprime; la barra dei tasti 48 punti, quella di stato 32, il
     // carattere a 1,3. La barra dei tasti e' disegnata in fondo, grigia,
     // perche' l'anteprima non ha il sistema.
     silenzia();
@@ -266,10 +267,10 @@ void main() {
         {MemoriaDelPrimoApprodo.chiaveArmata: true});
     MemoriaDelPrimoApprodo.dimenticaLApertura();
     addTearDown(MemoriaDelPrimoApprodo.dimenticaLApertura);
-    tester.view.devicePixelRatio = 2.75;
-    tester.view.physicalSize = const Size(1080, 2400);
-    tester.view.viewPadding = const FakeViewPadding(top: 88, bottom: 132);
-    tester.view.padding = const FakeViewPadding(top: 88, bottom: 132);
+    tester.view.devicePixelRatio = 3.0;
+    tester.view.physicalSize = const Size(1179, 2619);
+    tester.view.viewPadding = const FakeViewPadding(top: 96, bottom: 144);
+    tester.view.padding = const FakeViewPadding(top: 96, bottom: 144);
     tester.platformDispatcher.textScaleFactorTestValue = 1.3;
     addTearDown(tester.view.reset);
     addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
@@ -312,8 +313,8 @@ void main() {
     final avanti =
         tester.getRect(find.byKey(const Key('primo_approdo_avanti')));
     print('FD, IL REDMI: fondo di Avanti ${avanti.bottom.round()} su '
-        '${(2400 / 2.75 - 48).round()} liberi');
-    expect(avanti.bottom, lessThanOrEqualTo(2400 / 2.75 - 48));
+        '${(873 - 48).round()} liberi');
+    expect(avanti.bottom, lessThanOrEqualTo(873 - 48));
     await scatta(tester, 'fd_tutorial_redmi_tasti_di_sistema');
   });
 
