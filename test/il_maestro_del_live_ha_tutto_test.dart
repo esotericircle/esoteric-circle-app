@@ -113,7 +113,7 @@ void main() {
     expect((await PortaDelLive.apri(Maestro.medora)).avatar, 'av_1');
     expect(perchePerIlCodice('failed-precondition'),
         PerchePerILiveNonSiApre.configurazioneIncompleta);
-    final quadro = QuadroDelLive(
+    const quadro = QuadroDelLive(
       momento: MomentoDelLive.nonSiApre,
       maestro: Maestro.medora,
       perche: PerchePerILiveNonSiApre.configurazioneIncompleta,

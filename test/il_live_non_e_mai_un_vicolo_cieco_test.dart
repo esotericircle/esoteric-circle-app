@@ -90,9 +90,12 @@ void main() {
       ).laFraseDelRifiuto();
     }
     print('ORDINE EG VOCE 05: ragioni del rifiuto ${frasi.length}');
-    // Il cardinale: tre ragioni, tre frasi.
-    expect(PerchePerILiveNonSiApre.values.length, 3);
-    expect(frasi.values.toSet().length, 3,
+    // Il cardinale: quattro ragioni, quattro frasi. **Lapide dell'ordine FE
+    // voce 03, 5 ottobre 2026**: erano tre; la quarta e' il Maestro a cui
+    // manca un pezzo del collegamento vocale, col testo che il fondatore ha
+    // scritto carattere per carattere.
+    expect(PerchePerILiveNonSiApre.values.length, 4);
+    expect(frasi.values.toSet().length, 4,
         reason: 'due ragioni diverse danno la stessa frase: chi ha finito i '
             'minuti legge la stessa cosa di chi non ha il diritto');
 
@@ -101,7 +104,13 @@ void main() {
     final senzaStrada = <String>[];
     for (final e in frasi.entries) {
       final f = e.value.toLowerCase();
-      final offreLaChat = f.contains('scriv') || f.contains('per iscritto');
+      // **Lapide dell'ordine FE voce 03**: il testo del Maestro non
+      // raggiungibile e' del fondatore, alla lettera, e la sua strada e'
+      // riprovare fra poco: per quella sola ragione vale "riprova".
+      final offreLaChat = f.contains('scriv') ||
+          f.contains('per iscritto') ||
+          (e.key == PerchePerILiveNonSiApre.configurazioneIncompleta &&
+              f.contains('riprova'));
       if (!offreLaChat) senzaStrada.add('${e.key.name}: "${e.value}"');
       for (final brutta in ['errore', 'impossibile', 'fallit', 'non valido']) {
         if (f.contains(brutta)) {
