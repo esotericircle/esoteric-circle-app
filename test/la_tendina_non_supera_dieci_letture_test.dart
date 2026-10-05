@@ -62,7 +62,11 @@ void main() {
     return null;
   }
 
-  final lettura = RegExp(r'\.get\(|getAll\(|\.count\(\)');
+  // Dall'ordine FD voce 05 la memoria dell'istanza e' una mappa per spazio
+  // della presenza: `istantaneaInMemoria.get(spazio)` legge la memoria, non
+  // Firestore, e non si conta.
+  final lettura =
+      RegExp(r'(?<!istantaneaInMemoria)\.get\(|getAll\(|\.count\(\)');
 
   test(
       'FA.05 e FB.01: un\'apertura della tendina legge al massimo dieci '
@@ -122,7 +126,10 @@ void main() {
     // L'istantanea: chiesta senza ricostruire, e il suo ramo senza
     // ricostruzione legge prima di ogni lettura della ricostruzione.
     final tendina = corpoDi('laTendinaDelCerchio')!;
-    expect(tendina, contains('istantanea({ricostruisci: false})'),
+    // Dall'ordine FD voce 05 la lettura dice anche lo spazio della presenza
+    // di chi chiama (i collaudi hanno il loro): resta senza ricostruzione.
+    expect(tendina,
+        contains('istantanea({ricostruisci: false, spazio: spazioDi(uid)})'),
         reason: 'la tendina deve leggere l\'istantanea senza ricostruirla');
     final ist = corpoDi('istantanea');
     expect(ist, isNotNull, reason: 'non trovo la funzione istantanea');
@@ -131,7 +138,9 @@ void main() {
         reason: 'istantanea non ha il ritorno per chi non ricostruisce');
     final ricostruzione = {
       'runTransaction': ist.indexOf('runTransaction'),
-      'la lettura dei frammenti': ist.indexOf('collection("cerchio_presenze")'),
+      // Dall'ordine FD voce 05 la raccolta porta lo spazio della presenza.
+      'la lettura dei frammenti':
+          ist.indexOf('collection(`\${spazio}cerchio_presenze`)'),
     };
     ricostruzione.forEach((cosa, dove) {
       expect(dove, greaterThan(ritorno),

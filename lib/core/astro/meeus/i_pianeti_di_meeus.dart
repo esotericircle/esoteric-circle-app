@@ -66,7 +66,7 @@ abstract final class IPianetiDiMeeus {
       'urano' => _vsop(vsopUranoL, vsopUranoB, vsopUranoR, jde),
       'nettuno' => _vsop(vsopNettunoL, vsopNettunoB, vsopNettunoR, jde),
       'plutone' => _plutone(jde),
-      _ => throw ArgumentError.value(corpo, 'corpo', 'non e\' un pianeta'),
+      _ => throw ArgumentError.value(corpo, 'corpo', 'non è un pianeta'),
     };
   }
 

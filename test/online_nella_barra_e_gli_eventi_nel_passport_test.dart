@@ -132,7 +132,11 @@ void main() {
           reason: 'l\'uid non arriva dal token');
       expect(corpo.contains('scriviLaPresenza(uid, {'), isTrue,
           reason: 'la porta non scrive la presenza');
-      expect(corpo.contains('istantanea({ricostruisci: true})'), isTrue,
+      // Dall'ordine FD voce 05 col suo spazio della presenza.
+      expect(
+          corpo.contains(
+              'istantanea({ricostruisci: true, spazio: spazioDi(uid)})'),
+          isTrue,
           reason: 'il numero non viene dall\'istantanea');
       // Ogni risposta della porta e' un oggetto con la sola chiave quanti:
       // chi esce riceve zero, gli altri il numero da mostrare, e nient'altro.
