@@ -26,6 +26,14 @@ Lancia i cinque casi uno dopo l'altro, legge l'esito di ciascuno e scrive
   del giro (`token_count`, ingresso e uscita per modello, l'uscita comprende
   il ragionamento) e portato in euro col cambio BCE del giorno.
 
+Accanto scrive `<data>.uscite`, l'uscita intera dei banchi senza le righe del
+contatore: se un banco cade, il motivo si legge li' senza rifare il giro.
+Le chiamate a Vertex dei banchi riprovano fino a cinque volte, con attese
+che crescono da due a trentadue secondi, quando Vertex risponde 429 (quota
+esaurita) o 503: nel primo giro dell'ordine FD il segno, che parte subito
+dopo le cento discese, era caduto cosi'
+(`docs/collaudo/banchi_col_modello/2026-10-05.giro_rosso_429`).
+
 Il gettone di Vertex lo chiede a `gcloud` e lo passa ai banchi
 nell'ambiente: non si stampa e non si scrive. `--elenco` stampa i cinque
 casi senza lanciare niente.

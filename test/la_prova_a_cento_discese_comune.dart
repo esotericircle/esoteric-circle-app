@@ -923,6 +923,18 @@ Future<String?> vertexDiDiscesa(String token, String modello, String istruzione,
       await TokenDiDiscesa.rinnova();
       (stato, testoRisposta) = await chiama();
     }
+    // **LA QUOTA ESAURITA SI ASPETTA, ordine FD voce 03.** Nel giro dei
+    // banchi del 5 ottobre 2026 il segno, che parte subito dopo le cento
+    // discese, e' caduto su un 429 "Resource exhausted" di Vertex: la quota
+    // della regione era consumata dalle discese appena fatte. Vertex chiede
+    // di riprovare con attese che crescono; il banco misura le risposte del
+    // modello, non la quota.
+    for (var tentativo = 0;
+        (stato == 429 || stato == 503) && tentativo < 5;
+        tentativo++) {
+      await Future<void>.delayed(Duration(seconds: 2 << tentativo));
+      (stato, testoRisposta) = await chiama();
+    }
     if (stato != 200) {
       throw HttpException('Vertex $stato: $testoRisposta');
     }

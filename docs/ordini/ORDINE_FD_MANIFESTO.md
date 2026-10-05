@@ -77,12 +77,12 @@ ACCETTAZIONE: lancio un comando e trovo il file del giro coi cinque esiti e il c
 **APERTA IN ATTESA DI VERIFICA.** Da ogni schermata interna il tasto
 indietro torna alla precedente; dal Passport torna al Cerchio; sulla home il
 primo tocco mostra "Premi di nuovo per uscire." per due secondi e solo un
-secondo tocco entro due secondi esce. Le 66 rotte con file e riga e dove
+secondo tocco entro due secondi esce. Le 67 rotte (66 prima della rubrica dell'aggiunta FD.06) con file e riga e dove
 porta il tasto in `docs/collaudo/FD/le_schermate_e_il_tasto_indietro.md`.
 
 DOMANDA: "Da qualunque schermata interna, il tasto indietro riporta alla schermata precedente e non esce mai dall'app."
 PROVA: test/il_tasto_indietro_non_esce_dall_app_test.dart
-MISURA: tocchi che escono dall'app dalla home prima 1 (il primo), dopo 2 entro due secondi; dal Passport prima 1, dopo mai (torna al Cerchio); punti di lib che chiudono l'app 1; rotte enumerate 66
+MISURA: tocchi che escono dall'app dalla home prima 1 (il primo), dopo 2 entro due secondi; dal Passport prima 1, dopo mai (torna al Cerchio); punti di lib che chiudono l'app 1; rotte enumerate 67 (66 prima dell'aggiunta FD.06, che ha aggiunto la rubrica)
 ACCETTAZIONE: sul telefono il tasto indietro mi riporta indietro, e sulla home mi chiede di premerlo di nuovo
 
 ## VOCE FD.05, IL CERCHIO POPOLATO VISTO SU UN TELEFONO VERO

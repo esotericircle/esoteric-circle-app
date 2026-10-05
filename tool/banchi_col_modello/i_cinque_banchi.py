@@ -97,7 +97,11 @@ def esito_di(uscita, nome):
 
 
 def righe_di_misura(uscita):
-    chiave = re.compile(r'BANCO|DQ\.|RIEPILOGO|costo|sigilli \d|CHIAMATE')
+    # Le prove stampano le loro misure in righe che cominciano con
+    # "=== ORDINE ..." o "ORDINE ...", seguite da "accettati 11 su 12, ...":
+    # il primo giro dell'ordine FD le perdeva tutte.
+    chiave = re.compile(r'ORDINE |BANCO|DQ\.|RIEPILOGO|costo|accettati|'
+                        r'sigilli \d|CHIAMATE')
     return [r.rstrip() for r in uscita.splitlines() if chiave.search(r)][:40]
 
 
@@ -222,6 +226,20 @@ def main():
     nome_file = f'{USCITA}/{inizio.astimezone().date().isoformat()}.txt'
     io.open(nome_file, 'w', encoding='utf-8', newline='\n').write('\n'.join(righe) + '\n')
     print('scritto ' + nome_file)
+    # **L'USCITA INTERA SI TIENE.** Nel giro dell'ordine FD un banco e'
+    # caduto e il motivo (un 429 di Vertex) non si poteva leggere: l'uscita
+    # restava in memoria. Si tengono le righe che non sono il contatore.
+    contatore = re.compile(r'^\d\d:\d\d \+\d+')
+    # Non .txt: la consegna e la prova prendono l'ultimo .txt della cartella
+    # come il giro; non .log, che git ignora.
+    uscite_file = nome_file[:-len('.txt')] + '.uscite'
+    with io.open(uscite_file, 'w', encoding='utf-8', newline='\n') as u:
+        for f, testo in uscite.items():
+            u.write(f'=== {f}\n')
+            for r in testo.splitlines():
+                if not contatore.match(r):
+                    u.write(r.rstrip() + '\n')
+    print('scritto ' + uscite_file)
     if rossi:
         raise SystemExit(f'{rossi} banchi su cinque non sono passati')
 
