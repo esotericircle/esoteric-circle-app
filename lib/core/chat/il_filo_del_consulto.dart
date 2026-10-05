@@ -234,9 +234,13 @@ abstract final class IlFiloDelConsulto {
       }
       righe.add('');
       righe.add(LaLeggeDellaCoerenza.testo);
-      if (s.pareri.any((p) => p.maestro != maestro)) {
+      final altri = [
+        for (final p in s.pareri)
+          if (p.maestro != maestro) p.maestro.displayName
+      ];
+      if (altri.isNotEmpty) {
         righe.add('');
-        righe.add(LaLeggeDellaCoerenza.ilSecondoMaestro);
+        righe.add(LaLeggeDellaCoerenza.ilSecondoMaestro(altri));
       }
     }
     if (fraseRipresa != null) {
@@ -258,12 +262,26 @@ abstract final class LaLeggeDellaCoerenza {
       'cambiato: non dare un parere nuovo come se il primo non fosse '
       'esistito.';
 
-  static const String ilSecondoMaestro = 'UN ALTRO MAESTRO HA GIÀ '
-      'PARLATO. Se la domanda è sul tema del consulto, nomina in una riga '
-      'il Maestro e il suo parere, poi leggi lo stesso tema con la tua lente '
-      'e di’ se la tua lettura concorda o diverge. Non ripetere la sua '
-      'risposta con parole diverse: se la tua lente dice la stessa cosa, '
-      'dillo in una riga e aggiungi quello che vedi solo tu.';
+  /// La regola per chi parla dopo [altri] (i nomi a video). I nomi stanno
+  /// nella regola: senza, al banco dell'ordine FE il secondo Maestro nominava
+  /// il primo in 3-12 risposte su 20.
+  static String ilSecondoMaestro(List<String> altri) {
+    final chi = altri.length == 1
+        ? altri.single
+        : '${altri.sublist(0, altri.length - 1).join(', ')} e ${altri.last}';
+    final riga = altri.length == 1
+        ? 'una riga che comincia con il nome di ${altri.single}'
+        : 'una riga per ognuno, che comincia con il suo nome';
+    return 'PRIMA DI TE HA GIÀ PARLATO $chi. Se la domanda riguarda ancora '
+        'la domanda iniziale del consulto, apri con la tua lettura, nella '
+        'tua voce e con la tua lente: chi legge deve riconoscerti dalla '
+        'prima frase. Poi scrivi $riga: riporta il suo consiglio con parole '
+        'tue, cioè il gesto o il tempo che ha indicato e non le parole della '
+        'sua arte, e di’ se la tua lettura concorda o diverge. Quella riga non '
+        'si salta. Non ripetere la sua risposta con parole diverse: se la '
+        'tua lente dice la stessa cosa, dillo in quella riga e aggiungi '
+        'quello che vedi solo tu.';
+  }
 
   static String laFraseRipresa(String frase) => 'LA PERSONA RIPRENDE UNA '
       'TUA FRASE: «$frase». Non è una domanda nuova: è la continuazione '

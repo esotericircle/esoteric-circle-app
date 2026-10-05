@@ -55,9 +55,11 @@ void main() {
     final perMedora = IlFiloDelConsulto.bloccoPer(Maestro.medora);
     final perCaligo = IlFiloDelConsulto.bloccoPer(Maestro.caligo);
     expect(perMedora, contains(LaLeggeDellaCoerenza.testo));
-    expect(perMedora, isNot(contains(LaLeggeDellaCoerenza.ilSecondoMaestro)));
+    expect(perMedora, isNot(contains('PRIMA DI TE HA GIÀ PARLATO')));
     expect(perCaligo, contains('Medora ha detto: «Aspetta la fine del mese'));
-    expect(perCaligo, contains(LaLeggeDellaCoerenza.ilSecondoMaestro));
+    expect(perCaligo,
+        contains(LaLeggeDellaCoerenza.ilSecondoMaestro(['Medora'])));
+    expect(perCaligo, contains('comincia con il nome di Medora'));
     expect(perCaligo, contains('«Quando riceverò una promozione?»'));
     // Il parere di Caligo si aggiunge, quello di Medora resta.
     IlFiloDelConsulto.annota(

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
 
+import 'package:esoteric_circle/core/chat/il_filo_del_consulto.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/maestro/corpus_neutro.dart';
@@ -33,6 +34,12 @@ import 'package:flutter_test/flutter_test.dart';
 /// due voci si scambiano di posto fra loro mentre la terza e' distintissima:
 /// il numero direbbe "va bene" e la coppia da correggere resterebbe invisibile.
 /// La matrice dice cosa correggere, quindi non e' un semaforo.
+///
+/// **COL FILO DI UN ALTRO MAESTRO. Ordine FE voce 15.** Con
+/// `ATTRIBUZIONE_COL_FILO=1` ogni Maestro risponde come secondo Maestro di un
+/// consulto: la scheda dei punti fermi dice che il Maestro precedente, nel
+/// giro fisso Medora, Caligo, Aura, ha gia' dato il suo parere sulla stessa
+/// domanda. Misura se la voce resta sua quando legge le parole di un altro.
 void main() {
   const progetto = 'esoteric-circle';
   const regione = 'europe-west1';
@@ -45,7 +52,22 @@ void main() {
   /// Quante chiamate insieme. Basso apposta: la quota conta piu' della fretta.
   const insieme = 6;
 
+  /// Il parere del Maestro precedente, nella sua voce, uguale per tutte le
+  /// domande: e' la parte della scheda che potrebbe trascinare la voce.
+  const pareriDiPrima = {
+    Maestro.medora: 'Il cielo di questo mese ti chiede di aspettare la Luna '
+        'nuova prima di decidere.',
+    Maestro.aura: 'Il tuo respiro dice che sei pronta: ascolta il cuore e '
+        'lascia andare la fretta.',
+    Maestro.caligo: 'Le rune indicano una soglia: taglia ciò che ti '
+        'trattiene e attraversala.',
+  };
+  final colFilo = Platform.environment['ATTRIBUZIONE_COL_FILO'] == '1';
+
   test('Attribuzione cieca dei tre Maestri', () async {
+    stdout.writeln(colFilo
+        ? 'Modo: col filo di un altro Maestro (ordine FE voce 15).'
+        : 'Modo: senza filo, l\'istruzione di base.');
     final gettone = await _gettone();
     if (gettone == null) {
       fail('Nessun gettone di accesso. Serve una sessione gcloud attiva: '
@@ -101,8 +123,8 @@ void main() {
         final decodificato = jsonDecode(testo) as Map<String, dynamic>;
         final candidati = decodificato['candidates'] as List?;
         if (candidati == null || candidati.isEmpty) return null;
-        final parti = ((candidati.first as Map)['content']
-            as Map?)?['parts'] as List?;
+        final parti =
+            ((candidati.first as Map)['content'] as Map?)?['parts'] as List?;
         if (parti == null || parti.isEmpty) return null;
         return (parti.first as Map)['text']?.toString().trim();
       } finally {
@@ -123,10 +145,23 @@ void main() {
     for (var i = 0; i < lavori.length; i += insieme) {
       final lotto = lavori.skip(i).take(insieme).toList();
       final esiti = await Future.wait(lotto.map((l) async {
+        var filo = '';
+        if (colFilo) {
+          const ordine = Maestro.fixedOrder;
+          final prima = ordine[
+              (ordine.indexOf(l.maestro) + ordine.length - 1) % ordine.length];
+          IlFiloDelConsulto.dimentica();
+          IlFiloDelConsulto.annota(
+              maestro: prima,
+              domanda: l.domanda,
+              risposta: pareriDiPrima[prima]!);
+          filo = IlFiloDelConsulto.bloccoPer(l.maestro);
+        }
         final istruzione = MaestroPersona.systemInstruction(
           maestro: l.maestro,
           profile: UserProfile.empty,
           memory: MaestroMemory.empty,
+          filo: filo,
         );
         final testo = await chiama(
           modello: modelloRisposta,
@@ -158,6 +193,24 @@ void main() {
     // Mescolate con un seme FISSO: due esecuzioni si possono confrontare, e
     // l'ordine non e' quello in cui sono state generate, cosi' il giudice non
     // puo' indovinare per posizione.
+    // **IL SECONDO MAESTRO NOMINA IL PRIMO. Ordine FE voce 14.** Col filo,
+    // quante risposte nominano il Maestro che ha parlato prima.
+    if (colFilo) {
+      for (final m in Maestro.values) {
+        const ordine = Maestro.fixedOrder;
+        final prima =
+            ordine[(ordine.indexOf(m) + ordine.length - 1) % ordine.length];
+        final sue = risposte.where((r) => r.autore == m).toList();
+        final nominano = sue
+            .where((r) =>
+                r.testo.contains(prima.displayName) ||
+                r.testo.contains(prima.nomeAVideo))
+            .length;
+        stdout.writeln('FE.14 ${m.id}: nomina ${prima.displayName} in '
+            '$nominano risposte su ${sue.length}');
+      }
+    }
+
     risposte.shuffle(_SemeFisso(20260802));
 
     // ---- Secondo passo: il giudice, che non sa chi ha scritto.
@@ -167,9 +220,20 @@ void main() {
           'guide del cerchio di Esoteric Circle. Devi dire quale.')
       ..writeln();
     for (final maestro in Maestro.values) {
-      istruzioneGiudice.writeln(
-          '- ${maestro.id}: ${maestro.displayName}, si occupa di '
-          '${maestro.domainArtsPhrase}.');
+      istruzioneGiudice
+          .writeln('- ${maestro.id}: ${maestro.displayName}, si occupa di '
+              '${maestro.domainArtsPhrase}.');
+    }
+    // **COL FILO, LA RISPOSTA PUO' CITARE UN ALTRO MAESTRO.** Ordine FE voce
+    // 15: senza questa riga il giudice attribuiva a Medora le risposte di
+    // Caligo che riportavano il parere di Medora sulla Luna, cioe' misurava
+    // chi viene citato, non chi scrive.
+    if (colFilo) {
+      istruzioneGiudice
+        ..writeln()
+        ..writeln('La risposta puo\' riportare il parere di un\'altra '
+            'guida, nominandola: giudica chi la scrive, dalla voce e dalla '
+            'lente, non chi viene citato.');
     }
     istruzioneGiudice
       ..writeln()
@@ -179,18 +243,13 @@ void main() {
 
     // La matrice: quante volte una risposta di X e' stata attribuita a Y.
     final matrice = <Maestro, Map<Maestro, int>>{
-      for (final a in Maestro.values)
-        a: {for (final b in Maestro.values) b: 0},
+      for (final a in Maestro.values) a: {for (final b in Maestro.values) b: 0},
     };
     var nonDeciso = 0;
 
     // Le risposte che il giudice ha attribuito a un altro: ordine BY voce 04.
-    final sbagliate = <({
-      Maestro autore,
-      Maestro creduto,
-      String domanda,
-      String testo
-    })>[];
+    final sbagliate =
+        <({Maestro autore, Maestro creduto, String domanda, String testo})>[];
     stdout.writeln('Faccio giudicare ${risposte.length} risposte...');
     for (var i = 0; i < risposte.length; i += insieme) {
       final lotto = risposte.skip(i).take(insieme).toList();
@@ -246,9 +305,8 @@ void main() {
       final giusti = riga[autore]!;
       giustiTotali += giusti;
       totaliTotali += totale;
-      final celle = Maestro.values
-          .map((m) => riga[m]!.toString().padLeft(8))
-          .join(' ');
+      final celle =
+          Maestro.values.map((m) => riga[m]!.toString().padLeft(8)).join(' ');
       final quota = totale == 0 ? 0.0 : giusti / totale;
       stdout.writeln('${autore.id.padRight(9)}$celle  '
           '${totale.toString().padLeft(7)}  '
@@ -293,8 +351,7 @@ void main() {
       for (final altro in Maestro.values) {
         if (autore == altro) continue;
         final scambi = matrice[autore]![altro]!;
-        final totale =
-            matrice[autore]!.values.fold<int>(0, (a, b) => a + b);
+        final totale = matrice[autore]!.values.fold<int>(0, (a, b) => a + b);
         if (totale > 0 && scambi / totale >= 0.15) {
           stdout.writeln('DA CORREGGERE: ${autore.id} scambiato per '
               '${altro.id} nel ${(scambi / totale * 100).toStringAsFixed(0)} '
