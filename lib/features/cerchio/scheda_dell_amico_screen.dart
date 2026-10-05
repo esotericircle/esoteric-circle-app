@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../design_system/components/la_conferma_della_spesa.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/cerchio/i_segni_del_cerchio.dart';
@@ -52,33 +53,19 @@ class SchedaDellAmicoScreen extends StatelessWidget {
       Dono.scintilla => ListinoDegliEos.scintilla,
       Dono.sigillo => ListinoDegliEos.sigilloDaDonare,
     };
-    // **IL PREZZO SI DICHIARA PRIMA DEL GESTO**, e viene dal listino.
-    if (voce != null) {
-      final si = await dialogoDelCerchio<bool>(
-        context: context,
-        builder: (c) => AlertDialog(
-          backgroundColor: MaestroPalette.neutral.surfaceElevated,
-          title: Text(d.nome),
-          content: Text('${voce.nome}: ${ListinoDegliEos.prezzo(voce.costo)}. '
-              'Il dono resta come ornamento nel profilo di ${amico.nome}: un '
-              'dono non porta Eos a chi lo riceve.'),
-          actions: [
-            TextButton(
-                style: TextButton.styleFrom(
-                    foregroundColor: MaestroPalette.neutral.goldSoft),
-                onPressed: () => Navigator.of(c).pop(false),
-                child: const Text('Non ora')),
-            FilledButton(
-                key: const Key('dono_conferma'),
-                onPressed: () => Navigator.of(c).pop(true),
-                child: const Text('Dona')),
-          ],
-        ),
-      );
-      if (si != true || !context.mounted) return;
+    // **IL PREZZO SI DICHIARA PRIMA DEL GESTO**, e viene dal listino. Il
+    // cenno e' gratuito; per gli altri la conferma unica della spesa, ordine
+    // FD voce 01: il dialogo proprio del dono e' stato tolto.
+    final sociale = context.read<IlCerchioSociale>();
+    final EsitoDelGesto esito;
+    if (voce == null) {
+      esito = await sociale.mandaUnCenno(amico.uid);
+    } else {
+      final consenso =
+          await LaConfermaDellaSpesa.degliEos(context, costo: voce.costo);
+      if (consenso == null || !context.mounted) return;
+      esito = await sociale.mandaUnDono(amico.uid, d.name, consenso: consenso);
     }
-    final esito =
-        await context.read<IlCerchioSociale>().mandaUnDono(amico.uid, d.name);
     if (!context.mounted) return;
     final manca = esito.dati['manca'];
     if (!esito.ok && manca is num) {
@@ -147,8 +134,14 @@ class SchedaDellAmicoScreen extends StatelessWidget {
       ),
     );
     if (scelto == null || !context.mounted) return;
-    final esito =
-        await context.read<IlCerchioSociale>().regalaGliEos(amico.uid, scelto);
+    // Il foglio sceglie quanto; la conferma unica dice costo e saldo, ordine
+    // FD voce 01.
+    final consenso =
+        await LaConfermaDellaSpesa.degliEos(context, costo: scelto);
+    if (consenso == null || !context.mounted) return;
+    final esito = await context
+        .read<IlCerchioSociale>()
+        .regalaGliEos(amico.uid, scelto, consenso: consenso);
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(esito.ok

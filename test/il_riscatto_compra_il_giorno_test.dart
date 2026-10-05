@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:esoteric_circle/core/entitlement/il_consenso_della_spesa.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
 import 'package:esoteric_circle/core/entitlement/tier.dart';
 import 'package:esoteric_circle/services/server/porta_del_cerchio.dart';
@@ -41,7 +42,8 @@ void main() {
     borsa.registraGettata(Tier.free);
     expect(borsa.puoiGettare(Tier.free), isFalse);
 
-    final pagato = await borsa.riscatta('gettate');
+    final pagato = await borsa.riscatta('gettate',
+        consenso: ConsensoDellaSpesa.perLeProve(150));
     expect(pagato, 60, reason: 'il prezzo pagato non e\' quello del listino');
     expect(borsa.saldoEos, 240,
         reason: 'il saldo non segue quello che il server ha risposto');
@@ -56,7 +58,8 @@ void main() {
     final porta = _PortaDelRiscatto(saldoIniziale: 10);
     final borsa = QuestionAllowance(porta: porta);
     await borsa.sincronizza();
-    final pagato = await borsa.riscatta('gettate');
+    final pagato = await borsa.riscatta('gettate',
+        consenso: ConsensoDellaSpesa.perLeProve(150));
     expect(pagato, isNull);
     expect(porta.movimenti, isEmpty,
         reason: 'con gli Eos che non bastano non si disturba il server: il '
@@ -72,7 +75,8 @@ void main() {
     await borsa.sincronizza();
     expect(borsa.puoiApprofondire(Tier.free), isFalse);
 
-    final pagato = await borsa.riscatta('approfondimenti');
+    final pagato = await borsa.riscatta('approfondimenti',
+        consenso: ConsensoDellaSpesa.perLeProve(150));
     expect(pagato, 60);
     expect(borsa.puoiApprofondire(Tier.free), isTrue,
         reason: 'il credito comprato non apre il cancello del piano');

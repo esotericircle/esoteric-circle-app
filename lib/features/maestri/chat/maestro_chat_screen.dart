@@ -67,7 +67,7 @@ import '../../../core/entitlement/budget_del_giorno.dart';
 import '../../../design_system/components/riga_del_residuo.dart';
 import '../../../core/primo_uso/suggerimenti_di_zona.dart';
 import '../../../design_system/components/suggerimento_al_primo_uso.dart';
-import '../live/schermata_live.dart';
+import '../live/l_entrata_nel_vivo.dart';
 import 'widgets/la_porta_del_vivo.dart';
 
 class MaestroChatScreen extends StatefulWidget {
@@ -714,11 +714,10 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
                           const SizedBox(width: SpacingTokens.sm),
                           LaPortaDelVivo(
                             maestro: widget.maestro,
-                            onEntra: () =>
-                                Navigator.of(context).push(SchermataLive.route(
-                              maestro: widget.maestro,
-                              chat: controller,
-                            )),
+                            // La conferma dei minuti prima della sessione,
+                            // ordine FD voce 01.
+                            onEntra: () => entraNelVivo(context,
+                                maestro: widget.maestro, chat: controller),
                           ),
                         ],
                       ),
@@ -1561,10 +1560,10 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                     case _VoceDelMenu.voceViva:
                       // **Il LIVE risponde con la stessa chat**, stesso Maestro,
                       // stessa memoria: per questo gli si passa il controllore.
-                      Navigator.of(context).push(SchermataLive.route(
-                        maestro: maestro,
-                        chat: context.read<MaestroChatController>(),
-                      ));
+                      // La conferma dei minuti prima, ordine FD voce 01.
+                      entraNelVivo(context,
+                          maestro: maestro,
+                          chat: context.read<MaestroChatController>());
                   }
                 },
                 // **COMPATTO, COME I MENU' DEI CHATBOT. Ordine EA voce 08.** Parole

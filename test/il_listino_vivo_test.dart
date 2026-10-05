@@ -1,3 +1,4 @@
+import 'package:esoteric_circle/core/entitlement/il_consenso_della_spesa.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/listino_degli_eos.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
@@ -155,6 +156,7 @@ void main() {
       borsa: borsa,
       voce: ListinoDegliEos.stesaTreCarte,
       idMovimento: 'prova-1',
+      consenso: ConsensoDellaSpesa.perLeProve(120),
     );
     // ignore: avoid_print
     print('ORDINE AN VOCE 05: chiesto al server ${porta.chieste}');
@@ -177,6 +179,7 @@ void main() {
       borsa: borsa,
       voce: ListinoDegliEos.stesaTreCarte,
       idMovimento: 'prova-2',
+      consenso: ConsensoDellaSpesa.perLeProve(120),
     );
     expect(esito, EsitoDellaSpesa.saldoInsufficiente);
     expect(porta.chieste, isEmpty,
@@ -194,6 +197,7 @@ void main() {
       borsa: borsa,
       voce: ListinoDegliEos.stesaTreCarte,
       idMovimento: 'prova-3',
+      consenso: ConsensoDellaSpesa.perLeProve(120),
     );
     expect(esito, EsitoDellaSpesa.nonRiuscita);
     expect(borsa.saldoEos, 300,

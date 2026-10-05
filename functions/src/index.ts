@@ -44,6 +44,7 @@ export {pulisciLeScadenze} from "./pulizia";
 export {
   gliAvatarDiProtoface,
   apriUnaSessioneLive,
+  iMinutiDelLive,
   statoDellaSessioneLive,
   chiudiLaSessioneLive,
   gliAvatarNuoviDiProtoface,

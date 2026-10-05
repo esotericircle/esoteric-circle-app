@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 import 'dart:io';
 
+import 'package:esoteric_circle/core/entitlement/il_consenso_della_spesa.dart';
 import 'package:esoteric_circle/core/cerchio/il_cerchio_sociale.dart';
 import 'package:esoteric_circle/core/identity/birth_identity.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -112,12 +113,14 @@ void main() {
       'rispondiAlLegame': () => sociale.rispondiAlLegame('u-1', 'accetta'),
       'bloccaUnaPersona': () => sociale.blocca('u-1'),
       'ilMioCerchio': () => sociale.caricaIlCerchio(),
-      'compraUnPostoNelCerchio': () => sociale.compraUnPosto(),
+      'compraUnPostoNelCerchio': () =>
+          sociale.compraUnPosto(consenso: ConsensoDellaSpesa.perLeProve(100)),
       'laTendinaDelCerchio': () => sociale.caricaLaTendina(),
       'mandaUnSegno': () => sociale.mandaUnSegno('u-1', 'tiPenso'),
       'rispondiAlSegno': () => sociale.rispondiAlSegno('s1', risposta: 0),
-      'mandaUnDono': () => sociale.mandaUnDono('u-1', 'cenno'),
-      'regalaGliEos': () => sociale.regalaGliEos('u-1', 100),
+      'mandaUnDono': () => sociale.mandaUnCenno('u-1'),
+      'regalaGliEos': () => sociale.regalaGliEos('u-1', 100,
+          consenso: ConsensoDellaSpesa.perLeProve(100)),
       'scriviIlTokenDelCerchio': () => sociale.scriviIlToken('t'),
     };
     // Le quindici porte che un gesto apre, piu' quella del profilo che

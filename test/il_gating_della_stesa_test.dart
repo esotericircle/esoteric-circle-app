@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:esoteric_circle/core/entitlement/il_consenso_della_spesa.dart';
 import 'package:esoteric_circle/core/astro/zodiac_controller.dart';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/entitlement/plan_catalog.dart';
@@ -160,7 +161,10 @@ void main() {
     borsa.registraStesa(Tier.free);
     expect(borsa.puoiStendere(Tier.free), isFalse,
         reason: 'finita la stesa del giorno il Viandante le compra');
-    expect(await borsa.riscatta('stese'), 150);
+    expect(
+        await borsa.riscatta('stese',
+            consenso: ConsensoDellaSpesa.perLeProve(150)),
+        150);
     expect(borsa.puoiStendere(Tier.free), isTrue);
 
     // La gettata di rune del giorno: e' l'altro budget.
@@ -184,7 +188,10 @@ void main() {
     expect(borsa.prezzoDelRiscatto('stese'), 150,
         reason: 'il prezzo della stesa non arriva piu\' dal listino del '
             'server: una cifra scritta nel client non e\' un prezzo');
-    expect(await borsa.riscatta('stese'), 150);
+    expect(
+        await borsa.riscatta('stese',
+            consenso: ConsensoDellaSpesa.perLeProve(150)),
+        150);
     expect(borsa.saldoEos, 250);
   });
 
@@ -462,6 +469,14 @@ void main() {
         reason: 'il prezzo mostrato non e\' quello del server');
 
     await tester.tap(riscatta);
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 1));
+    // **PRIMA DEL RISCATTO LA CONFERMA**, ordine FD voce 01: costo e saldo,
+    // e niente si spende finche' non si tocca "Procedi".
+    expect(find.text('Questa richiesta costa 150 Eos. Nel tuo borsellino ce '
+        'ne sono 400.'), findsOneWidget,
+        reason: 'il riscatto non e\' passato dalla conferma');
+    await tester.tap(find.byKey(const Key('conferma_spesa_procedi')));
     await tester.pump();
     await tester.pump(const Duration(seconds: 3));
     // **A RISCATTO AVVENUTO IL RESPONSO SI APRE DA SOLO.**

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'il_consenso_della_spesa.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -894,7 +895,11 @@ class QuestionAllowance extends ChangeNotifier {
   /// se non si e' pagato niente (saldo corto, server muto, prezzo ignoto):
   /// chi chiama decide cosa dire, ma nessuno paga due volte perche' ogni
   /// movimento porta il suo identificativo.
-  Future<int?> riscatta(String budget) async {
+  ///
+  /// **Pretende il consenso della conferma**, ordine FD voce 01: nessun
+  /// riscatto parte al primo tocco.
+  Future<int?> riscatta(String budget,
+      {required ConsensoDellaSpesa consenso}) async {
     final prezzo = _listinoDelRiscatto[budget];
     if (prezzo == null || !_porta.viva) return null;
     if (_saldoEos < prezzo) return null;

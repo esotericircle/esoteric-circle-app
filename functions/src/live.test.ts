@@ -5,8 +5,23 @@ import {join} from "node:path";
 import {
   I_MODELLI_DELLA_VOCE, LE_CANDIDATE, LE_VOCI_DI_PARTENZA, eUnaVoceChirp,
   laStanzaE, ilContoDeiMinuti, secondiRimasti, MINUTI_DEL_MESE,
-  SECONDI_MINIMI_PER_APRIRE, StatoDeiMinuti,
+  SECONDI_MINIMI_PER_APRIRE, StatoDeiMinuti, iMinutiPerLaConferma,
 } from "./live";
+
+/**
+ * I MINUTI PER LA CONFERMA, ordine FD voce 01: quanto dura al massimo la
+ * sessione aperta adesso e quanti minuti restano, dai secondi del mese.
+ */
+test("i minuti per la conferma dicono durata, residuo e se si apre", () => {
+  assert.deepEqual(iMinutiPerLaConferma(37 * 60 + 20),
+    {rimasti: 37, durataMassimaSecondi: 1200, apribile: true});
+  assert.deepEqual(iMinutiPerLaConferma(300),
+    {rimasti: 5, durataMassimaSecondi: 300, apribile: true});
+  assert.deepEqual(iMinutiPerLaConferma(12),
+    {rimasti: 0, durataMassimaSecondi: 12, apribile: false});
+  assert.deepEqual(iMinutiPerLaConferma(-5),
+    {rimasti: 0, durataMassimaSecondi: 0, apribile: false});
+});
 
 /**
  * LA SESSIONE DEL LIVE SI CHIUDE, E SOLO DA CHI L'HA APERTA. Ordine EK, guasto
@@ -267,9 +282,16 @@ test("il conto legge i minuti scritti prima dell'ordine EX", () => {
 });
 
 test("l'apertura conta prima di decidere, e la sessione aperta entra nel registro", () => {
+  // Ordine FD voce 01: il conto vive in `iSecondiCheRestano`, che usano sia
+  // l'apertura sia la lettura dei minuti per la conferma.
   const apri = corpoDi("apriUnaSessioneLive");
-  assert.ok(apri.indexOf("contaLeSessioniFinite(uid)") > -1);
-  assert.ok(apri.indexOf("contaLeSessioniFinite(uid)") < apri.indexOf("SECONDI_MINIMI_PER_APRIRE"));
+  const conto = sorgente.slice(
+    sorgente.indexOf("async function iSecondiCheRestano("),
+    sorgente.indexOf("export function iMinutiPerLaConferma("));
+  assert.ok(conto.includes("contaLeSessioniFinite(uid)"));
+  assert.ok(apri.indexOf("iSecondiCheRestano(uid") > -1);
+  assert.ok(apri.indexOf("iSecondiCheRestano(uid") < apri.indexOf("SECONDI_MINIMI_PER_APRIRE"));
+  assert.ok(corpoDi("iMinutiDelLive").includes("iSecondiCheRestano(uid"));
   assert.ok(apri.includes("daContare(uid, String(sessione.id))"));
   assert.ok(apri.includes("Math.min(DURATA_MASSIMA, Math.floor(restano))"));
   const chiudi = corpoDi("chiudiLaSessioneLive");

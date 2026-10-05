@@ -364,9 +364,8 @@ class _Simile extends StatelessWidget {
   }
 
   Future<void> _cenno(BuildContext context) async {
-    final esito = await context
-        .read<IlCerchioSociale>()
-        .mandaUnDono(persona.uid, 'cenno');
+    final esito =
+        await context.read<IlCerchioSociale>().mandaUnCenno(persona.uid);
     if (!context.mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(esito.ok

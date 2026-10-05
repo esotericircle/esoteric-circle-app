@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../design_system/components/la_conferma_della_spesa.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/entitlement/question_allowance.dart';
@@ -172,13 +173,9 @@ Future<bool> showUpgradeInvite(
   final prezzo = borsa.prezzoDelRiscatto(budget);
   if (prezzo == null) return (label: null, azione: null);
   final saldo = borsa.saldoEos;
-  if (saldo < prezzo) {
-    return (
-      label: 'Riscatta $cosaUna · $prezzo Eos (te ne mancano '
-          '${prezzo - saldo})',
-      azione: null,
-    );
-  }
+  // **COL SALDO CORTO IL TOCCO APRE LO STESSO LA CONFERMA**, ordine FD voce
+  // 01: col pulsante spento e la riga che dice costo e saldo.
+  final corto = saldo < prezzo;
   RegistroDegliEos? registro;
   try {
     registro = context.read<RegistroDegliEos>();
@@ -187,9 +184,15 @@ Future<bool> showUpgradeInvite(
   }
   final messaggero = ScaffoldMessenger.maybeOf(context);
   return (
-    label: 'Riscatta $cosaUna · $prezzo Eos',
+    label: corto
+        ? 'Riscatta $cosaUna · $prezzo Eos (te ne mancano ${prezzo - saldo})'
+        : 'Riscatta $cosaUna · $prezzo Eos',
     azione: () async {
-      final pagato = await borsa.riscatta(budget);
+      // **LA CONFERMA PRIMA DEL RISCATTO**, ordine FD voce 01.
+      final consenso =
+          await LaConfermaDellaSpesa.degliEos(context, costo: prezzo);
+      if (consenso == null || !context.mounted) return;
+      final pagato = await borsa.riscatta(budget, consenso: consenso);
       if (pagato == null) {
         messaggero?.showSnackBar(const SnackBar(
           key: Key('riscatto_non_riuscito'),

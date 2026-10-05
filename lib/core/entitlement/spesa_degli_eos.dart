@@ -1,4 +1,5 @@
 import '../../services/server/porta_del_cerchio.dart';
+import 'il_consenso_della_spesa.dart';
 import 'listino_degli_eos.dart';
 import 'question_allowance.dart';
 
@@ -37,6 +38,7 @@ class SpesaDegliEos {
     required QuestionAllowance borsa,
     required VoceDelListino voce,
     required String idMovimento,
+    required ConsensoDellaSpesa consenso,
   }) async {
     if (borsa.saldoEos < voce.costo) return EsitoDellaSpesa.saldoInsufficiente;
     try {

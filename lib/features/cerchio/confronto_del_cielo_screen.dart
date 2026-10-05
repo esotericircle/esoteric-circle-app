@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../design_system/components/la_conferma_della_spesa.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/astro/zodiac.dart';
@@ -10,7 +11,6 @@ import '../../core/entitlement/question_allowance.dart';
 import '../../core/horoscope/horoscope.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/synastry/synastry_report.dart';
-import '../../design_system/components/borsellino.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -87,11 +87,13 @@ class _ConfrontoDelCieloScreenState extends State<ConfrontoDelCieloScreen> {
 
   Future<void> _unoInPiu() async {
     final borsa = context.read<QuestionAllowance>();
-    if (borsa.saldoEos < ListinoDegliEos.confrontoDelCieloInPiu.costo) {
-      await PortafoglioDelCerchio.apri(context);
-      return;
-    }
-    final pagato = await borsa.riscatta('cieli');
+    // **LA CONFERMA PRIMA DEL RISCATTO**, ordine FD voce 01.
+    final prezzo = borsa.prezzoDelRiscatto('cieli') ??
+        ListinoDegliEos.confrontoDelCieloInPiu.costo;
+    final consenso =
+        await LaConfermaDellaSpesa.degliEos(context, costo: prezzo);
+    if (consenso == null || !mounted) return;
+    final pagato = await borsa.riscatta('cieli', consenso: consenso);
     if (!mounted) return;
     if (pagato == null) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

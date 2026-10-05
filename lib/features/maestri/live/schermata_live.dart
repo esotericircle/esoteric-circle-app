@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:livekit_client/livekit_client.dart' as lk;
 
 import '../../../core/chat/chat_message.dart';
+import '../../../core/entitlement/il_consenso_della_spesa.dart';
 import '../../../core/maestro/maestro.dart';
 import '../../../design_system/tokens/color_tokens.dart';
 import '../../../design_system/tokens/spacing_tokens.dart';
@@ -64,9 +65,14 @@ class SchermataLive extends StatefulWidget {
 
   /// **LA ROTTA LA DICHIARA LA SCHERMATA, non chi la apre**, cosi' il LIVE
   /// entra col passaggio del Cerchio come ogni altra schermata.
+  ///
+  /// **Pretende il consenso della conferma dei minuti**, ordine FD voce 01:
+  /// la schermata apre una sessione a pagamento appena nasce, e la sola
+  /// strada per averlo e' `entraNelVivo`, che mostra la conferma prima.
   static Route<void> route({
     required Maestro maestro,
     MaestroChatController? chat,
+    required ConsensoDellaSpesa consenso,
   }) =>
       PassaggioDelCerchio.rotta<void>(
           (_) => SchermataLive(maestro: maestro, chat: chat));

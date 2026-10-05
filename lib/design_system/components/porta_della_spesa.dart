@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'la_conferma_della_spesa.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/entitlement/listino_degli_eos.dart';
@@ -27,12 +28,11 @@ import 'borsellino.dart';
 /// la Sinastria VIP consuma il limite del giorno e non gli Eos, ha confermato.
 /// **Sui limiti del giorno basta il conteggio residuo della voce CE.04.**
 ///
-/// **UN FATTO MISURATO, e cambia la portata di questa voce.** Oggi **nessun
-/// punto dell'app spende Eos**: `SpesaDegliEos.perLaVoce` non ha nessun
-/// chiamante sotto `lib/features`, e nemmeno `muoviGliEos`. Questa porta non
-/// ripara quindi un difetto in vigore: e' la casa che il primo punto che
-/// spendera' Eos dovra' attraversare, e una prova enumera i chiamanti perche'
-/// nessuno possa nascere fuori di qui.
+/// **UN FATTO MISURATO NELL'ORDINE CE, superato.** Allora nessun punto
+/// dell'app spendeva Eos; all'ordine FD questa porta ha tre chiamanti
+/// (l'oroscopo dell'anno, l'oroscopo completo di oggi, il posto in piu' fra
+/// gli amici), e la riga col prezzo non bastava: il tocco spendeva subito.
+/// Dall'ordine FD voce 01 il tocco apre `LaConfermaDellaSpesa`.
 ///
 /// **Le due cose che questa porta risolve per costruzione.**
 ///
@@ -84,6 +84,11 @@ class _PortaDellaSpesaState extends State<PortaDellaSpesa> {
 
   Future<void> _tocca() async {
     if (_inCorso) return;
+    // **LA CONFERMA PRIMA DI TUTTO**, ordine FD voce 01: costo e saldo, due
+    // pulsanti. Senza il consenso non si spende e non si procede.
+    final consenso =
+        await LaConfermaDellaSpesa.degliEos(context, costo: widget.voce.costo);
+    if (consenso == null || !mounted) return;
     setState(() => _inCorso = true);
     final borsa = context.read<QuestionAllowance>();
     final porta = context.read<AppServices>().porta;
@@ -92,6 +97,7 @@ class _PortaDellaSpesaState extends State<PortaDellaSpesa> {
       borsa: borsa,
       voce: widget.voce,
       idMovimento: SpesaDegliEos.nuovoMovimento(widget.voce.id),
+      consenso: consenso,
     );
     if (!mounted) return;
     setState(() => _inCorso = false);

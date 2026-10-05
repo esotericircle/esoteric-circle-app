@@ -390,6 +390,76 @@ async function daContare(uid: string, sessione: string): Promise<void> {
  * **La stanza porta il nome della persona e l'istante**: due sessioni della
  * stessa persona non si incontrano mai, e una stanza finita non si riapre.
  */
+/**
+ * I SECONDI DEL MESE CHE RESTANO A [uid], col tetto del piano o dei
+ * fondatori, dopo aver contato le sessioni finite coi secondi veri di
+ * Protoface. Un punto solo, ordine FD voce 01: lo usano l'apertura della
+ * sessione e la lettura dei minuti per la conferma, cosi' il numero che la
+ * persona legge prima del tocco e' lo stesso che l'apertura usera'.
+ */
+async function iSecondiCheRestano(
+  uid: string,
+  eFondatore: boolean,
+  piano: string
+): Promise<number> {
+  const db = getFirestore();
+  // **Ai fondatori si concede il tetto piu' alto**, non l'assenza di tetto:
+  // un conto che non esiste non si puo' guardare, e il giorno che qualcosa
+  // consuma senza fermarsi nessuno se ne accorge.
+  //
+  // **Ordine EX voce 01: i minuti scendono davvero.** Prima di decidere si
+  // contano le sessioni finite (anche quelle che il telefono non ha
+  // chiuso), coi secondi veri di Protoface. I fondatori hanno il tetto
+  // dell'Illuminato, salvo `configurazione/live.minutiDeiFondatori`, che il
+  // fondatore puo' alzare per i collaudi senza toccare i piani.
+  const configurazioneLive = await db.doc("configurazione/live").get();
+  const minutiDeiFondatori = Number(
+    configurazioneLive.data()?.minutiDeiFondatori ?? MINUTI_DEL_MESE.tier3
+  );
+  const tetto = eFondatore ?
+    minutiDeiFondatori :
+    (MINUTI_DEL_MESE[piano] ?? 0);
+  const conto = await contaLeSessioniFinite(uid);
+  return secondiRimasti(tetto, conto);
+}
+
+/**
+ * Quanto puo' durare una sessione aperta adesso e quanti minuti restano nel
+ * mese, dai secondi che restano. Pura, per le prove.
+ */
+export function iMinutiPerLaConferma(restano: number): {
+  rimasti: number;
+  durataMassimaSecondi: number;
+  apribile: boolean;
+} {
+  const r = Math.max(0, Math.floor(restano));
+  return {
+    rimasti: Math.floor(r / 60),
+    durataMassimaSecondi: Math.min(DURATA_MASSIMA, r),
+    apribile: r >= SECONDI_MINIMI_PER_APRIRE,
+  };
+}
+
+/**
+ * I MINUTI DEL LIVE PRIMA DEL TOCCO. Ordine FD voce 01.
+ *
+ * **Il difetto.** Il telefono conosceva i minuti rimasti solo dentro la
+ * risposta di `apriUnaSessioneLive`, cioe' a sessione gia' aperta e pagata:
+ * la conferma col costo e il residuo, che l'ordine FD pretende prima del
+ * tocco, non aveva un numero da dire. Questa lettura non apre niente, non
+ * chiama il volto e non scrive altro che il conto dei minuti della persona.
+ */
+export const iMinutiDelLive = onCall(
+  {region: "europe-west1", secrets: [PROTOFACE_API_KEY]},
+  async (request) => {
+    const uid = request.auth?.uid;
+    if (!uid) throw new HttpsError("unauthenticated", "Serve un account.");
+    const {eFondatore, piano} = await ilDirittoAlLive(uid);
+    const restano = await iSecondiCheRestano(uid, eFondatore, piano);
+    return iMinutiPerLaConferma(restano);
+  }
+);
+
 export const apriUnaSessioneLive = onCall(
   {
     region: "europe-west1",
@@ -410,31 +480,13 @@ export const apriUnaSessioneLive = onCall(
       throw new HttpsError("invalid-argument", `Maestro sconosciuto: ${maestro}`);
     }
 
-    const db = getFirestore();
-
     // --- IL DIRITTO. Voce 04, in un punto solo: vale anche per la voce.
     const {eFondatore, piano} = await ilDirittoAlLive(uid);
 
-    // --- I MINUTI. Voce 06: il LIVE consuma solo i suoi, e il conto vive qui.
-    //
-    // **Ai fondatori si concede il tetto piu' alto**, non l'assenza di tetto:
-    // un conto che non esiste non si puo' guardare, e il giorno che qualcosa
-    // consuma senza fermarsi nessuno se ne accorge.
-    //
-    // **Ordine EX voce 01: i minuti scendono davvero.** Prima di decidere si
-    // contano le sessioni finite (anche quelle che il telefono non ha
-    // chiuso), coi secondi veri di Protoface. I fondatori hanno il tetto
-    // dell'Illuminato, salvo `configurazione/live.minutiDeiFondatori`, che il
-    // fondatore puo' alzare per i collaudi senza toccare i piani.
-    const configurazioneLive = await db.doc("configurazione/live").get();
-    const minutiDeiFondatori = Number(
-      configurazioneLive.data()?.minutiDeiFondatori ?? MINUTI_DEL_MESE.tier3
-    );
-    const tetto = eFondatore ?
-      minutiDeiFondatori :
-      (MINUTI_DEL_MESE[piano] ?? 0);
-    const conto = await contaLeSessioniFinite(uid);
-    const restano = secondiRimasti(tetto, conto);
+    // --- I MINUTI. Voce 06: il LIVE consuma solo i suoi, e il conto vive in
+    // `iSecondiCheRestano`, lo stesso che legge la conferma (ordine FD voce
+    // 01).
+    const restano = await iSecondiCheRestano(uid, eFondatore, piano);
     if (restano < SECONDI_MINIMI_PER_APRIRE) {
       throw new HttpsError(
         "resource-exhausted",

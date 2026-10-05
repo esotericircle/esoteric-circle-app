@@ -7,6 +7,7 @@ import '../../design_system/components/cosmos_background.dart';
 import '../../design_system/components/tap_wave.dart';
 import '../passport/cosmic_passport_screen.dart';
 import '../santuario/santuario_screen.dart';
+import 'il_tasto_indietro_della_home.dart';
 import 'navigation_controller.dart';
 
 /// Contenitore principale dell'app: cosmo immersivo, schermata dello shell e
@@ -44,42 +45,47 @@ class AppShell extends StatelessWidget {
         CosmicPassport(identity: context.watch<ProfileController>().identity),
     };
 
-    return Scaffold(
-      extendBody: true,
-      backgroundColor: Colors.transparent,
-      // Il Santuario e il Passport non mostrano le figure zodiacali: niente
-      // asterismi, niente riquadro a portale nell'angolo. Il segno solare in
-      // oro resta al cielo di nascita, non qui. Restano stelle, nebulose e
-      // atmosfera. Nel Santuario le stelle tengono una zona franca attorno al
-      // titolo in alto, cosi' nessuna cade su una lettera.
-      body: CosmosBackground(
-        seed: 1,
-        showZodiac: false,
-        starKeepOut: nav.view == ShellView.santuario
-            ? SantuarioScreen.titleKeepOut
-            : null,
-        child: TapWaveLayer(
-          // Il saluto vocale per nome non vive piu' qui: appartiene alla fine
-          // dell'onboarding, "Il Risveglio". Nel Santuario resta solo la riga
-          // personale sotto la Luna.
-          child: NotificationListener<ScrollNotification>(
-            onNotification: (notification) {
-              context
-                  .read<ParallaxController>()
-                  .updateScroll(notification.metrics.pixels);
-              return false;
-            },
-            child: screen,
+    // Il tasto indietro della home, ordine FD voce 04: dal Passport torna al
+    // Cerchio, dal Cerchio chiede un secondo tocco prima di uscire.
+    return IlTastoIndietroDellaHome(
+      adesso: clock,
+      child: Scaffold(
+        extendBody: true,
+        backgroundColor: Colors.transparent,
+        // Il Santuario e il Passport non mostrano le figure zodiacali: niente
+        // asterismi, niente riquadro a portale nell'angolo. Il segno solare in
+        // oro resta al cielo di nascita, non qui. Restano stelle, nebulose e
+        // atmosfera. Nel Santuario le stelle tengono una zona franca attorno al
+        // titolo in alto, cosi' nessuna cade su una lettera.
+        body: CosmosBackground(
+          seed: 1,
+          showZodiac: false,
+          starKeepOut: nav.view == ShellView.santuario
+              ? SantuarioScreen.titleKeepOut
+              : null,
+          child: TapWaveLayer(
+            // Il saluto vocale per nome non vive piu' qui: appartiene alla fine
+            // dell'onboarding, "Il Risveglio". Nel Santuario resta solo la riga
+            // personale sotto la Luna.
+            child: NotificationListener<ScrollNotification>(
+              onNotification: (notification) {
+                context
+                    .read<ParallaxController>()
+                    .updateScroll(notification.metrics.pixels);
+                return false;
+              },
+              child: screen,
+            ),
           ),
         ),
+        // **LA BARRA NON STA PIU' QUI**, e non e' un alleggerimento: dentro il
+        // guscio si vedeva solo nel Santuario e nel Passport, perche' `ShellView`
+        // ha due valori, mentre i domini, le chat e il Consiglio sono rotte
+        // spinte SOPRA il guscio, col proprio Scaffold. Vive adesso in
+        // `BarraDelCerchio`, sopra il Navigator, che e' il solo punto da cui si
+        // vedono anche quelle. Lasciarla anche qui vorrebbe dire due barre in
+        // home, che e' il difetto che questo spostamento chiude.
       ),
-      // **LA BARRA NON STA PIU' QUI**, e non e' un alleggerimento: dentro il
-      // guscio si vedeva solo nel Santuario e nel Passport, perche' `ShellView`
-      // ha due valori, mentre i domini, le chat e il Consiglio sono rotte
-      // spinte SOPRA il guscio, col proprio Scaffold. Vive adesso in
-      // `BarraDelCerchio`, sopra il Navigator, che e' il solo punto da cui si
-      // vedono anche quelle. Lasciarla anche qui vorrebbe dire due barre in
-      // home, che e' il difetto che questo spostamento chiude.
     );
   }
 }

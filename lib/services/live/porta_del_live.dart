@@ -141,6 +141,35 @@ PerchePerILiveNonSiApre perchePerIlCodice(String codice) => switch (codice) {
       _ => PerchePerILiveNonSiApre.guasto,
     };
 
+/// I minuti del LIVE letti prima del tocco, da `iMinutiDelLive`. Ordine FD
+/// voce 01.
+class MinutiDelLive {
+  const MinutiDelLive({
+    required this.rimasti,
+    required this.durataMassimaSecondi,
+    required this.apribile,
+  });
+
+  /// I minuti del mese che restano, interi.
+  final int rimasti;
+
+  /// Quanto puo' durare la sessione aperta adesso, in secondi.
+  final int durataMassimaSecondi;
+
+  /// Falso sotto i trenta secondi: il server rifiuterebbe l'apertura.
+  final bool apribile;
+
+  /// Quanti minuti consuma al piu' la sessione: la durata massima, in minuti
+  /// arrotondati per eccesso, perche' Protoface fattura il minuto iniziato.
+  int get minutiDellaSessione => (durataMassimaSecondi + 59) ~/ 60;
+
+  static MinutiDelLive daMappa(Map<Object?, Object?> m) => MinutiDelLive(
+        rimasti: (m['rimasti'] as num?)?.toInt() ?? 0,
+        durataMassimaSecondi: (m['durataMassimaSecondi'] as num?)?.toInt() ?? 0,
+        apribile: m['apribile'] == true,
+      );
+}
+
 abstract final class PortaDelLive {
   /// **Sostituibile nelle prove**, perche' il banco non ha ne' un account
   /// Firebase ne' un server LiveKit, e una prova che chiama la rete non prova
@@ -281,6 +310,19 @@ abstract final class PortaDelLive {
         'la sessione LIVE non si chiude dal telefono, sessione $sessione',
         errore,
       );
+    }
+  }
+
+  /// I MINUTI DEL MESE, PRIMA DEL TOCCO. Ordine FD voce 01: la conferma
+  /// dice quanto consuma la sessione e quanti minuti restano, e questi numeri
+  /// li conosce solo il server. Non apre niente. Torna nullo se il server
+  /// non risponde: senza numeri la conferma non si mostra e il LIVE non parte.
+  static Future<MinutiDelLive?> minuti() async {
+    try {
+      return MinutiDelLive.daMappa(await chiama('iMinutiDelLive', const {}));
+    } catch (errore) {
+      annotaGuastoInnocuo('i minuti del LIVE non si leggono', errore);
+      return null;
     }
   }
 

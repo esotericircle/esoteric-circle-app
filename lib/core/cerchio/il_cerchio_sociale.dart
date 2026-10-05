@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import '../entitlement/il_consenso_della_spesa.dart';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -882,7 +883,9 @@ class IlCerchioSociale extends ChangeNotifier {
     }
   }
 
-  Future<EsitoDelGesto> compraUnPosto() async {
+  /// Spende 100 Eos: pretende il consenso della conferma, ordine FD voce 01.
+  Future<EsitoDelGesto> compraUnPosto(
+      {required ConsensoDellaSpesa consenso}) async {
     final e = await _chiedi('compraUnPostoNelCerchio',
         {'idMovimento': PortaDelCerchio.nuovoIdentificativo('posto')});
     final esito = _esito(e);
@@ -910,7 +913,17 @@ class IlCerchioSociale extends ChangeNotifier {
     return esito;
   }
 
-  Future<EsitoDelGesto> mandaUnDono(String a, String dono) async {
+  /// IL CENNO, il solo dono gratuito (`PREZZI_DEI_DONI.cenno: 0` sul
+  /// server): non consuma niente, e quindi non chiede la conferma.
+  Future<EsitoDelGesto> mandaUnCenno(String a) => _mandaIlDono(a, 'cenno');
+
+  /// Un dono che costa Eos (scintilla, sigillo): pretende il consenso della
+  /// conferma, ordine FD voce 01.
+  Future<EsitoDelGesto> mandaUnDono(String a, String dono,
+          {required ConsensoDellaSpesa consenso}) =>
+      _mandaIlDono(a, dono);
+
+  Future<EsitoDelGesto> _mandaIlDono(String a, String dono) async {
     return _esito(await _chiedi('mandaUnDono', {
       'a': a,
       'dono': dono,
@@ -918,7 +931,9 @@ class IlCerchioSociale extends ChangeNotifier {
     }));
   }
 
-  Future<EsitoDelGesto> regalaGliEos(String a, int quanti) async {
+  /// Pretende il consenso della conferma, ordine FD voce 01.
+  Future<EsitoDelGesto> regalaGliEos(String a, int quanti,
+      {required ConsensoDellaSpesa consenso}) async {
     return _esito(await _chiedi('regalaGliEos', {
       'a': a,
       'quanti': quanti,
