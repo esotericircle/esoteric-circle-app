@@ -1,7 +1,7 @@
 // ignore_for_file: avoid_print
 import 'dart:io';
 
-import 'package:esoteric_circle/core/astro/night_sky.dart';
+import 'package:esoteric_circle/core/astro/il_segno_del_cielo.dart';
 import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/entitlement/question_allowance.dart';
@@ -46,7 +46,8 @@ void main() {
       forma: CourtesyForm.feminine,
       natal: NatalContext(
           sunSign: 'Pesci',
-          moonSign: NightSky.moonSign(DateTime(1975, 3, 14, 12)).italianName),
+          moonSign:
+              IlSegnoDelCielo.dellaLuna(DateTime(1975, 3, 14, 12)).italianName),
     ),
     (
       chi: 'un uomo nato il 2 luglio 1990, Cancro',
@@ -54,7 +55,8 @@ void main() {
       forma: CourtesyForm.masculine,
       natal: NatalContext(
           sunSign: 'Cancro',
-          moonSign: NightSky.moonSign(DateTime(1990, 7, 2, 12)).italianName),
+          moonSign:
+              IlSegnoDelCielo.dellaLuna(DateTime(1990, 7, 2, 12)).italianName),
     ),
   ];
 
