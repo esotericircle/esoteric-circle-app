@@ -36,15 +36,15 @@ class ImprontaDellIstruzione {
   /// la conversazione.
   static const Map<String, String> impronte = {
     'medora':
-        'c89059f71e1719a52e28815295539c15bc2002ba94d97a989c5a347e62297db1',
-    'aura': '07250f7063c9693d84944ee086509ab5f5d007abb63888c5cd9e346acbeaa03c',
+        'f9150d31da558ea6a461fa648141a1d24529f3786faf06d624c8ca8d14ae7f6d',
+    'aura': '7aa73fc7ebc04659262c53cea9fd510ae02c53d3d7ab1c8f1817df31bb647f4b',
     'caligo':
-        'b54c98e2cd4b5ad404cfa172bc9f2f5c36548b3d18932b17de43ff92484bc662',
+        'ef9ab08eb229a7251d53e131911d280534f979e97c382d9a039de2428d1ff509',
   };
 
   /// Il giorno in cui queste impronte sono state registrate.
   static const String registrateIl =
-      '2 ottobre 2026 sera, ordine EX Aggiunta 4, voci EX.05 ed EX.07';
+      '6 ottobre 2026, ordine FE voci 10, 17 e 20';
 
   /// LO STORICO DELLE IMPRONTE, cioe' le stringhe che non esistono piu'.
   ///
@@ -54,6 +54,20 @@ class ImprontaDellIstruzione {
   /// cancella niente: quando l'istruzione cambia, l'impronta vecchia scende in
   /// questo elenco con la sua data e con cio' che le e' successo.
   static const List<String> storicoDelleImpronte = [
+    'DAL 2 OTTOBRE 2026 SERA AL 6 OTTOBRE 2026, LA STRINGA DELL\'ORDINE EX '
+        'AGGIUNTA 4. Impronte: medora '
+        'c89059f71e1719a52e28815295539c15bc2002ba94d97a989c5a347e62297db1, '
+        'aura 07250f7063c9693d84944ee086509ab5f5d007abb63888c5cd9e346acbeaa03c, '
+        'caligo b54c98e2cd4b5ad404cfa172bc9f2f5c36548b3d18932b17de43ff92484bc662. '
+        '**MISURA PRESA SU DI LEI**: un giro di attribuzione cieca, 58 su 60, '
+        '96,7 per cento, docs/collaudo/EX/attribuzione_dopo_aggiunta4.txt. '
+        'Caduta con l\'ordine FE: il ripetuto tolto dall\'istruzione di base '
+        'per pagare il costo del filo (voce 20, commit d7e025b0) e il '
+        'controllo finale del gesto gia\' consigliato e del "e se non va" '
+        '(voci 10 e 17). Sulla stringa nuova, quattro giri: senza filo 56 su '
+        '59 e 58 su 60, col filo di un altro Maestro 56 su 60 e 59 su 60, '
+        'in tutto 229 su 239, 95,8 per cento, ogni Maestro a 85 o sopra in '
+        'ogni giro, docs/collaudo/FE/attribuzione/*_dopo_il_taglio_*.txt.',
     'DAL 2 OTTOBRE 2026 AL 2 OTTOBRE 2026 SERA, LA STRINGA DELL\'ORDINE EX '
         'VOCI 05, 07 E 09. Impronte: medora '
         'a309f7c54486ae773259bc1a406122e0ae038b6dedac9acaafce19302574d7e3, '
