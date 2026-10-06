@@ -111,9 +111,17 @@ abstract final class LeFunzioniDelCielo {
   /// [cieloDelPeriodo], costa col motore di Meeus 2,3 secondi sul PC per 400
   /// giorni, e sul Realme ha fermato l'interfaccia per 214 fotogrammi; con
   /// Flutter il codice Dart gira sul filo principale di Android, e oltre i
-  /// cinque secondi Android chiude l'app. Medora e Aura leggono il cielo,
-  /// Caligo no: per questo cadevano loro. Adesso il calcolo gira in un
+  /// cinque secondi Android chiude l'app. Adesso il calcolo gira in un
   /// isolate a parte, e il filo dell'interfaccia resta libero.
+  ///
+  /// **Qui c'era scritto "Medora e Aura leggono il cielo, Caligo no"**, ed
+  /// era la prima ipotesi della voce FE.01 (commit `c6db92f3`), smentita
+  /// dalla misura del commit `bf65c2b2`: le funzioni del cielo vanno a tutti
+  /// e tre i Maestri (`FirebaseMaestroAiProvider`, `perIlMaestro` per ogni
+  /// turno) e il calcolo che fermava il filo pesava uguale sui tre, 2.920,
+  /// 2.893 e 2.828 millesimi sul PC. Perche' il tester non sia caduto con
+  /// Caligo non e' misurabile: Crashlytics ha un evento solo e lo stack non
+  /// dice di quale Maestro era il LIVE (docs/collaudo/FE/fe02_perche_caligo_no.md).
   static Future<T> fuoriDalFilo<T>(T Function() calcolo) =>
       Isolate.run(calcolo);
 

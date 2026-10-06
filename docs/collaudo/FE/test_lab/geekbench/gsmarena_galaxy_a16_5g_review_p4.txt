@@ -1,0 +1,713 @@
+URL: https://www.gsmarena.com/samsung_galaxy_a16_5g-review-2758p4.php
+Letta il: 2026-10-06 (curl, testo estratto dall'HTML grezzo, pagina intera)
+
+Samsung Galaxy A16 5G review: Software and performance
+GSMArena.com
+Tip us
+2.1m
+160k
+RSS
+EV
+Merch
+891k
+166k
+-->
+Log in
+Login
+I forgot my password
+Sign up
+Home
+News
+Reviews
+Videos
+Featured
+Phone Finder
+Deals
+Merch
+Coverage
+Contact
+ADVERTISEMENT
+GSMArena Team
+,
+24 October 2024
+Samsung Galaxy A16 5G review
+Comments (120)
+User reviews
+Galaxy A16 5G
+3.5
+4. Software and performance
+1. Introduction, specs, unboxing
+2. Design, build quality, handling
+3. Our lab tests - display, battery life, charging speed, speaker
+4. Software and performance
+5. Camera, photo and video quality
+6. Final words, our verdict, pros and cons
+Samsung Galaxy A16 5G specification
+User opinions and reviews
+Review comments (120)
+Samsung
+Android
+Android 14 with One UI 6.1
+The Galaxy A16 5G boots Android 14 with Samsung's latest One UI 6.1 software layer on top. Samsung recently redesigned its software support scheme, and the Galaxy A16 5G became eligible for a whopping six major Android upgrades. Compared to competitors, this is a very strong positive in favor of the Galaxy A16 5G as long as you can trust the budget hardware to run Android smoothly six years from now.
+In case you were wondering, Samsung's Galaxy AI isn't present on the A16 5G. It is still relegated mostly to flagship devices, though Samsung has been broadening the reach of the features a bit lately. Not quite this much, though.
+Some of the notable One UI 6 novelties include a redesigned Quick Panel, better notification visualization, an improved and simplified camera app, and more powerful gallery and editing tools.
+The Galaxy A16 5G gets a pretty feature-complete version of One UI 6.1. You are getting the same general UX and even most of the features of the Galaxy S series.
+The good news to all Galaxy users is that the list of software features reserved for the flagships has been shrinking in recent years and currently includes niche things like Samsung DeX.
+Everything else is typical One UI - lockscreen, homescreen, widgets and icons, theme handling, multi-tasking (available in both pop-up and split-screen state), and default apps.
+You can read
+more details about OneUI 6
+in our Galaxy A25 review.
+Benchmarks and performance
+As mentioned, the Galaxy A16 5G is in a weird position regarding hardware since, depending on the region, it can come with a Samsung Exynos 1330 chipset or a MediaTek Dimensity 6300.
+Our review unit is running the Exynos 1330.
+The Exynos 1330 is a 5nm chip with an Octa-core (2x2.4 GHz Cortex-A78 & 6x2.0 GHz Cortex-A55) CPU setup and a Mali-G68 MP2 GPU. The Mediatek Dimensity 6300 is a 6nm chip with an Octa-core (2x2.4 GHz Cortex-A76 & 6x2.0 GHz Cortex-A55) CPU setup and a Mali-G57 MC2 GPU.
+The Exynos 1330 has already been available in the Galaxy A14 5G. Unfortunately, we haven't seen that particular variant at the office. So, effectively, both the Exynos 1330 and the Dimensity 6300 are new chips for us.
+For memory, the Galaxy A16 5G comes with either 4GB of RAM and 128GB of storage or 8GB of RAM and 256GB of storage. As far as we can tell, the storage chips used here are of UFS 2.2 speed, which is not ideal but certainly better than budget eMMC chips. Storage is expandable via a microSD card. Our review unit is the base 4GB RAM and 128GB one. Those 4GB of RAM have us a bit worried about future-proofing. Still, Samsung has promised up to six major updates, and we have to take that promise for what it is.
+Let's kick things off with GeekBench and some CPU testing. The Exynos 1330 is far from the most powerful chip in its price segment, but it holds its own quite well, particularly in single-threaded workloads. It is comparable in performance to the Exynos 1380 and the Exynos 1280. The Dimensity 6080 isn't too far off either, and the same goes for the Helio G99 Ultra. The Snapdragon 695 and Snapdragon 4 Gen 2 are also in the same rough performance ballpark.
+GeekBench 6
+Multi-core
+Single-core
+Poco X6
+2945
+Snapdragon 7s Gen 2
+512GB, 12GB RAM
+Galaxy A35
+2931
+Exynos 1380
+128GB, 6GB RAM
+Galaxy A35
+2931
+Exynos 1380
+128GB, 6GB RAM
+Nothing CMF Phone 1
+2920
+Dimensity 7300
+256GB, 8GB RAM
+Galaxy A54
+2797
+Exynos 1380
+128GB, 8GB RAM
+Redmi Note 13 Pro 5G
+2751
+Snapdragon 7s Gen 2
+512GB, 12GB RAM
+Redmi 13 5G
+2263
+SM4450 Snapdragon 4 Gen 2 AE
+128GB, 8GB RAM
+Redmi 12 5G
+2183
+Snapdragon 4 Gen 2
+256GB, 8GB RAM
+Tecno Pova 5 Pro
+2102
+Dimensity 6080
+256GB, 8GB RAM
+Galaxy A25
+2098
+Exynos 1280
+128GB, 6GB RAM
+Galaxy A16 5G
+2042
+Exynos 1330
+128GB, 4GB RAM
+Moto G84
+2028
+Snapdragon 695
+256GB, 12GB RAM
+Poco M6 Pro
+1979
+Helio G99 Ultra
+512GB, 12GB RAM
+Redmi Note 13 5G
+1978
+Dimensity 6080
+256GB, 8GB RAM
+Poco M6 5G
+1954
+Dimensity 6100+
+256GB, 8GB RAM
+Galaxy A15
+1936
+Helio G99
+128GB, 4GB RAM
+Galaxy A24 4G
+1900
+Helio G99
+128GB, 4GB RAM
+Galaxy A14 5G
+1839
+MT6833 Dimensity 700
+64GB, 4GB RAM
+Galaxy A15 5G
+1763
+Dimensity 6100+
+128GB, 4GB RAM
+Redmi Note 13 4G
+1542
+Snapdragon 685
+256GB, 8GB RAM
+Galaxy A05s
+1449
+Snapdragon 680 4G
+128GB, 4GB RAM
+Redmi 13
+1342
+Helio G91 Ultra
+128GB, 6GB RAM
+Poco C65
+1292
+Helio G85
+256GB, 8GB RAM
+Galaxy A06
+1276
+Helio G85
+64GB, 4GB RAM
+Nothing CMF Phone 1
+1028
+Dimensity 7300
+256GB, 8GB RAM
+Galaxy A35
+1025
+Exynos 1380
+128GB, 6GB RAM
+Galaxy A35
+1025
+Exynos 1380
+128GB, 6GB RAM
+Poco X6
+1024
+Snapdragon 7s Gen 2
+512GB, 12GB RAM
+Redmi Note 13 Pro 5G
+1019
+Snapdragon 7s Gen 2
+512GB, 12GB RAM
+Galaxy A54
+1008
+Exynos 1380
+128GB, 8GB RAM
+Galaxy A16 5G
+975
+Exynos 1330
+128GB, 4GB RAM
+Galaxy A25
+971
+Exynos 1280
+128GB, 6GB RAM
+Redmi 13 5G
+968
+SM4450 Snapdragon 4 Gen 2 AE
+128GB, 8GB RAM
+Redmi 12 5G
+921
+Snapdragon 4 Gen 2
+256GB, 8GB RAM
+Moto G84
+914
+Snapdragon 695
+256GB, 12GB RAM
+Redmi Note 13 5G
+780
+Dimensity 6080
+256GB, 8GB RAM
+Tecno Pova 5 Pro
+765
+Dimensity 6080
+256GB, 8GB RAM
+Galaxy A15
+732
+Helio G99
+128GB, 4GB RAM
+Poco M6 Pro
+731
+Helio G99 Ultra
+512GB, 12GB RAM
+Galaxy A24 4G
+712
+Helio G99
+128GB, 4GB RAM
+Poco M6 5G
+703
+Dimensity 6100+
+256GB, 8GB RAM
+Galaxy A14 5G
+694
+MT6833 Dimensity 700
+64GB, 4GB RAM
+Galaxy A15 5G
+682
+Dimensity 6100+
+128GB, 4GB RAM
+Redmi Note 13 4G
+462
+Snapdragon 685
+256GB, 8GB RAM
+Poco C65
+437
+Helio G85
+256GB, 8GB RAM
+Galaxy A05s
+418
+Snapdragon 680 4G
+128GB, 4GB RAM
+Galaxy A06
+410
+Helio G85
+64GB, 4GB RAM
+Redmi 13
+406
+Helio G91 Ultra
+128GB, 6GB RAM
+AnTuTu is a much more compound benchmark with memory and GPU tests in its roster. It positions the Galaxy A16 5G as having pretty middle-of-the-line performance in its price bracket, similar to the Redmi 13 5G, the Xiaomi Poco M6 Pro and the Redmi Note 13 5G.
+AnTuTu 10
+Nothing CMF Phone 1
+646635
+Dimensity 7300
+256GB, 8GB RAM
+1080 x 2400 px
+Poco X6
+605803
+Snapdragon 7s Gen 2
+512GB, 12GB RAM
+1220 x 2712 px
+Galaxy A35
+603441
+Exynos 1380
+128GB, 6GB RAM
+1080 x 2340 px
+Galaxy A35
+603441
+Exynos 1380
+128GB, 6GB RAM
+1080 x 2340 px
+Galaxy A54
+589448
+Exynos 1380
+128GB, 8GB RAM
+1080 x 2340 px
+Redmi Note 13 Pro 5G
+581979
+Snapdragon 7s Gen 2
+512GB, 12GB RAM
+1220 x 2712 px
+Galaxy A25
+480771
+Exynos 1280
+128GB, 6GB RAM
+1080 x 2340 px
+Redmi Note 13 5G
+455421
+Dimensity 6080
+256GB, 8GB RAM
+1080 x 2400 px
+Redmi 13 5G
+442953
+SM4450 Snapdragon 4 Gen 2 AE
+128GB, 8GB RAM
+1080 x 2460 px
+Galaxy A16 5G
+435895
+Exynos 1330
+128GB, 4GB RAM
+1080 x 2340 px
+Redmi 12 5G
+434114
+Snapdragon 4 Gen 2
+256GB, 8GB RAM
+1080 x 2460 px
+Poco M6 Pro
+428531
+Helio G99 Ultra
+512GB, 12GB RAM
+1080 x 2400 px
+Tecno Pova 5 Pro
+423437
+Dimensity 6080
+256GB, 8GB RAM
+1080 x 2460 px
+Poco M6 5G
+407997
+Dimensity 6100+
+256GB, 8GB RAM
+720 x 1600 px
+Redmi Note 13 4G
+383407
+Snapdragon 685
+256GB, 8GB RAM
+1080 x 2400 px
+Moto G84
+375632
+Snapdragon 695
+256GB, 12GB RAM
+1080 x 2400 px
+Galaxy A15
+375314
+Helio G99
+128GB, 4GB RAM
+1080 x 2340 px
+Galaxy A15 5G
+364663
+Dimensity 6100+
+128GB, 4GB RAM
+1080 x 2340 px
+Galaxy A05s
+316956
+Snapdragon 680 4G
+128GB, 4GB RAM
+1080 x 2400 px
+Redmi 13
+262438
+Helio G91 Ultra
+128GB, 6GB RAM
+1080 x 2460 px
+Poco C65
+261613
+Helio G85
+256GB, 8GB RAM
+720 x 1600 px
+Galaxy A06
+247675
+Helio G85
+64GB, 4GB RAM
+720 x 1600 px
+The Mali-G68 MP2 inside the Galaxy A16 5G is certainly not the most powerful GPU, but it gets by pretty well and a bit better than the popular Mali-G57 MC2 setup that so many chipsets use. The Samsung Exynos 1280 and 1380 might offer CPU performance similar to the Exynos 1330, but both have more cores in their GPU and, hence, notably better graphical performance.
+3DMark (offscreen)
+Wild Life (1440p)
+Wild Life Extreme (2160p)
+Nothing CMF Phone 1
+3142
+Dimensity 7300
+Mali-G615 MC2
+1080 x 2400 px
+Redmi Note 13 Pro 5G
+3107
+Snapdragon 7s Gen 2
+Adreno 710
+1220 x 2712 px
+Poco X6
+3032
+Snapdragon 7s Gen 2
+Adreno 710
+1220 x 2712 px
+Galaxy A54
+2818
+Exynos 1380
+Mali-G68 MP5
+1080 x 2340 px
+Galaxy A35
+2751
+Exynos 1380
+Mali-G68 MP5
+1080 x 2340 px
+Galaxy A35
+2751
+Exynos 1380
+Mali-G68 MP5
+1080 x 2340 px
+Galaxy A25
+2320
+Exynos 1280
+Mali-G68
+1080 x 2340 px
+Galaxy A16 5G
+1382
+Exynos 1330
+Mali-G68 MP2
+1080 x 2340 px
+Redmi Note 13 5G
+1334
+Dimensity 6080
+Mali-G57 MC2
+1080 x 2400 px
+Tecno Pova 5 Pro
+1334
+Dimensity 6080
+Mali-G57 MC2
+1080 x 2460 px
+Galaxy A24 4G
+1248
+Helio G99
+Mali-G57 MC2
+1080 x 2340 px
+Poco M6 Pro
+1245
+Helio G99 Ultra
+Mali-G57 MC2
+1080 x 2400 px
+Galaxy A15
+1231
+Helio G99
+Mali-G57 MC2
+1080 x 2340 px
+Galaxy A15 5G
+1222
+Dimensity 6100+
+Mali-G57 MC2
+1080 x 2340 px
+Poco M6 5G
+1202
+Dimensity 6100+
+Mali-G57 MC2
+720 x 1600 px
+Moto G84
+1198
+Snapdragon 695
+Adreno 619
+1080 x 2400 px
+Galaxy A14 5G
+1197
+MT6833 Dimensity 700
+Mali-G57 MC2
+1080 x 2408 px
+Poco C65
+750
+Helio G85
+Mali-G52 MC2
+720 x 1600 px
+Galaxy A06
+749
+Helio G85
+Mali-G52 MC2
+720 x 1600 px
+Redmi 13
+725
+Helio G91 Ultra
+Mali-G52 MC2
+1080 x 2460 px
+Redmi 13 5G
+702
+SM4450 Snapdragon 4 Gen 2 AE
+Adreno 613
+1080 x 2460 px
+Redmi 12 5G
+665
+Snapdragon 4 Gen 2
+Adreno 613
+1080 x 2460 px
+Redmi Note 13 4G
+655
+Snapdragon 685
+Adreno 610
+1080 x 2400 px
+Galaxy A05s
+593
+Snapdragon 680 4G
+Adreno 610
+1080 x 2400 px
+Nothing CMF Phone 1
+851
+Dimensity 7300
+Mali-G615 MC2
+1080 x 2400 px
+Galaxy A54
+808
+Exynos 1380
+Mali-G68 MP5
+1080 x 2340 px
+Galaxy A35
+806
+Exynos 1380
+Mali-G68 MP5
+1080 x 2340 px
+Galaxy A35
+806
+Exynos 1380
+Mali-G68 MP5
+1080 x 2340 px
+Poco X6
+792
+Snapdragon 7s Gen 2
+Adreno 710
+1220 x 2712 px
+Redmi Note 13 Pro 5G
+792
+Snapdragon 7s Gen 2
+Adreno 710
+1220 x 2712 px
+Galaxy A25
+643
+Exynos 1280
+Mali-G68
+1080 x 2340 px
+Redmi Note 13 5G
+371
+Dimensity 6080
+Mali-G57 MC2
+1080 x 2400 px
+Tecno Pova 5 Pro
+368
+Dimensity 6080
+Mali-G57 MC2
+1080 x 2460 px
+Galaxy A16 5G
+360
+Exynos 1330
+Mali-G68 MP2
+1080 x 2340 px
+Moto G84
+357
+Snapdragon 695
+Adreno 619
+1080 x 2400 px
+Poco M6 Pro
+348
+Helio G99 Ultra
+Mali-G57 MC2
+1080 x 2400 px
+Galaxy A24 4G
+341
+Helio G99
+Mali-G57 MC2
+1080 x 2340 px
+Galaxy A15
+338
+Helio G99
+Mali-G57 MC2
+1080 x 2340 px
+Galaxy A15 5G
+335
+Dimensity 6100+
+Mali-G57 MC2
+1080 x 2340 px
+Galaxy A14 5G
+331
+MT6833 Dimensity 700
+Mali-G57 MC2
+1080 x 2408 px
+Poco M6 5G
+328
+Dimensity 6100+
+Mali-G57 MC2
+720 x 1600 px
+Poco C65
+190
+Helio G85
+Mali-G52 MC2
+720 x 1600 px
+Galaxy A06
+188
+Helio G85
+Mali-G52 MC2
+720 x 1600 px
+Redmi 13
+187
+Helio G91 Ultra
+Mali-G52 MC2
+1080 x 2460 px
+Redmi 13 5G
+173
+SM4450 Snapdragon 4 Gen 2 AE
+Adreno 613
+1080 x 2460 px
+Redmi 12 5G
+156
+Snapdragon 4 Gen 2
+Adreno 613
+1080 x 2460 px
+Redmi Note 13 4G
+137
+Snapdragon 685
+Adreno 610
+1080 x 2400 px
+Galaxy A05s
+123
+Snapdragon 680 4G
+Adreno 610
+1080 x 2400 px
+Going by benchmarks, the Galaxy A16 5G is clearly not starved for performance. However, from a more practical standpoint, we have to say that we don't particularly like the way our review unit is running One UI 6.1. There are plenty of slowdowns and even the occasional stutter. In our opinion, the 4GB of RAM is probably a bit too little for things to run smoothly.
+Thermal-throttling
+The Exynos 1330 might not be super powerful, but at least it doesn't put out too much heat. It thermal-throttles quite smoothly and gracefully.
+Thermal-throttling
+The phone's surface doesn't get too hot either; it is just lukewarm, even with prolonged stress testing.
+Next Page »
+5. Camera, photo and video quality
+4. Software and performance
+1. Introduction, specs, unboxing
+2. Design, build quality, handling
+3. Our lab tests - display, battery life, charging speed, speaker
+4. Software and performance
+5. Camera, photo and video quality
+6. Final words, our verdict, pros and cons
+Samsung Galaxy A16 5G specification
+User opinions and reviews
+Review comments (120)
+Reviews
+Samsung Galaxy A16 5G review
+Page 4
+Comments (120)
+User reviews
+Galaxy A16 5G
+Phone finder
+Samsung
+Apple
+Huawei
+Nokia
+Sony
+LG
+HTC
+Motorola
+Lenovo
+Xiaomi
+Google
+Honor
+Oppo
+Realme
+OnePlus
+Nothing
+vivo
+Meizu
+Ulefone
+Alcatel
+ZTE
+RugOne
+Umidigi
+Coolpad
+Oscal
+Sharp
+Micromax
+Infinix
+Asus
+Tecno
+Doogee
+Blackview
+Cubot
+Oukitel
+Itel
+TCL
+All brands
+Rumor mill
+ADVERTISEMENT
+Popular reviews
+Apple iPhone 18 Pro Max review
+Apple iPhone 18 Pro review
+Poco F9 Ultra review
+ADVERTISEMENT
+ELECTRIC VEHICLES
+UK caught between Brussels and Beijing with 45% EV tariffs on the table
+Inside Britain’s record-breaking EV surge
+Tesla defies analytics with Q3 delivery numbers but still misses the mark
+ADVERTISEMENT
+Ads by
+Home
+News
+Reviews
+Compare
+Coverage
+Glossary
+FAQ
+RSS
+Youtube
+Instagram
+TikTok
+Facebook
+Twitter
+© 2000-2026
+GSMArena.com
+Mobile version
+Android app
+Tools
+Contact us
+Merch store
+Privacy
+Terms of use
