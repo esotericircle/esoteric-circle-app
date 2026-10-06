@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
-"""I CINQUE BANCHI COL MODELLO, IN UN COMANDO SOLO. Ordine FD voce 03.
+"""I BANCHI COL MODELLO, IN UN COMANDO SOLO. Ordine FD voce 03, e dall'ordine
+FE voce 18 i sei percorsi del consulto: undici casi.
 
-Lancia i cinque casi che chiamano Gemini davvero, uno dopo l'altro, legge
+Lancia i casi che chiamano Gemini davvero, uno dopo l'altro, legge
 l'esito di ciascuno e scrive `docs/collaudo/banchi_col_modello/<data>.txt`
-con i cinque risultati, il commit su cui hanno girato e, con `--costo`, il
+con un risultato per caso, il commit su cui hanno girato e, con `--costo`, il
 costo del giro letto da Cloud Monitoring e portato in euro.
 
 Uso, dalla radice del progetto:
 
-    python tool/banchi_col_modello/i_cinque_banchi.py --costo
+    python tool/banchi_col_modello/i_banchi_col_modello.py --costo
 
 Pretende l'albero pulito in `lib`, `test` e `tool/banchi_col_modello`: il
 risultato vale per il commit scritto nel file, e `tool/consegna.py` rifiuta
@@ -16,7 +17,7 @@ una consegna il cui codice e' diverso da quello su cui i banchi hanno girato.
 Il gettone di Vertex si chiede a `gcloud` e passa ai banchi nell'ambiente,
 senza essere stampato ne' scritto.
 
-`--elenco` stampa i cinque casi e i loro file senza lanciare niente: e' cio'
+`--elenco` stampa i casi e i loro file senza lanciare niente: e' cio'
 che usa la prova `i_banchi_col_modello_hanno_un_comando_test.dart`.
 """
 import datetime
@@ -36,7 +37,8 @@ CARTELLA = 'tool/banchi_col_modello'
 USCITA = 'docs/collaudo/banchi_col_modello'
 PROGETTO = 'esoteric-circle'
 
-# I cinque casi: il file, il nome della prova, cosa misura.
+# I casi: il file, il nome della prova, cosa misura. Il comando si chiamava
+# `i_cinque_banchi.py` fino all'ordine FE, che ne ha aggiunti sei.
 BANCHI = [
     ('il_banco_delle_domande_libere_col_modello_test.dart',
      'CON RETE: il classificatore vero sul banco',
@@ -56,6 +58,28 @@ BANCHI = [
      'Tre chiamate vere per ogni sigillo, lette tutte',
      'i testi del Sigillo dell\'Intenzione: tre chiamate per sigillo, ogni '
      'testo letto e controllato'),
+    # Ordine FE voci 16-18: i sei percorsi del consulto, col giudice della
+    # coerenza.
+    ('il_filo_del_consulto_col_modello_test.dart',
+     'CON RETE: FE.16 A, tre domande di fila allo stesso Maestro sullo stesso tema',
+     'percorso A del filo del consulto: zero contraddizioni e nove risposte '
+     'su dieci che portano avanti il punto'),
+    ('il_filo_del_consulto_col_modello_test.dart',
+     'CON RETE: FE.16 B, la stessa domanda a Medora, poi a Caligo, poi ad Aura',
+     'percorso B: il secondo e il terzo Maestro ricevono la scheda, la '
+     'portano avanti e nominano chi ha parlato prima'),
+    ('il_filo_del_consulto_col_modello_test.dart',
+     'CON RETE: FE.16 C, la persona riprende la frase che il Maestro le ha suggerito',
+     'percorso C: la frase suggerita ripresa vale come continuazione'),
+    ('il_filo_del_consulto_col_modello_test.dart',
+     'CON RETE: FE.16 D, una domanda, un tema diverso, poi il ritorno al primo tema',
+     'percorso D: tornando al primo tema il Maestro riprende il suo parere'),
+    ('il_filo_del_consulto_col_modello_test.dart',
+     'CON RETE: FE.16 E, il consulto comincia scritto e continua a voce sullo stesso tema',
+     'percorso E: dallo scritto alla voce il parere resta lo stesso'),
+    ('il_filo_del_consulto_col_modello_test.dart',
+     'CON RETE: FE.16 F, il consulto si interrompe e riprende dopo dieci minuti',
+     'percorso F: dopo dieci minuti il Maestro ritrova il suo filo'),
 ]
 
 # I prezzi di Vertex in dollari per milione di token, dall'ordine DJ voce 03
@@ -167,11 +191,11 @@ def main():
               flush=True)
     fine = datetime.datetime.now(datetime.timezone.utc)
 
-    righe = [f'I CINQUE BANCHI COL MODELLO, ordine FD voce 03',
+    righe = [f'I BANCHI COL MODELLO, ordine FD voce 03 e ordine FE voce 18',
              f'commit: {commit}',
              f'inizio: {inizio.isoformat(timespec="seconds")}',
              f'fine: {fine.isoformat(timespec="seconds")}',
-             f'comando: python {CARTELLA}/i_cinque_banchi.py'
+             f'comando: python {CARTELLA}/i_banchi_col_modello.py'
              + (' --costo' if '--costo' in sys.argv else ''), '']
     rossi = 0
     for i, (f, nome, cosa) in enumerate(BANCHI, 1):
@@ -241,7 +265,7 @@ def main():
                     u.write(r.rstrip() + '\n')
     print('scritto ' + uscite_file)
     if rossi:
-        raise SystemExit(f'{rossi} banchi su cinque non sono passati')
+        raise SystemExit(f'{rossi} banchi su {len(BANCHI)} non sono passati')
 
 
 if __name__ == '__main__':
