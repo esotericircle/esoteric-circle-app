@@ -72,4 +72,11 @@ abstract interface class MaestroMemoryRepository {
   /// voce 07. Vero se sono stati tolti davvero; la conversazione nulla e' la
   /// prima, quella dei messaggi senza marcatura.
   Future<bool> cancellaLaConversazione(Maestro maestro, String? conversazione);
+
+  /// **I MESSAGGI DI UNA CONVERSAZIONE, per riaprirla dal menu' o dal
+  /// Diario. Ordine FE voce 22.16.** Nell'ordine in cui sono arrivati. La
+  /// porta vera li chiede per marcatura e, se non ci sono piu', all'archivio
+  /// a basso costo.
+  Future<List<ChatMessage>> messaggiDellaConversazione(
+      Maestro maestro, String? conversazione);
 }

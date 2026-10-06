@@ -400,6 +400,12 @@ abstract class PortaDelCerchio {
           String maestro, String? conversazione) async =>
       false;
 
+  /// I messaggi di una conversazione passata nell'archivio a basso costo,
+  /// per chiave del Diario (`conv.<maestro>.<id>`). Ordine FE voce 22.15.
+  Future<List<Map<String, Object?>>> laConversazioneArchiviata(
+          String chiave) async =>
+      const [];
+
   /// LA SONDA DELL'INGRESSO, ordine BI voce 01: il server dice se una email
   /// ha gia' un Cerchio e con quali vie. Nulla quando il server non
   /// risponde: la porta allora offre le vie senza promettere niente.
@@ -654,6 +660,19 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
       'conversazione': conversazione,
     });
     return risposta is Map && risposta['tolti'] is int;
+  }
+
+  @override
+  Future<List<Map<String, Object?>>> laConversazioneArchiviata(
+      String chiave) async {
+    final risposta =
+        await _chiama('leggiLaConversazioneArchiviata', {'chiave': chiave});
+    final messaggi = risposta is Map ? risposta['messaggi'] : null;
+    if (messaggi is! List) return const [];
+    return [
+      for (final m in messaggi)
+        if (m is Map) m.map((k, v) => MapEntry('$k', v)),
+    ];
   }
 
   @override

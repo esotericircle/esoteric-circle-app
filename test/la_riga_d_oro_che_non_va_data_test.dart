@@ -25,6 +25,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'il_diario_finto.dart';
+
 /// **LA RIGA D'ORO CHE NON VA DATA.** Ordine EQ voce 01, 27 settembre 2026.
 ///
 /// Le catture del fondatore della chat di Calìgo: la stessa riga d'oro,
@@ -406,12 +408,19 @@ Future<void> _apriLaConversazione(
     m.setMockStreamHandler(
         EventChannel(n), MockStreamHandler.inline(onListen: (a, e) {}));
   }
-  SharedPreferences.setMockInitialValues(const {
+  SharedPreferences.setMockInitialValues({
     'onboarding.done': true,
     'santuario.greeted': true,
     'cammino.generazione': 2,
     'avvisi.primoGiorno.chiesto': true,
     'settings.effettiSonori': false,
+    // **LA CONVERSAZIONE STA NEL DIARIO, come in app.** Dall'ordine FE
+    // voce 22.16 il menu' legge le conversazioni dal Diario Cosmico, dove il
+    // server le scrive col primo messaggio: qui la riga si mette a mano.
+    ...ilDiarioSulTelefono([
+      laConversazione(Maestro.caligo,
+          titolo: messaggi.first.text, quando: DateTime.now()),
+    ]),
   });
   tester.view.physicalSize = const Size(402 * 3, 874 * 3);
   tester.view.devicePixelRatio = 3.0;

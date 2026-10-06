@@ -34,7 +34,6 @@ import '../../core/condivisione/premio_della_condivisione.dart';
 import '../../core/maestro/maestro.dart';
 import '../../core/ricordi/registro_dei_ricordi.dart';
 import '../../core/ricordi/ricordo_custodito.dart';
-import '../../core/ricordi/scrigno_dei_custoditi.dart';
 import '../../core/ricordi/voce_del_ricordo.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
@@ -182,6 +181,39 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
   void initState() {
     super.initState();
     IResponsiDiOggi.ricorda(_perIlMaestro, adesso: _adesso);
+    // **IL RESPONSO ENTRA NEL DIARIO DA SE'. Ordine FE voce 22.6.** Appena
+    // si mostra, senza che la persona prema niente: la memoria non ha buchi
+    // dove non si e' pigiato. Si annotano i dati che lo generano (FE.22.11).
+    WidgetsBinding.instance.addPostFrameCallback((_) => _annota());
+  }
+
+  RegistroDeiRicordi? get _registro {
+    try {
+      return context.read<RegistroDeiRicordi>();
+    } catch (errore) {
+      // Un provider assente non spegne il responso: nelle prove che montano
+      // una schermata sola il registro puo' non esserci.
+      debugPrint('Azioni: il registro del Diario non c\'e\'. $errore');
+      return null;
+    }
+  }
+
+  Future<void> _annota() async {
+    if (!mounted) return;
+    final registro = _registro;
+    if (registro == null) return;
+    final ricordo = _daCustodire(ComeENato.gesto);
+    final gia = registro.vociDelMese(VoceDelRicordo.chiaveDelMese(_quando));
+    final stella = gia.any((v) => v.chiave == ricordo.chiave && v.stella);
+    if (stella && mounted) setState(() => _custodito = true);
+    await registro.annotaIlResponso(
+      chiave: ricordo.chiave,
+      quando: _quando,
+      arte: widget.responso.arte,
+      maestro: widget.maestro.id,
+      titolo: widget.responso.titolo,
+      contenuto: ricordo.aMappa(),
+    );
   }
 
   @override
@@ -209,36 +241,34 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
   /// **Le due scritture stanno insieme e non in due punti**: un responso
   /// custodito che non comparisse nella timeline sarebbe una carta senza il
   /// giorno in cui e' nata.
-  Future<bool> _tieni(ComeENato come) async {
-    final ricordo = _daCustodire(come);
-    var entrato = false;
-    try {
-      final scrigno = context.read<ScrignoDeiCustoditi>();
-      entrato = await scrigno.custodisci(ricordo);
-    } catch (errore) {
-      // **Un provider assente non spegne il responso.** Nelle prove che
-      // montano una schermata sola lo scrigno puo' non esserci, e un responso
-      // che morisse per questo sarebbe un difetto peggiore di quello che
-      // questa voce cura.
-      debugPrint('Azioni: lo scrigno non risponde. $errore');
-      return false;
-    }
-    if (!entrato) return false;
-    if (!mounted) return true;
-    try {
-      final registro = context.read<RegistroDeiRicordi>();
-      await registro.segna(VoceDelRicordo(
+  /// **LA STELLA, DAL RESPONSO. Ordine FE voce 22.7.** Lo stesso campo che
+  /// si tocca nel Diario: si mette e si toglie da qui e da li'. Prima qui
+  /// c'era "Custodisci", che scriveva in un magazzino a parte (lo scrigno
+  /// dei custoditi): due elenchi per un solo segno, e il secondo e' stato
+  /// cancellato.
+  Future<void> _segna() async {
+    final registro = _registro;
+    if (registro == null) return;
+    final ricordo = _daCustodire(ComeENato.gesto);
+    final stella = !_custodito;
+    setState(() => _custodito = stella);
+    await registro.mettiLaStella(
+      VoceDelRicordo(
         quando: _quando,
         arte: widget.responso.arte,
         maestro: widget.maestro.id,
         titolo: widget.responso.titolo,
         tipo: TipoDelRicordo.responso,
         riferimento: ricordo.chiave,
-      ));
-    } catch (errore) {
-      debugPrint('Azioni: il registro dei Ricordi non risponde. $errore');
-    }
-    return true;
+        chiaveDelDiario: ricordo.chiave,
+      ),
+      stella,
+    );
+    if (!mounted || !stella) return;
+    unawaited(PaletteSensoriale.suona(context, SuonoDelCerchio.custodisci));
+    ScaffoldMessenger.maybeOf(context)?.showSnackBar(
+      const SnackBar(content: Text('Segnato nel Diario Cosmico.')),
+    );
   }
 
   Future<void> _condividi() async {
@@ -246,34 +276,11 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
     if (porta == null) return;
     setState(() => _condividendo = true);
     try {
-      final avvenuta = await porta();
-      // **SOLO SE E' AVVENUTA.** Un foglio aperto e poi chiuso non custodisce
-      // niente, ed e' la misura di accettazione dell'ordine.
-      if (avvenuta) {
-        final entrato = await _tieni(ComeENato.condivisione);
-        if (entrato && mounted) setState(() => _custodito = true);
-      }
+      // La voce e' gia' nel Diario (FE.22.6): condividere non segna niente.
+      await porta();
     } finally {
       if (mounted) setState(() => _condividendo = false);
     }
-  }
-
-  Future<void> _custodisci() async {
-    final entrato = await _tieni(ComeENato.gesto);
-    if (!mounted) return;
-    // **Il vero e il falso portano allo stesso stato a video**, e non e' una
-    // svista: chi tocca Custodisci su un responso gia' custodito deve vedere
-    // che e' custodito, non un rifiuto.
-    setState(() => _custodito = true);
-    if (!entrato) return;
-    // **IL SIGILLO DI CERALACCA, ordine CN.** Suona solo quando il
-    // ricordo entra davvero: chi tocca Custodisci su un responso gia'
-    // custodito vede lo stesso stato, e un sigillo che si ripete non
-    // e' piu' un sigillo.
-    unawaited(PaletteSensoriale.suona(context, SuonoDelCerchio.custodisci));
-    ScaffoldMessenger.maybeOf(context)?.showSnackBar(
-      const SnackBar(content: Text('Segnato nel Diario Cosmico.')),
-    );
   }
 
   void _parlane() {
@@ -365,7 +372,7 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
                     color: widget.suChiaro
                         ? RegimeChiaro.accentoSuChiaro(widget.maestro)
                         : palette.gold.withValues(alpha: 0.6))),
-            onPressed: _custodito ? null : _custodisci,
+            onPressed: _segna,
             // **SEGNA NEL DIARIO, CON LA STELLA. Ordine FE voce 22.3.** Il
             // nome dice dove va quello che si segna; la stella e' il segno
             // della persona, lo stesso del Diario (FE.22.7).

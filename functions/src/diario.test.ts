@@ -38,7 +38,7 @@ test("FE.22.8: il giorno porta la stella finche' una sua voce la porta", () => {
   anno = ilRiassuntoDopo(anno, "2026-10-06", etichetteDi(conv), 1);
   anno = ilRiassuntoDopo(anno, "2026-10-06", etichetteDi(resp), 1);
   assert.deepEqual(anno.mesi["10"],
-    {tutte: 2, conversazioni: 1, medora: 1, arti: 1, aura: 1});
+    {tutte: 2, conversazioni: 1, medora: 1, responsi: 1, aura: 1});
   // La stella messa su una voce: il giorno la porta.
   anno = ilRiassuntoDopo(anno, "2026-10-06", ["stelle"], 1);
   assert.deepEqual(anno.stelle, {"10-06": 1});

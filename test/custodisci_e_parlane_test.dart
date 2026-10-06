@@ -1,10 +1,17 @@
-/// CUSTODISCI, LA CUSTODIA AUTOMATICA E PARLANE COL MAESTRO.
-/// Ordine CG voci 06 e 08.
+/// IL RESPONSO NEL DIARIO, LA STELLA E PARLANE COL MAESTRO.
+/// Ordini CG voci 06 e 08, FE voci 22.6, 22.7 e 22.11.
 ///
-/// **Le tre pretese che questo file sorveglia.** Ogni arte che produce un
-/// responso deve offrire Custodisci accanto a Condividi; una condivisione che
-/// NON avviene non deve custodire niente; e ogni arte deve portare il pulsante
-/// che apre la chat col responso gia' dentro, non una chat vuota.
+/// **Le pretese che questo file sorveglia.** Ogni responso entra nel Diario
+/// Cosmico da se', appena si mostra, coi dati che lo generano e mai con
+/// un'immagine; la stella e' una sola, si mette dal pulsante "Segna nel
+/// Diario" e dal Diario, sullo stesso campo; condividere non segna niente; e
+/// ogni arte porta il pulsante che apre la chat col responso gia' dentro.
+///
+/// **LAPIDE, ordine FE voce 22.7.** Fino all'ordine FE le prove di questo
+/// file misuravano lo scrigno dei custoditi: il gesto "Custodisci" e la
+/// condivisione avvenuta scrivevano in un secondo magazzino. La voce 22.7
+/// dice che se nel ramo esistono due meccanismi si unificano e il secondo si
+/// cancella: lo scrigno non c'e' piu', e le prove misurano il Diario.
 library;
 
 import 'dart:io';
@@ -18,21 +25,22 @@ import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/ricordi/arti_con_responso.dart';
 import 'package:esoteric_circle/core/ricordi/conti_delle_arti.dart';
 import 'package:esoteric_circle/core/ricordi/registro_dei_ricordi.dart';
+import 'package:esoteric_circle/core/ricordi/vista_dei_ricordi.dart';
+import 'package:esoteric_circle/core/ricordi/voce_del_ricordo.dart';
 import 'package:esoteric_circle/core/ricordi/ricordo_custodito.dart';
-import 'package:esoteric_circle/core/ricordi/scrigno_dei_custoditi.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/ricordi/azioni_del_responso.dart';
 
-/// Monta le azioni con lo scrigno e il registro veri, senza rete.
+import 'il_diario_finto.dart';
+
+/// Monta le azioni col registro vero e la porta del Diario finta.
 Widget _scena({
   required Future<bool> Function() condividi,
-  required ScrignoDeiCustoditi scrigno,
   required RegistroDeiRicordi registro,
   String arte = 'gettata',
 }) {
   return MultiProvider(
     providers: [
-      ChangeNotifierProvider<ScrignoDeiCustoditi>.value(value: scrigno),
       ChangeNotifierProvider<RegistroDeiRicordi>.value(value: registro),
     ],
     child: MaterialApp(
@@ -102,102 +110,134 @@ void main() {
             '$scollegate');
   });
 
-  testWidgets('CG.06: il gesto Custodisci tiene il responso per sempre',
-      (tester) async {
-    final scrigno = ScrignoDeiCustoditi();
-    await scrigno.carica();
-    final registro = RegistroDeiRicordi(orologio: () => DateTime(2026, 8, 31));
-    await registro.carica();
+  Future<(RegistroDeiRicordi, PortaFintaDelDiario)> apriIlDiario() async {
+    final porta = PortaFintaDelDiario();
+    final r =
+        RegistroDeiRicordi(orologio: () => DateTime(2026, 8, 31), porta: porta);
+    await r.carica();
+    return (r, porta);
+  }
 
-    await tester.pumpWidget(_scena(
-        condividi: () async => false, scrigno: scrigno, registro: registro));
-    await tester.tap(find.byKey(const Key('responso_custodisci')));
+  testWidgets(
+      'FE.22.6 e 22.11: il responso entra nel Diario da se\', coi suoi dati',
+      (tester) async {
+    final (registro, porta) = await apriIlDiario();
+    await tester
+        .pumpWidget(_scena(condividi: () async => false, registro: registro));
     await tester.pumpAndSettle();
 
-    expect(scrigno.quanti, 1, reason: 'il gesto non ha custodito niente');
-    expect(scrigno.tutti.first.comeENato, ComeENato.gesto);
-    expect(scrigno.tutti.first.testo,
-        'Uruz ti chiede di non trattenere la forza che hai.');
-    expect(scrigno.tutti.first.dati['rune'], 'Uruz,Ansuz,Laguz',
-        reason: 'i dati per ridisegnare la scena devono restare');
+    // ignore: avoid_print
+    print('FE.22.6 MISURA: voci nel Diario dopo aver solo guardato il '
+        'responso ${registro.tutte.length}, annotazioni al server '
+        '${porta.chiamate.where((c) => c.containsKey('annota')).length}');
     expect(registro.tutte.length, 1,
-        reason: 'un responso custodito che non comparisse nella timeline '
-            'sarebbe una carta senza il giorno in cui e\' nata');
-  });
-
-  testWidgets('CG.06: un foglio aperto e poi chiuso NON custodisce niente',
-      (tester) async {
-    final scrigno = ScrignoDeiCustoditi();
-    await scrigno.carica();
-    final registro = RegistroDeiRicordi(orologio: () => DateTime(2026, 8, 31));
-    await registro.carica();
-
-    // La porta risponde di NO, cioe' il foglio si e' aperto e poi la persona
-    // lo ha chiuso senza scegliere niente.
-    await tester.pumpWidget(_scena(
-        condividi: () async => false, scrigno: scrigno, registro: registro));
-    await tester.tap(find.byKey(const Key('responso_condividi')));
-    await tester.pumpAndSettle();
-
-    expect(scrigno.quanti, 0,
-        reason: 'il magazzino deve restare vuoto. IL ROSSO SI DIMOSTRA '
-            'custodendo sull\'APERTURA del foglio invece che sul suo esito, '
-            'e allora questo conto diventa uno');
-    expect(registro.tutte, isEmpty);
-  });
-
-  testWidgets('CG.06: una condivisione AVVENUTA custodisce da sola',
-      (tester) async {
-    final scrigno = ScrignoDeiCustoditi();
-    await scrigno.carica();
-    final registro = RegistroDeiRicordi(orologio: () => DateTime(2026, 8, 31));
-    await registro.carica();
-
-    await tester.pumpWidget(_scena(
-        condividi: () async => true, scrigno: scrigno, registro: registro));
-    await tester.tap(find.byKey(const Key('responso_condividi')));
-    await tester.pumpAndSettle();
-
-    expect(scrigno.quanti, 1,
-        reason: 'condividere e\' gia\' la dichiarazione piu\' forte che una '
-            'persona possa fare su un contenuto');
-    expect(scrigno.tutti.first.comeENato, ComeENato.condivisione,
-        reason: 'il magazzino deve ricordare da quale delle due strade '
-            'e\' arrivato');
+        reason: 'il responso non e\' entrato nel Diario senza gesti. IL ROSSO '
+            'SI DIMOSTRA togliendo l\'annotazione da initState');
+    final voce = registro.tutte.single;
+    expect(voce.tipo, TipoDelRicordo.responso);
+    expect(voce.stella, isFalse,
+        reason: 'entrare nel Diario non e\' segnare: la stella la mette la '
+            'persona');
+    final mandato = porta.chiamate.single['contenuto'] as Map;
+    expect(
+        mandato['s'], 'Uruz ti chiede di non trattenere la forza che hai.');
+    expect((mandato['d'] as Map)['rune'], 'Uruz,Ansuz,Laguz',
+        reason: 'FE.22.11: i dati per ridisegnare la carta devono viaggiare');
+    expect(mandato.values.whereType<List<int>>(), isEmpty,
+        reason: 'FE.22.11: un responso si conserva come dati, mai come byte '
+            'di un\'immagine');
   });
 
   testWidgets(
-      'CG.06: custodire col gesto e poi condividere non fa due carte uguali',
-      (tester) async {
-    final scrigno = ScrignoDeiCustoditi();
-    await scrigno.carica();
-    final registro = RegistroDeiRicordi(orologio: () => DateTime(2026, 8, 31));
-    await registro.carica();
+      'FE.22.7: una stella sola, dal responso e dal Diario, sullo stesso campo '
+      'e con lo stesso filtro', (tester) async {
+    final (registro, porta) = await apriIlDiario();
+    await tester
+        .pumpWidget(_scena(condividi: () async => false, registro: registro));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('responso_custodisci')));
+    await tester.pumpAndSettle();
 
-    await tester.pumpWidget(_scena(
-        condividi: () async => true, scrigno: scrigno, registro: registro));
+    final vista = VistaDeiRicordi(
+        registro: registro, orologio: () => DateTime(2026, 8, 31))
+      ..alterna(FiltroDeiRicordi.segnati);
+    expect(registro.tutte.single.stella, isTrue,
+        reason: 'il pulsante Segna nel Diario non ha messo la stella');
+    expect(vista.vociVisibili.length, 1,
+        reason: 'la voce segnata dal responso non compare nel filtro dei '
+            'segnati del Diario');
+
+    // Dal Diario si toglie: la stessa porta del registro.
+    await registro.mettiLaStella(registro.tutte.single, false);
+    expect(registro.tutte.single.stella, isFalse);
+    expect(vista.vociVisibili, isEmpty,
+        reason: 'tolta dal Diario, la stella resta nel filtro: due campi');
+    final stelle = porta.chiamate.where((c) => c.containsKey('stella'));
+    expect([for (final c in stelle) c['valore']], [true, false],
+        reason: 'le due stelle non sono andate allo stesso campo del server');
+  });
+
+  testWidgets('FE.22.7: un foglio aperto e poi chiuso non segna niente',
+      (tester) async {
+    final (registro, _) = await apriIlDiario();
+    await tester
+        .pumpWidget(_scena(condividi: () async => false, registro: registro));
+    await tester.tap(find.byKey(const Key('responso_condividi')));
+    await tester.pumpAndSettle();
+    expect(registro.tutte.where((v) => v.stella), isEmpty);
+  });
+
+  testWidgets(
+      'FE.22.7: condividere non mette la stella, e la voce resta una sola',
+      (tester) async {
+    final (registro, _) = await apriIlDiario();
+    await tester
+        .pumpWidget(_scena(condividi: () async => true, registro: registro));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byKey(const Key('responso_condividi')));
+    await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('responso_custodisci')));
     await tester.pumpAndSettle();
     await tester.tap(find.byKey(const Key('responso_condividi')));
     await tester.pumpAndSettle();
 
-    expect(scrigno.quanti, 1,
-        reason: 'due strade verso lo stesso magazzino non devono produrre due '
-            'carte identiche nella griglia. IL ROSSO SI DIMOSTRA facendo '
-            'nascere la chiave del responso a ogni tocco invece che una volta '
-            'sola: allora i due tocchi cadono in due minuti diversi e le '
-            'carte diventano due');
+    expect(registro.tutte.length, 1,
+        reason: 'due strade verso lo stesso Diario non devono produrre due '
+            'voci. IL ROSSO SI DIMOSTRA facendo nascere la chiave del '
+            'responso a ogni tocco invece che una volta sola');
+    expect(registro.tutte.single.stella, isTrue,
+        reason: 'la stella l\'ha messa il pulsante, non la condivisione');
+  });
+
+  test('FE.22.7: la stella si scrive da UNA porta sola', () {
+    // **Il secondo meccanismo non torna.** Solo il registro chiama la porta
+    // della stella, e solo la porta vera nomina la funzione del server.
+    final fuori = <String>[];
+    for (final f in Directory('lib').listSync(recursive: true)) {
+      if (f is! File || !f.path.endsWith('.dart')) continue;
+      final percorso = f.path.replaceAll('\\', '/');
+      final testo = f.readAsStringSync();
+      if (testo.contains("'stellaNelDiario'") &&
+          !percorso.endsWith('services/ricordi/porta_vera_dei_ricordi.dart')) {
+        fuori.add(percorso);
+      }
+      if (RegExp(r'_porta\.stella\(').hasMatch(testo) &&
+          !percorso.endsWith('core/ricordi/registro_dei_ricordi.dart')) {
+        fuori.add(percorso);
+      }
+      if (testo.contains('ScrignoDeiCustoditi')) fuori.add(percorso);
+    }
+    expect(fuori, isEmpty,
+        reason: 'questi file scrivono la stella per conto loro, o riportano '
+            'lo scrigno: $fuori');
   });
 
   testWidgets('CG.08: il pulsante che porta in chat c\'e\' ed e\' del Maestro',
       (tester) async {
-    final scrigno = ScrignoDeiCustoditi();
-    await scrigno.carica();
-    final registro = RegistroDeiRicordi(orologio: () => DateTime(2026, 8, 31));
-    await registro.carica();
+    final (registro, _) = await apriIlDiario();
 
-    await tester.pumpWidget(_scena(
-        condividi: () async => false, scrigno: scrigno, registro: registro));
+    await tester
+        .pumpWidget(_scena(condividi: () async => false, registro: registro));
 
     expect(find.byKey(const Key('responso_parlane')), findsOneWidget);
     // Ordine ES voce 17: a video il nome di Calìgo ha l'accento.

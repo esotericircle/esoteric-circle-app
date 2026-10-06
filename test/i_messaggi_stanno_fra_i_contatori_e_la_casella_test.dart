@@ -15,6 +15,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'il_diario_finto.dart';
+
 /// **I MESSAGGI STANNO FRA I CONTATORI E LA CASELLA.** Ordine EQ, voci 08 e
 /// 09, 27 settembre 2026.
 ///
@@ -87,12 +89,19 @@ void main() {
     // le conversazioni passate non si caricano.
     // Chi e' gia' nel Cerchio, come nelle catture del corredo: niente
     // accoglienza del primo avvio e niente foglio degli avvisi sopra la scena.
-    SharedPreferences.setMockInitialValues(const {
+    SharedPreferences.setMockInitialValues({
       'onboarding.done': true,
       'santuario.greeted': true,
       'cammino.generazione': 2,
       'avvisi.primoGiorno.chiesto': true,
       'settings.effettiSonori': false,
+      // **LA CONVERSAZIONE STA NEL DIARIO, come in app.** Dall'ordine FE
+      // voce 22.16 il menu' legge le conversazioni dal Diario Cosmico, dove il
+      // server le scrive col primo messaggio: qui la riga si mette a mano.
+      ...ilDiarioSulTelefono([
+        laConversazione(Maestro.caligo,
+            titolo: 'Domanda numero 0', quando: DateTime.now()),
+      ]),
     });
     tester.view.physicalSize = Size(larghezza * 3, 800 * 3);
     tester.view.devicePixelRatio = 3.0;
@@ -184,8 +193,9 @@ void main() {
       final fascia = find.byKey(const Key('chat_fondo_dei_contatori'));
       expect(fascia, findsOneWidget,
           reason: 'la fascia dei contatori non ha un fondo');
-      final testata = tester.widget<AppBar>(find.descendant(
-          of: find.byType(Scaffold), matching: find.byType(AppBar)).last);
+      final testata = tester.widget<AppBar>(find
+          .descendant(of: find.byType(Scaffold), matching: find.byType(AppBar))
+          .last);
       expect(tester.widget<ColoredBox>(fascia).color, testata.backgroundColor,
           reason: 'la fascia non ha la tinta della testata');
       final rFascia = tester.getRect(fascia);

@@ -2,7 +2,6 @@ import '../rituals/arcano_dell_alba/archivio_dell_alba.dart';
 import '../viaggio/il_viaggio_custodito.dart';
 import 'le_memorie_custodite.dart';
 import '../ricordi/registro_dei_ricordi.dart';
-import '../ricordi/scrigno_dei_custoditi.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../rituals/scelta_degli_avvisi.dart';
 import '../synastry/collezione_delle_coppie.dart';
@@ -446,7 +445,10 @@ class CustodeDelCammino {
   }
 
   /// La chiave che dice che questa installazione ha gia' ripreso i Ricordi.
-  static const String chiaveRicordiRipresi = 'ricordi.ripresiDalCerchio';
+  /// **Cambiata con l'ordine FE voce 22**: le installazioni che li avevano
+  /// gia' ripresi dal vecchio indice li riprendono una volta dal Diario
+  /// Cosmico sul server, che prima va riempito con le conversazioni di prima.
+  static const String chiaveRicordiRipresi = 'ricordi.ripresiDalDiario';
 
   static Future<void> _riprendiIRicordi(BuildContext context) async {
     try {
@@ -454,9 +456,11 @@ class CustodeDelCammino {
       if (prefs.getBool(chiaveRicordiRipresi) ?? false) return;
       if (!context.mounted) return;
       final registro = context.read<RegistroDeiRicordi>();
-      final scrigno = context.read<ScrignoDeiCustoditi>();
+      // Il server travasa nel Diario le conversazioni, i custoditi e le
+      // righe del vecchio indice (FE.22.13), una volta per persona; poi il
+      // telefono ne rilegge l'indice.
+      await registro.riempiIlDiario();
       await registro.riprendiDalCerchio();
-      await scrigno.riprendiDalServer();
       await prefs.setBool(chiaveRicordiRipresi, true);
     } catch (errore) {
       // Senza i Ricordi (una prova che monta una scena sola, o la rete

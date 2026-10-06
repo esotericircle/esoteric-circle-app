@@ -36,7 +36,12 @@ const OPZIONI = {
   memory: "256MiB" as const,
 };
 
-/** La versione del formato dei dati di una voce. FE.22.12. */
+/**
+ * La versione del formato dei dati di una voce. FE.22.12.
+ * - 0: il formato piatto dello scrigno dei custoditi, prima dell'ordine FE
+ *   (i campi del responso in cima, `q` in minuti);
+ * - 1: la voce col suo `q` in millesimi e il responso intero in `c`.
+ */
 export const VERSIONE_DEL_FORMATO = 1;
 
 /** I tipi di voce. */
@@ -100,10 +105,12 @@ export function chiaveDellaConversazione(
 
 /**
  * LE ETICHETTE DI UNA RIGA: i filtri del Diario per cui conta. "tutte",
- * il Maestro, "conversazioni" o "arti", e "stelle" se porta la stella.
+ * il tipo ("conversazioni", "responsi" o "letture"), il Maestro, e
+ * "stelle" se porta la stella. Sono i filtri del Diario sul telefono.
  */
 export function etichetteDi(riga: Riga): string[] {
-  const e = ["tutte", riga.k === "conversazione" ? "conversazioni" : "arti"];
+  const e = ["tutte", riga.k === "conversazione" ? "conversazioni" :
+    riga.k === "responso" ? "responsi" : "letture"];
   if (riga.m) e.push(riga.m);
   if (riga.s) e.push("stelle");
   return e;
@@ -287,8 +294,11 @@ export const annotaNelDiario = onCall(OPZIONI, async (request) => {
     t: titoloDa(String(d.t ?? "")), m, k, a, q,
   });
   if (nuova) {
+    // Il contenuto sta in `c`, mai aperto dentro la voce: i suoi campi (il
+    // responso porta `q` in minuti) non devono coprire quelli della voce,
+    // che la pulizia notturna legge in millesimi.
     await vocePiena(uid, chiave).set({
-      v: VERSIONE_DEL_FORMATO, k, a, m, q, ...(contenuto as object),
+      v: VERSIONE_DEL_FORMATO, k, a, m, q, c: contenuto,
     }, {merge: true});
   }
   return {annotata: nuova};
@@ -419,7 +429,11 @@ export const riempiIlDiario = onCall(
       if (nuova) {
         righe++;
         const {custoditoIl: _, ...contenuto} = c;
-        await vocePiena(uid, d.id).set({v: 0, ...contenuto}, {merge: true});
+        await vocePiena(uid, d.id).set({
+          v: VERSIONE_DEL_FORMATO, k: "responso", a: String(c.a ?? ""),
+          m: typeof c.m === "string" ? c.m : null, q: minuti * 60000,
+          c: contenuto,
+        }, {merge: true});
       }
     }
     // LE RIGHE DEL VECCHIO INDICE (users/{uid}/ricordi/{AAAA-MM}): le arti

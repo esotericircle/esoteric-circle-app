@@ -1,8 +1,8 @@
 import 'package:esoteric_circle/core/responsi/anatomia_del_responso.dart';
 import 'package:esoteric_circle/core/ricordi/lettura_del_mese.dart';
 import 'package:esoteric_circle/core/ricordi/registro_dei_ricordi.dart';
+import 'package:esoteric_circle/features/maestri/chat/maestro_chat_controller.dart';
 import 'package:esoteric_circle/core/ricordi/ricordo_custodito.dart';
-import 'package:esoteric_circle/core/ricordi/scrigno_dei_custoditi.dart';
 import 'package:esoteric_circle/core/ricordi/voce_del_ricordo.dart';
 import 'package:esoteric_circle/features/ricordi/ricordi_screen.dart';
 import 'dart:async';
@@ -635,6 +635,22 @@ void main() {
   /// fa una persona. Senza questo passo la chat seminata non scorre, e la
   /// cattura "barra fuori" fotografava la barra dentro.
   Future<void> riapriLaConversazioneDiPrima(WidgetTester tester) async {
+    // **LA CONVERSAZIONE DI PRIMA STA NEL DIARIO, come in app.** Dall'ordine
+    // FE voce 22.16 il menu' legge le conversazioni dal Diario Cosmico, dove
+    // il server le scrive col primo messaggio. Qui la cronologia seminata e'
+    // quella di prima dell'ordine CI, senza marcatura: la sua riga si mette
+    // a mano e il menu' si rilegge.
+    final contesto =
+        tester.element(find.byKey(const Key('chat_menu_della_barra')));
+    final chat = contesto.read<MaestroChatController>();
+    contesto.read<RegistroDeiRicordi>().toccaLaConversazione(
+          maestro: chat.maestro.id,
+          conversazione: null,
+          tema: 'La conversazione di prima',
+          quando: DateTime.now(),
+        );
+    await tester.runAsync(chat.rileggiLeConversazioni);
+    await step(tester);
     await tester.tap(find.byKey(const Key('chat_menu_della_barra')));
     await step(tester);
     final voce = find.byKey(const Key('chat_conversazione_passata_0'));
@@ -7349,10 +7365,19 @@ void main() {
   /// perche' e' l'unica i cui artwork hanno i cartigli VUOTI e il nome
   /// sovrapposto a runtime. Senza una stesa nel seme, l'anteprima non
   /// guarderebbe mai quel ramo, ed e' il piu' facile da rompere.
-  Future<ScrignoDeiCustoditi> scrignoConTreCarte() async {
-    final scrigno = ScrignoDeiCustoditi();
-    await scrigno.carica();
-    await scrigno.custodisci(RicordoCustodito(
+  ///
+  /// **Dall'ordine FE voce 22.7 stanno nel Diario**, come responsi annotati
+  /// coi loro dati: lo scrigno dei custoditi non c'e' piu'.
+  Future<void> carteNelDiario(RegistroDeiRicordi registro) async {
+    Future<void> nelDiario(RicordoCustodito c) => registro.annotaIlResponso(
+          chiave: c.chiave,
+          quando: c.quando,
+          arte: c.arte,
+          maestro: c.maestro,
+          titolo: c.titolo,
+          contenuto: c.aMappa(),
+        );
+    await nelDiario(RicordoCustodito(
       quando: DateTime(2026, 8, 24, 19, 40),
       arte: 'gettata',
       maestro: 'caligo',
@@ -7366,7 +7391,7 @@ void main() {
       dati: const {'gettata': 'le tre Norne', 'rune': 'Uruz,Fehu,Laguz'},
       comeENato: ComeENato.gesto,
     ));
-    await scrigno.custodisci(RicordoCustodito(
+    await nelDiario(RicordoCustodito(
       quando: DateTime(2026, 8, 18, 9, 5),
       arte: 'oroscopo',
       maestro: 'medora',
@@ -7376,7 +7401,7 @@ void main() {
       dati: const {'segno': 'Bilancia'},
       comeENato: ComeENato.condivisione,
     ));
-    await scrigno.custodisci(RicordoCustodito(
+    await nelDiario(RicordoCustodito(
       quando: DateTime(2026, 8, 11, 21, 30),
       arte: 'tramonto',
       maestro: 'caligo',
@@ -7386,7 +7411,7 @@ void main() {
       dati: const {'runa': 'Laguz', 'verso': 'dritta'},
       comeENato: ComeENato.gesto,
     ));
-    await scrigno.custodisci(RicordoCustodito(
+    await nelDiario(RicordoCustodito(
       quando: DateTime(2026, 8, 28, 14, 15),
       arte: 'stesa',
       maestro: 'medora',
@@ -7396,7 +7421,6 @@ void main() {
       dati: const {'carte': 'Il Matto,La Papessa,Il Mago'},
       comeENato: ComeENato.condivisione,
     ));
-    return scrigno;
   }
 
   Future<GlobalKey> montaIRicordi(
@@ -7405,7 +7429,7 @@ void main() {
   }) async {
     await montaLoSchermo(tester, const Size(360, 800));
     final registro = await registroConUnMese();
-    final scrigno = await scrignoConTreCarte();
+    await carteNelDiario(registro);
     final rootKey = GlobalKey();
     await tester.pumpWidget(RepaintBoundary(
       key: rootKey,
@@ -7418,7 +7442,6 @@ void main() {
           // che l app ha non sta provando l app.
           ChangeNotifierProvider(create: (_) => MaestroController()),
           ChangeNotifierProvider<RegistroDeiRicordi>.value(value: registro),
-          ChangeNotifierProvider<ScrignoDeiCustoditi>.value(value: scrigno),
           ChangeNotifierProvider(create: (_) => EntitlementService()),
           // **LA LETTURA DEL MESE C'E' ANCHE NELLE ANTEPRIME.** Senza questo
           // provider la riga non compare affatto, e l'anteprima del mese

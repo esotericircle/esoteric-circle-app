@@ -7,16 +7,19 @@
 ///
 /// **Le conversazioni non si inventano qui: ci sono gia'.** Dall'ordine CI
 /// voce 06 ogni messaggio porta la sua conversazione, e si salva sul server
-/// con lei. Questo file le raccoglie dai messaggi, le mette in ordine
-/// dall'ultima parola detta, e da' a ognuna il suo titolo.
+/// con lei. Questo file tiene la forma che il menu' mostra, il titolo
+/// accorciato, il giorno e le conversazioni cancellate.
 ///
-/// **Il titolo lo scrive Gemini** (decisione del fondatore del 18 settembre
-/// 2026) e si tiene sul telefono, un archivio per Maestro. Finche' non c'e',
-/// o se il modello non risponde, il titolo e' la prima domanda accorciata:
-/// una conversazione senza nome nel menu' sarebbe una riga vuota.
+/// **L'ELENCO E IL TITOLO VENGONO DAL DIARIO COSMICO, dall'ordine FE voce
+/// 22.** Il menu' e il Diario leggono la stessa porta
+/// (`RegistroDeiRicordi.conversazioniDi`, FE.22.16), e il titolo e' quello
+/// del Diario: il tema del consulto, cioe' la domanda con cui comincia
+/// (FE.22.14), accorciato qui per stare nel menu'. Fino all'ordine FE
+/// l'elenco si raccoglieva dai messaggi recenti e il titolo lo scriveva
+/// Gemini (ordine DZ voce 04, decisione del 18 settembre 2026); la voce
+/// 22.14 ha deciso diversamente. Le chiavi `chat.titoli.` dei telefoni di
+/// prima restano conosciute dalla cancellazione e dallo scarico dei dati.
 library;
-
-import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,31 +46,6 @@ class ConversazionePassata {
   final String primaDomanda;
 }
 
-/// Chi scrive il titolo di una conversazione. In app e' Gemini; nelle prove
-/// e' spento, e allora vale il titolo di ripiego.
-abstract class ScrittoreDeiTitoli {
-  const ScrittoreDeiTitoli();
-
-  /// Un titolo di poche parole, o nullo se non e' riuscito.
-  Future<String?> scrivi({
-    required Maestro maestro,
-    required String domanda,
-    required String risposta,
-  });
-}
-
-class ScrittoreDeiTitoliSpento extends ScrittoreDeiTitoli {
-  const ScrittoreDeiTitoliSpento();
-
-  @override
-  Future<String?> scrivi({
-    required Maestro maestro,
-    required String domanda,
-    required String risposta,
-  }) async =>
-      null;
-}
-
 abstract final class LeConversazioniPassate {
   /// Quante ne mostra il menu', come chiesto dal fondatore.
   static const int quante = 5;
@@ -79,9 +57,6 @@ abstract final class LeConversazioniPassate {
 
   /// La chiave di una conversazione nell'archivio dei titoli.
   static String chiave(String? id) => id ?? 'prima';
-
-  static String _chiaveDellArchivio(Maestro maestro) =>
-      'chat.titoli.${maestro.id}';
 
   /// **LE CONVERSAZIONI CANCELLATE DAL MENU'. Ordine EA voce 07.** Il
   /// telefono le ricorda finche' il server non le ha tolte davvero: senza,
@@ -122,88 +97,6 @@ abstract final class LeConversazioniPassate {
     // Tagliata: via la punteggiatura rimasta in coda, poi i puntini.
     titolo = titolo.replaceAll(RegExp(r'[\s,;:.!?]+$'), '');
     return '$titolo…';
-  }
-
-  /// **IL TITOLO SCRITTO DAL MODELLO, ripulito.** Una riga sola, senza
-  /// virgolette e senza punto finale, al massimo sessanta caratteri; se non
-  /// resta niente, nullo, e vale il ripiego.
-  static String? pulisci(String? scritto) {
-    if (scritto == null) return null;
-    var t = scritto.split('\n').first.trim();
-    t = t.replaceAll(RegExp('^["\'«“”*]+|["\'»“”*]+\$'), '').trim();
-    t = t.replaceAll(RegExp(r'[.]+$'), '').trim();
-    if (t.isEmpty) return null;
-    if (t.length > 60) t = '${t.substring(0, 60).trimRight()}…';
-    return t;
-  }
-
-  static Future<Map<String, String>> titoli(Maestro maestro) async {
-    try {
-      final p = await SharedPreferences.getInstance();
-      final grezzo = p.getString(_chiaveDellArchivio(maestro));
-      if (grezzo == null) return {};
-      final letto = jsonDecode(grezzo);
-      if (letto is! Map) return {};
-      return {
-        for (final e in letto.entries) e.key.toString(): e.value.toString(),
-      };
-    } catch (errore) {
-      debugPrint('Conversazioni: i titoli non si leggono. $errore');
-      return {};
-    }
-  }
-
-  static Future<void> salvaIlTitolo(
-      Maestro maestro, String? id, String titolo) async {
-    try {
-      final p = await SharedPreferences.getInstance();
-      final tutti = await titoli(maestro);
-      tutti[chiave(id)] = titolo;
-      await p.setString(_chiaveDellArchivio(maestro), jsonEncode(tutti));
-    } catch (errore) {
-      debugPrint('Conversazioni: il titolo non si salva. $errore');
-    }
-  }
-
-  /// **LE ULTIME CONVERSAZIONI**, dalla piu' recente, senza quella aperta.
-  ///
-  /// I messaggi arrivano in ordine di lettura, dal piu' vecchio al piu'
-  /// nuovo. Una conversazione senza nessuna domanda della persona non si
-  /// mostra: non c'e' niente da riaprire.
-  static List<ConversazionePassata> raccogli(
-    List<ChatMessage> messaggi, {
-    required Map<String, String> titoli,
-    required String? corrente,
-    Set<String> nascoste = const {},
-    int quanteAlPiu = quante,
-  }) {
-    final prima = <String, String>{};
-    final ultimo = <String, DateTime?>{};
-    final ordine = <String>[];
-    final ids = <String, String?>{};
-    for (final m in messaggi) {
-      final k = chiave(m.conversazione);
-      ids[k] = m.conversazione;
-      if (m.isUser && !prima.containsKey(k)) prima[k] = m.text;
-      ultimo[k] = m.at ?? ultimo[k];
-      ordine
-        ..remove(k)
-        ..add(k);
-    }
-    final fuori = <ConversazionePassata>[];
-    for (final k in ordine.reversed) {
-      if (k == chiave(corrente) || nascoste.contains(k)) continue;
-      final domanda = prima[k];
-      if (domanda == null) continue;
-      fuori.add(ConversazionePassata(
-        id: ids[k],
-        titolo: titoli[k] ?? titoloDiRipiego(domanda),
-        ultimoMomento: ultimo[k],
-        primaDomanda: domanda,
-      ));
-      if (fuori.length >= quanteAlPiu) break;
-    }
-    return List.unmodifiable(fuori);
   }
 
   /// I messaggi di una conversazione sola, nell'ordine in cui sono arrivati.

@@ -30,7 +30,7 @@ import '../../core/rituals/sunset_rune.dart';
 import '../../core/rituals/sunset_rune_corpus.dart';
 import '../../core/rituals/sunset_rune_memory.dart';
 import '../../core/ricordi/ricordo_custodito.dart';
-import '../../core/ricordi/scrigno_dei_custoditi.dart';
+import '../../core/ricordi/registro_dei_ricordi.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
 import '../../design_system/tokens/color_tokens.dart';
@@ -1610,8 +1610,11 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
   Future<void> _custodisciLaSettimana(List<SeraSalvata> settimana) async {
     final rune = settimana.map((s) => s.rune).toList();
     try {
-      final scrigno = context.read<ScrignoDeiCustoditi>();
-      await scrigno.custodisci(RicordoCustodito(
+      // **NEL DIARIO COSMICO, come ogni responso. Ordine FE voce 22.6.**
+      // Prima andava nello scrigno dei custoditi, il secondo magazzino che
+      // la voce 22.7 ha tolto.
+      final registro = context.read<RegistroDeiRicordi>();
+      final ricordo = RicordoCustodito(
         quando: _e.giornoRituale,
         arte: 'settimana_rune',
         maestro: 'caligo',
@@ -1619,7 +1622,15 @@ class _SunsetRuneScreenState extends State<SunsetRuneScreen>
         testo: didascaliaDellaSettimana(rune),
         comeENato: ComeENato.evento,
         dati: {'rune': rune.join(',')},
-      ));
+      );
+      await registro.annotaIlResponso(
+        chiave: ricordo.chiave,
+        quando: ricordo.quando,
+        arte: ricordo.arte,
+        maestro: ricordo.maestro,
+        titolo: ricordo.titolo,
+        contenuto: ricordo.aMappa(),
+      );
     } catch (errore) {
       // **Un provider assente non spegne la settima sera.** Il sigillo si
       // vede comunque a schermo: qui si perde la voce nel Journal, non il

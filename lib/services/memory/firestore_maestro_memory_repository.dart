@@ -387,6 +387,51 @@ class FirestoreMaestroMemoryRepository implements MaestroMemoryRepository {
     return quanti;
   }
 
+  /// **I MESSAGGI DI UNA CONVERSAZIONE, per marcatura. Ordine FE voce
+  /// 22.16.** Una lettura sola, sul campo `conversazione` (indice di un
+  /// campo, nessun indice composto da pubblicare): l'ordine si rimette qui.
+  /// La prima conversazione, quella senza marcatura, si cerca fra i
+  /// messaggi recenti. Se Firestore non li ha piu', sono passati
+  /// nell'archivio a basso costo (FE.22.15) e si chiedono al server.
+  @override
+  Future<List<ChatMessage>> messaggiDellaConversazione(
+      Maestro maestro, String? conversazione) async {
+    final List<ChatMessage> trovati;
+    if (conversazione == null) {
+      trovati = [
+        for (final m in await recentMessages(maestro, limit: 500))
+          if (m.conversazione == null) m,
+      ];
+    } else {
+      final snap = await _messagesCol(maestro)
+          .where('conversazione', isEqualTo: conversazione)
+          .get();
+      trovati = [for (final d in snap.docs) _messageFromDoc(d.data())]
+        ..sort((a, b) => (a.at ?? DateTime(0)).compareTo(b.at ?? DateTime(0)));
+    }
+    if (trovati.isNotEmpty || !_porta.viva) return trovati;
+    final c = (conversazione ?? 'prima')
+        .replaceAll(RegExp(r'[^a-zA-Z0-9_-]'), '')
+        .toLowerCase();
+    final archiviati = await _porta.laConversazioneArchiviata(
+        'conv.${maestro.id}.${c.isEmpty ? 'prima' : c}');
+    return [
+      for (final m in archiviati)
+        ChatMessage(
+          role: m['role'] == ChatRole.user.name
+              ? ChatRole.user
+              : ChatRole.maestro,
+          text: m['text'] is String ? m['text'] as String : '',
+          at: m['quando'] is num
+              ? DateTime.fromMillisecondsSinceEpoch(
+                  (m['quando'] as num).toInt())
+              : null,
+          autore: _primoDove(Maestro.values, (x) => x.id == m['autore']),
+          conversazione: conversazione,
+        ),
+    ];
+  }
+
   @override
   Future<bool> cancellaLaConversazione(
       Maestro maestro, String? conversazione) async {

@@ -66,7 +66,53 @@ class VoceDelRicordo {
     required String titolo,
     required this.tipo,
     this.riferimento,
+    this.chiaveDelDiario,
+    this.stella = false,
   }) : titolo = _tronca(titolo);
+
+  /// **UNA RIGA DELL'INDICE DEL DIARIO SUL SERVER. Ordine FE voce 22.14.**
+  /// La riga porta il titolo, il Maestro, il tipo, l'arte, il momento in
+  /// millesimi e la stella; la sua chiave e' quella del server.
+  static VoceDelRicordo? dalDiario(String chiave, Object? riga) {
+    if (riga is! Map) return null;
+    final q = riga['q'];
+    if (q is! num) return null;
+    final tipo = switch ('${riga['k']}') {
+      'conversazione' => TipoDelRicordo.conversazione,
+      'responso' => TipoDelRicordo.responso,
+      _ => TipoDelRicordo.gesto,
+    };
+    return VoceDelRicordo(
+      quando: DateTime.fromMillisecondsSinceEpoch(q.toInt()),
+      arte: '${riga['a'] ?? ''}',
+      maestro: riga['m'] is String ? riga['m'] as String : '',
+      titolo: '${riga['t'] ?? ''}',
+      tipo: tipo,
+      riferimento: chiave,
+      chiaveDelDiario: chiave,
+      stella: riga['s'] == true,
+    );
+  }
+
+  /// La chiave della voce nell'indice del Diario sul server, quando la voce
+  /// viene da li'. Ordine FE voce 22.
+  final String? chiaveDelDiario;
+
+  /// **LA STELLA, il segno della persona. Ordine FE voce 22.7.** Uno solo:
+  /// lo stesso campo dal pulsante "Segna nel Diario" e dal Diario.
+  final bool stella;
+
+  /// La stessa voce con la stella messa o tolta.
+  VoceDelRicordo conStella(bool conLaStella) => VoceDelRicordo(
+        quando: quando,
+        arte: arte,
+        maestro: maestro,
+        titolo: titolo,
+        tipo: tipo,
+        riferimento: riferimento,
+        chiaveDelDiario: chiaveDelDiario,
+        stella: conLaStella,
+      );
 
   /// Quando e' successo, al minuto.
   final DateTime quando;
@@ -142,6 +188,8 @@ class VoceDelRicordo {
   /// riferimento: la stessa voce sincronizzata due volte da due apparecchi
   /// produce la stessa chiave e resta una riga sola.
   String get chiave {
+    final delDiario = chiaveDelDiario;
+    if (delDiario != null) return delDiario;
     final minuti = quando.millisecondsSinceEpoch ~/ 60000;
     return '$minuti.$arte.${riferimento ?? tipo.sigla}';
   }
@@ -158,6 +206,8 @@ class VoceDelRicordo {
         't': titolo,
         'k': tipo.sigla,
         if (riferimento != null) 'r': riferimento,
+        if (chiaveDelDiario != null) 'K': chiaveDelDiario,
+        if (stella) 's': true,
       };
 
   static VoceDelRicordo? daMappa(Object? grezzo) {
@@ -176,6 +226,8 @@ class VoceDelRicordo {
       titolo: '${grezzo['t'] ?? ''}',
       tipo: tipo,
       riferimento: riferimento is String ? riferimento : null,
+      chiaveDelDiario: grezzo['K'] is String ? grezzo['K'] as String : null,
+      stella: grezzo['s'] == true,
     );
   }
 

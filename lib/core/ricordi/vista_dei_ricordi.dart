@@ -29,6 +29,9 @@ enum FiltroDeiRicordi {
   conversazioni,
   custoditi,
   arti,
+
+  /// **SOLO I SEGNATI. Ordine FE voce 22.9**: le voci con la stella.
+  segnati,
 }
 
 class VistaDeiRicordi extends ChangeNotifier {
@@ -78,6 +81,12 @@ class VistaDeiRicordi extends ChangeNotifier {
   void scendiA(LivelloDeiRicordi livello, {DateTime? quando}) {
     _livello = livello;
     if (quando != null) _dove = quando;
+    // **IL MESE SI LEGGE QUANDO SI APRE, E SOLO SE SERVE. Ordine FE voce
+    // 22.14**: una lettura per un mese che il telefono non ha, o che il
+    // riassunto dell'anno conta diverso; zero quando la copia e' giusta.
+    if (livello != LivelloDeiRicordi.anno) {
+      _registro.rileggiSeServe(VoceDelRicordo.chiaveDelMese(_dove));
+    }
     notifyListeners();
   }
 
@@ -133,7 +142,26 @@ class VistaDeiRicordi extends ChangeNotifier {
       if (_filtri.contains(FiltroDeiRicordi.arti)) TipoDelRicordo.gesto,
     };
     if (tipi.isNotEmpty && !tipi.contains(v.tipo)) return false;
+    if (_filtri.contains(FiltroDeiRicordi.segnati) && !v.stella) return false;
     return true;
+  }
+
+  /// L'etichetta del riassunto dell'anno per i filtri accesi, o null quando
+  /// i filtri sono piu' d'uno e il riassunto non basta (allora contano le
+  /// voci dei mesi letti). Ordine FE voce 22.18.
+  String? get _etichettaDelRiassunto {
+    if (_cercato.isNotEmpty) return null;
+    if (_filtri.isEmpty) return 'tutte';
+    if (_filtri.length > 1) return null;
+    return switch (_filtri.single) {
+      FiltroDeiRicordi.medora => 'medora',
+      FiltroDeiRicordi.aura => 'aura',
+      FiltroDeiRicordi.caligo => 'caligo',
+      FiltroDeiRicordi.conversazioni => 'conversazioni',
+      FiltroDeiRicordi.custoditi => 'responsi',
+      FiltroDeiRicordi.arti => 'letture',
+      FiltroDeiRicordi.segnati => 'stelle',
+    };
   }
 
   /// I DODICI MESI DELL'ANNO in cui si sta guardando, col loro riassunto.
@@ -147,6 +175,30 @@ class VistaDeiRicordi extends ChangeNotifier {
         for (final v in visibili)
           if (v.mese == chiave) v,
       ];
+      // **L'ANNO DAL RIASSUNTO DEL SERVER. Ordine FE voce 22.18.** I mesi non
+      // ancora letti si contano dal riassunto dell'anno, che e' una lettura
+      // sola: prima si contavano solo le voci che il telefono aveva.
+      final etichetta = _etichettaDelRiassunto;
+      if (!_registro.meseLetto(chiave) &&
+          etichetta != null &&
+          _registro.haIlRiassunto(chiave.substring(0, 4))) {
+        final perMaestro = {
+          for (final m in const ['medora', 'aura', 'caligo'])
+            if (etichetta == 'tutte' || etichetta == m)
+              if (_registro.contoDelMese(chiave, m) case final n when n > 0)
+                m: n,
+        };
+        fuori.add(RiassuntoDelTempo(
+          chiave: chiave,
+          quanteVoci: _registro.contoDelMese(chiave, etichetta),
+          perMaestro: Map.unmodifiable(perMaestro),
+          perArte: const {},
+          quantiTraguardi: 0,
+          quantiDoni: 0,
+          eosGuadagnati: 0,
+        ));
+        continue;
+      }
       fuori.add(
           RiassuntiDelTempo.di(chiave, dentro, gestiDeiDoni: _gestiDeiDoni));
     }

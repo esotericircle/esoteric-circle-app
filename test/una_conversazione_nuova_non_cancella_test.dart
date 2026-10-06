@@ -107,7 +107,13 @@ void main() {
 
     final schermata =
         _leggi('lib/features/maestri/chat/maestro_chat_screen.dart');
-    expect(schermata.contains('TipoDelRicordo.conversazione'), isTrue,
+    // **LAPIDE, ordine FE voce 22.6.** Qui si cercava
+    // `TipoDelRicordo.conversazione`, cioe' una riga per turno scritta dal
+    // telefono. Dall'ordine FE la conversazione e' una riga sola nel Diario
+    // Cosmico, scritta dal server col messaggio e mostrata subito dal
+    // registro con `toccaLaConversazione`: il fatto sorvegliato e' lo
+    // stesso, la schermata collega il registro.
+    expect(schermata.contains('toccaLaConversazione('), isTrue,
         reason: 'la schermata non collega piu\' il registro: il gancio del '
             'controllore resta nullo e non scrive niente');
     expect(schermata.contains('RegistroDeiRicordi'), isTrue);

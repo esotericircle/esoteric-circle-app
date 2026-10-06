@@ -74,9 +74,8 @@ class MaestroChatController extends ChangeNotifier {
     bool? demo,
     this.segnaNeiRicordi,
     this.conversazioneNuova = false,
-    ScrittoreDeiTitoli titoli = const ScrittoreDeiTitoliSpento(),
+    this.leConversazioniDelDiario,
   })  : _ai = ai,
-        _titoli = titoli,
         _demo = demo ?? AppFlags.isDemo,
         _attesaMinima = attesaMinima,
         _memory = memory,
@@ -102,18 +101,30 @@ class MaestroChatController extends ChangeNotifier {
   /// del fondatore. Quella di prima non si perde: resta fra le passate.
   final bool conversazioneNuova;
 
-  /// Chi scrive il titolo delle conversazioni. Ordine DZ voce 04.
-  final ScrittoreDeiTitoli _titoli;
+  /// **LE CONVERSAZIONI DEL MENU' VENGONO DAL DIARIO. Ordine FE voce
+  /// 22.16.** Una porta sola per il menu' e per il Diario Cosmico: chi
+  /// costruisce la chat passa la lettura dell'indice del Diario
+  /// (`RegistroDeiRicordi.conversazioniDi`), e il controllore non ne ha
+  /// un'altra. Prima dell'ordine FE il menu' raccoglieva le conversazioni
+  /// dai messaggi recenti e il Diario dalle sue righe: due fonti, e a
+  /// settembre le conversazioni con Medora c'erano nel menu' e non nel
+  /// Diario (docs/collaudo/FE/catture_del_fondatore/). Nulla nelle prove
+  /// che non guardano il menu'.
+  ///
+  /// **Il titolo e' quello del Diario** (FE.22.14): il tema del consulto,
+  /// cioe' la domanda con cui comincia. Fino all'ordine FE lo scriveva
+  /// Gemini dopo la prima risposta (ordine DZ voce 04): la voce 22.14 ha
+  /// deciso diversamente, e una chiamata al modello per conversazione non
+  /// parte piu'.
+  final Future<List<ConversazionePassata>> Function()? leConversazioniDelDiario;
 
-  /// **LE CONVERSAZIONI PASSATE. Ordine DZ voce 03.** L'archivio dei
-  /// messaggi da cui si raccolgono, i titoli gia' scritti, e le ultime
-  /// cinque pronte per il menu'.
+  /// L'archivio dei messaggi recenti, per riaprire una conversazione senza
+  /// una lettura, e le conversazioni cancellate in questa installazione.
   List<ChatMessage> _archivio = const [];
-  Map<String, String> _titoliScritti = const {};
   Set<String> _nascoste = const {};
+  List<ConversazionePassata> _dalDiario = const [];
   List<ConversazionePassata> _passate = const [];
   List<ConversazionePassata> get conversazioniPassate => _passate;
-  final Set<String> _titoliInCorso = {};
 
   /// **IL FILO DI PRIMA. Ordine FE voce 12.** Le ultime battute della
   /// conversazione chiusa meno di un'ora fa con questo Maestro: non stanno a
@@ -444,24 +455,51 @@ class MaestroChatController extends ChangeNotifier {
     _turnsSinceDistill = 0;
     _aggiornaLePassate();
     notifyListeners();
+    // La conversazione appena lasciata e' gia' nel Diario dal suo primo
+    // turno: il menu' la rilegge da li'.
+    unawaited(rileggiLeConversazioni());
   }
 
   /// **RIAPRE UNA CONVERSAZIONE PASSATA. Ordine DZ voce 03.** Come una
   /// chatbot: dal menu' si tocca il titolo e la chat torna a quel filo, coi
   /// suoi messaggi, e da li' si continua. Zero letture: i messaggi sono gia'
   /// nell'archivio da cui il menu' e' stato composto.
-  void apriLaConversazione(String? id) {
+  ///
+  /// **Una conversazione che l'archivio recente non ha** (piu' vecchia dei
+  /// suoi centocinquanta messaggi, o passata nell'archivio a basso costo
+  /// dopo dodici mesi, FE.22.15) si chiede alla memoria: e' il Diario che
+  /// la offre, e il Diario arriva fino a dodici mesi indietro.
+  Future<void> apriLaConversazione(String? id) async {
     if (LeConversazioniPassate.chiave(id) ==
         LeConversazioniPassate.chiave(_conversazione)) {
       return;
     }
     _mettiInArchivio();
     _conversazione = id;
+    var messaggi = LeConversazioniPassate.di(_archivio, id);
     _messages
       ..clear()
-      ..addAll(_chiudiIVoli(LeConversazioniPassate.di(_archivio, id)));
+      ..addAll(_chiudiIVoli(messaggi));
     _turnsSinceDistill = 0;
     _aggiornaLePassate();
+    notifyListeners();
+    if (messaggi.isNotEmpty) return;
+    try {
+      messaggi = await _memory.messaggiDellaConversazione(maestro, id);
+    } catch (errore, traccia) {
+      annotaGuastoInnocuo(
+          'riaprendo una conversazione con ${maestro.displayName}',
+          errore,
+          traccia);
+      return;
+    }
+    if (LeConversazioniPassate.chiave(id) !=
+        LeConversazioniPassate.chiave(_conversazione)) {
+      return;
+    }
+    _messages
+      ..clear()
+      ..addAll(_chiudiIVoli(messaggi));
     notifyListeners();
   }
 
@@ -475,6 +513,10 @@ class MaestroChatController extends ChangeNotifier {
     _archivio = [
       for (final m in _archivio)
         if (LeConversazioniPassate.chiave(m.conversazione) != k) m,
+    ];
+    _dalDiario = [
+      for (final c in _dalDiario)
+        if (LeConversazioniPassate.chiave(c.id) != k) c,
     ];
     _aggiornaLePassate();
     notifyListeners();
@@ -510,12 +552,31 @@ class MaestroChatController extends ChangeNotifier {
   }
 
   void _aggiornaLePassate() {
-    _passate = LeConversazioniPassate.raccogli(
-      _archivio,
-      titoli: _titoliScritti,
-      corrente: _conversazione,
-      nascoste: _nascoste,
-    );
+    final corrente = LeConversazioniPassate.chiave(_conversazione);
+    _passate = List.unmodifiable([
+      for (final c in _dalDiario)
+        if (LeConversazioniPassate.chiave(c.id) != corrente &&
+            !_nascoste.contains(LeConversazioniPassate.chiave(c.id)))
+          c,
+    ].take(LeConversazioniPassate.quante));
+  }
+
+  /// Rilegge le conversazioni dal Diario: sei, perche' una puo' essere
+  /// quella aperta e il menu' ne mostra cinque.
+  Future<void> rileggiLeConversazioni() async {
+    final leggi = leConversazioniDelDiario;
+    if (leggi == null) return;
+    try {
+      _dalDiario = await leggi();
+    } catch (errore, traccia) {
+      annotaGuastoInnocuo(
+          'leggendo le conversazioni di ${maestro.displayName} dal Diario',
+          errore,
+          traccia);
+      return;
+    }
+    _aggiornaLePassate();
+    notifyListeners();
   }
 
   /// **L'ARCHIVIO SI LEGGE UNA VOLTA, dopo l'apertura, e non la trattiene.**
@@ -526,42 +587,15 @@ class MaestroChatController extends ChangeNotifier {
       final letti = await _memory.recentMessages(maestro,
           limit: LeConversazioniPassate.messaggiDaLeggere);
       _archivio = CronologiaSenzaDoppioni.di(letti);
-      _titoliScritti = await LeConversazioniPassate.titoli(maestro);
       _nascoste = await LeConversazioniPassate.nascoste(maestro);
       _mettiInArchivio();
-      _aggiornaLePassate();
-      notifyListeners();
+      await rileggiLeConversazioni();
     } catch (errore, traccia) {
       annotaGuastoInnocuo(
           'raccogliendo le conversazioni passate di '
           '${maestro.displayName}',
           errore,
           traccia);
-    }
-  }
-
-  /// **IL TITOLO, DOPO LA PRIMA RISPOSTA VERA. Ordine DZ voce 04.** Una volta
-  /// per conversazione: se c'e' gia', non si richiama il modello.
-  Future<void> _forseIlTitolo() async {
-    final id = _conversazione;
-    final k = LeConversazioniPassate.chiave(id);
-    if (_titoliScritti.containsKey(k) || !_titoliInCorso.add(k)) return;
-    try {
-      final domanda = _messages.firstWhere((m) => m.isUser,
-          orElse: () => const ChatMessage(role: ChatRole.user, text: ''));
-      final risposta = _messages.firstWhere(
-          (m) => m.isMaestro && m.portaUnResponso,
-          orElse: () => const ChatMessage(role: ChatRole.maestro, text: ''));
-      if (domanda.text.isEmpty || risposta.text.isEmpty) return;
-      final scritto = LeConversazioniPassate.pulisci(await _titoli.scrivi(
-          maestro: maestro, domanda: domanda.text, risposta: risposta.text));
-      if (scritto == null) return;
-      await LeConversazioniPassate.salvaIlTitolo(maestro, id, scritto);
-      _titoliScritti = {..._titoliScritti, k: scritto};
-      _aggiornaLePassate();
-      notifyListeners();
-    } finally {
-      _titoliInCorso.remove(k);
     }
   }
 
@@ -1261,9 +1295,6 @@ class MaestroChatController extends ChangeNotifier {
     // voce 07 anche il LIVE paga il suo turno con una domanda, ma dallo
     // stesso punto.
     _applicaIlCosto(esito);
-    // Il titolo nasce dopo una risposta vera, e mai sulla strada del turno:
-    // chi aspetta la risposta non aspetta anche il titolo.
-    if (CostoDelTurno.consuma(esito)) unawaited(_forseIlTitolo());
   }
 
   /// Vero se l'ultima bolla e' una risposta VERA del Maestro, non ancora

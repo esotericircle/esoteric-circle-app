@@ -90,10 +90,9 @@ abstract final class LeMemorieCustodite {
     'profile.': 'il nome, la forma e la nascita, nell\'identità del '
         'cammino',
     'viaggio.': 'il Viaggio dello Sciamano, IlViaggioCustodito',
-    'ricordi.': 'i Ricordi e le Carte custodite hanno la loro porta sul '
-        'server (RegistroDeiRicordi.riprendiDalCerchio, '
-        'ScrignoDeiCustoditi.riprendiDalServer); le prose del mese '
-        'viaggiano nella famiglia "letture"',
+    'ricordi.': 'il Diario Cosmico ha la sua porta sul server '
+        '(RegistroDeiRicordi.riempiIlDiario e riprendiDalCerchio); le prose '
+        'del mese viaggiano nella famiglia "letture"',
     'allowance.': 'il saldo e i consumi stanno sul server, statoDelCerchio',
     'borsellino.': 'i movimenti degli Eos stanno sul server',
     'oroscopo_': 'gli acquisti, i Tre Cieli e le rivelazioni viaggiano '

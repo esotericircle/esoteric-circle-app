@@ -2,9 +2,7 @@ import '../../../core/cerchio/l_arte_di_adesso.dart';
 import '../../../core/sigilli/diario_del_cammino.dart';
 import 'dart:math' as math;
 import 'dart:async';
-import 'package:firebase_core/firebase_core.dart';
 import '../../../core/chat/le_conversazioni_passate.dart';
-import '../../../services/ai/titoli_da_gemini.dart';
 import '../../ricordi/ricordi_screen.dart';
 
 import 'package:flutter/material.dart';
@@ -38,7 +36,6 @@ import '../../../design_system/components/cosmos_background.dart';
 import '../../../design_system/transizioni/velo_del_cerchio.dart';
 import '../../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../../core/ricordi/registro_dei_ricordi.dart';
-import '../../../core/ricordi/voce_del_ricordo.dart';
 import '../../../core/voce/dettatura.dart';
 import '../../../services/voce/dettatura_vera.dart';
 import '../../shell/corsa_della_barra.dart';
@@ -132,23 +129,41 @@ class MaestroChatScreen extends StatefulWidget {
                     // chat con i maestri, deve aprirsi da capo, una chat vuota
                     // nuova"*. Le conversazioni di prima stanno nel menu'.
                     conversazioneNuova: true,
-                    // **IL TITOLO LO SCRIVE GEMINI. Ordine DZ voce 04.** Solo
-                    // dove Firebase c'e': nelle prove resta il titolo di ripiego.
-                    titoli: Firebase.apps.isEmpty
-                        ? const ScrittoreDeiTitoliSpento()
-                        : const TitoliDaGemini(),
+                    // **LE CONVERSAZIONI DEL MENU' VENGONO DAL DIARIO. Ordine
+                    // FE voce 22.16**: la stessa lettura del Diario Cosmico,
+                    // le ultime sei con questo Maestro (una puo' essere
+                    // quella aperta). Il titolo e' quello del Diario.
+                    leConversazioniDelDiario: () async {
+                      final voci = await rotta
+                          .read<RegistroDeiRicordi>()
+                          .conversazioniDi(maestro.id, quante: 6);
+                      return [
+                        for (final v in voci)
+                          ConversazionePassata(
+                            id: RegistroDeiRicordi.idDellaConversazione(
+                                v.chiave),
+                            titolo: LeConversazioniPassate.titoloDiRipiego(
+                                v.titolo),
+                            ultimoMomento: v.quando,
+                            primaDomanda: v.titolo,
+                          ),
+                      ];
+                    },
+                    // **LA CONVERSAZIONE ENTRA NEL DIARIO COL SUO PRIMO
+                    // TURNO. Ordine FE voce 22.6.** La riga vera la scrive il
+                    // server col messaggio; qui la si mostra subito, una
+                    // riga per conversazione e non una per turno.
                     segnaNeiRicordi: (domanda) {
                       try {
-                        rotta.read<RegistroDeiRicordi>().segna(VoceDelRicordo(
-                              quando: domanda.at ?? DateTime.now(),
-                              arte: 'chat',
+                        rotta.read<RegistroDeiRicordi>().toccaLaConversazione(
                               maestro: maestro.id,
-                              titolo: domanda.text,
-                              tipo: TipoDelRicordo.conversazione,
-                            ));
+                              conversazione: domanda.conversazione,
+                              tema: domanda.text,
+                              quando: domanda.at ?? DateTime.now(),
+                            );
                       } catch (errore) {
                         debugPrint(
-                            'Chat: il turno non entra nei Ricordi. $errore');
+                            'Chat: il turno non entra nel Diario. $errore');
                       }
                     },
                     ai: services.ai,
@@ -608,7 +623,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
         conversazioni: controller.conversazioniPassate,
         onApri: (c) => controller.apriLaConversazione(c.id),
         onCancella: (c) =>
-            _ConversazioneDaCancellare.chiedi(context, controller, c),
+            ConversazioneDaCancellare.chiedi(context, controller, c),
         onDiagnostics: () => showChatDiagnostics(
           context,
           aiReady: controller.aiReady,
@@ -2046,11 +2061,26 @@ class _VoceCompatta extends StatelessWidget {
   }
 }
 
-/// **LA CONFERMA PRIMA DI CANCELLARE. Ordine EA voce 07.** Una conversazione
-/// cancellata non si ritrova: lo si dice, e si aspetta il si'.
-abstract final class _ConversazioneDaCancellare {
+/// **LA CONFERMA PRIMA DI CANCELLARE. Ordini EA voce 07 e FE voce 22.17.**
+/// Una conversazione cancellata non si ritrova: lo si dice con le parole
+/// dell'ordine FE, e si aspetta il si'. Il si' toglie tutto: i messaggi sul
+/// server, la riga e il contenuto nel Diario (la funzione
+/// `cancellaLaConversazione`), e la copia sul telefono.
+abstract final class ConversazioneDaCancellare {
+  /// Le parole dell'ordine FE voce 22.17, carattere per carattere.
+  static const String domanda =
+      'Vuoi cancellare questa conversazione? Non si potrà recuperare.';
+  static const String cancella = 'Cancella';
+  static const String no = 'Non ora';
+
   static Future<void> chiedi(BuildContext context,
       MaestroChatController controller, ConversazionePassata c) async {
+    RegistroDeiRicordi? registro;
+    try {
+      registro = context.read<RegistroDeiRicordi>();
+    } catch (errore) {
+      debugPrint('Chat: il registro del Diario non c\'e\'. $errore');
+    }
     // Il colore si prende dalla chat, che ha il suo Maestro: il dialogo vive
     // sulla rotta radice, dove lo scope del Maestro puo' non esserci.
     final superficie = context.palette.surface;
@@ -2059,29 +2089,31 @@ abstract final class _ConversazioneDaCancellare {
       builder: (context) => AlertDialog(
         key: const Key('chat_conferma_cancella'),
         backgroundColor: superficie,
-        title: Text('Cancelliamo questa conversazione?',
-            style: TypographyTokens.titoloScheda()),
+        title: Text(c.titolo, style: TypographyTokens.titoloScheda()),
         content: ParagrafiDiLettura(
-          testo: '«${c.titolo}» esce dal menu e dal Cerchio, con tutto '
-              'quello che vi siete detti. Non si può ritrovare.',
+          testo: domanda,
           stile: TypographyTokens.lettura(),
         ),
         actions: [
           TextButton(
+            key: const Key('chat_conferma_cancella_no'),
             style: TextButton.styleFrom(
                 foregroundColor: ColorTokens.textSecondary),
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Tienila'),
+            child: const Text(no),
           ),
           FilledButton(
             key: const Key('chat_conferma_cancella_si'),
             onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Cancella'),
+            child: const Text(cancella),
           ),
         ],
       ),
     );
-    if (si == true) await controller.cancellaLaConversazione(c.id);
+    if (si != true) return;
+    registro?.togli(RegistroDeiRicordi.chiaveDellaConversazione(
+        controller.maestro.id, c.id));
+    await controller.cancellaLaConversazione(c.id);
   }
 }
 

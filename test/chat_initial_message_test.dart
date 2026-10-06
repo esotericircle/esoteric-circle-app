@@ -28,6 +28,9 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:esoteric_circle/core/chat/le_conversazioni_passate.dart';
 import 'package:esoteric_circle/features/maestri/chat/maestro_chat_controller.dart';
+import 'package:esoteric_circle/core/ricordi/registro_dei_ricordi.dart';
+
+import 'il_diario_finto.dart';
 
 /// La chat che si apre da un pulsante di approfondimento ("Parlane con il
 /// Maestro", "Continua con") porta la domanda contestuale.
@@ -39,7 +42,16 @@ import 'package:esoteric_circle/features/maestri/chat/maestro_chat_controller.da
 /// campo, nessuna domanda arriva al modello e nessuna si consuma finche' la
 /// persona non manda, e la persona puo' mandare un'altra domanda al suo posto.
 void main() {
-  setUp(() => SharedPreferences.setMockInitialValues({}));
+  // **IL DIARIO DELLA PROVA. Ordine FE voce 22.16**: il menu' legge le
+  // conversazioni dal Diario Cosmico, quindi la chat si monta col suo
+  // registro, e la conversazione di prima ci sta come la scrive il server.
+  late PortaFintaDelDiario diario;
+  late RegistroDeiRicordi registro;
+  setUp(() {
+    SharedPreferences.setMockInitialValues({});
+    diario = PortaFintaDelDiario();
+    registro = RegistroDeiRicordi(porta: diario);
+  });
 
   Future<AppServices> services(MaestroAiProvider ai) async {
     final memory = InMemoryMaestroMemoryRepository();
@@ -80,6 +92,7 @@ void main() {
         ChangeNotifierProvider(create: (_) => ZodiacController()),
         ChangeNotifierProvider(create: (_) => BirthIdentityController()),
         ChangeNotifierProvider(create: (_) => ProfileController()),
+        ChangeNotifierProvider<RegistroDeiRicordi>.value(value: registro),
       ],
       child: MaterialApp(
         builder: (ctx, child) => MediaQuery(
@@ -195,6 +208,10 @@ void main() {
           at: DateTime(2026, 9, 17, 10, 1),
           conversazione: 'c1',
         ));
+    diario.metti(laConversazione(Maestro.caligo,
+        id: 'c1',
+        titolo: 'Vecchia domanda sul lavoro',
+        quando: DateTime(2026, 9, 17, 10)));
   }
 
   testWidgets(
@@ -224,17 +241,36 @@ void main() {
         reason: 'toccando il titolo la conversazione non si riapre');
   });
 
-  test('DZ.04: dopo la prima risposta vera la conversazione ha il suo titolo',
-      () async {
-    final svc = await services(_ReadyAi());
+  // **LAPIDE, ordine FE voce 22.14.** Qui stava la prova DZ.04, "dopo la
+  // prima risposta vera la conversazione ha il suo titolo": il titolo lo
+  // scriveva Gemini con una chiamata in piu' e restava sul telefono. Dall'
+  // ordine FE il titolo e' quello del Diario, il tema del consulto, e nessun
+  // modello lo scrive: la prova che segue sorveglia la regola nuova.
+  test(
+      'FE.22.14: il titolo nel menu\' e\' quello del Diario, e il modello '
+      'riceve solo la domanda', () async {
+    final ai = _ReadyAi();
+    final svc = await services(ai);
     await semina(svc);
-    final scrittore = _ScrittoreFinto();
     final chat = MaestroChatController(
       maestro: Maestro.caligo,
       ai: svc.ai,
       memory: svc.memory,
-      titoli: scrittore,
       attesaMinima: Duration.zero,
+      segnaNeiRicordi: (d) => registro.toccaLaConversazione(
+          maestro: 'caligo',
+          conversazione: d.conversazione,
+          tema: d.text,
+          quando: d.at ?? DateTime.now()),
+      leConversazioniDelDiario: () async => [
+        for (final v in await registro.conversazioniDi('caligo', quante: 6))
+          ConversazionePassata(
+            id: RegistroDeiRicordi.idDellaConversazione(v.chiave),
+            titolo: LeConversazioniPassate.titoloDiRipiego(v.titolo),
+            ultimoMomento: v.quando,
+            primaDomanda: v.titolo,
+          ),
+      ],
     );
     await chat.init();
     for (var i = 0; i < 5; i++) {
@@ -242,21 +278,21 @@ void main() {
     }
     chat.iniziaUnaConversazioneNuova(adesso: DateTime(2026, 9, 18, 9));
     await chat.send(domanda);
+    chat.iniziaUnaConversazioneNuova(adesso: DateTime(2026, 9, 18, 10));
     for (var i = 0; i < 10; i++) {
       await Future<void>.delayed(Duration.zero);
     }
 
-    expect(scrittore.chieste, [domanda],
-        reason: 'il titolo si chiede una volta, con la prima domanda');
-    chat.iniziaUnaConversazioneNuova(adesso: DateTime(2026, 9, 18, 10));
     final titoli = [for (final c in chat.conversazioniPassate) c.titolo];
-    expect(titoli.first, 'Il lupo e la lealta',
-        reason: 'la conversazione appena lasciata non porta il titolo '
-            'scritto: $titoli');
-    expect(titoli, contains('Vecchia domanda sul lavoro'));
-    final letto = await LeConversazioniPassate.titoli(Maestro.caligo);
-    expect(letto.values, contains('Il lupo e la lealta'),
-        reason: 'il titolo non resta sul telefono');
+    expect(titoli.first, LeConversazioniPassate.titoloDiRipiego(domanda),
+        reason: 'la conversazione appena lasciata non porta il titolo del '
+            'Diario: $titoli');
+    expect(titoli, contains('Vecchia domanda sul lavoro'),
+        reason: 'la conversazione di prima, che sta nel Diario, non e\' nel '
+            'menu\': $titoli');
+    expect(ai.chieste, [domanda],
+        reason: 'il modello ha ricevuto altro oltre alla domanda: una '
+            'chiamata per il titolo e\' tornata');
   });
   // --- ORDINE EA ---------------------------------------------------------
 
@@ -290,8 +326,13 @@ void main() {
     await tester.tap(find.byKey(const Key('chat_menu_della_barra')));
     await tester.pumpAndSettle();
 
+    // **LA PRIMA VOCE E' "Nuova chat", dall'ordine FE voce 22.1**, che la
+    // vuole sempre in cima: la misura parte da lei. Prima partiva dalla
+    // prima conversazione, che fino all'ordine FE era la voce piu' alta, e
+    // il separatore fra "Nuova chat" e le conversazioni la faceva cadere
+    // senza che il menu' cominciasse con una riga vuota.
     final prima =
-        tester.getRect(find.byKey(const Key('chat_conversazione_passata_0')));
+        tester.getRect(find.byKey(const Key('chat_conversazione_nuova')));
     for (final d in tester.widgetList(find.byType(PopupMenuDivider))) {
       final r = tester.getRect(find.byWidget(d));
       expect(r.top, greaterThan(prima.top),
@@ -330,6 +371,13 @@ void main() {
     expect(nascoste, contains('c1'),
         reason:
             'il telefono non ricorda la cancellata: senza server tornerebbe');
+    // FE.22.17: il cestino toglie anche la riga del Diario sul telefono.
+    expect(
+        registro.tutte.where((v) =>
+            v.chiave ==
+            RegistroDeiRicordi.chiaveDellaConversazione('caligo', 'c1')),
+        isEmpty,
+        reason: 'la conversazione cancellata e\' ancora nel Diario');
 
     await tester.tap(find.byKey(const Key('chat_menu_della_barra')));
     await tester.pumpAndSettle();
@@ -363,20 +411,6 @@ void main() {
     expect(aria, lessThanOrEqualTo(1),
         reason: 'fra le due righe restano $aria punti di aria');
   });
-}
-
-class _ScrittoreFinto extends ScrittoreDeiTitoli {
-  final List<String> chieste = [];
-
-  @override
-  Future<String?> scrivi({
-    required Maestro maestro,
-    required String domanda,
-    required String risposta,
-  }) async {
-    chieste.add(domanda);
-    return '"Il lupo e la lealta."';
-  }
 }
 
 /// Un provider pronto che risponde una riga fissa.

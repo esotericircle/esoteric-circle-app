@@ -16,7 +16,6 @@ import '../sigilli/coda_delle_feste.dart';
 import '../sigilli/diario_del_cammino.dart';
 import '../rituals/custode_delle_push.dart';
 import '../ricordi/registro_dei_ricordi.dart';
-import '../ricordi/scrigno_dei_custoditi.dart';
 import '../ricordi/lettura_del_mese.dart';
 import 'identity_controller.dart';
 import 'natal_identity.dart';
@@ -133,10 +132,9 @@ class DimenticanzaDellaMemoriaViva {
     prova(() => context.read<GreetingController>().dimenticaChiSeNeVa());
     prova(() => context.read<ArtiPreferiteController>().dimenticaChiSeNeVa());
     prova(() => context.read<OnboardingController>().dimenticaChiSeNeVa());
-    // **I RICORDI DEL CERCHIO, ordine CG voci 03 e 06.** L'indice porta le
-    // righe magre di tutto cio' che la persona ha fatto, lo scrigno i responsi
-    // che ha dichiarato di voler tenere: sono la memoria piu' completa che
-    // l'app abbia mai avuto di qualcuno, e se ne vanno con lei.
+    // **IL DIARIO COSMICO, ordini CG e FE.** Porta tutto cio' che la persona
+    // ha fatto e ha segnato con la stella: e' la memoria piu' completa che
+    // l'app abbia mai avuto di qualcuno, e se ne va con lei.
     prova(() => context.read<RegistroDeiRicordi>().dimentica());
     // **IL RECAPITO DEL DISPOSITIVO SE NE VA CON LA PERSONA.** Ordine CI voce
     // 07: il token vive sotto il prefisso `push.`, che e' gia' in
@@ -144,7 +142,6 @@ class DimenticanzaDellaMemoriaViva {
     // Lasciarlo vorrebbe dire continuare a spingere notifiche a un account
     // che non esiste piu', pagandole.
     prova(() => context.read<CustodeDellePush>().dimentica());
-    prova(() => context.read<ScrignoDeiCustoditi>().dimentica());
     prova(() => context.read<LetturaDelMese>().dimentica());
     return quanti;
   }

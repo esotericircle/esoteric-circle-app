@@ -39,7 +39,6 @@ import '../../core/ricordi/conti_delle_arti.dart';
 import '../../core/ricordi/registro_dei_ricordi.dart';
 import '../../core/ricordi/riassunti_del_tempo.dart';
 import '../../core/ricordi/ricordo_custodito.dart';
-import '../../core/ricordi/scrigno_dei_custoditi.dart';
 import '../../core/ricordi/vista_dei_ricordi.dart';
 import '../../core/ricordi/voce_del_ricordo.dart';
 import '../../core/sigilli/sentieri.dart';
@@ -112,8 +111,11 @@ class _RicordiScreenState extends State<RicordiScreen> {
   VistaDeiRicordi _laTimeline(BuildContext context) {
     final gia = _timeline;
     if (gia != null) return gia;
+    final registro = context.read<RegistroDeiRicordi>();
+    // **IL DIARIO SI APRE DAL SERVER: due letture. Ordine FE voce 22.18.**
+    registro.apri();
     final nuova = VistaDeiRicordi(
-      registro: context.read<RegistroDeiRicordi>(),
+      registro: registro,
       gestiDeiDoni: ContiDelleArti.gestiDeiDoni.values.toSet(),
       orologio: widget.orologio ?? DateTime.now,
     );
@@ -332,6 +334,8 @@ class _LePastiglie extends StatelessWidget {
     FiltroDeiRicordi.arti: 'Le arti',
     FiltroDeiRicordi.conversazioni: 'Conversazioni',
     FiltroDeiRicordi.custoditi: 'Le tue card',
+    // Ordine FE voce 22.9, carattere per carattere.
+    FiltroDeiRicordi.segnati: 'Solo i segnati',
   };
 
   @override
@@ -590,6 +594,9 @@ class _LaSettimana extends StatelessWidget {
             titolo: '${_giorni[i]} ${lunedi.add(Duration(days: i)).day}',
             riassunto: giorni[i],
             palette: palette,
+            conStella: context
+                .read<RegistroDeiRicordi>()
+                .giornoConStella(giorni[i].chiave),
             onTap: giorni[i].vuoto
                 ? null
                 : () => vista.scendiA(LivelloDeiRicordi.giorno,
@@ -678,6 +685,7 @@ class _RigaDiSintesi extends StatelessWidget {
     required this.riassunto,
     required this.palette,
     this.onTap,
+    this.conStella = false,
   });
 
   final String titolo;
@@ -685,11 +693,25 @@ class _RigaDiSintesi extends StatelessWidget {
   final MaestroPalette palette;
   final VoidCallback? onTap;
 
+  /// **IL GIORNO EREDITA LA STELLA. Ordine FE voce 22.8.** Vero quando il
+  /// giorno contiene almeno una voce con la stella.
+  final bool conStella;
+
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: onTap,
-      title: Text(titolo, style: TypographyTokens.titoloScheda()),
+      title: Row(children: [
+        Flexible(child: Text(titolo, style: TypographyTokens.titoloScheda())),
+        if (conStella)
+          Padding(
+            padding: const EdgeInsets.only(left: SpacingTokens.xs),
+            child: Icon(Icons.star_rounded,
+                key: Key('ricordi_giorno_con_stella_${riassunto.chiave}'),
+                size: 18,
+                color: ColorTokens.goldLight),
+          ),
+      ]),
       subtitle: Text(
         riassunto.vuoto
             ? 'Niente'
@@ -773,6 +795,20 @@ class _RigaDellaVoce extends StatelessWidget {
         style: TypographyTokens.didascalia()
             .copyWith(color: ColorTokens.textSecondary),
       ),
+      // **LA STELLA, DAL DIARIO. Ordine FE voce 22.7**: lo stesso campo del
+      // pulsante "Segna nel Diario" in fondo al responso.
+      trailing: voce.chiaveDelDiario == null
+          ? null
+          : IconButton(
+              key: Key('ricordi_stella_${voce.chiave}'),
+              tooltip: voce.stella ? 'Togli la stella' : 'Segna nel Diario',
+              icon: Icon(
+                  voce.stella ? Icons.star_rounded : Icons.star_border_rounded,
+                  color: ColorTokens.goldLight),
+              onPressed: () => context
+                  .read<RegistroDeiRicordi>()
+                  .mettiLaStella(voce, !voce.stella),
+            ),
       onTap:
           voce.riferimento == null ? null : () => _apriIlRicordo(context, voce),
     );
@@ -788,11 +824,7 @@ class _RigaDellaVoce extends StatelessWidget {
   /// **IL RICORDO SI RIAPRE COM'ERA, ordine CG voce 04.**
   static void _apriIlRicordo(BuildContext context, VoceDelRicordo voce) {
     if (voce.tipo == TipoDelRicordo.responso) {
-      final scrigno = context.read<ScrignoDeiCustoditi>();
-      final custodito = scrigno.di(voce.riferimento!);
-      if (custodito != null) {
-        Navigator.of(context).push(RicordoApertoScreen.route(custodito));
-      }
+      Navigator.of(context).push(RicordoApertoScreen.dallaVoce(voce));
       return;
     }
     // Le conversazioni si riaprono AL PUNTO del turno: la chat ci arriva col
@@ -858,13 +890,28 @@ class _IRisultati extends StatelessWidget {
 /// **Un responso custodito torna nella sua forma originale**, col suo segno
 /// grafico e col suo pulsante di condivisione.
 class RicordoApertoScreen extends StatelessWidget {
-  const RicordoApertoScreen({super.key, required this.custodito});
+  const RicordoApertoScreen(
+      {super.key, required this.custodito, this.voce, this.nota});
 
   final RicordoCustodito custodito;
+
+  /// La voce del Diario da cui si e' aperto, se c'e': porta la stella e la
+  /// riga della persona. Ordine FE voce 22.10.
+  final VoceDelRicordo? voce;
+  final String? nota;
 
   static Route<void> route(RicordoCustodito custodito) =>
       PassaggioDelCerchio.rotta<void>(
         (_) => MaestroScope(child: RicordoApertoScreen(custodito: custodito)),
+      );
+
+  /// **IL RICORDO SI RIPRENDE DAL SERVER. Ordine FE voce 22.14 e 22.15.**
+  /// Il contenuto si carica solo quando la persona apre la voce; per le
+  /// voci oltre i dodici mesi, che stanno nell'archivio a basso costo, nel
+  /// frattempo compare "Sto riprendendo questo giorno.".
+  static Route<void> dallaVoce(VoceDelRicordo voce) =>
+      PassaggioDelCerchio.rotta<void>(
+        (_) => MaestroScope(child: _LaVoceCheTorna(voce: voce)),
       );
 
   /// **LA CONVERSAZIONE SI RIAPRE AL PUNTO DEL TURNO, non in cima.**
@@ -917,6 +964,7 @@ class RicordoApertoScreen extends StatelessWidget {
                 key: const Key('ricordo_aperto_testo'),
                 stile: TypographyTokens.lettura()
                     .copyWith(color: ColorTokens.textPrimary)),
+            if (voce != null) _LaStellaELaRiga(voce: voce!, nota: nota),
           ],
         ),
       ),
@@ -971,7 +1019,7 @@ class _ConversazioneRiaperta extends StatelessWidget {
 /// **Non e' una schermata separata dai Ricordi: e' una loro pastiglia.** La
 /// ragione, che vale piu' della scelta: due magazzini che contengono le stesse
 /// cose sono la famiglia di difetti piu' numerosa di questo progetto. Qui il
-/// magazzino e' quello dello scrigno, lo stesso che riempie la timeline.
+/// magazzino e' il Diario stesso: le carte sono i suoi responsi (FE.22.7).
 ///
 /// **Si vede a griglia, con le carte disegnate e non con righe di testo**,
 /// perche' sono oggetti visivi: e' la regola di casa sul livello visivo prima
@@ -982,17 +1030,47 @@ class _LeTueCarte extends StatelessWidget {
   final VistaDeiRicordi vista;
   final MaestroPalette palette;
 
+  /// **LA CARTA SI RIDISEGNA DAI SUOI DATI. Ordine FE voce 22.11.** Il
+  /// contenuto viene dalla copia di comodo; se non c'e', la carta si mostra
+  /// col titolo e il contenuto si chiede al server, una volta.
+  static RicordoCustodito _laCartaDi(BuildContext context, VoceDelRicordo v) {
+    RegistroDeiRicordi? registro;
+    try {
+      registro = context.watch<RegistroDeiRicordi>();
+    } catch (errore) {
+      debugPrint('Le tue carte: il registro non c\'e\'. $errore');
+    }
+    final contenuto = registro?.contenutoInCopia(v.chiave);
+    final ricordo = contenuto == null
+        ? null
+        : RicordoCustodito.dallaVoceDelDiario(contenuto);
+    if (ricordo != null) return ricordo;
+    registro?.portaInCopia(v.chiave);
+    return RicordoCustodito(
+      quando: v.quando,
+      arte: v.arte,
+      maestro: v.maestro,
+      titolo: v.titolo,
+      testo: '',
+      comeENato: ComeENato.gesto,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final scrigno = context.watch<ScrignoDeiCustoditi>();
-    final carte = scrigno.tutti;
+    // **LE TUE CARD SONO I RESPONSI DEL DIARIO. Ordine FE voce 22.7**: lo
+    // scrigno dei custoditi, che teneva un secondo elenco, e' stato tolto.
+    final carte = [
+      for (final v in vista.vociVisibili.reversed)
+        if (v.tipo == TipoDelRicordo.responso && v.chiaveDelDiario != null) v,
+    ];
     if (carte.isEmpty) {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(SpacingTokens.lg),
           child: Text(
-            'Non hai ancora custodito niente. Sotto ogni responso trovi '
-            'Segna nel Diario: quello che segni resta qui per sempre.',
+            'Qui arrivano da sole le carte dei tuoi responsi. Quelle che '
+            'vuoi ritrovare le segni con la stella.',
             key: const Key('ricordi_carte_vuote'),
             textAlign: TextAlign.center,
             style: TypographyTokens.corpo()
@@ -1013,7 +1091,9 @@ class _LeTueCarte extends StatelessWidget {
       mainAxisSpacing: SpacingTokens.md,
       crossAxisSpacing: SpacingTokens.md,
       children: [
-        for (final c in carte) _CartaCustodita(custodito: c, palette: palette),
+        for (final v in carte)
+          _CartaCustodita(
+              custodito: _laCartaDi(context, v), voce: v, palette: palette),
       ],
     );
   }
@@ -1103,9 +1183,11 @@ class _ArtworkDiUnRicordo extends StatelessWidget {
 /// ripiego trascurato: un Rito dell'Alba consegna una parola, e la parola si
 /// legge. Il motivo di ognuna sta scritto in `ArtworkDelRicordo.senzaArtwork`.
 class _CartaCustodita extends StatelessWidget {
-  const _CartaCustodita({required this.custodito, required this.palette});
+  const _CartaCustodita(
+      {required this.custodito, this.voce, required this.palette});
 
   final RicordoCustodito custodito;
+  final VoceDelRicordo? voce;
   final MaestroPalette palette;
 
   @override
@@ -1120,8 +1202,9 @@ class _CartaCustodita extends StatelessWidget {
     return InkWell(
       enableFeedback: false,
       key: Key('ricordi_carta_${custodito.chiave}'),
-      onTap: () =>
-          Navigator.of(context).push(RicordoApertoScreen.route(custodito)),
+      onTap: () => Navigator.of(context).push(voce == null
+          ? RicordoApertoScreen.route(custodito)
+          : RicordoApertoScreen.dallaVoce(voce!)),
       child: Container(
         decoration: BoxDecoration(
           gradient: LinearGradient(
@@ -1399,6 +1482,162 @@ class _LaLetturaDelMeseState extends State<_LaLetturaDelMese> {
         key: const Key('ricordi_lettura_del_mese'),
         stile:
             TypographyTokens.lettura().copyWith(color: ColorTokens.textPrimary),
+      ),
+    );
+  }
+}
+
+/// La voce che torna dal server, poi il ricordo aperto. Ordine FE voce 22.
+class _LaVoceCheTorna extends StatefulWidget {
+  const _LaVoceCheTorna({required this.voce});
+
+  final VoceDelRicordo voce;
+
+  /// Il testo dell'attesa, carattere per carattere. Ordine FE voce 22.15.
+  static const String rigaDellArchivio = 'Sto riprendendo questo giorno.';
+
+  @override
+  State<_LaVoceCheTorna> createState() => _LaVoceCheTornaState();
+}
+
+class _LaVoceCheTornaState extends State<_LaVoceCheTorna> {
+  Map<String, Object?>? _contenuto;
+  bool _finito = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _carica();
+  }
+
+  Future<void> _carica() async {
+    Map<String, Object?>? letto;
+    try {
+      letto = await context
+          .read<RegistroDeiRicordi>()
+          .contenutoDi(widget.voce.chiave);
+    } catch (errore) {
+      debugPrint('Diario: la voce non si apre. $errore');
+    }
+    if (!mounted) return;
+    setState(() {
+      _contenuto = letto;
+      _finito = true;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final voce = widget.voce;
+    final contenuto = _contenuto;
+    final ricordo = contenuto == null
+        ? null
+        : RicordoCustodito.dallaVoceDelDiario(contenuto);
+    if (_finito && ricordo != null) {
+      return RicordoApertoScreen(
+          custodito: ricordo,
+          voce: voce,
+          nota: contenuto?['nota'] is String
+              ? contenuto!['nota'] as String
+              : null);
+    }
+    final vecchia = DateTime.now().difference(voce.quando).inDays > 365;
+    return Scaffold(
+      backgroundColor: ColorTokens.neutralDeepest,
+      appBar: AppBar(title: Text(voce.titolo)),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(SpacingTokens.lg),
+          child: Text(
+            _finito
+                ? 'Questa voce non si riapre adesso. Riprova fra poco.'
+                : (vecchia ? _LaVoceCheTorna.rigaDellArchivio : ''),
+            key: const Key('ricordo_si_riprende'),
+            textAlign: TextAlign.center,
+            style: TypographyTokens.corpo()
+                .copyWith(color: ColorTokens.textSecondary),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// **LA STELLA E LA RIGA DELLA PERSONA. Ordine FE voce 22.10.** Sulla voce
+/// con la stella la persona puo' scrivere una riga sua, facoltativa, che
+/// resta con quella voce. Il testo e' suo: l'app non lo manda a nessun
+/// modello e non lo usa per generare risposte.
+class _LaStellaELaRiga extends StatefulWidget {
+  const _LaStellaELaRiga({required this.voce, this.nota});
+
+  final VoceDelRicordo voce;
+  final String? nota;
+
+  /// Il segnaposto del campo, carattere per carattere.
+  static const String segnaposto = 'Perché vuoi ricordarlo?';
+
+  @override
+  State<_LaStellaELaRiga> createState() => _LaStellaELaRigaState();
+}
+
+class _LaStellaELaRigaState extends State<_LaStellaELaRiga> {
+  late bool _stella = widget.voce.stella;
+  late final TextEditingController _riga =
+      TextEditingController(text: widget.nota ?? '');
+
+  /// La riga com'e' sul server: un tocco fuori dal campo senza cambiamenti
+  /// non manda niente.
+  late String _salvata = (widget.nota ?? '').trim();
+
+  Future<void> _salvaLaRiga() async {
+    final riga = _riga.text.trim();
+    if (!_stella || riga == _salvata) return;
+    _salvata = riga;
+    await _salva();
+  }
+
+  @override
+  void dispose() {
+    _riga.dispose();
+    super.dispose();
+  }
+
+  Future<void> _salva({bool? stella}) async {
+    final conLaStella = stella ?? _stella;
+    setState(() => _stella = conLaStella);
+    await context.read<RegistroDeiRicordi>().mettiLaStella(
+        widget.voce, conLaStella,
+        nota: conLaStella ? _riga.text.trim() : null);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: SpacingTokens.lg),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          TextButton.icon(
+            key: const Key('ricordo_aperto_stella'),
+            onPressed: () => _salva(stella: !_stella),
+            icon: Icon(_stella ? Icons.star_rounded : Icons.star_border_rounded,
+                color: ColorTokens.goldLight),
+            label: const Text('Segna nel Diario'),
+          ),
+          if (_stella)
+            TextField(
+              key: const Key('ricordo_aperto_riga'),
+              controller: _riga,
+              maxLength: 280,
+              maxLines: 3,
+              minLines: 1,
+              textInputAction: TextInputAction.done,
+              onSubmitted: (_) => _salvaLaRiga(),
+              onTapOutside: (_) => _salvaLaRiga(),
+              decoration:
+                  const InputDecoration(hintText: _LaStellaELaRiga.segnaposto),
+            ),
+        ],
       ),
     );
   }

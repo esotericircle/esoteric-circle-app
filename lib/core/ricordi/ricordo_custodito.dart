@@ -150,4 +150,16 @@ class RicordoCustodito {
 
   /// Quanto pesa davvero, in byte della codifica UTF-8.
   int get peso => utf8.encode(jsonEncode(aMappa())).length;
+
+  /// **IL RESPONSO DA UNA VOCE DEL DIARIO, IN OGNI VERSIONE DEL FORMATO.
+  /// Ordine FE voce 22.12.** La versione 1 porta il responso in `c`; la
+  /// versione 0 e' il formato piatto dello scrigno dei custoditi, coi campi
+  /// del responso in cima. Chi ridisegna la card sa leggere tutte e due: il
+  /// giorno in cui il formato cambia, le voci vecchie si aprono ancora.
+  static RicordoCustodito? dallaVoceDelDiario(Map<String, Object?> voce) {
+    final v = voce['v'];
+    final versione = v is num ? v.toInt() : 0;
+    if (versione >= 1) return daMappa(voce['c']);
+    return daMappa(voce);
+  }
 }

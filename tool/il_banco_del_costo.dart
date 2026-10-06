@@ -28,7 +28,6 @@ import 'package:esoteric_circle/features/maestri/chat/maestro_chat_controller.da
 import 'package:esoteric_circle/services/ai/firebase_maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
 import 'package:esoteric_circle/services/ai/registro_dei_guasti.dart';
-import 'package:esoteric_circle/services/ai/titoli_da_gemini.dart';
 import 'package:esoteric_circle/services/ai/voce_sorvegliata.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
 import 'package:esoteric_circle/services/voce/l_orecchio_del_live.dart';
@@ -40,8 +39,9 @@ import 'il_banco_del_costo_comune.dart';
 /// 2026.
 ///
 /// Fa girare il codice VERO dell'app (il controller della chat, il provider
-/// dei Maestri, i Tarocchi, le Rune, il Sigillo, il Viaggio, i titoli,
-/// l'ascolto del LIVE) con Gemini vero in europe-west1, e da ogni risposta
+/// dei Maestri, i Tarocchi, le Rune, il Sigillo, il Viaggio,
+/// l'ascolto del LIVE; i titoli delle conversazioni dall'ordine FE voce 22.14
+/// non chiamano piu' il modello) con Gemini vero in europe-west1, e da ogni risposta
 /// legge i consumi (`usageMetadata`: token in ingresso, in uscita, di
 /// ragionamento, dalla cache) con l'etichetta della funzione. La voce del
 /// Maestro, che parte dal server, si chiama qui col corpo della funzione
@@ -537,20 +537,6 @@ void main() {
                   giorno: DateTime(2026, 10, 2),
                   prendiUnaChiamata: () async => true,
                 ));
-      }
-    }
-
-    if (_gira('titoli')) {
-      const t = TitoliDaGemini();
-      for (var i = 0; i < _volte; i++) {
-        await _unUso(
-            'Il titolo della conversazione',
-            () => t.scrivi(
-                maestro: Maestro.values[i % 3],
-                domanda: _domande[i % 10],
-                risposta:
-                    'Ti dico di guardare con calma cio\' che hai davanti, '
-                    'senza correre: la scelta che temi e\' piu\' piccola.'));
       }
     }
 

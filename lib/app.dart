@@ -51,7 +51,6 @@ import 'core/sigilli/coda_delle_feste.dart';
 import 'features/sigilli/regia_del_cammino.dart';
 import 'core/sigilli/diario_del_cammino.dart';
 import 'core/ricordi/registro_dei_ricordi.dart';
-import 'core/ricordi/scrigno_dei_custoditi.dart';
 import 'core/ricordi/lettura_del_mese.dart';
 import 'features/push/custode_montato.dart';
 import 'services/push/porta_delle_push.dart';
@@ -442,20 +441,14 @@ class _EsotericCircleAppState extends State<EsotericCircleApp>
             porta: runtime.identita ?? const IdentitaAssente(),
           )..rileggi(),
         ),
-        // I RICORDI DEL CERCHIO, ordine CG voci 03 e 06. Due magazzini
-        // diversi e non uno: l'indice porta le righe magre di tutto cio' che
-        // e' successo e scade a due anni; lo scrigno porta i responsi che la
-        // persona ha dichiarato di voler tenere, e quelli non scadono mai.
-        // Fonderli vorrebbe dire dare una scadenza a cio' che deve restare,
-        // oppure tenere per sempre cio' che nessuno rilegge.
+        // IL DIARIO COSMICO, ordine FE voce 22. Un magazzino solo: l'indice
+        // sul server porta ogni consulto, responso e lettura, e la stella
+        // dice cio' che la persona vuole tenere. Fino all'ordine FE c'era
+        // anche lo scrigno dei custoditi (ordine CG voce 06), un secondo
+        // elenco per lo stesso segno: la voce 22.7 l'ha tolto.
         ChangeNotifierProvider(
           create: (_) => RegistroDeiRicordi(
             porta: runtime.ricordi ?? const PortaSpentaDeiRicordi(),
-          )..carica(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => ScrignoDeiCustoditi(
-            porta: runtime.scrigno ?? const PortaSpentaDelloScrigno(),
           )..carica(),
         ),
         // LA LETTURA IN PROSA DEL MESE, ordine CG voce 11. L'unica prosa

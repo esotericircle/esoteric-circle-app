@@ -17,7 +17,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/ricordi/registro_dei_ricordi.dart';
 import 'package:esoteric_circle/core/ricordi/ricordo_custodito.dart';
-import 'package:esoteric_circle/core/ricordi/scrigno_dei_custoditi.dart';
 import 'package:esoteric_circle/core/ricordi/voce_del_ricordo.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/ricordi/ricordi_screen.dart';
@@ -38,12 +37,10 @@ List<File> _fileCheNominanoIRicordi() {
   return fuori;
 }
 
-Widget _scena(
-    Widget figlio, RegistroDeiRicordi registro, ScrignoDeiCustoditi scrigno) {
+Widget _scena(Widget figlio, RegistroDeiRicordi registro) {
   return MultiProvider(
     providers: [
       ChangeNotifierProvider<RegistroDeiRicordi>.value(value: registro),
-      ChangeNotifierProvider<ScrignoDeiCustoditi>.value(value: scrigno),
     ],
     // **IL MAESTROSCOPE SERVE, e non e' un dettaglio della prova.** La
     // schermata legge la palette del Maestro attivo: senza lo scope la
@@ -113,8 +110,6 @@ void main() {
       (tester) async {
     final registro = RegistroDeiRicordi(orologio: () => DateTime(2026, 8, 31));
     await registro.carica();
-    final scrigno = ScrignoDeiCustoditi();
-    await scrigno.carica();
 
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1.0;
@@ -124,8 +119,7 @@ void main() {
         RicordiScreen(
             vistaIniziale: VistaDelJournal.cammino,
             orologio: () => DateTime(2026, 8, 31)),
-        registro,
-        scrigno));
+        registro));
     await tester.pumpAndSettle();
 
     expect(find.byKey(const Key('ricordi_levetta')), findsOneWidget);
@@ -152,17 +146,13 @@ void main() {
       titolo: 'Una gettata di rune',
       tipo: TipoDelRicordo.gesto,
     ));
-    final scrigno = ScrignoDeiCustoditi();
-    await scrigno.carica();
 
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
 
-    await tester.pumpWidget(_scena(
-        RicordiScreen(orologio: () => DateTime(2026, 8, 31)),
-        registro,
-        scrigno));
+    await tester.pumpWidget(
+        _scena(RicordiScreen(orologio: () => DateTime(2026, 8, 31)), registro));
     await tester.pumpAndSettle();
 
     expect(find.byKey(const Key('ricordi_anno')), findsOneWidget,
@@ -190,25 +180,33 @@ void main() {
       (tester) async {
     final registro = RegistroDeiRicordi(orologio: () => DateTime(2026, 8, 31));
     await registro.carica();
-    final scrigno = ScrignoDeiCustoditi();
-    await scrigno.carica();
-    await scrigno.custodisci(RicordoCustodito(
+    // **LE CARTE SONO I RESPONSI DEL DIARIO. Ordine FE voce 22.7.** Fino
+    // all'ordine FE la carta si metteva nello scrigno dei custoditi, il
+    // secondo magazzino che la voce 22.7 ha tolto.
+    final carta = RicordoCustodito(
       quando: DateTime(2026, 8, 12, 9),
       arte: 'gettata',
       maestro: 'caligo',
       titolo: 'La tua gettata',
       testo: 'Uruz ti chiede di non trattenere la forza che hai.',
       comeENato: ComeENato.gesto,
-    ));
+      dati: const {'rune': 'Uruz,Ansuz,Laguz'},
+    );
+    await registro.annotaIlResponso(
+      chiave: carta.chiave,
+      quando: carta.quando,
+      arte: carta.arte,
+      maestro: carta.maestro,
+      titolo: carta.titolo,
+      contenuto: carta.aMappa(),
+    );
 
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
 
-    await tester.pumpWidget(_scena(
-        RicordiScreen(orologio: () => DateTime(2026, 8, 31)),
-        registro,
-        scrigno));
+    await tester.pumpWidget(
+        _scena(RicordiScreen(orologio: () => DateTime(2026, 8, 31)), registro));
     await tester.pumpAndSettle();
 
     // **LA PASTIGLIA E' LA SESTA, quindi fuori dalla piega orizzontale a 390
@@ -226,7 +224,7 @@ void main() {
     expect(find.byKey(const Key('ricordi_le_tue_carte')), findsOneWidget,
         reason: 'la pastiglia mostra la griglia delle carte dentro i Ricordi. '
             'IL ROSSO SI DIMOSTRA scrivendo in un secondo magazzino, e la '
-            'carta custodita non compare qui');
+            'carta del Diario non compare qui');
     final chiave =
         '${DateTime(2026, 8, 12, 9).millisecondsSinceEpoch ~/ 60000}.gettata';
     expect(find.byKey(Key('ricordi_carta_$chiave')), findsOneWidget,
@@ -246,15 +244,13 @@ void main() {
     );
     final registro = RegistroDeiRicordi(orologio: () => DateTime(2026, 8, 31));
     await registro.carica();
-    final scrigno = ScrignoDeiCustoditi();
-    await scrigno.carica();
 
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
 
     await tester.pumpWidget(
-        _scena(RicordoApertoScreen(custodito: custodito), registro, scrigno));
+        _scena(RicordoApertoScreen(custodito: custodito), registro));
     await tester.pumpAndSettle();
 
     // **IL TESTO DEL RICORDO PASSA DA ParagrafiDiLettura**, non da un

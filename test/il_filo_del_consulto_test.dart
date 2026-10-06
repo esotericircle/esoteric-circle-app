@@ -61,7 +61,7 @@ void main() {
     final storia = [
       const ChatMessage(
           role: ChatRole.user, text: 'Quando riceverò una promozione?'),
-      ChatMessage(role: ChatRole.maestro, text: rispostaDiMedora),
+      const ChatMessage(role: ChatRole.maestro, text: rispostaDiMedora),
     ];
     final stesso = IlFiloDelConsulto.bloccoPer(Maestro.medora, storia: storia);
     expect(stesso, isNot(contains('IL FILO DEL CONSULTO')));

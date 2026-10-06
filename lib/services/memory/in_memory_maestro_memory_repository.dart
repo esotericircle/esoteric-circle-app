@@ -63,6 +63,14 @@ class InMemoryMaestroMemoryRepository implements MaestroMemoryRepository {
   }
 
   @override
+  Future<List<ChatMessage>> messaggiDellaConversazione(
+          Maestro maestro, String? conversazione) async =>
+      [
+        for (final m in _messages[maestro] ?? const <ChatMessage>[])
+          if (m.conversazione == conversazione) m,
+      ];
+
+  @override
   Future<bool> cancellaLaConversazione(
       Maestro maestro, String? conversazione) async {
     _messages[maestro]?.removeWhere((m) => m.conversazione == conversazione);

@@ -2,9 +2,7 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'push/porta_delle_push.dart';
 import 'push/porta_vera_delle_push.dart';
 import 'ricordi/porta_vera_dei_ricordi.dart';
-import 'ricordi/porta_vera_dello_scrigno.dart';
 import '../core/ricordi/registro_dei_ricordi.dart';
-import '../core/ricordi/scrigno_dei_custoditi.dart';
 import '../core/ricordi/lettura_del_mese.dart';
 import 'ricordi/penna_vera_del_mese.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -41,7 +39,6 @@ class AppServices {
     this.porta = const PortaSpentaDelCerchio(),
     this.identita,
     this.ricordi,
-    this.scrigno,
     this.penna,
     this.push,
     this.linkInArrivo = const PortaSpentaDeiLinkInArrivo(),
@@ -65,11 +62,6 @@ class AppServices {
   /// timeline funziona lo stesso, e la sincronia riparte quando la rete torna
   /// perche' il mese resta fra gli sporchi.
   final PortaDeiRicordi? ricordi;
-
-  /// LA PORTA DELLO SCRIGNO DEI CUSTODITI, ordine CG voce 06. Nulla senza
-  /// Firebase: i custoditi restano sul telefono e salgono alla prima
-  /// occasione.
-  final PortaDelloScrigno? scrigno;
 
   /// LA PENNA DELLA LETTURA DEL MESE, ordine CG voce 11. Nulla senza Firebase:
   /// in quel caso la lettura non compare, e non compare nemmeno un messaggio
@@ -103,7 +95,6 @@ class AppServices {
     // Ordine EA voce 19: chi ascolta i link di sistema.
     PortaDeiLinkInArrivo linkInArrivo = const PortaSpentaDeiLinkInArrivo(),
     PortaDeiRicordi? ricordi,
-    PortaDelloScrigno? scrigno,
     PennaDelMese? penna,
     PortaDelleScelte? push,
   }) {
@@ -127,7 +118,6 @@ class AppServices {
       porta: porta,
       identita: identita,
       ricordi: ricordi,
-      scrigno: scrigno,
       penna: penna,
       push: push,
     );
@@ -236,7 +226,6 @@ class AppServices {
     // nessun posto dove scrivere, e una porta viva senza destinatario
     // fallirebbe a ogni sincronia invece di tacere.
     PortaDeiRicordi? ricordi;
-    PortaDelloScrigno? scrigno;
     PennaDelMese? penna;
     PortaDelleScelte? push;
     try {
@@ -250,7 +239,6 @@ class AppServices {
         memory = FirestoreMaestroMemoryRepository(
             uid: uid, uidVivo: () => identita?.uid, porta: porta);
         ricordi = PortaVeraDeiRicordi();
-        scrigno = PortaVeraDelloScrigno();
         penna = const PennaVeraDelMese();
         // **LA PORTA DELLE PUSH, ordine CI voce 07.** Nasce qui insieme alle
         // altre e per la stessa ragione: senza un account non c'e' nessun
@@ -273,7 +261,6 @@ class AppServices {
       // Ordine EA voce 19: nell'app vera i link di sistema si ascoltano.
       linkInArrivo: PortaVeraDeiLinkInArrivo(),
       ricordi: ricordi,
-      scrigno: scrigno,
       penna: penna,
       push: push,
       guasti: registro,

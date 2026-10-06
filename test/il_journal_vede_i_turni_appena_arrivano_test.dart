@@ -1,6 +1,5 @@
 import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/ricordi/registro_dei_ricordi.dart';
-import 'package:esoteric_circle/core/ricordi/scrigno_dei_custoditi.dart';
 import 'package:esoteric_circle/core/ricordi/voce_del_ricordo.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/ricordi/ricordi_screen.dart';
@@ -25,8 +24,6 @@ void main() {
   Future<RegistroDeiRicordi> apri(WidgetTester tester) async {
     final registro = RegistroDeiRicordi(orologio: () => DateTime(2026, 9, 18));
     await registro.carica();
-    final scrigno = ScrignoDeiCustoditi();
-    await scrigno.carica();
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.resetPhysicalSize);
@@ -34,7 +31,6 @@ void main() {
     await tester.pumpWidget(MultiProvider(
       providers: [
         ChangeNotifierProvider<RegistroDeiRicordi>.value(value: registro),
-        ChangeNotifierProvider<ScrignoDeiCustoditi>.value(value: scrigno),
       ],
       child: MaterialApp(
         home: MaestroScope(
