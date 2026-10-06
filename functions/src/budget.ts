@@ -68,8 +68,13 @@ const LIMITI: Record<Budget, (number | null)[]> = {
    * fondatore: "Cmq, alziamo subito il limite"; quanto: "Poco sotto il
    * margine (Consigliata)", il margine misurato dalla voce EX.11 (circa 7, 9
    * e 11 domande in piu' al giorno). Erano 3, 6, 10, 13.
+   *
+   * **Ordine FE voce 20, 6 ottobre 2026**: 17 e 21, erano 18 e 22. Il
+   * fondatore: "Una domanda in meno", perche' col filo del consulto il caso
+   * peggiore del mensile sforava il 30 per cento (lib/core/entitlement/
+   * plan_catalog.dart, la stessa riga).
    */
-  domande: [3, 12, 18, 22],
+  domande: [3, 12, 17, 21],
   approfondimenti: [0, 2, 2, 3],
   confronti: [0, 1, 2, 3],
   gettate: [1, 2, 3, 3],

@@ -31,8 +31,13 @@ PIANI = ['Iniziato', 'Adepto', 'Illuminato']
 PREZZO_MENSILE = [9.99, 19.99, 29.99]
 PREZZO_ANNUALE = [99.99, 189.99, 279.99]
 PEGGIORE_EX = [1.91, 4.58, 6.93]
+# Le domande del conto EX, quelle del caso peggiore qui sopra.
 DOMANDE = [12, 18, 22]
 MINUTI = [0, 80, 150]
+
+# I limiti del mensile: dal 6 ottobre 2026 17 e 21 per l'Adepto e
+# l'Illuminato, scelta del fondatore "Una domanda in meno".
+DOMANDE_MENSILE = [12, 17, 21]
 
 # I limiti dell'annuale: la scelta del fondatore, "Domande e minuti
 # insieme", coi valori piu' vicini alla proposta (11; 14 e 60; 18 e 100) che
@@ -55,7 +60,7 @@ def main():
     sotto = True
     for i, nome in enumerate(PIANI):
         for ciclo, prezzo, d, m in [
-            ('mensile', PREZZO_MENSILE[i], DOMANDE[i], MINUTI[i]),
+            ('mensile', PREZZO_MENSILE[i], DOMANDE_MENSILE[i], MINUTI[i]),
             ('annuale', PREZZO_ANNUALE[i] / 12, DOMANDE_ANNUALE[i],
              MINUTI_ANNUALE[i]),
         ]:
@@ -64,9 +69,10 @@ def main():
             print(f'{nome} {ciclo}: {d} domande al giorno, {m} minuti di LIVE '
                   f'al mese; caso peggiore {c:.2f} dollari, tetto {t:.2f}, '
                   f'{c / netto * 100:.1f} per cento del netto')
-            if ciclo == 'annuale' and c > t:
+            if c > t:
                 sotto = False
-    print('ANNUALI SOTTO IL TETTO' if sotto else 'ANNUALI SOPRA IL TETTO')
+    print('TUTTI I CICLI SOTTO IL TETTO' if sotto
+          else 'UN CICLO SOPRA IL TETTO')
 
 
 if __name__ == '__main__':

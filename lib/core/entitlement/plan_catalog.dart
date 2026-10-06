@@ -299,12 +299,12 @@ class PlanCatalog {
       nellAnnuale: {
         'Voce AI dei tre Maestri nel LIVE, 80 minuti al mese':
             'Voce AI dei tre Maestri nel LIVE, 55 minuti al mese',
-        '18 domande al giorno ai Maestri': '14 domande al giorno ai Maestri',
+        '17 domande al giorno ai Maestri': '14 domande al giorno ai Maestri',
       },
       highlights: [
         'Tutto di Iniziato',
         'Voce AI dei tre Maestri nel LIVE, 80 minuti al mese',
-        '18 domande al giorno ai Maestri',
+        '17 domande al giorno ai Maestri',
         '10 carte di tarocchi al giorno, da stendere come vuoi',
         'La stesa a dieci carte, appena arriva nel Cerchio',
         'Sinastria VIP fino a 5 al giorno',
@@ -330,13 +330,13 @@ class PlanCatalog {
         yearlyDiscountPercent: 22,
       ),
       nellAnnuale: {
-        '22 domande ai Maestri al giorno': '18 domande ai Maestri al giorno',
+        '21 domande ai Maestri al giorno': '18 domande ai Maestri al giorno',
         'Voce AI dei tre Maestri nel LIVE, 150 minuti al mese':
             'Voce AI dei tre Maestri nel LIVE, 95 minuti al mese',
       },
       highlights: [
         'Tutto di Adepto, coi tetti più alti del Cerchio',
-        '22 domande ai Maestri al giorno',
+        '21 domande ai Maestri al giorno',
         '15 carte di tarocchi al giorno, anche nella stesa a dieci carte',
         'Voce AI dei tre Maestri nel LIVE, 150 minuti al mese',
         '25 sinastrie VIP al giorno',
@@ -683,7 +683,12 @@ class PlanCatalog {
     FeatureRow(
         'Domande a un Maestro',
         // Ordine EX Aggiunta 3: erano 3, 6, 10, 13.
-        ['3 al giorno', '12 al giorno', '18 al giorno', '22 al giorno'],
+        // **Ordine FE voce 20, 6 ottobre 2026**: 17 e 21, erano 18 e 22.
+        // Il filo del consulto e il cambio sceso portavano il caso peggiore
+        // del mensile dell'Adepto e dell'Illuminato al 30,2 e al 30,3 per
+        // cento del netto; il fondatore: "Una domanda in meno"
+        // (tool/i_limiti_degli_annuali.py).
+        ['3 al giorno', '12 al giorno', '17 al giorno', '21 al giorno'],
         chiave: RigaDelPiano.domande),
     FeatureRow(
         'Vai più a fondo', ['No', '2 al giorno', '2 al giorno', '3 al giorno'],

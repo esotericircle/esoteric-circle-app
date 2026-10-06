@@ -8,7 +8,7 @@ void main() {
   group('Contatore delle domande', () {
     // Ordine EX voce 02: il nome dice i numeri nuovi, erano 3, 5, 10, 50.
     // Ordine EX Aggiunta 3: le domande si alzano a 12, 18 e 22.
-    test('Il limite giornaliero segue i tier: 3, 12, 18, 22', () {
+    test('Il limite giornaliero segue i tier: 3, 12, 17, 21', () {
       final a = QuestionAllowance(clock: () => DateTime(2026, 7, 13));
       // TRE, che e' il numero deciso e approvato dal fondatore.
       //
@@ -22,13 +22,15 @@ void main() {
       // Ordine EX voce 02: sei domande all'Iniziato, erano cinque.
       // Ordine EX Aggiunta 3: dodici all'Iniziato, erano sei.
       expect(a.dailyLimit(Tier.tier1), 12);
-      expect(a.dailyLimit(Tier.tier2), 18);
+      // Ordine FE voce 20, 6 ottobre 2026: 17 e 21, erano 18 e 22 ("Una domanda in meno", il tetto del 30 per cento col filo del consulto).
+      expect(a.dailyLimit(Tier.tier2), 17);
       // **NON PIU' NULLO, ordine CE voce 08.** L'illimitato e' uscito
       // dalla matrice e dalla logica: l'Illuminato ha cinquanta domande
       // al giorno, che nessun uso umano intensivo raggiunge.
       // Ordine EX voce 02: tredici domande all'Illuminato, erano cinquanta.
       // Ordine EX Aggiunta 3: ventidue, erano tredici.
-      expect(a.dailyLimit(Tier.tier3), 22);
+      // Ordine FE voce 20, 6 ottobre 2026: 17 e 21, erano 18 e 22 ("Una domanda in meno", il tetto del 30 per cento col filo del consulto).
+      expect(a.dailyLimit(Tier.tier3), 21);
     });
 
     test('Viandante ha tre risposte al giorno, si azzerano il giorno dopo', () {
@@ -72,7 +74,8 @@ void main() {
       expect(allowance.usedToday(), 2);
       expect(allowance.canAsk(Tier.tier3), isTrue);
       // Ordine EX Aggiunta 3: ventidue meno due, erano tredici meno due.
-      expect(allowance.remaining(Tier.tier3), 20);
+      // Ordine FE voce 20: ventuno meno due, erano ventidue meno due.
+      expect(allowance.remaining(Tier.tier3), 19);
     });
 
     test('Il confronto a piu Maestri e riservato al Tier a pagamento', () {
@@ -220,14 +223,17 @@ void main() {
           isTrue);
 
       final adepto = PlanCatalog.forTier(Tier.tier2).highlights;
-      expect(adepto.any((h) => h.contains('18 domande al giorno ai Maestri')),
+      // **LAPIDE, ordine FE voce 20**: 17 e 21 domande al mensile, erano 18
+      // e 22. Il fondatore: "Una domanda in meno" (il tetto del 30 per cento
+      // col filo del consulto).
+      expect(adepto.any((h) => h.contains('17 domande al giorno ai Maestri')),
           isTrue);
       expect(adepto.any((h) => h.contains('10 carte di tarocchi al giorno')),
           isTrue);
 
       final illuminato = PlanCatalog.forTier(Tier.tier3).highlights;
       expect(
-          illuminato.any((h) => h.contains('22 domande ai Maestri')), isTrue);
+          illuminato.any((h) => h.contains('21 domande ai Maestri')), isTrue);
       // **E NON LA DOMANDA AL MAESTRO REALE**, uscita con l'ordine DJ voce 09.
       expect(illuminato.any((h) => h.contains('Maestro reale')), isFalse);
     });
@@ -280,8 +286,9 @@ void main() {
       expect(memoria.values, ['No', 'Esclusiva', 'Sì', 'Sì']);
       final domande = PlanCatalog.matrix
           .firstWhere((r) => r.label == 'Domande a un Maestro');
+      // Ordine FE voce 20: 17 e 21, erano 18 e 22.
       expect(domande.values,
-          ['3 al giorno', '12 al giorno', '18 al giorno', '22 al giorno']);
+          ['3 al giorno', '12 al giorno', '17 al giorno', '21 al giorno']);
       final voce = PlanCatalog.matrix
           .firstWhere((r) => r.label == 'Voce AI dei Maestri');
       expect(voce.values, ['No', 'No', 'Esclusiva', 'Sì']);

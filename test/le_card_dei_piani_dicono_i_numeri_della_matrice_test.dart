@@ -86,8 +86,9 @@ void main() {
     ], [
       3,
       12,
-      18,
-      22
+      // Ordine FE voce 20, 6 ottobre 2026: 17 e 21, erano 18 e 22 ("Una domanda in meno", il tetto del 30 per cento col filo del consulto).
+      17,
+      21
     ]);
   });
 }

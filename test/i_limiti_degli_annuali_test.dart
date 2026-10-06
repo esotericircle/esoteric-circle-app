@@ -37,8 +37,14 @@ void main() {
       if (minuti[i] > 0 && !annuale.contains('${minuti[i]} minuti al mese')) {
         diversi.add('${piano.name}: non dice ${minuti[i]} minuti');
       }
-      // Il mensile resta quello di prima: la scelta tocca solo l'annuale.
+      // Il mensile dice i suoi numeri: dal 6 ottobre 2026 17 e 21 per
+      // l'Adepto e l'Illuminato ("Una domanda in meno").
       expect(piano.highlightsPer(PriceCycle.monthly), piano.highlights);
+      final mensile = piano.highlightsPer(PriceCycle.monthly).join(' | ');
+      final perMese = lista('DOMANDE_MENSILE')[i];
+      if (!RegExp('\\b$perMese domande').hasMatch(mensile)) {
+        diversi.add('${piano.name}: il mensile non dice $perMese domande');
+      }
     }
     // ignore: avoid_print
     print('FE.20 MISURA: piani annuali confrontati col conto ${piani.length}, '
@@ -46,11 +52,11 @@ void main() {
     expect(diversi, isEmpty, reason: diversi.join(' | '));
   });
 
-  test('FE.20: il conto ha trovato gli annuali sotto il tetto', () {
+  test('FE.20: il conto ha trovato ogni ciclo sotto il tetto', () {
     final uscita =
         File('docs/costi/i_limiti_degli_annuali.txt').readAsStringSync();
-    expect(uscita, contains('ANNUALI SOTTO IL TETTO'),
-        reason: 'l\'ultima uscita del conto non trova gli annuali sotto il '
+    expect(uscita, contains('TUTTI I CICLI SOTTO IL TETTO'),
+        reason: 'l\'ultima uscita del conto non trova tutti i cicli sotto il '
             'tetto: rilancia python tool/i_limiti_degli_annuali.py');
     for (final d in lista('DOMANDE_ANNUALE')) {
       expect(uscita, contains('annuale: $d domande al giorno'),
