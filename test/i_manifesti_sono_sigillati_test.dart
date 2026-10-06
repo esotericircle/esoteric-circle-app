@@ -354,6 +354,11 @@ void main() {
     // ottobre 2026: la conferma della spesa, la porta sola del cielo, i banchi
     // col modello, il tasto indietro, il Cerchio dei collaudi.
     'FD': 6,
+    // FE: quarantaquattro voci, contate coi titoli "## VOCE FE." del
+    // manifesto il 6 ottobre 2026: FE.01-FE.20, le cinque della FE.21 (Test
+    // Lab), le diciotto della FE.22 (Diario Cosmico) e la FE.23 (il filo in
+    // cima).
+    'FE': 44,
     'ACCELERA': 4,
     'P': 40,
     'S': 29,
