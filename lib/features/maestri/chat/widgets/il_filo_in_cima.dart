@@ -88,9 +88,9 @@ class _IlFiloInCimaState extends State<IlFiloInCima> {
                       quanti == 1
                           ? 'Il parere di ${pareri.first.maestro.nomeAVideo}. '
                               'Tocca per leggerlo.'
-                          : 'I pareri di ${[
-                              for (final p in pareri) p.maestro.nomeAVideo
-                            ].join(' e ')}. Tocca per leggerli.',
+                          : 'I pareri di ${_iNomi([
+                                  for (final p in pareri) p.maestro.nomeAVideo
+                                ])}. Tocca per leggerli.',
                       key: const Key('filo_in_cima_chiusa'),
                       style: TypographyTokens.didascalia()
                           .copyWith(color: ColorTokens.textSecondary),
@@ -115,3 +115,10 @@ class _IlFiloInCimaState extends State<IlFiloInCima> {
     );
   }
 }
+
+/// I nomi come si dicono: "Medora e Calìgo", "Medora, Calìgo e Aura". Visto
+/// sul Realme con la build 2299 il 6 ottobre 2026: con tre Maestri il filo
+/// diceva "Medora e Calìgo e Aura".
+String _iNomi(List<String> nomi) => nomi.length < 3
+    ? nomi.join(' e ')
+    : '${nomi.sublist(0, nomi.length - 1).join(', ')} e ${nomi.last}';

@@ -460,6 +460,17 @@ INNESTI = [
      'DOMANDE_ANNUALE = [12, 18, 22]',
      'flutter test test/i_limiti_degli_annuali_test.dart -r expanded',
      'ogni ciclo sotto il tetto'),
+    # Visti sul Realme con la build 2299: il riassunto coperto e i tre nomi.
+    ('A84', 'FE.22.13', 'lib/core/ricordi/registro_dei_ricordi.dart',
+     '    if (_anniDalServer.contains(anno)) return;',
+     '    if (_anni.containsKey(anno)) return;',
+     'flutter test test/il_diario_cosmico_sul_server_test.dart -r expanded',
+     'non nasconde i mesi del server'),
+    ('A85', 'FE.23', 'lib/features/maestri/chat/widgets/il_filo_in_cima.dart',
+     "String _iNomi(List<String> nomi) => nomi.length < 3",
+     "String _iNomi(List<String> nomi) => nomi.length < 99",
+     'flutter test test/il_filo_in_cima_test.dart -r expanded',
+     'si dicono come in italiano'),
     # FE.22.3, prova a) alla lettera: nessun "Custodisci" mostrato.
     ('A83', 'FE.22.3', 'lib/features/account/account_screen.dart',
      "            title: 'Metti al sicuro il tuo cielo',",

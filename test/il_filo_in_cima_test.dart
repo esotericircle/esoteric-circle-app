@@ -59,6 +59,22 @@ void main() {
         reason: 'chiusa la scheda ruba troppo spazio alla conversazione');
   });
 
+  testWidgets('con tre Maestri i nomi si dicono come in italiano',
+      (tester) async {
+    // Visto sul Realme con la build 2299: "Medora e Calìgo e Aura".
+    IlFiloDelConsulto.annota(
+        maestro: Maestro.caligo,
+        domanda: 'Quando riceverò una promozione?',
+        risposta: 'Chiedila venerdì.');
+    IlFiloDelConsulto.annota(
+        maestro: Maestro.aura,
+        domanda: 'Quando riceverò una promozione?',
+        risposta: 'Respira e poi chiedila.');
+    await monta(tester, Maestro.aura);
+    expect(find.text('I pareri di Medora, Calìgo e Aura. Tocca per leggerli.'),
+        findsOneWidget);
+  });
+
   testWidgets('con un solo Maestro la scheda non compare', (tester) async {
     await monta(tester, Maestro.medora);
     expect(find.byKey(const Key('filo_in_cima')), findsNothing);

@@ -413,8 +413,19 @@ class RegistroDeiRicordi extends ChangeNotifier {
   /// I mesi gia' letti dal server in questa sessione.
   final Set<String> _mesiDalServer = {};
 
-  /// I riassunti degli anni letti dal server.
+  /// I riassunti degli anni: quelli letti dal server, con sopra i conti
+  /// delle voci nate in questa sessione.
   final Map<String, Map<String, Object?>> _anni = {};
+
+  /// **GLI ANNI LETTI DAL SERVER, a parte.** Visto sul Realme con la build
+  /// 2299, il 6 ottobre 2026: il Diario filtrato su Aura segnava settembre
+  /// a 0 mentre il menu' della chat mostrava due conversazioni di Aura del
+  /// 26 e del 27 settembre. Una conversazione toccata prima di aprire il
+  /// Diario contava nel riassunto (`_contaNelRiassunto`) e cosi' creava
+  /// l'anno nella mappa coi soli conti di oggi: aprendo il Diario,
+  /// [leggiLAnno] trovava l'anno e non leggeva il server. Padre: il commit
+  /// bd64f246 (FE.22, il Diario sul telefono).
+  final Set<String> _anniDalServer = {};
 
   /// **APRE IL DIARIO: due letture.** Il riassunto dell'anno e il mese
   /// corrente, con cento voci come con mille (FE.22.18). Gli altri mesi si
@@ -428,9 +439,12 @@ class RegistroDeiRicordi extends ChangeNotifier {
 
   /// Legge il riassunto di un anno, una volta per sessione.
   Future<void> leggiLAnno(String anno) async {
-    if (_anni.containsKey(anno)) return;
+    if (_anniDalServer.contains(anno)) return;
     final letto = await _porta.leggiAnno(anno);
     lettureDalServer++;
+    _anniDalServer.add(anno);
+    // Il riassunto del server conta gia' le voci di questa sessione: le
+    // scrive il server stesso, nella transazione della loro riga.
     _anni[anno] = letto ?? const {};
     notifyListeners();
   }
@@ -440,7 +454,8 @@ class RegistroDeiRicordi extends ChangeNotifier {
 
   /// Vero quando il riassunto di quell'anno e' arrivato dal server.
   bool haIlRiassunto(String anno) =>
-      (_anni[anno]?['mesi'] as Map?)?.isNotEmpty ?? false;
+      _anniDalServer.contains(anno) &&
+      ((_anni[anno]?['mesi'] as Map?)?.isNotEmpty ?? false);
 
   /// Quante voci con quell'etichetta ha il mese `AAAA-MM`, dal riassunto:
   /// "tutte", un Maestro, "conversazioni", "arti" o "stelle".
@@ -740,6 +755,7 @@ class RegistroDeiRicordi extends ChangeNotifier {
     _contenuti.clear();
     _contenutiChiesti.clear();
     _anni.clear();
+    _anniDalServer.clear();
     _mesiSporchi.clear();
     _ultimaSincronia = '';
     scrittureVersoIlServer = 0;

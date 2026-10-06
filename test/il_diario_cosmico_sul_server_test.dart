@@ -53,6 +53,33 @@ void main() {
         ),
       );
 
+  test(
+      'FE.22.13: una conversazione toccata prima di aprire il Diario non '
+      'nasconde i mesi del server', () async {
+    // Visto sul Realme con la build 2299, 6 ottobre 2026: il Diario su
+    // Aura segnava settembre a 0 e il menu' ne mostrava due conversazioni.
+    final porta = PortaFintaDelDiario();
+    for (final g in [26, 27]) {
+      porta.metti(laConversazione(Maestro.aura,
+          id: 'c$g', titolo: 'Settembre $g', quando: DateTime(2026, 9, g, 10)));
+    }
+    final registro = RegistroDeiRicordi(orologio: () => adesso, porta: porta);
+    await registro.carica();
+    // La persona parla con Aura, e solo dopo apre il Diario.
+    registro.toccaLaConversazione(
+        maestro: 'aura',
+        conversazione: 'c1',
+        tema: 'Devo chiedere la promozione?',
+        quando: adesso);
+    await registro.apri();
+    // ignore: avoid_print
+    print('FE.22.13 MISURA: conversazioni di Aura a settembre nel Diario '
+        '${registro.contoDelMese('2026-09', 'aura')}, sul server 2');
+    expect(registro.contoDelMese('2026-09', 'aura'), 2,
+        reason: 'il riassunto del server non e\' stato letto: la '
+            'conversazione di oggi lo ha coperto');
+  });
+
   test('f) FE.22.8: il giorno eredita la stella, e la perde', () async {
     final porta = PortaFintaDelDiario();
     final registro = RegistroDeiRicordi(orologio: () => adesso, porta: porta);
