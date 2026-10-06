@@ -61,6 +61,7 @@ class Plan {
     required this.highlights,
     this.price,
     this.highlighted = false,
+    this.nellAnnuale = const {},
   });
 
   final Tier tier;
@@ -77,6 +78,24 @@ class Plan {
 
   /// Il piano consigliato, messo in risalto.
   final bool highlighted;
+
+  /// **I LIMITI DELL'ANNUALE. Ordine FE voce 20**, scelta del fondatore del
+  /// 6 ottobre 2026, *"Domande e minuti insieme"*: il tetto del 30 per cento
+  /// sul prezzo tolte IVA e store era stato contato solo sui mensili, e
+  /// sull'annuale l'Adepto e l'Illuminato stavano al 37 e al 38 per cento.
+  /// Il conto e i valori stanno in `tool/i_limiti_degli_annuali.py`. Qui,
+  /// per ogni vantaggio che cambia, la sua riga nell'annuale.
+  ///
+  /// **Si applicano col pagamento.** Oggi il piano si attiva solo in Demo e
+  /// non porta il ciclo: il server conta i limiti del piano, gli stessi per
+  /// ogni ciclo. Il giorno che il pagamento scrive il ciclo
+  /// nell'abbonamento, i limiti dell'annuale sono questi.
+  final Map<String, String> nellAnnuale;
+
+  /// I vantaggi come li legge chi sceglie quel ciclo.
+  List<String> highlightsPer(PriceCycle ciclo) => ciclo == PriceCycle.yearly
+      ? [for (final h in highlights) nellAnnuale[h] ?? h]
+      : highlights;
 
   bool get isFree => tier == Tier.free;
 }
@@ -245,6 +264,9 @@ class PlanCatalog {
         yearlyPerMonth: '8,33 € al mese',
         yearlyDiscountPercent: 17,
       ),
+      nellAnnuale: {
+        '12 domande al giorno ai Maestri': '11 domande al giorno ai Maestri',
+      },
       highlights: [
         'Tutto di Viandante, senza pubblicità',
         'Memoria AI dei Maestri, esclusiva e persistente',
@@ -274,6 +296,11 @@ class PlanCatalog {
         yearlyPerMonth: '15,83 € al mese',
         yearlyDiscountPercent: 21,
       ),
+      nellAnnuale: {
+        'Voce AI dei tre Maestri nel LIVE, 80 minuti al mese':
+            'Voce AI dei tre Maestri nel LIVE, 55 minuti al mese',
+        '18 domande al giorno ai Maestri': '14 domande al giorno ai Maestri',
+      },
       highlights: [
         'Tutto di Iniziato',
         'Voce AI dei tre Maestri nel LIVE, 80 minuti al mese',
@@ -302,6 +329,11 @@ class PlanCatalog {
         yearlyPerMonth: '23,33 € al mese',
         yearlyDiscountPercent: 22,
       ),
+      nellAnnuale: {
+        '22 domande ai Maestri al giorno': '18 domande ai Maestri al giorno',
+        'Voce AI dei tre Maestri nel LIVE, 150 minuti al mese':
+            'Voce AI dei tre Maestri nel LIVE, 95 minuti al mese',
+      },
       highlights: [
         'Tutto di Adepto, coi tetti più alti del Cerchio',
         '22 domande ai Maestri al giorno',

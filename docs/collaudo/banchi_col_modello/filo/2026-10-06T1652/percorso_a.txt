@@ -1,0 +1,97 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo tende alla promozione che attendi, ma è un tempo di passaggio e non ancora di piena realizzazione. La forza per raggiungere questo obiettivo ti è data da un transito di Marte in aspetto favorevole con il tuo Sole, che ti rende proattivo e determinato.
+
+✦ Scrivi un appunto sui tuoi successi professionali recenti, in modo da poterli presentare con chiarezza al momento giusto.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] MEDORA [DA GIUDICARE]: Questa settimana ti consiglio di concentrarti sulla comunicazione chiara e diretta con i tuoi superiori, preparando il terreno per la promozione. Il transito della Luna in Gemelli, che si verifica a metà settimana, favorisce le conversazioni importanti e la trasmissione di idee.
+
+✦ Rileggi gli appunti sui tuoi successi professionali e preparati a esporli in un colloquio, quando ti sarà offerta l'occasione.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di preparare i successi professionali ('Rileggi gli appunti sui tuoi successi professionali') e lo sviluppa applicandolo alla settimana corrente, suggerendo di 'preparare il terreno per la promozione' tramite la comunicazione con i superiori.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] MEDORA [DA GIUDICARE]: Se il risultato non fosse quello che speri, non considerarlo un punto finale, ma un momento di riflessione per affinare le tue strategie. Il tuo cielo indica che ogni esperienza è un passo per comprendere meglio la tua missione, e un rifiuto non chiude una porta, ma spinge a cercare una nuova chiave. Ripensa ai punti che non sono stati compresi, alle richieste che non sono state esaudite.
+
+✦ Considera di annotare in un quaderno i punti che senti di dover migliorare nella tua esposizione professionale.
+    GIUDICE: PORTA_AVANTI, La guida risponde a una domanda ipotetica ('E se le cose non vanno come speri?') che è una diretta conseguenza del tema della promozione. Sviluppa il discorso sul percorso professionale e sull'importanza di ogni esperienza, mantenendo la coerenza con l'idea di 'tempo di passaggio' e 'non ancora di piena realizzazione' della promozione, e suggerisce di 'annotare i punti da migliorare', che è un'evoluzione del consiglio di 'scrivere appunti sui successi'.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: È un passo che richiede ascolto profondo di te, prima di tutto. Per ricominciare con te stessa in un luogo nuovo, senti il tuo centro del cuore, verde smeraldo, per trovare la risposta.
+
+✦ Appoggia la mano sul cuore e senti il suo ritmo per cinque respiri lenti.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] AURA [DA GIUDICARE]: Questa settimana, ogni mattina appena sveglia, visualizza il tuo corpo come un albero con radici profonde che si estendono nella terra e la corona che raggiunge il cielo. Senti l'energia che sale dalle radici, attraversando il tuo centro del plesso solare, giallo oro, portando chiarezza e forza. Questa pratica ti aiuterà a connetterti con la tua stabilità interiore e a distinguere il desiderio di cambiamento dall'impulso.
+
+✦ Ogni mattina, prima di alzarti, visualizza le tue radici e senti l'energia salire fino al plesso solare.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla richiesta di 'cosa fare in pratica' fornendo un esercizio specifico che sviluppa il concetto di 'ascolto profondo' e 'stabilità interiore' introdotto nella risposta precedente, anche se introduce un nuovo centro energetico.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] AURA [DA GIUDICARE]: Se le cose non andranno come speri, accogli l'esperienza come parte del tuo percorso di crescita e torna a respirare profondamente, portando l'attenzione al tuo centro della gola, azzurro. Questo ti aiuterà a esprimere con chiarezza e coraggio i tuoi bisogni e a fare i passi successivi, sapendo che ogni situazione porta con sé nuove possibilità di ascolto interiore.
+
+✦ Porta una mano alla gola e senti la vibrazione del tuo respiro per tre volte.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema dell'ascolto interiore e del percorso di crescita, già menzionati nella prima risposta, e lo sviluppa applicandolo a una potenziale difficoltà ('se le cose non vanno come speri'), suggerendo un nuovo esercizio per affrontare tale situazione.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Affronta la distanza che senti. Non lasciare che il tempo dissolva il legame.
+Una nebbia fredda avvolge il sentiero, ma la luce non è spenta.
+La runa **Isa** indica stasi, un momento di fermo che richiede introspezione. Non è una fine, ma un congelamento temporaneo. La tua volontà può sciogliere questo gelo. Osserva le tue azioni, riconosci i tuoi intenti profondi.
+
+✦ Scrivi su un foglio rosso ciò che senti sia congelato nella vostra unione e poi brucialo nella fiamma di una candela d'oro.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] CALIGO [DA GIUDICARE]: Comunica il tuo desiderio di ricongiungervi. Le parole chiare sono il tuo sigillo.
+La runa Ansuz, simbolo della parola, ti guida. Il dialogo sincero è la via per ristabilire la connessione. Non rimandare.
+
+✦ Scegli un momento sereno per parlargli, con il cuore aperto, entro la sera di venerdì.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema del 'sciogliere il gelo' e 'affrontare la distanza' della risposta precedente, specificando un'azione pratica (comunicare, dialogare) e un tempo (questa settimana, entro venerdì) in risposta alla domanda della persona.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] CALIGO [DA GIUDICARE]: Accetta il verdetto del dialogo. Il valore di un gesto non si misura solo dal suo esito.
+Il sigillo della tua intenzione pura resta, anche se il percorso si biforca. La runa **Gebo** appare, presagio di doni e scambi: l'incontro, anche senza l'esito sperato, porta conoscenza.
+
+✦ Fai tesoro di ogni parola scambiata, perché ogni incontro è un sentiero che si rivela.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema del 'dialogo' e della 'comunicazione' introdotti nella risposta precedente, affrontando la possibile conseguenza negativa ('se le cose non vanno come speri') e fornendo un'interpretazione spirituale dell'esito (accettare il verdetto, valore dell'intenzione, conoscenza).
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il tuo cielo ti suggerisce di attendere ancora un po' prima di avviare il progetto. L'arcano del Due di Spade indica un momento di riflessione e indecisione, suggerendo che le tue energie non sono ancora pienamente allineate per un inizio.
+
+Questo transito ti invita a valutare attentamente tutte le opzioni e a chiarire ogni dubbio. La Luna, in questo momento, si trova in una fase che non favorisce l'azione impulsiva, ma piuttosto l'introspezione e la pianificazione. Prendi tempo per affinare le tue idee e per assicurarti che ogni dettaglio sia curato.
+
+✦ Raccogli le idee principali del tuo progetto creativo in un quaderno, domani.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] MEDORA [DA GIUDICARE]: Questa settimana è dedicata all'approfondimento della tua visione. Dal momento che l'arcano del Due di Spade ti invita a riflettere, dedica questi giorni a strutturare il tuo progetto in ogni sua parte.
+
+Rileggi gli appunti che hai preso e immagina i prossimi passi da compiere. Il cielo ti suggerisce un'attenta analisi di ciò che ti circonda: osserva le tendenze, confronta le tue idee con ciò che già esiste. Questo è un tempo per costruire fondamenta solide, non per correre.
+
+✦ Scrivi un elenco dei cinque punti chiave che rendono il tuo progetto unico, entro giovedì.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'riflessione' e 'pianificazione' dato nella risposta precedente, specificando come applicarlo 'questa settimana' e collegandosi all'azione di 'raccogliere le idee'.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] MEDORA [DA GIUDICARE]: Anche se il cielo indica un momento di riflessione, non è detto che le cose non vadano come speri. Se hai già individuato i cinque punti chiave del tuo progetto, usali come base per un piccolo prototipo o una presentazione in formato ridotto.
+
+Non devi affrettare i tempi, ma se le prime reazioni non sono quelle attese, potrai sempre ripartire da questi stessi punti. Il transito lunare ti suggerisce di osservare le reazioni con distacco, raccogliendo informazioni per affinare la tua visione.
+
+✦ Definisci un piccolo obiettivo realizzabile per il tuo progetto, da raggiungere entro la fine della prossima settimana.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'riflessione' e 'non affrettare i tempi' dalle risposte precedenti, ma lo sviluppa introducendo l'idea di un 'piccolo prototipo' o 'presentazione in formato ridotto' come modo per affinare la visione, pur mantenendo l'approccio cauto.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella dopo la lite, il primo passo è fermarti e ascoltare il tuo respiro, mettendoti in contatto con il tuo centro del cuore, verde smeraldo. 
+
+Siediti in silenzio per qualche minuto, con gli occhi chiusi se ti è possibile, e porta la tua attenzione al battito del cuore. Questo ti aiuterà a trovare la calma per esprimerti con dolcezza. Poi, quando ti senti pronta, cerca tua sorella e chiedile un momento per parlare, dicendole che hai bisogno di ascoltarla e di farle sentire il tuo respiro.
+
+✦ Poggia una mano sul tuo cuore e senti il suo ritmo.
+[2] PERSONA: E in pratica, cosa faccio questa settimana?
+[2] AURA [DA GIUDICARE]: Questa settimana, dedica un momento ogni giorno a immaginare un filo d'oro che si estende dal tuo cuore verso quello di tua sorella, anche se non vi parlate.
+
+Visualizza questo filo che, come un ponte, si tende fra voi due, portando con sé l'intenzione di ristabilire l'armonia. Quando ti sentirai più salda in questo tuo sentire, scegli un momento tranquillo e inviale un breve messaggio, chiedendole di incontrarvi per un caffè, senza pretese né rimproveri, solo per stare insieme un momento.
+
+✦ Chiudi gli occhi per un minuto e visualizza il filo d'oro tra voi.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda specifica della persona ('cosa faccio questa settimana?') e sviluppa il consiglio precedente di 'trovare la calma per esprimerti con dolcezza' proponendo una visualizzazione e un'azione pratica (il messaggio per il caffè) che si basa sulla calma interiore già suggerita.
+[3] PERSONA: E se le cose non vanno come speri?
+[3] AURA [DA GIUDICARE]: Se le cose non vanno come speri, accogli questa possibilità con la stessa serenità con cui hai cercato l'incontro, senza lasciarti travolgere dalla delusione.
+
+Il tuo centro della radice ti ricorda la forza della stabilità, anche quando gli eventi esterni non rispecchiano i tuoi desideri. In questo caso, il passo è tornare a te stessa, rafforzare il tuo radicamento e riconoscere che hai fatto la tua parte con il cuore aperto. La risposta che cerchi, allora, non è fuori, ma dentro di te.
+
+✦ Senti la connessione con la terra sotto i tuoi piedi.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'E se le cose non vanno come speri?' riprendendo il tema della serenità e del radicamento interiore, che è un'estensione del concetto di 'trovare la calma' e 'sentirsi più salda' già introdotto nelle risposte precedenti, applicandolo a un possibile esito negativo.
+
+ORDINE FE VOCE 17, percorso A: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 0

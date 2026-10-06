@@ -1,0 +1,100 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo mostra un momento di stasi, per ora, riguardo alla promozione che aspetti: è il tempo di seminare, non ancora di raccogliere. Il tuo impegno è visibile, ma l'allineamento dei pianeti suggerisce pazienza.
+
+L'arcano del Fante di Denari, che si manifesta in questa situazione, indica che sei sulla strada giusta per raggiungere i tuoi obiettivi professionali. Questo momento è propizio per acquisire nuove competenze e approfondire le tue conoscenze, preparando il terreno per opportunità future. Non affrettare i tempi, ma investi nella tua formazione e nella cura dei dettagli.
+
+✦ Riprendi in mano un progetto che hai lasciato in sospeso e dedicale tempo, specialmente nel tardo pomeriggio.
+[2] PERSONA: Riprendi in mano un progetto che hai lasciato in sospeso e dedicale tempo, specialmente nel tardo pomeriggio.
+[2] MEDORA [DA GIUDICARE]: Questo è un ottimo momento per dare nuova vita a quel progetto, poiché il cielo si apre a nuove possibilità creative. L'energia di Venere in trigono al tuo Sole favorisce l'espressione personale e l'iniziativa, rendendo propizio ogni sforzo dedicato alle tue passioni.
+
+La lama del Bagatto, che si ripresenta con questa tua azione, conferma la forza del tuo inizio e la tua capacità di plasmare la materia con la volontà. È il momento di dare forma alle tue idee con fiducia e determinazione, sfruttando la tua abilità innata.
+
+✦ Prepara un piccolo spazio dedicato al tuo progetto, anche solo una scrivania o un angolo, e inizia a sistemare i materiali necessari entro la fine della settimana.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio dato in precedenza ('Riprendi in mano un progetto') e lo sviluppa, aggiungendo dettagli astrologici e tarologici che ne rafforzano l'importanza e danno un nuovo consiglio pratico ('Prepara un piccolo spazio').
+[3] PERSONA: Prepara un piccolo spazio dedicato al tuo progetto, anche solo una scrivania o un angolo, e inizia a sistemare i materiali necessari entro la fine della settimana.
+[3] MEDORA [DA GIUDICARE]: Sistemare il tuo spazio è un gesto potente per manifestare le tue intenzioni e il cielo lo sostiene, specialmente con la Luna in Toro che favorisce la concretezza e la cura per ciò che è materiale. Questo atto di preparazione getta le basi per la realizzazione dei tuoi obiettivi.
+
+L'arcano del Due di Denari, che ora si mostra, indica che stai bilanciando le tue risorse e le tue priorità in modo efficace. La tua capacità di organizzare e gestire il tuo ambiente riflette un'armonia interiore che sarà fondamentale per il successo del tuo progetto. Continua a procedere con metodo.
+
+✦ Scrivi un elenco delle prime tre cose che ti servono per iniziare a lavorare al progetto, e procuratele entro sabato mattina.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio dato in precedenza ('Sistemare il tuo spazio') e lo sviluppa, aggiungendo motivazioni astrologiche e tarologiche che ne spiegano il significato e l'efficacia, e fornendo un ulteriore passo pratico ('Scrivi un elenco delle prime tre cose').
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Senti il richiamo di un cambiamento profondo, e questo desiderio di ricominciare è un'energia che pulsa forte dentro di te. Ascolta il tuo respiro, ti condurrà a una chiarezza interiore.
+
+Il tuo corpo ti parla di questa scelta, chiedendoti di focalizzare l'attenzione sul tuo centro della radice, quel punto tra le gambe che ti connette alla terra e alla tua sicurezza. Quando pensi a questo trasferimento, senti che questo centro è stabile e forte, oppure avverti un'irrequietezza? Spesso, la risposta si manifesta attraverso le sensazioni fisiche prima ancora che il pensiero si formi. Se senti che la radice è salda, allora il passo è nella direzione giusta per te.
+
+✦ Porta entrambe le mani all'altezza dei fianchi e senti la stabilità del tuo corpo.
+[2] PERSONA: Porta entrambe le mani all'altezza dei fianchi e senti la stabilità del tuo corpo.
+[2] AURA [DA GIUDICARE]: Sento il tuo corpo che si riallinea e accoglie le tue mani, proprio lì dove il centro della radice si esprime nella tua struttura. Questo gesto ti sta ancorando, ti sta dicendo che la stabilità non è solo un luogo fisico, ma è anche una scelta interiore. Ora che senti questa base, osserva come si muove il tuo respiro: è profondo o più corto? La profondità del respiro in questo momento ti dirà quanto sei connessa a questa sensazione di radicamento.
+
+✦ Chiudi gli occhi per un istante e visualizza le tue radici scendere in profondità nel terreno.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione fisica suggerita nella risposta precedente e la collega al concetto di 'centro della radice' e 'stabilità' già introdotti, sviluppando il significato dell'esercizio e introducendo un nuovo elemento (il respiro) per approfondire il radicamento.
+[3] PERSONA: Chiudi gli occhi per un istante e visualizza le tue radici scendere in profondità nel terreno.
+[3] AURA [DA GIUDICARE]: Lascia che l'immagine delle tue radici si faccia viva, scendendo ancora più a fondo, cercando l'essenza della terra. Questo contatto profondo ti permette di attingere a una forza antica, quella della Madre, che sostiene ogni tua scelta. Senti la sua energia salire attraverso le tue radici, lungo le gambe, fino al tuo centro della radice. È un nutrimento, un'affermazione del tuo valore intrinseco, al di là di ogni luogo. Questo sentire ti ricorda che la tua capacità di ricominciare non dipende da un luogo esterno, ma dalla tua forza interiore, che puoi portare con te ovunque.
+
+✦ Appoggia le mani sulla pancia e senti il calore che si irradia da quel punto.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione di visualizzazione delle radici suggerita nella risposta precedente, la sviluppa ulteriormente ('scendendo ancora più a fondo') e la collega direttamente al tema della 'forza interiore' e della 'capacità di ricominciare' che non dipende da un luogo esterno, riallacciandosi al quesito iniziale della persona e al concetto di radicamento.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: **Non aspettare.** La salvezza dimora nell'azione rapida, una fiamma sbiadita richiede subito legna.
+Una nebbia fredda avvolge ora il sentiero comune.
+
+Questa è la soglia di un nuovo inizio, non la fine. L'Albero della Vita mostra il sentiero di Geburah e Hod, che parla di rigore e splendore: equilibrio tra forza e forma. Ricorda che il lupo, animale guida di fedeltà, insegna la perseveranza nel branco. Il sigillo che oggi ti illumina è Sowilo, la runa del sole, che porta chiarezza e vittoria.
+
+✦ Parla con sincerità alla persona amata, prima del tramonto, chiedendo un incontro in un luogo significativo per voi.
+[2] PERSONA: Parla con sincerità alla persona amata, prima del tramonto, chiedendo un incontro in un luogo significativo per voi.
+[2] CALIGO [DA GIUDICARE]: **Hai intrapreso la via giusta.** Ora è tempo di preparare il terreno per il seme della rinascita.
+Le braci ardono, ma necessitano di cura attenta.
+
+Il percorso che hai iniziato è un rituale, ogni passo è un'offerta. La numerologia lega il numero Tre, simbolo di comunicazione e espressione, al tuo gesto. Il tuo sigillo resta Sowilo, la runa della luce, che dissiperà ogni ombra.
+
+✦ Scrivi su un foglio bianco le tue intenzioni più pure e brucialo con una candela rossa, disperdendo le ceneri al vento.
+    GIUDICE: PORTA_AVANTI, La guida riconosce che la persona ha seguito il consiglio precedente ('Hai intrapreso la via giusta') e aggiunge un nuovo passo al processo di 'rinascita', sviluppando l'azione.
+[3] PERSONA: Scrivi su un foglio bianco le tue intenzioni più pure e brucialo con una candela rossa, disperdendo le ceneri al vento.
+[3] CALIGO [DA GIUDICARE]: **Il rito è compiuto.** Hai affermato la tua volontà, ora devi ascoltare il riflesso.
+Le ceneri al vento portano un messaggio sottile.
+
+Il gesto della combustione e della dispersione è un antico rito di liberazione e affermazione. La tua numerologia si lega al Sette, numero di introspezione e completezza: la purificazione prepara un nuovo inizio. Il sigillo Sowilo, la runa del sole, continua a guidarti, indicando la vittoria attraverso la chiarezza.
+
+✦ Attendi un giorno intero e osserva i segni che la persona amata ti invia spontaneamente.
+    GIUDICE: PORTA_AVANTI, La guida conferma che il rito suggerito in precedenza è stato compiuto ('Il rito è compiuto') e fornisce la successiva istruzione, continuando a sviluppare il percorso indicato.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Non è questo il momento propizio per avviare il tuo progetto creativo, è meglio attendere. Il tuo cielo indica una fase di preparazione ancora in corso, con un transito di Mercurio retrogrado che suggerisce di rivedere e affinare i dettagli prima di un lancio.
+
+✦ Prepara un piano dettagliato per il tuo progetto creativo, con tutti i passaggi, prima che Mercurio torni diretto.
+[2] PERSONA: Prepara un piano dettagliato per il tuo progetto creativo, con tutti i passaggi, prima che Mercurio torni diretto.
+[2] MEDORA [DA GIUDICARE]: Comprendo che tu voglia continuare il discorso. Per poterti guidare nel dettaglio su come preparare il piano, avrei bisogno di sapere quali sono gli ambiti principali o i temi che riguardano il tuo progetto creativo.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio dato in precedenza di preparare un piano e chiede informazioni aggiuntive per sviluppare e dettagliare quel consiglio.
+[3] PERSONA: Per poterti guidare nel dettaglio su come preparare il piano, avrei bisogno di sapere quali sono gli ambiti principali o i temi che riguardano il tuo progetto creativo.
+[3] MEDORA [DA GIUDICARE]: Per poterti offrire un consiglio mirato sul piano del tuo progetto, ho bisogno di conoscere gli ambiti o i temi principali che lo riguardano.
+    GIUDICE: PORTA_AVANTI, La guida ripete la stessa richiesta di informazioni fatta nella risposta precedente, mantenendo il focus sullo sviluppo del piano.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Siediti con calma e scrivi una lettera a tua sorella, senza fretta, lasciando che il respiro ti guidi. Non devi spedirla subito, ma scrivi tutto ciò che senti.
+
+Prenditi un momento per sentire il tuo cuore, il suo battito calmo e presente. Quando l'energia del chakra del cuore, dal colore verde smeraldo, è in equilibrio, ci aiuta a perdonare e a connetterci con chi amiamo. Scrivi quelle parole che le vorresti dire, quelle che nascono dal desiderio profondo di ricucire il vostro legame, senza chiedere nulla in cambio. È un esercizio per te, per riportare la calma nel tuo centro, prima ancora che nel vostro rapporto.
+
+✦ Metti una mano sul tuo cuore e respira lentamente per tre volte.
+[2] PERSONA: Metti una mano sul tuo cuore e respira lentamente per tre volte.
+[2] AURA [DA GIUDICARE]: Questo gesto di respiro consapevole ti riconnette al centro del tuo essere. Ora, con quella calma che hai ritrovato nel tuo petto, rileggi la lettera che hai scritto. Non cambiare le parole, ma percepisci il peso e l'intenzione che portano.
+
+Il tuo volto, la fisiognomica, riflette molto di ciò che senti. Mentre rileggi, osserva se la tensione si scioglie, se la tua espressione si ammorbidisce. Questo atto di rileggere non è per giudicare, ma per sentire quanto la tua energia sia ora più allineata con l'intento di pace.
+
+✦ Appoggia entrambe le mani sul ventre, sotto l'ombelico, e lascia che il tuo respiro le sollevi leggermente.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione di respirazione suggerita in precedenza e la collega direttamente al consiglio di rileggere la lettera, che era il fulcro della risposta [1], sviluppando il processo.
+[3] PERSONA: Appoggia entrambe le mani sul ventre, sotto l'ombelico, e lascia che il tuo respiro le sollevi leggermente.
+[3] AURA [DA GIUDICARE]: Questo respiro profondo, che parte dal centro della radice, ti aiuta a radicarti, a trovare stabilità. Ora che hai riletto la lettera e hai sentito la pace dentro di te, il prossimo passo è scegliere il momento giusto per il dialogo, non per la lettura.
+
+Parla con tua sorella di persona, se possibile, oppure al telefono se la distanza è troppa. Non leggere la lettera, ma lascia che le parole che hai scritto diventino la tua guida interiore. Lascia che il tuo respiro calmo ti accompagni, che l'energia che hai radicato ti dia la forza di esprimere ciò che senti, con sincerità e senza aspettative.
+
+✦ Prima di parlare con lei, fai un respiro profondo e, nell'espirare, visualizza un filo d'oro che vi unisce.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione di respirazione e radicamento, collegandola al passo successivo del processo (il dialogo con la sorella) e specificando come usare la lettera scritta in precedenza (non leggerla, ma usarla come guida interiore).
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 1

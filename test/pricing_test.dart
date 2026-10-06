@@ -61,8 +61,12 @@ void main() {
     expect(find.text('Sinastria VIP fino a 3 al giorno'), findsOneWidget);
     // Ordine EX voce 02: sei domande all'Iniziato, erano cinque.
     // Ordine EX Aggiunta 3: dodici e diciotto, erano sei e dieci.
-    expect(find.text('12 domande al giorno ai Maestri'), findsOneWidget);
-    expect(find.text('18 domande al giorno ai Maestri'), findsOneWidget);
+    // **LAPIDE, ordine FE voce 20.** Qui si cercavano 12 e 18 domande: la
+    // card parte sull'annuale, e dal 6 ottobre 2026 l'annuale ha i suoi
+    // limiti (scelta del fondatore, "Domande e minuti insieme"), 11 e 14.
+    // Il mensile li tiene a 12 e 18 (i_limiti_degli_annuali_test).
+    expect(find.text('11 domande al giorno ai Maestri'), findsOneWidget);
+    expect(find.text('14 domande al giorno ai Maestri'), findsOneWidget);
     // Ordine EX voce 02: le carte del giorno si dicono nelle card dei piani.
     expect(find.text('10 carte di tarocchi al giorno, da stendere come vuoi'),
         findsOneWidget);

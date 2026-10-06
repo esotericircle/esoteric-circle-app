@@ -257,7 +257,7 @@ class _PlanCardState extends State<_PlanCard> {
               style:
                   TypographyTokens.corpo().copyWith(color: palette.goldSoft)),
           const SizedBox(height: SpacingTokens.md),
-          for (final benefit in plan.highlights) ...[
+          for (final benefit in plan.highlightsPer(_cycle)) ...[
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
