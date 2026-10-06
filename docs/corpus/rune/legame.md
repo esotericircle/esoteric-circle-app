@@ -41,7 +41,7 @@
 40. Un filo solo può cucire un intero orlo. Così la pietra lega la tua giornata: un punto dopo l'altro, con pazienza e mano ferma.
 41. La soglia è già aperta e la pietra sta sull'uscio a farti cenno. Fra il suo invito e il tuo passo non resta che muoverti.
 42. In questa gettata la pietra non comanda e non tace: consiglia, con la franchezza di chi vuole il tuo bene.
-43. Ciò che la pietra accende dentro di te è il vero legame. Custodisci quella scintilla mentre fai le cose di sempre.
+43. Ciò che la pietra accende dentro di te è il vero legame. Conserva quella scintilla mentre fai le cose di sempre.
 44. Il consiglio essenziale ha trovato la sua strada fino a te senza deviare. Rispondi con un gesto altrettanto diretto.
 45. Pietra e domanda si sono riconosciute al primo sguardo. Quel che resta della giornata può partire da quell'intesa.
 46. Come un sigillo impresso nella cera calda, la pietra lascia un segno netto sul tuo giorno: riconoscibile, tuo, difficile da cancellare.

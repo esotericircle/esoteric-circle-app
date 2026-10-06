@@ -132,7 +132,7 @@ class ArtiConResponso {
       perche: 'NON HA UN CONDIVIDI. Non è una dimenticanza: il Sigillo '
           'non produce una carta da mandare, produce un segno tracciato col '
           'dito. Inventargli un\'immagine da condividere sarebbe una '
-          'funzione nuova e non questa voce. Custodisci e Parlane ci sono, '
+          'funzione nuova e non questa voce. Segna nel Diario e Parlane ci sono, '
           'perché quelli non hanno bisogno di un\'immagine.',
     ),
     // --- I DONI DEL GIORNO ---------------------------------------------

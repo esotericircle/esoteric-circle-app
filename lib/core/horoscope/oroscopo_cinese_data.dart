@@ -229,7 +229,7 @@ abstract final class OroscopoCineseData {
       'sigilloDiretto': [
         'Oggi il denaro è protetto più che in crescita. È un buon giorno per chiedere un consiglio a chi ne sa più di te su un dubbio di soldi che ti porti dietro da tempo. || Il dio di oggi nel BaZi è il Sigillo diretto: genera il tuo elemento con polarità opposta. Protegge più che arricchire.',
         'Oggi la buona sorte ha la forma di un sostegno, da una persona o da un\'istituzione. Se qualcuno ti offre un aiuto accettalo con un grazie, senza sentirti in debito. || Il Sigillo diretto è di turno: nel BaZi è protezione, studio, cura. Porta sostegno, non guadagno.',
-        'Oggi sul fronte del denaro la giornata è tranquilla. Custodisci ciò che hai: controlla che risparmi e documenti importanti siano al loro posto, poi lascia stare ogni azzardo. || È la giornata del Sigillo diretto: nella lettura dei Dieci Dei i Sigilli non toccano la Ricchezza, la lasciano dov\'è.',
+        'Oggi sul fronte del denaro la giornata è tranquilla. Metti al sicuro ciò che hai: controlla che risparmi e documenti importanti siano al loro posto, poi lascia stare ogni azzardo. || È la giornata del Sigillo diretto: nella lettura dei Dieci Dei i Sigilli non toccano la Ricchezza, la lasciano dov\'è.',
       ],
     },
     'lavoro': {

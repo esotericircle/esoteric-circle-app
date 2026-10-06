@@ -760,7 +760,7 @@ class TarotDeck {
           'Sensibilità, creatività, un messaggio d\'amore che affiora. Ascolta l\'emozione nuova che nasce, anche se è fragile. C\'è poesia in ciò che senti, dalle spazio.',
       reversedSummary: 'La sensibilità ferita.',
       reversed:
-          'Un\'emotività fragile, o un cuore che si è chiuso per proteggersi. Custodisci la tua sensibilità senza murarla del tutto. Sentire molto è un dono, non un difetto da nascondere.',
+          'Un\'emotività fragile, o un cuore che si è chiuso per proteggersi. Abbi cura della tua sensibilità senza murarla del tutto. Sentire molto è un dono, non un difetto da nascondere.',
       stem: 'tar_rw_coppe_11_v1',
     ),
     TarotCard(

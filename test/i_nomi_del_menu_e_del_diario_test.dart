@@ -11,11 +11,15 @@ import 'cardinale_minimo.dart';
 ///
 /// Nessun testo mostrato all'utente dice piu' "I giorni prima", "Parlami a
 /// voce", "Cosmic Journal" o il gesto "Custodisci". Si leggono le stringhe
-/// del codice di `lib`, fuori dai commenti. "Custodisci" resta come verbo
-/// nei testi di contenuto (una carta, un presagio: "Custodisci la tua
-/// sensibilita'") e nel nome della custodia dell'account ("Custodisci il tuo
-/// cielo"), che sono altre cose: si colpisce il gesto, cioe' la stringa che
-/// e' solo "Custodisci" o "Custodito", o che comincia con "Custodisci:".
+/// del codice di `lib`, fuori dai commenti. Fino al 6 ottobre 2026
+/// "Custodisci" restava come verbo nei testi di contenuto e nella voce
+/// dell'account ("Custodisci il tuo cielo"), e si colpiva solo il gesto; la
+/// prova a) del fondatore dice "in un testo mostrato all'utente", quindi
+/// adesso cade la parola ovunque stia (i quattro testi sono stati
+/// riscritti: "Metti al sicuro il tuo cielo", "Abbi cura della tua
+/// sensibilità", "Metti al sicuro ciò che hai", "Conserva quella
+/// scintilla"). Il verbo minuscolo dentro una frase resta: non e' il nome
+/// del gesto.
 void main() {
   final stringhe = <(String, String)>[];
   final file = Directory('lib')
@@ -42,9 +46,15 @@ void main() {
         if (s.contains('I giorni prima') ||
             s.contains('Parlami a voce') ||
             s.contains('Cosmic Journal') ||
-            s.trim() == 'Custodisci' ||
-            s.trim() == 'Custodito' ||
-            s.startsWith('Custodisci:'))
+            // **La prova a) del fondatore alla lettera, ordine FE voce
+            // 22.3**: "una prova cade se restano [...] «Custodisci» in un
+            // testo mostrato all'utente". Fino al 6 ottobre 2026 qui
+            // cadevano solo "Custodisci" da solo o in testa con i due
+            // punti, e passavano quattro testi: la voce dell'account, una
+            // carta, l'oroscopo cinese, un presagio. Adesso cade la parola,
+            // ovunque stia.
+            RegExp(r'(?<![A-Za-zÀ-ÿ])Custodisci(?![A-Za-zÀ-ÿ])').hasMatch(s) ||
+            s.trim() == 'Custodito')
           '$dove: «$s»',
     ];
     expect(colpe, isEmpty, reason: colpe.join('\n'));

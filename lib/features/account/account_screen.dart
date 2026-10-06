@@ -117,10 +117,12 @@ class AccountScreen extends StatelessWidget {
         // CUSTODIRE IL PROPRIO CIELO, ordine N voce 1c: la via che resta a chi
         // ha rimandato. La voce compare SOLO a chi e' ancora anonimo, perche' a
         // chi ha gia' custodito direbbe una cosa gia' fatta.
+        // Ordine FE voce 22.3, prova a): nessun "Custodisci" in un testo
+        // mostrato. Il titolo era "Custodisci il tuo cielo".
         if (_eAnonimo(context))
           _AccountEntry(
             id: 'custodia',
-            title: 'Custodisci il tuo cielo',
+            title: 'Metti al sicuro il tuo cielo',
             // IL SOTTOTITOLO DICE A COSA SERVE, ordine AL voce 06, con parole
             // che non richiedono l'Architetto per essere capite.
             //

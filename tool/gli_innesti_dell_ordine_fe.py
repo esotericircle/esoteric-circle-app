@@ -460,6 +460,12 @@ INNESTI = [
      'DOMANDE_ANNUALE = [12, 18, 22]',
      'flutter test test/i_limiti_degli_annuali_test.dart -r expanded',
      'ogni ciclo sotto il tetto'),
+    # FE.22.3, prova a) alla lettera: nessun "Custodisci" mostrato.
+    ('A83', 'FE.22.3', 'lib/features/account/account_screen.dart',
+     "            title: 'Metti al sicuro il tuo cielo',",
+     "            title: 'Custodisci il tuo cielo',",
+     'flutter test test/i_nomi_del_menu_e_del_diario_test.dart -r expanded',
+     'i nomi vecchi non restano'),
     ('A82', 'FE.20', 'lib/core/entitlement/plan_catalog.dart',
      "        '17 domande al giorno ai Maestri',\n",
      "        '18 domande al giorno ai Maestri',\n",
