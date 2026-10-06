@@ -23,7 +23,9 @@
  */
 import {getFirestore, Timestamp} from "firebase-admin/firestore";
 import * as logger from "firebase-functions/logger";
-import {archiviaIMessaggi, archiviaLeVociVecchie} from "./diario";
+import {
+  archiviaIMessaggi, archiviaLeVociVecchie, ilConfineDellArchivio,
+} from "./diario";
 
 /** Un giorno in millesimi, che e' l'unita' con cui si ragiona qui. */
 const GIORNO = 24 * 60 * 60 * 1000;
@@ -175,20 +177,31 @@ export async function pulisciCioCheEScaduto(
   // `scriviLaMemoria` scrive: cercare il campo sbagliato non avrebbe dato
   // errore, avrebbe cancellato zero righe per sempre in silenzio.
   // **PRIMA IN ARCHIVIO, POI VIA. Ordine FE voce 22.15.** Le conversazioni
-  // restano visibili nel Diario oltre l'anno: i messaggi che scadono da
-  // Firestore si scrivono prima nell'archivio a basso costo, raggruppati per
-  // conversazione, e solo dopo si cancellano. Se l'archivio non risponde,
-  // questa notte non si cancella niente.
+  // restano visibili nel Diario oltre l'anno: i messaggi che escono da
+  // Firestore si scrivono prima nell'archivio a basso costo, un oggetto per
+  // persona e per mese, e solo dopo si cancellano, ESATTAMENTE quelli
+  // archiviati. Il confine e' a mese finito: un mese esce quando e' finito
+  // da dodici mesi, cosi' il suo oggetto si scrive una volta (la classe
+  // Archive fa pagare 365 giorni a chi riscrive prima). Un messaggio resta
+  // quindi su Firestore fra 365 e circa 395 giorni: i 365 del listino sono
+  // il minimo. Se l'archivio non risponde, questa notte non si cancella
+  // niente.
   try {
-    const inScadenza = await db.collectionGroup("messages")
-      .where("createdAt", "<", confineDi("messaggi", adesso))
-      .limit(QUANTI_PER_GIRO).get();
-    if (!inScadenza.empty) await archiviaIMessaggi(inScadenza.docs);
-    await portaVia(
-      "messaggi",
-      db.collectionGroup("messages")
-        .where("createdAt", "<", confineDi("messaggi", adesso))
+    const confine = Math.min(
+      ilConfineDellArchivio(adesso),
+      confineDi("messaggi", adesso).toMillis()
     );
+    const inScadenza = await db.collectionGroup("messages")
+      .where("createdAt", "<", Timestamp.fromMillis(confine))
+      .limit(QUANTI_PER_GIRO).get();
+    const archiviati = inScadenza.empty ?
+      [] : await archiviaIMessaggi(inScadenza.docs, adesso);
+    if (archiviati.length > 0) {
+      const lotto = db.batch();
+      archiviati.forEach((d) => lotto.delete(d.ref));
+      await lotto.commit();
+    }
+    fatto.messaggi = archiviati.length;
   } catch (errore) {
     logger.warn("scadenze: messaggi non archiviati, non si cancellano",
       {errore: String(errore)});

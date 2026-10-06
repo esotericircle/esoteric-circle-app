@@ -64,8 +64,14 @@ test("si cerca il campo della data che quella collezione scrive davvero", () => 
     cerchio.includes("createdAt: FieldValue.serverTimestamp()"),
     "i messaggi non portano piu' createdAt"
   );
+  // **LAPIDE, ordine FE voce 22.15.** Qui si cercava la riga intera col
+  // confine dei messaggi: dall'ordine FE il confine e' il piu' vecchio fra
+  // i 365 giorni e il mese finito da dodici mesi, e la riga e' cambiata. Il
+  // fatto sorvegliato e' lo stesso: la query dei messaggi cerca createdAt.
+  const messaggi = scadenze.slice(scadenze.indexOf('collectionGroup("messages")'));
   assert.ok(
-    scadenze.includes('.where("createdAt", "<", confineDi("messaggi"'),
+    messaggi.slice(0, 80).includes('.where("createdAt", "<"') &&
+      scadenze.includes('confineDi("messaggi"'),
     "la pulizia dei messaggi non cerca createdAt"
   );
   for (const collezione of ["consumi", "movimenti", "lapidi", "congedi", "ricordi"]) {

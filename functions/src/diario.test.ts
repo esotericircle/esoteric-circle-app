@@ -3,6 +3,8 @@ import assert from "node:assert/strict";
 import {
   giornoDi, titoloDa, chiaveDellaConversazione, ilRiassuntoDopo,
   LUNGHEZZA_DEL_TITOLO, VERSIONE_DEL_FORMATO, etichetteDi, Riga,
+  ilMeseDelConfine, vaInArchivio, ilPercorsoDelMese, ilMeseDellaConversazione,
+  unisciIlMese,
 } from "./diario";
 
 /**
@@ -54,4 +56,32 @@ test("FE.22.8: il giorno porta la stella finche' una sua voce la porta", () => {
 
 test("FE.22.12: le voci portano la versione del formato", () => {
   assert.equal(VERSIONE_DEL_FORMATO, 1);
+});
+
+test("FE.22.15: in archivio va un mese intero, finito da dodici mesi", () => {
+  const adesso = Date.UTC(2026, 9, 6, 19);
+  assert.equal(ilMeseDelConfine(adesso), "2025-10");
+  assert.equal(ilMeseDelConfine(Date.UTC(2026, 0, 15)), "2025-01");
+  assert.equal(vaInArchivio(Date.UTC(2025, 8, 30, 12), adesso), true);
+  assert.equal(vaInArchivio(Date.UTC(2025, 9, 1, 12), adesso), false,
+    "un mese non ancora finito da dodici mesi si riscriverebbe ogni notte");
+  // Le prime ore del primo ottobre a Roma sono ancora il 30 settembre UTC:
+  // il confine e' sul mese di Roma.
+  assert.equal(vaInArchivio(Date.UTC(2025, 8, 30, 23), adesso), false);
+});
+
+test("FE.22.15: un oggetto per persona e per mese, e la conversazione sta nel mese in cui e' nata", () => {
+  assert.equal(ilPercorsoDelMese("u1", "2025-03"), "diario_archivio/u1/2025-03.json");
+  const nata = Date.UTC(2025, 2, 31, 10);
+  assert.equal(ilMeseDellaConversazione(`c${nata}`, Date.UTC(2025, 3, 2)), "2025-03");
+  assert.equal(ilMeseDellaConversazione(null, Date.UTC(2025, 3, 2)), "2025-04");
+});
+
+test("FE.22.15: unire un mese tiene le voci e i messaggi, senza doppioni e in ordine", () => {
+  const prima = {voci: {a: 1}, conversazioni: {k: [{id: "m2", quando: 2}]}};
+  const dopo = unisciIlMese(prima, {b: 2},
+    {k: [{id: "m1", quando: 1}, {id: "m2", quando: 2}], j: [{id: "m3", quando: 3}]});
+  assert.deepEqual(Object.keys(dopo.voci).sort(), ["a", "b"]);
+  assert.deepEqual(dopo.conversazioni.k.map((m) => m.id), ["m1", "m2"]);
+  assert.deepEqual(dopo.conversazioni.j.map((m) => m.id), ["m3"]);
 });

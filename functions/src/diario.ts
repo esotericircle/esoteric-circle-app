@@ -472,7 +472,7 @@ export const leggiLaVoce = onCall(OPZIONI, async (request) => {
   const dati = doc.data() ?? {};
   // Una voce in archivio si riprende da li', con la riga della persona.
   if (typeof dati.archiviata === "string") {
-    const piena = await leggiDallArchivio(dati.archiviata);
+    const piena = await laVoceInArchivio(dati.archiviata, chiave);
     return {
       voce: {...(piena ?? {}), ...(typeof dati.nota === "string" ?
         {nota: dati.nota} : {})},
@@ -485,21 +485,110 @@ export const leggiLaVoce = onCall(OPZIONI, async (request) => {
 /**
  * L'ARCHIVIO PIU' ECONOMICO. Ordine FE voce 22.15.
  *
- * Il contenuto delle voci piu' vecchie di dodici mesi passa in Cloud
- * Storage, nel bucket di Firebase del progetto (europe-west1), con la
- * classe Archive impostata oggetto per oggetto; l'indice resta dov'e', e le
- * voci restano visibili nel Diario come tutte le altre. Aprendone una, il
- * contenuto si recupera (`leggiLaVoce`), e intanto l'app dice "Sto
- * riprendendo questo giorno.". Lo stesso per i messaggi delle conversazioni:
- * le scadenze li tolgono da Firestore dopo un anno, e prima finiscono qui.
+ * Il contenuto delle voci e i messaggi delle conversazioni piu' vecchi di
+ * dodici mesi passano in Cloud Storage, nel bucket di Firebase del progetto
+ * (europe-west1), con la classe Archive impostata oggetto per oggetto;
+ * l'indice resta dov'e', e le voci restano visibili nel Diario come tutte le
+ * altre. Aprendone una, il contenuto si recupera (`leggiLaVoce`), e intanto
+ * l'app dice "Sto riprendendo questo giorno.".
+ *
+ * **UN OGGETTO PER PERSONA E PER MESE, non uno per voce.** Il listino del
+ * Belgio letto il 6 ottobre 2026 (cloud.google.com/storage/pricing): la
+ * classe Archive costa 0,0012 USD per GiB al mese da tenere, ma 0,05 USD
+ * ogni mille scritture, 0,05 USD ogni mille letture, 0,05 USD per GiB
+ * recuperato, e chi sostituisce o cancella un oggetto prima di 365 giorni
+ * paga i 365 giorni. Una voce pesa sotto il chilobyte: con un oggetto per
+ * voce la sola scrittura costava piu' di vent'anni della stessa voce su
+ * Firestore. Con un oggetto per mese la scrittura si paga una volta per
+ * persona e per mese, e un mese si archivia solo quando e' finito da dodici
+ * mesi, cosi' l'oggetto si scrive una volta e non si riscrive ogni notte.
+ *
+ * Dentro l'oggetto: `voci` (il contenuto per chiave) e `conversazioni` (i
+ * messaggi per chiave di conversazione, nel mese in cui la conversazione e'
+ * nata).
  */
 export const IL_BUCKET_DELL_ARCHIVIO = "esoteric-circle.firebasestorage.app";
 export const LA_CLASSE_DELL_ARCHIVIO = "ARCHIVE";
-export const GIORNI_PRIMA_DELL_ARCHIVIO = 365;
+export const MESI_PRIMA_DELL_ARCHIVIO = 12;
 
-/** Dove sta in archivio il contenuto di una voce o di una conversazione. */
-export function ilPercorsoInArchivio(uid: string, chiave: string): string {
-  return `diario_archivio/${uid}/${chiave}.json`;
+/** Il mese a Roma di un momento, `AAAA-MM`. */
+export function ilMeseDi(q: number): string {
+  return giornoDi(q).slice(0, 7);
+}
+
+/**
+ * Il primo mese che NON va ancora in archivio: quello di dodici mesi fa.
+ * Il 6 ottobre 2026 e' `2025-10`, quindi si archiviano i mesi fino a
+ * settembre 2025 compreso, tutti finiti da piu' di dodici mesi.
+ */
+export function ilMeseDelConfine(adesso: number): string {
+  const [a, m] = ilMeseDi(adesso).split("-").map(Number);
+  const indice = a * 12 + (m - 1) - MESI_PRIMA_DELL_ARCHIVIO;
+  const anno = Math.floor(indice / 12);
+  return `${anno}-${String((indice % 12) + 1).padStart(2, "0")}`;
+}
+
+/**
+ * Il confine per le query, in millesimi: la mezzanotte UTC del primo giorno
+ * del mese del confine. Prende anche le prime ore di quel mese a Roma, che
+ * poi [ilMeseDi] rimanda indietro: il confine vero e' sul mese di Roma.
+ */
+export function ilConfineDellArchivio(adesso: number): number {
+  const [a, m] = ilMeseDelConfine(adesso).split("-").map(Number);
+  return Date.UTC(a, m - 1, 1);
+}
+
+/** Vero se il momento sta in un mese gia' da archiviare. */
+export function vaInArchivio(q: number, adesso: number): boolean {
+  return ilMeseDi(q) < ilMeseDelConfine(adesso);
+}
+
+/** Dove sta in archivio il mese di una persona. */
+export function ilPercorsoDelMese(uid: string, mese: string): string {
+  return `diario_archivio/${uid}/${mese}.json`;
+}
+
+/**
+ * Il mese in cui una conversazione sta in archivio: quello della sua
+ * nascita, che il suo id porta ("c" e i millesimi); per la prima
+ * conversazione, senza marcatura, il mese del messaggio.
+ */
+export function ilMeseDellaConversazione(
+  conversazione: string | null,
+  quandoDelMessaggio: number
+): string {
+  const nata = conversazione && /^c\d{12,}$/.test(conversazione) ?
+    Number(conversazione.slice(1)) : quandoDelMessaggio;
+  return ilMeseDi(nata);
+}
+
+/** Un mese in archivio: il contenuto delle voci e i messaggi. */
+export interface MeseInArchivio {
+  voci: Record<string, unknown>;
+  conversazioni: Record<string, any[]>;
+}
+
+/**
+ * Unisce cio' che arriva a cio' che il mese aveva gia': le voci per
+ * chiave, i messaggi per id, in ordine di tempo. Pura, per le prove.
+ */
+export function unisciIlMese(
+  prima: MeseInArchivio | null,
+  voci: Record<string, unknown>,
+  conversazioni: Record<string, any[]>
+): MeseInArchivio {
+  const fuori: MeseInArchivio = {
+    voci: {...(prima?.voci ?? {}), ...voci},
+    conversazioni: {...(prima?.conversazioni ?? {})},
+  };
+  for (const [chiave, nuovi] of Object.entries(conversazioni)) {
+    const gia = fuori.conversazioni[chiave] ?? [];
+    const visti = new Set(gia.map((m) => m.id));
+    fuori.conversazioni[chiave] = [
+      ...gia, ...nuovi.filter((m) => !visti.has(m.id)),
+    ].sort((a, b) => (a.quando ?? 0) - (b.quando ?? 0));
+  }
+  return fuori;
 }
 
 async function scriviInArchivio(percorso: string, dati: unknown): Promise<void> {
@@ -523,75 +612,103 @@ async function leggiDallArchivio(percorso: string): Promise<any | null> {
   return JSON.parse(byte.toString("utf8"));
 }
 
+/** Scrive i gruppi di un giro, un oggetto per persona e per mese. */
+async function scriviIMesi(
+  gruppi: Map<string, {voci: Record<string, unknown>;
+    conversazioni: Record<string, any[]>}>
+): Promise<void> {
+  for (const [percorso, g] of gruppi) {
+    const prima = (await leggiDallArchivio(percorso)) as MeseInArchivio | null;
+    await scriviInArchivio(percorso, unisciIlMese(prima, g.voci, g.conversazioni));
+  }
+}
+
 /**
- * Porta in archivio il contenuto delle voci piu' vecchie di un anno: una
- * pagina per giro (la pulizia notturna lo chiama ogni notte).
+ * Porta in archivio il contenuto delle voci dei mesi finiti da dodici mesi:
+ * una pagina per giro (la pulizia notturna lo chiama ogni notte).
  */
 export async function archiviaLeVociVecchie(
   adesso: number,
   quante = 200
 ): Promise<number> {
-  const confine = adesso - GIORNI_PRIMA_DELL_ARCHIVIO * 24 * 3600 * 1000;
   const snap = await db().collectionGroup("diario_voci")
-    .where("q", "<", confine).limit(quante).get();
-  let fatte = 0;
+    .where("q", "<", ilConfineDellArchivio(adesso)).limit(quante).get();
+  const gruppi = new Map<string, {voci: Record<string, unknown>;
+    conversazioni: Record<string, any[]>}>();
+  const daSegnare: {ref: DocumentReference; dati: any; percorso: string}[] = [];
   for (const d of snap.docs) {
     const dati = d.data();
     if (typeof dati.archiviata === "string") continue;
+    if (typeof dati.q !== "number" || !vaInArchivio(dati.q, adesso)) continue;
     const uid = d.ref.parent.parent?.id;
     if (!uid) continue;
-    const percorso = ilPercorsoInArchivio(uid, d.id);
-    await scriviInArchivio(percorso, dati);
-    await d.ref.set({
+    const percorso = ilPercorsoDelMese(uid, ilMeseDi(dati.q));
+    const g = gruppi.get(percorso) ?? {voci: {}, conversazioni: {}};
+    g.voci[d.id] = dati;
+    gruppi.set(percorso, g);
+    daSegnare.push({ref: d.ref, dati, percorso});
+  }
+  // Prima l'archivio, poi l'indice: se l'archivio non risponde, la voce
+  // resta piena su Firestore e si riprova la notte dopo.
+  await scriviIMesi(gruppi);
+  for (const {ref, dati, percorso} of daSegnare) {
+    await ref.set({
       v: dati.v ?? 0, k: dati.k ?? null, a: dati.a ?? null,
       m: dati.m ?? null, q: dati.q, archiviata: percorso,
       ...(typeof dati.nota === "string" ? {nota: dati.nota} : {}),
     });
-    fatte++;
   }
-  return fatte;
+  return daSegnare.length;
 }
 
 /**
- * Porta in archivio i messaggi che stanno per scadere, raggruppati per
- * conversazione: quelli gia' in archivio si tengono, i nuovi si aggiungono.
- * La chiama la pulizia notturna prima di cancellarli da Firestore.
+ * Porta in archivio i messaggi dei mesi finiti da dodici mesi, raggruppati
+ * per persona, per mese e per conversazione, e torna i documenti archiviati:
+ * la pulizia notturna cancella da Firestore QUELLI, e nessun altro.
  */
 export async function archiviaIMessaggi(
-  documenti: FirebaseFirestore.QueryDocumentSnapshot[]
-): Promise<number> {
-  const gruppi = new Map<string, {uid: string; messaggi: any[]}>();
+  documenti: FirebaseFirestore.QueryDocumentSnapshot[],
+  adesso: number
+): Promise<FirebaseFirestore.QueryDocumentSnapshot[]> {
+  const gruppi = new Map<string, {voci: Record<string, unknown>;
+    conversazioni: Record<string, any[]>}>();
+  const archiviati: FirebaseFirestore.QueryDocumentSnapshot[] = [];
   for (const d of documenti) {
     // users/{uid}/maestri/{maestro}/messages/{id}
     const maestro = d.ref.parent.parent?.id;
     const uid = d.ref.parent.parent?.parent.parent?.id;
     if (!uid || !maestro) continue;
     const dati = d.data();
+    const quando: number | null = dati.createdAt?.toMillis?.() ?? null;
+    if (quando === null || !vaInArchivio(quando, adesso)) continue;
     const c = typeof dati.conversazione === "string" ? dati.conversazione : null;
     const chiave = chiaveDellaConversazione(maestro, c);
-    const g = gruppi.get(`${uid}/${chiave}`) ?? {uid, messaggi: []};
-    g.messaggi.push({
+    const percorso = ilPercorsoDelMese(uid, ilMeseDellaConversazione(c, quando));
+    const g = gruppi.get(percorso) ?? {voci: {}, conversazioni: {}};
+    (g.conversazioni[chiave] ??= []).push({
       id: d.id, role: dati.role, text: dati.text, autore: dati.autore ?? null,
-      conversazione: c,
-      quando: dati.createdAt?.toMillis?.() ?? null,
+      conversazione: c, quando,
     });
-    gruppi.set(`${uid}/${chiave}`, g);
+    gruppi.set(percorso, g);
+    archiviati.push(d);
   }
-  for (const [k, g] of gruppi) {
-    const chiave = k.slice(k.indexOf("/") + 1);
-    const percorso = ilPercorsoInArchivio(g.uid, chiave);
-    const prima = (await leggiDallArchivio(percorso)) as any[] | null;
-    const visti = new Set((prima ?? []).map((m) => m.id));
-    const tutti = [...(prima ?? []), ...g.messaggi.filter((m) => !visti.has(m.id))]
-      .sort((a, b) => (a.quando ?? 0) - (b.quando ?? 0));
-    await scriviInArchivio(percorso, tutti);
-  }
-  return gruppi.size;
+  await scriviIMesi(gruppi);
+  return archiviati;
+}
+
+/** Legge il contenuto di una voce archiviata dal suo mese. */
+async function laVoceInArchivio(percorso: string, chiave: string):
+  Promise<any | null> {
+  const mese = (await leggiDallArchivio(percorso)) as MeseInArchivio | null;
+  return (mese?.voci?.[chiave] as any) ?? null;
 }
 
 /**
  * I MESSAGGI DI UNA CONVERSAZIONE IN ARCHIVIO, per riaprirla dal Diario o
- * dal menu' della chat. FE.22.15.
+ * dal menu' della chat. FE.22.15. Si leggono il mese della nascita e i due
+ * dopo (una conversazione che continua oltre il mese della nascita ha i
+ * suoi messaggi li'); la prima conversazione, senza marcatura, puo' stare
+ * in ogni mese, e si leggono i mesi che la persona ha in archivio.
  */
 export const leggiLaConversazioneArchiviata = onCall(OPZIONI, async (request) => {
   const uid = uidDi(request);
@@ -599,6 +716,27 @@ export const leggiLaConversazioneArchiviata = onCall(OPZIONI, async (request) =>
   if (!chiave.startsWith("conv.")) {
     throw new HttpsError("invalid-argument", "Non e' una conversazione.");
   }
-  const messaggi = await leggiDallArchivio(ilPercorsoInArchivio(uid, chiave));
-  return {messaggi: messaggi ?? []};
+  const id = chiave.slice(chiave.lastIndexOf(".") + 1);
+  let percorsi: string[];
+  if (/^c\d{12,}$/.test(id)) {
+    const nata = ilMeseDi(Number(id.slice(1)));
+    const [a, m] = nata.split("-").map(Number);
+    percorsi = [0, 1, 2].map((i) => {
+      const indice = a * 12 + (m - 1) + i;
+      return ilPercorsoDelMese(uid, `${Math.floor(indice / 12)}-` +
+        String((indice % 12) + 1).padStart(2, "0"));
+    });
+  } else {
+    const {getStorage} = await import("firebase-admin/storage");
+    const [file] = await getStorage().bucket(IL_BUCKET_DELL_ARCHIVIO)
+      .getFiles({prefix: `diario_archivio/${uid}/`});
+    percorsi = file.map((f) => f.name);
+  }
+  const messaggi: any[] = [];
+  for (const p of percorsi) {
+    const mese = (await leggiDallArchivio(p)) as MeseInArchivio | null;
+    messaggi.push(...(mese?.conversazioni?.[chiave] ?? []));
+  }
+  messaggi.sort((a, b) => (a.quando ?? 0) - (b.quando ?? 0));
+  return {messaggi};
 });
