@@ -124,7 +124,7 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
         'perché sono ciò che permette al Maestro di riconoscerti. '
         'L\'indice dei Ricordi del Cerchio, cioè le righe che dicono quando '
         'hai usato quale arte e con quale Maestro, resta 24 mesi. '
-        'I responsi che scegli di custodire, col gesto Custodisci o '
+        'I responsi che scegli di custodire, col gesto Segna nel Diario o '
         'condividendoli, non scadono: restano finché vive il tuo account, '
         'perché sono esattamente ciò che hai dichiarato di voler tenere. '
         'Per mandarti le notifiche del Cerchio anche ad app chiusa teniamo il '

@@ -434,6 +434,13 @@ class MaestroChatController extends ChangeNotifier {
     _mettiInArchivio();
     _conversazione = 'c${quando.millisecondsSinceEpoch}';
     _messages.clear();
+    // **NUOVA CHAT CHIUDE IL CONSULTO. Ordine FE voce 22.4.** Il consulto
+    // nuovo parte senza il filo di prima: ne' le battute ne' la scheda dei
+    // punti fermi. La memoria della persona (nome, forma, segni, cammino,
+    // ricordi) resta intatta: il filo e la memoria sono due cose diverse, e
+    // solo il primo si azzera.
+    _filoDiPrima = const [];
+    IlFiloDelConsulto.chiudi();
     _turnsSinceDistill = 0;
     _aggiornaLePassate();
     notifyListeners();

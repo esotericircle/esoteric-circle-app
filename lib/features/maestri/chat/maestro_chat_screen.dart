@@ -1580,18 +1580,23 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                 //
                 // **Nessun separatore in cima. Ordine EA voce 01.** A chat vuota
                 // *Nuova conversazione* non c'e', e il separatore restava primo.
+                // **I NOMI DEL MENU'. Ordine FE voce 22.1**, carattere per
+                // carattere: "Nuova chat" sempre in cima, perche' chiude il
+                // consulto in corso anche a chat vuota (il filo vive un'ora),
+                // poi le conversazioni, "Chat precedenti" e "LIVE con" il
+                // Maestro aperto: "Parlami a voce" suonava gratuito, e la voce
+                // consuma minuti.
                 itemBuilder: (context) => [
-                  if (mostraRicomincia)
-                    const PopupMenuItem<Object>(
-                      key: Key('chat_conversazione_nuova'),
-                      value: _VoceDelMenu.nuova,
-                      height: _VoceCompatta.altezza,
-                      child: _VoceCompatta(
-                        icona: Icons.add_comment_outlined,
-                        testo: 'Nuova conversazione',
-                      ),
+                  const PopupMenuItem<Object>(
+                    key: Key('chat_conversazione_nuova'),
+                    value: _VoceDelMenu.nuova,
+                    height: _VoceCompatta.altezza,
+                    child: _VoceCompatta(
+                      icona: Icons.add_comment_outlined,
+                      testo: 'Nuova chat',
                     ),
-                  if (mostraRicomincia && conversazioni.isNotEmpty)
+                  ),
+                  if (conversazioni.isNotEmpty)
                     const PopupMenuDivider(height: 9),
                   for (final (i, c) in conversazioni.indexed)
                     PopupMenuItem<Object>(
@@ -1616,15 +1621,14 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                         chiaveDelCestino: Key('chat_cancella_passata_$i'),
                       ),
                     ),
-                  if (conversazioni.isNotEmpty || mostraRicomincia)
-                    const PopupMenuDivider(height: 9),
+                  const PopupMenuDivider(height: 9),
                   const PopupMenuItem<Object>(
                     key: Key('chat_i_giorni_prima'),
                     value: _VoceDelMenu.giorniPrima,
                     height: _VoceCompatta.altezza,
                     child: _VoceCompatta(
                       icona: Icons.history_rounded,
-                      testo: 'I giorni prima',
+                      testo: 'Chat precedenti',
                     ),
                   ),
                   // **LA VOCE VIVA STA IN FONDO, E NON E' UN VEZZO.** Ordine EG
@@ -1637,13 +1641,14 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                   // tocca, e il Maestro gli dice con la sua voce che la voce viva
                   // non e' ancora aperta per lui. Il cancello sta sul server, che
                   // guarda l'abbonamento e i minuti; qui c'e' solo una porta.
-                  const PopupMenuItem<Object>(
-                    key: Key('chat_voce_viva'),
+                  PopupMenuItem<Object>(
+                    key: const Key('chat_voce_viva'),
                     value: _VoceDelMenu.voceViva,
                     height: _VoceCompatta.altezza,
                     child: _VoceCompatta(
                       icona: Icons.graphic_eq_rounded,
-                      testo: 'Parlami a voce',
+                      // Il nome dal Maestro della chat, mai scritto a mano.
+                      testo: IlNomeDelLive.di(maestro),
                     ),
                   ),
                 ],
@@ -1809,7 +1814,7 @@ class _ConversazioneNuova {
             Text('Cominciamo da capo?', style: TypographyTokens.titoloScheda()),
         content: ParagrafiDiLettura(
           testo: 'Quello che vi siete detti finora resta dov\'è. Lo '
-              'ritrovi nei Ricordi. Anche quello che il Maestro sa di te '
+              'ritrovi nel Diario Cosmico. Anche quello che il Maestro sa di te '
               'resta: dimentica solo il filo di questa conversazione. Non ti '
               'costa nessuna domanda.',
           stile: TypographyTokens.lettura(),
@@ -2137,4 +2142,12 @@ class _SopraLaCasella extends CustomClipper<Rect> {
 
   @override
   bool shouldReclip(_SopraLaCasella oldClipper) => oldClipper.sotto != sotto;
+}
+
+/// **IL NOME DELLA VOCE VIVA. Ordine FE voce 22.1.** "LIVE con" e il nome a
+/// video del Maestro della chat: "LIVE con Medora", "LIVE con Aura", "LIVE
+/// con Calìgo". Dice dove si entra prima di entrarci, e si lega alla
+/// conferma dei minuti della voce FD.01.
+abstract final class IlNomeDelLive {
+  static String di(Maestro maestro) => 'LIVE con ${maestro.nomeAVideo}';
 }

@@ -70,7 +70,7 @@ class FeatureCatalog {
     // utente, il Passaporto e la riga in cima a ogni chat.
     FeatureDefinition(
       id: 'ricordi_del_cerchio',
-      title: 'Cosmic Journal',
+      title: 'Diario Cosmico',
       teaser:
           'Il tuo cammino e i tuoi ricordi, giorno per giorno, con le carte '
           'che hai custodito.',

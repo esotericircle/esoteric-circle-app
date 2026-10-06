@@ -272,7 +272,7 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
     // e' piu' un sigillo.
     unawaited(PaletteSensoriale.suona(context, SuonoDelCerchio.custodisci));
     ScaffoldMessenger.maybeOf(context)?.showSnackBar(
-      const SnackBar(content: Text('Custodito nei Ricordi del Cerchio.')),
+      const SnackBar(content: Text('Segnato nel Diario Cosmico.')),
     );
   }
 
@@ -366,10 +366,12 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
                         ? RegimeChiaro.accentoSuChiaro(widget.maestro)
                         : palette.gold.withValues(alpha: 0.6))),
             onPressed: _custodito ? null : _custodisci,
-            icon: Icon(_custodito
-                ? Icons.bookmark_rounded
-                : Icons.bookmark_border_rounded),
-            label: Text(_custodito ? 'Custodito' : 'Custodisci'),
+            // **SEGNA NEL DIARIO, CON LA STELLA. Ordine FE voce 22.3.** Il
+            // nome dice dove va quello che si segna; la stella e' il segno
+            // della persona, lo stesso del Diario (FE.22.7).
+            icon: Icon(
+                _custodito ? Icons.star_rounded : Icons.star_border_rounded),
+            label: const Text('Segna nel Diario'),
           ),
           const SizedBox(height: SpacingTokens.sm),
           FilledButton.icon(

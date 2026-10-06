@@ -255,7 +255,7 @@ class PlanCatalog {
         'Sinastria VIP fino a 5 al giorno',
         'Sintesi comparativa dei tre Maestri',
         'Correlazione mood-transiti attiva',
-        'Cosmic Journal completo, obiettivi e traguardi per Maestro',
+        'Diario Cosmico completo, obiettivi e traguardi per Maestro',
         'L\'oroscopo completo, su ogni scheda e ogni giorno',
         'Oroscopo cinese del giorno, dall\'almanacco e dai Dieci Dei',
         'Oroscopo vedico del giorno, dalla Luna siderale e dal Rahu Kalam',
@@ -287,7 +287,7 @@ class PlanCatalog {
         'L’oroscopo per gli amici, fino a dieci',
         'Oracoli secondari, meditazioni e frequenze',
         'Transit tracker con alert',
-        'Cosmic Journal con AI',
+        'Diario Cosmico con AI',
         'Memoria AI profonda, riconosce pattern e cicli',
       ],
     ),
@@ -316,7 +316,7 @@ class PlanCatalog {
         'Compatibilità a tre livelli, esclusiva',
         'Albero della Vita dinamico, esclusivo',
         'Memoria anima, sintesi evolutiva',
-        'Cosmic Journal completo con AI e report PDF esportabili',
+        'Diario Cosmico completo con AI e report PDF esportabili',
         'Accesso anticipato alle nuove funzioni',
         'Eos bonus mensili al massimo, card dal design premium',
       ],
@@ -756,7 +756,7 @@ class PlanCatalog {
     // nelle altre righe della matrice.
     //
     // **Testo provvisorio**: il fondatore lo corregge con una riga.
-    FeatureRow('Cosmic Journal', [
+    FeatureRow('Diario Cosmico', [
       'Cammino e Ricordi',
       'Con la lettura del mese',
       'Con la lettura del mese',

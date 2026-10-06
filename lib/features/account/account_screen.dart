@@ -299,7 +299,7 @@ class AccountScreen extends StatelessWidget {
         // stesse cose sono la famiglia di difetti piu' numerosa del progetto.
         _AccountEntry(
           id: 'ricordi',
-          title: 'Cosmic Journal',
+          title: 'Diario Cosmico',
           subtitle: 'Il tuo cammino e i tuoi ricordi, giorno per giorno',
           icon: Icons.auto_stories_outlined,
           onTap: (context) => Navigator.of(context).push(RicordiScreen.route()),

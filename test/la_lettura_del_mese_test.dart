@@ -239,7 +239,7 @@ void main() {
 
   test('CG.11: la riga della matrice dice la lettura dal Tier 1', () {
     final riga = PlanCatalog.matrix
-        .firstWhere((r) => r.label.contains('Cosmic Journal'));
+        .firstWhere((r) => r.label.contains('Diario Cosmico'));
     // ignore: avoid_print
     print('ORDINE CG VOCE 11: la riga del Cosmic Journal adesso dice '
         '${riga.values}');

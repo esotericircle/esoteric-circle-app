@@ -200,7 +200,7 @@ void main() {
       rettangoli[chiave] = tester.getRect(trovato.first);
     }
     // E i comandi, che si trovano dal loro testo perche' sono pulsanti.
-    for (final testo in const ['Custodisci', 'Parlane con Aura']) {
+    for (final testo in const ['Segna nel Diario', 'Parlane con Aura']) {
       final trovato = find.text(testo);
       if (trovato.evaluate().isEmpty) continue;
       rettangoli[testo] = tester.getRect(trovato.first);
@@ -241,7 +241,7 @@ void main() {
     await finoAllaRisposta(tester, finestra: const Size(360, 797));
     final fuori = <String>[];
     var guardati = 0;
-    for (final testo in const ['Custodisci', 'Parlane con Aura']) {
+    for (final testo in const ['Segna nel Diario', 'Parlane con Aura']) {
       final trovato = find.text(testo);
       if (trovato.evaluate().isEmpty) continue;
       guardati++;

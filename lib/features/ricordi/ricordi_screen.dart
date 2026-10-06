@@ -138,7 +138,7 @@ class _RicordiScreenState extends State<RicordiScreen> {
       backgroundColor: ColorTokens.neutralDeepest,
       appBar: AppBar(
         backgroundColor: palette.deepest.withValues(alpha: 0.4),
-        title: Text('Cosmic Journal',
+        title: Text('Diario Cosmico',
             key: const Key('ricordi_titolo'),
             style: TypographyTokens.titoloScheda()),
       ),
@@ -992,7 +992,7 @@ class _LeTueCarte extends StatelessWidget {
           padding: const EdgeInsets.all(SpacingTokens.lg),
           child: Text(
             'Non hai ancora custodito niente. Sotto ogni responso trovi '
-            'Custodisci: quello che tieni resta qui per sempre.',
+            'Segna nel Diario: quello che segni resta qui per sempre.',
             key: const Key('ricordi_carte_vuote'),
             textAlign: TextAlign.center,
             style: TypographyTokens.corpo()
