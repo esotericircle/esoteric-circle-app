@@ -124,6 +124,10 @@ class CioCheETuo {
     // Le conversazioni cancellate dal menu' della chat, finche' il server
     // non le ha tolte. Ordine EA voce 07.
     'chat.cancellate.',
+    // La scheda dei punti fermi del consulto in corso: i primi pareri dei
+    // Maestri e la frase da cui il consulto e' partito. Vive un'ora, ma e'
+    // cio' che hai chiesto, e se ne va con te. Ordine FE voce 09.
+    'consulto.',
     // Ordine EA voce 19: l'indirizzo a cui e' stato mandato il link.
     'ingresso.',
     // Le arti del giorno aperte oggi, per il puntino d'oro: dicono che cosa

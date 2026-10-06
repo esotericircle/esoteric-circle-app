@@ -149,18 +149,27 @@ class RiassuntiDelTempo {
     return List.unmodifiable(fuori);
   }
 
+  /// **UN GIORNO DOPO L'ALTRO SUL CALENDARIO, MAI IN ORE.** Ordine FE: la
+  /// settimana si contava con `Duration(days: n)`, cioe' in blocchi di 24
+  /// ore, e il 25 ottobre 2026, quando torna l'ora solare, il giorno dura 25
+  /// ore. Da li' il lunedi' calcolato all'indietro cadeva il 20 e il Diario
+  /// mostrava una settimana in piu', "Dal 20 al 25", dopo "Dal 19 al 25"
+  /// (anteprima docs/preview/FE/fe22_diario_solo_i_segnati.png; padre ordine
+  /// CG voce 02, commit 4315ef85). Qui si sommano i giorni al calendario.
+  static DateTime ilGiornoDopo(DateTime giorno, int quanti) =>
+      DateTime(giorno.year, giorno.month, giorno.day + quanti);
+
   /// Le chiavi dei giorni di una settimana, dal lunedi' alla domenica.
   static String chiaveDellaSettimana(DateTime giorno) {
-    final lunedi = giorno.subtract(Duration(days: giorno.weekday - 1));
-    final domenica = lunedi.add(const Duration(days: 6));
+    final lunedi = lunediDi(giorno);
+    final domenica = ilGiornoDopo(lunedi, 6);
     return '${VoceDelRicordo.chiaveDelGiorno(lunedi)}'
         '..${VoceDelRicordo.chiaveDelGiorno(domenica)}';
   }
 
   /// Il lunedi' della settimana che contiene [giorno].
   static DateTime lunediDi(DateTime giorno) {
-    final nudo = DateTime(giorno.year, giorno.month, giorno.day);
-    return nudo.subtract(Duration(days: nudo.weekday - 1));
+    return ilGiornoDopo(giorno, 1 - giorno.weekday);
   }
 }
 

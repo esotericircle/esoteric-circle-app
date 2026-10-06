@@ -554,7 +554,7 @@ class _IlMese extends StatelessWidget {
 
   static String _titoloDellaSettimana(String chiave) {
     final da = _primoGiornoDi(chiave);
-    final a = da.add(const Duration(days: 6));
+    final a = RiassuntiDelTempo.ilGiornoDopo(da, 6);
     return 'Dal ${da.day} al ${a.day}';
   }
 }
@@ -591,7 +591,8 @@ class _LaSettimana extends StatelessWidget {
         for (var i = 0; i < giorni.length; i++)
           _RigaDiSintesi(
             key: Key('ricordi_giorno_${giorni[i].chiave}'),
-            titolo: '${_giorni[i]} ${lunedi.add(Duration(days: i)).day}',
+            titolo:
+                '${_giorni[i]} ${RiassuntiDelTempo.ilGiornoDopo(lunedi, i).day}',
             riassunto: giorni[i],
             palette: palette,
             conStella: context
@@ -600,7 +601,7 @@ class _LaSettimana extends StatelessWidget {
             onTap: giorni[i].vuoto
                 ? null
                 : () => vista.scendiA(LivelloDeiRicordi.giorno,
-                    quando: lunedi.add(Duration(days: i))),
+                    quando: RiassuntiDelTempo.ilGiornoDopo(lunedi, i)),
           ),
       ],
     );
@@ -715,8 +716,12 @@ class _RigaDiSintesi extends StatelessWidget {
       subtitle: Text(
         riassunto.vuoto
             ? 'Niente'
-            : '${riassunto.quanteVoci} momenti, '
-                '${riassunto.quantiTraguardi} traguardi',
+            // Il singolare al singolare: "1 momenti" era il numero senza
+            // la lingua (anteprima FE.22).
+            : '${riassunto.quanteVoci} '
+                '${riassunto.quanteVoci == 1 ? 'momento' : 'momenti'}, '
+                '${riassunto.quantiTraguardi} '
+                '${riassunto.quantiTraguardi == 1 ? 'traguardo' : 'traguardi'}',
         style: TypographyTokens.didascalia()
             .copyWith(color: ColorTokens.textSecondary),
       ),
@@ -1038,7 +1043,7 @@ class _LeTueCarte extends StatelessWidget {
     try {
       registro = context.watch<RegistroDeiRicordi>();
     } catch (errore) {
-      debugPrint('Le tue carte: il registro non c\'e\'. $errore');
+      debugPrint('Le tue carte: il registro non c\'è. $errore');
     }
     final contenuto = registro?.contenutoInCopia(v.chiave);
     final ricordo = contenuto == null

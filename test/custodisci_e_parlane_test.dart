@@ -31,6 +31,7 @@ import 'package:esoteric_circle/core/ricordi/ricordo_custodito.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_palette.dart';
 import 'package:esoteric_circle/features/ricordi/azioni_del_responso.dart';
 
+import 'cardinale_minimo.dart';
 import 'il_diario_finto.dart';
 
 /// Monta le azioni col registro vero e la porta del Diario finta.
@@ -139,8 +140,7 @@ void main() {
         reason: 'entrare nel Diario non e\' segnare: la stella la mette la '
             'persona');
     final mandato = porta.chiamate.single['contenuto'] as Map;
-    expect(
-        mandato['s'], 'Uruz ti chiede di non trattenere la forza che hai.');
+    expect(mandato['s'], 'Uruz ti chiede di non trattenere la forza che hai.');
     expect((mandato['d'] as Map)['rune'], 'Uruz,Ansuz,Laguz',
         reason: 'FE.22.11: i dati per ridisegnare la carta devono viaggiare');
     expect(mandato.values.whereType<List<int>>(), isEmpty,
@@ -213,8 +213,13 @@ void main() {
     // **Il secondo meccanismo non torna.** Solo il registro chiama la porta
     // della stella, e solo la porta vera nomina la funzione del server.
     final fuori = <String>[];
-    for (final f in Directory('lib').listSync(recursive: true)) {
-      if (f is! File || !f.path.endsWith('.dart')) continue;
+    final file = Directory('lib')
+        .listSync(recursive: true)
+        .whereType<File>()
+        .where((f) => f.path.endsWith('.dart'))
+        .toList();
+    cardinaleMinimo(file.length, 500, cosa: 'file di lib');
+    for (final f in file) {
       final percorso = f.path.replaceAll('\\', '/');
       final testo = f.readAsStringSync();
       if (testo.contains("'stellaNelDiario'") &&

@@ -56,7 +56,17 @@ void main() {
       expect(corpoDi(firma).contains('_chiudiLaSessione();'), isTrue,
           reason: '$firma esce dal LIVE senza chiudere la sessione');
     }
-    expect(RegExp(r'_chiudiLaSessione\(\);').allMatches(schermata).length,
+    // **LAPIDE, ordine FE voce 07 (commit ba5812cf).** Qui si contavano le
+    // chiamate `_chiudiLaSessione();` senza argomenti. Dall'ordine FE il
+    // volto che non arriva, la stanza che non si collega e il saluto che non
+    // esce passano da `_laVoceNonParte`, che chiude la sessione col segno
+    // della voce mancata: si contano le chiamate con o senza argomenti, e si
+    // pretende che quella porta chiuda davvero.
+    expect(corpoDi('Future<void> _laVoceNonParte(').contains('_chiudiLaSessione('),
+        isTrue,
+        reason: 'la voce che non parte esce dal LIVE senza chiudere la sessione');
+    expect(
+        RegExp(r'(?<!void )_chiudiLaSessione\(').allMatches(schermata).length,
         greaterThanOrEqualTo(4),
         reason: 'le strade che escono sono quattro: la croce e i tempi, il '
             'tasto indietro, la stanza aperta a schermata chiusa, il volto che '

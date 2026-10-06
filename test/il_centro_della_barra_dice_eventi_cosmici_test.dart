@@ -115,7 +115,17 @@ void main() {
     final calendario =
         File('lib/features/calendario/calendario_degli_eventi_screen.dart')
             .readAsStringSync();
-    expect(calendario.contains('ProssimiEventi.da('), isTrue,
+    // **LAPIDE, ordine FE voce 01 (commit bf65c2b2).** Qui si cercava
+    // `ProssimiEventi.da(` nel Calendario. Dall'ordine FE il Calendario
+    // chiede le date al motore unico passando dalla porta che lo fa girare
+    // fuori dal filo dell'interfaccia (`IlCieloCheArriva`): il fatto e' lo
+    // stesso, e si guarda la catena intera.
+    final porta = File('lib/core/astro/il_cielo_che_arriva.dart');
+    expect(
+        calendario.contains('IlCieloCheArriva.') &&
+            porta.existsSync() &&
+            porta.readAsStringSync().contains('ProssimiEventi.da('),
+        isTrue,
         reason: 'il Calendario non chiede piu\' le date al motore unico');
   });
 

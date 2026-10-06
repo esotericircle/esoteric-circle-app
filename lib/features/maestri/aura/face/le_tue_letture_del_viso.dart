@@ -104,10 +104,14 @@ class _LeTueLettureDelVisoState extends State<LeTueLettureDelViso> {
         title: Text(titolo,
             style: TypographyTokens.titoloScheda()
                 .copyWith(color: palette.goldSoft)),
-        content: ParagrafiDiLettura(
-          testo: testo,
-          stile: TypographyTokens.lettura()
-              .copyWith(color: ColorTokens.textPrimary),
+        // Dentro un dialogo il paragrafo si allargava a tutta l'altezza
+        // (anteprima FE.22 del cestino): lo scorrimento gli da' la sua.
+        content: SingleChildScrollView(
+          child: ParagrafiDiLettura(
+            testo: testo,
+            stile: TypographyTokens.lettura()
+                .copyWith(color: ColorTokens.textPrimary),
+          ),
         ),
         actions: [
           TextButton(

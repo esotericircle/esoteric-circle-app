@@ -43,6 +43,24 @@ void main() {
             'sarebbe gia\' passato e mostrerebbe un codice scaduto',
     'istante_dichiarato.dart':
         'e\' il file che DICHIARA l\'istante: qui la data si scrive, non si legge',
+    'i_messaggi_stanno_fra_i_contatori_e_la_casella_test.dart':
+        'ordine FE voce 22.16: monta l\'app intera, che legge l\'orologio '
+            'vero, e il menu\' della chat cerca le conversazioni del Diario '
+            'nei dodici mesi prima di ADESSO. La riga seminata nel Diario '
+            'deve stare dentro quei mesi: un istante fisso ne uscirebbe col '
+            'passare del tempo, e il menu\' resterebbe vuoto',
+    'la_riga_d_oro_che_non_va_data_test.dart':
+        'ordine FE voce 22.16: come la prova dei messaggi fra i contatori, '
+            'semina nel Diario la conversazione che apre dal menu\' dentro i '
+            'dodici mesi prima di ADESSO, quelli che l\'app intera guarda',
+    'chat_initial_message_test.dart':
+        'ordine FE voce 22.14: la finta del gancio dei Ricordi ripiega '
+            'sull\'ora vera solo se il messaggio non ne porta una, come fa la '
+            'schermata vera; le domande della prova hanno tutte la loro',
+    'la_chat_prepara_il_cielo_test.dart':
+        'ordine FE voci 05 e 06: misura che la chat prepari gli eventi in '
+            'arrivo per OGGI, e il cielo pronto si cerca con la chiave del '
+            'giorno vero, la stessa che il turno usera\'',
     'la_striscia_delle_arti_anche_in_home_test.dart':
         'misura la striscia delle arti, e la sua data serve solo a comporre una '
             'chiave che non entra in nessun confronto col cielo',

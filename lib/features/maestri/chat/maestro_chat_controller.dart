@@ -619,8 +619,14 @@ class MaestroChatController extends ChangeNotifier {
 
   /// Carica profilo, memoria e cronologia recente all'apertura della chat.
   Future<void> init() async {
-    // Ordine FE voce 09: il filo del consulto in corso, se c'e'.
-    await IlFiloDelConsulto.carica();
+    // Ordine FE voce 09: il filo del consulto in corso, se c'e'. **Si fa
+    // partire e non si aspetta** (regola dell'ordine DB, guardia
+    // la_memoria_non_zittisce_un_maestro): con l'attesa, un archivio che non
+    // risponde lasciava la chat aperta a meta' e il Maestro muto, e la prima
+    // chat di una sessione restava ferma (il_maestro_non_resta_muto, Medora,
+    // padre commit 946a51ed). Un turno che arriva prima che la scheda sia
+    // letta parte senza, come con una scheda illeggibile.
+    unawaited(IlFiloDelConsulto.carica());
     // **IL CIELO SI PREPARA QUANDO LA CHAT SI APRE. Ordine FE voci 05 e 06.**
     // Su Firebase Test Lab, Galaxy A16 5G (il piu' lento dei telefoni con
     // hardware uguale o inferiore al Redmi Note 14 Pro 5G), il primo turno

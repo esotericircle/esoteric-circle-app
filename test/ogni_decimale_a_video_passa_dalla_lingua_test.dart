@@ -35,6 +35,11 @@ void main() {
             'forma giusta: con la virgola i due numeri non si potrebbero '
             'piu accostare. Finisce in logcat e non sotto gli occhi di '
             'nessuno che legga italiano',
+    'lib/features/maestri/live/la_voce_ricevuta.dart':
+        'e la riga LIVE VOCE RICEVUTA del registro, ordine FE voce 05: i '
+            'secondi di voce e i millesimi di silenzio nascosto, letti da '
+            'chi sviluppa accanto alle soglie del codice. Finisce in logcat '
+            'e non sotto gli occhi di nessuno che legga italiano',
     'lib/core/sigilli/lettura_degli_ancoraggi.dart':
         'e il referto della lettura degli ancoraggi, numeri per chi sviluppa',
     'lib/core/viaggio/diario_dei_viaggi.dart':

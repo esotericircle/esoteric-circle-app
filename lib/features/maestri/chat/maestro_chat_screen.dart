@@ -1623,7 +1623,8 @@ class _ChatAppBar extends StatelessWidget implements PreferredSizeWidget {
                         icona: Icons.chat_bubble_outline_rounded,
                         testo: c.titolo,
                         giorno: LeConversazioniPassate.quando(
-                            c.ultimoMomento, DateTime.now()),
+                            c.ultimoMomento, DateTime.now(),
+                            corto: true),
                         // **SI CANCELLA DA QUI. Ordine EA voce 07.** Il cestino
                         // chiude il menu' e chiede conferma: una conversazione
                         // cancellata non torna.
@@ -1827,12 +1828,16 @@ class _ConversazioneNuova {
         backgroundColor: context.palette.surface,
         title:
             Text('Cominciamo da capo?', style: TypographyTokens.titoloScheda()),
-        content: ParagrafiDiLettura(
-          testo: 'Quello che vi siete detti finora resta dov\'è. Lo '
-              'ritrovi nel Diario Cosmico. Anche quello che il Maestro sa di te '
-              'resta: dimentica solo il filo di questa conversazione. Non ti '
-              'costa nessuna domanda.',
-          stile: TypographyTokens.lettura(),
+        // Dentro un dialogo il paragrafo si allargava a tutta l'altezza
+        // (anteprima FE.22 del cestino): lo scorrimento gli da' la sua.
+        content: SingleChildScrollView(
+          child: ParagrafiDiLettura(
+            testo: 'Quello che vi siete detti finora resta dov\'è. Lo '
+                'ritrovi nel Diario Cosmico. Anche quello che il Maestro sa di te '
+                'resta: dimentica solo il filo di questa conversazione. Non ti '
+                'costa nessuna domanda.',
+            stile: TypographyTokens.lettura(),
+          ),
         ),
         actions: [
           TextButton(
@@ -2079,7 +2084,7 @@ abstract final class ConversazioneDaCancellare {
     try {
       registro = context.read<RegistroDeiRicordi>();
     } catch (errore) {
-      debugPrint('Chat: il registro del Diario non c\'e\'. $errore');
+      debugPrint('Chat: il registro del Diario non c\'è. $errore');
     }
     // Il colore si prende dalla chat, che ha il suo Maestro: il dialogo vive
     // sulla rotta radice, dove lo scope del Maestro puo' non esserci.
@@ -2090,9 +2095,15 @@ abstract final class ConversazioneDaCancellare {
         key: const Key('chat_conferma_cancella'),
         backgroundColor: superficie,
         title: Text(c.titolo, style: TypographyTokens.titoloScheda()),
-        content: ParagrafiDiLettura(
-          testo: domanda,
-          stile: TypographyTokens.lettura(),
+        // Il paragrafo di lettura e' una colonna che si allarga quanto puo':
+        // dentro il dialogo lo riempiva tutto, con un vuoto alto quanto lo
+        // schermo (anteprima docs/preview/FE/fe22_conferma_del_cestino.png).
+        // Lo scorrimento gli da' l'altezza del suo testo.
+        content: SingleChildScrollView(
+          child: ParagrafiDiLettura(
+            testo: domanda,
+            stile: TypographyTokens.lettura(),
+          ),
         ),
         actions: [
           TextButton(

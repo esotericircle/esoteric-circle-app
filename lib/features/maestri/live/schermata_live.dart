@@ -78,6 +78,14 @@ class SchermataLive extends StatefulWidget {
       PassaggioDelCerchio.rotta<void>(
           (_) => SchermataLive(maestro: maestro, chat: chat));
 
+  /// **IL COLLEGAMENTO ALLA STANZA, sostituibile nelle prove**, come
+  /// `PortaDelLive.chiama`: sul banco non c'e' il plugin WebRTC e la stanza
+  /// vera resterebbe appesa per sempre. Con questo aggancio l'anteprima della
+  /// voce che non parte (ordine FE voce 07) percorre la strada vera
+  /// dell'errore fino alla frase che la persona legge.
+  static Future<void> Function(lk.Room stanza, String url, String gettone)
+      collega = (stanza, url, gettone) => stanza.connect(url, gettone);
+
   final Maestro maestro;
 
   /// **Il cervello e' quello della chat scritta.** Senza, il LIVE ha il volto
@@ -410,6 +418,12 @@ class _SchermataLiveState extends State<SchermataLive> {
       return;
     }
 
+    // La stanza appena creata, finche' non e' collegata: se il collegamento
+    // fallisce va liberata qui, perche' `_lasciaLaStanza` conosce solo quella
+    // collegata. Prima restava viva, col suo timer, dopo ogni voce che non
+    // partiva (lo ha mostrato l'anteprima FE.07 col timer di 15 secondi
+    // rimasto acceso a schermata chiusa).
+    lk.Room? nonAncoraCollegata;
     try {
       // **L'altoparlante, non l'auricolare.** Il LIVE si guarda tenendo il
       // telefono davanti, e su Android una chiamata WebRTC suona di default
@@ -419,6 +433,7 @@ class _SchermataLiveState extends State<SchermataLive> {
           defaultAudioOutputOptions: lk.AudioOutputOptions(speakerOn: true),
         ),
       );
+      nonAncoraCollegata = stanza;
       // **Il volto dice quando ha finito di parlare**, e solo allora si torna
       // ad ascoltare. E' il protocollo di Protoface sul flusso di dati.
       stanza.registerRpcMethod('lk.playback_finished', (dati) async {
@@ -439,7 +454,8 @@ class _SchermataLiveState extends State<SchermataLive> {
             _scriviLAttesa();
           }
         });
-      await stanza.connect(s.url, s.gettone);
+      await SchermataLive.collega(stanza, s.url, s.gettone);
+      nonAncoraCollegata = null;
       if (!mounted) {
         await stanza.disconnect();
         _chiudiLaSessione();
@@ -475,6 +491,16 @@ class _SchermataLiveState extends State<SchermataLive> {
       await _ascoltaLaPersona();
     } catch (errore) {
       annotaGuastoInnocuo('il LIVE non entra nella stanza', errore);
+      final daLiberare = nonAncoraCollegata;
+      if (daLiberare != null) {
+        _ascoltatoreDellaStanza?.dispose();
+        _ascoltatoreDellaStanza = null;
+        try {
+          await daLiberare.dispose();
+        } catch (e) {
+          annotaGuastoInnocuo('la stanza mai collegata non si libera', e);
+        }
+      }
       // A sessione aperta il guasto e' una voce che non parte: si chiude
       // senza scalare i minuti e si continua per iscritto. Ordine FE voce 07.
       if (_sessioneAperta != null) {
@@ -1368,11 +1394,30 @@ class _SchermataLiveState extends State<SchermataLive> {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(SpacingTokens.xl),
-          child: Text(
-            key: const Key('live_rifiuto'),
-            _quadro.laFraseDelRifiuto(),
-            style: TypographyTokens.corpo(),
-            textAlign: TextAlign.center,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                key: const Key('live_rifiuto'),
+                _quadro.laFraseDelRifiuto(),
+                style: TypographyTokens.corpo(),
+                textAlign: TextAlign.center,
+              ),
+              // **LA STRADA PER LA CHAT SCRITTA, A VIDEO. Ordine FE voce 07.**
+              // La frase dice "Continuo a scriverti", e la persona deve
+              // vedere dove: prima restava solo la croce in alto
+              // (anteprima docs/preview/FE/fe07_la_voce_non_parte.png).
+              // Vale per ogni rifiuto: mai un vicolo cieco.
+              const SizedBox(height: SpacingTokens.lg),
+              FilledButton(
+                key: const Key('live_continua_per_iscritto'),
+                onPressed: () async {
+                  await _chiudi();
+                  if (mounted) unawaited(Navigator.of(context).maybePop());
+                },
+                child: const Text('Continua per iscritto'),
+              ),
+            ],
           ),
         ),
       );

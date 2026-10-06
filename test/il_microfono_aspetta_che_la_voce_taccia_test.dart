@@ -124,7 +124,9 @@ void main() {
       () {
     final fonte = File('lib/features/maestri/live/schermata_live.dart')
         .readAsStringSync();
-    final dillo = fonte.substring(fonte.indexOf('Future<void> _dillo('),
+    // **LAPIDE, ordine FE voce 07 (commit ba5812cf):** `_dillo` dice adesso
+    // se la voce e' uscita, e la firma cercata qui era `Future<void>`.
+    final dillo = fonte.substring(fonte.indexOf('Future<bool> _dillo('),
         fonte.indexOf('Future<void> _ascoltaQuandoSiSente('));
     expect(dillo.contains('LaVoceCheTace.mancaAllaFineMinima('), isTrue);
     expect(dillo.contains('await _aspettaCheTaccia(s.lavoratore);'), isTrue);

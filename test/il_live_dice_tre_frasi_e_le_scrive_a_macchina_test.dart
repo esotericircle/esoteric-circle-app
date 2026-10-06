@@ -119,7 +119,10 @@ void main() {
   test('nella schermata la voce e il testo passano dalle tre frasi', () {
     final s = File('lib/features/maestri/live/schermata_live.dart')
         .readAsStringSync();
-    final dillo = s.substring(s.indexOf('Future<void> _dillo('),
+    // **LAPIDE, ordine FE voce 07 (commit ba5812cf).** `_dillo` dice adesso
+    // se la voce e' uscita (`Future<bool>`), e il turno che non esce chiude
+    // il LIVE: la firma cercata qui era `Future<void> _dillo(`.
+    final dillo = s.substring(s.indexOf('Future<bool> _dillo('),
         s.indexOf('/// La voce composta in anticipo'));
     // **LAPIDE, ordine ET voce 06.** Qui si cercava
     // `conAttesa ? LeTreFrasiDelLive.di(scritto)`: dall'ordine ET il taglio

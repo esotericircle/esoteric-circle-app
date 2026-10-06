@@ -191,7 +191,7 @@ class PortaVeraDeiRicordi extends PortaDeiRicordi {
           ? (dati['righe'] as num).toInt()
           : 0;
     } catch (errore) {
-      debugPrint('Diario: il riempimento non e\' passato. $errore');
+      debugPrint('Diario: il riempimento non è passato. $errore');
       return 0;
     }
   }

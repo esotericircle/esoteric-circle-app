@@ -221,7 +221,7 @@ class VistaDeiRicordi extends ChangeNotifier {
     while (giorno.month == _dove.month) {
       perSettimana.putIfAbsent(
           RiassuntiDelTempo.chiaveDellaSettimana(giorno), () => []);
-      giorno = giorno.add(const Duration(days: 1));
+      giorno = RiassuntiDelTempo.ilGiornoDopo(giorno, 1);
     }
     for (final v in delMese) {
       final chiave = RiassuntiDelTempo.chiaveDellaSettimana(v.quando);
@@ -241,7 +241,7 @@ class VistaDeiRicordi extends ChangeNotifier {
     return List.unmodifiable([
       for (var i = 0; i < 7; i++)
         () {
-          final giorno = lunedi.add(Duration(days: i));
+          final giorno = RiassuntiDelTempo.ilGiornoDopo(lunedi, i);
           final chiave = VoceDelRicordo.chiaveDelGiorno(giorno);
           return RiassuntiDelTempo.di(
               chiave,

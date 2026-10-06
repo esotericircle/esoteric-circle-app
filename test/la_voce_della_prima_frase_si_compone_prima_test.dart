@@ -93,7 +93,9 @@ void main() {
     expect(turno.indexOf('await chat.send(testo)'),
         lessThan(turno.indexOf('_dillo(risposta.text, conAttesa: true)')),
         reason: 'la voce parte prima che la risposta abbia passato le reti');
-    final dillo = sorgente.substring(sorgente.indexOf('Future<void> _dillo('),
+    // **LAPIDE, ordine FE voce 07 (commit ba5812cf):** `_dillo` dice adesso
+    // se la voce e' uscita, e la firma cercata qui era `Future<void>`.
+    final dillo = sorgente.substring(sorgente.indexOf('Future<bool> _dillo('),
         sorgente.indexOf('/// La voce composta in anticipo'));
     expect(dillo, contains('anticipata.testo == pezzo'),
         reason: 'la voce anticipata si usa senza guardare che sia la frase '

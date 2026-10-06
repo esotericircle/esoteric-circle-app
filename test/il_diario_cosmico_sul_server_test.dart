@@ -5,6 +5,7 @@ import 'package:esoteric_circle/core/maestro/maestro.dart';
 import 'package:esoteric_circle/core/maestro/maestro_controller.dart';
 import 'package:esoteric_circle/core/ricordi/registro_dei_ricordi.dart';
 import 'package:esoteric_circle/core/ricordi/ricordo_custodito.dart';
+import 'package:esoteric_circle/core/ricordi/vista_dei_ricordi.dart';
 import 'package:esoteric_circle/core/ricordi/voce_del_ricordo.dart';
 import 'package:esoteric_circle/design_system/theme/maestro_scope.dart';
 import 'package:esoteric_circle/features/ricordi/ricordi_screen.dart';
@@ -104,6 +105,8 @@ void main() {
     expect(find.byKey(const Key('ricordi_giorno_con_stella_2026-10-03')),
         findsOneWidget,
         reason: 'il 3 ottobre ha una voce con la stella e non la mostra');
+    expect(find.text('1 momento, 0 traguardi'), findsWidgets,
+        reason: 'un momento solo si dice al singolare');
     expect(find.byKey(const Key('ricordi_giorno_2026-10-01')), findsOneWidget,
         reason: 'il primo ottobre non e\' nella settimana aperta: la prova '
             'guarderebbe un giorno che non c\'e\'');
@@ -226,6 +229,33 @@ void main() {
     await registro.ripesca('2026-10');
     expect(registro.tutte.map((x) => x.chiave), [v.chiave],
         reason: 'il mese e\' sparito dal telefono dopo una lettura vuota');
+  });
+
+  test(
+      'FE.22: le settimane di ottobre 2026 sono cinque anche col cambio '
+      'd\'ora, e il singolare dice momento', () async {
+    // Il 25 ottobre 2026 torna l'ora solare e quel giorno dura 25 ore. Con
+    // la settimana contata in blocchi di 24 ore il Diario mostrava "Dal 20
+    // al 25" dopo "Dal 19 al 25" (anteprima FE.22). Misura il calendario
+    // del fuso dove gira la prova: su una macchina in UTC il difetto non si
+    // vede, ed e' dichiarato.
+    final registro = RegistroDeiRicordi(orologio: () => adesso);
+    await registro.carica();
+    final vista = VistaDeiRicordi(registro: registro, orologio: () => adesso)
+      ..scendiA(LivelloDeiRicordi.mese, quando: DateTime(2026, 10, 15));
+    final chiavi = [for (final s in vista.leSettimaneDelMese) s.chiave];
+    // ignore: avoid_print
+    print('FE.22 MISURA: settimane di ottobre 2026 ${chiavi.length}: $chiavi');
+    expect(chiavi, [
+      '2026-09-28..2026-10-04',
+      '2026-10-05..2026-10-11',
+      '2026-10-12..2026-10-18',
+      '2026-10-19..2026-10-25',
+      '2026-10-26..2026-11-01',
+    ]);
+    vista.scendiA(LivelloDeiRicordi.settimana, quando: DateTime(2026, 10, 25));
+    expect([for (final g in vista.iGiorniDellaSettimana) g.chiave].last,
+        '2026-10-25');
   });
 
   test('h) FE.22.12: una voce del formato 0 si ridisegna come una dell\'1', () {

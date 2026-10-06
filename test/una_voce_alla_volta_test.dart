@@ -56,6 +56,13 @@ void main() {
     // niente con cio' che sorveglia. Un'eccezione ancorata a un numero di riga
     // si rompe ogni volta che qualcosa sopra si muove.
     const eccezioni = <String, String>{
+      // **IL CIELO SI PREPARA, NON SI CHIEDE.** Ordine FE voci 05 e 06: la
+      // chat calcola sul telefono, fuori dal filo, gli eventi in arrivo. Non
+      // tocca Vertex, non e' una risposta e non si aspetta.
+      'lib/features/maestri/chat/maestro_chat_controller.dart|'
+              'MaestroPersona.preparaIlCielo(':
+          'e\' il calcolo del cielo sul telefono, non una risposta: nessuna '
+              'chiamata a Vertex, nessuna quota',
       // **LA VOCE DEL RESPONSO NON E\' UNA RISPOSTA CHIESTA A UN MAESTRO.**
       // Ordine BX voce 05: e\' un suono, cioe\' un tono sintetizzato sul
       // telefono, e non tocca Vertex ne\' nessuna quota. Nomina un Maestro

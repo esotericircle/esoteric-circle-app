@@ -28,7 +28,13 @@ import 'package:esoteric_circle/core/legal/privacy_policy.dart';
 /// niente, ed e' per questo che la riga si aggiunge INSIEME al dato.
 const Map<String, List<String>> datiNuoviDaNominare = {
   'indice dei Ricordi del Cerchio': ['Ricordi del Cerchio'],
-  'i responsi custoditi': ['custodire', 'non scadono'],
+  // **LAPIDE, ordine FE voce 22.7.** Qui stavano i responsi custoditi,
+  // col gesto e con la condivisione, che "non scadono": lo scrigno dei
+  // custoditi e' cancellato, e cio' che resta per sempre e' il Diario
+  // Cosmico con la stella della persona.
+  'il Diario Cosmico': ['Diario Cosmico', 'stella'],
+  'la riga della persona': ['riga che scrivi', 'non la usiamo'],
+  'l\'archivio delle voci vecchie': ['archivio separato'],
   'le sintesi settimanali': ['riassunto per Maestro', 'fatti'],
   'il gettone dell\'apparecchio': [
     'gettone del tuo apparecchio',
@@ -60,14 +66,19 @@ void main() {
             'la guardia deve cadere dicendo quale');
   });
 
-  test('CG.12: la policy dichiara che i custoditi NON scadono', () {
+  test('CG.12 e FE.22: la policy dichiara che il Diario NON scade', () {
     // **E' l'affermazione piu' delicata di questa voce**, perche' e'
     // l'unica cosa del Cerchio che non ha una scadenza: se la pagina non lo
     // dicesse, il tempo di conservazione di quel dato sarebbe indichiarato.
     final tutto =
         sezioniDellaPolicy.map((s) => '${s.titolo} ${s.corpo}').join(' ');
-    expect(tutto.contains('non scadono'), isTrue,
-        reason: 'la policy non dice che i responsi custoditi restano');
+    // Dall'ordine FE la cosa che non scade e' il Diario Cosmico: la frase
+    // che lo dice e' quella col suo nome e col tempo dell'account.
+    expect(
+        RegExp(r'Il Diario Cosmico[^.]*resta finché vive il tuo account')
+            .hasMatch(tutto),
+        isTrue,
+        reason: 'la policy non dice che il Diario Cosmico resta');
     expect(tutto.contains('finché vive il tuo account'), isTrue,
         reason: 'e non dice fino a quando restano');
   });

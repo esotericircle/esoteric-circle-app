@@ -106,13 +106,24 @@ abstract final class LeConversazioniPassate {
       ];
 
   /// **IL GIORNO, come lo dice il menu'**: oggi, ieri, oppure la data.
-  static String quando(DateTime? momento, DateTime adesso) {
+  ///
+  /// **[corto] scrive il mese in tre lettere**, "29 set", ed e' la forma del
+  /// menu' della chat: dall'ordine FE il titolo e' la domanda vera, piu'
+  /// lunga del titolo che scriveva Gemini, e con la data per esteso restava
+  /// leggibile per tre lettere ("Devo ris...", anteprima FE.22).
+  ///
+  /// **La distanza si conta sul calendario, non in ore**: fra due date
+  /// locali a cavallo del cambio d'ora di marzo passano 23 ore, e `inDays`
+  /// diceva "Oggi" a una conversazione di ieri.
+  static String quando(DateTime? momento, DateTime adesso,
+      {bool corto = false}) {
     if (momento == null) return '';
-    final giorno = DateTime(momento.year, momento.month, momento.day);
-    final oggi = DateTime(adesso.year, adesso.month, adesso.day);
+    final giorno = DateTime.utc(momento.year, momento.month, momento.day);
+    final oggi = DateTime.utc(adesso.year, adesso.month, adesso.day);
     final distanza = oggi.difference(giorno).inDays;
     if (distanza <= 0) return 'Oggi';
     if (distanza == 1) return 'Ieri';
-    return '${momento.day} ${mesiInItaliano[momento.month - 1]}';
+    final mese = mesiInItaliano[momento.month - 1];
+    return '${momento.day} ${corto ? mese.substring(0, 3) : mese}';
   }
 }

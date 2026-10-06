@@ -56,6 +56,7 @@ class _IlFiloInCimaState extends State<IlFiloInCima> {
         color: Colors.transparent,
         child: InkWell(
           key: const Key('filo_in_cima'),
+          enableFeedback: false,
           borderRadius: BorderRadius.circular(14),
           onTap: () => setState(() => _aperta = !_aperta),
           child: Container(

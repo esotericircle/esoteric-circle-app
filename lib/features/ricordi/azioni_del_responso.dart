@@ -193,7 +193,7 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
     } catch (errore) {
       // Un provider assente non spegne il responso: nelle prove che montano
       // una schermata sola il registro puo' non esserci.
-      debugPrint('Azioni: il registro del Diario non c\'e\'. $errore');
+      debugPrint('Azioni: il registro del Diario non c\'è. $errore');
       return null;
     }
   }

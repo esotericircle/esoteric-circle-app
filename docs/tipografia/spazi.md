@@ -1,7 +1,7 @@
 # Censimento dei vuoti verticali
 
-<!-- VUOTI_CENSITI: 166 -->
-<!-- FILE_CON_VUOTI: 73 -->
+<!-- VUOTI_CENSITI: 167 -->
+<!-- FILE_CON_VUOTI: 74 -->
 <!-- VUOTI_ECCESSIVI: 2 -->
 <!-- Generato da tool/censimento_spazi.dart. Non si scrive a mano: si rigenera. -->
 
@@ -11,8 +11,8 @@ Misura i vuoti verticali DICHIARATI nel sorgente: `SizedBox(height: n)` e i riem
 
 | Grandezza | Valore |
 | --- | --- |
-| Vuoti verticali dichiarati | **166** |
-| File che ne contengono | **73** |
+| Vuoti verticali dichiarati | **167** |
+| File che ne contengono | **74** |
 | Oltre la soglia di 48 punti | **2** |
 
 ## Da dove viene la soglia
@@ -22,7 +22,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | Punti | Quante volte |
 | ---: | ---: |
 | 0 | 1 |
-| 2 | 87 |
+| 2 | 88 |
 | 3 | 8 |
 | 4 | 32 |
 | 5 | 2 |
@@ -106,6 +106,7 @@ La soglia NON e' scelta, e' derivata dalla distribuzione qui sotto, come la satu
 | `lib/features/maestri/aura/meditation/meditation_screen.dart` | 1 | 0 |
 | `lib/features/maestri/chat/widgets/chat_composer.dart` | 1 | 0 |
 | `lib/features/maestri/chat/widgets/diagnostics_dialog.dart` | 1 | 0 |
+| `lib/features/maestri/chat/widgets/il_filo_in_cima.dart` | 1 | 0 |
 | `lib/features/maestri/domain_screen.dart` | 1 | 0 |
 | `lib/features/maestri/maestro_screen.dart` | 1 | 0 |
 | `lib/features/onboarding/natal_chart_reveal.dart` | 1 | 0 |

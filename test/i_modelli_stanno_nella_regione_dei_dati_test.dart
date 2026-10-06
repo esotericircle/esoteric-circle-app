@@ -132,7 +132,11 @@ void main() {
         }
       }
     }
-    cardinaleMinimo(chiamate, 9, cosa: 'FirebaseAI.vertexAI nel telefono');
+    // **LAPIDE, ordine FE voce 22.14.** Erano nove: il nono era il titolo
+    // delle conversazioni scritto da Gemini (`titoli_da_gemini.dart`), tolto
+    // di proposito perche' il titolo e' adesso il tema del Diario. Non e'
+    // l'insieme che si e' svuotato: e' una chiamata al modello in meno.
+    cardinaleMinimo(chiamate, 8, cosa: 'FirebaseAI.vertexAI nel telefono');
     expect(senza, isEmpty,
         reason: 'chiamate senza regione, cioe\' da us-central1:\n'
             '${senza.join('\n')}');
