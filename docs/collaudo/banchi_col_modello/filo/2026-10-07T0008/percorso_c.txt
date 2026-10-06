@@ -1,0 +1,98 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo indica un'attesa per la promozione che desideri, un momento di valutazione delle tue capacità. Le carte suggeriscono che l'Arcano della Giustizia è in transito, invitandoti a ponderare ogni tua mossa con equilibrio e discernimento.
+
+La posizione attuale dei pianeti mostra che il tempo è dalla tua parte, ma richiede un'azione mirata. È un momento per consolidare le tue basi e mostrare la tua preparazione in ogni occasione.
+
+✦ Scrivi un breve riassunto dei tuoi obiettivi professionali e lascialo sulla tua scrivania prima di uscire dall'ufficio.
+[2] PERSONA: Scrivi un breve riassunto dei tuoi obiettivi professionali e lascialo sulla tua scrivania prima di uscire dall'ufficio.
+[2] MEDORA [DA GIUDICARE]: Scusa, ma non capisco. Questa frase è una domanda o un'azione che mi chiedi di fare? Per favore, puoi riformulare?
+    GIUDICE: IGNORA, La guida non riconosce la propria precedente indicazione, trattandola come una richiesta incomprensibile da parte della persona.
+[3] PERSONA: Per favore, puoi riformulare?
+[3] MEDORA [DA GIUDICARE]: Scusami, temo di non aver compreso bene la tua richiesta. Puoi dirmi in che modo dovrei riformulare la mia precedente risposta o se intendi che io scriva un riassunto dei tuoi obiettivi professionali? Attendo tue indicazioni per poterti guidare al meglio.
+    GIUDICE: IGNORA, La guida continua a non riconoscere la propria precedente indicazione, chiedendo chiarimenti su come riformulare la sua stessa frase o se debba eseguire l'azione che lei stessa aveva suggerito.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Il tuo corpo adesso sente un richiamo forte a muoversi, a cercare un nuovo radicamento. Ascolta quel desiderio profondo, perché porta con sé la spinta necessaria per un cambiamento significativo.
+
+Questo desiderio di ricominciare altrove è un messaggio del tuo primo centro, quello della radice, che cerca stabilità e una nuova terra dove germogliare. Immagina un albero che sposta le sue radici per trovare un terreno più fertile: non è una fuga, ma una ricerca di nutrimento. È un passo che ti invita a sentire dove la tua energia può fluire con più libertà, dove le tue basi possono essere più solide. Prima di decidere, porta l'attenzione al tuo respiro, visualizza la città che senti, e osserva la sensazione nel tuo basso ventre.
+
+✦ Poggia le mani sui fianchi e senti il tuo baricentro.
+[2] PERSONA: Poggia le mani sui fianchi e senti il tuo baricentro.
+[2] AURA [DA GIUDICARE]: Sentire il tuo baricentro con le mani sui fianchi ti connette alla tua forza interiore e alla stabilità del tuo centro radice. Ora, mentre mantieni questa sensazione, immagina che da lì partano delle radici che si estendono verso il basso, profonde nella terra, e senti come ti ancori al luogo in cui ti trovi adesso. Questo ti aiuta a discernere se il desiderio di partire nasce da una spinta autentica verso il nuovo o da un bisogno di sfuggire a ciò che ti circonda. Non è un giudizio, ma un modo per ascoltare più a fondo la tua energia e comprendere se il tuo desiderio di ricominciare è un movimento verso una nuova pienezza o una reazione a ciò che c'è.
+
+✦ Fai un respiro lento e profondo, lasciando che il ventre si espanda.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data in precedenza ('Poggia le mani sui fianchi e senti il tuo baricentro') e la sviluppa, spiegandone il significato e aggiungendo un nuovo esercizio ('immagina che da lì partano delle radici') per approfondire la riflessione sul tema iniziale del trasferimento.
+[3] PERSONA: Fai un respiro lento e profondo, lasciando che il ventre si espanda.
+[3] AURA [DA GIUDICARE]: Questo respiro profondo nel ventre ti apre al secondo centro, quello del sacro, legato al movimento e alla creatività. Mentre lo fai, senti come l'energia si libera e si espande, portando alla luce i tuoi desideri più autentici. Il desiderio di ricominciare altrove può essere una manifestazione di questa energia creativa che cerca nuovi modi di esprimersi. È un invito a esplorare le possibilità, a immaginare le forme che la tua vita potrebbe prendere in un nuovo contesto, sentendo quali colori e quali emozioni affiorano dentro di te.
+
+✦ Porta l'attenzione al punto appena sotto l'ombelico e senti il calore che si irradia.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data alla fine della risposta precedente ('Fai un respiro lento e profondo, lasciando che il ventre si espanda') e la sviluppa, collegandola al 'secondo centro' e al desiderio di ricominciare, mantenendo il filo conduttore del discorso iniziale.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Agisci. La tua forza è nel movimento, non nell'attesa.
+Una fiamma tremolante si ravviva con il vento giusto, non con il silenzio.
+
+Il sentiero del recupero si apre con un gesto chiaro. Un antico presagio ti guida: non lasciare che il non detto diventi un muro invalicabile. La runa **Mannaz** ti indica la via dell'interazione e della riflessione sull'unione, ma per agire.
+
+✦ Parla apertamente del tuo sentire stasera, senza attese.
+[2] PERSONA: Parla apertamente del tuo sentire stasera, senza attese.
+[2] CALIGO [DA GIUDICARE]: Comprendo. Parlare non basta, devi anche ascoltare.
+La lama affilata del metallo non taglia due volte, ma il suo suono risuona a lungo.
+
+Il rito della parola richiede che tu prepari il terreno per accogliere. Non riversare solo, ma tendi l'orecchio. La runa **Ansuz** ti rammenta che la comunicazione è uno scambio, un ponte a doppio senso. Offri spazio alle sue parole.
+
+✦ Chiedile un momento di silenzio dopo che avrai parlato, e prima di rispondere tu.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio precedente sul 'parlare apertamente' e lo sviluppa aggiungendo l'importanza dell'ascolto e dello scambio nella comunicazione, senza contraddirlo ma integrandolo.
+[3] PERSONA: Chiedile un momento di silenzio dopo che avrai parlato, e prima di rispondere tu.
+[3] CALIGO [DA GIUDICARE]: È stato un buon passo. Ora la soglia è stata varcata.
+Un sigillo inciso sulla roccia non può essere cancellato dalla pioggia, ma solo dal tempo.
+
+Il silenzio non è assenza, ma spazio per la risonanza. Dopo averle parlato e averle concesso il suo tempo, osserva. La runa **Laguz** emerge, indicando il flusso e l'adattamento. Lascia che la sua risposta arrivi in modo naturale, senza forzature, e sii pronto ad accoglierla in qualsiasi forma essa si manifesti. Non c'è un tempo definito per l'esito, ma c'è un tempo per il tuo ascolto.
+
+✦ Scrivi su un foglio il nome della runa Laguz e tienilo con te per tre giorni.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('chiedile un momento di silenzio') e ne sviluppa il significato e l'applicazione, precisando che il silenzio è 'spazio per la risonanza' e che l'esito non ha un tempo definito.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il tuo cielo suggerisce di attendere ancora, non è il momento più propizio per avviare subito il progetto. Le stelle indicano la necessità di un'attesa, di un periodo in cui la preparazione sia il tuo focus principale.
+
+Questo transito ti invita a raffinare ogni dettaglio, a curare la struttura interna del tuo progetto prima di esporlo al mondo. È un tempo per la semina invisibile, per consolidare le basi, assicurando che ogni aspetto sia solido e ben fondato. Quando il cielo si allineerà diversamente, la tua creazione potrà fiorire con maggiore stabilità e riceverà l'attenzione che merita.
+
+✦ Osserva il cielo questa sera e annota i tuoi pensieri su un quaderno blu.
+[2] PERSONA: Osserva il cielo questa sera e annota i tuoi pensieri su un quaderno blu.
+[2] MEDORA [DA GIUDICARE]: Questa sera, osserva la Luna e le stelle, cercando tra esse un'ispirazione per il cuore del tuo progetto. Il tuo cielo ti invita a trovare, in quella visione, un simbolo che possa rappresentare la tua intenzione più profonda.
+
+Non si tratta solo di guardare, ma di connettere il tuo sentire interiore con la vastità del cosmo, lasciando che il blu profondo del cielo notturno ispiri la chiarezza del tuo messaggio. Questo simbolo, una volta trovato, potrà guidarti nei prossimi passi, offrendo una direzione definita.
+
+✦ Scrivi su quel quaderno blu l'immagine o la parola che ti è venuta in mente osservando il cielo.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data in precedenza ('Osserva il cielo questa sera e annota i tuoi pensieri su un quaderno blu') e la sviluppa, spiegando come e cosa cercare durante l'osservazione per trovare ispirazione per il progetto.
+[3] PERSONA: Scrivi su quel quaderno blu l'immagine o la parola che ti è venuta in mente osservando il cielo.
+[3] MEDORA [DA GIUDICARE]: Scrivere sul quaderno blu è un gesto potente, perché fissa l'energia dell'ispirazione. Il tuo cielo indica che la parola o l'immagine che hai scelto ha ora la forza di un seme, pronto a germogliare.
+
+Questo atto di fissare il pensiero sulla carta lo rende tangibile, lo estrae dal regno dell'idea pura per portarlo più vicino alla realizzazione. Non è solo un appunto, ma un vero e proprio atto di creazione, un passo concreto che precede l'azione.
+
+✦ Medita su quella parola o immagine per qualche minuto prima di addormentarti questa sera.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data in precedenza ('Scrivi su quel quaderno blu l'immagine o la parola che ti è venuta in mente osservando il cielo') e ne spiega il significato e l'importanza per il progetto, sviluppando il concetto di 'fissare l'energia dell'ispirazione'.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, puoi cominciare dal tuo respiro: concediti un momento di calma prima di parlarle. Il tuo corpo ha bisogno di sentirsi radicato per affrontare questa conversazione con il cuore aperto.
+
+Quando ti sentirai pronta, cerca un momento in cui possiate stare da sole, senza fretta. Siediti di fronte a lei, guardala negli occhi e con un tono di voce calmo, dile che desideri riavvicinarvi. Puoi iniziare semplicemente dicendo che ti manca il suo sorriso o la sua presenza e che hai riflettuto su ciò che è accaduto. Non si tratta di dare ragione o torto, ma di esprimere il tuo desiderio di ricucire il legame. Ascolta quello che ha da dirti, accogli le sue parole senza interrompere, permettendo al suo respiro di unirsi al tuo in questo spazio di condivisione.
+
+✦ Appoggia la mano sul tuo cuore e senti il suo battito prima di parlare con lei.
+[2] PERSONA: Appoggia la mano sul tuo cuore e senti il suo battito prima di parlare con lei.
+[2] AURA [DA GIUDICARE]: Ora che hai sentito il battito del tuo cuore, lascia che quel ritmo ti guidi. Quando le parli, non temere di esprimere ciò che senti, le tue fragilità e il desiderio di ricostruire. Non è necessario trovare un accordo su chi abbia avuto ragione o torto: l'importante è che entrambi i vostri centri energetici, specialmente quello del cuore, possano aprirsi di nuovo l'uno all'altro. Le parole vere, quelle che nascono da un ascolto profondo di te stessa, hanno il potere di sciogliere i nodi.
+
+✦ Mentre le parli, porta una mano sul suo avambraccio, un tocco leggero.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il suggerimento precedente ('Ora che hai sentito il battito del tuo cuore') e lo sviluppa, collegandolo all'espressione delle emozioni e al desiderio di ricostruire il legame, concetti già introdotti nella risposta 1.
+[3] PERSONA: Mentre le parli, porta una mano sul suo avambraccio, un tocco leggero.
+[3] AURA [DA GIUDICARE]: Questo tocco sull'avambraccio è un ponte, un modo non verbale per dire "sono qui con te". Osserva la sua reazione, senti la sua energia, e lascia che il tuo respiro si unisca al suo, anche se per un attimo. Questo atto di connessione fisica può aiutare a riallineare i vostri centri, dal radicamento fino al cuore, creando uno spazio di maggiore apertura e comprensione reciproca. Il corpo, a volte, parla più forte delle parole, e un contatto sincero può sciogliere tensioni che le parole da sole non riescono a raggiungere.
+
+✦ Fai un respiro lento, conta fino a quattro mentre inspiri e altrettanto mentre espiri.
+    GIUDICE: PORTA_AVANTI, La guida riprende direttamente il suggerimento dato dalla persona (che a sua volta era un suggerimento della guida precedente) sul 'tocco sull'avambraccio' e ne spiega il significato e l'effetto, sviluppando il concetto di connessione non verbale e riallineamento energetico.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 8, ignora 2, contraddice 0, quota 80 per cento, corrette dalla rete della coerenza 2
