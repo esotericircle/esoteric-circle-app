@@ -471,6 +471,18 @@ INNESTI = [
      "String _iNomi(List<String> nomi) => nomi.length < 99",
      'flutter test test/il_filo_in_cima_test.dart -r expanded',
      'si dicono come in italiano'),
+    # FE.16 D, 7 ottobre 2026: la rete parte anche quando la persona torna
+    # al tema di prima con lo stesso Maestro.
+    ('A86', 'FE.16', 'lib/core/chat/la_rete_della_coerenza.dart',
+     '        tornaAlTema(domanda);',
+     '        tornaAlTema(domanda) && false;',
+     'flutter test test/la_rete_della_coerenza_test.dart -r expanded',
+     'anche con un Maestro solo'),
+    ('A87', 'FE.16', 'lib/core/chat/la_rete_della_coerenza.dart',
+     '''torn(iamo|o|ando|are|ate)\\s+all['’]"''',
+     '''torn(iamo|o|ando|are|ate)\\s+allX"''',
+     'flutter test test/la_rete_della_coerenza_test.dart -r expanded',
+     'e quelle che non lo sono'),
     # FE.22.3, prova a) alla lettera: nessun "Custodisci" mostrato.
     ('A83', 'FE.22.3', 'lib/features/account/account_screen.dart',
      "            title: 'Metti al sicuro il tuo cielo',",

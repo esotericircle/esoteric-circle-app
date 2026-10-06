@@ -83,11 +83,44 @@ abstract final class LaReteDellaCoerenza {
   /// voce di un Maestro ne contraddice un altro (percorso B), mentre dentro
   /// le risposte di un Maestro solo regge l'istruzione. Misurato: 0,289
   /// dollari a giro, il 2 per cento in piu'.
-  static bool serve(Maestro chi) {
+  ///
+  /// **E QUANDO LA PERSONA TORNA AL TEMA DI PRIMA. Ordine FE, 7 ottobre
+  /// 2026.** Al banco del filo sul commit 6e7511db il percorso D (una
+  /// domanda, un tema diverso, poi "Torniamo alla mia prima domanda") ha
+  /// dato 7 risposte su 10 che portano avanti il punto e 2 contraddizioni,
+  /// entrambe di un Maestro con se stesso: Medora prima "attendi con
+  /// discrezione, senza condividerlo", al ritorno "parla col tuo superiore
+  /// domani mattina"; Calìgo prima "scrivile un messaggio oggi", al ritorno
+  /// "cercala di persona, non con un messaggio freddo"
+  /// (docs/collaudo/banchi_col_modello/filo/2026-10-07T0008/percorso_d.txt).
+  /// Dentro un Maestro solo l'istruzione regge finché il tema resta quello;
+  /// quando in mezzo passa un altro tema, il parere di prima si allontana.
+  /// Il ritorno si riconosce dalle parole della [domanda], senza una
+  /// chiamata: la rete parte solo li', e il costo degli altri turni non
+  /// cambia.
+  static bool serve(Maestro chi, {String domanda = ''}) {
     final s = IlFiloDelConsulto.scheda;
     if (s == null) return false;
-    return s.daMaestro != chi || s.pareri.any((p) => p.maestro != chi);
+    return s.daMaestro != chi ||
+        s.pareri.any((p) => p.maestro != chi) ||
+        tornaAlTema(domanda);
   }
+
+  /// Le parole con cui la persona torna a un tema gia' toccato nel
+  /// consulto. I confini sono scritti a mano: in Dart `\b` non vede le
+  /// lettere accentate.
+  static final RegExp _ritorno = RegExp(
+      r"(?<![A-Za-zÀ-ÿ])torn(iamo|o|ando|are|ate)\s+all['’]"
+      r'|(?<![A-Za-zÀ-ÿ])(torn(iamo|o|ando|are|ate)\s+(a|al|alla|allo|ai'
+      r'|agli|alle|su|sul|sulla|sullo|sui|sugli|sulle|indietro)'
+      r'|ripren(diamo|do|dendo)|riprendere'
+      r'|prima domanda|domanda di prima|discorso di prima|tema di prima'
+      r'|come dicevi|come mi dicevi|come dicevamo|dicevamo prima'
+      r'|di cui parlavamo|quello che mi hai detto)(?![A-Za-zÀ-ÿ])',
+      caseSensitive: false);
+
+  /// Se la [domanda] torna a un tema gia' toccato nel consulto.
+  static bool tornaAlTema(String domanda) => _ritorno.hasMatch(domanda);
 
   /// I punti fermi per [chi]: la scheda del consulto, le risposte di prima
   /// del Maestro nella [storia] e quelle intere degli altri che il filo
@@ -167,15 +200,16 @@ abstract final class LaReteDellaCoerenza {
       'Tutto il resto della risposta resta com’è.';
 
   /// **IL CONTROLLO.** Torna la correzione da dare alla voce, o nullo.
-  /// Senza un altro Maestro nel consulto, o senza punti fermi, non chiama
-  /// il modello.
+  /// Senza un altro Maestro nel consulto e senza un ritorno al tema nella
+  /// [domanda], o senza punti fermi, non chiama il modello.
   static Future<String?> controlla({
     required Maestro chi,
     required List<ChatMessage> storia,
+    required String domanda,
     required String risposta,
     required ChiamataDellaCoerenza chiamata,
   }) async {
-    if (!serve(chi)) return null;
+    if (!serve(chi, domanda: domanda)) return null;
     final punti = puntiFermi(chi, storia);
     if (punti == null || risposta.trim().isEmpty) return null;
     final verdetto = leggi(await chiamata(
