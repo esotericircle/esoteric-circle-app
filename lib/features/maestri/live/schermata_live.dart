@@ -30,6 +30,7 @@ import 'la_domanda_finita.dart';
 import 'la_macchina_da_scrivere.dart';
 import 'le_tre_frasi_del_live.dart';
 import 'la_voce_anticipata.dart';
+import 'la_voce_ricevuta.dart';
 import 'la_voce_che_tace.dart';
 import 'stato_della_schermata_live.dart';
 
@@ -1020,6 +1021,11 @@ class _SchermataLiveState extends State<SchermataLive> {
     // Il segnale di fine si prepara PRIMA di mandare la voce: un volto
     // veloce potrebbe dirlo prima che lo si stia aspettando.
     _fineDellaVoce = Completer<void>();
+    // **LA VOCE RICEVUTA, MISURATA. Ordine FE voce 05.** Dove si rompe, al
+    // decimo di secondo, sulla traccia che la persona sente.
+    final ricevuta = LaVoceRicevuta();
+    var misurando = true;
+    unawaited(_misuraLaVoceRicevuta(s.lavoratore, ricevuta, () => misurando));
     try {
       lk.ByteStreamWriter? scrittore;
       final anticipata = _voceAnticipata;
@@ -1106,11 +1112,35 @@ class _SchermataLiveState extends State<SchermataLive> {
       annotaGuastoInnocuo('l\'audio del Maestro non arriva al volto', errore);
     } finally {
       _fineDellaVoce = null;
+      misurando = false;
+      debugPrint(ricevuta.riga(conAttesa ? 'risposta' : 'saluto'));
       // Il silenzio si conta da quando il Maestro ha finito di parlare.
       _cePresenza();
       if (mounted) setState(() => _parla = false);
     }
     return primoSuono != null;
+  }
+
+  /// Legge le statistiche della traccia del volto ogni [LaVoceRicevuta.passo]
+  /// finche' [ancora] e' vero. Ordine FE voce 05. Solo misura: un errore la
+  /// ferma e basta.
+  Future<void> _misuraLaVoceRicevuta(String lavoratore, LaVoceRicevuta misura,
+      bool Function() ancora) async {
+    final orologio = Stopwatch()..start();
+    try {
+      while (ancora() && mounted) {
+        final traccia = _laTracciaDelVolto(lavoratore);
+        final st = await traccia?.getReceiverStats();
+        misura.punto(orologio.elapsed,
+            durata: st?.totalSamplesDuration,
+            energia: st?.totalAudioEnergy,
+            nascosti: st?.concealedSamples,
+            nascostiMuti: st?.silentConcealedSamples);
+        await Future<void>.delayed(LaVoceRicevuta.passo);
+      }
+    } catch (errore) {
+      annotaGuastoInnocuo('la voce ricevuta non si misura', errore);
+    }
   }
 
   /// **QUANDO LA PERSONA SENTE IL MAESTRO**, dall'energia dell'audio che il
