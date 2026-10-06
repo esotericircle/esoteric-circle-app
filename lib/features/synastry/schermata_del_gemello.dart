@@ -16,6 +16,8 @@ import '../../design_system/components/riga_del_residuo.dart';
 import '../../design_system/components/vip_frame.dart';
 import '../../design_system/theme/maestro_palette.dart';
 import '../../design_system/theme/maestro_scope.dart';
+import '../../core/maestro/maestro.dart';
+import '../ricordi/azioni_del_responso.dart';
 import '../../design_system/tokens/color_tokens.dart';
 import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
@@ -392,6 +394,18 @@ class _SchermataDelGemelloState extends State<SchermataDelGemello>
       rapporto,
     );
     return [
+      // **IL GEMELLO ENTRA NEL DIARIO DA SE'. Ordine FE voce 22.6**, quando
+      // il nome e' arrivato, cioe' quando la persona ha il responso intero.
+      if (_nomeArrivato)
+        IlResponsoNelDiario(
+          maestro: Maestro.medora,
+          responso: ResponsoDaCustodire(
+            arte: 'gemello',
+            titolo: 'Il tuo gemello del cielo: ${vip.name}',
+            testo: '${rapporto.overall}%. ${rapporto.reading}',
+            dati: {'vip': vip.name, 'punteggio': '${rapporto.overall}'},
+          ),
+        ),
       // **LA GRAFICA PRIMA DEL TESTO, ed e' la regola del progetto.**
       // Richiesta del fondatore del 31 agosto 2026: "la parte grafica o
       // infografica e' prioritaria". Il cerchio dice il punteggio senza farlo

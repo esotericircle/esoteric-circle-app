@@ -236,6 +236,24 @@ class OroscopoScreen extends StatefulWidget {
 
 class _OroscopoScreenState extends State<OroscopoScreen>
     with SingleTickerProviderStateMixin {
+  /// L'istante di ogni lettura mostrata: la chiave nel Diario (FE.22.6).
+  final _istanti = IstantiDeiResponsi();
+
+  /// **LA SETTIMANA, IL MESE E L'ANNO ENTRANO NEL DIARIO DA SE'. Ordine FE
+  /// voce 22.6.** Fino al 6 ottobre 2026 ci entrava solo il Giorno, dalla
+  /// porta del responso: le letture degli altri periodi, in tutte le
+  /// tradizioni, restavano fuori.
+  ResponsoDaCustodire _periodoPerIlDiario(List<HoroscopeCard> schede) =>
+      ResponsoDaCustodire(
+        arte: 'oroscopo_${_period.name}',
+        titolo: 'Oroscopo: ${_period.label}',
+        testo: {
+          for (final c in schede)
+            if (c.text.trim().isNotEmpty) c.text.trim()
+        }.join('\n\n'),
+        dati: {'tradizione': _inCima.name, 'periodo': _period.name},
+      );
+
   // Il giorno per l'oroscopo, letto una sola volta a livello di schermata.
   late final DateTime _date = widget.now ?? DateTime.now();
   late final int _dayOfYear = Horoscope.dayOfYear(_date);
@@ -496,7 +514,8 @@ class _OroscopoScreenState extends State<OroscopoScreen>
   /// riflessione i suoi due momenti; dopo, la lettura. Gli inviti a
   /// completare i dati e il piano chiuso restano fuori dal gesto: li' non
   /// c'e' niente da interrogare.
-  List<Widget> _dietroIlGesto(MaestroPalette palette, List<Widget> lettura) {
+  List<Widget> _dietroIlGesto(MaestroPalette palette, List<Widget> lettura,
+      {ResponsoDaCustodire? perIlDiario}) {
     final cinese = _inCima == AstroTradition.cinese;
     final vedica = _inCima == AstroTradition.vedica;
     final cielo = _cieloDelGesto;
@@ -532,7 +551,14 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       : null,
             ),
         ],
-      _FaseDelConsulto.responso => lettura,
+      _FaseDelConsulto.responso => [
+          if (perIlDiario != null)
+            IlResponsoNelDiario(
+                maestro: Maestro.medora,
+                responso: perIlDiario,
+                quando: _istanti.di(perIlDiario)),
+          ...lettura,
+        ],
     };
   }
 
@@ -714,7 +740,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       riga,
       const SizedBox(height: SpacingTokens.md),
       // Ordine EX Aggiunta 5, voce EX.12: l'anno si apre col gesto.
-      ..._dietroIlGesto(palette, [
+      ..._dietroIlGesto(palette, perIlDiario: _periodoPerIlDiario(schede), [
         for (final s in schede) ...[
           _HoroscopeCardView(
             scrivendo: false,
@@ -1071,7 +1097,7 @@ class _OroscopoScreenState extends State<OroscopoScreen>
       riga,
       const SizedBox(height: SpacingTokens.md),
       // Ordine EX Aggiunta 5, voce EX.12: l'anno si apre col gesto.
-      ..._dietroIlGesto(palette, [
+      ..._dietroIlGesto(palette, perIlDiario: _periodoPerIlDiario(schede), [
         for (final s in schede) ...[
           _HoroscopeCardView(
             scrivendo: false,
@@ -1578,19 +1604,25 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                       if (_inCima == AstroTradition.occidentale &&
                           (_period == HoroscopePeriod.settimana ||
                               _period == HoroscopePeriod.mese))
-                        ..._dietroIlGesto(palette, [
-                          IlPeriodoView(
-                            periodo: _periodoDelCielo(carta),
-                            mese: _period == HoroscopePeriod.mese,
-                            palette: palette,
-                            livello: cielo.livello,
-                            // La profondita' su ogni scheda, come nel Giorno.
-                            profondita: _depth,
-                            premiumUnlocked: PlanCatalog.haProfondita(tier),
-                            onDepthSelected: _scegliProfondita,
-                            onDepthLocked: _showDepthLocked,
-                          ),
-                        ]),
+                        ..._dietroIlGesto(
+                            palette,
+                            perIlDiario: _periodoPerIlDiario(
+                                LaSettimanaDelCielo.tessere(
+                                    _periodoDelCielo(carta),
+                                    mese: _period == HoroscopePeriod.mese)),
+                            [
+                              IlPeriodoView(
+                                periodo: _periodoDelCielo(carta),
+                                mese: _period == HoroscopePeriod.mese,
+                                palette: palette,
+                                livello: cielo.livello,
+                                // La profondita' su ogni scheda, come nel Giorno.
+                                profondita: _depth,
+                                premiumUnlocked: PlanCatalog.haProfondita(tier),
+                                onDepthSelected: _scegliProfondita,
+                                onDepthLocked: _showDepthLocked,
+                              ),
+                            ]),
                       // LA CARD DELLA SETTIMANA E DEL MESE, col loro emblema
                       // (ordine ES voce 05): si porta con se' solo cio' che
                       // si e' letto, dopo il gesto (EX.12).
@@ -1637,19 +1669,25 @@ class _OroscopoScreenState extends State<OroscopoScreen>
                         if (_periodoDellaTradizione(
                                 nascitaDeiSegni, forma, animale)
                             case final p?)
-                          ..._dietroIlGesto(palette, [
-                            IlPeriodoView(
-                              key: Key('oroscopo_${_inCima.name}_periodo'),
-                              periodo: p,
-                              mese: _period == HoroscopePeriod.mese,
-                              palette: palette,
-                              livello: cielo.livello,
-                              profondita: _depth,
-                              premiumUnlocked: PlanCatalog.haProfondita(tier),
-                              onDepthSelected: _scegliProfondita,
-                              onDepthLocked: _showDepthLocked,
-                            ),
-                          ]),
+                          ..._dietroIlGesto(
+                              palette,
+                              perIlDiario: _periodoPerIlDiario(
+                                  LaSettimanaDelCielo.tessere(p,
+                                      mese: _period == HoroscopePeriod.mese)),
+                              [
+                                IlPeriodoView(
+                                  key: Key('oroscopo_${_inCima.name}_periodo'),
+                                  periodo: p,
+                                  mese: _period == HoroscopePeriod.mese,
+                                  palette: palette,
+                                  livello: cielo.livello,
+                                  profondita: _depth,
+                                  premiumUnlocked:
+                                      PlanCatalog.haProfondita(tier),
+                                  onDepthSelected: _scegliProfondita,
+                                  onDepthLocked: _showDepthLocked,
+                                ),
+                              ]),
                       if (altra &&
                           leggeLaTradizione &&
                           nascitaDeiSegni != null &&

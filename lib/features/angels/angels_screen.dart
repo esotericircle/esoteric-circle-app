@@ -18,6 +18,7 @@ import '../../design_system/tokens/spacing_tokens.dart';
 import '../../design_system/tokens/typography_tokens.dart';
 import '../../design_system/typography/paragrafi_di_lettura.dart';
 import '../../core/maestro/maestro.dart';
+import '../ricordi/azioni_del_responso.dart';
 import '../../../../design_system/components/titolo_che_non_si_rompe.dart';
 import '../maestri/rotta_arte.dart';
 import '../../design_system/transizioni/passaggio_del_cerchio.dart';
@@ -215,6 +216,33 @@ class _AngelsScreenState extends State<AngelsScreen>
               SpacingTokens.xxxl,
             ),
             children: [
+              // **LA LETTURA DEGLI ANGELI ENTRA NEL DIARIO DA SE'. Ordine FE
+              // voce 22.6.** E' la stessa per tutta la vita: entra una volta
+              // al giorno in cui la persona la apre (l'istante e' la
+              // mezzanotte, cosi' la chiave e' una sola per giorno), non a
+              // ogni apertura.
+              IlResponsoNelDiario(
+                maestro: Maestro.medora,
+                quando: DateUtils.dateOnly(DateTime.now()),
+                responso: ResponsoDaCustodire(
+                  arte: 'angeli',
+                  titolo: 'I tuoi tre Angeli',
+                  testo: [
+                    'Angelo Custode, del corpo fisico: '
+                        '${triade.guardian.seedName}.',
+                    'Angelo del Cuore: ${triade.heart.seedName}.',
+                    if (triade.intellect != null)
+                      'Angelo dell\'Intelletto: '
+                          '${triade.intellect!.seedName}.',
+                  ].join('\n'),
+                  dati: {
+                    'custode': triade.guardian.slug,
+                    'cuore': triade.heart.slug,
+                    if (triade.intellect != null)
+                      'mente': triade.intellect!.slug,
+                  },
+                ),
+              ),
               ParagrafiDiLettura(
                   testo:
                       'La tradizione ne assegna tre, uno per ogni strato: il corpo, '

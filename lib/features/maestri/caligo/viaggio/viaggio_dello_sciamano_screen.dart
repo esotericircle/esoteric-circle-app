@@ -27,6 +27,7 @@ import '../../../maestri/rotta_arte.dart';
 import '../../../sigilli/regia_del_cammino.dart';
 import '../../widgets/foglio_delle_fonti.dart';
 import '../../../../core/maestro/maestro.dart';
+import '../../../ricordi/azioni_del_responso.dart';
 import 'il_tunnel_che_scende.dart';
 import 'la_discesa_in_video.dart';
 import 'il_segno_che_risponde.dart';
@@ -957,6 +958,26 @@ class _ViaggioDelloSciamanoScreenState
       _responso = responso;
       _fase = FaseDelViaggio.risalita;
     });
+    // **IL VIAGGIO ENTRA NEL DIARIO DA SE'. Ordine FE voce 22.6.** Fino al 6
+    // ottobre 2026 restava solo nel Diario dei Viaggi, sul telefono: il
+    // censimento dell'ordine lo ha trovato fuori dal Diario Cosmico.
+    unawaited(annotaNelDiario(
+      context,
+      maestro: Maestro.caligo,
+      responso: ResponsoDaCustodire(
+        arte: 'viaggio',
+        titolo: responso.titolo,
+        testo: [
+          responso.risposta,
+          ...responso.paragrafi,
+          if (responso.gesto.isNotEmpty) '✦ ${responso.gesto}',
+        ].where((t) => t.trim().isNotEmpty).join('\n\n'),
+        dati: {
+          if (responso.oggetto != null) 'oggetto': responso.oggetto!,
+        },
+      ),
+      quando: _adesso,
+    ));
     // **IL VERSO, NELL'ISTANTE IN CUI LA TESTA E' USCITA DAL VELO.**
     // Ordine DE voce 07. Una volta sola nella vita, e solo alla rivelazione:
     // le tre porte le tiene `IlVersoDellAnimale`, e se i dodici file non sono

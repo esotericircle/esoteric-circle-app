@@ -80,6 +80,129 @@ class ResponsoDaCustodire {
   final Map<String, String> dati;
 }
 
+/// **IL RESPONSO ENTRA NEL DIARIO DA SE', IN UN PUNTO SOLO. Ordine FE voce
+/// 22.6.** Il fondatore: *"Ogni consulto, ogni responso e ogni lettura
+/// prodotta dall'app entra nel Diario da sé, senza che l'utente prema
+/// niente."*
+///
+/// Fino al 6 ottobre 2026 l'annotazione partiva solo dall'`initState` di
+/// [AzioniDelResponso], cioe' quando la porta veniva costruita. Il
+/// censimento dell'ordine ha trovato due buchi: sei letture senza la porta
+/// (il Viaggio dello Sciamano, l'Angelo Custode, il Consiglio dei Maestri,
+/// l'Oroscopo della settimana, del mese e dell'anno, il Confronto del cielo,
+/// il Gemello della Sinastria) non entravano mai; e tre arti con la porta in
+/// fondo a un elenco pigro (la Stesa, la Sinastria, il Sigillo
+/// dell'Intenzione) entravano solo se la persona scorreva fino in fondo.
+/// Adesso la porta e [IlResponsoNelDiario] passano tutti da qui, con la
+/// stessa chiave (il minuto e l'arte): una voce sola anche quando li monta
+/// tutti e due.
+Future<bool> annotaNelDiario(
+  BuildContext context, {
+  required Maestro maestro,
+  required ResponsoDaCustodire responso,
+  required DateTime quando,
+}) async {
+  final RegistroDeiRicordi registro;
+  try {
+    registro = context.read<RegistroDeiRicordi>();
+  } catch (errore) {
+    // Un provider assente non spegne il responso: nelle prove che montano
+    // una schermata sola il registro puo' non esserci.
+    debugPrint('Diario: il registro non c\'è. $errore');
+    return false;
+  }
+  final ricordo = RicordoCustodito(
+    quando: quando,
+    arte: responso.arte,
+    maestro: maestro.id,
+    titolo: responso.titolo,
+    testo: responso.testo,
+    dati: responso.dati,
+    comeENato: ComeENato.gesto,
+  );
+  return registro.annotaIlResponso(
+    chiave: ricordo.chiave,
+    quando: quando,
+    arte: responso.arte,
+    maestro: maestro.id,
+    titolo: responso.titolo,
+    contenuto: ricordo.aMappa(),
+  );
+}
+
+/// **L'ISTANTE DI UN RESPONSO**, che e' la sua chiave nel Diario (il minuto e
+/// l'arte). Si lega al contenuto e non all'oggetto: in piu' arti il responso
+/// si ricompone a ogni disegno, e un oggetto nuovo darebbe un istante nuovo e
+/// una seconda voce. Lo stesso testo della stessa arte resta lo stesso
+/// responso; un testo nuovo e' un responso nuovo.
+class IstantiDeiResponsi {
+  IstantiDeiResponsi({DateTime Function()? orologio})
+      : _orologio = orologio ?? DateTime.now;
+
+  final DateTime Function() _orologio;
+  final Map<String, DateTime> _visti = {};
+
+  DateTime di(ResponsoDaCustodire responso) =>
+      _visti.putIfAbsent('${responso.arte}\n${responso.testo}', _orologio);
+}
+
+/// **IL RESPONSO NEL DIARIO SENZA LA PORTA.** Non si vede: si monta dove il
+/// responso compare, fuori da ogni elenco pigro, e lo annota appena
+/// costruito. Un responso nuovo (testo o istante diversi) si annota di
+/// nuovo; lo stesso, no.
+class IlResponsoNelDiario extends StatefulWidget {
+  const IlResponsoNelDiario({
+    super.key,
+    required this.maestro,
+    required this.responso,
+    this.quando,
+  });
+
+  final Maestro maestro;
+  final ResponsoDaCustodire responso;
+
+  /// L'istante in cui il responso e' nato: la stessa chiave della porta.
+  /// Nullo, lo fissa il widget quando nasce, e lo rifissa solo quando il
+  /// responso cambia: una schermata ridisegnata a ogni fotogramma non
+  /// annota una voce nuova a ogni minuto.
+  final DateTime? quando;
+
+  @override
+  State<IlResponsoNelDiario> createState() => _IlResponsoNelDiarioState();
+}
+
+class _IlResponsoNelDiarioState extends State<IlResponsoNelDiario> {
+  late DateTime _quando = widget.quando ?? DateTime.now();
+
+  void _annota() => WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (!mounted) return;
+        unawaited(annotaNelDiario(context,
+            maestro: widget.maestro,
+            responso: widget.responso,
+            quando: _quando));
+      });
+
+  @override
+  void initState() {
+    super.initState();
+    _annota();
+  }
+
+  @override
+  void didUpdateWidget(IlResponsoNelDiario vecchio) {
+    super.didUpdateWidget(vecchio);
+    final cambiato = vecchio.responso.arte != widget.responso.arte ||
+        vecchio.responso.testo != widget.responso.testo;
+    if (cambiato || vecchio.quando != widget.quando) {
+      _quando = widget.quando ?? (cambiato ? DateTime.now() : _quando);
+      _annota();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) => const SizedBox.shrink();
+}
+
 class AzioniDelResponso extends StatefulWidget {
   const AzioniDelResponso({
     super.key,
@@ -91,7 +214,13 @@ class AzioniDelResponso extends StatefulWidget {
     this.orologio,
     this.dorato = false,
     this.suChiaro = false,
+    this.quando,
   });
+
+  /// L'istante in cui il responso e' nato, quando l'arte lo annota anche
+  /// con [IlResponsoNelDiario]: la stessa chiave, una voce sola. Nullo, e'
+  /// l'istante in cui la porta compare.
+  final DateTime? quando;
 
   /// **SE QUESTE AZIONI STANNO SU UN FONDO CHIARO. Ordine CO voce 14**, 3
   /// settembre 2026, e nasce da uno scatto del fondatore.
@@ -166,7 +295,7 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
   /// Se nascesse a ogni tocco, custodire col gesto alle 9:00:59 e condividere
   /// alle 9:01:01 produrrebbe due chiavi diverse e due carte identiche nella
   /// griglia. Qui l'istante e' quello in cui il responso e' comparso.
-  late final DateTime _quando = _adesso;
+  late final DateTime _quando = widget.quando ?? _adesso;
 
   /// Il responso come lo riceve il Maestro, ordine EV voce 04.
   ResponsoDiOggi get _perIlMaestro => ResponsoDiOggi(
@@ -207,14 +336,9 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
     final gia = registro.vociDelMese(VoceDelRicordo.chiaveDelMese(_quando));
     final stella = gia.any((v) => v.chiave == ricordo.chiave && v.stella);
     if (stella && mounted) setState(() => _custodito = true);
-    await registro.annotaIlResponso(
-      chiave: ricordo.chiave,
-      quando: _quando,
-      arte: widget.responso.arte,
-      maestro: widget.maestro.id,
-      titolo: widget.responso.titolo,
-      contenuto: ricordo.aMappa(),
-    );
+    if (!mounted) return;
+    await annotaNelDiario(context,
+        maestro: widget.maestro, responso: widget.responso, quando: _quando);
   }
 
   @override

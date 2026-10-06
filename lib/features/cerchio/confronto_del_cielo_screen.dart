@@ -9,6 +9,8 @@ import '../../core/chat/user_profile.dart';
 import '../../core/entitlement/listino_degli_eos.dart';
 import '../../core/entitlement/question_allowance.dart';
 import '../../core/horoscope/horoscope.dart';
+import '../../core/maestro/maestro.dart';
+import '../ricordi/azioni_del_responso.dart';
 import '../../core/identity/profile_controller.dart';
 import '../../core/synastry/synastry_report.dart';
 import '../../design_system/theme/maestro_palette.dart';
@@ -280,6 +282,22 @@ class _IlConfronto extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(
             SpacingTokens.md, 0, SpacingTokens.md, SpacingTokens.xl),
         children: [
+          // **IL CONFRONTO ENTRA NEL DIARIO DA SE'. Ordine FE voce 22.6.**
+          // In cima all'elenco, che e' pigro: la riga del giorno sta in
+          // basso e non si costruirebbe finche' la persona non scorre.
+          IlResponsoNelDiario(
+            maestro: Maestro.medora,
+            responso: ResponsoDaCustodire(
+              arte: 'confronto',
+              titolo: 'Il tuo cielo e quello di $nomeSuo',
+              testo: '${confronto.affinita}%. '
+                  '${confronto.rigaDelGiorno(mio, suo)}',
+              dati: {
+                'amico': nomeSuo,
+                'affinita': '${confronto.affinita}',
+              },
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

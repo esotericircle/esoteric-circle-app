@@ -14,6 +14,7 @@ import os
 import shutil
 import subprocess
 import sys
+import time
 
 RADICE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(RADICE)
@@ -437,6 +438,22 @@ INNESTI = [
      '      model: leggera\n          ? kMaestroChatModel\n',
      'flutter test test/la_rete_della_coerenza_test.dart -r expanded',
      'passa dal controllore'),
+    # FE.22.6, ogni lettura entra nel Diario da se'.
+    ('A77', 'FE.22.6', 'lib/features/ricordi/azioni_del_responso.dart',
+     '  void initState() {\n    super.initState();\n    _annota();\n  }\n',
+     '  void initState() {\n    super.initState();\n  }\n',
+     'flutter test test/ogni_lettura_entra_nel_diario_test.dart -r expanded',
+     'entra senza scorrere'),
+    ('A78', 'FE.22.6', 'lib/features/ricordi/azioni_del_responso.dart',
+     '  late final DateTime _quando = widget.quando ?? _adesso;',
+     '  late final DateTime _quando = _adesso;',
+     'flutter test test/ogni_lettura_entra_nel_diario_test.dart -r expanded',
+     'entra senza scorrere'),
+    ('A79', 'FE.22.6', 'lib/features/angels/angels_screen.dart',
+     "                  arte: 'angeli',",
+     "                  arte: 'angelo',",
+     'flutter test test/ogni_lettura_entra_nel_diario_test.dart -r expanded',
+     'punto di annotazione'),
     # Regola B fatta DOPO il tocco della FE.07, e dichiarata: la guardia EG
     # del rifiuto del LIVE, che conta le ragioni e le loro frasi.
     ('B10', 'FE.07', 'lib/features/maestri/live/stato_della_schermata_live.dart',
@@ -502,13 +519,26 @@ def leggi(p):
     return io.open(p, encoding='utf-8', newline='').read()
 
 
+def con_pazienza(fai):
+    """Windows tiene a volte un file chiuso per qualche istante (Errno 22 o
+    13, mentre l'analizzatore o la suite lo leggono): si riprova per due
+    minuti prima di arrendersi. Il 6 ottobre 2026 lo strumento e' caduto due
+    volte cosi', a meta' innesto."""
+    for _ in range(240):
+        try:
+            return fai()
+        except OSError:
+            time.sleep(0.5)
+    return fai()
+
+
 def scrivi(p, s):
-    io.open(p, 'w', encoding='utf-8', newline='').write(s)
+    con_pazienza(lambda: io.open(p, 'w', encoding='utf-8', newline='').write(s))
 
 
 def un_innesto(sigla, voce, percorso, vecchio, nuovo, comando, bersaglio):
     copia = percorso + '.copia_regola_a'
-    shutil.copyfile(percorso, copia)
+    con_pazienza(lambda: shutil.copyfile(percorso, copia))
     try:
         dati = leggi(percorso)
         crlf = '\r\n' in dati
@@ -551,7 +581,7 @@ def un_innesto(sigla, voce, percorso, vecchio, nuovo, comando, bersaglio):
                     ' | '.join(cadute[:2]) if cadute else '(nessuna riga di caduta letta)',
                     ' | '.join(misure) if misure else '(nessuna)')
     finally:
-        shutil.copyfile(copia, percorso)
+        con_pazienza(lambda: shutil.copyfile(copia, percorso))
         os.remove(copia)
 
 

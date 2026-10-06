@@ -17,6 +17,7 @@ import '../../../core/maestro/consiglio_finale.dart';
 import '../../../core/maestro/consult_depth.dart';
 import '../../../core/maestro/frase_di_ripiego.dart';
 import '../../../core/maestro/maestro.dart';
+import '../../ricordi/azioni_del_responso.dart';
 import '../../../core/maestro/natal_context.dart';
 import '../../../core/maestro/sorgente_natale.dart';
 import '../../../core/maestro/tempi_dell_attesa.dart';
@@ -186,6 +187,9 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
       _lenses[lente.maestro] = lente;
       _pianificaLaMarca(lente.maestro);
     }
+    // Con i tre pareri gia' arrivati dalla conversazione non parte nessuna
+    // chiamata: il Consiglio entra nel Diario da qui (FE.22.6).
+    WidgetsBinding.instance.addPostFrameCallback((_) => _annotaIlConsiglio());
     // LA DOMANDA ARRIVA DA FUORI, e non si riscrive qui.
     //
     // Il campo di scrittura in cima e' stato tolto il 5 agosto 2026: nel
@@ -379,6 +383,38 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
     if (_orderedLenses.length > 1) {
       await _fetchSynthesis();
     }
+    _annotaIlConsiglio();
+  }
+
+  /// L'istante del Consiglio: la chiave della sua voce nel Diario.
+  DateTime? _quandoDelConsiglio;
+
+  /// **IL CONSIGLIO ENTRA NEL DIARIO DA SE'. Ordine FE voce 22.6.** Fino al
+  /// 6 ottobre 2026 entrava solo la chat che lo seguiva, se la persona
+  /// toccava "Continua con": i tre pareri e la sintesi restavano fuori.
+  /// Entra quando sono arrivati tutti e tre i pareri, con la sintesi, a nome
+  /// del Maestro da cui il Consiglio e' partito.
+  void _annotaIlConsiglio() {
+    final lenti = _orderedLenses;
+    if (!mounted || _theme == null || lenti.length < Maestro.values.length) {
+      return;
+    }
+    final quando = _quandoDelConsiglio ??= DateTime.now();
+    final sintesi = _aiSynthesis ?? widget.oracle.synthesisFor(_theme!, lenti);
+    unawaited(annotaNelDiario(
+      context,
+      maestro: widget.starter,
+      responso: ResponsoDaCustodire(
+        arte: 'consiglio',
+        titolo: _theme!,
+        testo: [
+          for (final l in lenti)
+            '${l.maestro.displayName}: ${l.reply.glance.trim().isNotEmpty ? l.reply.glance : l.reply.reading}',
+          sintesi,
+        ].join('\n\n'),
+      ),
+      quando: quando,
+    ));
   }
 
   /// Chiede a Gemini la Sintesi comparativa dalle lenti gia' ottenute; su

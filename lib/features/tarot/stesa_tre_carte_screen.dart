@@ -459,6 +459,9 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   /// responso puo' stare in albero, e prima no.
   bool _responsoPronto = false;
 
+  /// L'istante di ogni responso mostrato: la chiave nel Diario.
+  final _istanti = IstantiDeiResponsi();
+
   /// **LA LETTURA SCRITTA DAL MODELLO, ordine EQ voce 04.** Parte al tocco su
   /// "Leggi le Carte" e Medora la aspetta dentro la sua scena; nulla finche'
   /// non arriva, o se non regge: allora parla la lettura di casa.
@@ -1340,6 +1343,32 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
   }
 
   Widget _content(MaestroPalette palette) {
+    // **IL RESPONSO ENTRA NEL DIARIO DA SE'. Ordine FE voce 22.6.** La
+    // porta sta in fondo a un elenco pigro, che la costruisce solo
+    // quando la persona ci arriva: il responso si annota da
+    // IlResponsoNelDiario, primo figlio dell'elenco, con lo stesso
+    // istante della porta (una voce sola).
+    final perIlDiario = ResponsoDaCustodire(
+      arte: 'stesa',
+      titolo: 'La tua stesa a tre carte',
+      testo: _spread.reading,
+      dati: {
+        'carte': _spread.cards.map((c) => c.card.name).join(','),
+        // **IL VERSO SI CUSTODISCE. Ordine EC voce 05.** Il
+        // nome resta nudo perche' e' con quello che il
+        // Ricordo ritrova la carta nel mazzo; il verso viaggia
+        // accanto, uno per carta e nello stesso ordine. Una
+        // carta rovesciata custodita come dritta e' un altro
+        // responso, non una sfumatura.
+        // La parola del rovescio si prende da `reversedWord`, mai
+        // scritta a mano: e' accordata al genere della carta, ed e'
+        // l'unico punto in cui quella parola si ricava.
+        'versi': _spread.cards
+            .map((c) => c.reversed ? c.card.reversedWord : 'dritta')
+            .join(','),
+      },
+    );
+    final quando = _istanti.di(perIlDiario);
     return ListView(
       key: const Key('stesa_list'),
       // Sopra Medora c'era una fascia vuota che sprecava la parte migliore
@@ -1348,6 +1377,9 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
       padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, SpacingTokens.xs,
           SpacingTokens.lg, SpacingTokens.lg),
       children: [
+        if (_responsoPronto)
+          IlResponsoNelDiario(
+              maestro: Maestro.medora, responso: perIlDiario, quando: quando),
         // Medora presiede la stesa. Finche' si pesca sta piu' raccolta: il
         // protagonista in quel momento e' il ventaglio interattivo, e il
         // ventaglio che lei tiene in mano deve restare un dettaglio del
@@ -1815,26 +1847,8 @@ class StesaTreCarteScreenState extends State<StesaTreCarteScreen>
             palette: palette,
             maestro: Maestro.medora,
             dorato: true,
-            responso: ResponsoDaCustodire(
-              arte: 'stesa',
-              titolo: 'La tua stesa a tre carte',
-              testo: _spread.reading,
-              dati: {
-                'carte': _spread.cards.map((c) => c.card.name).join(','),
-                // **IL VERSO SI CUSTODISCE. Ordine EC voce 05.** Il
-                // nome resta nudo perche' e' con quello che il
-                // Ricordo ritrova la carta nel mazzo; il verso viaggia
-                // accanto, uno per carta e nello stesso ordine. Una
-                // carta rovesciata custodita come dritta e' un altro
-                // responso, non una sfumatura.
-                // La parola del rovescio si prende da `reversedWord`, mai
-                // scritta a mano: e' accordata al genere della carta, ed e'
-                // l'unico punto in cui quella parola si ricava.
-                'versi': _spread.cards
-                    .map((c) => c.reversed ? c.card.reversedWord : 'dritta')
-                    .join(','),
-              },
-            ),
+            responso: perIlDiario,
+            quando: quando,
             condividi: _onShare,
             // **LA CHAT RICEVE LA DOMANDA E IL VERSO. Ordine EB voce 01.**
             // Qui passavano i soli `c.card.name`: tre nomi nudi, senza la

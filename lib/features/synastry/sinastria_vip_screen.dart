@@ -131,6 +131,9 @@ class SinastriaVipScreen extends StatefulWidget {
 
 class SinastriaVipScreenState extends State<SinastriaVipScreen>
     with SingleTickerProviderStateMixin {
+  /// L'istante di ogni responso mostrato: la chiave nel Diario.
+  final _istanti = IstantiDeiResponsi();
+
   /// **IL VIP SEGUE IL WIDGET, e prima non lo faceva.** Era `late final`,
   /// quindi lo State restava sul primo VIP anche se il widget ne portava un
   /// altro. Nell'app non mordeva, perche' la schermata si apre sempre come
@@ -741,11 +744,28 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
   // subito e non arriva per ultima.
 
   Widget _content(MaestroPalette palette, SynastryReport report) {
+    // **IL RESPONSO ENTRA NEL DIARIO DA SE'. Ordine FE voce 22.6.** La
+    // porta sta in fondo a un elenco pigro, che la costruisce solo
+    // quando la persona ci arriva: il responso si annota da
+    // IlResponsoNelDiario, primo figlio dell'elenco, con lo stesso
+    // istante della porta (una voce sola).
+    final perIlDiario = ResponsoDaCustodire(
+      arte: 'sinastria',
+      titolo: 'La tua sinastria con ${_vip.name}',
+      testo: report.reading,
+      dati: {
+        'vip': _vip.name,
+        'punteggio': '${report.overall}',
+      },
+    );
+    final quando = _istanti.di(perIlDiario);
     return ListView(
       key: const Key('sinastria_list'),
       padding: const EdgeInsets.fromLTRB(SpacingTokens.lg, kToolbarHeight,
           SpacingTokens.lg, SpacingTokens.xxxl),
       children: [
+        IlResponsoNelDiario(
+            maestro: Maestro.medora, responso: perIlDiario, quando: quando),
         // **QUANTE SINASTRIE TI RESTANO, ordine CE voce 04.** Parole del
         // fondatore: "in sinastria vip, non avevo chiesto che doveva esserci
         // il conteggio delle sinastrie rimaste? l'utente deve Sapere quante ne
@@ -1103,15 +1123,8 @@ class SinastriaVipScreenState extends State<SinastriaVipScreen>
           palette: palette,
           maestro: Maestro.medora,
           dorato: true,
-          responso: ResponsoDaCustodire(
-            arte: 'sinastria',
-            titolo: 'La tua sinastria con ${_vip.name}',
-            testo: report.reading,
-            dati: {
-              'vip': _vip.name,
-              'punteggio': '${report.overall}',
-            },
-          ),
+          responso: perIlDiario,
+          quando: quando,
           condividi: _onShare,
           aperturaDellaChat: ChatOpeners.sinastria(_vip.name, report.overall),
         ),

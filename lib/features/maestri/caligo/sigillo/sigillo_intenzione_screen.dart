@@ -90,6 +90,9 @@ enum _Fase { soglia, scrittura, tracciamento, rivelazione }
 
 class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
     with SingleTickerProviderStateMixin {
+  /// L'istante di ogni responso mostrato: la chiave nel Diario.
+  final _istanti = IstantiDeiResponsi();
+
   final TextEditingController _campo = TextEditingController();
 
   /// Il fuoco del campo: il pulsante ci porta il cursore quando manca la
@@ -734,9 +737,25 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
     final cammino = IntentionSigil.cammino(_testoDelSegno);
     final testi = _testi;
 
+    // **IL RESPONSO ENTRA NEL DIARIO DA SE'. Ordine FE voce 22.6.** La
+    // porta sta in fondo a un elenco pigro, che la costruisce solo
+    // quando la persona ci arriva: il responso si annota da
+    // IlResponsoNelDiario, primo figlio dell'elenco, con lo stesso
+    // istante della porta (una voce sola).
+    final perIlDiario = ResponsoDaCustodire(
+      arte: 'sigillo',
+      titolo: testi?.titolo ?? 'Il tuo sigillo: ${sigillo.via.nome}',
+      testo: sigillo.intenzione,
+      dati: {'via': sigillo.via.nome},
+    );
+    final quando = _istanti.di(perIlDiario);
+
     return ListView(
       key: const Key('sigillo_scena'),
       children: [
+        if (finito)
+          IlResponsoNelDiario(
+              maestro: Maestro.caligo, responso: perIlDiario, quando: quando),
         const SizedBox(height: SpacingTokens.lg),
         AspectRatio(
           aspectRatio: 1,
@@ -845,12 +864,8 @@ class _SigilloIntenzioneScreenState extends State<SigilloIntenzioneScreen>
           AzioniDelResponso(
             palette: palette,
             maestro: Maestro.caligo,
-            responso: ResponsoDaCustodire(
-              arte: 'sigillo',
-              titolo: testi?.titolo ?? 'Il tuo sigillo: ${sigillo.via.nome}',
-              testo: sigillo.intenzione,
-              dati: {'via': sigillo.via.nome},
-            ),
+            responso: perIlDiario,
+            quando: quando,
             aperturaDellaChat: ChatOpeners.sigillo(sigillo.intenzione),
           ),
           const SizedBox(height: SpacingTokens.lg),
