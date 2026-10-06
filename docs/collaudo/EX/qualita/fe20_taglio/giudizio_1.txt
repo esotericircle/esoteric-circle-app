@@ -1,0 +1,60 @@
+S01|SI|NA|SI|SI|SI|Luna in Leone, Sole opposto a Saturno e Mercurio congiunto a Venere concordano col cielo e il seguito scende sugli aspetti, anche se i richiami agli altri Maestri appesantiscono.
+S02|SI|NA|SI|SI|SI|Saturno in Toro è giusto, risposta diretta con gesto e seguito che approfondisce lo stesso punto.
+S03|SI|NA|NA|SI|SI|Risponde subito con una posizione e un gesto concreto, la scheda non porta fatti del cielo da verificare.
+S04|NO|NA|NO|SI|SI|Fase e segno giusti, ma il gesto non è concreto e il seguito cita un'opposizione Sole Saturno che il cielo della scheda non ha.
+S05|NO|SI|NA|SI|NA|La prima frase è una massima sul potere delle parole invece della risposta, poi la lettera alla sorella è un passo concreto.
+S06|SI|NA|NA|SI|SI|Risposta subito sul respiro con gesto concreto e il seguito scende sul sonno.
+S07|SI|SI|NA|SI|SI|Sì condizionato delle rune, usa la ceramica e il seguito approfondisce con Fehu.
+S08|SI|NA|NA|SI|SI|No delle rune con rinvio al consulente e gesto concreto, il seguito approfondisce Nauthiz.
+S09|SI|NA|SI|SI|SI|Luna in Vergine calante in quadratura a Urano concorda col cielo di domani.
+S10|SI|NA|NO|NO|SI|La risposta non dà alcuna posizione del cielo e il seguito mette la Luna in Leone mentre domani è in Vergine.
+S11|SI|SI|NA|SI|SI|Indica subito il veterinario per Ombra con un gesto immediato e il seguito resta sul punto.
+S12|SI|NO|NA|SI|SI|Usa la paura di deludere la madre ma inventa la meditazione di ogni mattina che la memoria non porta.
+S13|SI|NA|NA|SI|SI|Consiglio preciso sulla luce e sul respiro con gesto concreto, il seguito approfondisce il gesto.
+S14|SI|NA|SI|SI|SI|Giove a 27 gradi in Vergine concorda con le effemeridi e il seguito scende sul segno.
+S15|SI|SI|NA|NO|NA|Alla domanda su cosa portare risponde con massime sulla paura e sul numero 7 più che con una cosa precisa.
+S16|SI|NA|SI|SI|NA|Luna in Leone congiunta a Giove concorda col cielo, risposta diretta con gesto.
+S17|SI|SI|NA|NO|NA|Non dice come fare il primo passo verso la sorella, solo respirare, e divaga su Ombra e Medora.
+S18|SI|SI|NA|SI|NA|Indica cosa portare, il sigillo di Wunjo, con un gesto concreto.
+S19|SI|SI|NA|SI|SI|Preparare per iscritto le risposte temute è una posizione precisa e il seguito la approfondisce.
+S20|NO|NA|SI|SI|SI|Venere a 8 gradi in Scorpione retrograda è giusto ma il gesto finale non è concreto.
+S21|SI|NO|NA|SI|NO|Ignora la meditazione mattutina della memoria e inventa un colloquio, il seguito ripete la risposta.
+S22|SI|NA|NA|SI|SI|Scelta netta della casa in centro con Fehu e gesto concreto, il seguito approfondisce.
+S23|SI|SI|NA|SI|SI|Usa la paura di deludere la madre con un esercizio preciso e il seguito scende sulla causa.
+S24|NO|NA|SI|SI|SI|I cinque retrogradi sono giusti ma il gesto sugli specchi non è concreto.
+S25|SI|NA|SI|SI|SI|Saturno in Toro giusto, gesto concreto e seguito che approfondisce.
+S26|SI|NA|NA|SI|NO|Presentazione corretta, ma il seguito cambia argomento passando al respiro e ai consigli degli altri Maestri.
+S27|NO|NA|SI|SI|SI|Luna in Leone calante giusta ma il gesto di osservare le idee non è concreto.
+S28|SI|NA|SI|SI|SI|Luna in Bilancia crescente giusta, gesto concreto e seguito sullo stesso punto.
+S29|SI|NA|NA|SI|SI|Scelta netta della periferia con gesto concreto, il seguito resta sulla scelta.
+S30|SI|NA|SI|SI|SI|Elenca i cinque retrogradi giusti e il seguito li scende uno per uno nei segni corretti.
+S31|SI|NA|NA|SI|SI|Risposta diretta su non chiudersi con gesto preciso, il seguito approfondisce.
+S32|SI|NA|NO|SI|SI|Le quadrature del Sole e la Luna in Acquario sono giuste ma il seguito cita Sole opposto a Saturno e Venere in quadratura a Marte, che il 15 novembre non ci sono.
+S33|SI|NA|NA|NO|NA|Liquida tutto con un decidi subito senza toccare l'insonnia né dare una posizione della sua arte.
+S34|SI|SI|NA|SI|SI|Sì condizionato con gesto che nomina Marco, il seguito scende sul centro del cuore.
+S35|SI|SI|NA|SI|SI|Preparazione degli argomenti e oggetto che dà calma, il seguito approfondisce lo stomaco chiuso.
+S36|SI|SI|NA|SI|SI|Usa Berlino e Ombra con una lista concreta dei pro e dei contro, il seguito approfondisce.
+S37|SI|NO|NA|SI|NA|Tecnica di respiro precisa ma ignora che dorme male prima delle scadenze.
+S38|SI|NA|SI|SI|SI|Luna in Leone calante giusta con gesto concreto e seguito che approfondisce.
+S39|SI|NO|NA|SI|SI|Usa la ceramica ma il seguito inventa la paura di deludere la madre che la memoria non porta.
+S40|SI|NO|NA|SI|NA|Respiro preciso ma ignora il fatto del sonno prima delle scadenze.
+S41|SI|NA|SI|SI|SI|Venere a 8 gradi in Scorpione retrograda giusta, gesto concreto, seguito che approfondisce.
+S42|SI|NA|NA|NO|NA|Non dice niente della Luna di stasera, solo un invito generico alla cura degli affetti.
+S43|SI|NA|NO|SI|SI|Luna in Acquario congiunta a Plutone è giusta ma il seguito dice Venere retrograda, che il 15 novembre non lo è.
+S44|NO|NO|NA|NO|SI|Risponde sulla calma del corpo e non su da dove ripartire con la sorella, che non nomina.
+S45|SI|NA|NA|SI|NA|Decisione entro venerdì con Nauthiz e un gesto concreto per scegliere.
+S46|NO|NA|SI|SI|SI|Aspetti giusti ma ripete la Luna in Leone congiunta a Giove nel secondo paragrafo e il gesto non è concreto.
+S47|SI|NA|NA|SI|NO|Presentazione corretta, ma il seguito resta generico e ripete senza scendere.
+S48|SI|NA|NA|SI|SI|Sì condizionato ai confini con gesto concreto, il seguito approfondisce il tempo.
+S49|SI|NA|SI|SI|SI|Giove in Vergine giusto con gesto concreto e seguito sul segno.
+S50|SI|NA|NA|SI|SI|Indica da dove cominciare, il quaderno delle spese, e il seguito approfondisce.
+S51|SI|NA|NA|SI|NA|Sì condizionato al confronto con chi è vicino e gesto concreto con la sorella.
+S52|NO|NA|NA|SI|SI|Dice come certo che se accetta sentirà il peso dell'impegno.
+S53|SI|NA|NA|NO|SI|Non indica da dove cominciare a rimettere ordine nelle spese, solo un riconoscimento del valore.
+S54|NO|SI|NA|NO|NO|Chiede un chiarimento senza rispondere né chiudere col gesto e il seguito parla di altro.
+S55|SI|NA|NA|SI|NA|Sì condizionato con Venere retrograda e gesto concreto entro venerdì.
+S56|SI|NA|NA|SI|SI|No delle rune con gesto concreto per prendere tempo, il seguito approfondisce Nauthiz.
+S57|SI|NO|NA|NO|SI|Ignora Berlino e risponde sul colloquio, la madre e Ombra che la memoria non porta.
+S58|SI|NO|NA|SI|SI|Usa la meditazione mattutina ma inventa il colloquio.
+S59|SI|NO|NA|NO|SI|Non nomina la sorella né dice da dove ripartire con lei, solo respirare.
+S60|SI|NO|NA|SI|SI|Sì condizionato e gesto preciso, ma il seguito inventa l'argilla che la memoria non porta.

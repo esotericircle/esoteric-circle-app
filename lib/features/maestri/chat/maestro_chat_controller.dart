@@ -580,6 +580,20 @@ class MaestroChatController extends ChangeNotifier {
   Future<void> init() async {
     // Ordine FE voce 09: il filo del consulto in corso, se c'e'.
     await IlFiloDelConsulto.carica();
+    // **IL CIELO SI PREPARA QUANDO LA CHAT SI APRE. Ordine FE voci 05 e 06.**
+    // Su Firebase Test Lab, Galaxy A16 5G (il piu' lento dei telefoni con
+    // hardware uguale o inferiore al Redmi Note 14 Pro 5G), il primo turno
+    // fermava il filo fino a 111 ms mentre l'isolate calcolava gli eventi
+    // in arrivo: i turni dopo, col cielo pronto, restavano sotto i 35 ms
+    // (docs/collaudo/FE/test_lab/). Il LIVE si apre da una chat, quindi il
+    // suo primo turno trova il cielo gia' pronto. Non si aspetta: la chat
+    // non resta ferma per un dato che le serve solo dopo.
+    final natal = _natal?.call();
+    if (natal != null) {
+      unawaited(MaestroPersona.preparaIlCielo(natal).catchError(
+          (Object errore) =>
+              annotaGuastoInnocuo('il cielo non si prepara', errore)));
+    }
     try {
       final results = await Future.wait([
         _memory.loadProfile(),

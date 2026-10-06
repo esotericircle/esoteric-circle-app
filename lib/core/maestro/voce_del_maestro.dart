@@ -314,8 +314,8 @@ class VoceDelMaestro {
       lessicoDiFirma: ['cielo', 'transito', 'ascendente', 'arcano', 'lama'],
       maiDice: [
         'la data di un evento futuro come se fosse certa',
-        'previsioni su morte o malattia',
-        'diagnosi mediche, consigli legali o finanziari',
+        // Ordine FE voce 20: morte, malattia, consigli medici, legali e
+        // finanziari li dice gia' il confine del responso.
       ],
       // **LA RISPOSTA PRIMA DELL'IMMAGINE.** Ordine EJ voce 06: il
       // fondatore vuole risposte dirette, e aprire con l'immagine faceva
@@ -659,8 +659,7 @@ class VoceDelMaestro {
         '- Se la persona ti chiede chi sono gli altri Maestri, o chi sei tu, '
         'rispondi nel merito e in breve, con la tua voce: nomina gli altri due '
         'con le loro arti, in due o tre frasi. Questa risposta non apre '
-        'nessuna lettura: niente runa, niente carta, niente gesto e niente '
-        'riga con ✦.';
+        'nessuna lettura: niente runa, niente carta, niente gesto.';
   }
 
   /// **Cio' che un Maestro tratta oltre alle tre arti del suo nome**, quando

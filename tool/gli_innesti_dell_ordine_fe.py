@@ -193,6 +193,11 @@ INNESTI = [
      "'Nel Consiglio la persona ti ha chiesto: «$theme».'));\n    if (!mounted) return;",
      'flutter test test/ask_maestri_test.dart -r expanded',
      'Chiusura del cerchio'),
+    ('A32', 'FE.05', 'lib/features/maestri/chat/maestro_chat_controller.dart',
+     '    if (natal != null) {\n      unawaited(MaestroPersona.preparaIlCielo(natal).catchError(',
+     '    if (false) {\n      unawaited(MaestroPersona.preparaIlCielo(natal!).catchError(',
+     'flutter test test/la_chat_prepara_il_cielo_test.dart -r expanded',
+     'il cielo diventa pronto'),
     # Regola B fatta DOPO il tocco della FE.07, e dichiarata: la guardia EG
     # del rifiuto del LIVE, che conta le ragioni e le loro frasi.
     ('B10', 'FE.07', 'lib/features/maestri/live/stato_della_schermata_live.dart',

@@ -67,8 +67,9 @@ class MaestroPersona {
       // gli asterischi attorno a Laguz. Il divieto vive in
       // TestoDelResponso.vincoloDiFormato, come fatto tecnico e in un blocco
       // suo: non e' stile, e' cosa sa fare la superficie che mostra il testo.
-      ..writeln(
-          '- Il livello visivo lo cura l\'app: tu scrivi solo la voce, senza emoji.')
+      // Ordine FE voce 20: il resto della riga ripeteva il segno grafico
+      // dell'app (piu' sotto) e il vincolo di formato.
+      ..writeln('- Niente emoji.')
       ..writeln()
       // **LA LEGGE DEL RESPONSO, ordine S voce 15.** Arriva dal punto unico in
       // cui e' scritta: il responso parte dalla domanda della persona, e il
@@ -122,8 +123,8 @@ class MaestroPersona {
       // riconoscere la domanda fuori dominio e indicare il Maestro giusto:
       // Calìgo apriva con Medora e non rispondeva. La regola intera sta nel
       // blocco del cerchio, `VoceDelMaestro.ilCerchio`.
-      ..writeln(
-          '- Se una domanda tocca anche il dominio di un altro Maestro, rispondi lo stesso nel merito con la tua arte; solo in fondo, in una frase, puoi indicare per nome il Maestro giusto del cerchio: Medora, Aura o Calìgo, nessun altro.')
+      // **TAGLIATA, ordine FE voce 20, 6 ottobre 2026**: era una copia; il costo del filo
+      // si paga togliendo il ripetuto (docs/collaudo/FE/costo/mappa_delle_ripetizioni.md).
       // **UNA DOMANDA NON SI RIFIUTA PER UN DETTAGLIO. Ordine EN voce 05.**
       // "Mia moglie mi ha lasciato con l'avvocato. Cosa posso fare per farla
       // tornare?" e Medora in chat: "La tua domanda sulla moglie esula dal
@@ -220,15 +221,12 @@ class MaestroPersona {
       // una parola di firma cambia, il divieto la segue da solo.
       ..writeln(VoceDelMaestro.titoloDelLessicoVietato)
       ..writeln('${VoceDelMaestro.lessicoDegliAltri(maestro).join(', ')}. '
-          'Sono le firme degli altri due. Se una di queste ti viene, anche '
-          'in un inciso o in una metafora, riscrivi la frase con una '
-          'parola tua: chi legge deve riconoscere te.')
+          'Sono le firme degli altri due, nemmeno in un inciso o in una '
+          'metafora.')
       ..writeln()
       ..writeln('CIÒ CHE NON DICI MAI:')
       ..writeln('- Le arti degli altri due Maestri del cerchio: '
-          '${altrui.join(', ')}. Non le usi mai. Se la domanda cade lì, '
-          'rispondi con la tua arte e solo in fondo, in una frase, indica il '
-          'Maestro giusto chiamandolo per nome.');
+          '${altrui.join(', ')}. Non le usi mai.');
     for (final mai in voce.maiDice) {
       buffer.writeln('- $mai.');
     }
@@ -299,10 +297,9 @@ class MaestroPersona {
       // sole" piu' sotto: il giudice del collaudo, che guarda le prime due,
       // bocciava risposte con una prima frase diretta e il cielo nella
       // seconda. Un conflitto fra istruzioni si cura togliendo.
-      ..write('- Le tue prime due frasi rispondono alla domanda: che cosa '
-          'fare e poi come o quando. Il cielo o il simbolo vengono dopo, a '
-          'dire '
-          'perché. Mai aprire dall\'emozione della persona rispecchiata a '
+      // Ordine FE voce 20: la prima meta' della riga ripeteva l'apertura
+      // di ciascun Maestro, poche righe sopra.
+      ..write('- Mai aprire dall\'emozione della persona rispecchiata a '
           'parole.');
     return buffer.toString();
   }
@@ -931,9 +928,8 @@ class MaestroPersona {
   /// Maestro scrive una volta sola, e cio' che conta e' che le prime frasi
   /// reggano da sole, perche' molte persone leggeranno solo quelle.
   static const String regolaDeiDueStrati = 'COME SI APRE LA RISPOSTA:\n'
-      '- Le prime due o tre frasi devono reggere da sole: chi legge solo '
-      'quelle deve avere una risposta intera, non un\'introduzione.\n'
-      '- Quello che viene dopo scende più giù sullo stesso ancoraggio, senza '
+      '- Quello che viene dopo le prime frasi scende più giù sullo stesso '
+      'ancoraggio, senza '
       'ricominciare da capo e senza ripetere con altre parole ciò che hai '
       'appena detto.';
 

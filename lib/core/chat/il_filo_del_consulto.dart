@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../maestro/consiglio_finale.dart';
 import '../maestro/maestro.dart';
+import '../../services/ai/registro_dei_guasti.dart';
 import 'chat_message.dart';
 import 'i_responsi_di_oggi.dart';
 
@@ -150,8 +151,10 @@ abstract final class IlFiloDelConsulto {
       if (grezzo != null) {
         _scheda = SchedaDeiPuntiFermi.fromJson(jsonDecode(grezzo));
       }
-    } catch (_) {
-      // Una scheda illeggibile vale come nessuna scheda.
+    } catch (errore) {
+      // Ignorato di proposito: una scheda illeggibile vale come nessuna
+      // scheda, e il consulto riparte pulito invece di fermare la chat.
+      annotaGuastoInnocuo('la scheda del consulto non si legge', errore);
     }
   }
 
@@ -164,7 +167,11 @@ abstract final class IlFiloDelConsulto {
       } else {
         await p.setString(_chiave, jsonEncode(s.toJson()));
       }
-    } catch (_) {}
+    } catch (errore) {
+      // Ignorato di proposito: la scheda vive comunque in memoria per
+      // l'ora del consulto; se non si salva, si perde solo alla riapertura.
+      annotaGuastoInnocuo('la scheda del consulto non si salva', errore);
+    }
   }
 
   /// Il nucleo di una risposta: la prima frase, che e' la risposta col suo
