@@ -328,6 +328,33 @@ void main() {
     IlFiloDelConsulto.dimentica();
   });
 
+  testWidgets('FE.23: il filo in cima, aperto, coi pareri di chi ha parlato',
+      (tester) async {
+    // La richiesta del fondatore del 5 ottobre 2026: "in alto la domanda
+    // dell'utente venga ripetuta [...] e magari aggiungere cosa ha risposto
+    // il maestro precedente". Lo stesso consulto della FE.14, testi veri dal
+    // banco del filo, col filo toccato e aperto.
+    IlFiloDelConsulto.dimentica();
+    IlFiloDelConsulto.annota(
+        maestro: Maestro.medora,
+        domanda: _domanda,
+        risposta: _rispostaDiMedora);
+    await laChat(tester,
+        maestro: Maestro.caligo,
+        ai: _VoceConUnTesto(_rispostaDiCaligo),
+        apriIlMenu: false);
+    await passa(tester, 4);
+    expect(find.byKey(const Key('filo_in_cima_chiusa')), findsOneWidget);
+    await tester.tap(find.byKey(const Key('filo_in_cima')));
+    await passa(tester, 6);
+    expect(find.byKey(const Key('filo_in_cima_chiusa')), findsNothing,
+        reason: 'il tocco non ha aperto il filo');
+    expect(find.byKey(const Key('filo_in_cima_medora')), findsOneWidget,
+        reason: 'aperto, il filo non mostra il parere di Medora');
+    await scatta(tester, 'fe23_il_filo_aperto');
+    IlFiloDelConsulto.dimentica();
+  });
+
   testWidgets('FE.22.1: il menu\' della chat coi nomi nuovi', (tester) async {
     await laChat(tester);
     expect(find.text('Nuova chat'), findsOneWidget);
