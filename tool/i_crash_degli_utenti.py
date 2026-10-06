@@ -34,9 +34,17 @@ def l_app():
             == 'com.esotericircle.esoteric_circle'][0]
 
 
+# L'app iOS, ordine FE voce 04: il suo GoogleService-Info.plist non sta nel
+# repo (lo scrive Codemagic), e l'id viene dall'API di gestione di Firebase,
+# letto il 6 ottobre 2026 (app ACTIVE).
+APP_IOS = '1:425821975933:ios:02367eef4fafaaf0940814'
+SU_IOS = False
+
+
 def chiedi(percorso, gettone):
+    app = APP_IOS if SU_IOS else l_app()
     base = ('https://firebasecrashlytics.googleapis.com/v1alpha/projects/'
-            f'esoteric-circle/apps/{l_app()}')
+            f'esoteric-circle/apps/{app}')
     r = urllib.request.Request(base + percorso, headers={
         'Authorization': 'Bearer ' + gettone,
         'x-goog-user-project': 'esoteric-circle'})
@@ -48,12 +56,16 @@ def main():
     a = argparse.ArgumentParser()
     a.add_argument('--build')
     a.add_argument('--stack')
+    a.add_argument('--ios', action='store_true',
+                   help="l'app iOS invece di quella Android")
     args = a.parse_args()
+    global SU_IOS
+    SU_IOS = args.ios
     gettone = subprocess.run('gcloud auth print-access-token', shell=True,
                              capture_output=True, text=True).stdout.strip()
     if not gettone:
         raise SystemExit('gcloud non ha dato un gettone')
-    problemi = chiedi('/reports/topIssues?page_size=50', gettone)['groups']
+    problemi = chiedi('/reports/topIssues?page_size=50', gettone).get('groups', [])
     for g in problemi:
         i = g['issue']
         eventi = chiedi(f"/events?filter.issue.id={i['id']}&page_size=100",
