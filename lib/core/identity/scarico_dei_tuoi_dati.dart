@@ -97,6 +97,8 @@ class ScaricoDeiTuoiDati {
     'chat.titoli.': 'I titoli delle tue conversazioni con i Maestri',
     'chat.cancellate.':
         'Le conversazioni che hai cancellato dal menu della chat',
+    'consulto.':
+        'La scheda del consulto in corso: la tua domanda e i pareri dei Maestri',
     'ingresso.': 'L\'indirizzo a cui il Cerchio ha mandato il link d\'ingresso',
     // Ordine EP voce 06: come si cancellano cosi' si scaricano.
     'arti_del_giorno.': 'Le arti del giorno che hai aperto oggi',

@@ -121,6 +121,8 @@ abstract final class LeMemorieCustodite {
     'maestro.': 'la rotazione dei saluti dei Maestri, una cosa della '
         'schermata',
     'chat.cancellate.': 'le conversazioni in attesa che il server le tolga',
+    'consulto.': 'la scheda del consulto in corso, che vive un’ora: '
+        'dopo una reinstallazione il consulto è comunque nuovo',
     'ingresso.': 'l\'indirizzo a cui questo telefono ha mandato il link',
     'arti_del_giorno.': 'le arti aperte oggi, per il puntino d\'oro',
     'push.': 'il gettone delle notifiche di questo telefono',
