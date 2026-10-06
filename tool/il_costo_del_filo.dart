@@ -4,6 +4,7 @@ import 'dart:io';
 
 import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/chat/il_filo_del_consulto.dart';
+import 'package:esoteric_circle/core/chat/la_rete_della_coerenza.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
 import 'package:esoteric_circle/core/config/la_regione_dei_dati.dart';
@@ -32,6 +33,14 @@ import 'package:flutter_test/flutter_test.dart';
 /// alla lettura alla cieca sbagliava il cielo 3 volte su 10, e nessuna
 /// risposta deve peggiorare.
 ///
+/// **LA RETE DELLA COERENZA E I TRE MAESTRI.** Dal 6 ottobre 2026 (ordine
+/// FE voci 10, 13 e 17) il costo "dopo" comprende la rete della coerenza,
+/// che parte nei turni dove ha gia' parlato un altro Maestro: la stessa
+/// funzione di `lib`, con Flash-Lite, e la correzione quando la chiede. Un
+/// secondo test misura un consulto che passa per tre Maestri, per dire di
+/// quanto cresce l'ingresso a ogni Maestro in piu' (voce 13: riceve la
+/// scheda, non le battute).
+///
 /// ```
 /// flutter test tool/il_costo_del_filo.dart
 /// ```
@@ -46,12 +55,53 @@ void main() {
   // Prezzi di gemini-2.5-flash in dollari per milione di token, ordine DJ
   // voce 03; l'ingresso in cache al 10 per cento, ordine EW.
   const pIn = 0.30, pCache = 0.03, pOut = 2.50;
+  // Flash-Lite, la rete: tool/i_conti_del_costo_ew.py, ordine EW.
+  const pInLite = 0.10, pCacheLite = 0.01, pOutLite = 0.40;
+  double costoDi(_Esito e, {bool lite = false}) => lite
+      ? ((e.ingresso - e.cache) * pInLite +
+              e.cache * pCacheLite +
+              e.uscita * pOutLite) /
+          1e6
+      : ((e.ingresso - e.cache) * pIn + e.cache * pCache + e.uscita * pOut) /
+          1e6;
+
+  /// La rete come nel controllore: torna il costo della rete e della
+  /// correzione, se c'e' stata, e la risposta che la persona legge.
+  Future<(double, String, bool)> conLaRete(Maestro chi,
+      List<ChatMessage> storia, String domanda, String risposta) async {
+    var costo = 0.0;
+    final correzione = await LaReteDellaCoerenza.controlla(
+      chi: chi,
+      storia: storia,
+      risposta: risposta,
+      chiamata: (istr, testo) async {
+        final e = await _rete(istr, testo);
+        costo += costoDi(e, lite: true);
+        return e.testo;
+      },
+    );
+    if (correzione == null) return (costo, risposta, false);
+    final e = await _chiama(
+        chi,
+        const [],
+        'LA DOMANDA DELLA PERSONA:\n$domanda\n\n'
+            'LA TUA RISPOSTA DA CORREGGERE:\n$risposta',
+        '',
+        istruzione: MaestroPersona.istruzioneDellaCorrezione(
+            maestro: chi,
+            profile: UserProfile.empty,
+            correzione: correzione,
+            nelLive: false));
+    return (costo + costoDi(e), e.testo, true);
+  }
 
   test('il costo del filo su dieci consulti', () async {
     HttpOverrides.global = null;
     final righe = <String>[];
     final stato1 = <int>[], stato2 = <int>[], stato3 = <int>[];
     final costoPrima = <double>[], costoDopo = <double>[];
+    final costoRete = <double>[];
+    var correzioni = 0;
     for (final (i, tema) in temi.indexed) {
       final primo = Maestro.values[i % 3];
       for (final passa in [false, true]) {
@@ -76,17 +126,24 @@ void main() {
         // Stato 2: col filo.
         final filo = IlFiloDelConsulto.bloccoPer(secondo, storia: storia);
         final con = await _chiama(secondo, storia, d2, filo);
+        final (rete2, testo2, corretta2) =
+            await conLaRete(secondo, storia, d2, con.testo);
+        if (corretta2) correzioni++;
         IlFiloDelConsulto.annota(
-            maestro: secondo, domanda: d2, risposta: con.testo);
+            maestro: secondo, domanda: d2, risposta: testo2);
         // Stato 3: il turno dopo, col filo, nel consulto vero.
         final storia3 = [
           ...storia,
           ChatMessage(role: ChatRole.user, text: d2),
-          ChatMessage(role: ChatRole.maestro, text: con.testo),
+          ChatMessage(role: ChatRole.maestro, text: testo2),
         ];
         const d3 = 'E se le cose non vanno come speri?';
         final dopo = await _chiama(secondo, storia3, d3,
             IlFiloDelConsulto.bloccoPer(secondo, storia: storia3));
+        final (rete3, _, corretta3) =
+            await conLaRete(secondo, storia3, d3, dopo.testo);
+        if (corretta3) correzioni++;
+        costoRete.add(rete2 + rete3);
         // Lo stesso terzo turno senza il filo, sulla catena senza filo.
         final dopoSenza = await _chiama(
             secondo,
@@ -112,7 +169,9 @@ void main() {
             costo(dopoSenza, conCache: true);
         final dopoIlFilo = costo(r1, conCache: true) +
             costo(con, conCache: true) +
-            costo(dopo, conCache: true);
+            costo(dopo, conCache: true) +
+            rete2 +
+            rete3;
         costoPrima.add(prima);
         costoDopo.add(dopoIlFilo);
         final riga = 'consulto ${righe.length + 1} (${primo.displayName}'
@@ -121,7 +180,10 @@ void main() {
             '${con.ingresso} (cache ${con.cache}), turno dopo ${dopo.ingresso} '
             'di cui ${dopo.cache} dalla cache; costo prima '
             '${prima.toStringAsFixed(5)} dollari, dopo '
-            '${dopoIlFilo.toStringAsFixed(5)}; uscita (di cui ragionamento) '
+            '${dopoIlFilo.toStringAsFixed(5)}, di cui rete e correzioni '
+            '${(rete2 + rete3).toStringAsFixed(5)}'
+            '${corretta2 || corretta3 ? ' (corretta dalla rete)' : ''}; '
+            'uscita (di cui ragionamento) '
             'senza filo ${senza.uscita} (${senza.pensiero}) e '
             '${dopoSenza.uscita} (${dopoSenza.pensiero}), col filo '
             '${con.uscita} (${con.pensiero}) e ${dopo.uscita} '
@@ -142,7 +204,10 @@ void main() {
         '${medianaD(costoPrima).toStringAsFixed(5)} dollari, dopo '
         '${medianaD(costoDopo).toStringAsFixed(5)} dollari; totale dei dieci '
         'prima ${costoPrima.reduce((a, b) => a + b).toStringAsFixed(4)}, '
-        'dopo ${costoDopo.reduce((a, b) => a + b).toStringAsFixed(4)}.';
+        'dopo ${costoDopo.reduce((a, b) => a + b).toStringAsFixed(4)}, di '
+        'cui rete della coerenza e correzioni '
+        '${costoRete.reduce((a, b) => a + b).toStringAsFixed(4)} '
+        '($correzioni correzioni).';
     print(riepilogo);
     final cartella = Directory('docs/collaudo/FE/costo')
       ..createSync(recursive: true);
@@ -150,6 +215,42 @@ void main() {
         DateTime.now().toIso8601String().substring(0, 16).replaceAll(':', '');
     File('${cartella.path}/il_costo_del_filo_$nome.txt')
         .writeAsStringSync('${righe.join('\n')}\n\n$riepilogo\n');
+  }, timeout: const Timeout(Duration(minutes: 30)));
+
+  test('il costo con uno, due e tre Maestri (ordine FE voce 13)', () async {
+    HttpOverrides.global = null;
+    final righe = <String>[];
+    for (final tema in temi) {
+      var ora = DateTime(2026, 10, 6, 10);
+      IlFiloDelConsulto.dimentica();
+      IlFiloDelConsulto.adesso = () => ora;
+      final misure = <String>[];
+      for (final (k, chi) in Maestro.values.indexed) {
+        final filo = IlFiloDelConsulto.bloccoPer(chi, storia: const []);
+        final e = await _chiama(chi, const [], tema, filo);
+        var rete = 0.0;
+        if (k > 0) {
+          final (c, _, _) = await conLaRete(chi, const [], tema, e.testo);
+          rete = c;
+        }
+        IlFiloDelConsulto.annota(
+            maestro: chi, domanda: tema, risposta: e.testo);
+        misure.add('${chi.displayName} (${k + 1}° Maestro): ingresso '
+            '${e.ingresso}, blocco del filo ${filo.length} caratteri, costo '
+            '${(costoDi(e) + rete).toStringAsFixed(5)} dollari di cui rete '
+            '${rete.toStringAsFixed(5)}');
+        ora = ora.add(const Duration(minutes: 2));
+      }
+      final riga = '«$tema»: ${misure.join('; ')}';
+      print(riga);
+      righe.add(riga);
+    }
+    final cartella = Directory('docs/collaudo/FE/costo')
+      ..createSync(recursive: true);
+    final nome =
+        DateTime.now().toIso8601String().substring(0, 16).replaceAll(':', '');
+    File('${cartella.path}/i_tre_maestri_$nome.txt')
+        .writeAsStringSync('${righe.join('\n')}\n');
   }, timeout: const Timeout(Duration(minutes: 30)));
 }
 
@@ -164,14 +265,39 @@ class _Esito {
 
 String _gettone = '';
 
+/// La rete della coerenza: Flash-Lite, temperatura zero, JSON, come
+/// `FirebaseMaestroAiProvider.giudicaLaCoerenza`.
+Future<_Esito> _rete(String istruzione, String testo) => _posta(
+      LaReteDellaCoerenza.modello,
+      {
+        'systemInstruction': {
+          'parts': [
+            {'text': istruzione}
+          ]
+        },
+        'contents': [
+          {
+            'role': 'user',
+            'parts': [
+              {'text': testo}
+            ]
+          }
+        ],
+        'generationConfig': {
+          'temperature': 0,
+          'maxOutputTokens': MisuraDellaRisposta.letturaBreve.tetto,
+          'thinkingConfig': {
+            'thinkingBudget': MisuraDellaRisposta.letturaBreve.ragionamento
+          },
+          'responseMimeType': 'application/json',
+        },
+      },
+    );
+
 Future<_Esito> _chiama(
-    Maestro chi, List<ChatMessage> storia, String domanda, String filo) async {
-  if (_gettone.isEmpty) {
-    final r = await Process.run('gcloud', ['auth', 'print-access-token'],
-        runInShell: true);
-    _gettone = '${r.stdout}'.trim();
-  }
-  final istruzione = MaestroPersona.systemInstruction(
+    Maestro chi, List<ChatMessage> storia, String domanda, String filo,
+    {String? istruzione}) async {
+  istruzione ??= MaestroPersona.systemInstruction(
     maestro: chi,
     profile: UserProfile.empty,
     memory: MaestroMemory.empty,
@@ -183,11 +309,7 @@ Future<_Esito> _chiama(
     filo: filo,
   );
   final misura = MisuraDellaRisposta.perIlTurno(nelLive: false);
-  const regione = LaRegioneDeiDati.regione;
-  final url = Uri.parse('https://$regione-aiplatform.googleapis.com/v1/'
-      'projects/esoteric-circle/locations/$regione/publishers/google/models/'
-      '${FirebaseMaestroAiProvider.kMaestroChatModel}:generateContent');
-  final corpo = jsonEncode({
+  return _posta(FirebaseMaestroAiProvider.kMaestroChatModel, {
     'systemInstruction': {
       'parts': [
         {'text': istruzione}
@@ -215,6 +337,19 @@ Future<_Esito> _chiama(
       'thinkingConfig': {'thinkingBudget': misura.ragionamento},
     },
   });
+}
+
+Future<_Esito> _posta(String modello, Map<String, Object?> richiesta) async {
+  if (_gettone.isEmpty) {
+    final r = await Process.run('gcloud', ['auth', 'print-access-token'],
+        runInShell: true);
+    _gettone = '${r.stdout}'.trim();
+  }
+  const regione = LaRegioneDeiDati.regione;
+  final url = Uri.parse('https://$regione-aiplatform.googleapis.com/v1/'
+      'projects/esoteric-circle/locations/$regione/publishers/google/models/'
+      '$modello:generateContent');
+  final corpo = jsonEncode(richiesta);
   final client = HttpClient();
   try {
     var attesa = 2;

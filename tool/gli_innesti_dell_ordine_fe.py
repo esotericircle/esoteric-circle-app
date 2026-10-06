@@ -416,6 +416,16 @@ INNESTI = [
      '      reply = await (_laReteDellaCoerenza)(',
      'flutter test test/la_rete_della_coerenza_test.dart -r expanded',
      'passa dal controllore'),
+    # FE.22.10: la riga della persona entra nel filo del consulto, che va
+    # al modello e alla rete della coerenza.
+    ('A74', 'FE.22.10', 'lib/core/ricordi/registro_dei_ricordi.dart',
+     [("import 'voce_del_ricordo.dart';",
+       "import 'voce_del_ricordo.dart';\nimport '../chat/il_filo_del_consulto.dart';"),
+      ("      {String? nota}) async {\n",
+       "      {String? nota}) async {\n    if (nota != null) IlFiloDelConsulto.ricordaLaFrase(nota);\n")],
+     None,
+     'flutter test test/la_riga_della_persona_non_parte_test.dart -r expanded',
+     "nella chiamata al modello la riga non c'e'"),
     # Regola B fatta DOPO il tocco della FE.07, e dichiarata: la guardia EG
     # del rifiuto del LIVE, che conta le ragioni e le loro frasi.
     ('B10', 'FE.07', 'lib/features/maestri/live/stato_della_schermata_live.dart',
