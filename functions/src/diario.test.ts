@@ -4,8 +4,10 @@ import {
   giornoDi, titoloDa, chiaveDellaConversazione, ilRiassuntoDopo,
   LUNGHEZZA_DEL_TITOLO, VERSIONE_DEL_FORMATO, etichetteDi, Riga,
   ilMeseDelConfine, vaInArchivio, ilPercorsoDelMese, ilMeseDellaConversazione,
-  unisciIlMese,
+  unisciIlMese, iMesiDellaConversazione, senzaLaConversazione,
 } from "./diario";
+import {readFileSync} from "node:fs";
+import {join} from "node:path";
 
 /**
  * IL DIARIO COSMICO SUL SERVER. Ordine FE voce 22: le parti pure, che si
@@ -84,4 +86,40 @@ test("FE.22.15: unire un mese tiene le voci e i messaggi, senza doppioni e in or
   assert.deepEqual(Object.keys(dopo.voci).sort(), ["a", "b"]);
   assert.deepEqual(dopo.conversazioni.k.map((m) => m.id), ["m1", "m2"]);
   assert.deepEqual(dopo.conversazioni.j.map((m) => m.id), ["m3"]);
+});
+
+test("FE.22.17: il cestino cerca la conversazione nei mesi giusti e la toglie", () => {
+  const nata = Date.UTC(2025, 2, 31, 10);
+  assert.deepEqual(
+    iMesiDellaConversazione(`conv.medora.c${nata}`, ["2024-01", "2025-03"]),
+    ["2025-03", "2025-04", "2025-05"]);
+  assert.deepEqual(
+    iMesiDellaConversazione("conv.medora.prima", ["2024-01", "2025-03"]),
+    ["2024-01", "2025-03"],
+    "la prima conversazione, senza marcatura, puo' stare in ogni mese");
+  const mese = {voci: {v: 1}, conversazioni: {"conv.medora.prima": [{id: "a"}],
+    "conv.aura.prima": [{id: "b"}]}};
+  const dopo = senzaLaConversazione(mese, "conv.medora.prima");
+  assert.deepEqual(Object.keys(dopo.conversazioni), ["conv.aura.prima"]);
+  assert.deepEqual(dopo.voci, {v: 1});
+});
+
+test("FE.22.15 e 22.17: le tre porte che cancellano arrivano all'archivio", () => {
+  // Il cestino, l'azzeramento dei dati e la cancellazione dell'account
+  // toglievano Firestore e lasciavano in Cloud Storage i mesi archiviati
+  // (padre FE.22.15). Si legge il corpo di ciascuna porta.
+  const cerchio = readFileSync(join(__dirname, "..", "src", "cerchio.ts"), "utf8");
+  const corpo = (nome: string): string => {
+    const i = cerchio.indexOf(`export const ${nome}`);
+    assert.ok(i >= 0, `la porta ${nome} non c'e' piu'`);
+    const j = cerchio.indexOf("\nexport ", i + 10);
+    return cerchio.slice(i, j < 0 ? undefined : j);
+  };
+  assert.ok(corpo("azzeraIDatiDelCerchio").includes("cancellaLArchivio(uid)"),
+    "l'azzeramento dei dati lascia l'archivio");
+  assert.ok(corpo("cancellaIlCerchio").includes("cancellaLArchivio(uid)"),
+    "la cancellazione dell'account lascia l'archivio");
+  assert.ok(corpo("cancellaLaConversazione")
+    .includes("togliLaConversazioneDallArchivio("),
+  "il cestino lascia i messaggi archiviati");
 });

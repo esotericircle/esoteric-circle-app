@@ -740,3 +740,81 @@ export const leggiLaConversazioneArchiviata = onCall(OPZIONI, async (request) =>
   messaggi.sort((a, b) => (a.quando ?? 0) - (b.quando ?? 0));
   return {messaggi};
 });
+
+/**
+ * I mesi in archivio dove puo' stare una conversazione: quello della nascita
+ * e i due dopo per una conversazione marcata ("c" e i millesimi), ogni mese
+ * della persona per la prima, senza marcatura. Pura, per le prove.
+ */
+export function iMesiDellaConversazione(
+  chiave: string,
+  meseDiOgniOggetto: string[]
+): string[] {
+  const id = chiave.slice(chiave.lastIndexOf(".") + 1);
+  if (!/^c\d{12,}$/.test(id)) return meseDiOgniOggetto;
+  const [a, m] = ilMeseDi(Number(id.slice(1))).split("-").map(Number);
+  return [0, 1, 2].map((i) => {
+    const indice = a * 12 + (m - 1) + i;
+    return `${Math.floor(indice / 12)}-` +
+      String((indice % 12) + 1).padStart(2, "0");
+  });
+}
+
+/** Il mese senza quella conversazione. Pura, per le prove. */
+export function senzaLaConversazione(
+  mese: MeseInArchivio,
+  chiave: string
+): MeseInArchivio {
+  const conversazioni = {...mese.conversazioni};
+  delete conversazioni[chiave];
+  return {voci: {...mese.voci}, conversazioni};
+}
+
+/**
+ * **IL CESTINO ARRIVA ANCHE ALL'ARCHIVIO. Ordine FE voce 22.17.** Prima il
+ * cestino toglieva la riga del Diario e il contenuto su Firestore, e i
+ * messaggi gia' passati nell'archivio restavano nell'oggetto del mese (padre
+ * FE.22.15, commit 693a68d6 e bc10833f). Adesso si riscrivono senza quella
+ * conversazione i mesi che la contengono, e un mese rimasto vuoto si
+ * cancella. Torna quanti mesi ha toccato.
+ */
+export async function togliLaConversazioneDallArchivio(
+  uid: string,
+  chiave: string
+): Promise<number> {
+  const {getStorage} = await import("firebase-admin/storage");
+  const bucket = getStorage().bucket(IL_BUCKET_DELL_ARCHIVIO);
+  const [file] = await bucket.getFiles({prefix: `diario_archivio/${uid}/`});
+  const tutti = file.map((f) => f.name.slice(f.name.lastIndexOf("/") + 1)
+    .replace(/\.json$/, ""));
+  let toccati = 0;
+  for (const mese of iMesiDellaConversazione(chiave, tutti)) {
+    if (!tutti.includes(mese)) continue;
+    const percorso = ilPercorsoDelMese(uid, mese);
+    const letto = (await leggiDallArchivio(percorso)) as MeseInArchivio | null;
+    if (!letto?.conversazioni?.[chiave]) continue;
+    const dopo = senzaLaConversazione(letto, chiave);
+    if (Object.keys(dopo.voci).length === 0 &&
+        Object.keys(dopo.conversazioni).length === 0) {
+      await bucket.file(percorso).delete({ignoreNotFound: true});
+    } else {
+      await scriviInArchivio(percorso, dopo);
+    }
+    toccati++;
+  }
+  return toccati;
+}
+
+/**
+ * **CHI CANCELLA I SUOI DATI CANCELLA ANCHE L'ARCHIVIO.** Ordine FE voce
+ * 22.15. L'azzeramento dei dati e la cancellazione dell'account toglievano
+ * il ramo su Firestore e lasciavano in Cloud Storage i mesi archiviati
+ * (padre FE.22.15, commit 693a68d6 e bc10833f): adesso li tolgono tutti.
+ * La classe Archive fa pagare i giorni che mancano ai 365 a chi cancella
+ * prima: e' il prezzo di una cancellazione vera, ed e' minimo.
+ */
+export async function cancellaLArchivio(uid: string): Promise<void> {
+  const {getStorage} = await import("firebase-admin/storage");
+  await getStorage().bucket(IL_BUCKET_DELL_ARCHIVIO)
+    .deleteFiles({prefix: `diario_archivio/${uid}/`});
+}

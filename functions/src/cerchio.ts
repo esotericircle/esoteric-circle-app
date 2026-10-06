@@ -13,7 +13,8 @@ import {getAuth} from "firebase-admin/auth";
 import {chiaveDelGiorno} from "./giorno";
 import {scriviIlMessaggio} from "./doppioni";
 import {
-  annotaLaConversazione, chiaveDellaConversazione, togliDalDiarioOvunque,
+  annotaLaConversazione, cancellaLArchivio, chiaveDellaConversazione,
+  togliDalDiarioOvunque, togliLaConversazioneDallArchivio,
 } from "./diario";
 import {
   cancellaIlSociale,
@@ -1245,6 +1246,7 @@ export const azzeraIDatiDelCerchio = onCall(
     // fuori dal ramo, e se ne vanno qui; il sigillo va in quarantena.
     await cancellaIlSociale(uid);
     await db.recursiveDelete(utente(uid));
+    await cancellaLArchivio(uid);
     logger.info("azzeraIDatiDelCerchio: ramo azzerato, account vivo", {uid});
     return {datiAzzerati: true};
   },
@@ -1294,8 +1296,13 @@ export const cancellaLaConversazione = onCall(
     // 22.17**: la riga dell'indice e il contenuto, non una voce nascosta.
     const dalDiario = await togliDalDiarioOvunque(
       uid, chiaveDellaConversazione(maestro, conversazione));
+    // E dall'archivio dei mesi passati, dove i messaggi oltre l'anno
+    // sono andati prima di uscire da Firestore.
+    const dallArchivio = await togliLaConversazioneDallArchivio(
+      uid, chiaveDellaConversazione(maestro, conversazione));
     logger.info("cancellaLaConversazione", {
       uid, maestro, conversazione, tolti: daTogliere.length, dalDiario,
+      dallArchivio,
     });
     return {tolti: daTogliere.length, dalDiario};
   },
@@ -1310,6 +1317,7 @@ export const cancellaIlCerchio = onCall(
     // pubblico; il sigillo resta in quarantena novanta giorni senza il resto.
     await cancellaIlSociale(uid);
     await db.recursiveDelete(utente(uid));
+    await cancellaLArchivio(uid);
     try {
       await getAuth().deleteUser(uid);
     } catch (err) {
