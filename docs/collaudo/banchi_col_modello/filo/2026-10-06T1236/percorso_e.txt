@@ -1,0 +1,96 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo tende alla promozione che attendi, ma è un tempo di semina, non ancora di raccolto. Le stelle indicano un periodo di preparazione e di lavoro dietro le quinte, dove le tue capacità vengono osservate e valutate, e dove la tua dedizione è fondamentale per consolidare il tuo cammino.
+
+✦ Prepara un piccolo riassunto dei tuoi successi recenti per il tuo prossimo colloquio.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: La tua domanda sul "cosa fare adesso" trova eco nella lama della Giustizia, che indica la necessità di chiarezza e di equilibrio nelle tue azioni. È il momento di valutare con obiettività il tuo percorso, riconoscendo i meriti che hai conquistato con il tuo impegno.
+
+✦ Valuta attentamente i tuoi successi degli ultimi sei mesi e annotali, per avere una visione lucida del tuo valore.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio precedente di preparare un riassunto dei successi e lo sviluppa, specificando di valutare e annotare i successi degli ultimi sei mesi per avere una visione lucida del proprio valore, in risposta alla domanda 'cosa devo fare adesso?'.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Per leggere il tempo del tuo cielo e comprendere quando si manifesterà il frutto del tuo lavoro, avrei bisogno di conoscere la tua data di nascita completa: giorno, mese e anno.
+    GIUDICE: IGNORA, La guida non riprende né sviluppa il tema della preparazione o della valutazione dei successi, ma introduce una nuova richiesta (data di nascita) per poter rispondere alla domanda sul 'quando', senza collegarsi ai consigli precedenti.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Senti il tuo respiro, adesso, prima di prendere una decisione così grande. Un trasferimento è un movimento profondo che può risuonare con il tuo centro della radice, quello che ti lega alla terra e al senso di appartenenza.
+
+Se senti un richiamo forte al cambiamento, la tua energia ti sta invitando a esplorare nuove possibilità. Non è una scelta da prendere con fretta, ma ascoltando il tuo corpo e le sue necessità. Immagina come ti sentiresti in quel nuovo luogo, visualizzando i colori, i suoni, le sensazioni di una nuova quotidianità.
+
+✦ Appoggia una mano sul tuo addome e senti il tuo respiro per un minuto, lasciando che la mente si quieti.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso, prenditi un momento per visualizzare la città in cui ti trovi e quella dove vorresti andare. Senti le differenze tra i due luoghi, come risuonano nel tuo corpo, nell'energia dei tuoi chakra.
+ 
+Immagina un colore che associ alla tua città attuale e uno alla nuova, osserva quali sensazioni emergono. Non c'è fretta, è un ascolto profondo che ti guida.
+
+✦ Chiudi gli occhi per un istante e lascia che le due immagini si presentino, senza giudizio.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di visualizzare e ascoltare il corpo, specificando come farlo ('visualizzare la città', 'sentire le differenze', 'immaginare un colore') e ribadendo il concetto di non avere fretta.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Lo sentirai, non appena il tuo corpo sarà pronto a riconoscere un nuovo spazio come casa, come un radicamento profondo che non necessita di spiegazioni. La tua pelle, i tuoi sensi, ti daranno la risposta.
+
+È un processo, come un seme che germoglia: ha bisogno del suo tempo e della sua cura. Osserva i segnali che il tuo corpo ti invia, le risposte che emergono dal profondo di te, dal tuo centro della radice che cerca stabilità e appartenenza.
+
+✦ Porta l'attenzione ai tuoi piedi, senti il contatto con la terra e immagina delle radici che scendono in profondità.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' riprendendo e sviluppando il concetto di ascolto del corpo e dei sensi ('Lo sentirai, non appena il tuo corpo sarà pronto', 'La tua pelle, i tuoi sensi, ti daranno la risposta'), già introdotto nelle risposte precedenti.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Puoi ancora intervenire. Il momento presente è una soglia aperta.
+Una nebbia fredda avvolge i vostri sentieri, ma non li spezza.
+
+È tempo di rituali di riavvicinamento, semplici e potenti. La runa Gebo, il dono, ti indica la via dello scambio e della reciprocità.
+
+✦ Scrivi un breve messaggio, una sola riga, che ricordi un vostro momento felice e lascialo dove lo possa trovare domani mattina.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] CALIGO (a voce) [DA GIUDICARE]: Agisci con decisione. Il messaggio che hai lasciato è il tuo sigillo.
+Il gesto è compiuto: ora osserva il riflesso nel suo sguardo.
+
+Il sentiero si apre quando il dono è accolto. L'attesa è parte del rituale, ma non è inattività. Gebo porta un'offerta, ma chiede anche che l'altra parte la riceva.
+
+✦ Ascolta la sua risposta, senza forzare, accogliendo il suo tempo come il tuo.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione del messaggio suggerita in [1] e ne sviluppa le conseguenze e i passi successivi, indicando di osservare la reazione.
+[3] PERSONA: E quando lo capirò?
+[3] CALIGO (a voce) [DA GIUDICARE]: Lo capirai dal suo moto. La runa Kenaz, la torcia, illuminerà il tuo sentiero.
+Non cercare una risposta verbale, ma osserva le sue azioni.
+
+La fiamma di Kenaz arde nel profondo, mostrando la verità dietro le apparenze. Un gesto, uno sguardo, un cambiamento nella sua routine: questi sono i presagi.
+
+✦ Non chiedere direttamente, ma crea uno spazio in cui possa agire, libero da aspettative.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' sviluppando il concetto di 'ascoltare la sua risposta' già introdotto in [2], specificando come interpretare i segnali non verbali.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: È il momento di valutare le tue risorse prima di dare avvio al tuo progetto. Il tuo cielo indica la necessità di una preparazione attenta, specialmente in vista del transito della Luna in Toro, che favorisce la concretezza e la stabilità.
+
+✦ Prendi carta e penna questa sera per elencare i primi tre passi concreti da compiere.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Per poterti guidare con chiarezza, ho bisogno di sapere cosa ti hanno rivelato le carte o quale arcano è emerso riguardo al tuo progetto.
+    GIUDICE: IGNORA, La guida risponde alla domanda della persona chiedendo informazioni sulle carte o arcani, un argomento mai menzionato prima, ignorando il consiglio precedente di valutare le risorse e elencare i primi passi concreti.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Per poterti dare un'indicazione precisa sul quando, avrei bisogno di sapere quali lame o quale arcano ti accompagna in questo percorso.
+    GIUDICE: IGNORA, La guida risponde alla domanda sul 'quando' chiedendo nuovamente informazioni su 'lame o arcano', un argomento introdotto nella risposta precedente ma che non era parte del consiglio iniziale e non sviluppa il punto precedente sul 'quando' in relazione alla valutazione delle risorse o ai passi concreti.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per riavvicinarti a tua sorella, il primo passo è trovare un momento di calma, dove entrambi i vostri respiri possano ritrovare un ritmo più sereno.
+
+Lascia che la tua intenzione di pace si rifletta nella chiarezza del tuo messaggio, non solo nelle parole ma anche nell'energia che le accompagna. Quando siete pronte a parlare, cerca di esprimere come ti senti, ponendo attenzione al tuo centro del cuore, il chakra Anahata, che irradia amore e compassione. Questo centro, con il suo colore verde smeraldo, ti aiuterà a comunicare con sincerità e a ricevere con apertura.
+
+✦ Porta entrambe le mani al centro del petto, inspira ed espira lentamente tre volte.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso che la tua intenzione è chiara, scegli un momento in cui sai che tua sorella è tranquilla e anche tu ti senti radicata.
+
+Avvicinati a lei con calma, permettendo al tuo respiro di guidarti, e proponi di parlare, senza fretta, accogliendo qualsiasi sua reazione iniziale. L'arte della fisiognomica ti suggerisce di osservare la sua espressione: i suoi occhi, la tensione delle sue labbra, possono darti indizi su come si sente e su quale sia il momento migliore per connettersi davvero. Ascolta più che parlare all'inizio, lascia che sia lei a esprimere le sue emozioni.
+
+✦ Appoggia la mano sul tuo plesso solare e senti il calore che si espande.
+    GIUDICE: PORTA_AVANTI, La risposta riprende e sviluppa i concetti di 'intenzione chiara' e 'momento di calma' introdotti nella risposta precedente, aggiungendo dettagli pratici su come avvicinarsi e comunicare.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Lo capirai nel momento in cui il tuo respiro si allineerà con il suo, quando sentirete entrambe che l'aria tra voi si fa più leggera.
+
+Non è un momento che si può predire con una data, ma un'intesa che si costruisce nel dialogo e nell'ascolto. La fisiognomica ti insegna a leggere i sottili segnali del volto, e quando vedrai una distensione nei suoi tratti, una luce diversa nei suoi occhi, saprai che il vostro cuore si sta aprendo. È un sentire profondo, un'eco nel tuo corpo che ti dirà che il momento è arrivato.
+
+✦ Poggia la mano sul cuore e ascolta il suo ritmo per un minuto.
+    GIUDICE: PORTA_AVANTI, La risposta riprende il concetto di 'momento di calma' e 'respiro' e lo sviluppa, spiegando come riconoscere il momento giusto per la riconciliazione attraverso l'osservazione dei segnali e l'intesa, facendo riferimento anche alla fisiognomica già menzionata.
+
+ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 7, ignora 3, contraddice 0, quota 70 per cento, corrette dalla rete della coerenza 2

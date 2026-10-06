@@ -1,4 +1,7 @@
 import 'dart:async';
+import '../chat/il_filo_del_consulto.dart';
+import '../maestro/consiglio_finale.dart';
+import '../maestro/maestro.dart';
 import 'dart:convert';
 
 import 'package:firebase_ai/firebase_ai.dart';
@@ -350,6 +353,35 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
     ChiamataDellaStesa? chiamata,
     Duration? entro,
   }) async {
+    // **LA STESA LEGGE IL FILO E CI SCRIVE. Ordine FE voce 08.** Era una
+    // delle strade che non usavano la memoria del consulto
+    // (docs/collaudo/FE/fe08_le_strade_verso_un_maestro.md, strada 14): una
+    // stesa dopo una domanda a Calìgo non sapeva cosa le aveva detto.
+    final lettura = await _leggi(
+        spread: spread,
+        domanda: domanda,
+        argomento: argomento,
+        forma: forma,
+        chiamata: chiamata,
+        entro: entro);
+    if (lettura != null) {
+      IlFiloDelConsulto.annota(
+          maestro: Maestro.medora,
+          domanda: domanda,
+          risposta: '${lettura.risposta}\n'
+              '${ConsiglioFinale.stella} ${lettura.consiglio}');
+    }
+    return lettura;
+  }
+
+  static Future<LetturaDelModello?> _leggi({
+    required TarotSpread spread,
+    required String domanda,
+    required String argomento,
+    required CourtesyForm forma,
+    ChiamataDellaStesa? chiamata,
+    Duration? entro,
+  }) async {
     final tetto = entro ?? pazienza;
     final cronometro = Stopwatch()..start();
     String? scartataPerche;
@@ -369,7 +401,8 @@ Rispondi solo con un oggetto JSON con i campi "risposta", "passato", "presente",
         final perQuesta = scartataPerche;
         testo = await primaCheTorna(
           () => (chiamata ?? _chiamataVera)(
-            istruzione(forma),
+            IlFiloDelConsulto.conIlFilo(
+                istruzione(forma), Maestro.medora, domanda),
             richiesta(spread,
                 domanda: domanda,
                 argomento: argomento,

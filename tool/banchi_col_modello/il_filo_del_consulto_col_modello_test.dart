@@ -29,6 +29,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:esoteric_circle/core/chat/chat_message.dart';
+import 'package:esoteric_circle/core/chat/la_risposta_che_chiede.dart';
+import 'package:esoteric_circle/core/chat/la_rete_della_coerenza.dart';
 import 'package:esoteric_circle/core/chat/il_filo_del_consulto.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
@@ -136,6 +138,7 @@ void main() {
             ..writeln('[${n + 1}] PERSONA: ${t.domanda}')
             ..writeln('[${n + 1}] ${t.maestro.displayName.toUpperCase()}'
                 '${t.nelLive ? ' (a voce)' : ''}'
+                '${t.corretta ? ' (corretta dalla rete)' : ''}'
                 '${t.daGiudicare ? ' [DA GIUDICARE]' : ''}: ${t.risposta}');
           final v = verdetti[n + 1];
           if (!t.daGiudicare) continue;
@@ -180,7 +183,8 @@ void main() {
           'avanti $portaAvanti, ignora $ignora, contraddice $contraddice, '
           'quota ${(quota * 100).toStringAsFixed(0)} per cento'
           '${percorso == _Percorso.b ? ', nominano tutti i Maestri di prima '
-              'in $nominano risposte su $secondi' : ''}';
+              'in $nominano risposte su $secondi' : ''}'
+          ', corrette dalla rete della coerenza ${conto.correzioni}';
       // ignore: avoid_print
       print(riepilogo);
       testo.writeln(riepilogo);
@@ -229,12 +233,16 @@ enum _Percorso {
 
 class _Turno {
   _Turno(this.maestro, this.domanda, this.risposta,
-      {this.daGiudicare = false, this.nelLive = false});
+      {this.daGiudicare = false, this.nelLive = false, this.corretta = false});
   final Maestro maestro;
   final String domanda;
   final String risposta;
   final bool daGiudicare;
   final bool nelLive;
+
+  /// Corretta dalla rete della coerenza: si scrive nel resoconto, mai nel
+  /// consulto che legge il giudice.
+  final bool corretta;
 }
 
 class _Giro {
@@ -252,8 +260,6 @@ class _Giro {
 
     Future<String> chiedi(Maestro chi, String domanda,
         {bool nelLive = false, bool giudica = false}) async {
-      final ultima = storia.lastWhere((m) => m.isMaestro,
-          orElse: () => const ChatMessage(role: ChatRole.user, text: ''));
       final finestra = storia.length > FirebaseMaestroAiProvider.kHistoryWindow
           ? storia
               .sublist(storia.length - FirebaseMaestroAiProvider.kHistoryWindow)
@@ -270,18 +276,68 @@ class _Giro {
         nelLive: nelLive,
         scrittoPrima:
             FirebaseMaestroAiProvider.scrittoPrimaDellaFinestra(storia),
+        // Come il provider dall'ordine FE voce 11: la frase si cerca in
+        // tutto il consulto, non nella sola ultima risposta.
         filo: IlFiloDelConsulto.bloccoPer(chi,
             storia: finestra,
-            fraseRipresa: LaFraseRipresa.trova(domanda, ultima.text)),
+            fraseRipresa: LaFraseRipresa.fraTutte(
+                domanda, LaFraseRipresa.testiDelConsulto(storia))),
       );
-      final risposta = await _vertex(
-        modello: FirebaseMaestroAiProvider.modelloDelTurno(nelLive: nelLive),
-        istruzione: istruzione,
-        storia: finestra,
-        domanda: domanda,
-        misura: MisuraDellaRisposta.perIlTurno(nelLive: nelLive),
-        conto: conto,
+      var corretta = false;
+      Future<String> unaRisposta() => _vertex(
+            modello:
+                FirebaseMaestroAiProvider.modelloDelTurno(nelLive: nelLive),
+            istruzione: istruzione,
+            storia: finestra,
+            domanda: domanda,
+            misura: MisuraDellaRisposta.perIlTurno(nelLive: nelLive),
+            conto: conto,
+          );
+      // **IL MARCATORE DEL CHIARIMENTO, come nel controllore.** Il prodotto
+      // lo toglie e, se resta una risposta vuota, la chiede di nuovo
+      // (ordini EI voce 02 ed ET voce 01): al banco del percorso E Medora
+      // rispondeva il solo "[[CHIEDO]]", e il giudice lo contava come una
+      // risposta che ignora il punto.
+      var risposta = LaRispostaCheChiede.senzaIlMarcatore(await unaRisposta());
+      if (risposta.trim().isEmpty) {
+        risposta = LaRispostaCheChiede.senzaIlMarcatore(await unaRisposta());
+      }
+      // **LA RETE DELLA COERENZA, come nel controllore.** Ordine FE voci 10
+      // e 17: la stessa funzione di `lib`, con Flash-Lite e la correzione
+      // corta del provider (`correggi`).
+      final correzione = await LaReteDellaCoerenza.controlla(
+        chi: chi,
+        storia: storia,
+        risposta: risposta,
+        chiamata: (istr, testo) => _vertex(
+          modello: LaReteDellaCoerenza.modello,
+          istruzione: istr,
+          storia: const [],
+          domanda: testo,
+          misura: MisuraDellaRisposta.letturaBreve,
+          temperatura: 0,
+          json: true,
+          conto: conto,
+        ),
       );
+      if (correzione != null) {
+        conto.correzioni++;
+        corretta = true;
+        risposta = await _vertex(
+          modello: FirebaseMaestroAiProvider.modelloDelTurno(nelLive: nelLive),
+          istruzione: MaestroPersona.istruzioneDellaCorrezione(
+            maestro: chi,
+            profile: UserProfile.empty,
+            correzione: correzione,
+            nelLive: nelLive,
+          ),
+          storia: const [],
+          domanda: 'LA DOMANDA DELLA PERSONA:\n$domanda\n\n'
+              'LA TUA RISPOSTA DA CORREGGERE:\n$risposta',
+          misura: MisuraDellaRisposta.perIlTurno(nelLive: nelLive),
+          conto: conto,
+        );
+      }
       storia = [
         ...storia,
         ChatMessage(role: ChatRole.user, text: domanda, at: ora),
@@ -291,7 +347,7 @@ class _Giro {
       IlFiloDelConsulto.annota(
           maestro: chi, domanda: domanda, risposta: risposta);
       turni.add(_Turno(chi, domanda, risposta,
-          daGiudicare: giudica, nelLive: nelLive));
+          daGiudicare: giudica, nelLive: nelLive, corretta: corretta));
       ora = ora.add(const Duration(minutes: 2));
       return risposta;
     }
@@ -449,6 +505,10 @@ class _Conto {
   int chiamate = 0;
   int ingresso = 0;
   int uscita = 0;
+
+  /// Le risposte corrette dalla rete della coerenza (ordine FE voci 10 e
+  /// 17), come nel controllore della chat.
+  int correzioni = 0;
 }
 
 /// La chiamata vera a Vertex in europe-west1, con la misura dell'app. Riprova

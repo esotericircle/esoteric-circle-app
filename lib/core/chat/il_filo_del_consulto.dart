@@ -130,6 +130,45 @@ abstract final class IlFiloDelConsulto {
   static SchedaDeiPuntiFermi? _scheda;
   static bool _caricata = false;
 
+  /// **LE FRASI CHE I MAESTRI HANNO DATO IN QUESTO CONSULTO. Ordine FE voce
+  /// 11.** Ogni testo che un Maestro mette davanti alla persona: le
+  /// risposte (tutte, non solo l'ultima), il seguito di "Vai piu' a fondo",
+  /// l'invito a tornare sotto la riga d'oro, l'invito del benvenuto, il
+  /// responso da cui parte un "Parlane con". La frase ripresa si cerca qui
+  /// ([LaFraseRipresa.trova]): prima si cercava nella sola ultima risposta, e
+  /// una frase del seguito, di una risposta di prima o di un'arte tornava al
+  /// Maestro come una domanda nuova (docs/collaudo/FE/fe11_le_frasi_suggerite.md,
+  /// otto punti scollegati). Vivono quanto il consulto, in memoria.
+  static final List<({String testo, DateTime quando})> _frasiDate = [];
+
+  /// Quante frasi si tengono: le piu' recenti. Un consulto di un'ora con
+  /// tre Maestri sta sotto le venti.
+  static const int frasiTenute = 24;
+
+  /// Ricorda un testo che un Maestro ha messo davanti alla persona. Lo
+  /// stesso testo non si ripete.
+  static void ricordaLaFrase(String testo) {
+    final t = testo.trim();
+    if (t.isEmpty) return;
+    // Gia' ricordato: non si rinfresca. La riga d'oro si ricompone a ogni
+    // disegno, e non deve tenere vivo il consulto da sola.
+    if (_frasiDate.any((f) => f.testo == t)) return;
+    _frasiDate.add((testo: t, quando: adesso()));
+    while (_frasiDate.length > frasiTenute) {
+      _frasiDate.removeAt(0);
+    }
+  }
+
+  /// I testi del consulto in corso, dal piu' recente: quelli piu' vecchi
+  /// dell'ora del filo non contano piu'.
+  static List<String> get frasiDelConsulto {
+    final ora = adesso();
+    return [
+      for (final f in _frasiDate.reversed)
+        if (ora.difference(f.quando) <= vita) f.testo,
+    ];
+  }
+
   /// L'orologio, sostituibile nelle prove.
   static DateTime Function() adesso = DateTime.now;
 
@@ -221,18 +260,31 @@ abstract final class IlFiloDelConsulto {
     }
     _scheda = s.con(ParereDelConsulto(
         maestro: maestro, parere: nucleoDi(risposta), quando: ora));
+    ricordaLaFrase(risposta);
     _salva();
+  }
+
+  /// **L'ISTRUZIONE CON IL FILO**, per le chiamate che non passano dal
+  /// provider dei Maestri (la stesa dei tarocchi col modello). Ordine FE
+  /// voce 08: una memoria sola, e chi non la usava si collega a lei. Senza
+  /// un consulto in corso torna [istruzione] com'e'.
+  static String conIlFilo(String istruzione, Maestro maestro, String domanda) {
+    final blocco = bloccoPer(maestro,
+        fraseRipresa: LaFraseRipresa.fraTutte(domanda, frasiDelConsulto));
+    return blocco.isEmpty ? istruzione : '$istruzione\n\n$blocco';
   }
 
   /// Chiude il consulto: la prossima domanda ne apre uno nuovo.
   static void chiudi() {
     _scheda = null;
+    _frasiDate.clear();
     _salva();
   }
 
   /// Le prove ripartono da vuoto.
   static void dimentica() {
     _scheda = null;
+    _frasiDate.clear();
     _caricata = true;
     adesso = DateTime.now;
   }
@@ -335,7 +387,13 @@ abstract final class LaLeggeDellaCoerenza {
       'rileggi i punti fermi. La tua risposta non dice un tempo, una fase '
       'del cielo o una risposta diversi da quelli già dati senza dirlo: un '
       'tempo già indicato («entro la fine del mese», «stasera») resta quello, '
-      'non lo anticipi e non lo sposti senza dire perché. Se '
+      'non lo anticipi e non lo sposti senza dire perché. Lo stesso per il '
+      'gesto già consigliato: il mezzo (scrivere, chiamare, parlare di '
+      'persona) e l’oggetto (il sigillo, la lettera, il dono) restano quelli; '
+      'se ne aggiungi un altro lo presenti come il passo dopo, se lo cambi '
+      'dici perché. Se la persona chiede che cosa fare se l’esito non è '
+      'quello sperato, rispondi dal passo già dato: cosa fa dopo quel passo '
+      'se va diversamente, non una consolazione generica. Se '
       'un altro Maestro ha parlato e tu leggi diversamente, la riga col suo '
       'nome lo dice con «io leggo diversamente» e il perché.';
 
@@ -359,25 +417,46 @@ abstract final class LaFraseRipresa {
           if (p.length > 3) p.length > 5 ? p.substring(0, 5) : p,
       };
 
-  static String? trova(String domanda, String? ultimaRisposta) {
-    if (ultimaRisposta == null || ultimaRisposta.trim().isEmpty) return null;
+  static String? trova(String domanda, String? ultimaRisposta) =>
+      fraTutte(domanda, [if (ultimaRisposta != null) ultimaRisposta]);
+
+  /// **LA FRASE RIPRESA FRA TUTTI I TESTI DEL CONSULTO.** Ordine FE voce
+  /// 11: [testi] sono le risposte della storia, i loro seguiti, e le frasi
+  /// che il filo ricorda ([IlFiloDelConsulto.frasiDelConsulto]). Vince la
+  /// frase che la domanda copre di piu'; a pari merito la piu' recente, che
+  /// e' quella che sta prima nell'elenco.
+  static String? fraTutte(String domanda, Iterable<String> testi) {
     final dw = _parole(domanda);
     if (dw.length < 3) return null;
-    final testo = ultimaRisposta.replaceAll(ConsiglioFinale.stella, '. ');
     String? migliore;
     var meglio = 0.0;
-    for (final frase in testo.split(RegExp(r'(?<=[.!?])\s+|\n+'))) {
-      final f = frase.trim();
-      final fw = _parole(f);
-      if (fw.length < 4) continue;
-      final comuni = fw.intersection(dw).length;
-      final dellaFrase = comuni / fw.length;
-      final dellaDomanda = comuni / dw.length;
-      if (dellaFrase >= 0.5 && dellaDomanda >= 0.6 && dellaFrase > meglio) {
-        meglio = dellaFrase;
-        migliore = f;
+    for (final t in testi) {
+      if (t.trim().isEmpty) continue;
+      final testo = t.replaceAll(ConsiglioFinale.stella, '. ');
+      for (final frase in testo.split(RegExp(r'(?<=[.!?])\s+|\n+'))) {
+        final f = frase.trim();
+        final fw = _parole(f);
+        if (fw.length < 4) continue;
+        final comuni = fw.intersection(dw).length;
+        final dellaFrase = comuni / fw.length;
+        final dellaDomanda = comuni / dw.length;
+        if (dellaFrase >= 0.5 && dellaDomanda >= 0.6 && dellaFrase > meglio) {
+          meglio = dellaFrase;
+          migliore = f;
+        }
       }
     }
     return migliore;
   }
+
+  /// I testi in cui cercare per la chat: le risposte della [storia] e i
+  /// loro seguiti, dalla piu' recente, poi le frasi che il filo ricorda.
+  static List<String> testiDelConsulto(List<ChatMessage> storia) => [
+        for (final m in storia.reversed)
+          if (m.isMaestro) ...[
+            if ((m.seguito ?? '').trim().isNotEmpty) m.seguito!,
+            m.text,
+          ],
+        ...IlFiloDelConsulto.frasiDelConsulto,
+      ];
 }

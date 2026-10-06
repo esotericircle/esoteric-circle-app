@@ -58,3 +58,24 @@ Le ultime tre passano da una chiamata propria a Vertex, fuori da `MaestroAiProvi
 **Uso parziale**
 - "Vai più a fondo" (7): legge il filo ma non annota il seguito, e non riceve `_filoDiPrima`.
 - Il Consiglio, `consult` (10): legge e annota il filo, ma non riceve la storia della chat.
+
+## Le cure, 6 ottobre 2026
+
+Ogni strada che porta una domanda a un Maestro adesso legge il filo del consulto, ci scrive, oppure ha la ragione scritta per cui non lo fa. Le misure stanno in `test/il_filo_arriva_a_ogni_strada_test.dart`, viste rosse con gli innesti A65-A69.
+
+| Strada | Cura |
+|---|---|
+| 7. "Vai più a fondo" | Riceve il filo di prima (`history: [..._filoDiPrima, ...]`), e il seguito entra fra le frasi del consulto |
+| 10. Consiglio, `consult` | Riceve anche la frase ripresa (`LaFraseRipresa.fraTutte` sulle frasi del consulto) |
+| 13. Presagio delle Rune | Legge il filo (`presagioInstruction(filo: ...)`) e ci scrive il parere di Calìgo |
+| 14. Stesa dei tarocchi col modello | Legge il filo (`IlFiloDelConsulto.conIlFilo`) e ci scrive il parere di Medora |
+| 17. Segno dell'animale guida | Ci scrive il segno come parere di Calìgo. Non lo legge: è una riga scelta da un repertorio di gesti, e la legge della coerenza non ha niente da guidare lì |
+
+## Strade che restano fuori, con la ragione
+
+| Strada | Ragione |
+|---|---|
+| 9. Correzione corta | Riscrive la forma di una risposta che il filo l'ha già letta. Il testo corretto entra nel filo dalla chat (C:2281) |
+| 11. Sintesi del Consiglio | Non è un Maestro ma "la voce del cerchio": compone le lenti dei tre Maestri, che il filo l'hanno già letto e annotato |
+| 15. Sigillo dell'intenzione | Non risponde a una domanda: riscrive l'intenzione della persona. Un filo che ci entrasse spingerebbe un consulto di prima dentro le sue parole |
+| 16. Scena del Viaggio | È il racconto di un'esperienza guidata, a strati, non una risposta. Il suo esito, il segno, entra nel filo (strada 17) |

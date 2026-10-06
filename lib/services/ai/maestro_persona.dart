@@ -784,6 +784,7 @@ class MaestroPersona {
     required UserProfile profile,
     required MaestroMemory memory,
     bool conDomanda = true,
+    String filo = '',
   }) {
     // **ORDINE ER VOCE 01**: le tre parti restano, e ognuna dice in quali
     // campi della risposta vive. Le righe dell'anatomia non si dicono piu'
@@ -917,6 +918,10 @@ class MaestroPersona {
           '"pietre" (un elenco con un oggetto per pietra, coi campi '
           '"lettura" e "sullaDomanda"), "legame" e '
           '"cosaPuoiFare". Niente altro fuori dal JSON.',
+      // **IL FILO DEL CONSULTO, ordine FE voce 08**: la gettata e' una
+      // domanda a Calìgo come le altre, e legge lo stesso filo. Vuoto senza
+      // un consulto in corso: l'istruzione resta quella del banco delle rune.
+      if (filo.isNotEmpty) ...['', filo],
     ].where((r) => r.trim().isNotEmpty).join('\n');
   }
 

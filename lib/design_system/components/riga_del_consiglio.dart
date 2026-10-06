@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/chat/il_filo_del_consulto.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/identity/natal_identity.dart';
@@ -76,6 +77,10 @@ class RigaDelConsiglio extends StatelessWidget {
       conInvito: conInvito,
     );
     if (riga.isEmpty) return const SizedBox.shrink();
+    // **LA RIGA CHE LA PERSONA LEGGE E' UNA FRASE DEL CONSULTO. Ordine FE
+    // voce 11**: l'invito a tornare lo compone l'app fuori dal testo del
+    // Maestro, e chi lo riprendeva non era riconosciuto.
+    IlFiloDelConsulto.ricordaLaFrase(riga);
 
     return Padding(
       key: Key('consiglio_${maestro.id}'),

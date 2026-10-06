@@ -1,4 +1,5 @@
 import '../../core/chat/chat_message.dart';
+import '../../core/chat/la_rete_della_coerenza.dart';
 import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/user_profile.dart';
 import '../../core/maestro/consult_depth.dart';
@@ -37,7 +38,8 @@ import '../../core/rituals/rune_cast.dart';
 /// **Un successo che nasconde tre tentativi va detto a chi sviluppa.** Il
 /// conteggio finisce nel pannello di messa a punto, cosi' un problema di quota
 /// resta invisibile alla persona ma non a noi.
-class VoceSorvegliata implements MaestroAiProvider, LaCorrezioneCorta {
+class VoceSorvegliata
+    implements MaestroAiProvider, LaCorrezioneCorta, LaPortaDellaCoerenza {
   VoceSorvegliata({required MaestroAiProvider voce, required this.registro})
       : _voce = voce;
 
@@ -211,6 +213,21 @@ class VoceSorvegliata implements MaestroAiProvider, LaCorrezioneCorta {
     final voce = _voce;
     return voce is LaCorrezioneCorta &&
         (voce as LaCorrezioneCorta).correggeCorto;
+  }
+
+  @override
+
+  /// La rete della coerenza passa dalla voce vera, se la sa aprire. Ordine
+  /// FE voci 10 e 17. Una voce che non la sa aprire non giudica: torna
+  /// nullo, e la risposta resta com'e'.
+  @override
+  Future<String?> giudicaLaCoerenza(String istruzione, String testo) async {
+    final voce = _voce;
+    if (voce is! LaPortaDellaCoerenza) return null;
+    return _sorvegliando(
+        'giudicaLaCoerenza',
+        () => (voce as LaPortaDellaCoerenza)
+            .giudicaLaCoerenza(istruzione, testo));
   }
 
   @override

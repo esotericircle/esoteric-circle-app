@@ -84,6 +84,10 @@ abstract final class LeFunzioniDelModello {
   /// La correzione corta di una risposta scartata da una rete, ordine EX
   /// voce 07.
   static const String chatCorrezione = 'chat_correzione';
+
+  /// Il controllo della coerenza di una risposta coi punti fermi del
+  /// consulto, ordine FE voci 10 e 17 (`LaReteDellaCoerenza`).
+  static const String chatCoerenza = 'chat_coerenza';
   static const String interrogaBreve = 'interroga_breve';
   static const String interrogaProfonda = 'interroga_profonda';
   static const String interrogaSintesi = 'interroga_sintesi';
@@ -103,6 +107,7 @@ abstract final class LeFunzioniDelModello {
     chatSeguito,
     chatLive,
     chatCorrezione,
+    chatCoerenza,
     interrogaBreve,
     interrogaProfonda,
     interrogaSintesi,

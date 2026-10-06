@@ -1,4 +1,6 @@
 import 'dart:async';
+import '../chat/il_filo_del_consulto.dart';
+import '../maestro/maestro.dart';
 import 'dart:convert';
 
 import 'package:firebase_ai/firebase_ai.dart';
@@ -197,13 +199,28 @@ abstract final class GestiDelSegno {
             await (chiamata ?? _chiamataVera)(istruzione(animale), testo)
                 .timeout(pazienza);
         final segno = leggi(risposta, animale);
-        if (segno != null) return segno;
+        if (segno != null) return _nelFilo(segno, testo);
         seGuasto?.call(SegnoFuoriDalRepertorio(risposta));
       } catch (errore) {
         seGuasto?.call(errore);
       }
     }
-    return diRiserva(animale: animale, domanda: testo, giorno: giorno);
+    final riserva = diRiserva(animale: animale, domanda: testo, giorno: giorno);
+    return testo.isEmpty ? riserva : _nelFilo(riserva, testo);
+  }
+
+  /// **IL SEGNO ENTRA NEL FILO. Ordine FE voce 08.** Il Viaggio dello
+  /// Sciamano e' un'esperienza guidata da Calìgo, e il suo segno e' cio' che
+  /// la persona porta via sulla sua domanda: entra nella memoria del
+  /// consulto come parere di Calìgo, cosi' il Maestro che la persona
+  /// consulta dopo lo sa (strada 17 in
+  /// docs/collaudo/FE/fe08_le_strade_verso_un_maestro.md). Il segno non legge
+  /// il filo: e' una riga scelta da un repertorio di gesti, e la legge della
+  /// coerenza non ha niente da guidare li'.
+  static UnSegno _nelFilo(UnSegno segno, String domanda) {
+    IlFiloDelConsulto.annota(
+        maestro: Maestro.caligo, domanda: domanda, risposta: segno.riga);
+    return segno;
   }
 
   /// **LEGGE LA RISPOSTA DEL MODELLO**, e la scarta se esce dal repertorio.

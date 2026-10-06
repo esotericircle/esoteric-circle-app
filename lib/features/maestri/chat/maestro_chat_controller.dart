@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import '../../../core/chat/la_rete_della_coerenza.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../../core/entitlement/esito_del_turno.dart';
@@ -834,6 +835,55 @@ class MaestroChatController extends ChangeNotifier {
   /// Il seguito scritto in questo turno, da nascondere nella risposta.
   String? _seguitoDelTurno;
 
+  /// Quante risposte la rete della coerenza ha corretto, per le misure.
+  int correzioniDellaCoerenza = 0;
+
+  /// **LA RETE DELLA COERENZA.** Torna la risposta, corretta se
+  /// contraddiceva un punto fermo del consulto. Un guasto della rete lascia
+  /// la risposta com'e': la rete non ferma mai un turno.
+  Future<String> _laReteDellaCoerenza({
+    required Maestro chi,
+    required List<ChatMessage> storia,
+    required String domanda,
+    required String risposta,
+    required NatalContext natal,
+  }) async {
+    final ai = _ai;
+    if (ai is! LaPortaDellaCoerenza) return risposta;
+    final porta = ai as LaPortaDellaCoerenza;
+    final String? correzione;
+    try {
+      correzione = await LaReteDellaCoerenza.controlla(
+          chi: chi,
+          storia: [..._filoDiPrima, ...storia],
+          risposta: risposta,
+          chiamata: porta.giudicaLaCoerenza);
+    } catch (errore, traccia) {
+      annotaGuastoInnocuo(
+          'la rete della coerenza non risponde, ${chi.displayName}',
+          errore,
+          traccia);
+      return risposta;
+    }
+    if (correzione == null) return risposta;
+    correzioniDellaCoerenza++;
+    final corretta = await _correggiCorto(
+      chi: chi,
+      domanda: domanda,
+      risposta: risposta,
+      correzione: correzione,
+      conIlLessico: false,
+      allaVecchia: () => _chiediAlMaestro(
+        chi: chi,
+        storia: storia,
+        domanda: domanda,
+        natal: natal,
+        ilLessicoAlTurno: false,
+      ),
+    );
+    return LaRispostaCheChiede.senzaIlMarcatore(corretta);
+  }
+
   /// **LA RISPOSTA SCARTATA SI CORREGGE CORTA. Ordine EX voce 07.**
   ///
   /// Le reti del turno (la prima frase senza posizione, le certezze, la
@@ -1465,6 +1515,8 @@ class MaestroChatController extends ChangeNotifier {
       final scoperta = prima.copyWith(
           approfondita: true, seguito: nascosto, seguitoInArrivo: false);
       _messages[indice] = scoperta;
+      // Il seguito letto e' una frase del consulto. Ordine FE voce 11.
+      IlFiloDelConsulto.ricordaLaFrase(nascosto);
       seguitiScoperti++;
       final piano = _tier?.call();
       if (piano != null) _allowance?.registraApprofondimento(piano);
@@ -1512,6 +1564,7 @@ class MaestroChatController extends ChangeNotifier {
       final conSeguito = prima.copyWith(
           approfondita: true, seguito: pulito, seguitoInArrivo: false);
       _messages[indice] = conSeguito;
+      IlFiloDelConsulto.ricordaLaFrase(pulito);
       // IL CONTO STA SULL'ACCESSO, e si paga quando il seguito arriva.
       final piano = _tier?.call();
       if (piano != null) _allowance?.registraApprofondimento(piano);
@@ -1554,7 +1607,9 @@ class MaestroChatController extends ChangeNotifier {
           maestro: prima.autoreEffettivo(maestro),
           profile: _profile,
           memory: _memoriaPerIlModello,
-          history: [..._messages.sublist(0, indice), prima],
+          // Ordine FE voce 08: anche il seguito riceve il filo di prima,
+          // come ogni turno della chat.
+          history: [..._filoDiPrima, ..._messages.sublist(0, indice), prima],
           userMessage: SeguitoDellaLettura.laRichiesta,
           natal: natal,
           // CIO' CHE LA PERSONA HA GIA' LETTO, per intero: senza il corpo
@@ -2248,6 +2303,16 @@ class MaestroChatController extends ChangeNotifier {
       // **GLI ERRORI CHE SI RIPETONO SI RIPARANO. Ordine ET voce 01**
       // (`LItalianoDelMaestro`): l'inciso dopo la "e", "non prima di quando",
       // "dicono non ancora", l'articolo davanti al parente.
+      // **LA RETE DELLA COERENZA. Ordine FE voci 10 e 17.** Quando il
+      // consulto ha punti fermi, si chiede se la risposta ne contraddice
+      // uno senza dirlo; se si', si corregge corta come per le altre reti.
+      // Vedi [LaReteDellaCoerenza].
+      reply = await _laReteDellaCoerenza(
+          chi: chiRisponde,
+          storia: priorHistory,
+          domanda: userText,
+          risposta: reply,
+          natal: natal);
       reply = LItalianoDelMaestro.ripara(reply);
       if (nelLive) {
         reply = LeTreFrasiDelLive.scritta(reply, domanda: userText);

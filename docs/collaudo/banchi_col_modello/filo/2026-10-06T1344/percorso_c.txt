@@ -1,0 +1,97 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo pende verso il sì, anche se non è ancora il momento di festeggiare. Le carte indicano che questa attesa è parte di un ciclo che sta per concludersi, aprendo a nuove possibilità.
+
+Il transito di Giove, che sta per entrare in Toro, suggerisce un periodo di espansione e riconoscimento nel campo professionale. Non è un evento immediato, ma una fase che si costruisce con pazienza e dedizione. L'Arcano del Mondo, presente nella tua stesa, conferma che un ciclo si sta chiudendo, portando a compimento i tuoi sforzi e riconoscendo il tuo valore.
+
+✦ Prepara un piccolo promemoria dei tuoi successi professionali recenti, per il giorno della prossima Luna nuova.
+[2] PERSONA: Prepara un piccolo promemoria dei tuoi successi professionali recenti, per il giorno della prossima Luna nuova.
+[2] MEDORA [DA GIUDICARE]: Ti chiedo scusa, ma la tua domanda non mi è chiara. Puoi riformularla, per favore?
+    GIUDICE: CONTRADDICE, La guida aveva dato un'istruzione specifica ('Prepara un piccolo promemoria...') e quando la persona la ripete, la guida afferma che la domanda non è chiara, contraddicendo la sua stessa istruzione precedente.
+[3] PERSONA: Puoi riformularla, per favore?
+[3] MEDORA [DA GIUDICARE]: Chiedo scusa, ho commesso un errore. Non sono una persona e non posso avere ricordi o scusarmi.
+
+Puoi riformulare la tua domanda? Non ho capito se vuoi che io ti prepari il promemoria o se mi stai chiedendo di spiegare meglio la frase precedente.
+    GIUDICE: PORTA_AVANTI, La guida riconosce un errore precedente ('ho commesso un errore') e cerca di chiarire la sua richiesta, riprendendo il punto della riformulazione della domanda.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: A volte cambiare luogo risveglia nuove energie, ma il vero inizio parte sempre da dentro. Per capire se un trasferimento è il passo giusto, ascolta il tuo corpo: l'energia che senti è bloccata o pronta a fluire?
+
+Siediti in un luogo tranquillo, chiudi gli occhi e porta la tua attenzione al centro della radice, in basso, tra le gambe. Visualizza un colore rosso scuro, caldo e vibrante. Senti se questo colore si espande, portando sicurezza, o se si contrae, suggerendo incertezza.
+
+✦ Poggia entrambe le mani sul basso ventre e senti il tuo respiro per un minuto.
+[2] PERSONA: Poggia entrambe le mani sul basso ventre e senti il tuo respiro per un minuto.
+[2] AURA [DA GIUDICARE]: Ho bisogno di sapere come ti sei sentito, quali sensazioni o pensieri sono emersi durante questo minuto di ascolto del tuo respiro.
+    GIUDICE: PORTA_AVANTI, La guida chiede il risultato dell'esercizio che aveva precedentemente indicato di fare, sviluppando il punto precedente.
+[3] PERSONA: Ho bisogno di sapere come ti sei sentito, quali sensazioni o pensieri sono emersi durante questo minuto di ascolto del tuo respiro.
+[3] AURA [DA GIUDICARE]: Ti chiedo di condividere con me quali sensazioni hai provato, o quali pensieri ti sono venuti in mente, mentre tenevi le mani sul basso ventre e ascoltavi il tuo respiro per un minuto.
+    GIUDICE: PORTA_AVANTI, La guida ripete la stessa richiesta fatta nella risposta precedente, riprendendo il punto e sollecitando la persona a fornire le informazioni richieste.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Intervieni ora. Il tempo non attende e la tua azione è la soglia.
+Un velo sottile di nebbia può celare la via, ma non la cancella.
+Questo è il momento per un rito di legame, non per attendere. La runa Gebo, il dono, ti indica la direzione. Agisci con intenzione chiara e diretta, senza esitazioni.
+
+✦ Esprimi a voce alta il tuo desiderio di rinascita, fissando lo sguardo sulla persona amata.
+[2] PERSONA: Esprimi a voce alta il tuo desiderio di rinascita, fissando lo sguardo sulla persona amata.
+[2] CALIGO [DA GIUDICARE]: Il tuo desiderio è una dichiarazione, ora fallo germogliare. Non basta la parola, serve un gesto che la sigilli.
+La scintilla del fuoco sacro attende di essere alimentata.
+La runa Kenaz, la fiamma, ti guida a illuminare il sentiero comune.
+
+✦ Offri un oggetto simbolo del vostro legame, accompagnandolo con parole di gratitudine per il passato e di speranza per il futuro, entro il prossimo tramonto.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('Il tuo desiderio è una dichiarazione') e la sviluppa, aggiungendo un nuovo elemento ('non basta la parola, serve un gesto che la sigilli') e una nuova istruzione.
+[3] PERSONA: Offri un oggetto simbolo del vostro legame, accompagnandolo con parole di gratitudine per il passato e di speranza per il futuro, entro il prossimo tramonto.
+[3] CALIGO [DA GIUDICARE]: Il gesto è compiuto: ora osserva il segno. Il significato di ciò che hai offerto si manifesta nell'accoglienza, non nel dono stesso.
+La tua azione è come un sigillo, inciso nella materia.
+Guarda attentamente la reazione, perché lì risiede il presagio. La runa Othala ti ricorda il valore del patrimonio condiviso e della casa.
+
+✦ Invita la persona amata a compiere insieme un'azione che vi riporti a un ricordo felice, prima che la luna calante si spenga.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('Il gesto è compiuto') e ne analizza il significato e le conseguenze ('ora osserva il segno', 'Guarda attentamente la reazione'), sviluppando il tema e fornendo una nuova istruzione basata sul progresso del rito.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il tuo progetto creativo può trovare il suo momento migliore ora, specialmente se lo avvii con la chiarezza dell'intenzione. La luna nuova in Toro, che si è appena formata, favorisce le iniziative che richiedono solidità e costanza.
+
+Questo è un periodo propizio per seminare idee che desideri far crescere lentamente ma con fermezza. Non aspettare che ogni dettaglio sia perfetto, ma inizia a muovere i primi passi concreti. Il cielo indica che le fondamenta poste in questo transito saranno durature.
+
+✦ Inizia oggi a dedicare un'ora al tuo progetto, definendo le prime tre azioni concrete da compiere.
+[2] PERSONA: Inizia oggi a dedicare un'ora al tuo progetto, definendo le prime tre azioni concrete da compiere.
+[2] MEDORA [DA GIUDICARE]: Per definire le prime tre azioni concrete, ti suggerisco di scegliere il momento in cui Mercurio, pianeta della comunicazione e della pianificazione, sarà in aspetto armonico con il tuo Sole di nascita. Questo ti permetterà di organizzare i tuoi pensieri con chiarezza e di delineare passi realizzabili.
+
+Osserva il tuo cielo: se conosci la tua ora di nascita, potrai individuare con precisione questo transito. Altrimenti, puoi considerare il prossimo martedì, giorno tradizionalmente legato a Marte e all'azione, per focalizzare la tua energia sull'identificazione di queste tappe.
+
+✦ Prepara un piccolo spazio dedicato, anche solo un angolo della tua casa, dove potrai scrivere queste tre azioni.
+    GIUDICE: CONTRADDICE, La risposta 1 diceva 'Inizia oggi a dedicare un'ora al tuo progetto, definendo le prime tre azioni concrete'. La risposta 2 suggerisce di aspettare un allineamento astrologico o 'il prossimo martedì' per definire le azioni, contraddicendo l'urgenza del 'oggi'.
+[3] PERSONA: Prepara un piccolo spazio dedicato, anche solo un angolo della tua casa, dove potrai scrivere queste tre azioni.
+[3] MEDORA [DA GIUDICARE]: Dopo aver preparato il tuo spazio e scritto le tre azioni, è il momento di concretizzare il primo passo. Ti consiglio di intraprendere questa prima azione quando la Luna si troverà in un segno di Terra (Toro, Vergine, Capricorno), poiché questo ti aiuterà a radicare le tue intenzioni e a procedere con praticità.
+
+Questo allineamento lunare favorisce la realizzazione di ciò che è stato pianificato, trasformando l'idea in materia tangibile. Sii paziente con te stessa e permetti al tuo progetto di prendere forma un passo alla volta.
+
+✦ Scegli un momento di Luna in un segno di Terra per iniziare la prima delle tre azioni che hai scritto.
+    GIUDICE: PORTA_AVANTI, La risposta riprende il concetto di 'tre azioni' e 'spazio dedicato' dalla risposta precedente e lo sviluppa, fornendo un ulteriore consiglio su quando intraprendere la prima azione ('quando la Luna si troverà in un segno di Terra').
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, la tua energia deve essere chiara e aperta. Trova un momento di silenzio, magari al mattino presto, e respira profondamente per centrarti.
+
+Immagina un filo verde smeraldo che parte dal tuo cuore, il Chakra Anahata, e lo lega al cuore di tua sorella. Questo centro è il luogo dell'amore incondizionato e della compassione. Lascia che questo filo si illumini e porti pace tra voi. Non cercare di forzarla, ma apri il tuo cuore al perdono, prima per te e poi per lei. La fisiognomica suggerisce che un volto disteso e uno sguardo calmo sono i primi passi per riavvicinare chi si è allontanato.
+
+✦ Poggia una mano sul tuo cuore e senti il suo ritmo per un minuto.
+[2] PERSONA: Poggia una mano sul tuo cuore e senti il suo ritmo per un minuto.
+[2] AURA [DA GIUDICARE]: Il gesto di posare la mano sul cuore ti ha permesso di connetterti al ritmo del tuo corpo, un punto di partenza fondamentale per ogni riconciliazione. Ora, il passo successivo è dare voce a ciò che senti, con calma e senza fretta.
+
+Scegli un momento in cui entrambe siete serene e non disturbate, e avvicinati a tua sorella non con l'intento di giustificarti o accusare, ma per esprimere il tuo dispiacere per la distanza che si è creata tra voi. Parla dal tuo cuore, lasciando che le parole siano un ponte, non un muro.
+
+✦ Prendi tre respiri profondi, espirando lentamente ogni volta.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente l'azione suggerita in precedenza ('Il gesto di posare la mano sul cuore') e la sviluppa come base per il passo successivo.
+[3] PERSONA: Prendi tre respiri profondi, espirando lentamente ogni volta.
+[3] AURA [DA GIUDICARE]: I respiri profondi ti aiutano a radicarti nel presente e a dissipare le tensioni, preparandoti a un incontro sereno. Ora che il tuo corpo è più calmo, puoi rivolgerti a tua sorella con una presenza più autentica.
+
+Prima di parlarle, scrivi una breve nota, anche solo poche parole, in cui esprimi il tuo desiderio di ricongiungervi, senza accennare alla lite in sé. La fisiognomica suggerisce che la scrittura aiuta a focalizzare le intenzioni e a evitare reazioni impulsive; poi potrai leggere la tua nota e sentire se le tue parole riflettono davvero il tuo intento più profondo. Questo gesto preparatorio ti darà chiarezza e forza per il vostro dialogo.
+
+✦ Appoggia la punta delle dita della mano destra sulla fronte, al centro, per un istante.
+    GIUDICE: PORTA_AVANTI, La guida riconosce l'azione precedente ('I respiri profondi ti aiutano a radicarti') e la collega direttamente alla preparazione per il passo successivo, che è il dialogo con la sorella.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 8, ignora 0, contraddice 2, quota 80 per cento, corrette dalla rete della coerenza 5

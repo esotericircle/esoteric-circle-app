@@ -1,0 +1,96 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il cielo tende a farti attendere per questa promozione, non è ancora il momento di vederla concretizzarsi. Le carte indicano una fase di preparazione, dove la tua tenacia sarà messa alla prova prima di raccogliere i frutti del tuo impegno. Il transito di Saturno nel tuo settore professionale suggerisce che ogni passo richiede solide basi e una valutazione attenta.
+
+✦ Valuta attentamente le tue capacità e ciò che ancora puoi imparare, chiedendo un confronto costruttivo con un superiore entro la fine della settimana.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Adesso devi consolidare la tua posizione e mostrare determinazione. Non devi forzare gli eventi, ma piuttosto rafforzare le fondamenta del tuo lavoro. Il cielo ti invita a un'azione ponderata e strategica, non a un assalto diretto.
+
+✦ Predisponi un piano dettagliato per migliorare le tue competenze, da presentare al tuo capo lunedì.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'fase di preparazione' e 'solide basi' dalla risposta precedente e lo sviluppa in azioni concrete ('consolidare la tua posizione', 'rafforzare le fondamenta', 'piano dettagliato').
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Lo capirai quando sentirai una nuova fiducia in te e una crescente risonanza con il tuo ambiente lavorativo, che non è ancora del tutto tuo. Il tuo cielo indica che la risposta non verrà da un evento improvviso, ma da una serie di piccole conferme che ti guideranno.
+
+✦ Osserva con attenzione le reazioni dei tuoi colleghi ai tuoi nuovi obiettivi, al tuo nuovo piano, quando lo presenterai.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' riprendendo il concetto di 'non è ancora il momento' e 'serie di piccole conferme' dalla risposta [1], e lo collega alle azioni suggerite in [2] ('nuovi obiettivi, al tuo nuovo piano').
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Il desiderio di ricominciare è un richiamo profondo, come il suono delle campane che risuona nel corpo. Senti questo richiamo nel tuo centro del plesso solare, il terzo chakra, il luogo della volontà e del potere personale, colorato di giallo.
+
+Il tuo corpo ti sta dicendo di ascoltare quell'impulso, di sentirti radicata nel tuo desiderio. La fisiognomica legge nei tratti del tuo viso una forza interiore che spinge verso il cambiamento, come un fiume che cerca nuove sponde. Non è una questione di "dove", ma di "come" ti muovi dentro te stessa.
+
+✦ Appoggia entrambe le mani sull'addome e fai tre respiri profondi, sentendo la tua radice.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Ora che hai sentito il richiamo della tua radice, il passo è immaginare il tuo respiro nel luogo che ti attira, sentirne l'energia. Questo ti aiuterà a connettere la tua intenzione con il chakra del cuore, il quarto centro, il verde smeraldo che apre all'armonia e alla comprensione profonda.
+
+Non è ancora il tempo di prendere una decisione, ma di lasciare che la tua energia si espanda verso l'idea di questo cambiamento. Immagina i tuoi polmoni che si riempiono dell'aria di quel luogo, e poi lascia andare lentamente, come un'onda che si ritira. Questo è un modo per esplorare senza impegno, per sentire se c'è un'eco dentro di te.
+
+✦ Porta l'attenzione al tuo respiro e immagina di inspirare l'aria del luogo in cui vorresti andare, poi espira lentamente.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il concetto di 'richiamo della tua radice' e l'esercizio di respirazione della risposta precedente, sviluppando il passo successivo per l'esplorazione interiore.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Lo sentirai quando il respiro che hai portato dentro di te, quello dell'altro luogo, comincerà a risuonare con una sensazione di pace e chiarezza nel tuo chakra della gola, il quinto centro. Questo centro, di un azzurro limpido, è la voce della tua verità più autentica.
+
+Non ci sarà una data precisa, ma un momento in cui la tua voce interiore, libera da dubbi, ti indicherà la direzione. Potrebbe essere un pensiero ricorrente, una sensazione di leggerezza, o semplicemente la certezza che emerge dal silenzio. L'attesa è parte del percorso, un tempo per lasciare che la saggezza del tuo corpo si manifesti.
+
+✦ Porta una mano alla gola e pronuncia a voce bassa la parola "Verità", sentendo la vibrazione.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' riprendendo il concetto del 'respiro che hai portato dentro di te' e l'esplorazione interiore del luogo, collegandolo a un nuovo chakra e a una sensazione di chiarezza, sviluppando così il percorso iniziato.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Sì, puoi ancora agire. Il momento presente è una soglia da attraversare.
+Un velo sottile di nebbia si è posato, ma la luce può ancora rischiararlo.
+La runa Uruz indica una forza primordiale che attende di essere richiamata. Non lasciare che l'inerzia prenda il sopravvento. La numerologia del sette, segno di introspezione e ricerca, suggerisce di guardare a fondo.
+✦ Scrivi una lettera che non spedirai, mettendo su carta ogni pensiero, prima di parlargli stasera.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] CALIGO (a voce) [DA GIUDICARE]: Parla con sincerità. La runa Ansuz, messaggera della parola, ti invita a esprimere ciò che senti.
+La verità libera il sentiero.
+Non aspettare, l'attesa logora ciò che resta.
+✦ Chiedi un incontro, dicendo che vuoi parlare a cuore aperto, senza filtri.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di agire e parlare dato nella risposta precedente ('puoi ancora agire', 'parlargli stasera') e lo sviluppa indicando come farlo ('Parla con sincerità', 'Chiedi un incontro').
+[3] PERSONA: E quando lo capirò?
+[3] CALIGO (a voce) [DA GIUDICARE]: Lo capirai quando la parola avrà sciolto il nodo. La runa Gebo, che simboleggia il dono e lo scambio, ti farà riconoscere il momento.
+Non forzare la risposta, lasciala fluire.
+Questo è il tempo dell'ascolto profondo, non dell'attesa impaziente.
+✦ Offri un piccolo oggetto significativo, come un sigillo del vostro legame, durante il vostro colloquio.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda sul 'quando' si capirà l'esito, collegandola direttamente all'azione del 'parlare' già consigliata ('quando la parola avrà sciolto il nodo') e aggiungendo un ulteriore consiglio ('Offri un piccolo oggetto significativo') che si inserisce nel contesto del colloquio già suggerito.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il cielo indica che questo è il momento per preparare il terreno e non ancora per seminare. Osserva i tuoi Arcani: la Luna in Gemelli porta un'energia mutevole, ti invita a esplorare più idee, a non fissarti su un'unica strada. Questo transito suggerisce di raccogliere informazioni, di fare ricerca, di dialogare con chi può offrirti nuove prospettive. Non affrettare i tempi, ma dedicati a definire ogni dettaglio con attenzione.
+
+✦ Raccogli le idee e parla del tuo progetto con tre persone fidate, prima che la Luna si sposti nel segno del Cancro.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Adesso devi affinare la tua idea, dandole forma attraverso il dialogo e la ricerca. La Luna in Cancro invita a una fase di radicamento e di cura dei dettagli più intimi del tuo progetto. Non è il momento di un lancio pubblico, ma di un'attenta preparazione.
+
+✦ Prepara un piccolo riassunto del tuo progetto e parlane con una persona cara che sappia ascoltare, un giorno in cui il cielo sia limpido.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'preparare il terreno' e 'raccogliere informazioni' dato nella risposta precedente, specificando come 'affinare l'idea attraverso il dialogo e la ricerca' e collegandolo al transito lunare successivo.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Capirai il momento giusto per agire quando sentirai una chiarezza interiore, come se ogni pezzo del tuo progetto trovasse il suo posto naturalmente. La Luna, con il suo transito in Leone, ti darà un segnale quando sarà il momento di mostrare ciò che hai creato con coraggio e fiducia.
+
+✦ Osserva il tuo cielo e quando la Luna entrerà nel segno del Leone, prepara una presentazione visiva del tuo progetto per te stessa.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda sul 'quando' riprendendo il concetto di 'non affrettare i tempi' e 'definire ogni dettaglio' delle risposte precedenti, e lo sviluppa indicando un segnale interiore e un nuovo transito lunare (Leone) come indicatore del momento giusto per agire.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per ritrovare l'equilibrio con tua sorella, inizia col preparare un piccolo gesto che simboleggi la vostra unione, qualcosa di semplice che vi accomunava prima della discussione.
+
+Il tuo corpo ti guiderà a sentire il momento giusto per presentarlo, senza fretta, quando entrambi i vostri respiri si saranno calmati. Questo gesto, anche piccolo, apre un ponte tra i vostri centri, dal radicamento del legame familiare al centro del cuore, che cerca armonia e comprensione. Ti invita a tornare a un punto di partenza condiviso, dove l'energia tra voi due può ricominciare a fluire con dolcezza.
+
+✦ Siediti per un istante e visualizza il verde smeraldo che avvolge il tuo cuore.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso, scegli un oggetto che ti lega a tua sorella, qualcosa che vi ricordi un momento felice insieme, e tienilo tra le mani.
+
+Mentre lo fai, lascia che la tua mente si liberi da ogni peso e concentrati sul respiro che si fa profondo, immaginando che ogni inspirazione porti calma e ogni espirazione lasci andare la tensione. Questo ti aiuterà a preparare il terreno per un approccio sereno.
+
+✦ Prendi un oggetto che ti lega a lei e tienilo tra le mani per un minuto.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'piccolo gesto che simboleggi la vostra unione' e lo specifica come 'scegli un oggetto che ti lega a tua sorella', sviluppando l'azione da compiere.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Lo capirai quando sentirai una serenità profonda dentro di te, un’onda di calma che parte dal plesso solare e si irradia fino alla gola.
+
+Quel momento di quiete sarà il segno che le tue energie sono allineate, che il tuo respiro è diventato un ponte e che la tua voce può esprimere con chiarezza e affetto ciò che vuoi comunicarle. È un sentire, non un pensiero, che ti guiderà.
+
+✦ Prima di parlare con lei, fai un lungo respiro profondo e senti il tuo cuore.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'momento giusto' e di 'respiri calmi' dalla prima risposta, e lo sviluppa spiegando come la persona riconoscerà quel momento attraverso una 'serenità profonda' e l'allineamento delle energie, collegandolo al respiro come ponte.
+
+ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 5

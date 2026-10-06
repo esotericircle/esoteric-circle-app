@@ -1,4 +1,5 @@
 import '../../../core/cerchio/l_arte_di_adesso.dart';
+import '../../../core/chat/il_filo_del_consulto.dart';
 import '../../../core/sigilli/diario_del_cammino.dart';
 import 'dart:math' as math;
 import 'dart:async';
@@ -1285,7 +1286,7 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
     // demo mostra il prodotto vero. Ordine BG voce 03.
     final premium =
         AppFlags.isDemo || context.read<EntitlementService>().tier != Tier.free;
-    return MaestroWelcome.compose(
+    final benvenuto = MaestroWelcome.compose(
       maestro: widget.maestro,
       profile: controller.profile,
       natal: natal,
@@ -1293,6 +1294,10 @@ class _MaestroChatScreenState extends State<MaestroChatScreen> {
       premium: premium,
       rotation: _welcomeRotation,
     );
+    // L'invito del benvenuto e' una frase del Maestro: chi lo riprende
+    // continua quel punto. Ordine FE voce 11.
+    IlFiloDelConsulto.ricordaLaFrase(benvenuto);
+    return benvenuto;
   }
 }
 

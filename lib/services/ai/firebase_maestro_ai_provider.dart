@@ -1,10 +1,12 @@
 import 'dart:convert';
 
+import '../../core/chat/la_rete_della_coerenza.dart';
 import 'package:firebase_ai/firebase_ai.dart';
 import 'package:flutter/foundation.dart' show debugPrint;
 
 import '../../core/chat/chat_message.dart';
 import '../../core/chat/il_filo_del_consulto.dart';
+import '../../core/maestro/consiglio_finale.dart';
 import '../../core/config/la_regione_dei_dati.dart';
 import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/testo_del_responso.dart';
@@ -35,7 +37,7 @@ import 'l_etichetta_della_funzione.dart';
 ///
 /// Riferimento: regola d'oro dello stack e note di runtime C3.
 class FirebaseMaestroAiProvider
-    implements MaestroAiProvider, LaCorrezioneCorta {
+    implements MaestroAiProvider, LaCorrezioneCorta, LaPortaDellaCoerenza {
   FirebaseMaestroAiProvider({
     FirebaseAI? ai,
     this.chatModel = kMaestroChatModel,
@@ -237,15 +239,12 @@ class FirebaseMaestroAiProvider
           storia: history.length > finestraDellaStoria
               ? history.sublist(history.length - finestraDellaStoria)
               : history,
+          // Ordine FE voce 11: la frase si cerca in tutto il consulto, non
+          // nella sola ultima risposta.
           fraseRipresa: rispostaGiaData != null
               ? null
-              : LaFraseRipresa.trova(
-                  laDomanda,
-                  history
-                      .lastWhere((m) => m.isMaestro,
-                          orElse: () =>
-                              const ChatMessage(role: ChatRole.user, text: ''))
-                      .text)),
+              : LaFraseRipresa.fraTutte(
+                  laDomanda, LaFraseRipresa.testiDelConsulto(history))),
     );
     // La PRIMA risposta arriva sempre alla stessa misura per tutti: la
     // profondita' non si sceglie prima, si chiede dopo aver letto.
@@ -454,6 +453,25 @@ class FirebaseMaestroAiProvider
     return TestoDelResponso.pulisci(text);
   }
 
+  /// **LA RETE DELLA COERENZA, la sua chiamata. Ordine FE voci 10 e 17.**
+  /// Flash-Lite, ragionamento spento, temperatura zero e uscita in JSON: e'
+  /// un controllo, non una voce. Vedi [LaReteDellaCoerenza].
+  @override
+  Future<String?> giudicaLaCoerenza(String istruzione, String testo) async {
+    final model = _ai.generativeModel(
+      model: LaReteDellaCoerenza.modello,
+      httpClient: ClientConEtichetta(LeFunzioniDelModello.chatCoerenza),
+      systemInstruction: Content.system(istruzione),
+      generationConfig: configurazionePer(
+        MisuraDellaRisposta.letturaBreve,
+        temperature: 0,
+        responseMimeType: 'application/json',
+      ),
+    );
+    final r = await model.generateContent([Content.text(testo)]);
+    return r.text;
+  }
+
   @override
   Future<MaestroReply> consult({
     required Maestro maestro,
@@ -483,7 +501,10 @@ class FirebaseMaestroAiProvider
           natal: natal,
           depth: depth,
           // Ordine FE voce 08: il Consiglio legge lo stesso filo della chat.
-          filo: IlFiloDelConsulto.bloccoPer(maestro),
+          // Ordine FE voce 11: e riconosce la frase ripresa, come la chat.
+          filo: IlFiloDelConsulto.bloccoPer(maestro,
+              fraseRipresa: LaFraseRipresa.fraTutte(
+                  theme, IlFiloDelConsulto.frasiDelConsulto)),
         ),
       ),
       // Uscita nei tre strati come JSON, cosi' l'app la mostra come qualunque
@@ -756,6 +777,13 @@ class FirebaseMaestroAiProvider
           profile: profile,
           memory: MaestroMemory.empty,
           conDomanda: d.isNotEmpty,
+          // Ordine FE voce 08: la gettata legge il filo del consulto, e
+          // riconosce la frase che la persona riprende (FE.11).
+          filo: IlFiloDelConsulto.bloccoPer(Maestro.caligo,
+              fraseRipresa: d.isEmpty
+                  ? null
+                  : LaFraseRipresa.fraTutte(
+                      d, IlFiloDelConsulto.frasiDelConsulto)),
         ),
       ),
       // **I CAMPI OBBLIGATORI**, ordine ER voce 01: la lettura ha una forma, e
@@ -832,11 +860,22 @@ class FirebaseMaestroAiProvider
       // Le tre parti passano da una funzione sola, come prima dell'ordine ER:
       // un punto di ripulitura per il presagio, non tre.
       String pezzo(String t) => TestoDelResponso.pulisci(t);
-      return Responso(
+      final fatto = Responso(
         risposta: pezzo(responso.risposta),
         cosaPuoiFare: pezzo(responso.cosaPuoiFare),
         daDoveViene: pezzo(responso.daDoveViene),
       );
+      // **LA GETTATA ENTRA NEL FILO**, ordine FE voce 08: il parere di
+      // Calìgo sulla domanda, come un turno della chat. Senza domanda la
+      // gettata parla alla giornata e non apre un consulto.
+      if (d.isNotEmpty) {
+        IlFiloDelConsulto.annota(
+            maestro: Maestro.caligo,
+            domanda: d,
+            risposta: '${fatto.risposta}\n'
+                '${ConsiglioFinale.stella} ${fatto.cosaPuoiFare}');
+      }
+      return fatto;
     }
     throw MaestroAiUnavailable('Il presagio non ha retto: $motivo.');
   }

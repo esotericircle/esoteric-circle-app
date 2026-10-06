@@ -26,6 +26,7 @@
 /// gesto che porta via fra i due che restano spezzerebbe la lettura.
 library;
 
+import '../../core/chat/il_filo_del_consulto.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -287,6 +288,11 @@ class _AzioniDelResponsoState extends State<AzioniDelResponso> {
     // Prima di aprire la chat: il Maestro deve sapere da quale responso la
     // persona parte, ordine EV voce 04.
     IResponsiDiOggi.apri(_perIlMaestro, adesso: _adesso);
+    // **IL RESPONSO E' UNA FRASE DEL MAESTRO.** Ordine FE voce 11: il
+    // "Parlane con" che cita le sue parole (il gesto dell'Alba, il Soffio, il
+    // saluto della Notte, la riscrittura del Sigillo) le riprende, e non e'
+    // una domanda nuova.
+    IlFiloDelConsulto.ricordaLaFrase(widget.responso.testo);
     final AppServices services;
     try {
       services = context.read<AppServices>();
