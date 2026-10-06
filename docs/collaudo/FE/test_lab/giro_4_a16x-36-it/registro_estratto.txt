@@ -1,0 +1,16 @@
+Firebase Test Lab, giro 4 Robo, a16x-36-it, APK profile al commit d7e025b0 (la chat prepara il cielo all'apertura) con integration_test/il_filo_resta_libero_test.dart: prima, apertura della chat e saluto, poi tre turni di LIVE. Registro intero: gs://test-lab-fbt34a4rtt0j6-hdmtwm4twzy7z/2026-10-06_03:40:09.737768_RKgj/a16x-36-it-portrait/logcat
+
+10-05 18:46:33.594  4716  4919 I flutter : The Dart VM service is listening on http://127.0.0.1:36467/T_pzPz5dKf8=/
+10-05 18:46:33.782  4716  4910 I flutter : [IMPORTANT:flutter/shell/platform/android/android_context_vk_impeller.cc(62)] Using the Impeller rendering backend (Vulkan).
+10-05 18:46:34.681  4716  4716 I flutter : 00:00 +0: il filo principale non resta fermo oltre 100 ms in un turno
+10-05 18:46:44.695  4716  4716 I flutter : ORDINE FE VOCE 05: PRIMA, il calcolo della 2298 sul filo: filo fermo 6365 ms
+10-05 18:46:54.811  4716  4716 I flutter : ORDINE FE VOCE 05: l'apertura della chat e il saluto: filo fermo al massimo 59 ms
+10-05 18:46:56.479  4716  4716 I flutter : Cielo per il Maestro: cielo_del_periodo(2026-10-01, 2026-10-31)
+10-05 18:46:59.398  4716  4716 I flutter : ORDINE FE VOCE 05: DOPO, turno di LIVE di medora: filo fermo al massimo 18 ms, risposta di 788 caratteri
+10-05 18:47:00.689  4716  4716 I flutter : Cielo per il Maestro: cielo_del_periodo(2026-10-01, 2026-10-31)
+10-05 18:47:03.210  4716  4716 I flutter : ORDINE FE VOCE 05: DOPO, turno di LIVE di aura: filo fermo al massimo 19 ms, risposta di 609 caratteri
+10-05 18:47:04.873  4716  4716 I flutter : Cielo per il Maestro: cielo_del_periodo(2026-10-01, 2026-10-31)
+10-05 18:47:06.590  4716  4716 I flutter : ORDINE FE VOCE 05: DOPO, turno di LIVE di caligo: filo fermo al massimo 15 ms, risposta di 428 caratteri
+10-05 18:47:06.602  4716  4716 I flutter : ORDINE FE VOCE 05: DOPO, fermo massimo su tre turni 19 ms; istruzione ms [medora 6, aura 6, caligo 11]
+10-05 18:47:06.656  4716  4716 I flutter : 00:31 +1: (tearDownAll)
+10-05 18:47:06.664  4716  4716 I flutter : 00:31 +2: All tests passed!
