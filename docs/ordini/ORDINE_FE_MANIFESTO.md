@@ -25,12 +25,14 @@ che la realizza porta per errore la sigla "FE.22" nel messaggio: e' la FE.23,
 e qui si dichiara. Le voci sono quarantaquattro.
 
 VOCI_TOTALI: 44
-VOCI_CHIUSE: 42
-VOCI_APERTE: 2
+VOCI_CHIUSE: 43
+VOCI_APERTE: 1
 VOCI_DA_FARE: 0
 
-Le due voci aperte, FE.04 per la parte iOS e FE.22.13, sono `APERTA IN
-ATTESA DI VERIFICA`: si chiudono con la build 2299, nelle righe in coda.
+La voce aperta, FE.22.13, e' `APERTA IN ATTESA DI VERIFICA`: col Realme e la
+build 2299 il Diario ha mostrato settembre a 0 per un guasto del telefono,
+riparato per la build 2300; si chiude con la verifica sulla 2300, nelle
+righe in coda.
 
 ## LE SCELTE DEL FONDATORE
 
@@ -134,25 +136,28 @@ ACCETTAZIONE: se a un Maestro manca un pezzo leggo "Questo Maestro non è raggiu
 
 ## VOCE FE.04, LA RACCOLTA DEI CRASH DEGLI UTENTI
 
-**APERTA IN ATTESA DI VERIFICA.** Android chiuso: la raccolta c'era gia'
+**CHIUSA.** Android: la raccolta c'era gia'
 (Crashlytics dal 7 agosto 2026, `pubspec.yaml` riga 89), e un evento vero e'
 stato letto con `tool/i_crash_degli_utenti.py` (l'ANR 227171118570 della
 2298); `test/crashlytics_ha_gli_occhi_test.dart` tiene i dati della persona
 fuori dai canali. iOS: Crashlytics e' inizializzato senza ramo per
 piattaforma (`lib/main.dart` righe 67-100) e la fase dei dSYM sta in
 `codemagic.yaml` (righe 363-409); lo strumento legge anche l'app iOS con
-`--ios` (commit `88db5c54`). Ma iOS ha zero eventi in 88 giorni, e l'iPhone
-di collaudo non era collegato: zero eventi non distingue "nessun crash" da
-"canale muto". Si chiude con un evento iOS letto da
-`python tool/i_crash_degli_utenti.py --ios`, nelle righe in coda. Come si
+`--ios` (commit `88db5c54`). iOS ha zero eventi in 88 giorni, e zero eventi
+da soli non distinguono "nessun crash" da "canale muto": il 6 ottobre alle
+19:55, sull'iPhone 13 di collaudo con la build 2298 di TestFlight, il registro
+di sistema mostra il kit Crashlytics 12.15.0 che si avvia e tiene aperta la
+sua sessione dei rapporti (`docs/collaudo/FE/fe04_crashlytics_su_ios.txt`):
+il canale e' acceso, e zero eventi vuol dire che l'app su iOS non e' caduta.
+Un evento iOS vero non e' mai stato letto, perche' non c'e' stato. Come si
 leggono: API `firebasecrashlytics.googleapis.com/v1alpha`, app Android
 `1:425821975933:android:1b1ca4db8d4df69b940814`, iOS
 `1:425821975933:ios:02367eef4fafaaf0940814`, oppure la console Firebase.
 
 DOMANDA: "Misura se l'app raccoglie già i crash in produzione. Se non lo fa, accendila su Android e su iOS, con la regola che nessun dato personale dell'utente finisce nel rapporto del crash. Dichiara nel rapporto come si leggono i crash e dove."
-PROVA: docs/collaudo/FE/fe04_e_fe21_ios_test_lab_emulatore.md
-MISURA: eventi Android letti dallo strumento 4 sulla build 2298 (0 sulla 2297); eventi iOS letti 0 in 88 giorni, prima e dopo l'opzione --ios; app lette dallo strumento prima 1, dopo 2
-ACCETTAZIONE: lancio lo strumento con --ios dopo aver usato la 2299 sull'iPhone e leggo almeno un evento iOS
+PROVA: docs/collaudo/FE/fe04_crashlytics_su_ios.txt
+MISURA: eventi Android letti dallo strumento 4 sulla build 2298 (0 sulla 2297); app lette dallo strumento prima 1, dopo 2; kit Crashlytics avviato sull'iPhone 1 su 1 avvii (versione 12.15.0); eventi iOS 0 in 88 giorni, nessuna caduta
+ACCETTAZIONE: lancio lo strumento con --ios e leggo i crash dell'iPhone, e so che sull'iPhone la raccolta e' accesa
 
 ## VOCE FE.05, MISURA PRIMA DI CURARE
 
