@@ -1,0 +1,60 @@
+S01|SI|NA|NO|SI|SI|Risponde con Luna in Acquario congiunta a Plutone corrette, ma il seguito dice Venere retrograda mentre il 15 novembre Venere è diretta in Bilancia.
+S02|SI|NA|NA|SI|SI|Risposta netta con Hagalaz e rinvio al consulente per il denaro, il seguito scende sulla stessa runa e sul gesto.
+S03|SI|NA|NO|NO|SI|La risposta non dice nulla del cielo di domani e il seguito mette la Luna in Leone mentre domani è in Vergine.
+S04|SI|NO|NA|SI|SI|Risponde sì con un gesto, ma Marco compare solo nel seguito e la risposta si riempie di consigli estranei sul veterinario.
+S05|NO|NA|NA|NO|SI|Manca la riga col gesto e la risposta resta generica sul ritiro senza un passo concreto per la settimana.
+S06|SI|NA|NA|SI|SI|Indicazione concreta sulla luce e sul respiro, il seguito spiega il gesto senza ripeterlo.
+S07|SI|NA|NA|NO|SI|Parla di corpo e radice ma non indica da dove cominciare a rimettere ordine, gira intorno alla domanda.
+S08|SI|NA|NO|NO|SI|Dice Venere retrograda il 15 novembre quando è diretta, e sposta la risposta su mercoledì invece che sul giorno chiesto.
+S09|SI|NA|SI|SI|SI|Luna in Leone congiunta a Giove e Venere retrograda congiunta a Mercurio corrette, il seguito aggiunge le quadrature giuste.
+S10|SI|NA|SI|SI|SI|Segno e fase della Luna esatti, gesto coerente e seguito che approfondisce la fase calante.
+S11|SI|NA|NA|SI|SI|Risponde no con un presagio e il rinvio al consulente, il seguito nomina Nauthiz e scende sul perché.
+S12|SI|SI|NA|SI|NA|Dice cosa portare al colloquio, il sigillo di Wunjo, con un gesto concreto.
+S13|SI|NA|SI|SI|SI|Luna in Bilancia crescente esatta, il seguito approfondisce poco ma resta sul punto.
+S14|SI|NA|SI|SI|SI|Saturno in Toro esatto, gesto presente e seguito che lega la posizione alla persona.
+S15|NO|SI|NA|NO|NA|La riga col gesto ripete la stessa frase della risposta e non indica nessun passo verso la sorella.
+S16|SI|NA|NA|SI|SI|Dà un gesto per la sera sulla radice e sul respiro, il seguito lo sviluppa con la ripetizione in tre tempi.
+S17|SI|SI|NA|SI|NO|Indica subito il veterinario per Ombra, ma il seguito ripete l'urgenza di agire quasi con le stesse parole.
+S18|SI|NO|NA|NO|SI|Ignora la sorella e il litigio di Natale e risponde solo col respiro, senza dire da dove ripartire con lei.
+S19|SI|NA|SI|SI|SI|Segno e fase esatti, gesto e seguito coerenti sulla fase calante.
+S20|SI|NA|SI|SI|SI|I cinque pianeti retrogradi sono esatti e il seguito li legge uno per uno.
+S21|SI|NA|SI|SI|SI|Venere a 8 gradi in Scorpione retrograda esatta, il seguito scende sulle relazioni.
+S22|SI|NO|NA|SI|NA|Dà una tecnica di respiro precisa ma ignora che dorme male prima delle scadenze, fatto che la domanda chiama.
+S23|SI|NA|SI|SI|SI|Fase e segno esatti, anche se il gesto di scrivere a Marco non c'entra con la domanda.
+S24|SI|NA|NA|NO|SI|Non dice se accettare, si limita alla prudenza e rimanda a un mercoledì, girando intorno alla scelta.
+S25|SI|SI|NA|SI|SI|Risponde sì con condizione e nomina Marco nel gesto, il seguito scende sul centro del cuore.
+S26|SI|NA|SI|SI|SI|Posizione e retrogradazione di Venere esatte, i richiami agli altri Maestri non tolgono la risposta.
+S27|SI|NA|SI|SI|SI|Elenco dei retrogradi esatto e seguito che li approfondisce singolarmente.
+S28|SI|NA|NA|SI|NA|Risponde sì con condizione e un gesto concreto entro venerdì, il richiamo ad Aura è superfluo.
+S29|SI|NA|SI|SI|NA|Luna in Leone congiunta a Giove esatta e legata alla persona con un gesto concreto.
+S30|SI|NA|NA|SI|SI|Risponde sì con confini chiari e un gesto, il seguito scende sulla negoziazione dei tempi.
+S31|SI|SI|NA|SI|SI|Usa il colloquio e dà un modo concreto di prepararsi, il seguito spiega l'esercizio.
+S32|SI|NA|NA|SI|NO|Presentazione chiara dei Maestri, ma il seguito è generico e non scende su nulla.
+S33|SI|SI|NA|SI|SI|Risponde sì con l'argilla come primo passo legato alla ceramica, il seguito scende sul senso della scelta.
+S34|NO|NO|NA|NO|SI|Una sola frase senza gesto finale, senza la ceramica e senza un passo concreto.
+S35|SI|NA|NA|NO|SI|Parla del valore delle cose e della gratitudine ma non dice da dove cominciare a rimettere ordine.
+S36|SI|NO|NA|NO|SI|Non nomina Berlino né il lavoro in banca e sposta la risposta sul colloquio invece che sul trasferimento.
+S37|SI|NA|SI|SI|SI|Giove in Vergine esatto, gesto e seguito coerenti.
+S38|NO|SI|NA|NO|NA|Apre con una premessa sulla paura e non dice cosa portare al colloquio.
+S39|SI|NA|NA|NO|NA|Risponde sulla scelta ma liquida il non dormire senza dire nulla.
+S40|SI|NA|NA|SI|NA|Risponde accetta con una condizione e un passo concreto per la sera stessa.
+S41|SI|NA|NA|SI|SI|Dà un passo concreto con la sorella per la settimana, il seguito scende sul dolore e sulle parole.
+S42|NO|NO|NA|NO|NO|Apre con una frase di comprensione, non nomina il colloquio, dà una massima e il seguito cambia verso un nuovo percorso.
+S43|NO|SI|NA|SI|NA|Apre con una premessa sul potere delle parole, poi indica la lettera alla sorella come primo passo.
+S44|SI|NA|SI|SI|SI|Luna in Leone congiunta a Giove, opposizione Sole Saturno e Marte opposto a Plutone esatti.
+S45|SI|NO|NA|SI|SI|Propone un uso concreto dell'ora ma ignora la meditazione del mattino, fatto che la domanda chiama.
+S46|SI|NA|NA|NO|NA|Dà una massima sul tempo, nessuna posizione della sua arte e niente sul non dormire.
+S47|NO|NO|NA|NO|SI|Risponde a come ritrovare la calma invece che a come ripartire con la sorella dopo Natale.
+S48|SI|SI|NA|SI|SI|Usa la paura di deludere la madre con un esercizio e un gesto concreti, il seguito scende sul motivo.
+S49|SI|NO|NA|SI|NA|Gesto di respiro preciso ma ignora che dorme male prima delle scadenze.
+S50|SI|NA|SI|SI|NA|Luna in Leone esatta e letta per la persona con un gesto concreto.
+S51|SI|NA|SI|SI|SI|Saturno in Toro esatto, il seguito ne nota correttamente la retrogradazione.
+S52|SI|NA|NA|SI|SI|Scelta netta della periferia con motivo e gesto, il seguito scende sullo spazio per la ceramica.
+S53|SI|SI|NA|SI|SI|Usa la meditazione del mattino e il colloquio, il seguito approfondisce come usarla.
+S54|SI|SI|NA|SI|NO|Indica subito il veterinario per Ombra, ma il seguito ripete l'urgenza di agire.
+S55|SI|NA|SI|SI|SI|Luna in Vergine domani esatta e opposizione Sole Saturno corretta, con gesto concreto.
+S56|SI|NA|SI|SI|SI|Giove in Vergine esatto, gesto e seguito coerenti.
+S57|SI|SI|NA|SI|SI|Risponde sì al trasferimento nominando Berlino nel gesto, il seguito scende sulle motivazioni e sulla bottega.
+S58|SI|NA|NA|SI|NO|Presentazione chiara, ma il seguito cambia argomento su colloquio e veterinario.
+S59|SI|SI|NA|SI|NO|Risponde con un passo verso la madre, ma il seguito parla di una lettera mai nominata nella risposta.
+S60|SI|NA|NA|SI|SI|Scelta netta del centro con Othala e gesto, il seguito scende sul senso della casa.

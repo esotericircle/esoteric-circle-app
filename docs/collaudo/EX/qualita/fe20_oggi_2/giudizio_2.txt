@@ -1,0 +1,60 @@
+S01|NO|SI|NA|SI|NA|la prima frase è una premessa generica, poi il the per la sorella risponde ma il gesto finale non c'entra.
+S02|NO|NA|NA|SI|SI|dice come certo di non prestare i soldi, un'indicazione sul denaro, anche se la posizione e il seguito su Gebo sono chiari.
+S03|NO|SI|NA|SI|NA|la prima frase è una massima sul sentiero, poi l'oggetto da portare risponde con un gesto di metallo.
+S04|SI|NA|NA|SI|SI|risponde col respiro e il gesto sul letto, con digressioni su colloquio e veterinario, il seguito scende sul sonno.
+S05|NO|NA|SI|SI|SI|le prime due frasi sono generiche prima della Luna in Vergine calante, che è giusta, e il seguito approfondisce.
+S06|SI|NA|NA|SI|SI|risponde subito col non chiudersi e un gesto, il seguito scende sullo stesso transito.
+S07|SI|NA|SI|SI|SI|elenco dei retrogradi esatto e il seguito spiega ciascuno.
+S08|SI|NA|SI|SI|SI|Venere a 8 gradi in Scorpione retrograda è esatta, gesto concreto, seguito sullo stesso punto.
+S09|SI|NO|NA|SI|NO|non nomina Berlino né il lavoro in banca, e il seguito passa al colloquio di fine mese.
+S10|SI|NO|NA|SI|SI|risponde di sì con un gesto, ma ignora Marco e i tre mesi e divaga su colloquio e veterinario.
+S11|SI|NA|NA|SI|SI|scelta netta della periferia col gesto, il seguito resta sulla scelta.
+S12|SI|NA|NA|NO|NA|una massima sul decidere senza aiutare a decidere, e un rito che cita la sorella fuori luogo.
+S13|SI|NA|SI|SI|SI|Luna in Vergine calante esatta, gesto pratico, seguito che scende sulla Vergine.
+S14|NO|NA|SI|NO|NA|manca la riga col ✦ e la risposta resta generica senza un passo concreto.
+S15|SI|NO|NA|SI|SI|usa la paura della madre ma nel seguito inventa una Luna in Cancro che contraddice il tema della persona.
+S16|SI|SI|NA|SI|NO|veterinario subito e chiamata ora, ma il seguito ripete l'urgenza senza scendere oltre.
+S17|SI|SI|NA|SI|SI|usa la meditazione del mattino e dà un compito preciso per l'ora libera, seguito sullo stesso punto.
+S18|SI|NO|NA|SI|NA|gesto di respiro corretto ma ignora che dorme male prima delle scadenze.
+S19|SI|NA|NA|SI|SI|indica il bilancio delle spese e un tempo fisso, il seguito scende sulla radice e la vergogna.
+S20|SI|NO|NA|SI|NA|pratica di respiro precisa ma non usa il dormire male prima delle scadenze.
+S21|SI|SI|NA|SI|SI|sì condizionato alla ceramica con un gesto sull'argilla, con righe fuori tema sugli altri Maestri.
+S22|NO|SI|NA|SI|SI|le prime due frasi sono premesse sul respiro e la colpa, il passo verso la sorella arriva solo dopo.
+S23|SI|NA|SI|SI|SI|retrogradi esatti e seguito che li colloca nei segni giusti.
+S24|SI|NA|NA|NO|SI|resta sul corpo e liquida la parte pratica del rimettere ordine nelle spese.
+S25|SI|NA|SI|SI|SI|posizione di Venere esatta e seguito sullo stesso transito.
+S26|NO|NO|NA|NO|SI|dice come certo che il veterinario non è urgente, ignora la meditazione del mattino e l'uso dell'ora resta vago.
+S27|NO|NA|SI|NO|NA|apre con una frase generica e non dice niente di personale per stasera, Luna in Leone calante giusta.
+S28|NO|NA|NO|NO|SI|dice Mercurio retrogrado, che non lo è, apre generica e il gesto di tenere l'Ascendente non è concreto.
+S29|SI|NA|SI|SI|SI|Luna in Leone calante esatta, gesto concreto, seguito sulla congiunzione con Giove.
+S30|SI|NA|SI|SI|SI|segno e fase esatti subito, gesto e seguito sullo stesso punto.
+S31|SI|SI|NA|SI|NO|messaggio alla sorella come ripartenza, ma il seguito è breve e generico senza scendere.
+S32|SI|SI|NA|SI|SI|preparazione concreta del colloquio con i punti di forza, seguito sulle domande possibili.
+S33|SI|NA|SI|SI|SI|Luna crescente in Bilancia esatta, Giove e Urano in Bilancia confermati.
+S34|SI|SI|NA|SI|SI|usa la paura della madre con una lettera da scriverle, seguito sulla radice.
+S35|SI|NO|NA|NO|NA|non parla della sorella né di come fare il primo passo verso di lei, resta sul respiro.
+S36|SI|NO|NA|SI|SI|non nomina Berlino né il lavoro in banca, risposta condizionata con un gesto generico.
+S37|SI|NA|NA|SI|SI|presentazione chiara delle arti e dei Maestri, il seguito dice come rivolgersi a lei.
+S38|SI|NA|SI|SI|SI|Giove in Vergine esatto, gesto e seguito sullo stesso transito.
+S39|SI|NA|NA|SI|SI|scelta netta con Fehu e un gesto, seguito che resta sulla casa e sull'arte.
+S40|SI|SI|NA|SI|SI|usa il colloquio con un passo preciso, seguito che scende sullo stomaco chiuso.
+S41|SI|SI|NA|SI|SI|veterinario e chiamata concreta, seguito sulla runa rovesciata.
+S42|SI|SI|NA|SI|NA|cosa portare al colloquio è detto con una runa e un oggetto da stringere.
+S43|SI|NA|SI|SI|SI|Giove in Vergine esatto, gesto e seguito sul transito.
+S44|SI|NA|SI|SI|SI|Saturno in Toro retrogrado esatto, gesto e seguito coerenti.
+S45|SI|NA|NO|SI|SI|il seguito dice Venere ancora retrograda, ma il 15 novembre è diretta in Bilancia.
+S46|SI|NA|NA|SI|SI|posizione chiara sull'opposizione Sole Saturno, gesto e seguito sullo stesso punto.
+S47|SI|NA|SI|SI|SI|aspetti del 15 novembre riportati esatti, gesto pratico sulla bozza.
+S48|SI|NA|SI|SI|SI|opposizione Sole Saturno e Luna con Giove esatte, seguito sulle priorità.
+S49|SI|NA|NA|NO|NA|una massima sul non aspettare e un rito, senza aiutare nella scelta né nel sonno.
+S50|SI|NA|NA|SI|SI|scioglimento sulla radice e gesto di respiro, seguito sullo stesso centro.
+S51|SI|SI|NA|SI|SI|sì condizionato con un gesto, il seguito usa l'incontro con Marco.
+S52|NO|NA|SI|NO|SI|manca la riga col ✦ e non c'è un passo concreto, Saturno in Toro esatto.
+S53|NO|NA|NA|SI|SI|dice come certo di non dargli i soldi, un'indicazione sul denaro.
+S54|NO|NA|NA|SI|SI|la prima frase è una premessa, poi chiede tempo al capo con un gesto preciso.
+S55|SI|NA|NA|SI|NA|posizione netta per ora, con la riflessione sulle priorità come passo.
+S56|NO|NA|NA|SI|NA|afferma come certo che il ruolo sarà un'opportunità di crescita importante.
+S57|SI|SI|NA|SI|SI|sì condizionato alla ceramica con i corsi, con una riga fuori tema sul colloquio.
+S58|SI|NA|NA|SI|NO|il seguito cambia argomento, passa al plesso solare, alle parole e al veterinario.
+S59|SI|NA|NA|SI|SI|accoglienza del disorientamento con un gesto per la sera, seguito sullo stesso transito.
+S60|SI|NA|SI|SI|SI|Luna crescente a 3 gradi in Bilancia esatta, seguito sullo stesso punto.
