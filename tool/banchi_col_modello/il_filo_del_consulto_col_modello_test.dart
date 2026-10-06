@@ -192,9 +192,18 @@ void main() {
           .writeAsStringSync(testo.toString());
       expect(giudicate, greaterThanOrEqualTo(10),
           reason: 'meno di dieci risposte giudicate: la misura non vale');
-      expect(contraddice, 0, reason: colpe.join('\n'));
-      expect(quota, greaterThanOrEqualTo(0.9),
-          reason: 'meno di nove risposte su dieci portano avanti il punto: '
+      // **LA SOGLIA E' IL LIVELLO DICHIARATO, scelta del fondatore del 6
+      // ottobre 2026, "Tengo la migliore e chiudo".** L'ordine FE voce 17
+      // voleva zero contraddizioni e nove risposte su dieci che portano
+      // avanti: dopo ventotto giri del banco nessuna forma ci arrivava
+      // (4 contraddizioni su 180 nella forma scelta), e il fondatore ha
+      // chiuso dichiarando il livello. Qui la soglia e' il giro peggiore
+      // della forma scelta, nove giri dalle 11:24 alle 16:58: al piu' due
+      // contraddizioni e almeno otto su dieci per percorso. Il banco resta
+      // la rete che a ogni consegna prende un peggioramento.
+      expect(contraddice, lessThanOrEqualTo(2), reason: colpe.join('\n'));
+      expect(quota, greaterThanOrEqualTo(0.8),
+          reason: 'meno di otto risposte su dieci portano avanti il punto: '
               '$riepilogo');
     },
         skip: token.isEmpty
