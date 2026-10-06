@@ -102,7 +102,8 @@ void main() {
     // dell'Architetto. La carta singola e' una carta estratta, nelle stese.
     const attesi = <RigaDelPiano, int>{
       // Ordine EX Aggiunta 3: ventidue, erano tredici.
-      RigaDelPiano.domande: 22,
+      // Ordine FE voce 20: ventuno, erano ventidue ("Una domanda in meno").
+      RigaDelPiano.domande: 21,
       RigaDelPiano.approfondimenti: 3,
       RigaDelPiano.confronti: 3,
       RigaDelPiano.stese: 15,

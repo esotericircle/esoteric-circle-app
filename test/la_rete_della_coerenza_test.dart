@@ -32,7 +32,7 @@ void main() {
     var chiamate = 0;
     Future<String?> conta(String i, String t) async {
       chiamate++;
-      return '{"contraddice": true, "punto": "x", "perche": "y"}';
+      return '{"contraddice": true, "punto": "x", "motivo": "y"}';
     }
 
     expect(
@@ -74,7 +74,7 @@ void main() {
       chiamata: (istruzione, testo) async {
         letto = testo;
         return '{"contraddice": true, "punto": "aspetta il novilunio", '
-            '"perche": "dice di agire subito"}';
+            '"motivo": "dice di agire subito"}';
       },
     );
     expect(letto, contains('aspetta il novilunio'),
@@ -91,8 +91,8 @@ void main() {
         domanda: 'Devo chiedere la promozione?',
         risposta: attesaDiMedora);
     for (final grezzo in [
-      '{"contraddice": false, "punto": "", "perche": ""}',
-      '{"contraddice": false, "punto": "x", "perche": "y"}',
+      '{"contraddice": false, "punto": "", "motivo": ""}',
+      '{"contraddice": false, "punto": "x", "motivo": "y"}',
       'non so',
       '{"contraddice": true, "punto": ""}',
       null,

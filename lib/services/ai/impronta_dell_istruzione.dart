@@ -63,7 +63,7 @@ class ImprontaDellIstruzione {
         '96,7 per cento, docs/collaudo/EX/attribuzione_dopo_aggiunta4.txt. '
         'Caduta con l\'ordine FE: il ripetuto tolto dall\'istruzione di base '
         'per pagare il costo del filo (voce 20, commit d7e025b0) e il '
-        'controllo finale del gesto gia\' consigliato e del "e se non va" '
+        'controllo finale del gesto già consigliato e del "e se non va" '
         '(voci 10 e 17). Sulla stringa nuova, quattro giri: senza filo 56 su '
         '59 e 58 su 60, col filo di un altro Maestro 56 su 60 e 59 su 60, '
         'in tutto 229 su 239, 95,8 per cento, ogni Maestro a 85 o sopra in '

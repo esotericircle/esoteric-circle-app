@@ -16,7 +16,7 @@ abstract interface class LaPortaDellaCoerenza {
 }
 
 /// Il verdetto della rete: il punto fermo contraddetto e perche'.
-typedef PuntoContraddetto = ({String punto, String perche});
+typedef PuntoContraddetto = ({String punto, String motivo});
 
 /// **LA RETE DELLA COERENZA. Ordine FE voci 10 e 17.**
 ///
@@ -71,7 +71,7 @@ abstract final class LaReteDellaCoerenza {
       'diverso da quello dei punti fermi NON contraddice.\n\n'
       'Rispondi SOLO con un oggetto JSON: {"contraddice": true o false, '
       '"punto": "il punto fermo contraddetto, con le sue parole", '
-      '"perche": "una frase"}. Se non contraddice, "punto" e "perche" '
+      '"motivo": "una frase"}. Se non contraddice, "punto" e "motivo" '
       'sono vuoti.';
 
   /// **LA RETE PARTE SOLO DOVE SERVE. Scelta del fondatore del 6 ottobre
@@ -152,7 +152,7 @@ abstract final class LaReteDellaCoerenza {
       if (j is! Map || j['contraddice'] != true) return null;
       final punto = '${j['punto'] ?? ''}'.trim();
       if (punto.isEmpty) return null;
-      return (punto: punto, perche: '${j['perche'] ?? ''}'.trim());
+      return (punto: punto, motivo: '${j['motivo'] ?? ''}'.trim());
     } on FormatException {
       return null;
     }
@@ -161,7 +161,7 @@ abstract final class LaReteDellaCoerenza {
   /// La correzione per la voce: nomina il punto fermo e le due strade.
   static String correzione(PuntoContraddetto p) =>
       'LA TUA RISPOSTA CONTRADDICE UN PUNTO FERMO DEL CONSULTO SENZA DIRLO: '
-      '«${p.punto}»${p.perche.isEmpty ? '' : ' (${p.perche})'}. Riscrivi la '
+      '«${p.punto}»${p.motivo.isEmpty ? '' : ' (${p.motivo})'}. Riscrivi la '
       'risposta: o la porti avanti da quel punto, con lo stesso gesto e lo '
       'stesso tempo, o dici apertamente che leggi diversamente e perché. '
       'Tutto il resto della risposta resta com’è.';

@@ -71,7 +71,7 @@ void main() {
           maestro: 'caligo',
           conversazione: d.conversazione,
           tema: d.text,
-          quando: d.at ?? DateTime.now()),
+          quando: d.at ?? DateTime(2026, 10, 6, 10)),
     );
     await chat.init();
     await chat.apriLaConversazione('c1');
@@ -142,7 +142,7 @@ class _LaPortaCheRaccoglie implements MaestroAiProvider, LaPortaDellaCoerenza {
     chiamate++;
     allaRete++;
     testi.addAll([istruzione, testo]);
-    return '{"contraddice": false, "punto": "", "perche": ""}';
+    return '{"contraddice": false, "punto": "", "motivo": ""}';
   }
 
   @override

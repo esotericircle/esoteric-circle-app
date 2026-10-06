@@ -56,6 +56,22 @@ void main() {
     // niente con cio' che sorveglia. Un'eccezione ancorata a un numero di riga
     // si rompe ogni volta che qualcosa sopra si muove.
     const eccezioni = <String, String>{
+      // **IL RESPONSO ENTRA NEL DIARIO, NON SI CHIEDE.** Ordine FE voce
+      // 22.6: `annotaNelDiario` scrive il responso gia' a schermo nel
+      // registro e nella callable del Diario. Nomina un Maestro perche' la
+      // voce porta il suo, ma non chiede nessuna risposta a Vertex.
+      'lib/features/ricordi/azioni_del_responso.dart|'
+              'unawaited(annotaNelDiario(':
+          'e\' la scrittura nel Diario di un responso gia\' a schermo: nessuna '
+              'chiamata a Vertex, nessuna quota',
+      'lib/features/maestri/ask/ask_maestri_screen.dart|'
+              'unawaited(annotaNelDiario(':
+          'e\' la scrittura nel Diario del Consiglio gia\' arrivato: nessuna '
+              'chiamata a Vertex, nessuna quota',
+      'lib/features/maestri/caligo/viaggio/viaggio_dello_sciamano_screen.dart|'
+              'unawaited(annotaNelDiario(':
+          'e\' la scrittura nel Diario del Viaggio gia\' composto: nessuna '
+              'chiamata a Vertex, nessuna quota',
       // **IL CIELO SI PREPARA, NON SI CHIEDE.** Ordine FE voci 05 e 06: la
       // chat calcola sul telefono, fuori dal filo, gli eventi in arrivo. Non
       // tocca Vertex, non e' una risposta e non si aspetta.
