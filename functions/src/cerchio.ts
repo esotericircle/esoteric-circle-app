@@ -13,6 +13,9 @@ import {getAuth} from "firebase-admin/auth";
 import {chiaveDelGiorno} from "./giorno";
 import {scriviIlMessaggio} from "./doppioni";
 import {
+  annotaLaConversazione, chiaveDellaConversazione, togliDalDiarioOvunque,
+} from "./diario";
+import {
   cancellaIlSociale,
   invitoDalRiscatto,
   istantanea,
@@ -1000,6 +1003,19 @@ export const scriviLaMemoria = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
       campi,
       (dati) => ({...dati, createdAt: FieldValue.serverTimestamp()}),
     );
+    // **LA CONVERSAZIONE ENTRA NEL DIARIO DA SE'. Ordine FE voce 22.6.**
+    // Nella stessa chiamata che salva il messaggio, senza gesti: il Diario
+    // e il menu' della chat leggono la stessa riga. Un guasto qui non
+    // perde il messaggio, che e' gia' scritto.
+    if (!gia) {
+      try {
+        await annotaLaConversazione(uid, maestro, campi);
+      } catch (errore) {
+        logger.warn("Conversazione non annotata nel Diario", {
+          uid, maestro, errore: String(errore),
+        });
+      }
+    }
     return {scritto: true, id, gia};
   }
   case "ultimoMessaggio": {
@@ -1274,10 +1290,14 @@ export const cancellaLaConversazione = onCall(
       for (const d of daTogliere.slice(i, i + 400)) batch.delete(d.ref);
       await batch.commit();
     }
+    // **IL CESTINO CANCELLA DAVVERO, anche dal Diario. Ordine FE voce
+    // 22.17**: la riga dell'indice e il contenuto, non una voce nascosta.
+    const dalDiario = await togliDalDiarioOvunque(
+      uid, chiaveDellaConversazione(maestro, conversazione));
     logger.info("cancellaLaConversazione", {
-      uid, maestro, conversazione, tolti: daTogliere.length,
+      uid, maestro, conversazione, tolti: daTogliere.length, dalDiario,
     });
-    return {tolti: daTogliere.length};
+    return {tolti: daTogliere.length, dalDiario};
   },
 );
 

@@ -125,6 +125,14 @@ export {
   lasciaIlResponso,
 } from "./ricordi";
 
+/** Il Diario Cosmico sul server. Ordine FE voce 22. */
+export {
+  annotaNelDiario,
+  stellaNelDiario,
+  riempiIlDiario,
+  leggiLaVoce,
+} from "./diario";
+
 /**
  * IL MOTORE SOCIALE DEL CERCHIO, ordine EY. Sedici porte, ognuna col suo
  * tetto per identita' (`TETTI_DELLE_PORTE` in `sociale.ts`), piu' la pagina
