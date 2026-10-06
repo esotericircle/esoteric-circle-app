@@ -44,9 +44,6 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-        // Le prove sul dispositivo vero (integration_test, Firebase Test Lab),
-        // ordine FE voce 21.
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         // **UNA SOLA ARCHITETTURA, arm64-v8a, ed e' una scelta del
         // fondatore, ordine CH del 31 agosto 2026.** Messo davanti alle due
@@ -165,6 +162,4 @@ tasks.matching { it.name.contains("Release") }.configureEach {
 // hanno. La pretende `flutter_local_notifications` per programmare gli avvisi.
 dependencies {
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.4")
-    androidTestImplementation("androidx.test:runner:1.3.0")
-    androidTestImplementation("androidx.test:rules:1.2.0")
 }

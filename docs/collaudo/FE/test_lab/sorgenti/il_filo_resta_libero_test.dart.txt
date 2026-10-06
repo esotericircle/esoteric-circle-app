@@ -1,0 +1,115 @@
+// ignore_for_file: avoid_print
+import 'dart:async';
+
+import 'package:esoteric_circle/core/astro/il_cielo_che_arriva.dart';
+import 'package:esoteric_circle/core/astro/prossimi_eventi.dart';
+import 'package:esoteric_circle/core/astro/zodiac.dart';
+import 'package:esoteric_circle/core/chat/maestro_memory.dart';
+import 'package:esoteric_circle/core/chat/user_profile.dart';
+import 'package:esoteric_circle/core/maestro/maestro.dart';
+import 'package:esoteric_circle/core/maestro/natal_context.dart';
+import 'package:esoteric_circle/services/ai/firebase_maestro_ai_provider.dart';
+import 'package:esoteric_circle/services/ai/la_richiesta_del_turno.dart';
+import 'package:esoteric_circle/services/ai/maestro_persona.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
+
+/// **IL FILO RESTA LIBERO DURANTE UN TURNO DI LIVE. Ordine FE voci 05, 06 e
+/// 21**, nella forma chiesta dal fondatore il 6 ottobre 2026: sul telefono
+/// piu' lento con hardware uguale o inferiore al Redmi Note 14 Pro 5G, il
+/// filo principale non resta mai fermo oltre 100 millisecondi durante un
+/// turno di LIVE.
+///
+/// PRIMA: la 2298 calcolava gli eventi in arrivo di 400 giorni due volte per
+/// istruzione, sul filo principale (stack tradotto in
+/// docs/collaudo/FE/lo_stack_del_redmi_tradotto.txt): qui si rifa' quel
+/// lavoro sul filo e si misura il fermo.
+/// DOPO: il turno vero di ogni Maestro, con la richiesta del LIVE, col
+/// codice di adesso; il fermo piu' lungo del filo mentre risponde.
+/// Ogni misura si stampa con "ORDINE FE VOCE 05".
+void main() {
+  final binding = IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  /// Il fermo piu' lungo del filo principale mentre [lavoro] gira: un
+  /// orologio batte ogni 10 ms e si tiene il buco piu' grande fra due
+  /// battiti, meno i 10 ms del battito stesso.
+  Future<(T, int)> fermoDurante<T>(FutureOr<T> Function() lavoro) async {
+    var ultimo = DateTime.now();
+    var peggiore = 0;
+    final orologio = Timer.periodic(const Duration(milliseconds: 10), (_) {
+      final ora = DateTime.now();
+      final buco = ora.difference(ultimo).inMilliseconds - 10;
+      if (buco > peggiore) peggiore = buco;
+      ultimo = ora;
+    });
+    try {
+      await Future<void>.delayed(const Duration(milliseconds: 30));
+      final esito = await lavoro();
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      return (esito, peggiore);
+    } finally {
+      orologio.cancel();
+    }
+  }
+
+  testWidgets('il filo principale non resta fermo oltre 100 ms in un turno',
+      (tester) async {
+    await Firebase.initializeApp();
+    if (FirebaseAuth.instance.currentUser == null) {
+      await FirebaseAuth.instance.signInAnonymously();
+    }
+    final dati = <String, Object?>{};
+    final oggi = DateTime.now();
+    const natal =
+        NatalContext(sunSign: 'Gemelli', lifeNumberTitle: 'il Costruttore');
+
+    // PRIMA: come nella 2298, due volte sul filo per ogni istruzione.
+    final (_, prima) = await fermoDurante(() {
+      ProssimiEventi.da(adesso: oggi, segno: Zodiac.gemini);
+      ProssimiEventi.da(adesso: oggi, segno: Zodiac.gemini);
+    });
+    dati['prima_fermo_ms'] = prima;
+    print('ORDINE FE VOCE 05: PRIMA, il calcolo della 2298 sul filo: filo '
+        'fermo $prima ms');
+
+    // DOPO: il turno vero di ogni Maestro, con la richiesta del LIVE.
+    IlCieloCheArriva.dimentica();
+    final provider = FirebaseMaestroAiProvider();
+    var peggiore = 0;
+    for (final m in Maestro.values) {
+      final (risposta, fermo) = await fermoDurante(
+          () => const LaRichiestaDelTurno(nelLive: true).per(() =>
+              provider.reply(
+                maestro: m,
+                profile: UserProfile.empty,
+                memory: MaestroMemory.empty,
+                history: const [],
+                userMessage: 'Cosa mi dice il cielo per questo mese?',
+                natal: natal,
+              )));
+      dati['${m.name}_turno_fermo_ms'] = fermo;
+      if (fermo > peggiore) peggiore = fermo;
+      print('ORDINE FE VOCE 05: DOPO, turno di LIVE di ${m.name}: filo fermo '
+          'al massimo $fermo ms, risposta di ${risposta.length} caratteri');
+      // L'istruzione composta subito dopo, col cielo gia' pronto.
+      final w = Stopwatch()..start();
+      MaestroPersona.systemInstruction(
+          maestro: m,
+          profile: UserProfile.empty,
+          memory: MaestroMemory.empty,
+          natal: natal);
+      dati['${m.name}_istruzione_ms'] = w.elapsedMilliseconds;
+    }
+    print('ORDINE FE VOCE 05: DOPO, fermo massimo su tre turni $peggiore ms; '
+        'istruzione ms ${[
+      for (final m in Maestro.values)
+        '${m.name} ${dati['${m.name}_istruzione_ms']}'
+    ]}');
+    binding.reportData = dati;
+    expect(peggiore, lessThan(100),
+        reason: 'durante un turno di LIVE il filo principale e\' rimasto '
+            'fermo $peggiore ms: la voce verso il volto si ferma con lui');
+  });
+}

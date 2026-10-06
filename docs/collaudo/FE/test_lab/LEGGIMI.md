@@ -89,3 +89,21 @@ La voce si prova sul Realme.
 Lo stesso profilo del Redmi è in `../emulatore/`. Su questo PC l'emulatore non
 parte, perché la virtualizzazione è spenta nel firmware
 (`../emulatore/avvio_su_questo_pc.txt`).
+
+## L'impalcatura e' stata tolta, e perche'
+
+Il 6 ottobre 2026, alle 02:15, la build di rilascio e' caduta:
+`GeneratedPluginRegistrant.java:144: error: package
+dev.flutter.plugins.integration_test does not exist`. Con Flutter 3.44.5 il
+registro dei plugin chiama `integration_test` anche nella build di rilascio,
+benche' il pacchetto sia marcato come dipendenza di sviluppo, e la sua classe
+nella build di rilascio non c'e'. La stessa caduta avrebbe fermato la build
+2299. Padre: ordine FE voce 21.2, cioe' io.
+
+Per questo la dipendenza `integration_test`, la cartella `integration_test/`
+e `android/app/src/androidTest/` sono state tolte, e `pubspec.yaml` e
+`android/app/build.gradle.kts` sono tornati identici al byte a prima della
+voce 21. I due sorgenti restano qui in `sorgenti/` con l'estensione `.txt`, cosi'
+l'analisi non li compila. Per rifare un giro su Test Lab vanno rimessi al loro
+posto insieme alla dipendenza, il giro va fatto con la build di debug, e
+l'impalcatura va tolta di nuovo prima di qualunque build di rilascio.
