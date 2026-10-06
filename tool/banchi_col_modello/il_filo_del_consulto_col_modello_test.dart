@@ -323,8 +323,9 @@ class _Giro {
       if (correzione != null) {
         conto.correzioni++;
         corretta = true;
+        // La correzione della rete su Flash-Lite, come nel provider (FE.20).
         risposta = await _vertex(
-          modello: FirebaseMaestroAiProvider.modelloDelTurno(nelLive: nelLive),
+          modello: FirebaseMaestroAiProvider.kMaestroBreveModel,
           istruzione: MaestroPersona.istruzioneDellaCorrezione(
             maestro: chi,
             profile: UserProfile.empty,

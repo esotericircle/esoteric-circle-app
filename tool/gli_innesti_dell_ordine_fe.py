@@ -426,6 +426,17 @@ INNESTI = [
      None,
      'flutter test test/la_riga_della_persona_non_parte_test.dart -r expanded',
      "nella chiamata al modello la riga non c'e'"),
+    # FE.20, la correzione della rete su Flash-Lite.
+    ('A75', 'FE.20', 'lib/features/maestri/chat/maestro_chat_controller.dart',
+     '      leggera: true,\n',
+     '',
+     'flutter test test/la_rete_della_coerenza_test.dart -r expanded',
+     'passa dal controllore'),
+    ('A76', 'FE.20', 'lib/services/ai/firebase_maestro_ai_provider.dart',
+     '      model: leggera\n          ? kMaestroBreveModel\n',
+     '      model: leggera\n          ? kMaestroChatModel\n',
+     'flutter test test/la_rete_della_coerenza_test.dart -r expanded',
+     'passa dal controllore'),
     # Regola B fatta DOPO il tocco della FE.07, e dichiarata: la guardia EG
     # del rifiuto del LIVE, che conta le ragioni e le loro frasi.
     ('B10', 'FE.07', 'lib/features/maestri/live/stato_della_schermata_live.dart',

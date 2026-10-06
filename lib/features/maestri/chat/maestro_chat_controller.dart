@@ -873,6 +873,7 @@ class MaestroChatController extends ChangeNotifier {
       risposta: risposta,
       correzione: correzione,
       conIlLessico: false,
+      leggera: true,
       allaVecchia: () => _chiediAlMaestro(
         chi: chi,
         storia: storia,
@@ -903,6 +904,9 @@ class MaestroChatController extends ChangeNotifier {
     required Future<String> Function() allaVecchia,
     bool conIlLessico = true,
     bool? conSeguito,
+
+    /// La correzione su Flash-Lite, per la rete della coerenza (FE.20).
+    bool leggera = false,
   }) async {
     // **LE PAROLE ALTRUI NELLA STESSA CORREZIONE. Ordine EX Aggiunta 5, voce
     // EX.07.** Se la risposta da correggere porta anche una parola di firma
@@ -934,6 +938,7 @@ class MaestroChatController extends ChangeNotifier {
           nelLive: nelLive,
           cieloDelTurno: _cieloDelTurno(),
           conSeguito: conSeguito ?? _conSeguito,
+          leggera: leggera,
         );
         // Ordine EX Aggiunta 4, EX.04: il seguito e' quello della risposta
         // corretta, o nessuno.

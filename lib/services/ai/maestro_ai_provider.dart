@@ -263,5 +263,12 @@ abstract interface class LaCorrezioneCorta {
     /// EX Aggiunta 4, EX.04): il seguito della risposta scartata non va piu'
     /// d'accordo con quella corretta.
     bool conSeguito = false,
+
+    /// **LA CORREZIONE LEGGERA. Ordine FE voce 20**, scelta del fondatore
+    /// del 6 ottobre 2026 (*"Correzione su Flash-Lite e filo più corto"*):
+    /// la correzione chiesta dalla rete della coerenza si scrive con
+    /// Flash-Lite. Al banco del costo la rete correggeva 5 consulti su 10, e
+    /// ogni correzione su Flash costava quanto un turno.
+    bool leggera = false,
   });
 }

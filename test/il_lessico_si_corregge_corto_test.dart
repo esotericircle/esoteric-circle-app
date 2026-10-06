@@ -165,6 +165,7 @@ class _Corta implements MaestroAiProvider, LaCorrezioneCorta {
     bool nelLive = false,
     String? cieloDelTurno,
     bool conSeguito = false,
+    bool leggera = false,
   }) async {
     corte.add(correzione);
     return corretta;

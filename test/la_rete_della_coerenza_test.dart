@@ -122,6 +122,14 @@ void main() {
     final provider = File('lib/services/ai/firebase_maestro_ai_provider.dart')
         .readAsStringSync();
     expect(provider, contains('model: LaReteDellaCoerenza.modello'));
+    // **LA CORREZIONE DELLA RETE E' LEGGERA**, scelta del fondatore del 6
+    // ottobre 2026 (ordine FE voce 20): Flash-Lite, non Flash.
+    expect(controllore, contains('leggera: true,'),
+        reason: 'la correzione della rete non e\' piu\' leggera: costa '
+            'quanto un turno su Flash');
+    expect(provider.replaceAll(RegExp(r'\s+'), ' '),
+        contains('model: leggera ? kMaestroBreveModel'),
+        reason: 'il provider non scrive la correzione leggera con Flash-Lite');
   });
 
   test('il nucleo della scheda non basta: la storia porta la risposta intera',

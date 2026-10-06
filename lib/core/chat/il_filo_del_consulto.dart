@@ -348,15 +348,19 @@ abstract final class LaLeggeDellaCoerenza {
   /// del percorso A il Maestro dava a ogni domanda un rito nuovo al posto
   /// di quello gia' dato (la lettera, poi la meditazione, poi il sacchetto
   /// d'alloro), e nel percorso C spostava un tempo senza dirlo.
-  static const String testo = 'LA LEGGE DELLA COERENZA. Dentro questo '
-      'consulto non contraddici quello che è già stato detto. Se la '
-      'domanda continua il consulto, richiama in poche parole il consiglio '
-      'già dato e porta il passo successivo: prosegue quello, non lo '
-      'sostituisce con un rito o un gesto diverso. L’elemento già uscito '
-      '(la carta, la runa, il segno, il transito) resta quello: non ne '
-      'estrai uno nuovo a ogni domanda, lo rileggi. Se cambi parere, dillo '
-      'e spiega perché. Se la persona cambia discorso, rispondi al discorso '
-      'nuovo senza mescolarlo ai punti fermi.';
+  ///
+  /// **PIU' CORTA DAL 6 OTTOBRE 2026, scelta del fondatore** (*"Correzione
+  /// su Flash-Lite e filo più corto"*, ordine FE voce 20): tolte le due
+  /// frasi che l'intestazione dei punti fermi ("non li contraddici") e il
+  /// [controlloFinale] ("se lo cambi dici perché") dicono gia'.
+  static const String testo = 'LA LEGGE DELLA COERENZA. Se la domanda '
+      'continua il consulto, richiama in poche parole il consiglio già dato '
+      'e porta il passo successivo, senza sostituirlo con un rito o un '
+      'gesto diverso. L’elemento già uscito (la carta, la runa, il segno, il '
+      'transito) resta quello: lo rileggi, non ne estrai uno nuovo a ogni '
+      'domanda. Se la '
+      'persona cambia discorso, rispondi al discorso nuovo senza mescolarlo '
+      'ai punti fermi.';
 
   /// La regola per chi parla dopo [altri] (i nomi a video). I nomi stanno
   /// nella regola: senza, al banco dell'ordine FE il secondo Maestro nominava

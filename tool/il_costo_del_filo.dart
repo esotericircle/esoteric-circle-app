@@ -87,12 +87,14 @@ void main() {
         'LA DOMANDA DELLA PERSONA:\n$domanda\n\n'
             'LA TUA RISPOSTA DA CORREGGERE:\n$risposta',
         '',
+        modello: FirebaseMaestroAiProvider.kMaestroBreveModel,
         istruzione: MaestroPersona.istruzioneDellaCorrezione(
             maestro: chi,
             profile: UserProfile.empty,
             correzione: correzione,
             nelLive: false));
-    return (costo + costoDi(e), e.testo, true);
+    // La correzione della rete su Flash-Lite, come nel provider (FE.20).
+    return (costo + costoDi(e, lite: true), e.testo, true);
   }
 
   test('il costo del filo su dieci consulti', () async {
@@ -296,7 +298,7 @@ Future<_Esito> _rete(String istruzione, String testo) => _posta(
 
 Future<_Esito> _chiama(
     Maestro chi, List<ChatMessage> storia, String domanda, String filo,
-    {String? istruzione}) async {
+    {String? istruzione, String? modello}) async {
   istruzione ??= MaestroPersona.systemInstruction(
     maestro: chi,
     profile: UserProfile.empty,
@@ -309,7 +311,7 @@ Future<_Esito> _chiama(
     filo: filo,
   );
   final misura = MisuraDellaRisposta.perIlTurno(nelLive: false);
-  return _posta(FirebaseMaestroAiProvider.kMaestroChatModel, {
+  return _posta(modello ?? FirebaseMaestroAiProvider.kMaestroChatModel, {
     'systemInstruction': {
       'parts': [
         {'text': istruzione}

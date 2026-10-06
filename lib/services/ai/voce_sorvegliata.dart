@@ -241,6 +241,7 @@ class VoceSorvegliata
     bool nelLive = false,
     String? cieloDelTurno,
     bool conSeguito = false,
+    bool leggera = false,
   }) {
     final voce = _voce;
     if (voce is! LaCorrezioneCorta) {
@@ -259,6 +260,7 @@ class VoceSorvegliata
         nelLive: nelLive,
         cieloDelTurno: cieloDelTurno,
         conSeguito: conSeguito,
+        leggera: leggera,
       ),
     );
   }

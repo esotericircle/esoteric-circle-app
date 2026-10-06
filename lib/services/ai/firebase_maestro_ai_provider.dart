@@ -417,9 +417,12 @@ class FirebaseMaestroAiProvider
     bool nelLive = false,
     String? cieloDelTurno,
     bool conSeguito = false,
+    bool leggera = false,
   }) async {
     final model = _ai.generativeModel(
-      model: modelloDelTurno(nelLive: nelLive, chatModel: chatModel),
+      model: leggera
+          ? kMaestroBreveModel
+          : modelloDelTurno(nelLive: nelLive, chatModel: chatModel),
       httpClient: ClientConEtichetta(LeFunzioniDelModello.chatCorrezione),
       systemInstruction: Content.system(
         MaestroPersona.istruzioneDellaCorrezione(
