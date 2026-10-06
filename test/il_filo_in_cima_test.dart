@@ -50,8 +50,8 @@ void main() {
     await tester.tap(find.byKey(const Key('filo_in_cima')));
     await tester.pump();
     expect(
-        find.text('Medora: «Aspetta la fine del mese prima di chiedere il '
-            'colloquio.»'),
+        find.text('Medora: «Il cielo ti chiede pazienza. Aspetta la fine del '
+            'mese prima di chiedere il colloquio.»'),
         findsOneWidget);
     print('ORDINE FE VOCE 22: la scheda in cima, chiusa alta '
         '${chiusa.height.round()} punti su 797');

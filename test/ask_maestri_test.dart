@@ -456,6 +456,8 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
     addTearDown(tester.view.resetDevicePixelRatio);
 
+    IlFiloDelConsulto.dimentica();
+    addTearDown(IlFiloDelConsulto.dimentica);
     final repo = InMemoryMaestroMemoryRepository();
     final services = AppServices(
       ai: _ReadyAi(),
@@ -474,10 +476,13 @@ void main() {
       await tester.pump(const Duration(milliseconds: 100));
     }
 
-    // La nota resta nella memoria del Maestro: la conversazione riprende
-    // sapendo cosa e' successo nel Consiglio.
+    // **LAPIDE, ordine FE voce 08, 6 ottobre 2026.** Qui si pretendeva la
+    // nota lasciata nella memoria del Maestro: era una seconda memoria del
+    // consulto accanto al filo. Adesso il consulto si ritrova dal filo, e la
+    // memoria del Maestro non riceve la nota.
     final mem = await repo.loadMemory(Maestro.medora);
-    expect(mem.sessionSummary, contains('devo cambiare lavoro'));
+    expect(mem.sessionSummary, isNot(contains('Nel Consiglio')));
+    expect(IlFiloDelConsulto.scheda?.tema, 'devo cambiare lavoro');
   });
 
   testWidgets(

@@ -233,6 +233,10 @@ class FirebaseMaestroAiProvider
       // fermi dalla memoria unica, e la frase del Maestro che la persona
       // riprende, se la riprende.
       filo: IlFiloDelConsulto.bloccoPer(maestro,
+          // Ordine FE voce 20: la storia che il modello riceve davvero.
+          storia: history.length > finestraDellaStoria
+              ? history.sublist(history.length - finestraDellaStoria)
+              : history,
           fraseRipresa: rispostaGiaData != null
               ? null
               : LaFraseRipresa.trova(

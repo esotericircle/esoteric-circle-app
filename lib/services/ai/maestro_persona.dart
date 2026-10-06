@@ -1,3 +1,4 @@
+import '../../core/chat/il_filo_del_consulto.dart';
 import '../../core/chat/la_posizione_della_lettura.dart';
 import '../../core/chat/maestro_memory.dart';
 import '../../core/chat/testo_del_responso.dart';
@@ -620,6 +621,9 @@ class MaestroPersona {
           // banco le parole rifatte erano quasi sempre le comuni, "sentire",
           // "centro", "ascendente": qui la parola da usare al loro posto.
           '${_alPostoDi(maestro)}.',
+      // Ordine FE voce 17: solo dentro un consulto, accanto al controllo
+      // delle parole. Senza consulto l'istruzione non cambia.
+      if (filo.isNotEmpty) ...['', LaLeggeDellaCoerenza.controlloFinale],
       if (!seguito) ...['', LaRispostaNelMerito.primaDiScrivere],
       // IL SEGUITO, quando si sta scrivendo il seguito e non la prima
       // risposta, per ultimo. Il modello riceve cio' che ha gia' detto,

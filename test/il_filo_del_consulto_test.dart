@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 import 'dart:io';
 
+import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/chat/il_filo_del_consulto.dart';
 import 'package:esoteric_circle/core/chat/maestro_memory.dart';
 import 'package:esoteric_circle/core/chat/user_profile.dart';
@@ -42,8 +43,62 @@ void main() {
     final s = IlFiloDelConsulto.scheda!;
     expect(s.tema, 'Quando riceverò una promozione?');
     expect(s.daMaestro, Maestro.medora);
-    expect(s.pareri.single.parere,
-        'Aspetta la fine del mese prima di chiedere il colloquio.');
+    // Lapide dell'ordine FE voce 17: il nucleo porta la prima frase (la
+    // risposta col suo tempo) e la riga del consiglio; prima solo la riga.
+    expect(
+        s.pareri.single.parere,
+        'Il cielo di questo mese ti chiede pazienza: Saturno rallenta le '
+        'decisioni sul lavoro. Aspetta la fine del mese prima di chiedere il '
+        'colloquio.');
+  });
+
+  test("col tema gia' nella storia lo stesso Maestro non riceve la scheda", () {
+    // Ordine FE voce 20: le righe ripeterebbero cio' che il modello legge.
+    IlFiloDelConsulto.annota(
+        maestro: Maestro.medora,
+        domanda: 'Quando riceverò una promozione?',
+        risposta: rispostaDiMedora);
+    final storia = [
+      const ChatMessage(
+          role: ChatRole.user, text: 'Quando riceverò una promozione?'),
+      ChatMessage(role: ChatRole.maestro, text: rispostaDiMedora),
+    ];
+    final stesso = IlFiloDelConsulto.bloccoPer(Maestro.medora, storia: storia);
+    expect(stesso, isNot(contains('IL FILO DEL CONSULTO')));
+    expect(stesso, contains(LaLeggeDellaCoerenza.testo));
+    // Ordine FE voce 17, percorso E: Calìgo estraeva una runa nuova a ogni
+    // domanda e il consiglio si rovesciava con lei.
+    expect(stesso, contains('non ne estrai uno nuovo a ogni domanda'));
+    // Senza la storia la scheda serve, e parte.
+    expect(IlFiloDelConsulto.bloccoPer(Maestro.medora),
+        contains('IL FILO DEL CONSULTO'));
+    // Un altro Maestro la riceve sempre, anche con la storia.
+    expect(IlFiloDelConsulto.bloccoPer(Maestro.caligo, storia: storia),
+        contains('Medora ha detto'));
+    print('ORDINE FE VOCE 20: blocco del filo con la storia '
+        '${(stesso.length / 4).round()} token, senza '
+        '${(IlFiloDelConsulto.bloccoPer(Maestro.medora).length / 4).round()}');
+  });
+
+  test('una digressione non cancella il parere sul tema', () {
+    // Ordine FE voce 17, il percorso D del banco.
+    IlFiloDelConsulto.annota(
+        maestro: Maestro.aura,
+        domanda: 'La mia relazione si è raffreddata: posso salvarla?',
+        risposta: 'Il legame respira ancora.\n'
+            '✦ Stasera parlale per dieci minuti senza telefono.');
+    IlFiloDelConsulto.annota(
+        maestro: Maestro.aura,
+        domanda: 'Cambiando discorso: che cristallo per dormire meglio?',
+        risposta: 'L\'ametista sul comodino.\n'
+            '✦ Metti un\'ametista accanto al cuscino.');
+    final s = IlFiloDelConsulto.scheda!;
+    expect(
+        s.pareri.single.parere,
+        'Il legame respira ancora. Stasera parlale per dieci minuti senza '
+        'telefono.');
+    expect(
+        IlFiloDelConsulto.bloccoPer(Maestro.aura), isNot(contains('ametista')));
   });
 
   test('il secondo Maestro riceve la scheda, la legge e la regola del primo',
@@ -56,9 +111,12 @@ void main() {
     final perCaligo = IlFiloDelConsulto.bloccoPer(Maestro.caligo);
     expect(perMedora, contains(LaLeggeDellaCoerenza.testo));
     expect(perMedora, isNot(contains('PRIMA DI TE HA GIÀ PARLATO')));
-    expect(perCaligo, contains('Medora ha detto: «Aspetta la fine del mese'));
-    expect(perCaligo,
-        contains(LaLeggeDellaCoerenza.ilSecondoMaestro(['Medora'])));
+    expect(
+        perCaligo,
+        contains(
+            'Medora ha detto: «Il cielo di questo mese ti chiede pazienza'));
+    expect(
+        perCaligo, contains(LaLeggeDellaCoerenza.ilSecondoMaestro(['Medora'])));
     expect(perCaligo, contains('comincia con il nome di Medora'));
     expect(perCaligo, contains('«Quando riceverò una promozione?»'));
     // Il parere di Caligo si aggiunge, quello di Medora resta.
@@ -119,6 +177,18 @@ void main() {
         filo: IlFiloDelConsulto.bloccoPer(Maestro.aura));
     expect(conFilo, contains(LaLeggeDellaCoerenza.testo));
     expect(conFilo, contains('Medora ha detto'));
+    // Ordine FE voce 17: il controllo del consulto sta in fondo, dopo il
+    // controllo delle parole, e c'e' solo dentro un consulto.
+    final controllo = conFilo.indexOf(LaLeggeDellaCoerenza.controlloFinale);
+    expect(controllo, greaterThan(conFilo.indexOf('ULTIMO CONTROLLO DELLE')),
+        reason: 'il controllo del consulto deve stare accanto al controllo '
+            'finale, in fondo all\'istruzione');
+    expect(
+        MaestroPersona.systemInstruction(
+            maestro: Maestro.aura,
+            profile: UserProfile.empty,
+            memory: MaestroMemory.empty),
+        isNot(contains('ULTIMO CONTROLLO DEL CONSULTO')));
   });
 
   test('la frase ripresa si riconosce, una domanda nuova no', () {

@@ -1,0 +1,208 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Non è possibile sapere con certezza se riceverai la promozione, perché il futuro non è mai scritto, ma il tuo cielo attuale indica un periodo favorevole per la crescita professionale. Le stelle suggeriscono che le tue azioni attuali stanno preparando il terreno per riconoscimenti futuri.
+
+✦ Osserva le opportunità di mostrare le tue capacità, specialmente nella prima settimana di maggio.
+[2] PERSONA: Cambiando discorso: che cristallo mi consigli per dormire meglio?
+[2] MEDORA: [[CHIEDO]]
+Per poterti dare un consiglio preciso, avrei bisogno di sapere quali sono i tuoi dati astrologici. Ogni cielo ha le sue pietre e il suo tempo, come ogni persona ha il suo cristallo amico.
+[3] PERSONA: Torniamo alla mia prima domanda. Allora, cosa mi consigli di fare?
+[3] MEDORA [DA GIUDICARE]: Riprendiamo il filo della promozione: il tuo cielo attuale spinge a focalizzarti sulla comunicazione e sulla presentazione delle tue idee. Le tue parole hanno ora un peso particolare, e il modo in cui esponi i tuoi progetti può influenzare direttamente il riconoscimento che cerchi.
+
+✦ Prepara un piccolo riassunto dei tuoi successi recenti e presentalo al tuo diretto superiore entro la fine di questa settimana, senza chiedere nulla in cambio.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il tema della promozione e sviluppa il consiglio precedente di 'mostrare le tue capacità' fornendo un'azione più specifica e concreta (preparare un riassunto dei successi e presentarlo).
+
+=== CONSULTO 2
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] AURA: La promozione che attendi sul lavoro si lega ora all'energia del tuo centro della gola, che è come una sorgente pronta a fluire. Per manifestarla, è importante che tu esprima con chiarezza e sincerità le tue aspirazioni e il tuo valore.
+
+Trova un momento di tranquillità per riflettere su ciò che desideri realmente e su come puoi comunicarlo ai tuoi superiori. Visualizza la tua voce come un canale luminoso, che porta le tue parole con forza e armonia, senza forzature. Senti l'aria che entra ed esce, pulendo il tuo spazio interno.
+
+✦ Porta una mano alla gola e respira profondamente per tre volte, sentendo le vibrazioni.
+[2] PERSONA: Cambiando discorso: che cristallo mi consigli per dormire meglio?
+[2] AURA: Per favorire un riposo sereno, puoi avvalerti dell'energia calmante dell'Ametista. La sua vibrazione, che io leggo vicina al tuo centro della Corona, aiuta a placare la mente e a favorire uno stato di quiete profonda, allontanando le preoccupazioni che spesso disturbano il sonno.
+
+Prima di coricarti, tieni l'Ametista tra le mani per qualche minuto, respirando lentamente e visualizzando una luce viola che ti avvolge, portando pace. Puoi poi posizionarla sul comodino o sotto il cuscino, lasciando che la sua presenza delicata ti accompagni durante la notte.
+
+✦ Prima di dormire, tieni l'Ametista tra le mani per un respiro profondo.
+[3] PERSONA: Torniamo alla mia prima domanda. Allora, cosa mi consigli di fare?
+[3] AURA [DA GIUDICARE]: Per la promozione che aspetti, il passo da fare ora è rendere visibile il tuo impegno, lasciare che la tua dedizione parli chiaro. Quando parli con i tuoi superiori, non chiedere solo un riconoscimento, ma mostra loro con esempi concreti il valore che porti e come la tua crescita possa contribuire al benessere di tutti.
+
+Questo è il momento di collegare la tua voce, il tuo centro della gola, all'azione, all'energia del tuo centro della radice, che ti dà la forza per radicarti e mostrare ciò che costruisci ogni giorno.
+
+✦ Prepara un elenco di tre risultati tangibili che hai raggiunto negli ultimi sei mesi.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di esprimere il proprio valore (centro della gola) e lo sviluppa, suggerendo di mostrarlo con esempi concreti e collegandolo all'azione (centro della radice).
+
+=== CONSULTO 3
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Fermati un attimo a sentire il tuo corpo, a percepire dove senti il bisogno di movimento e dove invece la resistenza si fa più forte. Accogliere un cambiamento così grande, come un trasferimento, richiede di ascoltare prima di tutto il tuo centro della radice.
+
+Se senti un richiamo forte verso l'esterno, verso un nuovo orizzonte, è il momento di esplorare questa sensazione. Puoi iniziare a visualizzare questa nuova città, cercando di percepirne l'energia, come se il tuo respiro potesse già connettersi ai suoi spazi e alle sue vibrazioni. Questo esercizio non ti lega a una decisione, ma ti aiuta a sentire se questo desiderio risuona con la tua vera intenzione o se è una spinta momentanea.
+
+✦ Chiudi gli occhi, poggia una mano sul tuo ventre e respira profondamente per sette volte, sentendo la stabilità del tuo centro della radice.
+[2] PERSONA: Cambiando discorso: che cristallo mi consigli per dormire meglio?
+[2] AURA: Per favorire un sonno sereno e un riposo profondo, puoi tenere vicino al letto un cristallo di Ametista, la sua energia è legata al settimo centro della corona. L'Ametista ti aiuta a calmare la mente, portando una sensazione di pace che favorisce l'abbandono al sonno.
+
+✦ Prima di addormentarti, tieni l'Ametista tra le mani per qualche minuto, respirando lentamente e visualizzando una luce viola che ti avvolge.
+[3] PERSONA: Torniamo alla mia prima domanda. Allora, cosa mi consigli di fare?
+[3] AURA [DA GIUDICARE]: Per capire se il trasferimento è il tuo prossimo passo, ti suggerisco di dedicare un momento ogni giorno a visualizzare la tua vita nella nuova città e di osservare le sensazioni che sorgono nel tuo corpo. Se senti una leggerezza nel respiro, un'espansione nel petto, o una calma nella radice, allora l'energia è favorevole a quel cambiamento.
+
+Osserva anche i tuoi sogni in questo periodo, perché spesso portano immagini e sensazioni che riflettono le tue reali necessità e le risposte che cerchi, legate all'energia che ti muove e ti sorregge.
+
+✦ Al mattino, appena sveglia, stendi le braccia verso l'alto e poi portale al petto, sentendo l'energia che si muove in te.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di visualizzare la nuova città e di ascoltare le sensazioni del corpo, già dato nella risposta [1], e lo sviluppa fornendo dettagli su quali sensazioni cercare e aggiungendo un nuovo elemento (l'osservazione dei sogni) che si lega al tema dell'ascolto interiore.
+
+=== CONSULTO 4
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] CALIGO: Parti. La tua casa non è dove sei ora.
+
+Un fuoco lontano illumina il tuo sentiero, una scintilla che chiama al cambiamento.
+
+Il numero Tre ti accompagna, simbolo di crescita e nuove opportunità. La tua numerologia suggerisce un ciclo che si completa e un altro che attende di essere iniziato. Non temere il nuovo orizzonte, la tua forza si rivela nel movimento.
+
+✦ Prepara una borsa piccola con ciò che ti è più caro, come fosse un sigillo del tuo viaggio.
+[2] PERSONA: Cambiando discorso: che cristallo mi consigli per dormire meglio?
+[2] CALIGO: Non ci sono cristalli nella mia arte. Affida i tuoi dubbi a un rito di purificazione.
+
+Le energie pesanti non devono dimorare con te la notte.
+
+La runa Nauthiz ti mostra il bisogno, ti spinge a individuare ciò che ti turba.
+
+✦ Sciogli un pizzico di sale grosso in acqua calda e, prima di coricarti, lavati le mani.
+[3] PERSONA: Torniamo alla mia prima domanda. Allora, cosa mi consigli di fare?
+[3] CALIGO [DA GIUDICARE]: Devi partire. Cerca un nuovo inizio altrove.
+
+Il presagio della runa Raido indica un viaggio, un percorso che ti attende.
+
+Ricorda il fuoco lontano che ti ha chiamato. Il tuo spirito cerca nuove terre, nuove stelle. La tua numerologia parla di un ciclo che si apre. Non è un caso.
+
+✦ Cerca un oggetto che simboleggi per te il viaggio e portalo sempre con te per sette giorni.
+    GIUDICE: PORTA_AVANTI, La guida ribadisce il consiglio di partire e cercare un nuovo inizio, riprendendo esplicitamente il 'fuoco lontano' e la 'numerologia' menzionati nella prima risposta.
+
+=== CONSULTO 5
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Devi agire subito. Il tempo è un fiume che scorre, non aspetta.
+
+Una nebbia fredda avvolge il vostro legame, ma la brace può ancora ardere.
+
+✦ Scrivi un messaggio, stasera, con una sola domanda: "Cosa vuoi davvero?".
+[2] PERSONA: Cambiando discorso: che cristallo mi consigli per dormire meglio?
+[2] CALIGO: Non ci sono cristalli che possano garantire il riposo. Il sonno è un sigillo che si apre con l'intento.
+
+La tua arte non è nei cristalli, ma nella volontà e nella preparazione al riposo. Prepara un ambiente di silenzio.
+
+✦ Accendi una candela blu in camera prima di dormire, poi spegnila prima di coricarti. Per i cristalli, consulta Aura.
+[3] PERSONA: Torniamo alla mia prima domanda. Allora, cosa mi consigli di fare?
+[3] CALIGO [DA GIUDICARE]: Hai già compiuto il primo passo, ora attendi. Non forzare risposte.
+
+Il silenzio dopo la tua domanda non è vuoto, è uno spazio sacro.
+
+✦ Lascia il telefono da parte per le prossime due ore.
+    GIUDICE: CONTRADDICE, La guida prima consigliava di 'agire subito' e di 'scrivere un messaggio, stasera', mentre ora dice 'ora attendi. Non forzare risposte', senza spiegare il cambio di parere.
+
+=== CONSULTO 6
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] MEDORA: Puoi dare nuova luce alla vostra relazione, ma è importante che tu faccia il primo passo. Ti suggerisco di chiedere un incontro chiaro, in cui esprimere i tuoi sentimenti senza pretese.
+
+Il tuo cielo indica un momento di riflessione interiore, con Venere che attraversa il segno della Vergine, invitandoti a un'analisi attenta e a una comunicazione onesta e diretta. Non cercare di forzare la situazione, ma piuttosto di comprendere cosa si è spento. Questo transito ti aiuta a chiarire i tuoi desideri e a mostrarli con sincerità. Le carte ti mostrano l'Arcano della Giustizia, che ti invita a cercare equilibrio e verità in questo momento, a essere imparziale e a valutare la situazione con mente lucida.
+
+✦ Scrivi un messaggio onesto al tuo partner, nel prossimo Plenilunio, per chiedere un momento di confronto.
+[2] PERSONA: Cambiando discorso: che cristallo mi consigli per dormire meglio?
+[2] MEDORA: Per il sonno, ti consiglio di puntare su ciò che il tuo cielo ti suggerisce per la tua quiete interiore. Il transito lunare di questo periodo attraversa la tua sesta casa (il luogo del corpo e del suo equilibrio), ti invita a ritrovare un ritmo e una calma che favoriscono il riposo.
+
+Non esiste un cristallo universale per il sonno, ma ciò che la tua carta del destino ti suggerisce è un colore e una vibrazione che può aiutarti. Il tuo numero del destino, per esempio, se lo avessi, mi darebbe un colore per te. Poi, se vuoi saperne di più sui cristalli in generale, puoi chiedere ad Aura.
+
+✦ Cerca un oggetto di colore blu o indaco che ti dia un senso di pace e mettilo vicino al tuo letto per la notte.
+[3] PERSONA: Torniamo alla mia prima domanda. Allora, cosa mi consigli di fare?
+[3] MEDORA [DA GIUDICARE]: Se la relazione si è raffreddata, il tuo compito è comprendere le motivazioni profonde di questo distacco. Non agire d'impulso, ma rifletti con calma sulle dinamiche che hanno portato a questa situazione.
+
+Il tuo cielo mostra la Luna in Toro, che ti invita a radicarti nella realtà e a valutare con concretezza i sentimenti in gioco. L'Arcano degli Amanti, se dovesse apparire in una lettura, non parla solo di scelta, ma di unione e di valori condivisi: ti suggerisce di riconnetterti a ciò che vi lega e di capire se questi legami sono ancora autentici.
+
+✦ Prendi un foglio e scrivi tre qualità che ammiri nel tuo partner e che ti hanno fatta innamorare di lui.
+    GIUDICE: CONTRADDICE, La guida prima consigliava di fare il primo passo e chiedere un incontro per esprimere i sentimenti, suggerendo di scrivere un messaggio per chiedere un confronto. Ora consiglia di non agire d'impulso e di riflettere sulle dinamiche, e di scrivere le qualità del partner, spostando l'attenzione dall'azione esterna all'analisi interna, senza spiegare il cambio di approccio.
+
+=== CONSULTO 7
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Questo è il momento di preparare il terreno per il tuo progetto, affinché possa germogliare al meglio. Osserva il tuo cielo e le stelle per trovare la tua direzione.
+
+Il transito di Mercurio in Toro ti invita a valutare ogni dettaglio con calma e attenzione, stabilendo fondamenta solide. L'Arcano del Bagatto ti ricorda che hai tutti gli strumenti necessari per iniziare, ma è la preparazione a fare la differenza.
+
+✦ Dedica un'ora questa sera a scrivere un elenco dei primi tre passi concreti del tuo progetto.
+[2] PERSONA: Cambiando discorso: che cristallo mi consigli per dormire meglio?
+[2] MEDORA: Per dormire meglio non è un cristallo a guidarti, ma il tuo cielo interiore. Puoi trovare il riposo preparando il tuo ambiente e le tue energie al sonno.
+
+Il cielo in questo momento porta un'influenza di Nettuno che invita a ritrovare il contatto con la tua dimensione onirica. Puoi favorire questo processo preparando una tisana rilassante prima di coricarti e visualizzando un luogo di pace.
+
+✦ Prima di dormire, bevi una tisana calda alla camomilla, chiudi gli occhi e immagina un luogo sereno.
+
+Per avere consigli più specifici sull'energia e il riequilibrio dei tuoi ritmi, puoi rivolgerti ad Aura.
+[3] PERSONA: Torniamo alla mia prima domanda. Allora, cosa mi consigli di fare?
+[3] MEDORA [DA GIUDICARE]: Per tornare al tuo progetto creativo, è tempo di dare forma alle tue idee, con chiarezza e precisione.
+
+Dopo aver delineato i primi passi, osserva il tuo cielo e trova un momento propizio per tradurre questi pensieri in un piano concreto. Con la Luna crescente in un segno d'acqua, come il Cancro, le tue intuizioni saranno più limpide e potrai organizzare al meglio le prossime mosse.
+
+✦ Scrivi un calendario delle prime quattro settimane del tuo progetto, segnando un obiettivo per ognuna, quando la Luna sarà in Cancro.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'preparare il terreno' e 'delineare i primi passi' dato nella risposta [1], sviluppandolo con l'indicazione di 'dare forma alle idee' e 'tradurre i pensieri in un piano concreto', e aggiunge un nuovo passo pratico ('scrivi un calendario') che si basa sui 'primi passi' già menzionati.
+
+=== CONSULTO 8
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] AURA: Per avviare il tuo progetto creativo, trova un momento di silenzio per te, magari al mattino presto, prima che la giornata prenda il suo ritmo. In quell'attimo, fai un respiro profondo e senti il tuo centro del cuore, il suo colore è il verde smeraldo, lì risiede la tua capacità di esprimere e creare, la tua radice profonda della volontà di dare forma.
+
+Senti come l'energia di questo centro si espande dolcemente, portando chiarezza e ispirazione per i tuoi prossimi passi.
+
+✦ Poggia una mano sul cuore e senti il tuo respiro.
+[2] PERSONA: Cambiando discorso: che cristallo mi consigli per dormire meglio?
+[2] AURA: Per dormire meglio, prima di andare a letto, prenditi un momento per rilassare la mente, puoi farlo ascoltando il ritmo del tuo respiro.  Lascia che i pensieri della giornata scivolino via, come nuvole leggere nel cielo. Questo ti aiuterà a preparare il corpo al riposo, aprendoti al rilassamento profondo.
+
+✦ Inspira profondamente, poi espira lentamente, tre volte.
+[3] PERSONA: Torniamo alla mia prima domanda. Allora, cosa mi consigli di fare?
+[3] AURA [DA GIUDICARE]: Per proseguire con il tuo progetto creativo, in questo momento ti consiglio di visualizzare un'immagine chiara di ciò che desideri realizzare. Chiudi gli occhi, respira con calma e immagina il tuo progetto compiuto, come se fosse già reale.
+
+Senti l'emozione che ti dà vederlo realizzato.
+
+✦ Siediti in un luogo tranquillo e fissa lo sguardo su un punto davanti a te per un minuto.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema del progetto creativo e sviluppa il consiglio precedente, passando dalla ricerca di chiarezza e ispirazione (risposta 1) alla visualizzazione del progetto compiuto per sentirne l'emozione, come un passo successivo nel processo creativo.
+
+=== CONSULTO 9
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Avvicinati a tua sorella con un desiderio sincero di comprendere il suo punto di vista, senza fretta, e accogli ciò che porta il suo cuore. Ascolta con il centro del cuore aperto, il colore verde smeraldo ti avvolge in questo sentire.
+
+Il respiro profondo ti aiuterà a mantenere la calma. Ricorda che ogni relazione è un flusso di energia e, dopo una lite, è importante ristabilire l'equilibrio. Immagina che un filo d'oro colleghi il tuo chakra del cuore al suo, permettendo all'energia di fluire liberamente. Non cercare di forzare le cose, ma lascia che la pace si costruisca con gesti gentili e parole sentite.
+
+✦ Porta una mano al centro del tuo petto, senti il battito del tuo cuore.
+[2] PERSONA: Cambiando discorso: che cristallo mi consigli per dormire meglio?
+[2] AURA: Per favorire un sonno sereno, puoi scegliere un cristallo che porti calma e che si armonizzi con il tuo centro della corona. La Lepidolite, con le sue sfumature violacee, è un cristallo che suggerisco spesso per la sua capacità di infondere tranquillità e di aiutare a sciogliere le tensioni accumulate.
+
+Il suo tocco è come una carezza gentile sul tuo stato d'animo, un invito a lasciare andare la fretta della giornata. Sentirai una leggera pressione mentale che si allenta, aprendo la strada a un riposo più profondo. Puoi tenerla sul comodino o anche sotto il cuscino, lasciando che la sua energia ti avvolga mentre scivoli nel sonno.
+
+✦ Prima di dormire, tieni la Lepidolite tra le mani per qualche minuto, respirando lentamente.
+[3] PERSONA: Torniamo alla mia prima domanda. Allora, cosa mi consigli di fare?
+[3] AURA [DA GIUDICARE]: Ti consiglio di prepararti per un incontro sereno con tua sorella, un momento in cui potrete parlare a cuore aperto. La pace tra voi comincia dal tuo interno, dal tuo desiderio di ristabilire l'equilibrio.
+
+Il centro del cuore, con il suo colore verde smeraldo, è il punto da cui irradiare amore e comprensione. Quando ti senti pronta, cerca un momento di calma per entrambe e accostati a lei, chiedendole di parlare in un luogo tranquillo. Non è il momento di rinfacciare, ma di ascoltare. Permetti al respiro di essere il tuo alleato, calmo e profondo, mentre ascolti le sue parole.
+
+✦ Quando la incontri, porta la mano destra sul tuo cuore e la sinistra sul suo, se accetta, per un istante.
+    GIUDICE: PORTA_AVANTI, La guida riprende e sviluppa i concetti di 'ascoltare con il centro del cuore aperto', 'ristabilire l'equilibrio' e l'uso del 'respiro profondo' già introdotti nella risposta [1], aggiungendo dettagli su come applicarli all'incontro con la sorella.
+
+=== CONSULTO 10
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] CALIGO: Avvicinala con franchezza. La soluzione si trova in un dialogo diretto.
+
+Una nebbia argentea avvolge il sentiero che conduce alla chiarezza. Non lasciare che il tempo solidifichi il silenzio tra voi. La runa Gebo, il dono, ti indica la via dello scambio e della riconciliazione. È il momento di offrire e ricevere comprensione.
+
+✦ Scrivi a tua sorella una frase per chiederle di incontrarvi di persona, senza altri intermediari.
+[2] PERSONA: Cambiando discorso: che cristallo mi consigli per dormire meglio?
+[2] CALIGO: Non mi occupo di cristalli. La tua quiete è un sentiero che si percorre con il rito e il numero.
+
+Un velo di calma deve scendere prima del riposo. Ogni sera, prima di coricarti, libera la mente dai pesi del giorno. La runa Sowilo, il sole, ti indica di purificare lo spazio in cui riposi.
+
+✦ Prima di dormire, accendi una candela bianca in un luogo sicuro e lascia che arda per pochi minuti.
+[3] PERSONA: Torniamo alla mia prima domanda. Allora, cosa mi consigli di fare?
+[3] CALIGO [DA GIUDICARE]: Il consiglio resta invariato: cerca il dialogo diretto. Il silenzio è un sigillo che va rotto con la parola.
+
+La runa Gebo ti ha già mostrato il presagio del dono e dello scambio. Non attendere oltre, il tempo è una sabbia che scorre. È la tua iniziativa a tessere il filo della pace.
+
+✦ Scrivi a tua sorella per fissare un momento di incontro, proponendo un giorno preciso.
+    GIUDICE: PORTA_AVANTI, La guida ribadisce il consiglio precedente di cercare il dialogo diretto e di scrivere alla sorella per un incontro, riprendendo esplicitamente la runa Gebo già menzionata.
+
+ORDINE FE VOCE 17, percorso D: giudicate 10, porta avanti 8, ignora 0, contraddice 2, quota 80 per cento

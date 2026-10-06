@@ -433,25 +433,12 @@ class _AskMaestriScreenState extends State<AskMaestriScreen> {
     final services = context.read<AppServices>();
     final navigatore = Navigator.of(context);
     final theme = _theme!;
-    final esito = _lenses[maestro]?.reading.trim() ?? '';
-    try {
-      final mem = await services.memory.loadMemory(maestro);
-      final nota = esito.isEmpty
-          ? 'Nel Consiglio la persona ti ha chiesto: «$theme».'
-          : 'Nel Consiglio la persona ti ha chiesto: «$theme». '
-              'In sintesi hai risposto: $esito';
-      final summary = mem.sessionSummary.trim().isEmpty
-          ? nota
-          : '${mem.sessionSummary.trim()} $nota';
-      await services.memory
-          .saveMemory(maestro, mem.copyWith(sessionSummary: summary));
-    } catch (errore, traccia) {
-      // Il salvataggio e' un di piu': un errore non impedisce di continuare.
-      annotaGuastoInnocuo(
-          'chiudendo il cerchio nella memoria di ${maestro.displayName}',
-          errore,
-          traccia);
-    }
+    // **NESSUNA NOTA IN MEMORIA. Ordine FE voce 08**: qui si scriveva nella
+    // memoria del Maestro "Nel Consiglio la persona ti ha chiesto..." con la
+    // lettura intera, cioe' una seconda memoria del consulto accanto al
+    // filo, che l'ordine vieta, e che ripeteva al modello cio' che la scheda
+    // dei punti fermi porta gia' (i pareri del Consiglio entrano nel filo,
+    // FE.13). Il Maestro scelto ritrova il consulto dal filo.
     if (!mounted) return;
     if (maestro == widget.starter) {
       navigatore.pop();

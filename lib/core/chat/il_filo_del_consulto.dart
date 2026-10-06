@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../maestro/consiglio_finale.dart';
 import '../maestro/maestro.dart';
+import 'chat_message.dart';
 import 'i_responsi_di_oggi.dart';
 
 /// Un parere gia' dato nel consulto: da quale Maestro, e il suo nucleo.
@@ -65,17 +66,20 @@ class SchedaDeiPuntiFermi {
             p.maestro,
       ];
 
+  /// **DEL PARERE DI UN MAESTRO CONTA IL PRIMO, sul tema.** Lapide
+  /// dell'ordine FE voce 17, 6 ottobre 2026: la prima stesura teneva
+  /// l'ultimo, e al banco del percorso D (una domanda, una digressione sul
+  /// cristallo per dormire, il ritorno al tema) il punto fermo del Maestro
+  /// era diventato il cristallo: tornando al tema, il Maestro ha legato il
+  /// rito del sonno alla relazione. Il parere sul tema e' il punto fermo; i
+  /// passi successivi stanno nella storia della conversazione. Il turno
+  /// nuovo tiene viva la scheda.
   SchedaDeiPuntiFermi con(ParereDelConsulto p) => SchedaDeiPuntiFermi(
         tema: tema,
         daMaestro: daMaestro,
         dato: dato,
-        // Del parere di un Maestro conta l'ultimo: il punto fermo e' cio'
-        // che ha detto da ultimo, non ogni frase del consulto.
-        pareri: [
-          for (final x in pareri)
-            if (x.maestro != p.maestro) x,
-          p,
-        ],
+        pareri:
+            pareri.any((x) => x.maestro == p.maestro) ? pareri : [...pareri, p],
         aggiornata: p.quando,
       );
 
@@ -163,17 +167,29 @@ abstract final class IlFiloDelConsulto {
     } catch (_) {}
   }
 
-  /// Il nucleo di una risposta: la riga del consiglio con la stella, o la
-  /// prima frase. Corto: il filo non e' la risposta intera.
+  /// Il nucleo di una risposta: la prima frase, che e' la risposta col suo
+  /// tempo, e la riga del consiglio con la stella. Corto: il filo non e' la
+  /// risposta intera.
+  ///
+  /// **La prima frase c'e' dall'ordine FE voce 17.** Prima il nucleo era la
+  /// sola riga del consiglio, e al banco del percorso B Medora aveva detto
+  /// "non affrettare, presenta quando il Sole entra in Sagittario" mentre la
+  /// scheda portava a Calìgo solo "prepara un dossier": Calìgo ha detto di
+  /// farlo oggi, senza sapere di contraddirla. Il tempo e la risposta stanno
+  /// nella prima frase (la risposta in tre parti, ordine EZ).
   static String nucleoDi(String risposta) {
-    final riga = ConsiglioFinale.sintesiDa(risposta);
-    var t = (riga ?? ConsiglioFinale.corpoDa(risposta)).trim();
-    if (riga == null) {
-      final fine = RegExp(r'[.!?](\s|$)').firstMatch(t);
-      if (fine != null) t = t.substring(0, fine.start + 1);
-    }
-    t = t.replaceAll(ConsiglioFinale.stella, '').trim();
-    return t.length > 220 ? '${t.substring(0, 217).trimRight()}...' : t;
+    final riga = ConsiglioFinale.sintesiDa(risposta)
+        ?.replaceAll(ConsiglioFinale.stella, '')
+        .trim();
+    var prima = ConsiglioFinale.corpoDa(risposta).trim();
+    final fine = RegExp(r'[.!?](\s|$)').firstMatch(prima);
+    if (fine != null) prima = prima.substring(0, fine.start + 1);
+    prima = prima.replaceAll(ConsiglioFinale.stella, '').trim();
+    String corto(String t, int n) =>
+        t.length > n ? '${t.substring(0, n - 3).trimRight()}...' : t;
+    if (riga == null || riga.isEmpty) return corto(prima, 220);
+    if (prima.isEmpty || prima == riga) return corto(riga, 220);
+    return '${corto(prima, 160)} ${corto(riga, 160)}';
   }
 
   /// Annota un turno concluso: se non c'e' un consulto in corso lo apre con
@@ -218,21 +234,35 @@ abstract final class IlFiloDelConsulto {
   /// coerenza e, se altri Maestri hanno gia' parlato, la regola del secondo
   /// Maestro. Vuoto senza un consulto in corso: l'istruzione di base resta
   /// quella su cui e' misurata l'attribuzione cieca.
-  static String bloccoPer(Maestro maestro, {String? fraseRipresa}) {
+  ///
+  /// **[storia] e' la storia che il modello riceve davvero** (la finestra).
+  /// Ordine FE voce 20, il costo: quando il consulto e' tutto di [maestro] e
+  /// la sua domanda iniziale sta ancora nella storia, le righe della scheda
+  /// ripeterebbero cio' che il modello legge gia', e non partono; resta la
+  /// legge della coerenza.
+  static String bloccoPer(Maestro maestro,
+      {String? fraseRipresa, List<ChatMessage> storia = const []}) {
     final s = scheda;
     if (s == null && fraseRipresa == null) return '';
     final righe = <String>[];
     if (s != null) {
-      righe.add('IL FILO DEL CONSULTO, punti fermi scritti dall’app (non '
-          'li inventi, non li contraddici):');
-      righe.add('- La domanda iniziale, fatta a ${s.daMaestro.displayName}: '
-          '«${s.tema}»');
-      if (s.dato != null) righe.add('- Il dato da cui parte: ${s.dato}');
-      for (final p in s.pareri) {
-        final chi = p.maestro == maestro ? 'Tu' : p.maestro.displayName;
-        righe.add('- $chi ha detto: «${p.parere}»');
+      final soloSuo =
+          s.daMaestro == maestro && s.pareri.every((p) => p.maestro == maestro);
+      final inizio = s.tema.length > 40 ? s.tema.substring(0, 40) : s.tema;
+      final giaNellaStoria = soloSuo &&
+          storia.any((m) => m.isUser && m.text.trim().startsWith(inizio));
+      if (!giaNellaStoria) {
+        righe.add('IL FILO DEL CONSULTO, punti fermi scritti dall’app (non '
+            'li inventi, non li contraddici):');
+        righe.add('- La domanda iniziale, fatta a '
+            '${s.daMaestro.displayName}: «${s.tema}»');
+        if (s.dato != null) righe.add('- Il dato da cui parte: ${s.dato}');
+        for (final p in s.pareri) {
+          final chi = p.maestro == maestro ? 'Tu' : p.maestro.displayName;
+          righe.add('- $chi ha detto: «${p.parere}»');
+        }
+        righe.add('');
       }
-      righe.add('');
       righe.add(LaLeggeDellaCoerenza.testo);
       final altri = [
         for (final p in s.pareri)
@@ -255,12 +285,19 @@ abstract final class IlFiloDelConsulto {
 /// Tutte le strade che portano una domanda a un Maestro la ricevono da qui,
 /// attraverso [IlFiloDelConsulto.bloccoPer].
 abstract final class LaLeggeDellaCoerenza {
+  /// **Il consiglio nuovo e' il passo dopo.** Ordine FE voce 17: al banco
+  /// del percorso A il Maestro dava a ogni domanda un rito nuovo al posto
+  /// di quello gia' dato (la lettera, poi la meditazione, poi il sacchetto
+  /// d'alloro), e nel percorso C spostava un tempo senza dirlo.
   static const String testo = 'LA LEGGE DELLA COERENZA. Dentro questo '
       'consulto non contraddici quello che è già stato detto. Se la '
-      'domanda tocca uno dei punti fermi, parti da quel punto e portalo '
-      'avanti. Se cambi parere, dillo apertamente e spiega perché è '
-      'cambiato: non dare un parere nuovo come se il primo non fosse '
-      'esistito.';
+      'domanda continua il consulto, richiama in poche parole il consiglio '
+      'già dato e porta il passo successivo: prosegue quello, non lo '
+      'sostituisce con un rito o un gesto diverso. L’elemento già uscito '
+      '(la carta, la runa, il segno, il transito) resta quello: non ne '
+      'estrai uno nuovo a ogni domanda, lo rileggi. Se cambi parere, dillo '
+      'e spiega perché. Se la persona cambia discorso, rispondi al discorso '
+      'nuovo senza mescolarlo ai punti fermi.';
 
   /// La regola per chi parla dopo [altri] (i nomi a video). I nomi stanno
   /// nella regola: senza, al banco dell'ordine FE il secondo Maestro nominava
@@ -273,15 +310,27 @@ abstract final class LaLeggeDellaCoerenza {
         ? 'una riga che comincia con il nome di ${altri.single}'
         : 'una riga per ognuno, che comincia con il suo nome';
     return 'PRIMA DI TE HA GIÀ PARLATO $chi. Se la domanda riguarda ancora '
-        'la domanda iniziale del consulto, apri con la tua lettura, nella '
-        'tua voce e con la tua lente: chi legge deve riconoscerti dalla '
-        'prima frase. Poi scrivi $riga: riporta il suo consiglio con parole '
-        'tue, cioè il gesto o il tempo che ha indicato e non le parole della '
-        'sua arte, e di’ se la tua lettura concorda o diverge. Quella riga non '
-        'si salta. Non ripetere la sua risposta con parole diverse: se la '
-        'tua lente dice la stessa cosa, dillo in quella riga e aggiungi '
-        'quello che vedi solo tu.';
+        'la domanda iniziale, apri con la tua lettura, nella tua voce. Poi '
+        'scrivi $riga: il suo consiglio con parole tue (il gesto o il tempo, '
+        'non le parole della sua arte) e se concordi o divergi; mai '
+        '«concordo» se dici altro. Quella riga non si salta. Non ripetere la '
+        'sua risposta: aggiungi quello che vedi solo tu.';
   }
+
+  /// **IL CONTROLLO DEL CONSULTO, IN FONDO.** Ordine FE voce 17: al banco
+  /// il secondo Maestro scriveva "Parti." dopo un primo Maestro che diceva
+  /// di restare, e un Maestro cambiava il tempo gia' indicato. La regola
+  /// stava a meta' istruzione, lontana dallo stile di voce che spinge alle
+  /// frasi nette: va accanto al controllo finale, che e' l'ultima cosa che
+  /// il modello legge (memoria del progetto: l'istruzione in conflitto
+  /// vince solo accanto alla regola).
+  static const String controlloFinale = 'ULTIMO CONTROLLO DEL CONSULTO: '
+      'rileggi i punti fermi. La tua risposta non dice un tempo, una fase '
+      'del cielo o una risposta diversi da quelli già dati senza dirlo: un '
+      'tempo già indicato («entro la fine del mese», «stasera») resta quello, '
+      'non lo anticipi e non lo sposti senza dire perché. Se '
+      'un altro Maestro ha parlato e tu leggi diversamente, la riga col suo '
+      'nome lo dice con «io leggo diversamente» e il perché.';
 
   static String laFraseRipresa(String frase) => 'LA PERSONA RIPRENDE UNA '
       'TUA FRASE: «$frase». Non è una domanda nuova: è la continuazione '
