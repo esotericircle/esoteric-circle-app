@@ -131,6 +131,7 @@ export {
   stellaNelDiario,
   riempiIlDiario,
   leggiLaVoce,
+  leggiLaConversazioneArchiviata,
 } from "./diario";
 
 /**

@@ -99,24 +99,53 @@ export function chiaveDellaConversazione(
 }
 
 /**
- * Il riassunto dell'anno dopo una riga nuova o tolta, o una stella messa o
- * tolta. Puro: la prova lo chiama senza Firestore.
+ * LE ETICHETTE DI UNA RIGA: i filtri del Diario per cui conta. "tutte",
+ * il Maestro, "conversazioni" o "arti", e "stelle" se porta la stella.
+ */
+export function etichetteDi(riga: Riga): string[] {
+  const e = ["tutte", riga.k === "conversazione" ? "conversazioni" : "arti"];
+  if (riga.m) e.push(riga.m);
+  if (riga.s) e.push("stelle");
+  return e;
+}
+
+/** Il riassunto di un anno: per mese, quante righe per etichetta; per
+ * giorno, quante stelle (il giorno eredita la stella, FE.22.8). */
+export interface Riassunto {
+  mesi: Record<string, Record<string, number>>;
+  stelle: Record<string, number>;
+}
+
+/**
+ * Il riassunto dell'anno dopo una riga nuova (+1) o tolta (-1), o una
+ * stella messa (+1) o tolta (-1): [etichette] sono quelle che cambiano.
+ * Puro: la prova lo chiama senza Firestore. Una lettura sola disegna
+ * l'anno, anche filtrato (FE.22.18).
  */
 export function ilRiassuntoDopo(
   prima: Record<string, any>,
   giorno: string,
-  voci: number,
-  stelle: number
-): {mesi: Record<string, number>; stelle: Record<string, number>} {
-  const mesi = {...((prima.mesi ?? {}) as Record<string, number>)};
-  const conStelle = {...((prima.stelle ?? {}) as Record<string, number>)};
+  etichette: string[],
+  delta: number
+): Riassunto {
+  const mesi: Record<string, Record<string, number>> = {};
+  for (const [m, v] of Object.entries(prima.mesi ?? {})) {
+    if (v && typeof v === "object") mesi[m] = {...(v as Record<string, number>)};
+  }
+  const stelle = {...((prima.stelle ?? {}) as Record<string, number>)};
   const mese = giorno.slice(5, 7);
   const g = giorno.slice(5);
-  mesi[mese] = Math.max(0, (mesi[mese] ?? 0) + voci);
-  if (mesi[mese] === 0) delete mesi[mese];
-  conStelle[g] = Math.max(0, (conStelle[g] ?? 0) + stelle);
-  if (conStelle[g] === 0) delete conStelle[g];
-  return {mesi, stelle: conStelle};
+  const conti = mesi[mese] ?? {};
+  for (const e of etichette) {
+    conti[e] = Math.max(0, (conti[e] ?? 0) + delta);
+    if (conti[e] === 0) delete conti[e];
+  }
+  if (Object.keys(conti).length) mesi[mese] = conti; else delete mesi[mese];
+  if (etichette.includes("stelle")) {
+    stelle[g] = Math.max(0, (stelle[g] ?? 0) + delta);
+    if (stelle[g] === 0) delete stelle[g];
+  }
+  return {mesi, stelle};
 }
 
 const db = () => getFirestore();
@@ -141,7 +170,7 @@ async function scriviLaRiga(
     const righe = (m.data()?.righe ?? {}) as Record<string, Riga>;
     if (righe[chiave]) return {nuova: false, giorno};
     t.set(mese, {righe: {[chiave]: riga}}, {merge: true});
-    t.set(anno, ilRiassuntoDopo(a.data() ?? {}, giorno, 1, riga.s ? 1 : 0),
+    t.set(anno, ilRiassuntoDopo(a.data() ?? {}, giorno, etichetteDi(riga), 1),
       {mergeFields: ["mesi", "stelle"]});
     return {nuova: true, giorno};
   });
@@ -194,7 +223,7 @@ export async function togliDalDiario(
     const riga = righe[chiave];
     if (!riga) return false;
     t.update(mese, {[`righe.${chiave}`]: FieldValue.delete()});
-    t.set(anno, ilRiassuntoDopo(a.data() ?? {}, giorno, -1, riga.s ? -1 : 0),
+    t.set(anno, ilRiassuntoDopo(a.data() ?? {}, giorno, etichetteDi(riga), -1),
       {mergeFields: ["mesi", "stelle"]});
     return true;
   });
@@ -287,8 +316,8 @@ export const stellaNelDiario = onCall(OPZIONI, async (request) => {
     const prima = riga.s === true;
     if (prima !== stella) {
       t.update(mese, {[`righe.${chiave}.s`]: stella});
-      t.set(anno, ilRiassuntoDopo(a.data() ?? {}, giorno, 0, stella ? 1 : -1),
-        {mergeFields: ["mesi", "stelle"]});
+      t.set(anno, ilRiassuntoDopo(a.data() ?? {}, giorno, ["stelle"],
+        stella ? 1 : -1), {mergeFields: ["mesi", "stelle"]});
     }
     return true;
   });
@@ -375,6 +404,46 @@ export const riempiIlDiario = onCall(
         if (nuova) righe++;
       }
     }
+    // I RESPONSI CUSTODITI DI PRIMA diventano voci con la stella, sulla
+    // stessa chiave del responso (minuto e arte): una voce sola, un segno
+    // solo (FE.22.7). Il contenuto resta nel formato di prima, versione 0.
+    const custoditi = await profilo.collection("custoditi").get();
+    for (const d of custoditi.docs) {
+      const c = d.data();
+      const minuti = Number(c.q);
+      if (!Number.isFinite(minuti) || !FORMA_DELLA_CHIAVE.test(d.id)) continue;
+      const {nuova} = await scriviLaRiga(uid, d.id, {
+        t: titoloDa(String(c.i ?? "")), m: typeof c.m === "string" ? c.m : null,
+        k: "responso", a: String(c.a ?? ""), q: minuti * 60000, s: true,
+      });
+      if (nuova) {
+        righe++;
+        const {custoditoIl: _, ...contenuto} = c;
+        await vocePiena(uid, d.id).set({v: 0, ...contenuto}, {merge: true});
+      }
+    }
+    // LE RIGHE DEL VECCHIO INDICE (users/{uid}/ricordi/{AAAA-MM}): le arti
+    // e i responsi; le conversazioni no, che vengono dai messaggi.
+    const vecchi = await profilo.collection("ricordi").get();
+    for (const mese of vecchi.docs) {
+      const r = (mese.data().righe ?? {}) as Record<string, any>;
+      for (const vecchia of Object.values(r)) {
+        if (!vecchia || vecchia.k === "c") continue;
+        const minuti = Number(vecchia.q);
+        if (!Number.isFinite(minuti)) continue;
+        const rif = typeof vecchia.r === "string" ? vecchia.r : "";
+        const chiave = /^\d+\.[a-z_]+$/.test(rif) ? rif :
+          `v.${minuti}.${String(vecchia.a ?? "").replace(/[^a-z_]/g, "")}`;
+        if (!FORMA_DELLA_CHIAVE.test(chiave)) continue;
+        const {nuova} = await scriviLaRiga(uid, chiave, {
+          t: titoloDa(String(vecchia.t ?? "")),
+          m: typeof vecchia.m === "string" && vecchia.m ? vecchia.m : null,
+          k: vecchia.k === "r" ? "responso" : "lettura",
+          a: String(vecchia.a ?? ""), q: minuti * 60000,
+        });
+        if (nuova) righe++;
+      }
+    }
     await profilo.set({diarioRiempito: true}, {merge: true});
     return {righe, gia: false};
   }
@@ -385,5 +454,137 @@ export const leggiLaVoce = onCall(OPZIONI, async (request) => {
   const uid = uidDi(request);
   const chiave = chiaveValida(request.data?.chiave);
   const doc = await vocePiena(uid, chiave).get();
-  return {voce: doc.exists ? doc.data() : null};
+  if (!doc.exists) return {voce: null};
+  const dati = doc.data() ?? {};
+  // Una voce in archivio si riprende da li', con la riga della persona.
+  if (typeof dati.archiviata === "string") {
+    const piena = await leggiDallArchivio(dati.archiviata);
+    return {
+      voce: {...(piena ?? {}), ...(typeof dati.nota === "string" ?
+        {nota: dati.nota} : {})},
+      dallArchivio: true,
+    };
+  }
+  return {voce: dati, dallArchivio: false};
+});
+
+/**
+ * L'ARCHIVIO PIU' ECONOMICO. Ordine FE voce 22.15.
+ *
+ * Il contenuto delle voci piu' vecchie di dodici mesi passa in Cloud
+ * Storage, nel bucket di Firebase del progetto (europe-west1), con la
+ * classe Archive impostata oggetto per oggetto; l'indice resta dov'e', e le
+ * voci restano visibili nel Diario come tutte le altre. Aprendone una, il
+ * contenuto si recupera (`leggiLaVoce`), e intanto l'app dice "Sto
+ * riprendendo questo giorno.". Lo stesso per i messaggi delle conversazioni:
+ * le scadenze li tolgono da Firestore dopo un anno, e prima finiscono qui.
+ */
+export const IL_BUCKET_DELL_ARCHIVIO = "esoteric-circle.firebasestorage.app";
+export const LA_CLASSE_DELL_ARCHIVIO = "ARCHIVE";
+export const GIORNI_PRIMA_DELL_ARCHIVIO = 365;
+
+/** Dove sta in archivio il contenuto di una voce o di una conversazione. */
+export function ilPercorsoInArchivio(uid: string, chiave: string): string {
+  return `diario_archivio/${uid}/${chiave}.json`;
+}
+
+async function scriviInArchivio(percorso: string, dati: unknown): Promise<void> {
+  const {getStorage} = await import("firebase-admin/storage");
+  await getStorage().bucket(IL_BUCKET_DELL_ARCHIVIO).file(percorso).save(
+    JSON.stringify(dati),
+    {
+      contentType: "application/json",
+      resumable: false,
+      metadata: {storageClass: LA_CLASSE_DELL_ARCHIVIO},
+    }
+  );
+}
+
+async function leggiDallArchivio(percorso: string): Promise<any | null> {
+  const {getStorage} = await import("firebase-admin/storage");
+  const file = getStorage().bucket(IL_BUCKET_DELL_ARCHIVIO).file(percorso);
+  const [esiste] = await file.exists();
+  if (!esiste) return null;
+  const [byte] = await file.download();
+  return JSON.parse(byte.toString("utf8"));
+}
+
+/**
+ * Porta in archivio il contenuto delle voci piu' vecchie di un anno: una
+ * pagina per giro (la pulizia notturna lo chiama ogni notte).
+ */
+export async function archiviaLeVociVecchie(
+  adesso: number,
+  quante = 200
+): Promise<number> {
+  const confine = adesso - GIORNI_PRIMA_DELL_ARCHIVIO * 24 * 3600 * 1000;
+  const snap = await db().collectionGroup("diario_voci")
+    .where("q", "<", confine).limit(quante).get();
+  let fatte = 0;
+  for (const d of snap.docs) {
+    const dati = d.data();
+    if (typeof dati.archiviata === "string") continue;
+    const uid = d.ref.parent.parent?.id;
+    if (!uid) continue;
+    const percorso = ilPercorsoInArchivio(uid, d.id);
+    await scriviInArchivio(percorso, dati);
+    await d.ref.set({
+      v: dati.v ?? 0, k: dati.k ?? null, a: dati.a ?? null,
+      m: dati.m ?? null, q: dati.q, archiviata: percorso,
+      ...(typeof dati.nota === "string" ? {nota: dati.nota} : {}),
+    });
+    fatte++;
+  }
+  return fatte;
+}
+
+/**
+ * Porta in archivio i messaggi che stanno per scadere, raggruppati per
+ * conversazione: quelli gia' in archivio si tengono, i nuovi si aggiungono.
+ * La chiama la pulizia notturna prima di cancellarli da Firestore.
+ */
+export async function archiviaIMessaggi(
+  documenti: FirebaseFirestore.QueryDocumentSnapshot[]
+): Promise<number> {
+  const gruppi = new Map<string, {uid: string; messaggi: any[]}>();
+  for (const d of documenti) {
+    // users/{uid}/maestri/{maestro}/messages/{id}
+    const maestro = d.ref.parent.parent?.id;
+    const uid = d.ref.parent.parent?.parent.parent?.id;
+    if (!uid || !maestro) continue;
+    const dati = d.data();
+    const c = typeof dati.conversazione === "string" ? dati.conversazione : null;
+    const chiave = chiaveDellaConversazione(maestro, c);
+    const g = gruppi.get(`${uid}/${chiave}`) ?? {uid, messaggi: []};
+    g.messaggi.push({
+      id: d.id, role: dati.role, text: dati.text, autore: dati.autore ?? null,
+      conversazione: c,
+      quando: dati.createdAt?.toMillis?.() ?? null,
+    });
+    gruppi.set(`${uid}/${chiave}`, g);
+  }
+  for (const [k, g] of gruppi) {
+    const chiave = k.slice(k.indexOf("/") + 1);
+    const percorso = ilPercorsoInArchivio(g.uid, chiave);
+    const prima = (await leggiDallArchivio(percorso)) as any[] | null;
+    const visti = new Set((prima ?? []).map((m) => m.id));
+    const tutti = [...(prima ?? []), ...g.messaggi.filter((m) => !visti.has(m.id))]
+      .sort((a, b) => (a.quando ?? 0) - (b.quando ?? 0));
+    await scriviInArchivio(percorso, tutti);
+  }
+  return gruppi.size;
+}
+
+/**
+ * I MESSAGGI DI UNA CONVERSAZIONE IN ARCHIVIO, per riaprirla dal Diario o
+ * dal menu' della chat. FE.22.15.
+ */
+export const leggiLaConversazioneArchiviata = onCall(OPZIONI, async (request) => {
+  const uid = uidDi(request);
+  const chiave = chiaveValida(request.data?.chiave);
+  if (!chiave.startsWith("conv.")) {
+    throw new HttpsError("invalid-argument", "Non e' una conversazione.");
+  }
+  const messaggi = await leggiDallArchivio(ilPercorsoInArchivio(uid, chiave));
+  return {messaggi: messaggi ?? []};
 });

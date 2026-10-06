@@ -2,7 +2,7 @@ import {test} from "node:test";
 import assert from "node:assert/strict";
 import {
   giornoDi, titoloDa, chiaveDellaConversazione, ilRiassuntoDopo,
-  LUNGHEZZA_DEL_TITOLO, VERSIONE_DEL_FORMATO,
+  LUNGHEZZA_DEL_TITOLO, VERSIONE_DEL_FORMATO, etichetteDi, Riga,
 } from "./diario";
 
 /**
@@ -33,16 +33,22 @@ test("la chiave di una conversazione e' stabile e senza caratteri strani", () =>
 
 test("FE.22.8: il giorno porta la stella finche' una sua voce la porta", () => {
   let anno: Record<string, any> = {};
-  anno = ilRiassuntoDopo(anno, "2026-10-06", 1, 0);
-  anno = ilRiassuntoDopo(anno, "2026-10-06", 1, 1);
-  assert.deepEqual(anno.mesi, {"10": 2});
+  const conv: Riga = {t: "x", m: "medora", k: "conversazione", a: "chat", q: 0};
+  const resp: Riga = {t: "y", m: "aura", k: "responso", a: "rune", q: 0};
+  anno = ilRiassuntoDopo(anno, "2026-10-06", etichetteDi(conv), 1);
+  anno = ilRiassuntoDopo(anno, "2026-10-06", etichetteDi(resp), 1);
+  assert.deepEqual(anno.mesi["10"],
+    {tutte: 2, conversazioni: 1, medora: 1, arti: 1, aura: 1});
+  // La stella messa su una voce: il giorno la porta.
+  anno = ilRiassuntoDopo(anno, "2026-10-06", ["stelle"], 1);
   assert.deepEqual(anno.stelle, {"10-06": 1});
+  assert.equal(anno.mesi["10"].stelle, 1);
   // La stella tolta: il giorno la perde.
-  anno = ilRiassuntoDopo(anno, "2026-10-06", 0, -1);
+  anno = ilRiassuntoDopo(anno, "2026-10-06", ["stelle"], -1);
   assert.deepEqual(anno.stelle, {});
-  // La voce tolta col cestino: il mese scende, e a zero sparisce.
-  anno = ilRiassuntoDopo(anno, "2026-10-06", -1, 0);
-  anno = ilRiassuntoDopo(anno, "2026-10-06", -1, 0);
+  // Il cestino: le etichette scendono, e a zero il mese sparisce.
+  anno = ilRiassuntoDopo(anno, "2026-10-06", etichetteDi(conv), -1);
+  anno = ilRiassuntoDopo(anno, "2026-10-06", etichetteDi(resp), -1);
   assert.deepEqual(anno.mesi, {});
 });
 

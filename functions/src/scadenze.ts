@@ -23,6 +23,7 @@
  */
 import {getFirestore, Timestamp} from "firebase-admin/firestore";
 import * as logger from "firebase-functions/logger";
+import {archiviaIMessaggi, archiviaLeVociVecchie} from "./diario";
 
 /** Un giorno in millesimi, che e' l'unita' con cui si ragiona qui. */
 const GIORNO = 24 * 60 * 60 * 1000;
@@ -59,8 +60,9 @@ export const SCADENZE: Record<string, Scadenza> = {
     giorni: 365,
     perche:
       "la memoria lunga e' il valore del prodotto, e un Maestro che ricorda " +
-      "l'anno scorso vale; oltre l'anno nessuno rilegge e ogni messaggio in " +
-      "piu' pesa sul contesto e sullo storage senza cambiare una risposta.",
+      "l'anno scorso vale; oltre l'anno i messaggi escono da Firestore ma " +
+      "non si perdono: passano nell'archivio a basso costo e la " +
+      "conversazione resta nel Diario (ordine FE voce 22.15).",
   },
   ritorno: {
     nome: "I contatori anonimi di come va l'app",
@@ -172,11 +174,32 @@ export async function pulisciCioCheEScaduto(
   // **I MESSAGGI PORTANO `createdAt`, non `quando`**, ed e' il nome che
   // `scriviLaMemoria` scrive: cercare il campo sbagliato non avrebbe dato
   // errore, avrebbe cancellato zero righe per sempre in silenzio.
-  await portaVia(
-    "messaggi",
-    db.collectionGroup("messages")
+  // **PRIMA IN ARCHIVIO, POI VIA. Ordine FE voce 22.15.** Le conversazioni
+  // restano visibili nel Diario oltre l'anno: i messaggi che scadono da
+  // Firestore si scrivono prima nell'archivio a basso costo, raggruppati per
+  // conversazione, e solo dopo si cancellano. Se l'archivio non risponde,
+  // questa notte non si cancella niente.
+  try {
+    const inScadenza = await db.collectionGroup("messages")
       .where("createdAt", "<", confineDi("messaggi", adesso))
-  );
+      .limit(QUANTI_PER_GIRO).get();
+    if (!inScadenza.empty) await archiviaIMessaggi(inScadenza.docs);
+    await portaVia(
+      "messaggi",
+      db.collectionGroup("messages")
+        .where("createdAt", "<", confineDi("messaggi", adesso))
+    );
+  } catch (errore) {
+    logger.warn("scadenze: messaggi non archiviati, non si cancellano",
+      {errore: String(errore)});
+    fatto.messaggi = 0;
+  }
+  try {
+    fatto.vociInArchivio = await archiviaLeVociVecchie(adesso);
+  } catch (errore) {
+    logger.warn("scadenze: voci del Diario non archiviate",
+      {errore: String(errore)});
+  }
   // **I CONTATORI ANONIMI, ordine EA voce 12.** Non stanno sotto nessun
   // utente: si scorre la collezione, non un gruppo di collezioni.
   await portaVia(
