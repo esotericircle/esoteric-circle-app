@@ -401,6 +401,21 @@ della 2299. Il giro della consegna sul commit `acba2931`
 (`docs/collaudo/banchi_col_modello/2026-10-07.txt`): 11 su 11, il filo con 5
 contraddizioni su 60 e D e F a 8 su 10, sul limite.
 
+**Poi la contraddizione del giro della 2301, chiesta dal fondatore con la
+domanda a), b), c).** Cadeva su un punto fermo: Calìgo estraeva Nauthiz al
+posto di Isa (filo/2026-10-07T0901, percorso F). Curata in piu' versioni a
+costo zero e misurata giro per giro; il fondatore ha scelto di chiudere al
+livello misurato (al piu' due contraddizioni e otto su dieci per percorso)
+e poi di togliere la rete che correggeva l'elemento: le risposte che
+correggeva erano bocciate nel 27 per cento dei casi contro il 6 delle altre.
+Si previene (l'elemento uscito arriva per nome nel controllo finale) e si
+conta (il banco del filo conta per percorso le risposte che lo cambiano).
+Prima e dopo, sul banco del filo: con la rete 10 giri, 2,2 contraddizioni
+per giro di 60, 7,3 per cento di bocciate, 0,00501 dollari per consulto;
+senza, il giro completo sul commit `567872c0`: 1 contraddizione su 60, 10
+per cento di bocciate, elemento cambiato in 1 risposta su 11, 0,00473
+dollari per consulto. Il caso per esteso nelle righe in coda del rapporto.
+
 DOMANDA: "Soglia: nessuna contraddizione ammessa sui punti fermi della scheda, e almeno nove risposte su dieci che portano avanti il punto invece di aprirne uno nuovo."
 PROVA: docs/collaudo/FE/taratura_del_giudice/regola_della_coerenza.md
 MISURA: accordi dei due lettori col giudice 110 e 107 su 120; contraddizioni con la forma scelta 4 su 180 giudizi (3, 0, 1); percorsi sopra nove su dieci 4 su 6 (C, D, E, F), sotto A 87 e B 87 per cento
@@ -437,6 +452,13 @@ DOMANDA: "Dichiara nel rapporto, su dieci consulti reali, i token di ingresso me
 PROVA: docs/collaudo/FE/costo/il_costo_del_filo_2026-10-06T1641.txt
 MISURA: token di ingresso mediani su 10 consulti, giro delle 15:55: prima del filo 5536, col filo senza cache 5949, col filo e con la cache 2115 pagati a prezzo pieno; giro delle 16:41: 5521, 5908 e 6035 (Vertex quel giro non ha dato la cache al terzo turno: la cache implicita non e' garantita); risposte col cielo sbagliato con la cache esplicita 3 su 10, quindi resta spenta
 ACCETTAZIONE: leggo i tre numeri mediani e il perche' la cache esplicita resta spenta
+
+**Rimisurata il 7 ottobre 2026**, su richiesta del fondatore: sul codice
+della 2301 5.544, 5.876 e 2.190; sul codice di `567872c0` 5.549, 5.880 e
+1.994 (`docs/collaudo/FE/costo/il_costo_del_filo_2026-10-07T2115.txt`). La
+cache del contesto non e' accesa ne' in produzione ne' nei banchi
+(`lib/services/ai/la_cache_del_contesto.dart:52`, `functions/src/index.ts:81`);
+il terzo numero e' la cache implicita di Vertex.
 
 ## VOCE FE.20, IL TETTO
 
