@@ -106,11 +106,21 @@ void main() {
       print('ORDINE ES VOCE 15: passo del telefono '
           '${ChiEOnline.ogni.inMilliseconds} ms, del server $msServer ms');
       expect(ChiEOnline.ogni.inMilliseconds, msServer);
-      expect(
-          server.contains('FINESTRA_DELLA_PRESENZA_MS = '
-              'OGNI_QUANTO_CHIEDE_MS + 30 * 1000'),
-          isTrue,
-          reason: 'la finestra non e\' piu\' il passo piu\' mezzo minuto');
+      // LAPIDE, ordine FF voce 01 (7 ottobre 2026). Qui si pretendeva la
+      // finestra uguale al passo piu' mezzo minuto, cioe' novanta secondi.
+      // Il fondatore vuole online chi ha l'app aperta anche sullo sfondo, e
+      // la finestra e' di cinque minuti dall'ultimo segno. Il fatto che la
+      // prova difendeva resta: la finestra e' piu' larga del passo.
+      final finestra =
+          RegExp(r'FINESTRA_DELLA_PRESENZA_MS = (\d+) \* 60 \* 1000;')
+              .firstMatch(server);
+      expect(finestra, isNotNull,
+          reason: 'la finestra del server non si legge');
+      final msFinestra = int.parse(finestra!.group(1)!) * 60 * 1000;
+      expect(msFinestra, const Duration(minutes: 5).inMilliseconds,
+          reason: 'la finestra della presenza non e\' di cinque minuti');
+      expect(msFinestra, greaterThan(msServer),
+          reason: 'chi ha l\'app davanti uscirebbe dal conto fra due domande');
     });
 
     test('la presenza se ne va con chi cancella, e si conta senza elenco', () {

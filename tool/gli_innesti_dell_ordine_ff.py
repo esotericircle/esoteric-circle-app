@@ -23,6 +23,7 @@ VERDETTI = 'tool/banchi_col_modello/i_verdetti_del_filo.dart'
 BANCO_FILO = 'tool/banchi_col_modello/il_filo_del_consulto_col_modello_test.dart'
 PROVA_VERDETTI = 'flutter test test/i_verdetti_del_filo_test.dart -r expanded'
 IPHONE = 'flutter test test/le_push_arrivano_su_iphone_test.dart -r expanded'
+PRESENZA = 'flutter test test/chi_esce_dal_cerchio_esce_dal_conto_test.dart -r expanded'
 
 # sigla, voce, file, vecchio, nuovo, comando, la prova che deve cadere
 INNESTI = [
@@ -74,6 +75,23 @@ INNESTI = [
      '',
      'flutter test test/i_diritti_di_ios_hanno_il_loro_passo_sul_portale_test.dart -r expanded',
      'ogni diritto di Runner.entitlements'),
+    # FF.01, la presenza non si spegne in secondo piano.
+    ('F12', 'FF.01', 'functions/src/presenza.ts',
+     'export const FINESTRA_DELLA_PRESENZA_MS = 5 * 60 * 1000;',
+     'export const FINESTRA_DELLA_PRESENZA_MS = OGNI_QUANTO_CHIEDE_MS + 30 * 1000;',
+     'cd functions && npm test', 'FF.01 a)'),
+    ('F13', 'FF.01', 'functions/src/cerchio.ts',
+     '    await scriviLUscita(uid, adesso);\n    return {quanti: 0};',
+     '    await scriviLaPresenza(uid, null);\n    return {quanti: 0};',
+     PRESENZA, 'chi va sullo sfondo lascia il suo ultimo segno'),
+    ('F14', 'FF.01', 'functions/src/il_cerchio_sociale.ts',
+     '    await doc.update({[`p.${uid}.u`]: adesso});',
+     '    await doc.update({[`p.${uid}`]: FieldValue.delete()});',
+     PRESENZA, 'chi va sullo sfondo lascia il suo ultimo segno'),
+    ('F15', 'FF.01', 'lib/services/server/chi_e_online.dart',
+     '      if (_passo != null) unawaited(_porta.esciDalCerchio());',
+     '      // uscita tolta',
+     PRESENZA, 'le scritture di una sessione di dieci minuti'),
 ]
 
 

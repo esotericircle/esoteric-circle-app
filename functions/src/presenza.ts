@@ -21,15 +21,19 @@
 export const OGNI_QUANTO_CHIEDE_MS = 60 * 1000;
 
 /**
- * **LA FINESTRA DELLA PRESENZA**: un minuto e mezzo (due e mezzo fino
- * all'ordine EV voce 06). E' piu' larga del
- * passo del telefono di mezzo minuto, cioe' del margine di una rete lenta:
- * chi c'e' rinnova la sua presenza prima di uscire dal conto, e chi chiude
- * l'app senza dirlo ne esce entro un minuto e mezzo (chi lo dice, in pausa,
- * esce subito). Una finestra uguale al passo
- * farebbe lampeggiare il numero a ogni ritardo di un secondo.
+ * **LA FINESTRA DELLA PRESENZA**: cinque minuti, dall'ordine FF voce 01 del
+ * 7 ottobre 2026 (un minuto e mezzo dall'ordine EV voce 06, due e mezzo
+ * prima). Il fondatore: *"fino a quando l'app è aperta anche in background,
+ * quell'utente deve risultare online"*. Con un minuto e mezzo chi rispondeva
+ * a un messaggio usciva dall'elenco e rientrava subito dopo.
+ *
+ * Sullo sfondo il telefono non lascia all'app dire ancora "sono qui": il
+ * suo ultimo segno e' quello che lascia uscendo (`chiEOnline` con `esce`,
+ * che dall'ordine FF scrive l'ora invece di togliere la presenza), e da li'
+ * si contano i cinque minuti. Resta piu' larga del passo del telefono, cosi'
+ * chi ha l'app davanti non esce mai dal conto fra una domanda e l'altra.
  */
-export const FINESTRA_DELLA_PRESENZA_MS = OGNI_QUANTO_CHIEDE_MS + 30 * 1000;
+export const FINESTRA_DELLA_PRESENZA_MS = 5 * 60 * 1000;
 
 /** Da quale istante in poi una presenza conta ancora. */
 export function confineDellaPresenza(adesso: number): number {

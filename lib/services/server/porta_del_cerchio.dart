@@ -628,7 +628,9 @@ class PortaVeraDelCerchio extends PortaDelCerchio {
 
   @override
   Future<void> esciDalCerchio() async {
-    // Chi esce perde la presenza: al ritorno la scheda si riscrive intera.
+    // Chi esce lascia l'ora dell'uscita (ordine FF voce 01) e resta online
+    // cinque minuti: al ritorno la scheda si riscrive intera, perche' oltre
+    // la finestra la presenza e' scaduta.
     _schedaDaMandare = true;
     try {
       await _chiama('chiEOnline', const {'esce': true});

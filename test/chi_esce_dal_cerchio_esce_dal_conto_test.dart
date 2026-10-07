@@ -22,6 +22,13 @@ import 'package:flutter_test/flutter_test.dart';
 /// - quando l'app va in pausa il telefono dice al server che esce, e il
 ///   server lo toglie dal conto subito;
 /// - al ritorno chiede subito.
+///
+/// **LAPIDE, ordine FF voce 01, 7 ottobre 2026.** Il secondo punto e' stato
+/// rovesciato dal fondatore: *"fino a quando l'app è aperta anche in
+/// background, quell'utente deve risultare online"*. Il telefono dice
+/// ancora al server che esce, e il server adesso scrive l'ora dell'uscita
+/// invece di togliere la presenza; la finestra e' di cinque minuti. Il
+/// primo e il terzo punto restano.
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -55,24 +62,51 @@ void main() {
     chi.dispose();
   });
 
-  test('il server toglie dal conto chi esce', () {
+  test('chi va sullo sfondo lascia il suo ultimo segno, e non esce', () {
+    // LAPIDE, ordine FF voce 01: questa prova si chiamava "il server toglie
+    // dal conto chi esce" e pretendeva `scriviLaPresenza(uid, null)` nel
+    // ramo. Adesso il ramo scrive l'ora dell'uscita, e non toglie niente.
     final cerchio = File('functions/src/cerchio.ts').readAsStringSync();
     final i = cerchio.indexOf('export const chiEOnline');
     final corpo = cerchio.substring(i, cerchio.indexOf('\n});', i));
     expect(corpo.contains('esce'), isTrue,
         reason: 'la porta non sa che qualcuno esce');
-    // **IL RAMO DI CHI ESCE TOGLIE LA PRESENZA PRIMA DI RISPONDERE.** Fino
-    // all'ordine FB la prova cercava `.delete()` in tutta la porta, cioe' la
-    // parola con cui allora si toglieva il documento; dall'ordine FB voce 01
-    // la presenza e' una voce in un frammento e si toglie con
-    // `scriviLaPresenza(uid, null)`. Si guarda il ramo, non la parola.
     final ramo = corpo.substring(
         corpo.indexOf('esce === true'), corpo.indexOf('return {quanti: 0}'));
-    expect(
-        ramo.contains('scriviLaPresenza(uid, null)') ||
-            ramo.contains('.delete()'),
-        isTrue,
-        reason: 'chi esce resta nel conto fino alla fine della finestra');
+    expect(ramo.contains('scriviLUscita(uid, adesso)'), isTrue,
+        reason: 'il passaggio in secondo piano non scrive l\'ultimo segno');
+    expect(ramo.contains('scriviLaPresenza(uid, null)'), isFalse,
+        reason: 'chi passa a un\'altra app esce dall\'elenco e il numero in '
+            'alto lampeggia');
+    // La scrittura rinnova solo l'ora, e lascia la scheda.
+    final sociale =
+        File('functions/src/il_cerchio_sociale.ts').readAsStringSync();
+    final j = sociale.indexOf('export async function scriviLUscita');
+    expect(j, greaterThan(0), reason: 'scriviLUscita non c\'e\'');
+    final uscita = sociale.substring(j, sociale.indexOf('\n}\n', j));
+    expect(uscita.contains('doc.update({[`p.\${uid}.u`]: adesso})'), isTrue,
+        reason: 'l\'uscita non scrive l\'ora nella voce della persona');
+  });
+
+  testWidgets(
+      'le scritture di una sessione di dieci minuti: una al minuto e una '
+      'all\'uscita', (tester) async {
+    // Ordine FF voce 01.3: ogni chiamata del telefono e' una scrittura della
+    // presenza sul server (un passo scrive la voce, l'uscita scrive l'ora;
+    // prima dell'ordine FF l'uscita la cancellava, sempre una scrittura).
+    final porta = _PortaContata();
+    final chi = ChiEOnline(porta: porta)..avvia();
+    await tester.pump();
+    await tester.pump(const Duration(minutes: 10));
+    chi.didChangeAppLifecycleState(AppLifecycleState.paused);
+    chi.didChangeAppLifecycleState(AppLifecycleState.hidden);
+    await tester.pump();
+    print('ORDINE FF VOCE 01: sessione di dieci minuti, passi ${porta.domande}'
+        ', uscite ${porta.uscite}, scritture ${porta.domande + porta.uscite}');
+    expect(porta.domande, 11, reason: 'il passo non e\' piu\' di un minuto');
+    expect(porta.uscite, 1,
+        reason: 'la scrittura del passaggio in secondo piano non c\'e\'');
+    chi.dispose();
   });
 }
 

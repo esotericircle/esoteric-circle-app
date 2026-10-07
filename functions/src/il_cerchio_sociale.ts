@@ -1051,6 +1051,24 @@ export async function scriviLaPresenza(uid: string,
 }
 
 /**
+ * **L'ULTIMO SEGNO DI CHI VA SULLO SFONDO, ordine FF voce 01.** Rinnova solo
+ * l'ora della voce della persona, e lascia la scheda com'e'. Chi non ha una
+ * voce con la scheda (sotto i quattordici anni, o mai passato) riceve una
+ * voce con la sola ora, che il conto salta perche' senza visibilita'
+ * (`costruisciLIstantanea`) e la ricostruzione toglie dopo un'ora. Una
+ * scrittura, come la cancellazione che prendeva il suo posto.
+ */
+export async function scriviLUscita(uid: string,
+  adesso: number): Promise<void> {
+  const doc = FRAMMENTO(frammentoDi(uid), spazioDi(uid));
+  try {
+    await doc.update({[`p.${uid}.u`]: adesso});
+  } catch (senzaFrammento) {
+    logger.debug("L'uscita non ha un frammento da rinnovare.", {uid});
+  }
+}
+
+/**
  * **L'ISTANTANEA IN MEMORIA, ordine EZ voce 03.** Ogni istanza del server
  * tiene l'ultima istantanea letta per trenta secondi: le aperture che
  * arrivano nello stesso mezzo minuto non la rileggono. `letta` e' quando

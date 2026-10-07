@@ -22,6 +22,7 @@ import {
   istantanea,
   rinnovaLaScheda,
   scriviLaPresenza,
+  scriviLUscita,
 } from "./il_cerchio_sociale";
 import {arteValida, leggiIlCodiceDellInvito} from "./sociale";
 import {
@@ -1191,11 +1192,15 @@ export const attivaIlPianoInDemo = onCall(
 export const chiEOnline = onCall(OPZIONI_DEL_CERCHIO, async (request) => {
   const uid = uidDi(request);
   const adesso = Date.now();
-  // **CHI ESCE, ESCE DAL CONTO SUBITO.** Ordine EV voce 06: il telefono che
-  // va in pausa lo dice, e la sua presenza si toglie invece di restare nel
-  // conto degli altri fino alla fine della finestra.
+  // **CHI VA SULLO SFONDO LASCIA IL SUO ULTIMO SEGNO.** Ordine FF voce 01,
+  // 7 ottobre 2026: fino all'ordine EV voce 06 la presenza restava fino alla
+  // fine della finestra, dall'EV si toglieva subito, e chi rispondeva a un
+  // messaggio usciva dall'elenco e rientrava. Adesso il telefono che va in
+  // pausa lo dice e il server scrive l'ora dell'uscita: la persona resta
+  // online per i cinque minuti della finestra, da quell'istante. Una
+  // scrittura, quella che prima toglieva la presenza.
   if ((request.data as {esce?: unknown} | undefined)?.esce === true) {
-    await scriviLaPresenza(uid, null);
+    await scriviLUscita(uid, adesso);
     return {quanti: 0};
   }
   const corpo = request.data as {arte?: unknown; scheda?: unknown} | undefined;

@@ -12,9 +12,10 @@ import 'porta_del_cerchio.dart';
 /// Chiede il numero al server all'avvio e poi ogni [ogni], **solo finche'
 /// l'app e' davanti**: in pausa il passo si ferma, e al ritorno si chiede
 /// subito, cosi' chi riapre l'app non legge il numero di un'ora fa. La
-/// domanda stessa e' la presenza: il server segna chi chiede, quindi un'app
-/// in pausa smette di contare fra gli online da sola, entro la finestra del
-/// server (`functions/src/presenza.ts`, due minuti e mezzo).
+/// domanda stessa e' la presenza: il server segna chi chiede. Andando in
+/// pausa il telefono lascia l'ultimo segno (`esciDalCerchio`), e da li' la
+/// persona resta fra gli online per la finestra del server
+/// (`functions/src/presenza.ts`, cinque minuti dall'ordine FF voce 01).
 ///
 /// **Con la porta spenta non parte nessun passo**, ne' nelle prove ne' senza
 /// Firebase: il numero resta nullo, e la barra mostra la lucina senza
