@@ -319,7 +319,6 @@ class _Giro {
       final correzione = await LaReteDellaCoerenza.controlla(
         chi: chi,
         storia: storia,
-        domanda: domanda,
         risposta: risposta,
         chiamata: (istr, testo) => _vertex(
           modello: LaReteDellaCoerenza.modello,

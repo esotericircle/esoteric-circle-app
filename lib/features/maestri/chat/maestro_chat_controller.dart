@@ -856,7 +856,6 @@ class MaestroChatController extends ChangeNotifier {
       correzione = await LaReteDellaCoerenza.controlla(
           chi: chi,
           storia: [..._filoDiPrima, ...storia],
-          domanda: domanda,
           risposta: risposta,
           chiamata: porta.giudicaLaCoerenza);
     } catch (errore, traccia) {

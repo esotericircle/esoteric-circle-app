@@ -273,6 +273,33 @@ void main() {
           reason: 'su un tema nuovo non c\'e\' un gesto da tenere');
     });
 
+    test('le parole del ritorno al tema, e quelle che non lo sono', () {
+      for (final torna in [
+        'Torniamo alla mia prima domanda. Allora, cosa mi consigli di fare?',
+        'torniamo al lavoro: cosa faccio?',
+        'Tornando alla promozione, quando chiedo?',
+        "Torno all'argomento di prima: che faccio?",
+        'Riprendiamo il discorso sulla casa.',
+        'Come dicevi, devo aspettare?',
+        'Quello che mi hai detto vale anche per lei?',
+        'E per il tema di prima?',
+      ]) {
+        expect(LaLeggeDellaCoerenza.tornaAlTema(torna), isTrue,
+            reason: '«$torna» torna al tema e il filo non lo vede');
+      }
+      for (final nuova in [
+        'Cambiando discorso: che cristallo mi consigli per dormire meglio?',
+        'E in pratica, cosa faccio questa settimana?',
+        'E se le cose non vanno come speri?',
+        'Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?',
+        'Devo trasferirmi in un\'altra città per ricominciare?',
+        'Il ritornello della canzone mi parla?',
+      ]) {
+        expect(LaLeggeDellaCoerenza.tornaAlTema(nuova), isFalse,
+            reason: '«$nuova» non torna a un tema');
+      }
+    });
+
     test('le frasi di un turno solo partono solo in quel turno', () {
       final semplice = LaLeggeDellaCoerenza.controlloFinalePer(
           domanda: 'E in pratica, cosa faccio?', storia: promozione);
@@ -326,10 +353,21 @@ void main() {
       final conGesto = LaLeggeDellaCoerenza.controlloFinalePer(
           domanda: 'E in pratica, cosa faccio questa settimana?',
           storia: promozione);
+      // Il turno normale peggiore: un gesto lungo quanto il tetto.
+      final lungo = 'Scrivi ${'una parola ' * 40}'.trim();
+      final peggiore = LaLeggeDellaCoerenza.controlloFinalePer(
+          domanda: 'E in pratica?',
+          storia: [
+            const ChatMessage(role: ChatRole.user, text: 'Devo partire?'),
+            ChatMessage(
+                role: ChatRole.maestro,
+                text: 'Sì.\n\n✦ $lungo',
+                autore: Maestro.medora),
+          ]);
       print('ORDINE FE, il controllo finale: prima ${diPrima.length} '
           'caratteri a ogni turno, adesso ${conGesto.length} col gesto di '
-          'Medora');
-      expect(conGesto.length, lessThanOrEqualTo(diPrima.length),
+          'Medora, ${peggiore.length} col gesto piu\' lungo');
+      expect(peggiore.length, lessThanOrEqualTo(diPrima.length),
           reason: 'il controllo col gesto costa piu\' di quello di prima');
     });
   });

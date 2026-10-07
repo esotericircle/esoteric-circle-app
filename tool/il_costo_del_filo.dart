@@ -73,7 +73,6 @@ void main() {
     final correzione = await LaReteDellaCoerenza.controlla(
       chi: chi,
       storia: storia,
-      domanda: domanda,
       risposta: risposta,
       chiamata: (istr, testo) async {
         final e = await _rete(istr, testo);

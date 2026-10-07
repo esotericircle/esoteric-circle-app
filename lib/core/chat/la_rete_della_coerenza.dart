@@ -84,32 +84,22 @@ abstract final class LaReteDellaCoerenza {
   /// le risposte di un Maestro solo regge l'istruzione. Misurato: 0,289
   /// dollari a giro, il 2 per cento in piu'.
   ///
-  /// **E QUANDO LA PERSONA TORNA AL TEMA DI PRIMA. Ordine FE, 7 ottobre
-  /// 2026.** Al banco del filo sul commit 6e7511db il percorso D (una
-  /// domanda, un tema diverso, poi "Torniamo alla mia prima domanda") ha
-  /// dato 7 risposte su 10 che portano avanti il punto e 2 contraddizioni,
-  /// entrambe di un Maestro con se stesso: Medora prima "attendi con
-  /// discrezione, senza condividerlo", al ritorno "parla col tuo superiore
-  /// domani mattina"; Calìgo prima "scrivile un messaggio oggi", al ritorno
-  /// "cercala di persona, non con un messaggio freddo"
-  /// (docs/collaudo/banchi_col_modello/filo/2026-10-07T0008/percorso_d.txt).
-  /// Dentro un Maestro solo l'istruzione regge finché il tema resta quello;
-  /// quando in mezzo passa un altro tema, il parere di prima si allontana.
-  /// Il ritorno si riconosce dalle parole della [domanda], senza una
-  /// chiamata: la rete parte solo li', e il costo degli altri turni non
-  /// cambia.
-  static bool serve(Maestro chi, {String domanda = ''}) {
+  /// **LA RETE SUL RITORNO AL TEMA, PROVATA E TOLTA, 7 ottobre 2026.** Al
+  /// banco del filo sul commit 6e7511db il percorso D (una domanda, un tema
+  /// diverso, poi "Torniamo alla mia prima domanda") ha dato due
+  /// contraddizioni di un Maestro con se stesso
+  /// (docs/collaudo/banchi_col_modello/filo/2026-10-07T0008). La rete accesa
+  /// anche sul ritorno (commit 74a1e00f e 297da8e7) le toglieva, ma con 12-13
+  /// chiamate in piu' a giro (167 contro 154-155, 0,297 dollari contro
+  /// 0,287), e il fondatore non accetta aumenti di costo. Il ritorno al tema
+  /// lo tiene adesso il controllo finale del consulto, che porta il gesto
+  /// vero del Maestro (`LaLeggeDellaCoerenza.controlloFinalePer`), a costo
+  /// zero.
+  static bool serve(Maestro chi) {
     final s = IlFiloDelConsulto.scheda;
     if (s == null) return false;
-    return s.daMaestro != chi ||
-        s.pareri.any((p) => p.maestro != chi) ||
-        tornaAlTema(domanda);
+    return s.daMaestro != chi || s.pareri.any((p) => p.maestro != chi);
   }
-
-  /// Se la [domanda] torna a un tema gia' toccato nel consulto: la regola
-  /// sta in un punto solo, [LaLeggeDellaCoerenza.tornaAlTema].
-  static bool tornaAlTema(String domanda) =>
-      LaLeggeDellaCoerenza.tornaAlTema(domanda);
 
   /// I punti fermi per [chi]: la scheda del consulto, le risposte di prima
   /// del Maestro nella [storia] e quelle intere degli altri che il filo
@@ -181,44 +171,27 @@ abstract final class LaReteDellaCoerenza {
   }
 
   /// La correzione per la voce: nomina il punto fermo e le due strade.
-  ///
-  /// **Senza un altro Maestro nel consulto la strada e' una sola.** Al banco
-  /// del filo sul commit 74a1e00f, percorso D, la correzione offriva a
-  /// Calìgo le due strade, e Calìgo ha preso la seconda contro se stesso:
-  /// "la via della scrittura che hai immaginato non è quella", dopo aver
-  /// detto lui "scrivi una lettera"
-  /// (docs/collaudo/banchi_col_modello/filo/2026-10-07T0155/percorso_d.txt,
-  /// consulto 10). Leggere diversamente vale fra due Maestri; con il
-  /// proprio parere si porta avanti.
-  static String correzione(PuntoContraddetto p, {bool fraMaestri = true}) =>
+  static String correzione(PuntoContraddetto p) =>
       'LA TUA RISPOSTA CONTRADDICE UN PUNTO FERMO DEL CONSULTO SENZA DIRLO: '
       '«${p.punto}»${p.motivo.isEmpty ? '' : ' (${p.motivo})'}. Riscrivi la '
-      'risposta: ${fraMaestri ? 'o ' : ''}la porti avanti da quel punto, con '
-      'lo stesso gesto, lo stesso mezzo e lo stesso tempo, e dici il passo '
-      'che viene dopo${fraMaestri ? ', o dici apertamente che leggi '
-          'diversamente e perché' : '. Quel punto è il tuo consiglio: non '
-          'cambiarlo e non dire che era sbagliato'}. Tutto il resto della '
-      'risposta resta com’è.';
+      'risposta: o la porti avanti da quel punto, con lo stesso gesto e lo '
+      'stesso tempo, o dici apertamente che leggi diversamente e perché. '
+      'Tutto il resto della risposta resta com’è.';
 
   /// **IL CONTROLLO.** Torna la correzione da dare alla voce, o nullo.
-  /// Senza un altro Maestro nel consulto e senza un ritorno al tema nella
-  /// [domanda], o senza punti fermi, non chiama il modello.
+  /// Senza un altro Maestro nel consulto, o senza punti fermi, non chiama
+  /// il modello.
   static Future<String?> controlla({
     required Maestro chi,
     required List<ChatMessage> storia,
-    required String domanda,
     required String risposta,
     required ChiamataDellaCoerenza chiamata,
   }) async {
-    if (!serve(chi, domanda: domanda)) return null;
+    if (!serve(chi)) return null;
     final punti = puntiFermi(chi, storia);
     if (punti == null || risposta.trim().isEmpty) return null;
     final verdetto = leggi(await chiamata(
         istruzione, richiesta(puntiFermi: punti, risposta: risposta)));
-    if (verdetto == null) return null;
-    final s = IlFiloDelConsulto.scheda!;
-    return correzione(verdetto,
-        fraMaestri:
-            s.daMaestro != chi || s.pareri.any((p) => p.maestro != chi));
+    return verdetto == null ? null : correzione(verdetto);
   }
 }

@@ -39,7 +39,6 @@ void main() {
         await LaReteDellaCoerenza.controlla(
             chi: Maestro.caligo,
             storia: const [],
-            domanda: 'E allora?',
             risposta: 'Agisci subito.',
             chiamata: conta),
         isNull,
@@ -52,7 +51,6 @@ void main() {
         await LaReteDellaCoerenza.controlla(
             chi: Maestro.caligo,
             storia: const [],
-            domanda: 'E allora?',
             risposta: 'Agisci subito.',
             chiamata: conta),
         isNull,
@@ -72,7 +70,6 @@ void main() {
     final correzione = await LaReteDellaCoerenza.controlla(
       chi: Maestro.caligo,
       storia: const [],
-      domanda: 'Devo chiedere la promozione?',
       risposta: 'Agisci subito. Non attendere.',
       chiamata: (istruzione, testo) async {
         letto = testo;
@@ -104,7 +101,6 @@ void main() {
           await LaReteDellaCoerenza.controlla(
               chi: Maestro.caligo,
               storia: const [],
-              domanda: 'Devo chiedere la promozione?',
               risposta: 'Prepara gli argomenti.',
               chiamata: (_, __) async => grezzo),
           isNull,
@@ -136,99 +132,30 @@ void main() {
         reason: 'il provider non scrive la correzione leggera con Flash-Lite');
   });
 
-  // **IL RITORNO AL TEMA, ordine FE del 7 ottobre 2026.** Al banco del filo
-  // il percorso D aveva due contraddizioni di un Maestro con se stesso,
-  // quando la persona tornava al primo tema dopo un tema diverso.
-  test('tornando al tema di prima la rete legge anche con un Maestro solo',
+  // **IL RITORNO AL TEMA NON ACCENDE LA RETE**, ordine FE del 7 ottobre
+  // 2026: accesa anche li' toglieva le contraddizioni del percorso D con
+  // 12-13 chiamate in piu' a giro, e il fondatore non accetta aumenti di
+  // costo. Il ritorno lo tiene il gesto nel controllo finale.
+  test('tornando al tema con un Maestro solo la rete non chiama il modello',
       () async {
     IlFiloDelConsulto.annota(
         maestro: Maestro.caligo,
         domanda: 'Come faccio a fare pace con mia sorella?',
         risposta: 'Diglielo tu. Scrivile un breve messaggio oggi.');
-    final storia = [
-      const ChatMessage(
-          role: ChatRole.user,
-          text: 'Come faccio a fare pace con mia sorella?'),
-      const ChatMessage(
-          role: ChatRole.maestro,
-          text: 'Diglielo tu. Scrivile un breve messaggio oggi, prima che il '
-              'sole cali.',
-          autore: Maestro.caligo),
-      const ChatMessage(
-          role: ChatRole.user, text: 'Cambiando discorso: che cristallo?'),
-      const ChatMessage(
-          role: ChatRole.maestro,
-          text: 'Dimmi la tua runa.',
-          autore: Maestro.caligo),
-    ];
     var chiamate = 0;
-    String? letto;
-    Future<String?> giudice(String i, String t) async {
-      chiamate++;
-      letto = t;
-      return '{"contraddice": true, "punto": "Scrivile un breve messaggio '
-          'oggi", "motivo": "ora dice di non scriverle"}';
-    }
-
-    final correzione = await LaReteDellaCoerenza.controlla(
-        chi: Maestro.caligo,
-        storia: storia,
-        domanda: 'Torniamo alla mia prima domanda. Allora, cosa mi consigli '
-            'di fare?',
-        risposta: 'Cercala di persona, non con un messaggio freddo.',
-        chiamata: giudice);
-    expect(chiamate, 1,
-        reason: 'tornando al tema di prima la rete non ha chiamato il '
-            'modello: il Maestro si contraddice da solo senza che nessuno '
-            'lo veda');
-    expect(letto, contains('Scrivile un breve messaggio oggi'));
-    expect(correzione, contains('«Scrivile un breve messaggio oggi»'));
-    // Al banco del 7 ottobre Calìgo, con le due strade davanti, ha preso
-    // "leggo diversamente" contro il suo stesso consiglio.
-    expect(correzione, isNot(contains('leggi diversamente')),
-        reason: 'senza un altro Maestro la correzione offre di leggere '
-            'diversamente il proprio consiglio: e\' ancora una contraddizione');
-    expect(correzione, contains('non cambiarlo'));
-
     expect(
         await LaReteDellaCoerenza.controlla(
             chi: Maestro.caligo,
-            storia: storia,
-            domanda: 'E in pratica, cosa faccio questa settimana?',
-            risposta: 'Cercala di persona.',
-            chiamata: giudice),
+            storia: const [],
+            risposta: 'Chiamala stasera.',
+            chiamata: (_, __) async {
+              chiamate++;
+              return '{"contraddice": true, "punto": "x", "motivo": "y"}';
+            }),
         isNull);
-    expect(chiamate, 1,
-        reason: 'la rete chiama il modello anche dove la persona non torna '
-            'al tema: e\' il costo che il fondatore ha chiesto di recuperare');
-  });
-
-  test('le parole del ritorno al tema, e quelle che non lo sono', () {
-    for (final torna in [
-      'Torniamo alla mia prima domanda. Allora, cosa mi consigli di fare?',
-      'torniamo al lavoro: cosa faccio?',
-      'Tornando alla promozione, quando chiedo?',
-      "Torno all'argomento di prima: che faccio?",
-      'Riprendiamo il discorso sulla casa.',
-      'Come dicevi, devo aspettare?',
-      'Quello che mi hai detto vale anche per lei?',
-      'E per il tema di prima?',
-    ]) {
-      expect(LaReteDellaCoerenza.tornaAlTema(torna), isTrue,
-          reason: '«$torna» torna al tema e la rete non lo vede');
-    }
-    for (final nuova in [
-      'Cambiando discorso: che cristallo mi consigli per dormire meglio?',
-      'E in pratica, cosa faccio questa settimana?',
-      'E se le cose non vanno come speri?',
-      'Eccomi di nuovo, ci ho pensato. Da dove comincio, allora?',
-      'Devo trasferirmi in un\'altra città per ricominciare?',
-      'Il ritornello della canzone mi parla?',
-    ]) {
-      expect(LaReteDellaCoerenza.tornaAlTema(nuova), isFalse,
-          reason: '«$nuova» non torna a un tema: la rete costerebbe senza '
-              'motivo');
-    }
+    expect(chiamate, 0,
+        reason: 'la rete chiama il modello dentro un Maestro solo: e\' il '
+            'costo che il fondatore non accetta');
   });
 
   test('il nucleo della scheda non basta: la storia porta la risposta intera',

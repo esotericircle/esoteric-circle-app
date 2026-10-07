@@ -420,8 +420,12 @@ abstract final class LaLeggeDellaCoerenza {
     final gesto = ilTuoGesto(domanda, storia);
     final b = StringBuffer(controlloFinale);
     if (gesto != null) {
-      b.write(' Il tuo gesto in questo consulto è «$gesto»: il suo tempo e '
-          'il suo mezzo restano quelli, la risposta parte da lì.');
+      // Al banco del 7 ottobre 2026 (filo/2026-10-07T0237, percorso D)
+      // "il suo mezzo resta quello" non bastava: Calìgo passava da "scrivile
+      // un messaggio" a "chiamala stasera". La riga nomina il caso.
+      b.write(' Il tuo gesto qui è «$gesto». Il passo di '
+          'adesso viene dopo quel gesto e lo usa: stesso mezzo, stesso tempo, '
+          'mai un gesto diverso al suo posto.');
     }
     if (chiedeSeVaMale(domanda)) {
       b.write(' La persona chiede che cosa fare se l’esito non è quello '
@@ -448,8 +452,10 @@ abstract final class LaLeggeDellaCoerenza {
 
   /// Le parole con cui la persona torna a un tema gia' toccato nel
   /// consulto. I confini sono scritti a mano: in Dart `\b` non vede le
-  /// lettere accentate. Ordine FE, 7 ottobre 2026: vedi
-  /// [LaReteDellaCoerenza.serve].
+  /// lettere accentate. Ordine FE, 7 ottobre 2026: tornando al tema, il
+  /// gesto da tenere e' quello dato prima del cambio di discorso
+  /// ([ilTuoGesto]); al banco del percorso D il Maestro si contraddiceva
+  /// proprio li'.
   static final RegExp _ritorno = RegExp(
       r"(?<![A-Za-zÀ-ÿ])torn(iamo|o|ando|are|ate)\s+all['’]"
       r'|(?<![A-Za-zÀ-ÿ])(torn(iamo|o|ando|are|ate)\s+(a|al|alla|allo|ai'
@@ -475,6 +481,9 @@ abstract final class LaLeggeDellaCoerenza {
 
   /// Se la [domanda] chiede che cosa fare se l'esito non e' quello sperato.
   static bool chiedeSeVaMale(String domanda) => _seVaMale.hasMatch(domanda);
+
+  /// Quanti caratteri del gesto entrano nel controllo finale.
+  static const int gestoMassimo = 150;
 
   /// **IL GESTO DA TENERE**: la riga col consiglio dell'ultima risposta del
   /// Maestro nella [storia] che il modello riceve, sullo stesso tema della
@@ -503,8 +512,10 @@ abstract final class LaLeggeDellaCoerenza {
         ?.replaceAll(ConsiglioFinale.stella, '')
         .trim();
     if (riga == null || riga.isEmpty) return null;
-    return riga.length > 200
-        ? '${riga.substring(0, 197).trimRight()}...'
+    // Il tetto tiene il controllo col gesto piu' corto di quello di prima
+    // (prova "nessun aumento di costo" in il_filo_del_consulto_test).
+    return riga.length > gestoMassimo
+        ? '${riga.substring(0, gestoMassimo - 3).trimRight()}...'
         : riga;
   }
 
