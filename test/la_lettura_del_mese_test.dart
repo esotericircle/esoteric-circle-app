@@ -288,11 +288,11 @@ void main() {
     // E al modello "chat" arriva in parole, e la regola c'e'.
     final ingresso = PennaVeraDelMese.ingresso(
         mese: '2026-09',
-        riassunto: RiassuntoDelTempo(
+        riassunto: const RiassuntoDelTempo(
           chiave: '2026-09',
           quanteVoci: 15,
-          perMaestro: const {'aura': 15},
-          perArte: const {'chat': 15},
+          perMaestro: {'aura': 15},
+          perArte: {'chat': 15},
           quantiTraguardi: 0,
           quantiDoni: 0,
           eosGuadagnati: 0,
