@@ -25,6 +25,7 @@ PROVA_VERDETTI = 'flutter test test/i_verdetti_del_filo_test.dart -r expanded'
 IPHONE = 'flutter test test/le_push_arrivano_su_iphone_test.dart -r expanded'
 PRESENZA = 'flutter test test/chi_esce_dal_cerchio_esce_dal_conto_test.dart -r expanded'
 GENERE = 'flutter test test/il_genere_non_si_indovina_test.dart -r expanded'
+SOGLIA = 'flutter test test/la_soglia_del_sonno_test.dart -r expanded'
 
 # sigla, voce, file, vecchio, nuovo, comando, la prova che deve cadere
 INNESTI = [
@@ -110,6 +111,27 @@ INNESTI = [
      '29. Sono [quello|quella|la persona] che',
      '29. Sono [quello|quella] che',
      GENERE, 'FF.A3 e)'),
+    # FF aggiunta 1, voce A10: la scheda della Soglia del Sonno.
+    ('F20', 'FF.A10', 'lib/features/santuario/le_righe_della_casa.dart',
+     "        'soglia_del_sonno',\n",
+     '',
+     SOGLIA, 'FF.A10 a)'),
+    ('F21', 'FF.A10', 'lib/core/arts/l_ordine_dei_domini.dart',
+     "          'soglia_del_sonno',\n",
+     '',
+     SOGLIA, 'FF.A10 b)'),
+    ('F22', 'FF.A10', 'lib/core/arts/art_catalog.dart',
+     '        icon: Icons.dark_mode_rounded,\n        state: ArtState.inArrivo,',
+     '        icon: Icons.dark_mode_rounded,\n        state: ArtState.attiva,',
+     SOGLIA, 'FF.A10 c) e d)'),
+    ('F23', 'FF.A10', 'lib/core/arts/gli_sfondi_delle_schede.dart',
+     "    'soglia_del_sonno': 'Soglia-Sonno',\n",
+     '',
+     SOGLIA, 'FF.A10 e)'),
+    ('F24', 'FF.A10', 'lib/core/arts/art_catalog.dart',
+     "        title: 'La Soglia del Sonno',",
+     "        title: 'La soglia del sonno',",
+     SOGLIA, 'FF.A10 f)'),
 ]
 
 

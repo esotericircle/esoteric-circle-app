@@ -19,16 +19,18 @@ import 'cardinale_minimo.dart';
 /// **Dall'ordine ES voci 05 e 11 e' 246**: i tre emblemi dei periodi
 /// dell'Oroscopo (Settimana, Mese, Anno) e i sei delle tradizioni, in tre
 /// formati, 27 file, tutti usati: l'app ne usa 240.
+/// **Dall'ordine FF aggiunta 1 voce A9 e' 249**: i tre della Soglia del
+/// Sonno, tutti usati: l'app ne usa 243.
 /// Il fondatore: *"ogni webp della cartella del PC sostituisce quello di
 /// assets/schede con lo stesso nome; quelli che mancano si aggiungono"*. Le
 /// schede ne usano 210: i "Consulta" quadrati e verticali stanno nella
 /// cartella senza che una scheda li chieda. Una guardia che scorresse la
 /// cartella vuota sarebbe verde senza aver guardato niente.
 void main() {
-  const cardinale = 246;
-  const usati = 240;
+  const cardinale = 249;
+  const usati = 243;
 
-  test('i 246 WebP stanno in assets/schede/ e il pubspec li registra', () {
+  test('i 249 WebP stanno in assets/schede/ e il pubspec li registra', () {
     final cartella = Directory(GliSfondiDelleSchede.cartella);
     final webp = cartella
         .listSync()
@@ -92,7 +94,8 @@ void main() {
         'sfondi di arti che il catalogo non ha ${estranei.length}');
     expect(senza, isEmpty, reason: 'arti senza sfondo: $senza');
     expect(estranei, isEmpty);
-    expect(GliSfondiDelleSchede.nomi, hasLength(67));
+    // 68 dall'ordine FF aggiunta 1: la Soglia del Sonno.
+    expect(GliSfondiDelleSchede.nomi, hasLength(68));
   });
 
   test('i formati hanno le misure dell\'ordine', () {

@@ -80,6 +80,7 @@ abstract final class LOrdineDeiDomini {
           'meditation',
           'daily_affirmations',
           'sleep_stories',
+          'soglia_del_sonno',
           'mood_tracker',
           'biorhythm',
           'mudra',

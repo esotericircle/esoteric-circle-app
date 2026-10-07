@@ -38,7 +38,8 @@ abstract final class GliSfondiDelleSchede {
 
   /// Il nome di ogni arte nei file, per identificativo del catalogo: le trenta
   /// dell'ordine EO, dieci per Maestro, poi le ventiquattro del catalogo e le
-  /// dodici arti nuove dell'ordine ER voce 10.
+  /// dodici arti nuove dell'ordine ER voce 10, il Segreto dell'Iride (ER
+  /// voce 20) e la Soglia del Sonno (ordine FF aggiunta 1): 68.
   ///
   /// **ORDINE ER VOCE 10, 27 settembre 2026.** Il fondatore aveva generato gli
   /// sfondi di tutte le arti, e trenta sole erano legate: le altre ventiquattro
@@ -60,6 +61,7 @@ abstract final class GliSfondiDelleSchede {
     // Aura
     'meditation': 'Meditazione',
     'sleep_stories': 'Sleep-Stories',
+    'soglia_del_sonno': 'Soglia-Sonno',
     'daily_affirmations': 'Affermazioni',
     'mood_tracker': 'Mood-Tracker',
     'chakra_scan': 'Scan-Chakra',
@@ -205,9 +207,10 @@ abstract final class GliSfondiDelleSchede {
   /// Tutti i file che l'app usa: 67 arti (dall'ordine ER voce 20) e i tre
   /// sfondi dei Maestri in tre formati, piu' i tre orizzontali di "Consulta"
   /// dell'ordine EP, cioe' 213; dall'ordine ES voci 05 e 11 i tre emblemi dei
-  /// periodi e i sei delle tradizioni in tre formati, 27, cioe' 240. Nella
-  /// cartella ce ne sono 246: i sei "Consulta" quadrati e verticali ci stanno
-  /// senza che una scheda li chieda.
+  /// periodi e i sei delle tradizioni in tre formati, 27, cioe' 240; dall'ordine
+  /// FF aggiunta 1 i tre della Soglia del Sonno, 243. Nella cartella ce ne
+  /// sono 249: i sei "Consulta" quadrati e verticali ci stanno senza che una
+  /// scheda li chieda.
   static List<String> tutti() => [
         for (final nome in [...nomi.values, ...deiMaestri.values])
           for (final f in FormatoDellaScheda.values) _file(nome, f),

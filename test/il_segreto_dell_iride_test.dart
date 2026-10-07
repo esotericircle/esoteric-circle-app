@@ -65,7 +65,7 @@ void main() {
   });
 
   test(
-      'ER.20: in home 67 arti, e nelle tre righe toccate nessuna coppia '
+      'ER.20: in home 68 arti, e nelle tre righe toccate nessuna coppia '
       'vicina dello stesso Maestro', () {
     final maestroDi = <String, Maestro>{
       for (final m in Maestro.values)
@@ -97,7 +97,8 @@ void main() {
     print('ORDINE ER VOCE 20: arti del catalogo in home ${inCasa.length}; '
         'righe con l\'Iride $righeConLIride; coppie vicine dello stesso '
         'Maestro nelle tre righe ${coppie.length} $coppie');
-    expect(inCasa.length, 67);
+    // 68 dall'ordine FF aggiunta 1: la Soglia del Sonno.
+    expect(inCasa.length, 68);
     expect(righeConLIride, ['i_piu_condivisi', 'il_tuo_corpo']);
     expect(coppie, isEmpty);
   });

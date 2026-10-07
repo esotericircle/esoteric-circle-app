@@ -90,6 +90,7 @@ void main() {
           'Meditazione',
           'Affermazioni del Giorno',
           'Sleep Stories',
+          'La Soglia del Sonno',
           'Mood Tracker',
           'Bioritmo',
           'Mudra',

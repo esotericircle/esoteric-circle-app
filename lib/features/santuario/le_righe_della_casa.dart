@@ -54,9 +54,9 @@ abstract final class LeRigheDellaCasa {
   /// quadrata, e da capo, cosi' che due righe vicine non abbiano mai la stessa
   /// forma. **I doppioni sono voluti**: le arti piu' virali stanno in due o tre
   /// righe per farsi vedere di piu'. Il Viaggio dello Sciamano sta solo in
-  /// "Trova una risposta". In tutto si vedono le 67 arti del catalogo che hanno
+  /// "Trova una risposta". In tutto si vedono le 68 arti del catalogo che hanno
   /// una scheda (66 dell'ordine ER voce 08, piu' il Segreto dell'Iride della
-  /// voce 20); l'Angelo Custode e il Test Archetipo restano nel Passaporto.
+  /// voce 20 e la Soglia del Sonno dell'ordine FF aggiunta 1); l'Angelo Custode e il Test Archetipo restano nel Passaporto.
   ///
   /// **Prima** le righe erano dieci (con "Amore e affinità", "Da condividere" e
   /// "Le stelle parlano"), cinque coppie vicine su nove avevano la stessa
@@ -173,6 +173,9 @@ abstract final class LeRigheDellaCasa {
         'meditation',
         'dream_reading',
         'sleep_stories',
+        // Ordine FF aggiunta 1 voce A7: accanto alle Sleep Stories, il sonno
+        // vicino al sonno.
+        'soglia_del_sonno',
         'angel_cards',
         'breathwork',
         'daily_invocation',

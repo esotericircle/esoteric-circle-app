@@ -508,6 +508,22 @@ class ArtCatalog {
         phase: ArtPhase.mvp,
         cornice: true,
       ),
+      // **LA SOGLIA DEL SONNO, ordine FF aggiunta 1 voci A6-A8, 8 ottobre
+      // 2026.** Il fondatore: "serve mini ordine aggiuntivo per code per
+      // aggiungerlo alla home e al dominio di Aura", "può essere inserita
+      // nelle funzionalità di fase 3". Rilassamento guidato verso il sonno,
+      // nella forma dello yoga nidra. Solo la scheda e il suo posto: nessuna
+      // schermata, nessun testo del rilassamento.
+      ArtEntry(
+        id: 'soglia_del_sonno',
+        title: 'La Soglia del Sonno',
+        teaser: 'Un rilassamento guidato che ti accompagna al sonno, nella '
+            'forma dello yoga nidra.',
+        icon: Icons.dark_mode_rounded,
+        state: ArtState.inArrivo,
+        phase: ArtPhase.fase3,
+        cornice: true,
+      ),
       ArtEntry(
         id: 'daily_affirmations',
         title: 'Affermazioni del Giorno',

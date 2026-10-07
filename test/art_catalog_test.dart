@@ -188,6 +188,7 @@ void main() {
         // binaurali sono dentro la Meditazione, e due voci sulla stessa
         // schermata sono una bugia.
         'sleep_stories',
+        'soglia_del_sonno',
         'daily_affirmations',
         'mudra',
         'belief_art',

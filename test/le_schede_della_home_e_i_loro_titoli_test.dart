@@ -179,9 +179,11 @@ void main() {
         .writeAsStringSync('${righe.join('\n')}\n');
     print('ORDINE ER VOCE 9: ${righe.sublist(righe.length - 4).join(' ')}');
 
-    // 66 arti con l'ordine ER voce 08, 67 col Segreto dell'Iride (voce 20).
-    expect(inCasa.length, 67, reason: 'in home non ci sono le 67 arti');
-    expect(composti, 201);
+    // 66 arti con l'ordine ER voce 08, 67 col Segreto dell'Iride (voce 20),
+    // 68 con la Soglia del Sonno (ordine FF aggiunta 1): tre titoli in piu',
+    // uno per formato.
+    expect(inCasa.length, 68, reason: 'in home non ci sono le 68 arti');
+    expect(composti, 204);
     expect(oltreDue, 0, reason: 'titoli su piu\' di due righe');
     expect(fuori, 0, reason: 'titoli con una riga piu\' larga della scheda');
     // Il Viaggio si compone come gli altri: non ha righe sue.
@@ -193,7 +195,7 @@ void main() {
     expect(viaggio.toUpperCase().contains('VIAGGIO\nDELLO\nSCIAMANO'), isFalse,
         reason: 'il Viaggio e\' ancora scritto su tre righe decise a mano');
     expect(viaggio.split('\n').length, lessThanOrEqualTo(2));
-    expect(GliSfondiDelleSchede.nomi.length, 67);
+    expect(GliSfondiDelleSchede.nomi.length, 68);
   });
 
   test('ER.03: nessuna arte ha un titolo scritto a parte', () {
