@@ -483,6 +483,18 @@ INNESTI = [
      '''torn(iamo|o|ando|are|ate)\\s+allX"''',
      'flutter test test/la_rete_della_coerenza_test.dart -r expanded',
      'e quelle che non lo sono'),
+    # FE.16 D, 7 ottobre 2026, secondo giro: la correzione col Maestro solo
+    # ha una strada sola, e il marcatore storto non arriva alla persona.
+    ('A88', 'FE.16', 'lib/core/chat/la_rete_della_coerenza.dart',
+     '    return correzione(verdetto,\n        fraMaestri:\n',
+     '    return correzione(verdetto,\n        fraMaestri: true ||\n',
+     'flutter test test/la_rete_della_coerenza_test.dart -r expanded',
+     'anche con un Maestro solo'),
+    ('A89', 'FE.16', 'lib/core/chat/la_risposta_che_chiede.dart',
+     '      testo.replaceAll(_marcatoreStorto, \'\').trim();',
+     '      testo.replaceAll(marcatore, \'\').trim();',
+     'flutter test test/il_chiarimento_non_costa_test.dart -r expanded',
+     'scritto storto non arriva'),
     # FE.22.3, prova a) alla lettera: nessun "Custodisci" mostrato.
     ('A83', 'FE.22.3', 'lib/features/account/account_screen.dart',
      "            title: 'Metti al sicuro il tuo cielo',",

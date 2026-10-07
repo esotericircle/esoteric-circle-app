@@ -192,12 +192,24 @@ abstract final class LaReteDellaCoerenza {
   }
 
   /// La correzione per la voce: nomina il punto fermo e le due strade.
-  static String correzione(PuntoContraddetto p) =>
+  ///
+  /// **Senza un altro Maestro nel consulto la strada e' una sola.** Al banco
+  /// del filo sul commit 74a1e00f, percorso D, la correzione offriva a
+  /// Calìgo le due strade, e Calìgo ha preso la seconda contro se stesso:
+  /// "la via della scrittura che hai immaginato non è quella", dopo aver
+  /// detto lui "scrivi una lettera"
+  /// (docs/collaudo/banchi_col_modello/filo/2026-10-07T0155/percorso_d.txt,
+  /// consulto 10). Leggere diversamente vale fra due Maestri; con il
+  /// proprio parere si porta avanti.
+  static String correzione(PuntoContraddetto p, {bool fraMaestri = true}) =>
       'LA TUA RISPOSTA CONTRADDICE UN PUNTO FERMO DEL CONSULTO SENZA DIRLO: '
       '«${p.punto}»${p.motivo.isEmpty ? '' : ' (${p.motivo})'}. Riscrivi la '
-      'risposta: o la porti avanti da quel punto, con lo stesso gesto e lo '
-      'stesso tempo, o dici apertamente che leggi diversamente e perché. '
-      'Tutto il resto della risposta resta com’è.';
+      'risposta: ${fraMaestri ? 'o ' : ''}la porti avanti da quel punto, con '
+      'lo stesso gesto, lo stesso mezzo e lo stesso tempo, e dici il passo '
+      'che viene dopo${fraMaestri ? ', o dici apertamente che leggi '
+          'diversamente e perché' : '. Quel punto è il tuo consiglio: non '
+          'cambiarlo e non dire che era sbagliato'}. Tutto il resto della '
+      'risposta resta com’è.';
 
   /// **IL CONTROLLO.** Torna la correzione da dare alla voce, o nullo.
   /// Senza un altro Maestro nel consulto e senza un ritorno al tema nella
@@ -214,6 +226,10 @@ abstract final class LaReteDellaCoerenza {
     if (punti == null || risposta.trim().isEmpty) return null;
     final verdetto = leggi(await chiamata(
         istruzione, richiesta(puntiFermi: punti, risposta: risposta)));
-    return verdetto == null ? null : correzione(verdetto);
+    if (verdetto == null) return null;
+    final s = IlFiloDelConsulto.scheda!;
+    return correzione(verdetto,
+        fraMaestri:
+            s.daMaestro != chi || s.pareri.any((p) => p.maestro != chi));
   }
 }

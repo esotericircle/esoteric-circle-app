@@ -73,9 +73,19 @@ abstract final class LaRispostaCheChiede {
   /// l'app toglie il segno prima di mostrarlo. Non si indovina piu' niente.
   static const marcatore = '[[CHIEDO]]';
 
+  /// **IL MARCATORE SCRITTO STORTO. Ordine FE, 7 ottobre 2026.** Al banco
+  /// del filo sul commit 74a1e00f Medora ha risposto con "CHIEDO" da solo
+  /// sulla prima riga, senza le parentesi
+  /// (docs/collaudo/banchi_col_modello/filo/2026-10-07T0155/percorso_d.txt,
+  /// consulto 6): il marcatore esatto non lo trovava, e la persona avrebbe
+  /// letto "CHIEDO" in testa alla risposta. Padre: il marcatore dell'ordine
+  /// EI voce 02. Solo in maiuscolo: "chiedo" nel testo resta.
+  static final RegExp _marcatoreStorto =
+      RegExp(r'\[\[?\s*CHIEDO\s*\]?\]|^\s*CHIEDO\s*:?\s*$', multiLine: true);
+
   /// Il testo senza il marcatore, da mostrare alla persona.
   static String senzaIlMarcatore(String testo) =>
-      testo.replaceAll(marcatore, '').trim();
+      testo.replaceAll(_marcatoreStorto, '').trim();
 
   static bool eUnaDomanda(String testo) {
     final pulito = testo.trim();
@@ -86,7 +96,7 @@ abstract final class LaRispostaCheChiede {
     // resta come ripiego per il giorno in cui il modello se ne dimentica:
     // l'asimmetria dichiarata sopra dice che in dubbio non si paga, quindi un
     // ripiego largo e' meglio di nessun ripiego.
-    if (pulito.contains(marcatore)) return true;
+    if (_marcatoreStorto.hasMatch(pulito)) return true;
 
     // **VIA LA RIGA DEL GESTO PRIMA DI GUARDARE LA FINE.** Ordine EI voce 02,
     // 23 settembre 2026, ed e' il difetto vero.

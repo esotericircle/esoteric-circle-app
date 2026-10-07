@@ -183,6 +183,12 @@ void main() {
             'lo veda');
     expect(letto, contains('Scrivile un breve messaggio oggi'));
     expect(correzione, contains('«Scrivile un breve messaggio oggi»'));
+    // Al banco del 7 ottobre Calìgo, con le due strade davanti, ha preso
+    // "leggo diversamente" contro il suo stesso consiglio.
+    expect(correzione, isNot(contains('leggi diversamente')),
+        reason: 'senza un altro Maestro la correzione offre di leggere '
+            'diversamente il proprio consiglio: e\' ancora una contraddizione');
+    expect(correzione, contains('non cambiarlo'));
 
     expect(
         await LaReteDellaCoerenza.controlla(

@@ -81,4 +81,24 @@ void main() {
     expect(LaRispostaCheChiede.eUnaDomanda('Cosa intendi con questo?»'), isTrue,
         reason: 'una virgoletta di chiusura fa pagare un chiarimento');
   });
+  // **IL MARCATORE SCRITTO STORTO**, ordine FE del 7 ottobre 2026: al banco
+  // del filo Medora ha scritto "CHIEDO" da solo sulla prima riga.
+  test('il marcatore scritto storto non arriva alla persona', () {
+    const risposta = 'Potresti riscrivermi la tua domanda?';
+    for (final storto in [
+      'CHIEDO\n$risposta',
+      '[CHIEDO]\n$risposta',
+      '[[CHIEDO]] $risposta',
+      '[[ CHIEDO ]]\n$risposta',
+      'CHIEDO:\n$risposta',
+    ]) {
+      expect(LaRispostaCheChiede.senzaIlMarcatore(storto), risposta,
+          reason: 'la persona legge il marcatore: «$storto»');
+      expect(LaRispostaCheChiede.eUnaDomanda(storto), isTrue,
+          reason: 'il marcatore storto fa pagare un chiarimento');
+    }
+    const testo = 'Ti chiedo solo questo: CHIEDO PERDONO a me stessa.';
+    expect(LaRispostaCheChiede.senzaIlMarcatore(testo), testo,
+        reason: 'la parola dentro una frase non e\' il marcatore');
+  });
 }
