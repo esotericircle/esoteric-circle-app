@@ -563,6 +563,17 @@ INNESTI = [
      '        for (final m in _laRuna.allMatches(testo).take(0)) m.group(1)!,',
      'flutter test test/il_filo_del_consulto_test.dart -r expanded',
      'la runa o la carta cambiata'),
+    # FE.17, 7 ottobre 2026: il tempo gia' dato arriva nel controllo.
+    ('A104', 'FE.17', 'lib/core/chat/il_filo_del_consulto.dart',
+     '    if (tempo != null) {',
+     '    if (tempo != null && false) {',
+     'flutter test test/il_filo_del_consulto_test.dart -r expanded',
+     'il tempo dato prima arriva nel controllo'),
+    ('A105', 'FE.17', 'lib/core/chat/il_filo_del_consulto.dart',
+     "      r'(?<![A-Za-zÀ-ÿ])(non (è )?ancora|tra (due|tre|quattro|cinque|qualche'",
+     "      r'(?<![A-Za-zÀ-ÿ])(nonX (è )?ancora|tra (dueX|tre|quattro|cinque|qualche'",
+     'flutter test test/il_filo_del_consulto_test.dart -r expanded',
+     'il tempo dato prima arriva nel controllo'),
     # FE.22.3, prova a) alla lettera: nessun "Custodisci" mostrato.
     ('A83', 'FE.22.3', 'lib/features/account/account_screen.dart',
      "            title: 'Metti al sicuro il tuo cielo',",

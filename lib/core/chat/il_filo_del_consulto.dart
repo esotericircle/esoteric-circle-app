@@ -411,6 +411,11 @@ abstract final class LaLeggeDellaCoerenza {
       'se ne aggiungi un altro lo presenti come il passo dopo, se lo cambi '
       'dici perché.';
 
+  /// La regola corta, quando il gesto o il tempo arrivano per nome.
+  static const String controlloCorto = 'ULTIMO CONTROLLO DEL CONSULTO: un '
+      'tempo, un gesto o una risposta già dati restano quelli; se li cambi '
+      'dici perché.';
+
   /// Il controllo finale per il turno: [controlloFinale], il gesto del
   /// Maestro da tenere, e le frasi del turno che le chiede.
   static String controlloFinalePer({
@@ -419,7 +424,22 @@ abstract final class LaLeggeDellaCoerenza {
     bool conAltri = false,
   }) {
     final gesto = ilTuoGesto(domanda, storia);
-    final b = StringBuffer(controlloFinale);
+    final tempo = ilTuoTempo(domanda, storia);
+    // **CON UN GESTO O UN TEMPO VERI LA REGOLA SI ACCORCIA.** Gli esempi
+    // della regola lunga servono quando il modello non sa quale gesto e
+    // quale tempo tenere; quando li riceve per nome, la regola corta li
+    // lascia il posto, e il controllo non pesa piu' di prima.
+    final b = StringBuffer(
+        gesto == null && tempo == null ? controlloFinale : controlloCorto);
+    if (tempo != null) {
+      // **IL TEMPO GIA' DATO. Ordine FE, 7 ottobre 2026.** Nei giri del
+      // filo sul commit 23c69756 (filo/2026-10-07T1345) e prima, cinque
+      // contraddizioni su otto erano un tempo anticipato: "tra due giorni",
+      // poi "il tempo è maturo"; "il prossimo mercoledì", poi "adesso";
+      // "non è ancora il momento", poi "comincia adesso".
+      b.write(' Il tempo che hai dato è «$tempo»: resta quello. La risposta '
+          'non lo anticipa con «adesso», «subito» o «il momento è questo».');
+    }
     if (gesto != null) {
       // Al banco del 7 ottobre 2026 (filo/2026-10-07T0237, percorso D)
       // "il suo mezzo resta quello" non bastava: Calìgo passava da "scrivile
@@ -594,6 +614,35 @@ abstract final class LaLeggeDellaCoerenza {
       'prima. Il consiglio, il gesto e il tempo già dati restano quelli: non '
       'li anticipi e non dai per fatto un passo che la persona non ha detto '
       'di aver fatto. Tutto il resto della risposta resta com’è.';
+
+  /// Le parole di un tempo che rimanda: un giorno, una fase della Luna, un
+  /// "non ancora", un'attesa.
+  static final RegExp _rinvio = RegExp(
+      r'(?<![A-Za-zÀ-ÿ])(non (è )?ancora|tra (due|tre|quattro|cinque|qualche'
+      r'|pochi|\d+) (giorni|settimane)|aspett|attend|pazienza|non affrettare'
+      r'|plenilunio|novilunio|luna (piena|nuova|crescente|calante)'
+      r'|quando la luna|fine (del )?mese|prossim[ao] (settimana|mese)'
+      r'|lunedì|martedì|mercoledì|giovedì|venerdì|sabato|domenica)',
+      caseSensitive: false);
+
+  /// Quanti caratteri del tempo entrano nel controllo finale.
+  static const int tempoMassimo = 140;
+
+  /// **IL TEMPO DA TENERE**: la prima frase della risposta di prima sullo
+  /// stesso tema che rimanda a un tempo, o nullo.
+  static String? ilTuoTempo(String domanda, List<ChatMessage> storia) {
+    final prima = laRispostaSulTema(domanda, storia);
+    if (prima == null) return null;
+    final testo = prima.replaceAll(ConsiglioFinale.stella, '');
+    for (final m in RegExp(r'[^.!?\n]+[.!?]?').allMatches(testo)) {
+      final frase = m.group(0)!.trim();
+      if (frase.isEmpty || !_rinvio.hasMatch(frase)) continue;
+      return frase.length > tempoMassimo
+          ? '${frase.substring(0, tempoMassimo - 3).trimRight()}...'
+          : frase;
+    }
+    return null;
+  }
 
   /// Quanti caratteri del gesto entrano nel controllo finale.
   static const int gestoMassimo = 150;

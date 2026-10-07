@@ -353,20 +353,24 @@ void main() {
       final conGesto = LaLeggeDellaCoerenza.controlloFinalePer(
           domanda: 'E in pratica, cosa faccio questa settimana?',
           storia: promozione);
-      // Il turno normale peggiore: un gesto lungo quanto il tetto.
+      // Il turno normale peggiore: un gesto e un tempo lunghi quanto i loro
+      // tetti (ordine FE, 7 ottobre 2026: il tempo entra nel controllo).
       final lungo = 'Scrivi ${'una parola ' * 40}'.trim();
+      final rinvio = 'Non è ancora il momento ${'di una cosa ' * 20}'.trim();
       final peggiore = LaLeggeDellaCoerenza.controlloFinalePer(
           domanda: 'E in pratica?',
           storia: [
             const ChatMessage(role: ChatRole.user, text: 'Devo partire?'),
             ChatMessage(
                 role: ChatRole.maestro,
-                text: 'Sì.\n\n✦ $lungo',
+                text: '$rinvio.\n\n✦ $lungo',
                 autore: Maestro.medora),
           ]);
       print('ORDINE FE, il controllo finale: prima ${diPrima.length} '
           'caratteri a ogni turno, adesso ${conGesto.length} col gesto di '
-          'Medora, ${peggiore.length} col gesto piu\' lungo');
+          'Medora, ${peggiore.length} col gesto e il tempo piu\' lunghi');
+      expect(peggiore, contains('Il tempo che hai dato'),
+          reason: 'il caso peggiore deve portare anche il tempo');
       expect(peggiore.length, lessThanOrEqualTo(diPrima.length),
           reason: 'il controllo col gesto costa piu\' di quello di prima');
     });
@@ -484,6 +488,56 @@ void main() {
           .readAsStringSync();
       expect(banco, contains('LaLeggeDellaCoerenza.elementoCambiato('),
           reason: 'il banco del filo non misura cio\' che fa l\'app');
+    });
+
+    // **IL TEMPO GIA' DATO**, ordine FE del 7 ottobre 2026: cinque
+    // contraddizioni su otto nei giri del filo erano un tempo anticipato.
+    test('il tempo dato prima arriva nel controllo, e il cielo di oggi no', () {
+      const progetto = [
+        ChatMessage(role: ChatRole.user, text: 'Avvio il mio progetto?'),
+        ChatMessage(
+            role: ChatRole.maestro,
+            text: 'Avviare un progetto richiede una visione chiara. Non è '
+                'ancora il momento di gettare le basi, ma di pianificare.\n'
+                '✦ Scrivi un elenco dei materiali, questo pomeriggio.',
+            autore: Maestro.medora),
+      ];
+      expect(LaLeggeDellaCoerenza.ilTuoTempo('Da dove comincio?', progetto),
+          'Non è ancora il momento di gettare le basi, ma di pianificare.');
+      final controllo = LaLeggeDellaCoerenza.controlloFinalePer(
+          domanda: 'Da dove comincio?', storia: progetto);
+      expect(
+          controllo,
+          contains('«Non è ancora il momento di gettare le basi, ma di '
+              'pianificare.»: resta quello'),
+          reason: 'il Maestro non sa quale tempo tenere e lo anticipa');
+      expect(controllo, startsWith(LaLeggeDellaCoerenza.controlloCorto));
+      for (final rimanda in [
+        'Aspetta la fine del mese.',
+        'Tra due giorni scrivile.',
+        'Presentalo al prossimo plenilunio.',
+        'Chiedi un incontro il prossimo mercoledì.',
+      ]) {
+        expect(
+            LaLeggeDellaCoerenza.ilTuoTempo('E poi?', [
+              const ChatMessage(role: ChatRole.user, text: 'Che faccio?'),
+              ChatMessage(
+                  role: ChatRole.maestro,
+                  text: rimanda,
+                  autore: Maestro.medora),
+            ]),
+            isNotNull,
+            reason: '«$rimanda» rimanda e il controllo non lo vede');
+      }
+      expect(
+          LaLeggeDellaCoerenza.ilTuoTempo('E poi?', [
+            const ChatMessage(role: ChatRole.user, text: 'Che faccio?'),
+            const ChatMessage(
+                role: ChatRole.maestro,
+                text: 'Il Sole in Gemelli ti aiuta. Scrivile oggi.',
+                autore: Maestro.medora),
+          ]),
+          isNull);
     });
   });
 }
