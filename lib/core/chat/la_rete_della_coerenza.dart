@@ -16,7 +16,7 @@ abstract interface class LaPortaDellaCoerenza {
 }
 
 /// Il verdetto della rete: il punto fermo contraddetto e perche'.
-typedef PuntoContraddetto = ({String punto, String motivo});
+typedef PuntoContraddetto = ({String punto, String motivo, String di});
 
 /// **LA RETE DELLA COERENZA. Ordine FE voci 10 e 17.**
 ///
@@ -71,8 +71,9 @@ abstract final class LaReteDellaCoerenza {
       'diverso da quello dei punti fermi NON contraddice.\n\n'
       'Rispondi SOLO con un oggetto JSON: {"contraddice": true o false, '
       '"punto": "il punto fermo contraddetto, con le sue parole", '
-      '"motivo": "una frase"}. Se non contraddice, "punto" e "motivo" '
-      'sono vuoti.';
+      '"di": "il nome della guida che lo ha dato", '
+      '"motivo": "una frase"}. Se non contraddice, "punto", "di" e '
+      '"motivo" sono vuoti.';
 
   /// **LA RETE PARTE SOLO DOVE SERVE. Scelta del fondatore del 6 ottobre
   /// 2026**, *"Tienila, recupero il costo"*: in ogni turno del consulto la
@@ -164,19 +165,54 @@ abstract final class LaReteDellaCoerenza {
       if (j is! Map || j['contraddice'] != true) return null;
       final punto = '${j['punto'] ?? ''}'.trim();
       if (punto.isEmpty) return null;
-      return (punto: punto, motivo: '${j['motivo'] ?? ''}'.trim());
+      return (
+        punto: punto,
+        motivo: '${j['motivo'] ?? ''}'.trim(),
+        di: '${j['di'] ?? ''}'.trim(),
+      );
     } on FormatException {
       return null;
     }
   }
 
   /// La correzione per la voce: nomina il punto fermo e le due strade.
-  static String correzione(PuntoContraddetto p) =>
-      'LA TUA RISPOSTA CONTRADDICE UN PUNTO FERMO DEL CONSULTO SENZA DIRLO: '
-      '«${p.punto}»${p.motivo.isEmpty ? '' : ' (${p.motivo})'}. Riscrivi la '
-      'risposta: o la porti avanti da quel punto, con lo stesso gesto e lo '
-      'stesso tempo, o dici apertamente che leggi diversamente e perché. '
-      'Tutto il resto della risposta resta com’è.';
+  ///
+  /// **LE DUE STRADE SONO DUE FRASI D'APERTURA, dal 7 ottobre 2026.** Al
+  /// banco del filo sul commit 4035a096 (filo/2026-10-07T0259, percorso B)
+  /// le tre contraddizioni del giro erano risposte gia' corrette dalla rete:
+  /// Calìgo, dopo la correzione, diceva ancora "esponi domani" contro il
+  /// "fine mese" di Medora e "Non aspettare" contro "attendi un ciclo
+  /// lunare". La correzione su Flash-Lite (scelta del fondatore, FE.20)
+  /// riceveva due strade descritte e non ne prendeva nessuna: adesso
+  /// riceve le due prime frasi da scrivere, col nome di chi ha dato il
+  /// punto (memoria del progetto: la correzione ripete le parole da
+  /// scrivere). Stessa chiamata, stesso modello: nessun costo in piu'.
+  static String correzione(PuntoContraddetto p, {Maestro? chi}) {
+    final di = p.di.toLowerCase();
+    Maestro? daChi;
+    for (final m in Maestro.values) {
+      if (di == m.displayName.toLowerCase() ||
+          di == m.nomeAVideo.toLowerCase()) {
+        daChi = m;
+      }
+    }
+    final suo = di.isEmpty || (chi != null && daChi == chi);
+    // Il nome come la persona lo legge a video, con l'accento di Calìgo.
+    final nome = daChi?.nomeAVideo ?? p.di;
+    final strade = suo
+        ? 'Riscrivi la risposta cominciando con «Come ti ho già detto, …» e '
+            'porta avanti quel punto: stesso gesto, stesso mezzo, stesso '
+            'tempo, poi il passo che viene dopo.'
+        : 'Riscrivi la risposta cominciando con una di queste due frasi, '
+            'completata con parole tue: «Come ti ha detto $nome, …», e porti '
+            'avanti quel punto con lo stesso gesto, lo stesso mezzo e lo '
+            'stesso tempo; oppure «Io leggo diversamente da $nome: …», e '
+            'dici perché.';
+    return 'LA TUA RISPOSTA CONTRADDICE UN PUNTO FERMO DEL CONSULTO SENZA '
+        'DIRLO: «${p.punto}»${p.motivo.isEmpty ? '' : ' (${p.motivo})'}. '
+        '$strade Il gesto finale non contraddice quel punto. Tutto il resto '
+        'della risposta resta com’è.';
+  }
 
   /// **IL CONTROLLO.** Torna la correzione da dare alla voce, o nullo.
   /// Senza un altro Maestro nel consulto, o senza punti fermi, non chiama
@@ -192,6 +228,6 @@ abstract final class LaReteDellaCoerenza {
     if (punti == null || risposta.trim().isEmpty) return null;
     final verdetto = leggi(await chiamata(
         istruzione, richiesta(puntiFermi: punti, risposta: risposta)));
-    return verdetto == null ? null : correzione(verdetto);
+    return verdetto == null ? null : correzione(verdetto, chi: chi);
   }
 }

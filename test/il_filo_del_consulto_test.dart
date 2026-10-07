@@ -370,5 +370,45 @@ void main() {
       expect(peggiore.length, lessThanOrEqualTo(diPrima.length),
           reason: 'il controllo col gesto costa piu\' di quello di prima');
     });
+
+    // **IL MAESTRO NON NEGA LA MEMORIA**, ordine FE del 7 ottobre 2026: al
+    // banco Medora rispondeva "non ho la tua risposta precedente" con la
+    // risposta li' nella conversazione.
+    test('chi nega la memoria si riconosce e si corregge, nell\'app e al banco',
+        () {
+      for (final nega in [
+        'Mi dispiace, ma non ho la tua risposta precedente. Se vuoi, puoi '
+            'riscrivermela.',
+        'CHIEDO\nMi dispiace, ma non ho la memoria della risposta precedente.',
+        'Potresti riscrivermi l\'ultima parte della nostra conversazione?',
+        'Non ricordo cosa ti ho detto prima.',
+      ]) {
+        expect(LaLeggeDellaCoerenza.negaLaMemoria(nega), isTrue,
+            reason: '«$nega» nega la memoria e la rete non lo vede');
+      }
+      for (final buona in [
+        'Come ti ho già detto, aspetta la fine del mese.',
+        'La memoria del tuo cuore conserva la pace.',
+        'Non ho dubbi: presentalo mercoledì.',
+        'Riscrivi la lettera con calma.',
+      ]) {
+        expect(LaLeggeDellaCoerenza.negaLaMemoria(buona), isFalse,
+            reason: '«$buona» non nega la memoria');
+      }
+      expect(LaLeggeDellaCoerenza.correzioneDellaMemoria('Scrivile oggi.'),
+          contains('«Scrivile oggi.»'));
+      final controllore =
+          File('lib/features/maestri/chat/maestro_chat_controller.dart')
+              .readAsStringSync();
+      expect(controllore,
+          contains('if (LaLeggeDellaCoerenza.negaLaMemoria(reply)'),
+          reason: 'il turno della chat non passa piu\' dalla rete della '
+              'memoria');
+      final banco = File('tool/banchi_col_modello/'
+              'il_filo_del_consulto_col_modello_test.dart')
+          .readAsStringSync();
+      expect(banco, contains('LaLeggeDellaCoerenza.negaLaMemoria(risposta)'),
+          reason: 'il banco del filo non misura piu\' cio\' che fa l\'app');
+    });
   });
 }

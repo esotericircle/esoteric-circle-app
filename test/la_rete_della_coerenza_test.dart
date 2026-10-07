@@ -74,15 +74,28 @@ void main() {
       chiamata: (istruzione, testo) async {
         letto = testo;
         return '{"contraddice": true, "punto": "aspetta il novilunio", '
-            '"motivo": "dice di agire subito"}';
+            '"di": "Medora", "motivo": "dice di agire subito"}';
       },
     );
     expect(letto, contains('aspetta il novilunio'),
         reason: 'la rete non legge la risposta intera di Medora: il tempo '
             'stava nel corpo, e la scheda ne porta solo il nucleo');
     expect(correzione, contains('«aspetta il novilunio»'));
-    expect(correzione, contains('leggi diversamente'),
+    // Ordine FE, 7 ottobre 2026: le due strade sono le due frasi da
+    // scrivere, col nome di chi ha dato il punto. Al banco la correzione su
+    // Flash-Lite con le strade descritte lasciava la contraddizione.
+    expect(correzione, contains('«Come ti ha detto Medora, …»'),
+        reason: 'la correzione non da la frase per portare avanti il punto');
+    expect(correzione, contains('«Io leggo diversamente da Medora: …»'),
         reason: 'la correzione deve lasciare la strada della divergenza detta');
+    // Il punto dato dal Maestro stesso: una strada sola.
+    final suo = LaReteDellaCoerenza.correzione(
+        (punto: 'scrivile oggi', motivo: '', di: 'Calìgo'),
+        chi: Maestro.caligo);
+    expect(suo, contains('«Come ti ho già detto, …»'));
+    expect(suo, isNot(contains('leggo diversamente')),
+        reason: 'col proprio consiglio non si legge diversamente: si porta '
+            'avanti');
   });
 
   test('un verdetto che dice no, o che non si legge, non corregge', () async {

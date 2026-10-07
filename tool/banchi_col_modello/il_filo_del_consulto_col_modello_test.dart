@@ -313,6 +313,29 @@ class _Giro {
       if (risposta.trim().isEmpty) {
         risposta = LaRispostaCheChiede.senzaIlMarcatore(await unaRisposta());
       }
+      // **IL MAESTRO NON NEGA LA MEMORIA, come nel controllore.** Ordine
+      // FE, 7 ottobre 2026: la correzione corta su Flash, come quella del
+      // provider senza "leggera".
+      if (LaLeggeDellaCoerenza.negaLaMemoria(risposta) &&
+          storia.any((m) => m.isMaestro)) {
+        conto.correzioni++;
+        corretta = true;
+        risposta = LaRispostaCheChiede.senzaIlMarcatore(await _vertex(
+          modello: FirebaseMaestroAiProvider.kMaestroChatModel,
+          istruzione: MaestroPersona.istruzioneDellaCorrezione(
+            maestro: chi,
+            profile: UserProfile.empty,
+            correzione: LaLeggeDellaCoerenza.correzioneDellaMemoria(
+                LaLeggeDellaCoerenza.ilTuoGesto(domanda, storia)),
+            nelLive: nelLive,
+          ),
+          storia: const [],
+          domanda: 'LA DOMANDA DELLA PERSONA:\n$domanda\n\n'
+              'LA TUA RISPOSTA DA CORREGGERE:\n$risposta',
+          misura: MisuraDellaRisposta.perIlTurno(nelLive: nelLive),
+          conto: conto,
+        ));
+      }
       // **LA RETE DELLA COERENZA, come nel controllore.** Ordine FE voci 10
       // e 17: la stessa funzione di `lib`, con Flash-Lite e la correzione
       // corta del provider (`correggi`).

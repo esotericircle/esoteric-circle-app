@@ -2308,6 +2308,28 @@ class MaestroChatController extends ChangeNotifier {
       // **GLI ERRORI CHE SI RIPETONO SI RIPARANO. Ordine ET voce 01**
       // (`LItalianoDelMaestro`): l'inciso dopo la "e", "non prima di quando",
       // "dicono non ancora", l'articolo davanti al parente.
+      // **IL MAESTRO NON NEGA LA MEMORIA. Ordine FE, 7 ottobre 2026.** Se
+      // la risposta dice di non avere la conversazione di prima, e la
+      // conversazione c'e', si corregge corta col gesto gia' dato. Vedi
+      // [LaLeggeDellaCoerenza.negaLaMemoria].
+      if (LaLeggeDellaCoerenza.negaLaMemoria(reply) &&
+          priorHistory.any((m) => m.isMaestro)) {
+        final laCorrezione = LaLeggeDellaCoerenza.correzioneDellaMemoria(
+            LaLeggeDellaCoerenza.ilTuoGesto(userText, priorHistory));
+        reply = LaRispostaCheChiede.senzaIlMarcatore(await _correggiCorto(
+          chi: chiRisponde,
+          domanda: userText,
+          risposta: reply,
+          correzione: laCorrezione,
+          allaVecchia: () => _chiediAlMaestro(
+            chi: chiRisponde,
+            storia: priorHistory,
+            domanda: userText,
+            natal: natal,
+            correzione: laCorrezione,
+          ),
+        ));
+      }
       // **LA RETE DELLA COERENZA. Ordine FE voci 10 e 17.** Quando il
       // consulto ha punti fermi, si chiede se la risposta ne contraddice
       // uno senza dirlo; se si', si corregge corta come per le altre reti.

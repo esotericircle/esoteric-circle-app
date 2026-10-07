@@ -482,6 +482,35 @@ abstract final class LaLeggeDellaCoerenza {
   /// Se la [domanda] chiede che cosa fare se l'esito non e' quello sperato.
   static bool chiedeSeVaMale(String domanda) => _seVaMale.hasMatch(domanda);
 
+  /// **IL MAESTRO NON NEGA LA MEMORIA. Ordine FE, 7 ottobre 2026.** Al
+  /// banco del filo, due volte nella stessa notte (filo/2026-10-07T0155 e
+  /// 2026-10-07T0254, percorso D), Medora alla persona che tornava alla sua
+  /// prima domanda ha risposto "non ho la tua risposta precedente, puoi
+  /// riscrivermela?", con la risposta li' nella conversazione. Si
+  /// riconosce dalle parole, senza una chiamata, e solo allora la risposta
+  /// si corregge: una risposta cosi' farebbe comunque riscrivere la
+  /// persona, e il turno che si risparmia costa piu' della correzione.
+  static final RegExp _negaLaMemoria = RegExp(
+      r'(?<![A-Za-zÀ-ÿ])(non (ho|conservo|mantengo|vedo|ricordo) (più )?'
+      r'(la |le |il |i )?(tua |tue |tuo |tuoi |nostra |nostre )?(memoria'
+      r'|rispost[ae] precedent[ei]|rispost[ae] di prima'
+      r'|conversazione precedente|messaggi precedenti'
+      r'|domand[ae] precedent[ei])'
+      r"|non ricordo (cosa|quello che) (ti )?ho detto"
+      r'|riscriverm(i|ela|elo|ele))(?![A-Za-zÀ-ÿ])',
+      caseSensitive: false);
+
+  /// Se la [risposta] dice di non avere la conversazione di prima.
+  static bool negaLaMemoria(String risposta) =>
+      _negaLaMemoria.hasMatch(risposta);
+
+  /// La correzione per chi nega la memoria: il [gesto] di prima, se c'e'.
+  static String correzioneDellaMemoria(String? gesto) =>
+      'HAI SCRITTO DI NON AVERE LA CONVERSAZIONE DI PRIMA, MA CE L’HAI: è '
+      'qui sopra${gesto == null ? '' : ', e il tuo gesto era «$gesto»'}. '
+      'Riscrivi la risposta portando avanti il consiglio che hai già dato, '
+      'senza chiedere alla persona di ripeterlo.';
+
   /// Quanti caratteri del gesto entrano nel controllo finale.
   static const int gestoMassimo = 150;
 

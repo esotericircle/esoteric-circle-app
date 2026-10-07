@@ -506,6 +506,23 @@ INNESTI = [
      '      if (cambio > 0 && false) fine = cambio;',
      'flutter test test/il_filo_del_consulto_test.dart -r expanded',
      'porta il gesto vero'),
+    # FE.16, 7 ottobre 2026: chi nega la memoria si corregge, e la
+    # correzione della rete da' le due frasi col nome.
+    ('A94', 'FE.16', 'lib/features/maestri/chat/maestro_chat_controller.dart',
+     '      if (LaLeggeDellaCoerenza.negaLaMemoria(reply) &&',
+     '      if (false && LaLeggeDellaCoerenza.negaLaMemoria(reply) &&',
+     'flutter test test/il_filo_del_consulto_test.dart -r expanded',
+     'chi nega la memoria'),
+    ('A95', 'FE.16', 'lib/core/chat/il_filo_del_consulto.dart',
+     "      r'|riscriverm(i|ela|elo|ele))(?![A-Za-zÀ-ÿ])',",
+     "      r'|riscrivermX)(?![A-Za-zÀ-ÿ])',",
+     'flutter test test/il_filo_del_consulto_test.dart -r expanded',
+     'chi nega la memoria'),
+    ('A96', 'FE.16', 'lib/core/chat/la_rete_della_coerenza.dart',
+     '«Come ti ha detto $nome, …»',
+     '«Come ti è stato detto, …»',
+     'flutter test test/la_rete_della_coerenza_test.dart -r expanded',
+     'legge e, se contraddice'),
     # FE.22.3, prova a) alla lettera: nessun "Custodisci" mostrato.
     ('A83', 'FE.22.3', 'lib/features/account/account_screen.dart',
      "            title: 'Metti al sicuro il tuo cielo',",
