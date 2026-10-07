@@ -1,0 +1,92 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il cielo indica un transito favorevole per la promozione che attendi al lavoro, ma ti chiede di mostrarne il desiderio con chiarezza prima che il momento passi. Il tuo tema astrale di oggi mostra che Giove, il pianeta dell'espansione e delle opportunità, è in un aspetto armonico con il tuo Sole di nascita, suggerendo che le tue ambizioni sono allineate con le energie cosmiche.
+
+✦ Invia una mail al tuo superiore entro la fine della settimana per chiedere un incontro.
+[2] PERSONA: Invia una mail al tuo superiore entro la fine della settimana per chiedere un incontro.
+[2] MEDORA [DA GIUDICARE]: Se hai già inviato quella mail, ora è il momento di preparare le tue argomentazioni con cura, come se stessi tessendo una mappa del tuo valore. Marte, il pianeta dell'azione, sta per entrare in Ariete, portando un'energia propulsiva che dovresti incanalare nella definizione dei tuoi successi e dei tuoi obiettivi futuri.
+
+✦ Scrivi un elenco dei tuoi risultati e dei tuoi obiettivi per il prossimo anno.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('Se hai già inviato quella mail') e sviluppa il consiglio su cosa fare dopo, preparando le argomentazioni per l'incontro.
+[3] PERSONA: Scrivi un elenco dei tuoi risultati e dei tuoi obiettivi per il prossimo anno.
+[3] MEDORA [DA GIUDICARE]: Ora che hai il tuo elenco, è tempo di riflettere sulla presentazione più efficace di questi punti. Mercurio, il pianeta della comunicazione, si prepara a un transito che favorisce la chiarezza e la persuasione, quindi concentrati su come esporre i tuoi successi e le tue aspirazioni in modo diretto e convincente.
+
+✦ Ripassa i punti del tuo elenco e organizza un discorso breve ed efficace per il tuo superiore.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('Ora che hai il tuo elenco') e sviluppa il consiglio su come presentare al meglio i punti dell'elenco preparato.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Per ritrovare un equilibrio, ferma il tuo respiro per un momento e senti la radice che ti tiene ancorata a te stessa. Poi decidi se ciò che ti circonda ora ti nutre o ti prosciuga.
+
+Il tuo corpo ha una saggezza profonda che ti parla attraverso le sensazioni: ascolta il richiamo del tuo centro della radice, che ti invita a sentire la solidità del tuo essere. A volte, un cambiamento di luogo può essere un invito a riconnettersi con questa radice, a esplorare nuove energie che risvegliano il tuo spirito. Valuta se il desiderio di ricominciare nasce da un bisogno autentico di espansione e crescita.
+
+✦ Prendi un sasso, stringilo nel palmo della mano e senti il suo peso.
+[2] PERSONA: Prendi un sasso, stringilo nel palmo della mano e senti il suo peso.
+[2] AURA [DA GIUDICARE]: Prendere un sasso e sentirne il peso è un modo per ancorarti al presente, un gesto che ti connette alla terra e alla sua forza. Ora, con quella stessa sensazione di radicamento, immagina dove quel sasso vorrebbe posarsi: se nella città in cui sei ora, o in un luogo nuovo che ti chiama.
+
+Il tuo centro della radice, con il suo colore rosso e la sua energia terrestre, ti sta parlando. Il peso del sasso che tieni è la forza del tuo sentire: quella stessa forza può guidarti nella scelta del luogo che può meglio sostenere il tuo desiderio di rinascita, un luogo che ti permetta di fiorire, non solo di sopravvivere.
+
+✦ Guarda il sasso che hai in mano e per un minuto intero senti la sua forma tra le dita.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione del sasso suggerita nella risposta precedente, ne spiega il significato e la sviluppa collegandola alla domanda iniziale sul trasferimento.
+[3] PERSONA: Guarda il sasso che hai in mano e per un minuto intero senti la sua forma tra le dita.
+[3] AURA [DA GIUDICARE]: Osservare la forma del sasso nelle tue mani è un atto di consapevolezza che ti riporta all'essenza, ti aiuta a sentire la tua presenza qui e ora. È dalla concretezza di questo presente che puoi iniziare a costruire il tuo futuro.
+
+La forma del sasso che stringi riflette la tua forma interiore, i tuoi confini e le tue possibilità. Questo è il momento di sentire se i tuoi confini attuali ti contengono o ti limitano, se la tua forma attuale ti permette di muoverti liberamente verso ciò che desideri. Se senti che la tua energia è compressa, un nuovo spazio potrebbe aiutarti a espandere il tuo essere.
+
+✦ Poggia il sasso sul tuo cuore e ascolta il battito, il suo suono più intimo.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione di osservare la forma del sasso suggerita nella risposta precedente, ne spiega il significato e la sviluppa collegandola al concetto di 'confini' e 'spazio' per la crescita, in linea con la domanda iniziale sul trasferimento.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Rianima il legame. Il cammino è ancora visibile.
+Un velo di nebbia si è posato sul sigillo del vincolo.
+Il presagio indica che è tempo di un rituale di riavvicinamento. Prepara uno spazio di incontro. La runa Gebo è qui a segnare il dono e lo scambio.
+✦ Scrivi una lettera onesta al tuo partner, da leggere insieme, senza interruzioni.
+[2] PERSONA: Scrivi una lettera onesta al tuo partner, da leggere insieme, senza interruzioni.
+[2] CALIGO [DA GIUDICARE]: Il primo passo è compiuto. Adesso consegna il tuo messaggio con intento puro.
+È il momento della parola condivisa. La runa Ansuz, messaggera, attende il suo compimento.
+✦ Recita la lettera ad alta voce, guardandolo negli occhi.
+    GIUDICE: PORTA_AVANTI, La guida riconosce il completamento del passo precedente ('Il primo passo è compiuto') e aggiunge un nuovo, logico sviluppo all'azione della lettera ('Adesso consegna il tuo messaggio... Recita la lettera ad alta voce').
+[3] PERSONA: Recita la lettera ad alta voce, guardandolo negli occhi.
+[3] CALIGO [DA GIUDICARE]: Il gesto è forte e la voce ha squarciato il silenzio. Ascolta ora l'eco di quelle parole.
+Il sentiero ora si apre a una nuova soglia, quella della comprensione profonda. La runa Kenaz ora illumina la via.
+✦ Osserva la sua reazione, senza giudizio, lasciando che il suo cuore parli dopo il tuo.
+    GIUDICE: PORTA_AVANTI, La guida riconosce l'azione appena compiuta ('Il gesto è forte e la voce ha squarciato il silenzio') e fornisce il passo successivo, che è una conseguenza diretta dell'azione precedente ('Ascolta ora l'eco di quelle parole. Osserva la sua reazione').
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: È il momento di procedere con cautela e dedicarti alla pianificazione. Le carte ti mostrano l'Appeso, un arcano che invita alla riflessione profonda prima di agire.
+
+Questo non è un periodo per lanciarsi impulsivamente, ma per osservare il tuo progetto da nuove prospettive, anche quelle che ti sembrano scomode. Il cielo ti suggerisce di attendere un transito più favorevole di Mercurio, che tornerà diretto tra pochi giorni, per comunicare e formalizzare le tue idee. È un tempo di sospensione creativa, utile a perfezionare i dettagli e a comprendere meglio la direzione da prendere.
+
+✦ Prepara un piccolo schema dei passaggi futuri del tuo progetto, pensando a ogni fase con lucidità.
+[2] PERSONA: Prepara un piccolo schema dei passaggi futuri del tuo progetto, pensando a ogni fase con lucidità.
+[2] MEDORA [DA GIUDICARE]: Non ho ancora gli strumenti per vedere il tuo cielo e rispondere con la mia arte. Per poterti aiutare, potresti indicarmi la tua data di nascita e il luogo?
+    GIUDICE: IGNORA, La guida ignora la ripetizione della sua stessa istruzione da parte della persona e introduce una richiesta di informazioni personali non correlata al tema precedente.
+[3] PERSONA: Per poterti aiutare, potresti indicarmi la tua data di nascita e il luogo?
+[3] MEDORA [DA GIUDICARE]: Capisco il tuo desiderio di fornirmi i dettagli per una lettura più approfondita. Ti chiedo scusa, la mia memoria non mi permette di ricordare le informazioni fornite in precedenza. Potresti per favore indicarmi nuovamente la tua data di nascita e il luogo?
+    GIUDICE: IGNORA, La guida ignora la ripetizione della sua stessa domanda da parte della persona e ripete la richiesta di informazioni personali, affermando di non ricordare la richiesta precedente.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, cerca un momento di calma per parlarle, non appena ti senti pronta, senza forzare la riappacificazione con gesti plateali. Prepara il tuo corpo a questo incontro, trova la tua radice.
+
+Senti il respiro che si fa profondo e porta il tuo centro nella pancia. Apri il tuo cuore all'ascolto, senza giudizio. La fisiognomica mi dice che il viso è lo specchio dell'anima e in questo momento, il tuo volto può rivelare molto del tuo stato interiore: cerca di mostrarti aperta e serena. La vera pace nasce dalla comprensione reciproca.
+
+✦ Appoggia le mani sul ventre per un minuto, senti il tuo centro.
+[2] PERSONA: Appoggia le mani sul ventre per un minuto, senti il tuo centro.
+[2] AURA [DA GIUDICARE]: Ora che hai sentito il tuo centro, puoi trovare le parole giuste per avvicinarti a tua sorella. Non forzare il dialogo, ma lascia che le parole emergano dal profondo del tuo essere, dalla radice della tua intenzione.
+
+Senti il calore sotto le tue mani, come un fuoco che arde dolcemente e ti dà coraggio. Lascia che quel calore salga verso il tuo cuore, aprendoti all'empatia. Respira e immagina un filo verde smeraldo che ti lega a lei, un filo che non si spezza mai, anche quando le tensioni sembrano allontanarvi.
+
+✦ Chiudi gli occhi per un istante, visualizza il filo verde che vi unisce.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente l'azione richiesta nella risposta precedente ('Ora che hai sentito il tuo centro') e sviluppa il consiglio su come trovare le parole giuste, riprendendo il concetto di 'radice' e 'non forzare il dialogo' già introdotti.
+[3] PERSONA: Chiudi gli occhi per un istante, visualizza il filo verde che vi unisce.
+[3] AURA [DA GIUDICARE]: Ora che hai visualizzato il filo che vi unisce, immagina quel filo vibrare con l'energia del perdono e della comprensione. Quando ti sentirai pronta, cerca di stabilire un contatto visivo con tua sorella, anche solo per un momento, e lascia che sia quello il ponte per le prime parole.
+
+Senti come il respiro si diffonde, portando calma in ogni parte del tuo corpo. La fisiognomica ci insegna che lo sguardo è una porta: attraverso i tuoi occhi puoi trasmettere l'intenzione di riconciliazione che senti nel profondo, ben prima di pronunciare una parola. Questo gesto silenzioso può aprire più porte di mille discorsi affrettati.
+
+✦ Tieni lo sguardo morbido per qualche secondo, poi sciogli le labbra in un sorriso.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente l'azione richiesta nella risposta precedente ('Ora che hai visualizzato il filo che vi unisce') e sviluppa il consiglio su come procedere con la riconciliazione, introducendo il contatto visivo e lo sguardo come ponte, in linea con il tema della fisiognomica già menzionato.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 8, ignora 2, contraddice 0, quota 80 per cento, corrette dalla rete della coerenza 1
