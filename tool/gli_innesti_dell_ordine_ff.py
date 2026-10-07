@@ -22,6 +22,7 @@ os.chdir(RADICE)
 VERDETTI = 'tool/banchi_col_modello/i_verdetti_del_filo.dart'
 BANCO_FILO = 'tool/banchi_col_modello/il_filo_del_consulto_col_modello_test.dart'
 PROVA_VERDETTI = 'flutter test test/i_verdetti_del_filo_test.dart -r expanded'
+IPHONE = 'flutter test test/le_push_arrivano_su_iphone_test.dart -r expanded'
 
 # sigla, voce, file, vecchio, nuovo, comando, la prova che deve cadere
 INNESTI = [
@@ -42,6 +43,37 @@ INNESTI = [
      '      expect(conteggio.aTradimento, lessThanOrEqualTo(2),',
      '      expect(conteggio.aTradimento + conteggio.dichiarate,\n          lessThanOrEqualTo(2),',
      PROVA_VERDETTI, 'il banco del filo usa questa regola'),
+    # FF.09, le push su iPhone.
+    ('F5', 'FF.09', 'ios/Runner/Runner.entitlements',
+     '\t<key>aps-environment</key>\n\t<string>production</string>\n',
+     '',
+     IPHONE, 'Runner.entitlements dichiara le push'),
+    ('F6', 'FF.09', 'ios/Runner/Runner.entitlements',
+     '\t<string>production</string>',
+     '\t<string>development</string>',
+     IPHONE, 'Runner.entitlements dichiara le push'),
+    ('F7', 'FF.09', 'ios/Runner/Info.plist',
+     '\t\t<string>remote-notification</string>\n',
+     '',
+     IPHONE, 'Info.plist accetta la spinta silenziosa'),
+    ('F8', 'FF.09', 'lib/services/avvisi_locali.dart',
+     '    if (concesso) IlPermessoConcesso.annuncia();\n',
+     '',
+     IPHONE, 'il recapito si rilegge appena'),
+    ('F9', 'FF.09', 'lib/features/push/custode_montato.dart',
+     '    _permesso = IlPermessoConcesso.flusso.listen((_) => _rileggi());',
+     '    _permesso = null;',
+     'flutter test test/le_push_sono_montate_test.dart -r expanded',
+     'il permesso concesso a sessione aperta'),
+    ('F10', 'FF.09', 'functions/src/push.ts',
+     '          payload: {aps: {contentAvailable: true}},\n',
+     '',
+     IPHONE, 'il server spinge al recapito'),
+    ('F11', 'FF.09', 'test/i_diritti_di_ios_hanno_il_loro_passo_sul_portale_test.dart',
+     "    'aps-environment': 'Push Notifications',\n",
+     '',
+     'flutter test test/i_diritti_di_ios_hanno_il_loro_passo_sul_portale_test.dart -r expanded',
+     'ogni diritto di Runner.entitlements'),
 ]
 
 

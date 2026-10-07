@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:esoteric_circle/core/entitlement/entitlement_service.dart';
 import 'package:esoteric_circle/core/identity/account_del_cerchio.dart';
 import 'package:esoteric_circle/core/rituals/custode_delle_push.dart';
+import 'package:esoteric_circle/core/rituals/il_permesso_concesso.dart';
 import 'package:esoteric_circle/core/rituals/scelta_degli_avvisi.dart';
 import 'package:esoteric_circle/features/push/custode_montato.dart';
 import 'package:esoteric_circle/services/push/porta_delle_push.dart';
@@ -77,6 +78,34 @@ void main() {
         reason: 'il sistema ha rigenerato il recapito e il custode ha tenuto '
             'quello vecchio: il server spingerebbe verso un indirizzo morto e '
             'la persona smetterebbe di ricevere le push senza accorgersene');
+  });
+
+  testWidgets(
+      'il permesso concesso a sessione aperta registra il recapito '
+      'subito, non al lancio seguente', (tester) async {
+    // Ordine FF voce 09.3. All'avvio il permesso non c'e' ancora, quindi il
+    // recapito vero torna nullo; poi il primo Dono chiede il permesso e la
+    // persona dice si'.
+    final porta = _PortaContata();
+    final custode = CustodeDellePush(porta: porta);
+    final recapito = _RecapitoDopoIlPermesso();
+    await tester
+        .pumpWidget(_scena(custode, recapito, registratoIl: DateTime.now()));
+    await tester.runAsync(() async {
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+    });
+    await tester.pumpAndSettle();
+    expect(custode.token, isNull);
+
+    recapito.token = 'token-dopo-il-si';
+    IlPermessoConcesso.annuncia();
+    await tester.runAsync(() async {
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+    });
+    await tester.pumpAndSettle();
+    expect(custode.token, 'token-dopo-il-si',
+        reason: 'la persona ha concesso il permesso e il recapito non e\' '
+            'stato riletto: le push non arrivano fino al lancio seguente');
   });
 
   testWidgets('senza diritto il recapito NON resta sul server', (tester) async {
@@ -160,6 +189,17 @@ class _RecapitoFinto extends RecapitoDelDispositivo {
     _cambi.add(controllore.add);
     return controllore.stream;
   }
+}
+
+/// Il recapito che c'e' solo dopo il si' al permesso.
+class _RecapitoDopoIlPermesso extends RecapitoDelDispositivo {
+  String? token;
+
+  @override
+  Future<String?> adesso() async => token;
+
+  @override
+  Stream<String> quandoCambia() => const Stream<String>.empty();
 }
 
 /// **SI APPOGGIA A `IdentitaAssente` invece di reimplementare l'interfaccia

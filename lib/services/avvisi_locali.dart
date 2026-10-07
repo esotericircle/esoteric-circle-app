@@ -6,6 +6,7 @@ import 'package:timezone/data/latest.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 
 import '../core/rituals/avvisi_del_rito.dart';
+import '../core/rituals/il_permesso_concesso.dart';
 import '../core/misura/misura_del_ritorno.dart';
 import '../core/misura/registro_del_ritorno.dart';
 
@@ -180,7 +181,11 @@ class AvvisiLocali extends ServizioAvvisi {
       AppPermission.notifications,
       richiestaDiSistema: _chiediAlSistema,
     );
-    return esitoDelPermesso == EsitoDelPermesso.concesso;
+    final concesso = esitoDelPermesso == EsitoDelPermesso.concesso;
+    // Ordine FF voce 09.3: il custode delle push rilegge il recapito adesso,
+    // non al lancio seguente.
+    if (concesso) IlPermessoConcesso.annuncia();
+    return concesso;
   }
 
   /// La richiesta nuda al sistema, che sa dire solo si' o no.

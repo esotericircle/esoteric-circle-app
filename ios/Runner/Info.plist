@@ -122,5 +122,15 @@
 	     TestFlight, a mano. Dal 7 agosto 2026. -->
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
+	<!-- LA SPINTA DEI DONI ARRIVA ANCHE CON L'APP CHIUSA. Ordine FF voce
+	     09.3. Il server (spingiIDoni, functions/src/push.ts) manda ai Doni
+	     una push di soli dati, silenziosa (apns-push-type background,
+	     content-available): iOS la consegna all'app in sottofondo solo se
+	     l'app dichiara questo modo, altrimenti la scarta e resta la sola
+	     chiamata locale del Dono. Nessuna capacita' sul portale Apple. -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 </dict>
 </plist>

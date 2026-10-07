@@ -40,6 +40,10 @@ void main() {
     // Ordine EA voce 19. La capacita' sul portale l'ha chiesta al fondatore
     // la build fallita del 26 settembre 2026, sei giorni dopo.
     'com.apple.developer.associated-domains': 'Associated Domains',
+    // Ordine FF voce 09.2. La capacita' sul portale l'ha accesa il fondatore
+    // il 7 ottobre 2026, PRIMA che il diritto entrasse nel file: questa
+    // volta il passo del portale e' venuto prima, come la guardia chiede.
+    'aps-environment': 'Push Notifications',
   };
 
   test('ogni diritto di Runner.entitlements ha la sua capacita\' sul portale',
@@ -56,10 +60,11 @@ void main() {
         .map((m) => m.group(1)!.trim())
         .toList();
 
-    // Oggi le chiavi sono due, Apple e i domini del link.
-    cardinaleMinimo(chiavi.length, 2,
+    // Oggi le chiavi sono tre: Apple, i domini del link e le push.
+    cardinaleMinimo(chiavi.length, 3,
         cosa: 'chiavi in Runner.entitlements',
-        perche: 'Il file dichiara Sign In with Apple e Associated Domains.');
+        perche: 'Il file dichiara Sign In with Apple, Associated Domains e '
+            'Push Notifications.');
 
     final senzaPasso = [
       for (final c in chiavi)

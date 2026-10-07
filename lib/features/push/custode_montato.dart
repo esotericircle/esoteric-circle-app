@@ -18,13 +18,17 @@
 /// il ciclo di vita di una schermata, cioe' morirebbe cambiando pagina.
 library;
 
+import 'dart:async';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/entitlement/entitlement_service.dart';
 import '../../core/identity/account_del_cerchio.dart';
 import '../../core/rituals/custode_delle_push.dart';
+import '../../core/rituals/il_permesso_concesso.dart';
 import '../../core/rituals/prova_delle_push.dart';
 import '../../core/rituals/scelta_degli_avvisi.dart';
 import '../../services/push/fuso_del_telefono.dart';
@@ -62,6 +66,20 @@ class RecapitoVero extends RecapitoDelDispositivo {
       if (stato.authorizationStatus == AuthorizationStatus.denied ||
           stato.authorizationStatus == AuthorizationStatus.notDetermined) {
         return null;
+      }
+      // **SU IPHONE PRIMA IL RECAPITO DI APPLE.** Ordine FF voce 09.3: il
+      // token di Firebase nasce dal recapito APNs, che iOS consegna qualche
+      // istante dopo il lancio; chiesto prima, getToken solleva. Si aspetta
+      // al piu' tre secondi, poi si lascia il lavoro a onTokenRefresh.
+      if (defaultTargetPlatform == TargetPlatform.iOS) {
+        String? apns;
+        for (var i = 0; i < 6 && apns == null; i++) {
+          apns = await messaggi.getAPNSToken();
+          if (apns == null) {
+            await Future<void>.delayed(const Duration(milliseconds: 500));
+          }
+        }
+        if (apns == null) return null;
       }
       return await messaggi.getToken();
     } catch (errore) {
@@ -112,6 +130,13 @@ class CustodeMontato extends StatefulWidget {
 
 class _CustodeMontatoState extends State<CustodeMontato> {
   bool _avviato = false;
+  StreamSubscription<void>? _permesso;
+
+  @override
+  void dispose() {
+    _permesso?.cancel();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -133,6 +158,17 @@ class _CustodeMontatoState extends State<CustodeMontato> {
       await context.read<CustodeDellePush>().tokenNuovo(nuovo);
       await _sincronizza();
     });
+    // **IL PERMESSO CONCESSO A SESSIONE APERTA.** Ordine FF voce 09.3: il
+    // recapito si rilegge appena la persona dice si', non al lancio
+    // seguente.
+    _permesso = IlPermessoConcesso.flusso.listen((_) => _rileggi());
+    await _sincronizza();
+  }
+
+  Future<void> _rileggi() async {
+    final token = await widget.recapito.adesso();
+    if (token == null || token.isEmpty || !mounted) return;
+    await context.read<CustodeDellePush>().tokenNuovo(token);
     await _sincronizza();
   }
 
