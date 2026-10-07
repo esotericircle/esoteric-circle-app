@@ -584,11 +584,16 @@ abstract final class LaLeggeDellaCoerenza {
   /// La correzione per l'elemento cambiato.
   static String correzioneDellElemento(
           ({Set<String> prima, Set<String> adesso}) c) =>
+      // Al giro su 4e11d57b (filo/2026-10-07T1325, percorso E) "col passo
+      // che viene dopo" faceva dare per fatto il passo di prima: "Hai gia'
+      // preparato il discorso e chiesto l'incontro: ora e' il tempo", dopo
+      // un "chiedi un incontro il prossimo mercoledì".
       'IN QUESTO CONSULTO È GIÀ USCITO ${c.prima.join(' e ')}: non ne '
       'estrai un altro (hai scritto ${c.adesso.join(' e ')}). Riscrivi la '
       'risposta rileggendo ${c.prima.join(' e ')} con lo stesso senso di '
-      'prima: porta avanti il consiglio e il gesto già dati col passo che '
-      'viene dopo. Tutto il resto della risposta resta com’è.';
+      'prima. Il consiglio, il gesto e il tempo già dati restano quelli: non '
+      'li anticipi e non dai per fatto un passo che la persona non ha detto '
+      'di aver fatto. Tutto il resto della risposta resta com’è.';
 
   /// Quanti caratteri del gesto entrano nel controllo finale.
   static const int gestoMassimo = 150;
