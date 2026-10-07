@@ -440,6 +440,13 @@ void main() {
       expect(c.adesso, {'Nauthiz'});
       expect(LaLeggeDellaCoerenza.correzioneDellElemento(c),
           contains('È GIÀ USCITO Isa'));
+      // Chi riscrive riceve il gesto di prima per nome: senza, Calìgo
+      // cambiava il mezzo (filo/2026-10-07T1459 e 1506, percorso D).
+      expect(
+          LaLeggeDellaCoerenza.correzioneDellElemento(c),
+          contains('«Dì una parola che non hai mai avuto il coraggio di '
+              'dire, entro domani.»'),
+          reason: 'la correzione non sa qual era il gesto e lo cambia');
       expect(
           LaLeggeDellaCoerenza.elementoCambiato(
               domanda: 'E cosa devo evitare?',

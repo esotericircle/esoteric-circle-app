@@ -341,6 +341,15 @@ abstract final class IlFiloDelConsulto {
   }
 }
 
+/// Una runa o una carta cambiata nel consulto, col gesto e il tempo di
+/// prima da tenere.
+typedef ElementoCambiato = ({
+  Set<String> prima,
+  Set<String> adesso,
+  String? gesto,
+  String? tempo,
+});
+
 /// **LA LEGGE DELLA COERENZA, IN UN PUNTO SOLO. Ordine FE voci 10, 11 e 14.**
 /// Tutte le strade che portano una domanda a un Maestro la ricevono da qui,
 /// attraverso [IlFiloDelConsulto.bloccoPer].
@@ -446,7 +455,8 @@ abstract final class LaLeggeDellaCoerenza {
       // un messaggio" a "chiamala stasera". La riga nomina il caso.
       b.write(' Il tuo gesto qui è «$gesto». Il passo di '
           'adesso viene dopo quel gesto e lo usa: stesso mezzo, stesso tempo, '
-          'mai un gesto diverso al suo posto.');
+          'mai un gesto diverso al suo posto; non lo dai per fatto se la '
+          'persona non ha detto di averlo fatto.');
     }
     if (chiedeSeVaMale(domanda)) {
       b.write(' La persona chiede che cosa fare se l’esito non è quello '
@@ -587,7 +597,7 @@ abstract final class LaLeggeDellaCoerenza {
   /// diverso da quello gia' uscito nella risposta di prima sullo stesso
   /// tema; nullo altrimenti. Se la risposta rilegge anche quello di prima,
   /// non e' un cambio.
-  static ({Set<String> prima, Set<String> adesso})? elementoCambiato({
+  static ElementoCambiato? elementoCambiato({
     required String domanda,
     required String risposta,
     required List<ChatMessage> storia,
@@ -598,22 +608,32 @@ abstract final class LaLeggeDellaCoerenza {
     final diAdesso = elementiIn(risposta);
     if (diPrima.isEmpty || diAdesso.isEmpty) return null;
     if (diAdesso.any(diPrima.contains)) return null;
-    return (prima: diPrima, adesso: diAdesso);
+    return (
+      prima: diPrima,
+      adesso: diAdesso,
+      gesto: ilTuoGesto(domanda, storia),
+      tempo: ilTuoTempo(domanda, storia),
+    );
   }
 
   /// La correzione per l'elemento cambiato.
-  static String correzioneDellElemento(
-          ({Set<String> prima, Set<String> adesso}) c) =>
-      // Al giro su 4e11d57b (filo/2026-10-07T1325, percorso E) "col passo
-      // che viene dopo" faceva dare per fatto il passo di prima: "Hai gia'
-      // preparato il discorso e chiesto l'incontro: ora e' il tempo", dopo
-      // un "chiedi un incontro il prossimo mercoledì".
+  ///
+  /// **Porta il gesto e il tempo di prima per nome**, ordine FE del 7
+  /// ottobre 2026: la correzione corta riceve solo la domanda e la
+  /// risposta, e nei giri del filo su f82c52bd (filo/2026-10-07T1459 e
+  /// 1506, percorso D) Calìgo, riscrivendo, cambiava il mezzo: "parla
+  /// stasera" diventava "scrivi un messaggio domani", "lascia la lettera
+  /// sulla soglia" diventava "cercala senza messaggi scritti".
+  static String correzioneDellElemento(ElementoCambiato c) =>
       'IN QUESTO CONSULTO È GIÀ USCITO ${c.prima.join(' e ')}: non ne '
       'estrai un altro (hai scritto ${c.adesso.join(' e ')}). Riscrivi la '
       'risposta rileggendo ${c.prima.join(' e ')} con lo stesso senso di '
-      'prima. Il consiglio, il gesto e il tempo già dati restano quelli: non '
-      'li anticipi e non dai per fatto un passo che la persona non ha detto '
-      'di aver fatto. Tutto il resto della risposta resta com’è.';
+      'prima. Il consiglio, il gesto e il tempo già dati restano quelli'
+      '${c.gesto == null ? '' : ' (il gesto: «${c.gesto}»)'}'
+      '${c.tempo == null ? '' : ' (il tempo: «${c.tempo}»)'}: non li '
+      'anticipi, non cambi il mezzo e non dai per fatto un passo che la '
+      'persona non ha detto di aver fatto. Tutto il resto della risposta '
+      'resta com’è.';
 
   /// Le parole di un tempo che rimanda: un giorno, una fase della Luna, un
   /// "non ancora", un'attesa.

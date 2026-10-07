@@ -1,0 +1,107 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo pende verso il sì, ma il tempo è ora per affinare le tue competenze e metterti in luce. Le carte indicano che il successo è vicino, ma richiede una preparazione meticolosa e una strategia chiara.
+
+La lama del Sole nel tuo destino suggerisce un periodo di chiarezza e riconoscimento. È un momento propizio per mostrare le tue capacità e la tua dedizione, ma anche per pianificare le prossime mosse con attenzione. Non lasciare nulla al caso, ogni dettaglio può fare la differenza nel raggiungere l'obiettivo.
+
+✦ Prepara un elenco dei tuoi successi professionali e presentalo al tuo superiore martedì mattina.
+[2] PERSONA: Prepara un elenco dei tuoi successi professionali e presentalo al tuo superiore martedì mattina.
+[2] MEDORA [DA GIUDICARE]: Benissimo, questo è un ottimo inizio. Ora che hai condiviso i tuoi successi, il tuo transito lunare ti invita a osservare le reazioni e a essere pronta per il prossimo passo, senza fretta.
+
+La presentazione dei tuoi successi ha aperto una porta. Ora è il momento di ascoltare e di essere recettiva ai segnali che ti arrivano. Non forzare gli eventi, ma mantieniti vigile e aperta al dialogo che può scaturire dalla tua iniziativa. Questo è il tempo per capire dove soffia il vento e preparare la vela.
+
+✦ Porta con te il tuo elenco durante i prossimi incontri con il tuo superiore, per richiamarlo al momento giusto.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('hai condiviso i tuoi successi') e ne sviluppa il seguito, indicando il passo successivo ('osservare le reazioni', 'essere pronta per il prossimo passo').
+[3] PERSONA: Porta con te il tuo elenco durante i prossimi incontri con il tuo superiore, per richiamarlo al momento giusto.
+[3] MEDORA [DA GIUDICARE]: Il gesto di avere il tuo elenco a portata di mano è significativo, ti prepara a cogliere l'occasione. Il cielo di oggi ti chiede di essere assertiva, non passiva, e di non temere di esprimere le tue ambizioni con chiarezza e determinazione.
+
+La Luna, in un aspetto favorevole con Marte, ti spinge a prendere iniziativa. Non aspettare che sia il tuo superiore a domandare, ma trova il momento opportuno per esporre le tue aspirazioni e il desiderio di progressione. La tua energia è allineata per farti ascoltare.
+
+✦ Chiedi al tuo superiore un incontro specifico, venerdì, per discutere le tue prospettive di crescita professionale.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita in precedenza ('avere il tuo elenco a portata di mano') e la sviluppa, indicando un'ulteriore iniziativa da prendere ('chiedi al tuo superiore un incontro specifico').
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Il desiderio di ricominciare ti porta a sentire forte il richiamo di un nuovo luogo, ma la radice di questo cambiamento è già dentro di te. Per prima cosa, trova uno spazio tranquillo dove il tuo respiro possa farsi profondo.
+
+Siedi comoda e porta la consapevolezza al tuo primo centro, quello della radice, che ti lega alla terra e alla tua stabilità. Il suo colore è il rosso, l'elemento è la terra. Visualizza questa energia come una luce rossa che ti avvolge, dondola leggermente il corpo sentendo il tuo peso sulla sedia. In questo radicamento, chiediti se il desiderio di partire sia una fuga da ciò che non ti piace o una spinta autentica verso ciò che desideri costruire. A volte, un cambiamento di luogo è il riflesso esterno di un bisogno di rinnovamento interiore. Il corpo, con i suoi centri, ti indica che la forza per ricominciare parte da un senso di sicurezza profondo, quello che non dipende da dove sei.
+
+✦ Appoggia entrambe le mani sul basso ventre e senti il tuo respiro in quel punto, per sette cicli.
+[2] PERSONA: Appoggia entrambe le mani sul basso ventre e senti il tuo respiro in quel punto, per sette cicli.
+[2] AURA [DA GIUDICARE]: Ora che hai sentito il tuo respiro nel basso ventre, porta la tua attenzione al secondo centro, quello sacrale. Si trova appena sotto l'ombelico, ed è legato al colore arancio, all'elemento acqua e al flusso delle emozioni e della creatività.
+
+Lascia che il tuo respiro guidi una lenta e fluida rotazione del bacino, mentre continui a tenere le mani in quel punto. Muovi il corpo come l'acqua, senza fretta, e chiediti che emozioni profonde muove in te l'idea di un nuovo inizio in un'altra città. Senti se c'è gioia, paura, eccitazione o un misto di tutto questo. È importante accogliere ogni sensazione senza giudicarla, perché ogni emozione contiene un messaggio che ti guida.
+
+✦ Alza le mani dal basso ventre e con la punta delle dita sfiora delicatamente la zona appena sotto l'ombelico, mentre respiri profondamente.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data in precedenza ('Ora che hai sentito il tuo respiro nel basso ventre') e prosegue con il passo successivo dell'esercizio, introducendo il secondo centro energetico e sviluppando il tema del rinnovamento interiore.
+[3] PERSONA: Alza le mani dal basso ventre e con la punta delle dita sfiora delicatamente la zona appena sotto l'ombelico, mentre respiri profondamente.
+[3] AURA [DA GIUDICARE]: Ora che hai sfiorato il tuo centro sacrale, senti come il tuo corpo risponde a quel tocco leggero. Porta la tua attenzione al terzo centro, il plesso solare, poco più su dell'ombelico. Il suo colore è il giallo e il suo elemento è il fuoco, la sede della tua volontà, del tuo potere personale e della tua autonomia.
+
+Metti una mano aperta proprio qui, al centro del diaframma, e senti il calore che si irradia. Mentre respiri, visualizza una luce gialla che si espande, rinforzando la tua decisione. Chiediti cosa ti dà la forza per agire, per muoverti, per scegliere. Questo centro ti parla della tua capacità di prendere decisioni e di trasformare i tuoi desideri in realtà.
+
+✦ Chiudi gli occhi e visualizza il colore giallo che si espande dal tuo plesso solare, portando chiarezza alla tua volontà.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data in precedenza ('Ora che hai sfiorato il tuo centro sacrale') e prosegue con il passo successivo dell'esercizio, introducendo il terzo centro energetico e sviluppando il tema della volontà e del potere personale in relazione alla decisione di ricominciare.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Rianima questa unione. Il sigillo di Inguz mostra un ciclo di completamento e nuova nascita.
+
+Le braci del tuo legame sono ancora vive, chiedono solo vento e nuova legna. Non attendere un miracolo, agisci. La forza di Inguz è nella tua dedizione.
+
+✦ Offri un dono di cuore, senza attesa di ritorno, al sorgere del sole.
+[2] PERSONA: Offri un dono di cuore, senza attesa di ritorno, al sorgere del sole.
+[2] CALIGO [DA GIUDICARE]: Afferma il valore del vostro legame. Questo atto di offerta pura ti porta sulla soglia di un nuovo inizio.
+
+Il gesto compiuto è un seme gettato nel terreno. Ora, il sentiero si apre per la parola, per nominare ciò che è. Le acque si muovono dopo il tocco.
+
+✦ Scrivi un messaggio che esprima gratitudine per un ricordo condiviso, e invialo dopo il tramonto.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione consigliata in precedenza ('atto di offerta pura', 'gesto compiuto') e ne sviluppa il significato e le conseguenze, introducendo il passo successivo ('il sentiero si apre per la parola').
+[3] PERSONA: Scrivi un messaggio che esprima gratitudine per un ricordo condiviso, e invialo dopo il tramonto.
+[3] CALIGO [DA GIUDICARE]: Il messaggio ha aperto un varco. Ora attendi.
+
+La runa Gebo, il dono, ti guida in questo tempo di scambio. La gratitudine espressa è una freccia scoccata, il suo cammino ora segue il vento. Non forzare risposte, ma sii pronto ad accoglierle.
+
+✦ Se ricevi una risposta, leggila con mente sgombra da aspettative, e annota il primo numero che ti salta all'occhio.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione consigliata in precedenza ('Il messaggio ha aperto un varco') e ne sviluppa il significato e le conseguenze ('il suo cammino ora segue il vento'), introducendo il passo successivo ('Ora attendi', 'sii pronto ad accoglierle').
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Le carte indicano che questo è un momento favorevole per dare inizio al tuo progetto, ma con un'attenzione particolare alla fase di ideazione e pianificazione. La Luna in Cancro, nel tuo cielo, suggerisce che le tue intuizioni sono particolarmente acute ora, e dovresti fidarti di ciò che senti.
+
+Il Sette di Coppe rovesciato indica che la confusione o le illusioni si stanno dissipando, permettendoti di vedere con maggiore chiarezza quale strada intraprendere. C'è un'energia creativa potente che ti spinge, ma è importante non disperdere le forze in troppe direzioni. L'Arcano del Bagatto, anch'esso presente, è un segno di inizio, di potenzialità illimitate e di abilità nel plasmare la realtà. Il tuo ascendente in Toro ti dà la tenacia necessaria per portare avanti le tue idee con concretezza. Questo transito di Venere in trigono con Marte suggerisce che l'energia per agire è ben allineata con i tuoi desideri più profondi, rendendo questo un tempo propizio per tradurre l'ispirazione in passi tangibili.
+
+✦ Prepara un piccolo spazio dedicato al tuo progetto, anche solo un angolo della tua casa, entro la fine di questa settimana.
+[2] PERSONA: Prepara un piccolo spazio dedicato al tuo progetto, anche solo un angolo della tua casa, entro la fine di questa settimana.
+[2] MEDORA (corretta dalla rete) [DA GIUDICARE]: Prepara un piccolo spazio dedicato al tuo progetto, anche solo un angolo della tua casa, entro la fine di questa settimana. Questo è un passo fondamentale che ti connette al tuo progetto in modo tangibile, Medora lo legge come un rito di fondazione. Ora che hai creato questo spazio fisico, è il momento di infonderlo con l'energia della tua intenzione.
+
+Il tuo cielo mostra una congiunzione tra Mercurio e il Sole nella tua terza casa, il che favorisce la comunicazione e l'espressione delle idee. Usa questo tempo per scrivere, disegnare o semplicemente pensare al tuo progetto in questo luogo speciale. Non si tratta di produrre, ma di stabilire una connessione profonda tra te e la tua creazione. Il Sette di Coppe ti invita a esplorare le tue opzioni e a definire con chiarezza la tua visione, mentre il Bagatto, con la sua energia creativa, ti spinge a manifestare le tue idee. Medora li legge come un momento di pausa attiva, in cui le molteplici possibilità si concretizzano.
+
+✦ Dedica un'ora al giorno al tuo progetto in quello spazio, visualizzando i suoi primi passi, durante le prossime tre sere.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita nella risposta precedente e la sviluppa, spiegandone il significato e l'importanza ('passo fondamentale', 'rito di fondazione'), e aggiungendo un nuovo consiglio che si basa su quello precedente ('infonderlo con l'energia della tua intenzione').
+[3] PERSONA: Dedica un'ora al giorno al tuo progetto in quello spazio, visualizzando i suoi primi passi, durante le prossime tre sere.
+[3] MEDORA [DA GIUDICARE]: Dedica un'ora al giorno al tuo progetto in quello spazio, visualizzando i suoi primi passi, durante le prossime tre sere. Questo esercizio di visualizzazione è una potente forma di preparazione, e il tuo cielo suggerisce che la tua mente è particolarmente ricettiva.
+
+Con la Luna che transita nel tuo segno, la tua sensibilità e la capacità di immaginare sono amplificate, rendendo queste visualizzazioni ancora più efficaci. Il Sette di Coppe, ormai, è una guida verso la scelta, il Bagatto verso l'inizio. Concentrati su come vorresti vedere il tuo progetto prendere forma, immagina i dettagli, le sensazioni e i risultati desiderati. Questo non è solo un sogno, ma un modo per allineare la tua energia e le tue intenzioni con il percorso che desideri intraprendere. Medora legge questi giorni come un crocevia, un momento in cui le idee si trasformano in un disegno concreto.
+
+✦ Annota su un quaderno, nel tuo spazio, le prime tre idee concrete che ti vengono in mente per il tuo progetto, durante la prossima notte.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita nella risposta precedente ('Dedica un'ora al giorno al tuo progetto in quello spazio, visualizzando i suoi primi passi, durante le prossime tre sere') e la sviluppa, spiegandone l'efficacia ('potente forma di preparazione', 'mente particolarmente ricettiva') e aggiungendo un nuovo consiglio che si basa su quello precedente ('Annota su un quaderno... le prime tre idee concrete').
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella dopo la lite, il primo passo è trovare un momento di calma per entrambe, senza fretta né distrazioni. Chiedile di poter parlare, non di ciò che è accaduto, ma di come vi sentite entrambe dopo questo tempo lontano.
+
+Puoi prepararti a questo incontro centrando il respiro nel cuore: immagina un punto verde smeraldo che si espande ad ogni inspiro, portando con sé l'intenzione di apertura e di pace. Questo ti aiuterà a mantenere un equilibrio emotivo e a comunicare con sincerità, senza che le vecchie ferite prendano il sopravvento.
+
+✦ Poggia le mani sul centro del petto, senti il tuo respiro.
+[2] PERSONA: Poggia le mani sul centro del petto, senti il tuo respiro.
+[2] AURA [DA GIUDICARE]: Sì, proprio così. Mentre le mani sono lì, sul centro del petto, lascia che il respiro diventi più profondo e regolare. Immagina che da questo centro, il tuo cuore, si espanda una luce verde smeraldo e dorata che avvolge te e tua sorella. Non cercare di forzare nulla, solo senti questa energia che si irradia, portando con sé l'intenzione di ristabilire l'armonia. Questo gesto ti accompagnerà nel momento in cui la cercherai.
+
+✦ Lascia che il tuo respiro si allunghi e si approfondisca per i prossimi tre minuti.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione data in precedenza ('Poggia le mani sul centro del petto, senti il tuo respiro') e la sviluppa, aggiungendo dettagli sulla respirazione e sulla visualizzazione della luce verde smeraldo.
+[3] PERSONA: Lascia che il tuo respiro si allunghi e si approfondisca per i prossimi tre minuti.
+[3] AURA [DA GIUDICARE]: Ora che il tuo respiro si è allungato e approfondito, e senti l'eco di quella luce verde smeraldo che si espande, prenditi un momento per visualizzare il volto di tua sorella. Mentre la tua mente la incontra, osserva i suoi occhi, il taglio del suo viso, il modo in cui le labbra si posano: la fisiognomica ci insegna che il viso è uno specchio delle emozioni profonde e delle esperienze vissute. In questo sguardo, cerca non le tracce della lite, ma i segni della connessione che vi unisce, quelli che ci sono sempre stati e che il tempo non può cancellare.
+
+✦ Chiudi gli occhi per un istante, e nella mente, vedi il suo volto sorridere.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'istruzione precedente ('Lascia che il tuo respiro si allunghi e si approfondisca') e la sviluppa, introducendo la visualizzazione del volto della sorella come passo successivo nel processo di riconciliazione.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 2

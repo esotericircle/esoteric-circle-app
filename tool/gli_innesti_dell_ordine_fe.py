@@ -574,6 +574,12 @@ INNESTI = [
      "      r'(?<![A-Za-zÀ-ÿ])(nonX (è )?ancora|tra (dueX|tre|quattro|cinque|qualche'",
      'flutter test test/il_filo_del_consulto_test.dart -r expanded',
      'il tempo dato prima arriva nel controllo'),
+    # FE.17, 7 ottobre 2026: la correzione dell'elemento porta il gesto.
+    ('A106', 'FE.17', 'lib/core/chat/il_filo_del_consulto.dart',
+     "      gesto: ilTuoGesto(domanda, storia),",
+     "      gesto: null,",
+     'flutter test test/il_filo_del_consulto_test.dart -r expanded',
+     'la runa o la carta cambiata'),
     # FE.22.3, prova a) alla lettera: nessun "Custodisci" mostrato.
     ('A83', 'FE.22.3', 'lib/features/account/account_screen.dart',
      "            title: 'Metti al sicuro il tuo cielo',",
