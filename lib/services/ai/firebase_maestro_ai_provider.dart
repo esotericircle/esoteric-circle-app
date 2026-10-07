@@ -573,18 +573,8 @@ class FirebaseMaestroAiProvider
       ),
     );
 
-    // Le lenti gia' ottenute, nell'ordine fisso del cerchio, come materiale.
-    final buffer = StringBuffer('Domanda della persona: «$t».\n\n');
-    for (final l in lenses) {
-      buffer
-        ..writeln('${l.maestro.displayName} (${l.maestro.domainArtsPhrase}):')
-        ..writeln('- Colpo d\'occhio: ${l.glance.trim()}')
-        ..writeln('- Lettura: ${l.reading.trim()}')
-        ..writeln();
-    }
-
-    final response =
-        await model.generateContent([Content.text(buffer.toString())]);
+    final response = await model
+        .generateContent([Content.text(materialeDellaSintesi(t, lenses))]);
     final text = response.text?.trim();
     if (text == null || text.isEmpty) {
       throw const MaestroAiUnavailable('La sintesi non ha trovato le parole.');
@@ -592,8 +582,30 @@ class FirebaseMaestroAiProvider
     // Anche la sintesi la legge la persona: una sintesi tronca chiuderebbe
     // senza la frase che deve chiudere sempre.
     if (eTroncata(response)) throw const MaestroAiTroncata();
-    return TestoDelResponso.pulisci(text);
+    return conINomiAVideo(TestoDelResponso.pulisci(text));
   }
+
+  /// Le lenti gia' ottenute, nell'ordine fisso del cerchio, come materiale
+  /// della sintesi. **Coi nomi a video, ordine FE del 7 ottobre 2026**: sul
+  /// Realme con la build 2300 la sintesi comparativa scriveva "Caligo"
+  /// senza l'accento, perche' riceveva il nome di casa
+  /// (docs/collaudo/FE/realme_2300/14_consiglio_sintesi.png).
+  static String materialeDellaSintesi(String tema, List<MaestroLens> lenses) {
+    final buffer = StringBuffer('Domanda della persona: «$tema».\n\n');
+    for (final l in lenses) {
+      buffer
+        ..writeln('${l.maestro.nomeAVideo} (${l.maestro.domainArtsPhrase}):')
+        ..writeln('- Colpo d\'occhio: ${l.glance.trim()}')
+        ..writeln('- Lettura: ${l.reading.trim()}')
+        ..writeln();
+    }
+    return buffer.toString();
+  }
+
+  /// "Caligo" scritto dal modello senza l'accento torna "Calìgo".
+  static String conINomiAVideo(String testo) => testo.replaceAll(
+      RegExp(r'(?<![A-Za-zÀ-ÿ])Caligo(?![A-Za-zÀ-ÿ])'),
+      Maestro.caligo.nomeAVideo);
 
   @override
   Future<MemoryDigest?> distill({

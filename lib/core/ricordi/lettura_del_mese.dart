@@ -91,7 +91,29 @@ class LetturaDelMese extends ChangeNotifier {
   /// Vero se questo piano vede la lettura.
   static bool laVede(Tier tier) => tier.level >= pianoMinimo.level;
 
-  String? gia(String mese) => _scritte[mese];
+  String? gia(String mese) {
+    final scritta = _scritte[mese];
+    return scritta == null ? null : senzaDomande(scritta);
+  }
+
+  /// **LA LETTURA NON FA DOMANDE. Ordine FE, 7 ottobre 2026.** Visto sul
+  /// Realme con la build 2300 (docs/collaudo/FE/realme_2300/
+  /// 07_settembre_di_aura.png): la lettura di settembre di Aura finiva con
+  /// "Vorresti dirmi il tuo nome?". E' una lettura, non una conversazione:
+  /// la persona non ha dove rispondere. Le frasi che chiedono si tolgono
+  /// quando si scrive e quando si rilegge, cosi' anche le letture gia'
+  /// custodite sul telefono escono pulite senza una chiamata in piu'.
+  /// Padre: l'istruzione dell'ordine CG voce 11, che non lo vietava.
+  static String senzaDomande(String testo) {
+    final frasi = RegExp(r'[^.!?…]+[.!?…]*').allMatches(testo);
+    final b = StringBuffer();
+    for (final f in frasi) {
+      final frase = f.group(0)!;
+      if (frase.trim().endsWith('?')) continue;
+      b.write(frase);
+    }
+    return b.toString().replaceAll(RegExp(r'[ \t]+\n'), '\n').trim();
+  }
 
   Future<void> carica() async {
     if (_caricato) return;
@@ -127,7 +149,7 @@ class LetturaDelMese extends ChangeNotifier {
     if (!laVede(tier)) return null;
     if (riassunto.vuoto) return null;
     final gia = _scritte[mese];
-    if (gia != null) return gia;
+    if (gia != null) return senzaDomande(gia);
 
     final maestro = riassunto.maestroDominante;
     if (maestro == null) {
@@ -145,11 +167,12 @@ class LetturaDelMese extends ChangeNotifier {
       maestro: maestro,
     );
     chiamateAlModello++;
-    if (scritta == null || scritta.trim().isEmpty) return null;
-    _scritte[mese] = scritta;
+    final pulita = scritta == null ? '' : senzaDomande(scritta);
+    if (pulita.isEmpty) return null;
+    _scritte[mese] = pulita;
     notifyListeners();
     await _salva();
-    return scritta;
+    return pulita;
   }
 
   Future<void> _salva() async {

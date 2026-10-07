@@ -55,7 +55,12 @@ class PennaVeraDelMese extends PennaDelMese {
       ..writeln('Doni aperti: ${riassunto.quantiDoni}.')
       ..writeln('Eos guadagnati: ${riassunto.eosGuadagnati}.')
       ..writeln('Momenti per Maestro: ${riassunto.perMaestro}.')
-      ..writeln('Momenti per arte: ${riassunto.perArte}.')
+      // "chat" e' il nome di casa: al modello arriva in parole, se no
+      // scrive "l'arte della chat" (Realme, build 2300, ordine FE).
+      ..writeln('Momenti per arte: ${{
+        for (final e in riassunto.perArte.entries)
+          (e.key == 'chat' ? 'conversazioni coi Maestri' : e.key): e.value,
+      }}.')
       ..writeln('Settimane:');
     for (final s in settimane) {
       buffer.writeln('- ${s.chiave}: ${s.quanteVoci} momenti, '
@@ -116,7 +121,8 @@ class PennaVeraDelMese extends PennaDelMese {
       'tornata più spesso la persona, cosa ha lasciato stare, cosa è cambiato '
       'da una settimana all\'altra. Scrivi in seconda persona, con parole di '
       'uso comune. Non inventare nulla che i numeri non dicano. Non parlare '
-      'della sua vita fuori dal Cerchio: tu vedi il cammino, non la persona.'
+      'della sua vita fuori dal Cerchio: tu vedi il cammino, non la persona. '
+      'Non fare domande: è una lettura, non una conversazione.'
       '\n\n'
       '${MaestroPersona.bloccoDiCortesia(UserProfile(courtesyForm: forma ?? LaMarcaDelGenere.formaCorrente))}';
 }

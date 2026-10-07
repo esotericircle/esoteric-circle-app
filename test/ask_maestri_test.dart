@@ -26,6 +26,7 @@ import 'package:esoteric_circle/design_system/tokens/typography_tokens.dart';
 import 'package:esoteric_circle/features/maestri/ask/ask_maestri_screen.dart';
 import 'package:esoteric_circle/services/ai/maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/ai/maestro_oracle.dart';
+import 'package:esoteric_circle/services/ai/firebase_maestro_ai_provider.dart';
 import 'package:esoteric_circle/services/app_services.dart';
 import 'package:esoteric_circle/services/memory/in_memory_maestro_memory_repository.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,31 @@ import 'package:shared_preferences/shared_preferences.dart';
 /// risposta e ogni lente aggiunta passa da Gemini con ripiego sull'oracolo, la
 /// sintesi comparativa e' deterministica, il Free ha tre risposte al giorno.
 void main() {
+  // **I NOMI A VIDEO NELLA SINTESI**, ordine FE del 7 ottobre 2026: sul
+  // Realme con la build 2300 la sintesi comparativa scriveva "Caligo".
+  test('la sintesi riceve e mostra i nomi come la persona li legge', () {
+    final materiale = FirebaseMaestroAiProvider.materialeDellaSintesi(
+        'Devo cambiare lavoro?', [
+      MaestroLens.strati(
+          maestro: Maestro.caligo,
+          glance: 'La soglia è velata.',
+          reading: 'Non affrettare.',
+          invite: 'Aspetta.'),
+      MaestroLens.strati(
+          maestro: Maestro.medora,
+          glance: 'Il cielo dice di no.',
+          reading: 'Semina.',
+          invite: 'Rifletti.'),
+    ]);
+    expect(materiale, contains('Calìgo ('),
+        reason: 'la sintesi riceve il nome di casa e lo scrive senza accento');
+    expect(materiale, isNot(contains('Caligo')));
+    expect(
+        FirebaseMaestroAiProvider.conINomiAVideo(
+            'Caligo, infine, ti invita. Medora e Aura concordano.'),
+        'Calìgo, infine, ti invita. Medora e Aura concordano.');
+  });
+
   final binding = TestWidgetsFlutterBinding.ensureInitialized();
   setUp(() => SharedPreferences.setMockInitialValues(const {}));
 

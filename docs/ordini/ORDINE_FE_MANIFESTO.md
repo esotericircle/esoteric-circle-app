@@ -25,14 +25,14 @@ che la realizza porta per errore la sigla "FE.22" nel messaggio: e' la FE.23,
 e qui si dichiara. Le voci sono quarantaquattro.
 
 VOCI_TOTALI: 44
-VOCI_CHIUSE: 43
-VOCI_APERTE: 1
+VOCI_CHIUSE: 44
+VOCI_APERTE: 0
 VOCI_DA_FARE: 0
 
-La voce aperta, FE.22.13, e' `APERTA IN ATTESA DI VERIFICA`: col Realme e la
-build 2299 il Diario ha mostrato settembre a 0 per un guasto del telefono,
-riparato per la build 2300; si chiude con la verifica sulla 2300, nelle
-righe in coda.
+La FE.22.13 era `APERTA IN ATTESA DI VERIFICA`: col Realme e la build 2299
+il Diario ha mostrato settembre a 0 per un guasto del telefono, riparato per
+la build 2300; il 7 ottobre 2026 e' chiusa con la verifica sulla 2300
+(`docs/collaudo/FE/realme_2300/`).
 
 ## LE SCELTE DEL FONDATORE
 
@@ -376,6 +376,31 @@ banco e' il livello dichiarato (al piu' due contraddizioni e almeno otto su
 dieci per percorso), e il banco resta la rete che a ogni consegna prende un
 peggioramento.
 
+**E la rete l'ha preso, il 7 ottobre 2026, col giro per la build 2300.** Sul
+commit `6e7511db` il percorso D (una domanda, un tema diverso, poi
+"Torniamo alla mia prima domanda") e' caduto a 7 su 10 con due
+contraddizioni di un Maestro con se stesso (filo/2026-10-07T0008); nei giri
+successivi sono caduti anche A (6 su 10, filo/2026-10-07T0211) e B (5 su 10,
+filo/2026-10-07T0259, con tre contraddizioni tutte in risposte gia' corrette
+dalla rete). Il fondatore: nessun aumento di costo. Le cure, nessuna con una
+chiamata in piu': il controllo finale del consulto porta il gesto vero del
+Maestro letto dalla conversazione, sul tema giusto anche dopo un cambio di
+discorso, e le frasi di un turno solo partono solo in quel turno (807
+caratteri nel caso peggiore contro gli 818 di prima a ogni turno); la
+correzione della rete da' le due frasi d'apertura col nome di chi ha dato il
+punto, "Come ti ha detto Medora, ..." o "Io leggo diversamente da Medora:
+..."; il Maestro che scrive di non avere la conversazione di prima ("non ho
+la tua risposta precedente", due volte nella notte) si riconosce senza
+chiamate e si corregge. La rete accesa anche sul ritorno al tema e' stata
+provata e tolta: toglieva le contraddizioni del percorso D con 12-13
+chiamate in piu' a giro. Tre giri sul codice delle cure (filo/2026-10-07T0328,
+0333, 0338): passati, porta avanti A 97, B 87, C 100, D 87, E 90, F 100 per
+cento, 6 contraddizioni su 180, il secondo Maestro nomina chi ha parlato
+prima in 30 risposte su 30, costo 0,286-0,292 dollari a giro contro 0,287
+della 2299. Il giro della consegna sul commit `acba2931`
+(`docs/collaudo/banchi_col_modello/2026-10-07.txt`): 11 su 11, il filo con 5
+contraddizioni su 60 e D e F a 8 su 10, sul limite.
+
 DOMANDA: "Soglia: nessuna contraddizione ammessa sui punti fermi della scheda, e almeno nove risposte su dieci che portano avanti il punto invece di aprirne uno nuovo."
 PROVA: docs/collaudo/FE/taratura_del_giudice/regola_della_coerenza.md
 MISURA: accordi dei due lettori col giudice 110 e 107 su 120; contraddizioni con la forma scelta 4 su 180 giudizi (3, 0, 1); percorsi sopra nove su dieci 4 su 6 (C, D, E, F), sotto A 87 e B 87 per cento
@@ -683,20 +708,26 @@ ACCETTAZIONE: una voce salvata col formato vecchio si apre ancora
 
 ## VOCE FE.22.13, DOVE STANNO
 
-**APERTA IN ATTESA DI VERIFICA.** Conversazioni e voci del Diario stanno sul
+**CHIUSA.** Il 7 ottobre 2026, con la build 2300 sul Realme. Conversazioni e voci del Diario stanno sul
 server, legate all'account (`users/{uid}/diario`, `diario_voci`), con
 l'indice per anno e per mese (`77ad3e86`, `693a68d6`); `riempiIlDiario`
 travasa le conversazioni di prima e i custoditi, una volta per persona; il
 telefono tiene una copia di comodo di al massimo 80 contenuti, e una
 risposta vuota del server non la cancella (`bd64f246`; A49 prima verde, poi
-rossa). Le funzioni sono pubblicate. Manca la verifica sul telefono: il
-Diario che si riempie dal server, con la build 2299 sul Realme; si chiude
-nelle righe in coda.
+rossa). Le funzioni sono pubblicate. Con la 2299 il Diario filtrato su Aura
+segnava settembre a 0: una conversazione toccata prima di aprire il Diario
+copriva il riassunto del server (riparato in `6e7511db`, prove A84). Con la
+2300, nella stessa sequenza (una domanda ad Aura, poi il menu', poi "Chat
+precedenti"), il Diario filtrato su Aura segna settembre 15 e ottobre 4, e
+la settimana dal 21 al 27 settembre porta 15 momenti, cioe' le
+conversazioni del 26 e del 27 lette dal server
+(`docs/collaudo/FE/realme_2300/05_diario_cosmico.png`, `06_diario_ottobre.png`,
+`08_settembre_le_voci.png`).
 
 DOMANDA: "Tutte le conversazioni e tutte le voci del Diario stanno sul server e sono legate all'account, non al telefono. Cambiando telefono l'utente le ritrova tutte."
-PROVA: test/il_diario_cosmico_sul_server_test.dart
-MISURA: contenuti sul telefono al massimo 80; copie cancellate da una risposta vuota del server prima 1, dopo 0; voci ritrovate dal server sul Realme con la 2299 VEDI RIGHE IN CODA
-ACCETTAZIONE: apro il Diario sul Realme con la 2299 e ritrovo le mie conversazioni lette dal server
+PROVA: docs/collaudo/FE/realme_2300/05_diario_cosmico.png
+MISURA: contenuti sul telefono al massimo 80; copie cancellate da una risposta vuota del server prima 1, dopo 0; settembre di Aura nel Diario dopo una chat toccata prima 0 con la 2299, 15 con la 2300
+ACCETTAZIONE: apro il Diario sul Realme con la 2300 e ritrovo le mie conversazioni lette dal server
 
 ## VOCE FE.22.14, L'INDICE E' SEPARATO DAL CONTENUTO
 

@@ -231,8 +231,8 @@ void main() {
     // us-central1. La penna passa ancora da Vertex, adesso nella regione dei
     // dati.
     expect(
-        soloCodice
-            .contains('FirebaseAI.vertexAI(location: LaRegioneDeiDati.regione)'),
+        soloCodice.contains(
+            'FirebaseAI.vertexAI(location: LaRegioneDeiDati.regione)'),
         isTrue,
         reason: 'la penna deve passare da Vertex, nella regione dei dati');
   });
@@ -252,5 +252,55 @@ void main() {
               '"${riga.values[i]}". IL ROSSO SI DIMOSTRA rimettendo la riga '
               'vecchia, che metteva l\'AI dal Tier 2');
     }
+  });
+
+  // **LA LETTURA NON FA DOMANDE**, ordine FE del 7 ottobre 2026: sul Realme
+  // con la build 2300 la lettura di settembre di Aura finiva con "Vorresti
+  // dirmi il tuo nome?".
+  test('FE: la lettura non fa domande, nemmeno quella gia\' custodita',
+      () async {
+    const vista = 'Ti vedo qui, nel mese di settembre. È stato un mese '
+        'intenso.\n\nVorresti dirmi il tuo nome?';
+    expect(LetturaDelMese.senzaDomande(vista),
+        'Ti vedo qui, nel mese di settembre. È stato un mese intenso.');
+    expect(
+        LetturaDelMese.senzaDomande('Sei tornato tre volte. Perché? Forse '
+            'per la Luna.'),
+        'Sei tornato tre volte. Forse per la Luna.');
+    // La lettura custodita prima della cura esce pulita, senza chiamate.
+    SharedPreferences.setMockInitialValues({
+      'ricordi.lettureDelMese': '{"2026-09": "Un mese intenso. Come ti '
+          'chiami?"}'
+    });
+    final penna = _PennaContata();
+    final lettura = LetturaDelMese(penna: penna);
+    await lettura.carica();
+    expect(lettura.gia('2026-09'), 'Un mese intenso.',
+        reason: 'la lettura custodita mostra ancora la domanda');
+    expect(
+        await lettura.per(
+            mese: '2026-09',
+            tier: Tier.tier1,
+            riassunto: _riassunto(),
+            settimane: const []),
+        'Un mese intenso.');
+    expect(penna.chiamate, 0);
+    // E al modello "chat" arriva in parole, e la regola c'e'.
+    final ingresso = PennaVeraDelMese.ingresso(
+        mese: '2026-09',
+        riassunto: RiassuntoDelTempo(
+          chiave: '2026-09',
+          quanteVoci: 15,
+          perMaestro: const {'aura': 15},
+          perArte: const {'chat': 15},
+          quantiTraguardi: 0,
+          quantiDoni: 0,
+          eosGuadagnati: 0,
+        ),
+        settimane: const []);
+    expect(ingresso, contains('conversazioni coi Maestri: 15'));
+    expect(ingresso, isNot(contains('chat')),
+        reason: 'al modello arriva il nome di casa, e scrive "l\'arte della '
+            'chat"');
   });
 }
