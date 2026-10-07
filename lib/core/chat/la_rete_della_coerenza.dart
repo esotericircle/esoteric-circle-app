@@ -106,21 +106,10 @@ abstract final class LaReteDellaCoerenza {
         tornaAlTema(domanda);
   }
 
-  /// Le parole con cui la persona torna a un tema gia' toccato nel
-  /// consulto. I confini sono scritti a mano: in Dart `\b` non vede le
-  /// lettere accentate.
-  static final RegExp _ritorno = RegExp(
-      r"(?<![A-Za-zÀ-ÿ])torn(iamo|o|ando|are|ate)\s+all['’]"
-      r'|(?<![A-Za-zÀ-ÿ])(torn(iamo|o|ando|are|ate)\s+(a|al|alla|allo|ai'
-      r'|agli|alle|su|sul|sulla|sullo|sui|sugli|sulle|indietro)'
-      r'|ripren(diamo|do|dendo)|riprendere'
-      r'|prima domanda|domanda di prima|discorso di prima|tema di prima'
-      r'|come dicevi|come mi dicevi|come dicevamo|dicevamo prima'
-      r'|di cui parlavamo|quello che mi hai detto)(?![A-Za-zÀ-ÿ])',
-      caseSensitive: false);
-
-  /// Se la [domanda] torna a un tema gia' toccato nel consulto.
-  static bool tornaAlTema(String domanda) => _ritorno.hasMatch(domanda);
+  /// Se la [domanda] torna a un tema gia' toccato nel consulto: la regola
+  /// sta in un punto solo, [LaLeggeDellaCoerenza.tornaAlTema].
+  static bool tornaAlTema(String domanda) =>
+      LaLeggeDellaCoerenza.tornaAlTema(domanda);
 
   /// I punti fermi per [chi]: la scheda del consulto, le risposte di prima
   /// del Maestro nella [storia] e quelle intere degli altri che il filo

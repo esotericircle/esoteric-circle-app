@@ -1,0 +1,106 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo pende verso il sì, per ora: c'è un momento favorevole per le tue aspirazioni professionali. Nelle carte leggo una forte spinta al riconoscimento dei tuoi meriti, un'energia che ti spinge a brillare.
+
+✦ Prepara un piccolo riepilogo dei tuoi successi e portalo con te lunedì mattina.
+[2] PERSONA: Prepara un piccolo riepilogo dei tuoi successi e portalo con te lunedì mattina.
+[2] MEDORA [DA GIUDICARE]: Ho bisogno di capire meglio il contesto della tua richiesta. La frase che hai scritto è quella che ti avevo consigliato di fare come azione concreta. Vuoi che ti aiuti a preparare questo riepilogo, oppure è una tua intenzione già definita? Fammi sapere come posso guidarti.
+    GIUDICE: PORTA_AVANTI, La guida riconosce esplicitamente il consiglio dato in precedenza e chiede chiarimenti su come procedere con esso, sviluppando il punto.
+[3] PERSONA: Fammi sapere come posso guidarti.
+[3] MEDORA [DA GIUDICARE]: Se la tua intenzione è preparare il riepilogo, il cielo ti suggerisce di concentrarti sui risultati tangibili che hai raggiunto e su come questi abbiano contribuito al benessere del tuo ambiente lavorativo. Non dilungarti in spiegazioni, ma sii chiara e precisa, come il Sole in Ariete che illumina senza ombre.
+
+✦ Elenca tre successi concreti che hai ottenuto negli ultimi mesi, scrivendoli su un foglio questa sera.
+    GIUDICE: PORTA_AVANTI, La guida riprende il tema del riepilogo dei successi, già introdotto e discusso, e fornisce indicazioni più specifiche su come prepararlo, sviluppando il consiglio iniziale.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Un nuovo inizio chiama sempre a un movimento, e il corpo in questo ti è guida. Ascolta la vibrazione della tua radice, il centro che ti lega alla terra e alla stabilità.
+
+Quando senti il desiderio di spostarti, immagina per un istante i tuoi piedi radicati in quel nuovo luogo: senti la terra sotto di te, ne percepisci la consistenza, il calore. Questo non è un semplice desiderio, è un richiamo profondo del tuo essere a trovare un nuovo equilibrio, a esplorare nuove possibilità di crescita per i tuoi centri energetici. Non affrettare la decisione, ma lascia che questa sensazione si espanda, che ti parli con la voce del tuo corpo, prima di muovere il primo passo.
+
+✦ Appoggia entrambe le mani sulla tua radice, all'altezza del bacino, e respira profondamente per sette volte.
+[2] PERSONA: Appoggia entrambe le mani sulla tua radice, all'altezza del bacino, e respira profondamente per sette volte.
+[2] AURA [DA GIUDICARE]: Questo è un bellissimo inizio, il respiro profondo è il tuo ancoraggio al presente. Ora che hai sentito la tua radice, prova a visualizzare il colore rosso, il suo colore, che si espande ad ogni respiro, portando una sensazione di sicurezza e appartenenza.
+
+Questo ti aiuterà a connetterti ancora di più con il tuo centro, a sentire la sua forza e la sua stabilità. In questo modo potrai comprendere se la spinta al cambiamento viene da un reale bisogno di espansione o da una semplice irrequietezza passeggera. È un dialogo tra te e la tua essenza più profonda.
+
+✦ Siediti con la schiena dritta, senti il contatto con la sedia o il terreno, e ripeti mentalmente "io appartengo" per tre volte.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione richiesta in precedenza ('respiro profondo', 'sentito la tua radice') e la sviluppa aggiungendo una visualizzazione e collegandola all'obiettivo di comprendere la spinta al cambiamento.
+[3] PERSONA: Siediti con la schiena dritta, senti il contatto con la sedia o il terreno, e ripeti mentalmente "io appartengo" per tre volte.
+[3] AURA [DA GIUDICARE]: Dopo aver sentito la connessione con la terra e aver affermato il tuo senso di appartenenza, ora è tempo di lasciare che questa consapevolezza salga un po'. Porta la tua attenzione al centro del tuo ombelico, il tuo secondo centro, legato alla creatività e al movimento fluido della vita.
+
+Immagina un colore arancione che si irradia da questo punto, un colore caldo e vitale. Lascia che la domanda sul trasferimento si posi qui, in questo spazio di creazione e di cambiamento. Ascolta come il tuo corpo risponde, senza giudizio, solo con un profondo sentire. È un invito a esplorare le possibilità con gioia e curiosità.
+
+✦ Metti una mano sul tuo ombelico e senti il calore che si sprigiona.
+    GIUDICE: PORTA_AVANTI, La guida riprende le azioni e le sensazioni precedenti ('connessione con la terra', 'senso di appartenenza') e le sviluppa introducendo il concetto del secondo centro energetico e la visualizzazione del colore arancione, continuando il percorso di auto-esplorazione.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Salvala subito. Il sentiero si chiude se non agisci.
+Il metallo si raffredda, ma si plasma con il fuoco.
+
+La runa **Nauthiz** ti mostra il bisogno, la necessità impellente di affrontare la situazione. Non attendere che la distanza si faccia abitudine. Parla ora, con chiarezza.
+
+✦ Pronuncia le tue parole chiare e sincere questa sera.
+[2] PERSONA: Pronuncia le tue parole chiare e sincere questa sera.
+[2] CALIGO [DA GIUDICARE]: Affronta la paura di perdere. La runa **Thurisaz** indica una soglia che richiede coraggio, non esitazione.
+Il fuoco della forgiatura non teme l'ombra, la dissolve.
+
+Esprimi i tuoi timori e i tuoi desideri senza veli. Questo atto di verità aprirà un nuovo sentiero.
+
+✦ Scrivi un messaggio breve, sincero e diretto, invialo prima che la notte finisca.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'parlare con chiarezza' e 'pronunciare parole sincere', sviluppandolo con l'indicazione di affrontare la paura e specificando il metodo ('scrivi un messaggio') e il tempo ('prima che la notte finisca') in linea con il precedente 'questa sera'.
+[3] PERSONA: Scrivi un messaggio breve, sincero e diretto, invialo prima che la notte finisca.
+[3] CALIGO [DA GIUDICARE]: Il tuo gesto è compiuto. Il presagio della runa **Gebō** è un dono, non un'attesa.
+L'oro fuso prende forma, non si dissolve nel vuoto.
+
+Ora è il momento di ricevere la risposta, qualunque essa sia. La tua parte è stata onorata.
+
+✦ Prepara un piccolo spazio di calma, attendi il suo messaggio in silenzio, senza distrazioni.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita ('invia il messaggio') e ne sviluppa le conseguenze, indicando che il gesto è compiuto e che ora è il momento di attendere la risposta, fornendo un nuovo consiglio su come gestire l'attesa ('prepara uno spazio di calma').
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Non è ancora il momento di avviare il tuo progetto creativo, ma di preparare il terreno. La fase attuale del cielo indica una necessità di consolidamento prima di ogni nuovo inizio.
+
+Con la Luna in fase calante nel tuo cielo, l'energia è più adatta a concludere ciò che è sospeso e a riflettere sui dettagli, piuttosto che a lanciarsi in nuove iniziative. Prepara le fondamenta, affina l'idea, raccogli i materiali e metti a punto ogni piccolo particolare. Questo tempo di attesa non è un ritardo, ma una fase cruciale per garantire stabilità al tuo progetto quando sarà il momento di presentarlo al mondo.
+
+✦ Dedica il pomeriggio a stendere una lista dettagliata di tutti i passaggi necessari per il tuo progetto creativo.
+[2] PERSONA: Dedica il pomeriggio a stendere una lista dettagliata di tutti i passaggi necessari per il tuo progetto creativo.
+[2] MEDORA [DA GIUDICARE]: Hai fatto bene a dedicare il pomeriggio a questo compito prezioso, è un passo fondamentale per il tuo progetto. Ora che hai una chiara visione dei passaggi, concentrati sull'organizzazione di questi.
+
+Il cielo, con Mercurio in aspetto di quadratura a Saturno, suggerisce che la chiarezza e la struttura sono essenziali in questo momento. Organizza quella lista in una sequenza logica, stabilendo priorità e tempi approssimativi per ciascuna fase. Questo ti permetterà di visualizzare il percorso e di affrontare le sfide con maggiore consapevolezza.
+
+✦ Prendi la tua lista e assegna una priorità a ciascun passaggio, indicando con precisione quale precede l'altro.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita nella risposta precedente ('Hai fatto bene a dedicare il pomeriggio a questo compito prezioso') e la sviluppa, chiedendo di organizzare e prioritizzare la lista creata.
+[3] PERSONA: Prendi la tua lista e assegna una priorità a ciascun passaggio, indicando con precisione quale precede l'altro.
+[3] MEDORA [DA GIUDICARE]: È un passo saggio e necessario definire l'ordine dei tuoi passaggi, perché così dai forma al tuo cammino. Ora che hai chiarito questa sequenza, è tempo di valutare il tuo approccio.
+
+Con l'Arcano della Giustizia che ti accompagna, sei invitata a un esame lucido e imparziale. Valuta con onestà se le risorse a tua disposizione, sia materiali che di tempo, sono adeguate per la prima fase del progetto. È un momento per bilanciare le ambizioni con la realtà, senza fretta, ma con determinazione. Questo ti permetterà di agire con equilibrio quando sarà il momento.
+
+✦ Rivedi la prima fase della tua sequenza e segna sulla tua lista quali risorse specifiche ti servono per avviarla.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita nella risposta precedente ('È un passo saggio e necessario definire l'ordine dei tuoi passaggi') e la sviluppa, chiedendo di valutare le risorse per la prima fase del progetto.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, cerca un momento di quiete e lasciala parlare senza interrompere, accogliendo il suo sentire. Il tuo respiro ti accompagnerà, lento e profondo, mentre ascolti.
+
+Il centro del cuore, verde smeraldo, ti invita all'apertura e alla compassione. Non c'è un modo giusto o sbagliato per ricucire, c'è solo il desiderio di ritrovarsi. Ascolta attentamente ciò che ha da dire, anche se le sue parole ti sembrano dure. Poi, esprimi il tuo punto di vista con sincerità, senza accuse, raccontando come ti sei sentita. La fisiognomica ti suggerisce di osservare i suoi occhi: lì potrai leggere il riflesso della sua anima e il desiderio di un ponte, al di là delle parole.
+
+✦ Appoggia una mano sul cuore e senti il suo battito, lento.
+[2] PERSONA: Appoggia una mano sul cuore e senti il suo battito, lento.
+[2] AURA [DA GIUDICARE]: Ora che hai sentito il battito lento del tuo cuore, lascia che quel ritmo ti guidi. Quel respiro calmo è la tua radice, il punto da cui puoi partire per ogni parola che dirai a tua sorella.
+
+Con la calma che il tuo corpo ti ha offerto, prendi un pezzo di carta e scrivi a tua sorella una frase che racchiuda il tuo desiderio di riconciliazione. Non è una lettera lunga, ma un messaggio breve, un ponte. Non preoccuparti di trovare le parole perfette, ma lascia che parlino dal tuo centro, quello che hai appena sentito pulsare.
+
+✦ Chiudi gli occhi per un istante e visualizza il verde smeraldo del tuo cuore che si espande, portando pace.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita nel punto precedente ('Appoggia una mano sul cuore e senti il suo battito, lento') e la sviluppa, collegandola al respiro calmo e al punto di partenza per le parole da dire alla sorella.
+[3] PERSONA: Chiudi gli occhi per un istante e visualizza il verde smeraldo del tuo cuore che si espande, portando pace.
+[3] AURA [DA GIUDICARE]: Sentire il verde smeraldo del tuo cuore espandersi ti connette al centro dell'amore incondizionato e della guarigione. Questa immagine ti infonde una forza silenziosa, la stessa che ti servirà per il prossimo passo.
+
+Ora che hai visualizzato la pace, scegli un momento in cui puoi parlarle di persona. Non è un incontro per rinfacciare, ma per condividere quel desiderio di pace che hai sentito nel tuo cuore. Inizia la conversazione dicendole semplicemente che hai pensato a lei e che tieni al vostro legame. Questo è il momento di lasciare che il tuo respiro guidi le parole, con una cadenza calma e sincera.
+
+✦ Porta entrambe le mani al petto, intrecciando le dita, e senti il calore del contatto.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione suggerita nel punto precedente ('Chiudi gli occhi per un istante e visualizza il verde smeraldo del tuo cuore che si espande, portando pace') e la sviluppa, collegandola al centro dell'amore incondizionato e alla forza necessaria per il passo successivo.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 1

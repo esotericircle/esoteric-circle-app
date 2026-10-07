@@ -1,3 +1,4 @@
+import '../../core/chat/chat_message.dart';
 import '../../core/chat/il_filo_del_consulto.dart';
 import '../../core/chat/la_posizione_della_lettura.dart';
 import '../../core/chat/maestro_memory.dart';
@@ -488,6 +489,8 @@ class MaestroPersona {
     List<String> scrittoPrima = const [],
     String cieloDeiGiorni = '',
     String filo = '',
+    String domandaDelConsulto = '',
+    List<ChatMessage> storiaDelConsulto = const [],
   }) {
     final natalBlock = _natalContext(natal);
     final cioCheArriva = _cioCheArriva(natal);
@@ -620,7 +623,18 @@ class MaestroPersona {
           '${_alPostoDi(maestro)}.',
       // Ordine FE voce 17: solo dentro un consulto, accanto al controllo
       // delle parole. Senza consulto l'istruzione non cambia.
-      if (filo.isNotEmpty) ...['', LaLeggeDellaCoerenza.controlloFinale],
+      // Ordine FE, 7 ottobre 2026: mirato sul turno, col gesto del Maestro
+      // da tenere (`LaLeggeDellaCoerenza.controlloFinalePer`).
+      if (filo.isNotEmpty) ...[
+        '',
+        LaLeggeDellaCoerenza.controlloFinalePer(
+          domanda: domandaDelConsulto,
+          storia: storiaDelConsulto,
+          conAltri: IlFiloDelConsulto.scheda?.pareri
+                  .any((p) => p.maestro != maestro) ??
+              false,
+        ),
+      ],
       if (!seguito) ...['', LaRispostaNelMerito.primaDiScrivere],
       // IL SEGUITO, quando si sta scrivendo il seguito e non la prima
       // risposta, per ultimo. Il modello riceve cio' che ha gia' detto,

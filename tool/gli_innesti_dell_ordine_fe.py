@@ -478,7 +478,7 @@ INNESTI = [
      '        tornaAlTema(domanda) && false;',
      'flutter test test/la_rete_della_coerenza_test.dart -r expanded',
      'anche con un Maestro solo'),
-    ('A87', 'FE.16', 'lib/core/chat/la_rete_della_coerenza.dart',
+    ('A87', 'FE.16', 'lib/core/chat/il_filo_del_consulto.dart',
      '''torn(iamo|o|ando|are|ate)\\s+all['’]"''',
      '''torn(iamo|o|ando|are|ate)\\s+allX"''',
      'flutter test test/la_rete_della_coerenza_test.dart -r expanded',

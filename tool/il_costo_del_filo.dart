@@ -309,6 +309,8 @@ Future<_Esito> _chiama(
       for (final m in storia)
         if (m.isMaestro) m.text
     ],
+    domandaDelConsulto: domanda,
+    storiaDelConsulto: storia,
     filo: filo,
   );
   final misura = MisuraDellaRisposta.perIlTurno(nelLive: false);

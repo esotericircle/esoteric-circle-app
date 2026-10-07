@@ -387,6 +387,19 @@ abstract final class LaLeggeDellaCoerenza {
   /// frasi nette: va accanto al controllo finale, che e' l'ultima cosa che
   /// il modello legge (memoria del progetto: l'istruzione in conflitto
   /// vince solo accanto alla regola).
+  ///
+  /// **MIRATO DAL 7 OTTOBRE 2026, ordine FE**, a costo zero. Al banco del
+  /// filo sul commit 297da8e7 il percorso A e' sceso a 6 su 10 (docs/collaudo/
+  /// banchi_col_modello/filo/2026-10-07T0211/percorso_a.txt): Medora diceva
+  /// "presentalo mercoledì" e alla domanda dopo "fissa un appuntamento per
+  /// la prossima settimana"; a "E se le cose non vanno come speri?" tre
+  /// risposte su dieci davano una consolazione generica. La regola c'era,
+  /// ma generica e uguale a ogni turno: il modello non sapeva QUALE gesto
+  /// tenere. Adesso il controllo porta il gesto vero del Maestro in questo
+  /// consulto ([ilTuoGesto], dalla storia, senza chiamate), e le frasi che
+  /// servono a un turno solo (l'esito non sperato, l'altro Maestro)
+  /// partono solo in quel turno: i token risparmiati pagano la riga del
+  /// gesto. Il fondatore, 7 ottobre 2026: nessun aumento di costo.
   static const String controlloFinale = 'ULTIMO CONTROLLO DEL CONSULTO: '
       'rileggi i punti fermi. La tua risposta non dice un tempo, una fase '
       'del cielo o una risposta diversi da quelli già dati senza dirlo: un '
@@ -395,11 +408,105 @@ abstract final class LaLeggeDellaCoerenza {
       'gesto già consigliato: il mezzo (scrivere, chiamare, parlare di '
       'persona) e l’oggetto (il sigillo, la lettera, il dono) restano quelli; '
       'se ne aggiungi un altro lo presenti come il passo dopo, se lo cambi '
-      'dici perché. Se la persona chiede che cosa fare se l’esito non è '
-      'quello sperato, rispondi dal passo già dato: cosa fa dopo quel passo '
-      'se va diversamente, non una consolazione generica. Se '
-      'un altro Maestro ha parlato e tu leggi diversamente, la riga col suo '
-      'nome lo dice con «io leggo diversamente» e il perché.';
+      'dici perché.';
+
+  /// Il controllo finale per il turno: [controlloFinale], il gesto del
+  /// Maestro da tenere, e le frasi del turno che le chiede.
+  static String controlloFinalePer({
+    String domanda = '',
+    List<ChatMessage> storia = const [],
+    bool conAltri = false,
+  }) {
+    final gesto = ilTuoGesto(domanda, storia);
+    final b = StringBuffer(controlloFinale);
+    if (gesto != null) {
+      b.write(' Il tuo gesto in questo consulto è «$gesto»: il suo tempo e '
+          'il suo mezzo restano quelli, la risposta parte da lì.');
+    }
+    if (chiedeSeVaMale(domanda)) {
+      b.write(' La persona chiede che cosa fare se l’esito non è quello '
+          'sperato: rispondi dal ${gesto == null ? 'passo già dato' : 'tuo '
+              'gesto'}, cosa fa dopo se va diversamente, non una '
+          'consolazione generica.');
+    }
+    if (conAltri) {
+      b.write(' Se un altro Maestro ha parlato e tu leggi diversamente, la '
+          'riga col suo nome lo dice con «io leggo diversamente» e il '
+          'perché.');
+    }
+    return b.toString();
+  }
+
+  /// Le parole con cui la persona cambia discorso.
+  static final RegExp _cambio = RegExp(
+      r'(?<![A-Za-zÀ-ÿ])(cambi(ando|o|amo) (discorso|argomento|tema)'
+      r"|un['’]altra (cosa|domanda)|parliamo d['’]altro)(?![A-Za-zÀ-ÿ])",
+      caseSensitive: false);
+
+  /// Se la [domanda] cambia discorso.
+  static bool cambiaDiscorso(String domanda) => _cambio.hasMatch(domanda);
+
+  /// Le parole con cui la persona torna a un tema gia' toccato nel
+  /// consulto. I confini sono scritti a mano: in Dart `\b` non vede le
+  /// lettere accentate. Ordine FE, 7 ottobre 2026: vedi
+  /// [LaReteDellaCoerenza.serve].
+  static final RegExp _ritorno = RegExp(
+      r"(?<![A-Za-zÀ-ÿ])torn(iamo|o|ando|are|ate)\s+all['’]"
+      r'|(?<![A-Za-zÀ-ÿ])(torn(iamo|o|ando|are|ate)\s+(a|al|alla|allo|ai'
+      r'|agli|alle|su|sul|sulla|sullo|sui|sugli|sulle|indietro)'
+      r'|ripren(diamo|do|dendo)|riprendere'
+      r'|prima domanda|domanda di prima|discorso di prima|tema di prima'
+      r'|come dicevi|come mi dicevi|come dicevamo|dicevamo prima'
+      r'|di cui parlavamo|quello che mi hai detto)(?![A-Za-zÀ-ÿ])',
+      caseSensitive: false);
+
+  /// Se la [domanda] torna a un tema gia' toccato nel consulto.
+  static bool tornaAlTema(String domanda) => _ritorno.hasMatch(domanda);
+
+  /// Le parole di chi chiede che cosa fare se l'esito non arriva.
+  static final RegExp _seVaMale = RegExp(
+      r'(?<![A-Za-zÀ-ÿ])(se (le cose |tutto |questo |lui |lei )?non '
+      r'(va|vanno|andrà|andranno|funziona|funzionerà|succede|arriva|accade'
+      r'|riesco|riesce|risponde|dovesse)'
+      r'|se (va|andasse|andrà|dovesse andare) (male|diversamente|storto)'
+      r'|se (fallisco|fallisce|mi dice di no|dice di no)'
+      r'|e se no|altrimenti)(?![A-Za-zÀ-ÿ])',
+      caseSensitive: false);
+
+  /// Se la [domanda] chiede che cosa fare se l'esito non e' quello sperato.
+  static bool chiedeSeVaMale(String domanda) => _seVaMale.hasMatch(domanda);
+
+  /// **IL GESTO DA TENERE**: la riga col consiglio dell'ultima risposta del
+  /// Maestro nella [storia] che il modello riceve, sullo stesso tema della
+  /// [domanda]. Nullo se la domanda cambia discorso o se non c'e' un gesto.
+  /// Se la domanda torna al tema di prima, il gesto e' quello dato prima
+  /// del cambio di discorso.
+  static String? ilTuoGesto(String domanda, List<ChatMessage> storia) {
+    if (cambiaDiscorso(domanda)) return null;
+    final coppie = <(String, String)>[];
+    String? chiesto;
+    for (final m in storia) {
+      if (m.isUser) {
+        chiesto = m.text;
+      } else if (m.isMaestro && chiesto != null) {
+        coppie.add((chiesto, m.text));
+        chiesto = null;
+      }
+    }
+    if (coppie.isEmpty) return null;
+    var fine = coppie.length;
+    if (tornaAlTema(domanda)) {
+      final cambio = coppie.lastIndexWhere((c) => cambiaDiscorso(c.$1));
+      if (cambio > 0) fine = cambio;
+    }
+    final riga = ConsiglioFinale.sintesiDa(coppie[fine - 1].$2)
+        ?.replaceAll(ConsiglioFinale.stella, '')
+        .trim();
+    if (riga == null || riga.isEmpty) return null;
+    return riga.length > 200
+        ? '${riga.substring(0, 197).trimRight()}...'
+        : riga;
+  }
 
   static String laFraseRipresa(String frase) => 'LA PERSONA RIPRENDE UNA '
       'TUA FRASE: «$frase». Non è una domanda nuova: è la continuazione '

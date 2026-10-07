@@ -219,4 +219,118 @@ void main() {
     expect(c, contains('IlFiloDelConsulto.annota('),
         reason: 'i turni non entrano nel filo');
   });
+  // **IL CONTROLLO FINALE MIRATO**, ordine FE del 7 ottobre 2026. Al banco
+  // del filo sul commit 297da8e7 Medora spostava "mercoledì" a "la
+  // prossima settimana" e a "E se le cose non vanno come speri?" tre
+  // risposte su dieci consolavano e basta. Il controllo porta il gesto vero
+  // da tenere, e il fondatore non accetta aumenti di costo.
+  group('il controllo finale mirato', () {
+    const gestoDiMedora = '✦ Prepara un piccolo riassunto dei tuoi successi '
+        'recenti e presentalo al tuo superiore nella giornata di mercoledì.';
+    const promozione = [
+      ChatMessage(role: ChatRole.user, text: 'Riceverò la promozione?'),
+      ChatMessage(
+          role: ChatRole.maestro,
+          text: 'Il tuo cielo pende verso la promozione.\n\n$gestoDiMedora',
+          autore: Maestro.medora),
+    ];
+    const conIlCristallo = [
+      ...promozione,
+      ChatMessage(
+          role: ChatRole.user,
+          text: 'Cambiando discorso: che cristallo mi consigli per dormire?'),
+      ChatMessage(
+          role: ChatRole.maestro,
+          text: 'Non è la mia arte.\n\n✦ Guarda la Luna stasera.',
+          autore: Maestro.medora),
+    ];
+
+    test('porta il gesto vero del Maestro, e lo sceglie sul tema giusto', () {
+      expect(
+          LaLeggeDellaCoerenza.controlloFinalePer(
+              domanda: 'E in pratica, cosa faccio questa settimana?',
+              storia: promozione),
+          contains('«Prepara un piccolo riassunto dei tuoi successi recenti '
+              'e presentalo al tuo superiore nella giornata di mercoledì.»'),
+          reason: 'il controllo non dice quale gesto tenere: e\' la regola '
+              'generica che al banco non bastava');
+      expect(
+          LaLeggeDellaCoerenza.ilTuoGesto(
+              'Torniamo alla mia prima domanda. Cosa mi consigli?',
+              conIlCristallo),
+          contains('mercoledì'),
+          reason: 'tornando al tema il gesto da tenere e\' quello di prima '
+              'del cambio di discorso, non quello del cristallo');
+      expect(
+          LaLeggeDellaCoerenza.ilTuoGesto(
+              'E quante volte a settimana?', conIlCristallo),
+          'Guarda la Luna stasera.',
+          reason: 'dopo il cambio di discorso il tema e\' quello nuovo');
+      expect(
+          LaLeggeDellaCoerenza.ilTuoGesto(
+              'Cambiando discorso: e il mio cane?', conIlCristallo),
+          isNull,
+          reason: 'su un tema nuovo non c\'e\' un gesto da tenere');
+    });
+
+    test('le frasi di un turno solo partono solo in quel turno', () {
+      final semplice = LaLeggeDellaCoerenza.controlloFinalePer(
+          domanda: 'E in pratica, cosa faccio?', storia: promozione);
+      expect(semplice, isNot(contains('non una consolazione generica')));
+      expect(semplice, isNot(contains('io leggo diversamente')));
+      final seVaMale = LaLeggeDellaCoerenza.controlloFinalePer(
+          domanda: 'E se le cose non vanno come speri?', storia: promozione);
+      expect(seVaMale, contains('non una consolazione generica'),
+          reason: 'chi chiede cosa fare se va male non riceve la regola');
+      expect(seVaMale, contains('rispondi dal tuo gesto'));
+      expect(
+          LaLeggeDellaCoerenza.controlloFinalePer(
+              domanda: 'E tu cosa ne pensi?', conAltri: true),
+          contains('io leggo diversamente'));
+      for (final d in [
+        'E se le cose non vanno come speri?',
+        'E se non funziona?',
+        'Se va male cosa faccio?',
+        'E se mi dice di no?',
+      ]) {
+        expect(LaLeggeDellaCoerenza.chiedeSeVaMale(d), isTrue, reason: d);
+      }
+      for (final d in [
+        'E in pratica, cosa faccio questa settimana?',
+        'Se vado a Roma va bene?',
+        'Non va bene il lunedì?',
+      ]) {
+        expect(LaLeggeDellaCoerenza.chiedeSeVaMale(d), isFalse, reason: d);
+      }
+    });
+
+    test('nessun aumento di costo: il controllo non e\' piu\' lungo di prima',
+        () {
+      // **LAPIDE**: il controllo finale fino al 6 ottobre 2026, uguale a
+      // ogni turno di ogni consulto. Il fondatore, 7 ottobre 2026: nessun
+      // aumento di costo.
+      const diPrima = 'ULTIMO CONTROLLO DEL CONSULTO: '
+          'rileggi i punti fermi. La tua risposta non dice un tempo, una fase '
+          'del cielo o una risposta diversi da quelli già dati senza dirlo: '
+          'un tempo già indicato («entro la fine del mese», «stasera») resta '
+          'quello, non lo anticipi e non lo sposti senza dire perché. Lo '
+          'stesso per il gesto già consigliato: il mezzo (scrivere, chiamare, '
+          'parlare di persona) e l’oggetto (il sigillo, la lettera, il dono) '
+          'restano quelli; se ne aggiungi un altro lo presenti come il passo '
+          'dopo, se lo cambi dici perché. Se la persona chiede che cosa fare '
+          'se l’esito non è quello sperato, rispondi dal passo già dato: cosa '
+          'fa dopo quel passo se va diversamente, non una consolazione '
+          'generica. Se un altro Maestro ha parlato e tu leggi diversamente, '
+          'la riga col suo nome lo dice con «io leggo diversamente» e il '
+          'perché.';
+      final conGesto = LaLeggeDellaCoerenza.controlloFinalePer(
+          domanda: 'E in pratica, cosa faccio questa settimana?',
+          storia: promozione);
+      print('ORDINE FE, il controllo finale: prima ${diPrima.length} '
+          'caratteri a ogni turno, adesso ${conGesto.length} col gesto di '
+          'Medora');
+      expect(conGesto.length, lessThanOrEqualTo(diPrima.length),
+          reason: 'il controllo col gesto costa piu\' di quello di prima');
+    });
+  });
 }

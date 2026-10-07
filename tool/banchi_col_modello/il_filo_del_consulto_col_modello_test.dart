@@ -287,6 +287,8 @@ class _Giro {
             FirebaseMaestroAiProvider.scrittoPrimaDellaFinestra(storia),
         // Come il provider dall'ordine FE voce 11: la frase si cerca in
         // tutto il consulto, non nella sola ultima risposta.
+        domandaDelConsulto: domanda,
+        storiaDelConsulto: finestra,
         filo: IlFiloDelConsulto.bloccoPer(chi,
             storia: finestra,
             fraseRipresa: LaFraseRipresa.fraTutte(

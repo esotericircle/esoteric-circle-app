@@ -231,6 +231,13 @@ class FirebaseMaestroAiProvider
       scrittoPrima: conIlRiassunto
           ? scrittoPrimaDellaFinestra(history, finestra: finestraDellaStoria)
           : const [],
+      // Ordine FE, 7 ottobre 2026: il controllo finale del consulto porta
+      // il gesto del Maestro da tenere, letto dalla storia che il modello
+      // riceve.
+      domandaDelConsulto: laDomanda,
+      storiaDelConsulto: history.length > finestraDellaStoria
+          ? history.sublist(history.length - finestraDellaStoria)
+          : history,
       // **IL FILO DEL CONSULTO. Ordine FE voci 08-14.** La scheda dei punti
       // fermi dalla memoria unica, e la frase del Maestro che la persona
       // riprende, se la riprende.
