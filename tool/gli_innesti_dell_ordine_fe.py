@@ -553,11 +553,6 @@ INNESTI = [
      'flutter test test/ask_maestri_test.dart -r expanded',
      'i nomi come la persona li legge'),
     # FE.17, 7 ottobre 2026: l'elemento gia' uscito resta quello.
-    ('A102', 'FE.17', 'lib/features/maestri/chat/maestro_chat_controller.dart',
-     '      if (cambiato != null) {',
-     '      if (cambiato != null && false) {',
-     'flutter test test/il_filo_del_consulto_test.dart -r expanded',
-     'la runa o la carta cambiata'),
     ('A103', 'FE.17', 'lib/core/chat/il_filo_del_consulto.dart',
      '        for (final m in _laRuna.allMatches(testo)) m.group(1)!,',
      '        for (final m in _laRuna.allMatches(testo).take(0)) m.group(1)!,',
@@ -574,12 +569,26 @@ INNESTI = [
      "      r'(?<![A-Za-zÀ-ÿ])(nonX (è )?ancora|tra (dueX|tre|quattro|cinque|qualche'",
      'flutter test test/il_filo_del_consulto_test.dart -r expanded',
      'il tempo dato prima arriva nel controllo'),
-    # FE.17, 7 ottobre 2026: la correzione dell'elemento porta il gesto.
-    ('A106', 'FE.17', 'lib/core/chat/il_filo_del_consulto.dart',
-     "      gesto: ilTuoGesto(domanda, storia),",
-     "      gesto: null,",
+    # FE.17, 7 ottobre 2026, decisione del fondatore: l'elemento si
+    # previene (per nome nel controllo finale) e si conta al banco, non si
+    # corregge. A102 e A106 sorvegliavano la rete tolta.
+    ('A107', 'FE.17', 'lib/core/chat/il_filo_del_consulto.dart',
+     '    if (elementi.isNotEmpty) {',
+     '    if (elementi.isNotEmpty && false) {',
      'flutter test test/il_filo_del_consulto_test.dart -r expanded',
-     'la runa o la carta cambiata'),
+     'la runa o la carta cambiata si conta'),
+    ('A108', 'FE.17', 'lib/features/maestri/chat/maestro_chat_controller.dart',
+     '      // .controlloFinalePer]), e il banco del filo conta i cambi.',
+     '      // .controlloFinalePer]), e il banco del filo conta i cambi.\n'
+     '      LaLeggeDellaCoerenza.elementoCambiato(\n'
+     '          domanda: userText, risposta: reply, storia: priorHistory);',
+     'flutter test test/il_filo_del_consulto_test.dart -r expanded',
+     'la runa o la carta cambiata si conta'),
+    ('A109', 'FE.17', 'tool/banchi_col_modello/il_filo_del_consulto_col_modello_test.dart',
+     "          ', elemento cambiato in $cambiati risposte su '",
+     "          ', elementi $cambiati su '",
+     'flutter test test/il_filo_del_consulto_test.dart -r expanded',
+     'la runa o la carta cambiata si conta'),
     # FE.22.3, prova a) alla lettera: nessun "Custodisci" mostrato.
     ('A83', 'FE.22.3', 'lib/features/account/account_screen.dart',
      "            title: 'Metti al sicuro il tuo cielo',",

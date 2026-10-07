@@ -2330,29 +2330,12 @@ class MaestroChatController extends ChangeNotifier {
           ),
         ));
       }
-      // **L'ELEMENTO GIA' USCITO RESTA QUELLO. Ordine FE, 7 ottobre 2026.**
-      // Se la risposta estrae una runa o una carta diversa da quella gia'
-      // uscita sullo stesso tema, si corregge corta. Vedi
-      // [LaLeggeDellaCoerenza.elementoCambiato].
-      final cambiato = LaLeggeDellaCoerenza.elementoCambiato(
-          domanda: userText, risposta: reply, storia: priorHistory);
-      if (cambiato != null) {
-        final laCorrezione =
-            LaLeggeDellaCoerenza.correzioneDellElemento(cambiato);
-        reply = LaRispostaCheChiede.senzaIlMarcatore(await _correggiCorto(
-          chi: chiRisponde,
-          domanda: userText,
-          risposta: reply,
-          correzione: laCorrezione,
-          allaVecchia: () => _chiediAlMaestro(
-            chi: chiRisponde,
-            storia: priorHistory,
-            domanda: userText,
-            natal: natal,
-            correzione: laCorrezione,
-          ),
-        ));
-      }
+      // **L'ELEMENTO GIA' USCITO NON SI CORREGGE QUI: SI PREVIENE.**
+      // Decisione del fondatore del 7 ottobre 2026: la rete che correggeva
+      // la runa o la carta cambiata e' stata tolta, perche' le risposte che
+      // correggeva erano bocciate piu' spesso delle altre. L'elemento arriva
+      // per nome nel controllo finale ([LaLeggeDellaCoerenza
+      // .controlloFinalePer]), e il banco del filo conta i cambi.
       // **LA RETE DELLA COERENZA. Ordine FE voci 10 e 17.** Quando il
       // consulto ha punti fermi, si chiede se la risposta ne contraddice
       // uno senza dirlo; se si', si corregge corta come per le altre reti.

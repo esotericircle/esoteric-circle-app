@@ -178,13 +178,21 @@ void main() {
         }
       }
       final quota = giudicate == 0 ? 0.0 : portaAvanti / giudicate;
+      final conElemento = [
+        for (final c in consulti)
+          for (final t in c)
+            if (t.conElemento) t
+      ];
+      final cambiati = conElemento.where((t) => t.cambiaLElemento).length;
       final riepilogo = 'ORDINE FE VOCE 17, percorso '
           '${percorso.name.toUpperCase()}: giudicate $giudicate, porta '
           'avanti $portaAvanti, ignora $ignora, contraddice $contraddice, '
           'quota ${(quota * 100).toStringAsFixed(0)} per cento'
           '${percorso == _Percorso.b ? ', nominano tutti i Maestri di prima '
               'in $nominano risposte su $secondi' : ''}'
-          ', corrette dalla rete della coerenza ${conto.correzioni}';
+          ', corrette dalla rete della coerenza ${conto.correzioni}'
+          ', elemento cambiato in $cambiati risposte su '
+          '${conElemento.length} con un elemento gia\' uscito';
       // ignore: avoid_print
       print(riepilogo);
       testo.writeln(riepilogo);
@@ -242,7 +250,11 @@ enum _Percorso {
 
 class _Turno {
   _Turno(this.maestro, this.domanda, this.risposta,
-      {this.daGiudicare = false, this.nelLive = false, this.corretta = false});
+      {this.daGiudicare = false,
+      this.nelLive = false,
+      this.corretta = false,
+      this.conElemento = false,
+      this.cambiaLElemento = false});
   final Maestro maestro;
   final String domanda;
   final String risposta;
@@ -252,6 +264,12 @@ class _Turno {
   /// Corretta dalla rete della coerenza: si scrive nel resoconto, mai nel
   /// consulto che legge il giudice.
   final bool corretta;
+
+  /// La risposta di prima sullo stesso tema aveva una runa o una carta.
+  final bool conElemento;
+
+  /// Questa risposta ne cita una diversa, senza rileggere quella di prima.
+  final bool cambiaLElemento;
 }
 
 class _Giro {
@@ -336,28 +354,16 @@ class _Giro {
           conto: conto,
         ));
       }
-      // **L'ELEMENTO GIA' USCITO RESTA QUELLO, come nel controllore.**
-      // Ordine FE, 7 ottobre 2026.
-      final cambiato = LaLeggeDellaCoerenza.elementoCambiato(
-          domanda: domanda, risposta: risposta, storia: storia);
-      if (cambiato != null) {
-        conto.correzioni++;
-        corretta = true;
-        risposta = LaRispostaCheChiede.senzaIlMarcatore(await _vertex(
-          modello: FirebaseMaestroAiProvider.kMaestroChatModel,
-          istruzione: MaestroPersona.istruzioneDellaCorrezione(
-            maestro: chi,
-            profile: UserProfile.empty,
-            correzione: LaLeggeDellaCoerenza.correzioneDellElemento(cambiato),
-            nelLive: nelLive,
-          ),
-          storia: const [],
-          domanda: 'LA DOMANDA DELLA PERSONA:\n$domanda\n\n'
-              'LA TUA RISPOSTA DA CORREGGERE:\n$risposta',
-          misura: MisuraDellaRisposta.perIlTurno(nelLive: nelLive),
-          conto: conto,
-        ));
-      }
+      // **L'ELEMENTO CAMBIATO SI CONTA, NON SI CORREGGE.** Decisione del
+      // fondatore del 7 ottobre 2026: la rete che lo correggeva e' tolta, e
+      // la misura resta. Si guarda la risposta del Maestro prima delle
+      // altre reti: e' quella che dice se la prevenzione funziona.
+      final prima = LaLeggeDellaCoerenza.laRispostaSulTema(domanda, storia);
+      final conElemento =
+          prima != null && LaLeggeDellaCoerenza.elementiIn(prima).isNotEmpty;
+      final cambiaLElemento = LaLeggeDellaCoerenza.elementoCambiato(
+              domanda: domanda, risposta: risposta, storia: storia) !=
+          null;
       // **LA RETE DELLA COERENZA, come nel controllore.** Ordine FE voci 10
       // e 17: la stessa funzione di `lib`, con Flash-Lite e la correzione
       // corta del provider (`correggi`).
@@ -404,7 +410,11 @@ class _Giro {
       IlFiloDelConsulto.annota(
           maestro: chi, domanda: domanda, risposta: risposta);
       turni.add(_Turno(chi, domanda, risposta,
-          daGiudicare: giudica, nelLive: nelLive, corretta: corretta));
+          daGiudicare: giudica,
+          nelLive: nelLive,
+          corretta: corretta,
+          conElemento: conElemento,
+          cambiaLElemento: cambiaLElemento));
       ora = ora.add(const Duration(minutes: 2));
       return risposta;
     }

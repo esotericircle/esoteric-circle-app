@@ -357,13 +357,15 @@ void main() {
       // tetti (ordine FE, 7 ottobre 2026: il tempo entra nel controllo).
       final lungo = 'Scrivi ${'una parola ' * 40}'.trim();
       final rinvio = 'Non è ancora il momento ${'di una cosa ' * 20}'.trim();
+      // E l'elemento uscito per nome, dal 7 ottobre 2026.
+      const carte = 'L\'Arcano della Forza e il Due di Coppe.';
       final peggiore = LaLeggeDellaCoerenza.controlloFinalePer(
           domanda: 'E in pratica?',
           storia: [
             const ChatMessage(role: ChatRole.user, text: 'Devo partire?'),
             ChatMessage(
                 role: ChatRole.maestro,
-                text: '$rinvio.\n\n✦ $lungo',
+                text: '$rinvio. $carte\n\n✦ $lungo',
                 autore: Maestro.medora),
           ]);
       print('ORDINE FE, il controllo finale: prima ${diPrima.length} '
@@ -417,7 +419,11 @@ void main() {
 
     // **L'ELEMENTO GIA' USCITO RESTA QUELLO**, ordine FE del 7 ottobre 2026:
     // al giro finale dei banchi Calìgo ha estratto Nauthiz al posto di Isa.
-    test('la runa o la carta cambiata si riconosce, e corregge', () {
+    // **SI PREVIENE, NON SI CORREGGE**, decisione del fondatore dello stesso
+    // giorno: la rete che correggeva e' tolta (le risposte corrette erano
+    // bocciate nel 27 per cento dei casi contro il 6), l'elemento arriva per
+    // nome nel controllo finale, e il banco conta i cambi.
+    test('la runa o la carta cambiata si conta, e si previene', () {
       const relazione = [
         ChatMessage(
             role: ChatRole.user,
@@ -438,15 +444,12 @@ void main() {
           reason: 'Calìgo cambia la runa del consulto e nessuno lo vede');
       expect(c!.prima, {'Isa'});
       expect(c.adesso, {'Nauthiz'});
-      expect(LaLeggeDellaCoerenza.correzioneDellElemento(c),
-          contains('È GIÀ USCITO Isa'));
-      // Chi riscrive riceve il gesto di prima per nome: senza, Calìgo
-      // cambiava il mezzo (filo/2026-10-07T1459 e 1506, percorso D).
       expect(
-          LaLeggeDellaCoerenza.correzioneDellElemento(c),
-          contains('«Dì una parola che non hai mai avuto il coraggio di '
-              'dire, entro domani.»'),
-          reason: 'la correzione non sa qual era il gesto e lo cambia');
+          LaLeggeDellaCoerenza.controlloFinalePer(
+              domanda: 'E cosa devo evitare?', storia: relazione),
+          contains('L’elemento uscito qui è Isa: lo rileggi'),
+          reason: 'il Maestro non sa quale runa e\' uscita e ne estrae '
+              'un\'altra: si previene dicendogliela');
       expect(
           LaLeggeDellaCoerenza.elementoCambiato(
               domanda: 'E cosa devo evitare?',
@@ -483,18 +486,14 @@ void main() {
       final controllore =
           File('lib/features/maestri/chat/maestro_chat_controller.dart')
               .readAsStringSync();
-      expect(
-          RegExp(r'LaLeggeDellaCoerenza\.elementoCambiato\([^;]*;\s*'
-                  r'if \(cambiato != null\) \{\s*final laCorrezione =\s*'
-                  r'LaLeggeDellaCoerenza\.correzioneDellElemento\(cambiato\)')
-              .hasMatch(controllore),
-          isTrue,
-          reason: 'il turno della chat non corregge l\'elemento cambiato');
+      expect(controllore, isNot(contains('elementoCambiato(')),
+          reason: 'il turno della chat corregge di nuovo l\'elemento: la '
+              'rete e\' stata tolta perche\' peggiorava le risposte');
       final banco = File('tool/banchi_col_modello/'
               'il_filo_del_consulto_col_modello_test.dart')
           .readAsStringSync();
-      expect(banco, contains('LaLeggeDellaCoerenza.elementoCambiato('),
-          reason: 'il banco del filo non misura cio\' che fa l\'app');
+      expect(banco, contains('elemento cambiato in \$cambiati risposte su '),
+          reason: 'il banco del filo non conta piu\' i cambi di elemento');
     });
 
     // **IL TEMPO GIA' DATO**, ordine FE del 7 ottobre 2026: cinque

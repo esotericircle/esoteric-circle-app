@@ -341,14 +341,9 @@ abstract final class IlFiloDelConsulto {
   }
 }
 
-/// Una runa o una carta cambiata nel consulto, col gesto e il tempo di
-/// prima da tenere.
-typedef ElementoCambiato = ({
-  Set<String> prima,
-  Set<String> adesso,
-  String? gesto,
-  String? tempo,
-});
+/// Una runa o una carta cambiata nel consulto: quella di prima e quella
+/// nuova.
+typedef ElementoCambiato = ({Set<String> prima, Set<String> adesso});
 
 /// **LA LEGGE DELLA COERENZA, IN UN PUNTO SOLO. Ordine FE voci 10, 11 e 14.**
 /// Tutte le strade che portano una domanda a un Maestro la ricevono da qui,
@@ -440,6 +435,15 @@ abstract final class LaLeggeDellaCoerenza {
     // lascia il posto, e il controllo non pesa piu' di prima.
     final b = StringBuffer(
         gesto == null && tempo == null ? controlloFinale : controlloCorto);
+    final elementi = laRispostaSulTema(domanda, storia) == null
+        ? const <String>{}
+        : elementiIn(laRispostaSulTema(domanda, storia)!);
+    if (elementi.isNotEmpty) {
+      // **L'ELEMENTO GIA' USCITO, PER NOME. Ordine FE, 7 ottobre 2026**:
+      // si previene invece di correggere (vedi [elementoCambiato]).
+      b.write(' L’elemento uscito qui è ${elementi.join(' e ')}: lo '
+          'rileggi, non ne estrai un altro.');
+    }
     if (tempo != null) {
       // **IL TEMPO GIA' DATO. Ordine FE, 7 ottobre 2026.** Nei giri del
       // filo sul commit 23c69756 (filo/2026-10-07T1345) e prima, cinque
@@ -576,8 +580,18 @@ abstract final class LaLeggeDellaCoerenza {
   /// che sono parole che l'italiano non ha; le carte solo nella forma in cui
   /// i Maestri le scrivono ("l'Arcano della Forza", "la lama del Carro", "il
   /// Sette di Spade"), perche' "il Sole" e "la Luna" sono anche il cielo di
-  /// Medora. Solo quando cambia, la risposta si corregge: nessuna chiamata
-  /// negli altri turni.
+  /// Medora.
+  ///
+  /// **SI PREVIENE, NON SI CORREGGE. Decisione del fondatore del 7 ottobre
+  /// 2026.** Fino al commit ee7da9a0 una rete correggeva corta la risposta
+  /// che cambiava l'elemento. Misurata su 11 giri del filo
+  /// (filo/2026-10-07T1325-1836, percorsi col Maestro solo): le risposte che
+  /// correggeva venivano bocciate dal giudice nel 27 per cento dei casi
+  /// contro il 6 delle altre, le contraddizioni medie non scendevano (2,2
+  /// su 60 contro 2,4) e il costo saliva. Tolta: l'elemento uscito arriva
+  /// per nome nel controllo finale ([controlloFinalePer]), e questa
+  /// funzione serve solo a contare, al banco del filo, quante risposte lo
+  /// cambiano ancora.
   static final RegExp _laRuna = RegExp(
       '(?<![A-Za-zÀ-ÿ])(${[for (final r in kElderFuthark) r.name].join('|')})'
       r'(?![A-Za-zÀ-ÿ])');
@@ -608,32 +622,8 @@ abstract final class LaLeggeDellaCoerenza {
     final diAdesso = elementiIn(risposta);
     if (diPrima.isEmpty || diAdesso.isEmpty) return null;
     if (diAdesso.any(diPrima.contains)) return null;
-    return (
-      prima: diPrima,
-      adesso: diAdesso,
-      gesto: ilTuoGesto(domanda, storia),
-      tempo: ilTuoTempo(domanda, storia),
-    );
+    return (prima: diPrima, adesso: diAdesso);
   }
-
-  /// La correzione per l'elemento cambiato.
-  ///
-  /// **Porta il gesto e il tempo di prima per nome**, ordine FE del 7
-  /// ottobre 2026: la correzione corta riceve solo la domanda e la
-  /// risposta, e nei giri del filo su f82c52bd (filo/2026-10-07T1459 e
-  /// 1506, percorso D) Calìgo, riscrivendo, cambiava il mezzo: "parla
-  /// stasera" diventava "scrivi un messaggio domani", "lascia la lettera
-  /// sulla soglia" diventava "cercala senza messaggi scritti".
-  static String correzioneDellElemento(ElementoCambiato c) =>
-      'IN QUESTO CONSULTO È GIÀ USCITO ${c.prima.join(' e ')}: non ne '
-      'estrai un altro (hai scritto ${c.adesso.join(' e ')}). Riscrivi la '
-      'risposta rileggendo ${c.prima.join(' e ')} con lo stesso senso di '
-      'prima. Il consiglio, il gesto e il tempo già dati restano quelli'
-      '${c.gesto == null ? '' : ' (il gesto: «${c.gesto}»)'}'
-      '${c.tempo == null ? '' : ' (il tempo: «${c.tempo}»)'}: non li '
-      'anticipi, non cambi il mezzo e non dai per fatto un passo che la '
-      'persona non ha detto di aver fatto. Tutto il resto della risposta '
-      'resta com’è.';
 
   /// Le parole di un tempo che rimanda: un giorno, una fase della Luna, un
   /// "non ancora", un'attesa.
