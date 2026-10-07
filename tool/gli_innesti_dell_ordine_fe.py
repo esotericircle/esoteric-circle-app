@@ -552,6 +552,17 @@ INNESTI = [
      "      RegExp(r'(?<![A-Za-zÀ-ÿ])CaligoX(?![A-Za-zÀ-ÿ])'),",
      'flutter test test/ask_maestri_test.dart -r expanded',
      'i nomi come la persona li legge'),
+    # FE.17, 7 ottobre 2026: l'elemento gia' uscito resta quello.
+    ('A102', 'FE.17', 'lib/features/maestri/chat/maestro_chat_controller.dart',
+     '      if (cambiato != null) {',
+     '      if (cambiato != null && false) {',
+     'flutter test test/il_filo_del_consulto_test.dart -r expanded',
+     'la runa o la carta cambiata'),
+    ('A103', 'FE.17', 'lib/core/chat/il_filo_del_consulto.dart',
+     '        for (final m in _laRuna.allMatches(testo)) m.group(1)!,',
+     '        for (final m in _laRuna.allMatches(testo).take(0)) m.group(1)!,',
+     'flutter test test/il_filo_del_consulto_test.dart -r expanded',
+     'la runa o la carta cambiata'),
     # FE.22.3, prova a) alla lettera: nessun "Custodisci" mostrato.
     ('A83', 'FE.22.3', 'lib/features/account/account_screen.dart',
      "            title: 'Metti al sicuro il tuo cielo',",

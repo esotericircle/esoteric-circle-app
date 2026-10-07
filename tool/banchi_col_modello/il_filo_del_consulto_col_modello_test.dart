@@ -336,6 +336,28 @@ class _Giro {
           conto: conto,
         ));
       }
+      // **L'ELEMENTO GIA' USCITO RESTA QUELLO, come nel controllore.**
+      // Ordine FE, 7 ottobre 2026.
+      final cambiato = LaLeggeDellaCoerenza.elementoCambiato(
+          domanda: domanda, risposta: risposta, storia: storia);
+      if (cambiato != null) {
+        conto.correzioni++;
+        corretta = true;
+        risposta = LaRispostaCheChiede.senzaIlMarcatore(await _vertex(
+          modello: FirebaseMaestroAiProvider.kMaestroChatModel,
+          istruzione: MaestroPersona.istruzioneDellaCorrezione(
+            maestro: chi,
+            profile: UserProfile.empty,
+            correzione: LaLeggeDellaCoerenza.correzioneDellElemento(cambiato),
+            nelLive: nelLive,
+          ),
+          storia: const [],
+          domanda: 'LA DOMANDA DELLA PERSONA:\n$domanda\n\n'
+              'LA TUA RISPOSTA DA CORREGGERE:\n$risposta',
+          misura: MisuraDellaRisposta.perIlTurno(nelLive: nelLive),
+          conto: conto,
+        ));
+      }
       // **LA RETE DELLA COERENZA, come nel controllore.** Ordine FE voci 10
       // e 17: la stessa funzione di `lib`, con Flash-Lite e la correzione
       // corta del provider (`correggi`).

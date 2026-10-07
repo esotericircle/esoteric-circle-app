@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../maestro/consiglio_finale.dart';
 import '../maestro/maestro.dart';
+import '../rituals/runes.dart';
 import '../../services/ai/registro_dei_guasti.dart';
 import 'chat_message.dart';
 import 'i_responsi_di_oggi.dart';
@@ -511,15 +512,10 @@ abstract final class LaLeggeDellaCoerenza {
       'Riscrivi la risposta portando avanti il consiglio che hai già dato, '
       'senza chiedere alla persona di ripeterlo.';
 
-  /// Quanti caratteri del gesto entrano nel controllo finale.
-  static const int gestoMassimo = 150;
-
-  /// **IL GESTO DA TENERE**: la riga col consiglio dell'ultima risposta del
-  /// Maestro nella [storia] che il modello riceve, sullo stesso tema della
-  /// [domanda]. Nullo se la domanda cambia discorso o se non c'e' un gesto.
-  /// Se la domanda torna al tema di prima, il gesto e' quello dato prima
-  /// del cambio di discorso.
-  static String? ilTuoGesto(String domanda, List<ChatMessage> storia) {
+  /// **LA RISPOSTA DI PRIMA SULLO STESSO TEMA**: l'ultima risposta del
+  /// Maestro nella [storia], o quella data prima del cambio di discorso se
+  /// la [domanda] torna al tema. Nulla se la domanda cambia discorso.
+  static String? laRispostaSulTema(String domanda, List<ChatMessage> storia) {
     if (cambiaDiscorso(domanda)) return null;
     final coppie = <(String, String)>[];
     String? chiesto;
@@ -537,7 +533,75 @@ abstract final class LaLeggeDellaCoerenza {
       final cambio = coppie.lastIndexWhere((c) => cambiaDiscorso(c.$1));
       if (cambio > 0) fine = cambio;
     }
-    final riga = ConsiglioFinale.sintesiDa(coppie[fine - 1].$2)
+    return coppie[fine - 1].$2;
+  }
+
+  /// **L'ELEMENTO GIA' USCITO RESTA QUELLO. Ordine FE, 7 ottobre 2026.** La
+  /// legge della coerenza lo dice ([testo]), ma al giro finale degli undici
+  /// banchi sul commit a23f58a9 Calìgo, alla domanda dopo, ha estratto
+  /// Nauthiz al posto di Isa e ne ha dato una lettura opposta ("Non temere la
+  /// quiete", poi "Evita l'inerzia":
+  /// docs/collaudo/banchi_col_modello/filo/2026-10-07T0901/percorso_f.txt,
+  /// consulto 3). L'elemento si riconosce senza chiamate: le rune per nome,
+  /// che sono parole che l'italiano non ha; le carte solo nella forma in cui
+  /// i Maestri le scrivono ("l'Arcano della Forza", "la lama del Carro", "il
+  /// Sette di Spade"), perche' "il Sole" e "la Luna" sono anche il cielo di
+  /// Medora. Solo quando cambia, la risposta si corregge: nessuna chiamata
+  /// negli altri turni.
+  static final RegExp _laRuna = RegExp(
+      '(?<![A-Za-zÀ-ÿ])(${[for (final r in kElderFuthark) r.name].join('|')})'
+      r'(?![A-Za-zÀ-ÿ])');
+  static final RegExp _laCarta = RegExp(
+      r"(?:Arcano|lama|carta) (?:del|della|dello|dell['’]|degli|delle|dei) ?"
+      r'([A-ZÀ-Ý][a-zà-ÿ]+(?: [A-ZÀ-Ý][a-zà-ÿ]+)?)'
+      r'|((?:Asso|Due|Tre|Quattro|Cinque|Sei|Sette|Otto|Nove|Dieci|Fante'
+      r'|Cavaliere|Regina|Re) di (?:Bastoni|Coppe|Spade|Denari|Pentacoli))');
+
+  /// Le rune e le carte nominate in un [testo].
+  static Set<String> elementiIn(String testo) => {
+        for (final m in _laRuna.allMatches(testo)) m.group(1)!,
+        for (final m in _laCarta.allMatches(testo)) (m.group(1) ?? m.group(2))!,
+      };
+
+  /// L'elemento di prima e quello nuovo, se la [risposta] ne estrae uno
+  /// diverso da quello gia' uscito nella risposta di prima sullo stesso
+  /// tema; nullo altrimenti. Se la risposta rilegge anche quello di prima,
+  /// non e' un cambio.
+  static ({Set<String> prima, Set<String> adesso})? elementoCambiato({
+    required String domanda,
+    required String risposta,
+    required List<ChatMessage> storia,
+  }) {
+    final prima = laRispostaSulTema(domanda, storia);
+    if (prima == null) return null;
+    final diPrima = elementiIn(prima);
+    final diAdesso = elementiIn(risposta);
+    if (diPrima.isEmpty || diAdesso.isEmpty) return null;
+    if (diAdesso.any(diPrima.contains)) return null;
+    return (prima: diPrima, adesso: diAdesso);
+  }
+
+  /// La correzione per l'elemento cambiato.
+  static String correzioneDellElemento(
+          ({Set<String> prima, Set<String> adesso}) c) =>
+      'IN QUESTO CONSULTO È GIÀ USCITO ${c.prima.join(' e ')}: non ne '
+      'estrai un altro (hai scritto ${c.adesso.join(' e ')}). Riscrivi la '
+      'risposta rileggendo ${c.prima.join(' e ')} con lo stesso senso di '
+      'prima: porta avanti il consiglio e il gesto già dati col passo che '
+      'viene dopo. Tutto il resto della risposta resta com’è.';
+
+  /// Quanti caratteri del gesto entrano nel controllo finale.
+  static const int gestoMassimo = 150;
+
+  /// **IL GESTO DA TENERE**: la riga col consiglio dell'ultima risposta del
+  /// Maestro nella [storia] che il modello riceve, sullo stesso tema della
+  /// [domanda]. Nullo se la domanda cambia discorso o se non c'e' un gesto.
+  /// Se la domanda torna al tema di prima, il gesto e' quello dato prima
+  /// del cambio di discorso.
+  static String? ilTuoGesto(String domanda, List<ChatMessage> storia) {
+    final prima = laRispostaSulTema(domanda, storia);
+    if (prima == null) return null;
+    final riga = ConsiglioFinale.sintesiDa(prima)
         ?.replaceAll(ConsiglioFinale.stella, '')
         .trim();
     if (riga == null || riga.isEmpty) return null;

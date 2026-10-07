@@ -2330,6 +2330,29 @@ class MaestroChatController extends ChangeNotifier {
           ),
         ));
       }
+      // **L'ELEMENTO GIA' USCITO RESTA QUELLO. Ordine FE, 7 ottobre 2026.**
+      // Se la risposta estrae una runa o una carta diversa da quella gia'
+      // uscita sullo stesso tema, si corregge corta. Vedi
+      // [LaLeggeDellaCoerenza.elementoCambiato].
+      final cambiato = LaLeggeDellaCoerenza.elementoCambiato(
+          domanda: userText, risposta: reply, storia: priorHistory);
+      if (cambiato != null) {
+        final laCorrezione =
+            LaLeggeDellaCoerenza.correzioneDellElemento(cambiato);
+        reply = LaRispostaCheChiede.senzaIlMarcatore(await _correggiCorto(
+          chi: chiRisponde,
+          domanda: userText,
+          risposta: reply,
+          correzione: laCorrezione,
+          allaVecchia: () => _chiediAlMaestro(
+            chi: chiRisponde,
+            storia: priorHistory,
+            domanda: userText,
+            natal: natal,
+            correzione: laCorrezione,
+          ),
+        ));
+      }
       // **LA RETE DELLA COERENZA. Ordine FE voci 10 e 17.** Quando il
       // consulto ha punti fermi, si chiede se la risposta ne contraddice
       // uno senza dirlo; se si', si corregge corta come per le altre reti.

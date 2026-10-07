@@ -410,5 +410,80 @@ void main() {
       expect(banco, contains('LaLeggeDellaCoerenza.negaLaMemoria(risposta)'),
           reason: 'il banco del filo non misura piu\' cio\' che fa l\'app');
     });
+
+    // **L'ELEMENTO GIA' USCITO RESTA QUELLO**, ordine FE del 7 ottobre 2026:
+    // al giro finale dei banchi Calìgo ha estratto Nauthiz al posto di Isa.
+    test('la runa o la carta cambiata si riconosce, e corregge', () {
+      const relazione = [
+        ChatMessage(
+            role: ChatRole.user,
+            text: 'La mia relazione si è raffreddata: posso ancora salvarla?'),
+        ChatMessage(
+            role: ChatRole.maestro,
+            text: 'Recupera la passione. La runa Isa indica una fase di '
+                'stasi. Non temere la quiete.\n✦ Dì una parola che non hai '
+                'mai avuto il coraggio di dire, entro domani.',
+            autore: Maestro.caligo),
+      ];
+      final c = LaLeggeDellaCoerenza.elementoCambiato(
+          domanda: 'E cosa devo evitare?',
+          risposta: 'Evita l\'inerzia. La runa Nauthiz ti avverte contro '
+              'l\'attesa passiva.',
+          storia: relazione);
+      expect(c, isNotNull,
+          reason: 'Calìgo cambia la runa del consulto e nessuno lo vede');
+      expect(c!.prima, {'Isa'});
+      expect(c.adesso, {'Nauthiz'});
+      expect(LaLeggeDellaCoerenza.correzioneDellElemento(c),
+          contains('È GIÀ USCITO Isa'));
+      expect(
+          LaLeggeDellaCoerenza.elementoCambiato(
+              domanda: 'E cosa devo evitare?',
+              risposta: 'Isa ti chiede di non forzare il ghiaccio.',
+              storia: relazione),
+          isNull,
+          reason: 'la runa riletta non e\' un cambio');
+      // Le carte di Medora, e il suo cielo che non e' una carta.
+      const promozione = [
+        ChatMessage(role: ChatRole.user, text: 'Riceverò la promozione?'),
+        ChatMessage(
+            role: ChatRole.maestro,
+            text: 'L\'Arcano della Forza ti chiede pazienza. Il Sole in '
+                'Gemelli ti aiuta.\n✦ Scrivi tre successi.',
+            autore: Maestro.medora),
+      ];
+      expect(
+          LaLeggeDellaCoerenza.elementoCambiato(
+                  domanda: 'E in pratica?',
+                  risposta: 'Il Due di Coppe ti invita a cercare alleati.',
+                  storia: promozione)
+              ?.adesso,
+          {'Due di Coppe'});
+      expect(
+          LaLeggeDellaCoerenza.elementoCambiato(
+              domanda: 'E in pratica?',
+              risposta: 'La Forza resta la tua carta: la Luna in Bilancia '
+                  'ti dice di parlarne venerdì.',
+              storia: promozione),
+          isNull,
+          reason: 'il cielo di Medora non e\' una carta estratta');
+      expect(LaLeggeDellaCoerenza.elementiIn('Il Sole in Gemelli, la Luna'),
+          isEmpty);
+      final controllore =
+          File('lib/features/maestri/chat/maestro_chat_controller.dart')
+              .readAsStringSync();
+      expect(
+          RegExp(r'LaLeggeDellaCoerenza\.elementoCambiato\([^;]*;\s*'
+                  r'if \(cambiato != null\) \{\s*final laCorrezione =\s*'
+                  r'LaLeggeDellaCoerenza\.correzioneDellElemento\(cambiato\)')
+              .hasMatch(controllore),
+          isTrue,
+          reason: 'il turno della chat non corregge l\'elemento cambiato');
+      final banco = File('tool/banchi_col_modello/'
+              'il_filo_del_consulto_col_modello_test.dart')
+          .readAsStringSync();
+      expect(banco, contains('LaLeggeDellaCoerenza.elementoCambiato('),
+          reason: 'il banco del filo non misura cio\' che fa l\'app');
+    });
   });
 }
