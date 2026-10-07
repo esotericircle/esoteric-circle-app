@@ -1,7 +1,7 @@
 I BANCHI COL MODELLO, ordine FD voce 03 e ordine FE voce 18
-commit: a23f58a9637e1c78f4fdf27fc3d240f3f19e807b
-inizio: 2026-10-07T05:10:58+00:00
-fine: 2026-10-07T07:08:49+00:00
+commit: 567872c071b23ad87f51ac12a5e7958630b2d15b
+inizio: 2026-10-07T17:15:23+00:00
+fine: 2026-10-07T19:09:15+00:00
 comando: python tool/banchi_col_modello/i_banchi_col_modello.py --costo
 
 RISULTATO 1: PASSATO | il_banco_delle_domande_libere_col_modello_test.dart | CON RETE: il classificatore vero sul banco
@@ -28,10 +28,9 @@ RISULTATO 11: PASSATO | il_filo_del_consulto_col_modello_test.dart | CON RETE: F
   misura: percorso F: dopo dieci minuti il Maestro ritrova il suo filo
 
 --- le misure stampate da il_banco_delle_domande_libere_col_modello_test.dart
-  BANCO CON RETE: 40 giuste su 41, 97.6 per cento; deciso dal modello 40; la tabella da sola 28
+  BANCO CON RETE: 40 giuste su 41, 97.6 per cento; deciso dal modello 39; la tabella da sola 28
 --- le misure stampate da la_prova_a_cento_discese_col_modello_test.dart
   === ORDINE DI VOCE 16, CON RETE, tema scelta ===
-      scartato risposta: troppoLunga: un gesto da fare. Le vie che si aprono davanti a te sono molteplici. Puoi procedere verso quella che ti porta a esplorare ciò che è nascosto. I segni ti indicano di andare dove c'è qualcosa da scoprire.
   === ORDINE DI VOCE 16, CON RETE, tema persona ===
   === ORDINE DI VOCE 16, CON RETE, tema blocco ===
   === ORDINE DI VOCE 16, CON RETE, tema attesa ===
@@ -41,38 +40,35 @@ RISULTATO 11: PASSATO | il_filo_del_consulto_col_modello_test.dart | CON RETE: F
   === ORDINE DI VOCE 16, CON RETE, libera 2 ===
   === ORDINE DI VOCE 16, CON RETE, libera 3 ===
   === ORDINE DI VOCE 16, CON RETE, libera 4 ===
-      dal modello: Questo blocco non è tuo / I segni del viaggio dicono che il tuo blocco non è sul finire. È un gesto da fare: trova una risorsa perduta che non vedi. Ciò che cerchi è nascosto. / Entro domani sera controlla quante cose hai lasciato in sospeso e che non ti interessano più davvero.
   === ORDINE DI VOCE 16, CON RETE, libera 5 ===
   === ORDINE DI VOCE 16, CON RETE ===
-      scartato risposta: troppoLunga: un gesto da fare. Le vie che si aprono davanti a te sono molteplici. Puoi procedere verso quella che ti porta a esplorare ciò che è nascosto. I segni ti indicano di andare dove c'è qualcosa da scoprire.
-      dal modello: Questo blocco non è tuo / I segni del viaggio dicono che il tuo blocco non è sul finire. È un gesto da fare: trova una risorsa perduta che non vedi. Ciò che cerchi è nascosto. / Entro domani sera controlla quante cose hai lasciato in sospeso e che non ti interessano più davvero.
-  CHIAMATE AL MODELLO: 2284, token in ingresso 5021357, in uscita 231636
-  DQ.06 titolo dal modello: prima 40.1, dopo 44.7 per cento, su 1100 discese
-  DQ.06 risposta dal modello: prima 23.6, dopo 36.4 per cento, su 1100 discese
-  DQ.06 gesto dal modello: prima 39.3, dopo 44.3 per cento, su 1100 discese
-  DQ.06 righe riprese alla seconda chiamata, per motivo della prima: risposta: nonPrendePosizione 115, risposta: nonNominaLaDomanda 37, azione: chiedeDiScrivere 33, titolo: titoloRipetuto 29, titolo: statoDiUnTerzo 14, risposta: previsioneCerta 9, azione: previsioneCerta 8, azione: virgolaEe 8, azione: consiglioDiVita 8, risposta: statoDiUnTerzo 8, risposta: gergo 7, azione: troppoLunga 6, titolo: previsioneCerta 5, titolo: gergo 5, titolo: tempoNelTitolo 4, titolo: troppoLunga 4, risposta: anticipaLaScena 4, risposta: ripeteUnoStrato 1, azione: fuoco 1, azione: nomeProprio 1, azione: toccaUnTerzo 1, risposta: fuoco 1, risposta: troppoLunga 1, azione: gergo 1
-  DQ.13 costo: 0.001848 dollari a discesa, 1651 chiamate della scena su 1100 discese
-  DQ.13 G CON RETE: 20 cammini, 0 strati che ripetono, somiglianza peggiore 8.5 per cento
+  CHIAMATE AL MODELLO: 2578, token in ingresso 6176660, in uscita 285619
+  DQ.06 titolo dal modello: prima 56.4, dopo 62.3 per cento, su 1100 discese
+  DQ.06 risposta dal modello: prima 34.9, dopo 49.5 per cento, su 1100 discese
+  DQ.06 gesto dal modello: prima 53.6, dopo 61.4 per cento, su 1100 discese
+  DQ.06 righe riprese alla seconda chiamata, per motivo della prima: risposta: nonPrendePosizione 109, azione: chiedeDiScrivere 68, risposta: nonNominaLaDomanda 43, titolo: statoDiUnTerzo 27, titolo: titoloRipetuto 25, risposta: statoDiUnTerzo 16, risposta: previsioneCerta 15, titolo: tempoNelTitolo 10, azione: previsioneCerta 9, risposta: gergo 9, risposta: troppoLunga 8, titolo: troppoLunga 8, titolo: previsioneCerta 8, azione: virgolaEe 7, azione: toccaUnTerzo 6, titolo: gergo 5, azione: consiglioDiVita 4, risposta: anticipaLaScena 3, azione: promessa 3, azione: troppoLunga 2, risposta: decisioneGrave 2, azione: eUnaDomanda 2, azione: statoDiUnTerzo 1, azione: saluteDenaroLegge 1, azione: decisioneGrave 1, azione: fuoco 1, azione: senzaTempo 1, azione: gergo 1, azione: pronomeSenzaAccordo 1
+  DQ.13 costo: 0.002280 dollari a discesa, 2035 chiamate della scena su 1100 discese
+  DQ.13 G CON RETE: 20 cammini, 0 strati che ripetono, somiglianza peggiore 7.4 per cento
   === ORDINE DJ VOCE 08, IL SEGNO COL MODELLO VERO ===
-  accettati 12 su 12, gesti {siAvvicina: 5, siAllontana: 4, siVolta: 3}, 12 chiamate, in media 384 token in ingresso e 39.8 in uscita
+  accettati 12 su 12, gesti {siAvvicina: 4, siAllontana: 4, siVolta: 4}, 12 chiamate, in media 384 token in ingresso e 40.3 in uscita
 --- le misure stampate da la_sonda_del_sigillo_test.dart
   === RIEPILOGO DO ===
-  sigilli 30, chiamate 102, token in ingresso 35663, in uscita 3869
-  costo di un sigillo completo: 0.00068 dollari
+  sigilli 30, chiamate 104, token in ingresso 36481, in uscita 4037
+  costo di un sigillo completo: 0.00070 dollari
 --- le misure stampate da il_filo_del_consulto_col_modello_test.dart
-  ORDINE FE VOCE 17, percorso A: giudicate 10, porta avanti 9, ignora 1, contraddice 0, quota 90 per cento, corrette dalla rete della coerenza 0
-  ORDINE FE VOCE 17, percorso B: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, nominano tutti i Maestri di prima in 10 risposte su 10, corrette dalla rete della coerenza 1
-  ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 8, ignora 2, contraddice 0, quota 80 per cento, corrette dalla rete della coerenza 1
-  ORDINE FE VOCE 17, percorso D: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 1
-  ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 9, ignora 1, contraddice 0, quota 90 per cento, corrette dalla rete della coerenza 1
-  ORDINE FE VOCE 17, percorso F: giudicate 10, porta avanti 8, ignora 1, contraddice 1, quota 80 per cento, corrette dalla rete della coerenza 1
-  ORDINE FE VOCE 18, costo dei sei banchi: 152 chiamate, 652988 token di ingresso, 35268 di uscita col ragionamento, 0.284 dollari a listino
+  ORDINE FE VOCE 17, percorso A: giudicate 10, porta avanti 9, ignora 1, contraddice 0, quota 90 per cento, corrette dalla rete della coerenza 0, elemento cambiato in 0 risposte su 2 con un elemento gia' uscito
+  ORDINE FE VOCE 17, percorso B: giudicate 10, porta avanti 8, ignora 1, contraddice 1, quota 80 per cento, nominano tutti i Maestri di prima in 10 risposte su 10, corrette dalla rete della coerenza 1, elemento cambiato in 0 risposte su 0 con un elemento gia' uscito
+  ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 8, ignora 2, contraddice 0, quota 80 per cento, corrette dalla rete della coerenza 1, elemento cambiato in 0 risposte su 2 con un elemento gia' uscito
+  ORDINE FE VOCE 17, percorso D: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 1, elemento cambiato in 0 risposte su 3 con un elemento gia' uscito
+  ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 1, elemento cambiato in 0 risposte su 2 con un elemento gia' uscito
+  ORDINE FE VOCE 17, percorso F: giudicate 10, porta avanti 9, ignora 1, contraddice 0, quota 90 per cento, corrette dalla rete della coerenza 1, elemento cambiato in 1 risposte su 2 con un elemento gia' uscito
+  ORDINE FE VOCE 18, costo dei sei banchi: 152 chiamate, 649951 token di ingresso, 35410 di uscita col ragionamento, 0.284 dollari a listino
 
---- il costo, da Cloud Monitoring (token_count), finestra di 7191 secondi
-  gemini-2.5-flash input: 5964693 token, 1.7894 dollari
-  gemini-2.5-flash output: 284427 token, 0.7111 dollari
-  gemini-2.5-flash-lite input: 331897 token, 0.0332 dollari
-  gemini-2.5-flash-lite output: 12903 token, 0.0052 dollari
-  totale 2.5388 dollari, cambio BCE del 2026-10-06: 1 euro = 1.1269 dollari
-COSTO DEL GIRO: 2.25 euro
+--- il costo, da Cloud Monitoring (token_count), finestra di 6951 secondi
+  gemini-2.5-flash input: 12982336 token, 3.8947 dollari
+  gemini-2.5-flash output: 618178 token, 1.5454 dollari
+  gemini-2.5-flash-lite input: 640284 token, 0.0640 dollari
+  gemini-2.5-flash-lite output: 24929 token, 0.0100 dollari
+  totale 5.5141 dollari, cambio BCE del 2026-10-07: 1 euro = 1.1177 dollari
+COSTO DEL GIRO: 4.93 euro
   (un massimo: nella stessa finestra possono esserci chiamate dell'app di altre persone, che Monitoring non separa; la cache implicita costa il 10 per cento e qui e' contata intera)
