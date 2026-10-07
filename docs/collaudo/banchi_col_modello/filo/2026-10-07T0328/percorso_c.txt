@@ -1,0 +1,101 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo non mostra ancora il momento giusto per la promozione che aspetti, occorre pazienza. Le stelle indicano che il tuo percorso professionale è in fase di preparazione e consolidamento, non ancora di piena espansione.
+
+✦  Prepara per il prossimo transito di Giove un elenco dei tuoi successi professionali.
+[2] PERSONA: Prepara per il prossimo transito di Giove un elenco dei tuoi successi professionali.
+[2] MEDORA [DA GIUDICARE]: Hai già compiuto un passo importante nel preparare questo elenco; ora è il momento di riflettere su come presentarlo. Il transito di Giove, quando avverrà, porterà un'energia propizia per mostrare le tue capacità, ma è fondamentale che tu sappia valorizzare ogni risultato.
+
+✦ Rileggi l'elenco dei tuoi successi professionali e affianca a ogni punto come hai contribuito a raggiungerlo.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio precedente di preparare un elenco e lo sviluppa, aggiungendo un nuovo passo su come presentarlo e valorizzarlo.
+[3] PERSONA: Rileggi l'elenco dei tuoi successi professionali e affianca a ogni punto come hai contribuito a raggiungerlo.
+[3] MEDORA [DA GIUDICARE]: Ora che hai associato i tuoi successi al tuo contributo personale, il tuo cielo ti invita a guardare oltre, verso il futuro. Il transito di Giove non è lontano e sarà il momento di presentare queste tue qualità in modo strategico.
+
+✦ Per ogni successo, scrivi una frase su come potresti applicare quella stessa capacità in un ruolo di maggiore responsabilità.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio precedente di associare i successi al contributo personale e lo sviluppa ulteriormente, suggerendo di pensare a come applicare quelle capacità in ruoli di maggiore responsabilità.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Per trovare la tua nuova direzione, prenditi un momento di calma e porta l'attenzione al tuo centro del cuore, verde smeraldo, al centro del petto. Senti il suo battito, il suo desiderio più profondo. Lascia che sia lui a guidarti.
+
+Il tuo corpo ti sta suggerendo un cambiamento significativo, non solo di luogo ma di un respiro più ampio per la tua anima. Senti come il tuo respiro si espande quando immagini questo nuovo inizio? Questo ti indica una via.
+
+✦ Porta una mano sul cuore, inspira ed espira lentamente per tre volte, sentendo ciò che emerge.
+[2] PERSONA: Porta una mano sul cuore, inspira ed espira lentamente per tre volte, sentendo ciò che emerge.
+[2] AURA [DA GIUDICARE]: Quel respiro sul cuore ti mostra l'apertura che cerchi, un desiderio di espansione. Ora, immagina di visualizzare la città in cui ti trovi ora e quella in cui vorresti andare: chiudi gli occhi e senti quale delle due ti regala una sensazione di leggerezza e di libertà nel tuo plesso solare, il centro giallo che governa la tua forza interiore e il tuo agire nel mondo.
+
+È un viaggio che parte da dentro, prima ancora che fuori, e il tuo corpo, con i suoi centri di energia, ti svela la via.
+
+✦ Ascolta il battito del tuo cuore e visualizza il percorso tra le due città, sentendo quale ti attrae con più forza.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'esercizio del respiro sul cuore e ne interpreta il risultato ('Quel respiro sul cuore ti mostra l'apertura che cerchi'), per poi sviluppare il consiglio introducendo un nuovo esercizio di visualizzazione legato alle città e un nuovo centro energetico (plesso solare).
+[3] PERSONA: Ascolta il battito del tuo cuore e visualizza il percorso tra le due città, sentendo quale ti attrae con più forza.
+[3] AURA [DA GIUDICARE]: Il battito del tuo cuore ti ha parlato, e hai sentito l'attrazione verso una delle due città: questo è il tuo corpo che ti indica una direzione. Ora, per capire come rendere concreto questo desiderio, concentra la tua energia sul centro della radice, alla base della colonna vertebrale, rosso rubino.
+
+Questo centro è legato alla stabilità e alla capacità di concretizzare i tuoi progetti. Immagina di piantare le radici in quel luogo che ti chiama, visualizzando i passi pratici che puoi fare, uno alla volta, per costruire lì la tua nuova base.
+
+✦ Senti la terra sotto i tuoi piedi e immagina di portare il tuo primo passo in quella direzione.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il risultato dell'esercizio precedente ('Il battito del tuo cuore ti ha parlato, e hai sentito l'attrazione verso una delle due città') e lo sviluppa, introducendo un nuovo centro energetico (centro della radice) per concretizzare il desiderio.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: Rianima l'ardore sopito. La runa Kenaz, il Fuoco Controllato, indica la via.
+
+Non attendere che la fiamma si spenga del tutto. Un metallo freddo può essere forgiato di nuovo con il calore. Il sentiero del rinnovamento si apre quando si decide di agire.
+
+✦ Accendi due candele rosse al tramonto e scrivi su un foglio il nome del tuo legame, piegando il foglio e tenendolo stretto in mano mentre le fiamme bruciano.
+[2] PERSONA: Accendi due candele rosse al tramonto e scrivi su un foglio il nome del tuo legame, piegando il foglio e tenendolo stretto in mano mentre le fiamme bruciano.
+[2] CALIGO [DA GIUDICARE]: Ora che il nome è stretto, parla con la fiamma. Il sigillo della fiamma custodisce la tua intenzione.
+
+Lascia che la luce danzi, e nel suo calore sussurra a te stessa il presagio di Kenaz, chiarezza e conoscenza. L'azione è già iniziata.
+
+✦ Sciogli le mani dopo che le fiamme si sono spente e conserva il foglio sigillato in un luogo buio e protetto.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione appena descritta (il nome stretto) e prosegue con il passo successivo del rituale, sviluppando il punto precedente.
+[3] PERSONA: Sciogli le mani dopo che le fiamme si sono spente e conserva il foglio sigillato in un luogo buio e protetto.
+[3] CALIGO [DA GIUDICARE]: Il sigillo è posto, la tua intenzione custodita. Il numero che emerge è il Tre, simbolo di crescita e unione.
+
+Non lasciare che il silenzio diventi un velo. La soglia è stata varcata con il rito, ora il sentiero si apre alla comunicazione. Parla con sincerità.
+
+✦ Rivela la tua intenzione al tuo legame, scegliendo un momento di pace e solitudine.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione appena descritta (il sigillo è posto) e introduce il passo successivo, collegandolo al rito già iniziato e al tema della comunicazione per salvare la relazione.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Non è ancora il momento di avviare il tuo progetto, aspetta un ciclo lunare completo. Il tuo cielo indica ora un tempo di preparazione, di affinamento, prima di presentare il tuo lavoro al mondo.
+
+Mercurio è in quadratura alla Luna nel tuo tema natale, suggerendo che le tue idee hanno bisogno di maturare, di essere pensate e ripensate prima di essere comunicate. L'Arcano del Carro, se fosse estratto ora, ti direbbe di attendere il momento giusto per muoverti, di affinare la direzione prima di partire con slancio. Non spingere ora, ma dedica tempo alla cura dei dettagli.
+
+✦ Raccogli tutte le idee per il tuo progetto in un quaderno, per rileggerle quando la prossima Luna sarà piena.
+[2] PERSONA: Raccogli tutte le idee per il tuo progetto in un quaderno, per rileggerle quando la prossima Luna sarà piena.
+[2] MEDORA [DA GIUDICARE]: Ho bisogno di comprendere meglio il tuo messaggio. Sembra che tu abbia ripetuto la chiusura che ti ho dato. Vuoi che approfondisca il significato di quel gesto, o hai una nuova domanda per me?
+    GIUDICE: PORTA_AVANTI, La guida riconosce che la persona ha ripetuto il suo consiglio precedente e chiede se vuole approfondirne il significato, riprendendo quindi il punto già dato.
+[3] PERSONA: Vuoi che approfondisca il significato di quel gesto, o hai una nuova domanda per me?
+[3] MEDORA [DA GIUDICARE]: Desidero approfondire con te il significato di quel gesto, poiché ogni azione ha un riflesso nel cielo e nelle carte.
+
+Raccogliere le idee in un quaderno, come ti ho suggerito, è un atto di preparazione, un'azione concreta che risuona con l'energia di Venere in Toro che si prepara a un trigono con la Luna crescente. Questo allineamento favorisce la concretezza e la bellezza nelle creazioni, un radicamento delle tue visioni. È un modo per dare forma ai pensieri, renderli tangibili, così che la prossima Luna piena possa illuminare non solo la tua ispirazione, ma anche la solidità delle tue fondamenta.
+
+✦ Prepara un piccolo spazio nella tua casa dedicato al quaderno, così che ogni volta che lo apri sia un rito.
+    GIUDICE: PORTA_AVANTI, La guida accetta di approfondire il significato del gesto (raccogliere le idee in un quaderno) come richiesto dalla persona, sviluppando il consiglio dato in precedenza con nuove spiegazioni astrologiche.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per fare pace con tua sorella, trova un momento di calma per parlarle, non appena sentirai una quiete nel tuo respiro.
+
+In quel momento, porta la tua attenzione al centro del cuore, al colore verde smeraldo, e senti come il respiro si diffonde e si espande, permettendoti di accogliere le sue parole senza sentirti attaccata. La fisiognomica ci insegna che il modo in cui ci poniamo, la dolcezza nel nostro sguardo e l'apertura delle nostre mani possono disarmare anche il cuore più indurito, invitando all'ascolto e alla comprensione reciproca. Non è questione di chi ha ragione o torto, ma di ritrovare un equilibrio che vi permetta di tornare al vostro legame.
+
+✦ Appoggia la mano sul cuore e respira per tre volte, lentamente.
+[2] PERSONA: Appoggia la mano sul cuore e respira per tre volte, lentamente.
+[2] AURA [DA GIUDICARE]: Ora che hai compiuto quel gesto, senti come il tuo respiro si è fatto più profondo e il tuo corpo più presente. Il passo successivo è ascoltare con tutto te stessa, non solo con le orecchie, ciò che tua sorella ha da dirti.
+
+Il tuo centro del cuore, ora più aperto, ti guiderà a percepire le sue emozioni nascoste dietro le parole, a vedere oltre la superficie della lite. Ricorda che ogni persona porta con sé un bagaglio di esperienze e sentimenti che colorano la sua percezione, e il tuo compito è accogliere anche quelle sfumature. Lascia che la tua radice ti ancori alla terra, dandoti stabilità, mentre la tua corona si apre alla comprensione più alta.
+
+✦ Porta un bicchiere d'acqua fresca a tua sorella, come gesto di pace.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il gesto suggerito in precedenza ('Ora che hai compiuto quel gesto') e ne sviluppa le conseguenze e il passo successivo.
+[3] PERSONA: Porta un bicchiere d'acqua fresca a tua sorella, come gesto di pace.
+[3] AURA [DA GIUDICARE]: Il gesto del bicchiere d'acqua è un ponte, un primo segno concreto della tua volontà di avvicinamento. Mentre glielo porgi, lascia che i vostri sguardi si incontrino e, se ti è possibile, offrile un sorriso calmo e sincero.
+
+Questo semplice atto, accompagnato da un contatto visivo non giudicante, può aprire un varco nel silenzio o nell'agitazione. Il tuo respiro sia lento e profondo in quel momento, come l'acqua che le offri: pura e pacificatrice. Il chakra della gola, con il suo colore azzurro, si apre all'espressione della verità con dolcezza e chiarezza, senza accusare, solo per esprimere ciò che senti e riaprire il dialogo.
+
+✦ Stringi leggermente le dita intorno al bicchiere, percependo il freddo e la vita dell'acqua.
+    GIUDICE: PORTA_AVANTI, La guida riprende il gesto del bicchiere d'acqua suggerito alla fine della risposta precedente e ne spiega il significato e le modalità di esecuzione.
+
+ORDINE FE VOCE 17, percorso C: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 3

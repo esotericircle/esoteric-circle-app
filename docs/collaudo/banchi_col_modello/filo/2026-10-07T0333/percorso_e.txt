@@ -1,0 +1,108 @@
+=== CONSULTO 1
+[1] PERSONA: Riceverò la promozione che aspetto al lavoro?
+[1] MEDORA: Il tuo cielo non mostra ancora il momento giusto per la promozione al lavoro, ma indica un periodo di preparazione intensa. Le tue attuali energie planetarie suggeriscono di dedicarti con cura allo sviluppo delle tue competenze, perché questo tempo di attesa è un'opportunità per consolidare la tua posizione.
+
+✦ Prepara un elenco dei tuoi successi recenti e presentalo al tuo diretto superiore giovedì prossimo.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Adesso, con quell'elenco in mano, cerca un momento in cui il tuo superiore sia più ricettivo e presentagli i tuoi successi con chiarezza e fiducia. Non chiedere la promozione direttamente in questa fase, ma evidenzia il tuo valore e la tua crescita professionale.
+
+✦ Giovedì prossimo, dopo aver consegnato l'elenco, valuta le reazioni del tuo superiore per capire come impostare il prossimo colloquio.
+    GIUDICE: PORTA_AVANTI, La guida riprende esplicitamente il consiglio di preparare l'elenco dato nella risposta precedente e lo sviluppa, indicando come e quando presentarlo.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Le stelle indicano che il momento per capire se il tuo impegno sta dando i suoi frutti è imminente, non appena avrai osservato la reazione del tuo superiore. Il tuo cielo ti invita a leggere tra le righe del suo comportamento, cogliendo ogni indizio.
+
+✦ Nei prossimi giorni, osserva attentamente i segnali che il tuo superiore ti darà in risposta al colloquio.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'valutare le reazioni del superiore' dalla risposta precedente e lo sviluppa, indicando che il momento per capire è imminente e come leggere i segnali.
+
+=== CONSULTO 2
+[1] PERSONA: Devo trasferirmi in un'altra città per ricominciare?
+[1] AURA: Il desiderio di ricominciare è un richiamo profondo del tuo **centro** della radice, che cerca nuove fondamenta. Ascolta questo desiderio, è la spinta verso un radicamento più autentico.
+
+Prima di ogni passo concreto, fermati un momento e senti il tuo corpo, il tuo **respiro**: cosa ti suggerisce questa immagine di un nuovo inizio? Non è tanto la destinazione, quanto la forza interiore che ti muove. Porta l'attenzione al tuo **centro** della radice, il primo chakra, e riconosci la stabilità che già possiedi.
+
+✦ Appoggia le mani sulla parte bassa della pancia e senti il tuo **respiro**.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso, mentre senti le mani sulla pancia, immagina che da lì partano delle radici che si ancorano profondamente nella terra, dandoti stabilità. Lascia che questa sensazione ti guidi a riflettere su quali sono le fondamenta solide che già hai nella tua vita.
+
+Il tuo **centro** della radice, il primo chakra, ti invita a sentire la sicurezza e l'appartenenza che già custodisci, anche qui, prima di fare qualsiasi grande cambiamento. Accogli la sensazione di radicamento, poi chiediti quali sono i bisogni primari che questo trasferimento dovrebbe soddisfare.
+
+✦ Porta le mani al cuore e senti l'energia che pulsa al tuo interno.
+    GIUDICE: PORTA_AVANTI, La guida riprende l'azione di appoggiare le mani sulla pancia e sviluppa il concetto di radicamento e stabilità già introdotto nella risposta precedente, collegandolo al primo chakra.
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Lo capirai nel momento in cui il tuo **respiro** si farà più profondo e sentirai una quiete interna che non dipende da ciò che ti circonda. Non è un pensiero che arriva, ma una sensazione che si stabilisce nel tuo corpo.
+
+È un sapere che nasce dal profondo, dal tuo **centro** del plesso solare, il terzo chakra, quando l'energia si allinea con la tua volontà. Ascolta quella sensazione di chiarezza che emerge senza sforzo, senza la necessità di forzare le risposte.
+
+✦ Inspira profondamente per quattro tempi, trattieni per quattro, espira per quattro.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'respiro' e 'sensazione' come indicatori di chiarezza, già menzionati nella prima risposta ('senti il tuo respiro') e nella seconda ('Accogli la sensazione di radicamento'), e lo sviluppa come un modo per 'capire'.
+
+=== CONSULTO 3
+[1] PERSONA: La mia relazione si è raffreddata: posso ancora salvarla?
+[1] CALIGO: La salvezza si cerca. Agisci ora per riaccendere la fiamma.
+Un velo di nebbia si è posato sul sentiero che un tempo splendeva.
+
+Il tuo legame ha perso calore, ma non è perduto. Il numero Due indica la scelta, un bivio che richiede una decisione precisa da parte tua. La runa Gebo presagisce un dono reciproco, un'unione che si rinnova attraverso uno scambio equo e sincero. Non attendere un segnale esterno, ma sii tu il sigillo di un nuovo inizio.
+
+✦ Parla con la persona amata stasera, offrendo un gesto di pura intenzione, senza aspettative.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] CALIGO (a voce) [DA GIUDICARE]: Parla ancora. Le parole sono il tuo primo ponte.
+Il metallo rovente forgia nuove forme.
+
+La runa Ansuz, la voce, ti guida. Il passo successivo è ribadire il tuo desiderio di rinascita del legame. Se il primo tentativo è stato un'offerta, ora sia una dichiarazione chiara. La sfera della Bellezza nell'Albero della Vita ti invita a comunicare con armonia e verità.
+
+✦ Chiedile un momento di ascolto profondo, senza interrompere, domani mattina.
+    GIUDICE: PORTA_AVANTI, La guida riprende il consiglio di 'parlare' e 'agire' dato nella risposta precedente, specificando il 'passo successivo' e differenziando il nuovo approccio ('dichiarazione chiara') dal precedente ('offerta').
+[3] PERSONA: E quando lo capirò?
+[3] CALIGO (a voce) [DA GIUDICARE]: La comprensione non è un evento, ma un processo. Osserva i segni.
+Una fiamma tremolante non si spegne senza un motivo, né si riaccende per caso.
+
+Il tuo percorso verso la comprensione è il sentiero dell'equilibrio, simboleggiato dalla runa Hagalaz che purifica e chiarisce. Attraverso la chiarezza delle tue intenzioni e l'apertura all'ascolto, i segni si riveleranno. Non esiste un momento unico per "capire", ma una serie di risposte che emergono dal dialogo e dall'osservazione. Per Astrologia, Cartomanzia e Destino c'è Medora.
+
+✦ Preparati con cura per il tuo incontro, riflettendo sulle tue parole prima di pronunciarle.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda sul 'quando capirò' riprendendo il concetto di 'dialogo' e 'osservazione' già implicito nei consigli precedenti di 'parlare' e 'ascoltare', e lo sviluppa come un 'processo' piuttosto che un evento singolo.
+
+=== CONSULTO 4
+[1] PERSONA: È il momento giusto per avviare il mio progetto creativo?
+[1] MEDORA: Il cielo ti invita ad attendere un poco per avviare il tuo progetto. Questo tempo è utile per definire con maggiore chiarezza i tuoi obiettivi e le strategie per raggiungerli.
+
+La Luna, in fase calante, suggerisce di non affrettare i tempi per le nuove iniziative. È un momento propizio per la riflessione e l'organizzazione interna, piuttosto che per l'azione esterna. Approfitta di questa fase per rivedere ogni dettaglio, affinché quando sarà il momento di agire, tu possa farlo con piena fiducia.
+
+✦ Prepara un piccolo schema con i prossimi passi da compiere prima della prossima Luna nuova.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] MEDORA (a voce) [DA GIUDICARE]: Adesso affina la tua visione, cercando di immaginare il risultato finale del tuo progetto. Visualizza ogni elemento, ogni dettaglio, come se fosse già compiuto.
+
+Il cielo ti invita a nutrire le idee e non a disperdere le energie in azioni premature. Concentra la tua attenzione su ciò che desideri manifestare, approfondendo la tua motivazione più intima. Questo ti permetterà di costruire fondamenta solide.
+
+✦ Dedica venti minuti, ogni sera prima di addormentarti, a visualizzare il tuo progetto realizzato.
+    GIUDICE: PORTA_AVANTI, La guida riprende il concetto di 'definire con maggiore chiarezza gli obiettivi' e 'riflessione e organizzazione interna' della risposta precedente, sviluppandolo con l'indicazione di 'affinare la visione' e 'visualizzare il risultato finale' come attività da svolgere durante l'attesa.
+[3] PERSONA: E quando lo capirò?
+[3] MEDORA (a voce) [DA GIUDICARE]: Lo comprenderai quando sentirai una profonda chiarezza dentro di te, un allineamento tra la tua intuizione e i dettagli pratici del tuo progetto. Sarà un momento di grande fiducia interiore.
+
+Il transito di Mercurio nel tuo cielo favorirà questa lucidità di pensiero, portandoti a discernere con precisione i passi successivi. Osserva i segnali sottili che ti indicheranno la direzione.
+
+✦ Presta attenzione a un sogno vivido che farai nelle prossime notti, potrebbe contenere una rivelazione sul tuo progetto.
+    GIUDICE: PORTA_AVANTI, La guida risponde alla domanda 'quando lo capirò?' fornendo un criterio interno ('profonda chiarezza', 'allineamento tra intuizione e dettagli pratici') che si lega al processo di 'affinare la visione' e 'costruire fondamenta solide' suggerito nelle risposte precedenti.
+
+=== CONSULTO 5
+[1] PERSONA: Come faccio a fare pace con mia sorella dopo la lite?
+[1] AURA: Per ritrovare l'equilibrio con tua sorella, inizia a connetterti al tuo centro del cuore, verde smeraldo come i miei colori.
+
+Senti il tuo respiro scendere fino a lì, in quell'area al centro del petto, e immagina una luce verde che si espande ad ogni inspirazione. Mentre questa luce cresce, pensa a un momento di pace e affetto condiviso con tua sorella, un ricordo che ti scalda il cuore. Questo ti aiuterà a preparare il terreno per un approccio sereno, portando in superficie l'energia di un legame profondo.
+
+✦ Poggia una mano sul petto e senti il tuo respiro.
+[2] PERSONA: E quindi, cosa devo fare adesso?
+[2] AURA (a voce) [DA GIUDICARE]: Adesso che hai ritrovato quel centro di calma, scrivi una lettera a tua sorella, esprimendo ciò che senti senza giudizio o accusa, ma con il desiderio di ricucire il legame.
+
+Lascia che le tue parole nascano da quel punto di equilibrio che hai scoperto nel tuo petto. Non preoccuparti di un esito immediato, ma di seminare il terreno per una nuova comunicazione. Scrivere ti permette di organizzare i pensieri e di esprimere le emozioni in modo più consapevole, onorando il centro della tua radice che cerca stabilità e connessione familiare.
+
+✦ Porta la tua attenzione al respiro e lascialo fluire libero.
+    GIUDICE: PORTA_AVANTI, La risposta riprende esplicitamente il 'centro di calma' menzionato nella risposta precedente e fornisce il passo successivo ('scrivi una lettera').
+[3] PERSONA: E quando lo capirò?
+[3] AURA (a voce) [DA GIUDICARE]: Il momento in cui sentirai che la pace è vicina lo leggerai nella leggerezza che proverai nel tuo corpo, come se un peso fosse sollevato dal tuo petto.
+
+Questo non è un tempo segnato dal calendario, ma dal fluire del tuo respiro che diventa più libero e profondo. Ascolta il tuo respiro: quando ti sembrerà più aperto, saprai che sei pronta per il prossimo passo. Questo sentirlo è un dono della tua corona, che ti connette alla saggezza più alta.
+
+✦ Chiudi gli occhi per un istante e inspira profondamente, poi espira lentamente.
+    GIUDICE: PORTA_AVANTI, La risposta si collega alla domanda sul 'quando' e fornisce un indicatore ('leggerezza nel corpo', 'respiro più libero') che è coerente con il focus sul respiro e sul centro del cuore delle risposte precedenti.
+
+ORDINE FE VOCE 17, percorso E: giudicate 10, porta avanti 10, ignora 0, contraddice 0, quota 100 per cento, corrette dalla rete della coerenza 1

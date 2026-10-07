@@ -204,10 +204,10 @@ abstract final class LaReteDellaCoerenza {
             'porta avanti quel punto: stesso gesto, stesso mezzo, stesso '
             'tempo, poi il passo che viene dopo.'
         : 'Riscrivi la risposta cominciando con una di queste due frasi, '
-            'completata con parole tue: «Come ti ha detto $nome, …», e porti '
-            'avanti quel punto con lo stesso gesto, lo stesso mezzo e lo '
-            'stesso tempo; oppure «Io leggo diversamente da $nome: …», e '
-            'dici perché.';
+            'completata con parole tue: «Come ti ha detto $nome, …» per '
+            'portare avanti quel punto con lo stesso gesto, lo stesso mezzo e '
+            'lo stesso tempo; oppure «Io leggo diversamente da $nome: …» col '
+            'perché.';
     return 'LA TUA RISPOSTA CONTRADDICE UN PUNTO FERMO DEL CONSULTO SENZA '
         'DIRLO: «${p.punto}»${p.motivo.isEmpty ? '' : ' (${p.motivo})'}. '
         '$strade Il gesto finale non contraddice quel punto. Tutto il resto '

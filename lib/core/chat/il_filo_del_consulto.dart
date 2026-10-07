@@ -507,7 +507,7 @@ abstract final class LaLeggeDellaCoerenza {
   /// La correzione per chi nega la memoria: il [gesto] di prima, se c'e'.
   static String correzioneDellaMemoria(String? gesto) =>
       'HAI SCRITTO DI NON AVERE LA CONVERSAZIONE DI PRIMA, MA CE L’HAI: è '
-      'qui sopra${gesto == null ? '' : ', e il tuo gesto era «$gesto»'}. '
+      'qui sopra${gesto == null ? '' : ' col tuo gesto «$gesto»'}. '
       'Riscrivi la risposta portando avanti il consiglio che hai già dato, '
       'senza chiedere alla persona di ripeterlo.';
 
