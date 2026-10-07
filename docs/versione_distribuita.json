@@ -1,8 +1,8 @@
 {
-  "ultimo_distribuito": 2299,
-  "quando": "2026-10-06",
+  "ultimo_distribuito": 2301,
+  "quando": "2026-10-07",
   "nota": "Il numero di versione dell'ultima build consegnata a un telefono. Android rifiuta di installare un versionCode piu' basso sopra uno piu' alto: la release del 28 luglio notte aveva numero 1 contro il 2001 di quella di ieri, quindi non si sovrapponeva. Il 2001 non era voluto, veniva da --split-per-abi, che somma duemila per l'ABI arm64: togliendo lo split il numero e' tornato a uno. Da qui in avanti il numero sta nel pubspec e deve crescere sempre, qualunque sia il modo di costruire. Questo file registra l'ultimo consegnato e test/versione_build_test.dart impedisce di distribuire un numero che non lo supera. Si aggiorna DOPO ogni distribuzione riuscita, col numero appena consegnato.",
-  "release": "54lqo1jsd98bo",
+  "release": "1ie8doutl87p0",
   "numero_letto_da": "aapt2 dump badging sull'archivio costruito, non dal pubspec",
   "peso_archivio_byte": 255845076,
   "la_2206_era_rimasta_fuori": "Il 26 agosto 2026 alle 14:26 UTC la build 2206 e' stata consegnata davvero, release 4igu53cugnei8, e questo file non lo ha mai saputo: e' rimasto a 2205 fino all'ordine BS. Verificato sul server, non sulla parola di nessuno, chiedendo l'elenco delle release ad App Distribution. Chi consegna aggiorna questo file subito dopo, altrimenti la guardia della versione difende un numero che non e' piu' vero.",
@@ -12,5 +12,6 @@
   "comando_di_build": "flutter build apk --release --target-platform android-arm64",
   "prova_di_accensione": "eseguita su un dispositivo",
   "telefono_della_prova": "Realme 767f596c per la 2291, 1 ottobre 2026: acceso, primo fotogramma disegnato, nessun FATAL EXCEPTION. Il registro di questa consegna e' stato scritto a mano coi valori della procedura: tool/consegna.py e' morta sul numero, letto dal telefono con una scheda troppo grande per il collegamento del Realme, a release gia' distribuita (ordine EV).",
-  "sbarramento": "github 5499045d6418cbd952fdbf95ac50cd8fcbdf94b8"
+  "sbarramento": "github e522b455cbfe426ab0796f48ba5118a9303fcd6d",
+  "la_2300_era_rimasta_fuori": "Il 7 ottobre 2026 la build 2300 e' stata consegnata davvero dal commit 7d260533, release 15shdjq0k2jn8, distribuita a cloud@esotericircle.app e installata sul Realme; il registro aggiornato da tool/consegna.py nella copia di lavoro non e' stato portato nel repo prima di riallineare la copia, e la consegna della 2301 ha letto 2299. Dichiarato qui e nel rapporto dell'ordine FE."
 }
