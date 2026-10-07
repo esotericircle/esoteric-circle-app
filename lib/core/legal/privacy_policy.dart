@@ -17,7 +17,10 @@ class SezioneDellaPolicy {
   final String corpo;
 }
 
-/// La data dell'ultima revisione, mostrata in testa. **5 ottobre 2026**: la
+/// La data dell'ultima revisione, mostrata in testa. **8 ottobre 2026**: gli
+/// Enigmi del Cerchio (il Ritratto, le Prove, le partite, le scommesse e le
+/// sfide, ordine FF) e la presenza che tiene anche l'istante in cui l'app
+/// passa in secondo piano (ordine FF voce 01). Prima il **5 ottobre 2026**: la
 /// sezione del Cerchio, coi testi tolti dalle schede della schermata "Chiama
 /// nel Cerchio" e la rubrica (ordine FD voce 06). Prima il **29 settembre
 /// 2026**: il testo era cambiato quel giorno, con la presenza per il numero di chi e'
@@ -25,7 +28,7 @@ class SezioneDellaPolicy {
 /// "Mappa del Viso" aveva preso il posto di "Costellazione del Viso" (ordine
 /// EN voce 11) e il fondatore aveva deciso che la data passasse con la
 /// build successiva (*"La farai con la prossima build"*).
-const String dataDellaPolicy = '5 ottobre 2026';
+const String dataDellaPolicy = '8 ottobre 2026';
 
 /// Il titolare del trattamento e il contatto.
 const String titolareDellaPolicy =
@@ -69,6 +72,19 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
         'Cerchio. Non li mandiamo a nessun server, non li conserviamo e non '
         'cerchiamo chi della tua rubrica è già nel Cerchio. L’invito parte '
         'dall’app dei messaggi del tuo telefono: lo mandi tu.',
+  ),
+  // **GLI ENIGMI DEL CERCHIO.** Ordine FF, 8 ottobre 2026: i giochi tengono
+  // sul server il Ritratto, le Prove, le partite, le scommesse e le sfide.
+  SezioneDellaPolicy(
+    titolo: 'Gli Enigmi del Cerchio',
+    corpo: 'Per i giochi del Cerchio teniamo il tuo Ritratto, le venti '
+        'caratteristiche che scegli: lo vedi intero solo tu. Agli altri ne '
+        'arriva una per volta come indizio, solo se non ti sei tolto dai '
+        'giochi dal tuo profilo. Teniamo anche le Prove che fai col loro '
+        'punteggio, le scommesse, le sfide e gli indovinelli giocati. A chi '
+        'viene indovinato arriva il numero di chi lo ha riconosciuto e, se '
+        'lo scopre, il suo segno: mai il nome. Tutto questo resta finché vive '
+        'il tuo account e se ne va quando cancelli i tuoi dati o l’account.',
   ),
   SezioneDellaPolicy(
     titolo: 'Perché li trattiamo e con quale base',
@@ -141,8 +157,8 @@ const List<SezioneDellaPolicy> sezioniDellaPolicy = [
         'le notifiche e quando cancelli il tuo account. '
         'Per mostrare in alto quante persone sono nel Cerchio in quel '
         'momento teniamo soltanto l\'istante dell\'ultima volta che la tua '
-        'app, aperta, l\'ha chiesto: nessuno vede chi è online, si legge '
-        'soltanto il numero. Sparisce quando cancelli i tuoi dati o il tuo '
+        'app l\'ha chiesto, aperta oppure passando in secondo piano: nessuno '
+        'vede chi è online, si legge soltanto il numero. Sparisce quando cancelli i tuoi dati o il tuo '
         'account.',
   ),
   SezioneDellaPolicy(

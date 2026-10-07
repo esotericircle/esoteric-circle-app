@@ -454,7 +454,8 @@ test("EY.16 GUARDIA: ogni porta del motore sociale ha il suo tetto", () => {
     if (TETTI_DELLE_PORTE[nome] === undefined) senza.push(`${nome} (nessun numero)`);
   }
   console.log(`EY.16 PORTE SOCIALI: ${nomi.length}, senza tetto ${senza.length}`);
-  assert.equal(nomi.length, 16);
+  // 22 dall'ordine FF: le sei porte degli Enigmi del Cerchio.
+  assert.equal(nomi.length, 22);
   assert.deepEqual(senza, []);
   assert.deepEqual(nomi.sort(), Object.keys(TETTI_DELLE_PORTE).sort());
   // E App Check resta spento, come dichiara la premessa P9.
@@ -494,7 +495,7 @@ test("EZ.07 la pagina del link senza store non rimanda a uno store, col dato pie
 
 test("EZ.04 la soglia dei quattordici anni: ogni porta sociale tranne quella che riceve l'eta'", () => {
   const porte = Object.keys(TETTI_DELLE_PORTE);
-  assert.equal(porte.length, 16);
+  assert.equal(porte.length, 22);
   const aperteSotto = porte.filter((p) => sogliaDellEtaPassata(p, false) ||
     sogliaDellEtaPassata(p, undefined));
   console.log(`EZ.04 LE PORTE APERTE SOTTO I QUATTORDICI ANNI: ${aperteSotto}`);

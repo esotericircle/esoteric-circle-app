@@ -1164,6 +1164,13 @@ export const TETTI_DELLE_PORTE: Record<string, {quante: number; finestraMs: numb
   regalaGliEos: {quante: 20, finestraMs: 60 * 60 * 1000},
   compraUnPostoNelCerchio: {quante: 20, finestraMs: 60 * 60 * 1000},
   scriviIlTokenDelCerchio: {quante: 30, finestraMs: 60 * 60 * 1000},
+  // Gli Enigmi del Cerchio, ordine FF.
+  ilMioRitratto: {quante: 120, finestraMs: 60 * 60 * 1000},
+  gliEnigmi: {quante: 120, finestraMs: 60 * 60 * 1000},
+  unIndovinello: {quante: 600, finestraMs: 60 * 60 * 1000},
+  scopriUnSegno: {quante: 60, finestraMs: 60 * 60 * 1000},
+  laProva: {quante: 120, finestraMs: 60 * 60 * 1000},
+  unPassoDelPellegrinaggio: {quante: 60, finestraMs: 60 * 60 * 1000},
 };
 
 /**

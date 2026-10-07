@@ -2,6 +2,7 @@ import {onCall, HttpsError, CallableRequest} from "firebase-functions/v2/https";
 import {SpazioDellaPresenza, spazioDi} from "./i_collaudi";
 import * as logger from "firebase-functions/logger";
 import {
+  DocumentSnapshot,
   getFirestore,
   FieldValue,
   Firestore,
@@ -12,6 +13,38 @@ import {getMessaging} from "firebase-admin/messaging";
 import {chiaveDelGiorno} from "./giorno";
 import {Piano, pianoValido} from "./budget";
 import {confineDellaPresenza} from "./presenza";
+import {
+  DatiDellaPersona,
+  Indizio,
+  INDIZI_MASSIMI,
+  costoDellIndizio,
+  indizioDellaPartita,
+  puntiDellaRisposta,
+} from "./gli_indizi";
+import {
+  DURATA_DELLA_SFIDA_MS,
+  Domanda,
+  INDOVINELLI_AL_GIORNO,
+  PREZZO_DEL_SEGNO,
+  PUNTI_DELLA_SCOMMESSA,
+  SCOMMESSE_AL_GIORNO,
+  Volto,
+  chiaveDellaDomanda,
+  esclusiPerLaDomanda,
+  esitoDellaSfida,
+  figuraDi,
+  ilRitornoDi,
+  laClassifica,
+  laDomanda,
+  lunaValida,
+  metaDelPellegrinaggio,
+  piuVicini,
+  punteggioDi,
+  quattroVolti,
+  rispostaDellIndovinello,
+  ritrattoValido,
+  sfidaPerIlPiano,
+} from "./gli_enigmi";
 import {
   RIGHE_DEL_RIFIUTO,
   formeDiConfronto,
@@ -1617,6 +1650,18 @@ export async function cancellaIlSociale(uid: string): Promise<void> {
     if (typeof c === "string") batch.delete(db().collection("codici_invito").doc(c));
   }
   await batch.commit();
+  // **GLI ENIGMI FUORI DAL RAMO, ordine FF**: le partite di chi se ne va, le
+  // scommesse fatte e ricevute, le sfide nei due versi.
+  const fuori = await Promise.all([
+    PARTITE().where("di", "==", uid).get(),
+    SCOMMESSE().where("da", "==", uid).get(),
+    SCOMMESSE().where("amico", "==", uid).get(),
+    SFIDE().where("da", "==", uid).get(),
+    SFIDE().where("a", "==", uid).get(),
+  ]);
+  for (const q of fuori) {
+    for (const d of q.docs) await d.ref.delete();
+  }
 }
 
 /**
@@ -1643,6 +1688,645 @@ export async function invitoDalRiscatto(chiInvita: string, chiArriva: string):
       {errore: String(errore)});
   }
 }
+
+// ---------------------------------------------------------------------------
+// PARTE E, GLI ENIGMI DEL CERCHIO, ordine FF (8 ottobre 2026)
+// ---------------------------------------------------------------------------
+
+/**
+ * **DOVE STANNO I DATI DEI GIOCHI, e perche' fuori dal ramo.** Il Ritratto
+ * della persona sta in `users/{uid}/stato/ritratto` e le sue scelte sui giochi
+ * (l'interruttore, l'archetipo e l'animale pubblicati) in
+ * `users/{uid}/stato/giochi`: li legge il suo telefono. Le partite, le
+ * scommesse e le sfide stanno invece in collezioni chiuse al telefono
+ * (`enigmi_partite`, `enigmi_scommesse`, `enigmi_sfide`): una partita porta
+ * la fotografia del Ritratto di un'ALTRA persona, che chi gioca non deve poter
+ * leggere intera, e una scommessa porta chi ha scommesso, che la persona
+ * indovinata non deve sapere. Le toglie `cancellaIlSociale`.
+ */
+const PARTITE = () => db().collection("enigmi_partite");
+const SCOMMESSE = () => db().collection("enigmi_scommesse");
+const SFIDE = () => db().collection("enigmi_sfide");
+const SETTIMANA = (s: string) => db().collection("enigmi_settimane").doc(s);
+const PROVA = (uid: string, s: string) =>
+  utente(uid).collection("prove").doc(s);
+
+function idDelGesto(valore: unknown): string | null {
+  const s = String(valore ?? "").trim();
+  return /^[A-Za-z0-9_-]{8,120}$/.test(s) ? s : null;
+}
+
+/** Un archetipo o un animale pubblicato: un identificativo, mai testo. */
+function voceDelCatalogo(valore: unknown): string | null {
+  const s = String(valore ?? "");
+  return /^[a-z_]{2,32}$/.test(s) ? s : null;
+}
+
+/** Il lunedi' della settimana di oggi, nel fuso di Roma. */
+function lunediDiOggi(): string {
+  const oggi = chiaveDelGiorno();
+  const d = new Date(`${oggi}T12:00:00Z`);
+  const dal = (d.getUTCDay() + 6) % 7;
+  return new Date(d.getTime() - dal * 864e5).toISOString().slice(0, 10);
+}
+
+/** I contatori dei giochi di oggi, azzerati quando il giorno cambia. */
+function contatoriDeiGiochi(dati: Record<string, unknown> | undefined,
+  oggi: string) {
+  const d = dati ?? {};
+  const stessoGiorno = d.giorno === oggi;
+  return {
+    giorno: oggi,
+    indovinelli: stessoGiorno ? Number(d.indovinelli ?? 0) : 0,
+    scommesse: stessoGiorno ? Number(d.scommesse ?? 0) : 0,
+    indovinati: Number(d.indovinati ?? 0),
+    punti: Number(d.punti ?? 0),
+    sfideVinte: Number(d.sfideVinte ?? 0),
+  };
+}
+
+/** Gli amici, tolti i blocchi nei due versi. */
+async function amiciNeiGiochi(uid: string): Promise<string[]> {
+  const [legami, blocchi] = await Promise.all([
+    statoDi(uid, "legami").get(), statoDi(uid, "blocchi").get()]);
+  const fuori = new Set([...elenco(blocchi.data()?.bloccati),
+    ...elenco(blocchi.data()?.bloccatoDa)]);
+  return elenco(legami.data()?.amici).filter((a) => !fuori.has(a));
+}
+
+/**
+ * **UN VOLTO DEI GIOCHI**, nullo per chi non puo' comparire: senza Ritratto,
+ * con l'interruttore spento, sotto i quattordici anni.
+ */
+async function voltoDi(uid: string): Promise<Volto | null> {
+  const [r, g, i] = await Promise.all([statoDi(uid, "ritratto").get(),
+    statoDi(uid, "giochi").get(), statoDi(uid, "identita").get()]);
+  const tratti = ritrattoValido(r.data()?.tratti);
+  if (tratti === null) return null;
+  if (g.data()?.fuoriDaiGiochi === true) return null;
+  const io = identitaDa(i.data());
+  if (!io.quattordici) return null;
+  return {
+    uid,
+    ritratto: tratti.map(String),
+    segno: io.segno,
+    animale: voceDelCatalogo(g.data()?.animale),
+    archetipo: voceDelCatalogo(g.data()?.archetipo),
+    archetipoSecondario: null,
+  };
+}
+
+/**
+ * Il volto come arriva a chi gioca: il nome e l'icona scelta. **L'icona del
+ * segno non viaggia**: direbbe l'elemento a chi deve indovinarlo.
+ */
+async function voltoPubblico(uid: string) {
+  const s = await schedaPubblica(uid);
+  const icona = s?.icona ?? null;
+  return {uid, nome: s?.nome ?? "", sigillo: s?.sigillo ?? null,
+    icona: icona !== null && icona.startsWith("segno") ? null : icona};
+}
+
+/**
+ * **IL RITRATTO E LE SCELTE DEI GIOCHI**, voci FF.02 e FF.04.4. Senza corpo
+ * restituisce il proprio Ritratto (solo a chi lo possiede: nessuna porta lo
+ * restituisce ad altri); coi campi lo scrive. Il Ritratto si scrive solo
+ * intero, venti caratteristiche del corpus.
+ */
+export const ilMioRitratto = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "ilMioRitratto");
+  const corpo = (request.data ?? {}) as Record<string, unknown>;
+  if (corpo.tratti !== undefined) {
+    const tratti = ritrattoValido(corpo.tratti);
+    if (tratti === null) {
+      throw new HttpsError("invalid-argument",
+        "Il Ritratto vuole venti caratteristiche diverse.");
+    }
+    await statoDi(uid, "ritratto").set({tratti, quando: Date.now()});
+  }
+  const giochi: Record<string, unknown> = {};
+  if (typeof corpo.fuoriDaiGiochi === "boolean") {
+    giochi.fuoriDaiGiochi = corpo.fuoriDaiGiochi;
+  }
+  if (corpo.archetipo !== undefined) {
+    giochi.archetipo = voceDelCatalogo(corpo.archetipo);
+  }
+  if (corpo.animale !== undefined) giochi.animale = voceDelCatalogo(corpo.animale);
+  if (Object.keys(giochi).length > 0) {
+    await statoDi(uid, "giochi").set(giochi, {merge: true});
+  }
+  const [r, g] = await Promise.all([statoDi(uid, "ritratto").get(),
+    statoDi(uid, "giochi").get()]);
+  return {
+    tratti: ritrattoValido(r.data()?.tratti) ?? [],
+    fuoriDaiGiochi: g.data()?.fuoriDaiGiochi === true,
+    archetipo: voceDelCatalogo(g.data()?.archetipo),
+    animale: voceDelCatalogo(g.data()?.animale),
+  };
+});
+
+/** Chiude le sfide scadute di una persona: il punto va a chi ha giocato. */
+async function chiudiLeSfideScadute(uid: string, adesso: number) {
+  const [mie, altrui] = await Promise.all([
+    SFIDE().where("da", "==", uid).where("chiusa", "==", false).get(),
+    SFIDE().where("a", "==", uid).where("chiusa", "==", false).get()]);
+  const aperte: Record<string, unknown>[] = [];
+  for (const doc of [...mie.docs, ...altrui.docs]) {
+    const s = doc.data();
+    const esito = esitoDellaSfida({
+      da: String(s.da), a: String(s.a), scade: Number(s.scade),
+      punteggioDa: s.punteggioDa ?? null, punteggioA: s.punteggioA ?? null,
+      stimaDa: s.stimaDa ?? null, stimaA: s.stimaA ?? null,
+    }, adesso);
+    if (esito === null) {
+      aperte.push({id: doc.id, da: s.da, a: s.a, scade: s.scade,
+        tua: s.da === uid, haiStimato: s.da === uid ? true : s.stimaA != null});
+      continue;
+    }
+    await chiudiLaSfida(doc.id, esito.vincitori, esito.perche);
+  }
+  return aperte;
+}
+
+async function chiudiLaSfida(id: string, vincitori: string[], perche: string) {
+  await db().runTransaction(async (tx) => {
+    const ref = SFIDE().doc(id);
+    const snap = await tx.get(ref);
+    if (!snap.exists || snap.data()?.chiusa === true) return;
+    const oggi = chiaveDelGiorno();
+    const stati = await Promise.all(vincitori.map((v) =>
+      tx.get(statoDi(v, "enigmi"))));
+    tx.set(ref, {chiusa: true, vincitori, perche}, {merge: true});
+    vincitori.forEach((v, i) => {
+      const c = contatoriDeiGiochi(stati[i].data(), oggi);
+      tx.set(statoDi(v, "enigmi"), {...c, sfideVinte: c.sfideVinte + 1},
+        {merge: true});
+    });
+  });
+}
+
+/**
+ * **GLI ENIGMI, la vista d'insieme**: il proprio Ritratto e' compilato?
+ * Quanti indovinelli e scommesse restano oggi, chi ti ha indovinato (il
+ * numero e i segni scoperti, mai un nome), la Prova della settimana coi suoi
+ * amici, le sfide aperte col tempo che resta, il Pellegrinaggio con la parte
+ * di ciascuno, la classifica di chi conosce il Cerchio. Le sfide scadute si
+ * chiudono qui, alla lettura: nessun gioco aspetta che qualcuno apra l'app.
+ */
+export const gliEnigmi = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "gliEnigmi");
+  const corpo = (request.data ?? {}) as Record<string, unknown>;
+  const oggi = chiaveDelGiorno();
+  const adesso = Date.now();
+  const settimana = lunediDiOggi();
+  const luna = lunaValida(corpo.luna, oggi);
+  const [ritratto, enigmi, indovinato, piano, amici, settimanaDoc, miaProva] =
+    await Promise.all([
+      statoDi(uid, "ritratto").get(), statoDi(uid, "enigmi").get(),
+      statoDi(uid, "indovinato").get(), pianoDi(uid), amiciNeiGiochi(uid),
+      SETTIMANA(settimana).get(), PROVA(uid, settimana).get()]);
+  const c = contatoriDeiGiochi(enigmi.data(), oggi);
+  const persone = [uid, ...amici];
+  const [stati, pellegrinaggi, prove, volti, mieScommesse, sfide] =
+    await Promise.all([
+      db().getAll(...persone.map((p) => statoDi(p, "enigmi"))),
+      db().getAll(...persone.map((p) => statoDi(p, "pellegrinaggio"))),
+      amici.length > 0 ?
+        db().getAll(...amici.map((a) => PROVA(a, settimana))) :
+        Promise.resolve([]),
+      Promise.all(persone.map(voltoPubblico)),
+      SCOMMESSE().where("da", "==", uid).where("settimana", "==", settimana)
+        .get(),
+      chiudiLeSfideScadute(uid, adesso)]);
+  const nomi = Object.fromEntries(volti.map((v) => [v.uid, v]));
+  const scommesse = Object.fromEntries(mieScommesse.docs.map((d) =>
+    [String(d.data().amico), {valore: d.data().valore,
+      vinta: d.data().vinta ?? null}]));
+  const classifica = laClassifica(persone.map((p, i) => ({
+    uid: p, nome: nomi[p]?.nome ?? "", tu: p === uid,
+    indovinati: contatoriDeiGiochi(stati[i].data(), oggi).indovinati,
+  })));
+  const passi = persone.map((p, i) => {
+    const d = pellegrinaggi[i].data();
+    return {uid: p, nome: nomi[p]?.nome ?? "", tu: p === uid,
+      passi: luna !== null && d?.luna === luna ? elenco(d?.giorni).length : 0};
+  });
+  const totale = passi.reduce((a, p) => a + p.passi, 0);
+  const meta = metaDelPellegrinaggio(persone.length);
+  const prova = miaProva.data();
+  return {
+    ritrattoCompilato: ritrattoValido(ritratto.data()?.tratti) !== null,
+    piano,
+    oggi: {
+      indovinelli: c.indovinelli, indovinelliAlGiorno: INDOVINELLI_AL_GIORNO[piano],
+      scommesse: c.scommesse, scommesseAlGiorno: SCOMMESSE_AL_GIORNO[piano],
+    },
+    ritorno: ilRitornoDi(indovinato.data()),
+    prova: {
+      settimana,
+      tema: settimanaDoc.data()?.tema ?? null,
+      fatta: prova !== undefined,
+      punteggio: prova?.punteggio ?? null,
+      figura: prova ? figuraDi(Number(prova.tema), Number(prova.punteggio)) : null,
+      amici: amici.map((a, i) => {
+        const p = (prove[i] as DocumentSnapshot).data();
+        return {uid: a, nome: nomi[a]?.nome ?? "",
+          fatta: p !== undefined,
+          // Il punteggio si vede solo dopo che la persona ha fatto la Prova.
+          punteggio: p?.punteggio ?? null,
+          scommessa: scommesse[a] ?? null};
+      }),
+    },
+    sfide: {aperte: sfide, puoiSfidare: sfidaPerIlPiano(piano)},
+    pellegrinaggio: luna === null ? null :
+      {luna, meta, totale, arrivato: totale >= meta, passi},
+    classifica,
+  };
+});
+
+/**
+ * **CHI DEL CERCHIO**, voce FF.04: si apre, si chiedono gli indizi, si
+ * risponde. Il gioco non aspetta nessuno: si gioca contro i dati e il
+ * risultato arriva subito.
+ */
+export const unIndovinello = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "unIndovinello");
+  const corpo = (request.data ?? {}) as Record<string, unknown>;
+  const id = idDelGesto(corpo.partita);
+  if (id === null) throw new HttpsError("invalid-argument", "Partita sconosciuta.");
+  const azione = String(corpo.azione ?? "");
+  const oggi = chiaveDelGiorno();
+  if (azione === "apri") {
+    const gia = await PARTITE().doc(id).get();
+    if (gia.exists) {
+      if (gia.data()?.di !== uid) {
+        throw new HttpsError("permission-denied", "Partita di un altro.");
+      }
+      return vistaDellaPartita(id, gia.data() ?? {});
+    }
+    const [piano, enigmi, mio] = await Promise.all([pianoDi(uid),
+      statoDi(uid, "enigmi").get(), statoDi(uid, "ritratto").get()]);
+    if (ritrattoValido(mio.data()?.tratti) === null) {
+      return {ok: false, perche: "ritratto"};
+    }
+    const c = contatoriDeiGiochi(enigmi.data(), oggi);
+    if (c.indovinelli >= INDOVINELLI_AL_GIORNO[piano]) {
+      return {ok: false, perche: "limite", limite: INDOVINELLI_AL_GIORNO[piano]};
+    }
+    // I candidati si leggono nell'ordine del seme, finche' se ne trovano
+    // quattro: nessuna lettura di troppo con un Cerchio grande.
+    const ordinati = quattroVolti(
+      (await amiciNeiGiochi(uid)).map((a) => ({uid: a})), id, Infinity)
+      .map((a) => a.uid);
+    const volti: Volto[] = [];
+    for (const a of ordinati) {
+      const v = await voltoDi(a);
+      if (v !== null) volti.push(v);
+      if (volti.length === 4) break;
+    }
+    if (volti.length < 4) return {ok: false, perche: "pochi", quanti: volti.length};
+    const scelta = laDomanda(volti, id);
+    if (scelta === null) return {ok: false, perche: "nessunaDomanda"};
+    const persona = volti.find((v) => v.uid === scelta.giusta) as Volto;
+    const partita = {
+      di: uid, quando: Date.now(), facce: volti.map((v) => v.uid),
+      giusta: scelta.giusta, domanda: scelta.domanda,
+      // La fotografia del Ritratto di quando la partita comincia (voce
+      // FF.02.5): chi sta per essere indovinato non cambia le caselle a meta'.
+      dati: {ritratto: persona.ritratto, segno: persona.segno ?? null,
+        animale: persona.animale ?? null, archetipoSecondario: null},
+      esclusi: esclusiPerLaDomanda(scelta.domanda),
+      indizi: [] as Indizio[], chiusa: false,
+    };
+    await PARTITE().doc(id).set(partita);
+    return vistaDellaPartita(id, partita);
+  }
+  if (azione === "indizio") {
+    const esito = await db().runTransaction(async (tx) => {
+      const ref = PARTITE().doc(id);
+      const snap = await tx.get(ref);
+      const borsa = await tx.get(statoDi(uid, "borsellino"));
+      const p = snap.data();
+      if (!snap.exists || p?.di !== uid) return {ok: false, perche: "partita"};
+      if (p?.chiusa === true) return {ok: false, perche: "chiusa"};
+      const indizi = (p?.indizi ?? []) as Indizio[];
+      const n = indizi.length + 1;
+      if (n > INDIZI_MASSIMI) return {ok: false, perche: "finiti"};
+      const costo = costoDellIndizio(n);
+      const saldo = Number(borsa.data()?.saldo ?? 0);
+      if (costo > saldo) return {ok: false, perche: "eos", manca: costo - saldo};
+      const indizio = indizioDellaPartita(p?.dati as DatiDellaPersona, id, n,
+        (p?.esclusi ?? []) as string[]);
+      if (indizio === null) return {ok: false, perche: "finiti"};
+      tx.set(ref, {indizi: [...indizi, indizio]}, {merge: true});
+      if (costo > 0) {
+        tx.set(statoDi(uid, "borsellino"), {saldo: saldo - costo,
+          aggiornato: FieldValue.serverTimestamp()}, {merge: true});
+        tx.set(utente(uid).collection("movimenti").doc(`indizio-${id}-${n}`),
+          {causale: "spesa", motivo: "indizio_del_cerchio", importo: -costo,
+            saldoDopo: saldo - costo, quando: FieldValue.serverTimestamp()});
+      }
+      return {ok: true, indizio, n, costo,
+        costoProssimo: n < INDIZI_MASSIMI ? costoDellIndizio(n + 1) : null};
+    });
+    return esito;
+  }
+  if (azione === "rispondi") {
+    const scelta = String(corpo.scelta ?? "");
+    const io = await leggiIdentita(uid);
+    const piano = await pianoDi(uid);
+    const esito = await db().runTransaction(async (tx) => {
+      const ref = PARTITE().doc(id);
+      const snap = await tx.get(ref);
+      const p = snap.data();
+      if (!snap.exists || p?.di !== uid) return {ok: false, perche: "partita"};
+      const stato = await tx.get(statoDi(uid, "enigmi"));
+      const giustaUid = String(p?.giusta);
+      const indovinato = await tx.get(statoDi(giustaUid, "indovinato"));
+      if (p?.chiusa === true) {
+        return {ok: true, ...rispostaDellIndovinello({giusta: p?.risposta === giustaUid,
+          punti: Number(p?.punti ?? 0), uidGiusto: giustaUid})};
+      }
+      const c = contatoriDeiGiochi(stato.data(), oggi);
+      if (c.indovinelli >= INDOVINELLI_AL_GIORNO[piano]) {
+        return {ok: false, perche: "limite", limite: INDOVINELLI_AL_GIORNO[piano]};
+      }
+      if (!(p?.facce as string[]).includes(scelta)) {
+        return {ok: false, perche: "scelta"};
+      }
+      const giusta = scelta === giustaUid;
+      const punti = puntiDellaRisposta(((p?.indizi ?? []) as unknown[]).length,
+        giusta);
+      tx.set(ref, {chiusa: true, risposta: scelta, punti}, {merge: true});
+      tx.set(statoDi(uid, "enigmi"), {...c, indovinelli: c.indovinelli + 1,
+        indovinati: c.indovinati + (giusta ? 1 : 0), punti: c.punti + punti},
+      {merge: true});
+      if (giusta) {
+        // **CHI VIENE INDOVINATO LO SA**, voce FF.04.3: il numero e il segno
+        // di chi ha indovinato, da scoprire uno alla volta. Il nome no.
+        const chiave = chiaveDellaDomanda(p?.domanda as Domanda);
+        const per = (indovinato.data()?.perDomanda ?? {}) as Record<string,
+          {quanti?: number; segni?: string[]; rivelati?: number}>;
+        const voce = per[chiave] ?? {};
+        tx.set(statoDi(giustaUid, "indovinato"), {perDomanda: {[chiave]: {
+          quanti: Number(voce.quanti ?? 0) + 1,
+          segni: [...(voce.segni ?? []), io.segno ?? "sconosciuto"],
+          rivelati: Number(voce.rivelati ?? 0),
+        }}}, {merge: true});
+      }
+      return {ok: true, ...rispostaDellIndovinello({giusta, punti,
+        uidGiusto: giustaUid}), nuovo: true};
+    });
+    if (esito.ok && "nuovo" in esito && esito.giusta) {
+      await avvisa(String(esito.era),
+        "Qualcuno del tuo Cerchio ti ha riconosciuto in un indovinello.",
+        "indovinato");
+    }
+    if ("nuovo" in esito) delete (esito as {nuovo?: boolean}).nuovo;
+    return esito;
+  }
+  throw new HttpsError("invalid-argument", "Gesto sconosciuto.");
+});
+
+/** La partita come la vede chi gioca: mai la risposta giusta prima del tempo. */
+function vistaDellaPartita(id: string, p: Record<string, unknown>) {
+  return Promise.all(((p.facce ?? []) as string[]).map(voltoPubblico))
+    .then((facce) => {
+      const indizi = (p.indizi ?? []) as Indizio[];
+      return {
+        ok: true, partita: id, facce, domanda: p.domanda, indizi,
+        costoProssimo: indizi.length < INDIZI_MASSIMI ?
+          costoDellIndizio(indizi.length + 1) : null,
+        chiusa: p.chiusa === true,
+        ...(p.chiusa === true ? {era: p.giusta, punti: p.punti ?? 0} : {}),
+      };
+    });
+}
+
+/**
+ * **IL SEGNO DI CHI TI HA INDOVINATO**, venti Eos, uno alla volta. Il segno
+ * si', il nome mai: il nome non e' mai stato scritto qui.
+ */
+export const scopriUnSegno = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "scopriUnSegno");
+  const chiave = String(request.data?.chiave ?? "");
+  const id = idDelGesto(request.data?.idMovimento);
+  if (id === null) {
+    throw new HttpsError("invalid-argument", "Ogni spesa porta il suo identificativo.");
+  }
+  return db().runTransaction(async (tx) => {
+    const doc = statoDi(uid, "indovinato");
+    const movimento = utente(uid).collection("movimenti").doc(`segno-${id}`);
+    const [snap, borsa, gia] = await Promise.all([tx.get(doc),
+      tx.get(statoDi(uid, "borsellino")), tx.get(movimento)]);
+    if (gia.exists) return {ok: true, gia: true, ritorno: ilRitornoDi(snap.data())};
+    const per = (snap.data()?.perDomanda ?? {}) as Record<string,
+      {quanti?: number; segni?: string[]; rivelati?: number}>;
+    const voce = per[chiave];
+    const segni = voce?.segni ?? [];
+    const rivelati = Number(voce?.rivelati ?? 0);
+    if (voce === undefined || rivelati >= segni.length) {
+      return {ok: false, perche: "nessuno"};
+    }
+    const saldo = Number(borsa.data()?.saldo ?? 0);
+    if (PREZZO_DEL_SEGNO > saldo) {
+      return {ok: false, perche: "eos", manca: PREZZO_DEL_SEGNO - saldo};
+    }
+    tx.set(doc, {perDomanda: {[chiave]: {...voce, rivelati: rivelati + 1}}},
+      {merge: true});
+    tx.set(statoDi(uid, "borsellino"), {saldo: saldo - PREZZO_DEL_SEGNO,
+      aggiornato: FieldValue.serverTimestamp()}, {merge: true});
+    tx.set(movimento, {causale: "spesa", motivo: "segno_di_chi_indovina",
+      importo: -PREZZO_DEL_SEGNO, saldoDopo: saldo - PREZZO_DEL_SEGNO,
+      quando: FieldValue.serverTimestamp()});
+    const dopo = {...per, [chiave]: {...voce, rivelati: rivelati + 1}};
+    return {ok: true, gia: false, ritorno: ilRitornoDi({perDomanda: dopo})};
+  });
+});
+
+/** Chiude le scommesse fatte su chi ha appena consegnato la Prova. */
+async function chiudiLeScommesse(amico: string, settimana: string,
+  punteggio: number) {
+  const aperte = await SCOMMESSE().where("amico", "==", amico)
+    .where("settimana", "==", settimana).get();
+  const stime = aperte.docs.filter((d) => d.data().vinta == null)
+    .map((d) => ({chi: String(d.data().da), valore: Number(d.data().valore),
+      ref: d.ref}));
+  const vincitori = new Set(piuVicini(stime, punteggio));
+  const oggi = chiaveDelGiorno();
+  for (const s of stime) {
+    await db().runTransaction(async (tx) => {
+      const st = await tx.get(statoDi(s.chi, "enigmi"));
+      const c = contatoriDeiGiochi(st.data(), oggi);
+      const vinta = vincitori.has(s.chi);
+      tx.set(s.ref, {vinta, punteggio}, {merge: true});
+      if (vinta) {
+        tx.set(statoDi(s.chi, "enigmi"),
+          {...c, punti: c.punti + PUNTI_DELLA_SCOMMESSA}, {merge: true});
+      }
+    });
+  }
+}
+
+/** Dopo la Prova di una persona, le sue sfide della settimana si aggiornano. */
+async function aggiornaLeSfide(uid: string, settimana: string,
+  punteggio: number) {
+  const comeA = await SFIDE().where("a", "==", uid)
+    .where("settimana", "==", settimana).get();
+  for (const d of comeA.docs) {
+    if (d.data().chiusa === true) continue;
+    await d.ref.set({punteggioA: punteggio}, {merge: true});
+    const s = d.data();
+    const esito = esitoDellaSfida({da: String(s.da), a: String(s.a),
+      scade: Number(s.scade), punteggioDa: s.punteggioDa ?? null,
+      punteggioA: punteggio, stimaDa: s.stimaDa ?? null,
+      stimaA: s.stimaA ?? null}, Date.now());
+    if (esito !== null) await chiudiLaSfida(d.id, esito.vincitori, esito.perche);
+  }
+}
+
+/**
+ * **LA PROVA DELLA SETTIMANA**, voci FF.05 e FF.06.4: si consegna, si
+ * scommette sul punteggio di un amico finche' non l'ha fatta, si sfida un
+ * amico. Il punteggio lo calcola il server dai pesi del corpus.
+ */
+export const laProva = onCall(OPZIONI_SOCIALI, async (request) => {
+  const uid = uidDi(request);
+  await tettoDellaPorta(uid, "laProva");
+  const corpo = (request.data ?? {}) as Record<string, unknown>;
+  const azione = String(corpo.azione ?? "");
+  const settimana = lunediDiOggi();
+  const oggi = chiaveDelGiorno();
+  if (azione === "consegna") {
+    const tema = Number(corpo.tema);
+    const punteggio = punteggioDi(tema, settimana, corpo.scelte);
+    if (punteggio === null) {
+      throw new HttpsError("invalid-argument", "La Prova vuole dieci risposte.");
+    }
+    const esito = await db().runTransaction(async (tx) => {
+      const [sett, gia] = await Promise.all([tx.get(SETTIMANA(settimana)),
+        tx.get(PROVA(uid, settimana))]);
+      // **LA STESSA PER TUTTI**: il primo telefono della settimana fissa il
+      // tema, e un telefono con l'orologio sbagliato non ne apre un altro.
+      if (sett.exists && Number(sett.data()?.tema) !== tema) {
+        return {ok: false, perche: "tema", tema: sett.data()?.tema};
+      }
+      if (gia.exists) {
+        return {ok: true, gia: true, punteggio: gia.data()?.punteggio,
+          figura: figuraDi(tema, Number(gia.data()?.punteggio))};
+      }
+      if (!sett.exists) tx.set(SETTIMANA(settimana), {tema});
+      tx.set(PROVA(uid, settimana), {tema, scelte: corpo.scelte, punteggio,
+        quando: Date.now()});
+      return {ok: true, gia: false, punteggio, figura: figuraDi(tema, punteggio)};
+    });
+    if (esito.ok && esito.gia === false) {
+      await chiudiLeScommesse(uid, settimana, punteggio);
+      await aggiornaLeSfide(uid, settimana, punteggio);
+    }
+    return esito;
+  }
+  const amico = String(corpo.amico ?? "");
+  if (!(await amiciNeiGiochi(uid)).includes(amico)) {
+    return {ok: false, perche: "amico"};
+  }
+  const valore = Number(corpo.valore);
+  if (!Number.isInteger(valore) || valore < 0 || valore > 100) {
+    throw new HttpsError("invalid-argument", "Un punteggio va da 0 a 100.");
+  }
+  if (azione === "scommetti") {
+    const piano = await pianoDi(uid);
+    return db().runTransaction(async (tx) => {
+      const ref = SCOMMESSE().doc(`${settimana}_${amico}_${uid}`);
+      const [suaProva, gia, stato] = await Promise.all([
+        tx.get(PROVA(amico, settimana)), tx.get(ref),
+        tx.get(statoDi(uid, "enigmi"))]);
+      // Dopo e' tardi: il punteggio si vede, e la scommessa non si piazza.
+      if (suaProva.exists) return {ok: false, perche: "tardi"};
+      if (gia.exists) return {ok: false, perche: "gia"};
+      const c = contatoriDeiGiochi(stato.data(), oggi);
+      if (c.scommesse >= SCOMMESSE_AL_GIORNO[piano]) {
+        return {ok: false, perche: "limite", limite: SCOMMESSE_AL_GIORNO[piano]};
+      }
+      tx.set(ref, {da: uid, amico, settimana, valore, quando: Date.now(),
+        vinta: null});
+      tx.set(statoDi(uid, "enigmi"), {...c, scommesse: c.scommesse + 1},
+        {merge: true});
+      return {ok: true};
+    });
+  }
+  if (azione === "sfida") {
+    if (!sfidaPerIlPiano(await pianoDi(uid))) {
+      return {ok: false, perche: "piano"};
+    }
+    const mia = await PROVA(uid, settimana).get();
+    if (!mia.exists) return {ok: false, perche: "prova"};
+    const id = idDelGesto(corpo.sfida);
+    if (id === null) throw new HttpsError("invalid-argument", "Sfida sconosciuta.");
+    const adesso = Date.now();
+    const ref = SFIDE().doc(id);
+    if ((await ref.get()).exists) return {ok: true, gia: true};
+    await ref.set({da: uid, a: amico, settimana, quando: adesso,
+      scade: adesso + DURATA_DELLA_SFIDA_MS, punteggioDa: mia.data()?.punteggio,
+      stimaDa: valore, punteggioA: null, stimaA: null, chiusa: false});
+    const io = await schedaPubblica(uid);
+    if (io !== null) {
+      await avvisa(amico, `${io.nome} ti sfida sulla Prova della settimana`,
+        "sfida");
+    }
+    return {ok: true, gia: false, scade: adesso + DURATA_DELLA_SFIDA_MS};
+  }
+  if (azione === "rispondiAllaSfida") {
+    const id = idDelGesto(corpo.sfida);
+    if (id === null) throw new HttpsError("invalid-argument", "Sfida sconosciuta.");
+    const ref = SFIDE().doc(id);
+    const snap = await ref.get();
+    const s = snap.data();
+    if (!snap.exists || s?.a !== uid || s?.da !== amico) {
+      return {ok: false, perche: "sfida"};
+    }
+    if (s?.chiusa === true || Date.now() >= Number(s?.scade)) {
+      return {ok: false, perche: "scaduta"};
+    }
+    const suaProva = await PROVA(uid, settimana).get();
+    await ref.set({stimaA: valore,
+      punteggioA: suaProva.data()?.punteggio ?? null}, {merge: true});
+    const esito = esitoDellaSfida({da: String(s?.da), a: uid,
+      scade: Number(s?.scade), punteggioDa: s?.punteggioDa ?? null,
+      punteggioA: suaProva.data()?.punteggio ?? null, stimaDa: s?.stimaDa ?? null,
+      stimaA: valore}, Date.now());
+    if (esito !== null) await chiudiLaSfida(id, esito.vincitori, esito.perche);
+    return {ok: true, esito};
+  }
+  throw new HttpsError("invalid-argument", "Gesto sconosciuto.");
+});
+
+/**
+ * **UN PASSO DEL PELLEGRINAGGIO**, voce FF.06.2: un rito compiuto nella
+ * settimana che porta alla luna piena porta il Cerchio avanti di un passo,
+ * uno al giorno per persona. Aperto a ogni piano.
+ */
+export const unPassoDelPellegrinaggio = onCall(OPZIONI_SOCIALI,
+  async (request) => {
+    const uid = uidDi(request);
+    await tettoDellaPorta(uid, "unPassoDelPellegrinaggio");
+    const oggi = chiaveDelGiorno();
+    const luna = lunaValida(request.data?.luna, oggi);
+    if (luna === null) return {ok: false, perche: "luna"};
+    return db().runTransaction(async (tx) => {
+      const doc = statoDi(uid, "pellegrinaggio");
+      const snap = await tx.get(doc);
+      const giorni = snap.data()?.luna === luna ? elenco(snap.data()?.giorni) : [];
+      if (giorni.includes(oggi)) return {ok: true, passi: giorni.length, gia: true};
+      const dopo = [...giorni, oggi];
+      tx.set(doc, {luna, giorni: dopo});
+      return {ok: true, passi: dopo.length, gia: false};
+    });
+  });
 
 /** Per le prove: le porte di questo file e i loro tetti si contano insieme. */
 export const PORTE_SOCIALI = Object.keys(TETTI_DELLE_PORTE);

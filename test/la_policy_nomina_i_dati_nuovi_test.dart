@@ -40,6 +40,12 @@ const Map<String, List<String>> datiNuoviDaNominare = {
     'gettone del tuo apparecchio',
     'fuso orario',
   ],
+  // Ordine FF, gli Enigmi del Cerchio: il Ritratto, le Prove, le partite,
+  // le scommesse e le sfide stanno sul server; la presenza tiene anche
+  // l'istante in cui l'app passa in secondo piano (voce FF.01).
+  'il Ritratto': ['Ritratto', 'venti caratteristiche', 'mai il nome'],
+  'le Prove e i giochi': ['Prove', 'scommesse', 'sfide', 'indovinelli'],
+  'l\'uscita in secondo piano': ['secondo piano'],
 };
 
 void main() {

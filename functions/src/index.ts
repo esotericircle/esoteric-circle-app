@@ -156,6 +156,13 @@ export {
   mandaUnDono,
   regalaGliEos,
   scriviIlTokenDelCerchio,
+  // Gli Enigmi del Cerchio, ordine FF.
+  ilMioRitratto,
+  gliEnigmi,
+  unIndovinello,
+  scopriUnSegno,
+  laProva,
+  unPassoDelPellegrinaggio,
 } from "./il_cerchio_sociale";
 export {paginaDellInvito} from "./la_pagina_dell_invito";
 
