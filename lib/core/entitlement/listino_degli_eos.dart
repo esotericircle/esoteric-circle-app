@@ -253,6 +253,39 @@ class ListinoDegliEos {
     },
   );
 
+  /// **UN INDIZIO, ordine FF voce 03**: nei giochi del Cerchio il primo
+  /// indizio di ogni partita e' gratis, dal secondo costa cinque Eos. Il
+  /// gratis e' per partita e non per giorno, e lo decide il server: qui la
+  /// soglia giornaliera resta a zero. Il prezzo lo ripete
+  /// `PREZZO_DELL_INDIZIO` in `functions/src/gli_indizi.ts`.
+  static const indizio = VoceDelListino(
+    id: 'indizio_del_cerchio',
+    nome: 'Un indizio in più',
+    costo: 5,
+    budget: null,
+    gratisAlGiorno: {
+      Tier.free: 0,
+      Tier.tier1: 0,
+      Tier.tier2: 0,
+      Tier.tier3: 0,
+    },
+  );
+
+  /// **IL SEGNO DI CHI TI HA INDOVINATO, ordine FF voce 04**: venti Eos, uno
+  /// alla volta. Il segno si', il nome mai, a nessun prezzo.
+  static const segnoDiChiTiHaIndovinato = VoceDelListino(
+    id: 'segno_di_chi_indovina',
+    nome: 'Il segno di chi ti ha indovinato',
+    costo: 20,
+    budget: null,
+    gratisAlGiorno: {
+      Tier.free: 0,
+      Tier.tier1: 0,
+      Tier.tier2: 0,
+      Tier.tier3: 0,
+    },
+  );
+
   static const List<VoceDelListino> tutte = [
     stesaTreCarte,
     cartaExtra,
@@ -265,6 +298,8 @@ class ListinoDegliEos {
     confrontoDelCieloInPiu,
     scintilla,
     sigilloDaDonare,
+    indizio,
+    segnoDiChiTiHaIndovinato,
   ];
 
   /// La voce di un'arte, oppure nulla se quell'arte non si compra a Eos.
