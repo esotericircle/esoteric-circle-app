@@ -27,6 +27,7 @@
 // nuova per giro: il giro di ieri non si sovrascrive.
 import 'dart:convert';
 import 'dart:io';
+import 'i_verdetti_del_filo.dart' as giudice;
 
 import 'package:esoteric_circle/core/chat/chat_message.dart';
 import 'package:esoteric_circle/core/chat/la_risposta_che_chiede.dart';
@@ -56,35 +57,8 @@ const _temi = [
 /// tarano il giudice: il giudice di Gemini da solo non basta, misurato
 /// nell'ordine EQ (fra il 67 e il 77 per cento d'accordo con la lettura a
 /// mano).
-const _regola = '''
-Leggi un consulto fra una persona e una o più guide spirituali. Le risposte
-sono numerate. Per ogni risposta segnata [DA GIUDICARE] dichiari una sola
-delle tre parole, guardando SOLO le risposte delle guide che vengono prima.
-
-CONTRADDICE: afferma il contrario di un consiglio, di un tempo o di un fatto
-già dato in una risposta precedente, senza dire apertamente che cambia
-parere e perché. Esempio: prima "aspetta la fine del mese", poi "muoviti
-subito" senza spiegare il cambio. Una guida diversa che dice di vedere le
-cose in un altro modo e lo dichiara apertamente ("io leggo diversamente")
-NON contraddice: diverge dichiarandolo, e conta come PORTA_AVANTI se
-riprende il punto prima di divergere.
-
-IGNORA: la risposta non contraddice, ma risponde come se le risposte
-precedenti non esistessero: apre un consiglio nuovo e scollegato, senza
-riprendere né sviluppare il punto già dato, anche se la persona sta
-continuando lo stesso discorso.
-
-PORTA_AVANTI: riprende il consiglio o il punto già dato (anche con parole
-diverse, anche in un solo inciso) e lo sviluppa, lo precisa, lo applica alla
-nuova domanda o dice in che cosa concorda o diverge.
-
-Se la persona cambia discorso di proposito, la risposta su un tema nuovo non
-si giudica. Quando la persona torna al primo tema, la risposta si giudica
-rispetto alle risposte sul primo tema.
-
-Rispondi SOLO con un array JSON, un oggetto per risposta giudicata:
-[{"n": 2, "verdetto": "PORTA_AVANTI", "perche": "una frase"}]
-''';
+/// La regola sta in `i_verdetti_del_filo.dart` (ordine FF voce 08).
+const _regola = giudice.regolaDelGiudice;
 
 void main() {
   final token = Platform.environment['VERTEX_TOKEN'] ?? '';
@@ -124,10 +98,7 @@ void main() {
         }
       }
       // Il giudice, un consulto alla volta.
-      var giudicate = 0;
-      var contraddice = 0;
-      var ignora = 0;
-      var portaAvanti = 0;
+      final conteggio = giudice.ConteggioDelFilo();
       final testo = StringBuffer();
       final colpe = <String>[];
       for (final (k, c) in consulti.indexed) {
@@ -140,19 +111,18 @@ void main() {
                 '${t.nelLive ? ' (a voce)' : ''}'
                 '${t.corretta ? ' (corretta dalla rete)' : ''}'
                 '${t.daGiudicare ? ' [DA GIUDICARE]' : ''}: ${t.risposta}');
-          final v = verdetti[n + 1];
+          final dato = verdetti[n + 1];
           if (!t.daGiudicare) continue;
-          giudicate++;
-          final verdetto = v?.$1 ?? 'NESSUN VERDETTO';
-          testo.writeln('    GIUDICE: $verdetto, ${v?.$2 ?? ''}');
+          final verdetto = dato?.$1 ?? 'NESSUN VERDETTO';
+          testo.writeln('    GIUDICE: $verdetto, ${dato?.$2 ?? ''}');
+          conteggio.conta(dato?.$1);
           switch (verdetto) {
-            case 'CONTRADDICE':
-              contraddice++;
-              colpe.add('consulto ${k + 1}, risposta ${n + 1}: ${v?.$2}');
-            case 'IGNORA':
-              ignora++;
-            case 'PORTA_AVANTI':
-              portaAvanti++;
+            case giudice.contraddice:
+              colpe.add('consulto ${k + 1}, risposta ${n + 1}: ${dato?.$2}');
+            case giudice.cambiaDichiarando ||
+                  giudice.ignora ||
+                  giudice.portaAvanti:
+              break;
             default:
               colpe.add('consulto ${k + 1}, risposta ${n + 1}: il giudice '
                   'non ha dato un verdetto');
@@ -177,17 +147,16 @@ void main() {
           }
         }
       }
-      final quota = giudicate == 0 ? 0.0 : portaAvanti / giudicate;
       final conElemento = [
         for (final c in consulti)
           for (final t in c)
             if (t.conElemento) t
       ];
       final cambiati = conElemento.where((t) => t.cambiaLElemento).length;
-      final riepilogo = 'ORDINE FE VOCE 17, percorso '
-          '${percorso.name.toUpperCase()}: giudicate $giudicate, porta '
-          'avanti $portaAvanti, ignora $ignora, contraddice $contraddice, '
-          'quota ${(quota * 100).toStringAsFixed(0)} per cento'
+      // Ordine FF voce 08: le contraddizioni a tradimento e quelle
+      // dichiarate, separate.
+      final riepilogo = 'ORDINE FE VOCE 17, '
+          '${conteggio.riga(percorso.name.toUpperCase())}'
           '${percorso == _Percorso.b ? ', nominano tutti i Maestri di prima '
               'in $nominano risposte su $secondi' : ''}'
           ', corrette dalla rete della coerenza ${conto.correzioni}'
@@ -198,7 +167,7 @@ void main() {
       testo.writeln(riepilogo);
       File('${cartella.path}/percorso_${percorso.name}.txt')
           .writeAsStringSync(testo.toString());
-      expect(giudicate, greaterThanOrEqualTo(10),
+      expect(conteggio.giudicate, greaterThanOrEqualTo(10),
           reason: 'meno di dieci risposte giudicate: la misura non vale');
       // **LA SOGLIA E' IL LIVELLO DICHIARATO, scelta del fondatore del 6
       // ottobre 2026, "Tengo la migliore e chiudo".** L'ordine FE voce 17
@@ -209,9 +178,15 @@ void main() {
       // della forma scelta, nove giri dalle 11:24 alle 16:58: al piu' due
       // contraddizioni e almeno otto su dieci per percorso. Il banco resta
       // la rete che a ogni consegna prende un peggioramento.
-      expect(contraddice, lessThanOrEqualTo(2), reason: colpe.join('\n'));
-      expect(quota, greaterThanOrEqualTo(0.8),
-          reason: 'meno di otto risposte su dieci portano avanti il punto: '
+      //
+      // **LA SOGLIA NUOVA, ordine FF voce 08.3, 7 ottobre 2026**: al piu'
+      // due contraddizioni A TRADIMENTO per percorso su dieci; quelle
+      // dichiarate non contano come difetto (nemmeno nella quota di otto su
+      // dieci). Vedi `i_verdetti_del_filo.dart`.
+      expect(conteggio.aTradimento, lessThanOrEqualTo(2),
+          reason: colpe.join('\n'));
+      expect(conteggio.quotaSenzaDifetto, greaterThanOrEqualTo(0.8),
+          reason: 'meno di otto risposte su dieci senza difetto: '
               '$riepilogo');
     },
         skip: token.isEmpty
@@ -533,7 +508,7 @@ Future<Map<int, (String, String)>> _giudica(
     final riletta = <int, (String, String)>{};
     await _leggi(seconda, riletta);
     final v = riletta[n];
-    if (v != null && v.$1 != 'CONTRADDICE') {
+    if (v != null && v.$1 != giudice.contraddice) {
       verdetti[n] = (v.$1, 'seconda lettura: ${v.$2}');
     }
   }

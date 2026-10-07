@@ -1,0 +1,136 @@
+"""LA REGOLA A DELL'ORDINE FF: ogni prova nuova vista rossa sul suo difetto.
+
+Stessa forma del banco dell'ordine FE (`gli_innesti_dell_ordine_fe.py`): per
+ogni innesto la copia del file, il difetto messo a mano, il controllo che
+l'innesto sia ENTRATO, la prova fatta girare, l'esito letto, il nome della
+prova che DEVE cadere cercato fra le cadute, il file rimesso dalla copia e
+confrontato al byte.
+
+Uso: PYTHONIOENCODING=utf-8 python tool/gli_innesti_dell_ordine_ff.py [sigla ...]
+L'esito si scrive in docs/collaudo/FF/regola_a_ff.txt (in coda).
+"""
+import io
+import os
+import shutil
+import subprocess
+import sys
+import time
+
+RADICE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+os.chdir(RADICE)
+
+VERDETTI = 'tool/banchi_col_modello/i_verdetti_del_filo.dart'
+BANCO_FILO = 'tool/banchi_col_modello/il_filo_del_consulto_col_modello_test.dart'
+PROVA_VERDETTI = 'flutter test test/i_verdetti_del_filo_test.dart -r expanded'
+
+# sigla, voce, file, vecchio, nuovo, comando, la prova che deve cadere
+INNESTI = [
+    # FF.08, il giudice separa le contraddizioni dichiarate.
+    ('F1', 'FF.08', VERDETTI,
+     '      case cambiaDichiarando:\n        dichiarate++;',
+     '      case cambiaDichiarando:\n        aTradimento++;',
+     PROVA_VERDETTI, 'le dichiarate non sono un difetto'),
+    ('F2', 'FF.08', VERDETTI,
+     '  bool get passa => aTradimento <= 2 &&',
+     '  bool get passa => aTradimento <= 3 &&',
+     PROVA_VERDETTI, 'tre contraddizioni a tradimento'),
+    ('F3', 'FF.08', VERDETTI,
+     'CAMBIA_DICHIARANDO: afferma il contrario',
+     'CAMBIA DICHIARANDO: afferma il contrario',
+     PROVA_VERDETTI, 'la regola nomina i quattro verdetti'),
+    ('F4', 'FF.08', BANCO_FILO,
+     '      expect(conteggio.aTradimento, lessThanOrEqualTo(2),',
+     '      expect(conteggio.aTradimento + conteggio.dichiarate,\n          lessThanOrEqualTo(2),',
+     PROVA_VERDETTI, 'il banco del filo usa questa regola'),
+]
+
+
+def leggi(p):
+    return io.open(p, encoding='utf-8', newline='').read()
+
+
+def con_pazienza(fai):
+    """Windows tiene a volte un file chiuso per qualche istante (Errno 22 o
+    13, mentre l'analizzatore o la suite lo leggono): si riprova per due
+    minuti prima di arrendersi. Il 6 ottobre 2026 lo strumento e' caduto due
+    volte cosi', a meta' innesto."""
+    for _ in range(240):
+        try:
+            return fai()
+        except OSError:
+            time.sleep(0.5)
+    return fai()
+
+
+def scrivi(p, s):
+    con_pazienza(lambda: io.open(p, 'w', encoding='utf-8', newline='').write(s))
+
+
+def un_innesto(sigla, voce, percorso, vecchio, nuovo, comando, bersaglio):
+    copia = percorso + '.copia_regola_a'
+    con_pazienza(lambda: shutil.copyfile(percorso, copia))
+    try:
+        dati = leggi(percorso)
+        crlf = '\r\n' in dati
+        testo = dati.replace('\r\n', '\n')
+        # Un innesto puo' essere fatto di piu' pezzi nello stesso file: allora
+        # `vecchio` e' un elenco di coppie (vecchio, nuovo) e `nuovo` e' None.
+        coppie = vecchio if isinstance(vecchio, list) else [(vecchio, nuovo)]
+        for v, _ in coppie:
+            n = testo.count(v)
+            if n != 1:
+                return '%s (%s) INNESTO NON ENTRATO: il pezzo vecchio compare %d volte' % (sigla, voce, n)
+        for v, nv in coppie:
+            testo = testo.replace(v, nv)
+        scrivi(percorso, testo.replace('\n', '\r\n') if crlf else testo)
+        dopo = leggi(percorso).replace('\r\n', '\n')
+        entrato = True
+        for v, nv in coppie:
+            if nv and v in nv:
+                entrato = entrato and dopo.count(nv) == 1
+            else:
+                entrato = entrato and (nv in dopo if nv else True) and dopo.count(v) == 0
+        if not entrato:
+            return '%s (%s) INNESTO NON ENTRATO al controllo' % (sigla, voce)
+        esito = subprocess.run(comando, shell=True, capture_output=True,
+                               text=True, encoding='utf-8', errors='replace')
+        uscita = esito.stdout + esito.stderr
+        rossa = esito.returncode != 0
+        # Le cadute di flutter test portano [E]; quelle del server, col
+        # rapporto spec di node, cominciano con la crocetta pesante.
+        cadute = [r.strip()[:170] for r in uscita.splitlines()
+                  if '[E]' in r or r.lstrip().startswith('✖')]
+        nel_bersaglio = any(bersaglio in c for c in cadute)
+        misure = [r.strip()[:220] for r in uscita.splitlines()
+                  if r.startswith('ORDINE F')][:2]
+        return ('%s (%s) %s: innesto entrato (grep del pezzo nuovo 1, del vecchio 0); '
+                '%s; bersaglio "%s" %s; cadute: %s; misure lette: %s') % (
+                    sigla, voce, percorso,
+                    'ROSSA' if rossa else 'VERDE (la prova NON vede il difetto)',
+                    bersaglio, 'colpito' if nel_bersaglio else 'NON COLPITO',
+                    ' | '.join(cadute[:2]) if cadute else '(nessuna riga di caduta letta)',
+                    ' | '.join(misure) if misure else '(nessuna)')
+    finally:
+        con_pazienza(lambda: shutil.copyfile(copia, percorso))
+        os.remove(copia)
+
+
+def main():
+    scelte = set(sys.argv[1:])
+    os.makedirs('docs/collaudo/FF', exist_ok=True)
+    registro = 'docs/collaudo/FF/regola_a_ff.txt'
+    for innesto in INNESTI:
+        if scelte and innesto[0] not in scelte:
+            continue
+        prima = open(innesto[2], 'rb').read()
+        riga = un_innesto(*innesto)
+        dopo = open(innesto[2], 'rb').read()
+        riga += '; file rimesso dalla copia: %s.' % (
+            'uguale al byte (cmp)' if prima == dopo else 'DIVERSO, CONTROLLARE')
+        print(riga, flush=True)
+        with io.open(registro, 'a', encoding='utf-8', newline='\n') as f:
+            f.write(riga + '\n')
+
+
+if __name__ == '__main__':
+    main()
